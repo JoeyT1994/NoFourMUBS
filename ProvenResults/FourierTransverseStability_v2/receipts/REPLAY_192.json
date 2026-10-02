@@ -1,0 +1,1755 @@
+{
+  "status": "PASS",
+  "precision_bits": 192,
+  "accepted_tiles": 140,
+  "unresolved_tiles": 0,
+  "partition": {
+    "tiles": 140,
+    "shape": [
+      14,
+      10
+    ],
+    "domain": [
+      "-1/128",
+      "3/64",
+      "-1/64",
+      "3/128"
+    ],
+    "area": "35/16384",
+    "normal_boxes_per_tile": 4,
+    "normal_domain_radians": [
+      "1/10",
+      "5/32"
+    ],
+    "closed_boundaries": true,
+    "unresolved": 0
+  },
+  "algebra": {
+    "sine_terms": 24,
+    "signed_side_identity": true,
+    "reference_Gram_entries": 36,
+    "signed_reference_formula": true,
+    "transpose_phase_checks": 72,
+    "frames": 144,
+    "R_Laurent_terms": 2083,
+    "row_linear_u": "365223688381/1099511627776",
+    "row_linear_w": "5459234881453/27487790694400",
+    "both_linear_u": "9152295836211/27487790694400",
+    "both_linear_w": "5472188448443/27487790694400",
+    "simple_bound": "|u|/3+|w|/5",
+    "family_bound": "3/2 sqrt(dp^2-dp*dq+dq^2)",
+    "reference_root_derivative_lower": "1923478077490951950282044168294570402615271032404724048211/98079714615416886934934209737619787751599303819750539264",
+    "c_phase_strip": [
+      "-4426606379524155058998200865280929366464917434543772001851/12554203470773361527671578846415332832204710888928069025792",
+      "3445809233369986189648858767904731488948924396346266609211/6277101735386680763835789423207666416102355444464034512896"
+    ],
+    "d_phase_strip": [
+      "-462189766352965747556159375724100052143674629652892728107/3138550867693340381917894711603833208051177722232017256448",
+      "4930024174431634640599033341057067222865862716297522433141/50216813883093446110686315385661331328818843555712276103168"
+    ],
+    "exact_rational_output_checks": 60,
+    "arithmetic": "outward IEEE-754 products and sums; overflow rejects",
+    "exact_rational_polynomial_coefficient_checks": 1134,
+    "trigonometric_point_cross_checks": 130,
+    "exact_seed_invariant_derivative_checks": 10
+  },
+  "controls": {
+    "rejection_controls": [
+      "fixed seed coefficient",
+      "top equation mixing",
+      "nonfinite preconditioner",
+      "non-dyadic normal cover",
+      "zero correction radius",
+      "undersized correction box",
+      "singular zero preconditioner",
+      "wrong tile coordinate",
+      "negative seed half-width",
+      "nonfinite seed",
+      "invalid frame",
+      "unbracketed scalar root",
+      "invalid scalar derivative domain",
+      "negative scalar radicand coordinate",
+      "incomplete monotonicity cover",
+      "oversized guard pilot_row_8001",
+      "oversized guard pilot_row_10001",
+      "oversized guard strict_low_R_box",
+      "oversized guard standard_guard_near_R_zero"
+    ],
+    "positive_controls": [
+      {
+        "name": "pilot_row_8001",
+        "R_interval": [
+          "196445818063574239450908667303959830081395753234970894803/49039857307708443467467104868809893875799651909875269632",
+          "499810757945715371176718809403649172848329584432970538541/49039857307708443467467104868809893875799651909875269632"
+        ],
+        "branches": [
+          80,
+          62
+        ]
+      },
+      {
+        "name": "pilot_row_10001",
+        "R_interval": [
+          "-1297614395087197598936675674469703668029684957070572232061/392318858461667547739736838950479151006397215279002157056",
+          "1172006893211331228077202430702549208567733293736082120061/392318858461667547739736838950479151006397215279002157056"
+        ],
+        "branches": [
+          128,
+          110
+        ]
+      },
+      {
+        "name": "strict_low_R_box",
+        "R_interval": [
+          "24580278600490067287/1180591620717411303424",
+          "29110243173121612457/1180591620717411303424"
+        ],
+        "branches": [
+          0,
+          0
+        ]
+      },
+      {
+        "name": "standard_guard_near_R_zero",
+        "R_interval": [
+          "-4917004273535990901318151298421708200401249489801785367667/6277101735386680763835789423207666416102355444464034512896",
+          "5202472052135127860275329314920797405124961997747703241843/6277101735386680763835789423207666416102355444464034512896"
+        ],
+        "branches": [
+          0,
+          0
+        ]
+      }
+    ]
+  },
+  "monotonicity": {
+    "status": "PASS",
+    "nodes": 1789745,
+    "leaves": 894873,
+    "max_depth": 29,
+    "closed_box_radians": [
+      [
+        "-13/128",
+        "13/128"
+      ],
+      [
+        "-1/16",
+        "1/16"
+      ],
+      [
+        "-3/8",
+        "9/16"
+      ],
+      [
+        "-5/32",
+        "7/64"
+      ]
+    ],
+    "seed_offsets_about_pi": [
+      "2/3",
+      "4/3",
+      "1/3",
+      "2/3"
+    ],
+    "R_v_lower": "4503604595270127/35184372088832",
+    "claimed_bound": "R_v > 128",
+    "cpu_s": 65.416645601
+  },
+  "global_majorants": {
+    "row_coefficients": [
+      "321606405/1073741824",
+      "45490835/268435456",
+      "35947409/536870912",
+      "36426059/268435456",
+      "41139983/536870912",
+      "34264645/1073741824",
+      "68118731/1073741824",
+      "36631917/536870912",
+      "33408365/1073741824"
+    ],
+    "both_coefficients": [
+      "321606405/1073741824",
+      "45490835/268435456",
+      "73499227/1073741824",
+      "152017499/1073741824",
+      "41139983/536870912",
+      "19073543/536870912",
+      "68118731/1073741824",
+      "42993371/536870912",
+      "37133179/1073741824"
+    ],
+    "entry_coefficients": [
+      "25220365621775005/81064793292668928",
+      "55705494308275033/324259173170675712",
+      "615847251539053739/5188146770730811392",
+      "130273389973229035/648518346341351424",
+      "334535996757749021/2594073385365405696",
+      "377383281251949209/7782220156096217088",
+      "125731350889097831/1297036692682702848",
+      "610346988157181183/5188146770730811392",
+      "745127913784452967/15564440312192434176"
+    ],
+    "alpha_coefficients": [
+      [
+        "-39016950934484635/144115188075855872",
+        "-13318773693161129/54043195528445952"
+      ],
+      [
+        "384878816275395665/864691128455135232",
+        "114482679664745027/216172782113783808"
+      ],
+      [
+        "-10652136962244181/576460752303423488",
+        "27513715141618279/216172782113783808"
+      ],
+      [
+        "10999137598018603/576460752303423488",
+        "118075630687385533/1729382256910270464"
+      ],
+      [
+        "-12992514729609883/108086391056891904",
+        "-121934628850057193/1729382256910270464"
+      ],
+      [
+        "-10982927375604461/576460752303423488",
+        "-14899102666142567/2594073385365405696"
+      ],
+      [
+        "-121278249704408501/1729382256910270464",
+        "91629169926005575/1729382256910270464"
+      ],
+      [
+        "-7234866094127909/1729382256910270464",
+        "32406454184206939/432345564227567616"
+      ],
+      [
+        "-52407565882193431/5188146770730811392",
+        "78081315103643729/2594073385365405696"
+      ]
+    ],
+    "beta_coefficients": [
+      [
+        "-153974937481638523/3458764513820540928",
+        "734815026548063/36028797018963968"
+      ],
+      [
+        "-81866645076131621/864691128455135232",
+        "4158695459776549/108086391056891904"
+      ],
+      [
+        "8917570290460651/432345564227567616",
+        "113271881730046123/1729382256910270464"
+      ],
+      [
+        "-38316453080728049/1729382256910270464",
+        "22554989348073023/576460752303423488"
+      ],
+      [
+        "-71401782714229823/432345564227567616",
+        "-53949788904266873/432345564227567616"
+      ],
+      [
+        "-20759122319404601/1729382256910270464",
+        "38753069853495667/5188146770730811392"
+      ],
+      [
+        "-20906449156956707/216172782113783808",
+        "40044173432292655/1729382256910270464"
+      ],
+      [
+        "-5698583920980941/576460752303423488",
+        "67956154985574025/1152921504606846976"
+      ],
+      [
+        "-29556776561425097/2594073385365405696",
+        "82663095740156531/2594073385365405696"
+      ]
+    ],
+    "error_row": "1471557/1073741824",
+    "error_both": "1471557/1073741824",
+    "error_entry": "134297905/68719476736",
+    "seed_b_phase_cap": "11353747363089223576783/221360928884514619392000",
+    "raw_entry_phase_cap": "43295043083406373529429/221360928884514619392000"
+  },
+  "maximum_selfmap_ratio_upper": "1567798904163714855395636154194317820503204298933689110381/1569275433846670190958947355801916604025588861116008628224",
+  "maximum_contraction_ratio_upper": "3775605792177953511464208040600284265277096943052920555453/6277101735386680763835789423207666416102355444464034512896",
+  "cpu_s": 244.73532513899997,
+  "wall_s": 160.35105633735657,
+  "workers": 2,
+  "python": "3.13.5",
+  "numpy": "2.3.5",
+  "mpmath": "1.3.0",
+  "dependencies": {
+    "HANDOFF_LOCAL.md": "94cf1cb8945a0494ccc0ad8f925880a27723c4d754b1b5a13be18234af912b28",
+    "MinimalConstruction/Proofs/MATCHED_FLATNESS.md": "c5657659482a5b778817cb2fe67a8abd3b435add9b40a1bf87fb7e6d136b45a2",
+    "MinimalConstruction/Proofs/NONMATCHED_EXCEPTIONS.md": "2f804b4cc268a47df98f735a095fa8e5a22db81179963b85204efe2f4967352d",
+    "MinimalConstruction/Proofs/OPPOSITE_CORNER.md": "93496bcf8b938b7a09e324efa55a110674aae8ad23a1415aab2f349a4113ef1e",
+    "MinimalConstruction/Proofs/SIDE_FIBER.md": "c9ab9598e78a7f0aaa64d445dbbca5615976cc0d5f6127e1ed8b479772600adc",
+    "MinimalConstruction/Proofs/STRICT_DOMAIN.md": "c2e0cb8a447066876bcafa54edd8a4e86464fb8ab47a4d521ad4fafb9283c38b",
+    "MinimalConstruction/Proofs/TAO_PAIRINGS.md": "3db2d38ca1fb669899c85665d1884ba7838d3866fdbf6d6ecbea3d908e47f926",
+    "MinimalConstruction/Proofs/verify_exceptional_matching.py": "97e90ad6e9bb54407108a058dc6dd10598a59e7d2c5e4c3098a31aed81e43941",
+    "MinimalConstruction/Proofs/verify_invariants.py": "84580c73defe1ae54c06085bc56b21dfc20303f4828264c0c10487f002f023d1",
+    "MinimalConstruction/Proofs/verify_matching_bridge.py": "a96c939c8fbc1ce3e2dae5b4de1b5af60099dd5ccda5fba92ddfb517679a5e27",
+    "MinimalConstruction/Proofs/verify_side_fiber.py": "71112d4bd7d2e6a05a0e46321f61b5a0de1ddc0ec72b9d343efef66966a6e511",
+    "MinimalConstruction/Proofs/verify_tao_pairings.py": "bfac204bf7a9943deaf00bd714d3b86ac5d2cc0b4fdf0c4c1a91af6581eea118",
+    "MinimalConstruction/RECONSTRUCTION.md": "024e3d262ea169a3a4ceeacd47ed26230f691d009fef2aacec7c269091dc8889",
+    "NumericalCampaign/REDUCTION.md": "d2e66fdb209a23fe225775b7e8629efd478b24b217e08d168dd63c441bda2b95",
+    "PROOF_OF_RECORD.md": "90974adcc6e346272ea061d509b1d56654388692d7bdd9b1cf38ae6a2347923f",
+    "ProvenResults/ActiveShoulderClosure/REGIONAL_TUBES.md": "2e109cf908f9ccc94f26ec524912b0ec7d40454dbf6960206171f8e1e58a9502",
+    "ProvenResults/ActiveShoulderClosure/data/extra_tubes.json": "1269c7e24c09e260b4c351d66800e946c465878e226f04e71d08b61579903df7",
+    "ProvenResults/ActiveShoulderClosure/extra_tubes.py": "426e7ea5c86f6cdce3e8ff1ed454929aa662761ff66f6a75a914da331165619a",
+    "ProvenResults/CornerBounds/PROOF.md": "bfb49f0e36667305c86db0942c10ee8a93cb7d15cb6ae5bebbdd0efef67db4e1",
+    "ProvenResults/FourierNeighbourhood/WideFamilyTube/PROOF.md": "68d021adfb77b96e23e5eadcb9a6240ae1e7a16a327e737f9451a69996e9016c",
+    "ProvenResults/FourierNeighbourhood/WideFamilyTube/audit.py": "2e6e000927e97c03f54b3c268c78d8f78c0bfd3cea0df11c0ca728622fac23dd",
+    "ProvenResults/RegularSideCharts/PROOF.md": "a579fb64d8003133c2051c5694540169fafb3856c9f1704d19595e805abbe29e",
+    "Verification/active_shoulder_2026-10-01/RECEIPT.json": "19773d77cd6dc24f2228b5f0a5abd0af8675d90763e3a17acf57f13db4da5add",
+    "Verification/active_shoulder_2026-10-01/replay/RECEIPT.json": "6336bfb6e75378671305ca4a5ea044dbd06a9d5a2aa6947a54a5943a95b3be81",
+    "Verification/active_shoulder_2026-10-01/replay/extra_tubes/180_0_0/centers.txt": "1ff28332f26cba08dbb96a0fc52f46ebbde7da328a7bd418e5888d0785c6f590",
+    "Verification/active_shoulder_2026-10-01/replay/extra_tubes/180_0_0/certificate.json": "528887f5c056108362a188e5631939ffc01046d2fcd7f7139e8a9cab1e9ecffd",
+    "Verification/active_shoulder_2026-10-01/replay/extra_tubes/180_0_0/controls.txt": "bebca4b023f97f8bef3742f68958dc80fb1cea8c7e5b81cff4e813802fb592a6",
+    "Verification/active_shoulder_2026-10-01/replay/extra_tubes/180_0_0/cover.txt": "819e050a3f23c71b66b8678b3cd1ac9bd44c29b82b5b404aa496daf149935a0a",
+    "Verification/active_shoulder_2026-10-01/replay/extra_tubes/180_2_0/centers.txt": "e4aebf626193d485038ea4f30c134d3510fa896a27dd30eb1f6e3c425398410c",
+    "Verification/active_shoulder_2026-10-01/replay/extra_tubes/180_2_0/certificate.json": "14d31b5a7b3773aa0b480f8ef7347bc5093c3d17627b5dd3a6930257f10af2a6",
+    "Verification/active_shoulder_2026-10-01/replay/extra_tubes/180_2_0/controls.txt": "186bba6facbbcd25152a0cabda7a10144bf526a40497d3a5bb893481d2b4e6da",
+    "Verification/active_shoulder_2026-10-01/replay/extra_tubes/180_2_0/cover.txt": "8cf6b307cf9c6586afc40ed9f5998d5d7ff12a07bc1127199f6203f9667a9853",
+    "Verification/active_shoulder_2026-10-01/replay/extra_tubes/180_3_0/centers.txt": "76b3106bcd529b497a8413390be215f5ed93dd3451f19b241204c11afeb0ac58",
+    "Verification/active_shoulder_2026-10-01/replay/extra_tubes/180_3_0/certificate.json": "4c49495abd43ae01e9d36349d3af2114180d86c5b6baec8222a519956adb528f",
+    "Verification/active_shoulder_2026-10-01/replay/extra_tubes/180_3_0/controls.txt": "226f358a72cc7a6cfb9a70d1d19b34567d087e35121995246de8c7d751c94859",
+    "Verification/active_shoulder_2026-10-01/replay/extra_tubes/180_3_0/cover.txt": "6ea3d62582817176afa3061fd2d5b3d32bebed3a68d8762162fa6b80ac06ffd5",
+    "Verification/active_shoulder_2026-10-01/replay/extra_tubes/180_3_1/centers.txt": "20647fefaf863201bb36bb81c4ddd6769a203151edbec62bff9ee336e91ddd58",
+    "Verification/active_shoulder_2026-10-01/replay/extra_tubes/180_3_1/certificate.json": "798c71f3070342869f544f483f8d16315dbc54200027874fafd28670d338e6a6",
+    "Verification/active_shoulder_2026-10-01/replay/extra_tubes/180_3_1/controls.txt": "d076a4777a6fc55f2505438162d104ffb963b6a7c9566e4f184660e5f6c07c0d",
+    "Verification/active_shoulder_2026-10-01/replay/extra_tubes/180_3_1/cover.txt": "7a941b592bca717eec4775811273b49a1412aca0c28dc1064b188f79dfd3f960",
+    "Verification/active_shoulder_2026-10-01/replay/extra_tubes/180_5_0/centers.txt": "ae0ee0b849ef8ae436de3228b398395ec6470173ccbbc64dd08c7939994d8dbd",
+    "Verification/active_shoulder_2026-10-01/replay/extra_tubes/180_5_0/certificate.json": "31fa658082d732b592594bed72532e94e45b779fad9aad5b53c64cde3667ff03",
+    "Verification/active_shoulder_2026-10-01/replay/extra_tubes/180_5_0/controls.txt": "038e334420e9746bdc7dfaa106956d5d31541d63753b0834a1da49459e8a2451",
+    "Verification/active_shoulder_2026-10-01/replay/extra_tubes/180_5_0/cover.txt": "282eab5d0b8e341f480560230ffa04cdef00c29fd7754df9f3c693ed91c88a48",
+    "Verification/active_shoulder_2026-10-01/replay/extra_tubes/arithmetic.hpp": "73bd3b7ee19ac4bfb2ff60926f21f173fdfc2e93c4728606efb2067e8baae83c",
+    "Verification/active_shoulder_2026-10-01/replay/extra_tubes/summary.json": "8ac6a6e30e7009307fafd51a1b7a5101b51902cce81ea685f2bef08e12a0ce6f"
+  },
+  "manifest": {
+    "PROOF.md": "5273d9a5d5e8ee7c8b05f4336529cd796f44bdf8d83812658644e4e2c62dc5a9",
+    "README.md": "686e8deb7516dd1cf6e87d54b901c26c23cb1e7df40f565c1353ed026567db39",
+    "affine_signed.py": "e0e7b4b6a48f27e99bbdbe349f7219d2553f63805683e217a55f136999213cfd",
+    "algebra.py": "73097c2c8839ed3f76a60f44bbd10a6a23230c1bd57189588102b0cc5852e7a8",
+    "charts.py": "82c9adb8a1e73cdb5ba14af3e73592d9f28e65e102b0f82810aae825a80183a0",
+    "corner.py": "8fb9c8cbb7d39dd7960b30aaa865cb00d614c7940a1a83b86accc22fd571857a",
+    "data/dependencies.json": "c359c6ed28df991e5c5631a997535b0df829fcdac6356fe37512bad48d045d28",
+    "data/majorants.json": "124da6ce51e894206db8bcdb9d924b767291c45e09d6bf80734560deb3cd254f",
+    "data/positive_controls.json": "1751e7c53b59d614c4c9790578884a286503812ced2289450241db1a835524fa",
+    "data/tile_00_00.json": "8fd9707edf6e632a14f2c0e286f8b6f8c8a4fdbc96d13f6515c18e2f63f3ca50",
+    "data/tile_00_00.npz": "8057d2f015a6960a81d71c9e76732cfa4c170d9c655859e77f8f6bf3ce9acd3a",
+    "data/tile_00_01.json": "e101b5efa295ba50d084b73b177b07d907b302604896ba2326fa040744d495a9",
+    "data/tile_00_01.npz": "0159a1a98de950d1fa1e4a91d1e8dcd422e88dcbbfc648a43874e66a1448c905",
+    "data/tile_00_02.json": "3e7af8b08b89f501d09ff3b4f1786c4c9182da6f30f834aed48c8265860b22eb",
+    "data/tile_00_02.npz": "12540a8c2467c270cc012e1f2c6b39aee8c90c4f6adee0989734bfd6050812df",
+    "data/tile_00_03.json": "de7efa18493e0dd94446e62e5c5a32e70e0f78ce8b2ffeb71cc95198700ab156",
+    "data/tile_00_03.npz": "e3ba7cba7fd9e244a1515b027d2e42018b5543e6f206ee25a14794ce7194a2f3",
+    "data/tile_00_04.json": "c8718f06e2efe6f81ee7097fc2520bb3d000c1e4f4068408be2abe62d9c24312",
+    "data/tile_00_04.npz": "711b1d8a1defedc010bab156dccf43beff2ff33473d288d3487e7320fa8386ec",
+    "data/tile_00_05.json": "3780dadd886e892ceb20fff52a27c67b75137cac7a3cefd88adc976268d28b9c",
+    "data/tile_00_05.npz": "8b394496b8f7a3f35fe84e87b1ca747369cbbfcc44530f1bc98596b415c8b24a",
+    "data/tile_00_06.json": "02f9481c7f05c43937b8f08f23e79a0a5fefa7017184cf7d7990b5a415f04e9d",
+    "data/tile_00_06.npz": "528c42d222c7f1753a32e3e94a6710fa5436ec35eab5c53fbb5d1b5b33290e2d",
+    "data/tile_00_07.json": "ea508d0aac7af6c393f1f9b6b6c407946d539870a1634fa9d1969a279918b8dc",
+    "data/tile_00_07.npz": "88c6207a25fbeb57904ca21cc763bba33349a90fd967c9ceebf2da6e790c7fc3",
+    "data/tile_00_08.json": "5f8d2ecb576c9509ba49c673f6d46ba211c1ecc4eea3ed6fb4e18bcb22e52446",
+    "data/tile_00_08.npz": "23fe7da4a60e1aece696602b5d07049fae92d89c66884e4774627532111ea70a",
+    "data/tile_00_09.json": "3a70ba0337c30a9bd9e47c279a71e60c8d39d86bb4352ee0834d00d99a71b537",
+    "data/tile_00_09.npz": "d9a674c5dffee50458fb960c0caa28ef025a9c652153d3e6b7cdb436d7075e0c",
+    "data/tile_01_00.json": "7fab4900823666e80799d369e12c7f5ca76916ebc0f3756513c14edac20a5cbc",
+    "data/tile_01_00.npz": "c58df41aff0a2f54cbef7a48335dbef22be75acf29f3252d88565fe1825f9ef8",
+    "data/tile_01_01.json": "9cdae3a9a2060f10e1244ca57c21ed73d42b727cbcaa252eb7ac4aad6cafd3b2",
+    "data/tile_01_01.npz": "b7b04fdb43485c62e4f7ab159ff101d2d64cf3db985e1601263b2b001e4663ff",
+    "data/tile_01_02.json": "a6ba4b089bfa430bd47a73b515b4de288f7f280da46e6645f343e8b217b09d09",
+    "data/tile_01_02.npz": "c10b920ac0fd69821350864b144356688db5dc3af9aad586cb23cd6b6aeada05",
+    "data/tile_01_03.json": "79f61aed5305fbb05e44f0cd476a3d7beb77dac47f9ea61aea1235e710fd05d2",
+    "data/tile_01_03.npz": "f28a7aef5f754e48eecb23fdda9ee875dea4fae16be3de3fae817681bccaabc7",
+    "data/tile_01_04.json": "ef4384c0e02d5b4ad45896d008df2fd8fb49906fc7d7e1f5c747c8b862a05c72",
+    "data/tile_01_04.npz": "fd251f9f878e36eb366ad4ea81aba3592e2c4849e1fb434d9ac80ca48cf05be9",
+    "data/tile_01_05.json": "e9fc65197526089fb1dd99d28d18aef184ac421e2894e332a4e061fe5ad874d6",
+    "data/tile_01_05.npz": "0d36f3e0c1eaa3b55cab52ad8c91b2fef7c262f5899108702a214be203e2516f",
+    "data/tile_01_06.json": "4337194445cdc4d33f9967c52f3752fd74d5d7ae057ee2ccd952c40152369c27",
+    "data/tile_01_06.npz": "89be6f6adc9449b72f271ab5d88b28e3dd0cf4d6bfc7ffeeeb19cf90a3a7ade7",
+    "data/tile_01_07.json": "3545438815abf82e3ccdd23451ee00b6dde8bae324ffa63202242a94a6239ba5",
+    "data/tile_01_07.npz": "c768199b82b8c86f69a5136029ea8c90fa714b880f6100a8fba0417219d3ccd8",
+    "data/tile_01_08.json": "7333abc10d171cbbe20c67495a877c7f925ef483822a28b55fa806e888c096c9",
+    "data/tile_01_08.npz": "29ef2ef00790cd7ae4aa187d954f603bc472db244b2148d6df0c6c79cd222798",
+    "data/tile_01_09.json": "0ea9b617dc2770237d54242f945f8cf12a8c1a31edbed0c473ca05a8712d42db",
+    "data/tile_01_09.npz": "afb7287e3b343776c4d59b414f53ec8378a949df530d6d359c5571c1af42f7d0",
+    "data/tile_02_00.json": "bd5f241c99f283062583d0ba6dcb8b636847081c25f4d0682b7a39e9920c57f2",
+    "data/tile_02_00.npz": "ad3d2f6512115c3e544b8472679c0c2ced2d213893cc7e8326c323961b7404f2",
+    "data/tile_02_01.json": "4e05f4a26d96d9f3be8458d7445ca2a8819ebba4c8f2e04949483e10f0ffeeb9",
+    "data/tile_02_01.npz": "fc1c9fbbd426b770b85873977a2df51894279e2bb12e5804d8df5318158bf842",
+    "data/tile_02_02.json": "9bf727891dab2a715fa97239285f266fc0c3a8575d53c85a73fe132f74dcf561",
+    "data/tile_02_02.npz": "d3c7a684431ab69987744f516f86df6ddb50cb84bf90b93fc7b6d6729d7327c2",
+    "data/tile_02_03.json": "bfea4c29344fa914163e2ef20947936e767ec816ac7b4e83088d4441c5fed83d",
+    "data/tile_02_03.npz": "1e23b47bc7104934504ee361a1324b002ee28f532137aeda92e619a9123db51a",
+    "data/tile_02_04.json": "18ca8b2a0c855b56701646f151c79e1f71838260b97e1a7f4ddef857e16b21ce",
+    "data/tile_02_04.npz": "6a8c807fa489980de4ccc22f038210875e3460b48953e42691e22656bc10c743",
+    "data/tile_02_05.json": "1b063ff218c0ae96388e69e68b8e1dbb47c104c4be9c819108368723a361d359",
+    "data/tile_02_05.npz": "c9e865237a10db247eaaf2445186e096257ff9b80fcbaf0b64e15860301b8f62",
+    "data/tile_02_06.json": "4423ab419277a7ab9e33a98fbc6784818fe9c8c9cba945356413f9398f17cae3",
+    "data/tile_02_06.npz": "232db9d4ea6cd5192aa66a39d91571049d00aa06953c0cc0da3895c4c517582a",
+    "data/tile_02_07.json": "7f6d7b787d5288c09f37805faa0e45814c6e614a6fa8143228d3f7de2952ef8e",
+    "data/tile_02_07.npz": "bff24289cd0bf3454255196f07fbc877e44366e6a528f68246441a8e2fb2056d",
+    "data/tile_02_08.json": "5a7c1896dcc7e6ba09e31f6537bc5f9a63de78840202974d32b6a1c81584b03e",
+    "data/tile_02_08.npz": "9e09427bda7eae0c62c00d4f64d6d7535b0b00741470ff925d636df6e978dfc4",
+    "data/tile_02_09.json": "53a309fa4a1ee306d7f9e4b77c70b3505764cc3f868c4099dbee3aa7ea19caa4",
+    "data/tile_02_09.npz": "d122edef747d01aa8fdffecf4bfcbdf5d554a6a3207c0ab0c57deb28fb0377be",
+    "data/tile_03_00.json": "74a0e07be894c2d24979d6b8346d7f4e3502525617dcd58694d6d0cb2f7c4c8a",
+    "data/tile_03_00.npz": "8b691f4ccf704540b134ef629fb4db35c023e881692144920d3f55b9362824c1",
+    "data/tile_03_01.json": "cf555df35e0479db9c5b7926f8759b5f82831acf86e244db4320928677e72f4c",
+    "data/tile_03_01.npz": "8782d5b00973da281f4a098dfa999ef5326a8d038f3612510f1a0fb7012693b3",
+    "data/tile_03_02.json": "a254b220f2033cec41d452be2dd700cb2415e5d48cdc45b7e925ddf100843a29",
+    "data/tile_03_02.npz": "24ac1ead18a801d8b32592967add4f632955a040a7a2de0f173fd273912c6dc6",
+    "data/tile_03_03.json": "bfaf10241842e5a86cd9f37a3800eaa43d2afaaba59359eb0007e9dda0998d29",
+    "data/tile_03_03.npz": "27b56a97a16d7db73f2e50e2d8092847891718bf282fb405d5fb30b0e7ba43e4",
+    "data/tile_03_04.json": "a27956b035b9b53666ef36de7349f496c85b5afed969e2b53f75830ce52a05d9",
+    "data/tile_03_04.npz": "ea93e139fd5ad128c4e117946ffbadf535095c17738881820ebdad9cf32bf1ef",
+    "data/tile_03_05.json": "c54084d3e4b369264f3d7ebe3ee26134b630fa16c06eeb0a1521942a1e634957",
+    "data/tile_03_05.npz": "b866b5564fe44dc71873dcdb44c4b034fc7a162e848f8526123e22a530adec83",
+    "data/tile_03_06.json": "8ddd4d790ea0bb7b8e267848e54a40e402ecdf33b7cec483b67871be2e8d29be",
+    "data/tile_03_06.npz": "c512b3b95f70fe3386102dcf012c179d5bd93252b7c0d5bc6fb9f45df18443a0",
+    "data/tile_03_07.json": "3fac6ef6b54e26dcc9d04fd3dae18b7eeb250b5134322e37c9a7de5e33040e07",
+    "data/tile_03_07.npz": "0bb744b5b857fcff346ac8b2cb5b62f01f9d9257b043b431429e88cb6cee9353",
+    "data/tile_03_08.json": "60b1a2e76675ef5b86a2f8a40f119e7b486a991135b5229ac9445f36be3af4f4",
+    "data/tile_03_08.npz": "d3a696bed303ad2d333674460dd75b1776376bd3841432223aeafa3bc1f6c05e",
+    "data/tile_03_09.json": "fe757ca9fdf75b7a1998b0e70c24da07e2493dfdc7b7daefefbecfa0b6e2372c",
+    "data/tile_03_09.npz": "92259c6934d52cc84b4370bf12810a3d81a1027e6e8d74c30afd49269b1da199",
+    "data/tile_04_00.json": "f940b502297f20a235b28b679d8bad6bd289ec09e298c0532ae766e77e7f2a77",
+    "data/tile_04_00.npz": "cc9a09be4254d70ab378856aea2316f30474b76a8c2fa2342d45917a856716b3",
+    "data/tile_04_01.json": "61f926d1d3302271a73ebbfc6042501c699c2020cf19386ec4a1f6a6b7d1d576",
+    "data/tile_04_01.npz": "85c9aa10bdaf6171d3c6e93dd89f3ab04b3fafce68add51a47d7e404a1c320e2",
+    "data/tile_04_02.json": "b344388b4ae7ff9ca36be24003f62adc96f66e5e6cb32a85841e096ce06b3b53",
+    "data/tile_04_02.npz": "5ad0cda1172b92b40ac258fadceb35f0286f20e333d3250e2c8ff92f05479af9",
+    "data/tile_04_03.json": "03ba1d042eeaea8c959b1a036be6198d6cc4909beb89299ecf8a3eca394211b1",
+    "data/tile_04_03.npz": "ef41ba65b79bb29902092eed4f4010622f2bb2102ea2ba790f36654b610c01df",
+    "data/tile_04_04.json": "5c5da4cc0d2721ac71cfc69241ec6e70ed5bfbe2dc4b959e608116056f72e8cb",
+    "data/tile_04_04.npz": "740669acff6df8e30323f1240b4ebde66babbcb9c0e9404ffe3d98f806e9e0d8",
+    "data/tile_04_05.json": "c8ef0aab085b2bee2046dc02649923bdc9bb27b91bd37930aff7c940c36fee3f",
+    "data/tile_04_05.npz": "496fa3b4613a3bb46b9058d8ad1e4d60317e7c473dfa75a258db65e183547f3d",
+    "data/tile_04_06.json": "c6f70562302fa262308fb1224ccdcfbd05791cf2deb20c4c6e027287983f29fd",
+    "data/tile_04_06.npz": "d1bd17ec6da279750d81bb37fc24494b01b3c8f198a2bc8033f6cf194fa302bf",
+    "data/tile_04_07.json": "bd51523050a93fe68719cdb12cf0981ba5ed4d225653945a6ac292453149b42d",
+    "data/tile_04_07.npz": "800778a64a6eebc88b3529cc52d648845b0a1d50c26ed48ad8260245d9ccb7db",
+    "data/tile_04_08.json": "154baa35123ef7bd30102203efe1e5ab1a99e546db9dd5c7ccaef35299ef2ad6",
+    "data/tile_04_08.npz": "75e507f45ac8822c6aef228e8583f7bf921a20ca1ada3c2e63bddfa3960cc042",
+    "data/tile_04_09.json": "c22ff556554081d0ad34609e3c323e4dedc9dff81ba5cb685d46c881f359b39c",
+    "data/tile_04_09.npz": "f5ed410621ecb4e3af1b344e3f233a2a11f2f36fb116ef866a9f2ad7b8e99a85",
+    "data/tile_05_00.json": "9d2c856008f1f35ece5cf86ec3e771ed0d2ebea715fc0f694cec93d5d0474d1a",
+    "data/tile_05_00.npz": "8494d819c4b58361b3d0dbb6b3e4bcf717694abd8bfc8d572d0d02b56db60355",
+    "data/tile_05_01.json": "a6ccaf911e96fd2d664a1bc3d291867c1c29318f2162837b009017a71f80cbd1",
+    "data/tile_05_01.npz": "e13589864d450a5fb1e0cf691a63473aacb333e8016c81cd7a01bc3606b60d68",
+    "data/tile_05_02.json": "1246b8f73f645c67699c6ffecb904938e4606ada677d7180f7f91becf7f0413c",
+    "data/tile_05_02.npz": "2f196888f78513b40ab7c617baee96e22813c62c84545412ce5a7adb2caee327",
+    "data/tile_05_03.json": "3b17fcfa3dcb12e3246dd39767f424d481d191ae1ba0614b563d9ef7208f9e84",
+    "data/tile_05_03.npz": "2e838320a1718d44b70dc5e1f3ee430a722a690619e93a826790656f398c2cd0",
+    "data/tile_05_04.json": "2c410346dbe2e38162971da31ae8d6a0074bc8fe5504c04ca40ca1f8d9c64c37",
+    "data/tile_05_04.npz": "43d0dae0dcde3a2cd287cc27db8c2f00932034d947d9e390a77e68baa2f899bd",
+    "data/tile_05_05.json": "caa4f0e557a2c3c0ba5109337c20e877baaa64d0e4b9efdd6f0d912f0ba47c59",
+    "data/tile_05_05.npz": "2da9dd3cd3960285f03a4eb080888fe14050e830763ae714c17c656c1080dac3",
+    "data/tile_05_06.json": "54d3457f4dc2e2fd2256a518f343c0784e0be3d484b773afea9185363d71c9a3",
+    "data/tile_05_06.npz": "c4fb995e19b6f45e17fcba3bb365bd2487ddf5e8ef2859b71f63fc9b7c945a17",
+    "data/tile_05_07.json": "98430f16095735d2e72f58e783d9a6acf1726d2ecdaa40b3200b0555df1ba9d0",
+    "data/tile_05_07.npz": "386364ca0c8ca31c10cd3058d74bbbdd3bfed5d26e736fc807cb1585dcc538b7",
+    "data/tile_05_08.json": "3a9a95e9b2298ab3ff46a9be42efe5b1eb154b7378c77b8a3171b326ff063d10",
+    "data/tile_05_08.npz": "f6060bc34432309197de08eb1e3642127806884009348ceac6f37f3035e27b4c",
+    "data/tile_05_09.json": "8075818b1a6f4da2c5ccfb2dfc83a28188ccb8c11b019156c59335cbc6725b3a",
+    "data/tile_05_09.npz": "a31b588332f56199e65f8c86b1bd66b2bf7d508bb3dc2847b035af38e384b8de",
+    "data/tile_06_00.json": "b0f7eb40e441280ddf74da277412e4a77a977ef85cd72f6f0cd7036302fec37a",
+    "data/tile_06_00.npz": "9faefdf146edc836d182c978d3e4b286c34433b6f0578f2d1f558076636434bf",
+    "data/tile_06_01.json": "c4597643ca4b355aa70cb6a05069396a909c5984520260beb4b6517e4420aa1c",
+    "data/tile_06_01.npz": "25269a7984af2ee9f6b52705119c823f4a6ecc3f2b5b069d08268648f855d280",
+    "data/tile_06_02.json": "1d2e021c4053cac552188a4618d5c59b925f6533ae0bc908e9357f5e6f9e9e54",
+    "data/tile_06_02.npz": "2319166af4447655f8a8662e9213f7bd66f2a503f0f142d2dd9eb41f94b56f09",
+    "data/tile_06_03.json": "a5cbc2edc56d95b30831a3c9c99758508510754382a75e4118356690fa653901",
+    "data/tile_06_03.npz": "2b98b03ae2ca1616fa3c8199e2a282e99c5925856ee45bb92b4a293b758be40e",
+    "data/tile_06_04.json": "56502204c37639998d8bd6286031e3f3990e28d7f1c9100d508d9aab1b68f458",
+    "data/tile_06_04.npz": "2c5dfe2c648e0b52024f556f868c8548fa5b87b3907721d3ec789956a6c7ee1a",
+    "data/tile_06_05.json": "924ba3c729944a5da4663776e8c1e758361ef6e00404c15ac977f33e6f498062",
+    "data/tile_06_05.npz": "6003bce53f379360df2160dc6c67699f44951fe41965a3c8dcf4af272f266632",
+    "data/tile_06_06.json": "8f13ebc3db200dee5f70de5f04a110f8fd6308d921ec072d027a6f23b6318623",
+    "data/tile_06_06.npz": "8bc8a4f2f1f82524f7f47f93ee52d6ee3292ecf198cb9eff70849629325bf41b",
+    "data/tile_06_07.json": "b5d2e6b334f4f7e5009daca7f428ff25c7fee2792ae2dbee3fdd421ffabc3d52",
+    "data/tile_06_07.npz": "5fcbf04488a93ec46d142a4858d9dfbe29b0643c4b562506019f2dadcec0553a",
+    "data/tile_06_08.json": "161beff3325be8731d2817ce2b597d71addeb7cbd37277ae691d4f067bc7514d",
+    "data/tile_06_08.npz": "0cded82720b650607eaa93884bc53842e5067dde0c10ec68adb886112efb6616",
+    "data/tile_06_09.json": "c8b53d00fa7e735ed785a8cf28a12e70ba7ed6b63c3b602b95a195ff48539744",
+    "data/tile_06_09.npz": "a8d0cfaa5d06080b9b7374952494549f745ae8225fbfb91e3215dc8245ee9eb6",
+    "data/tile_07_00.json": "a7efa862fe0c649b32018fb0527ecc628ec35ca12f0971b4f88fef7edfb8218a",
+    "data/tile_07_00.npz": "7f011ee4e14524369fe0e694fbd478d272f9e126dfcd7e01a59203845f8bc557",
+    "data/tile_07_01.json": "c914b462b53bb51b55845a7fc17ef0ec752f1b3d0b356842a669fd0fc148b9e4",
+    "data/tile_07_01.npz": "6778cd6f08d8bec00c9a624edad6d748815096a2ae5e65c86a59d70f1660fdbf",
+    "data/tile_07_02.json": "7e6d8a97dbf723f21100ae775b932577be44ec78366c00c6279f39309707979b",
+    "data/tile_07_02.npz": "9a6ef6062749a65a7fee6a52f6875769f2dd58aa4afd9f9416a86aa6d0ed0d72",
+    "data/tile_07_03.json": "82d727bde1cb0afba53f2578b37943ad2115c669364d25b274e16b2801e209e3",
+    "data/tile_07_03.npz": "814c7e1c8ba5847acb92cf679c66f3e8ac9401915597a7421057415afbc872c4",
+    "data/tile_07_04.json": "ebaaa329e128229fca03ecfd869e6f515493cff1f91291321d78680d84595880",
+    "data/tile_07_04.npz": "6931fa5f0f38f6bb39f9df22bbece05b642a4d6bceb511f9372b6f7311191208",
+    "data/tile_07_05.json": "e62281664b20c9d6a82e9b72007044acf592e9a8d5f991ec05f0cd3d04ce0d5d",
+    "data/tile_07_05.npz": "2cd7766dfc6de0a4313a32be16baf46465c1b4d7231b762b1e03c8a1b24842fe",
+    "data/tile_07_06.json": "7de685f3ea2ed6c7366db3ccdf0d1e35a059eba1994438a7dbb072c05116969c",
+    "data/tile_07_06.npz": "39305fd2a39af5e27a627d38dab9212e5271a38fe1bd7daf1c38dafe5b54ea65",
+    "data/tile_07_07.json": "4368718544ac10e3c62fae8fdc4fbfc25516124b07d362297495c28cc4982888",
+    "data/tile_07_07.npz": "6aabcef92a6b064a6a3d2a208fa8b5bc97a00bd04c8ea6ad731b23277d804720",
+    "data/tile_07_08.json": "f3d49732b8fbe48ca4dfe216fee0c0fcd0e3d1c8f34cf2ec17780a995d44a33f",
+    "data/tile_07_08.npz": "2461137bc63a1548d0b47044f23c8990da6e7ac3d4f7e56803b34feb13a7aff8",
+    "data/tile_07_09.json": "845abc9aec7997c2d2e587f56870657eee7801b179a50e00a8015c93f23f4104",
+    "data/tile_07_09.npz": "495db00d6ad5fbbff7f310f781bff2648c601b0b3f1207f0fa20d691db4f6030",
+    "data/tile_08_00.json": "cfb370dc5e83802d85732066f994491708569c4231ec2da128b5231b2eedf0d4",
+    "data/tile_08_00.npz": "d0e823dec0f417d7024f56b1baba46a4a81374b367c31df6d2732b092cc10b0b",
+    "data/tile_08_01.json": "ede137b5735d0c0c4cc833fdbbbfb7b6146f2aef89145d1be7548e1c43e62b27",
+    "data/tile_08_01.npz": "bbf95ed2edab808939370dcf8a30efc31cc5792ed5fdcd25430c3f32163200bc",
+    "data/tile_08_02.json": "43ad70fcf160b00af2bc4ce808af872fdfeae42d9656196bd3aa38efef859b51",
+    "data/tile_08_02.npz": "d803bed0837339edc24a4235f1800b4eb9236a98146cd1e23887af0db5df9bf7",
+    "data/tile_08_03.json": "7aa3aba79ad97df9d017036bd4b1f778fbba7923b29799c35dd7941fc89f2309",
+    "data/tile_08_03.npz": "e46af8db7d7738a289bcf4be9556de40d3968e1848716b47377461b54454ab9f",
+    "data/tile_08_04.json": "2d6e693295a08a5aeb16c1f7916be038522a3a50d84c3493b7e05e74d2810d5c",
+    "data/tile_08_04.npz": "b4796d7d90d0cfb5dc3f986ebfb34b24aa188540685023bc7cdc29ac6b981e34",
+    "data/tile_08_05.json": "26fd1363196291775bc4c92037b0e4fa612d560a33d4adf81700cbf635460e1f",
+    "data/tile_08_05.npz": "b9e4c974029eb25686f57af517e3d41452d7c47acc50fbc14d56f1961d764241",
+    "data/tile_08_06.json": "087f960d3689cd2c5357e9428a345e1e62d27e0bfd8d180d21faf85a1debe30f",
+    "data/tile_08_06.npz": "31ec3edcd9904d9b1ec454fa5a545d9f690402922b37a816eb34f90a3a5dd514",
+    "data/tile_08_07.json": "5397320460486018b8af2fb705f49facb2a822d034884d84b9f861dfa8a11553",
+    "data/tile_08_07.npz": "ac3f9875f6961084ff17c6a1d727cfaed41bab48b16e0875f3e8d89b8e8912ea",
+    "data/tile_08_08.json": "c7d66d4a846415bf60fddec055c4c887294230b60f77e5425191472958345385",
+    "data/tile_08_08.npz": "3fcca16657a3f0f78ce6427df2bc59ba3c6ab4b94a51b3563eb71d7685c70d38",
+    "data/tile_08_09.json": "dc7cb92031b4cac027c61dca781afa7f5eee5dc3f958b379fd99331a5434d886",
+    "data/tile_08_09.npz": "c617187e5018d5dd0564a0b5606914894b13387f69a4dce59bc97d30eb107f55",
+    "data/tile_09_00.json": "298776580ce499b607aa325b833e77e8ea1525d5ed0e3a413bf0d8e6a4edd984",
+    "data/tile_09_00.npz": "939334a6b644d081344fe20405699014dc8b1d2895b87b2d3c13838fdbc588e2",
+    "data/tile_09_01.json": "6a9494e1099bd8e6184f069556e07e6d605b552bad269b8337d6fb6be017b5af",
+    "data/tile_09_01.npz": "de7ca7ac942cf450d2985a74c9bfda31d572ade5cb51c50cf7c47eba6bee37fd",
+    "data/tile_09_02.json": "63c95f1d1a93ea4da87accb1b2aeb636713cb700ea66051cbef8d5c70dc23c0d",
+    "data/tile_09_02.npz": "04c42e518d0f69f4856a50531f07f4486aa37601ea51efb8fa453954c3824993",
+    "data/tile_09_03.json": "0d084b7bd54754bf48a850330432eee708e9760baf233b7fb33c05348351ded0",
+    "data/tile_09_03.npz": "fd83b8dc3ca4306a31618672fe4dbb3ccae26d5f416d1cb86332cd4b4d224994",
+    "data/tile_09_04.json": "45377a914c8e740e39ab0ed68ada0355387ffbd6031c83f2e7d9e2f97b5c23f8",
+    "data/tile_09_04.npz": "e342fd39d8ce3ccc8db4c5e59dfafe76bc965ed5367c9ff6233a6e3d2d186888",
+    "data/tile_09_05.json": "2d6985a0d436789facf50b910fa374d7d050f471b33142acbcd9e051d711dd4d",
+    "data/tile_09_05.npz": "11d87cd18559a0657d741a30e92b4ad0cf8865a63e33725fb31ec3ed2d8be5a1",
+    "data/tile_09_06.json": "9856ea017289a361e3aa227ea6700d9b2cbefc48954bce159806f28502fc629d",
+    "data/tile_09_06.npz": "a9d05c2343a2b61d67ac5a5f3521313af296e24200ccfa8c6b8bb5a1b38cbecd",
+    "data/tile_09_07.json": "28529625cc6bec65c63df1246a5923d2ab0f2311aff7be34a28b6a6e67240e1f",
+    "data/tile_09_07.npz": "f30f3a8cbe1715e94b68751e8b91ff5aef57425332dd511f835a7a9a1c787bd7",
+    "data/tile_09_08.json": "01f0a11ddbce91fcdd1bd7ce68bf209239f5152ccb7976b1f93ca173f876d674",
+    "data/tile_09_08.npz": "0963ae4c334564da2cfbb453721989fb103dda2fdb1fe0ba179cdb7e509d8bba",
+    "data/tile_09_09.json": "5990048a6b9f708b2041161253d64fad8b0acf8aa7b15c60c44da89f9c960cf8",
+    "data/tile_09_09.npz": "ecd10289dac7102bc7f23aee6e4c2fe8b6779ed3b2d94d5da27e8a695140a8ef",
+    "data/tile_10_00.json": "32dbcd56aa624c9e8c9db63f0c8939b20b2f377370f53a751faa86ace1976279",
+    "data/tile_10_00.npz": "66fd08531216454722e0a8404238e6b40c00086340e196268d0e50b458f8e117",
+    "data/tile_10_01.json": "39464f68c5de133bdf3e048fa1fb7c75590f47dc63ada63a501e37f8d6f441aa",
+    "data/tile_10_01.npz": "a00d4ca5cc0f8e1a4d9b328b09fbd68c878ac1bcfd2a22746e6eef3128c1f9f4",
+    "data/tile_10_02.json": "d01fb7ab31c626659133363710bf33862426e3802e04df6fa10e40ff3c0a4145",
+    "data/tile_10_02.npz": "a4ca0c051738da5f9ceba590b636ef9641f3709f3c5115b62ba193bc15b61c7f",
+    "data/tile_10_03.json": "075b8de196e1f234e4fef7f9953fe0b6bcf641ea1f1ee07e970d4d4ca80fb30a",
+    "data/tile_10_03.npz": "d24271e16202a170d6952ac175ada15848fd83fc6797c297faffd6eb5208afde",
+    "data/tile_10_04.json": "315d7a9964561265e6f98f51dd872eef5ac58565d25f0c7b02273b8a0b4b02f9",
+    "data/tile_10_04.npz": "694445501becd629ef90d8748b1fac0d89478d7849eaad2cf4d9d23cf37123b3",
+    "data/tile_10_05.json": "3cd9ee1af3b8ca6c2f383a6fc16e67f84595655194b92ba6d50c0bc2ddcd93d7",
+    "data/tile_10_05.npz": "fcaa5dae0dab7572e48e6a2d3ec6f25768e3dfaa0849e354f02f91ea22937ac6",
+    "data/tile_10_06.json": "71bc9e07c5a97a75b780420d53e13cf0751e17a8d73da16c0be97db245dcf5d5",
+    "data/tile_10_06.npz": "489f5f50bf0285e6de75d3fd00fedf838b8b851c4293bbacbc96b83db3cb4106",
+    "data/tile_10_07.json": "9dbc6490721f8aa1664dd3f4c1cbbf05cc989386b4004a725f73a1cf7f1f9a52",
+    "data/tile_10_07.npz": "05edf2a19e5faf378aab91dfec258ff072b93a393181103a7310a1603fe36fe8",
+    "data/tile_10_08.json": "c2e1500a1efd5fdc30c8d8b892990ab3fedc298a01d53acf2f36a31dfc614f7a",
+    "data/tile_10_08.npz": "6ce9dfc190341022ad96faa66e9080354505953fcee0e15c107b06218be4b397",
+    "data/tile_10_09.json": "556e6073456b287d244fd915d736af87ad23d19463ca1c8def94540156daec81",
+    "data/tile_10_09.npz": "630a4a2560f96c71bd878eaa0361480a2ac856d7201bc723bb2d3069ff411d05",
+    "data/tile_11_00.json": "647424ab3842fef1a12796f5e7f344d961db8fbd0c27ebed30ae9c9a30279ee6",
+    "data/tile_11_00.npz": "6f7e2ccef9f68c47fe5d95394ca9595eebcc8f08e44cdf5ab29b842ae6318fe9",
+    "data/tile_11_01.json": "4dc0a7254cb30419abbc809825bb6c507c948c1c2960f3610b863a8ea0d66a8e",
+    "data/tile_11_01.npz": "e5138578ba67ce4ba6b45d2d4cff87d9ae52d273d779e676fdb66b22804b7793",
+    "data/tile_11_02.json": "0a1873972f76fe1a1015ff19bb193014bfa81d58af042ca31be4283161387978",
+    "data/tile_11_02.npz": "e6a3ca827ac6759dfef6800bdf9764da0532101f037286cb41255e7ab68796e3",
+    "data/tile_11_03.json": "018599b5b4c4073d57651b64eb313d4f4d275763b853dcc4419a7d44846c86ab",
+    "data/tile_11_03.npz": "25c59ed87cc934f533dc8cb7ad821fee47a878506cef76a384b8a35d3e8e6156",
+    "data/tile_11_04.json": "bed1be1d33610bd9c8f2c240050351e09c69e76dd957373972c99106a20a0d23",
+    "data/tile_11_04.npz": "e264f5dabf5bc5688b471cef512a71899ac01e489883b041259c6c4d9968ebe8",
+    "data/tile_11_05.json": "559933bfcaae023221b9fca75ca5ff1383e63b019a5366e8a0dd266682f51076",
+    "data/tile_11_05.npz": "e080cd3f657cc005f6df74188380a815c9b14144b0b5d5c32030d1c7c04f9bd6",
+    "data/tile_11_06.json": "363fdd2977ee9bd3746120f613879abe0ba07f700e776cb4401053510319cf37",
+    "data/tile_11_06.npz": "1aceffc7c0fac5d67e4ff4915e7f43fd61248bdfe7f1e69dfd65ce062ce776be",
+    "data/tile_11_07.json": "4ea0bdd7a99b7fd079dd920640dfbbcb07b5f07699f13f48bca8eaccf20f4bf4",
+    "data/tile_11_07.npz": "362ea2c03f1688a30cac7b768def7a5c32ee239789f0bd6a61a19624684c5fd8",
+    "data/tile_11_08.json": "b171cf66a0c84054178cf47b918df9998307585c1b94e7244c6cb0ad88281fcf",
+    "data/tile_11_08.npz": "da44d2ddfcb22e7ba9012fbdab8ce0d5edfd3c8f2967b1941b0c2924d3a108af",
+    "data/tile_11_09.json": "95130462d9c5db5320bebd530c31931053c3762c5fd9e34dfd25cafba1f4ef05",
+    "data/tile_11_09.npz": "60ea0ea77a8f525b5b8e037d32234256d32a848d5123517016ef62f03bd0e643",
+    "data/tile_12_00.json": "92b9841991ae709d1d6d3d963b00576cb1ce3a492db1a99947f7624d245e01e5",
+    "data/tile_12_00.npz": "8e9f45db3f46095594a90d8367a49efff0069511f1e9a9f439b15fcf7223f614",
+    "data/tile_12_01.json": "53a34958d6f858784a8cf12cabcdee742a12733983dc4284f8b33b103b29daa6",
+    "data/tile_12_01.npz": "3114bf82a55975c1c5e301c85ed942a8b9930f7fbdff19f365a236fead78c11e",
+    "data/tile_12_02.json": "b4d213828e940e7cc97df068b0b4c823c7b325c4658dbbfebe5e96e9803c7e97",
+    "data/tile_12_02.npz": "cbe19aa31ed5b44c809e0e0659a6417e689b0beeb9bb24c4c81a52a095ad1f08",
+    "data/tile_12_03.json": "f55694cc738fb2bf37d3721f7365cd3ac7b03f707fecc20283e7a85d2e5124d9",
+    "data/tile_12_03.npz": "8aa56401aa52677a1be877f50eab0149b8a2b65aac47eb6cc5a727db071693f6",
+    "data/tile_12_04.json": "ccf73b7fea2cb99b20e635767accff9a2228634c49b03971edf9605c862bb685",
+    "data/tile_12_04.npz": "f678f231dc9f84dc7e3d0eb1323ffa3a9f40e30caf51c18aa46b994814f267af",
+    "data/tile_12_05.json": "c06c8edab9086e6b45ede3040a8014c9d24555c0fcb5c3341c5a1ba9e45cf413",
+    "data/tile_12_05.npz": "e29cd01b2c2d7e7d2d974ff984b6e042a8b9576b873b1ad44aca55a6cbe4b812",
+    "data/tile_12_06.json": "caad642e509985d7e097db8ecb8b7af953c2b1584b11ec1c866c1495d07a9f34",
+    "data/tile_12_06.npz": "d75ddcee2de7cee5481e1ca6b302f6a39dcfae54407200e7b178d49bba7291a5",
+    "data/tile_12_07.json": "243d52a2b6082de651f4e8b4e57d55b71eb7217e86fe20034f5d8fb10d1e55fe",
+    "data/tile_12_07.npz": "a66c58c7482e8eb58761caf31574844461cc2e8ff308d936c01587750cd6be61",
+    "data/tile_12_08.json": "32b87d60053f745b0d20b680e1ca2f0535d15477862463d12b24a8366d4c41db",
+    "data/tile_12_08.npz": "96e476a6963e3c2658a3bc68eca79fc153434bf3a1d4464fb8df0e83ec117d38",
+    "data/tile_12_09.json": "e59dc8f8257b79d9b508bdcee219c1fca616aa10c36db3cc2d2e69264bdbf045",
+    "data/tile_12_09.npz": "d9b220cd6f44ecf344c6cebccad8015e57567c1c0a7225cf9a44086064fc61b5",
+    "data/tile_13_00.json": "ae7e6b245cb8d842e50f515f153a30646aa6028b9b7033ffacd024880fc8ce92",
+    "data/tile_13_00.npz": "65ddb2f9f5b4d163e1a5f44f82802de6a9f2e078a218f7e66dd8b4d2590e946c",
+    "data/tile_13_01.json": "5d90ca633ebbf05cf4b17755100956eb13014f2c5c7b6795329548baa9f3e452",
+    "data/tile_13_01.npz": "157e9a34dd64f6e6ed62f7c68c00251569dee20c5b9767e8d98427b80bb34331",
+    "data/tile_13_02.json": "d4f5778928360fcfa9cac0fedd0f3483571fe143664d6eca54f5b4ceb8138950",
+    "data/tile_13_02.npz": "57d2702d38b4aa41b9419055166d0caca0c09ed098a4b18ea7eb7ea950f29e24",
+    "data/tile_13_03.json": "4a7399904689d2ee992ecc8b21e03ffb669fa982168a71d39edffda7d9ed4a28",
+    "data/tile_13_03.npz": "90bccd3bb4dcc77342ae00dee5025d8998ab10afd2f5bac9d5c02886fc4e3fed",
+    "data/tile_13_04.json": "bd88f9bad7fa01ea487716971e8f816bdc4ffc059d9221731dd5ba8a346786a7",
+    "data/tile_13_04.npz": "1dea17dbc3bce6695a420bc884d35dd250f138bb9f51dfb3ab47320399bfef30",
+    "data/tile_13_05.json": "dcbb15a63afbeba320c58f2010db461262021537dbcc637b7daaba85707849ed",
+    "data/tile_13_05.npz": "ef46df2dd6a8e33b8b4d00efe1eae3bd84ac05e7fdc1f04903608dfbc8019fc5",
+    "data/tile_13_06.json": "6a534156f15e47c2af14682e5a7e50baf851a56de51cd7518f71b7f8c545e8d6",
+    "data/tile_13_06.npz": "36966c24daa483b72cdf37a331e39d0e471572352325c463ff2dd796a1540f26",
+    "data/tile_13_07.json": "e38bb2396690f65b2c5f785a4dfe0992f72de3f4c3d543aba4491c17b4bdda24",
+    "data/tile_13_07.npz": "c595b4e6851712f1a4f130fec5497fdb18dea462c3bc65f8e782edc857e13a12",
+    "data/tile_13_08.json": "c4dbf47a5c22f20705b7de2d73197491461fba1a1ab994783485a4c65eb9d677",
+    "data/tile_13_08.npz": "a9a69d1c47a36fbd106b8e7531f60f734599ea962f1db256fb0c96bc6cb3984c",
+    "data/tile_13_09.json": "5689255731b8570db5328c205705725e5e47d2029f42ab9ea8a0b9399cbd6cdc",
+    "data/tile_13_09.npz": "f50abda33c68ad2924387f6c5687e57ee80004cb9848d403edb2d78f3254ee30",
+    "fastmm.py": "d7354fae77dc3d3349622ca3c4f848a093406fa1e92974c7b990cee302c56aee",
+    "geometry.py": "edcb17348e9b7c1793cd9e80584b98bc194882426ac9e34c14ae0cae0f0c1b22",
+    "interval.py": "6337c26689a000f9f3bad2bc4972eaa5abd56ea615ee56d4be2822a3489a3140",
+    "matmul.cpp": "c6db4c3a94bb8d33ac3b5840f2c8c1e21cb3ea6317012235fb8e4ddbe9c15daa",
+    "measure.py": "2d28b83befd38367f418d0a182b90d262006a2266d207cca527225949e08b198",
+    "monotonicity.py": "5fbe356e1f10b3dc5f2091253608d2a08c04b53ded10e2448c12c14a8ae5758e",
+    "rootchart.py": "03a36771bef8045f234481a49e32bf7e0daa27b0d5fad9d35059808ec6272d55",
+    "signed.py": "231c560a63dc8e00a721a4e3d5ecc1822f5222668a144dcfdb4ee18606857029",
+    "verify.py": "c8a8c7a7504a8c824718aa75c77f93f9e47ecb0c9e552f7fd123a8c81c14a811",
+    "verify_measurement.py": "ab911d2ed0204711f1510ba9a2b25d832779ca45e18c2df58936f0d62a922ff3"
+  },
+  "results": [
+    {
+      "i": 0,
+      "j": 0,
+      "status": "PASS",
+      "selfmap_ratio_upper": "6176773103067713484824131228031327171807606811113471638591/6277101735386680763835789423207666416102355444464034512896",
+      "contraction_ratio_upper": "839276876539885912720922648341689871556104912282704760825/1569275433846670190958947355801916604025588861116008628224",
+      "cpu_s": 0.744689245
+    },
+    {
+      "i": 0,
+      "j": 1,
+      "status": "PASS",
+      "selfmap_ratio_upper": "3086110593347670860891873765444437876408396145904038981777/3138550867693340381917894711603833208051177722232017256448",
+      "contraction_ratio_upper": "3334143004021071868691645744555966111679296393833488292697/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 1.286733087
+    },
+    {
+      "i": 0,
+      "j": 2,
+      "status": "PASS",
+      "selfmap_ratio_upper": "771176359820703581161387401715065567910323340513964404355/784637716923335095479473677900958302012794430558004314112",
+      "contraction_ratio_upper": "3316773224988031119707212175013358522946637848894155331067/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 0.7702317299999999
+    },
+    {
+      "i": 0,
+      "j": 3,
+      "status": "PASS",
+      "selfmap_ratio_upper": "3084951416760014955606832075219351533127734100892241997819/3138550867693340381917894711603833208051177722232017256448",
+      "contraction_ratio_upper": "3313598405927802921693466051700839692417724011228045868631/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 1.2761792939999999
+    },
+    {
+      "i": 0,
+      "j": 4,
+      "status": "PASS",
+      "selfmap_ratio_upper": "6174506492394404729704366079116362609201306743125027940949/6277101735386680763835789423207666416102355444464034512896",
+      "contraction_ratio_upper": "1664617652648757975541060671498408026931939152528237710891/3138550867693340381917894711603833208051177722232017256448",
+      "cpu_s": 0.7248753139999999
+    },
+    {
+      "i": 0,
+      "j": 5,
+      "status": "PASS",
+      "selfmap_ratio_upper": "6180734379795421938188325172574195805895534918169329819559/6277101735386680763835789423207666416102355444464034512896",
+      "contraction_ratio_upper": "1676519318092441098672250735717575614877937769039184647147/3138550867693340381917894711603833208051177722232017256448",
+      "cpu_s": 0.9878074880000001
+    },
+    {
+      "i": 0,
+      "j": 6,
+      "status": "PASS",
+      "selfmap_ratio_upper": "3094527580818804385890977848577618365018141724774708258133/3138550867693340381917894711603833208051177722232017256448",
+      "contraction_ratio_upper": "3386417080744906279868031606649035052294470498149266412527/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 1.3224107589999998
+    },
+    {
+      "i": 0,
+      "j": 7,
+      "status": "PASS",
+      "selfmap_ratio_upper": "48423778422452222193968753911552946216700142458590275149/49039857307708443467467104868809893875799651909875269632",
+      "contraction_ratio_upper": "1712414074991939437637583724730882742247867757733802942977/3138550867693340381917894711603833208051177722232017256448",
+      "cpu_s": 0.720548731
+    },
+    {
+      "i": 0,
+      "j": 8,
+      "status": "PASS",
+      "selfmap_ratio_upper": "3104398317277176530086244702849221896120407551136317330319/3138550867693340381917894711603833208051177722232017256448",
+      "contraction_ratio_upper": "3468161202017760941209209099015072812479450438791563926141/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 1.333904794
+    },
+    {
+      "i": 0,
+      "j": 9,
+      "status": "PASS",
+      "selfmap_ratio_upper": "6220871392020941840370866301157622999605584902349528039173/6277101735386680763835789423207666416102355444464034512896",
+      "contraction_ratio_upper": "3516131968212014559091022761688436990811204071463483706899/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 0.7126891590000004
+    },
+    {
+      "i": 1,
+      "j": 0,
+      "status": "PASS",
+      "selfmap_ratio_upper": "3089234987891761991539708220883751387751177378042900880579/3138550867693340381917894711603833208051177722232017256448",
+      "contraction_ratio_upper": "3361497847511608072961709015967327984087567081609003959553/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 0.711084703
+    },
+    {
+      "i": 1,
+      "j": 1,
+      "status": "PASS",
+      "selfmap_ratio_upper": "6172181189429122181864042548932831552228495498422575726227/6277101735386680763835789423207666416102355444464034512896",
+      "contraction_ratio_upper": "208961312153408144619930090732485978874955133300430451173/392318858461667547739736838950479151006397215279002157056",
+      "cpu_s": 1.2464738630000003
+    },
+    {
+      "i": 1,
+      "j": 2,
+      "status": "PASS",
+      "selfmap_ratio_upper": "6167034632648289390029963589908135881831654773006384979997/6277101735386680763835789423207666416102355444464034512896",
+      "contraction_ratio_upper": "829060353132624199880023794637371818755757425796332102505/1569275433846670190958947355801916604025588861116008628224",
+      "cpu_s": 0.7855276270000005
+    },
+    {
+      "i": 1,
+      "j": 3,
+      "status": "PASS",
+      "selfmap_ratio_upper": "1541089804691101715151746766271151882949862459902926331895/1569275433846670190958947355801916604025588861116008628224",
+      "contraction_ratio_upper": "1647171176440471073215931669389270978896394358663526576337/3138550867693340381917894711603833208051177722232017256448",
+      "cpu_s": 0.7130720500000001
+    },
+    {
+      "i": 1,
+      "j": 4,
+      "status": "PASS",
+      "selfmap_ratio_upper": "6167146057889785823002402301819191911166284147460175062627/6277101735386680763835789423207666416102355444464034512896",
+      "contraction_ratio_upper": "3302519736608742430850081567949668854757288016294415117569/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 1.2494404380000006
+    },
+    {
+      "i": 1,
+      "j": 5,
+      "status": "PASS",
+      "selfmap_ratio_upper": "3086893350915934028433771028182388914170277345525281025231/3138550867693340381917894711603833208051177722232017256448",
+      "contraction_ratio_upper": "3328429694797580463282439534858065811434298262165075628579/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 0.736111202
+    },
+    {
+      "i": 1,
+      "j": 6,
+      "status": "PASS",
+      "selfmap_ratio_upper": "6181679362152507001031566775554045972785604751256222207837/6277101735386680763835789423207666416102355444464034512896",
+      "contraction_ratio_upper": "1681389480617384432721760947444940108396211169363579692815/3138550867693340381917894711603833208051177722232017256448",
+      "cpu_s": 0.7144825839999998
+    },
+    {
+      "i": 1,
+      "j": 7,
+      "status": "PASS",
+      "selfmap_ratio_upper": "6190668673723183397394648800642658374927463859576637784537/6277101735386680763835789423207666416102355444464034512896",
+      "contraction_ratio_upper": "1699484278184693809953246402529978437520619250247864391629/3138550867693340381917894711603833208051177722232017256448",
+      "cpu_s": 1.2437900249999991
+    },
+    {
+      "i": 1,
+      "j": 8,
+      "status": "PASS",
+      "selfmap_ratio_upper": "6200512189566492934433841302946806729438547892262948297695/6277101735386680763835789423207666416102355444464034512896",
+      "contraction_ratio_upper": "3436380532450492430309527525444326726490551499327757150031/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 0.7104971379999991
+    },
+    {
+      "i": 1,
+      "j": 9,
+      "status": "PASS",
+      "selfmap_ratio_upper": "6210969985640164176357930521624030501071530608758716711351/6277101735386680763835789423207666416102355444464034512896",
+      "contraction_ratio_upper": "3476315172670694215536573177005256723600834438599940562091/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 1.3082394829999995
+    },
+    {
+      "i": 2,
+      "j": 0,
+      "status": "PASS",
+      "selfmap_ratio_upper": "3091221706037484316689057172099823751548170924441864679867/3138550867693340381917894711603833208051177722232017256448",
+      "contraction_ratio_upper": "3370931826834236894771611908368111044534228190673941991411/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 0.7749068589999997
+    },
+    {
+      "i": 2,
+      "j": 1,
+      "status": "PASS",
+      "selfmap_ratio_upper": "6175890652419828124962886222002600161802585606278951351077/6277101735386680763835789423207666416102355444464034512896",
+      "contraction_ratio_upper": "3350099812077550294555443836160937913274750099272215816307/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 0.7143200679999993
+    },
+    {
+      "i": 2,
+      "j": 2,
+      "status": "PASS",
+      "selfmap_ratio_upper": "6169783464824876513047059102194175527646059782342678160435/6277101735386680763835789423207666416102355444464034512896",
+      "contraction_ratio_upper": "1665477499094699805360949430590570661115228996698158824643/3138550867693340381917894711603833208051177722232017256448",
+      "cpu_s": 1.2590601439999993
+    },
+    {
+      "i": 2,
+      "j": 3,
+      "status": "PASS",
+      "selfmap_ratio_upper": "3082429223407875237862212900586807868907216164939533348287/3138550867693340381917894711603833208051177722232017256448",
+      "contraction_ratio_upper": "3307338945469299233924324814381505831852467461481113148939/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 0.7190547519999999
+    },
+    {
+      "i": 2,
+      "j": 4,
+      "status": "PASS",
+      "selfmap_ratio_upper": "385252125169501866473745387599820790103208859082630353365/392318858461667547739736838950479151006397215279002157056",
+      "contraction_ratio_upper": "823999533676892879633004865216593718159060661389455304567/1569275433846670190958947355801916604025588861116008628224",
+      "cpu_s": 0.7147150190000016
+    },
+    {
+      "i": 2,
+      "j": 5,
+      "status": "PASS",
+      "selfmap_ratio_upper": "3084332382097291813975761645635883487631670924861928533725/3138550867693340381917894711603833208051177722232017256448",
+      "contraction_ratio_upper": "3314962652983757453527433216817441961981712116411455824569/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 1.2473758780000015
+    },
+    {
+      "i": 2,
+      "j": 6,
+      "status": "PASS",
+      "selfmap_ratio_upper": "3087826702614591951059163454376883086642964707455821649651/3138550867693340381917894711603833208051177722232017256448",
+      "contraction_ratio_upper": "3342280291243028272796618952932756748747434727789524962049/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 0.788661437
+    },
+    {
+      "i": 2,
+      "j": 7,
+      "status": "PASS",
+      "selfmap_ratio_upper": "3091937426371728651022460788571866460654853238683722198741/3138550867693340381917894711603833208051177722232017256448",
+      "contraction_ratio_upper": "3375396752594780249442773326804011481388096784188284765859/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 0.7224228149999998
+    },
+    {
+      "i": 2,
+      "j": 8,
+      "status": "PASS",
+      "selfmap_ratio_upper": "6193155617109237432735096108882221457901268206721863969537/6277101735386680763835789423207666416102355444464034512896",
+      "contraction_ratio_upper": "3412564142768747211302254944053348533972822531519536898681/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 1.2482474419999985
+    },
+    {
+      "i": 2,
+      "j": 9,
+      "status": "PASS",
+      "selfmap_ratio_upper": "6203429045894906968576478651395311272775016342226641743195/6277101735386680763835789423207666416102355444464034512896",
+      "contraction_ratio_upper": "431459747994330825106849350514261599414854395226478363049/784637716923335095479473677900958302012794430558004314112",
+      "cpu_s": 0.7201666390000003
+    },
+    {
+      "i": 3,
+      "j": 0,
+      "status": "PASS",
+      "selfmap_ratio_upper": "6187055545619105015637672803874041701231268403998106077695/6277101735386680763835789423207666416102355444464034512896",
+      "contraction_ratio_upper": "3394346342382838918036491318339090972903990219556468075751/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 1.2496430210000007
+    },
+    {
+      "i": 3,
+      "j": 1,
+      "status": "PASS",
+      "selfmap_ratio_upper": "6180313310085199652475086815954464589936614761371753144815/6277101735386680763835789423207666416102355444464034512896",
+      "contraction_ratio_upper": "421250726198853912006924338155984817838744094350932330419/784637716923335095479473677900958302012794430558004314112",
+      "cpu_s": 0.7154643019999991
+    },
+    {
+      "i": 3,
+      "j": 2,
+      "status": "PASS",
+      "selfmap_ratio_upper": "1543604529037428187889598530406007618884164228267922285381/1569275433846670190958947355801916604025588861116008628224",
+      "contraction_ratio_upper": "104602652206651522548970793265666523571199866763789775527/196159429230833773869868419475239575503198607639501078528",
+      "cpu_s": 0.7129604389999997
+    },
+    {
+      "i": 3,
+      "j": 3,
+      "status": "PASS",
+      "selfmap_ratio_upper": "1542487785461864036450895968676293704456698323747961232445/1569275433846670190958947355801916604025588861116008628224",
+      "contraction_ratio_upper": "3326305199607170772009225995031586798763968506300176164421/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 1.3078923870000008
+    },
+    {
+      "i": 3,
+      "j": 4,
+      "status": "PASS",
+      "selfmap_ratio_upper": "3083561140797292486158852156048437959955628381567020688767/3138550867693340381917894711603833208051177722232017256448",
+      "contraction_ratio_upper": "3314926216179884203548692488458074653705172505321925388657/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 0.7695680429999996
+    },
+    {
+      "i": 3,
+      "j": 5,
+      "status": "PASS",
+      "selfmap_ratio_upper": "3084040954880739189970407276797412897216839473757156356033/3138550867693340381917894711603833208051177722232017256448",
+      "contraction_ratio_upper": "51864113054561790798181680501424194583656920118118061061/98079714615416886934934209737619787751599303819750539264",
+      "cpu_s": 0.7410690339999988
+    },
+    {
+      "i": 3,
+      "j": 6,
+      "status": "PASS",
+      "selfmap_ratio_upper": "3086187562814558248620391406324301701464967048766554265719/3138550867693340381917894711603833208051177722232017256448",
+      "contraction_ratio_upper": "416504866013299471104036170724840184025123850387271520579/784637716923335095479473677900958302012794430558004314112",
+      "cpu_s": 1.2637226639999994
+    },
+    {
+      "i": 3,
+      "j": 7,
+      "status": "PASS",
+      "selfmap_ratio_upper": "6178853748200166533919477351256883022323394739193134420997/6277101735386680763835789423207666416102355444464034512896",
+      "contraction_ratio_upper": "3356931179011122337492386997156520480799991071426010883669/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 0.7462056639999979
+    },
+    {
+      "i": 3,
+      "j": 8,
+      "status": "PASS",
+      "selfmap_ratio_upper": "3093595029129475112095832932564122460052305070212020337157/3138550867693340381917894711603833208051177722232017256448",
+      "contraction_ratio_upper": "3391401292787757763811136388001514851767354050871329426053/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 1.2583082300000008
+    },
+    {
+      "i": 3,
+      "j": 9,
+      "status": "PASS",
+      "selfmap_ratio_upper": "1549201879978234149938965341294205973645451264604077469233/1569275433846670190958947355801916604025588861116008628224",
+      "contraction_ratio_upper": "3430018333766408243721173826709084210572637358354349524735/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 0.7629040200000006
+    },
+    {
+      "i": 4,
+      "j": 0,
+      "status": "PASS",
+      "selfmap_ratio_upper": "3096254196005129160759918578206883280888772840813998667881/3138550867693340381917894711603833208051177722232017256448",
+      "contraction_ratio_upper": "3429946043510454058591954362416230585982433935971002604253/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 0.8277252669999982
+    },
+    {
+      "i": 4,
+      "j": 1,
+      "status": "PASS",
+      "selfmap_ratio_upper": "773192924369970754528675456107418023785018856155824335713/784637716923335095479473677900958302012794430558004314112",
+      "contraction_ratio_upper": "1702205658295888689003762330784101022839566553888977965409/3138550867693340381917894711603833208051177722232017256448",
+      "cpu_s": 1.2688535000000023
+    },
+    {
+      "i": 4,
+      "j": 2,
+      "status": "PASS",
+      "selfmap_ratio_upper": "386271830922902297259863803686910688613106632700146234061/392318858461667547739736838950479151006397215279002157056",
+      "contraction_ratio_upper": "1692480036092753897291248252170346921836727476592416847303/3138550867693340381917894711603833208051177722232017256448",
+      "cpu_s": 0.7928846610000022
+    },
+    {
+      "i": 4,
+      "j": 3,
+      "status": "PASS",
+      "selfmap_ratio_upper": "6176043184297641231175319089516281802377524171183037987881/6277101735386680763835789423207666416102355444464034512896",
+      "contraction_ratio_upper": "3368268734316643069099854653263150162561767258763054821137/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 0.9469591269999995
+    },
+    {
+      "i": 4,
+      "j": 4,
+      "status": "PASS",
+      "selfmap_ratio_upper": "6172878451437596085909840198242844830066323941728189476239/6277101735386680763835789423207666416102355444464034512896",
+      "contraction_ratio_upper": "1676523259600471780967970405534630994450955008687711108531/3138550867693340381917894711603833208051177722232017256448",
+      "cpu_s": 1.5553546060000016
+    },
+    {
+      "i": 4,
+      "j": 5,
+      "status": "PASS",
+      "selfmap_ratio_upper": "6171761206128967918289953580807751248864283325030616184151/6277101735386680763835789423207666416102355444464034512896",
+      "contraction_ratio_upper": "3339979313147625001644001298843905344976895571647610996667/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 1.2066882770000014
+    },
+    {
+      "i": 4,
+      "j": 6,
+      "status": "PASS",
+      "selfmap_ratio_upper": "3086975315168502935154313793570682848152778603239577083583/3138550867693340381917894711603833208051177722232017256448",
+      "contraction_ratio_upper": "3346280076144911200652872091072404771112498643583299269415/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 1.454069111999999
+    },
+    {
+      "i": 4,
+      "j": 7,
+      "status": "PASS",
+      "selfmap_ratio_upper": "6178040976204707102981916748873149729765549479351018295787/6277101735386680763835789423207666416102355444464034512896",
+      "contraction_ratio_upper": "1679579833529677749304112781296890367123446312334432897359/3138550867693340381917894711603833208051177722232017256448",
+      "cpu_s": 1.280927092999999
+    },
+    {
+      "i": 4,
+      "j": 8,
+      "status": "PASS",
+      "selfmap_ratio_upper": "3091863618266381875897870666114814831498257001245540430251/3138550867693340381917894711603833208051177722232017256448",
+      "contraction_ratio_upper": "844800656024853484153226691524133772557466869822990780971/1569275433846670190958947355801916604025588861116008628224",
+      "cpu_s": 1.267089519999999
+    },
+    {
+      "i": 4,
+      "j": 9,
+      "status": "PASS",
+      "selfmap_ratio_upper": "6191745476946235693681851464288031362709098920348688436837/6277101735386680763835789423207666416102355444464034512896",
+      "contraction_ratio_upper": "1706509536404143190567835016988371058239043494900120588429/3138550867693340381917894711603833208051177722232017256448",
+      "cpu_s": 1.342603025999999
+    },
+    {
+      "i": 5,
+      "j": 0,
+      "status": "PASS",
+      "selfmap_ratio_upper": "6198648028299440148902514685649903311499603385455964513625/6277101735386680763835789423207666416102355444464034512896",
+      "contraction_ratio_upper": "433464817820400233682631278645923355661959470675368367893/784637716923335095479473677900958302012794430558004314112",
+      "cpu_s": 1.3273862889999997
+    },
+    {
+      "i": 5,
+      "j": 1,
+      "status": "PASS",
+      "selfmap_ratio_upper": "774074300955856079476076176671209710289804456166715952827/784637716923335095479473677900958302012794430558004314112",
+      "contraction_ratio_upper": "107677720497692725776694282732880432725275810758304407631/196159429230833773869868419475239575503198607639501078528",
+      "cpu_s": 1.3201086449999977
+    },
+    {
+      "i": 5,
+      "j": 2,
+      "status": "PASS",
+      "selfmap_ratio_upper": "6187300389445495418542149061142888455845822599671862801763/6277101735386680763835789423207666416102355444464034512896",
+      "contraction_ratio_upper": "1713099019321543306755444286500665412790657234839028019297/3138550867693340381917894711603833208051177722232017256448",
+      "cpu_s": 1.3827440210000006
+    },
+    {
+      "i": 5,
+      "j": 3,
+      "status": "PASS",
+      "selfmap_ratio_upper": "6182879606330556226288726992814914833777861769383074829501/6277101735386680763835789423207666416102355444464034512896",
+      "contraction_ratio_upper": "852530331362536185860939501295920219408466183839082758163/1569275433846670190958947355801916604025588861116008628224",
+      "cpu_s": 1.4738253229999998
+    },
+    {
+      "i": 5,
+      "j": 4,
+      "status": "PASS",
+      "selfmap_ratio_upper": "1544878799317953397598000491710891367372142429856512693753/1569275433846670190958947355801916604025588861116008628224",
+      "contraction_ratio_upper": "3393469510191345649298277075235705470879760435642456630145/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 1.6458497659999978
+    },
+    {
+      "i": 5,
+      "j": 5,
+      "status": "PASS",
+      "selfmap_ratio_upper": "772167440193870867932973002740297138731725419273148576235/784637716923335095479473677900958302012794430558004314112",
+      "contraction_ratio_upper": "1690226886276508726557666876406336316842558666697437427691/3138550867693340381917894711603833208051177722232017256448",
+      "cpu_s": 1.4158254620000008
+    },
+    {
+      "i": 5,
+      "j": 6,
+      "status": "PASS",
+      "selfmap_ratio_upper": "6178186060630630274122629532124807472282310301959527489431/6277101735386680763835789423207666416102355444464034512896",
+      "contraction_ratio_upper": "3377639713760572289463650645901493460648156338800604722309/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 1.4637199099999982
+    },
+    {
+      "i": 5,
+      "j": 7,
+      "status": "PASS",
+      "selfmap_ratio_upper": "6180861390997539786476032735394435483004256846000005144001/6277101735386680763835789423207666416102355444464034512896",
+      "contraction_ratio_upper": "422281233003317893665802255624210351879159792968084431245/784637716923335095479473677900958302012794430558004314112",
+      "cpu_s": 1.542263252999998
+    },
+    {
+      "i": 5,
+      "j": 8,
+      "status": "PASS",
+      "selfmap_ratio_upper": "1546251591140881743747022632492472139252833653268034959859/1569275433846670190958947355801916604025588861116008628224",
+      "contraction_ratio_upper": "847951656890592490078880106702196015010619694519349422815/1569275433846670190958947355801916604025588861116008628224",
+      "cpu_s": 1.4184174499999997
+    },
+    {
+      "i": 5,
+      "j": 9,
+      "status": "PASS",
+      "selfmap_ratio_upper": "6190787034310773087076067837853339019121137972001758634563/6277101735386680763835789423207666416102355444464034512896",
+      "contraction_ratio_upper": "3412830329253206109806762442940111913288562230508663255835/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 1.6019433199999966
+    },
+    {
+      "i": 6,
+      "j": 0,
+      "status": "PASS",
+      "selfmap_ratio_upper": "1551573267704840979833924836418276020690052150115451059119/1569275433846670190958947355801916604025588861116008628224",
+      "contraction_ratio_upper": "3509899010781656287161369547602440676587369399020348162211/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 1.2873171529999965
+    },
+    {
+      "i": 6,
+      "j": 1,
+      "status": "PASS",
+      "selfmap_ratio_upper": "3100213164911941004897257607393660227428655101681877851167/3138550867693340381917894711603833208051177722232017256448",
+      "contraction_ratio_upper": "1744822105782350488152874449223494593711578989737232625463/3138550867693340381917894711603833208051177722232017256448",
+      "cpu_s": 1.5669786059999993
+    },
+    {
+      "i": 6,
+      "j": 2,
+      "status": "PASS",
+      "selfmap_ratio_upper": "1548775451933992061618439778534597635686136957160445102759/1569275433846670190958947355801916604025588861116008628224",
+      "contraction_ratio_upper": "3470624950901637943334638086445671927034076959055674827105/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 1.4171458430000001
+    },
+    {
+      "i": 6,
+      "j": 3,
+      "status": "PASS",
+      "selfmap_ratio_upper": "1547674856771044346282274075248750651390881603863039713607/1569275433846670190958947355801916604025588861116008628224",
+      "contraction_ratio_upper": "3455926401919608231211275808766940103080297394421744146985/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 1.3345387679999945
+    },
+    {
+      "i": 6,
+      "j": 4,
+      "status": "PASS",
+      "selfmap_ratio_upper": "6186916548860509614284391505543672855284764587459063921035/6277101735386680763835789423207666416102355444464034512896",
+      "contraction_ratio_upper": "859315698930228171023526675068398031631882771719588540241/1569275433846670190958947355801916604025588861116008628224",
+      "cpu_s": 1.2756319419999969
+    },
+    {
+      "i": 6,
+      "j": 5,
+      "status": "PASS",
+      "selfmap_ratio_upper": "6184274032222811391122055723899152337732324890352809010791/6277101735386680763835789423207666416102355444464034512896",
+      "contraction_ratio_upper": "3422243480111092820884043374489576875498897738548645289177/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 1.3962605319999994
+    },
+    {
+      "i": 6,
+      "j": 6,
+      "status": "PASS",
+      "selfmap_ratio_upper": "6183367850415767854983994276058219854671400960421597448257/6277101735386680763835789423207666416102355444464034512896",
+      "contraction_ratio_upper": "3413980888746467608525215624196289337006844321669537014215/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 1.2717931399999998
+    },
+    {
+      "i": 6,
+      "j": 7,
+      "status": "PASS",
+      "selfmap_ratio_upper": "3092720705579373022189443797690478417607537961670895377991/3138550867693340381917894711603833208051177722232017256448",
+      "contraction_ratio_upper": "213461544805509104408312565059699381705764553120039691387/392318858461667547739736838950479151006397215279002157056",
+      "cpu_s": 1.5037789709999956
+    },
+    {
+      "i": 6,
+      "j": 8,
+      "status": "PASS",
+      "selfmap_ratio_upper": "386789843646476167503996019838203640814032209614351829187/392318858461667547739736838950479151006397215279002157056",
+      "contraction_ratio_upper": "3420652577209019355212236673374454177435988500735343472213/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 1.2687888600000008
+    },
+    {
+      "i": 6,
+      "j": 9,
+      "status": "PASS",
+      "selfmap_ratio_upper": "3096635624755643854372183474555961105548997038663798423369/3138550867693340381917894711603833208051177722232017256448",
+      "contraction_ratio_upper": "3429893773372341968621320886400414714044257383663762210349/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 1.297801375000006
+    },
+    {
+      "i": 7,
+      "j": 0,
+      "status": "PASS",
+      "selfmap_ratio_upper": "3107108873794905677095772158305648203468059741250412600071/3138550867693340381917894711603833208051177722232017256448",
+      "contraction_ratio_upper": "1771461682481686662222181032437009337795769997025217439169/3138550867693340381917894711603833208051177722232017256448",
+      "cpu_s": 1.284696611000001
+    },
+    {
+      "i": 7,
+      "j": 1,
+      "status": "PASS",
+      "selfmap_ratio_upper": "6208497997952954035601323195531326689700736352770165862353/6277101735386680763835789423207666416102355444464034512896",
+      "contraction_ratio_upper": "3525757641580794778817855505886629781377950611867164336459/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 1.2910184269999974
+    },
+    {
+      "i": 7,
+      "j": 2,
+      "status": "PASS",
+      "selfmap_ratio_upper": "3101717848774124767067688629160502314120973214966374792605/3138550867693340381917894711603833208051177722232017256448",
+      "contraction_ratio_upper": "3511812066939659815966180026690684753311753746306812067833/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 1.3435173079999956
+    },
+    {
+      "i": 7,
+      "j": 3,
+      "status": "PASS",
+      "selfmap_ratio_upper": "3099600807985859960201259506931989321667477416661504391399/3138550867693340381917894711603833208051177722232017256448",
+      "contraction_ratio_upper": "3502191675226553531281528575206656992702225191876106815167/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 1.2785647580000017
+    },
+    {
+      "i": 7,
+      "j": 4,
+      "status": "PASS",
+      "selfmap_ratio_upper": "3097597662783625543256704874384522963622664197248717336805/3138550867693340381917894711603833208051177722232017256448",
+      "contraction_ratio_upper": "435579313670098578115546353842116531466819596640677444185/784637716923335095479473677900958302012794430558004314112",
+      "cpu_s": 1.2705714589999957
+    },
+    {
+      "i": 7,
+      "j": 5,
+      "status": "PASS",
+      "selfmap_ratio_upper": "3096062047728981675062560951403799301534663986409574124495/3138550867693340381917894711603833208051177722232017256448",
+      "contraction_ratio_upper": "3467700592418524263201157861938328980221520824865809856703/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 1.4735181019999999
+    },
+    {
+      "i": 7,
+      "j": 6,
+      "status": "PASS",
+      "selfmap_ratio_upper": "386887748590169754055842417750973131703877058631562607445/392318858461667547739736838950479151006397215279002157056",
+      "contraction_ratio_upper": "3456023481215015954029681897306051841418484659483186664489/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 1.527455830000001
+    },
+    {
+      "i": 7,
+      "j": 7,
+      "status": "PASS",
+      "selfmap_ratio_upper": "3095535338942977495356214509361340932570264103833217325059/3138550867693340381917894711603833208051177722232017256448",
+      "contraction_ratio_upper": "3453443802285317628085058302101634344244719383492120975505/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 1.5949822769999997
+    },
+    {
+      "i": 7,
+      "j": 8,
+      "status": "PASS",
+      "selfmap_ratio_upper": "3096905007740134737620903576997426961249154319356790059691/3138550867693340381917894711603833208051177722232017256448",
+      "contraction_ratio_upper": "3457149643659872734268685474635520068158806418682709325017/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 1.371639180999999
+    },
+    {
+      "i": 7,
+      "j": 9,
+      "status": "PASS",
+      "selfmap_ratio_upper": "3098825430478451558973462579284601124997275057813198426617/3138550867693340381917894711603833208051177722232017256448",
+      "contraction_ratio_upper": "3464685535436087334645732611036428468028806360701466318355/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 1.302660459000002
+    },
+    {
+      "i": 8,
+      "j": 0,
+      "status": "PASS",
+      "selfmap_ratio_upper": "3111650444782146368884295042450648359123952444329321193593/3138550867693340381917894711603833208051177722232017256448",
+      "contraction_ratio_upper": "3580295449060845088670503694240016372573733848757482366183/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 1.4069986189999995
+    },
+    {
+      "i": 8,
+      "j": 1,
+      "status": "PASS",
+      "selfmap_ratio_upper": "6217419171859457667722834835678396997847219327727483761001/6277101735386680763835789423207666416102355444464034512896",
+      "contraction_ratio_upper": "3562820054140484962201485358395119861834073193025174829801/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 1.447994310999995
+    },
+    {
+      "i": 8,
+      "j": 2,
+      "status": "PASS",
+      "selfmap_ratio_upper": "6212259016835321617748890038060939184287738229127486485831/6277101735386680763835789423207666416102355444464034512896",
+      "contraction_ratio_upper": "3549588779468260082138311172237080685536968198441369726643/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 1.3613385780000016
+    },
+    {
+      "i": 8,
+      "j": 3,
+      "status": "PASS",
+      "selfmap_ratio_upper": "96995375425618638573025384494233678213318147071284074813/98079714615416886934934209737619787751599303819750539264",
+      "contraction_ratio_upper": "3537685393417918459873254884453484023552797613757265445223/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 1.2908171249999967
+    },
+    {
+      "i": 8,
+      "j": 4,
+      "status": "PASS",
+      "selfmap_ratio_upper": "6203627709821698889517535090933422054993598152955203666167/6277101735386680763835789423207666416102355444464034512896",
+      "contraction_ratio_upper": "880424241951033481486817716410691416484980862122276412359/1569275433846670190958947355801916604025588861116008628224",
+      "cpu_s": 1.2895719379999946
+    },
+    {
+      "i": 8,
+      "j": 5,
+      "status": "PASS",
+      "selfmap_ratio_upper": "6200441186711090074538431969884297683320454724355899716855/6277101735386680763835789423207666416102355444464034512896",
+      "contraction_ratio_upper": "1754014509948559585729998354649459889373788667248456372161/3138550867693340381917894711603833208051177722232017256448",
+      "cpu_s": 1.3570553209999972
+    },
+    {
+      "i": 8,
+      "j": 6,
+      "status": "PASS",
+      "selfmap_ratio_upper": "6198267057170584950275530019569879568071098889791668808937/6277101735386680763835789423207666416102355444464034512896",
+      "contraction_ratio_upper": "874806469141690789889626322324989310647372460700268670953/1569275433846670190958947355801916604025588861116008628224",
+      "cpu_s": 1.3631206419999984
+    },
+    {
+      "i": 8,
+      "j": 7,
+      "status": "PASS",
+      "selfmap_ratio_upper": "6197683989501538184417826634439954532875971023025964807571/6277101735386680763835789423207666416102355444464034512896",
+      "contraction_ratio_upper": "218434625128164181220014285969423302019602942159440483419/392318858461667547739736838950479151006397215279002157056",
+      "cpu_s": 1.4131582969999954
+    },
+    {
+      "i": 8,
+      "j": 8,
+      "status": "PASS",
+      "selfmap_ratio_upper": "6200072727196391622452572005325326113602387422776632413989/6277101735386680763835789423207666416102355444464034512896",
+      "contraction_ratio_upper": "1748685634620212230040668566234256711903669342683374406607/3138550867693340381917894711603833208051177722232017256448",
+      "cpu_s": 1.4187532320000003
+    },
+    {
+      "i": 8,
+      "j": 9,
+      "status": "PASS",
+      "selfmap_ratio_upper": "6203460629720788098960748459662485761386979746271041427241/6277101735386680763835789423207666416102355444464034512896",
+      "contraction_ratio_upper": "3502909162123379422567136119953133200002134682079829794779/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 1.3877055049999996
+    },
+    {
+      "i": 9,
+      "j": 0,
+      "status": "PASS",
+      "selfmap_ratio_upper": "6233437947865273192669869992515294467364409868187460360477/6277101735386680763835789423207666416102355444464034512896",
+      "contraction_ratio_upper": "3621576325585791708150748323678622650210018347232763224433/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 1.4639001210000018
+    },
+    {
+      "i": 9,
+      "j": 1,
+      "status": "PASS",
+      "selfmap_ratio_upper": "1556849265579835739903261223670500001490760536894613278097/1569275433846670190958947355801916604025588861116008628224",
+      "contraction_ratio_upper": "225275583357452616559024145783750713263015589133993370683/392318858461667547739736838950479151006397215279002157056",
+      "cpu_s": 1.3364332389999944
+    },
+    {
+      "i": 9,
+      "j": 2,
+      "status": "PASS",
+      "selfmap_ratio_upper": "6222096419165648133078418076934737432930135556019749124773/6277101735386680763835789423207666416102355444464034512896",
+      "contraction_ratio_upper": "3590752505267103148961472752033566651557604942772611470441/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 1.2983182830000004
+    },
+    {
+      "i": 9,
+      "j": 3,
+      "status": "PASS",
+      "selfmap_ratio_upper": "3108601370399003252670766706193167227183686415303074803923/3138550867693340381917894711603833208051177722232017256448",
+      "contraction_ratio_upper": "447069137075303949112209608944344968635550506769843793739/784637716923335095479473677900958302012794430558004314112",
+      "cpu_s": 1.3688082860000037
+    },
+    {
+      "i": 9,
+      "j": 4,
+      "status": "PASS",
+      "selfmap_ratio_upper": "6212823461575987764747782191740752550093087276036001943819/6277101735386680763835789423207666416102355444464034512896",
+      "contraction_ratio_upper": "1779749967082789285113119373603546447565585112842785235061/3138550867693340381917894711603833208051177722232017256448",
+      "cpu_s": 1.3116627449999996
+    },
+    {
+      "i": 9,
+      "j": 5,
+      "status": "PASS",
+      "selfmap_ratio_upper": "6209451242261947650903347080465450486434979915818162761761/6277101735386680763835789423207666416102355444464034512896",
+      "contraction_ratio_upper": "3545115222852944640845776179021333687370517650865433335041/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 1.3120838780000028
+    },
+    {
+      "i": 9,
+      "j": 6,
+      "status": "PASS",
+      "selfmap_ratio_upper": "387926725834881382804695921708921752780708205304108362707/392318858461667547739736838950479151006397215279002157056",
+      "contraction_ratio_upper": "1767254832773178296365334057939159266077248969064574073419/3138550867693340381917894711603833208051177722232017256448",
+      "cpu_s": 1.4430850480000004
+    },
+    {
+      "i": 9,
+      "j": 7,
+      "status": "PASS",
+      "selfmap_ratio_upper": "3102633663980654587571198625109039248948840709074394430175/3138550867693340381917894711603833208051177722232017256448",
+      "contraction_ratio_upper": "3527993128861044624861094034524437747584985034042612322265/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 1.3909421309999956
+    },
+    {
+      "i": 9,
+      "j": 8,
+      "status": "PASS",
+      "selfmap_ratio_upper": "3103305278338323214748500505918839356157159012579704326087/3138550867693340381917894711603833208051177722232017256448",
+      "contraction_ratio_upper": "1765246203036429189548750662423732739819864663021849481165/3138550867693340381917894711603833208051177722232017256448",
+      "cpu_s": 1.4424510189999964
+    },
+    {
+      "i": 9,
+      "j": 9,
+      "status": "PASS",
+      "selfmap_ratio_upper": "6210056997230336291652831319403984911149576770098924456367/6277101735386680763835789423207666416102355444464034512896",
+      "contraction_ratio_upper": "3540398440659317972440260919176794376073125365821776662955/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 1.4315037229999987
+    },
+    {
+      "i": 10,
+      "j": 0,
+      "status": "PASS",
+      "selfmap_ratio_upper": "3122315639569546726353306071185248158634171045380284660639/3138550867693340381917894711603833208051177722232017256448",
+      "contraction_ratio_upper": "3667311435345630097561476018964515272905917294329923420805/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 1.654232780000001
+    },
+    {
+      "i": 10,
+      "j": 1,
+      "status": "PASS",
+      "selfmap_ratio_upper": "6238422081381704162798602570583767684081952815779618135273/6277101735386680763835789423207666416102355444464034512896",
+      "contraction_ratio_upper": "3649656701073918155464715804034819245696437904976405851921/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 1.2814958219999966
+    },
+    {
+      "i": 10,
+      "j": 2,
+      "status": "PASS",
+      "selfmap_ratio_upper": "1558201766894813409414075959665535140635381222176102387429/1569275433846670190958947355801916604025588861116008628224",
+      "contraction_ratio_upper": "1816772327426551983534956421742159494571978374328935024695/3138550867693340381917894711603833208051177722232017256448",
+      "cpu_s": 1.3652654670000004
+    },
+    {
+      "i": 10,
+      "j": 3,
+      "status": "PASS",
+      "selfmap_ratio_upper": "778461016923303444037439863025232369083333050304080406139/784637716923335095479473677900958302012794430558004314112",
+      "contraction_ratio_upper": "452305198060559557409213589538722835167686640543847016225/784637716923335095479473677900958302012794430558004314112",
+      "cpu_s": 1.2728295569999943
+    },
+    {
+      "i": 10,
+      "j": 4,
+      "status": "PASS",
+      "selfmap_ratio_upper": "6222873491110502406278315528593718213281372606204058767823/6277101735386680763835789423207666416102355444464034512896",
+      "contraction_ratio_upper": "899892866236939047301247919729507031270171502493832765327/1569275433846670190958947355801916604025588861116008628224",
+      "cpu_s": 1.2919618820000025
+    },
+    {
+      "i": 10,
+      "j": 5,
+      "status": "PASS",
+      "selfmap_ratio_upper": "6219356147513866477471203586002807476977746664439134670373/6277101735386680763835789423207666416102355444464034512896",
+      "contraction_ratio_upper": "448193694086549003544359614821489369104915627498396480369/784637716923335095479473677900958302012794430558004314112",
+      "cpu_s": 1.2674917769999965
+    },
+    {
+      "i": 10,
+      "j": 6,
+      "status": "PASS",
+      "selfmap_ratio_upper": "6216373170761377287207379956277276924932301389847711059649/6277101735386680763835789423207666416102355444464034512896",
+      "contraction_ratio_upper": "3573288819414748179429434854427959188424134683884095002755/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 1.349011069999996
+    },
+    {
+      "i": 10,
+      "j": 7,
+      "status": "PASS",
+      "selfmap_ratio_upper": "3107180556554923636713346504763253128675477840876626423641/3138550867693340381917894711603833208051177722232017256448",
+      "contraction_ratio_upper": "1782565014700062828464369707744019460476452889119638877773/3138550867693340381917894711603833208051177722232017256448",
+      "cpu_s": 1.3556796400000053
+    },
+    {
+      "i": 10,
+      "j": 8,
+      "status": "PASS",
+      "selfmap_ratio_upper": "388382142042544740008598334341582925233488421979672469887/392318858461667547739736838950479151006397215279002157056",
+      "contraction_ratio_upper": "890656817557695088899697905072407776550652219595463145343/1569275433846670190958947355801916604025588861116008628224",
+      "cpu_s": 1.297934957999999
+    },
+    {
+      "i": 10,
+      "j": 9,
+      "status": "PASS",
+      "selfmap_ratio_upper": "3108487191274507376968547026858949698586514905654752681257/3138550867693340381917894711603833208051177722232017256448",
+      "contraction_ratio_upper": "3569909793481366929526406373388400388011017142419232393779/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 1.252999213999999
+    },
+    {
+      "i": 11,
+      "j": 0,
+      "status": "PASS",
+      "selfmap_ratio_upper": "1564246941424924548675674922572561979720538719833290580985/1569275433846670190958947355801916604025588861116008628224",
+      "contraction_ratio_upper": "929335090617652410967521410793590584276604302439665721893/1569275433846670190958947355801916604025588861116008628224",
+      "cpu_s": 1.3045902960000006
+    },
+    {
+      "i": 11,
+      "j": 1,
+      "status": "PASS",
+      "selfmap_ratio_upper": "6250367557463969814751246963586493910029044512153541493265/6277101735386680763835789423207666416102355444464034512896",
+      "contraction_ratio_upper": "3695922757942457614853700996596931288234212807775812369567/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 1.2804619059999993
+    },
+    {
+      "i": 11,
+      "j": 2,
+      "status": "PASS",
+      "selfmap_ratio_upper": "6244431182581686187881883253795025929402144030473649480303/6277101735386680763835789423207666416102355444464034512896",
+      "contraction_ratio_upper": "1839135302161077673557228927882754837669322810113694787813/3138550867693340381917894711603833208051177722232017256448",
+      "cpu_s": 1.391140704999998
+    },
+    {
+      "i": 11,
+      "j": 3,
+      "status": "PASS",
+      "selfmap_ratio_upper": "6092918648034552056165439274669945371684399392553778537/6129982163463555433433388108601236734474956488734408704",
+      "contraction_ratio_upper": "1831586169142381153745664509617341293942621301952315454233/3138550867693340381917894711603833208051177722232017256448",
+      "cpu_s": 1.3070407100000097
+    },
+    {
+      "i": 11,
+      "j": 4,
+      "status": "PASS",
+      "selfmap_ratio_upper": "6234108375244961170035153085483588473723691428313623621433/6277101735386680763835789423207666416102355444464034512896",
+      "contraction_ratio_upper": "3643610727545839105681609600053847856686110021693114788525/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 1.38094558600001
+    },
+    {
+      "i": 11,
+      "j": 5,
+      "status": "PASS",
+      "selfmap_ratio_upper": "3115116708250381561771229366315769255353806514967151209709/3138550867693340381917894711603833208051177722232017256448",
+      "contraction_ratio_upper": "3629151570081332544397982613611932864761589602407197903929/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 1.2387058519999954
+    },
+    {
+      "i": 11,
+      "j": 6,
+      "status": "PASS",
+      "selfmap_ratio_upper": "778366632183805852533915274582668136760968940525161729419/784637716923335095479473677900958302012794430558004314112",
+      "contraction_ratio_upper": "3614927461157761619418189886454084296570002705359693039573/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 1.345258856000001
+    },
+    {
+      "i": 11,
+      "j": 7,
+      "status": "PASS",
+      "selfmap_ratio_upper": "6224633480365237475996255170047369963901024537216032596645/6277101735386680763835789423207666416102355444464034512896",
+      "contraction_ratio_upper": "225371207585840029749251190676073683838428384554312748591/392318858461667547739736838950479151006397215279002157056",
+      "cpu_s": 1.4024777669999935
+    },
+    {
+      "i": 11,
+      "j": 8,
+      "status": "PASS",
+      "selfmap_ratio_upper": "6223275741052087010478160137770689593360186754406597981865/6277101735386680763835789423207666416102355444464034512896",
+      "contraction_ratio_upper": "1800027930766461803353112583396373266810025032022802552175/3138550867693340381917894711603833208051177722232017256448",
+      "cpu_s": 1.3813810479999944
+    },
+    {
+      "i": 11,
+      "j": 9,
+      "status": "PASS",
+      "selfmap_ratio_upper": "1556232138237311826693587334996172825113226738033141714767/1569275433846670190958947355801916604025588861116008628224",
+      "contraction_ratio_upper": "3603620833480365873637365757580915223358120353529295294711/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 1.4351277120000105
+    },
+    {
+      "i": 12,
+      "j": 0,
+      "status": "PASS",
+      "selfmap_ratio_upper": "6269971351572975553347531751138134411316198213326874547345/6277101735386680763835789423207666416102355444464034512896",
+      "contraction_ratio_upper": "1882083530664998692290724795214069061828666358318920765717/3138550867693340381917894711603833208051177722232017256448",
+      "cpu_s": 1.5131837210000043
+    },
+    {
+      "i": 12,
+      "j": 1,
+      "status": "PASS",
+      "selfmap_ratio_upper": "6263299782178217576867746057469931832621097854500803822943/6277101735386680763835789423207666416102355444464034512896",
+      "contraction_ratio_upper": "467959107849268146445947103549086830585646063762032113655/784637716923335095479473677900958302012794430558004314112",
+      "cpu_s": 1.2595221079999988
+    },
+    {
+      "i": 12,
+      "j": 2,
+      "status": "PASS",
+      "selfmap_ratio_upper": "3128628372886577175171289371244801232536714185354272219803/3138550867693340381917894711603833208051177722232017256448",
+      "contraction_ratio_upper": "3726059626346058523381731259837358492709315801077309433671/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 1.358866434999996
+    },
+    {
+      "i": 12,
+      "j": 3,
+      "status": "PASS",
+      "selfmap_ratio_upper": "6251585295162240381800693534344950637798941791372880708985/6277101735386680763835789423207666416102355444464034512896",
+      "contraction_ratio_upper": "3709726921123627801017917309142682679922746890014862710965/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 1.2421616889999996
+    },
+    {
+      "i": 12,
+      "j": 4,
+      "status": "PASS",
+      "selfmap_ratio_upper": "1561591961293459362966409616414283619943042477669692511655/1569275433846670190958947355801916604025588861116008628224",
+      "contraction_ratio_upper": "3690604309337529913433931383071902832998279053330836103873/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 3.094650275999996
+    },
+    {
+      "i": 12,
+      "j": 5,
+      "status": "PASS",
+      "selfmap_ratio_upper": "6242258667844112458324417922731184705728455147289905388969/6277101735386680763835789423207666416102355444464034512896",
+      "contraction_ratio_upper": "3676619640266700496575588492179573260507269029970191070611/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 1.2505619679999995
+    },
+    {
+      "i": 12,
+      "j": 6,
+      "status": "PASS",
+      "selfmap_ratio_upper": "1559648551470555381048904282222831324698244560875458087397/1569275433846670190958947355801916604025588861116008628224",
+      "contraction_ratio_upper": "3660627438009109825523834170582596925462676026545219248351/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 1.3175207489999963
+    },
+    {
+      "i": 12,
+      "j": 7,
+      "status": "PASS",
+      "selfmap_ratio_upper": "6236063723469809784518329044638647798733618600097892034809/6277101735386680763835789423207666416102355444464034512896",
+      "contraction_ratio_upper": "3649994050977268816252623793994467062533845694802502441477/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 1.251847828999999
+    },
+    {
+      "i": 12,
+      "j": 8,
+      "status": "PASS",
+      "selfmap_ratio_upper": "6234261367946140317807053406903498413195204336961183954787/6277101735386680763835789423207666416102355444464034512896",
+      "contraction_ratio_upper": "1821425729557597071574938819637215818240987241932930940205/3138550867693340381917894711603833208051177722232017256448",
+      "cpu_s": 1.6965056129999994
+    },
+    {
+      "i": 12,
+      "j": 9,
+      "status": "PASS",
+      "selfmap_ratio_upper": "6234186050048748646757314260726987302395567714860780394099/6277101735386680763835789423207666416102355444464034512896",
+      "contraction_ratio_upper": "910342359310697014749546004726939215179337084882279503819/1569275433846670190958947355801916604025588861116008628224",
+      "cpu_s": 1.3221753610000064
+    },
+    {
+      "i": 13,
+      "j": 0,
+      "status": "PASS",
+      "selfmap_ratio_upper": "6126386080576789235359421789442933063628627378446086269469/6277101735386680763835789423207666416102355444464034512896",
+      "contraction_ratio_upper": "1886686635413779198384523895214842956022036221163531838317/3138550867693340381917894711603833208051177722232017256448",
+      "cpu_s": 1.629231966000006
+    },
+    {
+      "i": 13,
+      "j": 1,
+      "status": "PASS",
+      "selfmap_ratio_upper": "6122144665854388308139361698432955187080095520612860455293/6277101735386680763835789423207666416102355444464034512896",
+      "contraction_ratio_upper": "234802475076766375159655677779168256402659783619348188401/392318858461667547739736838950479151006397215279002157056",
+      "cpu_s": 1.4010330520000025
+    },
+    {
+      "i": 13,
+      "j": 2,
+      "status": "PASS",
+      "selfmap_ratio_upper": "1567798904163714855395636154194317820503204298933689110381/1569275433846670190958947355801916604025588861116008628224",
+      "contraction_ratio_upper": "3775605792177953511464208040600284265277096943052920555453/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 1.3335190030000064
+    },
+    {
+      "i": 13,
+      "j": 3,
+      "status": "PASS",
+      "selfmap_ratio_upper": "3132702521910397190683821969118893904823648197148657435445/3138550867693340381917894711603833208051177722232017256448",
+      "contraction_ratio_upper": "3759549627837365107006170954952393586104485685746885739723/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 1.3385241130000054
+    },
+    {
+      "i": 13,
+      "j": 4,
+      "status": "PASS",
+      "selfmap_ratio_upper": "3129911775041094537974251972265204941959875945880530871733/3138550867693340381917894711603833208051177722232017256448",
+      "contraction_ratio_upper": "3740383168421697595387659258752388709699957857796541545039/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 1.4261764679999942
+    },
+    {
+      "i": 13,
+      "j": 5,
+      "status": "PASS",
+      "selfmap_ratio_upper": "1563859308104704102451396527302577877593365416892151198639/1569275433846670190958947355801916604025588861116008628224",
+      "contraction_ratio_upper": "3725763729142489239577451356308563258376727154316673814403/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 1.2718434089999988
+    },
+    {
+      "i": 13,
+      "j": 6,
+      "status": "PASS",
+      "selfmap_ratio_upper": "3125747582445520779363437924884916467629047062222040352743/3138550867693340381917894711603833208051177722232017256448",
+      "contraction_ratio_upper": "927593181090259379479620115481736061275470507241448287563/1569275433846670190958947355801916604025588861116008628224",
+      "cpu_s": 1.3108282540000005
+    },
+    {
+      "i": 13,
+      "j": 7,
+      "status": "PASS",
+      "selfmap_ratio_upper": "3124335968351439413267208842381982475312018256833782559673/3138550867693340381917894711603833208051177722232017256448",
+      "contraction_ratio_upper": "3697987273025212487847726710227344145354110399609495921675/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 1.1814628250000112
+    },
+    {
+      "i": 13,
+      "j": 8,
+      "status": "PASS",
+      "selfmap_ratio_upper": "6246661039796304956323907943989130603621593688637715576701/6277101735386680763835789423207666416102355444464034512896",
+      "contraction_ratio_upper": "3689862889816491916549069729850394054009626778479160825523/6277101735386680763835789423207666416102355444464034512896",
+      "cpu_s": 1.4794187460000074
+    },
+    {
+      "i": 13,
+      "j": 9,
+      "status": "PASS",
+      "selfmap_ratio_upper": "6245421940680028028807946429199675129283969568408311830351/6277101735386680763835789423207666416102355444464034512896",
+      "contraction_ratio_upper": "1842381079993098779198692250019175963026437214792518045395/3138550867693340381917894711603833208051177722232017256448",
+      "cpu_s": 0.7568607620000023
+    }
+  ],
+  "scope": "signed-R>0 transverse chart on complete family rectangle; all four physical pairings; no R=0 claim; not whole-shoulder closure",
+  "imported_tubes_replayed": false
+}
