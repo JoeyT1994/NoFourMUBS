@@ -1,0 +1,108 @@
+{
+  "runtime": "Julia 1.12.7 production",
+  "results": [
+    {
+      "input": {
+        "path": "full",
+        "centers": [
+          "1153924584490723/562949953421312",
+          "-2408021480899817/1125899906842624",
+          "-1197965859558283/562949953421312",
+          "580416509897719/281474976710656"
+        ],
+        "radii": [
+          "463617246416447489689/1208925819614629174706176",
+          "463617246416447489689/1208925819614629174706176",
+          "463617246416447489689/1208925819614629174706176",
+          "463617246416447489689/1208925819614629174706176"
+        ],
+        "binary_centers": [
+          2.049781827812188,
+          -2.1387527135095548,
+          -2.128014847994356,
+          2.0620536741152726
+        ],
+        "binary_radii": [
+          0.00038349519788090505,
+          0.00038349519788090505,
+          0.00038349519788090505,
+          0.00038349519788090505
+        ]
+      },
+      "response": {
+        "ok": false,
+        "reason": "exception_ErrorException",
+        "nodes": 0,
+        "cpu_seconds": 3.468292,
+        "wall_seconds": 3.510856866836548,
+        "centers": [
+          2.049781827812188,
+          -2.1387527135095548,
+          -2.128014847994356,
+          2.0620536741152726
+        ],
+        "radii": [
+          0.00038349519788090505,
+          0.00038349519788090505,
+          0.00038349519788090505,
+          0.00038349519788090505
+        ],
+        "node_budget": 1024,
+        "detail": "sqrt: model range reaches 0 (H/c0 = 2.5117727202214613)",
+        "backtrace": "sqrt: model range reaches 0 (H/c0 = 2.5117727202214613)\nStacktrace:\n  [1] error(s::String)\n    @ Base ./error.jl:44\n  [2] sqrt(a::Main.FastTM.TM{8})\n    @ Main.FastTM ~/Files/NoFourMUBS/NumericalCampaign/Certification/fasttm.jl:290\n  [3] hplus_tm(\u03b80::Vector{Float64}, \u03c1::Vector{Float64}; q::Int64, hi::Int64)\n    @ Main ~/Files/NoFourMUBS/NumericalCampaign/Certification/fasthplus.jl:93\n  [4] hplus_tm\n    @ ~/Files/NoFourMUBS/NumericalCampaign/Certification/fasthplus.jl:80 [inlined]\n  [5] hcell(\u03b80::Vector{Float64}, \u03c1::Vector{Float64}; q::Int64, hi::Int64)\n    @ Main ~/Files/NoFourMUBS/NumericalCampaign/Certification/hform.jl:46\n  [6] hcell\n    @ ~/Files/NoFourMUBS/NumericalCampaign/Certification/hform.jl:45 [inlined]\n  [7] certify_cell_cover(\u03b80::Vector{Float64}, \u03c1::Vector{Float64}; q::Int64, widths::NTuple{6, Float64}, budget::Int64, deadline::Float64, hmin::Float64, rcap::Float64, boundary::Bool, verifier::CartesianVerifier, sharp_capacity::Bool, tight_pairs::Bool, label_builder::PartitionLabels)\n    @ Main ~/Files/NoFourMUBS/NumericalCampaign/Certification/cover.jl:293\n  [8] certify_cell_cover_accelerated(theta::Vector{Float64}, rho::Vector{Float64}; partition::Bool, kwargs::@Kwargs{budget::Int64, deadline::Float64})\n    @ Main ~/Files/NoFourMUBS/NumericalCampaign/Certification/cover_accelerated.jl:13\n  [9] top-level scope\n    @ ~/Files/NoFourMUBS/ProvenResults/ActiveShoulderClosure_v2_frontier/cover_worker_anisotropic.jl:13\n [10] include(mod::Module, _path::String)\n    @ Base ./Base.jl:306\n [11] exec_options(opts::Base.JLOptions)\n    @ Base ./client.jl:317\n [12] _start()\n    @ Base ./client.jl:550"
+      }
+    },
+    {
+      "input": {
+        "path": "00001110001111",
+        "centers": [
+          "39646228733272270565711619/19342813113834066795298816",
+          "-20686137868799654677238731/9671406556917033397649408",
+          "-20581360371355834411140761/9671406556917033397649408",
+          "19942495807306890832492903/9671406556917033397649408"
+        ],
+        "radii": [
+          "463617246416447489689/19342813113834066795298816",
+          "463617246416447489689/9671406556917033397649408",
+          "463617246416447489689/9671406556917033397649408",
+          "463617246416447489689/9671406556917033397649408"
+        ],
+        "binary_centers": [
+          2.0496619855628504,
+          -2.1388965242087603,
+          -2.128062784894091,
+          2.0620057372155376
+        ],
+        "binary_radii": [
+          2.3968449867752135e-05,
+          4.793689973532254e-05,
+          4.793689973519136e-05,
+          4.793689973519136e-05
+        ]
+      },
+      "response": {
+        "ok": false,
+        "reason": "cover_budget",
+        "nodes": 1025,
+        "cpu_seconds": 4.378461,
+        "wall_seconds": 4.3814520835876465,
+        "centers": [
+          2.0496619855628504,
+          -2.1388965242087603,
+          -2.128062784894091,
+          2.0620057372155376
+        ],
+        "radii": [
+          2.3968449867752135e-05,
+          4.793689973532254e-05,
+          4.793689973519136e-05,
+          4.793689973519136e-05
+        ],
+        "node_budget": 1024,
+        "detail": "",
+        "backtrace": ""
+      }
+    }
+  ],
+  "external_cpu_seconds": 10.925885
+}

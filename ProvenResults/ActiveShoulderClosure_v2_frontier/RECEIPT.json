@@ -1,0 +1,46 @@
+{
+  "calibration": {
+    "closed": 256,
+    "cpu_seconds": 12.534706999999994,
+    "frontier_roots_covered": 256,
+    "inherited_pairing_skips": 102,
+    "main_cpu_seconds": 0.158534,
+    "nodes": 304,
+    "nodes_per_cpu_second": 24.25266103148643,
+    "padding_roots_skipped": 0,
+    "roots": 256,
+    "scope": "scheduled_shard_targets_only; clean replay required",
+    "status": "PASS",
+    "type": "summary",
+    "unassigned_frontier_boxes": 0,
+    "wall_seconds": 4.865798833954614
+  },
+  "compiler": "rusty: gcc/13.3.0 with UBSan runtime; g++ must be on PATH",
+  "controls": 8,
+  "delivery_type": "additive extension; requires existing sealed v2 and FourierTransverseStability_v2 dependencies",
+  "dependency_files": 388,
+  "fresh_replays": {
+    "CALIBRATION_REPLAY.json": {
+      "accepted_boxes": 256,
+      "sha256": "deec8c454de9888ad5ea29415a799b311abf3aeb24a1f1c266d63f5eb3eda321",
+      "whole_roots_closed": 256
+    },
+    "COVER_REPLAY.json": {
+      "accepted_boxes": 1,
+      "sha256": "bbaf5dc200bd43067cbc0df5ddd27f6b3fd23b4ee0e1e4135b1c4283185db71c",
+      "whole_roots_closed": 1
+    },
+    "PADDING_REPLAY.json": {
+      "accepted_boxes": 1,
+      "sha256": "a27801bee47079815fc6bad8b61420594dd6ae8cf6af1dc67f005956995cda0a",
+      "whole_roots_closed": 0
+    }
+  },
+  "inputs_sha256": "d1f67073a428edfada266fc67c73bdc81a2db88ee4e8fcfb51eb1728320cbdf1",
+  "julia": "1.12.7 production, frozen 577018ebd9e3b0cee1134680a3d0302f3d972ff3211c3cf0cbacc5a6c09f961d",
+  "scope": "frontier extension controls and 256 sampled active-class boxes; no full-run or new production-cube closure claim",
+  "sealed_v2_pins": "PASS",
+  "sealed_v2_zip_sha256": "0072e52610492019a39d56570bd383a5730af2cd8ec2ef3351385c82ec204c49",
+  "status": "PASS",
+  "v1_files_unchanged": 67
+}
