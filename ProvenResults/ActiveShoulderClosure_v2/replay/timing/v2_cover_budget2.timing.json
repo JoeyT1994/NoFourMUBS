@@ -1,0 +1,27 @@
+{
+  "command": [
+    "/private/tmp/nofour_v2_py311/bin/python",
+    "-B",
+    "ProvenResults/ActiveShoulderClosure_v2/driver.py",
+    "--resume",
+    "/private/tmp/v2_backoff_resume2.jsonl.gz",
+    "--root-ids",
+    "20,23",
+    "--jobs",
+    "2",
+    "--cpu-per-root",
+    "300",
+    "--max-nodes",
+    "131071",
+    "--max-depth",
+    "64",
+    "--max-tau-depth",
+    "12",
+    "--output",
+    "/private/tmp/v2_cover_budget2.jsonl.gz"
+  ],
+  "returncode": 2,
+  "wall_seconds": 589.8326362500084,
+  "user_cpu_seconds": 602.635875,
+  "system_cpu_seconds": 2.669657
+}

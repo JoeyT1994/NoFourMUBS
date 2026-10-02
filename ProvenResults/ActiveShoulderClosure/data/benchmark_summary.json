@@ -1,0 +1,163 @@
+{
+  "breadth_region_benchmark": {
+    "closed": 1,
+    "cpu_seconds": 432.81472499999995,
+    "leaves": 3628,
+    "roots": 16,
+    "status": "INCOMPLETE",
+    "type": "summary",
+    "wall_seconds": 241.5095617500192,
+    "nodes": 3865,
+    "mean_cpu_seconds_per_node": 0.11198311125485122
+  },
+  "depth_region_benchmark": {
+    "closed": 2,
+    "cpu_seconds": 917.2320809999998,
+    "leaves": 5714,
+    "roots": 32,
+    "status": "INCOMPLETE",
+    "type": "summary",
+    "wall_seconds": 255.97361549999914
+  },
+  "partition_reasons": {
+    "outside_strict_D0": 271,
+    "node_budget": 1008,
+    "not_attempted": 1563,
+    "unresolved_pairing": 2069,
+    "cpu_budget": 1700,
+    "all_pairings_closed": 2776
+  },
+  "accepting_pairing_reasons": {
+    "larger_corner": 6068,
+    "nonunimodular": 4780,
+    "matrix_tube": 256
+  },
+  "accepted_leaf_depths": {
+    "2": 2,
+    "3": 3,
+    "4": 20,
+    "5": 69,
+    "6": 146,
+    "7": 146,
+    "8": 295,
+    "9": 24,
+    "10": 58,
+    "11": 32,
+    "12": 60,
+    "13": 22,
+    "14": 53,
+    "15": 47,
+    "16": 112,
+    "17": 107,
+    "18": 123,
+    "19": 175,
+    "20": 344,
+    "21": 228,
+    "22": 207,
+    "23": 339,
+    "24": 435
+  },
+  "cost_models": {
+    "uniform_binary_depth_12": {
+      "roots": 1609,
+      "nodes_per_root": 8191,
+      "mean_cpu_seconds_per_node": 0.11198311125485122,
+      "cpu_hours": 409.9614294000485,
+      "note": "Measured region-search node cost before the final stronger-reference proposal improvement; illustrative baseline workload, not a lower bound."
+    },
+    "uniform_binary_depth_24_cpu_hours": 1679406.9705121838,
+    "full_run_first_box_pass_cpu_hours": 2695.0967039801003,
+    "uniform_binary_depth_12_current": {
+      "roots": 1609,
+      "nodes_per_root": 8191,
+      "mean_cpu_seconds_per_node": 0.123205293601359,
+      "cpu_hours": 451.0449630169358
+    },
+    "uniform_binary_depth_24_current_cpu_hours": 1847705.6634659169
+  },
+  "cost_caveat": "Workload projections, not lower bounds on a better adaptive algorithm. New tubes resolve the previous sampled point-level failures. Complete regional closure still has no demonstrated finite cost from these capped searches.",
+  "box_benchmark_initial": {
+    "count": 134,
+    "closed": 37,
+    "cpu_seconds": 26.89746999999999,
+    "failures": {
+      "unresolved_pairing": 91,
+      "root_derivative": 6
+    }
+  },
+  "point_benchmark_initial": {
+    "count": 134,
+    "closed": 124,
+    "unresolved_ids": [
+      38084,
+      55222,
+      55857,
+      57126,
+      57761,
+      58396,
+      60300,
+      62839,
+      63474,
+      66012
+    ]
+  },
+  "box_benchmark": {
+    "count": 134,
+    "closed": 87,
+    "cpu_seconds": 26.00229300000001
+  },
+  "point_benchmark": {
+    "count": 134,
+    "closed": 134,
+    "unresolved_ids": []
+  },
+  "box_benchmark_before_new_tubes": {
+    "count": 134,
+    "closed": 65,
+    "cpu_seconds": 26.51953299999998
+  },
+  "point_benchmark_before_new_tubes": {
+    "count": 134,
+    "closed": 133,
+    "unresolved_ids": [
+      38084
+    ]
+  },
+  "final_region_benchmark": {
+    "closed": 1,
+    "cpu_seconds": 435.161097,
+    "leaves": 3302,
+    "roots": 16,
+    "status": "INCOMPLETE",
+    "type": "summary",
+    "wall_seconds": 122.96467383299023,
+    "nodes": 3532,
+    "mean_cpu_seconds_per_node": 0.123205293601359
+  },
+  "preflight_leaf_replay_cpu_seconds": 275.4834129999996,
+  "accepted_leaf_depths_initial": {
+    "2": 2,
+    "3": 3,
+    "4": 20,
+    "5": 67,
+    "6": 129,
+    "7": 141,
+    "8": 295,
+    "9": 24,
+    "10": 58,
+    "11": 32,
+    "12": 60,
+    "13": 22,
+    "14": 53,
+    "15": 47,
+    "16": 112,
+    "17": 107,
+    "18": 123,
+    "19": 175,
+    "20": 344,
+    "21": 228,
+    "22": 207,
+    "23": 339,
+    "24": 435
+  }
+}

@@ -1,0 +1,108 @@
+\begin{figure}[htb!]
+\centering
+\begingroup
+\begin{tikzpicture}[
+  every node/.style={font=\footnotesize,align=center},
+  >={Latex[length=1.9mm,width=1.25mm]},
+  flow/.style={->,semithick,draw=black!62,rounded corners=2pt},
+  full/.style={rounded corners=2pt,inner xsep=5pt,inner ysep=3pt,
+               minimum width=.90\columnwidth,text width=.82\columnwidth},
+  decision/.style={full,draw=black!45,densely dashed,fill=black!1},
+  neutral/.style={full,draw=black!42,fill=black!2},
+  bluebox/.style={full,draw=blue!58!black,fill=blue!3},
+  output/.style={full,draw=blue!68!black,thick,fill=blue!4},
+  edge/.style={font=\scriptsize,fill=white,inner sep=1pt,text=black!62},
+  panel/.style={font=\footnotesize\bfseries,text=black,inner sep=0pt,outer sep=0pt},
+  classlabel/.style={font=\footnotesize,align=center,text=black},
+  eqsymbol/.style={font=\footnotesize,align=center,text=black,inner sep=0pt,outer sep=0pt},
+  disjoint/.style={font=\normalsize,align=center,text=black,inner sep=0pt,outer sep=0pt},
+  pregion/.style={draw=black!75,fill=cyan!8,rounded corners=4pt,
+                  minimum width=.575\columnwidth,minimum height=10.0mm},
+  subclass/.style={classlabel,draw=black!70,fill=violet!9,rounded corners=3pt,
+                   minimum height=6.1mm},
+  isolated/.style={circle,draw=black!75,fill=red!8,minimum size=9.4mm,
+                   inner sep=0pt,outer sep=0pt}
+]
+
+% (a) Proof architecture: only the main logical spine is shown here.
+\node[decision] (choice) {%
+  \textbf{Finite-corner search}\\[-1pt]
+  For arbitrary $[H]\in\HH_6$, inspect all $400$\\[-1pt]
+  positional corners.\\[-1pt]
+  \emph{Is any selected $3\times3$ corner a finite-corner witness?}%
+};
+% The left boundary includes the outer ``yes'' branch.
+\coordinate (figleft) at ([xshift=-7.2mm]choice.west);
+\node[panel,anchor=south west]
+  at ($(figleft |- choice.north)+(0,0.8mm)$) {\textbf{A.}};
+
+\node[neutral,below=4.4mm of choice] (routing) {%
+  \textbf{Failure-of-search route}\\[-1pt]
+  \hyperref[prop:main-infinite-fiber-trichotomy]{Propositions.~\ref*{prop:main-infinite-fiber-trichotomy}--\ref*{thm:finitecornerintro}},
+  \hyperref[prop:karlsson-finite-corner]{\ref*{prop:karlsson-finite-corner}},
+  \hyperref[prop:tao-finite-corner]{\ref*{prop:tao-finite-corner}}\\[-1pt]
+  If every test fails, $[H]\in\KK_6^{(3)}$ or $\mathcal T_6$;\\[-1pt]
+  both sectors provide a finite-corner witness.%
+};
+
+\node[bluebox,below=4.4mm of routing] (witness) {%
+  \textbf{Universal finite-corner theorem}\\[-1pt]
+  \hyperref[thm:classification]{Theorem~\ref*{thm:classification}}\\[-1pt]
+  Every $[H]\in\HH_6$ has a finite-corner witness.%
+};
+
+\node[bluebox,below=4.4mm of witness] (dilation) {%
+  \textbf{Branch-complete dilation}\\[-1pt]
+  \hyperref[prop:algorithmvalid]{Proposition~\ref*{prop:algorithmvalid}}\\[-1pt]
+  The finite candidate lists reconstruct $H$.%
+};
+
+\node[output,below=4.4mm of dilation] (finish) {%
+  \textbf{Exact retained output}\\[-1pt]
+  \hyperref[cor:atlas-classification]{Corollary~\ref*{cor:atlas-classification}}\\[-1pt]
+  $\FCAtlas_6^{\mathrm{fc}}=\HH_6$%
+};
+
+\draw[flow] (choice.south)
+  -- node[edge,right,midway,xshift=1.2mm,font=\footnotesize] {no}
+  (routing.north);
+\draw[flow] (choice.west)
+  -- ++(-4.0mm,0)
+  node[edge,above,pos=.45,xshift=-1.0mm,font=\footnotesize] {yes}
+  -- (figleft) |- (witness.west);
+\draw[flow] (routing.south) -- (witness.north);
+\draw[flow] (witness.south) -- (dilation.north);
+\draw[flow] (dilation.south) -- (finish.north);
+
+% (b) Class-space structure
+\coordinate (brow) at ([yshift=-11.0mm]finish.south);
+\node[panel,anchor=west] (panelb)
+  at (figleft |- brow) {\textbf{B.}};
+\node[eqsymbol,anchor=west] (hclass)
+  at ([xshift=3.2mm]finish.west |- brow) {$\HH_6$};
+\node[eqsymbol,anchor=west] (equals)
+  at ([xshift=0.9mm]hclass.east |- brow) {$=$};
+\node[pregion,minimum width=.38\columnwidth,anchor=west] (preg)
+  at ([xshift=0.9mm]equals.east |- brow) {};
+\coordinate (pregrow) at (preg.center);
+\node[subclass,minimum width=.245\columnwidth,anchor=east] (kclass)
+  at ([xshift=-2.5mm]preg.east |- pregrow)
+  {$\KK_6^{(3)}\setminus\{[H_\times]\}$};
+\coordinate (pcenter) at ($($(preg.west)!0.5!(kclass.west)$ |- pregrow)$);
+\node[classlabel,anchor=center] at (pcenter) {$\mathcal P_6$};
+\node[disjoint,anchor=west] (unionone)
+  at ([xshift=1.9mm]preg.east |- brow) {$\mathbin{\dot\cup}$};
+\node[isolated,anchor=west] (taoclass)
+  at ([xshift=1.9mm]unionone.east |- brow) {};
+\node[classlabel] at (taoclass.center) {$\mathcal T_6$};
+\node[disjoint,anchor=west] (uniontwo)
+  at ([xshift=1.9mm]taoclass.east |- brow) {$\mathbin{\dot\cup}$};
+\node[isolated,anchor=west] (hxclass)
+  at ([xshift=1.9mm]uniontwo.east |- brow) {};
+\node[classlabel] at (hxclass.center) {$\{[H_\times]\}$};
+\end{tikzpicture}
+\vspace{2pt}
+\caption{\textbf{Proof architecture and class-space structure.} \textbf{A.} Choose three rows and three columns of $H=\left(\begin{smallmatrix}E&B\\ C&D\end{smallmatrix}\right)\in\T^{6\times6}$, move the selected $3\times3$ block to the upper-left position, dephase, and write its four free entries as $(a,b,c,d)\in\T^4$. For each of the $\binom{6}{3}^{2}=400$ positional choices, the normalized invertible horizontal and vertical candidate sets adjacent to $E$ are denoted by $\mathcal B_E^{\times}$ and $\mathcal C_E^{\times}$. A finite-corner witness is a corner for which both sets are nonempty and finite and contain the actual adjacent blocks $B$ and $C$, respectively (\hyperref[def:finitecorner]{Definition~\ref*{def:finitecorner}}). At a successful corner, Sz\"oll\H{o}si's fixed-corner construction applies. If every test fails, the failure-of-search route places $H$ in the Karlsson or Tao sector, where finite-corner witnesses are produced, proving the universal finite-corner theorem. At the witnessing corner, the branch-complete procedure extends Sz\"oll\H{o}si's Construction~3.1~\cite{Szollosi2012FourParameter} by retaining the uncancelled fixed-Gram systems on exceptional branches, the actual $B,C$ occur in the finite candidate lists, and the uniquely forced block $D=-CE^\dagger(B^{-1})^\dagger$ reconstructs $H$. \hyperref[def:completed-output]{Definition~\ref*{def:completed-output}} specifies the completed output. \textbf{B.} $\HH_6$ is the full class space of all order-six complex Hadamard matrices. The product-regular set $\mathcal P_6$, defined in \hyperref[subsec:global-reach-regular-cover]{Sec.~\ref*{subsec:global-reach-regular-cover}}, contains the product-regular Karlsson classes $\KK_6^{(3)}\setminus\{[H_\times]\}$. \hyperref[thm:global-product-regular-escape]{Theorem~\ref*{thm:global-product-regular-escape}} identifies the two classes outside $\mathcal P_6$ as Tao's isolated class $\mathcal T_6$ and the unique product-exceptional Karlsson class $\{[H_\times]\}$.}
+\label{fig:finite-corner-proof}
+\endgroup
+\end{figure}

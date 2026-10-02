@@ -1,0 +1,31 @@
+{
+  "status": "PASS",
+  "arithmetic": "exact SymPy algebraic arithmetic",
+  "tests": [
+    "rank_two_circle_and_off_range_negative_controls",
+    "augmented_gram_characteristic_coefficients",
+    "rank_one_kernel_slack_and_negative_controls",
+    "rank_zero_and_negative_radius_controls",
+    "unified_predicate_agrees_on_all_rank_strata_and_controls",
+    "exact_positive_circle_reconstruction_and_finite_recovery_with_repeated_references",
+    "exact_strict_physical_quartet_fixed_gauge_exclusion"
+  ],
+  "positive_example_scope": "U=I: repeated reference basis; NOT a physical MUB6 4+1 configuration",
+  "anchor_elimination_scope": "Existing overlap-aligned quartet gauge; four quartet column phases remain part of input",
+  "seed_only_restriction_proved": false,
+  "positive_example_invariants": {
+    "rho": "1/6",
+    "t": "113/108",
+    "e": "13/81",
+    "B": "10/81",
+    "C": "224/2187",
+    "D": "5158/59049"
+  },
+  "strict_fixed_gauge_invariants": {
+    "rho": "-3/2 + 2*sqrt(6)/3",
+    "t": "-35*sqrt(6)/72 - sqrt(2)/24 + 5*sqrt(3)/36 + 25/12",
+    "e": "-43*sqrt(6)/648 - 25*sqrt(2)/864 + 89*sqrt(3)/1728 + 227/864",
+    "rank2_range_equation": "-328*sqrt(6)/729 - 535*sqrt(2)/2592 + 2639*sqrt(3)/15552 + 5735/5184",
+    "rank2_circle_equation": "-15325*sqrt(6)/3888 - 1369*sqrt(2)/2592 + 1159*sqrt(3)/2592 + 8405/864"
+  }
+}

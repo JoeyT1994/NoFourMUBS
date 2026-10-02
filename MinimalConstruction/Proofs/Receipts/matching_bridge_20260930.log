@@ -1,0 +1,31 @@
+PASS universal c6, product-root, and affine-slope identities
+PASS exact strict seed with all product guards on both branches
+{
+  "status": "PASS_EXACT_MATCHING_BRIDGE",
+  "unit_seed": [
+    "5/13 - 12*I/13",
+    "-12/13 + 5*I/13",
+    "3/5 + 4*I/5",
+    "-5/13 - 12*I/13"
+  ],
+  "sides": [
+    {
+      "g": "5956/845",
+      "R": "7003627387904/509831700625",
+      "companion_determinant": "144/65",
+      "c6_nonzero": true,
+      "cubic_discriminant_gcd_degree": 0,
+      "companion_resultant_gcd_degree": 0
+    },
+    {
+      "g": "5956/845",
+      "R": "7003627387904/509831700625",
+      "companion_determinant": "828/845",
+      "c6_nonzero": true,
+      "cubic_discriminant_gcd_degree": 0,
+      "companion_resultant_gcd_degree": 0
+    }
+  ],
+  "cpu_seconds": 1.220704,
+  "scope": "Algebra and nonempty guard witness for MATCHED_FLATNESS.md; no Tao-exception classification or strict-corner coverage."
+}

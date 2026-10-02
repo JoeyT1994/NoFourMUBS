@@ -1,0 +1,56 @@
+{
+  "accepted_region_leaves": 3047,
+  "clean_replay": {
+    "path": "replay/RECEIPT.json",
+    "sha256": "6336bfb6e75378671305ca4a5ea044dbd06a9d5a2aa6947a54a5943a95b3be81"
+  },
+  "created_utc": "2026-10-01T18:04:20.260842+00:00",
+  "default_verify_exit_code": 2,
+  "inputs_sha256": "aabc3521b537899a90ecdfcb67f5c5f4484140ed6253ee0f0c120bc264a1cf72",
+  "new_direct_projector_radius": "1/36",
+  "new_tube_cells": 5,
+  "open_region_leaves": 6340,
+  "partial_evidence_audit": "PASS",
+  "pilot": {
+    "by_family": [
+      {
+        "count": 77049,
+        "family": "1,2,2,4",
+        "ok": false
+      },
+      {
+        "count": 88,
+        "family": "1,2,2,4",
+        "ok": true
+      },
+      {
+        "count": 2354,
+        "family": "2,4,4,2",
+        "ok": false
+      },
+      {
+        "count": 1122,
+        "family": "4,5,0,3",
+        "ok": false
+      }
+    ],
+    "closed": 88,
+    "cpu_seconds": 10.553753,
+    "exact_pi_guard_contained": true,
+    "input_radius": "463617246416447489689/1208925819614629174706176",
+    "reasons": {
+      "exact_containment_in_replayed_box": 87,
+      "exact_containment_in_replayed_region": 1,
+      "unresolved_region_leaf": 80525
+    },
+    "total": 80613,
+    "uncovered": 80525
+  },
+  "results_sha256": "93a45b6eea8c7099aa60c25a3be09f8a72a9239aac2360f49262ab89a316a95c",
+  "source_preservation": {
+    "path": "source_preservation.json",
+    "sha256": "bfe2531aa12fcd5550e47116ad8d60883baeb0e73329685aa9cf48042e3e8014"
+  },
+  "status": "INCOMPLETE",
+  "whole_region": "INCOMPLETE"
+}

@@ -1,0 +1,402 @@
+{
+  "status": "PASS",
+  "completed_at_utc": "2026-09-28T20:39:45.758748+00:00",
+  "python": "3.10.6",
+  "dependencies": {
+    "sympy": "1.14.0",
+    "mpmath": "1.3.0",
+    "numpy": "2.2.6",
+    "python-flint": "0.9.0"
+  },
+  "checks": [
+    {
+      "name": "reconstruction",
+      "script": "MinimalConstruction/Implementation/verify.py",
+      "status": "PASS",
+      "source_sha256": "6dad0ee9f2a21e844bd32172b90910855161455d46daf146edc73fd5e7124a45",
+      "exit_code": 0,
+      "elapsed_seconds": 1.753,
+      "log": "reconstruction.txt"
+    },
+    {
+      "name": "single_radical",
+      "script": "MinimalConstruction/Implementation/verify_single_radical.py",
+      "status": "PASS",
+      "source_sha256": "e428949996ab9baa8351c7b29df4ab4ea5ddea851cc161fd08e19c3127d63e1b",
+      "exit_code": 0,
+      "elapsed_seconds": 1.345,
+      "log": "single_radical.txt"
+    },
+    {
+      "name": "balanced_polynomial",
+      "script": "ProvenResults/BalancedProducts/BalancedFourSeedIdentity.py",
+      "status": "PASS",
+      "source_sha256": "e2f0aa016d4c7fb4760e01725569405e4c5ddaa5f23c8b67c8f8f6872c90f4f5",
+      "exit_code": 0,
+      "elapsed_seconds": 3.253,
+      "log": "balanced_polynomial.txt"
+    },
+    {
+      "name": "balanced_all_corners",
+      "script": "ProvenResults/BalancedProducts/BalancedAllCornersCertificate.py",
+      "status": "PASS",
+      "source_sha256": "057be78343fc32ace0b9bfe3561c5f604a2b1d7d617e6b7628a7ce9cbbc9c0be",
+      "exit_code": 0,
+      "elapsed_seconds": 0.359,
+      "log": "balanced_all_corners.txt"
+    },
+    {
+      "name": "phase_orbits",
+      "script": "ProvenResults/RelativePhases/PhaseGaugeObstruction.py",
+      "status": "PASS",
+      "source_sha256": "e35997309fb6449c26b5f6fbef953f5ceb10089be06ad2ff24ef2e94167d19d4",
+      "exit_code": 0,
+      "elapsed_seconds": 0.744,
+      "log": "phase_orbits.txt"
+    },
+    {
+      "name": "relative_phase_kernel",
+      "script": "ProvenResults/RelativePhases/RelativePhaseCompatibility.py",
+      "status": "PASS",
+      "source_sha256": "1a06b0b01bd29a2caf12b8d7f48efa1cbaf34ab5945fea672bad71574c43e238",
+      "exit_code": 0,
+      "elapsed_seconds": 6.603,
+      "log": "relative_phase_kernel.txt"
+    },
+    {
+      "name": "fourier_blocks",
+      "script": "ProvenResults/FourierBlocks/FourierBlockClassification.py",
+      "status": "PASS",
+      "source_sha256": "82e29dfbb9f5255bbae759bd194d7511945c1c59369fc9bd2e8e073f6dcb6ff9",
+      "exit_code": 0,
+      "elapsed_seconds": 0.05,
+      "log": "fourier_blocks.txt"
+    },
+    {
+      "name": "aligned_anchor",
+      "script": "ProvenResults/AnchorElimination/SmallAnchorElimination.py",
+      "status": "PASS",
+      "source_sha256": "3ebba2bafe97fb9a842360b8aac69105a8274de9491eebaf6265439997d811b0",
+      "exit_code": 0,
+      "elapsed_seconds": 6.839,
+      "log": "aligned_anchor.txt"
+    },
+    {
+      "name": "anchor_inequalities",
+      "script": "ProvenResults/AnchorInequalities/verify.py",
+      "status": "PASS",
+      "source_sha256": "2c3aed30341d91f2e1617637c439dc24b18164833736ad8d20d64bad30e2f538",
+      "exit_code": 0,
+      "elapsed_seconds": 8.552,
+      "log": "anchor_inequalities.txt"
+    },
+    {
+      "name": "completion",
+      "script": "ProvenResults/Completion/verify.py",
+      "status": "PASS",
+      "source_sha256": "fd58626e8f077e0728f0992e87df85138a15a0f603078fa3109cf0ca6fa6735e",
+      "exit_code": 0,
+      "elapsed_seconds": 3.519,
+      "log": "completion.txt"
+    },
+    {
+      "name": "frame_potential",
+      "script": "ProvenResults/SpectralMoments/FramePotential.py",
+      "status": "PASS",
+      "source_sha256": "2f8b2e97b624b3c31c22fcc6ee36ff8e3d71e17a458a3cf26c2ba31b86faff11",
+      "exit_code": 0,
+      "elapsed_seconds": 0.762,
+      "log": "frame_potential.txt"
+    },
+    {
+      "name": "edge_rigidity",
+      "script": "ProvenResults/EdgeRigidity/verify.py",
+      "status": "PASS",
+      "source_sha256": "21e221b41f9f1f076c469968c094cec5ae3dd4e24a96effe74c8f1211b2132b4",
+      "exit_code": 0,
+      "elapsed_seconds": 38.607,
+      "log": "edge_rigidity.txt"
+    },
+    {
+      "name": "tao_exclusion",
+      "script": "ProvenResults/ExceptionalEndpoints/Tao/verify.py",
+      "status": "PASS",
+      "source_sha256": "c31519b6066f43177bd808765b9b19e32ba2bb654d7d85211cb7f477bd0050b7",
+      "exit_code": 0,
+      "elapsed_seconds": 28.991,
+      "log": "tao_exclusion.txt"
+    },
+    {
+      "name": "common_rays_finite_algebra",
+      "script": "ProvenResults/CommonRays/finite_algebra/verify.py",
+      "status": "PASS",
+      "source_sha256": "0269a609653a4b55c8a639f51eb9669d48cd2b210a3bb96a56e84affb1db7987",
+      "exit_code": 0,
+      "elapsed_seconds": 0.673,
+      "log": "common_rays_finite_algebra.txt"
+    },
+    {
+      "name": "common_rays_collisions",
+      "script": "ProvenResults/CommonRays/collisions/verify.py",
+      "status": "PASS",
+      "source_sha256": "089cb27db408061d68958c18bd3a41ad568f3124c6e33b95c568ed346e0ef14e",
+      "exit_code": 0,
+      "elapsed_seconds": 4.294,
+      "log": "common_rays_collisions.txt"
+    },
+    {
+      "name": "common_rays_alignment",
+      "script": "ProvenResults/CommonRays/alignment/verify.py",
+      "status": "PASS",
+      "source_sha256": "b537eeffcf331baeb38eb9be02b89d8a669e590a50fac8ff200f6cb1a11aefff",
+      "exit_code": 0,
+      "elapsed_seconds": 3.765,
+      "log": "common_rays_alignment.txt"
+    },
+    {
+      "name": "cluster_cover",
+      "script": "ProvenResults/CommonRays/ClusterCover/verify.py",
+      "status": "PASS",
+      "source_sha256": "579d856ff6ccc402b02da35804155dc31d5c2ba1135640f431377054107eac91",
+      "exit_code": 0,
+      "elapsed_seconds": 28.911,
+      "log": "cluster_cover.txt"
+    },
+    {
+      "name": "triangle_nullities",
+      "script": "ProvenResults/Triples/TriangleNullities.py",
+      "status": "PASS",
+      "source_sha256": "3b7db2750c32983e1b52ebfaa513e0241ccc55e2c8530e6e84e7bfc8cbade895",
+      "exit_code": 0,
+      "elapsed_seconds": 3.68,
+      "log": "triangle_nullities.txt"
+    },
+    {
+      "name": "quadratic_phase_cone",
+      "script": "ProvenResults/RelativePhases/QuadraticPhaseCone.py",
+      "status": "PASS",
+      "source_sha256": "d918da6fc3d07f91a3901a7f6d7daf39710d8bc582f3aac02e98fa5d6294f167",
+      "exit_code": 0,
+      "elapsed_seconds": 9.381,
+      "log": "quadratic_phase_cone.txt"
+    },
+    {
+      "name": "covariance_contraction",
+      "script": "ProvenResults/Triples/CovarianceContraction.py",
+      "status": "PASS",
+      "source_sha256": "29eca6fa9add8148a6d7f9af67923410c10841f3459381b8764e7269d8f3467a",
+      "exit_code": 0,
+      "elapsed_seconds": 69.415,
+      "log": "covariance_contraction.txt"
+    },
+    {
+      "name": "sharp_three_row",
+      "script": "ProvenResults/Triples/ThreeRowGram/SharpBound.py",
+      "status": "PASS",
+      "source_sha256": "aea11ec4cafd9285b6ac7ebfd0f2543e6006bdf6856d3507f5df7d9a14dc098c",
+      "exit_code": 0,
+      "elapsed_seconds": 0.773,
+      "log": "sharp_three_row.txt"
+    },
+    {
+      "name": "gram_equality_branches",
+      "script": "ProvenResults/Triples/ThreeRowGram/EqualityBranches.py",
+      "status": "PASS",
+      "source_sha256": "67618413de3530798dde7131ea8c6a74a255e07e737bb7f33b1f785fe466b159",
+      "exit_code": 0,
+      "elapsed_seconds": 5.411,
+      "log": "gram_equality_branches.txt"
+    },
+    {
+      "name": "positive_weight_equality",
+      "script": "ProvenResults/Triples/ThreeRowGram/PositiveWeight.py",
+      "status": "PASS",
+      "source_sha256": "94e5590f4d948f77029d6d4e930520a372379c116eb500b856099d530240e195",
+      "exit_code": 0,
+      "elapsed_seconds": 5.949,
+      "log": "positive_weight_equality.txt"
+    },
+    {
+      "name": "h8_mates",
+      "script": "ProvenResults/Triples/ThreeRowGram/H8Mates.py",
+      "status": "PASS",
+      "source_sha256": "c00fa1ca015b3651af647d057f9483f9935c4c39752ae26bde75e06ab569e55d",
+      "exit_code": 0,
+      "elapsed_seconds": 17.335,
+      "log": "h8_mates.txt"
+    },
+    {
+      "name": "fourier_neighbourhood",
+      "script": "ProvenResults/FourierNeighbourhood/verify.py",
+      "status": "PASS",
+      "source_sha256": "fa5e3653de77ec5f61192141298d87edf5468e4b5913c70b9525b45fb2862388",
+      "exit_code": 0,
+      "elapsed_seconds": 55.231,
+      "log": "fourier_neighbourhood.txt"
+    },
+    {
+      "name": "fourier_neighbourhood_family",
+      "script": "ProvenResults/FourierNeighbourhood/verify_seed_family.py",
+      "status": "PASS",
+      "source_sha256": "67b85e1cfef8c6cff33af763a9b4e1a80df3c05ea780a7ea6c89874cc03006a0",
+      "exit_code": 0,
+      "elapsed_seconds": 0.709,
+      "log": "fourier_neighbourhood_family.txt"
+    },
+    {
+      "name": "fourier_seed_atlas",
+      "script": "ProvenResults/FourierNeighbourhood/SeedAtlas/verify.py",
+      "status": "PASS",
+      "source_sha256": "c0b7e5e9055c7367ae88f7fbe42c6394cd1364355629c8465a1e41ace867293f",
+      "exit_code": 0,
+      "elapsed_seconds": 1.327,
+      "log": "fourier_seed_atlas.txt"
+    },
+    {
+      "name": "fourier_uniform_tube",
+      "script": "ProvenResults/FourierNeighbourhood/UniformTube/verify.py",
+      "status": "PASS",
+      "source_sha256": "f0487845acab84196637f9ff3ed4d68b96ef3db1238486706c875447ef181952",
+      "exit_code": 0,
+      "elapsed_seconds": 0.087,
+      "log": "fourier_uniform_tube.txt"
+    },
+    {
+      "name": "fourier_neighbourhood_tests",
+      "script": "ProvenResults/FourierNeighbourhood/tests/test_certificate.py",
+      "status": "PASS",
+      "source_sha256": "1c2d4a8fd7cacb1529d61f51348ea912b0d8672d648cae05b51b8fa634d883f6",
+      "exit_code": 0,
+      "elapsed_seconds": 1.184,
+      "log": "fourier_neighbourhood_tests.txt"
+    },
+    {
+      "name": "fourier_neighbourhood_nonvacuity",
+      "script": "ProvenResults/FourierNeighbourhood/nonvacuity.py",
+      "status": "PASS",
+      "source_sha256": "0ba65def2b93f96de53cc905511e5e0625458b02b31554bbe6e631bc3506c2d6",
+      "exit_code": 0,
+      "elapsed_seconds": 4.422,
+      "log": "fourier_neighbourhood_nonvacuity.txt"
+    },
+    {
+      "name": "four_plus_one",
+      "script": "ProvenResults/FourthBasis/FourPlusOne/verify.py",
+      "status": "PASS",
+      "source_sha256": "ce8c581785422d6a0a0da92281e7dfe795613a5865d1bc6d5f9002673d2ea25a",
+      "exit_code": 0,
+      "elapsed_seconds": 14.029,
+      "log": "four_plus_one.txt"
+    },
+    {
+      "name": "flat_complement",
+      "script": "ProvenResults/FourthBasis/FlatComplement/verify.py",
+      "status": "PASS",
+      "source_sha256": "6d35b88e4f6a6b32318dae55acb1843e64771f59a30e7250e45f2adce2b3ea49",
+      "exit_code": 0,
+      "elapsed_seconds": 0.991,
+      "log": "flat_complement.txt"
+    },
+    {
+      "name": "four_basis_chirality",
+      "script": "ProvenResults/FourthBasis/Chirality/verify.py",
+      "status": "PASS",
+      "source_sha256": "6c452f2379b324410ff5863a93e326dbf14e6d91da58d0c481e42a2bc50c86c9",
+      "exit_code": 0,
+      "elapsed_seconds": 0.684,
+      "log": "four_basis_chirality.txt"
+    },
+    {
+      "name": "ghost_factors",
+      "script": "ProvenResults/FourthBasis/GhostFactors/verify.py",
+      "status": "PASS",
+      "source_sha256": "cb59ab9c92059a99fcea63df668c097bf0740288245ecff9eb98757cc21247dd",
+      "exit_code": 0,
+      "elapsed_seconds": 1.783,
+      "log": "ghost_factors.txt"
+    },
+    {
+      "name": "sheet_conjugation",
+      "script": "ProvenResults/Sheets/verify.py",
+      "status": "PASS",
+      "source_sha256": "041961d7784cd8f53b40f536a1c51af8d4c8f15c39e95d381b10a1c7cac8139b",
+      "exit_code": 0,
+      "elapsed_seconds": 1.835,
+      "log": "sheet_conjugation.txt"
+    },
+    {
+      "name": "side_branch_lemma",
+      "script": "ProvenResults/Sheets/verify_branch_lemma.py",
+      "status": "PASS",
+      "source_sha256": "bc01ce4aa712b0cda6d9566d8ab7499b944dd3554676459d9f34308e5ef2b078",
+      "exit_code": 0,
+      "elapsed_seconds": 1.674,
+      "log": "side_branch_lemma.txt"
+    },
+    {
+      "name": "corner_boundary_bounds",
+      "script": "ProvenResults/CornerBounds/verify.py",
+      "status": "PASS",
+      "source_sha256": "1c5ae3bb644e436cb8ec19e87661cece25f7e1807f0db817899c95f6a6b0efe1",
+      "exit_code": 0,
+      "elapsed_seconds": 33.714,
+      "log": "corner_boundary_bounds.txt"
+    },
+    {
+      "name": "side_column_prune",
+      "script": "ProvenResults/CornerBounds/SideColumnPrune/verify.py",
+      "status": "PASS",
+      "source_sha256": "41c9f6e0a5aa5182dda801adb2270fe44f603b353e3fe09735c3be9b5a2765a9",
+      "exit_code": 0,
+      "elapsed_seconds": 16.666,
+      "log": "side_column_prune.txt"
+    },
+    {
+      "name": "side_triple_prune",
+      "script": "ProvenResults/CornerBounds/SideTriplePrune/verify.py",
+      "status": "PASS",
+      "source_sha256": "10c411be7c1510e59383e7e87a266a8e45702520f260cee3305b6c367e7579ed",
+      "exit_code": 0,
+      "elapsed_seconds": 1.517,
+      "log": "side_triple_prune.txt"
+    },
+    {
+      "name": "count_two",
+      "script": "ProvenResults/Quartets/CountTwo/verify.py",
+      "status": "PASS",
+      "source_sha256": "7b7ac8c3c998dea2e1f8959d0d3d38fff93e9a17f426472c3f64e5c3fc5aa45b",
+      "exit_code": 0,
+      "elapsed_seconds": 48.792,
+      "log": "count_two.txt"
+    },
+    {
+      "name": "count_six",
+      "script": "ProvenResults/Quartets/CountSix/verify.py",
+      "status": "PASS",
+      "source_sha256": "5c5334557b49d91e5f300d2b1a89ca104034458c01729959833af14307ae65c8",
+      "exit_code": 0,
+      "elapsed_seconds": 16.34,
+      "log": "count_six.txt"
+    },
+    {
+      "name": "zauner_matching",
+      "script": "ProvenResults/Triples/ZaunerMatching.py",
+      "status": "PASS",
+      "source_sha256": "259979c367c2903ccc3ed13684909ab326969e0cd3e32feff568cd77b895eda7",
+      "exit_code": 0,
+      "elapsed_seconds": 0.797,
+      "log": "zauner_matching.txt"
+    },
+    {
+      "name": "campaign_reduction",
+      "script": "NumericalCampaign/Domain/verify_reduction.py",
+      "status": "PASS",
+      "source_sha256": "932f82ee98d81f4bc3173a4b543149fa1689f5db13846a3a108dabf898b1cad7",
+      "exit_code": 0,
+      "elapsed_seconds": 16.464,
+      "log": "campaign_reduction.txt"
+    }
+  ],
+  "elapsed_seconds": 136.922,
+  "scope": "Retained exact algebra/certificates and labelled numerical regressions. Universal statements also require their written proofs. No Lean rebuild, external-input verification, or global MUB exclusion."
+}

@@ -1,0 +1,111 @@
+PASS: exact six-corner comparison identity over Q(sqrt(-3))[z,w]
+PASS: F >= 64 on 0<=k<=1, -1<=c<=1
+PASS: 19-node exact Bernstein tree; 10 closed leaves; depth <=7
+PASS: Tao alternative excluded by maximal-corner R<=20 <243
+{
+  "bernstein_leaves": [
+    {
+      "path": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "test": "H>0",
+      "lower": "48175467393159/4194304"
+    },
+    {
+      "path": [
+        1,
+        1,
+        1,
+        1,
+        0,
+        1,
+        1
+      ],
+      "test": "H>0",
+      "lower": "41708909623921875/17179869184"
+    },
+    {
+      "path": [
+        1,
+        1,
+        1,
+        1,
+        0,
+        1,
+        0
+      ],
+      "test": "R>20",
+      "lower": "467529557607/17179869184"
+    },
+    {
+      "path": [
+        1,
+        1,
+        1,
+        1,
+        0,
+        0
+      ],
+      "test": "H>0",
+      "lower": "220636420692095/536870912"
+    },
+    {
+      "path": [
+        1,
+        1,
+        1,
+        0
+      ],
+      "test": "H>0",
+      "lower": "31692245123599/16777216"
+    },
+    {
+      "path": [
+        1,
+        1,
+        0
+      ],
+      "test": "R>20",
+      "lower": "503559/16384"
+    },
+    {
+      "path": [
+        1,
+        0
+      ],
+      "test": "H1>0",
+      "lower": "170953333/728"
+    },
+    {
+      "path": [
+        0,
+        1,
+        1
+      ],
+      "test": "R>20",
+      "lower": "6831/64"
+    },
+    {
+      "path": [
+        0,
+        1,
+        0
+      ],
+      "test": "H>0",
+      "lower": "79168"
+    },
+    {
+      "path": [
+        0,
+        0
+      ],
+      "test": "H1>0",
+      "lower": "17408"
+    }
+  ]
+}
+PASS: exact Fourier-atlas seeds in D0 with 0<R<=20 have Fourier-family carriers

@@ -1,0 +1,17 @@
+COMMAND: ['/opt/pyvenv/bin/python', '-B', '/mnt/data/review_work/NoFourMUBS/ProvenResults/EffectiveConfinement/verify.py', '--repository', '/mnt/data/review_work/NoFourMUBS', '--output', '/mnt/data/ReviewPatch_2026-10-01/logs/effective_confinement_receipt.json']
+CWD: /mnt/data/review_work/NoFourMUBS
+Traceback (most recent call last):
+  File "/mnt/data/review_work/NoFourMUBS/ProvenResults/EffectiveConfinement/verify.py", line 275, in <module>
+    main()
+    ~~~~^^
+  File "/mnt/data/review_work/NoFourMUBS/ProvenResults/EffectiveConfinement/verify.py", line 259, in main
+    'predicate_controls':controls, 'repository_source_audit':source_audit(args.repository),
+                                                             ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/mnt/data/review_work/NoFourMUBS/ProvenResults/EffectiveConfinement/verify.py", line 238, in source_audit
+    require(sha256(path.read_bytes()).hexdigest() == entry['sha256'],
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            'repository source hash mismatch '+entry['path'])
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/data/review_work/NoFourMUBS/ProvenResults/EffectiveConfinement/verify.py", line 30, in require
+    raise AssertionError(message)
+AssertionError: repository source hash mismatch HANDOFF.md

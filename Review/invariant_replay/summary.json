@@ -1,0 +1,66 @@
+{
+  "status": "PASS",
+  "exit_code": 0,
+  "source_sha256": "428779a80cc547b1c87f6352ad55da8c752f116a3799bad4aa8cc816a152f914",
+  "instrumented_source_sha256": "1a2c55bc39c9457f013620bdc905c8789dc39446976553e90e437141f9bb01cc",
+  "source_unchanged": true,
+  "theta": [
+    2.436236992962,
+    0.486979737447,
+    -2.147122554702,
+    -1.87641662987
+  ],
+  "rho": 0.006135923152452059,
+  "carrier_replayed": true,
+  "guard_replacements": [
+    {
+      "needle": "using IntervalArithmetic\n",
+      "count": 1
+    },
+    {
+      "needle": "@inline up(x::Float64) = muladd(x, 1.0 + 2.0^-30, 1e-300)",
+      "count": 1
+    },
+    {
+      "needle": "table(Q::Int) = get!(() -> build_table(Q), TABLES, Q)",
+      "count": 1
+    },
+    {
+      "needle": "struct TM{Q}\n    c::Vector{Float64}\n    r::Float64\nend",
+      "count": 1
+    },
+    {
+      "needle": "set_remainder(a::TM{Q}, r) where Q = TM{Q}(a.c, r)",
+      "count": 1
+    },
+    {
+      "needle": "tmconst(Q::Int, x::Real) = (c = zeros(tmlen(Q));",
+      "count": 1
+    },
+    {
+      "needle": "function tmconst(Q::Int, X::Interval)\n",
+      "count": 1
+    },
+    {
+      "needle": "    xf = Float64(x); @assert xf == x \"inexact scalar; use an Interval\"",
+      "count": 2
+    },
+    {
+      "needle": "function Base.:*(X::Interval, a::TM{Q}) where Q\n",
+      "count": 1
+    },
+    {
+      "needle": "Base.:/(a::TM, x::Real) = (interval(1.0) / interval(Float64(x))) * a",
+      "count": 1
+    },
+    {
+      "needle": "Base.:^(a::TM, n::Integer) = n == 0 ? one(a) : n == 1 ? a : (n % 2 == 0 ? (h = a^(n \u00f7 2); h * h) : a * a^(n - 1))",
+      "count": 1
+    },
+    {
+      "needle": "function bound(a::TM{Q}) where Q\n",
+      "count": 1
+    }
+  ],
+  "scope": "One guarded local replay and controls, not all campaign cells"
+}

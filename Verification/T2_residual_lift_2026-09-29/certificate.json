@@ -1,0 +1,126 @@
+{
+  "status": "PASS",
+  "replays": [
+    {
+      "precision": 96,
+      "certificate": {
+        "ok": true,
+        "reason": "residual_tube",
+        "column_distance": "[0.01911410404130869265667474996 +/- 2.78e-30]",
+        "reference_gram_lower": "0.7606009840965270996093750000",
+        "C_error": "[0.03150177080352107700913290079 +/- 2.39e-30]",
+        "eta": "[0.03612073058895684274080187191 +/- 2.00e-30]",
+        "first_column_error": "[0.02838598673475749171919017722 +/- 9.57e-31]",
+        "B_column_error": "[0.01150276709454286178766418925 +/- 2.73e-30]",
+        "preconditioned_residual": "[0.04374546911877286157440034880 +/- 1.83e-30]",
+        "D_column_error": "[0.04538480129933964743953676896 +/- 3.03e-31]",
+        "B_triples": 1719,
+        "C_triples": 2261,
+        "allowed_column_distance": "[0.02083333333333333333333333333 +/- 3.47e-30]",
+        "R_cap": "[8.694958281888365755565386860 +/- 3.39e-28]",
+        "sides": [
+          {
+            "nodes": 6428,
+            "moment_leaves": 2234,
+            "corner_leaves": 237,
+            "labels": 775,
+            "pair_checks": 300700,
+            "triple_checks": 3742,
+            "retained_triples": 1719
+          },
+          {
+            "nodes": 6342,
+            "moment_leaves": 2243,
+            "corner_leaves": 181,
+            "labels": 779,
+            "pair_checks": 303810,
+            "triple_checks": 2407,
+            "retained_triples": 2261
+          }
+        ],
+        "regional_cell": {
+          "grid": 180,
+          "a": 3,
+          "b": 0,
+          "tolerance_denominator": 8,
+          "rho_denominator": 6,
+          "centers": "centers_180_3_0.json"
+        }
+      },
+      "R_lower": "[8.286680938713733528220252803 +/- 3.55e-28]",
+      "physical_controls": 324,
+      "assignment_controls": 3980
+    },
+    {
+      "precision": 160,
+      "certificate": {
+        "ok": true,
+        "reason": "residual_tube",
+        "column_distance": "[0.019114105693567704666920496582384506622358582747 +/- 3.13e-49]",
+        "reference_gram_lower": "0.76060098409652709960937500000000000000000000000",
+        "C_error": "[0.031501770803521077009132900791610968769810011636 +/- 2.75e-49]",
+        "eta": "[0.036120730588956842740801871909821130276804314880 +/- 4.55e-50]",
+        "first_column_error": "[0.028385986734757491719190177220830683410507608938 +/- 1.08e-50]",
+        "B_column_error": "[0.011502767110805588472411193807009870189774621073 +/- 4.79e-49]",
+        "preconditioned_residual": "[0.043745473139147930519366372984257375216375189695 +/- 1.48e-49]",
+        "D_column_error": "[0.045384805470375581640638717077044777455947742253 +/- 7.56e-50]",
+        "B_triples": 1719,
+        "C_triples": 2261,
+        "allowed_column_distance": "[0.020833333333333333333333333333333333333333333333 +/- 3.41e-49]",
+        "R_cap": "[8.6949582818883657555653867022214030174619744624 +/- 3.90e-47]",
+        "sides": [
+          {
+            "nodes": 6428,
+            "moment_leaves": 2234,
+            "corner_leaves": 237,
+            "labels": 775,
+            "pair_checks": 300700,
+            "triple_checks": 3742,
+            "retained_triples": 1719
+          },
+          {
+            "nodes": 6342,
+            "moment_leaves": 2243,
+            "corner_leaves": 181,
+            "labels": 779,
+            "pair_checks": 303810,
+            "triple_checks": 2407,
+            "retained_triples": 2261
+          }
+        ],
+        "regional_cell": {
+          "grid": 180,
+          "a": 3,
+          "b": 0,
+          "tolerance_denominator": 8,
+          "rho_denominator": 6,
+          "centers": "centers_180_3_0.json"
+        }
+      },
+      "R_lower": "[8.2866809387164620123255714591827547320768392459 +/- 1.46e-47]",
+      "physical_controls": 324,
+      "assignment_controls": 3980
+    }
+  ],
+  "production_control": {
+    "ok": false,
+    "reason": "label_limit",
+    "sides": [
+      {
+        "nodes": 4635,
+        "moment_leaves": 1061,
+        "corner_leaves": 61,
+        "labels": 1200,
+        "reason": "label_limit"
+      }
+    ],
+    "regional_cell": {
+      "grid": 180,
+      "a": 3,
+      "b": 0,
+      "tolerance_denominator": 8,
+      "rho_denominator": 6,
+      "centers": "centers_180_3_0.json"
+    }
+  }
+}

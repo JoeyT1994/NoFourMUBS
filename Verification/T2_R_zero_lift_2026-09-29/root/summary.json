@@ -1,0 +1,69 @@
+{
+  "status": "PASS",
+  "completed_at_utc": "2026-09-29T05:25:22.763678+00:00",
+  "python": "3.10.6",
+  "dependencies": {
+    "sympy": "1.14.0",
+    "mpmath": "1.3.0",
+    "numpy": "2.2.6",
+    "python-flint": "0.9.0"
+  },
+  "checks": [
+    {
+      "name": "fourier_practical_audit",
+      "script": "ProvenResults/FourierNeighbourhood/PracticalTube/audit.py",
+      "status": "PASS",
+      "source_sha256": "7f0c39ce25739f7f8474552a66d695d3ecab0e5a9e94233cb04e4859d8d09b44",
+      "exit_code": 0,
+      "elapsed_seconds": 0.061,
+      "log": "fourier_practical_audit.txt"
+    },
+    {
+      "name": "fourier_practical_controls",
+      "script": "ProvenResults/FourierNeighbourhood/PracticalTube/verify_controls.py",
+      "status": "PASS",
+      "source_sha256": "67b0a3aedf549d2478206f22583d5c1c102756e3bf805caf84ca9e0a4e4af066",
+      "exit_code": 0,
+      "elapsed_seconds": 6.412,
+      "log": "fourier_practical_controls.txt"
+    },
+    {
+      "name": "fourier_seed_lifting",
+      "script": "ProvenResults/FourierNeighbourhood/SeedLifting/verify.py",
+      "status": "PASS",
+      "source_sha256": "8d125fd3ab1decd3029074db2367d179c8852d6d719567262f49382af5d22703",
+      "exit_code": 0,
+      "elapsed_seconds": 5.979,
+      "log": "fourier_seed_lifting.txt"
+    },
+    {
+      "name": "fourier_f6_cluster_tube",
+      "script": "ProvenResults/FourierNeighbourhood/ClusterTube/verify.py",
+      "status": "PASS",
+      "source_sha256": "48015b997e418b4cacb95b7592970d8f29e4efb9b0a97d6637e8154c688e9243",
+      "exit_code": 0,
+      "elapsed_seconds": 3.513,
+      "log": "fourier_f6_cluster_tube.txt"
+    },
+    {
+      "name": "fourier_R_zero_lift",
+      "script": "ProvenResults/FourierNeighbourhood/SeedLifting/verify_rzero_lift.py",
+      "status": "PASS",
+      "source_sha256": "c023f26c0a14813140ec31e84f888e6d36ff935573a1f5ea7fa866d18bc0de4d",
+      "exit_code": 0,
+      "elapsed_seconds": 2.245,
+      "log": "fourier_R_zero_lift.txt"
+    },
+    {
+      "name": "paired_side_prune",
+      "script": "ProvenResults/CornerBounds/PairedSidePrune/verify.py",
+      "status": "PASS",
+      "source_sha256": "f40a30ae6d6d9021f7faafde344991a48615d155d26440f04761c8663e74b027",
+      "exit_code": 0,
+      "elapsed_seconds": 69.451,
+      "log": "paired_side_prune.txt"
+    }
+  ],
+  "elapsed_seconds": 75.468,
+  "scope": "Retained exact algebra/certificates and labelled numerical regressions. Universal statements also require their written proofs. No Lean rebuild, external-input verification, or global MUB exclusion."
+}

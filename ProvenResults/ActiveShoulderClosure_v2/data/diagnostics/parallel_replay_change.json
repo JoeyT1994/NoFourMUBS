@@ -1,0 +1,14 @@
+{
+  "reason": "Interrupted serial continuation repeated 4946 cover calls for 1280 distinct enclosing inputs.",
+  "interrupted_timing": "replay/timing/v2_aborted_serial_replay.timing.json",
+  "changes": [
+    "Fresh identical-geometry replay cache; no disk success imported",
+    "Independent spawned worker cover precomputation",
+    "All original exact tree, both-sign, guard and containment checks remain",
+    "Atomic progress file plus completed cover records"
+  ],
+  "controls": "parallel_replay_audits.py plus live four-worker Julia 1.12.7 smoke test",
+  "historical_unique_cover_cpu_seconds": 7631.284320000008,
+  "ideal_eight_worker_seconds": 956.3045169999998,
+  "scope": "Timing estimate only; not a bound or proof claim"
+}

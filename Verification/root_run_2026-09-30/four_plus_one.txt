@@ -1,0 +1,40 @@
+{
+  "status": "PASS",
+  "exact_checks": [
+    "fixed observable: |s|=1 and A=4-|t-sr|^2 on both sides",
+    "compact g,eta,chi,R identities on both sides",
+    "cleared moment matrices equal the generic single-radical matrices",
+    "unit-sum cubic factorization (repeated X entries are (s,s,-s))",
+    "constant five-ray Gram determinant and explicit inverse",
+    "rank-one defect diagonal equals (4-|sum outer-sqrt(6)*anchor|^2)/12",
+    "standard ghost vs physical anchor: exact sum-of-squares gap >=54",
+    "fixed Hadamard 2x2 cross-block minor",
+    "universal positive covariance with unit diagonal, target Gram, and fixed anchor coordinate",
+    "correct 4+1 graph; counts 25/41 and 29/45; maximal ray degrees 4 and 2"
+  ],
+  "precision_decimal_digits": 75,
+  "gram_cases": 12,
+  "equation_cases": {
+    "plain": 8,
+    "aligned": 8
+  },
+  "ghost_anchor_cases": 432,
+  "smallest_sampled_squared_ghost_residual": "55.292341855",
+  "maximum_relative_or_absolute_residuals": {
+    "LLdagger equals seed-linear metric": "2.3490378e-74",
+    "metric determinant g/216": "8.6367167e-77",
+    "synthetic aligned Gram": "8.7416973e-75",
+    "Gram implies rank-one defect": "2.4526719e-74",
+    "rank-one construction recovers target Gram": "1.8018556e-73",
+    "plain equations vs reconstructed rays": "2.8870829e-73",
+    "aligned equations vs reconstructed rays": "1.6388309e-73",
+    "independent carrier unitarity": "1.1254016e-76",
+    "independent third basis unitarity": "1.1054296e-75",
+    "independent third basis unbiasedness": "5.5271479e-76",
+    "ghost overlap identity": "1.4370584e-74",
+    "ghost SOS identity": "2.8298997e-73"
+  },
+  "elapsed_seconds": 18.677,
+  "scope": "Exact reformulation and standard-ghost exclusion. NOT a certificate of 4+1 emptiness."
+}
+PASS: 4+1 reduction, second-moment witness and standard-ghost gap

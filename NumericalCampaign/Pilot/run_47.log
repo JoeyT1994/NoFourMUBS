@@ -1,0 +1,13 @@
+The latest version of Julia in the `release~aarch64` channel is 1.13.1+0.aarch64.apple.darwin14. You currently have `1.12.1+0.aarch64.apple.darwin14` installed. Run:
+
+  juliaup update
+
+in your terminal shell to install Julia 1.13.1+0.aarch64.apple.darwin14 and update the `release~aarch64` channel to that version.
+
+[85909] signal 15: Terminated: 15
+in expression starting at /Users/jtindall/Files/NoFourMUBS/NumericalCampaign/Pilot/pilot_completeness.jl:51
+__psynch_cvwait at /usr/lib/system/libsystem_kernel.dylib (unknown line)
+unknown function (ip: 0x0) at (unknown file)
+_mult at /Users/jtindall/.julia/packages/IntervalArithmetic/8x3m4/src/intervals/arithmetic/basic.jl:0
+unknown function (ip: 0x0) at (unknown file)
+Allocations: 2928668167 (Pool: 2928667465; Big: 702); GC: 1489

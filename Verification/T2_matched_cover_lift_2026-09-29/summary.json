@@ -1,0 +1,35 @@
+{
+  "status": "PASS",
+  "completed_at_utc": "2026-09-29T05:49:05.383515+00:00",
+  "scope": "Standalone complete proof replay, not an all-58-check run or an isolated root run.",
+  "command": "python3 -B ProvenResults/FourierNeighbourhood/SeedLifting/verify_side_cover_lift.py --output Verification/T2_matched_cover_lift_2026-09-29/certificate.json",
+  "replays": [
+    {
+      "precision": 96,
+      "leaves": 255,
+      "lifted": 248,
+      "outside_D0": 7,
+      "column_upper": "[0.027721527241395901953973555770392000000858087726 +/- 3.12e-49]",
+      "row_upper": "[0.027768225639620262494686057671140000003556252893 +/- 4.35e-49]",
+      "additional_cubes": 2
+    },
+    {
+      "precision": 160,
+      "leaves": 255,
+      "lifted": 248,
+      "outside_D0": 7,
+      "column_upper": "[0.027721527241395901953973555768376949847687033246 +/- 1.92e-49]",
+      "row_upper": "[0.027768225638612384505676386089096429832889517945 +/- 3.88e-50]",
+      "additional_cubes": 2
+    }
+  ],
+  "exact_audits": [
+    "complete closed dyadic tree",
+    "rational leaf coordinates",
+    "missing/duplicate leaf rejection",
+    "400-corner six-class enumeration",
+    "rational column/row constants"
+  ],
+  "matching_audit_triples": 180470,
+  "frame_controls": 216
+}

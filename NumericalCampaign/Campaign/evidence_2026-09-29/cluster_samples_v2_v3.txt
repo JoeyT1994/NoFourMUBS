@@ -1,0 +1,32 @@
+retest (300 cells that failed in the 1% sample): 300 of 300 cells finished, code ['d1c21e4a50a5fde9']
+  fully certified 189 (63.0%), with failed leaves 111 (37.0%)
+  time per cell: median 2079 s, mean 1922 s, p90 2405 s, max 2421 s; at the 2,400 s cap 111
+  certified leaves {'cover': 3172, 'rays': 455}; failed leaves {'FAILED:time_limit': 1249, 'FAILED:label_too_big': 14}
+0.2% sample (cells 86,465..103,755): 17291 of 17291 cells finished, code ['d1c21e4a50a5fde9']
+  fully certified 15777 (91.2%), with failed leaves 1514 (8.8%)
+  time per cell: median 52 s, mean 589 s, p90 2244 s, max 2456 s; at the 2,400 s cap 1531
+  certified leaves {'rays': 49649, 'cover': 50510}; failed leaves {'FAILED:time_limit': 16913, 'FAILED:label_too_big': 204, 'FAILED:cert_time': 2}
+  projection for 8,645,547 cells: 1,414,598 CPU-h of task time (complete sample)
+  R in [-inf, 250): 2092 cells (12%), failure 0.2%, mean 39 s, cost share 1%
+  R in [250, 300): 4793 cells (28%), failure 3.6%, mean 302 s, cost share 14%
+  R in [300, inf): 10406 cells (60%), failure 12.8%, mean 832 s, cost share 85%
+
+0.2% sample, accelerated cover-only (cells 103,756..121,046): 17291 of 17291 cells finished, code ['a0d4fa3e64edc5c5']
+  fully certified 17291 (100.0%), with failed leaves 0 (0.0%)
+  time per cell: median 18 s, mean 25 s, p90 35 s, max 1897 s; at the 2,400 s cap 0
+  certified leaves {'cover_accelerated': 18355}; failed leaves {}
+  projection for 8,645,547 cells: 59,977 CPU-h of task time (complete sample)
+  R in [-inf, 250): 2129 cells (12%), failure 0.0%, mean 47 s, cost share 23%
+  R in [250, 300): 4897 cells (28%), failure 0.0%, mean 22 s, cost share 24%
+  R in [300, inf): 10265 cells (59%), failure 0.0%, mean 22 s, cost share 52%
+
+7133916             nofour-certifyv2_1_8946   RESIZING   03:47:16    3490816 
+7133916             nofour-certifyv2_1_8946   RESIZING   03:48:12   12268032 
+7133916             nofour-certifyv2_1_8946   RESIZING   03:50:03   12367488 
+7133916             nofour-certifyv2_1_8946   RESIZING   03:51:00   10644480 
+7133916             nofour-certifyv2_1_8946   RESIZING   03:51:30    8889600 
+7133916             nofour-certifyv2_1_8946   RESIZING   03:52:47    7151104 
+7133916             nofour-certifyv2_1_8946   RESIZING   03:53:48    5386752 
+7133916             nofour-certifyv2_1_8946  COMPLETED   03:58:51    3668736 
+7135613             nofour-certifyv3_1_4323   RESIZING   00:45:49     351872 
+7135613             nofour-certifyv3_1_4323  COMPLETED   00:57:55     444800 

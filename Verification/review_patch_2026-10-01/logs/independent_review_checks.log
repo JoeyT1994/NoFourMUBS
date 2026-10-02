@@ -1,0 +1,10 @@
+COMMAND: ['python', '-B', '/mnt/data/ReviewPatch_2026-10-01/review_checks.py', '--project-root', '/mnt/data/review_work/NoFourMUBS']
+CWD: /mnt/data/review_work/NoFourMUBS
+PASS: production SHA256 7e9c0bc3c08a42094d1f1dca34a61238c7a3510f091db189fa7947f1c2f35baa
+PASS: reverting precisely the rescaled block and header gives e18d1563b7413ad70423ed1dc16a3a785b929607611aac036fe61048a77df984
+PASS: exact finite controls for reciprocal identity and binomial-tail domination, Q=0..12
+PASS: exact JPT parameter substitution and printed K,N integers
+PASS: all five original verification/source-audit functions are AST-identical in the patch
+PASS: duplicate-orbit and zero-completion-error negative controls reject
+PASS: Julia test body exactly matches the archived global-counter fix; NOT executed in Julia
+{"status": "PASS", "julia_executed": false, "production_cover_tests_run": 0}

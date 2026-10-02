@@ -1,0 +1,24 @@
+{
+  "status": "PASS",
+  "completed_at_utc": "2026-10-01T01:40:24.728646+00:00",
+  "python": "3.10.6",
+  "dependencies": {
+    "sympy": "1.14.0",
+    "mpmath": "1.3.0",
+    "numpy": "2.2.6",
+    "python-flint": "0.9.0"
+  },
+  "checks": [
+    {
+      "name": "symmetric_signed_corner_prune",
+      "script": "ProvenResults/SymmetricSignedCornerPrune/verify.py",
+      "status": "PASS",
+      "source_sha256": "550ecf8b494033a8cfd195f90b0413c29088c4e48f182517a14adfa4182a97e8",
+      "exit_code": 0,
+      "elapsed_seconds": 94.686,
+      "log": "symmetric_signed_corner_prune.txt"
+    }
+  ],
+  "elapsed_seconds": 95.172,
+  "scope": "Retained exact algebra/certificates and labelled numerical regressions. Universal statements also require their written proofs. No Lean rebuild, external-input verification, or global MUB exclusion."
+}

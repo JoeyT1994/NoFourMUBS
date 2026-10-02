@@ -1,0 +1,144 @@
+{
+  "exact": {
+    "Fourier_power_difference": true,
+    "scaled_unitary_linear_solve": true,
+    "covariance_determinant": true,
+    "phase_Laurent_centered_product": true,
+    "phase_Laurent_variance": true,
+    "two_term_cube": true,
+    "coordinate_discriminant": true,
+    "oriented_block_determinant": true,
+    "quadratic_stage_L": true,
+    "zero_old_pivot_example": true,
+    "repeated_coordinate_example": true
+  },
+  "numerical": {
+    "precision_digits": 80,
+    "strict_seeds": 100,
+    "matrices": 200,
+    "arbitrary_ray_inputs": 400,
+    "maximum_absolute_residuals": {
+      "flatness": "5.83616078137e-78",
+      "unitarity": "3.19217753721e-77",
+      "side_gram": "1.31397955164e-77",
+      "L_factorization": "3.07290734672e-78",
+      "cube_amplitude": "4.46462082896e-78",
+      "power_difference_imaginary": "1.56810237565e-78",
+      "vertical_intensities": "1.01474992577e-76",
+      "horizontal_intensities": "3.72260822682e-76",
+      "pair_overlap": "2.11674923607e-76",
+      "side_permutations": "7.0915383879e-81",
+      "old_double_precision_comparison": "4.0583920359e-14"
+    },
+    "seed_examples": [
+      {
+        "phases": [
+          "1",
+          "(-0.5 + 0.86602540378443864676372317075293618347140262690519031402790348972596650845440002j)",
+          "(-0.5 + 0.86602540378443864676372317075293618347140262690519031402790348972596650845440002j)",
+          "1"
+        ],
+        "sheet": -1,
+        "R": "243.0",
+        "error": "7.59038251913e-80",
+        "boundary_roundoff_used": false
+      },
+      {
+        "phases": [
+          "1",
+          "(-0.5 + 0.86602540378443864676372317075293618347140262690519031402790348972596650845440002j)",
+          "(-0.5 + 0.86602540378443864676372317075293618347140262690519031402790348972596650845440002j)",
+          "1"
+        ],
+        "sheet": 1,
+        "R": "243.0",
+        "error": "8.43375835458e-80",
+        "boundary_roundoff_used": false
+      },
+      {
+        "phases": [
+          "-1",
+          "-1",
+          "-1",
+          "1j"
+        ],
+        "sheet": -1,
+        "R": "0.0",
+        "error": "4.21687917729e-80",
+        "boundary_roundoff_used": true
+      },
+      {
+        "phases": [
+          "-1",
+          "-1",
+          "-1",
+          "1j"
+        ],
+        "sheet": 1,
+        "R": "0.0",
+        "error": "4.21687917729e-80",
+        "boundary_roundoff_used": true
+      },
+      {
+        "phases": [
+          "1j",
+          "(-0-1j)",
+          "(-0-1j)",
+          "1j"
+        ],
+        "sheet": -1,
+        "R": "256.0",
+        "error": "1.88155697166e-80",
+        "boundary_roundoff_used": false
+      },
+      {
+        "phases": [
+          "1j",
+          "(-0-1j)",
+          "(-0-1j)",
+          "1j"
+        ],
+        "sheet": 1,
+        "R": "256.0",
+        "error": "1.63792047294e-80",
+        "boundary_roundoff_used": false
+      },
+      {
+        "phases": [
+          "-1",
+          "(-0-1j)",
+          "1",
+          "1j"
+        ],
+        "sheet": -1,
+        "R": "0.0",
+        "error": "2.10843958865e-79",
+        "boundary_roundoff_used": true
+      },
+      {
+        "phases": [
+          "-1",
+          "(-0-1j)",
+          "1",
+          "1j"
+        ],
+        "sheet": 1,
+        "R": "0.0",
+        "error": "2.10843958865e-79",
+        "boundary_roundoff_used": true
+      }
+    ],
+    "side_edge_examples": [
+      {
+        "case": "zero_old_pivot",
+        "permutation_error": "3.3337357045e-81"
+      },
+      {
+        "case": "zero_mean",
+        "permutation_error": "3.83776828337e-81"
+      }
+    ],
+    "scope": "Independent floating-point diagnostics; not interval certification or physical pair witnesses."
+  },
+  "status": "PASS"
+}

@@ -1,0 +1,39 @@
+{
+  "benchmark": "data/benchmarks/v2_production_subtrees.json.gz",
+  "partition_source_sha256": "01b997ca2702c3492485646407f4d0553f3f16b446c38fa16d5ace29af2a5b31",
+  "raw_forest_sha256": "ba9bc56915c081c6b7452ff2260e9ce7fae003eada913d0093f7527d11a59954",
+  "root": 7,
+  "rows": [
+    {
+      "actual": 8,
+      "max_retained_cover_cpu": 3783.5171610000043,
+      "parts": 8,
+      "retained_cover_cpu_sum": 6994.8106300000045
+    },
+    {
+      "actual": 16,
+      "max_retained_cover_cpu": 1955.0891299999998,
+      "parts": 16,
+      "retained_cover_cpu_sum": 6994.810630000004
+    },
+    {
+      "actual": 32,
+      "max_retained_cover_cpu": 1955.0891299999998,
+      "parts": 32,
+      "retained_cover_cpu_sum": 6994.810630000004
+    },
+    {
+      "actual": 64,
+      "max_retained_cover_cpu": 1698.7358769999985,
+      "parts": 64,
+      "retained_cover_cpu_sum": 6943.775402000003
+    },
+    {
+      "actual": 128,
+      "max_retained_cover_cpu": 1005.8813020000002,
+      "parts": 128,
+      "retained_cover_cpu_sum": 6641.018266000003
+    }
+  ],
+  "scope": "Scheduling diagnostic from retained historical search timings, not a proof or a future runtime upper bound."
+}

@@ -1,0 +1,17 @@
+The latest version of Julia in the `release~aarch64` channel is 1.13.1+0.aarch64.apple.darwin14. You currently have `1.12.1+0.aarch64.apple.darwin14` installed. Run:
+
+  juliaup update
+
+in your terminal shell to install Julia 1.13.1+0.aarch64.apple.darwin14 and update the `release~aarch64` channel to that version.
+Julia 1.12.1; gradual underflow enabled; Float64 round-to-nearest
+Test Summary:                  | Pass  Total  Time
+range-guard rejection controls |    9      9  0.5s
+Test Summary:                                      | Pass  Total  Time
+exact rational subnormal and cancellation controls |    4      4  0.1s
+Test Summary:                  | Pass  Total  Time
+order-12 intrinsic regressions |   12     12  0.5s
+control model checks=186; control maximum order=12
+PASS: local carrier Taylor-model replay, all construction guards passed
+theta=[2.436236992962, 0.486979737447, -2.147122554702, -1.87641662987] radius=0.006135923152452059
+guarded model constructions/checks=5561; largest certified norm bound=5327.28774767383; maximum Taylor order=8
+PASS: guarded replay; this is not a full campaign audit

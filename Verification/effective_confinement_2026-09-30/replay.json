@@ -1,0 +1,80 @@
+{
+  "status": "PASS",
+  "python": "3.10.6",
+  "finite_algebra_and_constants": "PASS",
+  "arithmetic": "arbitrary-precision integers and exact Fractions only",
+  "certificate_sha256": "94e2a53221b461d009bb64713ee7db27c33d5f79df6bb979daacc458af523c8f",
+  "predicate_controls": {
+    "exact_comparison_cases": 540,
+    "invalid_inputs_rejected": 7,
+    "below_equal_above_cutoff": "PASS",
+    "tampering": "PASS",
+    "exact_F6_point_API_control": {
+      "module": "EffectiveConfinement/2026-09-30/v1",
+      "seed_units": "turns",
+      "seed_box": [
+        [
+          "2/3",
+          "2/3"
+        ],
+        [
+          "5/6",
+          "5/6"
+        ],
+        [
+          "0",
+          "0"
+        ],
+        [
+          "1/2",
+          "1/2"
+        ]
+      ],
+      "R_enclosure": [
+        {
+          "mantissa": "0",
+          "exponent2": "0"
+        },
+        {
+          "mantissa": "1",
+          "exponent2": "-74960990727782768688244669160897235157377430230925313"
+        }
+      ],
+      "premises": [
+        "The caller-supplied R enclosure is outward on the entire closed seed box.",
+        "Only physical Hadamards with this seed as a strict maximal corner are asserted excluded."
+      ],
+      "status": "CERTIFIED",
+      "conclusion": "no_quartet_edge_on_strict_physical_D0",
+      "cutoff": {
+        "mantissa": "1",
+        "exponent2": "-74960990727782768688244669160897235157377430230925312"
+      },
+      "full_matrix_phase_radius": "1/3072",
+      "projector_radius": "1/3072",
+      "accepted_inputs": [
+        "MinimalConstruction/ASSUMPTIONS.md: strict-corner coverage"
+      ],
+      "proved_dependencies": [
+        "CornerBounds: complementary-corner square identity",
+        "Jeronimo-Perrucci-Tsigaridas, arXiv:1112.0544v1, Theorem 1",
+        "FourierNeighbourhood/ClusterTube/EXPANDED.md: projector tube 1/30"
+      ]
+    },
+    "API_control_scope": "Degenerate R=0 seed point; not a positive-width campaign cell",
+    "R_enclosure_outwardness": "CALLER PREMISE, NOT VERIFIED HERE"
+  },
+  "repository_source_audit": {
+    "status": "PASS",
+    "matched_files": 16
+  },
+  "accepted_input_NOT_proved_here": "strict-corner coverage",
+  "published_dependency_NOT_reproved_here": "Jeronimo-Perrucci-Tsigaridas, arXiv:1112.0544v1, Theorem 1",
+  "upstream_proof_packets_NOT_replayed_here": [
+    "ChartConditioning: local inverse and inactive classes",
+    "ClusterTube: 1/30 F6 quartet exclusion"
+  ],
+  "new_global_numerical_cover_run": false,
+  "production_width_class_1224_proved": false,
+  "seconds": 1.3454574999923352
+}

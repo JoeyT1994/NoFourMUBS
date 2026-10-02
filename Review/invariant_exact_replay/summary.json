@@ -1,0 +1,24 @@
+{
+  "status": "PASS",
+  "completed_at_utc": "2026-09-30T01:06:12.662790+00:00",
+  "python": "3.10.6",
+  "dependencies": {
+    "sympy": "1.14.0",
+    "mpmath": "1.3.0",
+    "numpy": "2.2.6",
+    "python-flint": "0.9.0"
+  },
+  "checks": [
+    {
+      "name": "fasttm_invariant",
+      "script": "ProvenResults/FastTMInvariant/verify.py",
+      "status": "PASS",
+      "source_sha256": "bad8f8b470253f9c5e19f54809f181e310d86bf37809f41710513a623ecb7356",
+      "exit_code": 0,
+      "elapsed_seconds": 0.103,
+      "log": "fasttm_invariant.txt"
+    }
+  ],
+  "elapsed_seconds": 0.699,
+  "scope": "Retained exact algebra/certificates and labelled numerical regressions. Universal statements also require their written proofs. No Lean rebuild, external-input verification, or global MUB exclusion."
+}

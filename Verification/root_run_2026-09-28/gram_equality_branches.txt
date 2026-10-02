@@ -1,0 +1,214 @@
+{
+ "evidence_label": "Certified computation",
+ "full_completion": {
+  "orthogonal_completions": [
+   [
+    0,
+    2,
+    3
+   ]
+  ],
+  "polynomial_certificates": 2,
+  "unique_full_monomial_class": true,
+  "unit_row_candidates": 4
+ },
+ "full_mate": {
+  "all_mates_classified": false,
+  "carrier_frame": {
+   "columns": [
+    0,
+    1,
+    2,
+    5,
+    3,
+    4
+   ],
+   "dephase_each_row_at_column": 0,
+   "rows": [
+    0,
+    5,
+    4,
+    2,
+    1,
+    3
+   ]
+  },
+  "field": "Q(i,sqrt(2),sqrt(3))",
+  "physical_full_triple": true,
+  "zero3_on_constructed_mate": {
+   "columns": [
+    0,
+    1,
+    2
+   ],
+   "rows": [
+    0,
+    1,
+    2
+   ]
+  }
+ },
+ "h8_control": {
+  "equality_rows": [
+   0,
+   1,
+   2
+  ],
+  "feature_kernel_weights": [
+   "1/3",
+   "1/3",
+   "1/3"
+  ],
+  "field": "Q(i,sqrt(2))",
+  "moment": 126,
+  "moments": {
+   "(0, 1, 2)": "126",
+   "(0, 1, 3)": "206",
+   "(0, 1, 4)": "206",
+   "(0, 1, 5)": "126",
+   "(0, 2, 3)": "206",
+   "(0, 2, 4)": "126",
+   "(0, 2, 5)": "206",
+   "(0, 3, 4)": "206",
+   "(0, 3, 5)": "206",
+   "(0, 4, 5)": "126",
+   "(1, 2, 3)": "126",
+   "(1, 2, 4)": "206",
+   "(1, 2, 5)": "206",
+   "(1, 3, 4)": "206",
+   "(1, 3, 5)": "126",
+   "(1, 4, 5)": "206",
+   "(2, 3, 4)": "126",
+   "(2, 3, 5)": "206",
+   "(2, 4, 5)": "206",
+   "(3, 4, 5)": "126"
+  },
+  "nonzero_ordinary_3minors": 400,
+  "physical_hadamard": true
+ },
+ "identities": {
+  "complete_column_counts": [
+   {
+    "T_squared": [
+     "5",
+     "1/5"
+    ],
+    "both_nonpositive": false,
+    "normalized_discriminants": [
+     "128",
+     "-592/25"
+    ],
+    "positive_columns": 1
+   },
+   {
+    "T_squared": [
+     "2",
+     "1/2"
+    ],
+    "both_nonpositive": false,
+    "normalized_discriminants": [
+     "17",
+     "-73/4"
+    ],
+    "positive_columns": 2
+   },
+   {
+    "T_squared": [
+     "1",
+     "1"
+    ],
+    "both_nonpositive": true,
+    "normalized_discriminants": [
+     "-8",
+     "-8"
+    ],
+    "positive_columns": 3
+   },
+   {
+    "T_squared": [
+     "1/2",
+     "2"
+    ],
+    "both_nonpositive": false,
+    "normalized_discriminants": [
+     "-73/4",
+     "17"
+    ],
+    "positive_columns": 4
+   },
+   {
+    "T_squared": [
+     "1/5",
+     "5"
+    ],
+    "both_nonpositive": false,
+    "normalized_discriminants": [
+     "-592/25",
+     "128"
+    ],
+    "positive_columns": 5
+   }
+  ],
+  "inverse_identity": true,
+  "support_two_contradiction": true,
+  "uniform_projection_and_cubic": true
+ },
+ "scope": "Sparse-support and equal-weight equality branches; unequal weights are PositiveWeightEquality.md.",
+ "uniform_phase_cases": {
+  "accepted": [
+   {
+    "columns": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5
+    ],
+    "feature_rows": [
+     0,
+     1,
+     2
+    ],
+    "negative_permutations": [
+     0,
+     3,
+     4
+    ],
+    "positive_permutations": [
+     0,
+     3,
+     4
+    ]
+   },
+   {
+    "columns": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5
+    ],
+    "feature_rows": [
+     0,
+     2,
+     1
+    ],
+    "negative_permutations": [
+     1,
+     2,
+     5
+    ],
+    "positive_permutations": [
+     1,
+     2,
+     5
+    ]
+   }
+  ],
+  "distinct_columns_justification": "feature rank5 plus M1=0 excludes repeated columns",
+  "finite_cases": 400
+ }
+}
+PASS equality branches: projector identities, support-two contradiction, 400 uniform cases, exhaustive H8 completion, H8 control, one full mate

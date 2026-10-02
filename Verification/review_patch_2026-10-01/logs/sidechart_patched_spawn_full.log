@@ -1,0 +1,6 @@
+COMMAND: ['/opt/pyvenv/bin/python', '-B', '/mnt/data/ReviewPatch_2026-10-01/SideChartCover/verify.py', '--project-root', '/mnt/data/review_work/NoFourMUBS', '--all', '--workers', '4', '--start-method', 'spawn']
+CWD: /mnt/data/review_work/NoFourMUBS
+PASS: source pins and exact two-substitution cover injection; no hplus_tm calls
+PASS: 1000 deterministic evenly spaced source records; cached CSV R bounds unused
+PASS: all 617 frozen four-orbit H-enclosures revalidated; remaining 383 inconclusive
+{"status": "PASS", "full_replay": true, "production_cover_tests_run": 0, "start_method": "spawn", "wall_seconds": 57.32993817329407}

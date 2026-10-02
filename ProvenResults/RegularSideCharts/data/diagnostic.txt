@@ -1,0 +1,16 @@
+cell 1 R_center=0.33249077212961 R_TM=[-51.2839, 51.2202]_com
+H+ FAIL: sqrt: model range reaches 0 (H/c0 = 155.24139936870478)
+cell 2 R_center=23.125258719197483 R_TM=[-25.5815, 71.1391]_com
+H+ FAIL: sqrt: model range reaches 0 (H/c0 = 2.1062126187793324)
+cell 3 R_center=-32.42929193056417 R_TM=[-88.4846, 22.844]_com
+H+ FAIL: sqrt: centre not positive
+cell 4 R_center=38.48662050307168 R_TM=[-7.72146, 84.0273]_com
+H+ FAIL: sqrt: model range reaches 0 (H/c0 = 1.2006268911711506)
+cell 5 R_center=46.07286910944032 R_TM=[0.332846, 91.1565]_com
+H+ FAIL: ctm_root: |z/root0^2 - 1| reaches 30.981582299846522 on the cell
+cell 6 R_center=-6.644182723632795 R_TM=[-59.3926, 45.3622]_com
+H+ FAIL: sqrt: centre not positive
+cell 7 R_center=16.636180616392156 R_TM=[-32.9305, 65.4981]_com
+H+ FAIL: sqrt: model range reaches 0 (H/c0 = 2.9794464546766375)
+depth=1 passed=15 / 16 failures=Dict("ctm_root" => 1)
+depth=2 passed=255 / 256 failures=Dict("ctm_root" => 1)

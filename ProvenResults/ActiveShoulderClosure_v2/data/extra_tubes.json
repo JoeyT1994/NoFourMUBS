@@ -1,0 +1,54 @@
+{
+  "status": "PASS",
+  "direct_radius": "1/36",
+  "cells": [
+    {
+      "grid": 180,
+      "a": 0,
+      "b": 0,
+      "tolerance_denominator": 6,
+      "rho_denominator": 6,
+      "centers": "centers_180_0_0.json"
+    },
+    {
+      "grid": 180,
+      "a": 3,
+      "b": 0,
+      "tolerance_denominator": 6,
+      "rho_denominator": 6,
+      "centers": "centers_180_3_0.json"
+    },
+    {
+      "grid": 180,
+      "a": 5,
+      "b": 0,
+      "tolerance_denominator": 6,
+      "rho_denominator": 6,
+      "centers": "centers_180_5_0.json"
+    },
+    {
+      "grid": 180,
+      "a": 3,
+      "b": 1,
+      "tolerance_denominator": 6,
+      "rho_denominator": 6,
+      "centers": "centers_180_3_1.json"
+    },
+    {
+      "grid": 180,
+      "a": 2,
+      "b": 0,
+      "tolerance_denominator": 6,
+      "rho_denominator": 6,
+      "centers": "centers_180_2_0.json"
+    }
+  ],
+  "expected_nodes": {
+    "0,0": 9128003,
+    "3,0": 9007715,
+    "5,0": 8904003,
+    "3,1": 9026147,
+    "2,0": 9073859
+  },
+  "scope": "direct Fourier orientation and equivalence/conjugation images; test the actual transposed carrier for the other orientation"
+}

@@ -1,0 +1,85 @@
+{
+  "exact": {
+    "scalar_rewrite": true,
+    "variance_determinant_identity": true,
+    "three_P_norm_identities": true,
+    "generic_phase_block_g_eta_chi_invariants": true,
+    "generic_dephased_opposite_corner_involution": true,
+    "conjugate_diagonal_coefficients": true,
+    "cube_rewrite": true,
+    "new_cube_free_intensity_identity": true,
+    "displayed_Hadamard": true,
+    "displayed_sheet_reversal": true,
+    "displayed_seed_frame_with_zero_means": true
+  },
+  "numerical": {
+    "precision_digits": 80,
+    "strict_seeds": 100,
+    "negative_to_positive_transports": 100,
+    "arbitrary_ray_inputs": 200,
+    "maximum_absolute_residuals": {
+      "flatness": "2.91913461048e-77",
+      "unitarity": "2.51503107892e-76",
+      "original_corner": "1.05421979432e-80",
+      "positive_sheet_comparison": "6.96293205512e-77",
+      "negative_to_positive_transport": "4.17338909368e-75",
+      "transport_scalars": "1.26100205516e-74",
+      "opposite_involution": "2.26801561258e-76",
+      "frame_transport": "1.05954604717e-76",
+      "cube_amplitude": "7.44858995679e-78",
+      "vertical_intensities": "1.36019654746e-76",
+      "horizontal_intensities": "4.59321455983e-76",
+      "pair_overlap": "3.44834195806e-76",
+      "left_transport_unitarity": "2.18792776114e-77"
+    },
+    "observed_minima": {
+      "n": "0.806540793492",
+      "rho": "0.442571303776",
+      "cube_modulus": "0.294425130635"
+    },
+    "additional_examples": [
+      {
+        "phases": [
+          "1",
+          "(-0.5 + 0.866025j)",
+          "(-0.5 + 0.866025j)",
+          "1"
+        ],
+        "error": "1.01205100255e-79",
+        "R": "243.0"
+      },
+      {
+        "phases": [
+          "-1",
+          "-1",
+          "-1",
+          "1j"
+        ],
+        "error": "3.87952884311e-79",
+        "R": "0.0"
+      },
+      {
+        "phases": [
+          "1j",
+          "(-0-1j)",
+          "(-0-1j)",
+          "1j"
+        ],
+        "error": "5.06025501275e-80",
+        "R": "256.0"
+      },
+      {
+        "phases": [
+          "-1",
+          "(-0-1j)",
+          "1",
+          "1j"
+        ],
+        "error": "3.71085367602e-79",
+        "R": "0.0"
+      }
+    ],
+    "scope": "Floating-point diagnostics, not interval certificates or physical ray-pair witnesses."
+  },
+  "status": "PASS"
+}

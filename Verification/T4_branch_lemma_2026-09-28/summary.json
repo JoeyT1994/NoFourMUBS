@@ -1,0 +1,42 @@
+{
+  "status": "PASS",
+  "completed_at_utc": "2026-09-28T16:43:06.770776+00:00",
+  "python": "3.10.6",
+  "dependencies": {
+    "sympy": "1.14.0",
+    "mpmath": "1.3.0",
+    "numpy": "2.2.6",
+    "python-flint": "0.9.0"
+  },
+  "checks": [
+    {
+      "name": "reconstruction",
+      "script": "MinimalConstruction/Implementation/verify.py",
+      "status": "PASS",
+      "source_sha256": "6dad0ee9f2a21e844bd32172b90910855161455d46daf146edc73fd5e7124a45",
+      "exit_code": 0,
+      "elapsed_seconds": 1.724,
+      "log": "reconstruction.txt"
+    },
+    {
+      "name": "sheet_conjugation",
+      "script": "ProvenResults/Sheets/verify.py",
+      "status": "PASS",
+      "source_sha256": "041961d7784cd8f53b40f536a1c51af8d4c8f15c39e95d381b10a1c7cac8139b",
+      "exit_code": 0,
+      "elapsed_seconds": 1.91,
+      "log": "sheet_conjugation.txt"
+    },
+    {
+      "name": "side_branch_lemma",
+      "script": "ProvenResults/Sheets/verify_branch_lemma.py",
+      "status": "PASS",
+      "source_sha256": "bc01ce4aa712b0cda6d9566d8ab7499b944dd3554676459d9f34308e5ef2b078",
+      "exit_code": 0,
+      "elapsed_seconds": 1.75,
+      "log": "side_branch_lemma.txt"
+    }
+  ],
+  "elapsed_seconds": 2.062,
+  "scope": "Retained exact algebra/certificates and labelled numerical regressions. Universal statements also require their written proofs. No Lean rebuild, external-input verification, or global MUB exclusion."
+}

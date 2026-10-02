@@ -1,0 +1,47 @@
+{
+  "physical_carrier": "U=H/sqrt(6), |H_rj|=1, H H^dagger=6 I6",
+  "matching": "all row monomial M and all column permutations sigma",
+  "distance": "d_F(U)=min_(M,sigma) max_j ||P_(U_j)-P_(M F_sigma(j))||_op",
+  "raw_inequalities": "exists alpha in T^6, pi,sigma in S6: |sum_r conj(H_rj) alpha_r q^(pi(r)*sigma(j))|^2 >= 36(1-d^2), every j",
+  "q": "(1+i sqrt(3))/2",
+  "closed_exclusion_domain": "d_F(U)<=1/1024",
+  "global_necessary_relation": "physical 4+1 implies d_F(U)>1/1024",
+  "quartet_quantifier": "every orthonormal quartet standard-flat and carrier-flat",
+  "anchor_quantifier": "every unit pure ray",
+  "parameter_dependent_actual_16_gap": "E41>((1/1024-d)/4)^2 for any matching d<=1/1024",
+  "closed_uniform_gap_domain": "d_F(U)<=1/2048",
+  "uniform_actual_16_gap": "E41>1/67108864",
+  "family": {
+    "H": "[[F3,A F3],[F3,-A F3]]",
+    "A": "diag(1,zeta(x),1)",
+    "zeta": "(1+i*x)^2/(1+x^2)",
+    "covered_interval": "-1/2048<=x<=1/2048",
+    "squared_matched_distances": [
+      "0",
+      "0",
+      "0",
+      "8*x^2/(9*(1+x^2))",
+      "8*x^2/(9*(1+x^2))",
+      "8*x^2/(9*(1+x^2))"
+    ],
+    "corner_rows": [
+      0,
+      5,
+      1
+    ],
+    "corner_columns": [
+      0,
+      3,
+      2
+    ],
+    "seeds": [
+      "-1",
+      "omega",
+      "zeta(x)",
+      "omega^2"
+    ],
+    "R": "576*x^2*(1-x^2)^2/(1+x^2)^4"
+  },
+  "sheet_scope": "Either sheet whose completed physical carrier meets the distance condition; no assertion that both completions of every displayed seed do so.",
+  "uncovered": "All carriers outside the stated distance region; no full strict-domain cover."
+}

@@ -1,0 +1,125 @@
+{
+ "purpose": "Current-snapshot provenance record (Verification/review_patch_2026-10-01 REVIEW \u00a74.4). SOURCE_SHA256.json is kept unchanged as the historical manifest; this record classifies each of its pins against the current repository.",
+ "date": "2026-10-01",
+ "historical_manifest": "SOURCE_SHA256.json",
+ "summary": {
+  "match": 11,
+  "context_drift": 4,
+  "append_only": 1,
+  "changed_dependencies": 0
+ },
+ "files": [
+  {
+   "path": "HANDOFF.md",
+   "role": "context",
+   "pinned_sha256": "9ce5d9c5d00365aebe2e7a3e41c64ac3a39875a68a264a0cb5efae3d2c17e08f",
+   "current_sha256": "ceb30d01b690dd4bada3f280387774c385232afa8bee3612e0381480f35a8ff4",
+   "status": "context drift: not a proof dependency"
+  },
+  {
+   "path": "WhatWeWanttoProve/README.md",
+   "role": "context",
+   "pinned_sha256": "74da927b1fdec91054e6172be4a83f5aed90c7205a0d7e74e39bf30c2aa26f34",
+   "current_sha256": "20e38abc19a73e85c04b69e67a02f57271131341f557be2ab3ad0e12c1aebc9d",
+   "status": "context drift: not a proof dependency"
+  },
+  {
+   "path": "WhatWeWanttoProve/T1_corner_R_lower_bound.md",
+   "role": "context",
+   "pinned_sha256": "a624a6adf5ae72c5f0ff35197a10c20f9a85aa764231f70ede3bc36d9f2bf7eb",
+   "current_sha256": "f604fba2f892b2aa6383ea174ea6975f076f4ef97a1b3bd94e6dd3d432c3f6b4",
+   "status": "context drift: not a proof dependency"
+  },
+  {
+   "path": "WhatWeWanttoProve/T2_fourier_neighbourhood.md",
+   "role": "context",
+   "pinned_sha256": "d356531644ffadc63a02ece938580e0d4e38199e1ffc8ebaff11c7f9782f5226",
+   "current_sha256": "f00c55f311ca142eb757104102560e5ee036170d5cce2e3d05ad38a5a95b4cbf",
+   "status": "context drift: not a proof dependency"
+  },
+  {
+   "path": "MinimalConstruction/ASSUMPTIONS.md",
+   "role": "accepted strict-corner coverage",
+   "pinned_sha256": "7e4fe15e0de5652ceef07a407453e23643252ed19e475d497b18551afd1d0181",
+   "current_sha256": "fb3855ccbfa4df1229081baf516a3cf13fa18f3c4aef4089119b5c52270e7cda",
+   "status": "append-only: the pinned bytes are an exact prefix of the current file (appended MinimalConstruction/Proofs references)"
+  },
+  {
+   "path": "NumericalCampaign/REDUCTION.md",
+   "role": "maximal-corner definition; invariances; campaign interpretation",
+   "pinned_sha256": "d2e66fdb209a23fe225775b7e8629efd478b24b217e08d168dd63c441bda2b95",
+   "current_sha256": "d2e66fdb209a23fe225775b7e8629efd478b24b217e08d168dd63c441bda2b95",
+   "status": "match"
+  },
+  {
+   "path": "ProvenResults/CornerBounds/PROOF.md",
+   "role": "complementary square identity (also independently regenerated)",
+   "pinned_sha256": "bfb49f0e36667305c86db0942c10ee8a93cb7d15cb6ae5bebbdd0efef67db4e1",
+   "current_sha256": "bfb49f0e36667305c86db0942c10ee8a93cb7d15cb6ae5bebbdd0efef67db4e1",
+   "status": "match"
+  },
+  {
+   "path": "ProvenResults/ChartConditioning/RESULTS.md",
+   "role": "local inverse; inactive-class theorem; definition of delta",
+   "pinned_sha256": "d8a1bb8d3751409acd6805bf367f280441fc6f1ab4e85581783e7ebef34be3be",
+   "current_sha256": "d8a1bb8d3751409acd6805bf367f280441fc6f1ab4e85581783e7ebef34be3be",
+   "status": "match"
+  },
+  {
+   "path": "ProvenResults/ChartConditioning/certificate.json",
+   "role": "identified upstream exact local proof assets",
+   "pinned_sha256": "a9d85264607c2baaf386f67de9ffa8b5dade3828109a0b3aad1ad84cd2c33463",
+   "current_sha256": "a9d85264607c2baaf386f67de9ffa8b5dade3828109a0b3aad1ad84cd2c33463",
+   "status": "match"
+  },
+  {
+   "path": "ProvenResults/ChartConditioning/verify.py",
+   "role": "identified upstream local verifier (not run in this module)",
+   "pinned_sha256": "ed2ae641c36c11dc8b9f30633bd1791fc8295e3289940569e77e1d5d2e304781",
+   "current_sha256": "ed2ae641c36c11dc8b9f30633bd1791fc8295e3289940569e77e1d5d2e304781",
+   "status": "match"
+  },
+  {
+   "path": "ProvenResults/FourierCornerRigidity/PROOF.md",
+   "role": "signed invariant normalization; comparison/context",
+   "pinned_sha256": "76651a2ae4d7487ef21a833fc078c565175898ceb92ec9792d9567b3ea7557d1",
+   "current_sha256": "76651a2ae4d7487ef21a833fc078c565175898ceb92ec9792d9567b3ea7557d1",
+   "status": "match"
+  },
+  {
+   "path": "ProvenResults/FourierNeighbourhood/ClusterTube/EXPANDED.md",
+   "role": "proved quartet exclusion at projector radius 1/30",
+   "pinned_sha256": "21b025c0d85d892a265618f38ca3f283dee1a4c44ee45d7645ffaa06f4ca122b",
+   "current_sha256": "21b025c0d85d892a265618f38ca3f283dee1a4c44ee45d7645ffaa06f4ca122b",
+   "status": "match"
+  },
+  {
+   "path": "ProvenResults/FourierNeighbourhood/ClusterTube/PROOF.md",
+   "role": "metric and proof behind expanded tube",
+   "pinned_sha256": "6098b16468c276ade2efcc0c93469aa0e5e196c4f746a85efbd6f811fa0ce29f",
+   "current_sha256": "6098b16468c276ade2efcc0c93469aa0e5e196c4f746a85efbd6f811fa0ce29f",
+   "status": "match"
+  },
+  {
+   "path": "ProvenResults/FourierNeighbourhood/ClusterTube/verify_expanded.py",
+   "role": "identified upstream tube verifier (not run in this module)",
+   "pinned_sha256": "a602c7dcea60adb458eeab43576a66c65a4757f84482360fd82b7cfe12567079",
+   "current_sha256": "a602c7dcea60adb458eeab43576a66c65a4757f84482360fd82b7cfe12567079",
+   "status": "match"
+  },
+  {
+   "path": "ProvenResults/FourierNeighbourhood/SeedLifting/PRODUCTION_CUBE.md",
+   "role": "scope comparison; not used to prove cutoff",
+   "pinned_sha256": "8d800a51df9d451b116a790aa13bd108f45664f49e4431f15355fe054298ce03",
+   "current_sha256": "8d800a51df9d451b116a790aa13bd108f45664f49e4431f15355fe054298ce03",
+   "status": "match"
+  },
+  {
+   "path": "ProvenResults/FourierNeighbourhood/SeedLifting/SMALL_R_OBSTRUCTION.md",
+   "role": "negative consistency control; not used to prove cutoff",
+   "pinned_sha256": "b65e5dee842aac42f67234df5de4fd31d45ed70c4b0ff9c24de3bc4f1e0e86b5",
+   "current_sha256": "b65e5dee842aac42f67234df5de4fd31d45ed70c4b0ff9c24de3bc4f1e0e86b5",
+   "status": "match"
+  }
+ ]
+}

@@ -1,0 +1,14 @@
+PASS: necessary two-column moment identity, exactly
+PASS: universal Laurent identity R(p,-J,W) = -det(L)^2; det(L) is imaginary
+PASS: six sine products give det(L)/(-8i), exactly
+PASS: mixed_34 R_cap=11 {'ok': True, 'R_nodes': 3, 'moment': 457, 'corner': 472, 'nodes': 1794, 'maxdepth': 15} seconds=0.0328
+PASS: mixed_38 R_cap=3 {'ok': True, 'R_nodes': 7, 'moment': 791, 'corner': 292, 'nodes': 2102, 'maxdepth': 14} seconds=0.0392
+PASS: mixed_43 R_cap=18 {'ok': True, 'R_nodes': 5, 'moment': 472, 'corner': 332, 'nodes': 1544, 'maxdepth': 10} seconds=0.0286
+PASS: mixed_60 R_cap=6 {'ok': True, 'R_nodes': 1, 'moment': 449, 'corner': 283, 'nodes': 1400, 'maxdepth': 14} seconds=0.0239
+PASS: exhausted cover budget returns unresolved
+PASS: automatic prune_box mixed_34 {'ok': True, 'reason': 'side_column', 'R_cap': 10, 'transpose': False, 'moment': 399, 'corner': 370, 'nodes': 1474, 'maxdepth': 13}
+PASS: automatic prune_box mixed_38 {'ok': True, 'reason': 'side_column', 'R_cap': 1, 'transpose': False, 'moment': 584, 'corner': 211, 'nodes': 1526, 'maxdepth': 12}
+PASS: automatic prune_box mixed_43 {'ok': True, 'reason': 'side_column', 'R_cap': 16, 'transpose': False, 'moment': 415, 'corner': 312, 'nodes': 1390, 'maxdepth': 10}
+PASS: automatic prune_box mixed_60 {'ok': True, 'reason': 'side_column', 'R_cap': 4, 'transpose': True, 'moment': 412, 'corner': 240, 'nodes': 1240, 'maxdepth': 10}
+PASS: box containing the proved Fourier D0 seed stays unresolved
+PASS: four new D0 exclusions across reconstruction branch cells; no reconstruction inputs

@@ -1,0 +1,120 @@
+# Retained results for the no-four-MUBs programme
+
+This is a library of established statements, not a list of research targets.
+**No result here excludes a fourth MUB globally.** Each folder states its
+hypotheses. Anything that relies on the accepted reconstruction inputs
+([ASSUMPTIONS.md](../MinimalConstruction/ASSUMPTIONS.md)) says so.
+
+Throughout, a *quartet edge* is a transition matrix between two bases of a
+hypothetical set of four MUBs. The published Fourier-family and Tao
+exclusions cited below are [Jaming et al.](https://arxiv.org/abs/0902.0882)
+and [Brierley–Weigert](https://arxiv.org/abs/0901.4051).
+
+## Single transitions (every quartet edge)
+
+Campaign bookkeeping: [enlarged branch-cell coverage](CampaignLayerCoverage/README.md)
+provides an exact rational split audit with a registered verifier. It is
+not a claim that the branch layer is closed.
+
+| Result | What is established | Scope |
+|---|---|---|
+| [Balanced products](BalancedProducts/BalancedFourSeedIdentity.md) | Every balanced three-row product sum, and its column analogue, vanishes for every non-Tao Hadamard | Under the accepted reconstruction inputs |
+| [F3 blocks](FourierBlocks/FourierBlockClassification.md) | A 3×3 Hadamard block forces the Fourier family, its transpose, or Tao | Unconditional structural theorem |
+| [Edge rigidity](EdgeRigidity/README.md) | Zero 3×3 minor ⇔ antipodal quotient ⇔ F3 block. Hence **no quartet edge has a zero 3×3 minor** ([corollary](EdgeRigidity/QuartetEdgeCorollary.md)). Other lemmas: a three-valued quotient forces Tao or an antipodal pair; three-row projector rank 5; one binary direction forces a zero minor; balanced rank exactly 3; cubic incidence C*C ≤ 18I; the Karlsson pairing detector; Cauchy–Binet corner-slack identities | Mostly unconditional. The balanced-based items inherit the reconstruction inputs. The quartet corollary uses the published Fourier exclusion |
+| [Tao exclusion](ExceptionalEndpoints/Tao/README.md) | Tao has exactly 90 common rays and no orthogonal pair of them, so it lies in no MUB triple and hence in no quartet | An independent replacement for the citation. The elimination step is frozen msolve output, which Singular reproduces but which is not certified |
+| [Frame potential](SpectralMoments/FramePotential.md) | Φ₃ = (9/2)Φ₂ − 1296 + 9B, and Φ₂ ≥ 336 for non-Tao Hadamards | The bound uses balanced products |
+| [Fourier neighbourhood (D2)](FourierNeighbourhood/README.md) | If a transition lies within 1/1024 of the F6 orbit, no 4+1 configuration exists. Hence every quartet edge has d_F > 1/1024 | Exact integer-interval certificate with 389,672 leaves and no dependencies. It excludes carriers outside every published family, but only over a tiny radius |
+| [Fourier seed atlas (T2 progress)](FourierNeighbourhood/SeedAtlas/README.md) | Every Fourier-family corner seed lies on an explicit union of 12 surfaces and 36 R=0 curves; exact seed distances and direct carrier-tube transfer bounds | Unconditional identities and exhaustive exact enumeration. Exclusion radii are in the tube rows and inverse seed-to-carrier estimates in the lift rows below |
+| [Uniform Fourier matrix tube](FourierNeighbourhood/PracticalTube/README.md) | Every quartet edge has d_Four>1/16384, uniformly over the family, transpose and equivalences | Unconditional computer-assisted theorem: 294 covering leaves, 2,178,035 candidate six-cliques, exact reduction audit and 408 positive controls. Seed lifting remains separate |
+| [Uniform Fourier tube and seed obstruction](FourierNeighbourhood/UniformTube/README.md) | Every quartet edge has d_Four > 2^(−2^590). An exact atlas seed has d_Four(H₊/√6) > 1/40, disproving unrestricted seed lifting | Historical radius uses two published theorems; superseded by PracticalTube. Counterexample uses accepted local reconstruction identities and lies outside D₀; D₀-restricted lifting remains open |
+| [Exact D₀ Fourier-atlas rigidity](FourierNeighbourhood/SeedLifting/ATLAS_RIGIDITY.md) | An exact atlas seed which is maximal and has 0<R≤20 has only Fourier-family carriers, including the transpose. Also an explicit three-block completion bound | Unconditional physical-matrix statement; exact six-corner identity and 19-node rational Bernstein certificate. Positive-radius lifts: see the lift rows below |
+| [Conservative D₀ seed lifting](FourierNeighbourhood/SeedLifting/CONSERVATIVE_LIFT.md) | Explicit R-separated seed-to-carrier bound and whole-cell exclusion; a nonvacuous phase cube of half-width 10^(-19) is certified | Uses accepted strict reconstruction inputs and the new exact mean/squared-gap certificates. Constants are not production-scale. R=0 crossings are handled locally by the R=0 lift and the production cube below |
+| [Direct D₀ seed lifting](FourierNeighbourhood/SeedLifting/DIRECT_LIFT.md) | A strict alternative-side corner gap gives d_Four≤L ε. A patch with L<189, transverse half-width 2×10⁻⁷ and tangential half-width π/512 is certified | Uses accepted strict reconstruction inputs; all physical starting branches covered by the criterion. Transverse production width open; R=0 crossings are handled locally by the R=0 lift and the production cube below |
+| [Small-R obstruction to the present tube](FourierNeighbourhood/SeedLifting/SMALL_R_OBSTRUCTION.md) | A D₀∩F carrier has R<1/200 but d_Four>1/16000. Another has maximal R<18 and d_Four>1/300 | Accepted reconstruction inputs; all 400 corners and minors checked per example. Refutes pairing δ=1/16384 with m≥1/200, not quartet exclusion |
+| [Larger F6 quartet tube](FourierNeighbourhood/ClusterTube/README.md) | No quartet edge lies within projector distance 1/30 of the F6 monomial orbit | Unconditional integer common-ray cover and exact sharp-angle graph. Local to F6; the family-wide radius remains 1/16384 |
+| [Production-width D₀ seed cube](FourierNeighbourhood/SeedLifting/PRODUCTION_CUBE.md) | Full phase cube of half-width π/512 at (4π/3,5π/3,0,π), with R<1/5, excludes every physical maximal carrier as a quartet edge, including R=0 | Unconditional physical theorem; complete 227-leaf partition, 96/160-bit certificates, and fast 72-frame rule. Uniform whole-family lifting and T1′ cutoff remain open |
+| [Continuous small-R and zero-atlas neighbourhoods](FourierNeighbourhood/SeedLifting/ZERO_NEIGHBOURHOOD.md) | Radius π/4096 along a genuine maximal Fourier curve to δ=π/128, R<1/2; trimmed zero-atlas arcs and three further production cubes excluded from D₀ | Unconditional; 13 extension cubes, complete 740-box arc partition, independent 96/160 verification and fast containment. Explicit near-grid gaps remain; no new containment on the 53-cell benchmark |
+| [All F6 corner neighbourhoods](FourierNeighbourhood/SeedLifting/NEAR_F6_CLOSURE.md) and [analytic extension](FourierNeighbourhood/SeedLifting/EXTENDED_ANALYTIC_RADII.md) | All six classes covered; the extension gives uniform seed radius 2⁻⁴⁵ and radius 2⁻⁴⁶ around Fourier reference seeds with M≤2⁻⁸⁶ | Unconditional physical theorem, including R=0. The extension enlarges the F3 and rank-one cubes eightfold, with exact algebra and 160/256-bit cap checks. Constants remain very small; intervening atlas shoulders and practical whole-family lifting remain open |
+| [Exact Fourier maximum R](FourierNeighbourhood/SeedLifting/FOURIER_MAX_R.md) | Complete 400-corner formula; exactly twelve zero-maximum parameter points, all F6. For M≤36, d_F6≤π√M/144 and reference exclusion radius 1/30−π√M/144, both orientations | Exact two-way Laurent census and analytic phase-gauge proof. A bound on explicit Fourier references, not an off-family seed lift or universal T1′ cutoff |
+| [Completion-error seed lift](FourierNeighbourhood/SeedLifting/RESIDUAL_LIFT.md) | Fixed-reference inverse estimate gives a non-F6 cube of half-width 1/2000, 8<R<9, carrier distance <1/50 | Unconditional physical theorem; complete side covers, two precision replays and independent physical/permutation controls. Production width and uniform seed scope remain open |
+| [Regional Fourier matrix tubes](FourierNeighbourhood/WideFamilyTube/README.md) | Radius 1/256 on 191 closed family-parameter boxes, with 1/128 on four; direct radii 1/96 and 1/48 | Unconditional integer covers and exact graphs; 79 coarse boxes have no new certificate. Uniform whole-family radius stays 1/16384 |
+| [Regional D₀ seed lift](FourierNeighbourhood/SeedLifting/REGIONAL_SEED_LIFT.md) | Half-width 1/10000 at an explicit non-F6 Fourier seed gives distance <1/50 into a proved 1/48 tube; 8<R<9 | Unconditional physical theorem, complete side covers and exact 400-corner nonvacuity. Production width and uniform seed scope remain open |
+| [Larger matched-cover seed lift](FourierNeighbourhood/SeedLifting/MATCHED_COVER_LIFT.md) | One F6 seed cube has half-width 1/512, with two additional classes at 1/1024 and 1/2048; all enter the 1/36 F6 tube | Unconditional physical theorem; 255-leaf exact seed cover and two precision replays. Production width and whole-family scope remain open |
+| [Local D₀ lift across R=0](FourierNeighbourhood/SeedLifting/R_ZERO_LIFT.md) | Phase half-width 1/2048 around one F6 seed implies normalized Frobenius distance <1/40 and hence quartet exclusion | Unconditional physical theorem; complete side matching at two precisions. Both signs of R and strict D₀ points occur; full production width and whole-family scope remain open |
+| [Movable Fourier references](FourierNeighbourhood/SeedLifting/MOVING_REFERENCE.md) | The residual whole-cell lifting criterion may use any rational Fourier parameters, with a reference chosen per leaf of a complete seed partition and the regional radii where proved | Exact matrix identities; [receipt](../Verification/T2_moving_reference_2026-09-29/certificate.json). A criterion, not a claim that it succeeds on every box. Its check `verify_moving_reference.py` is not yet registered in the root verify.py |
+| [Paired side prune](CornerBounds/PairedSidePrune/README.md) | Joint row/column necessary identities and fractional R bounds exclude 4/53 retained production boxes from D₀ | Unconditional, division-free, exhaustive finite covers; 49 unresolved and no change to the live driver |
+| [Measured campaign second pass](CornerBounds/CampaignSecondPass/README.md) | **93/512 whole held-out enlarged survivor cells excluded (18.2%)**, 1.84 local CPU-s per input; separate R-gap certificates on 56/202 D₀-touching cells | Complete bounded seed covers, original-baseline recheck, all accepted results replayed at 160 bits. Standalone batch command; no full-campaign or high-R runtime saving claimed |
+| [Strict Fourier-side completion](FourierNeighbourhood/SeedLifting/FOURIER_SIDE_COMPLETION.md) | A strict E₂(z,w) seed with side B_F has the unique full carrier N(z,w), up to the remaining row phases/permutations | Unconditional row-mean classification; all eight signed-equilateral exceptions have R=0. Identifies the endpoint parameters for local tube tests |
+| [Corner boundary bounds (T1)](CornerBounds/README.md) | A qualitative gap away from F6 seeds; exact positive-sheet Fourier-family curve in D₀ ∩ F disproves the proposed m ≥ 20, η ≤ 0.05. Also an unconditional square identity proving all physical corner R values nonnegative | The gap uses accepted strict-corner coverage; the H₊ identification uses local side identities. No explicit sufficient threshold or new prune |
+| [Side-column prune (T1 progress)](CornerBounds/SideColumnPrune/README.md) | A two-phase cover excludes seed boxes from D₀ without constructing H₊; four level-9 cells retained as singular by the existing tests are certified out | Uses only physical flatness/orthogonality and outward interval arithmetic. Standalone general pruning function; superseded in production by the side-triple prune |
+| [Side-triple prune (stronger T1 tool)](CornerBounds/SideTriplePrune/README.md) | Surviving column labels must form a compatible triple with the prescribed Gram matrix. Excludes all eleven retained local branch cells, seven beyond the single-column prune | Division-free adjugate and remaining-column identities; graph includes loops/repetitions and is valid at singular Grams. No reconstruction inputs. **In production: excludes 95.6% of the 14.0M campaign branch-layer cells** |
+| [Regular implicit side charts (T6)](RegularSideCharts/README.md) | Every physical R>0 side has an analytic local chart, det(J)²=R/64, with quantitative bounds and an outward validator. Six cited T6 cells cross R=0; one is strictly positive | Unconditional side theorem; full H₊ branch matching remains conditional. No complete T6 or quartet certificate |
+| [T6 residual cells](RegularSideCharts/ResidualCells/README.md) | On four full benchmark cells, D₀ implies R>1. The positive cell has a complete 61-chart reconstruction atlas with exact coverage audit | Local gap is unconditional for physical maximal corners. Atlas uses existing reconstruction inputs; bounds can be broad. No whole-cell quartet exclusion |
+
+## Common unbiased rays of a pair
+
+| Result | What is established | Scope |
+|---|---|---|
+| [Finite common-ray algebra](CommonRays/FiniteCommonRayAlgebra.md) | With all 3×3 minors nonzero and m zero 2×2 minors: a complete intersection of length 252−2m, and a Gorenstein quotient of length 180−2m holding every physical ray. So there are at most 180−2m common rays, and m ≤ 45 | Analytic. Applies on quartet edges by EdgeRigidity |
+| [Cluster cover](CommonRays/ClusterCover/README.md) | Capacity-one ray clusters give a quartet certificate without root counting or nondegeneracy. Excludes an explicit seed cube of radius 1/1024 near the campaign's X₆ example; the automatic campaign version certifies production cells (X₆ and g3 cubes at campaign size included) | Analytic theorem plus interval replay using accepted local reconstruction identities and campaign Taylor models. **This is the campaign's certificate** |
+| Cover acceleration: [Cartesian exclusion](CommonRays/ClusterCover/CARTESIAN_EXCLUSION.md), [sharp capacity](CommonRays/ClusterCover/SHARP_CAPACITY.md), [label refinement](CommonRays/ClusterCover/LABEL_REFINEMENT.md) ([receipt](../Verification/Campaign_cartesian_cover_2026-09-29/README.md)) | Partitioned labels and tighter interval overlaps certify 12 retained difficult cells in 132 rather than 647 local CPU-s; g3 certifies at radius 0.005 without external splitting. Also proves the exact cubic capacity threshold ½ arccos(1/4) | Written interval/label proofs, paired whole-cell runs and positive controls. **Now the campaign's production method** (cover only): an unbiased 0.2% campaign sample certified 17,291 of 17,291 cells at 25 s mean ([report](../NumericalCampaign/Campaign/cluster/REPORT_2026-09-29b.md)) |
+| [Rank and spectral conditions](CommonRays/RankSpectralConditions.md) | A quartet forces rank[Γ₀…Γ₄] ≤ 168−2m and Q₆ = det(6I−B_w) = 0 | Necessary conditions only |
+| [Phase collisions](CommonRays/PhaseCollisions.md), [two-valued anchor](CommonRays/TwoValuedAnchor.md) | In any MUB triple, no mixed column quotient takes one value 4 or more times, and each takes at least 3 values | Unconditional |
+| [One-phase recovery](CommonRays/OnePhaseRecovery.md) | One relative phase is always a rational function of the data (rank 2) | Unconditional |
+| [Two-rectangle alignment](CommonRays/TwoRectangleAlignment.md), [completion substitution](CommonRays/CompletionSubstitution.md) | Coefficient rank lies in {4,5,6}; rank 6 has no solution and rank 4 is excluded; at most 6 alignments per placement | Strict rectangles; rank 5 open |
+| [No affine phase orbits](RelativePhases/PhaseGaugeObstruction.md) | No nonconstant affine phase orbit of a common-unbiased ray | Every order-six Hadamard |
+
+## Triples and relative phases
+
+| Result | What is established | Scope |
+|---|---|---|
+| [Relative-phase compatibility](RelativePhases/RelativePhaseCompatibility.md) | Exact kernel/quadratic recovery; Tr(W³) ≤ 120 on Tr(W²) = 30 | All Hadamard pairs |
+| [Quadratic phase cone](RelativePhases/QuadraticPhaseCone.md) | The phase cone is cut out by W(A) = 0; exact coupling system for three Hadamards; decision for kernel dimension ≤ 2; the 35/78 SOS bound | Addendum to the above |
+| [Matching forms](Triples/MatchingForms.md) | A matching is the factorisation D_I(η) = D_U(r)D_V(s), and the trivial one is infinitesimally isolated. There is a residual-tensor criterion for a second matching. **Lemma Z:** every Zauner triple has count ≥ 2 | Unconditional; Lemma Z is checked exactly |
+| [Triangle nullities](Triples/TriangleNullities.md) | The number of diagonal-phase matchings of any MUB triple is 0, 1, 2 or 6; three force six; the moduli space is disconnected | Unconditional. Whether count 1 occurs is open |
+| [Three-row Gram](Triples/README.md) | S ≥ 126 (SOS), with strict inequality on quartet edges; sharp defect bound 4/17 | One supplied step independently re-read |
+| [Simultaneous reconstruction](RelativePhases/SimultaneousReconstruction.md) | How the carrier is used without discarding relative phases | Bookkeeping |
+
+## Toward a fourth basis
+
+| Result | What is established | Scope |
+|---|---|---|
+| [Covariance contraction](Triples/CovarianceContraction.md) | J ⪯ 3I and tr J² ≤ 60, and **a fourth basis exists iff tr J² = 60** | One-scalar reformulation |
+| [Completion and imbalance](Completion/CRITERION.md) | Bloch rank 2 or 3; a flat two-ray completion is unique if it exists; exact imbalance formula | All carriers |
+| [Four-basis chirality](FourthBasis/Chirality/README.md) | A rank-2 plane splits into two common rays iff e₃(G) = 2Σc² = 0; the fourth basis is assembled from three planes | Unconditional |
+| [Flat complement](FourthBasis/FlatComplement/README.md) | Three strict columns of a fourth basis determine the other three; at most 4 flat complement rays | Unconditional |
+| [4+1 reduction](FourthBasis/FourPlusOne/README.md) | Constant five-ray Gram with a rank-one defect linear in the seed; degree-2 moment barrier; ghost gap \|F\|² ≥ 54 | 20-moment count only on strict a = −1 |
+| [Anchor inequalities](AnchorInequalities/README.md), [aligned-anchor elimination](AnchorElimination/SmallAnchorElimination.md) | Three necessary coefficient inequalities; exact anchor decision for a fixed aligned quartet | Exclusions are local only |
+| [Ghost factors](FourthBasis/GhostFactors/README.md) | Laurent ghosts block equality-only elimination; 36 quadratic factors remove them without losing physical rays | Unconditional tool |
+| [Sheet conjugation](Sheets/README.md) | H₋(ā,b̄,c̄,d̄) ≅ conj H₊(a,b,c,d); excluding one sheet over a conjugation-closed region suffices | Analytic |
+| [Side branch lemma (T4)](Sheets/BRANCH_LEMMA.md) | Regular side-root changes permute only the last three columns or rows; continued branches are valid across dF = 0 | Exact algebra, using accepted sign-selected side identities; the alternative δ chart is undefined at s = 0 |
+
+## Quartet faces
+
+| Result | What is established | Scope |
+|---|---|---|
+| [Count two](Quartets/CountTwo/README.md) | A triangle with exactly two matchings has a zero-minor edge, so no quartet face has count 2 | Unconditional; the quartet use goes through QuartetEdgeCorollary |
+| [Count six](Quartets/CountSix/README.md) | A quartet has 0, 1 or 3 count-six faces | Uses QuartetEdgeCorollary |
+
+**Together:** every quartet face has count 1 or 6, and some face has count
+1. No four MUBs ⇐ **N1** (no count-one triple without zero minors); see
+[Quartets](Quartets/README.md). N1 is open. The direct attack is archived at
+`../NoFourMUBSArchive/N1-attack-2026-09-27/`. The current route, a
+certified quartet exclusion that bypasses N1, is
+[NumericalCampaign](../NumericalCampaign/README.md).
+
+## Barriers
+
+[BARRIERS.md](BARRIERS.md) lists proved counterexamples and feasible
+relaxations that rule out tempting shortcuts. It also lists the archive's
+"accepted" inputs that were never proved and must not be used.
+
+Each statement has its proof next to its verifier. The root verify.py
+replays all registered checks in an isolated copy; the latest complete run
+is [Verification/root_run_2026-09-29](../Verification/root_run_2026-09-29/summary.json).
+The cluster-cover checks also require the pinned campaign Julia environment.
+
+Some provenance notes cite paths such as `KarlssonAndMeasurements/…` or
+`work/…`. Those exist only in the archived snapshot
+`../NoFourMUBSArchive/NoFourMUBS-before-seven-MUB-audit-20260922-200735.zip`
+and are history, not dependencies.

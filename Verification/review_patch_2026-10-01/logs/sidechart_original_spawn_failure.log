@@ -1,0 +1,51 @@
+COMMAND: ['/opt/pyvenv/bin/python', '-B', '-c', "import multiprocessing as mp,runpy,sys; mp.set_start_method('spawn',force=True); p=sys.argv[1]; sys.path.insert(0,str(__import__('pathlib').Path(p).parent)); sys.argv=sys.argv[1:]; runpy.run_path(p,run_name='__main__')", '/mnt/data/review_work/NoFourMUBS/ProvenResults/SideChartCover/verify.py', '--project-root', '/mnt/data/review_work/NoFourMUBS', '--all', '--workers', '2']
+CWD: /mnt/data/review_work/NoFourMUBS
+PASS: source pins and exact two-substitution cover injection; no hplus_tm calls
+PASS: 1000 deterministic evenly spaced source records; cached CSV R bounds unused
+concurrent.futures.process._RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "/usr/lib/python3.13/concurrent/futures/process.py", line 254, in _process_worker
+    r = call_item.fn(*call_item.args, **call_item.kwargs)
+  File "/usr/lib/python3.13/concurrent/futures/process.py", line 203, in _process_chunk
+    return [fn(*args) for args in chunk]
+            ~~^^^^^^^
+  File "/mnt/data/review_work/NoFourMUBS/ProvenResults/SideChartCover/verify.py", line 51, in replay_one
+    hh=[replay_side(theta,rho,c) for c in result['charts'][0]]
+        ~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/mnt/data/review_work/NoFourMUBS/ProvenResults/SideChartCover/verify.py", line 16, in replay_side
+    F=moments_poly_interval(pp);T=target_poly_interval(theta,rho)
+      ^^^^^^^^^^^^^^^^^^^^^
+NameError: name 'moments_poly_interval' is not defined
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    import multiprocessing as mp,runpy,sys; mp.set_start_method('spawn',force=True); p=sys.argv[1]; sys.path.insert(0,str(__import__('pathlib').Path(p).parent)); sys.argv=sys.argv[1:]; runpy.run_path(p,run_name='__main__')
+                                                                                                                                                                                         ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen runpy>", line 287, in run_path
+  File "<frozen runpy>", line 98, in _run_module_code
+  File "<frozen runpy>", line 88, in _run_code
+  File "/mnt/data/review_work/NoFourMUBS/ProvenResults/SideChartCover/verify.py", line 105, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "/mnt/data/review_work/NoFourMUBS/ProvenResults/SideChartCover/verify.py", line 93, in main
+    with concurrent.futures.ProcessPoolExecutor(max_workers=a.workers) as ex:n=sum(ex.map(replay_one,rows,chunksize=4))
+                                                                               ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/concurrent/futures/process.py", line 617, in _chain_from_iterable_of_lists
+    for element in iterable:
+                   ^^^^^^^^
+  File "/usr/lib/python3.13/concurrent/futures/_base.py", line 619, in result_iterator
+    yield _result_or_cancel(fs.pop())
+          ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/usr/lib/python3.13/concurrent/futures/_base.py", line 317, in _result_or_cancel
+    return fut.result(timeout)
+           ~~~~~~~~~~^^^^^^^^^
+  File "/usr/lib/python3.13/concurrent/futures/_base.py", line 456, in result
+    return self.__get_result()
+           ~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.13/concurrent/futures/_base.py", line 401, in __get_result
+    raise self._exception
+NameError: name 'moments_poly_interval' is not defined

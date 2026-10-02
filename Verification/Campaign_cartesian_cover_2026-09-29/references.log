@@ -1,0 +1,13 @@
+Julia 1.12.1; threads=1
+source cover.jl 0af727bf5b44d4f55d7689aa6806faf2c077545dc14e7a6568755a191e6d0c47
+source box_capacity.jl bac8b99b33a19cfc95eafc4a8ae2345d41ff1d0756023abc3cf8161b249a28b9
+source cartesian_cover.jl 4ae57122cb6eef31d249d348410eba097df0239293314d5f69e2a6c506ad784a
+source cover_labels.jl bd7f5fd8f3d0273e358ad1ccea185be9a7b46eeb8b2d8c3fdf10e3d1990182f2
+source cover_accelerated.jl 5f95cd84a1a3445a98e56b5c06e598cb2810fbc2d4fc581cec1c9084db163d96
+source review/bench_cartesian.jl a78d68e7ac6f5908e59c35d163c970d21db1e71e8f118b8582f8056734346870
+source fastexcl.jl 7bd71a960286a3f21e00173b281292848a6706bbab9d0230bc55613d9a3da4b5
+source hform.jl 609f44e3bdd752917458b05b82b8565d6f517d2b1614384b561bc1ee3b925db6
+(fixture = "reference_cells.txt", line = 1, mode = "original", seconds = 300.061401833, cpu_seconds = 165.74238, result = (ok = false, reason = :time_limit, nt = 3870889, nlabels = 0, nkept = 341661, level = 0), counts = nothing)
+(fixture = "reference_cells.txt", line = 1, mode = "partition", seconds = 47.776019292, cpu_seconds = 26.55599699999999, result = (ok = true, reason = :none, nt = 792864, nlabels = 94, nkept = 44651, nrej = 98, nO = 959, nU = 3058, nbases = 56, rmax = 0.29452431453206274, level = 2, t = 44.64440894126892), counts = (342749, 149408, 163253, 30088))
+(fixture = "reference_cells.txt", line = 2, mode = "original", seconds = 245.620781041, cpu_seconds = 174.58885600000002, result = (ok = false, reason = :cover_budget, nt = 4000001, nlabels = 0, nkept = 93713, level = 0), counts = nothing)
+(fixture = "reference_cells.txt", line = 2, mode = "partition", seconds = 49.8422825, cpu_seconds = 31.952766999999994, result = (ok = true, reason = :none, nt = 1122151, nlabels = 85, nkept = 93713, nrej = 67, nO = 921, nU = 1363, nbases = 43375, rmax = 0.29452431418845115, level = 3, t = 49.636467933654785), counts = (447113, 189910, 232097, 25106))

@@ -1,0 +1,22 @@
+{
+  "status": "PASS",
+  "exit_code": 0,
+  "source_sha256": "428779a80cc547b1c87f6352ad55da8c752f116a3799bad4aa8cc816a152f914",
+  "instrumented_source_sha256": "7e9c0bc3c08a42094d1f1dca34a61238c7a3510f091db189fa7947f1c2f35baa",
+  "source_unchanged": true,
+  "theta": [
+    2.436236992962,
+    0.486979737447,
+    -2.147122554702,
+    -1.87641662987
+  ],
+  "rho": 0.006135923152452059,
+  "carrier_replayed": true,
+  "guard_replacements": [
+    {
+      "needle": "production = guarded source + rescaled inv/sqrt (checked)",
+      "count": 0
+    }
+  ],
+  "scope": "One guarded local replay and controls, not all campaign cells"
+}

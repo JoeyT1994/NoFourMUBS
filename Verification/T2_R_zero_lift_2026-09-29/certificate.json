@@ -1,0 +1,117 @@
+{
+  "status": "PASS",
+  "precision96": {
+    "ok": true,
+    "reason": "R_zero_cube",
+    "phase_half_width": "1/2048",
+    "R_upper": "[0.0006317918012051626966154108627 +/- 1.78e-32]",
+    "seed_block_bound": "1/1024",
+    "B_block_bound": "7/1000",
+    "C_block_bound": "3/250",
+    "gram_lower": "3/4-10/2048",
+    "normalized_Frobenius_bound": "1/40",
+    "sides": [
+      {
+        "nodes": 1860,
+        "moment_leaves": 473,
+        "corner_leaves": 325,
+        "labels": 164,
+        "pair_checks": 13530,
+        "triple_checks": 15041,
+        "retained_triples": 5017,
+        "block_distance_upper": "[0.006592945650083903002031944932 +/- 1.02e-31]",
+        "worst_matching": {
+          "labels": [
+            13,
+            62,
+            133
+          ],
+          "permutation": [
+            0,
+            1,
+            2
+          ]
+        }
+      },
+      {
+        "nodes": 2944,
+        "moment_leaves": 803,
+        "corner_leaves": 448,
+        "labels": 253,
+        "pair_checks": 32131,
+        "triple_checks": 22692,
+        "retained_triples": 8749,
+        "block_distance_upper": "[0.01190686209613361883574474903 +/- 1.93e-30]",
+        "worst_matching": {
+          "labels": [
+            16,
+            37,
+            141
+          ],
+          "permutation": [
+            1,
+            2,
+            0
+          ]
+        }
+      }
+    ]
+  },
+  "precision160": {
+    "ok": true,
+    "reason": "R_zero_cube",
+    "phase_half_width": "1/2048",
+    "R_upper": "[0.00063179180097778902117216577680442427428689943058 +/- 6.36e-52]",
+    "seed_block_bound": "1/1024",
+    "B_block_bound": "7/1000",
+    "C_block_bound": "3/250",
+    "gram_lower": "3/4-10/2048",
+    "normalized_Frobenius_bound": "1/40",
+    "sides": [
+      {
+        "nodes": 1860,
+        "moment_leaves": 473,
+        "corner_leaves": 325,
+        "labels": 164,
+        "pair_checks": 13530,
+        "triple_checks": 15041,
+        "retained_triples": 5017,
+        "block_distance_upper": "[0.0065929456500839030020319449318271325976846578287 +/- 3.82e-50]",
+        "worst_matching": {
+          "labels": [
+            13,
+            62,
+            133
+          ],
+          "permutation": [
+            0,
+            1,
+            2
+          ]
+        }
+      },
+      {
+        "nodes": 2944,
+        "moment_leaves": 803,
+        "corner_leaves": 448,
+        "labels": 253,
+        "pair_checks": 32131,
+        "triple_checks": 22692,
+        "retained_triples": 8749,
+        "block_distance_upper": "[0.011906862096133618835744749027885764610173100707 +/- 7.03e-50]",
+        "worst_matching": {
+          "labels": [
+            16,
+            37,
+            141
+          ],
+          "permutation": [
+            1,
+            2,
+            0
+          ]
+        }
+      }
+    ]
+  }
+}

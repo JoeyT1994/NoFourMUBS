@@ -1,0 +1,6 @@
+Direct replay against unchanged campaign source, Julia 1.12.1.
+Command: julia --startup-file=no --compiled-modules=existing --project=NumericalCampaign/Certification/jlenv_cluster Review/reproduce_fasttm.jl
+
+PASS: counterexample reproduced in Julia 1.12.1
+coefficient error = 1//10141204801825835211973625643008; reported remainder = 1.0e-300
+exact residual = -1//10141204801825835211973625643008; returned enclosure = [-3.00001e-300, 3.00001e-300]_com

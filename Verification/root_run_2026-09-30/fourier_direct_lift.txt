@@ -1,0 +1,24 @@
+PASS: square-root corner perturbation and normalization constants
+PASS: whole elongated patch, transverse 2e-7, tangential pi/512
+{
+  "seed_distance_upper": "[2.828427124746190097604091455e-7 +/- 1.95e-35]",
+  "R_path_lower": "[6.717242154628282083827417555 +/- 3.95e-28]",
+  "R_path_upper": "[10.84823842158806505471907537 +/- 4.77e-27]",
+  "gram_lower": "[0.7447635010393330798583397386 +/- 2.92e-29]",
+  "side_speed_upper": "[78.57456539111643071504046961 +/- 4.56e-27]",
+  "carrier_speed_upper": "[188.7877777475200470936630682 +/- 1.33e-26]",
+  "carrier_distance_upper": "[5.339724714016408952373554993e-5 +/- 2.79e-33]",
+  "gap_columns": [
+    1,
+    3,
+    5
+  ],
+  "gap_lower": "[0.4573207783527636670681607005 +/- 2.50e-29]",
+  "required_gap_upper": "[0.01706821878277454929112704627 +/- 4.83e-30]",
+  "ok": true,
+  "reason": "direct_fourier_lift"
+}
+PASS: independent invariant comparison for all 20 alternative corners
+PASS: all 72 positional frames, including transpose and periodic lifts
+PASS: matrix-radius, branch-gap, R=0, full production-box, and invalid-input controls
+SCOPE: accepted strict reconstruction inputs; R-separated only; no production workload reduction claimed

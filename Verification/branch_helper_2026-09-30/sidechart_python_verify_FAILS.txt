@@ -1,0 +1,38 @@
+PASS: source pins and exact two-substitution cover injection; no hplus_tm calls
+PASS: 1000 deterministic evenly spaced source records; cached CSV R bounds unused
+concurrent.futures.process._RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.10/3.10.6_2/Frameworks/Python.framework/Versions/3.10/lib/python3.10/concurrent/futures/process.py", line 246, in _process_worker
+    r = call_item.fn(*call_item.args, **call_item.kwargs)
+  File "/opt/homebrew/Cellar/python@3.10/3.10.6_2/Frameworks/Python.framework/Versions/3.10/lib/python3.10/concurrent/futures/process.py", line 205, in _process_chunk
+    return [fn(*args) for args in chunk]
+  File "/opt/homebrew/Cellar/python@3.10/3.10.6_2/Frameworks/Python.framework/Versions/3.10/lib/python3.10/concurrent/futures/process.py", line 205, in <listcomp>
+    return [fn(*args) for args in chunk]
+  File "/Users/jtindall/Files/NoFourMUBS/ProvenResults/SideChartCover/verify.py", line 51, in replay_one
+    hh=[replay_side(theta,rho,c) for c in result['charts'][0]]
+  File "/Users/jtindall/Files/NoFourMUBS/ProvenResults/SideChartCover/verify.py", line 51, in <listcomp>
+    hh=[replay_side(theta,rho,c) for c in result['charts'][0]]
+  File "/Users/jtindall/Files/NoFourMUBS/ProvenResults/SideChartCover/verify.py", line 16, in replay_side
+    F=moments_poly_interval(pp);T=target_poly_interval(theta,rho)
+NameError: name 'moments_poly_interval' is not defined
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/jtindall/Files/NoFourMUBS/ProvenResults/SideChartCover/verify.py", line 105, in <module>
+    if __name__=='__main__':main()
+  File "/Users/jtindall/Files/NoFourMUBS/ProvenResults/SideChartCover/verify.py", line 93, in main
+    with concurrent.futures.ProcessPoolExecutor(max_workers=a.workers) as ex:n=sum(ex.map(replay_one,rows,chunksize=4))
+  File "/opt/homebrew/Cellar/python@3.10/3.10.6_2/Frameworks/Python.framework/Versions/3.10/lib/python3.10/concurrent/futures/process.py", line 570, in _chain_from_iterable_of_lists
+    for element in iterable:
+  File "/opt/homebrew/Cellar/python@3.10/3.10.6_2/Frameworks/Python.framework/Versions/3.10/lib/python3.10/concurrent/futures/_base.py", line 621, in result_iterator
+    yield _result_or_cancel(fs.pop())
+  File "/opt/homebrew/Cellar/python@3.10/3.10.6_2/Frameworks/Python.framework/Versions/3.10/lib/python3.10/concurrent/futures/_base.py", line 319, in _result_or_cancel
+    return fut.result(timeout)
+  File "/opt/homebrew/Cellar/python@3.10/3.10.6_2/Frameworks/Python.framework/Versions/3.10/lib/python3.10/concurrent/futures/_base.py", line 458, in result
+    return self.__get_result()
+  File "/opt/homebrew/Cellar/python@3.10/3.10.6_2/Frameworks/Python.framework/Versions/3.10/lib/python3.10/concurrent/futures/_base.py", line 403, in __get_result
+    raise self._exception
+NameError: name 'moments_poly_interval' is not defined

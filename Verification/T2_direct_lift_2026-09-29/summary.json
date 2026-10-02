@@ -1,0 +1,60 @@
+{
+  "status": "PASS",
+  "completed_at_utc": "2026-09-29T04:22:15.642955+00:00",
+  "python": "3.10.6",
+  "dependencies": {
+    "sympy": "1.14.0",
+    "mpmath": "1.3.0",
+    "numpy": "2.2.6",
+    "python-flint": "0.9.0"
+  },
+  "checks": [
+    {
+      "name": "fourier_blocks",
+      "script": "ProvenResults/FourierBlocks/FourierBlockClassification.py",
+      "status": "PASS",
+      "source_sha256": "82e29dfbb9f5255bbae759bd194d7511945c1c59369fc9bd2e8e073f6dcb6ff9",
+      "exit_code": 0,
+      "elapsed_seconds": 0.046,
+      "log": "fourier_blocks.txt"
+    },
+    {
+      "name": "edge_rigidity",
+      "script": "ProvenResults/EdgeRigidity/verify.py",
+      "status": "PASS",
+      "source_sha256": "21e221b41f9f1f076c469968c094cec5ae3dd4e24a96effe74c8f1211b2132b4",
+      "exit_code": 0,
+      "elapsed_seconds": 34.278,
+      "log": "edge_rigidity.txt"
+    },
+    {
+      "name": "fourier_direct_lift",
+      "script": "ProvenResults/FourierNeighbourhood/SeedLifting/verify_direct_lift.py",
+      "status": "PASS",
+      "source_sha256": "c62e621c3b1dfc32ae8beb1fde4cf0bf277fa46e3fde87e54784f0b70b00d12e",
+      "exit_code": 0,
+      "elapsed_seconds": 0.592,
+      "log": "fourier_direct_lift.txt"
+    },
+    {
+      "name": "side_column_prune",
+      "script": "ProvenResults/CornerBounds/SideColumnPrune/verify.py",
+      "status": "PASS",
+      "source_sha256": "41c9f6e0a5aa5182dda801adb2270fe44f603b353e3fe09735c3be9b5a2765a9",
+      "exit_code": 0,
+      "elapsed_seconds": 16.115,
+      "log": "side_column_prune.txt"
+    },
+    {
+      "name": "regular_side_charts",
+      "script": "ProvenResults/RegularSideCharts/verify.py",
+      "status": "PASS",
+      "source_sha256": "cd086b54dba1d9bf74926521afd9ca3f55b47259f1a61cd72286031f7f834e0d",
+      "exit_code": 0,
+      "elapsed_seconds": 0.369,
+      "log": "regular_side_charts.txt"
+    }
+  ],
+  "elapsed_seconds": 34.427,
+  "scope": "Retained exact algebra/certificates and labelled numerical regressions. Universal statements also require their written proofs. No Lean rebuild, external-input verification, or global MUB exclusion."
+}

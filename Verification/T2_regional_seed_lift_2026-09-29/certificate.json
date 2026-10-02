@@ -1,0 +1,170 @@
+{
+  "status": "PASS",
+  "replays": [
+    {
+      "precision": 96,
+      "certificate": {
+        "ok": true,
+        "reason": "matched_family_tube",
+        "reference_parameters": [
+          "7/360",
+          "0"
+        ],
+        "regional_cell": {
+          "grid": 180,
+          "a": 3,
+          "b": 0,
+          "tolerance_denominator": 8,
+          "rho_denominator": 6,
+          "centers": "centers_180_3_0.json"
+        },
+        "allowed_column_distance": "1/48",
+        "seed_error": "[0.0002000114610736468651462458174 +/- 4.15e-32]",
+        "gram_lower": "[0.7596853022821073584483112434 +/- 3.13e-29]",
+        "reference_gram_lower": "0.7606009840965270996093750000",
+        "reference_norm_upper": "[2.288973354127014057057147470 +/- 2.58e-28]",
+        "R_cap": "[8.531759971087779152005260764 +/- 3.65e-28]",
+        "column_distance": "[0.01670614703664754615189551941 +/- 3.67e-30]",
+        "row_distance": "[0.01569155506508626076365241862 +/- 2.23e-30]",
+        "sides": [
+          {
+            "nodes": 4594,
+            "moment_leaves": 1904,
+            "corner_leaves": 204,
+            "labels": 221,
+            "pair_checks": 24531,
+            "triple_checks": 218,
+            "retained_triples": 149,
+            "total_bound": "[0.009631533616105452560604120219 +/- 9.14e-32]",
+            "individual_bound": "[0.007090144392043601501805446607 +/- 4.96e-31]",
+            "worst_matching": {
+              "labels": [
+                54,
+                55,
+                87
+              ],
+              "permutation": [
+                2,
+                1,
+                0
+              ]
+            }
+          },
+          {
+            "nodes": 4318,
+            "moment_leaves": 1808,
+            "corner_leaves": 156,
+            "labels": 227,
+            "pair_checks": 25878,
+            "triple_checks": 79,
+            "retained_triples": 79,
+            "total_bound": "[0.01071109526226561496767658044 +/- 2.14e-30]",
+            "individual_bound": "[0.006954792292225554780895077702 +/- 3.59e-31]",
+            "worst_matching": {
+              "labels": [
+                3,
+                60,
+                121
+              ],
+              "permutation": [
+                0,
+                2,
+                1
+              ]
+            }
+          }
+        ]
+      },
+      "R_lower": "[8.450596186023809995606590190 +/- 3.09e-28]"
+    },
+    {
+      "precision": 160,
+      "certificate": {
+        "ok": true,
+        "reason": "matched_family_tube",
+        "reference_parameters": [
+          "7/360",
+          "0"
+        ],
+        "regional_cell": {
+          "grid": 180,
+          "a": 3,
+          "b": 0,
+          "tolerance_denominator": 8,
+          "rho_denominator": 6,
+          "centers": "centers_180_3_0.json"
+        },
+        "allowed_column_distance": "1/48",
+        "seed_error": "[0.00020001146107364686514624581735671035136776370582 +/- 2.82e-51]",
+        "gram_lower": "[0.75968530228210735844831124343050456849138392856 +/- 1.51e-49]",
+        "reference_gram_lower": "0.76060098409652709960937500000000000000000000000",
+        "reference_norm_upper": "[2.2889733541270140570571474702518279483014006304 +/- 3.57e-47]",
+        "R_cap": "[8.5317599710877791520052606811303756220615608332 +/- 3.11e-47]",
+        "column_distance": "[0.016706147038146115779247444567390284376925552126 +/- 4.35e-49]",
+        "row_distance": "[0.015691555065867505156231567733424332810233138014 +/- 1.52e-49]",
+        "sides": [
+          {
+            "nodes": 4594,
+            "moment_leaves": 1904,
+            "corner_leaves": 204,
+            "labels": 221,
+            "pair_checks": 24531,
+            "triple_checks": 218,
+            "retained_triples": 149,
+            "total_bound": "[0.0096315336170845981405786443246545583369281545434 +/- 4.28e-50]",
+            "individual_bound": "[0.0070901443933737117290052413235850851582126685020 +/- 2.02e-50]",
+            "worst_matching": {
+              "labels": [
+                54,
+                55,
+                87
+              ],
+              "permutation": [
+                2,
+                1,
+                0
+              ]
+            }
+          },
+          {
+            "nodes": 4318,
+            "moment_leaves": 1808,
+            "corner_leaves": 156,
+            "labels": 227,
+            "pair_checks": 25878,
+            "triple_checks": 79,
+            "retained_triples": 79,
+            "total_bound": "[0.010711095262265614967676580442007458872401985514 +/- 4.65e-49]",
+            "individual_bound": "[0.0069547922922255547808950777023109213273715850920 +/- 2.13e-50]",
+            "worst_matching": {
+              "labels": [
+                3,
+                60,
+                121
+              ],
+              "permutation": [
+                0,
+                2,
+                1
+              ]
+            }
+          }
+        ]
+      },
+      "R_lower": "[8.4505961860238171010339476626730195512945850341 +/- 2.33e-47]"
+    }
+  ],
+  "production_control": {
+    "ok": false,
+    "reason": "label_limit",
+    "sides": [
+      {
+        "nodes": 4184,
+        "moment_leaves": 1035,
+        "corner_leaves": 61,
+        "labels": 1000,
+        "reason": "label_limit"
+      }
+    ]
+  }
+}

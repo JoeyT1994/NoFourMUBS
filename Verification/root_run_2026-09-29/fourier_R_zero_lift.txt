@@ -1,0 +1,62 @@
+PASS: exact physical F6 reference, Gram spectrum, R=0, rational final bound
+{
+  "ok": true,
+  "reason": "R_zero_cube",
+  "phase_half_width": "1/2048",
+  "R_upper": "[0.0006317918012051626966154108627 +/- 1.78e-32]",
+  "seed_block_bound": "1/1024",
+  "B_block_bound": "7/1000",
+  "C_block_bound": "3/250",
+  "gram_lower": "3/4-10/2048",
+  "normalized_Frobenius_bound": "1/40",
+  "sides": [
+    {
+      "nodes": 1860,
+      "moment_leaves": 473,
+      "corner_leaves": 325,
+      "labels": 164,
+      "pair_checks": 13530,
+      "triple_checks": 15041,
+      "retained_triples": 5017,
+      "block_distance_upper": "[0.006592945650083903002031944932 +/- 1.02e-31]",
+      "worst_matching": {
+        "labels": [
+          13,
+          62,
+          133
+        ],
+        "permutation": [
+          0,
+          1,
+          2
+        ]
+      }
+    },
+    {
+      "nodes": 2944,
+      "moment_leaves": 803,
+      "corner_leaves": 448,
+      "labels": 253,
+      "pair_checks": 32131,
+      "triple_checks": 22692,
+      "retained_triples": 8749,
+      "block_distance_upper": "[0.01190686209613361883574474903 +/- 1.93e-30]",
+      "worst_matching": {
+        "labels": [
+          16,
+          37,
+          141
+        ],
+        "permutation": [
+          1,
+          2,
+          0
+        ]
+      }
+    }
+  ]
+}
+PASS: independent unique-label matching and rectangular-coordinate error bounds
+PASS: both signs of R; strict D0 curve nonvacuity; 72 frames; periodicity; failure controls
+PASS: independent unique-label matching and rectangular-coordinate error bounds
+PASS: independent 160-bit replay; complete R=0-crossing seed cube excludes quartet edges

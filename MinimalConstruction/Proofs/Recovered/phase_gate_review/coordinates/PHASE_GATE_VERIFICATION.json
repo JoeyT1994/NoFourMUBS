@@ -1,0 +1,32 @@
+{
+  "exact": {
+    "row_residual_factorization": true,
+    "three_point_sum_of_squares": true,
+    "unit_phase_root_equivalence": true,
+    "cube_free_measurement_rewrite": true,
+    "nontrivial_phase_radicand_example": true,
+    "Hcross_core_unitarity": true,
+    "Hcross_factorization": true,
+    "Hcross_side_weights": [
+      "16/27",
+      "16/27"
+    ]
+  },
+  "numerical": {
+    "precision_digits": 80,
+    "strict_seeds": 30,
+    "arbitrary_phase_orbits": 90,
+    "branch_matrices": 27,
+    "maximum_absolute_residuals": {
+      "core_unitarity": "8.34731233145e-77",
+      "unit_target_modulus": "4.10597525493e-77",
+      "arbitrary_orbit_unitarity": "7.5695089672e-77",
+      "locked_reconstruction": "2.65946251252e-77",
+      "side_residual_identity": "5.55721422379e-77",
+      "measurement_moment_identity": "1.01576690898e-76",
+      "all_nine_branch_permutations": "1.05947778103e-80"
+    },
+    "scope": "Independent floating-point diagnostics, not interval certification or MUB-existence proofs."
+  },
+  "status": "PASS"
+}

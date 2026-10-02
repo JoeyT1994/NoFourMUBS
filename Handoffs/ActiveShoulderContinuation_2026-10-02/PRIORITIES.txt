@@ -1,0 +1,43 @@
+ActiveShoulderClosure continuation — integrator scope update, 2026-10-02
+
+The delivered v2 ZIP, source pins, receipt and results remain unchanged.
+This handoff records new priorities and a classification of its already
+replayed per-box results. It does not add an interval certificate.
+
+Active-class pilot: all 77,137 supplied boxes already accept in v2.
+The 2,390 unresolved pilot boxes comprise all 2,354 F3 boxes and 36 of
+1,122 old-class boxes. The integrator reports closing all 1,122 old-class
+boxes outside strict D0 using residual_lift.certify_f6 with the correctly
+ordered F6 reference, at about 0.12 CPU-seconds per box. That stage belongs
+to the integrator. F3 is low priority here and belongs to integrator F/G;
+its sampled successes are not a complete closure certificate.
+
+Immediate local target: production representative 7, seed (1,5,5,1).
+The exact checked conjugation also covers (5,1,1,5). These are the only
+two production cubes still open. All 72 old-class production cubes are
+already certified; 16 of 18 active-class production cubes are certified.
+Retain the requested closed half-width pi/512 + 2^-40, both signs and
+all boundary faces. Maximal physical R=0 uses A1/F6 as in PROOF.md.
+
+Use data/production_continuation.jsonl.gz as the continuation baseline.
+FOCUS.json records 16 prefix-disjoint assignments, checked to cover every
+open leaf exactly once. The existing subtree_sweep.py --refine driver
+supports one cluster shard per assignment. Allocate 3,600 CPU-seconds per
+assignment initially: 16 nominal CPU-hours plus possible indivisible-call
+or replay overruns, not a closure forecast. Calibrate replay burden on
+rusty first. Use Julia 1.12.7, jlenv_cluster, and the frozen 577018eb... bundle.
+Keep scoped replay, exact merge checks, and a final full replay.
+
+Active bulk beyond the pilot: the full-run exact box list is still needed.
+Rebuild S from that list, test against the existing certified subset, and
+focus search on newly uncovered active inputs. Do not spend compute merely
+to close coarse grid remainder outside the active input boxes, or use the
+82 open coarse roots as a count of failed active-class pilot boxes.
+
+No additional search was launched for this update. Existing local compute
+is estimated at 90.57 CPU-hours; the original approximately 100 CPU-hour
+ceiling remains in force. Large continuation work belongs on the cluster.
+
+Provenance and exact per-family counts are in FOCUS.json. The integrator
+claims stay separate from this task's replayed evidence pending receipt
+import. The original 2,390-unresolved pilot result is not rewritten.

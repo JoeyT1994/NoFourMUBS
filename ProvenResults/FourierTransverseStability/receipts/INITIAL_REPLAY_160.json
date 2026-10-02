@@ -1,0 +1,230 @@
+{
+  "status": "PASS",
+  "theorem": "Fourier transverse stability: two explicit bands",
+  "acceptance": "exact rational and directed mpmath.libmp intervals",
+  "precision_bits": 160,
+  "unresolved_tiles": 0,
+  "accepted_tiles": 629,
+  "partition": {
+    "broad": {
+      "leaves": 454,
+      "nodes": 605,
+      "normalized_area": "1",
+      "max_depth": 7
+    },
+    "thick": {
+      "leaves": 175,
+      "nodes": 233,
+      "normalized_area": "1",
+      "max_depth": 5
+    }
+  },
+  "summary": {
+    "broad": {
+      "tiles": 454,
+      "phase_upper": "8866011422990426559/900719925474099200000",
+      "vector_squared_upper": "22645241910009947591803891274239475726191973/498460498419343452338927647605129216000000000000",
+      "R_lower": "615396769141451431409498745605788316613545484845/365375409332725729550921208179070754913983135744",
+      "R_upper": "227790749006181838826911208765468928237186611495/22835963083295358096932575511191922182123945984",
+      "leading_Q_lower": "113241058585003599478551148979237404614711279231/730750818665451459101842416358141509827966271488",
+      "signed_Q_gap_lower": "128044102293073450678404945727064029036710167045/11692013098647223345629478661730264157247460343808",
+      "F_combined_upper": "1439441319028957347063013482410097281498653266649/1461501637330902918203684832716283019655932542976",
+      "A_combined_upper": "359882787138786641240533001765414503174224823283/365375409332725729550921208179070754913983135744",
+      "F_contraction_upper": "1183241032459559852137365919822838319256356707163/1461501637330902918203684832716283019655932542976",
+      "A_contraction_upper": "223831517858796169098253113141499393580675507429/365375409332725729550921208179070754913983135744"
+    },
+    "thick": {
+      "tiles": 175,
+      "phase_upper": "15761986575950366593/1125899906842624000000",
+      "vector_squared_upper": "241126025892053096691929631533410339863419/2596148429267413814265248164610048000000000000",
+      "R_lower": "1297818748256736443539157536431009768684947677729/365375409332725729550921208179070754913983135744",
+      "R_upper": "978504043723117695141536214464407299501121885025/91343852333181432387730302044767688728495783936",
+      "leading_Q_lower": "326278764169982195933278736141075384445992408093/1461501637330902918203684832716283019655932542976",
+      "signed_Q_gap_lower": "236313622548341134298997794270338275673463689541/23384026197294446691258957323460528314494920687616",
+      "F_combined_upper": "719727196205828921540630492061808253153855371107/730750818665451459101842416358141509827966271488",
+      "A_combined_upper": "179941740184312343849789492633303167025764766103/182687704666362864775460604089535377456991567872",
+      "F_contraction_upper": "294570014896353516277721716022958558760348429249/365375409332725729550921208179070754913983135744",
+      "A_contraction_upper": "1133016928981714347102560526916303925378863355855/2923003274661805836407369665432566039311865085952"
+    }
+  },
+  "exact_algebra": {
+    "status": "PASS",
+    "Fourier_Gram": "exact",
+    "alternative_side_Gram": "exact",
+    "surface_R_factorization": "exact",
+    "explicit_phase_identities": 72,
+    "complementary_sine_determinant": "exact",
+    "third_derivative_identities": 4,
+    "frame_maps": 144,
+    "thick_surface_maximality_chamber": "exact",
+    "proof_assistant_formalization": false
+  },
+  "controls": {
+    "status": "PASS",
+    "negative_controls": [
+      "missing quadtree child",
+      "duplicate quadtree leaf",
+      "ancestor leaf overlap",
+      "invalid quadtree digit",
+      "empty cover",
+      "zero full-chart preconditioner",
+      "zero alternative-side radii",
+      "missing alternative-side branch",
+      "nonfinite proposal",
+      "projector cap cannot be silently tightened",
+      "negative seed halfwidth",
+      "nonfinite seed center",
+      "string not an exact phase input",
+      "oversized seed halfwidth"
+    ],
+    "negative_count": 14,
+    "whole_box_positive_control": {
+      "profile": "thick",
+      "frame": {
+        "rows": [
+          0,
+          1,
+          2
+        ],
+        "columns": [
+          0,
+          1,
+          2
+        ],
+        "transpose": false,
+        "conjugate": false,
+        "matrix": [
+          [
+            1,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            1
+          ]
+        ]
+      },
+      "periodic_shifts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "p_interval": [
+        "123397085402260575267084756180708963843534501527/5846006549323611672814739330865132078623730171904",
+        "123434302235847473140648682233596612809467439063/5846006549323611672814739330865132078623730171904"
+      ],
+      "q_interval": [
+        "10273857335383730026521913601730886921584967095/1461501637330902918203684832716283019655932542976",
+        "20557018879164184521434808716683686084653168579/2923003274661805836407369665432566039311865085952"
+      ],
+      "u_interval": [
+        "-957809713041180536473966891968943239761712213509/95780971304118053647396689196894323976171195136475136",
+        "957809713041180536473966891968943239761712213509/95780971304118053647396689196894323976171195136475136"
+      ],
+      "v_interval": [
+        "-957809713041180536473966891968943239761712475653/95780971304118053647396689196894323976171195136475136",
+        "957809713041180536473966891968943239761712475653/95780971304118053647396689196894323976171195136475136"
+      ],
+      "normal_gauge_upper": "467680523945888933825179146469210566289898669753/46768052394588893382517914646921056628989841375232",
+      "row_column_distance_upper": "1197262141301475670592458614961179049702140594569/11972621413014756705924586149611790497021399392059392",
+      "projector_tube_radius": "1/36",
+      "hypotheses": [
+        "physical raw order-six Hadamard",
+        "leading corner maximal among ALL 400 positional corners"
+      ],
+      "all_four_pairings_covered": true
+    },
+    "exact_rational_interval_controls": 3
+  },
+  "regional_tube": {
+    "status": "imported proved theorem; hashes checked",
+    "cell": [
+      180,
+      3,
+      1
+    ],
+    "projector_radius": "1/36",
+    "upstream_full_cover_rerun": false
+  },
+  "all_four_pairings": {
+    "matched_F": "joint phase contraction",
+    "matched_A": "strict larger same-row positional corner",
+    "nonmatched_1": "proved Tao exception, excluded by R<16",
+    "nonmatched_2": "proved Tao exception, excluded by R<16"
+  },
+  "arithmetic_cpu_seconds": 243.406245784,
+  "parent_cpu_seconds": 2.901494105,
+  "wall_seconds": 126.88664502099982,
+  "workers": 4,
+  "environment": {
+    "python": "3.13.5",
+    "numpy": "2.3.5",
+    "mpmath": "1.3.0",
+    "sympy": "1.14.0"
+  },
+  "dependencies": {
+    "HANDOFF_LOCAL.md": "94cf1cb8945a0494ccc0ad8f925880a27723c4d754b1b5a13be18234af912b28",
+    "PROOF_OF_RECORD.md": "90974adcc6e346272ea061d509b1d56654388692d7bdd9b1cf38ae6a2347923f",
+    "NumericalCampaign/REDUCTION.md": "d2e66fdb209a23fe225775b7e8629efd478b24b217e08d168dd63c441bda2b95",
+    "MinimalConstruction/Proofs/STRICT_DOMAIN.md": "c2e0cb8a447066876bcafa54edd8a4e86464fb8ab47a4d521ad4fafb9283c38b",
+    "MinimalConstruction/Proofs/SIDE_FIBER.md": "c9ab9598e78a7f0aaa64d445dbbca5615976cc0d5f6127e1ed8b479772600adc",
+    "MinimalConstruction/Proofs/MATCHED_FLATNESS.md": "c5657659482a5b778817cb2fe67a8abd3b435add9b40a1bf87fb7e6d136b45a2",
+    "MinimalConstruction/Proofs/NONMATCHED_EXCEPTIONS.md": "2f804b4cc268a47df98f735a095fa8e5a22db81179963b85204efe2f4967352d",
+    "MinimalConstruction/Proofs/TAO_PAIRINGS.md": "3db2d38ca1fb669899c85665d1884ba7838d3866fdbf6d6ecbea3d908e47f926",
+    "ProvenResults/Sheets/BRANCH_LEMMA.md": "4d9b59c880b95a38b1b0d82c38fd716c7b16fee71c862447d9ca09247246b640",
+    "ProvenResults/RegularSideCharts/PROOF.md": "a579fb64d8003133c2051c5694540169fafb3856c9f1704d19595e805abbe29e",
+    "ProvenResults/FourierNeighbourhood/SeedLifting/PROOF.md": "a9e3e182a974578840695dd5360f516ef3e14c600546ce6a2e1a2686ed2a3b47",
+    "ProvenResults/FourierNeighbourhood/SeedLifting/FOURIER_SIDE_COMPLETION.md": "0969bbb263028856505a253123c7c5cc3c4c1b895731f8c716a5170caedff637",
+    "ProvenResults/FourierNeighbourhood/SeedLifting/FOURIER_MAX_R.md": "bdc1656f4992168d98b23f0395d48e4f4ec491c1ca4a262006ae3d1b0a2840d6",
+    "ProvenResults/CornerBounds/PROOF.md": "bfb49f0e36667305c86db0942c10ee8a93cb7d15cb6ae5bebbdd0efef67db4e1",
+    "ProvenResults/CornerBounds/SideColumnPrune/prune.py": "3c5417f38f7b124023fa8aee23d49f38d51fa15814892be7dd71db029367d814",
+    "ProvenResults/FourierNeighbourhood/WideFamilyTube/PROOF.md": "68d021adfb77b96e23e5eadcb9a6240ae1e7a16a327e737f9451a69996e9016c",
+    "ProvenResults/FourierNeighbourhood/WideFamilyTube/audit.py": "2e6e000927e97c03f54b3c268c78d8f78c0bfd3cea0df11c0ca728622fac23dd",
+    "ProvenResults/ActiveShoulderClosure/REGIONAL_TUBES.md": "2e109cf908f9ccc94f26ec524912b0ec7d40454dbf6960206171f8e1e58a9502",
+    "ProvenResults/ActiveShoulderClosure/data/extra_tubes.json": "1269c7e24c09e260b4c351d66800e946c465878e226f04e71d08b61579903df7",
+    "Verification/active_shoulder_2026-10-01/RECEIPT.json": "19773d77cd6dc24f2228b5f0a5abd0af8675d90763e3a17acf57f13db4da5add",
+    "Verification/active_shoulder_2026-10-01/replay/RECEIPT.json": "6336bfb6e75378671305ca4a5ea044dbd06a9d5a2aa6947a54a5943a95b3be81",
+    "Verification/active_shoulder_2026-10-01/replay/extra_tubes/180_3_1/certificate.json": "798c71f3070342869f544f483f8d16315dbc54200027874fafd28670d338e6a6",
+    "Verification/active_shoulder_2026-10-01/replay/extra_tubes/180_3_1/cover.txt": "7a941b592bca717eec4775811273b49a1412aca0c28dc1064b188f79dfd3f960"
+  },
+  "files": {
+    "algebra.py": "1b296c99cabf559d32e1af3a4f11ba7de67f369016ea0a3b15f140025348b85b",
+    "build.py": "cff432a8a624242cd87bcb1a0475695ca72caff2b360f8d4c27b0dcf249e5880",
+    "charts.py": "63855c37db409e96d1a1aa9e30bf6c661ddf0cc064ed70cbba21b27ffb70c05d",
+    "controls.py": "d751629a8bad34835d959a2aec3a929e20433e69b83d25f4d9c62e62e98109a9",
+    "corner.py": "60811da3ff83f7817f1c00d4f79a866cd6b51b1d2efe980b8a8931644b95ffcd",
+    "data/build_receipt.json": "2d828f14b7444a72588bc24299f63b607ada256ee63b5e99c23078541ca18298",
+    "data/build_subdivisions.json": "62ddaed914f0a9676a878c0262cee42e15e951cb9881d6bd541fbeaf5ff2116e",
+    "data/dependencies.json": "ccb539d6090c8136b4534bd447a24ededc5bb4093fe44005fe5b985cad3de4ce",
+    "data/predictors.npz": "fc2f88db9fafa53a2b1332e7a17dabb94332e3998c726f6df884f27dc2a0fc2b",
+    "data/profiles.json": "f86f6384aefbc26ea688cebcd56928b7fd0ee44e42552e15a4cd73440f3738e1",
+    "data/tiles.json": "1f4501968af3358f1c3c7e21765d764edcd0fd83127d4fff6fd97c93c7ba1060",
+    "geometry.py": "6da95ed162737933c8b3c29c5d29d99367cadf0ef2d1adf1ed13d313ddd83d39",
+    "interval.py": "e15f612c30b983be81ab08fd4751c60f2c64e9cb4ce6fa3b3196323609f88b71",
+    "kernel.py": "7f33e77d559c5114a211001eff8694e0a1286564ee67b6b022e425207df9a9d3",
+    "verify.py": "3f0ef9f1a13f00471eec86351256ef3a25c3cdecc656fd1e5834b8595ac61220"
+  },
+  "claims_not_made": [
+    "entire shoulder closed",
+    "low-R strata covered",
+    "all original frontier boxes covered",
+    "proof-assistant formalization"
+  ]
+}

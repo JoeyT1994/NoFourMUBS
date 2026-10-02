@@ -1,0 +1,66 @@
+PASS universal fourth-moment and symmetric-square identities
+PASS exact census and four pairings at both strict Tao corner classes
+{
+  "status": "PASS_EXACT_TAO_PAIRINGS",
+  "corner_count": 400,
+  "classes": [
+    {
+      "seed_exponents": [
+        0,
+        1,
+        1,
+        0
+      ],
+      "count": 180,
+      "g": "9",
+      "R": "243",
+      "Tao_side_Theta": "-3/2 + sqrt(3)*I/2",
+      "flatness_residuals_Theta_signs": [
+        [
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "8"
+        ]
+      ]
+    },
+    {
+      "seed_exponents": [
+        0,
+        1,
+        1,
+        2
+      ],
+      "count": 180,
+      "g": "9",
+      "R": "243",
+      "Tao_side_Theta": "-3/2 - sqrt(3)*I/2",
+      "flatness_residuals_Theta_signs": [
+        [
+          "8",
+          "0"
+        ],
+        [
+          "0",
+          "0"
+        ]
+      ]
+    },
+    {
+      "seed_exponents": [
+        1,
+        2,
+        2,
+        1
+      ],
+      "count": 40,
+      "g": "27",
+      "R": "0",
+      "Tao_side_Theta": "-3"
+    }
+  ],
+  "cpu_seconds": 4.533436,
+  "scope": "All Tao corners and their four pairings; does not classify all possible non-Tao seeds with extra flat pairings."
+}

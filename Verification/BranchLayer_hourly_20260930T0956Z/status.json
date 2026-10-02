@@ -1,0 +1,33 @@
+{
+  "checked_at_UTC": "2026-09-30T09:56:05Z",
+  "status": "EXPANSION_COMPLETE_LAYER_PRUNING_IN_PROGRESS",
+  "branch_job_7138797_in_queue": false,
+  "completed_branch_replay160_receipts": 0,
+  "guarded_layer_txt_available": true,
+  "guarded_layer_txt_bytes": 1745644252,
+  "guarded_old_to_new_id_map_available": true,
+  "guarded_id_map_bytes": 78102368,
+  "guarded_id_map_header": ["old_id", "new_id", "job", "level", "theta1", "theta2", "theta3", "theta4"],
+  "coverage_json_observation": {
+    "jobs": 340972,
+    "pending_jobs": [],
+    "work_cells": 8652808,
+    "layer_cells": 14426812,
+    "layer_tasks": 3607,
+    "certify_tasks": 135201
+  },
+  "coverage_metadata_independently_audited": false,
+  "finished_layer_task_files_observed": 512,
+  "layer_job_running": 7140424,
+  "campaign_certify_jobs_running": [7140425, 7140426, 7140427],
+  "guarded_survivor_inventory_frozen": false,
+  "coordinate_migration_performed": false,
+  "campaign_jobs_modified": false,
+  "new_cluster_jobs": 0,
+  "new_local_experiments": 0,
+  "cancelled_computations_restarted": false,
+  "temporary_status_reader": "Full status.py scan was stopped explicitly; use compact metadata and task-file counts for future readiness checks.",
+  "historical_whole_parent_closures_unchanged": 330,
+  "guarded_final_audit": "OPEN",
+  "next_dependency": "Complete all 3607 layer-prune tasks, then verify sources and every outcome before freezing the survivor inventory and migrating certificates."
+}
