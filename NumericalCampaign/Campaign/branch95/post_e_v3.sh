@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Post-E add-on (2 Oct 2026): Patch2442Region_v3 on the exact 16-child split of every row the post-E ledger left
-# open; fast profile (0.3 s/box) on all children, then the 3 s profile on the rest.  Writes POSTE_OUT/v3/*.jsonl.gz
+# open; fast profile (0.3 s/box) on all children (fast.jsonl.gz), then 3 s on the rest (wide.jsonl.gz).  Writes POSTE_OUT/v3
 # (with the verifier's receipts) only; nothing here changes the post-E ledger.  Caps: V3_WALL=5h and V3R_WALL=3h on
 # one node each (about 1,000 CPU-h at most).  The module's build directory is shared, so the two runs are sequential.
 set -uo pipefail
@@ -21,5 +21,5 @@ J1=$(sbatch --parsable $SB_PART --nodes=1 --exclusive --mem=0 --constraint='rome
   --job-name=nofour-postEv3 --output="$OUT/v3/fast.out" --wrap "$(run fast children.jsonl.gz 0.3 ${V3_WALL:-5})")
 J2=$(sbatch --parsable --dependency=afterany:$J1 $SB_PART --nodes=1 --exclusive --mem=0 --constraint='rome&rocky9' \
   --time=${V3R_WALL:-3}:00:00 --job-name=nofour-postEv3r --output="$OUT/v3/retry.out" \
-  --wrap "cd $PWD && $PY -B postE.py v3-retry $OUT >> $OUT/pipeline.log 2>&1; $(run retry retry.jsonl.gz 3 ${V3R_WALL:-3})")
+  --wrap "cd $PWD && $PY -B postE.py v3-retry $OUT >> $OUT/pipeline.log 2>&1; $(run wide retry.jsonl.gz 3 ${V3R_WALL:-3})")
 log "v3: fast job $J1, 3 s retry job $J2"
