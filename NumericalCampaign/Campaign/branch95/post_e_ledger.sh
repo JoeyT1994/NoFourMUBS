@@ -3,6 +3,7 @@
 # the exact open list and a short SUMMARY.txt (open rows by code and class).
 set -uo pipefail
 cd "${PACKAGE_DIR:?}"
+for v in $(env | grep -o '^SLURM_[A-Z0-9_]*'); do unset "$v"; done
 OUT="${POSTE_OUT:?}"; log() { echo "$(date -Is) $*" | tee -a "$OUT/pipeline.log"; }
 module load python/3.11.11 >/dev/null 2>&1 || true
 args=(--inventory "$OUT/inventory.txt.gz" --v2 "$OUT/v2.jsonl.gz")
@@ -23,3 +24,6 @@ if r["errors"]:
     print("error examples:", r["error_examples"])
 EOF
 log "ledger exit $rc: $(head -2 "$OUT/SUMMARY.txt" | tr '\n' ' ')"
+# (2 Oct) add-on: Patch2442Region_v3 on the rows left open (writes POSTE_OUT/v3 only; see post_e_v3.sh)
+sbatch --parsable --account=ccq --partition=ccq --cpus-per-task=1 --mem=8G --time=1:00:00 --job-name=nofour-postEv3s \
+  --output="$OUT/v3_setup.out" --export=ALL,PACKAGE_DIR=$PWD,POSTE_OUT=$OUT --wrap "cd $PWD && ./post_e_v3.sh" >> "$OUT/pipeline.log"

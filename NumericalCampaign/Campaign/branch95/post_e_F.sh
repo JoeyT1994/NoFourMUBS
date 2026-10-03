@@ -14,14 +14,14 @@ L=$(sbatch --parsable $SB_PART --cpus-per-task=2 --mem=16G --time=2:00:00 --job-
   --output="$OUT/ledger.out" --export=ALL,PACKAGE_DIR=$PWD,POSTE_OUT=$OUT --hold --wrap "cd $PWD && ./post_e_ledger.sh")
 if [ "$T" -gt 0 ]; then
   n=$(( (T + 127) / 128 )); [ "$n" -le "${F_NODES:-4}" ] || n="${F_NODES:-4}"
-  JF=$(sbatch --parsable $SB_PART --nodes=$n --ntasks-per-node=128 --constraint='rome&rocky9' --time="${F_WALL:-5:00:00}" \
+  JF=$(sbatch --parsable $SB_PART --nodes=$n --ntasks-per-node=128 --constraint='rome&rocky9' --time="${F_WALL:-4:00:00}" \
     --job-name=nofour-postEstageF --export=ALL,PACKAGE_DIR=$PWD,TASKFILE=$OUT/F/tasks_F.txt,TASKLABEL=postE_F run_disbatch.slurm)
   JG=$(sbatch --parsable --dependency=afterany:$JF $SB_PART --nodes=1 --exclusive --mem=0 \
     --constraint='rome&rocky9' --time=4:00:00 --job-name=nofour-postEstageG --output="$OUT/G.out" \
     --export=ALL,PACKAGE_DIR=$PWD,NOFOUR_ROOT=$PWD/code \
     --wrap "cd $PWD && module load python/3.11.11 && python3 -B stageG_psd.py $OUT/G/g_000000001.txt $OUT/F/results/c_*.jsonl --workers 120")
   scontrol update JobId=$L Dependency=afterany:$JG
-  log "stage F: $T tasks on $n nodes (job $JF, walltime ${F_WALL:-5:00:00}); stage G job $JG; ledger job $L"
+  log "stage F: $T tasks on $n nodes (job $JF, walltime ${F_WALL:-4:00:00}); stage G job $JG; ledger job $L"
 else
   log "stage F: nothing to do; ledger job $L"
 fi

@@ -1,0 +1,39 @@
+{
+  "status": "PASS_ACCEPTED_SUBSET",
+  "input_boxes": 497,
+  "accepted": 46,
+  "unresolved": 451,
+  "replayed_leaves": 1368,
+  "cpu_seconds": 36.58835399999998,
+  "wall_seconds": 15.856653874972835,
+  "build": {
+    "sources": {
+      "ProvenResults/Patch2442Region_v3/mean_engine.cpp": "8f5c6df700813d9ff5fb0b8e2b6b568a46014cc0de27a3d3256975077a64b326",
+      "ProvenResults/Patch2442Region_v3/taylor.hpp": "68e5cb47199eec052565fc8404273ff568e661d1c8d7bf6d72a6c30c96446534",
+      "ProvenResults/Patch2442Region_v3/provider.py": "b048e896cbd723a06c3faaae939b8f4a606ef201fa5008dcf6da9e61d78fb435",
+      "ProvenResults/Patch2442Region_v3/search.py": "d3d9bdae7b7f29f8fe9f38990dc31c9eaeaa4f5ac6663bf19618913c08741c5b",
+      "ProvenResults/Patch2442Region_v3/verify.py": "1217efad071e81d7adb740846c3cc299b4299096bcc266ea38e5cbdb324e421c",
+      "ProvenResults/SignedCornerPSDPrune/engine.cpp": "ff61cd7b108f77fdd39bd52ca88e3b49075e2d27521af6a15600a00c29a7b3df",
+      "ProvenResults/SignedCornerPSDPrune/determinant_terms.hpp": "6a40619739601f034e283365f90fb572cd280adc24a47f222a82cca70f19a7ab"
+    },
+    "command": [
+      "c++",
+      "-O3",
+      "-DTM_ORDER=4",
+      "-std=c++17",
+      "-fno-fast-math",
+      "-ffp-contract=off",
+      "-fPIC",
+      "-shared",
+      "/Users/jtindall/Files/NoFourMUBS/ProvenResults/Patch2442Region_v3/mean_engine.cpp",
+      "-o",
+      "/Users/jtindall/Files/NoFourMUBS/ProvenResults/Patch2442Region_v3/work/fresh-_9d05_2w/mean_engine.so"
+    ],
+    "sha256": "cbbabc6edd61630454cae5ee9ac07e08fc99d4cf08d028a4012624bbddcf7d26",
+    "compiler": "Apple clang version 21.0.0 (clang-2100.1.1.101)",
+    "order": 4
+  },
+  "boxes_sha256": "bd3a272a07c43fcc0b639d2329ba5634ec4b44c931bab1ae2ab4168df57be0fe",
+  "results_sha256": "59591118831ec0bf9358a55e27143016b496a3c0416b24711e236b2219b92cd1",
+  "replay_sha256": "4edb8e1f8abf586f09a61be242c3b6f9f945f5129e6529e7096d365becaf4988"
+}

@@ -211,8 +211,42 @@ def F_prep(out, per):
     print(json.dumps(dict(F_cells=n, tasks=(n + per - 1) // per)))
 
 
+def v3_prep(out):
+    """Exact 16-child split (centre +- r/2, radius r/2, r = radius(LEVEL)) of every row in open_after_postE.txt, for
+    Patch2442Region_v3/verify.py; ids "ROW:K".  The children's union is exactly the row's closed guarded box."""
+    vd = os.path.join(out, "v3"); os.makedirs(vd, exist_ok=True); n = 0
+    with gzip.open(os.path.join(vd, "children.jsonl.gz"), "wt") as f:
+        for line in open(os.path.join(out, "open_after_postE.txt")):
+            g = line.split(); i, lev = int(g[0]), int(g[1]); h = radius(lev) / 2
+            c = [F(float(x)) for x in g[2:6]]
+            for k in range(16):
+                cc = [c[j] + (h if (k >> j) & 1 else -h) for j in range(4)]
+                f.write(json.dumps(dict(id=f"{i}:{k}", centers=[str(x) for x in cc], radii=[str(h)] * 4),
+                                   separators=(",", ":")) + "\n"); n += 1
+    print(json.dumps(dict(children=n)))
+
+
+def v3_retry(out):
+    """Children whose fast-profile result is missing or not ok, for the 3 s profile."""
+    vd = os.path.join(out, "v3"); ok = set()
+    try:
+        for line in gzip.open(os.path.join(vd, "fast.jsonl.gz"), "rt"):
+            r = json.loads(line)
+            if r.get("ok") is True:
+                ok.add(r["id"])
+    except (EOFError, OSError, ValueError):
+        pass                                   # a run cut off at its walltime: unread records just stay open
+    n = 0
+    with gzip.open(os.path.join(vd, "retry.jsonl.gz"), "wt") as f:
+        for line in gzip.open(os.path.join(vd, "children.jsonl.gz"), "rt"):
+            if json.loads(line)["id"] not in ok:
+                f.write(line); n += 1
+    print(json.dumps(dict(fast_ok=len(ok), retry=n)))
+
+
 if __name__ == "__main__":
     cmd, a = sys.argv[1], sys.argv[2:]
     {"inventory": lambda: inventory(a[0], a[1]), "v2": lambda: v2(a[0]),
      "sidecover": lambda: sidecover(a[0], int(a[1])), "frontier-prep": lambda: frontier_prep(a[0]),
-     "F-prep": lambda: F_prep(a[0], int(a[1]))}[cmd]()
+     "F-prep": lambda: F_prep(a[0], int(a[1])), "v3-prep": lambda: v3_prep(a[0]),
+     "v3-retry": lambda: v3_retry(a[0])}[cmd]()

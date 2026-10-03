@@ -6,7 +6,8 @@
 #   post_e_F.sh        stage F on the rows still open (not (2,4,4,2) unless INCLUDE_2442=1), then G, then the ledger
 #   post_e_ledger.sh   frontier_ledger.py over every source -> POSTE_OUT/ledger_receipt.json, open list, SUMMARY.txt
 # Budgets (environment, defaults): FRONTIER_CPU_H=1500 (search, split over shards by box count), F_NODES=4 and
-# F_WALL=5:00:00 (stage F is cut off at the walltime; unfinished cells stay open).  Total about 4,500 CPU-h.
+# F_WALL=4:00:00 (stage F is cut off at the walltime; unfinished cells stay open); post_e_v3.sh up to
+# about 1,000 CPU-h.  Total at most about 4,600 CPU-h.
 set -uo pipefail
 cd "$(dirname "$0")"
 for v in $(env | grep -o '^SLURM_[A-Z0-9_]*'); do unset "$v"; done
