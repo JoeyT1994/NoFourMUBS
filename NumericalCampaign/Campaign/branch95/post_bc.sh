@@ -9,11 +9,25 @@ set -euo pipefail
 cd "${PACKAGE_DIR:?}"
 for v in $(env | grep -o '^SLURM_[A-Z0-9_]*'); do unset "$v"; done
 log() { echo "$(date -Iseconds) $*" | tee -a logs/post_bc.log; }
-log start
+RETRY="${RETRY:-0}"
+log "start (retry $RETRY)"
+# (2 Oct) outputs of the gen-partition helper for the tail of slice 3 (same task, same code, another directory, so
+# that two writers never share a .part file): move each in unless the ccq slice already wrote that output.
+if [ -d results/triple_gen ]; then
+  for f in results/triple_gen/t_*.txt; do [ -e "$f" ] || continue; b=results/triple/$(basename "$f"); [ -e "$b" ] || mv "$f" "$b"; done
+fi
 missing=0
 while IFS= read -r line; do out="$(echo "$line" | sed 's/ &>.*//' | awk '{print $NF}')"; test -f "$out" || missing=$((missing+1)); done < tasks_branchBC.txt
 log "stage B/C outputs missing: $missing"
-[ "$missing" = 0 ] || { log "stage B/C incomplete; resubmit with ./submit.sh branchBC N tail, then rerun post_bc"; exit 1; }
+if [ "$missing" != 0 ]; then
+  # (2 Oct) self-healing: tasks killed at the walltime are rerun from scratch (outputs are written via .part and
+  # renamed, so a killed task leaves no output), then this script runs again; at most 3 rounds.
+  [ "$RETRY" -lt 3 ] || { log "stage B/C still incomplete after 3 resubmissions; stopping"; exit 1; }
+  nodes=$(( (missing + 127) / 128 )); [ "$nodes" -le 10 ] || nodes=10
+  o="$(WALLTIME=36:00:00 ./submit.sh branchBC "$nodes" tail rome)"; log "$o"; T="${o##* }"
+  sbatch --parsable --dependency=afterany:$T --export=ALL,PACKAGE_DIR=$PWD,RETRY=$((RETRY + 1)) post_bc.sh | tee -a logs/post_bc.log
+  exit 0
+fi
 mkdir -p results/stageD
 ls results/triple/t_*.txt | sort | awk '{f[NR]=$0} END {for (i=1;i<=NR;i+=20) {s=""; for (k=i;k<i+20&&k<=NR;k++) s=s" "f[k]; printf "./stageD_task.sh results/stageD/d_%07d.txt%s &> /dev/null\n", i, s}}' > tasks_branchD.txt
 N=$(wc -l < tasks_branchD.txt); S=$(( (N + 2) / 3 ))
