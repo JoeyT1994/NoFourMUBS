@@ -12,7 +12,7 @@ Geometry: row i is the closed box with centre the exact binary64 values (driver 
 half-width pi/2^LEVEL + 2^-40.  The exact radius handed to the shoulder modules is radius(LEVEL) below, an outward
 rational upper bound (less than 2^-80 above), the same rule as ActiveShoulderClosure_v2.geometry.pilot_radius.
 Classes 2,4,4,2 (stationary F3 seed) and 4,5,0,3 are kept out of the frontier driver (that module's README); the
-(2,4,4,2) rows go to stage F only if INCLUDE_2442=1.  Nothing here accepts a box: acceptance is in each module's
+(2,4,4,2) rows go to stage F after all other rows (INCLUDE_2442=0 leaves them out).  Nothing here accepts a box: acceptance is in each module's
 own verifier, and the ledger reads only their outputs.
 """
 import gzip, json, math, os, sys, collections
@@ -188,12 +188,16 @@ def F_prep(out, per):
     fd = os.path.join(out, "F"); os.makedirs(os.path.join(fd, "results"), exist_ok=True)
     os.makedirs(os.path.join(fd, "logs"), exist_ok=True)
     R = rows(out); done = closed_ids(out, frontier=os.path.exists(os.path.join(out, "frontier", "index.txt")))
-    inc = os.environ.get("INCLUDE_2442", "0") == "1"
+    inc = os.environ.get("INCLUDE_2442", "1") == "1"
     REC = 121; n = 0; caps = "CERT_COVER0=30 CERT_MAXDEPTH=3 CERT_CELLMAX=1800 CERT_CERTMAX=600"
     rel = os.path.relpath(fd, HERE)
+    # Other classes first, then (2,4,4,2): disBatch runs tasks in file order and stage F is cut off at its walltime,
+    # so the (2,4,4,2) rows only use what is left of the budget.
+    order = [i for i, r in enumerate(R) if r[7] != "2,4,4,2"] + ([i for i, r in enumerate(R) if r[7] == "2,4,4,2"] if inc else [])
     with open(os.path.join(fd, "cells_F.txt"), "w") as cf, open(os.path.join(fd, "map_F.tsv"), "w") as mf:
-        for i, r in enumerate(R):
-            if i in done or (r[7] == "2,4,4,2" and not inc):
+        for i in order:
+            r = R[i]
+            if i in done:
                 continue
             n += 1; c = [float(x) for x in r[1:5]]
             rec = f"{n:9d} {0:7d} {int(r[0]):2d} " + " ".join(f"{x:+.17e}" for x in c)
