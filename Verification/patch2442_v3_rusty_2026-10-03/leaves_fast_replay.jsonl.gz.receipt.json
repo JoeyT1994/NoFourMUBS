@@ -1,0 +1,43 @@
+{
+  "status": "PASS_ACCEPTED_SUBSET",
+  "input_boxes": 4174,
+  "accepted": 1404,
+  "unresolved": 2770,
+  "replayed_leaves": 3144,
+  "cpu_seconds": 228.5755829350001,
+  "wall_seconds": 8.51259197499985,
+  "build": {
+    "runtime": {
+      "python": "3.11.11",
+      "mpmath": "1.3.0"
+    },
+    "sources": {
+      "ProvenResults/Patch2442Region_v3/mean_engine.cpp": "8f5c6df700813d9ff5fb0b8e2b6b568a46014cc0de27a3d3256975077a64b326",
+      "ProvenResults/Patch2442Region_v3/taylor.hpp": "68e5cb47199eec052565fc8404273ff568e661d1c8d7bf6d72a6c30c96446534",
+      "ProvenResults/Patch2442Region_v3/provider.py": "b048e896cbd723a06c3faaae939b8f4a606ef201fa5008dcf6da9e61d78fb435",
+      "ProvenResults/Patch2442Region_v3/search.py": "d3d9bdae7b7f29f8fe9f38990dc31c9eaeaa4f5ac6663bf19618913c08741c5b",
+      "ProvenResults/Patch2442Region_v3/verify.py": "330d1312fec2442a00951984b96f7bfe5a76ddad6660cede10031c3b0c418cfb",
+      "ProvenResults/SignedCornerPSDPrune/engine.cpp": "ff61cd7b108f77fdd39bd52ca88e3b49075e2d27521af6a15600a00c29a7b3df",
+      "ProvenResults/SignedCornerPSDPrune/determinant_terms.hpp": "6a40619739601f034e283365f90fb572cd280adc24a47f222a82cca70f19a7ab"
+    },
+    "command": [
+      "g++",
+      "-O3",
+      "-DTM_ORDER=4",
+      "-std=c++17",
+      "-fno-fast-math",
+      "-ffp-contract=off",
+      "-fPIC",
+      "-shared",
+      "/mnt/home/jtindall/Documents/QuantumPhysics/ClusterScripts/nofourmubs_shoulder_v2_2026-10-02/ProvenResults/Patch2442Region_v3/mean_engine.cpp",
+      "-o",
+      "/mnt/home/jtindall/Documents/QuantumPhysics/ClusterScripts/nofourmubs_shoulder_v2_2026-10-02/ProvenResults/Patch2442Region_v3/work/fresh-f_2ugi3j/mean_engine.so"
+    ],
+    "sha256": "71143c6663e3283b7ab8be610002451706df5361d3aba0284701c8fef6ff37b0",
+    "compiler": "g++ (Spack GCC) 13.3.0",
+    "order": 4
+  },
+  "boxes_sha256": "f67fc6e8cb2851b51d08935d1d41d196f9e3f6bdb057d841bea109889ea50637",
+  "results_sha256": "2e47b3033cb56802845bbb82162b21c1f80c72d87567a12f79c5f927fde04a48",
+  "replay_sha256": "4c35ce4dadcba2defcdf0d4632d13e7bc2fc487c045e5c3231b377eebc2085d2"
+}

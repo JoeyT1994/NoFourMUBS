@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "/mnt/home/jtindall/Documents/QuantumPhysics/ClusterScripts/nofourmubs_shoulder_v2_2026-10-02/ProvenResults/Patch2442Region_v3/controls.py", line 81, in <module>
+    if __name__=='__main__':run()
+                            ^^^^^
+  File "/mnt/home/jtindall/Documents/QuantumPhysics/ClusterScripts/nofourmubs_shoulder_v2_2026-10-02/ProvenResults/Patch2442Region_v3/controls.py", line 33, in run
+    subprocess.run(['c++','-O2','-DTM_ORDER=4','-std=c++17','-fno-fast-math','-ffp-contract=off','-fPIC','-shared',str(HERE/'control_engine.cpp'),'-o',str(binary)],check=True,capture_output=True,text=True)
+  File "/mnt/sw/nix/store/a8ppasiv1n969bz16j9109jm05a13ncy-python-3.11.11-view/lib/python3.11/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['c++', '-O2', '-DTM_ORDER=4', '-std=c++17', '-fno-fast-math', '-ffp-contract=off', '-fPIC', '-shared', '/mnt/home/jtindall/Documents/QuantumPhysics/ClusterScripts/nofourmubs_shoulder_v2_2026-10-02/ProvenResults/Patch2442Region_v3/control_engine.cpp', '-o', '/mnt/home/jtindall/Documents/QuantumPhysics/ClusterScripts/nofourmubs_shoulder_v2_2026-10-02/ProvenResults/Patch2442Region_v3/work/control_engine.so']' returned non-zero exit status 1.
