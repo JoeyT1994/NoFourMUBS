@@ -8,7 +8,8 @@
 set -uo pipefail
 D="$HOME/Documents/QuantumPhysics/ClusterScripts/nofourmubs_branch95_full_2026-10-01"; cd "$D"
 STOP_AT="${STOP_AT:-2026-10-05T12:00}"
-if [ "$(date +%s)" -lt "$(date -d "$STOP_AT" +%s)" ]; then
+# only one successor: a requeued (preempted) run must not start a second chain
+if [ "$(date +%s)" -lt "$(date -d "$STOP_AT" +%s)" ] && [ "$(squeue -u "$USER" -h -n nofour-status -t PENDING | wc -l)" -eq 0 ]; then
   sbatch --begin=now+60minutes --account=ccq --partition=preempt --qos=preempt --requeue --cpus-per-task=1 --mem=2G \
     --time=0:15:00 --job-name=nofour-status --output=logs/status.out --open-mode=append weekend_status.sh > /dev/null
 fi
