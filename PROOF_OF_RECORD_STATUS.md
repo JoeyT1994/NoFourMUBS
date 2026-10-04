@@ -1,4 +1,4 @@
-# Proof of record: status of its PENDING items (1 October 2026)
+# Proof of record: status of its PENDING items (updated 4 October 2026)
 
 This is a companion to `PROOF_OF_RECORD.md`, which is kept unchanged as delivered. For each `[PENDING]` item
 (line numbers refer to that file), this records what is now established and where the evidence is.
@@ -33,14 +33,15 @@ This is a companion to `PROOF_OF_RECORD.md`, which is kept unchanged as delivere
 | Item | Status |
 |---|---|
 | l.505: bridge from the 623,187-ID inventory to the branch input | **Closed**: `Verification/rescaled_run_audits_2026-10-01/branch_input_bridge.txt` |
-| l.503: branch95 run and audit | Running (stages A-D, then stage E). `branch95_audit.py` now also has exact-address/antichain checks in stage A and a stage-E reader. Pilot audit PASS. |
+| l.503: branch95 run and audit | Stages A and B/C complete (30,924 of 30,924 tasks, 3 Oct). Stage D failed on 3 Oct (relative paths) and was rerun on 4 Oct with its audit, stage E and the post-E pipeline chained (`NumericalCampaign/Campaign/branch95/post_*.sh`). Pilot audit PASS. |
 | l.604: signed-corner evaluation on the residual ledger | Replaced by `ProvenResults/SignedCornerPSDPrune` (stage E; registered in the root verifier, full replay PASS). On the pilot it removes 2.71% of survivor volume, leaving 0.123%. |
 | l.551-553: SideChartCover | Corrected verifier passes (`Verification/review_patch_2026-10-01`). Shoulder pilot: 41/48 level-13 boxes at 56 CPU-s, 0/24 at level 12. Not the production route for the shoulder (cost). |
-| l.751-757: active-class closure and remaining residual | Open. ActiveF6ProductionClosure (code requested) covers the π/512 seed cubes. The shoulder region certificate is commissioned (`Handoffs/SHOULDER_TASK/`). |
+| l.751-757: active-class closure | **Closed for the 90 production cubes** (`ActiveShoulderClosure_v2` and `ActiveF6Cube1551`, rusty replays PASS). Shoulder: `ActiveShoulderClosure_v2` and `_v2_frontier`, with replays PASS; the pilot ledger closes all of it. |
+| Remaining residual | The (2,4,4,2) ring is the only class open on the pilot (0.041–0.047 rad from the stationary F3 seed). Stage F/G closes about 80% of it, and `Patch2442Region_v3` (rusty replays PASS) closes 70% of the remaining leaves. `Patch2442Local` gives exact leading forms and a directional radius but covers none of the ring boxes. Open; see `STATUS_2026-10-04.md`. |
 
 ## Final audit (§7.5)
 
-Pending until the branch layer and the shoulder certificate are complete.
+Pending until the full-run post-E ledger and the (2,4,4,2) ring are closed.
 
 ## §10 findings
 

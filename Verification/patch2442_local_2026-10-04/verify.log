@@ -1,0 +1,288 @@
+{
+  "status": "PASS",
+  "scope": "PARTIAL: not a full punctured-ball exclusion",
+  "manifest": {
+    "status": "PASS",
+    "files": 36
+  },
+  "pins": {
+    "status": "PASS",
+    "files": 10,
+    "archive_sha256": "af8298ba8afd70fcbeae1d7eed31e9e9779594d2e9d5d6cd2187a9b6a22fa8c9"
+  },
+  "symbolic": {
+    "status": "PASS",
+    "global_orders": {
+      "R": 4,
+      "Delta": 12,
+      "A": 12,
+      "B": 10,
+      "C": 24,
+      "F": 52
+    },
+    "A2_minus_B2R_degrees_24_25_zero": true,
+    "cpu_seconds": 1.788989
+  },
+  "factorizations": {
+    "status": "PASS",
+    "Q26_factored_identities": 3,
+    "quartic_relation": true,
+    "F52_factors": 3
+  },
+  "ray": {
+    "status": "PASS",
+    "direction": [
+      "-1",
+      "0",
+      "0",
+      "-1"
+    ],
+    "transpose_fixed": true,
+    "interpretation": "All six separate C>0,F>0 tests fail for sufficiently small positive radial parameter; not a physical counterexample.",
+    "pairs": [
+      {
+        "pair": [
+          0,
+          1
+        ],
+        "F52": [
+          "-875351913052098873672",
+          "0",
+          "0",
+          "0"
+        ],
+        "F53": [
+          "0",
+          "-14248783918014720554772",
+          "0",
+          "0"
+        ]
+      },
+      {
+        "pair": [
+          0,
+          2
+        ],
+        "F52": [
+          "-875351913052098873672",
+          "0",
+          "0",
+          "0"
+        ],
+        "F53": [
+          "0",
+          "-14248783918014720554772",
+          "0",
+          "0"
+        ]
+      },
+      {
+        "pair": [
+          1,
+          2
+        ],
+        "F52": [
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        "F53": [
+          "0",
+          "-7294599275434157280600",
+          "0",
+          "0"
+        ]
+      }
+    ]
+  },
+  "arithmetic": {
+    "status": "PASS",
+    "exact_arithmetic_comparisons": 306,
+    "precision_bits": 112,
+    "uniform_exprel_remainder_bound": "2187/763702392578125000000000"
+  },
+  "cones": {
+    "status": "PASS",
+    "scope": "directional_caps_only",
+    "radial_limit": "3/50",
+    "angular_cap_width": "1/200",
+    "leaves": 104,
+    "charts": [
+      {
+        "sign": -1,
+        "leaves": 16,
+        "nodes": 31,
+        "max_depth": 4
+      },
+      {
+        "sign": 1,
+        "leaves": 88,
+        "nodes": 175,
+        "max_depth": 8
+      }
+    ]
+  },
+  "physical_and_symmetry": {
+    "status": "PASS",
+    "physical_census": {
+      "Hadamard_Laurent_Gram": true,
+      "corners": 400,
+      "multiplicities": [
+        256,
+        36,
+        72,
+        36
+      ],
+      "strict_maximal_Fourier_curve": true
+    },
+    "negative_controls": [
+      {
+        "delta": "1/100",
+        "transpose": false,
+        "distance_lower_bound": "2*pi/3",
+        "result": {
+          "id": "physical_1/100_False",
+          "ok": false,
+          "reason": "whole_box_ball_membership_not_certified",
+          "statement": "Inconclusive; no exclusion claimed."
+        }
+      },
+      {
+        "delta": "1/100",
+        "transpose": true,
+        "distance_lower_bound": "2*pi/3",
+        "result": {
+          "id": "physical_1/100_True",
+          "ok": false,
+          "reason": "whole_box_ball_membership_not_certified",
+          "statement": "Inconclusive; no exclusion claimed."
+        }
+      },
+      {
+        "delta": "1/5",
+        "transpose": false,
+        "distance_lower_bound": "2*pi/3",
+        "result": {
+          "id": "physical_1/5_False",
+          "ok": false,
+          "reason": "whole_box_ball_membership_not_certified",
+          "statement": "Inconclusive; no exclusion claimed."
+        }
+      },
+      {
+        "delta": "1/5",
+        "transpose": true,
+        "distance_lower_bound": "2*pi/3",
+        "result": {
+          "id": "physical_1/5_True",
+          "ok": false,
+          "reason": "whole_box_ball_membership_not_certified",
+          "statement": "Inconclusive; no exclusion claimed."
+        }
+      },
+      {
+        "delta": "1/2",
+        "transpose": false,
+        "distance_lower_bound": "2*pi/3",
+        "result": {
+          "id": "physical_1/2_False",
+          "ok": false,
+          "reason": "whole_box_ball_membership_not_certified",
+          "statement": "Inconclusive; no exclusion claimed."
+        }
+      },
+      {
+        "delta": "1/2",
+        "transpose": true,
+        "distance_lower_bound": "2*pi/3",
+        "result": {
+          "id": "physical_1/2_True",
+          "ok": false,
+          "reason": "whole_box_ball_membership_not_certified",
+          "statement": "Inconclusive; no exclusion claimed."
+        }
+      }
+    ],
+    "frame_identities": 36
+  },
+  "geometry": {
+    "status": "PASS",
+    "geometric_controls": [
+      {
+        "id": "geometry_control",
+        "ok": true,
+        "reason": "certified_directional_radius_cap",
+        "statement": "No physical order-six Hadamard has this corner in strict D0 anywhere in the whole closed input box."
+      },
+      {
+        "id": "geometry_control",
+        "ok": true,
+        "reason": "certified_directional_radius_cap",
+        "statement": "No physical order-six Hadamard has this corner in strict D0 anywhere in the whole closed input box."
+      },
+      {
+        "id": "geometry_control",
+        "ok": true,
+        "reason": "certified_directional_radius_cap",
+        "statement": "No physical order-six Hadamard has this corner in strict D0 anywhere in the whole closed input box."
+      },
+      {
+        "id": "geometry_control",
+        "ok": true,
+        "reason": "certified_directional_radius_cap",
+        "statement": "No physical order-six Hadamard has this corner in strict D0 anywhere in the whole closed input box."
+      },
+      {
+        "id": "geometry_control",
+        "ok": true,
+        "reason": "certified_directional_radius_cap",
+        "statement": "No physical order-six Hadamard has this corner in strict D0 anywhere in the whole closed input box."
+      },
+      {
+        "id": "geometry_control",
+        "ok": true,
+        "reason": "certified_directional_radius_cap",
+        "statement": "No physical order-six Hadamard has this corner in strict D0 anywhere in the whole closed input box."
+      },
+      {
+        "id": "geometry_control",
+        "ok": true,
+        "reason": "certified_directional_radius_cap",
+        "statement": "No physical order-six Hadamard has this corner in strict D0 anywhere in the whole closed input box."
+      },
+      {
+        "id": "geometry_control",
+        "ok": true,
+        "reason": "certified_directional_radius_cap",
+        "statement": "No physical order-six Hadamard has this corner in strict D0 anywhere in the whole closed input box."
+      },
+      {
+        "id": "geometry_control",
+        "ok": false,
+        "reason": "whole_box_ball_membership_not_certified",
+        "statement": "Inconclusive; no exclusion claimed."
+      },
+      {
+        "id": "geometry_control",
+        "ok": false,
+        "reason": "whole_box_ball_membership_not_certified",
+        "statement": "Inconclusive; no exclusion claimed."
+      },
+      {
+        "id": "geometry_control",
+        "ok": false,
+        "reason": "whole_box_ball_membership_not_certified",
+        "statement": "Inconclusive; no exclusion claimed."
+      },
+      {
+        "id": "geometry_control",
+        "ok": false,
+        "reason": "inside_ball_but_outside_certified_angular_domain",
+        "statement": "Inconclusive; no exclusion claimed."
+      }
+    ],
+    "invalid_input_controls": 2
+  },
+  "cpu_seconds": 7.718345
+}
