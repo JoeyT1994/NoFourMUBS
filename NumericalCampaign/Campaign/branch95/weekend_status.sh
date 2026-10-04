@@ -17,7 +17,9 @@ cnt() { python3 - "$1" <<'EOF'
 import os, sys
 t = open(sys.argv[1]).read().splitlines(); n = 0
 for l in t:
-    n += os.path.exists(l.split(" &>")[0].split()[-1])
+    g = l.split(" &>")[0].split()
+    o = g[1] if g[0] in ("./stageD_task.sh", "./stageE_task.sh") else g[-1]   # D/E: output first, inputs after
+    n += os.path.exists(o)
 print(f"{n}/{len(t)}")
 EOF
 }

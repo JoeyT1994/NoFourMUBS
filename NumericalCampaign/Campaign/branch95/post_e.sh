@@ -18,8 +18,11 @@ missing=$(awk '{print $2}' tasks_branchE.txt | while read f; do test -f "$f" || 
 if [ "$missing" != 0 ]; then
   [ "$RETRY" -lt 3 ] || { log "stage E still incomplete after 3 resubmissions ($missing missing); stopping"; exit 1; }
   nodes=$(( (missing + 127) / 128 )); [ "$nodes" -le 4 ] || nodes=4
-  o="$(WALLTIME=12:00:00 ./submit.sh branchE "$nodes" tail rome)"; log "$o"; T="${o##* }"
-  AE=$(sbatch --parsable --dependency=afterany:$T --cpus-per-task=4 --mem=64G --time=6:00:00 --job-name=nofour-b95auditE \
+  # D/E task lines are "TASK OUT IN...": submit.sh's tail mode reads the last field, so build the tail list here
+  awk '{print $2}' tasks_branchE.txt | paste -d'|' - tasks_branchE.txt | while IFS='|' read -r f l; do test -f "$f" || echo "$l"; done > tasks_branchEtail.txt
+  o="$(WALLTIME=12:00:00 ./submit.sh branchEtail "$nodes" 1 "$(wc -l < tasks_branchEtail.txt)" rome)"; log "$o"; T="${o##* }"
+  [ -n "$T" ] || { log "tail submission failed"; exit 1; }
+  AE=$(sbatch --parsable --dependency=afterany:$T --exclusive --mem=0 --time=6:00:00 --job-name=nofour-b95auditE \
     --account=ccq --partition=ccq --export=ALL,PACKAGE_DIR=$PWD --output=logs/audit_branch95_E.log --open-mode=append \
     --wrap "cd $PWD && python3 -B branch95_audit.py --stageE results/stageE --open-out open_after_E.txt"); log "audit E $AE"
   sbatch --parsable --dependency=afterany:$AE --cpus-per-task=1 --mem=8G --time=1:00:00 --job-name=nofour-b95postE \
