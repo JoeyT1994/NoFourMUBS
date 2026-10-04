@@ -83,46 +83,76 @@ def closed_ids(out, frontier=False):
     return done
 
 
-def inventory(src, out):
+def _inv_file(fn):
+    """Rows of one stage-E file, in file order: (inventory line, exact box line, (code, class))."""
+    rows = []
+    for line in open(fn):
+        if line.startswith("#") or not line.strip():
+            continue
+        g = line.split(" |")[0].split(); lev = int(g[1]); th = [float(x) for x in g[2:6]]
+        for e in g[6:]:
+            p, c = e.rsplit(":", 1)
+            if c not in ("P", "S"):
+                continue
+            cc, l = th, lev
+            for ch in p:
+                cc = child(cc, l, int(ch, 16)); l += 1
+            d, s = min((max(circ(cc[i] - s[5 + i] * math.pi / 3) for i in range(4)), tuple(s[1:9])) for s in SEEDS)
+            cls, sd = s[:4], s[4:]
+            rows.append((f"{l} {' '.join(repr(x) for x in cc)} {c} {','.join(map(str, sd))} "
+                         f"{','.join(map(str, cls))} {d:.6f}\n",
+                         json.dumps(dict(centers=[str(F(x)) for x in cc], radii=[str(radius(l))] * 4),
+                                    separators=(",", ":")) + "\n", (c, ",".join(map(str, cls)))))
+    return rows
+
+
+def inventory(src, out, procs=1):
+    """Rows in (file, line, entry) order; files are processed in parallel and written in order."""
     os.makedirs(out, exist_ok=True)
     import glob
+    from multiprocessing import Pool
     n = 0; cnt = collections.Counter()
+    files = sorted(glob.glob(os.path.join(src, "e_*.txt")))
     with gzip.open(os.path.join(out, "inventory.txt.gz"), "wt") as o, \
-            gzip.open(os.path.join(out, "inventory_boxes.jsonl.gz"), "wt") as b:
+            gzip.open(os.path.join(out, "inventory_boxes.jsonl.gz"), "wt") as b, Pool(procs) as pool:
         o.write(HEADER)
-        for fn in sorted(glob.glob(os.path.join(src, "e_*.txt"))):
-            for line in open(fn):
-                if line.startswith("#") or not line.strip():
-                    continue
-                g = line.split(" |")[0].split(); lev = int(g[1]); th = [float(x) for x in g[2:6]]
-                for e in g[6:]:
-                    p, c = e.rsplit(":", 1)
-                    if c not in ("P", "S"):
-                        continue
-                    cc, l = th, lev
-                    for ch in p:
-                        cc = child(cc, l, int(ch, 16)); l += 1
-                    d, s = min((max(circ(cc[i] - s[5 + i] * math.pi / 3) for i in range(4)), tuple(s[1:9]))
-                               for s in SEEDS)
-                    cls, sd = s[:4], s[4:]
-                    o.write(f"{l} {' '.join(repr(x) for x in cc)} {c} {','.join(map(str, sd))} "
-                            f"{','.join(map(str, cls))} {d:.6f}\n")
-                    r = str(radius(l))
-                    b.write(json.dumps(dict(centers=[str(F(x)) for x in cc], radii=[r] * 4),
-                                       separators=(",", ":")) + "\n")
-                    n += 1; cnt[(c, ",".join(map(str, cls)))] += 1
+        for rows_ in pool.imap(_inv_file, files):
+            for inv, box, key in rows_:
+                o.write(inv); b.write(box); n += 1; cnt[key] += 1
     print(json.dumps(dict(boxes=n, by_code_class={" ".join(k): v for k, v in sorted(cnt.items())})))
 
 
-def v2(out):
+def _v2_chunk(chunk):
     sys.path.insert(0, os.path.join(SH, "ProvenResults", "ActiveShoulderClosure_v2"))
     from predicate import certify_box
+    out = []
+    for i, r in chunk:
+        q = certify_box([F(float(x)) for x in r[1:5]], [radius(int(r[0]))] * 4)
+        out.append((i, q))
+    return out
+
+
+def v2(out, procs=1):
+    """ActiveShoulderClosure_v2 exact containment for every row, streamed in chunks, written in row order."""
+    from multiprocessing import Pool
     n = ok = 0; reasons = collections.Counter()
-    with gzip.open(os.path.join(out, "v2.jsonl.gz.part"), "wt") as f:
-        for i, r in enumerate(rows(out)):
-            q = certify_box([F(float(x)) for x in r[1:5]], [radius(int(r[0]))] * 4)
-            f.write(json.dumps(dict(id=i, **q), sort_keys=True) + "\n")
-            n += 1; ok += q["ok"] is True; reasons[q["reason"]] += 1
+
+    def chunks():
+        buf = []
+        with gzip.open(os.path.join(out, "inventory.txt.gz"), "rt") as f:
+            i = 0
+            for l in f:
+                if l.strip() and not l.startswith("#"):
+                    buf.append((i, l.split())); i += 1
+                    if len(buf) == 20000:
+                        yield buf; buf = []
+        if buf:
+            yield buf
+    with gzip.open(os.path.join(out, "v2.jsonl.gz.part"), "wt") as f, Pool(procs) as pool:
+        for res in pool.imap(_v2_chunk, chunks()):
+            for i, q in res:
+                f.write(json.dumps(dict(id=i, **q), sort_keys=True) + "\n")
+                n += 1; ok += q["ok"] is True; reasons[q["reason"]] += 1
     os.replace(os.path.join(out, "v2.jsonl.gz.part"), os.path.join(out, "v2.jsonl.gz"))
     print(json.dumps(dict(rows=n, closed=ok, reasons=dict(reasons))))
 
@@ -246,7 +276,8 @@ def v3_retry(out):
 
 if __name__ == "__main__":
     cmd, a = sys.argv[1], sys.argv[2:]
-    {"inventory": lambda: inventory(a[0], a[1]), "v2": lambda: v2(a[0]),
+    {"inventory": lambda: inventory(a[0], a[1], int(a[2]) if len(a) > 2 else 1),
+     "v2": lambda: v2(a[0], int(a[1]) if len(a) > 1 else 1),
      "sidecover": lambda: sidecover(a[0], int(a[1])), "frontier-prep": lambda: frontier_prep(a[0]),
      "F-prep": lambda: F_prep(a[0], int(a[1])), "v3-prep": lambda: v3_prep(a[0]),
      "v3-retry": lambda: v3_retry(a[0])}[cmd]()

@@ -43,3 +43,12 @@ They are to be archived with the release, on Zenodo or Flatiron storage.
 `ClassificationPaper/CertificatesandLean` is the collaborator repository
 `git@github.com:mateocardeneswuttig/all_hadamard_matrices_in_dimension_six.git`, pinned at commit
 `57b03025ecbe259e474281f49e201ea7cb474e34`.
+
+## Full-run (2,4,4,2) ring export (4 October 2026)
+
+GitHub release `ring-2026-10-04` holds 12,291,152 level-13 boxes in 50 shards, `full_ring_remaining_NNNN.jsonl.gz`,
+with 137 MB of assets. These are every box left open after stage D within 0.07 rad of the (2,4,4,2)/(4,2,2,4)
+seeds. The manifest, with the selection rule, conventions and the SHA-256 of every shard, is committed in
+`Verification/ring_export_2026-10-04/FULL_RING_MANIFEST.json`. The exporter is
+`NumericalCampaign/Campaign/branch95/export_ring.py`. The collaborator package
+`NoFourMUBS_full_ring_2026-10-04.zip` has SHA-256 `8225f5d2…cbb12`.
