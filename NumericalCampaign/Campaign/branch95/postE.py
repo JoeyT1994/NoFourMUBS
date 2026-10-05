@@ -22,6 +22,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 SH = os.environ.get("SHOULDER_ROOT", os.path.expanduser(
     "~/Documents/QuantumPhysics/ClusterScripts/nofourmubs_shoulder_v2_2026-10-02"))
 SEEDS = [list(map(int, l.split())) for l in open(os.path.join(HERE, "f6_seeds.txt"))]
+RING_MAXD = 0.07   # (2,4,4,2)-class rows within this seed distance form the ring exported on 4 Oct (export_ring.py)
 HEADER = ("# level theta1..theta4 code(P: inf R>1, S: residual) nearest_seed_in_pi/3_units(a,b,c,d) class "
           "sup_circular_distance_rad\n# half-width of every box: pi/2^level + 2^-40 (radians); centres are exact "
           "binary64 values (driver child rule)\n")
@@ -201,17 +202,23 @@ def sidecover(out, nproc):
 
 def frontier_prep(out):
     fd = os.path.join(out, "frontier"); os.makedirs(fd, exist_ok=True)
-    R = rows(out); done = closed_ids(out); n = 0
+    R = rows(out); done = closed_ids(out); n = 0; census = collections.Counter()
     test = int(os.environ.get("FRONTIER_TEST_SAMPLE", "0"))   # rehearsal only: also feed N closed rows
     boxes = gzip.open(os.path.join(out, "inventory_boxes.jsonl.gz"), "rt")
     with gzip.open(os.path.join(fd, "boxes.jsonl.gz"), "wt") as f, open(os.path.join(fd, "index.txt"), "w") as x:
         for i, (r, b) in enumerate(zip(R, boxes)):
-            take = i not in done and r[7] not in ("2,4,4,2", "4,5,0,3")
+            # exported to the collaborator (ring-2026-10-04); the printed distance is rounded to 1e-6, so stay strictly
+            # inside: boundary rows also go to the frontier (double coverage is harmless, a gap is not)
+            ring = r[7] == "2,4,4,2" and float(r[8]) <= RING_MAXD - 1e-6
+            if i not in done:
+                census["ring" if ring else "4503_open" if r[7] == "4,5,0,3" else
+                       "far_2442" if r[7] == "2,4,4,2" else "frontier"] += 1
+            take = i not in done and not ring and r[7] != "4,5,0,3"
             if not take and test and i in done and r[7] == "1,2,2,4" and i % 97 == 0 and n < test:
                 take = True
             if take:
                 f.write(b); x.write(f"{i}\n"); n += 1
-    print(json.dumps(dict(frontier_boxes=n)))
+    print(json.dumps(dict(frontier_boxes=n, open_rows_by_route=dict(census))))
 
 
 def F_prep(out, per):
