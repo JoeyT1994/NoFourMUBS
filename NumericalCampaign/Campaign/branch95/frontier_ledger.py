@@ -3,6 +3,7 @@
 
   python3 frontier_ledger.py --inventory BOXES.txt.gz
         [--v2 pilot_boxes.jsonl.gz] [--sidecover sidecover.jsonl] [--frontier DIR]
+        [--ring-export DIR --ring-accepted IDS.txt[.gz]]
         [--stageF DIR --cellsF cells_F.txt --stageG DIR] [--receipt OUT.json] [--open-out OPEN.txt]
 
 Inventory: the open-box list in the shoulder list format ("LEVEL θ1..θ4 CODE SEED CLASS DIST", one box per line,
@@ -18,6 +19,10 @@ half-width π/2^LEVEL + 2^-40.  Sources, each giving a certified statement for w
             DIR/shards/MANIFEST.json, DIR/index.txt = inventory index of each frontier source line): a box closes when
             its shard receipt lists all shard boxes and its position is not in unresolved_indices.  Statement: Q, per
             that module's PROOF.md.
+  ring      the collaborator's whole-box certificates on the exported ring (release ring-2026-10-04): DIR holds
+            FULL_RING_MANIFEST.json and the shards; IDS lists the accepted export ids, one per line.  An inventory
+            box closes when its exact level and centre equal those of an accepted export box (exact rationals of
+            the binary64 centres; radius rule identical).  Statement: no physical completion in strict D0.
   stageF/G  production cover trees for cells_F.txt records (matched to inventory boxes by exact level and centre),
             failed = 0 (stage F) or every FAILED leaf PSD-excluded (stage G).  Statements: H+ not a quartet edge on
             the cover leaves (A3/MC5); outside strict D0 on the PSD leaves.
@@ -40,7 +45,7 @@ def sha(p):
 ap = argparse.ArgumentParser()
 ap.add_argument("--inventory", required=True); ap.add_argument("--v2"); ap.add_argument("--sidecover")
 ap.add_argument("--stageF"); ap.add_argument("--cellsF"); ap.add_argument("--stageG")
-ap.add_argument("--frontier"); ap.add_argument("--receipt"); ap.add_argument("--open-out")
+ap.add_argument("--frontier"); ap.add_argument("--ring-export"); ap.add_argument("--ring-accepted"); ap.add_argument("--receipt"); ap.add_argument("--open-out")
 a = ap.parse_args()
 
 inv = [l.split() for l in opener(a.inventory) if l.strip() and not l.startswith("#")]
@@ -93,6 +98,28 @@ if a.frontier:
             for n in range(s["boxes"]):
                 if n not in bad:
                     close(idx[s["first_source_index"] + n], "frontier_Q")
+if a.ring_export:
+    from fractions import Fraction
+    mp = os.path.join(a.ring_export, "FULL_RING_MANIFEST.json"); inputs[mp] = sha(mp); man = json.load(open(mp))
+    inputs[a.ring_accepted] = sha(a.ring_accepted)
+    acc = {int(x) for x in opener(a.ring_accepted) if x.strip()}
+    exact = {(int(r[0]), tuple(Fraction(float(x)) for x in r[1:5])): i for i, r in enumerate(inv)}
+    seen = 0
+    for sh in man["shards"]:
+        fp = os.path.join(a.ring_export, sh["file"])
+        if sha(fp) != sh["sha256"]:
+            errors.append(("ring shard hash mismatch", sh["file"])); continue
+        inputs[fp] = sh["sha256"]
+        for line in opener(fp):
+            r = json.loads(line)
+            if r["id"] not in acc:
+                continue
+            seen += 1
+            i = exact.get((r["level"], tuple(Fraction(x) for x in r["centers"])))
+            if i is not None:
+                close(i, "ring_collaborator_outside_D0")
+    if seen != len(acc):
+        errors.append(("ring accepted ids not found in the export", len(acc) - seen))
 if a.stageF:
     REC = 121; inputs[a.cellsF] = sha(a.cellsF)
     cells = {}
