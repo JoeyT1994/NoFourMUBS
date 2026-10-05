@@ -12,10 +12,16 @@ Each accepted partition is rebuilt from the exact input and its accepting inequa
 | `leaves_fast_replay` (0.3 s profile) | 1,404 of 4,174 | 3,144 | PASS_ACCEPTED_SUBSET |
 | `parents_replay` | 46 of 497 | 1,368 | PASS_ACCEPTED_SUBSET |
 
-## Controls: not yet run on rusty
-`controls.log` shows the failure. `controls.py` builds with a hard-coded `c++`, which on rusty is the system
-compiler, not gcc 13.3.0. The build therefore failed before any control was evaluated. This is a toolchain problem
-on this machine, not a control failure. It is to be rerun with gcc 13.3.0 first on `PATH`.
+## Controls: PASS (5 October, `controls_gcc13.log`)
+The first attempt (`controls.log`) failed to build: `controls.py` calls `c++`, which on rusty is the system compiler.
+Rerun with gcc 13.3.0 first on `PATH`, all controls PASS:
+- 43,750 tensor Bernstein weights;
+- 5 polynomial coefficient controls;
+- 3,125 exact remainder checks;
+- 33 independent mean coefficients;
+- the physical Fourier-family census.
+
+All six strict-D0 physical controls, and the R = 0 control, are rejected (reason `cpu_budget`).
 
 ## Calibration (`calibration/`)
 The input is the post-E rehearsal on the pilot data: 1,069 open (2,4,4,2) rows, each split into 16 exact children
