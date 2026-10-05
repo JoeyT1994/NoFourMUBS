@@ -51,6 +51,8 @@ if __name__ == "__main__":
                 bad = [pos[j] for j in range(len(pos)) if j in bad2]
             open_src.update(first + i for i in bad)
     missing += [k for k in range(K) if not os.path.exists(F + "/receipt_%06d.json" % k)]
+    for k in missing:                      # pass 1 not finished there: every row of the shard counts as open
+        sh = man["shards"][k]; open_src.update(range(sh["first_source_index"], sh["first_source_index"] + sh["boxes"]))
     inv_open = {}
     for n, line in enumerate(open(F + "/index.txt")):
         if n in open_src:
@@ -93,6 +95,6 @@ if __name__ == "__main__":
                          "radius(level) outward bound of pi/2^level + 2^-40); inventory_row = post-E inventory index",
              caveat=("our frontier pass 2 and v3 keep running overnight on these boxes; a list of ids they close will follow, "
                      "so either side may skip boxes the other has certified"),
-             pass1_shards_missing=sorted(missing), records=rid, by_class=counts, shards=shards)
+             pass1_shards_unfinished_counted_open=sorted(missing), records=rid, by_class=counts, shards=shards)
     json.dump(m, open(os.path.join(od, "MANIFEST.json"), "w"), indent=1)
     print(json.dumps(dict(records=rid, by_class=counts, shards=len(shards), pass1_missing=len(missing))))
