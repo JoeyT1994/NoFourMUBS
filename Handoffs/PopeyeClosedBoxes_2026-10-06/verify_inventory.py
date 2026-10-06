@@ -161,7 +161,64 @@ def verify_band_assignments(status):
             if row['supplier_id'] in supplier_ids or (row['source'] == 'ring' and row['ring_id'] in ids):
                 raise ValueError('Band assignment duplicates an outside050 reservation')
     return {'reserved_parent_boxes': len(ids), 'closure_credit': False,
-            'boundary_records_awaiting_reconciliation': 14226}
+            'boundary_records_reconciled_in_separate_supplement': 14226}
+
+
+def verify_boundary(status):
+    """Verify the exact historical status supplement; never infer new proofs."""
+    receipt = json.loads((HERE / 'receipts/band003005_BOUNDARY_STATUS_PROJECTION.json').read_text())
+    body = dict(receipt)
+    if body.pop('receipt_sha256') != json_digest(body):
+        raise ValueError('Boundary projection receipt self-binding differs')
+    if (receipt['id_namespace'] != 'full_ring_original_id'
+            or receipt['source_target_input_sha256'] != '7e9f30af7f69f9eda11dc08a9ec552eccef0a050b616f4a419acb552a1e97a32'
+            or receipt['source_main_packet_chain_sha256'] != '9f119c9435f026e27d5fe39d44083838be7e214dcabc0d6c87d09a4ac531b882'
+            or receipt['source_main_packet_batches'] != 48013
+            or receipt['records'] != 14226 or receipt['original_projected_status'] != 0
+            or receipt['closure_credit'] is not False or receipt['physical_lean_admissions'] != 0
+            or receipt['status_projection_only'] is not True):
+        raise ValueError('Boundary projection source or scope differs')
+    path = HERE / 'data/band003005_BOUNDARY_STATUS_BY_ID.jsonl.gz'
+    if hashlib.sha256(path.read_bytes()).hexdigest() != receipt['output_file_sha256']:
+        raise ValueError('Boundary projection file differs')
+    mapping, suppliers, counts = {}, set(), Counter()
+    logical, ring_chain, supplier_chain = hashlib.sha256(), hashlib.sha256(), hashlib.sha256()
+    with gzip.open(path, 'rb') as handle:
+        for ordinal, line in enumerate(handle):
+            row = json.loads(line)
+            ident, supplier, code = row['ring_id'], row['supplier_id'], row['restored_status_code']
+            if (row['id'] != ordinal or type(ident) is not int or not 0 <= ident < len(status)
+                    or ident in mapping or status[ident] != 0 or type(supplier) is not int
+                    or not 0 <= supplier < 1864163 or supplier in suppliers
+                    or code not in {1, 3, 6, 7, 8, 9}):
+                raise ValueError('Boundary IDs/statuses are invalid or duplicated')
+            mapping[ident] = row
+            suppliers.add(supplier)
+            counts[code] += 1
+            logical.update(line)
+            ring_chain.update(ident.to_bytes(8, 'big'))
+            supplier_chain.update(supplier.to_bytes(8, 'big'))
+    expected = {1: 6815, 3: 6815, 6: 294, 7: 294, 8: 4, 9: 4}
+    if (len(mapping) != 14226 or dict(counts) != expected
+            or {str(k): v for k, v in counts.items()} != receipt['counts_by_status_code']
+            or logical.hexdigest() != receipt['source_raw_output_logical_sha256']
+            or ring_chain.hexdigest() != receipt['source_ordered_ring_ids_sha256']
+            or supplier_chain.hexdigest() != receipt['source_ordered_supplier_ids_sha256']):
+        raise ValueError('Boundary exact status census or ID chains differ')
+    for ident, row in mapping.items():
+        rep = mapping.get(row['representative_ring_id'])
+        if (rep is None or rep['representative_ring_id'] != rep['ring_id']
+                or row['representative_record_sha256'] != rep['record_sha256']):
+            raise ValueError('Boundary representative evidence differs')
+        code = row['restored_status_code']
+        if code in {1, 6, 8}:
+            if rep != row:
+                raise ValueError('Boundary representative identity differs')
+        elif rep['restored_status_code'] != {3: 1, 7: 6, 9: 8}[code]:
+            raise ValueError('Boundary conjugate status differs')
+    return mapping, {'records': len(mapping), 'recorded_numerical_or_transport_settlements': 13638,
+                     'unresolved_representatives': 294, 'unresolved_conjugates': 294,
+                     'physical_lean_admissions': 0, 'certificate_replay_performed': False}
 
 
 def verify():
@@ -220,6 +277,8 @@ def verify():
     band = verify_band_assignments(status)
     if band is not None:
         summary['band003005_work_assignment'] = band
+    _, boundary = verify_boundary(status)
+    summary['band003005_boundary_status'] = boundary
     _, outer = verify_outer()
     if outer is not None:
         summary['outside01_firstpass'] = outer
@@ -239,6 +298,13 @@ def main():
         summary["lookup"] = {"namespace": "full_ring_original_id", "id": args.ring_id,
                              "status_code": code, "status": labels[str(code)],
                              "recorded_settlement": code in SETTLED}
+        boundary, _ = verify_boundary(status)
+        if args.ring_id in boundary:
+            row = boundary[args.ring_id]
+            summary['lookup']['boundary_supplement'] = {
+                'status_code': row['restored_status_code'], 'status': row['restored_status'],
+                'representative_ring_id': row['representative_ring_id'],
+                'recorded_settlement': row['restored_status_code'] in SETTLED}
     if args.export2_id is not None:
         mapping, _ = verify_outer()
         summary['export2_lookup'] = {'namespace': 'export2_serial', 'id': args.export2_id,
