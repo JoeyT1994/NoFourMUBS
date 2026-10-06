@@ -1,0 +1,24 @@
+{
+  "schema": "mub6-cross-campaign-reconciliation-v1",
+  "supplier_commit": "1aa71e1b9db512efdd4ea3262a7dcb9d3ec3487d",
+  "status": "OVERLAPPING_TARGETS_EXACT_ACTIVE_AND_CLOSED_IDS_NEEDED",
+  "supplier_target_is_not_a_closure_certificate": true,
+  "popeye_reservation_files": [
+    "data/outside050_assigned.jsonl.gz",
+    "data/band003005_assigned.jsonl.gz",
+    "data/outside01_UNRESOLVED_IDS.json"
+  ],
+  "join_keys": [
+    "inventory_row",
+    "source plus ring_id or export2_id",
+    "exact rational geometry SHA256"
+  ],
+  "needed_from_supplier": [
+    "Exact currently claimed inventory_row IDs and source-input manifest hashes",
+    "Exact freshly replayed accepted inventory_row IDs, input hashes and replay-receipt digests",
+    "Preserved unresolved complements and certificate archive hashes",
+    "Separate exact ID list and receipts for the reported 2179 class0024 frontier closures"
+  ],
+  "do_not_resubmit_from_aggregate_counts": true,
+  "physical_lean_admissions": 0
+}
