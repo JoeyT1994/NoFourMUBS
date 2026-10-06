@@ -25,7 +25,7 @@ The entire original ring has 12,231,064 recorded settlements and 60,088 unresolv
 
 `data/export2_pilot_closed.jsonl` supplies the eight previously freshly replayed whole boxes, including exact rational geometry and receipt references. Its IDs use the **export2 namespace**.
 
-The outside-0.1 first pass has finished with **306,257 fresh numerical passes and 1,089 unresolved boxes**, out of 307,346 inputs; two prior pilot boxes are additional to that input. A compact per-ID index of this finished run is being prepared. Until that index is published, its aggregate count must not be used to choose arbitrary IDs to skip.
+The outside-0.1 first pass has finished with **306,257 fresh numerical passes and 1,089 unresolved boxes**, out of 307,346 inputs; two prior pilot boxes are additional to that input. **The exact per-ID index is now published:** `data/outside01_STATUS_BY_ID.jsonl.gz`, with separate `data/outside01_UNRESOLVED_IDS.json`. These IDs use the original export2 namespace: match them using `export2_id` in the supplier release, never its newly assigned `id`. The status projection was checked against the completed campaign chain and independently reconstructed original input geometry bindings. It contains 307,346 unique IDs: skip only entries labeled `PASS`; entries labeled `UNRESOLVED` remain open. The eight pilot boxes are separate and disjoint from this run.
 
 ## Current work and radius scope
 
@@ -35,12 +35,12 @@ Popeye has submitted the next **493,176-parent campaign outside or crossing radi
 
 The numerical campaign has been submitted. At this snapshot its input preparation was running; numerical workers had not yet started. The published list reserves the entire selected set to avoid duplicate work while preparation finishes.
 
-The separate outer follow-up encountered a queue-publication compatibility error after validating all first-pass results; the complete status index is preserved and is being projected for publication. This error does not affect the new outside-0.05 campaign. The 1,089 unresolved outer parents remain separate obligations; they are not counted as closed. Boxes crossing 0.05 need explicit coverage; they are not discarded merely because their centers lie inside it. The restriction against evaluating physical boxes below radius 0.025 remains in force.
+The separate outer follow-up encountered a queue-publication compatibility error after validating all first-pass results; the complete status index was preserved, independently validated, and is published here. This error does not affect the new outside-0.05 campaign. The 1,089 unresolved outer parents remain separate obligations; they are not counted as closed. Boxes crossing 0.05 need explicit coverage; they are not discarded merely because their centers lie inside it. The restriction against evaluating physical boxes below radius 0.025 remains in force.
 
 The full radius-0.05 and radius-0.1 exclusion theorems are **not yet proved in Lean**. The other seed family `(0,0,2,4)` is not excluded by the `(2,4,4,2)` radius theorem. The supplier reports that its 4,796 boxes are being worked separately; they remain unresolved in our bookkeeping.
 
 ## Check and query
 
-Run `python3 verify_inventory.py` (Python 3.11 or later) to check all packet hashes, counts, and exact agreement between the ranges and status vector. `python3 verify_inventory.py --ring-id 1123857` also prints one original ring status. This inventory check does not replay the interval certificates or establish their mathematical soundness.
+Run `python3 verify_inventory.py` (Python 3.11 or later) to check all packet hashes, counts, and exact agreement between the ranges and status vector. `python3 verify_inventory.py --ring-id 1123857` also prints one original ring status. Use `--export2-id 1064` for an original export2 ID in the completed outer first pass. This inventory check does not replay the interval certificates or establish their mathematical soundness.
 
 Future snapshots will add only validated closures, preserving the distinction between fresh replay, exact transport, adopted external claims, and open work. Never infer closure from a submitted job or a search-only candidate.
