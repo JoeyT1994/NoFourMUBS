@@ -1,0 +1,190 @@
+{
+  "aggregate_audit_log": "receipts/CentiradianAudit.stdout.log",
+  "aggregate_audit_log_sha256": "f973e805d981a2d75db6ff3ae04eff44d5a6b28b9bda834136046dbf0d36bff1",
+  "aggregate_audit_result": "receipts/CentiradianAudit.result.json",
+  "aggregate_audit_result_sha256": "106aeed2f12c09a36bb6c41996c45b64ec494cdbaa6f6001cdc229ba2cbb932b",
+  "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+  ],
+  "checked_module_count": 7,
+  "checked_theorem_count": 49,
+  "director_admission": "pending",
+  "independent_semantic_review": "pending",
+  "lean_version": "Lean (version 4.33.0-rc2, arm64-apple-darwin24.6.0, commit d8b18978322de05a8f3dba51ef03cf5461676c17, Release)",
+  "mathlib_commit": "51e6992efd06126df61a496bebf8f49482a4e129",
+  "modules": [
+    {
+      "declarations": [
+        "Centiradian20261006.positional_corner_count",
+        "Centiradian20261006.gramEntry_phaseTransform",
+        "Centiradian20261006.gramInvariant_rowPhase",
+        "Centiradian20261006.cornerR_phaseTransform",
+        "Centiradian20261006.complement_card",
+        "Centiradian20261006.physical_gram_complement",
+        "Centiradian20261006.gramP_neg",
+        "Centiradian20261006.gramW_neg",
+        "Centiradian20261006.gramJ_neg",
+        "Centiradian20261006.invariant_all_moments_neg",
+        "Centiradian20261006.physical_corner_complement",
+        "Centiradian20261006.physical_maximal_complement_bound",
+        "Centiradian20261006.dephased_leadingR"
+      ],
+      "module": "CentiradianPhysical",
+      "peak_tree_rss_bytes": 2131591168,
+      "result": "receipts/CentiradianPhysical.result.json",
+      "result_sha256": "b5b554d1c683ea95008876203992919593c282b5eb96a0ad02ffd66dd9304e51",
+      "source": "CentiradianPhysical.lean",
+      "source_sha256": "f3a81569f51a4eac1e147df81bfa9d713ad386891c2d6ea45ff51eb9fd2cc703",
+      "wall_seconds": 13.529477083000529
+    },
+    {
+      "declarations": [
+        "Centiradian20261006.physical_phaseTransform",
+        "Centiradian20261006.normalizationRows_unit",
+        "Centiradian20261006.normalizationCols_unit",
+        "Centiradian20261006.normalize_physical",
+        "Centiradian20261006.normalize_dephased",
+        "Centiradian20261006.normalize_cornerR",
+        "Centiradian20261006.normalize_leadingR",
+        "Centiradian20261006.normalize_maximal"
+      ],
+      "module": "CentiradianNormalization",
+      "peak_tree_rss_bytes": 2144075776,
+      "result": "receipts/CentiradianNormalization.result.json",
+      "result_sha256": "28b8c641a2e2db1b5bef6eeae6b5ca7db95ff5f8f9b035dbfc63d13dec6d93ff",
+      "source": "CentiradianNormalization.lean",
+      "source_sha256": "7eac00ff592d0316ac2ece341a1b708585b32f243bfb96e21c97221765880999",
+      "wall_seconds": 11.42157458300062
+    },
+    {
+      "declarations": [
+        "Centiradian20261006.invariant_expansion",
+        "Centiradian20261006.invariant_le_envelope",
+        "Centiradian20261006.scalar_majorant",
+        "Centiradian20261006.quartic_gram_identity",
+        "Centiradian20261006.quartic_gram_bound",
+        "Centiradian20261006.radius_outward",
+        "Centiradian20261006.normalizedMajorant_mono",
+        "Centiradian20261006.outward_normalized_majorant_lt",
+        "Centiradian20261006.majorant_lt_square",
+        "Centiradian20261006.sqrt_bound_from_majorant",
+        "Centiradian20261006.enlarged_scalar_majorant",
+        "Centiradian20261006.enlarged_normalized_exact",
+        "Centiradian20261006.enlarged_normalized_lt",
+        "Centiradian20261006.enlarged_sqrt_bound_from_majorant"
+      ],
+      "module": "CentiradianArithmetic",
+      "peak_tree_rss_bytes": 2026848256,
+      "result": "receipts/CentiradianArithmetic.result.json",
+      "result_sha256": "dd5f77e9abc693fb902c025ddc219fb3bc0fe0cd88f61a53445778b338d6517e",
+      "source": "CentiradianArithmetic.lean",
+      "source_sha256": "1f51ecc3f66c0013deb0a5c6d1bcf6ad869e6d212b9d59aac86703c52a29c650",
+      "wall_seconds": 20.05267891699623
+    },
+    {
+      "declarations": [
+        "Centiradian20261006.exists_supRadius",
+        "Centiradian20261006.radial_contraction",
+        "Centiradian20261006.cubic_radial_error",
+        "Centiradian20261006.reported_max_score_lt_one"
+      ],
+      "module": "CentiradianRadial",
+      "peak_tree_rss_bytes": 2157854720,
+      "result": "receipts/CentiradianRadial.result.json",
+      "result_sha256": "84935a454b04a0b209515179ca2fb6e51282624ee33bcac28833e2d3d51c6e1c",
+      "source": "CentiradianRadial.lean",
+      "source_sha256": "d8a318b430bdd93eb94cb09213a7d1d16f34ddf1018849bdbff111ad99219106",
+      "wall_seconds": 17.208616957999766
+    },
+    {
+      "declarations": [
+        "Centiradian20261006.phaseTaylor16_error",
+        "Centiradian20261006.finite_phaseTaylor16_error",
+        "Centiradian20261006.frequencyDot_bound",
+        "Centiradian20261006.finite_frequencyTaylor16_error"
+      ],
+      "module": "CentiradianTaylor",
+      "peak_tree_rss_bytes": 1854308352,
+      "result": "receipts/CentiradianTaylor.result.json",
+      "result_sha256": "cc0d0b38c166ffb0d086b0d2aebc7f2ba67107bfb41c6d6fda5cd611608292b1",
+      "source": "CentiradianTaylor.lean",
+      "source_sha256": "44d31c84123fc8bb66d9f39284e35060e948560b0512ef9dcf2848388ec5908b",
+      "wall_seconds": 15.874901374998444
+    },
+    {
+      "declarations": [
+        "Centiradian20261006.exhaustive_unit_pair",
+        "Centiradian20261006.exhaustive_anchored_row",
+        "Centiradian20261006.physical_side_row_pair"
+      ],
+      "module": "CentiradianUnitPair",
+      "peak_tree_rss_bytes": 1852588032,
+      "result": "receipts/CentiradianUnitPair.result.json",
+      "result_sha256": "23a4491f33d6c5b7c59f2b19dbcdbf773cbef0da552d61934340a12bf901c067",
+      "source": "CentiradianUnitPair.lean",
+      "source_sha256": "f91a29241b1fe66c893ce196525d678522933297edb595b19966b57067909ae1",
+      "wall_seconds": 21.49615279200225
+    },
+    {
+      "declarations": [
+        "Centiradian20261006.PhaseBox.bisection_covers",
+        "Centiradian20261006.CertifiedCover.sound",
+        "Centiradian20261006.finite_root_cover_sound"
+      ],
+      "module": "CentiradianCover",
+      "peak_tree_rss_bytes": 1448247296,
+      "result": "receipts/CentiradianCover.result.json",
+      "result_sha256": "3733eeac11764ad7c39600907d201091dabafc9796401d4d895f161030430a84",
+      "source": "CentiradianCover.lean",
+      "source_sha256": "741628e1ff7c42698cd29818f0c8fd503f5a2c9cd95ec827007a38e546a364fa",
+      "wall_seconds": 8.337925290994463
+    }
+  ],
+  "original_successful_guard_mode": "standalone-guarded-v1",
+  "portable_runner_sha256": "6d390428aad74029cb6d84b8cb21a8fea9e71637e65bfc24df82ccfc7ebd3b33",
+  "portable_runner_status": "syntax and CLI checked; original mathematical checks used existing project serialization/resource guard",
+  "remaining_obligations": [
+    {
+      "id": "signed_determinant",
+      "statement": "Exact 48-term determinant/pure-imaginary/raw-word relation f(Q)^2=R(complement), symmetries, and off-unit residual extension.",
+      "status": "open"
+    },
+    {
+      "id": "seed_analytic_bounds",
+      "statement": "Physical seed exponential-to-Gram/Taylor bounds required by scalar_majorant, or exact Laurent-table binding to checked generic tail.",
+      "status": "open"
+    },
+    {
+      "id": "completion_chart",
+      "statement": "Uniform chart guards, orientation/anchor normalization, K invertibility, lower-block reconstruction and all completion branches.",
+      "status": "open"
+    },
+    {
+      "id": "phase_symmetries",
+      "statement": "Actual full-matrix symmetry maps, side conventions and 324 starting cells/102 orbits.",
+      "status": "open"
+    },
+    {
+      "id": "references_and_local_rows",
+      "statement": "63 exact reference identities, preconditioner binding, exact local residual zeros and 504 proven Taylor row inequalities.",
+      "status": "open"
+    },
+    {
+      "id": "arithmetic_and_global_terminals",
+      "statement": "Soundness of actual outward interval/cubic radial jet engine and exact 114019-terminal rejection/geometry replay.",
+      "status": "open"
+    },
+    {
+      "id": "physical_assembly",
+      "statement": "Assemble CentiradianExclusion and independently review physical statement, dependencies and axiom audit.",
+      "status": "open"
+    }
+  ],
+  "schema": "centiradian-first-wave-public-formalization-v1",
+  "source_manifest": "PORTABLE_SOURCE_MANIFEST.json",
+  "source_manifest_sha256": "df7dc368fe719b44ac770f316dcb7968b51dec7442e1e85d3af3fb2227a1fe9b",
+  "target_definition": "Centiradian20261006.CentiradianExclusion",
+  "target_proved": false
+}

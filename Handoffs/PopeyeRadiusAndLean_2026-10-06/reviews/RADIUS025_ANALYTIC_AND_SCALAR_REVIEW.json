@@ -1,0 +1,115 @@
+{
+  "archive_manifest": {
+    "path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/radius-input-1over40/ARCHIVE_MANIFEST.sha256",
+    "entries": 51,
+    "sha256": "948fb82adbcef97a4edef1ea1175b6cc63c26071852cb76f7b9e621f555e3d05",
+    "status": "PASS"
+  },
+  "module_manifest": {
+    "path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/radius-input-1over40/ProvenResults/Patch2442Local/Radius025Complete/MANIFEST.sha256",
+    "entries": 43,
+    "sha256": "2b3bd07da77a2508699bc9dbb9153efb64a0858f7b025fa7647f68eb98ac7d6c",
+    "status": "PASS"
+  },
+  "scalar_exact_bound": {
+    "status": "PASS",
+    "rho": "1/40",
+    "R_normalized_upper": "28034450231/6400000",
+    "margin_below_4489": "695149769/6400000",
+    "majorant_coefficients": {
+      "4": 972,
+      "5": 131328,
+      "6": 193149,
+      "7": 282762,
+      "8": 107464,
+      "9": 469936
+    },
+    "guards": {
+      "p_coefficient": true,
+      "J_coefficient": true,
+      "positive_W": true,
+      "W_coefficient": true,
+      "side_sum": true,
+      "side_norm_lower": true,
+      "root_lower": true,
+      "root_derivative": true,
+      "inverse_domain": true,
+      "opposite_orientation": true,
+      "positive_anchor": true,
+      "side_factor_discrepancy": true
+    }
+  },
+  "native_scalar_exact_bound": {
+    "status": "PASS",
+    "rho": "7205759403792795/288230376151711744",
+    "R_normalized_upper": "544616543744141130030110846138721052716530752087216917351497542899335861195763051146753193/124330809102446660538845562036705210025114037699336929360115994223289874253133343883264",
+    "margin_below_4489": "13504458316741929128766881844048635086206163145106558546063155169012384326552529545218903/124330809102446660538845562036705210025114037699336929360115994223289874253133343883264",
+    "majorant_coefficients": {
+      "4": 972,
+      "5": 131328,
+      "6": 193149,
+      "7": 282762,
+      "8": 107464,
+      "9": 469936
+    },
+    "guards": {
+      "p_coefficient": true,
+      "J_coefficient": true,
+      "positive_W": true,
+      "W_coefficient": true,
+      "side_sum": true,
+      "side_norm_lower": true,
+      "root_lower": true,
+      "root_derivative": true,
+      "inverse_domain": true,
+      "opposite_orientation": true,
+      "positive_anchor": true,
+      "side_factor_discrepancy": true
+    }
+  },
+  "expanded_R_identity": {
+    "status": "PASS",
+    "scope": "exact polynomial identities and rational constants for the invariant-bound lemma",
+    "uniform_strict_D0_exclusion_status": "COMPONENT_ONLY",
+    "uniform_exclusion_radius": null,
+    "invariant_bound_domain_radius": "1/40",
+    "q_coefficient": 67,
+    "R_normalized_upper_exact": "28034450231/6400000",
+    "R_normalized_upper_decimal": "4380.38284859375",
+    "q_squared_margin": "695149769/6400000",
+    "polynomial_majorant": {
+      "4": 972,
+      "5": 131328,
+      "6": 193149,
+      "7": 282762,
+      "8": 107464,
+      "9": 469936
+    },
+    "finite_guards": {
+      "sqrt3_upper": true,
+      "sqrt3_sharp_upper": true,
+      "p_upper": true,
+      "J_upper": true,
+      "Z_below_one": true,
+      "W_upper": true,
+      "row_orientation": true,
+      "side_sum_domain": true,
+      "side_inverse": true,
+      "square_root_chart": true,
+      "q_coefficient_67": true,
+      "rounded_display_upper": true
+    },
+    "symbolic_identities": {
+      "stable_R_expansion": true,
+      "quartic_Gram_identity": true
+    }
+  },
+  "review": {
+    "physical_model": "unchanged nonsingular side-completion model, all orientation/anchor bounds rechecked at enlarged native width",
+    "new_local_contraction": "arbitrary exact8x94dyadic residual combinations; all13equalities vanish physically and81signedrows satisfyqbound; absolute row weights correctly included; no inverse assumption",
+    "global_cover": "all140104terminals geometrically independently checked, native arithmetic replay pending",
+    "arithmetic_defect": "inherited first-package FTZ guard defect; corrected derivative pending replay",
+    "formal_admission": false,
+    "no_radius_above_1_over_40_claimed": true
+  }
+}

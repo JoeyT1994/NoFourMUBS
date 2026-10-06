@@ -1,0 +1,45 @@
+{
+  "status": "ORIGINAL_DEFECT_REPRODUCED_REPAIRED_GUARD_FAILS_CLOSED",
+  "platform": "macOS-26.5.1-arm64-arm-64bit",
+  "test_exact_product": "2^-1074 * 2^1023 = 2^-51",
+  "cases": [
+    {
+      "mode_bits": 0,
+      "guard_accepted": true,
+      "interval_product_encloses_exact": true,
+      "lower": "0x1.fffffffffffffp-52",
+      "upper": "0x1.0000000000001p-51",
+      "package": "original",
+      "header_sha256": "dbdf8d6d81b388388b4a91b5af9d78aaaddd136e1fb6a21de065c33649aef124"
+    },
+    {
+      "mode_bits": 16777216,
+      "guard_accepted": true,
+      "interval_product_encloses_exact": false,
+      "lower": "0x0p+0",
+      "upper": "0x0p+0",
+      "package": "original",
+      "header_sha256": "dbdf8d6d81b388388b4a91b5af9d78aaaddd136e1fb6a21de065c33649aef124"
+    },
+    {
+      "mode_bits": 0,
+      "guard_accepted": true,
+      "interval_product_encloses_exact": true,
+      "lower": "0x1.fffffffffffffp-52",
+      "upper": "0x1.0000000000001p-51",
+      "package": "repaired",
+      "header_sha256": "5cff261ebf1e307d4fd769594ce339e7806dab18ac017d0544f212a3b18a10ff"
+    },
+    {
+      "mode_bits": 16777216,
+      "guard_accepted": false,
+      "interval_product_encloses_exact": false,
+      "lower": "0x0p+0",
+      "upper": "0x0p+0",
+      "package": "repaired",
+      "header_sha256": "5cff261ebf1e307d4fd769594ce339e7806dab18ac017d0544f212a3b18a10ff"
+    }
+  ],
+  "fixture_intentionally_continues_after_guard_rejection": true,
+  "physical_lean_admissions": 0
+}
