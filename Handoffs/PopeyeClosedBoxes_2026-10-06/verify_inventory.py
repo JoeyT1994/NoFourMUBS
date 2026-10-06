@@ -120,6 +120,50 @@ def verify_assignments():
             'closure_credit': False}
 
 
+def verify_band_assignments(status):
+    """Check the disjoint inner-band work reservation, never closure."""
+    receipt_path = HERE / 'receipts/band003005_assignment_projection.json'
+    if not receipt_path.exists():
+        return None
+    receipt = json.loads(receipt_path.read_text())
+    body = dict(receipt)
+    if body.pop('receipt_sha256') != json_digest(body):
+        raise ValueError('Band assignment receipt self-binding differs')
+    if (receipt['records'] != 5263 or receipt['expected_ring_status_code'] != 6
+            or receipt['queue_namespace'] != 'mub6_full_ring_band003005_known_unresolved_v1'
+            or receipt['source_input_sha256'] != '45f778d1e473f8e6986d61d061806bb53a1768aba2c68f93ea2e1cb407a5c0ca'
+            or receipt['closure_credit'] is not False
+            or receipt['physical_lean_admissions'] != 0):
+        raise ValueError('Band assignment scope differs')
+    path = HERE / 'data/band003005_assigned.jsonl.gz'
+    with path.open('rb') as handle:
+        if hashlib.file_digest(handle, 'sha256').hexdigest() != receipt['output_file_sha256']:
+            raise ValueError('Band assignment file differs')
+    ids, supplier_ids = set(), set()
+    logical = hashlib.sha256()
+    with gzip.open(path, 'rb') as handle:
+        for ordinal, line in enumerate(handle):
+            row = json.loads(line)
+            ident, supplier_id = row['ring_id'], row['supplier_id']
+            if (row['queue_id'] != ordinal or row['source'] != 'ring'
+                    or type(ident) is not int or not 0 <= ident < len(status)
+                    or ident in ids or status[ident] != 6
+                    or type(supplier_id) is not int or supplier_id in supplier_ids):
+                raise ValueError('Band assignment repeats or lacks an unresolved representative')
+            ids.add(ident)
+            supplier_ids.add(supplier_id)
+            logical.update(line)
+    if len(ids) != receipt['records'] or logical.hexdigest() != receipt['logical_output_sha256']:
+        raise ValueError('Band assignment exact census differs')
+    with gzip.open(HERE / 'data/outside050_assigned.jsonl.gz', 'rt') as handle:
+        for line in handle:
+            row = json.loads(line)
+            if row['supplier_id'] in supplier_ids or (row['source'] == 'ring' and row['ring_id'] in ids):
+                raise ValueError('Band assignment duplicates an outside050 reservation')
+    return {'reserved_parent_boxes': len(ids), 'closure_credit': False,
+            'boundary_records_awaiting_reconciliation': 14226}
+
+
 def verify():
     manifest = json.loads((HERE / "MANIFEST.json").read_text())
     for relative, expected in manifest["files"].items():
@@ -173,6 +217,9 @@ def verify():
     assignments = verify_assignments()
     if assignments is not None:
         summary['outside050_work_assignment'] = assignments
+    band = verify_band_assignments(status)
+    if band is not None:
+        summary['band003005_work_assignment'] = band
     _, outer = verify_outer()
     if outer is not None:
         summary['outside01_firstpass'] = outer
