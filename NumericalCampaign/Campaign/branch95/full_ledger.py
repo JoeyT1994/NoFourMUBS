@@ -14,12 +14,16 @@ Sources, in the order a row is credited (later sources only count overlaps):
   v3               postE/small/v3fast_*, v3wide_*  (id = inventory row)    no physical completion in strict D0
   hard_F, hard_FG  postE/hard/F results + G (cells matched to rows by exact level and centre)   cover (Q) / PSD
   hard2_frontier   postE/hard2 receipt_K.json (frontier at 7,200 s per root on the hard tail's unresolved boxes)  (Q)
+  h0024_frontier   postE/h0024 receipt_P.json with map.tsv (class (0,0,2,4), frontier at 1,800 s per root)   (Q)
+  signed_mean      PSD_ROOT/done/*.json (+ packed/<unit>.tar.gz): collaborator's factored signed-mean producer, fresh
+                   replay PASS per box; id = inventory row                                                  strict D0
   ball40           ball40/res_*.jsonl.gz: Patch2442Local Radius025Complete (punctured ball 1/40 at the two
                    (2,4,4,2)-class seeds), ok=true with PASS_UNIFORM_BALL; id = inventory row, box checked   strict D0
 Outside the inventory: stage-C FAILED leaves (results/certify) rerun one per cell in results/certify_branchP3;
 reported as stageC_leaves (all leaves must have a done record with failed == 0).
 Delegated (not closed here): ring = class (2,4,4,2) at seed distance <= 0.07 - 1e-6 (release ring-2026-10-04);
-export2 = rows listed in export2_2026-10-05 (inventory_row field) and not credited above.
+export2 = rows listed in export2_2026-10-05 or its addendum export2_addendum_2026-10-06 (inventory_row field) and not
+credited above.
 Outputs: OUTDIR/LEDGER.json (counts, input hashes), OUTDIR/open_rows.txt.gz ("row class code seed dist").
 """
 import array, collections, glob, gzip, hashlib, json, math, os, sys
@@ -28,7 +32,7 @@ HERE = os.path.dirname(os.path.abspath(__file__)); os.chdir(HERE); sys.path.inse
 from postE import RING_MAXD
 P = "postE"; FR = P + "/frontier"
 NAMES = ["open", "v2", "sidecover", "frontier_p1", "frontier_p2", "frontier_p3", "hard_frontier", "v3", "hard_F",
-         "hard_FG", "hard2_frontier", "ball40", "delegated_ring", "delegated_export2"]
+         "hard_FG", "hard2_frontier", "h0024_frontier", "hard3_frontier", "ball40", "signed_mean", "delegated_ring", "delegated_export2"]
 CODE = {n: i for i, n in enumerate(NAMES)}
 
 
@@ -206,6 +210,25 @@ if __name__ == "__main__":
             for j, i in enumerate(rows):
                 if j not in bad:
                     credit(i, "hard2_frontier")
+    # class (0,0,2,4) at 1,800 s per root (hard_0024.sh): map.tsv "source row part" in part order
+    # hard3: a pass-2 code-P shoulder box that pass 3 (S only) skipped, at 7,200 s per root; same map format
+    for d, name in (("h0024", "h0024_frontier"), ("hard3", "hard3_frontier")):
+        if not os.path.exists(P + f"/{d}/map.tsv"):
+            continue
+        hp = collections.defaultdict(list)
+        for l in open(P + f"/{d}/map.tsv"):
+            s_, i, p = map(int, l.split()); hp[p].append(i)
+        for p, rows in hp.items():
+            rp = P + f"/{d}/receipt_{p}.json"
+            if not os.path.exists(rp):
+                continue
+            r = json.load(open(rp)); inputs[rp] = sha(rp)
+            if r["frontier_boxes"] != len(rows):
+                errors.append((d + " receipt size", rp)); continue
+            bad = set(r["unresolved_indices"])
+            for j, i in enumerate(rows):
+                if j not in bad:
+                    credit(i, name)
     # 1/40 punctured ball: whole-box exact membership after a full PASS_UNIFORM_BALL replay
     from fractions import Fraction as Fq
     ballrec = {}
@@ -230,6 +253,24 @@ if __name__ == "__main__":
                     else:
                         errors.append(("ball40 geometry mismatch", i))
                 i += 1
+    # factored signed-mean (collaborator's Patch2442 certify_leaves.py via the inward adapter certify_boxes.py):
+    # PSD_ROOT/done/*.json lists ids (= inventory rows) whose fresh replay receipt is PASS_WHOLE_BOX_REPLAY; the
+    # receipts, states and pass records are in PSD_ROOT/packed/<unit>.tar.gz.  Ids are checked against the unit's input.
+    PSD = os.environ.get("PSD_ROOT", "/mnt/ceph/users/jtindall/nofour_psd")
+    if os.path.isdir(PSD + "/done"):
+        nunits = 0
+        for p in sorted(glob.glob(PSD + "/done/*.json")):
+            d = json.load(open(p)); u = os.path.basename(p)[:-5]; nunits += 1
+            inp = (PSD + f"/inputs/{u}.jsonl" if u.startswith("shard_") else
+                   PSD + f"/tail_inputs/{u[5:]}.jsonl" if u.startswith("tail-") else PSD + f"/tail_inputs/{u}.jsonl")
+            ids = {json.loads(l)["id"] for l in open(inp)}
+            if not set(d["accepted"]) <= ids:
+                errors.append(("signed_mean ids outside unit input", u)); continue
+            if not os.path.exists(PSD + f"/packed/{u}.tar.gz"):
+                errors.append(("signed_mean unit not packed", u)); continue
+            for i in d["accepted"]:
+                credit(i, "signed_mean")
+        inputs[PSD + "/done"] = nunits
     # stage-C FAILED leaves (not inventory rows)
     sc = None
     if os.path.exists("cells_branchP3.txt"):
@@ -247,6 +288,8 @@ if __name__ == "__main__":
     for s in json.load(open("export2_2026-10-05/MANIFEST.json"))["shards"]:
         for l in gzip.open("export2_2026-10-05/" + s["file"], "rt"):
             e2.add(json.loads(l)["inventory_row"])
+    for l in gzip.open("export2_addendum_2026-10-06/addendum_0000.jsonl.gz", "rt"):     # addendum: same id namespace
+        e2.add(json.loads(l)["inventory_row"])
     for i in range(N):
         if state[i] == 0:
             if cls[i] in ring_c and dist[i] <= RING_MAXD - 1e-6:
