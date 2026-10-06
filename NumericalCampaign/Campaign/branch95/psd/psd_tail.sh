@@ -62,7 +62,7 @@ json.dump(dict(shard='tail-' + d, rows=len(rows), replay_exit=int(rx), accepted=
                unresolved=[r['id'] for r in rows if r['id'] not in rep], terminals=sum(r['leaves'] for r in rep.values()), t=t),
           open(f'{R}/done/tail-{d}.json.tmp', 'w'))
 PY
-      tar czf $R/packed/tail-$d.tar.gz $SS replay/$SS passes/tail-${d}_*_$t.json && mv $R/done/tail-$d.json.tmp $R/done/tail-$d.json && rm -rf $SS replay/$SS )
+      mkdir -p replay/$SS && tar czf $R/packed/tail-$d.tar.gz $SS replay/$SS passes/tail-${d}_*_$t.json && mv $R/done/tail-$d.json.tmp $R/done/tail-$d.json && rm -rf $SS replay/$SS )
     echo "$(date -Is) $(hostname -s) tail $k $d $(python3 -c "import json;x=json.load(open('$R/done/tail-$d.json'));print(len(x['accepted']),'of',x['rows'],'replay_exit',x['replay_exit'])")" >> $R/progress.log
   done
 }

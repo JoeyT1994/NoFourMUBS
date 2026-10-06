@@ -32,7 +32,7 @@ HERE = os.path.dirname(os.path.abspath(__file__)); os.chdir(HERE); sys.path.inse
 from postE import RING_MAXD
 P = "postE"; FR = P + "/frontier"
 NAMES = ["open", "v2", "sidecover", "frontier_p1", "frontier_p2", "frontier_p3", "hard_frontier", "v3", "hard_F",
-         "hard_FG", "hard2_frontier", "h0024_frontier", "hard3_frontier", "ball40", "signed_mean", "delegated_ring", "delegated_export2"]
+         "hard_FG", "hard2_frontier", "h0024_frontier", "hard3_frontier", "ball40", "ball40_seed", "signed_mean", "delegated_ring", "delegated_export2"]
 CODE = {n: i for i, n in enumerate(NAMES)}
 
 
@@ -253,6 +253,13 @@ if __name__ == "__main__":
                     else:
                         errors.append(("ball40 geometry mismatch", i))
                 i += 1
+    # boxes containing a seed: exact closed-ball membership by the module's own rule (ball40/seed_boxes.json); every
+    # other point is in the punctured 1/40 ball (theorem), and R = 0 at the seed excludes strict D0 there (PROOF.md)
+    if os.path.exists("ball40/seed_boxes.json"):
+        inputs["ball40/seed_boxes.json"] = sha("ball40/seed_boxes.json")
+        for r in json.load(open("ball40/seed_boxes.json")):
+            if r["closed_ball_membership"] is True:
+                credit(r["id"], "ball40_seed")
     # factored signed-mean (collaborator's Patch2442 certify_leaves.py via the inward adapter certify_boxes.py):
     # PSD_ROOT/done/*.json lists ids (= inventory rows) whose fresh replay receipt is PASS_WHOLE_BOX_REPLAY; the
     # receipts, states and pass records are in PSD_ROOT/packed/<unit>.tar.gz.  Ids are checked against the unit's input.

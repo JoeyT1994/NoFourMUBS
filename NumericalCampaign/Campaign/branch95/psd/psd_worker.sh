@@ -49,7 +49,7 @@ json.dump(dict(shard=f, rows=len(rows), replay_exit=int(rx), accepted=sorted(rep
                terminals=sum(r['leaves'] for r in rep.values()), replay_cpu=sum(r['cpu_seconds'] for r in rep.values()),
                t=t), open(f'{R}/done/{f}.json.tmp', 'w'))
 PY
-      tar czf $R/packed/$f.tar.gz $SS replay/$SS passes/${f}_*_$t.json && mv $R/done/$f.json.tmp $R/done/$f.json && rm -rf $SS replay/$SS )
+      mkdir -p replay/$SS && tar czf $R/packed/$f.tar.gz $SS replay/$SS passes/${f}_*_$t.json && mv $R/done/$f.json.tmp $R/done/$f.json && rm -rf $SS replay/$SS )
     echo "$(date -Is) $(hostname -s) slot $k $f done $(python3 -c "import json;d=json.load(open('$R/done/$f.json'));print(len(d['accepted']),'of',d['rows'],'replay_exit',d['replay_exit'])")" >> $R/progress.log
   done
 }
