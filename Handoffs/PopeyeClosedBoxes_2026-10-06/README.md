@@ -29,7 +29,13 @@ The outside-0.1 first pass has finished with **306,257 fresh numerical passes an
 
 ## Current work and radius scope
 
-Popeye is preparing the remaining numerical work outside radius 0.05, after reconciling both the latest GitHub handoff and existing cluster receipts. Boxes crossing 0.05 need explicit coverage; they are not discarded merely because their centers lie inside it. The restriction against evaluating physical boxes below radius 0.025 remains in force.
+Popeye has submitted the next **493,176-parent campaign outside or crossing radius 0.05**, after reconciling the complete latest GitHub handoff and existing cluster receipts. These are 487,010 export2 parents, 3,179 recovered addendum parents, and 2,987 original-ring representatives. Of these, 493,052 are strictly outside 0.05 and 124 cross its boundary.
+
+`data/outside050_assigned.jsonl.gz` lists every assigned parent by supplier ID, original namespace/ID, inventory row, and queue ID. **Treat these as work reservations, not closures.** The pinned supplier archive and exact selection receipt provide the geometry mapping. The independent review checked all 1,864,163 supplier rows, all 1,061,824 original-ring geometries, all eight pilot exclusions and the 307,346 previously assigned outer parents. It found no duplicate geometry within this queue or against the excluded outer/pilot inputs.
+
+The numerical campaign has been submitted. At this snapshot its input preparation was running; numerical workers had not yet started. The published list reserves the entire selected set to avoid duplicate work while preparation finishes.
+
+The separate outer follow-up encountered a queue-publication compatibility error after validating all first-pass results; the complete status index is preserved and is being projected for publication. This error does not affect the new outside-0.05 campaign. The 1,089 unresolved outer parents remain separate obligations; they are not counted as closed. Boxes crossing 0.05 need explicit coverage; they are not discarded merely because their centers lie inside it. The restriction against evaluating physical boxes below radius 0.025 remains in force.
 
 The full radius-0.05 and radius-0.1 exclusion theorems are **not yet proved in Lean**. The other seed family `(0,0,2,4)` is not excluded by the `(2,4,4,2)` radius theorem. The supplier reports that its 4,796 boxes are being worked separately; they remain unresolved in our bookkeeping.
 

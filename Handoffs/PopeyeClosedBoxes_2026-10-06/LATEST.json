@@ -1,6 +1,6 @@
 {
   "schema": "mub6-popeye-closure-publication-v1",
-  "published_snapshot_utc": "2026-10-06T19:44:30.991372+00:00",
+  "published_snapshot_utc": "2026-10-06T20:22:58.175869+00:00",
   "indexed_ring_numerical_or_conditional_settlements_outside003": 8331372,
   "indexed_export2_prior_fresh_passes": 8,
   "outer_firstpass_fresh_passes": 306257,
@@ -10,5 +10,19 @@
   "checked_supplier_commit": "ab6871bbed9f98eba53c79cdc7726d2334540412",
   "numerical_priority_radius": "1/20",
   "hard_dispatch_hold_radius": "1/40",
-  "physical_lean_admissions": 0
+  "physical_lean_admissions": 0,
+  "outside050_assignment": {
+    "status": "SUBMITTED_PREPARING",
+    "parents": 493176,
+    "strictly_outside005": 493052,
+    "crossing005": 124,
+    "source_breakdown": {
+      "ring": 2987,
+      "export2": 487010,
+      "addendum": 3179
+    },
+    "queue_namespace": "mub6_remaining_outside050_20261006",
+    "id_mapping": "data/outside050_assigned.jsonl.gz",
+    "closure_credit": false
+  }
 }

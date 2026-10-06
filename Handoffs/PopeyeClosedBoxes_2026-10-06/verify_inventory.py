@@ -11,6 +11,50 @@ HERE = Path(__file__).resolve().parent
 SETTLED = {1, 2, 3, 4, 5, 8, 9}
 
 
+def verify_assignments():
+    """Check an optional work reservation; this never contributes closed boxes."""
+    receipt_path = HERE / 'receipts/outside050_assignment_projection.json'
+    if not receipt_path.exists():
+        return None
+    receipt = json.loads(receipt_path.read_text())
+    selection = json.loads((HERE / 'receipts/outside050_SELECTION.json').read_text())
+    if (receipt['records'] != selection['records']
+            or receipt['input_file_sha256'] != selection['input_sha256']
+            or receipt['supplier_zip_sha256'] != selection['source_pins']['supplier_zip']
+            or receipt['physical_lean_admissions'] != 0):
+        raise ValueError('Assignment source/census differs')
+    path = HERE / 'data/outside050_assigned.jsonl.gz'
+    with path.open('rb') as handle:
+        if hashlib.file_digest(handle, 'sha256').hexdigest() != receipt['output_file_sha256']:
+            raise ValueError('Assignment projection hash differs')
+    seen = set()
+    origins = set()
+    counts = Counter()
+    logical = hashlib.sha256()
+    with gzip.open(path, 'rb') as handle:
+        for ordinal, line in enumerate(handle):
+            row = json.loads(line)
+            supplier_id = row['supplier_id']
+            source = row['source']
+            if (row['queue_id'] != ordinal or type(supplier_id) is not int
+                    or not 0 <= supplier_id < selection['source_census']['supplier_records']
+                    or supplier_id in seen or source not in {'ring', 'export2', 'addendum'}):
+                raise ValueError('Invalid or repeated assignment')
+            original = (source, row.get({'ring': 'ring_id', 'export2': 'export2_id',
+                                       'addendum': 'inventory_row'}[source]))
+            if type(original[1]) is not int or original in origins:
+                raise ValueError('Invalid or repeated original assignment ID')
+            seen.add(supplier_id)
+            origins.add(original)
+            counts[source] += 1
+            logical.update(line)
+    if (len(seen) != receipt['records'] or dict(counts) != receipt['by_source']
+            or logical.hexdigest() != receipt['logical_output_sha256']):
+        raise ValueError('Assignment logical census differs')
+    return {'assigned_parent_boxes': len(seen), 'by_source': dict(counts),
+            'closure_credit': False}
+
+
 def verify():
     manifest = json.loads((HERE / "MANIFEST.json").read_text())
     for relative, expected in manifest["files"].items():
@@ -61,6 +105,9 @@ def verify():
                "pilot_freshly_replayed_export2_boxes": len(pilots),
                "physical_lean_admissions": 0,
                "certificate_replay_performed": False}
+    assignments = verify_assignments()
+    if assignments is not None:
+        summary['outside050_work_assignment'] = assignments
     return status, labels, summary
 
 
