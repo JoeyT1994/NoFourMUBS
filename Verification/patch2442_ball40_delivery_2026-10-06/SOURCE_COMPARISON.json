@@ -1,0 +1,58 @@
+{
+  "status": "PASS_BYTE_COMPARISONS",
+  "scope": "Source/input integrity comparison, not an independent full mathematical audit.",
+  "baseline_archive_sha256": "0b886210f36d6c74c96c1c3d01da4b871223230752dcbd95fb4b302ed5c0ce4c",
+  "new_module_manifest_sha256": "2b3bd07da77a2508699bc9dbb9153efb64a0858f7b025fa7647f68eb98ac7d6c",
+  "unchanged_files": [
+    {
+      "path": "interval_model.hpp",
+      "baseline_sha256": "dbdf8d6d81b388388b4a91b5af9d78aaaddd136e1fb6a21de065c33649aef124",
+      "new_sha256": "dbdf8d6d81b388388b4a91b5af9d78aaaddd136e1fb6a21de065c33649aef124",
+      "byte_identical": true
+    },
+    {
+      "path": "taylor_model.hpp",
+      "baseline_sha256": "d2f17bc094db50b88603def36b209af0392db2647ed75ba86de8d63ba8570935",
+      "new_sha256": "d2f17bc094db50b88603def36b209af0392db2647ed75ba86de8d63ba8570935",
+      "byte_identical": true
+    },
+    {
+      "path": "pm_controls.cpp",
+      "baseline_sha256": "6096b76d23c1a493bf9ecb92493ff2a373542e02cfb7b4ff86aae5b50c350d45",
+      "new_sha256": "6096b76d23c1a493bf9ecb92493ff2a373542e02cfb7b4ff86aae5b50c350d45",
+      "byte_identical": true
+    },
+    {
+      "path": "arithmetic_checks.py",
+      "baseline_sha256": "12b5f6b17c48b496bc360924820f02ba1ddf96a2298d59003ee39eca1783933f",
+      "new_sha256": "12b5f6b17c48b496bc360924820f02ba1ddf96a2298d59003ee39eca1783933f",
+      "byte_identical": true
+    },
+    {
+      "path": "cover_geometry.py",
+      "baseline_sha256": "09401d77eaea0441f65215ee4137906ae4ad992fbb713612b80e3abbdafc0cb5",
+      "new_sha256": "09401d77eaea0441f65215ee4137906ae4ad992fbb713612b80e3abbdafc0cb5",
+      "byte_identical": true
+    },
+    {
+      "path": "reference_algebra.py",
+      "baseline_sha256": "27e0a07617e04fe4f1c7a71f9841d3a790c4c03dd54cc575994f4755cf5712ea",
+      "new_sha256": "27e0a07617e04fe4f1c7a71f9841d3a790c4c03dd54cc575994f4755cf5712ea",
+      "byte_identical": true
+    },
+    {
+      "path": "inputs/physical_algebra.py",
+      "baseline_sha256": "f8729b44b91ba7d9b4f56af7984cbc90c5b7755f4283539685cf6be968bc092c",
+      "new_sha256": "f8729b44b91ba7d9b4f56af7984cbc90c5b7755f4283539685cf6be968bc092c",
+      "byte_identical": true
+    },
+    {
+      "path": "inputs/CornerBounds_PROOF.md",
+      "baseline_sha256": "bfb49f0e36667305c86db0942c10ee8a93cb7d15cb6ae5bebbdd0efef67db4e1",
+      "new_sha256": "bfb49f0e36667305c86db0942c10ee8a93cb7d15cb6ae5bebbdd0efef67db4e1",
+      "byte_identical": true
+    }
+  ],
+  "removed_inactive_helper": "geometry.py",
+  "native_engine_sha256": "c60d17b39706f28fc5e566ace247bd71c8258544517fd8841e1bafe7f663328c"
+}

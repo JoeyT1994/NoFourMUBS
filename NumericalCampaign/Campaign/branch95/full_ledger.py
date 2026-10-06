@@ -13,6 +13,11 @@ Sources, in the order a row is credited (later sources only count overlaps):
   hard_frontier    postE/hard receipt_P.json with map.tsv (frontier at 1,800 s per root)                   (Q)
   v3               postE/small/v3fast_*, v3wide_*  (id = inventory row)    no physical completion in strict D0
   hard_F, hard_FG  postE/hard/F results + G (cells matched to rows by exact level and centre)   cover (Q) / PSD
+  hard2_frontier   postE/hard2 receipt_K.json (frontier at 7,200 s per root on the hard tail's unresolved boxes)  (Q)
+  ball40           ball40/res_*.jsonl.gz: Patch2442Local Radius025Complete (punctured ball 1/40 at the two
+                   (2,4,4,2)-class seeds), ok=true with PASS_UNIFORM_BALL; id = inventory row, box checked   strict D0
+Outside the inventory: stage-C FAILED leaves (results/certify) rerun one per cell in results/certify_branchP3;
+reported as stageC_leaves (all leaves must have a done record with failed == 0).
 Delegated (not closed here): ring = class (2,4,4,2) at seed distance <= 0.07 - 1e-6 (release ring-2026-10-04);
 export2 = rows listed in export2_2026-10-05 (inventory_row field) and not credited above.
 Outputs: OUTDIR/LEDGER.json (counts, input hashes), OUTDIR/open_rows.txt.gz ("row class code seed dist").
@@ -23,7 +28,7 @@ HERE = os.path.dirname(os.path.abspath(__file__)); os.chdir(HERE); sys.path.inse
 from postE import RING_MAXD
 P = "postE"; FR = P + "/frontier"
 NAMES = ["open", "v2", "sidecover", "frontier_p1", "frontier_p2", "frontier_p3", "hard_frontier", "v3", "hard_F",
-         "hard_FG", "delegated_ring", "delegated_export2"]
+         "hard_FG", "hard2_frontier", "ball40", "delegated_ring", "delegated_export2"]
 CODE = {n: i for i, n in enumerate(NAMES)}
 
 
@@ -183,6 +188,59 @@ if __name__ == "__main__":
             credit(i, "hard_F")
         elif all(g.get((cid, a, b)) == "E" for a, b in fl):
             credit(i, "hard_FG")
+    # hard2: unresolved boxes of the hard receipts in part order, dealt to 2 parts (close_rest.sh)
+    if os.path.exists(P + "/hard/map.tsv"):
+        seq = []
+        for p in range(10):
+            rp = P + f"/hard/receipt_{p}.json"
+            if os.path.exists(rp):
+                bad = sorted(set(json.load(open(rp))["unresolved_indices"])); seq += [parts[p][j] for j in bad]
+        for k in range(2):
+            rp = P + f"/hard2/receipt_{k}.json"
+            if not os.path.exists(rp):
+                continue
+            rows = seq[k::2]; r = json.load(open(rp)); inputs[rp] = sha(rp)
+            if r["frontier_boxes"] != len(rows):
+                errors.append(("hard2 receipt size", rp)); continue
+            bad = set(r["unresolved_indices"])
+            for j, i in enumerate(rows):
+                if j not in bad:
+                    credit(i, "hard2_frontier")
+    # 1/40 punctured ball: whole-box exact membership after a full PASS_UNIFORM_BALL replay
+    from fractions import Fraction as Fq
+    ballrec = {}
+    for p in sorted(glob.glob("ball40/res_*.jsonl.gz")):
+        v = json.load(open(p + ".verification.json"))
+        if v["status"] != "PASS_UNIFORM_BALL":
+            errors.append(("ball40 replay not PASS", p)); continue
+        inputs[p] = sha(p)
+        for l in gzip.open(p, "rt"):
+            r = json.loads(l)
+            if r.get("ok") is True and r.get("proof_status") == "PASS_UNIFORM_BALL":
+                ballrec[r["input_record"]["id"]] = r["input_record"]["centers"]
+    if ballrec:
+        with gzip.open(P + "/inventory.txt.gz", "rt") as f:
+            i = 0
+            for line in f:
+                if not line.strip() or line.startswith("#"):
+                    continue
+                if i in ballrec:
+                    if [Fq(x) for x in ballrec[i]] == [Fq(float(x)) for x in line.split()[1:5]]:
+                        credit(i, "ball40")
+                    else:
+                        errors.append(("ball40 geometry mismatch", i))
+                i += 1
+    # stage-C FAILED leaves (not inventory rows)
+    sc = None
+    if os.path.exists("cells_branchP3.txt"):
+        nleaf = sum(1 for _ in open("cells_branchP3.txt")); done = {}
+        for fn in glob.glob("results/certify_branchP3/c_*.jsonl"):
+            for line in open(fn):
+                r = json.loads(line)
+                if r.get("done"):
+                    done[r["cell"]] = r["failed"]
+        sc = dict(leaves=nleaf, done=len(done), closed=sum(1 for v in done.values() if v == 0),
+                  open=nleaf - sum(1 for v in done.values() if v == 0))
     # delegation
     ring_c = {c for k, c in cls_of.items() if k.startswith("2,4,4,2 ")}
     e2 = set()
@@ -204,7 +262,7 @@ if __name__ == "__main__":
                 f.write(f"{i} {names_c[cls[i]]} {dist[i]:.6f}\n")
     res = dict(rows=N, by_source={n: cnt.get(n, 0) for n in NAMES}, overlaps=dict(overlaps),
                open_by_class_code=dict(open_by), delegated_by_class={" | ".join(k): v for k, v in deleg_by.items()},
-               frontier_pass1_shards_missing=p1_missing, errors=len(errors), error_examples=errors[:20],
+               frontier_pass1_shards_missing=p1_missing, stageC_leaves=sc, errors=len(errors), error_examples=errors[:20],
                inputs=inputs, ledger_sha256=sha(os.path.abspath(__file__)))
     json.dump(res, open(od + "/LEDGER.json", "w"), indent=1)
-    print(json.dumps({k: res[k] for k in ("rows", "by_source", "open_by_class_code", "errors")}))
+    print(json.dumps({k: res[k] for k in ("rows", "by_source", "open_by_class_code", "stageC_leaves", "errors")}))

@@ -1,0 +1,44 @@
+{
+  "status": "PASS_TWO_FULL_COMPILER_REPLAYS",
+  "radius_radians": "1/40",
+  "previous_radius_radians": "1/100",
+  "radius_increase_factor": "5/2",
+  "seeds": [
+    "2442",
+    "4224"
+  ],
+  "local_rows": 104,
+  "exact_local_coefficients": 9776,
+  "max_local_score": "7833210364118525/9007199254740992",
+  "local_score_margin": "1173988890622467/9007199254740992",
+  "global_terminals": 140104,
+  "global_by_degree": {
+    "2": 72481,
+    "4": 67623
+  },
+  "global_unresolved": 0,
+  "module_manifest_sha256": "2b3bd07da77a2508699bc9dbb9153efb64a0858f7b025fa7647f68eb98ac7d6c",
+  "module_manifest_entries": 43,
+  "gcc": {
+    "wall_seconds": 597.720102126,
+    "global_wall_seconds": 571.3273927549999,
+    "global_native_worker_cpu_seconds": 2258.2224,
+    "receipt_sha256": "b9917bba99ef1a635ce7acb67f3fb7a9733e0998254360fb5302bbbf17bd5d8a",
+    "compiler": "c++ (Debian 14.2.0-19) 14.2.0\nCopyright (C) 2024 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."
+  },
+  "clang_clean_extraction": {
+    "wall_seconds": 544.104219198,
+    "global_wall_seconds": 521.0473217969998,
+    "global_native_worker_cpu_seconds": 2066.3289999999997,
+    "accepted_examples": 8,
+    "receipt_sha256": "23cb2889a08679212bf3c8c77ace1d247739ce58d8b4e7457785f92c91e14340",
+    "compiler": "clang version 17.0.0 (https://github.com/swiftlang/llvm-project.git 10999b6d034fe318f3d56c83bddb6572593a8bb0)\nTarget: x86_64-unknown-linux-gnu\nThread model: posix\nInstalledDir: /usr/local/swift/usr/bin"
+  },
+  "trust_boundary": "Computer-assisted proof using the stated interval/Taylor rules and checked IEEE-754 execution model; not a proof-assistant formalization or two independently designed complete verifiers.",
+  "not_claimed": [
+    "radius 0.0475",
+    "radius 0.06",
+    "optimality of 1/40",
+    "independent replay of the global no-four-MUBs campaign"
+  ]
+}
