@@ -1,0 +1,433 @@
+{
+  "aggregate_axiom_declarations": 48,
+  "aggregate_axioms_each": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+  ],
+  "first_wave_direct_dependency_modules": [
+    "CentiradianPhysical.lean",
+    "CentiradianNormalization.lean"
+  ],
+  "first_wave_frozen_file_count": 22,
+  "first_wave_frozen_hashes_match": true,
+  "lean_version_verified": "Lean (version 4.33.0-rc2, arm64-apple-darwin24.6.0, commit d8b18978322de05a8f3dba51ef03cf5461676c17, Release)",
+  "mathlib_git_metadata_available": false,
+  "mathlib_recorded_revision": "51e6992efd06126df61a496bebf8f49482a4e129",
+  "mathlib_revision_caveat": "Local source directory is named with the recorded revision but has no Git metadata. This review does not independently authenticate that archive or compiled Mathlib cache to the named commit.",
+  "mathlib_revision_check": {
+    "exit_code": 128,
+    "stderr": "fatal: not a git repository (or any of the parent directories): .git",
+    "stdout": ""
+  },
+  "module_receipt_checks": [
+    {
+      "check_directory": "/Users/mateo/Desktop/Quantum Physics Codex/mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/phase2/check-signed-02",
+      "local_direct_import_resolution": {},
+      "module": "SignedDeterminantFoundation",
+      "published_receipt_equals_original": true,
+      "result": {
+        "exit_code": 0,
+        "mode": "standalone-guarded-v1",
+        "peak_tree_rss_bytes": 1485471744,
+        "physical_proof_admission": false,
+        "source_sha256": "2115293997de60f6291a094d9dbdc9e721d11331e240e64b6e4d160a341e648f",
+        "stop_reason": null,
+        "success": true,
+        "wall_seconds": 11.613722333000624
+      },
+      "source_sha256": "2115293997de60f6291a094d9dbdc9e721d11331e240e64b6e4d160a341e648f"
+    },
+    {
+      "check_directory": "/Users/mateo/Desktop/Quantum Physics Codex/mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/phase2/check-num-defs-01",
+      "local_direct_import_resolution": {
+        "SignedDeterminantFoundation": "/Users/mateo/Desktop/Quantum Physics Codex/mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/phase2/check-signed-02/SignedDeterminantFoundation.olean"
+      },
+      "module": "SignedNumeratorDefs",
+      "published_receipt_equals_original": true,
+      "result": {
+        "exit_code": 0,
+        "mode": "standalone-guarded-v1",
+        "peak_tree_rss_bytes": 1446821888,
+        "physical_proof_admission": false,
+        "source_sha256": "96b2d60b275a20acf951ed06cf3ae210688ddf2ade130389fc13584d951a395b",
+        "stop_reason": null,
+        "success": true,
+        "wall_seconds": 12.692521083001338
+      },
+      "source_sha256": "96b2d60b275a20acf951ed06cf3ae210688ddf2ade130389fc13584d951a395b"
+    },
+    {
+      "check_directory": "/Users/mateo/Desktop/Quantum Physics Codex/mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/phase2/check-num-coeff0-01",
+      "local_direct_import_resolution": {
+        "SignedNumeratorDefs": "/Users/mateo/Desktop/Quantum Physics Codex/mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/phase2/check-num-defs-01/SignedNumeratorDefs.olean"
+      },
+      "module": "SignedNumeratorCoeff0",
+      "published_receipt_equals_original": true,
+      "result": {
+        "exit_code": 0,
+        "mode": "standalone-guarded-v1",
+        "peak_tree_rss_bytes": 1234157568,
+        "physical_proof_admission": false,
+        "source_sha256": "9603b69653e763375cf3257d40af9d18679a3a1b45ec5f061953b4f4aea194e8",
+        "stop_reason": null,
+        "success": true,
+        "wall_seconds": 1.5767921659935382
+      },
+      "source_sha256": "9603b69653e763375cf3257d40af9d18679a3a1b45ec5f061953b4f4aea194e8"
+    },
+    {
+      "check_directory": "/Users/mateo/Desktop/Quantum Physics Codex/mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/phase2/check-num-coeff1-01",
+      "local_direct_import_resolution": {
+        "SignedNumeratorDefs": "/Users/mateo/Desktop/Quantum Physics Codex/mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/phase2/check-num-defs-01/SignedNumeratorDefs.olean"
+      },
+      "module": "SignedNumeratorCoeff1",
+      "published_receipt_equals_original": true,
+      "result": {
+        "exit_code": 0,
+        "mode": "standalone-guarded-v1",
+        "peak_tree_rss_bytes": 1473019904,
+        "physical_proof_admission": false,
+        "source_sha256": "d818611a3744e928ceb7fa710b3e6a40a7510d4b57524d6fba180197044c24bf",
+        "stop_reason": null,
+        "success": true,
+        "wall_seconds": 1.5749191669965512
+      },
+      "source_sha256": "d818611a3744e928ceb7fa710b3e6a40a7510d4b57524d6fba180197044c24bf"
+    },
+    {
+      "check_directory": "/Users/mateo/Desktop/Quantum Physics Codex/mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/phase2/check-num-coeff2-01",
+      "local_direct_import_resolution": {
+        "SignedNumeratorDefs": "/Users/mateo/Desktop/Quantum Physics Codex/mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/phase2/check-num-defs-01/SignedNumeratorDefs.olean"
+      },
+      "module": "SignedNumeratorCoeff2",
+      "published_receipt_equals_original": true,
+      "result": {
+        "exit_code": 0,
+        "mode": "standalone-guarded-v1",
+        "peak_tree_rss_bytes": 1580498944,
+        "physical_proof_admission": false,
+        "source_sha256": "0491b24b6bdecbf25b02a4074b0a841b2635a8675c04e54a1b28ed706792250c",
+        "stop_reason": null,
+        "success": true,
+        "wall_seconds": 2.116833125000994
+      },
+      "source_sha256": "0491b24b6bdecbf25b02a4074b0a841b2635a8675c04e54a1b28ed706792250c"
+    },
+    {
+      "check_directory": "/Users/mateo/Desktop/Quantum Physics Codex/mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/phase2/check-num-coeff3-01",
+      "local_direct_import_resolution": {
+        "SignedNumeratorDefs": "/Users/mateo/Desktop/Quantum Physics Codex/mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/phase2/check-num-defs-01/SignedNumeratorDefs.olean"
+      },
+      "module": "SignedNumeratorCoeff3",
+      "published_receipt_equals_original": true,
+      "result": {
+        "exit_code": 0,
+        "mode": "standalone-guarded-v1",
+        "peak_tree_rss_bytes": 1724317696,
+        "physical_proof_admission": false,
+        "source_sha256": "669a32bce6621c5703567ea4cdacea9c263efd901ad759b162b83d79c68aa841",
+        "stop_reason": null,
+        "success": true,
+        "wall_seconds": 3.6958901250036433
+      },
+      "source_sha256": "669a32bce6621c5703567ea4cdacea9c263efd901ad759b162b83d79c68aa841"
+    },
+    {
+      "check_directory": "/Users/mateo/Desktop/Quantum Physics Codex/mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/phase2/check-num-coeff4-01",
+      "local_direct_import_resolution": {
+        "SignedNumeratorDefs": "/Users/mateo/Desktop/Quantum Physics Codex/mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/phase2/check-num-defs-01/SignedNumeratorDefs.olean"
+      },
+      "module": "SignedNumeratorCoeff4",
+      "published_receipt_equals_original": true,
+      "result": {
+        "exit_code": 0,
+        "mode": "standalone-guarded-v1",
+        "peak_tree_rss_bytes": 1854734336,
+        "physical_proof_admission": false,
+        "source_sha256": "c68d8fedb585764fa7cb7ed97142b9abcf85deba67c68d7e28a037482f3f8708",
+        "stop_reason": null,
+        "success": true,
+        "wall_seconds": 4.212927667002077
+      },
+      "source_sha256": "c68d8fedb585764fa7cb7ed97142b9abcf85deba67c68d7e28a037482f3f8708"
+    },
+    {
+      "check_directory": "/Users/mateo/Desktop/Quantum Physics Codex/mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/phase2/check-num-coeff5-01",
+      "local_direct_import_resolution": {
+        "SignedNumeratorDefs": "/Users/mateo/Desktop/Quantum Physics Codex/mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/phase2/check-num-defs-01/SignedNumeratorDefs.olean"
+      },
+      "module": "SignedNumeratorCoeff5",
+      "published_receipt_equals_original": true,
+      "result": {
+        "exit_code": 0,
+        "mode": "standalone-guarded-v1",
+        "peak_tree_rss_bytes": 1716568064,
+        "physical_proof_admission": false,
+        "source_sha256": "15cd91b80e3db2406548bf441d7920db9a40802b5301d863d201098c5d31b059",
+        "stop_reason": null,
+        "success": true,
+        "wall_seconds": 3.690222208002524
+      },
+      "source_sha256": "15cd91b80e3db2406548bf441d7920db9a40802b5301d863d201098c5d31b059"
+    },
+    {
+      "check_directory": "/Users/mateo/Desktop/Quantum Physics Codex/mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/phase2/check-num-coeff6-01",
+      "local_direct_import_resolution": {
+        "SignedNumeratorDefs": "/Users/mateo/Desktop/Quantum Physics Codex/mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/phase2/check-num-defs-01/SignedNumeratorDefs.olean"
+      },
+      "module": "SignedNumeratorCoeff6",
+      "published_receipt_equals_original": true,
+      "result": {
+        "exit_code": 0,
+        "mode": "standalone-guarded-v1",
+        "peak_tree_rss_bytes": 1570930688,
+        "physical_proof_admission": false,
+        "source_sha256": "30008750595242d6ebffb150189d440f8b9202caf3098d9b9312c1d861bba7f2",
+        "stop_reason": null,
+        "success": true,
+        "wall_seconds": 2.104490582998551
+      },
+      "source_sha256": "30008750595242d6ebffb150189d440f8b9202caf3098d9b9312c1d861bba7f2"
+    },
+    {
+      "check_directory": "/Users/mateo/Desktop/Quantum Physics Codex/mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/phase2/check-num-coeff7-01",
+      "local_direct_import_resolution": {
+        "SignedNumeratorDefs": "/Users/mateo/Desktop/Quantum Physics Codex/mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/phase2/check-num-defs-01/SignedNumeratorDefs.olean"
+      },
+      "module": "SignedNumeratorCoeff7",
+      "published_receipt_equals_original": true,
+      "result": {
+        "exit_code": 0,
+        "mode": "standalone-guarded-v1",
+        "peak_tree_rss_bytes": 1471070208,
+        "physical_proof_admission": false,
+        "source_sha256": "8dfe36df13b8c3c89a53a0b0e3a7654311934c169be0d84d3cd34f1cf302e75e",
+        "stop_reason": null,
+        "success": true,
+        "wall_seconds": 1.5786388749984326
+      },
+      "source_sha256": "8dfe36df13b8c3c89a53a0b0e3a7654311934c169be0d84d3cd34f1cf302e75e"
+    },
+    {
+      "check_directory": "/Users/mateo/Desktop/Quantum Physics Codex/mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/phase2/check-num-coeff8-01",
+      "local_direct_import_resolution": {
+        "SignedNumeratorDefs": "/Users/mateo/Desktop/Quantum Physics Codex/mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/phase2/check-num-defs-01/SignedNumeratorDefs.olean"
+      },
+      "module": "SignedNumeratorCoeff8",
+      "published_receipt_equals_original": true,
+      "result": {
+        "exit_code": 0,
+        "mode": "standalone-guarded-v1",
+        "peak_tree_rss_bytes": 1174519808,
+        "physical_proof_admission": false,
+        "source_sha256": "d4934f7321db3a39e163ef0c33cc3d9a079ae3666cb075640080b7be1ed78854",
+        "stop_reason": null,
+        "success": true,
+        "wall_seconds": 1.0577544580009999
+      },
+      "source_sha256": "d4934f7321db3a39e163ef0c33cc3d9a079ae3666cb075640080b7be1ed78854"
+    },
+    {
+      "check_directory": "/Users/mateo/Desktop/Quantum Physics Codex/mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/phase2/check-num-cert-03",
+      "local_direct_import_resolution": {
+        "SignedNumeratorCoeff0": "/Users/mateo/Desktop/Quantum Physics Codex/mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/phase2/check-num-coeff0-01/SignedNumeratorCoeff0.olean",
+        "SignedNumeratorCoeff1": "/Users/mateo/Desktop/Quantum Physics Codex/mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/phase2/check-num-coeff1-01/SignedNumeratorCoeff1.olean",
+        "SignedNumeratorCoeff2": "/Users/mateo/Desktop/Quantum Physics Codex/mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/phase2/check-num-coeff2-01/SignedNumeratorCoeff2.olean",
+        "SignedNumeratorCoeff3": "/Users/mateo/Desktop/Quantum Physics Codex/mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/phase2/check-num-coeff3-01/SignedNumeratorCoeff3.olean",
+        "SignedNumeratorCoeff4": "/Users/mateo/Desktop/Quantum Physics Codex/mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/phase2/check-num-coeff4-01/SignedNumeratorCoeff4.olean",
+        "SignedNumeratorCoeff5": "/Users/mateo/Desktop/Quantum Physics Codex/mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/phase2/check-num-coeff5-01/SignedNumeratorCoeff5.olean",
+        "SignedNumeratorCoeff6": "/Users/mateo/Desktop/Quantum Physics Codex/mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/phase2/check-num-coeff6-01/SignedNumeratorCoeff6.olean",
+        "SignedNumeratorCoeff7": "/Users/mateo/Desktop/Quantum Physics Codex/mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/phase2/check-num-coeff7-01/SignedNumeratorCoeff7.olean",
+        "SignedNumeratorCoeff8": "/Users/mateo/Desktop/Quantum Physics Codex/mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/phase2/check-num-coeff8-01/SignedNumeratorCoeff8.olean"
+      },
+      "module": "SignedNumeratorCertificate",
+      "published_receipt_equals_original": true,
+      "result": {
+        "exit_code": 0,
+        "mode": "standalone-guarded-v1",
+        "peak_tree_rss_bytes": 1605566464,
+        "physical_proof_admission": false,
+        "source_sha256": "917a69e733e24e10da6cc6bac5b754b173a3024044cc2ef62d021acac3ed8a63",
+        "stop_reason": null,
+        "success": true,
+        "wall_seconds": 4.1900272499988205
+      },
+      "source_sha256": "917a69e733e24e10da6cc6bac5b754b173a3024044cc2ef62d021acac3ed8a63"
+    },
+    {
+      "check_directory": "/Users/mateo/Desktop/Quantum Physics Codex/mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/phase2/check-num-bindings-02",
+      "local_direct_import_resolution": {
+        "SignedNumeratorCertificate": "/Users/mateo/Desktop/Quantum Physics Codex/mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/phase2/check-num-cert-03/SignedNumeratorCertificate.olean"
+      },
+      "module": "SignedNumeratorBindings",
+      "published_receipt_equals_original": true,
+      "result": {
+        "exit_code": 0,
+        "mode": "standalone-guarded-v1",
+        "peak_tree_rss_bytes": 1512603648,
+        "physical_proof_admission": false,
+        "source_sha256": "f139ae2afdbc5f922d6eaebebbaf6094a1ecf78d299576805cc7edff7c33dc0d",
+        "stop_reason": null,
+        "success": true,
+        "wall_seconds": 4.185939707997022
+      },
+      "source_sha256": "f139ae2afdbc5f922d6eaebebbaf6094a1ecf78d299576805cc7edff7c33dc0d"
+    },
+    {
+      "check_directory": "/Users/mateo/Desktop/Quantum Physics Codex/mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/phase2/check-algebra-02",
+      "local_direct_import_resolution": {
+        "SignedNumeratorBindings": "/Users/mateo/Desktop/Quantum Physics Codex/mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/phase2/check-num-bindings-02/SignedNumeratorBindings.olean"
+      },
+      "module": "SignedDeterminantAlgebra",
+      "published_receipt_equals_original": true,
+      "result": {
+        "exit_code": 0,
+        "mode": "standalone-guarded-v1",
+        "peak_tree_rss_bytes": 1432616960,
+        "physical_proof_admission": false,
+        "source_sha256": "618fafb15c8d844584c5cd91c6948d7e59915451100095a1b35a5c3f2c26ab3e",
+        "stop_reason": null,
+        "success": true,
+        "wall_seconds": 1.5684227919991827
+      },
+      "source_sha256": "618fafb15c8d844584c5cd91c6948d7e59915451100095a1b35a5c3f2c26ab3e"
+    },
+    {
+      "check_directory": "/Users/mateo/Desktop/Quantum Physics Codex/mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/phase2/check-gram-02",
+      "local_direct_import_resolution": {
+        "CentiradianPhysical": "/Users/mateo/Desktop/Quantum Physics Codex/mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/check-physical-03/CentiradianPhysical.olean",
+        "SignedDeterminantAlgebra": "/Users/mateo/Desktop/Quantum Physics Codex/mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/phase2/check-algebra-02/SignedDeterminantAlgebra.olean"
+      },
+      "module": "SignedDeterminantGram",
+      "published_receipt_equals_original": true,
+      "result": {
+        "exit_code": 0,
+        "mode": "standalone-guarded-v1",
+        "peak_tree_rss_bytes": 2130722816,
+        "physical_proof_admission": false,
+        "source_sha256": "497c6ad2c4335dddd2abc16325face1959697fa5078c7658f87f09f31d121c85",
+        "stop_reason": null,
+        "success": true,
+        "wall_seconds": 7.333211000004667
+      },
+      "source_sha256": "497c6ad2c4335dddd2abc16325face1959697fa5078c7658f87f09f31d121c85"
+    },
+    {
+      "check_directory": "/Users/mateo/Desktop/Quantum Physics Codex/mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/phase2/check-corner-01",
+      "local_direct_import_resolution": {
+        "CentiradianNormalization": "/Users/mateo/Desktop/Quantum Physics Codex/mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/check-normalization-01/CentiradianNormalization.olean",
+        "SignedDeterminantGram": "/Users/mateo/Desktop/Quantum Physics Codex/mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/phase2/check-gram-02/SignedDeterminantGram.olean"
+      },
+      "module": "SignedCornerPhysical",
+      "published_receipt_equals_original": true,
+      "result": {
+        "exit_code": 0,
+        "mode": "standalone-guarded-v1",
+        "peak_tree_rss_bytes": 2151317504,
+        "physical_proof_admission": false,
+        "source_sha256": "0f1d767a088e9f7c8fac44b3c169fff8aeff09819e84bb015fd960fffd881994",
+        "stop_reason": null,
+        "success": true,
+        "wall_seconds": 2.6186706250009593
+      },
+      "source_sha256": "0f1d767a088e9f7c8fac44b3c169fff8aeff09819e84bb015fd960fffd881994"
+    },
+    {
+      "check_directory": "/Users/mateo/Desktop/Quantum Physics Codex/mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/phase2/check-audit-01",
+      "local_direct_import_resolution": {
+        "SignedCornerPhysical": "/Users/mateo/Desktop/Quantum Physics Codex/mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/phase2/check-corner-01/SignedCornerPhysical.olean"
+      },
+      "module": "SignedCornerAudit",
+      "published_receipt_equals_original": true,
+      "result": {
+        "exit_code": 0,
+        "mode": "standalone-guarded-v1",
+        "peak_tree_rss_bytes": 2128347136,
+        "physical_proof_admission": false,
+        "source_sha256": "2d3048616a266e23277469b99d2b1b8c9334764ec84b93c27539895be7075319",
+        "stop_reason": null,
+        "success": true,
+        "wall_seconds": 9.536333208998258
+      },
+      "source_sha256": "2d3048616a266e23277469b99d2b1b8c9334764ec84b93c27539895be7075319"
+    },
+    {
+      "check_directory": "/Users/mateo/Desktop/Quantum Physics Codex/mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/check-physical-03",
+      "local_direct_import_resolution": {},
+      "module": "CentiradianPhysical",
+      "published_receipt_equals_original": true,
+      "result": {
+        "exit_code": 0,
+        "mode": "standalone-guarded-v1",
+        "peak_tree_rss_bytes": 2131591168,
+        "physical_proof_admission": false,
+        "source_sha256": "f3a81569f51a4eac1e147df81bfa9d713ad386891c2d6ea45ff51eb9fd2cc703",
+        "stop_reason": null,
+        "success": true,
+        "wall_seconds": 13.529477083000529
+      },
+      "source_sha256": "f3a81569f51a4eac1e147df81bfa9d713ad386891c2d6ea45ff51eb9fd2cc703"
+    },
+    {
+      "check_directory": "/Users/mateo/Desktop/Quantum Physics Codex/mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/check-normalization-01",
+      "local_direct_import_resolution": {
+        "CentiradianPhysical": "/Users/mateo/Desktop/Quantum Physics Codex/mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/check-physical-03/CentiradianPhysical.olean"
+      },
+      "module": "CentiradianNormalization",
+      "published_receipt_equals_original": true,
+      "result": {
+        "exit_code": 0,
+        "mode": "standalone-guarded-v1",
+        "peak_tree_rss_bytes": 2144075776,
+        "physical_proof_admission": false,
+        "source_sha256": "7eac00ff592d0316ac2ece341a1b708585b32f243bfb96e21c97221765880999",
+        "stop_reason": null,
+        "success": true,
+        "wall_seconds": 11.42157458300062
+      },
+      "source_sha256": "7eac00ff592d0316ac2ece341a1b708585b32f243bfb96e21c97221765880999"
+    }
+  ],
+  "native_directory_resolved": "/Users/mateo/Desktop/Quantum Physics Codex/mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/radius-input-003/ProvenResults/Patch2442Local/RadiusThreeHundredths",
+  "phase2_module_count": 17,
+  "phase2_proof_pin_resolves_to": "/Users/mateo/Desktop/Quantum Physics Codex/mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/patch2442-theorem-review-2026-10-06/second/ProvenResults/Patch2442Local/CentiradianComplete/PROOF.md",
+  "phase2_publication_file_count": 41,
+  "phase2_publication_hashes_match": true,
+  "phase2_recorded_proof_sha256": "3c1c46e4d6d3db0559fd6f049e63977e79d078d81fc28eaf2667beed602fc7b5",
+  "prohibited_formal_token_hits": [],
+  "radius_three_hundredths_proof_sha256": "bc3b020855375cf7866b29dbbd6c9cafef5a9d10d0bcbcc362655ad2a8cdf2f8",
+  "schema": "signed-bridge-independent-checks-v1",
+  "scope": "Source semantics and existing successful receipts; no new Lean compilation or factory admission.",
+  "source_diagnostics": {
+    "assembled_numerator_identity_diagnostic": true,
+    "coefficient_zero_diagnostics": {
+      "0": true,
+      "1": true,
+      "2": true,
+      "3": true,
+      "4": true,
+      "5": true,
+      "6": true,
+      "7": true,
+      "8": true
+    },
+    "diagnostic_only_not_Lean_credit": true,
+    "independent_d_and_conjugate_d_identity": true,
+    "native_coefficient_matches_in_free_star_algebra": {
+      "0": true,
+      "1": true,
+      "2": true,
+      "3": true,
+      "4": true,
+      "5": true
+    },
+    "native_dephased_term_map_matches": true,
+    "native_factor_two_and_dephasing_text_match": true,
+    "native_fastZ_matches_in_free_star_algebra": true,
+    "native_mixed_corners": 81,
+    "native_mixed_indices_are_strictly_increasing": true,
+    "native_nine_entry_words_match_dephasing_exponent_lift": true,
+    "raw_Lean_terms": 48
+  }
+}

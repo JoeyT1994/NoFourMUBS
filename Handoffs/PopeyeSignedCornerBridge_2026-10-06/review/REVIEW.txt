@@ -1,0 +1,178 @@
+Independent review of the physical signed-corner bridge
+6 October 2026
+
+Verdict: PASS for the scoped mathematical meaning and source correspondence.
+PASS for the audit of the existing successful guarded receipts and their local
+source/import snapshots. The recorded Mathlib commit was NOT independently
+authenticated. This review grants no factory admission, proves no radius
+exclusion, and does not close the no-four-MUB6 problem.
+
+The reviewed phase2 PUBLISH_FILELIST.json has SHA-256
+eb591acd2fe4e1f8e4097c4c4797b360e079c8e1426cd542ee8936f290d9e74e.
+All 41 entries match. The 22 first-wave frozen entries also match, preserving
+the earlier 49 declarations. The semantic dependency review here covers the
+two imported first-wave physical/normalization modules; it does not re-review
+all the other first-wave results. No Lean compilation was performed. No source,
+historical packet, factory registry, admission status, or cluster job was changed.
+
+Scope and exact statement
+
+Physical H is the conjunction of normSq(H_ij)=1 for every entry and
+sum_k H_ik conjugate(H_jk) = 6 when i=j, and 0 otherwise. This is the actual
+unit-entry six-by-six condition HH*=6I, not a polynomial witness substituted
+for a matrix. In SignedCornerPhysical.lean:70 the theorem quantifies over every
+strictly increasing row triple and column triple. It proves
+
+  cornerSigned(H, rows, cols)^2 = cornerR(H, rows, complement(cols)).
+
+The theorem at line 105 adds Maximal H and leadingR(H)>0 to obtain
+
+  abs(cornerSigned(H, rows, cols)) <= sqrt(leadingR(H)).
+
+Maximal compares every three-column subset and increasing row triple using <=.
+Thus all 20*20 positional corners and maximality ties are retained. There are
+no seed-neighborhood, classification, H9, quartet-occurrence, extra certificate,
+or nonphysical witness hypotheses. Strict positivity is used for the square
+root step; the squared bound itself requires no positivity premise.
+
+Negative Gram sign and dephasing
+
+The convention is s=-G_10, t=-G_20, r=-G_21, where G_ij is the partial row Gram
+sum H_i conjugate(H_j). For a dephased corner these are -1-a-b, -1-c-d and
+-1-c*conjugate(a)-d*conjugate(b). The invariant uses
+
+  p=|s|^2+|t|^2+|r|^2, J=2 Re(s*r*conjugate(t)),
+  W=|s|^2|t|^2+|s|^2|r|^2+|t|^2|r|^2-|s|^2|t|^2|r|^2,
+  R(p,J,W)=4(27-3p+J)^2(9-p+J)
+            -(W-(p-9)(p-18)+(p-15)J)^2.
+
+Full row orthogonality negates each off-diagonal Gram entry on the column
+complement. This preserves p,W and negates J. The checked algebra is therefore
+R(p,-J,W)=f^2, and the physical theorem identifies that quantity with the
+complementary corner R. It does not silently assert f(Q)^2=R(Q).
+
+cornerNormalize multiplies row i by conjugate(H_ic) and column j by
+H_rc*conjugate(H_rj). The inherited and new lemmas prove these are unit phases,
+preserve Physical and cornerR, and make the selected row and column equal to
+one. SignedCornerPhysical.lean:17 proves the literal four-factor expression
+H_ij*H_rc*conjugate(H_ic)*conjugate(H_rj), without a physical hypothesis.
+This is exactly the expression in native signedf.
+
+Polynomial and off-unit review
+
+SignedDeterminantFoundation.lean:29 contains the 48-term raw expression. An
+independent restricted parser matched its complete coefficient/exponent map to
+the dephased native determinant_words.txt, and matched the full nine-entry
+table to the dephasing exponent lift. The six coefficient functions, fastZ,
+factor 2, and four-factor dephasing match the actual native source, not merely
+the prose or generator output.
+
+rawDet_eq_fast at line 89 assumes only that a,b,c are unit. It leaves d and
+conjugate(d) intact and proves rawDet=fastZ-conjugate(fastZ); hence rawDet is
+purely imaginary and Im(rawDet)=2 Im(fastZ). The independent source diagnostic
+also retained d and conjugate(d) as independent variables. There is no invalid
+off-locus replacement of conjugate(d) by its inverse. The unit-four-torus
+invariant identity correctly DOES require d to be unit.
+
+The nine certCoeff*_zero lemmas are unconditional polynomial identities proved
+by ring. numerator_certificate assembles the degree-eight identity. The
+bindings derive every numerator from the actual complex Gram expressions and
+the original rawDet. With A=a*b*c*d, they bind the two linear factors to A,
+the chi factor and rawDet to A^2, then cancel A^4 using the proved nonzero
+denominator. No denominator nonvanishing or polynomial identity is inserted
+as an additional research assumption. The independent diagnostic checked all
+nine coefficients and the assembled numerator as well; that diagnostic adds
+no Lean proof credit and is not a replacement for the successful Lean checks.
+
+No equality of rawDet to a Matrix.det object is proved in this packet. That
+interpretation is unnecessary for the explicit polynomial inequality, and the
+packet accurately declines to claim it.
+
+Native scope and remaining binding boundary
+
+The native directory was resolved from phase2/../../radius-input-003, yielding
+C/radius-input-003/ProvenResults/Patch2442Local/RadiusThreeHundredths, where C is
+the centiradian-integration-2026-10-06 directory. Native readwords enumerates
+81 distinct mixed corners in increasing order; all lie in the theorem's domain.
+In the auxiliary model, each such corner has eight entries in E,B,C, with only
+the last entry in T. Once E,B,C are formally proved unit on the chart, its
+dephased a,b,c are unit while d may be arbitrary, exactly as rawDet_eq_fast
+requires. The chart/unit-property proof is still a separate obligation.
+
+interval_model.hpp:104 uses literal_signedf for the second-derivative type A
+and fast signedf for other types. The present Lean packet defines cornerSigned
+through the fast formula. It does NOT contain a Lean definition/binding of the
+native nine-entry word evaluator, its finite indexing, or the C++ interval/AD
+semantics. The diagnostic nine-entry comparison above is an independent source
+check, not a kernel-checked gauge-word theorem. Formal adoption of the literal
+branch and complete native engine must retain this obligation. The general
+physical fast-formula theorem is nevertheless complete at its stated scope.
+
+Receipt and provenance audit
+
+All 17 phase2 modules and both imported first-wave modules have successful
+guarded source snapshots matching the final hashes. Every direct local import
+resolves, in the recorded LEAN_PATH order, to the corresponding successful
+snapshot. Recorded jobs use one thread, 2304 MiB heap, 2816 MiB process-tree RSS
+cap, at least 8 GiB free-disk guard, and at most 240 seconds per module. The
+largest phase2 recorded RSS is 2,151,317,504 bytes. The aggregate log contains
+exactly the 48 declared new theorems, each with only propext, Classical.choice,
+and Quot.sound. The reviewed Lean source bodies contain no sorry, admit,
+sorryAx, research axiom, unsafe declaration, or native_decide. Existing receipts
+are historical execution evidence; this reviewer did not replay the compiler.
+
+The current Lean executable reports version 4.33.0-rc2 and commit
+d8b18978322de05a8f3dba51ef03cf5461676c17, matching the record. The Mathlib directory
+is named mathlib4-51e6992efd06126df61a496bebf8f49482a4e129 and has the matching
+Lean toolchain, but no .git metadata. The first-wave detailed record itself
+calls this revision a pin from the directory. This review cannot authenticate
+that source archive or its compiled cache to the claimed Mathlib commit.
+The portable runner requires git rev-parse HEAD and therefore cannot replay
+directly against this local archive-style runtime. A verified pinned checkout
+or additive archive/cache provenance remains necessary for a fully independent
+version-provenance claim. This caveat is separate from the source semantics
+and the successful recorded local checks.
+
+The phase2 PROOF.md hash 3c1c46e4d6d3db0559fd6f049e63977e79d078d81fc28eaf2667beed602fc7b5
+resolves exactly to the earlier CentiradianComplete/PROOF.md. The requested
+RadiusThreeHundredths/PROOF.md instead has hash
+bc3b020855375cf7866b29dbbd6c9cafef5a9d10d0bcbcc362655ad2a8cdf2f8.
+Their interval_model.hpp files and physical_algebra.py files are byte-identical
+at the phase2 pins. Sections 1 and 4 of the radius-three-hundredths proof agree
+with the reviewed bridge. This is a provenance distinction, not a discovered
+formula discrepancy. The immutable packet should be supplemented, not rewritten,
+when identifying the later proof document as an integration target.
+
+Unclosed full-radius and global obligations
+
+1. Bind the actual seed chart, all unit-pair/order branches, anchor choices,
+   row and column orientations, denominator bounds, K invertibility and lower
+   block reconstruction to every physical completion, for both seeds.
+2. Bind actual leadingR to the chosen seed-angle estimates or to the complete
+   Laurent/Taylor table and its remainder. Prove the radius-specific q bound;
+   the scalar majorants alone do not prove their physical hypotheses.
+3. Formalize all 94 residuals, their native indexing, the 13 physical zeros,
+   the fast and literal signed paths, and the required off-locus gauge identity.
+   Prove actual matrix symmetry transport where global reduction uses it.
+4. Prove the outward interval and automatic-differentiation/Taylor-jet enclosure
+   semantics, including inverse/square-root guards, rounding and exact constants.
+5. Bind exact reference identities and every preconditioner entry, prove every
+   local row bound, and instantiate radial contraction with the actual data,
+   including all boundary, zero, and punctured cases.
+6. Prove the complete phase cover, physical symmetry/orbit reductions, boundary
+   transport, exhaustive subdivision, and validity of every accepted terminal
+   leaf. Use the full cover for the claimed radius; smaller-radius receipts
+   cannot establish a larger-radius theorem.
+7. Assemble the physical punctured-radius exclusion and its conjugate-seed
+   branch. Any later no-four-MUB6 result also requires the remaining global
+   physical sectors and quartet reductions; this local necessary inequality
+   closes none of those sectors by itself.
+
+Evidence files in this review directory
+
+CHECKS.json records source/receipt checks and the provenance caveat.
+SOURCE_HASHES.json freezes 207 reviewed paths, including source, receipts,
+local artifacts, the native comparison inputs and the review checker.
+review_checks.py reproduces the lightweight audit without invoking Lean.
+REVIEW.json contains the structured verdict and remaining obligations.
+REVIEW_FILELIST.json freezes this additive review packet.
