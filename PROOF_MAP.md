@@ -79,16 +79,15 @@ The run leaves **45,713,468 post-E rows**. The ledger in [`Verification/ledger_2
 | Collaborator's factored signed-mean producer, fresh replay per box | 1,951,490 |
 | Signed-mean + PSD hybrid (`branch95/psd/hybrid_close.py`), fresh replay | 3,682 |
 | Band certificate (`RouteC/band`): reconstruction-free, every completion has a corner with R > sup R(E); Arb replay of every leaf | 6,370 |
+| (0,0,2,4) seed boxes (`RouteC/band/seed0024`): structure lemma plus certified cover of the seed continuum (tube or a corner > cap) | 36 |
 
 **Stage-C sliver.** 1,018 of 1,018 leaves are closed.
 
-## 4. What is left (7 Oct 2026, ledger [`07b`](Verification/ledger_2026-10-07b/README.md))
+## 4. What is left (7 Oct 2026, ledger [`07c`](Verification/ledger_2026-10-07c/README.md))
 
-**0 open rows; 36 delegated.** All 36 are boxes within about 10⁻³ of the two (0,0,2,4)-class seeds ±(0, 0, 2π/3, −2π/3).
+**All 45,713,468 post-E rows are closed by our own certificates: 0 open, 0 delegated.**
 
-**Why they remain.**
-- At those seeds the corner has two equal rows and g = 0, and the completions form a continuum through F6. So no single-corner certificate applies.
-- Their Arb cap is sup R(E) ≤ 1.6·10⁻⁸. A completion with E maximal therefore lies, by the averaging lemma (`simplerproof/`, Step 2, needed here only in a very weak form), in the F6 tube, which ClusterTube excludes.
+The last 36 rows sit at the (0,0,2,4)-class seeds, where the corner chart is degenerate. They are closed by [`RouteC/band/seed0024`](RouteC/band/seed0024/PROOF.md): a linear structure lemma plus a certified cover of the explicit seed continuum.
 
 After that comes the final assembly:
 - one root ledger chaining work cells → branch → post-E;
