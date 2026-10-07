@@ -110,3 +110,13 @@ Receipt: [`results/lemma_receipt.json`](results/lemma_receipt.json).
 > **M(H) < 26 implies d_F(H) ≤ 0.0914.**
 
 Numerically this holds with a wide margin. On the extremal curve, M at d_F = 0.0914 is about 39. Beyond d_F = 0.1, the minimum non-Tao M sampled so far is above 46.
+
+## Plan for the global confinement (M(H) < 26 ⇒ d_F(H) ≤ 0.0914)
+
+In our chart, a Hadamard with M < 26 has a maximal-corner seed θ ∈ D₀ ∩ F with R(θ) < 26. The volume of F ∩ {0 < R < 26} is about 1.3·10⁻³ of T⁴.
+
+**Completions of the exact F6 corner seeds** (`seed_completions.py`, numerical):
+- **Class (1,2,2,4):** all 314 completions found have M = 0, i.e. they are F6-equivalent. Seeds near this class should therefore lift into the tube: their completions are close to F6, which a Krawczyk enclosure around the seed completions can show.
+- **Class (4,5,0,3):** the completions found form a continuum with M between 63 and 202. Near these seeds E (with R ≈ 0) is never maximal, by a wide margin.
+
+**Remaining work.** Cover F ∩ {0 < R < 26} away from the seeds with the cheap D₀ prune, and use the band certificate on cells where the Taylor model of H₊ is singular. By the volume measurements, this is a cluster-scale job of about 10⁵–10⁶ chart cells.
