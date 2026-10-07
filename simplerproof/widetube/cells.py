@@ -193,12 +193,13 @@ def cell(yc, h, rho, q, tau_delta=Fr(1, 40), run_ref=True, work=None):
     rnd = math.sqrt(6) * math.pi / REF.L
     delta = (max(colv) + e + rnd) / math.sqrt(6) * 1.000001
     out = dict(yc=[float(t) for t in yc], h=h, res=res, var=var, q=qq, qloc=qloc, e=e, delta=delta, normx=float(np.linalg.norm(xc)))
-    taus = [t for t in (Fr(3, 20), Fr(1, 6)) if 6 * delta <= float(t)]
+    # smallest tolerance tau >= 6 delta from a fixed list; label radius rho_l = 14/15 tau
+    taus = [t for t in (Fr(1, 24), Fr(1, 20), Fr(1, 16), Fr(1, 12), Fr(1, 10), Fr(1, 8), Fr(3, 20), Fr(1, 6)) if 6 * delta <= float(t)]
     if not taus:
         out.update(ok=False, reason='delta'); return out
     if run_ref:
-        for tau in taus:
-            rep = REF.certify(Kref, tau, tau, work)
+        for tau in taus[:2]:
+            rep = REF.certify(Kref, tau, tau * Fr(14, 15), work)
             if rep.get('ok'): break
         out.update(ok=bool(rep.get('ok')), ref=rep)
         if not rep.get('ok'): out['reason'] = 'reference'
@@ -222,8 +223,18 @@ def cubes(rho, h):
         out.append(yc)
     return out
 
-def run_cell(yc, h, rho, work, depth=0, maxdepth=4):
-    """Certify a cube, splitting into 16 children on failure.  Returns (ok, list of leaf records)."""
+_GA = None
+def meets_ellipsoid(yc, h, rho):
+    global _GA
+    if _GA is None:
+        _GA = [[arb(GT[a][b].numerator) / GT[a][b].denominator for b in range(4)] for a in range(4)]
+    Y = [arb(float(yc[k]), h) for k in range(4)]
+    return sum(_GA[a][b] * Y[a] * Y[b] for a in range(4) for b in range(4)).lower() <= rho * rho * (1 + 1e-12)
+
+def run_cell(yc, h, rho, work, depth=0, maxdepth=5):
+    """Certify a cube, splitting into 16 children on failure (children missing the ellipsoid are dropped)."""
+    if not meets_ellipsoid(yc, h, rho):
+        return True, [dict(ok=True, reason='outside', depth=depth, delta=0)]
     out = cell(yc, h, rho, None, run_ref=True, work=work)
     if out.get('ok'):
         out['depth'] = depth; return True, [out]
