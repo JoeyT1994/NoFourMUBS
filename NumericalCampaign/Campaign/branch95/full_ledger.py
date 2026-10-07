@@ -23,6 +23,8 @@ Sources, in the order a row is credited (later sources only count overlaps):
                    of E(theta) has a corner with R > sup_box R(E)); accepted = float search + Arb replay of every
                    leaf + exact split/root coverage; tape sha256 rechecked; box = inventory centre and radius
                    >= pi/2^level; a parent is credited if all 16 children of band_split.py are accepted     D0 (all)
+  seed0024         seed0024/close36_receipt.json (RouteC/band/seed0024): the 36 boxes at the (0,0,2,4)-class seeds;
+                   status PASS, input sha256 rechecked, box = inventory centre and radius >= pi/2^level      (Q) or not max
   ball40           ball40/res_*.jsonl.gz: Patch2442Local Radius025Complete (punctured ball 1/40 at the two
                    (2,4,4,2)-class seeds), ok=true with PASS_UNIFORM_BALL; id = inventory row, box checked   strict D0
 Outside the inventory: stage-C FAILED leaves (results/certify) rerun one per cell in results/certify_branchP3;
@@ -38,7 +40,7 @@ HERE = os.path.dirname(os.path.abspath(__file__)); os.chdir(HERE); sys.path.inse
 from postE import RING_MAXD
 P = "postE"; FR = P + "/frontier"
 NAMES = ["open", "v2", "sidecover", "frontier_p1", "frontier_p2", "frontier_p3", "hard_frontier", "v3", "hard_F",
-         "hard_FG", "hard2_frontier", "h0024_frontier", "hard3_frontier", "ball40", "ball40_seed", "signed_mean", "hybrid_psd", "band", "delegated_ring", "delegated_export2"]
+         "hard_FG", "hard2_frontier", "h0024_frontier", "hard3_frontier", "ball40", "ball40_seed", "signed_mean", "hybrid_psd", "band", "seed0024", "delegated_ring", "delegated_export2"]
 CODE = {n: i for i, n in enumerate(NAMES)}
 
 
@@ -344,6 +346,30 @@ if __name__ == "__main__":
                             errors.append(("band geometry mismatch", i))
                     i += 1
         inputs[BAND + "/prod"] = dict(rows=len(brow), accepted=len(bres), credited_roots=len(roots))
+    # (0,0,2,4)-class seed boxes: structure lemma + certified cover of the seed continuum (RouteC/band/seed0024/PROOF.md)
+    SD = os.environ.get("SEED0024_DIR", "seed0024")
+    if os.path.exists(SD + "/close36_receipt.json"):
+        from fractions import Fraction as Fs
+        rc = json.load(open(SD + "/close36_receipt.json")); inputs[SD + "/close36_receipt.json"] = sha(SD + "/close36_receipt.json")
+        ok = rc.get("status") == "PASS" and all(sha(SD + "/" + f) == h for f, h in rc["inputs"].items())
+        if not ok:
+            errors.append(("seed0024 receipt not PASS or input hash mismatch", SD))
+        else:
+            sbox = {r["id"]: r for r in (json.loads(l) for l in open(SD + "/seed_boxes38.jsonl"))}
+            want = set(rc["boxes"])
+            with gzip.open(P + "/inventory.txt.gz", "rt") as f:
+                i = 0
+                for line in f:
+                    if not line.strip() or line.startswith("#"):
+                        continue
+                    if i in want:
+                        g = line.split(); r = sbox[i]
+                        if [Fs(x) for x in r["centers"]] == [Fs(float(x)) for x in g[1:5]] and \
+                           all(Fs(x) * 2 ** int(g[0]) >= Fs("3.14159265358979324") for x in r["radii"]):
+                            credit(i, "seed0024")
+                        else:
+                            errors.append(("seed0024 geometry mismatch", i))
+                    i += 1
     # stage-C FAILED leaves (not inventory rows)
     sc = None
     if os.path.exists("cells_branchP3.txt"):
