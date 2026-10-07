@@ -1,0 +1,29 @@
+{
+  "constants": {
+    "Rcap": "2847396321/15625000000000000",
+    "delta": "77/100000",
+    "h": "2/625",
+    "h_to_k_squared": "988969/6000000000",
+    "k_to_f_squared": "289/1080000",
+    "qcap": "53361/250000000",
+    "rounding_l1": "17/100",
+    "s": "53/20000",
+    "t": "2122809/800000000",
+    "witness_eps": "2309/5000"
+  },
+  "fourier_witness_imaginary_identity": "3*((-1)^k*sin(2alpha-beta)+(-1)^j*sin(2beta-alpha)-(-1)^(j+k)*sin(alpha+beta))",
+  "imag_q_laurent": {
+    "coefficient_l1": 24,
+    "phase_partial_l1": [
+      24,
+      24,
+      24,
+      24
+    ],
+    "terms": 48
+  },
+  "sign_coverage": 8,
+  "status": "PASS_EXACT_RESEARCH_CHECKS_NOT_LEAN",
+  "tensor_fourier_entry_checks": 36,
+  "zero_lattice_mod6_cases": 36
+}
