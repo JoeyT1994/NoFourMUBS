@@ -65,6 +65,33 @@ Boxes that pass no test are bisected adaptively. If the budget or minimum radius
 | Search time per box | 15 to 28 s |
 | Arb verification per box | 218 to 309 s |
 
+## Production on the open set (7 Oct 2026)
+
+**Input.** The 6,408 inventory boxes still open after hybrid round 2, at radius π/2¹³ + 2⁻⁴⁰ (`band_prod.py`, 24 preempt nodes, ~2 h).
+
+**Results.**
+
+| Outcome | Boxes |
+|---|---:|
+| Accepted: float search, Arb replay of every leaf, exact split and root coverage | **6,370** |
+| Search reached the minimum radius | 38 |
+| Search succeeded but replay failed | 0 |
+
+Each accepted box took about 10 core-minutes. Results, tapes and tape hashes are in `$PSD_ROOT/band/prod/out/c*/`. The ledger source `band` in `full_ledger.py` rechecks each tape hash, the box against the inventory centre and radius, and the tiling of any split children.
+
+**The 38 boxes that fail all lie at exact seeds.**
+- **2 boxes at the (2,4,4,2)/(4,2,2,4) seeds** (6491830, 17434864). They are already credited by `ball40_seed`: the punctured 1/40-ball theorem plus R = 0 at the seed.
+- **36 boxes within about 10⁻³ of the (0,0,2,4)-class seeds** ±(0, 0, 2π/3, −2π/3).
+
+**What happens at the (0,0,2,4)-class seeds.**
+- At the seed the corner has two equal rows. So g = det(6I − EE†) = 0 in every frame, and the side parametrization sits at a square-root branch point.
+- The completions form a continuum through F6.
+- `seed0024/seed_quartic.py` proves exactly that R = −1296·q(h)² + O(h⁵) for an explicit quadratic q. But R ≈ +c·t⁶ > 0 on the cone q = 0, so R < 0 cannot exclude these boxes.
+- Splitting does not help: all 608 children of the first split failed the same way.
+- Both forms of D are singular at the reframed F6 point, D = −CWB/g and D = −(C†)⁻¹E†B. Condition numbers there are about 4·10¹⁵.
+- The Arb cap of R(E) on these boxes is at most 1.6·10⁻⁸. A completion in which E is maximal therefore has every corner below that, and the averaging lemma (Step 2 of `simplerproof/`, needed here only in a very weak form) puts it inside the 1/30 F6 tube.
+- These 36 boxes are the only part of the post-E inventory that this run leaves to that lemma. The ledger lists them as delegated.
+
 ## Findings
 
 - **A fixed target c₀ = 1 is too strong near F6.** At a point of the curve the completions form one closed loop, numerically about 38 to 40 rad long in the 21 free phases. Along it the largest corner R has median about 100 to 160. But it dips to 0.73–9.4 where H comes within about 0.04 rad of an F6-equivalent matrix. The right comparison is with sup R(E), which is what this certificate proves.
@@ -79,7 +106,8 @@ Boxes that pass no test are bisected adaptively. If the budget or minimum radius
 |---|---|
 | Certificate | `aff.py`, `cert.py` |
 | Verifier | `arb_replay.py`, `verify.py`, `verify_all.py`, `cover_check.py` |
-| Drivers | `run_one.py`, `run_all.py`, `band_prod.py` (production on a box list) |
+| Drivers | `run_one.py`, `run_all.py`, `band_prod.py` (production on a box list), `band_split.py` (16-child split with exact tiling) |
+| Seed analysis | `seed0024/seed_quartic.py` (exact Taylor structure of R at the (0,0,2,4) seeds), `seed0024/seed_boxes38*.json*` |
 | Control | `test_sanity.py` |
 | Exploration (not rigorous) | `numlib.py`, `explore_*.py`, `test_labels.py`, `explore/` |
 | Results | `results/` (tapes: `results/tapes/`) |
