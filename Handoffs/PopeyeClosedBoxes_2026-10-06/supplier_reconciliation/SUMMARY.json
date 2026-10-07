@@ -1,0 +1,81 @@
+{
+  "active_records": 33237,
+  "already_recorded_settlement_union": 8898,
+  "category_files": {
+    "CONDITIONAL_RECORDED_SETTLEMENT.tsv.gz": {
+      "records": 2359,
+      "sha256": "7fb54dae76476b69a74510a9c9fb9c150f308d03640f48b56eb9a386af20c381"
+    },
+    "OWN_BOX_RECORDED_NUMERICAL_SETTLEMENT.tsv.gz": {
+      "records": 6539,
+      "sha256": "b403263db3df91ce198fa48c19b2cd6023d0214d57e173d39354a56e371b9084"
+    },
+    "PRESERVED_OPEN.tsv.gz": {
+      "records": 16988,
+      "sha256": "4343d32a7332943f16ea5c8e9879b8b532f9fd3b98acc87be61a67a50559695d"
+    },
+    "UNKNOWN_SCOPE.tsv.gz": {
+      "records": 7351,
+      "sha256": "c42262e235e04cc9bc145e82cc2df5bf5e885837edaca1b8f3f4b1d2a30942fa"
+    }
+  },
+  "conditional_conjugate_settlements": 2359,
+  "geometry_checks": {
+    "active_closed_intersection": 0,
+    "active_known_inventory_rows_rebound": 29183,
+    "active_unique_inventory_rows": 33237,
+    "all_outer_source_ids_equal_status_ids": true,
+    "original_outer_exact_geometry_checks": 4181,
+    "original_ring_batches_checked": 1619,
+    "original_ring_exact_geometry_checks": 21705,
+    "pilot_active_overlap": 0,
+    "pilot_closures_rebound": 8,
+    "source_bytes_stable_before_after": true,
+    "supplier_git_blobs": 7,
+    "supplier_rows_scanned": 1864163,
+    "supplier_shards": 8,
+    "unknown_missing_ring_ids": 4054
+  },
+  "geometry_review_receipt_sha256": "7d7d057b3df96858013ff88361c91bb80da43fead23fac5fadb9d87fff5a1448",
+  "missing_data": [
+    "Exact geometries and source map for 4,054 active inventory rows with missing original ring IDs.",
+    "Packed certificate archives and unit input files matching the published UNITS hashes."
+  ],
+  "notes": [
+    "Exact category TSVs partition the entire 33,237-row supplier active snapshot.",
+    "OWN_BOX and CONDITIONAL categories refer to existing published evidence, not newly computed closures.",
+    "Unknown scope means no status in these published ledgers; it does not assert numerical failure."
+  ],
+  "own_box_recorded_numerical_settlements": 6539,
+  "preserved_open": 16988,
+  "receipt_sha256": "402a95ea6a47e4dbe5c8b0469a718291e966da0fc4abfd80fe666f2ff4d08940",
+  "schema": "mub6-cross-campaign-published-reconciliation-v1",
+  "scope": {
+    "arithmetic_archives_received": false,
+    "complete_global_cover": false,
+    "fresh_certificate_replay_performed": false,
+    "physical_lean_admissions": 0,
+    "supplier_active_is_ownership_not_closure": true,
+    "supplier_closed_are_external_claims": true
+  },
+  "supplier_active_sha256": "105b31a4a64a3afa9b5d38d6b2a391264604bbb4a67057a38c624f03919e2316",
+  "supplier_closed_sha256": "88cd513eabee099c3f688609dde5952c841bca983456a413a067afe392b9eb11",
+  "supplier_commit": "6eff0f1f9214c4dede74d75c07429b43f629aff0",
+  "supplier_coverage_of_popeye": {
+    "band5557": {
+      "ACTIVE": 5523,
+      "CLOSED": 34
+    },
+    "outer1089": {
+      "ACTIVE": 0,
+      "CLOSED": 1089
+    },
+    "outside050": {
+      "ACTIVE": 6214,
+      "CLOSED": 486962
+    }
+  },
+  "supplier_units_sha256": "ace28759a874727c275ea963fdbb7e4dbd416bd689b8becdd54f760e8ff1eb34",
+  "unknown_in_these_ledgers": 7351,
+  "unmatched_to_recorded_closure": 24339
+}

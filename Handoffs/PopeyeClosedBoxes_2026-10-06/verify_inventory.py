@@ -221,6 +221,96 @@ def verify_boundary(status):
                      'physical_lean_admissions': 0, 'certificate_replay_performed': False}
 
 
+def verify_supplier_overlap(status, boundary, outer, labels):
+    """Check exact inventory overlap, without admitting external certificates."""
+    root = HERE / 'supplier_reconciliation'
+    summary = json.loads((root / 'SUMMARY.json').read_text())
+    body = dict(summary)
+    if body.pop('receipt_sha256') != json_digest(body):
+        raise ValueError('Supplier reconciliation self-binding differs')
+    if (summary['active_records'] != 33237
+            or summary['scope']['physical_lean_admissions'] != 0
+            or summary['scope']['fresh_certificate_replay_performed'] is not False
+            or summary['scope']['complete_global_cover'] is not False):
+        raise ValueError('Supplier reconciliation scope differs')
+    active_path = root / 'SUPPLIER_ACTIVE_6eff0f1.tsv.gz'
+    if hashlib.sha256(active_path.read_bytes()).hexdigest() != summary['supplier_active_sha256']:
+        raise ValueError('Supplier ACTIVE source differs')
+    active = {}
+    with gzip.open(active_path, 'rt') as handle:
+        for line in handle:
+            if line.startswith('#'):
+                continue
+            row, source, original = line.rstrip('\n').split('\t')
+            if row in active:
+                raise ValueError('Repeated supplier ACTIVE inventory row')
+            active[row] = (source, original)
+    expected_counts = {
+        'OWN_BOX_RECORDED_NUMERICAL_SETTLEMENT.tsv.gz': 6539,
+        'CONDITIONAL_RECORDED_SETTLEMENT.tsv.gz': 2359,
+        'PRESERVED_OPEN.tsv.gz': 16988,
+        'UNKNOWN_SCOPE.tsv.gz': 7351,
+    }
+    allowed_codes = {
+        'OWN_BOX_RECORDED_NUMERICAL_SETTLEMENT.tsv.gz': {1, 2, 8},
+        'CONDITIONAL_RECORDED_SETTLEMENT.tsv.gz': {3, 5, 9},
+        'PRESERVED_OPEN.tsv.gz': {6, 7},
+    }
+    if set(summary['category_files']) != set(expected_counts):
+        raise ValueError('Supplier category set differs')
+    seen, counts = set(), Counter()
+    for name, expected in expected_counts.items():
+        path = root / name
+        pin = summary['category_files'][name]
+        if (pin['records'] != expected
+                or hashlib.sha256(path.read_bytes()).hexdigest() != pin['sha256']):
+            raise ValueError('Supplier category pin differs: ' + name)
+        with gzip.open(path, 'rt') as handle:
+            for line in handle:
+                if line.startswith('#'):
+                    continue
+                row, source, original, supplier_id, ledger, label = line.rstrip('\n').split('\t')
+                if row in seen or active.get(row) != (source, original):
+                    raise ValueError('Supplier category repeats or changes an ACTIVE identity')
+                seen.add(row)
+                counts[name] += 1
+                if name == 'UNKNOWN_SCOPE.tsv.gz':
+                    if ledger != '-':
+                        raise ValueError('Unknown scope unexpectedly cites a ledger')
+                    continue
+                ident = int(original)
+                if source == 'export2':
+                    if (name != 'OWN_BOX_RECORDED_NUMERICAL_SETTLEMENT.tsv.gz'
+                            or ledger != 'outside01_STATUS_BY_ID'
+                            or outer.get(ident) != 'PASS' or label != 'PASS'):
+                        raise ValueError('Export2 settlement lacks a published PASS')
+                elif source == 'ring':
+                    if ledger == 'OUTSIDE003_STATUS' and 0 <= ident < len(status):
+                        code = status[ident]
+                    elif ledger == 'BOUNDARY_STATUS' and ident in boundary:
+                        code = boundary[ident]['restored_status_code']
+                    else:
+                        raise ValueError('Ring overlap lacks a published source row')
+                    if code not in allowed_codes[name] or label != labels[str(code)]:
+                        raise ValueError('Ring overlap misstates the recorded status')
+                else:
+                    raise ValueError('Unexpected source in recorded status category')
+    if len(active) != 33237 or seen != set(active) or dict(counts) != expected_counts:
+        raise ValueError('Supplier categories do not partition ACTIVE exactly')
+    totals = {
+        'own_box_recorded_numerical_settlements': 6539,
+        'conditional_conjugate_settlements': 2359,
+        'already_recorded_settlement_union': 8898,
+        'preserved_open': 16988,
+        'unknown_in_these_ledgers': 7351,
+        'unmatched_to_recorded_closure': 24339,
+    }
+    if any(summary[key] != value for key, value in totals.items()):
+        raise ValueError('Supplier summary arithmetic differs')
+    return {**totals, 'physical_lean_admissions': 0,
+            'fresh_certificate_replay_performed': False}
+
+
 def verify():
     manifest = json.loads((HERE / "MANIFEST.json").read_text())
     for relative, expected in manifest["files"].items():
@@ -277,11 +367,13 @@ def verify():
     band = verify_band_assignments(status)
     if band is not None:
         summary['band003005_work_assignment'] = band
-    _, boundary = verify_boundary(status)
+    boundary_map, boundary = verify_boundary(status)
     summary['band003005_boundary_status'] = boundary
-    _, outer = verify_outer()
+    outer_map, outer = verify_outer()
     if outer is not None:
         summary['outside01_firstpass'] = outer
+    summary['cross_campaign_reconciliation'] = verify_supplier_overlap(
+        status, boundary_map, outer_map, labels)
     return status, labels, summary
 
 

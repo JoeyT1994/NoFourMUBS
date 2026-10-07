@@ -29,15 +29,36 @@ The outside-0.1 first pass has finished with **306,257 fresh numerical passes an
 
 ## Current work and radius scope
 
-Popeye has submitted the next **493,176-parent campaign outside or crossing radius 0.05**, after reconciling the complete latest GitHub handoff and existing cluster receipts. These are 487,010 export2 parents, 3,179 recovered addendum parents, and 2,987 original-ring representatives. Of these, 493,052 are strictly outside 0.05 and 124 cross its boundary.
+Supplier commit `6eff0f1f9214c4dede74d75c07429b43f629aff0` now publishes exact CLOSED and ACTIVE lists. Their snapshot is 6 October, 19:05 EDT. Independent source and geometry reconciliation accounts for every Popeye reservation:
 
-`data/outside050_assigned.jsonl.gz` lists every assigned parent by supplier ID, original namespace/ID, inventory row, and queue ID. **Treat these as work reservations, not closures.** The pinned supplier archive and exact selection receipt provide the geometry mapping. The independent review checked all 1,864,163 supplier rows, all 1,061,824 original-ring geometries, all eight pilot exclusions and the 307,346 previously assigned outer parents. It found no duplicate geometry within this queue or against the excluded outer/pilot inputs.
+| Popeye input scope | Total parents | Supplier CLOSED | Supplier ACTIVE |
+| --- | ---: | ---: | ---: |
+| Outside or crossing 0.05 | 493,176 | 486,962 | 6,214 |
+| Difficult outer retry | 1,089 | 1,089 | 0 |
+| Inner/boundary representatives | 5,557 | 34 | 5,523 |
 
-The numerical campaign has been submitted. At this snapshot its input preparation was running; numerical workers had not yet started. The published list reserves the entire selected set to avoid duplicate work while preparation finishes.
+Supplier CLOSED entries are adopted external numerical claims. Supplier ACTIVE entries indicate external ownership, not closure. Their packed arithmetic archives and unit inputs remain to be obtained and replayed; published hashes alone are not those certificates.
 
-The separate outer follow-up encountered a queue-publication compatibility error after validating all first-pass results; the complete status index was preserved, independently validated, and is published here. This error does not affect the new outside-0.05 campaign. The 1,089 unresolved outer parents remain separate obligations. **Their reviewed numerical retry is now actively searching:** all IDs in `data/outside01_UNRESOLVED_IDS.json` are reserved by our retry campaign. They remain labeled `UNRESOLVED` until fresh validated closure evidence arrives; please avoid duplicating this assigned work. The compatibility repair preserves the original failed preparations and changes no numerical acceptance rule. Boxes crossing 0.05 need explicit coverage; they are not discarded merely because their centers lie inside it. The restriction against evaluating physical boxes below radius 0.025 remains in force.
+`data/outside050_assigned.jsonl.gz` preserves the exact original assignment by supplier ID, original namespace/ID, inventory row and queue ID. These are 487,010 export2 parents, 3,179 addendum parents and 2,987 original-ring representatives: 493,052 strictly outside 0.05 and 124 crossing its boundary. This Popeye campaign stopped after an operational bookkeeping error. Its results, checkpoints and failure records are preserved. It is not being restarted because every assigned row is now either CLOSED or ACTIVE on the supplier's exact list.
 
-The full radius-0.05 and radius-0.1 exclusion theorems are **not yet proved in Lean**. The other seed family `(0,0,2,4)` is not excluded by the `(2,4,4,2)` radius theorem. The supplier reports that its 4,796 boxes are being worked separately; they remain unresolved in our bookkeeping.
+All 1,089 formerly unresolved outer parents are now supplier CLOSED. Our redundant retry has stopped, with all certificates and checkpoints preserved. The immutable first-pass index retains its historical UNRESOLVED labels, which must be read alongside this newer external claim. No numerical acceptance rule has changed.
+
+The 5,557 inner/boundary representatives likewise have complete supplier ownership accounting. No duplicate Popeye dispatch is being started. Whole boxes crossing radius boundaries remain obligations. The restriction against evaluating physical boxes below radius 0.025 remains in force.
+
+The full radius-0.05 and radius-0.1 exclusion theorems remain open. The other seed family `(0,0,2,4)` is not excluded by the `(2,4,4,2)` radius theorem. The supplier reports 4,744 of its 4,796 class0024 boxes CLOSED and 52 ACTIVE. These remain external claims until their evidence is integrated.
+
+## Overlap with the supplier's active work
+
+Of the supplier's **33,237 ACTIVE entries**, our existing published ledgers already contain:
+
+- **6,539 own-box numerical settlements**;
+- **2,359 conditional conjugate settlements**;
+- **16,988 still-open entries**;
+- **7,351 entries outside these ledgers' known scope**.
+
+Thus **8,898 entries can be reconciled against already recorded results**, leaving **24,339 not yet matched to a recorded closure** in these inventories. This is an inventory census, not a claim that the remaining entries are distinct physical obligations after every symmetry reduction. The unknown category does not assert numerical failure. It includes 4,054 ring entries without an original ring ID; their exact geometry/source map is needed.
+
+The four compressed category TSVs in `supplier_reconciliation/` partition the pinned ACTIVE snapshot exactly. They give inventory row, source namespace, original ID, supplier ID, published ledger and recorded status. `SUMMARY.json` binds the source hashes and independent geometry review. The verifier checks the complete partition and every claimed known status against this packet's actual ring, boundary and outer ledgers. It does not replay the supplier's arithmetic or prove conjugate transport.
 
 ## Check and query
 
@@ -45,9 +66,7 @@ Run `python3 verify_inventory.py` (Python 3.11 or later) to check all packet has
 
 Future snapshots will add only validated closures, preserving the distinction between fresh replay, exact transport, adopted external claims, and open work. Never infer closure from a submitted job or a search-only candidate.
 
-The 5,263 known unresolved canonical ring representatives wholly inside radius 0.05 and strictly outside both radius-0.03 balls are now reserved for a separate Popeye continuation. Their exact supplier and original ring IDs are in `data/band003005_assigned.jsonl.gz`. Their 5,263 conjugate counterparts are not independently scheduled. These reservations are not closures. The separate status reconciliation for the 14,226 boundary records is complete, as detailed below. New dispatch of these band reservations remains held until the supplier's exact overlapping active/done list can be reconciled.
-
-The supplier commit `1aa71e1` describes a new PSD target overlapping these Popeye reservations. Its target description is neither an exact active-work list nor a closure certificate. Please reconcile its `inventory_row` IDs against the published reservation files before assigning duplicate work; the required evidence fields are listed in `SUPPLIER_RECONCILIATION.json`. Existing numerical outcomes retain their published status.
+The historical 5,263 canonical ring reservations are preserved in `data/band003005_assigned.jsonl.gz`; together with the 294 restored representatives they form the 5,557-row inner/boundary scope above. Their conjugate counterparts are not independently scheduled. The earlier request in `SUPPLIER_RECONCILIATION.json` is historical: exact supplier CLOSED/ACTIVE lists are now available, while the arithmetic evidence and missing geometry map remain needed.
 
 ## Boundary supplement: historical results recovered
 
