@@ -17,5 +17,11 @@
   "lemma_cells.py": "6303f1567dfa9c556b3d3a2c5a8cbdea19f478a5d316089a9f31c9e243225d80"
  },
  "statement": "H ~ F o e^{iu}, u horizontal, ||u|| <= 0.55  =>  ||u|| <= 0.4510 (wide tube) or max_c R_c(H) >= 26.28",
- "replay": "python3 lemma_cells.py run 0.55 20 0.012 W NW OUTDIR"
+ "replay": "python3 lemma_cells.py run 0.55 20 0.012 W NW OUTDIR",
+ "independent_replay": {
+  "host": "rusty (Flatiron), gcc, 64 workers",
+  "date": "2026-10-08",
+  "job": 7191122,
+  "result": "identical counts: 5670 roots, exits tube 37172 / outside 217522 / corner 382446, min sqrt R 5.126720"
+ }
 }

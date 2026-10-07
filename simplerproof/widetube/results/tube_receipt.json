@@ -15,5 +15,11 @@
   "refcover.cpp": "1a8e639f467cef88ece14995797860b75e7035b1655af653ae2530aa1756b5ff"
  },
  "trig_sha256": "fc771aee6c2cdab092dd0c9cc8b261fc7623b5f76279fdf08d4a854d64b7e35a",
- "replay": "python3 cells.py run 0.075 0.012 W NW OUTDIR  (for W in 0..NW-1)"
+ "replay": "python3 cells.py run 0.075 0.012 W NW OUTDIR  (for W in 0..NW-1)",
+ "independent_replay": {
+  "host": "rusty (Flatiron), gcc, 64 workers",
+  "date": "2026-10-08",
+  "job": 7191122,
+  "result": "identical counts: 3207 roots, 8592 leaves, 34996666331 cover nodes, max delta 0.027660"
+ }
 }
