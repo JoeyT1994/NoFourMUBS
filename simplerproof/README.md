@@ -4,6 +4,18 @@
 - **The long proof of record is closed.** Ledger [`07c`](../Verification/ledger_2026-10-07c/README.md) closes all 45,713,468 post-E rows with our own certificates: 0 open, 0 delegated. The last 36 rows, at the (0,0,2,4) seeds, are closed by [`RouteC/band/seed0024`](../RouteC/band/seed0024/PROOF.md); the collaborator independently added an analytic + Lean route for the same boxes.
 - **The short proof below still needs one statement:** the global part of Step 2, M(H) < c₀ ⇒ H lies in the local neighbourhood of F6.
 
+**The proof is [`PROOF.md`](PROOF.md):** the complete proof in our corner coordinates, with the Stage-C exclusion engine.
+
+**Why the c₀ = 5 shortening is not simpler, measured 7 Oct.**
+
+| Part of the work | Size, or share removed by the R ≥ 5 cut |
+|---|---|
+| Step 4 restricted to R ≥ 5 | about 10⁵ core-h, the same as the main campaign's regular part |
+| Branch layer removed by the cut | about 13 % |
+| Proving Step 2 through the chart | F ∩ {0 < R < 5} ≈ 3.1·10⁻⁴ of T⁴, about 21M level-9 cells, the same order as what it removes |
+
+So the only real lever is the near-F6 shell 1/30 < d_F ≲ 0.07, i.e. a wider tube with c₀ ≈ 20. That needs both an F6-centred cover and the global lemma at c₀ = 20, and both are open research.
+
 This folder builds the short, human-readable proof. It points to every result the proof uses and records the status of each step. The long proof of record (the full campaign) is mapped in [`../PROOF_MAP.md`](../PROOF_MAP.md). It stays as an independent check.
 
 **Design rule.** Prove nothing harder than "no four MUBs". The only computational statement on the critical path is the MUB exclusion itself. The 400-corner comparison is used only as a normalization: a cheap prune in the region where it is trivially robust, never fought on a degenerate locus.
