@@ -19,8 +19,8 @@ for r in $(seq ${START:-1} $((MAXR - 1))); do
   new=$(ls hybrid | grep -cE "^${q}[0-9]+\$"); echo "$(date -Is) round $n: $new units; $(tail -1 hybrid/setup_round$n.out)" >> progress.log
   [ "$new" -eq 0 ] && break
   for k in $(seq 1 $NW_CCQ); do sbatch --parsable --account=ccq --partition=ccq --nodes=1 --exclusive --mem=0 --constraint='rome&rocky9' \
-      --time=24:00:00 --job-name=nofour-hyb --output=$R/logs/hyb_%j.out --export=ALL,R=$R,NSLOT=8,CPU=3600,PSDD=44 $R/hyb_worker.sh; done > /dev/null
+      --time=24:00:00 --job-name=nofour-hyb --output=$R/logs/hyb_%j.out --export=ALL,R=$R,NSLOT=8,CPU=${RCPU:-3600},PSDD=44 $R/hyb_worker.sh; done > /dev/null
   for k in $(seq 1 $NW_PRE); do sbatch --parsable --account=ccq --partition=preempt --qos=preempt --requeue --nodes=1 --exclusive --mem=0 \
-      --constraint='rome&rocky9' --time=48:00:00 --job-name=nofour-hybP --output=$R/logs/hybP_%j.out --export=ALL,R=$R,NSLOT=8,CPU=3600,PSDD=44 $R/hyb_worker.sh; done > /dev/null
+      --constraint='rome&rocky9' --time=48:00:00 --job-name=nofour-hybP --output=$R/logs/hybP_%j.out --export=ALL,R=$R,NSLOT=8,CPU=${RCPU:-3600},PSDD=44 $R/hyb_worker.sh; done > /dev/null
 done
 echo "$(date -Is) hybrid rounds coordinator finished" >> progress.log
