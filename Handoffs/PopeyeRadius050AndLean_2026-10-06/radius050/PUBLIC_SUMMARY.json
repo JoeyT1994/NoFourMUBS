@@ -1,0 +1,114 @@
+{
+  "fresh_full_replay": {
+    "by_degree": {
+      "12": 38421,
+      "6": 0
+    },
+    "classification_assumption_used": false,
+    "compiler_versions": [
+      "g++-15 (Homebrew GCC 15.1.0) 15.1.0"
+    ],
+    "covered_references": 63,
+    "effective_minimum_used": false,
+    "exact_status": "PASS",
+    "global_status": "PASS",
+    "guard_receipt_sha256": "41e5d57ff75a90375dd6c78b080783c03b343150a0fa78967f1c50a8db1c482c",
+    "initial_cells": 324,
+    "local_rows": 104,
+    "local_status": "PASS",
+    "manifest_entries": 47,
+    "manifest_sha256": "b8896fc9fbdae8df4356d48b25606e2d20b5087cdd1998fd66e8710de3cf7da4",
+    "manifest_status": "PASS",
+    "max_local_score_decimal": 0.7759793404905252,
+    "max_local_score_exact": "6989400537360665/9007199254740992",
+    "maximum_cover_depth": 20,
+    "minimum_free_bytes": 6316982272,
+    "monitor_error": null,
+    "ordinary_and_weighted_arithmetic_statuses": [
+      "PASS",
+      "PASS"
+    ],
+    "peak_process_tree_rss_bytes": 264388608,
+    "receipt_sha256": "bdfd436a00302dd965700fbc592289edb57c3a5497c241b6b4e1dff97fed02ec",
+    "representative_roots": 102,
+    "resource_halt": null,
+    "status": "PASS_UNIFORM_BALL",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "unresolved_terminals": 0,
+    "verified_terminals": 38421,
+    "wall_seconds_supervisor": 1025.2251062909927,
+    "wall_seconds_verifier": 1024.8232773330092,
+    "workers": 2
+  },
+  "guard_repaired_derivative": {
+    "ARM_FZ_mode_rejected": true,
+    "acceptance_predicates_changed": false,
+    "change": "Replace floating comparisons on subnormal operands with raw-bit checks of volatile multiplication and addition results.",
+    "cover_changed": false,
+    "guard_diff_sha256": "e4fb33c15dbeda1aa91d7c900e4773e2375724598023974443d716d23052d111",
+    "interval_operations_changed": false,
+    "mathematical_model_changed": false,
+    "normal_mode_accepts_and_encloses": true,
+    "only_changed_files": [
+      "MANIFEST.sha256",
+      "interval_model.hpp"
+    ],
+    "original_interval_model_sha256": "dbdf8d6d81b388388b4a91b5af9d78aaaddd136e1fb6a21de065c33649aef124",
+    "repaired_interval_model_sha256": "5cff261ebf1e307d4fd769594ce339e7806dab18ac017d0544f212a3b18a10ff",
+    "repaired_manifest_sha256": "b8896fc9fbdae8df4356d48b25606e2d20b5087cdd1998fd66e8710de3cf7da4"
+  },
+  "independent_controls": {
+    "closed_outer_boundary_cases": 32,
+    "epsilon_outside_cases": 16,
+    "exact_boundary_membership_status": "PASS",
+    "negative_interface_controls": 4,
+    "negative_interface_controls_status": "PASS",
+    "seed_touching_cases": 18,
+    "structural_coordinate_comparisons": 153684,
+    "structural_cover_status": "PASS_INDEPENDENT_COVER_GEOMETRY_NOT_RESIDUAL_REPLAY",
+    "structural_internal_nodes": 38319,
+    "structural_terminal_boxes": 38421,
+    "weighted_local_misuse_status": "PASS_FAIL_CLOSED"
+  },
+  "lean_boundary": {
+    "kernel_checked_by_this_replay": false,
+    "lean_compilation_performed": false,
+    "native_replay_has_Lean_proof_credit": false,
+    "physical_lean_admissions": 0,
+    "status": "Research input pending the required Lean soundness bridge and physical theorem binding."
+  },
+  "local_receipts_retained_but_not_in_public_filelist": true,
+  "original_zip": {
+    "byte_identical_extraction_check": "PASS_BYTE_IDENTICAL",
+    "fresh_full_replay_of_unmodified_original": false,
+    "known_guard_issue": "The original subnormal startup guard accepts ARM FZ mode even when an interval product fails to enclose its exact value.",
+    "package_manifest_status": "PASS",
+    "sha256": "6f3c8040ffdaa81ab5655ddbefa519cb641060c161e457747e0ff3afe1b95d64",
+    "unmodified_original_general_fail_closed_claim": false
+  },
+  "schema": "radius050-fresh-replay-public-summary-v1",
+  "theorem_scope": {
+    "arbitrary_nonmaximal_corners_excluded": false,
+    "center_handled_separately_by_R_equals_zero": true,
+    "closed_outer_boundary_included": true,
+    "no_four_MUB6_theorem_completed": false,
+    "radius_radians": "1/20",
+    "seeds": [
+      "(2,4,4,2)pi/3",
+      "(4,2,2,4)pi/3"
+    ],
+    "statement": "No physical order-six complex Hadamard has a selected corner with positive R, maximal among all 400 positional corners (ties allowed), at positive circular sup-distance at most 1/20 from either seed."
+  },
+  "verdict": "PASS_NATIVE_GUARD_REPAIRED_DERIVATIVE_NOT_LEAN_PROOF",
+  "whole_box_membership_component": {
+    "accepted": 2362,
+    "fresh_full_replay_sha256": "bdfd436a00302dd965700fbc592289edb57c3a5497c241b6b4e1dff97fed02ec",
+    "nonaccepted": 0,
+    "output_sha256": "a1a1f827d5c542f9420b50aef1f7cc274671ea1f1c6e19b031a8a09eea1a8e7b",
+    "pilot_records": 2354,
+    "positive_example_records": 8,
+    "receipt_sha256": "50eeab039063fedbbe3106b714301c3fb4a2387265d75727148b163f318438f0",
+    "standalone_uniform_certificate": false,
+    "status": "PASS_MEMBERSHIP_COMPONENT_BOUND_TO_FRESH_UNIFORM_PASS"
+  }
+}

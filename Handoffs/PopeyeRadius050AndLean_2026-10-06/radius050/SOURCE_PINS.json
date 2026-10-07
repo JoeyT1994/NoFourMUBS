@@ -1,0 +1,169 @@
+{
+  "adopted_inputs": [
+    {
+      "path": "inputs/CornerBounds_PROOF.md",
+      "role": "Section 2 complementary-square convention; finite identity regenerated; classification sections not used",
+      "sha256": "bfb49f0e36667305c86db0942c10ee8a93cb7d15cb6ae5bebbdd0efef67db4e1"
+    },
+    {
+      "path": "inputs/physical_algebra.py",
+      "role": "Exact signed/R Laurent generator and physical-control family, recomputed",
+      "sha256": "f8729b44b91ba7d9b4f56af7984cbc90c5b7755f4283539685cf6be968bc092c"
+    },
+    {
+      "path": "inputs/pilot_ring_all_2354.jsonl.gz",
+      "role": "Unchanged original pilot box list; membership control only, not a premise of exclusion",
+      "sha256": "245175d204238230eb9d788abf45a4c9705ef0b1403cf7c5ac8e34fe1a3a7a74"
+    },
+    {
+      "path": "data/preconditioners.json",
+      "role": "Exact reference labels and arbitrary legacy residual choices",
+      "sha256": "2826864716bee175f3119341e169cad7b60c94ecb9d25ffd6068ab745cc092e2"
+    },
+    {
+      "path": "data/preconditioners.txt",
+      "role": "Native exact-dyadic encoding checked against JSON",
+      "sha256": "8e543c4d44244854591d3417ad036dd111bba69efb1bb3b495a618663bf8ddd3"
+    },
+    {
+      "path": "data/determinant_words.txt",
+      "role": "All 48 regenerated signed determinant words",
+      "sha256": "c8a3723211ecc8c0c7b907129c0178d63ae0e4384e36011dd12cfc2776a37cba"
+    },
+    {
+      "path": "data/local_representatives.json",
+      "role": "Thirteen representatives, exact orbit equality checked",
+      "sha256": "bdefc8586b02eabe9e38947bec5937ba227744e67dc29c1615defa89e17dd702"
+    },
+    {
+      "path": "data/local_representatives.txt",
+      "role": "Native representative selection, checked against exact data",
+      "sha256": "eaa960319402a6bb06962947f97459010ccb332482ab53bbed9227fb88fcef0c"
+    },
+    {
+      "path": "data/dense_preconditioners.json",
+      "role": "New fixed rectangular local combinations; every coefficient and inequality recomputed",
+      "sha256": "b7de0e268ba136c23016c5c2e65c9e56bcf82b50e848ad7837b47baf376be6e8"
+    },
+    {
+      "path": "data/dense_preconditioners.txt",
+      "role": "Native dense data, checked against exact 2^-38 rationals",
+      "sha256": "f0ecada6e38693160c860616b8498acf9d914147c12b343ab18c9525a990c888"
+    },
+    {
+      "path": "data/seed_taylor_coefficients.json",
+      "role": "Regenerated exact degree-ten Taylor table and order-eleven frequency moment",
+      "sha256": "69129fbb69b6c6c0fd46e25ce37fa990ac21bcb1694df98b338d14a7ddd7804c"
+    },
+    {
+      "path": "data/phase_cover.jsonl.gz",
+      "role": "Complete exact subdivision geometry; labels never substitute for fresh outward acceptance",
+      "sha256": "6a4f7775e58f7058cc3ca763e0e7d4974042a9d61b9164f76513d0005091d7dc"
+    }
+  ],
+  "complete_repaired_package_manifest": {
+    "BASELINE_AUDIT.md": "c45b1683339ed77dccdff72b717392d6fa218dc69da9c3ec318e92f1f5dfbc36",
+    "DEVELOPMENT_RECORD.md": "4337712a9b7863041ca4510637cba7794b4d3b51d95e34b5cad45396c8bbe9e5",
+    "INPUTS.json": "eb8fcc37619c449c0f3de6e5eeb966de07338591aa4b331a7619a0b70f32fac0",
+    "PREVIOUS_PROOF.md": "a89e875846f45a0e71bd36bea33ccf1943b669ab1d2d4e9a9a97d72e230706cb",
+    "PROOF.md": "e42d0654165c59a3a4a2dc6601c2c39aeb8220a34e0218b0ef158b02d71d1ea7",
+    "README.md": "d6486744c72828650215afc1da70f6c9f81efab7014e150603b7f31fa936a855",
+    "SOURCE_CHANGES.diff": "2402667d1f6196f9af1a964e486c2638c16a8146bb58d0d38ef9c916ce66848c",
+    "SOURCE_COMPARISON.json": "5395fdbe51b0ca00e5c1b1d015e32157e316b00acb06612bc74a4f0cf636b163",
+    "VERIFICATION.md": "58a43a62fdd0f3d43126dce5d1257cf330e7b4087cd51de6b4168cffd4001884",
+    "arithmetic_checks.py": "85d576a6c2e73aa9c689d446415159e8a7e99758c5a932413188a35e061743a8",
+    "bound_exact.py": "280dea00b011b948a36146a1be7d347b0343e61473f9902f62513c9e304e30ad",
+    "box_interface.py": "a918ce52ceb262fbb16735728b54f8f2329546e3864255f4779066c51af4f581",
+    "cover_geometry.py": "09401d77eaea0441f65215ee4137906ae4ad992fbb713612b80e3abbdafc0cb5",
+    "data/dense_preconditioners.json": "b7de0e268ba136c23016c5c2e65c9e56bcf82b50e848ad7837b47baf376be6e8",
+    "data/dense_preconditioners.txt": "f0ecada6e38693160c860616b8498acf9d914147c12b343ab18c9525a990c888",
+    "data/determinant_words.txt": "c8a3723211ecc8c0c7b907129c0178d63ae0e4384e36011dd12cfc2776a37cba",
+    "data/local_representatives.json": "bdefc8586b02eabe9e38947bec5937ba227744e67dc29c1615defa89e17dd702",
+    "data/local_representatives.txt": "eaa960319402a6bb06962947f97459010ccb332482ab53bbed9227fb88fcef0c",
+    "data/phase_cover.jsonl.gz": "6a4f7775e58f7058cc3ca763e0e7d4974042a9d61b9164f76513d0005091d7dc",
+    "data/preconditioners.json": "2826864716bee175f3119341e169cad7b60c94ecb9d25ffd6068ab745cc092e2",
+    "data/preconditioners.txt": "8e543c4d44244854591d3417ad036dd111bba69efb1bb3b495a618663bf8ddd3",
+    "data/seed_taylor_coefficients.json": "69129fbb69b6c6c0fd46e25ce37fa990ac21bcb1694df98b338d14a7ddd7804c",
+    "engine.cpp": "c8c8932130c21ef5f271f2f3f62f593f8e42d67c4c0616564320d7e74eab074e",
+    "exact_checks.py": "18a161602987d28bdd697861b1498d25ff931e4398a615a3e5f8205005fa2414",
+    "examples/acceptance_boxes.jsonl.gz": "4699cb85a69b4e011b9d42496358dcecc25edc0267e60f3d7febc9eb9c32dadc",
+    "examples/inside.jsonl": "a149186a831b967d1ca1957ffb2ce4d1c8ddb241a3dca5199804045c93b1b54f",
+    "examples/rejected.jsonl": "b3a38219d9e0d737615f8e13b5fd87c1f1e343e8e2eacf1472f914e2288e2a68",
+    "extension_controls.py": "7ff63c1892a3cb43f6a701735351461d8104da4986685d012aff2850be3a0acd",
+    "inputs/CornerBounds_PROOF.md": "bfb49f0e36667305c86db0942c10ee8a93cb7d15cb6ae5bebbdd0efef67db4e1",
+    "inputs/physical_algebra.py": "f8729b44b91ba7d9b4f56af7984cbc90c5b7755f4283539685cf6be968bc092c",
+    "inputs/pilot_ring_all_2354.jsonl.gz": "245175d204238230eb9d788abf45a4c9705ef0b1403cf7c5ac8e34fe1a3a7a74",
+    "interval_model.hpp": "5cff261ebf1e307d4fd769594ce339e7806dab18ac017d0544f212a3b18a10ff",
+    "pm_controls.cpp": "ae67b9228c19b6b8aedadaa079beb6a1fc832b1a7392290a68ffca88af207ad7",
+    "reference_algebra.py": "27e0a07617e04fe4f1c7a71f9841d3a790c4c03dd54cc575994f4755cf5712ea",
+    "results/ARITHMETIC05_CONTROLS.json": "742fa461804ead102f682ea0b2e15d0ae30c44125d0a7edb650a4c54748c43a9",
+    "results/CONSTRUCTION.json": "ea24dce221a54d95664d93ed9b48b251ea777117a2b0bdf3aa3726916c94e8f7",
+    "results/FULL_VERIFICATION.json": "5b9f9b347a8ad140b8d7bc367f437d9e97662b8bf10bfa8f9538a529be6c1515",
+    "results/INDEPENDENT_CHECKS.json": "a70aa97fc8a0ffeec06b500dfcffc2dff371f2f9676a64c2c251e5c30a00f0a8",
+    "results/PILOT_AND_EXAMPLES.jsonl.gz": "8e7432d1b95ff254c711cea0a214483083d715cfb75da55384c3be093dead4ef",
+    "results/PILOT_MEMBERSHIP_COMPONENT.json": "43e672651640b379c9166d60818dd200022dd799c19e96bcad4f527a733ce675",
+    "results/PILOT_MEMBERSHIP_ONLY.json": "579f6eea026d128983b943c633ff024c730ae5fdc38eaa4c4e2033a6bdb99ec6",
+    "results/PREFLIGHT05.json": "fa0e1ac5e7ca4b0651b30627c9ec0e114578d5becc15043a06cd570c1903dc65",
+    "results/SOURCE_BOUND_COMPONENT.json": "d500e7a24dc820ff7b0467e17f120c869bf81ec68f788eea6ae44b6b5408448e",
+    "seed_bound.py": "155176fa959f8ba7d7632e4341e9fc7f1002803e12ddfa5cb20085bcbd46ff28",
+    "taylor_model.hpp": "d2f17bc094db50b88603def36b209af0392db2647ed75ba86de8d63ba8570935",
+    "verify.py": "14a5cf90ab979004a59931907d3df6ddbb9cd71a34528613397705e8182a44b2",
+    "weighted_model.hpp": "f365494b54d9b351b37fab4a29fb24bf7f5862ee8120f6e934d4a4492f14b639"
+  },
+  "critical_accepting_files": {
+    "INPUTS.json": "eb8fcc37619c449c0f3de6e5eeb966de07338591aa4b331a7619a0b70f32fac0",
+    "arithmetic_checks.py": "85d576a6c2e73aa9c689d446415159e8a7e99758c5a932413188a35e061743a8",
+    "bound_exact.py": "280dea00b011b948a36146a1be7d347b0343e61473f9902f62513c9e304e30ad",
+    "box_interface.py": "a918ce52ceb262fbb16735728b54f8f2329546e3864255f4779066c51af4f581",
+    "cover_geometry.py": "09401d77eaea0441f65215ee4137906ae4ad992fbb713612b80e3abbdafc0cb5",
+    "data/dense_preconditioners.json": "b7de0e268ba136c23016c5c2e65c9e56bcf82b50e848ad7837b47baf376be6e8",
+    "data/dense_preconditioners.txt": "f0ecada6e38693160c860616b8498acf9d914147c12b343ab18c9525a990c888",
+    "data/determinant_words.txt": "c8a3723211ecc8c0c7b907129c0178d63ae0e4384e36011dd12cfc2776a37cba",
+    "data/local_representatives.json": "bdefc8586b02eabe9e38947bec5937ba227744e67dc29c1615defa89e17dd702",
+    "data/local_representatives.txt": "eaa960319402a6bb06962947f97459010ccb332482ab53bbed9227fb88fcef0c",
+    "data/phase_cover.jsonl.gz": "6a4f7775e58f7058cc3ca763e0e7d4974042a9d61b9164f76513d0005091d7dc",
+    "data/preconditioners.json": "2826864716bee175f3119341e169cad7b60c94ecb9d25ffd6068ab745cc092e2",
+    "data/preconditioners.txt": "8e543c4d44244854591d3417ad036dd111bba69efb1bb3b495a618663bf8ddd3",
+    "data/seed_taylor_coefficients.json": "69129fbb69b6c6c0fd46e25ce37fa990ac21bcb1694df98b338d14a7ddd7804c",
+    "engine.cpp": "c8c8932130c21ef5f271f2f3f62f593f8e42d67c4c0616564320d7e74eab074e",
+    "exact_checks.py": "18a161602987d28bdd697861b1498d25ff931e4398a615a3e5f8205005fa2414",
+    "extension_controls.py": "7ff63c1892a3cb43f6a701735351461d8104da4986685d012aff2850be3a0acd",
+    "inputs/CornerBounds_PROOF.md": "bfb49f0e36667305c86db0942c10ee8a93cb7d15cb6ae5bebbdd0efef67db4e1",
+    "inputs/physical_algebra.py": "f8729b44b91ba7d9b4f56af7984cbc90c5b7755f4283539685cf6be968bc092c",
+    "interval_model.hpp": "5cff261ebf1e307d4fd769594ce339e7806dab18ac017d0544f212a3b18a10ff",
+    "pm_controls.cpp": "ae67b9228c19b6b8aedadaa079beb6a1fc832b1a7392290a68ffca88af207ad7",
+    "reference_algebra.py": "27e0a07617e04fe4f1c7a71f9841d3a790c4c03dd54cc575994f4755cf5712ea",
+    "seed_bound.py": "155176fa959f8ba7d7632e4341e9fc7f1002803e12ddfa5cb20085bcbd46ff28",
+    "taylor_model.hpp": "d2f17bc094db50b88603def36b209af0392db2647ed75ba86de8d63ba8570935",
+    "verify.py": "14a5cf90ab979004a59931907d3df6ddbb9cd71a34528613397705e8182a44b2",
+    "weighted_model.hpp": "f365494b54d9b351b37fab4a29fb24bf7f5862ee8120f6e934d4a4492f14b639"
+  },
+  "guard_repaired_derivative": {
+    "all_other_files_byte_identical": true,
+    "files_differing_from_original_copy": [
+      "MANIFEST.sha256",
+      "interval_model.hpp"
+    ],
+    "guard_diff_sha256": "e4fb33c15dbeda1aa91d7c900e4773e2375724598023974443d716d23052d111",
+    "interval_model_sha256": "5cff261ebf1e307d4fd769594ce339e7806dab18ac017d0544f212a3b18a10ff",
+    "manifest_entries": 47,
+    "manifest_sha256": "b8896fc9fbdae8df4356d48b25606e2d20b5087cdd1998fd66e8710de3cf7da4"
+  },
+  "original_archive_manifest": {
+    "entries": 69,
+    "sha256": "fef703b07b1cd3fb9cec1fec1c076d24bad079d0bf4f26b440528fd0ad99cca0"
+  },
+  "original_package": {
+    "interval_model_sha256": "dbdf8d6d81b388388b4a91b5af9d78aaaddd136e1fb6a21de065c33649aef124",
+    "manifest_entries": 47,
+    "manifest_sha256": "37e2ad01ee5f68289e36cd12093877371b5719140f82c2d3f39ccfa0adc652ee"
+  },
+  "original_zip": {
+    "all_members_match_immutable_extraction": true,
+    "entries": 70,
+    "name": "Patch2442Local_uniform_ball_1over20.zip",
+    "sha256": "6f3c8040ffdaa81ab5655ddbefa519cb641060c161e457747e0ff3afe1b95d64"
+  },
+  "physical_lean_admissions": 0,
+  "schema": "radius050-fresh-replay-source-pins-v1"
+}
