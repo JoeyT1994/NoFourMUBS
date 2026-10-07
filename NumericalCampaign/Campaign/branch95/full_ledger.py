@@ -17,6 +17,8 @@ Sources, in the order a row is credited (later sources only count overlaps):
   h0024_frontier   postE/h0024 receipt_P.json with map.tsv (class (0,0,2,4), frontier at 1,800 s per root)   (Q)
   signed_mean      PSD_ROOT/done/*.json (+ packed/<unit>.tar.gz): collaborator's factored signed-mean producer, fresh
                    replay PASS per box; id = inventory row                                                  strict D0
+  hybrid_psd       PSD_ROOT/done/hyb-*.json: hybrid_close.py (signed-mean cover + SignedCornerPSDPrune leaves at depth >= 44),
+                   fresh hybrid replay PASS per box                                                        strict D0
   ball40           ball40/res_*.jsonl.gz: Patch2442Local Radius025Complete (punctured ball 1/40 at the two
                    (2,4,4,2)-class seeds), ok=true with PASS_UNIFORM_BALL; id = inventory row, box checked   strict D0
 Outside the inventory: stage-C FAILED leaves (results/certify) rerun one per cell in results/certify_branchP3;
@@ -32,7 +34,7 @@ HERE = os.path.dirname(os.path.abspath(__file__)); os.chdir(HERE); sys.path.inse
 from postE import RING_MAXD
 P = "postE"; FR = P + "/frontier"
 NAMES = ["open", "v2", "sidecover", "frontier_p1", "frontier_p2", "frontier_p3", "hard_frontier", "v3", "hard_F",
-         "hard_FG", "hard2_frontier", "h0024_frontier", "hard3_frontier", "ball40", "ball40_seed", "signed_mean", "delegated_ring", "delegated_export2"]
+         "hard_FG", "hard2_frontier", "h0024_frontier", "hard3_frontier", "ball40", "ball40_seed", "signed_mean", "hybrid_psd", "delegated_ring", "delegated_export2"]
 CODE = {n: i for i, n in enumerate(NAMES)}
 
 
@@ -276,7 +278,7 @@ if __name__ == "__main__":
             if not os.path.exists(PSD + f"/packed/{u}.tar.gz"):
                 errors.append(("signed_mean unit not packed", u)); continue
             for i in d["accepted"]:
-                credit(i, "signed_mean")
+                credit(i, "hybrid_psd" if u.startswith("hyb-") else "signed_mean")
         inputs[PSD + "/done"] = nunits
     # stage-C FAILED leaves (not inventory rows)
     sc = None
