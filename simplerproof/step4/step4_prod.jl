@@ -21,7 +21,8 @@ include(joinpath(CODE, "Campaign", "driver.jl"))
 const OUTDIR = ARGS[2]; const WORKER = parse(Int, ARGS[3]); const NW = parse(Int, ARGS[4])
 const C0 = length(ARGS) >= 5 ? parse(Float64, ARGS[5]) : 5.0
 const COVERMAX = length(ARGS) >= 6 ? parse(Float64, ARGS[6]) : 1200.0
-const JOBLEVEL = 5; const D0LEVEL = 7; const PRUNEMAX = 9; const SINGMAX = 11; const COVERMIN = 9
+const JOBLEVEL = 5; const D0LEVEL = 7; const PRUNEMAX = 9; const SINGMAX = 11
+const COVERMIN = parse(Int, get(ENV, "S4_COVERMIN", "9"))     # retry pass (step4_retry.jl): 11
 
 function rcap_test(θ0, ρ; q = 4)       # :out if sup R(E) < C0 on the whole cell
     x = [tmvar(q, i, θ0[i], ρ) for i in 1:4]
@@ -86,6 +87,7 @@ function jobcells()
     end
     [θ for θ in cells if classify(θ, JOBLEVEL) == :keep]
 end
+get(ENV, "S4_LIBRARY", "0") == "1" || begin
 mkpath(OUTDIR); out = joinpath(OUTDIR, "w$WORKER.jsonl")
 done = Set{Int}()
 isfile(out) && for l in eachline(out)
@@ -104,4 +106,5 @@ open(out, "a") do f
                    "\"failed\": [$(join(acc.failed, ", "))], \"t\": $(round(time() - t0, digits = 1))}")
         flush(f)
     end
+end
 end
