@@ -220,8 +220,58 @@ def cubes(rho, h):
         Y = [arb(float(yc[k]), h) for k in range(4)]
         quad = sum(Ga[a][b] * Y[a] * Y[b] for a in range(4) for b in range(4))
         if quad.lower() > rho * rho * (1 + 1e-12): continue
+        if not meets_domain(yc, h): continue
         out.append(yc)
     return out
+
+# ---------------------------------------------------------------- symmetry
+# G: the 288 maps u -> P_hor(f(u)) with f = (rows j -> a j + b, cols k -> a k + d, a = +-1), optionally followed by
+# transposition and/or (negation with the row permutation j -> -j).  Each maps F o e^{iu} to an equivalent of a
+# matrix in the same family (monomial automorphisms of F6, transposition, complex conjugation), preserves ||u|| and
+# horizontality, maps T to T, and preserves the quartet-edge property ({I,U} is an edge iff {I,U^dagger} is, and
+# iff {I, conj U} is).  So it suffices to cover the Dirichlet domain D = {y : y^T GT (A_g p - p) <= 0 for all g}.
+def _sym_ops():
+    ops = []
+    for a in (1, 5):
+        for b in range(6):
+            for d in range(6):
+                r = [(a * j + b) % 6 for j in range(6)]; c = [(a * k + d) % 6 for k in range(6)]
+                for tr_ in (0, 1):
+                    for cj in (0, 1):
+                        ops.append((r, c, tr_, cj))
+    return ops
+def _apply(op, M):   # M: 6x6 list of Fractions
+    r, c, tr_, cj = op
+    X = [[M[r[i]][c[j]] for j in range(6)] for i in range(6)]
+    if tr_: X = [list(x) for x in zip(*X)]
+    if cj: X = [[-X[(-i) % 6][j] for j in range(6)] for i in range(6)]
+    return hproj(X)
+_GTi_f = [[Fr(int(_sp.fraction(x)[0]), int(_sp.fraction(x)[1])) for x in row] for row in _GTi.tolist()]
+def _coords(M):   # y with Tb y = M (M in T): y = GT^{-1} Tb^T vec(M)
+    b = [sum(TB[k][i][j] * M[i][j] for i in range(6) for j in range(6)) for k in range(4)]
+    return [sum(_GTi_f[a][k] * b[k] for k in range(4)) for a in range(4)]
+SYM = []
+for _op in _sym_ops():
+    cols = [_coords(_apply(_op, TB[k])) for k in range(4)]
+    A = [[cols[k][a] for k in range(4)] for a in range(4)]
+    # exactness: the image of each tangent pattern lies in T
+    for k in range(4):
+        img = _apply(_op, TB[k]); rec = [[sum(TB[a][i][j] * cols[k][a] for a in range(4)) for j in range(6)] for i in range(6)]
+        assert img == rec, 'symmetry does not preserve T'
+    SYM.append(A)
+assert len({tuple(map(tuple, A)) for A in SYM}) == 288
+_P = [Fr(1, 100), Fr(2, 700), Fr(3, 1100), Fr(5, 1300)]
+_W = []
+for A in SYM:
+    Ap = [sum(A[a][k] * _P[k] for k in range(4)) for a in range(4)]
+    d = [Ap[a] - _P[a] for a in range(4)]
+    if all(x == 0 for x in d): continue
+    _W.append([float(sum(GT[a][b] * d[b] for b in range(4))) for a in range(4)])
+_W = np.array(_W)
+def meets_domain(yc, h):
+    """cube y_c +- h meets D (outward: keep unless some inequality fails on the whole cube)."""
+    lo = _W @ yc - h * np.abs(_W).sum(1)
+    return bool((lo <= 1e-12).all())
 
 _GA = None
 def meets_ellipsoid(yc, h, rho):
@@ -233,7 +283,7 @@ def meets_ellipsoid(yc, h, rho):
 
 def run_cell(yc, h, rho, work, depth=0, maxdepth=5):
     """Certify a cube, splitting into 16 children on failure (children missing the ellipsoid are dropped)."""
-    if not meets_ellipsoid(yc, h, rho):
+    if not meets_ellipsoid(yc, h, rho) or not meets_domain(yc, h):
         return True, [dict(ok=True, reason='outside', depth=depth, delta=0)]
     out = cell(yc, h, rho, None, run_ref=True, work=work)
     if out.get('ok'):
