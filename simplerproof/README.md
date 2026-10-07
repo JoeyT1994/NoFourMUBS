@@ -1,5 +1,9 @@
 # A short proof that C⁶ has no four MUBs
 
+**Status, 7 Oct 2026 evening.**
+- **The long proof of record is closed.** Ledger [`07c`](../Verification/ledger_2026-10-07c/README.md) closes all 45,713,468 post-E rows with our own certificates: 0 open, 0 delegated. The last 36 rows, at the (0,0,2,4) seeds, are closed by [`RouteC/band/seed0024`](../RouteC/band/seed0024/PROOF.md); the collaborator independently added an analytic + Lean route for the same boxes.
+- **The short proof below still needs one statement:** the global part of Step 2, M(H) < c₀ ⇒ H lies in the local neighbourhood of F6.
+
 This folder builds the short, human-readable proof. It points to every result the proof uses and records the status of each step. The long proof of record (the full campaign) is mapped in [`../PROOF_MAP.md`](../PROOF_MAP.md). It stays as an independent check.
 
 **Design rule.** Prove nothing harder than "no four MUBs". The only computational statement on the critical path is the MUB exclusion itself. The 400-corner comparison is used only as a normalization: a cheap prune in the region where it is trivially robust, never fought on a degenerate locus.
