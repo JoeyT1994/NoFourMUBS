@@ -309,7 +309,9 @@ def R_cap_arb(centers_q, radii_q):
     """Outward Arb upper bound for R(E) on the closed seed box (16-child Taylor bound of
     ProvenResults/CornerBounds/SideColumnPrune, section 4). Returns (float upper bound, arb)."""
     import sys
-    sys.path.insert(0, '/Users/jtindall/Files/NoFourMUBS/ProvenResults/CornerBounds/SideColumnPrune')
+    import os
+    sys.path.insert(0, os.environ.get('SIDECOLUMNPRUNE', os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                      '..', '..', 'ProvenResults', 'CornerBounds', 'SideColumnPrune')))
     from prune import R_upper_bound
     from flint import arb, fmpq, ctx
     ctx.prec = 96

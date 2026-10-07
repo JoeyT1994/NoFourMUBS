@@ -19,6 +19,10 @@ Sources, in the order a row is credited (later sources only count overlaps):
                    replay PASS per box; id = inventory row                                                  strict D0
   hybrid_psd       PSD_ROOT/done/hyb-*.json: hybrid_close.py (signed-mean cover + SignedCornerPSDPrune leaves at depth >= 44),
                    fresh hybrid replay PASS per box                                                        strict D0
+  band             BAND_ROOT/prod/out*/c*/results.jsonl: RouteC/band approach A (reconstruction-free: every completion
+                   of E(theta) has a corner with R > sup_box R(E)); accepted = float search + Arb replay of every
+                   leaf + exact split/root coverage; tape sha256 rechecked; box = inventory centre and radius
+                   >= pi/2^level; a parent is credited if all 16 children of band_split.py are accepted     D0 (all)
   ball40           ball40/res_*.jsonl.gz: Patch2442Local Radius025Complete (punctured ball 1/40 at the two
                    (2,4,4,2)-class seeds), ok=true with PASS_UNIFORM_BALL; id = inventory row, box checked   strict D0
 Outside the inventory: stage-C FAILED leaves (results/certify) rerun one per cell in results/certify_branchP3;
@@ -34,7 +38,7 @@ HERE = os.path.dirname(os.path.abspath(__file__)); os.chdir(HERE); sys.path.inse
 from postE import RING_MAXD
 P = "postE"; FR = P + "/frontier"
 NAMES = ["open", "v2", "sidecover", "frontier_p1", "frontier_p2", "frontier_p3", "hard_frontier", "v3", "hard_F",
-         "hard_FG", "hard2_frontier", "h0024_frontier", "hard3_frontier", "ball40", "ball40_seed", "signed_mean", "hybrid_psd", "delegated_ring", "delegated_export2"]
+         "hard_FG", "hard2_frontier", "h0024_frontier", "hard3_frontier", "ball40", "ball40_seed", "signed_mean", "hybrid_psd", "band", "delegated_ring", "delegated_export2"]
 CODE = {n: i for i, n in enumerate(NAMES)}
 
 
@@ -280,6 +284,66 @@ if __name__ == "__main__":
             for i in d["accepted"]:
                 credit(i, "hybrid_psd" if u.startswith("hyb-") else "signed_mean")
         inputs[PSD + "/done"] = nunits
+    # band certificate (RouteC/band, approach A); children rows (band_split.py) carry "parent"
+    BAND = os.environ.get("BAND_ROOT", PSD + "/band")
+    if os.path.isdir(BAND + "/prod"):
+        from fractions import Fraction as Fb
+        PI_UP = Fb("3.14159265358979324")
+        brow, bres = {}, {}
+        for p in sorted(glob.glob(BAND + "/prod/chunks*/c*.jsonl")):
+            inputs[p] = sha(p)
+            for l in open(p):
+                if l.strip():
+                    r = json.loads(l); brow[r["id"]] = r
+        for p in sorted(glob.glob(BAND + "/prod/out*/c*/results.jsonl")):
+            inputs[p] = sha(p)
+            for l in open(p):
+                if l.strip():
+                    r = json.loads(l)
+                    if r.get("accepted") is True:
+                        tp = os.path.join(os.path.dirname(p), "tapes", "%d.npz" % r["id"])
+                        if os.path.exists(tp) and sha(tp) == r.get("tape_sha256"):
+                            bres[r["id"]] = True
+                        else:
+                            errors.append(("band tape missing or sha mismatch", r["id"]))
+        kids = collections.defaultdict(list)
+        for i, r in brow.items():
+            if "parent" in r:
+                kids[r["parent"]].append(r)
+
+        def kids_cover(pr):
+            ks = kids.get(pr["id"], [])
+            if len(ks) != 16 or not all(bres.get(k["id"]) or kids_cover(k) for k in ks):
+                return False
+            c = [Fb(x) for x in pr["centers"]]; rr = [Fb(x) for x in pr["radii"]]
+            for k in ks:          # child k must contain the k-th exact quarter-box c + s r/2 +- r/2
+                kk = k["id"] - 10**9 - 16 * pr["id"]
+                if not 0 <= kk < 16:
+                    return False
+                sg = [1 if (kk >> (3 - a)) & 1 else -1 for a in range(4)]
+                ck = [Fb(x) for x in k["centers"]]; rk = [Fb(x) for x in k["radii"]]
+                for a in range(4):
+                    lo, hi = c[a] + sg[a] * rr[a] / 2 - rr[a] / 2, c[a] + sg[a] * rr[a] / 2 + rr[a] / 2
+                    if not (ck[a] - rk[a] <= lo and hi <= ck[a] + rk[a]):
+                        return False
+            return True
+        roots = {i for i, r in brow.items() if "parent" not in r and (bres.get(i) or kids_cover(r))}
+        if roots:
+            with gzip.open(P + "/inventory.txt.gz", "rt") as f:
+                i = 0
+                for line in f:
+                    if not line.strip() or line.startswith("#"):
+                        continue
+                    if i in roots:
+                        g = line.split(); r = brow[i]
+                        ok = [Fb(x) for x in r["centers"]] == [Fb(float(x)) for x in g[1:5]] and \
+                             all(Fb(x) * 2 ** int(g[0]) >= PI_UP for x in r["radii"])
+                        if ok:
+                            credit(i, "band")
+                        else:
+                            errors.append(("band geometry mismatch", i))
+                    i += 1
+        inputs[BAND + "/prod"] = dict(rows=len(brow), accepted=len(bres), credited_roots=len(roots))
     # stage-C FAILED leaves (not inventory rows)
     sc = None
     if os.path.exists("cells_branchP3.txt"):
