@@ -78,6 +78,17 @@ These are recorded in `RouteC/averaging/`.
 - **Step 2′.** Prove the averaging lemma with c₀ = 20 at d_F ≥ 0.07. The sharp value there is about 24, so the margin is about 20%.
 - **Effect.** About 97% of the branch layer and all near-F6 straddling cells drop out (measured: with c₀ = 20 the persistent singular cells resolve by level 10). What remains is D₀ ∩ F ∩ {R ≥ 20} plus 1.5M branch rows, all already certified by the main campaign.
 
+## Roadmap for the wider tube (Step 1′), 7 Oct
+
+1. **Ray structure (measured, `step4/nearF6rays.py`).** References K on the Fourier families near F6 (a, b ≤ 0.12) keep exactly 48 rays unbiased to (I, K). These include 144–168 exactly orthogonal pairs and 8 orthogonal 6-cliques. So the ClusterTube exclusion, with labels around the 48 rays and a compatibility-graph check, applies per reference.
+2. **Covering.** If d_F(H) ≤ r, then H ≅ F ∘ e^{iu} with ‖u‖_F ≲ 6r.
+   - The local theorem (`PRACTICAL_LOCAL`, ‖u‖ ≤ 0.3) puts H within (3/8)s⁴ of an explicit cubic surface u₃(v).
+   - References F ∘ e^{iu₃(v_i)} at projector spacing ≈ 1/30 then cover the tube. That needs roughly 20–100 references, each one ClusterTube-size certificate.
+   - ClusterTube needs no Hadamard reference, only the transfer estimate.
+3. **What this gives.**
+   - With ρ = 0.3, the reachable tube radius is r ≈ 0.05.
+   - The shoulder extends to d_F ≈ 0.065, which needs ρ ≈ 0.4. So the local theorem must be extended before the shoulder (42.7M frontier rows) can be replaced by seed lifts into the tube.
+
 ## Open items
 
 1. **Step 2, global constant.** In progress in [`averaging_lemma/`](averaging_lemma/), which a separate agent is writing. Proved so far:
