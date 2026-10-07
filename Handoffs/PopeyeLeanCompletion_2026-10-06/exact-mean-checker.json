@@ -1,0 +1,108 @@
+{
+  "status": "SCOPED_KERNEL_CHECKED_INDEPENDENT_REVIEW_PASS",
+  "theorem_count": 57,
+  "modules": [
+    {
+      "module": "ExactComplexExpr",
+      "track": "exact-mean-checker",
+      "source_sha256": "88d668d2d2a2b7106ba8b4a2bb44f51ec7198d37e78ee8a7b63da285dea09e4b",
+      "object_sha256": "d8fae4a0bf0f0885f504b32d9b45f8abd5ed196e4ddd19bdde23d50ce72ff2f3",
+      "result_sha256": "d30724909c6e8a2f6c99bbc2c9d37a58dd5a7eca5db888c40aa7e12139e15731",
+      "success": true,
+      "axiom_output_file": "checks/ExactComplexExpr.stdout.txt",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "elapsed_seconds": 9.99859191699943,
+      "local_result_kind": "guarded_kernel_check"
+    },
+    {
+      "module": "MeanExprParts",
+      "track": "exact-mean-checker",
+      "source_sha256": "45ebf80f5e8896dd3c264890dcac6cd019a1d7ee1bc15604f84ba7d69dd66ac0",
+      "object_sha256": "04f344e85b5cd9482c34b029f8ba9d16a2befa08a92a687aa36550960c7bdbc5",
+      "result_sha256": "6e831041976bb57394c137298a4d7c5404af37f1fd45bca6c84267418580facb",
+      "success": true,
+      "axiom_output_file": "checks/MeanExprParts.stdout.txt",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "elapsed_seconds": 13.06119583400141,
+      "local_result_kind": "guarded_kernel_check"
+    },
+    {
+      "module": "MeanExprMoments",
+      "track": "exact-mean-checker",
+      "source_sha256": "c6bafb7472c836b76361a7f767ea55d7b54e8c8e3df2f3aa057e0836756c02e7",
+      "object_sha256": "a2cae4a63d137744f24ad39566fab44946e130a795ee410cf7e78cadfd97fb41",
+      "result_sha256": "20e7fd423930f135f254b878d8c8c7410ac6daa70b952640bb7a65144c58de0e",
+      "success": true,
+      "axiom_output_file": "checks/MeanExprMoments.stdout.txt",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "elapsed_seconds": 5.8234398330096155,
+      "local_result_kind": "guarded_kernel_check"
+    },
+    {
+      "module": "MeanExprSeed",
+      "track": "exact-mean-checker",
+      "source_sha256": "f1314b4dcb25c85e6ec814ae027a5857a1c7960a4cc4bf1205ffd14d4e8e75a7",
+      "object_sha256": "2a5d280185e527d9ab6bdb4cf4239f9a700439fe07bc08bc82f0be181068f4f0",
+      "result_sha256": "2f9e310541ee483640a43df6baae0d382462d139c5e712a0f1cc44a66a470af2",
+      "success": true,
+      "axiom_output_file": "checks/MeanExprSeed.stdout.txt",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "elapsed_seconds": 9.9189044169907,
+      "local_result_kind": "guarded_kernel_check"
+    },
+    {
+      "module": "ExactMeanTerminal",
+      "track": "exact-mean-checker",
+      "source_sha256": "26c09e406a59b16813803e086c0cc0cf286e24de9240b4fedf70293c4d9d6091",
+      "object_sha256": "d7d937aee1e0959e650844ea253fdebd16ef98ab93c447ac75da140e0e7017f0",
+      "result_sha256": "cda95b55821af0a593b55660c7adbbaecfd1bb0bc987271ea9e0e874de7c0053",
+      "success": true,
+      "axiom_output_file": "checks/ExactMeanTerminal.stdout.txt",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "elapsed_seconds": 4.168600750010228,
+      "local_result_kind": "guarded_kernel_check"
+    }
+  ],
+  "final_theorem": "ExactMeanChecker20261006.rejectsBoth_physical",
+  "literal_premises": [
+    "Physical H",
+    "Dephased H",
+    "Maximal H",
+    "leadingR H > 0",
+    "Actual seed-entry membership in four exact rational complex rectangles",
+    "Executable rejectsBoth test reduces to true"
+  ],
+  "removed_premises": [
+    "Assumed derived interval enclosures",
+    "Assumed physical coefficient identity",
+    "Assumed horizontal/vertical sign matching"
+  ],
+  "does_not_claim": [
+    "Complete native floating-point/Taylor implementation correctness",
+    "An accepted concrete campaign box",
+    "Full domain/exceptional case coverage",
+    "NoFourMUB6"
+  ],
+  "review_sha256": "7fe6ca5e523d5e807aad5a2b4b9e1a2af15cd192c60cd3cb94c4ed68e5379967",
+  "failed_control_attempt_preserved": "Monolithic control reduction hit unchanged Lean heap; no proof credit or raised limit."
+}

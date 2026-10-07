@@ -1,0 +1,143 @@
+{
+  "original_review_sha256": "12d70df4c01079a61441c2d61db3438dc0aa33112e218f65c18ee8b3a8cdd6fa",
+  "review": {
+    "schema": "physical-psd-necessary-tests-independent-review-v1",
+    "verdict": "PASS_SCOPED",
+    "review_scope": "Frozen four-module PSD bridge through the closed R=0 boundary, successful guarded receipts, the literal Physical/Maximal/cornerSigned dependencies, and a fresh independent Lean review module. No native coefficient identification, interval enclosure, leaf admission, or global-domain inference.",
+    "reviewed_record": {
+      "path": "psd-bridge/FORMALIZATION_RECORD_V2.json",
+      "sha256": "767792c97170e98f5b3c5d410c04f266aebc664347bc51ff55f79b169cbba47c",
+      "module_count": 4,
+      "declaration_count": 43
+    },
+    "frozen_modules": [
+      {
+        "source": "PhysicalPSDPencils.lean",
+        "source_sha256": "300b304833449bd2b0efbf37a7d6c9f44102eb159121cbe32ea062da7754e21d",
+        "saved_source_byte_identical": true,
+        "object_sha256": "62f246270a729ca03070c3597b985e13922261ec5ac625aa6e581540165fd740",
+        "job_sha256": "0c723180c98e9f392fabd7ff5c55df06e63a6780ec5b659cb5186d12c0554034",
+        "result_sha256": "18ffdda887245af805a27454238019b7b075043311086d604ac253d8a3daeb59",
+        "stdout_sha256": "79cb1a3eba032c2ec25c3f716a7eeeed22bb54b1b102c011144bc0729ea2acbf"
+      },
+      {
+        "source": "NativePSDMinors.lean",
+        "source_sha256": "4626f1c05d730701bc2970405620e62c4cb7ddb4298d81fb4cff7b223725acf1",
+        "saved_source_byte_identical": true,
+        "object_sha256": "065eb4394c477fbb66d8143c772f87188a59e2366c89bffd626a552f992d2b19",
+        "job_sha256": "e027ff91d4a330b4761e048aa9ca1fd2e57b61ac10853583049f1f6bba0f0584",
+        "result_sha256": "f91e8f1b046092ede1500a9e1e019cb4f038b10696e0ddbf48e751907c666939",
+        "stdout_sha256": "c7f16a9b69e8ccd78b1c6cb42c8b516da37509b3d447a0c9ca096c12e3319e18"
+      },
+      {
+        "source": "PhysicalPSDTests.lean",
+        "source_sha256": "a1b1cc5f826647eeb980fbece520b3d32d788de3efa54423a9ff3dd36fac8cba",
+        "saved_source_byte_identical": true,
+        "object_sha256": "28bdf9be20d23249f881dfdbbb07bb99232b90311b94132e9302a7fd85086cda",
+        "job_sha256": "28818d703cc880c0501a9c7f9cfebd57ca574bed40b703e0a9ca3fd09991d728",
+        "result_sha256": "0e68fc5d07393ce7ceabc82b1032f6813d6a69f11d6421f88e3aa97cbc80d957",
+        "stdout_sha256": "ca8e0a898cad4655d06b4e9e0b986064ba4bba67882ffdef2700442757f05a03"
+      },
+      {
+        "source": "PhysicalPSDClosed.lean",
+        "source_sha256": "6c1ac7e1b678ba570a82a2dc7b78f56fc213d625f1fc800a5122fd7526954e80",
+        "saved_source_byte_identical": true,
+        "object_sha256": "15aa030203f79fbffa9388f39366ae5c9edc51831ab9af31dc0e1026e64dd032",
+        "job_sha256": "a9bb61605cc3aec951a1b53156481ab74bc36ccde468c923999fe924a3db9410",
+        "result_sha256": "3459f82fc48c0b8b883f816b248ef0fcb67301f94d2d955c8d7314d84a6bb4f4",
+        "stdout_sha256": "88411a0004f79bc8686d0998ebf741971233e62ec554a2ba15392649e173dbf7"
+      }
+    ],
+    "literal_dependency_bindings": [
+      {
+        "source": "lean/phase2/check-corner-01/SignedCornerPhysical.lean",
+        "source_sha256": "0f1d767a088e9f7c8fac44b3c169fff8aeff09819e84bb015fd960fffd881994",
+        "object_sha256": "e011b2cfb175538b7df27e84da6854084d42eee9e435ec9d53b64a2db6212533",
+        "meaning": "cornerSigned is the exact four-entry dephased fastSigned expression; physical_maximal_signed_square_bound follows from complementary-corner square equality and Maximal."
+      },
+      {
+        "source": "lean/check-physical-03/CentiradianPhysical.lean",
+        "source_sha256": "f3a81569f51a4eac1e147df81bfa9d713ad386891c2d6ea45ff51eb9fd2cc703",
+        "object_sha256": "d39b6828bc700abf0ccb1b73bfc85b31f74a7d229481b78d459f07f720c3ff35",
+        "meaning": "Physical is literal unit entries plus row orthogonality, and Maximal compares leadingR non-strictly with every increasing row triple and every three-column subset, preserving all 400 positional corners and ties."
+      }
+    ],
+    "semantic_findings": [
+      {
+        "id": "PSD01",
+        "status": "PASS",
+        "finding": "PSD is defined as literal Hermitian symmetry plus nonnegative real quadratic form. rankOne_quadratic identifies each rank-one quadratic form with an exact complex norm square, and nonnegative weighted sums are proved PSD."
+      },
+      {
+        "id": "PSD02",
+        "status": "PASS",
+        "finding": "physicalColumns selects actual H entries at known rows 0,1,2 and side columns 3,4,5. physicalSigns is exactly minus cornerSigned at rows 0,1,2 and the ordered columns knownIndex j, knownIndex k, sideIndex l. The j<k hypothesis supplies the required strict column order."
+      },
+      {
+        "id": "PSD03",
+        "status": "PASS",
+        "finding": "Literal Physical and all-400 non-strict Maximal imply leadingR is nonnegative and bound the absolute value of every selected physical sign by sqrt leadingR. Therefore both sqrtR+sign and sqrtR-sign weights are nonnegative. No matched-corner, side reconstruction, nonsingularity, interval, or Monte Carlo premise appears."
+      },
+      {
+        "id": "PSD04",
+        "status": "PASS",
+        "finding": "The plus and minus weighted sums are exactly sqrtR times the physical side-column Gram plus or minus the signed moment. Both signs are retained. The R=0 boundary is included, and every relevant physical sign is proved zero there."
+      },
+      {
+        "id": "PSD05",
+        "status": "PASS",
+        "finding": "Unit physical entries give a common diagonal equal to the sum of weights. The native orientation is M10=s, M20=t, M21=r. PSD supplies nonnegativity of the common diagonal, all three order-two principal expressions, and the exact order-three determinant expression. The d=0 branch is proved separately rather than divided away."
+      },
+      {
+        "id": "PSD06",
+        "status": "PASS_WITH_EXPLICIT_LIMIT",
+        "finding": "physical_all_five_tests_closed proves these five necessary tests for both actual signs using only Physical, Maximal, and j<k. It does not identify any printed native coefficient formula with s, t, r or the physical weighted Gram, and it does not prove an interval rejection or a leaf exclusion."
+      }
+    ],
+    "fresh_review_check": {
+      "source": "PSDReview.lean",
+      "source_bytes": 4760,
+      "source_sha256": "421c34a6abb3ee8cb6b413c65d60e50594d5f2398b3e4e6dadb4e335c8fee807",
+      "object_bytes": 103624,
+      "object_sha256": "c178d071d7fadc8e4c6a344bf18235756a1683a672c7817e2abb2273f6a50817",
+      "job_sha256": "21e442ab16cc547475b7078132f178cd2c0f99667ad34ad5196a07a9049df07d",
+      "result_sha256": "78e9e90b379b78ed9e34fbebbf75832ae4be77bdf90a4efdb26a98b4a0af707d",
+      "stdout_sha256": "01dcce769ddcd2e09768d6f5978abc4af1abfb9ca1a692b5e233467bd0b14329",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "success": true,
+      "exit_code": 0,
+      "stop_reason": null,
+      "wall_seconds": 9.438926957998774,
+      "peak_tree_rss_bytes": 2149335040,
+      "thread_count": 1,
+      "heap_mib": 2304,
+      "rss_stop_mib": 2816,
+      "minimum_free_disk_gib": 2,
+      "checked_review_declarations": 13,
+      "observed_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "negative_controls": [
+        "nativePencil with diagonal -1 and zero off-diagonals is not PSD",
+        "the same negative-diagonal tuple fails NativeTests"
+      ],
+      "physical_proof_admission": false
+    },
+    "remaining_non_box_requirements": [
+      "Identify every printed native off-diagonal PSD coefficient expression, with its exact sign and scaling, with the corresponding actual physicalWeightedGram entry s, t, or r.",
+      "Prove the native/Taylor/interval enclosures for those exact complex entries, norm squares, and determinant expression, including directed rounding and denominator guards.",
+      "Connect a literal hypothetical quartet to the exact normalized all-maximal Physical carrier and selected corner used here, including ties, relabelings, and critical branches.",
+      "Bind the external finite root worklist and its symmetry maps to those physical carriers, including the exact pi/6 phase boxes and all boundary faces.",
+      "Kernel-check each terminal-kind rejection and assemble the complete root-to-final-frontier replacement forest; no terminal or leaf is closed by the PSD bridge alone.",
+      "Complete the all-critical/zero and exceptional classification needed to make the maximal-carrier route exhaustive."
+    ],
+    "claims_not_made": [
+      "No numerical coefficient or interval certificate is admitted.",
+      "No terminal or finite forest is closed.",
+      "No global maximum-domain adapter is inferred.",
+      "No full no-four-MUB6 theorem is proved."
+    ]
+  }
+}

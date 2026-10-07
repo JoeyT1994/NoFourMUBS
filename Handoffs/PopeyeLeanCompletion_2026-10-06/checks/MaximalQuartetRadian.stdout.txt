@@ -1,0 +1,34 @@
+'Mub6.MaximalRadian20261006.phaseHadamard_physical' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Mub6.MaximalRadian20261006.actual_phaseOverlap_physical' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Mub6.MaximalRadian20261006.permutedQuartet_isMUB' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Mub6.MaximalRadian20261006.permutedQuartet_phaseOverlap' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Mub6.MaximalRadian20261006.dephase_eq_normalize' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Mub6.MaximalRadian20261006.quartet_has_maximal_phase_edge_witness' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Mub6.MaximalRadian20261006.quartet_has_maximal_phase_edge' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Mub6.MaximalRadian20261006.quartet_reaches_maximal_radian_root' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Mub6.MaximalRadian20261006.maximal_population_is_quartet_population' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Mub6.MaximalRadian20261006.maximal_population_signed_bounds' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Mub6.MaximalRadian20261006.quartet_reaches_maximal_radian_frontier' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Mub6.MaximalRadian20261006.empty_maximal_radian_forest_noFour' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+theorem Mub6.MaximalRadian20261006.quartet_has_maximal_phase_edge : ∀ {B : Fin 4 → BasisMatrix},
+  IsMUBQuartet B →
+    ∃ D,
+      IsMUBQuartet D ∧
+        Physical (phaseOverlap (D 0) (D 1)) ∧
+          Dephased (phaseOverlap (D 0) (D 1)) ∧ Centiradian20261006.Maximal (phaseOverlap (D 0) (D 1)) :=
+fun {B} hB =>
+  Exists.casesOn (quartet_has_maximal_phase_edge_witness hB) fun p h =>
+    Exists.casesOn h fun q h => Exists.intro (dephasedQuartet (permutedQuartet B p q)) h
+theorem Mub6.MaximalRadian20261006.empty_maximal_radian_forest_noFour : ∀
+  (t : CertifiedTree MaximalQuartetPhasePopulation (radianRoot 4)), t.frontier = [] → NoFourMUB6 :=
+fun t he a => Exists.casesOn a fun B hB => CertifiedTree.empty_excludes t he (quartet_reaches_maximal_radian_root hB)

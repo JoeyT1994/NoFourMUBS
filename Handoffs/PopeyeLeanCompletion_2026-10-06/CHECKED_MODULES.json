@@ -1,0 +1,397 @@
+{
+  "additional_checked_modules": [
+    {
+      "module": "PhysicalPSDPencils",
+      "track": "psd-bridge",
+      "source_sha256": "300b304833449bd2b0efbf37a7d6c9f44102eb159121cbe32ea062da7754e21d",
+      "object_sha256": "62f246270a729ca03070c3597b985e13922261ec5ac625aa6e581540165fd740",
+      "result_sha256": "18ffdda887245af805a27454238019b7b075043311086d604ac253d8a3daeb59",
+      "success": true,
+      "axiom_output_file": "checks/PhysicalPSDPencils.stdout.txt",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "elapsed_seconds": 14.591272375007975,
+      "local_result_kind": "guarded_kernel_check"
+    },
+    {
+      "module": "NativePSDMinors",
+      "track": "psd-bridge",
+      "source_sha256": "4626f1c05d730701bc2970405620e62c4cb7ddb4298d81fb4cff7b223725acf1",
+      "object_sha256": "065eb4394c477fbb66d8143c772f87188a59e2366c89bffd626a552f992d2b19",
+      "result_sha256": "f91e8f1b046092ede1500a9e1e019cb4f038b10696e0ddbf48e751907c666939",
+      "success": true,
+      "axiom_output_file": "checks/NativePSDMinors.stdout.txt",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "elapsed_seconds": 13.555918207988725,
+      "local_result_kind": "guarded_kernel_check"
+    },
+    {
+      "module": "PhysicalPSDTests",
+      "track": "psd-bridge",
+      "source_sha256": "a1b1cc5f826647eeb980fbece520b3d32d788de3efa54423a9ff3dd36fac8cba",
+      "object_sha256": "28bdf9be20d23249f881dfdbbb07bb99232b90311b94132e9302a7fd85086cda",
+      "result_sha256": "0e68fc5d07393ce7ceabc82b1032f6813d6a69f11d6421f88e3aa97cbc80d957",
+      "success": true,
+      "axiom_output_file": "checks/PhysicalPSDTests.stdout.txt",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "elapsed_seconds": 17.89207695898949,
+      "local_result_kind": "guarded_kernel_check"
+    },
+    {
+      "module": "PhysicalPSDClosed",
+      "track": "psd-bridge",
+      "source_sha256": "6c1ac7e1b678ba570a82a2dc7b78f56fc213d625f1fc800a5122fd7526954e80",
+      "object_sha256": "15aa030203f79fbffa9388f39366ae5c9edc51831ab9af31dc0e1026e64dd032",
+      "result_sha256": "3459f82fc48c0b8b883f816b248ef0fcb67301f94d2d955c8d7314d84a6bb4f4",
+      "success": true,
+      "axiom_output_file": "checks/PhysicalPSDClosed.stdout.txt",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "elapsed_seconds": 10.953393582996796,
+      "local_result_kind": "guarded_kernel_check"
+    },
+    {
+      "module": "ClosedBoxForest",
+      "track": "global-bridge",
+      "source_sha256": "5407ad413c8497e2f5fe9fde0985c670b49eb39a52d9d59cc13c7ec1ae5cd822",
+      "object_sha256": "e2e40cadb8be3a7fa93bd1464116310c843f27cbdffbd43c6eca0d91b22468dc",
+      "result_sha256": "35dee9bf52a856acb649bceb5ce16bd75fb3d7fdcf0e2c9886fde2601a72e13d",
+      "success": true,
+      "axiom_output_file": "checks/ClosedBoxForest.stdout.txt",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "elapsed_seconds": 11.80025920800108,
+      "local_result_kind": "guarded_kernel_check"
+    },
+    {
+      "module": "QuartetRadianCover",
+      "track": "global-bridge",
+      "source_sha256": "c78e1d4c66f4fce39fec88eb09670caad6e4eecd0d8e2038c466cf7b3946691c",
+      "object_sha256": "919df474626f7fbc7aefb59ce45ac58200fcdc6d4340b5824281daae0f7d4397",
+      "result_sha256": "b1cfa1328cc6be6dd43bfdca5b96da53bd83e842be7e913000cbb2fb1b1654f0",
+      "success": true,
+      "axiom_output_file": "checks/QuartetRadianCover.stdout.txt",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "elapsed_seconds": 14.612987790998886,
+      "local_result_kind": "guarded_kernel_check"
+    },
+    {
+      "module": "ExactComplexExpr",
+      "track": "exact-mean-checker",
+      "source_sha256": "88d668d2d2a2b7106ba8b4a2bb44f51ec7198d37e78ee8a7b63da285dea09e4b",
+      "object_sha256": "d8fae4a0bf0f0885f504b32d9b45f8abd5ed196e4ddd19bdde23d50ce72ff2f3",
+      "result_sha256": "d30724909c6e8a2f6c99bbc2c9d37a58dd5a7eca5db888c40aa7e12139e15731",
+      "success": true,
+      "axiom_output_file": "checks/ExactComplexExpr.stdout.txt",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "elapsed_seconds": 9.99859191699943,
+      "local_result_kind": "guarded_kernel_check"
+    },
+    {
+      "module": "MeanExprParts",
+      "track": "exact-mean-checker",
+      "source_sha256": "45ebf80f5e8896dd3c264890dcac6cd019a1d7ee1bc15604f84ba7d69dd66ac0",
+      "object_sha256": "04f344e85b5cd9482c34b029f8ba9d16a2befa08a92a687aa36550960c7bdbc5",
+      "result_sha256": "6e831041976bb57394c137298a4d7c5404af37f1fd45bca6c84267418580facb",
+      "success": true,
+      "axiom_output_file": "checks/MeanExprParts.stdout.txt",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "elapsed_seconds": 13.06119583400141,
+      "local_result_kind": "guarded_kernel_check"
+    },
+    {
+      "module": "MeanExprMoments",
+      "track": "exact-mean-checker",
+      "source_sha256": "c6bafb7472c836b76361a7f767ea55d7b54e8c8e3df2f3aa057e0836756c02e7",
+      "object_sha256": "a2cae4a63d137744f24ad39566fab44946e130a795ee410cf7e78cadfd97fb41",
+      "result_sha256": "20e7fd423930f135f254b878d8c8c7410ac6daa70b952640bb7a65144c58de0e",
+      "success": true,
+      "axiom_output_file": "checks/MeanExprMoments.stdout.txt",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "elapsed_seconds": 5.8234398330096155,
+      "local_result_kind": "guarded_kernel_check"
+    },
+    {
+      "module": "MeanExprSeed",
+      "track": "exact-mean-checker",
+      "source_sha256": "f1314b4dcb25c85e6ec814ae027a5857a1c7960a4cc4bf1205ffd14d4e8e75a7",
+      "object_sha256": "2a5d280185e527d9ab6bdb4cf4239f9a700439fe07bc08bc82f0be181068f4f0",
+      "result_sha256": "2f9e310541ee483640a43df6baae0d382462d139c5e712a0f1cc44a66a470af2",
+      "success": true,
+      "axiom_output_file": "checks/MeanExprSeed.stdout.txt",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "elapsed_seconds": 9.9189044169907,
+      "local_result_kind": "guarded_kernel_check"
+    },
+    {
+      "module": "ExactMeanTerminal",
+      "track": "exact-mean-checker",
+      "source_sha256": "26c09e406a59b16813803e086c0cc0cf286e24de9240b4fedf70293c4d9d6091",
+      "object_sha256": "d7d937aee1e0959e650844ea253fdebd16ef98ab93c447ac75da140e0e7017f0",
+      "result_sha256": "cda95b55821af0a593b55660c7adbbaecfd1bb0bc987271ea9e0e874de7c0053",
+      "success": true,
+      "axiom_output_file": "checks/ExactMeanTerminal.stdout.txt",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "elapsed_seconds": 4.168600750010228,
+      "local_result_kind": "guarded_kernel_check"
+    },
+    {
+      "module": "ExactInterval",
+      "track": "../lean-intake-20261006/signed-mean-worker",
+      "source_sha256": "0afc1b7b425edf8b9525581206a3d044412b5880cebff29cf6c001f75888ba51",
+      "object_sha256": "332e69cdfc8e0bdde1f048d519531836b7bba2374e2ce7605d3255ef4a32c6f8",
+      "result_sha256": "9bc1aed59c97142a83004ffea50592bee5ee07609093a6c4fd66a2f1404ca36b",
+      "success": true,
+      "axiom_output_file": "checks/ExactInterval.stdout.txt",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "elapsed_seconds": 13.110286499999347,
+      "local_result_kind": "guarded_kernel_check"
+    },
+    {
+      "module": "FactoredSignedMean",
+      "track": "../lean-intake-20261006/signed-mean-worker",
+      "source_sha256": "be80cad16486045c9c5d8c8573e2b16e713e9ce8b786f3aa9074cf450e4e199f",
+      "object_sha256": "68482c3dab57705e2d523f89acd8dc01f076707cb4e17b2fc75c6116dbf7e9d6",
+      "result_sha256": "38272a276d5fcde90d800463624786df0bd1dd697f98a52f654776d0a446db81",
+      "success": true,
+      "axiom_output_file": "checks/FactoredSignedMean.stdout.txt",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "elapsed_seconds": 9.911697749994346,
+      "local_result_kind": "guarded_kernel_check"
+    },
+    {
+      "module": "ExactSignedMean",
+      "track": "../lean-intake-20261006/signed-mean-worker",
+      "source_sha256": "6ea576c51485d8b90a19ecf83226830d72a02d94755008fab0dfaab67ad78ad4",
+      "object_sha256": "3a581e0b804e02bec696aa0f9dd08c21233b060101802b1203b8dfc49c4e1f01",
+      "result_sha256": "249c76e9649c021813162b85b61869255bb8b1307d6afc7d8796df333a0af283",
+      "success": true,
+      "axiom_output_file": "checks/ExactSignedMean.stdout.txt",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "elapsed_seconds": 9.401995166001143,
+      "local_result_kind": "guarded_kernel_check"
+    },
+    {
+      "module": "CentiradianCover",
+      "track": "../lean",
+      "source_sha256": "741628e1ff7c42698cd29818f0c8fd503f5a2c9cd95ec827007a38e546a364fa",
+      "object_sha256": "18364633de1ce0e4386af227aa09fee2f2838c83d0e5b9940f59790d5de01373",
+      "result_sha256": "3733eeac11764ad7c39600907d201091dabafc9796401d4d895f161030430a84",
+      "success": true,
+      "axiom_output_file": "checks/CentiradianCover.stdout.txt",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "elapsed_seconds": 8.337925290994463,
+      "local_result_kind": "guarded_kernel_check"
+    },
+    {
+      "module": "Radius050ClosedCover",
+      "track": "radius-bridge",
+      "source_sha256": "934284d813647154c3edb6a5e16bbc7fe71b325cbdfa72bee01bc5e527d1155a",
+      "object_sha256": "1551b6ed0f5df19ba17ceccd2722156d6c1accf64e544035ce9942598c919fe2",
+      "result_sha256": "de465d5fd1b12ecee3a55c0da1d6a756e08831dc16a56b30f06bfb14a7d3d5ca",
+      "success": true,
+      "axiom_output_file": "checks/Radius050ClosedCover.stdout.txt",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "elapsed_seconds": 9.388932875008322,
+      "local_result_kind": "guarded_kernel_check"
+    },
+    {
+      "module": "Radius050AllCoverData",
+      "track": "radius-bridge",
+      "source_sha256": "fab467146ebb7b366ba2de21b003b28b586e78277f88be67f3d66edddebd4da5",
+      "object_sha256": "6c457aca49ba531c18a965262b738df18a209a670771d81c84487c49ed52e53f",
+      "result_sha256": "1a4aab2a8eed56fbb40ab886a0017bae9cb00d525fea4fce0ed0a23db13a4a27",
+      "success": true,
+      "axiom_output_file": "checks/Radius050AllCoverData.stdout.txt",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "elapsed_seconds": 22.896183624994592,
+      "local_result_kind": "guarded_kernel_check"
+    },
+    {
+      "module": "Radius050RootOrbits",
+      "track": "radius-bridge",
+      "source_sha256": "97f1082c7654703c803e1f18833220c7f4a11fa1671eb4399556b78a0ce99724",
+      "object_sha256": "cd60cb031a89960fbe2de53560df7f792dc1cc404557b16aa6d35e4e5ccf03bf",
+      "result_sha256": "2403ecfce014dc10d2b35e7adb3e20f5add785259e7f696cbc3612c5b4054ac4",
+      "success": true,
+      "axiom_output_file": "checks/Radius050RootOrbits.stdout.txt",
+      "axioms": [],
+      "elapsed_seconds": 31.28921979200095,
+      "local_result_kind": "guarded_kernel_check"
+    },
+    {
+      "module": "Radius050OrbitGeneratorJoin",
+      "track": "radius-bridge",
+      "source_sha256": "9f8110d580dfe2cc10b2fc836846a94d9a4e317caf45a5d89587a61ad9b62d94",
+      "object_sha256": "2df833660074118f7bf32bd1caf0909dd2e364e26bb1958cfe1f8d9e7f4a3b9d",
+      "result_sha256": "61afdc7ce7633de97c81fd8beb4c85f104dcaa4940d8b53cf97ff866ebed7a3d",
+      "success": true,
+      "axiom_output_file": "checks/Radius050OrbitGeneratorJoin.stdout.txt",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "elapsed_seconds": 17.81567158299731,
+      "local_result_kind": "guarded_kernel_check"
+    },
+    {
+      "module": "Radius050CoverRootJoin",
+      "track": "radius-bridge",
+      "source_sha256": "b1dade4f5b35b4531482dcc00640a369c6457642282838fd0fdb027e5a8d3616",
+      "object_sha256": "d47893bfd66241c05c295fb0eec8d693fb70dcbf35cf19cb02b5dbb2700195a6",
+      "result_sha256": "3654d2c9b632c443f5f7f244104a1185b5981888526cbb5ccba881d5e09b1de7",
+      "success": true,
+      "axiom_output_file": "checks/Radius050CoverRootJoin.stdout.txt",
+      "axioms": [],
+      "elapsed_seconds": 2.087151959000039,
+      "local_result_kind": "guarded_kernel_check"
+    },
+    {
+      "module": "Radius050NativePhaseCover",
+      "track": "radius-phase-bridge",
+      "source_sha256": "b1d08cc83ab6a722ffb2a3ccad543506f6197da18290797a3afc98966b243607",
+      "object_sha256": "7db43299dbe0713d8e3b205c77e82325463d8cc1f420ed05e13c158529ec2723",
+      "result_sha256": "564b1de7785c1bec589726f000b5e284c587ca199467950b2eaa8d468b5c47e0",
+      "success": true,
+      "axiom_output_file": "checks/Radius050NativePhaseCover.stdout.txt",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "elapsed_seconds": 8.402655249999953,
+      "local_result_kind": "guarded_kernel_check"
+    }
+  ],
+  "all_bundled_modules": [
+    "CentiradianArithmetic",
+    "CentiradianCover",
+    "CentiradianNormalization",
+    "CentiradianPhysical",
+    "ClearedSideMoments",
+    "ClosedBoxForest",
+    "CoefficientEvaluationAudit",
+    "ExactComplexExpr",
+    "ExactInterval",
+    "ExactMeanTerminal",
+    "ExactSeedEvaluator",
+    "ExactSignedMean",
+    "FactoredSignedMean",
+    "MaximalCornerSelection",
+    "MaximalQuartetRadian",
+    "MaximalRadianAudit",
+    "MeanExprMoments",
+    "MeanExprParts",
+    "MeanExprSeed",
+    "Mub6.Basic",
+    "NativeMeanMoments",
+    "NativePSDMinors",
+    "NativeSignedPhysical",
+    "NativeSignedWords",
+    "NativeStableR",
+    "NormalizedClearedMoments",
+    "PhaseSeedEvaluation",
+    "PhysicalMeanClearing",
+    "PhysicalNativeMean",
+    "PhysicalPSDClosed",
+    "PhysicalPSDPencils",
+    "PhysicalPSDTests",
+    "PhysicalSideMoments",
+    "PhysicalSideSign",
+    "QuartetRadianCover",
+    "Radius050AllCoverData",
+    "Radius050ClosedCover",
+    "Radius050CoverRootJoin",
+    "Radius050NativePhaseCover",
+    "Radius050OrbitGeneratorJoin",
+    "Radius050RootOrbits",
+    "ReuseBoundaryTransport",
+    "SideGaugeCovariance",
+    "SignedCornerPhysical",
+    "SignedDeterminantAlgebra",
+    "SignedDeterminantFoundation",
+    "SignedDeterminantGram",
+    "SignedNumeratorBindings",
+    "SignedNumeratorCertificate",
+    "SignedNumeratorCoeff0",
+    "SignedNumeratorCoeff1",
+    "SignedNumeratorCoeff2",
+    "SignedNumeratorCoeff3",
+    "SignedNumeratorCoeff4",
+    "SignedNumeratorCoeff5",
+    "SignedNumeratorCoeff6",
+    "SignedNumeratorCoeff7",
+    "SignedNumeratorCoeff8",
+    "SignedNumeratorDefs",
+    "UnitSideMoments"
+  ],
+  "dependency_imports_resolved": true,
+  "fresh_whole_packet_source_rebuild": false,
+  "mathlib_source_cache_authenticity": "Inherited pinned baseline; no complete fresh source rebuild."
+}

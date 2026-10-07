@@ -1,0 +1,135 @@
+{
+  "original_review_sha256": "b041001ce89b2b7a57a0a93db167c2e08bdd5894a956b51400e33288974a1d08",
+  "review": {
+    "schema": "mub6-maximal-radian-bridge-independent-review-v1",
+    "verdict": "PASS_SCOPED",
+    "review_scope": "Frozen MaximalCornerSelection and MaximalQuartetRadian sources, their exact successful guarded receipts, the audit of all 26 new theorems, literal quartet and transport dependencies, prior independently reviewed closed-root foundations, and a fresh guarded Lean semantic restatement. No native replay, external-worklist identification, terminal leaf admission, registry mutation, or full theorem claim.",
+    "reviewed_packet": {
+      "MaximalCornerSelection.lean": {
+        "bytes": 7004,
+        "sha256": "3503a15a4e7342409dc99ac4a6e5b8c1357a08887bedf7492a1d8f7ff0ec30e4",
+        "saved_check_source_byte_identical": true,
+        "successful_check": "check-selection-04",
+        "successful_result_sha256": "a0842e834c4595272f51aa37592b3579d510f78f06fd6039e58284b1ac797ee2",
+        "successful_object_sha256": "d8470be92bee6cc4fdd582f87e0a084664eb5a02fd35d4371e7afd4832cd9f35"
+      },
+      "MaximalQuartetRadian.lean": {
+        "bytes": 6615,
+        "sha256": "d6286bffb685624921dec300dc2d78ce4bf58db8bcd18bc91192e707285acb9d",
+        "saved_check_source_byte_identical": true,
+        "successful_check": "check-maximal-quartet-02",
+        "successful_result_sha256": "db37f573d38c7307bdee5602333df2325141000f423eaf8647d4ce9198dd8af2",
+        "successful_object_sha256": "db6546a6b7f7aea365c641b46876c35877f42275813d78647961749e928c5ae3"
+      },
+      "MaximalRadianAudit.lean": {
+        "bytes": 1821,
+        "sha256": "b342683f2498a135b6ecdd1659446d8180e86465fdc03b242e03bdf140ab0dc7",
+        "successful_check": "check-maximal-audit-01",
+        "successful_result_sha256": "86f29fc7f8ac027e0f1ac3500e30801e8099592b2f0d035b76d687c056b18786",
+        "successful_object_sha256": "76c64b23e90f75fd2f5f1f32a1c20438bd5d36af42de300336316fc171dff1a2",
+        "audited_new_theorems": 26,
+        "observed_axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ]
+      },
+      "formalization_record_sha256": "f588ae4f40bd8b5b4bd704f913f9e2f0b1f9ea3ca124106045491270c4d83713",
+      "packet_manifest_sha256": "b232863d3040f821fc2f456398387f85c7744d4cdab68525c405f728c70c94bb",
+      "public_file_manifest_sha256": "732b59a005f81d12fb5dea0c8041038ffedb6251015cf0a849fffa8c5a7ee2ce",
+      "public_manifest_entries": 78,
+      "public_manifest_mismatches": 0,
+      "local_import_bindings_sha256": "d299141760c8393fb8772db77e0b38dda9f2e0ce8709226ad2d96e0b18010818",
+      "local_import_bindings_checked": 25,
+      "local_import_binding_mismatches": 0
+    },
+    "dependency_review": {
+      "global_bridge_independent_review_sha256": "5381ffe4ea988598af2f74985d7118b6fcb1ccea8972a2a7dd3b6b82778ac5ba",
+      "ClosedBoxForest_source_sha256": "5407ad413c8497e2f5fe9fde0985c670b49eb39a52d9d59cc13c7ec1ae5cd822",
+      "QuartetRadianCover_source_sha256": "c78e1d4c66f4fce39fec88eb09670caad6e4eecd0d8e2038c466cf7b3946691c",
+      "Mub6.Basic_source_sha256": "ac1e8bb2783d1a38db4a12d76d21457b36a4e2b29e3dbb061ed5328933e0c769",
+      "Mub6.Basic_object_sha256": "12a71298af08c2fceddcc5822e972f0506f19f67b0ce0025b87ece8acc10b674",
+      "Mub6.Basic_receipt_sha256": "4eef86a6dc9ad9e6951dfea236a0fb08ff1444865942a6187cf2e955ebbd3972",
+      "ReuseBoundaryTransport_source_sha256": "ace77161cf28bced2a4738951fe6cf5cf8c3a52320cf40e71109ad73d2f34749",
+      "ReuseBoundaryTransport_object_sha256": "38ef77cec33476bd59e5f8af0476c38ce2e4c79a7db286c732e15397bfa5d785",
+      "ReuseBoundaryTransport_receipt_sha256": "3f274f10f7ee1b986d114b43adbbf38233191ad57b5694655de1b8d439dc851c"
+    },
+    "semantic_findings": [
+      {
+        "id": "MRB01",
+        "status": "PASS",
+        "finding": "The target is literal Mub6.IsMUBQuartet: four orthonormal bases with unbiasedness for every ordered distinct pair. The bridge relabels columns of basis 0 by p and basis 1 by q, leaves bases 2 and 3 in the quartet, and proves IsMUBQuartet for the transformed quartet. Its phaseOverlap is pointwise the original phaseOverlap with row p and column q."
+      },
+      {
+        "id": "MRB02",
+        "status": "PASS",
+        "finding": "The finite maximum ranges over every pair of permutations of Fin 6, with non-strict comparison. Any increasing row triple extends to a full row permutation and any three-column set is the image of leadingCols under a full column permutation. Therefore the join proves the existing Maximal predicate over all 20 by 20 positional corners and retains ties."
+      },
+      {
+        "id": "MRB03",
+        "status": "PASS",
+        "finding": "After selection, normalize is a unit row/column phase transform that preserves Physical, every cornerR value, leadingR, and Maximal. dephase is proved extensionally equal to normalize, while dephasedQuartet realizes the same operation by quartet-wide legal ray rephasings. The exact witness D = dephasedQuartet (permutedQuartet B p q) remains a literal quartet."
+      },
+      {
+        "id": "MRB04",
+        "status": "PASS",
+        "finding": "leadingR is nonnegative because it is exactly the square of the signed residual for the complementary actual corner. The all-corner absolute bound is proved without a strict-positive-R premise. The fresh review additionally kernel checks that leadingR = 0 forces every ordered signed residual to be zero."
+      },
+      {
+        "id": "MRB05",
+        "status": "PASS",
+        "finding": "The radian point is selected only after permutation maximization and dephasing. It consists of exact principal arguments of the four actual northwest seed entries of the newly selected edge. The fresh review expands root membership to the literal closed inequalities -4 <= x_i <= 4 for every coordinate. No membership of an earlier point is transported."
+      },
+      {
+        "id": "MRB06",
+        "status": "PASS_WITH_EXPLICIT_LIMIT",
+        "finding": "empty_maximal_radian_forest_noFour is a sound conditional consumer: it requires an actual CertifiedTree for MaximalQuartetPhasePopulation rooted at radianRoot 4 and a proof that its frontier is empty. The packet supplies neither premise and proves no identification with an external worklist or native side chart."
+      }
+    ],
+    "fresh_review_check": {
+      "source": "MaximalRadianBridgeReview.lean",
+      "source_bytes": 4206,
+      "source_sha256": "4daf136594d6ff5867bb7a2f0034e87dc1ad64a8e0c36677b97366b2550d68e6",
+      "object_bytes": 74032,
+      "object_sha256": "2f02d0e651a8b0c968735dfd0ab1bbdc283d2b770a5fd36f53f8926c5cbfdb09",
+      "job_sha256": "95a6ff65a5d0fe5a738e8092e8a38150def36ebaaf35d62c53dac8798d70ffef",
+      "result_sha256": "e627266175997f3004bccd277047a36853482c10dfde139f2dd287ebe595eb8e",
+      "stdout_sha256": "9975549aa43125d94877cde2533de32e86992c5e3c8868759605acc45c55386c",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "success": true,
+      "exit_code": 0,
+      "stop_reason": null,
+      "wall_seconds": 14.122293334003189,
+      "peak_tree_rss_bytes": 2215886848,
+      "thread_count": 1,
+      "heap_mib": 2304,
+      "rss_stop_mib": 2816,
+      "minimum_free_disk_gib": 2,
+      "checked_review_declarations": 5,
+      "observed_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "physical_proof_admission": false
+    },
+    "failed_attempts_no_credit": [
+      "check-review-01: fail-closed prelaunch refusal because sandboxed process-table monitoring was unavailable; no Lean process launched.",
+      "check-review-02: import-path setup omitted the frozen MaximalQuartetRadian object directory; Lean exited 1 before checking the review declarations."
+    ],
+    "remaining_obligations": [
+      "Construct and kernel-check the actual CertifiedTree for MaximalQuartetPhasePopulation and prove every closed leaf exclusion; no tree or empty frontier is supplied here.",
+      "Prove the exact physical coordinate map between this fresh principal-argument northwest seed and any native side-chart or external worklist variables, including periodic representatives, boundary faces, offsets, and all physical symmetry actions used by the worklist.",
+      "Kernel-check native floating-point, interval, Taylor, Bernstein, PSD, and terminal predicate semantics and bind each accepted leaf to the literal Physical/Dephased/Maximal matrix data.",
+      "Discharge the strict-positive and zero/critical terminal branches exhaustively. This bridge retains R = 0 but does not classify or exclude that sector.",
+      "Supply every physical leaf exclusion or classification needed for an empty frontier, including exceptional sectors."
+    ],
+    "claims_not_made": [
+      "No external worklist or native forest is proved to cover the maximal population.",
+      "No native numerical replay was performed in this review.",
+      "No numerical leaf or terminal certificate is admitted.",
+      "No full no-four-MUB6 theorem is proved by this packet or review.",
+      "It is false at this stage that only unchecked box certificates remain."
+    ]
+  }
+}

@@ -1,0 +1,802 @@
+{
+  "original_record_sha256": "d8f1bc8f4a5250d76c4c61e6780affa93f949194beb7670da30f923f54729d5d",
+  "record": {
+    "packet": "exact-native-coefficient-evaluation-bridge-20261006",
+    "status": "scoped_kernel_checked_pending_independent_integration",
+    "scope": "Exact stableR equals the literal physical leading invariant, and pure four-seed native output functions are bound to the previously checked physical mean coefficients and original phase coordinates.",
+    "complete_non_box_proof": false,
+    "physical_box_exclusion": false,
+    "sector_closure": false,
+    "lean_version": "4.33.0-rc2",
+    "lean_executable_sha256": "1b370cfcbf44e80d1b004ab1b1ab9a4c73951f9f7c242140bcff9bc577576554",
+    "lean_version_evidence": "Executable hash equals the prior SignedMeanAudit runtime whose checked transcript evaluates Lean.versionString.",
+    "mathlib_revision": "51e6992efd06126df61a496bebf8f49482a4e129",
+    "mathlib_revision_provenance": "Pinned runtime checkout name and inherited formalization record; no new library version substituted.",
+    "new_successful_modules": 4,
+    "new_substantive_modules": 3,
+    "new_theorems": 29,
+    "all_local_dependency_modules": 34,
+    "aggregate_audit": {
+      "module": "CoefficientEvaluationAudit",
+      "receipt": "receipts/CoefficientEvaluationAudit.json",
+      "theorem_count": 29,
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "axiom_entries": [
+        {
+          "declaration": "Centiradian20261006.NativeEvaluation20261006.nativeStableR_eq_invariant",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "Centiradian20261006.NativeEvaluation20261006.cast_nativeStableR",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "Centiradian20261006.NativeEvaluation20261006.stableRFormula_gram",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "Centiradian20261006.NativeEvaluation20261006.meanStableA_eq_real_formula",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "Centiradian20261006.NativeEvaluation20261006.meanStableA_is_real",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "Centiradian20261006.NativeEvaluation20261006.exactSeedR_eq_gramInvariant",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "Centiradian20261006.NativeEvaluation20261006.seedS_seedEntry",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "Centiradian20261006.NativeEvaluation20261006.seedT_seedEntry",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "Centiradian20261006.NativeEvaluation20261006.seedR_seedEntry",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "Centiradian20261006.NativeEvaluation20261006.exactSeedR_physical_seed",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "Centiradian20261006.NativeEvaluation20261006.stableRFormula_physical_seed",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "Centiradian20261006.NativeEvaluation20261006.exactPairForm_physical_seed",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "Centiradian20261006.NativeEvaluation20261006.exactMeanA_physical_seed",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "Centiradian20261006.NativeEvaluation20261006.exactMeanBeta_physical_seed",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "Centiradian20261006.NativeEvaluation20261006.exactDelta_physical_seed",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "Centiradian20261006.NativeEvaluation20261006.exactDelta_nonnegative",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "Centiradian20261006.NativeEvaluation20261006.exactD_nonnegative",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "Centiradian20261006.NativeEvaluation20261006.exactKMinus_physical_seed",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "Centiradian20261006.NativeEvaluation20261006.exactKPlus_physical_seed",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "Centiradian20261006.NativeEvaluation20261006.exactHMinus_physical_seed",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "Centiradian20261006.NativeEvaluation20261006.exactHPlus_physical_seed",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "Centiradian20261006.NativeEvaluation20261006.exact_seed_sign_square",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "Centiradian20261006.NativeEvaluation20261006.exact_seed_mean_abs_bound",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "Centiradian20261006.NativeEvaluation20261006.phaseSeed_re",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "Centiradian20261006.NativeEvaluation20261006.phaseSeed_im",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "Centiradian20261006.NativeEvaluation20261006.phaseSeed_unit",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "Centiradian20261006.NativeEvaluation20261006.phase_evaluator_physical",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "Centiradian20261006.NativeEvaluation20261006.punctured_seed_evaluator_lift",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "Centiradian20261006.NativeEvaluation20261006.phase_seed_mean_abs_bound",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    "native_reference": {
+      "file": "reference/signed_linear_engine.cpp",
+      "source_sha256": "e24f26513193f267e85b9b40f8251dc6910ed234fefcd258c12e4a64e1b100fb",
+      "repository_source": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/engine/signed_linear_engine.cpp",
+      "comparison": "stableRFormula reproduces the exact arithmetic operations of native stableR in an arbitrary commutative ring; nativeStableR specializes to real numbers. Real algebra does not verify the native C++ execution."
+    },
+    "reused_checked_results": [
+      "Centiradian20261006.invariant_expansion in CentiradianArithmetic, prior check-arithmetic-04",
+      "Centiradian20261006.dephased_leadingR in CentiradianPhysical, prior check-physical-03",
+      "Centiradian20261006.SignedDeterminant.cast_gramP, cast_gramJ, cast_gramW in SignedDeterminantGram, prior check-gram-02",
+      "The frozen 61-theorem physical-native-signed-mean coefficient bridge, with source-pinned dependency copies"
+    ],
+    "formal_results": [
+      "nativeStableR_eq_invariant proves the exact real native stableR polynomial equals the established invariant formula.",
+      "stableRFormula_gram proves the literal complex native formula at pComplex/jComplex/wComplex is exactly the cast of gramInvariant; it is not merely an equality of real parts.",
+      "meanStableA_eq_real_formula and meanStableA_is_real prove the native stableA complex arithmetic equals the intended real formula at real z.",
+      "exactSeedR_physical_seed proves exactSeedR(seedEntry H)=leadingR H from Dephased H alone; stableRFormula_physical_seed proves its complex arithmetic version.",
+      "ExactSeedEvaluator defines A,beta,Delta,D,Kminus,Kplus,Hminus,Hplus directly on four complex seed entries and the native three-pair order, then proves each output meaning on actual dephased H.",
+      "exact_seed_sign_square and exact_seed_mean_abs_bound connect the matrix-free evaluator to the actual physical side sign and necessary mean inequality.",
+      "phaseSeed_re, phaseSeed_im and phaseSeed_unit bind exp(I*theta) to exact cosine/sine unit phases.",
+      "punctured_seed_evaluator_lift extracts the original exact angular lift from InPuncturedSeedBall, preserving its radius and nonzero displacement, and proves evaluator values equal the actual physical quantities."
+    ],
+    "api_namespace": "Centiradian20261006.NativeEvaluation20261006",
+    "api": {
+      "input": "q : Fin 4 -> Complex, in order H11,H12,H21,H22; pair : Fin 3 in order (0,1),(0,2),(1,2)",
+      "seed_functions": [
+        "seedS",
+        "seedT",
+        "seedR",
+        "exactSeedR"
+      ],
+      "coefficient_functions": [
+        "exactMeanA",
+        "exactMeanBeta",
+        "exactDelta",
+        "exactD",
+        "exactKMinus",
+        "exactKPlus",
+        "exactHMinus",
+        "exactHPlus"
+      ],
+      "phase_functions": [
+        "phaseSeed"
+      ],
+      "physical_interface": [
+        "exactSeedR_physical_seed",
+        "exactMeanA_physical_seed",
+        "exactMeanBeta_physical_seed",
+        "exactDelta_physical_seed",
+        "exact_seed_sign_square",
+        "exact_seed_mean_abs_bound",
+        "phase_evaluator_physical",
+        "phase_seed_mean_abs_bound"
+      ]
+    },
+    "removed_gap": "The exact algebraic native stableR-to-physical-leadingR binding and four-seed coefficient meaning are now proved, rather than left as premises.",
+    "remaining_obligations": [
+      "Kernel-checked interval/Taylor evaluation enclosing the exact seed functions on every claimed box. The existence of these exact meanings does not prove any printed native endpoint correct.",
+      "Correctness of native floating-point operations, Taylor propagation, rounding and Bernstein tightening remains unproved. An independently sound rational interval evaluator can instead target the exact functions provided here.",
+      "Horizontal and vertical actual side signs are still independent plus/minus sqrt(R) values. No matched-sign/non-Tao exhaustion, classification, exceptional-case or other finite physical branch coverage is proved by this extension.",
+      "The original global target still needs complete normalization/cover integration and all remaining sectors; no box or sector closure is asserted here."
+    ],
+    "preservation": "The prior coefficient-bridge source packet, receipts and formalization record were not modified. This is a new scoped extension.",
+    "failures_preserved": [
+      "check-phase-evaluation-01 had a coercion elaboration failure; check-phase-evaluation-02 passes after proving the real-to-complex addition cast. No failed attempt receives proof credit."
+    ],
+    "modules": [
+      {
+        "module": "SignedDeterminantFoundation",
+        "file": "lean/SignedDeterminantFoundation.lean",
+        "source_sha256": "2115293997de60f6291a094d9dbdc9e721d11331e240e64b6e4d160a341e648f",
+        "repository_source": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/phase2/SignedDeterminantFoundation.lean",
+        "imports": [
+          "Mathlib.Data.Complex.Basic",
+          "Mathlib.Tactic.Ring",
+          "Mathlib.Tactic.FieldSimp"
+        ],
+        "new_in_this_packet": false,
+        "theorems": [],
+        "receipt": "receipts/SignedDeterminantFoundation.json"
+      },
+      {
+        "module": "SignedNumeratorDefs",
+        "file": "lean/SignedNumeratorDefs.lean",
+        "source_sha256": "96b2d60b275a20acf951ed06cf3ae210688ddf2ade130389fc13584d951a395b",
+        "repository_source": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/phase2/SignedNumeratorDefs.lean",
+        "imports": [
+          "SignedDeterminantFoundation"
+        ],
+        "new_in_this_packet": false,
+        "theorems": [],
+        "receipt": "receipts/SignedNumeratorDefs.json"
+      },
+      {
+        "module": "SignedNumeratorCoeff0",
+        "file": "lean/SignedNumeratorCoeff0.lean",
+        "source_sha256": "9603b69653e763375cf3257d40af9d18679a3a1b45ec5f061953b4f4aea194e8",
+        "repository_source": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/phase2/SignedNumeratorCoeff0.lean",
+        "imports": [
+          "SignedNumeratorDefs"
+        ],
+        "new_in_this_packet": false,
+        "theorems": [],
+        "receipt": "receipts/SignedNumeratorCoeff0.json"
+      },
+      {
+        "module": "SignedNumeratorCoeff1",
+        "file": "lean/SignedNumeratorCoeff1.lean",
+        "source_sha256": "d818611a3744e928ceb7fa710b3e6a40a7510d4b57524d6fba180197044c24bf",
+        "repository_source": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/phase2/SignedNumeratorCoeff1.lean",
+        "imports": [
+          "SignedNumeratorDefs"
+        ],
+        "new_in_this_packet": false,
+        "theorems": [],
+        "receipt": "receipts/SignedNumeratorCoeff1.json"
+      },
+      {
+        "module": "SignedNumeratorCoeff2",
+        "file": "lean/SignedNumeratorCoeff2.lean",
+        "source_sha256": "0491b24b6bdecbf25b02a4074b0a841b2635a8675c04e54a1b28ed706792250c",
+        "repository_source": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/phase2/SignedNumeratorCoeff2.lean",
+        "imports": [
+          "SignedNumeratorDefs"
+        ],
+        "new_in_this_packet": false,
+        "theorems": [],
+        "receipt": "receipts/SignedNumeratorCoeff2.json"
+      },
+      {
+        "module": "SignedNumeratorCoeff3",
+        "file": "lean/SignedNumeratorCoeff3.lean",
+        "source_sha256": "669a32bce6621c5703567ea4cdacea9c263efd901ad759b162b83d79c68aa841",
+        "repository_source": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/phase2/SignedNumeratorCoeff3.lean",
+        "imports": [
+          "SignedNumeratorDefs"
+        ],
+        "new_in_this_packet": false,
+        "theorems": [],
+        "receipt": "receipts/SignedNumeratorCoeff3.json"
+      },
+      {
+        "module": "SignedNumeratorCoeff4",
+        "file": "lean/SignedNumeratorCoeff4.lean",
+        "source_sha256": "c68d8fedb585764fa7cb7ed97142b9abcf85deba67c68d7e28a037482f3f8708",
+        "repository_source": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/phase2/SignedNumeratorCoeff4.lean",
+        "imports": [
+          "SignedNumeratorDefs"
+        ],
+        "new_in_this_packet": false,
+        "theorems": [],
+        "receipt": "receipts/SignedNumeratorCoeff4.json"
+      },
+      {
+        "module": "SignedNumeratorCoeff5",
+        "file": "lean/SignedNumeratorCoeff5.lean",
+        "source_sha256": "15cd91b80e3db2406548bf441d7920db9a40802b5301d863d201098c5d31b059",
+        "repository_source": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/phase2/SignedNumeratorCoeff5.lean",
+        "imports": [
+          "SignedNumeratorDefs"
+        ],
+        "new_in_this_packet": false,
+        "theorems": [],
+        "receipt": "receipts/SignedNumeratorCoeff5.json"
+      },
+      {
+        "module": "SignedNumeratorCoeff6",
+        "file": "lean/SignedNumeratorCoeff6.lean",
+        "source_sha256": "30008750595242d6ebffb150189d440f8b9202caf3098d9b9312c1d861bba7f2",
+        "repository_source": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/phase2/SignedNumeratorCoeff6.lean",
+        "imports": [
+          "SignedNumeratorDefs"
+        ],
+        "new_in_this_packet": false,
+        "theorems": [],
+        "receipt": "receipts/SignedNumeratorCoeff6.json"
+      },
+      {
+        "module": "SignedNumeratorCoeff7",
+        "file": "lean/SignedNumeratorCoeff7.lean",
+        "source_sha256": "8dfe36df13b8c3c89a53a0b0e3a7654311934c169be0d84d3cd34f1cf302e75e",
+        "repository_source": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/phase2/SignedNumeratorCoeff7.lean",
+        "imports": [
+          "SignedNumeratorDefs"
+        ],
+        "new_in_this_packet": false,
+        "theorems": [],
+        "receipt": "receipts/SignedNumeratorCoeff7.json"
+      },
+      {
+        "module": "SignedNumeratorCoeff8",
+        "file": "lean/SignedNumeratorCoeff8.lean",
+        "source_sha256": "d4934f7321db3a39e163ef0c33cc3d9a079ae3666cb075640080b7be1ed78854",
+        "repository_source": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/phase2/SignedNumeratorCoeff8.lean",
+        "imports": [
+          "SignedNumeratorDefs"
+        ],
+        "new_in_this_packet": false,
+        "theorems": [],
+        "receipt": "receipts/SignedNumeratorCoeff8.json"
+      },
+      {
+        "module": "SignedNumeratorCertificate",
+        "file": "lean/SignedNumeratorCertificate.lean",
+        "source_sha256": "917a69e733e24e10da6cc6bac5b754b173a3024044cc2ef62d021acac3ed8a63",
+        "repository_source": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/phase2/SignedNumeratorCertificate.lean",
+        "imports": [
+          "SignedNumeratorCoeff0",
+          "SignedNumeratorCoeff1",
+          "SignedNumeratorCoeff2",
+          "SignedNumeratorCoeff3",
+          "SignedNumeratorCoeff4",
+          "SignedNumeratorCoeff5",
+          "SignedNumeratorCoeff6",
+          "SignedNumeratorCoeff7",
+          "SignedNumeratorCoeff8"
+        ],
+        "new_in_this_packet": false,
+        "theorems": [],
+        "receipt": "receipts/SignedNumeratorCertificate.json"
+      },
+      {
+        "module": "SignedNumeratorBindings",
+        "file": "lean/SignedNumeratorBindings.lean",
+        "source_sha256": "f139ae2afdbc5f922d6eaebebbaf6094a1ecf78d299576805cc7edff7c33dc0d",
+        "repository_source": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/phase2/SignedNumeratorBindings.lean",
+        "imports": [
+          "SignedNumeratorCertificate"
+        ],
+        "new_in_this_packet": false,
+        "theorems": [],
+        "receipt": "receipts/SignedNumeratorBindings.json"
+      },
+      {
+        "module": "NormalizedClearedMoments",
+        "file": "lean/NormalizedClearedMoments.lean",
+        "source_sha256": "ce6cf8a674d3d2cf6c11d0f4eb1d0c1002cd73f6aebef3e13c6713e90364ab85",
+        "repository_source": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean-completion-20261006/coefficient-bridge/NormalizedClearedMoments.lean",
+        "imports": [
+          "SignedNumeratorBindings"
+        ],
+        "new_in_this_packet": false,
+        "theorems": [],
+        "receipt": "receipts/NormalizedClearedMoments.json"
+      },
+      {
+        "module": "SideGaugeCovariance",
+        "file": "lean/SideGaugeCovariance.lean",
+        "source_sha256": "0234d4972976fb31ef430f903c0f48081bc6ce5292357d3a965363308ef071b0",
+        "repository_source": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean-completion-20261006/coefficient-bridge/SideGaugeCovariance.lean",
+        "imports": [
+          "NormalizedClearedMoments"
+        ],
+        "new_in_this_packet": false,
+        "theorems": [],
+        "receipt": "receipts/SideGaugeCovariance.json"
+      },
+      {
+        "module": "UnitSideMoments",
+        "file": "lean/UnitSideMoments.lean",
+        "source_sha256": "9e672eec30b3565616a08640b856f5f0f47aa2142f1cde11e5b69a064c1a3bb5",
+        "repository_source": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean-completion-20261006/coefficient-bridge/UnitSideMoments.lean",
+        "imports": [
+          "SideGaugeCovariance"
+        ],
+        "new_in_this_packet": false,
+        "theorems": [],
+        "receipt": "receipts/UnitSideMoments.json"
+      },
+      {
+        "module": "ClearedSideMoments",
+        "file": "lean/ClearedSideMoments.lean",
+        "source_sha256": "9f12cb0d24d8381b230d214bcf32fe2bd93c0e5d8adcb21c4a01194ec7004650",
+        "repository_source": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean-completion-20261006/coefficient-bridge/ClearedSideMoments.lean",
+        "imports": [
+          "UnitSideMoments",
+          "Mathlib.Data.Fin.VecNotation",
+          "Mathlib.Data.Fintype.Fin",
+          "Mathlib.Tactic.LinearCombination",
+          "Mathlib.Tactic.FinCases"
+        ],
+        "new_in_this_packet": false,
+        "theorems": [],
+        "receipt": "receipts/ClearedSideMoments.json"
+      },
+      {
+        "module": "NativeSignedWords",
+        "file": "lean/NativeSignedWords.lean",
+        "source_sha256": "4d9766961f2782446b267f388e3ceec9d2f7386a5adde529131b0ac5ac1d30b7",
+        "repository_source": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/phase3/NativeSignedWords.lean",
+        "imports": [
+          "SignedDeterminantFoundation"
+        ],
+        "new_in_this_packet": false,
+        "theorems": [],
+        "receipt": "receipts/NativeSignedWords.json"
+      },
+      {
+        "module": "SignedDeterminantAlgebra",
+        "file": "lean/SignedDeterminantAlgebra.lean",
+        "source_sha256": "618fafb15c8d844584c5cd91c6948d7e59915451100095a1b35a5c3f2c26ab3e",
+        "repository_source": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/phase2/SignedDeterminantAlgebra.lean",
+        "imports": [
+          "SignedNumeratorBindings"
+        ],
+        "new_in_this_packet": false,
+        "theorems": [],
+        "receipt": "receipts/SignedDeterminantAlgebra.json"
+      },
+      {
+        "module": "CentiradianPhysical",
+        "file": "lean/CentiradianPhysical.lean",
+        "source_sha256": "f3a81569f51a4eac1e147df81bfa9d713ad386891c2d6ea45ff51eb9fd2cc703",
+        "repository_source": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/CentiradianPhysical.lean",
+        "imports": [
+          "Mathlib.Analysis.Complex.Trigonometric",
+          "Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic",
+          "Mathlib.Data.Fintype.Card",
+          "Mathlib.Tactic.Ring",
+          "Mathlib.Tactic.NormNum",
+          "Mathlib.Tactic.Linarith"
+        ],
+        "new_in_this_packet": false,
+        "theorems": [],
+        "receipt": "receipts/CentiradianPhysical.json"
+      },
+      {
+        "module": "SignedDeterminantGram",
+        "file": "lean/SignedDeterminantGram.lean",
+        "source_sha256": "497c6ad2c4335dddd2abc16325face1959697fa5078c7658f87f09f31d121c85",
+        "repository_source": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/phase2/SignedDeterminantGram.lean",
+        "imports": [
+          "SignedDeterminantAlgebra",
+          "CentiradianPhysical"
+        ],
+        "new_in_this_packet": false,
+        "theorems": [],
+        "receipt": "receipts/SignedDeterminantGram.json"
+      },
+      {
+        "module": "CentiradianNormalization",
+        "file": "lean/CentiradianNormalization.lean",
+        "source_sha256": "7eac00ff592d0316ac2ece341a1b708585b32f243bfb96e21c97221765880999",
+        "repository_source": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/CentiradianNormalization.lean",
+        "imports": [
+          "CentiradianPhysical"
+        ],
+        "new_in_this_packet": false,
+        "theorems": [],
+        "receipt": "receipts/CentiradianNormalization.json"
+      },
+      {
+        "module": "SignedCornerPhysical",
+        "file": "lean/SignedCornerPhysical.lean",
+        "source_sha256": "0f1d767a088e9f7c8fac44b3c169fff8aeff09819e84bb015fd960fffd881994",
+        "repository_source": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/phase2/SignedCornerPhysical.lean",
+        "imports": [
+          "SignedDeterminantGram",
+          "CentiradianNormalization",
+          "Mathlib.Analysis.Real.Sqrt"
+        ],
+        "new_in_this_packet": false,
+        "theorems": [],
+        "receipt": "receipts/SignedCornerPhysical.json"
+      },
+      {
+        "module": "NativeSignedPhysical",
+        "file": "lean/NativeSignedPhysical.lean",
+        "source_sha256": "066e403c4ff56ac6bf0591ec610bf0f15459f82b22624f354ba1b427e6a06183",
+        "repository_source": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/phase3/NativeSignedPhysical.lean",
+        "imports": [
+          "NativeSignedWords",
+          "SignedCornerPhysical"
+        ],
+        "new_in_this_packet": false,
+        "theorems": [],
+        "receipt": "receipts/NativeSignedPhysical.json"
+      },
+      {
+        "module": "NativeMeanMoments",
+        "file": "lean/NativeMeanMoments.lean",
+        "source_sha256": "7c67759382215f43bc4a26a0fa37a04f98630fa5b6b09bbe223bb72fa62aea2d",
+        "repository_source": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean-completion-20261006/coefficient-bridge/NativeMeanMoments.lean",
+        "imports": [
+          "NativeSignedPhysical"
+        ],
+        "new_in_this_packet": false,
+        "theorems": [],
+        "receipt": "receipts/NativeMeanMoments.json"
+      },
+      {
+        "module": "PhysicalMeanClearing",
+        "file": "lean/PhysicalMeanClearing.lean",
+        "source_sha256": "fe1b1ea97bb222f32f19b94a689bfbacdfaafd31ff8d0c5293b0b37737d3a50d",
+        "repository_source": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean-completion-20261006/coefficient-bridge/PhysicalMeanClearing.lean",
+        "imports": [
+          "NativeMeanMoments"
+        ],
+        "new_in_this_packet": false,
+        "theorems": [],
+        "receipt": "receipts/PhysicalMeanClearing.json"
+      },
+      {
+        "module": "PhysicalSideSign",
+        "file": "lean/PhysicalSideSign.lean",
+        "source_sha256": "3a5f0ed2b33bdf52eca838969fd2ee7c8ce3592915d4d2ed9451755325082ef7",
+        "repository_source": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean-completion-20261006/coefficient-bridge/PhysicalSideSign.lean",
+        "imports": [
+          "PhysicalMeanClearing"
+        ],
+        "new_in_this_packet": false,
+        "theorems": [],
+        "receipt": "receipts/PhysicalSideSign.json"
+      },
+      {
+        "module": "PhysicalSideMoments",
+        "file": "lean/PhysicalSideMoments.lean",
+        "source_sha256": "fb60268a07a80deff03c92867d895cc0566e7e591b660583aa31d90c5459a3e8",
+        "repository_source": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean-completion-20261006/coefficient-bridge/PhysicalSideMoments.lean",
+        "imports": [
+          "ClearedSideMoments",
+          "PhysicalSideSign"
+        ],
+        "new_in_this_packet": false,
+        "theorems": [],
+        "receipt": "receipts/PhysicalSideMoments.json"
+      },
+      {
+        "module": "PhysicalNativeMean",
+        "file": "lean/PhysicalNativeMean.lean",
+        "source_sha256": "bac3f72d11b6d7214783ac6be76160472f7a10bc762801ef231265c48f57e6f3",
+        "repository_source": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean-completion-20261006/coefficient-bridge/PhysicalNativeMean.lean",
+        "imports": [
+          "PhysicalSideMoments"
+        ],
+        "new_in_this_packet": false,
+        "theorems": [],
+        "receipt": "receipts/PhysicalNativeMean.json"
+      },
+      {
+        "module": "CentiradianArithmetic",
+        "file": "lean/CentiradianArithmetic.lean",
+        "source_sha256": "1f51ecc3f66c0013deb0a5c6d1bcf6ad869e6d212b9d59aac86703c52a29c650",
+        "repository_source": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/CentiradianArithmetic.lean",
+        "imports": [
+          "CentiradianPhysical",
+          "Mathlib.Analysis.Real.Sqrt",
+          "Mathlib.Tactic.GCongr",
+          "Mathlib.Tactic.Positivity"
+        ],
+        "new_in_this_packet": false,
+        "theorems": [],
+        "receipt": "receipts/CentiradianArithmetic.json"
+      },
+      {
+        "module": "NativeStableR",
+        "file": "lean/NativeStableR.lean",
+        "source_sha256": "6e51513410c9b60623a20ede3c57b873c5d97dc24e19966576efd695534758bd",
+        "repository_source": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean-completion-20261006/coefficient-evaluation-bridge/NativeStableR.lean",
+        "imports": [
+          "PhysicalNativeMean",
+          "CentiradianArithmetic"
+        ],
+        "new_in_this_packet": true,
+        "theorems": [
+          "nativeStableR_eq_invariant",
+          "cast_nativeStableR",
+          "stableRFormula_gram",
+          "meanStableA_eq_real_formula",
+          "meanStableA_is_real",
+          "exactSeedR_eq_gramInvariant",
+          "seedS_seedEntry",
+          "seedT_seedEntry",
+          "seedR_seedEntry",
+          "exactSeedR_physical_seed",
+          "stableRFormula_physical_seed"
+        ],
+        "receipt": "receipts/NativeStableR.json"
+      },
+      {
+        "module": "ExactSeedEvaluator",
+        "file": "lean/ExactSeedEvaluator.lean",
+        "source_sha256": "3d00b31a86c56cd4739cb48ceb8db2005d4359c2ae7f942573ed1d951ac71df7",
+        "repository_source": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean-completion-20261006/coefficient-evaluation-bridge/ExactSeedEvaluator.lean",
+        "imports": [
+          "NativeStableR"
+        ],
+        "new_in_this_packet": true,
+        "theorems": [
+          "exactPairForm_physical_seed",
+          "exactMeanA_physical_seed",
+          "exactMeanBeta_physical_seed",
+          "exactDelta_physical_seed",
+          "exactDelta_nonnegative",
+          "exactD_nonnegative",
+          "exactKMinus_physical_seed",
+          "exactKPlus_physical_seed",
+          "exactHMinus_physical_seed",
+          "exactHPlus_physical_seed",
+          "exact_seed_sign_square",
+          "exact_seed_mean_abs_bound"
+        ],
+        "receipt": "receipts/ExactSeedEvaluator.json"
+      },
+      {
+        "module": "PhaseSeedEvaluation",
+        "file": "lean/PhaseSeedEvaluation.lean",
+        "source_sha256": "1630541ea0214fdb4049d770577ff6a293baa9b046d1eb64852ce43aef63bea7",
+        "repository_source": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean-completion-20261006/coefficient-evaluation-bridge/PhaseSeedEvaluation.lean",
+        "imports": [
+          "ExactSeedEvaluator"
+        ],
+        "new_in_this_packet": true,
+        "theorems": [
+          "phaseSeed_re",
+          "phaseSeed_im",
+          "phaseSeed_unit",
+          "phase_evaluator_physical",
+          "punctured_seed_evaluator_lift",
+          "phase_seed_mean_abs_bound"
+        ],
+        "receipt": "receipts/PhaseSeedEvaluation.json"
+      },
+      {
+        "module": "CoefficientEvaluationAudit",
+        "file": "lean/CoefficientEvaluationAudit.lean",
+        "source_sha256": "6253e6433f78f5f411a552e912857ff64fe629585151d1552a08850bbd3632a0",
+        "repository_source": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean-completion-20261006/coefficient-evaluation-bridge/CoefficientEvaluationAudit.lean",
+        "imports": [
+          "PhaseSeedEvaluation"
+        ],
+        "new_in_this_packet": true,
+        "theorems": [],
+        "receipt": "receipts/CoefficientEvaluationAudit.json"
+      }
+    ],
+    "no_native_or_external_oracle_axioms": true,
+    "publication": "Prepared locally for director review; this worker performed no publication or registry change."
+  }
+}

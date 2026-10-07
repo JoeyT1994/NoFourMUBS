@@ -1,0 +1,147 @@
+{
+  "original_review_sha256": "09bad2370399c4e76d95d4ffee5e16b2c57c10767aa3c8df2d3e0fd2730b49d5",
+  "review": {
+    "schema": "physical-native-coefficient-independent-review-v1",
+    "status": "PASS_SCOPED_PHYSICAL_COEFFICIENT_BRIDGE",
+    "scope": "Independent semantic, native-expression comparison, source/snapshot, recursive import, successful receipt, axiom and portable-copy review. Existing kernel receipts were inspected; this reviewer did not compile or execute numerical code.",
+    "formalization_record_sha256": "7bb63b6168e764ea69c93d3027e7f4c082e88805b16c01fa2b7c63c3bd094f57",
+    "aggregate_audit_source_sha256": "c86777a5b476c1b07f9610dc0766352612519bc768e8227d273572acfaccf8f9",
+    "aggregate_audit_successful_check": "check-coefficient-audit-01",
+    "public_manifest_sha256": "89e5c5659109a11ea7363fe50e0eeffe118c8ca1051f0f555bcee178ed4b22ec",
+    "new_substantive_modules": 9,
+    "new_checked_theorems": 61,
+    "aggregate_source_closure_modules_including_audit": 30,
+    "portable_file_count_including_manifest": 95,
+    "native_source_sha256": "e24f26513193f267e85b9b40f8251dc6910ed234fefcd258c12e4a64e1b100fb",
+    "review_files": {
+      "FROZEN_MODULES.json": "7c602f4dab3b4a1ca4d7e76858d202c2b71c6c040e7f4dc9886fa9751d43ba88",
+      "NINE_MODULE_CHECKS.json": "9dd70a829bfa8a9a38253d88634a524d30a240c09d40bf212f5375bea4446621",
+      "AGGREGATE_PUBLIC_CHECKS.json": "da20be2149d1135032d15dafa23ef08969b642c89868ef524b632c4a7a3ee50f",
+      "REVIEW.md": "61556a1005f28a7a4bed73da888171e6b6ec7d5f7f2004595c64868c0c50d014"
+    },
+    "modules": [
+      {
+        "module": "NativeMeanMoments",
+        "source_sha256": "7c67759382215f43bc4a26a0fa37a04f98630fa5b6b09bbe223bb72fa62aea2d",
+        "successful_check": "check-moments-02",
+        "theorem_count": 8
+      },
+      {
+        "module": "PhysicalMeanClearing",
+        "source_sha256": "fe1b1ea97bb222f32f19b94a689bfbacdfaafd31ff8d0c5293b0b37737d3a50d",
+        "successful_check": "check-clearing-01",
+        "theorem_count": 6
+      },
+      {
+        "module": "PhysicalSideSign",
+        "source_sha256": "3a5f0ed2b33bdf52eca838969fd2ee7c8ce3592915d4d2ed9451755325082ef7",
+        "successful_check": "check-side-sign-01",
+        "theorem_count": 4
+      },
+      {
+        "module": "NormalizedClearedMoments",
+        "source_sha256": "ce6cf8a674d3d2cf6c11d0f4eb1d0c1002cd73f6aebef3e13c6713e90364ab85",
+        "successful_check": "check-normalized-02",
+        "theorem_count": 4
+      },
+      {
+        "module": "SideGaugeCovariance",
+        "source_sha256": "0234d4972976fb31ef430f903c0f48081bc6ce5292357d3a965363308ef071b0",
+        "successful_check": "check-gauge-02",
+        "theorem_count": 9
+      },
+      {
+        "module": "UnitSideMoments",
+        "source_sha256": "9e672eec30b3565616a08640b856f5f0f47aa2142f1cde11e5b69a064c1a3bb5",
+        "successful_check": "check-unit-side-03",
+        "theorem_count": 8
+      },
+      {
+        "module": "ClearedSideMoments",
+        "source_sha256": "9f12cb0d24d8381b230d214bcf32fe2bd93c0e5d8adcb21c4a01194ec7004650",
+        "successful_check": "check-cleared-side-06",
+        "theorem_count": 8
+      },
+      {
+        "module": "PhysicalSideMoments",
+        "source_sha256": "fb60268a07a80deff03c92867d895cc0566e7e591b660583aa31d90c5459a3e8",
+        "successful_check": "check-physical-side-01",
+        "theorem_count": 5
+      },
+      {
+        "module": "PhysicalNativeMean",
+        "source_sha256": "bac3f72d11b6d7214783ac6be76160472f7a10bc762801ef231265c48f57e6f3",
+        "successful_check": "check-physical-native-02",
+        "theorem_count": 9
+      }
+    ],
+    "final_namespace": "Centiradian20261006.NativeMean20261006",
+    "identity_theorem": "physical_native_mean_identity",
+    "identity_hypotheses": [
+      "H : Mat6",
+      "Physical H",
+      "Dephased H",
+      "pair : Fin 3"
+    ],
+    "bound_theorems": [
+      "physical_native_mean_abs_bound",
+      "physical_native_mean_square_bound"
+    ],
+    "bound_extra_hypotheses": [
+      "Maximal H (all 400 corners including ties)",
+      "0 < leadingR H"
+    ],
+    "identity_meaning": "nativeDelta H * physicalSignedSum H pair = nativeClearedA H pair + physicalSideSign H * nativeClearedBeta H pair",
+    "bound_meaning": "abs(A + h*beta) <= 3*Delta*sqrt(leadingR H), and its square; h is the actual side sign and h^2=leadingR H.",
+    "native_sign_convention": "The signed-mean backend Re((S-conj S)*I) equals minus the existing literal cornerSigned convention. It must not be confused with older positive-Im residuals.",
+    "removed_non_box_premises": [
+      "Assumed actual side constructor or six side moment identities.",
+      "Assumed actual physical cleared mean/coefficient relation.",
+      "Assumed side-sign square relation.",
+      "Nonzero P0/P1/P2 for this cleared necessary bound."
+    ],
+    "critical_coverage_findings": [
+      "Actual side first entries u,v are retained; row-gauge covariance transports normalized identities to all six physical unit entries.",
+      "Actual row orthogonality identifies side sums and correlation with the native negative seed-Gram s,t,r.",
+      "Delta can be zero: the bound remains valid but supplies no automatic zero-denominator exclusion.",
+      "Maximality ranges over all corners, not only eligible corners. No actual global-maximal selection is constructed by these modules.",
+      "The same actual horizontal h is used for all three pairs. Independent horizontal/vertical branch possibilities are not matched or removed.",
+      "The checked exact functions match the pinned mathematical C++ expressions by direct source review; C++ execution and its numerical enclosure semantics are not kernel verified."
+    ],
+    "remaining_non_box_or_semantic_obligations": [
+      {
+        "id": "COEFF-R",
+        "obligation": "Bind native stableR to exact physical leadingR for the seed, independently of its numerical interval enclosure."
+      },
+      {
+        "id": "COEFF-INTERVAL",
+        "obligation": "Prove coefficient/Taylor/rounding/Bernstein enclosure semantics on every actual source box and bind all rejection expressions to them."
+      },
+      {
+        "id": "COEFF-SIDES",
+        "obligation": "Instantiate the other orientation with the correct transport; exhaust independent signs, or prove the matched-sign/non-Tao classification needed by a coupled-only consumer."
+      },
+      {
+        "id": "COEFF-COVER",
+        "obligation": "Join physical normalization/maximality, exceptional and zero-R cases, physical symmetry, root phase scaling, terminal semantics and complete target cover."
+      },
+      {
+        "id": "COEFF-GLOBAL",
+        "obligation": "Complete remaining zero-J/nonzero-J classification and all-critical-to-Fourier/other-excluded-class reduction; preserve the later checked all-critical-plus-Fourier exclusion as an available conditional theorem."
+      }
+    ],
+    "logical_axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "no_new_research_axioms_or_holes": true,
+    "reviewer_compiler_run": false,
+    "reviewer_native_replay": false,
+    "portable_fresh_build_run": false,
+    "new_numerical_terminal_exclusions": 0,
+    "full_theorem_proved": false,
+    "only_numerical_boxes_remain": false,
+    "blockers_within_reviewed_identity_scope": []
+  }
+}

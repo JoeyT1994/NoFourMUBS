@@ -1,0 +1,132 @@
+{
+  "original_review_sha256": "7fe6ca5e523d5e807aad5a2b4b9e1a2af15cd192c60cd3cb94c4ed68e5379967",
+  "review": {
+    "status": "PASS_SCOPED_EXACT_PHYSICAL_CHECKER",
+    "reviewed_module_count": 5,
+    "reviewed_theorem_count": 57,
+    "reviewed_dependency_closure_modules": 40,
+    "scope": "Independent semantic and exact source/copy/receipt/object/import binding review of the five frozen root-authored exact-mean checker modules through ExactMeanTerminal. Existing successful checker receipts were read; no additional compiler run or native computation was performed.",
+    "primary_module_author": "root/director agent",
+    "reviewer_authored_primary_modules": false,
+    "authorship_boundary": "This reviewer did not author the primary root modules. Some inherited interval/physical/evaluator dependencies were authored by this reviewer and are treated as source-pinned, separately independently reviewed dependencies, not self-reviewed new claims.",
+    "primary_sources": [
+      {
+        "module": "ExactComplexExpr",
+        "source_sha256": "88d668d2d2a2b7106ba8b4a2bb44f51ec7198d37e78ee8a7b63da285dea09e4b",
+        "check_directory": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean-completion-20261006/exact-mean-checker/check-expr-03",
+        "theorem_count": 13,
+        "axiom_audit_count": 13
+      },
+      {
+        "module": "MeanExprParts",
+        "source_sha256": "45ebf80f5e8896dd3c264890dcac6cd019a1d7ee1bc15604f84ba7d69dd66ac0",
+        "check_directory": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean-completion-20261006/exact-mean-checker/check-parts-02",
+        "theorem_count": 13,
+        "axiom_audit_count": 13
+      },
+      {
+        "module": "MeanExprMoments",
+        "source_sha256": "c6bafb7472c836b76361a7f767ea55d7b54e8c8e3df2f3aa057e0836756c02e7",
+        "check_directory": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean-completion-20261006/exact-mean-checker/check-moments-01",
+        "theorem_count": 11,
+        "axiom_audit_count": 11
+      },
+      {
+        "module": "MeanExprSeed",
+        "source_sha256": "f1314b4dcb25c85e6ec814ae027a5857a1c7960a4cc4bf1205ffd14d4e8e75a7",
+        "check_directory": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean-completion-20261006/exact-mean-checker/check-seed-01",
+        "theorem_count": 16,
+        "axiom_audit_count": 16
+      },
+      {
+        "module": "ExactMeanTerminal",
+        "source_sha256": "26c09e406a59b16813803e086c0cc0cf286e24de9240b4fedf70293c4d9d6091",
+        "check_directory": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean-completion-20261006/exact-mean-checker/check-terminal-02",
+        "theorem_count": 4,
+        "axiom_audit_count": 4
+      }
+    ],
+    "findings": [],
+    "semantic_review": [
+      {
+        "module": "ExactComplexExpr",
+        "finding": "CBox multiplication uses ac-bd and ad+bc with rational interval arithmetic. Conjugation preserves real and negates imaginary interval. Structural induction proves range containment for every expression from only input rectangle membership. Inverted intervals are harmless because their Contains premise is empty."
+      },
+      {
+        "module": "MeanExprParts",
+        "finding": "All six exact coefficient expressions, p/j/w, three P expressions and stableA syntactically evaluate to the already checked mathematical definitions. No numerical endpoint or native binary assertion appears as a hypothesis."
+      },
+      {
+        "module": "MeanExprMoments",
+        "finding": "Norm-square, exact rational one-half, i, all clearing factors, six moment constants and linear coefficients, pair normalization weights and the signed real expression have proved exact evaluation equalities. No division by a variable is introduced."
+      },
+      {
+        "module": "MeanExprSeed",
+        "finding": "Input order H11,H12,H21,H22 and known-column pair order agree with the physical evaluator. A,beta,D and R are proved equal as complex numbers to casts of exact real functions, so taking the real projection is justified. The Kminus/Kplus and squared H expressions have the correct signs and factors."
+      },
+      {
+        "module": "ExactMeanTerminal",
+        "finding": "certificate_valid computes five derived real enclosures from the four input complex rectangles by structural interval soundness and exact syntax evaluation. It uses R>=0 only to replace (sqrt R)^2 by R."
+      },
+      {
+        "module": "ExactMeanTerminal",
+        "finding": "excludes_plus_physical and excludes_minus_physical use the already proved actual physical necessary mean bound and actual h=+sqrt(R) or h=-sqrt(R), preserve D>=0, and invoke exact factored signed scalar tests. No printed native coefficient interval is accepted as an assumption."
+      },
+      {
+        "module": "ExactMeanTerminal",
+        "finding": "rejectsBoth_physical exhausts the two roots of the SAME physicalSideSign H (the chosen horizontal side in columns 3,4,5). It independently selects a known-column pair rejecting each sign. It neither identifies horizontal with vertical signs nor uses the unproved native coupled-sign/non-Tao classification."
+      }
+    ],
+    "final_theorem": {
+      "declaration": "ExactMeanChecker20261006.rejectsBoth_physical",
+      "conclusion": "False",
+      "premises": [
+        "H : Mat6",
+        "Physical H",
+        "Dephased H",
+        "Maximal H",
+        "0 < leadingR H",
+        "b : Fin 4 -> CBox",
+        "forall i, (b i).Contains (seedEntry H i)",
+        "rejectsBoth b = true"
+      ],
+      "eliminated_premises": [
+        "assumed native derived coefficient enclosures",
+        "assumed physical coefficient relation",
+        "matched horizontal/vertical side signs"
+      ],
+      "meaning": "A literal exact rational rectangle test rejecting both possible values of the actual side sign excludes every physical maximal dephased H with positive R whose seed lies in that rectangle."
+    },
+    "axiom_audit": {
+      "coverage": "all57 theorem declarations have individual successful #print axioms outputs",
+      "missing": [],
+      "union": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "no_sorryAx": true,
+      "no_native_or_external_oracle_axioms": true
+    },
+    "receipt_audit": {
+      "file": "RECEIPT_BINDINGS.json",
+      "sha256": "5a7292a70687d43c44429675e2eedbb4899476a12af8b909aa7a93eedce6c480",
+      "status": "PASS_RECEIPT_BINDINGS",
+      "issues": [],
+      "method": "Recursively resolve each direct local import to the first existing .olean in the actual recorded LEAN_PATH, verify its checked source copy against JOB/RESULT and current source, successful exit, object presence/time and object hash."
+    },
+    "interpretation_limits": [
+      "This is a sound alternative exact rational checker, not a proof that the native C++ implementation, rounded floating-point output, Taylor propagation or Bernstein tightening is correct.",
+      "No concrete input rectangle has been admitted by this review. At this freeze no kernel-checked rejectsBoth=true instance or phase-membership box cover is included in the reviewed five modules.",
+      "A concrete certificate must prove input rectangle containment for the actual source box and reduce rejectsBoth to true. Generic soundness alone does not supply either fact.",
+      "The checker can bypass coupled-sign classification only for a box where it independently rejects both signs of the same actual side. Legacy one-sign-per-orientation native records do not automatically pass it.",
+      "Dependency blowup in direct rational interval arithmetic may prevent this conservative checker from reproducing the native tight intervals; that is a completeness/performance limitation, not unsoundness.",
+      "No new campaign case count, full box family closure, zero-R treatment, other-sector closure or complete no-four-MUB theorem is admitted."
+    ],
+    "additive_work_not_yet_reviewed": [
+      "Any later concrete positive-width control",
+      "Root aggregate audit and final portable manifest"
+    ],
+    "publication_and_registry": "No changes performed by reviewer."
+  }
+}
