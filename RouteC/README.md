@@ -51,28 +51,59 @@ M(H) = max over the 400 corners of R_c(H).
 - Over all samples, M ranges from 15.7 to 388. The 0.1 % quantile is 44.5 and the median 289.
 - M → 0 only on approach to the F6 orbit, where every corner has R ≤ 0 (`CornerBounds`).
 
-So in θ-space, physical points with small R(θ) = M(H) lie near the F6 corner seeds S_F6. Elsewhere the band R → 0 of D₀ contains no physical point; this is a numerical observation, not yet a theorem. That is the observation Route C has to turn into a proof.
+So a corner with small R is *maximal* only near the F6 corner seeds S_F6. Elsewhere, points of the band R → 0 carry genuine Hadamards H₊(θ): the matched sheets are flat for every R > 0. But those corners are far from maximal, so the band lies outside D₀. This is a numerical observation, not yet a theorem.
 
 ### Scale
 - D₀ ∩ F is about 8.9·10⁻⁵ of T⁴.
 - At level 7 it takes on the order of 10⁵ cells (rough estimate from volume), against about 8.7·10⁶ level-9 work cells in the campaign.
 - At level 6 it would take on the order of 10⁴ cells, comparable to their 22,379 balls.
 
-## Open problem: the branch band
+## The branch band: what is there (measured 7 Oct)
 
-At R → 0 the corner chart degenerates. A test point inside such a cell (`Verification/ledger_2026-10-07a`, hard core) has no Hadamard completion on any reconstruction sheet: |HH* − 6I| ≈ 0.7. So the band seems mostly empty of physical points, but proving emptiness is the hard part.
+**Where the hard core sits.** The hard core of the campaign tail is 852 boxes, each with depth-48 nodes that the signed-mean method cannot close. Every one of those stuck nodes lies on a single curve.
+- **The curve:** symmetric corners a = d, b = c, with phases within 0.03–0.1 rad of the stationary seeds (4,2,2,4)π/3 and (2,4,4,2)π/3.
+- **What vanishes on it:** R = 0, and some side divisor P_j = 0 in every row and column order (`stuckpts.py`).
+- **What happens to the completions:** exactly on the curve, the completions of E form a one-parameter continuum. The Jacobian of the Hadamard equations has a single vanishing singular value, about 8e-7; the next is 0.02 (`fiber.py`). For nearby θ with R > 0, the two sheets lie on this continuum, and they slide up to about 3 rad along it while θ moves by about 1e-4. This is why the radical chain, the side-label covers and the signed-mean inequalities all degenerate there.
+- **Why these points are not in D₀:**
+  - These Hadamards are far from F6 (d_F ≈ 0.4–0.7).
+  - Their corner E is far from maximal: R(E) ≈ 1e-3 against competing corners with R ≈ 100–260 (157.5 at the curve point itself).
+  - The competing corners use rows and columns from both halves of H, so they involve the D block. Corners built from E's rows or columns alone reach only R ≈ 0.27. That is why the reconstruction-free side prunes, which never see D, cannot close these boxes.
 
-Tools tried on that point:
-- the reconstruction-free side prunes `CornerBounds/{SideColumn,SideTriple,PairedSide}Prune`. They fail at every depth: thousands of side labels appear, because the side solutions form a continuum at R = 0;
-- the PSD maximality predicate. It closes such points only on boxes of depth ≥ 44.
+**What closes them.** The whole-box PSD maximality predicate (SignedCornerPSDPrune) does.
+- **Where it works:** it closes nodes at depth ≥ 44. A node left open at the old depth cap of 48 closed completely one level deeper: 16 of 16 children, in 4 s (`psddeep.py`).
+- **What changed:** the hybrid driver's depth cap was raised to 64 on 7 Oct.
+- **What closes this region in the campaign:** the signed-mean cover, PSD leaves at depth ≥ 44, and a fresh hybrid replay.
 
-Candidate completion arguments for the band:
-1. **Block completion, after Stage A of openai/math.** Write B = G_h^{1/2} W, with W unitary and G_h = 6I − EE†. Cover W ∈ U(3) by cells and exclude each cell by the unimodularity and orthogonality equations of the completion, with no √R anywhere.
-2. **Change of corner.** If R(E) is tiny and E is maximal, then all 400 corners are small. Qualitatively (`CornerBounds` T1), H is then near the F6 or Tao families, where the published and `FourierNeighbourhood` exclusions apply. A computable version of this needs the same global cover as option 1.
-3. **Root certificates in the full phase space.** Enclose the actual completion of E by an interval Newton (Krawczyk) step on the Hadamard equations, with near-singular directions treated as tangent columns, as in their Root certificate.
+**A cleaner certificate for this region, not built yet.** A Route C version would follow their Root certificate:
+1. Cover the arc of near-completions by a tube of overlapping pieces x = x_k + s·t_k + V_k w.
+2. In each piece, a parametric Krawczyk step proves a unique w for every (θ, s).
+3. Over the whole tube, a competing corner exceeds R(E).
+
+It must still show that H₊(θ) lies in the tube, for example by one anchor point plus continuity. Near the curve R has a critical point (∂R/∂θ_k changes sign in every coordinate), so connectivity of {R > 0} inside a box is not automatic. That is the remaining subtlety.
+
+## Assessment: how simple can a θ-coordinate proof be?
+
+**The exclusion step is not the hard part.**
+- Stage C is the cluster cover, and it already works on cells 4× wider than the campaign's (level 7).
+- The cost of a coarse cover is dominated by the enclosure of H₊, not by the exclusion.
+
+**What makes a proof in our coordinates longer than theirs is the chart.** The 3×3-corner reconstruction degenerates on two loci:
+- the Fourier boundary near S_F6, handled by `FourierNeighbourhood`;
+- the symmetric R = 0 curve through the F3 seeds, handled by the 1/40 ball and PSD maximality.
+
+**The shortest correct proof in θ-coordinates is therefore:**
+1. The reduction to D₀ ∩ F.
+2. A coarse Stage-C cover of the analytic cells.
+3. The two degenerate loci, by the tubes, the ball and maximality.
+
+That has the same skeleton as our campaign, but with roughly 64–256× fewer analytic cells.
+
+**A strictly simpler proof would change chart near the degenerate loci,** for example using their full-phase completion with well-conditioned frames. Since their code is unpublished, that would mean an independent rigorous re-implementation.
 
 ## Files
 
 - `feas.py`: numerical feasibility study (non-rigorous).
 - `test_coarse.jl`: production cover on one coarse cell.
+- `mcorner.py`: maximal-corner survey.
+- `stuckpts.py`, `fiber.py`, `psddeep.py`, `foldlift.py`: hard-core analysis and the fold-tube prototype.
 - `results/`: raw outputs of the runs above.

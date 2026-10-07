@@ -5,7 +5,7 @@ set -u
 R=${R:-/mnt/ceph/users/jtindall/nofour_psd}; MAXR=${MAXR:-6}; NW_CCQ=${NW_CCQ:-29}; NW_PRE=${NW_PRE:-70}
 cd $R
 pfx() { [ "$1" = 1 ] && echo hyb- || echo hyb$1-; }
-for r in $(seq 1 $((MAXR - 1))); do
+for r in $(seq ${START:-1} $((MAXR - 1))); do
   p=$(pfx $r); n=$((r + 1)); q=$(pfx $n)
   while true; do
     tot=$(ls hybrid | grep -cE "^${p}[0-9]+\$"); dn=$(ls done | grep -cE "^${p}[0-9]+\.json\$")

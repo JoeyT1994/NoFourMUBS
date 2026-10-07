@@ -26,7 +26,7 @@ from pathlib import Path
 ADAPTER = Path(os.environ.get('HYB_ADAPTER', '/mnt/ceph/users/jtindall/nofour_psd/adapter'))
 PSDROOT = Path(os.environ.get('HYB_PSDROOT', '/mnt/ceph/users/jtindall/nofour_psd/psdtest'))
 PSD_ARGS = dict(extra=True, seed_depth=8, seed_nodes=255, q_depth=8, q_nodes=511)   # predicate defaults
-MAXDEPTH = 48
+MAXDEPTH = 64          # signed-mean splits stop here; PSD leaves are tried from PSD_DEPTH on (deep stuck nodes close by PSD at depth 49+)
 cb = None; predicate = None; _HERE_SHA = None
 
 

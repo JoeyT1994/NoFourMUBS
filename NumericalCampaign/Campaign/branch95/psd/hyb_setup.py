@@ -16,7 +16,9 @@ def infile(u):
     return (f'{R}/inputs/{u}.jsonl' if u.startswith('shard_') else
             f'{R}/tail_inputs/{u[5:]}.jsonl' if u.startswith('tail-') else f'{R}/tail_inputs/{u}.jsonl')
 def extract(job):
-    su, sids = job; out = []; want = {f'states-{su}/{i}.json.gz': i for i in sids}
+    su, sids = job; out = []
+    want = ({f'{su}/states/{i}.json.gz': i for i in sids} if su.startswith('hyb') else
+            {f'states-{su}/{i}.json.gz': i for i in sids})
     lines = {}
     for l in open(infile(su)):
         i = json.loads(l)['id']
