@@ -60,7 +60,7 @@ Evidence:
 | D | Classify by R |
 | E | PSD maximality prune |
 
-The run leaves **45,713,468 post-E rows**. The ledger in [`Verification/ledger_2026-10-07a`](Verification/ledger_2026-10-07a/README.md) gives each row its certificate.
+The run leaves **45,713,468 post-E rows**. The ledger in [`Verification/ledger_2026-10-07c`](Verification/ledger_2026-10-07c/README.md) gives each row its certificate.
 
 **Rows closed by statement (Q):**
 

@@ -1,8 +1,18 @@
 # NoFourMUBS
 
-**Target: prove that C^6 admits no four pairwise mutually unbiased bases.
-This is open; nothing here proves it.** New here? Start with [HANDOFF.md](HANDOFF.md), then
-[RESEARCH_BRIEF.md](RESEARCH_BRIEF.md).
+**Theorem (computer-assisted).** C⁶ admits no four mutually unbiased bases.
+
+**Start here.**
+
+| Document | What it is |
+|---|---|
+| [simplerproof/PROOF.md](simplerproof/PROOF.md) | The proof, written in corner coordinates with openai/math's Stage-C exclusion idea; each step points to its certificate |
+| [PROOF_MAP.md](PROOF_MAP.md) | The proof of record mapped to its evidence |
+| [Verification/ledger_2026-10-07c](Verification/ledger_2026-10-07c/README.md) | Final ledger: all 45,713,468 branch-layer rows closed by our own certificates, 0 open, 0 delegated |
+| [simplerproof/widetube](simplerproof/widetube/PROOF.md) | New 8 Oct: F6 tube of radius 0.075 and the local averaging lemma at c₀ = 26, both independently replayed |
+| [MODULES.md](MODULES.md) | Which ProvenResults modules the proof uses, and which are superseded or exploratory |
+
+The material below is the folder map. The section "Where things stand (30 September 2026)" is historical.
 
 | Folder | Contents |
 |---|---|
