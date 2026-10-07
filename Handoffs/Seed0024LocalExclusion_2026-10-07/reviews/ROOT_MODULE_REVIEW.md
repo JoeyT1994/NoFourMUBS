@@ -135,3 +135,25 @@ with all four unit entries, including w², and correctly extracts the factor two
 It yields `3*(Im(x² conj y)+Im(y² conj x)-Im(xy))`. Substituting the four actual
 paired signs and exponential phases remains a separate integration step. No
 sign census or trigonometric conclusion is silently assumed by this module.
+
+## Addendum: connected physical phase lifts and four Fourier signs
+
+`PhysicalTripleSmall.lean`, SHA-256 `fe331a52a0521771a20dd2edd107a3962e593a139aae53597d877e23ac9e3326`, matches successful `check-physical-triple-02`. Independent source review passes. The hypotheses remain the literal physical Hadamard and dephasing conditions plus the two explicit bounds on actual row-one entries. The tail l1 estimate is derived from the exact row-pair defect and a three-term quadratic inequality. Both half-row sums then feed the previously checked anchored phase existence theorem. The right half is divided by the actual first entry through conjugation, and the actual multiplicative phase identities are recovered using its unit norm. There is no assumed nearby model row.
+
+`FourierWitnessPhases.lean`, SHA-256 `3d18dae45fa1002254c690e4009abb4f4152d8e133e87cece917bff039d1dcd7`, matches successful `check-fourier-phases-02`. Independent source review passes. The unit and cubic-root conditions are explicit, and actual complex `cis` values supply the two parameter phases. The four Boolean row-sign combinations yield the advertised three sine terms with the correct dependent sign. The result is an equality of the literal dephased q polynomial's imaginary part, rather than an abstract witness assumption.
+
+All printed axiom audits in these two successful receipts use only the standard allowed axioms. Actual selection of the four physical witnesses and the subsequent inequality still belong to the connected assembly. No local or global closure is admitted by this review.
+
+## Addendum: retained seed and physical witness bridges
+
+`PhysicalSeedBridge.lean`, SHA-256 `6ca053b4320fdd5b097603470985616b224d3d1579e4e714014eaaa91b889610`, matches successful `check-seed-bridge-02`. Independent bridge review passes. Closed-box membership and the literal phase-coordinate map to `H 1 1` and `H 1 2` feed the actual normSq/l1 entry bounds. The leading-R, witness-q and both actual row phase-lift conclusions then follow through the already reviewed physical modules. The imported retained-box enumeration is outside this bridge review; no replacement of a physical row by numerical representative entries occurs.
+
+`PhysicalWitnessTransfer.lean`, SHA-256 `5f3d40d874073f78d574154aabfe44fa40bcbffaf0f532fafa76536003b74824`, matches successful `check-witness-transfer-02`. Independent review passes. The four comparison values are actual unit complex numbers, the distance premise is the sum of the four relevant entry chords, and the sharp coefficient-24 Lipschitz theorem gives the strict q-imaginary bound below one half. The four signed q bounds then give the absolute sine sum below one sixth with exactly the previously checked sign convention.
+
+`PhysicalWitnessUnordered.lean`, SHA-256 `7ed91345a4e9652e92b23b100ca4b6ee99d8b52e95d2923bf8b0bfed502f08b7`, matches successful `check-unordered-01`. Independent review passes. It splits the two possible orders of distinct positive row indices and uses the exact row-swap identity, permuting all four comparison coordinates consistently. Maximality is retained on the original H throughout; no reindexed maximality is assumed.
+
+All printed axiom audits in these successful receipts are standard. The two chosen pairs and their midpoint phases still have to supply the concrete four nearby witness tuples; the modules do not assume that task has already been completed.
+
+## Addendum: physical Fourier location
+
+`PhysicalFourierLocation.lean`, SHA-256 `c6196c10279a55c91682d551b8e85ca8104bfd67e07d269ef32a979dbe642eec`, matches successful `check-fourier-location-01`. Independent review passes. The orientation roots are the actual roots from the physical model module, and their square/cubic identities are proved algebraically. The two Boolean-indexed row groups refer to original positive row indices, with every cross pair explicitly distinct. The supplied left and right entry errors add to the exact six-h witness budget. All four q bounds follow on original H and imply the displayed three-sine absolute-sum bound. Standard axiom audit only. Concrete selection of those rows and errors remains the separate ordered-midpoint bridge.

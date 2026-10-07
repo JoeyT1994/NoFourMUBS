@@ -1,89 +1,107 @@
-# A mathematical route for the 36 seed0024 boxes
+# A connected Lean theorem for all 36 seed0024 boxes
 
-We have a complete proposed analytic argument covering all 36 delegated boxes
-in `RouteC/band/seed0024/seed_boxes38.jsonl` at commit `c885a39`.
-An independent reviewer found no gap. Supporting parts have now been checked
-in Lean, but **the full connected exclusion is not yet a Lean theorem**.
-No numerical closure ledger is changed by this handoff.
+Lean now proves the complete box-specific geometric reduction:
 
-**Concurrent supplier update:** commit `02e2615` now claims closure of these
-same 36 boxes using an Arb cover in two Fourier-family parameters. We checked
-that its exact ID set and geometry hash match ours. That route additionally
-uses `PRACTICAL_LOCAL.tex`, which the supplier explicitly says still needs
-independent review. Our analytic argument does not use that theorem or its
-two-parameter cover. `SUPPLIER_RECONCILIATION.json` records this distinction;
-we have not counted the new supplier receipt as Lean verification.
+> Every physical, dephased order-six Hadamard whose indicated corner is maximal
+> among all 400 corners and whose actual phase coordinates belong to any of the
+> 36 retained closed boxes has maximum-column projector operator distance
+> **strictly less than 3/100 from one monomial Fourier-matrix reference**.
 
-## What the argument does
+The result is about the original matrix, with one common row gauge and one
+fixed pair of row/column permutations for all six columns. It includes closed
+box faces, maximality ties and zero-invariant corners. It does not assume a
+reconstruction chart, a supplied R cap, the global averaging lemma, or the
+supplier's `PRACTICAL_LOCAL.tex`.
 
-Any hypothetical physical Hadamard in these boxes, with its indicated corner
-maximal among all 400, must be within **3/100** of the Fourier matrix orbit in
-the maximum-column projector operator metric. This is strictly inside the
-supplier's stated **1/30** Fourier exclusion neighbourhood.
+The final theorem is
+`Seed0024Mathematical20261007.retained36_inside_f6_tube` in
+[Retained36FourierTube.lean](lean/Retained36FourierTube.lean).
+`retained36_inside_one_thirtieth` supplies the slightly larger radius used by
+the supplier's Fourier-neighbourhood exclusion theorem.
 
-The route uses the nearly repeated first three entries of the second row:
-orthogonality forces its last three entries close to minus one. The other
-rows split into almost equilateral triples. Their orientations pair up into
-a nearby exact Fourier-family matrix. Four exact corner witnesses then
-force that family member close to an ordinary Fourier matrix.
+## What this finishes, and what it does not
 
-This avoids the unproved global averaging lemma, the supplied numerical
-R-cap table, and further subdivision of these 36 boxes. The proof also retains
-singular corners and maximality ties. Its phase hypothesis imposes no
-condition on the third row of the leading corner.
+The estimate is
 
-Read [PROPOSED_PROOF.md](PROPOSED_PROOF.md) for the full argument and exact
-constants. The claimed estimate is
+    distance(H, F6 monomial orbit) < 1/75 + 1/60 = 3/100 < 1/30.
 
-    distance(H, F6 orbit) < 1/75 + 1/60 = 3/100 < 1/30.
+Consequently, **accepting the supplier's stated ClusterTube 1/30 exclusion,
+all 36 boxes are excluded by this mathematical argument**. No further
+subdivision or two-parameter Arb cover of these boxes is needed for this route.
 
-The metric estimate uses an explicitly exhibited row gauge. It does not
-assume that transposition preserves the column-projector metric.
+The ClusterTube exclusion itself is still a separate Lean obligation. This
+packet does not turn its C++/Arb receipts into kernel proof. Therefore it
+records **zero fully Lean-closed boxes** and does not claim the full no-four-MUB
+theorem. Global physical coverage, soundness of other terminal types and their
+finite certificates also remain separate obligations. [STATUS.json](STATUS.json)
+preserves these distinctions explicitly.
 
-## Formal status
+## Why the argument works
 
-[STATUS.json](STATUS.json) is the machine-readable status. The checked pieces
-include actual-matrix row identities, the complementary determinant bound,
-the physical maximal-corner and witness implications, the literal polynomial
-perturbation bound, actual equilateral phase lifts and antipodal midpoints,
-exact finite input facts, and explicit six-component column overlaps.
+1. The literal rational box bounds make two entries of the second row very
+   close to one. Orthogonality forces the other three close to minus one.
+2. Each remaining row has two nearly equilateral triples. Orthogonality forces
+   their orientations into two pairs, with almost opposite right-half phases.
+3. Those actual pairs construct a Fourier-family matrix within normalized
+   Frobenius distance 1/75 of the original Hadamard after explicit permutations.
+4. Four actual corner witnesses, using maximality on the original matrix,
+   force the same two Fourier parameters close to an explicit integer lattice.
+5. Every lattice reference is literally a permuted F6. One exhibited half-phase
+   row gauge puts every column within projector distance 1/60 of that reference.
+6. The exact Euclidean rank-one-projector norm identity, triangle inequality
+   and row-permutation invariance yield the bound above in original coordinates.
 
-Remaining obligations include assembling the physical orientation pairing,
-the Fourier-family construction and phase rounding, its explicit Fourier
-equivalence, and the final projector-distance and exclusion theorem.
-The supplier's ClusterTube exclusion is a separate formal dependency; its
-sources are pinned under `references/`. Its numerical campaign has not been
-replayed or admitted as a Lean theorem by this handoff.
+The complete analytic derivation and constants remain in
+[PROPOSED_PROOF.md](PROPOSED_PROOF.md); its historical filename is preserved.
+The metric is the continuous-linear-map operator norm on complex Euclidean
+six-space, not the supremum norm on raw six-entry functions.
 
-Consequently **this handoff adds zero fully Lean-closed boxes**. It supplies
-an independently reviewed mathematical route and checked components, not a
-proof of the full no-four-MUB theorem. Full global coverage and certificate
-soundness remain additional obligations of that theorem.
+## Evidence and independent review
 
-## Exact inputs and checks
+The packet contains **48 checked new modules with 305 theorem declarations**,
+and their custom import closure (67 mathematical source modules plus the
+aggregate audit). Independent reviews
+check the physical hypotheses, shared midpoint witnesses, exact Fourier
+identification, scalar bounds, operator metric and final statement. Successful
+check receipts and extracted axiom outputs are under `checks/`; reviews are
+under `reviews/`. The aggregate root audit checks all 83 root declarations.
+No `sorry`, custom axiom or native-decide oracle is used by the reported results.
 
-- The original file has 38 rows: 36 class0024 boxes plus IDs 6491830 and
-  17434864, which the supplier already assigns to the separate class2442 route.
-  `INPUT_BINDINGS.json` preserves all exact rational coordinates and the split.
-- Every one of the 36 boxes satisfies, in direct or swapped order,
-  `|theta_0| <= 2*77/100000`, `|theta_1| <= 77/100000`.
-- The supplier's prose R-cap bound `1.6e-8` does not match its own table;
-  the table reaches approximately `3.18838e-8`. This argument uses neither.
-- `python3 verify_inventory.py` checks file digests, exact rational geometry,
-  and the explicit non-closure status. It is an inventory check, not a proof
-  checker for the mathematical argument.
-- `python3 check_algebra.py` additionally needs SymPy. It checks exact
-  polynomial identities, finite signs, permutations and rational margins.
-  Those computations are research support; the Lean checks are separate.
+The prior Mathlib source/cache authenticity caveat remains: these local kernel
+receipts are not evidence of a fresh full rebuild of Mathlib. The pinned source
+closure and build configuration are supplied for independent reproduction.
 
-The Lean source import closure is included in `lean/`. `lean-toolchain` and
-`lakefile.toml` pin Lean and Mathlib. On a machine with the pinned toolchain
-and dependencies, `lake build` checks the listed scoped modules. It does not
-produce a complete exclusion theorem because that theorem is not yet in
-the source. Foundation sources originate in the previously published
-`Handoffs/PopeyeLeanCompletion_2026-10-06` packet at commit `3832737`.
+## Exact input and collaborator reconciliation
 
-Local successful check records and axiom outputs appear in `checks/`.
-All reported checked declarations use only Lean's standard axioms. The
-previously recorded Mathlib source/cache authenticity caveat is preserved:
-these receipts are not evidence of a fresh full Mathlib rebuild.
+The input is `RouteC/band/seed0024/seed_boxes38.jsonl` at commit `c885a39`, SHA-256
+`61e7b3e36415d453ea9b3d1b181a22c166343de80add425bf97afb79bebf1da5`.
+It has 38 rows: the 36 retained class0024 boxes, plus IDs 6491830 and 17434864
+assigned by the supplier to the separate class2442 route. The exact split and
+all rational coordinates are in [INPUT_BINDINGS.json](INPUT_BINDINGS.json).
+
+All 36 satisfy, directly or with the first two coordinates swapped,
+`|theta_0| <= 2*77/100000`, `|theta_1| <= 77/100000`.
+No restriction on the third row of the leading corner enters this estimate.
+
+Supplier commit `02e2615` independently claims the same 36 boxes via a
+numerical Fourier-family cover. We checked its exact IDs and geometry hash;
+our proof does not use that cover or its additional local-classification
+premise. The later supplier ledger claim at `55de0ca` also remains a research
+input, with its unproved Lean obligations documented in
+[the supplier audit](reviews/SUPPLIER_55DE0CA_AUDIT.md).
+No production closure ledger or cluster queue is changed by this handoff.
+
+## Reproduction
+
+- `python3 verify_inventory.py` checks hashes, exact geometry and explicit
+  non-exclusion status. It is an inventory verifier, not a mathematical checker.
+- `python3 check_algebra.py` runs supplementary exact research checks and
+  requires SymPy. Their results are separate from the Lean theorem.
+- With the pinned Lean toolchain and Mathlib dependency, `lake build` checks
+  the listed Lean modules, including the connected physical theorem.
+- Foundation sources originate in `Handoffs/PopeyeLeanCompletion_2026-10-06`
+  at commit `3832737`; the included closure pins each copied source.
+
+The remaining local formal task is to prove the supplier's expanded
+ClusterTube theorem in Lean and connect its quartet-edge formulation to this
+explicit monomial-reference metric.

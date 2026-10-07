@@ -1,0 +1,424 @@
+{
+  "schema": "seed0024-connected-fourier-proximity-independent-review-v1",
+  "reviewer": "/root/radius050_audit",
+  "status": "PASS_SCOPED_CONNECTED_PROXIMITY",
+  "review_method": "Read-only source, exact successful receipt/object binding, declaration/axiom output, and mathematical-semantic review. No duplicate compiler or numerical replay.",
+  "reviewed_modules": [
+    {
+      "module": "FourierReference",
+      "source": "row-pair-lean/FourierReference.lean",
+      "source_sha256": "835f087145244a732df336b116dfd99064fe560c00f2b302dc642d28c98cd270",
+      "successful_check": "row-pair-lean/check-fourier-reference-02",
+      "theorems": [
+        "Seed0024Mathematical20261007.explicitPairedFamily_unit",
+        "Seed0024Mathematical20261007.zeroLatticeFamily_unit",
+        "Seed0024Mathematical20261007.explicitPairedFamily_lattice",
+        "Seed0024Mathematical20261007.explicitPairedFamily_add",
+        "Seed0024Mathematical20261007.roundedReference_unit",
+        "Seed0024Mathematical20261007.roundedReference_is_permuted_F6",
+        "Seed0024Mathematical20261007.roundedReference_eq_lattice",
+        "Seed0024Mathematical20261007.explicitPairedFamily_rounded",
+        "Seed0024Mathematical20261007.gaugedReference_is_monomial_F6",
+        "Seed0024Mathematical20261007.explicitPairedFamily_left_column",
+        "Seed0024Mathematical20261007.explicitPairedFamily_right_column",
+        "Seed0024Mathematical20261007.gaugedReference_column"
+      ],
+      "result": {
+        "exit_code": 0,
+        "mode": "standalone-guarded-v1",
+        "peak_tree_rss_bytes": 1536917504,
+        "physical_proof_admission": false,
+        "source_sha256": "835f087145244a732df336b116dfd99064fe560c00f2b302dc642d28c98cd270",
+        "stop_reason": null,
+        "success": true,
+        "wall_seconds": 31.375279333005892
+      },
+      "receipt_hashes": {
+        "JOB.json": "499112aa5215973a0190bb445a7634dd11ebbcd8d8f13e2bac31f782fd6dad22",
+        "RESULT.json": "f30bd55b8a66cc6d8f1f55c7f7d9af246b74a96eaedd9cca70f3be08a757ea31",
+        "stdout.log": "31ae5dd43b3c13402d57d2d7482c3ed59f2895b62999c2f3740d41b105c51c0f",
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "FourierReference.olean": "544051d907db51bf64dde1fd7309697a826517fb02a3684b2b970d16d9183bc6"
+      }
+    },
+    {
+      "module": "LocatedPhysicalFourier",
+      "source": "row-pair-lean/LocatedPhysicalFourier.lean",
+      "source_sha256": "f12d931ef2f5643f9a629d77ad15d40e5e64e8bf08acd4664c2611c5145a5bb3",
+      "successful_check": "row-pair-lean/check-located-physical-02",
+      "theorems": [
+        "Seed0024Mathematical20261007.physical_located_fourier",
+        "Seed0024Mathematical20261007.retained_seed_located_fourier"
+      ],
+      "result": {
+        "exit_code": 0,
+        "mode": "standalone-guarded-v1",
+        "peak_tree_rss_bytes": 1285259264,
+        "physical_proof_admission": false,
+        "source_sha256": "f12d931ef2f5643f9a629d77ad15d40e5e64e8bf08acd4664c2611c5145a5bb3",
+        "stop_reason": null,
+        "success": true,
+        "wall_seconds": 46.741825542005245
+      },
+      "receipt_hashes": {
+        "JOB.json": "626219379083a73a704fed3a614d2955f12ef84827747ac38a046b7042f7dbb4",
+        "RESULT.json": "652e40ee77e23b19bb1e3312869c0d8d5b1fea863ba6552c06d7d3e0a15eb0af",
+        "stdout.log": "177d57cf1d160f6c75d90e9ca1b57230562439ccaca326c83868d90fc8b11d66",
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "LocatedPhysicalFourier.olean": "1ea1c47b0e183f3d65250dade1dff61e2dfdf95a24552a249bcd886c00c75707"
+      }
+    },
+    {
+      "module": "FourierReferenceDistance",
+      "source": "row-pair-lean/FourierReferenceDistance.lean",
+      "source_sha256": "04058e0926178994d5a5c8f1ccde5838f422dd0980da037106b9f70266156198",
+      "successful_check": "row-pair-lean/check-reference-distance-01",
+      "theorems": [
+        "Seed0024Mathematical20261007.rounded_fourier_projector_distance_lt",
+        "Seed0024Mathematical20261007.actual_to_gauged_reference_lt"
+      ],
+      "result": {
+        "exit_code": 0,
+        "mode": "standalone-guarded-v1",
+        "peak_tree_rss_bytes": 1489371136,
+        "physical_proof_admission": false,
+        "source_sha256": "04058e0926178994d5a5c8f1ccde5838f422dd0980da037106b9f70266156198",
+        "stop_reason": null,
+        "success": true,
+        "wall_seconds": 65.15817262500059
+      },
+      "receipt_hashes": {
+        "JOB.json": "2ed2b37e0976a20cf857bdb5cb3a06d569514a97d0c0e5e87a65eab91a2d3bb6",
+        "RESULT.json": "2ff1e8e686595272cb73565065e76e55b33cfd29a1375cf0ebb2479ab99387da",
+        "stdout.log": "ec00f4aefb85028e6903c202902931688c26f24263c4fdbee39abac95ccfcf67",
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "FourierReferenceDistance.olean": "22ad77300dab782030040da8143674246286f7a100c605e34a238f6507d05897"
+      }
+    },
+    {
+      "module": "FourierTubeMetric",
+      "source": "row-pair-lean/FourierTubeMetric.lean",
+      "source_sha256": "ff9b4d6523bd855861ae8cb4ed73a93490907ab92121699b3853394e942ea3f5",
+      "successful_check": "row-pair-lean/check-tube-metric-03",
+      "theorems": [
+        "Seed0024Mathematical20261007.monomialF6Reference_unit",
+        "Seed0024Mathematical20261007.insideF6Tube_mono",
+        "Seed0024Mathematical20261007.insideF6Tube_of_reindex",
+        "Seed0024Mathematical20261007.actual_to_fourier_tube"
+      ],
+      "result": {
+        "exit_code": 0,
+        "mode": "standalone-guarded-v1",
+        "peak_tree_rss_bytes": 1383464960,
+        "physical_proof_admission": false,
+        "source_sha256": "ff9b4d6523bd855861ae8cb4ed73a93490907ab92121699b3853394e942ea3f5",
+        "stop_reason": null,
+        "success": true,
+        "wall_seconds": 49.38825887499843
+      },
+      "receipt_hashes": {
+        "JOB.json": "5b33f7fb4ba13dfcc658cbb78b8ad384cb784eb38fbd4bfb5fd8f70a087a8ff9",
+        "RESULT.json": "e64ad46a400db5bc0d2250072a548577acd879c78fb1c52403b6c73ef53ec678",
+        "stdout.log": "f43cb12d50854baac107a80ff78090cbbc2d3853757a5db39d9c4b24c896ca21",
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "FourierTubeMetric.olean": "70aed7c65b000c6365d65cc2ccfbbea24c3ce502301918b28c0cd9ea0c05555c"
+      }
+    },
+    {
+      "module": "Retained36FourierTube",
+      "source": "row-pair-lean/Retained36FourierTube.lean",
+      "source_sha256": "d56217403964a7553ae05208c495bbed3b67cc235762283bf67cbfa8c894c571",
+      "successful_check": "row-pair-lean/check-retained36-tube-01",
+      "theorems": [
+        "Seed0024Mathematical20261007.physical_small_seed_inside_f6_tube",
+        "Seed0024Mathematical20261007.retained36_inside_f6_tube",
+        "Seed0024Mathematical20261007.retained36_inside_one_thirtieth"
+      ],
+      "result": {
+        "exit_code": 0,
+        "mode": "standalone-guarded-v1",
+        "peak_tree_rss_bytes": 1283080192,
+        "physical_proof_admission": false,
+        "source_sha256": "d56217403964a7553ae05208c495bbed3b67cc235762283bf67cbfa8c894c571",
+        "stop_reason": null,
+        "success": true,
+        "wall_seconds": 64.75860112500959
+      },
+      "receipt_hashes": {
+        "JOB.json": "8930c9015f677286ba4bfdb77a61f1a27a01abbe1ea2bd47227a31a296a6889b",
+        "RESULT.json": "9a3d4efda0d1bb47254d76a22c14b716e96dfaed440a18d5ae5fa5f9f05206b6",
+        "stdout.log": "a984d121e93482ec1d8863ffd916a59719091647a636f72bc25fb28b822bc3da",
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "Retained36FourierTube.olean": "c7116e6aa5434690c61e7a678948a0d72cf63d38c9503b3709b5a36e7679096e"
+      }
+    }
+  ],
+  "reviewed_theorem_count": 23,
+  "aggregate_audit": {
+    "module": "ConnectedPacketAudit",
+    "source_sha256": "8bfe701adc0f0a1fdbd884141d52a6abae4ca49984aa81296f5b0db1f2035b6e",
+    "successful_check": "row-pair-lean/check-connected-audit-01",
+    "result": {
+      "exit_code": 0,
+      "mode": "standalone-guarded-v1",
+      "peak_tree_rss_bytes": 2255110144,
+      "physical_proof_admission": false,
+      "source_sha256": "8bfe701adc0f0a1fdbd884141d52a6abae4ca49984aa81296f5b0db1f2035b6e",
+      "stop_reason": null,
+      "success": true,
+      "wall_seconds": 16.83866462498554
+    },
+    "result_sha256": "3ee0f78213119658f315790ac44d78c8800af97d31a494241bd2cb525071538c",
+    "stdout_sha256": "247e294aec8d36381db064983c26cbdd79723216478bb9232dc281a4915e5e97",
+    "printed_theorem_count": 83,
+    "all_axioms_standard": true,
+    "reviewed_declaration_axioms": {
+      "Seed0024Mathematical20261007.explicitPairedFamily_unit": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "Seed0024Mathematical20261007.zeroLatticeFamily_unit": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "Seed0024Mathematical20261007.explicitPairedFamily_lattice": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "Seed0024Mathematical20261007.explicitPairedFamily_add": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "Seed0024Mathematical20261007.roundedReference_unit": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "Seed0024Mathematical20261007.roundedReference_is_permuted_F6": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "Seed0024Mathematical20261007.roundedReference_eq_lattice": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "Seed0024Mathematical20261007.explicitPairedFamily_rounded": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "Seed0024Mathematical20261007.gaugedReference_is_monomial_F6": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "Seed0024Mathematical20261007.explicitPairedFamily_left_column": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "Seed0024Mathematical20261007.explicitPairedFamily_right_column": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "Seed0024Mathematical20261007.gaugedReference_column": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "Seed0024Mathematical20261007.physical_located_fourier": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "Seed0024Mathematical20261007.retained_seed_located_fourier": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "Seed0024Mathematical20261007.rounded_fourier_projector_distance_lt": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "Seed0024Mathematical20261007.actual_to_gauged_reference_lt": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "Seed0024Mathematical20261007.monomialF6Reference_unit": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "Seed0024Mathematical20261007.insideF6Tube_mono": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "Seed0024Mathematical20261007.insideF6Tube_of_reindex": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "Seed0024Mathematical20261007.actual_to_fourier_tube": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "Seed0024Mathematical20261007.physical_small_seed_inside_f6_tube": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "Seed0024Mathematical20261007.retained36_inside_f6_tube": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "Seed0024Mathematical20261007.retained36_inside_one_thirtieth": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    }
+  },
+  "critical_import_bindings_from_final_job": [
+    {
+      "module": "FourierModelBinding",
+      "source": "local-route/phase3-matching/check-model-binding-02/FourierModelBinding.lean",
+      "source_sha256": "b1cd83df5c5262b0217488452b0233404608f61a0c64d778142695ec7893bacc",
+      "object_sha256": "1056244de1698cc95420527c5cb0a24bc071b403f0be0cd8859527566d515393",
+      "result_sha256": "53f8951ec45dc7ef4306e15732927028b7eec23d9114e84b9fff006d23861099"
+    },
+    {
+      "module": "PhysicalPairedSines",
+      "source": "averaging-route/check-paired-sines-02/PhysicalPairedSines.lean",
+      "source_sha256": "adb2804fad7c4198537661e8fe42a199261949a5dee5fff4d7954a4a9592da72",
+      "object_sha256": "14d60cca30c3489012384074fa41bf2d17b787830c93b73379c28d3de8beb922",
+      "result_sha256": "3e3607c505137af02f22c79c7d6cf604b636c505ab6decb668d51572eded58ab"
+    },
+    {
+      "module": "ActualFourierModel",
+      "source": "local-route/phase3-matching/check-actual-model-03/ActualFourierModel.lean",
+      "source_sha256": "82d4ece8b278994029bb47ac24a12920241a01f4e1b70b890b1f9b58be4eedd0",
+      "object_sha256": "6612898e9f16c19907eb94eb0c4f60249ca50a96771d6f500d20a6ca53fb21a8",
+      "result_sha256": "8c8ec2be88259a9202ec1d064934bd69fd4d0359dd9ca7dafdae3f3d232d290f"
+    },
+    {
+      "module": "ZeroLatticeF6",
+      "source": "local-route/phase2-projector/check-lattice-02/ZeroLatticeF6.lean",
+      "source_sha256": "a3789efdd77434abb741864f2c94ad008e5fa81688f498730c37d08ef4cedf26",
+      "object_sha256": "257ffda1ae767a50e0c688f27fac05c9b8e309fb067ea658bc4b837dc8eae898",
+      "result_sha256": "d5b627d01d0a55134f2dbd140b0ede0fb2d65fb2c0738aa3eed7fbdcbc32bdfb"
+    },
+    {
+      "module": "RoundedFourierOverlap",
+      "source": "local-route/phase2-projector/check-rounded-columns-01/RoundedFourierOverlap.lean",
+      "source_sha256": "b56724a34feba763945a449d080b6d44ff257c77b9504a7c7d6e2b5c9b8521be",
+      "object_sha256": "6a4e1f782df293c048bf745e6e357d8dbfdb48968a55642e4318da6a65d0cff3",
+      "result_sha256": "b40eab1f9020b09926ddc2ac86a52f044a8286a4ecd8f141f351c66a83f4fd6b"
+    },
+    {
+      "module": "PiRounding",
+      "source": "local-route/phase2-projector/check-rounding-02/PiRounding.lean",
+      "source_sha256": "ab8f869c0891f16c65cf34a3096bf34678d0f8d16534f313802224cc4192e865",
+      "object_sha256": "357041a1206573784eccf1bb50968612ff4e26569154b4416315e4a234e4aff5",
+      "result_sha256": "0c36cc79c50a2540a89cdf927869f2a17501207a263f1b6d4be81fc2330de793"
+    },
+    {
+      "module": "Seed0024PhysicalBounds",
+      "source": "geometry-lean/check-physical-bounds-01/Seed0024PhysicalBounds.lean",
+      "source_sha256": "4fbca1013793f893f8917eba1cd949cdfe7a94135d7fb713762125b0ada8e0d2",
+      "object_sha256": "9984633c5b00ef01b96536c55900f6eed1538f44a9142906c1c4bf116f5af082",
+      "result_sha256": "bee54692cdc4a60e2cf9dcfea7274a9b19b70800e984eb64f157d020f1beed12"
+    },
+    {
+      "module": "Seed0024Geometry",
+      "source": "geometry-lean/check-geometry-03/Seed0024Geometry.lean",
+      "source_sha256": "ab38af197c2201db11d172ca6ef0e2c2617f9a7028844689876e479fd6cd8093",
+      "object_sha256": "98ea9b88f3c4534814ccafc330b968432939dfa2622a7941321158d79820f395",
+      "result_sha256": "8c26c72a4a771b4eb42f79a42891c8d8d4738a3676c0164ce981ed16d96be24e"
+    },
+    {
+      "module": "Seed0024Data",
+      "source": "geometry-lean/check-data-02/Seed0024Data.lean",
+      "source_sha256": "7a404d18e243bc07c2ae397f611435fc82831bb84de22c0a6718484a9f832412",
+      "object_sha256": "963fc53172107d35a6ac731de39343186b62a6971814788a8a993df1f3042097",
+      "result_sha256": "e91415cb1348e4c237241327034ee4b1e32e8a4260b20b984839d80516ef1067"
+    },
+    {
+      "module": "CentiradianPhysical",
+      "source": "work/centiradian-integration-2026-10-06/lean/check-physical-03/CentiradianPhysical.lean",
+      "source_sha256": "f3a81569f51a4eac1e147df81bfa9d713ad386891c2d6ea45ff51eb9fd2cc703",
+      "object_sha256": "d39b6828bc700abf0ccb1b73bfc85b31f74a7d229481b78d459f07f720c3ff35",
+      "result_sha256": "b5b554d1c683ea95008876203992919593c282b5eb96a0ad02ffd66dd9304e51"
+    },
+    {
+      "module": "RankOneMetric",
+      "source": "projector-metric-lean/check-rankone-03/RankOneMetric.lean",
+      "source_sha256": "fdbf0168da19def769fd43ada33c134268f5f1c4baa6dc4aa8c80d5ba5a5d3e2",
+      "object_sha256": "eec5665fd200a159eb1abdbb2374912764b3699afae002c7cc06fa5edd66f2b2",
+      "result_sha256": "5d98745e205eb01508b4d86ac6dc2b1b6c33ec358b039ef89a7f4aeebf296691"
+    },
+    {
+      "module": "SixColumnMetric",
+      "source": "projector-metric-lean/check-six-03/SixColumnMetric.lean",
+      "source_sha256": "d6401a76cb3d24d2391834d9b8981e85c0fc4adeabc3d2a20a085a4a12186861",
+      "object_sha256": "2d123cf67243eb1dab901cde37908ccdf19bb4a234faa8c9784159c5f4306b64",
+      "result_sha256": "8bc38991d43666d0fbc22722d47c05666e7acedb5174bdf4fe08afe31f096a39"
+    },
+    {
+      "module": "NormalizedColumnMetric",
+      "source": "projector-metric-lean/check-normalized-02/NormalizedColumnMetric.lean",
+      "source_sha256": "678546e2e98a06fd0311f65a97ca3639466ef13a0563c33fe16adbb749441671",
+      "object_sha256": "56465f01c98a5b2b21c5ca8d511089973e77e12a7534a57402613c7c36cca490",
+      "result_sha256": "6118e946c92d6b70c3ced5cd36e51888564656d3044bba3b151d17301d39f5bc"
+    },
+    {
+      "module": "RepeatedProjectorMetric",
+      "source": "projector-metric-lean/check-repeated-01/RepeatedProjectorMetric.lean",
+      "source_sha256": "ad3394d9e97b1b635bc15e4ca00bde6c74f588a7ddb6ab9df07143f272bde08b",
+      "object_sha256": "27593a151a68410d39f745a8266e9451c96f22698a5d4e36e728cb72f1994496",
+      "result_sha256": "028a42524b2ded9cc65c634c2681b6d3f5818c16d76021781f6e06adac067962"
+    },
+    {
+      "module": "RowPermutationMetric",
+      "source": "projector-metric-lean/check-permutation-01/RowPermutationMetric.lean",
+      "source_sha256": "518f8e5b45bb03b83e75539667daec2200618db3270b9bb647be248bde340733",
+      "object_sha256": "d46f9b70f440782cf4326ddd975348159b114edca28f4f6bd2cb415c7204966b",
+      "result_sha256": "06703ea9d8bda9632b17184b152e414861f6a1f2c6f8fe4e508ec4541c8ad009"
+    }
+  ],
+  "mathematical_findings": [
+    "Physical is actual unit-modulus entries plus scalar row orthogonality HH*=6I. Dephased is actual first row and first column equal to one. Maximal compares every increasing row triple and every three-column subset against the original leading corner invariant, with non-strict inequalities allowing ties.",
+    "LocatedPhysicalFourier derives the Fourier match and sine estimate from the same original-index ordered midpoint witnesses. Maximality is used on original H and is not asserted for the reindexed carrier.",
+    "FourierModelBinding/check-model-binding-02 supplies literal equality of the actual constructed repeated-row model and the explicit phase family. No unproved model-identification or RowMatching premise survives in the final statement.",
+    "Exact nearest-pi rounding and zero-lattice permutations construct one actual Fourier reference. The half-phase row gauge is common to all six columns; no independently chosen reference per column is substituted.",
+    "The induced operator metric is the checked PiLp2 rank-one projector metric. Actual columns are divided by exact sqrt6. The normalized Frobenius bound gives each column error<1/75; the same gauged Fourier reference gives the second leg<1/60, hence the strict sum<3/100.",
+    "InsideF6Tube has an existential matrix Q outside the forall-column quantifier, and Q is literally a common unit row gauge times explicitF6 under actual row and column permutations. Undoing reindex uses both inverse permutations and unit-column operator-distance invariance. The result is for the original input H.",
+    "The final retained36 theorem consumes literal residual membership, whole closed box membership, and exact PhaseCoordinates(seedEntries H,x). The geometry theorem supplies both actual H11/H12 error bounds simultaneously, including box faces. No positive-R, printed Arb cap, smooth-manifold assumption, or global averaging lemma is used.",
+    "The final kernel conclusion is InsideF6Tube H (3/100), and therefore InsideF6Tube H (1/30). It is a connected physical proximity theorem, not an exclusion theorem."
+  ],
+  "independence_note": "The metric dependency was authored by this reviewer but separately independently reviewed by seed0024_local. This report reviews the root-authored final assembly; it does not self-admit the metric packet.",
+  "independent_metric_review": {
+    "file": "local-route/REVIEW_PROJECTOR_METRIC_PORTABLE.json",
+    "sha256": "f064089a318f3b14c6815654fb98fabf818e51b82d98694197828bf6aeb16275"
+  },
+  "remaining_obligations": [
+    "A kernel-checked Fourier-neighbourhood/ClusterTube exclusion for the precise InsideF6Tube metric and actual four-basis extendability is still required. A Physical Hadamard alone is not the four-MUB contradiction premise.",
+    "The tube definition exhibits a row gauge and row/column permutations of literal F6. Any external theorem using another orbit, matrix normalization or basis metric still needs a formal identification; this review does not infer that identification from terminology.",
+    "The theorem does not prove every physical quartet has a maximal/dephased carrier lying in these 36 input boxes. Global coverage, remaining branches and quartet-to-carrier bindings remain separate.",
+    "No source-only packet or proximity result is promoted to sector or supplier-box exclusion credit."
+  ],
+  "new_lean_closed_boxes": 0,
+  "full_no_four_mub_theorem_proved": false,
+  "blockers_within_claimed_proximity_scope": []
+}
