@@ -1,4 +1,4 @@
-# Proof of record: status of its PENDING items (updated 4 October 2026)
+# Proof of record: status of its PENDING items (updated 7 October 2026)
 
 This is a companion to `PROOF_OF_RECORD.md`, which is kept unchanged as delivered. For each `[PENDING]` item
 (line numbers refer to that file), this records what is now established and where the evidence is.
@@ -38,6 +38,27 @@ This is a companion to `PROOF_OF_RECORD.md`, which is kept unchanged as delivere
 | l.551-553: SideChartCover | Corrected verifier passes (`Verification/review_patch_2026-10-01`). Shoulder pilot: 41/48 level-13 boxes at 56 CPU-s, 0/24 at level 12. Not the production route for the shoulder (cost). |
 | l.751-757: active-class closure | **Closed for the 90 production cubes** (`ActiveShoulderClosure_v2` and `ActiveF6Cube1551`, rusty replays PASS). Shoulder: `ActiveShoulderClosure_v2` and `_v2_frontier`, with replays PASS; the pilot ledger closes all of it. |
 | Remaining residual | The (2,4,4,2) ring is the only class open on the pilot (0.041–0.047 rad from the stationary F3 seed). Stage F/G closes about 80% of it, and `Patch2442Region_v3` (rusty replays PASS) closes 70% of the remaining leaves. `Patch2442Local` gives exact leading forms and a directional radius but covers none of the ring boxes. Open; see `STATUS_2026-10-04.md`. |
+
+## Post-E residual (7 October 2026)
+
+The full-run post-E ledger covers all 45,713,468 rows. The latest version is `Verification/ledger_2026-10-07a`, and `STATUS_2026-10-07.md` summarizes it.
+
+**On our side, 0 rows are open.** The stage-C FAILED leaves are closed: 1,018 of 1,018.
+
+**The delegated (2,4,4,2) region** covers the ring, export2 and the addendum. It is closed by four certificates, all held and replayed by us:
+
+| Certificate | Rows | Replay |
+|---|---:|---|
+| Patch2442Local `Radius025Complete`: punctured ball of radius 1/40 | 438,110 | `PASS_UNIFORM_BALL` on rusty |
+| Ball + R = 0 at the seed (the two boxes containing a seed) | 2 | — |
+| Collaborator's factored signed-mean producer | 1,950,400 | per-box fresh replay PASS |
+| Signed-mean + PSD hybrid (`branch95/psd/hybrid_close.py`) | rising | fresh hybrid replay PASS |
+
+The collaborator's sealed result (`PASS_ALL_1271_WHOLE_INPUT_LEAVES`) also replays fresh on rusty.
+
+**What remains** is the hybrid tail. On the morning of 7 October it held about 7,500 boxes.
+
+The hardest boxes, about 850, lie along the symmetric R = 0 curve through the F3 seeds. They are excluded by PSD maximality at subdivision depth ≥ 49; the hybrid's depth cap was raised to 64 for this. Details are in `RouteC/README.md`.
 
 ## Final audit (§7.5)
 
