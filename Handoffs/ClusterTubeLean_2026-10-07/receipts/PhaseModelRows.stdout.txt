@@ -1,0 +1,27 @@
+mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/averaging-route/check-phase-model-03/PhaseModelRows.lean:68:33: warning: This simp argument is unused:
+  norm_mul
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [modelRow, orientationRoot_unit, hlam]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/averaging-route/check-phase-model-03/PhaseModelRows.lean:86:73: warning: This simp argument is unused:
+  one_mul
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [rowInner, Fin.sum_univ_succ, modelRow, Matrix.cons_val_zero, Matrix.cons_val_succ,
+    Matrix.cons_val_fin_one, map_mul, map_one, mul_one, add_zero]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/averaging-route/check-phase-model-03/PhaseModelRows.lean:86:81: warning: This simp argument is unused:
+  add_zero
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [rowInner, Fin.sum_univ_succ, modelRow, Matrix.cons_val_zero, Matrix.cons_val_succ,
+    Matrix.cons_val_fin_one, map_mul, map_one, mul_one, one_mul]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+'Seed0024.Orientation.phase_chord_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Seed0024.Orientation.modelRow_inner' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Seed0024.Orientation.rowInner_perturbation' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Seed0024.Orientation.modelRow_inner_small' depends on axioms: [propext, Classical.choice, Quot.sound]

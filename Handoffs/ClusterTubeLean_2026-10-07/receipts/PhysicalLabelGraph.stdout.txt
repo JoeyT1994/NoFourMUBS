@@ -1,0 +1,25 @@
+mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/cluster-tube-graph/check-label-physical-01/PhysicalLabelGraph.lean:31:0: warning: automatically included section variable(s) unused in theorem `Mub6.Numerical.GraphKernel.label_frame_assignment`:
+  [Fintype V]
+  [DecidableEq V]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype V] [DecidableEq V] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+'Mub6.Numerical.GraphKernel.label_frame_assignment' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Mub6.Numerical.GraphKernel.label_raw_pair_has_graph_pair' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Mub6.Numerical.GraphKernel.checked_label_pair_excludes_raw_pair' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Mub6.Numerical.GraphKernel.normalized_flat_basis_gives_six_frame' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Mub6.Numerical.GraphKernel.normalized_flat_bases_give_raw_six_pair' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Mub6.Numerical.GraphKernel.checked_label_pair_excludes_normalized_flat_bases' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Mub6.Numerical.GraphKernel.checkSixLabelPair_specs' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Mub6.Numerical.GraphKernel.checked_48_label_graph_excludes_raw_six_pair' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

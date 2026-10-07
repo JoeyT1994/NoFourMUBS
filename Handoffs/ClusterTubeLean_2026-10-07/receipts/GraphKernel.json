@@ -1,0 +1,22 @@
+{
+  "module": "GraphKernel",
+  "success": true,
+  "returncode": 0,
+  "source_sha256": "246ab6f4bedabcb7402f4a12f945b2e82943e3c7fb64825c365066f62bfb8699",
+  "object_sha256": "0dfe8c26a5d3d36f0a8b0bf91ac487dc5d3443af1eaab605496f5e839a6c1b4c",
+  "legacy_receipt_sha256": "045bd6e8843e9d6cb30b76fc79b07a7f4cb5c36ffd3a243f94a8f6f31c853475",
+  "compiler_sha256": "1b370cfcbf44e80d1b004ab1b1ab9a4c73951f9f7c242140bcff9bc577576554",
+  "axioms": {
+    "Mub6.Numerical.GraphKernel.checkClique_sound": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "Mub6.Numerical.GraphKernel.checkPair_sound": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "registry_admission": false
+}

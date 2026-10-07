@@ -1,0 +1,26 @@
+research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/port/src/PhysicalGraph.lean:32:0: warning: automatically included section variable(s) unused in theorem `Mub6.Numerical.GraphKernel.raw_frame_assignment`:
+  [Fintype V]
+  [DecidableEq V]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype V] [DecidableEq V] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+'Mub6.Numerical.GraphKernel.raw_frame_assignment' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Mub6.Numerical.GraphKernel.assignment_clique' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Mub6.Numerical.GraphKernel.raw_frame_has_clique' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Mub6.Numerical.GraphKernel.raw_five_pair_has_graph_pair' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Mub6.Numerical.GraphKernel.checked_clique_excludes_raw_frame' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Mub6.Numerical.GraphKernel.checked_pair_excludes_raw_five_pair' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Mub6.Numerical.GraphKernel.normalized_flat_basis_gives_five_frame' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Mub6.Numerical.GraphKernel.normalized_flat_pair_gives_raw_pair' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Mub6.Numerical.GraphKernel.checked_uniform_pair_excludes_normalized_flat_bases' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

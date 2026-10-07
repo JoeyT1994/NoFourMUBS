@@ -1,0 +1,49 @@
+mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean-completion-20261006/global-bridge/check-quartet-02/QuartetRadianCover.lean:34:17: warning: This simp argument is unused:
+  norm_mul
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [dephase, hu]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean-completion-20261006/global-bridge/check-quartet-02/QuartetRadianCover.lean:79:30: warning: This simp argument is unused:
+  h0
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [quartetRayPhases, h1, Complex.normSq_mul, h]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean-completion-20261006/global-bridge/check-quartet-02/QuartetRadianCover.lean:93:31: warning: This simp argument is unused:
+  show (0 : Fin 4) = 0 from rfl
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [quartetRayPhases, if_true, show (1 : Fin 4) ≠ 0 from by decide, if_false,
+    show (1 : Fin 4) = 1 from rfl]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean-completion-20261006/global-bridge/check-quartet-02/QuartetRadianCover.lean:94:51: warning: This simp argument is unused:
+  show (1 : Fin 4) = 1 from rfl
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [quartetRayPhases, show (0 : Fin 4) = 0 from rfl, if_true, show (1 : Fin 4) ≠ 0 from by decide,
+    if_false]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+'Mub6.GlobalBoxCover20261006.phaseOverlap_normSq_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Mub6.GlobalBoxCover20261006.phaseOverlap_norm_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Mub6.GlobalBoxCover20261006.dephase_unit' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Mub6.GlobalBoxCover20261006.dephase_first_row' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Mub6.GlobalBoxCover20261006.dephase_first_column' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Mub6.GlobalBoxCover20261006.quartetRayPhases_unit' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Mub6.GlobalBoxCover20261006.dephasedQuartet_isMUB' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Mub6.GlobalBoxCover20261006.dephasedQuartet_phaseOverlap' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Mub6.GlobalBoxCover20261006.quartet_has_dephased_phase_edge' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Mub6.GlobalBoxCover20261006.quartet_reaches_radian_root' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Mub6.GlobalBoxCover20261006.quartet_reaches_radian_frontier' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Mub6.GlobalBoxCover20261006.empty_radian_forest_noFour' depends on axioms: [propext, Classical.choice, Quot.sound]
+theorem Mub6.GlobalBoxCover20261006.empty_radian_forest_noFour : ∀
+  (t : CertifiedTree QuartetPhasePopulation (radianRoot 4)), t.frontier = [] → NoFourMUB6 :=
+fun t he a => Exists.casesOn a fun B hB => CertifiedTree.empty_excludes t he (quartet_reaches_radian_root hB)
+def Mub6.NoFourMUB6 : Prop :=
+¬∃ B, IsMUBQuartet B
+def Mub6.IsMUBQuartet : (Fin 4 → BasisMatrix) → Prop :=
+fun B => (∀ (a : Fin 4), IsOrthonormalBasis (B a)) ∧ ∀ (a b : Fin 4), a ≠ b → IsUnbiased (B a) (B b)

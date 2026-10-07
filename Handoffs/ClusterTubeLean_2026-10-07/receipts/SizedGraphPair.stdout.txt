@@ -1,0 +1,12 @@
+mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/cluster-tube-graph/check-sized-pair-01/SizedGraphPair.lean:71:0: warning: automatically included section variable(s) unused in theorem `Mub6.Numerical.GraphKernel.hasPairSized_five_iff`:
+  [Fintype V]
+  [DecidableEq V]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype V] [DecidableEq V] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+'Mub6.Numerical.GraphKernel.checkPairSized_sound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Mub6.Numerical.GraphKernel.hasPairSized_five_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Mub6.Numerical.GraphKernel.checkPairSized_five_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Mub6.Numerical.GraphKernel.checkPairSized_split_literal' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Mub6.Numerical.GraphKernel.checkPairSized_six_sound' depends on axioms: [propext, Classical.choice, Quot.sound]

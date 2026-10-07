@@ -1,0 +1,67 @@
+{
+  "reviewer": "seed0024_local",
+  "status": "PASS_SCOPED_INDEPENDENT_REVIEW",
+  "modules": [
+    {
+      "module": "CentreProjectorLabel",
+      "source": "cluster-tube-amplitude/monomial-bridge/centre-interface/CentreProjectorLabel.lean",
+      "source_sha256": "9c9903f033ce800d9dd4aa6d6497cd8a455912a2ff66854fad48d37ebe1dbfd4",
+      "check": "cluster-tube-amplitude/monomial-bridge/centre-interface/check-label-01",
+      "receipt_sha256": "e09da8b5d310fc67209a21c43efbff4b2675121aa21ea7ff6a5f8ccf918213f0",
+      "stdout_sha256": "45edda52e6fd0248561c130fac90645c142362ee882222d5b3b8d5a652a394ba",
+      "theorems": 5,
+      "source_snapshot_receipt_match": true,
+      "standard_axioms_only": true
+    },
+    {
+      "module": "CentreLabelSoundness",
+      "source": "cluster-tube-amplitude/monomial-bridge/centre-interface/CentreLabelSoundness.lean",
+      "source_sha256": "1c5116403563eb1c360ca9ea50e3d263fa2ede086ae706a26d7860e0d194f0b4",
+      "check": "cluster-tube-amplitude/monomial-bridge/centre-interface/check-soundness-01",
+      "receipt_sha256": "4f98d5f0c9082c4ef9b4ef28c4fbcf9714a40258519314b5ac990de3f333e32e",
+      "stdout_sha256": "a13154475c0718bca7fb82bdb1d0e01c232083c60c5a5a3b49774897890b710a",
+      "theorems": 3,
+      "source_snapshot_receipt_match": true,
+      "standard_axioms_only": true
+    },
+    {
+      "module": "RayDomainLabelAssignment",
+      "source": "cluster-tube-amplitude/monomial-bridge/centre-interface/RayDomainLabelAssignment.lean",
+      "source_sha256": "c4b25adf68ae234cb9ba7165827e35975e3b79448c2c20cbf18b2b0fa1dbd18b",
+      "check": "cluster-tube-amplitude/monomial-bridge/centre-interface/check-assignment-01",
+      "receipt_sha256": "d39c70a20cf1789ee969b4193948309a0582ff0c3ba0d809651c02fda9c5c2da",
+      "stdout_sha256": "2204b588206ae9bcc03506d043b8a827a7522d16d96adb0aacb8c56835f79145",
+      "theorems": 2,
+      "source_snapshot_receipt_match": true,
+      "standard_axioms_only": true
+    },
+    {
+      "module": "ApproximateF6GraphExclusion",
+      "source": "cluster-tube-amplitude/monomial-bridge/centre-interface/ApproximateF6GraphExclusion.lean",
+      "source_sha256": "5aaf649ff02b487d9d288d4fabc6786271a4e3a24df91d9b77658bea72250194",
+      "check": "cluster-tube-amplitude/monomial-bridge/centre-interface/check-exclusion-01",
+      "receipt_sha256": "502cb57d430f25446984d121f67c19455fa988cf704211170dc8ba4770cb7c19",
+      "stdout_sha256": "4886bf2233b49481d10fdbc253c99833bfe59ba20bda68771cdf06f351a53a96",
+      "theorems": 4,
+      "source_snapshot_receipt_match": true,
+      "standard_axioms_only": true
+    }
+  ],
+  "theorems": 14,
+  "fresh_compile_by_reviewer": false,
+  "findings": [
+    "The label is the actual rank-one operator projector distance between normalized raw rays, with radius5/27.",
+    "NormSq of the normalized inner product equals literal raw normSq divided by36, matching exact rational centreProbability.",
+    "Orthogonal and unbiased compatibility consume actual unit vectors and the correct raw overlap0 and normSq6 normalizations; all equal-label cases are retained.",
+    "Generic domain assignments use orthogonal-loop impossibility for within-family injection, unbiased-loop impossibility for disjoint images, and all cross pairs.",
+    "The final finite no-sixpair contradiction consumes the same literal graphs proved by the split certificate.",
+    "The retained36 conclusion retains the single explicit complete approximate-F6 centre-ball cover premise; there is no hidden use of a numerical coverage claim."
+  ],
+  "limits": [
+    "This review covers these four modules and their displayed joins; inherited dependencies retain separate scoped receipts/reviews.",
+    "The continuous cover is not proved by these modules. The conditional theorem is not an unconditional physical box closure."
+  ],
+  "formal_box_closures": 0,
+  "global_no_four_closure": false,
+  "registry_changed": false
+}
