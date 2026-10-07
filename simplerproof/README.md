@@ -14,6 +14,8 @@
 | Branch layer removed by the cut | about 13 % |
 | Proving Step 2 through the chart | F ∩ {0 < R < 5} ≈ 3.1·10⁻⁴ of T⁴, about 21M level-9 cells, the same order as what it removes |
 
+**Tested 7 Oct: the band certificate as a coarse prune.** It fails on 6 of 6 generic level-7 cells of Ω (min_rad within 30–300 s), because its target is sup R(E) over the whole cell. A per-sub-box target would be needed, and the Taylor-model D₀ prune already does that.
+
 So the only real lever is the near-F6 shell 1/30 < d_F ≲ 0.07, i.e. a wider tube with c₀ ≈ 20. That needs both an F6-centred cover and the global lemma at c₀ = 20, and both are open research.
 
 This folder builds the short, human-readable proof. It points to every result the proof uses and records the status of each step. The long proof of record (the full campaign) is mapped in [`../PROOF_MAP.md`](../PROOF_MAP.md). It stays as an independent check.
