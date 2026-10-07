@@ -11,9 +11,9 @@ This folder builds the short, human-readable proof. It points to every result th
 | Step | Statement | Status | Where |
 |---|---|---|---|
 | 1. F6 tube | No quartet edge lies within column-projector distance 1/30 of the F6 orbit. | ✅ proved; integer cover plus graph, no reconstruction inputs | [`ProvenResults/FourierNeighbourhood/ClusterTube`](../ProvenResults/FourierNeighbourhood/ClusterTube/README.md) |
-| 2. Averaging lemma | If H is not within 1/30 of the F6 orbit, some 3×3 corner of H has R ≥ c₀ (target c₀ = 5; conjectured sharp value 144 sin²(6 arcsin 1/30) ≈ 5.69). | ⏳ identity and local law proved exactly; global constant numerical | [`../RouteC/averaging/REPORT.md`](../RouteC/averaging/REPORT.md), [`HANDOFF_averaging_lemma.md`](HANDOFF_averaging_lemma.md) |
+| 2. Averaging lemma | If H is not within 1/30 of the F6 orbit, some 3×3 corner of H has R ≥ c₀ (target c₀ = 5; conjectured sharp value 144 sin²(6 arcsin 1/30) ≈ 5.69). | ⏳ identity, local law, Fourier families and the 3/10 neighbourhood of F6 proved; global constant open | [`../RouteC/averaging/REPORT.md`](../RouteC/averaging/REPORT.md), [`HANDOFF_averaging_lemma.md`](HANDOFF_averaging_lemma.md) |
 | 3. One chart | Take E to be a corner of H with maximal R, so R(E) ≥ c₀. Order it into F. Every completion of E(θ) is one of finitely many explicit pairings: the matched sheets H₊ and H₋, or Tao's exceptional completion, which [BW] excludes. The reconstruction is well conditioned because R ≥ c₀ > 0. | ✅ MC1–MC5, relative to the classification paper | [`MinimalConstruction/Proofs`](../MinimalConstruction/Proofs/README.md), [`NumericalCampaign/REDUCTION.md`](../NumericalCampaign/REDUCTION.md) |
-| 4. MUB exclusion | Cover Ω = F ∩ {R ≥ c₀} by cells. Each cell either holds no maximal-corner seed (a cheap prune: sup R < c₀, or some corner of H₊ beats E) or passes the cluster-cover certificate. | ⏳ prototype running | [`ProvenResults/CommonRays/ClusterCover`](../ProvenResults/CommonRays/ClusterCover/PROOF.md), [`step4/`](step4/) |
+| 4. MUB exclusion | Cover Ω = F ∩ {R ≥ c₀} by cells. Each cell either holds no maximal-corner seed (a cheap prune: sup R < c₀, or some corner of H₊ beats E) or passes the cluster-cover certificate. | ⏳ measured: about 10⁵ core-h in θ-cells (see below); cite the main campaign instead | [`ProvenResults/CommonRays/ClusterCover`](../ProvenResults/CommonRays/ClusterCover/PROOF.md), [`step4/`](step4/) |
 | 5. Conclusion | Every H is excluded by Step 1 or Step 4. ∎ | | |
 
 **The cluster-cover theorem used in Step 4.** Cover every ray unbiased to I and H by labels, each of capacity one, meaning |x*y|² > 1/6 inside a label. Then search the orthogonality and unbiasedness graphs exhaustively for two disjoint 6-cliques with every cross pair an unbiasedness edge. If no such pair exists, no two further bases fit. This is the same idea as Stage C of openai/math.
@@ -29,18 +29,45 @@ These are recorded in `RouteC/averaging/`.
 
 **Extremal curve.** Along F6^(2)(a, −a), max_c R = 144 sin²(3a) exactly. Across 13,405 samples, nothing falls below this curve.
 
-## Expected size
+## Measured cost structure (7 Oct 2026)
 
-**Volume of Ω.** At c₀ = 5, Ω is about 4.2·10⁻³ of T⁴, roughly 1.1·10⁶ level-7 cells. Most of these should exit by the cheap prune.
+**Step 4 in θ-coordinates is not small.** The runs were on rusty, in `simplerproof_step4/` (`step4_prod.jl`, then `step4_l7.jl`).
 
-**Expected exclusions.** Maximal-corner seeds occupy D₀ ∩ F ∩ {R ≥ 5}, about 9·10⁻⁵ of T⁴. That gives roughly 2·10⁴ cluster-cover certificates at level 7 (~1,000 s each). For comparison, openai/math reports 22,379 balls.
+| | c₀ = 20 | c₀ = 5 |
+|---|---|---|
+| Level-5 job cells meeting Ω | 76,588 | 76,588 |
+| Finished as whole level-5 cells | 30,882 (19,180 covers; 68 timeouts) | 18,860 (6,523 covers) |
+| Level-7 cells left after the cheap prune | 3,341,808 | 4,398,736 |
+| Level-7 cells finished before the stop | 72,599: mean ≥ 5.6 s, 5.2 % need covers, about 2.7 % take > 45 min | 47,876: mean 8 s; singular cells persist to level 11 |
 
-**Measured so far.** Single level-7 cells certified 10 out of 10 (`../RouteC/results/coarse_cells_2026-10-07.txt`). The Step 4 prototype measures the real split between prunes and covers.
+- **Extrapolated cost at c₀ = 20:** about 10⁵ core-hours and about 2·10⁵ covers. The runs were stopped.
+- **Where the time goes:** proving cell by cell that E is not the maximal corner, because Ω is about 45× larger than D₀. Step 4 is then essentially the main campaign's regular part (8.65M certified work cells) restricted to R ≥ c₀, so it duplicates certified work.
+
+**The branch layer is dominated by the band 5 ≤ R < 20.** This is a float survey of the 45,713,468 post-E rows, taking max R(E) over each box's centre and 16 vertices. It is an estimate, not a rigorous bound.
+
+| max R(E) on the box | Rows |
+|---|---:|
+| < 0 | 0.10M |
+| 0 to 1 | 2.78M |
+| 1 to 5 | 2.92M |
+| **5 to 20** | **38.37M** (all class (1,2,2,4), the "shoulder") |
+| ≥ 20 | 1.54M |
+
+**Conclusion.** A maximal corner with 5 ≤ R < 20 means the whole matrix has max R < 20. On the extremal curve max R = 144 sin²(6 arcsin d_F), which puts it at d_F ≲ 0.065 from F6. The expensive part of both proofs, the 42.7M frontier rows and Step 4's straddling cells, is therefore the near-F6 shell 1/30 < d_F ≲ 0.07.
+
+**Recommended shape of the short proof.**
+- **Step 1′.** Widen the F6 tube to d_F ≤ 0.07. This needs an F6-centred cover, where the chart is smooth and well conditioned (the openai-style Stage C near F6). The single-configuration ClusterTube saturates just above 1/30.
+- **Step 2′.** Prove the averaging lemma with c₀ = 20 at d_F ≥ 0.07. The sharp value there is about 24, so the margin is about 20%.
+- **Effect.** About 97% of the branch layer and all near-F6 straddling cells drop out (measured: with c₀ = 20 the persistent singular cells resolve by level 10). What remains is D₀ ∩ F ∩ {R ≥ 20} plus 1.5M branch rows, all already certified by the main campaign.
 
 ## Open items
 
-1. **Step 2, global constant.** Either an analytic quantitative MC1 (see the handoff) or a certified computation on the band 0 < R < c₀ outside the F6 tube. The computational route is prototyped in [`../RouteC/band/`](../RouteC/band/).
-2. **Step 4 production.** Size the run from the prototype, then run it.
+1. **Step 2, global constant.** In progress in [`averaging_lemma/`](averaging_lemma/), which a separate agent is writing. Proved so far:
+   - the cutoff-5 implication within phase distance 3/10 of F6;
+   - the sharp Fourier-family version;
+   - a global version at a tiny explicit cutoff only.
+2. **Choose (tube radius, c₀).** The measurements above favour (0.07, 20) over (1/30, 5). That needs Step 1′ (an F6-centred cover) and Step 2′.
+3. **Step 4.** Cite the main campaign's certified work cells and ledger restricted to R ≥ c₀, rather than recomputing them.
 3. **Tao input.** Settle the citation: [BW, §4.1] versus the local `ExceptionalEndpoints/Tao` packet.
 4. **Write-up.** The draft is at [`../paper/`](../paper/).
 
