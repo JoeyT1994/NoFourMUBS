@@ -1,0 +1,16 @@
+{
+  "module": "DirectControlExclusion",
+  "track": "exact-mean-direct-checker",
+  "source_sha256": "1094e3fe42e77b0255565e8bf471442ac4701df5b46bfb2244f6e53abdbfbd16",
+  "object_sha256": "99b4f5b52a2f5077c7aaa60e416995c3130c0f7d1cc7fe1b2bba37a9080ff9d0",
+  "result_sha256": "5a7d6535cd9da8dfa6e242d3ae0d0a0b1bda7d25e08dddc0d51a7e56bd236ca8",
+  "success": true,
+  "axiom_output_file": "checks/DirectControlExclusion.stdout.txt",
+  "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+  ],
+  "elapsed_seconds": 15.72756537499663,
+  "local_result_kind": "guarded_kernel_check"
+}

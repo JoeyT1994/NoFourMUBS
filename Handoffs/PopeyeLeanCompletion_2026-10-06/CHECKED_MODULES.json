@@ -1,6 +1,182 @@
 {
   "additional_checked_modules": [
     {
+      "module": "ExactCutpoint",
+      "track": "exact-mean-direct-checker",
+      "source_sha256": "6e2c164d116cb89ecb11906c09de4e05598a57541f949117e482b53ee92424e0",
+      "object_sha256": "1f3175fe27a9736b5c56ad67c879395264224601fe019982fb0a9babc834056f",
+      "result_sha256": "6828bcd81390cb6fbb6c1b10992952f5baaa800f09ceb71d989c31dea97a67e0",
+      "success": true,
+      "axiom_output_file": "checks/ExactCutpoint.stdout.txt",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "elapsed_seconds": 2.089739000002737,
+      "local_result_kind": "guarded_kernel_check"
+    },
+    {
+      "module": "ControlStages1",
+      "track": "exact-mean-direct-checker",
+      "source_sha256": "db5a0a4c63db9abf816988dcbe421bbb53b2587eb271f95804d1900f499dc704",
+      "object_sha256": "ab9310164af55ccbc1d0dfa3bdcf06db7dd00a1efb741d20ae0cb888b0ae7c10",
+      "result_sha256": "b391bd7f61070fb8691f664f6c8b35a057cd7f74adb700a449c560b6ae0766a9",
+      "success": true,
+      "axiom_output_file": "checks/ControlStages1.stdout.txt",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "elapsed_seconds": 14.117087417005678,
+      "local_result_kind": "guarded_kernel_check"
+    },
+    {
+      "module": "ControlStages2",
+      "track": "exact-mean-direct-checker",
+      "source_sha256": "51b13da83ca14e53d51a39d320552f23da6f564410bf8d366ef41ece72902c9d",
+      "object_sha256": "0b7fa811c70f5dcabf3dca16b041575b87fd4c5c6430c0790cd52faad0ed4fbb",
+      "result_sha256": "d74862200b6ab73a89d95de902768c20a516da25ddb4970e0ea788a87416c7d2",
+      "success": true,
+      "axiom_output_file": "checks/ControlStages2.stdout.txt",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "elapsed_seconds": 9.959488708002027,
+      "local_result_kind": "guarded_kernel_check"
+    },
+    {
+      "module": "ControlStages3",
+      "track": "exact-mean-direct-checker",
+      "source_sha256": "6abcb9341a9d76671e9b34d53749046e539e6bcca6e363f33eb93bf89cd2942b",
+      "object_sha256": "0af1ced71a9af31e21b77f69c8de7fd32d965440bf5c41da84e0bd16b58c2f2c",
+      "result_sha256": "84a8432531abac4d8ee6887213c35e9da4fb66443ad89ff179e9fc61613b08d2",
+      "success": true,
+      "axiom_output_file": "checks/ControlStages3.stdout.txt",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "elapsed_seconds": 12.04040366699337,
+      "local_result_kind": "guarded_kernel_check"
+    },
+    {
+      "module": "DirectControlExclusion",
+      "track": "exact-mean-direct-checker",
+      "source_sha256": "1094e3fe42e77b0255565e8bf471442ac4701df5b46bfb2244f6e53abdbfbd16",
+      "object_sha256": "99b4f5b52a2f5077c7aaa60e416995c3130c0f7d1cc7fe1b2bba37a9080ff9d0",
+      "result_sha256": "5a7d6535cd9da8dfa6e242d3ae0d0a0b1bda7d25e08dddc0d51a7e56bd236ca8",
+      "success": true,
+      "axiom_output_file": "checks/DirectControlExclusion.stdout.txt",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "elapsed_seconds": 15.72756537499663,
+      "local_result_kind": "guarded_kernel_check"
+    },
+    {
+      "module": "DirectControlAudit",
+      "track": "exact-mean-direct-checker",
+      "source_sha256": "65c269ace7cd74c915aa97193e875f720d18d4c3f0c88e3d338a6dc332266fe4",
+      "object_sha256": "a16d29cca3587551ce081c0d8fcee6096d88257d2c8049904513190c231223ad",
+      "result_sha256": "95899122adb18cbdd0c28aa578c85df6f92d70300fe810626a9db68557dbdf63",
+      "success": true,
+      "axiom_output_file": "checks/DirectControlAudit.stdout.txt",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "elapsed_seconds": 3.6631116249918705,
+      "local_result_kind": "guarded_kernel_check"
+    },
+    {
+      "module": "ExactPhaseInput",
+      "track": "phase-leaf-integration",
+      "source_sha256": "c34e1b3b4bdfbd2e362f632259be5a061e8ea23cebcec45b465c5acca4eb514f",
+      "object_sha256": "c6ea26ee46d9de5e2c9fba1ecef9c08d7eb38a14fb7cbd993bb9f98a67c25827",
+      "result_sha256": "f9700f9cdd1f57c2ac741520722871f271c3079f08a179c6e962971b1c4b3c76",
+      "success": true,
+      "axiom_output_file": "checks/ExactPhaseInput.stdout.txt",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "elapsed_seconds": 12.014394707992324,
+      "local_result_kind": "guarded_kernel_check"
+    },
+    {
+      "module": "StrictMaximalPhasePopulation",
+      "track": "phase-leaf-integration",
+      "source_sha256": "5e717d421b5af82dd7e6caec14d70444f084e627e5ed47e0b4e8078af030be81",
+      "object_sha256": "27781201edbec9cac34ce6c8b719c5547382c8cb0427c40f559c87507b91260d",
+      "result_sha256": "7d6bd2a9d56a9c304b61d9684b4385b4b6f86af2a3923a657766617a0c9d73aa",
+      "success": true,
+      "axiom_output_file": "checks/StrictMaximalPhasePopulation.stdout.txt",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "elapsed_seconds": 3.6593552499980433,
+      "local_result_kind": "guarded_kernel_check"
+    },
+    {
+      "module": "ExactMeanPhaseMatrix",
+      "track": "phase-leaf-integration",
+      "source_sha256": "a4a0f6669418060bd7b078d765971476a9a97280e74d1ef1220de1f0e60173de",
+      "object_sha256": "404e2de3249c036b5133fb30d1dd072147393a8a81a2b89b849ae073dd2089af",
+      "result_sha256": "95446444def94bdf0b0804872ba688474d48f1698a5f081558c64cb39214bd5e",
+      "success": true,
+      "axiom_output_file": "checks/ExactMeanPhaseMatrix.stdout.txt",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "elapsed_seconds": 4.233233582999674,
+      "local_result_kind": "guarded_kernel_check"
+    },
+    {
+      "module": "ExactMeanPhaseLeaf",
+      "track": "phase-leaf-integration",
+      "source_sha256": "1eb27a3fa3eda11390dbd4b3c35f5a1d421b5e64c3d97d929eeb4dad389a7079",
+      "object_sha256": "22e986b5f1f00e5b33c80d2f03990bc9baf8435cfd3e88c0b4f4aa584f889075",
+      "result_sha256": "1a9610f5d5b8388bcbe7f8e077b0a7dbcd8285d799876c693bf0b923aa71bd9a",
+      "success": true,
+      "axiom_output_file": "checks/ExactMeanPhaseLeaf.stdout.txt",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "elapsed_seconds": 10.650346499998705,
+      "local_result_kind": "guarded_kernel_check"
+    },
+    {
+      "module": "PhaseLeafAudit",
+      "track": "phase-leaf-integration",
+      "source_sha256": "5a8e8a9b8dc9ed893e44bcc491f566dc9d364f8639cf4378dd9d17166bbea3b1",
+      "object_sha256": "d5a6fa06ab8d829f7d41e86fe3effc0b00ec1a0ee46cb95609891f3eb3d4ba2e",
+      "result_sha256": "9570732eaa364f17cef968a0c8ec32c41823a4819c18d9f56084b2d2f6accf18",
+      "success": true,
+      "axiom_output_file": "checks/PhaseLeafAudit.stdout.txt",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "elapsed_seconds": 4.70731679200253,
+      "local_result_kind": "guarded_kernel_check"
+    },
+    {
       "module": "PhysicalPSDPencils",
       "track": "psd-bridge",
       "source_sha256": "300b304833449bd2b0efbf37a7d6c9f44102eb159121cbe32ea062da7754e21d",
@@ -225,6 +401,54 @@
       "local_result_kind": "guarded_kernel_check"
     },
     {
+      "module": "WholeBoxPhase",
+      "track": "../lean-intake-20261006/signed-mean-worker",
+      "source_sha256": "33d82e780a30bae80fe665fde431a7b69e8abc91bbf6e85f22d31845bda829ee",
+      "object_sha256": "90365d16e2d8d71f923fa3f5583a9140b317d8a777b4b8607b646fe10340b8af",
+      "result_sha256": "182d4284351044b767bdb6a63922521b7c8939cf50f9dfc6b0523dc1ac11c68d",
+      "success": true,
+      "axiom_output_file": "checks/WholeBoxPhase.stdout.txt",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "elapsed_seconds": 13.046973625008832,
+      "local_result_kind": "guarded_kernel_check"
+    },
+    {
+      "module": "ExactPhase",
+      "track": "../lean-intake-20261006/signed-mean-worker",
+      "source_sha256": "277ae44563fd7e11714437fc4d220ca5cbf4f5fc2a98fabbc6d40e727d9eb5b2",
+      "object_sha256": "bebbd9620cdc434169d458b4ef56ed418b7ee82401762e7a10062938106a2d02",
+      "result_sha256": "f5b8ca01cfe5d37080fcc84e866bc13e15c33124aad0f08b29b175e220ef6212",
+      "success": true,
+      "axiom_output_file": "checks/ExactPhase.stdout.txt",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "elapsed_seconds": 15.644717375005712,
+      "local_result_kind": "guarded_kernel_check"
+    },
+    {
+      "module": "SharpPhaseTaylor",
+      "track": "../lean-intake-20261006/signed-mean-worker",
+      "source_sha256": "0fea9d84e79c848a110b99a38286b8690ed5f72a0d468910a6215082aa4a7787",
+      "object_sha256": "1f691f75fe36c4b0fc080b12ebc039842859a25eb02a0696a314d1ba9b8854da",
+      "result_sha256": "2dc2d5fd0b7c866d185661d2447e3e4b9273069bd4cb2e71df54393188d5e5c9",
+      "success": true,
+      "axiom_output_file": "checks/SharpPhaseTaylor.stdout.txt",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "elapsed_seconds": 16.73692325000593,
+      "local_result_kind": "guarded_kernel_check"
+    },
+    {
       "module": "CentiradianCover",
       "track": "../lean",
       "source_sha256": "741628e1ff7c42698cd29818f0c8fd503f5a2c9cd95ec827007a38e546a364fa",
@@ -337,9 +561,19 @@
     "ClearedSideMoments",
     "ClosedBoxForest",
     "CoefficientEvaluationAudit",
+    "ControlStages1",
+    "ControlStages2",
+    "ControlStages3",
+    "DirectControlAudit",
+    "DirectControlExclusion",
     "ExactComplexExpr",
+    "ExactCutpoint",
     "ExactInterval",
+    "ExactMeanPhaseLeaf",
+    "ExactMeanPhaseMatrix",
     "ExactMeanTerminal",
+    "ExactPhase",
+    "ExactPhaseInput",
     "ExactSeedEvaluator",
     "ExactSignedMean",
     "FactoredSignedMean",
@@ -356,6 +590,7 @@
     "NativeSignedWords",
     "NativeStableR",
     "NormalizedClearedMoments",
+    "PhaseLeafAudit",
     "PhaseSeedEvaluation",
     "PhysicalMeanClearing",
     "PhysicalNativeMean",
@@ -372,6 +607,7 @@
     "Radius050OrbitGeneratorJoin",
     "Radius050RootOrbits",
     "ReuseBoundaryTransport",
+    "SharpPhaseTaylor",
     "SideGaugeCovariance",
     "SignedCornerPhysical",
     "SignedDeterminantAlgebra",
@@ -389,7 +625,9 @@
     "SignedNumeratorCoeff7",
     "SignedNumeratorCoeff8",
     "SignedNumeratorDefs",
-    "UnitSideMoments"
+    "StrictMaximalPhasePopulation",
+    "UnitSideMoments",
+    "WholeBoxPhase"
   ],
   "dependency_imports_resolved": true,
   "fresh_whole_packet_source_rebuild": false,

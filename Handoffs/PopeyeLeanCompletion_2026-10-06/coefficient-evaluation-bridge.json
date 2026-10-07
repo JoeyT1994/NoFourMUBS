@@ -798,5 +798,11 @@
     ],
     "no_native_or_external_oracle_axioms": true,
     "publication": "Prepared locally for director review; this worker performed no publication or registry change."
-  }
+  },
+  "original_packet_path_mapping": {
+    "lean/": "lean/",
+    "receipts/": "checks/",
+    "reference/": "control-reference/ (direct control packet only)"
+  },
+  "path_mapping_note": "Original records describe their frozen original packet. This additive publication combines their Lean sources, reserializes selected records, and retains original digests for provenance. MANIFEST.sha256 identifies current publication bytes; original manifest hashes identify the preserved source packets."
 }

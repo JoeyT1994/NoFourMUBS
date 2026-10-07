@@ -16,7 +16,9 @@
     "exact_mean_rectangle_checker": "KERNEL_CHECKED_INDEPENDENT_REVIEW_PASS",
     "physical_psd_necessary_tests_including_zero_R": "KERNEL_CHECKED_INDEPENDENT_REVIEW_PASS",
     "actual_maximal_quartet_radian_frontend": "KERNEL_CHECKED_INDEPENDENT_REVIEW_PASS",
-    "radius_finite_geometry_and_real_pi_domain": "KERNEL_CHECKED_INDEPENDENT_REVIEW_PASS_SCOPED"
+    "radius_finite_geometry_and_real_pi_domain": "KERNEL_CHECKED_INDEPENDENT_REVIEW_PASS_SCOPED",
+    "exact_cutpoint_control": "KERNEL_CHECKED_INDEPENDENT_REVIEW_PASS",
+    "phase_input_and_strict_forest_assembly": "KERNEL_CHECKED_INDEPENDENT_REVIEW_PASS_SCOPED"
   },
   "remaining_non_box_obligations": [
     "Actual all-critical/zero-invariant classification and exclusions",
@@ -33,5 +35,16 @@
     "NW seed phase coordinates and side-chart phase coordinates are different domains",
     "Native numerical closure does not imply Lean rejection",
     "The exact mean checker may require finer subdivisions than the native Taylor checker"
-  ]
+  ],
+  "independent_control_boxes_certified": 1,
+  "final_entrypoint": {
+    "declaration": "ExactMeanChecker20261006.noFour_of_strict_forest_and_zero",
+    "conclusion": "Mub6.NoFourMUB6",
+    "unsupplied_arguments": [
+      "ZeroMaximalQuartetsExcluded",
+      "A CertifiedTree StrictMaximalPopulation (radianRoot 4)",
+      "Proof that this concrete tree has empty frontier"
+    ],
+    "independent_review_sha256": "c9bb904a7fe85306fdf90675f0d661bcd9a5038516c9535cc5b04bedadcccc84"
+  }
 }

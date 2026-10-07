@@ -1,0 +1,16 @@
+'ExactMeanChecker20261006.quartet_reaches_strict_or_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ExactMeanChecker20261006.noFour_of_strict_forest_and_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+theorem ExactMeanChecker20261006.noFour_of_strict_forest_and_zero : ExactMeanChecker20261006.ZeroMaximalQuartetsExcluded →
+  ∀
+    (tree :
+      Mub6.GlobalBoxCover20261006.CertifiedTree ExactMeanChecker20261006.StrictMaximalPopulation
+        (Mub6.GlobalBoxCover20261006.radianRoot 4)),
+    tree.frontier = [] → Mub6.NoFourMUB6 :=
+fun zero_excluded tree closed a =>
+  Exists.casesOn a fun B hB =>
+    Or.casesOn (ExactMeanChecker20261006.quartet_reaches_strict_or_zero hB)
+      (fun hs => Mub6.GlobalBoxCover20261006.CertifiedTree.empty_excludes tree closed hs) fun hz =>
+      Exists.casesOn hz fun D h =>
+        And.casesOn h fun hD right =>
+          And.casesOn right fun hH right =>
+            And.casesOn right fun hd right => And.casesOn right fun hm hzero => zero_excluded D hD hH hd hm hzero

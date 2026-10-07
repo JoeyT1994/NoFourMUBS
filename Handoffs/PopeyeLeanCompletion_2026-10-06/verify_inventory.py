@@ -15,6 +15,9 @@ for name,digest in expected.items():
  if p.is_symlink() or hashlib.sha256(p.read_bytes()).hexdigest()!=digest:raise SystemExit('Hash mismatch: '+name)
 modules={'.'.join(p.relative_to(root/'lean').with_suffix('').parts):p for p in (root/'lean').rglob('*.lean')}
 for module,p in modules.items():
+ receipt=json.loads((root/'checks'/(module+'.json')).read_text())
+ if receipt['source_sha256']!=hashlib.sha256(p.read_bytes()).hexdigest():raise SystemExit('Source/check mismatch: '+module)
+ if not receipt.get('success',receipt.get('returncode')==0):raise SystemExit('Unsuccessful module: '+module)
  for dep in re.findall(r'^import\s+(\S+)',p.read_text(),re.M):
   if not dep.startswith(('Mathlib.','Lean.','Std.')) and dep not in modules:raise SystemExit('Missing local import '+dep)
 status=json.loads((root/'STATUS.json').read_text())

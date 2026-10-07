@@ -1,0 +1,104 @@
+{
+  "original_review_sha256": "2e8a345b26944100c02e53d679eae0bf75dfd7943e5114b601779e6f057369bf",
+  "review": {
+    "schema": "mub6-independent-direct-control-review-v1",
+    "status": "PASS_SCOPED_POSITIVE_WIDTH_PHYSICAL_EXCLUSION",
+    "primary_author": "signed_mean_lean",
+    "independent_reviewer": "root",
+    "reviewer_authored_primary_modules": false,
+    "authored_dependency_boundary": "The reviewer authored the earlier, independently reviewed expression interpreter; the five primary cutpoint/control modules were authored by another worker.",
+    "primary_modules": [
+      {
+        "module": "ExactCutpoint",
+        "source_sha256": "6e2c164d116cb89ecb11906c09de4e05598a57541f949117e482b53ee92424e0",
+        "object_sha256": "1f3175fe27a9736b5c56ad67c879395264224601fe019982fb0a9babc834056f",
+        "result_sha256": "6828bcd81390cb6fbb6c1b10992952f5baaa800f09ceb71d989c31dea97a67e0",
+        "check": "check-cutpoint-01",
+        "wall_seconds": 2.089739000002737,
+        "peak_tree_rss_bytes": 1426964480
+      },
+      {
+        "module": "ControlStages1",
+        "source_sha256": "db5a0a4c63db9abf816988dcbe421bbb53b2587eb271f95804d1900f499dc704",
+        "object_sha256": "ab9310164af55ccbc1d0dfa3bdcf06db7dd00a1efb741d20ae0cb888b0ae7c10",
+        "result_sha256": "b391bd7f61070fb8691f664f6c8b35a057cd7f74adb700a449c560b6ae0766a9",
+        "check": "check-stages1-02",
+        "wall_seconds": 14.117087417005678,
+        "peak_tree_rss_bytes": 2243624960
+      },
+      {
+        "module": "ControlStages2",
+        "source_sha256": "51b13da83ca14e53d51a39d320552f23da6f564410bf8d366ef41ece72902c9d",
+        "object_sha256": "0b7fa811c70f5dcabf3dca16b041575b87fd4c5c6430c0790cd52faad0ed4fbb",
+        "result_sha256": "d74862200b6ab73a89d95de902768c20a516da25ddb4970e0ea788a87416c7d2",
+        "check": "check-stages2-02",
+        "wall_seconds": 9.959488708002027,
+        "peak_tree_rss_bytes": 2241232896
+      },
+      {
+        "module": "ControlStages3",
+        "source_sha256": "6abcb9341a9d76671e9b34d53749046e539e6bcca6e363f33eb93bf89cd2942b",
+        "object_sha256": "0af1ced71a9af31e21b77f69c8de7fd32d965440bf5c41da84e0bd16b58c2f2c",
+        "result_sha256": "84a8432531abac4d8ee6887213c35e9da4fb66443ad89ff179e9fc61613b08d2",
+        "check": "check-stages3-01",
+        "wall_seconds": 12.04040366699337,
+        "peak_tree_rss_bytes": 2221801472
+      },
+      {
+        "module": "DirectControlExclusion",
+        "source_sha256": "1094e3fe42e77b0255565e8bf471442ac4701df5b46bfb2244f6e53abdbfbd16",
+        "object_sha256": "99b4f5b52a2f5077c7aaa60e416995c3130c0f7d1cc7fe1b2bba37a9080ff9d0",
+        "result_sha256": "5a7d6535cd9da8dfa6e242d3ae0d0a0b1bda7d25e08dddc0d51a7e56bd236ca8",
+        "check": "check-control-exclusion-02",
+        "wall_seconds": 15.72756537499663,
+        "peak_tree_rss_bytes": 2134753280
+      }
+    ],
+    "audited_theorem_outputs": 174,
+    "only_standard_axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "findings": [],
+    "semantic_findings": [
+      "Every cutpoint checks both complex components against the exact rational range of a smaller expression; no output bound is taken on trust.",
+      "Each stage evaluation is identified with a specified actual seed function, and its semantic containment is proved from the same four input rectangles.",
+      "The final literal scalar outputs are exactMeanA, exactMeanBeta, exactD and exactSeedR at pair2; K/H derivative symbols are algebraic expressions, not calculus derivatives.",
+      "The two signed decisions use one actual physicalSideSign; no horizontal/vertical matching is inferred.",
+      "Positive R is derived uniformly from the box and the exact stableR/physical equality; it is not a premise of control_excludes.",
+      "Independent fresh Lean review confirms strictly positive rectangle widths, a unit-modulus seed center in all rectangles, and strictly positive R there, ruling out an empty-domain or negative-R control.",
+      "The final physical theorem assumes only Physical, Dephased, Maximal and seed-entry membership. A physical counterexample satisfying these premises is ruled out."
+    ],
+    "control_geometry": {
+      "center": [
+        "1",
+        "i",
+        "-3/5+(4/5)i",
+        "-i"
+      ],
+      "component_half_width": "1/1000000",
+      "metric": "Separate real/imaginary rectangles in the four complex seed entries",
+      "radian_radius_claim": false,
+      "external_campaign_id": null
+    },
+    "fresh_review": {
+      "module": "DirectControlReview",
+      "source_sha256": "bd65ed513055f322e5e3462d82791dd3564e5c8810aa5778484c11fd9f6bf1fb",
+      "object_sha256": "38e427913edb0ab98d3658299d5a6ac2dd1937269e37d59e23f0854923dc480a",
+      "result_sha256": "30b8c84f66143c7dedc1d59060396f5c670450e91a75a7e63fe5586555fb1e60",
+      "success": true,
+      "declarations": [
+        "positiveWidth",
+        "containsUnitSeed",
+        "noPhysicalMaximalCarrier"
+      ]
+    },
+    "limits": [
+      "One independent control, not an imported cluster box and no campaign-count increment.",
+      "No entire radius-0.05 theorem or global NoFourMUB6 theorem.",
+      "The generator proposes one control certificate; it is not a production campaign importer.",
+      "Source-only fresh full Mathlib rebuild remains outside scope."
+    ]
+  }
+}
