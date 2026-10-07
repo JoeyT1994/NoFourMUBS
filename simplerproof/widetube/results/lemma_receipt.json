@@ -1,0 +1,21 @@
+{
+ "status": "PASS",
+ "rho_L": 0.55,
+ "rho_T": 0.450953762461894,
+ "c0_certified": 26.28326263617342,
+ "roots": 5670,
+ "leaves": {
+  "tube": 37172,
+  "outside": 217522,
+  "corner": 382446
+ },
+ "min_corner_lower_sqrtR": 5.126720456215008,
+ "cpu_seconds": 4647,
+ "dF_radius_for_rho_L": 0.09138,
+ "sources": {
+  "cells.py": "6cce5dbf8ac0cc808cf75066ef6826aabb3ccc2aa6a18239a0990a336b086d16",
+  "lemma_cells.py": "6303f1567dfa9c556b3d3a2c5a8cbdea19f478a5d316089a9f31c9e243225d80"
+ },
+ "statement": "H ~ F o e^{iu}, u horizontal, ||u|| <= 0.55  =>  ||u|| <= 0.4510 (wide tube) or max_c R_c(H) >= 26.28",
+ "replay": "python3 lemma_cells.py run 0.55 20 0.012 W NW OUTDIR"
+}

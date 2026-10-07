@@ -79,3 +79,34 @@ No reconstruction or MC inputs are used.
 
 - **Short proof.** The theorem moves Step 1 of the short proof from radius 1/30 to radius 0.075. The averaging lemma then needs only c₀ ≈ 20–27 (sharp value 144·sin²(6·arcsin 0.075) ≈ 27.2) instead of c₀ = 5.
 - **The shoulder.** Its maximal corners have 5 ≤ R < 20, which is the band 1/30 < d_F ≲ 0.064, so it falls inside this tube.
+
+## Local averaging lemma at the wide radius (PASS, 8 Oct)
+
+**Statement.** Let H be equivalent to F ∘ e^{iu}, with u horizontal and ‖u‖ ≤ ρ_L = 0.55. Then either ‖u‖ ≤ 0.451, which puts H in the wide tube so it is not a quartet edge, or max_c R_c(H) ≥ 26.28.
+
+**Consequence.** By the gauge lemma, d_F(H) ≤ 0.09138 implies ‖u‖ ≤ 0.55. Hence:
+
+> **d_F(H) ≤ 0.0914 and M(H) < 26 imply that H is not a quartet edge.**
+
+**Method** (`lemma_cells.py`):
+- The same normal-form cells as the tube, over the 0.55-ellipsoid, restricted to its fundamental domain.
+- A cell is accepted if it lies inside the tube, or if a corner A has |2 Im q(B)| ≥ √c₀ on the whole cell. Here B is the block on the same rows as A with the complementary columns, so R(A) = (2 Im q(B))².
+- The corner bound is a mean-value form: the exact value at the centre, minus a gradient enclosure times ‖Δφ_B‖₂.
+
+**Run.**
+
+| Quantity | Value |
+|---|---|
+| Root cubes | 5,670, all accepted |
+| Cells closed by a corner bound | 382,446 |
+| Cells inside the tube | 37,172 |
+| Smallest certified √R | 5.127 |
+| CPU time | 1.3 h |
+
+Receipt: [`results/lemma_receipt.json`](results/lemma_receipt.json).
+
+**What remains for the short proof** is one global confinement statement:
+
+> **M(H) < 26 implies d_F(H) ≤ 0.0914.**
+
+Numerically this holds with a wide margin. On the extremal curve, M at d_F = 0.0914 is about 39. Beyond d_F = 0.1, the minimum non-Tao M sampled so far is above 46.

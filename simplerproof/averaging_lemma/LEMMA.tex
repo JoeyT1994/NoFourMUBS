@@ -1,0 +1,613 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newcommand{\ii}{\mathrm i}
+\newcommand{\Span}{\operatorname{span}}
+\newcommand{\perm}{\operatorname{perm}}
+\title{A sharp Fourier-family bound for the averaging lemma}
+\author{Research note}
+\date{7 October 2026}
+\begin{document}
+\maketitle
+\noindent\textbf{Status.} The desired implication for \emph{all} order-six
+Hadamards, $d_F(H)\ge 1/30\Rightarrow M(H)\ge5$, remains unproved here.
+The follow-up \texttt{PRACTICAL\_LOCAL.tex} now proves the actual cutoff-$5$
+implication whenever an equivalent representative has horizontal phase
+distance at most $3/10$ from $F_6$, with an exact-arithmetic certificate.
+Global confinement into that neighbourhood remains open. The extremely
+small-cutoff calculations later in this older note do not meet the practical
+target and are retained only as previous research.
+This note proves its sharp version for the entire Fourier family and its
+transpose, proves that the conjectured global constant is a rigorous upper
+bound, replaces numerical tangent minimization by exact formulas, and gives
+a robust rational replacement for the final irrationality argument in MC1.
+The follow-up below proves global confinement at an explicit small cutoff
+using three-row strips, without importing global MC1. That cutoff remains
+far too small for the proposed practical bound of 5.
+The orbit-distance argument and trigonometric estimate are analytic;
+the finite corner identities are checked by exact arithmetic.
+
+All matrices below are raw Hadamards: their entries have modulus one and
+$HH^*=6I$. Projectors use the normalized columns $H_j/\sqrt6$.
+Let $M(H)=\max_c R_c(H)$, over the 400 positional $3\times3$ corners,
+with the invariant and the monomial-orbit distance $d_F$ defined in the handoff.
+
+\section{The Fourier-family theorem}
+Let $F=(e^{2\pi\ii jk/3})_{j,k=0}^2$, $Z=\operatorname{diag}(1,e^{\ii\alpha},e^{\ii\beta})$, and
+\[
+ N(\alpha,\beta)=\begin{pmatrix}F&F\\FZ&-FZ\end{pmatrix}.
+\]
+We use the repository's exact corner census:
+\begin{align}
+ X&=2\beta-\alpha,&Y&=\alpha+\beta,&T&=X-Y,\notag\\
+ M(N)&=36\bigl(|\sin X|+|\sin Y|+|\sin T|\bigr)^2.\tag{1}
+\end{align}
+The complete multiset is zero 256 times and
+$36(\sin X+s\sin Y+t\sin T)^2$, for $s,t\in\{-1,1\}$,
+each 36 times. If $X,Y\in\pi\mathbb Z$, the matrix is equivalent to $F_6$.
+These statements, including explicit equivalences at the twelve parameter
+points modulo $2\pi$, are independently replayed by \texttt{verify.py}.
+
+\begin{theorem}
+For a Fourier-family matrix, its transpose, or any matrix equivalent to
+either, if $M\le36$, then
+\[
+ \boxed{\quad d_F\le
+ \sin\!\left(\frac16\arcsin\frac{\sqrt M}{12}\right).\quad} \tag{2}
+\]
+Consequently, throughout these families,
+\[
+ d_F\ge\frac1{30}\quad\Longrightarrow\quad
+ M\ge c_*:=144\sin^2\!\left(6\arcsin\frac1{30}\right)
+ =\frac{81966334263296}{14416259765625}>5.
+ \tag{3}
+\]
+The constant $c_*=5.685686550872\ldots$ is attained.
+\end{theorem}
+
+\begin{proof}[Proof of the bound]
+Put $S=\sqrt M/6\le1$. Choose integers $m,n$ such that
+$x=X-m\pi$ and $y=Y-n\pi$ belong to $[-\pi/2,\pi/2]$.
+Since $|\sin x|+|\sin y|\le1$, we have
+$\sin^2|x|+\sin^2|y|\le1$, hence $|x|+|y|\le\pi/2$.
+Therefore all three distances between $0,x,y$ are at most $\pi/2$.
+
+Let $t$ be the largest of these distances. The other two are $u$ and
+$t-u$ for some $0\le u\le t$. Consequently
+\[
+ S=\sin t+\sin u+\sin(t-u)\ge 2\sin t,
+ \qquad t\le\arcsin(S/2). \tag{4}
+\]
+Here $\sin u+\sin(t-u)\ge\sin t$ follows directly from concavity of
+$\sin$ on $[0,\pi/2]$, or from its addition formula.
+
+The reference point
+$\alpha_0=(2n-m)\pi/3$, $\beta_0=(m+n)\pi/3$ is equivalent to $F_6$.
+Write
+\[
+ a=\alpha-\alpha_0=\frac{2y-x}{3},\qquad
+ b=\beta-\beta_0=\frac{x+y}{3}.
+\]
+The span $r=\max(0,a,b)-\min(0,a,b)$ satisfies $r\le2t/3$:
+each of $3a=y+(y-x)$, $3b=x+y$, and $3(a-b)=(y-x)-x$
+has absolute value at most $2t$, using $|x|,|y|,|x-y|\le t$.
+
+Let $\lambda$ be the midpoint of the interval spanned by $0,a,b$.
+Multiply the lower three rows by $e^{-\ii\lambda}$ and the two columns
+of phase class $d_j\in\{0,a,b\}$ by $e^{-\ii(d_j-\lambda)/2}$.
+Relative to $N(\alpha_0,\beta_0)$ every entry now has phase error
+$\pm(d_j-\lambda)/2$, of absolute value at most $r/4$.
+Every normalized column overlap therefore has real part at least
+$\cos(r/4)$. For unit vectors, projector distance is
+$\sqrt{1-|\langle v,w\rangle|^2}$; thus
+\[
+ d_F\le\sin(r/4)\le\sin(t/6)
+ \le\sin\!\left(\frac16\arcsin(S/2)\right).
+\]
+The same entrywise bound controls every normalized row, so it also proves
+the assertion after transposition. No transpose invariance of $d_F$ is
+assumed. Monomial equivalence preserves $d_F$ and $M$.
+
+For (3), if $M>36$ there is nothing to prove. Otherwise invert (2),
+using monotonicity on the displayed angle ranges.
+\end{proof}
+
+\section{Exact attainment, including minimization over the orbit}
+Index rows and columns from zero. Let $t_1$ be one on rows $1,3,5$
+and columns $1,4$, and zero elsewhere; let $t_2$ use columns $2,5$
+instead. Define
+\[
+ H(a)=F_6\odot\exp\bigl(\ii a(t_1-t_2)\bigr).
+\]
+This is an affine Fourier-family Hadamard: same-parity row pairs retain
+their Fourier orthogonality, and for opposite-parity row pairs the terms
+in columns $j,j+3$ cancel. The exact corner census gives
+\[
+ M(H(a))=144\sin^2(3a),\tag{5}
+\]
+with this value appearing 72 times and zero appearing 328 times.
+
+\begin{proposition}
+For $0\le a\le1/12$,
+\[
+ d_F(H(a))=\sin(a/2).\tag{6}
+\]
+In particular the example at $a=2\arcsin(1/30)$ proves both attainment
+in (3) and the rigorous global upper bound
+$\inf_{d_F(H)\ge1/30}M(H)\le c_*$.
+\end{proposition}
+
+\begin{proof}
+Matching the columns to $F_6$ without row phases gives overlaps
+$1$ or $\cos(a/2)$ in absolute value, hence the upper bound.
+
+First fix a matching whose dephased reference is exactly $F_6$, and
+allow arbitrary row phases. Let $A$ and $B$ be the means of their
+phase factors over the even and odd rows, respectively; $|A|,|B|\le1$.
+The two extreme column classes have squared overlaps
+$|A+Be^{\ii a}|^2/4$ and $|A+Be^{-\ii a}|^2/4$.
+Their mean is
+\[
+ \frac{|A|^2+|B|^2+2\operatorname{Re}(\overline A B)\cos a}{4}
+ \le\frac{1+\cos a}{2}=\cos^2(a/2).
+\]
+At least one column thus has projector distance at least $\sin(a/2)$.
+
+It remains to rule out a better permutation of the Fourier reference.
+Suppose such a matching has distance $\epsilon<\sin(a/2)\le a/2$.
+Choose column phases aligning the two normalized columns. Their
+Euclidean distance is at most $\sqrt2\epsilon$, so each raw entry
+differs by at most $\sqrt{12}\epsilon$. Two unit complex numbers with
+chord distance $q$ have circular phase distance at most $\pi q/2$.
+Thus the entrywise phase discrepancies are at most
+$\pi\sqrt3\epsilon$; after dephasing they are at most
+$4\pi\sqrt3\epsilon$.
+
+All entries of a dephased matrix in the $F_6$ orbit are sixth roots
+of unity. Since $H(a)$ is itself dephased and differs in phase from
+$F_6$ by at most $a$, our hypothetical reference differs from $F_6$
+in circular phase by less than
+\[
+ a+4\pi\sqrt3\epsilon\le(1+2\pi\sqrt3)a<1<\pi/3.
+\]
+For the strict inequality use $a\le1/12$, $\pi<22/7$, and
+$\sqrt3<7/4$. Distinct sixth roots are separated by at least $\pi/3$,
+so this reference must dephase to $F_6$. The preceding lower bound
+rules out its being better. The case $a=0$ is immediate.
+
+Finally, $\sin(1/24)\ge1/24-(1/24)^3/6>1/30$, so the required
+$a=2\arcsin(1/30)$ is less than $1/12$.
+\end{proof}
+
+\section{The sharp tangent inequality requires no manifold assumption}
+The linearized dephased Hadamard equations at $F_6$ have kernel
+spanned by $t_1,t_2,t_1^T,t_2^T$. For a tangent
+$v=a t_1+b t_2+c t_1^T+d t_2^T$, put
+\[
+ Q(a,b)=a^2-ab+b^2,\qquad
+ A(a,b)=\max\{|a+b|,|2a-b|,|a-2b|\},
+\]
+and let $r(a,b)$ be the span of $0,a,b$.
+Write $M_2(v)$ for the maximum squared linear signed-corner invariant,
+and $d_1(v)$ for the first-order projector distance, allowing row phases.
+
+\begin{proposition}
+Exactly,
+\begin{align}
+ M_2(v)&=144\bigl(A(a,b)+A(c,d)\bigr)^2,\tag{7}\\
+ d_1(v)^2&=r(a,b)^2/16+Q(c,d)/18,\tag{8}\\
+ \|v_\perp\|^2&=2\bigl(Q(a,b)+Q(c,d)\bigr).\tag{9}
+\end{align}
+Consequently
+\[
+ M_2(v)\ge216\|v_\perp\|^2,\qquad
+ M_2(v)\ge5184d_1(v)^2.\tag{10}
+\]
+Both constants are sharp, for example at $(a,b,c,d)=(1,-1,0,0)$.
+\end{proposition}
+
+\begin{proof}
+For a phase block $B$, set
+$\mathcal D_B=2\operatorname{Im}(\perm(B)\det(B)^2/\prod B_{ij})$.
+On a Hadamard, $M=\max_B\mathcal D_B^2$ by the complementary-block
+identity. Exact differentiation at $F_6$ gives 220 zero forms,
+the forms $12\ell(a,b)$ and $12\ell(c,d)$ each twelve times, and
+all 36 forms $12(\ell(a,b)+\ell'(c,d))$ once, where
+\[
+ \ell,\ell'\in\{\pm(a+b),\ \pm(2a-b),\ \pm(a-2b)\}
+\]
+with the appropriate argument pair substituted. This proves (7).
+
+For (8), remove row and column means. Let
+$h=(-1,1,-1,1,-1,1)^T/2$, and let $u,w$ be the mean-zero versions
+of $(0,a,b,0,a,b)^T$ and $(0,c,d,0,c,d)^T$. Then
+\[
+ v_\perp=hu^T+wh^T,\quad h\perp w,\quad
+ \|h\|^2=3/2,\quad \|w\|^2=4Q(c,d)/3.
+\]
+Optimizing row phases to first order is precisely translating the six
+column vectors of this matrix to minimize their maximum squared norm,
+divided by six. These vectors are the three pairs $u_jh\pm w/2$.
+The four extreme points form a rectangle. Its smallest enclosing ball
+has radius squared $\|h\|^2r(a,b)^2/4+\|w\|^2/4$.
+This proves (8); (9) follows by taking the Frobenius norm.
+
+If three real numbers sum to zero and their maximum absolute value is
+$m$, their sum of squares is at most $2m^2$.
+Applying this to the mean-zero versions of $0,a,b$ gives
+$A(a,b)^2\ge3Q(a,b)$. Also $A(a,b)\ge3r(a,b)/2$.
+Thus
+\begin{align*}
+ 144(A(a,b)+A(c,d))^2
+ &\ge432(Q(a,b)+Q(c,d)),\\
+ 144(A(a,b)+A(c,d))^2
+ &\ge324r(a,b)^2+432Q(c,d)\\
+ &\ge324r(a,b)^2+288Q(c,d)=5184d_1(v)^2.
+\end{align*}
+\end{proof}
+
+These are tangent statements, not estimates on a specified finite
+neighbourhood. They imply the sharp asymptotic lower bound
+$\liminf_{H\to F_6,\,H\not\sim F_6} M(H)/d_F(H)^2\ge5184$.
+Indeed, choose 21 independent Hadamard equations at $F_6$.
+Their implicit-function graph contains every sufficiently close actual
+Hadamard, with normal displacement quadratic in its tangent displacement.
+Taylor expansion gives $M=M_2+O(\|v\|^3)$ and
+$d_F^2=d_1^2+O(\|v\|^3)$; the orbit-separation argument excludes
+different discrete matchings sufficiently near $F_6$.
+This reasoning does not assert that the remaining nine equations vanish
+throughout the graph, or that the Hadamard set is a smooth four-manifold.
+
+\section{A robust simplification of MC1's counting argument}
+For any fixed three rows of a Hadamard, complementary column triples have
+the same $p$: their three off-diagonal row overlaps are negatives of one
+another. Thus the twenty corners form ten equal-$p$ pairs. The exact sum
+rule $\sum_{20}p=108$ gives
+\[
+ \sum_{j=1}^{10}p_j=54 \tag{11}
+\]
+for one representative of each pair.
+
+\begin{proposition}
+Let $\kappa>0$ solve $3\kappa^3+\kappa^2+\kappa-1=0$, and put
+$p_*=9-4/(1+\kappa^2)$. In every three-row strip of a Hadamard, some
+corner satisfies
+\[
+ \operatorname{dist}\bigl(p,\{0,5,p_*\}\bigr)>1/32.\tag{12}
+\]
+In particular, the final counting contradiction in MC1 does not require
+irrationality of $p_*$.
+\end{proposition}
+\begin{proof}
+The cubic is strictly increasing on $[0,\infty)$ and has opposite signs
+at $469/1000$ and $47/100$. Substitution in $9-4/(1+\kappa^2)$ gives
+\[
+ 5.72<p_*<5.73.\tag{13}
+\]
+Suppose all ten representatives in (11) were within $1/32$ of
+$\{0,5,p_*\}$. Choose corresponding centers $q_j$. Then
+$|\sum q_j-54|\le10/32=5/16$.
+If any center is zero, $\sum q_j\le9(5.73)=51.57$, a contradiction.
+Otherwise, if $n$ centers equal $p_*$, their sum is $50+n(p_*-5)$.
+For $n\le5$ this is less than $53.65$; for $n\ge6$ it is greater than
+$54.32$. Both gaps from 54 exceed $5/16$, again a contradiction.
+All decimals in this proof are terminating rational numbers.
+\end{proof}
+
+The sum rule itself is elementary. For a row pair, write the six unit
+phase ratios as $z_j$, so $\sum z_j=0$. Expanding
+$\sum_{|T|=3}|\sum_{j\in T}z_j|^2$ gives
+$6\binom52+4\sum_{j\ne k}z_j\overline z_k=60-24=36$.
+Adding the three row pairs gives 108.
+
+This proposition isolates the quantitative task in MC1. Its exact
+classification and routing steps say that an all-critical, non-Fourier
+carrier would have every corner in the three scalar alternatives.
+For a practical cutoff, those steps must be stabilized: it would suffice
+to show that a carrier with $M<5$ outside the $1/30$ tube has a row strip
+whose every $p$ is within $1/32$ of the alternatives. The proposition
+would then give an immediate contradiction. No such stability implication
+is proved by the exact-zero classification alone.
+
+\section{What remains for the global lemma}
+MC1 and compactness already prove the lemma with some unspecified
+$c_0>0$: the Hadamard set is compact, $d_F$ is continuous, and $M$ has
+zero set exactly the $F_6$ orbit. Its minimum on the closed set
+$\{d_F\ge1/30\}$ is therefore strictly positive.
+Relative to MC1 and the published effective-minimum theorem, the existing
+\texttt{ProvenResults/EffectiveConfinement/PROOF.md} supplies the explicit
+but impractical choice
+\[
+ c_0=2^{-N},\qquad N=2\cdot181\cdot26\cdot76^{26}.
+\]
+This is an existing result, not an improvement obtained in this note.
+
+Neither compactness, the Fourier-family theorem, nor the tangent bound
+proves $c_0=5$ for arbitrary Hadamards. The missing assertion is the
+global implication
+\[
+ \boxed{\quad M(H)<5\quad\Longrightarrow\quad d_F(H)<1/30\quad}
+\]
+away from the explicit Fourier families. A Taylor estimate at $F_6$
+does not exclude a separate region with small $M$. A quantitative
+extension of the reconstruction's critical-strip argument, or a certified
+cover of that region, is still needed.
+
+\section{An explicit stability theorem from three-row strips}
+Here ``small $R$'' means small \emph{maximum} $M(H)$, not just a small
+value at one chosen corner. Set
+\[
+ N_0=2\cdot866\cdot11\cdot80^{11}
+ =16365543384678400000000000,\qquad m_0=2^{-N_0}.
+\]
+\begin{theorem}[Explicit small-discriminant confinement]
+Every order-six Hadamard satisfies
+\[
+ 0\le M(H)<m_0\quad\Longrightarrow\quad d_F(H)<1/30.\tag{14}
+\]
+This proves the requested proximity-or-approximate-alternatives implication
+for a specified sufficiently small cutoff, by forcing its proximity branch.
+It does \emph{not} replace $m_0$ by 5.
+\end{theorem}
+The proof below uses the critical-strip classification and its two endpoint
+exclusions, the near-$F_3$ stability estimate, and the effective-minimum
+theorem of Jeronimo--Perrucci--Tsigaridas. Global MC1 is not an input.
+
+\subsection*{Step A: a Fourier-family neighbourhood at the cutoff 5}
+The signed corner polynomial $D_B=\ii\mathcal D_B$ has 48 Laurent terms
+with coefficients $\pm1$. In the nine raw entries, 36 exponent vectors
+have $\ell^1$ norm 8 and twelve have norm 12. Telescoping products of
+unit numbers therefore gives, whenever $\max_{ij}|H_{ij}-K_{ij}|\le e$,
+\[
+ |\sqrt{M(H)}-\sqrt{M(K)}|\le432e.\tag{15}
+\]
+The estimate is valid in a common monomial frame; the matrices need not
+be dephased. Normalized column distance, and hence the corresponding
+projector distance, is at most $e$.
+
+Suppose $M(H)\le5$, $K$ belongs to a Fourier family or its transpose,
+and $e\le1/3600$. Then $\sqrt{M(K)}<56/25+432/3600=59/25$.
+For $0\le x\le1/5$,
+\[
+ \arcsin x\le x+x^3/5.
+\]
+Indeed $(1+3t^2/5)^2(1-t^2)-1
+=t^2(5-21t^2-9t^4)/25\ge0$ on this interval; integrate the resulting
+bound on $(1-t^2)^{-1/2}$. Combining (2), (15) and the projector triangle
+inequality, with $z=59/300$, yields
+\[
+ d_F(H)\le\frac1{3600}+\frac{z+z^3/5}{6}
+ =\frac{26980379}{810000000}<\frac1{30}.\tag{16}
+\]
+This is a practical neighbourhood theorem at $M\le5$, independent of
+the much smaller cutoff in (14).
+
+We also use the proved near-$F_3$ estimate from
+\texttt{ProvenResults/FourierNeighbourhood/SeedLifting/NEAR\_F6\_CLOSURE.md},
+Section 3: a dephased $F_3$ corner with maximum entry error $h\le2^{-42}$
+places the whole matrix within $1800\sqrt h$ entry error of a Fourier
+family, its transpose, or Tao. The estimate controls both orientations.
+For $h\le2^{-46}$ its error is at most $1800/2^{23}<1/3600$.
+Tao is impossible when $M(H)\le5$, since (15) would give
+$\sqrt{243}\le\sqrt5+432/3600<3$.
+Thus
+\[
+ \left.\begin{array}{c}M(H)\le5\\
+ \text{some dephased corner is within }2^{-46}\text{ of }F_3
+ \end{array}\right\}\quad\Longrightarrow\quad d_F(H)<1/30.
+ \tag{17}
+\]
+
+\subsection*{Step B: quantitative routing from a nearly singular corner}
+We first prove a phase-block estimate. For $0<h\le1$, any $3\times3$
+phase matrix $E$ with $|\det E|\le h^7/1024$ has two rows or two columns
+that, after multiplication by a unit scalar, differ by at most $h$ in
+every coordinate.
+
+Dephase $E$ to rows $(1,1,1)$, $(x_0,x_1,x_2)$,
+$(y_0,y_1,y_2)$. If all $x_j$ are within $h$ of $x_0$, the claim holds.
+Otherwise choose $j,k$ with $|x_j-x_k|>h$ and interpolate
+$y_j=\alpha+\beta x_j$, $y_k=\alpha+\beta x_k$.
+Then $|\alpha|,|\beta|\le2/h$, and at the remaining index $l$,
+\[
+ |y_l-\alpha-\beta x_l|\le\eta:=|\det E|/h\le h/4.
+\]
+If $|\alpha|\le h/4$ or $|\beta|\le h/4$, normalizing the other
+coefficient to modulus one makes the third row within
+$2(h/4)+\eta\le3h/4$ of a multiple of the second or first row.
+
+Otherwise put $L(x)=|\alpha+\beta x|^2-1$ on the unit circle.
+The polynomial $xL(x)$ has roots $x_j,x_k$, so
+\[
+ |\alpha\beta|\,|x_l-x_j|\,|x_l-x_k|
+ =|L(x_l)|\le3\eta.
+\]
+One distance $s=|x_l-x_j|$ or $|x_l-x_k|$ therefore satisfies
+$s^2\le48|\det E|/h^3\le h^4/16$.
+The corresponding $y$ distance is at most
+$(2/h)s+\eta\le3h/4$. Those two columns are within $h$ entrywise.
+This proves the phase-block estimate, including zero determinants.
+
+Take $h=2^{-52}$. A corner with $|\det E|\le2^{-374}$ meets its
+hypothesis. For a nearly proportional row pair, phase the first row
+to ones and normalize the second at a selected column. The other two
+relative phases have absolute value at most $4h=2^{-50}$.
+The elementary three-phase routing argument in Section 5 of
+\texttt{NEAR\_F6\_CLOSURE.md} then produces a dephased $F_3$ corner
+with entry error at most $10\cdot2^{-50}\le2^{-46}$.
+For a column pair apply the same argument to $H^T$; (17) is valid in
+both orientations. Hence
+\[
+ M(H)\le5,\quad\min_c|\det H_c|\le2^{-374}
+ \quad\Longrightarrow\quad d_F(H)<1/30.\tag{18}
+\]
+
+\subsection*{Step C: quantitative routing from nearly geometric rows}
+Suppose three rows can be phased to $(1;x;y)$ with
+$\max_j|y_j-\overline{x_j}|\le\delta=2^{-106}$.
+Orthogonality gives $\sum x_j=0$ and $|\sum x_j^2|\le6\delta$.
+If $e_k$ are the elementary symmetric functions of the six unit numbers
+$x_j$, then $e_1=e_5=0$, $|e_2|\le3\delta$, and
+$e_4=e_6\overline{e_2}$. Their root polynomial shows
+\[
+ |(x_j^3-U)(x_j^3-V)|\le6\delta,\tag{19}
+\]
+where $U,V$ are the roots of $T^2-e_3T+e_6$.
+Put $\eta=\sqrt{6\delta}$. Assign each $x_j^3$ to one root within
+$\eta$. Choosing a unit anchor $a$ or $b$ from each nonempty class
+shows that every $x_j$ in that class is within $\eta$ of one of
+$a,a\omega,a\omega^2$, or respectively $b,b\omega,b\omega^2$.
+Here $\omega=e^{2\pi\ii/3}$; we used the elementary unit-circle bound
+$\min_k|u-\omega^kv|\le|u^3-v^3|/2$.
+
+If both classes occur, let $C_A,C_B$ be their count sums in
+$\mathbb Z[\omega]$. The first two moment bounds give
+\[
+ |aC_A+bC_B|\le6\eta,\qquad
+ |a^{-2}C_A+b^{-2}C_B|\le12\eta+6\delta.
+\]
+If $|a^3-b^3|>48\eta$, solving these two equations in the unknown
+count sums gives $|C_A|,|C_B|<1/2$, since $\delta\le\eta$.
+A nonzero Eisenstein integer has modulus at least one. Each count sum
+therefore vanishes, so each nonempty class contains a complete
+equilateral triple.
+
+If $|a^3-b^3|\le48\eta$, rotate the second anchor by a cube root
+to put it within $24\eta$ of the first. All six points are then within
+$25\eta$ of one equilateral triple. Its total count sum has modulus
+at most $150\eta<1$, so is zero; there are exactly two points of each
+type. The same conclusion holds if only one class was nonempty.
+Thus in all cases we can select three columns with
+$x$ coordinates within $25\eta$ of an equilateral triple.
+
+Using $y\approx\overline{x}$, then dephasing the selected block, gives
+an $F_3$ corner with entry error at most $52\eta<2^{-46}$:
+the last inequality is $52^2\cdot6<128^2$ after squaring.
+Equation (17) proves
+\[
+ M(H)\le5,\quad\text{some geometric row-triple defect}\le2^{-106}
+ \quad\Longrightarrow\quad d_F(H)<1/30.\tag{20}
+\]
+Any of the three rows may be the middle member; rephasing the columns
+and reordering the rows reduces to the displayed form.
+
+\subsection*{Step D: a positive minimum on the remaining strip domain}
+Fix three rows and dephase them to $(1;x;y)$, with $x_0=y_0=1$.
+They contain ten independent unit phases. Define the three defects
+\[
+ G_1=\sum_{j=1}^5|x_jy_j-1|^2,\quad
+ G_2=\sum_{j=1}^5|y_jx_j^{-2}-1|^2,\quad
+ G_3=\sum_{j=1}^5|x_jy_j^{-2}-1|^2.\tag{21}
+\]
+If any $G_k\le2^{-212}$, the relevant geometric-row error is at
+most $2^{-106}$ and (20) applies. By (18), (20), a matrix with
+$M(H)\le5$ outside the $F_6$ tube supplies a strip satisfying
+\[
+ |\det E_C|^2\ge2^{-748}\quad\text{for all twenty }C,
+ \qquad G_k\ge2^{-212}\quad(k=1,2,3).\tag{22}
+\]
+
+On the compact set of orthogonal phase strips satisfying (22), the
+function $w=\max_C|\mathcal D_{E_C}|$ has no zero.
+Indeed, at a zero the critical-strip classification applies: all
+minors are invertible and no geometric progression is possible.
+The two exceptional rational endpoints are excluded by the strip
+arguments in \texttt{CRITICAL\_P7\_EXCLUSION.md} and
+\texttt{CRITICAL\_EQUI\_CORRELATION\_EXCLUSION.md}.
+Every $p_C$ would consequently belong to $\{0,5,p_*\}$, contradicting
+(12). These results apply to three orthogonal phase rows without
+assuming that a completion exists: their proofs use only the six real
+row-orthogonality equations, the complementary three-column blocks,
+and their moment identities. No fourth row or completion is used.
+
+For completeness we make the positive minimum explicit. Use the
+$2^{10}$ Cayley charts
+\[
+ z=\sigma\frac{(1+\ii t)^2}{1+t^2},\qquad
+ -1\le t\le1,\quad\sigma\in\{-1,1\},
+\]
+for the ten phases, and introduce $w\in[0,48]$.
+Clear positive denominators in the six real orthogonality equations,
+the forty inequalities $w\ge\pm\mathcal D_{E_C}$, the twenty minor
+conditions and the three conditions (21)--(22). Together with the
+twenty bounds on $t$ and two bounds on $w$, this gives 91 integer
+polynomial constraints in 11 real variables.
+
+Their degrees are at most 40 and their coefficient heights at most
+$2^{800}$. Here are explicit sufficient bounds, using the sum of
+absolute real and imaginary coefficients as a polynomial norm.
+\begin{itemize}
+\item Orthogonality: a common denominator uses at most ten variables
+once, giving degree at most 20 and norm at most $6\cdot4^{10}<2^{23}$.
+\item Signed invariants: for raw exponent $e\in\{-2,-1,0,1,2\}$,
+denominator $(1+t^2)^2$ leaves numerator
+$(1+\ii\operatorname{sgn}(e)t)^{2|e|}(1+t^2)^{2-|e|}$,
+of degree four and norm at most $2^{2+|e|}$.
+The 48-term census gives degree at most 37 including $w$ and norm
+at most $2^{18}(36\cdot2^8+12\cdot2^{12})+2^{18}<2^{34}$.
+\item Minors: a determinant uses at most six free entries. Its complex
+numerator has degree at most 12 and norm at most $6\cdot4^6$.
+Writing it $U+\ii V$ over the positive denominator $Q$, the condition
+is $2^{748}(U^2+V^2)-Q^2\ge0$, of degree at most 24 and norm less
+than $2^{779}$.
+\item Geometry: use $Q=\prod_{v=1}^{10}(1+t_v^2)^2$.
+Each term of $G_k$ is $2-m-\overline m$ with every phase exponent
+bounded by two. Its cleared numerator has degree at most 40;
+the constraint $2^{212}QG_k-Q\ge0$ has norm at most
+$2^{212}\cdot5(2\cdot2^{20}+2\cdot2^{40})+2^{20}<2^{257}$.
+\end{itemize}
+All charts are compact, and $w$ is positive on each nonempty chart
+domain, by the preceding strip argument.
+
+Theorem 1 of Jeronimo--Perrucci--Tsigaridas,\footnote{
+\href{https://arxiv.org/pdf/1112.0544}{On the minimum of a polynomial
+function on a basic closed semialgebraic set and applications}, Theorem 1.}
+applied with $(n,d,s,H)=(11,40,91,2^{800})$, bounds the positive minimum
+of $w$ below by
+\[
+ \bigl(2^{4-11/2}\,2^{800}\,40^{11}\bigr)^{-11\cdot2^{11}\cdot40^{11}}
+ >2^{-K},\qquad K=866\cdot11\cdot80^{11},\tag{23}
+\]
+because $2n+2s<2^{800}$ and $40^{11}<2^{66}$.
+Take the connected component containing a global minimizer to meet
+the theorem's compact-component hypothesis.
+
+Finally, on a physical strip $\mathcal D_{E_C}^2=R_{E_{C^c}}$.
+Thus its maximum squared is at most $M(H)$.
+If $M(H)<2^{-2K}$, an outside-tube matrix would enter (22) and
+contradict (23). This proves (14).
+
+\paragraph{Interpretation.}
+The global implication is now proved at the explicit cutoff $m_0$.
+The exponent is about $1.64\cdot10^{25}$, compared with about
+$7.50\cdot10^{52}$ in the earlier general confinement bound. Both
+cutoffs are impractically small. The effective-minimum theorem replaces
+the unproved stability estimate with a valid, extremely conservative
+one; it does not show that the estimate remains valid up to 5.
+The strip domain deliberately forgets the full carrier's distance from
+$F_6$; a sharper minimum on that domain alone need not reach 5.
+Reaching 5 requires larger routing neighbourhoods or retaining further
+full-carrier information, for example constraints from several row strips
+together with the distance condition.
+
+\paragraph{Inputs and verification.}
+The Fourier result uses only the exact census and its twelve explicit
+Fourier equivalences, not MC1, the classification paper, a numerical
+smoothness claim, or a no-four-MUBs certificate.
+The tangent result uses the exact linearized Hadamard rank and signed
+corner derivatives. The earlier compactness and imported
+\texttt{EffectiveConfinement} statements use MC1 and its stated dependencies;
+the new strip-stability theorem (14) has the separate inputs listed above.
+Run \texttt{python3 -B simplerproof/averaging\_lemma/verify.py} from
+the repository root. It recomputes the Fourier census, extremal census,
+tangent forms and rational constants, and writes a receipt explicitly
+marked as a partial result. The analytic inequalities in this note are
+written proofs, not proof-assistant-checked statements.
+For the follow-up stability theorem, run \texttt{verify\_stability.py}
+in the same folder. It replays the critical-strip algebraic inputs and
+the near-$F_3$ factorization/grid inputs, checks the new rational constants,
+and audits the effective-minimum parameters. The routing arguments and
+the application of the published theorem are the written proof above.
+\end{document}

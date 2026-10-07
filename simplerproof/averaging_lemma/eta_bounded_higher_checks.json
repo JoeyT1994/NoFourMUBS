@@ -1,0 +1,85 @@
+{
+  "global_confinement_proved": false,
+  "rows": [
+    {
+      "path": "111011110001111001101011",
+      "sigma": 1,
+      "proposal_input": "eta_bounded_second_parent.json",
+      "side_radius": {
+        "numerator": 2216731,
+        "bits": 20,
+        "eta_bound": [
+          "[1.8764842007607865081014468101155113577 +/- 4.00e-38]",
+          "[4.4691552062669889427410082193720985056 +/- 7.85e-39]"
+        ],
+        "independent_audit": {
+          "controls": 1296,
+          "exact_trigonometric_coefficients": 126,
+          "minimum_margin": "[1.3850432910288868494551070858169794027e-12 +/- 4.88e-50]"
+        },
+        "justification": "For each physical side, |Pi|^2=eta and C1=u*conj(Pi), C2=v*conj(Pi), with |u|=|v|=1. Eta is invariant under transpose."
+      },
+      "check": {
+        "verified": false,
+        "support_upper": "[0.84146598192654504433434404523308600255 +/- 3.16e-39]",
+        "support_upper_decimal": 0.8414659819265451,
+        "Taylor_degree": 7,
+        "hull_degree": 5,
+        "Bernstein_controls": 1296,
+        "hull_upper": "[0.83115340065977038976457396666681283719 +/- 3.03e-39]",
+        "higher_degree_bounds": [
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "[0.0049973243872205805185616855248345143826 +/- 1.50e-41]",
+          "[0.00033307796537736304497707066749979449272 +/- 4.89e-42]"
+        ],
+        "remainder": "[0.0049821789141767110062313223739388564717 +/- 2.63e-41]"
+      },
+      "seconds": 7.313046875002328
+    },
+    {
+      "path": "111011110001111001101011",
+      "sigma": -1,
+      "proposal_input": "eta_bounded_second_parent.json",
+      "side_radius": {
+        "numerator": 2216731,
+        "bits": 20,
+        "eta_bound": [
+          "[1.8764842007607865081014468101155113577 +/- 4.00e-38]",
+          "[4.4691552062669889427410082193720985056 +/- 7.85e-39]"
+        ],
+        "independent_audit": {
+          "controls": 1296,
+          "exact_trigonometric_coefficients": 126,
+          "minimum_margin": "[1.3850432910288868494551070858169794027e-12 +/- 4.88e-50]"
+        },
+        "justification": "For each physical side, |Pi|^2=eta and C1=u*conj(Pi), C2=v*conj(Pi), with |u|=|v|=1. Eta is invariant under transpose."
+      },
+      "check": {
+        "verified": false,
+        "support_upper": "[0.19879326400383915357851429493647370768 +/- 9.19e-40]",
+        "support_upper_decimal": 0.19879326400383915,
+        "Taylor_degree": 7,
+        "hull_degree": 5,
+        "Bernstein_controls": 1296,
+        "hull_upper": "[0.19121095425970506655234800869147118841 +/- 8.28e-40]",
+        "higher_degree_bounds": [
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "[0.0037721306152793612448695671425779130998 +/- 2.63e-41]",
+          "[0.00024982387115283620629961173092422680837 +/- 2.87e-42]"
+        ],
+        "remainder": "[0.0035603552577018895749971073715003793604 +/- 4.38e-41]"
+      },
+      "seconds": 7.30692420800915
+    }
+  ]
+}

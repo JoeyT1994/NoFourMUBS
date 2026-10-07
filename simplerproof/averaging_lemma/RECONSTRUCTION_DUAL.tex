@@ -1,0 +1,286 @@
+\documentclass[11pt]{article}
+\usepackage[margin=25mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,booktabs,hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\Rea}{\operatorname{Re}}
+\newcommand{\Ima}{\operatorname{Im}}
+\newcommand{\tr}{\operatorname{tr}}
+\title{Division-free reconstruction certificates at cutoff five}
+\author{Research note}\date{7 October 2026}
+\begin{document}\maketitle
+\noindent\textbf{Status.} This note proves a finite-box exclusion theorem
+and supplies a complete, independently replayable example. It does
+\emph{not} prove the global implication $M(H)<5\Rightarrow d_F(H)<1/30$.
+The missing step remains an exhaustive cover outside a proved Fourier
+neighbourhood. Throughout, $M(H)$ denotes the maximum of the 400 corner
+invariants of a raw order-six complex Hadamard matrix.
+
+\section*{The certificate in one paragraph}
+Choose a corner attaining $0<R=M(H)<5$. Our reconstruction gives six
+linear equations for six bounded complex symmetric quantities on each
+side. Maximality also gives twelve positive semidefinite $3\times3$
+matrices. Multiply the equations by complex constants and the matrices
+by positive matrices, then add. For an actual completion the result is
+nonnegative. A certificate consists of rational multipliers for which
+the same expression is strictly negative throughout a seed box, for
+every allowed value of the bounded quantities. Thus the box contains
+no such completion. Keeping the reconstruction equations undivided
+avoids the small denominators in direct reconstruction enclosures.
+
+\section*{1. The reconstruction equations}
+Write the seed and complementary Gram matrix as
+\[
+ E=\begin{pmatrix}1&1&1\\1&a&b\\1&c&d\end{pmatrix},\quad
+ G=\begin{pmatrix}3&\bar s&\bar t\\s&3&\bar r\\t&r&3\end{pmatrix},
+ \quad s=-1-a-b,\ t=-1-c-d,\ r=-1-c/a-d/b.
+\]
+Here $(a,b,c,d)=(e^{i\theta_1},\ldots,e^{i\theta_4})$.
+Use the reconstruction notation
+\begin{align*}
+ X&=|s|^2,&Y&=|t|^2,& Z&=|r|^2,&p&=X+Y+Z,\\
+ J&=2\Rea(sr\bar t),& W&=XY+XZ+YZ-XYZ,\\
+ g&=27-3p+J,&\eta&=9-p+J,&
+ \chi&=W-(p-9)(p-18)+(p-15)J.
+\end{align*}
+Then $R=4g^2\eta-\chi^2$. Set $q=\sqrt R$ and $h=\sigma q$,
+where $\sigma=\pm1$. Define
+\begin{align*}
+ P_0&=rs^2+\bar r t^2+(3-Z)st,\\
+ P_1&=t\bar s^2+r^2\bar t+(3-Y)r\bar s,\\
+ P_2&=s\bar t^2+\bar r^2\bar s+(3-X)\bar r\bar t,\\
+ (k_0,k_1,k_2)&=(9-Z,9-Y,9-X),\qquad A_j=\chi+2k_j\eta,\\
+ F_{ij}(h)&=2g^2+2k_i k_j\eta+(k_i+k_j)\chi+i(k_j-k_i)h.
+\end{align*}
+For normalized side columns $v_l=(1,x_l,y_l)^T$, put
+\[
+ u=\prod_lx_l,\quad v=\prod_ly_l,\quad w=u/v,\quad
+ \Pi=st-\sum_lx_ly_l,\quad C_1=u\bar\Pi,\quad C_2=v\bar\Pi.
+\]
+The reconstruction identities, after clearing denominators, are
+\begin{align}
+ 2\bar P_0P_1u&=F_{01}(h),&2\bar P_0P_2v&=F_{02}(h),&
+ 2\bar P_2P_1w&=F_{21}(h),\label{eq:products}\\
+ 2\bar P_0\Pi&=A_0+ih,&2P_1C_1&=A_1-ih,&
+ 2P_2C_2&=A_2-ih.\label{eq:permanent}
+\end{align}
+All coefficients are Laurent polynomials in the four seed phases.
+The equations are affine in the real and imaginary parts of the six
+unknowns and in $q$.
+
+\begin{lemma}
+For a physical side, the six absolute values are bounded by
+$(1,1,1,3,3,3)$.
+\end{lemma}
+\begin{proof}
+The first three are one and $|\Pi|^2=\eta$. The two complementary
+permanent identities give $p+|J|\le9$, while
+$|J|\le2(p/3)^{3/2}$. If $p\le27/4$, the latter is at most $p$.
+If $p\ge27/4$, use $|J|\le9-p\le p$. Thus $J\le p$,
+$\eta\le9$, and $|C_1|=|C_2|=|\Pi|\le3$.
+\end{proof}
+
+\section*{2. Positive matrices supplied by maximality}
+The complementary-corner square identity supplies a real signed
+invariant $f(T)=i\det L(T)$ for three phase columns, with
+$f(T)^2=R(T^{\rm comp})$ in any physical Hadamard. The precise
+determinant and its Laurent expansion are those in
+\texttt{ProvenResults/SignedCornerPSDPrune/PROOF.md}.
+For every pair of known seed columns $j<k$, define
+\[
+ N_{jk}=\sum_l f(E_j,E_k,v_l)v_lv_l^\dagger.
+\]
+Maximality gives $|f(E_j,E_k,v_l)|\le q$. Therefore
+\begin{equation}\label{eq:psd}
+ qG\pm N_{jk}
+ =\sum_l\bigl(q\pm f(E_j,E_k,v_l)\bigr)v_lv_l^\dagger\succeq0.
+\end{equation}
+These are six positive matrices on each side. Their entries are affine
+in the six complex symmetric quantities. This follows by expanding
+the signed invariant and using Newton identities; for example
+\[
+ \sum_lx_l^2=s^2-2u\bar s,\qquad
+ \sum_lx_ly_l=st-\Pi,\qquad
+ \sum_lx_l^2/y_l=s\bar r-C_1.
+\]
+The actual 31 moment formulas and all six determinant coefficients
+used by the implementation are checked as exact Laurent identities
+by \texttt{verify\_dual\_algebra.py}.
+
+Apply the same construction to $E^T$. The fixed-corner exhaustion and
+matching theorem says that, outside Tao, its side-constructor sign is
+$-\sigma$. This is a reconstruction input, not an inference from
+positive-sheet surjectivity. The certificates below exclude Tao seeds
+by an outward cube-root test on a seed coordinate. Hence only the two
+matched sign pairs need checking.
+
+\section*{3. A short certificate theorem}
+Collect the twelve complex quantities as $\xi_1,\ldots,\xi_{12}$,
+with radii $(r_1,\ldots,r_{12})=(1,1,1,3,3,3)$ repeated twice.
+Let $\mathcal F_a\succeq0$ be the twelve matrices in
+\eqref{eq:psd}, and $\mathcal E_b=0$ the twelve complex equations
+\eqref{eq:products}--\eqref{eq:permanent}, on both sides.
+
+\begin{theorem}[Finite-box exclusion]
+Fix a seed box and a sign pairing licensed by the matching theorem.
+Choose constant Hermitian positive semidefinite matrices $Y_a$ and
+complex numbers $\lambda_b$. Expand the real affine expression
+\[
+ L=\sum_a\tr(Y_a\mathcal F_a)
+       -\Rea\sum_b\bar\lambda_b\mathcal E_b
+   =c_0+\sum_{j=1}^{12}
+      (c_{jr}\Rea\xi_j+c_{ji}\Ima\xi_j)+c_q q.
+\]
+If throughout the box
+\begin{equation}\label{eq:support}
+ S(c):=c_0+\sum_{j=1}^{12}r_j\sqrt{c_{jr}^2+c_{ji}^2}
+                 +\sqrt5\max(c_q,0)<0,
+\end{equation}
+then no physical completion in that box has that sign pairing and
+$0<R(E)=M(H)<5$.
+\end{theorem}
+\begin{proof}
+For such a completion, each trace in $L$ is nonnegative and each
+equation term vanishes. Thus $L\ge0$. On the other hand, the radius
+bounds and $0\le q\le\sqrt5$ imply $L\le S(c)<0$, a contradiction.
+\end{proof}
+
+The two sign certificates exclude all completions allowed by matching.
+No side roots, side permutations or individual completion labels
+need be enumerated. Dropping relations such as $w=u/v$ when taking
+the upper bound enlarges the allowed domain and is therefore safe.
+
+\paragraph{Retaining the radical relation.}
+The exact relation $q^2=R$ supplies two further necessary conditions:
+\[
+ \begin{pmatrix}R&q\\q&1\end{pmatrix}
+ =\begin{pmatrix}q\\1\end{pmatrix}(q,1)\succeq0,
+ \qquad \frac94q-R=q\left(\frac94-q\right)\ge0.
+\]
+Here $q\le\sqrt5<9/4$. They are affine in the same unknown $q$;
+their other coefficients are seed polynomials. Thus a positive
+$2\times2$ matrix multiplier and a nonnegative scalar multiplier
+can be added to $L$, without changing the certificate theorem.
+The checker embeds the $2\times2$ matrix in a $3\times3$ matrix with
+zero last row and column. It rounds and checks its multiplier exactly
+as for the other positive matrices.
+
+Nonnegative multiples of the canonical-order differences and
+$9-p\pm J$ can be added too. Finally, the complementary signed
+invariant satisfies $q\pm f(E)\ge0$ by maximality. Each such extra
+term changes only the constant coefficient and, where applicable,
+the coefficient of $q$. All its multipliers are nonnegative dyadic
+rationals. These are necessary constraints only: the enlarged system
+is not asserted to characterize actual Hadamard completions.
+
+\section*{4. Checking an entire box}
+The optimizer proposes $Y,\lambda$ only. The checker rounds their
+entries to Gaussian dyadic rationals with denominator $2^{40}$,
+makes $Y$ exactly Hermitian, and adds a small positive dyadic multiple
+of the identity. Its leading principal minors are verified positive
+using outward arithmetic. All subsequent polynomial coefficients
+are exact Gaussian integers divided by powers of two.
+
+For a real coefficient polynomial
+$P(\theta)=\sum_\nu a_\nu e^{i\nu\cdot\theta}$, the degree-$d$
+Taylor remainder on a cube of half-width $t$ is bounded by
+\[
+ E_P=\frac{t^{d+1}}{(d+1)!}
+       \sum_\nu (|\Rea a_\nu|+|\Ima a_\nu|)\|\nu\|_1^{d+1}.
+\]
+This is the ordinary Taylor bound along the line from the centre
+to the evaluation point. All centre derivatives are evaluated with
+outward trigonometric arithmetic. Write
+\[
+ B(c)=|c_0|+\sum_jr_j\sqrt{c_{jr}^2+c_{ji}^2}+\sqrt5|c_q|.
+\]
+Subadditivity gives an upper bound for $S(c)$ by the centre support,
+the sum of $t^{|\alpha|}B(\partial^\alpha c)/\alpha!$ for the
+nonconstant Taylor terms, and $B(E)$ for the remainder.
+
+A sharper bound keeps the quadratic part together. Write that part
+in the tensor Bernstein basis of degree two on $[-t,t]^4$. The
+one-dimensional coefficient vectors of $1,x,x^2$ are respectively
+\[
+ (1,1,1),\qquad(-t,0,t),\qquad(t^2,-t^2,t^2).
+\]
+The Bernstein basis functions are nonnegative and sum to one.
+Consequently the quadratic coefficient vector lies in the convex hull
+of its 81 Bernstein coefficient vectors. Since $S$ is convex, its
+support is at most the largest $S$ of those vectors. Add the bounds
+for Taylor degrees three through five and the sixth-order remainder.
+This preserves the common phase displacement across the reconstruction
+quantities and is substantially sharper than separate derivative bounds.
+
+The same argument applies to the complete cubic Taylor polynomial,
+using $4^4=256$ Bernstein control vectors. The higher-order checker
+\texttt{higher\_support.py} uses this hull and adds only the fourth-
+and fifth-order term bounds and the sixth-order remainder. Its
+Bernstein conversion coefficients are generated and cross-checked
+as exact rational numbers.
+
+\section*{5. A complete retained example}
+Consider the seed cube with centre and half-width
+\[
+ \theta_*={\pi\over64}(41,-33,-45,41),\qquad t={\pi\over64}.
+\]
+It is the depth-24 leaf with binary path
+\texttt{100110010110110101000110} of the global seed partition.
+Bisect each coordinate once, giving sixteen children of half-width
+$\pi/128$. Four miss the necessary canonical Gram-modulus ordering.
+The other twelve have both sign pairings excluded by the theorem.
+Every verified support upper bound is less than $-0.49$.
+Thus this whole canonical seed box contains no strict maximal carrier
+with $M<5$. This is a box theorem, not a statement about sampled centres.
+
+The complete numerical proposals are stored in
+\texttt{dual\_parent\_complete.json}. They can be checked without
+running an optimizer:
+\begin{quote}\ttfamily\small
+python3 simplerproof/averaging\_lemma/dual\_parent\_cover.py\par
+\quad --reuse dual\_parent\_complete.json --replay-only\par
+\quad --output dual\_parent\_replay.json
+\end{quote}
+The verifier regenerates each dyadic box, every polynomial, positivity
+test and Taylor bound. It checks that all sixteen children are present.
+
+\section*{6. What remains for the desired proof}
+The local theorem in \texttt{PRACTICAL\_LOCAL.tex} already proves
+\[
+ \|u\|_F\le0.3,\quad H\sim F_6\circ e^{iu},\quad
+ u\text{ horizontal},\quad M(H)<5
+ \ \Longrightarrow\ d_F(H)<1/30.
+\]
+Subsequent full-domain Bernstein pruning, documented in
+\texttt{GLOBAL\_COVER.tex}, reduces the open partition to 61,396 boxes.
+The radical-enhanced certificates additionally exclude four full-size
+parents, using the cubic support bound. Their worst support upper
+bounds across the two signs are
+\begin{center}\small
+\begin{tabular}{lr}\toprule
+Parent path & Certified upper bound, rounded upward\\\midrule
+\texttt{111110010001110100010001}&$-0.449$\\
+\texttt{110110110011101101111111}&$-1.054$\\
+\texttt{110100111001010001100100}&$-12.880$\\
+\texttt{110100110001110011101101}&$-11.258$\\\bottomrule
+\end{tabular}
+\end{center}
+They are independently replayed by \texttt{verify\_radical\_dual.py},
+which runs no optimizer. Their complete proposals, exact source hashes
+and outward results are bound by \texttt{dual\_frontier\_checks.json}.
+Two other tested parents remain open; their failed tests receive no
+coverage credit.
+
+Thus \textbf{61,392 boxes remain open}. A complete proof must exclude
+all remaining remote boxes and prove that every other surviving
+completion enters the local theorem's phase ball. The certificate
+theorem supplies an exclusion tool, not a substitute for either obligation.
+
+\paragraph{Dependencies.}
+The reconstruction identities, side exhaustion and fixed-corner
+matching are imported from the reconstruction proof dossier. The
+complementary signed-square identity is imported from the corner-bound
+proof. Their status and dependencies are distinct from the new exact
+moment checks and finite-box certificates. Nothing here claims an
+independent proof of those global reconstruction theorems.
+\end{document}

@@ -1,0 +1,43 @@
+{
+  "status": "PASS_EXACT_CONJUGATION_REDUCTION",
+  "global_confinement_proved": false,
+  "base_open": 59034,
+  "new_closed": 4,
+  "remaining_open": 59030,
+  "total_closed": 1268208,
+  "unresolved_conjugacy_classes": 29515,
+  "exact_partition_preserved": true,
+  "unresolved_partners_not_counted_closed": true,
+  "excluded": [
+    {
+      "path": "001011001110001100010010",
+      "closed_reflected_ancestor": "110100110001110011101101"
+    },
+    {
+      "path": "001011000110101110011011",
+      "closed_reflected_ancestor": "110100111001010001100100"
+    },
+    {
+      "path": "001001001100010010000000",
+      "closed_reflected_ancestor": "110110110011101101111111"
+    },
+    {
+      "path": "000001101110001011101110",
+      "closed_reflected_ancestor": "111110010001110100010001"
+    }
+  ],
+  "inputs": {
+    "global_scalar24_closed.jsonl.gz": "4afac2ca4501f84d4af8dd9b5ce1bafa5274b057a43206be13f68528cfa49a4f",
+    "global_scalar24_open.jsonl.gz": "00feb2902720fbbe68ab51021d4c58558d83f884ef38ba27a317f975da99b698",
+    "global_dual_extension.json": "aa238faaf6976cc74079ccf9be60e57331ae95c9d930c1d077b38fa64365674c",
+    "global_complementary_extension.json": "a0cd285dbd5f580ee9452aa98f365b39992e47d96fa3e68ff837e333f1513cc0",
+    "global_positive_extension.json": "a9656973a8a06c0d069bcac5ce0bde65d09b92cc0dac0564045cbee8cb8d84bc",
+    "global_scalar_regions_extension.json": "f791dbb16aaed7e3d2dbee99eb0e49380ae4c76437a9db3557b4daf0dff85fa6"
+  },
+  "sources": {
+    "conjugation_frontier.py": "509669c8d08c741bd1c2ad81bf08f569f0a0427356f090542d11ee69da655f6f"
+  },
+  "outputs": {
+    "conjugation_representatives.jsonl.gz": "e2602ad1674de0fc64c24f6542309ea52ed80ef9fd9e36a521f00bfb3276381d"
+  }
+}

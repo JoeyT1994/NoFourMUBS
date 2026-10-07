@@ -1,0 +1,144 @@
+7 October 2026: practical-cutoff scalar progress
+
+The global target remains UNPROVED, and its cutoff remains 5.
+CURRENT_PROGRESS.json is authoritative: 1,268,210 closed, 59,028 open,
+forming 29,514 unresolved conjugacy classes. CURRENT_FRONTIER_AUDIT.json
+checks the exact full partition and every stored source/artifact hash.
+
+LATEST ADDENDUM (read this before the historical notes below):
+
+1. Two macroscopic theorems at cutoff 5 are proved in SCALAR_REGIONS.tex:
+   every corner has |J|<21/8; an oriented complementary pair with 0<p<5
+   obeys J>=0 and 12 J p(9-p)(5-p)<25. Thus 1<=p<=4 gives J<5/48.
+   practical_scalar_regions.json contains the exact 24-number certificate.
+   Applying these to the remaining coarse boxes closed ZERO more boxes.
+   The zero-exclusion overlay global_scalar_regions_extension.json is
+   retained because subsequent receipts pin it.
+
+2. A simpler homogeneous theorem is now proved in HALF_P_BOUND.tex:
+   EVERY corner of a Hadamard with M<5 satisfies 2|J|<=p, strictly for p>0.
+   half_p_certificate.json has just 16 exact rational Bernstein checks.
+   This proof does not use the separate |J|<21/8 theorem. The analytic
+   consequence sum_l (p_l/2 +/- J_l) v_l v_l^* >=0 is proved in the note,
+   but those p/2 localizers have NOT been implemented yet.
+
+3. Conjugation closed FOUR reflected parents already covered by old dual
+   witnesses. global_conjugation_extension.json records this and the exact
+   pairing of the unresolved frontier. Unresolved reflected partners are
+   NOT counted as closed. Use the latest representative file below.
+
+4. New low-degree J localizers are implemented in j_localizing.py:
+     (21/8) G +/- sum_l J(E_j,E_k,v_l) v_l v_l^* >=0.
+   The mixed-corner J polynomial has seven Laurent terms. Entries use
+   only 19 universal moments, affine in the same six complex unknowns.
+   verify_j_localizing.py passes exact coefficient/moment checks,
+   the exact identity sum_l J(E_j,E_k,v_l)=-J(E), and 24 independent
+   matrix controls (maximum error <7e-15). Receipt pins SCALAR_REGIONS.tex.
+   There are twelve added 3x3 matrices across both sides, for 25 including
+   the previous twelve and the radical matrix. j_localizing_dual.py adapts
+   the proposal and exact checker without altering pinned old kernels.
+
+5. Previously unresolved parent 111011110001111001101011 is now FULLY
+   EXCLUDED: all sixteen depth-28 children, both signs, 32 certificates.
+   Worst outward support bound is below -1.909. No scalar child was used.
+   j_localizing_parent_cover.json contains proposals; the independent
+   optimizer-free verify_j_parent_cover.py replay passed at 192 bits.
+   j_localizing_parent_replay.json is the authoritative proof receipt.
+   global_j_localizing_extension.json closes that parent AND its conjugate.
+   CURRENT representative file: j_localizing_representatives.jsonl.gz.
+   Do not rerun --integrate: it has already been integrated. Default
+   verify_j_parent_cover.py only replays the certificate.
+
+6. A stronger side radius was identified and verified in
+   verify_eta_support.py / eta_support_receipt.json:
+     |Pi|^2=|C1|^2=|C2|^2=eta=9-p+J,
+   and eta is exactly invariant under seed transpose. Thus use a validated
+   whole-box sqrt(eta_upper) bound instead of the generic radius 3.
+   eta_bounded_dual.py computes an outward DYADIC radius and uses it in
+   both proposal and proof support. On the above parent it is <2.115.
+   Whole-parent proposals improved, but did NOT certify: even degree-7,
+   hull-degree-5 bounds were +0.8415 and +0.1988. Do not credit them.
+
+7. An interval audit false alarm was diagnosed on a depth-28 R_difference
+   box. Re-propagating already widened floating-error balls produced an
+   enclosure protruding by ~3e-13 because of Arb radius rounding. The
+   actual trig-derived Taylor coefficients and all 1296 controls fit the
+   original bound with margin >5.1e-6. direct_bernstein_audit.py now audits
+   those independently computed coefficients. No forward-error bound or
+   acceptance threshold was weakened, and old pinned kernels are unchanged.
+
+Possible next useful improvements (not yet proved/implemented):
+  - Add the homogeneous p/2 +/- J localizers, which also use 19 moments.
+  - Use the exact eta radius in future proposals and checks.
+  - Split the radical q, rather than always using the loose single chord:
+      q in [l,u], q^2=R => [[R,q],[q,1]]>=0,
+      (l+u)q-lu-R>=0.
+    A bounded q interval also tightens support to midpoint*cq+radius*|cq|.
+    This is a new suggestion, not a certificate already implemented.
+  - The remaining Fourier p=5 seed classes can be singular charts;
+    the existing active Fourier terminal only treats the p=8 class.
+    Do not try to exclude boxes that genuinely contain near-Fourier
+    maximal corners; they need a routing/lifting terminal.
+
+All earlier proofs and active Fourier terminal remain unchanged. The full
+M<5 => d_F<1/30 theorem remains unproved. No tiny-cutoff substitute was used.
+
+HISTORICAL NOTES FROM THE PREVIOUS TURN:
+
+New certified exclusions:
+  global_complementary_extension.json: 1,926 additional parents.
+  global_positive_extension.json: 432 further parents.
+Both are overlays on global_scalar24_open.jsonl.gz after removing the
+four parents in global_dual_extension.json. Do not treat the old open file
+as the current frontier without applying all three overlays.
+
+The short proof is PRACTICAL_SCALAR.tex (native compiler passed).
+practical_scalar_receipt.json verifies exact identities, 108 independent
+two-variable Bernstein controls, and current source/receipt hashes.
+Sources are now pinned; use new files or regenerate dependent receipts
+before changing them.
+
+New mathematics:
+  t=9-p, z=J^2, z0=t^3(4-t)/4,
+  U=(Rplus+Rminus)/2, V=(Rplus-Rminus)/2.
+For a maximal corner, 0<=V<=U and U+V=M<5.
+  4 z(z-z0)(z+36p)
+     = J V(2z+30t^2)-U z(t+6)^2-V^2/4.
+Thus J<0 implies 5<p<9 and 4J^2<(9-p)^3(p-5).
+If J>0 and p<=7, then the 16-term polynomial
+  Q=5[2J^2+30t^2-J(t+6)^2]
+      +2J(J^2+36p)[t^3(4-t)-4J^2]
+is nonnegative. Its two-variable Bernstein bounds avoid expanding a large
+phase polynomial. See positive_scalar_rule.py for coefficients.
+The negative branch did not use cutoff 5; the positive branch uses it.
+
+General strip-sum exploration (NOT used in any global certificate):
+  strip_scalar_exact.py generates the exact sum of 20 squared signed
+  corner invariants in invariants X,Y,Z,J with three quadratic extensions.
+  It takes about 270 seconds and writes strip_scalar_exact.json (~10 MB).
+  strip_scalar_symmetric.py gives an elementary-symmetric form (~210 s).
+  With Delta=(X-Y)(X-Z)(Y-Z), tau=2 Im(s r conjugate(t)), and signed
+  qplus^2=Rplus, qminus^2=Rminus, it has the form
+    S=A+Delta*tau*(Bplus*qplus+Bminus*qminus)+C*qplus*qminus.
+  A and C are even in J; Bminus(J)=-Bplus(-J).
+  Coefficients use p,e2,K,J with e2=XY+XZ+YZ, K=XYZ.
+  They are still large: A has 8,419 numerator terms, B has 8,446,
+  C has 4,973, common denominator has 3,237.
+  Generic division/pole guards remain necessary. This is not yet a
+  practical or elegant replacement for the existing cover.
+  verify_strip_scalar.py passed exact 43-moment and coefficient-symmetry
+  checks and 12 high-precision point comparisons (~1e-103 or smaller).
+  strip_scalar_checks.json explicitly does NOT certify global confinement.
+
+Other exploratory paths:
+  strip_average_exact.py in four raw seed phases produced an unwieldy
+  ~892k-term first coefficient. It was abandoned as impractical; no cover
+  result uses it. Its C class is also used by mixed_trace_exact.py.
+  mixed_trace_exact.json (~11 MB) gives exact scalar traces, but the
+  denominators are still large. No global exclusion is credited to it.
+
+The local cutoff-five theorem and active Fourier terminal remain valid
+and unchanged. The next global proof still has to exclude the remaining
+remote boxes or put their actual completions in the proved Fourier ball.
+Do not describe the scalar constraints above as the final p alternatives
+or as global Fourier confinement.

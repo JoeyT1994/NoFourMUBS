@@ -1,0 +1,53 @@
+{
+  "status": "PASS_PARTIAL_GLOBAL_COVER",
+  "global_confinement_proved": false,
+  "cutoff": 5,
+  "closed": 1268210,
+  "open": 59028,
+  "exact_partition_verified": true,
+  "current_source_and_artifact_hashes_verified": true,
+  "imported_algebra_sha256": "e0a0737f52fba87664482564c89b28189bc105dc716fac0b3deb8f7c933abe9a",
+  "reports": {
+    "global_bernstein24_receipt.json": "dca564fef15bbe30e80588ae3064e58cb19c379e2cf5eaa50c62e57941bf82b0",
+    "global_scalar24_receipt.json": "a1484e3191f41f239249f93559a6aeb79d81babbc3224a6f3152b641d0d86256",
+    "dual_frontier_checks.json": "6b2b4dfcebc788612e50b1dd62e20ecb9e5b0decc7b5fce4f1c1ee8d77c5b850",
+    "global_dual_extension.json": "aa238faaf6976cc74079ccf9be60e57331ae95c9d930c1d077b38fa64365674c",
+    "global_complementary_extension.json": "a0cd285dbd5f580ee9452aa98f365b39992e47d96fa3e68ff837e333f1513cc0",
+    "global_positive_extension.json": "a9656973a8a06c0d069bcac5ce0bde65d09b92cc0dac0564045cbee8cb8d84bc",
+    "global_scalar_regions_extension.json": "f791dbb16aaed7e3d2dbee99eb0e49380ae4c76437a9db3557b4daf0dff85fa6",
+    "global_conjugation_extension.json": "d29e4e93f9ffcec626d536ff38c95a0631449c68188afbd02bb26bb54e1c77d7",
+    "global_j_localizing_extension.json": "317be4124629e100ad90f4f18a45220e33fbed55b8890e19754b8569836e47fc"
+  },
+  "missing_obligations": [
+    "Exclude every remaining remote seed box",
+    "Prove all other surviving completions enter the established horizontal Fourier phase ball of radius 3/10"
+  ],
+  "new_active_Fourier_terminal": {
+    "halfwidth": "1/1024",
+    "center_pi_thirds": [
+      1,
+      2,
+      2,
+      4
+    ],
+    "horizontal_phase_norm_bound": "6/25",
+    "verified_rectangles": 320,
+    "precisions": [
+      128,
+      192
+    ],
+    "whole_box_frame_controls": 72
+  },
+  "new_receipts": {
+    "active_seed_lift_receipt.json": "b8c66e48a64da7d13a9bbaf0f662bcf0f74987c7899c3b5e9af63f850837e18a",
+    "active_seed_terminal_checks.json": "67487c053b67c6a23b8eb335b6b202b52ae41137aa17252e8d6cdd922bfc04b6",
+    "dual_finiteness_audit.json": "04da0291720b37706e6165f3ddd20bee4f8d3ac6249d3db036dea5fd6da0b450",
+    "practical_scalar_receipt.json": "e49cfd143dc2dff60c68c0cb4ce8b106f14c1b31bf83479c09560add7f3db809",
+    "practical_scalar_regions.json": "4592b55e5a0515ea947a12af94b154f4c9fa8cc99eb8704e61b4b434a2368f58",
+    "j_localizing_algebra_receipt.json": "22c7b0ca9ae0d1ed893c91c14001265b5a86aa8a353ebdbf3a58f660be9a5dfb",
+    "j_localizing_parent_replay.json": "88d0831f4d62009f0e52fb41b2e20e75b385e5dcc73a60b69ebf3af05f7b82d7",
+    "half_p_certificate.json": "ffe344ce6500b67b794cf1cc894e3662e9461984f0d7adf3b68b74c4a31ea1fc",
+    "eta_support_receipt.json": "31c358fcd04951834fc9eb48f5454693c0d90daefbaacb29aee1c539992322ea"
+  },
+  "unresolved_conjugacy_classes": 29514
+}

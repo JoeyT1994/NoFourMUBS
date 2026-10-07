@@ -1,0 +1,91 @@
+\documentclass[11pt]{article}
+\usepackage[margin=25mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,booktabs}
+\newtheorem{theorem}{Theorem}
+\title{A homogeneous corner bound at cutoff five}
+\author{Research note}\date{7 October 2026}
+\begin{document}\maketitle
+\noindent\textbf{Scope.} This is a necessary condition for $M(H)<5$,
+not a proof of global Fourier confinement. It supplies further small
+positive-matrix constraints for the reconstruction.
+
+\begin{theorem}
+If $H$ is an order-six complex Hadamard and $M(H)<5$, every corner satisfies
+\[
+ \boxed{2|J|\le p.}
+\]
+The inequality is strict when $p>0$.
+\end{theorem}
+\begin{proof}
+Orient each complementary column pair so that $R_+\ge R_-$.
+This preserves $p$ and $|J|$. Set $t=9-p$, $z_0=t^3(4-t)/4$.
+The complementary-discriminant identity proved in
+\texttt{PRACTICAL\_SCALAR.tex} gives:
+\begin{itemize}
+\item $J<0$ implies $5<p<9$ and $J^2\le z_0$;
+\item for $J>0$ and $p\le7$,
+\[
+ Q(p,J):=5[2J^2+30t^2-J(t+6)^2]
+       -8J(J^2+36p)(J^2-z_0)\ge0.
+\]
+\end{itemize}
+The first conclusion still holds if $R_+=R_-=0$, by its displayed
+polynomial identity, without the strict inequality $J^2<z_0$.
+
+We first check $p^2>t^3(4-t)$ for $0\le t\le4$, where $p=9-t$.
+For $t\le15/4$ use
+\[
+ p^2-t^3(4-t)=(t-3)^2(t^2+2t+4)+45-12t>0.
+\]
+For $15/4\le t\le4$, use $t^3(4-t)\le16<25\le p^2$.
+This proves the desired strict bound whenever $J<0$.
+
+For $0\le p\le27/16$, the elementary inequality
+$J^2\le4XYZ\le4p^3/27\le p^2/4$ suffices, with strictness for
+$0<p<27/16$. For $p>6$, use $|J|\le9-p<p/2$.
+It remains to exclude $J\ge p/2>0$ on $27/16\le p\le6$.
+On this interval $J^2-z_0>0$: for $p<5$, $z_0<0$, and otherwise
+use the inequality just proved. At fixed $p$, as $J$ increases from
+$p/2$ to its physical upper bound $t$, the first bracket in $Q$
+strictly decreases, while each positive factor of its subtracted term
+increases. Hence $Q(p,J)\le Q(p,p/2)$.
+
+The following exact certificate proves $Q(p,p/2)<0$ throughout the
+remaining interval, contradicting $Q(p,J)\ge0$ and covering both endpoints.
+If $p=0$, then $X=Y=Z=J=0$.
+\end{proof}
+
+\paragraph{The certificate.}
+The polynomial being checked is
+\[
+ Q(p,p/2)=-\frac14\bigl(p^7+112p^6-4229p^5+52632p^4
+ -276281p^3+523970p^2+13050p-48600\bigr).
+\]
+For each interval below, map it affinely to $[0,1]$ and expand in the
+degree-seven Bernstein basis. The two rows give integer upper bounds
+for the eight exact rational coefficients, in order:
+\begin{align*}
+[27/16,21/4]:\quad&(-127354,-161802,-171360,-146210,\\
+&\hspace{26mm}-101736,-57785,-26974,-13857),\\
+[21/4,6]:\quad&(-13857,-11095,-9117,-7967,\\
+&\hspace{26mm}-7669,-8235,-9660,-11925).
+\end{align*}
+All coefficients are negative. The Bernstein basis is nonnegative and
+sums to one. \texttt{half\_p\_certificate.py} regenerates these bounds
+over the rationals and exactly reconstructs the polynomial from both
+sets of coefficients.
+
+\paragraph{Use in the reconstruction.}
+Fix two seed columns and let $v_1,v_2,v_3$ be the complementary side
+columns, normalized to have first entry one. Write $p_l,J_l$ for the
+mixed corner made from the fixed pair and $v_l$. The theorem immediately
+gives
+\[
+ \sum_{l=1}^3\left(\frac{p_l}{2}\pm J_l\right)v_lv_l^*\succeq0.
+\]
+Both $p_l$ and $J_l$ are seven-term Laurent polynomials in the two
+unknown phases of $v_l$. These matrix entries therefore use only the
+second-order side moments already available in the reconstruction.
+This consequence is analytic; its integration into the global verifier
+is a separate computational step.
+\end{document}

@@ -1,0 +1,36 @@
+{
+  "status": "OPEN",
+  "scope": "Global seed partition, improved necessary-condition pruning; not confinement",
+  "global_confinement_proved": false,
+  "inherited_partition_verified": true,
+  "input_open": 685808,
+  "new_closed": 349686,
+  "open": 336122,
+  "counts": {
+    "R_Taylor_at_least_5": 306696,
+    "R_Taylor_negative": 42990
+  },
+  "depth": 24,
+  "degree": 5,
+  "remainder": "[4.4581093568361955985933491239827155906 +/- 2.58e-38]",
+  "independent_Arb_dot_audits": [
+    "111111101111011011100110",
+    "100000000000000010101011",
+    "000000010001100010010000"
+  ],
+  "open_volume_fraction": "168061/8388608",
+  "seconds": 68.51632354201865,
+  "inputs": {
+    "global_coarse24_closed.jsonl.gz": "340de583afe303e4bb46263ffeea815ef42371cb6876890a314ef93648e5f2dc",
+    "global_coarse24_open.jsonl.gz": "6b86858ae73de2227cbef709186afde66e384d1c68e43ed25ec01d8ce81c59d2"
+  },
+  "outputs": {
+    "global_taylor24_closed.jsonl.gz": "f01b34ebf8101031a9a59025cc2c486b2a5a43c00f6214709e1a5a8bb17910a6",
+    "global_taylor24_open.jsonl.gz": "1f054f34897a07da6429dd675a80071bb2c08bbaeeffd1eaa01edb9444507211"
+  },
+  "sources": {
+    "refine_seed_taylor.py": "36418864465072e0b065ff5b4bc273c6dbb8edc6fc43c3529915d09ef50d4daa",
+    "seed_taylor.py": "49e9904ef8500a09b5db5c0eb9f67e0c9324199a8ac24ae75e8fb04c8029b165",
+    "exact_algebra.py": "e0a0737f52fba87664482564c89b28189bc105dc716fac0b3deb8f7c933abe9a"
+  }
+}

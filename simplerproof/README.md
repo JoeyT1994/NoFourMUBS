@@ -4,6 +4,12 @@
 - **The long proof of record is closed.** Ledger [`07c`](../Verification/ledger_2026-10-07c/README.md) closes all 45,713,468 post-E rows with our own certificates: 0 open, 0 delegated. The last 36 rows, at the (0,0,2,4) seeds, are closed by [`RouteC/band/seed0024`](../RouteC/band/seed0024/PROOF.md); the collaborator independently added an analytic + Lean route for the same boxes.
 - **The short proof below still needs one statement:** the global part of Step 2, M(H) < c₀ ⇒ H lies in the local neighbourhood of F6.
 
+**New, 8 Oct.**
+- **Wide F6 tube, certified:** no quartet edge within d_F ≤ 0.075 (radius 2.25 times 1/30).
+- **Local lemma, certified:** if d_F ≤ 0.0914 and M < 26, then H is not an edge.
+
+The short proof now needs only **global confinement: M(H) < 26 ⇒ d_F(H) ≤ 0.0914.** See [`widetube/PROOF.md`](widetube/PROOF.md).
+
 **The proof is [`PROOF.md`](PROOF.md):** the complete proof in our corner coordinates, with the Stage-C exclusion engine.
 
 **Why the c₀ = 5 shortening is not simpler, measured 7 Oct.**

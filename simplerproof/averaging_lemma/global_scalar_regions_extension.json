@@ -1,0 +1,47 @@
+{
+  "status": "PASS_PARTIAL_GLOBAL_COVER",
+  "global_confinement_proved": false,
+  "cutoff": 5,
+  "base_open": 59034,
+  "new_closed": 0,
+  "remaining_open": 59034,
+  "total_closed": 1268204,
+  "exact_partition_verified": true,
+  "counts": {
+    "absolute_J": 0,
+    "small_p": 0
+  },
+  "all_accepted_polynomial_bounds_outward_Arb": true,
+  "independent_phase_Arb_audits": {
+    "p": [
+      "111111101110111000010110",
+      "100000000000011100101100",
+      "000000010001100101101010"
+    ],
+    "J": [
+      "111111101110111000010110",
+      "100000000000011100101100",
+      "000000010001100101101010"
+    ]
+  },
+  "excluded": [],
+  "seconds": 16.05516679098946,
+  "inputs": {
+    "global_positive_extension.json": "a9656973a8a06c0d069bcac5ce0bde65d09b92cc0dac0564045cbee8cb8d84bc",
+    "global_complementary_extension.json": "a0cd285dbd5f580ee9452aa98f365b39992e47d96fa3e68ff837e333f1513cc0",
+    "global_dual_extension.json": "aa238faaf6976cc74079ccf9be60e57331ae95c9d930c1d077b38fa64365674c",
+    "global_scalar24_open.jsonl.gz": "00feb2902720fbbe68ab51021d4c58558d83f884ef38ba27a317f975da99b698"
+  },
+  "sources": {
+    "refine_scalar_regions.py": "a477895d2ac170f41ec9669f1fa4b3b76ce8341ed373be26b7459916cf2acf85",
+    "practical_scalar_regions.py": "cc882174d33b9c620ce003a8854409d166b6e2c64c8284135af05e8e0d3706c9",
+    "practical_scalar_regions.json": "4592b55e5a0515ea947a12af94b154f4c9fa8cc99eb8704e61b4b434a2368f58",
+    "positive_scalar_rule.py": "cb82b6f531ee6b715fcec719a728298f44cf49959c6a5458c974b34523c5dbf1",
+    "complementary_scalar_rule.py": "f6dc6e8c31f2f5f1e5d8b37f2507af61a12774c7ed812e346dd357120fbe0c94",
+    "scalar_bernstein.py": "baf280dc2592756bdf0a71076f29bd0c0d0c658b7f8082cd433fb386109fc8c3",
+    "seed_bernstein.py": "2b86f678cb49072111f5d6d27aa0312fbfa171e3c2b4a093733043126fda3128",
+    "seed_taylor.py": "49e9904ef8500a09b5db5c0eb9f67e0c9324199a8ac24ae75e8fb04c8029b165",
+    "reconstruction_polynomials.py": "da4027467b061910508d1f74ea0ee8a1a65480a5d77119259dc8af60050155fa",
+    "/Users/jtindall/Files/NoFourMUBS/ProvenResults/FourierCornerRigidity/exact_algebra.py": "e0a0737f52fba87664482564c89b28189bc105dc716fac0b3deb8f7c933abe9a"
+  }
+}

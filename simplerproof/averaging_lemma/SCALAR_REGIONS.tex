@@ -1,0 +1,147 @@
+\documentclass[11pt]{article}
+\usepackage[margin=24mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,booktabs,hyperref}
+\newtheorem{theorem}{Theorem}
+\title{Scalar bounds that hold at cutoff five}
+\author{Research note}\date{7 October 2026}
+\begin{document}\maketitle
+\noindent\textbf{Status.} The statements below are proved at the requested
+cutoff $5$. They are necessary conditions, not a proof of
+$M(H)<5\Rightarrow d_F(H)<1/30$. In particular, the small-$J$ alternative
+still needs to be converted into Fourier proximity or the final scalar
+alternatives by using the rest of the reconstruction.
+
+For a corner of a raw order-six complex Hadamard, use
+$p=X+Y+Z$ and $J=2\operatorname{Re}(sr\bar t)$ in the usual complementary
+Gram notation. Complementing its three columns preserves $p$ and replaces
+$J$ by $-J$. Call the member with the larger $R$ the \emph{oriented member}
+of that pair. Ties may be oriented arbitrarily.
+
+\begin{theorem}\label{main}
+Suppose $M(H)<5$. Then every corner satisfies
+\[
+ \boxed{|J|<\frac{21}{8}.}
+\]
+For an oriented member with $0<p<5$, one has
+\[
+ \boxed{J\ge0,\qquad 12Jp(9-p)(5-p)<25.}
+\]
+Consequently the whole region $1\le p\le4$ satisfies
+\[
+ \boxed{0\le J<\frac5{48}.}
+\]
+The only finite certificate in this proof consists of 24 rational
+Bernstein comparisons, displayed below as integer upper bounds.
+\end{theorem}
+
+\paragraph{The complementary-corner identity.}
+Write $t=9-p$ (now a scalar, not a Gram entry), $z=J^2$, and
+$z_0=t^3(4-t)/4$. For an oriented pair put
+\[
+ U=\frac{R_++R_-}{2},\qquad V=\frac{R_+-R_-}{2}.
+\]
+The reconstruction gives
+\begin{equation}\label{id}
+ 4z(z-z_0)(z+36p)
+ =JV(2z+30t^2)-Uz(t+6)^2-\frac{V^2}{4}.
+\end{equation}
+Also $0\le V\le U$, $U+V<5$, and $0\le |J|\le t\le9$.
+The first two facts follow from nonnegativity and orientation of the two
+discriminants. The last follows from the complementary permanent identity
+$p+|J|\le9$. Identity \eqref{id} is a polynomial expansion of those
+discriminants, verified in \texttt{complementary\_scalar\_rule.py}.
+It remains valid when both discriminants are zero.
+
+If $J<0$, the right side is nonpositive, hence
+$0<J^2\le z_0$. This forces $0<t<4$, or $5<p<9$, and gives
+\[
+ J^2\le\frac{27}{4},\qquad
+ 27-t^3(4-t)=(t-3)^2(t^2+2t+3)\ge0.\tag{1}
+\]
+In particular, the oriented member cannot have $J<0$ when $p<5$.
+
+If $J>0$ and $p\le7$, define
+\[
+ D=2J^2+30t^2-J(t+6)^2,\qquad
+ Q(p,J)=5D-8J(J^2+36p)(J^2-z_0).
+\]
+Here $2\le t\le9$, and
+\[
+ \frac D J=\frac{2(J-t)(J-15t)}J+(t-2)(18-t)\ge0.
+\]
+Dividing \eqref{id} by $J$, using $U\ge V$, and then $V<5/2$ gives
+\[
+ 4J(J^2-z_0)(J^2+36p)\le VD\le\frac52D,
+ \qquad\text{so }Q(p,J)\ge0.\tag{2}
+\]
+
+\paragraph{The region $0<p<5$.}
+We already know $J\ge0$. If $J=0$, the assertion is immediate.
+Suppose $J>0$ and put $L=Jp\,t(t-4)$. Here $4<t<9$ and
+$t(t-4)<45$. Expanding $Q$ in a useful grouping gives
+\begin{align*}
+ Q={}&t^2(150-72L)-5J(t+6)^2\\
+ &+2J^2\bigl(5-4J^3-144pJ\bigr)-2J^3t^3(t-4).
+\end{align*}
+If $L\ge25/12$, the first term is nonpositive, and
+\[
+ 144pJ=\frac{144L}{t(t-4)}>\frac{300}{45}>5.
+\]
+All other displayed terms are strictly negative. This contradicts (2).
+Thus $12L<25$. On $1\le p\le4$,
+\[
+ p(9-p)(5-p)-20=(4-p)(-p^2+10p-5)\ge0,
+\]
+because $-p^2+10p-5=4+(p-1)(9-p)\ge4$.
+Therefore $240J<25$, proving $J<5/48$.
+
+\paragraph{The bound on $|J|$.}
+It suffices to work with the oriented member. Negative $J$ is covered
+by (1), since $27/4<(21/8)^2$. For positive $J$, suppose
+$J\ge a=21/8$. The elementary estimate
+\[
+ J^2\le4XYZ\le4(p/3)^3
+\]
+gives $p>3$, hence $t<6$. Also $J\le t$ implies $p\le51/8<7$,
+so (2) applies.
+
+If $t\ge4$, then $z_0\le0$ and $D\le32t^2<1152$, while
+\[
+ 8J(J^2+36p)(J^2-z_0)
+ >8\left(\frac52\right)108\left(\frac{25}{4}\right)
+ =13500>5760>5D.
+\]
+This contradicts (2). It remains to consider $a\le t\le4$, or
+$5\le p\le51/8$.
+For fixed $p$ on this interval, $D$ decreases as $J$ increases through
+$[a,t]$, since $4J-(t+6)^2<0$. Each positive factor of
+$8J(J^2+36p)(J^2-z_0)$ increases, since
+$J^2\ge a^2>27/4\ge z_0$.
+Consequently $Q(p,J)\le Q(p,a)$.
+The following exact certificate proves $Q(p,a)<0$ throughout the interval,
+again contradicting (2). This proves the theorem.
+
+\paragraph{The 24-number certificate.}
+On each row's interval $[l,h]$, write
+$Q(l+(h-l)u,21/8)$ in the degree-five Bernstein basis
+$\binom5k u^k(1-u)^{5-k}$, $0\le k\le5$.
+The table gives integer \emph{upper bounds} for its six exact rational
+coefficients. Every entry is negative, and the basis is nonnegative and
+sums to one.
+\begin{center}\small
+\begin{tabular}{c rrrrrr}
+\toprule
+$[l,h]$ & $0$ & $1$ & $2$ & $3$ & $4$ & $5$\\\midrule
+$[5,171/32]$ & $-25887$ & $-21992$ & $-18510$ & $-15428$ & $-12733$ & $-10407$\\
+$[171/32,91/16]$ & $-10407$ & $-8081$ & $-6124$ & $-4519$ & $-3246$ & $-2283$\\
+$[91/16,193/32]$ & $-2283$ & $-1320$ & $-668$ & $-304$ & $-205$ & $-346$\\
+$[193/32,51/8]$ & $-346$ & $-488$ & $-870$ & $-1469$ & $-2258$ & $-3214$\\
+\bottomrule
+\end{tabular}
+\end{center}
+The script \texttt{practical\_scalar\_regions.py} regenerates these values
+using rational arithmetic and independently reconstructs the entire
+polynomial from each set of six coefficients. Its JSON receipt includes
+the exact fractions and source hashes. No sampling or floating-point
+comparison is used in this certificate.
+\end{document}
