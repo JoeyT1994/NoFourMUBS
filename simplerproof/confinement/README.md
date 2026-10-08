@@ -48,7 +48,8 @@ Cross-partition ties do occur at low M: an exact Fourier-family point has 72 act
 
 ## Contents
 
-- `handoff/`: the prompt and float toolkit sent to the agents.
+- `handoff/`: the round-1 prompt and float toolkit sent to the agents.
+- `handoff2/PROMPT.md`: the round-2 prompt (8 Oct). It is narrowed to the cross-partition local-minimum case, states the round-1 results as usable facts, and corrects the coverage statement F7.
 - `returns/A_block_locus/`: the Fourier-block locus, a descent theorem on that locus, the gauge, and the general identities.
 - `returns/B_partition/`: the one-partition critical-point theorem, the 1/40 Fourier tube, the chart regularity, and the cross-partition example.
 - `returns/C_fourier_tube/`: the 0.042 Fourier tube via a global gradient bound of 1767, the Hadamard-corner classification and collar, and the chart denominators.
