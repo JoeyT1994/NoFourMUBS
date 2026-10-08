@@ -1,5 +1,5 @@
-"""Vector-bin Stage C (after openai/math, Section 6), applied to one Record cell.  PILOT: float arithmetic with small
-safety margins; acceptance decisions are not yet outward-rounded.
+"""Vector-bin Stage C (after openai/math, Section 6), applied to one Record cell.  Exponentials come from Arb-certified
+tables; all other operations are IEEE float with the explicit margin MARGIN applied conservatively (RIGOUR.md).
 
 Setting.  The cell is the set of Hadamards e(P + delta) (phases in CYCLES, e(t) = exp(2 pi i t)) with every column of
 delta of Euclidean norm <= r (cycles).  Two further bases would consist of twelve unit vectors e(beta)/sqrt6 unbiased to
@@ -21,14 +21,42 @@ import numpy as np
 
 TWO_PI = 2 * math.pi
 SQ6 = math.sqrt(6)
-MARGIN = 1e-9
+MARGIN = 1e-7   # dominates the float error of every compared quantity (see RIGOUR.md)
+# ---------------------------------------------------------------- certified exponentials
+# Every bin midpoint is k/192 (resolutions 12, 24, 48, 96), so e(u) = EXP192[k mod 192]; the table entries are the
+# float roundings of Arb enclosures (error <= 2^-52 per real coordinate).  e(-P) is computed the same way per centre.
+from flint import arb as _arb, acb as _acb, ctx as _ctx
+_ctx.prec = 120
+DEN = 192
+def _cis_float(x_arb):
+    z = (_acb(0, 2) * _arb.pi() * x_arb).exp()
+    return complex(float(z.real.mid()), float(z.imag.mid()))
+EXP192 = np.array([_cis_float(_arb(k) / DEN) for k in range(DEN)])
+def cis_table(K):
+    """e(K/192) for an integer array K."""
+    return EXP192[np.mod(K, DEN)]
+def cis_centre(P):
+    """e(-P) for the float matrix P (cycles), via Arb."""
+    return np.array([[_cis_float(-_arb(float(P[j, i]))) for i in range(6)] for j in range(6)])
+def opnorm_bound(P):
+    """Rigorous upper bound of ||e(P)/sqrt6||_2 via ||A||_2^2 <= max row sum of |A^* A| (Arb)."""
+    from flint import acb_mat
+    A = acb_mat([[(_acb(0, 2) * _arb.pi() * _arb(float(P[j, i]))).exp() / _arb(6).sqrt() for i in range(6)] for j in range(6)])
+    B = A.conjugate().transpose() * A
+    row = max(sum((abs(B[i, j]) for j in range(6)), _arb(0)).upper() for i in range(6))
+    return float(_arb(row).sqrt().upper()) * (1 + 1e-12)
 
 
-def single_tests(U, P, r, M, K):
+def _toint(U):
+    Kq = np.rint(np.asarray(U) * DEN).astype(np.int64)
+    assert np.abs(np.asarray(U) * DEN - Kq).max() < 1e-6, 'bin midpoints must be multiples of 1/192'
+    return Kq
+
+
+def single_tests(U, P, r, M, K, eP):
     """U: (n, 5) bin midpoints (cycles).  Boolean mask of bins surviving Lemma 6.2 (6.7) and the scalar test (6.12)."""
     a = 1.0 / (2 * M); X = math.sqrt(29 / 6) * a; L = 5 * a; I = 1.5 * a
-    U6 = np.concatenate([np.zeros((len(U), 1)), U], axis=1)              # u_0 = 0
-    eU = np.exp(TWO_PI * 1j * U6); eP = np.exp(-TWO_PI * 1j * P)          # q_ji = e(u_j - P_ji)/sqrt6
+    eU = cis_table(np.concatenate([np.zeros((len(U), 1), int), _toint(U)], axis=1))                     # u_0 = 0; q_ji = e(u_j - P_ji)/sqrt6
     S = eU @ eP / SQ6                                                     # (n, 6): S_i
     absS = np.abs(S)
     tau = TWO_PI * (L / SQ6 + r) + MARGIN
@@ -49,15 +77,14 @@ def single_tests(U, P, r, M, K):
     return ok
 
 
-def tangent_tests(U, P, r, M, K, T, rH, nN):
+def tangent_tests(U, P, r, M, K, eP, T, rH, nN):
     """Lemma 6.3 / (6.11): for a proposed direction y in R^6 (one per bin, least-squares), keep the bin only if
         |y.c| <= a sum_{j>0} |(J^T y)_j| + rH ||B^T y|| + E(y; X, I),
     E(y) = nN N_y + pi [ ||y||_inf (K X + r)^2 + min(G_y X^2, K ||S o y|| I X) + (2/sqrt6) ||S o y|| X r + (1/sqrt6) ||S o y||_inf r^2 ],
     c_i = (|S_i|^2 - 1)/(4 pi), J_ij = -Im(conj(S_i) q_ji), B_ik = sum_j J_ij T[(j,i), k], N_y = (sum y_i^2 J_ij^2)^{1/2},
     G_y = max_j |sum_i y_i conj(S_i) q_ji|.  delta = T eta + nu with ||eta|| <= rH, ||nu|| <= nN, ||delta col|| <= r."""
     a = 1.0 / (2 * M); X = math.sqrt(29 / 6) * a; I = 1.5 * a
-    U6 = np.concatenate([np.zeros((len(U), 1)), U], axis=1)
-    eU = np.exp(TWO_PI * 1j * U6); eP = np.exp(-TWO_PI * 1j * P)
+    eU = cis_table(np.concatenate([np.zeros((len(U), 1), int), _toint(U)], axis=1))
     S = eU @ eP / SQ6                                                     # (n, 6) over i
     q = eU[:, :, None] * eP[None, :, :] / SQ6                             # (n, j, i)
     J = -(np.conj(S)[:, None, :] * q).imag                                # (n, j, i)
@@ -71,7 +98,7 @@ def tangent_tests(U, P, r, M, K, T, rH, nN):
     A = np.concatenate([A1, A2], axis=1)
     G = np.einsum('nri,nrl->nil', A, A) + 1e-12 * np.eye(6)[None]
     z = np.linalg.solve(G, c[..., None])[..., 0]
-    y = z / np.maximum(np.einsum('ni,ni->n', z, c), 1e-300)[:, None]
+    y = z / np.maximum(np.abs(z).max(axis=1), 1e-300)[:, None]           # any direction is valid; |y| <= 1
     lhs = np.abs(np.einsum('ni,ni->n', y, c))
     Sy = np.abs(S * y)
     Ny = np.sqrt(np.einsum('ni,nji->n', y ** 2, J ** 2))
@@ -84,45 +111,46 @@ def tangent_tests(U, P, r, M, K, T, rH, nN):
 
 
 def bins(P, r, levels=(12, 24, 48, 96), cap=2_000_000, tang=None):
-    K = np.linalg.norm(np.exp(TWO_PI * 1j * P) / SQ6, 2) * (1 + 1e-12)
+    K = opnorm_bound(P); eP = cis_centre(P)
     M = levels[0]
     g = (np.arange(M) + 0.5) / M
     U = np.stack(np.meshgrid(g, g, g, g, g, indexing='ij'), -1).reshape(-1, 5)
-    U = U[single_tests(U, P, r, M, K)]
-    if tang is not None and len(U): U = U[tangent_tests(U, P, r, M, K, *tang)]
+    U = U[single_tests(U, P, r, M, K, eP)]
+    if tang is not None and len(U): U = U[tangent_tests(U, P, r, M, K, eP, *tang)]
     for M2 in levels[1:]:
         f = M2 // M
         off = (np.arange(f) + 0.5) / M2 - 0.5 / M                          # child midpoint offsets
         O = np.stack(np.meshgrid(*([off] * 5), indexing='ij'), -1).reshape(-1, 5)
         U = (U[:, None, :] + O[None, :, :]).reshape(-1, 5)
-        U = U[single_tests(U, P, r, M2, K)]
-        if tang is not None and len(U): U = U[tangent_tests(U, P, r, M2, K, *tang)]
+        U = U[single_tests(U, P, r, M2, K, eP)]
+        if tang is not None and len(U): U = U[tangent_tests(U, P, r, M2, K, eP, *tang)]
         M = M2
         if len(U) > cap: return None, M
     return U, M
 
 
 def cluster(U, M, radius=0.042, smax=0.1):
-    """Greedy assignment of bin midpoints to centres; returns (centres (k,5), radii) with every bin covered."""
+    """Greedy assignment of bin midpoints to centres (Lemma 6.4); radii s >= ||h|| + X_M with a float margin."""
     X = math.sqrt(29 / 6) / (2 * M)
-    centres, radii, left = [], [], U.copy()
-    while len(left):
-        v = left[0]
-        D = left - v; D -= np.round(D)                                     # integer wrap
-        D6 = np.concatenate([np.zeros((len(D), 1)), D], 1); D6 -= D6.mean(1, keepdims=True)
+    Ki = _toint(U); centres, radii = [], []
+    left = np.ones(len(Ki), bool)
+    while left.any():
+        i0 = np.argmax(left); v = Ki[i0]
+        D = np.mod(Ki - v + DEN // 2, DEN) - DEN // 2                         # exact integer wrap, units 1/192
+        D6 = np.concatenate([np.zeros((len(D), 1)), D], 1) / DEN
+        D6 = D6 - D6.mean(1, keepdims=True)
         nrm = np.linalg.norm(D6, axis=1)
-        take = nrm <= radius
-        s = nrm[take].max() + X + 1e-9
+        take = left & (nrm <= radius)
+        s = nrm[take].max() * (1 + 1e-12) + X + 1e-9
         if s >= smax: return None
-        centres.append(v); radii.append(s); left = left[~take]
+        centres.append(U[i0]); radii.append(s); left &= ~take
     return np.array(centres), np.array(radii)
 
 
 def edges(C, s, chunk=256):
     """Direct tests (6.16) and the second-order support tests (6.20), (6.21) of Lemma 6.6 (row-chunked)."""
     n = len(C)
-    C6 = np.concatenate([np.zeros((n, 1)), C], 1)
-    E = np.exp(TWO_PI * 1j * C6)
+    E = cis_table(np.concatenate([np.zeros((len(C), 1), int), _toint(C)], axis=1))
     O = np.zeros((n, n), bool); Ub = np.zeros((n, n), bool)
     for a0 in range(0, n, chunk):
         a1 = min(n, a0 + chunk)
