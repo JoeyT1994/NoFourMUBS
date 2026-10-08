@@ -13,6 +13,7 @@
 | `nonempty.py` | Places the exact F6 inside a Record, checked in Arb |
 | `tao.py` | S₆ as a zero-dimensional ball Record: uniqueness in the ball (isolation) and Stage C (Remark 3.3) |
 | `arb_replay.py` | Re-evaluates a random sample of float Stage C rejections in Arb with no margin |
+| `STAGEC.md` | Stage C stated and proved in our notation (Lemma 3.2) |
 | `RIGOUR.md` | Error budget and status of every inequality |
 | `volume.py`, `conditioning.py` | The corner census used by the alignment, and numerical estimates (vol(A) ≈ 1.0; rank J = 21, σ_min ≥ √3 observed) |
 | `lib/` | Vendored helpers: `chart_np.py` and `common.py` |

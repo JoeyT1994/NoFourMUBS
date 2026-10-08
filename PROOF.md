@@ -82,6 +82,8 @@ A **ball Record** is a set B_r = {e^{i(P+δ)} : δ horizontal, ‖δ‖ ≤ R}, 
 
 > **Lemma 3.2 (Stage C, after [OAI] §6).** Suppose the vector-bin cover, the label clustering, the O/U edge tests (including the joint test 6.23) and the exact two-clique search succeed for (P, r_H, n, r_col). Then no Hadamard in B_r is a quartet edge.
 
+**Proofs.** Every Stage C inequality, the label lemma and the correctness of the clique search are stated and proved in our notation in [`proof/atlas/STAGEC.md`](proof/atlas/STAGEC.md).
+
 **Code.** [`proof/atlas/ballrecord.py`](proof/atlas/ballrecord.py) and [`stagec.py`](proof/atlas/stagec.py).
 
 **Rigour** ([`RIGOUR.md`](proof/atlas/RIGOUR.md)):
@@ -124,7 +126,7 @@ By Step 4 and the Corollary to Step 2, every class in X lies in some ball Record
 | Input | Used in | Status |
 |---|---|---|
 | The classification [CT], via MC1–MC5 | Step 2 only | Proved relative to [CT] in [`MinimalConstruction/Proofs`](MinimalConstruction/Proofs/README.md) |
-| [OAI] Lemmas 6.1–6.7 (the Stage C inequalities) | Step 3 | Elementary Taylor and Cauchy–Schwarz bounds, restated in our notation in `stagec.py` |
+| The Stage C inequalities (after [OAI] §6) | Step 3 | Proved in [`proof/atlas/STAGEC.md`](proof/atlas/STAGEC.md): elementary Taylor and Cauchy–Schwarz bounds |
 | Computation | Steps 1 and 4 | Exact (Step 1); Arb plus margined binary64 (Steps 3–4) |
 
 ## Verifying
