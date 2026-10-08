@@ -1,0 +1,39 @@
+{
+  "module": "SideMatrixSeedGram",
+  "source_sha256": "e6e4b69b081a604cca952f78416aba48393f0d02df5a9f6b0487d24e602d0a5f",
+  "checked_object": {
+    "sha256": "124aa157b4fca77c3f514162fe616187134db662b6b7127b44a96e2ccbcaa719",
+    "bytes": 38496
+  },
+  "original_receipt": {
+    "sha256": "153d4e3d26f84657aae86150f34e6f1035a40df1c8da8e2169b7c70718099fb7",
+    "bytes": 297
+  },
+  "original_axiom_log": {
+    "sha256": "6a5de43505d6ed3cddb304cdc5f3db3a608c65170ed49aace2d9486f305574cd",
+    "bytes": 256
+  },
+  "selected_roots": [
+    {
+      "declaration": "StrictReconstruction20261007.reconstructionGram_eq_seedComplement",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "declaration": "StrictReconstruction20261007.strict_seed_complement_gram_exists",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    }
+  ],
+  "schema": "sanitized-successful-check-projection-v1",
+  "success": true,
+  "exit_code": 0,
+  "selected": true,
+  "dependency_caveat": "Existing checks reused pinned Lean/Mathlib/custom objects. No clean full-library source/cache rebuild or fresh relocated replay is claimed."
+}

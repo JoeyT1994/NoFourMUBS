@@ -1,0 +1,39 @@
+{
+  "module": "ThirdRowGateScaling",
+  "source_sha256": "365b59ffbae5d0f23264fb509cc5988d7fe9d8a650f874949f43246333534d33",
+  "checked_object": {
+    "sha256": "599544a60151c7d1b9b81d79e5ca7c2e21073603c5b13c9cdc276f7f2307bb50",
+    "bytes": 1601384
+  },
+  "original_receipt": {
+    "sha256": "7b0b6ee14111b3ea039ff0eb2390e7c1ce77ae81b1a600984b8319c207130ed7",
+    "bytes": 297
+  },
+  "original_axiom_log": {
+    "sha256": "d396e23ddada05d13d2de69c16a1a9c7ed7936e580a3a1f0de0d6fbcfcd80c8d",
+    "bytes": 738
+  },
+  "selected_roots": [
+    {
+      "declaration": "StrictReconstruction20261007.ThirdRowGate.constant_geometry_scaling",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "declaration": "StrictReconstruction20261007.ThirdRowGate.linear_geometry_scaling",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    }
+  ],
+  "schema": "sanitized-successful-check-projection-v1",
+  "success": true,
+  "exit_code": 0,
+  "selected": true,
+  "dependency_caveat": "Existing checks reused pinned Lean/Mathlib/custom objects. No clean full-library source/cache rebuild or fresh relocated replay is claimed."
+}
