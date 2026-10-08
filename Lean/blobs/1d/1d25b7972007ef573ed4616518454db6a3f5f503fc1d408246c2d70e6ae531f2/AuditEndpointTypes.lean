@@ -1,0 +1,11 @@
+import CircleTaoSymmetryClosing
+import CircleTaoCompleteLocal
+set_option pp.fullNames true
+#check Mub6.Numerical.CircleFullPrototype.TaoSymmetryClosing.routed_representative_roots
+#check Mub6.Numerical.CircleFullPrototype.TaoSymmetryClosing.all_32_roots
+#check Mub6.Numerical.CircleFullPrototype.TaoSymmetryClosing.complete_circle_cover
+#check Mub6.Numerical.CircleFullPrototype.TaoSymmetryClosing.raw_five_pair_excluded
+#check Mub6.Numerical.CircleFullPrototype.TaoSymmetryClosing.normalized_extension_excluded
+#check Mub6.Numerical.CircleFullPrototype.TaoSymmetryClosing.tao_no_raw_five_pair
+#check Mub6.Numerical.CircleFullPrototype.CompleteLocal.concrete_complete_local_certificate
+#print axioms Mub6.Numerical.CircleFullPrototype.CompleteLocal.concrete_complete_local_certificate

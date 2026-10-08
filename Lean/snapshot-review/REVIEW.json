@@ -1,0 +1,102 @@
+{
+  "archive_path": "/Users/mateo/Desktop/Quantum Physics Codex/mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/lean-complete-snapshot-20261008/source-collection",
+  "blocking_findings": [],
+  "checks_passed": [
+    "All 60,802 resident workspace originals independently rehashed against archived path bindings (649,353,898 logical bytes).",
+    "All 19,386 unique blob lengths/hashes and final archive manifest verified; manifest covers the actual archive file set.",
+    "All 1,116 prior Git Lean paths match the pinned commit tree and Git blob OIDs recomputed from archived bytes; no network enabled.",
+    "All 94 recovered placeholders have exact path/hash evidence; 534 evidence references across 68 resident metadata files were independently checked. Current placeholder bytes were never read.",
+    "All 11 prior published source inventories resolve to exact archived file/hash bytes; their listed custom static import names close within each inventory.",
+    "All 19,820 source/provenance files scanned for private-key, token, access-key and credential-assignment patterns; no matches. Pattern screening is not a guarantee that no sensitive free text exists.",
+    "22 bounded utility checks passed: invalid paths, symlink escape, dataless refusal, no-write dry run, exact restoration, no differing-file overwrite, archive overlap rejection, missing-manifest/index and corrupt-blob failures.",
+    "README, SUMMARY and GAP_REPORT explicitly disclose source-only status, historical cloud gaps, directory-policy exclusions, heuristic import resolution and absent universal build.",
+    "Collector ambiguity checks require an unambiguous exact source path/hash and no conflicting historical pins. Git augmentation permits only regular Git blobs and explicitly denies transport."
+  ],
+  "counts": {
+    "distinct_source_blobs": 19386,
+    "distinct_source_bytes": 273077698,
+    "exact_pin_recovered_paths": 94,
+    "inventory_module_entries": 760,
+    "manifest_bytes_excluding_manifest": 319249362,
+    "manifest_files_excluding_manifest": 19836,
+    "prior_git_lean_paths": 1116,
+    "prior_git_revision": "ed8470c7d77e76121610492b3bed98b98a5f1b3b",
+    "prior_published_source_inventories": 11,
+    "resident_original_paths_rehashed": 60802,
+    "unavailable_historical_dataless_paths": 17052,
+    "workspace_paths": 77948
+  },
+  "file_manifest_sha256": "16c0e1862b2da3f0f1ccf225de4281ca27f364a1cfbfa9ef70871e94fe6522ad",
+  "limitations": [
+    "17,052 historical cloud-only workspace paths remain unavailable; 12,924 are classified heuristically as canonical/generated paths and 4,128 as historical check/attempt paths. They are not all asserted to be redundant.",
+    "The collection covers its explicitly listed authored-source roots with stated directory exclusions; it is not a whole-workspace or all-history byte-complete archive.",
+    "Twelve unresolved historical authored import module names remain across the aggregate archive; complete published source inventories do not resolve every historical draft.",
+    "Exact recovered bytes reproduce a pinned historical version, not the unread current cloud placeholder.",
+    "Import index is heuristic and context dependent; historical Lean versions and object/source/receipt bindings require selected replay environments.",
+    "No Lean compilation, theorem admission, registry mutation or physical sector closure occurred in this review."
+  ],
+  "reviewed_script_and_index_pins": {
+    "BLOB_INDEX.jsonl": {
+      "bytes": 6497149,
+      "sha256": "8a124c5d9477fa048eb28a0be4c77a82b4d4c374e8861a60d85b355a1de73a26"
+    },
+    "FILE_MANIFEST.json": {
+      "bytes": 4703581,
+      "sha256": "16c0e1862b2da3f0f1ccf225de4281ca27f364a1cfbfa9ef70871e94fe6522ad"
+    },
+    "GAP_REPORT.json": {
+      "bytes": 17628,
+      "sha256": "b1c171e016dc1cee404ad5416e0ee4edf693cc54f8879d64c511021572c44542"
+    },
+    "GIT_SOURCE_INDEX.jsonl": {
+      "bytes": 685698,
+      "sha256": "99a197c67569d1b077702142c374b5135c8084f6d2b83c67548ed7b2bbf76029"
+    },
+    "README.md": {
+      "bytes": 5428,
+      "sha256": "49f1a7d771ec5913397ef08e80c3699c83a93bfa823fa81e93ee52edb95ed878"
+    },
+    "SOURCE_INDEX.jsonl": {
+      "bytes": 31380952,
+      "sha256": "e56835aafa2eee86f3e3a340cabbd4d891e4044661ecfb6902a255ebe62ab323"
+    },
+    "SOURCE_RECOVERY.json": {
+      "bytes": 345174,
+      "sha256": "b27bb242ae7bf5f5eda4dc5eb342e9fbd4ceb88922c134a734a4f870e91a3213"
+    },
+    "SUMMARY.json": {
+      "bytes": 3152,
+      "sha256": "82f0aea5a21838133e1fdc845ade14bc8b5b9506704d363bb2235c0fd8730a5b"
+    },
+    "add_git_sources.py": {
+      "bytes": 6827,
+      "sha256": "aec267d4fd083eebc07e7d4f2372ff3e9fae3ffc21ab70b4d6a6508158ab8609"
+    },
+    "collect_sources.py": {
+      "bytes": 15468,
+      "sha256": "a079eff0a13f5d2f63bc39ba858764d01409b9b3b7ab604ad92e7bc34f56122a"
+    },
+    "verify_restore.py": {
+      "bytes": 6475,
+      "sha256": "61cb128321302b8fc5129b0d02baf34cb91fa68c08729719098bbc6acaee4659"
+    }
+  },
+  "reviewer": "/root/minimal_proof_audit",
+  "schema": "independent-source-archive-review-v1",
+  "scope": "Independent source publication review only. This does not admit any Lean theorem, validate every historical draft, or certify the completed no-four-MUB formalization.",
+  "status": "PASS_SCOPED_SOURCE_AVAILABILITY_AND_INTEGRITY",
+  "supporting_records": {
+    "INDEPENDENT_CHECKS.json": {
+      "bytes": 2824,
+      "sha256": "bec6c4c6af7bc7a3362ac63972d628320d41ff70d3b358bf98b5430b71f9b6d0"
+    },
+    "PUBLISHED_CLOSURE_CHECKS.json": {
+      "bytes": 2920,
+      "sha256": "5a7522c6455894d8f3f873f26ac208fd1034c6da603e539969353c99353ce147"
+    },
+    "UTILITY_CHECKS.json": {
+      "bytes": 1734,
+      "sha256": "133b47ace8658eb8d18a436bc69d5bac5bfe9cfb45161aebba471e1b4cea8489"
+    }
+  }
+}

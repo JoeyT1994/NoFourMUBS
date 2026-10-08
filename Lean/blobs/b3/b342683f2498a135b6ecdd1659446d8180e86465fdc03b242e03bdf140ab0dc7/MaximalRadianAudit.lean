@@ -1,0 +1,28 @@
+import MaximalQuartetRadian
+
+#print axioms Mub6.MaximalRadian20261006.permute_comp
+#print axioms Mub6.MaximalRadian20261006.gramEntry_permute
+#print axioms Mub6.MaximalRadian20261006.cornerR_permute
+#print axioms Mub6.MaximalRadian20261006.physical_permute
+#print axioms Mub6.MaximalRadian20261006.triple_permutation
+#print axioms Mub6.MaximalRadian20261006.column_set_permutation
+#print axioms Mub6.MaximalRadian20261006.finite_real_maximum
+#print axioms Mub6.MaximalRadian20261006.exists_permutation_maximum
+#print axioms Mub6.MaximalRadian20261006.permutationMaximal_implies_maximal
+#print axioms Mub6.MaximalRadian20261006.physical_has_maximal_permutation
+#print axioms Mub6.MaximalRadian20261006.physical_has_normalized_maximal_permutation
+#print axioms Mub6.MaximalRadian20261006.physical_leadingR_nonnegative
+#print axioms Mub6.MaximalRadian20261006.maximal_all_signed_abs_bound
+#print axioms Mub6.MaximalRadian20261006.maximal_strict_or_zero
+#print axioms Mub6.MaximalRadian20261006.phaseHadamard_physical
+#print axioms Mub6.MaximalRadian20261006.actual_phaseOverlap_physical
+#print axioms Mub6.MaximalRadian20261006.permutedQuartet_isMUB
+#print axioms Mub6.MaximalRadian20261006.permutedQuartet_phaseOverlap
+#print axioms Mub6.MaximalRadian20261006.dephase_eq_normalize
+#print axioms Mub6.MaximalRadian20261006.quartet_has_maximal_phase_edge_witness
+#print axioms Mub6.MaximalRadian20261006.quartet_has_maximal_phase_edge
+#print axioms Mub6.MaximalRadian20261006.quartet_reaches_maximal_radian_root
+#print axioms Mub6.MaximalRadian20261006.maximal_population_is_quartet_population
+#print axioms Mub6.MaximalRadian20261006.maximal_population_signed_bounds
+#print axioms Mub6.MaximalRadian20261006.quartet_reaches_maximal_radian_frontier
+#print axioms Mub6.MaximalRadian20261006.empty_maximal_radian_forest_noFour

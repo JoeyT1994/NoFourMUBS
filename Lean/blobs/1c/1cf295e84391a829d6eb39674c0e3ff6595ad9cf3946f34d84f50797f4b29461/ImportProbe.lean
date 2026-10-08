@@ -1,0 +1,2 @@
+import CanonicalCorners
+#print axioms Mub6.Classification.CanonicalCorners.canonical_representative

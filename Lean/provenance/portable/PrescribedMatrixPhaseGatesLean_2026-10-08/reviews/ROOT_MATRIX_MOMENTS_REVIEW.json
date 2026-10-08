@@ -1,0 +1,159 @@
+{
+  "schema": "sanitized-independent-semantic-review-projection-v1",
+  "original_review_sha256": "cc270f240c19f59a2ab39d8cca879dff91624ae15976b88efb42acc8e6d86c70",
+  "original_status": "PASS_LITERAL_DETERMINANT_MIXED_MOMENT_AND_SECOND_ROW_GATE",
+  "independent_author_and_reviewer": true,
+  "projection_notice": "Semantic checks and scope exclusions are retained verbatim from this review. Earlier exclusions concern the corresponding earlier module; STATUS.json states the collection scope. Host paths, timestamps and operating records are omitted.",
+  "reviewed_modules": [
+    "SideMatrixMomentAlgebra",
+    "SideMatrixMoments",
+    "SideMatrixDeterminant"
+  ],
+  "reviewed_artifacts": [
+    {
+      "module": "SideMatrixMomentAlgebra",
+      "file": "lean/SideMatrixMomentAlgebra.lean",
+      "source_sha256": "d2d10e774d56224e1b81300d64d5d853ba116261fdd3fb40df118e16ee59cb38",
+      "bytes": 3700,
+      "checked_object": {
+        "sha256": "8a295c4c682fcd63fc79511301b8121289961fe3b1f29eed02e4455e6f596c9b",
+        "bytes": 397728
+      },
+      "original_receipt": {
+        "sha256": "90441b0c2cbfc5f001cb4b8fe957c666dce42fbf017d5425dd0dc6799bd357aa",
+        "bytes": 296
+      },
+      "original_axiom_log": {
+        "sha256": "0084c84770f0e442949ddbfae08f2e0c581892c77dbf9defae4a6f813294d6d8",
+        "bytes": 1212
+      },
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.two_coefficient_determinant",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.two_coefficient_mixed",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.phase_gate_from_unit_balance",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.sigma_row_phase_gate",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "SideMatrixMoments",
+      "file": "lean/SideMatrixMoments.lean",
+      "source_sha256": "7ea77628ff5d12cd67cd146b1a2d58f0a03978952ce5f9195b6581349a0674ba",
+      "bytes": 6133,
+      "checked_object": {
+        "sha256": "937d822a7fc00e2646cfa7e95611f0705fff858d67e17e992386c46f13404a44",
+        "bytes": 239840
+      },
+      "original_receipt": {
+        "sha256": "a0c537b985be04e4fc3e98206a1a334098e738819128e7b3698b1065482d8859",
+        "bytes": 296
+      },
+      "original_axiom_log": {
+        "sha256": "63c8e209a306ef131dff9db886006fb34adeb71668014ccd26e1c7439d67fff8",
+        "bytes": 484
+      },
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.prescribed_preRho_factor",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.prescribed_coefficient_determinant",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.prescribed_mixed_permanent",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.prescribed_second_row_phase_gate",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "SideMatrixDeterminant",
+      "file": "lean/SideMatrixDeterminant.lean",
+      "source_sha256": "2d583b7059d2008b0fb09ac845de3f66d89beca5fe094267262ffe3965080973",
+      "bytes": 1392,
+      "checked_object": {
+        "sha256": "af695e91a06bf926d7127c18a55f4f3c482f57ec500c336addf70d215e5ecc9c",
+        "bytes": 102128
+      },
+      "original_receipt": {
+        "sha256": "cbf5a5cac5310154720b735eb97437b59538d933e26b06bfc1ef3ee5c958e6eb",
+        "bytes": 296
+      },
+      "original_axiom_log": {
+        "sha256": "dd10b7a0bcbe0dc17ac2bc2f09403b990db42a8fad981e178a67a20ab0643916",
+        "bytes": 489
+      },
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.prescribed_matrix_det",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    }
+  ],
+  "selected_printed_roots": 9,
+  "semantic_checks": [
+    "Generic coefficient determinant and mixed identities cancel only positive n and derive their conclusions from explicit balance/factor relations.",
+    "The actual preRho factor A=(2rho−n)delta follows from dF real and delta norm g/27, without dividing by A or dF. The zero-orientation branch is retained.",
+    "The actual mixed permanent uses literal sideZ and prescribedLambda0 and discharges its generic mixed-factor hypothesis using the checked preRho identity.",
+    "Second-row gate follows from the actual unit prescribedU, literal alpha/rho definition, rho positivity, balance and sigma norm; no phase-gate equation is assumed by the final actual theorem.",
+    "Matrix.det(prescribedMatrix)=delta is checked from the literal three-by-three determinant and coefficient identity, with the correct conjugated sigma and signs."
+  ],
+  "scope_limitations": [
+    "The third-row phase gate and side Fourier/exhaustion assembly remain separate obligations.",
+    "No physical box, complete radius exclusion or full no-four-MUB theorem is claimed.",
+    "Inherited Mathlib source/cache authenticity caveat unchanged."
+  ]
+}

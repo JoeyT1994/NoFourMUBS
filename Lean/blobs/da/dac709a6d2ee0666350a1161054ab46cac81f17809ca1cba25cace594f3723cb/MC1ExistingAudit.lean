@@ -1,0 +1,13 @@
+import Worker12.ZeroClassification
+import GoodMinorPhysical
+import KarlssonFourierImport
+
+set_option autoImplicit false
+#print Worker12.singular_selectedMinor_classified
+#print axioms Worker12.singular_selectedMinor_classified
+#print Worker12.strongBoundaryRouting_checked
+#print axioms Worker12.strongBoundaryRouting_checked
+#print Mub6.Classification.GoodMinor.phaseHadamard_sum_minor_normSq
+#print axioms Mub6.Classification.GoodMinor.phaseHadamard_sum_minor_normSq
+#print Worker12.FourierQuartetExclusion
+#print Mub6.Classification.KarlssonFourierImport.affine_excluded

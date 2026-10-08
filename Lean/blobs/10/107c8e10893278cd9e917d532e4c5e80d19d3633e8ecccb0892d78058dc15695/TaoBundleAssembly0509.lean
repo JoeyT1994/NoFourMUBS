@@ -1,0 +1,292 @@
+import TaoBundleAssembly0508
+import TaoBundleChunkBatch0697
+import TaoBundleChunkBatch0698
+import TaoBundleData
+set_option maxRecDepth 100000
+set_option maxHeartbeats 0
+namespace Mub6.Numerical.IntegerIntervals.TaoBundle.Assembly0509
+def root_7366273 : ZRayBox := fun j => (#[⟨⟨(0), (8388608)⟩, ⟨(-16777216), (-14529024)⟩⟩, ⟨⟨(0), (16777216)⟩, ⟨(0), (16777216)⟩⟩, ⟨⟨(-16777216), (0)⟩, ⟨(0), (16777216)⟩⟩, ⟨⟨(-16777216), (0)⟩, ⟨(0), (16777216)⟩⟩, ⟨⟨(0), (16777216)⟩, ⟨(0), (16777216)⟩⟩] : Array ZBox).getD j.val ⟨⟨0,0⟩,⟨0,0⟩⟩
+def small_7366273_left_root : ZRayBox := fun j => (#[⟨⟨(0), (8388608)⟩, ⟨(-16777216), (-14529024)⟩⟩, ⟨⟨(0), (8388608)⟩, ⟨(0), (16777216)⟩⟩, ⟨⟨(-16777216), (0)⟩, ⟨(0), (16777216)⟩⟩, ⟨⟨(-16777216), (0)⟩, ⟨(0), (16777216)⟩⟩, ⟨⟨(0), (16777216)⟩, ⟨(0), (16777216)⟩⟩] : Array ZBox).getD j.val ⟨⟨0,0⟩,⟨0,0⟩⟩
+def small_7366273_left_fuel : Nat := 22
+def small_7366273_left_count : Nat := 227
+def small_7366273_left_encoded : String := "1151E903000000010A0000FA115225050A0000FC115225070A0001081151E9090000000408A91305120700FA08A91307000000050000000A0000000212073CFA0000000208A91307120700FC05000100135D44F705000102135D45030000000100000009135D81030500010800000005000000090000000100000000135D80F70000000005000102135D45030000000100000009135D810305000108135D4509000000040000000600000009000000010000000312073CFC0000000305000100135D44F7050001020000000A135D810305000108135D4509000000040CFD9C050000000A0F350CFA00000002000000070000000A0000000100000000135D80F70000000005000102135D45030000000105000108135D4509000000040CFD9C050000000A0F350CFA00000002000000070000000A135D810305000108135D4509000000040CFD9C050F34D0FA0CFD9C070F34D0FC00000006000000030000000A000000020F350CFA000000020CFD9C070F34D0FC000000060000000300000006135D81090CFD9C050000000A0F350CFA000000020CFD9C070F34D0FC00000009000000030000000A00000004000000011152250908A913050000000A12073CFA0000000208A91307120700FC00000009000000030000000A00000004000000031151E907000000030A0001081151E9090000000408A913050000000A12073CFA000000020500010000000007135D80F7000000000500010200000007135D8103050000FC135D8107000000070000000300000007000000010000000A000000021151E905000000020A0000FC115225070A0001081151E9090000000408A91307120700FC05000100135D44F70000000600000000000000060000000312073CFC000000030500010000000007135D80F7000000000500010200000007135D8103050000FA135D8105000000070000000200000006000000011152250908A91307120700FC08A913090000000912073D0805000100135D44F7000000070000000000000009000000040000000312073CFC0000000308A913090000000912073D0805000100135D44F70000000A00000000000000090000000400000004000000031151E907000000030A0001081151E90900000004000000051152250908A9130912070108000000040000000912073D08050001000000000A135D80F700000000050001020000000A135D8103050000FA0000000A135D45050000000200000005000000010000000400000004"
+theorem small_7366273_left_checked :
+    PackedHex.checkHexPacked scale carrier boxes small_7366273_left_root small_7366273_left_fuel small_7366273_left_count small_7366273_left_encoded = true := by
+  decide +kernel
+theorem small_7366273_left_covered : CoveredBy scale carrier boxes small_7366273_left_root :=
+  PackedHex.checkHexPacked_sound (by decide) carrier boxes small_7366273_left_root small_7366273_left_fuel small_7366273_left_count small_7366273_left_encoded small_7366273_left_checked
+
+theorem cover_7366273 : CoveredBy scale carrier boxes root_7366273 := by
+  apply coveredBy_split_literal root_7366273 small_7366273_left_root Mub6.Numerical.IntegerIntervals.TaoBundle.Assembly0508.root_7366761 coord1 false (8388608)
+  · decide +kernel
+  · decide +kernel
+  · exact small_7366273_left_covered
+  · exact Mub6.Numerical.IntegerIntervals.TaoBundle.Assembly0508.cover_7366761
+#print axioms cover_7366273
+
+def root_7366268 : ZRayBox := fun j => (#[⟨⟨(0), (8388608)⟩, ⟨(-16777216), (0)⟩⟩, ⟨⟨(0), (16777216)⟩, ⟨(0), (16777216)⟩⟩, ⟨⟨(-16777216), (0)⟩, ⟨(0), (16777216)⟩⟩, ⟨⟨(-16777216), (0)⟩, ⟨(0), (16777216)⟩⟩, ⟨⟨(0), (16777216)⟩, ⟨(0), (16777216)⟩⟩] : Array ZBox).getD j.val ⟨⟨0,0⟩,⟨0,0⟩⟩
+def small_7366268_right_root : ZRayBox := fun j => (#[⟨⟨(0), (8388608)⟩, ⟨(-14529024), (0)⟩⟩, ⟨⟨(0), (16777216)⟩, ⟨(0), (16777216)⟩⟩, ⟨⟨(-16777216), (0)⟩, ⟨(0), (16777216)⟩⟩, ⟨⟨(-16777216), (0)⟩, ⟨(0), (16777216)⟩⟩, ⟨⟨(0), (16777216)⟩, ⟨(0), (16777216)⟩⟩] : Array ZBox).getD j.val ⟨⟨0,0⟩,⟨0,0⟩⟩
+def small_7366268_right_fuel : Nat := 1
+def small_7366268_right_count : Nat := 1
+def small_7366268_right_encoded : String := "00000000"
+theorem small_7366268_right_checked :
+    PackedHex.checkHexPacked scale carrier boxes small_7366268_right_root small_7366268_right_fuel small_7366268_right_count small_7366268_right_encoded = true := by
+  decide +kernel
+theorem small_7366268_right_covered : CoveredBy scale carrier boxes small_7366268_right_root :=
+  PackedHex.checkHexPacked_sound (by decide) carrier boxes small_7366268_right_root small_7366268_right_fuel small_7366268_right_count small_7366268_right_encoded small_7366268_right_checked
+
+theorem cover_7366268 : CoveredBy scale carrier boxes root_7366268 := by
+  apply coveredBy_split_literal root_7366268 Mub6.Numerical.IntegerIntervals.TaoBundle.Assembly0509.root_7366273 small_7366268_right_root coord0 true (-14529024)
+  · decide +kernel
+  · decide +kernel
+  · exact Mub6.Numerical.IntegerIntervals.TaoBundle.Assembly0509.cover_7366273
+  · exact small_7366268_right_covered
+#print axioms cover_7366268
+
+def root_7404897 : ZRayBox := fun j => (#[⟨⟨(8388608), (15123200)⟩, ⟨(-14529792), (-7264896)⟩⟩, ⟨⟨(8388608), (16777216)⟩, ⟨(0), (14529792)⟩⟩, ⟨⟨(-16777216), (-8388608)⟩, ⟨(0), (14529792)⟩⟩, ⟨⟨(-16777216), (-8388608)⟩, ⟨(0), (14529792)⟩⟩, ⟨⟨(0), (8388608)⟩, ⟨(14529024), (16777216)⟩⟩] : Array ZBox).getD j.val ⟨⟨0,0⟩,⟨0,0⟩⟩
+theorem cover_7404897 : CoveredBy scale carrier boxes root_7404897 := by
+  apply coveredBy_split_literal root_7404897 Mub6.Numerical.IntegerIntervals.TaoBundle.Chunk2787.root Mub6.Numerical.IntegerIntervals.TaoBundle.Chunk2788.root coord1 true (7264896)
+  · decide +kernel
+  · decide +kernel
+  · exact Mub6.Numerical.IntegerIntervals.TaoBundle.Chunk2787.covered
+  · exact Mub6.Numerical.IntegerIntervals.TaoBundle.Chunk2788.covered
+#print axioms cover_7404897
+
+def root_7404892 : ZRayBox := fun j => (#[⟨⟨(8388608), (16777216)⟩, ⟨(-14529792), (-7264896)⟩⟩, ⟨⟨(8388608), (16777216)⟩, ⟨(0), (14529792)⟩⟩, ⟨⟨(-16777216), (-8388608)⟩, ⟨(0), (14529792)⟩⟩, ⟨⟨(-16777216), (-8388608)⟩, ⟨(0), (14529792)⟩⟩, ⟨⟨(0), (8388608)⟩, ⟨(14529024), (16777216)⟩⟩] : Array ZBox).getD j.val ⟨⟨0,0⟩,⟨0,0⟩⟩
+def small_7404892_right_root : ZRayBox := fun j => (#[⟨⟨(15123200), (16777216)⟩, ⟨(-14529792), (-7264896)⟩⟩, ⟨⟨(8388608), (16777216)⟩, ⟨(0), (14529792)⟩⟩, ⟨⟨(-16777216), (-8388608)⟩, ⟨(0), (14529792)⟩⟩, ⟨⟨(-16777216), (-8388608)⟩, ⟨(0), (14529792)⟩⟩, ⟨⟨(0), (8388608)⟩, ⟨(14529024), (16777216)⟩⟩] : Array ZBox).getD j.val ⟨⟨0,0⟩,⟨0,0⟩⟩
+def small_7404892_right_fuel : Nat := 1
+def small_7404892_right_count : Nat := 1
+def small_7404892_right_encoded : String := "00000000"
+theorem small_7404892_right_checked :
+    PackedHex.checkHexPacked scale carrier boxes small_7404892_right_root small_7404892_right_fuel small_7404892_right_count small_7404892_right_encoded = true := by
+  decide +kernel
+theorem small_7404892_right_covered : CoveredBy scale carrier boxes small_7404892_right_root :=
+  PackedHex.checkHexPacked_sound (by decide) carrier boxes small_7404892_right_root small_7404892_right_fuel small_7404892_right_count small_7404892_right_encoded small_7404892_right_checked
+
+theorem cover_7404892 : CoveredBy scale carrier boxes root_7404892 := by
+  apply coveredBy_split_literal root_7404892 Mub6.Numerical.IntegerIntervals.TaoBundle.Assembly0509.root_7404897 small_7404892_right_root coord0 false (15123200)
+  · decide +kernel
+  · decide +kernel
+  · exact Mub6.Numerical.IntegerIntervals.TaoBundle.Assembly0509.cover_7404897
+  · exact small_7404892_right_covered
+#print axioms cover_7404892
+
+def root_7404891 : ZRayBox := fun j => (#[⟨⟨(8388608), (16777216)⟩, ⟨(-14529792), (0)⟩⟩, ⟨⟨(8388608), (16777216)⟩, ⟨(0), (14529792)⟩⟩, ⟨⟨(-16777216), (-8388608)⟩, ⟨(0), (14529792)⟩⟩, ⟨⟨(-16777216), (-8388608)⟩, ⟨(0), (14529792)⟩⟩, ⟨⟨(0), (8388608)⟩, ⟨(14529024), (16777216)⟩⟩] : Array ZBox).getD j.val ⟨⟨0,0⟩,⟨0,0⟩⟩
+def small_7404891_right_root : ZRayBox := fun j => (#[⟨⟨(8388608), (16777216)⟩, ⟨(-7264896), (0)⟩⟩, ⟨⟨(8388608), (16777216)⟩, ⟨(0), (14529792)⟩⟩, ⟨⟨(-16777216), (-8388608)⟩, ⟨(0), (14529792)⟩⟩, ⟨⟨(-16777216), (-8388608)⟩, ⟨(0), (14529792)⟩⟩, ⟨⟨(0), (8388608)⟩, ⟨(14529024), (16777216)⟩⟩] : Array ZBox).getD j.val ⟨⟨0,0⟩,⟨0,0⟩⟩
+def small_7404891_right_fuel : Nat := 19
+def small_7404891_right_count : Nat := 285
+def small_7404891_right_encoded : String := "120701000000000008A91303120701020000000108A91305120700FA08A91307120700FC000000070000000312073CFC000000030500010800000008000000070000000212073CFA0000000208A91307120700FC05000108135D450900000004045489F71386AD0004548A03000000071386AD020CFD9C050000000700000007000000010000000000000007000000070000000312073CFC0000000305000108135D450900000004045489F71386AD0004548A0300000008000000080000000000000008135D8109045489F71386AD0004548A0313867102000000010CFD9C0500000008000000071386AD020CFD9C050F34D0FA00000007000000020F350CFA000000020CFD9C070000000A000000080000000100000000138671000000000004548A0300000007000000080000000412073D0208A91305120700FA08A91307120700FC05000108135D450900000004045489F71386AD000CFD9C03000000070F350D0200000009000000010000000000000007135D8109045489F71386AD000CFD9C0300000007000000090000000000000007000000040000000312073CFC0000000305000108135D450900000004045489F71386AD000CFD9C030F34D10200000001000000080F350D0204548A05138670FA0CFD9C070F34D0FC00000008000000030F350CFC000000030C9A87020000000800000008000000021386ACFA000000020CFD9C070F34D0FC000000080000000300000008000000010000000013867100000000000CFD9C03000000080F350D0204548A05138670FA0CFD9C070F34D0FC000000070000000300000008000000021386ACFA000000020000000800000001135D8109045489F71386AD000CFD9C030F34D1020000000104548A05138670FA0CFD9C070000000700000007000000021386ACFA000000020CFD9C070F34D0FC0000000700000003000000080F350D0204548A05138670FA0CFD9C070F34D0FC00000008000000030F350CFC000000030C9A87020000000800000008000000021386ACFA000000020CFD9C070000000900000008000000010000000013867100000000000CFD9C03000000080F350D0204548A05138670FA0CFD9C070000000900000008000000021386ACFA000000020000000800000001000000040000000212073CFA0000000208A91307120700FC05000108135D450900000004045489F71386AD000CFD9C030F34D102000000010CFD9C050000000900000009000000090000000000000009000000090000000312073CFC0000000305000108135D450900000004045489F71386AD000CFD9C03000000080F350D0200000008000000010000000000000008135D8109045489F71386AD000CFD9C030F34D102000000010CFD9C050F34D0FA0CFD9C070F34D0FC000000070000000300000008000000020F350CFA000000020CFD9C070F34D0FC0000000800000003000000050F350D020CFD9C050F34D0FA0CFD9C070000000900000008000000020F350CFA0000000200000009000000010000000013867100000000000CFD9C03000000080F350D0200000008000000010000000400000001"
+theorem small_7404891_right_checked :
+    PackedHex.checkHexPacked scale carrier boxes small_7404891_right_root small_7404891_right_fuel small_7404891_right_count small_7404891_right_encoded = true := by
+  decide +kernel
+theorem small_7404891_right_covered : CoveredBy scale carrier boxes small_7404891_right_root :=
+  PackedHex.checkHexPacked_sound (by decide) carrier boxes small_7404891_right_root small_7404891_right_fuel small_7404891_right_count small_7404891_right_encoded small_7404891_right_checked
+
+theorem cover_7404891 : CoveredBy scale carrier boxes root_7404891 := by
+  apply coveredBy_split_literal root_7404891 Mub6.Numerical.IntegerIntervals.TaoBundle.Assembly0509.root_7404892 small_7404891_right_root coord0 true (-7264896)
+  · decide +kernel
+  · decide +kernel
+  · exact Mub6.Numerical.IntegerIntervals.TaoBundle.Assembly0509.cover_7404892
+  · exact small_7404891_right_covered
+#print axioms cover_7404891
+
+def root_7404885 : ZRayBox := fun j => (#[⟨⟨(8388608), (16777216)⟩, ⟨(-14529792), (0)⟩⟩, ⟨⟨(8388608), (16777216)⟩, ⟨(0), (14529792)⟩⟩, ⟨⟨(-16777216), (-8388608)⟩, ⟨(0), (14529792)⟩⟩, ⟨⟨(-16777216), (-8388608)⟩, ⟨(0), (14529792)⟩⟩, ⟨⟨(0), (8388608)⟩, ⟨(0), (16777216)⟩⟩] : Array ZBox).getD j.val ⟨⟨0,0⟩,⟨0,0⟩⟩
+def small_7404885_left_root : ZRayBox := fun j => (#[⟨⟨(8388608), (16777216)⟩, ⟨(-14529792), (0)⟩⟩, ⟨⟨(8388608), (16777216)⟩, ⟨(0), (14529792)⟩⟩, ⟨⟨(-16777216), (-8388608)⟩, ⟨(0), (14529792)⟩⟩, ⟨⟨(-16777216), (-8388608)⟩, ⟨(0), (14529792)⟩⟩, ⟨⟨(0), (8388608)⟩, ⟨(0), (14529024)⟩⟩] : Array ZBox).getD j.val ⟨⟨0,0⟩,⟨0,0⟩⟩
+def small_7404885_left_fuel : Nat := 1
+def small_7404885_left_count : Nat := 1
+def small_7404885_left_encoded : String := "00000004"
+theorem small_7404885_left_checked :
+    PackedHex.checkHexPacked scale carrier boxes small_7404885_left_root small_7404885_left_fuel small_7404885_left_count small_7404885_left_encoded = true := by
+  decide +kernel
+theorem small_7404885_left_covered : CoveredBy scale carrier boxes small_7404885_left_root :=
+  PackedHex.checkHexPacked_sound (by decide) carrier boxes small_7404885_left_root small_7404885_left_fuel small_7404885_left_count small_7404885_left_encoded small_7404885_left_checked
+
+theorem cover_7404885 : CoveredBy scale carrier boxes root_7404885 := by
+  apply coveredBy_split_literal root_7404885 small_7404885_left_root Mub6.Numerical.IntegerIntervals.TaoBundle.Assembly0509.root_7404891 coord4 true (14529024)
+  · decide +kernel
+  · decide +kernel
+  · exact small_7404885_left_covered
+  · exact Mub6.Numerical.IntegerIntervals.TaoBundle.Assembly0509.cover_7404891
+#print axioms cover_7404885
+
+def root_7411499 : ZRayBox := fun j => (#[⟨⟨(8388608), (15123200)⟩, ⟨(-14529792), (-7264896)⟩⟩, ⟨⟨(15122432), (16777216)⟩, ⟨(0), (7264896)⟩⟩, ⟨⟨(-15123200), (-8388608)⟩, ⟨(7264896), (14529792)⟩⟩, ⟨⟨(-15123200), (-8388608)⟩, ⟨(7264896), (14529792)⟩⟩, ⟨⟨(8388608), (15123200)⟩, ⟨(7264896), (14529792)⟩⟩] : Array ZBox).getD j.val ⟨⟨0,0⟩,⟨0,0⟩⟩
+def small_7411499_right_root : ZRayBox := fun j => (#[⟨⟨(8388608), (15123200)⟩, ⟨(-10897344), (-7264896)⟩⟩, ⟨⟨(15122432), (16777216)⟩, ⟨(0), (7264896)⟩⟩, ⟨⟨(-15123200), (-8388608)⟩, ⟨(7264896), (14529792)⟩⟩, ⟨⟨(-15123200), (-8388608)⟩, ⟨(7264896), (14529792)⟩⟩, ⟨⟨(8388608), (15123200)⟩, ⟨(7264896), (14529792)⟩⟩] : Array ZBox).getD j.val ⟨⟨0,0⟩,⟨0,0⟩⟩
+def small_7411499_right_fuel : Nat := 16
+def small_7411499_right_count : Nat := 135
+def small_7411499_right_encoded : String := "0F34D1000000000004548A0313867102000000010CFD9C050F34D0FA0CFD9C070F34D0FC00000007000000030F350CFC000000030CFD9C090F34D108000000040000000700000007000000020F350CFA000000020CFD9C070F34D0FC0CFD9C090F34D108000000040000000700000007000000030F350CFC000000030CFD9C090F34D10800000004000000070F350D080C9A86FA000000070F8751050000000200000007000000041386AD020CFD9C050F34D0FA0CFD9C070F34D0FC0CFD9C090F34D108000000040000000700000007000000030F350CFC000000030CFD9C090F34D108000000040C9A86FC000000070F87510700000003000000070F350D080C9A86FC0F878D0700000007000000030F875107000000030C9A8708000000080000000700000004000000020F350CFA000000020CFD9C070F34D0FC0CFD9C090F34D10800000004000000090F350D080C9A86FA0F878D0500000007000000020000000900000004000000030F350CFC000000030CFD9C090F34D108000000040C9A86FA0F878D050C9A86FC000000070F875107000000030000000500000002000000090F350D080C9A86FA0F878D050C9A86FC0F878D070C9A87080F875109000000040000000700000007000000030F875107000000030C9A87080000000800000005000000020F875105000000020C9A86FC0F878D070C9A87080F87510900000004000000050000000500000003000000050000000400000001"
+theorem small_7411499_right_checked :
+    PackedHex.checkHexPacked scale carrier boxes small_7411499_right_root small_7411499_right_fuel small_7411499_right_count small_7411499_right_encoded = true := by
+  decide +kernel
+theorem small_7411499_right_covered : CoveredBy scale carrier boxes small_7411499_right_root :=
+  PackedHex.checkHexPacked_sound (by decide) carrier boxes small_7411499_right_root small_7411499_right_fuel small_7411499_right_count small_7411499_right_encoded small_7411499_right_checked
+
+theorem cover_7411499 : CoveredBy scale carrier boxes root_7411499 := by
+  apply coveredBy_split_literal root_7411499 Mub6.Numerical.IntegerIntervals.TaoBundle.Chunk2789.root small_7411499_right_root coord0 true (-10897344)
+  · decide +kernel
+  · decide +kernel
+  · exact Mub6.Numerical.IntegerIntervals.TaoBundle.Chunk2789.covered
+  · exact small_7411499_right_covered
+#print axioms cover_7411499
+
+def root_7411494 : ZRayBox := fun j => (#[⟨⟨(8388608), (15123200)⟩, ⟨(-14529792), (-7264896)⟩⟩, ⟨⟨(15122432), (16777216)⟩, ⟨(0), (7264896)⟩⟩, ⟨⟨(-15123200), (-8388608)⟩, ⟨(7264896), (14529792)⟩⟩, ⟨⟨(-15123200), (-8388608)⟩, ⟨(7264896), (14529792)⟩⟩, ⟨⟨(8388608), (16777216)⟩, ⟨(7264896), (14529792)⟩⟩] : Array ZBox).getD j.val ⟨⟨0,0⟩,⟨0,0⟩⟩
+def small_7411494_right_root : ZRayBox := fun j => (#[⟨⟨(8388608), (15123200)⟩, ⟨(-14529792), (-7264896)⟩⟩, ⟨⟨(15122432), (16777216)⟩, ⟨(0), (7264896)⟩⟩, ⟨⟨(-15123200), (-8388608)⟩, ⟨(7264896), (14529792)⟩⟩, ⟨⟨(-15123200), (-8388608)⟩, ⟨(7264896), (14529792)⟩⟩, ⟨⟨(15123200), (16777216)⟩, ⟨(7264896), (14529792)⟩⟩] : Array ZBox).getD j.val ⟨⟨0,0⟩,⟨0,0⟩⟩
+def small_7411494_right_fuel : Nat := 1
+def small_7411494_right_count : Nat := 1
+def small_7411494_right_encoded : String := "00000004"
+theorem small_7411494_right_checked :
+    PackedHex.checkHexPacked scale carrier boxes small_7411494_right_root small_7411494_right_fuel small_7411494_right_count small_7411494_right_encoded = true := by
+  decide +kernel
+theorem small_7411494_right_covered : CoveredBy scale carrier boxes small_7411494_right_root :=
+  PackedHex.checkHexPacked_sound (by decide) carrier boxes small_7411494_right_root small_7411494_right_fuel small_7411494_right_count small_7411494_right_encoded small_7411494_right_checked
+
+theorem cover_7411494 : CoveredBy scale carrier boxes root_7411494 := by
+  apply coveredBy_split_literal root_7411494 Mub6.Numerical.IntegerIntervals.TaoBundle.Assembly0509.root_7411499 small_7411494_right_root coord4 false (15123200)
+  · decide +kernel
+  · decide +kernel
+  · exact Mub6.Numerical.IntegerIntervals.TaoBundle.Assembly0509.cover_7411499
+  · exact small_7411494_right_covered
+#print axioms cover_7411494
+
+def root_7410920 : ZRayBox := fun j => (#[⟨⟨(8388608), (15123200)⟩, ⟨(-14529792), (-7264896)⟩⟩, ⟨⟨(15122432), (16777216)⟩, ⟨(0), (7264896)⟩⟩, ⟨⟨(-15123200), (-8388608)⟩, ⟨(7264896), (14529792)⟩⟩, ⟨⟨(-15123200), (-8388608)⟩, ⟨(7264896), (14529792)⟩⟩, ⟨⟨(8388608), (16777216)⟩, ⟨(0), (14529792)⟩⟩] : Array ZBox).getD j.val ⟨⟨0,0⟩,⟨0,0⟩⟩
+def small_7410920_left_root : ZRayBox := fun j => (#[⟨⟨(8388608), (15123200)⟩, ⟨(-14529792), (-7264896)⟩⟩, ⟨⟨(15122432), (16777216)⟩, ⟨(0), (7264896)⟩⟩, ⟨⟨(-15123200), (-8388608)⟩, ⟨(7264896), (14529792)⟩⟩, ⟨⟨(-15123200), (-8388608)⟩, ⟨(7264896), (14529792)⟩⟩, ⟨⟨(8388608), (16777216)⟩, ⟨(0), (7264896)⟩⟩] : Array ZBox).getD j.val ⟨⟨0,0⟩,⟨0,0⟩⟩
+def small_7410920_left_fuel : Nat := 23
+def small_7410920_left_count : Nat := 269
+def small_7410920_left_encoded : String := "12070108000000040CFD9BF70F350D0004548A0313867102000000010CFD9C050F34D0FA0CFD9C070F34D0FC04548A0913867108000000040C9A870000000005000000071386AD080C9A87000F8750F700000005000000000000000700000004000000030F350CFC0000000304548A0913867108000000040C9A87000F8750F70000000A000000000F878CF7000000000C9A86FC00000007000000061386AD080C9A87000F8750F70C9A86FC0000000A00000006000000000F878CF7000000000000000700000004000000020F350CFA000000020CFD9C070F34D0FC04548A090000000900000009000000030F350CFC0000000304548A0913867108000000040C9A87000F8750F70C9A86FA0F878D050C9A86FC0F878D0700000009000000030F87510700000003022A458300000006000000090000000200000009000000000F878CF7000000000C9A86FA0F878D050C9A86FC000000070F875107000000030000000700000002000000091386AD080C9A87000F8750F70C9A86FA0F878D050C9A86FC0F878D07022A45830000000700000009000000030F87510700000003022A45830000000613E20102067ECE8912EA5908000000040000000612EA95080B4D440000000006000000070000000400000001000000020F875105000000020C9A86FC000000090F87510700000003022A458313E1C50200000001067ECE89000000090000000700000009000000000F878CF7000000000C9A86FA000000070F875105000000020C9A86FC000000070F8751070000000300000005000000041386AD020CFD9C050F34D0FA0CFD9C070F34D0FC04548A090000000900000009000000030F350CFC0000000304548A0913867108000000040000000A1386AD080C9A87000000000A0F878CF7000000000C9A86FC0000000A0F875107000000030000000A00000004000000020F350CFA000000020CFD9C070F34D0FC00000009000000030F350CFC0000000304548A0913867108000000040C9A8700000000090F878CF700000000000000091386AD080C9A87000F8750F70C9A86FA0F878D05000000090000000200000009000000000F878CF7000000000C9A86FA0F878D050000000900000002000000090000000400000001000000000F34D1000000000004548A0313867102000000010CFD9C050F34D0FA0CFD9C070F34D0FC000000070000000300000007000000020F350CFA000000020CFD9C070F34D0FC00000007000000030F350CFC0000000304548A09138671080000000400000007000000071386AD020CFD9C050F34D0FA0CFD9C070F34D0FC00000009000000030F350CFC0000000304548A0913867108000000040C9A86FC000000070F875107000000030AD357770000000A000000071386AD080C9A86FC000000070F875107000000030000000700000004000000020F350CFA000000020CFD9C07000000090F350CFC0000000304548A09000000090000000900000001"
+theorem small_7410920_left_checked :
+    PackedHex.checkHexPacked scale carrier boxes small_7410920_left_root small_7410920_left_fuel small_7410920_left_count small_7410920_left_encoded = true := by
+  decide +kernel
+theorem small_7410920_left_covered : CoveredBy scale carrier boxes small_7410920_left_root :=
+  PackedHex.checkHexPacked_sound (by decide) carrier boxes small_7410920_left_root small_7410920_left_fuel small_7410920_left_count small_7410920_left_encoded small_7410920_left_checked
+
+theorem cover_7410920 : CoveredBy scale carrier boxes root_7410920 := by
+  apply coveredBy_split_literal root_7410920 small_7410920_left_root Mub6.Numerical.IntegerIntervals.TaoBundle.Assembly0509.root_7411494 coord4 true (7264896)
+  · decide +kernel
+  · decide +kernel
+  · exact small_7410920_left_covered
+  · exact Mub6.Numerical.IntegerIntervals.TaoBundle.Assembly0509.cover_7411494
+#print axioms cover_7410920
+
+def root_7410914 : ZRayBox := fun j => (#[⟨⟨(8388608), (15123200)⟩, ⟨(-14529792), (-7264896)⟩⟩, ⟨⟨(15122432), (16777216)⟩, ⟨(0), (7264896)⟩⟩, ⟨⟨(-15123200), (-8388608)⟩, ⟨(7264896), (14529792)⟩⟩, ⟨⟨(-16777216), (-8388608)⟩, ⟨(7264896), (14529792)⟩⟩, ⟨⟨(8388608), (16777216)⟩, ⟨(0), (14529792)⟩⟩] : Array ZBox).getD j.val ⟨⟨0,0⟩,⟨0,0⟩⟩
+def small_7410914_left_root : ZRayBox := fun j => (#[⟨⟨(8388608), (15123200)⟩, ⟨(-14529792), (-7264896)⟩⟩, ⟨⟨(15122432), (16777216)⟩, ⟨(0), (7264896)⟩⟩, ⟨⟨(-15123200), (-8388608)⟩, ⟨(7264896), (14529792)⟩⟩, ⟨⟨(-16777216), (-15123200)⟩, ⟨(7264896), (14529792)⟩⟩, ⟨⟨(8388608), (16777216)⟩, ⟨(0), (14529792)⟩⟩] : Array ZBox).getD j.val ⟨⟨0,0⟩,⟨0,0⟩⟩
+def small_7410914_left_fuel : Nat := 1
+def small_7410914_left_count : Nat := 1
+def small_7410914_left_encoded : String := "00000003"
+theorem small_7410914_left_checked :
+    PackedHex.checkHexPacked scale carrier boxes small_7410914_left_root small_7410914_left_fuel small_7410914_left_count small_7410914_left_encoded = true := by
+  decide +kernel
+theorem small_7410914_left_covered : CoveredBy scale carrier boxes small_7410914_left_root :=
+  PackedHex.checkHexPacked_sound (by decide) carrier boxes small_7410914_left_root small_7410914_left_fuel small_7410914_left_count small_7410914_left_encoded small_7410914_left_checked
+
+theorem cover_7410914 : CoveredBy scale carrier boxes root_7410914 := by
+  apply coveredBy_split_literal root_7410914 small_7410914_left_root Mub6.Numerical.IntegerIntervals.TaoBundle.Assembly0509.root_7410920 coord3 false (-15123200)
+  · decide +kernel
+  · decide +kernel
+  · exact small_7410914_left_covered
+  · exact Mub6.Numerical.IntegerIntervals.TaoBundle.Assembly0509.cover_7410920
+#print axioms cover_7410914
+
+def root_7410654 : ZRayBox := fun j => (#[⟨⟨(8388608), (15123200)⟩, ⟨(-14529792), (-7264896)⟩⟩, ⟨⟨(15122432), (16777216)⟩, ⟨(0), (7264896)⟩⟩, ⟨⟨(-15123200), (-8388608)⟩, ⟨(7264896), (14529792)⟩⟩, ⟨⟨(-16777216), (-8388608)⟩, ⟨(0), (14529792)⟩⟩, ⟨⟨(8388608), (16777216)⟩, ⟨(0), (14529792)⟩⟩] : Array ZBox).getD j.val ⟨⟨0,0⟩,⟨0,0⟩⟩
+def small_7410654_left_root : ZRayBox := fun j => (#[⟨⟨(8388608), (15123200)⟩, ⟨(-14529792), (-7264896)⟩⟩, ⟨⟨(15122432), (16777216)⟩, ⟨(0), (7264896)⟩⟩, ⟨⟨(-15123200), (-8388608)⟩, ⟨(7264896), (14529792)⟩⟩, ⟨⟨(-16777216), (-8388608)⟩, ⟨(0), (7264896)⟩⟩, ⟨⟨(8388608), (16777216)⟩, ⟨(0), (14529792)⟩⟩] : Array ZBox).getD j.val ⟨⟨0,0⟩,⟨0,0⟩⟩
+def small_7410654_left_fuel : Nat := 18
+def small_7410654_left_count : Nat := 123
+def small_7410654_left_encoded : String := "120700FC08A9130912070108000000040CFD9BF70F350D0004548A0313867102000000010CFD9C05000000090000000900000009000000000000000912073D080CFD9BF70F350D0004548A0313867102000000010CFD9C050F34D0FA04548A07000000051386ACFC000000030CFD9C090000000500000007000000020F350CFA0000000204548A07138670FC0CFD9C090000000900000009000000031386ACFC000000030CFD9C090F34D10800000004000000090F350D080C9A87000F8750F70C9A86FA0F878D05000000050000000200000009000000000F878CF7000000000C9A86FA0000000700000009000000041386AD020CFD9C050F34D0FA04548A07138670FC00000005000000031386ACFC000000030CFD9C090F34D10800000004000000090F350D080C9A8700000000050F878CF7000000000000000900000004000000020F350CFA0000000204548A07000000091386ACFC000000030CFD9C09000000090000000900000001000000000F34D1000000000004548A0313867102000000010CFD9C050F34D0FA00000007000000020F350CFA0000000204548A0700000009000000071386AD020CFD9C050F34D0FA04548A07000000091386ACFC000000030CFD9C090000000900000007000000020F350CFA0000000200000009000000010000000400000003"
+theorem small_7410654_left_checked :
+    PackedHex.checkHexPacked scale carrier boxes small_7410654_left_root small_7410654_left_fuel small_7410654_left_count small_7410654_left_encoded = true := by
+  decide +kernel
+theorem small_7410654_left_covered : CoveredBy scale carrier boxes small_7410654_left_root :=
+  PackedHex.checkHexPacked_sound (by decide) carrier boxes small_7410654_left_root small_7410654_left_fuel small_7410654_left_count small_7410654_left_encoded small_7410654_left_checked
+
+theorem cover_7410654 : CoveredBy scale carrier boxes root_7410654 := by
+  apply coveredBy_split_literal root_7410654 small_7410654_left_root Mub6.Numerical.IntegerIntervals.TaoBundle.Assembly0509.root_7410914 coord3 true (7264896)
+  · decide +kernel
+  · decide +kernel
+  · exact small_7410654_left_covered
+  · exact Mub6.Numerical.IntegerIntervals.TaoBundle.Assembly0509.cover_7410914
+#print axioms cover_7410654
+
+def root_7410648 : ZRayBox := fun j => (#[⟨⟨(8388608), (15123200)⟩, ⟨(-14529792), (-7264896)⟩⟩, ⟨⟨(15122432), (16777216)⟩, ⟨(0), (7264896)⟩⟩, ⟨⟨(-16777216), (-8388608)⟩, ⟨(7264896), (14529792)⟩⟩, ⟨⟨(-16777216), (-8388608)⟩, ⟨(0), (14529792)⟩⟩, ⟨⟨(8388608), (16777216)⟩, ⟨(0), (14529792)⟩⟩] : Array ZBox).getD j.val ⟨⟨0,0⟩,⟨0,0⟩⟩
+def small_7410648_left_root : ZRayBox := fun j => (#[⟨⟨(8388608), (15123200)⟩, ⟨(-14529792), (-7264896)⟩⟩, ⟨⟨(15122432), (16777216)⟩, ⟨(0), (7264896)⟩⟩, ⟨⟨(-16777216), (-15123200)⟩, ⟨(7264896), (14529792)⟩⟩, ⟨⟨(-16777216), (-8388608)⟩, ⟨(0), (14529792)⟩⟩, ⟨⟨(8388608), (16777216)⟩, ⟨(0), (14529792)⟩⟩] : Array ZBox).getD j.val ⟨⟨0,0⟩,⟨0,0⟩⟩
+def small_7410648_left_fuel : Nat := 1
+def small_7410648_left_count : Nat := 1
+def small_7410648_left_encoded : String := "00000002"
+theorem small_7410648_left_checked :
+    PackedHex.checkHexPacked scale carrier boxes small_7410648_left_root small_7410648_left_fuel small_7410648_left_count small_7410648_left_encoded = true := by
+  decide +kernel
+theorem small_7410648_left_covered : CoveredBy scale carrier boxes small_7410648_left_root :=
+  PackedHex.checkHexPacked_sound (by decide) carrier boxes small_7410648_left_root small_7410648_left_fuel small_7410648_left_count small_7410648_left_encoded small_7410648_left_checked
+
+theorem cover_7410648 : CoveredBy scale carrier boxes root_7410648 := by
+  apply coveredBy_split_literal root_7410648 small_7410648_left_root Mub6.Numerical.IntegerIntervals.TaoBundle.Assembly0509.root_7410654 coord2 false (-15123200)
+  · decide +kernel
+  · decide +kernel
+  · exact small_7410648_left_covered
+  · exact Mub6.Numerical.IntegerIntervals.TaoBundle.Assembly0509.cover_7410654
+#print axioms cover_7410648
+
+def root_7410006 : ZRayBox := fun j => (#[⟨⟨(8388608), (15123200)⟩, ⟨(-14529792), (-7264896)⟩⟩, ⟨⟨(15122432), (16777216)⟩, ⟨(0), (7264896)⟩⟩, ⟨⟨(-16777216), (-8388608)⟩, ⟨(0), (14529792)⟩⟩, ⟨⟨(-16777216), (-8388608)⟩, ⟨(0), (14529792)⟩⟩, ⟨⟨(8388608), (16777216)⟩, ⟨(0), (14529792)⟩⟩] : Array ZBox).getD j.val ⟨⟨0,0⟩,⟨0,0⟩⟩
+def small_7410006_left_root : ZRayBox := fun j => (#[⟨⟨(8388608), (15123200)⟩, ⟨(-14529792), (-7264896)⟩⟩, ⟨⟨(15122432), (16777216)⟩, ⟨(0), (7264896)⟩⟩, ⟨⟨(-16777216), (-8388608)⟩, ⟨(0), (7264896)⟩⟩, ⟨⟨(-16777216), (-8388608)⟩, ⟨(0), (14529792)⟩⟩, ⟨⟨(8388608), (16777216)⟩, ⟨(0), (14529792)⟩⟩] : Array ZBox).getD j.val ⟨⟨0,0⟩,⟨0,0⟩⟩
+def small_7410006_left_fuel : Nat := 22
+def small_7410006_left_count : Nat := 293
+def small_7410006_left_encoded : String := "120700FA08A91307120700FC08A9130912070108000000040CFD9BF7000000050F34D1000000000004548A03000000051386AD02000000050000000112073D080CFD9BF70F350D0000000005000000000F34D1000000000004548A03000000071386AD0204548A05138670FA00000005000000021386ACFA0000000204548A07000000070000000700000001000000040000000312073CFC0000000308A9130912070108000000040CFD9BF70F350D0004548A03138671020000000104548A050000000A1386ACFA000000020CFD9C070F34D0FC00000005000000030000000A0000000A000000000F34D1000000000004548A03138671020000000104548A05138670FA0CFD9C070000000600000006000000021386ACFA000000020CFD9C070F34D0FC0000000700000003000000071386AD0204548A05138670FA0000000A000000021386ACFA000000020CFD9C070F34D0FC00000007000000030F350CFC0000000304548A0913867108000000040000000A1386AD080C9A86FC0000000700000006000000040000000112073D080CFD9BF70F350D0004548A03138671020000000104548A05138670FA0CFD9C070F34D0FC00000005000000030F350CFC000000030CFD9C090F34D10800000004000000060F350D080C9A8700000000050F878CF7000000000000000600000004000000021386ACFA000000020CFD9C070F34D0FC0CFD9C090000000500000007000000030F350CFC000000030CFD9C090F34D108000000040C9A8700000000060F878CF700000000000000060F350D080C9A87000F8750F70C9A86FC0F878D0700000005000000030F875107000000030C9A87080F875109000000040000000600000006000000000F878CF7000000000C9A86FC000000070F8751070000000300000007000000041386AD0204548A05138670FA0CFD9C070F34D0FC00000005000000030000000A000000021386ACFA000000020CFD9C070F34D0FC0CFD9C090F34D108000000040000000A0F350D080C9A8700000000050F878CF7000000000C9A8708000000050000000700000004000000030F350CFC000000030CFD9C090F34D108000000040000000A0F350D080C9A87000F8750F70C9A86FC0000000A0F875107000000030000000A000000000F878CF7000000000C9A86FC0F878D070C9A87080F875109000000040000000700000007000000030F875107000000030C9A87080F87510900000004000000080000000A0000000400000001000000000F34D1000000000004548A03138671020000000104548A05138670FA0CFD9C070F34D0FC000000070000000300000007000000021386ACFA000000020CFD9C070F34D0FC0000000700000003000000071386AD0204548A05138670FA0CFD9C070F34D0FC00000007000000030F350CFC000000030CFD9C090F34D10800000004000000060F350D080C9A86FC000000070000000600000004000000021386ACFA000000020CFD9C070F34D0FC0CFD9C090F34D108000000040000000700000007000000030F350CFC000000030CFD9C090F34D10800000004000000070F350D080C9A86FC000000070F875107000000030000000700000004000000010000000400000002"
+theorem small_7410006_left_checked :
+    PackedHex.checkHexPacked scale carrier boxes small_7410006_left_root small_7410006_left_fuel small_7410006_left_count small_7410006_left_encoded = true := by
+  decide +kernel
+theorem small_7410006_left_covered : CoveredBy scale carrier boxes small_7410006_left_root :=
+  PackedHex.checkHexPacked_sound (by decide) carrier boxes small_7410006_left_root small_7410006_left_fuel small_7410006_left_count small_7410006_left_encoded small_7410006_left_checked
+
+theorem cover_7410006 : CoveredBy scale carrier boxes root_7410006 := by
+  apply coveredBy_split_literal root_7410006 small_7410006_left_root Mub6.Numerical.IntegerIntervals.TaoBundle.Assembly0509.root_7410648 coord2 true (7264896)
+  · decide +kernel
+  · decide +kernel
+  · exact small_7410006_left_covered
+  · exact Mub6.Numerical.IntegerIntervals.TaoBundle.Assembly0509.cover_7410648
+#print axioms cover_7410006
+
+def root_7410000 : ZRayBox := fun j => (#[⟨⟨(8388608), (15123200)⟩, ⟨(-14529792), (-7264896)⟩⟩, ⟨⟨(8388608), (16777216)⟩, ⟨(0), (7264896)⟩⟩, ⟨⟨(-16777216), (-8388608)⟩, ⟨(0), (14529792)⟩⟩, ⟨⟨(-16777216), (-8388608)⟩, ⟨(0), (14529792)⟩⟩, ⟨⟨(8388608), (16777216)⟩, ⟨(0), (14529792)⟩⟩] : Array ZBox).getD j.val ⟨⟨0,0⟩,⟨0,0⟩⟩
+def small_7410000_left_root : ZRayBox := fun j => (#[⟨⟨(8388608), (15123200)⟩, ⟨(-14529792), (-7264896)⟩⟩, ⟨⟨(8388608), (15122432)⟩, ⟨(0), (7264896)⟩⟩, ⟨⟨(-16777216), (-8388608)⟩, ⟨(0), (14529792)⟩⟩, ⟨⟨(-16777216), (-8388608)⟩, ⟨(0), (14529792)⟩⟩, ⟨⟨(8388608), (16777216)⟩, ⟨(0), (14529792)⟩⟩] : Array ZBox).getD j.val ⟨⟨0,0⟩,⟨0,0⟩⟩
+def small_7410000_left_fuel : Nat := 1
+def small_7410000_left_count : Nat := 1
+def small_7410000_left_encoded : String := "00000001"
+theorem small_7410000_left_checked :
+    PackedHex.checkHexPacked scale carrier boxes small_7410000_left_root small_7410000_left_fuel small_7410000_left_count small_7410000_left_encoded = true := by
+  decide +kernel
+theorem small_7410000_left_covered : CoveredBy scale carrier boxes small_7410000_left_root :=
+  PackedHex.checkHexPacked_sound (by decide) carrier boxes small_7410000_left_root small_7410000_left_fuel small_7410000_left_count small_7410000_left_encoded small_7410000_left_checked
+
+theorem cover_7410000 : CoveredBy scale carrier boxes root_7410000 := by
+  apply coveredBy_split_literal root_7410000 small_7410000_left_root Mub6.Numerical.IntegerIntervals.TaoBundle.Assembly0509.root_7410006 coord1 false (15122432)
+  · decide +kernel
+  · decide +kernel
+  · exact small_7410000_left_covered
+  · exact Mub6.Numerical.IntegerIntervals.TaoBundle.Assembly0509.cover_7410006
+#print axioms cover_7410000
+
+def root_7409999 : ZRayBox := fun j => (#[⟨⟨(8388608), (15123200)⟩, ⟨(-14529792), (-7264896)⟩⟩, ⟨⟨(8388608), (16777216)⟩, ⟨(0), (14529792)⟩⟩, ⟨⟨(-16777216), (-8388608)⟩, ⟨(0), (14529792)⟩⟩, ⟨⟨(-16777216), (-8388608)⟩, ⟨(0), (14529792)⟩⟩, ⟨⟨(8388608), (16777216)⟩, ⟨(0), (14529792)⟩⟩] : Array ZBox).getD j.val ⟨⟨0,0⟩,⟨0,0⟩⟩
+theorem cover_7409999 : CoveredBy scale carrier boxes root_7409999 := by
+  apply coveredBy_split_literal root_7409999 Mub6.Numerical.IntegerIntervals.TaoBundle.Assembly0509.root_7410000 Mub6.Numerical.IntegerIntervals.TaoBundle.Chunk2790.root coord1 true (7264896)
+  · decide +kernel
+  · decide +kernel
+  · exact Mub6.Numerical.IntegerIntervals.TaoBundle.Assembly0509.cover_7410000
+  · exact Mub6.Numerical.IntegerIntervals.TaoBundle.Chunk2790.covered
+#print axioms cover_7409999
+
+def root_7409994 : ZRayBox := fun j => (#[⟨⟨(8388608), (16777216)⟩, ⟨(-14529792), (-7264896)⟩⟩, ⟨⟨(8388608), (16777216)⟩, ⟨(0), (14529792)⟩⟩, ⟨⟨(-16777216), (-8388608)⟩, ⟨(0), (14529792)⟩⟩, ⟨⟨(-16777216), (-8388608)⟩, ⟨(0), (14529792)⟩⟩, ⟨⟨(8388608), (16777216)⟩, ⟨(0), (14529792)⟩⟩] : Array ZBox).getD j.val ⟨⟨0,0⟩,⟨0,0⟩⟩
+def small_7409994_right_root : ZRayBox := fun j => (#[⟨⟨(15123200), (16777216)⟩, ⟨(-14529792), (-7264896)⟩⟩, ⟨⟨(8388608), (16777216)⟩, ⟨(0), (14529792)⟩⟩, ⟨⟨(-16777216), (-8388608)⟩, ⟨(0), (14529792)⟩⟩, ⟨⟨(-16777216), (-8388608)⟩, ⟨(0), (14529792)⟩⟩, ⟨⟨(8388608), (16777216)⟩, ⟨(0), (14529792)⟩⟩] : Array ZBox).getD j.val ⟨⟨0,0⟩,⟨0,0⟩⟩
+def small_7409994_right_fuel : Nat := 1
+def small_7409994_right_count : Nat := 1
+def small_7409994_right_encoded : String := "00000000"
+theorem small_7409994_right_checked :
+    PackedHex.checkHexPacked scale carrier boxes small_7409994_right_root small_7409994_right_fuel small_7409994_right_count small_7409994_right_encoded = true := by
+  decide +kernel
+theorem small_7409994_right_covered : CoveredBy scale carrier boxes small_7409994_right_root :=
+  PackedHex.checkHexPacked_sound (by decide) carrier boxes small_7409994_right_root small_7409994_right_fuel small_7409994_right_count small_7409994_right_encoded small_7409994_right_checked
+
+theorem cover_7409994 : CoveredBy scale carrier boxes root_7409994 := by
+  apply coveredBy_split_literal root_7409994 Mub6.Numerical.IntegerIntervals.TaoBundle.Assembly0509.root_7409999 small_7409994_right_root coord0 false (15123200)
+  · decide +kernel
+  · decide +kernel
+  · exact Mub6.Numerical.IntegerIntervals.TaoBundle.Assembly0509.cover_7409999
+  · exact small_7409994_right_covered
+#print axioms cover_7409994
+
+end Mub6.Numerical.IntegerIntervals.TaoBundle.Assembly0509

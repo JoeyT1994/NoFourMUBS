@@ -1,0 +1,63 @@
+{
+  "module": "SideIntrinsicMatrixBindings",
+  "source_sha256": "ab8fdb12ea85611e8f725d7a9c47c20159dc0f5ab87d356155d9eb6dd4b6893a",
+  "checked_object": {
+    "sha256": "d5a1223e2defbece855f62d5b38bd6a1569f71bab56b6a682f39cb51abf96140",
+    "bytes": 349248
+  },
+  "original_receipt": {
+    "sha256": "a9e026127e095ce8422d9027153e6071e032358160d2c4895adee2cb9beff599",
+    "bytes": 297
+  },
+  "original_axiom_log": {
+    "sha256": "d54298e125b883bd017c5b569c38139faa2815eb02447d95517fbb90b34aa098",
+    "bytes": 1033
+  },
+  "selected_roots": [
+    {
+      "declaration": "StrictReconstruction20261007.SideIntrinsic.rowsOfSide_unit",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "declaration": "StrictReconstruction20261007.SideIntrinsic.phaseSide_rowsOfSide",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "declaration": "StrictReconstruction20261007.SideIntrinsic.phaseSide_det_perm",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "declaration": "StrictReconstruction20261007.SideIntrinsic.phaseSide_correlations",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "declaration": "StrictReconstruction20261007.SideIntrinsic.arbitrary_side_intrinsic_interface",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    }
+  ],
+  "schema": "sanitized-successful-check-projection-v1",
+  "success": true,
+  "exit_code": 0,
+  "selected": true,
+  "dependency_caveat": "Existing checks reused pinned Lean/Mathlib/custom objects. No clean full-library source/cache rebuild or fresh relocated replay is claimed."
+}

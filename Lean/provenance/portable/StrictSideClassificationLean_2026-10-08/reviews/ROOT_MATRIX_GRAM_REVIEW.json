@@ -1,0 +1,98 @@
+{
+  "schema": "sanitized-independent-semantic-review-projection-v1",
+  "original_review_sha256": "c0e4910a907607a879169af364c7f5f81352660df0b5b110b65d4540d5d7c5a9",
+  "original_status": "PASS_LITERAL_MATRIX_GRAM_RECONSTRUCTION",
+  "independent_author_and_reviewer": true,
+  "projection_notice": "Semantic checks and scope exclusions are retained verbatim from this review. Earlier exclusions concern the corresponding earlier module; STATUS.json states the collection scope. Host paths, timestamps and operating records are omitted.",
+  "reviewed_modules": [
+    "SideMatrixRows",
+    "SideMatrixGram"
+  ],
+  "reviewed_artifacts": [
+    {
+      "module": "SideMatrixRows",
+      "file": "lean/SideMatrixRows.lean",
+      "source_sha256": "8deb618d3b53b56c2ef00853c0c538ac1ee5c6918f7944748e52e188415c7a32",
+      "bytes": 2987,
+      "checked_object": {
+        "sha256": "d315557b0e22186fae77072ea3f21fe62b234b5e22fd139163fb8b672080d39b",
+        "bytes": 209712
+      },
+      "original_receipt": {
+        "sha256": "73d76f681c950a275ed9ca1410c21a4528a32bdc416c4ee4c9e4bf92349dc7b4",
+        "bytes": 296
+      },
+      "original_axiom_log": {
+        "sha256": "4b0a25b9fa14872044db7809e1fc0199e10209b2d9edce3134c5bc59c9b0593a",
+        "bytes": 117
+      },
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.prescribed_matrix_row_data",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "SideMatrixGram",
+      "file": "lean/SideMatrixGram.lean",
+      "source_sha256": "8cc0d65df953b9ce69fbf1d6da35b3a1ce51aa33a5c72a3cd70de0a9d355de0c",
+      "bytes": 4668,
+      "checked_object": {
+        "sha256": "90846d7f41222b98bedc93871039026c490496c2fc98e7a04f257d95be3e2601",
+        "bytes": 629464
+      },
+      "original_receipt": {
+        "sha256": "9bd54cad0db3dd69f88456993254eec6f3b831513f4b4332bf32557857fcf1e1",
+        "bytes": 297
+      },
+      "original_axiom_log": {
+        "sha256": "710d26ada39dd5521358b40e464573c07fb20cfa04579f0b58f11f7e201f433e",
+        "bytes": 885
+      },
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.sideMatrixCore_gram",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.prescribed_matrix_gram",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.strict_seed_matrix_gram_exists",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    }
+  ],
+  "selected_printed_roots": 4,
+  "semantic_checks": [
+    "prescribed_matrix_row_data derives both row norms and the complex cross-row product from the checked rho balance, sigma norm and Schur identity.",
+    "The displayed M has literal row0=(1,0,0), row1=(s/3,sigma,q conj sigma), row2=(t/3,cplus sigma,cminus conj sigma). All cplus,cminus,q,sigma definitions are the prescribed reconstruction definitions.",
+    "sideMatrixCore_gram checks all nine entries with the correct conjugate transpose; the reverse off-diagonal is derived by conjugating the actual row21 identity.",
+    "Scaling by complex3 yields literal G=[[3,conj s,conj t],[s,3,conj r],[t,r,3]].",
+    "strict_seed_matrix_gram_exists discharges g,n positivity and root existence/orientation from only entrywise-unit E, strict R(seed)>0 and epsilon^2=1. Both epsilon sheets remain."
+  ],
+  "scope_limitations": [
+    "Direct equality of displayed G with 6I−EE† is a separate pending seed-binding file; timed-out seed binding is not admitted.",
+    "No side-column phase gate, completeness/exhaustion, physical box exclusion or full no-four-MUB theorem is claimed.",
+    "Inherited Mathlib source/cache authenticity caveat unchanged."
+  ]
+}

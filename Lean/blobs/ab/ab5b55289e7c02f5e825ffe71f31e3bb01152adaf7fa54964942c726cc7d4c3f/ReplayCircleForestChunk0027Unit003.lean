@@ -1,0 +1,20 @@
+import CircleFullInterface
+import ChartPartitionJoined
+set_option maxRecDepth 1000000
+set_option maxHeartbeats 10000000
+namespace Mub6.Numerical.CircleFullPrototype.Forest
+open Mub6.Numerical.IntegerIntervals
+open Mub6.Numerical.CircleCharts
+open Mub6.Numerical.CircleCharts.Partition
+open Mub6.Numerical.CirclePrototype.Tao
+open Mub6.Numerical.CircleArc.TaoSoundness
+open Mub6.Numerical.CircleFullPrototype
+def state_175779 (j : Fin 5) : Nat := (if j.val < 2 then (if j.val < 1 then 9 else 12) else (if j.val < 3 then 9 else (if j.val < 4 then 14 else 12)))
+def hex_175779 : String := "41444042434105444308050505430841054442400543080508054243410709410544404205434441050905054209090543084108444042430844410540420508424307050805084243074441074207070808084005420508444042430A0A43440608444142400A430A4441420A400643060A0A0A40064306440608420A0641080A424309444140420A43094441400A090A0A09400A0941090943444108090844414042434441400609090844414042430A0A4306444142400543060A06420A0608424309444109090943084441404243089506420908404243060A0609410809400A420A43094441400A090A094140420508090A430644410806084243094441090909430844414008420908404243054405090505084042430A0A4306440641400A4209060A4243094441090509430644050941404209080940420943080A0940420A43080809"
+theorem cover_175779 : CoveredState taoTables (toCarrier R carrier) T R targets
+    (signsOf (⟨7, by decide⟩ : Fin 32)) state_175779 := by
+  apply coveredState_of_hexJoined tao_image_sound tao_term_sound
+    (fuel := 21) (count := 327) (hex := hex_175779)
+  decide +kernel
+#print axioms cover_175779
+end Mub6.Numerical.CircleFullPrototype.Forest

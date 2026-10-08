@@ -1,0 +1,1 @@
+-- Deliberately not compiled; unrelated-receipt rejection control.

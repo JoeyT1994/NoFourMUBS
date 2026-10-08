@@ -1,0 +1,54 @@
+{
+  "reviewer": "seed0024_averaging",
+  "status": "PASS_SCOPED_INDEPENDENT_REVIEW",
+  "components": [
+    {
+      "module": "OrthogonalMixBound",
+      "source": "cluster-tube-orth/OrthogonalMixBound.lean",
+      "source_sha256": "880f0a1be883fe928d432f9dbb646b6dd4c592c542155c0bc36beec0ae0a260f",
+      "receipt": "cluster-tube-orth/check-mix-01/RESULT.json",
+      "receipt_sha256": "df91d554e7aded0a646a5ce2c32375204f5b33e3b991e0dc271b47d04dff1819",
+      "stdout_sha256": "869187b1c1bf76908aabb49d91c4d50c4c114a6390dd5e5dd5ac425dc099a662",
+      "success": true,
+      "theorem_count": 2,
+      "printed_axiom_count": 2,
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "source_matches_frozen_and_receipt": true
+    },
+    {
+      "module": "OrthogonalBallCompatibility",
+      "source": "cluster-tube-orth/OrthogonalBallCompatibility.lean",
+      "source_sha256": "ae6115392f81ec0fcacb1adcdf3adb8a5b6e6e12a10016a9475bdd012ec2fb0d",
+      "receipt": "cluster-tube-orth/check-orthogonal-01/RESULT.json",
+      "receipt_sha256": "9504d4815be48e2f386bc438effcea03c4bb6ae60ddbc185ebc1775c10ce8453",
+      "stdout_sha256": "ddec7fa2090fae510a292fbb7b4e566a0d24203b0b58992acb93326580a5dfde",
+      "success": true,
+      "theorem_count": 1,
+      "printed_axiom_count": 1,
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "source_matches_frozen_and_receipt": true
+    }
+  ],
+  "theorem_count": 3,
+  "checks": [
+    "Real circle_mix_step proves monotone endpoint replacement using a+c>0 and exact circle identity, with all nonnegative/sign bounds explicit.",
+    "Two replacements yield a*s+t*b<=2*rho*sqrt(1-rho^2) for rho=5/27.",
+    "Actual complex unit a,b,x,y and inner(x,y)=0 are required.",
+    "Residual b along y and x orthogonal y give norm(inner x b)<=rho; residual a along x is actual projector distance.",
+    "Actual residual amplitude bound plus both exact unit decompositions gives the sharp centre-overlap-square predicate."
+  ],
+  "fresh_compile_by_reviewer": false,
+  "physical_component_reviewed": true,
+  "finite_graph_binding": false,
+  "cluster_tube_admitted": false,
+  "global_no_four_closure": false,
+  "registry_changed": false
+}

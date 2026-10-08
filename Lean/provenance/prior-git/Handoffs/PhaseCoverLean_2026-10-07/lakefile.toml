@@ -1,0 +1,53 @@
+name = "phase_cover_progress"
+version = "0.1.0"
+defaultTargets = ["PhaseCoverProgress"]
+
+[[require]]
+name = "mathlib"
+git = "https://github.com/leanprover-community/mathlib4.git"
+rev = "51e6992efd06126df61a496bebf8f49482a4e129"
+
+[[lean_lib]]
+name = "PhaseCoverProgress"
+srcDir = "lean"
+roots = [
+  "UnitRayTurns",
+  "FourierPhaseTargets",
+  "ApproximatePhaseFrontend",
+  "SupplierGridIndices",
+  "SupplierPhaseIndices",
+  "SupplierCellGeometry",
+  "SupplierMaskIndices",
+  "SupplierTablePhaseBinding",
+  "SparseSupplierIndices",
+  "IntegerPhaseArithmetic",
+  "IntegerPhaseDifference",
+  "SupplierLeafEntries",
+  "ScopedSupplierLeafEntries",
+  "SupplierScalarArithmetic",
+  "MidpointLeafRejection",
+  "EndpointLeafRejection",
+  "SquareNormBounds",
+  "SquareMidpointRejection",
+  "SquareEndpointRejection",
+  "SupplierBallInclusion",
+  "RoundedCentreDataNoInit",
+  "IntegerBallLabelNoInit",
+  "SquareBallLabelNoInit",
+  "DyadicRotation",
+  "DyadicChain",
+  "SparseBaseData",
+  "SparseBaseFirst",
+  "SparseBaseAccuracy",
+  "SparseQuarterTable",
+  "SparseOctantTable",
+  "SparseGridTable",
+  "ActualSparseTable",
+  "CompactSparseTable",
+  "RejectionPilot64Compact",
+  "PhaseTape",
+  "OrdinalRoots",
+  "PhaseCertificateToRetained36",
+  "ConcretePhaseChecksNoInit",
+  "SquareConcretePhaseChecksNoInit"
+]

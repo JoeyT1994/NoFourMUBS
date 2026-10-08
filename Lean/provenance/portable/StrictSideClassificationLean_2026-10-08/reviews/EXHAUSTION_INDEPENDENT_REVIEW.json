@@ -1,0 +1,555 @@
+{
+  "schema": "sanitized-independent-semantic-review-projection-v1",
+  "original_review_sha256": "72ded269ea51aac852fadcce36d1cc85ee1751b8aa2d7ceea4b275028b523939",
+  "original_status": "PASS_LITERAL_NORMALIZED_STRICT_SIDE_EXHAUSTION",
+  "independent_author_and_reviewer": true,
+  "projection_notice": "Semantic checks and scope exclusions are retained verbatim from this review. Earlier exclusions concern the corresponding earlier module; STATUS.json states the collection scope. Host paths, timestamps and operating records are omitted.",
+  "reviewed_modules": [
+    "SideIntrinsicFourierPolynomial",
+    "SideIntrinsicFourierModes",
+    "SideIntrinsicFourierMatrix",
+    "SideIntrinsicReflection",
+    "SideIntrinsicModeRecovery",
+    "SideIntrinsicOrientedModes",
+    "SideModeCoefficientAlgebra",
+    "SideModeMatrixFactor",
+    "SideIntrinsicCoefficientRecovery",
+    "SideIntrinsicOrientedMatrix",
+    "SideIntrinsicExhaustion"
+  ],
+  "reviewed_artifacts": [
+    {
+      "module": "SideIntrinsicFourierPolynomial",
+      "file": "lean/SideIntrinsicFourierPolynomial.lean",
+      "source_sha256": "875c39577f1849ab130202621c8fb635a635f2224991ba4a8230ea3a7a3f1067",
+      "bytes": 3144,
+      "checked_object": {
+        "sha256": "e7cebcf2f012a473d316489ff599dbbb00d7e4a622dd8baeed7d38bfba26f61e",
+        "bytes": 2015208
+      },
+      "original_receipt": {
+        "sha256": "c20931292e9ce262048a4fc5468866113e634bb3d7ef6809eb02e87d87466b2d",
+        "bytes": 296
+      },
+      "original_axiom_log": {
+        "sha256": "d9e5bb5285016ad24ee0fcc5e7022e4f44ef833bfc812ff8e5163541a55f4bd4",
+        "bytes": 11528
+      },
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.mode_alpha_numerator",
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.mode_gamma_numerator",
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.mode_det_numerator",
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.mode_cubic_numerator",
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.mode_inverse_numerators",
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "SideIntrinsicFourierModes",
+      "file": "lean/SideIntrinsicFourierModes.lean",
+      "source_sha256": "43c8d934b588650f10b6bbca8589c114a93f44eb360ef40cb9748bfa2f9c5b68",
+      "bytes": 3453,
+      "checked_object": {
+        "sha256": "701acd813486300b76f533b265b84586165289fa3b131b4b5651b90baa439ca5",
+        "bytes": 433056
+      },
+      "original_receipt": {
+        "sha256": "8ef50cd93d58de09bd6547c4ae0c9a60dfc7d8dc77444af4f09c5ad5473b7339",
+        "bytes": 296
+      },
+      "original_axiom_log": {
+        "sha256": "b84a35f3d5bd3fc3b35c9091205f24685ad2a93ae06452b84e00631e54c0de84",
+        "bytes": 1016
+      },
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.actual_mode_alpha",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.actual_mode_gamma",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.actual_mode_determinant",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.actual_mode_conjugate",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.actual_mode_cubic",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "SideIntrinsicFourierMatrix",
+      "file": "lean/SideIntrinsicFourierMatrix.lean",
+      "source_sha256": "b72e1849e83e06d308d1375602df04fb98a399707f8ce5660f5fc2ab007be9c8",
+      "bytes": 4561,
+      "checked_object": {
+        "sha256": "0f59cd16b9f7948e16ce5f2aeff6ad2e8950fad42bd9ddb33924f215266d27e8",
+        "bytes": 918528
+      },
+      "original_receipt": {
+        "sha256": "d430fdf490791e7b9e13a475d5dab3be2ec12ae85da286e2ec1cbf6a2c3401e3",
+        "bytes": 297
+      },
+      "original_axiom_log": {
+        "sha256": "9c01ff497accec0eecb49f0ae12ba573d94962a1a4293779e0c6be71a7db645a",
+        "bytes": 3681
+      },
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.side_fourier_factorization",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.phaseSide_unit",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.side_fourier_gram",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.side_fourier_row_norms",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.side_fourier_cross_moment",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "SideIntrinsicReflection",
+      "file": "lean/SideIntrinsicReflection.lean",
+      "source_sha256": "070246616448631c7255740be53fa4b94e9f1af5ce4703e519cda0e2561a8bc7",
+      "bytes": 2424,
+      "checked_object": {
+        "sha256": "cebb2a881f3d285668af6583b6a3bcdb80a43a5ddaf87820c24e1349e9eecdd1",
+        "bytes": 345928
+      },
+      "original_receipt": {
+        "sha256": "7976b0ae8d5757732c60d7a274ab500301768877287363382bbdac9f97990854",
+        "bytes": 296
+      },
+      "original_axiom_log": {
+        "sha256": "1155b5fa91dd4d0bb55a9964060f019897527bad3cb616f913bf495d7f3f12a2",
+        "bytes": 628
+      },
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.reflectRows_unit",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.reflectRows_correlations",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.reflectRows_modes",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.reflectRows_matrix",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.choose_oriented_rows",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "SideIntrinsicModeRecovery",
+      "file": "lean/SideIntrinsicModeRecovery.lean",
+      "source_sha256": "4455598c3b089cdafcbdd819ff987018e7c01e30943bce393ffd2445d86fb3bc",
+      "bytes": 6257,
+      "checked_object": {
+        "sha256": "996dfc1d73603a9ebe907ce323aeb6d85ac7e3b2d61374a1a956eb8d2baebb44",
+        "bytes": 325328
+      },
+      "original_receipt": {
+        "sha256": "457bb6b76126f1e839879914fca2b6f7cb58ce973cae5c4afed550d5607ebebb",
+        "bytes": 297
+      },
+      "original_axiom_log": {
+        "sha256": "8b43fd2b568fb54dcc001e6c28163281a992b05151fd13fb1ceccf9618ea3699",
+        "bytes": 1399
+      },
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.intrinsic_row_products",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.prescribed_intrinsic_products",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.prescribed_intrinsic_delta_radicand",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.actual_mode_reconstruction_moments",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.actual_mode_delta_is_prescribed_root",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "SideIntrinsicOrientedModes",
+      "file": "lean/SideIntrinsicOrientedModes.lean",
+      "source_sha256": "5c90390b666ad2868b94782e343e17e79dfed2650cdb413175be15ce2b340004",
+      "bytes": 2947,
+      "checked_object": {
+        "sha256": "cb7f51e20f3898030210287894102e0670f753f4f8e8896cb0ac45838310d786",
+        "bytes": 173576
+      },
+      "original_receipt": {
+        "sha256": "550df06232fcfd9a764197c52ffb956c6885c386ccc17cb01228dab27ae60dc7",
+        "bytes": 296
+      },
+      "original_axiom_log": {
+        "sha256": "de7d50497b5896c5baa7cab291491d55e0c1fe0dc4a0b804b302415012e184af",
+        "bytes": 136
+      },
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.oriented_mode_scalar_recovery",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "SideModeCoefficientAlgebra",
+      "file": "lean/SideModeCoefficientAlgebra.lean",
+      "source_sha256": "f178c7636a96c936ccf5f003cb1393fbdc292cfb29f0bd10f45cc8d75c3b0b6c",
+      "bytes": 3154,
+      "checked_object": {
+        "sha256": "a15060df2de7a206174fe32581d0207d34c05d1a4787bdd892b6aa2451561a90",
+        "bytes": 330800
+      },
+      "original_receipt": {
+        "sha256": "2a14c5951fae334bf121cea0beedcbc1975ec190dd5d53859f3724873eb6cf87",
+        "bytes": 296
+      },
+      "original_axiom_log": {
+        "sha256": "931032b8d7c0887b6f5c981ac6b0030024fe2fc41f3b821f664affe290fd57c5",
+        "bytes": 4372
+      },
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.mode_q_quotient",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.mode_sigma_quotient",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.mode_cplus_quotient",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.mode_cminus_quotient",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.mode_phase_cube",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.mode_phase_entries",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "SideModeMatrixFactor",
+      "file": "lean/SideModeMatrixFactor.lean",
+      "source_sha256": "f242196553601a1e75f72b6b1306d26a0dc030258df8cc933b8459ca766f41b7",
+      "bytes": 998,
+      "checked_object": {
+        "sha256": "a4f84db60d7524541a61801be263f9cc3ea42bf736ecbf3bb717d10cda408dc9",
+        "bytes": 333624
+      },
+      "original_receipt": {
+        "sha256": "e65cbb07aa5dc321e3c1171d4a4a4a194ea0dd156cee39c109e523f63f10f16a",
+        "bytes": 296
+      },
+      "original_axiom_log": {
+        "sha256": "f2a437e9d8f2d1444d2a4c3b0522abfb60aca576add8628b6330f781ee50eaec",
+        "bytes": 643
+      },
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.mode_core_phase_factor",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "SideIntrinsicCoefficientRecovery",
+      "file": "lean/SideIntrinsicCoefficientRecovery.lean",
+      "source_sha256": "ee3c3d8af5e96980a75369097bd02f1739735264bdd5be0b2d94f9beb3630b50",
+      "bytes": 2581,
+      "checked_object": {
+        "sha256": "a9a9eefa1b3349a00990447d100ca3e720ef959d53a7a2c2ea0515a76f586061",
+        "bytes": 95680
+      },
+      "original_receipt": {
+        "sha256": "7cede6e85d687e537f2b1a3d092b795db3929d0127148ce47fd039807bc853ad",
+        "bytes": 297
+      },
+      "original_axiom_log": {
+        "sha256": "467d6bb90322567d88a9f30584c04b9ac1ced879837ccfd1d97ec499407f6f68",
+        "bytes": 141
+      },
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.oriented_mode_coefficient_recovery",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "SideIntrinsicOrientedMatrix",
+      "file": "lean/SideIntrinsicOrientedMatrix.lean",
+      "source_sha256": "7d51699a6d0cb262eae1410eb4dad7dee47f58477916fd8fb884df5f9273bcb1",
+      "bytes": 2378,
+      "checked_object": {
+        "sha256": "58d4e660d64a6efd08ca85d64336d7d3ba452ca19fd78febd381421e2355c9ab",
+        "bytes": 78528
+      },
+      "original_receipt": {
+        "sha256": "11d4fd717ea2926260637791c14b3583ac5e44bdf2dd32917f87d5c4c1b0f25b",
+        "bytes": 297
+      },
+      "original_axiom_log": {
+        "sha256": "c3fe775c38e27744bfd801b2ca609e53eb9a5a744917b65aa9ea0b14bbd9ef72",
+        "bytes": 138
+      },
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.oriented_side_modes_reconstruct",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "SideIntrinsicExhaustion",
+      "file": "lean/SideIntrinsicExhaustion.lean",
+      "source_sha256": "81c0603ede41be405fd797fd1e38a41d12e89790ef56c930fe2456266c1fef04",
+      "bytes": 4549,
+      "checked_object": {
+        "sha256": "505bb7a1bdfb88ad9d444eb76eb5ca053c9f79804a001a519b0625ecbabed240",
+        "bytes": 188888
+      },
+      "original_receipt": {
+        "sha256": "aecd30336239c4553d050246d922de03abd38d50833b04b5fcb1461f31d8a313",
+        "bytes": 296
+      },
+      "original_axiom_log": {
+        "sha256": "da9dcfd8cf71515e2fce204821633a5620317ce498d3b402ac84b324e4c7f6a1",
+        "bytes": 282
+      },
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.strict_phase_rows_exhaustion",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.strict_normalized_matrix_side_exhaustion",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    }
+  ],
+  "selected_printed_roots": 37,
+  "semantic_checks": [
+    "The literal inverse-DFT modes are A=(x0+omega^2*x1+omega*x2)/3,B=(x0+omega*x1+omega^2*x2)/3 and the analogous C,D. The five universal polynomial roots clear only the fixed denominator3 and use omega^2+omega+1=0. The supplier mode signs,determinant factor27 and cubic identity match exactly.",
+    "The actual alpha/gamma/determinant/conjugate/cubic identities derive from those numerators and the previously reviewed six-unit-row conjugate bindings. No desired moment is an actual-side assumption. The norm and cross moment come from exact inverse Fourier matrix factorization and FF-dagger=3I.",
+    "Reflection swaps columns1 and2, preserves all three actual Gram correlations and unitness, and exchanges A/B and C/D. choose_oriented_rows uses the original side when normSq(B)<=normSq(A), including equality; otherwise it reflects. It requires no preexisting orientation or nonzero mode.",
+    "The chosen-sheet premise in intermediate recovery is the exact theta equality already supplied by strict_intrinsic_sheet_exists. Prescribed U,perm,gamma,alpha,k and delta radicand are then bound to literal side moments. The relation prescribedDeltaRadicand=-det^2/27 matches the determinant Fourier identity.",
+    "The root is sideModeDelta=A*D-B*C. Its nonzero guard is derived from R>0 through the existing prescribed-delta theorem. With mode ordering, A=0 would force B=0 and then delta=0; hence A is nonzero without a new confinement or chart hypothesis.",
+    "The checked pre-rho factor together with numerator=(normSq A-normSq B)*delta permits cancellation of that derived nonzero delta. It yields rho=normSq A and Re(dF)>=0, including the equality tie. No prescribed-rho or orientation equality is assumed in the final endpoint.",
+    "The coefficient quotient helpers divide only the derived nonzero A or its conjugate, and n=normSq A+normSq B is thereby positive. They give q=B/conj A,sigma=A^2/conj A,cPlus=C/A,cMinus=D/conj A and cube phase w=A/conj A. Direct matrix multiplication then recovers the original inverse-DFT core.",
+    "The final rows endpoint first orients by reflection, independently derives a sheet for that oriented side, and transports the Gram parameters back unchanged. It supplies epsilon,delta,w and a column permutation. Its proof uses only identity or swap(1,2), with no assumption that a target matrix equality already holds.",
+    "The final arbitrary-matrix endpoint assumes entrywise-unit X,first row exactly1,and R>0 evaluated on entries(1,0),(2,0),(2,1) of XX-dagger. The reviewed matrix interface discharges all six-row prerequisites and supplies the literal conclusion prescribedSide(...)=X with columns permuted.",
+    "The reviewed successful chain establishes necessity/exhaustion for normalized strict sides. It does not prove unnormalized-side gauge reduction,classification on R=0,uniqueness or exact orbit cardinality,or any matched-completion/global exclusion theorem. The construction endpoint separately gives both epsilon sheets; the necessity endpoint existentially selects an appropriate sheet.",
+    "One simp-only normalization of conjugate quotients/powers in the four already-derived mode_phase_entries equations, so the existing entrywise matrix simplifier recognizes them. Exact statement,hypotheses and matrix definitions unchanged. No new mathematical premise or weakened conclusion.",
+    "All37 selected printed roots have only standard axioms. Exact successful source/compiler-copy,receipt/JOB,axiom-log and object pins and every direct first-resolved custom object edge match the independently reviewed source/dependency versions."
+  ],
+  "admitted_scope": "Eleven modules and thirty-seven selected roots deriving inverse Fourier modes and every recipe parameter from an arbitrary actual first-row-normalized entrywise-unit3x3 X with R>0 on its literal Gram entries. The endpoint supplies epsilon,delta,w and a column permutation with prescribedSide equal to X after that permutation. Combined with the separately reviewed construction this gives existence and exhaustion on the normalized strict side domain.",
+  "scope_limitations": [
+    "The endpoint retains explicit first-row normalization and R>0; it does not prove reduction of arbitrary unnormalized sides or the R=0 boundary.",
+    "The proof needs only identity or reflection to orient modes; it does not establish exact fiber cardinality or uniqueness/equivalence for every possible recipe root choice.",
+    "No matched full-matrix completion classification, radius exclusion, finite-forest or physical box closure, global coverage or no-four-MUB theorem.",
+    "Inherited Mathlib source/cache authenticity caveat remains; no clean full-library rebuild or relocated replay."
+  ]
+}

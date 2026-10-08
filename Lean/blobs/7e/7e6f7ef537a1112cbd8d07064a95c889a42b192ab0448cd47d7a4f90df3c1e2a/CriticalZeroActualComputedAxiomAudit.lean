@@ -1,0 +1,2 @@
+import CriticalZeroActualComputedNoAudit
+#print axioms CriticalZeroPhysicalInputs20261003.allCritical_computed_numerator_zero

@@ -1,0 +1,11 @@
+import PhysicalLocalBinding
+import RegularFamilySeparation
+
+/-! Fresh import audit of the assembled objects after source-port replay. -/
+#print axioms Hadamard6.paper_total_output_corollary
+#print axioms ClassificationCover.numerical_classification_exact
+#print axioms ClassificationCover.quartet_retained_standard_pair_in_finite_cover
+#print axioms ClassificationCover.checkLocal_excludes_classified_quartet_edge
+#print axioms ClassificationCover.RegularBenchmark.every_permanent_nonzero
+#print axioms ClassificationCover.RegularBenchmark.not_intrinsic_karlsson
+#print axioms ClassificationCover.RegularBenchmark.not_tao_orbit

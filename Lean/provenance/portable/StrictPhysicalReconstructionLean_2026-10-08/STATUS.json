@@ -1,0 +1,51 @@
+{
+  "schema": "strict-physical-necessity-source-packet-v1",
+  "status": "REVIEWED_STRICT_PHYSICAL_RECONSTRUCTION_NECESSITY",
+  "selected_modules": 7,
+  "selected_printed_roots": 18,
+  "custom_source_modules": 107,
+  "independent_review_projections": 2,
+  "complete_custom_import_closure": true,
+  "source_bytes_unchanged": true,
+  "source_only_no_compiled_objects": true,
+  "allowed_axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+  ],
+  "final_hypotheses": [
+    "Physical H",
+    "Dephased H",
+    "0 < leadingR H"
+  ],
+  "whole_physical_strict_necessity_proved": true,
+  "literal_seed_binding_proved": true,
+  "transpose_strictness_derived": true,
+  "endpoints": [
+    "StrictReconstruction20261007.SideIntrinsic.strict_physical_matrix_reconstruction",
+    "StrictReconstruction20261007.SideIntrinsic.strict_physical_literal_seed_reconstruction"
+  ],
+  "conclusions": [
+    "Every actual physical dephased H with leadingR>0 has both sides given by the literal recipe, using the actual seed E and E transpose, independent column permutations and derived sheet/square-root/cube-root/orientation conditions.",
+    "Transpose leadingR equals leadingR; the final result does not require separate transpose positivity.",
+    "The lower block is forced as T=-(C E-dagger)*(B-dagger)^(-1); its inverse guard is derived from strictness.",
+    "The actual seed is the normalized corner with entries H11,H12,H21,H22."
+  ],
+  "dependency_caveat": "Existing checks reused pinned Lean/Mathlib/custom objects. No clean full-library source/cache rebuild or fresh relocated replay is claimed.",
+  "toolchain": {
+    "lean": "4.33.0-rc2",
+    "lean_commit": "d8b18978322de05a8f3dba51ef03cf5461676c17",
+    "mathlib_revision": "51e6992efd06126df61a496bebf8f49482a4e129"
+  },
+  "arbitrary_recipe_pair_sufficiency_proved": false,
+  "matched_completion_classification_proved": false,
+  "gauge_normalization_proved": false,
+  "zero_invariant_branch_closed": false,
+  "radius_exclusion_proved": false,
+  "finite_forest_closure_proved": false,
+  "physical_box_closure_proved": false,
+  "global_coverage_proved": false,
+  "no_four_mubs_proved": false,
+  "fresh_clean_rebuild": false,
+  "fresh_relocation_replay": false
+}

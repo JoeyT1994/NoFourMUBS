@@ -1,0 +1,62 @@
+{
+  "schema": "strict-side-construction-and-intrinsic-source-packet-v1",
+  "status": "REVIEWED_STRICT_SIDE_CONSTRUCTION_AND_NORMALIZED_EXHAUSTION",
+  "selected_modules": 56,
+  "selected_printed_roots": 146,
+  "custom_source_modules": 79,
+  "independent_review_projections": 12,
+  "complete_custom_import_closure": true,
+  "source_bytes_unchanged": true,
+  "source_only_no_compiled_objects": true,
+  "allowed_axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+  ],
+  "endpoints": [
+    "StrictReconstruction20261007.strict_seed_prescribed_side_exists",
+    "StrictReconstruction20261007.prescribed_side_conditions",
+    "StrictReconstruction20261007.SideIntrinsic.strict_intrinsic_sheet_exists",
+    "StrictReconstruction20261007.SideIntrinsic.intrinsic_lambdas_eq_prescribed",
+    "StrictReconstruction20261007.SideIntrinsic.arbitrary_side_intrinsic_interface",
+    "StrictReconstruction20261007.SideIntrinsic.strict_normalized_matrix_side_exhaustion"
+  ],
+  "premises": [
+    "Construction existence: arbitrary entrywise-unit3x3 E, strict literal seed invariant R>0 and real epsilon^2=1; oriented square-root and cube-root choices are supplied.",
+    "Intrinsic matrix interface: arbitrary entrywise-unit3x3 X with every first-row entry equal to1. Strict sheet/lambda recovery additionally requires R>0 on the actual lower Gram entries.",
+    "Generic scalar side-conditions theorem retains R>0,g>0,n>0,epsilon^2=1,prescribed delta square,Re(dF)>=0 and prescribed cube equation; the seed existence theorem discharges all except its stated seed and sheet hypotheses."
+  ],
+  "conclusions": [
+    "The literal S=M*diag(1,conj(w),w)*F3 is entrywise unit, has first row1, and SS†=6I−EE†. Every allowed cube root works; both epsilon sheets and the orientation tie are retained.",
+    "For any normalized actual unit side, g=|det X|²,eta=|perm X|² and the exact chi and three lambda identities hold.",
+    "For R>0 an actual side selects one of the two literal sheets and its intrinsic lambdas equal the prescribed formulas.",
+    "Every first-row-normalized actual unit side X with R>0 on its Gram entries equals a literal prescribedSide after a column permutation, with sheet,delta,cube-root and non-strict orientation conditions all derived. The proof chooses identity or reflection to order the Fourier modes."
+  ],
+  "matrix_reconstruction_proved": true,
+  "row_phase_gates_proved": true,
+  "side_fourier_entrywise_unitness_assembled": true,
+  "side_fiber_exhaustion_proved": true,
+  "radius_exclusion_proved": false,
+  "physical_box_closure_proved": false,
+  "global_coverage_proved": false,
+  "no_four_mubs_proved": false,
+  "fresh_clean_rebuild": false,
+  "fresh_relocation_replay": false,
+  "dependency_caveat": "Existing checks reused pinned Lean/Mathlib/custom objects. No clean full-library source/cache rebuild or fresh relocated replay is claimed.",
+  "toolchain": {
+    "lean": "4.33.0-rc2",
+    "lean_commit": "d8b18978322de05a8f3dba51ef03cf5461676c17",
+    "mathlib_revision": "51e6992efd06126df61a496bebf8f49482a4e129"
+  },
+  "intrinsic_actual_norm_chi_lambda_identities_proved": true,
+  "intrinsic_sheet_and_lambda_recovery_proved": true,
+  "normalized_matrix_intrinsic_interface_proved": true,
+  "exhaustion_domain": "first-row-normalized entrywise-unit3x3 X with R>0 on literal Gram entries",
+  "no_exact_orbit_cardinality_claim": true,
+  "scope_boundaries": [
+    "First-row normalization remains explicit; no general gauge reduction is claimed.",
+    "R=0 remains outside the strict exhaustion theorem.",
+    "No exact fiber cardinality or universal root-choice orbit-equivalence theorem is claimed.",
+    "No matched full-matrix completion classification, radius exclusion, global finite forest or physical box closure, global coverage or no-four-MUB theorem."
+  ]
+}

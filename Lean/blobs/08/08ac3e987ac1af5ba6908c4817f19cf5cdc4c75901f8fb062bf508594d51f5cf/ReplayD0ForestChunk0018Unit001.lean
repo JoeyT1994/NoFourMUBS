@@ -1,0 +1,77 @@
+import D0FullInterface
+import ChartPartitionJoined
+set_option autoImplicit false
+set_option maxRecDepth 1000000
+set_option maxHeartbeats 10000000
+namespace Mub6.Numerical.CircleFullD0.Forest
+open Mub6.Numerical.IntegerIntervals
+open Mub6.Numerical.CircleCharts
+open Mub6.Numerical.CircleCharts.Partition
+open Mub6.Numerical.CirclePrototype.D0
+open Mub6.Numerical.CircleArc.D0Soundness
+open Mub6.Numerical.CircleFullD0
+def state_1465948 (j : Fin 5) : Nat := (if j.val < 2 then (if j.val < 1 then 11 else 5) else (if j.val < 3 then 7 else (if j.val < 4 then 7 else 5)))
+def hex_1465948 : String := "41444243404109440842060908404105080543404105440509054041054405424340410544054208430505054041054405420805054340410544054309050505054243094044410742074309070909430940444109424309404441074207430907090943094044410942430940444105424309074309400A07090943094044410542430940444105420AE60A4405074309E60909090909094442084340414408430A42080A08084041440842084340414408430A42080A0808404144084208434041440543420807420840070A070840414405420843404144054307E607410508E6080808080808424340064109064041444206430608060641440807084340414443064206090606410944080640414442434006064041444206430640060806064144080708434041444306420640060906064109440806404144424340064109064041444206430640060806064144080708434041444306420640060906064109440806404144424340064109064041444243060AE60606414408420709084340414443420607E6060641094443080806E642430606430644E605444208430641E6050541444208430940E6080944084206430640060842064306444005090544420643064140050805054144420843094041090808094408420643064005084206430644400509054442064306414005080505414442084309404109080809440842064306400508"
+theorem cover_1465948 : CoveredState d0Tables (toCarrier R carrier) T R targets
+    (signsOf (⟨18, by decide⟩ : Fin 32)) state_1465948 := by
+  apply coveredState_of_hexJoined d0_image_sound d0_term_sound
+    (fuel := 25) (count := 523) (hex := hex_1465948)
+  decide +kernel
+#print axioms cover_1465948
+
+def state_1466471 (j : Fin 5) : Nat := (if j.val < 2 then (if j.val < 1 then 2 else 2) else (if j.val < 3 then 3 else (if j.val < 4 then 3 else 3)))
+def hex_1466471 : String := "404142430A0A434409080842430644060A43440641080A444108050841424344090A44090A4309440908424344400609400A410A0944404142060A06410942440606440609400A410942090A434440410906090944404144420A0808440505410944424306400509430940050909400809"
+theorem cover_1466471 : CoveredState d0Tables (toCarrier R carrier) T R targets
+    (signsOf (⟨18, by decide⟩ : Fin 32)) state_1466471 := by
+  apply coveredState_of_hexJoined d0_image_sound d0_term_sound
+    (fuel := 12) (count := 113) (hex := hex_1466471)
+  decide +kernel
+#print axioms cover_1466471
+
+def state_1466588 (j : Fin 5) : Nat := (if j.val < 2 then (if j.val < 1 then 4 else 3) else (if j.val < 3 then 2 else (if j.val < 4 then 2 else 2)))
+def hex_1466588 : String := "414243440708074344410607060642430708434407420744070607"
+theorem cover_1466588 : CoveredState d0Tables (toCarrier R carrier) T R targets
+    (signsOf (⟨18, by decide⟩ : Fin 32)) state_1466588 := by
+  apply coveredState_of_hexJoined d0_image_sound d0_term_sound
+    (fuel := 7) (count := 27) (hex := hex_1466588)
+  decide +kernel
+#print axioms cover_1466588
+
+def state_1466616 (j : Fin 5) : Nat := (if j.val < 2 then (if j.val < 1 then 5 else 6) else (if j.val < 3 then 2 else (if j.val < 4 then 2 else 2)))
+def hex_1466616 : String := "4243444007414207434406060707404144060644070841444243400641050A0643060642080944420743400741440742070607074243400744070807434044410607084441420906420743404406080A0A4108084008440A0844074007410907434440414206064207434407060741424344400609060943444006410642430606430A06400641054206054440064106420606064243440740074142074407060707434440074207414308440740060807404241060741064407064241444340060806064407434042064406060840064207440606414443050643050644430840070843400A4208054006424408064408410508440740420606424106074106434407060740410642440606064142444306060644060642444340410642070641424406064406064244074340064441060741060A0644434006424106074106440606064340064244060606064006410642074406064340440606444106424340064441060A090643400644060606410942080840064406064443404206064241064443400642410544080641054408050643400642060606414405054443400A4205054006420606434006420605064006420606434006424406060606444007414207430606074006410642434406060606"
+theorem cover_1466616 : CoveredState d0Tables (toCarrier R carrier) T R targets
+    (signsOf (⟨18, by decide⟩ : Fin 32)) state_1466616 := by
+  apply coveredState_of_hexJoined d0_image_sound d0_term_sound
+    (fuel := 18) (count := 467) (hex := hex_1466616)
+  decide +kernel
+#print axioms cover_1466616
+
+def state_1467084 (j : Fin 5) : Nat := (if j.val < 2 then (if j.val < 1 then 5 else 7) else (if j.val < 3 then 4 else (if j.val < 4 then 2 else 2)))
+def hex_1467084 : String := "43440740074407414207434007440708070707"
+theorem cover_1467084 : CoveredState d0Tables (toCarrier R carrier) T R targets
+    (signsOf (⟨18, by decide⟩ : Fin 32)) state_1467084 := by
+  apply coveredState_of_hexJoined d0_image_sound d0_term_sound
+    (fuel := 10) (count := 19) (hex := hex_1467084)
+  decide +kernel
+#print axioms cover_1467084
+
+def state_1467105 (j : Fin 5) : Nat := (if j.val < 2 then (if j.val < 1 then 5 else 7) else (if j.val < 3 then 5 else (if j.val < 4 then 4 else 4)))
+def hex_1467105 : String := "400742074143440740074207414407430A07070707"
+theorem cover_1467105 : CoveredState d0Tables (toCarrier R carrier) T R targets
+    (signsOf (⟨18, by decide⟩ : Fin 32)) state_1467105 := by
+  apply coveredState_of_hexJoined d0_image_sound d0_term_sound
+    (fuel := 11) (count := 21) (hex := hex_1467105)
+  decide +kernel
+#print axioms cover_1467105
+
+def state_1467127 (j : Fin 5) : Nat := (if j.val < 2 then (if j.val < 1 then 10 else 7) else (if j.val < 3 then 5 else (if j.val < 4 then 4 else 5)))
+def hex_1467127 : String := "4244070844414342070A060708"
+theorem cover_1467127 : CoveredState d0Tables (toCarrier R carrier) T R targets
+    (signsOf (⟨18, by decide⟩ : Fin 32)) state_1467127 := by
+  apply coveredState_of_hexJoined d0_image_sound d0_term_sound
+    (fuel := 6) (count := 13) (hex := hex_1467127)
+  decide +kernel
+#print axioms cover_1467127
+
+
+end Mub6.Numerical.CircleFullD0.Forest

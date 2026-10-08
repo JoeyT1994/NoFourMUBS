@@ -1,0 +1,285 @@
+{
+  "schema": "sanitized-independent-semantic-review-projection-v1",
+  "original_review_sha256": "7211c5f17e085ad9ae5b109598e4c8df78bd99191fd0d6cc04dd41c1e43febcc",
+  "original_status": "PASS_SCOPED_THIRD_ROW_FINITE_BASE_AND_ACTUAL_POLYNOMIAL_BINDING",
+  "independent_author_and_reviewer": true,
+  "projection_notice": "Semantic checks and scope exclusions are retained verbatim from this review. Earlier exclusions concern the corresponding earlier module; STATUS.json states the collection scope. Host paths, timestamps and operating records are omitted.",
+  "reviewed_modules": [
+    "ThirdRowGateDefs",
+    "ThirdRowGateConstResidual0",
+    "ThirdRowGateConstResidual1",
+    "ThirdRowGateLinearResidual0",
+    "ThirdRowGateLinearResidual1",
+    "ThirdRowGateReduction",
+    "ThirdRowGatePolynomial",
+    "ThirdRowGateActualPolynomial"
+  ],
+  "reviewed_artifacts": [
+    {
+      "module": "ThirdRowGateDefs",
+      "file": "lean/ThirdRowGateDefs.lean",
+      "source_sha256": "8c8c7f1f9390976348b51cecd85532c8bf2c0bf233615a3e2344aefe30a91b2b",
+      "bytes": 2002,
+      "checked_object": {
+        "sha256": "78cfce4c0bb8669b1289ed7f4f1dfbfaae6e8fd94fbe026f26e9faaa9bde914e",
+        "bytes": 230552
+      },
+      "original_receipt": {
+        "sha256": "9f7a5466bbe1d7fb3025acbf2fd0d4020043df0df097f065b46f786cb3c06220",
+        "bytes": 297
+      },
+      "original_axiom_log": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "selected_roots": []
+    },
+    {
+      "module": "ThirdRowGateConstResidual0",
+      "file": "lean/ThirdRowGateConstResidual0.lean",
+      "source_sha256": "d8501f00ff86c2deb1da613cde3d68c1969f001353700f23d16f5e30f4ba1dd1",
+      "bytes": 585,
+      "checked_object": {
+        "sha256": "a753434ccc317d1bea02163dc2356a9606ec0c312b43435ea7aaa7cb6ea57b95",
+        "bytes": 1523720
+      },
+      "original_receipt": {
+        "sha256": "c4b1750155e52a1b3eb9f05f3ba1ff0aa7f7e5afb1c8a069c671417aa133b61b",
+        "bytes": 297
+      },
+      "original_axiom_log": {
+        "sha256": "6f230d9f6df98e8f2594c593a78c435095cd0eee7c8ff2267a111b0cf662492d",
+        "bytes": 110
+      },
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.ThirdRowGate.constResidual0_gram_zero",
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "ThirdRowGateConstResidual1",
+      "file": "lean/ThirdRowGateConstResidual1.lean",
+      "source_sha256": "e024f44cd0b9d537e3740ba52af10dd648de4b934eb19c4c508e4573cf117a52",
+      "bytes": 585,
+      "checked_object": {
+        "sha256": "f6bf672d111432a80ec064dd1bf04ffaf125bc2939875e2ecec62a98ffd7b310",
+        "bytes": 169728
+      },
+      "original_receipt": {
+        "sha256": "d8a96378a2da6f1baf59aefcb3e2dc07eb6a898a2d6b85da58ea86a24a493d5b",
+        "bytes": 297
+      },
+      "original_axiom_log": {
+        "sha256": "7bf1a0970cdf2efcdfe1944948bdb73864c099480895438767ea4ad24be31519",
+        "bytes": 110
+      },
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.ThirdRowGate.constResidual1_gram_zero",
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "ThirdRowGateLinearResidual0",
+      "file": "lean/ThirdRowGateLinearResidual0.lean",
+      "source_sha256": "e472bc2c1272eca88740b4ef73cf129226c7d48fe613e49b33567be1fecbbcd0",
+      "bytes": 589,
+      "checked_object": {
+        "sha256": "8692f1ba6a4f0e17d4b2e4aa4b007d0ad47e46ce2a3a474d100036b465816080",
+        "bytes": 19395056
+      },
+      "original_receipt": {
+        "sha256": "45815c818899382a3df3d2af528b625266066b9097fc71f380f67d86a5d202d0",
+        "bytes": 296
+      },
+      "original_axiom_log": {
+        "sha256": "a56625e732db1d3f6584438bda64b018370e99aa3017e492f9025a25ef785db1",
+        "bytes": 111
+      },
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.ThirdRowGate.linearResidual0_gram_zero",
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "ThirdRowGateLinearResidual1",
+      "file": "lean/ThirdRowGateLinearResidual1.lean",
+      "source_sha256": "dd231ff8caba7a125a0e452944cb56a866286b9036125908708605074b204b5b",
+      "bytes": 589,
+      "checked_object": {
+        "sha256": "56b6da09a5a2f79008122a1f5eef37ad5391099c8b1a0ebb98df445e180961c7",
+        "bytes": 10183848
+      },
+      "original_receipt": {
+        "sha256": "b45b79d26a5a27be36400b8280f3123cad57db3415ed6bd50f48fc4a1a969d8d",
+        "bytes": 297
+      },
+      "original_axiom_log": {
+        "sha256": "ac12e47aa38298e01ff3272290422ba4d0ce8c22d303be9925479f825ae63058",
+        "bytes": 111
+      },
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.ThirdRowGate.linearResidual1_gram_zero",
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "ThirdRowGateReduction",
+      "file": "lean/ThirdRowGateReduction.lean",
+      "source_sha256": "8132ca94ea9d79138f0072916c539eb0f033466aba9911fbcbd57d512e1b4b93",
+      "bytes": 4925,
+      "checked_object": {
+        "sha256": "8e8b76d310e8386b81b31fc9a1b648ea149bcee9a7d8fc7918c96fde65bebf86",
+        "bytes": 981024
+      },
+      "original_receipt": {
+        "sha256": "44136b971e54bbe44512c414a65ad0ddead7e6e86866044113b8901b4e98f337",
+        "bytes": 295
+      },
+      "original_axiom_log": {
+        "sha256": "18721412d7c065166d125daba9032b0e15621c7c19e3d5a7221737ff5f8ad190",
+        "bytes": 650
+      },
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.ThirdRowGate.constant_reduction",
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.ThirdRowGate.linear_reduction",
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.ThirdRowGate.constant_cleared_zero",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.ThirdRowGate.linear_cleared_zero",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.ThirdRowGate.constant_lambda_binding",
+          "axioms": [
+            "propext"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.ThirdRowGate.linear_lambda_binding",
+          "axioms": [
+            "propext"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "ThirdRowGatePolynomial",
+      "file": "lean/ThirdRowGatePolynomial.lean",
+      "source_sha256": "c66e7ab1cdda39d2e6497cd22f2a1e6195e291ca53edd383f1c2aed440a87ec4",
+      "bytes": 2317,
+      "checked_object": {
+        "sha256": "82f9319ac4222918b4d0568b6892204d1df3104df5ee8082721c9cada4755161",
+        "bytes": 47696
+      },
+      "original_receipt": {
+        "sha256": "f7c901bee6767c48142739a473030378dc104d80a13bb37900ebdaa7a1559304",
+        "bytes": 297
+      },
+      "original_axiom_log": {
+        "sha256": "03dea74553c4bc228ff7a35925c0f46e022faee10f8de104eed94f36f4276668",
+        "bytes": 128
+      },
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.ThirdRowGate.gram_lambda_identities",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "ThirdRowGateActualPolynomial",
+      "file": "lean/ThirdRowGateActualPolynomial.lean",
+      "source_sha256": "4787c3f925aff815f6ddd17268b2d061b43c0a2f38c5be164dde7c0537858e59",
+      "bytes": 2368,
+      "checked_object": {
+        "sha256": "189a9a53c676b91747c12e028acd67574abda5e5a20bae8fcaee27fe01d9bf02",
+        "bytes": 103024
+      },
+      "original_receipt": {
+        "sha256": "cd612c1c718c92a6842c71cc18b7904ff6b8e520f0e37098d7a1680bcf0afea5",
+        "bytes": 297
+      },
+      "original_axiom_log": {
+        "sha256": "868561fcac51e5656254fe2aaa1d325250f207fdcdf81088229632be9c39b7ac",
+        "bytes": 131
+      },
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.actual_third_row_polynomial_identities",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    }
+  ],
+  "selected_printed_roots": 12,
+  "semantic_checks": [
+    "ThirdRowGateDefs uses the literal six-correlation gramData, with S,T,Q later replaced by the actual conjugates of s,t,r. No sample, witness-matrix or native-checker predicate occurs in these definitions.",
+    "The four constant/linear residual identities hold universally for six independent elements of any commutative ring. Their proofs expand the retained finite definitions and use ring normalization; no physical-existence or polynomial-vanishing hypothesis is used.",
+    "The two universal reductions retain both the quadratic factor g*z^2-chi*z+g*eta and the sum-relation correction g*(z+Z)-chi. Under g*(z+Z)=chi and z*Z=eta, the quadratic factor is derived by linear_combination. No division by z, Z, chi, eta or any coefficient occurs.",
+    "The cleared-zero helpers cancel only g^2 or g^3 in an integral domain, using their explicit g!=0 premise. The constant/linear lambda bindings are direct identities from l0*p0bar=g+c0*Z, b*p1=g+c1*z and c*p2=g+c2*z.",
+    "gram_lambda_identities discharges all four residual-zero premises by the universal ring certificates before canceling p0bar*p1 and p0bar*p1*p2. Every canceled factor has an explicit nonzero premise; no factor depending on a product-regular locus or Fourier orientation is canceled.",
+    "The actual endpoint derives g!=0 and P0,P1,P2!=0 from the previously reviewed strict scalar guards under R>0. The conjugated P0 guard is transported explicitly. These guards are conclusions of upstream checked lemmas, not added physical assumptions.",
+    "The actual endpoint obtains the z-sum/product moments from the literal sideZ radical formula and its checked norm identity. It obtains lambda product equations from the already checked exact formulas. The intermediate generic premises are therefore discharged for the supplied constructor.",
+    "The final statement uses the literal prescribedLambda0/1/2 definitions from RECONSTRUCTION.md; the quotient versions are connected by prescribedLambdas_eq_sideLambdas with P nonvanishing proved. The conjugation placement l0=lambda0, b=conj(lambda1), c=conj(lambda2), Z=conj(z) matches the specified sheet and side formulas.",
+    "Real epsilon with epsilon^2=1 retains both algebraic sheets. The eight modules contain no delta, dF or orientation selection, and add no dF!=0 or strict orientation premise. Consequently this finite base introduces no exclusion of the zero-orientation case; sign-equivalence and its physical permutation interpretation remain downstream obligations.",
+    "All twelve printed roots have only propext, Classical.choice and Quot.sound. The definitions-only module prints no theorem root and is not counted as one. No compiler-recovery sorry, admit, native_decide, added axiom or opaque native oracle appears in the reviewed source."
+  ],
+  "admitted_scope": "Independent scoped review passes for the eight exact modules, their twelve printed finite-algebra and actual-polynomial roots, and definitions supporting those roots. This record does not promote a global claim or mutate any registry.",
+  "scope_limitations": [
+    "No third-row rational geometry, scaling or final phase-gate consumer is admitted by this review. Those modules are outside the selected eight-module plan.",
+    "No existence or unitness of the full prescribed side, column-permutation orbit classification, cube-root equivalence, zero-orientation sign equivalence or side-fiber exhaustion is concluded.",
+    "No matrix completion, radius exclusion, finite forest, physical box closure, global coverage or no-four-MUB theorem follows from this review.",
+    "The supplied proof documents are mathematical input statements; their historical proved labels do not confer additional Lean credit.",
+    "The inherited Mathlib source/cache authenticity caveat remains: reused pinned objects and receipts do not constitute a fresh clean full-library rebuild."
+  ]
+}

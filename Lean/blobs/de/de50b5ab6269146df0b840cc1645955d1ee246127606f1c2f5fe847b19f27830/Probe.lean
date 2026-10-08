@@ -1,0 +1,16 @@
+import FormalCore
+import Mathlib.Data.Finset.Card
+import Mathlib.Data.Fintype.Card
+#check Finset.card_image_iff
+#check Finset.card_image_of_injective
+#check Finset.card_le_card_of_injOn
+#check Finset.card_erase_add_one
+#check Finset.card_erase_of_mem
+#check Finset.mem_image
+#check Finset.mem_erase
+#check Finset.disjoint_left
+#check Fintype.card_fin
+#check Finset.card_univ
+#check Fin.castSucc_injective
+#check Finset.mem_filter
+#check of_decide_eq_true

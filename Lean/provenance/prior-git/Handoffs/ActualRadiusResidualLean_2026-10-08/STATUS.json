@@ -1,0 +1,54 @@
+{
+  "schema": "actual-ball40-estimates-source-packet-v1",
+  "status": "REVIEWED_ACTUAL_PHASE_SCALARS_CHART_GUARDS_AND_NECESSARY_RESIDUAL_BOUNDS",
+  "selected_modules": 6,
+  "selected_printed_roots": 53,
+  "custom_source_modules": 42,
+  "independent_review_projections": 5,
+  "complete_custom_import_closure": true,
+  "source_bytes_unchanged": true,
+  "source_only_no_compiled_objects": true,
+  "allowed_axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+  ],
+  "endpoints": [
+    "Centiradian20261006.Ball40Translation20261007.actual_matrix_scalar_bounds",
+    "Centiradian20261006.Ball40Translation20261007.actual_matrix_invariant_majorant",
+    "Centiradian20261006.Ball40Residual20261008.physical_two_side_rows",
+    "Centiradian20261006.Ball40Residual20261008.physical_two_side_columns",
+    "Centiradian20261006.Ball40Residual20261008.physical_seed_residual94_bound"
+  ],
+  "premises": [
+    "A literal four-entry seed phase lift at either conjugate seed.",
+    "The perturbation radius satisfies 0<=rho<=1/40 and every phase displacement is bounded by rho.",
+    "The physical residual endpoint additionally retains Physical H, Dephased H, Maximal H and leadingR H>0."
+  ],
+  "conclusions": [
+    "Actual Gram scalar estimates and the enlarged invariant majorant.",
+    "Four anchored row/column chart guards derived from actual phase bounds.",
+    "Both existing exhaustive unit-pair orientations retained for physical side rows and columns.",
+    "The literal Fin94 residual vector has thirteen zero entries and eighty-one absolute bounds <=67*rho^2."
+  ],
+  "remaining_obligations": [
+    "Physical completion-model coverage and normalization.",
+    "Radial Taylor, inverse, square-root and interval-consumer soundness.",
+    "Actual local contraction certificates and complete finite cover acceptance."
+  ],
+  "uncompiled_reciprocal_modules_included": false,
+  "matrix_reconstruction_proved": false,
+  "side_fiber_exhaustion_proved": false,
+  "radius_exclusion_proved": false,
+  "physical_box_closure_proved": false,
+  "global_coverage_proved": false,
+  "no_four_mubs_proved": false,
+  "fresh_clean_rebuild": false,
+  "fresh_relocation_replay": false,
+  "dependency_caveat": "Existing checks reused pinned Lean/Mathlib/custom objects. No clean full-library source/cache rebuild or fresh relocated replay is claimed.",
+  "toolchain": {
+    "lean": "4.33.0-rc2",
+    "lean_commit": "d8b18978322de05a8f3dba51ef03cf5461676c17",
+    "mathlib_revision": "51e6992efd06126df61a496bebf8f49482a4e129"
+  }
+}

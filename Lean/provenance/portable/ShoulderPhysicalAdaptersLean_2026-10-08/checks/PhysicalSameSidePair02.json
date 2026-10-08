@@ -1,0 +1,55 @@
+{
+  "module": "PhysicalSameSidePair02",
+  "source_sha256": "19629b094f77e749afa6fc55e085d5d142dd374f9e3bbd98ac249c2b86463812",
+  "checked_object": {
+    "bytes": 125824,
+    "sha256": "da6db386b9081e875aefee23deac2802999d0ea4a6976fb8e889fb4343177e81"
+  },
+  "original_receipt": {
+    "bytes": 297,
+    "sha256": "673f5b537191c7581366c14d7d933b8825648ce5f9a3f3588b6a44e9914e1e8d"
+  },
+  "selected": true,
+  "selected_roots": [
+    {
+      "declaration": "ShoulderSameSidePair20261008.physical_same_side_adjugate_pair",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "declaration": "ShoulderSameSidePair20261008.physical_B_column_dephased",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "declaration": "ShoulderSameSidePair20261008.physical_horizontal_same_side_pair",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "declaration": "ShoulderSameSidePair20261008.physical_vertical_same_side_pair",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    }
+  ],
+  "source_binding_kind": "successful-resident-compiler-copy",
+  "original_axiom_log": {
+    "bytes": 934,
+    "sha256": "5610529b214e8f33349ee3707b8226178b6c17412b2b6f43214337b4b03733e9"
+  },
+  "success": true,
+  "exit_code": 0,
+  "dependency_caveat": "Inherited pinned Lean/Mathlib cached dependencies; no full clean rebuild or fresh relocated replay."
+}

@@ -1,0 +1,47 @@
+{
+  "module": "SideIntrinsicLambdaRecovery",
+  "source_sha256": "5fcc5a094f18913b3351826f400b1392edb200336bae98d42423e32f2c056bc5",
+  "checked_object": {
+    "sha256": "a9905dcba640104beac69c0af758e248f163940931cf6981655eb3898da27d51",
+    "bytes": 317336
+  },
+  "original_receipt": {
+    "sha256": "b430f766b3b8950631dbd059dba0ae14952a1447386bf5de718be58c4256852f",
+    "bytes": 296
+  },
+  "original_axiom_log": {
+    "sha256": "63d7aec1e4e5e72a57402932b7f6d51ff08f510b522f7cea942c095e302b4cd9",
+    "bytes": 1116
+  },
+  "selected_roots": [
+    {
+      "declaration": "StrictReconstruction20261007.SideIntrinsic.intrinsicTheta_lambda",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "declaration": "StrictReconstruction20261007.SideIntrinsic.intrinsic_lambda_P_bindings",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "declaration": "StrictReconstruction20261007.SideIntrinsic.intrinsic_lambdas_eq_prescribed",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    }
+  ],
+  "schema": "sanitized-successful-check-projection-v1",
+  "success": true,
+  "exit_code": 0,
+  "selected": true,
+  "dependency_caveat": "Existing checks reused pinned Lean/Mathlib/custom objects. No clean full-library source/cache rebuild or fresh relocated replay is claimed."
+}
