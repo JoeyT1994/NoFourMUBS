@@ -47,8 +47,14 @@ class BallRecord:
         Ph = rec.Phi_arb([arb(0)] * 36)
         self.e0 = math.sqrt(sum(float(abs(t).upper()) ** 2 for t in Ph)) * 1.000001
         self.j1 = opnorm_upper(J * rec.Tb)
-        lam = np.linalg.eigvalsh(np.array(rec.GT, float))
-        self.lam_max = lam.max() * 1.000001; self.ginv_half = 1 / math.sqrt(lam.min() * (1 - 1e-9))
+        # Gershgorin bounds for the exact rational Gram matrix G = T^T T (G ~ I):
+        # lam_max(G) <= max_i sum_j |G_ij|,  lam_min(G) >= min_i (G_ii - sum_{j != i} |G_ij|) > 0
+        G = rec.GT; k = G.shape[0]
+        gmax = max(sum(abs(G[i, j]) for j in range(k)) for i in range(k))
+        gmin = min(G[i, i] - sum(abs(G[i, j]) for j in range(k) if j != i) for i in range(k))
+        assert gmin > 0, 'Gram matrix not certified positive definite'
+        self.lam_max = float(gmax) * (1 + 1e-15)
+        self.ginv_half = 1 / math.sqrt(float(gmin) * (1 - 1e-15)) * (1 + 1e-15)
         # rational basis of N: columns of P_N with largest rank (greedy), then certify J^T J >= sigma^2 on N
         PNn = rec.PNn; Q, Rr, piv = np.linalg.qr(PNn, mode='reduced'), None, None
         u, sv, vt = np.linalg.svd(PNn)

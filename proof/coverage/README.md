@@ -1,6 +1,6 @@
 # Coverage: proved (8 Oct 2026)
 
-This folder holds two independent returns of the coverage handoff (`../atlas/coverage_handoff/PROMPT.md`), kept as pristine copies.
+This folder holds two independent returns of the coverage handoff (`../atlas/dev/coverage_handoff/PROMPT.md`), kept as pristine copies.
 - `returns/A_deltoid/` comes from `CoverageProof_2026-10-08.zip`.
 - `returns/B_exact_quotient/` comes from `CoverageProof.zip`.
 - `returns/SOURCE_ZIPS.sha256` holds the hashes of the two zips.
@@ -28,7 +28,7 @@ Both returns prove this algebraically. Neither uses a box cover.
   - This rules out maxima with either trace inside the deltoid: one resultant, two real candidates, both with an increasing direction.
   - The two-boundary problem (U and V both on the deltoid boundary) is then classified exactly.
 - **Return B.** The same census by a different exact route. It also reports two delicate cases.
-  - The F3 seed has R = ∇R = Hess R = 0 with strict seeds arbitrarily close, so **no interval box cover of T⁴ can terminate**. This is why our `critR.jl` was retired.
+  - The F3 seed has R = ∇R = Hess R = 0 with strict seeds arbitrarily close, so **no interval box cover of T⁴ can terminate**. This is why our `critR.jl` (now `../atlas/dev/`) was retired.
   - The q = 1 real corners are critical points with R = 256. They are saddles.
 
 **Claim B (relative to MC2–MC5).** Exact sheet parity: [H_σ(Lθ)] = 𝒞^κ 𝒯^τ [H_{(−1)^{τ+κ}σ}(θ)].

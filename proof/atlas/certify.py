@@ -3,7 +3,7 @@
 For every stored Record s (the family is the closure under Gamma = {id, conj, tr, conj-tr}; each operation maps
 Hadamards to Hadamards, preserves equivalence, the quartet-edge property, Records and transfers):
   (R) recompute the ball Record from its centre: sigma (Arb Cholesky), the normal bound n(R) and r_H (ballrecord.py),
-      and rerun Stage C at the stored (R, label radius).  Check n_stored >= n0 + dT r_H and rH_stored >= r_H.
+      and rerun Stage C at the stored (R, label radius).  The recomputed r_H and n (not the stored ones) are used in (B).
   (B) replay the boundary tree.  The eta-cube [-rH, rH]^4 is split into 256 boxes of side rH/2 and recursively into 16
       children.  Each box must be (i) a stored leaf whose transfer passes, (ii) certified off the shell
       R - n <= ||T eta|| <= R + n, or outside ||eta|| <= rH, or (iii) subdivided.  Nothing is left over.
@@ -56,16 +56,16 @@ def certify_record(rec):
     rH, n0 = B.normal_bound(rec['R'])
     dT = float(np.abs(np.array([[float(abs(B.rec.Tb[e, k] - arb(float(B.rec.Tbn[e, k]))).upper()) for k in range(4)] for e in range(36)])).sum())
     assert np.array_equal(np.array(B.rec.Tbn, float), rec['T']), 'frame mismatch'
-    assert rec['n'] >= n0 + dT * rH and rec['rH'] >= rH, 'normal bound'
     o = B.stage_c(rec['R'], radius=rec['label_radius'])
     assert o.get('ok'), 'Stage C failed: %s' % o
-    return o
+    return rH, n0 + dT * rH                                           # recomputed, used for the boundary replay
 
 
-def certify_boundary(A, s, wmin_frac=1 / 32):
-    """Replay the adaptive box tree over [-rH, rH]^4 using only the stored transfer targets of s."""
+def certify_boundary(A, s, rH, n, wmin_frac=1 / 64):
+    """Replay the adaptive box tree over [-rH, rH]^4 using only the stored transfer targets of s, with the certifier's
+    own r_H and normal bound n (recomputed by certify_record)."""
     rs = A.recs[s]; tr = A.transfers[s]
-    T = rs['T']; R, n, rH = rs['R'], rs['n'], rs['rH']
+    T = rs['T']; R = rs['R']
     nT = AT.mnorm(T)
     tdat = [(t, transfer_data((sg, tuple(pi)), rs['phi'], A.recs[t]['phi'], T)) for (t, sg, pi) in tr['targets']]
     w = rH / 2
@@ -93,7 +93,7 @@ if __name__ == '__main__':
     t0 = time.time(); bad = 0
     for s in closed:
         try:
-            certify_record(A.recs[s]); nl = certify_boundary(A, s)
+            rH, n = certify_record(A.recs[s]); nl = certify_boundary(A, s, rH, n)
         except AssertionError as e:
             print('FAIL', s, e); bad += 1; continue
         if s % 20 == 0: print('record %d ok (%d leaves)  %.0fs' % (s, nl, time.time() - t0), flush=True)

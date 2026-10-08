@@ -1,4 +1,4 @@
-# Their architecture in our coordinates: an intrinsic atlas
+# Development history of the atlas (8 Oct 2026)
 
 **Why the corner-chart proof is expensive and the openai/math proof is cheap (8 Oct 2026).**
 - openai/math certify in the matrix's own coordinates. Each Record is a centre, a tangent frame and a normal bound.

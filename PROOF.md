@@ -1,106 +1,141 @@
 # C⁶ has no four mutually unbiased bases
 
-**Theorem (computer-assisted).** There are no four mutually unbiased bases in C⁶.
+**Theorem.** There are no four mutually unbiased bases (MUBs) in C⁶.
 
-This is the proof in our corner coordinates. Every step names its certificate. All 45,713,468 cells of the final branch-layer ledger ([`Verification/ledger_2026-10-07c`](Verification/ledger_2026-10-07c/README.md)) are closed by our own certificates, with 0 open and 0 delegated.
+The proof has four steps:
+1. One exact algebraic fact about a four-variable polynomial.
+2. One topological fact about the space of Hadamard matrices.
+3. One local exclusion lemma.
+4. One finite certified computation.
 
-The proof combines two ideas:
-- **our chart:** a Hadamard matrix is reconstructed from a single 3×3 corner ([classification](ClassificationPaper/README.md) and [minimal reconstruction](MinimalConstruction/README.md));
-- **the Stage-C exclusion of the openai/math proof** ([`openai/`](openai/README.md)): cover the rays unbiased to the pair (I, H) by small labels, then search exhaustively for two further orthonormal bases.
-
-The rest of the proof either places a seed in the chart or handles the few loci where the chart degenerates.
+Steps 1 and 2 are pure mathematics. Steps 3 and 4 are computer-assisted, with every constant enclosed in interval arithmetic.
 
 ---
 
 ## 0. Setting
 
-Suppose four MUBs exist. Rotate them so that one of them is I. A second is then H/√6 for an order-6 complex Hadamard H, and the pair (I, H) is a **quartet edge**.
+**Reduction to Hadamard matrices.** Rotate a set of four MUBs so that the first is the standard basis I. The second basis is then H/√6, where H is a complex Hadamard matrix of order 6 (|H_ij| = 1, HH* = 6I). Call H a **quartet edge** if I and H/√6 extend to four MUBs. The theorem says that no H is a quartet edge.
 
-**Corners and the invariant R.**
-- Every 3×3 corner E of H has an invariant R(E) ≥ 0, a polynomial in the Gram moduli.
-- M(H) denotes the largest R over the 400 corners.
+**Equivalence.** H ≅ H′ if H′ = P D₁ H D₂ Q, with P and Q permutation matrices and D₁ and D₂ diagonal unitaries. Write 𝓗 for the set of order-6 Hadamard matrices.
 
-**Square identity.** For H = [[A, B], [C, D]],
+**Symmetries.** Being a quartet edge is invariant under:
+- equivalence;
+- conjugation H ↦ H̄;
+- transposition H ↦ Hᵀ (apply the unitary H*/√6 to all four bases, then conjugate).
 
-  R(A) = (2·Im q(B))²,  where q(B) = perm(B)·det(B)²/∏B_ij.
+**Tao's matrix.** S₆ is an isolated point of 𝓗/≅ and is not a quartet edge. This is [BW], with an exact replay in [`archive/long_proof/ProvenResults/ExceptionalEndpoints/Tao`](archive/long_proof/ProvenResults/ExceptionalEndpoints/Tao/README.md). Let
 
-So the R of a corner is the square of a 48-term polynomial in the complementary block on the *same rows* ([`RouteC/averaging`](RouteC/averaging/REPORT.md)).
+  X = (𝓗/≅) ∖ {[S₆]},
 
-## 1. Reduction to one chart
+with the quotient phase metric δ(H, K) = min{‖v‖ : v horizontal, H ≅ K ∘ e^{iv}}. A real 6×6 matrix is *horizontal* if all its row and column sums vanish.
 
-- If H is equivalent to F6, it is not a quartet edge (§2, F6 tube).
-- If H is Tao's matrix S6, it lies in no MUB triple (Brierley–Weigert; an independent check is in [`ExceptionalEndpoints/Tao`](ProvenResults/ExceptionalEndpoints/Tao/README.md)).
-- Otherwise, let E be a corner of H with maximal R. Then R(E) > 0 by MC1.
-- Dephase E to E(θ) = [[1,1,1],[1,a,b],[1,c,d]] with θ ∈ T⁴, and order it into the fundamental domain F.
-- The completions of E(θ) are then the two matched sheets H± (MC2–MC5). These are explicit: z± = (χ ± i√R)/2g, the side constructor, and D = −CWB/g.
+**Corner seeds.** For θ ∈ T⁴, let E(θ) = [[1,1,1],[1,a,b],[1,c,d]] with a, b, c, d = e^{iθ₁}, …, e^{iθ₄}. The classification invariant of this corner is R(θ) = 4g²η − χ² ([`MinimalConstruction/`](MinimalConstruction/README.md)). On the strict seeds S = {R > 0}, an explicit formula gives a Hadamard completion H₊(θ). Relative to the classification [CT], the reconstruction facts MC1–MC5 say: every class other than F6 and S₆ is [H₊(θ)] or [conj H₊(θ)] for some θ ∈ S.
 
-It therefore suffices to prove the following for every θ in D₀ ∩ F, the set of seeds whose corner is maximal:
+## Step 1. The maxima of R (exact algebra, no classification)
 
-> **(Q)** No completion of E(θ) in which E is a maximal corner is a quartet edge.
+> **Theorem 1.** The positive local maxima of R on T⁴ form exactly one orbit of 18 points under the 144 seed symmetries:
+>
+>   θ* = α(1, 2, −1, −2), α = arccos(1/4), R(θ*) = 3¹³/2¹².
+>
+> The Hessian there is negative definite. In particular max R = 3¹³/2¹².
 
-Sources:
-- the reduction: [`NumericalCampaign/REDUCTION.md`](NumericalCampaign/REDUCTION.md);
-- MC1–MC5: [`MinimalConstruction/Proofs`](MinimalConstruction/Proofs/README.md), proved relative to the classification paper (arXiv:2608.18053).
+**Proof idea.**
+1. **Change of variables.** Normalise the even products (ad, b, c) and the odd products (bc, d, a) of the corner so that each triple has product 1. Let U and V be their traces; each lies in the filled deltoid.
+2. **Compact form.** With A = U + V and B = U − V, u = |A|² and v = |B|²:
+   - g = 2v − 3u and η = v − 2u;
+   - R = 4g²η − χ², where χ = (3u − v)(v − u + 12)/2 − 2 Re(AB²).
+3. **Circle symmetry.** R is invariant under (A, B) ↦ (e^{−2iτ}A, e^{iτ}B).
+   - In the double interior, one resultant leaves two real critical candidates. Both have an increasing direction, by d²R/dψ² = −4χxv > 0.
+   - With one trace on a smooth boundary point, the orbit enters the interior, by a curvature identity.
+   - A cusp is excluded directly.
+   - So both traces lie on the deltoid boundary.
+4. **Boundary case.** The two-boundary problem is classified exactly. One spurious value, 25(25 − 11√5)/2, has positive transverse curvature, so it is not a maximum.
 
-## 2. The exclusion engine and the F6 tube
+**Certificates.** All acceptance decisions are exact: Laurent identities, resultants, Gröbner bases, Sturm counts and rational intervals. They are in [`proof/coverage/`](proof/coverage/README.md). Two independent proofs, A (`returns/A_deltoid`) and B (`returns/B_exact_quotient`), each replay in under 10 s. Proof B also shows why no interval box cover could do this: at the F3 seed, R, ∇R and Hess R all vanish, with strict seeds arbitrarily close.
 
-- **Cluster cover** ([`CommonRays/ClusterCover`](ProvenResults/CommonRays/ClusterCover/PROOF.md)). On a cell of seeds:
-  - enclose H₊;
-  - cover every ray unbiased to both I and H₊ by labels of capacity one;
-  - show by exhaustive graph search that no two disjoint orthogonal 6-cliques are mutually unbiased.
+## Step 2. X is connected (relative to the classification)
 
-  Then (Q) holds on the cell.
-- **F6 tube** ([`FourierNeighbourhood/ClusterTube`](ProvenResults/FourierNeighbourhood/ClusterTube/README.md)). The same idea with one fixed configuration of 48 labels shows that no quartet edge lies within column-projector distance 1/30 of the F6 orbit. The proof uses an integer cover of 7,485,187 nodes and no reconstruction inputs.
+> **Theorem 2.** Assume MC1–MC5 and that S₆ is isolated. Then X is connected.
 
-## 3. Where the chart is regular
+**Proof.**
+1. **Sheet parity.** Let L be a seed symmetry with transposition bit τ and conjugation bit κ. Then [H_σ(Lθ)] = 𝒞^κ 𝒯^τ [H_{(−1)^{τ+κ}σ}(θ)]. The maximal seed E(x) = [[1,1,1],[1,x,x²],[1,x⁻¹,x⁻²]] has two exact frame symmetries. Together these give H₊(Lθ*) ≅ K* for all 144 maps L: a single class.
+2. **Continuity.** θ ↦ [H₊(θ)] is continuous on S, including across root cuts and sign switches.
+3. **Every component of S reaches K\*.** Each component of S has compact closure, R > 0 inside and R = 0 on its boundary, so it contains a local maximum of R. By Step 1 that maximum lies in the orbit of θ*. So every component maps into one connected set A = {[H₊(θ)] : θ ∈ S} containing [K*], and conj A is connected too.
+4. **MC1 and MC5** give X = A ∪ conj A ∪ {[F6]}.
+5. **Joining at F6.** The family [[F₃, F₃], [F₃D(t), −F₃D(t)]], with D(t) = diag(1, e^{it}, 1), tends to F₂⊗F₃ ≅ F6. Its cross-ratio e^{it} keeps it away from F6 and S₆ for 0 < t < π/3. So [F6] lies in the closure of both A and conj A. ∎
 
-D₀ ∩ F occupies about 8.9·10⁻⁵ of T⁴.
-- Cells outside it are discarded by rigorous Taylor-model tests: the F order, R < 0, or some corner of H₊ beating E. FastTM soundness is in [`FastTMInvariant`](ProvenResults/FastTMInvariant/README.md) and [`CertificateArithmetic`](ProvenResults/CertificateArithmetic/README.md).
-- Every remaining cell on which H₊ has a Taylor model receives a cluster cover: 8.65M work cells at half-width π/512, audited exactly ([`NumericalCampaign`](NumericalCampaign/README.md)).
+Details: [`proof/coverage/returns/A_deltoid/CONNECTEDNESS.md`](proof/coverage/returns/A_deltoid/CONNECTEDNESS.md) and `SHEETS_TOPOLOGY.md`, with return B as an independent check.
 
-## 4. Where the chart degenerates
+**Corollary (coverage).** Let W be a nonempty finite union of closed Records (Step 3). Suppose every Hadamard on the boundary of a Record is equivalent, possibly after conjugation or transposition, to one in the interior of some Record. Then W ⊇ X.
 
-The chart fails where its radicals branch: at R → 0, and at the branch points of the side constructor. Cells there form the **branch layer**: 45,713,468 post-E rows after the side-triple prune ([`CornerBounds/SideTriplePrune`](ProvenResults/CornerBounds/SideTriplePrune/README.md)). Three loci remain, and each is closed by one idea.
+*Proof.* W ∩ X is closed (finite union of compact sets) and open (every point has an interior representative). Since X is connected and W ∩ X is nonempty, W ∩ X = X. ∎
 
-| Locus | Idea | Certificate |
-|---|---|---|
-| **Corner seeds of F6**: classes (2,4,4,2), (0,0,2,4) and (1,2,2,4) | Near F6, either the matrix is in the tube or a different corner beats E | (2,4,4,2): a punctured 1/40 ball ([`Patch2442Local`](ProvenResults/Patch2442Local/Radius025Complete/PROOF.md)). (0,0,2,4): a structure lemma plus a certified cover of the seed continuum ([`seed0024`](RouteC/band/seed0024/PROOF.md)). Elsewhere, residual and side lifts into the 1/30 tube |
-| **The R = 0 curve** of symmetric corners running out of the F3 seeds | The corner is far from maximal there | **Band certificate** ([`RouteC/band`](RouteC/band/REPORT.md), 6,370 boxes). It is reconstruction-free: over all side labels it never solves D = −CWB/g for a sheet, and it shows that every completion has a corner with R > sup R(E). Signed-mean and PSD maximality certificates ([`SymmetricSignedCornerPrune`](ProvenResults/SymmetricSignedCornerPrune/README.md), [`SignedCornerPSDPrune`](ProvenResults/SignedCornerPSDPrune/README.md)) cover the rest of this layer |
-| **The shoulder**: 5 ≤ R < 20, class (1,2,2,4) | Genuine maximal seeds with small R, handled by cluster covers on refined cells | Frontier passes of [`ActiveShoulderClosure_v2`](ProvenResults/ActiveShoulderClosure_v2/README.md) (42.7M rows) |
+## Step 3. Local exclusion: ball Records
 
-The ledger ([`07c`](Verification/ledger_2026-10-07c/README.md)) assigns a certificate to every post-E row.
+A **ball Record** is a set B_r = {e^{i(P+δ)} : δ horizontal, ‖δ‖ ≤ R}, where P is a rational phase centre, together with:
+- a rational tangent frame T (36×4);
+- σ > 0, certified by an Arb Cholesky factorisation, with ‖Jν‖ ≥ σ‖ν‖ on the normal space N.
 
-**Conclusion.** No Hadamard matrix is a quartet edge, so four MUBs in C⁶ do not exist. ∎
+> **Lemma 3.1 (normal bound).** Every Hadamard in B_r has δ = Tη + ν with ‖η‖ ≤ r_H and ‖ν‖ ≤ n(R).
+>
+> Here n(R) = (σ − √(σ² − 2Lb))/L, with b = e₀ + j₁ r_H + (L/2) λ_max(G) r_H² and L = 2√3, the base-independent bound on ‖Φ″‖.
 
----
+> **Lemma 3.2 (Stage C, after [OAI] §6).** Suppose the vector-bin cover, the label clustering, the O/U edge tests (including the joint test 6.23) and the exact two-clique search succeed for (P, r_H, n, r_col). Then no Hadamard in B_r is a quartet edge.
+
+**Code.** [`proof/atlas/ballrecord.py`](proof/atlas/ballrecord.py) and [`stagec.py`](proof/atlas/stagec.py).
+
+**Rigour** ([`RIGOUR.md`](proof/atlas/RIGOUR.md)):
+- σ, e₀, j₁ and the Gram bounds are computed in Arb or exactly.
+- Exponentials in Stage C come from Arb tables.
+- All other float comparisons carry a margin of 10⁻⁷, against a per-expression error budget below 10⁻¹⁰.
+- An Arb replay of sampled rejections confirms every one.
+
+Records pass at R = 0.08 rad, about 0.5 s each.
+
+## Step 4. A finite atlas
+
+> **Lemma 4.1 (4-dimensional boundary transfer).** Let s and t be ball Records, A a signed permutation of the 36 entries (row and column permutations, transposition, conjugation) and N an integer winding. Put c = h(A P_s + 2πN − P_t) and M = h(A T_s). If
+>
+>   sup_{η ∈ box} ‖c + Mη‖ + n_s < R_t,
+>
+> then every boundary Hadamard of s whose tangent coordinate lies in the box is equivalent to an interior point of t.
+
+Because of the normal bound, the boundary of a Record needs only a 4-dimensional cover by η-boxes, not a 25-dimensional one.
+
+**The computation** ([`proof/atlas/`](proof/atlas/README.md)):
+1. `atlas.py` grows ball Records breadth-first from a seed centre until every Record's boundary is transferred.
+2. `certify.py` re-checks every Record independently: σ, the normal bound, Stage C, and a replay of the boundary tree with Arb transfer constants.
+3. `nonempty.py` places F6 inside a Record.
+
+**Result:** *[pending: rusty job 7197494]* Records; every one certified; F6 in Record ⟨id⟩.
+
+## Conclusion
+
+By Step 4 and the Corollary to Step 2, every class in X lies in some ball Record. By Step 3, no Hadamard in a Record is a quartet edge. S₆ is not a quartet edge. Hence no order-6 Hadamard matrix is a quartet edge, and C⁶ has no four MUBs. ∎
 
 ## Trust boundary
 
-**Arithmetic.**
-- Every acceptance is an exact rational test or an outward interval test (Arb, IntervalArithmetic.jl, TaylorModels).
-- Floating-point searches only propose; Arb replays decide.
-- Every certificate's inputs are hash-pinned (`INPUTS.json`, `MANIFEST.sha256`).
+| Input | Used in | Status |
+|---|---|---|
+| The classification [CT], via MC1–MC5 | Step 2 only | Proved relative to [CT] in [`MinimalConstruction/Proofs`](MinimalConstruction/Proofs/README.md) |
+| S₆ is isolated and not a quartet edge | §0, Step 2 | [BW]; exact replay in the archive |
+| [OAI] Lemmas 6.1–6.7 (the Stage C inequalities) | Step 3 | Elementary Taylor and Cauchy–Schwarz bounds, restated in our notation in `stagec.py` |
+| Computation | Steps 1 and 4 | Exact (Step 1); Arb plus margined binary64 (Steps 3–4) |
 
-**Imported results.**
-- The classification paper, for MC1–MC5.
-- Brierley–Weigert, for Tao's S6.
+## Verifying
 
-**Awaiting an independent read.**
-- The exact identity R(A) = (2·Im q(B))².
-- The local theorem at F6, [`PRACTICAL_LOCAL.tex`](simplerproof/averaging_lemma/PRACTICAL_LOCAL.tex). Its exact verifier passes. It is used only for the 36 (0,0,2,4) seed boxes.
+```bash
+pip install -r requirements.txt
+python3 verify.py            # Steps 1–2 exact replays, MC1–MC5, Tao, Stage C Arb replay
+python3 verify.py --atlas    # Step 4: full atlas certification (parallel; hours)
+```
 
-## A shorter proof
+## History
 
-The expensive parts of §3–§4 all lie in the shell just outside the 1/30 tube. [`simplerproof/`](simplerproof/README.md) removes them:
-- the F6 tube is widened to d_F ≤ 0.075;
-- a local lemma is proved: ν(H) ≤ 0.55 and M < 26 imply that H is not a quartet edge (ν is the smallest horizontal phase norm to F6; d_F ≤ 0.0913 suffices).
+The first complete proof used the corner chart directly: a maximal-corner domain, a branch layer and a 45.7M-row ledger, about 10⁵ core-hours. It is archived, still replayable, in [`archive/long_proof/`](archive/long_proof/README.md). The minimal proof replaces all of it with Steps 1–4.
 
-Both are certified and replayed. One statement remains open: **M(H) < 26 ⇒ ν(H) ≤ 0.55.**
+## References
 
-**The atlas route (8 Oct 2026), which replaces that open step.** [`simplerproof/atlas/`](simplerproof/atlas/README.md) follows the openai/math architecture in our coordinates: a finite atlas of intrinsic Records, with Stage C on each.
-
-Its global input is now **proved**; see [`simplerproof/coverage/`](simplerproof/coverage/README.md).
-- The positive local maxima of R are exactly one 18-point orbit, at α(1, 2, −1, −2) with α = arccos(1/4), where R = 3¹³/2¹². The proof is exact algebra.
-- Relative to MC1–MC5, the non-Tao quotient (𝓗/≅) ∖ {[Tao]} is connected.
-
-So any nonempty finite atlas whose boundary transfers are certified covers every non-Tao class. What remains is to build and certify that atlas.
+- [CT] M. Cárdenes Wuttig, J. Tindall, *A complete classification of complex Hadamard matrices of order six*, arXiv:2608.18053.
+- [OAI] OpenAI, *The maximum number of mutually unbiased bases in dimension six*, preprint, 24 Sep 2026 (openai/math).
+- [BW] S. Brierley, S. Weigert, Phys. Rev. A 79 (2009) 052316, arXiv:0901.4051.

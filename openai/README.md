@@ -29,25 +29,23 @@ Fix a Record, that is, a ball of Hadamards e(P + δ) with ‖δ‖ ≤ r.
 3. **Graphs.** Join two labels by an **O** edge (or a **U** edge) unless necessary tests exclude orthogonality (or unbiasedness). There are direct tests and a joint test that keeps the common tangent variable (Lemmas 6.6, 6.7).
 4. **Exclusion.** Two further bases require two disjoint 6-cliques A and B in O with A × B ⊆ U, i.e. all 36 cross edges in U (eq. 6.24). An exact bitset clique search shows that no such pair exists (Lemma 6.8).
 
-This is the exclusion we use, in the following places:
+## What the minimal proof takes from them
 
-| Theirs | Ours |
+| Theirs | Ours ([`PROOF.md`](../PROOF.md)) |
 |---|---|
-| Stage C on a Record ball | [`ProvenResults/CommonRays/ClusterCover`](../ProvenResults/CommonRays/ClusterCover/PROOF.md): capacity-one labels and the O/U clique search, applied to Taylor-model enclosures of our reconstructed H₊ on seed cells |
-| Stage C at one fixed centre | [`ProvenResults/FourierNeighbourhood/ClusterTube`](../ProvenResults/FourierNeighbourhood/ClusterTube/README.md): one 48-label configuration, which excludes the whole 1/30 projector tube around F6 |
-| Stage B (tangent coordinates and normal bound) | [`simplerproof/widetube`](../simplerproof/widetube/PROOF.md): exact normal form at F6, n = −K(Φ(v + n) − J(v + n)) with KJ = P_N, and Krawczyk cells in the 4 tangent coordinates. This gives the 0.075 tube |
+| Stage C (§6) | Ported in [`proof/atlas/stagec.py`](../proof/atlas/stagec.py): vector bins, labels, the direct tests (6.16), (6.20), (6.21), the joint test (6.23) and the clique search. Exponentials come from Arb tables; there is an Arb replay sample ([`RIGOUR.md`](../proof/atlas/RIGOUR.md)) |
+| Stage B Records (centre, tangent frame, normal bound) | Ball Records in [`proof/atlas/ballrecord.py`](../proof/atlas/ballrecord.py). The normal bound is certified in Arb from σ (a Cholesky factorisation) and the base-independent bound ‖Φ″‖ ≤ 2√3 |
+| Seed cover (§2) and Stage A (§3–4): how they reach every Hadamard | **Replaced** by a topological argument ([`proof/coverage/`](../proof/coverage/README.md)). The non-Tao quotient is connected, so any finite union of Records whose boundaries transfer into each other covers it |
 
 ## How the two proofs differ
 
-| | openai/math | Ours |
+| | openai/math | Our minimal proof |
 |---|---|---|
-| Seed | Nine phases of two rows and two columns (a 9-dimensional cover) | One maximal 3×3 corner, θ ∈ T⁴ |
-| Completion | Searched (U(2) cover, Stage A); uses no classification | Explicit sheets H± from the classification (MC1–MC5) |
-| Degenerate loci | None: the search never parametrises the locus | R → 0 and side branch points (§4 of [`PROOF.md`](../PROOF.md)), which carry most of our cost |
-| Arithmetic | binary64 with explicit one-sided margins, plus compiler and platform conditions | Arb, IntervalArithmetic.jl and exact rationals |
-| Size | About 1.2 h wall time | About 10⁵ core-hours; 45.7M branch-layer rows |
+| Coverage | A 9-dimensional seed cover, then a searched completion (a U(2) cover, Stage A); no classification | Connectedness of (𝓗/≅) ∖ {Tao}: exact algebra for the maxima of R, plus the classification (MC1–MC5) |
+| Cover object | 22,379 fine Records, from 249,878 seed balls | One 4-dimensional intrinsic atlas of ball Records, with certified boundary transfers |
+| Arithmetic | binary64 with explicit one-sided margins, plus compiler and platform conditions | Arb for every constant and transfer; binary64 with margins only inside Stage C, with an Arb replay sample |
 
-**What this means for us.** Their proof is cheap because it never solves for the matrix from a seed, so nothing degenerates. Our chart is 4-dimensional, but it pays for that at R → 0. The work in [`simplerproof/`](../simplerproof/README.md) imports their Stage-B idea at F6 (the wide tube) so that the degenerate loci can be dropped instead of certified.
+The earlier corner-chart proof (about 10⁵ core-hours, 45.7M branch-layer rows) is archived in [`archive/long_proof/`](../archive/long_proof/README.md).
 
 ## Citations
 

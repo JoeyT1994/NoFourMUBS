@@ -22,8 +22,14 @@ import sympy as sp
 from flint import arb, arb_mat, ctx
 ctx.prec = 80
 HERE = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, os.path.join(HERE, '..', 'widetube'))
-import reference as REF
+sys.path.insert(0, os.path.join(HERE, 'lib'))
+
+
+def _ref():
+    """The integer ray-cover Stage C of the archived wide tube; used only by the legacy per-cell path Record.cell()."""
+    sys.path.insert(0, os.path.join(HERE, '..', '..', 'archive', 'long_proof', 'simplerproof', 'widetube'))
+    import reference
+    return reference
 
 PAIRS = list(itertools.combinations(range(6), 2))
 L2_PHI = 2 * math.sqrt(3) * (1 + 1e-12)           # base-independent second-derivative bound
@@ -159,6 +165,7 @@ class Record:
             out.update(ok=False, reason='no contraction'); return out
         colv = [self.colT[c] * h * math.sqrt(d) for c in range(6)]
         Kref = self.H0n * np.exp(1j * xc.reshape(6, 6))
+        REF = _ref()
         rnd = math.sqrt(6) * math.pi / REF.L
         delta = (max(colv) + e + rnd) / math.sqrt(6) * 1.000001
         out['delta'] = delta

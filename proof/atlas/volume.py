@@ -9,7 +9,7 @@ Usage: python3 volume.py N SEED
 """
 import itertools, os, sys
 import numpy as np
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'confine'))
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), 'lib'))
 from chart_np import hadamard, R_seed
 from conditioning import jacobian, HB
 

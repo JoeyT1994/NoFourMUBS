@@ -55,4 +55,4 @@ then every boundary Hadamard of s with η in the box has the interior representa
 
 The 8 Oct draft of this file justified the sheet swap at the maxima by "H₋ ≅ conj H₊(θ̄)". Both returns point out that this is circular. It is repaired by the exact frame symmetries of E(x) = [[1,1,1],[1,x,x²],[1,x⁻¹,x⁻²]] (return A `SHEETS_TOPOLOGY.md` §2; return B `COVERAGE.md` (3)).
 
-`critR.jl`, the certified box cover of the critical points of R, is retired. Claim A is proved algebraically, and return B shows such a cover cannot terminate near the F3 seed, where R, ∇R and Hess R all vanish with strict seeds arbitrarily close.
+`dev/critR.jl`, the certified box cover of the critical points of R, is retired. Claim A is proved algebraically, and return B shows such a cover cannot terminate near the F3 seed, where R, ∇R and Hess R all vanish with strict seeds arbitrarily close.

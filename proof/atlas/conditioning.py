@@ -6,7 +6,7 @@ Usage: python3 conditioning.py N SEED
 """
 import os, sys
 import numpy as np
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'RouteC', 'averaging'))
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), 'lib'))
 import common as C
 
 IU = np.triu_indices(6, 1)
