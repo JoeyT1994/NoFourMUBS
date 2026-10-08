@@ -60,3 +60,27 @@ So the fold is an ordinary point in intrinsic coordinates, and the full Record p
 1. Tune the cell size: δ has a 5× margin.
 2. Measure Records per unit volume of the quotient 𝓗/≅.
 3. Write the coverage argument (open and closed in 𝓗, plus one seed per component of {R > 0}).
+
+## Vector-bin Stage C (`stagec.py`, 8 Oct; pilot in floating point)
+
+This is a port of openai/math §6. It has four parts:
+- **Bins.** Closed bins in five vector phases at resolutions 12, 24, 48 and 96. Bins are dropped by Lemma 6.2 (6.7), the scalar second-order test (6.12) and the tangent-aware test (6.11).
+- **Labels.** Retained bins are compressed into balls of radius below 0.1 cycles.
+- **Edges.** The direct tests (6.16) plus the second-order support tests (6.20) and (6.21).
+- **Search.** An exact bitset search for two disjoint O-6-cliques with all 36 cross U-edges.
+
+**Results at the fold centre** (normal bound 0.0005 cycles; label radius 0.042):
+
+| Tangent radius r_H (cycles) | Bins kept | Labels | Result | Time |
+|---|---:|---:|---|---|
+| 0.002 | 607 | 48 | pass | 0.17 s |
+| 0.005 | 1,499 | 48 | pass | 0.23 s |
+| 0.010 | 4,440 | 49 | pass | 0.50 s |
+| 0.016 | 13,050 | 84 | fail; needs the joint test (6.23) | 0.9 s |
+
+Without the tangent test, cells pass only up to radius 0.002 cycles. Compared with the integer ray cover (7 s per cell at radius about 0.03 rad), cells are about 19× larger and 14× faster: a cost reduction of about 250×.
+
+**Next steps.**
+1. Record design, as in their Stage B. Each atlas cell gets its own centre P (an approximate root), a numerical orthonormal tangent frame T, and a normal bound ν ≤ n₀ + ι‖η‖ + Γ‖η‖², obtained from the contraction with ‖Φ″‖ ≤ 2√3 and ‖J_N⁺‖ ≈ 1/√3. This needs no Krawczyk grid inside the cell.
+2. Rigour. Use Arb-certified tables for e(u) at bin midpoints (finitely many values) and for e(−P); then a float error analysis of the remaining basic operations gives explicit margins, as in their Appendix A.
+3. Port the joint test (6.23) to reach r_H of about 0.016.
