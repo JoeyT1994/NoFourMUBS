@@ -214,23 +214,30 @@ class Atlas:
             L = self.links[u].setdefault(v, [])
             if B not in L: L.append(B)
 
-    def neighbours(self, s, depth=3, slack=0.1):
-        """Alignments of s into records t with ||h(A P_s - P_t)|| <= R_s + R_t, found by composing known links."""
+    def neighbours(self, s, depth=2, keep=4):
+        """Alignments of s into records t with ||h(A P_s - P_t)|| <= R_s + R_t, found by composing known links.
+        Every direct link is kept (near-symmetric centres have several alignments into the same record, which transfer
+        different parts of the boundary).  Composed alignments (depth >= 2) are capped at `keep` per record, and are
+        expanded only through actual neighbours.  Missing a neighbour only costs efficiency, never correctness."""
         rs = self.recs[s]; Ps = rs['phi']
-        seen = {(s, ID)}; front = [(s, ID)]; out = []
-        for _ in range(depth):
-            nxt = []
+        best = {}                                                       # t -> list of (dist, C, D)
+        front = [(s, ID)]
+        for level in range(depth):
+            cand = {}
             for (u, A) in front:
                 for t, Bs in self.links[u].items():
                     for B in Bs:
                         C = compose(B, A)
-                        if (t, C) in seen: continue
-                        seen.add((t, C))
-                        rt = self.recs[t]; D = wrapD(C, Ps, rt['phi']); dist = np.linalg.norm(hproj(D))
-                        if dist <= rs['R'] + rt['R'] + slack: nxt.append((t, C))
-                        if dist <= rs['R'] + rt['R'] and not (t == s and dist < 1e-12): out.append((t, C, D, dist))
-            front = nxt
-        return out
+                        rt = self.recs[t]; D = wrapD(C, Ps, rt['phi']); dist = float(np.linalg.norm(hproj(D)))
+                        if dist > rs['R'] + rt['R'] or (t == s and dist < 1e-12): continue
+                        L = cand.setdefault(t, [])
+                        if all(C != c[1] for c in L): L.append((dist, C, D))
+            front = []
+            for t, L in cand.items():
+                L.sort(key=lambda z: z[0]); old = best.setdefault(t, [])
+                for z in (L if level == 0 else L[:keep]):
+                    if all(z[1] != o[1] for o in old): old.append(z); front.append((t, z[1]))
+        return [(t, C, D, dist) for t, L in best.items() for (dist, C, D) in sorted(L, key=lambda z: z[0])]
 
     def global_find(self, x, R400, exclude):
         """Records containing the point x (phases in some frame), by signature ranking + corner alignment."""
@@ -251,13 +258,15 @@ class Atlas:
         """Index of the first neighbour transferring each box (or -1), and whether some neighbour nearly does
         (its test passes at the box centre, so a subdivision may succeed)."""
         rs = self.recs[s]; T6 = rs['T'].T.reshape(4, 6, 6)
+        if 'nT' not in rs: rs['nT'] = mnorm(rs['T'])
+        Mn = rs['nT']                       # ||h(A T)|| <= ||T||: A is a signed permutation, h an orthogonal projector
         who = -np.ones(len(E), int); near = np.zeros(len(E), bool)
         for j, (t, A, D, dist) in enumerate(nbrs):
             rt = self.recs[t]
             cvec = hproj(D).reshape(36)                                     # = h(A P_s + 2 pi N - P_t)
             M = hproj(amap(A, T6)).reshape(4, 36).T                         # 36 x 4
             ctr = np.linalg.norm(cvec[None, :] + E @ M.T, axis=1) + rs['n'] + 1e-12
-            good = (who < 0) & (ctr + mnorm(M) * w < rt['R'] - self.margin)
+            good = (who < 0) & (ctr + Mn * w < rt['R'] - self.margin)
             who[good] = j; near |= ctr < rt['R'] - self.margin
         return who, near
 
@@ -282,23 +291,29 @@ class Atlas:
     def process(self, s, verbose=False):
         rs = self.recs[s]; self._t = time.time()
         nbrs = self.neighbours(s)
-        spawned = []; last = None; nglob = 0
+        spawned = []; last = None; nglob = 0; tried = set()
         while True:
             leaves, failed, wf = self.assign(s, nbrs)
             if len(failed) == 0: break
             key = tuple(np.round(failed[0] / wf, 3))
+            d = rs['T'] @ failed[0]; d = d / np.linalg.norm(d)
+            if key not in tried:
+                # loop closure: is the failing boundary point inside a record we have not linked to yet?
+                tried.add(key)
+                y, conv = project(rs['phi'].reshape(36) + rs['R'] * d)
+                if conv:
+                    y = y.reshape(6, 6)
+                    known = set((n[0], n[1]) for n in nbrs)
+                    hits = [h for h in self.global_find(y, corner_census(np.exp(1j * y))[0], {s}) if (h[0], h[1]) not in known]
+                    if hits:
+                        for (t, A, dist) in hits: self.link(s, t, A)
+                        nglob += len(hits); nbrs = self.neighbours(s)
+                        continue
             if key == last: raise RuntimeError('record %d: spawn did not cover box %s' % (s, failed[0]))
             last = key
-            d = rs['T'] @ failed[0]; d = d / np.linalg.norm(d)
             x, conv = project(rs['phi'].reshape(36) + 1.3 * rs['R'] * d)
             if not conv: raise RuntimeError('projection failed at record %d' % s)
             x = x.reshape(6, 6)
-            # loop closure: is x already inside a record we have not linked to?
-            hits = self.global_find(x, corner_census(np.exp(1j * x))[0], set(n[0] for n in nbrs) | {s})
-            if hits:
-                for (t, A, dist) in hits: self.link(s, t, A)
-                nglob += len(hits); nbrs = self.neighbours(s); last = None
-                continue
             rec = make_record(x)
             if rec is None: raise RuntimeError('Stage C ladder failed near record %d' % s)
             t = self.add(rec); spawned.append(t)

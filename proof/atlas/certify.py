@@ -9,7 +9,8 @@ Hadamards to Hadamards, preserves equivalence, the quartet-edge property, Record
       R - n <= ||T eta|| <= R + n, or outside ||eta|| <= rH, or (iii) subdivided.  Nothing is left over.
   Transfer test for leaf (eta_c, w) into target t via the signed permutation A and winding N:
       ||c + M eta_c|| + ||M||_2 w + n_s < R_t,   c = h(A P_s + 2 pi N - P_t),  M = h(A T_s).
-  c is computed in Arb (N integer, recovered and checked), ||M||_2 is bounded in Arb; the norm at the box centre is a
+  c is computed in Arb (N integer, recovered and checked), ||M||_2 <= ||T_s||_2 (bounded in Arb) since A is a signed
+  permutation and h an orthogonal projector; the norm at the box centre is a
   float evaluation of exact inputs, whose rounding error (< 1e-13) is dominated by MARGIN.
 Together with COVERAGE.md (connectedness of the non-Tao quotient) a PASS shows every non-Tao class lies in a Record,
 and Stage C excludes a quartet edge in every Record.
@@ -47,8 +48,7 @@ def transfer_data(A, Ps, Pt, Ts):
     cf = np.array([[float(c[i][j].mid()) for j in range(6)] for i in range(6)]).reshape(36)
     T6 = Ts.T.reshape(4, 6, 6)
     M = AT.hproj(AT.amap(A, T6)).reshape(4, 36).T
-    Mn = AT.mnorm(M)
-    return cf, 6 * crad, M, Mn
+    return cf, 6 * crad, M
 
 
 def certify_record(rec):
@@ -68,13 +68,14 @@ def certify_boundary(A, s, rH, n, wmin_frac=1 / 64):
     T = rs['Tcert']; R = rs['R']
     nT = AT.mnorm(T)
     tdat = [(t, transfer_data((sg, tuple(pi)), rs['phi'], A.recs[t]['phi'], T)) for (t, sg, pi) in tr['targets']]
+    Mn = nT                                     # ||h(A T)|| <= ||T||: A orthogonal (signed permutation), h a projector
     w = rH / 2
     E = np.array(list(itertools.product(np.array([-0.75, -0.25, 0.25, 0.75]) * rH, repeat=4)))
     nleaf = 0
     while len(E):
         E = E[~AT.offshell(E, w, T, nT, R, n, rH, margin=MARGIN)]
         done = np.zeros(len(E), bool)
-        for t, (cf, cr, M, Mn) in tdat:
+        for t, (cf, cr, M) in tdat:
             sup = np.linalg.norm(cf[None, :] + E @ M.T, axis=1) + cr + Mn * w + 1e-12
             done |= sup + n < A.recs[t]['R'] - MARGIN
         nleaf += int(done.sum()); E = E[~done]
