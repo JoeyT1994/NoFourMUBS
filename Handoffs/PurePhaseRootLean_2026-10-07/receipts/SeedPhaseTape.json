@@ -1,0 +1,38 @@
+{
+  "schema": "narrow-source-check-receipt-v1",
+  "module": "SeedPhaseTape",
+  "source_sha256": "14898a91f9e181a5e14d958ce279ae4c4fe271df745295e60a3d41ac410b6da4",
+  "original_job_sha256": "76996b0e7c1c2834f2dbbb68b5bcc4019cae3d0f5790e569a98c224e565d731f",
+  "original_result_sha256": "b68c798046be47ffe04a5be940f320fa392fade888e13fc23fa5c30678177129",
+  "original_stdout_sha256": "3d60ef5dded4405aa2a4ff32ca3a7c3c772968fe0ac551e2587ae3fd5dbd8c83",
+  "object_sha256": "83d71aa3faf6e10c620c7116d4ab7603b7c8fe377ceda732dcb8670fccbbf549",
+  "runtime_config_sha256": "232e3c48171081cb1f4677519f9ecd022bc94a347f9c67420625d8121f46c5d4",
+  "guard": {
+    "seconds": 180,
+    "heap_mib": 2304,
+    "rss_stop_mib": 2816,
+    "minimum_free_disk_bytes": 2147483648
+  },
+  "result": {
+    "exit_code": 0,
+    "mode": "standalone-guarded-v1",
+    "peak_tree_rss_bytes": 573636608,
+    "physical_proof_admission": false,
+    "source_sha256": "14898a91f9e181a5e14d958ce279ae4c4fe271df745295e60a3d41ac410b6da4",
+    "stop_reason": null,
+    "success": true,
+    "wall_seconds": 5.798014958010754
+  },
+  "printed_declarations": 4,
+  "observed_axioms": [
+    "Quot.sound",
+    "propext"
+  ],
+  "direct_dependency_object_pins": [
+    {
+      "module": "SeedPhaseLeaves",
+      "selected_object_sha256": "578c77e898d96c1cba8677b0ab7b1c54fce18c2a52fc18576b5fa2cc77b05be6"
+    }
+  ],
+  "scope": "Source/object/result binding and kernel output only; independent semantic review is separate."
+}

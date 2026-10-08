@@ -1,0 +1,62 @@
+{
+  "schema": "scoped-independent-review-v1",
+  "status": "PASS_SCOPED_PRIMITIVES",
+  "date": "2026-10-07",
+  "reviewer": "seed0024_averaging",
+  "author": "seed0024_local",
+  "source": "phase-cover-progress-publication/next-replay/SeedPhaseCore.lean",
+  "source_sha256": "5dad0daa20e4728283d90827042ca58888724ce86501c8d68659078f33238e7f",
+  "check": "phase-cover-progress-publication/next-replay/check-seed-core-01",
+  "job_sha256": "1e2a11754340520b33c17ac69ba7ca95042f9df9a8794abc10bf9d24f00a43cd",
+  "receipt_sha256": "33904822eaddb741e8f62bbab3539c7b0063866fe41c866f4b012d1ef333a56f",
+  "axiom_transcript_sha256": "455743df9bcda4c8980bd726505cb63e99400cd5165f3e3d9d261fad1d28a8b7",
+  "object_sha256": "c40c06432bfbbca936a79bdea0b6da0e8d80a7386e0de2963b30c269ba303714",
+  "direct_imports": [
+    "Std"
+  ],
+  "resolved_Std_object_sha256": "006ba60a944cdd1cae537a221ab063801869d8ddeccec4f268b4d8dc76ca301e",
+  "declarations": [
+    "fiveSum_zero",
+    "pairSquare_three_four",
+    "floorWitness_three_four",
+    "wrongFloor_three_four",
+    "signedDivision_control",
+    "signedRemainder_control"
+  ],
+  "checked_declarations": 6,
+  "observed_axioms": [
+    "propext"
+  ],
+  "result": {
+    "exit_code": 0,
+    "mode": "standalone-guarded-v1",
+    "peak_tree_rss_bytes": 550125568,
+    "physical_proof_admission": false,
+    "source_sha256": "5dad0daa20e4728283d90827042ca58888724ce86501c8d68659078f33238e7f",
+    "stop_reason": null,
+    "success": true,
+    "wall_seconds": 4.726310083002318
+  },
+  "semantic_checks": [
+    "The executable interface is Vec5=Fin5->alpha, Pair=IntxInt, Mask=Fin32, Column=Fin6, Label=Fin48, and CellCode with natural level and five natural indices. No Real,Complex,physical geometry or Mathlib import is used.",
+    "The fiveSum definition explicitly adds coordinates0..4 once; fiveSumWithQ adds67108864 once to the real component only. Its general equality to the existing Finset sum is still an open bridge obligation.",
+    "Pair subtraction and squared norm use unbounded Int; normSquareNat converts the nonnegative square expression to Nat. The floor witness checks both adjacent-square inequalities using a supplied Nat. No square-root function is present.",
+    "conjugateProductQuotient conjugates the first argument and uses Int.tdiv for both signed components. ceilDiv exactly copies(a+b-1).tdiv b. No general ceiling interpretation for negative a is asserted.",
+    "Cell denominator, geometric level<=7 validity, mask testBit, child coordinates, midpoint/lower/upper indices and normalized Fourier shifts copy the checked target formulas. Their embedding/refinement lemmas have not yet been supplied.",
+    "The six rfl controls verify the zero five-sum, the3-4 pair square, accepted floor5, rejected floor4, signed truncating division(-5)/2=-2, and normalized remainder(-1)=218879. They do not prove general primitive soundness or an actual supplier leaf.",
+    "Frozen/current source and successful JOB/RESULT hashes match; all six named audits match and use at most propext. The resolved Std import is the configured toolchain object. Reviewer ran no compiler."
+  ],
+  "open_requirements": [
+    "Generic equalities to the existing cell/index/pair/five-sum definitions.",
+    "Literal229-pair and48-by5 centre data identity.",
+    "Midpoint/endpoint-witness/label acceptance refinement and typed tag/tape erasure.",
+    "Any actual leaf, subtree, full ordinal cover or physical exclusion."
+  ],
+  "scope": {
+    "primitive_control_theorems": 6,
+    "general_refinement_theorems": 0,
+    "actual_supplier_leaves_accepted": 0,
+    "actual_tapes_accepted": 0,
+    "physical_boxes_closed": 0
+  }
+}

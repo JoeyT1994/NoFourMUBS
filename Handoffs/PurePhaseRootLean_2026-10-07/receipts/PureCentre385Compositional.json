@@ -1,0 +1,37 @@
+{
+  "schema": "narrow-source-check-receipt-v1",
+  "module": "PureCentre385Compositional",
+  "source_sha256": "9b1abae0453fa46acc5fafa742f9ab05fbe760622dd179253cc9d4a0c48c2962",
+  "original_job_sha256": "bb9ce92c593593f995275b34fec4f52566ede6642b4508c1c32dba1445b8a525",
+  "original_result_sha256": "45e42537f4ea897ae8e3d6b944ae1352f9915ffebc3fd78642f4a40cb51167dd",
+  "original_stdout_sha256": "413a7558a3bedd4dfca85165e3199a9f5aee9d8bde4765bfbc81cdcd00f03578",
+  "object_sha256": "3c4362b1057386ad8d765a33575050272c269968475c74c20beda278f8b6ec27",
+  "runtime_config_sha256": "232e3c48171081cb1f4677519f9ecd022bc94a347f9c67420625d8121f46c5d4",
+  "guard": {
+    "seconds": 180,
+    "heap_mib": 2304,
+    "rss_stop_mib": 2816,
+    "minimum_free_disk_bytes": 2147483648
+  },
+  "result": {
+    "exit_code": 0,
+    "mode": "standalone-guarded-v1",
+    "peak_tree_rss_bytes": 1174372352,
+    "physical_proof_admission": false,
+    "source_sha256": "9b1abae0453fa46acc5fafa742f9ab05fbe760622dd179253cc9d4a0c48c2962",
+    "stop_reason": null,
+    "success": true,
+    "wall_seconds": 72.95758662500884
+  },
+  "printed_declarations": 387,
+  "observed_axioms": [
+    "propext"
+  ],
+  "direct_dependency_object_pins": [
+    {
+      "module": "SeedPhaseTapeComposition",
+      "selected_object_sha256": "1806936b53c284e32c976f7624bb943390a58eda7f8140de5624767e483acebb"
+    }
+  ],
+  "scope": "Source/object/result binding and kernel output only; independent semantic review is separate."
+}

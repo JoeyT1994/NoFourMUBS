@@ -1,0 +1,8 @@
+name = "pure_phase_root_pilot"
+version = "0.1.0"
+defaultTargets = ["PurePhaseRootPilot"]
+
+[[lean_lib]]
+name = "PurePhaseRootPilot"
+srcDir = "lean"
+roots = ["SeedPhaseCore", "SeedPhaseData", "SeedPhaseLeaves", "SeedPhaseTape", "SeedPhaseTapeComposition", "PureCentre385Compositional"]

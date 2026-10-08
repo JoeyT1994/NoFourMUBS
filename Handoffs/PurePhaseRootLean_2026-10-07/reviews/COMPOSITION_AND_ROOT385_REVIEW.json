@@ -1,0 +1,88 @@
+{
+  "status": "PASS_SCOPED",
+  "reviewer": "independent averaging agent; not source or generator author",
+  "scope": "Two generic Std-only composition lemmas and complete pure checker acceptance/erasure for the actual single385-tag root2241383 fixture.",
+  "composition_source_sha256": "e0f518678168c15a0458c90da0d00036e6264ef6817b175ce1b33f118c06399e",
+  "pilot_source_sha256": "9b1abae0453fa46acc5fafa742f9ab05fbe760622dd179253cc9d4a0c48c2962",
+  "composition_check": "phase-cover-progress-publication/next-replay/check-seed-composition-01",
+  "pilot_check": "phase-cover-progress-publication/next-replay/check-pure-centre385-compositional-01",
+  "expected_printed_declarations": 389,
+  "observed_printed_declarations": 389,
+  "all389_axiom_lists": [
+    "propext"
+  ],
+  "fixture": {
+    "path": "cluster-tube-exporter/pilot-centre-2241383/forest.tags",
+    "sha256": "77360c9bab88ba2a29ee4fa9b3974e979158e40dadef0a7ff8a6c270aa49167d",
+    "bytes": 385,
+    "assignment_sha256": "7698d48b7ab05189ff13b92b1a206fc58457ceedb1415909f1ee7e486cc41f65",
+    "producer_manifest_sha256": "51a059ad209ce78b1fcc7627426f4c19111c66c6f9391a3a783701245fb71f4e"
+  },
+  "root_ordinal": 2241383,
+  "ordinal_range": [
+    2241383,
+    2241384
+  ],
+  "root_cell": {
+    "level": 0,
+    "index": [
+      17,
+      3,
+      14,
+      15,
+      10
+    ]
+  },
+  "counts": {
+    "midpoint": 210,
+    "endpoint": 58,
+    "accept": 105,
+    "split": 12
+  },
+  "maximum_level": 2,
+  "review_checks": {
+    "source_current_frozen_receipt_pins_match": true,
+    "stderr_empty": true,
+    "successful_exit_and_no_guard_stop": true,
+    "unique_successful_object_resolution_for_all_five_custom_dependencies": true,
+    "custom_source_import_closure_ends_at_Std": true,
+    "no_sorry_admit_native_decide_project_axiom_or_trust_bypass": true,
+    "append_lemma_requires_complete_acceptance_of_both_sides": true,
+    "split_lemma_keeps_validity_level_and_all32children": true,
+    "all385_cells_follow_exact_fixture_preorder": true,
+    "all12splits_keep_mask_order_0_to_31": true,
+    "actual_source_erasure_literal_matches_all385fixture_bytes": true,
+    "closed_final_acceptance_theorem_is_exact_root2241383": true,
+    "endpoint_floor_witnesses_are_kernel_checked_not_trusted_generator_answers": true,
+    "resource_caps_preserved_and_source_options_disclosed": true
+  },
+  "admission_boundary": {
+    "generic_composition_theorems_reviewed": 2,
+    "pilot_declarations_reviewed": 387,
+    "complete_pure_checker_roots_reviewed": 1,
+    "physical_roots_or_boxes_closed": 0,
+    "full_forest_accepted": false,
+    "mathematical_proof_credit_from_Python": 0,
+    "reviewer_Lean_compiles": 0,
+    "pending": [
+      "actual table/centre binding",
+      "concrete leaf refinement",
+      "C18 typed-tape refinement",
+      "all remaining root acceptance and range assembly"
+    ]
+  },
+  "evidence_files": [
+    {
+      "path": "audit_fixture.py",
+      "sha256": "f80f974da8ca4ee019f975fd48249a7b94904ba8758b6897ad339ec1b3200a80"
+    },
+    {
+      "path": "FIDELITY_CHECK.json",
+      "sha256": "36b70cd6050d759dc74db7bd2fa0414d60ead6363c361adf9c7a20d3f71bd72f"
+    },
+    {
+      "path": "REVIEW.md",
+      "sha256": "1f05093c8bd8e41c477c69835c5563ceee5d1a5750344fb0be345055a60e5f6d"
+    }
+  ]
+}

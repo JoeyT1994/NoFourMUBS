@@ -1,0 +1,44 @@
+{
+  "schema": "complete-one-root-pure-acceptance-v1",
+  "status": "KERNEL_PASS_INDEPENDENTLY_REVIEWED_ONE_PURE_ROOT",
+  "source_closure_modules": 6,
+  "printed_declarations": 410,
+  "selected_statement": "checkWitnessTape [ordinalCellCode 2241383] tags_000 = true",
+  "exact_supplier_fixture_erasure": true,
+  "selected_source_sha256": "9b1abae0453fa46acc5fafa742f9ab05fbe760622dd179253cc9d4a0c48c2962",
+  "check_result": {
+    "exit_code": 0,
+    "mode": "standalone-guarded-v1",
+    "peak_tree_rss_bytes": 1174372352,
+    "physical_proof_admission": false,
+    "source_sha256": "9b1abae0453fa46acc5fafa742f9ab05fbe760622dd179253cc9d4a0c48c2962",
+    "stop_reason": null,
+    "success": true,
+    "wall_seconds": 72.95758662500884
+  },
+  "proof_decomposition": {
+    "separate_actual_leaf_checks": 373,
+    "complete_32_child_splits": 12,
+    "fixture_erasure": 1,
+    "root_alias": 1
+  },
+  "core_review": {
+    "path": "reviews/SEED_PHASE_CORE_PRIMITIVE_REVIEW.json",
+    "sha256": "2a9fedd577c74f6eea0eb037ae8b8edfda6679fa08841bf1774a63953a721817"
+  },
+  "composition_and_pilot_review": {
+    "path": "reviews/COMPOSITION_AND_ROOT385_REVIEW.json",
+    "sha256": "d973e8183bc8e31c257a5ff8b50d9705699fba0bbbf53e5d976d3e73573751a1"
+  },
+  "collection_and_remaining_helpers_review": {
+    "path": "reviews/ROOT_COLLECTION_AND_HELPERS_REVIEW.json",
+    "sha256": "5889a45141b7e80d67c522ff5a4d35fce3e83c4a8db4c67f394b6fc17eb58789",
+    "reviewed_manifest_sha256": "49574b76767beabd825604414afa23b1e195107201ea7b489ef19912d7a23f60"
+  },
+  "remaining": [
+    "Exact data, cell, scalar, label and tape refinement into the existing physical checker.",
+    "Exact accepted coverage of every one of2476099 phase roots before any whole-cover consequence."
+  ],
+  "physical_36_box_closures": 0,
+  "cache_caveat": "Successful source checks used the pinned Lean/Std object cache. A clean standard-library rebuild is not claimed."
+}
