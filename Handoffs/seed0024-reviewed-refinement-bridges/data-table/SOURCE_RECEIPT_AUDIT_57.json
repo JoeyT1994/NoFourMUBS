@@ -1,0 +1,894 @@
+{
+  "status": "PASS_READ_ONLY_SOURCE_RECEIPT_AUDIT",
+  "reviewer": "seed0024_averaging",
+  "components_manifest_sha256": "512e03799fa2804a529aa4c53588501a006a9b3a74941f3c139b3e0f1890df9a",
+  "selected_declarations": 57,
+  "bindings": [
+    {
+      "module": "CoreOctantDataEquality",
+      "source": "cluster-tube-inclusion/frontend-bridge/square-acceleration/std-core-bridge/data-split/CoreOctantDataEquality.lean",
+      "check": "cluster-tube-inclusion/frontend-bridge/square-acceleration/std-core-bridge/data-split/check-octant-equality-01",
+      "source_sha256": "0200eb5bd92ebf5d320b143bac0a769570ce67ce54d0e0e983ecc546d91eea09",
+      "receipt_sha256": "81dddb926cef65a8e6ccea50d232d2d14b3fbaaa1d65469d88b7c494459b4327",
+      "job_sha256": "d915a8563ebbf258df5b739c4b8841ce3b29bcb58f9c44db7a8b7795f1c66e44",
+      "stdout_sha256": "f85cd467f23cc8d528bfd2c1a9f94d09c19282a18b4c01749fe754807c2cffba",
+      "object_sha256": "ed73979b3b37b42dfde8193c00678124bdc0f1dc8bc982d9cbc23855bab34f51",
+      "axioms": {
+        "Seed0024PhaseCoreBridge20261007.octantArray_eq": []
+      },
+      "direct_import_bindings": [
+        {
+          "module": "SeedPhaseData",
+          "source_sha256": "8bee5ce3a98d247d859be97455d33c69abb64c266da57d60df8af74b0ca86567",
+          "object_sha256": "0718c19c29a7c7409c0337a866da99801278fbd5c5b044ec44b5514712d37639",
+          "receipt_sha256": "dee3bfaa926e7c438d2eaf7ab7fcdca78385d45389c9adb6e8d53aa99f93939a",
+          "unique_resolution": true
+        },
+        {
+          "module": "CompactSparseTable",
+          "source_sha256": "379c26a218c191aa166b2507ffc83eeeda737f12e90f119f74d8727a9fa2288d",
+          "object_sha256": "fa36a62a89c8159acb7a0fb71e4d754d3405e5941061069bad2f10049ad3ae36",
+          "receipt_sha256": "252e0cdeb2284ae1b0c5e291ab702917f87fbb62f92934b38798eab37750f942",
+          "unique_resolution": true
+        }
+      ],
+      "wall_seconds": 16.285801541991532,
+      "peak_tree_rss_bytes": 2379005952,
+      "source_options": [
+        [
+          "autoImplicit",
+          "false"
+        ]
+      ]
+    },
+    {
+      "module": "CoreCentreRows00",
+      "source": "cluster-tube-inclusion/frontend-bridge/square-acceleration/std-core-bridge/data-split/CoreCentreRows00.lean",
+      "check": "cluster-tube-inclusion/frontend-bridge/square-acceleration/std-core-bridge/data-split/check-centre-rows-00-01",
+      "source_sha256": "6e85131bf00da7f3a20f62137b18dc7293f4c0d3705c83c30786a4791b2c37cc",
+      "receipt_sha256": "15e3af0090cff75d40d49e46eeb69e1c6056499e19392830439f931d208bc849",
+      "job_sha256": "b63809b38e09d1dda34dcacab6e596df333fdb92cd7bf41f8451edefde8dfb74",
+      "stdout_sha256": "97324a0425f6a76c59466e1120cc46b9af6ba8f6ee492b9491952111015007ec",
+      "object_sha256": "e85f59417013e90a1b3fbcd17195dce2d3c205d421592c7b673a6fb388e8b1e9",
+      "axioms": {
+        "Seed0024PhaseCoreBridge20261007.centre_row_00": [
+          "propext"
+        ],
+        "Seed0024PhaseCoreBridge20261007.centre_row_01": [
+          "propext"
+        ],
+        "Seed0024PhaseCoreBridge20261007.centre_row_02": [
+          "propext"
+        ],
+        "Seed0024PhaseCoreBridge20261007.centre_row_03": [
+          "propext"
+        ]
+      },
+      "direct_import_bindings": [
+        {
+          "module": "SeedPhaseData",
+          "source_sha256": "8bee5ce3a98d247d859be97455d33c69abb64c266da57d60df8af74b0ca86567",
+          "object_sha256": "0718c19c29a7c7409c0337a866da99801278fbd5c5b044ec44b5514712d37639",
+          "receipt_sha256": "dee3bfaa926e7c438d2eaf7ab7fcdca78385d45389c9adb6e8d53aa99f93939a",
+          "unique_resolution": true
+        },
+        {
+          "module": "RoundedCentreDataNoInit",
+          "source_sha256": "af28842336f881c0e14a58487ed2808aa45586162ede97b0d62ac3b7894c6761",
+          "object_sha256": "58f253ef178e605e700a314713b70a8da01923088100da2c86a2831a4f8bda92",
+          "receipt_sha256": "eaf9e5129567a410c715ee3af87a38c696e9103e1b7da6588c30cf5ae31f1a6b",
+          "unique_resolution": true
+        }
+      ],
+      "wall_seconds": 7.856544084002962,
+      "peak_tree_rss_bytes": 1801928704,
+      "source_options": [
+        [
+          "autoImplicit",
+          "false"
+        ],
+        [
+          "maxRecDepth",
+          "65536"
+        ],
+        [
+          "maxHeartbeats",
+          "4000000"
+        ]
+      ]
+    },
+    {
+      "module": "CoreCentreRows04",
+      "source": "cluster-tube-inclusion/frontend-bridge/square-acceleration/std-core-bridge/data-split/CoreCentreRows04.lean",
+      "check": "cluster-tube-inclusion/frontend-bridge/square-acceleration/std-core-bridge/data-split/check-centre-rows-04-01",
+      "source_sha256": "d989ccf521a4120df9fb5a0ad19642bcd653763e883519ac60fd7be2fac81f8b",
+      "receipt_sha256": "c48860ed4c9ecdccf04046a3632084f4768347f83b7d212d25d385966c497940",
+      "job_sha256": "2ec08279a996ba56a8f0533d68d5e7dd703d539b9e7afd921358b7f1d37449e1",
+      "stdout_sha256": "abe1e8312493b43c0f0f5cc6a6a4cb71349cbe9bd15bed5faf519e8fc23dd5c5",
+      "object_sha256": "a884086016dcb1040d9f74dbd028583fb09796540e1a619aa5a33d1b51ec4305",
+      "axioms": {
+        "Seed0024PhaseCoreBridge20261007.centre_row_04": [
+          "propext"
+        ],
+        "Seed0024PhaseCoreBridge20261007.centre_row_05": [
+          "propext"
+        ],
+        "Seed0024PhaseCoreBridge20261007.centre_row_06": [
+          "propext"
+        ],
+        "Seed0024PhaseCoreBridge20261007.centre_row_07": [
+          "propext"
+        ]
+      },
+      "direct_import_bindings": [
+        {
+          "module": "SeedPhaseData",
+          "source_sha256": "8bee5ce3a98d247d859be97455d33c69abb64c266da57d60df8af74b0ca86567",
+          "object_sha256": "0718c19c29a7c7409c0337a866da99801278fbd5c5b044ec44b5514712d37639",
+          "receipt_sha256": "dee3bfaa926e7c438d2eaf7ab7fcdca78385d45389c9adb6e8d53aa99f93939a",
+          "unique_resolution": true
+        },
+        {
+          "module": "RoundedCentreDataNoInit",
+          "source_sha256": "af28842336f881c0e14a58487ed2808aa45586162ede97b0d62ac3b7894c6761",
+          "object_sha256": "58f253ef178e605e700a314713b70a8da01923088100da2c86a2831a4f8bda92",
+          "receipt_sha256": "eaf9e5129567a410c715ee3af87a38c696e9103e1b7da6588c30cf5ae31f1a6b",
+          "unique_resolution": true
+        }
+      ],
+      "wall_seconds": 9.526796958001796,
+      "peak_tree_rss_bytes": 1779138560,
+      "source_options": [
+        [
+          "autoImplicit",
+          "false"
+        ],
+        [
+          "maxRecDepth",
+          "65536"
+        ],
+        [
+          "maxHeartbeats",
+          "4000000"
+        ]
+      ]
+    },
+    {
+      "module": "CoreCentreRows08",
+      "source": "cluster-tube-inclusion/frontend-bridge/square-acceleration/std-core-bridge/data-split/CoreCentreRows08.lean",
+      "check": "cluster-tube-inclusion/frontend-bridge/square-acceleration/std-core-bridge/data-split/check-centre-rows-08-01",
+      "source_sha256": "0528ebb1aa88c059baedf39efe59a32e96c7c7a691a8356bb4df09067c92c6b3",
+      "receipt_sha256": "841a208994b56e198dca82040a11595b9ece80a38fb17cba92c4575c8cb014d9",
+      "job_sha256": "21314fd615db8a6a2e45c0d96b6238b96542d2103a5c482e46b2d27a8c3be47d",
+      "stdout_sha256": "c8867e6815d02883358fcbda9fdcf0b59fe265a337cb7b044ffab754259f215c",
+      "object_sha256": "56061739a206beb7f450c9b162d4fe9d209f657ffae80fdb77dba0e138547ce7",
+      "axioms": {
+        "Seed0024PhaseCoreBridge20261007.centre_row_08": [
+          "propext"
+        ],
+        "Seed0024PhaseCoreBridge20261007.centre_row_09": [
+          "propext"
+        ],
+        "Seed0024PhaseCoreBridge20261007.centre_row_10": [
+          "propext"
+        ],
+        "Seed0024PhaseCoreBridge20261007.centre_row_11": [
+          "propext"
+        ]
+      },
+      "direct_import_bindings": [
+        {
+          "module": "SeedPhaseData",
+          "source_sha256": "8bee5ce3a98d247d859be97455d33c69abb64c266da57d60df8af74b0ca86567",
+          "object_sha256": "0718c19c29a7c7409c0337a866da99801278fbd5c5b044ec44b5514712d37639",
+          "receipt_sha256": "dee3bfaa926e7c438d2eaf7ab7fcdca78385d45389c9adb6e8d53aa99f93939a",
+          "unique_resolution": true
+        },
+        {
+          "module": "RoundedCentreDataNoInit",
+          "source_sha256": "af28842336f881c0e14a58487ed2808aa45586162ede97b0d62ac3b7894c6761",
+          "object_sha256": "58f253ef178e605e700a314713b70a8da01923088100da2c86a2831a4f8bda92",
+          "receipt_sha256": "eaf9e5129567a410c715ee3af87a38c696e9103e1b7da6588c30cf5ae31f1a6b",
+          "unique_resolution": true
+        }
+      ],
+      "wall_seconds": 2.1228399999963585,
+      "peak_tree_rss_bytes": 1803730944,
+      "source_options": [
+        [
+          "autoImplicit",
+          "false"
+        ],
+        [
+          "maxRecDepth",
+          "65536"
+        ],
+        [
+          "maxHeartbeats",
+          "4000000"
+        ]
+      ]
+    },
+    {
+      "module": "CoreCentreRows12",
+      "source": "cluster-tube-inclusion/frontend-bridge/square-acceleration/std-core-bridge/data-split/CoreCentreRows12.lean",
+      "check": "cluster-tube-inclusion/frontend-bridge/square-acceleration/std-core-bridge/data-split/check-centre-rows-12-01",
+      "source_sha256": "88cf95cc597c4758006f057fa5250e83a45016f3c6a5673c652f06daa7c1f4b8",
+      "receipt_sha256": "0493256d75fd4055177bd103b85d0019932d23bb45ff7bb6e01b7c4075a0323e",
+      "job_sha256": "dd17021960a91a4515f3a351e0ecf1ed612948894020fb8e2595d4cf1bdddcb8",
+      "stdout_sha256": "4625364384ad4776fd0a0979419b2062ffbc01e9369064f4a90c1234f55634ad",
+      "object_sha256": "7e10c4820ff9450683efcc6699e8b4587109a64c282a49916785a0dc8b09698a",
+      "axioms": {
+        "Seed0024PhaseCoreBridge20261007.centre_row_12": [
+          "propext"
+        ],
+        "Seed0024PhaseCoreBridge20261007.centre_row_13": [
+          "propext"
+        ],
+        "Seed0024PhaseCoreBridge20261007.centre_row_14": [
+          "propext"
+        ],
+        "Seed0024PhaseCoreBridge20261007.centre_row_15": [
+          "propext"
+        ]
+      },
+      "direct_import_bindings": [
+        {
+          "module": "SeedPhaseData",
+          "source_sha256": "8bee5ce3a98d247d859be97455d33c69abb64c266da57d60df8af74b0ca86567",
+          "object_sha256": "0718c19c29a7c7409c0337a866da99801278fbd5c5b044ec44b5514712d37639",
+          "receipt_sha256": "dee3bfaa926e7c438d2eaf7ab7fcdca78385d45389c9adb6e8d53aa99f93939a",
+          "unique_resolution": true
+        },
+        {
+          "module": "RoundedCentreDataNoInit",
+          "source_sha256": "af28842336f881c0e14a58487ed2808aa45586162ede97b0d62ac3b7894c6761",
+          "object_sha256": "58f253ef178e605e700a314713b70a8da01923088100da2c86a2831a4f8bda92",
+          "receipt_sha256": "eaf9e5129567a410c715ee3af87a38c696e9103e1b7da6588c30cf5ae31f1a6b",
+          "unique_resolution": true
+        }
+      ],
+      "wall_seconds": 2.111030458007008,
+      "peak_tree_rss_bytes": 1782087680,
+      "source_options": [
+        [
+          "autoImplicit",
+          "false"
+        ],
+        [
+          "maxRecDepth",
+          "65536"
+        ],
+        [
+          "maxHeartbeats",
+          "4000000"
+        ]
+      ]
+    },
+    {
+      "module": "CoreCentreRows16",
+      "source": "cluster-tube-inclusion/frontend-bridge/square-acceleration/std-core-bridge/data-split/CoreCentreRows16.lean",
+      "check": "cluster-tube-inclusion/frontend-bridge/square-acceleration/std-core-bridge/data-split/check-centre-rows-16-01",
+      "source_sha256": "f57f23cc8254a1b5477a068ef13e60155ee9a65dfe86a568f827682f5d736350",
+      "receipt_sha256": "d2c41773614d910f1faf11bb9c4530157dfa5b036e7a5ebd6bbdd7fa65d05e9a",
+      "job_sha256": "d39bd960de9b43d405733360600fac1d97009e788207de7c8fdc42e388eadea1",
+      "stdout_sha256": "4be8ffa9921852a5b4e0c4b6bcfe16240340a7fca2d8a698bb6995b745c32392",
+      "object_sha256": "e7e9921a6a21c3b3230707fad2155deaaed98c2b8ce213f04c3eb98c0aa05e1f",
+      "axioms": {
+        "Seed0024PhaseCoreBridge20261007.centre_row_16": [
+          "propext"
+        ],
+        "Seed0024PhaseCoreBridge20261007.centre_row_17": [
+          "propext"
+        ],
+        "Seed0024PhaseCoreBridge20261007.centre_row_18": [
+          "propext"
+        ],
+        "Seed0024PhaseCoreBridge20261007.centre_row_19": [
+          "propext"
+        ]
+      },
+      "direct_import_bindings": [
+        {
+          "module": "SeedPhaseData",
+          "source_sha256": "8bee5ce3a98d247d859be97455d33c69abb64c266da57d60df8af74b0ca86567",
+          "object_sha256": "0718c19c29a7c7409c0337a866da99801278fbd5c5b044ec44b5514712d37639",
+          "receipt_sha256": "dee3bfaa926e7c438d2eaf7ab7fcdca78385d45389c9adb6e8d53aa99f93939a",
+          "unique_resolution": true
+        },
+        {
+          "module": "RoundedCentreDataNoInit",
+          "source_sha256": "af28842336f881c0e14a58487ed2808aa45586162ede97b0d62ac3b7894c6761",
+          "object_sha256": "58f253ef178e605e700a314713b70a8da01923088100da2c86a2831a4f8bda92",
+          "receipt_sha256": "eaf9e5129567a410c715ee3af87a38c696e9103e1b7da6588c30cf5ae31f1a6b",
+          "unique_resolution": true
+        }
+      ],
+      "wall_seconds": 2.0988124999857973,
+      "peak_tree_rss_bytes": 1695006720,
+      "source_options": [
+        [
+          "autoImplicit",
+          "false"
+        ],
+        [
+          "maxRecDepth",
+          "65536"
+        ],
+        [
+          "maxHeartbeats",
+          "4000000"
+        ]
+      ]
+    },
+    {
+      "module": "CoreCentreRows20",
+      "source": "cluster-tube-inclusion/frontend-bridge/square-acceleration/std-core-bridge/data-split/CoreCentreRows20.lean",
+      "check": "cluster-tube-inclusion/frontend-bridge/square-acceleration/std-core-bridge/data-split/check-centre-rows-20-01",
+      "source_sha256": "a258420aeba421c7f58d43ec0b957ae8f30b9e7edc340c6fffbd19e52e2bd477",
+      "receipt_sha256": "47c79dc98e68f29dccc48040a9406f4ff30b4795819bad994a18bf7e783b1d3f",
+      "job_sha256": "c38cf614e50ce8de6241394c5de0067b57b5910955fcbc0a2b5d7290e80ed303",
+      "stdout_sha256": "90b5b540aedae592100e9671ae858023ebcc66530ffc37dbcb0249d6b4ecf9df",
+      "object_sha256": "391510245599db0b4999a1f5d652c144ab21cd50b9cb10db8e6d61ac22f68878",
+      "axioms": {
+        "Seed0024PhaseCoreBridge20261007.centre_row_20": [
+          "propext"
+        ],
+        "Seed0024PhaseCoreBridge20261007.centre_row_21": [
+          "propext"
+        ],
+        "Seed0024PhaseCoreBridge20261007.centre_row_22": [
+          "propext"
+        ],
+        "Seed0024PhaseCoreBridge20261007.centre_row_23": [
+          "propext"
+        ]
+      },
+      "direct_import_bindings": [
+        {
+          "module": "SeedPhaseData",
+          "source_sha256": "8bee5ce3a98d247d859be97455d33c69abb64c266da57d60df8af74b0ca86567",
+          "object_sha256": "0718c19c29a7c7409c0337a866da99801278fbd5c5b044ec44b5514712d37639",
+          "receipt_sha256": "dee3bfaa926e7c438d2eaf7ab7fcdca78385d45389c9adb6e8d53aa99f93939a",
+          "unique_resolution": true
+        },
+        {
+          "module": "RoundedCentreDataNoInit",
+          "source_sha256": "af28842336f881c0e14a58487ed2808aa45586162ede97b0d62ac3b7894c6761",
+          "object_sha256": "58f253ef178e605e700a314713b70a8da01923088100da2c86a2831a4f8bda92",
+          "receipt_sha256": "eaf9e5129567a410c715ee3af87a38c696e9103e1b7da6588c30cf5ae31f1a6b",
+          "unique_resolution": true
+        }
+      ],
+      "wall_seconds": 2.1203728330146987,
+      "peak_tree_rss_bytes": 1809367040,
+      "source_options": [
+        [
+          "autoImplicit",
+          "false"
+        ],
+        [
+          "maxRecDepth",
+          "65536"
+        ],
+        [
+          "maxHeartbeats",
+          "4000000"
+        ]
+      ]
+    },
+    {
+      "module": "CoreCentreRows24",
+      "source": "cluster-tube-inclusion/frontend-bridge/square-acceleration/std-core-bridge/data-split/CoreCentreRows24.lean",
+      "check": "cluster-tube-inclusion/frontend-bridge/square-acceleration/std-core-bridge/data-split/check-centre-rows-24-01",
+      "source_sha256": "c2310e96991e7b80e75d88b3af3238168fe3ec6e58a96d2fd80910e5bda565b4",
+      "receipt_sha256": "05ad569eac766e1d669ef75b34c36546785b63e1efb9b80b90101e9e942ddef1",
+      "job_sha256": "22e68531b74d77a55232e37b281e13ed69cfed3371bd3c1fa796088549a15afd",
+      "stdout_sha256": "3524aa23cc675dbfd842bd6cca511540421e7c0bae1cd229ea5787504b332aa1",
+      "object_sha256": "38b2e27053012f5cb6c8646cb0c14b2c71e4a4e94834c3a4bebdb040b7c80230",
+      "axioms": {
+        "Seed0024PhaseCoreBridge20261007.centre_row_24": [
+          "propext"
+        ],
+        "Seed0024PhaseCoreBridge20261007.centre_row_25": [
+          "propext"
+        ],
+        "Seed0024PhaseCoreBridge20261007.centre_row_26": [
+          "propext"
+        ],
+        "Seed0024PhaseCoreBridge20261007.centre_row_27": [
+          "propext"
+        ]
+      },
+      "direct_import_bindings": [
+        {
+          "module": "SeedPhaseData",
+          "source_sha256": "8bee5ce3a98d247d859be97455d33c69abb64c266da57d60df8af74b0ca86567",
+          "object_sha256": "0718c19c29a7c7409c0337a866da99801278fbd5c5b044ec44b5514712d37639",
+          "receipt_sha256": "dee3bfaa926e7c438d2eaf7ab7fcdca78385d45389c9adb6e8d53aa99f93939a",
+          "unique_resolution": true
+        },
+        {
+          "module": "RoundedCentreDataNoInit",
+          "source_sha256": "af28842336f881c0e14a58487ed2808aa45586162ede97b0d62ac3b7894c6761",
+          "object_sha256": "58f253ef178e605e700a314713b70a8da01923088100da2c86a2831a4f8bda92",
+          "receipt_sha256": "eaf9e5129567a410c715ee3af87a38c696e9103e1b7da6588c30cf5ae31f1a6b",
+          "unique_resolution": true
+        }
+      ],
+      "wall_seconds": 2.095076582976617,
+      "peak_tree_rss_bytes": 1787002880,
+      "source_options": [
+        [
+          "autoImplicit",
+          "false"
+        ],
+        [
+          "maxRecDepth",
+          "65536"
+        ],
+        [
+          "maxHeartbeats",
+          "4000000"
+        ]
+      ]
+    },
+    {
+      "module": "CoreCentreRows28",
+      "source": "cluster-tube-inclusion/frontend-bridge/square-acceleration/std-core-bridge/data-split/CoreCentreRows28.lean",
+      "check": "cluster-tube-inclusion/frontend-bridge/square-acceleration/std-core-bridge/data-split/check-centre-rows-28-01",
+      "source_sha256": "5367a2634622cca6b7b5a5e4febb421c0f4e266f4c4007978ff31c07513f768e",
+      "receipt_sha256": "2edaf98c21a90138e0b3d2aa0e50a1e800aa78f4b8d44250ac8d73eeac3efaca",
+      "job_sha256": "bc66f159688d712467226f106f7c5cafd962676098f603e5a08d0c0b210a06c4",
+      "stdout_sha256": "7b949f0b1dfdc1fcce983f3ef0a0885af1af1016e58cc05f3ccc778e3c94f183",
+      "object_sha256": "c11999b3e20aef872b4a676fae17a536d1efb4e83c4b83c8c7081cadeeb39055",
+      "axioms": {
+        "Seed0024PhaseCoreBridge20261007.centre_row_28": [
+          "propext"
+        ],
+        "Seed0024PhaseCoreBridge20261007.centre_row_29": [
+          "propext"
+        ],
+        "Seed0024PhaseCoreBridge20261007.centre_row_30": [
+          "propext"
+        ],
+        "Seed0024PhaseCoreBridge20261007.centre_row_31": [
+          "propext"
+        ]
+      },
+      "direct_import_bindings": [
+        {
+          "module": "SeedPhaseData",
+          "source_sha256": "8bee5ce3a98d247d859be97455d33c69abb64c266da57d60df8af74b0ca86567",
+          "object_sha256": "0718c19c29a7c7409c0337a866da99801278fbd5c5b044ec44b5514712d37639",
+          "receipt_sha256": "dee3bfaa926e7c438d2eaf7ab7fcdca78385d45389c9adb6e8d53aa99f93939a",
+          "unique_resolution": true
+        },
+        {
+          "module": "RoundedCentreDataNoInit",
+          "source_sha256": "af28842336f881c0e14a58487ed2808aa45586162ede97b0d62ac3b7894c6761",
+          "object_sha256": "58f253ef178e605e700a314713b70a8da01923088100da2c86a2831a4f8bda92",
+          "receipt_sha256": "eaf9e5129567a410c715ee3af87a38c696e9103e1b7da6588c30cf5ae31f1a6b",
+          "unique_resolution": true
+        }
+      ],
+      "wall_seconds": 2.6054319579852745,
+      "peak_tree_rss_bytes": 1709670400,
+      "source_options": [
+        [
+          "autoImplicit",
+          "false"
+        ],
+        [
+          "maxRecDepth",
+          "65536"
+        ],
+        [
+          "maxHeartbeats",
+          "4000000"
+        ]
+      ]
+    },
+    {
+      "module": "CoreCentreRows32",
+      "source": "cluster-tube-inclusion/frontend-bridge/square-acceleration/std-core-bridge/data-split/CoreCentreRows32.lean",
+      "check": "cluster-tube-inclusion/frontend-bridge/square-acceleration/std-core-bridge/data-split/check-centre-rows-32-01",
+      "source_sha256": "8f80442612555d091429470aee4eead3a9c0a32bcb9a1fa27c4e99ae1f8e8966",
+      "receipt_sha256": "b4fd26c6b5babf9236b3fbae048b39b40d9324fef8355947afd72ac3f95c2c9d",
+      "job_sha256": "380e6d555a9c0a72758a1a7899a2a84a9173151a96a3b241a46dfc9d91070e5c",
+      "stdout_sha256": "ae550bf04ce459c531f4e8de64aec907d83fef398d115c5f53fc7177d3944e96",
+      "object_sha256": "a66a8dc3035664012c0e2181d09e9d84442f9ef095430a01f83c6e2876d300ca",
+      "axioms": {
+        "Seed0024PhaseCoreBridge20261007.centre_row_32": [
+          "propext"
+        ],
+        "Seed0024PhaseCoreBridge20261007.centre_row_33": [
+          "propext"
+        ],
+        "Seed0024PhaseCoreBridge20261007.centre_row_34": [
+          "propext"
+        ],
+        "Seed0024PhaseCoreBridge20261007.centre_row_35": [
+          "propext"
+        ]
+      },
+      "direct_import_bindings": [
+        {
+          "module": "SeedPhaseData",
+          "source_sha256": "8bee5ce3a98d247d859be97455d33c69abb64c266da57d60df8af74b0ca86567",
+          "object_sha256": "0718c19c29a7c7409c0337a866da99801278fbd5c5b044ec44b5514712d37639",
+          "receipt_sha256": "dee3bfaa926e7c438d2eaf7ab7fcdca78385d45389c9adb6e8d53aa99f93939a",
+          "unique_resolution": true
+        },
+        {
+          "module": "RoundedCentreDataNoInit",
+          "source_sha256": "af28842336f881c0e14a58487ed2808aa45586162ede97b0d62ac3b7894c6761",
+          "object_sha256": "58f253ef178e605e700a314713b70a8da01923088100da2c86a2831a4f8bda92",
+          "receipt_sha256": "eaf9e5129567a410c715ee3af87a38c696e9103e1b7da6588c30cf5ae31f1a6b",
+          "unique_resolution": true
+        }
+      ],
+      "wall_seconds": 2.112996790994657,
+      "peak_tree_rss_bytes": 1773764608,
+      "source_options": [
+        [
+          "autoImplicit",
+          "false"
+        ],
+        [
+          "maxRecDepth",
+          "65536"
+        ],
+        [
+          "maxHeartbeats",
+          "4000000"
+        ]
+      ]
+    },
+    {
+      "module": "CoreCentreRows36",
+      "source": "cluster-tube-inclusion/frontend-bridge/square-acceleration/std-core-bridge/data-split/CoreCentreRows36.lean",
+      "check": "cluster-tube-inclusion/frontend-bridge/square-acceleration/std-core-bridge/data-split/check-centre-rows-36-01",
+      "source_sha256": "0cbb6c410ad2aa39458556ae90723e80fb006a7817f4f030a013e71174c80622",
+      "receipt_sha256": "b5ec487404929d54d00b9cf3aee13a803dca40fe80b54e8b9a0ad4fefa07faea",
+      "job_sha256": "443dc34473786427999961056cc7cd635d367eaa6b3feccba55ec019f662ec00",
+      "stdout_sha256": "857238b84b87808429db2d176a1e1ebad0335f0802a6038219f188781d1816f0",
+      "object_sha256": "4d11e36c92edcb55b4aeeab32707e960c0bc6f6b705c19ab1cb93b335757ce7b",
+      "axioms": {
+        "Seed0024PhaseCoreBridge20261007.centre_row_36": [
+          "propext"
+        ],
+        "Seed0024PhaseCoreBridge20261007.centre_row_37": [
+          "propext"
+        ],
+        "Seed0024PhaseCoreBridge20261007.centre_row_38": [
+          "propext"
+        ],
+        "Seed0024PhaseCoreBridge20261007.centre_row_39": [
+          "propext"
+        ]
+      },
+      "direct_import_bindings": [
+        {
+          "module": "SeedPhaseData",
+          "source_sha256": "8bee5ce3a98d247d859be97455d33c69abb64c266da57d60df8af74b0ca86567",
+          "object_sha256": "0718c19c29a7c7409c0337a866da99801278fbd5c5b044ec44b5514712d37639",
+          "receipt_sha256": "dee3bfaa926e7c438d2eaf7ab7fcdca78385d45389c9adb6e8d53aa99f93939a",
+          "unique_resolution": true
+        },
+        {
+          "module": "RoundedCentreDataNoInit",
+          "source_sha256": "af28842336f881c0e14a58487ed2808aa45586162ede97b0d62ac3b7894c6761",
+          "object_sha256": "58f253ef178e605e700a314713b70a8da01923088100da2c86a2831a4f8bda92",
+          "receipt_sha256": "eaf9e5129567a410c715ee3af87a38c696e9103e1b7da6588c30cf5ae31f1a6b",
+          "unique_resolution": true
+        }
+      ],
+      "wall_seconds": 2.657026374974521,
+      "peak_tree_rss_bytes": 1678245888,
+      "source_options": [
+        [
+          "autoImplicit",
+          "false"
+        ],
+        [
+          "maxRecDepth",
+          "65536"
+        ],
+        [
+          "maxHeartbeats",
+          "4000000"
+        ]
+      ]
+    },
+    {
+      "module": "CoreCentreRows40",
+      "source": "cluster-tube-inclusion/frontend-bridge/square-acceleration/std-core-bridge/data-split/CoreCentreRows40.lean",
+      "check": "cluster-tube-inclusion/frontend-bridge/square-acceleration/std-core-bridge/data-split/check-centre-rows-40-01",
+      "source_sha256": "b2c130146564d0c70621a7a129ebb29b63c9e2fbce633699a79ac3a43168a451",
+      "receipt_sha256": "190add4982a1f6347571576ea2d0c884d9fda4bde11150473fcb69860345f1cc",
+      "job_sha256": "5d1c303b44025c792442d68f9d3d591f1145929b49e81587d5947f948a2ac417",
+      "stdout_sha256": "90e6e1a7e7b1244be36da3d4a4b0d92bc313dfbcf4282c8ee7d78158de68f005",
+      "object_sha256": "8fe0452166c671ad545b8a7ba40b27d7cce80b1a0ab9979479a4415cc16340d7",
+      "axioms": {
+        "Seed0024PhaseCoreBridge20261007.centre_row_40": [
+          "propext"
+        ],
+        "Seed0024PhaseCoreBridge20261007.centre_row_41": [
+          "propext"
+        ],
+        "Seed0024PhaseCoreBridge20261007.centre_row_42": [
+          "propext"
+        ],
+        "Seed0024PhaseCoreBridge20261007.centre_row_43": [
+          "propext"
+        ]
+      },
+      "direct_import_bindings": [
+        {
+          "module": "SeedPhaseData",
+          "source_sha256": "8bee5ce3a98d247d859be97455d33c69abb64c266da57d60df8af74b0ca86567",
+          "object_sha256": "0718c19c29a7c7409c0337a866da99801278fbd5c5b044ec44b5514712d37639",
+          "receipt_sha256": "dee3bfaa926e7c438d2eaf7ab7fcdca78385d45389c9adb6e8d53aa99f93939a",
+          "unique_resolution": true
+        },
+        {
+          "module": "RoundedCentreDataNoInit",
+          "source_sha256": "af28842336f881c0e14a58487ed2808aa45586162ede97b0d62ac3b7894c6761",
+          "object_sha256": "58f253ef178e605e700a314713b70a8da01923088100da2c86a2831a4f8bda92",
+          "receipt_sha256": "eaf9e5129567a410c715ee3af87a38c696e9103e1b7da6588c30cf5ae31f1a6b",
+          "unique_resolution": true
+        }
+      ],
+      "wall_seconds": 3.7408312910120003,
+      "peak_tree_rss_bytes": 1798602752,
+      "source_options": [
+        [
+          "autoImplicit",
+          "false"
+        ],
+        [
+          "maxRecDepth",
+          "65536"
+        ],
+        [
+          "maxHeartbeats",
+          "4000000"
+        ]
+      ]
+    },
+    {
+      "module": "CoreCentreRows44",
+      "source": "cluster-tube-inclusion/frontend-bridge/square-acceleration/std-core-bridge/data-split/CoreCentreRows44.lean",
+      "check": "cluster-tube-inclusion/frontend-bridge/square-acceleration/std-core-bridge/data-split/check-centre-rows-44-01",
+      "source_sha256": "e436599599d7b4a0cd0117e6c02e3defb5e236b738b5e6becb88e4bf4170d52e",
+      "receipt_sha256": "271af6746cfbb4bce5cc0ee24b2fab092e8ab2d97b9cae411d9c7e5824dcd551",
+      "job_sha256": "39c4b776bff017aaad854f107c12cdb3cff7a35e05c721f4928327f58cec82fe",
+      "stdout_sha256": "710e6c79ee29558d13f91186a2a855e6709eec442ed9bf817e40c74bc707d251",
+      "object_sha256": "98fa22da27d01942df74834cf94a065d5afa3b4f9beb5ab03f9c84603ce397b9",
+      "axioms": {
+        "Seed0024PhaseCoreBridge20261007.centre_row_44": [
+          "propext"
+        ],
+        "Seed0024PhaseCoreBridge20261007.centre_row_45": [
+          "propext"
+        ],
+        "Seed0024PhaseCoreBridge20261007.centre_row_46": [
+          "propext"
+        ],
+        "Seed0024PhaseCoreBridge20261007.centre_row_47": [
+          "propext"
+        ]
+      },
+      "direct_import_bindings": [
+        {
+          "module": "SeedPhaseData",
+          "source_sha256": "8bee5ce3a98d247d859be97455d33c69abb64c266da57d60df8af74b0ca86567",
+          "object_sha256": "0718c19c29a7c7409c0337a866da99801278fbd5c5b044ec44b5514712d37639",
+          "receipt_sha256": "dee3bfaa926e7c438d2eaf7ab7fcdca78385d45389c9adb6e8d53aa99f93939a",
+          "unique_resolution": true
+        },
+        {
+          "module": "RoundedCentreDataNoInit",
+          "source_sha256": "af28842336f881c0e14a58487ed2808aa45586162ede97b0d62ac3b7894c6761",
+          "object_sha256": "58f253ef178e605e700a314713b70a8da01923088100da2c86a2831a4f8bda92",
+          "receipt_sha256": "eaf9e5129567a410c715ee3af87a38c696e9103e1b7da6588c30cf5ae31f1a6b",
+          "unique_resolution": true
+        }
+      ],
+      "wall_seconds": 2.1069066670024768,
+      "peak_tree_rss_bytes": 1822900224,
+      "source_options": [
+        [
+          "autoImplicit",
+          "false"
+        ],
+        [
+          "maxRecDepth",
+          "65536"
+        ],
+        [
+          "maxHeartbeats",
+          "4000000"
+        ]
+      ]
+    },
+    {
+      "module": "CoreDataEqualitiesSplit",
+      "source": "cluster-tube-inclusion/frontend-bridge/square-acceleration/std-core-bridge/data-split/CoreDataEqualitiesSplit.lean",
+      "check": "cluster-tube-inclusion/frontend-bridge/square-acceleration/std-core-bridge/data-split/check-data-assembly-01",
+      "source_sha256": "1714eff119b129e383d14ccecb2a58e1cfca1b3321b6d49f9349fd3bc16448b9",
+      "receipt_sha256": "2fc055a2205a2b607b4a07df9eb3b13ef3b8c4f493d7d55fbceb6f5fca747db5",
+      "job_sha256": "4b79b0a2590f3a4b9887abbb389968e95310d1f82b0f6078d98469b22413848e",
+      "stdout_sha256": "64cfd6a21bded84777a981a91799658734f9315fdf0ddb75c934a3507f740292",
+      "object_sha256": "0d9c655c07734942d8569316ec20b650ab556487ac572999ea2d4969e8fa2caa",
+      "axioms": {
+        "Seed0024PhaseCoreBridge20261007.all_centre_entries_eq": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "Seed0024PhaseCoreBridge20261007.centreEntry_eq": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ]
+      },
+      "direct_import_bindings": [
+        {
+          "module": "CoreOctantDataEquality",
+          "source_sha256": "0200eb5bd92ebf5d320b143bac0a769570ce67ce54d0e0e983ecc546d91eea09",
+          "object_sha256": "ed73979b3b37b42dfde8193c00678124bdc0f1dc8bc982d9cbc23855bab34f51",
+          "receipt_sha256": "81dddb926cef65a8e6ccea50d232d2d14b3fbaaa1d65469d88b7c494459b4327",
+          "unique_resolution": true
+        },
+        {
+          "module": "CoreCentreRows00",
+          "source_sha256": "6e85131bf00da7f3a20f62137b18dc7293f4c0d3705c83c30786a4791b2c37cc",
+          "object_sha256": "e85f59417013e90a1b3fbcd17195dce2d3c205d421592c7b673a6fb388e8b1e9",
+          "receipt_sha256": "15e3af0090cff75d40d49e46eeb69e1c6056499e19392830439f931d208bc849",
+          "unique_resolution": true
+        },
+        {
+          "module": "CoreCentreRows04",
+          "source_sha256": "d989ccf521a4120df9fb5a0ad19642bcd653763e883519ac60fd7be2fac81f8b",
+          "object_sha256": "a884086016dcb1040d9f74dbd028583fb09796540e1a619aa5a33d1b51ec4305",
+          "receipt_sha256": "c48860ed4c9ecdccf04046a3632084f4768347f83b7d212d25d385966c497940",
+          "unique_resolution": true
+        },
+        {
+          "module": "CoreCentreRows08",
+          "source_sha256": "0528ebb1aa88c059baedf39efe59a32e96c7c7a691a8356bb4df09067c92c6b3",
+          "object_sha256": "56061739a206beb7f450c9b162d4fe9d209f657ffae80fdb77dba0e138547ce7",
+          "receipt_sha256": "841a208994b56e198dca82040a11595b9ece80a38fb17cba92c4575c8cb014d9",
+          "unique_resolution": true
+        },
+        {
+          "module": "CoreCentreRows12",
+          "source_sha256": "88cf95cc597c4758006f057fa5250e83a45016f3c6a5673c652f06daa7c1f4b8",
+          "object_sha256": "7e10c4820ff9450683efcc6699e8b4587109a64c282a49916785a0dc8b09698a",
+          "receipt_sha256": "0493256d75fd4055177bd103b85d0019932d23bb45ff7bb6e01b7c4075a0323e",
+          "unique_resolution": true
+        },
+        {
+          "module": "CoreCentreRows16",
+          "source_sha256": "f57f23cc8254a1b5477a068ef13e60155ee9a65dfe86a568f827682f5d736350",
+          "object_sha256": "e7e9921a6a21c3b3230707fad2155deaaed98c2b8ce213f04c3eb98c0aa05e1f",
+          "receipt_sha256": "d2c41773614d910f1faf11bb9c4530157dfa5b036e7a5ebd6bbdd7fa65d05e9a",
+          "unique_resolution": true
+        },
+        {
+          "module": "CoreCentreRows20",
+          "source_sha256": "a258420aeba421c7f58d43ec0b957ae8f30b9e7edc340c6fffbd19e52e2bd477",
+          "object_sha256": "391510245599db0b4999a1f5d652c144ab21cd50b9cb10db8e6d61ac22f68878",
+          "receipt_sha256": "47c79dc98e68f29dccc48040a9406f4ff30b4795819bad994a18bf7e783b1d3f",
+          "unique_resolution": true
+        },
+        {
+          "module": "CoreCentreRows24",
+          "source_sha256": "c2310e96991e7b80e75d88b3af3238168fe3ec6e58a96d2fd80910e5bda565b4",
+          "object_sha256": "38b2e27053012f5cb6c8646cb0c14b2c71e4a4e94834c3a4bebdb040b7c80230",
+          "receipt_sha256": "05ad569eac766e1d669ef75b34c36546785b63e1efb9b80b90101e9e942ddef1",
+          "unique_resolution": true
+        },
+        {
+          "module": "CoreCentreRows28",
+          "source_sha256": "5367a2634622cca6b7b5a5e4febb421c0f4e266f4c4007978ff31c07513f768e",
+          "object_sha256": "c11999b3e20aef872b4a676fae17a536d1efb4e83c4b83c8c7081cadeeb39055",
+          "receipt_sha256": "2edaf98c21a90138e0b3d2aa0e50a1e800aa78f4b8d44250ac8d73eeac3efaca",
+          "unique_resolution": true
+        },
+        {
+          "module": "CoreCentreRows32",
+          "source_sha256": "8f80442612555d091429470aee4eead3a9c0a32bcb9a1fa27c4e99ae1f8e8966",
+          "object_sha256": "a66a8dc3035664012c0e2181d09e9d84442f9ef095430a01f83c6e2876d300ca",
+          "receipt_sha256": "b4fd26c6b5babf9236b3fbae048b39b40d9324fef8355947afd72ac3f95c2c9d",
+          "unique_resolution": true
+        },
+        {
+          "module": "CoreCentreRows36",
+          "source_sha256": "0cbb6c410ad2aa39458556ae90723e80fb006a7817f4f030a013e71174c80622",
+          "object_sha256": "4d11e36c92edcb55b4aeeab32707e960c0bc6f6b705c19ab1cb93b335757ce7b",
+          "receipt_sha256": "b5ec487404929d54d00b9cf3aee13a803dca40fe80b54e8b9a0ad4fefa07faea",
+          "unique_resolution": true
+        },
+        {
+          "module": "CoreCentreRows40",
+          "source_sha256": "b2c130146564d0c70621a7a129ebb29b63c9e2fbce633699a79ac3a43168a451",
+          "object_sha256": "8fe0452166c671ad545b8a7ba40b27d7cce80b1a0ab9979479a4415cc16340d7",
+          "receipt_sha256": "190add4982a1f6347571576ea2d0c884d9fda4bde11150473fcb69860345f1cc",
+          "unique_resolution": true
+        },
+        {
+          "module": "CoreCentreRows44",
+          "source_sha256": "e436599599d7b4a0cd0117e6c02e3defb5e236b738b5e6becb88e4bf4170d52e",
+          "object_sha256": "98fa22da27d01942df74834cf94a065d5afa3b4f9beb5ab03f9c84603ce397b9",
+          "receipt_sha256": "271af6746cfbb4bce5cc0ee24b2fab092e8ab2d97b9cae411d9c7e5824dcd551",
+          "unique_resolution": true
+        }
+      ],
+      "wall_seconds": 14.197285583009943,
+      "peak_tree_rss_bytes": 2384068608,
+      "source_options": [
+        [
+          "autoImplicit",
+          "false"
+        ]
+      ]
+    },
+    {
+      "module": "CoreTableBridge",
+      "source": "cluster-tube-inclusion/frontend-bridge/square-acceleration/std-core-bridge/CoreTableBridge.lean",
+      "check": "cluster-tube-inclusion/frontend-bridge/square-acceleration/std-core-bridge/check-core-table-01",
+      "source_sha256": "ae9310115c9fbfbce1ae5d0d650573d6f0a54f66d9448e62cd7e4ec3b9deb378",
+      "receipt_sha256": "d47ea320ac1a453b06bc4af1e42bcf1c3ec47718f42bfdf21ca2c805350932f4",
+      "job_sha256": "6290edc7f097b21031b4ca0f9f40395927a5eba712c1ce826c1df67e36ad6ab6",
+      "stdout_sha256": "cd9362ffd0aef55f6fcc8ec70e458527e02c976ea084151dc09f2c1b7077c8a0",
+      "object_sha256": "2db837599a71e1628786553b46f22611f1013dfedc490335da3d15c359bd5fc2",
+      "axioms": {
+        "Seed0024PhaseCoreBridge20261007.octantEntry_eq": [
+          "propext"
+        ],
+        "Seed0024PhaseCoreBridge20261007.quarterEntry_eq": [
+          "propext",
+          "Quot.sound"
+        ],
+        "Seed0024PhaseCoreBridge20261007.sparseEntry_eq": [
+          "propext",
+          "Quot.sound"
+        ],
+        "Seed0024PhaseCoreBridge20261007.tableEntry_eq": [
+          "propext",
+          "Quot.sound"
+        ],
+        "Seed0024PhaseCoreBridge20261007.tableEntry_needed_accuracy": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "Seed0024PhaseCoreBridge20261007.rotateQuarter_eq": []
+      },
+      "direct_import_bindings": [
+        {
+          "module": "CoreOctantDataEquality",
+          "source_sha256": "0200eb5bd92ebf5d320b143bac0a769570ce67ce54d0e0e983ecc546d91eea09",
+          "object_sha256": "ed73979b3b37b42dfde8193c00678124bdc0f1dc8bc982d9cbc23855bab34f51",
+          "receipt_sha256": "81dddb926cef65a8e6ccea50d232d2d14b3fbaaa1d65469d88b7c494459b4327",
+          "unique_resolution": true
+        }
+      ],
+      "wall_seconds": 17.950628374994267,
+      "peak_tree_rss_bytes": 2391179264,
+      "source_options": [
+        [
+          "autoImplicit",
+          "false"
+        ]
+      ]
+    }
+  ],
+  "all_48_rows_and_five_coordinates_in_statements": true,
+  "current_frozen_receipt_hashes_match": true,
+  "lean_or_forest_replay_invoked": false,
+  "new_physical_closure_claimed": false
+}

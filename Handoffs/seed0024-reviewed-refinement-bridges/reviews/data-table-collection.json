@@ -1,0 +1,42 @@
+{
+  "status": "PASS_SCOPED_COLLECTION",
+  "reviewer": "seed0024_local; independent collection reviewer",
+  "created_utc": "2026-10-08T02:08:54.772976+00:00",
+  "component": "Std exact data and table bridge portable collection",
+  "reviewed_manifest_sha256": "732c5f9e46adb7b75fe924c3757867cb19263ccdd1e0fe70848a8d324323de1e",
+  "files_including_manifest": 141,
+  "payload_files_excluding_manifest": 140,
+  "custom_source_modules": 44,
+  "selected_modules": 15,
+  "selected_declarations": 57,
+  "formalization_record_sha256": "49620ccce8c07e3dddb288df760ca6e70dc9b15371a650bfe54cda77fbac62fa",
+  "existing_semantic_review_sha256": "f08f657968d6f09ed3661e5526ba9fbecf9bf56a65e1ad1e30e2d7c4cdced40c",
+  "reconstruction_sha256": "47b28a8f35304f36a03109b37d5b37ae50482f874519508cf9fc656fceecbee5",
+  "audit_script_sha256": "6eb693d4c351c3d6c28739c4097f5355cb9f6842705af00388f454322284920b",
+  "findings": [
+    "All manifest entries match exact file hashes. The payload has no absolute host paths, symlinks, compiled caches, full forest data or failed/uncompiled variant source.",
+    "The 44 sources are precisely the custom import closure of CoreDataEqualitiesSplit and CoreTableBridge. The declared source hashes and topological import list agree with the actual source, including support for public/private import syntax.",
+    "All 65 module resolutions in the two root contexts are unique and agree on shared object hashes. All 71 custom import edges also match their original successful compile-context objects.",
+    "All packaged Lean sources match frozen successful inputs or original successful port source/object bindings. All result projections match their original successful receipts; the four port receipts are exact documented narrow projections.",
+    "All 44 packaged stdout files exactly equal original logs with only the workspace path prefix removed. All 57 selected axiom outputs match the source requests, successful logs, formalization record and prior review evidence, using standard axioms only.",
+    "The existing averaging review f08f657968d6f09ed3661e5526ba9fbecf9bf56a65e1ad1e30e2d7c4cdced40c and its three supporting files are copied byte-for-byte. This collection review adds no new semantic proof review.",
+    "Lean and Mathlib pins, source directory, two Lake roots and license match the checked packet. Zero physical closures, no complete forest acceptance and the inherited source/cache-authenticity caveat remain explicit."
+  ],
+  "notes": [
+    "The included audit_data_table.py is unchanged archival review evidence and requires the original workspace/check folders; it is not a standalone public inventory verifier. This review used its own read-only reconstruction script and did not execute the archival script.",
+    "141 counts the manifest itself; the manifest has 140 payload rows."
+  ],
+  "boundary": {
+    "packet_modified": false,
+    "lean_compiler_launches": 0,
+    "native_forest_runs": 0,
+    "new_actual_tapes_or_roots_accepted": 0,
+    "physical_boxes_closed": 0,
+    "complete_forest_acceptance": false,
+    "fresh_source_cache_rebuild": false,
+    "remaining": [
+      "Actual leaf predicate refinement and physical use of accepted typed tapes.",
+      "Kernel-checked acceptance and exact assembly of all required ordinal roots."
+    ]
+  }
+}

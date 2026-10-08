@@ -1,0 +1,75 @@
+{
+  "kind": "narrow-projection-of-successful-guarded-receipt",
+  "module": "WitnessTapeRefinement",
+  "source_sha256": "ef9e848f64be5f8b20c503af7276bb4b65772e3a1e66bba38d6781c2c5e24e3e",
+  "result": {
+    "exit_code": 0,
+    "mode": "standalone-guarded-v1",
+    "peak_tree_rss_bytes": 2052407296,
+    "physical_proof_admission": false,
+    "source_sha256": "ef9e848f64be5f8b20c503af7276bb4b65772e3a1e66bba38d6781c2c5e24e3e",
+    "stop_reason": null,
+    "success": true,
+    "wall_seconds": 61.444371332996525
+  },
+  "original_result_sha256": "5ec74029b1d0c0ad0dc66094f0fa4c422cc335d491b7d9fae3045ca3b1fcad4f",
+  "original_job_sha256": "77fa9df97b971218d0c378f29264cab9341ef8913abb7e98e2f3c8ed129a2e49",
+  "original_stdout_sha256": "98eb93ddad783e30ce732157d714cbbd4270b3141891ab09532f644c3a708cb9",
+  "original_object_sha256": "030f4af712572898732f3566690377eca06927c868754fe014752c1cc326c4e0",
+  "guard": {
+    "seconds": 180,
+    "heap_mib": 2304,
+    "rss_stop_mib": 2816,
+    "minimum_free_disk_bytes": 2147483648
+  },
+  "flags": [
+    "-j1",
+    "-M2304",
+    "-T2000000"
+  ],
+  "axioms": {
+    "Seed0024PhaseTapeBridge20261007.erase_midpoint_value": [
+      "propext",
+      "Quot.sound"
+    ],
+    "Seed0024PhaseTapeBridge20261007.erase_endpoint_value": [
+      "propext",
+      "Quot.sound"
+    ],
+    "Seed0024PhaseTapeBridge20261007.erase_accept_value": [
+      "propext",
+      "Quot.sound"
+    ],
+    "Seed0024PhaseTapeBridge20261007.map_childList": [
+      "propext",
+      "Quot.sound"
+    ],
+    "Seed0024PhaseTapeBridge20261007.byte_rejection_step": [
+      "propext",
+      "Quot.sound"
+    ],
+    "Seed0024PhaseTapeBridge20261007.byte_inclusion_step": [
+      "propext",
+      "Quot.sound"
+    ],
+    "Seed0024PhaseTapeBridge20261007.byte_split_step": [
+      "propext",
+      "Quot.sound"
+    ],
+    "Seed0024PhaseTapeBridge20261007.checkWitnessTape_refines": [
+      "propext",
+      "Quot.sound"
+    ],
+    "Seed0024PhaseTapeBridge20261007.checkWitnessTape_pendingCovered": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "Seed0024PhaseTapeBridge20261007.checked_witness_tapes_cover_unit_cube": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "Seed0024PhaseTapeBridge20261007.erase_split_value": []
+  }
+}

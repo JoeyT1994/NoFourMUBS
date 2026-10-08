@@ -1,0 +1,1121 @@
+{
+  "schema": "std-data-and-table-bridge-v1",
+  "status": "KERNEL_CHECKED_INDEPENDENT_REVIEW_PASS",
+  "scope": [
+    "The pure 229-pair octant array equals the previously certified compact octant array exactly.",
+    "All 240 pure centre entries equal the reviewed rounded-centre coordinates; all 48 rows and five coordinates are covered.",
+    "Bounded octant, reflection, quarter rotation, sparse and full-period table lookups equal their certified counterparts.",
+    "Actual EntryApprox is inherited only for bounded indices divisible by120; no accuracy at other indices is asserted."
+  ],
+  "new_modules": [
+    {
+      "module": "CoreOctantDataEquality",
+      "source_sha256": "0200eb5bd92ebf5d320b143bac0a769570ce67ce54d0e0e983ecc546d91eea09",
+      "check": "data-split/check-octant-equality-01",
+      "result": {
+        "exit_code": 0,
+        "mode": "standalone-guarded-v1",
+        "peak_tree_rss_bytes": 2379005952,
+        "physical_proof_admission": false,
+        "source_sha256": "0200eb5bd92ebf5d320b143bac0a769570ce67ce54d0e0e983ecc546d91eea09",
+        "stop_reason": null,
+        "success": true,
+        "wall_seconds": 16.285801541991532
+      },
+      "theorems": [
+        "Seed0024PhaseCoreBridge20261007.octantArray_eq"
+      ],
+      "files": {
+        "CoreOctantDataEquality.lean": "0200eb5bd92ebf5d320b143bac0a769570ce67ce54d0e0e983ecc546d91eea09",
+        "CoreOctantDataEquality.olean": "ed73979b3b37b42dfde8193c00678124bdc0f1dc8bc982d9cbc23855bab34f51",
+        "JOB.json": "d915a8563ebbf258df5b739c4b8841ce3b29bcb58f9c44db7a8b7795f1c66e44",
+        "RESULT.json": "81dddb926cef65a8e6ccea50d232d2d14b3fbaaa1d65469d88b7c494459b4327",
+        "stdout.log": "f85cd467f23cc8d528bfd2c1a9f94d09c19282a18b4c01749fe754807c2cffba",
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "module": "CoreCentreRows00",
+      "source_sha256": "6e85131bf00da7f3a20f62137b18dc7293f4c0d3705c83c30786a4791b2c37cc",
+      "check": "data-split/check-centre-rows-00-01",
+      "result": {
+        "exit_code": 0,
+        "mode": "standalone-guarded-v1",
+        "peak_tree_rss_bytes": 1801928704,
+        "physical_proof_admission": false,
+        "source_sha256": "6e85131bf00da7f3a20f62137b18dc7293f4c0d3705c83c30786a4791b2c37cc",
+        "stop_reason": null,
+        "success": true,
+        "wall_seconds": 7.856544084002962
+      },
+      "theorems": [
+        "Seed0024PhaseCoreBridge20261007.centre_row_00",
+        "Seed0024PhaseCoreBridge20261007.centre_row_01",
+        "Seed0024PhaseCoreBridge20261007.centre_row_02",
+        "Seed0024PhaseCoreBridge20261007.centre_row_03"
+      ],
+      "files": {
+        "CoreCentreRows00.lean": "6e85131bf00da7f3a20f62137b18dc7293f4c0d3705c83c30786a4791b2c37cc",
+        "CoreCentreRows00.olean": "e85f59417013e90a1b3fbcd17195dce2d3c205d421592c7b673a6fb388e8b1e9",
+        "JOB.json": "b63809b38e09d1dda34dcacab6e596df333fdb92cd7bf41f8451edefde8dfb74",
+        "RESULT.json": "15e3af0090cff75d40d49e46eeb69e1c6056499e19392830439f931d208bc849",
+        "stdout.log": "97324a0425f6a76c59466e1120cc46b9af6ba8f6ee492b9491952111015007ec",
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "module": "CoreCentreRows04",
+      "source_sha256": "d989ccf521a4120df9fb5a0ad19642bcd653763e883519ac60fd7be2fac81f8b",
+      "check": "data-split/check-centre-rows-04-01",
+      "result": {
+        "exit_code": 0,
+        "mode": "standalone-guarded-v1",
+        "peak_tree_rss_bytes": 1779138560,
+        "physical_proof_admission": false,
+        "source_sha256": "d989ccf521a4120df9fb5a0ad19642bcd653763e883519ac60fd7be2fac81f8b",
+        "stop_reason": null,
+        "success": true,
+        "wall_seconds": 9.526796958001796
+      },
+      "theorems": [
+        "Seed0024PhaseCoreBridge20261007.centre_row_04",
+        "Seed0024PhaseCoreBridge20261007.centre_row_05",
+        "Seed0024PhaseCoreBridge20261007.centre_row_06",
+        "Seed0024PhaseCoreBridge20261007.centre_row_07"
+      ],
+      "files": {
+        "CoreCentreRows04.lean": "d989ccf521a4120df9fb5a0ad19642bcd653763e883519ac60fd7be2fac81f8b",
+        "CoreCentreRows04.olean": "a884086016dcb1040d9f74dbd028583fb09796540e1a619aa5a33d1b51ec4305",
+        "JOB.json": "2ec08279a996ba56a8f0533d68d5e7dd703d539b9e7afd921358b7f1d37449e1",
+        "RESULT.json": "c48860ed4c9ecdccf04046a3632084f4768347f83b7d212d25d385966c497940",
+        "stdout.log": "abe1e8312493b43c0f0f5cc6a6a4cb71349cbe9bd15bed5faf519e8fc23dd5c5",
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "module": "CoreCentreRows08",
+      "source_sha256": "0528ebb1aa88c059baedf39efe59a32e96c7c7a691a8356bb4df09067c92c6b3",
+      "check": "data-split/check-centre-rows-08-01",
+      "result": {
+        "exit_code": 0,
+        "mode": "standalone-guarded-v1",
+        "peak_tree_rss_bytes": 1803730944,
+        "physical_proof_admission": false,
+        "source_sha256": "0528ebb1aa88c059baedf39efe59a32e96c7c7a691a8356bb4df09067c92c6b3",
+        "stop_reason": null,
+        "success": true,
+        "wall_seconds": 2.1228399999963585
+      },
+      "theorems": [
+        "Seed0024PhaseCoreBridge20261007.centre_row_08",
+        "Seed0024PhaseCoreBridge20261007.centre_row_09",
+        "Seed0024PhaseCoreBridge20261007.centre_row_10",
+        "Seed0024PhaseCoreBridge20261007.centre_row_11"
+      ],
+      "files": {
+        "CoreCentreRows08.lean": "0528ebb1aa88c059baedf39efe59a32e96c7c7a691a8356bb4df09067c92c6b3",
+        "CoreCentreRows08.olean": "56061739a206beb7f450c9b162d4fe9d209f657ffae80fdb77dba0e138547ce7",
+        "JOB.json": "21314fd615db8a6a2e45c0d96b6238b96542d2103a5c482e46b2d27a8c3be47d",
+        "RESULT.json": "841a208994b56e198dca82040a11595b9ece80a38fb17cba92c4575c8cb014d9",
+        "stdout.log": "c8867e6815d02883358fcbda9fdcf0b59fe265a337cb7b044ffab754259f215c",
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "module": "CoreCentreRows12",
+      "source_sha256": "88cf95cc597c4758006f057fa5250e83a45016f3c6a5673c652f06daa7c1f4b8",
+      "check": "data-split/check-centre-rows-12-01",
+      "result": {
+        "exit_code": 0,
+        "mode": "standalone-guarded-v1",
+        "peak_tree_rss_bytes": 1782087680,
+        "physical_proof_admission": false,
+        "source_sha256": "88cf95cc597c4758006f057fa5250e83a45016f3c6a5673c652f06daa7c1f4b8",
+        "stop_reason": null,
+        "success": true,
+        "wall_seconds": 2.111030458007008
+      },
+      "theorems": [
+        "Seed0024PhaseCoreBridge20261007.centre_row_12",
+        "Seed0024PhaseCoreBridge20261007.centre_row_13",
+        "Seed0024PhaseCoreBridge20261007.centre_row_14",
+        "Seed0024PhaseCoreBridge20261007.centre_row_15"
+      ],
+      "files": {
+        "CoreCentreRows12.lean": "88cf95cc597c4758006f057fa5250e83a45016f3c6a5673c652f06daa7c1f4b8",
+        "CoreCentreRows12.olean": "7e10c4820ff9450683efcc6699e8b4587109a64c282a49916785a0dc8b09698a",
+        "JOB.json": "dd17021960a91a4515f3a351e0ecf1ed612948894020fb8e2595d4cf1bdddcb8",
+        "RESULT.json": "0493256d75fd4055177bd103b85d0019932d23bb45ff7bb6e01b7c4075a0323e",
+        "stdout.log": "4625364384ad4776fd0a0979419b2062ffbc01e9369064f4a90c1234f55634ad",
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "module": "CoreCentreRows16",
+      "source_sha256": "f57f23cc8254a1b5477a068ef13e60155ee9a65dfe86a568f827682f5d736350",
+      "check": "data-split/check-centre-rows-16-01",
+      "result": {
+        "exit_code": 0,
+        "mode": "standalone-guarded-v1",
+        "peak_tree_rss_bytes": 1695006720,
+        "physical_proof_admission": false,
+        "source_sha256": "f57f23cc8254a1b5477a068ef13e60155ee9a65dfe86a568f827682f5d736350",
+        "stop_reason": null,
+        "success": true,
+        "wall_seconds": 2.0988124999857973
+      },
+      "theorems": [
+        "Seed0024PhaseCoreBridge20261007.centre_row_16",
+        "Seed0024PhaseCoreBridge20261007.centre_row_17",
+        "Seed0024PhaseCoreBridge20261007.centre_row_18",
+        "Seed0024PhaseCoreBridge20261007.centre_row_19"
+      ],
+      "files": {
+        "CoreCentreRows16.lean": "f57f23cc8254a1b5477a068ef13e60155ee9a65dfe86a568f827682f5d736350",
+        "CoreCentreRows16.olean": "e7e9921a6a21c3b3230707fad2155deaaed98c2b8ce213f04c3eb98c0aa05e1f",
+        "JOB.json": "d39bd960de9b43d405733360600fac1d97009e788207de7c8fdc42e388eadea1",
+        "RESULT.json": "d2c41773614d910f1faf11bb9c4530157dfa5b036e7a5ebd6bbdd7fa65d05e9a",
+        "stdout.log": "4be8ffa9921852a5b4e0c4b6bcfe16240340a7fca2d8a698bb6995b745c32392",
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "module": "CoreCentreRows20",
+      "source_sha256": "a258420aeba421c7f58d43ec0b957ae8f30b9e7edc340c6fffbd19e52e2bd477",
+      "check": "data-split/check-centre-rows-20-01",
+      "result": {
+        "exit_code": 0,
+        "mode": "standalone-guarded-v1",
+        "peak_tree_rss_bytes": 1809367040,
+        "physical_proof_admission": false,
+        "source_sha256": "a258420aeba421c7f58d43ec0b957ae8f30b9e7edc340c6fffbd19e52e2bd477",
+        "stop_reason": null,
+        "success": true,
+        "wall_seconds": 2.1203728330146987
+      },
+      "theorems": [
+        "Seed0024PhaseCoreBridge20261007.centre_row_20",
+        "Seed0024PhaseCoreBridge20261007.centre_row_21",
+        "Seed0024PhaseCoreBridge20261007.centre_row_22",
+        "Seed0024PhaseCoreBridge20261007.centre_row_23"
+      ],
+      "files": {
+        "CoreCentreRows20.lean": "a258420aeba421c7f58d43ec0b957ae8f30b9e7edc340c6fffbd19e52e2bd477",
+        "CoreCentreRows20.olean": "391510245599db0b4999a1f5d652c144ab21cd50b9cb10db8e6d61ac22f68878",
+        "JOB.json": "c38cf614e50ce8de6241394c5de0067b57b5910955fcbc0a2b5d7290e80ed303",
+        "RESULT.json": "47c79dc98e68f29dccc48040a9406f4ff30b4795819bad994a18bf7e783b1d3f",
+        "stdout.log": "90b5b540aedae592100e9671ae858023ebcc66530ffc37dbcb0249d6b4ecf9df",
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "module": "CoreCentreRows24",
+      "source_sha256": "c2310e96991e7b80e75d88b3af3238168fe3ec6e58a96d2fd80910e5bda565b4",
+      "check": "data-split/check-centre-rows-24-01",
+      "result": {
+        "exit_code": 0,
+        "mode": "standalone-guarded-v1",
+        "peak_tree_rss_bytes": 1787002880,
+        "physical_proof_admission": false,
+        "source_sha256": "c2310e96991e7b80e75d88b3af3238168fe3ec6e58a96d2fd80910e5bda565b4",
+        "stop_reason": null,
+        "success": true,
+        "wall_seconds": 2.095076582976617
+      },
+      "theorems": [
+        "Seed0024PhaseCoreBridge20261007.centre_row_24",
+        "Seed0024PhaseCoreBridge20261007.centre_row_25",
+        "Seed0024PhaseCoreBridge20261007.centre_row_26",
+        "Seed0024PhaseCoreBridge20261007.centre_row_27"
+      ],
+      "files": {
+        "CoreCentreRows24.lean": "c2310e96991e7b80e75d88b3af3238168fe3ec6e58a96d2fd80910e5bda565b4",
+        "CoreCentreRows24.olean": "38b2e27053012f5cb6c8646cb0c14b2c71e4a4e94834c3a4bebdb040b7c80230",
+        "JOB.json": "22e68531b74d77a55232e37b281e13ed69cfed3371bd3c1fa796088549a15afd",
+        "RESULT.json": "05ad569eac766e1d669ef75b34c36546785b63e1efb9b80b90101e9e942ddef1",
+        "stdout.log": "3524aa23cc675dbfd842bd6cca511540421e7c0bae1cd229ea5787504b332aa1",
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "module": "CoreCentreRows28",
+      "source_sha256": "5367a2634622cca6b7b5a5e4febb421c0f4e266f4c4007978ff31c07513f768e",
+      "check": "data-split/check-centre-rows-28-01",
+      "result": {
+        "exit_code": 0,
+        "mode": "standalone-guarded-v1",
+        "peak_tree_rss_bytes": 1709670400,
+        "physical_proof_admission": false,
+        "source_sha256": "5367a2634622cca6b7b5a5e4febb421c0f4e266f4c4007978ff31c07513f768e",
+        "stop_reason": null,
+        "success": true,
+        "wall_seconds": 2.6054319579852745
+      },
+      "theorems": [
+        "Seed0024PhaseCoreBridge20261007.centre_row_28",
+        "Seed0024PhaseCoreBridge20261007.centre_row_29",
+        "Seed0024PhaseCoreBridge20261007.centre_row_30",
+        "Seed0024PhaseCoreBridge20261007.centre_row_31"
+      ],
+      "files": {
+        "CoreCentreRows28.lean": "5367a2634622cca6b7b5a5e4febb421c0f4e266f4c4007978ff31c07513f768e",
+        "CoreCentreRows28.olean": "c11999b3e20aef872b4a676fae17a536d1efb4e83c4b83c8c7081cadeeb39055",
+        "JOB.json": "bc66f159688d712467226f106f7c5cafd962676098f603e5a08d0c0b210a06c4",
+        "RESULT.json": "2edaf98c21a90138e0b3d2aa0e50a1e800aa78f4b8d44250ac8d73eeac3efaca",
+        "stdout.log": "7b949f0b1dfdc1fcce983f3ef0a0885af1af1016e58cc05f3ccc778e3c94f183",
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "module": "CoreCentreRows32",
+      "source_sha256": "8f80442612555d091429470aee4eead3a9c0a32bcb9a1fa27c4e99ae1f8e8966",
+      "check": "data-split/check-centre-rows-32-01",
+      "result": {
+        "exit_code": 0,
+        "mode": "standalone-guarded-v1",
+        "peak_tree_rss_bytes": 1773764608,
+        "physical_proof_admission": false,
+        "source_sha256": "8f80442612555d091429470aee4eead3a9c0a32bcb9a1fa27c4e99ae1f8e8966",
+        "stop_reason": null,
+        "success": true,
+        "wall_seconds": 2.112996790994657
+      },
+      "theorems": [
+        "Seed0024PhaseCoreBridge20261007.centre_row_32",
+        "Seed0024PhaseCoreBridge20261007.centre_row_33",
+        "Seed0024PhaseCoreBridge20261007.centre_row_34",
+        "Seed0024PhaseCoreBridge20261007.centre_row_35"
+      ],
+      "files": {
+        "CoreCentreRows32.lean": "8f80442612555d091429470aee4eead3a9c0a32bcb9a1fa27c4e99ae1f8e8966",
+        "CoreCentreRows32.olean": "a66a8dc3035664012c0e2181d09e9d84442f9ef095430a01f83c6e2876d300ca",
+        "JOB.json": "380e6d555a9c0a72758a1a7899a2a84a9173151a96a3b241a46dfc9d91070e5c",
+        "RESULT.json": "b4fd26c6b5babf9236b3fbae048b39b40d9324fef8355947afd72ac3f95c2c9d",
+        "stdout.log": "ae550bf04ce459c531f4e8de64aec907d83fef398d115c5f53fc7177d3944e96",
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "module": "CoreCentreRows36",
+      "source_sha256": "0cbb6c410ad2aa39458556ae90723e80fb006a7817f4f030a013e71174c80622",
+      "check": "data-split/check-centre-rows-36-01",
+      "result": {
+        "exit_code": 0,
+        "mode": "standalone-guarded-v1",
+        "peak_tree_rss_bytes": 1678245888,
+        "physical_proof_admission": false,
+        "source_sha256": "0cbb6c410ad2aa39458556ae90723e80fb006a7817f4f030a013e71174c80622",
+        "stop_reason": null,
+        "success": true,
+        "wall_seconds": 2.657026374974521
+      },
+      "theorems": [
+        "Seed0024PhaseCoreBridge20261007.centre_row_36",
+        "Seed0024PhaseCoreBridge20261007.centre_row_37",
+        "Seed0024PhaseCoreBridge20261007.centre_row_38",
+        "Seed0024PhaseCoreBridge20261007.centre_row_39"
+      ],
+      "files": {
+        "CoreCentreRows36.lean": "0cbb6c410ad2aa39458556ae90723e80fb006a7817f4f030a013e71174c80622",
+        "CoreCentreRows36.olean": "4d11e36c92edcb55b4aeeab32707e960c0bc6f6b705c19ab1cb93b335757ce7b",
+        "JOB.json": "443dc34473786427999961056cc7cd635d367eaa6b3feccba55ec019f662ec00",
+        "RESULT.json": "b5ec487404929d54d00b9cf3aee13a803dca40fe80b54e8b9a0ad4fefa07faea",
+        "stdout.log": "857238b84b87808429db2d176a1e1ebad0335f0802a6038219f188781d1816f0",
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "module": "CoreCentreRows40",
+      "source_sha256": "b2c130146564d0c70621a7a129ebb29b63c9e2fbce633699a79ac3a43168a451",
+      "check": "data-split/check-centre-rows-40-01",
+      "result": {
+        "exit_code": 0,
+        "mode": "standalone-guarded-v1",
+        "peak_tree_rss_bytes": 1798602752,
+        "physical_proof_admission": false,
+        "source_sha256": "b2c130146564d0c70621a7a129ebb29b63c9e2fbce633699a79ac3a43168a451",
+        "stop_reason": null,
+        "success": true,
+        "wall_seconds": 3.7408312910120003
+      },
+      "theorems": [
+        "Seed0024PhaseCoreBridge20261007.centre_row_40",
+        "Seed0024PhaseCoreBridge20261007.centre_row_41",
+        "Seed0024PhaseCoreBridge20261007.centre_row_42",
+        "Seed0024PhaseCoreBridge20261007.centre_row_43"
+      ],
+      "files": {
+        "CoreCentreRows40.lean": "b2c130146564d0c70621a7a129ebb29b63c9e2fbce633699a79ac3a43168a451",
+        "CoreCentreRows40.olean": "8fe0452166c671ad545b8a7ba40b27d7cce80b1a0ab9979479a4415cc16340d7",
+        "JOB.json": "5d1c303b44025c792442d68f9d3d591f1145929b49e81587d5947f948a2ac417",
+        "RESULT.json": "190add4982a1f6347571576ea2d0c884d9fda4bde11150473fcb69860345f1cc",
+        "stdout.log": "90e6e1a7e7b1244be36da3d4a4b0d92bc313dfbcf4282c8ee7d78158de68f005",
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "module": "CoreCentreRows44",
+      "source_sha256": "e436599599d7b4a0cd0117e6c02e3defb5e236b738b5e6becb88e4bf4170d52e",
+      "check": "data-split/check-centre-rows-44-01",
+      "result": {
+        "exit_code": 0,
+        "mode": "standalone-guarded-v1",
+        "peak_tree_rss_bytes": 1822900224,
+        "physical_proof_admission": false,
+        "source_sha256": "e436599599d7b4a0cd0117e6c02e3defb5e236b738b5e6becb88e4bf4170d52e",
+        "stop_reason": null,
+        "success": true,
+        "wall_seconds": 2.1069066670024768
+      },
+      "theorems": [
+        "Seed0024PhaseCoreBridge20261007.centre_row_44",
+        "Seed0024PhaseCoreBridge20261007.centre_row_45",
+        "Seed0024PhaseCoreBridge20261007.centre_row_46",
+        "Seed0024PhaseCoreBridge20261007.centre_row_47"
+      ],
+      "files": {
+        "CoreCentreRows44.lean": "e436599599d7b4a0cd0117e6c02e3defb5e236b738b5e6becb88e4bf4170d52e",
+        "CoreCentreRows44.olean": "98fa22da27d01942df74834cf94a065d5afa3b4f9beb5ab03f9c84603ce397b9",
+        "JOB.json": "39c4b776bff017aaad854f107c12cdb3cff7a35e05c721f4928327f58cec82fe",
+        "RESULT.json": "271af6746cfbb4bce5cc0ee24b2fab092e8ab2d97b9cae411d9c7e5824dcd551",
+        "stdout.log": "710e6c79ee29558d13f91186a2a855e6709eec442ed9bf817e40c74bc707d251",
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "module": "CoreDataEqualitiesSplit",
+      "source_sha256": "1714eff119b129e383d14ccecb2a58e1cfca1b3321b6d49f9349fd3bc16448b9",
+      "check": "data-split/check-data-assembly-01",
+      "result": {
+        "exit_code": 0,
+        "mode": "standalone-guarded-v1",
+        "peak_tree_rss_bytes": 2384068608,
+        "physical_proof_admission": false,
+        "source_sha256": "1714eff119b129e383d14ccecb2a58e1cfca1b3321b6d49f9349fd3bc16448b9",
+        "stop_reason": null,
+        "success": true,
+        "wall_seconds": 14.197285583009943
+      },
+      "theorems": [
+        "Seed0024PhaseCoreBridge20261007.all_centre_entries_eq",
+        "Seed0024PhaseCoreBridge20261007.centreEntry_eq"
+      ],
+      "files": {
+        "CoreDataEqualitiesSplit.lean": "1714eff119b129e383d14ccecb2a58e1cfca1b3321b6d49f9349fd3bc16448b9",
+        "CoreDataEqualitiesSplit.olean": "0d9c655c07734942d8569316ec20b650ab556487ac572999ea2d4969e8fa2caa",
+        "JOB.json": "4b79b0a2590f3a4b9887abbb389968e95310d1f82b0f6078d98469b22413848e",
+        "RESULT.json": "2fc055a2205a2b607b4a07df9eb3b13ef3b8c4f493d7d55fbceb6f5fca747db5",
+        "stdout.log": "64cfd6a21bded84777a981a91799658734f9315fdf0ddb75c934a3507f740292",
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "module": "CoreTableBridge",
+      "source_sha256": "ae9310115c9fbfbce1ae5d0d650573d6f0a54f66d9448e62cd7e4ec3b9deb378",
+      "check": "check-core-table-01",
+      "result": {
+        "exit_code": 0,
+        "mode": "standalone-guarded-v1",
+        "peak_tree_rss_bytes": 2391179264,
+        "physical_proof_admission": false,
+        "source_sha256": "ae9310115c9fbfbce1ae5d0d650573d6f0a54f66d9448e62cd7e4ec3b9deb378",
+        "stop_reason": null,
+        "success": true,
+        "wall_seconds": 17.950628374994267
+      },
+      "theorems": [
+        "Seed0024PhaseCoreBridge20261007.octantEntry_eq",
+        "Seed0024PhaseCoreBridge20261007.quarterEntry_eq",
+        "Seed0024PhaseCoreBridge20261007.rotateQuarter_eq",
+        "Seed0024PhaseCoreBridge20261007.sparseEntry_eq",
+        "Seed0024PhaseCoreBridge20261007.tableEntry_eq",
+        "Seed0024PhaseCoreBridge20261007.tableEntry_needed_accuracy"
+      ],
+      "files": {
+        "CoreTableBridge.lean": "ae9310115c9fbfbce1ae5d0d650573d6f0a54f66d9448e62cd7e4ec3b9deb378",
+        "CoreTableBridge.olean": "2db837599a71e1628786553b46f22611f1013dfedc490335da3d15c359bd5fc2",
+        "JOB.json": "6290edc7f097b21031b4ca0f9f40395927a5eba712c1ce826c1df67e36ad6ab6",
+        "RESULT.json": "d47ea320ac1a453b06bc4af1e42bcf1c3ec47718f42bfdf21ca2c805350932f4",
+        "stdout.log": "cd9362ffd0aef55f6fcc8ec70e458527e02c976ea084151dc09f2c1b7077c8a0",
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    }
+  ],
+  "new_theorem_count": 57,
+  "axiom_outputs": {
+    "Seed0024PhaseCoreBridge20261007.octantArray_eq": [],
+    "Seed0024PhaseCoreBridge20261007.centre_row_00": [
+      "propext"
+    ],
+    "Seed0024PhaseCoreBridge20261007.centre_row_01": [
+      "propext"
+    ],
+    "Seed0024PhaseCoreBridge20261007.centre_row_02": [
+      "propext"
+    ],
+    "Seed0024PhaseCoreBridge20261007.centre_row_03": [
+      "propext"
+    ],
+    "Seed0024PhaseCoreBridge20261007.centre_row_04": [
+      "propext"
+    ],
+    "Seed0024PhaseCoreBridge20261007.centre_row_05": [
+      "propext"
+    ],
+    "Seed0024PhaseCoreBridge20261007.centre_row_06": [
+      "propext"
+    ],
+    "Seed0024PhaseCoreBridge20261007.centre_row_07": [
+      "propext"
+    ],
+    "Seed0024PhaseCoreBridge20261007.centre_row_08": [
+      "propext"
+    ],
+    "Seed0024PhaseCoreBridge20261007.centre_row_09": [
+      "propext"
+    ],
+    "Seed0024PhaseCoreBridge20261007.centre_row_10": [
+      "propext"
+    ],
+    "Seed0024PhaseCoreBridge20261007.centre_row_11": [
+      "propext"
+    ],
+    "Seed0024PhaseCoreBridge20261007.centre_row_12": [
+      "propext"
+    ],
+    "Seed0024PhaseCoreBridge20261007.centre_row_13": [
+      "propext"
+    ],
+    "Seed0024PhaseCoreBridge20261007.centre_row_14": [
+      "propext"
+    ],
+    "Seed0024PhaseCoreBridge20261007.centre_row_15": [
+      "propext"
+    ],
+    "Seed0024PhaseCoreBridge20261007.centre_row_16": [
+      "propext"
+    ],
+    "Seed0024PhaseCoreBridge20261007.centre_row_17": [
+      "propext"
+    ],
+    "Seed0024PhaseCoreBridge20261007.centre_row_18": [
+      "propext"
+    ],
+    "Seed0024PhaseCoreBridge20261007.centre_row_19": [
+      "propext"
+    ],
+    "Seed0024PhaseCoreBridge20261007.centre_row_20": [
+      "propext"
+    ],
+    "Seed0024PhaseCoreBridge20261007.centre_row_21": [
+      "propext"
+    ],
+    "Seed0024PhaseCoreBridge20261007.centre_row_22": [
+      "propext"
+    ],
+    "Seed0024PhaseCoreBridge20261007.centre_row_23": [
+      "propext"
+    ],
+    "Seed0024PhaseCoreBridge20261007.centre_row_24": [
+      "propext"
+    ],
+    "Seed0024PhaseCoreBridge20261007.centre_row_25": [
+      "propext"
+    ],
+    "Seed0024PhaseCoreBridge20261007.centre_row_26": [
+      "propext"
+    ],
+    "Seed0024PhaseCoreBridge20261007.centre_row_27": [
+      "propext"
+    ],
+    "Seed0024PhaseCoreBridge20261007.centre_row_28": [
+      "propext"
+    ],
+    "Seed0024PhaseCoreBridge20261007.centre_row_29": [
+      "propext"
+    ],
+    "Seed0024PhaseCoreBridge20261007.centre_row_30": [
+      "propext"
+    ],
+    "Seed0024PhaseCoreBridge20261007.centre_row_31": [
+      "propext"
+    ],
+    "Seed0024PhaseCoreBridge20261007.centre_row_32": [
+      "propext"
+    ],
+    "Seed0024PhaseCoreBridge20261007.centre_row_33": [
+      "propext"
+    ],
+    "Seed0024PhaseCoreBridge20261007.centre_row_34": [
+      "propext"
+    ],
+    "Seed0024PhaseCoreBridge20261007.centre_row_35": [
+      "propext"
+    ],
+    "Seed0024PhaseCoreBridge20261007.centre_row_36": [
+      "propext"
+    ],
+    "Seed0024PhaseCoreBridge20261007.centre_row_37": [
+      "propext"
+    ],
+    "Seed0024PhaseCoreBridge20261007.centre_row_38": [
+      "propext"
+    ],
+    "Seed0024PhaseCoreBridge20261007.centre_row_39": [
+      "propext"
+    ],
+    "Seed0024PhaseCoreBridge20261007.centre_row_40": [
+      "propext"
+    ],
+    "Seed0024PhaseCoreBridge20261007.centre_row_41": [
+      "propext"
+    ],
+    "Seed0024PhaseCoreBridge20261007.centre_row_42": [
+      "propext"
+    ],
+    "Seed0024PhaseCoreBridge20261007.centre_row_43": [
+      "propext"
+    ],
+    "Seed0024PhaseCoreBridge20261007.centre_row_44": [
+      "propext"
+    ],
+    "Seed0024PhaseCoreBridge20261007.centre_row_45": [
+      "propext"
+    ],
+    "Seed0024PhaseCoreBridge20261007.centre_row_46": [
+      "propext"
+    ],
+    "Seed0024PhaseCoreBridge20261007.centre_row_47": [
+      "propext"
+    ],
+    "Seed0024PhaseCoreBridge20261007.all_centre_entries_eq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "Seed0024PhaseCoreBridge20261007.centreEntry_eq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "Seed0024PhaseCoreBridge20261007.octantEntry_eq": [
+      "propext"
+    ],
+    "Seed0024PhaseCoreBridge20261007.quarterEntry_eq": [
+      "propext",
+      "Quot.sound"
+    ],
+    "Seed0024PhaseCoreBridge20261007.sparseEntry_eq": [
+      "propext",
+      "Quot.sound"
+    ],
+    "Seed0024PhaseCoreBridge20261007.tableEntry_eq": [
+      "propext",
+      "Quot.sound"
+    ],
+    "Seed0024PhaseCoreBridge20261007.tableEntry_needed_accuracy": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "Seed0024PhaseCoreBridge20261007.rotateQuarter_eq": []
+  },
+  "custom_import_closure": [
+    {
+      "module": "SeedPhaseCore",
+      "file": "lean/SeedPhaseCore.lean",
+      "source_sha256": "5dad0daa20e4728283d90827042ca58888724ce86501c8d68659078f33238e7f",
+      "imports": [
+        "Std"
+      ],
+      "new": false
+    },
+    {
+      "module": "SeedPhaseData",
+      "file": "lean/SeedPhaseData.lean",
+      "source_sha256": "8bee5ce3a98d247d859be97455d33c69abb64c266da57d60df8af74b0ca86567",
+      "imports": [
+        "SeedPhaseCore"
+      ],
+      "new": false
+    },
+    {
+      "module": "ExactInterval",
+      "file": "lean/ExactInterval.lean",
+      "source_sha256": "0afc1b7b425edf8b9525581206a3d044412b5880cebff29cf6c001f75888ba51",
+      "imports": [
+        "Mathlib.Data.Rat.Cast.Order",
+        "Mathlib.Data.Real.Basic",
+        "Mathlib.Tactic.Linarith",
+        "Mathlib.Tactic.Ring",
+        "Mathlib.Tactic.NormNum"
+      ],
+      "new": false
+    },
+    {
+      "module": "SharpPhaseTaylor",
+      "file": "lean/SharpPhaseTaylor.lean",
+      "source_sha256": "0fea9d84e79c848a110b99a38286b8690ed5f72a0d468910a6215082aa4a7787",
+      "imports": [
+        "Mathlib.Analysis.Calculus.MeanValue",
+        "Mathlib.Analysis.Calculus.Deriv.Pow",
+        "Mathlib.Analysis.Complex.RealDeriv",
+        "Mathlib.Analysis.SpecialFunctions.ExpDeriv",
+        "Mathlib.Analysis.Complex.Exponential",
+        "Mathlib.Analysis.Complex.Trigonometric",
+        "Mathlib.Tactic.Ring",
+        "Mathlib.Tactic.FieldSimp",
+        "Mathlib.Tactic.NormNum",
+        "Mathlib.Tactic.Positivity"
+      ],
+      "new": false
+    },
+    {
+      "module": "ExactPhase",
+      "file": "lean/ExactPhase.lean",
+      "source_sha256": "277ae44563fd7e11714437fc4d220ca5cbf4f5fc2a98fabbc6d40e727d9eb5b2",
+      "imports": [
+        "ExactInterval",
+        "SharpPhaseTaylor"
+      ],
+      "new": false
+    },
+    {
+      "module": "PiPhaseBounds",
+      "file": "lean/PiPhaseBounds.lean",
+      "source_sha256": "86298e3c6e7407c6e1c547c373491ee8f118065f9ebdf86ef540638a36449358",
+      "imports": [
+        "ExactPhase",
+        "Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic"
+      ],
+      "new": false
+    },
+    {
+      "module": "WholeBoxPhase",
+      "file": "lean/WholeBoxPhase.lean",
+      "source_sha256": "33d82e780a30bae80fe665fde431a7b69e8abc91bbf6e85f22d31845bda829ee",
+      "imports": [
+        "ExactPhase"
+      ],
+      "new": false
+    },
+    {
+      "module": "EqualAngleTable",
+      "file": "lean/EqualAngleTable.lean",
+      "source_sha256": "6090f7390a3add1685c3e478c8e3a533f060b3332bf7952e07a7b94d8c404f6f",
+      "imports": [
+        "PiPhaseBounds",
+        "WholeBoxPhase"
+      ],
+      "new": false
+    },
+    {
+      "module": "SparseQuarterTable",
+      "file": "lean/SparseQuarterTable.lean",
+      "source_sha256": "51ad91701efcde5c6d0e86b0fa43011d4cdf0bdd764987f20a03cdbdf6a43e11",
+      "imports": [
+        "EqualAngleTable",
+        "Mathlib.Tactic.FinCases"
+      ],
+      "new": false
+    },
+    {
+      "module": "SparseOctantTable",
+      "file": "lean/SparseOctantTable.lean",
+      "source_sha256": "1c8c48a012d4f2d47f1048209f20ff08e52320e048490bd916bf1ffacf51e385",
+      "imports": [
+        "SparseQuarterTable"
+      ],
+      "new": false
+    },
+    {
+      "module": "SparseGridTable",
+      "file": "lean/SparseGridTable.lean",
+      "source_sha256": "da5a7f1f77364ade952db7b72d7efbe9d19e53b2a67653980a6d4f5dd97a4328",
+      "imports": [
+        "EqualAngleTable"
+      ],
+      "new": false
+    },
+    {
+      "module": "ExactComplexExpr",
+      "file": "lean/ExactComplexExpr.lean",
+      "source_sha256": "88d668d2d2a2b7106ba8b4a2bb44f51ec7198d37e78ee8a7b63da285dea09e4b",
+      "imports": [
+        "ExactInterval",
+        "Mathlib.Data.Complex.Basic"
+      ],
+      "new": false
+    },
+    {
+      "module": "IntervalRotation",
+      "file": "lean/IntervalRotation.lean",
+      "source_sha256": "298e9c85daf22f42ef8b2cc7a720228f0a53e0aab6a344805b28a45d71f23971",
+      "imports": [
+        "EqualAngleTable",
+        "ExactComplexExpr"
+      ],
+      "new": false
+    },
+    {
+      "module": "DyadicRotation",
+      "file": "lean/DyadicRotation.lean",
+      "source_sha256": "c582bfcdd4e8e7ee2c3679be8fee2df36baf8e476c02306efce6cfa4d1ed6f1d",
+      "imports": [
+        "IntervalRotation"
+      ],
+      "new": false
+    },
+    {
+      "module": "DyadicChain",
+      "file": "lean/DyadicChain.lean",
+      "source_sha256": "e545dafc4702d3a32dabdb2a651976f4a74e779b82e52ca9d2dffac018cdfa91",
+      "imports": [
+        "DyadicRotation"
+      ],
+      "new": false
+    },
+    {
+      "module": "SparseBaseData",
+      "file": "lean/SparseBaseData.lean",
+      "source_sha256": "b236c1ce0f415a77730361bc317d05c4a568abcc2c2a2d85b7d0d86f12d1681e",
+      "imports": [
+        "DyadicChain"
+      ],
+      "new": false
+    },
+    {
+      "module": "SparseBaseFirst",
+      "file": "lean/SparseBaseFirst.lean",
+      "source_sha256": "7319a29e71e1e7eb22145851feb2a21688f604a1236cecc0b369faccf56de6c6",
+      "imports": [
+        "SparseBaseData"
+      ],
+      "new": false
+    },
+    {
+      "module": "SparseBaseAccuracy",
+      "file": "lean/SparseBaseAccuracy.lean",
+      "source_sha256": "c67872335777df278b0e99fd8192d34574d970bc375be4ffead46fe716df2b1d",
+      "imports": [
+        "SparseBaseFirst"
+      ],
+      "new": false
+    },
+    {
+      "module": "ActualSparseTable",
+      "file": "lean/ActualSparseTable.lean",
+      "source_sha256": "7a166b04a4f1d78386065fcd8eeaa5cb24aebb350bc85f1a55f276644dbf8ba1",
+      "imports": [
+        "SparseOctantTable",
+        "SparseGridTable",
+        "SparseBaseAccuracy"
+      ],
+      "new": false
+    },
+    {
+      "module": "CompactSparseTable",
+      "file": "lean/CompactSparseTable.lean",
+      "source_sha256": "379c26a218c191aa166b2507ffc83eeeda737f12e90f119f74d8727a9fa2288d",
+      "imports": [
+        "ActualSparseTable"
+      ],
+      "new": false
+    },
+    {
+      "module": "CoreOctantDataEquality",
+      "file": "lean/CoreOctantDataEquality.lean",
+      "source_sha256": "0200eb5bd92ebf5d320b143bac0a769570ce67ce54d0e0e983ecc546d91eea09",
+      "imports": [
+        "SeedPhaseData",
+        "CompactSparseTable"
+      ],
+      "new": true
+    },
+    {
+      "module": "Mub6.Basic",
+      "file": "lean/Mub6/Basic.lean",
+      "source_sha256": "ac1e8bb2783d1a38db4a12d76d21457b36a4e2b29e3dbb061ed5328933e0c769",
+      "imports": [
+        "Mathlib.Data.Complex.Basic",
+        "Mathlib.Algebra.BigOperators.Group.Finset.Basic",
+        "Mathlib.Data.Fintype.Basic",
+        "Mathlib.Algebra.BigOperators.Ring.Finset",
+        "Mathlib.Tactic.Ring"
+      ],
+      "new": false
+    },
+    {
+      "module": "FormalCore",
+      "file": "lean/FormalCore.lean",
+      "source_sha256": "3996edc723f71defc7b553d88350a1259f88365fbce328857dc866b8b852a2f0",
+      "imports": [
+        "Mub6.Basic",
+        "Mathlib.LinearAlgebra.Matrix.ConjTranspose",
+        "Mathlib.Data.Matrix.Mul",
+        "Mathlib.Algebra.BigOperators.Fin",
+        "Mathlib.Algebra.BigOperators.Field",
+        "Mathlib.Data.Fintype.Pi",
+        "Mathlib.Tactic.Linarith",
+        "Mathlib.Tactic.NormNum",
+        "Mathlib.Tactic.FinCases"
+      ],
+      "new": false
+    },
+    {
+      "module": "RationalCircleCharts",
+      "file": "lean/RationalCircleCharts.lean",
+      "source_sha256": "01ed873ef91b83a61d43be6d63cbcd02363af20c10b519e43f20b9b042ab3321",
+      "imports": [
+        "FormalCore",
+        "Mathlib.Tactic.FieldSimp"
+      ],
+      "new": false
+    },
+    {
+      "module": "RationalCentreCore",
+      "file": "lean/RationalCentreCore.lean",
+      "source_sha256": "c7ae1f65bbafcc125fa22511725af52c2f1bb80fec0f1bcb776893cdcd656cd2",
+      "imports": [
+        "RationalCircleCharts",
+        "Mathlib.Data.Rat.Cast.Order"
+      ],
+      "new": false
+    },
+    {
+      "module": "GraphKernel",
+      "file": "lean/GraphKernel.lean",
+      "source_sha256": "246ab6f4bedabcb7402f4a12f945b2e82943e3c7fb64825c365066f62bfb8699",
+      "imports": [
+        "FormalCore",
+        "Mathlib.Data.Finset.Card",
+        "Mathlib.Data.Fintype.Card"
+      ],
+      "new": false
+    },
+    {
+      "module": "SizedGraphPair",
+      "file": "lean/SizedGraphPair.lean",
+      "source_sha256": "743b11bee6ac8cee6a044aadca8a01e1b433ba41ff96ecdedb8c03176d652cd6",
+      "imports": [
+        "GraphKernel"
+      ],
+      "new": false
+    },
+    {
+      "module": "LiteralClusterGraph",
+      "file": "lean/LiteralClusterGraph.lean",
+      "source_sha256": "cb8a2307cdbdcfd7f392d38599ef8a8dfc1867f8b4af5a8cda3bbf1be0dd33a7",
+      "imports": [
+        "SizedGraphPair"
+      ],
+      "new": false
+    },
+    {
+      "module": "ExactCentreData",
+      "file": "lean/ExactCentreData.lean",
+      "source_sha256": "a9e95329f2d36536ffd14a914044fc9dc19679ed31b15f14e95c776528c32076",
+      "imports": [
+        "RationalCentreCore",
+        "LiteralClusterGraph"
+      ],
+      "new": false
+    },
+    {
+      "module": "RoundedCentreDataNoInit",
+      "file": "lean/RoundedCentreDataNoInit.lean",
+      "source_sha256": "af28842336f881c0e14a58487ed2808aa45586162ede97b0d62ac3b7894c6761",
+      "imports": [
+        "ExactCentreData",
+        "Mathlib.Data.Rat.Cast.Order"
+      ],
+      "new": false
+    },
+    {
+      "module": "CoreCentreRows00",
+      "file": "lean/CoreCentreRows00.lean",
+      "source_sha256": "6e85131bf00da7f3a20f62137b18dc7293f4c0d3705c83c30786a4791b2c37cc",
+      "imports": [
+        "SeedPhaseData",
+        "RoundedCentreDataNoInit"
+      ],
+      "new": true
+    },
+    {
+      "module": "CoreCentreRows04",
+      "file": "lean/CoreCentreRows04.lean",
+      "source_sha256": "d989ccf521a4120df9fb5a0ad19642bcd653763e883519ac60fd7be2fac81f8b",
+      "imports": [
+        "SeedPhaseData",
+        "RoundedCentreDataNoInit"
+      ],
+      "new": true
+    },
+    {
+      "module": "CoreCentreRows08",
+      "file": "lean/CoreCentreRows08.lean",
+      "source_sha256": "0528ebb1aa88c059baedf39efe59a32e96c7c7a691a8356bb4df09067c92c6b3",
+      "imports": [
+        "SeedPhaseData",
+        "RoundedCentreDataNoInit"
+      ],
+      "new": true
+    },
+    {
+      "module": "CoreCentreRows12",
+      "file": "lean/CoreCentreRows12.lean",
+      "source_sha256": "88cf95cc597c4758006f057fa5250e83a45016f3c6a5673c652f06daa7c1f4b8",
+      "imports": [
+        "SeedPhaseData",
+        "RoundedCentreDataNoInit"
+      ],
+      "new": true
+    },
+    {
+      "module": "CoreCentreRows16",
+      "file": "lean/CoreCentreRows16.lean",
+      "source_sha256": "f57f23cc8254a1b5477a068ef13e60155ee9a65dfe86a568f827682f5d736350",
+      "imports": [
+        "SeedPhaseData",
+        "RoundedCentreDataNoInit"
+      ],
+      "new": true
+    },
+    {
+      "module": "CoreCentreRows20",
+      "file": "lean/CoreCentreRows20.lean",
+      "source_sha256": "a258420aeba421c7f58d43ec0b957ae8f30b9e7edc340c6fffbd19e52e2bd477",
+      "imports": [
+        "SeedPhaseData",
+        "RoundedCentreDataNoInit"
+      ],
+      "new": true
+    },
+    {
+      "module": "CoreCentreRows24",
+      "file": "lean/CoreCentreRows24.lean",
+      "source_sha256": "c2310e96991e7b80e75d88b3af3238168fe3ec6e58a96d2fd80910e5bda565b4",
+      "imports": [
+        "SeedPhaseData",
+        "RoundedCentreDataNoInit"
+      ],
+      "new": true
+    },
+    {
+      "module": "CoreCentreRows28",
+      "file": "lean/CoreCentreRows28.lean",
+      "source_sha256": "5367a2634622cca6b7b5a5e4febb421c0f4e266f4c4007978ff31c07513f768e",
+      "imports": [
+        "SeedPhaseData",
+        "RoundedCentreDataNoInit"
+      ],
+      "new": true
+    },
+    {
+      "module": "CoreCentreRows32",
+      "file": "lean/CoreCentreRows32.lean",
+      "source_sha256": "8f80442612555d091429470aee4eead3a9c0a32bcb9a1fa27c4e99ae1f8e8966",
+      "imports": [
+        "SeedPhaseData",
+        "RoundedCentreDataNoInit"
+      ],
+      "new": true
+    },
+    {
+      "module": "CoreCentreRows36",
+      "file": "lean/CoreCentreRows36.lean",
+      "source_sha256": "0cbb6c410ad2aa39458556ae90723e80fb006a7817f4f030a013e71174c80622",
+      "imports": [
+        "SeedPhaseData",
+        "RoundedCentreDataNoInit"
+      ],
+      "new": true
+    },
+    {
+      "module": "CoreCentreRows40",
+      "file": "lean/CoreCentreRows40.lean",
+      "source_sha256": "b2c130146564d0c70621a7a129ebb29b63c9e2fbce633699a79ac3a43168a451",
+      "imports": [
+        "SeedPhaseData",
+        "RoundedCentreDataNoInit"
+      ],
+      "new": true
+    },
+    {
+      "module": "CoreCentreRows44",
+      "file": "lean/CoreCentreRows44.lean",
+      "source_sha256": "e436599599d7b4a0cd0117e6c02e3defb5e236b738b5e6becb88e4bf4170d52e",
+      "imports": [
+        "SeedPhaseData",
+        "RoundedCentreDataNoInit"
+      ],
+      "new": true
+    },
+    {
+      "module": "CoreDataEqualitiesSplit",
+      "file": "lean/CoreDataEqualitiesSplit.lean",
+      "source_sha256": "1714eff119b129e383d14ccecb2a58e1cfca1b3321b6d49f9349fd3bc16448b9",
+      "imports": [
+        "CoreOctantDataEquality",
+        "CoreCentreRows00",
+        "CoreCentreRows04",
+        "CoreCentreRows08",
+        "CoreCentreRows12",
+        "CoreCentreRows16",
+        "CoreCentreRows20",
+        "CoreCentreRows24",
+        "CoreCentreRows28",
+        "CoreCentreRows32",
+        "CoreCentreRows36",
+        "CoreCentreRows40",
+        "CoreCentreRows44",
+        "Mathlib.Tactic.FinCases"
+      ],
+      "new": true
+    },
+    {
+      "module": "CoreTableBridge",
+      "file": "lean/CoreTableBridge.lean",
+      "source_sha256": "ae9310115c9fbfbce1ae5d0d650573d6f0a54f66d9448e62cd7e4ec3b9deb378",
+      "imports": [
+        "CoreOctantDataEquality"
+      ],
+      "new": true
+    }
+  ],
+  "guard": {
+    "threads": 1,
+    "heap_mib": 2304,
+    "rss_stop_mib": 2816,
+    "minimum_free_disk_gib": 2,
+    "serialized": true,
+    "execution": "Director ran monitored checks for the author."
+  },
+  "toolchain": "Lean4.33.0-rc2/mathlib51e6992efd06126df61a496bebf8f49482a4e129",
+  "independent_review": {
+    "file": "DATA_TABLE_INDEPENDENT_REVIEW.json",
+    "sha256": "f08f657968d6f09ed3661e5526ba9fbecf9bf56a65e1ad1e30e2d7c4cdced40c"
+  },
+  "independent_review_support": {
+    "SOURCE_RECEIPT_AUDIT_57.json": "0eb4e4561e94098bed9330d1b40c2a88cc7da13b1c9b80a482cc5763be36270f",
+    "LITERAL_FIDELITY_CHECK.json": "eaef3151a1da93267724faa9e71b966a4c01a1050330e6bfdd0b09f5315ab758",
+    "audit_data_table.py": "a9c85c7743c3ebba3e35a29bec685edf74b15b7a81766c90d73e88651ae43bfa"
+  },
+  "historical_failure": {
+    "check": "check-core-data-01",
+    "source_sha256": "583f93f91396ca166a7edf88110c30740c1318ca54ac0b87eb77229971941fec",
+    "preserved": true,
+    "included_as_proof": false
+  },
+  "excluded_variant": {
+    "file": "data-split/uncompiled-alternative/CoreDataEqualitiesSplitNoOctant.lean",
+    "reason": "Uncompiled import-only variant; successful frozen assembly is authoritative."
+  },
+  "remaining": [
+    "Leaf-check refinement and typed witness tape refinement are separate obligations.",
+    "No complete finite forest acceptance is asserted by this data/lookup packet."
+  ],
+  "new_lean_closed_boxes": 0,
+  "complete_forest_accepted": false,
+  "full_no_four_mub_theorem_proved": false
+}
