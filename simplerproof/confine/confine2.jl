@@ -11,7 +11,7 @@
 const CODE = ARGS[1]
 include(joinpath(CODE, "Campaign", "driver.jl"))
 const C0 = parse(Float64, ARGS[4]); const RT = parse(Float64, ARGS[5]); const MAXL = parse(Int, ARGS[6])
-const SPLITS = parse(Int, get(ENV, "CONFINE_SPLITS", "3"))     # s pieces: 1, 2, 4, ... up to 2^SPLITS
+const SPLITS = parse(Int, get(ENV, "CONFINE_SPLITS", "6"))     # adaptive s-bisection depth
 
 include(joinpath(@__DIR__, "confine_common.jl"))
 include(joinpath(@__DIR__, "qmonomials.jl"))
@@ -105,29 +105,32 @@ function test_enclosure(HT, R0sup = Inf)
     :keep
 end
 
+"""Adaptive s-bisection: every piece of [lo, hi] must exit (D0_out or Ball); returns :D0_out, :Ball, :Mixed or :keep."""
 function split_test(θ, ρe, rb, q)
     lo = sqrt(max(inf(rb), 0.0)); hi = sqrt(max(sup(rb), 0.0))
-    for j in 0:SPLITS
-        n = 2^j; ok = true; kinds = Symbol[]
-        for k in 1:n
-            # pieces in s, outward-rounded endpoints
-            a = lo + (hi - lo) * (k - 1) / n; b = lo + (hi - lo) * k / n
-            S = interval(prevfloat(max(a, 0.0)), nextfloat(b))
-            HT = try hplus_tm_s(θ, ρe, S; q = q) catch e; e isa ErrorException ? nothing : rethrow() end
-            HT === nothing && (ok = false; break)
-            r = test_enclosure(HT, sup(rb))
-            r == :keep && (ok = false; break)
-            push!(kinds, r)
+    kinds = Symbol[]
+    function piece(a, b, depth)
+        S = interval(prevfloat(max(a, 0.0)), nextfloat(b))
+        HT = try hplus_tm_s(θ, ρe, S; q = q) catch e; e isa ErrorException ? nothing : rethrow() end
+        r = HT === nothing ? :keep : test_enclosure(HT, sup(rb))
+        if r != :keep
+            push!(kinds, r); return true
         end
-        ok && return (:D0_out in kinds) ? (all(==(:D0_out), kinds) ? :D0_out : :Mixed) : :Ball
+        depth >= SPLITS && return false
+        m = (a + b) / 2
+        piece(a, m, depth + 1) && piece(m, b, depth + 1)
     end
-    :keep
+    piece(lo, hi, 0) || return :keep
+    all(==(:D0_out), kinds) ? :D0_out : (all(==(:Ball), kinds) ? :Ball : :Mixed)
 end
 
 function classify(θ, L)
     ρe = enl(pi / 2^L)
     (try f_test(θ, ρe) catch; :maybe end) == :out && return :F_out
-    rb = try rbounds(θ, ρe) catch; nothing end
+    rb = try rbounds(θ, ρe) catch e
+        get(ENV, "CONFINE_DEBUG", "0") == "1" && L == MAXL && println(stderr, "RBFAIL θ=", round.(θ, digits = 6), " ", sprint(showerror, e)[1:min(end, 160)])
+        nothing
+    end
     rb === nothing && return :keep
     sup(rb) <= 0 && return :Rneg_out
     inf(rb) >= C0 && return :Rhigh_out
