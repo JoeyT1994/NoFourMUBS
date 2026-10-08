@@ -1,0 +1,124 @@
+{
+  "schema": "sanitized-independent-semantic-review-projection-v1",
+  "original_review_sha256": "a99167e89ecf2b12121694e792e5c34ab73b83aa4aafda3ad7cf819d548812c3",
+  "original_status": "PASS_SCOPED_ACTUAL_PRESCRIBED_PHASE_ALIGNMENT",
+  "independent_author_and_reviewer": true,
+  "projection_notice": "Semantic findings and scoped exclusions below are retained from this particular review. Earlier exclusions describe the earlier module only; STATUS.json and the final review state this collection's final scope. Original host paths, timestamps and operating records are omitted.",
+  "reviewed_modules": [
+    "PreRhoActualBindings",
+    "PreRhoAlignmentActual"
+  ],
+  "reviewed_artifacts": [
+    {
+      "module": "PreRhoActualBindings",
+      "file": "lean/PreRhoActualBindings.lean",
+      "source_sha256": "b6c73061f4c3552ce6bf61ece85368add1ad8c6dcf7d498b676f5dfbc218672f",
+      "bytes": 5780,
+      "checked_object": {
+        "sha256": "f1c8a3a4b2a0f4bd4ccf1c80298a456749db1f035257fc48962b612ae53b659c",
+        "bytes": 1279176
+      },
+      "original_receipt": {
+        "sha256": "72cb35c36736adcf97a88463e45ffba61de7c9ff822f52e3ac3fd56aa69e5a5a",
+        "bytes": 297
+      },
+      "original_axiom_log": {
+        "sha256": "89f21a662456d02160a11961176a800b6eb18d3ed83c0a82da32fc31af605954",
+        "bytes": 1706
+      },
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.actualAlignmentData_scalar_bindings",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.actualAlignmentData_P_bindings",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.sideZ_moments",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.actual_lambda_polynomial_bindings",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.actual_cleared_alignment_zero",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "PreRhoAlignmentActual",
+      "file": "lean/PreRhoAlignmentActual.lean",
+      "source_sha256": "12e3f9c55cd06b1f6bd57a24489e6bb65ae5fda45126ff5252171eb4b64cf40e",
+      "bytes": 6109,
+      "checked_object": {
+        "sha256": "d310a0c10201f6b88df824fa431cfa711e42dabf5a0c9c073d58e93e529a1bf8",
+        "bytes": 1170440
+      },
+      "original_receipt": {
+        "sha256": "3afd11f6ecda6f04bb6942af5572c2c55a16c287fb22e48b9544a932ed19d70b",
+        "bytes": 296
+      },
+      "original_axiom_log": {
+        "sha256": "8bad37706487544834a677009018895851f2332d8e50ea254ea58cfc08f3dd2c",
+        "bytes": 233
+      },
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.twentyseven_preRhoWithLambdas",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.preRho_phase_alignment",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    }
+  ],
+  "semantic_checks": [
+    "The formal gramData is specialized to the actual s,conj s,t,conj t,r,conj r expressions; real g,eta,chi and all P factors are proved equal to the previous constructor definitions.",
+    "R>0 supplies nonzero g and P0,P1,P2 via checked scalar guards; epsilon squared equals1 retains both algebraic sheets. No denominators are canceled without these proofs.",
+    "Sheet sum and product moments are consequences of the literal radical sideZ and the prior norm theorem, not new numerical hypotheses.",
+    "The final numerator is exactly n*gamma-2*alpha*k with mu=s/3, nu=t/3, n=1-|mu|², k=r/3-nu*conj(mu), alpha=mu²-u*conj(mu), gamma=2mu*nu-z*lambda0/3 as RECONSTRUCTION.md lines97–102 specify.",
+    "The final phase is exactly prescribedLambda0*conj(prescribedLambda1)*conj(prescribedLambda2). Equivalence to normalized lambdas is discharged by prior checked identities.",
+    "preRho_phase_alignment proves A=U*conj(A) for these literal inputs under only R>0 and epsilon²=1, by exact polynomial cancellation and unit-phase identities.",
+    "No constructor-exhaustion, positive completion, dF reality, norm discriminant or physical exclusion claim is imported as an axiom."
+  ],
+  "scope_limitations": [
+    "dF reality and discriminant, rho and full matrix reconstruction remain to be joined.",
+    "No complete radius ball, phase forest, physical box closure or no-four-MUB theorem follows from these7 scoped declarations alone.",
+    "Inherited Mathlib source/cache authenticity caveat remains; no full library rebuild."
+  ],
+  "selected_printed_roots": 7
+}

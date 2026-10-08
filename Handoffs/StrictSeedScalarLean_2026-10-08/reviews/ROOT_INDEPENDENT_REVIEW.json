@@ -1,0 +1,130 @@
+{
+  "schema": "sanitized-independent-semantic-review-projection-v1",
+  "original_review_sha256": "58b7c4bd6cf66da296410aa432182b209a15a21bbf9c55eea377d1570c293619",
+  "original_status": "PASS_SCOPED_INITIAL_MC3_GUARDS",
+  "independent_author_and_reviewer": true,
+  "projection_notice": "Semantic findings and scoped exclusions below are retained from this particular review. Earlier exclusions describe the earlier module only; STATUS.json and the final review state this collection's final scope. Original host paths, timestamps and operating records are omitted.",
+  "reviewed_modules": [
+    "StrictSideScalarGuards",
+    "StrictSeedGuards"
+  ],
+  "reviewed_artifacts": [
+    {
+      "module": "StrictSideScalarGuards",
+      "file": "lean/StrictSideScalarGuards.lean",
+      "source_sha256": "9fa3fa47f481d1937fe2af47838460df3c0706b9ea7c47b0bb15db774f7b3c9c",
+      "bytes": 5848,
+      "checked_object": {
+        "sha256": "67fdf55064ad99f69535a8232d14aa27d6dff00883c36d32505f12584e8a0e41",
+        "bytes": 2305888
+      },
+      "original_receipt": {
+        "sha256": "59eea5a5d30d7d66563bf968df6f608c70d0cdb5e9560f66a1a4ef8314b67457",
+        "bytes": 296
+      },
+      "original_axiom_log": {
+        "sha256": "30316dde0a0c97e4f98c96ff245075fe9961e16b2162802edbe47d715e002b36",
+        "bytes": 3076
+      },
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.sideP0_normSq",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.sideP1_normSq",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.sideP2_normSq",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.strict_sideP_nonzero",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.strict_scalar_positive_branch",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "StrictSeedGuards",
+      "file": "lean/StrictSeedGuards.lean",
+      "source_sha256": "d0d72b40ac259f53947242634c343989ba9fc064024b3e93b078c974e6b61f9c",
+      "bytes": 5221,
+      "checked_object": {
+        "sha256": "25d1e85aa002a08dc36ff887780ace70664d1b9d9c995863788bab21a94087f1",
+        "bytes": 413056
+      },
+      "original_receipt": {
+        "sha256": "1627c3f371a05dc2a8c44e60f9d5673cbb07d88fa29f7e7bdb9f0c0c40eb3721",
+        "bytes": 295
+      },
+      "original_axiom_log": {
+        "sha256": "a2e66d64a6dc708286adc5a90b7b4781ca60d742027931c3a6e292f01e40ca0e",
+        "bytes": 2441
+      },
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.seed_complement_determinant",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.dephased_seed_correlations",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.strict_seed_initial_guards",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    }
+  ],
+  "semantic_findings": [
+    "gramInvariant is literally the campaign polynomial R=4g^2 eta-chi^2; no surrogate R is used.",
+    "P0/P1/P2 norm-square identities and cleared-square positivity are proved rather than assumed. R>0 is sufficient for P nonvanishing.",
+    "Positive g uses the determinant of the actual entrywise-unit 3 by 3 seed, not an assumed positive branch or an assumed completion.",
+    "seedS/seedT/seedR are the negative lower row-Gram entries. Explicit dephased corner identities match the dossier four variables and conjugations.",
+    "EntrywiseUnit is the only seed hypothesis besides R>0. No product-regular, inverse, nonzero-divisor or construction assumption has been added.",
+    "Used Hadamard6 rowGram_diagonal_three and det_eq_of_hermitian_diagonal_three were inspected directly: finite sums, Hermitian entries and exact determinant expansion. Their source/object/receipt bindings are retained by SOURCE_PINS and RUNTIME_MC3."
+  ],
+  "admitted_scope": "The eight printed roots and their transitive supporting lemmas for initial MC3 guards. No complete MC3, positive definite matrix theorem, lambda/delta/rho/sigma guards, global coverage or no-four theorem admitted.",
+  "inherited_limitations": [
+    "Existing pinned Mathlib source/cache authenticity caveat: no clean full library rebuild has been performed."
+  ],
+  "selected_printed_roots": 8
+}

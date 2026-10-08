@@ -1,0 +1,158 @@
+{
+  "schema": "sanitized-independent-semantic-review-projection-v1",
+  "original_review_sha256": "9b1e1321ef811823bcc01f42b40adb73db74600765ac478459910d3cd24e928e",
+  "original_status": "PASS_SCOPED_UNIVERSAL_ALIGNMENT_POLYNOMIAL",
+  "independent_author_and_reviewer": true,
+  "projection_notice": "Semantic findings and scoped exclusions below are retained from this particular review. Earlier exclusions describe the earlier module only; STATUS.json and the final review state this collection's final scope. Original host paths, timestamps and operating records are omitted.",
+  "reviewed_modules": [
+    "PreRhoAlignmentDefs",
+    "PreRhoAlignmentResidual0",
+    "PreRhoAlignmentResidual1",
+    "PreRhoAlignmentPolynomial"
+  ],
+  "reviewed_artifacts": [
+    {
+      "module": "PreRhoAlignmentDefs",
+      "file": "lean/PreRhoAlignmentDefs.lean",
+      "source_sha256": "9636d93b3569b9dccb1f8571d9c4ff51895ad0dd19165c1772184d2bad8dfa76",
+      "bytes": 4685,
+      "checked_object": {
+        "sha256": "bc07ca738db3b36334df77e38027920c81524f3da59eabd0a80efd954f536c0c",
+        "bytes": 1413584
+      },
+      "original_receipt": {
+        "sha256": "feefe8cf905182fa9c57fcb73f0fd61a6e7d5a91cb99bb959779c8691866f385",
+        "bytes": 296
+      },
+      "original_axiom_log": {
+        "sha256": "70503fb43e9633ba0e33390034cce55c2ee6e5127e3e657fe7252ff0e5b124e0",
+        "bytes": 212
+      },
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.PreRhoAlignment.remainder0_factor",
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.PreRhoAlignment.remainder1_factor",
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "PreRhoAlignmentResidual0",
+      "file": "lean/PreRhoAlignmentResidual0.lean",
+      "source_sha256": "761ddbbae4a35acce8293a95ef8b47e5e8a3a119c3cd4e8af3deb05f547e1075",
+      "bytes": 528,
+      "checked_object": {
+        "sha256": "e22d9282d29395e0bfd78946b9334c1df3d557d0563b8fd79f22b97d815e1c3d",
+        "bytes": 5460200
+      },
+      "original_receipt": {
+        "sha256": "cc39b396c051fd933e829cc51821c7118052d3ea002006400a3622ee27a1c7c6",
+        "bytes": 297
+      },
+      "original_axiom_log": {
+        "sha256": "02c23213d5eb44d55ff98981655b78531dfc97b378ec9ca322f6c675c6ce4aa9",
+        "bytes": 103
+      },
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.PreRhoAlignment.residual0_zero",
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "PreRhoAlignmentResidual1",
+      "file": "lean/PreRhoAlignmentResidual1.lean",
+      "source_sha256": "24357da6f6da7385d0126c2c7dbeeecb588dce11d91d8fe82378e7a6096593fb",
+      "bytes": 528,
+      "checked_object": {
+        "sha256": "87f2c145d2d1ffe73f5fc080b1688639aaab484ab35098496a8147f303fa880a",
+        "bytes": 3215008
+      },
+      "original_receipt": {
+        "sha256": "66bb1e7a52638afb8b57897d3fa1c5d3144d278c8c392ef966c4b04c84ea520e",
+        "bytes": 297
+      },
+      "original_axiom_log": {
+        "sha256": "9e6ac09e1780511710890a503879903b53957d0cd6fe9301c2d9b5d2693912af",
+        "bytes": 103
+      },
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.PreRhoAlignment.residual1_zero",
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "PreRhoAlignmentPolynomial",
+      "file": "lean/PreRhoAlignmentPolynomial.lean",
+      "source_sha256": "d175ca01d671cdd9ccddbac8ad9c61b7eeaaac0c93a796ad407d5b0f3a22fe91",
+      "bytes": 2105,
+      "checked_object": {
+        "sha256": "460ee8e38d4e25b4f8b60a25e7614fdc2185ad51cfdc0692d6d079c6be206605",
+        "bytes": 134512
+      },
+      "original_receipt": {
+        "sha256": "a280c5dc12a1bb2cdacc7227da72748b752a4ce073330cd24419e4c2f08df684",
+        "bytes": 296
+      },
+      "original_axiom_log": {
+        "sha256": "b7e8d560ff4cf58efb3e86129bbf23b0388cca655f5801c5342378728d7d65f4",
+        "bytes": 332
+      },
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.PreRhoAlignment.remainder0_zero",
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.PreRhoAlignment.remainder1_zero",
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.PreRhoAlignment.cleared_eq_zero",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    }
+  ],
+  "semantic_checks": [
+    "Data is explicitly parameterized over an arbitrary commutative ring; no complex conjugation or physical assumptions are hidden in a typeclass.",
+    "The two remainder factor identities hold for every Data record, and each residual vanishes identically for gramData in six independent formal variables.",
+    "The final cleared_eq_zero theorem has exactly three explicit scalar premises: g is nonzero, g times (z+Z) equals chi, and z times Z equals eta; IsDomain is used only for zero-product cancellation.",
+    "The quadratic relation follows by the checked linear combination z*hsum-g*hprod, then the cubic expression reduces by the checked polynomial identity and both zero remainders.",
+    "All four source copies match the successful fixed-guard compiler outputs; standard axiom audits include transitive proofs."
+  ],
+  "scope_limitations": [
+    "This is the finite algebraic base, not yet its actual conjugate/lambda binding.",
+    "No claim of full MC3 reconstruction, physical exclusion, phase forest completion or no-four-MUB theorem.",
+    "Inherited Mathlib source/cache authenticity caveat remains; no clean full-library rebuild."
+  ],
+  "selected_printed_roots": 7
+}

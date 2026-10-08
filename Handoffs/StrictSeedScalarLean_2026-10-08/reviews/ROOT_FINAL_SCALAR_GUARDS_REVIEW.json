@@ -1,0 +1,139 @@
+{
+  "schema": "sanitized-independent-semantic-review-projection-v1",
+  "original_review_sha256": "0966e3b19f28a324d8600df08bc6c2fb41d5a7027d0c4c8779f6d02b66ec2642",
+  "original_status": "PASS_ACTUAL_STRICT_SEED_SCALAR_GUARDS_WITH_EXISTENCE",
+  "independent_author_and_reviewer": true,
+  "projection_notice": "Semantic findings and scoped exclusions below are retained from this particular review. Earlier exclusions describe the earlier module only; STATUS.json and the final review state this collection's final scope. Original host paths, timestamps and operating records are omitted.",
+  "reviewed_modules": [
+    "StrictSideFinalGuards",
+    "StrictSideOrientedRoot"
+  ],
+  "reviewed_artifacts": [
+    {
+      "module": "StrictSideFinalGuards",
+      "file": "lean/StrictSideFinalGuards.lean",
+      "source_sha256": "8fecb574a563ec3d063a171b9eb15f309cf2ea66d3273f043ebef52f7697b246",
+      "bytes": 9330,
+      "checked_object": {
+        "sha256": "a99370d7a04f22f63695cffe699633a7a003db959fab61f520559da3d1392b3a",
+        "bytes": 378880
+      },
+      "original_receipt": {
+        "sha256": "699200b0c69f5801d4a292e969a9d194e89d63e08b7ea758beeddc8954b1f4ec",
+        "bytes": 296
+      },
+      "original_axiom_log": {
+        "sha256": "7d314a1dc6be0c3911aa2ce89ec397cb8fb7e3bc70d45a64b8350e12ed1cde37",
+        "bytes": 1253
+      },
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.prescribed_dF_real_discriminant",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.prescribed_delta_orientable",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.prescribed_rho_guard",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.prescribed_sigma_xi_guards",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.strict_seed_final_guards",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "StrictSideOrientedRoot",
+      "file": "lean/StrictSideOrientedRoot.lean",
+      "source_sha256": "10ab456eb962c653d7ccdd236aad26f9f348895f50e4ec18a537a4a0f0138574",
+      "bytes": 4909,
+      "checked_object": {
+        "sha256": "a575a3b9a84e9071699c6b5a377184c1636bc9e8676d0b57aaa881fc99dfce6a",
+        "bytes": 415496
+      },
+      "original_receipt": {
+        "sha256": "cfc4c824e13803caa237625125d41aee34b0fee9c9fdba05ae5033c26b73b65d",
+        "bytes": 296
+      },
+      "original_axiom_log": {
+        "sha256": "1db1dca947ddbb10fbdc9c539bfc09656be0f5c1e5576fd61e52455ab5f030dc",
+        "bytes": 874
+      },
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.complex_square_root_of_positive_normSq",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.prescribed_oriented_delta_exists",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.prescribed_zero_dF_neg_oriented",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.strict_seed_oriented_guards_exist",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    }
+  ],
+  "semantic_checks": [
+    "prescribedDF is literally (27/g)*A*conj(delta), and its imaginary part and squared real part are derived from the actual alignment and norm identities, with delta nonzero proved before cancellation.",
+    "The first guarded lemma records hd and orientation ho explicitly. A separate existential lemma proves an actual square root and chooses its sign; the final strict-seed existential theorem has neither premise.",
+    "The elementary square-root proof covers q+Re(z)=0 separately and the positive branch with a nonzero real denominator; q>0 comes from g>0.",
+    "At dF=0, the negative delta keeps zero real part. No zero-sign branch is discarded.",
+    "rho positivity follows from n>0 and the chosen nonnegative dF. The quadratic equation is derived, then the previous sigma identity gives normSq(sigma)=rho and sigma nonzero; xi has normSq1.",
+    "The final strict_seed_oriented_guards_exist quantifies every entrywise-unit3x3 E with the literal seed Gram invariantR>0 and every epsilon with epsilon²=1; g>0,n>0,delta existence/orientation,rho positivity,sigma nonzero and xi-unit properties are conclusions. No completion, productregularity or polynomial-certificate hypothesis is introduced."
+  ],
+  "scope_limitations": [
+    "This closes the scalar guard segment of the constructor. The matrix identities3MM†=G, the side phase-gate form and completeness/exhaustion are still separate obligations.",
+    "No radius exclusion, physical box closure, global atlas coverage or no-four-MUB theorem is claimed here.",
+    "Inherited Mathlib source/cache authenticity caveat remains; no clean full-library rebuild."
+  ],
+  "selected_printed_roots": 9
+}

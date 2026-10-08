@@ -1,0 +1,44 @@
+{
+  "schema": "sanitized-successful-check-projection-v1",
+  "module": "PreRhoNormPolynomial",
+  "success": true,
+  "exit_code": 0,
+  "source_sha256": "87a2d52717bc549b92dbbceeaa05cda81ea7483a2d36590987fea9a47f632a2c",
+  "original_receipt": {
+    "sha256": "e358ca91255721b973ed23bfd5d26794445c836b03c61a928ee013504f9f05d6",
+    "bytes": 297
+  },
+  "checked_object": {
+    "sha256": "e64670821e40c8e1f6c797704819505347e92352db4a01ccb8a6258ee0e14f62",
+    "bytes": 121368
+  },
+  "original_axiom_log": {
+    "sha256": "37fe8030cd0ffc6686a442132c18859ad11562bec7a45327f54f7a5ad5b7c14a",
+    "bytes": 315
+  },
+  "selected_roots": [
+    {
+      "declaration": "StrictReconstruction20261007.PreRhoNorm.remainder0_zero",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ]
+    },
+    {
+      "declaration": "StrictReconstruction20261007.PreRhoNorm.remainder1_zero",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ]
+    },
+    {
+      "declaration": "StrictReconstruction20261007.PreRhoNorm.cleared_eq_zero",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    }
+  ],
+  "dependency_caveat": "Existing checks reused pinned Lean/Mathlib/custom objects. No clean full-library source/cache rebuild or fresh relocated replay is claimed."
+}

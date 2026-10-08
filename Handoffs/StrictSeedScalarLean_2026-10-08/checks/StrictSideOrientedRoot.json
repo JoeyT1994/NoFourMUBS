@@ -1,0 +1,54 @@
+{
+  "schema": "sanitized-successful-check-projection-v1",
+  "module": "StrictSideOrientedRoot",
+  "success": true,
+  "exit_code": 0,
+  "source_sha256": "10ab456eb962c653d7ccdd236aad26f9f348895f50e4ec18a537a4a0f0138574",
+  "original_receipt": {
+    "sha256": "cfc4c824e13803caa237625125d41aee34b0fee9c9fdba05ae5033c26b73b65d",
+    "bytes": 296
+  },
+  "checked_object": {
+    "sha256": "a575a3b9a84e9071699c6b5a377184c1636bc9e8676d0b57aaa881fc99dfce6a",
+    "bytes": 415496
+  },
+  "original_axiom_log": {
+    "sha256": "1db1dca947ddbb10fbdc9c539bfc09656be0f5c1e5576fd61e52455ab5f030dc",
+    "bytes": 874
+  },
+  "selected_roots": [
+    {
+      "declaration": "StrictReconstruction20261007.complex_square_root_of_positive_normSq",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "declaration": "StrictReconstruction20261007.prescribed_oriented_delta_exists",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "declaration": "StrictReconstruction20261007.prescribed_zero_dF_neg_oriented",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "declaration": "StrictReconstruction20261007.strict_seed_oriented_guards_exist",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    }
+  ],
+  "dependency_caveat": "Existing checks reused pinned Lean/Mathlib/custom objects. No clean full-library source/cache rebuild or fresh relocated replay is claimed."
+}

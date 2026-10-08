@@ -1,0 +1,124 @@
+{
+  "schema": "sanitized-independent-semantic-review-projection-v1",
+  "original_review_sha256": "7bc3186500acd77b65781bd758041df73811bbc21872e3e423bbc02829cab236",
+  "original_status": "PASS_SCOPED_ACTUAL_PRESCRIBED_NORM_IDENTITY",
+  "independent_author_and_reviewer": true,
+  "projection_notice": "Semantic findings and scoped exclusions below are retained from this particular review. Earlier exclusions describe the earlier module only; STATUS.json and the final review state this collection's final scope. Original host paths, timestamps and operating records are omitted.",
+  "reviewed_modules": [
+    "PreRhoNormBindings",
+    "PreRhoNormActual"
+  ],
+  "reviewed_artifacts": [
+    {
+      "module": "PreRhoNormBindings",
+      "file": "lean/PreRhoNormBindings.lean",
+      "source_sha256": "c68d1249b0050dcc400fb599751ce5a3aa3d94d2737377b583ce69a49be9546c",
+      "bytes": 5502,
+      "checked_object": {
+        "sha256": "906d323f24a1cb2f3da69869022d32b0af917b9fd6a7da25a1b2f4fff0377e20",
+        "bytes": 625984
+      },
+      "original_receipt": {
+        "sha256": "305d2ab4736e496337f6bcf318d0cd9fc8e9164884564316def91b997c8331a5",
+        "bytes": 296
+      },
+      "original_axiom_log": {
+        "sha256": "b709f9cecfeaef2147b4191881cc58da9249731900cb07ec32f2627a8989f2d1",
+        "bytes": 477
+      },
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.actualNormData_P_bindings",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.actual_norm_conjugate_lambda_bindings",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.actual_cleared_norm_zero",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.actual_norm_residual_zero",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "PreRhoNormActual",
+      "file": "lean/PreRhoNormActual.lean",
+      "source_sha256": "19b886e0413e4580cd36ee7140276562503a2ef713e4e9680f772ce0b3a60795",
+      "bytes": 6675,
+      "checked_object": {
+        "sha256": "998ecda1e5c1367e8b4dda22a871819dbb34981b27c5a2a5cc3975f9f60da01d",
+        "bytes": 1081432
+      },
+      "original_receipt": {
+        "sha256": "aeb9439f39c987caf447ae664f6ff848fc0808e0aaa0399eab7f216e263b174d",
+        "bytes": 297
+      },
+      "original_axiom_log": {
+        "sha256": "a9e008dcf1d9040a2af6ffb01edc2f9f22b2fe6564dfb3678e949beb6a3d5e2f",
+        "bytes": 848
+      },
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.actual_B_norm_identity",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.preRho_discriminant_expansion",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.preRho_norm_identity",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    }
+  ],
+  "semantic_checks": [
+    "The actualNormData source is the checked six-formal-variable certificate specialized to complex conjugates; it shares its a field definitionally with actualAlignmentData.",
+    "The four cleared lambda equations are consequences of the prescribed formulas and nonzero P0/P1. All four factors canceled in the residual are proved nonzero on R>0.",
+    "The norm_B_polynomial_identity uses explicit unit products and z*conj z=eta and preserves all cross terms and conjugates.",
+    "The actual complex B norm is rewritten through the checked identity B=27A; the prescribed-lambda equivalence is discharged.",
+    "The small discriminant expansion retains the explicit correction term -12|s|²(|u|²-1) until |u|²=1 is proved from actual lambda units.",
+    "The final conclusion is literally normSq(preRhoNumerator)=(gramG/27)*(preRhoN²-4*normSq(preRhoAlpha)) under only R>0 and epsilon²=1. No norm identity is retained as an assumption.",
+    "All successful sources match immutable compiler copies; all selected theorem axioms are standard and include the helper identities transitively."
+  ],
+  "scope_limitations": [
+    "Realness of dF, square-root orientation, positive rho and full matrix construction remain separate joins.",
+    "No physical completion/exclusion or global theorem is asserted by this identity.",
+    "Inherited Mathlib cache/source authenticity caveat remains; no clean full-library rebuild."
+  ],
+  "selected_printed_roots": 7
+}

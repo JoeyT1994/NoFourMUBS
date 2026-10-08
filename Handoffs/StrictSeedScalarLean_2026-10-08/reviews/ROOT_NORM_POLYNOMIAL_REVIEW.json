@@ -1,0 +1,222 @@
+{
+  "schema": "sanitized-independent-semantic-review-projection-v1",
+  "original_review_sha256": "51cd240bdbfb503a338d49a54f003d0415293c5c10fd75c7a0884dd9d9303880",
+  "original_status": "PASS_SCOPED_UNIVERSAL_NORM_POLYNOMIAL",
+  "independent_author_and_reviewer": true,
+  "projection_notice": "Semantic findings and scoped exclusions below are retained from this particular review. Earlier exclusions describe the earlier module only; STATUS.json and the final review state this collection's final scope. Original host paths, timestamps and operating records are omitted.",
+  "reviewed_modules": [
+    "PreRhoNormDefs",
+    "PreRhoNormAtoms",
+    "PreRhoNormResidual0",
+    "PreRhoNormResidual1",
+    "PreRhoNormPolynomial"
+  ],
+  "reviewed_artifacts": [
+    {
+      "module": "PreRhoNormDefs",
+      "file": "lean/PreRhoNormDefs.lean",
+      "source_sha256": "c7e8294c8294507f596253e5ea3f9b31cd1d7a087dcb724c7bd782292c8abfe9",
+      "bytes": 5291,
+      "checked_object": {
+        "sha256": "564306c70f2047462d73bd2f8a254696868bd21cf0d6ba8c1bb11817141db46e",
+        "bytes": 1500832
+      },
+      "original_receipt": {
+        "sha256": "3ef178368be472e4d365db439dcca1afdfae532630b21f8b7028f39d76aa18a9",
+        "bytes": 297
+      },
+      "original_axiom_log": {
+        "sha256": "ec62e299637fd610bb19ae92679e517bee27c03f4923ed72914044a319377ef9",
+        "bytes": 202
+      },
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.PreRhoNorm.remainder0_factor",
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.PreRhoNorm.remainder1_factor",
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "PreRhoNormAtoms",
+      "file": "lean/PreRhoNormAtoms.lean",
+      "source_sha256": "a5cfa0ef600b4f5963f823d5da2c53c08fdd59ee1e97da336d5c9b448b129fa2",
+      "bytes": 2789,
+      "checked_object": {
+        "sha256": "3aef666188e89acc4c3b116b177ec576116ad672e962e3c97f4574fb2da44833",
+        "bytes": 3113504
+      },
+      "original_receipt": {
+        "sha256": "1215680c0984189612b7ff468328514adcb98bfe7bdf24d20064c96b6d55c6e4",
+        "bytes": 297
+      },
+      "original_axiom_log": {
+        "sha256": "de02c22e47c1237821eee2b66f6590f714f27aeb1b17d98cdcc0f2c7444e7569",
+        "bytes": 589
+      },
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.PreRhoNorm.m0_factor",
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.PreRhoNorm.mu_factor",
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.PreRhoNorm.mubar_factor",
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.PreRhoNorm.left_bracket_factor",
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.PreRhoNorm.right_bracket_factor",
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.PreRhoNorm.reduced_sum_zero",
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "PreRhoNormResidual0",
+      "file": "lean/PreRhoNormResidual0.lean",
+      "source_sha256": "a0c2e1570c911f2dddbba5ec63f7d17b352a42d24fce7067abe23c9f8decdf35",
+      "bytes": 2198,
+      "checked_object": {
+        "sha256": "c00fb779a5f7e350dc62718cc1c41bec87ce2ec9f04c5066d9849876bf7037c0",
+        "bytes": 296088
+      },
+      "original_receipt": {
+        "sha256": "0d619899e8570a7021b6dc8390cf950e2008dc62e28a17ea788271b4655220a8",
+        "bytes": 297
+      },
+      "original_axiom_log": {
+        "sha256": "24462199ab4819242030fd995a6523bbf2ed601c7bf8a2f6c082849fe91b67d5",
+        "bytes": 98
+      },
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.PreRhoNorm.residual0_zero",
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "PreRhoNormResidual1",
+      "file": "lean/PreRhoNormResidual1.lean",
+      "source_sha256": "a9cf8a0ae510b3b407b62a4dd83d843b6711b54fdac84c33fbd4c33010a35206",
+      "bytes": 543,
+      "checked_object": {
+        "sha256": "028663839b611860ac4b0747e36f02992fb0451494c416e0ff805b9fe478d067",
+        "bytes": 5295920
+      },
+      "original_receipt": {
+        "sha256": "4e026bed28cc555fc9b347d6e6af3641d83bf6da13b98b5c3bb70186b783a146",
+        "bytes": 296
+      },
+      "original_axiom_log": {
+        "sha256": "72354aba20faa5c78236db2a2ecdc379562c5d6ee13b440907414157407d959d",
+        "bytes": 562
+      },
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.PreRhoNorm.residual1_zero",
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "PreRhoNormPolynomial",
+      "file": "lean/PreRhoNormPolynomial.lean",
+      "source_sha256": "87a2d52717bc549b92dbbceeaa05cda81ea7483a2d36590987fea9a47f632a2c",
+      "bytes": 1887,
+      "checked_object": {
+        "sha256": "e64670821e40c8e1f6c797704819505347e92352db4a01ccb8a6258ee0e14f62",
+        "bytes": 121368
+      },
+      "original_receipt": {
+        "sha256": "e358ca91255721b973ed23bfd5d26794445c836b03c61a928ee013504f9f05d6",
+        "bytes": 297
+      },
+      "original_axiom_log": {
+        "sha256": "37fe8030cd0ffc6686a442132c18859ad11562bec7a45327f54f7a5ad5b7c14a",
+        "bytes": 315
+      },
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.PreRhoNorm.remainder0_zero",
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.PreRhoNorm.remainder1_zero",
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.PreRhoNorm.cleared_eq_zero",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    }
+  ],
+  "semantic_checks": [
+    "Definitions extend the six-variable universal Gram record with p0,p1bar,s,S; they do not silently impose conjugacy.",
+    "Both remainder factors are universal identities. The smaller atom identities and two bracket factor identities are unconditional over any CommRing.",
+    "The hard residual proof multiplies by c2 and the P products; it does not cancel them or require their nonvanishing.",
+    "The residual0 factor assembly uses the exact zero sum of m0Reduced,leftQuotient,rightQuotient. Residual1 is independently checked by ring normalization.",
+    "The final cleared_eq_zero assumes exactly nonzero g, g*(z+Z)=chi and z*Z=eta; IsDomain is needed for two g cancellations.",
+    "Every module is matched to a successful immutable compile copy/object/receipt under the unchanged guard. No failed residual0 output is admitted."
+  ],
+  "scope_limitations": [
+    "Actual conjugate/lambda/norm binding remains a separate obligation.",
+    "These identities alone do not establish dF, rho, a physical reconstruction or an exclusion.",
+    "Inherited Mathlib source/cache authenticity caveat remains; no clean full-library rebuild."
+  ],
+  "selected_printed_roots": 13
+}

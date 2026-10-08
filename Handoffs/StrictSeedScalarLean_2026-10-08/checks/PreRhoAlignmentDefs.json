@@ -1,0 +1,36 @@
+{
+  "schema": "sanitized-successful-check-projection-v1",
+  "module": "PreRhoAlignmentDefs",
+  "success": true,
+  "exit_code": 0,
+  "source_sha256": "9636d93b3569b9dccb1f8571d9c4ff51895ad0dd19165c1772184d2bad8dfa76",
+  "original_receipt": {
+    "sha256": "feefe8cf905182fa9c57fcb73f0fd61a6e7d5a91cb99bb959779c8691866f385",
+    "bytes": 296
+  },
+  "checked_object": {
+    "sha256": "bc07ca738db3b36334df77e38027920c81524f3da59eabd0a80efd954f536c0c",
+    "bytes": 1413584
+  },
+  "original_axiom_log": {
+    "sha256": "70503fb43e9633ba0e33390034cce55c2ee6e5127e3e657fe7252ff0e5b124e0",
+    "bytes": 212
+  },
+  "selected_roots": [
+    {
+      "declaration": "StrictReconstruction20261007.PreRhoAlignment.remainder0_factor",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ]
+    },
+    {
+      "declaration": "StrictReconstruction20261007.PreRhoAlignment.remainder1_factor",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ]
+    }
+  ],
+  "dependency_caveat": "Existing checks reused pinned Lean/Mathlib/custom objects. No clean full-library source/cache rebuild or fresh relocated replay is claimed."
+}
