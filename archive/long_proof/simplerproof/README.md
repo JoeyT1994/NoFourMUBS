@@ -1,4 +1,4 @@
-> **Archived (8 Oct 2026).** These are the intermediate shortenings of the long proof: the wide F6 tube, the confinement attempt and the averaging-lemma handoff. They are superseded by the minimal proof in [`../../../PROOF.md`](../../../PROOF.md). The averaging-lemma work itself remains at `simplerproof/averaging_lemma/` at the repository root, because another line of work is still editing it.
+> **Archived (8 Oct 2026).** These are the intermediate shortenings of the long proof: the wide F6 tube, the confinement attempt and the averaging-lemma handoff. They are superseded by the minimal proof in [`../../../PROOF.md`](../../../PROOF.md). The averaging-lemma programme is in `averaging_lemma/` here; its scripts resolve `ProvenResults/`, `RouteC/` and `MinimalConstruction/` relative to `archive/long_proof/`.
 
 # Minimising the proof
 

@@ -21,8 +21,7 @@
 | [`MinimalConstruction/`](MinimalConstruction/README.md) | The corner reconstruction H±(θ) and MC1–MC5, proved relative to the classification (used in Step 2) |
 | [`ClassificationPaper/`](ClassificationPaper/README.md) | The classification of order-6 complex Hadamard matrices [CT] |
 | [`openai/`](openai/README.md) | Summary of the openai/math proof, and what we take from it (Stage C and Records) |
-| [`archive/`](archive/README.md) | The first, corner-chart proof (about 10⁵ core-hours) and earlier shortening attempts; superseded but replayable |
-| `paper/`, `simplerproof/` | A write-up draft and an in-progress averaging-lemma line, both maintained elsewhere |
+| [`archive/`](archive/README.md) | Everything superseded: the first, corner-chart proof (about 10⁵ core-hours) with its write-up draft, and the earlier shortening attempts (wide tube, confinement, averaging lemma). Still replayable |
 
 ## Verifying
 
