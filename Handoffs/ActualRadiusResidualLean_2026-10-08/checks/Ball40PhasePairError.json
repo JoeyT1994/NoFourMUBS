@@ -1,0 +1,107 @@
+{
+  "module": "Ball40PhasePairError",
+  "source_sha256": "5c4c999bc5be262a84fc2bce41d773ebbafcb5cca093af58d2eef5f4cf897176",
+  "checked_object": {
+    "sha256": "35dbea04ee0ce417f67da5567c4dc6d86fda49fdfa7a72ce4e21d213f8e700e4",
+    "bytes": 603984
+  },
+  "original_receipt": {
+    "sha256": "0c0786b5651a393012a91c1139eb4f6b44f48724d4f5588077eb194cec3869f0",
+    "bytes": 296
+  },
+  "original_axiom_log": {
+    "sha256": "ddf50c5af6e44df576cb3cd50280575b89e624d774524252c780ef799be34b2f",
+    "bytes": 2181
+  },
+  "original_job": {
+    "sha256": "c572cd6e1c52133cb0e66e23f60cbe28c9afc335d1f539e76b3c6a16284986c9",
+    "bytes": 4826
+  },
+  "selected_roots": [
+    {
+      "declaration": "Centiradian20261006.Ball40Translation20261007.unit_norm_of_normSq",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "declaration": "Centiradian20261006.Ball40Translation20261007.root_sum_zero",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "declaration": "Centiradian20261006.Ball40Translation20261007.root_im_square",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "declaration": "Centiradian20261006.Ball40Translation20261007.phasePairLinear_normSq",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "declaration": "Centiradian20261006.Ball40Translation20261007.phasePairLinear_bound",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "declaration": "Centiradian20261006.Ball40Translation20261007.phase_first_order_remainder",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "declaration": "Centiradian20261006.Ball40Translation20261007.phasePair_error_identity",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "declaration": "Centiradian20261006.Ball40Translation20261007.phasePair_error_bound",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "declaration": "Centiradian20261006.Ball40Translation20261007.normSq_difference_bound",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "declaration": "Centiradian20261006.Ball40Translation20261007.phasePair_gram_error",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    }
+  ],
+  "schema": "sanitized-successful-check-projection-v1",
+  "success": true,
+  "exit_code": 0,
+  "selected": true,
+  "dependency_caveat": "Existing checks reused pinned Lean/Mathlib/custom objects. No clean full-library source/cache rebuild or fresh relocated replay is claimed."
+}

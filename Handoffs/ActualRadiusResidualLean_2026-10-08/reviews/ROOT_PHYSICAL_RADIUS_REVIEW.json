@@ -1,0 +1,138 @@
+{
+  "schema": "sanitized-independent-semantic-review-projection-v1",
+  "original_review_sha256": "cc802e8bc1937a514a3c3f142ccfd13363502951eea484b89301a81b00268e28",
+  "original_status": "PASS_ACTUAL_RADIUS_CHART_GUARDS_AND_94_RESIDUAL_BOUND",
+  "independent_author_and_reviewer": true,
+  "projection_notice": "Semantic checks and scoped exclusions are retained verbatim from this review. Earlier exclusions concern that earlier module; STATUS.json states the collection scope. Host paths, timestamps and operating records are omitted. A joint review remains one review.",
+  "reviewed_modules": [
+    "Ball40SideChartGuards",
+    "Ball40ResidualRadius"
+  ],
+  "reviewed_artifacts": [
+    {
+      "module": "Ball40SideChartGuards",
+      "file": "lean/Ball40SideChartGuards.lean",
+      "source_sha256": "06164e4acdc6b126c548ac76fa19387a6869c81ac03dc62c0c4b14b45d2a88fa",
+      "bytes": 6259,
+      "checked_object": {
+        "sha256": "023f9b43e19a50b6282566eac2248c547d7e6940a8144ce1273c3a540a9f3501",
+        "bytes": 461720
+      },
+      "original_receipt": {
+        "sha256": "b58f8e6c4bb18117a156cbf3d568af11e5afe0e636ed0ed4d894b11cc1ff15ad",
+        "bytes": 296
+      },
+      "original_axiom_log": {
+        "sha256": "7959f1b72d0c4a1f50c66712084ede9c7f36636d8e0f32111529f02a637db591",
+        "bytes": 790
+      },
+      "selected_roots": [
+        {
+          "declaration": "Centiradian20261006.Ball40Residual20261008.anchored_chart_norm_bounds",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "Centiradian20261006.Ball40Residual20261008.anchored_chart_nonzero",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "Centiradian20261006.Ball40Residual20261008.actual_seed_side_sum_bounds",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "Centiradian20261006.Ball40Residual20261008.physical_seed_chart_guards",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "Centiradian20261006.Ball40Residual20261008.physical_two_side_rows",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "Centiradian20261006.Ball40Residual20261008.physical_two_side_columns",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "Ball40ResidualRadius",
+      "file": "lean/Ball40ResidualRadius.lean",
+      "source_sha256": "6c51f549c40c8b8c5b2d37711a5de78ed803ebf6ce22033ee4926a639501968d",
+      "bytes": 2500,
+      "checked_object": {
+        "sha256": "0102f434227578e2eff65bdf5571805e21a70123508ff9915b7fa83e2ead14db",
+        "bytes": 61560
+      },
+      "original_receipt": {
+        "sha256": "1f1d8d65fb060de5dad47ffdb21be2c20dfd9ad711b1f4d9bd658be23d5b0a5d",
+        "bytes": 296
+      },
+      "original_axiom_log": {
+        "sha256": "d2fa87ffb523d010daabdcf385426e61265724babed2232b5c09df163263c6d9",
+        "bytes": 405
+      },
+      "selected_roots": [
+        {
+          "declaration": "Centiradian20261006.Ball40Residual20261008.dephased_seed_leadingR_majorant",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "Centiradian20261006.Ball40Residual20261008.sqrt_le_enlarged_closed",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "Centiradian20261006.Ball40Residual20261008.physical_seed_residual94_bound",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    }
+  ],
+  "selected_printed_roots": 9,
+  "semantic_checks": [
+    "Four row/column sums are bounded from actual seed phases at both conjugate seeds. For unit anchors, reverse triangle inequality proves the anchored divisor norm at least1−2rho, strictly positive on rho<=1/40.",
+    "physical_two_side_rows and physical_two_side_columns instantiate the existing exhaustive unit-pair theorem with proved guards, retaining both orientations and ties.",
+    "leadingR is bound using the unchanged dephased actual-seed equivalence; sqrt bound67rho^2 includes rho=0 by deriving R=0 separately.",
+    "The final94-vector statement retains actual Physical H, Dephased H, Maximal H and strict leadingR>0, deriving13 exact zeros and81 inequalities for all literal Fin94 indices.",
+    "Existing NativeResidual94 dispatch and mixedIndexEquiv are reused rather than redefined or assumed. No numerical sampling, reciprocal soundness, or completed finite cover appears as a conclusion."
+  ],
+  "scope_limitations": [
+    "Full radius exclusion still needs physical model coverage, radial Taylor/interval soundness and actual certificate/cover acceptance.",
+    "No physical T4 box or full no-four-MUB theorem is closed by these9roots.",
+    "Inherited Mathlib source/cache authenticity caveat unchanged."
+  ]
+}

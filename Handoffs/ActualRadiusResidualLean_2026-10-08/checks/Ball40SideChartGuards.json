@@ -1,0 +1,75 @@
+{
+  "module": "Ball40SideChartGuards",
+  "source_sha256": "06164e4acdc6b126c548ac76fa19387a6869c81ac03dc62c0c4b14b45d2a88fa",
+  "checked_object": {
+    "sha256": "023f9b43e19a50b6282566eac2248c547d7e6940a8144ce1273c3a540a9f3501",
+    "bytes": 461720
+  },
+  "original_receipt": {
+    "sha256": "b58f8e6c4bb18117a156cbf3d568af11e5afe0e636ed0ed4d894b11cc1ff15ad",
+    "bytes": 296
+  },
+  "original_axiom_log": {
+    "sha256": "7959f1b72d0c4a1f50c66712084ede9c7f36636d8e0f32111529f02a637db591",
+    "bytes": 790
+  },
+  "original_job": {
+    "sha256": "63b8b4965c30a2510293f6b85f7cf7771fdc1e23eb6efcd6189293f1b0133761",
+    "bytes": 13182
+  },
+  "selected_roots": [
+    {
+      "declaration": "Centiradian20261006.Ball40Residual20261008.anchored_chart_norm_bounds",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "declaration": "Centiradian20261006.Ball40Residual20261008.anchored_chart_nonzero",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "declaration": "Centiradian20261006.Ball40Residual20261008.actual_seed_side_sum_bounds",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "declaration": "Centiradian20261006.Ball40Residual20261008.physical_seed_chart_guards",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "declaration": "Centiradian20261006.Ball40Residual20261008.physical_two_side_rows",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "declaration": "Centiradian20261006.Ball40Residual20261008.physical_two_side_columns",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    }
+  ],
+  "schema": "sanitized-successful-check-projection-v1",
+  "success": true,
+  "exit_code": 0,
+  "selected": true,
+  "dependency_caveat": "Existing checks reused pinned Lean/Mathlib/custom objects. No clean full-library source/cache rebuild or fresh relocated replay is claimed."
+}

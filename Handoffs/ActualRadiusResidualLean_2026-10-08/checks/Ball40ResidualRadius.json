@@ -1,0 +1,51 @@
+{
+  "module": "Ball40ResidualRadius",
+  "source_sha256": "6c51f549c40c8b8c5b2d37711a5de78ed803ebf6ce22033ee4926a639501968d",
+  "checked_object": {
+    "sha256": "0102f434227578e2eff65bdf5571805e21a70123508ff9915b7fa83e2ead14db",
+    "bytes": 61560
+  },
+  "original_receipt": {
+    "sha256": "1f1d8d65fb060de5dad47ffdb21be2c20dfd9ad711b1f4d9bd658be23d5b0a5d",
+    "bytes": 296
+  },
+  "original_axiom_log": {
+    "sha256": "d2fa87ffb523d010daabdcf385426e61265724babed2232b5c09df163263c6d9",
+    "bytes": 405
+  },
+  "original_job": {
+    "sha256": "71f5ff5904c37db47fe267929191ecc57b329176149cd1a35d9b91872cf3987b",
+    "bytes": 13197
+  },
+  "selected_roots": [
+    {
+      "declaration": "Centiradian20261006.Ball40Residual20261008.dephased_seed_leadingR_majorant",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "declaration": "Centiradian20261006.Ball40Residual20261008.sqrt_le_enlarged_closed",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "declaration": "Centiradian20261006.Ball40Residual20261008.physical_seed_residual94_bound",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    }
+  ],
+  "schema": "sanitized-successful-check-projection-v1",
+  "success": true,
+  "exit_code": 0,
+  "selected": true,
+  "dependency_caveat": "Existing checks reused pinned Lean/Mathlib/custom objects. No clean full-library source/cache rebuild or fresh relocated replay is claimed."
+}

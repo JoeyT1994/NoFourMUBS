@@ -1,0 +1,105 @@
+{
+  "schema": "sanitized-independent-semantic-review-projection-v1",
+  "original_review_sha256": "b56fcab8448c0b2226d7877bdc28c5ed0e74c85ebf449cfc1ce9a443356c4259",
+  "original_status": "PASS_SCOPED_GRAM_PERTURBATION_INEQUALITIES",
+  "independent_author_and_reviewer": true,
+  "projection_notice": "Semantic checks and scoped exclusions are retained verbatim from this review. Earlier exclusions concern that earlier module; STATUS.json states the collection scope. Host paths, timestamps and operating records are omitted. A joint review remains one review.",
+  "reviewed_modules": [
+    "Ball40GramPerturbation"
+  ],
+  "reviewed_artifacts": [
+    {
+      "module": "Ball40GramPerturbation",
+      "file": "lean/Ball40GramPerturbation.lean",
+      "source_sha256": "b2d00673b92961938196d50bec713c63786074429d313dac09f3fe61e343b1e1",
+      "bytes": 7992,
+      "checked_object": {
+        "sha256": "2b5709cd23e45e4b0f634fe133a4d6f9771508aca095a945480a46dbfa31c3b5",
+        "bytes": 769544
+      },
+      "original_receipt": {
+        "sha256": "14b88a128c1f9fda9a3516475cc4e6dc15ac9e03e319da3d5416d40c53fa532b",
+        "bytes": 297
+      },
+      "original_axiom_log": {
+        "sha256": "7f0885898fc03ddc9d71dfde86c5dc6a4ada557ad1c03e3ac53b2b176184044a",
+        "bytes": 1032
+      },
+      "selected_roots": [
+        {
+          "declaration": "Centiradian20261006.Ball40Translation20261007.signed_sum_bound",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "Centiradian20261006.Ball40Translation20261007.homogeneousL_difference",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "Centiradian20261006.Ball40Translation20261007.homogeneousL_lipschitz",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "Centiradian20261006.Ball40Translation20261007.homogeneousNorm_nonneg",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "Centiradian20261006.Ball40Translation20261007.homogeneousNorm_bound",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "Centiradian20261006.Ball40Translation20261007.quadratic_gram_sum_bound",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "Centiradian20261006.Ball40Translation20261007.gram_sum_bound",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "Centiradian20261006.Ball40Translation20261007.gram_L_bound",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    }
+  ],
+  "selected_printed_roots": 8,
+  "semantic_checks": [
+    "The finite-difference formula for homogeneousL is an exact polynomial identity; the162P Lipschitz bound follows by absolute-value triangle bounds, retaining both error signs.",
+    "Both Gram triples are required nonnegative with sums bounded by P; no differentiability, segment enclosure, or derivative oracle is assumed.",
+    "The quadratic norm estimates include the c-a and d-b coordinate differences at radius2rho and yield18rho².",
+    "The19rho² bound is derived from the explicit Gram-error premise and 0<=rho<=1/40; the exact coefficient18+35/40+18/1600 is at most19.",
+    "The L estimate uses the prior checked quartic bound972rho⁴ and the explicit nonnegativity of XYZ to drop -324XYZ. The perturbation coefficients are exactly162*19*35=107730 and162*19*18=55404.",
+    "No division by radius, radicand or determinant cone occurs; rho=0 is included."
+  ]
+}

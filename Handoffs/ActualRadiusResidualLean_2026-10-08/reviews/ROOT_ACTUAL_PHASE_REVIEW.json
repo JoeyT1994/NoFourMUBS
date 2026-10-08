@@ -1,0 +1,165 @@
+{
+  "schema": "sanitized-independent-semantic-review-projection-v1",
+  "original_review_sha256": "ec6e05807d03627e0442de588e7aabe82d2bd527b0396c36cb508495a80b6636",
+  "original_status": "PASS_LITERAL_PHASE_TO_GRAM_ERROR",
+  "independent_author_and_reviewer": true,
+  "projection_notice": "Semantic checks and scoped exclusions are retained verbatim from this review. Earlier exclusions concern that earlier module; STATUS.json states the collection scope. Host paths, timestamps and operating records are omitted. A joint review remains one review.",
+  "reviewed_modules": [
+    "Ball40ActualPhaseGram"
+  ],
+  "reviewed_artifacts": [
+    {
+      "module": "Ball40ActualPhaseGram",
+      "file": "lean/Ball40ActualPhaseGram.lean",
+      "source_sha256": "dd9930964362773ae198230b2675d17420f5c7f7b04de2b3dbe48873b43c3519",
+      "bytes": 9923,
+      "checked_object": {
+        "sha256": "c4b8d7f7138a75eaf13d7fe5daeb3912c01c4bd4ac44c773ceac71d0d1df9229",
+        "bytes": 645360
+      },
+      "original_receipt": {
+        "sha256": "f6fc7e21c9f9d837c87c2884f96c2456eeec182986200f7be43310e8916a7d6d",
+        "bytes": 296
+      },
+      "original_axiom_log": {
+        "sha256": "92af8e5bbe8d33eb5bb8d2d710ca31032edd0002d01647382ee50089fbcc7e0c",
+        "bytes": 2258
+      },
+      "selected_roots": [
+        {
+          "declaration": "Centiradian20261006.Ball40Translation20261007.omega_re",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "Centiradian20261006.Ball40Translation20261007.omega_im",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "Centiradian20261006.Ball40Translation20261007.omega_unit",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "Centiradian20261006.Ball40Translation20261007.omega_exp_two",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "Centiradian20261006.Ball40Translation20261007.omega_exp_four",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "Centiradian20261006.Ball40Translation20261007.seedRoot_unit",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "Centiradian20261006.Ball40Translation20261007.seedRoot_re",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "Centiradian20261006.Ball40Translation20261007.root_square_conjugate",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "Centiradian20261006.Ball40Translation20261007.conjugate_root_square",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "Centiradian20261006.Ball40Translation20261007.phase_mul_conjugate",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "Centiradian20261006.Ball40Translation20261007.seed_phase_constants",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "Centiradian20261006.Ball40Translation20261007.seedPhaseEntries_components",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "Centiradian20261006.Ball40Translation20261007.seedPhaseEntries_cross",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "Centiradian20261006.Ball40Translation20261007.actual_phase_gram_error",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "Centiradian20261006.Ball40Translation20261007.actual_matrix_gram_error",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    }
+  ],
+  "selected_printed_roots": 15,
+  "semantic_checks": [
+    "Both literal seed angles (2,4,4,2) pi/3 and its conjugate use the unchanged CentiradianPhysical seedAngle and seedEntry definitions.",
+    "Root constants derive from exact cosine/sine identities; both conjugate choices remain in the Bool parameter.",
+    "The third Gram expression uses actual conjugated row products and exactly the displacement pair u2-u0,u3-u1.",
+    "The first two phase-pair errors use rho and the third uses 2rho. Their sum is exactly bounded by 35rho^3+18rho^4 for every rho>=0, including zero.",
+    "actual_matrix_gram_error binds the four actual H entries using the explicit literal phase lift. It assumes no Gram error, sampling, shell, or exclusion conclusion."
+  ],
+  "scope_limitations": [
+    "An analytic error estimate, not a ball-exclusion or no-four-MUB theorem.",
+    "Actual scalar residual inequalities, Taylor/interval semantics and full finite cover remain separate obligations.",
+    "Inherited Mathlib source/cache authenticity caveat unchanged; no clean full-library rebuild."
+  ]
+}
