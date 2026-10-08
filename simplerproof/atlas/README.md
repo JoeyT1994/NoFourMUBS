@@ -36,3 +36,27 @@ With the global bound ‖Φ″[w, w′]‖ ≤ 2^{3/2}‖w‖‖w′‖, every p
 3. **No maximal-corner domain and no confinement lemma.** The proof is: Records cover 𝓗, and Stage C excludes a quartet edge in each Record.
 
 Expected cost: wide-tube scale (1.7 CPU-hours for the whole 0.45 ball at F6) times the number of Records.
+
+## Pilot (8 Oct): one Record at a fold point of the seed chart
+
+The centre is `centre_fold52.json`, a Hadamard with M ≈ 74. It sits on the R ≈ 0 fold where the seed-coordinate classifier never converged.
+
+| Quantity | Value |
+|---|---|
+| Tangent dimension | 4 |
+| Smallest normal singular value | √3 |
+| Certified ‖K‖ | ≤ 0.731 |
+| ‖P_N − K J P_N‖ | 0 (to float precision) |
+| Contraction radius | ≈ 0.40, with the base-independent bound ‖Φ″‖ ≤ 2√3 |
+
+Three random cells of half-width 0.006 at ‖u‖ ≈ 0.08–0.09 gave:
+- enclosure radius e ≈ 0.0019;
+- column error δ ≈ 0.0048, against a Stage-C limit of 0.025;
+- Stage C passed in every case (48 rays, τ = 1/24, about 6.9M integer nodes, about 7 s per cell).
+
+So the fold is an ordinary point in intrinsic coordinates, and the full Record pipeline certifies there exactly as at F6.
+
+**Next steps.**
+1. Tune the cell size: δ has a 5× margin.
+2. Measure Records per unit volume of the quotient 𝓗/≅.
+3. Write the coverage argument (open and closed in 𝓗, plus one seed per component of {R > 0}).
