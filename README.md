@@ -2,7 +2,7 @@
 
 **Theorem (computer-assisted).** C⁶ does not admit four mutually unbiased bases.
 
-**→ Read the proof: [`PROOF.md`](PROOF.md)** (about three pages).
+**→ Read the proof: [`PROOF.md`](PROOF.md)** (about three pages), or the typeset note [`proof/note/no_four_mubs.pdf`](proof/note/no_four_mubs.pdf).
 
 ## The proof in four steps
 

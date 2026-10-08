@@ -1,0 +1,182 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\Had}{\mathcal H}
+\newcommand{\hor}{\mathrm h}
+\newcommand{\e}{\mathrm e}
+% Step 4 numbers (filled in from proof/atlas/results/)
+\newcommand{\NRecords}{\textup{[pending]}}
+\newcommand{\Fsix}{\textup{[pending]}}
+
+\title{There are no four mutually unbiased bases in $\mathbb C^6$:\\ a four-step proof}
+\author{}
+\date{8 October 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We prove that $\mathbb C^6$ admits no four mutually unbiased bases. The argument has four steps.
+\begin{enumerate}
+\item An exact algebraic fact about a four-variable seed polynomial $R$: its positive local maxima form a single orbit, with $\max R=3^{13}/2^{12}$.
+\item A topological consequence, relative to the classification of order-6 complex Hadamard matrices: the space of non-Tao Hadamard classes is connected.
+\item A local exclusion lemma for balls around arbitrary Hadamard matrices.
+\item A finite certified atlas of such balls whose boundaries transfer into one another.
+\end{enumerate}
+Steps 1 and 2 are pure mathematics. Steps 3 and 4 are certified computation in interval arithmetic.
+\end{abstract}
+
+\section{Setting}
+
+\paragraph{Hadamard matrices.} Let $\Had$ denote the order-6 complex Hadamard matrices: $|H_{ij}|=1$ and $HH^*=6I$. Write $H\cong H'$ if $H'=PD_1HD_2Q$, with $P$ and $Q$ permutation matrices and $D_1$ and $D_2$ diagonal unitaries.
+
+\paragraph{Quartet edges.} After a unitary change of frame, four mutually unbiased bases (MUBs) contain $I$ and $H/\sqrt6$ for some $H\in\Had$. Call $H$ a \emph{quartet edge} if $\{I,H/\sqrt6\}$ extends to four MUBs. This property is invariant under:
+\begin{itemize}
+\item equivalence;
+\item conjugation $H\mapsto\bar H$;
+\item transposition, since applying $H^*/\sqrt6$ exchanges the roles of $I$ and $H/\sqrt6$.
+\end{itemize}
+We show that no $H\in\Had$ is a quartet edge.
+
+\paragraph{The quotient metric.} A real $6\times6$ matrix is \emph{horizontal} if all its row and column sums vanish. Let $\hor$ be the orthogonal projector onto horizontal matrices. Its kernel consists of the row-plus-column patterns, so $\e^{iY}\cong\e^{i\hor(Y)}$, with exponentials taken entrywise. On $\Had/{\cong}$ we use
+\[
+ \delta(H,K)=\min\{\|v\|:\ v\text{ horizontal},\ H\cong K\circ \e^{iv}\}.
+\]
+Let $S_6$ be Tao's matrix and $X=(\Had/{\cong})\setminus\{[S_6]\}$.
+
+\paragraph{Corner seeds.} For $\theta\in\mathbb T^4$, let $E(\theta)=\begin{psmallmatrix}1&1&1\\1&a&b\\1&c&d\end{psmallmatrix}$ with $(a,b,c,d)=\e^{i\theta}$, and $G=6I-EE^*$. Set $s=G_{21}$, $t=G_{31}$ and $r=G_{32}$, and form the invariants $g,\eta,\chi$ of the classification. Then
+\[
+ R(\theta)=4g^2\eta-\chi^2 .
+\]
+On $S=\{R>0\}$ an explicit formula produces a Hadamard completion $H_+(\theta)$ of $E(\theta)$. Relative to the classification, statements MC1--MC5 give
+\[
+ X=\{[H_+(\theta)]\}\cup\{[\overline{H_+(\theta)}]\}\cup\{[F_6]\}\qquad(\theta\in S).
+\]
+
+\section{Step 1: the maxima of $R$}
+
+\begin{theorem}\label{thm:max}
+The positive local maxima of $R$ on $\mathbb T^4$ are exactly the $18$-point orbit, under the $144$ seed symmetries, of
+\[
+ \theta_*=\alpha(1,2,-1,-2),\qquad \alpha=\arccos\tfrac14,\qquad R(\theta_*)=3^{13}/2^{12}.
+\]
+The Hessian at $\theta_*$ is negative definite.
+\end{theorem}
+
+\begin{proof}[Outline]
+\emph{The deltoid traces.} Normalise the even products $(ad,b,c)$ and the odd products $(bc,d,a)$ to have product $1$, and let $U$ and $V$ be their traces. Each lies in the filled deltoid $\{\,Z:|Z|^4+18|Z|^2-8\operatorname{Re}Z^3-27\le0\,\}$, and the trace map onto it is open.
+
+\emph{The compact form of $R$.} With $A=U+V$, $B=U-V$, $u=|A|^2$ and $v=|B|^2$, one has $g=2v-3u$, $\eta=v-2u$ and
+\[
+ \chi=\tfrac12(3u-v)(v-u+12)-2\operatorname{Re}(AB^2).
+\]
+Thus $R$ is invariant under the circle action $(A,B)\mapsto(\e^{-2i\tau}A,\e^{i\tau}B)$.
+
+\emph{No interior maxima.} In the double interior, criticality forces $AB^2\in\mathbb R$. One resultant then leaves two real candidates, and at both $d^2R/d\psi^2=-4\chi xv>0$. A smooth boundary point paired with an interior point moves into the double interior along the circle action, by a curvature identity. A cusp is excluded directly.
+
+\emph{The doubly boundary case.} Here the stationary points are classified exactly; one spurious stationary value has positive transverse curvature.
+
+All acceptance decisions are exact: resultants, Gr\"obner bases, Sturm counts and rational intervals. There are two independent proofs, in \texttt{proof/coverage/returns/}.
+\end{proof}
+
+\section{Step 2: connectedness}
+
+\begin{theorem}\label{thm:conn}
+Relative to MC1--MC5, the space $X$ is connected.
+\end{theorem}
+
+\begin{proof}
+\emph{Sheet parity.} If a seed symmetry $L$ has transposition bit $\tau$ and conjugation bit $\kappa$, then
+\[
+ [H_\sigma(L\theta)]=\mathcal C^\kappa\mathcal T^\tau[H_{(-1)^{\tau+\kappa}\sigma}(\theta)].
+\]
+The maximal frame $E(x)=\begin{psmallmatrix}1&1&1\\1&x&x^2\\1&x^{-1}&x^{-2}\end{psmallmatrix}$ has two exact symmetries. Together these give $H_+(L\theta_*)\cong K_*$ for all $144$ maps $L$.
+
+\emph{Every component reaches $[K_*]$.} The class map $\theta\mapsto[H_+(\theta)]$ is continuous on $S$, including across root cuts and sign switches. Every component of $S$ has compact closure, with $R>0$ inside and $R=0$ on its boundary, so it contains a local maximum of $R$. By Theorem~\ref{thm:max} that maximum lies in the orbit of $\theta_*$. So $A=\{[H_+(\theta)]\}$ is connected and contains $[K_*]$, and likewise $\bar A$.
+
+\emph{Joining at $F_6$.} The family $\begin{psmallmatrix}F_3&F_3\\F_3D(t)&-F_3D(t)\end{psmallmatrix}$, with $D(t)=\operatorname{diag}(1,\e^{it},1)$, tends to $F_2\otimes F_3\cong F_6$. Its cross-ratio $\e^{it}$ keeps it away from $F_6$ and $S_6$ for $0<t<\pi/3$. So $[F_6]$ lies in the closure of both $A$ and $\bar A$, and $X=A\cup\bar A\cup\{[F_6]\}$ is connected.
+\end{proof}
+
+\begin{corollary}\label{cor:cover}
+Let $W$ be a finite union of closed sets $B_r=\{\e^{i(P_r+\delta)}:\delta \text{ horizontal},\ \|\delta\|\le R_r\}$, closed under conjugation and transposition. Suppose:
+\begin{enumerate}
+\item $W$ contains a non-Tao Hadamard;
+\item every Hadamard with $\|\delta\|=R_r$ is equivalent to one with $\|\delta'\|<R_t$ for some $t$.
+\end{enumerate}
+Then every class in $X$ meets $W$.
+\end{corollary}
+
+\begin{proof}
+$W\cap X$ is closed, as a finite union of compact images. It is open, since every point has an interior representative and $\delta$ is invariant under equivalence. It is nonempty. Since $X$ is connected, $W\cap X=X$.
+\end{proof}
+
+\section{Step 3: local exclusion}
+
+Let $\Phi(\delta)\in\mathbb R^{30}$ be the off-diagonal entries of $(\e^{i(P+\delta)})(\e^{i(P+\delta)})^*$, and $J=\Phi'(0)$. For horizontal $w$ and $w'$, Cauchy--Schwarz gives
+\[
+ \|\Phi''[w,w']\|\le L\|w\|\|w'\|,\qquad L=2\sqrt3,
+\]
+at every base point. A \emph{ball Record} is a rational centre $P$, a rational tangent frame $T$ ($36\times k$), and a constant $\sigma>0$ with $\|J\nu\|\ge\sigma\|\nu\|$ on the horizontal complement $N$ of $T$. The constant $\sigma$ is certified by an Arb Cholesky factorisation.
+
+\begin{lemma}[Normal bound]\label{lem:normal}
+Every Hadamard $\e^{i(P+\delta)}$ with $\|\delta\|\le R<\sigma/L$ has $\delta=T\eta+\nu$ with $\|\eta\|\le r_H$ and $\|\nu\|\le n$, where
+\[
+ n=\frac{\sigma-\sqrt{\sigma^2-2Lb}}{L},\qquad b=\|\Phi(0)\|+\|JT\|r_H+\tfrac L2\lambda_{\max}(T^\top T)\,r_H^2 .
+\]
+\end{lemma}
+
+\begin{proof}
+We have $0=\Phi(\delta)=\Phi(0)+J\delta+E$ with $\|E\|\le\frac L2\|\delta\|^2$. Hence $\sigma\|\nu\|-\frac L2\|\nu\|^2\le b$. Since $\|\nu\|\le R<\sigma/L$, $\|\nu\|$ lies below the smaller root.
+\end{proof}
+
+\begin{lemma}[Stage C, after {[OAI, \S6]}]\label{lem:stagec}
+Suppose the vector-bin cover, the label clustering, the O/U edge tests (including the joint test, which uses the common $\eta$) and the exhaustive two-clique search succeed. Then no Hadamard in the ball is a quartet edge.
+\end{lemma}
+
+All inequalities are proved in \texttt{proof/atlas/STAGEC.md}. Comparisons use Arb-tabulated exponentials and float arithmetic with margin $10^{-7}$, against an error budget below $10^{-10}$.
+
+\begin{remark}[$S_6$]\label{rem:tao}
+At $S_6$, $J$ is injective on all $25$ horizontal directions, with $\sigma\ge2.1$ (so $k=0$). For $R=0.08$ we have $LR<\sigma$, and the mean-value theorem gives $\sigma\|\delta_1-\delta_2\|\le LR\|\delta_1-\delta_2\|$. So the ball holds exactly one Hadamard, namely $S_6$, and $S_6$ is isolated. Stage C on the ball shows that $S_6$ is not a quartet edge.
+\end{remark}
+
+\section{Step 4: the atlas}
+
+\begin{lemma}[Boundary transfer]\label{lem:transfer}
+Let $s$ and $t$ be Records, $\mathcal A$ a signed permutation of the $36$ entries (row and column permutations, transposition, conjugation) and $N$ an integer matrix. Put
+\[
+ c=\hor(\mathcal AP_s+2\pi N-P_t),\qquad M=\hor(\mathcal AT_s).
+\]
+If $\sup_{\eta\in Q}\|c+M\eta\|+n_s<R_t$ on a box $Q$, then every boundary Hadamard of $s$ with tangent coordinate in $Q$ is equivalent to an interior point of $t$.
+\end{lemma}
+
+\begin{proof}
+We have $\|\hor(\mathcal A\nu)\|\le\|\nu\|\le n_s$, and representatives differ by row-plus-column patterns. Note also $\|M\|\le\|T_s\|$.
+\end{proof}
+
+The boundary therefore needs only a $4$-dimensional cover. A box is either certified off the shell $R_s-n_s\le\|T\eta\|\le R_s+n_s$, or it transfers.
+
+\paragraph{The computation.} A breadth-first driver grows Records of radius $0.08$ until every boundary transfers. An independent checker recomputes every Record from its centre phases: frame, $\sigma$, normal bound, Stage C, and the boundary tree with Arb transfer constants. The atlas has \NRecords{} Records, all certified, and $F_6$ lies in Record \Fsix.
+
+\section{Conclusion}
+
+By Corollary~\ref{cor:cover} and Step 4, every class in $X$ meets a Record. By Lemmas~\ref{lem:normal} and~\ref{lem:stagec}, no Hadamard in a Record is a quartet edge. By Remark~\ref{rem:tao}, neither is $S_6$. Hence $\mathbb C^6$ has no four mutually unbiased bases. \qed
+
+\paragraph{Inputs.} The proof uses:
+\begin{itemize}
+\item the classification of order-6 complex Hadamard matrices [CT], through MC1--MC5, in Step 2 only;
+\item the Stage C method of [OAI], with every inequality reproved;
+\item certified computation in Steps 1, 3 and 4.
+\end{itemize}
+
+\begin{thebibliography}{9}
+\bibitem{CT} M.~C\'ardenes Wuttig, J.~Tindall, \emph{A complete classification of complex Hadamard matrices of order six}, arXiv:2608.18053.
+\bibitem{OAI} OpenAI, \emph{The maximum number of mutually unbiased bases in dimension six}, preprint (2026).
+\end{thebibliography}
+\end{document}
