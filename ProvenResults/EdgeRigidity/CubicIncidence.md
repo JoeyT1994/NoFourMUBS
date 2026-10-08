@@ -4,7 +4,7 @@
 
 **Status.** Analytic proof with exact checks. Sections 1-2 and 4 are unconditional given vanishing balanced characters; the application to "every non-Tao H" is **conditional** on the active balanced theorem, itself conditional on the [accepted reconstruction inputs](../../MinimalConstruction/ASSUMPTIONS.md).
 
-**Dependencies.** [BalancedFourSeedIdentity.md](../BalancedProducts/BalancedFourSeedIdentity.md)/[BalancedAllPartitionsExtension.md](../BalancedProducts/BalancedAllPartitionsExtension.md) (balanced characters; conditional on the [accepted reconstruction inputs](../../MinimalConstruction/ASSUMPTIONS.md)). FP3=(9/2)FP2-36 is the balanced case of the identity in [FramePotential.md](../SpectralMoments/FramePotential.md) (Phi_m=36 FP_m). Section 5 uses [FourierBlockClassification.md](../FourierBlocks/FourierBlockClassification.md) plus the antipodal pair of N, N^T (see [BlockZero3Equivalence.md](BlockZero3Equivalence.md)). Quartet use: [QuartetEdgeCorollary.md](QuartetEdgeCorollary.md), [Tao exclusion](../ExceptionalEndpoints/Tao/TaoExclusion.md). Section 6 refers to the covariance framework (N_full, J) of [CovarianceContraction.md](../Triples/CovarianceContraction.md); only its pinching identity is checked.
+**Dependencies.** [BalancedFourSeedIdentity.md](../BalancedProducts/BalancedFourSeedIdentity.md)/[BalancedAllPartitionsExtension.md](../BalancedProducts/BalancedAllPartitionsExtension.md) (balanced characters; conditional on the [accepted reconstruction inputs](../../MinimalConstruction/ASSUMPTIONS.md)). FP3=(9/2)FP2-36 is the balanced case of the identity in [FramePotential.md](../SpectralMoments/FramePotential.md) (Phi_m=36 FP_m). Section 5 uses [FourierBlockClassification.md](../FourierBlocks/FourierBlockClassification.md) plus the antipodal pair of N, N^T (see [BlockZero3Equivalence.md](BlockZero3Equivalence.md)). Quartet use: [QuartetEdgeCorollary.md](QuartetEdgeCorollary.md), [Tao exclusion](../ExceptionalEndpoints/Tao/TaoExclusion.md). Section 6 refers to the covariance framework (N_full, J) of CovarianceContraction.md; only its pinching identity is checked.
 
 **Provenance.** `NoFourMUBSArchive/03_algebraic/core/surviving_counts/cubic_incidence/PROOF.md`, `calculate.py` (the hash-authenticating `verify.py` wrapper is replaced by the local verifier).
 
@@ -159,7 +159,7 @@ still only excludes that operator equality when H squared is invertible.
 
 ## 6. Direct map to the original full-minor covariance variables (archive framework)
 
-*This section refers to the archive covariance programme (N_full, J, E_J); its contraction theorem is now [CovarianceContraction.md](../Triples/CovarianceContraction.md).
+*This section refers to the archive covariance programme (N_full, J, E_J); its contraction theorem is now CovarianceContraction.md.
 Only the identity K_J = row Gram of the entrywise cube for an actual pinching is checked
 (`cubic_incidence.py`, all 30 entries on three exact controls).*
 

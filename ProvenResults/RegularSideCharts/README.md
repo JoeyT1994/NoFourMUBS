@@ -21,7 +21,7 @@ Replay from the repository root:
 
     python3 verify.py --only regular_side_charts --jobs 1 --output-dir Verification/T6_regular_side_replay
 
-The [retained receipt](../../Verification/T6_regular_side_2026-09-28/regular_side_charts.txt)
+The retained receipt
 checks constants, the seven full-cell classifications and a validated
 local side chart around an exact physical example. The polynomial
 identity used by the theorem is proved and separately replayed in

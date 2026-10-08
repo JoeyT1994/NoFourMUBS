@@ -27,7 +27,7 @@ From the project root:
 
 Or run this folder's `verify.py` directly. It needs python-flint for
 outward Arb arithmetic. The arithmetic and minor replay takes less than
-one second. The [retained receipt](../../../Verification/T2_uniform_tube_2026-09-28/fourier_uniform_tube.txt)
+one second. The retained receipt
 records its acceptance. The two published theorem inputs are stated in
 the proof and are not reproved by this verifier.
 

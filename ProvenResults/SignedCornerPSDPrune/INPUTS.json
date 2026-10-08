@@ -4,6 +4,17 @@
     "A2: side formulas and nonzero strict denominators",
     "A3: nonexceptional fixed-corner matched completion exhaustion (only after a whole-box Tao-absence guard)"
   ],
+  "context_note_2026-10-01": "These three files are provenance/context only (see provenance_only); they change with campaign status updates, so their delivered pins are recorded here and not asserted by verify.py.",
+  "context_sha256_not_enforced": {
+    "Verification/branch_helper_2026-09-30/README.md": "690db1d857f808ce8b2b5c00249ee897c86613285733d0fca28b712820ff320b",
+    "provenance/HANDOFF.md": "ceb30d01b690dd4bada3f280387774c385232afa8bee3612e0381480f35a8ff4",
+    "provenance/HANDOFF_BRANCH_HELPER.md": "942f68de20ac7d7f67f6a6e3f281c5e0602e61d4c0aa2de75aea9bfed0d9ce9a"
+  },
+  "delivered_sha256_before_repin": {
+    "MinimalConstruction/ASSUMPTIONS.md": "7e4fe15e0de5652ceef07a407453e23643252ed19e475d497b18551afd1d0181",
+    "MinimalConstruction/RECONSTRUCTION.md": "6bef347d96d79dcbca366d6e9bb89905f853d8cb382c5aa5393e9a08f4347cb8",
+    "provenance/HANDOFF.md": "246df1a3bdbf223e3972f2f09c3dff0e0d6d71d324f1276c17c62824386ab12d"
+  },
   "proved_inputs": [
     "P1: complementary-corner square; regenerated exactly"
   ],
@@ -11,32 +22,21 @@
     "SideTriplePrune (not an acceptance dependency)",
     "branch helper benchmark/context"
   ],
+  "repinned_2026-10-01": "ASSUMPTIONS.md and RECONSTRUCTION.md gained appended proof references (MinimalConstruction/Proofs); original bytes are an unchanged prefix, checked by MinimalConstruction/Proofs/verify_provenance.py. HANDOFF.md is context only and was updated with the campaign state.",
   "sha256": {
     "MinimalConstruction/ASSUMPTIONS.md": "fb3855ccbfa4df1229081baf516a3cf13fa18f3c4aef4089119b5c52270e7cda",
     "MinimalConstruction/RECONSTRUCTION.md": "024e3d262ea169a3a4ceeacd47ed26230f691d009fef2aacec7c269091dc8889",
-    "ProvenResults/CornerBounds/PROOF.md": "bfb49f0e36667305c86db0942c10ee8a93cb7d15cb6ae5bebbdd0efef67db4e1",
-    "ProvenResults/CornerBounds/verify.py": "1c5ae3bb644e436cb8ec19e87661cece25f7e1807f0db817899c95f6a6b0efe1",
+    "NumericalCampaign/Campaign/branch_bins_study_2026-09-30/results/residual_boxes_level13.txt.gz": "c2cdc0caca1537b763dde41f3ededea27dc19cf32b19ad1dcefff8bce7dda71f",
     "ProvenResults/BalancedProducts/BalancedFourSeedIdentity.md": "be5ce473d99e99f1e14913e888c55aa2e5ee73cbbc8c253caa8f6861649ca26a",
+    "ProvenResults/CornerBounds/PROOF.md": "bfb49f0e36667305c86db0942c10ee8a93cb7d15cb6ae5bebbdd0efef67db4e1",
+    "ProvenResults/CornerBounds/SideTriplePrune/PROOF.md": "b9bba347a0ccd421580c9051b9378610793822195ca391ff1f0eb722eb52c503",
+    "ProvenResults/CornerBounds/SideTriplePrune/triple_prune.py": "464e17f4f30b514c68d4e08f640fc692a8fd4baf206022491201d0ba117274f9",
+    "ProvenResults/CornerBounds/verify.py": "1c5ae3bb644e436cb8ec19e87661cece25f7e1807f0db817899c95f6a6b0efe1",
     "ProvenResults/SymmetricSignedCornerPrune/PROOF.md": "b42eadb4c276a6d78d56feb29f0eb3adf654eff22f4e9699bb02cdc2dbab87ac",
-    "ProvenResults/SymmetricSignedCornerPrune/predicate.py": "8ed2a361fc9cf656250280afac868f01143fe74273fb6eff2fa410824c711015",
-    "ProvenResults/SymmetricSignedCornerPrune/interval_core.py": "c3a5273e5497e0871f51da2a4fcb4adda9dceaf582866dda330be0e628b76bf8",
-    "ProvenResults/SymmetricSignedCornerPrune/data/sample_1000.json": "6c570992735b959efc7fe32c8eac1e0c00bd810d44f30d13f911e11c50d548d2",
     "ProvenResults/SymmetricSignedCornerPrune/data/pilot_00000.jsonl": "16abdb74cec6a9de97483a485a5347d1901211e6ba904b17628a77b7d39ca9c9",
     "ProvenResults/SymmetricSignedCornerPrune/data/pilot_summary.json": "a3c90fe4257e882aad337f7af889ff7ac6723565196cf715310af0b56ffe6422",
-    "NumericalCampaign/Campaign/branch_bins_study_2026-09-30/results/residual_boxes_level13.txt.gz": "c2cdc0caca1537b763dde41f3ededea27dc19cf32b19ad1dcefff8bce7dda71f",
-    "ProvenResults/CornerBounds/SideTriplePrune/PROOF.md": "b9bba347a0ccd421580c9051b9378610793822195ca391ff1f0eb722eb52c503",
-    "ProvenResults/CornerBounds/SideTriplePrune/triple_prune.py": "464e17f4f30b514c68d4e08f640fc692a8fd4baf206022491201d0ba117274f9"
-  },
-  "repinned_2026-10-01": "ASSUMPTIONS.md and RECONSTRUCTION.md gained appended proof references (MinimalConstruction/Proofs); original bytes are an unchanged prefix, checked by MinimalConstruction/Proofs/verify_provenance.py. HANDOFF.md is context only and was updated with the campaign state.",
-  "delivered_sha256_before_repin": {
-    "MinimalConstruction/ASSUMPTIONS.md": "7e4fe15e0de5652ceef07a407453e23643252ed19e475d497b18551afd1d0181",
-    "MinimalConstruction/RECONSTRUCTION.md": "6bef347d96d79dcbca366d6e9bb89905f853d8cb382c5aa5393e9a08f4347cb8",
-    "HANDOFF.md": "246df1a3bdbf223e3972f2f09c3dff0e0d6d71d324f1276c17c62824386ab12d"
-  },
-  "context_sha256_not_enforced": {
-    "HANDOFF.md": "ceb30d01b690dd4bada3f280387774c385232afa8bee3612e0381480f35a8ff4",
-    "HANDOFF_BRANCH_HELPER.md": "942f68de20ac7d7f67f6a6e3f281c5e0602e61d4c0aa2de75aea9bfed0d9ce9a",
-    "Verification/branch_helper_2026-09-30/README.md": "690db1d857f808ce8b2b5c00249ee897c86613285733d0fca28b712820ff320b"
-  },
-  "context_note_2026-10-01": "These three files are provenance/context only (see provenance_only); they change with campaign status updates, so their delivered pins are recorded here and not asserted by verify.py."
+    "ProvenResults/SymmetricSignedCornerPrune/data/sample_1000.json": "6c570992735b959efc7fe32c8eac1e0c00bd810d44f30d13f911e11c50d548d2",
+    "ProvenResults/SymmetricSignedCornerPrune/interval_core.py": "c3a5273e5497e0871f51da2a4fcb4adda9dceaf582866dda330be0e628b76bf8",
+    "ProvenResults/SymmetricSignedCornerPrune/predicate.py": "8ed2a361fc9cf656250280afac868f01143fe74273fb6eff2fa410824c711015"
+  }
 }

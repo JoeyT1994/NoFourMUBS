@@ -1,0 +1,89 @@
+{
+ "date": "2026-10-08",
+ "note": "Documents moved into provenance/ byte-for-byte (sha256 unchanged). Manifests that pinned them by path were updated: path strings only, then the sha256 of each edited manifest was re-pinned up the chain. Historical replay receipts (receipts/, RECEIPT*, REPLAY*) were left untouched and still name the old paths.",
+ "moved": [
+  {
+   "old": "HANDOFF.md",
+   "new": "provenance/HANDOFF.md",
+   "sha256": "ceb30d01b690dd4bada3f280387774c385232afa8bee3612e0381480f35a8ff4"
+  },
+  {
+   "old": "HANDOFF_BRANCH_HELPER.md",
+   "new": "provenance/HANDOFF_BRANCH_HELPER.md",
+   "sha256": "942f68de20ac7d7f67f6a6e3f281c5e0602e61d4c0aa2de75aea9bfed0d9ce9a"
+  },
+  {
+   "old": "HANDOFF_LOCAL.md",
+   "new": "provenance/HANDOFF_LOCAL.md",
+   "sha256": "94cf1cb8945a0494ccc0ad8f925880a27723c4d754b1b5a13be18234af912b28"
+  },
+  {
+   "old": "Incoming/ActiveF6ProductionClosure_docs_2026-10-01/PROOF.md",
+   "new": "provenance/Incoming/ActiveF6ProductionClosure_docs_2026-10-01/PROOF.md",
+   "sha256": "9ddb21ebd485b06f1792cbc0f289c3b60a66149f1d6a41ddaf2386bc4d48277b"
+  },
+  {
+   "old": "PROOF_OF_RECORD.md",
+   "new": "provenance/PROOF_OF_RECORD.md",
+   "sha256": "90974adcc6e346272ea061d509b1d56654388692d7bdd9b1cf38ae6a2347923f"
+  },
+  {
+   "old": "RESEARCH_BRIEF.md",
+   "new": "provenance/RESEARCH_BRIEF.md",
+   "sha256": "b1effa2d9c08b776645ba327e0e53a7a68c062ed9ab09a4438d33cee5d231528"
+  },
+  {
+   "old": "Review/FASTTM.md",
+   "new": "provenance/Review/FASTTM.md",
+   "sha256": "9b4fb6635d1d008831341512e065bc93a91a60bb2835c44ef98ec48062243551"
+  },
+  {
+   "old": "Review/invariant_replay/guarded_replay.txt",
+   "new": "provenance/Review/invariant_replay/guarded_replay.txt",
+   "sha256": "d49f5b35f3c6e2d939e32717327833a974e80080059d45d7bb01a2c630cdb88c"
+  },
+  {
+   "old": "Review/invariant_replay/summary.json",
+   "new": "provenance/Review/invariant_replay/summary.json",
+   "sha256": "5c9931a7085c41303aff5e04e4a53c31d40670795131cdf8cfcd5822dc57c493"
+  },
+  {
+   "old": "WhatWeWanttoProve/README.md",
+   "new": "provenance/WhatWeWanttoProve/README.md",
+   "sha256": "20e38abc19a73e85c04b69e67a02f57271131341f557be2ab3ad0e12c1aebc9d"
+  },
+  {
+   "old": "WhatWeWanttoProve/T1_corner_R_lower_bound.md",
+   "new": "provenance/WhatWeWanttoProve/T1_corner_R_lower_bound.md",
+   "sha256": "f604fba2f892b2aa6383ea174ea6975f076f4ef97a1b3bd94e6dd3d432c3f6b4"
+  },
+  {
+   "old": "WhatWeWanttoProve/T2_fourier_neighbourhood.md",
+   "new": "provenance/WhatWeWanttoProve/T2_fourier_neighbourhood.md",
+   "sha256": "f00c55f311ca142eb757104102560e5ee036170d5cce2e3d05ad38a5a95b4cbf"
+  },
+  {
+   "old": "WhatWeWanttoProve/evidence/layer_bench_600.json",
+   "new": "provenance/WhatWeWanttoProve/evidence/layer_bench_600.json",
+   "sha256": "16d86cb63f29fd548c2dab58726838445073d01284bbb117fa450193ac161d1c"
+  },
+  {
+   "old": "WhatWeWanttoProve/evidence/layer_survivors_T2_sample_2026-09-29.tsv",
+   "new": "provenance/WhatWeWanttoProve/evidence/layer_survivors_T2_sample_2026-09-29.tsv",
+   "sha256": "49fd7e6b416808ea51a0366b315502739cdccbe70c3c2547b008e2d18daaa694"
+  }
+ ],
+ "manifests_edited": [
+  "ProvenResults/ActiveShoulderClosure/INPUTS.json",
+  "ProvenResults/ActiveShoulderClosure/MANIFEST.sha256",
+  "ProvenResults/ActiveShoulderClosure_v2/INPUTS.json",
+  "ProvenResults/ActiveShoulderClosure_v2/MANIFEST.sha256",
+  "ProvenResults/ActiveShoulderClosure_v2/data/v1_preservation.json",
+  "ProvenResults/ActiveShoulderClosure_v2_frontier/INPUTS.json",
+  "ProvenResults/ActiveShoulderClosure_v2_frontier/SHA256SUMS",
+  "ProvenResults/FourierTransverseStability_v2/data/dependencies.json",
+  "ProvenResults/FourierTransverseStability_v2/MANIFEST.json",
+  "ProvenResults/SignedCornerPSDPrune/INPUTS.json",
+  "ProvenResults/RegularSideCharts/data/diagnostic_sources.sha256"
+ ]
+}

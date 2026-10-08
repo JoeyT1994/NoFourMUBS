@@ -83,10 +83,10 @@ policy, whereas the measured 56/202 receipt uses the unchanged
 
 ## Evidence and verification
 
-[Retained report and receipts](../../../Verification/Campaign_layer_second_pass_2026-09-29/README.md)
+Retained report and receipts
 contain the complete 512-cell run, its independent 160-bit replay, the
 baseline recheck, and the separate R-gap certificates.
-[excluded_cells.tsv](../../../Verification/Campaign_layer_second_pass_2026-09-29/excluded_cells.tsv)
+excluded_cells.tsv
 lists the 93 excluded sample boxes. Its row numbers identify TSV data rows,
 not production IDs; match by the recorded level and Float64 coordinates,
 or run the tool on actual survivor records to retain their IDs directly.

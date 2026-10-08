@@ -146,7 +146,7 @@ unbiased 0.2% sample it certified 100% of cells at 25 s mean ([REPORT_2026-09-29
 The older **rays** certificate (Krawczyk tubes, `complete.jl` and `gram.jl`) is still in the driver.
 It is off, because its branch and bound accepts by floating-point tests. Set `CERT_FASTMAX=60` to
 compare. The node budget of the cover search is `CERT_COVERBUDGET`, default 2·10⁷.
-See the [proofs and benchmark](../../../Verification/Campaign_cartesian_cover_2026-09-29/README.md).
+See the proofs and benchmark.
 
 Time and work are capped:
 - a failed cell is bisected up to twice (`CERT_MAXDEPTH`);

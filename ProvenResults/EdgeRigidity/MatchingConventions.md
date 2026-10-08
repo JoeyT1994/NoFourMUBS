@@ -14,7 +14,7 @@ constant, then
 **Status.** Short analytic proof (added in this import; see below).
 It replaces the archive citation "orthogonality of distinct matching
 characters" (archive `03_algebraic/core/MATHEMATICS.md`, Section 2, and
-`TRIANGLE_NULLITIES.md`, now imported as [TriangleNullities.md](../Triples/TriangleNullities.md)). Only (Z) is used by
+`TRIANGLE_NULLITIES.md`, now imported as TriangleNullities.md). Only (Z) is used by
 [OneBinaryMatching.md](OneBinaryMatching.md) and
 [TernaryMatchingRigidity.md](TernaryMatchingRigidity.md).
 

@@ -198,7 +198,7 @@ def main():
     parser.add_argument('--theta',nargs=4,type=float)
     parser.add_argument('--rho',type=float,default=math.pi/512+2.0**-40)
     parser.add_argument('--skip-carrier',action='store_true')
-    parser.add_argument('--output-dir',type=Path,default=ROOT/'Review/invariant_replay')
+    parser.add_argument('--output-dir',type=Path,default=ROOT/'provenance/Review/invariant_replay')
     args=parser.parse_args()
     import struct
     theta=args.theta or [struct.unpack('d',struct.pack('Q',b))[0] for b in

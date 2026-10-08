@@ -40,7 +40,7 @@ identities. **Update 1 Oct 2026:** these inputs are now proved relative to named
 | [Sheet conjugation](../ProvenResults/Sheets/README.md) | H₋(θ̄) ≅ conj H₊(θ) | Reduction (e) |
 | [Side branch lemma (T4)](../ProvenResults/Sheets/BRANCH_LEMMA.md) | Every defined δ reversal and cube-root change gives a permutation of the last three columns (h) or rows (v). Algebraic proof using the accepted sign-selected side identities; no exhaustion assumption | Justifies continued branches in `fasthplus.jl`, including cells crossing dF = 0. Existing nonzero-divisor checks remain necessary: at s = 0 the alternative δ chart has ρ′ = 0 |
 | [Tao exclusion](../ProvenResults/ExceptionalEndpoints/Tao/README.md) | Tao is in no MUB triple (the published proof is Brierley–Weigert) | Reduction (b) |
-| [Finite common-ray algebra](../ProvenResults/CommonRays/FiniteCommonRayAlgebra.md) | If all 3×3 minors are nonzero, the common-ray scheme is a complete intersection of length 252 − 2m | A rigorous complete ray count at one point: HC finds 252 certified distinct solutions, so the list is complete ([hc_rays.jl](Certification/hc_rays.jl)) |
+| Finite common-ray algebra | If all 3×3 minors are nonzero, the common-ray scheme is a complete intersection of length 252 − 2m | A rigorous complete ray count at one point: HC finds 252 certified distinct solutions, so the list is complete ([hc_rays.jl](Certification/hc_rays.jl)) |
 | [Edge rigidity](../ProvenResults/EdgeRigidity/QuartetEdgeCorollary.md) | No quartet edge has a zero 3×3 minor | Optional: discard cells on which some minor is certified to vanish identically. It also lets the count theorem apply on every cell that matters |
 | [Fourier neighbourhood (D2)](../ProvenResults/FourierNeighbourhood/README.md) | Every quartet edge has d_F > 1/1024 | Discard cells within 1/1024 of the F6 orbit, where R → 0 |
 | Exact invariance identities | R depends only on the positional corner; how the moduli permute | Reduction (c): [Domain/verify_reduction.py](Domain/verify_reduction.py), which is exact |
@@ -61,7 +61,7 @@ model assumptions, with no new reconstruction input. The entry point,
 [cover_accelerated.jl](Certification/cover_accelerated.jl), is the production
 default in the cluster package (cover only; the rays path, whose branch and
 bound accepts by floating-point tests, is not used). Receipts are in
-[Verification](../Verification/Campaign_cartesian_cover_2026-09-29/README.md).
+Verification.
 
 **Additional proved tool for T1′/T2:** the
 [Fourier seed atlas](../ProvenResults/FourierNeighbourhood/SeedAtlas/README.md)
@@ -99,7 +99,7 @@ for the campaign.
 | Tool | Role | Rigour |
 |---|---|---|
 | IntervalArithmetic.jl 1.0.10 | All enclosures | Outward rounding. Every inequality in a certificate is an interval inequality |
-| FastTM (in-house, [Certification/fasttm.jl](Certification/fasttm.jl)) | The H₊ Taylor model over a seed cell, used by the domain tests and the cover certificate | Float64 coefficients with every rounding, truncation and tail swept into an outward remainder. **Proved** for every guarded trace by [FastTMInvariant](../ProvenResults/FastTMInvariant/README.md) (order ≤ 12, B(P)+r ≤ 2⁴⁰, exact bounded scalars, gradual underflow included). The guard is always on and fails closed (installed 29 Sep 2026). The unguarded code had a proved extreme-operand counterexample ([Review/FASTTM.md](../Review/FASTTM.md)); results from unguarded runs need a guarded rerun. Since 30 Sep `inv` and `sqrt` expand about a normalised centre ([RESCALED_INTRINSICS.md](../ProvenResults/FastTMInvariant/RESCALED_INTRINSICS.md); production sha256 `7e9c0bc3…`, mechanically checked to differ from the guarded source only there). Independent review has been requested |
+| FastTM (in-house, [Certification/fasttm.jl](Certification/fasttm.jl)) | The H₊ Taylor model over a seed cell, used by the domain tests and the cover certificate | Float64 coefficients with every rounding, truncation and tail swept into an outward remainder. **Proved** for every guarded trace by [FastTMInvariant](../ProvenResults/FastTMInvariant/README.md) (order ≤ 12, B(P)+r ≤ 2⁴⁰, exact bounded scalars, gradual underflow included). The guard is always on and fails closed (installed 29 Sep 2026). The unguarded code had a proved extreme-operand counterexample (Review/FASTTM.md); results from unguarded runs need a guarded rerun. Since 30 Sep `inv` and `sqrt` expand about a normalised centre ([RESCALED_INTRINSICS.md](../ProvenResults/FastTMInvariant/RESCALED_INTRINSICS.md); production sha256 `7e9c0bc3…`, mechanically checked to differ from the guarded source only there). Independent review has been requested |
 | TaylorModels.jl 0.12, TaylorSeries 0.22.8 | Order-reduction helpers and the retired rays path | Polynomial with interval coefficients plus an interval remainder. Rigorous given correct library arithmetic |
 | HomotopyContinuation.jl 2.22.2, `certify` | The complete ray set at a point (diagnostics; not used by the campaign) | Interval Krawczyk certification of every solution. Completeness comes from the length-252 theorem, not from HC |
 

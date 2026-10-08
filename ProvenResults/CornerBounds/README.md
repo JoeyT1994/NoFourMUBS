@@ -48,7 +48,7 @@ inequalities, and the exact rational witness. All checks are exact.
 No new exclusion rule is enabled in the campaign. The quantitative T1
 problem remains open, with the above restriction on its constants.
 
-[Isolated verification receipt](../../Verification/T1_corner_bounds_2026-09-28/summary.json):
+Isolated verification receipt:
 PASS, all-exact replay.
 
 [PairedSidePrune](PairedSidePrune/README.md) adds the division-free

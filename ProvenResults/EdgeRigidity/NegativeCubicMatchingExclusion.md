@@ -27,7 +27,7 @@ with multiplicity2. Here omega=exp(2 pi i/3).
 Combined with [the positive-sign theorem](TernaryMatchingRigidity.md),
 this proves that two distinct triangle matchings whose relative vectors
 have exactly three values in ALL THREE directions force Fourier edges
-and (at least three; six by [TriangleNullities.md](../Triples/TriangleNullities.md)) aligned
+and (at least three; six by TriangleNullities.md) aligned
 matchings, with no cubic-sign assumption. This is not
 universal ternary forcing or an exclusion of all nullity1/2/6 triangles.
 

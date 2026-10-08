@@ -83,7 +83,7 @@ standard library. The replay takes about a second and checks:
 - The two R identities, exact distance witnesses and whole-cell bounds.
 - The direct carrier-distance and probability-transfer identities.
 
-The retained [receipt](../../../Verification/T2_seed_atlas_2026-09-28/fourier_seed_atlas.txt)
+The retained receipt
 records the isolated replay. The analytic arguments supply the universal
 distance and transfer statements.
 

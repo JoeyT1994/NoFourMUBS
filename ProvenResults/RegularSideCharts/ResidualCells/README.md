@@ -22,7 +22,7 @@ From the repository root, with the pinned campaign Julia environment:
 
     JULIA_BIN=/path/to/julia python3 verify.py --only t6_residual_cells --jobs 1 --output-dir Verification/T6_residual_cells_replay
 
-[Retained verification](../../../Verification/T6_residual_cells_2026-09-28/summary.json).
+Retained verification.
 The replay certifies the four gaps and wall-clearance bounds, constructs all atlas leaves, audits
 the full cover with binary rational arithmetic, and checks failure on
 budget/depth limits and corrupted covers. The gap calculation itself

@@ -1,9 +1,0 @@
-Layer-prune survivors, uniform random sample (8,000 of the cells left unresolved by SideTriplePrune in the
-production layer stage, 29 Sep 2026, first ~30% of layer tasks; layer.txt is shuffled so this is uniform).
-Float evidence: 81 sample points per cell (centre, 16 vertices, 64 random); exact seed distance of the centre to
-the Fourier-family seed atlas (ProvenResults/FourierNeighbourhood/SeedAtlas), in radians.  Not a proof.
-sampled survivors: 8000; touching D0 ∩ F at a sample: 202 (2.5%)
-  touching D0: 202 cells; atlas distance quantiles 10/50/90/max = 0.00647 / 0.0211 / 0.0615 / 0.0926
-  not touching: 7798 cells; atlas distance quantiles 10/50/90/max = 0.0205 / 0.0947 / 0.307 / 0.81
-  R at sampled D0 points (min per cell): min 4.99, median 39.3; cells with a D0 point at R<20: 33
-  cells whose sampled R range contains 0: 4388

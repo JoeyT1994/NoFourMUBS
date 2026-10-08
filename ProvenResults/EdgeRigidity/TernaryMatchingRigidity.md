@@ -415,7 +415,7 @@ absorbing the displayed scalar into one outer phase vector. The vectors
 1,eta0,eta0 squared are mutually orthogonal after normalization, since each
 cubic root occurs twice. There are at least three distinct matchings for
 the SAME representatives and alignments; the nullity gap
-([TriangleNullities.md](../Triples/TriangleNullities.md)) makes their number six. No independent permutation of a shared edge is used.
+(TriangleNullities.md) makes their number six. No independent permutation of a shared edge is used.
 
 The proof uses exact shared matching, full unbiasedness, and small-dimensional
 spectral geometry. It uses no generic rank, ordinary-minor condition, preferred

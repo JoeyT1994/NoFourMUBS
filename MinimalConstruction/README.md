@@ -1,31 +1,30 @@
-# Canonical reconstruction
+# Minimal reconstruction
 
-[One-page PDF](Hadamard6_Positive_Sheet.pdf) · [LaTeX](Hadamard6_Positive_Sheet.tex)
-· [Full definitions](RECONSTRUCTION.md) · [Accepted inputs](ASSUMPTIONS.md)
+**[One-page construction (PDF)](Hadamard6_Positive_Sheet.pdf)** · [LaTeX](Hadamard6_Positive_Sheet.tex) · [Full definitions](RECONSTRUCTION.md) · [Statements MC1–MC5](ASSUMPTIONS.md)
 
-Four unit phases a,b,c,d and R>0 define the positive-sheet construction.
-Under the explicitly accepted external coverage, exhaustion and sheet-reversal
-theorems, it covers every non-F6, non-Tao class up to equivalence. It is a
-surjection, not an injective parametrization. F6 denotes the individual
-Fourier matrix, not its entire two-parameter family.
+Four unit phases a, b, c, d with R > 0 determine an order-6 complex Hadamard matrix by the positive-sheet construction. The steps are:
+1. Form the corner E = [[1,1,1],[1,a,b],[1,c,d]] and its Gram invariants.
+2. Compute the side scalars z± = (χ ± i√R)/2g.
+3. Apply the side constructor for the blocks B and C.
+4. Set D = −CWB/g.
 
-The existing PDF, TeX, mathematical definitions and assumptions are unchanged.
-Navigation links and this index were updated.
-The classification paper does not certify the later accepted reconstruction
-inputs; their distinct status is intentional.
+Every non-F6, non-Tao equivalence class is reached this way. The construction is a surjection, not an injective parametrisation. F6 denotes the single Fourier matrix, not its two-parameter family.
 
-## Executable formulas and measurement equations
+## Proofs
+
+The five statements the reduction needs are proved in [`Proofs/`](Proofs/README.md), relative to named results of the [classification paper](../ClassificationPaper/README.md).
+
+| | Statement |
+|---|---|
+| **MC1** | Every non-F6 Hadamard matrix has a corner with R > 0 |
+| **MC2** | At a strict corner, the side fibre has exactly two orbits |
+| **MC3** | The side formulas are well defined on R > 0 |
+| **MC4** | Both matched completions are flat. The non-matched exceptions are exactly the Tao cases |
+| **MC5** | Positive-sheet coverage holds in the form used by the [reduction](../NumericalCampaign/REDUCTION.md) |
+
+`python3 Proofs/verify_dossier.py` replays the local checks.
+
+## Executable formulas
 
 - [Implementation/model.py](Implementation/model.py) evaluates the PDF construction.
-- [Implementation/single_radical.py](Implementation/single_radical.py) gives the
-  equivalent measurement equations using one shared sheet scalar.
-- [Measurement-coordinate derivation](Measurements/MeasurementCoordinates.md).
-- [Single-radical derivation](Measurements/SingleRadicalMeasurements.md).
-
-These are two implementations of the same carrier construction, not competing
-Hadamard parametrizations. The measurement equations retain ray variables.
-One positive sheet suffices for global class coverage; both signs can matter
-when keeping a prescribed seed frame.
-
-Run all retained verification checks with python3 ../verify.py from this folder,
-or python3 verify.py from the project root.
+- [Implementation/single_radical.py](Implementation/single_radical.py) gives the equivalent measurement equations, with one shared sheet scalar. Derivations: [measurement coordinates](Measurements/MeasurementCoordinates.md) and [single radical](Measurements/SingleRadicalMeasurements.md).

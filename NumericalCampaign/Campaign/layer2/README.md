@@ -26,7 +26,7 @@ for guarded replay and inventory migration.
 This directory owns only the 623,187 branch-layer survivors. Production
 certification sources, `Campaign/driver.jl`, `cluster/run_task.sh`, and
 `results/certify*` are unchanged. Status and measurements are in
-[`WhatWeWanttoProve/BRANCH_LAYER.md`](../../../WhatWeWanttoProve/BRANCH_LAYER.md).
+`WhatWeWanttoProve/BRANCH_LAYER.md`.
 
 ## Frozen inputs
 

@@ -14,7 +14,7 @@ certificate that this library checks.** Its polynomial has been re-derived by a
 second, independent engine (Singular); see "Independent re-derivation" below. That is
 corroboration, not a checked certificate. The conclusion agrees with the published
 result of [Brierley-Weigert](https://arxiv.org/abs/0901.4051), which is accepted in
-[RESEARCH_BRIEF.md](../../../RESEARCH_BRIEF.md).
+RESEARCH_BRIEF.md.
 
 **Dependencies.** None inside ProvenResults. External: the elimination step, as
 described above.

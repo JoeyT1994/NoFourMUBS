@@ -20,7 +20,7 @@ Every step inside this library is an analytic proof with exact checks.
 - [Jaming, Matolcsi, Mora, Szollosi, Weiner](https://arxiv.org/abs/0902.0882):
   the Fourier family F_6^(2)(a,b) and its transpose do not extend to four MUBs
   containing the standard basis (published; accepted in
-  [RESEARCH_BRIEF.md](../../RESEARCH_BRIEF.md)).
+  RESEARCH_BRIEF.md).
 - Tao: [Brierley-Weigert](https://arxiv.org/abs/0901.4051) (published), or the
   self-contained [Tao exclusion](../ExceptionalEndpoints/Tao/TaoExclusion.md) of this
   library, which is conditional on a frozen external elimination (see that file).

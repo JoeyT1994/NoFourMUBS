@@ -18,7 +18,7 @@ file starts with a Statement / Status / Dependencies / Provenance header.
 | Spectral slack / Cauchy-Binet | 6I-FF*=BB*, with an explicit four-seed det formula; det T[I,J] = (1/(6 sqrt6)) sum_S conj(det H[S,I]) det K[S,J]; sum_J \|det T[I,J]\|^2=216 | Exact identities, unconditional | [SpectralSlackIdentities.md](SpectralSlackIdentities.md) |
 | Cubic pair rigidity | A row or column quotient with exactly three values (equivalently \|sum r_j^3\|=6) forces Tao or an antipodal pair | Every Hadamard, unconditional. So \|sum r_j^3\|<6 holds strictly on quartet edges | [CubicPairRigidity.md](CubicPairRigidity.md) |
 | Matching conventions | Definition of triangle matchings. A nontrivial matching has zero-sum relative vectors in all three directions | Every triangle. Short new proof, which replaces an archive citation | [MatchingConventions.md](MatchingConventions.md) |
-| Ternary matching (+ sign) | Two matchings that are three-valued in all directions with the positive cubic sign force every edge to be F2 tensor F3, and give at least 3 matchings | Every triangle, unconditional. With the nullity gap in [TriangleNullities.md](../Triples/TriangleNullities.md) this gives six | [TernaryMatchingRigidity.md](TernaryMatchingRigidity.md) |
+| Ternary matching (+ sign) | Two matchings that are three-valued in all directions with the positive cubic sign force every edge to be F2 tensor F3, and give at least 3 matchings | Every triangle, unconditional. With the nullity gap in TriangleNullities.md this gives six | [TernaryMatchingRigidity.md](TernaryMatchingRigidity.md) |
 | Ternary matching (- sign) | No triangle has a negative-sign cubic matching | Unconditional | [NegativeCubicMatchingExclusion.md](NegativeCubicMatchingExclusion.md) |
 | One binary direction | One binary relative direction between two matchings forces a zero 3-minor on some edge. Includes the projector lemma (h=4 or 5) | Every triangle, unconditional. So on quartets every such direction is strictly nonbinary | [OneBinaryMatching.md](OneBinaryMatching.md) |
 | Projector rank five | For a non-Tao H with no zero 3-minor, the centered projectors on any 3 rows have real rank 5. Also proves the sharpened block theorem and an exact non-singular-normal control | Unconditional. Holds on every quartet edge | [ProjectorRank5.md](ProjectorRank5.md) |
@@ -42,7 +42,7 @@ file starts with a Statement / Status / Dependencies / Provenance header.
 - **Archive framework remarks.** Some paragraphs refer to the archive's guarded
   product-frame coordinates or its covariance map (N_full, J). These paragraphs are marked
   as remarks. No result here depends on them.
-- The nullity theorem (matching count in {0,1,2,6}) is in [TriangleNullities.md](../Triples/TriangleNullities.md).
+- The nullity theorem (matching count in {0,1,2,6}) is in TriangleNullities.md.
 - **Not imported:** the archive two-direction binary theorem (superseded by OneBinaryMatching).
 
 ## Verification

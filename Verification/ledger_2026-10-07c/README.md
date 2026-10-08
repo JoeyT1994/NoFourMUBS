@@ -1,6 +1,6 @@
 # Full post-E ledger, 7 Oct 2026 (evening): every row closed by our own certificates
 
-`full_ledger.py` was run over all **45,713,468** post-E rows. It adds the source `seed0024` to [ledger 07b](../ledger_2026-10-07b/README.md).
+`full_ledger.py` was run over all **45,713,468** post-E rows. It extends the previous ledger with the source `seed0024`.
 
 | State | Rows |
 |---|---:|

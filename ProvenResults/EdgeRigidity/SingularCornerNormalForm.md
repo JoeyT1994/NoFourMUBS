@@ -4,7 +4,7 @@
 
 **Status.** Local reduction: analytic proof with exact checks, unconditional. Quartet consequence: conditional only on the published Fourier-family exclusion.
 
-**Dependencies.** Local reduction: none. Quartet consequence: [Jaming et al.](https://arxiv.org/abs/0902.0882) (the Fourier family and its transpose do not extend to four MUBs), as listed in [RESEARCH_BRIEF.md](../../RESEARCH_BRIEF.md). N(z,w) is the Tadej-Zyczkowski family F_6^(2) up to a row permutation ([QuartetEdgeCorollary.md](QuartetEdgeCorollary.md)). The archive also cited Chen-Yu Lemma 11(v); that citation is retained below as a second published route but is not needed.
+**Dependencies.** Local reduction: none. Quartet consequence: [Jaming et al.](https://arxiv.org/abs/0902.0882) (the Fourier family and its transpose do not extend to four MUBs), as listed in RESEARCH_BRIEF.md. N(z,w) is the Tadej-Zyczkowski family F_6^(2) up to a row permutation ([QuartetEdgeCorollary.md](QuartetEdgeCorollary.md)). The archive also cited Chen-Yu Lemma 11(v); that citation is retained below as a second published route but is not needed.
 
 **Provenance.** `NoFourMUBSArchive/90_replay_library/05_remaining_D2/spectral_forcing/quartet_coupling/BOUNDARY_SCOPE.md`, `verify_boundary.py` (unchanged here as `quartet_boundary.py`).
 

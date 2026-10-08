@@ -7,7 +7,7 @@ Approach A of [`RouteC/band`](../../RouteC/band/REPORT.md), run on the 6,408 pos
 | `boxes.jsonl.gz` | The input boxes: inventory row id, exact rational centres, and radii π/2¹³ + 2⁻⁴⁰ |
 | `results.jsonl.gz` | One record per box: search statistics; Arb verification (M, leaf counts); exact split/root coverage count; `accepted`; `tape_sha256` |
 
-**Result.** 6,370 boxes accepted; 38 reached the minimum radius. All 38 sit at exact seeds: see the [report](../../RouteC/band/REPORT.md) and [ledger 07b](../ledger_2026-10-07b/README.md).
+**Result.** 6,370 boxes accepted; 38 reached the minimum radius. All 38 sit at exact seeds: see the [report](../../RouteC/band/REPORT.md).
 
 **Tapes.** The tapes (16 GB) are on the Flatiron cluster at `/mnt/ceph/users/jtindall/nofour_psd/band/prod/out/c*/tapes/<id>.npz`. The ledger checks each tape against its sha256 before crediting the row.
 
