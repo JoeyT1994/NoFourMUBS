@@ -270,7 +270,7 @@ class Atlas:
             who[good] = j; near |= ctr < rt['R'] - self.margin
         return who, near
 
-    def assign(self, s, nbrs, wmin_frac=1 / 32):
+    def assign(self, s, nbrs, wmin_frac=1 / 32, force=frozenset()):
         """Adaptive cover of the eta-cube by boxes: each leaf is off-shell or transferred.  Returns (leaves, failed)."""
         rs = self.recs[s]; rH = rs['rH']
         w = rH / 2; g1 = np.array([-0.75, -0.25, 0.25, 0.75]) * rH
@@ -282,6 +282,9 @@ class Atlas:
             who, near = self.assign_level(s, nbrs, E, w)
             for i in np.where(who >= 0)[0]: leaves.append((E[i], w, who[i]))
             bad = (who < 0) & ~near
+            if force:
+                for i in np.where(bad)[0]:
+                    if tuple(np.round(E[i] / w, 3)) in force: bad[i] = False      # subdivide instead of failing
             if bad.any() or (w / 2 < wmin_frac * rs['R'] and (who < 0).any()):
                 failed = E[(who < 0) & (bad | (w / 2 < wmin_frac * rs['R']))]; break
             E = E[who < 0]
@@ -291,15 +294,15 @@ class Atlas:
     def process(self, s, verbose=False):
         rs = self.recs[s]; self._t = time.time()
         nbrs = self.neighbours(s)
-        spawned = []; last = None; nglob = 0; tried = set()
+        spawned = []; nglob = 0; tries = {}; force = set()
         while True:
-            leaves, failed, wf = self.assign(s, nbrs)
+            leaves, failed, wf = self.assign(s, nbrs, force=frozenset(force))
             if len(failed) == 0: break
             key = tuple(np.round(failed[0] / wf, 3))
             d = rs['T'] @ failed[0]; d = d / np.linalg.norm(d)
-            if key not in tried:
+            k = tries.get(key, 0); tries[key] = k + 1
+            if k == 0:
                 # loop closure: is the failing boundary point inside a record we have not linked to yet?
-                tried.add(key)
                 y, conv = project(rs['phi'].reshape(36) + rs['R'] * d)
                 if conv:
                     y = y.reshape(6, 6)
@@ -308,10 +311,11 @@ class Atlas:
                     if hits:
                         for (t, A, dist) in hits: self.link(s, t, A)
                         nglob += len(hits); nbrs = self.neighbours(s)
-                        continue
-            if key == last: raise RuntimeError('record %d: spawn did not cover box %s' % (s, failed[0]))
-            last = key
-            x, conv = project(rs['phi'].reshape(36) + 1.3 * rs['R'] * d)
+                continue
+            if k == 2: force.add(key); continue                             # let its pieces be handled separately
+            scale = {1: 1.3, 3: 1.0, 4: 0.7}.get(k)
+            if scale is None: raise RuntimeError('record %d: cannot cover box %s' % (s, failed[0]))
+            x, conv = project(rs['phi'].reshape(36) + scale * rs['R'] * d)
             if not conv: raise RuntimeError('projection failed at record %d' % s)
             x = x.reshape(6, 6)
             rec = make_record(x)
@@ -339,7 +343,8 @@ def load(path):
 if __name__ == '__main__':
     start, nmax, out = sys.argv[1], int(sys.argv[2]), sys.argv[3]
     if os.path.exists(out):
-        A = load(out); print('resumed: %d records, %d closed' % (len(A.recs), len(A.closed)), flush=True)
+        A = load(out); print('resumed: %d records, %d closed, retrying %d failed' % (len(A.recs), len(A.closed), len(A.failed)), flush=True)
+        A.failed = {}
     else:
         A = Atlas()
         x, _ = project(json.load(open(start))['phi'])
