@@ -52,6 +52,6 @@ So a cover must do two things: show that almost all of Ω is not maximal, and pl
   - D0_out: a corner of H₊ beats E;
   - Ball: the column-projector distance of H₊ to one explicit F6 member is ≤ RT.
 
-  With RT = 0.0914, a Ball exit gives ν ≤ 0.55 by the gauge lemma. The open leaves of this pilot sit near R = 0, where the corner margin is huge (R(E) ≈ 2.5 against another corner at ≈ 297). The Taylor model of H₊ fails there only because it computes √R.
+  With RT = 0.0913, a Ball exit gives ν ≤ ρ(0.0913) = 0.5495 < 0.55 by the gauge lemma. (Runs before 8 Oct evening used 0.0914, which the original gauge does not quite support: ρ(0.0914) = 0.5501.) The open leaves of this pilot sit near R = 0, where the corner margin is huge (R(E) ≈ 2.5 against another corner at ≈ 297). The Taylor model of H₊ fails there only because it computes √R.
 - **`confine2.jl`** keeps those tests and adds an s = √R split. The interval [√inf R, √sup R] is fed into the H₊ model as an interval constant and split into pieces. This loses the correlation between s and θ, but it removes the 1/√R blow-up.
 - **`chart_np.py`** is a numpy port of the chart, used for exploration.

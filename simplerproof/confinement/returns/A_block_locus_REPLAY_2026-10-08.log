@@ -1,0 +1,41 @@
+fourier/verify_fourier.py: PASS
+PASS: all 36 Hadamard Gram identities, over the exact Laurent ring
+PASS: 256 zero corners and 36 of each of the four signed-sine-square formulas
+  A witness for a nonzero class: ((0, 1, 2), (0, 1, 2)) multiplicity 36
+  A witness for a nonzero class: ((0, 1, 2), (0, 1, 5)) multiplicity 36
+  A witness for a nonzero class: ((0, 1, 2), (0, 4, 5)) multiplicity 36
+  A witness for a nonzero class: ((0, 1, 2), (0, 2, 4)) multiplicity 36
+PASS: all lattice shifts, using 36 exhaustive residue classes
+PASS: horizontal norm identity and all six hexagon vertices
+PASS: exact rational/Taylor enclosures
+  0.43887162260746 < alpha_26 < 0.43887162260747
+  0.35833717932519 < radius_26 < 0.35833717932521
+  0.07308006387000 < distance_26 < 0.07308006387001
+FOURIER CONFINEMENT EXACT VERIFIER: PASS
+verify_fourier_block_locus.py: PASS
+Exact Fourier-block branch counts: {'pure_flat_M0': 9, 'pure_flat_M243': 36, 'nonflat': 18, 'mixed_flat_M243': 18}
+Every flat nonpure cube-root branch has M = 243.
+FOURIER BLOCK LOCUS VERIFICATION PASS
+critical/verify_auxiliary.py: PASS
+Exact cutoff squared-radius margin: 278803/43200000000
+Exact horizontal lattice Gram matrix: PASS
+Exact nine-phase Laurent identities: PASS
+Original gauge at0.09138: [0.5500091004990456504641969295200232875937795670618410218766 +/- 9.27e-59]
+Improved gauge at0.0914: [0.5497865936082864574242841355307150091652633784894757096422 +/- 6.11e-59]
+Improved exact terminal radius: [0.091435298288725170802122413892244256047870113913434686371788 +/- 4.23e-61]
+Original formula terminal radius: [0.091378497532504645678073376722144983381874852370590626696705 +/- 6.71e-61]
+AUXILIARY EXACT VERIFICATION PASS
+critical/verify_chart_seed.py: PASS
+Exact Tao corner: R=243, g=9, internal dF=0
+CHART SEED EXACT VERIFICATION PASS
+mc1/verify_general_identities.py: PASS
+PASS: exact 55-term q expansion and 24-term imaginary part
+PASS: universal 3x3 permanent and determinant Gram identities
+PASS: row-pair moment reduction; all omitted terms vanish by column orthogonality
+PASS: 1296 integer coefficients in the fourth subset-moment identity
+PASS: exact multiplicities and cancellation in the global tensor identity
+PASS: determinant fourth-moment constants and lower bound 27/2
+ALL GENERAL IDENTITY CHECKS PASS
+ALL PARTIAL-RESULT VERIFICATIONS PASS
+UNRESTRICTED GLOBAL CONFINEMENT REMAINS UNPROVED
+EXIT 0

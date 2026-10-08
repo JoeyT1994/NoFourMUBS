@@ -9,8 +9,8 @@ Suppose (I, H) is a quartet edge, and let M(H) be the largest corner invariant R
 | Step | Statement | Status | Where |
 |---|---|---|---|
 | 1. Wide F6 tube | No quartet edge has d_F(H) ≤ 0.075 | ✅ certified, independently replayed | [`widetube/PROOF.md`](widetube/PROOF.md) |
-| 2. Local lemma | d_F(H) ≤ 0.0914 and M(H) < 26 ⇒ H is not a quartet edge | ✅ certified, independently replayed | [`widetube/PROOF.md`](widetube/PROOF.md#local-averaging-lemma-at-the-wide-radius-pass-8-oct) |
-| 3. Global confinement | M(H) < 26 ⇒ d_F(H) ≤ 0.0914 | ⏳ **open**; holds numerically with a wide margin | [`averaging_lemma/`](averaging_lemma/), [`confine/`](confine/) |
+| 2. Local lemma | ν(H) ≤ 0.55 and M(H) < 26 ⇒ H is not a quartet edge (d_F ≤ 0.0913 implies ν ≤ 0.55) | ✅ certified, independently replayed | [`widetube/PROOF.md`](widetube/PROOF.md#local-averaging-lemma-at-the-wide-radius-pass-8-oct) |
+| 3. Global confinement | M(H) < 26 ⇒ ν(H) ≤ 0.55 | ⏳ **open**; holds numerically with a wide margin; the remaining case is narrowed to cross-partition local minima | [`confinement/`](confinement/README.md), [`confine/`](confine/), [`averaging_lemma/`](averaging_lemma/) |
 | 4. Regular chart | Seeds with maximal corner R ≥ 26 | ✅ a subset of the full proof's certified cells | [`../PROOF.md`](../PROOF.md) §3 |
 
 **What changes once Step 3 holds.** Steps 1–3 exclude every H with M(H) < 26. Then:
@@ -43,7 +43,7 @@ The lemma uses the same cells over the 0.55-ellipsoid. Each cell is accepted in 
 ## Step 3: global confinement (open)
 
 **Evidence.**
-- On the extremal Fourier curve, max R = 144 sin²(6 arcsin d_F). So M ≈ 39 at d_F = 0.0914.
+- On the extremal Fourier curve, max R = 144 sin²(6 arcsin d_F). So M ≈ 39 at d_F = 0.0913.
 - Every sampled non-Tao matrix with d_F > 0.1 has M > 46.
 
 **Two lines of attack.**

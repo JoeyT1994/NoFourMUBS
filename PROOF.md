@@ -93,6 +93,6 @@ The ledger ([`07c`](Verification/ledger_2026-10-07c/README.md)) assigns a certif
 
 The expensive parts of §3–§4 all lie in the shell just outside the 1/30 tube. [`simplerproof/`](simplerproof/README.md) removes them:
 - the F6 tube is widened to d_F ≤ 0.075;
-- a local lemma is proved: d_F ≤ 0.0914 and M < 26 imply that H is not a quartet edge.
+- a local lemma is proved: ν(H) ≤ 0.55 and M < 26 imply that H is not a quartet edge (ν is the smallest horizontal phase norm to F6; d_F ≤ 0.0913 suffices).
 
-Both are certified and replayed. One statement remains open: **M(H) < 26 ⇒ d_F(H) ≤ 0.0914.**
+Both are certified and replayed. One statement remains open: **M(H) < 26 ⇒ ν(H) ≤ 0.55.**

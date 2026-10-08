@@ -1,0 +1,85 @@
+Final verification replay — 2026-10-08
+Python 3.12.14
+SymPy 1.14.0; python-flint 0.9.0
+Exact/interval proof checks only; global confinement remains unproved.
+
+
+Verifying: verification/verify_geometry.py
+PASS: rational horizontal projection, rank 25, denominator divides 36
+PASS: d_F <= 457/5000 implies nu < 11/20
+Exact positive squared-radius margin: 1661639/31331528000
+PASS: all threshold comparisons in the compact outer-set reduction
+GEOMETRY AND GAUGE VERIFICATION PASS
+
+Verifying: verification/verify_signed_bounds.py
+PASS: 48 signed Laurent terms, all coefficients +/-1
+PASS: exact frequency Gram matrix is 144 times a rank-four projection
+PASS: analytic bounds give Lipschitz 48*sqrt(3), Hessian norm 144
+PASS: exact rational certificate for the entire 1/40 Fourier-family tube
+SIGNED INVARIANT VERIFICATION PASS
+
+Verifying: fourier_sector/verify_fourier.py
+PASS: affine family is Hadamard over the exact Laurent ring
+PASS: all 400 corner definitions and their signed-square formula
+PASS: 256 zero corners and four sign classes, 36 corners each
+Exact positive margin for nu < 9/25: 102051407/70312500000
+PASS: the stated 26-threshold gives nu < 9/25 < 11/20 exactly
+FOURIER CONFINEMENT VERIFICATION PASS
+
+Verifying: fourier_sector/verify_ambient_gradient.py
+PASS: all 400 squared ambient-gradient norms classified exactly
+PASS: the twelve nontrivial types are translates of one polynomial
+PASS: exact cos-coordinate polynomial identity, degrees (4,6)
+PASS: exact full-square Bernstein cover: {'leaves': 88, 'max_depth': 14, 'max_upper': Fraction(74112791499, 41943040)}
+PASS: uniform ambient phase-gradient norm <= sqrt(1767) < 42.04
+PASS: global frequency matrix is 144 times an orthogonal projector
+PASS: resulting ambient Hessian operator bound is 144
+Exact positive tube scalar margin: 13278955123282452720908972031249061243/149536132812500000000000000000000000000000
+PASS: eta=21/500 satisfies the confinement scalar inequality
+AMBIENT GRADIENT VERIFICATION PASS
+
+Verifying: mc1/verify_global_moments.py
+GLOBAL MOMENT CERTIFICATES PASS
+Verified: determinant/permanent block identities; real q identity;
+row-triple signed moment identity; pair second/fourth moments;
+spectral permanent bound; 66 exact row-energy coefficients.
+
+Verifying: mc1/verify_hadamard_corner.py
+HADAMARD CORNER CLASSIFICATION PASS
+36 cubic-chirp cases checked exactly; 18 flat cases all equivalent to Tao.
+Tao: 40 corner values 0 and 360 corner values 243, using F2.
+Order-three affine permutations and Fourier CRT identification checked.
+Circulant eigenvalues: lambda_1=conj(w_hat_1), lambda_2=omega*w_hat_2.
+
+Verifying: fourier_sector/verify_robust_corner.py
+PASS: exact circulant eigenvalue and mean-Fourier product identities
+PASS: all constants of the quantitative three-phase lemmas
+PASS: block rounding and diagonal replacement constants
+PASS: determinant deficit1e-16 gives Frobenius bound 3527707/100000000
+PASS: phase bound 356298407/10000000000 <9/250<21/500
+PASS: exact Tao exclusion and near-permanent cutoff
+HADAMARD CORNER CLASSIFICATION PASS
+36 cubic-chirp cases checked exactly; 18 flat cases all equivalent to Tao.
+Tao: 40 corner values 0 and 360 corner values 243, using F2.
+Order-three affine permutations and Fourier CRT identification checked.
+Circulant eigenvalues: lambda_1=conj(w_hat_1), lambda_2=omega*w_hat_2.
+PASS: nongeometric rounded diagonals have opposite chirality
+ROBUST HADAMARD CORNER VERIFICATION PASS
+
+Verifying: descent/verify_chart_denominators.py
+CHART AND STATIONARY-SEED EXACT VERIFICATION PASS
+Elapsed seconds (informational): 24.156
+
+Verifying: verification/verify_intervals.py
+original rho(0.09138) [0.5500091004990456504641969295200232875937795670618410219 +/- 6.34e-56]
+original rho(0.0914) [0.5501302414818713264610965145727173900889790948131233982 +/- 7.59e-56]
+improved rho(0.0914) [0.549938439872265217607411440333316882375904666461445986 +/- 2.84e-55]
+inverse of original rho at 0.55 [0.09137849753250464567807337672214498338187485237059062670 +/- 5.44e-57]
+Fourier phase bound at M=26 [0.358337179325196064125007602836004110261463842549243817131 +/- 5.92e-58]
+Fourier projector bound at M=26 [0.073080063870001047874796897732969054259968141847448597731 +/- 1.73e-58]
+phase bound for full 0.042 tube [0.54982619866020065550353657497909641416379461092682720014 +/- 2.48e-57]
+golden stationary seed R [5.040653093778916743738620549449517626914975553415212913 +/- 2.53e-55]
+ARBITRARY-PRECISION INTERVAL VERIFICATION PASS
+
+ALL DELIVERED EXACT AND INTERVAL VERIFIERS PASS
+This verifies the stated partial results, not unrestricted global confinement.

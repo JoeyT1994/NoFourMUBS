@@ -1,0 +1,43 @@
+{
+  "scope": "Exact/interval replays of the stated PARTIAL results only",
+  "unrestricted_global_confinement": "NOT PROVED",
+  "all_passed": true,
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "results": [
+    {
+      "script": "fourier/verify_fourier.py",
+      "passed": true,
+      "returncode": 0,
+      "seconds": 0.04432886599988706,
+      "output": "PASS: all 36 Hadamard Gram identities, over the exact Laurent ring\nPASS: 256 zero corners and 36 of each of the four signed-sine-square formulas\n  A witness for a nonzero class: ((0, 1, 2), (0, 1, 2)) multiplicity 36\n  A witness for a nonzero class: ((0, 1, 2), (0, 1, 5)) multiplicity 36\n  A witness for a nonzero class: ((0, 1, 2), (0, 4, 5)) multiplicity 36\n  A witness for a nonzero class: ((0, 1, 2), (0, 2, 4)) multiplicity 36\nPASS: all lattice shifts, using 36 exhaustive residue classes\nPASS: horizontal norm identity and all six hexagon vertices\nPASS: exact rational/Taylor enclosures\n  0.43887162260746 < alpha_26 < 0.43887162260747\n  0.35833717932519 < radius_26 < 0.35833717932521\n  0.07308006387000 < distance_26 < 0.07308006387001\nFOURIER CONFINEMENT EXACT VERIFIER: PASS\n"
+    },
+    {
+      "script": "verify_fourier_block_locus.py",
+      "passed": true,
+      "returncode": 0,
+      "seconds": 7.831617886000004,
+      "output": "Exact Fourier-block branch counts: {'pure_flat_M0': 9, 'pure_flat_M243': 36, 'nonflat': 18, 'mixed_flat_M243': 18}\nEvery flat nonpure cube-root branch has M = 243.\nFOURIER BLOCK LOCUS VERIFICATION PASS\n"
+    },
+    {
+      "script": "critical/verify_auxiliary.py",
+      "passed": true,
+      "returncode": 0,
+      "seconds": 0.44779349200007346,
+      "output": "Exact cutoff squared-radius margin: 278803/43200000000\nExact horizontal lattice Gram matrix: PASS\nExact nine-phase Laurent identities: PASS\nOriginal gauge at0.09138: [0.5500091004990456504641969295200232875937795670618410218766 +/- 9.27e-59]\nImproved gauge at0.0914: [0.5497865936082864574242841355307150091652633784894757096422 +/- 6.11e-59]\nImproved exact terminal radius: [0.091435298288725170802122413892244256047870113913434686371788 +/- 4.23e-61]\nOriginal formula terminal radius: [0.091378497532504645678073376722144983381874852370590626696705 +/- 6.71e-61]\nAUXILIARY EXACT VERIFICATION PASS\n"
+    },
+    {
+      "script": "critical/verify_chart_seed.py",
+      "passed": true,
+      "returncode": 0,
+      "seconds": 0.5250704549998773,
+      "output": "Exact Tao corner: R=243, g=9, internal dF=0\nCHART SEED EXACT VERIFICATION PASS\n"
+    },
+    {
+      "script": "mc1/verify_general_identities.py",
+      "passed": true,
+      "returncode": 0,
+      "seconds": 0.026530000000093423,
+      "output": "PASS: exact 55-term q expansion and 24-term imaginary part\nPASS: universal 3x3 permanent and determinant Gram identities\nPASS: row-pair moment reduction; all omitted terms vanish by column orthogonality\nPASS: 1296 integer coefficients in the fourth subset-moment identity\nPASS: exact multiplicities and cancellation in the global tensor identity\nPASS: determinant fourth-moment constants and lower bound 27/2\nALL GENERAL IDENTITY CHECKS PASS\n"
+    }
+  ]
+}

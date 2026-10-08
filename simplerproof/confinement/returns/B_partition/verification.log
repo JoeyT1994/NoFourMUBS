@@ -1,0 +1,142 @@
+EXACT PARTIAL-CONFINEMENT CERTIFICATE REPLAY
+UTC: 2026-10-08T09:20:19.610305+00:00
+Python: 3.12.14
+sympy: 1.14.0
+mpmath: 1.3.0
+numpy: 2.3.5
+scipy: 1.17.0
+Deciding arithmetic: exact integers/rationals, exact polynomial algebra, Sturm counts, and rational interval bounds.
+Global confinement remains unproved; numerical experiments are excluded.
+
+[1/14] fourier/verify_fourier.py
+PASS: H(a,b) H(a,b)* = 6 I identically on the parameter torus.
+PASS: all 400 defining R polynomials equal their certified sine squares.
+Spectrum: 256 zeros; 36 copies of each of four signed-sine squares.
+PASS: every lattice reduction is an explicit row/column permutation.
+PASS: horizontal norm squared = (2/3)(U^2 - U V + V^2).
+PASS: rectangle identity; nonzero integer projection has norm >= 5/6, sharply.
+PASS: M<26 implies nu<0.358338 and d_F<0.073081, with rational certificates.
+FOURIER FAMILY EXACT CERTIFICATE PASS
+Exit status: 0; elapsed 0.129 seconds
+
+[2/14] global/verify_tube.py
+Signed Laurent polynomial: 48 coefficients, each +/-1: PASS
+Exponent covariance = 144 P_3: PASS
+Global Lipschitz constant 48 sqrt(3): PASS
+Global Hessian bound 144: PASS
+Fourier-tube radius 1/40 gives nu < 0.548503 < 0.55: PASS
+TUBE VERIFICATION PASS
+Exit status: 0; elapsed 0.048 seconds
+
+[3/14] global/verify_critical_invariants.py
+All positive free-invariant stationary values: 1024/27: PASS
+Every positive free-invariant stationary point has negative J curvature: PASS
+Exact seed-to-Gram angular Jacobian identity: PASS
+Squared Jacobian = (4XYZ-J^2) R(X,Y,Z,-J): PASS
+Seed-only complementary-corner competition identity: PASS
+REGULAR CRITICAL INVARIANTS VERIFICATION PASS
+Exit status: 0; elapsed 7.549 seconds
+
+[4/14] global/verify_cayley_smooth.py
+PASS distinct signed magnitudes: positive stationary readout lies in (35,36)
+PASS two equal signed magnitudes: no stationary value in (0,26]
+SMOOTH CAYLEY CRITICAL CERTIFICATE PASS
+Exit status: 0; elapsed 0.651 seconds
+
+[5/14] critical/verify_gauge.py
+GAUGE EXACT PASS
+Original F3 threshold lies in (0.0913784975325, 0.0913784975326).
+Sharper gauge: d_F <= 0.0914 implies nu < 0.54995.
+Sharper gauge: d_F <= 0.09141 implies nu < 0.549999.
+Exit status: 0; elapsed 0.022 seconds
+
+[6/14] critical/verify_chart.py
+CHART ALGEBRA EXACT PASS
+Exit status: 0; elapsed 0.596 seconds
+
+[7/14] critical/verify_chirality.py
+CHIRALITY CRITICAL EXACT PASS
+Gram six-phase real Jacobian determinant = Im(q(E))/4.
+Positive constrained critical values: (625 +/- 275 sqrt(5))/2.
+The smaller one has complementary R=(-3351+1541 sqrt(5))/2 > 26.
+Exit status: 0; elapsed 0.533 seconds
+
+[8/14] critical/verify_chirality_pair.py
+CHIRALITY COMPLEMENTARY-PAIR EXACT PASS
+No tied complementary-pair stationarity at 0 < M <= 26 on zero chirality.
+Exit status: 0; elapsed 0.652 seconds
+
+[9/14] critical/verify_double_zero.py
+DOUBLE-ZERO NONTRANSVERSE EXACT PASS
+Every positive real-equivalent corner has R=256.
+Double-Cayley Hessian is Lorentzian rank 3 away from R=256.
+The double-curve critical-value polynomial is negative on [0,26].
+Exit status: 0; elapsed 0.577 seconds
+
+[10/14] critical_exceptions/verify_qzero.py
+Generic q-zero criticality: the only positive candidate lies in (35,36): PASS
+Smooth Q, all-equal invariants: no positive critical candidate: PASS
+Smooth Q, two-one invariants: positive candidates in (311,312) or (30,31): PASS
+Singular-Q Hessians have signature (2,1,0) on their positive physical ranges: PASS
+Singular-Q curve criticality: no positive value <=30: PASS
+QZERO POSITIVE-CHIRALITY CRITICAL CERTIFICATE PASS
+Exit status: 0; elapsed 0.871 seconds
+
+[11/14] mc1/verify_minor_identities.py
+PASS determinant squared = 27 - 3p - J
+PASS permanent squared = 9 - p - J
+PASS 3 permanent squared = 2d - g
+PASS det(entrywise square) = permanent * determinant - 2P conjugate determinant
+PASS q = 2d + det(A)det(A squared)/P
+PASS 2 Re q = -chi with J sign reversed
+PASS 4 Re q = d permanent squared + 4d - determinant-square squared
+PASS 4 Im(q)^2 = Rpoly(X,Y,Z,-J)
+PASS 4 R = 16d^2 permanent squared - (d permanent squared +4d-t)^2
+PASS exact maximum-volume phase radius < 1/8 radian
+MINOR IDENTITIES PASS
+Exit status: 0; elapsed 0.058 seconds
+
+[12/14] mc1/verify_global_contractions.py
+PASS 55 q monomials, 48 signed monomials, 817 square monomials
+PASS 25 symmetry orbits reduce to the 12 stated contractions
+GLOBAL CONTRACTIONS PASS
+Exit status: 0; elapsed 0.112 seconds
+
+[13/14] mc1/complement_minimax/verify_complement_minimax.py
+PASS even part of R(+J),R(-J)
+PASS odd part divided by 2J
+PASS J stationarity when mu=-B/2
+PASS mixture W coefficient
+PASS tie equation on FW=0
+PASS vanishing FW parametrization
+PASS coefficient-zero branch factorization
+PASS first positive quadratic
+PASS second positive quadratic
+PASS equal-X tie equation
+PASS equal-X common value is nonpositive for 0<=u<=9
+PASS two-unit tie equation
+PASS two-unit common value
+PASS two-unit stationary polynomial
+PASS derivative along the exact tie curve
+PASS J=0 equal-X value
+PASS J=0 equal-X stationary polynomial
+PASS J=0 two-unit value
+PASS J=0 two-unit stationary polynomial
+PASS algebraic candidate, physical Gram inequalities, and mixture weight range
+PASS exact barrier 26 < (233472 sqrt(6)-488448)/3125 < 36
+PASS negative second derivative along the positive stationary tie curve
+COMPLEMENT MINIMAX PASS
+Exit status: 0; elapsed 0.032 seconds
+
+[14/14] mc1/verify_cross_partition.py
+PASS the arc consists of Hadamard matrices identically in its phase
+PASS every defining R polynomial on H(a,-a) is0 or144 sin^2(3a)
+PASS72 active corners across18 partitions, all4 blocks active in each
+PASS all4 noncomplementary overlap types occur simultaneously
+PASS the whole arc0<a<=1/10 has0<M<26
+CROSS-PARTITION COMBINATORIAL OBSTRUCTION PASS
+Exit status: 0; elapsed 0.053 seconds
+
+Total elapsed: 11.885 seconds
+ALL 14 EXACT CERTIFICATES PASS
+Scope: the partial theorems in CONFINEMENT.md; the unrestricted global theorem is not proved.

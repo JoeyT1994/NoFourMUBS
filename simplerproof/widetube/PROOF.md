@@ -84,9 +84,9 @@ No reconstruction or MC inputs are used.
 
 **Statement.** Let H be equivalent to F ∘ e^{iu}, with u horizontal and ‖u‖ ≤ ρ_L = 0.55. Then either ‖u‖ ≤ 0.451, which puts H in the wide tube so it is not a quartet edge, or max_c R_c(H) ≥ 26.28.
 
-**Consequence.** By the gauge lemma, d_F(H) ≤ 0.09138 implies ‖u‖ ≤ 0.55. Hence:
+**Consequence.** By the gauge lemma, d_F(H) ≤ 0.0913 implies ‖u‖ ≤ ρ(0.0913) = 0.54953 < 0.55. (Correction, 8 Oct: an earlier version said 0.09138, but ρ(0.09138) = 0.55001.) Hence:
 
-> **d_F(H) ≤ 0.0914 and M(H) < 26 imply that H is not a quartet edge.**
+> **ν(H) ≤ 0.55 and M(H) < 26 imply that H is not a quartet edge; in particular d_F(H) ≤ 0.0913 suffices.**
 
 **Method** (`lemma_cells.py`):
 - The same normal-form cells as the tube, over the 0.55-ellipsoid, restricted to its fundamental domain.
@@ -107,11 +107,11 @@ Receipt: [`results/lemma_receipt.json`](results/lemma_receipt.json).
 
 **What remains for the short proof** is one global confinement statement:
 
-> **M(H) < 26 implies d_F(H) ≤ 0.0914.**
+> **M(H) < 26 implies ν(H) ≤ 0.55.**
 
-Numerically this holds with a wide margin. On the extremal curve, M at d_F = 0.0914 is about 39. Beyond d_F = 0.1, the minimum non-Tao M sampled so far is above 46.
+Numerically this holds with a wide margin. On the extremal curve, M at d_F = 0.0913 is about 39. Beyond d_F = 0.1, the minimum non-Tao M sampled so far is above 46.
 
-## Plan for the global confinement (M(H) < 26 ⇒ d_F(H) ≤ 0.0914)
+## Plan for the global confinement (M(H) < 26 ⇒ ν(H) ≤ 0.55)
 
 In our chart, a Hadamard with M < 26 has a maximal-corner seed θ ∈ D₀ ∩ F with R(θ) < 26. The volume of F ∩ {0 < R < 26} is about 1.3·10⁻³ of T⁴.
 
