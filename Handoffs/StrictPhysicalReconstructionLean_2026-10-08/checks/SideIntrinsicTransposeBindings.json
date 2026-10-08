@@ -1,0 +1,39 @@
+{
+  "module": "SideIntrinsicTransposeBindings",
+  "source_sha256": "5b6bc034d56cfd834306ebbb86b4324900235724af98967febd34d8ba2b2f680",
+  "checked_object": {
+    "sha256": "a3f90d9955208281cedff582abc3ce3ddddfa76d25b77c9ed8f1ac5752b662d8",
+    "bytes": 105944
+  },
+  "original_receipt": {
+    "sha256": "b3c892c6fa93248612e5935c1f77776d08c47761aa3d109f0a5246aa103bd3e5",
+    "bytes": 297
+  },
+  "original_axiom_log": {
+    "sha256": "d2f05dce43851532bd62d962b8bb1e21df4e8230f2f6678c84662cdf60dac8ae",
+    "bytes": 271
+  },
+  "selected_roots": [
+    {
+      "declaration": "StrictReconstruction20261007.SideIntrinsic.permanent3_transpose",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "declaration": "StrictReconstruction20261007.SideIntrinsic.dephased_transpose_intrinsic_bindings",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    }
+  ],
+  "schema": "sanitized-successful-check-projection-v1",
+  "success": true,
+  "exit_code": 0,
+  "selected": true,
+  "dependency_caveat": "Existing checks reused pinned Lean/Mathlib/custom objects. No clean full-library source/cache rebuild or fresh relocated replay is claimed."
+}

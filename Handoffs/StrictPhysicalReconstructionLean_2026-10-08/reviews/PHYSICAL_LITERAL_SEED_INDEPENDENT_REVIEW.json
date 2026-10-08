@@ -1,0 +1,124 @@
+{
+  "schema": "sanitized-independent-semantic-review-projection-v1",
+  "original_review_sha256": "7928f61e3908bb0df47b037a4d6c512bca89c8a439efa9a35b1c153a97894513",
+  "original_status": "PASS_PHYSICAL_LITERAL_SEED_BINDING_AND_STRICT_MATRIX_NECESSITY",
+  "independent_author_and_reviewer": true,
+  "projection_notice": "Semantic checks and scope limitations are retained verbatim. Earlier module exclusions retain their historical meaning; STATUS.json states this additive collection scope. Paths and operating records are omitted.",
+  "reviewed_modules": [
+    "SidePhysicalSeedParameters",
+    "SidePhysicalLiteralSeed"
+  ],
+  "reviewed_artifacts": [
+    {
+      "module": "SidePhysicalSeedParameters",
+      "file": "lean/SidePhysicalSeedParameters.lean",
+      "source_sha256": "236cf7c61ab677ed1dba36724fbfd9c575dc65fade4faa3ddacdf87050eb7ac8",
+      "bytes": 2047,
+      "checked_object": {
+        "sha256": "b8ab1ed5f36ec22f7d482503d630fabdedd06d18a6627eb8b0cd0275caef92e4",
+        "bytes": 233608
+      },
+      "original_receipt": {
+        "sha256": "7f6f4548a7ba30fee5e0834b41547e4c5a94b8dab8c66e688a3b8683ac2085c6",
+        "bytes": 296
+      },
+      "original_axiom_log": {
+        "sha256": "5ee4d72338142b9bc20a110913019b2dcd2e862d7fa0412e2c34f2aef141dd0b",
+        "bytes": 1093
+      },
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.blockE_gram_entry",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.physical_seed_parameter_binding",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.physical_leadingR_seed_parameters",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.dephased_blockE_corner",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "SidePhysicalLiteralSeed",
+      "file": "lean/SidePhysicalLiteralSeed.lean",
+      "source_sha256": "877f76b8a90f6c12b537f022a537eee0924e7d85bc3cb7925f9cea06a7666703",
+      "bytes": 2599,
+      "checked_object": {
+        "sha256": "0271ba509e0392eb5421f4c5e86668825eb115711fb41fdf5340399a15e64f36",
+        "bytes": 85432
+      },
+      "original_receipt": {
+        "sha256": "5add1202e32060ffc661f8fdb135f70cddbbafc9317a2d457d4bab1d07a90e1c",
+        "bytes": 297
+      },
+      "original_axiom_log": {
+        "sha256": "250b2467117c3a5cd4d52bb164fd8940ff69fafc89e12015366d1d123e0c3175",
+        "bytes": 150
+      },
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.strict_physical_literal_seed_reconstruction",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    }
+  ],
+  "selected_printed_roots": 5,
+  "prior_review_bindings": [
+    {
+      "name": "PHYSICAL_RECONSTRUCTION_INDEPENDENT_REVIEW.json",
+      "sha256": "786e15665fc245d89660971ab1d6aadeaadc29eddd3e2e1eb7eeca4291c0f2b5",
+      "bytes": 38662
+    },
+    {
+      "name": "ROOT_INDEPENDENT_REVIEW.json",
+      "sha256": "58b7c4bd6cf66da296410aa432182b209a15a21bbf9c55eea377d1570c293619",
+      "bytes": 6505
+    }
+  ],
+  "semantic_checks": [
+    "blockE_gram_entry unfolds the actual upper-left block and exactly the leading three columns, with upperIndex i=i. It identifies every entry of EE-dagger with the corresponding literal scalar gramEntry, without physical, normalization or positivity assumptions.",
+    "physical_seed_parameter_binding uses actual row orthogonality only: off-diagonal BB-dagger entries equal negative EE-dagger entries. The source seedS and seedR are negative conjugated upper entries, converted by the already checked Hermitian identities to the lower entries 1,0 and 2,1; seedT is already the negative 2,0 entry. Thus all signs and conjugations match the literal recipe.",
+    "physical_leadingR_seed_parameters substitutes these three identities into the prior physical_leadingR_rightGram theorem. It equates leadingR H with the literal seed invariant under Physical H alone, rather than assuming a desired seed invariant.",
+    "dephased_blockE_corner exhausts all nine finite entries. Dephased first row and column fix five entries to1; the remaining four are exactly H11,H12,H21,H22. Combined with the independently reviewed dephased_seed_correlations, these yield s=-1-a-b,t=-1-c-d,r=-1-c*conj(a)-d*conj(b). No new angle/log parameterization is claimed.",
+    "strict_physical_literal_seed_reconstruction only assumes Physical H, Dephased H and leadingR H>0. It rewrites the reviewed strict_physical_matrix_reconstruction endpoint using the proved actual seed parameters for H and its derived physical transpose, and the definitional equality blockE(H transpose)=(blockE H) transpose.",
+    "The horizontal recipe uses E=blockE H; the vertical recipe uses E transpose and equals C(pC j)i. Both sheet choices, square-root equations, non-strict orientation and cube-root equations remain conclusions, with independent permutations. Actual T is the same forced lower block. No desired polynomial equation, reconstruction or transpose positivity is introduced as a premise.",
+    "The LiteralSeed02 repair only gives the already derived physical transpose an explicit type and explicitly instantiates H=H transpose when applying the seed-parameter theorem. The endpoint statement and all hypotheses are byte-identical to failed01.",
+    "The two current sources equal their successful compiler copies; receipt and JOB source pins agree; all five selected roots use only standard axioms, and four first-resolved custom import object edges match the previously reviewed dependencies. No compiler, numerical calculation, source edit or Git mutation was used in this review."
+  ],
+  "admitted_scope": "Five additional selected roots in two modules binding the actual strict dephased physical matrix reconstruction to the literal upper-left seed E and E transpose, including the four actual free corner entries.",
+  "scope_limitations": [
+    "Strict leadingR>0 and Dephased remain explicit; no R=0 branch or normalization of arbitrary H is closed.",
+    "Necessity for actual physical H, not sufficiency of arbitrary independent recipe choices or a complete matched-completion classification.",
+    "The four entries are literal unit complex corner entries; no new four-angle parameterization theorem is asserted.",
+    "No radius exclusion, finite-forest or physical box closure, global coverage or no-four-MUB theorem.",
+    "Inherited Mathlib source/cache authenticity caveat remains; no clean library rebuild or relocated replay."
+  ]
+}
