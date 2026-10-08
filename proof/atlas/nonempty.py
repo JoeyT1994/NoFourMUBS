@@ -32,5 +32,10 @@ def check(A):
 
 
 if __name__ == '__main__':
-    ok = check(AT.load(sys.argv[1]))
+    if sys.argv[1].endswith('.json.gz'):
+        from export import load_certificate
+        A = load_certificate(sys.argv[1])
+    else:
+        A = AT.load(sys.argv[1])
+    ok = check(A)
     print('NONEMPTY PASS' if ok else 'NONEMPTY FAIL'); sys.exit(0 if ok else 1)

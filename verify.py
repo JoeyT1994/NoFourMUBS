@@ -42,14 +42,14 @@ def main():
     a = ap.parse_args()
     jobs = list(CHECKS)
     if a.atlas:
-        pkl = ROOT / 'proof/atlas/results/atlas.pkl'
+        pkl = ROOT / 'proof/atlas/results/atlas_certificate.json.gz'
         if not pkl.exists(): sys.exit('no atlas at %s' % pkl)
         sys.path.insert(0, str(ROOT / 'proof/atlas'))
-        import atlas as AT
-        n = len(AT.load(str(pkl)).recs); ch = (n + 4 * a.jobs - 1) // (4 * a.jobs)
-        jobs += [('step4_certify_%06d' % lo, 'proof/atlas/certify.py', ['results/atlas.pkl', str(lo), str(min(n, lo + ch))])
+        from export import load_certificate
+        n = len(load_certificate(str(pkl)).recs); ch = (n + 4 * a.jobs - 1) // (4 * a.jobs)
+        jobs += [('step4_certify_%06d' % lo, 'proof/atlas/certify.py', ['results/atlas_certificate.json.gz', str(lo), str(min(n, lo + ch))])
                  for lo in range(0, n, ch)]
-        jobs += [('step4_nonempty_F6', 'proof/atlas/nonempty.py', ['results/atlas.pkl'])]
+        jobs += [('step4_nonempty_F6', 'proof/atlas/nonempty.py', ['results/atlas_certificate.json.gz'])]
     fails = 0
     with ThreadPoolExecutor(a.jobs) as pool:
         for name, code, dt, out in pool.map(lambda c: run(*c, timeout=6 * 3600 if c[0].startswith('step4') else 3600), jobs):

@@ -54,8 +54,8 @@ def transfer_data(A, Ps, Pt, Ts):
 def certify_record(rec):
     B = BallRecord(rec['phi'].reshape(36))
     rH, n0 = B.normal_bound(rec['R'])
+    rec['Tcert'] = np.array(B.rec.Tbn, float)                       # the certifier's own frame
     dT = float(np.abs(np.array([[float(abs(B.rec.Tb[e, k] - arb(float(B.rec.Tbn[e, k]))).upper()) for k in range(4)] for e in range(36)])).sum())
-    assert np.array_equal(np.array(B.rec.Tbn, float), rec['T']), 'frame mismatch'
     o = B.stage_c(rec['R'], radius=rec['label_radius'])
     assert o.get('ok'), 'Stage C failed: %s' % o
     return rH, n0 + dT * rH                                           # recomputed, used for the boundary replay
@@ -65,7 +65,7 @@ def certify_boundary(A, s, rH, n, wmin_frac=1 / 64):
     """Replay the adaptive box tree over [-rH, rH]^4 using only the stored transfer targets of s, with the certifier's
     own r_H and normal bound n (recomputed by certify_record)."""
     rs = A.recs[s]; tr = A.transfers[s]
-    T = rs['T']; R = rs['R']
+    T = rs['Tcert']; R = rs['R']
     nT = AT.mnorm(T)
     tdat = [(t, transfer_data((sg, tuple(pi)), rs['phi'], A.recs[t]['phi'], T)) for (t, sg, pi) in tr['targets']]
     w = rH / 2
@@ -85,7 +85,11 @@ def certify_boundary(A, s, rH, n, wmin_frac=1 / 64):
 
 
 if __name__ == '__main__':
-    A = AT.load(sys.argv[1])
+    if sys.argv[1].endswith('.json.gz'):
+        from export import load_certificate
+        A = load_certificate(sys.argv[1])
+    else:
+        A = AT.load(sys.argv[1])
     lo, hi = (int(sys.argv[2]), int(sys.argv[3])) if len(sys.argv) > 3 else (0, len(A.recs))
     closed = [s for s in sorted(A.closed) if lo <= s < hi]
     nopen = len([s for s in range(lo, min(hi, len(A.recs))) if s not in A.closed])

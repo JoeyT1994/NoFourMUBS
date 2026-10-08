@@ -15,7 +15,8 @@
 | `RIGOUR.md` | Error budget and status of every inequality |
 | `volume.py`, `conditioning.py` | The corner census used by the alignment, and numerical estimates (vol(A) ≈ 1.0; rank J = 21, σ_min ≥ √3 observed) |
 | `lib/` | Vendored helpers: `chart_np.py` and `common.py` |
-| `results/` | The atlas certificate (`atlas.pkl`), the run log and the certification receipts |
+| `export.py` | Converts the driver's pickle into the compact certificate `results/atlas_certificate.json.gz`:<br>• Record centres, as exact float hex;<br>• radii and label radii;<br>• transfer targets.<br>`certify.py` and `nonempty.py` read it directly |
+| `results/` | The compact certificate, the run log and the certification receipts. The driver's working pickles are not tracked |
 | `dev/` | Exploration: the retired critical-point cover, the pilot handoff and the development history |
 
 ## Parameters of the run
@@ -29,8 +30,9 @@
 
 ```bash
 python3 atlas.py centre_fold52.json 1000000000 results/atlas.pkl      # build (resumable)
-python3 certify.py results/atlas.pkl [lo hi]                           # certify a range of records
-python3 nonempty.py results/atlas.pkl
+python3 export.py results/atlas.pkl results/atlas_certificate.json.gz
+python3 certify.py results/atlas_certificate.json.gz [lo hi]          # certify a range of records
+python3 nonempty.py results/atlas_certificate.json.gz
 python3 arb_replay.py centre_fold52.json 0.08 150
 ```
 
