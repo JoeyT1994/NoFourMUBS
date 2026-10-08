@@ -1,0 +1,434 @@
+import SquareConcretePhaseChecksNoInit
+import Mathlib.Tactic.FinCases
+
+/- Source-only diagnostic candidate. IO.eprintln markers are execution diagnostics only,
+not mathematical evidence. Source-only candidate. Leaf arithmetic is checked separately; all32
+literal masks are composed through the existing coveredCell_split theorem.
+No whole-tape reduction or new arithmetic predicate is used. -/
+set_option autoImplicit false
+set_option maxRecDepth 65536
+set_option maxHeartbeats 8000000
+open Seed0024ClusterTubeCover20261007
+namespace Seed0024ClusterTube20261007.CompositionalChild4Audited
+
+#eval IO.eprintln "BEGIN covered_reject"
+theorem covered_reject (s : Cell) (j : Fin 6) (hv : Valid s)
+    (hc : squareConcretePhaseChecks.reject s j=true) :
+    CoveredCell ClosedPhaseDomain phaseCentreLabel s := by
+  intro theta ht hf
+  exact False.elim (squareConcretePhaseChecks_sound.rejection s j theta hv ht hc hf)
+
+#print axioms covered_reject
+#eval IO.eprintln "END covered_reject"
+
+#eval IO.eprintln "BEGIN covered_accept"
+theorem covered_accept (s : Cell) (k : Fin 48) (hv : Valid s)
+    (hc : squareConcretePhaseChecks.accept s k=true) :
+    CoveredCell ClosedPhaseDomain phaseCentreLabel s := by
+  intro theta ht hf
+  exact ⟨k,squareConcretePhaseChecks_sound.inclusion s k theta hv ht hc⟩
+
+#print axioms covered_accept
+#eval IO.eprintln "END covered_accept"
+
+abbrev cell5 : Cell := childCell (ordinalCell 2241383) 4
+
+abbrev cell6 : Cell := childCell (childCell (ordinalCell 2241383) 4) 0
+
+#eval IO.eprintln "BEGIN covered6"
+theorem covered6 : CoveredCell ClosedPhaseDomain phaseCentreLabel cell6 := by
+  apply covered_reject cell6 1
+  · decide +kernel
+  · decide +kernel
+
+#print axioms covered6
+#eval IO.eprintln "END covered6"
+
+abbrev cell7 : Cell := childCell (childCell (ordinalCell 2241383) 4) 1
+
+#eval IO.eprintln "BEGIN covered7"
+theorem covered7 : CoveredCell ClosedPhaseDomain phaseCentreLabel cell7 := by
+  apply covered_reject cell7 1
+  · decide +kernel
+  · decide +kernel
+
+#print axioms covered7
+#eval IO.eprintln "END covered7"
+
+abbrev cell8 : Cell := childCell (childCell (ordinalCell 2241383) 4) 2
+
+#eval IO.eprintln "BEGIN covered8"
+theorem covered8 : CoveredCell ClosedPhaseDomain phaseCentreLabel cell8 := by
+  apply covered_reject cell8 1
+  · decide +kernel
+  · decide +kernel
+
+#print axioms covered8
+#eval IO.eprintln "END covered8"
+
+abbrev cell9 : Cell := childCell (childCell (ordinalCell 2241383) 4) 3
+
+#eval IO.eprintln "BEGIN covered9"
+theorem covered9 : CoveredCell ClosedPhaseDomain phaseCentreLabel cell9 := by
+  apply covered_accept cell9 0
+  · decide +kernel
+  · decide +kernel
+
+#print axioms covered9
+#eval IO.eprintln "END covered9"
+
+abbrev cell10 : Cell := childCell (childCell (ordinalCell 2241383) 4) 4
+
+#eval IO.eprintln "BEGIN covered10"
+theorem covered10 : CoveredCell ClosedPhaseDomain phaseCentreLabel cell10 := by
+  apply covered_reject cell10 1
+  · decide +kernel
+  · decide +kernel
+
+#print axioms covered10
+#eval IO.eprintln "END covered10"
+
+abbrev cell11 : Cell := childCell (childCell (ordinalCell 2241383) 4) 5
+
+#eval IO.eprintln "BEGIN covered11"
+theorem covered11 : CoveredCell ClosedPhaseDomain phaseCentreLabel cell11 := by
+  apply covered_reject cell11 1
+  · decide +kernel
+  · decide +kernel
+
+#print axioms covered11
+#eval IO.eprintln "END covered11"
+
+abbrev cell12 : Cell := childCell (childCell (ordinalCell 2241383) 4) 6
+
+#eval IO.eprintln "BEGIN covered12"
+theorem covered12 : CoveredCell ClosedPhaseDomain phaseCentreLabel cell12 := by
+  apply covered_reject cell12 1
+  · decide +kernel
+  · decide +kernel
+
+#print axioms covered12
+#eval IO.eprintln "END covered12"
+
+abbrev cell13 : Cell := childCell (childCell (ordinalCell 2241383) 4) 7
+
+#eval IO.eprintln "BEGIN covered13"
+theorem covered13 : CoveredCell ClosedPhaseDomain phaseCentreLabel cell13 := by
+  apply covered_reject cell13 1
+  · decide +kernel
+  · decide +kernel
+
+#print axioms covered13
+#eval IO.eprintln "END covered13"
+
+abbrev cell14 : Cell := childCell (childCell (ordinalCell 2241383) 4) 8
+
+#eval IO.eprintln "BEGIN covered14"
+theorem covered14 : CoveredCell ClosedPhaseDomain phaseCentreLabel cell14 := by
+  apply covered_reject cell14 1
+  · decide +kernel
+  · decide +kernel
+
+#print axioms covered14
+#eval IO.eprintln "END covered14"
+
+abbrev cell15 : Cell := childCell (childCell (ordinalCell 2241383) 4) 9
+
+#eval IO.eprintln "BEGIN covered15"
+theorem covered15 : CoveredCell ClosedPhaseDomain phaseCentreLabel cell15 := by
+  apply covered_reject cell15 1
+  · decide +kernel
+  · decide +kernel
+
+#print axioms covered15
+#eval IO.eprintln "END covered15"
+
+abbrev cell16 : Cell := childCell (childCell (ordinalCell 2241383) 4) 10
+
+#eval IO.eprintln "BEGIN covered16"
+theorem covered16 : CoveredCell ClosedPhaseDomain phaseCentreLabel cell16 := by
+  apply covered_reject cell16 1
+  · decide +kernel
+  · decide +kernel
+
+#print axioms covered16
+#eval IO.eprintln "END covered16"
+
+abbrev cell17 : Cell := childCell (childCell (ordinalCell 2241383) 4) 11
+
+#eval IO.eprintln "BEGIN covered17"
+theorem covered17 : CoveredCell ClosedPhaseDomain phaseCentreLabel cell17 := by
+  apply covered_reject cell17 1
+  · decide +kernel
+  · decide +kernel
+
+#print axioms covered17
+#eval IO.eprintln "END covered17"
+
+abbrev cell18 : Cell := childCell (childCell (ordinalCell 2241383) 4) 12
+
+#eval IO.eprintln "BEGIN covered18"
+theorem covered18 : CoveredCell ClosedPhaseDomain phaseCentreLabel cell18 := by
+  apply covered_reject cell18 1
+  · decide +kernel
+  · decide +kernel
+
+#print axioms covered18
+#eval IO.eprintln "END covered18"
+
+abbrev cell19 : Cell := childCell (childCell (ordinalCell 2241383) 4) 13
+
+#eval IO.eprintln "BEGIN covered19"
+theorem covered19 : CoveredCell ClosedPhaseDomain phaseCentreLabel cell19 := by
+  apply covered_reject cell19 1
+  · decide +kernel
+  · decide +kernel
+
+#print axioms covered19
+#eval IO.eprintln "END covered19"
+
+abbrev cell20 : Cell := childCell (childCell (ordinalCell 2241383) 4) 14
+
+#eval IO.eprintln "BEGIN covered20"
+theorem covered20 : CoveredCell ClosedPhaseDomain phaseCentreLabel cell20 := by
+  apply covered_reject cell20 1
+  · decide +kernel
+  · decide +kernel
+
+#print axioms covered20
+#eval IO.eprintln "END covered20"
+
+abbrev cell21 : Cell := childCell (childCell (ordinalCell 2241383) 4) 15
+
+#eval IO.eprintln "BEGIN covered21"
+theorem covered21 : CoveredCell ClosedPhaseDomain phaseCentreLabel cell21 := by
+  apply covered_reject cell21 1
+  · decide +kernel
+  · decide +kernel
+
+#print axioms covered21
+#eval IO.eprintln "END covered21"
+
+abbrev cell22 : Cell := childCell (childCell (ordinalCell 2241383) 4) 16
+
+#eval IO.eprintln "BEGIN covered22"
+theorem covered22 : CoveredCell ClosedPhaseDomain phaseCentreLabel cell22 := by
+  apply covered_reject cell22 1
+  · decide +kernel
+  · decide +kernel
+
+#print axioms covered22
+#eval IO.eprintln "END covered22"
+
+abbrev cell23 : Cell := childCell (childCell (ordinalCell 2241383) 4) 17
+
+#eval IO.eprintln "BEGIN covered23"
+theorem covered23 : CoveredCell ClosedPhaseDomain phaseCentreLabel cell23 := by
+  apply covered_accept cell23 0
+  · decide +kernel
+  · decide +kernel
+
+#print axioms covered23
+#eval IO.eprintln "END covered23"
+
+abbrev cell24 : Cell := childCell (childCell (ordinalCell 2241383) 4) 18
+
+#eval IO.eprintln "BEGIN covered24"
+theorem covered24 : CoveredCell ClosedPhaseDomain phaseCentreLabel cell24 := by
+  apply covered_accept cell24 0
+  · decide +kernel
+  · decide +kernel
+
+#print axioms covered24
+#eval IO.eprintln "END covered24"
+
+abbrev cell25 : Cell := childCell (childCell (ordinalCell 2241383) 4) 19
+
+#eval IO.eprintln "BEGIN covered25"
+theorem covered25 : CoveredCell ClosedPhaseDomain phaseCentreLabel cell25 := by
+  apply covered_accept cell25 0
+  · decide +kernel
+  · decide +kernel
+
+#print axioms covered25
+#eval IO.eprintln "END covered25"
+
+abbrev cell26 : Cell := childCell (childCell (ordinalCell 2241383) 4) 20
+
+#eval IO.eprintln "BEGIN covered26"
+theorem covered26 : CoveredCell ClosedPhaseDomain phaseCentreLabel cell26 := by
+  apply covered_reject cell26 1
+  · decide +kernel
+  · decide +kernel
+
+#print axioms covered26
+#eval IO.eprintln "END covered26"
+
+abbrev cell27 : Cell := childCell (childCell (ordinalCell 2241383) 4) 21
+
+#eval IO.eprintln "BEGIN covered27"
+theorem covered27 : CoveredCell ClosedPhaseDomain phaseCentreLabel cell27 := by
+  apply covered_accept cell27 0
+  · decide +kernel
+  · decide +kernel
+
+#print axioms covered27
+#eval IO.eprintln "END covered27"
+
+abbrev cell28 : Cell := childCell (childCell (ordinalCell 2241383) 4) 22
+
+#eval IO.eprintln "BEGIN covered28"
+theorem covered28 : CoveredCell ClosedPhaseDomain phaseCentreLabel cell28 := by
+  apply covered_reject cell28 1
+  · decide +kernel
+  · decide +kernel
+
+#print axioms covered28
+#eval IO.eprintln "END covered28"
+
+abbrev cell29 : Cell := childCell (childCell (ordinalCell 2241383) 4) 23
+
+#eval IO.eprintln "BEGIN covered29"
+theorem covered29 : CoveredCell ClosedPhaseDomain phaseCentreLabel cell29 := by
+  apply covered_reject cell29 4
+  · decide +kernel
+  · decide +kernel
+
+#print axioms covered29
+#eval IO.eprintln "END covered29"
+
+abbrev cell30 : Cell := childCell (childCell (ordinalCell 2241383) 4) 24
+
+#eval IO.eprintln "BEGIN covered30"
+theorem covered30 : CoveredCell ClosedPhaseDomain phaseCentreLabel cell30 := by
+  apply covered_reject cell30 1
+  · decide +kernel
+  · decide +kernel
+
+#print axioms covered30
+#eval IO.eprintln "END covered30"
+
+abbrev cell31 : Cell := childCell (childCell (ordinalCell 2241383) 4) 25
+
+#eval IO.eprintln "BEGIN covered31"
+theorem covered31 : CoveredCell ClosedPhaseDomain phaseCentreLabel cell31 := by
+  apply covered_reject cell31 1
+  · decide +kernel
+  · decide +kernel
+
+#print axioms covered31
+#eval IO.eprintln "END covered31"
+
+abbrev cell32 : Cell := childCell (childCell (ordinalCell 2241383) 4) 26
+
+#eval IO.eprintln "BEGIN covered32"
+theorem covered32 : CoveredCell ClosedPhaseDomain phaseCentreLabel cell32 := by
+  apply covered_reject cell32 1
+  · decide +kernel
+  · decide +kernel
+
+#print axioms covered32
+#eval IO.eprintln "END covered32"
+
+abbrev cell33 : Cell := childCell (childCell (ordinalCell 2241383) 4) 27
+
+#eval IO.eprintln "BEGIN covered33"
+theorem covered33 : CoveredCell ClosedPhaseDomain phaseCentreLabel cell33 := by
+  apply covered_accept cell33 0
+  · decide +kernel
+  · decide +kernel
+
+#print axioms covered33
+#eval IO.eprintln "END covered33"
+
+abbrev cell34 : Cell := childCell (childCell (ordinalCell 2241383) 4) 28
+
+#eval IO.eprintln "BEGIN covered34"
+theorem covered34 : CoveredCell ClosedPhaseDomain phaseCentreLabel cell34 := by
+  apply covered_reject cell34 1
+  · decide +kernel
+  · decide +kernel
+
+#print axioms covered34
+#eval IO.eprintln "END covered34"
+
+abbrev cell35 : Cell := childCell (childCell (ordinalCell 2241383) 4) 29
+
+#eval IO.eprintln "BEGIN covered35"
+theorem covered35 : CoveredCell ClosedPhaseDomain phaseCentreLabel cell35 := by
+  apply covered_reject cell35 1
+  · decide +kernel
+  · decide +kernel
+
+#print axioms covered35
+#eval IO.eprintln "END covered35"
+
+abbrev cell36 : Cell := childCell (childCell (ordinalCell 2241383) 4) 30
+
+#eval IO.eprintln "BEGIN covered36"
+theorem covered36 : CoveredCell ClosedPhaseDomain phaseCentreLabel cell36 := by
+  apply covered_reject cell36 1
+  · decide +kernel
+  · decide +kernel
+
+#print axioms covered36
+#eval IO.eprintln "END covered36"
+
+abbrev cell37 : Cell := childCell (childCell (ordinalCell 2241383) 4) 31
+
+#eval IO.eprintln "BEGIN covered37"
+theorem covered37 : CoveredCell ClosedPhaseDomain phaseCentreLabel cell37 := by
+  apply covered_reject cell37 1
+  · decide +kernel
+  · decide +kernel
+
+#print axioms covered37
+#eval IO.eprintln "END covered37"
+
+#eval IO.eprintln "BEGIN covered5"
+theorem covered5 : CoveredCell ClosedPhaseDomain phaseCentreLabel cell5 := by
+  apply coveredCell_split
+  intro m
+  fin_cases m
+  · exact covered6
+  · exact covered7
+  · exact covered8
+  · exact covered9
+  · exact covered10
+  · exact covered11
+  · exact covered12
+  · exact covered13
+  · exact covered14
+  · exact covered15
+  · exact covered16
+  · exact covered17
+  · exact covered18
+  · exact covered19
+  · exact covered20
+  · exact covered21
+  · exact covered22
+  · exact covered23
+  · exact covered24
+  · exact covered25
+  · exact covered26
+  · exact covered27
+  · exact covered28
+  · exact covered29
+  · exact covered30
+  · exact covered31
+  · exact covered32
+  · exact covered33
+  · exact covered34
+  · exact covered35
+  · exact covered36
+  · exact covered37
+
+#print axioms covered5
+#eval IO.eprintln "END covered5"
+
+end Seed0024ClusterTube20261007.CompositionalChild4Audited
+
+#print axioms Seed0024ClusterTube20261007.CompositionalChild4Audited.covered_reject
+#print axioms Seed0024ClusterTube20261007.CompositionalChild4Audited.covered_accept
+#print axioms Seed0024ClusterTube20261007.CompositionalChild4Audited.covered5
+#eval IO.eprintln "ALL_DECLARATIONS_REACHED"

@@ -1,0 +1,98 @@
+{
+  "schema": "sanitized-independent-semantic-review-projection-v1",
+  "original_review_sha256": "5b4c89efb43b0374e21c08fe73e1adef2b61b803cc38126cc34b628cb5b26a2c",
+  "original_status": "PASS_PHYSICAL_SEED_COMPLEMENT_GRAM_CONSTRUCTOR",
+  "independent_author_and_reviewer": true,
+  "projection_notice": "Semantic checks and scope exclusions are retained verbatim from this review. Earlier exclusions concern the corresponding earlier module; STATUS.json states the collection scope. Host paths, timestamps and operating records are omitted.",
+  "reviewed_modules": [
+    "SideSeedComplement",
+    "SideMatrixSeedGram"
+  ],
+  "reviewed_artifacts": [
+    {
+      "module": "SideSeedComplement",
+      "file": "lean/SideSeedComplement.lean",
+      "source_sha256": "15185a04f48efafe38e63ef3e877a21a63ac5d7be7259ec4054404a683707864",
+      "bytes": 2007,
+      "checked_object": {
+        "sha256": "82e01e647c407a159b593024077403b62cc6acf478ab20acf160c5206732622f",
+        "bytes": 293408
+      },
+      "original_receipt": {
+        "sha256": "c20246147b684cb7d24892a3e799f0ad7ec8838430db4ec8de3dd1ff10612779",
+        "bytes": 297
+      },
+      "original_axiom_log": {
+        "sha256": "7b889c03f11293eb3264074744ba99e3f0183ed9d35a5184b3616130657f7fdd",
+        "bytes": 237
+      },
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.hermitian_three_complement",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.unit_seed_explicit_complement",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "SideMatrixSeedGram",
+      "file": "lean/SideMatrixSeedGram.lean",
+      "source_sha256": "e6e4b69b081a604cca952f78416aba48393f0d02df5a9f6b0487d24e602d0a5f",
+      "bytes": 1715,
+      "checked_object": {
+        "sha256": "124aa157b4fca77c3f514162fe616187134db662b6b7127b44a96e2ccbcaa719",
+        "bytes": 38496
+      },
+      "original_receipt": {
+        "sha256": "153d4e3d26f84657aae86150f34e6f1035a40df1c8da8e2169b7c70718099fb7",
+        "bytes": 297
+      },
+      "original_axiom_log": {
+        "sha256": "6a5de43505d6ed3cddb304cdc5f3db3a608c65170ed49aace2d9486f305574cd",
+        "bytes": 256
+      },
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.reconstructionGram_eq_seedComplement",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.strict_seed_complement_gram_exists",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    }
+  ],
+  "selected_printed_roots": 4,
+  "semantic_checks": [
+    "The generic three-by-three complement identity retains the Hermitian hypothesis and exact diagonal3; reverse off-diagonal facts are derived by Hermitian symmetry, with no real-matrix assumption.",
+    "Entrywise-unit E yields rowGram diagonal3. Its row Gram is Hermitian without any orthogonality hypothesis.",
+    "The displayed reconstructionGram uses exactly seedS,seedT,seedR from the prior strict seed definitions and is proved equal to6I−EE†.",
+    "strict_seed_complement_gram_exists uses only EntrywiseUnit E, strict literal gramInvariant(seed)>0 and epsilon²=1. It derives existence of oriented delta and the literal prescribed M satisfying3MM†=6I−EE†.",
+    "No reconstruction-Gram or denominator condition remains as a premise of the existential endpoint; both epsilon sheets and zero-orientation tie remain retained."
+  ],
+  "scope_limitations": [
+    "Does not yet prove side phase flatness, every-completion exhaustion, or an exclusion.",
+    "The seed-binding timeout and failed helper attempt are preserved and unadmitted.",
+    "Inherited Mathlib source/cache authenticity caveat unchanged."
+  ]
+}

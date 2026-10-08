@@ -1,0 +1,98 @@
+import FourierConditioning
+import ConditionedFourierChart
+import GlobalFourierConditioning
+import RationalCarrierIntervals
+import SixteenCarrierEnclosure
+import FiniteCarrierEnclosures
+import PhysicalCarrierEnclosures
+
+#check Hadamard6Extensions.FourierConditioning.cube_equal_normSq
+#print axioms Hadamard6Extensions.FourierConditioning.cube_equal_normSq
+#check Hadamard6Extensions.FourierConditioning.omega_normSq
+#print axioms Hadamard6Extensions.FourierConditioning.omega_normSq
+#check Hadamard6Extensions.FourierConditioning.normSq_sum_three_le
+#print axioms Hadamard6Extensions.FourierConditioning.normSq_sum_three_le
+#check Hadamard6Extensions.FourierConditioning.firstMode_normSq_le_one
+#print axioms Hadamard6Extensions.FourierConditioning.firstMode_normSq_le_one
+#check Hadamard6Extensions.FourierConditioning.secondMode_normSq_le_one
+#print axioms Hadamard6Extensions.FourierConditioning.secondMode_normSq_le_one
+#check Hadamard6Extensions.FourierConditioning.normSq_sub_le_twice
+#print axioms Hadamard6Extensions.FourierConditioning.normSq_sub_le_twice
+#check Hadamard6Extensions.FourierConditioning.discriminant_normSq
+#print axioms Hadamard6Extensions.FourierConditioning.discriminant_normSq
+#check Hadamard6Extensions.FourierConditioning.larger_product_bounds
+#print axioms Hadamard6Extensions.FourierConditioning.larger_product_bounds
+#check Hadamard6Extensions.FourierConditioning.inverse_normSq_le_ten
+#print axioms Hadamard6Extensions.FourierConditioning.inverse_normSq_le_ten
+#check Hadamard6Extensions.FourierConditioning.large_pivot_good_data
+#print axioms Hadamard6Extensions.FourierConditioning.large_pivot_good_data
+#check Hadamard6Extensions.FourierConditioning.affine_good_conditioned_chart
+#print axioms Hadamard6Extensions.FourierConditioning.affine_good_conditioned_chart
+#check Hadamard6Extensions.FourierConditioning.physical_good_side_conditioned_chart
+#print axioms Hadamard6Extensions.FourierConditioning.physical_good_side_conditioned_chart
+#check Hadamard6Extensions.FourierConditioning.conditionedPhaseSide_of_good
+#print axioms Hadamard6Extensions.FourierConditioning.conditionedPhaseSide_of_good
+#check Hadamard6Extensions.FourierConditioning.phaseHadamard_global_conditioned_sides
+#print axioms Hadamard6Extensions.FourierConditioning.phaseHadamard_global_conditioned_sides
+#check Mub6.Classification.CarrierIntervals.mem_clampLower
+#print axioms Mub6.Classification.CarrierIntervals.mem_clampLower
+#check Mub6.Classification.CarrierIntervals.mem_reciprocal
+#print axioms Mub6.Classification.CarrierIntervals.mem_reciprocal
+#check Mub6.Classification.CarrierIntervals.mem_divide
+#print axioms Mub6.Classification.CarrierIntervals.mem_divide
+#check Mub6.Classification.CarrierIntervals.mem_boxDivideReal
+#print axioms Mub6.Classification.CarrierIntervals.mem_boxDivideReal
+#check Mub6.Classification.CarrierIntervals.circleBox_sound
+#print axioms Mub6.Classification.CarrierIntervals.circleBox_sound
+#check Mub6.Classification.CarrierIntervals.mem_matrixMul
+#print axioms Mub6.Classification.CarrierIntervals.mem_matrixMul
+#check Mub6.Classification.CarrierIntervals.mem_matrixConjTranspose
+#print axioms Mub6.Classification.CarrierIntervals.mem_matrixConjTranspose
+#check Mub6.Classification.CarrierIntervals.mem_matrixNeg
+#print axioms Mub6.Classification.CarrierIntervals.mem_matrixNeg
+#check Mub6.Classification.CarrierIntervals.mem_matrixSub
+#print axioms Mub6.Classification.CarrierIntervals.mem_matrixSub
+#check Mub6.Classification.CarrierIntervals.mem_matrixDivideReal
+#print axioms Mub6.Classification.CarrierIntervals.mem_matrixDivideReal
+#check Mub6.Classification.CarrierIntervals.mem_scalarIdentity
+#print axioms Mub6.Classification.CarrierIntervals.mem_scalarIdentity
+#check Mub6.Classification.CarrierIntervals.mem_residualBox
+#print axioms Mub6.Classification.CarrierIntervals.mem_residualBox
+#check Mub6.Classification.CarrierIntervals.mem_detBox
+#print axioms Mub6.Classification.CarrierIntervals.mem_detBox
+#check Mub6.Classification.CarrierIntervals.mem_adjugateBox
+#print axioms Mub6.Classification.CarrierIntervals.mem_adjugateBox
+#check Mub6.Classification.CarrierIntervals.gramDetBox_positive
+#print axioms Mub6.Classification.CarrierIntervals.gramDetBox_positive
+#check Mub6.Classification.CarrierIntervals.mem_gramDetBox
+#print axioms Mub6.Classification.CarrierIntervals.mem_gramDetBox
+#check Mub6.Classification.CarrierIntervals.forcedD_real_quotient
+#print axioms Mub6.Classification.CarrierIntervals.forcedD_real_quotient
+#check Mub6.Classification.CarrierIntervals.lowerBlockBox_sound
+#print axioms Mub6.Classification.CarrierIntervals.lowerBlockBox_sound
+#check Mub6.Classification.CarrierIntervals.mem_one_box
+#print axioms Mub6.Classification.CarrierIntervals.mem_one_box
+#check Mub6.Classification.CarrierIntervals.mem_freeBoxE
+#print axioms Mub6.Classification.CarrierIntervals.mem_freeBoxE
+#check Mub6.Classification.CarrierIntervals.mem_freeBoxB
+#print axioms Mub6.Classification.CarrierIntervals.mem_freeBoxB
+#check Mub6.Classification.CarrierIntervals.mem_freeBoxC
+#print axioms Mub6.Classification.CarrierIntervals.mem_freeBoxC
+#check Mub6.Classification.CarrierIntervals.mem_blockBoxes
+#print axioms Mub6.Classification.CarrierIntervals.mem_blockBoxes
+#check Mub6.Classification.CarrierIntervals.chartEnclosure_sound
+#print axioms Mub6.Classification.CarrierIntervals.chartEnclosure_sound
+#check Mub6.Classification.CarrierIntervals.phaseHadamard_in_root_enclosure
+#print axioms Mub6.Classification.CarrierIntervals.phaseHadamard_in_root_enclosure
+#check Mub6.Classification.CarrierIntervals.cellBox_contains
+#print axioms Mub6.Classification.CarrierIntervals.cellBox_contains
+#check Mub6.Classification.CarrierIntervals.phaseHadamard_in_finite_enclosures
+#print axioms Mub6.Classification.CarrierIntervals.phaseHadamard_in_finite_enclosures
+#check Mub6.Classification.CarrierIntervals.unit_component_bounds
+#print axioms Mub6.Classification.CarrierIntervals.unit_component_bounds
+#check Mub6.Classification.CarrierIntervals.mem_unitClip
+#print axioms Mub6.Classification.CarrierIntervals.mem_unitClip
+#check Mub6.Classification.CarrierIntervals.physicalChartEnclosure_sound
+#print axioms Mub6.Classification.CarrierIntervals.physicalChartEnclosure_sound
+#check Mub6.Classification.CarrierIntervals.phaseHadamard_in_finite_physical_enclosures
+#print axioms Mub6.Classification.CarrierIntervals.phaseHadamard_in_finite_physical_enclosures

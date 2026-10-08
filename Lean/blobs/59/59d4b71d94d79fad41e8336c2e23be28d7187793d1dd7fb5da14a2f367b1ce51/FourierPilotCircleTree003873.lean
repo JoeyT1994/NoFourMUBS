@@ -1,0 +1,16 @@
+import FourierPilotCircleTree003874
+import FourierPilotCircleTree003921
+set_option maxRecDepth 1000000
+set_option maxHeartbeats 0
+namespace FourierPilotCircleTree003873
+open Mub6.Numerical Mub6.Numerical.IntegerIntervals Mub6.Numerical.CircleCharts
+open Mub6.Numerical.CircleCharts.Partition Mub6.Numerical.CircleArc Mub6.Numerical.GraphKernel
+open FourierPilotCircleData
+open FourierPilotCircleSound
+def signs : SignChart := ![false, false, true, false, true]
+def state : State := ![6, 5, 2, 2, 3]
+theorem covered : CoveredState tab physicalCarrier T R targets signs state := by
+  exact coveredState_split_literal ⟨2, by decide⟩ FourierPilotCircleTree003874.state FourierPilotCircleTree003921.state
+    (by decide +kernel) (by decide +kernel) (by decide +kernel) FourierPilotCircleTree003874.covered FourierPilotCircleTree003921.covered
+#print axioms covered
+end FourierPilotCircleTree003873

@@ -1,0 +1,8 @@
+import CriticalStripPhysical
+import GlobalCornerSixSkew
+#print ShoulderPhaseGate20261002.P0
+#print ShoulderPhaseGate20261002.moment
+#print ShoulderPhaseGate20261002.radicand
+#print GlobalCornerDomain.physicalSideScore
+#print CriticalPhysical20261003.allCritical_selected_R_zero
+#print axioms GlobalCornerSixSine.physical_radicand_sixSkew

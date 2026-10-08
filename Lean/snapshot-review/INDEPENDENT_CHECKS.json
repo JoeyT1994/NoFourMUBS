@@ -1,0 +1,78 @@
+{
+  "checks": {
+    "exact_recovered_paths": 94,
+    "exact_recovery_evidence_references": 534,
+    "exact_recovery_metadata_files": 68,
+    "manifest_file_count": 19836,
+    "original_resident_bytes_rehashed": 649353898,
+    "original_resident_paths_rehashed": 60802,
+    "prior_git_exact_paths": 1116,
+    "privacy_pattern_matches": [],
+    "privacy_scan_files": 19820,
+    "shipped_verifier": {
+      "git_source_paths": 1116,
+      "selected_available_paths": 60896,
+      "selected_unavailable_paths": 17052,
+      "unavailable_workspace_paths": 17052,
+      "unique_blob_bytes": 273077698,
+      "unique_blobs_verified": 19386,
+      "verification": "SOURCE_BYTES_AND_PATH_BINDINGS_ONLY_NOT_LEAN_PROOF",
+      "workspace_source_paths": 77948
+    }
+  },
+  "counts": {
+    "dataless_recovered_by_exact_pin": 94,
+    "resident": 60802,
+    "unavailable_dataless": 17052
+  },
+  "errors": [],
+  "original_changed": [],
+  "pins": {
+    "BLOB_INDEX.jsonl": {
+      "bytes": 6497149,
+      "sha256": "8a124c5d9477fa048eb28a0be4c77a82b4d4c374e8861a60d85b355a1de73a26"
+    },
+    "FILE_MANIFEST.json": {
+      "bytes": 4703581,
+      "sha256": "16c0e1862b2da3f0f1ccf225de4281ca27f364a1cfbfa9ef70871e94fe6522ad"
+    },
+    "GAP_REPORT.json": {
+      "bytes": 17628,
+      "sha256": "b1c171e016dc1cee404ad5416e0ee4edf693cc54f8879d64c511021572c44542"
+    },
+    "GIT_SOURCE_INDEX.jsonl": {
+      "bytes": 685698,
+      "sha256": "99a197c67569d1b077702142c374b5135c8084f6d2b83c67548ed7b2bbf76029"
+    },
+    "README.md": {
+      "bytes": 5428,
+      "sha256": "49f1a7d771ec5913397ef08e80c3699c83a93bfa823fa81e93ee52edb95ed878"
+    },
+    "SOURCE_INDEX.jsonl": {
+      "bytes": 31380952,
+      "sha256": "e56835aafa2eee86f3e3a340cabbd4d891e4044661ecfb6902a255ebe62ab323"
+    },
+    "SOURCE_RECOVERY.json": {
+      "bytes": 345174,
+      "sha256": "b27bb242ae7bf5f5eda4dc5eb342e9fbd4ceb88922c134a734a4f870e91a3213"
+    },
+    "SUMMARY.json": {
+      "bytes": 3152,
+      "sha256": "82f0aea5a21838133e1fdc845ade14bc8b5b9506704d363bb2235c0fd8730a5b"
+    },
+    "add_git_sources.py": {
+      "bytes": 6827,
+      "sha256": "aec267d4fd083eebc07e7d4f2372ff3e9fae3ffc21ab70b4d6a6508158ab8609"
+    },
+    "collect_sources.py": {
+      "bytes": 15468,
+      "sha256": "a079eff0a13f5d2f63bc39ba858764d01409b9b3b7ab604ad92e7bc34f56122a"
+    },
+    "verify_restore.py": {
+      "bytes": 6475,
+      "sha256": "61cb128321302b8fc5129b0d02baf34cb91fa68c08729719098bbc6acaee4659"
+    }
+  },
+  "review_parser_note": "Evidence uses both human-readable breadcrumbs and structured location components; both were independently resolved. Initial reviewer parser omitted structured components, then was corrected and the 534 evidence bindings rerun.",
+  "scope": "Source archive availability/integrity only. No Lean executed; no mathematical admission."
+}

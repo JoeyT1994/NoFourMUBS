@@ -1,0 +1,23 @@
+import D0ForestChunk0029
+#print axioms Mub6.Numerical.CircleFullD0.Forest.cover_1573188
+#print axioms Mub6.Numerical.CircleFullD0.Forest.cover_1573478
+#print axioms Mub6.Numerical.CircleFullD0.Forest.cover_1574390
+#print axioms Mub6.Numerical.CircleFullD0.Forest.cover_1575169
+#print axioms Mub6.Numerical.CircleFullD0.Forest.cover_1576122
+#print axioms Mub6.Numerical.CircleFullD0.Forest.cover_1576737
+#print axioms Mub6.Numerical.CircleFullD0.Forest.cover_1577178
+#print axioms Mub6.Numerical.CircleFullD0.Forest.cover_1577244
+#print axioms Mub6.Numerical.CircleFullD0.Forest.cover_1577323
+#print axioms Mub6.Numerical.CircleFullD0.Forest.cover_1577659
+#print axioms Mub6.Numerical.CircleFullD0.Forest.cover_1577753
+#print axioms Mub6.Numerical.CircleFullD0.Forest.cover_1578674
+#print axioms Mub6.Numerical.CircleFullD0.Forest.cover_1578862
+#print axioms Mub6.Numerical.CircleFullD0.Forest.cover_1579481
+#print axioms Mub6.Numerical.CircleFullD0.Forest.cover_1580136
+#print axioms Mub6.Numerical.CircleFullD0.Forest.cover_1580525
+#print axioms Mub6.Numerical.CircleFullD0.Forest.cover_1580740
+#print axioms Mub6.Numerical.CircleFullD0.Forest.cover_1581093
+#print axioms Mub6.Numerical.CircleFullD0.Forest.cover_1581168
+#print axioms Mub6.Numerical.CircleFullD0.Forest.cover_1581264
+#print axioms Mub6.Numerical.CircleFullD0.Forest.cover_1581611
+#print axioms Mub6.Numerical.CircleFullD0.Forest.cover_1582594

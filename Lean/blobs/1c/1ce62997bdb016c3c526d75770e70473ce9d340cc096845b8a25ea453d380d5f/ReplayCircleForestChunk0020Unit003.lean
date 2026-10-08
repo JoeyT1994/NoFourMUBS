@@ -1,0 +1,67 @@
+import CircleFullInterface
+import ChartPartitionJoined
+set_option maxRecDepth 1000000
+set_option maxHeartbeats 10000000
+namespace Mub6.Numerical.CircleFullPrototype.Forest
+open Mub6.Numerical.IntegerIntervals
+open Mub6.Numerical.CircleCharts
+open Mub6.Numerical.CircleCharts.Partition
+open Mub6.Numerical.CirclePrototype.Tao
+open Mub6.Numerical.CircleArc.TaoSoundness
+open Mub6.Numerical.CircleFullPrototype
+def state_148671 (j : Fin 5) : Nat := (if j.val < 2 then (if j.val < 1 then 5 else 7) else (if j.val < 3 then 7 else (if j.val < 4 then 6 else 7)))
+def hex_148671 : String := "4043410742090741420907420907434142444043070743410742440A090741424440074307070707424440090A0944050709440707424440430909430A420A05094405400743054106054142444043410709410609434142444009434107094108090844070742444009430909094440074307444107054107090941424440064105420544430905050544400641084442430606060606424440064209444143060606060644400644414243060606420606060640064308064440074307414407064442400644410705060706400608424440430909434209440509420944414006444243050605064005050609444043074407064305440506400606"
+theorem cover_148671 : CoveredState taoTables (toCarrier R carrier) T R targets
+    (signsOf (⟨6, by decide⟩ : Fin 32)) state_148671 := by
+  apply coveredState_of_hexJoined tao_image_sound tao_term_sound
+    (fuel := 16) (count := 253) (hex := hex_148671)
+  decide +kernel
+#print axioms cover_148671
+
+def state_148924 (j : Fin 5) : Nat := (if j.val < 2 then (if j.val < 1 then 5 else 7) else (if j.val < 3 then 7 else (if j.val < 4 then 7 else 3)))
+def hex_148924 : String := "444044410A0841420A0A084441424340440808444142084309090841424340084408080743400A090942084305080A4340440A0A44094109050A424308084305400844054106054142434044410A08410642060644414243400A44410A07410A42070A0743400A44090A0A424308074340084408434142080505410A070A41424340064105420543440A050505434006410A4342440606060606424340064207434144060606060643400643414244060606420606060640064407064340440A0A44410A43050A410A4342400643414405060506400505060A424340084408424308064341400643420805060806400607434044084308064405430506400606404142060642064344400606060641424344400641060605054344400641060606064243444006420606060643444006060606"
+theorem cover_148924 : CoveredState taoTables (toCarrier R carrier) T R targets
+    (signsOf (⟨6, by decide⟩ : Fin 32)) state_148924 := by
+  apply coveredState_of_hexJoined tao_image_sound tao_term_sound
+    (fuel := 17) (count := 307) (hex := hex_148924)
+  decide +kernel
+#print axioms cover_148924
+
+def state_149234 (j : Fin 5) : Nat := (if j.val < 2 then (if j.val < 1 then 3 else 2) else (if j.val < 3 then 2 else (if j.val < 4 then 2 else 1)))
+def hex_149234 : String := "444041424306440640060643060742430644060843064406064142074306440606424306440606430606404142430644070A43444006060A444042074306074243060743064406410907400A0A42434440060640064106084440410A0A0A400A0A434440410606410606404106420605410A0A44404107420A06414206060A40414207430A07420A430A0A0A4142430A444344070A070A43444244060A44060A0A44424344060A4407400741050743440640064142060606444006064041420509420606414205430605420606420A430A400A41444205430A050544420A430641050A0A42430844080A430A44414243060706060A"
+theorem cover_149234 : CoveredState taoTables (toCarrier R carrier) T R targets
+    (signsOf (⟨6, by decide⟩ : Fin 32)) state_149234 := by
+  apply coveredState_of_hexJoined tao_image_sound tao_term_sound
+    (fuel := 15) (count := 245) (hex := hex_149234)
+  decide +kernel
+#print axioms cover_149234
+
+def state_149480 (j : Fin 5) : Nat := (if j.val < 2 then (if j.val < 1 then 3 else 2) else (if j.val < 3 then 2 else (if j.val < 4 then 3 else 2)))
+def hex_149480 : String := "40414243440608094344400606404209090944400642060740090942434440060640410843084406084143060943064406420A08440940090943444041060641060640414208094208064109420606444041064206054109420605404109424409084409090941424344094307440905094344070709424344414306094306094143440608440940084205084344064006064440064241060606404241050A410606424105440605410606440941094409400942434105440905054341094406420509094344094142430609060609"
+theorem cover_149480 : CoveredState taoTables (toCarrier R carrier) T R targets
+    (signsOf (⟨6, by decide⟩ : Fin 32)) state_149480 := by
+  apply coveredState_of_hexJoined tao_image_sound tao_term_sound
+    (fuel := 14) (count := 207) (hex := hex_149480)
+  decide +kernel
+#print axioms cover_149480
+
+def state_149689 (j : Fin 5) : Nat := (if j.val < 2 then (if j.val < 1 then 6 else 4) else (if j.val < 3 then 2 else (if j.val < 4 then 3 else 3)))
+def hex_149689 : String := "424344400505054405054344404243440505440505430744090742430705094042074307410507420543410544070705444042090909404205410543050505"
+theorem cover_149689 : CoveredState taoTables (toCarrier R carrier) T R targets
+    (signsOf (⟨6, by decide⟩ : Fin 32)) state_149689 := by
+  apply coveredState_of_hexJoined tao_image_sound tao_term_sound
+    (fuel := 9) (count := 63) (hex := hex_149689)
+  decide +kernel
+#print axioms cover_149689
+
+def state_149753 (j : Fin 5) : Nat := (if j.val < 2 then (if j.val < 1 then 6 else 5) else (if j.val < 3 then 4 else (if j.val < 4 then 3 else 3)))
+def hex_149753 : String := "43444041430A440505430A44080841430A050A40410A0A0A444041084408420508410544420543080805404105420543050505"
+theorem cover_149753 : CoveredState taoTables (toCarrier R carrier) T R targets
+    (signsOf (⟨6, by decide⟩ : Fin 32)) state_149753 := by
+  apply coveredState_of_hexJoined tao_image_sound tao_term_sound
+    (fuel := 8) (count := 51) (hex := hex_149753)
+  decide +kernel
+#print axioms cover_149753
+
+
+end Mub6.Numerical.CircleFullPrototype.Forest

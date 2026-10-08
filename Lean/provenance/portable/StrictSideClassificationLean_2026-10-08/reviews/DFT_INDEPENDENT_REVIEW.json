@@ -1,0 +1,158 @@
+{
+  "schema": "sanitized-independent-semantic-review-projection-v1",
+  "original_review_sha256": "2a5e96e4e931b9c8030a35f570db592314bb1e32f5c231393aa12be9cbfa5cfb",
+  "original_status": "PASS_SCOPED_DFT_EXTRACTION_AND_PHASE_ALGEBRA",
+  "independent_author_and_reviewer": true,
+  "projection_notice": "Semantic checks and scope exclusions are retained verbatim from this review. Earlier exclusions concern the corresponding earlier module; STATUS.json states the collection scope. Host paths, timestamps and operating records are omitted.",
+  "reviewed_modules": [
+    "SideDFTIdentities",
+    "SideFourierPhaseAlgebra"
+  ],
+  "reviewed_artifacts": [
+    {
+      "module": "SideDFTIdentities",
+      "file": "lean/SideDFTIdentities.lean",
+      "source_sha256": "8e5e28b3c3e70c139c684e068df41e51085bb9669edbb6c5c735257f295e752e",
+      "bytes": 4670,
+      "checked_object": {
+        "sha256": "4dbda665d43d277f129230011ededc2b9aff69fd6094c61058dd17ff224984ab",
+        "bytes": 427112
+      },
+      "original_receipt": {
+        "sha256": "8f09ca8e5936eacb7483c498ca5b172ca94488088766198a5c86ce6f8b43078e",
+        "bytes": 296
+      },
+      "original_axiom_log": {
+        "sha256": "71ac050ae1e08a79cec26bd97b3d39a03d45d3182ed75bff71f25b885381e397",
+        "bytes": 858
+      },
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.SideDFT.cubic_of_quadratic",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideDFT.quadratic_ne_one",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideDFT.star_eq_square_of_quadratic_unit",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideDFT.star_square_eq_of_quadratic_unit",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideDFT.dft₀_norm_expansion",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideDFT.dft₁_norm_expansion",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideDFT.dft₂_norm_expansion",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "SideFourierPhaseAlgebra",
+      "file": "lean/SideFourierPhaseAlgebra.lean",
+      "source_sha256": "c2dd5642ddd8e3b9ec6f00fbccd44030c0f55994eb405af4c9685523ac2fa645",
+      "bytes": 4767,
+      "checked_object": {
+        "sha256": "4b9fa04349a29f406f4faf8a6ce4a7fb9ae32baf00dffcd09ed1ec1536bb4db1",
+        "bytes": 281472
+      },
+      "original_receipt": {
+        "sha256": "de34d7d86ceece211b8939c070e89dfd148e5bc3b036b9f4a839ef5b063e09ae",
+        "bytes": 297
+      },
+      "original_axiom_log": {
+        "sha256": "e86bd12d0ba030c8149f525bf881d704608832c126abcd84e98fa8662bf1bde5",
+        "bytes": 480
+      },
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.cube_root_of_unit_is_unit",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.prescribed_phase_gate_cyclicCorr",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.dft_unit_of_norm_and_cyclicCorr",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.phase_gated_dft_row_unit",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    }
+  ],
+  "selected_printed_roots": 11,
+  "semantic_checks": [
+    "The seven extracted theorem statements and proof bodies match the retained FourierAutocorrelation source byte-for-byte after surrounding comments are removed. IsCubicRoot remains exactly omega^3=1. The changed import/namespace boundary receives its own successful compiler receipt; comparison alone supplies no proof credit.",
+    "Hadamard6.Basic contributes star_mul_self_of_normSq_one, whose proof directly casts normSq=1 and rewrites Complex.normSq_eq_conj_mul_self. Its retained source, successful receipt, object and log pins match; it has only Mathlib imports.",
+    "The three DFT norm expansions are literal complex identities for the cyclic correlation star(a)*b+star(b)*c+star(c)*a. Nontrivial modes retain both normSq(omega)=1 and omega^2+omega+1=0. No flatness or classification premise appears in the expansion identities.",
+    "A cube root of a unit complex value is proved unit by applying normSq to w^3=xi, factoring x^3-1 and excluding x^2+x+1=0 using x=normSq(w)>=0. No branch, orientation or nonzero assumption is added.",
+    "The phase-gate consumer derives conjugate cyclic correlation zero from the exact row gate sigma^2*(a*conj(b)+c*conj(a))+rho*b*conj(c)=0. Its only cancellation is rho*w^2: rho>0 is explicit and w nonzero follows from normSq(w)=1. The cube equation is exactly w^3=sigma^2/rho.",
+    "The final row theorem preserves arbitrary complex row entries. Unit w preserves their norm-squared sum; vanishing correlation and the three exact DFT expansions prove all three transformed entries have normSq=1.",
+    "This scoped algebraic helper explicitly assumes the row norm and phase gate. It does not assert that an actual seed satisfies those conditions; the separate checked actual-row consumer must discharge them. All cube roots satisfying the stated equation are retained.",
+    "All eleven printed declarations use only standard axioms. Exact source/compiler copies, successful receipts, objects, logs and first-resolved direct custom object edges were checked."
+  ],
+  "admitted_scope": "Seven extracted three-point DFT identities and four phase-to-DFT unitness lemmas. Actual prescribed side construction/existence is outside this review.",
+  "scope_limitations": [
+    "No new actual-side exhaustion, root-choice equivalence, orbit classification or global exclusion follows from these two modules alone.",
+    "No radius exclusion, finite-forest closure, physical box closure or no-four-MUB theorem.",
+    "Inherited Mathlib source/cache authenticity caveat remains; no clean full-library rebuild or relocated replay."
+  ]
+}

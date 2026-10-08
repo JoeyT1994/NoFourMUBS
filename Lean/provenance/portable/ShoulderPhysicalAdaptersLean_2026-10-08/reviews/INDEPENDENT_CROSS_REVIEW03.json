@@ -1,0 +1,96 @@
+{
+  "schema": "sanitized-independent-semantic-review-projection-v1",
+  "original_review_sha256": "70e6cc178235cbf690d60785c9d00076f30b876426a8c90f8d2126cbede9553f",
+  "original_status": "PASS_SCOPED_INDEPENDENT_REVIEW",
+  "independent_author_and_reviewer": true,
+  "projection_notice": "Semantic and scope fields retained verbatim. Earlier caveats describe their selected modules; STATUS.json gives collection scope. Host paths and operating records omitted.",
+  "reviewed_modules": [
+    "PhysicalAdjugateCross"
+  ],
+  "reviewed_artifacts": [
+    {
+      "module": "PhysicalAdjugateCross",
+      "file": "lean/PhysicalAdjugateCross.lean",
+      "source_sha256": "b103f43580183e5f83873a45799e0d5d5c334b64cdf34069fc0de55e1346f127",
+      "bytes": 2793,
+      "checked_object": {
+        "bytes": 321280,
+        "sha256": "d2cf8082486f3157d6b56a347dcd7f88e28b301b5f6d7ae7a76d9d69375ce10d"
+      },
+      "original_receipt": {
+        "bytes": 297,
+        "sha256": "e9bc1400377a204b8d471ee770bcdc3e890aaa3382072a333c185bdd9cbd99c8"
+      },
+      "original_axiom_log": {
+        "bytes": 992,
+        "sha256": "dd33c35c83f0fb6ae30d16b4b9f545d41863cefa44eb52bebd85cd0b88fa46ba"
+      },
+      "selected_roots": [
+        {
+          "declaration": "ShoulderAdjugate20261008.gram_adjugate_sandwich",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "ShoulderAdjugate20261008.cross_adjugate_identity",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "ShoulderAdjugate20261008.physical_cross_adjugate",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "ShoulderAdjugate20261008.physical_gram_det_nonnegative",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "ShoulderAdjugate20261008.physical_cross_modulus",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    }
+  ],
+  "semantic_findings": {
+    "gram_adjugate_sandwich": "For arbitrary complex3x3 B, B†adj(BB†)B=det(BB†)I. Polynomial adjugate-product identities and associativity suffice; singular matrices are included.",
+    "cross_adjugate_identity": "For arbitrary3x3 B,T,X satisfying X+T B†=0, X adj(BB†)B=-det(BB†)T. That cross-Gram equation is the only hypothesis.",
+    "physical_cross_adjugate": "Actual Physical H yields C E†+T B†=0 by the existing block theorem, hence C(E†adj(BB†))B=-det(BB†)T.",
+    "physical_gram_det_nonnegative": "For arbitrary H, det(BB†)=normSq(det B) cast into C. The theorem name does not hide a physical assumption.",
+    "physical_cross_modulus": "For actual Physical H and any i,j:Fin3, the norm of the corresponding cross entry is normSq(det B). Unit norm of T_ij comes from Physical. All9 pairs and det=0 are covered."
+  },
+  "hypotheses": [
+    "Unconditional arbitrary Mat3 B for sandwich.",
+    "Only X+T*B†=0 for abstract cross identity.",
+    "Physical H for physical cross identity and all9 norm equalities.",
+    "Arbitrary H for determinant Gram normSq identity.",
+    "No Dephased, maximality, strict R, nonzero determinant or interval premise."
+  ],
+  "admitted_scope": "Five exact algebraic/physical cross-adjugate identities, including singular B and all9 physical cross-position modulus equalities.",
+  "scope_limits": [
+    "Identify each dephased B column and C row with native vectors(1,x,y).",
+    "Bind the literal physical Gram to the exact s,t,r matrix and explicit nine-entry gram_adjugate implementation and its polynomial g. Existing physical_blockB_gram_det already supplies the determinant polynomial in rightGram coordinates and must be reused.",
+    "For possible_pair, specialize same-side sandwich to distinct physical slots; labels may coincide. Then bind the remaining third-position unit norms and cross residual via the already proved side sums.",
+    "Complete interval enclosure and zero-exclusion certificates, exhaustive label coverage, finite matching, geometry and forest completeness remain separate.",
+    "Literal module has not yet received a successful independent receipt review.",
+    "No interval/label/finite-graph/forest/physical-box/global exclusion."
+  ],
+  "inherited_cache_authenticity_caveat": "Inherited pinned Lean/Mathlib cached dependencies; no full clean rebuild."
+}

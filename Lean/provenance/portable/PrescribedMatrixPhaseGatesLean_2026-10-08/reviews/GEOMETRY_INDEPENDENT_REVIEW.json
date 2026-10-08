@@ -1,0 +1,70 @@
+{
+  "schema": "sanitized-independent-semantic-review-projection-v1",
+  "original_review_sha256": "0355ca9416936a8b96d896e89c8d2c8195760ce3902e3d9bef75df71d548e003",
+  "original_status": "PASS_SCOPED_THIRD_ROW_RATIONAL_GEOMETRY",
+  "independent_author_and_reviewer": true,
+  "projection_notice": "Semantic checks and scope exclusions are retained verbatim from this review. Earlier exclusions concern the corresponding earlier module; STATUS.json states the collection scope. Host paths, timestamps and operating records are omitted.",
+  "reviewed_modules": [
+    "ThirdRowGateGeometry"
+  ],
+  "reviewed_artifacts": [
+    {
+      "module": "ThirdRowGateGeometry",
+      "file": "lean/ThirdRowGateGeometry.lean",
+      "source_sha256": "af1f1e7efe52c8ab7918c419b45963c7a4edc21de87b6d22a6057fc88a7b75cc",
+      "bytes": 5064,
+      "checked_object": {
+        "sha256": "53217c87acf4f0541715756adb64647113f8e9eb9fd86dc8e0ceec8267337e9e",
+        "bytes": 1003456
+      },
+      "original_receipt": {
+        "sha256": "2eb3370cf4fec047be35c81ddb0f33ac5051b77d200c30347a979d5f0a28413f",
+        "bytes": 294
+      },
+      "original_axiom_log": {
+        "sha256": "6147a82e8a63b90d4a716759f701a707896169b534461630875a39bdf584a111",
+        "bytes": 1034
+      },
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.ThirdRowGate.geometry_stage1",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.ThirdRowGate.geometry_stage2",
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.ThirdRowGate.geometry_gate_of_residuals",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    }
+  ],
+  "selected_printed_roots": 3,
+  "semantic_checks": [
+    "Stage1 clears only the explicit nonzero n denominator and derives the rational third-row expression from the generic q/rho balance, sigma definition, second-row gate, alpha conjugate relation and delta product.",
+    "The generic hgate is the already-established second-row reduced phase gate m+q*M+sigma*Q=0, not the desired third-row conclusion.",
+    "Stage2 uses unit u, delta*Delta=d, delta^2=d*u*c, and A=(2rho-n)delta plus its formal-conjugate version to express the remaining numerator as d*geometryConstant+Delta*geometryLinear.",
+    "The final generic theorem consumes explicit residual-zero premises. It cancels precisely 2*d*rho*n^2 with CharZero, d!=0, rho!=0 and n!=0 supplied. It does not divide by A, 2rho-n, delta, q or a coefficient.",
+    "No strict orientation or nonzero dF premise appears, so this rational geometry does not remove the tie 2rho-n=0. Actual sheet and orientation selection are deferred to the consumer.",
+    "All three roots use only propext, Classical.choice and Quot.sound; exact source, compiler copy, object, receipt and log bindings match the successful fixed-guard job."
+  ],
+  "admitted_scope": "The three conditional rational-geometry roots only. Actual residual discharge is a separate module; no standalone physical phase-gate claim is made here.",
+  "scope_limitations": [
+    "The geometric residual-zero premises must be discharged by actual checked constructor polynomials in the final consumer.",
+    "No physical side flatness, side-fiber exhaustion, completion classification, global coverage or exclusion is concluded.",
+    "Inherited Mathlib source/cache authenticity caveat unchanged; no clean rebuild or independent relocated replay."
+  ]
+}

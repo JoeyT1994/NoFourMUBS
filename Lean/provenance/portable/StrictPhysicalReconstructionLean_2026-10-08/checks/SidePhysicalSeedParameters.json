@@ -1,0 +1,55 @@
+{
+  "module": "SidePhysicalSeedParameters",
+  "source_sha256": "236cf7c61ab677ed1dba36724fbfd9c575dc65fade4faa3ddacdf87050eb7ac8",
+  "checked_object": {
+    "sha256": "b8ab1ed5f36ec22f7d482503d630fabdedd06d18a6627eb8b0cd0275caef92e4",
+    "bytes": 233608
+  },
+  "original_receipt": {
+    "sha256": "7f6f4548a7ba30fee5e0834b41547e4c5a94b8dab8c66e688a3b8683ac2085c6",
+    "bytes": 296
+  },
+  "original_axiom_log": {
+    "sha256": "5ee4d72338142b9bc20a110913019b2dcd2e862d7fa0412e2c34f2aef141dd0b",
+    "bytes": 1093
+  },
+  "selected_roots": [
+    {
+      "declaration": "StrictReconstruction20261007.SideIntrinsic.blockE_gram_entry",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "declaration": "StrictReconstruction20261007.SideIntrinsic.physical_seed_parameter_binding",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "declaration": "StrictReconstruction20261007.SideIntrinsic.physical_leadingR_seed_parameters",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "declaration": "StrictReconstruction20261007.SideIntrinsic.dephased_blockE_corner",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    }
+  ],
+  "schema": "sanitized-successful-check-projection-v1",
+  "success": true,
+  "exit_code": 0,
+  "selected": true,
+  "dependency_caveat": "Existing checks reused pinned Lean/Mathlib/custom objects. No clean full-library source/cache rebuild or fresh relocated replay is claimed."
+}

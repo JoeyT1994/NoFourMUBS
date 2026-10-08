@@ -1,0 +1,65 @@
+{
+  "module": "ThirdRowGateReduction",
+  "source_sha256": "8132ca94ea9d79138f0072916c539eb0f033466aba9911fbcbd57d512e1b4b93",
+  "checked_object": {
+    "sha256": "8e8b76d310e8386b81b31fc9a1b648ea149bcee9a7d8fc7918c96fde65bebf86",
+    "bytes": 981024
+  },
+  "original_receipt": {
+    "sha256": "44136b971e54bbe44512c414a65ad0ddead7e6e86866044113b8901b4e98f337",
+    "bytes": 295
+  },
+  "original_axiom_log": {
+    "sha256": "18721412d7c065166d125daba9032b0e15621c7c19e3d5a7221737ff5f8ad190",
+    "bytes": 650
+  },
+  "selected_roots": [
+    {
+      "declaration": "StrictReconstruction20261007.ThirdRowGate.constant_reduction",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ]
+    },
+    {
+      "declaration": "StrictReconstruction20261007.ThirdRowGate.linear_reduction",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ]
+    },
+    {
+      "declaration": "StrictReconstruction20261007.ThirdRowGate.constant_cleared_zero",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "declaration": "StrictReconstruction20261007.ThirdRowGate.linear_cleared_zero",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "declaration": "StrictReconstruction20261007.ThirdRowGate.constant_lambda_binding",
+      "axioms": [
+        "propext"
+      ]
+    },
+    {
+      "declaration": "StrictReconstruction20261007.ThirdRowGate.linear_lambda_binding",
+      "axioms": [
+        "propext"
+      ]
+    }
+  ],
+  "schema": "sanitized-successful-check-projection-v1",
+  "success": true,
+  "exit_code": 0,
+  "selected": true,
+  "dependency_caveat": "Existing checks reused pinned Lean/Mathlib/custom objects. No clean full-library source/cache rebuild or fresh relocated replay is claimed."
+}

@@ -1,0 +1,113 @@
+{
+  "status": "PASS_SCOPED_INDEPENDENT_REVIEW",
+  "reviewer": "root",
+  "author": "radius050_audit",
+  "components": [
+    {
+      "module": "MonomialRayTransport",
+      "source_sha256": "d6f552ddd0f00884a6e95112c045513ffd40e41912735426bd723769393dcf9c",
+      "check": "check-transport-01",
+      "result_sha256": "000ff4c11a3de715814e5d1798dfa2607d5ca410d72a550fcffdc07dde72a708",
+      "stdout_sha256": "495897a54a7fb2205a64c254a21f51204e53eb39152f5aa58347ba3501e1af92",
+      "theorems": [
+        "rawOverlap_eq_FormalCore",
+        "pullbackRay_flat",
+        "pullbackRay_overlap",
+        "monomial_reference_overlap",
+        "raw_unit_coordinate_ne_zero",
+        "dephase_raw_unit_ray",
+        "dephase_raw_overlap_normSq",
+        "dephase_raw_overlap_norm",
+        "reference_overlap_dephase_norm",
+        "canonicalRay_isRawUnitRay",
+        "canonicalRay_overlap_normSq",
+        "canonicalRay_reference_overlap_norm"
+      ],
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ]
+    },
+    {
+      "module": "F6TubeRays",
+      "source_sha256": "90732e7ace3dc15363197434bc43ff536a1322a9e11f268a3f7d4a0dd37edb21",
+      "check": "check-tube-rays-01",
+      "result_sha256": "07b4e2cff24209a37b7a1d7a951eff628f1e9b6329917eca710bb0f2d1bfb719",
+      "stdout_sha256": "b572bfd2a4f259277a60dd422fa7c4d59bb989d5a88ada7f9d3219ad362f2ceb",
+      "theorems": [
+        "rawProjectorDistance_normalizedColumn",
+        "explicitF6_first_row",
+        "monomial_reference_canonical_tolerance",
+        "inside_f6_tube_canonical_rays",
+        "inside_f6_tube_simultaneous_ray_transport",
+        "inside_f6_tube_raw_common_rays"
+      ],
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ]
+    },
+    {
+      "module": "QuartetTubeRays",
+      "source_sha256": "f2421757ccd1f89cd3c2d6ae57d2d685394e35171a4f6787fe8b14e9cec0fbbe",
+      "check": "check-quartet-rays-01",
+      "result_sha256": "d108f42ada90e7d9b573e05ff42a746eb639bf5459383ebe4b724061d08c7dff",
+      "stdout_sha256": "db0edf4344b930decd82898878c07ceee6583fa73f54d4a9b91faaee36743938",
+      "theorems": [
+        "rawCarrier_eq_phaseOverlap",
+        "quartet_rebased_column_flat",
+        "quartet_rebased_raw_six_pair",
+        "canonicalRay_preserves_raw_orthogonality",
+        "inside_f6_tube_transports_raw_six_pair",
+        "actual_quartet_tube_gives_approximate_six_pair"
+      ],
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ]
+    },
+    {
+      "module": "Retained36ApproximateRays",
+      "source_sha256": "4433f156ae9760d44f4cdecd2c3af78f9da3b3af71e8d1767403ceae4717329e",
+      "check": "check-retained-rays-01",
+      "result_sha256": "0e166b331213d3aa542561cf3d6521c925c5d117dd073d22998c65a6ece5ebc4",
+      "stdout_sha256": "57142959bef833683bc423e55b903d15cefc63b56d92c3551ca63fff5cfa7307",
+      "theorems": [
+        "retained36_quartet_approximate_pair",
+        "retained36_maximal_population_approximate_pair"
+      ],
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ]
+    }
+  ],
+  "theorem_count": 26,
+  "semantic_checks": [
+    "The monomial pullback uses the inverse of the same row permutation and conjugate of the same unit gauge for every ray.",
+    "Complex pair overlap is invariant before dephasing, and normSq is invariant after individual dephasing by nonzero unit first entries.",
+    "The exact matched reference column is accessed through the inverse column permutation; no ray-dependent matching is introduced.",
+    "InsideF6Tube is the actual operator-distance property of all normalized columns against one explicit common monomial F6 reference.",
+    "The actual quartet is rebased through its shared first basis; the first-row-dephased phase edge is an explicit retained premise.",
+    "The two remaining bases produce complete six-ray families with exact within-family zero overlaps and cross normSq six.",
+    "The 19/100 raw amplitude bound is strictly below the 1/5 cover target.",
+    "Retained36ApproximateRays removes the tube premise by invoking the checked exact closed-box theorem on the actual dephased maximal phase-overlap matrix.",
+    "The population corollary opens the actual MaximalQuartetPhasePopulation witness, retaining closed box membership and exact phase-coordinate binding."
+  ],
+  "independent_fresh_compile": false,
+  "root_ran_serialized_checks": true,
+  "continuous_cover_proved": false,
+  "centre_graph_binding_proved": false,
+  "cluster_tube_admitted": false,
+  "physical_box_closures": 0,
+  "aggregate_audit": {
+    "source_sha256": "d1f1b24aa5a69e44eb131926a6eadc7626daf495b7956ebb28b6f616e6ed15d8",
+    "result_sha256": "212a5e27972cf9e5537d41ed021ffcbe6a00e68a5b989c49aeacbc81b89d593f",
+    "stdout_sha256": "52d11ddac02799e664ab20a8a0f1c0ef94b8d3a65b3ca69447e5ed48f2d109db",
+    "theorem_count": 26
+  }
+}

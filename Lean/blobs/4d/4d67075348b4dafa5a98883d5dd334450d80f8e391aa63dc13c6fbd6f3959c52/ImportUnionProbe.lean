@@ -1,0 +1,7 @@
+import ExactPhaseInput
+import StrictMaximalPhasePopulation
+import ExactMeanTerminal
+
+#check ExactMeanChecker20261006.rejectsBoth_physical
+#check ExactMeanChecker20261006.PhaseInput.sound
+#check ExactMeanChecker20261006.StrictMaximalPopulation

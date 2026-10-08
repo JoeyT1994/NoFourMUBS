@@ -1,0 +1,31 @@
+{
+  "module": "SidePhysicalLiteralSeed",
+  "source_sha256": "877f76b8a90f6c12b537f022a537eee0924e7d85bc3cb7925f9cea06a7666703",
+  "checked_object": {
+    "sha256": "0271ba509e0392eb5421f4c5e86668825eb115711fb41fdf5340399a15e64f36",
+    "bytes": 85432
+  },
+  "original_receipt": {
+    "sha256": "5add1202e32060ffc661f8fdb135f70cddbbafc9317a2d457d4bab1d07a90e1c",
+    "bytes": 297
+  },
+  "original_axiom_log": {
+    "sha256": "250b2467117c3a5cd4d52bb164fd8940ff69fafc89e12015366d1d123e0c3175",
+    "bytes": 150
+  },
+  "selected_roots": [
+    {
+      "declaration": "StrictReconstruction20261007.SideIntrinsic.strict_physical_literal_seed_reconstruction",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    }
+  ],
+  "schema": "sanitized-successful-check-projection-v1",
+  "success": true,
+  "exit_code": 0,
+  "selected": true,
+  "dependency_caveat": "Existing checks reused pinned Lean/Mathlib/custom objects. No clean full-library source/cache rebuild or fresh relocated replay is claimed."
+}

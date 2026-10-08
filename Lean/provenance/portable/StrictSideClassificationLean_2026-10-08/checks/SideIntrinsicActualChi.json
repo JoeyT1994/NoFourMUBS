@@ -1,0 +1,31 @@
+{
+  "module": "SideIntrinsicActualChi",
+  "source_sha256": "269293fb2352dee3dbdd316db455d699834490af325a2521793ab4e18c54ff56",
+  "checked_object": {
+    "sha256": "00b3c61f15a5dce361ee2fa041240ee3c80858432b67519e2c8e7f489aa481a6",
+    "bytes": 206184
+  },
+  "original_receipt": {
+    "sha256": "62cf6822f7c8468e811c876cf9ada03234696388baa3857aa555d5c03f9e314f",
+    "bytes": 296
+  },
+  "original_axiom_log": {
+    "sha256": "41289ee0e61cfafcb41936c431b3bd43eac8bc94113b16db0b65e05933b7e105",
+    "bytes": 126
+  },
+  "selected_roots": [
+    {
+      "declaration": "StrictReconstruction20261007.SideIntrinsic.actual_chi_identity",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    }
+  ],
+  "schema": "sanitized-successful-check-projection-v1",
+  "success": true,
+  "exit_code": 0,
+  "selected": true,
+  "dependency_caveat": "Existing checks reused pinned Lean/Mathlib/custom objects. No clean full-library source/cache rebuild or fresh relocated replay is claimed."
+}

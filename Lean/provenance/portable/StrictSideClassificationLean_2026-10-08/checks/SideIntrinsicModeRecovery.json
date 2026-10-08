@@ -1,0 +1,63 @@
+{
+  "module": "SideIntrinsicModeRecovery",
+  "source_sha256": "4455598c3b089cdafcbdd819ff987018e7c01e30943bce393ffd2445d86fb3bc",
+  "checked_object": {
+    "sha256": "996dfc1d73603a9ebe907ce323aeb6d85ac7e3b2d61374a1a956eb8d2baebb44",
+    "bytes": 325328
+  },
+  "original_receipt": {
+    "sha256": "457bb6b76126f1e839879914fca2b6f7cb58ce973cae5c4afed550d5607ebebb",
+    "bytes": 297
+  },
+  "original_axiom_log": {
+    "sha256": "8b43fd2b568fb54dcc001e6c28163281a992b05151fd13fb1ceccf9618ea3699",
+    "bytes": 1399
+  },
+  "selected_roots": [
+    {
+      "declaration": "StrictReconstruction20261007.SideIntrinsic.intrinsic_row_products",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "declaration": "StrictReconstruction20261007.SideIntrinsic.prescribed_intrinsic_products",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "declaration": "StrictReconstruction20261007.SideIntrinsic.prescribed_intrinsic_delta_radicand",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "declaration": "StrictReconstruction20261007.SideIntrinsic.actual_mode_reconstruction_moments",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "declaration": "StrictReconstruction20261007.SideIntrinsic.actual_mode_delta_is_prescribed_root",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    }
+  ],
+  "schema": "sanitized-successful-check-projection-v1",
+  "success": true,
+  "exit_code": 0,
+  "selected": true,
+  "dependency_caveat": "Existing checks reused pinned Lean/Mathlib/custom objects. No clean full-library source/cache rebuild or fresh relocated replay is claimed."
+}

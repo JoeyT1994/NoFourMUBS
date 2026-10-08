@@ -1,0 +1,4 @@
+import CriticalZeroAllCriticalInputs
+import CriticalZeroSumPhysicalCleared
+#check CriticalZeroPhysicalInputs20261003.allCritical_inputs_and_equation
+#check CriticalZeroSumAssembly20261003.pure_zeroSide_eq_computed_quotient

@@ -1,0 +1,30 @@
+import IntegerNormFloor
+import SignedDivisionRounding
+import IntegerRootCeil
+import SupplierTargetFloor
+
+/-! Aggregate axiom audit for the exact integer rounding primitives. -/
+#print axioms Seed0024ClusterTube20261007.integerNormSq_cast
+#print axioms Seed0024ClusterTube20261007.integerComplex_norm_sq
+#print axioms Seed0024ClusterTube20261007.nat_sqrt_real_bounds
+#print axioms Seed0024ClusterTube20261007.integerNormFloor_nonneg
+#print axioms Seed0024ClusterTube20261007.integerNormFloor_bounds
+#print axioms Seed0024ClusterTube20261007.integerNormFloor_error
+#print axioms Seed0024ClusterTube20261007.integerNormFloor_abs_error
+#print axioms Seed0024ClusterTube20261007.corrected_floor_eq
+#print axioms Seed0024ClusterTube20261007.corrected_norm_floor_error
+#print axioms Seed0024ClusterTube20261007.signed_tdiv_real_remainder
+#print axioms Seed0024ClusterTube20261007.signed_tdiv_error
+#print axioms Seed0024ClusterTube20261007.signed_tdiv_positive_scale_error
+#print axioms Seed0024ClusterTube20261007.integerCeilDiv_mul_bounds
+#print axioms Seed0024ClusterTube20261007.integerCeilDiv_real_bounds
+#print axioms Seed0024ClusterTube20261007.integerCeilDiv_nonneg
+#print axioms Seed0024ClusterTube20261007.integerCeilDiv_error
+#print axioms Seed0024ClusterTube20261007.naturalRootCeil_real_nonneg
+#print axioms Seed0024ClusterTube20261007.naturalRootCeil_real_bounds
+#print axioms Seed0024ClusterTube20261007.naturalRootCeil_error
+#print axioms Seed0024ClusterTube20261007.corrected_rootceil_real_bounds
+#print axioms Seed0024ClusterTube20261007.corrected_rootceil_error
+#print axioms Seed0024ClusterTube20261007.supplier_target_square_brackets
+#print axioms Seed0024ClusterTube20261007.supplier_target_floor
+#print axioms Seed0024ClusterTube20261007.supplier_target_real_error

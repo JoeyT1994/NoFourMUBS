@@ -1,0 +1,6 @@
+import PhysicalNormBudget
+
+#print axioms Centiradian20261006.PhysicalNormBudget20261006.source2442Model_sqrt_of_normBudget
+#print axioms Centiradian20261006.PhysicalNormBudget20261006.physical_source2442_q_cover_of_normBudget
+
+#print Centiradian20261006.PhysicalNormBudget20261006.physical_source2442_q_cover_of_normBudget

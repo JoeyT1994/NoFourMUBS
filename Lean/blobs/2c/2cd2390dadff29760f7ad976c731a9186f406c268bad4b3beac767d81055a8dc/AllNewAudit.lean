@@ -1,0 +1,192 @@
+import FourierConditioning
+import ConditionedFourierChart
+import CompactCarrierCover
+import AdjugateReconstruction
+import NormalizedCarrierTransport
+import SixteenCircleCover
+import CompactChartFilters
+import SixteenDyadicCover
+import RationalCarrierIntervals
+import SixteenCarrierEnclosure
+import FiniteCarrierEnclosures
+import GlobalFourierConditioning
+import PhysicalCarrierEnclosures
+import GramNumerators
+import SeedInvariants
+import SideLambdaPhases
+import PhysicalSideForward
+import PhysicalSideSheet
+import PhysicalSideRational
+import RootCarrierExport
+import MixedCarrierExport
+import GaussianCarrierExport
+import NeighborhoodCarrierExport
+
+#print axioms Hadamard6Extensions.FourierConditioning.cube_equal_normSq
+#print axioms Hadamard6Extensions.FourierConditioning.omega_normSq
+#print axioms Hadamard6Extensions.FourierConditioning.normSq_sum_three_le
+#print axioms Hadamard6Extensions.FourierConditioning.firstMode_normSq_le_one
+#print axioms Hadamard6Extensions.FourierConditioning.secondMode_normSq_le_one
+#print axioms Hadamard6Extensions.FourierConditioning.normSq_sub_le_twice
+#print axioms Hadamard6Extensions.FourierConditioning.discriminant_normSq
+#print axioms Hadamard6Extensions.FourierConditioning.larger_product_bounds
+#print axioms Hadamard6Extensions.FourierConditioning.inverse_normSq_le_ten
+#print axioms Hadamard6Extensions.FourierConditioning.large_pivot_good_data
+#print axioms Hadamard6Extensions.FourierConditioning.affine_good_conditioned_chart
+#print axioms Hadamard6Extensions.FourierConditioning.physical_good_side_conditioned_chart
+#print axioms Mub6.Classification.CompactCover.unit_star_mul
+#print axioms Mub6.Classification.CompactCover.unit_mul_star
+#print axioms Mub6.Classification.CompactCover.normalizingRows_unit
+#print axioms Mub6.Classification.CompactCover.normalizingCols_unit
+#print axioms Mub6.Classification.CompactCover.normalizingRows_zero
+#print axioms Mub6.Classification.CompactCover.rephase_PhaseHadamard
+#print axioms Mub6.Classification.CompactCover.normalizeCarrier_PhaseHadamard
+#print axioms Mub6.Classification.CompactCover.normalizeCarrier_first_row
+#print axioms Mub6.Classification.CompactCover.normalizeCarrier_first_column
+#print axioms Mub6.Classification.CompactCover.rephase_det_normSq
+#print axioms Mub6.Classification.CompactCover.normalizeCarrier_minor_normSq
+#print axioms Mub6.Classification.CompactCover.phaseHadamard_normalized_good_side_cover
+#print axioms Mub6.Classification.CompactCover.normalized_good_side_guards
+#print axioms Mub6.Classification.CompactCover.gram_mul_quotient
+#print axioms Mub6.Classification.CompactCover.side_sandwich_identity
+#print axioms Mub6.Classification.CompactCover.back_ne_front
+#print axioms Mub6.Classification.CompactCover.bottom_left_rowGram
+#print axioms Mub6.Classification.CompactCover.phaseHadamard_forcedD
+#print axioms Mub6.Classification.CompactCover.normalized_gram_ne_zero
+#print axioms Mub6.Classification.CompactCover.normalized_good_side_reconstruction
+#print axioms Mub6.Classification.CompactCover.blockCarrier_blocks
+#print axioms Mub6.Classification.CompactCover.blockCarrier_self
+#print axioms Mub6.Classification.CompactCover.normalized_reconstructedCarrier
+#print axioms Mub6.Classification.CompactCover.phaseHadamard_complete_reconstruction
+#print axioms Mub6.Classification.CompactCover.rephase_carrierAmplitude
+#print axioms Mub6.Classification.CompactCover.normalizeCarrier_commonRay
+#print axioms Mub6.Classification.CompactCover.normalizedSideRay_commonRay
+#print axioms Mub6.Classification.CompactCover.normalizedSideRay_rawOverlap
+#print axioms Mub6.Classification.CompactCover.phaseHadamard_normalized_good_side_cover_with_rays
+#print axioms Mub6.Classification.CompactCover.free_coordinate_count
+#print axioms Mub6.Classification.CompactCover.carrier_sign_count
+#print axioms Mub6.Classification.CompactCover.freeEntry_unit
+#print axioms Mub6.Classification.CompactCover.freeE_of_normalized
+#print axioms Mub6.Classification.CompactCover.freeB_of_normalized
+#print axioms Mub6.Classification.CompactCover.freeC_of_normalized
+#print axioms Mub6.Classification.CompactCover.normalized_sixteen_circle_cover
+#print axioms Mub6.Classification.CompactCover.phaseHadamard_sixteen_parameter_cover
+#print axioms Mub6.Classification.CompactCover.chart_circle_denominator_bound
+#print axioms Mub6.Classification.CompactCover.physical_chart_gram_guard
+#print axioms Mub6.Classification.CompactCover.parameter_cube_isCompact
+#print axioms Mub6.Classification.CompactCover.tagged_chart_count
+#print axioms Mub6.Classification.CompactCover.freeE_unit
+#print axioms Mub6.Classification.CompactCover.freeB_unit
+#print axioms Mub6.Classification.CompactCover.freeC_unit
+#print axioms Mub6.Classification.CompactCover.reconstructed_first_row
+#print axioms Mub6.Classification.CompactCover.reconstructed_first_column
+#print axioms Mub6.Classification.CompactCover.chartCarrier_unit_iff
+#print axioms Mub6.Classification.CompactCover.chart_physical_filter_iff
+#print axioms Mub6.Classification.CompactCover.explicit_filter_denominators
+#print axioms Mub6.Classification.CompactCover.parameterDyadicGrid_complete
+#print axioms Mub6.Classification.CompactCover.parameterDyadicGrid_length
+#print axioms Mub6.Classification.CompactCover.parameter_cube_finite_dyadic_cover
+#print axioms Mub6.Classification.CompactCover.phaseHadamard_finite_dyadic_cover
+#print axioms Mub6.Classification.CarrierIntervals.mem_clampLower
+#print axioms Mub6.Classification.CarrierIntervals.mem_reciprocal
+#print axioms Mub6.Classification.CarrierIntervals.mem_divide
+#print axioms Mub6.Classification.CarrierIntervals.mem_boxDivideReal
+#print axioms Mub6.Classification.CarrierIntervals.circleBox_sound
+#print axioms Mub6.Classification.CarrierIntervals.mem_matrixMul
+#print axioms Mub6.Classification.CarrierIntervals.mem_matrixConjTranspose
+#print axioms Mub6.Classification.CarrierIntervals.mem_matrixNeg
+#print axioms Mub6.Classification.CarrierIntervals.mem_matrixSub
+#print axioms Mub6.Classification.CarrierIntervals.mem_matrixDivideReal
+#print axioms Mub6.Classification.CarrierIntervals.mem_scalarIdentity
+#print axioms Mub6.Classification.CarrierIntervals.mem_residualBox
+#print axioms Mub6.Classification.CarrierIntervals.mem_detBox
+#print axioms Mub6.Classification.CarrierIntervals.mem_adjugateBox
+#print axioms Mub6.Classification.CarrierIntervals.gramDetBox_positive
+#print axioms Mub6.Classification.CarrierIntervals.mem_gramDetBox
+#print axioms Mub6.Classification.CarrierIntervals.forcedD_real_quotient
+#print axioms Mub6.Classification.CarrierIntervals.lowerBlockBox_sound
+#print axioms Mub6.Classification.CarrierIntervals.mem_one_box
+#print axioms Mub6.Classification.CarrierIntervals.mem_freeBoxE
+#print axioms Mub6.Classification.CarrierIntervals.mem_freeBoxB
+#print axioms Mub6.Classification.CarrierIntervals.mem_freeBoxC
+#print axioms Mub6.Classification.CarrierIntervals.mem_blockBoxes
+#print axioms Mub6.Classification.CarrierIntervals.chartEnclosure_sound
+#print axioms Mub6.Classification.CarrierIntervals.phaseHadamard_in_root_enclosure
+#print axioms Mub6.Classification.CarrierIntervals.cellBox_contains
+#print axioms Mub6.Classification.CarrierIntervals.phaseHadamard_in_finite_enclosures
+#print axioms Hadamard6Extensions.FourierConditioning.conditionedPhaseSide_of_good
+#print axioms Hadamard6Extensions.FourierConditioning.phaseHadamard_global_conditioned_sides
+#print axioms Mub6.Classification.CarrierIntervals.unit_component_bounds
+#print axioms Mub6.Classification.CarrierIntervals.mem_unitClip
+#print axioms Mub6.Classification.CarrierIntervals.physicalChartEnclosure_sound
+#print axioms Mub6.Classification.CarrierIntervals.phaseHadamard_in_finite_physical_enclosures
+#print axioms FourierGramNumerators.gram_det
+#print axioms FourierGramNumerators.gram_adjugate_diag
+#print axioms FourierGramNumerators.numerator_normSq
+#print axioms FourierSeedBinding.seed_transpose
+#print axioms FourierSeedBinding.gramV_eq_gramH_swap
+#print axioms FourierSeedBinding.qV_eq_q_swap
+#print axioms FourierSeedBinding.detE_swap
+#print axioms FourierSeedBinding.permE_swap
+#print axioms FourierSeedBinding.g_swap
+#print axioms FourierSeedBinding.eta_swap
+#print axioms FourierSeedBinding.sigma_swap
+#print axioms FourierSeedBinding.gramH_entries
+#print axioms FourierSeedBinding.g_gram_binding
+#print axioms FourierSeedBinding.q_gram_binding
+#print axioms FourierSeedBinding.sigma_gram_binding
+#print axioms FourierSeedBinding.eta_gram_binding
+#print axioms FourierSeedBinding.chi_gram_binding
+#print axioms FourierSeedBinding.phase_mul_star
+#print axioms FourierSeedBinding.one_sub_norm_sum_factor
+#print axioms FourierSeedBinding.one_sub_norm_ratio_sum_factor
+#print axioms FourierSeedBinding.cofactor_shift_product_formula
+#print axioms FourierSeedBinding.cofactor_shift_product_swap
+#print axioms FourierSeedBinding.chi_swap
+#print axioms FourierSeedBinding.radicand_swap
+#print axioms FourierSeedBinding.vertical_scalars_equal
+#print axioms FourierSeedBinding.numeratorH_actual_gram
+#print axioms FourierSeedBinding.numeratorV_actual_gram
+#print axioms FourierSeedBinding.numeratorH_normSq
+#print axioms FourierSeedBinding.numeratorV_normSq
+#print axioms FourierSeedBinding.phase_of_equal_normSq
+#print axioms FourierSeedBinding.lambdaH_phase_guarded
+#print axioms FourierSeedBinding.lambdaV_phase_guarded
+#print axioms FourierSeedBinding.lambdaH_phase_strict
+#print axioms FourierSeedBinding.lambdaV_phase_strict
+#print axioms FourierSeedBinding.six_lambdas_phases_both_sheets
+#print axioms FourierSeedBinding.six_lambdas_phases_sqrt
+#print axioms FourierSeedBinding.phase_div
+#print axioms FourierSeedBinding.lambda_ratios_phase_strict
+#print axioms FourierPhysicalSide.determinant_formula
+#print axioms FourierPhysicalSide.actual_gram
+#print axioms FourierPhysicalSide.g_determinant
+#print axioms FourierPhysicalSide.eta_permanent
+#print axioms FourierPhysicalSide.numerator0_binding
+#print axioms FourierPhysicalSide.numerator1_binding
+#print axioms FourierPhysicalSide.numerator2_binding
+#print axioms FourierPhysicalSide.rowProduct_phase
+#print axioms FourierPhysicalSide.orientationPhase_phase
+#print axioms FourierPhysicalSide.g_orientationPhase
+#print axioms FourierPhysicalSide.physicalSheet_normSq
+#print axioms FourierPhysicalSide.physical_numerator0_factor
+#print axioms FourierPhysicalSide.real_sheet_equation_of_norm
+#print axioms FourierPhysicalSide.q0_sum_minors
+#print axioms FourierPhysicalSide.q0_nonzero_of_determinant
+#print axioms FourierPhysicalSide.physicalSheet_real
+#print axioms FourierPhysicalSide.physicalSheet_lifted
+#print axioms FourierPhysicalSide.physicalLambda_phase
+#print axioms FourierPhysicalSide.factor_of_scaled_numerator
+#print axioms FourierPhysicalSide.physical_numerators_factor
+#print axioms FourierPhysicalSide.rational_lambda_matches_physical
+#print axioms FourierPhysicalSide.physicalLambda_row_products
+#print axioms FourierPhysicalSide.physicalSheet_lambda0_permanent
+#print axioms FourierPhysicalSide.physicalSheet_two_sqrt
+#print axioms Mub6.Classification.CarrierExports.RootCarrierExport.exported_eq
+#print axioms Mub6.Classification.CarrierExports.RootCarrierExport.exported_sound
+#print axioms Mub6.Classification.CarrierExports.MixedCarrierExport.exported_eq
+#print axioms Mub6.Classification.CarrierExports.MixedCarrierExport.exported_sound
+#print axioms Mub6.Classification.CarrierExports.GaussianCarrierExport.exported_eq
+#print axioms Mub6.Classification.CarrierExports.GaussianCarrierExport.exported_sound
+#print axioms Mub6.Classification.CarrierExports.NeighborhoodCarrierExport.exported_eq
+#print axioms Mub6.Classification.CarrierExports.NeighborhoodCarrierExport.exported_sound

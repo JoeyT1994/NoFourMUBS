@@ -1,0 +1,134 @@
+{
+  "reviewer": "seed0024_averaging",
+  "status": "PASS_SCOPED_COMPONENT_REVIEW",
+  "components": [
+    {
+      "module": "ProjectorAmplitude",
+      "source": "local-proof-root/cluster-tube-amplitude/ProjectorAmplitude.lean",
+      "source_sha256": "8159144437c05fda88d3d5b4503b21c80cc0a8323393ffef48f3c088b740e600",
+      "source_matches_frozen_and_receipt": true,
+      "receipt": "local-proof-root/cluster-tube-amplitude/check-amplitude-01/RESULT.json",
+      "receipt_sha256": "cb7732ce98310c385c2d7ca5b5f8c12224cd429fc795526c8e36ac4c3ca91ae0",
+      "job_sha256": "bde9c63b7edb4fe75f3dd9c2fa018b4e5e460764ae342d1b95004ae5fba8aea7",
+      "stdout_sha256": "4258cad86b5af5b616aff24a599402422e722778cfcd8a49607b8adb72493c17",
+      "success": true,
+      "theorem_declarations": 7,
+      "audited_theorems": [
+        "Seed0024ClusterTube20261007.balanced_norm_eq_inv_sqrt_six",
+        "Seed0024ClusterTube20261007.residual_norm_eq_projector_distance",
+        "Seed0024ClusterTube20261007.amplitude_residual_bound",
+        "Seed0024ClusterTube20261007.projector_overlap_gap_le",
+        "Seed0024ClusterTube20261007.balanced_amplitude_contraction",
+        "Seed0024ClusterTube20261007.balanced_amplitude_transfer",
+        "Seed0024ClusterTube20261007.balanced_amplitude_transfer_strict"
+      ],
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "fresh_compile_by_reviewer": false,
+      "independent_source_semantics_review": "PASS",
+      "physical_exclusion_admission": false
+    },
+    {
+      "module": "RawColumnAmplitude",
+      "source": "local-proof-root/cluster-tube-amplitude/RawColumnAmplitude.lean",
+      "source_sha256": "77da5dbd12df5a4a5e2340d76efaca7e6f3aa472dfa28e0af6b9d25c75b1d96c",
+      "source_matches_frozen_and_receipt": true,
+      "receipt": "local-proof-root/cluster-tube-amplitude/check-raw-01/RESULT.json",
+      "receipt_sha256": "575c6b77fe3670c3e0fd9214f890b4c88bb2c646b593004a34345f2d289a62b3",
+      "job_sha256": "b2790daf2144e709c203886349dceb626c9d1af5708a1975e182ee3577baedbf",
+      "stdout_sha256": "2a4fed192412feef3a35064e6fac9a1cd14a140057f038b0ebffce7144a2529b",
+      "success": true,
+      "theorem_declarations": 11,
+      "audited_theorems": [
+        "Seed0024ClusterTube20261007.normalizedVector_unit_of_mass",
+        "Seed0024ClusterTube20261007.normalizedVector_unit",
+        "Seed0024ClusterTube20261007.normalized_inner_eq_raw",
+        "Seed0024ClusterTube20261007.normalized_inner_norm_eq_raw",
+        "Seed0024ClusterTube20261007.raw_unbiased_normalized",
+        "Seed0024ClusterTube20261007.raw_amplitude_scaling",
+        "Seed0024ClusterTube20261007.raw_column_amplitude_contraction",
+        "Seed0024ClusterTube20261007.raw_column_amplitude_transfer",
+        "Seed0024ClusterTube20261007.raw_column_amplitude_transfer_strict",
+        "Seed0024ClusterTube20261007.raw_overlap_tolerance_19over100",
+        "Seed0024ClusterTube20261007.raw_overlap_tolerance_one_fifth_strict"
+      ],
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "fresh_compile_by_reviewer": false,
+      "independent_source_semantics_review": "PASS",
+      "physical_exclusion_admission": false
+    },
+    {
+      "module": "SizedGraphPair",
+      "source": "local-proof-root/cluster-tube-graph/SizedGraphPair.lean",
+      "source_sha256": "743b11bee6ac8cee6a044aadca8a01e1b433ba41ff96ecdedb8c03176d652cd6",
+      "source_matches_frozen_and_receipt": true,
+      "receipt": "local-proof-root/cluster-tube-graph/check-sized-pair-01/RESULT.json",
+      "receipt_sha256": "90f56c2326d4da8ffd7203e85336c1c0cd60b84128b18dd0dbe5d20b841c62a1",
+      "job_sha256": "68c065641d12073156f40f8bacebb51aeca7e2995f6d9e19e5419b379f558c93",
+      "stdout_sha256": "57d99fa73439737aa25b6cca590381917ca0d07bb19efe427c7740378d543e2c",
+      "success": true,
+      "theorem_declarations": 5,
+      "audited_theorems": [
+        "checkPairSized_sound",
+        "hasPairSized_five_iff",
+        "checkPairSized_five_eq",
+        "checkPairSized_split_literal",
+        "checkPairSized_six_sound"
+      ],
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "fresh_compile_by_reviewer": false,
+      "independent_source_semantics_review": "PASS",
+      "physical_exclusion_admission": false
+    },
+    {
+      "module": "PhysicalLabelGraph",
+      "source": "local-proof-root/cluster-tube-graph/PhysicalLabelGraph.lean",
+      "source_sha256": "aed0e223ac345f2fb85a235376acb6113e4d37c61dc34d2688f278e4a815b5f4",
+      "source_matches_frozen_and_receipt": true,
+      "receipt": "local-proof-root/cluster-tube-graph/check-label-physical-01/RESULT.json",
+      "receipt_sha256": "ba1137b4dac5e4bfbbc5ce6d5a8025a181eb0fe1409d21aaf718a4e957e6312d",
+      "job_sha256": "3bc5f40595de2a19f50a010f6cb468536d057e70e04be288936b54ad7afe74cb",
+      "stdout_sha256": "8d9031899f5004ce88954d2fce2684b49401dd49f23d418d1210bd05429c5e4b",
+      "success": true,
+      "theorem_declarations": 8,
+      "audited_theorems": [
+        "label_frame_assignment",
+        "label_raw_pair_has_graph_pair",
+        "checked_label_pair_excludes_raw_pair",
+        "normalized_flat_basis_gives_six_frame",
+        "normalized_flat_bases_give_raw_six_pair",
+        "checked_label_pair_excludes_normalized_flat_bases",
+        "checkSixLabelPair_specs",
+        "checked_48_label_graph_excludes_raw_six_pair"
+      ],
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "fresh_compile_by_reviewer": false,
+      "independent_source_semantics_review": "PASS",
+      "physical_exclusion_admission": false
+    }
+  ],
+  "total_theorems": 31,
+  "mathematical_limits": [
+    "Amplitude is actual normalized/projector metric with exact raw factor six; no Fourier cover follows.",
+    "Graph exclusion still needs a checked concrete certificate, complete physical label cover, and necessary orth/UB compatibility including equal labels.",
+    "Neither packet by itself admits ClusterTube or closes any global branch."
+  ],
+  "cluster_tube_admitted": false,
+  "global_no_four_closure": false,
+  "registry_changed": false
+}

@@ -1,0 +1,60 @@
+import CentiradianPhysical
+import CentiradianNormalization
+import CentiradianArithmetic
+import CentiradianRadial
+import CentiradianTaylor
+import CentiradianUnitPair
+import CentiradianCover
+
+#check Centiradian20261006.CentiradianExclusion
+#print Centiradian20261006.CentiradianExclusion
+
+#print axioms Centiradian20261006.positional_corner_count
+#print axioms Centiradian20261006.gramEntry_phaseTransform
+#print axioms Centiradian20261006.gramInvariant_rowPhase
+#print axioms Centiradian20261006.cornerR_phaseTransform
+#print axioms Centiradian20261006.complement_card
+#print axioms Centiradian20261006.physical_gram_complement
+#print axioms Centiradian20261006.gramP_neg
+#print axioms Centiradian20261006.gramW_neg
+#print axioms Centiradian20261006.gramJ_neg
+#print axioms Centiradian20261006.invariant_all_moments_neg
+#print axioms Centiradian20261006.physical_corner_complement
+#print axioms Centiradian20261006.physical_maximal_complement_bound
+#print axioms Centiradian20261006.dephased_leadingR
+#print axioms Centiradian20261006.physical_phaseTransform
+#print axioms Centiradian20261006.normalizationRows_unit
+#print axioms Centiradian20261006.normalizationCols_unit
+#print axioms Centiradian20261006.normalize_physical
+#print axioms Centiradian20261006.normalize_dephased
+#print axioms Centiradian20261006.normalize_cornerR
+#print axioms Centiradian20261006.normalize_leadingR
+#print axioms Centiradian20261006.normalize_maximal
+#print axioms Centiradian20261006.invariant_expansion
+#print axioms Centiradian20261006.invariant_le_envelope
+#print axioms Centiradian20261006.scalar_majorant
+#print axioms Centiradian20261006.quartic_gram_identity
+#print axioms Centiradian20261006.quartic_gram_bound
+#print axioms Centiradian20261006.radius_outward
+#print axioms Centiradian20261006.normalizedMajorant_mono
+#print axioms Centiradian20261006.outward_normalized_majorant_lt
+#print axioms Centiradian20261006.majorant_lt_square
+#print axioms Centiradian20261006.sqrt_bound_from_majorant
+#print axioms Centiradian20261006.enlarged_scalar_majorant
+#print axioms Centiradian20261006.enlarged_normalized_exact
+#print axioms Centiradian20261006.enlarged_normalized_lt
+#print axioms Centiradian20261006.enlarged_sqrt_bound_from_majorant
+#print axioms Centiradian20261006.exists_supRadius
+#print axioms Centiradian20261006.radial_contraction
+#print axioms Centiradian20261006.cubic_radial_error
+#print axioms Centiradian20261006.reported_max_score_lt_one
+#print axioms Centiradian20261006.phaseTaylor16_error
+#print axioms Centiradian20261006.finite_phaseTaylor16_error
+#print axioms Centiradian20261006.frequencyDot_bound
+#print axioms Centiradian20261006.finite_frequencyTaylor16_error
+#print axioms Centiradian20261006.exhaustive_unit_pair
+#print axioms Centiradian20261006.exhaustive_anchored_row
+#print axioms Centiradian20261006.physical_side_row_pair
+#print axioms Centiradian20261006.PhaseBox.bisection_covers
+#print axioms Centiradian20261006.CertifiedCover.sound
+#print axioms Centiradian20261006.finite_root_cover_sound

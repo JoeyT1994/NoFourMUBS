@@ -1,0 +1,74 @@
+{
+  "schema": "pure-source-closure-v1",
+  "external_imports": [
+    "Std"
+  ],
+  "modules": [
+    {
+      "module": "SeedPhaseCore",
+      "source": "lean/SeedPhaseCore.lean",
+      "source_sha256": "5dad0daa20e4728283d90827042ca58888724ce86501c8d68659078f33238e7f",
+      "imports": [
+        "Std"
+      ],
+      "printed_declarations": 6,
+      "receipt": "receipts/SeedPhaseCore.json",
+      "axioms": "axioms/SeedPhaseCore.txt"
+    },
+    {
+      "module": "SeedPhaseData",
+      "source": "lean/SeedPhaseData.lean",
+      "source_sha256": "8bee5ce3a98d247d859be97455d33c69abb64c266da57d60df8af74b0ca86567",
+      "imports": [
+        "SeedPhaseCore"
+      ],
+      "printed_declarations": 7,
+      "receipt": "receipts/SeedPhaseData.json",
+      "axioms": "axioms/SeedPhaseData.txt"
+    },
+    {
+      "module": "SeedPhaseLeaves",
+      "source": "lean/SeedPhaseLeaves.lean",
+      "source_sha256": "d114e54c08b929d92aee8e4306b2e391822df6eedb9e2dd50437b15e7086c414",
+      "imports": [
+        "SeedPhaseData"
+      ],
+      "printed_declarations": 4,
+      "receipt": "receipts/SeedPhaseLeaves.json",
+      "axioms": "axioms/SeedPhaseLeaves.txt"
+    },
+    {
+      "module": "SeedPhaseTape",
+      "source": "lean/SeedPhaseTape.lean",
+      "source_sha256": "14898a91f9e181a5e14d958ce279ae4c4fe271df745295e60a3d41ac410b6da4",
+      "imports": [
+        "SeedPhaseLeaves"
+      ],
+      "printed_declarations": 4,
+      "receipt": "receipts/SeedPhaseTape.json",
+      "axioms": "axioms/SeedPhaseTape.txt"
+    },
+    {
+      "module": "SeedPhaseTapeComposition",
+      "source": "lean/SeedPhaseTapeComposition.lean",
+      "source_sha256": "e0f518678168c15a0458c90da0d00036e6264ef6817b175ce1b33f118c06399e",
+      "imports": [
+        "SeedPhaseTape"
+      ],
+      "printed_declarations": 2,
+      "receipt": "receipts/SeedPhaseTapeComposition.json",
+      "axioms": "axioms/SeedPhaseTapeComposition.txt"
+    },
+    {
+      "module": "PureCentre385Compositional",
+      "source": "lean/PureCentre385Compositional.lean",
+      "source_sha256": "9b1abae0453fa46acc5fafa742f9ab05fbe760622dd179253cc9d4a0c48c2962",
+      "imports": [
+        "SeedPhaseTapeComposition"
+      ],
+      "printed_declarations": 387,
+      "receipt": "receipts/PureCentre385Compositional.json",
+      "axioms": "axioms/PureCentre385Compositional.txt"
+    }
+  ]
+}

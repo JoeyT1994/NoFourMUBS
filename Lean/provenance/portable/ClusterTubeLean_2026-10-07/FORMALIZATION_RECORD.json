@@ -1,0 +1,1584 @@
+{
+  "schema": "seed0024-physical-centre-graph-interface-v1",
+  "status": "KERNEL_CHECKED_INDEPENDENT_REVIEW_PASS",
+  "scope": "Connect literal exact48 centre probabilities, actual unit-vector geometry, the checked Boolean graph and the actual quartet reduction.",
+  "label": "centreProjectorLabel(i,z) is the actual rawProjectorDistance(exactCentre(i),z) <=5/27. All vectors use the checked PiLp2 normalization by sqrt6.",
+  "centre_binding": "All48 centres are actual raw unit rays. Their rational centreProbability is exactly normSq(inner(normalized centre i, normalized centre j)).",
+  "graph_soundness": "Every orthogonal or unbiased pair of labelled actual raw unit rays gives the necessary edge in orthGraph or ubGraph. The sharp orthogonality bound and elementary unbiasedness bound are combined with all2304 checked ordered centre pairs, including the diagonal.",
+  "domain_adapter": "A stated covering relation for any explicit ray domain produces injective within-family labels and disjoint cross-family label sets; loop-freeness is used explicitly.",
+  "final_conditional": "The sole extra mathematical premise of approximate_f6_six_pair_excluded and retained36_no_live_of_centre_cover is ApproximateF6CentreCover: every IsApproximateF6Ray lies in one of the literal48 centre projector balls. The physical quartet, exact graph and finite incompatibility are already connected.",
+  "cover_status": "ApproximateF6CentreCover has NOT been proved by this packet. Conditional no-live statements confer no unconditional physical box closure.",
+  "new_modules": [
+    {
+      "module": "CentreProjectorLabel",
+      "source_sha256": "9c9903f033ce800d9dd4aa6d6497cd8a455912a2ff66854fad48d37ebe1dbfd4",
+      "successful_check": "check-label-01",
+      "theorems": [
+        "Seed0024ClusterTube20261007.normalized_inner_normSq_eq_raw",
+        "Seed0024ClusterTube20261007.exactCentre_normalized_unit",
+        "Seed0024ClusterTube20261007.exactCentre_normalized_probability",
+        "Seed0024ClusterTube20261007.exactCentre_projector_distance_sq",
+        "Seed0024ClusterTube20261007.centreProjectorLabel_iff"
+      ],
+      "result": {
+        "exit_code": 0,
+        "mode": "standalone-guarded-v1",
+        "peak_tree_rss_bytes": 1832599552,
+        "physical_proof_admission": false,
+        "source_sha256": "9c9903f033ce800d9dd4aa6d6497cd8a455912a2ff66854fad48d37ebe1dbfd4",
+        "stop_reason": null,
+        "success": true,
+        "wall_seconds": 29.570803333015647
+      },
+      "files": {
+        "CentreProjectorLabel.lean": "9c9903f033ce800d9dd4aa6d6497cd8a455912a2ff66854fad48d37ebe1dbfd4",
+        "CentreProjectorLabel.olean": "2436960202e85566f3e8194cacdf241a63d5da090bf6835ef6ffd28970f0bfff",
+        "JOB.json": "cc6c190553d2de493b2c74b26f1836e558552f91a321e5de17b459366f4ebeb6",
+        "RESULT.json": "e09da8b5d310fc67209a21c43efbff4b2675121aa21ea7ff6a5f8ccf918213f0",
+        "stdout.log": "45edda52e6fd0248561c130fac90645c142362ee882222d5b3b8d5a652a394ba",
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "module": "CentreLabelSoundness",
+      "source_sha256": "1c5116403563eb1c360ca9ea50e3d263fa2ede086ae706a26d7860e0d194f0b4",
+      "successful_check": "check-soundness-01",
+      "theorems": [
+        "Seed0024ClusterTube20261007.centre_labels_orthogonal",
+        "Seed0024ClusterTube20261007.centre_labels_unbiased",
+        "Seed0024ClusterTube20261007.actual_centre_sound_label_graph"
+      ],
+      "result": {
+        "exit_code": 0,
+        "mode": "standalone-guarded-v1",
+        "peak_tree_rss_bytes": 2293071872,
+        "physical_proof_admission": false,
+        "source_sha256": "1c5116403563eb1c360ca9ea50e3d263fa2ede086ae706a26d7860e0d194f0b4",
+        "stop_reason": null,
+        "success": true,
+        "wall_seconds": 3.1736290410044603
+      },
+      "files": {
+        "CentreLabelSoundness.lean": "1c5116403563eb1c360ca9ea50e3d263fa2ede086ae706a26d7860e0d194f0b4",
+        "CentreLabelSoundness.olean": "e395da991e46e40c52330f33d4e37fb33f5dffaf2b50bcef2549293ed2b73d1e",
+        "JOB.json": "fb3c96e754d6c0c6201116e23b7c67305dee5764dfd85e0962190a06fbacf79d",
+        "RESULT.json": "4f98d5f0c9082c4ef9b4ef28c4fbcf9714a40258519314b5ac990de3f333e32e",
+        "stdout.log": "a13154475c0718bca7fb82bdb1d0e01c232083c60c5a5a3b49774897890b710a",
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "module": "RayDomainLabelAssignment",
+      "source_sha256": "c4b25adf68ae234cb9ba7165827e35975e3b79448c2c20cbf18b2b0fa1dbd18b",
+      "successful_check": "check-assignment-01",
+      "theorems": [
+        "Seed0024ClusterTube20261007.domain_family_label_assignment",
+        "Seed0024ClusterTube20261007.domain_pair_has_graph_pair"
+      ],
+      "result": {
+        "exit_code": 0,
+        "mode": "standalone-guarded-v1",
+        "peak_tree_rss_bytes": 1602912256,
+        "physical_proof_admission": false,
+        "source_sha256": "c4b25adf68ae234cb9ba7165827e35975e3b79448c2c20cbf18b2b0fa1dbd18b",
+        "stop_reason": null,
+        "success": true,
+        "wall_seconds": 2.129989332985133
+      },
+      "files": {
+        "RayDomainLabelAssignment.lean": "c4b25adf68ae234cb9ba7165827e35975e3b79448c2c20cbf18b2b0fa1dbd18b",
+        "RayDomainLabelAssignment.olean": "6ab97f506bc234ddd7cda837a9136f9c603aae1a08c3cb32019c0fef7285917a",
+        "JOB.json": "c2f6ec419147bf0c77f307614d205508366b077dd97b6fca8417449bd21f125c",
+        "RESULT.json": "d39c70a20cf1789ee969b4193948309a0582ff0c3ba0d809651c02fda9c5c2da",
+        "stdout.log": "2204b588206ae9bcc03506d043b8a827a7522d16d96adb0aacb8c56835f79145",
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "module": "ApproximateF6GraphExclusion",
+      "source_sha256": "5aaf649ff02b487d9d288d4fabc6786271a4e3a24df91d9b77658bea72250194",
+      "successful_check": "check-exclusion-01",
+      "theorems": [
+        "Seed0024ClusterTube20261007.covered_approximate_pair_has_literal_graph_pair",
+        "Seed0024ClusterTube20261007.approximate_f6_six_pair_excluded",
+        "Seed0024ClusterTube20261007.retained36_maximal_population_excluded_of_centre_cover",
+        "Seed0024ClusterTube20261007.retained36_no_live_of_centre_cover"
+      ],
+      "result": {
+        "exit_code": 0,
+        "mode": "standalone-guarded-v1",
+        "peak_tree_rss_bytes": 2247557120,
+        "physical_proof_admission": false,
+        "source_sha256": "5aaf649ff02b487d9d288d4fabc6786271a4e3a24df91d9b77658bea72250194",
+        "stop_reason": null,
+        "success": true,
+        "wall_seconds": 4.7085870830051135
+      },
+      "files": {
+        "ApproximateF6GraphExclusion.lean": "5aaf649ff02b487d9d288d4fabc6786271a4e3a24df91d9b77658bea72250194",
+        "ApproximateF6GraphExclusion.olean": "4c45103f4a3b7947699d5e9804c1ff379e760eb271b69e9f328b7c61e802b185",
+        "JOB.json": "7ded32c6b71ed52cc7cba3c0220ab89a213b312803ad96dd0fd53aea0d851dd9",
+        "RESULT.json": "502cb57d430f25446984d121f67c19455fa988cf704211170dc8ba4770cb7c19",
+        "stdout.log": "4886bf2233b49481d10fdbc253c99833bfe59ba20bda68771cdf06f351a53a96",
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "module": "CentreInterfaceAudit",
+      "source_sha256": "d6fb7dc4e2f4a6c95b41b3ba4c9620d10a14600f8e0a6444c5b8853bbea6a925",
+      "successful_check": "check-audit-01",
+      "theorems": [],
+      "result": {
+        "exit_code": 0,
+        "mode": "standalone-guarded-v1",
+        "peak_tree_rss_bytes": 1701740544,
+        "physical_proof_admission": false,
+        "source_sha256": "d6fb7dc4e2f4a6c95b41b3ba4c9620d10a14600f8e0a6444c5b8853bbea6a925",
+        "stop_reason": null,
+        "success": true,
+        "wall_seconds": 45.25602249999065
+      },
+      "files": {
+        "CentreInterfaceAudit.lean": "d6fb7dc4e2f4a6c95b41b3ba4c9620d10a14600f8e0a6444c5b8853bbea6a925",
+        "CentreInterfaceAudit.olean": "f8ad09ce947483b73f92fea001c33e72c313c2304e2f6c5871ddede034782991",
+        "JOB.json": "ffab9bcebc0641843db29e9eb9cb181c11f14654cfb1195c5abfd1ee49636036",
+        "RESULT.json": "f8d576bf903527b67357f5ed7c27eb9cfa505cdea891b3cfd4981950a7c1cbd9",
+        "stdout.log": "7e69e2c42fe5deb43d17469c013863bbfd316dd4c15533c618adecf394eaa174",
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    }
+  ],
+  "new_theorem_count": 14,
+  "axiom_outputs": {
+    "Seed0024ClusterTube20261007.normalized_inner_normSq_eq_raw": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "Seed0024ClusterTube20261007.exactCentre_normalized_unit": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "Seed0024ClusterTube20261007.exactCentre_normalized_probability": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "Seed0024ClusterTube20261007.exactCentre_projector_distance_sq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "Seed0024ClusterTube20261007.centreProjectorLabel_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "Seed0024ClusterTube20261007.centre_labels_orthogonal": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "Seed0024ClusterTube20261007.centre_labels_unbiased": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "Seed0024ClusterTube20261007.actual_centre_sound_label_graph": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "Seed0024ClusterTube20261007.domain_family_label_assignment": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "Seed0024ClusterTube20261007.domain_pair_has_graph_pair": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "Seed0024ClusterTube20261007.covered_approximate_pair_has_literal_graph_pair": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "Seed0024ClusterTube20261007.approximate_f6_six_pair_excluded": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "Seed0024ClusterTube20261007.retained36_maximal_population_excluded_of_centre_cover": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "Seed0024ClusterTube20261007.retained36_no_live_of_centre_cover": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "custom_import_closure": [
+    {
+      "module": "RankOneMetric",
+      "file": "lean/RankOneMetric.lean",
+      "source_sha256": "fdbf0168da19def769fd43ada33c134268f5f1c4baa6dc4aa8c80d5ba5a5d3e2",
+      "imports": [
+        "Mathlib.Analysis.InnerProductSpace.LinearMap",
+        "Mathlib.Tactic.Linarith",
+        "Mathlib.Tactic.Ring"
+      ],
+      "new": false
+    },
+    {
+      "module": "ProjectorAmplitude",
+      "file": "lean/ProjectorAmplitude.lean",
+      "source_sha256": "8159144437c05fda88d3d5b4503b21c80cc0a8323393ffef48f3c088b740e600",
+      "imports": [
+        "RankOneMetric"
+      ],
+      "new": false
+    },
+    {
+      "module": "SixColumnMetric",
+      "file": "lean/SixColumnMetric.lean",
+      "source_sha256": "d6401a76cb3d24d2391834d9b8981e85c0fc4adeabc3d2a20a085a4a12186861",
+      "imports": [
+        "RankOneMetric",
+        "Mathlib.Analysis.Normed.Lp.PiLp"
+      ],
+      "new": false
+    },
+    {
+      "module": "RawColumnAmplitude",
+      "file": "lean/RawColumnAmplitude.lean",
+      "source_sha256": "77da5dbd12df5a4a5e2340d76efaca7e6f3aa472dfa28e0af6b9d25c75b1d96c",
+      "imports": [
+        "ProjectorAmplitude",
+        "SixColumnMetric"
+      ],
+      "new": false
+    },
+    {
+      "module": "Mub6.Basic",
+      "file": "lean/Mub6/Basic.lean",
+      "source_sha256": "ac1e8bb2783d1a38db4a12d76d21457b36a4e2b29e3dbb061ed5328933e0c769",
+      "imports": [
+        "Mathlib.Data.Complex.Basic",
+        "Mathlib.Algebra.BigOperators.Group.Finset.Basic",
+        "Mathlib.Data.Fintype.Basic",
+        "Mathlib.Algebra.BigOperators.Ring.Finset",
+        "Mathlib.Tactic.Ring"
+      ],
+      "new": false
+    },
+    {
+      "module": "FormalCore",
+      "file": "lean/FormalCore.lean",
+      "source_sha256": "3996edc723f71defc7b553d88350a1259f88365fbce328857dc866b8b852a2f0",
+      "imports": [
+        "Mub6.Basic",
+        "Mathlib.LinearAlgebra.Matrix.ConjTranspose",
+        "Mathlib.Data.Matrix.Mul",
+        "Mathlib.Algebra.BigOperators.Fin",
+        "Mathlib.Algebra.BigOperators.Field",
+        "Mathlib.Data.Fintype.Pi",
+        "Mathlib.Tactic.Linarith",
+        "Mathlib.Tactic.NormNum",
+        "Mathlib.Tactic.FinCases"
+      ],
+      "new": false
+    },
+    {
+      "module": "RationalCircleCharts",
+      "file": "lean/RationalCircleCharts.lean",
+      "source_sha256": "01ed873ef91b83a61d43be6d63cbcd02363af20c10b519e43f20b9b042ab3321",
+      "imports": [
+        "FormalCore",
+        "Mathlib.Tactic.FieldSimp"
+      ],
+      "new": false
+    },
+    {
+      "module": "RationalCentreCore",
+      "file": "lean/RationalCentreCore.lean",
+      "source_sha256": "c7ae1f65bbafcc125fa22511725af52c2f1bb80fec0f1bcb776893cdcd656cd2",
+      "imports": [
+        "RationalCircleCharts",
+        "Mathlib.Data.Rat.Cast.Order"
+      ],
+      "new": false
+    },
+    {
+      "module": "GraphKernel",
+      "file": "lean/GraphKernel.lean",
+      "source_sha256": "246ab6f4bedabcb7402f4a12f945b2e82943e3c7fb64825c365066f62bfb8699",
+      "imports": [
+        "FormalCore",
+        "Mathlib.Data.Finset.Card",
+        "Mathlib.Data.Fintype.Card"
+      ],
+      "new": false
+    },
+    {
+      "module": "SizedGraphPair",
+      "file": "lean/SizedGraphPair.lean",
+      "source_sha256": "743b11bee6ac8cee6a044aadca8a01e1b433ba41ff96ecdedb8c03176d652cd6",
+      "imports": [
+        "GraphKernel"
+      ],
+      "new": false
+    },
+    {
+      "module": "LiteralClusterGraph",
+      "file": "lean/LiteralClusterGraph.lean",
+      "source_sha256": "cb8a2307cdbdcfd7f392d38599ef8a8dfc1867f8b4af5a8cda3bbf1be0dd33a7",
+      "imports": [
+        "SizedGraphPair"
+      ],
+      "new": false
+    },
+    {
+      "module": "ExactCentreData",
+      "file": "lean/ExactCentreData.lean",
+      "source_sha256": "a9e95329f2d36536ffd14a914044fc9dc19679ed31b15f14e95c776528c32076",
+      "imports": [
+        "RationalCentreCore",
+        "LiteralClusterGraph"
+      ],
+      "new": false
+    },
+    {
+      "module": "CentreProjectorLabel",
+      "file": "lean/CentreProjectorLabel.lean",
+      "source_sha256": "9c9903f033ce800d9dd4aa6d6497cd8a455912a2ff66854fad48d37ebe1dbfd4",
+      "imports": [
+        "RawColumnAmplitude",
+        "ExactCentreData"
+      ],
+      "new": true
+    },
+    {
+      "module": "CentreSymmetry",
+      "file": "lean/CentreSymmetry.lean",
+      "source_sha256": "b24beb2ae6ffc2f0e8e838566fe640a19779aca2911e3aa702257b4a15cd3656",
+      "imports": [
+        "ExactCentreData"
+      ],
+      "new": false
+    },
+    {
+      "module": "CentreRow00",
+      "file": "lean/CentreRow00.lean",
+      "source_sha256": "f69eca3505aa4db343a3356c0d80cfe50ad84ba294a5ef6e44a1801aea86d061",
+      "imports": [
+        "CentreSymmetry"
+      ],
+      "new": false
+    },
+    {
+      "module": "CentrePairChunk01",
+      "file": "lean/CentrePairChunk01.lean",
+      "source_sha256": "77470bc5d24dfe3af1d715a76b3eaeea93130c35af8b18b734628315afc73459",
+      "imports": [
+        "CentreRow00"
+      ],
+      "new": false
+    },
+    {
+      "module": "CentrePairChunk05",
+      "file": "lean/CentrePairChunk05.lean",
+      "source_sha256": "d0976e330a9e9a160e05a1edc52d9d1b324d7968128abb13022599e7978a44bd",
+      "imports": [
+        "CentrePairChunk01"
+      ],
+      "new": false
+    },
+    {
+      "module": "CentrePairChunk09",
+      "file": "lean/CentrePairChunk09.lean",
+      "source_sha256": "9a3c9e5e8e1e8c33667afb69a633800f3ef8041f9fc6f6b176083b59bc0e8e21",
+      "imports": [
+        "CentrePairChunk05"
+      ],
+      "new": false
+    },
+    {
+      "module": "CentrePairChunk13",
+      "file": "lean/CentrePairChunk13.lean",
+      "source_sha256": "e0edd887c1eb74ed5ccbcd38034e73618c9fa5b2f925d3075409f8cf586229b6",
+      "imports": [
+        "CentrePairChunk09"
+      ],
+      "new": false
+    },
+    {
+      "module": "CentrePairChunk17",
+      "file": "lean/CentrePairChunk17.lean",
+      "source_sha256": "2713b07cb946d30ab93628f3b03c822d8ba84d27c5ad478fed8c410f856e0268",
+      "imports": [
+        "CentrePairChunk13"
+      ],
+      "new": false
+    },
+    {
+      "module": "CentrePairChunk21",
+      "file": "lean/CentrePairChunk21.lean",
+      "source_sha256": "667b4f5f04dfda68fa99329fc9c7f04a55fb9b50a0accf727dbf91479ac2d24d",
+      "imports": [
+        "CentrePairChunk17"
+      ],
+      "new": false
+    },
+    {
+      "module": "CentrePairChunk25",
+      "file": "lean/CentrePairChunk25.lean",
+      "source_sha256": "4774e613042bec861080ce8fd842251943f998cf36602b17402a431e491547ce",
+      "imports": [
+        "CentrePairChunk21"
+      ],
+      "new": false
+    },
+    {
+      "module": "CentrePairChunk29",
+      "file": "lean/CentrePairChunk29.lean",
+      "source_sha256": "d8043b47331439acd6c3ec390e548d0d1885823578cfe57273e548e8bfb9eb06",
+      "imports": [
+        "CentrePairChunk25"
+      ],
+      "new": false
+    },
+    {
+      "module": "CentrePairChunk33",
+      "file": "lean/CentrePairChunk33.lean",
+      "source_sha256": "6d52004a891e92fb859f3ba956b16d501f2df0d036710496a81932fb90085e7a",
+      "imports": [
+        "CentrePairChunk29"
+      ],
+      "new": false
+    },
+    {
+      "module": "CentrePairChunk37",
+      "file": "lean/CentrePairChunk37.lean",
+      "source_sha256": "9151458d876391ef939d3f80612f18d0e8a8e4d2196d43da8fadb8c292e5a0f6",
+      "imports": [
+        "CentrePairChunk33"
+      ],
+      "new": false
+    },
+    {
+      "module": "CentrePairChunk41",
+      "file": "lean/CentrePairChunk41.lean",
+      "source_sha256": "0ce87bcfea9e9ca091576104985494373d7bd81914fbce3fa7324414a0feaa1b",
+      "imports": [
+        "CentrePairChunk37"
+      ],
+      "new": false
+    },
+    {
+      "module": "CentrePairChunk45",
+      "file": "lean/CentrePairChunk45.lean",
+      "source_sha256": "6ca2e7100bf42a89abb25b26269675a81f30ff635a0ff9e32678885f9f441082",
+      "imports": [
+        "CentrePairChunk41"
+      ],
+      "new": false
+    },
+    {
+      "module": "CentreGraphBinding",
+      "file": "lean/CentreGraphBinding.lean",
+      "source_sha256": "5c5a98a16e4be9962272fa7212f7280e70c2b0f6dc6e0022a52586a3517c197a",
+      "imports": [
+        "CentrePairChunk45"
+      ],
+      "new": false
+    },
+    {
+      "module": "OrthogonalMixBound",
+      "file": "lean/OrthogonalMixBound.lean",
+      "source_sha256": "880f0a1be883fe928d432f9dbb646b6dd4c592c542155c0bc36beec0ae0a260f",
+      "imports": [
+        "RankOneMetric"
+      ],
+      "new": false
+    },
+    {
+      "module": "OrthogonalBallCompatibility",
+      "file": "lean/OrthogonalBallCompatibility.lean",
+      "source_sha256": "ae6115392f81ec0fcacb1adcdf3adb8a5b6e6e12a10016a9475bdd012ec2fb0d",
+      "imports": [
+        "OrthogonalMixBound",
+        "ProjectorAmplitude"
+      ],
+      "new": false
+    },
+    {
+      "module": "PhaseAlignment",
+      "file": "lean/PhaseAlignment.lean",
+      "source_sha256": "6e5c07e6f1831d588270b0350b6c06c87e5421a235b8003e36d5e47dde7db996",
+      "imports": [
+        "ProjectorAmplitude"
+      ],
+      "new": false
+    },
+    {
+      "module": "UnbiasedBallCompatibility",
+      "file": "lean/UnbiasedBallCompatibility.lean",
+      "source_sha256": "f83dcfdec5a0f579d1ba227498d966ca1689d8e340739280f45161d7a8c21ecf",
+      "imports": [
+        "PhaseAlignment"
+      ],
+      "new": false
+    },
+    {
+      "module": "PhysicalGraph",
+      "file": "lean/PhysicalGraph.lean",
+      "source_sha256": "2b062e178da28fc154d89c920e9e37406dbcc0647779787b69d6627daa9822ab",
+      "imports": [
+        "GraphKernel"
+      ],
+      "new": false
+    },
+    {
+      "module": "PhysicalLabelGraph",
+      "file": "lean/PhysicalLabelGraph.lean",
+      "source_sha256": "aed0e223ac345f2fb85a235376acb6113e4d37c61dc34d2688f278e4a815b5f4",
+      "imports": [
+        "SizedGraphPair",
+        "PhysicalGraph"
+      ],
+      "new": false
+    },
+    {
+      "module": "CentreLabelSoundness",
+      "file": "lean/CentreLabelSoundness.lean",
+      "source_sha256": "1c5116403563eb1c360ca9ea50e3d263fa2ede086ae706a26d7860e0d194f0b4",
+      "imports": [
+        "CentreProjectorLabel",
+        "CentreGraphBinding",
+        "OrthogonalBallCompatibility",
+        "UnbiasedBallCompatibility",
+        "PhysicalLabelGraph"
+      ],
+      "new": true
+    },
+    {
+      "module": "RayDomainLabelAssignment",
+      "file": "lean/RayDomainLabelAssignment.lean",
+      "source_sha256": "c4b25adf68ae234cb9ba7165827e35975e3b79448c2c20cbf18b2b0fa1dbd18b",
+      "imports": [
+        "PhysicalLabelGraph"
+      ],
+      "new": true
+    },
+    {
+      "module": "GraphLiteralAssembly",
+      "file": "lean/GraphLiteralAssembly.lean",
+      "source_sha256": "79705780907ca6f42f9891afdd7a75d1b7fec9ecec62c919ccd97ddab9422904",
+      "imports": [
+        "GraphKernel"
+      ],
+      "new": false
+    },
+    {
+      "module": "LiteralCliqueChunk000",
+      "file": "lean/LiteralCliqueChunk000.lean",
+      "source_sha256": "0fc2c6a1965058dd59c8cc1b12548680c3af74bde0d19e0d4a3627f4faba5133",
+      "imports": [
+        "LiteralClusterGraph",
+        "GraphLiteralAssembly"
+      ],
+      "new": false
+    },
+    {
+      "module": "LiteralCliqueChunk001",
+      "file": "lean/LiteralCliqueChunk001.lean",
+      "source_sha256": "de8cf7c9aa7291af5b8feb0b9bffc9ef1439c256470450764a26c3acdd1b56a5",
+      "imports": [
+        "LiteralCliqueChunk000",
+        "GraphLiteralAssembly"
+      ],
+      "new": false
+    },
+    {
+      "module": "LiteralCliqueChunk002",
+      "file": "lean/LiteralCliqueChunk002.lean",
+      "source_sha256": "fd9ae8d04bbd86e375292ca6ab68868ebc6511a5ae084f29a211e724c6168e9a",
+      "imports": [
+        "LiteralCliqueChunk001",
+        "GraphLiteralAssembly"
+      ],
+      "new": false
+    },
+    {
+      "module": "LiteralCliqueChunk003",
+      "file": "lean/LiteralCliqueChunk003.lean",
+      "source_sha256": "5560a340ec11574a5933c971ddc726d1d37bbcf340e4d9f109efeb210fffe042",
+      "imports": [
+        "LiteralCliqueChunk002",
+        "GraphLiteralAssembly"
+      ],
+      "new": false
+    },
+    {
+      "module": "LiteralCliqueChunk004",
+      "file": "lean/LiteralCliqueChunk004.lean",
+      "source_sha256": "fbb9fdc046d7b5f8a69326ff11198b4927a5b8edb65adf01d707a1636459a126",
+      "imports": [
+        "LiteralCliqueChunk003",
+        "GraphLiteralAssembly"
+      ],
+      "new": false
+    },
+    {
+      "module": "LiteralCliqueChunk005",
+      "file": "lean/LiteralCliqueChunk005.lean",
+      "source_sha256": "6a23eb91570a21ef289752c3ae739e1ff36f29afa60a21d136ad030f09c2aa02",
+      "imports": [
+        "LiteralCliqueChunk004",
+        "GraphLiteralAssembly"
+      ],
+      "new": false
+    },
+    {
+      "module": "LiteralPairChunk000",
+      "file": "lean/LiteralPairChunk000.lean",
+      "source_sha256": "2dc97791f4c2f3eed4fd54cc81d3f96151c6143250c9b9647088b43f0cedf77f",
+      "imports": [
+        "LiteralCliqueChunk005"
+      ],
+      "new": false
+    },
+    {
+      "module": "LiteralPairChunk001",
+      "file": "lean/LiteralPairChunk001.lean",
+      "source_sha256": "38ea8b34d9dc08156baf7ce339ae943c4da670c5021782144893d3d69a937c22",
+      "imports": [
+        "LiteralPairChunk000"
+      ],
+      "new": false
+    },
+    {
+      "module": "LiteralPairChunk002",
+      "file": "lean/LiteralPairChunk002.lean",
+      "source_sha256": "151d5fdc3a5904db2bdb2f507586259604a1c308bce5f9691abb633f19357750",
+      "imports": [
+        "LiteralPairChunk001"
+      ],
+      "new": false
+    },
+    {
+      "module": "LiteralPairChunk003",
+      "file": "lean/LiteralPairChunk003.lean",
+      "source_sha256": "4c6805728be46c484d063ecd8d459b853928f9ca824825123770a09d47b6d774",
+      "imports": [
+        "LiteralPairChunk002"
+      ],
+      "new": false
+    },
+    {
+      "module": "LiteralPairChunk004",
+      "file": "lean/LiteralPairChunk004.lean",
+      "source_sha256": "a34c1d449c26a37dc2d0becb1a37d0fe5c0a5b6b44e331def47df2edb1461639",
+      "imports": [
+        "LiteralPairChunk003"
+      ],
+      "new": false
+    },
+    {
+      "module": "LiteralPairChunk005",
+      "file": "lean/LiteralPairChunk005.lean",
+      "source_sha256": "0182ae61be74b57b57c02242964bc5b1cc12226205a5bbcc91bce2f85f2a9eb1",
+      "imports": [
+        "LiteralPairChunk004"
+      ],
+      "new": false
+    },
+    {
+      "module": "LiteralPairChunk006",
+      "file": "lean/LiteralPairChunk006.lean",
+      "source_sha256": "7a36f87f5aa10840c2ec95e73db04272fa1d7b91d9f4acc585a2fbc6a17c94dc",
+      "imports": [
+        "LiteralPairChunk005"
+      ],
+      "new": false
+    },
+    {
+      "module": "LiteralPairChunk007",
+      "file": "lean/LiteralPairChunk007.lean",
+      "source_sha256": "d7da2ad6c849e15cb85595bd9f5e93369d4acd06ea05f43dba4967aebf800f31",
+      "imports": [
+        "LiteralPairChunk006"
+      ],
+      "new": false
+    },
+    {
+      "module": "LiteralPairChunk008",
+      "file": "lean/LiteralPairChunk008.lean",
+      "source_sha256": "91781c361a7e93a3ddaf2ffc60efaac05c32f22e58acd746b3326de268c7763f",
+      "imports": [
+        "LiteralPairChunk007"
+      ],
+      "new": false
+    },
+    {
+      "module": "LiteralPairChunk009",
+      "file": "lean/LiteralPairChunk009.lean",
+      "source_sha256": "9f817c6ea7ee8305561d6d7610e1d1a08379d909e3a309caad4bd2aa5e77aad4",
+      "imports": [
+        "LiteralPairChunk008"
+      ],
+      "new": false
+    },
+    {
+      "module": "LiteralPairChunk010",
+      "file": "lean/LiteralPairChunk010.lean",
+      "source_sha256": "d4fdc32b6b57ecffa7aab90d06046b8081e747a50ed0fdb0d6ec0aae89ddad7e",
+      "imports": [
+        "LiteralPairChunk009"
+      ],
+      "new": false
+    },
+    {
+      "module": "LiteralPairChunk011",
+      "file": "lean/LiteralPairChunk011.lean",
+      "source_sha256": "c6a70fdc10c9042d7c5508c9610c27a24f655876d40f452f1c76adbefaf156b4",
+      "imports": [
+        "LiteralPairChunk010"
+      ],
+      "new": false
+    },
+    {
+      "module": "LiteralPairChunk012",
+      "file": "lean/LiteralPairChunk012.lean",
+      "source_sha256": "1965c24e2cfe3d19a12484f03e6f62b6f39331bf01381ec079bb2953cef1e5a6",
+      "imports": [
+        "LiteralPairChunk011"
+      ],
+      "new": false
+    },
+    {
+      "module": "LiteralPairChunk013",
+      "file": "lean/LiteralPairChunk013.lean",
+      "source_sha256": "70d7781357ce2d340ed0432bf7cf94419e178ac6d3ae8af23510d268836706ab",
+      "imports": [
+        "LiteralPairChunk012"
+      ],
+      "new": false
+    },
+    {
+      "module": "LiteralPairChunk014",
+      "file": "lean/LiteralPairChunk014.lean",
+      "source_sha256": "6efe7586eb4135cb6a3d10255c732323cdbb864e0848eb05b3640e06b9e1f85d",
+      "imports": [
+        "LiteralPairChunk013"
+      ],
+      "new": false
+    },
+    {
+      "module": "LiteralPairChunk015",
+      "file": "lean/LiteralPairChunk015.lean",
+      "source_sha256": "63688b70a281763f5032e0fe6cd6636fa384f71692738b7c23c0a53dddee0750",
+      "imports": [
+        "LiteralPairChunk014"
+      ],
+      "new": false
+    },
+    {
+      "module": "LiteralPairChunk016",
+      "file": "lean/LiteralPairChunk016.lean",
+      "source_sha256": "9b9d370ab3917bea8d75eb9ca59fe93ed8859c743acd7b96831164d4d4c57d58",
+      "imports": [
+        "LiteralPairChunk015"
+      ],
+      "new": false
+    },
+    {
+      "module": "LiteralGraphExclusion",
+      "file": "lean/LiteralGraphExclusion.lean",
+      "source_sha256": "0c76ecdb5e7ff97a2b54bfabc7eb43453fb922e7e670a01ed6c5fc2548f108a3",
+      "imports": [
+        "LiteralPairChunk016",
+        "PhysicalLabelGraph"
+      ],
+      "new": false
+    },
+    {
+      "module": "MonomialRayTransport",
+      "file": "lean/MonomialRayTransport.lean",
+      "source_sha256": "d6f552ddd0f00884a6e95112c045513ffd40e41912735426bd723769393dcf9c",
+      "imports": [
+        "RawColumnAmplitude",
+        "FormalCore"
+      ],
+      "new": false
+    },
+    {
+      "module": "CentiradianPhysical",
+      "file": "lean/CentiradianPhysical.lean",
+      "source_sha256": "f3a81569f51a4eac1e147df81bfa9d713ad386891c2d6ea45ff51eb9fd2cc703",
+      "imports": [
+        "Mathlib.Analysis.Complex.Trigonometric",
+        "Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic",
+        "Mathlib.Data.Fintype.Card",
+        "Mathlib.Tactic.Ring",
+        "Mathlib.Tactic.NormNum",
+        "Mathlib.Tactic.Linarith"
+      ],
+      "new": false
+    },
+    {
+      "module": "LocalArithmetic",
+      "file": "lean/LocalArithmetic.lean",
+      "source_sha256": "24df24d39816de98699f58af8bcc71cbd06f923e00815e2f65c405fee14351db",
+      "imports": [
+        "CentiradianPhysical"
+      ],
+      "new": false
+    },
+    {
+      "module": "RepeatedFourierColumns",
+      "file": "lean/RepeatedFourierColumns.lean",
+      "source_sha256": "c02fd6db83ec819755432870325852d02f734ea88ad1587a764e6f86c8f07f87",
+      "imports": [
+        "LocalArithmetic"
+      ],
+      "new": false
+    },
+    {
+      "module": "PiRounding",
+      "file": "lean/PiRounding.lean",
+      "source_sha256": "ab8f869c0891f16c65cf34a3096bf34678d0f8d16534f313802224cc4192e865",
+      "imports": [
+        "RepeatedFourierColumns",
+        "Mathlib.Analysis.SpecialFunctions.Trigonometric.Inverse"
+      ],
+      "new": false
+    },
+    {
+      "module": "RoundedFourierOverlap",
+      "file": "lean/RoundedFourierOverlap.lean",
+      "source_sha256": "b56724a34feba763945a449d080b6d44ff257c77b9504a7c7d6e2b5c9b8521be",
+      "imports": [
+        "PiRounding"
+      ],
+      "new": false
+    },
+    {
+      "module": "ZeroLatticeF6",
+      "file": "lean/ZeroLatticeF6.lean",
+      "source_sha256": "a3789efdd77434abb741864f2c94ad008e5fa81688f498730c37d08ef4cedf26",
+      "imports": [
+        "RoundedFourierOverlap",
+        "Mathlib.Tactic.FinCases"
+      ],
+      "new": false
+    },
+    {
+      "module": "FourierReference",
+      "file": "lean/FourierReference.lean",
+      "source_sha256": "835f087145244a732df336b116dfd99064fe560c00f2b302dc642d28c98cd270",
+      "imports": [
+        "ZeroLatticeF6"
+      ],
+      "new": false
+    },
+    {
+      "module": "NormalizedColumnMetric",
+      "file": "lean/NormalizedColumnMetric.lean",
+      "source_sha256": "678546e2e98a06fd0311f65a97ca3639466ef13a0563c33fe16adbb749441671",
+      "imports": [
+        "SixColumnMetric"
+      ],
+      "new": false
+    },
+    {
+      "module": "RepeatedProjectorMetric",
+      "file": "lean/RepeatedProjectorMetric.lean",
+      "source_sha256": "ad3394d9e97b1b635bc15e4ca00bde6c74f588a7ddb6ab9df07143f272bde08b",
+      "imports": [
+        "SixColumnMetric",
+        "RepeatedFourierColumns"
+      ],
+      "new": false
+    },
+    {
+      "module": "FourierReferenceDistance",
+      "file": "lean/FourierReferenceDistance.lean",
+      "source_sha256": "04058e0926178994d5a5c8f1ccde5838f422dd0980da037106b9f70266156198",
+      "imports": [
+        "FourierReference",
+        "NormalizedColumnMetric",
+        "RepeatedProjectorMetric"
+      ],
+      "new": false
+    },
+    {
+      "module": "RowPermutationMetric",
+      "file": "lean/RowPermutationMetric.lean",
+      "source_sha256": "518f8e5b45bb03b83e75539667daec2200618db3270b9bb647be248bde340733",
+      "imports": [
+        "SixColumnMetric"
+      ],
+      "new": false
+    },
+    {
+      "module": "FourierTubeMetric",
+      "file": "lean/FourierTubeMetric.lean",
+      "source_sha256": "ff9b4d6523bd855861ae8cb4ed73a93490907ab92121699b3853394e942ea3f5",
+      "imports": [
+        "FourierReferenceDistance",
+        "RowPermutationMetric"
+      ],
+      "new": false
+    },
+    {
+      "module": "F6TubeRays",
+      "file": "lean/F6TubeRays.lean",
+      "source_sha256": "90732e7ace3dc15363197434bc43ff536a1322a9e11f268a3f7d4a0dd37edb21",
+      "imports": [
+        "MonomialRayTransport",
+        "FourierTubeMetric"
+      ],
+      "new": false
+    },
+    {
+      "module": "ClosedBoxForest",
+      "file": "lean/ClosedBoxForest.lean",
+      "source_sha256": "5407ad413c8497e2f5fe9fde0985c670b49eb39a52d9d59cc13c7ec1ae5cd822",
+      "imports": [
+        "Mathlib.Data.Rat.Cast.Order",
+        "Mathlib.Analysis.SpecialFunctions.Complex.Arg",
+        "Mathlib.Tactic.FinCases",
+        "Mathlib.Tactic.Linarith",
+        "Mathlib.Tactic.NormNum"
+      ],
+      "new": false
+    },
+    {
+      "module": "QuartetRadianCover",
+      "file": "lean/QuartetRadianCover.lean",
+      "source_sha256": "c78e1d4c66f4fce39fec88eb09670caad6e4eecd0d8e2038c466cf7b3946691c",
+      "imports": [
+        "ClosedBoxForest",
+        "Mub6.Basic"
+      ],
+      "new": false
+    },
+    {
+      "module": "ReuseBoundaryTransport",
+      "file": "lean/ReuseBoundaryTransport.lean",
+      "source_sha256": "ace77161cf28bced2a4738951fe6cf5cf8c3a52320cf40e71109ad73d2f34749",
+      "imports": [
+        "Mub6.Basic",
+        "Mathlib.LinearAlgebra.Matrix.NonsingularInverse",
+        "Mathlib.Analysis.Real.Sqrt"
+      ],
+      "new": false
+    },
+    {
+      "module": "QuartetTubeRays",
+      "file": "lean/QuartetTubeRays.lean",
+      "source_sha256": "f2421757ccd1f89cd3c2d6ae57d2d685394e35171a4f6787fe8b14e9cec0fbbe",
+      "imports": [
+        "F6TubeRays",
+        "PhysicalLabelGraph",
+        "QuartetRadianCover",
+        "ReuseBoundaryTransport"
+      ],
+      "new": false
+    },
+    {
+      "module": "Seed0024Data",
+      "file": "lean/Seed0024Data.lean",
+      "source_sha256": "7a404d18e243bc07c2ae397f611435fc82831bb84de22c0a6718484a9f832412",
+      "imports": [
+        "ClosedBoxForest"
+      ],
+      "new": false
+    },
+    {
+      "module": "Seed0024Geometry",
+      "file": "lean/Seed0024Geometry.lean",
+      "source_sha256": "ab38af197c2201db11d172ca6ef0e2c2617f9a7028844689876e479fd6cd8093",
+      "imports": [
+        "Seed0024Data",
+        "RepeatedFourierColumns"
+      ],
+      "new": false
+    },
+    {
+      "module": "Seed0024PhysicalBounds",
+      "file": "lean/Seed0024PhysicalBounds.lean",
+      "source_sha256": "4fbca1013793f893f8917eba1cd949cdfe7a94135d7fb713762125b0ada8e0d2",
+      "imports": [
+        "Seed0024Geometry"
+      ],
+      "new": false
+    },
+    {
+      "module": "RowPairDefect",
+      "file": "lean/RowPairDefect.lean",
+      "source_sha256": "d52b847f4ed88bd7fd5b35d5f1008c7759035cfd4dab9959eac96c313f0fd213",
+      "imports": [
+        "CentiradianPhysical"
+      ],
+      "new": false
+    },
+    {
+      "module": "MatchedFrobenius",
+      "file": "lean/MatchedFrobenius.lean",
+      "source_sha256": "a6266e098a844469184773fd8d30600bf6190b4d4eb395264422bb79abb18081",
+      "imports": [
+        "Seed0024PhysicalBounds",
+        "RowPairDefect"
+      ],
+      "new": false
+    },
+    {
+      "module": "FourOrientationCount",
+      "file": "lean/FourOrientationCount.lean",
+      "source_sha256": "c5e3a0b6ba25861b14788bb335c94936e114e8f1d1a88046cac251190bf91d87",
+      "imports": [
+        "Mathlib.Data.Finset.Card",
+        "Mathlib.Data.Fintype.Fin",
+        "Mathlib.Data.Fintype.Pi",
+        "Mathlib.Data.Fintype.Prod"
+      ],
+      "new": false
+    },
+    {
+      "module": "UnitTripleBounds",
+      "file": "lean/UnitTripleBounds.lean",
+      "source_sha256": "85b5aea2a2e54924e93e9e81e54efc392f1fdef1c56e5d57b2c8494512a1d170",
+      "imports": [
+        "Mathlib.Analysis.Complex.Basic",
+        "Mathlib.Tactic.Linarith",
+        "Mathlib.Tactic.LinearCombination",
+        "Mathlib.Tactic.NormNum"
+      ],
+      "new": false
+    },
+    {
+      "module": "AnchoredPhaseBounds",
+      "file": "lean/AnchoredPhaseBounds.lean",
+      "source_sha256": "d6c359598c73fd67fe949e636c99cd52569da851031a9fe3fee5fe5ffc178601",
+      "imports": [
+        "UnitTripleBounds",
+        "Mathlib.Analysis.SpecialFunctions.Complex.Arg",
+        "Mathlib.Analysis.Complex.Trigonometric"
+      ],
+      "new": false
+    },
+    {
+      "module": "PairMidpointPhase",
+      "file": "lean/PairMidpointPhase.lean",
+      "source_sha256": "c071c75f341e8942f816f285f991f48f56ebd7e16acdb39d16dce0f511eef86e",
+      "imports": [
+        "AnchoredPhaseBounds"
+      ],
+      "new": false
+    },
+    {
+      "module": "OrientationNormBounds",
+      "file": "lean/OrientationNormBounds.lean",
+      "source_sha256": "7a75b98da4e6f3079e5029c76ec847eb4984542928020c6f498b27889234a193",
+      "imports": [
+        "FourOrientationCount",
+        "PairMidpointPhase"
+      ],
+      "new": false
+    },
+    {
+      "module": "PhaseModelRows",
+      "file": "lean/PhaseModelRows.lean",
+      "source_sha256": "6fa637b0be7479ab5c0957c9dca2ee986d5f87be1d73145689553714d7ebf705",
+      "imports": [
+        "OrientationNormBounds",
+        "RepeatedFourierColumns"
+      ],
+      "new": false
+    },
+    {
+      "module": "ModelOrientationBounds",
+      "file": "lean/ModelOrientationBounds.lean",
+      "source_sha256": "b20dd9a48c81bfdf4d97591fa3bf33f154cf31ba941581795162ea834a6449ee",
+      "imports": [
+        "PhaseModelRows"
+      ],
+      "new": false
+    },
+    {
+      "module": "HalfRowBalance",
+      "file": "lean/HalfRowBalance.lean",
+      "source_sha256": "60a18c9635313d43c1f5890db72bbe5db87fca8d9bccc9a75196abbf78d14dfb",
+      "imports": [
+        "RowPairDefect"
+      ],
+      "new": false
+    },
+    {
+      "module": "SideDeterminantCap",
+      "file": "lean/SideDeterminantCap.lean",
+      "source_sha256": "a664b89b93260fd3ab5e3a95989c19d0352e64a7cd168d0efeee0391c17d67e8",
+      "imports": [
+        "HalfRowBalance"
+      ],
+      "new": false
+    },
+    {
+      "module": "PhysicalSideCap",
+      "file": "lean/PhysicalSideCap.lean",
+      "source_sha256": "01a458ee75d8de557b896a1af6e9843aab3d8e2210c1eec30f84755f631f1854",
+      "imports": [
+        "SideDeterminantCap"
+      ],
+      "new": false
+    },
+    {
+      "module": "PhysicalTripleSmall",
+      "file": "lean/PhysicalTripleSmall.lean",
+      "source_sha256": "fe331a52a0521771a20dd2edd107a3962e593a139aae53597d877e23ac9e3326",
+      "imports": [
+        "PhysicalSideCap",
+        "AnchoredPhaseBounds"
+      ],
+      "new": false
+    },
+    {
+      "module": "PhysicalModelRows",
+      "file": "lean/PhysicalModelRows.lean",
+      "source_sha256": "aa09a3889c918ea4af0a35b7b2fbcd31365ae411354ee35d4dec29fd9650bcd4",
+      "imports": [
+        "ModelOrientationBounds",
+        "PhysicalTripleSmall"
+      ],
+      "new": false
+    },
+    {
+      "module": "OrderedOrientationPairs",
+      "file": "lean/OrderedOrientationPairs.lean",
+      "source_sha256": "dcd784e5a2b6af67bf30a91ba2aa5e873c49a33c6f0a2f01322d8be10d8d932e",
+      "imports": [
+        "PhysicalModelRows"
+      ],
+      "new": false
+    },
+    {
+      "module": "PhaseCisBridge",
+      "file": "lean/PhaseCisBridge.lean",
+      "source_sha256": "fc05bb3ccfd06ef94bc18956e8fc3405d2cb91097a947acadd12a4d44ccfdc0b",
+      "imports": [
+        "PhaseModelRows"
+      ],
+      "new": false
+    },
+    {
+      "module": "ActualFourierModel",
+      "file": "lean/ActualFourierModel.lean",
+      "source_sha256": "82d4ece8b278994029bb47ac24a12920241a01f4e1b70b890b1f9b58be4eedd0",
+      "imports": [
+        "MatchedFrobenius",
+        "OrderedOrientationPairs",
+        "PhaseCisBridge"
+      ],
+      "new": false
+    },
+    {
+      "module": "SignedDeterminantFoundation",
+      "file": "lean/SignedDeterminantFoundation.lean",
+      "source_sha256": "2115293997de60f6291a094d9dbdc9e721d11331e240e64b6e4d160a341e648f",
+      "imports": [
+        "Mathlib.Data.Complex.Basic",
+        "Mathlib.Tactic.Ring",
+        "Mathlib.Tactic.FieldSimp"
+      ],
+      "new": false
+    },
+    {
+      "module": "QSignedBinding",
+      "file": "lean/QSignedBinding.lean",
+      "source_sha256": "3cde7bd289b2844b982fc62d735aaaeb7e0d5ba8d82d2f5b6e5781abbe1b23f6",
+      "imports": [
+        "SignedDeterminantFoundation"
+      ],
+      "new": false
+    },
+    {
+      "module": "SideQNormalization",
+      "file": "lean/SideQNormalization.lean",
+      "source_sha256": "52894f44a39c2e556486b3634d8dd799b8bd84f0c95c1b2511bf41b4a6927071",
+      "imports": [
+        "PhysicalSideCap",
+        "QSignedBinding"
+      ],
+      "new": false
+    },
+    {
+      "module": "SignedNumeratorDefs",
+      "file": "lean/SignedNumeratorDefs.lean",
+      "source_sha256": "96b2d60b275a20acf951ed06cf3ae210688ddf2ade130389fc13584d951a395b",
+      "imports": [
+        "SignedDeterminantFoundation"
+      ],
+      "new": false
+    },
+    {
+      "module": "SignedNumeratorCoeff0",
+      "file": "lean/SignedNumeratorCoeff0.lean",
+      "source_sha256": "9603b69653e763375cf3257d40af9d18679a3a1b45ec5f061953b4f4aea194e8",
+      "imports": [
+        "SignedNumeratorDefs"
+      ],
+      "new": false
+    },
+    {
+      "module": "SignedNumeratorCoeff1",
+      "file": "lean/SignedNumeratorCoeff1.lean",
+      "source_sha256": "d818611a3744e928ceb7fa710b3e6a40a7510d4b57524d6fba180197044c24bf",
+      "imports": [
+        "SignedNumeratorDefs"
+      ],
+      "new": false
+    },
+    {
+      "module": "SignedNumeratorCoeff2",
+      "file": "lean/SignedNumeratorCoeff2.lean",
+      "source_sha256": "0491b24b6bdecbf25b02a4074b0a841b2635a8675c04e54a1b28ed706792250c",
+      "imports": [
+        "SignedNumeratorDefs"
+      ],
+      "new": false
+    },
+    {
+      "module": "SignedNumeratorCoeff3",
+      "file": "lean/SignedNumeratorCoeff3.lean",
+      "source_sha256": "669a32bce6621c5703567ea4cdacea9c263efd901ad759b162b83d79c68aa841",
+      "imports": [
+        "SignedNumeratorDefs"
+      ],
+      "new": false
+    },
+    {
+      "module": "SignedNumeratorCoeff4",
+      "file": "lean/SignedNumeratorCoeff4.lean",
+      "source_sha256": "c68d8fedb585764fa7cb7ed97142b9abcf85deba67c68d7e28a037482f3f8708",
+      "imports": [
+        "SignedNumeratorDefs"
+      ],
+      "new": false
+    },
+    {
+      "module": "SignedNumeratorCoeff5",
+      "file": "lean/SignedNumeratorCoeff5.lean",
+      "source_sha256": "15cd91b80e3db2406548bf441d7920db9a40802b5301d863d201098c5d31b059",
+      "imports": [
+        "SignedNumeratorDefs"
+      ],
+      "new": false
+    },
+    {
+      "module": "SignedNumeratorCoeff6",
+      "file": "lean/SignedNumeratorCoeff6.lean",
+      "source_sha256": "30008750595242d6ebffb150189d440f8b9202caf3098d9b9312c1d861bba7f2",
+      "imports": [
+        "SignedNumeratorDefs"
+      ],
+      "new": false
+    },
+    {
+      "module": "SignedNumeratorCoeff7",
+      "file": "lean/SignedNumeratorCoeff7.lean",
+      "source_sha256": "8dfe36df13b8c3c89a53a0b0e3a7654311934c169be0d84d3cd34f1cf302e75e",
+      "imports": [
+        "SignedNumeratorDefs"
+      ],
+      "new": false
+    },
+    {
+      "module": "SignedNumeratorCoeff8",
+      "file": "lean/SignedNumeratorCoeff8.lean",
+      "source_sha256": "d4934f7321db3a39e163ef0c33cc3d9a079ae3666cb075640080b7be1ed78854",
+      "imports": [
+        "SignedNumeratorDefs"
+      ],
+      "new": false
+    },
+    {
+      "module": "SignedNumeratorCertificate",
+      "file": "lean/SignedNumeratorCertificate.lean",
+      "source_sha256": "917a69e733e24e10da6cc6bac5b754b173a3024044cc2ef62d021acac3ed8a63",
+      "imports": [
+        "SignedNumeratorCoeff0",
+        "SignedNumeratorCoeff1",
+        "SignedNumeratorCoeff2",
+        "SignedNumeratorCoeff3",
+        "SignedNumeratorCoeff4",
+        "SignedNumeratorCoeff5",
+        "SignedNumeratorCoeff6",
+        "SignedNumeratorCoeff7",
+        "SignedNumeratorCoeff8"
+      ],
+      "new": false
+    },
+    {
+      "module": "SignedNumeratorBindings",
+      "file": "lean/SignedNumeratorBindings.lean",
+      "source_sha256": "f139ae2afdbc5f922d6eaebebbaf6094a1ecf78d299576805cc7edff7c33dc0d",
+      "imports": [
+        "SignedNumeratorCertificate"
+      ],
+      "new": false
+    },
+    {
+      "module": "SignedDeterminantAlgebra",
+      "file": "lean/SignedDeterminantAlgebra.lean",
+      "source_sha256": "618fafb15c8d844584c5cd91c6948d7e59915451100095a1b35a5c3f2c26ab3e",
+      "imports": [
+        "SignedNumeratorBindings"
+      ],
+      "new": false
+    },
+    {
+      "module": "SignedDeterminantGram",
+      "file": "lean/SignedDeterminantGram.lean",
+      "source_sha256": "497c6ad2c4335dddd2abc16325face1959697fa5078c7658f87f09f31d121c85",
+      "imports": [
+        "SignedDeterminantAlgebra",
+        "CentiradianPhysical"
+      ],
+      "new": false
+    },
+    {
+      "module": "CentiradianNormalization",
+      "file": "lean/CentiradianNormalization.lean",
+      "source_sha256": "7eac00ff592d0316ac2ece341a1b708585b32f243bfb96e21c97221765880999",
+      "imports": [
+        "CentiradianPhysical"
+      ],
+      "new": false
+    },
+    {
+      "module": "SignedCornerPhysical",
+      "file": "lean/SignedCornerPhysical.lean",
+      "source_sha256": "0f1d767a088e9f7c8fac44b3c169fff8aeff09819e84bb015fd960fffd881994",
+      "imports": [
+        "SignedDeterminantGram",
+        "CentiradianNormalization",
+        "Mathlib.Analysis.Real.Sqrt"
+      ],
+      "new": false
+    },
+    {
+      "module": "PhysicalQMaximal",
+      "file": "lean/PhysicalQMaximal.lean",
+      "source_sha256": "7dfc186793b397cf248f28077828ef21917f73696e7ab1ab88dcc923cae8bd32",
+      "imports": [
+        "SideQNormalization",
+        "SignedCornerPhysical"
+      ],
+      "new": false
+    },
+    {
+      "module": "WordLipschitz",
+      "file": "lean/WordLipschitz.lean",
+      "source_sha256": "8c9890123f2dee19e13e94b7d88029e2532afcdca0a9e3662ab8d24c8021aab8",
+      "imports": [
+        "SideDeterminantCap",
+        "QSignedBinding"
+      ],
+      "new": false
+    },
+    {
+      "module": "QLipschitz",
+      "file": "lean/QLipschitz.lean",
+      "source_sha256": "96b48c4e1297a669063ed34fd9429b46bf7dcaa005142f2655f99372232642d1",
+      "imports": [
+        "WordLipschitz"
+      ],
+      "new": false
+    },
+    {
+      "module": "FourierWitnessAlgebra",
+      "file": "lean/FourierWitnessAlgebra.lean",
+      "source_sha256": "369af4353d0695916e23a6b903f8a10c3d6a3f99e247c5373ba3868abf3379f9",
+      "imports": [
+        "QLipschitz"
+      ],
+      "new": false
+    },
+    {
+      "module": "FourierWitnessPhases",
+      "file": "lean/FourierWitnessPhases.lean",
+      "source_sha256": "3d18dae45fa1002254c690e4009abb4f4152d8e133e87cece917bff039d1dcd7",
+      "imports": [
+        "FourierWitnessAlgebra",
+        "RepeatedFourierColumns"
+      ],
+      "new": false
+    },
+    {
+      "module": "PhysicalWitnessTransfer",
+      "file": "lean/PhysicalWitnessTransfer.lean",
+      "source_sha256": "5f3d40d874073f78d574154aabfe44fa40bcbffaf0f532fafa76536003b74824",
+      "imports": [
+        "PhysicalQMaximal",
+        "FourierWitnessPhases"
+      ],
+      "new": false
+    },
+    {
+      "module": "PhysicalWitnessUnordered",
+      "file": "lean/PhysicalWitnessUnordered.lean",
+      "source_sha256": "7ed91345a4e9652e92b23b100ca4b6ee99d8b52e95d2923bf8b0bfed502f08b7",
+      "imports": [
+        "PhysicalWitnessTransfer"
+      ],
+      "new": false
+    },
+    {
+      "module": "PhysicalFourierLocation",
+      "file": "lean/PhysicalFourierLocation.lean",
+      "source_sha256": "c6196c10279a55c91682d551b8e85ca8104bfd67e07d269ef32a979dbe642eec",
+      "imports": [
+        "PhysicalWitnessUnordered",
+        "PhaseModelRows"
+      ],
+      "new": false
+    },
+    {
+      "module": "PhysicalPairedSines",
+      "file": "lean/PhysicalPairedSines.lean",
+      "source_sha256": "adb2804fad7c4198537661e8fe42a199261949a5dee5fff4d7954a4a9592da72",
+      "imports": [
+        "OrderedOrientationPairs",
+        "PhaseCisBridge",
+        "PhysicalFourierLocation"
+      ],
+      "new": false
+    },
+    {
+      "module": "PhysicalSeedBridge",
+      "file": "lean/PhysicalSeedBridge.lean",
+      "source_sha256": "6ca053b4320fdd5b097603470985616b224d3d1579e4e714014eaaa91b889610",
+      "imports": [
+        "Seed0024PhysicalBounds",
+        "PhysicalTripleSmall",
+        "PhysicalQMaximal"
+      ],
+      "new": false
+    },
+    {
+      "module": "LocatedPhysicalFourier",
+      "file": "lean/LocatedPhysicalFourier.lean",
+      "source_sha256": "f12d931ef2f5643f9a629d77ad15d40e5e64e8bf08acd4664c2611c5145a5bb3",
+      "imports": [
+        "ActualFourierModel",
+        "PhysicalPairedSines",
+        "PhysicalSeedBridge"
+      ],
+      "new": false
+    },
+    {
+      "module": "FourierModelBinding",
+      "file": "lean/FourierModelBinding.lean",
+      "source_sha256": "b1cd83df5c5262b0217488452b0233404608f61a0c64d778142695ec7893bacc",
+      "imports": [
+        "ActualFourierModel",
+        "FourierReference"
+      ],
+      "new": false
+    },
+    {
+      "module": "Retained36FourierTube",
+      "file": "lean/Retained36FourierTube.lean",
+      "source_sha256": "d56217403964a7553ae05208c495bbed3b67cc235762283bf67cbfa8c894c571",
+      "imports": [
+        "FourierTubeMetric",
+        "LocatedPhysicalFourier",
+        "FourierModelBinding"
+      ],
+      "new": false
+    },
+    {
+      "module": "MaximalCornerSelection",
+      "file": "lean/MaximalCornerSelection.lean",
+      "source_sha256": "3503a15a4e7342409dc99ac4a6e5b8c1357a08887bedf7492a1d8f7ff0ec30e4",
+      "imports": [
+        "SignedCornerPhysical",
+        "Mathlib.Logic.Equiv.Fintype",
+        "Mathlib.Data.Fin.VecNotation",
+        "Mathlib.Data.Fintype.Perm",
+        "Mathlib.Tactic.FinCases"
+      ],
+      "new": false
+    },
+    {
+      "module": "MaximalQuartetRadian",
+      "file": "lean/MaximalQuartetRadian.lean",
+      "source_sha256": "d6286bffb685624921dec300dc2d78ce4bf58db8bcd18bc91192e707285acb9d",
+      "imports": [
+        "MaximalCornerSelection",
+        "QuartetRadianCover",
+        "ReuseBoundaryTransport"
+      ],
+      "new": false
+    },
+    {
+      "module": "Retained36ApproximateRays",
+      "file": "lean/Retained36ApproximateRays.lean",
+      "source_sha256": "4433f156ae9760d44f4cdecd2c3af78f9da3b3af71e8d1767403ceae4717329e",
+      "imports": [
+        "QuartetTubeRays",
+        "Retained36FourierTube",
+        "MaximalQuartetRadian"
+      ],
+      "new": false
+    },
+    {
+      "module": "ApproximateF6GraphExclusion",
+      "file": "lean/ApproximateF6GraphExclusion.lean",
+      "source_sha256": "5aaf649ff02b487d9d288d4fabc6786271a4e3a24df91d9b77658bea72250194",
+      "imports": [
+        "CentreLabelSoundness",
+        "RayDomainLabelAssignment",
+        "LiteralGraphExclusion",
+        "Retained36ApproximateRays"
+      ],
+      "new": true
+    },
+    {
+      "module": "CentreInterfaceAudit",
+      "file": "lean/CentreInterfaceAudit.lean",
+      "source_sha256": "d6fb7dc4e2f4a6c95b41b3ba4c9620d10a14600f8e0a6444c5b8853bbea6a925",
+      "imports": [
+        "ApproximateF6GraphExclusion"
+      ],
+      "new": true
+    }
+  ],
+  "guard": {
+    "threads": 1,
+    "heap_mib": 2304,
+    "rss_stop_mib": 2816,
+    "minimum_free_disk_gib": 2,
+    "serialized": true,
+    "execution": "Director ran monitored checks for the source author."
+  },
+  "toolchain": "Lean4.33.0-rc2/mathlib51e6992efd06126df61a496bebf8f49482a4e129",
+  "failures_preserved": [],
+  "independent_review": {
+    "file": "INDEPENDENT_REVIEW_PORTABLE.json",
+    "sha256": "d83260ff46f987cee808b82f6191e5dbf3d170537eda88fa06eb60395e5779cb"
+  },
+  "remaining": [
+    "Prove complete coverage of the entire dephased approximate-F6 ray domain by the exact48 centre balls, including actual cell geometry, arithmetic semantics and all leaves.",
+    "Discharge the remaining global physical sector and complete-domain coverage obligations separately."
+  ],
+  "new_lean_closed_boxes": 0,
+  "unconditional_cluster_tube_exclusion_proved": false,
+  "full_no_four_mub_theorem_proved": false
+}

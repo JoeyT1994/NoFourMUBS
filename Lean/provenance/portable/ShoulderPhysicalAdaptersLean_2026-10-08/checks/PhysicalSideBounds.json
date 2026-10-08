@@ -1,0 +1,55 @@
+{
+  "module": "PhysicalSideBounds",
+  "source_sha256": "f41969209bb15cf5c035b68cadc3ff2413c0060f6dacf6110b0b1fd381d6cdb7",
+  "checked_object": {
+    "bytes": 173376,
+    "sha256": "20162776dfa31258b814bd103129e153b7fdb3f656eb7e458a38223755c7ac6a"
+  },
+  "original_receipt": {
+    "bytes": 295,
+    "sha256": "44e0ddb336f98e4130e50988442f73adb3d0e79b6ab4831c8bbfbfb93d19d9ac"
+  },
+  "selected": true,
+  "selected_roots": [
+    {
+      "declaration": "ShoulderTwoColumn20261008.two_unit_sum_norm_le_two",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "declaration": "ShoulderTwoColumn20261008.three_unit_remaining_bound",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "declaration": "ShoulderTwoColumn20261008.physical_horizontal_bounds",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "declaration": "ShoulderTwoColumn20261008.physical_vertical_bounds",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    }
+  ],
+  "source_binding_kind": "successful-resident-compiler-copy",
+  "original_axiom_log": {
+    "bytes": 1920,
+    "sha256": "e9755b4597b20453865a7f465fc488acb51a2f7e0cd2fa4b115ff31b5bc4bb8f"
+  },
+  "success": true,
+  "exit_code": 0,
+  "dependency_caveat": "Inherited pinned Lean/Mathlib cached dependencies; no full clean rebuild or fresh relocated replay."
+}

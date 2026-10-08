@@ -1,0 +1,443 @@
+{
+  "modules": [
+    {
+      "module": "SeedPhaseCore",
+      "source_sha256": "5dad0daa20e4728283d90827042ca58888724ce86501c8d68659078f33238e7f",
+      "imports": [
+        "Std"
+      ],
+      "source_receipt_sha256": "33904822eaddb741e8f62bbab3539c7b0063866fe41c866f4b012d1ef333a56f",
+      "provenance": "frozen-successful-check",
+      "file": "lean/SeedPhaseCore.lean",
+      "checked_import_object_sha256s": [
+        "c40c06432bfbbca936a79bdea0b6da0e8d80a7386e0de2963b30c269ba303714"
+      ]
+    },
+    {
+      "module": "SeedPhaseData",
+      "source_sha256": "8bee5ce3a98d247d859be97455d33c69abb64c266da57d60df8af74b0ca86567",
+      "imports": [
+        "SeedPhaseCore"
+      ],
+      "source_receipt_sha256": "dee3bfaa926e7c438d2eaf7ab7fcdca78385d45389c9adb6e8d53aa99f93939a",
+      "provenance": "frozen-successful-check",
+      "file": "lean/SeedPhaseData.lean",
+      "checked_import_object_sha256s": [
+        "0718c19c29a7c7409c0337a866da99801278fbd5c5b044ec44b5514712d37639"
+      ]
+    },
+    {
+      "module": "SeedPhaseLeaves",
+      "source_sha256": "d114e54c08b929d92aee8e4306b2e391822df6eedb9e2dd50437b15e7086c414",
+      "imports": [
+        "SeedPhaseData"
+      ],
+      "source_receipt_sha256": "a32bc346fbe8552f0abfb7796e1ff9c6087c60b965e6b541714842161e7265e0",
+      "provenance": "frozen-successful-check",
+      "file": "lean/SeedPhaseLeaves.lean",
+      "checked_import_object_sha256s": [
+        "578c77e898d96c1cba8677b0ab7b1c54fce18c2a52fc18576b5fa2cc77b05be6"
+      ]
+    },
+    {
+      "module": "SeedPhaseTape",
+      "source_sha256": "14898a91f9e181a5e14d958ce279ae4c4fe271df745295e60a3d41ac410b6da4",
+      "imports": [
+        "SeedPhaseLeaves"
+      ],
+      "source_receipt_sha256": "b68c798046be47ffe04a5be940f320fa392fade888e13fc23fa5c30678177129",
+      "provenance": "frozen-successful-check",
+      "file": "lean/SeedPhaseTape.lean",
+      "checked_import_object_sha256s": [
+        "83d71aa3faf6e10c620c7116d4ab7603b7c8fe377ceda732dcb8670fccbbf549"
+      ]
+    },
+    {
+      "module": "ConvexDerivPort",
+      "source_sha256": "9b566dcdd13bd35854e5ff953f75ee02785517bb5c5fb2ec9f8d8056c7dc255e",
+      "imports": [
+        "Mathlib.Analysis.Convex.Slope",
+        "Mathlib.Analysis.Calculus.Deriv.MeanValue"
+      ],
+      "source_receipt_sha256": "b8257ce093ffe39495f008131871f429325cf1a35f36d52463464b9061a09f03",
+      "provenance": "frozen-successful-check",
+      "file": "lean/ConvexDerivPort.lean",
+      "checked_import_object_sha256s": [
+        "401211b737822bf945ad0710647725f84bd901be605c457f864c1973a6ad4e70"
+      ]
+    },
+    {
+      "module": "TrigonometricDerivPort",
+      "source_sha256": "acb42335608f66556d2683f07b390999b415d6be4e779904ba829275a1042f41",
+      "imports": [
+        "Mathlib.Analysis.Calculus.LogDeriv",
+        "Mathlib.Analysis.SpecialFunctions.ExpDeriv"
+      ],
+      "source_receipt_sha256": "4e0fe86a297e179f4becbbfffb70d9c6ba34912a084fd0c746799ed8d0f905bb",
+      "provenance": "frozen-successful-check",
+      "file": "lean/TrigonometricDerivPort.lean",
+      "checked_import_object_sha256s": [
+        "0f8d7987871115bfb8192cb243b4d28397c76581966520c28aa31e832f499123"
+      ]
+    },
+    {
+      "module": "EndpointConvexity",
+      "source_sha256": "f2ece811729210c01f91b45b42fe0295f48029deca4a1103cdb5f79498df60e4",
+      "imports": [
+        "Mathlib.Analysis.Complex.Basic",
+        "ConvexDerivPort",
+        "Mathlib.Analysis.Convex.Jensen",
+        "TrigonometricDerivPort",
+        "Mathlib.Tactic.Linarith",
+        "Mathlib.Tactic.Ring"
+      ],
+      "source_receipt_sha256": "edc445404d14949b0bcc447b657e45f9a7bfc052773bb131806b126e02d9b98e",
+      "provenance": "frozen-successful-check",
+      "file": "lean/EndpointConvexity.lean",
+      "checked_import_object_sha256s": [
+        "aae7b408973238654d41d8e1fdc561d724e27ca4e9d7c4c18de252f66ccaed39"
+      ]
+    },
+    {
+      "module": "EqualAngleCells",
+      "source_sha256": "b4c8384f3d55e9e694beb292bd8498517ad6366c6e815ea0664d7e0f72d7fcd0",
+      "imports": [
+        "Mathlib.Data.Real.Basic",
+        "Mathlib.Data.Fintype.Pi",
+        "Mathlib.Data.Fintype.BigOperators",
+        "Mathlib.Tactic.Linarith",
+        "Mathlib.Tactic.NormNum",
+        "Mathlib.Tactic.Ring"
+      ],
+      "source_receipt_sha256": "c1c713bd5cc864832451af0bc1f808cd3a0f1e9a4acfeda6f581e593747b35ba",
+      "provenance": "frozen-successful-check",
+      "file": "lean/EqualAngleCells.lean",
+      "checked_import_object_sha256s": [
+        "374642cd81578e2d6b7cf8ca21034ffd6b387e3eb7f604a93b3fcb67d72de628"
+      ]
+    },
+    {
+      "module": "Mub6.Basic",
+      "source_sha256": "ac1e8bb2783d1a38db4a12d76d21457b36a4e2b29e3dbb061ed5328933e0c769",
+      "imports": [
+        "Mathlib.Data.Complex.Basic",
+        "Mathlib.Algebra.BigOperators.Group.Finset.Basic",
+        "Mathlib.Data.Fintype.Basic",
+        "Mathlib.Algebra.BigOperators.Ring.Finset",
+        "Mathlib.Tactic.Ring"
+      ],
+      "source_receipt_sha256": "4eef86a6dc9ad9e6951dfea236a0fb08ff1444865942a6187cf2e955ebbd3972",
+      "provenance": "existing-reviewed-publication-source-object-binding",
+      "file": "lean/Mub6/Basic.lean",
+      "checked_import_object_sha256s": [
+        "12a71298af08c2fceddcc5822e972f0506f19f67b0ce0025b87ece8acc10b674"
+      ]
+    },
+    {
+      "module": "FormalCore",
+      "source_sha256": "3996edc723f71defc7b553d88350a1259f88365fbce328857dc866b8b852a2f0",
+      "imports": [
+        "Mub6.Basic",
+        "Mathlib.LinearAlgebra.Matrix.ConjTranspose",
+        "Mathlib.Data.Matrix.Mul",
+        "Mathlib.Algebra.BigOperators.Fin",
+        "Mathlib.Algebra.BigOperators.Field",
+        "Mathlib.Data.Fintype.Pi",
+        "Mathlib.Tactic.Linarith",
+        "Mathlib.Tactic.NormNum",
+        "Mathlib.Tactic.FinCases"
+      ],
+      "source_receipt_sha256": "e22dc85d5f127862be78bc89894bced8c94e707adb2379c24b896fbc64c69a48",
+      "provenance": "existing-reviewed-publication-source-object-binding",
+      "file": "lean/FormalCore.lean",
+      "checked_import_object_sha256s": [
+        "ade78c5e208767b372de0bb7952564f26031f3a0ab948a97a564d74df93a4fc8"
+      ]
+    },
+    {
+      "module": "UnitRayTurns",
+      "source_sha256": "429195891906f5b7e6d27327a76efef48df59ab51bb73c18b51d7a94a1da3dd5",
+      "imports": [
+        "EndpointConvexity",
+        "EqualAngleCells",
+        "FormalCore",
+        "Mathlib.Analysis.SpecialFunctions.Complex.Arg",
+        "Mathlib.Analysis.Complex.Trigonometric"
+      ],
+      "source_receipt_sha256": "c625f5d56178122993b8b4ac5081550b4fffc31e6a8174f6576e8a10166f9a40",
+      "provenance": "frozen-successful-check",
+      "file": "lean/UnitRayTurns.lean",
+      "checked_import_object_sha256s": [
+        "3a8e0b5e92b5edca55c9e994f7cb4976a13cd5ea01a74b6e042b6e72a90ef5eb"
+      ]
+    },
+    {
+      "module": "PhaseVariation",
+      "source_sha256": "3d192fc2f5cd42929cbe3e0f53c2cc2130512849256a12b7cbe5851f3bccbd65",
+      "imports": [
+        "EndpointConvexity"
+      ],
+      "source_receipt_sha256": "4ad7017a637eba3505a36167a45877a37e6c890aa45ff73b822ae5539c8cd7bc",
+      "provenance": "frozen-successful-check",
+      "file": "lean/PhaseVariation.lean",
+      "checked_import_object_sha256s": [
+        "5525d0b6d780da6c79387aea71b8bd055bd3d8fc7ef908fdb0a28940ca27b455"
+      ]
+    },
+    {
+      "module": "CentiradianPhysical",
+      "source_sha256": "f3a81569f51a4eac1e147df81bfa9d713ad386891c2d6ea45ff51eb9fd2cc703",
+      "imports": [
+        "Mathlib.Analysis.Complex.Trigonometric",
+        "Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic",
+        "Mathlib.Data.Fintype.Card",
+        "Mathlib.Tactic.Ring",
+        "Mathlib.Tactic.NormNum",
+        "Mathlib.Tactic.Linarith"
+      ],
+      "source_receipt_sha256": "b5b554d1c683ea95008876203992919593c282b5eb96a0ad02ffd66dd9304e51",
+      "provenance": "frozen-successful-check",
+      "file": "lean/CentiradianPhysical.lean",
+      "checked_import_object_sha256s": [
+        "d39b6828bc700abf0ccb1b73bfc85b31f74a7d229481b78d459f07f720c3ff35"
+      ]
+    },
+    {
+      "module": "LocalArithmetic",
+      "source_sha256": "24df24d39816de98699f58af8bcc71cbd06f923e00815e2f65c405fee14351db",
+      "imports": [
+        "CentiradianPhysical"
+      ],
+      "source_receipt_sha256": "2ed3532b4016e113af9099c1cdecca96bbbfbe5589879120d77929acc7666e86",
+      "provenance": "frozen-successful-check",
+      "file": "lean/LocalArithmetic.lean",
+      "checked_import_object_sha256s": [
+        "257cd0ddcd3b60e5cc459788a5ea54aca2fbc9c984efd0a525eea416af133833"
+      ]
+    },
+    {
+      "module": "RepeatedFourierColumns",
+      "source_sha256": "c02fd6db83ec819755432870325852d02f734ea88ad1587a764e6f86c8f07f87",
+      "imports": [
+        "LocalArithmetic"
+      ],
+      "source_receipt_sha256": "ae0344ad784dc67a9892e9ccf52dc4f4f7b2731aa8aa7aa8fb06d5a3ca71cbb2",
+      "provenance": "frozen-successful-check",
+      "file": "lean/RepeatedFourierColumns.lean",
+      "checked_import_object_sha256s": [
+        "8e6c1413dc78663f9c2116ff853e351df22402dc6966388b16df4240a4bc66af"
+      ]
+    },
+    {
+      "module": "PiRounding",
+      "source_sha256": "ab8f869c0891f16c65cf34a3096bf34678d0f8d16534f313802224cc4192e865",
+      "imports": [
+        "RepeatedFourierColumns",
+        "Mathlib.Analysis.SpecialFunctions.Trigonometric.Inverse"
+      ],
+      "source_receipt_sha256": "0c36cc79c50a2540a89cdf927869f2a17501207a263f1b6d4be81fc2330de793",
+      "provenance": "frozen-successful-check",
+      "file": "lean/PiRounding.lean",
+      "checked_import_object_sha256s": [
+        "357041a1206573784eccf1bb50968612ff4e26569154b4416315e4a234e4aff5"
+      ]
+    },
+    {
+      "module": "RoundedFourierOverlap",
+      "source_sha256": "b56724a34feba763945a449d080b6d44ff257c77b9504a7c7d6e2b5c9b8521be",
+      "imports": [
+        "PiRounding"
+      ],
+      "source_receipt_sha256": "b40eab1f9020b09926ddc2ac86a52f044a8286a4ecd8f141f351c66a83f4fd6b",
+      "provenance": "frozen-successful-check",
+      "file": "lean/RoundedFourierOverlap.lean",
+      "checked_import_object_sha256s": [
+        "6a4e1f782df293c048bf745e6e357d8dbfdb48968a55642e4318da6a65d0cff3"
+      ]
+    },
+    {
+      "module": "ZeroLatticeF6",
+      "source_sha256": "a3789efdd77434abb741864f2c94ad008e5fa81688f498730c37d08ef4cedf26",
+      "imports": [
+        "RoundedFourierOverlap",
+        "Mathlib.Tactic.FinCases"
+      ],
+      "source_receipt_sha256": "d5b627d01d0a55134f2dbd140b0ede0fb2d65fb2c0738aa3eed7fbdcbc32bdfb",
+      "provenance": "frozen-successful-check",
+      "file": "lean/ZeroLatticeF6.lean",
+      "checked_import_object_sha256s": [
+        "257ffda1ae767a50e0c688f27fac05c9b8e309fb067ea658bc4b837dc8eae898"
+      ]
+    },
+    {
+      "module": "FourierPhaseTargets",
+      "source_sha256": "4eee876cfe402613bd1df38df5decbce2dcc3fd1352b4b555a755c6436bf4cd4",
+      "imports": [
+        "UnitRayTurns",
+        "PhaseVariation",
+        "ZeroLatticeF6"
+      ],
+      "source_receipt_sha256": "369c60bab11fd43e0f8e7fd3f713d73bd65dcc33785ba40dfccaa28ed6045c95",
+      "provenance": "frozen-successful-check",
+      "file": "lean/FourierPhaseTargets.lean",
+      "checked_import_object_sha256s": [
+        "5ae9e4a625ee932239e4b12d2cd3a83f6862485937329486d44336be43a91d8b"
+      ]
+    },
+    {
+      "module": "SupplierGridIndices",
+      "source_sha256": "24d92c210fcd09c55d7a9204ded752f33eb14b4ec5140bada770298f18a0dbe7",
+      "imports": [
+        "EqualAngleCells",
+        "Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic"
+      ],
+      "source_receipt_sha256": "dd2fe59448c1611e00f2db25e7e28703d4ee3ebfd7dcc35a20ec0c90f98a1b54",
+      "provenance": "frozen-successful-check",
+      "file": "lean/SupplierGridIndices.lean",
+      "checked_import_object_sha256s": [
+        "bd26ddf0f32f4e2a44e6d49ae82f3e8cce61c630cf8d013fbcadcd5b6c8e5cc0"
+      ]
+    },
+    {
+      "module": "SupplierPhaseIndices",
+      "source_sha256": "85b246bc593e42008b3c9ab53233931d9e5ffa9eaa4e99b48089d6c4d1e69a3d",
+      "imports": [
+        "FourierPhaseTargets",
+        "SupplierGridIndices"
+      ],
+      "source_receipt_sha256": "0496e8d43961c2f13e0548587fd3e40523442c6d06a9cd8002512f6315f8e5b1",
+      "provenance": "frozen-successful-check",
+      "file": "lean/SupplierPhaseIndices.lean",
+      "checked_import_object_sha256s": [
+        "d4b4aebccff6519c91a322fbc1f1972bf51fe2d10aadfb794759187ee43f9029"
+      ]
+    },
+    {
+      "module": "SupplierCellGeometry",
+      "source_sha256": "7eb4f8cf12aa3a2fd4fca8c1f4b82798b8831faeb06a593a4dccb94e4914bd66",
+      "imports": [
+        "FourierPhaseTargets",
+        "SupplierGridIndices"
+      ],
+      "source_receipt_sha256": "bf880a384fdead5b8d40834a8e036f8b59e40c845235210249b12491786d1a91",
+      "provenance": "frozen-successful-check",
+      "file": "lean/SupplierCellGeometry.lean",
+      "checked_import_object_sha256s": [
+        "5dc209d10fdbd75344ffe316d21e068d808fd54859a786c452694c6dadb936bd"
+      ]
+    },
+    {
+      "module": "EndpointMaximum",
+      "source_sha256": "45beee2b0b5fbd7f8f7c31479d775b71f2fd1264b64c1b679c5a6e6e8e2714fe",
+      "imports": [
+        "EqualAngleCells"
+      ],
+      "source_receipt_sha256": "00ebddfdcce0226dfaa0ae4e405aeb7e283d7f31d8735f9645ab1ebc276b325c",
+      "provenance": "frozen-successful-check",
+      "file": "lean/EndpointMaximum.lean",
+      "checked_import_object_sha256s": [
+        "28537c14830767d8c9ade39909433e2c8ec3e5a1ffc026c3bdf49351a7af05c5"
+      ]
+    },
+    {
+      "module": "SupplierMaskIndices",
+      "source_sha256": "e2cd85b338cd9b5c2b4b71a42cd1c3110642bd1e9e247535e25bc960f4a72889",
+      "imports": [
+        "SupplierPhaseIndices",
+        "SupplierCellGeometry",
+        "EndpointMaximum"
+      ],
+      "source_receipt_sha256": "e4f77a2b6fc5b91f1bb530682674b7a24b53186a5668d70bbcaff311a74723a4",
+      "provenance": "frozen-successful-check",
+      "file": "lean/SupplierMaskIndices.lean",
+      "checked_import_object_sha256s": [
+        "1fec397865f820441458ddb52ae8003f59737b7d3f0510f856d5be301e188fb3"
+      ]
+    },
+    {
+      "module": "CoreCellBridge",
+      "source_sha256": "615e9cf3fecb4227b9bb6959151c728e745b573ad92384a4f68a2ea0e3d36a53",
+      "imports": [
+        "SeedPhaseCore",
+        "SupplierMaskIndices"
+      ],
+      "source_receipt_sha256": "529be35db9b75ac23ca48a6aa8f6830c11d36e6df5ff5d8a18547f4a2ad8e457",
+      "provenance": "frozen-successful-check",
+      "file": "lean/CoreCellBridge.lean",
+      "checked_import_object_sha256s": [
+        "65279266324cba0ec7b60ce028e2d8eafd19911ddea2583a808509e4b65630a8"
+      ]
+    },
+    {
+      "module": "PhaseForest",
+      "source_sha256": "012751cd61d48e2acef05f7323bb46a8024268ca2680eb8870fae895d500a057",
+      "imports": [
+        "EqualAngleCells"
+      ],
+      "source_receipt_sha256": "3d5738ccaf68c445cbd01f3cf76ae9b0632ad81768a011eae747dd4d64ec64d5",
+      "provenance": "frozen-successful-check",
+      "file": "lean/PhaseForest.lean",
+      "checked_import_object_sha256s": [
+        "8b4d57166baa1fd5f14a9a708594bfdf341680ff2af255ed42c0cb289823bf27"
+      ]
+    },
+    {
+      "module": "PhaseTape",
+      "source_sha256": "78cc0ff8c29f010df60d10a3de81803fc75fdf029bc7e0b42202105b95466203",
+      "imports": [
+        "PhaseForest"
+      ],
+      "source_receipt_sha256": "6255433c5125c56bb6837cea03df91b245c1b55705d26d20ada13e380ce4d771",
+      "provenance": "frozen-successful-check",
+      "file": "lean/PhaseTape.lean",
+      "checked_import_object_sha256s": [
+        "53a374a3be7e8960afde5ba67a06064443dc72fd7ea216d731c4a0c090247dfb"
+      ]
+    },
+    {
+      "module": "WitnessTapeRefinement",
+      "source_sha256": "ef9e848f64be5f8b20c503af7276bb4b65772e3a1e66bba38d6781c2c5e24e3e",
+      "imports": [
+        "SeedPhaseTape",
+        "CoreCellBridge",
+        "PhaseTape"
+      ],
+      "source_receipt_sha256": "5ec74029b1d0c0ad0dc66094f0fa4c422cc335d491b7d9fae3045ca3b1fcad4f",
+      "provenance": "frozen-successful-check",
+      "file": "lean/WitnessTapeRefinement.lean",
+      "checked_import_object_sha256s": [
+        "030f4af712572898732f3566690377eca06927c868754fe014752c1cc326c4e0"
+      ]
+    }
+  ],
+  "topological_order": [
+    "SeedPhaseCore",
+    "SeedPhaseData",
+    "SeedPhaseLeaves",
+    "SeedPhaseTape",
+    "ConvexDerivPort",
+    "TrigonometricDerivPort",
+    "EndpointConvexity",
+    "EqualAngleCells",
+    "Mub6.Basic",
+    "FormalCore",
+    "UnitRayTurns",
+    "PhaseVariation",
+    "CentiradianPhysical",
+    "LocalArithmetic",
+    "RepeatedFourierColumns",
+    "PiRounding",
+    "RoundedFourierOverlap",
+    "ZeroLatticeF6",
+    "FourierPhaseTargets",
+    "SupplierGridIndices",
+    "SupplierPhaseIndices",
+    "SupplierCellGeometry",
+    "EndpointMaximum",
+    "SupplierMaskIndices",
+    "CoreCellBridge",
+    "PhaseForest",
+    "PhaseTape",
+    "WitnessTapeRefinement"
+  ]
+}

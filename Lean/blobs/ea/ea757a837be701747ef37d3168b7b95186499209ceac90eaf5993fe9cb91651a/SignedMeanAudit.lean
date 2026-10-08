@@ -1,0 +1,113 @@
+import WholeBox66902
+
+/- Full axiom audit of every theorem newly declared in this scoped packet.
+A computation used for version metadata contributes no proof theorem. -/
+#eval Lean.versionString
+
+-- ExactInterval.lean sha256 0afc1b7b425edf8b9525581206a3d044412b5880cebff29cf6c001f75888ba51
+#print axioms SignedMeanIntake20261006.QInterval.point_sound
+#print axioms SignedMeanIntake20261006.QInterval.add_sound
+#print axioms SignedMeanIntake20261006.QInterval.neg_sound
+#print axioms SignedMeanIntake20261006.QInterval.sub_sound
+#print axioms SignedMeanIntake20261006.QInterval.real_mul_bounds
+#print axioms SignedMeanIntake20261006.QInterval.mul_sound
+#print axioms SignedMeanIntake20261006.QInterval.pow_sound
+#print axioms SignedMeanIntake20261006.QInterval.encloses_sound
+#print axioms SignedMeanIntake20261006.RingExpr.range_sound
+#print axioms SignedMeanIntake20261006.RingExpr.check_sound
+
+-- ExactPhase.lean sha256 277ae44563fd7e11714437fc4d220ca5cbf4f5fc2a98fabbc6d40e727d9eb5b2
+#print axioms SignedMeanIntake20261006.QComplex.map_zero
+#print axioms SignedMeanIntake20261006.QComplex.map_one
+#print axioms SignedMeanIntake20261006.QComplex.map_add
+#print axioms SignedMeanIntake20261006.QComplex.map_mul
+#print axioms SignedMeanIntake20261006.QComplex.map_divNat
+#print axioms SignedMeanIntake20261006.QComplex.map_pow
+#print axioms SignedMeanIntake20261006.QComplex.map_imaginary
+#print axioms SignedMeanIntake20261006.QComplex.phasePartialQ_sound
+#print axioms SignedMeanIntake20261006.phaseError_cast
+#print axioms SignedMeanIntake20261006.phaseBox_sound
+#print axioms SignedMeanIntake20261006.phaseCheck_sound
+
+-- ExactSignedMean.lean sha256 6ea576c51485d8b90a19ecf83226830d72a02d94755008fab0dfaab67ad78ad4
+#print axioms SignedMeanIntake20261006.positiveTest_sound
+#print axioms SignedMeanIntake20261006.negativeTest_sound
+#print axioms SignedMeanIntake20261006.MeanCertificate.excludesPlus_sound
+#print axioms SignedMeanIntake20261006.MeanCertificate.excludesMinus_sound
+
+-- Leaf66902.lean sha256 230e9e03f9c7c18caf0457d6fa2f7824013937bcd7d2c4c28a93d7972cd8b199
+#print axioms SignedMeanIntake20261006.Leaf66902.phase0_checked
+#print axioms SignedMeanIntake20261006.Leaf66902.phase0_sound
+#print axioms SignedMeanIntake20261006.Leaf66902.radius0_checked
+#print axioms SignedMeanIntake20261006.Leaf66902.phase1_checked
+#print axioms SignedMeanIntake20261006.Leaf66902.phase1_sound
+#print axioms SignedMeanIntake20261006.Leaf66902.radius1_checked
+#print axioms SignedMeanIntake20261006.Leaf66902.phase2_checked
+#print axioms SignedMeanIntake20261006.Leaf66902.phase2_sound
+#print axioms SignedMeanIntake20261006.Leaf66902.radius2_checked
+#print axioms SignedMeanIntake20261006.Leaf66902.phase3_checked
+#print axioms SignedMeanIntake20261006.Leaf66902.phase3_sound
+#print axioms SignedMeanIntake20261006.Leaf66902.radius3_checked
+#print axioms SignedMeanIntake20261006.Leaf66902.rowR_below_tao
+#print axioms SignedMeanIntake20261006.Leaf66902.rowDelta_positive
+#print axioms SignedMeanIntake20261006.Leaf66902.rowPair0_minus_checked
+#print axioms SignedMeanIntake20261006.Leaf66902.rowPair0_plus_unresolved
+#print axioms SignedMeanIntake20261006.Leaf66902.rowPair0_excludes_minus
+#print axioms SignedMeanIntake20261006.Leaf66902.rowPair1_minus_checked
+#print axioms SignedMeanIntake20261006.Leaf66902.rowPair1_plus_unresolved
+#print axioms SignedMeanIntake20261006.Leaf66902.rowPair1_excludes_minus
+#print axioms SignedMeanIntake20261006.Leaf66902.rowPair2_minus_checked
+#print axioms SignedMeanIntake20261006.Leaf66902.rowPair2_plus_unresolved
+#print axioms SignedMeanIntake20261006.Leaf66902.rowPair2_excludes_minus
+#print axioms SignedMeanIntake20261006.Leaf66902.columnR_below_tao
+#print axioms SignedMeanIntake20261006.Leaf66902.columnDelta_positive
+#print axioms SignedMeanIntake20261006.Leaf66902.columnPair0_minus_checked
+#print axioms SignedMeanIntake20261006.Leaf66902.columnPair0_plus_unresolved
+#print axioms SignedMeanIntake20261006.Leaf66902.columnPair0_excludes_minus
+#print axioms SignedMeanIntake20261006.Leaf66902.columnPair1_minus_checked
+#print axioms SignedMeanIntake20261006.Leaf66902.columnPair1_plus_unresolved
+#print axioms SignedMeanIntake20261006.Leaf66902.columnPair1_excludes_minus
+#print axioms SignedMeanIntake20261006.Leaf66902.columnPair2_minus_checked
+#print axioms SignedMeanIntake20261006.Leaf66902.columnPair2_plus_unresolved
+#print axioms SignedMeanIntake20261006.Leaf66902.columnPair2_excludes_minus
+
+-- WholeBoxPhase.lean sha256 33d82e780a30bae80fe665fde431a7b69e8abc91bbf6e85f22d31845bda829ee
+#print axioms SignedMeanIntake20261006.phase_lipschitz
+#print axioms SignedMeanIntake20261006.phase_difference_bound
+#print axioms SignedMeanIntake20261006.cos_difference_bound
+#print axioms SignedMeanIntake20261006.sin_difference_bound
+#print axioms SignedMeanIntake20261006.QInterval.widen_sound
+#print axioms SignedMeanIntake20261006.phaseWholeBox_sound
+#print axioms SignedMeanIntake20261006.phaseCubic_error
+#print axioms SignedMeanIntake20261006.phaseCubic_uniform
+
+-- WholeBox66902.lean sha256 7a080e2274b3411e5d06d8e3ff5ccee34656e1b9d17827e862fce62026c91d9f
+#print axioms SignedMeanIntake20261006.Leaf66902.phase0_whole_box
+#print axioms SignedMeanIntake20261006.Leaf66902.phase0_cubic_remainder
+#print axioms SignedMeanIntake20261006.Leaf66902.phase1_whole_box
+#print axioms SignedMeanIntake20261006.Leaf66902.phase1_cubic_remainder
+#print axioms SignedMeanIntake20261006.Leaf66902.phase2_whole_box
+#print axioms SignedMeanIntake20261006.Leaf66902.phase2_cubic_remainder
+#print axioms SignedMeanIntake20261006.Leaf66902.phase3_whole_box
+#print axioms SignedMeanIntake20261006.Leaf66902.phase3_cubic_remainder
+#print axioms SignedMeanIntake20261006.Leaf66902.sourceCenter0_binding
+#print axioms SignedMeanIntake20261006.Leaf66902.sourceRadius0_binding
+#print axioms SignedMeanIntake20261006.Leaf66902.sourceBox0_rounding_cover
+#print axioms SignedMeanIntake20261006.Leaf66902.sourceBox0_contains
+#print axioms SignedMeanIntake20261006.Leaf66902.sourceBox0_phase_enclosures
+#print axioms SignedMeanIntake20261006.Leaf66902.sourceCenter1_binding
+#print axioms SignedMeanIntake20261006.Leaf66902.sourceRadius1_binding
+#print axioms SignedMeanIntake20261006.Leaf66902.sourceBox1_rounding_cover
+#print axioms SignedMeanIntake20261006.Leaf66902.sourceBox1_contains
+#print axioms SignedMeanIntake20261006.Leaf66902.sourceBox1_phase_enclosures
+#print axioms SignedMeanIntake20261006.Leaf66902.sourceCenter2_binding
+#print axioms SignedMeanIntake20261006.Leaf66902.sourceRadius2_binding
+#print axioms SignedMeanIntake20261006.Leaf66902.sourceBox2_rounding_cover
+#print axioms SignedMeanIntake20261006.Leaf66902.sourceBox2_contains
+#print axioms SignedMeanIntake20261006.Leaf66902.sourceBox2_phase_enclosures
+#print axioms SignedMeanIntake20261006.Leaf66902.sourceCenter3_binding
+#print axioms SignedMeanIntake20261006.Leaf66902.sourceRadius3_binding
+#print axioms SignedMeanIntake20261006.Leaf66902.sourceBox3_rounding_cover
+#print axioms SignedMeanIntake20261006.Leaf66902.sourceBox3_contains
+#print axioms SignedMeanIntake20261006.Leaf66902.sourceBox3_phase_enclosures
+

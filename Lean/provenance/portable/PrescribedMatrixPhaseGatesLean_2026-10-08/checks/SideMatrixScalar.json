@@ -1,0 +1,39 @@
+{
+  "module": "SideMatrixScalar",
+  "source_sha256": "f0f23db193b3f35a6c4f99f622ef9d6e5098738d5813b74207375d3a32a95f92",
+  "checked_object": {
+    "sha256": "59da82b040ec2b26e6932d681e222d5be84b157f48cf4e757d9951448f0fc584",
+    "bytes": 36032
+  },
+  "original_receipt": {
+    "sha256": "1d178a012624a6498024c91cf8f546f922f4a9822b0a3af51aa7b1a983c0f949",
+    "bytes": 297
+  },
+  "original_axiom_log": {
+    "sha256": "1380816e10edb0725512ba0fa5acf97098332b60004980f1b6d27b3dbe51eb83",
+    "bytes": 235
+  },
+  "selected_roots": [
+    {
+      "declaration": "StrictReconstruction20261007.prescribed_rho_q_balance",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "declaration": "StrictReconstruction20261007.reconstruction_schur_identity",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    }
+  ],
+  "schema": "sanitized-successful-check-projection-v1",
+  "success": true,
+  "exit_code": 0,
+  "selected": true,
+  "dependency_caveat": "Existing checks reused pinned Lean/Mathlib/custom objects. No clean full-library source/cache rebuild or fresh relocated replay is claimed."
+}

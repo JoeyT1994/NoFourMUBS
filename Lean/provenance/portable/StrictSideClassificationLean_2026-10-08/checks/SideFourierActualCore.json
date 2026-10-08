@@ -1,0 +1,31 @@
+{
+  "module": "SideFourierActualCore",
+  "source_sha256": "f94006e43da3a7ec72780f1547c5b359a6527bdedfa436a97889aab66cb50412",
+  "checked_object": {
+    "sha256": "db644fae522986e2698f8d7742ef371245e51d0f50cde8fc7482486bd1018650",
+    "bytes": 45576
+  },
+  "original_receipt": {
+    "sha256": "2c17184313e8cf43917cc5af27ccc23430586607bf68935db6ef81173a99248d",
+    "bytes": 296
+  },
+  "original_axiom_log": {
+    "sha256": "7df6d567c2a5f81a87d8c9b7aa204ab7ba103b3eab2ea107d5f475b12f95b6d9",
+    "bytes": 131
+  },
+  "selected_roots": [
+    {
+      "declaration": "StrictReconstruction20261007.prescribed_side_conditions_for_fourier",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    }
+  ],
+  "schema": "sanitized-successful-check-projection-v1",
+  "success": true,
+  "exit_code": 0,
+  "selected": true,
+  "dependency_caveat": "Existing checks reused pinned Lean/Mathlib/custom objects. No clean full-library source/cache rebuild or fresh relocated replay is claimed."
+}

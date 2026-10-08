@@ -1,0 +1,4008 @@
+{
+  "schema": "strict-side-construction-intrinsic-reviewed-source-closure-v1",
+  "modules": [
+    {
+      "module": "CentiradianPhysical",
+      "file": "lean/CentiradianPhysical.lean",
+      "source_sha256": "f3a81569f51a4eac1e147df81bfa9d713ad386891c2d6ea45ff51eb9fd2cc703",
+      "bytes": 9401,
+      "static_imports": [
+        "Mathlib.Analysis.Complex.Trigonometric",
+        "Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic",
+        "Mathlib.Data.Fintype.Card",
+        "Mathlib.Tactic.Ring",
+        "Mathlib.Tactic.NormNum",
+        "Mathlib.Tactic.Linarith"
+      ],
+      "dynamic_imports": [],
+      "selected": false,
+      "selected_roots": [],
+      "checked_object": {
+        "sha256": "d39b6828bc700abf0ccb1b73bfc85b31f74a7d229481b78d459f07f720c3ff35",
+        "bytes": 454816
+      },
+      "original_receipt": {
+        "sha256": "b5b554d1c683ea95008876203992919593c282b5eb96a0ad02ffd66dd9304e51",
+        "bytes": 297
+      },
+      "original_axiom_log": {
+        "sha256": "d7ba913969dbc71ce4f17a1fe94d11569f899c521413d84404d92966829a4756",
+        "bytes": 975
+      },
+      "original_check_custom_import_object_bindings": {},
+      "original_job": {
+        "sha256": "72449092ffbf168db37d086467a7f7feda568c4d9927389ae204eec44586c45f",
+        "bytes": 3839
+      },
+      "successful_compiler_copy_matches": true,
+      "reused_source_packet_manifest_sha256": "104a7859749e41316ecd9418d37a622c03db6639d21aa15cd4f4ea5c163829d3",
+      "scope": "Unchanged previously published supporting source; no new selected theorem credit."
+    },
+    {
+      "module": "Hadamard6.Basic",
+      "file": "lean/Hadamard6/Basic.lean",
+      "source_sha256": "3103079b18ae8340e5b544a85a68c19bc0ea6558070bb8e82ce92f16a4e6a5d4",
+      "bytes": 5025,
+      "static_imports": [
+        "Mathlib.Data.Complex.Basic",
+        "Mathlib.Data.Matrix.ColumnRowPartitioned",
+        "Mathlib.LinearAlgebra.Matrix.ConjTranspose",
+        "Mathlib.LinearAlgebra.Matrix.NonsingularInverse",
+        "Mathlib.LinearAlgebra.Matrix.Notation",
+        "Mathlib.Tactic.Ring"
+      ],
+      "dynamic_imports": [],
+      "selected": false,
+      "selected_roots": [],
+      "checked_object": {
+        "sha256": "eb646f0b673ac623cf4975553f7b8365b2f8905304851cd2a60bb6e7a34ea6cd",
+        "bytes": 448120
+      },
+      "original_receipt": {
+        "sha256": "a1019e14913ca57744a270bc68d3e90960409605ea746582b56f4f7a9db67034",
+        "bytes": 3543
+      },
+      "original_axiom_log": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "original_check_custom_import_object_bindings": {},
+      "reused_source_packet_manifest_sha256": "104a7859749e41316ecd9418d37a622c03db6639d21aa15cd4f4ea5c163829d3",
+      "scope": "Unchanged previously published supporting source; no new selected theorem credit."
+    },
+    {
+      "module": "Hadamard6.FiniteDilation",
+      "file": "lean/Hadamard6/FiniteDilation.lean",
+      "source_sha256": "81bf8e0002e08ef0f69ab59f2b66071eb38b6fe595ae8bcd95dabea75a7fb627",
+      "bytes": 3700,
+      "static_imports": [
+        "Hadamard6.Basic"
+      ],
+      "dynamic_imports": [],
+      "selected": false,
+      "selected_roots": [],
+      "checked_object": {
+        "sha256": "e457eaf713c2b944bc6302a01546256b73faa0e05ebadc31993c5c419ce6c9e8",
+        "bytes": 93152
+      },
+      "original_receipt": {
+        "sha256": "d378248b0e88f45d1d8c423c2084d4ef12f24950188de3814a528b53a98441d3",
+        "bytes": 1350
+      },
+      "original_axiom_log": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "original_check_custom_import_object_bindings": {
+        "Hadamard6.Basic": "eb646f0b673ac623cf4975553f7b8365b2f8905304851cd2a60bb6e7a34ea6cd"
+      },
+      "reused_source_packet_manifest_sha256": "104a7859749e41316ecd9418d37a622c03db6639d21aa15cd4f4ea5c163829d3",
+      "scope": "Unchanged previously published supporting source; no new selected theorem credit."
+    },
+    {
+      "module": "Hadamard6.GramInvariant",
+      "file": "lean/Hadamard6/GramInvariant.lean",
+      "source_sha256": "c96f0f6a4992b5894317de3f0173e1e24ab8a845ff6685d17ff914eb33d544fb",
+      "bytes": 6270,
+      "static_imports": [
+        "Hadamard6.FiniteDilation",
+        "Mathlib.LinearAlgebra.Matrix.Hermitian",
+        "Mathlib.LinearAlgebra.Matrix.Trace",
+        "Mathlib.Tactic.LinearCombination",
+        "Mathlib.Tactic.Linarith",
+        "Mathlib.Tactic.Ring"
+      ],
+      "dynamic_imports": [],
+      "selected": false,
+      "selected_roots": [],
+      "checked_object": {
+        "sha256": "43f6c390338b5d1b4f90512ccc54fc65c07c1ccc25af70108e8871878464265a",
+        "bytes": 472776
+      },
+      "original_receipt": {
+        "sha256": "f8049f8c30cd38a4144e93832161894e9532aceb68f1852857bc03943f5dd9a5",
+        "bytes": 3403
+      },
+      "original_axiom_log": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "original_check_custom_import_object_bindings": {
+        "Hadamard6.FiniteDilation": "e457eaf713c2b944bc6302a01546256b73faa0e05ebadc31993c5c419ce6c9e8"
+      },
+      "reused_source_packet_manifest_sha256": "104a7859749e41316ecd9418d37a622c03db6639d21aa15cd4f4ea5c163829d3",
+      "scope": "Unchanged previously published supporting source; no new selected theorem credit."
+    },
+    {
+      "module": "PreRhoActualBindings",
+      "file": "lean/PreRhoActualBindings.lean",
+      "source_sha256": "b6c73061f4c3552ce6bf61ece85368add1ad8c6dcf7d498b676f5dfbc218672f",
+      "bytes": 5780,
+      "static_imports": [
+        "StrictSideRootGuards",
+        "PreRhoAlignmentPolynomial"
+      ],
+      "dynamic_imports": [],
+      "selected": false,
+      "selected_roots": [],
+      "checked_object": {
+        "sha256": "f1c8a3a4b2a0f4bd4ccf1c80298a456749db1f035257fc48962b612ae53b659c",
+        "bytes": 1279176
+      },
+      "original_receipt": {
+        "sha256": "72cb35c36736adcf97a88463e45ffba61de7c9ff822f52e3ac3fd56aa69e5a5a",
+        "bytes": 297
+      },
+      "original_axiom_log": {
+        "sha256": "89f21a662456d02160a11961176a800b6eb18d3ed83c0a82da32fc31af605954",
+        "bytes": 1706
+      },
+      "original_check_custom_import_object_bindings": {
+        "StrictSideRootGuards": "89bf25ae7ad89d3b4250cd31b4700a983faa70796203ab2463da8fd8e260ca19",
+        "PreRhoAlignmentPolynomial": "460ee8e38d4e25b4f8b60a25e7614fdc2185ad51cfdc0692d6d079c6be206605"
+      },
+      "original_job": {
+        "sha256": "b0cf17b2f99fa833edb032acbf486a66696ec7cbed319dea97d532ca490f4ee4",
+        "bytes": 5617
+      },
+      "successful_compiler_copy_matches": true,
+      "reused_source_packet_manifest_sha256": "104a7859749e41316ecd9418d37a622c03db6639d21aa15cd4f4ea5c163829d3",
+      "scope": "Unchanged previously published supporting source; no new selected theorem credit."
+    },
+    {
+      "module": "PreRhoAlignmentActual",
+      "file": "lean/PreRhoAlignmentActual.lean",
+      "source_sha256": "12e3f9c55cd06b1f6bd57a24489e6bb65ae5fda45126ff5252171eb4b64cf40e",
+      "bytes": 6109,
+      "static_imports": [
+        "PreRhoActualBindings"
+      ],
+      "dynamic_imports": [],
+      "selected": false,
+      "selected_roots": [],
+      "checked_object": {
+        "sha256": "d310a0c10201f6b88df824fa431cfa711e42dabf5a0c9c073d58e93e529a1bf8",
+        "bytes": 1170440
+      },
+      "original_receipt": {
+        "sha256": "3afd11f6ecda6f04bb6942af5572c2c55a16c287fb22e48b9544a932ed19d70b",
+        "bytes": 296
+      },
+      "original_axiom_log": {
+        "sha256": "8bad37706487544834a677009018895851f2332d8e50ea254ea58cfc08f3dd2c",
+        "bytes": 233
+      },
+      "original_check_custom_import_object_bindings": {
+        "PreRhoActualBindings": "f1c8a3a4b2a0f4bd4ccf1c80298a456749db1f035257fc48962b612ae53b659c"
+      },
+      "original_job": {
+        "sha256": "b3679c8d9a4f941059838d37d7cecd5b805dc2d884ec24451203b6ab89a0093d",
+        "bytes": 5836
+      },
+      "successful_compiler_copy_matches": true,
+      "reused_source_packet_manifest_sha256": "104a7859749e41316ecd9418d37a622c03db6639d21aa15cd4f4ea5c163829d3",
+      "scope": "Unchanged previously published supporting source; no new selected theorem credit."
+    },
+    {
+      "module": "PreRhoAlignmentDefs",
+      "file": "lean/PreRhoAlignmentDefs.lean",
+      "source_sha256": "9636d93b3569b9dccb1f8571d9c4ff51895ad0dd19165c1772184d2bad8dfa76",
+      "bytes": 4685,
+      "static_imports": [
+        "Mathlib.Tactic.Ring"
+      ],
+      "dynamic_imports": [],
+      "selected": false,
+      "selected_roots": [],
+      "checked_object": {
+        "sha256": "bc07ca738db3b36334df77e38027920c81524f3da59eabd0a80efd954f536c0c",
+        "bytes": 1413584
+      },
+      "original_receipt": {
+        "sha256": "feefe8cf905182fa9c57fcb73f0fd61a6e7d5a91cb99bb959779c8691866f385",
+        "bytes": 296
+      },
+      "original_axiom_log": {
+        "sha256": "70503fb43e9633ba0e33390034cce55c2ee6e5127e3e657fe7252ff0e5b124e0",
+        "bytes": 212
+      },
+      "original_check_custom_import_object_bindings": {},
+      "original_job": {
+        "sha256": "9a7cb41d9e5c20ffe90875e22784234c239915b6e3147997df680f9e397c9435",
+        "bytes": 4291
+      },
+      "successful_compiler_copy_matches": true,
+      "reused_source_packet_manifest_sha256": "104a7859749e41316ecd9418d37a622c03db6639d21aa15cd4f4ea5c163829d3",
+      "scope": "Unchanged previously published supporting source; no new selected theorem credit."
+    },
+    {
+      "module": "PreRhoAlignmentPolynomial",
+      "file": "lean/PreRhoAlignmentPolynomial.lean",
+      "source_sha256": "d175ca01d671cdd9ccddbac8ad9c61b7eeaaac0c93a796ad407d5b0f3a22fe91",
+      "bytes": 2105,
+      "static_imports": [
+        "PreRhoAlignmentResidual0",
+        "PreRhoAlignmentResidual1",
+        "Mathlib.Tactic.LinearCombination"
+      ],
+      "dynamic_imports": [],
+      "selected": false,
+      "selected_roots": [],
+      "checked_object": {
+        "sha256": "460ee8e38d4e25b4f8b60a25e7614fdc2185ad51cfdc0692d6d079c6be206605",
+        "bytes": 134512
+      },
+      "original_receipt": {
+        "sha256": "a280c5dc12a1bb2cdacc7227da72748b752a4ce073330cd24419e4c2f08df684",
+        "bytes": 296
+      },
+      "original_axiom_log": {
+        "sha256": "b7e8d560ff4cf58efb3e86129bbf23b0388cca655f5801c5342378728d7d65f4",
+        "bytes": 332
+      },
+      "original_check_custom_import_object_bindings": {
+        "PreRhoAlignmentResidual0": "e22d9282d29395e0bfd78946b9334c1df3d557d0563b8fd79f22b97d815e1c3d",
+        "PreRhoAlignmentResidual1": "87f2c145d2d1ffe73f5fc080b1688639aaab484ab35098496a8147f303fa880a"
+      },
+      "original_job": {
+        "sha256": "79611ab03bd47b2eb193eb7f9158c1210a564e9ce785376ac03693d749e90a3c",
+        "bytes": 4892
+      },
+      "successful_compiler_copy_matches": true,
+      "reused_source_packet_manifest_sha256": "104a7859749e41316ecd9418d37a622c03db6639d21aa15cd4f4ea5c163829d3",
+      "scope": "Unchanged previously published supporting source; no new selected theorem credit."
+    },
+    {
+      "module": "PreRhoAlignmentResidual0",
+      "file": "lean/PreRhoAlignmentResidual0.lean",
+      "source_sha256": "761ddbbae4a35acce8293a95ef8b47e5e8a3a119c3cd4e8af3deb05f547e1075",
+      "bytes": 528,
+      "static_imports": [
+        "PreRhoAlignmentDefs"
+      ],
+      "dynamic_imports": [],
+      "selected": false,
+      "selected_roots": [],
+      "checked_object": {
+        "sha256": "e22d9282d29395e0bfd78946b9334c1df3d557d0563b8fd79f22b97d815e1c3d",
+        "bytes": 5460200
+      },
+      "original_receipt": {
+        "sha256": "cc39b396c051fd933e829cc51821c7118052d3ea002006400a3622ee27a1c7c6",
+        "bytes": 297
+      },
+      "original_axiom_log": {
+        "sha256": "02c23213d5eb44d55ff98981655b78531dfc97b378ec9ca322f6c675c6ce4aa9",
+        "bytes": 103
+      },
+      "original_check_custom_import_object_bindings": {
+        "PreRhoAlignmentDefs": "bc07ca738db3b36334df77e38027920c81524f3da59eabd0a80efd954f536c0c"
+      },
+      "original_job": {
+        "sha256": "34b65c3577596834623e3938706be45457db71ca8aaade874633b0228db07a7b",
+        "bytes": 4512
+      },
+      "successful_compiler_copy_matches": true,
+      "reused_source_packet_manifest_sha256": "104a7859749e41316ecd9418d37a622c03db6639d21aa15cd4f4ea5c163829d3",
+      "scope": "Unchanged previously published supporting source; no new selected theorem credit."
+    },
+    {
+      "module": "PreRhoAlignmentResidual1",
+      "file": "lean/PreRhoAlignmentResidual1.lean",
+      "source_sha256": "24357da6f6da7385d0126c2c7dbeeecb588dce11d91d8fe82378e7a6096593fb",
+      "bytes": 528,
+      "static_imports": [
+        "PreRhoAlignmentDefs"
+      ],
+      "dynamic_imports": [],
+      "selected": false,
+      "selected_roots": [],
+      "checked_object": {
+        "sha256": "87f2c145d2d1ffe73f5fc080b1688639aaab484ab35098496a8147f303fa880a",
+        "bytes": 3215008
+      },
+      "original_receipt": {
+        "sha256": "66bb1e7a52638afb8b57897d3fa1c5d3144d278c8c392ef966c4b04c84ea520e",
+        "bytes": 297
+      },
+      "original_axiom_log": {
+        "sha256": "9e6ac09e1780511710890a503879903b53957d0cd6fe9301c2d9b5d2693912af",
+        "bytes": 103
+      },
+      "original_check_custom_import_object_bindings": {
+        "PreRhoAlignmentDefs": "bc07ca738db3b36334df77e38027920c81524f3da59eabd0a80efd954f536c0c"
+      },
+      "original_job": {
+        "sha256": "03fa213a1b1e94c943df65b09edccbe4609d585f82f3ce4109277405140c5ec6",
+        "bytes": 4512
+      },
+      "successful_compiler_copy_matches": true,
+      "reused_source_packet_manifest_sha256": "104a7859749e41316ecd9418d37a622c03db6639d21aa15cd4f4ea5c163829d3",
+      "scope": "Unchanged previously published supporting source; no new selected theorem credit."
+    },
+    {
+      "module": "PreRhoNormActual",
+      "file": "lean/PreRhoNormActual.lean",
+      "source_sha256": "19b886e0413e4580cd36ee7140276562503a2ef713e4e9680f772ce0b3a60795",
+      "bytes": 6675,
+      "static_imports": [
+        "PreRhoNormBindings",
+        "PreRhoAlignmentActual"
+      ],
+      "dynamic_imports": [],
+      "selected": false,
+      "selected_roots": [],
+      "checked_object": {
+        "sha256": "998ecda1e5c1367e8b4dda22a871819dbb34981b27c5a2a5cc3975f9f60da01d",
+        "bytes": 1081432
+      },
+      "original_receipt": {
+        "sha256": "aeb9439f39c987caf447ae664f6ff848fc0808e0aaa0399eab7f216e263b174d",
+        "bytes": 297
+      },
+      "original_axiom_log": {
+        "sha256": "a9e008dcf1d9040a2af6ffb01edc2f9f22b2fe6564dfb3678e949beb6a3d5e2f",
+        "bytes": 848
+      },
+      "original_check_custom_import_object_bindings": {
+        "PreRhoNormBindings": "906d323f24a1cb2f3da69869022d32b0af917b9fd6a7da25a1b2f4fff0377e20",
+        "PreRhoAlignmentActual": "d310a0c10201f6b88df824fa431cfa711e42dabf5a0c9c073d58e93e529a1bf8"
+      },
+      "original_job": {
+        "sha256": "9ef902ce52ab2c61ea73f7ed3281820bba9ef26571110e188da40ee8ceed5717",
+        "bytes": 7144
+      },
+      "successful_compiler_copy_matches": true,
+      "reused_source_packet_manifest_sha256": "104a7859749e41316ecd9418d37a622c03db6639d21aa15cd4f4ea5c163829d3",
+      "scope": "Unchanged previously published supporting source; no new selected theorem credit."
+    },
+    {
+      "module": "PreRhoNormAtoms",
+      "file": "lean/PreRhoNormAtoms.lean",
+      "source_sha256": "a5cfa0ef600b4f5963f823d5da2c53c08fdd59ee1e97da336d5c9b448b129fa2",
+      "bytes": 2789,
+      "static_imports": [
+        "PreRhoNormDefs"
+      ],
+      "dynamic_imports": [],
+      "selected": false,
+      "selected_roots": [],
+      "checked_object": {
+        "sha256": "3aef666188e89acc4c3b116b177ec576116ad672e962e3c97f4574fb2da44833",
+        "bytes": 3113504
+      },
+      "original_receipt": {
+        "sha256": "1215680c0984189612b7ff468328514adcb98bfe7bdf24d20064c96b6d55c6e4",
+        "bytes": 297
+      },
+      "original_axiom_log": {
+        "sha256": "de02c22e47c1237821eee2b66f6590f714f27aeb1b17d98cdcc0f2c7444e7569",
+        "bytes": 589
+      },
+      "original_check_custom_import_object_bindings": {
+        "PreRhoNormDefs": "564306c70f2047462d73bd2f8a254696868bd21cf0d6ba8c1bb11817141db46e"
+      },
+      "original_job": {
+        "sha256": "63f679cfdc5f6992033b4b8b9cfe3dd28a0ef7998fda1c8957180d141f9d8a09",
+        "bytes": 4644
+      },
+      "successful_compiler_copy_matches": true,
+      "reused_source_packet_manifest_sha256": "104a7859749e41316ecd9418d37a622c03db6639d21aa15cd4f4ea5c163829d3",
+      "scope": "Unchanged previously published supporting source; no new selected theorem credit."
+    },
+    {
+      "module": "PreRhoNormBindings",
+      "file": "lean/PreRhoNormBindings.lean",
+      "source_sha256": "c68d1249b0050dcc400fb599751ce5a3aa3d94d2737377b583ce69a49be9546c",
+      "bytes": 5502,
+      "static_imports": [
+        "PreRhoActualBindings",
+        "PreRhoNormPolynomial"
+      ],
+      "dynamic_imports": [],
+      "selected": false,
+      "selected_roots": [],
+      "checked_object": {
+        "sha256": "906d323f24a1cb2f3da69869022d32b0af917b9fd6a7da25a1b2f4fff0377e20",
+        "bytes": 625984
+      },
+      "original_receipt": {
+        "sha256": "305d2ab4736e496337f6bcf318d0cd9fc8e9164884564316def91b997c8331a5",
+        "bytes": 296
+      },
+      "original_axiom_log": {
+        "sha256": "b709f9cecfeaef2147b4191881cc58da9249731900cb07ec32f2627a8989f2d1",
+        "bytes": 477
+      },
+      "original_check_custom_import_object_bindings": {
+        "PreRhoActualBindings": "f1c8a3a4b2a0f4bd4ccf1c80298a456749db1f035257fc48962b612ae53b659c",
+        "PreRhoNormPolynomial": "e64670821e40c8e1f6c797704819505347e92352db4a01ccb8a6258ee0e14f62"
+      },
+      "original_job": {
+        "sha256": "8a2ad3a92b56d86274dea168bcd306ee50f205185ad12afe0ec594c6a099477b",
+        "bytes": 6959
+      },
+      "successful_compiler_copy_matches": true,
+      "reused_source_packet_manifest_sha256": "104a7859749e41316ecd9418d37a622c03db6639d21aa15cd4f4ea5c163829d3",
+      "scope": "Unchanged previously published supporting source; no new selected theorem credit."
+    },
+    {
+      "module": "PreRhoNormDefs",
+      "file": "lean/PreRhoNormDefs.lean",
+      "source_sha256": "c7e8294c8294507f596253e5ea3f9b31cd1d7a087dcb724c7bd782292c8abfe9",
+      "bytes": 5291,
+      "static_imports": [
+        "PreRhoAlignmentDefs"
+      ],
+      "dynamic_imports": [],
+      "selected": false,
+      "selected_roots": [],
+      "checked_object": {
+        "sha256": "564306c70f2047462d73bd2f8a254696868bd21cf0d6ba8c1bb11817141db46e",
+        "bytes": 1500832
+      },
+      "original_receipt": {
+        "sha256": "3ef178368be472e4d365db439dcca1afdfae532630b21f8b7028f39d76aa18a9",
+        "bytes": 297
+      },
+      "original_axiom_log": {
+        "sha256": "ec62e299637fd610bb19ae92679e517bee27c03f4923ed72914044a319377ef9",
+        "bytes": 202
+      },
+      "original_check_custom_import_object_bindings": {
+        "PreRhoAlignmentDefs": "bc07ca738db3b36334df77e38027920c81524f3da59eabd0a80efd954f536c0c"
+      },
+      "original_job": {
+        "sha256": "d829c2cab037096daaffc5d9fc70ba4b64b828b1830d74fce89758e5ddfa69c6",
+        "bytes": 4452
+      },
+      "successful_compiler_copy_matches": true,
+      "reused_source_packet_manifest_sha256": "104a7859749e41316ecd9418d37a622c03db6639d21aa15cd4f4ea5c163829d3",
+      "scope": "Unchanged previously published supporting source; no new selected theorem credit."
+    },
+    {
+      "module": "PreRhoNormPolynomial",
+      "file": "lean/PreRhoNormPolynomial.lean",
+      "source_sha256": "87a2d52717bc549b92dbbceeaa05cda81ea7483a2d36590987fea9a47f632a2c",
+      "bytes": 1887,
+      "static_imports": [
+        "PreRhoNormResidual0",
+        "PreRhoNormResidual1",
+        "Mathlib.Tactic.LinearCombination"
+      ],
+      "dynamic_imports": [],
+      "selected": false,
+      "selected_roots": [],
+      "checked_object": {
+        "sha256": "e64670821e40c8e1f6c797704819505347e92352db4a01ccb8a6258ee0e14f62",
+        "bytes": 121368
+      },
+      "original_receipt": {
+        "sha256": "e358ca91255721b973ed23bfd5d26794445c836b03c61a928ee013504f9f05d6",
+        "bytes": 297
+      },
+      "original_axiom_log": {
+        "sha256": "37fe8030cd0ffc6686a442132c18859ad11562bec7a45327f54f7a5ad5b7c14a",
+        "bytes": 315
+      },
+      "original_check_custom_import_object_bindings": {
+        "PreRhoNormResidual0": "c00fb779a5f7e350dc62718cc1c41bec87ce2ec9f04c5066d9849876bf7037c0",
+        "PreRhoNormResidual1": "028663839b611860ac4b0747e36f02992fb0451494c416e0ff805b9fe478d067"
+      },
+      "original_job": {
+        "sha256": "3602ce6457f461d4fcc56571df4c9282af7ae6aecbda71e98ee3ff01228fee58",
+        "bytes": 5225
+      },
+      "successful_compiler_copy_matches": true,
+      "reused_source_packet_manifest_sha256": "104a7859749e41316ecd9418d37a622c03db6639d21aa15cd4f4ea5c163829d3",
+      "scope": "Unchanged previously published supporting source; no new selected theorem credit."
+    },
+    {
+      "module": "PreRhoNormResidual0",
+      "file": "lean/PreRhoNormResidual0.lean",
+      "source_sha256": "a0c2e1570c911f2dddbba5ec63f7d17b352a42d24fce7067abe23c9f8decdf35",
+      "bytes": 2198,
+      "static_imports": [
+        "PreRhoNormAtoms"
+      ],
+      "dynamic_imports": [],
+      "selected": false,
+      "selected_roots": [],
+      "checked_object": {
+        "sha256": "c00fb779a5f7e350dc62718cc1c41bec87ce2ec9f04c5066d9849876bf7037c0",
+        "bytes": 296088
+      },
+      "original_receipt": {
+        "sha256": "0d619899e8570a7021b6dc8390cf950e2008dc62e28a17ea788271b4655220a8",
+        "bytes": 297
+      },
+      "original_axiom_log": {
+        "sha256": "24462199ab4819242030fd995a6523bbf2ed601c7bf8a2f6c082849fe91b67d5",
+        "bytes": 98
+      },
+      "original_check_custom_import_object_bindings": {
+        "PreRhoNormAtoms": "3aef666188e89acc4c3b116b177ec576116ad672e962e3c97f4574fb2da44833"
+      },
+      "original_job": {
+        "sha256": "d52fa4ae72b3cedeff8d927cf3110aa6678d66316a22b1ea540a2cfafd7ecd43",
+        "bytes": 4855
+      },
+      "successful_compiler_copy_matches": true,
+      "reused_source_packet_manifest_sha256": "104a7859749e41316ecd9418d37a622c03db6639d21aa15cd4f4ea5c163829d3",
+      "scope": "Unchanged previously published supporting source; no new selected theorem credit."
+    },
+    {
+      "module": "PreRhoNormResidual1",
+      "file": "lean/PreRhoNormResidual1.lean",
+      "source_sha256": "a9cf8a0ae510b3b407b62a4dd83d843b6711b54fdac84c33fbd4c33010a35206",
+      "bytes": 543,
+      "static_imports": [
+        "PreRhoNormDefs"
+      ],
+      "dynamic_imports": [],
+      "selected": false,
+      "selected_roots": [],
+      "checked_object": {
+        "sha256": "028663839b611860ac4b0747e36f02992fb0451494c416e0ff805b9fe478d067",
+        "bytes": 5295920
+      },
+      "original_receipt": {
+        "sha256": "4e026bed28cc555fc9b347d6e6af3641d83bf6da13b98b5c3bb70186b783a146",
+        "bytes": 296
+      },
+      "original_axiom_log": {
+        "sha256": "72354aba20faa5c78236db2a2ecdc379562c5d6ee13b440907414157407d959d",
+        "bytes": 562
+      },
+      "original_check_custom_import_object_bindings": {
+        "PreRhoNormDefs": "564306c70f2047462d73bd2f8a254696868bd21cf0d6ba8c1bb11817141db46e"
+      },
+      "original_job": {
+        "sha256": "c38de1794e7549936363583aabb4309e4633ae33d0120d5c048d7fcbf5c9f86e",
+        "bytes": 4668
+      },
+      "successful_compiler_copy_matches": true,
+      "reused_source_packet_manifest_sha256": "104a7859749e41316ecd9418d37a622c03db6639d21aa15cd4f4ea5c163829d3",
+      "scope": "Unchanged previously published supporting source; no new selected theorem credit."
+    },
+    {
+      "module": "SideDFTIdentities",
+      "file": "lean/SideDFTIdentities.lean",
+      "source_sha256": "8e5e28b3c3e70c139c684e068df41e51085bb9669edbb6c5c735257f295e752e",
+      "bytes": 4670,
+      "static_imports": [
+        "Hadamard6.Basic",
+        "Mathlib.Tactic.Ring",
+        "Mathlib.Tactic.NormNum"
+      ],
+      "dynamic_imports": [],
+      "selected": true,
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.SideDFT.cubic_of_quadratic",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideDFT.quadratic_ne_one",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideDFT.star_eq_square_of_quadratic_unit",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideDFT.star_square_eq_of_quadratic_unit",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideDFT.dft₀_norm_expansion",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideDFT.dft₁_norm_expansion",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideDFT.dft₂_norm_expansion",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ],
+      "checked_object": {
+        "sha256": "4dbda665d43d277f129230011ededc2b9aff69fd6094c61058dd17ff224984ab",
+        "bytes": 427112
+      },
+      "original_receipt": {
+        "sha256": "8f09ca8e5936eacb7483c498ca5b172ca94488088766198a5c86ce6f8b43078e",
+        "bytes": 296
+      },
+      "original_axiom_log": {
+        "sha256": "71ac050ae1e08a79cec26bd97b3d39a03d45d3182ed75bff71f25b885381e397",
+        "bytes": 858
+      },
+      "original_check_custom_import_object_bindings": {
+        "Hadamard6.Basic": "eb646f0b673ac623cf4975553f7b8365b2f8905304851cd2a60bb6e7a34ea6cd"
+      },
+      "original_job": {
+        "sha256": "88ae8d9c779634bab1d97acbacdf0acf3ed15caf85eaa4729b77fd1b63ff03b1",
+        "bytes": 4300
+      },
+      "successful_compiler_copy_matches": true,
+      "independent_review": "reviews/DFT_INDEPENDENT_REVIEW.json",
+      "original_source_pin_verified": true
+    },
+    {
+      "module": "SideFourierActual",
+      "file": "lean/SideFourierActual.lean",
+      "source_sha256": "7186ff2f60ffdb2e1ef76d012bda7e640958458d4d40de8930c170226c0211d4",
+      "bytes": 3123,
+      "static_imports": [
+        "SideFourierActualCore",
+        "SideFourierElementaryRoots",
+        "SideMatrixSeedGram"
+      ],
+      "dynamic_imports": [],
+      "selected": true,
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.prescribed_side_conditions",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.strict_seed_prescribed_side_exists",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ],
+      "checked_object": {
+        "sha256": "133e5204b6e872035245853759e45284d5c379033744d912afeb96868397dd35",
+        "bytes": 83840
+      },
+      "original_receipt": {
+        "sha256": "9bd8110f2c6a9666a56f8e83c2662e8bbc393761d24e32af23a82805f8c6438b",
+        "bytes": 296
+      },
+      "original_axiom_log": {
+        "sha256": "3c9fca21e3597007fef85ef89e7de40abd581c9fcd40ba5df3b04d218b6dbc34",
+        "bytes": 244
+      },
+      "original_check_custom_import_object_bindings": {
+        "SideFourierActualCore": "db644fae522986e2698f8d7742ef371245e51d0f50cde8fc7482486bd1018650",
+        "SideFourierElementaryRoots": "d2154826adf025ed7e35af98df7d5aa39cee673c86dc7c9ebd773325453d0334",
+        "SideMatrixSeedGram": "124aa157b4fca77c3f514162fe616187134db662b6b7127b44a96e2ccbcaa719"
+      },
+      "original_job": {
+        "sha256": "2f1a5494dd7317813c1476de9e6b1b2d865877afc07ad3a5047cb8e3fb7e9ffe",
+        "bytes": 13624
+      },
+      "successful_compiler_copy_matches": true,
+      "independent_review": "reviews/FLATNESS_INDEPENDENT_REVIEW.json",
+      "original_source_pin_verified": true
+    },
+    {
+      "module": "SideFourierActualCore",
+      "file": "lean/SideFourierActualCore.lean",
+      "source_sha256": "f94006e43da3a7ec72780f1547c5b359a6527bdedfa436a97889aab66cb50412",
+      "bytes": 2192,
+      "static_imports": [
+        "SideFourierFirstRow",
+        "SideMatrixPhaseRows"
+      ],
+      "dynamic_imports": [],
+      "selected": true,
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.prescribed_side_conditions_for_fourier",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ],
+      "checked_object": {
+        "sha256": "db644fae522986e2698f8d7742ef371245e51d0f50cde8fc7482486bd1018650",
+        "bytes": 45576
+      },
+      "original_receipt": {
+        "sha256": "2c17184313e8cf43917cc5af27ccc23430586607bf68935db6ef81173a99248d",
+        "bytes": 296
+      },
+      "original_axiom_log": {
+        "sha256": "7df6d567c2a5f81a87d8c9b7aa204ab7ba103b3eab2ea107d5f475b12f95b6d9",
+        "bytes": 131
+      },
+      "original_check_custom_import_object_bindings": {
+        "SideFourierFirstRow": "f7b02b7d53e2e5ad6f51afd692f1af861c99abccdb8c5904ad19cf5cdbce4d0a",
+        "SideMatrixPhaseRows": "65ffb26bf97524f33b2b2b88cf37985403f3a92b5ba156d7aea94caddac6c994"
+      },
+      "original_job": {
+        "sha256": "cb0c63afcbea341be6305618dccf31009583dfdd8e10cc7bdf8803beaa61ccce",
+        "bytes": 12849
+      },
+      "successful_compiler_copy_matches": true,
+      "independent_review": "reviews/FLATNESS_INDEPENDENT_REVIEW.json",
+      "original_source_pin_verified": true
+    },
+    {
+      "module": "SideFourierElementaryRoots",
+      "file": "lean/SideFourierElementaryRoots.lean",
+      "source_sha256": "e6b06f22d7cc802ff9f9a8a000dfd889442c4512a42881deeb85314b24f2ba89",
+      "bytes": 2346,
+      "static_imports": [
+        "Mathlib.Analysis.SpecialFunctions.Complex.Log",
+        "Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic",
+        "Mathlib.Tactic.Linarith",
+        "Mathlib.Tactic.Ring"
+      ],
+      "dynamic_imports": [],
+      "selected": true,
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.ElementaryFourier.reconstructionOmega_explicit",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.ElementaryFourier.reconstructionOmega_unit_quadratic",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.ElementaryFourier.complex_cube_root_exists",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ],
+      "checked_object": {
+        "sha256": "d2154826adf025ed7e35af98df7d5aa39cee673c86dc7c9ebd773325453d0334",
+        "bytes": 228096
+      },
+      "original_receipt": {
+        "sha256": "01e9d912755136e43603a26fa42cfef8bcd0276bdd7caa878488f7314619758e",
+        "bytes": 296
+      },
+      "original_axiom_log": {
+        "sha256": "99d1a5170fb98e3ae15bd460b10c1f9d426819996f3b8abe63a1b97e8651c157",
+        "bytes": 1197
+      },
+      "original_check_custom_import_object_bindings": {},
+      "original_job": {
+        "sha256": "035566ee5ccb32f558957667f9d8c33c642d5373cab3facc5fbff3d2754769a4",
+        "bytes": 4357
+      },
+      "successful_compiler_copy_matches": true,
+      "independent_review": "reviews/FLATNESS_INDEPENDENT_REVIEW.json",
+      "original_source_pin_verified": true
+    },
+    {
+      "module": "SideFourierFirstRow",
+      "file": "lean/SideFourierFirstRow.lean",
+      "source_sha256": "e180cd22063dd20ed348317339ef4f50c5e093df19b56f9439aa5cac1429e872",
+      "bytes": 759,
+      "static_imports": [
+        "SideFourierMatrixAlgebra"
+      ],
+      "dynamic_imports": [],
+      "selected": true,
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.phaseFourier_first_row",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ],
+      "checked_object": {
+        "sha256": "f7b02b7d53e2e5ad6f51afd692f1af861c99abccdb8c5904ad19cf5cdbce4d0a",
+        "bytes": 77392
+      },
+      "original_receipt": {
+        "sha256": "9ab7e4e37e8ab94013e3f902860bc022315ec987c029ef70ddb53ae068618d6b",
+        "bytes": 297
+      },
+      "original_axiom_log": {
+        "sha256": "fa8c4b28df664806826a7ab2a082b4d4a517d01faa4814db81953dc628c38744",
+        "bytes": 113
+      },
+      "original_check_custom_import_object_bindings": {
+        "SideFourierMatrixAlgebra": "71d02e79ef3e18fa46cd7f79d341be75f9ac554c489af6deded78fcc9f5069b6"
+      },
+      "original_job": {
+        "sha256": "eb9d04d5c3da1327845ad2b5afcfe194caeecb93aa46dd765fd5208250bb1804",
+        "bytes": 4904
+      },
+      "successful_compiler_copy_matches": true,
+      "independent_review": "reviews/FLATNESS_INDEPENDENT_REVIEW.json",
+      "original_source_pin_verified": true
+    },
+    {
+      "module": "SideFourierMatrixAlgebra",
+      "file": "lean/SideFourierMatrixAlgebra.lean",
+      "source_sha256": "efdc7f269ad94a4462dd08bda8842b50d7430922643e9119cf2b0540ea9abfb3",
+      "bytes": 5483,
+      "static_imports": [
+        "SideFourierPhaseAlgebra",
+        "Mathlib.Tactic.FinCases",
+        "Mathlib.Tactic.LinearCombination"
+      ],
+      "dynamic_imports": [],
+      "selected": true,
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.phaseFourier_row_entries",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.phaseDiagonal_gram",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.fourier3_gram",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.phaseFourier_gram",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.phaseFourier_entrywiseUnit",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ],
+      "checked_object": {
+        "sha256": "71d02e79ef3e18fa46cd7f79d341be75f9ac554c489af6deded78fcc9f5069b6",
+        "bytes": 689176
+      },
+      "original_receipt": {
+        "sha256": "05a67e259199d475459168d3fbbba205f7119da277420f0b9c16652b354b9200",
+        "bytes": 297
+      },
+      "original_axiom_log": {
+        "sha256": "04a71c5fbcdb177eacf3296bc343ebdafb26a44f642cf1db9c2157c1a3aedab8",
+        "bytes": 2742
+      },
+      "original_check_custom_import_object_bindings": {
+        "SideFourierPhaseAlgebra": "4b9fa04349a29f406f4faf8a6ce4a7fb9ae32baf00dffcd09ed1ec1536bb4db1"
+      },
+      "original_job": {
+        "sha256": "e74f8c1b816b641eee83ddb26992e75a6ef6b016cdc7ced8da9631c148901de1",
+        "bytes": 4714
+      },
+      "successful_compiler_copy_matches": true,
+      "independent_review": "reviews/FLATNESS_INDEPENDENT_REVIEW.json",
+      "original_source_pin_verified": true
+    },
+    {
+      "module": "SideFourierPhaseAlgebra",
+      "file": "lean/SideFourierPhaseAlgebra.lean",
+      "source_sha256": "c2dd5642ddd8e3b9ec6f00fbccd44030c0f55994eb405af4c9685523ac2fa645",
+      "bytes": 4767,
+      "static_imports": [
+        "SideDFTIdentities",
+        "Mathlib.Tactic.FieldSimp",
+        "Mathlib.Tactic.Linarith"
+      ],
+      "dynamic_imports": [],
+      "selected": true,
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.cube_root_of_unit_is_unit",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.prescribed_phase_gate_cyclicCorr",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.dft_unit_of_norm_and_cyclicCorr",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.phase_gated_dft_row_unit",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ],
+      "checked_object": {
+        "sha256": "4b9fa04349a29f406f4faf8a6ce4a7fb9ae32baf00dffcd09ed1ec1536bb4db1",
+        "bytes": 281472
+      },
+      "original_receipt": {
+        "sha256": "de34d7d86ceece211b8939c070e89dfd148e5bc3b036b9f4a839ef5b063e09ae",
+        "bytes": 297
+      },
+      "original_axiom_log": {
+        "sha256": "e86bd12d0ba030c8149f525bf881d704608832c126abcd84e98fa8662bf1bde5",
+        "bytes": 480
+      },
+      "original_check_custom_import_object_bindings": {
+        "SideDFTIdentities": "4dbda665d43d277f129230011ededc2b9aff69fd6094c61058dd17ff224984ab"
+      },
+      "original_job": {
+        "sha256": "f79bd1e09dd7362350bc484f3366014a2dc358b6ca2bba3c8fafceed9906db86",
+        "bytes": 4517
+      },
+      "successful_compiler_copy_matches": true,
+      "independent_review": "reviews/DFT_INDEPENDENT_REVIEW.json",
+      "original_source_pin_verified": true
+    },
+    {
+      "module": "SideIntrinsicActualBindings",
+      "file": "lean/SideIntrinsicActualBindings.lean",
+      "source_sha256": "0ea2284ae4f5f0dd72d781d92d937099577a23b75317f1a009f77315437d9853",
+      "bytes": 3094,
+      "static_imports": [
+        "SideIntrinsicUnitBindings",
+        "SideIntrinsicDenominatorAlgebra",
+        "PreRhoActualBindings"
+      ],
+      "dynamic_imports": [],
+      "selected": true,
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.fractionData_actual",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.conjugateFractionData_actual",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.actual_scalar_numerators",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.actual_lambda_numerators",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ],
+      "checked_object": {
+        "sha256": "48c58a26b178ea0b3ca3818a6c7c26a87bff4ec1ac37ecd78c4ac1f229ce90cd",
+        "bytes": 183400
+      },
+      "original_receipt": {
+        "sha256": "7a515989d7fe6c50754a09215a45028afc6090ccaca224088f6174d438c73742",
+        "bytes": 297
+      },
+      "original_axiom_log": {
+        "sha256": "ead17ca82d7800ac65ec81baaab0d7ba6e4bb7d28700453c7bc9f86cf9645ea2",
+        "bytes": 523
+      },
+      "original_check_custom_import_object_bindings": {
+        "SideIntrinsicUnitBindings": "4699b373e272f7c9d37730e084ff764f2b41d5114de0a7900df4490ae4687234",
+        "SideIntrinsicDenominatorAlgebra": "13e5d907b5b66aaf06338493e498e738b038cad009b9ef95b34efe9fe2da61df",
+        "PreRhoActualBindings": "f1c8a3a4b2a0f4bd4ccf1c80298a456749db1f035257fc48962b612ae53b659c"
+      },
+      "original_job": {
+        "sha256": "b392a6c9dc0be2a571f7bc9e960b8a359b0d7c1cf9489eaa06292b1c3ade75f8",
+        "bytes": 6480
+      },
+      "successful_compiler_copy_matches": true,
+      "independent_review": "reviews/INTRINSIC_INDEPENDENT_REVIEW.json",
+      "original_source_pin_verified": true
+    },
+    {
+      "module": "SideIntrinsicActualChi",
+      "file": "lean/SideIntrinsicActualChi.lean",
+      "source_sha256": "269293fb2352dee3dbdd316db455d699834490af325a2521793ab4e18c54ff56",
+      "bytes": 2122,
+      "static_imports": [
+        "SideIntrinsicActualBindings",
+        "SideIntrinsicPolynomialChi"
+      ],
+      "dynamic_imports": [],
+      "selected": true,
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.actual_chi_identity",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ],
+      "checked_object": {
+        "sha256": "00b3c61f15a5dce361ee2fa041240ee3c80858432b67519e2c8e7f489aa481a6",
+        "bytes": 206184
+      },
+      "original_receipt": {
+        "sha256": "62cf6822f7c8468e811c876cf9ada03234696388baa3857aa555d5c03f9e314f",
+        "bytes": 296
+      },
+      "original_axiom_log": {
+        "sha256": "41289ee0e61cfafcb41936c431b3bd43eac8bc94113b16db0b65e05933b7e105",
+        "bytes": 126
+      },
+      "original_check_custom_import_object_bindings": {
+        "SideIntrinsicActualBindings": "48c58a26b178ea0b3ca3818a6c7c26a87bff4ec1ac37ecd78c4ac1f229ce90cd",
+        "SideIntrinsicPolynomialChi": "eecbfb3660268d88b4e663f55f158ef9bde4dcb29a10be99f82c0670c12e0d78"
+      },
+      "original_job": {
+        "sha256": "6bc8d620242e22e5df6ad5e8e567b6e8e78f33d9a592f89533be70d631bebc5e",
+        "bytes": 6852
+      },
+      "successful_compiler_copy_matches": true,
+      "independent_review": "reviews/INTRINSIC_INDEPENDENT_REVIEW.json",
+      "original_source_pin_verified": true
+    },
+    {
+      "module": "SideIntrinsicActualLambda",
+      "file": "lean/SideIntrinsicActualLambda.lean",
+      "source_sha256": "c2e40900c799547b3e8759e3222734acb071af983b28e1c0805b23a5b590f88b",
+      "bytes": 1701,
+      "static_imports": [
+        "SideIntrinsicActualBindings",
+        "SideIntrinsicPolynomialLambda"
+      ],
+      "dynamic_imports": [],
+      "selected": true,
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.actual_intrinsic_lambda_identities",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ],
+      "checked_object": {
+        "sha256": "981c348da4b2dfe64a06558d4a4f1ddd96a93b6a15836019863fb48612bf2b23",
+        "bytes": 187184
+      },
+      "original_receipt": {
+        "sha256": "4980abcc3e2596c3a78e9f4fb418c802bc62e4140f1ceaf9314cefbfbfaa5424",
+        "bytes": 297
+      },
+      "original_axiom_log": {
+        "sha256": "81a2b98b6947929787472b9911c53c1d781f92ffc5a594d36c3a818daeba2824",
+        "bytes": 141
+      },
+      "original_check_custom_import_object_bindings": {
+        "SideIntrinsicActualBindings": "48c58a26b178ea0b3ca3818a6c7c26a87bff4ec1ac37ecd78c4ac1f229ce90cd",
+        "SideIntrinsicPolynomialLambda": "f6ddb551c8ee704e8452ac27e6fdc6ef549b74855cbdd3ad30476fb4e9d714a5"
+      },
+      "original_job": {
+        "sha256": "bb839b11b1e37521b6f9e6ecdeb897e38ec9bbf9a514a73b6a822aa85a4d82f4",
+        "bytes": 6873
+      },
+      "successful_compiler_copy_matches": true,
+      "independent_review": "reviews/INTRINSIC_INDEPENDENT_REVIEW.json",
+      "original_source_pin_verified": true
+    },
+    {
+      "module": "SideIntrinsicActualNorms",
+      "file": "lean/SideIntrinsicActualNorms.lean",
+      "source_sha256": "401f1f94e74f28805736bfa6699ebe59bf5bb7695f6e1b8b05b7acb1e9e78c15",
+      "bytes": 1799,
+      "static_imports": [
+        "SideIntrinsicActualBindings",
+        "SideIntrinsicPolynomialNorms"
+      ],
+      "dynamic_imports": [],
+      "selected": true,
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.actual_gramG_norm_det",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.actual_gramEta_norm_perm",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ],
+      "checked_object": {
+        "sha256": "49d3757fdd37038a0a32543b94308b3a6f69507d317c48278ca8af9495e153e9",
+        "bytes": 67776
+      },
+      "original_receipt": {
+        "sha256": "098dc70e0e2b7483ef7a19937967ca3b5c1e57d42c6c970bf73ab18aab2e8d00",
+        "bytes": 296
+      },
+      "original_axiom_log": {
+        "sha256": "12ba85fea6bc8e73f8e631ff597c4ba66f06665f0e8da710449ffe895643856e",
+        "bytes": 259
+      },
+      "original_check_custom_import_object_bindings": {
+        "SideIntrinsicActualBindings": "48c58a26b178ea0b3ca3818a6c7c26a87bff4ec1ac37ecd78c4ac1f229ce90cd",
+        "SideIntrinsicPolynomialNorms": "316324f1afe358a530c18dcb6084b9878dac99dc01b7b191e5d13ff9e380f61f"
+      },
+      "original_job": {
+        "sha256": "3a5934bcc994a7713599ca04acc61eb1872c327a5a5704fe1cc9fb023a5c872b",
+        "bytes": 6866
+      },
+      "successful_compiler_copy_matches": true,
+      "independent_review": "reviews/INTRINSIC_INDEPENDENT_REVIEW.json",
+      "original_source_pin_verified": true
+    },
+    {
+      "module": "SideIntrinsicCoefficientRecovery",
+      "file": "lean/SideIntrinsicCoefficientRecovery.lean",
+      "source_sha256": "ee3c3d8af5e96980a75369097bd02f1739735264bdd5be0b2d94f9beb3630b50",
+      "bytes": 2581,
+      "static_imports": [
+        "SideIntrinsicOrientedModes",
+        "SideModeCoefficientAlgebra"
+      ],
+      "dynamic_imports": [],
+      "selected": true,
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.oriented_mode_coefficient_recovery",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ],
+      "checked_object": {
+        "sha256": "a9a9eefa1b3349a00990447d100ca3e720ef959d53a7a2c2ea0515a76f586061",
+        "bytes": 95680
+      },
+      "original_receipt": {
+        "sha256": "7cede6e85d687e537f2b1a3d092b795db3929d0127148ce47fd039807bc853ad",
+        "bytes": 297
+      },
+      "original_axiom_log": {
+        "sha256": "467d6bb90322567d88a9f30584c04b9ac1ced879837ccfd1d97ec499407f6f68",
+        "bytes": 141
+      },
+      "original_check_custom_import_object_bindings": {
+        "SideIntrinsicOrientedModes": "cb7f51e20f3898030210287894102e0670f753f4f8e8896cb0ac45838310d786",
+        "SideModeCoefficientAlgebra": "a15060df2de7a206174fe32581d0207d34c05d1a4787bdd892b6aa2451561a90"
+      },
+      "original_job": {
+        "sha256": "d1a0247be4566cdb2069ef53580afb5415ea683077aefadb919761d7ce1fa98a",
+        "bytes": 13811
+      },
+      "successful_compiler_copy_matches": true,
+      "independent_review": "reviews/EXHAUSTION_INDEPENDENT_REVIEW.json",
+      "original_source_pin_verified": true
+    },
+    {
+      "module": "SideIntrinsicDenominatorAlgebra",
+      "file": "lean/SideIntrinsicDenominatorAlgebra.lean",
+      "source_sha256": "50ca6ecc96358342206f355bca1c21b558a7964bfe764f1d4f949b891a52dcfb",
+      "bytes": 1926,
+      "static_imports": [
+        "SideIntrinsicPolynomialDefs",
+        "PreRhoAlignmentDefs",
+        "Mathlib.Tactic.FieldSimp"
+      ],
+      "dynamic_imports": [],
+      "selected": true,
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.fraction_scalar_numerators",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.fraction_lambda_numerators",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ],
+      "checked_object": {
+        "sha256": "13e5d907b5b66aaf06338493e498e738b038cad009b9ef95b34efe9fe2da61df",
+        "bytes": 495640
+      },
+      "original_receipt": {
+        "sha256": "078ca33435df82ac9611e2874d3df88cb8ea644a137ac3aa6319522a7ed35fbc",
+        "bytes": 296
+      },
+      "original_axiom_log": {
+        "sha256": "faffa3ca2f52e32fb6240083019c4328094341eb1740a9ceb71673e329491958",
+        "bytes": 1706
+      },
+      "original_check_custom_import_object_bindings": {
+        "SideIntrinsicPolynomialDefs": "6b3575a1c96465a09258a02d3462caaea3b95e42c2a8e2e890be75a7f3b25d9c",
+        "PreRhoAlignmentDefs": "bc07ca738db3b36334df77e38027920c81524f3da59eabd0a80efd954f536c0c"
+      },
+      "original_job": {
+        "sha256": "2b7de52a26d13e872a631c67f19ab635211003defce6283d3b54ebfc15d8d03b",
+        "bytes": 4753
+      },
+      "successful_compiler_copy_matches": true,
+      "independent_review": "reviews/INTRINSIC_INDEPENDENT_REVIEW.json",
+      "original_source_pin_verified": true
+    },
+    {
+      "module": "SideIntrinsicExhaustion",
+      "file": "lean/SideIntrinsicExhaustion.lean",
+      "source_sha256": "81c0603ede41be405fd797fd1e38a41d12e89790ef56c930fe2456266c1fef04",
+      "bytes": 4549,
+      "static_imports": [
+        "SideIntrinsicOrientedMatrix",
+        "SideIntrinsicReflection",
+        "SideIntrinsicSheetChoice",
+        "SideFourierActual"
+      ],
+      "dynamic_imports": [],
+      "selected": true,
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.strict_phase_rows_exhaustion",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.strict_normalized_matrix_side_exhaustion",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ],
+      "checked_object": {
+        "sha256": "505bb7a1bdfb88ad9d444eb76eb5ca053c9f79804a001a519b0625ecbabed240",
+        "bytes": 188888
+      },
+      "original_receipt": {
+        "sha256": "aecd30336239c4553d050246d922de03abd38d50833b04b5fcb1461f31d8a313",
+        "bytes": 296
+      },
+      "original_axiom_log": {
+        "sha256": "da9dcfd8cf71515e2fce204821633a5620317ce498d3b402ac84b324e4c7f6a1",
+        "bytes": 282
+      },
+      "original_check_custom_import_object_bindings": {
+        "SideIntrinsicOrientedMatrix": "58d4e660d64a6efd08ca85d64336d7d3ba452ca19fd78febd381421e2355c9ab",
+        "SideIntrinsicReflection": "cebb2a881f3d285668af6583b6a3bcdb80a43a5ddaf87820c24e1349e9eecdd1",
+        "SideIntrinsicSheetChoice": "1cab1ee819a6dd46f3e68e174f2d7048f03fce5b3fa984db6665bc8aaa1e744e",
+        "SideFourierActual": "133e5204b6e872035245853759e45284d5c379033744d912afeb96868397dd35"
+      },
+      "original_job": {
+        "sha256": "59f4820ce1e8d0071ebe203961e8b34fad2ddfa4c6e7da2c9106f07fa5559b96",
+        "bytes": 18743
+      },
+      "successful_compiler_copy_matches": true,
+      "independent_review": "reviews/EXHAUSTION_INDEPENDENT_REVIEW.json",
+      "original_source_pin_verified": true
+    },
+    {
+      "module": "SideIntrinsicFourierMatrix",
+      "file": "lean/SideIntrinsicFourierMatrix.lean",
+      "source_sha256": "b72e1849e83e06d308d1375602df04fb98a399707f8ce5660f5fc2ab007be9c8",
+      "bytes": 4561,
+      "static_imports": [
+        "SideIntrinsicFourierModes",
+        "SideIntrinsicMatrixBindings",
+        "SideFourierMatrixAlgebra"
+      ],
+      "dynamic_imports": [],
+      "selected": true,
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.side_fourier_factorization",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.phaseSide_unit",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.side_fourier_gram",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.side_fourier_row_norms",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.side_fourier_cross_moment",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ],
+      "checked_object": {
+        "sha256": "0f59cd16b9f7948e16ce5f2aeff6ad2e8950fad42bd9ddb33924f215266d27e8",
+        "bytes": 918528
+      },
+      "original_receipt": {
+        "sha256": "d430fdf490791e7b9e13a475d5dab3be2ec12ae85da286e2ec1cbf6a2c3401e3",
+        "bytes": 297
+      },
+      "original_axiom_log": {
+        "sha256": "9c01ff497accec0eecb49f0ae12ba573d94962a1a4293779e0c6be71a7db645a",
+        "bytes": 3681
+      },
+      "original_check_custom_import_object_bindings": {
+        "SideIntrinsicFourierModes": "701acd813486300b76f533b265b84586165289fa3b131b4b5651b90baa439ca5",
+        "SideIntrinsicMatrixBindings": "d5a1223e2defbece855f62d5b38bd6a1569f71bab56b6a682f39cb51abf96140",
+        "SideFourierMatrixAlgebra": "71d02e79ef3e18fa46cd7f79d341be75f9ac554c489af6deded78fcc9f5069b6"
+      },
+      "original_job": {
+        "sha256": "0dd558458804ebeacb5497dfb952d8d98fae2db37a09cb45abe40eba3546e135",
+        "bytes": 5969
+      },
+      "successful_compiler_copy_matches": true,
+      "independent_review": "reviews/EXHAUSTION_INDEPENDENT_REVIEW.json",
+      "original_source_pin_verified": true
+    },
+    {
+      "module": "SideIntrinsicFourierModes",
+      "file": "lean/SideIntrinsicFourierModes.lean",
+      "source_sha256": "43c8d934b588650f10b6bbca8589c114a93f44eb360ef40cb9748bfa2f9c5b68",
+      "bytes": 3453,
+      "static_imports": [
+        "SideIntrinsicFourierPolynomial",
+        "SideIntrinsicUnitBindings",
+        "SideDFTIdentities",
+        "Mathlib.Tactic.FieldSimp"
+      ],
+      "dynamic_imports": [],
+      "selected": true,
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.actual_mode_alpha",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.actual_mode_gamma",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.actual_mode_determinant",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.actual_mode_conjugate",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.actual_mode_cubic",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ],
+      "checked_object": {
+        "sha256": "701acd813486300b76f533b265b84586165289fa3b131b4b5651b90baa439ca5",
+        "bytes": 433056
+      },
+      "original_receipt": {
+        "sha256": "8ef50cd93d58de09bd6547c4ae0c9a60dfc7d8dc77444af4f09c5ad5473b7339",
+        "bytes": 296
+      },
+      "original_axiom_log": {
+        "sha256": "b84a35f3d5bd3fc3b35c9091205f24685ad2a93ae06452b84e00631e54c0de84",
+        "bytes": 1016
+      },
+      "original_check_custom_import_object_bindings": {
+        "SideIntrinsicFourierPolynomial": "e7cebcf2f012a473d316489ff599dbbb00d7e4a622dd8baeed7d38bfba26f61e",
+        "SideIntrinsicUnitBindings": "4699b373e272f7c9d37730e084ff764f2b41d5114de0a7900df4490ae4687234",
+        "SideDFTIdentities": "4dbda665d43d277f129230011ededc2b9aff69fd6094c61058dd17ff224984ab"
+      },
+      "original_job": {
+        "sha256": "44300f68662b186998c6fd9111a52cd4b0b503c09d9927cb8dfd4ca217387f0d",
+        "bytes": 5158
+      },
+      "successful_compiler_copy_matches": true,
+      "independent_review": "reviews/EXHAUSTION_INDEPENDENT_REVIEW.json",
+      "original_source_pin_verified": true
+    },
+    {
+      "module": "SideIntrinsicFourierPolynomial",
+      "file": "lean/SideIntrinsicFourierPolynomial.lean",
+      "source_sha256": "875c39577f1849ab130202621c8fb635a635f2224991ba4a8230ea3a7a3f1067",
+      "bytes": 3144,
+      "static_imports": [
+        "SideIntrinsicPolynomialDefs",
+        "Mathlib.Tactic.LinearCombination"
+      ],
+      "dynamic_imports": [],
+      "selected": true,
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.mode_alpha_numerator",
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.mode_gamma_numerator",
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.mode_det_numerator",
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.mode_cubic_numerator",
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.mode_inverse_numerators",
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ]
+        }
+      ],
+      "checked_object": {
+        "sha256": "e7cebcf2f012a473d316489ff599dbbb00d7e4a622dd8baeed7d38bfba26f61e",
+        "bytes": 2015208
+      },
+      "original_receipt": {
+        "sha256": "c20931292e9ce262048a4fc5468866113e634bb3d7ef6809eb02e87d87466b2d",
+        "bytes": 296
+      },
+      "original_axiom_log": {
+        "sha256": "d9e5bb5285016ad24ee0fcc5e7022e4f44ef833bfc812ff8e5163541a55f4bd4",
+        "bytes": 11528
+      },
+      "original_check_custom_import_object_bindings": {
+        "SideIntrinsicPolynomialDefs": "6b3575a1c96465a09258a02d3462caaea3b95e42c2a8e2e890be75a7f3b25d9c"
+      },
+      "original_job": {
+        "sha256": "387c0bdec9ae15e0d4046700f73d840d05cbe5a0720ca8df9ffe9fb654d01c70",
+        "bytes": 4577
+      },
+      "successful_compiler_copy_matches": true,
+      "independent_review": "reviews/EXHAUSTION_INDEPENDENT_REVIEW.json",
+      "original_source_pin_verified": true
+    },
+    {
+      "module": "SideIntrinsicLambdaRecovery",
+      "file": "lean/SideIntrinsicLambdaRecovery.lean",
+      "source_sha256": "5fcc5a094f18913b3351826f400b1392edb200336bae98d42423e32f2c056bc5",
+      "bytes": 4215,
+      "static_imports": [
+        "SideIntrinsicTheta",
+        "SideIntrinsicActualLambda"
+      ],
+      "dynamic_imports": [],
+      "selected": true,
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.intrinsicTheta_lambda",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.intrinsic_lambda_P_bindings",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.intrinsic_lambdas_eq_prescribed",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ],
+      "checked_object": {
+        "sha256": "a9905dcba640104beac69c0af758e248f163940931cf6981655eb3898da27d51",
+        "bytes": 317336
+      },
+      "original_receipt": {
+        "sha256": "b430f766b3b8950631dbd059dba0ae14952a1447386bf5de718be58c4256852f",
+        "bytes": 296
+      },
+      "original_axiom_log": {
+        "sha256": "63d7aec1e4e5e72a57402932b7f6d51ff08f510b522f7cea942c095e302b4cd9",
+        "bytes": 1116
+      },
+      "original_check_custom_import_object_bindings": {
+        "SideIntrinsicTheta": "9a0ae9682408e6b532429e9263b8b90a14bc995b9d0e9ebe1f79f7b5e4e52226",
+        "SideIntrinsicActualLambda": "981c348da4b2dfe64a06558d4a4f1ddd96a93b6a15836019863fb48612bf2b23"
+      },
+      "original_job": {
+        "sha256": "1770857a0ee4748ab2be693e4575a802ceab80333f0ef0b8a5db910db147d4c2",
+        "bytes": 8085
+      },
+      "successful_compiler_copy_matches": true,
+      "independent_review": "reviews/INTRINSIC_RECOVERY_INDEPENDENT_REVIEW.json",
+      "original_source_pin_verified": true
+    },
+    {
+      "module": "SideIntrinsicMatrixBindings",
+      "file": "lean/SideIntrinsicMatrixBindings.lean",
+      "source_sha256": "ab8fdb12ea85611e8f725d7a9c47c20159dc0f5ab87d356155d9eb6dd4b6893a",
+      "bytes": 2696,
+      "static_imports": [
+        "SideIntrinsicUnitBindings",
+        "Hadamard6.GramInvariant",
+        "Mathlib.Tactic.FinCases"
+      ],
+      "dynamic_imports": [],
+      "selected": true,
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.rowsOfSide_unit",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.phaseSide_rowsOfSide",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.phaseSide_det_perm",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.phaseSide_correlations",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.arbitrary_side_intrinsic_interface",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ],
+      "checked_object": {
+        "sha256": "d5a1223e2defbece855f62d5b38bd6a1569f71bab56b6a682f39cb51abf96140",
+        "bytes": 349248
+      },
+      "original_receipt": {
+        "sha256": "a9e026127e095ce8422d9027153e6071e032358160d2c4895adee2cb9beff599",
+        "bytes": 297
+      },
+      "original_axiom_log": {
+        "sha256": "d54298e125b883bd017c5b569c38139faa2815eb02447d95517fbb90b34aa098",
+        "bytes": 1033
+      },
+      "original_check_custom_import_object_bindings": {
+        "SideIntrinsicUnitBindings": "4699b373e272f7c9d37730e084ff764f2b41d5114de0a7900df4490ae4687234",
+        "Hadamard6.GramInvariant": "43f6c390338b5d1b4f90512ccc54fc65c07c1ccc25af70108e8871878464265a"
+      },
+      "original_job": {
+        "sha256": "aabf4a643915c51704c8278d64c8a0ef8264e4da9727d38d28df1670f0b93359",
+        "bytes": 4764
+      },
+      "successful_compiler_copy_matches": true,
+      "independent_review": "reviews/INTRINSIC_RECOVERY_INDEPENDENT_REVIEW.json",
+      "original_source_pin_verified": true
+    },
+    {
+      "module": "SideIntrinsicModeRecovery",
+      "file": "lean/SideIntrinsicModeRecovery.lean",
+      "source_sha256": "4455598c3b089cdafcbdd819ff987018e7c01e30943bce393ffd2445d86fb3bc",
+      "bytes": 6257,
+      "static_imports": [
+        "SideIntrinsicFourierMatrix",
+        "SideIntrinsicLambdaRecovery",
+        "SideMatrixMoments"
+      ],
+      "dynamic_imports": [],
+      "selected": true,
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.intrinsic_row_products",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.prescribed_intrinsic_products",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.prescribed_intrinsic_delta_radicand",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.actual_mode_reconstruction_moments",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.actual_mode_delta_is_prescribed_root",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ],
+      "checked_object": {
+        "sha256": "996dfc1d73603a9ebe907ce323aeb6d85ac7e3b2d61374a1a956eb8d2baebb44",
+        "bytes": 325328
+      },
+      "original_receipt": {
+        "sha256": "457bb6b76126f1e839879914fca2b6f7cb58ce973cae5c4afed550d5607ebebb",
+        "bytes": 297
+      },
+      "original_axiom_log": {
+        "sha256": "8b43fd2b568fb54dcc001e6c28163281a992b05151fd13fb1ceccf9618ea3699",
+        "bytes": 1399
+      },
+      "original_check_custom_import_object_bindings": {
+        "SideIntrinsicFourierMatrix": "0f59cd16b9f7948e16ce5f2aeff6ad2e8950fad42bd9ddb33924f215266d27e8",
+        "SideIntrinsicLambdaRecovery": "a9905dcba640104beac69c0af758e248f163940931cf6981655eb3898da27d51",
+        "SideMatrixMoments": "937d822a7fc00e2646cfa7e95611f0705fff858d67e17e992386c46f13404a44"
+      },
+      "original_job": {
+        "sha256": "e53e16fae13b1f4995d96321c7a7bad435958e14c0685449d5c5456e9cc26991",
+        "bytes": 13152
+      },
+      "successful_compiler_copy_matches": true,
+      "independent_review": "reviews/EXHAUSTION_INDEPENDENT_REVIEW.json",
+      "original_source_pin_verified": true
+    },
+    {
+      "module": "SideIntrinsicOrientedMatrix",
+      "file": "lean/SideIntrinsicOrientedMatrix.lean",
+      "source_sha256": "7d51699a6d0cb262eae1410eb4dad7dee47f58477916fd8fb884df5f9273bcb1",
+      "bytes": 2378,
+      "static_imports": [
+        "SideIntrinsicCoefficientRecovery",
+        "SideModeMatrixFactor"
+      ],
+      "dynamic_imports": [],
+      "selected": true,
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.oriented_side_modes_reconstruct",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ],
+      "checked_object": {
+        "sha256": "58d4e660d64a6efd08ca85d64336d7d3ba452ca19fd78febd381421e2355c9ab",
+        "bytes": 78528
+      },
+      "original_receipt": {
+        "sha256": "11d4fd717ea2926260637791c14b3583ac5e44bdf2dd32917f87d5c4c1b0f25b",
+        "bytes": 297
+      },
+      "original_axiom_log": {
+        "sha256": "c3fe775c38e27744bfd801b2ca609e53eb9a5a744917b65aa9ea0b14bbd9ef72",
+        "bytes": 138
+      },
+      "original_check_custom_import_object_bindings": {
+        "SideIntrinsicCoefficientRecovery": "a9a9eefa1b3349a00990447d100ca3e720ef959d53a7a2c2ea0515a76f586061",
+        "SideModeMatrixFactor": "a4f84db60d7524541a61801be263f9cc3ea42bf736ecbf3bb717d10cda408dc9"
+      },
+      "original_job": {
+        "sha256": "ae6f576d6286cd5f299c0dfa4fe4e20bd24bde6daaa10afb732de48f444dd35e",
+        "bytes": 14193
+      },
+      "successful_compiler_copy_matches": true,
+      "independent_review": "reviews/EXHAUSTION_INDEPENDENT_REVIEW.json",
+      "original_source_pin_verified": true
+    },
+    {
+      "module": "SideIntrinsicOrientedModes",
+      "file": "lean/SideIntrinsicOrientedModes.lean",
+      "source_sha256": "5c90390b666ad2868b94782e343e17e79dfed2650cdb413175be15ce2b340004",
+      "bytes": 2947,
+      "static_imports": [
+        "SideIntrinsicModeRecovery"
+      ],
+      "dynamic_imports": [],
+      "selected": true,
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.oriented_mode_scalar_recovery",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ],
+      "checked_object": {
+        "sha256": "cb7f51e20f3898030210287894102e0670f753f4f8e8896cb0ac45838310d786",
+        "bytes": 173576
+      },
+      "original_receipt": {
+        "sha256": "550df06232fcfd9a764197c52ffb956c6885c386ccc17cb01228dab27ae60dc7",
+        "bytes": 296
+      },
+      "original_axiom_log": {
+        "sha256": "de7d50497b5896c5baa7cab291491d55e0c1fe0dc4a0b804b302415012e184af",
+        "bytes": 136
+      },
+      "original_check_custom_import_object_bindings": {
+        "SideIntrinsicModeRecovery": "996dfc1d73603a9ebe907ce323aeb6d85ac7e3b2d61374a1a956eb8d2baebb44"
+      },
+      "original_job": {
+        "sha256": "a4cef924efbe30411c6a51df9d0c4f5d94fa365df54891ad3a6967aafa09e9ad",
+        "bytes": 13363
+      },
+      "successful_compiler_copy_matches": true,
+      "independent_review": "reviews/EXHAUSTION_INDEPENDENT_REVIEW.json",
+      "original_source_pin_verified": true
+    },
+    {
+      "module": "SideIntrinsicPolynomialChi",
+      "file": "lean/SideIntrinsicPolynomialChi.lean",
+      "source_sha256": "5b2922aee0f3832d22ac124a62d455e0d599aac124e3a2c3b462835e6ed71cfe",
+      "bytes": 748,
+      "static_imports": [
+        "SideIntrinsicPolynomialDefs"
+      ],
+      "dynamic_imports": [],
+      "selected": true,
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.gramChi_numerator",
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ]
+        }
+      ],
+      "checked_object": {
+        "sha256": "eecbfb3660268d88b4e663f55f158ef9bde4dcb29a10be99f82c0670c12e0d78",
+        "bytes": 7288464
+      },
+      "original_receipt": {
+        "sha256": "c0f670baa39d76445a88f2a63f7cb7df9293a1f98da598c33fbe397f860303a0",
+        "bytes": 297
+      },
+      "original_axiom_log": {
+        "sha256": "9ca3a4ac8f6c9a85cd7f0c85fb7a2f0e4cd7f96231a5eb1fcc9e1094137c2a89",
+        "bytes": 104
+      },
+      "original_check_custom_import_object_bindings": {
+        "SideIntrinsicPolynomialDefs": "6b3575a1c96465a09258a02d3462caaea3b95e42c2a8e2e890be75a7f3b25d9c"
+      },
+      "original_job": {
+        "sha256": "7368a6acaa3ea89847a21df2f64e37d211d60fdab290dffe69998b5cfebeced1",
+        "bytes": 4520
+      },
+      "successful_compiler_copy_matches": true,
+      "independent_review": "reviews/INTRINSIC_INDEPENDENT_REVIEW.json",
+      "original_source_pin_verified": true
+    },
+    {
+      "module": "SideIntrinsicPolynomialDefs",
+      "file": "lean/SideIntrinsicPolynomialDefs.lean",
+      "source_sha256": "1291afc792342d1241ca5a0ec63d77ba8ac9d838f254a7e420b7c8ce334abc53",
+      "bytes": 2959,
+      "static_imports": [
+        "Mathlib.Tactic.Ring"
+      ],
+      "dynamic_imports": [],
+      "selected": true,
+      "selected_roots": [],
+      "checked_object": {
+        "sha256": "6b3575a1c96465a09258a02d3462caaea3b95e42c2a8e2e890be75a7f3b25d9c",
+        "bytes": 250576
+      },
+      "original_receipt": {
+        "sha256": "2a2872c2982308771ea1f93f5c3ccb9c4d2fcb20fef34c93addd71f583bfec7c",
+        "bytes": 297
+      },
+      "original_axiom_log": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "original_check_custom_import_object_bindings": {},
+      "original_job": {
+        "sha256": "d7c2d566d9b83c650e8fee12830ac869a8bfeb78d152a99b524ac9c3ef54964a",
+        "bytes": 4330
+      },
+      "successful_compiler_copy_matches": true,
+      "independent_review": "reviews/INTRINSIC_INDEPENDENT_REVIEW.json",
+      "original_source_pin_verified": true
+    },
+    {
+      "module": "SideIntrinsicPolynomialLambda",
+      "file": "lean/SideIntrinsicPolynomialLambda.lean",
+      "source_sha256": "5e1dda273c2b9d88471c75d2bfb35dc37ab80fa2bf205e7e7f3e897bef82c30f",
+      "bytes": 1071,
+      "static_imports": [
+        "SideIntrinsicPolynomialDefs"
+      ],
+      "dynamic_imports": [],
+      "selected": true,
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.lambda0_numerator",
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.lambda1_numerator",
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.lambda2_numerator",
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ]
+        }
+      ],
+      "checked_object": {
+        "sha256": "f6ddb551c8ee704e8452ac27e6fdc6ef549b74855cbdd3ad30476fb4e9d714a5",
+        "bytes": 1796840
+      },
+      "original_receipt": {
+        "sha256": "4d0035aac315151b5fab916766ef49266bfefee89a5c929dfa9c1bda0cf3d697",
+        "bytes": 297
+      },
+      "original_axiom_log": {
+        "sha256": "65a487bf3d98e2114f47d3f311023ba7c4774290f75b1a1ce804370ae43f7420",
+        "bytes": 3516
+      },
+      "original_check_custom_import_object_bindings": {
+        "SideIntrinsicPolynomialDefs": "6b3575a1c96465a09258a02d3462caaea3b95e42c2a8e2e890be75a7f3b25d9c"
+      },
+      "original_job": {
+        "sha256": "a71745cce751d2a942f2b1509479c3748e69372ea1148702819add02d12744eb",
+        "bytes": 4538
+      },
+      "successful_compiler_copy_matches": true,
+      "independent_review": "reviews/INTRINSIC_INDEPENDENT_REVIEW.json",
+      "original_source_pin_verified": true
+    },
+    {
+      "module": "SideIntrinsicPolynomialNorms",
+      "file": "lean/SideIntrinsicPolynomialNorms.lean",
+      "source_sha256": "1be085f5915803c5ce132e48d62934d17bf4276e444da0675ad0a3e575bdca99",
+      "bytes": 743,
+      "static_imports": [
+        "SideIntrinsicPolynomialDefs"
+      ],
+      "dynamic_imports": [],
+      "selected": true,
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.gramG_numerator",
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.gramEta_numerator",
+          "axioms": [
+            "propext"
+          ]
+        }
+      ],
+      "checked_object": {
+        "sha256": "316324f1afe358a530c18dcb6084b9878dac99dc01b7b191e5d13ff9e380f61f",
+        "bytes": 488896
+      },
+      "original_receipt": {
+        "sha256": "4e57b0a6f77bcaf32e4f4a0b361f59faae22ca978f69ff1668ff3b16a219e897",
+        "bytes": 297
+      },
+      "original_axiom_log": {
+        "sha256": "45c5a92708bc3c382bf46ab3447a96a7114208e7ed3eecd448309948477c196f",
+        "bytes": 194
+      },
+      "original_check_custom_import_object_bindings": {
+        "SideIntrinsicPolynomialDefs": "6b3575a1c96465a09258a02d3462caaea3b95e42c2a8e2e890be75a7f3b25d9c"
+      },
+      "original_job": {
+        "sha256": "57d3c0b9568ba79e4963fd3be70eb0f2f480ec0789ae621cde05d96ca403efa5",
+        "bytes": 4532
+      },
+      "successful_compiler_copy_matches": true,
+      "independent_review": "reviews/INTRINSIC_INDEPENDENT_REVIEW.json",
+      "original_source_pin_verified": true
+    },
+    {
+      "module": "SideIntrinsicReflection",
+      "file": "lean/SideIntrinsicReflection.lean",
+      "source_sha256": "070246616448631c7255740be53fa4b94e9f1af5ce4703e519cda0e2561a8bc7",
+      "bytes": 2424,
+      "static_imports": [
+        "SideIntrinsicFourierModes",
+        "SideIntrinsicMatrixBindings",
+        "Mathlib.Tactic.FinCases"
+      ],
+      "dynamic_imports": [],
+      "selected": true,
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.reflectRows_unit",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.reflectRows_correlations",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.reflectRows_modes",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.reflectRows_matrix",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.choose_oriented_rows",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ],
+      "checked_object": {
+        "sha256": "cebb2a881f3d285668af6583b6a3bcdb80a43a5ddaf87820c24e1349e9eecdd1",
+        "bytes": 345928
+      },
+      "original_receipt": {
+        "sha256": "7976b0ae8d5757732c60d7a274ab500301768877287363382bbdac9f97990854",
+        "bytes": 296
+      },
+      "original_axiom_log": {
+        "sha256": "1155b5fa91dd4d0bb55a9964060f019897527bad3cb616f913bf495d7f3f12a2",
+        "bytes": 628
+      },
+      "original_check_custom_import_object_bindings": {
+        "SideIntrinsicFourierModes": "701acd813486300b76f533b265b84586165289fa3b131b4b5651b90baa439ca5",
+        "SideIntrinsicMatrixBindings": "d5a1223e2defbece855f62d5b38bd6a1569f71bab56b6a682f39cb51abf96140"
+      },
+      "original_job": {
+        "sha256": "1298166e806dac19d3a26bd803eb5cf97f298daa343e4406f7f710c7acb154bf",
+        "bytes": 6154
+      },
+      "successful_compiler_copy_matches": true,
+      "independent_review": "reviews/EXHAUSTION_INDEPENDENT_REVIEW.json",
+      "original_source_pin_verified": true
+    },
+    {
+      "module": "SideIntrinsicSheetChoice",
+      "file": "lean/SideIntrinsicSheetChoice.lean",
+      "source_sha256": "4eca5ba5c1562d38de7ba830489027e0f21b30e49ef56c6341ea875088cd67bd",
+      "bytes": 3300,
+      "static_imports": [
+        "SideIntrinsicTheta"
+      ],
+      "dynamic_imports": [],
+      "selected": true,
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.moments_choose_sheet",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.strict_intrinsic_sheet_exists",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ],
+      "checked_object": {
+        "sha256": "1cab1ee819a6dd46f3e68e174f2d7048f03fce5b3fa984db6665bc8aaa1e744e",
+        "bytes": 286776
+      },
+      "original_receipt": {
+        "sha256": "323420dbc5f02676069469c2b9c3e90b979d9bd176b12b540fa8f1a728a998a5",
+        "bytes": 295
+      },
+      "original_axiom_log": {
+        "sha256": "fd2a8b2a0748dbd8659381eb4256f9c7a7b4387e77404cb9c0300eb82bb3d9d8",
+        "bytes": 1482
+      },
+      "original_check_custom_import_object_bindings": {
+        "SideIntrinsicTheta": "9a0ae9682408e6b532429e9263b8b90a14bc995b9d0e9ebe1f79f7b5e4e52226"
+      },
+      "original_job": {
+        "sha256": "c805cd6adb269ca5288f420bce8177044d09907d06fa2bc07290c240f18994b5",
+        "bytes": 7664
+      },
+      "successful_compiler_copy_matches": true,
+      "independent_review": "reviews/INTRINSIC_RECOVERY_INDEPENDENT_REVIEW.json",
+      "original_source_pin_verified": true
+    },
+    {
+      "module": "SideIntrinsicTheta",
+      "file": "lean/SideIntrinsicTheta.lean",
+      "source_sha256": "15946324e6d4c4dbcda80bbda42cc9f59aede16b7c15b470809ca67de6025992",
+      "bytes": 3285,
+      "static_imports": [
+        "SideIntrinsicActualNorms",
+        "SideIntrinsicActualChi"
+      ],
+      "dynamic_imports": [],
+      "selected": true,
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.strict_intrinsic_det_guard",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.intrinsic_lambdas_unit",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.intrinsicTheta_literal",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.intrinsicTheta_moments",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ],
+      "checked_object": {
+        "sha256": "9a0ae9682408e6b532429e9263b8b90a14bc995b9d0e9ebe1f79f7b5e4e52226",
+        "bytes": 209032
+      },
+      "original_receipt": {
+        "sha256": "eda0125fd6d56e756682b21d75c6ba44ac85b60ac45e84cfc4fc31689f6dc0e2",
+        "bytes": 296
+      },
+      "original_axiom_log": {
+        "sha256": "2dc4326075847bc1adf3d2f32a64fd53b1bb708d42c686b9d9d02c9a3a992e97",
+        "bytes": 1876
+      },
+      "original_check_custom_import_object_bindings": {
+        "SideIntrinsicActualNorms": "49d3757fdd37038a0a32543b94308b3a6f69507d317c48278ca8af9495e153e9",
+        "SideIntrinsicActualChi": "00b3c61f15a5dce361ee2fa041240ee3c80858432b67519e2c8e7f489aa481a6"
+      },
+      "original_job": {
+        "sha256": "ed34ca76cbe60b343c5dcbd23ac47d9340ee9397c20168c2aa87a88815f735ef",
+        "bytes": 7428
+      },
+      "successful_compiler_copy_matches": true,
+      "independent_review": "reviews/INTRINSIC_RECOVERY_INDEPENDENT_REVIEW.json",
+      "original_source_pin_verified": true
+    },
+    {
+      "module": "SideIntrinsicUnitBindings",
+      "file": "lean/SideIntrinsicUnitBindings.lean",
+      "source_sha256": "9546d661cb8d38e64d034d38fe115c242eb6a9619774d2a533a09ec68b76ef7f",
+      "bytes": 4921,
+      "static_imports": [
+        "SideIntrinsicPolynomialDefs",
+        "Hadamard6.Basic",
+        "Mathlib.Tactic.LinearCombination",
+        "Mathlib.Tactic.NormNum"
+      ],
+      "dynamic_imports": [],
+      "selected": true,
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.row_pair_bindings",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.row_product_units",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.row_sum_conjugate_bindings",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.row_det_perm_conjugate_bindings",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.row_fraction_bindings",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ],
+      "checked_object": {
+        "sha256": "4699b373e272f7c9d37730e084ff764f2b41d5114de0a7900df4490ae4687234",
+        "bytes": 429296
+      },
+      "original_receipt": {
+        "sha256": "401ef78d8da830e6205dfdd89692377ccb68cd94521c8572b12f5a1a818a90fd",
+        "bytes": 297
+      },
+      "original_axiom_log": {
+        "sha256": "9355779b721f8dc71bfe9ea6c1bed65ad27ee53bbf102a0aa8cdce49ac936d52",
+        "bytes": 647
+      },
+      "original_check_custom_import_object_bindings": {
+        "SideIntrinsicPolynomialDefs": "6b3575a1c96465a09258a02d3462caaea3b95e42c2a8e2e890be75a7f3b25d9c",
+        "Hadamard6.Basic": "eb646f0b673ac623cf4975553f7b8365b2f8905304851cd2a60bb6e7a34ea6cd"
+      },
+      "original_job": {
+        "sha256": "f892ff56a84054cf63bed5d08b9bede923951dce5d268b3a4d24c0dbeeea6965",
+        "bytes": 4547
+      },
+      "successful_compiler_copy_matches": true,
+      "independent_review": "reviews/INTRINSIC_INDEPENDENT_REVIEW.json",
+      "original_source_pin_verified": true
+    },
+    {
+      "module": "SideMatrixCoefficientAlgebra",
+      "file": "lean/SideMatrixCoefficientAlgebra.lean",
+      "source_sha256": "cbebacb15e4a2cd7f57d3fe177369698a0483ea3caeb8021cc3e95ef1cbccfbb",
+      "bytes": 3575,
+      "static_imports": [
+        "Mathlib.Data.Complex.Basic",
+        "Mathlib.Tactic.FieldSimp",
+        "Mathlib.Tactic.Ring",
+        "Mathlib.Tactic.NormNum",
+        "Mathlib.Tactic.Linarith"
+      ],
+      "dynamic_imports": [],
+      "selected": true,
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.rho_quotient_balance",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.two_coefficient_norm_identity",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.two_coefficient_norm_division",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.two_coefficient_inner",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.two_coefficient_weighted_norm",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.coefficient_sigma_inner",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ],
+      "checked_object": {
+        "sha256": "2078f430cc976878a8788182c8ab33fb1387f1713384f54ee306a327e48d865b",
+        "bytes": 429680
+      },
+      "original_receipt": {
+        "sha256": "67d50efa47e20d2d6cfba01a0070c0cd4bdeb525d6157831d34ad56dd975bb97",
+        "bytes": 297
+      },
+      "original_axiom_log": {
+        "sha256": "0ce57bca490999a9dac909b60446ef85c64b50b6970529442172fe8481c3bdf3",
+        "bytes": 2560
+      },
+      "original_check_custom_import_object_bindings": {},
+      "original_job": {
+        "sha256": "bf5501e5d8b36a16bf3b4cb3f8acb6daac4a38d363f2a48fd3f3b5eb61a55ceb",
+        "bytes": 4348
+      },
+      "successful_compiler_copy_matches": true,
+      "independent_review": "reviews/ROOT_MATRIX_COEFFICIENT_REVIEW.json",
+      "original_source_pin_verified": true
+    },
+    {
+      "module": "SideMatrixDeterminant",
+      "file": "lean/SideMatrixDeterminant.lean",
+      "source_sha256": "2d583b7059d2008b0fb09ac845de3f66d89beca5fe094267262ffe3965080973",
+      "bytes": 1392,
+      "static_imports": [
+        "SideMatrixGram",
+        "SideMatrixMoments"
+      ],
+      "dynamic_imports": [],
+      "selected": true,
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.prescribed_matrix_det",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ],
+      "checked_object": {
+        "sha256": "af695e91a06bf926d7127c18a55f4f3c482f57ec500c336addf70d215e5ecc9c",
+        "bytes": 102128
+      },
+      "original_receipt": {
+        "sha256": "cbf5a5cac5310154720b735eb97437b59538d933e26b06bfc1ef3ee5c958e6eb",
+        "bytes": 296
+      },
+      "original_axiom_log": {
+        "sha256": "dd10b7a0bcbe0dc17ac2bc2f09403b990db42a8fad981e178a67a20ab0643916",
+        "bytes": 489
+      },
+      "original_check_custom_import_object_bindings": {
+        "SideMatrixGram": "90846d7f41222b98bedc93871039026c490496c2fc98e7a04f257d95be3e2601",
+        "SideMatrixMoments": "937d822a7fc00e2646cfa7e95611f0705fff858d67e17e992386c46f13404a44"
+      },
+      "original_job": {
+        "sha256": "8e8b5cf792cddfa5a63b13c6fc0c90509f27ba65eb194028bd1e371638be24e7",
+        "bytes": 9291
+      },
+      "successful_compiler_copy_matches": true,
+      "independent_review": "reviews/ROOT_MATRIX_MOMENTS_REVIEW.json",
+      "original_source_pin_verified": true
+    },
+    {
+      "module": "SideMatrixGram",
+      "file": "lean/SideMatrixGram.lean",
+      "source_sha256": "8cc0d65df953b9ce69fbf1d6da35b3a1ce51aa33a5c72a3cd70de0a9d355de0c",
+      "bytes": 4668,
+      "static_imports": [
+        "SideMatrixRows",
+        "StrictSideOrientedRoot",
+        "Mathlib.Tactic.FinCases"
+      ],
+      "dynamic_imports": [],
+      "selected": true,
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.sideMatrixCore_gram",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.prescribed_matrix_gram",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.strict_seed_matrix_gram_exists",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ],
+      "checked_object": {
+        "sha256": "90846d7f41222b98bedc93871039026c490496c2fc98e7a04f257d95be3e2601",
+        "bytes": 629464
+      },
+      "original_receipt": {
+        "sha256": "9bd54cad0db3dd69f88456993254eec6f3b831513f4b4332bf32557857fcf1e1",
+        "bytes": 297
+      },
+      "original_axiom_log": {
+        "sha256": "710d26ada39dd5521358b40e464573c07fb20cfa04579f0b58f11f7e201f433e",
+        "bytes": 885
+      },
+      "original_check_custom_import_object_bindings": {
+        "SideMatrixRows": "d315557b0e22186fae77072ea3f21fe62b234b5e22fd139163fb8b672080d39b",
+        "StrictSideOrientedRoot": "a575a3b9a84e9071699c6b5a377184c1636bc9e8676d0b57aaa881fc99dfce6a"
+      },
+      "original_job": {
+        "sha256": "c2a2b98985d0d0539f2591b1fd66ac22a64deb159a653a31eecfd1e2803254cf",
+        "bytes": 8671
+      },
+      "successful_compiler_copy_matches": true,
+      "independent_review": "reviews/ROOT_MATRIX_GRAM_REVIEW.json",
+      "original_source_pin_verified": true
+    },
+    {
+      "module": "SideMatrixMomentAlgebra",
+      "file": "lean/SideMatrixMomentAlgebra.lean",
+      "source_sha256": "d2d10e774d56224e1b81300d64d5d853ba116261fdd3fb40df118e16ee59cb38",
+      "bytes": 3700,
+      "static_imports": [
+        "SideMatrixCoefficientAlgebra",
+        "Mathlib.Tactic.LinearCombination"
+      ],
+      "dynamic_imports": [],
+      "selected": true,
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.two_coefficient_determinant",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.two_coefficient_mixed",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.phase_gate_from_unit_balance",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.sigma_row_phase_gate",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ],
+      "checked_object": {
+        "sha256": "8a295c4c682fcd63fc79511301b8121289961fe3b1f29eed02e4455e6f596c9b",
+        "bytes": 397728
+      },
+      "original_receipt": {
+        "sha256": "90441b0c2cbfc5f001cb4b8fe957c666dce42fbf017d5425dd0dc6799bd357aa",
+        "bytes": 296
+      },
+      "original_axiom_log": {
+        "sha256": "0084c84770f0e442949ddbfae08f2e0c581892c77dbf9defae4a6f813294d6d8",
+        "bytes": 1212
+      },
+      "original_check_custom_import_object_bindings": {
+        "SideMatrixCoefficientAlgebra": "2078f430cc976878a8788182c8ab33fb1387f1713384f54ee306a327e48d865b"
+      },
+      "original_job": {
+        "sha256": "05dc789b0f1d0ee9fbd026bc758ae6a61b14d0b14e10a6a8d6dc71f01905a456",
+        "bytes": 4519
+      },
+      "successful_compiler_copy_matches": true,
+      "independent_review": "reviews/ROOT_MATRIX_MOMENTS_REVIEW.json",
+      "original_source_pin_verified": true
+    },
+    {
+      "module": "SideMatrixMoments",
+      "file": "lean/SideMatrixMoments.lean",
+      "source_sha256": "7ea77628ff5d12cd67cd146b1a2d58f0a03978952ce5f9195b6581349a0674ba",
+      "bytes": 6133,
+      "static_imports": [
+        "SideMatrixMomentAlgebra",
+        "SideMatrixScalar"
+      ],
+      "dynamic_imports": [],
+      "selected": true,
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.prescribed_preRho_factor",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.prescribed_coefficient_determinant",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.prescribed_mixed_permanent",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.prescribed_second_row_phase_gate",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ],
+      "checked_object": {
+        "sha256": "937d822a7fc00e2646cfa7e95611f0705fff858d67e17e992386c46f13404a44",
+        "bytes": 239840
+      },
+      "original_receipt": {
+        "sha256": "a0c537b985be04e4fc3e98206a1a334098e738819128e7b3698b1065482d8859",
+        "bytes": 296
+      },
+      "original_axiom_log": {
+        "sha256": "63c8e209a306ef131dff9db886006fb34adeb71668014ccd26e1c7439d67fff8",
+        "bytes": 484
+      },
+      "original_check_custom_import_object_bindings": {
+        "SideMatrixMomentAlgebra": "8a295c4c682fcd63fc79511301b8121289961fe3b1f29eed02e4455e6f596c9b",
+        "SideMatrixScalar": "59da82b040ec2b26e6932d681e222d5be84b157f48cf4e757d9951448f0fc584"
+      },
+      "original_job": {
+        "sha256": "90361f392dc2368dc2774b4702eb968a5d78c9d92326c4df1c2b47cb14157263",
+        "bytes": 9057
+      },
+      "successful_compiler_copy_matches": true,
+      "independent_review": "reviews/ROOT_MATRIX_MOMENTS_REVIEW.json",
+      "original_source_pin_verified": true
+    },
+    {
+      "module": "SideMatrixPhaseRows",
+      "file": "lean/SideMatrixPhaseRows.lean",
+      "source_sha256": "e569a5ffb93ccdeaf5cd5f8fe6bc14ad2ff6f9d00835b330b2c3cc5a791a00fa",
+      "bytes": 1502,
+      "static_imports": [
+        "ThirdRowGateActual",
+        "SideMatrixGram"
+      ],
+      "dynamic_imports": [],
+      "selected": true,
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.prescribed_matrix_row_norms_and_gates",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ],
+      "checked_object": {
+        "sha256": "65ffb26bf97524f33b2b2b88cf37985403f3a92b5ba156d7aea94caddac6c994",
+        "bytes": 211400
+      },
+      "original_receipt": {
+        "sha256": "8f778ae2e3e182a09d6cc8504cce732739f8b28192a7904ddcbc94fb18091999",
+        "bytes": 297
+      },
+      "original_axiom_log": {
+        "sha256": "389f360c00001d2d522425fdb0eeb37cc36972b7e056f9946aeebb5e752e468b",
+        "bytes": 130
+      },
+      "original_check_custom_import_object_bindings": {
+        "ThirdRowGateActual": "7a6d24001ef6d1643b65d6bb830db4e292e627031d3e6f0e72d388a3ac5d347a",
+        "SideMatrixGram": "90846d7f41222b98bedc93871039026c490496c2fc98e7a04f257d95be3e2601"
+      },
+      "original_job": {
+        "sha256": "637e019c4c9768d2c49aa36a16dd44c958e6b51a5e0069740e0d28c5026ea5bc",
+        "bytes": 12638
+      },
+      "successful_compiler_copy_matches": true,
+      "independent_review": "reviews/FLATNESS_INDEPENDENT_REVIEW.json",
+      "original_source_pin_verified": true
+    },
+    {
+      "module": "SideMatrixRows",
+      "file": "lean/SideMatrixRows.lean",
+      "source_sha256": "8deb618d3b53b56c2ef00853c0c538ac1ee5c6918f7944748e52e188415c7a32",
+      "bytes": 2987,
+      "static_imports": [
+        "SideMatrixScalar"
+      ],
+      "dynamic_imports": [],
+      "selected": true,
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.prescribed_matrix_row_data",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ],
+      "checked_object": {
+        "sha256": "d315557b0e22186fae77072ea3f21fe62b234b5e22fd139163fb8b672080d39b",
+        "bytes": 209712
+      },
+      "original_receipt": {
+        "sha256": "73d76f681c950a275ed9ca1410c21a4528a32bdc416c4ee4c9e4bf92349dc7b4",
+        "bytes": 296
+      },
+      "original_axiom_log": {
+        "sha256": "4b0a25b9fa14872044db7809e1fc0199e10209b2d9edce3134c5bc59c9b0593a",
+        "bytes": 117
+      },
+      "original_check_custom_import_object_bindings": {
+        "SideMatrixScalar": "59da82b040ec2b26e6932d681e222d5be84b157f48cf4e757d9951448f0fc584"
+      },
+      "original_job": {
+        "sha256": "05daf64e26c6d651dcf28adea4a49db544616abfa10ea3bc15c17b1f849e8dad",
+        "bytes": 8478
+      },
+      "successful_compiler_copy_matches": true,
+      "independent_review": "reviews/ROOT_MATRIX_GRAM_REVIEW.json",
+      "original_source_pin_verified": true
+    },
+    {
+      "module": "SideMatrixScalar",
+      "file": "lean/SideMatrixScalar.lean",
+      "source_sha256": "f0f23db193b3f35a6c4f99f622ef9d6e5098738d5813b74207375d3a32a95f92",
+      "bytes": 1759,
+      "static_imports": [
+        "SideMatrixCoefficientAlgebra",
+        "SideMatrixSchurPolynomial",
+        "StrictSideFinalGuards"
+      ],
+      "dynamic_imports": [],
+      "selected": true,
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.prescribed_rho_q_balance",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.reconstruction_schur_identity",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ],
+      "checked_object": {
+        "sha256": "59da82b040ec2b26e6932d681e222d5be84b157f48cf4e757d9951448f0fc584",
+        "bytes": 36032
+      },
+      "original_receipt": {
+        "sha256": "1d178a012624a6498024c91cf8f546f922f4a9822b0a3af51aa7b1a983c0f949",
+        "bytes": 297
+      },
+      "original_axiom_log": {
+        "sha256": "1380816e10edb0725512ba0fa5acf97098332b60004980f1b6d27b3dbe51eb83",
+        "bytes": 235
+      },
+      "original_check_custom_import_object_bindings": {
+        "SideMatrixCoefficientAlgebra": "2078f430cc976878a8788182c8ab33fb1387f1713384f54ee306a327e48d865b",
+        "SideMatrixSchurPolynomial": "e209cbcd8054491e52aeb1ae2ffa5c16e054776e7ff4229b765e8d4de13ef7da",
+        "StrictSideFinalGuards": "a99370d7a04f22f63695cffe699633a7a003db959fab61f520559da3d1392b3a"
+      },
+      "original_job": {
+        "sha256": "a58395c7c539e688903f091e20d3f9239910030ba00aa6773a7b697f12b9bb58",
+        "bytes": 8105
+      },
+      "successful_compiler_copy_matches": true,
+      "independent_review": "reviews/ROOT_MATRIX_COEFFICIENT_REVIEW.json",
+      "original_source_pin_verified": true
+    },
+    {
+      "module": "SideMatrixSchurPolynomial",
+      "file": "lean/SideMatrixSchurPolynomial.lean",
+      "source_sha256": "21fa6d31278b2ddd252485dc0661357d411594e921754211a2323fc7b0a4f20b",
+      "bytes": 824,
+      "static_imports": [
+        "Mathlib.Data.Complex.Basic",
+        "Mathlib.Tactic.Ring"
+      ],
+      "dynamic_imports": [],
+      "selected": true,
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.side_matrix_schur_polynomial",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ],
+      "checked_object": {
+        "sha256": "e209cbcd8054491e52aeb1ae2ffa5c16e054776e7ff4229b765e8d4de13ef7da",
+        "bytes": 244560
+      },
+      "original_receipt": {
+        "sha256": "2d933f8fc923672e008a05bbce031690dd67cbc91afbc5effbfa76810a5d102e",
+        "bytes": 296
+      },
+      "original_axiom_log": {
+        "sha256": "9ca10a647c5ca1e71127bd9100064c93affa7599f1970e9407c211041c4130f2",
+        "bytes": 995
+      },
+      "original_check_custom_import_object_bindings": {},
+      "original_job": {
+        "sha256": "05ddea524761cbd04b676d05ac8764a3a2cb3b0c1983a660bd7e74a2eda376e8",
+        "bytes": 4318
+      },
+      "successful_compiler_copy_matches": true,
+      "independent_review": "reviews/ROOT_MATRIX_COEFFICIENT_REVIEW.json",
+      "original_source_pin_verified": true
+    },
+    {
+      "module": "SideMatrixSeedGram",
+      "file": "lean/SideMatrixSeedGram.lean",
+      "source_sha256": "e6e4b69b081a604cca952f78416aba48393f0d02df5a9f6b0487d24e602d0a5f",
+      "bytes": 1715,
+      "static_imports": [
+        "SideMatrixGram",
+        "SideSeedComplement"
+      ],
+      "dynamic_imports": [],
+      "selected": true,
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.reconstructionGram_eq_seedComplement",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.strict_seed_complement_gram_exists",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ],
+      "checked_object": {
+        "sha256": "124aa157b4fca77c3f514162fe616187134db662b6b7127b44a96e2ccbcaa719",
+        "bytes": 38496
+      },
+      "original_receipt": {
+        "sha256": "153d4e3d26f84657aae86150f34e6f1035a40df1c8da8e2169b7c70718099fb7",
+        "bytes": 297
+      },
+      "original_axiom_log": {
+        "sha256": "6a5de43505d6ed3cddb304cdc5f3db3a608c65170ed49aace2d9486f305574cd",
+        "bytes": 256
+      },
+      "original_check_custom_import_object_bindings": {
+        "SideMatrixGram": "90846d7f41222b98bedc93871039026c490496c2fc98e7a04f257d95be3e2601",
+        "SideSeedComplement": "82e01e647c407a159b593024077403b62cc6acf478ab20acf160c5206732622f"
+      },
+      "original_job": {
+        "sha256": "547aa3ebf6fa67bcf864807f02b2f0ce04bcff159699ed2f610fb419b51eb92c",
+        "bytes": 9088
+      },
+      "successful_compiler_copy_matches": true,
+      "independent_review": "reviews/ROOT_SEED_COMPLEMENT_GRAM_REVIEW.json",
+      "original_source_pin_verified": true
+    },
+    {
+      "module": "SideModeCoefficientAlgebra",
+      "file": "lean/SideModeCoefficientAlgebra.lean",
+      "source_sha256": "f178c7636a96c936ccf5f003cb1393fbdc292cfb29f0bd10f45cc8d75c3b0b6c",
+      "bytes": 3154,
+      "static_imports": [
+        "Hadamard6.Basic",
+        "Mathlib.Tactic.FieldSimp",
+        "Mathlib.Tactic.LinearCombination"
+      ],
+      "dynamic_imports": [],
+      "selected": true,
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.mode_q_quotient",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.mode_sigma_quotient",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.mode_cplus_quotient",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.mode_cminus_quotient",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.mode_phase_cube",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.mode_phase_entries",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ],
+      "checked_object": {
+        "sha256": "a15060df2de7a206174fe32581d0207d34c05d1a4787bdd892b6aa2451561a90",
+        "bytes": 330800
+      },
+      "original_receipt": {
+        "sha256": "2a14c5951fae334bf121cea0beedcbc1975ec190dd5d53859f3724873eb6cf87",
+        "bytes": 296
+      },
+      "original_axiom_log": {
+        "sha256": "931032b8d7c0887b6f5c981ac6b0030024fe2fc41f3b821f664affe290fd57c5",
+        "bytes": 4372
+      },
+      "original_check_custom_import_object_bindings": {
+        "Hadamard6.Basic": "eb646f0b673ac623cf4975553f7b8365b2f8905304851cd2a60bb6e7a34ea6cd"
+      },
+      "original_job": {
+        "sha256": "18965f09e10bff3076f5c75c137fc3425a1b2efb8a4ef536c1e1913f33c0e987",
+        "bytes": 4357
+      },
+      "successful_compiler_copy_matches": true,
+      "independent_review": "reviews/EXHAUSTION_INDEPENDENT_REVIEW.json",
+      "original_source_pin_verified": true
+    },
+    {
+      "module": "SideModeMatrixFactor",
+      "file": "lean/SideModeMatrixFactor.lean",
+      "source_sha256": "f242196553601a1e75f72b6b1306d26a0dc030258df8cc933b8459ca766f41b7",
+      "bytes": 998,
+      "static_imports": [
+        "SideModeCoefficientAlgebra",
+        "SideMatrixGram",
+        "SideFourierMatrixAlgebra"
+      ],
+      "dynamic_imports": [],
+      "selected": true,
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.mode_core_phase_factor",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ],
+      "checked_object": {
+        "sha256": "a4f84db60d7524541a61801be263f9cc3ea42bf736ecbf3bb717d10cda408dc9",
+        "bytes": 333624
+      },
+      "original_receipt": {
+        "sha256": "e65cbb07aa5dc321e3c1171d4a4a4a194ea0dd156cee39c109e523f63f10f16a",
+        "bytes": 296
+      },
+      "original_axiom_log": {
+        "sha256": "f2a437e9d8f2d1444d2a4c3b0522abfb60aca576add8628b6330f781ee50eaec",
+        "bytes": 643
+      },
+      "original_check_custom_import_object_bindings": {
+        "SideModeCoefficientAlgebra": "a15060df2de7a206174fe32581d0207d34c05d1a4787bdd892b6aa2451561a90",
+        "SideMatrixGram": "90846d7f41222b98bedc93871039026c490496c2fc98e7a04f257d95be3e2601",
+        "SideFourierMatrixAlgebra": "71d02e79ef3e18fa46cd7f79d341be75f9ac554c489af6deded78fcc9f5069b6"
+      },
+      "original_job": {
+        "sha256": "200fed0fb71f9ae80094e8dd2110c65e90c2fbbd5fc95709cd01c3ee16a92d2d",
+        "bytes": 9894
+      },
+      "successful_compiler_copy_matches": true,
+      "independent_review": "reviews/EXHAUSTION_INDEPENDENT_REVIEW.json",
+      "original_source_pin_verified": true
+    },
+    {
+      "module": "SideSeedComplement",
+      "file": "lean/SideSeedComplement.lean",
+      "source_sha256": "15185a04f48efafe38e63ef3e877a21a63ac5d7be7259ec4054404a683707864",
+      "bytes": 2007,
+      "static_imports": [
+        "Hadamard6.GramInvariant"
+      ],
+      "dynamic_imports": [],
+      "selected": true,
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.hermitian_three_complement",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.unit_seed_explicit_complement",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ],
+      "checked_object": {
+        "sha256": "82e01e647c407a159b593024077403b62cc6acf478ab20acf160c5206732622f",
+        "bytes": 293408
+      },
+      "original_receipt": {
+        "sha256": "c20246147b684cb7d24892a3e799f0ad7ec8838430db4ec8de3dd1ff10612779",
+        "bytes": 297
+      },
+      "original_axiom_log": {
+        "sha256": "7b889c03f11293eb3264074744ba99e3f0183ed9d35a5184b3616130657f7fdd",
+        "bytes": 237
+      },
+      "original_check_custom_import_object_bindings": {
+        "Hadamard6.GramInvariant": "43f6c390338b5d1b4f90512ccc54fc65c07c1ccc25af70108e8871878464265a"
+      },
+      "original_job": {
+        "sha256": "58c8a0f3ddf99789b64bb8972894bc9408b02fa6d9e29e7da9f4a43e79a30ead",
+        "bytes": 4306
+      },
+      "successful_compiler_copy_matches": true,
+      "independent_review": "reviews/ROOT_SEED_COMPLEMENT_GRAM_REVIEW.json",
+      "original_source_pin_verified": true
+    },
+    {
+      "module": "StrictSeedGuards",
+      "file": "lean/StrictSeedGuards.lean",
+      "source_sha256": "d0d72b40ac259f53947242634c343989ba9fc064024b3e93b078c974e6b61f9c",
+      "bytes": 5221,
+      "static_imports": [
+        "StrictSideScalarGuards",
+        "Hadamard6.GramInvariant"
+      ],
+      "dynamic_imports": [],
+      "selected": false,
+      "selected_roots": [],
+      "checked_object": {
+        "sha256": "25d1e85aa002a08dc36ff887780ace70664d1b9d9c995863788bab21a94087f1",
+        "bytes": 413056
+      },
+      "original_receipt": {
+        "sha256": "1627c3f371a05dc2a8c44e60f9d5673cbb07d88fa29f7e7bdb9f0c0c40eb3721",
+        "bytes": 295
+      },
+      "original_axiom_log": {
+        "sha256": "a2e66d64a6dc708286adc5a90b7b4781ca60d742027931c3a6e292f01e40ca0e",
+        "bytes": 2441
+      },
+      "original_check_custom_import_object_bindings": {
+        "StrictSideScalarGuards": "67fdf55064ad99f69535a8232d14aa27d6dff00883c36d32505f12584e8a0e41",
+        "Hadamard6.GramInvariant": "43f6c390338b5d1b4f90512ccc54fc65c07c1ccc25af70108e8871878464265a"
+      },
+      "original_job": {
+        "sha256": "7776dfe47da1f568ead6c3f8f8419313f0c802294b8e7ebf5d0baab4e243a2aa",
+        "bytes": 4435
+      },
+      "successful_compiler_copy_matches": true,
+      "reused_source_packet_manifest_sha256": "104a7859749e41316ecd9418d37a622c03db6639d21aa15cd4f4ea5c163829d3",
+      "scope": "Unchanged previously published supporting source; no new selected theorem credit."
+    },
+    {
+      "module": "StrictSideFinalGuards",
+      "file": "lean/StrictSideFinalGuards.lean",
+      "source_sha256": "8fecb574a563ec3d063a171b9eb15f309cf2ea66d3273f043ebef52f7697b246",
+      "bytes": 9330,
+      "static_imports": [
+        "PreRhoNormActual",
+        "StrictSideSigmaAlgebra"
+      ],
+      "dynamic_imports": [],
+      "selected": false,
+      "selected_roots": [],
+      "checked_object": {
+        "sha256": "a99370d7a04f22f63695cffe699633a7a003db959fab61f520559da3d1392b3a",
+        "bytes": 378880
+      },
+      "original_receipt": {
+        "sha256": "699200b0c69f5801d4a292e969a9d194e89d63e08b7ea758beeddc8954b1f4ec",
+        "bytes": 296
+      },
+      "original_axiom_log": {
+        "sha256": "7d314a1dc6be0c3911aa2ce89ec397cb8fb7e3bc70d45a64b8350e12ed1cde37",
+        "bytes": 1253
+      },
+      "original_check_custom_import_object_bindings": {
+        "PreRhoNormActual": "998ecda1e5c1367e8b4dda22a871819dbb34981b27c5a2a5cc3975f9f60da01d",
+        "StrictSideSigmaAlgebra": "9e671dbf51f4be9ae5dee289994a492924bd53cb8af626e78cb8eca5f0ec212c"
+      },
+      "original_job": {
+        "sha256": "840ded901796c8f7a386f011407a04ce45a98d8bb071ee1cc2e4d91f24d1e7f2",
+        "bytes": 7518
+      },
+      "successful_compiler_copy_matches": true,
+      "reused_source_packet_manifest_sha256": "104a7859749e41316ecd9418d37a622c03db6639d21aa15cd4f4ea5c163829d3",
+      "scope": "Unchanged previously published supporting source; no new selected theorem credit."
+    },
+    {
+      "module": "StrictSideOrientedRoot",
+      "file": "lean/StrictSideOrientedRoot.lean",
+      "source_sha256": "10ab456eb962c653d7ccdd236aad26f9f348895f50e4ec18a537a4a0f0138574",
+      "bytes": 4909,
+      "static_imports": [
+        "StrictSideFinalGuards"
+      ],
+      "dynamic_imports": [],
+      "selected": false,
+      "selected_roots": [],
+      "checked_object": {
+        "sha256": "a575a3b9a84e9071699c6b5a377184c1636bc9e8676d0b57aaa881fc99dfce6a",
+        "bytes": 415496
+      },
+      "original_receipt": {
+        "sha256": "cfc4c824e13803caa237625125d41aee34b0fee9c9fdba05ae5033c26b73b65d",
+        "bytes": 296
+      },
+      "original_axiom_log": {
+        "sha256": "1db1dca947ddbb10fbdc9c539bfc09656be0f5c1e5576fd61e52455ab5f030dc",
+        "bytes": 874
+      },
+      "original_check_custom_import_object_bindings": {
+        "StrictSideFinalGuards": "a99370d7a04f22f63695cffe699633a7a003db959fab61f520559da3d1392b3a"
+      },
+      "original_job": {
+        "sha256": "c79a02c5d3a0b391805ac3e4b6623548401dc87fe4c0bfb44c9b9456e4811a80",
+        "bytes": 7713
+      },
+      "successful_compiler_copy_matches": true,
+      "reused_source_packet_manifest_sha256": "104a7859749e41316ecd9418d37a622c03db6639d21aa15cd4f4ea5c163829d3",
+      "scope": "Unchanged previously published supporting source; no new selected theorem credit."
+    },
+    {
+      "module": "StrictSideRootGuards",
+      "file": "lean/StrictSideRootGuards.lean",
+      "source_sha256": "ddf93ee57b1cf7af6cb79e5b51206b3dff316836c505b1ec0ec34d1ac68464fa",
+      "bytes": 9986,
+      "static_imports": [
+        "StrictSeedGuards",
+        "Mathlib.Analysis.Real.Sqrt",
+        "Mathlib.Tactic.FieldSimp"
+      ],
+      "dynamic_imports": [],
+      "selected": false,
+      "selected_roots": [],
+      "checked_object": {
+        "sha256": "89bf25ae7ad89d3b4250cd31b4700a983faa70796203ab2463da8fd8e260ca19",
+        "bytes": 466040
+      },
+      "original_receipt": {
+        "sha256": "0e353278eda2aa2328781e5eb5852b38ae4c568f7587fa85676d5139062d95ad",
+        "bytes": 297
+      },
+      "original_axiom_log": {
+        "sha256": "0ffb5e05bd2ddd49ed006df8539daa47336f3a1b0bafb950cf9ed1bf7346f5b2",
+        "bytes": 3347
+      },
+      "original_check_custom_import_object_bindings": {
+        "StrictSeedGuards": "25d1e85aa002a08dc36ff887780ace70664d1b9d9c995863788bab21a94087f1"
+      },
+      "original_job": {
+        "sha256": "454b53fbc839c77978d8ea18a9b8b3aae861edb07466aba44cb461e7fa857c7c",
+        "bytes": 4631
+      },
+      "successful_compiler_copy_matches": true,
+      "reused_source_packet_manifest_sha256": "104a7859749e41316ecd9418d37a622c03db6639d21aa15cd4f4ea5c163829d3",
+      "scope": "Unchanged previously published supporting source; no new selected theorem credit."
+    },
+    {
+      "module": "StrictSideScalarGuards",
+      "file": "lean/StrictSideScalarGuards.lean",
+      "source_sha256": "9fa3fa47f481d1937fe2af47838460df3c0706b9ea7c47b0bb15db774f7b3c9c",
+      "bytes": 5848,
+      "static_imports": [
+        "CentiradianPhysical",
+        "Mathlib.Tactic.Positivity"
+      ],
+      "dynamic_imports": [],
+      "selected": false,
+      "selected_roots": [],
+      "checked_object": {
+        "sha256": "67fdf55064ad99f69535a8232d14aa27d6dff00883c36d32505f12584e8a0e41",
+        "bytes": 2305888
+      },
+      "original_receipt": {
+        "sha256": "59eea5a5d30d7d66563bf968df6f608c70d0cdb5e9560f66a1a4ef8314b67457",
+        "bytes": 296
+      },
+      "original_axiom_log": {
+        "sha256": "30316dde0a0c97e4f98c96ff245075fe9961e16b2162802edbe47d715e002b36",
+        "bytes": 3076
+      },
+      "original_check_custom_import_object_bindings": {
+        "CentiradianPhysical": "d39b6828bc700abf0ccb1b73bfc85b31f74a7d229481b78d459f07f720c3ff35"
+      },
+      "original_job": {
+        "sha256": "4ebd25996d44532f0c2236ad7e706c15d798979b248349eea226c2077971abcf",
+        "bytes": 4276
+      },
+      "successful_compiler_copy_matches": true,
+      "reused_source_packet_manifest_sha256": "104a7859749e41316ecd9418d37a622c03db6639d21aa15cd4f4ea5c163829d3",
+      "scope": "Unchanged previously published supporting source; no new selected theorem credit."
+    },
+    {
+      "module": "StrictSideSigmaAlgebra",
+      "file": "lean/StrictSideSigmaAlgebra.lean",
+      "source_sha256": "18a485306c92ba1d590ad0f0f87dbc18d8e4c238c46de51b746791c82bcb35d3",
+      "bytes": 3023,
+      "static_imports": [
+        "StrictSideScalarGuards",
+        "Mathlib.Tactic.FieldSimp"
+      ],
+      "dynamic_imports": [],
+      "selected": false,
+      "selected_roots": [],
+      "checked_object": {
+        "sha256": "9e671dbf51f4be9ae5dee289994a492924bd53cb8af626e78cb8eca5f0ec212c",
+        "bytes": 549016
+      },
+      "original_receipt": {
+        "sha256": "8aa8931c5d493e9a84ca08b2a665f4445d070219e9eefd49e7f23ac1411bd52d",
+        "bytes": 296
+      },
+      "original_axiom_log": {
+        "sha256": "7ee902e922333a8d7c8ec18b9a82295e6fa43b73eaf62629f2edd3e0299796f1",
+        "bytes": 2140
+      },
+      "original_check_custom_import_object_bindings": {
+        "StrictSideScalarGuards": "67fdf55064ad99f69535a8232d14aa27d6dff00883c36d32505f12584e8a0e41"
+      },
+      "original_job": {
+        "sha256": "347767d9098c2c8ad84fb3665c98953e646f20ddf099a243db0d100de99da5f8",
+        "bytes": 4456
+      },
+      "successful_compiler_copy_matches": true,
+      "reused_source_packet_manifest_sha256": "104a7859749e41316ecd9418d37a622c03db6639d21aa15cd4f4ea5c163829d3",
+      "scope": "Unchanged previously published supporting source; no new selected theorem credit."
+    },
+    {
+      "module": "ThirdRowGateActual",
+      "file": "lean/ThirdRowGateActual.lean",
+      "source_sha256": "35469b4cd9bc0afc023d68af350c35657f5e4c060dd4fef57ed6fa6358b103b0",
+      "bytes": 5894,
+      "static_imports": [
+        "ThirdRowGateActualResiduals",
+        "SideMatrixMoments"
+      ],
+      "dynamic_imports": [],
+      "selected": true,
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.prescribed_third_row_reduced_gate",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.third_sigma_row_phase_gate",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.prescribed_third_row_phase_gate",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ],
+      "checked_object": {
+        "sha256": "7a6d24001ef6d1643b65d6bb830db4e292e627031d3e6f0e72d388a3ac5d347a",
+        "bytes": 305912
+      },
+      "original_receipt": {
+        "sha256": "af131395784678cdc97ae1514eac7613f7485162e482ff84dd680c98ed14c186",
+        "bytes": 296
+      },
+      "original_axiom_log": {
+        "sha256": "e8dac6861fc73fdd328c1d318d2493fb3e1ce6104e630f94745b910af8ef7ff8",
+        "bytes": 367
+      },
+      "original_check_custom_import_object_bindings": {
+        "ThirdRowGateActualResiduals": "715ed26e69275ac76eb1b594f75aa971484ef73e4f3e3e5468e4ab3ac63001be",
+        "SideMatrixMoments": "937d822a7fc00e2646cfa7e95611f0705fff858d67e17e992386c46f13404a44"
+      },
+      "original_job": {
+        "sha256": "24cad3ddb9647891fa75a3e6395cdeb1dac5d39d0d4a574bc7eac1f2bb3afd05",
+        "bytes": 11638
+      },
+      "successful_compiler_copy_matches": true,
+      "independent_review": "reviews/FINAL_INDEPENDENT_REVIEW.json",
+      "original_source_pin_verified": true
+    },
+    {
+      "module": "ThirdRowGateActualBindings",
+      "file": "lean/ThirdRowGateActualBindings.lean",
+      "source_sha256": "dbe7db852ca74672aac913259a8a48c4bfb2ddef694615126a105766099e8b20",
+      "bytes": 3868,
+      "static_imports": [
+        "ThirdRowGateActualPolynomial",
+        "ThirdRowGateScaling",
+        "SideMatrixScalar"
+      ],
+      "dynamic_imports": [],
+      "selected": true,
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.preRhoN_complex",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.reconstructionK_conjugate",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.prescribedU_conj_preRho",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ],
+      "checked_object": {
+        "sha256": "01643afb25fa1855dc4fcb924a0f86b99b37c3fb36afb6e1e62822ec6ae4098c",
+        "bytes": 208864
+      },
+      "original_receipt": {
+        "sha256": "3508e51664dc011704dce4a6f9b3567b66f020af41454b205051fa79aeb83b58",
+        "bytes": 296
+      },
+      "original_axiom_log": {
+        "sha256": "6ba16d05d6ad8128e1736f7969687869e9966884413d194ff39cba7ba140d5d1",
+        "bytes": 336
+      },
+      "original_check_custom_import_object_bindings": {
+        "ThirdRowGateActualPolynomial": "189a9a53c676b91747c12e028acd67574abda5e5a20bae8fcaee27fe01d9bf02",
+        "ThirdRowGateScaling": "599544a60151c7d1b9b81d79e5ca7c2e21073603c5b13c9cdc276f7f2307bb50",
+        "SideMatrixScalar": "59da82b040ec2b26e6932d681e222d5be84b157f48cf4e757d9951448f0fc584"
+      },
+      "original_job": {
+        "sha256": "56c3abf336a99d5c3399440a40bb530d6d1785b4efdc06fb1e05568e05ff5741",
+        "bytes": 11282
+      },
+      "successful_compiler_copy_matches": true,
+      "independent_review": "reviews/FINAL_INDEPENDENT_REVIEW.json",
+      "original_source_pin_verified": true
+    },
+    {
+      "module": "ThirdRowGateActualPolynomial",
+      "file": "lean/ThirdRowGateActualPolynomial.lean",
+      "source_sha256": "4787c3f925aff815f6ddd17268b2d061b43c0a2f38c5be164dde7c0537858e59",
+      "bytes": 2368,
+      "static_imports": [
+        "ThirdRowGatePolynomial",
+        "PreRhoActualBindings"
+      ],
+      "dynamic_imports": [],
+      "selected": true,
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.actual_third_row_polynomial_identities",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ],
+      "checked_object": {
+        "sha256": "189a9a53c676b91747c12e028acd67574abda5e5a20bae8fcaee27fe01d9bf02",
+        "bytes": 103024
+      },
+      "original_receipt": {
+        "sha256": "cd612c1c718c92a6842c71cc18b7904ff6b8e520f0e37098d7a1680bcf0afea5",
+        "bytes": 297
+      },
+      "original_axiom_log": {
+        "sha256": "868561fcac51e5656254fe2aaa1d325250f207fdcdf81088229632be9c39b7ac",
+        "bytes": 131
+      },
+      "original_check_custom_import_object_bindings": {
+        "ThirdRowGatePolynomial": "82f9319ac4222918b4d0568b6892204d1df3104df5ee8082721c9cada4755161",
+        "PreRhoActualBindings": "f1c8a3a4b2a0f4bd4ccf1c80298a456749db1f035257fc48962b612ae53b659c"
+      },
+      "original_job": {
+        "sha256": "d551ee25ece513721177b3fa7cb34215e7c051767c0712031313e2baa54c7905",
+        "bytes": 10313
+      },
+      "successful_compiler_copy_matches": true,
+      "independent_review": "reviews/INDEPENDENT_REVIEW.json",
+      "original_source_pin_verified": true
+    },
+    {
+      "module": "ThirdRowGateActualResiduals",
+      "file": "lean/ThirdRowGateActualResiduals.lean",
+      "source_sha256": "7c7269a73dc4f8d41bc8db3166242b7a79106c9d3916cf4941b2efc2b14545ff",
+      "bytes": 2367,
+      "static_imports": [
+        "ThirdRowGateActualBindings"
+      ],
+      "dynamic_imports": [],
+      "selected": true,
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.actual_third_row_geometry_zero",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ],
+      "checked_object": {
+        "sha256": "715ed26e69275ac76eb1b594f75aa971484ef73e4f3e3e5468e4ab3ac63001be",
+        "bytes": 313048
+      },
+      "original_receipt": {
+        "sha256": "e4de9cf2ed23f8918d5d681d4809553853d6a0d10f99f88aed2a69b560bcef84",
+        "bytes": 296
+      },
+      "original_axiom_log": {
+        "sha256": "dafa65776f09a4446c5216aa971345cf43c951aab5810fd4537d86fe601374b7",
+        "bytes": 121
+      },
+      "original_check_custom_import_object_bindings": {
+        "ThirdRowGateActualBindings": "01643afb25fa1855dc4fcb924a0f86b99b37c3fb36afb6e1e62822ec6ae4098c"
+      },
+      "original_job": {
+        "sha256": "cef1a223fde2fc14514341026103c71472a359ed454c574a1839c57bd8e44059",
+        "bytes": 11491
+      },
+      "successful_compiler_copy_matches": true,
+      "independent_review": "reviews/FINAL_INDEPENDENT_REVIEW.json",
+      "original_source_pin_verified": true
+    },
+    {
+      "module": "ThirdRowGateConstResidual0",
+      "file": "lean/ThirdRowGateConstResidual0.lean",
+      "source_sha256": "d8501f00ff86c2deb1da613cde3d68c1969f001353700f23d16f5e30f4ba1dd1",
+      "bytes": 585,
+      "static_imports": [
+        "ThirdRowGateDefs"
+      ],
+      "dynamic_imports": [],
+      "selected": true,
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.ThirdRowGate.constResidual0_gram_zero",
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ]
+        }
+      ],
+      "checked_object": {
+        "sha256": "a753434ccc317d1bea02163dc2356a9606ec0c312b43435ea7aaa7cb6ea57b95",
+        "bytes": 1523720
+      },
+      "original_receipt": {
+        "sha256": "c4b1750155e52a1b3eb9f05f3ba1ff0aa7f7e5afb1c8a069c671417aa133b61b",
+        "bytes": 297
+      },
+      "original_axiom_log": {
+        "sha256": "6f230d9f6df98e8f2594c593a78c435095cd0eee7c8ff2267a111b0cf662492d",
+        "bytes": 110
+      },
+      "original_check_custom_import_object_bindings": {
+        "ThirdRowGateDefs": "78cfce4c0bb8669b1289ed7f4f1dfbfaae6e8fd94fbe026f26e9faaa9bde914e"
+      },
+      "original_job": {
+        "sha256": "557c02a360336444d709aa5fa8272359ccf654ad8953c2a4ce46a1bc25d42182",
+        "bytes": 4713
+      },
+      "successful_compiler_copy_matches": true,
+      "independent_review": "reviews/INDEPENDENT_REVIEW.json",
+      "original_source_pin_verified": true
+    },
+    {
+      "module": "ThirdRowGateConstResidual1",
+      "file": "lean/ThirdRowGateConstResidual1.lean",
+      "source_sha256": "e024f44cd0b9d537e3740ba52af10dd648de4b934eb19c4c508e4573cf117a52",
+      "bytes": 585,
+      "static_imports": [
+        "ThirdRowGateDefs"
+      ],
+      "dynamic_imports": [],
+      "selected": true,
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.ThirdRowGate.constResidual1_gram_zero",
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ]
+        }
+      ],
+      "checked_object": {
+        "sha256": "f6bf672d111432a80ec064dd1bf04ffaf125bc2939875e2ecec62a98ffd7b310",
+        "bytes": 169728
+      },
+      "original_receipt": {
+        "sha256": "d8a96378a2da6f1baf59aefcb3e2dc07eb6a898a2d6b85da58ea86a24a493d5b",
+        "bytes": 297
+      },
+      "original_axiom_log": {
+        "sha256": "7bf1a0970cdf2efcdfe1944948bdb73864c099480895438767ea4ad24be31519",
+        "bytes": 110
+      },
+      "original_check_custom_import_object_bindings": {
+        "ThirdRowGateDefs": "78cfce4c0bb8669b1289ed7f4f1dfbfaae6e8fd94fbe026f26e9faaa9bde914e"
+      },
+      "original_job": {
+        "sha256": "e99f5f4f494254e9c5140ba7749bb4ede930d807dc61719d3b65d5ba50d18d8c",
+        "bytes": 4713
+      },
+      "successful_compiler_copy_matches": true,
+      "independent_review": "reviews/INDEPENDENT_REVIEW.json",
+      "original_source_pin_verified": true
+    },
+    {
+      "module": "ThirdRowGateDefs",
+      "file": "lean/ThirdRowGateDefs.lean",
+      "source_sha256": "8c8c7f1f9390976348b51cecd85532c8bf2c0bf233615a3e2344aefe30a91b2b",
+      "bytes": 2002,
+      "static_imports": [
+        "PreRhoAlignmentDefs"
+      ],
+      "dynamic_imports": [],
+      "selected": true,
+      "selected_roots": [],
+      "checked_object": {
+        "sha256": "78cfce4c0bb8669b1289ed7f4f1dfbfaae6e8fd94fbe026f26e9faaa9bde914e",
+        "bytes": 230552
+      },
+      "original_receipt": {
+        "sha256": "9f7a5466bbe1d7fb3025acbf2fd0d4020043df0df097f065b46f786cb3c06220",
+        "bytes": 297
+      },
+      "original_axiom_log": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "original_check_custom_import_object_bindings": {
+        "PreRhoAlignmentDefs": "bc07ca738db3b36334df77e38027920c81524f3da59eabd0a80efd954f536c0c"
+      },
+      "original_job": {
+        "sha256": "efeeda6a60251a5e85ca7353d428ea0e2976eb4dcafe4b193658b05a8b8be93d",
+        "bytes": 4476
+      },
+      "successful_compiler_copy_matches": true,
+      "independent_review": "reviews/INDEPENDENT_REVIEW.json",
+      "original_source_pin_verified": true
+    },
+    {
+      "module": "ThirdRowGateGeometry",
+      "file": "lean/ThirdRowGateGeometry.lean",
+      "source_sha256": "af1f1e7efe52c8ab7918c419b45963c7a4edc21de87b6d22a6057fc88a7b75cc",
+      "bytes": 5064,
+      "static_imports": [
+        "Mathlib.Tactic.FieldSimp",
+        "Mathlib.Tactic.Ring",
+        "Mathlib.Tactic.LinearCombination"
+      ],
+      "dynamic_imports": [],
+      "selected": true,
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.ThirdRowGate.geometry_stage1",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.ThirdRowGate.geometry_stage2",
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.ThirdRowGate.geometry_gate_of_residuals",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ],
+      "checked_object": {
+        "sha256": "53217c87acf4f0541715756adb64647113f8e9eb9fd86dc8e0ceec8267337e9e",
+        "bytes": 1003456
+      },
+      "original_receipt": {
+        "sha256": "2eb3370cf4fec047be35c81ddb0f33ac5051b77d200c30347a979d5f0a28413f",
+        "bytes": 294
+      },
+      "original_axiom_log": {
+        "sha256": "6147a82e8a63b90d4a716759f701a707896169b534461630875a39bdf584a111",
+        "bytes": 1034
+      },
+      "original_check_custom_import_object_bindings": {},
+      "original_job": {
+        "sha256": "e1c185c1fd0d7604ef6b85cba75c52ac9af5d81c33c43b4847fb6491f20a4219",
+        "bytes": 4309
+      },
+      "successful_compiler_copy_matches": true,
+      "independent_review": "reviews/GEOMETRY_INDEPENDENT_REVIEW.json",
+      "original_source_pin_verified": true
+    },
+    {
+      "module": "ThirdRowGateLinearResidual0",
+      "file": "lean/ThirdRowGateLinearResidual0.lean",
+      "source_sha256": "e472bc2c1272eca88740b4ef73cf129226c7d48fe613e49b33567be1fecbbcd0",
+      "bytes": 589,
+      "static_imports": [
+        "ThirdRowGateDefs"
+      ],
+      "dynamic_imports": [],
+      "selected": true,
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.ThirdRowGate.linearResidual0_gram_zero",
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ]
+        }
+      ],
+      "checked_object": {
+        "sha256": "8692f1ba6a4f0e17d4b2e4aa4b007d0ad47e46ce2a3a474d100036b465816080",
+        "bytes": 19395056
+      },
+      "original_receipt": {
+        "sha256": "45815c818899382a3df3d2af528b625266066b9097fc71f380f67d86a5d202d0",
+        "bytes": 296
+      },
+      "original_axiom_log": {
+        "sha256": "a56625e732db1d3f6584438bda64b018370e99aa3017e492f9025a25ef785db1",
+        "bytes": 111
+      },
+      "original_check_custom_import_object_bindings": {
+        "ThirdRowGateDefs": "78cfce4c0bb8669b1289ed7f4f1dfbfaae6e8fd94fbe026f26e9faaa9bde914e"
+      },
+      "original_job": {
+        "sha256": "a108d667dbc2b9fc3f3164fc928fb2fd639dfa1206c4ac734775750610efef79",
+        "bytes": 4710
+      },
+      "successful_compiler_copy_matches": true,
+      "independent_review": "reviews/INDEPENDENT_REVIEW.json",
+      "original_source_pin_verified": true
+    },
+    {
+      "module": "ThirdRowGateLinearResidual1",
+      "file": "lean/ThirdRowGateLinearResidual1.lean",
+      "source_sha256": "dd231ff8caba7a125a0e452944cb56a866286b9036125908708605074b204b5b",
+      "bytes": 589,
+      "static_imports": [
+        "ThirdRowGateDefs"
+      ],
+      "dynamic_imports": [],
+      "selected": true,
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.ThirdRowGate.linearResidual1_gram_zero",
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ]
+        }
+      ],
+      "checked_object": {
+        "sha256": "56b6da09a5a2f79008122a1f5eef37ad5391099c8b1a0ebb98df445e180961c7",
+        "bytes": 10183848
+      },
+      "original_receipt": {
+        "sha256": "b45b79d26a5a27be36400b8280f3123cad57db3415ed6bd50f48fc4a1a969d8d",
+        "bytes": 297
+      },
+      "original_axiom_log": {
+        "sha256": "ac12e47aa38298e01ff3272290422ba4d0ce8c22d303be9925479f825ae63058",
+        "bytes": 111
+      },
+      "original_check_custom_import_object_bindings": {
+        "ThirdRowGateDefs": "78cfce4c0bb8669b1289ed7f4f1dfbfaae6e8fd94fbe026f26e9faaa9bde914e"
+      },
+      "original_job": {
+        "sha256": "d872b39896790d20fda24eda3e2544d7ea6c200553fada075d42ba7cec55f5fe",
+        "bytes": 4710
+      },
+      "successful_compiler_copy_matches": true,
+      "independent_review": "reviews/INDEPENDENT_REVIEW.json",
+      "original_source_pin_verified": true
+    },
+    {
+      "module": "ThirdRowGatePolynomial",
+      "file": "lean/ThirdRowGatePolynomial.lean",
+      "source_sha256": "c66e7ab1cdda39d2e6497cd22f2a1e6195e291ca53edd383f1c2aed440a87ec4",
+      "bytes": 2317,
+      "static_imports": [
+        "ThirdRowGateConstResidual0",
+        "ThirdRowGateConstResidual1",
+        "ThirdRowGateLinearResidual0",
+        "ThirdRowGateLinearResidual1",
+        "ThirdRowGateReduction"
+      ],
+      "dynamic_imports": [],
+      "selected": true,
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.ThirdRowGate.gram_lambda_identities",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ],
+      "checked_object": {
+        "sha256": "82f9319ac4222918b4d0568b6892204d1df3104df5ee8082721c9cada4755161",
+        "bytes": 47696
+      },
+      "original_receipt": {
+        "sha256": "f7c901bee6767c48142739a473030378dc104d80a13bb37900ebdaa7a1559304",
+        "bytes": 297
+      },
+      "original_axiom_log": {
+        "sha256": "03dea74553c4bc228ff7a35925c0f46e022faee10f8de104eed94f36f4276668",
+        "bytes": 128
+      },
+      "original_check_custom_import_object_bindings": {
+        "ThirdRowGateConstResidual0": "a753434ccc317d1bea02163dc2356a9606ec0c312b43435ea7aaa7cb6ea57b95",
+        "ThirdRowGateConstResidual1": "f6bf672d111432a80ec064dd1bf04ffaf125bc2939875e2ecec62a98ffd7b310",
+        "ThirdRowGateLinearResidual0": "8692f1ba6a4f0e17d4b2e4aa4b007d0ad47e46ce2a3a474d100036b465816080",
+        "ThirdRowGateLinearResidual1": "56b6da09a5a2f79008122a1f5eef37ad5391099c8b1a0ebb98df445e180961c7",
+        "ThirdRowGateReduction": "8e8b76d310e8386b81b31fc9a1b648ea149bcee9a7d8fc7918c96fde65bebf86"
+      },
+      "original_job": {
+        "sha256": "75367791c8aeb824701c7dbb23b24652db7ec51ea02ad62427f765375ae5030b",
+        "bytes": 5685
+      },
+      "successful_compiler_copy_matches": true,
+      "independent_review": "reviews/INDEPENDENT_REVIEW.json",
+      "original_source_pin_verified": true
+    },
+    {
+      "module": "ThirdRowGateReduction",
+      "file": "lean/ThirdRowGateReduction.lean",
+      "source_sha256": "8132ca94ea9d79138f0072916c539eb0f033466aba9911fbcbd57d512e1b4b93",
+      "bytes": 4925,
+      "static_imports": [
+        "ThirdRowGateDefs",
+        "Mathlib.Tactic.LinearCombination"
+      ],
+      "dynamic_imports": [],
+      "selected": true,
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.ThirdRowGate.constant_reduction",
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.ThirdRowGate.linear_reduction",
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.ThirdRowGate.constant_cleared_zero",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.ThirdRowGate.linear_cleared_zero",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.ThirdRowGate.constant_lambda_binding",
+          "axioms": [
+            "propext"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.ThirdRowGate.linear_lambda_binding",
+          "axioms": [
+            "propext"
+          ]
+        }
+      ],
+      "checked_object": {
+        "sha256": "8e8b76d310e8386b81b31fc9a1b648ea149bcee9a7d8fc7918c96fde65bebf86",
+        "bytes": 981024
+      },
+      "original_receipt": {
+        "sha256": "44136b971e54bbe44512c414a65ad0ddead7e6e86866044113b8901b4e98f337",
+        "bytes": 295
+      },
+      "original_axiom_log": {
+        "sha256": "18721412d7c065166d125daba9032b0e15621c7c19e3d5a7221737ff5f8ad190",
+        "bytes": 650
+      },
+      "original_check_custom_import_object_bindings": {
+        "ThirdRowGateDefs": "78cfce4c0bb8669b1289ed7f4f1dfbfaae6e8fd94fbe026f26e9faaa9bde914e"
+      },
+      "original_job": {
+        "sha256": "da6cedb3a2d3816e1ac1a8a7b6b187afb44ccfba49ef9a37154f647eebecc8db",
+        "bytes": 4698
+      },
+      "successful_compiler_copy_matches": true,
+      "independent_review": "reviews/INDEPENDENT_REVIEW.json",
+      "original_source_pin_verified": true
+    },
+    {
+      "module": "ThirdRowGateScaling",
+      "file": "lean/ThirdRowGateScaling.lean",
+      "source_sha256": "365b59ffbae5d0f23264fb509cc5988d7fe9d8a650f874949f43246333534d33",
+      "bytes": 1807,
+      "static_imports": [
+        "ThirdRowGateDefs",
+        "ThirdRowGateGeometry"
+      ],
+      "dynamic_imports": [],
+      "selected": true,
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.ThirdRowGate.constant_geometry_scaling",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.ThirdRowGate.linear_geometry_scaling",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ],
+      "checked_object": {
+        "sha256": "599544a60151c7d1b9b81d79e5ca7c2e21073603c5b13c9cdc276f7f2307bb50",
+        "bytes": 1601384
+      },
+      "original_receipt": {
+        "sha256": "7b0b6ee14111b3ea039ff0eb2390e7c1ce77ae81b1a600984b8319c207130ed7",
+        "bytes": 297
+      },
+      "original_axiom_log": {
+        "sha256": "d396e23ddada05d13d2de69c16a1a9c7ed7936e580a3a1f0de0d6fbcfcd80c8d",
+        "bytes": 738
+      },
+      "original_check_custom_import_object_bindings": {
+        "ThirdRowGateDefs": "78cfce4c0bb8669b1289ed7f4f1dfbfaae6e8fd94fbe026f26e9faaa9bde914e",
+        "ThirdRowGateGeometry": "53217c87acf4f0541715756adb64647113f8e9eb9fd86dc8e0ceec8267337e9e"
+      },
+      "original_job": {
+        "sha256": "94daebb789a6d658b057ede2ba2b357c1f77e13f86ebdbf19ce604b45b741dc7",
+        "bytes": 4882
+      },
+      "successful_compiler_copy_matches": true,
+      "independent_review": "reviews/FINAL_INDEPENDENT_REVIEW.json",
+      "original_source_pin_verified": true
+    }
+  ]
+}

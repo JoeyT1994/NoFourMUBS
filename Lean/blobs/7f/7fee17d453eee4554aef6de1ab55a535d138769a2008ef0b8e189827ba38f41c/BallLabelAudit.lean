@@ -1,0 +1,13 @@
+import IntegerBallLabel
+
+/-! Audit every new theorem in the exact supplier ball-label bridge. -/
+#print axioms Seed0024ClusterTube20261007.supplier_rounded_ball_includes_cell
+#print axioms Seed0024ClusterTube20261007.supplier_rounded_exact_centre_label
+#print axioms Seed0024ClusterTube20261007.naturalRootCeil_toNat_sq_bound
+#print axioms Seed0024ClusterTube20261007.ballLabelLower_cast
+#print axioms Seed0024ClusterTube20261007.ballLabelDistance_nonneg
+#print axioms Seed0024ClusterTube20261007.ballLabelDistance_sq_bound
+#print axioms Seed0024ClusterTube20261007.ballLabelRadius_nonneg
+#print axioms Seed0024ClusterTube20261007.ballLabelRadius_bound
+#print axioms Seed0024ClusterTube20261007.ballLabelCheck_radicand_nonneg
+#print axioms Seed0024ClusterTube20261007.ballLabelCheck_sound

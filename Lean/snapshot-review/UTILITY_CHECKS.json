@@ -1,0 +1,94 @@
+{
+  "scope": "Bounded source archive utility behavior; no Lean invoked",
+  "tests": [
+    {
+      "case": "reject_path ''",
+      "pass": true
+    },
+    {
+      "case": "reject_path '.'",
+      "pass": true
+    },
+    {
+      "case": "reject_path './a'",
+      "pass": true
+    },
+    {
+      "case": "reject_path 'a/./b'",
+      "pass": true
+    },
+    {
+      "case": "reject_path 'a/../b'",
+      "pass": true
+    },
+    {
+      "case": "reject_path '../outside'",
+      "pass": true
+    },
+    {
+      "case": "reject_path '/absolute'",
+      "pass": true
+    },
+    {
+      "case": "reject_path 'a//b'",
+      "pass": true
+    },
+    {
+      "case": "reject_path 'a\\\\b'",
+      "pass": true
+    },
+    {
+      "case": "reject_path 'a/'",
+      "pass": true
+    },
+    {
+      "case": "reject_symlink_escape",
+      "pass": true
+    },
+    {
+      "case": "refuse_dataless_before_read",
+      "pass": true
+    },
+    {
+      "case": "dry_run_writes_no_destination",
+      "pass": true
+    },
+    {
+      "case": "require_complete_reports_gap",
+      "pass": true
+    },
+    {
+      "case": "available_source_restores_exactly",
+      "pass": true
+    },
+    {
+      "case": "differing_existing_file_not_overwritten",
+      "pass": true
+    },
+    {
+      "case": "reject_archive_overlap archive",
+      "pass": true
+    },
+    {
+      "case": "reject_archive_overlap archive/child",
+      "pass": true
+    },
+    {
+      "case": "reject_archive_overlap .",
+      "pass": true
+    },
+    {
+      "case": "missing_manifest_fails",
+      "pass": true
+    },
+    {
+      "case": "missing_required_index_fails",
+      "pass": true
+    },
+    {
+      "case": "corrupt_blob_fails",
+      "pass": true
+    }
+  ],
+  "all_passed": true
+}

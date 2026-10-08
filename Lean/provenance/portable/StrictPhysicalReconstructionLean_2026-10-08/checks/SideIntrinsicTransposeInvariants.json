@@ -1,0 +1,55 @@
+{
+  "module": "SideIntrinsicTransposeInvariants",
+  "source_sha256": "8e19e25653307d3e6c18bd4b8b46dccdde0f30a2728efa3e74b29b5b75a9c705",
+  "checked_object": {
+    "sha256": "9edf487aa40fa51f43b29c3838a37dbb2287ad97e96e896a239951fe543af0b7",
+    "bytes": 345784
+  },
+  "original_receipt": {
+    "sha256": "41cf0154854e7e95b696e90e984cdeee16cc5c9a5ddca2b74aeb4f529f0d1adc",
+    "bytes": 297
+  },
+  "original_axiom_log": {
+    "sha256": "7bc64b902c627a989b7f039f2639be189c19d3fbade5d63f20a5eeeee0320bc7",
+    "bytes": 955
+  },
+  "selected_roots": [
+    {
+      "declaration": "StrictReconstruction20261007.SideIntrinsic.dephased_transpose_scalar_triple",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "declaration": "StrictReconstruction20261007.SideIntrinsic.gram_triple_of_intrinsic_scalars",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "declaration": "StrictReconstruction20261007.SideIntrinsic.gramInvariant_all_neg",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "declaration": "StrictReconstruction20261007.SideIntrinsic.dephased_negative_gramInvariant_transpose",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    }
+  ],
+  "schema": "sanitized-successful-check-projection-v1",
+  "success": true,
+  "exit_code": 0,
+  "selected": true,
+  "dependency_caveat": "Existing checks reused pinned Lean/Mathlib/custom objects. No clean full-library source/cache rebuild or fresh relocated replay is claimed."
+}
