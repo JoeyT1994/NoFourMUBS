@@ -77,12 +77,16 @@ class BallRecord:
         nb = self.normal_bound(R)
         if nb is None: return dict(ok=False, reason='normal bound')
         rH, n = nb
+        # column bound: delta_{:,i} = T_i eta + nu_i, so ||delta_{:,i}|| <= ||T_i|| rH + n  (T_i = 6x4 column block of exact T)
+        if not hasattr(self, 'tcol'):
+            self.tcol = max(opnorm_upper(arb_mat([[self.rec.Tb[6 * j + i, k] for k in range(4)] for j in range(6)])) for i in range(6))
+        rcol = min(R, (self.tcol * rH + n) * (1 + 1e-12))
         # Stage C uses the float rounding Tf of the exact rational frame T: T eta = Tf eta + (T - Tf) eta
         dT = float(np.abs(np.array([[float(abs(self.rec.Tb[e, k] - arb(float(self.rec.Tbn[e, k]))).upper()) for k in range(4)] for e in range(36)])).sum())
         n = n + dT * rH * (1 + 1e-12)
         P = self.rec.phi.reshape(6, 6) / SC.TWO_PI
-        out = SC.stage_c(P, R / SC.TWO_PI, tang=(self.rec.Tbn, rH / SC.TWO_PI, n / SC.TWO_PI), radius=radius)
-        out.update(R=R, rH=rH, n=n, sigma=self.sigma, e0=self.e0, j1=self.j1)
+        out = SC.stage_c(P, rcol / SC.TWO_PI, tang=(self.rec.Tbn, rH / SC.TWO_PI, n / SC.TWO_PI), radius=radius)
+        out.update(R=R, rH=rH, n=n, rcol=rcol, sigma=self.sigma, e0=self.e0, j1=self.j1)
         return out
 
 

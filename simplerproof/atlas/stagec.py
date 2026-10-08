@@ -170,6 +170,61 @@ def edges(C, s, chunk=256):
     return O, Ub
 
 
+def joint_filter(C, s, O, Ub, P, r, K, eP, T, rH, nN):
+    """Joint necessary support (openai/math Lemma 6.7, eq. 6.23) with the common tangent variable eta.
+    For an edge of type E (O: l = 2, U: l = 1) between balls t = 0, 1 and any directions y0, y1 in R^6, ye in R^l:
+      |y0.c0 + y1.c1 + ye.qE| <= sum_t [ s_t ||J_t^T y_t + (-1)^t D_E^T ye|| + Eball_t(y_t) ] + rH ||B_0^T y0 + B_1^T y1|| + E_E ||ye||,
+    Eball_t(y) = nN N_y + pi [ ||y||_inf (K s_t + r)^2 + s_t^2 G_y + (2/sqrt6) ||S o y|| s_t r + (1/sqrt6) ||S o y||_inf r^2 ].
+    Edges violating it (strictly, with MARGIN) are removed.  Directions are proposed by a weighted least-squares solve."""
+    n = len(C); k = T.shape[1]
+    eU = cis_table(np.concatenate([np.zeros((n, 1), int), _toint(C)], axis=1))                  # (n, 6) e(u_j)
+    S = eU @ eP / SQ6                                                                            # (n, i)
+    q = eU[:, :, None] * eP[None, :, :] / SQ6                                                    # (n, j, i)
+    J = -(np.conj(S)[:, None, :] * q).imag                                                       # (n, j, i)  J[i, j] stored as [j, i]
+    c = (np.abs(S) ** 2 - 1) / (2 * TWO_PI)
+    B = np.einsum('nji,jik->nik', J, T.reshape(6, 6, k))                                         # (n, i, k)
+    O2, U2 = O.copy(), Ub.copy()
+    for typ, G0 in (('O', O), ('U', Ub)):
+        a_, b_ = np.where(np.triu(G0, 1))
+        if len(a_) == 0: continue
+        Q = eU[a_] * eU[b_].conj(); Ssum = Q.sum(-1); aS = np.abs(Ssum); re = s[a_] + s[b_]
+        DO = np.stack([-Q.imag, Q.real], 1)                                                      # (m, 2, 6)
+        if typ == 'O':
+            D = DO; qE = np.stack([Ssum.real, Ssum.imag], 1) / TWO_PI; EE = math.pi * re ** 2
+        else:
+            D = ((Ssum.real[:, None] * DO[:, 0] + Ssum.imag[:, None] * DO[:, 1]) / 6)[:, None, :]
+            qE = ((aS ** 2 / 6 - 1) / (2 * TWO_PI))[:, None]; EE = math.pi * re ** 2 * (1 + aS / 6)
+        l = D.shape[1]; m = len(a_)
+        # linear maps of w = (y0, y1, ye):  A w = [s0 (J0^T y0 + D^T ye); s1 (J1^T y1 - D^T ye); rH (B0^T y0 + B1^T y1); EE ye]
+        J0 = J[a_]; J1 = J[b_]                                                                   # (m, j, i): J^T y = einsum('mji,mi->mj')
+        A = np.zeros((m, 12 + k + l, 12 + l))
+        A[:, 0:6, 0:6] = s[a_][:, None, None] * J0; A[:, 0:6, 12:] = s[a_][:, None, None] * np.transpose(D, (0, 2, 1))
+        A[:, 6:12, 6:12] = s[b_][:, None, None] * J1; A[:, 6:12, 12:] = -s[b_][:, None, None] * np.transpose(D, (0, 2, 1))
+        A[:, 12:12 + k, 0:6] = rH * np.transpose(B[a_], (0, 2, 1)); A[:, 12:12 + k, 6:12] = rH * np.transpose(B[b_], (0, 2, 1))
+        A[:, 12 + k:, 12:] = EE[:, None, None] * np.eye(l)[None]
+        G = np.einsum('mra,mrb->mab', A, A) + 1e-12 * np.eye(12 + l)[None]
+        rhs_vec = np.concatenate([c[a_], c[b_], qE], 1)
+        z = np.linalg.solve(G, rhs_vec[..., None])[..., 0]
+        w = z / np.maximum(np.abs(z).max(1), 1e-300)[:, None]
+        y0, y1, ye = w[:, :6], w[:, 6:12], w[:, 12:]
+        lhs = np.abs((y0 * c[a_]).sum(1) + (y1 * c[b_]).sum(1) + (ye * qE).sum(1))
+        def eball(y, t, st):
+            Sy = np.abs(S[t] * y)
+            Ny = np.sqrt(np.einsum('mi,mji->m', y ** 2, J[t] ** 2))
+            Gy = np.abs(np.einsum('mi,mi,mji->mj', y, np.conj(S[t]), q[t])).max(1)
+            return nN * Ny + math.pi * (np.abs(y).max(1) * (K * st + r) ** 2 + st ** 2 * Gy
+                                        + 2 / SQ6 * np.linalg.norm(Sy, axis=1) * st * r + Sy.max(1) * r * r / SQ6)
+        DTe = np.einsum('mlj,ml->mj', D, ye)
+        rhs = (s[a_] * np.linalg.norm(np.einsum('mji,mi->mj', J0, y0) + DTe, axis=1) + eball(y0, a_, s[a_])
+               + s[b_] * np.linalg.norm(np.einsum('mji,mi->mj', J1, y1) - DTe, axis=1) + eball(y1, b_, s[b_])
+               + rH * np.linalg.norm(np.einsum('mik,mi->mk', B[a_], y0) + np.einsum('mik,mi->mk', B[b_], y1), axis=1)
+               + EE * np.linalg.norm(ye, axis=1))
+        kill = lhs > rhs + MARGIN
+        Gt = O2 if typ == 'O' else U2
+        Gt[a_[kill], b_[kill]] = False; Gt[b_[kill], a_[kill]] = False
+    return O2, U2
+
+
 def two_cliques(O, Ub, cap=5_000_000):
     """True iff the pattern (two disjoint O-6-cliques, all cross pairs U) is impossible (complete search)."""
     n = len(O)
@@ -201,6 +256,8 @@ def stage_c(P, r, tang=None, radius=0.03):
     if cl is None: return dict(ok=False, reason='cluster', bins=len(U))
     C, s = cl
     O, Ub = edges(C, s)
+    if tang is not None:
+        O, Ub = joint_filter(C, s, O, Ub, P, r, opnorm_bound(P), cis_centre(P), *tang)
     try:
         ok, steps = two_cliques(O, Ub)
     except RuntimeError:
