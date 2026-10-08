@@ -1,0 +1,58 @@
+{
+  "module": "DirectPhysicalInline",
+  "source_file": "lean/DirectPhysicalInline.lean",
+  "source_sha256": "c8e4d25801ef823e7895d43855975cfab40eeadd8d635ed25f8d13af1a3dd739",
+  "object_sha256": "896791a58cb9988f0fff853a196fdea247dc79b71efca376fed380b4425507fd",
+  "receipt_sha256": "a95ca84c76df572927e8ea951463d38aff3bbacebb7dbb398242ed6834ab0b21",
+  "job_sha256": "f6c12824713eca2f8092d555cb0eef873af1d0f292f2793d1fe172167fb96e46",
+  "axiom_transcript_sha256": "2aa23d172ba73d2fe89cd11990dceb2f195fad60369f61519c6d13e6905ac36b",
+  "independent_review_sha256": "0254075ecd01385473b8a1789db39efee067c945fc2f9dffd7b412fb3a6367da",
+  "success": true,
+  "exit_code": 0,
+  "declarations": [
+    {
+      "name": "Seed0024PhaseCoreBridge20261007.labelLower_eq_square",
+      "axioms": []
+    },
+    {
+      "name": "Seed0024PhaseCoreBridge20261007.labelProducts_eq_ball",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Seed0024PhaseCoreBridge20261007.labelPair_eq_ball",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Seed0024PhaseCoreBridge20261007.labelAccept_eq_square",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Seed0024DirectPhysical20261007.physical_rules",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Seed0024DirectPhysical20261007.accepted_pending_physical",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    }
+  ],
+  "kind": "sanitized projection of successful source/kernel receipt; no operating files included"
+}

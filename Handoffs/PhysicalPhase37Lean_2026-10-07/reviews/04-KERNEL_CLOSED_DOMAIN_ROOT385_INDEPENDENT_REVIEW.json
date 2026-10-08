@@ -1,0 +1,30 @@
+{
+  "kind": "sanitized independent review projection",
+  "status": "PASS_SCOPED_EXACT_OLD_DOMAIN_ROOT",
+  "reviewer": "physical_join_review",
+  "original_review_sha256": "fa74c6d5de8dfae72622349c861deb73c5b1c57eb0d7ccaefa1f2dafe2d2bd79",
+  "selected_sources": [
+    {
+      "module": "KernelClosedDomainRoot385",
+      "source_sha256": "d2d769c1ee9eb82b51ecc7805e5f80c507574404cd7d6b2591fee03a4db1cc8f",
+      "object_sha256": "7ffb435b1b4f03381625139f8a66f9244a87271f5c1a88a3288549325e920dad",
+      "declarations": 1
+    }
+  ],
+  "projection_notice": "Preserves selected statement meaning, premises, scoped admission and evidence digests. Host paths, compiler commands and operating records are excluded.",
+  "semantic_findings": [
+    "The supplied proof is exactly the independently reviewed root2241383_covered constant, not a new axiom or conditional proof.",
+    "The proposed type uses the old CoveredCell and ClosedPhaseDomain constants, with explicit Fin48 labels centreProjectorLabel k (turnRay theta) and the same toPhaseCell(ordinalCellCode2241383).",
+    "The generated nested lambdas bind k as outer variable1 and theta as inner variable0, preserving the intended label/ray relation.",
+    "Definitional equality checked by the kernel equates the lightweight feasibility and coverage formulas with the old named physical domain at this root. No weakened tolerance, fewer Fourier columns, altered cell, or substituted label occurs.",
+    "trustLevel0, loadExtsfalse and explicit debug.skipKernelTC=false retain kernel checking while omitting tactic extension initialization. Only standard axioms are printed."
+  ],
+  "exact_declaration": "Seed0024KernelPhysical20261007.root2241383_closedDomain",
+  "exact_type": "CoveredCell ClosedPhaseDomain (fun k theta => centreProjectorLabel k (turnRay theta)) (toPhaseCell (ordinalCellCode 2241383))",
+  "root_specific_domain_parity_kernel_checked": true,
+  "named_generic_domain_equality_theorem_proved_by_this_file": false,
+  "cache_authenticity_caveat": "Existing compiled Lean/Mathlib/custom dependencies are reused; no complete clean source/cache rebuild is established.",
+  "physical_T4_box_closures": 0,
+  "full_forest_admitted": false,
+  "no_four_mubs_theorem_admitted": false
+}
