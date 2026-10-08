@@ -1,0 +1,137 @@
+{
+  "schema": "sanitized-independent-semantic-review-projection-v1",
+  "original_review_sha256": "3ad9ca40b44c976935bd37bf4d472e7ecb697c504e99ed6b027df76bd1a82968",
+  "original_status": "PASS_SCOPED_INDEPENDENT_PHYSICAL_NECESSITY_REVIEW",
+  "independent_author_and_reviewer": true,
+  "projection_notice": "Semantic and scope fields retained verbatim. Earlier caveats describe their selected modules; STATUS.json gives collection scope. Host paths and operating records omitted.",
+  "reviewed_modules": [
+    "PhysicalSideSums",
+    "PhysicalSideMoment",
+    "PhysicalAllSideMoments"
+  ],
+  "reviewed_artifacts": [
+    {
+      "module": "PhysicalSideSums",
+      "file": "lean/PhysicalSideSums.lean",
+      "source_sha256": "cfd79280c8fe5a3bbda66a22665e607c9753ee8f3862a8ca66c82964cc060d94",
+      "bytes": 1802,
+      "checked_object": {
+        "bytes": 152536,
+        "sha256": "4cd01efbb6e36bac85f56e0dc19cf552bf7c70d3ac9ed3d00c3901a9c1191dac"
+      },
+      "original_receipt": {
+        "bytes": 296,
+        "sha256": "1da755aaf2835e7c39d55971c6792d3f62479ad2c104a5aeece4a1779b47f99e"
+      },
+      "original_axiom_log": {
+        "bytes": 230,
+        "sha256": "5f145f2be8fd24d14d009eedc2bff1181b5b144dcbed1b3e64258c1e149d23f9"
+      },
+      "selected_roots": [
+        {
+          "declaration": "ShoulderTwoColumn20261008.physical_remaining_row_sum",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "ShoulderTwoColumn20261008.physical_remaining_cross_sum",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "PhysicalSideMoment",
+      "file": "lean/PhysicalSideMoment.lean",
+      "source_sha256": "86fa4dcf941a0cd039f2a474bb53bad5b9c2a95c913eb9c83a5a41732eacd5a0",
+      "bytes": 1190,
+      "checked_object": {
+        "bytes": 39704,
+        "sha256": "cf23c2d442288529ce472507db82d941d8d59c3602c426d0f45119c45ffc02f1"
+      },
+      "original_receipt": {
+        "bytes": 297,
+        "sha256": "d93c9f10fa856f1cd0a4fef4c21f08d7e79adfc81ddfdcb776c0bb56f7aea7ec"
+      },
+      "original_axiom_log": {
+        "bytes": 124,
+        "sha256": "afcd49e7e67e8cb533797a186644e640416ebe7ad756afd63e93c388d43e0e85"
+      },
+      "selected_roots": [
+        {
+          "declaration": "ShoulderTwoColumn20261008.physical_side_column_residual_zero",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "PhysicalAllSideMoments",
+      "file": "lean/PhysicalAllSideMoments.lean",
+      "source_sha256": "50ecca0a09c25d122ed73b20c805ebb0290229ddf99f1559a045411c80bd643f",
+      "bytes": 2903,
+      "checked_object": {
+        "bytes": 224088,
+        "sha256": "2775c1063ade83cf6725480b424691f539a6ec16692f6b6ba57bdc5fdc228e22"
+      },
+      "original_receipt": {
+        "bytes": 297,
+        "sha256": "c6acb1f677918828480e412a8219b8859ab4d5d31cff42ed3f32d507a97ece35"
+      },
+      "original_axiom_log": {
+        "bytes": 232,
+        "sha256": "c1346988f3497f5f55fc9eab3a04d84ba6c1c9ec38b7d8fdf8a1227aef4f7917"
+      },
+      "selected_roots": [
+        {
+          "declaration": "ShoulderTwoColumn20261008.physical_horizontal_residuals",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "ShoulderTwoColumn20261008.physical_vertical_residuals",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    }
+  ],
+  "meaning": [
+    "Both all-side statements require exactly Physical H and Dephased H and a Fin3 slot i. sideIndex maps these three distinct physical positions to columns/rows3,4,5; it does not require their phase labels to differ.",
+    "Horizontal s=-1-H11-H12, t=-1-H21-H22 and r=-1-H21*conj(H11)-H22*conj(H12) agree with row orthogonality and supplier orientation.",
+    "Cases i=1 and2 cyclically reorder all three remaining positions, taking the other two as u1,u2,v1,v2. Every required normSq1 fact is supplied by hH.1 at the exact indices.",
+    "The zero residual is the full complex (s-x)*(r-y*conj(x))*conj(t-y) minus the real-coerced sum of three normSq values minus4. No real-part weakening occurs.",
+    "Vertical transport applies the proved physical_transpose to H transpose and exchanges dephased row/column witnesses. It yields s=-1-H11-H21,t=-1-H12-H22,r=-1-H12*conj(H11)-H22*conj(H21), and side pair H(sideIndex i)1,H(sideIndex i)2.",
+    "The new split PhysicalSideSums/PhysicalSideMoment sources retain the earlier reviewed statements and bindings. Their current source hashes differ from the preserved timeout source and must be admitted only against fresh successful receipts."
+  ],
+  "all_hypotheses": {
+    "physical_remaining_row_sum": "H:Fin6→Fin6→ℂ, Physical H, Dephased H, i:Fin6, i≠0.",
+    "physical_remaining_cross_sum": "H:Fin6→Fin6→ℂ, Physical H, Dephased H.",
+    "physical_side_column_residual_zero": "H:Fin6→Fin6→ℂ, Physical H, Dephased H; distinguished side column3.",
+    "physical_horizontal_residuals": "H:Fin6→Fin6→ℂ, Physical H, Dephased H, i:Fin3 selecting columns3,4,5.",
+    "physical_vertical_residuals": "Same actual physical and dephased hypotheses; i:Fin3 selects rows3,4,5. Transpose orthogonality is proved, not assumed separately."
+  },
+  "admitted_scope": "Five exact necessary identities for the actual dephased physical6x6 domain, including full complex residual zero at all three horizontal and vertical side positions. Repeated phase labels remain allowed.",
+  "excluded_scope": [
+    "No interval enclosure or zero-exclusion test is supplied.",
+    "No exhaustive label cover, pair witness, slot graph closure, shoulder root closure or full shoulder forest is admitted.",
+    "No maximal-corner/strict-radius/positive-sheet premise or conclusion is added.",
+    "No phase forest, physical T4 box, global ledger row or no-four-MUB theorem is closed."
+  ],
+  "inherited_cache_authenticity_caveat": "Existing pinned Lean/Mathlib cached dependencies are inherited; no full clean source/cache rebuild yet."
+}

@@ -1,0 +1,101 @@
+{
+  "schema": "sanitized-independent-semantic-review-projection-v1",
+  "original_review_sha256": "b84d545c3b0ecee385e5f451a4d2817bad9909334d847d7be146724fcc3d3241",
+  "original_status": "PASS_SCOPED_INDEPENDENT_LITERAL_SPLIT_REVIEW",
+  "independent_author_and_reviewer": true,
+  "projection_notice": "Semantic and scope fields retained verbatim. Earlier caveats describe their selected modules; STATUS.json gives collection scope. Host paths and operating records omitted.",
+  "reviewed_modules": [
+    "PhysicalAdjugateLiteral",
+    "PhysicalSeedComplement"
+  ],
+  "reviewed_artifacts": [
+    {
+      "module": "PhysicalAdjugateLiteral",
+      "file": "lean/PhysicalAdjugateLiteral.lean",
+      "source_sha256": "d9b1dde67705fc26758540f5df10808f4bf1a27bd1888d0aec86c588d145df91",
+      "bytes": 1632,
+      "checked_object": {
+        "bytes": 80664,
+        "sha256": "be01eb7f3e46e45c096be3b8c9c5083b2daf63031644dd57cae9d90a71ec7f36"
+      },
+      "original_receipt": {
+        "bytes": 296,
+        "sha256": "a8e2470263c57bd7c162a53dac89d47edf15882a5cf89dce635612647fe06d56"
+      },
+      "original_axiom_log": {
+        "bytes": 331,
+        "sha256": "03c3f1f3dd710a68faf1f5dfde1a5f214fcac65a7ba8e375918b02763b01b270"
+      },
+      "selected_roots": [
+        {
+          "declaration": "ShoulderAdjugate20261008.physical_literalCrossW",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "ShoulderAdjugate20261008.physical_literal_g",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "ShoulderAdjugate20261008.physical_literal_cross_modulus",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "PhysicalSeedComplement",
+      "file": "lean/PhysicalSeedComplement.lean",
+      "source_sha256": "0b45aea777ac68502480a5e11ad1eb4c11cd54941c4bc29342a644e00569b85e",
+      "bytes": 1044,
+      "checked_object": {
+        "bytes": 51800,
+        "sha256": "3e15c3004e7f96363333b9611a2f66b60a36975d6c2de278d2d3adbf516c418b"
+      },
+      "original_receipt": {
+        "bytes": 296,
+        "sha256": "ba3bfba3c16c8f4bc285d125c7cd2b944a476760aac519685eb149ab70f92839"
+      },
+      "original_axiom_log": {
+        "bytes": 111,
+        "sha256": "8a06c174c1d19e4450d9c36a48327109b24881ae6a65d8f06e5936ac3726ee97"
+      },
+      "selected_roots": [
+        {
+          "declaration": "ShoulderAdjugate20261008.physical_seed_complement",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    }
+  ],
+  "semantic_findings": {
+    "physical_seed_complement": "Top three rows of Physical H give EE†+BB†=6I, hence BB†=6I-EE†; no dephasing or invertibility premise is needed.",
+    "physical_literalCrossW": "The abstract W is exactly E†adj(6I-EE†), preserving multiplication order.",
+    "physical_literal_g": "The literal determinant equals real normSq(det B), so it is real and nonnegative.",
+    "physical_literal_cross_modulus": "The explicit double sum C_ia W_ab B_bj has norm equal to det(6I-EE†).re for all9 i,j. No conjugation occurs on C."
+  },
+  "hypotheses": "Physical H only for all four statements; i,j:Fin3 arbitrary for the final all9-pair modulus identity. No dephasing, determinant nonzero, positiveR, maximality or interval premise.",
+  "admitted_scope": "Exact actual physical complement Gram and equality to literal E†adj(6I-EE†), literal real nonnegative determinant binding, and full nine direct cross-pair modulus equations.",
+  "scope_limits": [
+    "Identify each dephased B column and C row with native vectors(1,x,y).",
+    "Bind the literal physical Gram to the exact s,t,r matrix and explicit nine-entry gram_adjugate implementation and its polynomial g. Existing physical_blockB_gram_det already supplies the determinant polynomial in rightGram coordinates and must be reused.",
+    "For possible_pair, specialize same-side sandwich to distinct physical slots; labels may coincide. Then bind the remaining third-position unit norms and cross residual via the already proved side sums.",
+    "Complete interval enclosure and zero-exclusion certificates, exhaustive label coverage, finite matching, geometry and forest completeness remain separate.",
+    "No interval or retained-label certificate, shoulder terminal, physical box, full forest, global row or no-four-MUB closure."
+  ],
+  "inherited_cache_authenticity_caveat": "Pinned existing Lean/Mathlib cached dependencies remain inherited; no full clean rebuild."
+}

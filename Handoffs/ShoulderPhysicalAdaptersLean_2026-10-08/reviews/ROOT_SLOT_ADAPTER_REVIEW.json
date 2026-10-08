@@ -1,0 +1,101 @@
+{
+  "schema": "sanitized-independent-semantic-review-projection-v1",
+  "original_review_sha256": "a2a4b849617eb063f602463d7add86b1c835c21e99d3b6421e7fe5ad3fcdc40f",
+  "original_status": "PASS_SLOT_MULTISET_REPRESENTATION_ADAPTER",
+  "independent_author_and_reviewer": true,
+  "projection_notice": "Semantic and scope fields retained verbatim. Earlier caveats describe their selected modules; STATUS.json gives collection scope. Host paths and operating records omitted.",
+  "reviewed_modules": [
+    "SlotTripleAdapter02"
+  ],
+  "reviewed_artifacts": [
+    {
+      "module": "SlotTripleAdapter02",
+      "file": "lean/SlotTripleAdapter02.lean",
+      "source_sha256": "9fd6b8c982ef59bacf9102f7f99cb721514ac67a46b3e8ce33d0d2d0ba96eaff",
+      "bytes": 3243,
+      "checked_object": {
+        "bytes": 100592,
+        "sha256": "bea89028a789cc7cf1a4d6613958a7b7d556de3ff30158fb917d72b2e5d9c57c"
+      },
+      "original_receipt": {
+        "bytes": 296,
+        "sha256": "dad0c17e7e70606600d83bb0c59bd973546157ce1aa4228258b39da5c4c33902"
+      },
+      "original_axiom_log": {
+        "bytes": 2647,
+        "sha256": "2ffbda024812f22ec792ec1f214741624910588f27d70ce93d087fede3bab6cc"
+      },
+      "selected_roots": [
+        {
+          "declaration": "ShoulderSideTriple20261008.slotMap_injective",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "ShoulderSideTriple20261008.slotSet_card",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "ShoulderSideTriple20261008.slotSet_isClique",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "ShoulderSideTriple20261008.indexedTriple_has_slotClique",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "ShoulderSideTriple20261008.checkedSlotClique_excludes_indexedTriple",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "ShoulderSideTriple20261008.repeated_label_edge",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "ShoulderSideTriple20261008.one_label_with_loop_has_slotTriple",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    }
+  ],
+  "semantic_checks": [
+    "Three indexed positions are injectively mapped to slot/label pairs even when all labels coincide.",
+    "Edges for distinct slots retain the original O u v predicate, including O v v self-loops for repeated labels. No label injectivity or capacity assumption is imposed.",
+    "The mapped finite set has cardinality exactly three, satisfying the existing HasClique definition and allowing checkClique_sound to exclude the original indexed triple.",
+    "The one-label self-loop control proves a triple exists and guards against unsound label deduplication.",
+    "The certificate acceptance premise and all ordered distinct-slot pair conditions remain explicit; no interval, physical cover or native receipt summary is asserted as proven."
+  ],
+  "scope_limitations": [
+    "No shoulder terminal or physical box is closed by this adapter alone.",
+    "Need exact complete label cover, actual necessary pair-edge semantics, literal graph and checked certificate.",
+    "No_side_pair and explicit ternary rejection remain separate consumers.",
+    "Inherited Mathlib source/cache authenticity caveat unchanged."
+  ]
+}

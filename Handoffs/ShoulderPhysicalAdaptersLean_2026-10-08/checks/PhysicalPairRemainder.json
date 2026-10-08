@@ -1,0 +1,47 @@
+{
+  "module": "PhysicalPairRemainder",
+  "source_sha256": "82b0b4cfcf52aedcfc2806c5a6468c5293136fca1b226f28866ec4f08d36a0ee",
+  "checked_object": {
+    "bytes": 275304,
+    "sha256": "937d5731b114d65453d064cf5537fb1c774d5a5f1d0f0af1d4089251f2c03db1"
+  },
+  "original_receipt": {
+    "bytes": 296,
+    "sha256": "0607add85a52746e618b0964e82dad6221e7418d5af4a6d1f121856b770147a1"
+  },
+  "selected": true,
+  "selected_roots": [
+    {
+      "declaration": "ShoulderTwoColumn20261008.three_sum_minus_two",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "declaration": "ShoulderTwoColumn20261008.physical_horizontal_pair_remainder",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "declaration": "ShoulderTwoColumn20261008.physical_vertical_pair_remainder",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    }
+  ],
+  "source_binding_kind": "successful-resident-compiler-copy",
+  "original_axiom_log": {
+    "bytes": 351,
+    "sha256": "aadfe0d54bebcd02dc2da3127d402ace0228753b9ab464624dc6643220396cf0"
+  },
+  "success": true,
+  "exit_code": 0,
+  "dependency_caveat": "Inherited pinned Lean/Mathlib cached dependencies; no full clean rebuild or fresh relocated replay."
+}
