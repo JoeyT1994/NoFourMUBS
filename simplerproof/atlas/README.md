@@ -106,3 +106,27 @@ Each test is one ball of radius R = 0.063 rad around the centre, with the normal
 | One random Hadamard with M = 228 | **fail** (56 labels, 4,616 bins) |
 
 The failing centre needs a smaller R or the joint test (6.23). The atlas driver will choose R adaptively per centre.
+
+## The atlas run (8 Oct, rusty job 7197494)
+
+**Driver (`atlas.py`).** A breadth-first search over ball Records, starting from `centre_fold52.json`. For each Record s:
+- **Neighbours.** Alignments of s into other Records are found by composing known links, each a signed permutation of the 36 phase entries covering row and column permutations, transposition and conjugation.
+- **Boundary tree.** The η-cube [−r_H, r_H]⁴ is split adaptively into boxes. Each box is either certified off the boundary shell or transferred into a neighbour's interior by the 4-dimensional lemma in `COVERAGE.md`.
+- **Spawning.** If a box can't be transferred, the driver first runs a global signature-ranked search, so it does not duplicate a Record when the search loops back on itself. Only if that fails does it spawn a new Record at 1.3R along the box direction, projected onto the Hadamard set. Each Record's radius is chosen from a ladder starting at R = 0.08 with label radius 0.03, the first radius where Stage C passes.
+
+**Certificate.**
+- `certify.py` re-checks every Record from scratch: the Arb σ, the normal bound, a Stage C rerun, and a replay of the boundary tree using only the stored targets, with transfer constants in Arb.
+- `nonempty.py` checks that F6 lies inside some Record.
+- Together with the connectedness of X (`COVERAGE.md`) and closure under conjugation and transposition, these give that every non-Tao class lies in a Record where Stage C excludes a quartet edge.
+
+**Scale.**
+
+| Quantity | Value | Source |
+|---|---|---|
+| vol(A) | ≈ 1.0 | `volume.py`, numerical |
+| Density | about 1.7·10⁴ Records per unit volume | trial runs |
+| Expected atlas size | about 10⁴ Records | estimate |
+| Driver speed | 1–4 s per Record | trial runs |
+| Certifier speed | 0.6 s per Record | trial runs |
+
+**Pilot.** Locally, 40 closed Records out of 162 created; all 40 re-certify.

@@ -134,7 +134,8 @@ def wrapD(A, Ps, Pt):
 
 
 # ------------------------------------------------------------------ records
-LADDER = ((0.08, 0.03), (0.08, 0.02), (0.063, 0.03), (0.063, 0.042), (0.05, 0.03), (0.04, 0.03), (0.03, 0.03), (0.02, 0.03))
+LADDER = ((0.08, 0.03), (0.08, 0.02), (0.063, 0.03), (0.063, 0.042), (0.05, 0.03), (0.04, 0.03), (0.03, 0.03), (0.02, 0.03),
+          (0.015, 0.03), (0.01, 0.03))
 
 
 def make_record(phi, ladder=LADDER):
@@ -198,10 +199,15 @@ def children(E, w):
 class Atlas:
     def __init__(self, Lip=150.0, margin=1e-8, topk=8):
         self.recs = []; self.Lip = Lip; self.margin = margin; self.topk = topk
-        self.closed = set(); self.transfers = {}; self.links = {}
+        self.closed = set(); self.transfers = {}; self.links = {}; self.failed = {}
+        self._F = np.zeros((0, 400))
 
     def add(self, rec):
-        rec['id'] = len(self.recs); self.recs.append(rec); self.links[rec['id']] = {}; return rec['id']
+        rec['id'] = len(self.recs); self.recs.append(rec); self.links[rec['id']] = {}
+        if len(self._F) < len(self.recs):
+            F = np.zeros((max(1024, 2 * len(self.recs)), 400)); F[:len(self._F)] = self._F; self._F = F
+        self._F[rec['id']] = np.sort(rec['R400'])
+        return rec['id']
 
     def link(self, s, t, A):
         for (u, v, B) in ((s, t, A), (t, s, inverse(A))):
@@ -228,8 +234,10 @@ class Atlas:
 
     def global_find(self, x, R400, exclude):
         """Records containing the point x (phases in some frame), by signature ranking + corner alignment."""
-        F = np.array([np.sort(r['R400']) for r in self.recs]); f = np.sort(R400)
-        order = np.argsort(np.linalg.norm(F - f, axis=1))
+        f = np.sort(R400)
+        dd = np.linalg.norm(self._F[:len(self.recs)] - f, axis=1)
+        order = np.argpartition(dd, min(self.topk, len(dd) - 1))[:self.topk + 1]
+        order = order[np.argsort(dd[order])]
         Rq = {g: corner_census(np.exp(1j * gmap(g, x)))[0] for g in GAMMA}
         hits = []
         for t in order[:self.topk]:
@@ -298,8 +306,7 @@ class Atlas:
             nbrs.append((t, ID, wrapD(ID, rs['phi'], rec['phi']), np.linalg.norm(hproj(rs['phi'] - rec['phi']))))
         self.closed.add(s)
         used = sorted(set(int(l[2]) for l in leaves))
-        self.transfers[s] = dict(leaves=[(l[0], l[1], used.index(int(l[2]))) for l in leaves],
-                                 targets=[(nbrs[j][0], nbrs[j][1][0], list(nbrs[j][1][1])) for j in used])
+        self.transfers[s] = dict(nleaves=len(leaves), targets=[(int(nbrs[j][0]), int(nbrs[j][1][0]), list(map(int, nbrs[j][1][1]))) for j in used])
         if verbose:
             print('record %d: R %.3f leaves %d nbrs %d used %d spawned %d global %d (total %d)  %.1fs' % (s, rs['R'], len(leaves), len(set(n[0] for n in nbrs)), len(used), len(spawned), nglob, len(self.recs), time.time() - self._t), flush=True)
         return spawned
@@ -308,16 +315,33 @@ class Atlas:
         with open(path, 'wb') as f: pickle.dump(self.__dict__, f)
 
 
-if __name__ == '__main__':
-    start = json.load(open(sys.argv[1]))['phi']; nmax = int(sys.argv[2]); out = sys.argv[3]
+def load(path):
     A = Atlas()
-    x, _ = project(start)
-    A.add(make_record(x))
-    queue = [0]; t0 = time.time()
+    with open(path, 'rb') as f: A.__dict__.update(pickle.load(f))
+    return A
+
+
+if __name__ == '__main__':
+    start, nmax, out = sys.argv[1], int(sys.argv[2]), sys.argv[3]
+    if os.path.exists(out):
+        A = load(out); print('resumed: %d records, %d closed' % (len(A.recs), len(A.closed)), flush=True)
+    else:
+        A = Atlas()
+        x, _ = project(json.load(open(start))['phi'])
+        A.add(make_record(x.reshape(6, 6)))
+    queue = [i for i in range(len(A.recs)) if i not in A.closed and i not in A.failed]
+    t0 = time.time(); last_save = time.time()
+    def save():
+        tmp = out + '.tmp'; A.save(tmp); os.replace(tmp, out)
     while queue and len(A.closed) < nmax:
         s = queue.pop(0)
-        queue += A.process(s, verbose=True)
-        if len(A.closed) % 10 == 0:
-            A.save(out); print('closed %d records %d  %.0fs' % (len(A.closed), len(A.recs), time.time() - t0), flush=True)
-    A.save(out)
-    print('done: closed %d, records %d, %.0fs' % (len(A.closed), len(A.recs), time.time() - t0))
+        try:
+            queue += A.process(s, verbose=True)
+        except Exception as e:                                          # keep going; the certifier rejects open records
+            A.failed[s] = repr(e); print('FAILED record %d: %r' % (s, e), flush=True)
+            queue += [i for i in range(len(A.recs)) if i not in A.closed and i not in A.failed and i not in queue and i != s]
+        if time.time() - last_save > 600:
+            save(); last_save = time.time()
+            print('closed %d failed %d records %d queue %d  %.0fs' % (len(A.closed), len(A.failed), len(A.recs), len(queue), time.time() - t0), flush=True)
+    save()
+    print('done: closed %d, failed %d, records %d, queue %d, %.0fs' % (len(A.closed), len(A.failed), len(A.recs), len(queue), time.time() - t0), flush=True)

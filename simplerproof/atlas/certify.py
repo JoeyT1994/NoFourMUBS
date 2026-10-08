@@ -63,44 +63,33 @@ def certify_record(rec):
 
 
 def certify_boundary(A, s, wmin_frac=1 / 32):
+    """Replay the adaptive box tree over [-rH, rH]^4 using only the stored transfer targets of s."""
     rs = A.recs[s]; tr = A.transfers[s]
     T = rs['T']; R, n, rH = rs['R'], rs['n'], rs['rH']
     nT = AT.mnorm(T)
     tdat = [(t, transfer_data((sg, tuple(pi)), rs['phi'], A.recs[t]['phi'], T)) for (t, sg, pi) in tr['targets']]
-    leaves = {}
-    for (eta, w, j) in tr['leaves']:
-        leaves[(tuple(np.round(eta / w * 4).astype(int)), round(math.log2(rH / w)))] = (eta, w, j)
     w = rH / 2
     E = np.array(list(itertools.product(np.array([-0.75, -0.25, 0.25, 0.75]) * rH, repeat=4)))
     nleaf = 0
     while len(E):
-        off = AT.offshell(E, w, T, nT, R, n, rH, margin=MARGIN)
-        rest = []
-        for i in np.where(~off)[0]:
-            key = (tuple(np.round(E[i] / w * 4).astype(int)), round(math.log2(rH / w)))
-            if key in leaves:
-                eta, ww, j = leaves[key]
-                t, (cf, cr, M, Mn) = tdat[j]
-                sup = np.linalg.norm(cf + M @ E[i]) + cr + Mn * w
-                if not sup + n < A.recs[t]['R'] - MARGIN:
-                    raise AssertionError('record %d: transfer leaf %s into %d fails (%.3e)' % (s, E[i], t, sup + n - A.recs[t]['R']))
-                nleaf += 1
-            else:
-                rest.append(E[i])
-        if rest:
-            if w / 2 < wmin_frac * R: raise AssertionError('record %d: uncovered boundary box %s' % (s, rest[0]))
-            E, w = AT.children(np.array(rest), w)
-        else:
-            E = np.zeros((0, 4))
+        E = E[~AT.offshell(E, w, T, nT, R, n, rH, margin=MARGIN)]
+        done = np.zeros(len(E), bool)
+        for t, (cf, cr, M, Mn) in tdat:
+            sup = np.linalg.norm(cf[None, :] + E @ M.T, axis=1) + cr + Mn * w + 1e-12
+            done |= sup + n < A.recs[t]['R'] - MARGIN
+        nleaf += int(done.sum()); E = E[~done]
+        if len(E):
+            if w / 2 < wmin_frac * R: raise AssertionError('record %d: uncovered boundary box %s' % (s, E[0]))
+            E, w = AT.children(E, w)
     return nleaf
 
 
 if __name__ == '__main__':
-    d = pickle.load(open(sys.argv[1], 'rb'))
-    A = AT.Atlas(); A.__dict__.update(d)
-    closed = sorted(A.closed)
-    if len(closed) != len(A.recs):
-        print('NOTE: %d of %d records closed; checking closed records only (atlas incomplete)' % (len(closed), len(A.recs)))
+    A = AT.load(sys.argv[1])
+    lo, hi = (int(sys.argv[2]), int(sys.argv[3])) if len(sys.argv) > 3 else (0, len(A.recs))
+    closed = [s for s in sorted(A.closed) if lo <= s < hi]
+    nopen = len([s for s in range(lo, min(hi, len(A.recs))) if s not in A.closed])
+    if nopen: print('NOTE: %d records in [%d, %d) are not closed (atlas incomplete)' % (nopen, lo, hi))
     t0 = time.time(); bad = 0
     for s in closed:
         try:
@@ -109,4 +98,4 @@ if __name__ == '__main__':
             print('FAIL', s, e); bad += 1; continue
         if s % 20 == 0: print('record %d ok (%d leaves)  %.0fs' % (s, nl, time.time() - t0), flush=True)
     print('certified %d records, %d failures, %.0fs' % (len(closed) - bad, bad, time.time() - t0))
-    sys.exit(1 if bad or len(closed) != len(A.recs) else 0)
+    sys.exit(1 if bad or nopen else 0)
