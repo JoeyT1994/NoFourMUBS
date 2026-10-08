@@ -1,0 +1,31 @@
+{
+  "module": "SideIntrinsicActualLambda",
+  "source_sha256": "c2e40900c799547b3e8759e3222734acb071af983b28e1c0805b23a5b590f88b",
+  "checked_object": {
+    "sha256": "981c348da4b2dfe64a06558d4a4f1ddd96a93b6a15836019863fb48612bf2b23",
+    "bytes": 187184
+  },
+  "original_receipt": {
+    "sha256": "4980abcc3e2596c3a78e9f4fb418c802bc62e4140f1ceaf9314cefbfbfaa5424",
+    "bytes": 297
+  },
+  "original_axiom_log": {
+    "sha256": "81a2b98b6947929787472b9911c53c1d781f92ffc5a594d36c3a818daeba2824",
+    "bytes": 141
+  },
+  "selected_roots": [
+    {
+      "declaration": "StrictReconstruction20261007.SideIntrinsic.actual_intrinsic_lambda_identities",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    }
+  ],
+  "schema": "sanitized-successful-check-projection-v1",
+  "success": true,
+  "exit_code": 0,
+  "selected": true,
+  "dependency_caveat": "Existing checks reused pinned Lean/Mathlib/custom objects. No clean full-library source/cache rebuild or fresh relocated replay is claimed."
+}

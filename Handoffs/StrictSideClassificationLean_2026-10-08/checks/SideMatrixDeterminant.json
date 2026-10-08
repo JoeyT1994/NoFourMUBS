@@ -1,0 +1,31 @@
+{
+  "module": "SideMatrixDeterminant",
+  "source_sha256": "2d583b7059d2008b0fb09ac845de3f66d89beca5fe094267262ffe3965080973",
+  "checked_object": {
+    "sha256": "af695e91a06bf926d7127c18a55f4f3c482f57ec500c336addf70d215e5ecc9c",
+    "bytes": 102128
+  },
+  "original_receipt": {
+    "sha256": "cbf5a5cac5310154720b735eb97437b59538d933e26b06bfc1ef3ee5c958e6eb",
+    "bytes": 296
+  },
+  "original_axiom_log": {
+    "sha256": "dd10b7a0bcbe0dc17ac2bc2f09403b990db42a8fad981e178a67a20ab0643916",
+    "bytes": 489
+  },
+  "selected_roots": [
+    {
+      "declaration": "StrictReconstruction20261007.prescribed_matrix_det",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    }
+  ],
+  "schema": "sanitized-successful-check-projection-v1",
+  "success": true,
+  "exit_code": 0,
+  "selected": true,
+  "dependency_caveat": "Existing checks reused pinned Lean/Mathlib/custom objects. No clean full-library source/cache rebuild or fresh relocated replay is claimed."
+}

@@ -1,0 +1,227 @@
+{
+  "schema": "sanitized-independent-semantic-review-projection-v1",
+  "original_review_sha256": "d777fda45d20653b52d93d01eb9d519d66295caed911a250565d8c53a6bdef37",
+  "original_status": "PASS_ACTUAL_INTRINSIC_SHEET_LAMBDA_AND_NORMALIZED_MATRIX_RECOVERY",
+  "independent_author_and_reviewer": true,
+  "projection_notice": "Semantic checks and scope exclusions are retained verbatim from this review. Earlier exclusions concern the corresponding earlier module; STATUS.json states the collection scope. Host paths, timestamps and operating records are omitted.",
+  "reviewed_modules": [
+    "SideIntrinsicTheta",
+    "SideIntrinsicSheetChoice",
+    "SideIntrinsicLambdaRecovery",
+    "SideIntrinsicMatrixBindings"
+  ],
+  "reviewed_artifacts": [
+    {
+      "module": "SideIntrinsicTheta",
+      "file": "lean/SideIntrinsicTheta.lean",
+      "source_sha256": "15946324e6d4c4dbcda80bbda42cc9f59aede16b7c15b470809ca67de6025992",
+      "bytes": 3285,
+      "checked_object": {
+        "sha256": "9a0ae9682408e6b532429e9263b8b90a14bc995b9d0e9ebe1f79f7b5e4e52226",
+        "bytes": 209032
+      },
+      "original_receipt": {
+        "sha256": "eda0125fd6d56e756682b21d75c6ba44ac85b60ac45e84cfc4fc31689f6dc0e2",
+        "bytes": 296
+      },
+      "original_axiom_log": {
+        "sha256": "2dc4326075847bc1adf3d2f32a64fd53b1bb708d42c686b9d9d02c9a3a992e97",
+        "bytes": 1876
+      },
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.strict_intrinsic_det_guard",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.intrinsic_lambdas_unit",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.intrinsicTheta_literal",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.intrinsicTheta_moments",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "SideIntrinsicSheetChoice",
+      "file": "lean/SideIntrinsicSheetChoice.lean",
+      "source_sha256": "4eca5ba5c1562d38de7ba830489027e0f21b30e49ef56c6341ea875088cd67bd",
+      "bytes": 3300,
+      "checked_object": {
+        "sha256": "1cab1ee819a6dd46f3e68e174f2d7048f03fce5b3fa984db6665bc8aaa1e744e",
+        "bytes": 286776
+      },
+      "original_receipt": {
+        "sha256": "323420dbc5f02676069469c2b9c3e90b979d9bd176b12b540fa8f1a728a998a5",
+        "bytes": 295
+      },
+      "original_axiom_log": {
+        "sha256": "fd2a8b2a0748dbd8659381eb4256f9c7a7b4387e77404cb9c0300eb82bb3d9d8",
+        "bytes": 1482
+      },
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.moments_choose_sheet",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.strict_intrinsic_sheet_exists",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "SideIntrinsicLambdaRecovery",
+      "file": "lean/SideIntrinsicLambdaRecovery.lean",
+      "source_sha256": "5fcc5a094f18913b3351826f400b1392edb200336bae98d42423e32f2c056bc5",
+      "bytes": 4215,
+      "checked_object": {
+        "sha256": "a9905dcba640104beac69c0af758e248f163940931cf6981655eb3898da27d51",
+        "bytes": 317336
+      },
+      "original_receipt": {
+        "sha256": "b430f766b3b8950631dbd059dba0ae14952a1447386bf5de718be58c4256852f",
+        "bytes": 296
+      },
+      "original_axiom_log": {
+        "sha256": "63d7aec1e4e5e72a57402932b7f6d51ff08f510b522f7cea942c095e302b4cd9",
+        "bytes": 1116
+      },
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.intrinsicTheta_lambda",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.intrinsic_lambda_P_bindings",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.intrinsic_lambdas_eq_prescribed",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "SideIntrinsicMatrixBindings",
+      "file": "lean/SideIntrinsicMatrixBindings.lean",
+      "source_sha256": "ab8fdb12ea85611e8f725d7a9c47c20159dc0f5ab87d356155d9eb6dd4b6893a",
+      "bytes": 2696,
+      "checked_object": {
+        "sha256": "d5a1223e2defbece855f62d5b38bd6a1569f71bab56b6a682f39cb51abf96140",
+        "bytes": 349248
+      },
+      "original_receipt": {
+        "sha256": "a9e026127e095ce8422d9027153e6071e032358160d2c4895adee2cb9beff599",
+        "bytes": 297
+      },
+      "original_axiom_log": {
+        "sha256": "d54298e125b883bd017c5b569c38139faa2815eb02447d95517fbb90b34aa098",
+        "bytes": 1033
+      },
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.rowsOfSide_unit",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.phaseSide_rowsOfSide",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.phaseSide_det_perm",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.phaseSide_correlations",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.arbitrary_side_intrinsic_interface",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    }
+  ],
+  "selected_printed_roots": 14,
+  "semantic_checks": [
+    "The preceding ten-module review remains unchanged. These four modules add fourteen selected roots and use its actual norm, chi and lambda identities with exact first-resolved dependency objects.",
+    "intrinsicLambda0 is literally -(u*v)*conj(det)/det, lambda1=lambda0/u, lambda2=lambda0/v and theta=perm/lambda0. Unit row products supply u,v nonzero. The strict endpoint derives det!=0 and g>0 from R>0 and g=normSq(det); no determinant guard is assumed there.",
+    "The generic theta formulas require det!=0 explicitly. All three lambdas are proved unit. The theta norm and real-part moments follow from actual eta/chi identities; zero permanent remains allowed and no desired moment is assumed.",
+    "The elementary moment helper derives 2*g*Re(theta)=chi and (2*g*Im(theta))^2=R. Its two sign branches construct epsilon=1 or -1. The actual strict-sheet endpoint discharges both moment premises. This bundle treats R>0 and does not silently include R=0.",
+    "intrinsic_lambda_P_bindings derives all three identities from the actual polynomial bindings and theta conjugation. Its only cancellations are unit row products and the explicitly nonzero determinant. The Pj nonzero guards in prescribed-lambda recovery are derived from R>0.",
+    "intrinsic_lambdas_eq_prescribed requires the named chosen-sheet equality sideZ=theta. That premise is produced by strict_intrinsic_sheet_exists, including epsilon^2=1. It is not the desired lambda equality or an assumed polynomial certificate. The theorem permits any epsilon satisfying the equality, without silently choosing one sheet.",
+    "rowsOfSide extracts rows1 and2 of a literal3x3 matrix. The arbitrary-side interface requires all entries unit and the first row equal to1, then proves the extracted six-row interface equals the original matrix. No first-column gauge is imposed.",
+    "Matrix.det and the literal six-term permanent3 agree with rowDet/rowPerm. The row sums and mixed sum are exactly entries(1,0),(2,0),(2,1) of X*X-dagger. These concrete bindings close the matrix-identification limitation of the prior ten-module review for first-row-normalized sides.",
+    "No normalization theorem for arbitrary unnormalized X, Fourier coefficient recovery, column permutation orbit theorem or side-fiber exhaustion is claimed. No orientation delta is selected in these four modules.",
+    "Every selected root has only propext,Classical.choice,Quot.sound as applicable. Exact source/compiler-copy, receipt/JOB, stdout and object pins were checked. The resident object is separately hashed alongside its successful receipt; no new clean build or cryptographic compiler attestation is asserted."
+  ],
+  "admitted_scope": "Four modules and fourteen printed roots: intrinsic strict sheet choice and prescribed-lambda recovery, plus exact determinant/permanent/Gram bindings for arbitrary first-row-normalized entrywise-unit3x3 sides. Together with the prior ten-module review this is fourteen modules and thirty-five selected roots, with no duplicate recount.",
+  "scope_limitations": [
+    "Strict sheet/recovery endpoints require R>0; earlier universal intrinsic identities retain their broader singular domain.",
+    "No arbitrary-side reconstruction/exhaustion or root-choice orbit result in this bundle.",
+    "No full physical matrix classification, radius exclusion, finite-forest or box closure, global coverage or no-four-MUB theorem.",
+    "Inherited Mathlib source/cache authenticity caveat remains; no clean full-library rebuild or relocated replay."
+  ]
+}

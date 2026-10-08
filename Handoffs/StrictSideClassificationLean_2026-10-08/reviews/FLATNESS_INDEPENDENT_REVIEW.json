@@ -1,0 +1,259 @@
+{
+  "schema": "sanitized-independent-semantic-review-projection-v1",
+  "original_review_sha256": "19571ce1b03bf35fbe669edcde1d6a0fca215d49993a5507166dcfbea527cd5a",
+  "original_status": "PASS_LITERAL_FOURIER_SIDE_CONSTRUCTION_ON_STRICT_UNIT_SEEDS",
+  "independent_author_and_reviewer": true,
+  "projection_notice": "Semantic checks and scope exclusions are retained verbatim from this review. Earlier exclusions concern the corresponding earlier module; STATUS.json states the collection scope. Host paths, timestamps and operating records are omitted.",
+  "reviewed_modules": [
+    "SideFourierElementaryRoots",
+    "SideFourierMatrixAlgebra",
+    "SideMatrixPhaseRows",
+    "SideFourierFirstRow",
+    "SideFourierActualCore",
+    "SideFourierActual"
+  ],
+  "reviewed_artifacts": [
+    {
+      "module": "SideFourierElementaryRoots",
+      "file": "lean/SideFourierElementaryRoots.lean",
+      "source_sha256": "e6b06f22d7cc802ff9f9a8a000dfd889442c4512a42881deeb85314b24f2ba89",
+      "bytes": 2346,
+      "checked_object": {
+        "sha256": "d2154826adf025ed7e35af98df7d5aa39cee673c86dc7c9ebd773325453d0334",
+        "bytes": 228096
+      },
+      "original_receipt": {
+        "sha256": "01e9d912755136e43603a26fa42cfef8bcd0276bdd7caa878488f7314619758e",
+        "bytes": 296
+      },
+      "original_axiom_log": {
+        "sha256": "99d1a5170fb98e3ae15bd460b10c1f9d426819996f3b8abe63a1b97e8651c157",
+        "bytes": 1197
+      },
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.ElementaryFourier.reconstructionOmega_explicit",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.ElementaryFourier.reconstructionOmega_unit_quadratic",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.ElementaryFourier.complex_cube_root_exists",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "SideFourierMatrixAlgebra",
+      "file": "lean/SideFourierMatrixAlgebra.lean",
+      "source_sha256": "efdc7f269ad94a4462dd08bda8842b50d7430922643e9119cf2b0540ea9abfb3",
+      "bytes": 5483,
+      "checked_object": {
+        "sha256": "71d02e79ef3e18fa46cd7f79d341be75f9ac554c489af6deded78fcc9f5069b6",
+        "bytes": 689176
+      },
+      "original_receipt": {
+        "sha256": "05a67e259199d475459168d3fbbba205f7119da277420f0b9c16652b354b9200",
+        "bytes": 297
+      },
+      "original_axiom_log": {
+        "sha256": "04a71c5fbcdb177eacf3296bc343ebdafb26a44f642cf1db9c2157c1a3aedab8",
+        "bytes": 2742
+      },
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.phaseFourier_row_entries",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.phaseDiagonal_gram",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.fourier3_gram",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.phaseFourier_gram",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.phaseFourier_entrywiseUnit",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "SideMatrixPhaseRows",
+      "file": "lean/SideMatrixPhaseRows.lean",
+      "source_sha256": "e569a5ffb93ccdeaf5cd5f8fe6bc14ad2ff6f9d00835b330b2c3cc5a791a00fa",
+      "bytes": 1502,
+      "checked_object": {
+        "sha256": "65ffb26bf97524f33b2b2b88cf37985403f3a92b5ba156d7aea94caddac6c994",
+        "bytes": 211400
+      },
+      "original_receipt": {
+        "sha256": "8f778ae2e3e182a09d6cc8504cce732739f8b28192a7904ddcbc94fb18091999",
+        "bytes": 297
+      },
+      "original_axiom_log": {
+        "sha256": "389f360c00001d2d522425fdb0eeb37cc36972b7e056f9946aeebb5e752e468b",
+        "bytes": 130
+      },
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.prescribed_matrix_row_norms_and_gates",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "SideFourierFirstRow",
+      "file": "lean/SideFourierFirstRow.lean",
+      "source_sha256": "e180cd22063dd20ed348317339ef4f50c5e093df19b56f9439aa5cac1429e872",
+      "bytes": 759,
+      "checked_object": {
+        "sha256": "f7b02b7d53e2e5ad6f51afd692f1af861c99abccdb8c5904ad19cf5cdbce4d0a",
+        "bytes": 77392
+      },
+      "original_receipt": {
+        "sha256": "9ab7e4e37e8ab94013e3f902860bc022315ec987c029ef70ddb53ae068618d6b",
+        "bytes": 297
+      },
+      "original_axiom_log": {
+        "sha256": "fa8c4b28df664806826a7ab2a082b4d4a517d01faa4814db81953dc628c38744",
+        "bytes": 113
+      },
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.phaseFourier_first_row",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "SideFourierActualCore",
+      "file": "lean/SideFourierActualCore.lean",
+      "source_sha256": "f94006e43da3a7ec72780f1547c5b359a6527bdedfa436a97889aab66cb50412",
+      "bytes": 2192,
+      "checked_object": {
+        "sha256": "db644fae522986e2698f8d7742ef371245e51d0f50cde8fc7482486bd1018650",
+        "bytes": 45576
+      },
+      "original_receipt": {
+        "sha256": "2c17184313e8cf43917cc5af27ccc23430586607bf68935db6ef81173a99248d",
+        "bytes": 296
+      },
+      "original_axiom_log": {
+        "sha256": "7df6d567c2a5f81a87d8c9b7aa204ab7ba103b3eab2ea107d5f475b12f95b6d9",
+        "bytes": 131
+      },
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.prescribed_side_conditions_for_fourier",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "SideFourierActual",
+      "file": "lean/SideFourierActual.lean",
+      "source_sha256": "7186ff2f60ffdb2e1ef76d012bda7e640958458d4d40de8930c170226c0211d4",
+      "bytes": 3123,
+      "checked_object": {
+        "sha256": "133e5204b6e872035245853759e45284d5c379033744d912afeb96868397dd35",
+        "bytes": 83840
+      },
+      "original_receipt": {
+        "sha256": "9bd8110f2c6a9666a56f8e83c2662e8bbc393761d24e32af23a82805f8c6438b",
+        "bytes": 296
+      },
+      "original_axiom_log": {
+        "sha256": "3c9fca21e3597007fef85ef89e7de40abd581c9fcd40ba5df3b04d218b6dbc34",
+        "bytes": 244
+      },
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.prescribed_side_conditions",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.strict_seed_prescribed_side_exists",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    }
+  ],
+  "selected_printed_roots": 13,
+  "semantic_checks": [
+    "The Fourier constant is literally exp(2*pi*I/3), proved equal to (-1/2,sqrt(3)/2), then unit and a root of omega^2+omega+1. Complex cube-root existence handles xi=0 directly and otherwise takes exp(log(xi)/3), using exp_nat_mul and exp_log. No branch is discarded and no algebraic-closure import is needed.",
+    "The literal matrix F(i,j)=omega^(i.val*j.val) and diagonal P(w)=diag(1,conj(w),w) give exactly dft0,dft1,dft2 in the three columns. The fourth-power rewrite and all later power reductions follow from omega^3=1.",
+    "The Gram calculation is P*P†=I and F*F†=3I, hence (M*P*F)(M*P*F)†=3*(M*M†). All unit and quadratic Fourier hypotheses remain explicit in the algebraic helpers.",
+    "The entrywise-unit helper consumes all three row norm equations and all three phase gates. The actual row consumer proves the constant row by unfolding M, takes the second gate from its checked theorem, and takes the third gate from the separately reviewed actual residual chain. No phase gate or polynomial residual is assumed by the actual consumer.",
+    "prescribed_side_conditions derives rho>0 and normSq(w)=1 from the actual guards and cube equation w^3=prescribedXi. It then proves entrywise unitness, every first-row entry equal to1, and literal side Gram equal to reconstructionGram. Its scalar assumptions are R>0,g>0,n>0,epsilon^2=1,the prescribed delta square and Re(dF)>=0.",
+    "strict_seed_prescribed_side_exists quantifies an arbitrary entrywise-unit3x3 E with R(seed(E))>0 and either real epsilon sheet epsilon^2=1. Existing strict-seed and oriented-root results supply g,n,delta and the non-strict orientation condition; the elementary complex exponential/log theorem supplies w. The output Gram is exactly sixI3-E*E† via the checked seed complement identity.",
+    "The construction retains both epsilon sheets and the dF=0 orientation tie. The scalar side-conditions theorem is valid for every w satisfying its cube equation. It does not assert equivalence of different root choices or exhaust all sides.",
+    "The final actual construction assumes no existing complementary side, desired polynomial equation, desired unitness or desired Gram equation. Every such generic helper premise is discharged in the checked chain.",
+    "All thirteen printed roots use standard axioms; source copies, successful receipts, object/log hashes and direct first-resolved custom import edges match the independently reviewed dependencies."
+  ],
+  "admitted_scope": "Literal normalized entrywise-unit Fourier side S=M*P(w)*F3 with SS†=6I-EE† on every strict entrywise-unit seed and either epsilon sheet, including oriented-root existence. This is construction/existence, not side-fiber exhaustion.",
+  "scope_limitations": [
+    "No claim that every possible side arises from this formula, or that root choices differ only by column permutation.",
+    "No complete Hadamard completion classification, radius exclusion, finite-forest or physical box closure, global coverage or no-four-MUB theorem.",
+    "Inherited Mathlib source/cache authenticity caveat remains; no clean full-library rebuild or relocated replay."
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "module": "SideIntrinsicSheetChoice",
+  "source_sha256": "4eca5ba5c1562d38de7ba830489027e0f21b30e49ef56c6341ea875088cd67bd",
+  "checked_object": {
+    "sha256": "1cab1ee819a6dd46f3e68e174f2d7048f03fce5b3fa984db6665bc8aaa1e744e",
+    "bytes": 286776
+  },
+  "original_receipt": {
+    "sha256": "323420dbc5f02676069469c2b9c3e90b979d9bd176b12b540fa8f1a728a998a5",
+    "bytes": 295
+  },
+  "original_axiom_log": {
+    "sha256": "fd2a8b2a0748dbd8659381eb4256f9c7a7b4387e77404cb9c0300eb82bb3d9d8",
+    "bytes": 1482
+  },
+  "selected_roots": [
+    {
+      "declaration": "StrictReconstruction20261007.SideIntrinsic.moments_choose_sheet",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "declaration": "StrictReconstruction20261007.SideIntrinsic.strict_intrinsic_sheet_exists",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    }
+  ],
+  "schema": "sanitized-successful-check-projection-v1",
+  "success": true,
+  "exit_code": 0,
+  "selected": true,
+  "dependency_caveat": "Existing checks reused pinned Lean/Mathlib/custom objects. No clean full-library source/cache rebuild or fresh relocated replay is claimed."
+}

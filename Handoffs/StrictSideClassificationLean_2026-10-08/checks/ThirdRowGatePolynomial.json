@@ -1,0 +1,31 @@
+{
+  "module": "ThirdRowGatePolynomial",
+  "source_sha256": "c66e7ab1cdda39d2e6497cd22f2a1e6195e291ca53edd383f1c2aed440a87ec4",
+  "checked_object": {
+    "sha256": "82f9319ac4222918b4d0568b6892204d1df3104df5ee8082721c9cada4755161",
+    "bytes": 47696
+  },
+  "original_receipt": {
+    "sha256": "f7c901bee6767c48142739a473030378dc104d80a13bb37900ebdaa7a1559304",
+    "bytes": 297
+  },
+  "original_axiom_log": {
+    "sha256": "03dea74553c4bc228ff7a35925c0f46e022faee10f8de104eed94f36f4276668",
+    "bytes": 128
+  },
+  "selected_roots": [
+    {
+      "declaration": "StrictReconstruction20261007.ThirdRowGate.gram_lambda_identities",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    }
+  ],
+  "schema": "sanitized-successful-check-projection-v1",
+  "success": true,
+  "exit_code": 0,
+  "selected": true,
+  "dependency_caveat": "Existing checks reused pinned Lean/Mathlib/custom objects. No clean full-library source/cache rebuild or fresh relocated replay is claimed."
+}

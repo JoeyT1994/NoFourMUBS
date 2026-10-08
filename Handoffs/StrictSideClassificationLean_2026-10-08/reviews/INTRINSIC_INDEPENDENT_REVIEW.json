@@ -1,0 +1,400 @@
+{
+  "schema": "sanitized-independent-semantic-review-projection-v1",
+  "original_review_sha256": "67d62ad0e8cb32447a4bb115ecb835a6e0ab96aea166d066bac8605e09bbebb2",
+  "original_status": "PASS_ACTUAL_SIX_UNIT_PHASE_INTRINSIC_IDENTITIES",
+  "independent_author_and_reviewer": true,
+  "projection_notice": "Semantic checks and scope exclusions are retained verbatim from this review. Earlier exclusions concern the corresponding earlier module; STATUS.json states the collection scope. Host paths, timestamps and operating records are omitted.",
+  "reviewed_modules": [
+    "SideIntrinsicPolynomialDefs",
+    "SideIntrinsicPolynomialNorms",
+    "SideIntrinsicPolynomialLambda",
+    "SideIntrinsicPolynomialChi",
+    "SideIntrinsicUnitBindings",
+    "SideIntrinsicDenominatorAlgebra",
+    "SideIntrinsicActualBindings",
+    "SideIntrinsicActualNorms",
+    "SideIntrinsicActualLambda",
+    "SideIntrinsicActualChi"
+  ],
+  "reviewed_artifacts": [
+    {
+      "module": "SideIntrinsicPolynomialDefs",
+      "file": "lean/SideIntrinsicPolynomialDefs.lean",
+      "source_sha256": "1291afc792342d1241ca5a0ec63d77ba8ac9d838f254a7e420b7c8ce334abc53",
+      "bytes": 2959,
+      "checked_object": {
+        "sha256": "6b3575a1c96465a09258a02d3462caaea3b95e42c2a8e2e890be75a7f3b25d9c",
+        "bytes": 250576
+      },
+      "original_receipt": {
+        "sha256": "2a2872c2982308771ea1f93f5c3ccb9c4d2fcb20fef34c93addd71f583bfec7c",
+        "bytes": 297
+      },
+      "original_axiom_log": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "selected_roots": []
+    },
+    {
+      "module": "SideIntrinsicPolynomialNorms",
+      "file": "lean/SideIntrinsicPolynomialNorms.lean",
+      "source_sha256": "1be085f5915803c5ce132e48d62934d17bf4276e444da0675ad0a3e575bdca99",
+      "bytes": 743,
+      "checked_object": {
+        "sha256": "316324f1afe358a530c18dcb6084b9878dac99dc01b7b191e5d13ff9e380f61f",
+        "bytes": 488896
+      },
+      "original_receipt": {
+        "sha256": "4e57b0a6f77bcaf32e4f4a0b361f59faae22ca978f69ff1668ff3b16a219e897",
+        "bytes": 297
+      },
+      "original_axiom_log": {
+        "sha256": "45c5a92708bc3c382bf46ab3447a96a7114208e7ed3eecd448309948477c196f",
+        "bytes": 194
+      },
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.gramG_numerator",
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.gramEta_numerator",
+          "axioms": [
+            "propext"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "SideIntrinsicPolynomialLambda",
+      "file": "lean/SideIntrinsicPolynomialLambda.lean",
+      "source_sha256": "5e1dda273c2b9d88471c75d2bfb35dc37ab80fa2bf205e7e7f3e897bef82c30f",
+      "bytes": 1071,
+      "checked_object": {
+        "sha256": "f6ddb551c8ee704e8452ac27e6fdc6ef549b74855cbdd3ad30476fb4e9d714a5",
+        "bytes": 1796840
+      },
+      "original_receipt": {
+        "sha256": "4d0035aac315151b5fab916766ef49266bfefee89a5c929dfa9c1bda0cf3d697",
+        "bytes": 297
+      },
+      "original_axiom_log": {
+        "sha256": "65a487bf3d98e2114f47d3f311023ba7c4774290f75b1a1ce804370ae43f7420",
+        "bytes": 3516
+      },
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.lambda0_numerator",
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.lambda1_numerator",
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.lambda2_numerator",
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "SideIntrinsicPolynomialChi",
+      "file": "lean/SideIntrinsicPolynomialChi.lean",
+      "source_sha256": "5b2922aee0f3832d22ac124a62d455e0d599aac124e3a2c3b462835e6ed71cfe",
+      "bytes": 748,
+      "checked_object": {
+        "sha256": "eecbfb3660268d88b4e663f55f158ef9bde4dcb29a10be99f82c0670c12e0d78",
+        "bytes": 7288464
+      },
+      "original_receipt": {
+        "sha256": "c0f670baa39d76445a88f2a63f7cb7df9293a1f98da598c33fbe397f860303a0",
+        "bytes": 297
+      },
+      "original_axiom_log": {
+        "sha256": "9ca3a4ac8f6c9a85cd7f0c85fb7a2f0e4cd7f96231a5eb1fcc9e1094137c2a89",
+        "bytes": 104
+      },
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.gramChi_numerator",
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "SideIntrinsicUnitBindings",
+      "file": "lean/SideIntrinsicUnitBindings.lean",
+      "source_sha256": "9546d661cb8d38e64d034d38fe115c242eb6a9619774d2a533a09ec68b76ef7f",
+      "bytes": 4921,
+      "checked_object": {
+        "sha256": "4699b373e272f7c9d37730e084ff764f2b41d5114de0a7900df4490ae4687234",
+        "bytes": 429296
+      },
+      "original_receipt": {
+        "sha256": "401ef78d8da830e6205dfdd89692377ccb68cd94521c8572b12f5a1a818a90fd",
+        "bytes": 297
+      },
+      "original_axiom_log": {
+        "sha256": "9355779b721f8dc71bfe9ea6c1bed65ad27ee53bbf102a0aa8cdce49ac936d52",
+        "bytes": 647
+      },
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.row_pair_bindings",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.row_product_units",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.row_sum_conjugate_bindings",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.row_det_perm_conjugate_bindings",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.row_fraction_bindings",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "SideIntrinsicDenominatorAlgebra",
+      "file": "lean/SideIntrinsicDenominatorAlgebra.lean",
+      "source_sha256": "50ca6ecc96358342206f355bca1c21b558a7964bfe764f1d4f949b891a52dcfb",
+      "bytes": 1926,
+      "checked_object": {
+        "sha256": "13e5d907b5b66aaf06338493e498e738b038cad009b9ef95b34efe9fe2da61df",
+        "bytes": 495640
+      },
+      "original_receipt": {
+        "sha256": "078ca33435df82ac9611e2874d3df88cb8ea644a137ac3aa6319522a7ed35fbc",
+        "bytes": 296
+      },
+      "original_axiom_log": {
+        "sha256": "faffa3ca2f52e32fb6240083019c4328094341eb1740a9ceb71673e329491958",
+        "bytes": 1706
+      },
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.fraction_scalar_numerators",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.fraction_lambda_numerators",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "SideIntrinsicActualBindings",
+      "file": "lean/SideIntrinsicActualBindings.lean",
+      "source_sha256": "0ea2284ae4f5f0dd72d781d92d937099577a23b75317f1a009f77315437d9853",
+      "bytes": 3094,
+      "checked_object": {
+        "sha256": "48c58a26b178ea0b3ca3818a6c7c26a87bff4ec1ac37ecd78c4ac1f229ce90cd",
+        "bytes": 183400
+      },
+      "original_receipt": {
+        "sha256": "7a515989d7fe6c50754a09215a45028afc6090ccaca224088f6174d438c73742",
+        "bytes": 297
+      },
+      "original_axiom_log": {
+        "sha256": "ead17ca82d7800ac65ec81baaab0d7ba6e4bb7d28700453c7bc9f86cf9645ea2",
+        "bytes": 523
+      },
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.fractionData_actual",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.conjugateFractionData_actual",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.actual_scalar_numerators",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.actual_lambda_numerators",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "SideIntrinsicActualNorms",
+      "file": "lean/SideIntrinsicActualNorms.lean",
+      "source_sha256": "401f1f94e74f28805736bfa6699ebe59bf5bb7695f6e1b8b05b7acb1e9e78c15",
+      "bytes": 1799,
+      "checked_object": {
+        "sha256": "49d3757fdd37038a0a32543b94308b3a6f69507d317c48278ca8af9495e153e9",
+        "bytes": 67776
+      },
+      "original_receipt": {
+        "sha256": "098dc70e0e2b7483ef7a19937967ca3b5c1e57d42c6c970bf73ab18aab2e8d00",
+        "bytes": 296
+      },
+      "original_axiom_log": {
+        "sha256": "12ba85fea6bc8e73f8e631ff597c4ba66f06665f0e8da710449ffe895643856e",
+        "bytes": 259
+      },
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.actual_gramG_norm_det",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.actual_gramEta_norm_perm",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "SideIntrinsicActualLambda",
+      "file": "lean/SideIntrinsicActualLambda.lean",
+      "source_sha256": "c2e40900c799547b3e8759e3222734acb071af983b28e1c0805b23a5b590f88b",
+      "bytes": 1701,
+      "checked_object": {
+        "sha256": "981c348da4b2dfe64a06558d4a4f1ddd96a93b6a15836019863fb48612bf2b23",
+        "bytes": 187184
+      },
+      "original_receipt": {
+        "sha256": "4980abcc3e2596c3a78e9f4fb418c802bc62e4140f1ceaf9314cefbfbfaa5424",
+        "bytes": 297
+      },
+      "original_axiom_log": {
+        "sha256": "81a2b98b6947929787472b9911c53c1d781f92ffc5a594d36c3a818daeba2824",
+        "bytes": 141
+      },
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.actual_intrinsic_lambda_identities",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "SideIntrinsicActualChi",
+      "file": "lean/SideIntrinsicActualChi.lean",
+      "source_sha256": "269293fb2352dee3dbdd316db455d699834490af325a2521793ab4e18c54ff56",
+      "bytes": 2122,
+      "checked_object": {
+        "sha256": "00b3c61f15a5dce361ee2fa041240ee3c80858432b67519e2c8e7f489aa481a6",
+        "bytes": 206184
+      },
+      "original_receipt": {
+        "sha256": "62cf6822f7c8468e811c876cf9ada03234696388baa3857aa555d5c03f9e314f",
+        "bytes": 296
+      },
+      "original_axiom_log": {
+        "sha256": "41289ee0e61cfafcb41936c431b3bd43eac8bc94113b16db0b65e05933b7e105",
+        "bytes": 126
+      },
+      "selected_roots": [
+        {
+          "declaration": "StrictReconstruction20261007.SideIntrinsic.actual_chi_identity",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    }
+  ],
+  "selected_printed_roots": 21,
+  "semantic_checks": [
+    "The six universal numerator identities match the retained supplier scripts with exact row-product denominators: g and eta use u*v, chi uses(u*v)^2, and conjugate P0,P1,P2 use(u*v)^2,v^2,u^2 respectively. The source comparison records each numerator. No supplied Python/CAS program was executed.",
+    "UnitRows requires exactly the six row entries to have normSq1. phaseSide fixes the first row to(1,1,1). The row products u,v are proved unit and nonzero from these six conditions; no first-column dephasing, strict invariant or chart assumption is present.",
+    "The six complementary-pair products are derived by multiplying each unit entry by its conjugate. Their sums bind actual conjugate row sums and rowR=sum_j yj*conj(xj); detBarN and permBarN are then proved to equal u*v times the conjugate literal determinant/permanent polynomials.",
+    "The field denominator module has only u!=0 and v!=0. Its scalar and lambda numerator equations are literal expansions of PreRhoAlignment.gramData. The actual binding module discharges those two guards from UnitRows and replaces the fraction data with the actual Gram scalar/cj/Pj definitions.",
+    "The two actual norm identities cancel only the nonzero unit product u*v and apply Complex.ofReal_injective. They prove g=normSq(rowDet) and eta=normSq(rowPerm) with no determinant or permanent nonzero premise.",
+    "The three actual intrinsic lambda identities cancel only u*v,v,u respectively. Their exact factors are(u*v,v,u) multiplying conjugate Pj, and every leading cj term has u*v. The desired identity is derived from the universal polynomial identity and checked actual bindings, not assumed.",
+    "The actual chi identity uses intrinsicTerm=perm*det^2/(u*v). It proves conjugate(intrinsicTerm)=(u*v)*conj(perm)*conj(det)^2 from unit u*v, and cancels only(u*v)^2. It retains zero determinant, zero permanent and zero discriminant cases.",
+    "The actual endpoint domain is arbitrary six unit complex row entries for a normalized first-row-one side. The determinant/permanent names denote explicit six-term polynomials in these entries. A separate consumer must bind arbitrary matrix inputs and normalization/reconstruction choices to this interface; this review does not silently add that matrix theorem.",
+    "No strict-domain, sheet, orientation, nonzero determinant/permanent or desired-invariant equation is hidden in the actual endpoint hypotheses. There are no sheet choices in this bundle; singular cases remain included.",
+    "All21 selected printed roots have only standard axioms. Source copies, successful receipt/JOB/log/object hashes and first-resolved custom import objects match the reviewed versions. Prior scalar/support sources are reused unchanged from their sealed source packet and are not counted again."
+  ],
+  "admitted_scope": "Ten modules21 printed roots establishing the universal six-phase numerator certificates, their exact unit-row/denominator bindings, and actual g/eta norm, intrinsic lambda and chi identities on six arbitrary unit row entries of a normalized side.",
+  "scope_limitations": [
+    "No theorem that every physical side is already in this normalized interface, no phase-side exhaustion or root-choice/orbit equivalence.",
+    "No full matrix completion classification, radius exclusion, finite-forest or physical box closure, global coverage or no-four-MUB theorem.",
+    "Inherited Mathlib source/cache authenticity caveat remains; no clean full-library rebuild or relocated replay."
+  ]
+}

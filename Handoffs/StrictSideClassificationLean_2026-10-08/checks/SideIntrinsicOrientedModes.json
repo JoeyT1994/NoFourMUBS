@@ -1,0 +1,31 @@
+{
+  "module": "SideIntrinsicOrientedModes",
+  "source_sha256": "5c90390b666ad2868b94782e343e17e79dfed2650cdb413175be15ce2b340004",
+  "checked_object": {
+    "sha256": "cb7f51e20f3898030210287894102e0670f753f4f8e8896cb0ac45838310d786",
+    "bytes": 173576
+  },
+  "original_receipt": {
+    "sha256": "550df06232fcfd9a764197c52ffb956c6885c386ccc17cb01228dab27ae60dc7",
+    "bytes": 296
+  },
+  "original_axiom_log": {
+    "sha256": "de7d50497b5896c5baa7cab291491d55e0c1fe0dc4a0b804b302415012e184af",
+    "bytes": 136
+  },
+  "selected_roots": [
+    {
+      "declaration": "StrictReconstruction20261007.SideIntrinsic.oriented_mode_scalar_recovery",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    }
+  ],
+  "schema": "sanitized-successful-check-projection-v1",
+  "success": true,
+  "exit_code": 0,
+  "selected": true,
+  "dependency_caveat": "Existing checks reused pinned Lean/Mathlib/custom objects. No clean full-library source/cache rebuild or fresh relocated replay is claimed."
+}
