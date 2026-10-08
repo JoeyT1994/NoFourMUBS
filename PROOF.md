@@ -96,3 +96,11 @@ The expensive parts of §3–§4 all lie in the shell just outside the 1/30 tube
 - a local lemma is proved: ν(H) ≤ 0.55 and M < 26 imply that H is not a quartet edge (ν is the smallest horizontal phase norm to F6; d_F ≤ 0.0913 suffices).
 
 Both are certified and replayed. One statement remains open: **M(H) < 26 ⇒ ν(H) ≤ 0.55.**
+
+**The atlas route (8 Oct 2026), which replaces that open step.** [`simplerproof/atlas/`](simplerproof/atlas/README.md) follows the openai/math architecture in our coordinates: a finite atlas of intrinsic Records, with Stage C on each.
+
+Its global input is now **proved**; see [`simplerproof/coverage/`](simplerproof/coverage/README.md).
+- The positive local maxima of R are exactly one 18-point orbit, at α(1, 2, −1, −2) with α = arccos(1/4), where R = 3¹³/2¹². The proof is exact algebra.
+- Relative to MC1–MC5, the non-Tao quotient (𝓗/≅) ∖ {[Tao]} is connected.
+
+So any nonempty finite atlas whose boundary transfers are certified covers every non-Tao class. What remains is to build and certify that atlas.

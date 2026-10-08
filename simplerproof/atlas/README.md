@@ -22,6 +22,14 @@ The minimum √3 is exactly the value at F6.
 
 With the global bound ‖Φ″[w, w′]‖ ≤ 2^{3/2}‖w‖‖w′‖, every point would then carry a normal-form chart of the same contraction radius, about 0.6 in phase norm, exactly as at F6 (`../widetube`).
 
+## Coverage: proved (8 Oct)
+
+Both coverage-handoff returns replay with exact acceptance; see `../coverage/README.md`.
+- Claim A holds: one orbit of maxima, R* = 3¹³/2¹².
+- X = (𝓗/≅) ∖ {[Tao]} is connected.
+
+So steps 2 and 3 of the plan below reduce to a single condition: **a nonempty finite set of ball Records, each of whose boundary Hadamards has an interior representative in some Record.** For ball Records this is a 4-dimensional tangent-shell certificate (`COVERAGE.md`, the boundary-transfer lemma). One-seed-per-component is no longer needed, nor is closure under conjugation and transposition.
+
 ## Plan
 
 1. **Records.** Generalise the wide-tube normal-form engine from F6 to arbitrary rational centres H₀.
@@ -84,3 +92,17 @@ Without the tangent test, cells pass only up to radius 0.002 cycles. Compared wi
 1. Record design, as in their Stage B. Each atlas cell gets its own centre P (an approximate root), a numerical orthonormal tangent frame T, and a normal bound ν ≤ n₀ + ι‖η‖ + Γ‖η‖², obtained from the contraction with ‖Φ″‖ ≤ 2√3 and ‖J_N⁺‖ ≈ 1/√3. This needs no Krawczyk grid inside the cell.
 2. Rigour. Use Arb-certified tables for e(u) at bin midpoints (finitely many values) and for e(−P); then a float error analysis of the remaining basic operations gives explicit margins, as in their Appendix A.
 3. Port the joint test (6.23) to reach r_H of about 0.016.
+
+## Ball Records across centres (`ballrecord.py`, 8 Oct)
+
+Each test is one ball of radius R = 0.063 rad around the centre, with the normal bound certified in Arb (σ ≥ 1.70 at every centre) and Stage C taking rigorous inputs. Each ball takes about 0.45 s.
+
+| Centre | Result |
+|---|---|
+| F6 | pass |
+| Shoulder | pass |
+| Fold point (M ≈ 74) | pass |
+| Random Hadamards with M = 84, 190, 208, 219, 228 | pass |
+| One random Hadamard with M = 228 | **fail** (56 labels, 4,616 bins) |
+
+The failing centre needs a smaller R or the joint test (6.23). The atlas driver will choose R adaptively per centre.
