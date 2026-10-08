@@ -33,6 +33,7 @@ Every acceptance is an exact or outward-interval test, and every certificate's i
 ### Other folders
 
 - [`paper/`](paper/) holds the write-up draft.
+- [`Lean/`](Lean/README.md) is a source archive of the programme's Lean files, with a verify-and-restore script. It is archival and is not a Lean proof of the theorem.
 - [`provenance/`](provenance/README.md) holds the earlier status documents. Some certificates pin them by hash, so they are kept unchanged; they are not part of the argument.
 
 ## Verifying
