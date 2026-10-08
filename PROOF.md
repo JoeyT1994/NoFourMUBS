@@ -23,7 +23,7 @@ Steps 1 and 2 are pure mathematics. Steps 3 and 4 are computer-assisted, with ev
 - conjugation H ↦ H̄;
 - transposition H ↦ Hᵀ (apply the unitary H*/√6 to all four bases, then conjugate).
 
-**Tao's matrix.** S₆ is an isolated point of 𝓗/≅ and is not a quartet edge. This is [BW], with an exact replay in [`archive/long_proof/ProvenResults/ExceptionalEndpoints/Tao`](archive/long_proof/ProvenResults/ExceptionalEndpoints/Tao/README.md). Let
+**Tao's matrix.** S₆ = (e(k_ij/3)) is an isolated point of 𝓗/≅ and is not a quartet edge. Both facts come from our own machinery: S₆ is a *zero-dimensional* ball Record (Step 3, Remark 3.3). Let
 
   X = (𝓗/≅) ∖ {[S₆]},
 
@@ -55,7 +55,7 @@ with the quotient phase metric δ(H, K) = min{‖v‖ : v horizontal, H ≅ K �
 
 ## Step 2. X is connected (relative to the classification)
 
-> **Theorem 2.** Assume MC1–MC5 and that S₆ is isolated. Then X is connected.
+> **Theorem 2.** Assume MC1–MC5. Then X is connected. (S₆ is isolated by Remark 3.3.)
 
 **Proof.**
 1. **Sheet parity.** Let L be a seed symmetry with transposition bit τ and conjugation bit κ. Then [H_σ(Lθ)] = 𝒞^κ 𝒯^τ [H_{(−1)^{τ+κ}σ}(θ)]. The maximal seed E(x) = [[1,1,1],[1,x,x²],[1,x⁻¹,x⁻²]] has two exact frame symmetries. Together these give H₊(Lθ*) ≅ K* for all 144 maps L: a single class.
@@ -92,6 +92,12 @@ A **ball Record** is a set B_r = {e^{i(P+δ)} : δ horizontal, ‖δ‖ ≤ R}, 
 
 Records pass at R = 0.08 rad, about 0.5 s each.
 
+> **Remark 3.3 (S₆ is a zero-dimensional Record).** At S₆, J is injective on the whole 25-dimensional horizontal space, with σ ≥ 2.1 certified by an Arb Cholesky factorisation. So T is empty and r_H = 0. Let the ball have R = 0.08.
+> - *Uniqueness.* Since L·R = 0.28 < σ, the mean-value bound ‖Φ′(x) − Φ′(0)‖ ≤ L‖x‖ gives σ‖δ₁ − δ₂‖ ≤ L·R·‖δ₁ − δ₂‖. So the ball contains exactly one Hadamard, S₆ itself, and S₆ is isolated in 𝓗/≅.
+> - *Exclusion.* Stage C passes on this ball, so S₆ is not a quartet edge.
+>
+> This is [`proof/atlas/tao.py`](proof/atlas/tao.py), which runs in under 1 s.
+
 ## Step 4. A finite atlas
 
 > **Lemma 4.1 (4-dimensional boundary transfer).** Let s and t be ball Records, A a signed permutation of the 36 entries (row and column permutations, transposition, conjugation) and N an integer winding. Put c = h(A P_s + 2πN − P_t) and M = h(A T_s). If
@@ -111,14 +117,13 @@ Because of the normal bound, the boundary of a Record needs only a 4-dimensional
 
 ## Conclusion
 
-By Step 4 and the Corollary to Step 2, every class in X lies in some ball Record. By Step 3, no Hadamard in a Record is a quartet edge. S₆ is not a quartet edge. Hence no order-6 Hadamard matrix is a quartet edge, and C⁶ has no four MUBs. ∎
+By Step 4 and the Corollary to Step 2, every class in X lies in some ball Record. By Step 3, no Hadamard in a Record is a quartet edge. S₆ is not a quartet edge, by Remark 3.3. Hence no order-6 Hadamard matrix is a quartet edge, and C⁶ has no four MUBs. ∎
 
 ## Trust boundary
 
 | Input | Used in | Status |
 |---|---|---|
 | The classification [CT], via MC1–MC5 | Step 2 only | Proved relative to [CT] in [`MinimalConstruction/Proofs`](MinimalConstruction/Proofs/README.md) |
-| S₆ is isolated and not a quartet edge | §0, Step 2 | [BW]; exact replay in the archive |
 | [OAI] Lemmas 6.1–6.7 (the Stage C inequalities) | Step 3 | Elementary Taylor and Cauchy–Schwarz bounds, restated in our notation in `stagec.py` |
 | Computation | Steps 1 and 4 | Exact (Step 1); Arb plus margined binary64 (Steps 3–4) |
 
@@ -126,7 +131,7 @@ By Step 4 and the Corollary to Step 2, every class in X lies in some ball Record
 
 ```bash
 pip install -r requirements.txt
-python3 verify.py            # Steps 1–2 exact replays, MC1–MC5, Tao, Stage C Arb replay
+python3 verify.py            # Steps 1–2 exact replays, MC1–MC5, S₆ Record, Stage C Arb replay
 python3 verify.py --atlas    # Step 4: full atlas certification (parallel; hours)
 ```
 
@@ -138,4 +143,3 @@ The first complete proof used the corner chart directly: a maximal-corner domain
 
 - [CT] M. Cárdenes Wuttig, J. Tindall, *A complete classification of complex Hadamard matrices of order six*, arXiv:2608.18053.
 - [OAI] OpenAI, *The maximum number of mutually unbiased bases in dimension six*, preprint, 24 Sep 2026 (openai/math).
-- [BW] S. Brierley, S. Weigert, Phys. Rev. A 79 (2009) 052316, arXiv:0901.4051.

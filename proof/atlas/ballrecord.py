@@ -39,13 +39,17 @@ def cholesky_pd(A):
 
 
 class BallRecord:
-    def __init__(self, phi, sigma_try=(1.70, 1.65, 1.6, 1.5, 1.4, 1.2, 1.0)):
+    def __init__(self, phi, sigma_try=(1.70, 1.65, 1.6, 1.5, 1.4, 1.2, 1.0), dimT=4):
+        """dimT = 4 for every Hadamard except Tao's S6, where J is injective on the horizontal space (dimT = 0: an
+        isolated point, r_H = 0 and delta = nu)."""
         self.rec = rec = Record(phi)                     # centre, J (arb), rational tangent T, exact P_N
-        assert rec.dimT == 4, 'tangent dimension %d' % rec.dimT
+        assert rec.dimT == dimT, 'tangent dimension %d' % rec.dimT
         J = rec.J
         # e0 = ||Phi(0)||
         Ph = rec.Phi_arb([arb(0)] * 36)
         self.e0 = math.sqrt(sum(float(abs(t).upper()) ** 2 for t in Ph)) * 1.000001
+        if dimT == 0:
+            self._init_isolated(sigma_try); return
         self.j1 = opnorm_upper(J * rec.Tb)
         # Gershgorin bounds for the exact rational Gram matrix G = T^T T (G ~ I):
         # lam_max(G) <= max_i sum_j |G_ij|,  lam_min(G) >= min_i (G_ii - sum_{j != i} |G_ij|) > 0
@@ -69,6 +73,25 @@ class BallRecord:
                 self.sigma = sg; break
         assert self.sigma is not None, 'sigma certification failed'
 
+    def _init_isolated(self, sigma_try):
+        rec = self.rec; J = rec.J
+        self.j1 = 0.0; self.lam_max = 0.0; self.ginv_half = 0.0; self.tcol = 0.0
+        u, sv, vt = np.linalg.svd(rec.PNn)
+        Nb_f = u[:, sv > 0.5]; assert Nb_f.shape[1] == 25                     # N = the whole horizontal space
+        Nb = rec.PN * arb_mat([[arb(Fr(round(float(x) * 2 ** 30), 2 ** 30).numerator) / 2 ** 30 for x in row] for row in Nb_f])
+        JN = J * Nb; GN = Nb.transpose() * Nb; JJ = JN.transpose() * JN
+        self.sigma = None
+        for sg in sigma_try:
+            if cholesky_pd(JJ - GN * arb(sg) ** 2):
+                self.sigma = sg; break
+        assert self.sigma is not None, 'sigma certification failed'
+
+    def unique_in_ball(self, R):
+        """Isolated centre (dimT = 0): at most one Hadamard e^{i(P + delta)} with delta horizontal, ||delta|| <= R, when
+        L R < sigma.  (Phi(d1) - Phi(d2) = J (d1 - d2) + E with ||E|| <= L R ||d1 - d2|| by the mean value theorem and
+        ||Phi'(x) - Phi'(0)|| <= L ||x||; and ||J v|| >= sigma ||v|| for every horizontal v.)"""
+        return self.rec.dimT == 0 and L_PHI * R < self.sigma
+
     def normal_bound(self, R):
         """Returns (rH, n) for the ball ||delta|| <= R, or None if R >= sigma/L."""
         if R >= self.sigma / L_PHI: return None
@@ -84,11 +107,12 @@ class BallRecord:
         if nb is None: return dict(ok=False, reason='normal bound')
         rH, n = nb
         # column bound: delta_{:,i} = T_i eta + nu_i, so ||delta_{:,i}|| <= ||T_i|| rH + n  (T_i = 6x4 column block of exact T)
-        if not hasattr(self, 'tcol'):
+        if not hasattr(self, 'tcol') and self.rec.dimT:
             self.tcol = max(opnorm_upper(arb_mat([[self.rec.Tb[6 * j + i, k] for k in range(4)] for j in range(6)])) for i in range(6))
         rcol = min(R, (self.tcol * rH + n) * (1 + 1e-12))
         # Stage C uses the float rounding Tf of the exact rational frame T: T eta = Tf eta + (T - Tf) eta
-        dT = float(np.abs(np.array([[float(abs(self.rec.Tb[e, k] - arb(float(self.rec.Tbn[e, k]))).upper()) for k in range(4)] for e in range(36)])).sum())
+        k = self.rec.dimT
+        dT = float(np.abs(np.array([[float(abs(self.rec.Tb[e, j] - arb(float(self.rec.Tbn[e, j]))).upper()) for j in range(k)] for e in range(36)])).sum()) if k else 0.0
         n = n + dT * rH * (1 + 1e-12)
         P = self.rec.phi.reshape(6, 6) / SC.TWO_PI
         out = SC.stage_c(P, rcol / SC.TWO_PI, tang=(self.rec.Tbn, rH / SC.TWO_PI, n / SC.TWO_PI), radius=radius)

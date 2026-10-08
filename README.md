@@ -18,7 +18,7 @@
 | Folder | Role |
 |---|---|
 | [`proof/`](proof/README.md) | **The minimal proof**: coverage (Steps 1–2) and the atlas (Steps 3–4) |
-| [`MinimalConstruction/`](MinimalConstruction/README.md) | The corner reconstruction H±(θ) and MC1–MC5, proved relative to the classification (used in Step 2) |
+| [`MinimalConstruction/`](MinimalConstruction/README.md) | The corner reconstruction H±(θ) and MC1–MC5, proved relative to the classification (used in Step 2); `Sheets/` holds the MC3/MC5 sheet lemmas |
 | [`ClassificationPaper/`](ClassificationPaper/README.md) | The classification of order-6 complex Hadamard matrices [CT] |
 | [`openai/`](openai/README.md) | Summary of the openai/math proof, and what we take from it (Stage C and Records) |
 | [`archive/`](archive/README.md) | Everything superseded: the first, corner-chart proof (about 10⁵ core-hours) with its write-up draft, and the earlier shortening attempts (wide tube, confinement, averaging lemma). Still replayable |
@@ -27,7 +27,7 @@
 
 ```bash
 pip install -r requirements.txt
-python3 verify.py            # exact replays (Steps 1–2), MC1–MC5, Tao, Stage C Arb sample
+python3 verify.py            # exact replays (Steps 1–2), MC1–MC5, S₆ as a 0-dim Record, Stage C Arb sample
 python3 verify.py --atlas    # Step 4: certify the full atlas (parallel; hours)
 ```
 
@@ -35,4 +35,3 @@ python3 verify.py --atlas    # Step 4: certify the full atlas (parallel; hours)
 
 - [CT] M. Cárdenes Wuttig, J. Tindall, *A complete classification of complex Hadamard matrices of order six*, arXiv:2608.18053.
 - [OAI] OpenAI, *The maximum number of mutually unbiased bases in dimension six*, preprint, 24 Sep 2026 (openai/math).
-- [BW] S. Brierley, S. Weigert, Phys. Rev. A 79 (2009) 052316, arXiv:0901.4051.

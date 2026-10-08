@@ -11,6 +11,7 @@
 | `atlas.py` | Breadth-first atlas growth. Alignments are signed permutations of the 36 phase entries, composed through a link graph. Loop closures use a signature-ranked global search with corner alignment |
 | `certify.py` | Independent re-check of every Record: σ, the normal bound, a Stage C rerun, and a replay of the boundary tree using only the stored transfer targets, with constants from Arb. Exits nonzero on failure |
 | `nonempty.py` | Places the exact F6 inside a Record, checked in Arb |
+| `tao.py` | S₆ as a zero-dimensional ball Record: uniqueness in the ball (isolation) and Stage C (Remark 3.3) |
 | `arb_replay.py` | Re-evaluates a random sample of float Stage C rejections in Arb with no margin |
 | `RIGOUR.md` | Error budget and status of every inequality |
 | `volume.py`, `conditioning.py` | The corner census used by the alignment, and numerical estimates (vol(A) ≈ 1.0; rank J = 21, σ_min ≥ √3 observed) |

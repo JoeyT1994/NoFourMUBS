@@ -1,6 +1,7 @@
 """Replay the minimal proof (PROOF.md).  Exits nonzero if any check fails.
 
-  python3 verify.py                 Steps 1-2 (two exact replays), MC1-MC5, sheet conjugation, Tao, Stage C Arb sample
+  python3 verify.py                 Steps 1-2 (two exact replays), MC1-MC5, sheet lemmas, S6 as a zero-dimensional Record,
+                                    Stage C Arb sample
   python3 verify.py --atlas [-j N]  additionally certify every Record of the atlas (Step 4) and F6 nonemptiness
 """
 import argparse, os, subprocess, sys, time
@@ -8,16 +9,15 @@ from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
-LP = 'archive/long_proof/ProvenResults'
 CHECKS = [
     ('step1_2_deltoid_return',  'proof/coverage/returns/A_deltoid/verify_all.py', []),
     ('step1_2_exact_quotient',  'proof/coverage/returns/B_exact_quotient/verify_all.py', []),
     ('mc_reconstruction_proofs', 'MinimalConstruction/Proofs/verify_dossier.py', []),
     ('mc_reconstruction',       'MinimalConstruction/Implementation/verify.py', []),
     ('mc_single_radical',       'MinimalConstruction/Implementation/verify_single_radical.py', []),
-    ('mc5_sheet_conjugation',   LP + '/Sheets/verify.py', []),
-    ('mc3_side_branch_lemma',   LP + '/Sheets/verify_branch_lemma.py', []),
-    ('tao_exclusion',           LP + '/ExceptionalEndpoints/Tao/verify.py', []),
+    ('mc5_sheet_conjugation',   'MinimalConstruction/Sheets/verify.py', []),
+    ('mc3_side_branch_lemma',   'MinimalConstruction/Sheets/verify_branch_lemma.py', []),
+    ('tao_zero_dim_record',     'proof/atlas/tao.py', ['0.08']),
     ('step3_stagec_arb_replay', 'proof/atlas/arb_replay.py', ['centre_fold52.json', '0.08', '100']),
 ]
 
