@@ -1,0 +1,46 @@
+{
+  "module": "SparseBaseAccuracy",
+  "group": "base229",
+  "source_sha256": "c67872335777df278b0e99fd8192d34574d970bc375be4ffead46fe716df2b1d",
+  "declarations": [
+    {
+      "name": "Seed0024ClusterTubeTable20261007.SparseBase.second_tail_checked",
+      "axioms": []
+    },
+    {
+      "name": "Seed0024ClusterTubeTable20261007.SparseBase.all_tail_checked",
+      "axioms": [
+        "propext"
+      ]
+    },
+    {
+      "name": "Seed0024ClusterTubeTable20261007.SparseBase.base_rows_sound",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Seed0024ClusterTubeTable20261007.SparseBase.base_accurate",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    }
+  ],
+  "receipt_sha256": "4b547cfa114803e657a716dbd0c40e4ab64cbb2096b5e6688e49b9a5e0aa8876",
+  "axiom_transcript_sha256": "55489a7246f80cc34770d54591ead2d9fc50c4e6bc991ea2708da35eb5782769",
+  "job_sha256": "32dc9d787e97566a93b0b623247a2480ce5e7af047bd87736f4af3c8e209a4f3",
+  "review_sha256": "4b4f3cc6883afe6009278c9295b919e4630918ae085eb49263a0c1fba96178c3",
+  "success": true,
+  "exit_code": 0,
+  "allowed_axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+  ],
+  "source_file": "lean/SparseBaseAccuracy.lean",
+  "kind": "narrow-projection-of-successful-source-and-kernel-receipt"
+}

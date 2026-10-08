@@ -1,0 +1,64 @@
+{
+  "module": "SparseBaseData",
+  "group": "base229",
+  "source_sha256": "b236c1ce0f415a77730361bc317d05c4a568abcc2c2a2d85b7d0d86f12d1681e",
+  "declarations": [
+    {
+      "name": "Seed0024ClusterTubeTable20261007.SparseBase.firstTail_length",
+      "axioms": []
+    },
+    {
+      "name": "Seed0024ClusterTubeTable20261007.SparseBase.secondTail_length",
+      "axioms": []
+    },
+    {
+      "name": "Seed0024ClusterTubeTable20261007.SparseBase.baseRows_length",
+      "axioms": []
+    },
+    {
+      "name": "Seed0024ClusterTubeTable20261007.SparseBase.boundary_eq_lastBox",
+      "axioms": []
+    },
+    {
+      "name": "Seed0024ClusterTubeTable20261007.SparseBase.shared_step_checked",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Seed0024ClusterTubeTable20261007.SparseBase.shared_step_sound",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Seed0024ClusterTubeTable20261007.SparseBase.initial_box_sound",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Seed0024ClusterTubeTable20261007.SparseBase.initial_row_checked",
+      "axioms": []
+    }
+  ],
+  "receipt_sha256": "f26eda0b69335f9f5d807332ded0d4b93f93cfe2d46b79082bb54f720c9889c5",
+  "axiom_transcript_sha256": "6f4ccb2257a5393015261e214763229136629aa53cc07ff2bb482c6ace73653e",
+  "job_sha256": "5ba1d19bc0bd846424095f9c62e8715fa0cb702f1dd4035edc090aff43724b30",
+  "review_sha256": "4b4f3cc6883afe6009278c9295b919e4630918ae085eb49263a0c1fba96178c3",
+  "success": true,
+  "exit_code": 0,
+  "allowed_axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+  ],
+  "source_file": "lean/SparseBaseData.lean",
+  "kind": "narrow-projection-of-successful-source-and-kernel-receipt"
+}

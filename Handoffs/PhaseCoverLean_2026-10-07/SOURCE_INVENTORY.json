@@ -1,0 +1,2995 @@
+{
+  "modules": [
+    {
+      "module": "ActualFourierModel",
+      "file": "lean/ActualFourierModel.lean",
+      "source_sha256": "82d4ece8b278994029bb47ac24a12920241a01f4e1b70b890b1f9b58be4eedd0",
+      "imports": [
+        "MatchedFrobenius",
+        "OrderedOrientationPairs",
+        "PhaseCisBridge"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "6612898e9f16c19907eb94eb0c4f60249ca50a96771d6f500d20a6ca53fb21a8"
+      ],
+      "source_receipt_sha256": "8c8ec2be88259a9202ec1d064934bd69fd4d0359dd9ca7dafdae3f3d232d290f"
+    },
+    {
+      "module": "ActualSparseTable",
+      "file": "lean/ActualSparseTable.lean",
+      "source_sha256": "7a166b04a4f1d78386065fcd8eeaa5cb24aebb350bc85f1a55f276644dbf8ba1",
+      "imports": [
+        "SparseOctantTable",
+        "SparseGridTable",
+        "SparseBaseAccuracy"
+      ],
+      "selected_root": true,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "5f1ad9a36761b03cb287a095d2177087f04c730daa6c4fa7ed51212ed6ddfaba"
+      ],
+      "source_receipt_sha256": "1983e9cf8b2c58fcabb9781e739c4556e8b3ea32bee676de3a6ed8b21f1de719"
+    },
+    {
+      "module": "AnchoredPhaseBounds",
+      "file": "lean/AnchoredPhaseBounds.lean",
+      "source_sha256": "d6c359598c73fd67fe949e636c99cd52569da851031a9fe3fee5fe5ffc178601",
+      "imports": [
+        "UnitTripleBounds",
+        "Mathlib.Analysis.SpecialFunctions.Complex.Arg",
+        "Mathlib.Analysis.Complex.Trigonometric"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "aea93eed18dc0e842c6e34b71224c1acfd5191c4c7f91bd75144402b8dcd5423"
+      ],
+      "source_receipt_sha256": "1fdc55d2a74deed5a7cdbf329f1d46bb1e0846a346ec00456b55740eeb0afe94"
+    },
+    {
+      "module": "ApproximateF6GraphExclusion",
+      "file": "lean/ApproximateF6GraphExclusion.lean",
+      "source_sha256": "5aaf649ff02b487d9d288d4fabc6786271a4e3a24df91d9b77658bea72250194",
+      "imports": [
+        "CentreLabelSoundness",
+        "RayDomainLabelAssignment",
+        "LiteralGraphExclusion",
+        "Retained36ApproximateRays"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "4c45103f4a3b7947699d5e9804c1ff379e760eb271b69e9f328b7c61e802b185"
+      ],
+      "source_receipt_sha256": "502cb57d430f25446984d121f67c19455fa988cf704211170dc8ba4770cb7c19"
+    },
+    {
+      "module": "ApproximatePhaseFrontend",
+      "file": "lean/ApproximatePhaseFrontend.lean",
+      "source_sha256": "aae8d66f626aeaf6431dee767e6933b585259f38a320c1a57f403cfc653f1eb0",
+      "imports": [
+        "FourierPhaseTargets",
+        "QuartetTubeRays"
+      ],
+      "selected_root": true,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "f5cdc479c379c9d29f5df97bf016396e97ee1b02a8cdcd40087b4fcd80a49eb7"
+      ],
+      "source_receipt_sha256": "7b910ca0c03175a700892eeef79216d18f0aca602930f59a47dc33fdec64779f"
+    },
+    {
+      "module": "CentiradianNormalization",
+      "file": "lean/CentiradianNormalization.lean",
+      "source_sha256": "7eac00ff592d0316ac2ece341a1b708585b32f243bfb96e21c97221765880999",
+      "imports": [
+        "CentiradianPhysical"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "ed5a2c6c0967ab50aa47a37fcdc461219a73ad5b9bb2984635d2b977b6d6b901"
+      ],
+      "source_receipt_sha256": "28b8c641a2e2db1b5bef6eeae6b5ca7db95ff5f8f9b035dbfc63d13dec6d93ff"
+    },
+    {
+      "module": "CentiradianPhysical",
+      "file": "lean/CentiradianPhysical.lean",
+      "source_sha256": "f3a81569f51a4eac1e147df81bfa9d713ad386891c2d6ea45ff51eb9fd2cc703",
+      "imports": [
+        "Mathlib.Analysis.Complex.Trigonometric",
+        "Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic",
+        "Mathlib.Data.Fintype.Card",
+        "Mathlib.Tactic.Ring",
+        "Mathlib.Tactic.NormNum",
+        "Mathlib.Tactic.Linarith"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "d39b6828bc700abf0ccb1b73bfc85b31f74a7d229481b78d459f07f720c3ff35"
+      ],
+      "source_receipt_sha256": "b5b554d1c683ea95008876203992919593c282b5eb96a0ad02ffd66dd9304e51"
+    },
+    {
+      "module": "CentreGraphBinding",
+      "file": "lean/CentreGraphBinding.lean",
+      "source_sha256": "5c5a98a16e4be9962272fa7212f7280e70c2b0f6dc6e0022a52586a3517c197a",
+      "imports": [
+        "CentrePairChunk45"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "9664092bb8f15247165868b70147200636c300216d2dd2583179ae4b7a287628"
+      ],
+      "source_receipt_sha256": "9bf8f5067d010648aa155d6005c882aea05c03f1281f7fa1e1bd742ad6c5c0e4"
+    },
+    {
+      "module": "CentreLabelSoundness",
+      "file": "lean/CentreLabelSoundness.lean",
+      "source_sha256": "1c5116403563eb1c360ca9ea50e3d263fa2ede086ae706a26d7860e0d194f0b4",
+      "imports": [
+        "CentreProjectorLabel",
+        "CentreGraphBinding",
+        "OrthogonalBallCompatibility",
+        "UnbiasedBallCompatibility",
+        "PhysicalLabelGraph"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "e395da991e46e40c52330f33d4e37fb33f5dffaf2b50bcef2549293ed2b73d1e"
+      ],
+      "source_receipt_sha256": "4f98d5f0c9082c4ef9b4ef28c4fbcf9714a40258519314b5ac990de3f333e32e"
+    },
+    {
+      "module": "CentrePairChunk01",
+      "file": "lean/CentrePairChunk01.lean",
+      "source_sha256": "77470bc5d24dfe3af1d715a76b3eaeea93130c35af8b18b734628315afc73459",
+      "imports": [
+        "CentreRow00"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "fd1b93a54376c22d9d704b30a61601681c36258d7c41290e8b7b418e818cc9a6"
+      ],
+      "source_receipt_sha256": "4bc14c29d140142006794d227de02feefca70fa5f4abc103bc0e64654cee836e"
+    },
+    {
+      "module": "CentrePairChunk05",
+      "file": "lean/CentrePairChunk05.lean",
+      "source_sha256": "d0976e330a9e9a160e05a1edc52d9d1b324d7968128abb13022599e7978a44bd",
+      "imports": [
+        "CentrePairChunk01"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "3631757d5ef9813dde487edf0bcba2b4c2f6f203a1eab5e7bd9703b4eb0a95f6"
+      ],
+      "source_receipt_sha256": "fbcf6312d4a717ff5ac2c188a8f3fbeef58af813fd9805a9414b670933fc2c09"
+    },
+    {
+      "module": "CentrePairChunk09",
+      "file": "lean/CentrePairChunk09.lean",
+      "source_sha256": "9a3c9e5e8e1e8c33667afb69a633800f3ef8041f9fc6f6b176083b59bc0e8e21",
+      "imports": [
+        "CentrePairChunk05"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "89f69e61f96e8c4ae337087f6acaf07f3907ce3d8e343c1ea0848a9ddad9f97c"
+      ],
+      "source_receipt_sha256": "9ac7b5b0dc4fa3c7f134ff233e123471e81cb75f97111e20a4d1b29ee93d8e5c"
+    },
+    {
+      "module": "CentrePairChunk13",
+      "file": "lean/CentrePairChunk13.lean",
+      "source_sha256": "e0edd887c1eb74ed5ccbcd38034e73618c9fa5b2f925d3075409f8cf586229b6",
+      "imports": [
+        "CentrePairChunk09"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "b0b6780282e38efaad1df30fee15418fcb6d4b9a5bdce6bec3357b6be34f5b4b"
+      ],
+      "source_receipt_sha256": "ae27e829d22b5231400141960fb044e433406d0f4d7b02e6f313e9eb9926e2d5"
+    },
+    {
+      "module": "CentrePairChunk17",
+      "file": "lean/CentrePairChunk17.lean",
+      "source_sha256": "2713b07cb946d30ab93628f3b03c822d8ba84d27c5ad478fed8c410f856e0268",
+      "imports": [
+        "CentrePairChunk13"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "e8cf69bcd5fb6a27b684e44010ba4c5eceb8a5df43bb9149cd5eaacef2cb51bc"
+      ],
+      "source_receipt_sha256": "21df6f2bb50fe6d55cd230e531d2f9083e21373685d9956c7e5f1c5c4e53ef7e"
+    },
+    {
+      "module": "CentrePairChunk21",
+      "file": "lean/CentrePairChunk21.lean",
+      "source_sha256": "667b4f5f04dfda68fa99329fc9c7f04a55fb9b50a0accf727dbf91479ac2d24d",
+      "imports": [
+        "CentrePairChunk17"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "2c02bc6dd1f6baa35008a0b782ffe7263480f5fc8cd52957d04b7e08d45eb389"
+      ],
+      "source_receipt_sha256": "30669075db30104e329d96fa072387867eed40f8cc74fd7b210ca9943bcf7a65"
+    },
+    {
+      "module": "CentrePairChunk25",
+      "file": "lean/CentrePairChunk25.lean",
+      "source_sha256": "4774e613042bec861080ce8fd842251943f998cf36602b17402a431e491547ce",
+      "imports": [
+        "CentrePairChunk21"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "ad4b0272556cc277120b95ca346a225567ec24743eba29fcd48ffc13a112248d"
+      ],
+      "source_receipt_sha256": "27a06a79d12bc7e7aa032295578fee09036c538a41f6230136eabe3503f92af7"
+    },
+    {
+      "module": "CentrePairChunk29",
+      "file": "lean/CentrePairChunk29.lean",
+      "source_sha256": "d8043b47331439acd6c3ec390e548d0d1885823578cfe57273e548e8bfb9eb06",
+      "imports": [
+        "CentrePairChunk25"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "4df11221db2be4124f53c5fa732939eec50e34fd6eade49359659c42ee2e491a"
+      ],
+      "source_receipt_sha256": "44f5d517a30e9f68eb1e96a61d5efca9ee05e6780e60c9ea9c91699f32b2ec5d"
+    },
+    {
+      "module": "CentrePairChunk33",
+      "file": "lean/CentrePairChunk33.lean",
+      "source_sha256": "6d52004a891e92fb859f3ba956b16d501f2df0d036710496a81932fb90085e7a",
+      "imports": [
+        "CentrePairChunk29"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "0444cde0e4e2923d17bf2a2fd1e4eab8466d2ffc2c63c5e245e9e2883c27b0cd"
+      ],
+      "source_receipt_sha256": "02f6c23465f03cdfcc509b00740fea5ec1c2d0698c6c6b74709b7a526d63c978"
+    },
+    {
+      "module": "CentrePairChunk37",
+      "file": "lean/CentrePairChunk37.lean",
+      "source_sha256": "9151458d876391ef939d3f80612f18d0e8a8e4d2196d43da8fadb8c292e5a0f6",
+      "imports": [
+        "CentrePairChunk33"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "bef4a748018473939ef8741c9bac76c77d903f7a41ec48fb86549362de64091b"
+      ],
+      "source_receipt_sha256": "a08f06c51b76802badb0facb7e97fde3ffe7cabe0008d21404f0cf307b2578da"
+    },
+    {
+      "module": "CentrePairChunk41",
+      "file": "lean/CentrePairChunk41.lean",
+      "source_sha256": "0ce87bcfea9e9ca091576104985494373d7bd81914fbce3fa7324414a0feaa1b",
+      "imports": [
+        "CentrePairChunk37"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "7b73b5456bfa7f5cfd90080e84ed3c5081b6a830a94cf2c100019081724cee7c"
+      ],
+      "source_receipt_sha256": "0b20fe997270fe67327f0bd2cc9e1029fe8e16c3427eb9ed023c8b47507cfb1b"
+    },
+    {
+      "module": "CentrePairChunk45",
+      "file": "lean/CentrePairChunk45.lean",
+      "source_sha256": "6ca2e7100bf42a89abb25b26269675a81f30ff635a0ff9e32678885f9f441082",
+      "imports": [
+        "CentrePairChunk41"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "1fe55f9eab1557e6d3db032d5242b09b8b6fe5ff2d30a3c64705370ff3e3b1c4"
+      ],
+      "source_receipt_sha256": "5e7268a9f79287f1c935b346249171e77a73c9903b02b1cbf564de4abab4eff2"
+    },
+    {
+      "module": "CentreProjectorLabel",
+      "file": "lean/CentreProjectorLabel.lean",
+      "source_sha256": "9c9903f033ce800d9dd4aa6d6497cd8a455912a2ff66854fad48d37ebe1dbfd4",
+      "imports": [
+        "RawColumnAmplitude",
+        "ExactCentreData"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "2436960202e85566f3e8194cacdf241a63d5da090bf6835ef6ffd28970f0bfff"
+      ],
+      "source_receipt_sha256": "e09da8b5d310fc67209a21c43efbff4b2675121aa21ea7ff6a5f8ccf918213f0"
+    },
+    {
+      "module": "CentreRow00",
+      "file": "lean/CentreRow00.lean",
+      "source_sha256": "f69eca3505aa4db343a3356c0d80cfe50ad84ba294a5ef6e44a1801aea86d061",
+      "imports": [
+        "CentreSymmetry"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "5caf55ac90ff7f3576a78309ea073fd7e923c7e53faa9f49e2777ca1adecd718"
+      ],
+      "source_receipt_sha256": "448b8c128b2326f1716614193f229a77fa9cf63ed8539953db3c525877983278"
+    },
+    {
+      "module": "CentreSymmetry",
+      "file": "lean/CentreSymmetry.lean",
+      "source_sha256": "b24beb2ae6ffc2f0e8e838566fe640a19779aca2911e3aa702257b4a15cd3656",
+      "imports": [
+        "ExactCentreData"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "7c60bcd25a38562b38a0c5aff33134739daa0bfaf54ebe08a5236d00c4f218e5"
+      ],
+      "source_receipt_sha256": "68fa3221e832b8d64e2267de834ef8877d8db8df2f16fa9c70c2e49a3f5fc724"
+    },
+    {
+      "module": "ClosedBoxForest",
+      "file": "lean/ClosedBoxForest.lean",
+      "source_sha256": "5407ad413c8497e2f5fe9fde0985c670b49eb39a52d9d59cc13c7ec1ae5cd822",
+      "imports": [
+        "Mathlib.Data.Rat.Cast.Order",
+        "Mathlib.Analysis.SpecialFunctions.Complex.Arg",
+        "Mathlib.Tactic.FinCases",
+        "Mathlib.Tactic.Linarith",
+        "Mathlib.Tactic.NormNum"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "e2e40cadb8be3a7fa93bd1464116310c843f27cbdffbd43c6eca0d91b22468dc"
+      ],
+      "source_receipt_sha256": "35dee9bf52a856acb649bceb5ce16bd75fb3d7fdcf0e2c9886fde2601a72e13d"
+    },
+    {
+      "module": "CompactSparseTable",
+      "file": "lean/CompactSparseTable.lean",
+      "source_sha256": "379c26a218c191aa166b2507ffc83eeeda737f12e90f119f74d8727a9fa2288d",
+      "imports": [
+        "ActualSparseTable"
+      ],
+      "selected_root": true,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "fa36a62a89c8159acb7a0fb71e4d754d3405e5941061069bad2f10049ad3ae36"
+      ],
+      "source_receipt_sha256": "252e0cdeb2284ae1b0c5e291ab702917f87fbb62f92934b38798eab37750f942"
+    },
+    {
+      "module": "ConcretePhaseChecksNoInit",
+      "file": "lean/ConcretePhaseChecksNoInit.lean",
+      "source_sha256": "d85636c50d4296adf3f454f04c1f8a688123578af1decd39f1fa02c738c85c2e",
+      "imports": [
+        "CompactSparseTable",
+        "EndpointLeafRejection",
+        "IntegerBallLabelNoInit",
+        "PhaseCertificateToRetained36"
+      ],
+      "selected_root": true,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "1939d3f12f3b64ce3937e64485d108590936824df181d47fdb13608512fa5272"
+      ],
+      "source_receipt_sha256": "40f11172ca9fe3cfd2863000391a13c1221c7d10312f47d23e42aac4b5e715e0"
+    },
+    {
+      "module": "ConvexDerivPort",
+      "file": "lean/ConvexDerivPort.lean",
+      "source_sha256": "9b566dcdd13bd35854e5ff953f75ee02785517bb5c5fb2ec9f8d8056c7dc255e",
+      "imports": [
+        "Mathlib.Analysis.Convex.Slope",
+        "Mathlib.Analysis.Calculus.Deriv.MeanValue"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "401211b737822bf945ad0710647725f84bd901be605c457f864c1973a6ad4e70"
+      ],
+      "source_receipt_sha256": "b8257ce093ffe39495f008131871f429325cf1a35f36d52463464b9061a09f03"
+    },
+    {
+      "module": "DyadicChain",
+      "file": "lean/DyadicChain.lean",
+      "source_sha256": "e545dafc4702d3a32dabdb2a651976f4a74e779b82e52ca9d2dffac018cdfa91",
+      "imports": [
+        "DyadicRotation"
+      ],
+      "selected_root": true,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "e451f90f4f807b54b0087bd1ec84b3963f349f401e647d28b2f21d02c756ac27"
+      ],
+      "source_receipt_sha256": "803b531cda213d888813df76c36117f2cc2b1a0d716c3d41c0d4f1be49e29587"
+    },
+    {
+      "module": "DyadicRotation",
+      "file": "lean/DyadicRotation.lean",
+      "source_sha256": "c582bfcdd4e8e7ee2c3679be8fee2df36baf8e476c02306efce6cfa4d1ed6f1d",
+      "imports": [
+        "IntervalRotation"
+      ],
+      "selected_root": true,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "aa4177b0c31ce830bd5d98d7cbb47d7ddc7c2f0e1ad1bebfbc5fad500b0b325b"
+      ],
+      "source_receipt_sha256": "02a002d556164c7044cef51a527eb7e814599728e7b2aad1df3986956a57b572"
+    },
+    {
+      "module": "EndpointConvexity",
+      "file": "lean/EndpointConvexity.lean",
+      "source_sha256": "f2ece811729210c01f91b45b42fe0295f48029deca4a1103cdb5f79498df60e4",
+      "imports": [
+        "Mathlib.Analysis.Complex.Basic",
+        "ConvexDerivPort",
+        "Mathlib.Analysis.Convex.Jensen",
+        "TrigonometricDerivPort",
+        "Mathlib.Tactic.Linarith",
+        "Mathlib.Tactic.Ring"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "aae7b408973238654d41d8e1fdc561d724e27ca4e9d7c4c18de252f66ccaed39"
+      ],
+      "source_receipt_sha256": "edc445404d14949b0bcc447b657e45f9a7bfc052773bb131806b126e02d9b98e"
+    },
+    {
+      "module": "EndpointLeafRejection",
+      "file": "lean/EndpointLeafRejection.lean",
+      "source_sha256": "00d45855f7cbb1c7ff440f7dcc0700d716010985b1248266dd7824c580a90c03",
+      "imports": [
+        "IntegerPhaseDifference",
+        "MidpointLeafRejection"
+      ],
+      "selected_root": true,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "bed37fecac8f4c4bdc87972af1f8a2eebacc7ede6d655e27a13ba4aa954e0945"
+      ],
+      "source_receipt_sha256": "bcc42db7c997e4ef3276b22000b7edeffd3f6f4caaeeea1faddd2982422da19a"
+    },
+    {
+      "module": "EndpointMaximum",
+      "file": "lean/EndpointMaximum.lean",
+      "source_sha256": "45beee2b0b5fbd7f8f7c31479d775b71f2fd1264b64c1b679c5a6e6e8e2714fe",
+      "imports": [
+        "EqualAngleCells"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "28537c14830767d8c9ade39909433e2c8ec3e5a1ffc026c3bdf49351a7af05c5"
+      ],
+      "source_receipt_sha256": "00ebddfdcce0226dfaa0ae4e405aeb7e283d7f31d8735f9645ab1ebc276b325c"
+    },
+    {
+      "module": "EqualAngleCells",
+      "file": "lean/EqualAngleCells.lean",
+      "source_sha256": "b4c8384f3d55e9e694beb292bd8498517ad6366c6e815ea0664d7e0f72d7fcd0",
+      "imports": [
+        "Mathlib.Data.Real.Basic",
+        "Mathlib.Data.Fintype.Pi",
+        "Mathlib.Data.Fintype.BigOperators",
+        "Mathlib.Tactic.Linarith",
+        "Mathlib.Tactic.NormNum",
+        "Mathlib.Tactic.Ring"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "374642cd81578e2d6b7cf8ca21034ffd6b387e3eb7f604a93b3fcb67d72de628"
+      ],
+      "source_receipt_sha256": "c1c713bd5cc864832451af0bc1f808cd3a0f1e9a4acfeda6f581e593747b35ba"
+    },
+    {
+      "module": "EqualAngleTable",
+      "file": "lean/EqualAngleTable.lean",
+      "source_sha256": "6090f7390a3add1685c3e478c8e3a533f060b3332bf7952e07a7b94d8c404f6f",
+      "imports": [
+        "PiPhaseBounds",
+        "WholeBoxPhase"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "079f0b4f19915fb86f2cde63445d7f49ca86eb29f09dda4837ff6da20afd8e22"
+      ],
+      "source_receipt_sha256": "996a7d9f0a6bb8de2b19234d610c30eec93e050731125af76472115955980c94"
+    },
+    {
+      "module": "ExactCentreData",
+      "file": "lean/ExactCentreData.lean",
+      "source_sha256": "a9e95329f2d36536ffd14a914044fc9dc19679ed31b15f14e95c776528c32076",
+      "imports": [
+        "RationalCentreCore",
+        "LiteralClusterGraph"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "1bd9f2c72e703a51e44d916edf452c161f62796514b7aada689fe4df9a567ac7"
+      ],
+      "source_receipt_sha256": "80d258ee907ddde5ca6b03f5fb3eec4e4b1aaa492964cfd52882cd9cd5d83e42"
+    },
+    {
+      "module": "ExactComplexExpr",
+      "file": "lean/ExactComplexExpr.lean",
+      "source_sha256": "88d668d2d2a2b7106ba8b4a2bb44f51ec7198d37e78ee8a7b63da285dea09e4b",
+      "imports": [
+        "ExactInterval",
+        "Mathlib.Data.Complex.Basic"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "d8fae4a0bf0f0885f504b32d9b45f8abd5ed196e4ddd19bdde23d50ce72ff2f3"
+      ],
+      "source_receipt_sha256": "d30724909c6e8a2f6c99bbc2c9d37a58dd5a7eca5db888c40aa7e12139e15731"
+    },
+    {
+      "module": "ExactInterval",
+      "file": "lean/ExactInterval.lean",
+      "source_sha256": "0afc1b7b425edf8b9525581206a3d044412b5880cebff29cf6c001f75888ba51",
+      "imports": [
+        "Mathlib.Data.Rat.Cast.Order",
+        "Mathlib.Data.Real.Basic",
+        "Mathlib.Tactic.Linarith",
+        "Mathlib.Tactic.Ring",
+        "Mathlib.Tactic.NormNum"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "332e69cdfc8e0bdde1f048d519531836b7bba2374e2ce7605d3255ef4a32c6f8"
+      ],
+      "source_receipt_sha256": "9bc1aed59c97142a83004ffea50592bee5ee07609093a6c4fd66a2f1404ca36b"
+    },
+    {
+      "module": "ExactPhase",
+      "file": "lean/ExactPhase.lean",
+      "source_sha256": "277ae44563fd7e11714437fc4d220ca5cbf4f5fc2a98fabbc6d40e727d9eb5b2",
+      "imports": [
+        "ExactInterval",
+        "SharpPhaseTaylor"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "bebbd9620cdc434169d458b4ef56ed418b7ee82401762e7a10062938106a2d02"
+      ],
+      "source_receipt_sha256": "f5b8ca01cfe5d37080fcc84e866bc13e15c33124aad0f08b29b175e220ef6212"
+    },
+    {
+      "module": "F6TubeRays",
+      "file": "lean/F6TubeRays.lean",
+      "source_sha256": "90732e7ace3dc15363197434bc43ff536a1322a9e11f268a3f7d4a0dd37edb21",
+      "imports": [
+        "MonomialRayTransport",
+        "FourierTubeMetric"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "8a9a7afc811b4c02bd90c196eefcc09f77043592117416cc23fe61c0b05e48e5"
+      ],
+      "source_receipt_sha256": "07b4e2cff24209a37b7a1d7a951eff628f1e9b6329917eca710bb0f2d1bfb719"
+    },
+    {
+      "module": "FormalCore",
+      "file": "lean/FormalCore.lean",
+      "source_sha256": "3996edc723f71defc7b553d88350a1259f88365fbce328857dc866b8b852a2f0",
+      "imports": [
+        "Mub6.Basic",
+        "Mathlib.LinearAlgebra.Matrix.ConjTranspose",
+        "Mathlib.Data.Matrix.Mul",
+        "Mathlib.Algebra.BigOperators.Fin",
+        "Mathlib.Algebra.BigOperators.Field",
+        "Mathlib.Data.Fintype.Pi",
+        "Mathlib.Tactic.Linarith",
+        "Mathlib.Tactic.NormNum",
+        "Mathlib.Tactic.FinCases"
+      ],
+      "selected_root": false,
+      "provenance": "reviewed-import-binding",
+      "checked_import_object_sha256s": [
+        "ade78c5e208767b372de0bb7952564f26031f3a0ab948a97a564d74df93a4fc8"
+      ],
+      "source_receipt_sha256": "e22dc85d5f127862be78bc89894bced8c94e707adb2379c24b896fbc64c69a48"
+    },
+    {
+      "module": "FourOrientationCount",
+      "file": "lean/FourOrientationCount.lean",
+      "source_sha256": "c5e3a0b6ba25861b14788bb335c94936e114e8f1d1a88046cac251190bf91d87",
+      "imports": [
+        "Mathlib.Data.Finset.Card",
+        "Mathlib.Data.Fintype.Fin",
+        "Mathlib.Data.Fintype.Pi",
+        "Mathlib.Data.Fintype.Prod"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "f4fdb4e1e012ed15e130f854e845d075278c4fcd47a5b6e0a160094c3c667f8d"
+      ],
+      "source_receipt_sha256": "b56fd482427d9582a28840213f08c1679ce48a52be4c7bab3ffd8ac9a0426013"
+    },
+    {
+      "module": "FourierModelBinding",
+      "file": "lean/FourierModelBinding.lean",
+      "source_sha256": "b1cd83df5c5262b0217488452b0233404608f61a0c64d778142695ec7893bacc",
+      "imports": [
+        "ActualFourierModel",
+        "FourierReference"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "1056244de1698cc95420527c5cb0a24bc071b403f0be0cd8859527566d515393"
+      ],
+      "source_receipt_sha256": "53f8951ec45dc7ef4306e15732927028b7eec23d9114e84b9fff006d23861099"
+    },
+    {
+      "module": "FourierPhaseTargets",
+      "file": "lean/FourierPhaseTargets.lean",
+      "source_sha256": "4eee876cfe402613bd1df38df5decbce2dcc3fd1352b4b555a755c6436bf4cd4",
+      "imports": [
+        "UnitRayTurns",
+        "PhaseVariation",
+        "ZeroLatticeF6"
+      ],
+      "selected_root": true,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "5ae9e4a625ee932239e4b12d2cd3a83f6862485937329486d44336be43a91d8b"
+      ],
+      "source_receipt_sha256": "369c60bab11fd43e0f8e7fd3f713d73bd65dcc33785ba40dfccaa28ed6045c95"
+    },
+    {
+      "module": "FourierReference",
+      "file": "lean/FourierReference.lean",
+      "source_sha256": "835f087145244a732df336b116dfd99064fe560c00f2b302dc642d28c98cd270",
+      "imports": [
+        "ZeroLatticeF6"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "544051d907db51bf64dde1fd7309697a826517fb02a3684b2b970d16d9183bc6"
+      ],
+      "source_receipt_sha256": "f30bd55b8a66cc6d8f1f55c7f7d9af246b74a96eaedd9cca70f3be08a757ea31"
+    },
+    {
+      "module": "FourierReferenceDistance",
+      "file": "lean/FourierReferenceDistance.lean",
+      "source_sha256": "04058e0926178994d5a5c8f1ccde5838f422dd0980da037106b9f70266156198",
+      "imports": [
+        "FourierReference",
+        "NormalizedColumnMetric",
+        "RepeatedProjectorMetric"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "22ad77300dab782030040da8143674246286f7a100c605e34a238f6507d05897"
+      ],
+      "source_receipt_sha256": "2ff1e8e686595272cb73565065e76e55b33cfd29a1375cf0ebb2479ab99387da"
+    },
+    {
+      "module": "FourierTubeMetric",
+      "file": "lean/FourierTubeMetric.lean",
+      "source_sha256": "ff9b4d6523bd855861ae8cb4ed73a93490907ab92121699b3853394e942ea3f5",
+      "imports": [
+        "FourierReferenceDistance",
+        "RowPermutationMetric"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "70aed7c65b000c6365d65cc2ccfbbea24c3ce502301918b28c0cd9ea0c05555c"
+      ],
+      "source_receipt_sha256": "e64ad46a400db5bc0d2250072a548577acd879c78fb1c52403b6c73ef53ec678"
+    },
+    {
+      "module": "FourierWitnessAlgebra",
+      "file": "lean/FourierWitnessAlgebra.lean",
+      "source_sha256": "369af4353d0695916e23a6b903f8a10c3d6a3f99e247c5373ba3868abf3379f9",
+      "imports": [
+        "QLipschitz"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "551f65a2ea2769b284e8f7d36e8d0ceeac64d7e4819bf09455caafaac6ed4dbd"
+      ],
+      "source_receipt_sha256": "7e412157a3a88202a8946bba3116cb526568ebcef1d0b946f6f2b071124494ed"
+    },
+    {
+      "module": "FourierWitnessPhases",
+      "file": "lean/FourierWitnessPhases.lean",
+      "source_sha256": "3d18dae45fa1002254c690e4009abb4f4152d8e133e87cece917bff039d1dcd7",
+      "imports": [
+        "FourierWitnessAlgebra",
+        "RepeatedFourierColumns"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "4bff6f62da27b2796c1a551a51290c7f95091e377e48d07893c0862a70654906"
+      ],
+      "source_receipt_sha256": "1ba41a8ba84ee0eba480778b626f86bfc6d52c2206be27487f25741d5c89af0f"
+    },
+    {
+      "module": "GraphKernel",
+      "file": "lean/GraphKernel.lean",
+      "source_sha256": "246ab6f4bedabcb7402f4a12f945b2e82943e3c7fb64825c365066f62bfb8699",
+      "imports": [
+        "FormalCore",
+        "Mathlib.Data.Finset.Card",
+        "Mathlib.Data.Fintype.Card"
+      ],
+      "selected_root": false,
+      "provenance": "reviewed-import-binding",
+      "checked_import_object_sha256s": [
+        "0dfe8c26a5d3d36f0a8b0bf91ac487dc5d3443af1eaab605496f5e839a6c1b4c"
+      ],
+      "source_receipt_sha256": "045bd6e8843e9d6cb30b76fc79b07a7f4cb5c36ffd3a243f94a8f6f31c853475"
+    },
+    {
+      "module": "GraphLiteralAssembly",
+      "file": "lean/GraphLiteralAssembly.lean",
+      "source_sha256": "79705780907ca6f42f9891afdd7a75d1b7fec9ecec62c919ccd97ddab9422904",
+      "imports": [
+        "GraphKernel"
+      ],
+      "selected_root": false,
+      "provenance": "reviewed-import-binding",
+      "checked_import_object_sha256s": [
+        "e80006818f3564797c26bab0db8c72bc1f80acf82511469afcfd278562013578"
+      ],
+      "source_receipt_sha256": "e3f3a335cb1d3581376064a5dd4901bc23f6ff5e014704a225079abaf2f9e0c9"
+    },
+    {
+      "module": "HalfRowBalance",
+      "file": "lean/HalfRowBalance.lean",
+      "source_sha256": "60a18c9635313d43c1f5890db72bbe5db87fca8d9bccc9a75196abbf78d14dfb",
+      "imports": [
+        "RowPairDefect"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "60cfe3e5f7879191dcbc5843dcf2b28151b758390b3a0e669a2ad53518f46bf6"
+      ],
+      "source_receipt_sha256": "eab49e8192e7af5fd47c4dac91e93633ac7d82f0e89b86fcc1e5f71407d73e00"
+    },
+    {
+      "module": "IntegerBallLabelNoInit",
+      "file": "lean/IntegerBallLabelNoInit.lean",
+      "source_sha256": "96f12d95ba6773d8a8fdcff9b2f19ecec33260694556f8282553c7116b75cdcd",
+      "imports": [
+        "SupplierBallInclusion",
+        "ScopedSupplierLeafEntries",
+        "RoundedCentreDataNoInit",
+        "IntegerRootCeil"
+      ],
+      "selected_root": true,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "658312b360aa992ba81c8a3137ccf1cfc2ce4706b7c62dbb0d988a77f7fdbe1c"
+      ],
+      "source_receipt_sha256": "03f940699a2575d812a6d9114cd02a2a47954aaf85421a839d73d445960c7984"
+    },
+    {
+      "module": "IntegerNormFloor",
+      "file": "lean/IntegerNormFloor.lean",
+      "source_sha256": "1fa578551890edcf9aa5a6f3c01546aa6c6b2e13228af3a8c963978e52163ba3",
+      "imports": [
+        "FormalCore",
+        "Mathlib.Data.Nat.Sqrt",
+        "Mathlib.Analysis.Complex.Norm"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "2fd1d79f043298ab63f25d45b341b365ab0e19e9c4d1aafb0873372a65e52372"
+      ],
+      "source_receipt_sha256": "44a4eeb8d81a8e2876711347fb957e95ddfb59a8afd939464b30f0b8236542ca"
+    },
+    {
+      "module": "IntegerPhaseArithmetic",
+      "file": "lean/IntegerPhaseArithmetic.lean",
+      "source_sha256": "aea874debe9f2af546f752372e18f8c2c5dc933486b28292e1eee4cddaccf3f7",
+      "imports": [
+        "IntegerNormFloor",
+        "SignedDivisionRounding",
+        "Mathlib.Data.Complex.BigOperators"
+      ],
+      "selected_root": true,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "d0d2f5ab98ef69dce95c3148b207e2305435d4d5df67ee7fcddd484546a901e5"
+      ],
+      "source_receipt_sha256": "f07299c35459d4f70269e02cbf7ea5b4c1ed819cf2b3d31fc39ae71d908e19f4"
+    },
+    {
+      "module": "IntegerPhaseDifference",
+      "file": "lean/IntegerPhaseDifference.lean",
+      "source_sha256": "543997ed1507b0466355b2aea457e55e765b8c64a066b2668d38c57fbde275d0",
+      "imports": [
+        "IntegerPhaseArithmetic"
+      ],
+      "selected_root": true,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "6c4bc8fdccc0b0b51343ade711efd1c0ddd00e3acb494a7630e098ed266b8847"
+      ],
+      "source_receipt_sha256": "0e83b5a348b84073ca47d0c69d7097ab0d0315ca0ed8da46220b6a9ff2692625"
+    },
+    {
+      "module": "IntegerRootCeil",
+      "file": "lean/IntegerRootCeil.lean",
+      "source_sha256": "33e8bb6942d2a91c9c72166d1c7271d7edce9efd4862736ccc1fafcb5ef586cb",
+      "imports": [
+        "IntegerNormFloor"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "30cc14ad63705f1e10efc8d9a926c09097df8cdc756bab371fa711e4e351cadd"
+      ],
+      "source_receipt_sha256": "781a8a8d5de0b4f78566f3d413b6cb88b2eedc24acd17af1974079e986cd4d78"
+    },
+    {
+      "module": "IntervalRotation",
+      "file": "lean/IntervalRotation.lean",
+      "source_sha256": "298e9c85daf22f42ef8b2cc7a720228f0a53e0aab6a344805b28a45d71f23971",
+      "imports": [
+        "EqualAngleTable",
+        "ExactComplexExpr"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "aa8b531522ef091dc0fbd5125265fbe7e46b1d96f9342251d1fd0acd292abb31"
+      ],
+      "source_receipt_sha256": "fbdc8db3f98d251aeea81acf81e8b10462c6120e0e60a2794a866e568d622931"
+    },
+    {
+      "module": "LiteralCliqueChunk000",
+      "file": "lean/LiteralCliqueChunk000.lean",
+      "source_sha256": "0fc2c6a1965058dd59c8cc1b12548680c3af74bde0d19e0d4a3627f4faba5133",
+      "imports": [
+        "LiteralClusterGraph",
+        "GraphLiteralAssembly"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "738d8524c19ee9e9844e69593ab91b0304bd2afed8424c78d2bef8569d799588"
+      ],
+      "source_receipt_sha256": "260da9918073e27824caeec7d8985bc13e1d86467c580b855be8c4607796e3dd"
+    },
+    {
+      "module": "LiteralCliqueChunk001",
+      "file": "lean/LiteralCliqueChunk001.lean",
+      "source_sha256": "de8cf7c9aa7291af5b8feb0b9bffc9ef1439c256470450764a26c3acdd1b56a5",
+      "imports": [
+        "LiteralCliqueChunk000",
+        "GraphLiteralAssembly"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "56db637f923ba09eb34170054be0e90d8a589a3b54627c7d83c3f487b72d3393"
+      ],
+      "source_receipt_sha256": "978b0e5ae0943db60e35422b49657d0938e96527bcda4dae0bb1d08122e3ee56"
+    },
+    {
+      "module": "LiteralCliqueChunk002",
+      "file": "lean/LiteralCliqueChunk002.lean",
+      "source_sha256": "fd9ae8d04bbd86e375292ca6ab68868ebc6511a5ae084f29a211e724c6168e9a",
+      "imports": [
+        "LiteralCliqueChunk001",
+        "GraphLiteralAssembly"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "1863a0356feb54c03b3317dcd33c63d34c8e224623af99d4835b931035968a0b"
+      ],
+      "source_receipt_sha256": "795e87d2909cf28dfbc2a427347d3c0a51e02c423c3e5e798f2ddf80f0e2256c"
+    },
+    {
+      "module": "LiteralCliqueChunk003",
+      "file": "lean/LiteralCliqueChunk003.lean",
+      "source_sha256": "5560a340ec11574a5933c971ddc726d1d37bbcf340e4d9f109efeb210fffe042",
+      "imports": [
+        "LiteralCliqueChunk002",
+        "GraphLiteralAssembly"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "8067d7d4aca9b6146448f922bece4db7031000896ef792e6b9b4a0df9c23e627"
+      ],
+      "source_receipt_sha256": "5666e572d0f62caf851288e8465ed0972699ad5d075b6179b175f4e65b9bd893"
+    },
+    {
+      "module": "LiteralCliqueChunk004",
+      "file": "lean/LiteralCliqueChunk004.lean",
+      "source_sha256": "fbb9fdc046d7b5f8a69326ff11198b4927a5b8edb65adf01d707a1636459a126",
+      "imports": [
+        "LiteralCliqueChunk003",
+        "GraphLiteralAssembly"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "1264d1c4a73c0148cf9be4bdcf5da19df65d5699acbcc557d8d77972d6d7d10c"
+      ],
+      "source_receipt_sha256": "949877e2d3118bb08b2389887cefcd4d3bc2e2dd7283a79952d8bc2f82d18527"
+    },
+    {
+      "module": "LiteralCliqueChunk005",
+      "file": "lean/LiteralCliqueChunk005.lean",
+      "source_sha256": "6a23eb91570a21ef289752c3ae739e1ff36f29afa60a21d136ad030f09c2aa02",
+      "imports": [
+        "LiteralCliqueChunk004",
+        "GraphLiteralAssembly"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "f32ab6321bc55d86558efd0f205b6d04ec5b974c7da6eefb5b94511a962414df"
+      ],
+      "source_receipt_sha256": "b6e3e0f91b310b82b073afa69006f596ac16c68d530ef1cdf11a4e7c56dff7c9"
+    },
+    {
+      "module": "LiteralClusterGraph",
+      "file": "lean/LiteralClusterGraph.lean",
+      "source_sha256": "cb8a2307cdbdcfd7f392d38599ef8a8dfc1867f8b4af5a8cda3bbf1be0dd33a7",
+      "imports": [
+        "SizedGraphPair"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "e4a6b1b27a780fc73c2f61bf960231fb761478e88ae366a334c6891ee24646b9"
+      ],
+      "source_receipt_sha256": "851a5e2c9de64531b8c7ea25ea039d76a9063377a244f617548da5e0566fe80a"
+    },
+    {
+      "module": "LiteralGraphExclusion",
+      "file": "lean/LiteralGraphExclusion.lean",
+      "source_sha256": "0c76ecdb5e7ff97a2b54bfabc7eb43453fb922e7e670a01ed6c5fc2548f108a3",
+      "imports": [
+        "LiteralPairChunk016",
+        "PhysicalLabelGraph"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "1e513d8aa99df3b275d51d117379396d5a75554bfef5c26a2a3ffad23af915f3"
+      ],
+      "source_receipt_sha256": "adf855ae04bf99c6d2c00e56b07c67563bbb8916ac316cdc3a407dfc717b3c75"
+    },
+    {
+      "module": "LiteralPairChunk000",
+      "file": "lean/LiteralPairChunk000.lean",
+      "source_sha256": "2dc97791f4c2f3eed4fd54cc81d3f96151c6143250c9b9647088b43f0cedf77f",
+      "imports": [
+        "LiteralCliqueChunk005"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "699de2f01e71a81549398c6bc3889ec30d1d5bd33b888c11ae25434d70dd50d4"
+      ],
+      "source_receipt_sha256": "8434927964eb1d2faf118ab94ae467a825fb7cdc2a1d7a9d98a962e17adf49fc"
+    },
+    {
+      "module": "LiteralPairChunk001",
+      "file": "lean/LiteralPairChunk001.lean",
+      "source_sha256": "38ea8b34d9dc08156baf7ce339ae943c4da670c5021782144893d3d69a937c22",
+      "imports": [
+        "LiteralPairChunk000"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "585577120ac5e288e98f8971448d81edf4efe0befb8812c6fe5fa5e7f667a9af"
+      ],
+      "source_receipt_sha256": "c99b64ebc4a4bae72da7b0f5687289a840048ac2b33630780107c6d949603918"
+    },
+    {
+      "module": "LiteralPairChunk002",
+      "file": "lean/LiteralPairChunk002.lean",
+      "source_sha256": "151d5fdc3a5904db2bdb2f507586259604a1c308bce5f9691abb633f19357750",
+      "imports": [
+        "LiteralPairChunk001"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "cf14045dbdb4bbcce94214a1b8309c0d415545fd34a2dd525ba6c8909c95d089"
+      ],
+      "source_receipt_sha256": "b475446c5e0e745c91795a665377edb27266fbeb75fa53259f291c234b0296c5"
+    },
+    {
+      "module": "LiteralPairChunk003",
+      "file": "lean/LiteralPairChunk003.lean",
+      "source_sha256": "4c6805728be46c484d063ecd8d459b853928f9ca824825123770a09d47b6d774",
+      "imports": [
+        "LiteralPairChunk002"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "64da87372e7cc9ece132d8915aa130f64d581bd92acd8160883dcd7a08d0eb5d"
+      ],
+      "source_receipt_sha256": "aeca5bf62a1aabbbe2f1fb4e25d80b121ae214001d67a8796c8c7574b84cfbc1"
+    },
+    {
+      "module": "LiteralPairChunk004",
+      "file": "lean/LiteralPairChunk004.lean",
+      "source_sha256": "a34c1d449c26a37dc2d0becb1a37d0fe5c0a5b6b44e331def47df2edb1461639",
+      "imports": [
+        "LiteralPairChunk003"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "e86ffc12ecbcf3b8be216e31b50bbc1624d7458374b0985d03f02270ae3265fb"
+      ],
+      "source_receipt_sha256": "4f965a2b2f1b2dc32cc8f23b6a926dd1ab8c831abf11d6f45e3d9b277d4eac4e"
+    },
+    {
+      "module": "LiteralPairChunk005",
+      "file": "lean/LiteralPairChunk005.lean",
+      "source_sha256": "0182ae61be74b57b57c02242964bc5b1cc12226205a5bbcc91bce2f85f2a9eb1",
+      "imports": [
+        "LiteralPairChunk004"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "b1de81a3a69cbdabc59d95546532ef28680529bef845cf70d81017604801c736"
+      ],
+      "source_receipt_sha256": "48ef30c3aeb7369f7b5c4c80b8765200174bc6e7f25a98ea5c5a8388a5d80dbb"
+    },
+    {
+      "module": "LiteralPairChunk006",
+      "file": "lean/LiteralPairChunk006.lean",
+      "source_sha256": "7a36f87f5aa10840c2ec95e73db04272fa1d7b91d9f4acc585a2fbc6a17c94dc",
+      "imports": [
+        "LiteralPairChunk005"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "9315d905ddbd7cfa713cb2209e87fe144d48afbee4f435431f75fc2b16640867"
+      ],
+      "source_receipt_sha256": "09fd32f7ce2acb083b7b2dce79f03f4dbe9c2634d60619d7592f676feb77022f"
+    },
+    {
+      "module": "LiteralPairChunk007",
+      "file": "lean/LiteralPairChunk007.lean",
+      "source_sha256": "d7da2ad6c849e15cb85595bd9f5e93369d4acd06ea05f43dba4967aebf800f31",
+      "imports": [
+        "LiteralPairChunk006"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "20397f5aaf79c8c37c100fb7f76992e014b4a5db36d8f763d42c3c7ea0e3bfb8"
+      ],
+      "source_receipt_sha256": "bc363989fc5e847ea327b1c75b22e37c86c1354a124825cb28a5584e20baeea4"
+    },
+    {
+      "module": "LiteralPairChunk008",
+      "file": "lean/LiteralPairChunk008.lean",
+      "source_sha256": "91781c361a7e93a3ddaf2ffc60efaac05c32f22e58acd746b3326de268c7763f",
+      "imports": [
+        "LiteralPairChunk007"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "36ba90b491dac2ad89c49b0ee2f3fac0d9c6aa98f69cea36a3386a4a7a6e43a5"
+      ],
+      "source_receipt_sha256": "bd1b7f129eef0b602618b3d5437fb3598ee8faa2036e2df3d3a66d553da958f0"
+    },
+    {
+      "module": "LiteralPairChunk009",
+      "file": "lean/LiteralPairChunk009.lean",
+      "source_sha256": "9f817c6ea7ee8305561d6d7610e1d1a08379d909e3a309caad4bd2aa5e77aad4",
+      "imports": [
+        "LiteralPairChunk008"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "a3a9e17b8222d361a86d442bd51e6751a3c5252cd6e752a1d84443cf543767df"
+      ],
+      "source_receipt_sha256": "c7e93dbb24570fab179749a6d2ccb7775524b46ee3bf6b5028c9cd8fdc91ac30"
+    },
+    {
+      "module": "LiteralPairChunk010",
+      "file": "lean/LiteralPairChunk010.lean",
+      "source_sha256": "d4fdc32b6b57ecffa7aab90d06046b8081e747a50ed0fdb0d6ec0aae89ddad7e",
+      "imports": [
+        "LiteralPairChunk009"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "7fbf90c7f269c8da2f8b98d789d9b686400f9e5442c06fd277a4638c0c287052"
+      ],
+      "source_receipt_sha256": "d19f80fcaf81a6c5c716225041ec3f7d6808fc812541e47e8b21654f3b1a9ed4"
+    },
+    {
+      "module": "LiteralPairChunk011",
+      "file": "lean/LiteralPairChunk011.lean",
+      "source_sha256": "c6a70fdc10c9042d7c5508c9610c27a24f655876d40f452f1c76adbefaf156b4",
+      "imports": [
+        "LiteralPairChunk010"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "26f0143bbb5992e746a5b2f42f1a7175f81d52fac823534a0c41b2a4c23bb8af"
+      ],
+      "source_receipt_sha256": "a2db0f471e89a1ac9e76762cb34fab70fc44a5af3d224828bb783ce396168d61"
+    },
+    {
+      "module": "LiteralPairChunk012",
+      "file": "lean/LiteralPairChunk012.lean",
+      "source_sha256": "1965c24e2cfe3d19a12484f03e6f62b6f39331bf01381ec079bb2953cef1e5a6",
+      "imports": [
+        "LiteralPairChunk011"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "8ea93b5d3acbcec7e53782b621a79f0aaac819049b2bbe06b410841666599fb7"
+      ],
+      "source_receipt_sha256": "ac7bcababa75dff7088d6a59a973985d72bd65e8cefcee3857cb16f8867a6029"
+    },
+    {
+      "module": "LiteralPairChunk013",
+      "file": "lean/LiteralPairChunk013.lean",
+      "source_sha256": "70d7781357ce2d340ed0432bf7cf94419e178ac6d3ae8af23510d268836706ab",
+      "imports": [
+        "LiteralPairChunk012"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "d336d76ba1983bc04d6268a8deae972693927ccd745ba6b1916928877977260c"
+      ],
+      "source_receipt_sha256": "4bff7585f2d6052cc7d930ff4debd2c1f601e59bc748680af4d5db9f4d638896"
+    },
+    {
+      "module": "LiteralPairChunk014",
+      "file": "lean/LiteralPairChunk014.lean",
+      "source_sha256": "6efe7586eb4135cb6a3d10255c732323cdbb864e0848eb05b3640e06b9e1f85d",
+      "imports": [
+        "LiteralPairChunk013"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "bcf5fdcf514dd29e9e7fb456bd9d970575bd1740bef7572ce109defe6d8bed52"
+      ],
+      "source_receipt_sha256": "725c4ed82b7abd0780eed754609576828c52a22d8351d41983db7cd0e0d4ef7f"
+    },
+    {
+      "module": "LiteralPairChunk015",
+      "file": "lean/LiteralPairChunk015.lean",
+      "source_sha256": "63688b70a281763f5032e0fe6cd6636fa384f71692738b7c23c0a53dddee0750",
+      "imports": [
+        "LiteralPairChunk014"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "30fc477156913b38d408472f165e70cf8a7d1e008710c516341fb9c34c7ee561"
+      ],
+      "source_receipt_sha256": "0836361120fc1d649073bade2fb569123a74e1b8cb6ef055fa4543f234f17fa1"
+    },
+    {
+      "module": "LiteralPairChunk016",
+      "file": "lean/LiteralPairChunk016.lean",
+      "source_sha256": "9b9d370ab3917bea8d75eb9ca59fe93ed8859c743acd7b96831164d4d4c57d58",
+      "imports": [
+        "LiteralPairChunk015"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "b2d8aa86276f43b845e6893a1ac24c6f4d8ad46e49409da63444ab857155d055"
+      ],
+      "source_receipt_sha256": "d5f33b4ac6bf62544f3584e72625e5234acd4e03f3ccabbdcb5d9872baf135a8"
+    },
+    {
+      "module": "LocalArithmetic",
+      "file": "lean/LocalArithmetic.lean",
+      "source_sha256": "24df24d39816de98699f58af8bcc71cbd06f923e00815e2f65c405fee14351db",
+      "imports": [
+        "CentiradianPhysical"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "257cd0ddcd3b60e5cc459788a5ea54aca2fbc9c984efd0a525eea416af133833"
+      ],
+      "source_receipt_sha256": "2ed3532b4016e113af9099c1cdecca96bbbfbe5589879120d77929acc7666e86"
+    },
+    {
+      "module": "LocatedPhysicalFourier",
+      "file": "lean/LocatedPhysicalFourier.lean",
+      "source_sha256": "f12d931ef2f5643f9a629d77ad15d40e5e64e8bf08acd4664c2611c5145a5bb3",
+      "imports": [
+        "ActualFourierModel",
+        "PhysicalPairedSines",
+        "PhysicalSeedBridge"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "1ea1c47b0e183f3d65250dade1dff61e2dfdf95a24552a249bcd886c00c75707"
+      ],
+      "source_receipt_sha256": "652e40ee77e23b19bb1e3312869c0d8d5b1fea863ba6552c06d7d3e0a15eb0af"
+    },
+    {
+      "module": "MatchedFrobenius",
+      "file": "lean/MatchedFrobenius.lean",
+      "source_sha256": "a6266e098a844469184773fd8d30600bf6190b4d4eb395264422bb79abb18081",
+      "imports": [
+        "Seed0024PhysicalBounds",
+        "RowPairDefect"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "5400732fbabdf74d3b06938194a3b4aeda18dd4feb1e64346059c274b7758e4d"
+      ],
+      "source_receipt_sha256": "af2a091c77ac1f2189891788ef4c54161dfaf77b0ae67b27abf60c2582bfaf01"
+    },
+    {
+      "module": "MaximalCornerSelection",
+      "file": "lean/MaximalCornerSelection.lean",
+      "source_sha256": "3503a15a4e7342409dc99ac4a6e5b8c1357a08887bedf7492a1d8f7ff0ec30e4",
+      "imports": [
+        "SignedCornerPhysical",
+        "Mathlib.Logic.Equiv.Fintype",
+        "Mathlib.Data.Fin.VecNotation",
+        "Mathlib.Data.Fintype.Perm",
+        "Mathlib.Tactic.FinCases"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "d8470be92bee6cc4fdd582f87e0a084664eb5a02fd35d4371e7afd4832cd9f35"
+      ],
+      "source_receipt_sha256": "a0842e834c4595272f51aa37592b3579d510f78f06fd6039e58284b1ac797ee2"
+    },
+    {
+      "module": "MaximalQuartetRadian",
+      "file": "lean/MaximalQuartetRadian.lean",
+      "source_sha256": "d6286bffb685624921dec300dc2d78ce4bf58db8bcd18bc91192e707285acb9d",
+      "imports": [
+        "MaximalCornerSelection",
+        "QuartetRadianCover",
+        "ReuseBoundaryTransport"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "db6546a6b7f7aea365c641b46876c35877f42275813d78647961749e928c5ae3"
+      ],
+      "source_receipt_sha256": "db37f573d38c7307bdee5602333df2325141000f423eaf8647d4ce9198dd8af2"
+    },
+    {
+      "module": "MidpointLeafRejection",
+      "file": "lean/MidpointLeafRejection.lean",
+      "source_sha256": "dcf588007860ab04c5f1e02d0dcf40c472a73189e8eb26284eb37801c453b199",
+      "imports": [
+        "SupplierScalarArithmetic",
+        "ScopedSupplierLeafEntries",
+        "SupplierCellGeometry",
+        "PhaseCellRejection"
+      ],
+      "selected_root": true,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "4a6d4048ca0a20bc78b63a0bdc77287207320e858d32418ae151387094a6f8f3"
+      ],
+      "source_receipt_sha256": "8181f5c05678ceb634279008ef8c7ee7829f13222698bfcb9a9606a1a49f5644"
+    },
+    {
+      "module": "ModelOrientationBounds",
+      "file": "lean/ModelOrientationBounds.lean",
+      "source_sha256": "b20dd9a48c81bfdf4d97591fa3bf33f154cf31ba941581795162ea834a6449ee",
+      "imports": [
+        "PhaseModelRows"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "e7c486ffa37b4ff844c88ff7c3e270f8593182b08fa436877875fa882102fdc9"
+      ],
+      "source_receipt_sha256": "17e92c570311c53a2545edb769590fbe4ba40b305f0946776e7335c88ca6ca60"
+    },
+    {
+      "module": "MonomialRayTransport",
+      "file": "lean/MonomialRayTransport.lean",
+      "source_sha256": "d6f552ddd0f00884a6e95112c045513ffd40e41912735426bd723769393dcf9c",
+      "imports": [
+        "RawColumnAmplitude",
+        "FormalCore"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "d32911661941d510e4484718bff4e545bd7c7ef88d4697174395eefb08d6e3fb"
+      ],
+      "source_receipt_sha256": "000ff4c11a3de715814e5d1798dfa2607d5ca410d72a550fcffdc07dde72a708"
+    },
+    {
+      "module": "Mub6.Basic",
+      "file": "lean/Mub6/Basic.lean",
+      "source_sha256": "ac1e8bb2783d1a38db4a12d76d21457b36a4e2b29e3dbb061ed5328933e0c769",
+      "imports": [
+        "Mathlib.Data.Complex.Basic",
+        "Mathlib.Algebra.BigOperators.Group.Finset.Basic",
+        "Mathlib.Data.Fintype.Basic",
+        "Mathlib.Algebra.BigOperators.Ring.Finset",
+        "Mathlib.Tactic.Ring"
+      ],
+      "selected_root": false,
+      "provenance": "reviewed-import-binding",
+      "checked_import_object_sha256s": [
+        "12a71298af08c2fceddcc5822e972f0506f19f67b0ce0025b87ece8acc10b674"
+      ],
+      "source_receipt_sha256": "4eef86a6dc9ad9e6951dfea236a0fb08ff1444865942a6187cf2e955ebbd3972"
+    },
+    {
+      "module": "NormalizedColumnMetric",
+      "file": "lean/NormalizedColumnMetric.lean",
+      "source_sha256": "678546e2e98a06fd0311f65a97ca3639466ef13a0563c33fe16adbb749441671",
+      "imports": [
+        "SixColumnMetric"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "56465f01c98a5b2b21c5ca8d511089973e77e12a7534a57402613c7c36cca490"
+      ],
+      "source_receipt_sha256": "6118e946c92d6b70c3ced5cd36e51888564656d3044bba3b151d17301d39f5bc"
+    },
+    {
+      "module": "OrderedOrientationPairs",
+      "file": "lean/OrderedOrientationPairs.lean",
+      "source_sha256": "dcd784e5a2b6af67bf30a91ba2aa5e873c49a33c6f0a2f01322d8be10d8d932e",
+      "imports": [
+        "PhysicalModelRows"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "dc2a117fe8041be5834f4a9c141d3b21acc9bde82ac147bc68a6844093d6b59b"
+      ],
+      "source_receipt_sha256": "78557049dcf4caae364ebaed3d73073be172e095017fddd307c972aabbf84643"
+    },
+    {
+      "module": "OrdinalRoots",
+      "file": "lean/OrdinalRoots.lean",
+      "source_sha256": "1813738e0c1289595712ef0285c7f90125d6eded217b1b1dfad098ef96774faf",
+      "imports": [
+        "EqualAngleCells",
+        "Mathlib.Data.List.Range",
+        "Mathlib.Tactic.FinCases"
+      ],
+      "selected_root": true,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "39afbecd0b37848a117fef55774de242f3bf478247043857f8bff87500773637"
+      ],
+      "source_receipt_sha256": "fc43a5331d565228aa1988391c1257c1c2315a4f80780c6016dd42ace3721a4c"
+    },
+    {
+      "module": "OrientationNormBounds",
+      "file": "lean/OrientationNormBounds.lean",
+      "source_sha256": "7a75b98da4e6f3079e5029c76ec847eb4984542928020c6f498b27889234a193",
+      "imports": [
+        "FourOrientationCount",
+        "PairMidpointPhase"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "06ad46d9caa4ed91c284486ed834a990732e76e7000b04b4af8ce7ac671663f0"
+      ],
+      "source_receipt_sha256": "ed389be0b01fbd52cc4808b4b892df8f1ca6268c70bba3f39871c74768543c25"
+    },
+    {
+      "module": "OrthogonalBallCompatibility",
+      "file": "lean/OrthogonalBallCompatibility.lean",
+      "source_sha256": "ae6115392f81ec0fcacb1adcdf3adb8a5b6e6e12a10016a9475bdd012ec2fb0d",
+      "imports": [
+        "OrthogonalMixBound",
+        "ProjectorAmplitude"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "faa54dfe16cf5612b3a631c55e4130d1f022a0e26913e1708d0667a9248fd6e8"
+      ],
+      "source_receipt_sha256": "9504d4815be48e2f386bc438effcea03c4bb6ae60ddbc185ebc1775c10ce8453"
+    },
+    {
+      "module": "OrthogonalMixBound",
+      "file": "lean/OrthogonalMixBound.lean",
+      "source_sha256": "880f0a1be883fe928d432f9dbb646b6dd4c592c542155c0bc36beec0ae0a260f",
+      "imports": [
+        "RankOneMetric"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "ef649151791b653c2fbda67559b989072a6098097c4f8997271d936c1575f46b"
+      ],
+      "source_receipt_sha256": "df91d554e7aded0a646a5ce2c32375204f5b33e3b991e0dc271b47d04dff1819"
+    },
+    {
+      "module": "PairMidpointPhase",
+      "file": "lean/PairMidpointPhase.lean",
+      "source_sha256": "c071c75f341e8942f816f285f991f48f56ebd7e16acdb39d16dce0f511eef86e",
+      "imports": [
+        "AnchoredPhaseBounds"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "054afeb236eb8c5c7c62a6d7be076aef23f60b555bcb49b8870998e8c3c03ed1"
+      ],
+      "source_receipt_sha256": "d74e790f8b53cd52ee0314a2eca2a0eaddabedc34c2ba932e8ea0611abba23da"
+    },
+    {
+      "module": "PhaseAlignment",
+      "file": "lean/PhaseAlignment.lean",
+      "source_sha256": "6e5c07e6f1831d588270b0350b6c06c87e5421a235b8003e36d5e47dde7db996",
+      "imports": [
+        "ProjectorAmplitude"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "4c5e48977ea1e888939518365e96b0ab059d2b970c1a9294a82266ea613b8795"
+      ],
+      "source_receipt_sha256": "e1deae5cf00bf94a419d5aa4f22e6bb31db1ff6737c04554bf610cec79756f34"
+    },
+    {
+      "module": "PhaseCellRejection",
+      "file": "lean/PhaseCellRejection.lean",
+      "source_sha256": "06e349895901d813333e567be807edd20c77c3cabe7c3e110e8add47551ffb52",
+      "imports": [
+        "ScalarRejectionBounds",
+        "PhaseEndpointMaximum"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "bb41d0137c6a63e8e743da5400a34d2fa041d8b6294cb39d003f27988c188108"
+      ],
+      "source_receipt_sha256": "2437a1c14b2d8b7ce80544a738fb0b8354764a97b867db4dfe07a934d01fe81f"
+    },
+    {
+      "module": "PhaseCertificateToRetained36",
+      "file": "lean/PhaseCertificateToRetained36.lean",
+      "source_sha256": "e66f50ec2ed4d462105778a83baf3e9826c7b17c9f7f89808818df7e2dbb254c",
+      "imports": [
+        "PhaseTape",
+        "OrdinalRoots",
+        "ApproximatePhaseFrontend",
+        "ApproximateF6GraphExclusion"
+      ],
+      "selected_root": true,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "c4259a5bdc21a5072b9466a5af9b8fa76c8f52ce00444df7c4fa0e121d6f15c4"
+      ],
+      "source_receipt_sha256": "d998ce998af26f3fdeebcb8f81c0bbec02c6bc54894211dc2a77fe56448812bd"
+    },
+    {
+      "module": "PhaseCisBridge",
+      "file": "lean/PhaseCisBridge.lean",
+      "source_sha256": "fc05bb3ccfd06ef94bc18956e8fc3405d2cb91097a947acadd12a4d44ccfdc0b",
+      "imports": [
+        "PhaseModelRows"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "7c394d148899ddc6b4ea8a5e4477fabcc8195ade28e7766a8f122214c5ef80b4"
+      ],
+      "source_receipt_sha256": "47ab6b76f42c38e400b04c43d54e95fe272bf11e34f63aa6c8f06410bfbc2733"
+    },
+    {
+      "module": "PhaseEndpointMaximum",
+      "file": "lean/PhaseEndpointMaximum.lean",
+      "source_sha256": "753d3404a4751d677832a09ad0a01a9ca4114e233f1bac4e242200864ac7053f",
+      "imports": [
+        "PhaseVariation",
+        "EndpointMaximum",
+        "Mathlib.Algebra.BigOperators.Group.Finset.Piecewise"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "7bc44b476037b2b48de54a3f97a6222e2c2cb926ab19357c42946e48fd08643d"
+      ],
+      "source_receipt_sha256": "334e274d898157ac19a9b609efd2ec0b8137fe4a7295c7375a7cc83d06a9b121"
+    },
+    {
+      "module": "PhaseForest",
+      "file": "lean/PhaseForest.lean",
+      "source_sha256": "012751cd61d48e2acef05f7323bb46a8024268ca2680eb8870fae895d500a057",
+      "imports": [
+        "EqualAngleCells"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "8b4d57166baa1fd5f14a9a708594bfdf341680ff2af255ed42c0cb289823bf27"
+      ],
+      "source_receipt_sha256": "3d5738ccaf68c445cbd01f3cf76ae9b0632ad81768a011eae747dd4d64ec64d5"
+    },
+    {
+      "module": "PhaseModelRows",
+      "file": "lean/PhaseModelRows.lean",
+      "source_sha256": "6fa637b0be7479ab5c0957c9dca2ee986d5f87be1d73145689553714d7ebf705",
+      "imports": [
+        "OrientationNormBounds",
+        "RepeatedFourierColumns"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "567e2277acc9c11eb40f7f18bc4e76e8fc0cc3cda30c6af909e7ed7c8baaa5cf"
+      ],
+      "source_receipt_sha256": "868541cce125a599754f910ec784421e1cb577ab46bd1641834f05ec29efa948"
+    },
+    {
+      "module": "PhaseTape",
+      "file": "lean/PhaseTape.lean",
+      "source_sha256": "78cc0ff8c29f010df60d10a3de81803fc75fdf029bc7e0b42202105b95466203",
+      "imports": [
+        "PhaseForest"
+      ],
+      "selected_root": true,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "53a374a3be7e8960afde5ba67a06064443dc72fd7ea216d731c4a0c090247dfb"
+      ],
+      "source_receipt_sha256": "6255433c5125c56bb6837cea03df91b245c1b55705d26d20ada13e380ce4d771"
+    },
+    {
+      "module": "PhaseVariation",
+      "file": "lean/PhaseVariation.lean",
+      "source_sha256": "3d192fc2f5cd42929cbe3e0f53c2cc2130512849256a12b7cbe5851f3bccbd65",
+      "imports": [
+        "EndpointConvexity"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "5525d0b6d780da6c79387aea71b8bd055bd3d8fc7ef908fdb0a28940ca27b455"
+      ],
+      "source_receipt_sha256": "4ad7017a637eba3505a36167a45877a37e6c890aa45ff73b822ae5539c8cd7bc"
+    },
+    {
+      "module": "PhysicalFourierLocation",
+      "file": "lean/PhysicalFourierLocation.lean",
+      "source_sha256": "c6196c10279a55c91682d551b8e85ca8104bfd67e07d269ef32a979dbe642eec",
+      "imports": [
+        "PhysicalWitnessUnordered",
+        "PhaseModelRows"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "d88b9fa85e2fbd0352552191183f23d7ca94fe10bfba4b9c38293938c349ec96"
+      ],
+      "source_receipt_sha256": "91f04c302364d5598b60bf4ef0c0d506105f4ba855987b93de30b35bb159f497"
+    },
+    {
+      "module": "PhysicalGraph",
+      "file": "lean/PhysicalGraph.lean",
+      "source_sha256": "2b062e178da28fc154d89c920e9e37406dbcc0647779787b69d6627daa9822ab",
+      "imports": [
+        "GraphKernel"
+      ],
+      "selected_root": false,
+      "provenance": "reviewed-import-binding",
+      "checked_import_object_sha256s": [
+        "b2e67561399f8145dded221ddfb1733ab2d080ef543eb14afa18a09e62fee58e"
+      ],
+      "source_receipt_sha256": "2553471d6d8f2d70e86eca329d2a41a506fc1a22c67416ba8137857acc60040b"
+    },
+    {
+      "module": "PhysicalLabelGraph",
+      "file": "lean/PhysicalLabelGraph.lean",
+      "source_sha256": "aed0e223ac345f2fb85a235376acb6113e4d37c61dc34d2688f278e4a815b5f4",
+      "imports": [
+        "SizedGraphPair",
+        "PhysicalGraph"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "beeefb1bbb2ebab3e73e796009f72011a46b2e8831fed85a30c95bf8539f8fec"
+      ],
+      "source_receipt_sha256": "ba1137b4dac5e4bfbbc5ce6d5a8025a181eb0fe1409d21aaf718a4e957e6312d"
+    },
+    {
+      "module": "PhysicalModelRows",
+      "file": "lean/PhysicalModelRows.lean",
+      "source_sha256": "aa09a3889c918ea4af0a35b7b2fbcd31365ae411354ee35d4dec29fd9650bcd4",
+      "imports": [
+        "ModelOrientationBounds",
+        "PhysicalTripleSmall"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "236eea668c3aa82942a2f05632434834af5f7195e2bfc95ce1a6c5e8d636df88"
+      ],
+      "source_receipt_sha256": "c9b2855bb901a4d2fa2a4ac347594db92f1b6a23280450327bc514e4c7413aab"
+    },
+    {
+      "module": "PhysicalPairedSines",
+      "file": "lean/PhysicalPairedSines.lean",
+      "source_sha256": "adb2804fad7c4198537661e8fe42a199261949a5dee5fff4d7954a4a9592da72",
+      "imports": [
+        "OrderedOrientationPairs",
+        "PhaseCisBridge",
+        "PhysicalFourierLocation"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "14d60cca30c3489012384074fa41bf2d17b787830c93b73379c28d3de8beb922"
+      ],
+      "source_receipt_sha256": "3e3607c505137af02f22c79c7d6cf604b636c505ab6decb668d51572eded58ab"
+    },
+    {
+      "module": "PhysicalQMaximal",
+      "file": "lean/PhysicalQMaximal.lean",
+      "source_sha256": "7dfc186793b397cf248f28077828ef21917f73696e7ab1ab88dcc923cae8bd32",
+      "imports": [
+        "SideQNormalization",
+        "SignedCornerPhysical"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "4dc10e09477035407972808cb6c0835a2d34ac2088edc5545e8f6ef7b32e734e"
+      ],
+      "source_receipt_sha256": "42c74604a5ec9711efb28d63dae658ca520cff9f71d80724cf1ba73b23671382"
+    },
+    {
+      "module": "PhysicalSeedBridge",
+      "file": "lean/PhysicalSeedBridge.lean",
+      "source_sha256": "6ca053b4320fdd5b097603470985616b224d3d1579e4e714014eaaa91b889610",
+      "imports": [
+        "Seed0024PhysicalBounds",
+        "PhysicalTripleSmall",
+        "PhysicalQMaximal"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "8a880258772021a7a9b507531c69227c06d8fa7f881d86e4794691121202ce4e"
+      ],
+      "source_receipt_sha256": "ea0321359760b64b81453ef07faf2827bcff405a41c9e80f10566e97ef0c4c9d"
+    },
+    {
+      "module": "PhysicalSideCap",
+      "file": "lean/PhysicalSideCap.lean",
+      "source_sha256": "01a458ee75d8de557b896a1af6e9843aab3d8e2210c1eec30f84755f631f1854",
+      "imports": [
+        "SideDeterminantCap"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "c1b5edc24b784286ccb36dc25acc12298d4bc2e6df9c274197f4b2f72312cd5f"
+      ],
+      "source_receipt_sha256": "b0b5e8d33a30c1bb595f8f259cabd2c45f78eb7f74993cb9c540a25de1650ae6"
+    },
+    {
+      "module": "PhysicalTripleSmall",
+      "file": "lean/PhysicalTripleSmall.lean",
+      "source_sha256": "fe331a52a0521771a20dd2edd107a3962e593a139aae53597d877e23ac9e3326",
+      "imports": [
+        "PhysicalSideCap",
+        "AnchoredPhaseBounds"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "cb432d3cc4e67b0fc26a5457de4546398437a14da013676abb2aae9deadaa3c3"
+      ],
+      "source_receipt_sha256": "19dee8b221bad66aec05870320192ca1bebd2e51c2fa439080a38c5d8ad2744b"
+    },
+    {
+      "module": "PhysicalWitnessTransfer",
+      "file": "lean/PhysicalWitnessTransfer.lean",
+      "source_sha256": "5f3d40d874073f78d574154aabfe44fa40bcbffaf0f532fafa76536003b74824",
+      "imports": [
+        "PhysicalQMaximal",
+        "FourierWitnessPhases"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "23427ec7ba559315c57701f1fab45be27007ef5955b6aab00d4e17b076bed048"
+      ],
+      "source_receipt_sha256": "6b3aeaa7d8ada9a75af80573a8fbbff99fac3ef277adb93f17e5384f588c62c0"
+    },
+    {
+      "module": "PhysicalWitnessUnordered",
+      "file": "lean/PhysicalWitnessUnordered.lean",
+      "source_sha256": "7ed91345a4e9652e92b23b100ca4b6ee99d8b52e95d2923bf8b0bfed502f08b7",
+      "imports": [
+        "PhysicalWitnessTransfer"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "26f6f03c87790beaf30d88398b7967c20179ba30d76d0758a6377011a7e6453c"
+      ],
+      "source_receipt_sha256": "3d476e165dc27e5985c44a261d1d245405194250686292118638a20a4b4c9747"
+    },
+    {
+      "module": "PiPhaseBounds",
+      "file": "lean/PiPhaseBounds.lean",
+      "source_sha256": "86298e3c6e7407c6e1c547c373491ee8f118065f9ebdf86ef540638a36449358",
+      "imports": [
+        "ExactPhase",
+        "Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "393e5924cbc7e9619312b2523471a8c556a658c2da51038e181e8faf73c5fb87"
+      ],
+      "source_receipt_sha256": "79e557e15ee4e7106cafc8dc344e1b90e937caf47800a881bbe095721d837df6"
+    },
+    {
+      "module": "PiRounding",
+      "file": "lean/PiRounding.lean",
+      "source_sha256": "ab8f869c0891f16c65cf34a3096bf34678d0f8d16534f313802224cc4192e865",
+      "imports": [
+        "RepeatedFourierColumns",
+        "Mathlib.Analysis.SpecialFunctions.Trigonometric.Inverse"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "357041a1206573784eccf1bb50968612ff4e26569154b4416315e4a234e4aff5"
+      ],
+      "source_receipt_sha256": "0c36cc79c50a2540a89cdf927869f2a17501207a263f1b6d4be81fc2330de793"
+    },
+    {
+      "module": "ProjectorAmplitude",
+      "file": "lean/ProjectorAmplitude.lean",
+      "source_sha256": "8159144437c05fda88d3d5b4503b21c80cc0a8323393ffef48f3c088b740e600",
+      "imports": [
+        "RankOneMetric"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "f56001c2a9b6755f1d83ebd435d4545ec584dfa4be36a4c5dfd3269355ffd3c7"
+      ],
+      "source_receipt_sha256": "cb7732ce98310c385c2d7ca5b5f8c12224cd429fc795526c8e36ac4c3ca91ae0"
+    },
+    {
+      "module": "QLipschitz",
+      "file": "lean/QLipschitz.lean",
+      "source_sha256": "96b48c4e1297a669063ed34fd9429b46bf7dcaa005142f2655f99372232642d1",
+      "imports": [
+        "WordLipschitz"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "a5142c0e68bceed031b58b8df4cb5d54cd5be36305cd8c000a032e788b1760ea"
+      ],
+      "source_receipt_sha256": "bd56ea5f3c905c9acd66e6aa7784c75f3d358d1b555df54defac026a967bda99"
+    },
+    {
+      "module": "QSignedBinding",
+      "file": "lean/QSignedBinding.lean",
+      "source_sha256": "3cde7bd289b2844b982fc62d735aaaeb7e0d5ba8d82d2f5b6e5781abbe1b23f6",
+      "imports": [
+        "SignedDeterminantFoundation"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "e3f15b2c0e66b799477255cc56e435a96171e9ce439f53dd88e735dc277343a9"
+      ],
+      "source_receipt_sha256": "c81d6345b49eecdfbcf2930467a5dee54abd61e081c6a1fe9a6722fbb695aa1e"
+    },
+    {
+      "module": "QuartetRadianCover",
+      "file": "lean/QuartetRadianCover.lean",
+      "source_sha256": "c78e1d4c66f4fce39fec88eb09670caad6e4eecd0d8e2038c466cf7b3946691c",
+      "imports": [
+        "ClosedBoxForest",
+        "Mub6.Basic"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "919df474626f7fbc7aefb59ce45ac58200fcdc6d4340b5824281daae0f7d4397"
+      ],
+      "source_receipt_sha256": "b1cfa1328cc6be6dd43bfdca5b96da53bd83e842be7e913000cbb2fb1b1654f0"
+    },
+    {
+      "module": "QuartetTubeRays",
+      "file": "lean/QuartetTubeRays.lean",
+      "source_sha256": "f2421757ccd1f89cd3c2d6ae57d2d685394e35171a4f6787fe8b14e9cec0fbbe",
+      "imports": [
+        "F6TubeRays",
+        "PhysicalLabelGraph",
+        "QuartetRadianCover",
+        "ReuseBoundaryTransport"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "82b8111e500d0038dc892a238485a89f8786d9b06dab58aea2e29c588dbda2b7"
+      ],
+      "source_receipt_sha256": "d108f42ada90e7d9b573e05ff42a746eb639bf5459383ebe4b724061d08c7dff"
+    },
+    {
+      "module": "RankOneMetric",
+      "file": "lean/RankOneMetric.lean",
+      "source_sha256": "fdbf0168da19def769fd43ada33c134268f5f1c4baa6dc4aa8c80d5ba5a5d3e2",
+      "imports": [
+        "Mathlib.Analysis.InnerProductSpace.LinearMap",
+        "Mathlib.Tactic.Linarith",
+        "Mathlib.Tactic.Ring"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "eec5665fd200a159eb1abdbb2374912764b3699afae002c7cc06fa5edd66f2b2"
+      ],
+      "source_receipt_sha256": "5d98745e205eb01508b4d86ac6dc2b1b6c33ec358b039ef89a7f4aeebf296691"
+    },
+    {
+      "module": "RationalCentreCore",
+      "file": "lean/RationalCentreCore.lean",
+      "source_sha256": "c7ae1f65bbafcc125fa22511725af52c2f1bb80fec0f1bcb776893cdcd656cd2",
+      "imports": [
+        "RationalCircleCharts",
+        "Mathlib.Data.Rat.Cast.Order"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "7b8b817c67b14035a9e323250ad0d1f92171d36982abac51c4a596851e68694b"
+      ],
+      "source_receipt_sha256": "48c56e825497bc9c4c09a1794faf28fe3e5d0ff3454b3c7fc3c89b03620a130b"
+    },
+    {
+      "module": "RationalCircleCharts",
+      "file": "lean/RationalCircleCharts.lean",
+      "source_sha256": "01ed873ef91b83a61d43be6d63cbcd02363af20c10b519e43f20b9b042ab3321",
+      "imports": [
+        "FormalCore",
+        "Mathlib.Tactic.FieldSimp"
+      ],
+      "selected_root": false,
+      "provenance": "reviewed-import-binding",
+      "checked_import_object_sha256s": [
+        "8419286ec79e2ba53a164d2c416bdd8e88ed3b0bcb3561991728aef50cf010e9"
+      ],
+      "source_receipt_sha256": "4487967e7e68d8c9710aa379ae3406d6fa8bdc51b82168d943a92a9d40b922fb"
+    },
+    {
+      "module": "RawColumnAmplitude",
+      "file": "lean/RawColumnAmplitude.lean",
+      "source_sha256": "77da5dbd12df5a4a5e2340d76efaca7e6f3aa472dfa28e0af6b9d25c75b1d96c",
+      "imports": [
+        "ProjectorAmplitude",
+        "SixColumnMetric"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "c65bd01028c0b56ce78273c86583bfdf4fbe8929c5393b1fb93cb0110097fe66"
+      ],
+      "source_receipt_sha256": "575c6b77fe3670c3e0fd9214f890b4c88bb2c646b593004a34345f2d289a62b3"
+    },
+    {
+      "module": "RayDomainLabelAssignment",
+      "file": "lean/RayDomainLabelAssignment.lean",
+      "source_sha256": "c4b25adf68ae234cb9ba7165827e35975e3b79448c2c20cbf18b2b0fa1dbd18b",
+      "imports": [
+        "PhysicalLabelGraph"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "6ab97f506bc234ddd7cda837a9136f9c603aae1a08c3cb32019c0fef7285917a"
+      ],
+      "source_receipt_sha256": "d39c70a20cf1789ee969b4193948309a0582ff0c3ba0d809651c02fda9c5c2da"
+    },
+    {
+      "module": "RejectionPilot64Compact",
+      "file": "lean/RejectionPilot64Compact.lean",
+      "source_sha256": "f51cff49445f5be18622adeb75dfe33d85f5da33234dc00e768e28dd1127569d",
+      "imports": [
+        "CompactSparseTable",
+        "MidpointLeafRejection",
+        "ApproximatePhaseFrontend",
+        "PhaseTape",
+        "OrdinalRoots"
+      ],
+      "selected_root": true,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "3933591b07cb3530d137c18ddd889d89f137bbf881ad6fac0cc38f6d9295f29a"
+      ],
+      "source_receipt_sha256": "277a4a6a64fe0839a0d9427c571746a5007e33d7aca954e415014b17ff0e0b28"
+    },
+    {
+      "module": "RepeatedFourierColumns",
+      "file": "lean/RepeatedFourierColumns.lean",
+      "source_sha256": "c02fd6db83ec819755432870325852d02f734ea88ad1587a764e6f86c8f07f87",
+      "imports": [
+        "LocalArithmetic"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "8e6c1413dc78663f9c2116ff853e351df22402dc6966388b16df4240a4bc66af"
+      ],
+      "source_receipt_sha256": "ae0344ad784dc67a9892e9ccf52dc4f4f7b2731aa8aa7aa8fb06d5a3ca71cbb2"
+    },
+    {
+      "module": "RepeatedProjectorMetric",
+      "file": "lean/RepeatedProjectorMetric.lean",
+      "source_sha256": "ad3394d9e97b1b635bc15e4ca00bde6c74f588a7ddb6ab9df07143f272bde08b",
+      "imports": [
+        "SixColumnMetric",
+        "RepeatedFourierColumns"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "27593a151a68410d39f745a8266e9451c96f22698a5d4e36e728cb72f1994496"
+      ],
+      "source_receipt_sha256": "028a42524b2ded9cc65c634c2681b6d3f5818c16d76021781f6e06adac067962"
+    },
+    {
+      "module": "Retained36ApproximateRays",
+      "file": "lean/Retained36ApproximateRays.lean",
+      "source_sha256": "4433f156ae9760d44f4cdecd2c3af78f9da3b3af71e8d1767403ceae4717329e",
+      "imports": [
+        "QuartetTubeRays",
+        "Retained36FourierTube",
+        "MaximalQuartetRadian"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "da0ac20315d7500adf2e7b8dd0218872058f3ee6ff6a17cf87f752c82c0cabc7"
+      ],
+      "source_receipt_sha256": "0e166b331213d3aa542561cf3d6521c925c5d117dd073d22998c65a6ece5ebc4"
+    },
+    {
+      "module": "Retained36FourierTube",
+      "file": "lean/Retained36FourierTube.lean",
+      "source_sha256": "d56217403964a7553ae05208c495bbed3b67cc235762283bf67cbfa8c894c571",
+      "imports": [
+        "FourierTubeMetric",
+        "LocatedPhysicalFourier",
+        "FourierModelBinding"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "c7116e6aa5434690c61e7a678948a0d72cf63d38c9503b3709b5a36e7679096e"
+      ],
+      "source_receipt_sha256": "9a3d4efda0d1bb47254d76a22c14b716e96dfaed440a18d5ae5fa5f9f05206b6"
+    },
+    {
+      "module": "ReuseBoundaryTransport",
+      "file": "lean/ReuseBoundaryTransport.lean",
+      "source_sha256": "ace77161cf28bced2a4738951fe6cf5cf8c3a52320cf40e71109ad73d2f34749",
+      "imports": [
+        "Mub6.Basic",
+        "Mathlib.LinearAlgebra.Matrix.NonsingularInverse",
+        "Mathlib.Analysis.Real.Sqrt"
+      ],
+      "selected_root": false,
+      "provenance": "reviewed-import-binding",
+      "checked_import_object_sha256s": [
+        "38ef77cec33476bd59e5f8af0476c38ce2e4c79a7db286c732e15397bfa5d785"
+      ],
+      "source_receipt_sha256": "3f274f10f7ee1b986d114b43adbbf38233191ad57b5694655de1b8d439dc851c"
+    },
+    {
+      "module": "RoundedCentreDataNoInit",
+      "file": "lean/RoundedCentreDataNoInit.lean",
+      "source_sha256": "af28842336f881c0e14a58487ed2808aa45586162ede97b0d62ac3b7894c6761",
+      "imports": [
+        "ExactCentreData",
+        "Mathlib.Data.Rat.Cast.Order"
+      ],
+      "selected_root": true,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "58f253ef178e605e700a314713b70a8da01923088100da2c86a2831a4f8bda92"
+      ],
+      "source_receipt_sha256": "eaf9e5129567a410c715ee3af87a38c696e9103e1b7da6588c30cf5ae31f1a6b"
+    },
+    {
+      "module": "RoundedCentreOverlap",
+      "file": "lean/RoundedCentreOverlap.lean",
+      "source_sha256": "e03cd87711e798b900470f85b12c4e19086397fef5b341a9fa68703db59cf733",
+      "imports": [
+        "RawColumnAmplitude",
+        "ScalarRoundingBounds"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "7494f0071441163523f1274736caf43a03351be20c6f06ec3097f00ae54154eb"
+      ],
+      "source_receipt_sha256": "bdeb8348de6c786ec06e687bc56479192ebaf76cb14f09d938bc02f5332d8071"
+    },
+    {
+      "module": "RoundedFourierOverlap",
+      "file": "lean/RoundedFourierOverlap.lean",
+      "source_sha256": "b56724a34feba763945a449d080b6d44ff257c77b9504a7c7d6e2b5c9b8521be",
+      "imports": [
+        "PiRounding"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "6a4e1f782df293c048bf745e6e357d8dbfdb48968a55642e4318da6a65d0cff3"
+      ],
+      "source_receipt_sha256": "b40eab1f9020b09926ddc2ac86a52f044a8286a4ecd8f141f351c66a83f4fd6b"
+    },
+    {
+      "module": "RowPairDefect",
+      "file": "lean/RowPairDefect.lean",
+      "source_sha256": "d52b847f4ed88bd7fd5b35d5f1008c7759035cfd4dab9959eac96c313f0fd213",
+      "imports": [
+        "CentiradianPhysical"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "c12c661e4167b20d5b4bca38a4659e485f4bc1ea116020673f547b6819530461"
+      ],
+      "source_receipt_sha256": "de500176025dd158c95b23a24abddb5059953da0ef0d1de6ac200b4c9b429300"
+    },
+    {
+      "module": "RowPermutationMetric",
+      "file": "lean/RowPermutationMetric.lean",
+      "source_sha256": "518f8e5b45bb03b83e75539667daec2200618db3270b9bb647be248bde340733",
+      "imports": [
+        "SixColumnMetric"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "d46f9b70f440782cf4326ddd975348159b114edca28f4f6bd2cb415c7204966b"
+      ],
+      "source_receipt_sha256": "06703ea9d8bda9632b17184b152e414861f6a1f2c6f8fe4e508ec4541c8ad009"
+    },
+    {
+      "module": "ScalarRejectionBounds",
+      "file": "lean/ScalarRejectionBounds.lean",
+      "source_sha256": "e890bb6bdb2e4ffb96b8c2757c22d9536a1395400f5388918704e18680bb9731",
+      "imports": [
+        "ScalarRoundingBounds"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "7635cec7f23a63c1535aca3249d9699fe7b5f44b3e44648d449e20b019ebe9db"
+      ],
+      "source_receipt_sha256": "048e7452151f03d0269e46ca853b73aeff872ae72d6172e7854e55ac0084e80c"
+    },
+    {
+      "module": "ScalarRoundingBounds",
+      "file": "lean/ScalarRoundingBounds.lean",
+      "source_sha256": "3c9f5f8478e460da54fe2bb5575178fdaf65622d257c61bad6bcec75cb2dc18d",
+      "imports": [
+        "Mathlib.Analysis.Complex.Basic",
+        "Mathlib.Tactic.Linarith",
+        "Mathlib.Tactic.NormNum",
+        "Mathlib.Tactic.Ring"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "109e913914103e52c43e9156800f283aa4a0f7a3129280fbb38c4eb4afba8cc2"
+      ],
+      "source_receipt_sha256": "179ad24747265d3034150924c1ac300ce7f8a37e80116ada28719ec9f3071ec0"
+    },
+    {
+      "module": "ScopedSupplierLeafEntries",
+      "file": "lean/ScopedSupplierLeafEntries.lean",
+      "source_sha256": "f5e22aadddc8dc5887ed52bb916b6d748b52fb63a20417c00f121c015165529a",
+      "imports": [
+        "SupplierLeafEntries",
+        "SparseSupplierIndices"
+      ],
+      "selected_root": true,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "ef451bf15e46f0371d3f1c0601f45cc8cca903734f70fb9e0e8148743de2ebc2"
+      ],
+      "source_receipt_sha256": "1e0dba7067f462edc962f4df63b86016796111f4055d644e3feb1a29c0e26e45"
+    },
+    {
+      "module": "Seed0024Data",
+      "file": "lean/Seed0024Data.lean",
+      "source_sha256": "7a404d18e243bc07c2ae397f611435fc82831bb84de22c0a6718484a9f832412",
+      "imports": [
+        "ClosedBoxForest"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "963fc53172107d35a6ac731de39343186b62a6971814788a8a993df1f3042097"
+      ],
+      "source_receipt_sha256": "e91415cb1348e4c237241327034ee4b1e32e8a4260b20b984839d80516ef1067"
+    },
+    {
+      "module": "Seed0024Geometry",
+      "file": "lean/Seed0024Geometry.lean",
+      "source_sha256": "ab38af197c2201db11d172ca6ef0e2c2617f9a7028844689876e479fd6cd8093",
+      "imports": [
+        "Seed0024Data",
+        "RepeatedFourierColumns"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "98ea9b88f3c4534814ccafc330b968432939dfa2622a7941321158d79820f395"
+      ],
+      "source_receipt_sha256": "8c26c72a4a771b4eb42f79a42891c8d8d4738a3676c0164ce981ed16d96be24e"
+    },
+    {
+      "module": "Seed0024PhysicalBounds",
+      "file": "lean/Seed0024PhysicalBounds.lean",
+      "source_sha256": "4fbca1013793f893f8917eba1cd949cdfe7a94135d7fb713762125b0ada8e0d2",
+      "imports": [
+        "Seed0024Geometry"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "9984633c5b00ef01b96536c55900f6eed1538f44a9142906c1c4bf116f5af082"
+      ],
+      "source_receipt_sha256": "bee54692cdc4a60e2cf9dcfea7274a9b19b70800e984eb64f157d020f1beed12"
+    },
+    {
+      "module": "SharpPhaseTaylor",
+      "file": "lean/SharpPhaseTaylor.lean",
+      "source_sha256": "0fea9d84e79c848a110b99a38286b8690ed5f72a0d468910a6215082aa4a7787",
+      "imports": [
+        "Mathlib.Analysis.Calculus.MeanValue",
+        "Mathlib.Analysis.Calculus.Deriv.Pow",
+        "Mathlib.Analysis.Complex.RealDeriv",
+        "Mathlib.Analysis.SpecialFunctions.ExpDeriv",
+        "Mathlib.Analysis.Complex.Exponential",
+        "Mathlib.Analysis.Complex.Trigonometric",
+        "Mathlib.Tactic.Ring",
+        "Mathlib.Tactic.FieldSimp",
+        "Mathlib.Tactic.NormNum",
+        "Mathlib.Tactic.Positivity"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "1f691f75fe36c4b0fc080b12ebc039842859a25eb02a0696a314d1ba9b8854da"
+      ],
+      "source_receipt_sha256": "2dc2d5fd0b7c866d185661d2447e3e4b9273069bd4cb2e71df54393188d5e5c9"
+    },
+    {
+      "module": "SideDeterminantCap",
+      "file": "lean/SideDeterminantCap.lean",
+      "source_sha256": "a664b89b93260fd3ab5e3a95989c19d0352e64a7cd168d0efeee0391c17d67e8",
+      "imports": [
+        "HalfRowBalance"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "b628c0fb64639ba4cd27b72d708d8891d4c0ef3c23a1cccb7fc37ca023b76e89"
+      ],
+      "source_receipt_sha256": "d9e292fe80f4b90a8e0711c0095b598cf1069801a960800a6f283220d6a6d1f5"
+    },
+    {
+      "module": "SideQNormalization",
+      "file": "lean/SideQNormalization.lean",
+      "source_sha256": "52894f44a39c2e556486b3634d8dd799b8bd84f0c95c1b2511bf41b4a6927071",
+      "imports": [
+        "PhysicalSideCap",
+        "QSignedBinding"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "8f6984111932d89631a11d748d7350595a82a739efefc6c79b7146c6cbb24ae6"
+      ],
+      "source_receipt_sha256": "48a9affc05f1702b7f8878927082d1d119fb3b11f7c758f63a6ebf154571b8e3"
+    },
+    {
+      "module": "SignedCornerPhysical",
+      "file": "lean/SignedCornerPhysical.lean",
+      "source_sha256": "0f1d767a088e9f7c8fac44b3c169fff8aeff09819e84bb015fd960fffd881994",
+      "imports": [
+        "SignedDeterminantGram",
+        "CentiradianNormalization",
+        "Mathlib.Analysis.Real.Sqrt"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "e011b2cfb175538b7df27e84da6854084d42eee9e435ec9d53b64a2db6212533"
+      ],
+      "source_receipt_sha256": "7f177bfa7740b536bc50f03b23306aa141f4c8fc0cb5d3259173ad9756337b5f"
+    },
+    {
+      "module": "SignedDeterminantAlgebra",
+      "file": "lean/SignedDeterminantAlgebra.lean",
+      "source_sha256": "618fafb15c8d844584c5cd91c6948d7e59915451100095a1b35a5c3f2c26ab3e",
+      "imports": [
+        "SignedNumeratorBindings"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "257ae06172be59f5a996ce3246d4b9fa64d46f5f7500e0a9dc1a4dc39c9fa40d"
+      ],
+      "source_receipt_sha256": "00c841b0860f40c6b42f73eb947118d32d25e40b79ea8fe1f39924025bec27a3"
+    },
+    {
+      "module": "SignedDeterminantFoundation",
+      "file": "lean/SignedDeterminantFoundation.lean",
+      "source_sha256": "2115293997de60f6291a094d9dbdc9e721d11331e240e64b6e4d160a341e648f",
+      "imports": [
+        "Mathlib.Data.Complex.Basic",
+        "Mathlib.Tactic.Ring",
+        "Mathlib.Tactic.FieldSimp"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "c4429830b4d1e6c1580f9d63c515d9117990d5a8adf5aeea92256c160d4a4bb6"
+      ],
+      "source_receipt_sha256": "fbd15522b2d242d93af77c2fdcd7a432d53d25e30101b51f2d57e28c19920d5c"
+    },
+    {
+      "module": "SignedDeterminantGram",
+      "file": "lean/SignedDeterminantGram.lean",
+      "source_sha256": "497c6ad2c4335dddd2abc16325face1959697fa5078c7658f87f09f31d121c85",
+      "imports": [
+        "SignedDeterminantAlgebra",
+        "CentiradianPhysical"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "36c9c96dca7d2ed16d6ad658944d1e4f5bb691693001ef49f5ebc43478cda6c3"
+      ],
+      "source_receipt_sha256": "da3ad3f9405640fd77476bf2bf70b513e977bcf39be494030ab9317b76a90e6a"
+    },
+    {
+      "module": "SignedDivisionRounding",
+      "file": "lean/SignedDivisionRounding.lean",
+      "source_sha256": "14dc37624378c30e0deded7617526a639c0ce69cc88c4fff03749ac07ed31db3",
+      "imports": [
+        "FormalCore",
+        "Mathlib.Data.Int.DivMod"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "efd85fec737330758b31feadf6f31f2f5ea1290a8202e2b33f6149cad5ac2815"
+      ],
+      "source_receipt_sha256": "16c8eead255e66921a8e6e538aaff56299f2b545cdbd96e9ddd6d13602a952a3"
+    },
+    {
+      "module": "SignedNumeratorBindings",
+      "file": "lean/SignedNumeratorBindings.lean",
+      "source_sha256": "f139ae2afdbc5f922d6eaebebbaf6094a1ecf78d299576805cc7edff7c33dc0d",
+      "imports": [
+        "SignedNumeratorCertificate"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "7d40d2b2e5a1aa00d050d04ac871ab9010ff252e779b57a41439745eddd756fa"
+      ],
+      "source_receipt_sha256": "6601703b0104ab33a099fe35e7bd492534d19c84a015a628435feaf15757fc28"
+    },
+    {
+      "module": "SignedNumeratorCertificate",
+      "file": "lean/SignedNumeratorCertificate.lean",
+      "source_sha256": "917a69e733e24e10da6cc6bac5b754b173a3024044cc2ef62d021acac3ed8a63",
+      "imports": [
+        "SignedNumeratorCoeff0",
+        "SignedNumeratorCoeff1",
+        "SignedNumeratorCoeff2",
+        "SignedNumeratorCoeff3",
+        "SignedNumeratorCoeff4",
+        "SignedNumeratorCoeff5",
+        "SignedNumeratorCoeff6",
+        "SignedNumeratorCoeff7",
+        "SignedNumeratorCoeff8"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "20d9629673627be756194f210d7a77e68abe5df2e52a10e42e219068d1dd7822"
+      ],
+      "source_receipt_sha256": "a72e4542e207aa628e0cde399d8b6e505d49273cb9b357b250a29f387fb37ca9"
+    },
+    {
+      "module": "SignedNumeratorCoeff0",
+      "file": "lean/SignedNumeratorCoeff0.lean",
+      "source_sha256": "9603b69653e763375cf3257d40af9d18679a3a1b45ec5f061953b4f4aea194e8",
+      "imports": [
+        "SignedNumeratorDefs"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "bcb5ede1c7402e1c6536cd51b989ac4d3b14241046ef764e3faaa01aafef0326"
+      ],
+      "source_receipt_sha256": "f48732764d5095fde32f5a06a130be49eabc4f5b8e6b0c147f3b1d24d9da73c8"
+    },
+    {
+      "module": "SignedNumeratorCoeff1",
+      "file": "lean/SignedNumeratorCoeff1.lean",
+      "source_sha256": "d818611a3744e928ceb7fa710b3e6a40a7510d4b57524d6fba180197044c24bf",
+      "imports": [
+        "SignedNumeratorDefs"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "528c04d8b3c0a20bf7ad7ecd23943493fc8afc51f6b46c3c7f1c7897789b5d4c"
+      ],
+      "source_receipt_sha256": "f2a1d223b4a641b20e0de471dc15ddb6f82409563921b794e7b20c2197021577"
+    },
+    {
+      "module": "SignedNumeratorCoeff2",
+      "file": "lean/SignedNumeratorCoeff2.lean",
+      "source_sha256": "0491b24b6bdecbf25b02a4074b0a841b2635a8675c04e54a1b28ed706792250c",
+      "imports": [
+        "SignedNumeratorDefs"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "5b02505a1d1d2f41f813330333a969fbbdc41a18d9396774e56367cce61c70a9"
+      ],
+      "source_receipt_sha256": "43b746091f263c8562b13f438a0497aeb7491e315ed826ee9972a421c9b74d05"
+    },
+    {
+      "module": "SignedNumeratorCoeff3",
+      "file": "lean/SignedNumeratorCoeff3.lean",
+      "source_sha256": "669a32bce6621c5703567ea4cdacea9c263efd901ad759b162b83d79c68aa841",
+      "imports": [
+        "SignedNumeratorDefs"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "1c249bc4828f645485949625f1079c14ea222f27ab0de4cb162fc116a39dd099"
+      ],
+      "source_receipt_sha256": "1c15cee2036527717c6962d5c86e529e42b5a55ebca1f0de8428747360970e58"
+    },
+    {
+      "module": "SignedNumeratorCoeff4",
+      "file": "lean/SignedNumeratorCoeff4.lean",
+      "source_sha256": "c68d8fedb585764fa7cb7ed97142b9abcf85deba67c68d7e28a037482f3f8708",
+      "imports": [
+        "SignedNumeratorDefs"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "dc4ad40d8c5a88ce7e9f024a78b7edc3c58a7c7fa0ddc1393c596a64a7cc4bc1"
+      ],
+      "source_receipt_sha256": "4d6016cc7e609e514d98a8472753f793e89bc1bf8b2a449ae9b97fa52e46db3b"
+    },
+    {
+      "module": "SignedNumeratorCoeff5",
+      "file": "lean/SignedNumeratorCoeff5.lean",
+      "source_sha256": "15cd91b80e3db2406548bf441d7920db9a40802b5301d863d201098c5d31b059",
+      "imports": [
+        "SignedNumeratorDefs"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "a2e4271ef0e754b184695b9b9194340518553d09008d3a459f07c418a71e5530"
+      ],
+      "source_receipt_sha256": "76d983f94ee64d2476e077d6ace2b522e20508dcf05596e4656f6b54f161f99a"
+    },
+    {
+      "module": "SignedNumeratorCoeff6",
+      "file": "lean/SignedNumeratorCoeff6.lean",
+      "source_sha256": "30008750595242d6ebffb150189d440f8b9202caf3098d9b9312c1d861bba7f2",
+      "imports": [
+        "SignedNumeratorDefs"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "5ca38e3739add275581dc6abcf7ee9b7df48aa65f05b126dbb5925384bb7489e"
+      ],
+      "source_receipt_sha256": "6b061fe653c01a1c98d094475e9c8b52c65f83388c50268dd0ac77efb7f78d33"
+    },
+    {
+      "module": "SignedNumeratorCoeff7",
+      "file": "lean/SignedNumeratorCoeff7.lean",
+      "source_sha256": "8dfe36df13b8c3c89a53a0b0e3a7654311934c169be0d84d3cd34f1cf302e75e",
+      "imports": [
+        "SignedNumeratorDefs"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "feddb7ee7fa4a60a95a588aadfd24073dbfe8d6ca25650745a2d53678a278530"
+      ],
+      "source_receipt_sha256": "27bc43cbc0372cec27b93dc0107b8b8bdee746e146ff7e1c1601d697576fb58a"
+    },
+    {
+      "module": "SignedNumeratorCoeff8",
+      "file": "lean/SignedNumeratorCoeff8.lean",
+      "source_sha256": "d4934f7321db3a39e163ef0c33cc3d9a079ae3666cb075640080b7be1ed78854",
+      "imports": [
+        "SignedNumeratorDefs"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "a91c9e739caf7107e79a3ef7c6d2ed125b1ad1bff14d23334004a455440ac13a"
+      ],
+      "source_receipt_sha256": "e34b934848ef79cb4d1f2c112047a80f604aa9180b42fc68668e080abc5da569"
+    },
+    {
+      "module": "SignedNumeratorDefs",
+      "file": "lean/SignedNumeratorDefs.lean",
+      "source_sha256": "96b2d60b275a20acf951ed06cf3ae210688ddf2ade130389fc13584d951a395b",
+      "imports": [
+        "SignedDeterminantFoundation"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "3e96d7453697315fb4ef4a9ef23fcf6f54b1714339cd3b7c0e5026b61051d468"
+      ],
+      "source_receipt_sha256": "8034b7ae02670da0f5cf6639ff2acaf193f4066d33523392c8e45a347a560446"
+    },
+    {
+      "module": "SixColumnMetric",
+      "file": "lean/SixColumnMetric.lean",
+      "source_sha256": "d6401a76cb3d24d2391834d9b8981e85c0fc4adeabc3d2a20a085a4a12186861",
+      "imports": [
+        "RankOneMetric",
+        "Mathlib.Analysis.Normed.Lp.PiLp"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "2d123cf67243eb1dab901cde37908ccdf19bb4a234faa8c9784159c5f4306b64"
+      ],
+      "source_receipt_sha256": "8bc38991d43666d0fbc22722d47c05666e7acedb5174bdf4fe08afe31f096a39"
+    },
+    {
+      "module": "SizedGraphPair",
+      "file": "lean/SizedGraphPair.lean",
+      "source_sha256": "743b11bee6ac8cee6a044aadca8a01e1b433ba41ff96ecdedb8c03176d652cd6",
+      "imports": [
+        "GraphKernel"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "6a32b054f9afc4c9966c888a0cdf6f8ad0cd6d6e4d21a6bb2da14ce74d2f1c5c"
+      ],
+      "source_receipt_sha256": "90f56c2326d4da8ffd7203e85336c1c0cd60b84128b18dd0dbe5d20b841c62a1"
+    },
+    {
+      "module": "SparseBaseAccuracy",
+      "file": "lean/SparseBaseAccuracy.lean",
+      "source_sha256": "c67872335777df278b0e99fd8192d34574d970bc375be4ffead46fe716df2b1d",
+      "imports": [
+        "SparseBaseFirst"
+      ],
+      "selected_root": true,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "61652702b6643b996ea151caa8e7e5ddb209db792520f43d39422a06b2716870"
+      ],
+      "source_receipt_sha256": "4b547cfa114803e657a716dbd0c40e4ab64cbb2096b5e6688e49b9a5e0aa8876"
+    },
+    {
+      "module": "SparseBaseData",
+      "file": "lean/SparseBaseData.lean",
+      "source_sha256": "b236c1ce0f415a77730361bc317d05c4a568abcc2c2a2d85b7d0d86f12d1681e",
+      "imports": [
+        "DyadicChain"
+      ],
+      "selected_root": true,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "d70f4fdaa52a0ebb1ff7f4a955d2b8baac780fcb789afb57995273635283b265"
+      ],
+      "source_receipt_sha256": "f26eda0b69335f9f5d807332ded0d4b93f93cfe2d46b79082bb54f720c9889c5"
+    },
+    {
+      "module": "SparseBaseFirst",
+      "file": "lean/SparseBaseFirst.lean",
+      "source_sha256": "7319a29e71e1e7eb22145851feb2a21688f604a1236cecc0b369faccf56de6c6",
+      "imports": [
+        "SparseBaseData"
+      ],
+      "selected_root": true,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "a75ec6d5ebbed2e1cd51d8aeb11f356d7eb441003f482324a58571310c91fd47"
+      ],
+      "source_receipt_sha256": "4be507cc4faaf36179ab4385db7ea8e4205e4fe5695e93dd07bf35238f800641"
+    },
+    {
+      "module": "SparseGridTable",
+      "file": "lean/SparseGridTable.lean",
+      "source_sha256": "da5a7f1f77364ade952db7b72d7efbe9d19e53b2a67653980a6d4f5dd97a4328",
+      "imports": [
+        "EqualAngleTable"
+      ],
+      "selected_root": true,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "279652d665e93b45f55d9355e5e400604c8c20e11bc717dac32b33848b0f7589"
+      ],
+      "source_receipt_sha256": "fbf9676455086202b14e17af88537694867353fa15d7780843f50118b8bf9fe1"
+    },
+    {
+      "module": "SparseOctantTable",
+      "file": "lean/SparseOctantTable.lean",
+      "source_sha256": "1c8c48a012d4f2d47f1048209f20ff08e52320e048490bd916bf1ffacf51e385",
+      "imports": [
+        "SparseQuarterTable"
+      ],
+      "selected_root": true,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "a9a878bee349d8f53de77ac7c49a7ddaa70671c7d61a40ebb5444bf231fc53c6"
+      ],
+      "source_receipt_sha256": "b6d916db37286ad4052e510a5e11e3d96bde1c4e57dec445204c9f7e29221ce9"
+    },
+    {
+      "module": "SparseQuarterTable",
+      "file": "lean/SparseQuarterTable.lean",
+      "source_sha256": "51ad91701efcde5c6d0e86b0fa43011d4cdf0bdd764987f20a03cdbdf6a43e11",
+      "imports": [
+        "EqualAngleTable",
+        "Mathlib.Tactic.FinCases"
+      ],
+      "selected_root": true,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "8366fa664af0f9b1193e3e20986cb1612fe6dc1569e28da2613fb4603a8bfa4a"
+      ],
+      "source_receipt_sha256": "7ca20e16646ee8c0df8ff1f045693388dc3881ff0e64b14dd3f8b8ac2149013d"
+    },
+    {
+      "module": "SparseSupplierIndices",
+      "file": "lean/SparseSupplierIndices.lean",
+      "source_sha256": "54acbe22185906638efae85fcb57bba3aca4d6d0649d78017735151effec7cd1",
+      "imports": [
+        "SupplierMaskIndices"
+      ],
+      "selected_root": true,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "c9b39876eb269c03fdc94911c2d40bd39ad9d98ce259aa350dd820ae1214a204"
+      ],
+      "source_receipt_sha256": "2c92bfd6d731af79e9bbc92745c93b69363634f553c59b81a27b2e608a06fd96"
+    },
+    {
+      "module": "SquareBallLabelNoInit",
+      "file": "lean/SquareBallLabelNoInit.lean",
+      "source_sha256": "a0264577cd1f948d8e181c26a8ccb1c953b228af6abcfeb01a77df5b15eab5fd",
+      "imports": [
+        "IntegerBallLabelNoInit",
+        "SquareNormBounds"
+      ],
+      "selected_root": true,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "52d50d011308052bd898cc7eb9fdaa83a512d152e0f7cd3cd369362dd1453687"
+      ],
+      "source_receipt_sha256": "460fc6cfddd299d105d776e02a20e5b115159b7903d6f1970afadeff56647fda"
+    },
+    {
+      "module": "SquareConcretePhaseChecksNoInit",
+      "file": "lean/SquareConcretePhaseChecksNoInit.lean",
+      "source_sha256": "249f0864b4cd68cdd7138a67bc717a8c7293c4bda66f04fe8d706db4f79274ee",
+      "imports": [
+        "CompactSparseTable",
+        "SquareMidpointRejection",
+        "EndpointLeafRejection",
+        "SquareBallLabelNoInit",
+        "PhaseCertificateToRetained36"
+      ],
+      "selected_root": true,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "720dfeb993a2cd732e4a22432b6a0113d44df0c21da023b4e5a0c55d0cc1c5f4"
+      ],
+      "source_receipt_sha256": "1a204d551a5f0564ecd9ca39d7ed54a96826dd580e1d1649bf5bb8918e533881"
+    },
+    {
+      "module": "SquareEndpointRejection",
+      "file": "lean/SquareEndpointRejection.lean",
+      "source_sha256": "2733d03f6b622db71500946f072ee6c9ade33947c197a894146131544cc9cbd8",
+      "imports": [
+        "SquareMidpointRejection",
+        "EndpointLeafRejection"
+      ],
+      "selected_root": true,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "28a97157e7b89ab29a25267322a845e5ad414281b7884e6335844d5b68b8817f"
+      ],
+      "source_receipt_sha256": "65c9aeaa56e5cfda1ca292cf612c48d3f318747809ccfd3975e6f2d07a7a6299"
+    },
+    {
+      "module": "SquareMidpointRejection",
+      "file": "lean/SquareMidpointRejection.lean",
+      "source_sha256": "94cbec2ba809d3ed34f10810c6f097e1f81d98504d3faf263446c7e1ef3d81c3",
+      "imports": [
+        "SquareNormBounds",
+        "MidpointLeafRejection"
+      ],
+      "selected_root": true,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "686bde14fe95da856c0cc382f56ecd468c9929fc74cf957f500e35471bcb4297"
+      ],
+      "source_receipt_sha256": "7347a7137a50d989928bebda6dae2fa3b3b1c020d854a1fd2208583d62d2914a"
+    },
+    {
+      "module": "SquareNormBounds",
+      "file": "lean/SquareNormBounds.lean",
+      "source_sha256": "dccc4183e486fd5041ff5e6f4ace14d1e6a924f94274f1328e4f05da8d09cc8d",
+      "imports": [
+        "IntegerPhaseArithmetic"
+      ],
+      "selected_root": true,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "462dc6d78365a0cda299dc1c7139830c9e10e90ffd1644e55300b5f5e663342a"
+      ],
+      "source_receipt_sha256": "7365652a800784efda1c33889eaaffeab81546bd51ccd9706108a09af6dbbc12"
+    },
+    {
+      "module": "SupplierBallInclusion",
+      "file": "lean/SupplierBallInclusion.lean",
+      "source_sha256": "555d7d26492c226ab47886d18f53e7c58485b70d529c2c7568c4d8a1e7de20c6",
+      "imports": [
+        "SupplierTablePhaseBinding",
+        "RoundedCentreOverlap",
+        "WholeCellBallInclusion"
+      ],
+      "selected_root": true,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "f04f53e6b49cb916ff4e3d270b5999884b5db87db815cea0195ef042c96027f8"
+      ],
+      "source_receipt_sha256": "23331d52e5b7b6eeb4635b66b1fb7a3c62cb4cd0062bb0c20b7e094623032c74"
+    },
+    {
+      "module": "SupplierCellGeometry",
+      "file": "lean/SupplierCellGeometry.lean",
+      "source_sha256": "7eb4f8cf12aa3a2fd4fca8c1f4b82798b8831faeb06a593a4dccb94e4914bd66",
+      "imports": [
+        "FourierPhaseTargets",
+        "SupplierGridIndices"
+      ],
+      "selected_root": true,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "5dc209d10fdbd75344ffe316d21e068d808fd54859a786c452694c6dadb936bd"
+      ],
+      "source_receipt_sha256": "bf880a384fdead5b8d40834a8e036f8b59e40c845235210249b12491786d1a91"
+    },
+    {
+      "module": "SupplierGridIndices",
+      "file": "lean/SupplierGridIndices.lean",
+      "source_sha256": "24d92c210fcd09c55d7a9204ded752f33eb14b4ec5140bada770298f18a0dbe7",
+      "imports": [
+        "EqualAngleCells",
+        "Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic"
+      ],
+      "selected_root": true,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "bd26ddf0f32f4e2a44e6d49ae82f3e8cce61c630cf8d013fbcadcd5b6c8e5cc0"
+      ],
+      "source_receipt_sha256": "dd2fe59448c1611e00f2db25e7e28703d4ee3ebfd7dcc35a20ec0c90f98a1b54"
+    },
+    {
+      "module": "SupplierLeafEntries",
+      "file": "lean/SupplierLeafEntries.lean",
+      "source_sha256": "29b8fd90b63e0ab7c9a2e99a04b7ad27efa9f7babadb617b6438e95225ee3bf0",
+      "imports": [
+        "IntegerPhaseArithmetic",
+        "SupplierTablePhaseBinding"
+      ],
+      "selected_root": true,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "30b189ac31f5b578f7f4808f7894a04a6241542355ff9b80da647ef0b5a1e3b0"
+      ],
+      "source_receipt_sha256": "1f0a80a329da3d6d7e20d8c200c853bba936f30b432529d3363fec8ce7f6bb8f"
+    },
+    {
+      "module": "SupplierMaskIndices",
+      "file": "lean/SupplierMaskIndices.lean",
+      "source_sha256": "e2cd85b338cd9b5c2b4b71a42cd1c3110642bd1e9e247535e25bc960f4a72889",
+      "imports": [
+        "SupplierPhaseIndices",
+        "SupplierCellGeometry",
+        "EndpointMaximum"
+      ],
+      "selected_root": true,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "1fec397865f820441458ddb52ae8003f59737b7d3f0510f856d5be301e188fb3"
+      ],
+      "source_receipt_sha256": "e4f77a2b6fc5b91f1bb530682674b7a24b53186a5668d70bbcaff311a74723a4"
+    },
+    {
+      "module": "SupplierPhaseIndices",
+      "file": "lean/SupplierPhaseIndices.lean",
+      "source_sha256": "85b246bc593e42008b3c9ab53233931d9e5ffa9eaa4e99b48089d6c4d1e69a3d",
+      "imports": [
+        "FourierPhaseTargets",
+        "SupplierGridIndices"
+      ],
+      "selected_root": true,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "d4b4aebccff6519c91a322fbc1f1972bf51fe2d10aadfb794759187ee43f9029"
+      ],
+      "source_receipt_sha256": "0496e8d43961c2f13e0548587fd3e40523442c6d06a9cd8002512f6315f8e5b1"
+    },
+    {
+      "module": "SupplierScalarArithmetic",
+      "file": "lean/SupplierScalarArithmetic.lean",
+      "source_sha256": "9315523bb3d7bea75dc356fe72ac66c69c59c2075a04aba45314d38f16654148",
+      "imports": [
+        "IntegerPhaseArithmetic",
+        "SupplierTargetFloor",
+        "SupplierLeafEntries"
+      ],
+      "selected_root": true,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "c7614d86bf3215ac5b1d4fdf8da2a3f27bf0eb6c64f3221425fad0632024f4ed"
+      ],
+      "source_receipt_sha256": "62bf858873f2621b8f89a25262d66525c4d8465b94d529fd39695aea3e469440"
+    },
+    {
+      "module": "SupplierTablePhaseBinding",
+      "file": "lean/SupplierTablePhaseBinding.lean",
+      "source_sha256": "e394c4b32a331927b9d092c5e3cd322a0b7a83f5eb74a060d290762f6ca9b1e9",
+      "imports": [
+        "SupplierPhaseIndices",
+        "SupplierMaskIndices",
+        "EqualAngleTable"
+      ],
+      "selected_root": true,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "4b834777695c7db9476d69c7af990284847e64417494febbae678ae30a3b29eb"
+      ],
+      "source_receipt_sha256": "2733f0e562063c9f0e56b208df1acb39926ac0d2fc398268e0cc097d832fdb2f"
+    },
+    {
+      "module": "SupplierTargetFloor",
+      "file": "lean/SupplierTargetFloor.lean",
+      "source_sha256": "37126d4cd5dcacabba5daa3cbf3633ceefc5690d6186478ca13f085336e7d023",
+      "imports": [
+        "IntegerNormFloor"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "39ca21a689ad2e9452381b814158e4f02a1d9e6acc135a0d0814e68fa181fe78"
+      ],
+      "source_receipt_sha256": "b3f4d4c3b6b0f6f60ec5ea6cd1ccf000cf34b5d1564b38df6b232cc2d32b4b57"
+    },
+    {
+      "module": "TrigonometricDerivPort",
+      "file": "lean/TrigonometricDerivPort.lean",
+      "source_sha256": "acb42335608f66556d2683f07b390999b415d6be4e779904ba829275a1042f41",
+      "imports": [
+        "Mathlib.Analysis.Calculus.LogDeriv",
+        "Mathlib.Analysis.SpecialFunctions.ExpDeriv"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "0f8d7987871115bfb8192cb243b4d28397c76581966520c28aa31e832f499123"
+      ],
+      "source_receipt_sha256": "4e0fe86a297e179f4becbbfffb70d9c6ba34912a084fd0c746799ed8d0f905bb"
+    },
+    {
+      "module": "UnbiasedBallCompatibility",
+      "file": "lean/UnbiasedBallCompatibility.lean",
+      "source_sha256": "f83dcfdec5a0f579d1ba227498d966ca1689d8e340739280f45161d7a8c21ecf",
+      "imports": [
+        "PhaseAlignment"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "e0cb93360185fca9cab43b267370babfff5ec191cfec9f416f13de7135e65d25"
+      ],
+      "source_receipt_sha256": "f51fb1715a9bf0a04005caddd2e9764e7bffafd4e686b6207c45834657266d54"
+    },
+    {
+      "module": "UnitRayTurns",
+      "file": "lean/UnitRayTurns.lean",
+      "source_sha256": "429195891906f5b7e6d27327a76efef48df59ab51bb73c18b51d7a94a1da3dd5",
+      "imports": [
+        "EndpointConvexity",
+        "EqualAngleCells",
+        "FormalCore",
+        "Mathlib.Analysis.SpecialFunctions.Complex.Arg",
+        "Mathlib.Analysis.Complex.Trigonometric"
+      ],
+      "selected_root": true,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "3a8e0b5e92b5edca55c9e994f7cb4976a13cd5ea01a74b6e042b6e72a90ef5eb"
+      ],
+      "source_receipt_sha256": "c625f5d56178122993b8b4ac5081550b4fffc31e6a8174f6576e8a10166f9a40"
+    },
+    {
+      "module": "UnitTripleBounds",
+      "file": "lean/UnitTripleBounds.lean",
+      "source_sha256": "85b5aea2a2e54924e93e9e81e54efc392f1fdef1c56e5d57b2c8494512a1d170",
+      "imports": [
+        "Mathlib.Analysis.Complex.Basic",
+        "Mathlib.Tactic.Linarith",
+        "Mathlib.Tactic.LinearCombination",
+        "Mathlib.Tactic.NormNum"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "3ed8765d93ab8414d9c2305bb1585cdfd3d4c089ce28f13e870dae4af9336195"
+      ],
+      "source_receipt_sha256": "db69411eeaabe4065ee7a880555fee87ef049512a1d8eb3b30f8341cfd00396e"
+    },
+    {
+      "module": "WholeBoxPhase",
+      "file": "lean/WholeBoxPhase.lean",
+      "source_sha256": "33d82e780a30bae80fe665fde431a7b69e8abc91bbf6e85f22d31845bda829ee",
+      "imports": [
+        "ExactPhase"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "90365d16e2d8d71f923fa3f5583a9140b317d8a777b4b8607b646fe10340b8af"
+      ],
+      "source_receipt_sha256": "182d4284351044b767bdb6a63922521b7c8939cf50f9dfc6b0523dc1ac11c68d"
+    },
+    {
+      "module": "WholeCellBallInclusion",
+      "file": "lean/WholeCellBallInclusion.lean",
+      "source_sha256": "8af0d5b744716762b865bf02829f57945a0f11be380297d2787c326b9eed179b",
+      "imports": [
+        "CentreProjectorLabel"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "58ef2a09e44c2748a1ed5ef72268b6b56d1e31b353976e3a0511a5398874c74a"
+      ],
+      "source_receipt_sha256": "cbcd7d2e275ea1367462b320aad7f1a5355b354a1c794fb46cc33028a8d6a150"
+    },
+    {
+      "module": "WordLipschitz",
+      "file": "lean/WordLipschitz.lean",
+      "source_sha256": "8c9890123f2dee19e13e94b7d88029e2532afcdca0a9e3662ab8d24c8021aab8",
+      "imports": [
+        "SideDeterminantCap",
+        "QSignedBinding"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "ade414ab72468565b057110e7e5ccd00bfe299b160e309140171d9fc572650e4"
+      ],
+      "source_receipt_sha256": "1b1b458b9992518c74facaffbd1c1172b55bbded45f2b9b8e3695f55b15fe932"
+    },
+    {
+      "module": "ZeroLatticeF6",
+      "file": "lean/ZeroLatticeF6.lean",
+      "source_sha256": "a3789efdd77434abb741864f2c94ad008e5fa81688f498730c37d08ef4cedf26",
+      "imports": [
+        "RoundedFourierOverlap",
+        "Mathlib.Tactic.FinCases"
+      ],
+      "selected_root": false,
+      "provenance": "frozen-successful-check",
+      "checked_import_object_sha256s": [
+        "257ffda1ae767a50e0c688f27fac05c9b8e309fb067ea658bc4b837dc8eae898"
+      ],
+      "source_receipt_sha256": "d5b627d01d0a55134f2dbd140b0ede0fb2d65fb2c0738aa3eed7fbdcbc32bdfb"
+    }
+  ]
+}

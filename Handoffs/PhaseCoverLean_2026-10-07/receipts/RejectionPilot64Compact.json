@@ -1,0 +1,44 @@
+{
+  "module": "RejectionPilot64Compact",
+  "group": "pilot64",
+  "source_sha256": "f51cff49445f5be18622adeb75dfe33d85f5da33234dc00e768e28dd1127569d",
+  "declarations": [
+    {
+      "name": "Seed0024ClusterTube20261007.pilotMidpointChecks_sound",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Seed0024ClusterTube20261007.pilot64Compact_checked",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Seed0024ClusterTube20261007.pilot64Compact_no_closed_phase",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    }
+  ],
+  "receipt_sha256": "277a4a6a64fe0839a0d9427c571746a5007e33d7aca954e415014b17ff0e0b28",
+  "axiom_transcript_sha256": "8d8d70573b8accdf8c4297dbf9ee4d23617ce7a22fc22a9e6ac5f15d16f21e14",
+  "job_sha256": "3d0254166742972cd746a277f896a86169b40bb0f9aaa3673f1079f6512b3903",
+  "review_sha256": "5b124b43f2a6f418ffb91a355436825249fd8a0570bba22fb8838c6f8947a3d8",
+  "success": true,
+  "exit_code": 0,
+  "allowed_axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+  ],
+  "source_file": "lean/RejectionPilot64Compact.lean",
+  "kind": "narrow-projection-of-successful-source-and-kernel-receipt"
+}

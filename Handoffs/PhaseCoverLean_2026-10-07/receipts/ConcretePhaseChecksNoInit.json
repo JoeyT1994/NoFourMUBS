@@ -1,0 +1,44 @@
+{
+  "module": "ConcretePhaseChecksNoInit",
+  "group": "concrete_composition",
+  "source_sha256": "d85636c50d4296adf3f454f04c1f8a688123578af1decd39f1fa02c738c85c2e",
+  "declarations": [
+    {
+      "name": "Seed0024ClusterTube20261007.concretePhaseChecks_sound",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Seed0024ClusterTube20261007.concrete_tapes_centre_cover",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Seed0024ClusterTube20261007.retained36_no_live_of_concrete_tapes",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    }
+  ],
+  "receipt_sha256": "40f11172ca9fe3cfd2863000391a13c1221c7d10312f47d23e42aac4b5e715e0",
+  "axiom_transcript_sha256": "09c84c42e36aedef00f086851ca3e413846870a2cb741b694017ac47f999db79",
+  "job_sha256": "9ebddeb8d8156b9c293e4e342a7c81310a5c75f89b803ddae38a1fd140ff2794",
+  "review_sha256": "3f6cedc7c272f54de1ff87776c12ab0aaec2a68d6fdd722ce03e730966937e45",
+  "success": true,
+  "exit_code": 0,
+  "allowed_axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+  ],
+  "source_file": "lean/ConcretePhaseChecksNoInit.lean",
+  "kind": "narrow-projection-of-successful-source-and-kernel-receipt"
+}

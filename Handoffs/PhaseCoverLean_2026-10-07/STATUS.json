@@ -1,0 +1,47 @@
+{
+  "schema": "phase-cover-progress-publication-v1",
+  "upstream_base_commit": "a9f64885186352432996ce04402ba9b8a01f7550",
+  "status": "REVIEWED_COMPONENTS_AND_ONE_ACTUAL_64_PHASE_ROOT_PILOT",
+  "selected_module_count": 39,
+  "source_closure_module_count": 199,
+  "selected_declaration_count": 206,
+  "selected_declarations_by_group": {
+    "phase_frontend": 61,
+    "sparse_indices": 14,
+    "scalar_leaf": 20,
+    "square_rejection": 15,
+    "ball_label": 10,
+    "rounded_centres_noinit": 3,
+    "square_label": 5,
+    "dyadic": 20,
+    "base229": 14,
+    "sparse_table": 13,
+    "compact_table": 5,
+    "pilot64": 3,
+    "tape": 17,
+    "concrete_composition": 3,
+    "square_concrete_composition": 3
+  },
+  "allowed_axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+  ],
+  "pilot_module": "RejectionPilot64Compact",
+  "pilot_phase_root_ordinals": {
+    "start": 0,
+    "count": 64
+  },
+  "pilot_is_physical_boxes": false,
+  "physical_retained36_closures": 0,
+  "whole_cover_accepted": false,
+  "global_no_four_proved": false,
+  "remaining_obligation": "Kernel-checked acceptance of the entire finite phase cover, covering every required root.",
+  "custom_source_closure_complete": true,
+  "fresh_clean_rebuild_performed_here": false,
+  "dependency_caveat": "Successful checks used the recorded cached Lean/mathlib/custom objects. Source hashes and import bindings are preserved; this collection is not an independent clean rebuild or proof of cache authenticity.",
+  "toolchain": {
+    "lean": "4.33.0-rc2",
+    "mathlib_revision": "51e6992efd06126df61a496bebf8f49482a4e129"
+  }
+}

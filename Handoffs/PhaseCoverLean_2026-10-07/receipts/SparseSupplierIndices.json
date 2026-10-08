@@ -1,0 +1,117 @@
+{
+  "module": "SparseSupplierIndices",
+  "group": "sparse_indices",
+  "source_sha256": "54acbe22185906638efae85fcb57bba3aca4d6d0649d78017735151effec7cd1",
+  "declarations": [
+    {
+      "name": "Seed0024ClusterTube20261007.supplier_sparse_halfstep_finite",
+      "axioms": [
+        "propext"
+      ]
+    },
+    {
+      "name": "Seed0024ClusterTube20261007.supplier_halfstep_divisible",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Seed0024ClusterTube20261007.supplier_step_divisible",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Seed0024ClusterTube20261007.supplier_midpoint_divisible",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Seed0024ClusterTube20261007.supplier_lower_divisible",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Seed0024ClusterTube20261007.supplier_upper_divisible",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Seed0024ClusterTube20261007.supplier_endpoint_divisible",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Seed0024ClusterTube20261007.normalizedSupplierIndex_divisible",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Seed0024ClusterTube20261007.supplier_shift_divisible",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Seed0024ClusterTube20261007.supplier_midpoint_shift_divisible",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Seed0024ClusterTube20261007.supplier_endpoint_shift_divisible",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Seed0024ClusterTube20261007.reducedSupplierIndex_exact",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Seed0024ClusterTube20261007.supplier_midpoint_reduced_index",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Seed0024ClusterTube20261007.supplier_endpoint_reduced_index",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ]
+    }
+  ],
+  "receipt_sha256": "2c92bfd6d731af79e9bbc92745c93b69363634f553c59b81a27b2e608a06fd96",
+  "axiom_transcript_sha256": "2b0aa7296b4766c93f3368b27e7825ffe4c340a0682a26f80f205017244689b2",
+  "job_sha256": "7de607bc06733e0856de43f8402709455580168555766f63a5da84086570fef6",
+  "review_sha256": "27fdc6627eef592428f200e3e04a157d0d3823a1e28f44b7686f34341900cb67",
+  "success": true,
+  "exit_code": 0,
+  "allowed_axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+  ],
+  "source_file": "lean/SparseSupplierIndices.lean",
+  "kind": "narrow-projection-of-successful-source-and-kernel-receipt"
+}

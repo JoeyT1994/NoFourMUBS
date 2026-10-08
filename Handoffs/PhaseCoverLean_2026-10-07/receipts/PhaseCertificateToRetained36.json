@@ -1,0 +1,44 @@
+{
+  "module": "PhaseCertificateToRetained36",
+  "group": "tape",
+  "source_sha256": "e66f50ec2ed4d462105778a83baf3e9826c7b17c9f7f89808818df7e2dbb254c",
+  "declarations": [
+    {
+      "name": "Seed0024ClusterTube20261007.checked_ordinal_tapes_cover",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Seed0024ClusterTube20261007.centre_cover_of_checked_ordinal_tapes",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Seed0024ClusterTube20261007.retained36_no_live_of_checked_ordinal_tapes",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    }
+  ],
+  "receipt_sha256": "d998ce998af26f3fdeebcb8f81c0bbec02c6bc54894211dc2a77fe56448812bd",
+  "axiom_transcript_sha256": "abe9d073cba2bb46663365e93924ab67ab8e546b0f5f7f6420bc9386483eb028",
+  "job_sha256": "30879664e2f47e592c89c61cd528c0670486b4bf38fd88b78274054bc1f3a0df",
+  "review_sha256": "93ef5eecaf15fa400397c359581883f76486063982d1cdc01bc36ea38e4eaf00",
+  "success": true,
+  "exit_code": 0,
+  "allowed_axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+  ],
+  "source_file": "lean/PhaseCertificateToRetained36.lean",
+  "kind": "narrow-projection-of-successful-source-and-kernel-receipt"
+}

@@ -1,0 +1,88 @@
+{
+  "module": "SupplierPhaseIndices",
+  "group": "phase_frontend",
+  "source_sha256": "85b246bc593e42008b3c9ab53233931d9e5ffa9eaa4e99b48089d6c4d1e69a3d",
+  "declarations": [
+    {
+      "name": "Seed0024ClusterTube20261007.circlePoint_add_int_two_pi",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Seed0024ClusterTube20261007.normalizedSupplierIndex_cast",
+      "axioms": [
+        "propext"
+      ]
+    },
+    {
+      "name": "Seed0024ClusterTube20261007.normalizedSupplierIndex_lt",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Seed0024ClusterTube20261007.normalizedSupplierIndex_circle",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Seed0024ClusterTube20261007.supplierShiftedIndex_lt",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Seed0024ClusterTube20261007.supplier_shifted_circle",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Seed0024ClusterTube20261007.supplier_midpoint_fourier_target",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Seed0024ClusterTube20261007.supplier_lower_fourier_target",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "Seed0024ClusterTube20261007.supplier_upper_fourier_target",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    }
+  ],
+  "receipt_sha256": "0496e8d43961c2f13e0548587fd3e40523442c6d06a9cd8002512f6315f8e5b1",
+  "axiom_transcript_sha256": "f809614092e8985d537c0203500f53094c064c226e4038f83051bac2059a2f0e",
+  "job_sha256": "50806e0c0365738433904ca72869ff48398cfd866a0644565fe355f2bbcad743",
+  "review_sha256": "24e10627b81364a83e7f95cc51f332a7e05af3500e22e603f3d8e6633a2dd066",
+  "success": true,
+  "exit_code": 0,
+  "allowed_axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+  ],
+  "source_file": "lean/SupplierPhaseIndices.lean",
+  "kind": "narrow-projection-of-successful-source-and-kernel-receipt"
+}
