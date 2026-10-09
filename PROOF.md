@@ -139,7 +139,7 @@ By Step 4 and the Corollary to Step 2, every class in X lies in some ball Record
 
 | Input | Used in | Status |
 |---|---|---|
-| The classification [CT], via MC1–MC5 | Step 2 only | Proved relative to [CT] in [`MinimalConstruction/Proofs`](MinimalConstruction/Proofs/README.md) |
+| The classification [CT], via MC1–MC5 | Step 2 only | Proved relative to [CT] in [`MinimalConstruction/Proofs`](MinimalConstruction/Proofs/README.md), the current status. The "remains open" lines in `ASSUMPTIONS.md` are a hash-pinned historical section. [CT]'s exceptional Karlsson class H_cross is covered (MC1, MC4); see [`proof/LITERATURE.md`](proof/LITERATURE.md) |
 | The Stage C inequalities (after [OAI] §6) | Step 3 | Proved in [`proof/atlas/STAGEC.md`](proof/atlas/STAGEC.md): elementary Taylor and Cauchy–Schwarz bounds |
 | Computation | Steps 1 and 4 | Exact (Step 1); Arb plus margined binary64 (Steps 3–4) |
 
