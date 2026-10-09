@@ -38,4 +38,9 @@ python3 nonempty.py results/atlas_certificate.json.gz
 python3 arb_replay.py centre_fold52.json 0.08 150
 ```
 
-The production run is rusty job 7199908 (`dev/cluster/run_atlas.sh`), resumed from the local checkpoint of 3,364 records. An earlier job, 7197494, ran the pre-fix driver and was cancelled. Its results go in `results/`.
+**The certified atlas** (`results/`) was built on one core in about 7 hours:
+- it holds 11,228 Records, every one closed;
+- `verify.py --atlas` certified all of them on 9 cores in about 25 minutes;
+- see `results/RECEIPT.md`.
+
+**Independent replication.** A second build continued on rusty as job 7199908 (`dev/cluster/run_atlas.sh`), resumed from the same mid-run checkpoint. It produces a separate atlas and certifies it on the cluster node. Its results go in `results/`.

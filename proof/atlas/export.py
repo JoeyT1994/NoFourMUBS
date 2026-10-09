@@ -35,7 +35,7 @@ def load_certificate(path):
     A = AT.Atlas(); A.failed = d.get('failed', {})
     for i, r in enumerate(d['records']):
         P = np.array([float.fromhex(x) for x in r['phi']]).reshape(6, 6)
-        A.recs.append(dict(id=i, phi=P, R=r['R'], label_radius=r['label_radius']))
+        A.add(dict(phi=P, R=r['R'], label_radius=r['label_radius'], R400=AT.corner_census(np.exp(1j * P))[0]))
         if r['closed']:
             A.closed.add(i)
             A.transfers[i] = dict(targets=[(t, sg, list(AT.to_sp('tr' if tr else 'id', np.array(rp), np.array(cp))[1]))

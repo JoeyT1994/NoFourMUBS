@@ -115,7 +115,12 @@ Because of the normal bound, the boundary of a Record needs only a 4-dimensional
 2. `certify.py` re-checks every Record independently: σ, the normal bound, Stage C, and a replay of the boundary tree with Arb transfer constants.
 3. `nonempty.py` places F6 inside a Record.
 
-**Result:** *[pending: rusty job 7197494]* Records; every one certified; F6 in Record ⟨id⟩.
+**Result** ([`proof/atlas/results/`](proof/atlas/results/RECEIPT.md)):
+- **The atlas.** 11,228 ball Records: 10,785 at R = 0.08, 334 at R = 0.063 and 109 at R = 0.05. Every boundary is transferred, with on average 56 transfer targets per Record.
+- **Certification.** `certify.py` independently certifies all 11,228.
+- **Nonemptiness.** F6 lies in the interior of Record 877, at distance 0.023 < 0.08.
+- **Cost.** About 7 core-hours to build and about 4 core-hours to certify.
+- **Certificate.** `atlas_certificate.json.gz` (5.9 MB).
 
 ## Conclusion
 

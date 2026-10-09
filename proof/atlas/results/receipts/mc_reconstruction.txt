@@ -1,0 +1,37 @@
+{
+  "status": "PASS",
+  "exact_symbolic_checks": [
+    "three-point Fourier residual identity",
+    "opposite Fourier residual identity",
+    "adjugate identity"
+  ],
+  "precision_decimal_digits": 70,
+  "generic_strict_seeds": 40,
+  "seed_draws": 118,
+  "both_sheets_tested": true,
+  "reconstruction_branch_cases": 64,
+  "known_basis_rays": 6,
+  "maximum_absolute_residuals": {
+    "horizontal Gram": "5.5750383e-67",
+    "vertical Gram": "5.8155571e-67",
+    "horizontal determinant modulus": "2.9529664e-67",
+    "vertical determinant modulus": "3.0908844e-67",
+    "horizontal phase target": "1.7861421e-67",
+    "vertical phase target": "1.8882902e-67",
+    "seed-only numerator Gram": "3.1375211e-67",
+    "one common norm": "7.2387476e-67",
+    "norm numerator": "8.2033731e-65",
+    "Hadamard unitarity": "1.2505531e-66",
+    "Hadamard entry modulus": "4.0203593e-67",
+    "seed recovery": "0.0",
+    "transition reconstruction": "3.8626081e-67",
+    "mixed coordinate recovery": "0.0",
+    "seed-only overlap": "2.584382e-65",
+    "global SOS identity": "5.0042829e-62",
+    "general norm balance": "2.5019755e-66",
+    "known carrier root permutations": "3.6853944e-70",
+    "known third basis compatibility": "3.0427082e-69",
+    "known third basis orthogonality": "3.4775476e-69"
+  },
+  "scope": "Regression evidence. General equivalence and coverage follow from the written proof and the accepted PDF reconstruction inputs."
+}
