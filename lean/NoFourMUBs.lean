@@ -5,3 +5,8 @@ import NoFourMUBs.Main
 import NoFourMUBs.Horizontal
 import NoFourMUBs.Transfer
 import NoFourMUBs.NormalBound
+import NoFourMUBs.StageC.Basic
+import NoFourMUBs.StageC.Assembly
+import NoFourMUBs.StageC.Bins
+import NoFourMUBs.StageC.Cover
+import NoFourMUBs.StageC.Single

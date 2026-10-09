@@ -7,3 +7,7 @@ import NoFourMUBs
 #print axioms NoFourMUBs.outNorm_rem_le
 #print axioms NoFourMUBs.normal_bound_root
 #print axioms NoFourMUBs.isolation
+#print axioms NoFourMUBs.StageC.not_quartetEdge
+#print axioms NoFourMUBs.StageC.cover_of_leaves
+#print axioms NoFourMUBs.StageC.bin_bounds
+#print axioms NoFourMUBs.StageC.direct_test
