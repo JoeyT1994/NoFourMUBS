@@ -91,6 +91,7 @@ All acceptance decisions are exact: resultants, Gr\"obner bases, Sturm counts an
 \begin{theorem}\label{thm:conn}
 Relative to MC1--MC5, the space $X$ is connected.
 \end{theorem}
+\noindent This upgrades the 2007 observation of Bengtsson et al.\ \cite{BBELTZ}, that the then-known order-6 families form a connected set apart from $S_6$, to a theorem about all order-6 Hadamard matrices.
 
 \begin{proof}
 \emph{Sheet parity.} If a seed symmetry $L$ has transposition bit $\tau$ and conjugation bit $\kappa$, then
@@ -105,10 +106,10 @@ The maximal frame $E(x)=\begin{psmallmatrix}1&1&1\\1&x&x^2\\1&x^{-1}&x^{-2}\end{
 \end{proof}
 
 \begin{corollary}\label{cor:cover}
-Let $W$ be a finite union of closed sets $B_r=\{\e^{i(P_r+\delta)}:\delta \text{ horizontal},\ \|\delta\|\le R_r\}$, closed under conjugation and transposition. Suppose:
+Let $\mathcal R$ be a finite family of closed balls $B_r=\{\e^{i(P_r+\delta)}:\delta \text{ horizontal},\ \|\delta\|\le R_r\}$. Let $W$ be the set of classes of Hadamards in the union of its closure under $\Gamma=\{\mathrm{id},\text{conjugation},\text{transposition},\text{conjugate-transpose}\}$. Suppose:
 \begin{enumerate}
 \item $W$ contains a non-Tao Hadamard;
-\item every Hadamard with $\|\delta\|=R_r$ is equivalent to one with $\|\delta'\|<R_t$ for some $t$.
+\item every Hadamard with $\|\delta\|=R_r$, for $r\in\mathcal R$, is equivalent after some $g\in\Gamma$ to one with $\|\delta'\|<R_t$, for some $t\in\mathcal R$.
 \end{enumerate}
 Then every class in $X$ meets $W$.
 \end{corollary}
@@ -137,7 +138,7 @@ We have $0=\Phi(\delta)=\Phi(0)+J\delta+E$ with $\|E\|\le\frac L2\|\delta\|^2$. 
 \end{proof}
 
 \begin{lemma}[Stage C, after {[OAI, \S6]}]\label{lem:stagec}
-Suppose the vector-bin cover, the label clustering, the O/U edge tests (including the joint test, which uses the common $\eta$) and the exhaustive two-clique search succeed. Then no Hadamard in the ball is a quartet edge.
+Let $r_{\rm col}$ bound the columns of $\delta$ and $r_F$ its Frobenius norm. Suppose the vector-bin cover, the label clustering, the O/U edge tests (including the joint test, which uses the common $\eta$) and the exhaustive two-clique search succeed with these bounds. Then no Hadamard in the ball is a quartet edge.
 \end{lemma}
 
 All inequalities are proved in \texttt{proof/atlas/STAGEC.md}. Comparisons use Arb-tabulated exponentials and float arithmetic with margin $10^{-7}$, against an error budget below $10^{-10}$.
@@ -177,6 +178,7 @@ By Corollary~\ref{cor:cover} and Step 4, every class in $X$ meets a Record. By L
 
 \begin{thebibliography}{9}
 \bibitem{CT} M.~C\'ardenes Wuttig, J.~Tindall, \emph{A complete classification of complex Hadamard matrices of order six}, arXiv:2608.18053.
+\bibitem{BBELTZ} I.~Bengtsson, W.~Bruzda, \AA.~Ericsson, J.-\AA.~Larsson, W.~Tadej, K.~\.Zyczkowski, \emph{Mutually unbiased bases and Hadamard matrices of order six}, J.~Math.~Phys.\ 48 (2007) 052106.
 \bibitem{OAI} OpenAI, \emph{The maximum number of mutually unbiased bases in dimension six}, preprint (2026).
 \end{thebibliography}
 \end{document}

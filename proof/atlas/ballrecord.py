@@ -102,7 +102,8 @@ class BallRecord:
         n = 2 * b / (self.sigma + math.sqrt(disc)) * (1 + 1e-12)      # = (sigma - sqrt(disc))/L, without cancellation
         return rH, min(n, R)
 
-    def stage_c(self, R, radius=0.042):
+    def stage_c(self, R, radius=0.042, triple=False):
+        """triple=False: exclude quartet edges (two further bases).  triple=True: exclude a third basis (MUB triples)."""
         nb = self.normal_bound(R)
         if nb is None: return dict(ok=False, reason='normal bound')
         rH, n = nb
@@ -117,8 +118,9 @@ class BallRecord:
         P = self.rec.phi.reshape(6, 6) / SC.TWO_PI
         # Frobenius bound: ||delta|| <= R (the ball), and ||delta|| <= ||T eta|| + ||nu|| <= sqrt(lam_max) rH + n
         rF = min(R, math.sqrt(self.lam_max) * rH + n) * (1 + 1e-12)
-        out = SC.stage_c(P, rcol / SC.TWO_PI, tang=(self.rec.Tbn, rH / SC.TWO_PI, n / SC.TWO_PI), radius=radius,
-                         rF=rF / SC.TWO_PI)
+        fn = SC.stage_c_triple if triple else SC.stage_c
+        out = fn(P, rcol / SC.TWO_PI, tang=(self.rec.Tbn, rH / SC.TWO_PI, n / SC.TWO_PI), radius=radius,
+                 rF=rF / SC.TWO_PI)
         out.update(R=R, rH=rH, n=n, rcol=rcol, rF=rF, sigma=self.sigma, e0=self.e0, j1=self.j1)
         return out
 

@@ -133,11 +133,15 @@ def bins(P, r, levels=(12, 24, 48, 96), cap=2_000_000, tang=None, rF=None):
         f = M2 // M
         off = (np.arange(f) + 0.5) / M2 - 0.5 / M                          # child midpoint offsets
         O = np.stack(np.meshgrid(*([off] * 5), indexing='ij'), -1).reshape(-1, 5)
-        U = (U[:, None, :] + O[None, :, :]).reshape(-1, 5)
-        U = U[single_tests(U, P, r, M2, K, eP, rF)]
-        if tang is not None and len(U): U = U[tangent_tests(U, P, r, M2, K, eP, rF, *tang)]
+        kept, total = [], 0
+        for i0 in range(0, len(U), 4096):                                  # refine in chunks: bounded memory
+            Uc = (U[i0:i0 + 4096, None, :] + O[None, :, :]).reshape(-1, 5)
+            Uc = Uc[single_tests(Uc, P, r, M2, K, eP, rF)]
+            if tang is not None and len(Uc): Uc = Uc[tangent_tests(Uc, P, r, M2, K, eP, rF, *tang)]
+            kept.append(Uc); total += len(Uc)
+            if total > cap: return None, M2
+        U = np.concatenate(kept) if kept else np.zeros((0, 5))
         M = M2
-        if len(U) > cap: return None, M
     return U, M
 
 
@@ -287,3 +291,41 @@ if __name__ == '__main__':
         phi = np.array(json.load(open(sys.argv[1]))['phi']).reshape(6, 6) / TWO_PI
         for r in (0.0, 0.002, 0.005, 0.008):
             print('centre r=%.3f' % r, stage_c(phi, r), flush=True)
+
+
+# ---------------------------------------------------------------- MUB triples
+def one_clique(O, cap=5_000_000):
+    """True iff the orthogonality graph O has NO 6-clique (complete search; a cap hit raises RuntimeError)."""
+    n = len(O)
+    orth = [int(''.join('1' if O[i, j] else '0' for j in reversed(range(n))), 2) for i in range(n)]
+    steps = [0]
+    def has(pool, need):
+        if need == 0: return True
+        while pool.bit_count() >= need:
+            steps[0] += 1
+            if steps[0] > cap: raise RuntimeError('cap')
+            bit = pool & -pool; i = bit.bit_length() - 1; pool ^= bit
+            if has(pool & orth[i], need - 1): return True
+        return False
+    return (not has((1 << n) - 1, 6)), steps[0]
+
+
+def stage_c_triple(P, r, tang=None, radius=0.03, rF=None):
+    """Exclusion of MUB triples on a Record: a third basis would be six pairwise orthogonal vectors, each unbiased to I
+    and to the columns of e(P + delta)/sqrt6, hence (distinct labels, STAGEC.md C3) a 6-clique of the O graph.
+    ok = True means no Hadamard in the ball extends to a MUB triple."""
+    t0 = time.time()
+    rF = math.sqrt(6) * r if rF is None else min(rF, math.sqrt(6) * r)
+    U, M = bins(P, r, tang=tang, rF=rF)
+    if U is None: return dict(ok=False, reason='bin cap')
+    cl = cluster(U, M, radius=radius)
+    if cl is None: return dict(ok=False, reason='cluster', bins=len(U))
+    C, s = cl
+    O, Ub = edges(C, s)
+    if tang is not None:
+        O, Ub = joint_filter(C, s, O, Ub, P, r, opnorm_bound(P), cis_centre(P), rF, *tang)
+    try:
+        ok, steps = one_clique(O)
+    except RuntimeError:
+        return dict(ok=False, reason='graph cap', bins=len(U), labels=len(C))
+    return dict(ok=ok, bins=len(U), labels=len(C), O=int(O.sum() // 2), steps=steps, t=round(time.time() - t0, 3))

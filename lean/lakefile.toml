@@ -1,0 +1,16 @@
+name = "nofourmubs"
+version = "0.1.0"
+defaultTargets = ["NoFourMUBs"]
+
+[leanOptions]
+autoImplicit = false
+relaxedAutoImplicit = false
+
+# Mateo Cardenes Wuttig's formal classification of order-6 complex Hadamard matrices (brings Mathlib with it).
+[[require]]
+name = "hadamard6_formal"
+git = "https://github.com/mateocardeneswuttig/all_hadamard_matrices_in_dimension_six"
+rev = "57b0302"
+
+[[lean_lib]]
+name = "NoFourMUBs"

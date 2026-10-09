@@ -318,7 +318,8 @@ class Atlas:
             x, conv = project(rs['phi'].reshape(36) + scale * rs['R'] * d)
             if not conv: raise RuntimeError('projection failed at record %d' % s)
             x = x.reshape(6, 6)
-            rec = make_record(x)
+            # start the radius ladder at the parent's radius (neighbouring records need similar radii); search order only
+            rec = make_record(x, ladder=[l for l in LADDER if l[0] <= rs['R'] + 1e-12]) or make_record(x)
             if rec is None: raise RuntimeError('Stage C ladder failed near record %d' % s)
             t = self.add(rec); spawned.append(t)
             self.link(s, t, ID)                                             # spawned in s's frame
