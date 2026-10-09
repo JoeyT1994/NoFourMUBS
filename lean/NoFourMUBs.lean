@@ -10,3 +10,4 @@ import NoFourMUBs.StageC.Assembly
 import NoFourMUBs.StageC.Bins
 import NoFourMUBs.StageC.Cover
 import NoFourMUBs.StageC.Single
+import NoFourMUBs.StageC.Linear

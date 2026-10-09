@@ -124,43 +124,70 @@ lemma norm_S'_sub_S_le (P δ : RMat6) (u x : I6 → ℝ) (i : I6) :
 noncomputable def Qop (P : RMat6) (z : I6 → ℂ) : I6 → ℂ :=
   fun i => ∑ j, e (-P j i) * z j / ((Real.sqrt 6 : ℝ) : ℂ)
 
+/-- The x-part `z_j = e(u_j)(e(x_j) − 1)` and the δ-part `B_i = Σ_j q_{ji} e(x_j)(e(−δ_{ji}) − 1)`. -/
+noncomputable def zx (u x : I6 → ℝ) : I6 → ℂ := fun j => e (u j) * (e (x j) - 1)
+
+noncomputable def Bd (P δ : RMat6) (u x : I6 → ℝ) : I6 → ℂ :=
+  fun i => ∑ j, q P u j i * e (x j) * (e (-δ j i) - 1)
+
+lemma delta_split (P δ : RMat6) (u x : I6 → ℝ) :
+    (fun i => S' P δ u x i - S P u i) = Qop P (zx u x) + Bd P δ u x := by
+  funext i
+  simp only [Pi.add_apply, zx, Bd, Qop, S'_sub_S, ← Finset.sum_add_distrib]
+  refine Finset.sum_congr rfl fun j _ => ?_
+  rw [q, show x j - δ j i = x j + -δ j i by ring, e_add, show u j - P j i = u j + -P j i by ring, e_add]
+  ring
+
+lemma cnorm_zx_le (u x : I6 → ℝ) : cnorm (zx u x) ≤ 2 * Real.pi * vnorm x := by
+  rw [← vnorm_abs x, ← vnorm_smul (by positivity)]
+  refine cnorm_le_of_norm_le fun j => ?_
+  simp only [zx, norm_mul, norm_e, one_mul]
+  exact norm_e_sub_one_le _
+
+lemma norm_Bd_le (P δ : RMat6) (u x : I6 → ℝ) (i : I6) : ‖Bd P δ u x i‖ ≤ 2 * Real.pi * colnorm δ i := by
+  have h6 := sqrt6_pos
+  calc ‖Bd P δ u x i‖ ≤ ∑ j, 2 * Real.pi * |δ j i| / Real.sqrt 6 := by
+        refine (norm_sum_le _ _).trans (Finset.sum_le_sum fun j _ => ?_)
+        rw [norm_mul, norm_mul, norm_q, norm_e, mul_one, one_div, inv_mul_eq_div]
+        apply div_le_div_of_nonneg_right _ h6.le
+        have := norm_e_sub_one_le (-δ j i)
+        rwa [abs_neg] at this
+    _ = 2 * Real.pi * ((∑ j, |δ j i|) / Real.sqrt 6) := by
+        rw [← Finset.sum_div, ← Finset.mul_sum]; ring
+    _ ≤ 2 * Real.pi * colnorm δ i := by
+        have := l1_col_le δ i
+        have : (∑ j, |δ j i|) / Real.sqrt 6 ≤ colnorm δ i := by rw [div_le_iff₀ h6]; linarith
+        gcongr
+
+lemma norm_le_cnorm (w : I6 → ℂ) (i : I6) : ‖w i‖ ≤ cnorm w := by
+  rw [cnorm, vnorm]
+  apply Real.le_sqrt_of_sq_le
+  exact Finset.single_le_sum (f := fun k => ‖w k‖ ^ 2) (fun _ _ => sq_nonneg _) (Finset.mem_univ i)
+
 /-- `‖S′ − S‖ ≤ 2π(K‖x‖ + ‖δ‖_F)`. -/
 lemma cnorm_S'_sub_S_le {P δ : RMat6} {u x : I6 → ℝ} {K : ℝ} (hK0 : 0 ≤ K)
     (hK : ∀ z, cnorm (Qop P z) ≤ K * cnorm z) :
     cnorm (fun i => S' P δ u x i - S P u i) ≤ 2 * Real.pi * (K * vnorm x + frob δ) := by
-  have h6 := sqrt6_pos
-  set z : I6 → ℂ := fun j => e (u j) * (e (x j) - 1)
-  set A : I6 → ℂ := Qop P z
-  set B : I6 → ℂ := fun i => ∑ j, q P u j i * e (x j) * (e (-δ j i) - 1)
-  have hsplit : (fun i => S' P δ u x i - S P u i) = A + B := by
-    funext i
-    simp only [Pi.add_apply, A, B, z, Qop, S'_sub_S, ← Finset.sum_add_distrib]
-    refine Finset.sum_congr rfl fun j _ => ?_
-    rw [q, show x j - δ j i = x j + -δ j i by ring, e_add, show u j - P j i = u j + -P j i by ring, e_add]
-    ring
-  have hz : cnorm z ≤ 2 * Real.pi * vnorm x := by
-    rw [← vnorm_abs x, ← vnorm_smul (by positivity)]
-    refine cnorm_le_of_norm_le fun j => ?_
-    simp only [z, norm_mul, norm_e, one_mul]
-    exact norm_e_sub_one_le _
-  have hA : cnorm A ≤ K * (2 * Real.pi * vnorm x) := (hK z).trans (mul_le_mul_of_nonneg_left hz hK0)
-  have hB : cnorm B ≤ 2 * Real.pi * frob δ := by
+  have hA : cnorm (Qop P (zx u x)) ≤ K * (2 * Real.pi * vnorm x) :=
+    (hK _).trans (mul_le_mul_of_nonneg_left (cnorm_zx_le u x) hK0)
+  have hB : cnorm (Bd P δ u x) ≤ 2 * Real.pi * frob δ := by
     rw [← vnorm_colnorm, ← vnorm_smul (by positivity)]
-    refine cnorm_le_of_norm_le fun i => ?_
-    calc ‖B i‖ ≤ ∑ j, 2 * Real.pi * |δ j i| / Real.sqrt 6 := by
-          refine (norm_sum_le _ _).trans (Finset.sum_le_sum fun j _ => ?_)
-          rw [norm_mul, norm_mul, norm_q, norm_e, mul_one, one_div, inv_mul_eq_div]
-          apply div_le_div_of_nonneg_right _ h6.le
-          have := norm_e_sub_one_le (-δ j i)
-          rwa [abs_neg] at this
-      _ = 2 * Real.pi * ((∑ j, |δ j i|) / Real.sqrt 6) := by
-          rw [← Finset.sum_div, ← Finset.mul_sum]; ring
-      _ ≤ 2 * Real.pi * colnorm δ i := by
-          have := l1_col_le δ i
-          have : (∑ j, |δ j i|) / Real.sqrt 6 ≤ colnorm δ i := by rw [div_le_iff₀ h6]; linarith
-          gcongr
-  rw [hsplit]
-  calc cnorm (A + B) ≤ cnorm A + cnorm B := cnorm_add_le A B
+    exact cnorm_le_of_norm_le fun i => norm_Bd_le P δ u x i
+  rw [delta_split]
+  calc _ ≤ cnorm (Qop P (zx u x)) + cnorm (Bd P δ u x) := cnorm_add_le _ _
+    _ ≤ _ := by nlinarith
+
+/-- Per component: `|S′_i − S_i| ≤ 2π(K‖x‖ + ‖δ_{:,i}‖)`. -/
+lemma norm_S'_sub_S_le_K {P δ : RMat6} {u x : I6 → ℝ} {K : ℝ} (hK0 : 0 ≤ K)
+    (hK : ∀ z, cnorm (Qop P z) ≤ K * cnorm z) (i : I6) :
+    ‖S' P δ u x i - S P u i‖ ≤ 2 * Real.pi * (K * vnorm x + colnorm δ i) := by
+  have h := congrFun (delta_split P δ u x) i
+  simp only [Pi.add_apply] at h
+  rw [h]
+  have hA := (norm_le_cnorm (Qop P (zx u x)) i).trans
+    ((hK _).trans (mul_le_mul_of_nonneg_left (cnorm_zx_le u x) hK0))
+  have hB := norm_Bd_le P δ u x i
+  calc _ ≤ ‖Qop P (zx u x) i‖ + ‖Bd P δ u x i‖ := norm_add_le _ _
     _ ≤ _ := by nlinarith
 
 /-! ### C2(a) soundness -/

@@ -11,3 +11,4 @@ import NoFourMUBs
 #print axioms NoFourMUBs.StageC.cover_of_leaves
 #print axioms NoFourMUBs.StageC.bin_bounds
 #print axioms NoFourMUBs.StageC.direct_test
+#print axioms NoFourMUBs.StageC.linear_test

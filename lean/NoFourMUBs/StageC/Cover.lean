@@ -118,8 +118,8 @@ theorem inLabel_of_wrap {u v h : I6 → ℝ} {k : I6 → ℤ} {μ s X : ℝ}
 theorem cover_of_leaves {ι α : Type*} {H : Mat6} {u : ι → I6 → ℝ} {a : ι → ℝ} {v : α → I6 → ℝ}
     {s : α → ℝ} (hu0 : ∀ l, u l j0 = 0)
     (htree : ∀ β : I6 → ℝ, β j0 = 0 → (∀ j, 0 ≤ β j ∧ β j ≤ 1) → ∃ l, 0 ≤ a l ∧ ∀ j, |β j - u l j| ≤ a l)
-    (hleaf : ∀ l, (∀ x : I6 → ℝ, ∑ j, x j = 0 → ∑ j, x j ^ 2 ≤ 29 / 6 * a l ^ 2 → ∑ j, |x j| ≤ 5 * a l →
-        (∀ j, |x j| ≤ 3 / 2 * a l) → ¬ ColUnb H (fun j => e (u l j + x j))) ∨
+    (hleaf : ∀ l, (∀ d : I6 → ℝ, d j0 = 0 → (∀ j, |d j| ≤ a l) →
+        ¬ ColUnb H (fun j => e (u l j + centre d j))) ∨
       (∃ b, ∀ x : I6 → ℝ, ∑ j, x j = 0 → ∑ j, x j ^ 2 ≤ 29 / 6 * a l ^ 2 →
         InLabel (v b) (s b) (fun j => e (u l j + x j)))) :
     ∀ w, Flat w → ColUnb H w → ∃ b, InLabel (v b) (s b) w := by
@@ -128,7 +128,7 @@ theorem cover_of_leaves {ι α : Type*} {H : Mat6} {u : ι → I6 → ℝ} {a : 
   obtain ⟨l, hal, hl⟩ := htree β hβ0 hβ
   set d : I6 → ℝ := fun j => β j - u l j
   have hd0 : d j0 = 0 := by simp only [d, hβ0, hu0, sub_self]
-  obtain ⟨h2, h1, hinf⟩ := bin_bounds hal hd0 hl
+  obtain ⟨h2, -, -⟩ := bin_bounds hal hd0 hl
   set m := (∑ k, d k) / 6
   have hw' : w = fun j => (c * e m) * e (u l j + centre d j) := by
     funext j
@@ -136,7 +136,7 @@ theorem cover_of_leaves {ι α : Type*} {H : Mat6} {u : ι → I6 → ℝ} {a : 
   have hcm : ‖c * e m‖ = 1 := by rw [norm_mul, hc, norm_e, one_mul]
   rcases hleaf l with hrej | ⟨b, hlab⟩
   · rw [hw', colUnb_smul (w := fun j => e (u l j + centre d j)) hcm] at hcol
-    exact absurd hcol (hrej _ (sum_centre d) h2 h1 hinf)
+    exact absurd hcol (hrej d hd0 hl)
   · exact ⟨b, by rw [hw']; exact inLabel_smul hcm (hlab _ (sum_centre d) h2)⟩
 
 end NoFourMUBs.StageC
