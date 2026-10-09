@@ -49,7 +49,9 @@ then every boundary Hadamard of s with η in the box has the interior representa
 
 **Proof.** We have ‖h(PνQ)‖ ≤ ‖ν‖ ≤ n_s, and P_t + δ′ differs from P(P_s + δ)Q + 2πN by a row-plus-column pattern. ∎
 
-**The resulting certificate is 4-dimensional, not 25-dimensional.** For each Record s, cover the box ‖η‖_∞ ≤ r_s by finitely many η-boxes. Each box must either be disjoint from the shell (decided exactly, in Arb), or carry a transfer (t, P, Q, N) passing the inequality above in Arb. Return B's 25-dimensional box-tree checker (`../coverage/returns/B_exact_quotient/quotient_coverage/`) is the general form; the normal bound makes the 21 normal directions a single additive n_s.
+**The resulting certificate is 4-dimensional, not 25-dimensional.** For each Record s, cover the cube ‖η‖_∞ ≤ r_s, a container for the ball ‖η‖ ≤ r_s, by finitely many η-boxes. A box may also be discarded if it misses the ball ‖η‖ ≤ r_s.
+
+**The winding N** is chosen after dephasing. Take the angles of e^{i(A P_s − P_t)} divided by its first row and first column, then recover N as the integer that makes h(A P_s + 2πN − P_t) equal h of those angles. Rounding (A P_s − P_t)/2π directly, without dephasing, gives a valid but useless c, with ‖c‖ ≈ 8–10. Each box must either be disjoint from the shell (decided exactly, in Arb), or carry a transfer (t, P, Q, N) passing the inequality above in Arb. Return B's 25-dimensional box-tree checker (`../coverage/returns/B_exact_quotient/quotient_coverage/`) is the general form; the normal bound makes the 21 normal directions a single additive n_s.
 
 ## History
 

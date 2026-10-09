@@ -4,6 +4,10 @@
 
 This note states and proves every inequality used by `stagec.py`, in our notation. The method — cover the unbiased vectors by labels, then rule out two orthogonal 6-cliques with all cross pairs unbiased — follows [OAI] §6, which in turn builds on Jaming et al. Nothing below relies on their text for correctness.
 
+## Units
+
+Stage C works in **cycles**: R, r_H, n, r_col and r_F (radians in Lemma 3.1) are divided by 2π. The frame T is unchanged: δ = Tη + ν becomes δ/2π = T(η/2π) + ν/2π.
+
 ## Setting
 
 Phases are in cycles: e(t) = exp(2πit), applied entrywise. A Record ball is the set of Hadamards A' = e(P + δ), where:
@@ -21,7 +25,9 @@ Suppose two further bases exist besides I and A'/√6. Each of their twelve vect
 
 At resolution M ∈ {12, 24, 48, 96}, cover [0, 1]⁵ by the closed boxes Πⱼ [bⱼ/M, (bⱼ + 1)/M]. Take a vector in a bin with midpoint u (u₀ = 0). Up to a global phase, its phases are u + x, where x is the mean-free version of a displacement d with d₀ = 0 and |dⱼ| ≤ a = 1/(2M). Then:
 
-  Σx = 0, ‖x‖ ≤ X = √(29/6)·a, ‖x‖₁ ≤ L = 5a, ‖x‖_∞ ≤ I = 3a/2.
+  Σx = 0, ‖x‖ ≤ X = √(29/6)·a, ‖x‖₁ ≤ Λ = 5a, ‖x‖_∞ ≤ I = 3a/2.
+
+(Λ is written `L` in the code. It is unrelated to the Lipschitz constant L = 2√3 of Lemma 3.1.)
 
 *Proof.* Each norm is convex in (d₁, …, d₅), so its maximum is at a vertex.
 - At a vertex, ‖x‖² = 5a² − (Σd)²/6, and Σd is an odd multiple of a.
@@ -36,7 +42,7 @@ Let q_ji = e(u_j − P_ji)/√6, S_i = Σ_j q_ji, and S′_i = Σ_j q_ji e(x_j �
 
 **(a) Direct test.**
 
-  ‖S′ − S‖ ≤ 2π(KX + r_F), |S′_i − S_i| ≤ 2π(L/√6 + r) =: τ.
+  ‖S′ − S‖ ≤ 2π(KX + r_F), |S′_i − S_i| ≤ 2π(Λ/√6 + r) =: τ.
 
 So a bin can be discarded if some |S_i| lies outside [1 − τ, 1 + τ], or if Σᵢ(|S_i| − 1)² > (2π(KX + r_F))².
 
@@ -67,7 +73,12 @@ where N_y = (Σ y_i² J_ij²)^{1/2} and G_y = max_j |Σ_i y_i S̄_i q_ji|. A bin
 3. Substitute δ = Tη + ν. The linear δ-term becomes (Bη)_i, with error ≤ n N_y.
 4. Take the supremum over the bin (Jx = Jd, since each row of J sums to 0) and over ‖η‖ ≤ r_H. ∎
 
-The scalar variant (y a coordinate vector, δ not decomposed) is test (6.12) in the code. Any y is valid, so the least-squares proposal needs no justification.
+**Scalar test (6.12).** This applies (b) to one component i, without decomposing δ, so there is no n-term. A bin is discarded if
+
+  |c_i| > a Σ_{j>0}|J_ij| + r‖J_{i,:}‖ + ρ,
+  ρ = min{ π[(KX + r)² + S_max(KIX + (2Xr + r²)/√6)], π[(Λ/√6 + r)² + S_max(X + r)²/√6] }.
+
+Every term here is per column, so r is the right bound. Any y is valid in (b), so the least-squares proposal needs no justification.
 
 ## C3. Labels (`cluster`)
 

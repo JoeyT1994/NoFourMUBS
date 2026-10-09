@@ -99,7 +99,7 @@ class BallRecord:
         b = self.e0 + self.j1 * rH + 0.5 * L_PHI * self.lam_max * rH * rH
         disc = self.sigma ** 2 - 2 * L_PHI * b
         if disc <= 0: return None
-        n = (self.sigma - math.sqrt(disc)) / L_PHI * (1 + 1e-12)
+        n = 2 * b / (self.sigma + math.sqrt(disc)) * (1 + 1e-12)      # = (sigma - sqrt(disc))/L, without cancellation
         return rH, min(n, R)
 
     def stage_c(self, R, radius=0.042):
