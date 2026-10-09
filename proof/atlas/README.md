@@ -19,7 +19,7 @@
 | `lib/` | Vendored helpers: `chart_np.py` and `common.py` |
 | `export.py` | Converts the driver's pickle into the compact certificate `results/atlas_certificate.json.gz`:<br>• Record centres, as exact float hex;<br>• radii and label radii;<br>• transfer targets.<br>`certify.py` and `nonempty.py` read it directly |
 | `results/` | The compact certificate, the run log and the certification receipts. The driver's working pickles are not tracked |
-| `dev/` | Exploration: the retired critical-point cover, the pilot handoff and the development history |
+| `cluster/` | The rusty job script (the replication run) |
 
 ## Parameters of the run
 
@@ -43,4 +43,4 @@ python3 arb_replay.py centre_fold52.json 0.08 150
 - `verify.py --atlas` certified all of them on 9 cores in about 25 minutes;
 - see `results/RECEIPT.md`.
 
-**Independent replication.** A second build continued on rusty as job 7199908 (`dev/cluster/run_atlas.sh`), resumed from the same mid-run checkpoint. It produces a separate atlas and certifies it on the cluster node. Its results go in `results/`.
+**Independent replication.** A second build continued on rusty as job 7199908 (`cluster/run_atlas.sh`), resumed from the same mid-run checkpoint. It produces a separate atlas and certifies it on the cluster node.

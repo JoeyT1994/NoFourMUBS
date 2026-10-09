@@ -139,7 +139,7 @@ By Step 4 and the Corollary to Step 2, every class in X lies in some ball Record
 ```bash
 pip install -r requirements.txt
 python3 verify.py            # Steps 1–2 exact replays, MC1–MC5, S₆ Record, Stage C Arb replay
-python3 verify.py --atlas    # Step 4: full atlas certification (parallel; hours)
+python3 verify.py --atlas    # Step 4: certify all 11,228 Records (about 30 min on 8 cores)
 ```
 
 ## History

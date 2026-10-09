@@ -12,4 +12,10 @@ Everything here is superseded by the minimal proof ([`../PROOF.md`](../PROOF.md)
 
 Replay it with `cd long_proof && python3 verify.py`.
 
+[`minimal_proof_development/`](minimal_proof_development/HISTORY.md) holds the development record of the atlas:
+- pilot Records;
+- the retired critical-point cover `critR.jl` (no box cover can terminate near the F3 seed);
+- the coverage handoff prompt;
+- exploration scripts.
+
 Links from the archive to the inputs it shares with the minimal proof (`MinimalConstruction`, `ClassificationPaper`, `openai`) are relative symlinks inside `long_proof/`. Some hash-pinned documents in `../MinimalConstruction/` still link to `../ProvenResults/...`; those targets now live under `long_proof/ProvenResults/`.

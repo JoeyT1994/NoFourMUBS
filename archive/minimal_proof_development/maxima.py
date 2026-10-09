@@ -4,8 +4,8 @@ import itertools, sys
 import numpy as np
 from scipy.optimize import minimize
 import os, sys
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lib'))
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lib'))
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'proof', 'atlas', 'lib'))
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'proof', 'atlas', 'lib'))
 import chart_np as K
 import common as C
 
