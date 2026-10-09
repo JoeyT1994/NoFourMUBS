@@ -9,7 +9,7 @@ Usage: python3 repair.py IN.pkl OUT.pkl [workers]
 """
 import os, sys, time
 import numpy as np
-from multiprocessing import Pool
+from concurrent.futures import ProcessPoolExecutor
 import atlas as AT
 from ballrecord import BallRecord
 from flint import arb
@@ -36,8 +36,8 @@ if __name__ == '__main__':
     A = AT.load(inp); t0 = time.time()
     jobs = [(i, r['phi'], r['R'], r['label_radius']) for i, r in enumerate(A.recs)]
     changed = {}; failed = []
-    with Pool(W) as pool:
-        for k, (i, upd, Tint) in enumerate(pool.imap_unordered(recheck, jobs, chunksize=8)):
+    with ProcessPoolExecutor(W) as pool:                    # raises BrokenProcessPool if a worker dies
+        for k, (i, upd, Tint) in enumerate(pool.map(recheck, jobs, chunksize=8)):
             A.recs[i]['Tint'] = Tint
             if upd == 'fail': failed.append(i)
             elif upd: changed[i] = upd

@@ -9,13 +9,16 @@ lake build
 
 ## Status
 
+`#print axioms NoFourMUBs.no_four_mubs` reports only `[propext, Classical.choice, Quot.sound]` (run `lake env lean NoFourMUBs/Axioms.lean`).
+
 | Module | Content | Status |
 |---|---|---|
-| `NoFourMUBs/Basic.lean` | MUBs as unitary matrices; `QuartetEdge`; **four MUBs ⇒ a Hadamard quartet edge** | ✅ proved |
-| `NoFourMUBs/Skeleton.lean` | **Main theorem `no_four_mubs`** from named `Inputs`; invariance under entrywise conjugation | ✅ proved, relative to `Inputs` |
-| `Inputs.equivInvariant` | quartet edges are invariant under Hadamard equivalence | ⏳ next |
-| `Inputs.taoExcluded` | Remark 3.3 (S₆ is a zero-dimensional Record) | ⏳ needs Lemma 3.1, Stage C and the certificate |
-| `Inputs.excluded` | Step 3: normal bound (Lemma 3.1) plus Stage C (`STAGEC.md`) | ⏳ lemmas to formalise; certificate checked externally |
-| `Inputs.covered` | Steps 1, 2 and 4: maxima of R, connectedness, the open-closed atlas | ⏳ Step 2 needs the seed-domain theorem and global reach, which are not yet in the upstream Lean |
+| `Basic.lean` | MUBs as unitary matrices; `QuartetEdge`; **four MUBs ⇒ a Hadamard quartet edge** | ✅ proved |
+| `Skeleton.lean` | `Inputs` (the three substantive hypotheses); invariance under entrywise conjugation | ✅ proved |
+| `Invariance.lean` | **quartet edges are invariant under Hadamard equivalence** (upstream `Equivalent`) | ✅ proved |
+| `Main.lean` | **`no_four_mubs : Inputs Ball → ¬ FourMUBs`** | ✅ proved, relative to `Inputs` |
+| `Inputs.taoExcluded` | Remark 3.3: S₆ is a zero-dimensional Record | ⏳ Lemma 3.1, Stage C, finite certificate |
+| `Inputs.excluded` | Step 3: Lemma 3.1 (normal bound) plus Stage C (`STAGEC.md`) | ⏳ lemmas to formalise; certificate as an explicit hypothesis |
+| `Inputs.covered` | Steps 1, 2 and 4: maxima of R, connectedness, the open-closed atlas | ⏳ Step 2 needs the seed-domain theorem and global reach, not yet in the upstream Lean |
 
 The computational certificate (`proof/atlas/results/`) will enter as an explicit hypothesis, `CertificateValid`. This mirrors how the upstream project treats its post-classification calculations.

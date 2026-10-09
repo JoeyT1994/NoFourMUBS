@@ -65,25 +65,10 @@ structure Inputs (Ball : Mat6 → Prop) : Prop where
     ∃ K, Ball K ∧ (Equivalent H K ∨ Equivalent (conjM H) K)
   /-- Step 3: certified Record balls contain no quartet edge. -/
   excluded : ∀ K, Ball K → Hadamard6.IsHadamard K → ¬ QuartetEdge K
-  /-- Quartet edges are invariant under Hadamard equivalence (to be proved in `Invariance`). -/
-  equivInvariant : ∀ H K, Equivalent H K → QuartetEdge H → QuartetEdge K
 
-/-- Equivalence preserves the Hadamard property. -/
+/-- Entrywise conjugation preserves the Hadamard property. -/
 lemma isHadamard_conjM {H : Mat6} (h : Hadamard6.IsHadamard H) : Hadamard6.IsHadamard (conjM H) := by
   refine ⟨fun i j => by simpa [conjM, Complex.normSq_conj] using h.1 i j, ?_⟩
   rw [← conjM_conjTranspose, ← conjM_mul, h.2, conjM_smul, conjM_one, map_ofNat]
-
-/-- **Main theorem (relative to the named inputs).** There are no four mutually unbiased bases in `ℂ⁶`. -/
-theorem no_four_mubs {Ball : Mat6 → Prop} (I : Inputs Ball)
-    (hequivHad : ∀ H K, Equivalent H K → Hadamard6.IsHadamard H → Hadamard6.IsHadamard K) :
-    ¬ FourMUBs := by
-  intro h4
-  obtain ⟨H, hH, hq⟩ := exists_quartetEdge_of_fourMUBs h4
-  by_cases hT : IsTaoOrbit H
-  · exact I.taoExcluded H hH hT hq
-  · obtain ⟨K, hB, hHK | hHK⟩ := I.covered H hH hT
-    · exact I.excluded K hB (hequivHad H K hHK hH) (I.equivInvariant H K hHK hq)
-    · exact I.excluded K hB (hequivHad _ K hHK (isHadamard_conjM hH))
-        (I.equivInvariant _ K hHK (quartetEdge_conjM hq))
 
 end NoFourMUBs
