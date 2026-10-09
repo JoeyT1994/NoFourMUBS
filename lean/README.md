@@ -18,6 +18,7 @@ lake build
 | `Invariance.lean` | **quartet edges are invariant under Hadamard equivalence** (upstream `Equivalent`), conjugate-transpose and transpose; Γ preserves Hadamard quartet edges | ✅ proved |
 | `Horizontal.lean` | horizontal matrices, the projector `hor`, the gauge e^{iY} ≅ e^{i·hor Y} | ✅ proved |
 | `NormalBound.lean` | **Lemma 3.1 (normal bound)**, calculus-free: `outNorm_rem_le` (‖Φ(δ) − Φ(0) − Jδ‖ ≤ √3‖δ‖² for all δ), `normal_bound`, `normal_bound_root`; **isolation** (Remark 3.3: `δ = 0` or `‖δ‖ ≥ σ/√3`) | ✅ proved |
+| `StageC/*.lean` | **Lemma 3.2 (Stage C), analytic layer**: assembly C5 (`not_quartetEdge`), distinct labels and label covering C3, bins C1 (`bin_bounds`), Cover from leaf bins (`cover_of_leaves`), direct test C2a (`direct_test`), linearised test C2b (`core_bound`, `linear_test`), scalar test 6.12 (`scalar_test`), edge tests C4 (`edge_O`, `edge_U`), joint test 6.23 with common η (`joint_O`, `joint_U`) | ✅ proved |
 | `Transfer.lean` | **Lemma 4.1 (boundary transfer)**: Frobenius norm, `hor` contracts it, signed permutations act isometrically and match Γ, windings | ✅ proved |
 | `Main.lean` | **`no_four_mubs : Inputs Ball → ¬ FourMUBs`** | ✅ proved, relative to `Inputs` |
 | `Inputs.taoExcluded` | Remark 3.3: S₆ is a zero-dimensional Record | ⏳ Lemma 3.1, Stage C, finite certificate |

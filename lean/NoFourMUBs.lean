@@ -11,3 +11,6 @@ import NoFourMUBs.StageC.Bins
 import NoFourMUBs.StageC.Cover
 import NoFourMUBs.StageC.Single
 import NoFourMUBs.StageC.Linear
+import NoFourMUBs.StageC.Scalar
+import NoFourMUBs.StageC.Edge
+import NoFourMUBs.StageC.Joint

@@ -12,3 +12,8 @@ import NoFourMUBs
 #print axioms NoFourMUBs.StageC.bin_bounds
 #print axioms NoFourMUBs.StageC.direct_test
 #print axioms NoFourMUBs.StageC.linear_test
+#print axioms NoFourMUBs.StageC.scalar_test
+#print axioms NoFourMUBs.StageC.edge_O
+#print axioms NoFourMUBs.StageC.edge_U
+#print axioms NoFourMUBs.StageC.joint_O
+#print axioms NoFourMUBs.StageC.joint_U

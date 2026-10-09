@@ -13,7 +13,7 @@ Target: discharge `NoFourMUBs.Inputs` so that `no_four_mubs` holds unconditional
 |---|---|---|---|
 | `Horizontal` ✅ | horizontal matrices, the projector h, and the gauge e^{iY} ≅ e^{ih(Y)} | PROOF.md §0 | done |
 | `NormalBound` ✅ | Lemma 3.1 | `proof/atlas/ballrecord.py` docstring, `RIGOUR.md` §1 | done: `outNorm_rem_le`, `normal_bound_root` (only the scalar bound \|e^{iy} − 1 − iy\| ≤ y²/2 uses calculus, via Mathlib's fencing theorem). Bridge to the certificate: `outNorm` equals the 30-coordinate norm on Hermitian zero-diagonal outputs, which Φ and J are |
-| `StageC` | C1–C5 of `STAGEC.md`: bin geometry, single-vector and joint tests, labels, edges, the clique implication | `proof/atlas/STAGEC.md` | complex exponential estimates; the clique search is a decidable finite statement |
+| `StageC` ✅ | C1–C5 of `STAGEC.md`: bin geometry, single-vector and joint tests, labels, edges, the clique implication | `proof/atlas/STAGEC.md` | done (`lean/NoFourMUBs/StageC/`). Every test is proved sound with the certificate's exact forms (Frobenius/per-column `min`s, centred `D_U`, `G`-form ball remainder). Remaining glue is Layer 2: certificate data ⇒ the Cover/Edges/Graph hypotheses of `not_quartetEdge`, radians↔cycles, and the ball constraints from Lemma 3.1 |
 | `Transfer` ✅ | Lemma 4.1 | `proof/atlas/COVERAGE.md` | done (`NoFourMUBs.transfer`) |
 | `TaoRecord` (isolation ✅ as `isolation`) | Remark 3.3: S₆ isolated, and not a quartet edge given its Stage C certificate | `proof/atlas/tao.py`; exact spectrum in `research/conditioning/return/verify_tao.py` | exact σ = 3/√2 (integer certificate) and the remainder bound give isolation radius √(3/2); no mean-value theorem |
 
