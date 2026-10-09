@@ -124,12 +124,12 @@ Because of the normal bound, the boundary of a Record needs only a 4-dimensional
 2. `certify.py` re-checks every Record independently: σ, the normal bound, Stage C, and a replay of the boundary tree with Arb transfer constants.
 3. `nonempty.py` places F6 inside a Record.
 
-**Result** ([`proof/atlas/results/`](proof/atlas/results/RECEIPT.md)). ⚠ *Re-certification in progress after the Stage C correction of 9 Oct; the numbers below are for the pre-correction atlas.*
-- **The atlas.** 11,228 ball Records: 10,785 at R = 0.08, 334 at R = 0.063 and 109 at R = 0.05. Every boundary is transferred, with on average 56 transfer targets per Record.
-- **Certification.** `certify.py` independently certifies all 11,228.
+**Result** ([`proof/atlas/results/`](proof/atlas/results/RECEIPT.md)), with the corrected Stage C:
+- **The atlas.** 12,020 ball Records: 10,497 at R = 0.08, 1,030 at 0.063, 417 at 0.05 and 76 at 0.04. Every boundary is transferred, with on average 58 transfer targets per Record.
+- **Certification.** `certify.py` independently certifies all 12,020 (`verify.py --atlas`: 46/46 checks pass).
 - **Nonemptiness.** F6 lies in the interior of Record 877, at distance 0.023 < 0.08.
-- **Cost.** About 7 core-hours to build and about 4 core-hours to certify.
-- **Certificate.** `atlas_certificate.json.gz` (5.9 MB).
+- **Cost.** About 5 CPU-hours to certify; about 48 minutes on 9 cores.
+- **Certificate.** `atlas_certificate.json.gz` (16 MB, with integer tangent frames).
 
 ## Conclusion
 
@@ -148,7 +148,7 @@ By Step 4 and the Corollary to Step 2, every class in X lies in some ball Record
 ```bash
 pip install -r requirements.txt
 python3 verify.py            # Steps 1–2 exact replays, MC1–MC5, S₆ Record, Stage C Arb replay
-python3 verify.py --atlas    # Step 4: certify all 11,228 Records (about 30 min on 8 cores)
+python3 verify.py --atlas    # Step 4: certify all 12,020 Records (about 50 min on 9 cores)
 ```
 
 ## History

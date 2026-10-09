@@ -11,11 +11,11 @@ Target: discharge `NoFourMUBs.Inputs` so that `no_four_mubs` holds unconditional
 
 | Module | Statement | Source | Notes |
 |---|---|---|---|
-| `Horizontal` | horizontal matrices, the projector h, and the gauge e^{iY} ≅ e^{ih(Y)} | PROOF.md §0 | linear algebra |
-| `NormalBound` | Lemma 3.1, including ‖Φ″[w, w′]‖ ≤ 2√3‖w‖‖w′‖ on horizontal w, w′ | `proof/atlas/ballrecord.py` docstring, `RIGOUR.md` §1 | Taylor with remainder on a segment, plus Cauchy–Schwarz |
+| `Horizontal` ✅ | horizontal matrices, the projector h, and the gauge e^{iY} ≅ e^{ih(Y)} | PROOF.md §0 | done |
+| `NormalBound` | Lemma 3.1 | `proof/atlas/ballrecord.py` docstring, `RIGOUR.md` §1 | calculus-free: ‖Φ(δ) − Φ(0) − Jδ‖ ≤ √3‖δ‖² from \|e^{iy} − 1 − iy\| ≤ y²/2 and Cauchy–Schwarz |
 | `StageC` | C1–C5 of `STAGEC.md`: bin geometry, single-vector and joint tests, labels, edges, the clique implication | `proof/atlas/STAGEC.md` | complex exponential estimates; the clique search is a decidable finite statement |
-| `Transfer` | Lemma 4.1 | `proof/atlas/COVERAGE.md` | norms and permutations |
-| `TaoRecord` | Remark 3.3: S₆ isolated, and not a quartet edge given its Stage C certificate | `proof/atlas/tao.py` | mean-value theorem plus Lemma 3.1 with k = 0 |
+| `Transfer` ✅ | Lemma 4.1 | `proof/atlas/COVERAGE.md` | done (`NoFourMUBs.transfer`) |
+| `TaoRecord` | Remark 3.3: S₆ isolated, and not a quartet edge given its Stage C certificate | `proof/atlas/tao.py`; exact spectrum in `research/conditioning/return/verify_tao.py` | exact σ = 3/√2 (integer certificate) and the remainder bound give isolation radius √(3/2); no mean-value theorem |
 
 ## Layer 2: the certificate interface
 - `Certificate`: a Lean structure mirroring `atlas_certificate.json.gz` (centres, radii, frames, targets).
@@ -42,8 +42,8 @@ Upstream's `LEAN_ASSUMES_AND_PROVES.md` says the following are not formalised, y
 
 Plan: formalise them in our repository on top of upstream (or upstream them with Mateo). Their paper proofs exist in `ClassificationPaper/source`. A handoff is needed only where a paper step relies on facts that aren't stated precisely enough to formalise.
 
-## Mathematics handoffs (in flight or planned)
-- **In flight:** uniform conditioning (rank 21, σ ≥ √3), which would simplify Layer 1 (uniform Records).
-- **In flight:** MUB triples (T = Fourier families; the ω-locus).
-- **Planned:** Lean-friendly certificates for Step 1's Sturm and interval steps.
-- **Planned:** a precise statement list for the seed-domain and global-reach theorems.
+## Mathematics handoffs
+- **Returned:** uniform conditioning (`research/conditioning/`): rank 21 relative to MC1–MC4; σ ≥ √3 still open; exact Tao spectrum used above.
+- **Returned:** MUB triples (`research/triples/`): the Fourier-only conjecture is false (Zauner's bicirculant circle). Not used by the proof.
+- **In flight:** `Step1LeanHandoff`: Step 1 (or the weaker statement (W) that Step 2 uses) as Lean-checkable certificates.
+- **In flight:** `Step2LeanHandoff`: gap map of MC1–MC5 against upstream Lean, and the minimal route to "X is connected".

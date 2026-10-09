@@ -73,4 +73,61 @@ theorem quartetEdge_of_equivalent {H K : Mat6} (hHK : Equivalent H K) (hq : Quar
   · intro j l; rw [key, Complex.normSq_mul, hcc, one_mul]; exact hHK₁ (τ j) l
   · intro j l; rw [key, Complex.normSq_mul, hcc, one_mul]; exact hHL₁ (τ j) l
 
+/-- If `H` is Hadamard and a quartet edge, so is `Hᴴ`: left-multiplying the four bases by `Hᴴ/√6` swaps `1` and `H/√6`. -/
+theorem quartetEdge_conjTranspose {H : Mat6} (hH : Hadamard6.IsHadamard H) (hq : QuartetEdge H) :
+    QuartetEdge Hᴴ := by
+  obtain ⟨K, L, hK, hL, h1K, h1L, hHK, hHL, hKL⟩ := hq
+  set s : ℂ := (((Real.sqrt 6 : ℝ) : ℂ))⁻¹
+  have hs_star : star s = s := by simp [s, Complex.conj_ofReal]
+  have hss : s * s * 6 = 1 := by
+    have h6 : (((Real.sqrt 6 : ℝ) : ℂ)) * (((Real.sqrt 6 : ℝ) : ℂ)) = 6 := by
+      rw [← Complex.ofReal_mul, Real.mul_self_sqrt (by norm_num)]; norm_num
+    simp only [s]; rw [← mul_inv, h6]; norm_num
+  set W : Mat6 := s • H
+  have hW1 : W * Wᴴ = 1 := by
+    simp only [W, conjTranspose_smul, Matrix.smul_mul, Matrix.mul_smul, smul_smul, hs_star, hH.2]
+    rw [← mul_assoc, hss, one_smul]
+  have hW2 : Wᴴ * W = 1 := mul_eq_one_comm.mp hW1
+  have hWu : IsUnitary W := ⟨hW1, hW2⟩
+  have hWadj : Wᴴ = s • Hᴴ := by simp [W, conjTranspose_smul, hs_star]
+  refine ⟨Wᴴ * K, Wᴴ * L, isUnitary_frame hWu hK, isUnitary_frame hWu hL, ?_, ?_, ?_, ?_,
+    unbiased_frame hW1 hKL⟩
+  · have := unbiased_frame hW1 hHK; rwa [hW2] at this
+  · have := unbiased_frame hW1 hHL; rwa [hW2] at this
+  · have e : Wᴴ * 1 = s • Hᴴ := by rw [Matrix.mul_one, hWadj]
+    have := unbiased_frame hW1 h1K; rw [e] at this; exact this
+  · have e : Wᴴ * 1 = s • Hᴴ := by rw [Matrix.mul_one, hWadj]
+    have := unbiased_frame hW1 h1L; rw [e] at this; exact this
+
+lemma conjM_conjTranspose_eq_transpose (H : Mat6) : conjM Hᴴ = Hᵀ := by
+  ext i j; simp [conjM]
+
+lemma isHadamard_conjTranspose {H : Mat6} (hH : Hadamard6.IsHadamard H) : Hadamard6.IsHadamard Hᴴ := by
+  refine ⟨fun i j => by simpa [Complex.normSq_conj] using hH.1 j i, ?_⟩
+  have h1 : ((((6 : ℂ))⁻¹) • H) * Hᴴ = 1 := by rw [Matrix.smul_mul, hH.2, smul_smul]; norm_num
+  have h2 : Hᴴ * ((((6 : ℂ))⁻¹) • H) = 1 := mul_eq_one_comm.mp h1
+  rw [conjTranspose_conjTranspose]
+  have : Hᴴ * H = (6 : ℂ) • ((((6 : ℂ))⁻¹) • (Hᴴ * H)) := by rw [smul_smul]; norm_num
+  rw [this, ← Matrix.mul_smul, h2]
+
+/-- Transposition preserves quartet edges (Hadamard case). -/
+theorem quartetEdge_transpose {H : Mat6} (hH : Hadamard6.IsHadamard H) (hq : QuartetEdge H) :
+    QuartetEdge Hᵀ := by
+  rw [← conjM_conjTranspose_eq_transpose]; exact quartetEdge_conjM (quartetEdge_conjTranspose hH hq)
+
+lemma conjM_transpose_eq_conjTranspose (H : Mat6) : conjM Hᵀ = Hᴴ := by
+  ext i j; simp [conjM]
+
+/-- `Γ` preserves Hadamard quartet edges. -/
+theorem inGamma_preserves {H G : Mat6} (hG : InGamma H G) (hH : Hadamard6.IsHadamard H) (hq : QuartetEdge H) :
+    Hadamard6.IsHadamard G ∧ QuartetEdge G := by
+  have hT : Hadamard6.IsHadamard Hᵀ := by
+    rw [← conjM_conjTranspose_eq_transpose]; exact isHadamard_conjM (isHadamard_conjTranspose hH)
+  rcases hG with rfl | rfl | rfl | rfl
+  · exact ⟨hH, hq⟩
+  · exact ⟨isHadamard_conjM hH, quartetEdge_conjM hq⟩
+  · exact ⟨hT, quartetEdge_transpose hH hq⟩
+  · rw [conjM_transpose_eq_conjTranspose]
+    exact ⟨isHadamard_conjTranspose hH, quartetEdge_conjTranspose hH hq⟩
+
 end NoFourMUBs

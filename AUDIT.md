@@ -9,14 +9,14 @@ Start with [`PROOF.md`](PROOF.md), about three pages, or the typeset [`proof/not
 | 1 | The positive local maxima of R form one 18-point orbit; max R = 3¹³/2¹² | Proved by exact algebra, with two independent proofs |
 | 2 | (𝓗/≅) ∖ {S₆} is connected | Proved relative to MC1–MC5 (the classification) |
 | 3 | A ball Record plus Stage C excludes quartet edges in the ball; S₆ is a zero-dimensional Record | Lemmas proved ([`STAGEC.md`](proof/atlas/STAGEC.md), [`RIGOUR.md`](proof/atlas/RIGOUR.md)) |
-| 4 | A finite atlas with certified boundary transfers covers X | **Being re-certified** after the audit's Stage C correction (9 Oct) |
+| 4 | A finite atlas with certified boundary transfers covers X | Certified: 12,020 Records, re-built and re-certified after the audit's Stage C correction (9 Oct) |
 
 ## Replaying
 
 ```bash
 pip install -r requirements.txt     # numpy, scipy, sympy, mpmath, python-flint
 python3 verify.py                   # about 2 minutes: Steps 1–3, MC1–MC5, S₆
-python3 verify.py --atlas -j 8      # about 30 minutes on 8 cores: certifies all 11,228 Records, and F6
+python3 verify.py --atlas -j 9      # about 50 minutes on 9 cores: certifies all 12,020 Records, and F6
 ```
 
 ## Map

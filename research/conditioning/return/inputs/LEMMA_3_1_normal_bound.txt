@@ -1,0 +1,20 @@
+"""Ball Records (their Stage-B form, in our notation).  RIGOROUS normal bound; Stage C via stagec.py.
+
+Let P be a real 6x6 phase matrix (radians; stored floats are exact rationals), H_P = e^{iP} (entrywise), and for a
+horizontal 36-vector delta let Phi(delta) be the 30 real coordinates of the off-diagonal entries of
+(H_P o e^{i delta})(H_P o e^{i delta})^*.  J = Phi'(0).  T (36 x 4) is a rational horizontal tangent frame, G = T^T T,
+P_N the exact orthogonal projector onto N = (horizontal) minus span(T).
+
+Lemma (ball record).  Let sigma > 0 satisfy ||J nu|| >= sigma ||nu|| for nu in N (certified by an Arb Cholesky factorisation
+of N_b^T (J^T J - sigma^2) N_b for a rational basis N_b of N).  Put e0 >= ||Phi(0)||, j1 >= ||J T|| and L = 2 sqrt3
+(||Phi''(x)[w, w']|| <= L ||w|| ||w'|| for horizontal w, w', at every base point).  If H ~ e^{i(P + delta)} is Hadamard with
+delta horizontal and ||delta|| <= R < sigma / L, write delta = T eta + nu (eta = G^{-1} T^T delta, nu in N).  Then
+     sigma ||nu|| - (L/2) ||nu||^2 <= b(eta) := e0 + j1 ||eta|| + (L/2) lam_max(G) ||eta||^2,
+and since ||nu|| <= R < sigma/L,  ||nu|| <= (sigma - sqrt(sigma^2 - 2 L b)) / L <= 2 b / sigma.
+Proof: 0 = Phi(delta) = Phi(0) + J delta + Rem with ||Rem|| <= (L/2) ||delta||^2 (Taylor, horizontal segment), so
+sigma ||nu|| <= ||J nu|| <= e0 + j1 ||eta|| + (L/2)(lam_max(G) ||eta||^2 + ||nu||^2); the quadratic in ||nu|| has its
+smaller root below sigma/L, and ||nu|| cannot lie between the roots.  ||eta|| <= ||G^{-1/2}|| ||delta|| =: rH.
+"""
+import itertools, json, math, sys, time
+from fractions import Fraction as Fr
+import numpy as np

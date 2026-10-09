@@ -38,9 +38,9 @@ python3 nonempty.py results/atlas_certificate.json.gz
 python3 arb_replay.py centre_fold52.json 0.08 150
 ```
 
-**The certified atlas** (`results/`) was built on one core in about 7 hours:
-- it holds 11,228 Records, every one closed;
-- `verify.py --atlas` certified all of them on 9 cores in about 25 minutes;
+**The certified atlas** (`results/`) holds 12,020 Records, every one closed:
+- it was built on one core, then repaired after the Stage C correction (`repair.py`) and re-closed;
+- `verify.py --atlas` certified all of them on 9 cores in about 48 minutes;
 - see `results/RECEIPT.md`.
 
-**Independent replication.** A second build continued on rusty as job 7199908 (`cluster/run_atlas.sh`), resumed from the same mid-run checkpoint. It produces a separate atlas and certifies it on the cluster node.
+**Independent replication.** `../independent/` re-checks the same certificate with a separate Julia/interval implementation written only from the specification. (The earlier rusty build, job 7199908, used the uncorrected Stage C and is superseded; `cluster/run_atlas.sh` remains for future rebuilds.)

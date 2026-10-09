@@ -14,8 +14,10 @@ lake build
 | Module | Content | Status |
 |---|---|---|
 | `Basic.lean` | MUBs as unitary matrices; `QuartetEdge`; **four MUBs ⇒ a Hadamard quartet edge** | ✅ proved |
-| `Skeleton.lean` | `Inputs` (the three substantive hypotheses); invariance under entrywise conjugation | ✅ proved |
-| `Invariance.lean` | **quartet edges are invariant under Hadamard equivalence** (upstream `Equivalent`) | ✅ proved |
+| `Skeleton.lean` | `Inputs` (the three substantive hypotheses); `InGamma` (Γ = {id, conj, ᵀ, conj∘ᵀ}); invariance under entrywise conjugation | ✅ proved |
+| `Invariance.lean` | **quartet edges are invariant under Hadamard equivalence** (upstream `Equivalent`), conjugate-transpose and transpose; Γ preserves Hadamard quartet edges | ✅ proved |
+| `Horizontal.lean` | horizontal matrices, the projector `hor`, the gauge e^{iY} ≅ e^{i·hor Y} | ✅ proved |
+| `Transfer.lean` | **Lemma 4.1 (boundary transfer)**: Frobenius norm, `hor` contracts it, signed permutations act isometrically and match Γ, windings | ✅ proved |
 | `Main.lean` | **`no_four_mubs : Inputs Ball → ¬ FourMUBs`** | ✅ proved, relative to `Inputs` |
 | `Inputs.taoExcluded` | Remark 3.3: S₆ is a zero-dimensional Record | ⏳ Lemma 3.1, Stage C, finite certificate |
 | `Inputs.excluded` | Step 3: Lemma 3.1 (normal bound) plus Stage C (`STAGEC.md`) | ⏳ lemmas to formalise; certificate as an explicit hypothesis |

@@ -7,13 +7,12 @@ import NoFourMUBs.Basic
 inputs, so that the target is fixed in Lean and each input can be discharged by its own module:
 
 * `taoExcluded`   — Tao's class is not a quartet edge (Remark 3.3: a zero-dimensional Record);
-* `covered`       — every non-Tao Hadamard is, after an operation of `Γ` (identity / entrywise conjugation), equivalent
-                     to a matrix in some certified Record ball (Steps 1, 2 and 4: connectedness + open-closed atlas);
+* `covered`       — every non-Tao Hadamard is, after an operation of `Γ = {id, conj, ᵀ, conj ∘ ᵀ}`, equivalent to a
+                     matrix in some certified Record ball (Steps 1, 2 and 4: connectedness + open-closed atlas);
 * `excluded`      — no Hadamard in a certified Record ball is a quartet edge (Step 3: normal bound + Stage C).
 
 The invariance lemmas proved here (quartet edges are preserved by equivalence and by entrywise conjugation) are what make
-`covered` sufficient.  Transposition is reduced to conjugation composed with `H ↦ Hᴴ`; see `quartetEdge_conjTranspose`
-(to be added).
+`covered` sufficient.  Transposition is reduced to conjugation composed with `H ↦ Hᴴ` (`Invariance`).
 -/
 
 open Matrix Hadamard6
@@ -56,13 +55,16 @@ theorem quartetEdge_conjM {H : Mat6} (h : QuartetEdge H) : QuartetEdge (conjM H)
   · have := unbiased_conjM hHK; rwa [conjM_smul, hs] at this
   · have := unbiased_conjM hHL; rwa [conjM_smul, hs] at this
 
+/-- `G` is the image of `H` under an element of `Γ = {id, conj, ᵀ, conj ∘ ᵀ}`. -/
+def InGamma (H G : Mat6) : Prop := G = H ∨ G = conjM H ∨ G = Hᵀ ∨ G = conjM Hᵀ
+
 /-- The inputs of the minimal proof, stated as hypotheses (each to be discharged by its own module). -/
 structure Inputs (Ball : Mat6 → Prop) : Prop where
   /-- Remark 3.3: Tao's class contains no quartet edge. -/
   taoExcluded : ∀ H, Hadamard6.IsHadamard H → IsTaoOrbit H → ¬ QuartetEdge H
-  /-- Steps 1, 2, 4: every non-Tao class meets a certified Record ball, possibly after entrywise conjugation. -/
+  /-- Steps 1, 2, 4: every non-Tao class meets a certified Record ball after an operation of `Γ`. -/
   covered : ∀ H, Hadamard6.IsHadamard H → ¬ IsTaoOrbit H →
-    ∃ K, Ball K ∧ (Equivalent H K ∨ Equivalent (conjM H) K)
+    ∃ G K, InGamma H G ∧ Ball K ∧ Equivalent G K
   /-- Step 3: certified Record balls contain no quartet edge. -/
   excluded : ∀ K, Ball K → Hadamard6.IsHadamard K → ¬ QuartetEdge K
 

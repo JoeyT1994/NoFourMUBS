@@ -5,7 +5,7 @@ import NoFourMUBs.Invariance
 
 There are no four mutually unbiased bases in `ℂ⁶`, relative to the three substantive inputs of `PROOF.md`
 (`NoFourMUBs.Inputs`: Tao excluded, coverage by certified Records, exclusion on Records).  Everything else
-— the reduction to quartet edges, invariance under equivalence and entrywise conjugation, preservation of the Hadamard
+— the reduction to quartet edges, invariance under equivalence and `Γ` (conjugation, transposition), preservation of the Hadamard
 property — is proved (`Basic`, `Skeleton`, `Invariance`, upstream `Hadamard6.isHadamard_of_equivalent`).
 -/
 
@@ -18,9 +18,8 @@ theorem no_four_mubs {Ball : Mat6 → Prop} (I : Inputs Ball) : ¬ FourMUBs := b
   obtain ⟨H, hH, hq⟩ := exists_quartetEdge_of_fourMUBs h4
   by_cases hT : IsTaoOrbit H
   · exact I.taoExcluded H hH hT hq
-  · obtain ⟨K, hB, hHK | hHK⟩ := I.covered H hH hT
-    · exact I.excluded K hB (isHadamard_of_equivalent hHK hH) (quartetEdge_of_equivalent hHK hq)
-    · exact I.excluded K hB (isHadamard_of_equivalent hHK (isHadamard_conjM hH))
-        (quartetEdge_of_equivalent hHK (quartetEdge_conjM hq))
+  · obtain ⟨G, K, hG, hB, hGK⟩ := I.covered H hH hT
+    obtain ⟨hGH, hGq⟩ := inGamma_preserves hG hH hq
+    exact I.excluded K hB (isHadamard_of_equivalent hGK hGH) (quartetEdge_of_equivalent hGK hGq)
 
 end NoFourMUBs

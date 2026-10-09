@@ -11,7 +11,7 @@
 | 1 | The positive local maxima of the corner invariant R form one 18-point orbit, with max R = 3¹³/2¹² at α(1, 2, −1, −2), α = arccos(1/4) | exact algebra | [`proof/coverage/`](proof/coverage/README.md) |
 | 2 | The non-Tao Hadamard quotient (𝓗/≅) ∖ {S₆} is connected, relative to the classification | topology | [`proof/coverage/`](proof/coverage/README.md) |
 | 3 | A ball Record (centre, tangent frame, certified normal bound) plus the openai/math Stage C excludes every quartet edge in the ball | local lemma + certificate | [`proof/atlas/`](proof/atlas/README.md) |
-| 4 | A finite atlas of ball Records whose boundaries transfer into each other covers the connected quotient: 11,228 Records, all certified | certified computation | [`proof/atlas/results/`](proof/atlas/results/RECEIPT.md) |
+| 4 | A finite atlas of ball Records whose boundaries transfer into each other covers the connected quotient: 12,020 Records, all certified | certified computation | [`proof/atlas/results/`](proof/atlas/results/RECEIPT.md) |
 
 ## Folders
 
@@ -28,7 +28,7 @@
 ```bash
 pip install -r requirements.txt
 python3 verify.py            # exact replays (Steps 1–2), MC1–MC5, S₆ as a 0-dim Record, Stage C Arb sample
-python3 verify.py --atlas    # Step 4: certify all 11,228 Records (about 30 min on 8 cores)
+python3 verify.py --atlas    # Step 4: certify all 12,020 Records (about 50 min on 9 cores)
 ```
 
 ## References
