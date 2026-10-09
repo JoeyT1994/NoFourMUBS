@@ -66,9 +66,18 @@ with the quotient phase metric δ(H, K) = min{‖v‖ : v horizontal, H ≅ K �
 
 Details: [`proof/coverage/returns/A_deltoid/CONNECTEDNESS.md`](proof/coverage/returns/A_deltoid/CONNECTEDNESS.md) and `SHEETS_TOPOLOGY.md`, with return B as an independent check.
 
-**Corollary (coverage).** Let W be a nonempty finite union of closed Records (Step 3). Suppose every Hadamard on the boundary of a Record is equivalent, possibly after conjugation or transposition, to one in the interior of some Record. Then W ⊇ X.
+**Corollary (coverage).** Let 𝓡 be a finite family of closed Records (Step 3), and let 𝓡̂ be its closure under Γ = {id, conjugation, transposition, conjugate-transpose}. Γ maps a Record ball to a Record ball of the same radius and preserves quartet edges. Let W be the set of classes of Hadamards in ⋃𝓡̂. Suppose:
+1. W contains a non-Tao class;
+2. every Hadamard on the boundary of a Record in 𝓡 is equivalent, after some g ∈ Γ, to one in the interior of a Record in 𝓡.
 
-*Proof.* W ∩ X is closed (finite union of compact sets) and open (every point has an interior representative). Since X is connected and W ∩ X is nonempty, W ∩ X = X. ∎
+Then W ⊇ X.
+
+*Proof.* Applying g ∈ Γ, condition 2 holds for every Record in 𝓡̂, with targets in 𝓡̂. So every point of W has a representative in the interior of some Record in 𝓡̂.
+- W ∩ X is open: if H = e^{i(P + δ)} with ‖δ‖ < R and δ(H, K) < R − ‖δ‖, then K ≅ e^{i(P + δ + v)} with ‖δ + v‖ < R.
+- W ∩ X is closed: it is a finite union of compact images.
+- W ∩ X is nonempty.
+
+Since X is connected, W ∩ X = X. ∎
 
 ## Step 3. Local exclusion: ball Records
 
@@ -115,7 +124,7 @@ Because of the normal bound, the boundary of a Record needs only a 4-dimensional
 2. `certify.py` re-checks every Record independently: σ, the normal bound, Stage C, and a replay of the boundary tree with Arb transfer constants.
 3. `nonempty.py` places F6 inside a Record.
 
-**Result** ([`proof/atlas/results/`](proof/atlas/results/RECEIPT.md)):
+**Result** ([`proof/atlas/results/`](proof/atlas/results/RECEIPT.md)). ⚠ *Re-certification in progress after the Stage C correction of 9 Oct; the numbers below are for the pre-correction atlas.*
 - **The atlas.** 11,228 ball Records: 10,785 at R = 0.08, 334 at R = 0.063 and 109 at R = 0.05. Every boundary is transferred, with on average 56 transfer targets per Record.
 - **Certification.** `certify.py` independently certifies all 11,228.
 - **Nonemptiness.** F6 lies in the interior of Record 877, at distance 0.023 < 0.08.

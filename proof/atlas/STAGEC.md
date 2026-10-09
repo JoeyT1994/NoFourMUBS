@@ -1,5 +1,7 @@
 # Stage C, self-contained (Lemma 3.2 of PROOF.md)
 
+> **Correction (9 Oct 2026).** The first version used the per-column bound r in three remainder terms that sum over columns: the vector test, the squared increment and the cross and pure-δ terms. Those terms need ‖δ‖_F. An independent audit caught this. The terms below are corrected, and the atlas was re-certified with them (`results/RECEIPT.md`).
+
 This note states and proves every inequality used by `stagec.py`, in our notation. The method — cover the unbiased vectors by labels, then rule out two orthogonal 6-cliques with all cross pairs unbiased — follows [OAI] §6, which in turn builds on Jaming et al. Nothing below relies on their text for correctness.
 
 ## Setting
@@ -7,7 +9,9 @@ This note states and proves every inequality used by `stagec.py`, in our notatio
 Phases are in cycles: e(t) = exp(2πit), applied entrywise. A Record ball is the set of Hadamards A' = e(P + δ), where:
 - δ is horizontal;
 - δ = Tη + ν, with ‖η‖ ≤ r_H and ‖ν‖ ≤ n (Lemma 3.1);
-- every column satisfies ‖δ_{:,i}‖ ≤ r (we use r = r_col).
+- every column satisfies ‖δ_{:,i}‖ ≤ r, and the whole matrix satisfies ‖δ‖_F ≤ r_F.
+  - We use r = r_col = maxᵢ‖Tᵢ‖r_H + n and r_F = min(R, √λ_max r_H + n). Always r_F ≤ √6·r.
+  - Terms bounded column by column use r. Terms that sum over columns use r_F, or the ℓ¹ form with r, whichever is smaller.
 
 Let K ≥ ‖e(P)/√6‖_op. It is bounded in Arb by ‖M‖₂² ≤ maxᵢ Σⱼ |(M*M)ᵢⱼ|.
 
@@ -32,28 +36,34 @@ Let q_ji = e(u_j − P_ji)/√6, S_i = Σ_j q_ji, and S′_i = Σ_j q_ji e(x_j �
 
 **(a) Direct test.**
 
-  ‖S′ − S‖ ≤ 2π(KX + r), |S′_i − S_i| ≤ 2π(L/√6 + r) =: τ.
+  ‖S′ − S‖ ≤ 2π(KX + r_F), |S′_i − S_i| ≤ 2π(L/√6 + r) =: τ.
 
-So a bin can be discarded if some |S_i| lies outside [1 − τ, 1 + τ], or if Σᵢ(|S_i| − 1)² > (2π(KX + r))².
+So a bin can be discarded if some |S_i| lies outside [1 − τ, 1 + τ], or if Σᵢ(|S_i| − 1)² > (2π(KX + r_F))².
+
+The vector bound needs the **Frobenius** bound: summing the per-column bounds 2π‖δ_{:,i}‖ in ℓ² gives 2π‖δ‖_F.
 
 *Proof.* Change x first and then δ.
 - The x-change is Q applied to (e(x_j) − 1)_j. Q is unitarily equivalent to e(P)/√6, so its norm is ≤ 2πKX.
-- The δ-change in component i is at most (2π/√6)Σ_j|δ_ji| ≤ 2π‖δ_{:,i}‖.
+- The δ-change in component i is at most (2π/√6)Σ_j|δ_ji| ≤ 2π‖δ_{:,i}‖. Their ℓ² norm over i is ≤ 2π‖δ‖_F.
 - Then use ||S_i| − |S′_i|| ≤ |S_i − S′_i|. ∎
 
 **(b) Linearised test.** Let c_i = (|S_i|² − 1)/(4π), J_ij = −Im(S̄_i q_ji) and B_ik = Σ_j J_ij T_{(j,i),k}. For every real y ∈ R⁶:
 
   |y·c| ≤ a Σ_{j>0} |(Jᵀy)_j| + r_H ‖Bᵀy‖ + 𝓔(y),
 
-  𝓔(y) = n N_y + π[‖y‖_∞(KX + r)² + min(G_y X², K‖S∘y‖ I X) + (2/√6)‖S∘y‖ X r + (1/√6)‖S∘y‖_∞ r²],
+  𝓔(y) = n N_y + π[ min(‖y‖_∞(KX + r_F)², ‖y‖₁(KX + r)²) + min(G_y X², K‖S∘y‖ I X)
+              + (2/√6) X min(‖S∘y‖₂ r_F, ‖S∘y‖₁ r) + (1/√6) min(‖S∘y‖_∞ r_F², ‖S∘y‖₁ r²) ],
 
 where N_y = (Σ y_i² J_ij²)^{1/2} and G_y = max_j |Σ_i y_i S̄_i q_ji|. A bin violating this for one proposed y is discarded.
 
 *Proof.*
 1. Expand (|S′_i|² − 1)/(4π) = c_i + Σ_j J_ij (x_j − δ_ji) + |S′_i − S_i|²/(4π) + Re(S̄_i ρ_i)/(2π), where ρ_i is the second-order exponential remainder.
-2. Weight by y and bound the remainder terms:
-   - the squared increment, by (a): ‖y‖_∞(KX + r)²·π;
-   - the remainder ρ, split as e(x)e(−δ) − 1 − 2πi(x − δ) = [e(x) − 1 − 2πix] + [e(−δ) − 1 + 2πiδ] + (e(x) − 1)(e(−δ) − 1), using |e(t) − 1| ≤ 2π|t| and |e(t) − 1 − 2πit| ≤ 2π²t². This gives the remaining four terms.
+2. Weight by y and bound the remainder terms. Each has two valid forms, and we take the smaller:
+   - the squared increment Σᵢ yᵢ|S′ᵢ − Sᵢ|²/(4π): either ‖y‖_∞‖S′ − S‖²/(4π) with (a), or ‖y‖₁ maxᵢ|S′ᵢ − Sᵢ|²/(4π) with |S′ᵢ − Sᵢ| ≤ 2π(KX + r);
+   - the remainder ρ, split as e(x)e(−δ) − 1 − 2πi(x − δ) = [e(x) − 1 − 2πix] + [e(−δ) − 1 + 2πiδ] + (e(x) − 1)(e(−δ) − 1), using |e(t) − 1| ≤ 2π|t| and |e(t) − 1 − 2πit| ≤ 2π²t²:
+     - the pure-x part gives min(G_y X², K‖S∘y‖ I X);
+     - the cross part is (2π/√6)Σᵢ|yᵢSᵢ| X‖δ_{:,i}‖, which is ≤ (2π/√6) X‖S∘y‖₂ r_F by Cauchy–Schwarz over i, or ≤ (2π/√6) X‖S∘y‖₁ r;
+     - the pure-δ part is (π/√6)Σᵢ|yᵢSᵢ|‖δ_{:,i}‖², which is ≤ (π/√6)‖S∘y‖_∞ r_F², or ≤ (π/√6)‖S∘y‖₁ r².
 3. Substitute δ = Tη + ν. The linear δ-term becomes (Bη)_i, with error ≤ n N_y.
 4. Take the supremum over the bin (Jx = Jd, since each row of J sums to 0) and over ‖η‖ ≤ r_H. ∎
 
@@ -89,7 +99,7 @@ For labels (u, s_u) and (v, s_v), let Q_j = e(u_j − v_j), S = ΣQ_j and r_e = 
 
   |y₀·c⁰ + y₁·c¹ + y_e·q_E| ≤ Σ_t [s_t‖J_tᵀy_t ± D_Eᵀy_e‖ + 𝓔_t^{ball}(y_t)] + r_H‖B₀ᵀy₀ + B₁ᵀy₁‖ + E_E‖y_e‖.
 
-Here 𝓔^{ball} is 𝓔 with X replaced by s_t, using only the G_y form of the pure-x remainder, which is valid on the whole ball.
+Here 𝓔^{ball} is 𝓔 with X replaced by s_t, using only the G_y form of the pure-x remainder, which is valid on the whole ball. The r / r_F alternatives are as in C2b.
 
 *Proof.* Add the two weighted single-vector equations (C2b, at the label centres) and the weighted edge equation. The vector displacements x₀ and x₁ range over their balls. The Hadamard displacement η is **shared**, so its coefficients combine before the norm is taken. ∎
 

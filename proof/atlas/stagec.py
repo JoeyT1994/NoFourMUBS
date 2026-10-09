@@ -2,7 +2,8 @@
 tables; all other operations are IEEE float with the explicit margin MARGIN applied conservatively (RIGOUR.md).
 
 Setting.  The cell is the set of Hadamards e(P + delta) (phases in CYCLES, e(t) = exp(2 pi i t)) with every column of
-delta of Euclidean norm <= r (cycles).  Two further bases would consist of twelve unit vectors e(beta)/sqrt6 unbiased to
+delta of Euclidean norm <= r and ||delta||_F <= rF (cycles; rF <= sqrt6 r).  Terms bounded per column use r; terms that
+sum over columns use rF, or the l1 form with r, whichever is smaller (STAGEC.md).  Two further bases would consist of twelve unit vectors e(beta)/sqrt6 unbiased to
 the standard basis and to the columns of e(P + delta)/sqrt6, pairwise orthogonal within each basis and unbiased across.
 
  1. Bins (Lemma 6.1).  Five free phases beta_1..5 in closed bins [b/M, (b+1)/M]; with midpoints u and a = 1/(2M) the
@@ -53,15 +54,27 @@ def _toint(U):
     return Kq
 
 
-def single_tests(U, P, r, M, K, eP):
+def remainder(y, S, K, X, r, rF, Gy, I=None):
+    """pi * [squared increment + pure-x + cross + pure-delta] bound of STAGEC.md (C2b), valid for every real y.
+    Each term is the smaller of its two valid forms: Frobenius (rF, with ||y||_inf / ||S o y||_2 / ||S o y||_inf) or
+    per-column (r, with ||y||_1 / ||S o y||_1)."""
+    Sy = np.abs(S * y)
+    sq = np.minimum(np.abs(y).max(1) * (K * X + rF) ** 2, np.abs(y).sum(1) * (K * X + r) ** 2)
+    pure = Gy * X * X if I is None else np.minimum(Gy * X * X, K * np.linalg.norm(Sy, axis=1) * I * X)
+    cross = 2 / SQ6 * X * np.minimum(np.linalg.norm(Sy, axis=1) * rF, Sy.sum(1) * r)
+    dd = np.minimum(Sy.max(1) * rF * rF, Sy.sum(1) * r * r) / SQ6
+    return math.pi * (sq + pure + cross + dd)
+
+
+def single_tests(U, P, r, M, K, eP, rF):
     """U: (n, 5) bin midpoints (cycles).  Boolean mask of bins surviving Lemma 6.2 (6.7) and the scalar test (6.12)."""
     a = 1.0 / (2 * M); X = math.sqrt(29 / 6) * a; L = 5 * a; I = 1.5 * a
     eU = cis_table(np.concatenate([np.zeros((len(U), 1), int), _toint(U)], axis=1))                     # u_0 = 0; q_ji = e(u_j - P_ji)/sqrt6
     S = eU @ eP / SQ6                                                     # (n, 6): S_i
     absS = np.abs(S)
     tau = TWO_PI * (L / SQ6 + r) + MARGIN
-    ok = np.all((absS <= 1 + tau) & (absS >= 1 - tau), axis=1)
-    ok &= ((absS - 1) ** 2).sum(axis=1) <= (TWO_PI * (K * X + r)) ** 2 + MARGIN
+    ok = np.all(~((absS > 1 + tau) | (absS < 1 - tau)), axis=1)
+    ok &= ~(((absS - 1) ** 2).sum(axis=1) > (TWO_PI * (K * X + rF)) ** 2 + MARGIN)     # ||S'-S|| <= 2 pi (K X + rF)
     # scalar test (6.12): |c_i| <= a sum_{j>0} |J_ij| + r ||J_i,:|| + rho,  c_i = (|S_i|^2 - 1)/(4 pi),
     # J_ij = -Im(conj(S_i) q_ji)
     idx = np.where(ok)[0]
@@ -73,11 +86,11 @@ def single_tests(U, P, r, M, K, eP):
         rho = np.minimum(math.pi * ((K * X + r) ** 2 + Smax * (K * I * X + (2 * X * r + r * r) / SQ6)),
                          math.pi * ((L / SQ6 + r) ** 2 + Smax * (X + r) ** 2 / SQ6))
         rhs = a * np.abs(Jm[:, 1:, :]).sum(axis=1) + r * np.linalg.norm(Jm, axis=1) + rho[:, None] + MARGIN
-        ok[idx] = np.all(np.abs(c) <= rhs, axis=1)
+        ok[idx] = np.all(~(np.abs(c) > rhs), axis=1)
     return ok
 
 
-def tangent_tests(U, P, r, M, K, eP, T, rH, nN):
+def tangent_tests(U, P, r, M, K, eP, rF, T, rH, nN):
     """Lemma 6.3 / (6.11): for a proposed direction y in R^6 (one per bin, least-squares), keep the bin only if
         |y.c| <= a sum_{j>0} |(J^T y)_j| + rH ||B^T y|| + E(y; X, I),
     E(y) = nN N_y + pi [ ||y||_inf (K X + r)^2 + min(G_y X^2, K ||S o y|| I X) + (2/sqrt6) ||S o y|| X r + (1/sqrt6) ||S o y||_inf r^2 ],
@@ -103,27 +116,26 @@ def tangent_tests(U, P, r, M, K, eP, T, rH, nN):
     Sy = np.abs(S * y)
     Ny = np.sqrt(np.einsum('ni,nji->n', y ** 2, J ** 2))
     Gy = np.abs(np.einsum('ni,ni,nji->nj', y, np.conj(S), q)).max(axis=1)
-    E = nN * Ny + math.pi * (np.abs(y).max(1) * (K * X + r) ** 2
-                             + np.minimum(Gy * X * X, K * np.linalg.norm(Sy, axis=1) * I * X)
-                             + 2 / SQ6 * np.linalg.norm(Sy, axis=1) * X * r + Sy.max(1) * r * r / SQ6)
+    E = nN * Ny + remainder(y, S, K, X, r, rF, Gy, I=I)
     rhs = a * np.abs(np.einsum('nji,ni->nj', J[:, 1:, :], y)).sum(1) + rH * np.linalg.norm(np.einsum('nik,ni->nk', B, y), axis=1) + E
-    return lhs <= rhs + MARGIN
+    return ~(lhs > rhs + MARGIN)
 
 
-def bins(P, r, levels=(12, 24, 48, 96), cap=2_000_000, tang=None):
+def bins(P, r, levels=(12, 24, 48, 96), cap=2_000_000, tang=None, rF=None):
+    rF = math.sqrt(6) * r if rF is None else min(rF, math.sqrt(6) * r)
     K = opnorm_bound(P); eP = cis_centre(P)
     M = levels[0]
     g = (np.arange(M) + 0.5) / M
     U = np.stack(np.meshgrid(g, g, g, g, g, indexing='ij'), -1).reshape(-1, 5)
-    U = U[single_tests(U, P, r, M, K, eP)]
-    if tang is not None and len(U): U = U[tangent_tests(U, P, r, M, K, eP, *tang)]
+    U = U[single_tests(U, P, r, M, K, eP, rF)]
+    if tang is not None and len(U): U = U[tangent_tests(U, P, r, M, K, eP, rF, *tang)]
     for M2 in levels[1:]:
         f = M2 // M
         off = (np.arange(f) + 0.5) / M2 - 0.5 / M                          # child midpoint offsets
         O = np.stack(np.meshgrid(*([off] * 5), indexing='ij'), -1).reshape(-1, 5)
         U = (U[:, None, :] + O[None, :, :]).reshape(-1, 5)
-        U = U[single_tests(U, P, r, M2, K, eP)]
-        if tang is not None and len(U): U = U[tangent_tests(U, P, r, M2, K, eP, *tang)]
+        U = U[single_tests(U, P, r, M2, K, eP, rF)]
+        if tang is not None and len(U): U = U[tangent_tests(U, P, r, M2, K, eP, rF, *tang)]
         M = M2
         if len(U) > cap: return None, M
     return U, M
@@ -170,7 +182,7 @@ def edges(C, s, chunk=256):
     return O, Ub
 
 
-def joint_filter(C, s, O, Ub, P, r, K, eP, T, rH, nN):
+def joint_filter(C, s, O, Ub, P, r, K, eP, rF, T, rH, nN):
     """Joint necessary support (openai/math Lemma 6.7, eq. 6.23) with the common tangent variable eta.
     For an edge of type E (O: l = 2, U: l = 1) between balls t = 0, 1 and any directions y0, y1 in R^6, ye in R^l:
       |y0.c0 + y1.c1 + ye.qE| <= sum_t [ s_t ||J_t^T y_t + (-1)^t D_E^T ye|| + Eball_t(y_t) ] + rH ||B_0^T y0 + B_1^T y1|| + E_E ||ye||,
@@ -212,8 +224,7 @@ def joint_filter(C, s, O, Ub, P, r, K, eP, T, rH, nN):
             Sy = np.abs(S[t] * y)
             Ny = np.sqrt(np.einsum('mi,mji->m', y ** 2, J[t] ** 2))
             Gy = np.abs(np.einsum('mi,mi,mji->mj', y, np.conj(S[t]), q[t])).max(1)
-            return nN * Ny + math.pi * (np.abs(y).max(1) * (K * st + r) ** 2 + st ** 2 * Gy
-                                        + 2 / SQ6 * np.linalg.norm(Sy, axis=1) * st * r + Sy.max(1) * r * r / SQ6)
+            return nN * Ny + remainder(y, S[t], K, st, r, rF, Gy)          # X = s_t (whole label ball), G_y form
         DTe = np.einsum('mlj,ml->mj', D, ye)
         rhs = (s[a_] * np.linalg.norm(np.einsum('mji,mi->mj', J0, y0) + DTe, axis=1) + eball(y0, a_, s[a_])
                + s[b_] * np.linalg.norm(np.einsum('mji,mi->mj', J1, y1) - DTe, axis=1) + eball(y1, b_, s[b_])
@@ -248,16 +259,18 @@ def two_cliques(O, Ub, cap=5_000_000):
     return True, steps[0]
 
 
-def stage_c(P, r, tang=None, radius=0.03):
+def stage_c(P, r, tang=None, radius=0.03, rF=None):
+    """r: per-column bound on delta; rF: Frobenius bound (defaults to sqrt6 r, always valid)."""
     t0 = time.time()
-    U, M = bins(P, r, tang=tang)
+    rF = math.sqrt(6) * r if rF is None else min(rF, math.sqrt(6) * r)
+    U, M = bins(P, r, tang=tang, rF=rF)
     if U is None: return dict(ok=False, reason='bin cap')
     cl = cluster(U, M, radius=radius)
     if cl is None: return dict(ok=False, reason='cluster', bins=len(U))
     C, s = cl
     O, Ub = edges(C, s)
     if tang is not None:
-        O, Ub = joint_filter(C, s, O, Ub, P, r, opnorm_bound(P), cis_centre(P), *tang)
+        O, Ub = joint_filter(C, s, O, Ub, P, r, opnorm_bound(P), cis_centre(P), rF, *tang)
     try:
         ok, steps = two_cliques(O, Ub)
     except RuntimeError:

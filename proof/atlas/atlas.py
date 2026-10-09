@@ -150,7 +150,7 @@ def make_record(phi, ladder=LADDER):
     dT = float(np.abs(np.array([[float(abs(B.rec.Tb[e, k] - arb(float(B.rec.Tbn[e, k]))).upper()) for k in range(4)] for e in range(36)])).sum())
     P = np.asarray(phi, float).reshape(6, 6)
     R400, _ = corner_census(np.exp(1j * P))
-    return dict(phi=P, R=R, n=n0 + dT * rH, rH=rH, T=np.array(B.rec.Tbn, float), label_radius=rad,
+    return dict(phi=P, R=R, n=n0 + dT * rH, rH=rH, T=np.array(B.rec.Tbn, float), Tint=B.rec.Tint.copy(), label_radius=rad,
                 stagec=dict(labels=o.get('labels'), bins=o.get('bins'), steps=o.get('steps')), sigma=B.sigma,
                 R400=R400, feat=np.sort(R400)[::-1][:12], t=time.time() - t0)
 

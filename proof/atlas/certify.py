@@ -52,7 +52,7 @@ def transfer_data(A, Ps, Pt, Ts):
 
 
 def certify_record(rec):
-    B = BallRecord(rec['phi'].reshape(36))
+    B = BallRecord(rec['phi'].reshape(36), Tint=rec.get('Tint'))     # stored frame: platform-independent
     rH, n0 = B.normal_bound(rec['R'])
     rec['Tcert'] = np.array(B.rec.Tbn, float)                       # the certifier's own frame
     dT = float(np.abs(np.array([[float(abs(B.rec.Tb[e, k] - arb(float(B.rec.Tbn[e, k]))).upper()) for k in range(4)] for e in range(36)])).sum())
@@ -67,6 +67,8 @@ def certify_boundary(A, s, rH, n, wmin_frac=1 / 64):
     rs = A.recs[s]; tr = A.transfers[s]
     T = rs['Tcert']; R = rs['R']
     nT = AT.mnorm(T)
+    for (t, sg, pi) in tr['targets']:
+        assert sg in (1, -1) and sorted(pi) == list(range(36)) and 0 <= t < len(A.recs), 'malformed transfer target'
     tdat = [(t, transfer_data((sg, tuple(pi)), rs['phi'], A.recs[t]['phi'], T)) for (t, sg, pi) in tr['targets']]
     Mn = nT                                     # ||h(A T)|| <= ||T||: A orthogonal (signed permutation), h a projector
     w = rH / 2

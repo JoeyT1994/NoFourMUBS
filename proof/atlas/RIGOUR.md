@@ -39,7 +39,7 @@ Each tested expression (6.7, 6.12, 6.11, 6.16, 6.20, 6.21) is a sum of at most a
 
 The graph search works on booleans and is exact.
 
-**Inputs from the preprint, used as stated.** Lemmas 6.1–6.6 (single-vector bounds, Taylor estimate, clustering, distinct labels, edge equations), applied with our r, r_H and n. The cap of 5·10⁶ steps on the graph search can only produce a failure, never an acceptance.
+**The Stage C inequalities** (single-vector bounds, Taylor estimates, clustering, distinct labels, edge equations, joint test) are proved in our notation in `STAGEC.md`, with our r (per column), r_F (Frobenius), r_H and n. The cap of 5·10⁶ steps on the graph search can only produce a failure, never an acceptance.
 
 ## 3. Per-expression floating-point error budget
 
@@ -59,7 +59,7 @@ We use the standard model fl(a ∘ b) = (a ∘ b)(1 + ε) with |ε| ≤ u = 2⁻
 
 The float y-directions are used as exact real numbers: the lemmas hold for every real y.
 
-Every rejection uses the strict comparison lhs > rhs + MARGIN, with MARGIN = 10⁻⁷ in Stage C and 10⁻⁸ in the atlas transfers. Both margins exceed the summed error of the two sides by at least 100×. So a float rejection implies the exact rejection.
+Every rejection uses the strict comparison lhs > rhs + MARGIN, with MARGIN = 10⁻⁷ in Stage C and 10⁻¹⁰ in the certifier's atlas transfers. The driver uses 10⁻⁸, which is stricter. Both margins exceed the summed error of the two sides by at least 100×. So a float rejection implies the exact rejection.
 
 ## 4. Independent Arb replay (`arb_replay.py`)
 
@@ -76,4 +76,4 @@ All three items from the earlier to-do list are closed:
 - the Arb Gram bounds (§1);
 - the Arb replay (§4).
 
-The remaining inputs from the preprint are Lemmas 6.1–6.7, which we use as stated. Their proofs are short and are reproduced in our notation in `stagec.py` and `ballrecord.py` docstrings.
+Every Stage C inequality is proved in `STAGEC.md`, which was corrected on 9 Oct for the Frobenius terms. Nothing from the preprint is used unproved.

@@ -9,7 +9,7 @@ Start with [`PROOF.md`](PROOF.md), about three pages, or the typeset [`proof/not
 | 1 | The positive local maxima of R form one 18-point orbit; max R = 3¹³/2¹² | Proved by exact algebra, with two independent proofs |
 | 2 | (𝓗/≅) ∖ {S₆} is connected | Proved relative to MC1–MC5 (the classification) |
 | 3 | A ball Record plus Stage C excludes quartet edges in the ball; S₆ is a zero-dimensional Record | Lemmas proved ([`STAGEC.md`](proof/atlas/STAGEC.md), [`RIGOUR.md`](proof/atlas/RIGOUR.md)) |
-| 4 | A finite atlas with certified boundary transfers covers X | **Certified**: 11,228 Records, F6 in Record 877 ([`RECEIPT.md`](proof/atlas/results/RECEIPT.md)) |
+| 4 | A finite atlas with certified boundary transfers covers X | **Being re-certified** after the audit's Stage C correction (9 Oct) |
 
 ## Replaying
 

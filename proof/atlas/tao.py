@@ -1,7 +1,7 @@
 """Tao's matrix S6 as a zero-dimensional ball Record: it is isolated in the quotient and it is not a quartet edge.
 
 S6 has entries e(k_ij/3) (the matrix K below).  At S6 the Hadamard Jacobian J is injective on the 25-dimensional
-horizontal space (tangent dimension 0), with sigma >= 2 certified by an Arb Cholesky factorisation.  For the ball
+horizontal space (tangent dimension 0), with sigma >= 2.1 certified by an Arb Cholesky factorisation.  For the ball
 B = {e^{i(P + delta)} : delta horizontal, ||delta|| <= R}, P the float rounding of 2 pi K/3:
   * uniqueness (BallRecord.unique_in_ball): L R < sigma, so B contains at most one Hadamard, namely S6 itself
     (||P - 2 pi K/3|| < 1e-14).  Every class within quotient distance R - 1e-14 of [S6] has a representative in B,

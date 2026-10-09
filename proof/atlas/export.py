@@ -1,6 +1,7 @@
 """Export an atlas pickle to the compact certificate atlas_certificate.json.gz (what certify.py needs, nothing else).
 
-Per Record: centre phases (36 floats, exact binary64 via float.hex), R, label radius, and its boundary-transfer targets
+Per Record: centre phases (36 floats, exact binary64 via float.hex), R, label radius, the tangent frame (36 x 4 integers,
+units 2^-30, projected exactly onto the horizontal space by the certifier), and its boundary-transfer targets
 [t, sign, transpose, rowperm(6), colperm(6)] with the alignment X -> sign * (X or X^T)[rowperm][:, colperm].
 The certifier recomputes the frame, sigma, normal bound, Stage C and the boundary tree from these.
 Usage: python3 export.py atlas.pkl atlas_certificate.json.gz
@@ -25,7 +26,7 @@ def export(A):
     for i, r in enumerate(A.recs):
         tg = [[t] + split(sg, pi) for (t, sg, pi) in A.transfers.get(i, {}).get('targets', [])]
         recs.append(dict(phi=[float(x).hex() for x in r['phi'].reshape(36)], R=r['R'], label_radius=r['label_radius'],
-                         closed=i in A.closed, targets=tg))
+                         Tint=np.asarray(r['Tint']).reshape(-1).tolist(), closed=i in A.closed, targets=tg))
     return dict(format='nofour-atlas-v1', records=recs, failed={str(k): v for k, v in A.failed.items()})
 
 
@@ -35,7 +36,8 @@ def load_certificate(path):
     A = AT.Atlas(); A.failed = d.get('failed', {})
     for i, r in enumerate(d['records']):
         P = np.array([float.fromhex(x) for x in r['phi']]).reshape(6, 6)
-        A.add(dict(phi=P, R=r['R'], label_radius=r['label_radius'], R400=AT.corner_census(np.exp(1j * P))[0]))
+        A.add(dict(phi=P, R=r['R'], label_radius=r['label_radius'], R400=AT.corner_census(np.exp(1j * P))[0],
+                   Tint=np.array(r['Tint'], dtype=np.int64).reshape(36, 4) if r.get('Tint') else None))
         if r['closed']:
             A.closed.add(i)
             A.transfers[i] = dict(targets=[(t, sg, list(AT.to_sp('tr' if tr else 'id', np.array(rp), np.array(cp))[1]))

@@ -48,7 +48,9 @@ def opnorm_upper(M):
 
 
 class Record:
-    def __init__(self, phi):
+    def __init__(self, phi, Tint=None):
+        """Tint: optional stored frame (36 x k integers, units 2^-30) -- makes the Record platform-independent.
+        Any frame is valid for the lemmas; it is projected exactly onto the horizontal space below."""
         phi = np.asarray(phi, float).reshape(36)
         self.phi = phi
         self.ph_arb = [arb(float(t)) for t in phi]                       # exact float phases
@@ -73,9 +75,15 @@ class Record:
         Tn = Hb @ Vt[rank:].T                                               # 36 x (25 - rank)
         self.dimT = Tn.shape[1]
         # rational tangent basis, exactly horizontal
+        if Tint is not None:
+            Tint = np.asarray(Tint, dtype=np.int64).reshape(36, -1)
+            self.dimT = Tint.shape[1]
+        else:
+            Tint = np.array([[round(float(x) * 2 ** 30) for x in Tn[:, k]] for k in range(self.dimT)], dtype=np.int64).T.reshape(36, self.dimT)
+        self.Tint = Tint
         TB = []
         for k in range(self.dimT):
-            col = [Fr(round(float(x) * 2 ** 30), 2 ** 30) for x in Tn[:, k]]
+            col = [Fr(int(Tint[e, k]), 2 ** 30) for e in range(36)]
             col = [sum(Ph[a][b] * col[b] for b in range(36)) for a in range(36)]
             TB.append(col)
         self.TB = TB

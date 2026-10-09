@@ -39,10 +39,10 @@ def cholesky_pd(A):
 
 
 class BallRecord:
-    def __init__(self, phi, sigma_try=(1.70, 1.65, 1.6, 1.5, 1.4, 1.2, 1.0), dimT=4):
+    def __init__(self, phi, sigma_try=(1.70, 1.65, 1.6, 1.5, 1.4, 1.2, 1.0), dimT=4, Tint=None):
         """dimT = 4 for every Hadamard except Tao's S6, where J is injective on the horizontal space (dimT = 0: an
         isolated point, r_H = 0 and delta = nu)."""
-        self.rec = rec = Record(phi)                     # centre, J (arb), rational tangent T, exact P_N
+        self.rec = rec = Record(phi, Tint=Tint)          # centre, J (arb), rational tangent T, exact P_N
         assert rec.dimT == dimT, 'tangent dimension %d' % rec.dimT
         J = rec.J
         # e0 = ||Phi(0)||
@@ -115,8 +115,11 @@ class BallRecord:
         dT = float(np.abs(np.array([[float(abs(self.rec.Tb[e, j] - arb(float(self.rec.Tbn[e, j]))).upper()) for j in range(k)] for e in range(36)])).sum()) if k else 0.0
         n = n + dT * rH * (1 + 1e-12)
         P = self.rec.phi.reshape(6, 6) / SC.TWO_PI
-        out = SC.stage_c(P, rcol / SC.TWO_PI, tang=(self.rec.Tbn, rH / SC.TWO_PI, n / SC.TWO_PI), radius=radius)
-        out.update(R=R, rH=rH, n=n, rcol=rcol, sigma=self.sigma, e0=self.e0, j1=self.j1)
+        # Frobenius bound: ||delta|| <= R (the ball), and ||delta|| <= ||T eta|| + ||nu|| <= sqrt(lam_max) rH + n
+        rF = min(R, math.sqrt(self.lam_max) * rH + n) * (1 + 1e-12)
+        out = SC.stage_c(P, rcol / SC.TWO_PI, tang=(self.rec.Tbn, rH / SC.TWO_PI, n / SC.TWO_PI), radius=radius,
+                         rF=rF / SC.TWO_PI)
+        out.update(R=R, rH=rH, n=n, rcol=rcol, rF=rF, sigma=self.sigma, e0=self.e0, j1=self.j1)
         return out
 
 

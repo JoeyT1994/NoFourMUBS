@@ -1,3 +1,5 @@
+> **Superseded (9 Oct 2026, morning).** An independent audit found that Stage C used the per-column bound in three remainder terms that need a bound on the whole matrix (`STAGEC.md`, correction note). With the corrected terms, about 4% of these Records fail at their stored radius. The atlas is being repaired: `repair.py` shrinks those Records and re-closes the affected boundaries, and a full re-certification will follow. This receipt will be replaced when that is done. **Until then, Step 4 is not certified.**
+
 # Step 4 receipt: the certified atlas
 
 **Status: PASS.** `python3 verify.py --atlas -j 9` printed **ALL PASS** on 9 Oct 2026. The full transcript is in `VERIFY_ATLAS.log`, and each check's output is in `receipts/`.
