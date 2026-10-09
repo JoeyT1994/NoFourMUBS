@@ -87,7 +87,9 @@ A **ball Record** is a set B_r = {e^{i(P+δ)} : δ horizontal, ‖δ‖ ≤ R}, 
 
 > **Lemma 3.1 (normal bound).** Every Hadamard in B_r has δ = Tη + ν with ‖η‖ ≤ r_H and ‖ν‖ ≤ n(R).
 >
-> Here n(R) = (σ − √(σ² − 2Lb))/L, with b = e₀ + j₁ r_H + (L/2) λ_max(G) r_H² and L = 2√3, the base-independent bound on ‖Φ″‖.
+> Here n(R) = (σ − √(σ² − 2Lb))/L, with b = e₀ + j₁ r_H + (L/2) λ_max(G) r_H² and L = 2√3.
+
+*Proof.* Write Φ(δ) for the off-diagonal part of e^{i(P+δ)}e^{i(P+δ)}* and J = Φ′(0). Entry (a, b) of the remainder Φ(δ) − Φ(0) − Jδ is Σ_c Z_ac Z̄_bc (e^{iy_c} − 1 − iy_c) with y_c = δ_ac − δ_bc. Since |e^{iy} − 1 − iy| ≤ y²/2, its modulus is at most ½‖r_a − r_b‖², where r_a is row a of δ. Now ‖r_a − r_b‖² ≤ 2‖δ‖² and Σ_{a<b} ‖r_a − r_b‖² ≤ 6‖δ‖², so ‖Φ(δ) − Φ(0) − Jδ‖ ≤ √3‖δ‖² = (L/2)‖δ‖², for every δ and every centre. If e^{i(P+δ)} is Hadamard, then Φ(δ) = 0. Hence σ‖ν‖ ≤ ‖Jν‖ ≤ e₀ + j₁‖η‖ + √3(λ_max‖η‖² + ‖ν‖²), using Tη ⟂ ν. Since ‖ν‖ ≤ R < σ/L, ‖ν‖ lies below the smaller root of this quadratic. No Taylor theorem is needed. This is proved in Lean ([`lean/NoFourMUBs/NormalBound.lean`](lean/NoFourMUBs/NormalBound.lean): `outNorm_rem_le`, `normal_bound_root`). ∎
 
 > **Lemma 3.2 (Stage C, after [OAI] §6).** Suppose the vector-bin cover, the label clustering, the O/U edge tests (including the joint test 6.23) and the exact two-clique search succeed for (P, T, r_H, n, r_col, r_F), where r_col bounds the columns of δ and r_F its Frobenius norm. Then no Hadamard in B_r is a quartet edge.
 
@@ -103,11 +105,11 @@ A **ball Record** is a set B_r = {e^{i(P+δ)} : δ horizontal, ‖δ‖ ≤ R}, 
 
 Records pass at R = 0.08 rad, about 0.5 s each.
 
-> **Remark 3.3 (S₆ is a zero-dimensional Record).** At S₆, J is injective on the whole 25-dimensional horizontal space, with σ ≥ 2.1 certified by an Arb Cholesky factorisation. So T is empty and r_H = 0. Let the ball have R = 0.08.
-> - *Uniqueness.* Since L·R = 0.28 < σ, the mean-value bound ‖Φ′(x) − Φ′(0)‖ ≤ L‖x‖ gives σ‖δ₁ − δ₂‖ ≤ L·R·‖δ₁ − δ₂‖. So the ball contains exactly one Hadamard, S₆ itself, and S₆ is isolated in 𝓗/≅.
-> - *Exclusion.* Stage C passes on this ball, so S₆ is not a quartet edge.
+> **Remark 3.3 (S₆ is a zero-dimensional Record).** At S₆ the horizontal spectrum of JᵀJ is exactly {9/2 (×16), 12 (×9)}. An exact rational check gives M(M − 9/2)(M − 12) = 0 and the traces, and shows that the 11-dimensional gauge space is the kernel. So J is injective on all 25 horizontal directions, with σ = 3/√2 exactly; T is empty and r_H = 0.
+> - *Isolation.* Φ(0) = 0 at S₆. So for any Hadamard e^{i(P+δ)} with δ horizontal, the remainder bound gives σ‖δ‖ ≤ √3‖δ‖². Hence δ = 0 or ‖δ‖ ≥ σ/√3 = √(3/2). So S₆ is isolated in 𝓗/≅ (Lean: `isolation`).
+> - *Exclusion.* Stage C passes on the ball of radius R = 0.08, so S₆ is not a quartet edge.
 >
-> This is [`proof/atlas/tao.py`](proof/atlas/tao.py), which runs in under 1 s.
+> This is [`proof/atlas/tao.py`](proof/atlas/tao.py), which runs in about 2 s.
 
 ## Step 4. A finite atlas
 

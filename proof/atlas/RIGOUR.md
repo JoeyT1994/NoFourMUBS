@@ -6,13 +6,12 @@
 
 - **σ.** σ is certified by an Arb Cholesky factorisation of N_bᵀ(JᵀJ − σ²)N_b, where N_b is a rational basis of N projected exactly onto N.
 - **The other constants.** e₀ ≥ ‖Φ(0)‖ and j₁ ≥ ‖JT‖ come from Arb enclosures, the latter through an operator-norm upper bound. λ_max(G) and ‖G^{−1/2}‖ come from exact Gershgorin bounds on the rational 4×4 Gram matrix G = TᵀT, which is within 10⁻⁹ of I: λ_max ≤ maxᵢ Σⱼ|G_ij| and λ_min ≥ minᵢ (G_ii − Σ_{j≠i}|G_ij|) > 0, computed in exact rationals.
-- **The second-derivative bound.** L = 2√3 is base-independent. For horizontal w, w′:
-  - Φ″[w, w′] has entries −Σ_c a_c (w_ic − w_jc)(w′_ic − w′_jc) with |a_c| = 1;
-  - by Cauchy–Schwarz, ‖Φ″‖² ≤ Σ_{i<j} ‖w_i − w_j‖² ‖w′_i − w′_j‖²;
-  - Σ_{i<j} ‖w_i − w_j‖² = 6‖w‖² for horizontal w;
-  - and max_{i,j} ‖w′_i − w′_j‖² ≤ 2‖w′‖².
+- **The remainder bound (L = 2√3).** The bound is base-independent and needs no calculus beyond one scalar fact. For any real δ:
+  - entry (i, j) of Φ(δ) − Φ(0) − Jδ is Σ_c a_c (e^{iy_c} − 1 − iy_c), with |a_c| = 1 and y_c = δ_ic − δ_jc;
+  - since |e^{iy} − 1 − iy| ≤ y²/2, its modulus is at most ½‖δ_i − δ_j‖²;
+  - ‖δ_i − δ_j‖² ≤ 2‖δ‖², and Σ_{i<j} ‖δ_i − δ_j‖² ≤ 6‖δ‖².
 
-  Hence ‖Φ″‖ ≤ √12 ‖w‖‖w′‖.
+  Hence ‖Φ(δ) − Φ(0) − Jδ‖² ≤ ¼ · 2‖δ‖² · 6‖δ‖², i.e. ‖Φ(δ) − Φ(0) − Jδ‖ ≤ √3‖δ‖² = (L/2)‖δ‖². This is proved in Lean as `NoFourMUBs.outNorm_rem_le`. The same argument applied to Φ″ gives ‖Φ″[w, w′]‖ ≤ L‖w‖‖w′‖, which `unique_in_ball` uses. The sharp all-flat constant is 6/√5 (`research/conditioning/`); we keep 2√3 for its two-line proof.
 - **The frame mismatch.** Stage C uses the float rounding T_f of the exact frame T. The discrepancy (T − T_f)η is added to the normal bound.
 
 ## 2. Stage C (`stagec.py`): float with explicit margins

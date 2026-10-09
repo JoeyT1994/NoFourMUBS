@@ -12,10 +12,10 @@ Target: discharge `NoFourMUBs.Inputs` so that `no_four_mubs` holds unconditional
 | Module | Statement | Source | Notes |
 |---|---|---|---|
 | `Horizontal` ✅ | horizontal matrices, the projector h, and the gauge e^{iY} ≅ e^{ih(Y)} | PROOF.md §0 | done |
-| `NormalBound` | Lemma 3.1 | `proof/atlas/ballrecord.py` docstring, `RIGOUR.md` §1 | calculus-free: ‖Φ(δ) − Φ(0) − Jδ‖ ≤ √3‖δ‖² from \|e^{iy} − 1 − iy\| ≤ y²/2 and Cauchy–Schwarz |
+| `NormalBound` ✅ | Lemma 3.1 | `proof/atlas/ballrecord.py` docstring, `RIGOUR.md` §1 | done: `outNorm_rem_le`, `normal_bound_root` (only the scalar bound \|e^{iy} − 1 − iy\| ≤ y²/2 uses calculus, via Mathlib's fencing theorem). Bridge to the certificate: `outNorm` equals the 30-coordinate norm on Hermitian zero-diagonal outputs, which Φ and J are |
 | `StageC` | C1–C5 of `STAGEC.md`: bin geometry, single-vector and joint tests, labels, edges, the clique implication | `proof/atlas/STAGEC.md` | complex exponential estimates; the clique search is a decidable finite statement |
 | `Transfer` ✅ | Lemma 4.1 | `proof/atlas/COVERAGE.md` | done (`NoFourMUBs.transfer`) |
-| `TaoRecord` | Remark 3.3: S₆ isolated, and not a quartet edge given its Stage C certificate | `proof/atlas/tao.py`; exact spectrum in `research/conditioning/return/verify_tao.py` | exact σ = 3/√2 (integer certificate) and the remainder bound give isolation radius √(3/2); no mean-value theorem |
+| `TaoRecord` (isolation ✅ as `isolation`) | Remark 3.3: S₆ isolated, and not a quartet edge given its Stage C certificate | `proof/atlas/tao.py`; exact spectrum in `research/conditioning/return/verify_tao.py` | exact σ = 3/√2 (integer certificate) and the remainder bound give isolation radius √(3/2); no mean-value theorem |
 
 ## Layer 2: the certificate interface
 - `Certificate`: a Lean structure mirroring `atlas_certificate.json.gz` (centres, radii, frames, targets).

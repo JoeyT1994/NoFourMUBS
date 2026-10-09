@@ -120,11 +120,10 @@ $W\cap X$ is closed, as a finite union of compact images. It is open, since ever
 
 \section{Step 3: local exclusion}
 
-Let $\Phi(\delta)\in\mathbb R^{30}$ be the off-diagonal entries of $(\e^{i(P+\delta)})(\e^{i(P+\delta)})^*$, and $J=\Phi'(0)$. For horizontal $w$ and $w'$, Cauchy--Schwarz gives
+Let $\Phi(\delta)\in\mathbb R^{30}$ be the off-diagonal entries of $(\e^{i(P+\delta)})(\e^{i(P+\delta)})^*$, and $J=\Phi'(0)$. Entry $(a,b)$ of $\Phi(\delta)-\Phi(0)-J\delta$ is $\sum_c Z_{ac}\bar Z_{bc}(\e^{iy_c}-1-iy_c)$ with $y_c=\delta_{ac}-\delta_{bc}$. Since $|\e^{iy}-1-iy|\le y^2/2$, $\|\delta_a-\delta_b\|^2\le2\|\delta\|^2$ and $\sum_{a<b}\|\delta_a-\delta_b\|^2\le6\|\delta\|^2$, we get, for every real $\delta$ and every centre,
 \[
- \|\Phi''[w,w']\|\le L\|w\|\|w'\|,\qquad L=2\sqrt3,
-\]
-at every base point. A \emph{ball Record} is a rational centre $P$, a rational tangent frame $T$ ($36\times k$), and a constant $\sigma>0$ with $\|J\nu\|\ge\sigma\|\nu\|$ on the horizontal complement $N$ of $T$. The constant $\sigma$ is certified by an Arb Cholesky factorisation.
+ \|\Phi(\delta)-\Phi(0)-J\delta\|\le\tfrac L2\|\delta\|^2,\qquad L=2\sqrt3 .
+\] A \emph{ball Record} is a rational centre $P$, a rational tangent frame $T$ ($36\times k$), and a constant $\sigma>0$ with $\|J\nu\|\ge\sigma\|\nu\|$ on the horizontal complement $N$ of $T$. The constant $\sigma$ is certified by an Arb Cholesky factorisation.
 
 \begin{lemma}[Normal bound]\label{lem:normal}
 Every Hadamard $\e^{i(P+\delta)}$ with $\|\delta\|\le R<\sigma/L$ has $\delta=T\eta+\nu$ with $\|\eta\|\le r_H$ and $\|\nu\|\le n$, where
@@ -134,7 +133,7 @@ Every Hadamard $\e^{i(P+\delta)}$ with $\|\delta\|\le R<\sigma/L$ has $\delta=T\
 \end{lemma}
 
 \begin{proof}
-We have $0=\Phi(\delta)=\Phi(0)+J\delta+E$ with $\|E\|\le\frac L2\|\delta\|^2$. Hence $\sigma\|\nu\|-\frac L2\|\nu\|^2\le b$. Since $\|\nu\|\le R<\sigma/L$, $\|\nu\|$ lies below the smaller root.
+We have $0=\Phi(\delta)=\Phi(0)+J\delta+E$ with $\|E\|\le\frac L2\|\delta\|^2$, and $\|\delta\|^2=\|T\eta\|^2+\|\nu\|^2$. Hence $\sigma\|\nu\|-\frac L2\|\nu\|^2\le b$. Since $\|\nu\|\le R<\sigma/L$, $\|\nu\|$ lies below the smaller root.
 \end{proof}
 
 \begin{lemma}[Stage C, after {[OAI, \S6]}]\label{lem:stagec}
@@ -144,7 +143,7 @@ Let $r_{\rm col}$ bound the columns of $\delta$ and $r_F$ its Frobenius norm. Su
 All inequalities are proved in \texttt{proof/atlas/STAGEC.md}. Comparisons use Arb-tabulated exponentials and float arithmetic with margin $10^{-7}$, against an error budget below $10^{-10}$.
 
 \begin{remark}[$S_6$]\label{rem:tao}
-At $S_6$, $J$ is injective on all $25$ horizontal directions, with $\sigma\ge2.1$ (so $k=0$). For $R=0.08$ we have $LR<\sigma$, and the mean-value theorem gives $\sigma\|\delta_1-\delta_2\|\le LR\|\delta_1-\delta_2\|$. So the ball holds exactly one Hadamard, namely $S_6$, and $S_6$ is isolated. Stage C on the ball shows that $S_6$ is not a quartet edge.
+At $S_6$ the horizontal spectrum of $J^\top J$ is exactly $\{9/2^{(16)},12^{(9)}\}$: an exact rational check gives $M(M-\frac92)(M-12)=0$ and the traces, and the kernel is the $11$-dimensional gauge space. So $\sigma=3/\sqrt2$ on all $25$ horizontal directions ($k=0$). Since $\Phi(0)=0$, any Hadamard $\e^{i(P+\delta)}$ with $\delta$ horizontal satisfies $\sigma\|\delta\|\le\sqrt3\|\delta\|^2$, so $\delta=0$ or $\|\delta\|\ge\sqrt{3/2}$. Thus $S_6$ is isolated. Stage C on the ball of radius $0.08$ shows that $S_6$ is not a quartet edge.
 \end{remark}
 
 \section{Step 4: the atlas}
