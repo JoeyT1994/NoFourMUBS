@@ -11,7 +11,7 @@
 | `certify.py` | 37 chunks: **12,021 certified, 0 failures** (`receipts/step4_certify_*.txt`) |
 | `nonempty.py` | F6 is in the interior of Record 877: ‖h(A·F6 − P_t)‖ ≤ 0.0232 < 0.08 (Arb) |
 | `anchor.py` | H₀ (`lean/NoFourMUBs/Step2/BaseAnchor.lean`) is in the interior of Record 9319: ‖h(A·H₀ − P_t)‖ ≤ 0.0426 < 0.08 (Arb) |
-| Independent checker | `../../independent/results_v3/`: Step 3 PASS 12,021 / 12,021; Step 4 PASS 12,021 / 12,021 |
+| Independent checker | `../../independent/results_v3/RESULT.txt`: **12,021 / 12,021 closed Records PASS**, F6 nonemptiness CERTIFIED (Record 877, ≤ 0.02320 < 0.08), all targets closed. VERDICT: the certificate is complete and every check passed |
 
 ## What changed from v2, and why
 
