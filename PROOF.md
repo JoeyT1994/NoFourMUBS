@@ -33,25 +33,36 @@ with the quotient phase metric δ(H, K) = min{‖v‖ : v horizontal, H ≅ K �
 
 ## Step 1. The maxima of R (exact algebra, no classification)
 
-> **Theorem 1.** The positive local maxima of R on T⁴ form exactly one orbit of 18 points under the 144 seed symmetries:
+> **Theorem 1.** Every positive local maximum of R on T⁴ lies in one orbit of 18 points under the 144 seed symmetries:
 >
 >   θ* = α(1, 2, −1, −2), α = arccos(1/4), R(θ*) = 3¹³/2¹².
 >
-> The Hessian there is negative definite. In particular max R = 3¹³/2¹².
+> (The Hessian there is negative definite, so these 18 points are exactly the positive local maxima, and max R = 3¹³/2¹².)
 
-**Proof idea.**
-1. **Change of variables.** Normalise the even products (ad, b, c) and the odd products (bc, d, a) of the corner so that each triple has product 1. Let U and V be their traces; each lies in the filled deltoid.
-2. **Compact form.** With A = U + V and B = U − V, u = |A|² and v = |B|²:
-   - g = 2v − 3u and η = v − 2u;
-   - R = 4g²η − χ², where χ = (3u − v)(v − u + 12)/2 − 2 Re(AB²).
-3. **Circle symmetry.** R is invariant under (A, B) ↦ (e^{−2iτ}A, e^{iτ}B).
-   - In the double interior, one resultant leaves two real critical candidates. Both have an increasing direction, by d²R/dψ² = −4χxv > 0.
-   - With one trace on a smooth boundary point, the orbit enters the interior, by a curvature identity.
-   - A cusp is excluded directly.
-   - So both traces lie on the deltoid boundary.
-4. **Boundary case.** The two-boundary problem is classified exactly. One spurious value, 25(25 − 11√5)/2, has positive transverse curvature, so it is not a maximum.
+**Coordinates.** Normalise the even products (ad, b, c) and the odd products (bc, d, a) of the corner so that each triple has product 1. Let U and V be their traces. Each lies in the filled deltoid 𝒟, and the trace map is an open quotient by S₃. Put A = U + V, B = U − V, u = |A|² and v = |B|². Then
 
-**Certificates.** All acceptance decisions are exact: Laurent identities, resultants, Gröbner bases, Sturm counts and rational intervals. They are in [`proof/coverage/`](proof/coverage/README.md). Two independent proofs, A (`returns/A_deltoid`) and B (`returns/B_exact_quotient`), each replay in under 10 s. Proof B also shows why no interval box cover could do this: at the F3 seed, R, ∇R and Hess R all vanish, with strict seeds arbitrarily close.
+  R = ℛ(A, B) = 4(2v − 3u)²(v − 2u) − C², C = (3u − v)(v − u + 12)/2 − 2 Re(AB²).
+
+A local maximum on T⁴ is therefore a local maximum of ℛ relative to 𝒟 × 𝒟.
+
+**1. No interior maximum.** *Every critical point of ℛ on ℂ² with ℛ > 0 has a direction of positive second derivative.*
+- ℛ is invariant under (A, B) ↦ (ζ̄²A, ζB), so we may take B = √v > 0 and A = x + iy. Positivity gives d = v − 2u > 0.
+- H_v = 4g(6v − 11u) − 2CC_v with g, 6v − 11u > 0, so C ≠ 0. Then yH_x − xH_y = 4vyC forces y = 0.
+- At x = −h ≤ 0 and v = 2h² + d, the Jacobian c_x f_v − c_v f_x equals −8(h² + 2d)W(h, d), where W has nonnegative coefficients and W ≥ 6d² > 0. Hence x > 0.
+- Then f_v = 0 forces c < 0. Finally xH_yy = −4vc > 0.
+
+So both traces cannot be interior, and the old interior sextic, resultant and Sturm census are not needed.
+
+**2. Both traces lie on the boundary.**
+- **One smooth boundary trace, the other interior.** The invariant circle orbit enters the interior to first order, or else has d²Δ/dτ² = −(9/2)(r + 2)²|z³ − 1|⁴ < 0.
+- **A cusp with an interior partner.** Excluded by the factorisation ℛ = −4FG² and a positive cubic Bernstein certificate.
+
+**3. The double boundary.** Here ℛ = −256 L²M²N in square coordinates (c, h).
+- An explicit eliminant, with cofactors of 11 and 22 terms, leaves one positive stationary branch.
+- On that branch, the actual transverse curvature is 660(46y + 9) > 4125/32. Every physical root of 4y² + 6y + 1 lies in (−49/256, −3/16), by a secant identity.
+- On h = 1, four positive Bernstein expansions leave only (c, h) = (1/4, 1). Its lifts are exactly the 18-point orbit, with q = (1 + i√15)/4.
+
+**Certificates.** 651 exact claims, checked with integers and rationals only, in 7 s (`proof/coverage/returns/C_step1_lean`, `verify_certificates.py`). All the finite algebra is kernel-checked in Lean: 216 theorems in library `Step1`, using only standard axioms. The earlier resultant/Sturm proofs A and B (`returns/A_deltoid`, `returns/B_exact_quotient`) remain as independent cross-checks. Proof B also shows why no interval box cover could work here: at the F3 seed, R, ∇R and Hess R all vanish, with strict seeds arbitrarily close.
 
 ## Step 2. X is connected (relative to the classification)
 

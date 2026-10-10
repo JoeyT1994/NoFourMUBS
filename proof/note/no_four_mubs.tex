@@ -79,11 +79,19 @@ The Hessian at $\theta_*$ is negative definite.
 \]
 Thus $R$ is invariant under the circle action $(A,B)\mapsto(\e^{-2i\tau}A,\e^{i\tau}B)$.
 
-\emph{No interior maxima.} In the double interior, criticality forces $AB^2\in\mathbb R$. One resultant then leaves two real candidates, and at both $d^2R/d\psi^2=-4\chi xv>0$. A smooth boundary point paired with an interior point moves into the double interior along the circle action, by a curvature identity. A cusp is excluded directly.
+\emph{No interior maxima.} Every critical point of $\mathcal R(A,B)$ on $\mathbb C^2$ with $\mathcal R>0$ has a direction of positive second derivative. Rotate to $B=\sqrt v>0$ and write $A=x+iy$; positivity gives $d=v-2u>0$. Then:
+\begin{itemize}
+\item $H_v=4g(6v-11u)-2CC_v$ with $g,\,6v-11u>0$, so $C\neq0$;
+\item $yH_x-xH_y=4vyC$, so $y=0$;
+\item at $x=-h\le0$ and $v=2h^2+d$, the Jacobian $c_xf_v-c_vf_x$ equals $-8(h^2+2d)W$ with $W\ge6d^2>0$, so $x>0$;
+\item $f_v=0$ then gives $c<0$, and $xH_{yy}=-4vc>0$.
+\end{itemize}
 
-\emph{The doubly boundary case.} Here the stationary points are classified exactly; one spurious stationary value has positive transverse curvature.
+\emph{Both traces on the boundary.} A smooth boundary trace with an interior partner moves inward along the circle action, by the curvature identity $-\tfrac92(r+2)^2|z^3-1|^4<0$. A cusp with an interior partner is excluded by $\mathcal R=-4FG^2$ and a Bernstein certificate.
 
-All acceptance decisions are exact: resultants, Gr\"obner bases, Sturm counts and rational intervals. There are two independent proofs, in \texttt{proof/coverage/returns/}.
+\emph{The double boundary.} Here $\mathcal R=-256L^2M^2N$. An explicit eliminant, with cofactors of $11$ and $22$ terms, leaves one stationary branch. On it, the transverse curvature exceeds $4125/32$. Bernstein certificates on $h=1$ leave only $(c,h)=(1/4,1)$, whose lifts form the orbit.
+
+There are $651$ exact claims, checked with integers and rationals only. All of the finite algebra is kernel-checked in Lean, in $216$ theorems. No resultant of high degree, Gr\"obner basis or Sturm count is needed. Two earlier, independent proofs remain as cross-checks.
 \end{proof}
 
 \section{Step 2: connectedness}

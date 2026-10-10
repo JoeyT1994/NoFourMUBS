@@ -10,6 +10,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
 CHECKS = [
+    ('step1_saddle_census',     'proof/coverage/returns/C_step1_lean/verify_certificates.py', []),
     ('step1_2_deltoid_return',  'proof/coverage/returns/A_deltoid/verify_all.py', []),
     ('step1_2_exact_quotient',  'proof/coverage/returns/B_exact_quotient/verify_all.py', []),
     ('mc_reconstruction_proofs', 'MinimalConstruction/Proofs/verify_dossier.py', []),

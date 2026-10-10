@@ -6,7 +6,7 @@ Start with [`PROOF.md`](PROOF.md), about three pages, or the typeset [`proof/not
 
 | Step | Claim | Status |
 |---|---|---|
-| 1 | The positive local maxima of R form one 18-point orbit; max R = 3¹³/2¹² | Proved by exact algebra, with two independent proofs |
+| 1 | The positive local maxima of R form one 18-point orbit; max R = 3¹³/2¹² | Proved by exact algebra. Primary proof: the sextic-free saddle route (651 exact claims; all of its finite algebra kernel-checked in Lean). Two earlier proofs remain as cross-checks |
 | 2 | (𝓗/≅) ∖ {S₆} is connected | Proved relative to MC1–MC5. **Open point (10 Oct):** MC4's nonmatched converse uses [CT]'s necessary minus-matching (PR-M), whose supplied proof shows only F₊ ≢ 0. An external audit found the gap (no counterexample is known); a handoff to prove PR-M, or to route around it, is in progress |
 | 3 | A ball Record plus Stage C excludes quartet edges in the ball; S₆ is a zero-dimensional Record | Lemmas proved ([`STAGEC.md`](proof/atlas/STAGEC.md), [`RIGOUR.md`](proof/atlas/RIGOUR.md)) |
 | 4 | A finite atlas with certified boundary transfers covers X | Certified: 12,020 Records, re-built and re-certified after the audit's Stage C correction (9 Oct) |
