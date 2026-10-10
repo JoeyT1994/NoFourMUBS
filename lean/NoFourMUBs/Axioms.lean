@@ -24,3 +24,4 @@ import NoFourMUBs
 #print axioms NoFourMUBs.no_four_mubs_final
 #print axioms NoFourMUBs.no_four_mubs_of_certificates
 #print axioms NoFourMUBs.Step1Saddle.calR_no_pos_localMax
+#print axioms NoFourMUBs.Step1Geo.both_boundary
