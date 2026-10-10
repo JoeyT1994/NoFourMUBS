@@ -62,7 +62,7 @@ So both traces cannot be interior, and the old interior sextic, resultant and St
 - On that branch, the actual transverse curvature is 660(46y + 9) > 4125/32. Every physical root of 4y² + 6y + 1 lies in (−49/256, −3/16), by a secant identity.
 - On h = 1, four positive Bernstein expansions leave only (c, h) = (1/4, 1). Its lifts are exactly the 18-point orbit, with q = (1 + i√15)/4.
 
-**Certificates.** 651 exact claims, checked with integers and rationals only, in 7 s (`proof/coverage/returns/C_step1_lean`, `verify_certificates.py`). All the finite algebra is kernel-checked in Lean: 216 theorems in library `Step1`, using only standard axioms. The earlier resultant/Sturm proofs A and B (`returns/A_deltoid`, `returns/B_exact_quotient`) remain as independent cross-checks. Proof B also shows why no interval box cover could work here: at the F3 seed, R, ∇R and Hess R all vanish, with strict seeds arbitrarily close.
+**Certificates.** 651 exact claims, checked with integers and rationals only, in 7 s (`proof/coverage/returns/C_step1_lean`, `verify_certificates.py`). All of Step 1 is proved in Lean, using only standard axioms: the 216 certificate theorems of library `Step1` and the analytic assembly in `lean/NoFourMUBs/Step1/`. Theorem 1 is `Step1Geo.maximumCensus`, with the explicit anchors `Step1Geo.anchors`. The earlier resultant/Sturm proofs A and B (`returns/A_deltoid`, `returns/B_exact_quotient`) remain as independent cross-checks. Proof B also shows why no interval box cover could work here: at the F3 seed, R, ∇R and Hess R all vanish, with strict seeds arbitrarily close.
 
 ## Step 2. X is connected (relative to the classification)
 

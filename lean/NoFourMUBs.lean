@@ -31,3 +31,5 @@ import NoFourMUBs.Step1.Smooth
 import NoFourMUBs.Step1.DoubleSetup
 import NoFourMUBs.Step1.DoubleAlg
 import NoFourMUBs.Step1.Double
+import NoFourMUBs.Step1.Lift
+import NoFourMUBs.Step1.Census

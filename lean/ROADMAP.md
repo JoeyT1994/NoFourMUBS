@@ -45,5 +45,5 @@ Plan: formalise them in our repository on top of upstream (or upstream them with
 ## Mathematics handoffs
 - **Returned:** uniform conditioning (`research/conditioning/`): rank 21 relative to MC1–MC4; σ ≥ √3 still open; exact Tao spectrum used above.
 - **Returned:** MUB triples (`research/triples/`): the Fourier-only conjecture is false (Zauner's bicirculant circle). Not used by the proof.
-- **In flight:** `Step1LeanHandoff`: Step 1 (or the weaker statement (W) that Step 2 uses) as Lean-checkable certificates.
+- **Done (10 Oct):** Step 1 in full: `Step1Geo.maximumCensus` (explicit anchors), and `no_four_mubs_step1` in `Final.lean`.
 - **In flight:** `Step2LeanHandoff`: gap map of MC1–MC5 against upstream Lean, and the minimal route to "X is connected".

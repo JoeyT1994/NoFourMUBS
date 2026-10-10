@@ -1,4 +1,5 @@
 import NoFourMUBs.Boundary
+import NoFourMUBs.Step1.Census
 
 /-!
 # The end-to-end theorem
@@ -12,7 +13,8 @@ Certificate inputs (finite, checked externally by `certify.py` and the independe
 * the anchor certificates (a matched maximum anchor and the Fourier class lie in the atlas).
 
 Mathematical inputs:
-* Step 1's census (`MaximumCensus`): proved on paper, with its finite algebra compiled in library `Step1`;
+* Step 1's census (`MaximumCensus`): **proved** (`Step1Geo.maximumCensus`, with explicit anchors `Step1Geo.anchors`);
+  `no_four_mubs_step1` below has it discharged;
 * the reconstruction facts `MatchedExistence`, `MatchedUniqueness` and `MatchedDensityReach`
   (`STEP2_BLUEPRINT.md`; density is the open point of `PROOF.md`'s trust boundary).
 -/
@@ -43,5 +45,15 @@ theorem no_four_mubs_of_certificates {ι : Type*} [Finite ι] (A : ι → Record
     (hE : Step2.MatchedExistence) (hU : Step2.MatchedUniqueness) (hD : Step2.MatchedDensityReach) :
     ¬ FourMUBs :=
   no_four_mubs_final A anchors (boundaryTransfers_of_covers A hcov) htao hAnchors hFourier hCensus hE hU hD
+
+/-- **The end-to-end theorem with Step 1 proved.**  The anchors are the explicit `18` maxima of `R`
+(`Step1Geo.anchors`); what remains is certificates and the three reconstruction facts. -/
+theorem no_four_mubs_step1 {ι : Type*} [Finite ι] (A : ι → RecordCert) (hcov : ∀ l, Nonempty (BoundaryCover A l))
+    (htao : ∀ ω, IsPrimitiveCubicPhase ω → ∃ K, InAtlas A K ∧ Equivalent (taoMatrix ω) K)
+    (hAnchors : Step2.MaximumAnchorCertificate (InAtlas A) Step1Geo.anchors)
+    (hFourier : Step2.FourierAnchorCertificate (InAtlas A))
+    (hE : Step2.MatchedExistence) (hU : Step2.MatchedUniqueness) (hD : Step2.MatchedDensityReach) :
+    ¬ FourMUBs :=
+  no_four_mubs_of_certificates A Step1Geo.anchors hcov htao hAnchors hFourier Step1Geo.maximumCensus hE hU hD
 
 end NoFourMUBs
