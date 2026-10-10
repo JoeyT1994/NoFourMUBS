@@ -33,3 +33,5 @@ import NoFourMUBs.Step1.DoubleAlg
 import NoFourMUBs.Step1.Double
 import NoFourMUBs.Step1.Lift
 import NoFourMUBs.Step1.Census
+import NoFourMUBs.Step2.SideAlg
+import NoFourMUBs.Step2.SidePerm
