@@ -9,6 +9,14 @@ lake build
 
 ## The end-to-end theorem
 
+**Final form (`MainTheorem.lean`).** All finite, checkable inputs are bundled into one structure, `AtlasCertificate` (Records, boundary covers, Tao membership, and membership of the explicit base-anchor completion and of F6). Then:
+
+- `no_four_mubs_main (C : AtlasCertificate) (hE : MatchedExistence) (hD : MatchedDensityReach) : ¬ FourMUBs`;
+- `no_four_mubs_of_connected (C : AtlasCertificate) (hX : NonTaoPreconnected) : ¬ FourMUBs` (the paper's route).
+
+Both use only `propext`, `Classical.choice` and `Quot.sound`. The intermediate forms are kept below.
+
+
 `NoFourMUBs.no_four_mubs_final`, and its form `no_four_mubs_of_certificates` taking boundary covers (in `Final.lean`), prove `¬ FourMUBs`. `no_four_mubs_step1` is the same theorem with Step 1 discharged: the anchors are the explicit maxima `Step1Geo.anchors`, and the census is `Step1Geo.maximumCensus`. **`no_four_mubs_reduced`** also discharges matched uniqueness (`Step2.matchedUniqueness`): its only remaining inputs are the finite certificates, `MatchedExistence` and `MatchedDensityReach`. **`no_four_mubs_one_anchor`** further replaces the 18 anchor certificates by a single covered matched completion at the base anchor. **`no_four_mubs_explicit`** makes that completion explicit (`BaseAnchor.H0`, entries in ℚ(i,√3,√5,√7), proved Hadamard and matched), so both anchor inputs are memberships of explicit matrices. It uses only `propext`, `Classical.choice` and `Quot.sound`. Its hypotheses are exactly the remaining inputs: **`no_four_mubs_connected`** follows the paper's route instead: Step 2 enters as the single statement `NonTaoPreconnected` (PROOF.md Theorem 2), and the only other inputs are the atlas certificate and the Fourier membership.
 
 | Input | Kind | Status |
