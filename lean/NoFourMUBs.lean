@@ -25,3 +25,4 @@ import NoFourMUBs.Step4
 import NoFourMUBs.Final
 import NoFourMUBs.Boundary
 import NoFourMUBs.Step1Saddle
+import NoFourMUBs.Step1.Deltoid
