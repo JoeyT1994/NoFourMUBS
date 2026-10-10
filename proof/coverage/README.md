@@ -5,6 +5,10 @@ This folder holds two independent returns of the coverage handoff (`../../archiv
 - `returns/B_exact_quotient/` comes from `CoverageProof.zip`.
 - `returns/SOURCE_ZIPS.sha256` holds the hashes of the two zips.
 
+Two further returns (10 Oct 2026), also pristine:
+- `returns/C_step1_lean/` (`Step1LeanReturn.zip`): a shorter proof of what Step 2 uses from Step 1, namely that every component of {R > 0} contains an orbit point. A direct saddle theorem removes the interior sextic, resultant, Gröbner basis and Sturm census. Its 651 exact claims replay (`python3 verify_certificates.py`, 7 s). Its Lean is uncompiled; repair is in progress in `lean/`.
+- `returns/D_step2_audit/` (`Step2LeanResult.zip`): a gap map of MC1–MC5 against the upstream Lean, a compiled conditional Lean route to `Inputs.covered`, and an audit finding that [CT]'s *necessary* minus-matching (PR-M) is under-justified. See the open point in `../../PROOF.md`.
+
 Both replay locally with Python 3, SymPy 1.14.0 and python-flint 0.9.0, and both exit 0:
 
 | Return | Command | Time | Log |

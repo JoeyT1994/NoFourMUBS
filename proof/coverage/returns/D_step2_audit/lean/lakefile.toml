@@ -1,0 +1,24 @@
+name = "step2_handoff"
+version = "0.1.0"
+defaultTargets = ["Step2Statements"]
+
+[leanOptions]
+autoImplicit = false
+relaxedAutoImplicit = false
+
+[[require]]
+name = "hadamard6_formal"
+path = "../../lean/upstream_hadamard6_formal"
+
+[[require]]
+name = "nofourmubs"
+path = "../../lean/nofourmubs"
+
+[[lean_lib]]
+name = "TopologyCore"
+
+[[lean_lib]]
+name = "QuotientTopology"
+
+[[lean_lib]]
+name = "Step2Statements"

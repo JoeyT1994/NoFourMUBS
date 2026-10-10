@@ -1,0 +1,604 @@
+{
+  "status": "PASS",
+  "input_zip_sha256": "01adc96de337cbe95dce0cab087c8398b5df5902c263a7c993ee297f5f34632f",
+  "source_checks": {
+    "upstream_hadamard6_formal": {
+      "all_lean_sources_identical_to_input": true,
+      "file_count": 137,
+      "files": [
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/H2CanonicalForm.lean",
+          "sha256": "10b04290503036c54f46a9c62421e0d06126695206ea662ce42eb361c1e401ab"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/DependentFibre.lean",
+          "sha256": "13f5b09400b40979fd9a951b366eb1dedb8adede8b6cca38f2f6ffc2a8ed76ac"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/KarlssonResidualBase.lean",
+          "sha256": "c932c668cccac67124da4f95a454c09ba8690615ba89ebf48f5d95b2f2b3ce13"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/FourierSeamCertificatePullbacks.lean",
+          "sha256": "4abd05b0b01e5fd508cbe832fa659f516b51c800313eb9810d96f394a4b1d991"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/KarlssonResidualLeaf01.lean",
+          "sha256": "e711bd907d6f392321d4f2523997d8cfe69cebedf62367a5e9fe998f4f443e07"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/InfiniteFibreRegular.lean",
+          "sha256": "47a143a7dd668962cd6cccad1bf61a6cde8c9061f165e9bd9507984dfd3759b0"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/TaoAtlas.lean",
+          "sha256": "cc41ca4f3ba1b97b09af8feff7d5545a55ecdd5ee85babed4d7c6123020d61e2"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/KarlssonResidualLeaf1110.lean",
+          "sha256": "cbba9a8fe2e7a29968653fb93e2d919a33b01cc425a9aa309ef3859c50a86ba2"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/DependentAlgebra.lean",
+          "sha256": "89d05a0c20671fa6582c92f1999c525ac53148eebfea30c08b7e0994a371c503"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/BlockCompletion.lean",
+          "sha256": "5fa386752747e883cba63f6cd955f4a376cb2a7ed2515b6de2f86eec57176199"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/H2CoreCaseAnalysis.lean",
+          "sha256": "c5fd42b7597e06c08af34c25eb15a3d5193f38015c64dd2cf305cdb855b1d137"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/PaperTheorem.lean",
+          "sha256": "18a2899315d89e80355869b7f7b320b9c8bcdaf777290270466cd449e0ffd582"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/FourierSeamCertificateFormulasC1.lean",
+          "sha256": "d4509001ae38c9a3bf6def82cf9cfe5f8fad9a0331f38ca1d1ae931c2d34b6ae"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/FourierCubicCasesPOmega.lean",
+          "sha256": "b44da844b9b7b680006064c71fda4e77f7d1426dd5e80d9561ebc3732edaa2fc"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/BlockFibreNormalizedOutcome.lean",
+          "sha256": "6058a92552a005c5c3f9e9000360835de34c0f76b4d006990c4dab55479230a3"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/FourierCoreFromNormalization.lean",
+          "sha256": "608603e6c35d599b566c21b1c15cbfc65e080235342de55b7bb236715d4cde4a"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/FourierCubicTaoCases1.lean",
+          "sha256": "235ccfd3874a19a49874aebf0913676bbae31cb673040472460055d024ce2e17"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/H2KarlssonCore.lean",
+          "sha256": "3ef95ca96889454643ca6fd5652a457d770003112682575dcdbd253922864569"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/QuotientEndpoints.lean",
+          "sha256": "77ddab1f9e8f7413bc80ce80fad1798f82e3b125dfefb0552746a05a2bfaa981"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/FourierCubicCasesPOmegaSq.lean",
+          "sha256": "a995d366fd5ff8bdde17359477ae3a6f2f365e04e3df396ce71e7ec21384c1ec"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/FourierCoordinateAllocation.lean",
+          "sha256": "755a1a9e226c560f62f139ba9dc2fc41aa80f05ffc8b55a742da0642ee56aa21"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/FourierAutocorrelation.lean",
+          "sha256": "c69f3b856de73060ea825ee313e5f49945d5b18c5badd10462603e64222c0cc0"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/KarlssonWitnessResultant10.lean",
+          "sha256": "67f0b12c5479137b611f34673cdcf412f641e2ac8187300ac41aafe9d4c29a9b"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/DependentBranch.lean",
+          "sha256": "6b2cabe11590848fd08e6bfc8d60aef3dc3659fb5ed477c8fdd41adb83a60d68"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/IntrinsicKarlssonSeam.lean",
+          "sha256": "6eb294cb61b4159d530db7f10a9d2700601fa66a812e97cfcab6fc302b7ec2d9"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/AllocationToMobius.lean",
+          "sha256": "b2f2eb9324304e9923d95731419918e0f5e317a734f740ecdf526f77a5b02c8c"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/FourierCubicTaoCases0.lean",
+          "sha256": "c471ffc165464ce8be33338ebe0113e81625187ca949e7e0d62b608bf842ed53"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/FourierCubicAssembly.lean",
+          "sha256": "dd9522c43bc7aa1a0a6580c2450c4fc082dc7402b4f663f56dce37cd41f65048"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/FourierSeamCertificateFormulasC0.lean",
+          "sha256": "16ed31ee524431c84e3bcccbdcbaa1c960da0d28c360495d76dde7b62ea4e72a"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/ConcreteClassification.lean",
+          "sha256": "35017b21c9c885d0773879c6e4f8d5539c5347c74bb1ea36ab498e06788a4519"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/FourierBlockCoordinates.lean",
+          "sha256": "b9180941d201c765a3494ff94ff50ffaa35cb50cb5df323b235a6711fb289be0"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/KarlssonChartBoundary.lean",
+          "sha256": "667825d01c774149d49dca6ebcdc02c4d33b45a088c39ef22fa53a22affa83f1"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/H2ExceptionalSeamAlgebra.lean",
+          "sha256": "64a0a4410a3e421367673382caefe69f9353fb8539d8b780e847d146926730c6"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/FourierSeamCertificatePullbackB0.lean",
+          "sha256": "80242891efa800d02cc95dec9bb5b63ed59ccf0f8ba3ad44c6722dce5f0b6088"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/FourierSeamCertificatePullbackBswap0.lean",
+          "sha256": "915dfc13a6d040509fff3632a9311205ec0a6709be89b15b18a61188b4a61a9a"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/FourierNormalizationClassification.lean",
+          "sha256": "c0a1c6d516086cc0ac613cc715dce5141079ef543a909246a9c77a2ceb6dbdaf"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/KarlssonResidualLeaf1111.lean",
+          "sha256": "9f69189f1d2695f26974094c0278ce2f480a7ecc7ec95306f45156f20d600b96"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/FourierCubicClassification.lean",
+          "sha256": "5b82ac4a3e8b30b2945f250bd85c88121ebaafeee1492aa6d6c14355130f9b9e"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/KarlssonWitnessResultant6.lean",
+          "sha256": "a42b971444eda79269dc0e076e367aebfeaf7f4457aed632c5cff1d72d92985e"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/FactorAllocation.lean",
+          "sha256": "874c61e65e476105ee4f7db2032792ab9415755ac81cd17fb7e6922d8f097cbc"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/FourierSeamCertificateFormulasC.lean",
+          "sha256": "0b4c577c08e9f388788b39d30f14d206c608a812fabd8ebe79599e133f024112"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/KarlssonResidualCayley.lean",
+          "sha256": "5bf64f4908327f4818a111c0e2546cdd3c24eeb662a486c5d993607e9e500dbb"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/H2RawPairSigns.lean",
+          "sha256": "abc774ad3df70a56ef8276cde6431b5fd2706a54e49d6d5b26b3bdd457e2c483"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/FourierSeamCertificatePullbacksB.lean",
+          "sha256": "54b495c695be2becc4c40586741909158474f07077749fd4c5c0aebdfd7f78bd"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/FibreSymmetry.lean",
+          "sha256": "0356fb89afe51b45c07fc5e651f052dd4f16b9a78fce84c209daf4b20fe43e0e"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/KarlssonWitnessResultants.lean",
+          "sha256": "ba1b2f925f97c8d4c64d354f4a911c5ebe6b8d73582915b3acc2f29d61588fc9"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/H2ExceptionalSeamDiagonal.lean",
+          "sha256": "91a1f9e777bcc8a5c83c0c13d2e54934a8bd9ff4d4147d157be2bfc986a23436"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/FourierSeamCertificate.lean",
+          "sha256": "ff13af303a14bbfee2755d0bc2f6190acb248178993f4741e7ad084f3bc4ea5f"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/CandidateFibre.lean",
+          "sha256": "d9b3572ff47947a3723313be7de473816ae9152b8b92b34325cf26b4e0292725"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/EquivalentStrata.lean",
+          "sha256": "65b1e737aaa2c1cf532225ebaeaddcb2bb6c57ee76a2e3e05cc9d6931ad3df7c"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/QuotientAllocation.lean",
+          "sha256": "1a2531aec61bcae3b3bfbd0550ea6e0785397b47231e0a95509a2bb0b313c798"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/BlockPermutations.lean",
+          "sha256": "42bfb49854a2919f02ddf600cf040ee81e90f46bf0362f187f61e1a5b40198d1"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/KarlssonResidualLeaf1100.lean",
+          "sha256": "ac74b1026f16e9f108b214ba67ba3f1f5223410a23199be111b66f3eafa36ffb"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/Classification.lean",
+          "sha256": "beb921476d91743b2233c53310be06acde7b7968894a1068b583a1456282b3dc"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/KarlssonResidualLeaf10.lean",
+          "sha256": "0cf7cc817814e3789ccf567b620ddd477d070725946c6ee5f6d32a59d7ac022a"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/FibreGauge.lean",
+          "sha256": "b9026d2c82f8d3ffd85c7def02b2b0cf50d2e76a399d328b9678ad5d743fc6b0"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/KarlssonResidualLeaf1101.lean",
+          "sha256": "c3b7a6e26bf2ecd5bfa0a5f85c8eda93b4025dc077a35b432b4087fd9b3a909a"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/FourierSeamCertificateZeroCasesB.lean",
+          "sha256": "ce4da0d934bf495baa89dc2b8f0782d37848a1b3d6e5c93aadbc53099323bec4"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/Strata.lean",
+          "sha256": "04f45e5377bda5fbd98bd1a7c338e489a65684718ce63f3184a6c03c1d2ffe34"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/ModulusIdentity.lean",
+          "sha256": "8864995e75f0fd4366c512ede2451c5227701134e37c70a0ef444e4352024cd6"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/FourierNormalForm.lean",
+          "sha256": "cb3d28c8398ac200774539c4d78b6c5a055c7a355545e374e7051c362075c71f"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/QuotientMobius.lean",
+          "sha256": "cb6627a3c299ea3e9f3d3365b75d08828d9df7e3da55393f36aeb51c4257f15d"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/H2ExceptionalSeamCommonAlgebra.lean",
+          "sha256": "81415ecef6650e379b7d1bec2451c75e79b49034ba28ab5b473859a169f8d435"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/HadamardThreeFourier.lean",
+          "sha256": "d706f9e801847dc84a87b408dca6193e5c9328b2ec1965f3df3213a13e688fc2"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/KarlssonCayley.lean",
+          "sha256": "6f71972473be53539c53291f96a78ddcc5c3b0d2102898f7503f4ca276ed1cba"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/FourierSeamCertificateAlgebra.lean",
+          "sha256": "5b321bf4e9a8e74d1a5833b5bf1840ef64a50f5abfaa5aed18519a51e8d49076"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/Basic.lean",
+          "sha256": "3103079b18ae8340e5b544a85a68c19bc0ea6558070bb8e82ce92f16a4e6a5d4"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/H2KarlssonParametrization.lean",
+          "sha256": "cc560555855f881200a36259426d5bb8d937d88b306eb1957a263600f233e6f1"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/KarlssonFourierSeam.lean",
+          "sha256": "f776baf0a24b76742ae447c8b9cc5f87eea63364197f62613c411b0773607539"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/HaagerupFromFibre.lean",
+          "sha256": "85df946b9fa4ce7ec028d623e45dd5e827dfb0738fda37aeb0203269c21673d8"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/FourierSeamCertificateExceptional.lean",
+          "sha256": "92c5097d4c3aea6b202a1f3d612ec4e165556c5c14ab5111c064b3b82c5eced8"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/BlockSwapTheorem.lean",
+          "sha256": "3cbdd6e53d8221e7753a83dbfce7b0196a27858bce069b1c4dbf70f800578dae"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/UnitSymmetric.lean",
+          "sha256": "5ed76b4074e68e175002430f951615ae7eb82c527df97a78368852d87b096a49"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/FourierCubicCasesPOne.lean",
+          "sha256": "2be2094628f4c083f7028a3407331805fe701752300a251d7be25d77927c2c44"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/BlockSwapInfiniteSquare.lean",
+          "sha256": "461e421ea9f8d19fef780364d2e16771ff7a549baafa4af99a29256d8ebcb108"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/H2ExceptionalSeamCommonEquivalence.lean",
+          "sha256": "b3f91e35b8aedd95f52dd39dff47a527cec4c9ddc2450d9ebf086f60c1d7be94"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/FourierSeamCertificateFormulasB.lean",
+          "sha256": "c107551651f010364c63891da98aca7c8db95264f7a07df507588740a7a4818c"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/BlockOppositePair.lean",
+          "sha256": "fb2903788d4ce9e8b09791a99934d3e94be40b4b98d7e2e2eb11d60c6be3fdb9"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/InfiniteFibreExceptional.lean",
+          "sha256": "eb49099e4b2a58151408aba6c208901f655fd7703037dc6684f8166843de1cbe"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/VanishingMinorReduction.lean",
+          "sha256": "742fde41cdd2e64d6fc246e2de3b4af42b2c50a1f4917756ab6e467cff23c0bc"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/HadamardQuotient.lean",
+          "sha256": "5f94e3faaebc6005f64df28662d3be891001d91e7fb2d3559889b21f75ca9f50"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/FourierSeamCertificatePullbackC3.lean",
+          "sha256": "5e191b69b1044cd585dc73bb376ef59520812c33a80e16020cf9500244c49509"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/KarlssonResidualCertificate.lean",
+          "sha256": "d2b62bf126abd1762b744d4a9ee53b6ca76561425a962f11c7b868a1a662501f"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/FourierSeamCertificateZeroCasesA.lean",
+          "sha256": "736ed8a073f9b0a3cfb5dcd5e3e2248311a54e2b6e0d49eb69f12efb4e1f191d"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/FibreNormIdentity.lean",
+          "sha256": "d68241448b78e31c08b5eb1c1428f78f58a003145640edb1f16b53d8a6049194"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/LeadingFibreCriterion.lean",
+          "sha256": "16942562cf1cc0f3c45acca5cdbedf8ec0d7b0c27f9e513f1a0343e9d551f118"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/FiniteCornerConsequences.lean",
+          "sha256": "23fb23374e1cd2ade69e896479dc9fc5d6447958529b8dbfa08d651000b2465c"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/KarlssonMixedBlocks.lean",
+          "sha256": "c90262a9616bd7db37e898bf5aa14bf61d16ebf1109ba0ca977c235df8cc2692"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/KarlssonResidualLeaf0011.lean",
+          "sha256": "2725eead6f78fe0d56b82328a69c437d821be072142e4d3d8d92c60dac1bb064"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/H2ExceptionalSeamScalarEquivalence.lean",
+          "sha256": "732f18fa10768e2c1ec1eba8d445b77b5a59da9b96937c4b5aed5339453e76b6"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/DephasedFiniteCorner.lean",
+          "sha256": "fbc484aa83cb11c8a7adb7cd7b9a65526d989e1918d8902fb53beb94b9822f97"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/FourierChartAssembly.lean",
+          "sha256": "4e58e081fefdeb15198b189d9bda97037ad08dbfdcfee4686a3de828e70f6386"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/FourierUnmixed.lean",
+          "sha256": "c32c150d5c8da74031453e7be6a3624b1107b234b10a6880c4cd8079ff44f061"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/KarlssonResidualLeaf0010.lean",
+          "sha256": "9db4f92d2990382732a6d79543d8b33eafcf60dc90ba8ff3e4434f1036c4b4d6"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/KarlssonContainment.lean",
+          "sha256": "1bc7fa7fe5c755eaddd4cb032d57d1a200cfb7d5831c3a7b2bf7b99f2f5d0a75"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/BlockNormalization.lean",
+          "sha256": "ad19a2c23e7c04a4a6ccfecf6d4fc629e960c84f27059018079c9bc644fd5d67"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/FourierForcedCompletion.lean",
+          "sha256": "28c8b5302f9723dd7348336c1243f3b4450fc0146dbcf2b1c26f559f5106ae04"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/PhaseEquivalence.lean",
+          "sha256": "6497192001067e64e9d47c432ed8c73a4299f0c90c444e71a56acf919bf428e9"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/KarlssonQuadraticResultant.lean",
+          "sha256": "66731ff883d4fc3f6959609b6f6bf119c138851ff0b2eb39be08bda1d49d81cd"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/FourierSeamCertificateBoundary.lean",
+          "sha256": "3e415fa67c39a020443a0cc37b1a8e1c3a2fd380486f5012c865ca9629dae6ba"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/ExceptionalFibre.lean",
+          "sha256": "2147fe10a85c8e45644c6dd021a2cb77623aa4427ae76757d9c2d68bdcfc748c"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/FourierSeamCertificatePullbacksA.lean",
+          "sha256": "29b18a4633c2e925d49453d862bff06baa49f32ae35098196c2bae8bf3b19abe"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/H2BlockNormalization.lean",
+          "sha256": "5cdd1da5a133b6f4172689cf1b57baec745df2418a0fe47fca6be261a6e21837"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/TwoCircle.lean",
+          "sha256": "b9c3c9958e8062e83c38d22beb98235fee13fd480c1b6f92a1d3bb3c5c4b90f4"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/QuotientReal.lean",
+          "sha256": "ebe67f394d98ecabdab04c1e51cc39cade9e640054f04772078b80c1642746b2"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/InfiniteFibreTrichotomy.lean",
+          "sha256": "f72f23e74caafb8976ec3938840a1745bdc8efc184fc9ce885c5fed7799279fa"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/KarlssonWitnessPolynomials.lean",
+          "sha256": "3d366acfff18346a91ad6d720be77aec6adaa4b080a11bf8611d1a856bd15a26"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/FiniteDilation.lean",
+          "sha256": "81bf8e0002e08ef0f69ab59f2b66071eb38b6fe595ae8bcd95dabea75a7fb627"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/KarlssonResidualGlobal.lean",
+          "sha256": "592531579f9e3dfce00eb5c2769f68ca8f0459f6961f7ccec5c7545030411775"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/KarlssonResidualLeaf0001.lean",
+          "sha256": "ab33c12a9e1804a2eaf921bce61f0983f731342c8c2e4dd425db43279e63259c"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/BlockSwapMatrices.lean",
+          "sha256": "9c9f4a29f1969320174ce801ba1b0f46d5d9c5424ff76985181e911f1ad57722"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/KarlssonParametrizationStatement.lean",
+          "sha256": "3d45fdb6249272151928f6540da7383b81a669d610ee8a32acbc46f16d46ae7e"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/QuotientAlgebra.lean",
+          "sha256": "e771892e157ec91624d5fe1dada562bb43651696a673e0bc4fb08c5c640b03ed"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/KarlssonWitnessBounds.lean",
+          "sha256": "dfb8bac14dabd7fc91d9e684662dfd23d561cc95a31c38a389273e422bd2f008"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/GramInvariant.lean",
+          "sha256": "c96f0f6a4992b5894317de3f0173e1e24ab8a845ff6685d17ff914eb33d544fb"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/H2DegenerateNormalization.lean",
+          "sha256": "644056fe18e5b5781c11976227f04802e5aa1becd2e34d3609383fdf0f425f49"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/Blocks.lean",
+          "sha256": "9a4ed7ae93a513b5893f376e79069a8cb669d940df2b7dcf4f2a7948f0d0e78b"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/BlockSwapCore.lean",
+          "sha256": "122d8bf430e86f755a6d3fb9bc35b4fb77831ade43ed0acd093cabcdb8fdc34c"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/KarlssonWitnessResultant8.lean",
+          "sha256": "9d085a8bc9c819ceaaf74005b179c66b8aa5e3bfbb4c24130d5b73fff846d85f"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/NormalizedBlockOpposite.lean",
+          "sha256": "0a7589e301e896f41f8f8f00525f2c8badb4d5398953d258809356118a5ff085"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/FourierCubicTaoTable.lean",
+          "sha256": "94d0e1c0329d2f6b3f02eb6a4fa7d0d556f82f33e3e5dd24c167acc640044730"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/FourierCubicTaoCases2.lean",
+          "sha256": "1b367df3291176400485c89fbc58f5e609c76836c1f9510d4e5a941011993dd2"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/FourierCoefficientFormulas.lean",
+          "sha256": "bcea86d2a17dd54c6d889d7359e1c988cc98659fa2ac1dbd353b5f1c740eb204"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/CubicRoots.lean",
+          "sha256": "00ce2ce0901d261f02a6538a71596d995fc78fe4074d3ba55286cb0622548338"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/QuotientGoodRow.lean",
+          "sha256": "0ffff87363d96b42185cc6224207dc2a0fb7dfe57ad2ea35e66f4e68bd8274b3"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/KarlssonResidualCompactification.lean",
+          "sha256": "178a03e358822cdda59f56ea0933166d81f89426f6274b698948154cfac78a32"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/ColumnFibreSymmetry.lean",
+          "sha256": "0329c890443172582d13466aa327c2573c5cfcb917a898bdee47c7892e675b12"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/KarlssonWitnessResultant4.lean",
+          "sha256": "92f6af3c0b4ae36533651f486c02c22e071143fedee099c7e044bdf6a673dc1c"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/FiniteCornerFromBlocks.lean",
+          "sha256": "fe72eebb9738b657ef2a91ecf0c87b02e7a8ebd5c5662e55933a3f4a6365de04"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/KarlssonResidualLeaf0000.lean",
+          "sha256": "2b618132e257cd70d2293e733b54d7c1c5fcaa104dd822b873b6d24ee21a6e30"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/KarlssonResultantNonvanishing.lean",
+          "sha256": "71693df576617097a2c33586476f4a0d1dfc2c79a4075a89ef696cd206f6e84f"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/BlockGram.lean",
+          "sha256": "1d11ea4728234715ff90bdbc68e2541706832b0c525ec7373a167c79c9837264"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/DependentFourier.lean",
+          "sha256": "89ca94291587868c5746dc128a2028afce2acafe5c05580747a36e9f3809dbd1"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/TaoOrbit.lean",
+          "sha256": "20f4f5d5a875b4aed2a29f21979880e335793a8af43fd191a8a48d483c17ce34"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/KarlssonGlobalModel.lean",
+          "sha256": "74050d1e8eee471ed9963a5bca90e4c0a5be01158a1efb3e7ac42ddce34e0e4e"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6/SimultaneousFourierNormalization.lean",
+          "sha256": "aa8f05efc1b771f419c134e2dbea8b4d368e8844d635c6c29f78777f727c3b17"
+        },
+        {
+          "path": "lean/upstream_hadamard6_formal/Hadamard6.lean",
+          "sha256": "c43a3addf5b79b269e7798c1c77540d7833e1791d9fd7bbcc30afa8c6571862a"
+        }
+      ]
+    },
+    "nofourmubs": {
+      "all_lean_sources_identical_to_input": true,
+      "file_count": 9,
+      "files": [
+        {
+          "path": "lean/nofourmubs/NoFourMUBs.lean",
+          "sha256": "bbb1b56fd72404bb058e747ed0db75e09ec910c01abb9b1adf8f5e2329a86517"
+        },
+        {
+          "path": "lean/nofourmubs/NoFourMUBs/Horizontal.lean",
+          "sha256": "f6582d4bc4dab5431b196f89a23805853c710ccc8d853a4d0c49d7c862a81d91"
+        },
+        {
+          "path": "lean/nofourmubs/NoFourMUBs/Skeleton.lean",
+          "sha256": "9b65acfe3292545bf3388c99d0bf173ea89ca32cd7990945cabc4ceb5373df90"
+        },
+        {
+          "path": "lean/nofourmubs/NoFourMUBs/Smoke.lean",
+          "sha256": "3d0fe4b57997253c448d24505adda5c84b744bad9389be11c0ad6e389222e6ef"
+        },
+        {
+          "path": "lean/nofourmubs/NoFourMUBs/Basic.lean",
+          "sha256": "8db9e2c83764946bef1de78c403f702d743e96b54ce0bede674c3162a8d4ac4d"
+        },
+        {
+          "path": "lean/nofourmubs/NoFourMUBs/Axioms.lean",
+          "sha256": "ed5bfdfa81070527f8fc29358cc36c3479bc5af619aeb8f50918cc4576b29da4"
+        },
+        {
+          "path": "lean/nofourmubs/NoFourMUBs/Transfer.lean",
+          "sha256": "363fbd6bc5cfddf5076a59a04ff06a8a3e844efc5c6bb2e4e2f2413bf0543a1d"
+        },
+        {
+          "path": "lean/nofourmubs/NoFourMUBs/Main.lean",
+          "sha256": "c427806c1a4ae062d8e746f0746b8dd105062adb6b6f133a2b901ac717fa3057"
+        },
+        {
+          "path": "lean/nofourmubs/NoFourMUBs/Invariance.lean",
+          "sha256": "24a13b0f722081e7e08176ffbf92fd5a4de56b527377679508be6de05b26ee1b"
+        }
+      ]
+    }
+  },
+  "configuration_change": "work/environment/nofourmubs_bundled_dependency.patch",
+  "scope": "source-byte identity, not a proof of the mathematical claims"
+}

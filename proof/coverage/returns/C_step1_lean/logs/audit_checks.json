@@ -1,0 +1,162 @@
+{
+  "status": "SUPPLEMENTARY_AUDIT_PASS",
+  "scope": "Existing mutation probes and selected cross-file source comparisons; not default acceptance.",
+  "checker_sha256": "c0ca1bc1a7870380570ff617736fcea203cd39805c504ac746857b8af0617198",
+  "mutation_mode": "--algebra-only in temporary directories without manifests",
+  "mutation_count": "14",
+  "source_comparison_count": "13",
+  "mutations": [
+    {
+      "name": "cofactor",
+      "certificate": "boundary_core.json",
+      "status": "REJECTED_AS_EXPECTED",
+      "exit_code": "1",
+      "rejection": "ValueError: polynomial identity failed: normalized_eliminant_Bezout"
+    },
+    {
+      "name": "derivative",
+      "certificate": "boundary_edges.json",
+      "status": "REJECTED_AS_EXPECTED",
+      "exit_code": "1",
+      "rejection": "ValueError: derivative failed: differentiate_horizontal_edge"
+    },
+    {
+      "name": "substitution",
+      "certificate": "boundary_edges.json",
+      "status": "REJECTED_AS_EXPECTED",
+      "exit_code": "1",
+      "rejection": "ValueError: substitution failed: positive_horizontal_edge"
+    },
+    {
+      "name": "bernstein_coefficient",
+      "certificate": "boundary_edges.json",
+      "status": "REJECTED_AS_EXPECTED",
+      "exit_code": "1",
+      "rejection": "ValueError: Bernstein identity failed: T_positive_full_edge"
+    },
+    {
+      "name": "bernstein_lower_bound",
+      "certificate": "boundary_edges.json",
+      "status": "REJECTED_AS_EXPECTED",
+      "exit_code": "1",
+      "rejection": "ValueError: Bernstein coefficient bound"
+    },
+    {
+      "name": "interval_gap",
+      "certificate": "boundary_edges.json",
+      "status": "REJECTED_AS_EXPECTED",
+      "exit_code": "1",
+      "rejection": "ValueError: gap in interval cover"
+    },
+    {
+      "name": "interval_mixed_polynomial",
+      "certificate": "boundary_edges.json",
+      "status": "REJECTED_AS_EXPECTED",
+      "exit_code": "1",
+      "rejection": "ValueError: interval cover mixes polynomials"
+    },
+    {
+      "name": "root_sign",
+      "certificate": "algebraic_numbers.json",
+      "status": "REJECTED_AS_EXPECTED",
+      "exit_code": "1",
+      "rejection": "ValueError: decreasing isolation failed"
+    },
+    {
+      "name": "root_endpoint_value",
+      "certificate": "algebraic_numbers.json",
+      "status": "REJECTED_AS_EXPECTED",
+      "exit_code": "1",
+      "rejection": "ValueError: incorrect endpoint evaluation"
+    },
+    {
+      "name": "compact_source_coefficient",
+      "certificate": "endpoints.json",
+      "status": "REJECTED_AS_EXPECTED",
+      "exit_code": "1",
+      "rejection": "ValueError: structural-to-compact identity: chi"
+    },
+    {
+      "name": "field_power",
+      "certificate": "endpoints.json",
+      "status": "REJECTED_AS_EXPECTED",
+      "exit_code": "1",
+      "rejection": "ValueError: algebraic field power"
+    },
+    {
+      "name": "duplicate_orbit_coordinates",
+      "certificate": "endpoints.json",
+      "status": "REJECTED_AS_EXPECTED",
+      "exit_code": "1",
+      "rejection": "ValueError: orbit coordinate"
+    },
+    {
+      "name": "missing_lift",
+      "certificate": "endpoints.json",
+      "status": "REJECTED_AS_EXPECTED",
+      "exit_code": "1",
+      "rejection": "ValueError: complete lift-to-orbit equality"
+    },
+    {
+      "name": "field_modulus",
+      "certificate": "endpoints.json",
+      "status": "REJECTED_AS_EXPECTED",
+      "exit_code": "1",
+      "rejection": "ValueError: endpoint field specification does not match checker arithmetic"
+    }
+  ],
+  "source_comparisons": [
+    {
+      "name": "trace_to_boundary_u",
+      "status": "PASS"
+    },
+    {
+      "name": "trace_to_boundary_v",
+      "status": "PASS"
+    },
+    {
+      "name": "trace_to_boundary_w",
+      "status": "PASS"
+    },
+    {
+      "name": "boundary_R_to_edges",
+      "status": "PASS"
+    },
+    {
+      "name": "ambient_normalized_B_slice",
+      "status": "PASS"
+    },
+    {
+      "name": "ambient_to_transverse_coordinates",
+      "status": "PASS"
+    },
+    {
+      "name": "cusp_factor_to_transverse_factor",
+      "status": "PASS"
+    },
+    {
+      "name": "boundary_Delta_to_cusp_Delta",
+      "status": "PASS"
+    },
+    {
+      "name": "geometry_Delta_to_cusp_Delta",
+      "status": "PASS"
+    },
+    {
+      "name": "curvature_polynomial_to_secant_capture",
+      "status": "PASS"
+    },
+    {
+      "name": "isolated_y_polynomial_to_capture",
+      "status": "PASS"
+    },
+    {
+      "name": "normalized_SOS_to_actual_base_Hessian",
+      "status": "PASS"
+    },
+    {
+      "name": "endpoint_q_satisfies_2q2_minus_q_plus2",
+      "status": "PASS"
+    }
+  ]
+}

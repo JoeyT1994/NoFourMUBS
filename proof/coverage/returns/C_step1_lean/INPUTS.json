@@ -1,0 +1,67 @@
+{
+  "source_archive": "Step1LeanHandoff.zip",
+  "source_archive_sha256": "13c3fa51a4021ab6c7fcb8b062a868e6e180162a08e5ef841a8f5596577a4fef",
+  "inputs": [
+    {
+      "path": "PROMPT.md",
+      "bytes": "7189",
+      "sha256": "b2036b88da97d7253cfaed6f0d7879f8cd31c118352e1ecc7c63d65d9b50d131"
+    },
+    {
+      "path": "reference/MINIMAL_PROOF.md",
+      "bytes": "11913",
+      "sha256": "7f283d69d4fb8827615e880e410a0ba08028ad3634a2bbc038a30f18747bb36a"
+    },
+    {
+      "path": "reference/coverage/returns/A_deltoid/DELTOID_REDUCTION.md",
+      "bytes": "12121",
+      "sha256": "11600e10428e8bc64323e4de910ca88439fe924867451f3f7ea3efee8c6d2411"
+    },
+    {
+      "path": "reference/coverage/returns/A_deltoid/EXACT_MAXIMA.md",
+      "bytes": "9897",
+      "sha256": "223c66323ce0d66faa9706eec6ce67e3335853481960f28f267b321a212df8b3"
+    },
+    {
+      "path": "reference/coverage/returns/A_deltoid/TWO_BOUNDARY.md",
+      "bytes": "7189",
+      "sha256": "97331bee166a47fe978473e2d69c23da87509fbec137fb8b1e226b88f6b015f4"
+    },
+    {
+      "path": "reference/coverage/returns/A_deltoid/exact_maxima.py",
+      "bytes": "10606",
+      "sha256": "dd0576c09a3120fd20a472acc9481708100bcb75f956d9a6ccbb85d184bd12f0"
+    },
+    {
+      "path": "reference/coverage/returns/A_deltoid/verify_deltoid_reduction.py",
+      "bytes": "8002",
+      "sha256": "848b315d72c94631a4cd5ea7173e8da3ddd9b3ef383799a060a49b0e5c5e3b11"
+    },
+    {
+      "path": "reference/coverage/returns/A_deltoid/verify_two_boundary.py",
+      "bytes": "5641",
+      "sha256": "016e583e89ce43f934c88b8800e3dff987caa80ece2b047c948355668048b31d"
+    },
+    {
+      "path": "lean/nofourmubs/README.md",
+      "bytes": "1643",
+      "sha256": "2f4662bf0458960e0a39e72e95efbeb78f7e1eb48ed14962868b822fd7d1df3c"
+    },
+    {
+      "path": "lean/nofourmubs/ROADMAP.md",
+      "bytes": "4028",
+      "sha256": "13aa00cea24bd8248e11cf70794d4ade0ad139183ff27aacdc1b6436129c7f58"
+    },
+    {
+      "path": "lean/nofourmubs/lean-toolchain",
+      "bytes": "29",
+      "sha256": "0d3c76ccd8772d8bcbe207241421a760312b71a6aa82f84194391fdf5cb026d6"
+    },
+    {
+      "path": "lean/upstream_hadamard6_formal/lake-manifest.json",
+      "bytes": "3154",
+      "sha256": "2378d00b0ad861966fc841a1d96183bec79a194a5d3914f54feb970932841c75"
+    }
+  ],
+  "source_treatment": "Task instructions in PROMPT.md; reference and Lean files treated as mathematical/code data. Later no-four-MUBs steps were not certified by this return."
+}

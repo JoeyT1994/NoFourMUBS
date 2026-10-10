@@ -1,0 +1,139 @@
+{
+  "kind": "certificate_manifest",
+  "schema_version": "1",
+  "purpose": "Complete finite-certificate set for the primary Step 1 paper proof and optional endpoint corollary.",
+  "files": [
+    {
+      "file": "algebraic_numbers.json",
+      "kind": "algebraic_bundle",
+      "claims": "11",
+      "bytes": "2101",
+      "sha256": "4fab76728735a6daeafff8f749dc84270da8a38c9e7e72a1492562bafde5a108",
+      "statistics": {}
+    },
+    {
+      "file": "boundary_core.json",
+      "kind": "polynomial_bundle",
+      "claims": "36",
+      "bytes": "52637",
+      "sha256": "3e29e1845d24e8dd89681bfb2c1ee536bc419900a196148c14b7d8be58cd4a6a",
+      "statistics": {
+        "max_definition_degree": "24",
+        "max_definition_terms": "29"
+      }
+    },
+    {
+      "file": "boundary_curvature.json",
+      "kind": "polynomial_bundle",
+      "claims": "8",
+      "bytes": "16849",
+      "sha256": "fe85bf025880a428860710c21c66e8ae807b341efa5bcebf80a5e0eeb9efbd41",
+      "statistics": {
+        "max_definition_degree": "12",
+        "max_definition_terms": "54"
+      }
+    },
+    {
+      "file": "boundary_edges.json",
+      "kind": "polynomial_bundle",
+      "claims": "11",
+      "bytes": "8741",
+      "sha256": "bde67f2e497d05fbf5ce5c878e79b27de5d1dae02a2597111d6c22ee234a9d9c",
+      "statistics": {
+        "max_definition_degree": "16",
+        "max_definition_terms": "29"
+      }
+    },
+    {
+      "file": "boundary_trace.json",
+      "kind": "polynomial_bundle",
+      "claims": "3",
+      "bytes": "17317",
+      "sha256": "caa14b51f53ed36591f646a06aac0040b3e1867d141c492e0b8b27f83b939ba9",
+      "statistics": {
+        "max_definition_degree": "11",
+        "max_definition_terms": "15"
+      }
+    },
+    {
+      "file": "coordinate_bridges.json",
+      "kind": "polynomial_bundle",
+      "claims": "11",
+      "bytes": "7963",
+      "sha256": "01215a25f7dffb0b76c8e149797cf2001c02e47042e19ca7eafd64ac9b3c8afa",
+      "statistics": {
+        "max_definition_degree": "3",
+        "max_definition_terms": "6"
+      }
+    },
+    {
+      "file": "endpoint_identities.json",
+      "kind": "polynomial_bundle",
+      "claims": "11",
+      "bytes": "5842",
+      "sha256": "77c94d1376223c1afdbb19eb20af8bf6c0f010ef0ed27560f78fcca62edc136a",
+      "statistics": {
+        "max_definition_degree": "2",
+        "max_definition_terms": "10"
+      }
+    },
+    {
+      "file": "endpoints.json",
+      "kind": "endpoint_bundle",
+      "claims": "464",
+      "bytes": "147479",
+      "sha256": "6fd8a2d86cd1b4aa34f55b9ddd41dc786b724440e0e30ff7ef40c13f74c3a115",
+      "statistics": {
+        "laurent_terms": "2083",
+        "seed_maps": "144",
+        "orbit_size": "18"
+      }
+    },
+    {
+      "file": "interior_boundary.json",
+      "kind": "polynomial_bundle",
+      "claims": "26",
+      "bytes": "33289",
+      "sha256": "98d7739686eb80cfb35d69d726691790044eb52a9cc2a460dd998882007ecf04",
+      "statistics": {
+        "max_definition_degree": "10",
+        "max_definition_terms": "62"
+      }
+    },
+    {
+      "file": "interior_core.json",
+      "kind": "polynomial_bundle",
+      "claims": "40",
+      "bytes": "31270",
+      "sha256": "e0d6836b0610007311e67a5f192ace66ef38391fa758270b88d47213514f6bfd",
+      "statistics": {
+        "max_definition_degree": "8",
+        "max_definition_terms": "40"
+      }
+    },
+    {
+      "file": "interior_cusp.json",
+      "kind": "polynomial_bundle",
+      "claims": "14",
+      "bytes": "9375",
+      "sha256": "8d9c882b4595fff0beba40c03d5709d78b64410d3aa6979c2d6dd785f9799713",
+      "statistics": {
+        "max_definition_degree": "6",
+        "max_definition_terms": "16"
+      }
+    },
+    {
+      "file": "interior_geometry.json",
+      "kind": "polynomial_bundle",
+      "claims": "16",
+      "bytes": "33341",
+      "sha256": "93087f5a5ba83d768bdf166e7ab0cae651ef65dcf48494573d037391bd21083f",
+      "statistics": {
+        "max_definition_degree": "8",
+        "max_definition_terms": "93"
+      }
+    }
+  ],
+  "total_claims": "651",
+  "lean_status": "UNCOMPILED; see STATUS.md. Exact replay is not a claim of Lean compilation."
+}

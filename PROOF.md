@@ -141,7 +141,7 @@ By Step 4 and the Corollary to Step 2, every class in X lies in some ball Record
 
 | Input | Used in | Status |
 |---|---|---|
-| The classification [CT], via MC1–MC5 | Step 2 only | Proved relative to [CT] in [`MinimalConstruction/Proofs`](MinimalConstruction/Proofs/README.md), the current status. The "remains open" lines in `ASSUMPTIONS.md` are a hash-pinned historical section. [CT]'s exceptional Karlsson class H_cross is covered (MC1, MC4); see [`proof/LITERATURE.md`](proof/LITERATURE.md) |
+| The classification [CT], via MC1–MC5 | Step 2 only | Proved relative to [CT] in [`MinimalConstruction/Proofs`](MinimalConstruction/Proofs/README.md), the current status. The "remains open" lines in `ASSUMPTIONS.md` are a hash-pinned historical section. [CT]'s exceptional Karlsson class H_cross is covered (MC1, MC4); see [`proof/LITERATURE.md`](proof/LITERATURE.md). **Open point (10 Oct 2026):** MC4's nonmatched converse (`NONMATCHED_EXCEPTIONS.md`) imports [CT]'s *necessary* affine-minus matching (PR-M: a physical product-regular completion uses the minus pairing). [CT]'s supplement (`prop:supp-generic-flatness`) proves only that the plus residual F₊ is not identically zero, not that it is nonzero at every physical product-regular point. Until PR-M is proved, MC4–MC5, and hence Step 2, rest on that statement. See [`AUDIT.md`](AUDIT.md) |
 | The Stage C inequalities (after [OAI] §6) | Step 3 | Proved in [`proof/atlas/STAGEC.md`](proof/atlas/STAGEC.md): elementary Taylor and Cauchy–Schwarz bounds |
 | Computation | Steps 1 and 4 | Exact (Step 1); Arb plus margined binary64 (Steps 3–4) |
 

@@ -1,0 +1,227 @@
+{
+  "status": "PASS",
+  "exact_arithmetic": "Fraction for raw expansion; integer polynomial coefficient checks",
+  "identities": [
+    {
+      "identity": "Laurent-0",
+      "status": "PASS",
+      "lhs_terms": 21,
+      "rhs_terms": 21,
+      "residual_terms": 0,
+      "cofactor_terms": 0,
+      "clearing_denominator": 1,
+      "clearing_monomial_exponents": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "identity": "Laurent-1",
+      "status": "PASS",
+      "lhs_terms": 21,
+      "rhs_terms": 21,
+      "residual_terms": 0,
+      "cofactor_terms": 0,
+      "clearing_denominator": 1,
+      "clearing_monomial_exponents": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "identity": "Laurent-2",
+      "status": "PASS",
+      "lhs_terms": 21,
+      "rhs_terms": 21,
+      "residual_terms": 0,
+      "cofactor_terms": 0,
+      "clearing_denominator": 1,
+      "clearing_monomial_exponents": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "identity": "Fourier-1",
+      "status": "PASS",
+      "lhs_terms": 6,
+      "rhs_terms": 9,
+      "residual_terms": 13,
+      "cofactor_terms": 9,
+      "clearing_denominator": 9,
+      "clearing_monomial_exponents": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "identity": "Fourier-2",
+      "status": "PASS",
+      "lhs_terms": 9,
+      "rhs_terms": 15,
+      "residual_terms": 22,
+      "cofactor_terms": 14,
+      "clearing_denominator": 9,
+      "clearing_monomial_exponents": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "identity": "Fourier-3",
+      "status": "PASS",
+      "lhs_terms": 7,
+      "rhs_terms": 13,
+      "residual_terms": 18,
+      "cofactor_terms": 6,
+      "clearing_denominator": 9,
+      "clearing_monomial_exponents": [
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        2
+      ]
+    },
+    {
+      "identity": "Fourier-4",
+      "status": "PASS",
+      "lhs_terms": 9,
+      "rhs_terms": 15,
+      "residual_terms": 18,
+      "cofactor_terms": 6,
+      "clearing_denominator": 9,
+      "clearing_monomial_exponents": [
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        2
+      ]
+    },
+    {
+      "identity": "Fourier-5",
+      "status": "PASS",
+      "lhs_terms": 21,
+      "rhs_terms": 71,
+      "residual_terms": 92,
+      "cofactor_terms": 80,
+      "clearing_denominator": 3,
+      "clearing_monomial_exponents": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "identity": "Fourier-6",
+      "status": "PASS",
+      "lhs_terms": 30,
+      "rhs_terms": 108,
+      "residual_terms": 121,
+      "cofactor_terms": 72,
+      "clearing_denominator": 81,
+      "clearing_monomial_exponents": [
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "identity": "Fourier-7",
+      "status": "PASS",
+      "lhs_terms": 10,
+      "rhs_terms": 29,
+      "residual_terms": 31,
+      "cofactor_terms": 19,
+      "clearing_denominator": 27,
+      "clearing_monomial_exponents": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2
+      ]
+    },
+    {
+      "identity": "Fourier-8",
+      "status": "PASS",
+      "lhs_terms": 21,
+      "rhs_terms": 39,
+      "residual_terms": 37,
+      "cofactor_terms": 19,
+      "clearing_denominator": 27,
+      "clearing_monomial_exponents": [
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "identity": "Fourier-9",
+      "status": "PASS",
+      "lhs_terms": 21,
+      "rhs_terms": 39,
+      "residual_terms": 37,
+      "cofactor_terms": 19,
+      "clearing_denominator": 27,
+      "clearing_monomial_exponents": [
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1
+      ]
+    }
+  ],
+  "certificate_file": "l2_polynomial_certificates.json",
+  "certificate_sha256": "5f13e7ac7a7e2587509a08abc434cf9184702d348ea962d9294207e0c4d31420",
+  "verifier_sha256": "e34ea9bc3b83cdf27006af5783c67051c91643bed9e0ac3fca243585cb3a8b2c",
+  "cofactor_equation": "cleared(lhs-rhs) = (omega^2+omega+1)Q",
+  "scope": "identities only; no L1 or global-reach certificate"
+}

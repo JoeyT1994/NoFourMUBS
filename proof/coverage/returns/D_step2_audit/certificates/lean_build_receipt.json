@@ -1,0 +1,147 @@
+{
+  "status": "PASS",
+  "toolchain": "leanprover/lean4:v4.33.0-rc2",
+  "compiler_commit": "d8b18978322de05a8f3dba51ef03cf5461676c17",
+  "mathlib_commit": "51e6992efd06126df61a496bebf8f49482a4e129",
+  "upstream_bundled_commit": "57b0302",
+  "actual_imports": true,
+  "commands": [
+    {
+      "command": "lake build Hadamard6",
+      "exit_code": 0,
+      "build_jobs": 3527,
+      "log": "logs/upstream_final.log"
+    },
+    {
+      "command": "lake build QuotientTopology",
+      "exit_code": 0,
+      "build_jobs": 3495,
+      "log": "logs/quotient_lean.log"
+    },
+    {
+      "command": "lake build Step2Statements",
+      "exit_code": 0,
+      "build_jobs": 8841,
+      "log": "logs/step2_lean.log"
+    }
+  ],
+  "lean_sources": {
+    "lean/QuotientTopology.lean": "eb1e8e00614a6640242525da93ff2b9102f58c4bcfacf619a2f371326b8b2adb",
+    "lean/Step2Statements.lean": "51c3cb666c88a80bc77ebb87b514688e860b64ac6b220a60b3eb7cb4236f7230",
+    "lean/TopologyCore.lean": "299e2374f4c43435b99d595389fb21365dab6fcfc65cd201188a37852a5d50bb",
+    "lean/TopologyCoreAxioms.lean": "9b075a6fd7fc6ce800dd668c19e6fa0b6e533c225d1604383da7209e7f3aa9e8"
+  },
+  "axiom_audits": {
+    "Hadamard6.paper_failed_corner_search_forces_karlsson_or_tao": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Hadamard6.paper_karlsson_has_finite_corner": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Hadamard6.paper_tao_has_finite_corner": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Hadamard6.paper_finite_corner_theorem": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Hadamard6.paper_nonexceptional_completed_dilation_recovery": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Hadamard6.paper_finite_corner_completeness": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Hadamard6.paper_finite_corner_soundness": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Hadamard6.paper_total_output_corollary": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Hadamard6.paper_classification_corollary": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "NoFourMUBs.Step2Topology.isCompact_isHadamard": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "NoFourMUBs.Step2Topology.continuous_hadamardQuotient": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "NoFourMUBs.Step2Topology.hadamardQuotient_eq_iff": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "NoFourMUBs.Step2.continuous_matchedClassMap": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "NoFourMUBs.Step2.exactReach_implies_densityReach": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "NoFourMUBs.Step2.coverage_of_matched_density": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Step2.TopologyCore.continuous_of_closed_relation_compact": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Step2.TopologyCore.continuous_relationValue": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Step2.TopologyCore.superlevel_clopen_eq_univ": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Step2.TopologyCore.superlevel_image_mem_of_localMax_anchors": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Step2.TopologyCore.superlevel_image_mem_of_anchor_set": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Step2.TopologyCore.image_closure_subset_of_isClosed": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Step2.TopologyCore.image_subset_of_dense_of_isClosed": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ]
+  },
+  "scope": "compiled conditional coverage theorem; L1/L2/D and external census/Record/anchor predicates remain explicit arguments"
+}

@@ -1,0 +1,649 @@
+{
+  "kind": "polynomial_bundle",
+  "name": "interior_cusp",
+  "purpose": "Polynomial factorization and exact positive Bernstein coefficients excluding a cusp/interior local maximum.",
+  "variables": [
+    "x",
+    "y",
+    "t"
+  ],
+  "definitions": {
+    "u": [
+      "add",
+      [
+        "pow",
+        "y",
+        "2"
+      ],
+      [
+        "pow",
+        [
+          "add",
+          "3",
+          "x"
+        ],
+        "2"
+      ]
+    ],
+    "v": [
+      "add",
+      [
+        "pow",
+        "y",
+        "2"
+      ],
+      [
+        "pow",
+        [
+          "add",
+          "3",
+          [
+            "mul",
+            "-1",
+            "x"
+          ]
+        ],
+        "2"
+      ]
+    ],
+    "q": [
+      "add",
+      [
+        "mul",
+        "2",
+        [
+          "add",
+          "3",
+          "x"
+        ],
+        [
+          "add",
+          [
+            "pow",
+            [
+              "add",
+              "3",
+              [
+                "mul",
+                "-1",
+                "x"
+              ]
+            ],
+            "2"
+          ],
+          [
+            "mul",
+            "-1",
+            [
+              "pow",
+              "y",
+              "2"
+            ]
+          ]
+        ]
+      ],
+      [
+        "mul",
+        "4",
+        [
+          "pow",
+          "y",
+          "2"
+        ],
+        [
+          "add",
+          "3",
+          [
+            "mul",
+            "-1",
+            "x"
+          ]
+        ]
+      ]
+    ],
+    "g": [
+      "add",
+      [
+        "mul",
+        "-3",
+        "u"
+      ],
+      [
+        "mul",
+        "2",
+        "v"
+      ]
+    ],
+    "eta": [
+      "add",
+      "v",
+      [
+        "mul",
+        "-2",
+        "u"
+      ]
+    ],
+    "chi": [
+      "add",
+      [
+        "mul",
+        "-1",
+        "q"
+      ],
+      [
+        "mul",
+        "1/2",
+        [
+          "add",
+          [
+            "mul",
+            "-1",
+            "v"
+          ],
+          [
+            "mul",
+            "3",
+            "u"
+          ]
+        ],
+        [
+          "add",
+          "12",
+          "v",
+          [
+            "mul",
+            "-1",
+            "u"
+          ]
+        ]
+      ]
+    ],
+    "R": [
+      "add",
+      [
+        "mul",
+        "-1",
+        [
+          "pow",
+          "chi",
+          "2"
+        ]
+      ],
+      [
+        "mul",
+        "4",
+        "eta",
+        [
+          "pow",
+          "g",
+          "2"
+        ]
+      ]
+    ],
+    "F": [
+      "add",
+      "18",
+      [
+        "pow",
+        "y",
+        "2"
+      ],
+      [
+        "mul",
+        "2",
+        [
+          "pow",
+          "x",
+          "2"
+        ]
+      ],
+      [
+        "mul",
+        "24",
+        "x"
+      ]
+    ],
+    "G": [
+      "add",
+      "9",
+      [
+        "pow",
+        "y",
+        "2"
+      ],
+      [
+        "mul",
+        "5",
+        [
+          "pow",
+          "x",
+          "2"
+        ]
+      ],
+      [
+        "mul",
+        "18",
+        "x"
+      ]
+    ],
+    "Rx": [
+      "mul",
+      "-4",
+      "G",
+      [
+        "add",
+        [
+          "mul",
+          "F",
+          [
+            "add",
+            "-12",
+            [
+              "mul",
+              "12",
+              "x"
+            ]
+          ]
+        ],
+        [
+          "mul",
+          [
+            "add",
+            "24",
+            [
+              "mul",
+              "4",
+              "x"
+            ]
+          ],
+          [
+            "add",
+            "G",
+            [
+              "mul",
+              "2",
+              "F"
+            ]
+          ]
+        ]
+      ]
+    ],
+    "Ry": [
+      "mul",
+      "-8",
+      "G",
+      "y",
+      [
+        "add",
+        "G",
+        [
+          "mul",
+          "2",
+          "F"
+        ]
+      ]
+    ],
+    "Delta": [
+      "add",
+      "-27",
+      [
+        "pow",
+        [
+          "add",
+          [
+            "pow",
+            "x",
+            "2"
+          ],
+          [
+            "pow",
+            "y",
+            "2"
+          ]
+        ],
+        "2"
+      ],
+      [
+        "mul",
+        "-8",
+        [
+          "pow",
+          "x",
+          "3"
+        ]
+      ],
+      [
+        "mul",
+        "18",
+        [
+          "pow",
+          "x",
+          "2"
+        ]
+      ],
+      [
+        "mul",
+        "18",
+        [
+          "pow",
+          "y",
+          "2"
+        ]
+      ],
+      [
+        "mul",
+        "24",
+        "x",
+        [
+          "pow",
+          "y",
+          "2"
+        ]
+      ]
+    ],
+    "Delta_real": [
+      "mul",
+      [
+        "pow",
+        [
+          "add",
+          "-3",
+          "x"
+        ],
+        "3"
+      ],
+      [
+        "add",
+        "1",
+        "x"
+      ]
+    ],
+    "F_real": [
+      "add",
+      "18",
+      [
+        "mul",
+        "2",
+        [
+          "pow",
+          "x",
+          "2"
+        ]
+      ],
+      [
+        "mul",
+        "24",
+        "x"
+      ]
+    ],
+    "cusp_cubic": [
+      "add",
+      "72",
+      [
+        "mul",
+        "5",
+        [
+          "pow",
+          "x",
+          "3"
+        ]
+      ],
+      [
+        "mul",
+        "62",
+        [
+          "pow",
+          "x",
+          "2"
+        ]
+      ],
+      [
+        "mul",
+        "141",
+        "x"
+      ]
+    ],
+    "cusp_cubic_derivative": [
+      "add",
+      "141",
+      [
+        "mul",
+        "15",
+        [
+          "pow",
+          "x",
+          "2"
+        ]
+      ],
+      [
+        "mul",
+        "124",
+        "x"
+      ]
+    ]
+  },
+  "identities": [
+    {
+      "name": "cusp_R_factorization",
+      "lhs": "R",
+      "rhs": [
+        "mul",
+        "-4",
+        "F",
+        [
+          "pow",
+          "G",
+          "2"
+        ]
+      ]
+    },
+    {
+      "name": "positive_F_above_cutoff",
+      "lhs": "F_real",
+      "rhs": [
+        "add",
+        "2/25",
+        [
+          "mul",
+          [
+            "add",
+            "4/5",
+            "x"
+          ],
+          [
+            "add",
+            "112/5",
+            [
+              "mul",
+              "2",
+              "x"
+            ]
+          ]
+        ]
+      ]
+    }
+  ],
+  "derivatives": [
+    {
+      "name": "cusp_x_derivative",
+      "of": "R",
+      "variable": "x",
+      "order": "1",
+      "equals": "Rx"
+    },
+    {
+      "name": "cusp_y_derivative",
+      "of": "R",
+      "variable": "y",
+      "order": "1",
+      "equals": "Ry"
+    },
+    {
+      "name": "cusp_cubic_monotonicity",
+      "of": "cusp_cubic",
+      "variable": "x",
+      "order": "1",
+      "equals": "cusp_cubic_derivative"
+    }
+  ],
+  "substitutions": [
+    {
+      "name": "cusp_nonreal_branch_contradiction",
+      "source": "F",
+      "replacements": {
+        "x": "1"
+      },
+      "result": [
+        "add",
+        "44",
+        [
+          "pow",
+          "y",
+          "2"
+        ]
+      ]
+    },
+    {
+      "name": "real_axis_deltoid_interval",
+      "source": "Delta",
+      "replacements": {
+        "y": "0"
+      },
+      "result": "Delta_real"
+    },
+    {
+      "name": "cusp_real_F",
+      "source": "F",
+      "replacements": {
+        "y": "0"
+      },
+      "result": "F_real"
+    },
+    {
+      "name": "positive_coefficient_F_cutoff",
+      "source": "F_real",
+      "replacements": {
+        "x": [
+          "add",
+          "-4/5",
+          "t"
+        ]
+      },
+      "result": [
+        "add",
+        "2/25",
+        [
+          "mul",
+          "2",
+          [
+            "pow",
+            "t",
+            "2"
+          ]
+        ],
+        [
+          "mul",
+          "104/5",
+          "t"
+        ]
+      ]
+    },
+    {
+      "name": "F_at_cutoff",
+      "source": "F_real",
+      "replacements": {
+        "x": "-4/5"
+      },
+      "result": "2/25"
+    },
+    {
+      "name": "cusp_cubic_at_cutoff",
+      "source": "cusp_cubic",
+      "replacements": {
+        "x": "-4/5"
+      },
+      "result": "-92/25"
+    },
+    {
+      "name": "real_cusp_derivative_factorization",
+      "source": "Rx",
+      "replacements": {
+        "y": "0"
+      },
+      "result": [
+        "mul",
+        "cusp_cubic",
+        [
+          "add",
+          "-144",
+          [
+            "mul",
+            "-48",
+            "x"
+          ]
+        ],
+        [
+          "add",
+          "3",
+          [
+            "mul",
+            "5",
+            "x"
+          ]
+        ]
+      ]
+    }
+  ],
+  "positivity": [
+    {
+      "name": "negative_cusp_cubic_on_admissible_interval",
+      "polynomial": [
+        "mul",
+        "-1",
+        "cusp_cubic"
+      ],
+      "variable": "x",
+      "lower": "-1",
+      "upper": "-4/5",
+      "coefficients": [
+        "12",
+        "148/15",
+        "533/75",
+        "92/25"
+      ],
+      "lower_bound": "92/25"
+    }
+  ],
+  "orthant_nonnegative": [
+    {
+      "name": "cusp_cutoff_nonnegative_remainder",
+      "polynomial": [
+        "add",
+        [
+          "mul",
+          "2",
+          [
+            "pow",
+            "t",
+            "2"
+          ]
+        ],
+        [
+          "mul",
+          "104/5",
+          "t"
+        ]
+      ],
+      "variables": [
+        "t"
+      ]
+    }
+  ],
+  "generation_statistics": {
+    "largest_definition_degree": "6",
+    "largest_definition_terms": "16",
+    "uses_root_isolation": "no",
+    "uses_resultants": "no",
+    "uses_groebner_bases": "no"
+  }
+}
