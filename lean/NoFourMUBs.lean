@@ -23,3 +23,4 @@ import NoFourMUBs.Step2.QuotientTopology
 import NoFourMUBs.Step2.Statements
 import NoFourMUBs.Step4
 import NoFourMUBs.Final
+import NoFourMUBs.Boundary

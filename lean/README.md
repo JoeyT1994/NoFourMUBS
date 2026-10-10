@@ -9,11 +9,11 @@ lake build
 
 ## The end-to-end theorem
 
-`NoFourMUBs.no_four_mubs_final` (in `Final.lean`) proves `¬ FourMUBs`. It uses only `propext`, `Classical.choice` and `Quot.sound`. Its hypotheses are exactly the remaining inputs:
+`NoFourMUBs.no_four_mubs_final`, and its form `no_four_mubs_of_certificates` taking boundary covers (in `Final.lean`), prove `¬ FourMUBs`. It uses only `propext`, `Classical.choice` and `Quot.sound`. Its hypotheses are exactly the remaining inputs:
 
 | Input | Kind | Status |
 |---|---|---|
-| `A : ι → RecordCert`, `BoundaryTransfers A`, Tao and anchor memberships | finite certificate | checked externally (`certify.py`, `proof/independent/`) |
+| `A : ι → RecordCert`, boundary covers (`BoundaryCover`), Tao and anchor memberships | finite certificate | checked externally (`certify.py`, `proof/independent/`) |
 | `MaximumCensus anchors` | Step 1 | paper proof; its finite algebra is compiled (`Step1`); the analytic assembly is still to do |
 | `MatchedExistence`, `MatchedUniqueness` | reconstruction | paper proofs (dossier MC2–MC4; `STEP2_BLUEPRINT.md` §7) |
 | `MatchedDensityReach` | reconstruction | **open point** (PR-M); handoff C in progress |
@@ -36,6 +36,7 @@ lake build
 | `Atlas.lean` | `atlas_excluded`, `atlas_taoExcluded`, and **`no_four_mubs_of_atlas`**: a certified atlas, Tao's membership and coverage imply no four MUBs | ✅ proved |
 | `Step2/*.lean` | From the Step 2 return: the compact Hadamard quotient, the compact-superlevel argument, and `coverage_of_matched_density`: matched existence, uniqueness and density, the census, clopen Records and anchors imply `Inputs.covered` | ✅ compiled |
 | `Step4.lean` | **Step 4**: `recordClopen_of_atlas`. A finite atlas with boundary transfers covers a clopen set of classes. Closed: compact images. Open: the boundary transfer plus a local `arg` chart at interior points | ✅ proved |
+| `Boundary.lean` | `BoundaryCover` (η-boxes, targets, signed permutations, windings) and `boundaryTransfers_of_covers` via Lemma 4.1 | ✅ proved |
 | `Final.lean` | **`no_four_mubs_final`**: the end-to-end theorem, with every remaining input explicit (certificates, Step 1 census, matched existence, uniqueness and density) | ✅ proved |
 | `Transfer.lean` | **Lemma 4.1 (boundary transfer)**: Frobenius norm, `hor` contracts it, signed permutations act isometrically and match Γ, windings | ✅ proved |
 | `Main.lean` | **`no_four_mubs : Inputs Ball → ¬ FourMUBs`** | ✅ proved, relative to `Inputs` |

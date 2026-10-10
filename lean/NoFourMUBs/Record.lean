@@ -99,6 +99,38 @@ structure RecordCert where
     ((t * (g * R) + nroot σ (e0 + j1 * (g * R) + Real.sqrt 3 * lam * (g * R) ^ 2)) / (2 * Real.pi))
     (min R (Real.sqrt lam * (g * R) + nroot σ (e0 + j1 * (g * R) + Real.sqrt 3 * lam * (g * R) ^ 2)) / (2 * Real.pi))
 
+/-- Lemma 3.1 inside a certified Record: `δ = Tη + ν`, `‖η‖ ≤ gR`, `‖ν‖ ≤ n`, `‖δ‖² = ‖Tη‖² + ‖ν‖²`. -/
+theorem RecordCert.decomp (C : RecordCert) {δ : RMat6} (hδh : IsHorizontal δ) (hR : frob δ ≤ C.R)
+    (hH : Hadamard6.IsHadamard (phaseMat (C.P + δ))) :
+    ∃ η : Fin 4 → ℝ, ∃ ν : RMat6, δ = (∑ k, η k • C.T k) + ν ∧ Real.sqrt (∑ k, η k ^ 2) ≤ C.g * C.R ∧
+      frob ν ≤ nroot C.σ (C.e0 + C.j1 * (C.g * C.R) + Real.sqrt 3 * C.lam * (C.g * C.R) ^ 2) ∧
+      sumsq δ = sumsq (∑ k, η k • C.T k) + sumsq ν := by
+  obtain ⟨η, ν, hδ, hνh, horthk, hηb⟩ := C.hproj δ hδh
+  set u := ∑ k, η k • C.T k
+  set s := Real.sqrt (∑ k, η k ^ 2)
+  set rH := C.g * C.R
+  have hs0 : 0 ≤ s := Real.sqrt_nonneg _
+  have hsr : s ≤ rH := hηb.trans (mul_le_mul_of_nonneg_left hR C.hg0)
+  have horth : ∑ a, ∑ c, u a c * ν a c = 0 := by
+    have : ∑ a, ∑ c, u a c * ν a c = ∑ k, η k * ∑ a, ∑ c, C.T k a c * ν a c := by
+      simp only [u, Matrix.sum_apply, Matrix.smul_apply, smul_eq_mul, Finset.sum_mul, Finset.mul_sum]
+      symm; rw [Finset.sum_comm]
+      refine Finset.sum_congr rfl fun a _ => ?_
+      rw [Finset.sum_comm]
+      exact Finset.sum_congr rfl fun c _ => Finset.sum_congr rfl fun k _ => by ring
+    rw [this]; simp only [horthk, mul_zero, Finset.sum_const_zero]
+  have hsplit : sumsq δ = sumsq u + sumsq ν := by rw [hδ]; exact sumsq_add_of_orth horth
+  have hνδ : frob ν ≤ frob δ := frob_le_of_sumsq_le (by rw [hsplit]; linarith [sumsq_nonneg u])
+  have hH' : Hadamard6.IsHadamard (phaseMat (C.P + (u + ν))) := by rwa [← hδ]
+  have hn0 := normal_bound_root (j1 := C.j1) (s := s) (lam := C.lam) (R := C.R) hH' horth (C.hσ ν hνh horthk) C.he
+    (C.hj η) (C.hlam η) (hνδ.trans hR) C.hLR
+  refine ⟨η, ν, hδ, hsr, hn0.trans (nroot_mono ?_), hsplit⟩
+  have h1 : C.j1 * s ≤ C.j1 * rH := mul_le_mul_of_nonneg_left hsr C.hj0
+  have h2 : s ^ 2 ≤ rH ^ 2 := pow_le_pow_left₀ hs0 hsr 2
+  have h3 : Real.sqrt 3 * C.lam * s ^ 2 ≤ Real.sqrt 3 * C.lam * rH ^ 2 :=
+    mul_le_mul_of_nonneg_left h2 (by have := C.hlam0; positivity)
+  linarith
+
 /-- **A certified Record contains no quartet edge.** -/
 theorem RecordCert.excludes (C : RecordCert) {δ : RMat6} (hδh : IsHorizontal δ) (hR : frob δ ≤ C.R)
     (hH : Hadamard6.IsHadamard (phaseMat (C.P + δ))) : ¬ QuartetEdge (phaseMat (C.P + δ)) := by

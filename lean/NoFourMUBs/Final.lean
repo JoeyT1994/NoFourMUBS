@@ -1,4 +1,4 @@
-import NoFourMUBs.Step4
+import NoFourMUBs.Boundary
 
 /-!
 # The end-to-end theorem
@@ -32,5 +32,16 @@ theorem no_four_mubs_final {ι : Type*} [Finite ι] (A : ι → RecordCert) (anc
   no_four_mubs_of_atlas A htao
     (Step2.coverage_of_matched_density (InAtlas A) anchors hE hU hD hCensus (recordClopen_of_atlas A hb)
       hAnchors hFourier)
+
+/-- The end-to-end theorem with the boundary transfers supplied by certified boundary covers (Lemma 4.1). -/
+theorem no_four_mubs_of_certificates {ι : Type*} [Finite ι] (A : ι → RecordCert)
+    (anchors : Finset Step2.StrictSeed) (hcov : ∀ l, Nonempty (BoundaryCover A l))
+    (htao : ∀ ω, IsPrimitiveCubicPhase ω → ∃ K, InAtlas A K ∧ Equivalent (taoMatrix ω) K)
+    (hAnchors : Step2.MaximumAnchorCertificate (InAtlas A) anchors)
+    (hFourier : Step2.FourierAnchorCertificate (InAtlas A))
+    (hCensus : Step2.MaximumCensus anchors)
+    (hE : Step2.MatchedExistence) (hU : Step2.MatchedUniqueness) (hD : Step2.MatchedDensityReach) :
+    ¬ FourMUBs :=
+  no_four_mubs_final A anchors (boundaryTransfers_of_covers A hcov) htao hAnchors hFourier hCensus hE hU hD
 
 end NoFourMUBs
