@@ -9,13 +9,14 @@ lake build
 
 ## The end-to-end theorem
 
-`NoFourMUBs.no_four_mubs_final`, and its form `no_four_mubs_of_certificates` taking boundary covers (in `Final.lean`), prove `¬ FourMUBs`. `no_four_mubs_step1` is the same theorem with Step 1 discharged: the anchors are the explicit maxima `Step1Geo.anchors`, and the census is `Step1Geo.maximumCensus`. It uses only `propext`, `Classical.choice` and `Quot.sound`. Its hypotheses are exactly the remaining inputs:
+`NoFourMUBs.no_four_mubs_final`, and its form `no_four_mubs_of_certificates` taking boundary covers (in `Final.lean`), prove `¬ FourMUBs`. `no_four_mubs_step1` is the same theorem with Step 1 discharged: the anchors are the explicit maxima `Step1Geo.anchors`, and the census is `Step1Geo.maximumCensus`. **`no_four_mubs_reduced`** also discharges matched uniqueness (`Step2.matchedUniqueness`): its only remaining inputs are the finite certificates, `MatchedExistence` and `MatchedDensityReach`. It uses only `propext`, `Classical.choice` and `Quot.sound`. Its hypotheses are exactly the remaining inputs:
 
 | Input | Kind | Status |
 |---|---|---|
 | `A : ι → RecordCert`, boundary covers (`BoundaryCover`), Tao and anchor memberships | finite certificate | checked externally (`certify.py`, `proof/independent/`) |
 | `MaximumCensus anchors` | Step 1 | ✅ **proved** (`Step1Geo.maximumCensus`, anchors explicit) |
-| `MatchedExistence`, `MatchedUniqueness` | reconstruction | paper proofs (dossier MC2–MC4; `STEP2_BLUEPRINT.md` §7) |
+| `MatchedUniqueness` | reconstruction | ✅ **proved** (`Step2.matchedUniqueness`) |
+| `MatchedExistence` | reconstruction | paper proof (dossier MC2–MC4) |
 | `MatchedDensityReach` | reconstruction | **open point** (PR-M); handoff C in progress |
 
 ## Status
@@ -44,6 +45,8 @@ lake build
 | `Step1/DoubleSetup.lean`, `Step1/DoubleAlg.lean`, `Step1/Double.lean` | **Step 1, items 14–23**: on the double boundary `ℛ = R(c, h) = −256L²M²N`; first-order conditions along the two circle directions; the origin is excluded (`R − 256 = c²P₁(c)`), the cusp branch by the split curve (`Rs(q) − Rs(1) = (q−1)K`, `K(1) = −660(46y+9) < 0`), the edges give `c = ±1/4`. `relmax_census` | ✅ proved |
 | `Step1/Lift.lean` | **Seeds to traces**: every seed is a lift `Ψ(x, y)`; `seedR ∘ Ψ = ℛ(traces)` (Laurent identity); the fibres of the trace map are reorderings, so (compactness) local maxima of `R` on `T⁴` are relative maxima of ℛ on `D × D` (`relmax_of_seed`) | ✅ proved |
 | `Step1/Census.lean` | **Theorem 1**: `maximumCensus : MaximumCensus anchors`, with the 18 anchors `Ψ` of `(ζᵏq^{±1}, ζᵏq^{∓1})`, `q = (1+i√15)/4`, each with `R = 3¹³/2¹²` | ✅ proved |
+| `Step2/SideAlg.lean`, `Step2/SidePerm.lean` | **Side uniqueness**: the Laurent identities of blueprint Lemma 7.2; the data `(s, t, r, T)` with `Im T ≠ 0` determine `u`, `v`, `π`; Vieta fixes the multiset of each row; a Vandermonde pairing argument (`(xⱼ−xₖ)(xⱼ−xₗ)dⱼ = 0`) replaces the Fourier reconstruction. `side_unique`: two sides with the same Gram data and signature differ by a column permutation | ✅ proved |
+| `Step2/MatchedUnique.lean` | **L2, `matchedUniqueness`**: horizontal and vertical sides are aligned by `side_unique`; orthogonality forces the last block (`eq_forcedD_of_row_cross`) | ✅ proved |
 | `Transfer.lean` | **Lemma 4.1 (boundary transfer)**: Frobenius norm, `hor` contracts it, signed permutations act isometrically and match Γ, windings | ✅ proved |
 | `Main.lean` | **`no_four_mubs : Inputs Ball → ¬ FourMUBs`** | ✅ proved, relative to `Inputs` |
 | `Inputs.taoExcluded` | Remark 3.3: S₆ is a zero-dimensional Record | ⏳ Lemma 3.1, Stage C, finite certificate |
