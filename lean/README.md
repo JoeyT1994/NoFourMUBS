@@ -50,6 +50,7 @@ lake build
 | `Step1/AnchorOrbit.lean` | The 18 anchors are one orbit of the four corner moves: in exponent coordinates (`ζⁱqʲ ↦ (i mod 3, j)`) the moves are linear and the orbit check is `decide` | ✅ proved |
 | `Step2/AnchorTransport.lean` | Side signatures are invariant under permutations and phases; `R`, `χ` are invariant under the moves; matched completions transport along moves (`matched_move`); `maximumAnchorCertificate_of_base` | ✅ proved |
 | `Step2/BaseAnchor.lean` | The explicit positive matched completion `H0` at the base anchor: Hadamard, dephased, base corner, `χ = −5103/64`, signatures `(χ ± i√R)/2`; generated `linear_combination` certificates (`lean/generators/base_anchor/`) | ✅ proved |
+| `Step2/DenseExistence.lean` | The seeds with a matched completion form a closed set (compact fibre, closed relation), so `MatchedExistence` follows from existence on any dense set of strict seeds (`matchedExistence_of_dense`) | ✅ proved |
 | `Transfer.lean` | **Lemma 4.1 (boundary transfer)**: Frobenius norm, `hor` contracts it, signed permutations act isometrically and match Γ, windings | ✅ proved |
 | `Main.lean` | **`no_four_mubs : Inputs Ball → ¬ FourMUBs`** | ✅ proved, relative to `Inputs` |
 | `Inputs.taoExcluded` | Remark 3.3: S₆ is a zero-dimensional Record | ⏳ Lemma 3.1, Stage C, finite certificate |
