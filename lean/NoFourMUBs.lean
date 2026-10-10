@@ -18,3 +18,6 @@ import NoFourMUBs.StageC.Interface
 import NoFourMUBs.StageC.Cert
 import NoFourMUBs.Record
 import NoFourMUBs.Atlas
+import NoFourMUBs.Step2.TopologyCore
+import NoFourMUBs.Step2.QuotientTopology
+import NoFourMUBs.Step2.Statements
