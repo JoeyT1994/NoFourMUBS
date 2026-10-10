@@ -30,3 +30,4 @@ import NoFourMUBs.Step1.Single
 import NoFourMUBs.Step1.Smooth
 import NoFourMUBs.Step1.DoubleSetup
 import NoFourMUBs.Step1.DoubleAlg
+import NoFourMUBs.Step1.Double
