@@ -1,0 +1,545 @@
+{
+  "kind": "polynomial_bundle",
+  "variables": [
+    "y",
+    "a",
+    "z",
+    "zi",
+    "w",
+    "wi",
+    "c",
+    "b",
+    "s"
+  ],
+  "definitions": {
+    "f_y": [
+      "add",
+      [
+        "mul",
+        "4",
+        [
+          "pow",
+          "y",
+          "2"
+        ]
+      ],
+      [
+        "mul",
+        "6",
+        "y"
+      ],
+      "1"
+    ],
+    "f_a": [
+      "add",
+      [
+        "mul",
+        "4",
+        [
+          "pow",
+          "a",
+          "2"
+        ]
+      ],
+      [
+        "mul",
+        "6",
+        "a"
+      ],
+      "1"
+    ],
+    "cos_n": [
+      "mul",
+      "1/2",
+      [
+        "add",
+        "w",
+        "wi"
+      ]
+    ],
+    "chebyshev_three": [
+      "add",
+      [
+        "mul",
+        "4",
+        [
+          "pow",
+          "cos_n",
+          "3"
+        ]
+      ],
+      [
+        "mul",
+        "-3",
+        "cos_n"
+      ]
+    ],
+    "cos_three_n": [
+      "mul",
+      "1/2",
+      [
+        "add",
+        [
+          "pow",
+          "w",
+          "3"
+        ],
+        [
+          "pow",
+          "wi",
+          "3"
+        ]
+      ]
+    ],
+    "Z": [
+      "pow",
+      "z",
+      "3"
+    ],
+    "Zi": [
+      "pow",
+      "zi",
+      "3"
+    ],
+    "W": [
+      "pow",
+      "w",
+      "3"
+    ],
+    "Wi": [
+      "pow",
+      "wi",
+      "3"
+    ]
+  },
+  "identities": [
+    {
+      "name": "quadratic_secant",
+      "lhs": [
+        "add",
+        "f_y",
+        [
+          "neg",
+          "f_a"
+        ]
+      ],
+      "rhs": [
+        "mul",
+        [
+          "add",
+          "y",
+          [
+            "neg",
+            "a"
+          ]
+        ],
+        [
+          "add",
+          [
+            "mul",
+            "4",
+            [
+              "add",
+              "y",
+              "a"
+            ]
+          ],
+          "6"
+        ]
+      ]
+    },
+    {
+      "name": "physical_lower_secant_slope",
+      "lhs": [
+        "add",
+        [
+          "mul",
+          "4",
+          [
+            "add",
+            "y",
+            "-49/256"
+          ]
+        ],
+        "6"
+      ],
+      "rhs": [
+        "add",
+        [
+          "mul",
+          "4",
+          [
+            "add",
+            "y",
+            "1"
+          ]
+        ],
+        "79/64"
+      ]
+    },
+    {
+      "name": "physical_upper_secant_slope",
+      "lhs": [
+        "add",
+        [
+          "mul",
+          "4",
+          [
+            "add",
+            "y",
+            "-3/16"
+          ]
+        ],
+        "6"
+      ],
+      "rhs": [
+        "add",
+        [
+          "mul",
+          "4",
+          [
+            "add",
+            "y",
+            "1"
+          ]
+        ],
+        "5/4"
+      ]
+    },
+    {
+      "name": "curvature_strict_lower_bound",
+      "lhs": [
+        "add",
+        [
+          "mul",
+          "660",
+          [
+            "add",
+            [
+              "mul",
+              "46",
+              "y"
+            ],
+            "9"
+          ]
+        ],
+        "-4125/32"
+      ],
+      "rhs": [
+        "mul",
+        "30360",
+        [
+          "add",
+          "y",
+          "49/256"
+        ]
+      ]
+    },
+    {
+      "name": "cosine_triple_angle_mod_unit",
+      "lhs": [
+        "add",
+        "cos_three_n",
+        [
+          "neg",
+          "chebyshev_three"
+        ]
+      ],
+      "rhs": [
+        "mul",
+        "3/2",
+        [
+          "add",
+          "w",
+          "wi"
+        ],
+        [
+          "add",
+          "1",
+          [
+            "neg",
+            [
+              "mul",
+              "w",
+              "wi"
+            ]
+          ]
+        ]
+      ]
+    },
+    {
+      "name": "cosine_double_angle_mod_unit",
+      "lhs": [
+        "add",
+        [
+          "mul",
+          "2",
+          [
+            "pow",
+            "cos_n",
+            "2"
+          ]
+        ],
+        "-1",
+        [
+          "neg",
+          [
+            "mul",
+            "1/2",
+            [
+              "add",
+              [
+                "pow",
+                "w",
+                "2"
+              ],
+              [
+                "pow",
+                "wi",
+                "2"
+              ]
+            ]
+          ]
+        ]
+      ],
+      "rhs": [
+        "add",
+        [
+          "mul",
+          "w",
+          "wi"
+        ],
+        "-1"
+      ]
+    },
+    {
+      "name": "equal_cosines_force_cusp_product",
+      "lhs": [
+        "add",
+        [
+          "mul",
+          [
+            "add",
+            "Z",
+            [
+              "neg",
+              "W"
+            ]
+          ],
+          [
+            "add",
+            [
+              "mul",
+              "Z",
+              "W"
+            ],
+            "-1"
+          ]
+        ],
+        [
+          "neg",
+          [
+            "mul",
+            "Z",
+            "W",
+            [
+              "add",
+              "Z",
+              "Zi",
+              [
+                "neg",
+                "W"
+              ],
+              [
+                "neg",
+                "Wi"
+              ]
+            ]
+          ]
+        ]
+      ],
+      "rhs": [
+        "add",
+        [
+          "mul",
+          "W",
+          [
+            "add",
+            "1",
+            [
+              "neg",
+              [
+                "mul",
+                "Z",
+                "Zi"
+              ]
+            ]
+          ]
+        ],
+        [
+          "mul",
+          "Z",
+          [
+            "add",
+            [
+              "mul",
+              "W",
+              "Wi"
+            ],
+            "-1"
+          ]
+        ]
+      ]
+    },
+    {
+      "name": "cube_unit_product",
+      "lhs": [
+        "add",
+        [
+          "mul",
+          "Z",
+          "Zi"
+        ],
+        "-1"
+      ],
+      "rhs": [
+        "mul",
+        [
+          "add",
+          [
+            "mul",
+            "z",
+            "zi"
+          ],
+          "-1"
+        ],
+        [
+          "add",
+          [
+            "pow",
+            [
+              "mul",
+              "z",
+              "zi"
+            ],
+            "2"
+          ],
+          [
+            "mul",
+            "z",
+            "zi"
+          ],
+          "1"
+        ]
+      ]
+    },
+    {
+      "name": "quarter_real_part_two_unit_points",
+      "lhs": [
+        "mul",
+        [
+          "add",
+          [
+            "mul",
+            "4",
+            "b"
+          ],
+          [
+            "neg",
+            "s"
+          ]
+        ],
+        [
+          "add",
+          [
+            "mul",
+            "4",
+            "b"
+          ],
+          "s"
+        ]
+      ],
+      "rhs": [
+        "add",
+        [
+          "mul",
+          "16",
+          [
+            "add",
+            [
+              "pow",
+              "c",
+              "2"
+            ],
+            [
+              "pow",
+              "b",
+              "2"
+            ],
+            "-1"
+          ]
+        ],
+        [
+          "mul",
+          "-16",
+          [
+            "add",
+            "c",
+            "-1/4"
+          ],
+          [
+            "add",
+            "c",
+            "1/4"
+          ]
+        ],
+        [
+          "neg",
+          [
+            "add",
+            [
+              "pow",
+              "s",
+              "2"
+            ],
+            "-15"
+          ]
+        ]
+      ]
+    }
+  ],
+  "evaluations": [
+    {
+      "name": "lower_endpoint",
+      "polynomial": "f_y",
+      "at": {
+        "y": "-49/256",
+        "a": "0",
+        "z": "0",
+        "zi": "0",
+        "w": "0",
+        "wi": "0",
+        "c": "0",
+        "b": "0",
+        "s": "0"
+      },
+      "equals": "-31/16384"
+    },
+    {
+      "name": "upper_endpoint",
+      "polynomial": "f_y",
+      "at": {
+        "y": "-3/16",
+        "a": "0",
+        "z": "0",
+        "zi": "0",
+        "w": "0",
+        "wi": "0",
+        "c": "0",
+        "b": "0",
+        "s": "0"
+      },
+      "equals": "1/64"
+    }
+  ]
+}

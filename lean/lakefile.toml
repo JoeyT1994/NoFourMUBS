@@ -1,6 +1,6 @@
 name = "nofourmubs"
 version = "0.1.0"
-defaultTargets = ["NoFourMUBs"]
+defaultTargets = ["NoFourMUBs", "Step1"]
 
 [leanOptions]
 autoImplicit = false
@@ -14,3 +14,8 @@ rev = "57b0302"
 
 [[lean_lib]]
 name = "NoFourMUBs"
+
+# Step 1 algebra certificates (generated from proof/coverage/returns/C_step1_lean by Step1Gen/generation)
+[[lean_lib]]
+name = "Step1"
+srcDir = "Step1Gen/lean"

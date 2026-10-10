@@ -1,0 +1,592 @@
+{
+  "kind": "polynomial_bundle",
+  "title": "Boundary-edge factorization and rational Bernstein positivity",
+  "variables": [
+    "c",
+    "h"
+  ],
+  "definitions": {
+    "R": [
+      "mul",
+      [
+        "pow",
+        [
+          "add",
+          "1",
+          [
+            "mul",
+            "-4",
+            [
+              "pow",
+              "c",
+              "2"
+            ]
+          ],
+          [
+            "mul",
+            "8",
+            [
+              "pow",
+              "c",
+              "4"
+            ]
+          ],
+          [
+            "mul",
+            "4",
+            "h",
+            [
+              "pow",
+              "c",
+              "3"
+            ]
+          ]
+        ],
+        "2"
+      ],
+      [
+        "add",
+        "1",
+        [
+          "mul",
+          "2",
+          [
+            "pow",
+            "c",
+            "2"
+          ]
+        ]
+      ],
+      [
+        "add",
+        "-256",
+        [
+          "mul",
+          "-512",
+          [
+            "pow",
+            "c",
+            "2"
+          ]
+        ]
+      ],
+      [
+        "add",
+        "-1",
+        [
+          "mul",
+          "-4",
+          [
+            "pow",
+            "c",
+            "2"
+          ]
+        ],
+        [
+          "mul",
+          "16",
+          [
+            "pow",
+            "c",
+            "4"
+          ]
+        ],
+        [
+          "mul",
+          "-4",
+          "c",
+          "h"
+        ],
+        [
+          "mul",
+          "4",
+          [
+            "pow",
+            "c",
+            "2"
+          ],
+          [
+            "pow",
+            "h",
+            "2"
+          ]
+        ],
+        [
+          "mul",
+          "16",
+          "h",
+          [
+            "pow",
+            "c",
+            "3"
+          ]
+        ]
+      ]
+    ],
+    "L": [
+      "add",
+      "1",
+      [
+        "mul",
+        "2",
+        [
+          "pow",
+          "c",
+          "2"
+        ]
+      ]
+    ],
+    "T": [
+      "add",
+      "1",
+      [
+        "mul",
+        "-2",
+        "c"
+      ],
+      [
+        "mul",
+        "4",
+        [
+          "pow",
+          "c",
+          "3"
+        ]
+      ]
+    ],
+    "F": [
+      "add",
+      "1",
+      [
+        "mul",
+        "-4",
+        "c"
+      ],
+      [
+        "mul",
+        "-4",
+        [
+          "pow",
+          "c",
+          "3"
+        ]
+      ],
+      [
+        "mul",
+        "4",
+        [
+          "pow",
+          "c",
+          "2"
+        ]
+      ],
+      [
+        "mul",
+        "4",
+        [
+          "pow",
+          "c",
+          "4"
+        ]
+      ],
+      [
+        "mul",
+        "32",
+        [
+          "pow",
+          "c",
+          "5"
+        ]
+      ]
+    ],
+    "edge_R": [
+      "mul",
+      [
+        "pow",
+        "L",
+        "2"
+      ],
+      [
+        "pow",
+        "T",
+        "2"
+      ],
+      [
+        "pow",
+        [
+          "add",
+          "1",
+          [
+            "mul",
+            "2",
+            "c"
+          ]
+        ],
+        "4"
+      ],
+      [
+        "add",
+        "256",
+        [
+          "mul",
+          "-1024",
+          [
+            "pow",
+            "c",
+            "2"
+          ]
+        ]
+      ]
+    ],
+    "edge_R_derivative": [
+      "mul",
+      "-1024",
+      "F",
+      "L",
+      "T",
+      [
+        "pow",
+        [
+          "add",
+          "1",
+          [
+            "mul",
+            "2",
+            "c"
+          ]
+        ],
+        "4"
+      ],
+      [
+        "add",
+        "-1",
+        [
+          "mul",
+          "4",
+          "c"
+        ]
+      ]
+    ]
+  },
+  "identities": [
+    {
+      "name": "reference_edge_factorization",
+      "lhs": "edge_R",
+      "rhs": [
+        "mul",
+        [
+          "pow",
+          "L",
+          "2"
+        ],
+        [
+          "pow",
+          "T",
+          "2"
+        ],
+        [
+          "pow",
+          [
+            "add",
+            "1",
+            [
+              "mul",
+              "2",
+              "c"
+            ]
+          ],
+          "5"
+        ],
+        [
+          "add",
+          "256",
+          [
+            "mul",
+            "-512",
+            "c"
+          ]
+        ]
+      ]
+    }
+  ],
+  "derivatives": [
+    {
+      "name": "differentiate_horizontal_edge",
+      "of": "edge_R",
+      "variable": "c",
+      "order": "1",
+      "equals": "edge_R_derivative"
+    }
+  ],
+  "substitutions": [
+    {
+      "name": "positive_horizontal_edge",
+      "source": "R",
+      "replacements": {
+        "h": "1"
+      },
+      "result": "edge_R"
+    },
+    {
+      "name": "negative_edge_symmetry",
+      "source": "R",
+      "replacements": {
+        "c": [
+          "mul",
+          "-1",
+          "c"
+        ],
+        "h": [
+          "mul",
+          "-1",
+          "h"
+        ]
+      },
+      "result": "R"
+    }
+  ],
+  "evaluations": [
+    {
+      "name": "surviving_positive_value",
+      "polynomial": "R",
+      "at": {
+        "c": "1/4",
+        "h": "1"
+      },
+      "equals": "1594323/4096"
+    }
+  ],
+  "positivity": [
+    {
+      "name": "T_positive_full_edge",
+      "polynomial": [
+        "add",
+        "1",
+        [
+          "mul",
+          "-2",
+          "c"
+        ],
+        [
+          "mul",
+          "4",
+          [
+            "pow",
+            "c",
+            "3"
+          ]
+        ]
+      ],
+      "variable": "c",
+      "lower": "-1/2",
+      "upper": "1/2",
+      "coefficients": [
+        "3/2",
+        "11/6",
+        "1/6",
+        "1/2"
+      ],
+      "lower_bound": "1/6"
+    },
+    {
+      "name": "F_positive_left",
+      "polynomial": [
+        "add",
+        "1",
+        [
+          "mul",
+          "-4",
+          "c"
+        ],
+        [
+          "mul",
+          "-4",
+          [
+            "pow",
+            "c",
+            "3"
+          ]
+        ],
+        [
+          "mul",
+          "4",
+          [
+            "pow",
+            "c",
+            "2"
+          ]
+        ],
+        [
+          "mul",
+          "4",
+          [
+            "pow",
+            "c",
+            "4"
+          ]
+        ],
+        [
+          "mul",
+          "32",
+          [
+            "pow",
+            "c",
+            "5"
+          ]
+        ]
+      ],
+      "variable": "c",
+      "lower": "-1/2",
+      "upper": "0",
+      "coefficients": [
+        "15/4",
+        "69/20",
+        "51/20",
+        "19/10",
+        "7/5",
+        "1"
+      ],
+      "lower_bound": "1"
+    },
+    {
+      "name": "F_positive_middle",
+      "polynomial": [
+        "add",
+        "1",
+        [
+          "mul",
+          "-4",
+          "c"
+        ],
+        [
+          "mul",
+          "-4",
+          [
+            "pow",
+            "c",
+            "3"
+          ]
+        ],
+        [
+          "mul",
+          "4",
+          [
+            "pow",
+            "c",
+            "2"
+          ]
+        ],
+        [
+          "mul",
+          "4",
+          [
+            "pow",
+            "c",
+            "4"
+          ]
+        ],
+        [
+          "mul",
+          "32",
+          [
+            "pow",
+            "c",
+            "5"
+          ]
+        ]
+      ],
+      "variable": "c",
+      "lower": "0",
+      "upper": "1/4",
+      "coefficients": [
+        "1",
+        "4/5",
+        "5/8",
+        "15/32",
+        "21/64",
+        "15/64"
+      ],
+      "lower_bound": "15/64"
+    },
+    {
+      "name": "F_positive_right",
+      "polynomial": [
+        "add",
+        "1",
+        [
+          "mul",
+          "-4",
+          "c"
+        ],
+        [
+          "mul",
+          "-4",
+          [
+            "pow",
+            "c",
+            "3"
+          ]
+        ],
+        [
+          "mul",
+          "4",
+          [
+            "pow",
+            "c",
+            "2"
+          ]
+        ],
+        [
+          "mul",
+          "4",
+          [
+            "pow",
+            "c",
+            "4"
+          ]
+        ],
+        [
+          "mul",
+          "32",
+          [
+            "pow",
+            "c",
+            "5"
+          ]
+        ]
+      ],
+      "variable": "c",
+      "lower": "1/4",
+      "upper": "1/2",
+      "coefficients": [
+        "15/64",
+        "9/64",
+        "3/32",
+        "1/8",
+        "3/10",
+        "3/4"
+      ],
+      "lower_bound": "3/32"
+    }
+  ],
+  "interval_covers": [
+    {
+      "name": "T_positivity_covers_full_edge",
+      "lower": "-1/2",
+      "upper": "1/2",
+      "positivity_names": [
+        "T_positive_full_edge"
+      ]
+    },
+    {
+      "name": "F_positivity_covers_full_edge",
+      "lower": "-1/2",
+      "upper": "1/2",
+      "positivity_names": [
+        "F_positive_left",
+        "F_positive_middle",
+        "F_positive_right"
+      ]
+    }
+  ]
+}
