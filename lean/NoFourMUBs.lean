@@ -40,3 +40,4 @@ import NoFourMUBs.Step1.AnchorOrbit
 import NoFourMUBs.Step2.AnchorTransport
 import NoFourMUBs.Step2.BaseAnchor
 import NoFourMUBs.Step2.DenseExistence
+import NoFourMUBs.Step2.Connected

@@ -3,6 +3,7 @@ import NoFourMUBs.Step1.Census
 import NoFourMUBs.Step2.MatchedUnique
 import NoFourMUBs.Step2.AnchorTransport
 import NoFourMUBs.Step2.BaseAnchor
+import NoFourMUBs.Step2.Connected
 
 /-!
 # The end-to-end theorem
@@ -95,5 +96,18 @@ theorem no_four_mubs_explicit {ι : Type*} [Finite ι] (A : ι → RecordCert)
     (hE : Step2.MatchedExistence) (hD : Step2.MatchedDensityReach) :
     ¬ FourMUBs :=
   no_four_mubs_one_anchor A hcov htao ⟨BaseAnchor.H0had, BaseAnchor.matched_H0, hAnchor⟩ hFourier hE hD
+
+/-- **The end-to-end theorem along the paper's route.**  Step 2 enters as the single statement that the non-Tao
+quotient is connected (`PROOF.md` Theorem 2); the only other inputs are the atlas certificate (Records, boundary
+covers, Tao membership) and membership of the Fourier matrix. -/
+theorem no_four_mubs_connected {ι : Type*} [Finite ι] (A : ι → RecordCert)
+    (hcov : ∀ l, Nonempty (BoundaryCover A l))
+    (htao : ∀ ω, IsPrimitiveCubicPhase ω → ∃ K, InAtlas A K ∧ Equivalent (taoMatrix ω) K)
+    (hFourier : Step2.FourierAnchorCertificate (InAtlas A))
+    (hX : Step2.NonTaoPreconnected) :
+    ¬ FourMUBs :=
+  no_four_mubs_of_atlas A htao
+    (Step2.coverage_of_connected (InAtlas A) hX (recordClopen_of_atlas A (boundaryTransfers_of_covers A hcov))
+      hFourier)
 
 end NoFourMUBs
