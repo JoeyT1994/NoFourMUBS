@@ -7,6 +7,17 @@ lake exe cache get   # prebuilt Mathlib
 lake build
 ```
 
+## The end-to-end theorem
+
+`NoFourMUBs.no_four_mubs_final` (in `Final.lean`) proves `¬ FourMUBs`. It uses only `propext`, `Classical.choice` and `Quot.sound`. Its hypotheses are exactly the remaining inputs:
+
+| Input | Kind | Status |
+|---|---|---|
+| `A : ι → RecordCert`, `BoundaryTransfers A`, Tao and anchor memberships | finite certificate | checked externally (`certify.py`, `proof/independent/`) |
+| `MaximumCensus anchors` | Step 1 | paper proof; its finite algebra is compiled (`Step1`); the analytic assembly is still to do |
+| `MatchedExistence`, `MatchedUniqueness` | reconstruction | paper proofs (dossier MC2–MC4; `STEP2_BLUEPRINT.md` §7) |
+| `MatchedDensityReach` | reconstruction | **open point** (PR-M); handoff C in progress |
+
 ## Status
 
 `#print axioms NoFourMUBs.no_four_mubs` reports only `[propext, Classical.choice, Quot.sound]` (run `lake env lean NoFourMUBs/Axioms.lean`).
@@ -23,6 +34,9 @@ lake build
 | `StageC/Interface.lean`, `StageC/Cert.lean` | **Certificate interface for Stage C**: semantic exclusion predicates (`LeafRej`, `EdgeOExcl`, `EdgeUExcl`), `stageC_semantic`, one lemma per recorded test turning a violation into an exclusion, and the `StageCCert` structure with `StageCCert.excludes` | ✅ proved |
 | `Record.lean` | **`RecordCert`**: the data `certify.py` checks for one Record (centre, radius, frame, σ, e₀, j₁, λ, the projection constant, column constant, and a `StageCCert` in cycle units). `RecordCert.excludes`: no Hadamard in a certified Record is a quartet edge (Lemmas 3.1 and 3.2, radians to cycles) | ✅ proved |
 | `Atlas.lean` | `atlas_excluded`, `atlas_taoExcluded`, and **`no_four_mubs_of_atlas`**: a certified atlas, Tao's membership and coverage imply no four MUBs | ✅ proved |
+| `Step2/*.lean` | From the Step 2 return: the compact Hadamard quotient, the compact-superlevel argument, and `coverage_of_matched_density`: matched existence, uniqueness and density, the census, clopen Records and anchors imply `Inputs.covered` | ✅ compiled |
+| `Step4.lean` | **Step 4**: `recordClopen_of_atlas`. A finite atlas with boundary transfers covers a clopen set of classes. Closed: compact images. Open: the boundary transfer plus a local `arg` chart at interior points | ✅ proved |
+| `Final.lean` | **`no_four_mubs_final`**: the end-to-end theorem, with every remaining input explicit (certificates, Step 1 census, matched existence, uniqueness and density) | ✅ proved |
 | `Transfer.lean` | **Lemma 4.1 (boundary transfer)**: Frobenius norm, `hor` contracts it, signed permutations act isometrically and match Γ, windings | ✅ proved |
 | `Main.lean` | **`no_four_mubs : Inputs Ball → ¬ FourMUBs`** | ✅ proved, relative to `Inputs` |
 | `Inputs.taoExcluded` | Remark 3.3: S₆ is a zero-dimensional Record | ⏳ Lemma 3.1, Stage C, finite certificate |

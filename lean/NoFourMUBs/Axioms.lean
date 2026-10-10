@@ -20,3 +20,5 @@ import NoFourMUBs
 #print axioms NoFourMUBs.StageC.StageCCert.excludes
 #print axioms NoFourMUBs.RecordCert.excludes
 #print axioms NoFourMUBs.no_four_mubs_of_atlas
+#print axioms NoFourMUBs.recordClopen_of_atlas
+#print axioms NoFourMUBs.no_four_mubs_final

@@ -21,3 +21,5 @@ import NoFourMUBs.Atlas
 import NoFourMUBs.Step2.TopologyCore
 import NoFourMUBs.Step2.QuotientTopology
 import NoFourMUBs.Step2.Statements
+import NoFourMUBs.Step4
+import NoFourMUBs.Final

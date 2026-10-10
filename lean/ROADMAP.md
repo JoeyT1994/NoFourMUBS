@@ -23,7 +23,7 @@ Target: discharge `NoFourMUBs.Inputs` so that `no_four_mubs` holds unconditional
 - **Decision:** `CertificateValid cert` stays an explicit hypothesis of the final theorem. It is checked externally, twice and independently (`proof/atlas/certify.py`, `proof/independent/`). This mirrors upstream's treatment of its retained calculations.
 - **Optional, later:** a Lean checker proved sound and run with `native_decide`. This needs a much smaller certificate first, and adds trust in Lean's compiler.
 
-## Layer 3: coverage (Steps 1, 2 and 4)
+## Layer 3: coverage (Steps 1, 2 and 4). Step 4's clopen argument ✅ (`Step4.lean`); conditional Step 2 ✅ (`Step2/Statements.lean`); end-to-end ✅ (`Final.lean`)
 
 | Module | Statement | Needs |
 |---|---|---|
