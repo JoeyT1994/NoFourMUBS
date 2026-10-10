@@ -38,6 +38,7 @@ lake build
 | `Step4.lean` | **Step 4**: `recordClopen_of_atlas`. A finite atlas with boundary transfers covers a clopen set of classes. Closed: compact images. Open: the boundary transfer plus a local `arg` chart at interior points | ✅ proved |
 | `Boundary.lean` | `BoundaryCover` (η-boxes, targets, signed permutations, windings) and `boundaryTransfers_of_covers` via Lemma 4.1 | ✅ proved |
 | `Final.lean` | **`no_four_mubs_final`**: the end-to-end theorem, with every remaining input explicit (certificates, Step 1 census, matched existence, uniqueness and density) | ✅ proved |
+| `Step1Saddle.lean` | **Step 1, interior**: `calR_no_pos_localMax`. The invariant ℛ(A, B) has no local maximum with positive value on ℂ². It combines the circle action, the first-order conditions, a second-order test proved by the mean value theorem, and the compiled certificate algebra | ✅ proved |
 | `Transfer.lean` | **Lemma 4.1 (boundary transfer)**: Frobenius norm, `hor` contracts it, signed permutations act isometrically and match Γ, windings | ✅ proved |
 | `Main.lean` | **`no_four_mubs : Inputs Ball → ¬ FourMUBs`** | ✅ proved, relative to `Inputs` |
 | `Inputs.taoExcluded` | Remark 3.3: S₆ is a zero-dimensional Record | ⏳ Lemma 3.1, Stage C, finite certificate |
