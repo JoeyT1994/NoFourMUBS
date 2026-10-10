@@ -9,7 +9,7 @@ Start with [`PROOF.md`](PROOF.md), about three pages, or the typeset [`proof/not
 | 1 | The positive local maxima of R form one 18-point orbit; max R = 3¹³/2¹² | Proved by exact algebra and **fully proved in Lean** (`Step1Geo.maximumCensus`, explicit anchors). Primary proof: the sextic-free saddle route (651 exact claims). Two earlier proofs remain as cross-checks |
 | 2 | (𝓗/≅) ∖ {S₆} is connected | Proved relative to MC1–MC5. **Open point (10 Oct):** MC4's nonmatched converse uses [CT]'s necessary minus-matching (PR-M), whose supplied proof shows only F₊ ≢ 0. An external audit found the gap (no counterexample is known); a handoff to prove PR-M, or to route around it, is in progress |
 | 3 | A ball Record plus Stage C excludes quartet edges in the ball; S₆ is a zero-dimensional Record | Lemmas proved ([`STAGEC.md`](proof/atlas/STAGEC.md), [`RIGOUR.md`](proof/atlas/RIGOUR.md)) |
-| 4 | A finite atlas with certified boundary transfers covers X | Certified: 12,020 Records, re-built and re-certified after the audit's Stage C correction (9 Oct) |
+| 4 | A finite atlas with certified boundary transfers covers X | Certified: 12,021 Records, re-built after the audit's Stage C correction (9 Oct); one Record shrunk on 10 Oct so that the independent Julia checker also passes every Record |
 
 **Lean (10 Oct).** `lean/NoFourMUBs/Final.lean`, `no_four_mubs_explicit`, proves `¬ FourMUBs` with only standard axioms from: the atlas certificate (Records, boundary covers, Tao membership), membership of two explicit matrices (the base-anchor completion `BaseAnchor.H0` and F6), `MatchedExistence` (L1) and `MatchedDensityReach` (D). Steps 1 and 3, Lemma 4.1, matched uniqueness (L2), the anchor transport, and the coverage topology are all proved in Lean. Along the paper's route, `no_four_mubs_connected` takes Step 2 as the single statement that the non-Tao quotient is connected, plus the atlas certificate and F6 membership.
 
@@ -18,7 +18,7 @@ Start with [`PROOF.md`](PROOF.md), about three pages, or the typeset [`proof/not
 ```bash
 pip install -r requirements.txt     # numpy, scipy, sympy, mpmath, python-flint
 python3 verify.py                   # about 2 minutes: Steps 1–3, MC1–MC5, S₆
-python3 verify.py --atlas -j 9      # about 50 minutes on 9 cores: certifies all 12,020 Records, and F6
+python3 verify.py --atlas -j 9      # about 50 minutes on 9 cores: certifies all 12,021 Records, F6 and the anchor H₀
 ```
 
 ## Map

@@ -38,8 +38,9 @@ python3 nonempty.py results/atlas_certificate.json.gz
 python3 arb_replay.py centre_fold52.json 0.08 150
 ```
 
-**The certified atlas** (`results/`) holds 12,020 Records, every one closed:
+**The certified atlas** (`results/`) holds 12,021 Records, every one closed:
 - it was built on one core, then repaired after the Stage C correction (`repair.py`) and re-closed;
+- on 10 Oct one Record was shrunk (`repair_one.py`) so that the independent checker also passes every Record;
 - `verify.py --atlas` certified all of them on 9 cores in about 48 minutes;
 - see `results/RECEIPT.md`.
 

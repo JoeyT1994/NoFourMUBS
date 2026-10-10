@@ -138,8 +138,8 @@ Because of the normal bound, the boundary of a Record needs only a 4-dimensional
 3. `nonempty.py` places F6 inside a Record.
 
 **Result** ([`proof/atlas/results/`](proof/atlas/results/RECEIPT.md)), with the corrected Stage C:
-- **The atlas.** 12,020 ball Records: 10,497 at R = 0.08, 1,030 at 0.063, 417 at 0.05 and 76 at 0.04. Every boundary is transferred, with on average 58 transfer targets per Record.
-- **Certification.** `certify.py` independently certifies all 12,020 (`verify.py --atlas`: 46/46 checks pass).
+- **The atlas.** 12,021 ball Records: 10,497 at R = 0.08, 1,029 at 0.063, 419 at 0.05 and 76 at 0.04. Every boundary is transferred, with on average 58 transfer targets per Record.
+- **Certification.** `certify.py` certifies all 12,021, and an independent Julia implementation (`proof/independent/`) passes all 12,021 as well (`proof/atlas/results/RECEIPT.md`).
 - **Nonemptiness.** F6 lies in the interior of Record 877, at distance 0.023 < 0.08.
 - **Cost.** About 5 CPU-hours to certify; about 48 minutes on 9 cores.
 - **Certificate.** `atlas_certificate.json.gz` (16 MB, with integer tangent frames).
@@ -152,16 +152,16 @@ By Step 4 and the Corollary to Step 2, every class in X lies in some ball Record
 
 | Input | Used in | Status |
 |---|---|---|
-| The classification [CT], via MC1–MC5 | Step 2 only | Proved relative to [CT] in [`MinimalConstruction/Proofs`](MinimalConstruction/Proofs/README.md), the current status. The "remains open" lines in `ASSUMPTIONS.md` are a hash-pinned historical section. [CT]'s exceptional Karlsson class H_cross is covered (MC1, MC4); see [`proof/LITERATURE.md`](proof/LITERATURE.md). **Open point (10 Oct 2026):** MC4's nonmatched converse (`NONMATCHED_EXCEPTIONS.md`) imports [CT]'s *necessary* affine-minus matching (PR-M: a physical product-regular completion uses the minus pairing). [CT]'s supplement (`prop:supp-generic-flatness`) proves only that the plus residual F₊ is not identically zero, not that it is nonzero at every physical product-regular point. Until PR-M is proved, MC4–MC5, and hence Step 2, rest on that statement. See [`AUDIT.md`](AUDIT.md). **Lean:** matched uniqueness (L2) is proved (`Step2.matchedUniqueness`, by a Vieta–Vandermonde side-uniqueness argument); `no_four_mubs_reduced` leaves only the certificates, matched existence (L1) and density (D) |
+| The classification [CT], via MC1–MC5 | Step 2 only | Proved relative to [CT] in [`MinimalConstruction/Proofs`](MinimalConstruction/Proofs/README.md), the current status. The "remains open" lines in `ASSUMPTIONS.md` are a hash-pinned historical section. [CT]'s exceptional Karlsson class H_cross is covered (MC1, MC4); see [`proof/LITERATURE.md`](proof/LITERATURE.md). **Open point (10 Oct 2026):** MC4's nonmatched converse (`NONMATCHED_EXCEPTIONS.md`) imports [CT]'s *necessary* affine-minus matching (PR-M: a physical product-regular completion uses the minus pairing). [CT]'s supplement (`prop:supp-generic-flatness`) proves only that the plus residual F₊ is not identically zero, not that it is nonzero at every physical product-regular point. Until PR-M is proved, MC4–MC5, and hence Step 2, rest on that statement. See [`AUDIT.md`](AUDIT.md). **Lean:** `lean/NoFourMUBs/MainTheorem.lean` proves `¬ FourMUBs` from one bundled finite certificate plus Step 2, entered either as the connectedness of X (`no_four_mubs_of_connected`) or as matched existence and density (`no_four_mubs_main`). Matched uniqueness (L2), the anchor orbit and transport, and an explicit matched anchor completion are proved |
 | The Stage C inequalities (after [OAI] §6) | Step 3 | Proved in [`proof/atlas/STAGEC.md`](proof/atlas/STAGEC.md): elementary Taylor and Cauchy–Schwarz bounds |
-| Computation | Steps 1 and 4 | Exact (Step 1); Arb plus margined binary64 (Steps 3–4) |
+| Computation | Steps 1 and 4 | Exact (Step 1, also kernel-checked in Lean); Arb plus margined binary64 (Steps 3–4), confirmed by an independent Julia implementation |
 
 ## Verifying
 
 ```bash
 pip install -r requirements.txt
 python3 verify.py            # Steps 1–2 exact replays, MC1–MC5, S₆ Record, Stage C Arb replay
-python3 verify.py --atlas    # Step 4: certify all 12,020 Records (about 50 min on 9 cores)
+python3 verify.py --atlas    # Step 4: certify all 12,021 Records (about 50 min on 9 cores)
 ```
 
 ## History

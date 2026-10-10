@@ -51,6 +51,7 @@ def main():
         jobs += [('step4_certify_%06d' % lo, 'proof/atlas/certify.py', ['results/atlas_certificate.json.gz', str(lo), str(min(n, lo + ch))])
                  for lo in range(0, n, ch)]
         jobs += [('step4_nonempty_F6', 'proof/atlas/nonempty.py', ['results/atlas_certificate.json.gz'])]
+        jobs += [('step4_anchor_H0', 'proof/atlas/anchor.py', ['results/atlas_certificate.json.gz'])]
     fails = 0
     with ThreadPoolExecutor(a.jobs) as pool:
         for name, code, dt, out in pool.map(lambda c: run(*c, timeout=6 * 3600 if c[0].startswith('step4') else 3600), jobs):
