@@ -1,6 +1,7 @@
 import NoFourMUBs.Boundary
 import NoFourMUBs.Step1.Census
 import NoFourMUBs.Step2.MatchedUnique
+import NoFourMUBs.Step2.AnchorTransport
 
 /-!
 # The end-to-end theorem
@@ -68,5 +69,18 @@ theorem no_four_mubs_reduced {ι : Type*} [Finite ι] (A : ι → RecordCert)
     (hE : Step2.MatchedExistence) (hD : Step2.MatchedDensityReach) :
     ¬ FourMUBs :=
   no_four_mubs_step1 A hcov htao hAnchors hFourier hE Step2.matchedUniqueness hD
+
+/-- **The end-to-end theorem with a single anchor.**  The 18 maximum anchors are one orbit of the corner moves,
+and matched completions transport along them (`Step2.maximumAnchorCertificate_of_base`), so one covered matched
+completion at the base anchor replaces the 18 anchor certificates. -/
+theorem no_four_mubs_one_anchor {ι : Type*} [Finite ι] (A : ι → RecordCert)
+    (hcov : ∀ l, Nonempty (BoundaryCover A l))
+    (htao : ∀ ω, IsPrimitiveCubicPhase ω → ∃ K, InAtlas A K ∧ Equivalent (taoMatrix ω) K)
+    (hAnchor : ∃ H : Hadamard6.Had6, Step2.Matched Step2.baseAnchor H ∧ Step2.CoveredMatrix (InAtlas A) H.1)
+    (hFourier : Step2.FourierAnchorCertificate (InAtlas A))
+    (hE : Step2.MatchedExistence) (hD : Step2.MatchedDensityReach) :
+    ¬ FourMUBs := by
+  obtain ⟨H, hH, hc⟩ := hAnchor
+  exact no_four_mubs_reduced A hcov htao (Step2.maximumAnchorCertificate_of_base _ hH hc) hFourier hE hD
 
 end NoFourMUBs

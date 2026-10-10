@@ -9,7 +9,7 @@ lake build
 
 ## The end-to-end theorem
 
-`NoFourMUBs.no_four_mubs_final`, and its form `no_four_mubs_of_certificates` taking boundary covers (in `Final.lean`), prove `¬ FourMUBs`. `no_four_mubs_step1` is the same theorem with Step 1 discharged: the anchors are the explicit maxima `Step1Geo.anchors`, and the census is `Step1Geo.maximumCensus`. **`no_four_mubs_reduced`** also discharges matched uniqueness (`Step2.matchedUniqueness`): its only remaining inputs are the finite certificates, `MatchedExistence` and `MatchedDensityReach`. It uses only `propext`, `Classical.choice` and `Quot.sound`. Its hypotheses are exactly the remaining inputs:
+`NoFourMUBs.no_four_mubs_final`, and its form `no_four_mubs_of_certificates` taking boundary covers (in `Final.lean`), prove `¬ FourMUBs`. `no_four_mubs_step1` is the same theorem with Step 1 discharged: the anchors are the explicit maxima `Step1Geo.anchors`, and the census is `Step1Geo.maximumCensus`. **`no_four_mubs_reduced`** also discharges matched uniqueness (`Step2.matchedUniqueness`): its only remaining inputs are the finite certificates, `MatchedExistence` and `MatchedDensityReach`. **`no_four_mubs_one_anchor`** further replaces the 18 anchor certificates by a single covered matched completion at the base anchor. It uses only `propext`, `Classical.choice` and `Quot.sound`. Its hypotheses are exactly the remaining inputs:
 
 | Input | Kind | Status |
 |---|---|---|
@@ -47,6 +47,8 @@ lake build
 | `Step1/Census.lean` | **Theorem 1**: `maximumCensus : MaximumCensus anchors`, with the 18 anchors `Ψ` of `(ζᵏq^{±1}, ζᵏq^{∓1})`, `q = (1+i√15)/4`, each with `R = 3¹³/2¹²` | ✅ proved |
 | `Step2/SideAlg.lean`, `Step2/SidePerm.lean` | **Side uniqueness**: the Laurent identities of blueprint Lemma 7.2; the data `(s, t, r, T)` with `Im T ≠ 0` determine `u`, `v`, `π`; Vieta fixes the multiset of each row; a Vandermonde pairing argument (`(xⱼ−xₖ)(xⱼ−xₗ)dⱼ = 0`) replaces the Fourier reconstruction. `side_unique`: two sides with the same Gram data and signature differ by a column permutation | ✅ proved |
 | `Step2/MatchedUnique.lean` | **L2, `matchedUniqueness`**: horizontal and vertical sides are aligned by `side_unique`; orthogonality forces the last block (`eq_forcedD_of_row_cross`) | ✅ proved |
+| `Step1/AnchorOrbit.lean` | The 18 anchors are one orbit of the four corner moves: in exponent coordinates (`ζⁱqʲ ↦ (i mod 3, j)`) the moves are linear and the orbit check is `decide` | ✅ proved |
+| `Step2/AnchorTransport.lean` | Side signatures are invariant under permutations and phases; `R`, `χ` are invariant under the moves; matched completions transport along moves (`matched_move`); `maximumAnchorCertificate_of_base` | ✅ proved |
 | `Transfer.lean` | **Lemma 4.1 (boundary transfer)**: Frobenius norm, `hor` contracts it, signed permutations act isometrically and match Γ, windings | ✅ proved |
 | `Main.lean` | **`no_four_mubs : Inputs Ball → ¬ FourMUBs`** | ✅ proved, relative to `Inputs` |
 | `Inputs.taoExcluded` | Remark 3.3: S₆ is a zero-dimensional Record | ⏳ Lemma 3.1, Stage C, finite certificate |

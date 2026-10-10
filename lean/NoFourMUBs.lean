@@ -36,3 +36,5 @@ import NoFourMUBs.Step1.Census
 import NoFourMUBs.Step2.SideAlg
 import NoFourMUBs.Step2.SidePerm
 import NoFourMUBs.Step2.MatchedUnique
+import NoFourMUBs.Step1.AnchorOrbit
+import NoFourMUBs.Step2.AnchorTransport
