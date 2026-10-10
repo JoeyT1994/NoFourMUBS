@@ -17,7 +17,7 @@ Target: discharge `NoFourMUBs.Inputs` so that `no_four_mubs` holds unconditional
 | `Transfer` ✅ | Lemma 4.1 | `proof/atlas/COVERAGE.md` | done (`NoFourMUBs.transfer`) |
 | `TaoRecord` (isolation ✅ as `isolation`) | Remark 3.3: S₆ isolated, and not a quartet edge given its Stage C certificate | `proof/atlas/tao.py`; exact spectrum in `research/conditioning/return/verify_tao.py` | exact σ = 3/√2 (integer certificate) and the remainder bound give isolation radius √(3/2); no mean-value theorem |
 
-## Layer 2: the certificate interface
+## Layer 2: the certificate interface (✅ structure in place: `StageCCert`, `RecordCert`, `no_four_mubs_of_atlas`)
 - `Certificate`: a Lean structure mirroring `atlas_certificate.json.gz` (centres, radii, frames, targets).
 - `CertificateValid`: the Prop stating that every check of `certify.py` holds: σ, normal bound, Stage C outcome, boundary tree and nonemptiness.
 - **Decision:** `CertificateValid cert` stays an explicit hypothesis of the final theorem. It is checked externally, twice and independently (`proof/atlas/certify.py`, `proof/independent/`). This mirrors upstream's treatment of its retained calculations.

@@ -14,3 +14,7 @@ import NoFourMUBs.StageC.Linear
 import NoFourMUBs.StageC.Scalar
 import NoFourMUBs.StageC.Edge
 import NoFourMUBs.StageC.Joint
+import NoFourMUBs.StageC.Interface
+import NoFourMUBs.StageC.Cert
+import NoFourMUBs.Record
+import NoFourMUBs.Atlas

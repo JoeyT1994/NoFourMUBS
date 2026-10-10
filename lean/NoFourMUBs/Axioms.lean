@@ -17,3 +17,6 @@ import NoFourMUBs
 #print axioms NoFourMUBs.StageC.edge_U
 #print axioms NoFourMUBs.StageC.joint_O
 #print axioms NoFourMUBs.StageC.joint_U
+#print axioms NoFourMUBs.StageC.StageCCert.excludes
+#print axioms NoFourMUBs.RecordCert.excludes
+#print axioms NoFourMUBs.no_four_mubs_of_atlas
