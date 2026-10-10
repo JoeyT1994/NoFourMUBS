@@ -9,7 +9,7 @@ lake build
 
 ## The end-to-end theorem
 
-`NoFourMUBs.no_four_mubs_final`, and its form `no_four_mubs_of_certificates` taking boundary covers (in `Final.lean`), prove `¬ FourMUBs`. `no_four_mubs_step1` is the same theorem with Step 1 discharged: the anchors are the explicit maxima `Step1Geo.anchors`, and the census is `Step1Geo.maximumCensus`. **`no_four_mubs_reduced`** also discharges matched uniqueness (`Step2.matchedUniqueness`): its only remaining inputs are the finite certificates, `MatchedExistence` and `MatchedDensityReach`. **`no_four_mubs_one_anchor`** further replaces the 18 anchor certificates by a single covered matched completion at the base anchor. It uses only `propext`, `Classical.choice` and `Quot.sound`. Its hypotheses are exactly the remaining inputs:
+`NoFourMUBs.no_four_mubs_final`, and its form `no_four_mubs_of_certificates` taking boundary covers (in `Final.lean`), prove `¬ FourMUBs`. `no_four_mubs_step1` is the same theorem with Step 1 discharged: the anchors are the explicit maxima `Step1Geo.anchors`, and the census is `Step1Geo.maximumCensus`. **`no_four_mubs_reduced`** also discharges matched uniqueness (`Step2.matchedUniqueness`): its only remaining inputs are the finite certificates, `MatchedExistence` and `MatchedDensityReach`. **`no_four_mubs_one_anchor`** further replaces the 18 anchor certificates by a single covered matched completion at the base anchor. **`no_four_mubs_explicit`** makes that completion explicit (`BaseAnchor.H0`, entries in ℚ(i,√3,√5,√7), proved Hadamard and matched), so both anchor inputs are memberships of explicit matrices. It uses only `propext`, `Classical.choice` and `Quot.sound`. Its hypotheses are exactly the remaining inputs:
 
 | Input | Kind | Status |
 |---|---|---|
@@ -49,6 +49,7 @@ lake build
 | `Step2/MatchedUnique.lean` | **L2, `matchedUniqueness`**: horizontal and vertical sides are aligned by `side_unique`; orthogonality forces the last block (`eq_forcedD_of_row_cross`) | ✅ proved |
 | `Step1/AnchorOrbit.lean` | The 18 anchors are one orbit of the four corner moves: in exponent coordinates (`ζⁱqʲ ↦ (i mod 3, j)`) the moves are linear and the orbit check is `decide` | ✅ proved |
 | `Step2/AnchorTransport.lean` | Side signatures are invariant under permutations and phases; `R`, `χ` are invariant under the moves; matched completions transport along moves (`matched_move`); `maximumAnchorCertificate_of_base` | ✅ proved |
+| `Step2/BaseAnchor.lean` | The explicit positive matched completion `H0` at the base anchor: Hadamard, dephased, base corner, `χ = −5103/64`, signatures `(χ ± i√R)/2`; generated `linear_combination` certificates (`lean/generators/base_anchor/`) | ✅ proved |
 | `Transfer.lean` | **Lemma 4.1 (boundary transfer)**: Frobenius norm, `hor` contracts it, signed permutations act isometrically and match Γ, windings | ✅ proved |
 | `Main.lean` | **`no_four_mubs : Inputs Ball → ¬ FourMUBs`** | ✅ proved, relative to `Inputs` |
 | `Inputs.taoExcluded` | Remark 3.3: S₆ is a zero-dimensional Record | ⏳ Lemma 3.1, Stage C, finite certificate |

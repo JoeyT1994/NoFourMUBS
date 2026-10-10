@@ -2,6 +2,7 @@ import NoFourMUBs.Boundary
 import NoFourMUBs.Step1.Census
 import NoFourMUBs.Step2.MatchedUnique
 import NoFourMUBs.Step2.AnchorTransport
+import NoFourMUBs.Step2.BaseAnchor
 
 /-!
 # The end-to-end theorem
@@ -82,5 +83,17 @@ theorem no_four_mubs_one_anchor {ι : Type*} [Finite ι] (A : ι → RecordCert)
     ¬ FourMUBs := by
   obtain ⟨H, hH, hc⟩ := hAnchor
   exact no_four_mubs_reduced A hcov htao (Step2.maximumAnchorCertificate_of_base _ hH hc) hFourier hE hD
+
+/-- **The end-to-end theorem with explicit anchors.**  Both remaining anchor inputs are now memberships of
+explicit matrices: the base-anchor completion `BaseAnchor.H0` (proved matched, `BaseAnchor.matched_H0`) and the
+Fourier matrix.  Remaining inputs: the finite certificates, `MatchedExistence` and `MatchedDensityReach`. -/
+theorem no_four_mubs_explicit {ι : Type*} [Finite ι] (A : ι → RecordCert)
+    (hcov : ∀ l, Nonempty (BoundaryCover A l))
+    (htao : ∀ ω, IsPrimitiveCubicPhase ω → ∃ K, InAtlas A K ∧ Equivalent (taoMatrix ω) K)
+    (hAnchor : Step2.CoveredMatrix (InAtlas A) BaseAnchor.H0)
+    (hFourier : Step2.FourierAnchorCertificate (InAtlas A))
+    (hE : Step2.MatchedExistence) (hD : Step2.MatchedDensityReach) :
+    ¬ FourMUBs :=
+  no_four_mubs_one_anchor A hcov htao ⟨BaseAnchor.H0had, BaseAnchor.matched_H0, hAnchor⟩ hFourier hE hD
 
 end NoFourMUBs
