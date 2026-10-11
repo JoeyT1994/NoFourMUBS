@@ -48,3 +48,5 @@ Plan: formalise them in our repository on top of upstream (or upstream them with
 - **Done (10 Oct):** Step 1 in full: `Step1Geo.maximumCensus` (explicit anchors), and `no_four_mubs_step1` in `Final.lean`.
 - **Done (10 Oct):** matched uniqueness L2 (`Step2.matchedUniqueness`), and `no_four_mubs_reduced`: remaining inputs are the certificates, L1 and D.
 - **In flight:** `Step2LeanHandoff`: gap map of MC1–MC5 against upstream Lean, and the minimal route to "X is connected".
+- **Handoffs out (11 Oct):** E, `MatchedFlatnessHandoff` (certify the fourth-moment identity L-id, or prove matched flatness without the classification paper; L1's flatness half); F, `SideExistenceHandoff` (explicit, Lean-checkable identities for side existence at every strict seed; L1's other half). Together with the existing PR-M handoff (C, for D) these cover every remaining non-certificate input.
+

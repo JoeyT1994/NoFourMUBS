@@ -29,6 +29,7 @@
 pip install -r requirements.txt
 python3 verify.py            # exact replays (Steps 1–2), MC1–MC5, S₆ as a 0-dim Record, Stage C Arb sample
 python3 verify.py --atlas    # Step 4: certify all 12,021 Records (about 50 min on 9 cores)
+python3 verify.py --lean    # build the Lean formalisation; audit every main theorem's axioms
 ```
 
 ## References

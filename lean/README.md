@@ -24,7 +24,7 @@ Both use only `propext`, `Classical.choice` and `Quot.sound`. The intermediate f
 | `A : ι → RecordCert`, boundary covers (`BoundaryCover`), Tao and anchor memberships | finite certificate | checked externally (`certify.py`, `proof/independent/`) |
 | `MaximumCensus anchors` | Step 1 | ✅ **proved** (`Step1Geo.maximumCensus`, anchors explicit) |
 | `MatchedUniqueness` | reconstruction | ✅ **proved** (`Step2.matchedUniqueness`) |
-| `MatchedExistence` | reconstruction | paper proof (dossier MC2–MC4) |
+| `MatchedExistence` | reconstruction | paper proof (dossier MC2–MC4; flatness imports [CT]). Reduced to a dense set in Lean; handoffs E (flatness) and F (side existence) out |
 | `MatchedDensityReach` | reconstruction | **open point** (PR-M); handoff C in progress |
 
 ## Status

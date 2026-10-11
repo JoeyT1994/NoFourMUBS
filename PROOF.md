@@ -162,6 +162,7 @@ By Step 4 and the Corollary to Step 2, every class in X lies in some ball Record
 pip install -r requirements.txt
 python3 verify.py            # Steps 1–2 exact replays, MC1–MC5, S₆ Record, Stage C Arb replay
 python3 verify.py --atlas    # Step 4: certify all 12,021 Records (about 50 min on 9 cores)
+python3 verify.py --lean    # build the Lean formalisation; audit every main theorem's axioms
 ```
 
 ## History

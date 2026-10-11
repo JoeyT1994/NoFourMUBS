@@ -2,7 +2,8 @@
 
   python3 verify.py                 Steps 1-2 (two exact replays), MC1-MC5, sheet lemmas, S6 as a zero-dimensional Record,
                                     Stage C Arb sample
-  python3 verify.py --atlas [-j N]  additionally certify every Record of the atlas (Step 4) and F6 nonemptiness
+  python3 verify.py --atlas [-j N]  additionally certify every Record of the atlas (Step 4), F6 and the anchor H0
+  python3 verify.py --lean          additionally build the Lean formalisation and audit its axioms
 """
 import argparse, os, subprocess, sys, time
 from concurrent.futures import ThreadPoolExecutor
@@ -38,6 +39,7 @@ def run(name, rel, args, timeout=3600):
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('--atlas', action='store_true', help='certify the full atlas (Step 4)')
+    ap.add_argument('--lean', action='store_true', help='build the Lean formalisation and audit axioms')
     ap.add_argument('-j', '--jobs', type=int, default=4)
     ap.add_argument('--log-dir', type=Path, default=None)
     a = ap.parse_args()
@@ -52,6 +54,8 @@ def main():
                  for lo in range(0, n, ch)]
         jobs += [('step4_nonempty_F6', 'proof/atlas/nonempty.py', ['results/atlas_certificate.json.gz'])]
         jobs += [('step4_anchor_H0', 'proof/atlas/anchor.py', ['results/atlas_certificate.json.gz'])]
+    if a.lean:
+        jobs += [('lean_build_and_axioms', 'lean/check_axioms.py', [])]
     fails = 0
     with ThreadPoolExecutor(a.jobs) as pool:
         for name, code, dt, out in pool.map(lambda c: run(*c, timeout=6 * 3600 if c[0].startswith('step4') else 3600), jobs):

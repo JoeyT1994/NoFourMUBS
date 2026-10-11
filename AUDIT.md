@@ -19,6 +19,7 @@ Start with [`PROOF.md`](PROOF.md), about three pages, or the typeset [`proof/not
 pip install -r requirements.txt     # numpy, scipy, sympy, mpmath, python-flint
 python3 verify.py                   # about 2 minutes: Steps 1–3, MC1–MC5, S₆
 python3 verify.py --atlas -j 9      # about 50 minutes on 9 cores: certifies all 12,021 Records, F6 and the anchor H₀
+python3 verify.py --lean          # build the Lean formalisation; audit every main theorem's axioms
 ```
 
 ## Map
