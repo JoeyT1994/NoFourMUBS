@@ -15,6 +15,12 @@ So `Matched baseAnchor H₀` holds, and the single anchor input becomes the pure
 
 open Matrix Hadamard6 ComplexConjugate NoFourMUBs.Step2 NoFourMUBs.Step1Geo
 
+-- The generated certificate lemmas share one uniform `simp only` set and `all_goals` tail; which lemma fires
+-- varies per entry, so the unused-argument and unused-tactic linters are silenced for this generated file only.
+set_option linter.unusedSimpArgs false
+set_option linter.unusedTactic false
+set_option linter.unreachableTactic false
+
 noncomputable section
 
 namespace NoFourMUBs.BaseAnchor

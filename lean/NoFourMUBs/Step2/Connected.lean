@@ -28,7 +28,7 @@ lemma crossRatio_of_equivalent {H K : Mat6} (h : Equivalent H K) :
   linear_combination (H (σ i) (τ j) * H (σ k) (τ l) * conj (H (σ i) (τ l)) * conj (H (σ k) (τ j))) *
     ((r i * conj (r i)) * (r k * conj (r k)) * (c j * conj (c j)) * u (c l) (hc l) +
      (r i * conj (r i)) * (r k * conj (r k)) * u (c j) (hc j) +
-     (r i * conj (r i)) * u (r k) (hr k) + u (r i) (hr i)) - 0
+     (r i * conj (r i)) * u (r k) (hr k) + u (r i) (hr i))
 
 lemma tao_entry_cube {ω : ℂ} (hω : IsPrimitiveCubicPhase ω) (i j : I6) : (taoMatrix ω i j) ^ 3 = 1 := by
   have h3 : ω ^ 3 = 1 := by linear_combination (ω - 1) * hω.2

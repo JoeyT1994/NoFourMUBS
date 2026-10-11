@@ -40,7 +40,7 @@ lemma hasDerivAt_Pc {u : ℝ → ℂ} {u1 : ℂ} {t : ℝ} (hu : HasDerivAt u u1
   have := ((((hu.pow 2).mul (hs.pow 2)).add (((hu.const_mul (18 : ℂ)).mul hs))).sub
     (((hu.pow 3).add (hs.pow 3)).const_mul (4 : ℂ))).sub_const (27 : ℂ)
   refine (this.congr_deriv ?_).congr_of_eventuallyEq (Filter.Eventually.of_forall fun s => ?_)
-  · simp only [PZ, PW, Nat.cast_ofNat, Pi.pow_apply, Pi.mul_apply, Pi.add_apply, Pi.sub_apply]; ring
+  · simp only [PZ, PW, Nat.cast_ofNat, Pi.pow_apply]; ring
   · simp only [Pc, Pi.pow_apply, Pi.mul_apply, Pi.add_apply, Pi.sub_apply] <;> ring
 
 /-- Second-order chain rule: the derivative of `PZ(u, ū)u′ + PW(u, ū)ū′`. -/
@@ -233,7 +233,7 @@ theorem smooth_case {U V z : ℂ} (hz1 : Complex.normSq z = 1) (hz3 : z ^ 3 ≠ 
       set w := U + 3 * V
       have hg10 : g1 0 = c * w / 2 + star (c * w / 2) := by
         simp only [g1, uf_zero, u1f_zero, PW_star, c, w, star_mul', star_div₀]
-        simp only [star_mul', star_neg, Complex.star_def, Complex.conj_I, star_ofNat]; ring
+        simp only [star_neg, Complex.star_def, Complex.conj_I, star_ofNat]; ring
       have hcw : (c * w).re = 0 := by
         rw [hg10, re_add_star] at h1
         have h2 : (c * w / 2).re = (c * w).re / 2 := by simp

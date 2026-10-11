@@ -34,25 +34,25 @@ lemma permanent3_expand (B : Mat3) : permanent3 B =
 
 lemma sig_rows (B : Mat3) (h0 : ∀ j, B 0 j = 1) : sideSignature B = TS (B 1) (B 2) := by
   rw [sideSignature, permanent3_expand, Matrix.det_fin_three]
-  simp only [Fin.prod_univ_three, h0, TS, piS, hS, uS, star_one, Complex.star_def, map_mul, map_one]
+  simp only [Fin.prod_univ_three, h0, TS, piS, hS, uS, Complex.star_def, map_mul, map_one]
   ring
 
 lemma sig_cols (C : Mat3) (h0 : ∀ i, C i 0 = 1) :
     sideSignature C = TS (fun j => C j 1) (fun j => C j 2) := by
   rw [sideSignature, permanent3_expand, Matrix.det_fin_three]
-  simp only [Fin.prod_univ_three, h0, TS, piS, hS, uS, star_one, Complex.star_def, map_mul, map_one]
+  simp only [Fin.prod_univ_three, h0, TS, piS, hS, uS, Complex.star_def, map_mul, map_one]
   ring
 
 lemma gram_rows (B : Mat3) (h0 : ∀ j, B 0 j = 1) :
     (B * Bᴴ) 1 0 = sS (B 1) ∧ (B * Bᴴ) 2 0 = sS (B 2) ∧ (B * Bᴴ) 2 1 = rS (B 1) (B 2) := by
   refine ⟨?_, ?_, ?_⟩ <;>
-    simp [Matrix.mul_apply, Fin.sum_univ_three, h0, sS, rS, Complex.star_def]
+    simp [Matrix.mul_apply, Fin.sum_univ_three, h0, sS, rS]
 
 lemma gram_cols (C : Mat3) (h0 : ∀ i, C i 0 = 1) :
     (Cᴴ * C) 0 1 = sS (fun j => C j 1) ∧ (Cᴴ * C) 0 2 = sS (fun j => C j 2) ∧
       (Cᴴ * C) 1 2 = rS (fun j => C j 1) (fun j => C j 2) := by
   refine ⟨?_, ?_, ?_⟩ <;>
-    simp [Matrix.mul_apply, Fin.sum_univ_three, h0, sS, rS, Complex.star_def] <;> ring
+    simp [Matrix.mul_apply, Fin.sum_univ_three, h0, sS, rS] <;> ring
 
 lemma im_of_matched {χ R : ℝ} {S : ℂ} (hR : 0 < R) (h : 2 * S = (χ : ℂ) + (Real.sqrt R : ℂ) * Complex.I ∨
     2 * S = (χ : ℂ) - (Real.sqrt R : ℂ) * Complex.I) : S.im ≠ 0 := by

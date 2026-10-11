@@ -56,11 +56,11 @@ lemma sumT_ordT (i : Fin 3) (a : Circle) : sumT (ordT i a) = 2 * (a : ℂ) + sta
 
 lemma coe_aOf (k : Fin 3) (s : Bool) :
     (aOf k s : ℂ) = (ζC : ℂ) ^ (k : ℕ) * (if s then (qC : ℂ) else star (qC : ℂ)) := by
-  cases s <;> simp [aOf, Complex.star_def, ← Circle.coe_inv_eq_conj]
+  cases s <;> simp [aOf, ← Circle.coe_inv_eq_conj]
 
 lemma coe_bOf (k : Fin 3) (s : Bool) :
     (bOf k s : ℂ) = (ζC : ℂ) ^ (k : ℕ) * star (if s then (qC : ℂ) else star (qC : ℂ)) := by
-  cases s <;> simp [bOf, Complex.star_def, ← Circle.coe_inv_eq_conj]
+  cases s <;> simp [bOf, ← Circle.coe_inv_eq_conj]
 
 lemma Phi_anchorQ (n : AnchorIdx) :
     Phi (anchorQ n) = Tp ((ζC : ℂ) ^ (n.1 : ℕ)) (if n.2.1 then (qC : ℂ) else star (qC : ℂ)) := by
@@ -107,7 +107,7 @@ lemma cube_eq_one {z : ℂ} (hz : Complex.normSq z = 1) (h : (z ^ 3).re = 1) : z
   exact Complex.ext (by rw [h, Complex.one_re]) (by rw [him, Complex.one_im])
 
 lemma Tp_neg (z w : ℂ) : Tp (-z) (-w) = Tp z w := by
-  simp only [Tp, neg_mul_neg, star_neg, mul_neg, neg_mul, neg_neg]
+  simp only [Tp, star_neg, mul_neg, neg_mul, neg_neg]
 
 /-- The census on `D × D`, normalised: `z = ζᵏ`, `w = q` or `q̄`. -/
 lemma normal_census {U V : ℂ} (hU : InD U) (hV : InD V) (hpos : 0 < calRUV U V)

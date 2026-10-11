@@ -91,10 +91,10 @@ def psiE (x y : Ex × Ex) : SeedE := ![x.1 - y.2, x.1 + x.2 + y.1, y.1 - x.2, x.
 def anchorE (n : AnchorIdx) : SeedE := psiE (ordE n.2.2.1 (aE n.1 n.2.1)) (ordE n.2.2.2 (bE n.1 n.2.1))
 
 lemma mono_aE (k : Fin 3) (s : Bool) : mono (aE k s) = aOf k s := by
-  cases s <;> simp [mono, aE, aOf, zpow_neg, zpow_one] <;> rfl
+  cases s <;> simp [mono, aE, aOf, zpow_neg] <;> rfl
 
 lemma mono_bE (k : Fin 3) (s : Bool) : mono (bE k s) = bOf k s := by
-  cases s <;> simp [mono, bE, bOf, zpow_neg, zpow_one] <;> rfl
+  cases s <;> simp [mono, bE, bOf, zpow_neg] <;> rfl
 
 lemma ordT_mono (i : Fin 3) (a : Ex) :
     ordT i (mono a) = (mono (ordE i a).1, mono (ordE i a).2) := by
