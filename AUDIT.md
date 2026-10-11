@@ -40,14 +40,14 @@ python3 verify.py --lean          # build the Lean formalisation; audit every ma
    - the sheet-parity formula;
    - the frame symmetries giving H₊(Lθ*) ≅ K*;
    - X = A ∪ conj A ∪ {F6}.
-2. **The coverage corollary and Lemma 4.1** (`proof/atlas/COVERAGE.md`):
+2. **The coverage corollary and Lemma 4.1** (`proof/atlas/COVERAGE.md`; both proved in Lean: `Step4.lean`, `Boundary.lean`, `Step2/Connected.lean`):
    - openness and closedness in the quotient metric;
    - the use of conjugate and transposed images of Records;
    - that the shell R − n ≤ ‖Tη‖ ≤ R + n captures every boundary Hadamard.
-3. **Lemma 3.1, the normal bound:**
+3. **Lemma 3.1, the normal bound** (proved in Lean: `NormalBound.lean`):
    - ‖Φ″‖ ≤ 2√3;
    - the quadratic-root argument.
-4. **Stage C** (`STAGEC.md` against `stagec.py`):
+4. **Stage C** (`STAGEC.md` against `stagec.py`; the inequalities are proved in Lean, `StageC/*.lean`; the computation is replayed by the independent Julia checker):
    - the column bound r_col;
    - the joint test;
    - the margins.
