@@ -201,7 +201,9 @@ function nonempty_F6(recs::Vector{Rec}, cands::Vector{Int})
     F6f = F6k .* (2π / 6)
     perms = permutations6()
     results = []
-    for ti in cands
+    lk = ReentrantLock()
+    # Threaded over candidate records: only the search is parallel; each acceptance is the interval test below.
+    Threads.@threads :dynamic for ti in cands
         P = recs[ti].P
         # quick filter: dephased phases close to multiples of 2 pi/6
         Y = [P[j, k] - P[j, 1] - P[1, k] + P[1, 1] for j in 1:6, k in 1:6]
@@ -226,7 +228,10 @@ function nonempty_F6(recs::Vector{Rec}, cands::Vector{Int})
         Di = [AFi[j, k] - iv(P[j, k]) + TWOPI_I * iv(N[j, k]) for j in 1:6, k in 1:6]
         c = hproj(Di)
         d = sqrt(sum(x^2 for x in c))
-        push!(results, (ti - 1, sup(d), recs[ti].R, sup(d) < recs[ti].R, sign, tr, rp .- 1, cp .- 1))
+        lock(lk) do
+            push!(results, (ti - 1, sup(d), recs[ti].R, sup(d) < recs[ti].R, sign, tr, rp .- 1, cp .- 1))
+        end
     end
+    sort!(results, by = x -> x[1])
     results
 end

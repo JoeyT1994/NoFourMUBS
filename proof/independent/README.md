@@ -271,3 +271,10 @@ has to resolve.
 10. **The export format and "closed".** In the test certificate every closed record's targets include non-closed
     records. A complete certificate must have every target closed. The checker reports this separately
     ("All targets closed").
+
+## Runs on the v3 certificate (11 Oct 2026)
+
+- `results_v3_fresh/`: fresh, complete run on rusty (`run_rusty.sh`, job 7213978, one 128-core node, 8 h): 12,021 / 12,021 closed Records PASS, F6 nonemptiness CERTIFIED, sanity checks pass.
+- `results_v3/`: an earlier incremental run reusing byte-identical v2 rows; identical to the fresh run row for row.
+- The F6 search is now multithreaded over candidate Records (`src/boundary.jl`); only the search is parallel, and each acceptance is the same interval test.
+
