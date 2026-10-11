@@ -22,7 +22,7 @@ question ([RECONSTRUCTION.md](../../MinimalConstruction/RECONSTRUCTION.md),
 under conjugation, excluding the positive sheet over `X` excludes both sheets
 over `X`.* A general seed box `X` transfers the negative sheet over `X` to
 the positive sheet over `X̄`. The strict `a=−1` section is conjugation-closed.
-`d_F` of [FourierNeighbourhood](../FourierNeighbourhood/README.md) is also
+`d_F` of the Fourier neighbourhood (long proof, at the tag `archive-2026-10-11`) is also
 conjugation-invariant.
 
 This does **not** say that the two sheets at the *same* seeds are equivalent.

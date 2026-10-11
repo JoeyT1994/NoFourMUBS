@@ -18,8 +18,7 @@ from flint import arb, arb_mat
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from ballrecord import BallRecord
 from record import opnorm_upper
-from volume import corner_census, IDX_I, IDX_J
-from conditioning import jacobian, HB
+from geometry import corner_census, IDX_I, IDX_J, jacobian, HB
 
 PHOR = HB @ HB.T                                                          # horizontal projector on R^36
 GAMMA = ('id', 'conj', 'tr', 'conjtr')

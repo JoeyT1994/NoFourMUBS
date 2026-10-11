@@ -1,47 +1,56 @@
 # Steps 3 and 4: ball Records and the atlas
 
-## Files
+## The mathematics
+
+| File | Content |
+|---|---|
+| `STAGEC.md` | Stage C stated and proved in our notation (Lemma 3.2) |
+| `COVERAGE.md` | The coverage corollary and the 4-dimensional boundary-transfer lemma (Lemma 4.1) |
+| `RIGOUR.md` | Error budget and status of every inequality |
+
+All three are also formalised in Lean (`lean/NoFourMUBs/StageC/`, `NormalBound.lean`, `Transfer.lean`, `Step4.lean`).
+
+## The trusted checker
 
 | File | Role |
 |---|---|
-| `ballrecord.py` | A ball Record around a rational phase centre P:<br>• rational tangent frame T;<br>• σ certified by an Arb Cholesky factorisation;<br>• Gershgorin bounds on the Gram matrix;<br>• normal bound n(R) (Lemma 3.1);<br>• per-column displacement bound;<br>• `stage_c(R)` |
-| `stagec.py` | Stage C after [OAI] §6:<br>• vector bins at resolutions 12 → 96 with tests (6.7), (6.12) and (6.11);<br>• labels;<br>• edge tests (6.16), (6.20), (6.21) and the joint test (6.23);<br>• exact two-clique search.<br>Exponentials come from Arb tables |
-| `record.py` | Exact Jacobian, rational tangent frame and projectors at a centre. The legacy per-cell path is unused |
-| `COVERAGE.md` | The coverage corollary and the 4-dimensional boundary-transfer lemma (Lemma 4.1) |
-| `atlas.py` | Breadth-first atlas growth. Alignments are signed permutations of the 36 phase entries, composed through a link graph. Loop closures use a signature-ranked global search with corner alignment |
-| `certify.py` | Independent re-check of every Record: σ, the normal bound, a Stage C rerun, and a replay of the boundary tree using only the stored transfer targets, with constants from Arb. Exits nonzero on failure |
-| `nonempty.py` | Places the exact F6 inside a Record, checked in Arb |
-| `tao.py` | S₆ as a zero-dimensional ball Record: uniqueness in the ball (isolation) and Stage C (Remark 3.3) |
+| `certify.py` | Re-checks every Record from the certificate alone. It certifies σ, the normal bound and a Stage C rerun, and replays the boundary tree from the stored transfer targets with Arb constants. Exits nonzero on failure |
+| `ballrecord.py` | A ball Record around a rational phase centre: σ by an Arb Cholesky factorisation, Gram bounds, the normal bound n(R) (Lemma 3.1), the column bound, and `stage_c(R)` |
+| `record.py` | The exact data at a centre: the Jacobian in Arb, a rational horizontal tangent frame, its Gram matrix and the projector onto its complement |
+| `stagec.py` | Stage C after [OAI] §6: vector bins (12 → 96), labels, O/U edge tests with the joint test, and an exact two-clique search; exponentials from Arb tables |
+| `nonempty.py`, `anchor.py` | Place F6 and the explicit matched anchor H₀ inside Records, checked in Arb |
+| `tao.py` | S₆ as a zero-dimensional ball Record: isolation and Stage C (Remark 3.3) |
 | `arb_replay.py` | Re-evaluates a random sample of float Stage C rejections in Arb with no margin |
-| `STAGEC.md` | Stage C stated and proved in our notation (Lemma 3.2) |
-| `RIGOUR.md` | Error budget and status of every inequality |
-| `volume.py`, `conditioning.py` | The corner census used by the alignment, and numerical estimates (vol(A) ≈ 1.0; rank J = 21, σ_min ≥ √3 observed) |
-| `lib/` | Vendored helpers: `chart_np.py` and `common.py` |
-| `export.py` | Converts the driver's pickle into the compact certificate `results/atlas_certificate.json.gz`:<br>• Record centres, as exact float hex;<br>• radii and label radii;<br>• transfer targets.<br>`certify.py` and `nonempty.py` read it directly |
-| `results/` | The compact certificate, the run log and the certification receipts. The driver's working pickles are not tracked |
-| `cluster/` | The rusty job script (the replication run) |
 
-## Parameters of the run
+## The untrusted driver and tools
 
-- **Radii.** Records use R = 0.08 rad with label radius 0.03. If Stage C fails there, the Record falls back down a ladder to R = 0.01.
-- **Spawning.** New centres are placed at 1.3R and projected onto 𝓗 by a truncated Gauss–Newton step.
-- **Boundary boxes.** The tree starts with 256 boxes of side r_H/2 and refines down to side R/64.
+| File | Role |
+|---|---|
+| `atlas.py` | Breadth-first atlas growth: spawning, alignment by signed permutations through a link graph, loop closure by a signature-ranked global search |
+| `geometry.py` | Float helpers for the driver: the corner census and the Jacobian on horizontal phases |
+| `export.py` | Writes the compact certificate (exact float-hex centres, radii, integer frames, transfer targets) |
+| `repair.py`, `repair_one.py` | The two repairs that produced the current atlas: re-checking every Record after the Stage C correction, and shrinking named Records |
+| `centre_fold52.json` | The starting centre |
+| `cluster/run_atlas.sh` | Rebuild and certify on one cluster node |
+
+## The certified atlas
+
+[`results/RECEIPT.md`](results/RECEIPT.md) records the certificate (12,021 Records, all closed), its SHA-256, and two certifications that both pass every Record:
+- `certify.py`, via `verify.py --atlas`;
+- the independent Julia implementation, [`../independent/`](../independent/README.md).
+
+`results/receipts/` holds the per-check outputs. `results/build_logs/` holds the driver and repair logs.
+
+**Parameters.**
+- **Radii.** R = 0.08 rad with label radius 0.03, falling back down a ladder to 0.01 where Stage C fails.
+- **Spawning.** New centres go at 1.3R, projected onto 𝓗 by a truncated Gauss–Newton step.
+- **Boundary boxes.** The tree starts from 256 boxes of side r_H/2 and refines down to side R/64.
 - **Margins.** Transfer margin 10⁻⁸; Stage C margin 10⁻⁷.
 
-## Reproducing
-
 ```bash
-python3 atlas.py centre_fold52.json 1000000000 results/atlas.pkl      # build (resumable)
+python3 atlas.py centre_fold52.json 1000000000 results/atlas.pkl      # build (resumable; the pickle is not tracked)
 python3 export.py results/atlas.pkl results/atlas_certificate.json.gz
-python3 certify.py results/atlas_certificate.json.gz [lo hi]          # certify a range of records
+python3 certify.py results/atlas_certificate.json.gz [lo hi]          # certify a range of Records
 python3 nonempty.py results/atlas_certificate.json.gz
-python3 arb_replay.py centre_fold52.json 0.08 150
+python3 anchor.py results/atlas_certificate.json.gz
 ```
-
-**The certified atlas** (`results/`) holds 12,021 Records, every one closed:
-- it was built on one core, then repaired after the Stage C correction (`repair.py`) and re-closed;
-- on 10 Oct one Record was shrunk (`repair_one.py`) so that the independent checker also passes every Record;
-- `verify.py --atlas` certified all of them on 9 cores in about 48 minutes;
-- see `results/RECEIPT.md`.
-
-**Independent replication.** `../independent/` re-checks the same certificate with a separate Julia/interval implementation written only from the specification. (The earlier rusty build, job 7199908, used the uncorrected Stage C and is superseded; `cluster/run_atlas.sh` remains for future rebuilds.)

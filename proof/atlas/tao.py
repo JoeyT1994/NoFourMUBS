@@ -24,7 +24,7 @@ def exact_spectrum():
     M = J^T J has rational entries, since Re w^m = 1 or -1/2.  We check exactly that M(M - 9/2)(M - 12) = 0, that
     tr M = 180 and tr M^2 = 1620 (multiplicities 11, 16, 9), and that the 11-dimensional gauge space (row-plus-column
     patterns) lies in ker M.  The horizontal space is the orthogonal complement of the gauge space, hence the span of
-    the eigenvalues 9/2 and 12.  (After the integer certificate in research/conditioning/return/verify_tao.py.)"""
+    the eigenvalues 9/2 and 12.  (After the integer certificate of the conditioning study, preserved at the git tag archive-2026-10-11.)"""
     from fractions import Fraction as Fr
     re_w = lambda m: Fr(1) if m % 3 == 0 else Fr(-1, 2)
     idx = lambda a, c: 6 * a + c

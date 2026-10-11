@@ -20,9 +20,11 @@ The five statements the reduction needs are proved in [`Proofs/`](Proofs/README.
 | **MC2** | At a strict corner, the side fibre has exactly two orbits |
 | **MC3** | The side formulas are well defined on R > 0 |
 | **MC4** | Both matched completions are flat. The non-matched exceptions are exactly the Tao cases |
-| **MC5** | Positive-sheet coverage holds in the form used by the [reduction](../NumericalCampaign/REDUCTION.md) |
+| **MC5** | Positive-sheet coverage holds in the form used by Step 2 of [the proof](../PROOF.md) |
 
 `python3 Proofs/verify_dossier.py` replays the local checks.
+
+MC4's matched half (both matched completions are flat) and the side fibre's existence part now also have proofs that do not use the classification, by exact certificates: `../proof/coverage/returns/E_matched_flatness/` and `F_side_existence/`.
 
 ## Executable formulas
 

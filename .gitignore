@@ -4,13 +4,11 @@ __pycache__/
 .DS_Store
 # Lean build products
 .lake/
-# Delivery archives (kept outside version control; contents are committed unpacked)
+# Delivery archives (contents are committed unpacked where needed)
 *.zip
-# Superseded guarded-run branch-layer evidence (786 MB, ~61k files); archived separately, hash in ARCHIVED_DATA.md
-Verification/BranchLayer_2026-09-29a/
-Verification/BranchLayer_F3_joint_20260930a/
-Verification/BranchLayer_guarded_20260930a/
-Verification/BranchLayer_guarded_inventory_20260930T1159Z/
-Verification/BranchLayer_local_20260929b/
-# Files over 50 MB: published as GitHub release assets, SHA-256 in ARCHIVED_DATA.md
-ProvenResults/ActiveShoulderClosure_v2/data/shoulder_forest.jsonl.gz
+# Superseded material, preserved at the git tag archive-2026-10-11 (kept on disk, not tracked)
+/archive/
+/research/
+# Local working notes
+/manuscript_review/
+/openai/

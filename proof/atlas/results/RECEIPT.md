@@ -11,21 +11,20 @@
 | `certify.py` | 37 chunks: **12,021 certified, 0 failures** (`receipts/step4_certify_*.txt`) |
 | `nonempty.py` | F6 is in the interior of Record 877: ‖h(A·F6 − P_t)‖ ≤ 0.0232 < 0.08 (Arb) |
 | `anchor.py` | H₀ (`lean/NoFourMUBs/Step2/BaseAnchor.lean`) is in the interior of Record 9319: ‖h(A·H₀ − P_t)‖ ≤ 0.0426 < 0.08 (Arb) |
-| Independent checker, fresh full run | `../../independent/results_v3_fresh/`: rusty job 7213978 (128 threads, 8 h, 11 Oct), every record recomputed from scratch: **12,021 / 12,021 PASS**, F6 CERTIFIED, complete; sanity tests pass. Row for row identical (timings aside) to the incremental run below |
-| Independent checker, incremental | `../../independent/results_v3/RESULT.txt`: **12,021 / 12,021 closed Records PASS**, F6 nonemptiness CERTIFIED (Record 877, ≤ 0.02320 < 0.08), all targets closed. VERDICT: the certificate is complete and every check passed |
+| Independent checker | `../../independent/results_v3/`: rusty job 7213978 (128 threads, 8 h, 11 Oct), every record recomputed from scratch: **12,021 / 12,021 closed Records PASS**, F6 nonemptiness CERTIFIED (Record 877, ≤ 0.02320 < 0.08), all targets closed; sanity tests pass |
 
 ## What changed from v2, and why
 
-The v2 atlas (12,020 Records, `RECEIPT_v2.md`) was certified by `certify.py`. Its independent replay (`../../independent/results_v2/`) then reported:
+The v2 atlas (12,020 Records) was certified by `certify.py`. Its independent replay then reported the failures in `../../independent/results_v2_failures.tsv`:
 - **Record 11403:** the checker's own Stage C found a two-clique configuration in its label graph at R = 0.063.
 - **10 boundary trees:** these failed only because they used Record 11403 as a target.
 
 This is a failure to certify, not a counterexample. The two implementations cluster bins into labels differently, and each test is sound on its own terms. For a proof that does not rest on one implementation, both should pass. So the record was shrunk rather than the independent checker tuned:
 1. **Shrink.** `../repair_one.py` set Record 11403 to R = 0.05 (label radius 0.03). Both `certify.py` and the independent Stage C pass there.
 2. **Reopen.** It reopened the 18 Records whose boundary trees used 11403.
-3. **Re-close.** `atlas.py` re-closed them (`atlas_run5.log`), spawning one new Record (12020).
+3. **Re-close.** `atlas.py` re-closed them (`build_logs/atlas_run5.log`), spawning one new Record (12020).
 
-The independent run on v3 reused v2 rows only where the inputs are byte-identical. A Step 3 row was reused when the Record's phases, radius, label radius and frame were unchanged. A Step 4 row was reused only when, in addition, the Record's target list and all its targets were unchanged. It recomputed 2 Step 3 rows (11403, 12020) and 19 Step 4 rows. The checker is deterministic, so a reused row is exactly what a fresh run would produce; the fresh full run on rusty (`results_v3_fresh/`) confirms this row for row.
+The independent checker then passed every Record of v3 in a fresh, complete run. An earlier incremental run, reusing byte-identical v2 rows, agreed with it row for row.
 
 **What a PASS establishes**, together with `PROOF.md`: every Record excludes quartet edges throughout its ball (Lemmas 3.1 and 3.2); every boundary Hadamard of every Record has an interior representative in some Record, up to equivalence, conjugation and transposition (Lemma 4.1); F6 lies in the union; and so does the matched maximum anchor H₀ (needed by the Lean route `no_four_mubs_main`).
 

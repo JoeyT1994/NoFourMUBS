@@ -1,2 +1,0 @@
-import FourierAllCriticalExcluded
-#print axioms FourierAllCriticalExcluded20261003.allCritical_fourier_excluded

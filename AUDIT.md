@@ -1,37 +1,30 @@
-# Auditing the minimal proof
+# Auditing the proof
 
-Start with [`PROOF.md`](PROOF.md), about three pages, or the typeset [`proof/note/no_four_mubs.pdf`](proof/note/no_four_mubs.pdf). This file says how to replay everything and where an auditor should look hardest.
+Start with [`PROOF.md`](PROOF.md) or the typeset [`proof/note/no_four_mubs.pdf`](proof/note/no_four_mubs.pdf). This file says what is established and how, how to replay it, and where to look hardest.
 
 ## Status
 
-| Step | Claim | Status |
+| Step | Claim | How it is established |
 |---|---|---|
-| 1 | The positive local maxima of R form one 18-point orbit; max R = 3¹³/2¹² | Proved by exact algebra and **fully proved in Lean** (`Step1Geo.maximumCensus`, explicit anchors). Primary proof: the sextic-free saddle route (651 exact claims). Two earlier proofs remain as cross-checks |
-| 2 | (𝓗/≅) ∖ {S₆} is connected | Proved relative to MC1–MC5. **Open point (10 Oct):** MC4's nonmatched converse uses [CT]'s necessary minus-matching (PR-M), whose supplied proof shows only F₊ ≢ 0. An external audit found the gap (no counterexample is known); a handoff to prove PR-M, or to route around it, is in progress |
-| 3 | A ball Record plus Stage C excludes quartet edges in the ball; S₆ is a zero-dimensional Record | Lemmas proved ([`STAGEC.md`](proof/atlas/STAGEC.md), [`RIGOUR.md`](proof/atlas/RIGOUR.md)) |
-| 4 | A finite atlas with certified boundary transfers covers X | Certified: 12,021 Records, re-built after the audit's Stage C correction (9 Oct); one Record shrunk on 10 Oct so that the independent Julia checker also passes every Record |
+| 1 | The positive local maxima of R form one 18-point orbit; max R = 3¹³/2¹² | Exact algebra (651 claims), **proved in Lean** (`Step1Geo.maximumCensus`). Two earlier exact proofs are cross-checks |
+| 2 | (𝓗/≅) ∖ {S₆} is connected | Proved relative to [CT] through MC1–MC5. **Open point:** MC4's nonmatched converse uses [CT]'s necessary minus-matching (PR-M), whose supplied proof shows only F₊ ≢ 0; no counterexample is known. Matched existence (MC4's matched half) is proved without [CT] by exact certificates (`proof/coverage/returns/E_matched_flatness`, `F_side_existence`) |
+| 3 | A ball Record plus Stage C excludes quartet edges in its ball; S₆ is a zero-dimensional Record | Lemmas 3.1 and 3.2 proved on paper ([`STAGEC.md`](proof/atlas/STAGEC.md), [`RIGOUR.md`](proof/atlas/RIGOUR.md)) and **in Lean** |
+| 4 | A finite atlas with certified boundary transfers covers X | 12,021 Records, certified by `certify.py` (Arb) and by an independent Julia implementation (intervals); Lemma 4.1 and the open–closed argument proved in Lean |
 
-**Lean (10 Oct).** `lean/NoFourMUBs/Final.lean`, `no_four_mubs_explicit`, proves `¬ FourMUBs` with only standard axioms from: the atlas certificate (Records, boundary covers, Tao membership), membership of two explicit matrices (the base-anchor completion `BaseAnchor.H0` and F6), `MatchedExistence` (L1) and `MatchedDensityReach` (D). Steps 1 and 3, Lemma 4.1, matched uniqueness (L2), the anchor transport, and the coverage topology are all proved in Lean. Along the paper's route, `no_four_mubs_connected` takes Step 2 as the single statement that the non-Tao quotient is connected, plus the atlas certificate and F6 membership.
+**Lean.** [`lean/NoFourMUBs/MainTheorem.lean`](lean/NoFourMUBs/MainTheorem.lean) proves `¬ FourMUBs`, using only `propext`, `Classical.choice` and `Quot.sound`. It takes one bundled finite certificate, `AtlasCertificate`, together with Step 2 in one of two forms:
+- the connectedness of X;
+- matched existence (L1, now certified) and density (D, the PR-M point).
 
 ## Replaying
 
 ```bash
 pip install -r requirements.txt     # numpy, scipy, sympy, mpmath, python-flint
-python3 verify.py                   # about 2 minutes: Steps 1–3, MC1–MC5, S₆
-python3 verify.py --atlas -j 9      # about 50 minutes on 9 cores: certifies all 12,021 Records, F6 and the anchor H₀
-python3 verify.py --lean          # build the Lean formalisation; audit every main theorem's axioms
+python3 verify.py                   # ~3 min: Step 1 certificates, Steps 1-2 replays, matched existence, MC1-MC5, S6, Stage C sample
+python3 verify.py --atlas -j 9      # ~50 min on 9 cores: certify all 12,021 Records, F6 and the anchor H0
+python3 verify.py --lean            # build the Lean formalisation and audit the axioms of its main theorems
 ```
 
-## Map
-
-| Path | Content |
-|---|---|
-| `proof/coverage/` | Steps 1–2. Two independent returns, kept pristine with their replay logs; `README.md` is the synthesis |
-| `proof/atlas/` | Steps 3–4:<br>• `ballrecord.py`: Lemma 3.1;<br>• `stagec.py` and `STAGEC.md`: Lemma 3.2;<br>• `tao.py`: Remark 3.3;<br>• `COVERAGE.md`: the corollary and Lemma 4.1;<br>• `atlas.py`: the untrusted driver;<br>• `certify.py`: **the trusted checker**;<br>• `export.py`: the certificate format;<br>• `nonempty.py`;<br>• `results/`: the certificate and receipts |
-| `MinimalConstruction/` | The corner reconstruction and MC1–MC5, proved relative to [CT] (`Proofs/`), with the sheet lemmas (`Sheets/`) |
-| `ClassificationPaper/` | The classification [CT] |
-| `openai/` | What we take from the openai/math proof |
-| `archive/` | Superseded material: the long proof and the development record. The minimal proof does not depend on it |
+The independent checker replays separately: see [`proof/independent/README.md`](proof/independent/README.md).
 
 ## Where to look hardest
 
@@ -39,21 +32,20 @@ python3 verify.py --lean          # build the Lean formalisation; audit every ma
    - continuity of θ ↦ [H₊(θ)] across root cuts and sign switches;
    - the sheet-parity formula;
    - the frame symmetries giving H₊(Lθ*) ≅ K*;
-   - X = A ∪ conj A ∪ {F6}.
-2. **The coverage corollary and Lemma 4.1** (`proof/atlas/COVERAGE.md`; both proved in Lean: `Step4.lean`, `Boundary.lean`, `Step2/Connected.lean`):
-   - openness and closedness in the quotient metric;
-   - the use of conjugate and transposed images of Records;
-   - that the shell R − n ≤ ‖Tη‖ ≤ R + n captures every boundary Hadamard.
-3. **Lemma 3.1, the normal bound** (proved in Lean: `NormalBound.lean`):
-   - ‖Φ″‖ ≤ 2√3;
-   - the quadratic-root argument.
-4. **Stage C** (`STAGEC.md` against `stagec.py`; the inequalities are proved in Lean, `StageC/*.lean`; the computation is replayed by the independent Julia checker):
+   - X = A ∪ conj A ∪ {F6} (MC1, MC5 and PR-M).
+2. **Matched existence** (`E_matched_flatness/FLATNESS.md` §4, `F_side_existence/SIDE_EXISTENCE.md`):
+   - that the certified rational identities are exactly (4.6) and the side identities, built from the definitions and not from the certificate data;
+   - that every divisor is nonzero on R > 0.
+3. **The coverage corollary and Lemma 4.1** (`proof/atlas/COVERAGE.md`; in Lean: `Step4.lean`, `Boundary.lean`, `Step2/Connected.lean`):
+   - that the shell R − n ≤ ‖Tη‖ ≤ R + n captures every boundary Hadamard;
+   - the use of conjugate and transposed images of Records.
+4. **Stage C** (`STAGEC.md` against `stagec.py`; inequalities in Lean, `StageC/`; the computation replayed by the Julia checker):
    - the column bound r_col;
    - the joint test;
    - the margins.
-5. **`certify.py`.** It must trust nothing from the driver beyond centre phases, radii and target lists.
+5. **`certify.py`.** It must trust nothing from the driver beyond centre phases, radii, frames and target lists.
 
 ## Inputs taken as given
 
 - The classification of order-6 complex Hadamard matrices [CT], through MC1–MC5, in Step 2 only.
-- The Stage C method of [OAI]. Every inequality is reproved in `STAGEC.md`.
+- The Stage C method of [OAI], with every inequality reproved and formalised.

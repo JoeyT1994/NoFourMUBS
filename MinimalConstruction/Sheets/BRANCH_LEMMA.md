@@ -5,7 +5,7 @@ sign-selected side constructor.** No side-fibre exhaustion, continuity
 argument, or numerical evidence is needed for the permutation identity.
 
 **Provenance clarification.** The core sign-switch argument was already
-proved in [BalancedAllPartitionsExtension.md](../BalancedProducts/BalancedAllPartitionsExtension.md),
+proved in `BalancedAllPartitionsExtension.md` (long proof, preserved at the git tag `archive-2026-10-11`),
 §2. This standalone T4 treatment independently recovers that argument,
 makes the exceptional `s = 0` chart explicit, and adds a dedicated exact
 replay and campaign integration. It is not a claim of a new underlying
@@ -204,7 +204,7 @@ last checks are implementation regressions, not the universal proof.
 
 The root runner exposes the same check as `side_branch_lemma`.
 
-The [28 September verification receipt](../../Verification/T4_branch_lemma_2026-09-28/summary.json)
+The 28 September verification receipt (`Verification/T4_branch_lemma_2026-09-28/summary.json`, at the tag `archive-2026-10-11`)
 records PASS for this check, the existing reconstruction check, and sheet
 conjugation. The new check includes 27 exact rational identities and 480
 numerical comparisons at 80 digits, on both sheets and both sides, including

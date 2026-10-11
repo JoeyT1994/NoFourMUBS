@@ -16,14 +16,16 @@ of `ballrecord.py` was opened.
 ## Running it
 
 ```bash
-ENV=/Users/jtindall/Files/NoFourMUBS/archive/long_proof/NumericalCampaign/Certification/jlenv_cluster
-cd /Users/jtindall/Files/NoFourMUBS/proof/independent
-julia --startup-file=no -t 10 --project=$ENV check.jl CERTIFICATE.json.gz OUTDIR          # default: interval replay
-julia --startup-file=no -t 10 --project=$ENV check.jl CERTIFICATE.json.gz OUTDIR --fast   # float + margin only
-julia --startup-file=no --project=$ENV tests/sanity.jl OUTDIR/certificate.txt              # soundness sanity checks
+cd proof/independent
+julia --startup-file=no --project=jlenv -e 'using Pkg; Pkg.instantiate()'                    # once
+julia --startup-file=no -t 10 --project=jlenv check.jl ../atlas/results/atlas_certificate.json.gz OUTDIR
+julia --startup-file=no --project=jlenv tests/sanity.jl OUTDIR/certificate.txt              # soundness sanity checks
+sbatch run_rusty.sh                                                                         # the same, on one cluster node
 ```
 
-`--startup-file=no` is needed because the user's `startup.jl` loads Revise, and Revise is not in that environment.
+`jlenv/` pins the Julia environment (IntervalArithmetic 1.0.10). Add `--fast` for float decisions with margins only.
+
+`--startup-file=no` keeps a personal `startup.jl` out of the run.
 `check.jl` calls `convert.py` (Python standard library only) to turn the gzip JSON into plain text, because the Julia
 environment has no JSON or gzip package. All floats are passed as `float.hex`, so the conversion is exact.
 
@@ -44,7 +46,7 @@ command; it resumes where it stopped. `--limit K` checks only the first K closed
 | `src/boundary.jl` | the boundary tree (Lemma 4.1) and F6 nonemptiness |
 | `check.jl` | the driver |
 | `tests/sanity.jl` | soundness sanity checks (see below) |
-| `RESULT_test_certificate.txt`, `step3_test_certificate.tsv`, `step4_test_certificate.tsv` | results on the test certificate |
+| `tests/RESULT_test_certificate.txt`, `tests/step3_test_certificate.tsv`, `tests/step4_test_certificate.tsv` | results on the test certificate |
 
 ## What is checked, mapped to the lemmas
 
@@ -201,7 +203,7 @@ checks this budget empirically.
 
 ## Results on the test certificate (`indep_test_certificate.json.gz`, 212 records, 80 closed)
 
-`RESULT_test_certificate.txt`, `step3_test_certificate.tsv` and `step4_test_certificate.tsv` hold the full output.
+`tests/RESULT_test_certificate.txt`, `tests/step3_test_certificate.tsv` and `tests/step4_test_certificate.tsv` hold the full output.
 The run was in default (interval replay) mode, with 10 threads; wall time was 8.5 min for Step 3 and 7 s for
 Step 4.
 
@@ -272,9 +274,12 @@ has to resolve.
     records. A complete certificate must have every target closed. The checker reports this separately
     ("All targets closed").
 
-## Runs on the v3 certificate (11 Oct 2026)
+## Results
 
-- `results_v3_fresh/`: fresh, complete run on rusty (`run_rusty.sh`, job 7213978, one 128-core node, 8 h): 12,021 / 12,021 closed Records PASS, F6 nonemptiness CERTIFIED, sanity checks pass.
-- `results_v3/`: an earlier incremental run reusing byte-identical v2 rows; identical to the fresh run row for row.
-- The F6 search is now multithreaded over candidate Records (`src/boundary.jl`); only the search is parallel, and each acceptance is the same interval test.
+| Path | Run |
+|---|---|
+| `results_v3/` | The current certificate, fresh and complete (rusty job 7213978, one 128-core node, 8 h): **12,021 / 12,021 closed Records PASS**, F6 nonemptiness CERTIFIED, sanity checks pass |
+| `results_v2_failures.tsv` | The rows that failed on the previous certificate. Record 11403's Stage C found a two-clique configuration in this checker's label graph, and 10 boundary trees needed it as a target. The atlas was repaired by shrinking that Record (`../atlas/results/RECEIPT.md`) |
+| `tests/` | Sanity tests, and results on a small test certificate |
 
+The F6 search is multithreaded over candidate Records; only the search is parallel, and each acceptance is the same interval test.

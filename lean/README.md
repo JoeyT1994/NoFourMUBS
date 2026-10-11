@@ -1,69 +1,47 @@
-# Lean formalisation of the minimal proof
+# Lean formalisation
 
-This builds against Mateo Cárdenes Wuttig's formal classification, [`all_hadamard_matrices_in_dimension_six`](https://github.com/mateocardeneswuttig/all_hadamard_matrices_in_dimension_six), pinned at `57b0302`, which brings in Mathlib.
+This builds against the Lean classification of order-6 complex Hadamard matrices, [`all_hadamard_matrices_in_dimension_six`](https://github.com/mateocardeneswuttig/all_hadamard_matrices_in_dimension_six) (pinned at `57b0302`, which brings in Mathlib).
 
 ```bash
-lake exe cache get   # prebuilt Mathlib
+lake exe cache get        # prebuilt Mathlib
 lake build
+python3 check_axioms.py   # build, then audit the axioms of every main theorem (also: verify.py --lean)
 ```
 
-## The end-to-end theorem
+## The main theorem
 
-**Final form (`MainTheorem.lean`).** All finite, checkable inputs are bundled into one structure, `AtlasCertificate` (Records, boundary covers, Tao membership, and membership of the explicit base-anchor completion and of F6). Then:
+[`NoFourMUBs/MainTheorem.lean`](NoFourMUBs/MainTheorem.lean) bundles every finite, checkable input into `AtlasCertificate`: the Records, their boundary covers, the Tao matrices, the explicit anchor completion and F6. It then proves:
 
-- `no_four_mubs_main (C : AtlasCertificate) (hE : MatchedExistence) (hD : MatchedDensityReach) : ¬ FourMUBs`;
-- `no_four_mubs_of_connected (C : AtlasCertificate) (hX : NonTaoPreconnected) : ¬ FourMUBs` (the paper's route).
+```lean
+theorem no_four_mubs_of_connected (C : AtlasCertificate) (hX : Step2.NonTaoPreconnected) : ¬ FourMUBs
+theorem no_four_mubs_main (C : AtlasCertificate) (hE : Step2.MatchedExistence)
+    (hD : Step2.MatchedDensityReach) : ¬ FourMUBs
+```
 
-Both use only `propext`, `Classical.choice` and `Quot.sound`. The intermediate forms are kept below.
+Both use only `propext`, `Classical.choice` and `Quot.sound`.
 
+| Hypothesis | Status |
+|---|---|
+| `AtlasCertificate` | Finite certificate, checked by `certify.py`, `nonempty.py`, `anchor.py` and the independent Julia checker (`proof/atlas/results/RECEIPT.md`) |
+| `NonTaoPreconnected` | `PROOF.md` Theorem 2, proved relative to [CT] via MC1–MC5; open point PR-M |
+| `MatchedExistence` (L1) | Proved without [CT] by exact certificates (`proof/coverage/returns/F_side_existence`, `E_matched_flatness`); Lean port pending |
+| `MatchedDensityReach` (D) | Open point (PR-M) |
 
-`NoFourMUBs.no_four_mubs_final`, and its form `no_four_mubs_of_certificates` taking boundary covers (in `Final.lean`), prove `¬ FourMUBs`. `no_four_mubs_step1` is the same theorem with Step 1 discharged: the anchors are the explicit maxima `Step1Geo.anchors`, and the census is `Step1Geo.maximumCensus`. **`no_four_mubs_reduced`** also discharges matched uniqueness (`Step2.matchedUniqueness`): its only remaining inputs are the finite certificates, `MatchedExistence` and `MatchedDensityReach`. **`no_four_mubs_one_anchor`** further replaces the 18 anchor certificates by a single covered matched completion at the base anchor. **`no_four_mubs_explicit`** makes that completion explicit (`BaseAnchor.H0`, entries in ℚ(i,√3,√5,√7), proved Hadamard and matched), so both anchor inputs are memberships of explicit matrices. It uses only `propext`, `Classical.choice` and `Quot.sound`. Its hypotheses are exactly the remaining inputs: **`no_four_mubs_connected`** follows the paper's route instead: Step 2 enters as the single statement `NonTaoPreconnected` (PROOF.md Theorem 2), and the only other inputs are the atlas certificate and the Fourier membership.
+## Modules
 
-| Input | Kind | Status |
-|---|---|---|
-| `A : ι → RecordCert`, boundary covers (`BoundaryCover`), Tao and anchor memberships | finite certificate | checked externally (`certify.py`, `proof/independent/`) |
-| `MaximumCensus anchors` | Step 1 | ✅ **proved** (`Step1Geo.maximumCensus`, anchors explicit) |
-| `MatchedUniqueness` | reconstruction | ✅ **proved** (`Step2.matchedUniqueness`) |
-| `MatchedExistence` | reconstruction | paper proof (dossier MC2–MC4; flatness imports [CT]). Reduced to a dense set in Lean; handoffs E (flatness) and F (side existence) out |
-| `MatchedDensityReach` | reconstruction | **open point** (PR-M); handoff C in progress |
+| Module | Content |
+|---|---|
+| `Basic`, `Skeleton`, `Invariance`, `Main` | MUBs as unitary matrices; four MUBs give a Hadamard quartet edge; invariance under equivalence and Γ = {id, conj, ᵀ, conj ∘ ᵀ}; `no_four_mubs` from named inputs |
+| `Horizontal`, `NormalBound` | Horizontal phases and the gauge; Lemma 3.1 (the calculus-free normal bound) and the isolation of S₆ |
+| `StageC/` | Lemma 3.2 (Stage C): bins, direct, linearised, scalar, edge and joint tests, the two-clique assembly, and the certificate interface `StageCCert.excludes` |
+| `Record`, `Atlas` | `RecordCert` (the data `certify.py` checks for one Record) and its exclusion theorem; atlas exclusion |
+| `Transfer`, `Boundary`, `Step4` | Lemma 4.1 (boundary transfer), boundary covers, and the clopen covered set |
+| `Step1/` | Step 1 in full: the saddle theorem, the deltoid, single and double boundary, the trace lift and `Step1Geo.maximumCensus` with explicit anchors, and the anchor orbit. It uses the 216 certificate theorems of library `Step1` (`Step1Gen/`) |
+| `Step2/` | Step 2 topology (`Statements`, `TopologyCore`, `QuotientTopology`); matched uniqueness (`SideAlg`, `SidePerm`, `MatchedUnique`); anchor transport and the explicit anchor `BaseAnchor`; coverage from connectedness and F6 ≠ Tao (`Connected`); the dense reduction of L1 (`DenseExistence`) |
+| `MainTheorem`, `Axioms` | The main theorem; the axiom audit read by `check_axioms.py` |
 
-## Status
+`generators/base_anchor/` regenerates `Step2/BaseAnchor.lean`; the kernel re-checks every identity, so the generator is untrusted.
 
-`#print axioms NoFourMUBs.no_four_mubs` reports only `[propext, Classical.choice, Quot.sound]` (run `lake env lean NoFourMUBs/Axioms.lean`).
-
-| Module | Content | Status |
-|---|---|---|
-| `Basic.lean` | MUBs as unitary matrices; `QuartetEdge`; **four MUBs ⇒ a Hadamard quartet edge** | ✅ proved |
-| `Skeleton.lean` | `Inputs` (the three substantive hypotheses); `InGamma` (Γ = {id, conj, ᵀ, conj∘ᵀ}); invariance under entrywise conjugation | ✅ proved |
-| `Invariance.lean` | **quartet edges are invariant under Hadamard equivalence** (upstream `Equivalent`), conjugate-transpose and transpose; Γ preserves Hadamard quartet edges | ✅ proved |
-| `Horizontal.lean` | horizontal matrices, the projector `hor`, the gauge e^{iY} ≅ e^{i·hor Y} | ✅ proved |
-| `NormalBound.lean` | **Lemma 3.1 (normal bound)**, calculus-free: `outNorm_rem_le` (‖Φ(δ) − Φ(0) − Jδ‖ ≤ √3‖δ‖² for all δ), `normal_bound`, `normal_bound_root`; **isolation** (Remark 3.3: `δ = 0` or `‖δ‖ ≥ σ/√3`) | ✅ proved |
-| `StageC/*.lean` | **Lemma 3.2 (Stage C), analytic layer**: assembly C5 (`not_quartetEdge`), distinct labels and label covering C3, bins C1 (`bin_bounds`), Cover from leaf bins (`cover_of_leaves`), direct test C2a (`direct_test`), linearised test C2b (`core_bound`, `linear_test`), scalar test 6.12 (`scalar_test`), edge tests C4 (`edge_O`, `edge_U`), joint test 6.23 with common η (`joint_O`, `joint_U`) | ✅ proved |
-| `Step1Gen/` (library `Step1`) | **Step 1's finite algebra**: 216 kernel-checked certificate theorems (saddle algebra, boundary elimination with explicit cofactors, Bernstein positivity, algebraic numbers, the 18-point orbit) | ✅ compiled; used by `Step1/*.lean` |
-| `StageC/Interface.lean`, `StageC/Cert.lean` | **Certificate interface for Stage C**: semantic exclusion predicates (`LeafRej`, `EdgeOExcl`, `EdgeUExcl`), `stageC_semantic`, one lemma per recorded test turning a violation into an exclusion, and the `StageCCert` structure with `StageCCert.excludes` | ✅ proved |
-| `Record.lean` | **`RecordCert`**: the data `certify.py` checks for one Record (centre, radius, frame, σ, e₀, j₁, λ, the projection constant, column constant, and a `StageCCert` in cycle units). `RecordCert.excludes`: no Hadamard in a certified Record is a quartet edge (Lemmas 3.1 and 3.2, radians to cycles) | ✅ proved |
-| `Atlas.lean` | `atlas_excluded`, `atlas_taoExcluded`, and **`no_four_mubs_of_atlas`**: a certified atlas, Tao's membership and coverage imply no four MUBs | ✅ proved |
-| `Step2/*.lean` | From the Step 2 return: the compact Hadamard quotient, the compact-superlevel argument, and `coverage_of_matched_density`: matched existence, uniqueness and density, the census, clopen Records and anchors imply `Inputs.covered` | ✅ compiled |
-| `Step4.lean` | **Step 4**: `recordClopen_of_atlas`. A finite atlas with boundary transfers covers a clopen set of classes. Closed: compact images. Open: the boundary transfer plus a local `arg` chart at interior points | ✅ proved |
-| `Boundary.lean` | `BoundaryCover` (η-boxes, targets, signed permutations, windings) and `boundaryTransfers_of_covers` via Lemma 4.1 | ✅ proved |
-| `Final.lean` | **`no_four_mubs_final`**: the end-to-end theorem, with every remaining input explicit (certificates, Step 1 census, matched existence, uniqueness and density) | ✅ proved |
-| `Step1Saddle.lean` | **Step 1, interior**: `calR_no_pos_localMax`. The invariant ℛ(A, B) has no local maximum with positive value on ℂ². It combines the circle action, the first-order conditions, a second-order test proved by the mean value theorem, and the compiled certificate algebra | ✅ proved |
-| `Step1/Deltoid.lean` | The filled deltoid `D`: `Δ = −|Vandermonde|²` on traces, boundary form `2z + z̄²`, `Δ < 0` ⇒ trace, `D` a neighbourhood of `Δ < 0` | ✅ proved |
-| `Step1/Single.lean`, `Step1/Smooth.lean` | **Step 1, item 13**: no positive relative maximum of ℛ on `D × D` with an interior trace (interior case via the saddle theorem; cusp with interior partner, `ℛ = −4FG²`; smooth boundary trace, orbit curvature `−(9/2)(r+2)²Q²`) | ✅ proved |
-| `Step1/DoubleSetup.lean`, `Step1/DoubleAlg.lean`, `Step1/Double.lean` | **Step 1, items 14–23**: on the double boundary `ℛ = R(c, h) = −256L²M²N`; first-order conditions along the two circle directions; the origin is excluded (`R − 256 = c²P₁(c)`), the cusp branch by the split curve (`Rs(q) − Rs(1) = (q−1)K`, `K(1) = −660(46y+9) < 0`), the edges give `c = ±1/4`. `relmax_census` | ✅ proved |
-| `Step1/Lift.lean` | **Seeds to traces**: every seed is a lift `Ψ(x, y)`; `seedR ∘ Ψ = ℛ(traces)` (Laurent identity); the fibres of the trace map are reorderings, so (compactness) local maxima of `R` on `T⁴` are relative maxima of ℛ on `D × D` (`relmax_of_seed`) | ✅ proved |
-| `Step1/Census.lean` | **Theorem 1**: `maximumCensus : MaximumCensus anchors`, with the 18 anchors `Ψ` of `(ζᵏq^{±1}, ζᵏq^{∓1})`, `q = (1+i√15)/4`, each with `R = 3¹³/2¹²` | ✅ proved |
-| `Step2/SideAlg.lean`, `Step2/SidePerm.lean` | **Side uniqueness**: the Laurent identities of blueprint Lemma 7.2; the data `(s, t, r, T)` with `Im T ≠ 0` determine `u`, `v`, `π`; Vieta fixes the multiset of each row; a Vandermonde pairing argument (`(xⱼ−xₖ)(xⱼ−xₗ)dⱼ = 0`) replaces the Fourier reconstruction. `side_unique`: two sides with the same Gram data and signature differ by a column permutation | ✅ proved |
-| `Step2/MatchedUnique.lean` | **L2, `matchedUniqueness`**: horizontal and vertical sides are aligned by `side_unique`; orthogonality forces the last block (`eq_forcedD_of_row_cross`) | ✅ proved |
-| `Step1/AnchorOrbit.lean` | The 18 anchors are one orbit of the four corner moves: in exponent coordinates (`ζⁱqʲ ↦ (i mod 3, j)`) the moves are linear and the orbit check is `decide` | ✅ proved |
-| `Step2/AnchorTransport.lean` | Side signatures are invariant under permutations and phases; `R`, `χ` are invariant under the moves; matched completions transport along moves (`matched_move`); `maximumAnchorCertificate_of_base` | ✅ proved |
-| `Step2/BaseAnchor.lean` | The explicit positive matched completion `H0` at the base anchor: Hadamard, dephased, base corner, `χ = −5103/64`, signatures `(χ ± i√R)/2`; generated `linear_combination` certificates (`lean/generators/base_anchor/`) | ✅ proved |
-| `Step2/DenseExistence.lean` | The seeds with a matched completion form a closed set (compact fibre, closed relation), so `MatchedExistence` follows from existence on any dense set of strict seeds (`matchedExistence_of_dense`) | ✅ proved |
-| `Step2/Connected.lean` | `coverage_of_connected`: a clopen covered set containing F6 contains every non-Tao class if the non-Tao quotient is preconnected; `fourier_not_tao` (the cross ratio −1 of F6 is not a cube root of unity, while every Tao cross ratio is) | ✅ proved |
-| `Transfer.lean` | **Lemma 4.1 (boundary transfer)**: Frobenius norm, `hor` contracts it, signed permutations act isometrically and match Γ, windings | ✅ proved |
-| `Main.lean` | **`no_four_mubs : Inputs Ball → ¬ FourMUBs`** | ✅ proved, relative to `Inputs` |
-| `Inputs.taoExcluded` | Remark 3.3: S₆ is a zero-dimensional Record | ⏳ Lemma 3.1, Stage C, finite certificate |
-| `Inputs.excluded` | Step 3: Lemma 3.1 (normal bound) plus Stage C (`STAGEC.md`) | ⏳ lemmas to formalise; certificate as an explicit hypothesis |
-| `Inputs.covered` | Steps 1, 2 and 4: maxima of R, connectedness, the open-closed atlas | ⏳ Step 2 needs the seed-domain theorem and global reach, not yet in the upstream Lean |
-
-The computational certificate (`proof/atlas/results/`) will enter as an explicit hypothesis, `CertificateValid`. This mirrors how the upstream project treats its post-classification calculations.
+**Next.** The open Lean work:
+- port L1's certificates (`proof/coverage/returns/E_matched_flatness`, `F_side_existence`; the latter ships uncompiled Lean lemmas);
+- Step 2 density (D) awaits the PR-M result.

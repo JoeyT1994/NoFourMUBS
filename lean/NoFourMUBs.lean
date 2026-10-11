@@ -22,9 +22,8 @@ import NoFourMUBs.Step2.TopologyCore
 import NoFourMUBs.Step2.QuotientTopology
 import NoFourMUBs.Step2.Statements
 import NoFourMUBs.Step4
-import NoFourMUBs.Final
 import NoFourMUBs.Boundary
-import NoFourMUBs.Step1Saddle
+import NoFourMUBs.Step1.Saddle
 import NoFourMUBs.Step1.Deltoid
 import NoFourMUBs.Step1.Single
 import NoFourMUBs.Step1.Smooth

@@ -1,7 +1,7 @@
 """Replay the minimal proof (PROOF.md).  Exits nonzero if any check fails.
 
-  python3 verify.py                 Steps 1-2 (two exact replays), MC1-MC5, sheet lemmas, S6 as a zero-dimensional Record,
-                                    Stage C Arb sample
+  python3 verify.py                 Step 1 certificates, Step 2 replays, matched existence (side existence and matched
+                                    flatness), MC1-MC5, sheet lemmas, S6 as a zero-dimensional Record, Stage C Arb sample
   python3 verify.py --atlas [-j N]  additionally certify every Record of the atlas (Step 4), F6 and the anchor H0
   python3 verify.py --lean          additionally build the Lean formalisation and audit its axioms
 """
@@ -11,9 +11,11 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
 CHECKS = [
-    ('step1_saddle_census',     'proof/coverage/returns/C_step1_lean/verify_certificates.py', []),
+    ('step1_saddle_census',     'lean/Step1Gen/verify_certificates.py', []),
     ('step1_2_deltoid_return',  'proof/coverage/returns/A_deltoid/verify_all.py', []),
     ('step1_2_exact_quotient',  'proof/coverage/returns/B_exact_quotient/verify_all.py', []),
+    ('l1_side_existence',       'proof/coverage/returns/F_side_existence/verify_all.py', []),
+    ('l1_matched_flatness',     'proof/coverage/returns/E_matched_flatness/verify_all.py', []),
     ('mc_reconstruction_proofs', 'MinimalConstruction/Proofs/verify_dossier.py', []),
     ('mc_reconstruction',       'MinimalConstruction/Implementation/verify.py', []),
     ('mc_single_radical',       'MinimalConstruction/Implementation/verify_single_radical.py', []),

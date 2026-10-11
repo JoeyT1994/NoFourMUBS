@@ -1,0 +1,51 @@
+{
+  "status": "PASS_ALL_EXACT_CERTIFICATES",
+  "utc": "2026-10-11T20:07:23.685269+00:00",
+  "python": "3.12.14",
+  "sympy": "1.14.0",
+  "arithmetic": "All acceptance decisions use exact integer/rational polynomial arithmetic. Floating point is used only for timing.",
+  "scope": "The polynomial identities and their inter-module linkage. The elementary positivity/root/assembly proof is in SIDE_EXISTENCE.md. No claim of a compiled full Lean theorem.",
+  "checks": [
+    {
+      "name": "strict_domain",
+      "verifier": "domain/verify_domain.py",
+      "status": "PASS",
+      "wall_seconds": 1.521744,
+      "verifier_sha256": "676c14416ee5afdf9d4b2624230e6c8cf0078431b6dc0d1e8195d4bbe728cf62",
+      "output_sha256": "6786bdea619c3ceff788c73167f80970e07e30b8b4ac01a559015c2a9779649a"
+    },
+    {
+      "name": "arbitrary_gram",
+      "verifier": "core/verify_gram.py",
+      "status": "PASS",
+      "wall_seconds": 13.524535,
+      "verifier_sha256": "34f9f7289c51ce8e8f80f70bce1db297aa78d8986e57d5b5b369d312f44b53c6",
+      "output_sha256": "f7404b0de2981d4711b5a4955d8a4fd67c2a80bbdc7ee45bfe03e37718410061"
+    },
+    {
+      "name": "constructor_and_y_reduction",
+      "verifier": "algebra/verify_y.py",
+      "status": "PASS",
+      "wall_seconds": 0.610512,
+      "verifier_sha256": "4893202249e8beb7c35b21a1cb7413e7e7ac8220e6d65c91d6ddd1f42c47a5fe",
+      "output_sha256": "62aea8b3d30e91f5ef41383b094c2df661b933f3252df19188198697c3788415"
+    },
+    {
+      "name": "fourier_and_signature",
+      "verifier": "assembly/verify_assembly.py",
+      "status": "PASS",
+      "wall_seconds": 0.044791,
+      "verifier_sha256": "784323801755e28568f3c3a23823d2276da88ab9cc5330443c832790e10fdd43",
+      "output_sha256": "986ebf5e0bdeddcaacc85d22427b3fcdb0174a11546cf39090ef8e6a04707e54"
+    },
+    {
+      "name": "independent_module_linkage",
+      "verifier": "domain/verify_core_review.py",
+      "status": "PASS",
+      "wall_seconds": 0.629603,
+      "verifier_sha256": "b01a841ff97e35af59d5f2981c9dbb6e432696951bf919cdef351a93e9da575f",
+      "output_sha256": "4ebfde7f276058697f9d2bd1f62e41b6a13e1a900089f132a9834bc85daafb9d"
+    }
+  ],
+  "total_wall_seconds": 16.335239
+}

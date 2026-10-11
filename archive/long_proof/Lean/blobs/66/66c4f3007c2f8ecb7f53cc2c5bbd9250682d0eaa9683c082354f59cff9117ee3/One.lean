@@ -1,1 +1,0 @@
--- scheduler-only fixture; never compiled
