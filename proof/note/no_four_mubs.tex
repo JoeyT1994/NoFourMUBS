@@ -12,7 +12,7 @@
 \newcommand{\hor}{\mathrm h}
 \newcommand{\e}{\mathrm e}
 % Step 4 numbers (filled in from proof/atlas/results/)
-\newcommand{\NRecords}{$12{,}020$}
+\newcommand{\NRecords}{$12{,}021$}
 \newcommand{\Fsix}{$877$}
 
 \title{There are no four mutually unbiased bases in $\mathbb C^6$:\\ a four-step proof}
@@ -91,7 +91,7 @@ Thus $R$ is invariant under the circle action $(A,B)\mapsto(\e^{-2i\tau}A,\e^{i\
 
 \emph{The double boundary.} Here $\mathcal R=-256L^2M^2N$. An explicit eliminant, with cofactors of $11$ and $22$ terms, leaves one stationary branch. On it, the transverse curvature exceeds $4125/32$. Bernstein certificates on $h=1$ leave only $(c,h)=(1/4,1)$, whose lifts form the orbit.
 
-There are $651$ exact claims, checked with integers and rationals only. All of the finite algebra is kernel-checked in Lean, in $216$ theorems. No resultant of high degree, Gr\"obner basis or Sturm count is needed. Two earlier, independent proofs remain as cross-checks.
+There are $651$ exact claims, checked with integers and rationals only. Step~1 is proved in Lean in full: the $216$ certificate theorems together with the analytic assembly, using only the standard axioms. No resultant of high degree, Gr\"obner basis or Sturm count is needed. Two earlier, independent proofs remain as cross-checks.
 \end{proof}
 
 \section{Step 2: connectedness}
@@ -170,7 +170,7 @@ We have $\|\hor(\mathcal A\nu)\|\le\|\nu\|\le n_s$, and representatives differ b
 
 The boundary therefore needs only a $4$-dimensional cover. A box is either certified off the shell $R_s-n_s\le\|T\eta\|\le R_s+n_s$, or it transfers.
 
-\paragraph{The computation.} A breadth-first driver grows Records of radius $0.08$ until every boundary transfers. An independent checker recomputes every Record from its centre phases: frame, $\sigma$, normal bound, Stage C, and the boundary tree with Arb transfer constants. The atlas has \NRecords{} Records, all certified, and $F_6$ lies in Record \Fsix.
+\paragraph{The computation.} A breadth-first driver grows Records of radius $0.08$ until every boundary transfers. A checker recomputes every Record from its centre phases: frame, $\sigma$, normal bound, Stage C, and the boundary tree with Arb transfer constants. A second implementation, written only from the specification (Julia, outward-rounded intervals), repeats all of these checks. The atlas has \NRecords{} Records; both checkers certify every one, and $F_6$ lies in Record \Fsix.
 
 \section{Conclusion}
 
@@ -181,6 +181,12 @@ By Corollary~\ref{cor:cover} and Step 4, every class in $X$ meets a Record. By L
 \item the classification of order-6 complex Hadamard matrices [CT], through MC1--MC5, in Step 2 only;
 \item the Stage C method of [OAI], with every inequality reproved;
 \item certified computation in Steps 1, 3 and 4.
+\end{itemize}
+
+\paragraph{Formalisation.} The argument is formalised in Lean~4 on top of the Lean classification of order-6 Hadamard matrices. It uses only the standard axioms. Steps~1 and~3, the boundary transfer (Lemma~\ref{lem:transfer}), the open--closed atlas argument, matched uniqueness and an explicit matched completion at a maximum are proved there. The end-to-end theorem takes as hypotheses only:
+\begin{itemize}
+\item the finite atlas certificate;
+\item Step~2, either as the connectedness of $X$ or as matched existence and density.
 \end{itemize}
 
 \begin{thebibliography}{9}
