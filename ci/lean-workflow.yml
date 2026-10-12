@@ -46,7 +46,8 @@ jobs:
           cd lean
           "$HOME/.elan/bin/lean" --version
       - name: Restore previously checked local modules
-        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830
+        id: lean-cache
+        uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830
         with:
           path: |
             lean/.lake/build
@@ -59,6 +60,15 @@ jobs:
         run: python3 ci/check_lean.py '${{ matrix.group }}' --cache-only
       - name: Build and inspect theorem assumptions
         run: python3 ci/check_lean.py '${{ matrix.group }}'
+      - name: Save reusable build progress even if an open target fails
+        if: always() && steps.lean-cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: |
+            lean/.lake/build
+            lean/vendor/hadamard6/.lake/build
+            lean/vendor/fourier/.lake/build
+          key: lean-${{ runner.os }}-${{ matrix.group }}-${{ hashFiles('lean/lean-toolchain', 'lean/lake-manifest.json') }}-${{ github.sha }}
       - name: Preserve verification report and logs
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
