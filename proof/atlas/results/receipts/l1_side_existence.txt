@@ -1,0 +1,56 @@
+strict_domain: PASS (1.810 s)
+arbitrary_gram: PASS (16.618 s)
+constructor_and_y_reduction: PASS (0.983 s)
+fourier_and_signature: PASS (0.085 s)
+independent_module_linkage: PASS (1.000 s)
+{
+  "status": "PASS_ALL_EXACT_CERTIFICATES",
+  "utc": "2026-10-11T21:27:59.746067+00:00",
+  "python": "3.10.6",
+  "sympy": "1.14.0",
+  "arithmetic": "All acceptance decisions use exact integer/rational polynomial arithmetic. Floating point is used only for timing.",
+  "scope": "The polynomial identities and their inter-module linkage. The elementary positivity/root/assembly proof is in SIDE_EXISTENCE.md. No claim of a compiled full Lean theorem.",
+  "checks": [
+    {
+      "name": "strict_domain",
+      "verifier": "domain/verify_domain.py",
+      "status": "PASS",
+      "wall_seconds": 1.809504,
+      "verifier_sha256": "676c14416ee5afdf9d4b2624230e6c8cf0078431b6dc0d1e8195d4bbe728cf62",
+      "output_sha256": "d38521683e3f472922285fa59716ab7accf0e140ea0786f05cdfe9bd550e3a43"
+    },
+    {
+      "name": "arbitrary_gram",
+      "verifier": "core/verify_gram.py",
+      "status": "PASS",
+      "wall_seconds": 16.618394,
+      "verifier_sha256": "34f9f7289c51ce8e8f80f70bce1db297aa78d8986e57d5b5b369d312f44b53c6",
+      "output_sha256": "989712bd36c200d903d4f18f0e1855f3c8672c113411999bc014a16bb117ae2b"
+    },
+    {
+      "name": "constructor_and_y_reduction",
+      "verifier": "algebra/verify_y.py",
+      "status": "PASS",
+      "wall_seconds": 0.982693,
+      "verifier_sha256": "4893202249e8beb7c35b21a1cb7413e7e7ac8220e6d65c91d6ddd1f42c47a5fe",
+      "output_sha256": "fa1374790837af314700eb17c72615d812836688a4cb7213d0602f829354744a"
+    },
+    {
+      "name": "fourier_and_signature",
+      "verifier": "assembly/verify_assembly.py",
+      "status": "PASS",
+      "wall_seconds": 0.085234,
+      "verifier_sha256": "784323801755e28568f3c3a23823d2276da88ab9cc5330443c832790e10fdd43",
+      "output_sha256": "7e1878c239cb017a8f4ee87a099a0304ebfb05974c32a846acd7e10090c29522"
+    },
+    {
+      "name": "independent_module_linkage",
+      "verifier": "domain/verify_core_review.py",
+      "status": "PASS",
+      "wall_seconds": 1.000102,
+      "verifier_sha256": "b01a841ff97e35af59d5f2981c9dbb6e432696951bf919cdef351a93e9da575f",
+      "output_sha256": "8907e06c42953ccb535589c8eb93f24dd3cd5f6f75fadd52fc4f10740d0eef3d"
+    }
+  ],
+  "total_wall_seconds": 20.504208
+}

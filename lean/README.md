@@ -43,5 +43,5 @@ Both use only `propext`, `Classical.choice` and `Quot.sound`.
 `generators/base_anchor/` regenerates `Step2/BaseAnchor.lean`; the kernel re-checks every identity, so the generator is untrusted.
 
 **Next.** The open Lean work:
-- port L1's certificates (`proof/coverage/returns/E_matched_flatness`, `F_side_existence`; the latter ships uncompiled Lean lemmas);
+- port L1's certificates (`proof/coverage/returns/E_matched_flatness`, `F_side_existence`). F's supporting Lean lemmas (`algebra/SmallPolynomialLemmas.lean`, `domain/DomainLemmas.lean`, `assembly/AssemblyLemmas.lean`) already compile against this project; the first needs `set_option maxHeartbeats 4000000`;
 - Step 2 density (D) awaits the PR-M result.
