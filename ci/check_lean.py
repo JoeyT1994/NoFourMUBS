@@ -111,7 +111,7 @@ def main():
         # Mathlib's official pinned cache is fetched in the preceding step.
         for index, module in enumerate(ordered, 1):
             print(f"[{index}/{len(ordered)}] {module}", flush=True)
-            run(["lake", "build", module], result_dir / "build.log")
+            run(["lake", "--log-level=error", "build", module], result_dir / "build.log")
             report["completed_modules"].append(module)
             report_path.write_text(json.dumps(report, indent=2) + "\n")
         audit = result_dir / "Audit.lean"
