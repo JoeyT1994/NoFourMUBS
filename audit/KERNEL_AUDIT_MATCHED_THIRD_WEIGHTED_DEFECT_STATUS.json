@@ -1,0 +1,46 @@
+{
+  "status": "PASS",
+  "checked_utc": "2026-10-11T23:53:10.848946+00:00",
+  "modules": 1,
+  "axiom_endpoints": {
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.candidate_completion_rowGram": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.candidate_completion_columnGram": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.forcedD_column_norms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.entrywiseUnit_of_four_weighted_defects": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.forcedD_entrywiseUnit_of_four_weighted_defects": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "source_hashes": {
+    "NoFourMUBs/Step2/Reconstruction/ThirdMoment/WeightedDefect.lean": "69d7a3f21ecea6ef5d5cb3ec1d618d2ef9864ec982983eafb591b28452cfe5bf"
+  },
+  "manifest_sha256": "71c85a5c286835c121bc5761cf357f4849a5967756a0c103a3672ce6adb22342",
+  "audit_log_sha256": "c750b2d8695ad53a1dd8caa4f2b23bccf35eb1cbfee4d7b6f8e5444982c50a18",
+  "scope": "Four weighted-defect reduction using only invertible phase candidates; four weighted zero identities remain explicit. No atlas certification.",
+  "dependency_audits": {},
+  "dependency_source_hashes": {
+    "NoFourMUBs/Step2/Reconstruction/ForcedRowNorms.lean": "61f03e080569bdb95f51c3eae47268265054d62eed6d021a1af4f00e39411cf8",
+    "vendor/hadamard6/Hadamard6/BlockGram.lean": "1d11ea4728234715ff90bdbc68e2541706832b0c525ec7373a167c79c9837264",
+    "vendor/hadamard6/Hadamard6/BlockCompletion.lean": "b916c1eceba6086551173f8053a34ada370c47e45ee940b6846fc5b104cb722d",
+    "vendor/hadamard6/Hadamard6/FiniteDilation.lean": "81bf8e0002e08ef0f69ab59f2b66071eb38b6fe595ae8bcd95dabea75a7fb627"
+  },
+  "atlas_certification": false
+}

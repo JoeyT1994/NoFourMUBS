@@ -1,0 +1,37 @@
+{
+  "status": "PASS",
+  "checked_utc": "2026-10-11T15:42:50.098255+00:00",
+  "modules": 1,
+  "axiom_endpoints": {
+    "NoFourMUBs.Step2.Critical.Equicorrelation.oriented_gram_constants": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.Equicorrelation.oriented_row_products": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "source_hashes": {
+    "NoFourMUBs/Step2/CriticalZero/EquicorrelationRowProducts.lean": "ea65b62b0fa81c913087c639b3caa75a6ed472ea58040c86a193b7bdf7bb2051"
+  },
+  "manifest_sha256": "ff6f0a9043cb52e9d57b71881307853d24504a7be61a0c05fded838276aa9dce",
+  "audit_log_sha256": "d87496481bc8f93036254f0b21aad2fefda01b8a962cd9c4e0c3e266fdbc305c",
+  "scope": "Actual unit rows with the oriented equicorrelation Gram have products alpha and conjugate alpha, directly from the existing intrinsic identities. No determinant, strict-sheet or atlas premise.",
+  "dependency_audits": {
+    "KERNEL_AUDIT_CRITICAL_EQUICORRELATION_NORMALIZED_STATUS.json": "09ab63209b9d8ba9c23eb6b6e4ed89342830d298c1c833036d584e50bd5ce03f"
+  },
+  "dependency_source_hashes": {
+    "NoFourMUBs/Reuse/Archive/SideIntrinsicActualLambda.lean": "94951a45e12f8f8560d1a024d2c23dd76e0ccd5d092602eae8c983fefeb8b403",
+    "NoFourMUBs/Reuse/Archive/SideIntrinsicUnitBindings.lean": "0b9439dba8222d68e06eceb609212239feacb0ad3eb482ca835dce10076a3ab2",
+    "NoFourMUBs/Reuse/Archive/StrictSideScalarGuards.lean": "75741b3091aeb2ce36f1b9fdab822add16b2e2514bfa27822105c93fb936d042",
+    "NoFourMUBs/Reuse/Archive/SideIntrinsicLambdaRecovery.lean": "577759e6717fb98ac6cdf4d64b2c1b0f7f702ac0bfc6b00fc34b278176b102ae",
+    "NoFourMUBs/Reuse/Archive/PhysicalSideRational.lean": "641712e811c0d48dfbf8e7dc30f61abc497fb1771efeb83d1fa9e0c3ab0b5a70",
+    "NoFourMUBs/Reuse/Archive/FourierPhaseData.lean": "71c542f2dadb44b000f3547a1e49e91648403d88373f7bd2eb015812b8eb4f7e",
+    "NoFourMUBs/Step2/CriticalZero/EquicorrelationMixedCorner.lean": "9639be1effb74f784779cdc3eee311ab04321cf6c687b6e319744d2dafe05909",
+    "NoFourMUBs/Step2/CriticalZero/P7CornerTransport.lean": "bc03c99f6f5efe51b7c9964aaf5731de30701609f3fa079fc9e72afa2d20a7c2"
+  },
+  "atlas_certification": false
+}

@@ -1,0 +1,17 @@
+import NoFourMUBs.Step2.CriticalZero.ScalarSigns.Classification
+
+#check NoFourMUBs.Step2.Critical.NonzeroScalar.candidates_of_signed_quartic_zero
+#print axioms NoFourMUBs.Step2.Critical.NonzeroScalar.quartic_low01_neg
+#print axioms NoFourMUBs.Step2.Critical.NonzeroScalar.quartic_low1inf_neg
+#print axioms NoFourMUBs.Step2.Critical.NonzeroScalar.quartic_high013_neg
+#print axioms NoFourMUBs.Step2.Critical.NonzeroScalar.quartic_high131_neg
+#print axioms NoFourMUBs.Step2.Critical.NonzeroScalar.quartic_high1inf_neg
+#print axioms NoFourMUBs.Step2.Critical.NonzeroScalar.low01_candidate
+#print axioms NoFourMUBs.Step2.Critical.NonzeroScalar.candidates_of_quartic_zero
+#print axioms NoFourMUBs.Step2.Critical.NonzeroScalar.candidates_of_signed_quartic_zero
+#print axioms CriticalModulusDomain20261003.quartic_real_cast
+#print axioms CriticalModulusDomain20261003.quartic_abs
+#print axioms CriticalModulusDomain20261003.quartic_one
+#print axioms CriticalModulusDomain20261003.allowed_one_upper
+#print axioms CriticalModulusDomain20261003.quartic_zero_at_one
+#print axioms CriticalModulusDomain20261003.quartic_zero_at_abs_one

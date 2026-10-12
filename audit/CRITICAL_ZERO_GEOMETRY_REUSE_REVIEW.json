@@ -1,0 +1,70 @@
+{
+  "status": "PASS",
+  "reviewed_utc": "2026-10-11T04:33:37.877056+00:00",
+  "scope": "Reuse the original regular zero-J allocated-modulus to conjugate-row argument and ordering chart in the current matrix model. Exceptional parameters remain excluded, no atlas certification.",
+  "search_evidence": "CRITICAL_ZERO_GEOMETRY_REUSE_SEARCH.json; full archive/import/source indexes read. All source variants compared; no matching active theorem.",
+  "sources": {
+    "CriticalAllocatedWholeStrip": "e26ca63c808d0b529efe4551e6240579aadf01ccc8aac35e80086dc6cea7f300",
+    "CriticalGeometricHalves": "27dd047efdcd53a48ba035c9ef3dbbd60089530b75ca1301d9ae5853e26d62e6",
+    "CriticalTriplesComplement": "ca9eb5147cccb71507a65758b3b923caf29ca6036115e185171ad9d0946e902f",
+    "CriticalAllocatedBlockGeometric": "c8f269b40f6692ea6af224f7e0c5402d3295714c1a6735e22988bb7a83d4cfeb",
+    "CriticalGeometricActualLambda": "df2bb601d9781f00a52653b4d8d0fec137d23079096b4945e487ca7dff5e8ca3",
+    "CriticalUnitSumTerminal": "8af8f023349773be6fcfcd01892a8c46ea23e7f7d76f5ec84ae1351f62aacfec",
+    "CriticalGeometricNumerator": "35510adb3cb26638710eb6abea12abeec33aeea29b28e7638f575cacd823d6bd",
+    "CriticalAllocatedChart": "c82f8497e092479a50be1742844c62a298c390c01afcc63588635bf1ee6e6a94",
+    "CriticalAllocatedGeometricCandidate": "af06219f2aeb10f384daeca65c5a02cfbf1da4c9b9eb976a8f6c0a5fb43ac8c5"
+  },
+  "variant_selection": {
+    "CriticalGeometricNumerator": "35510a retains explicit zero-J complex-ext proof and nonzero denominator use.",
+    "CriticalUnitSumTerminal": "8af8f includes Complex.star_def for the existing conjugation identity.",
+    "CriticalAllocatedChart": "c82f8 omits duplicate triples_complement_cover; the dedicated archive module supplies it once."
+  },
+  "hypotheses": "All original mathematical hypotheses retained; AllCritical/normalization/equivalence use the current model already checked by RechartModel. z=0,-3,-2 remain excluded.",
+  "omitted_unneeded_blocks": [
+    {
+      "module": "CriticalAllocatedGeometricCandidate",
+      "start": "/-- The same actual carrier",
+      "stop_before": "\nend\n",
+      "sha256": "b73378477de2d7c26efcf78257a1c53f5b1abcb52a869707289ea5fedb340a5c",
+      "reused_from": "the current equivalent-carrier interface; quartet occurrence not required by CriticalClassification"
+    }
+  ],
+  "existing_dependencies": {
+    "NoFourMUBs.Reuse.Archive.CriticalStripPhysical": {
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalStripPhysical.lean",
+      "active_sha256": "0e726f519d28a449b1895952067a44a422c9c31e7f51ae64b1656dc8762b5731"
+    },
+    "NoFourMUBs.Reuse.Archive.CriticalRowSum": {
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalRowSum.lean",
+      "active_sha256": "643b19836a15425426054bdc1847f4a364f44606a4b2830dba5161872d698048"
+    },
+    "NoFourMUBs.Reuse.Archive.CriticalLightSheet": {
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalLightSheet.lean",
+      "active_sha256": "31a0b6ee7901abcd3ff9361d8ca8a49c00f8cf074639f769a5116cfd03573855"
+    },
+    "NoFourMUBs.Reuse.Archive.CriticalMomentBinding": {
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalMomentBinding.lean",
+      "active_sha256": "7cb6f10d9381e82738d0c83ed5ece66dc262cc4f7502874435196a49d7a99dc7"
+    },
+    "NoFourMUBs.Reuse.Archive.CriticalCorrelationRechart": {
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalCorrelationRechart.lean",
+      "active_sha256": "cb18e37a7b7be7292293f8a26c123fa7d75be455febb749161d0e4cec4c2fd1d"
+    },
+    "NoFourMUBs.Reuse.Archive.GramNumerators": {
+      "active_path": "NoFourMUBs/Reuse/Archive/GramNumerators.lean",
+      "active_sha256": "edb7de8e4499b9d6f8cae7b05213b414b46efd17b4692cd5cf67b5caff2fc0ba"
+    }
+  },
+  "atlas_certification": false,
+  "compatibility_fix": "Original numerator dependency was transitive in the legacy model. Add explicit existing GramNumerators import after Unknown identifier failure; statements and proof bodies unchanged.",
+  "failure_log": "critical_zero_geometry_build_status_logs/batch_0002.log",
+  "geometry_build": "9/9 original modules PASS; CRITICAL_ZERO_GEOMETRY_BUILD_STATUS.json",
+  "necessary_model_join": {
+    "status": "PASS",
+    "search": "Full archive reverse-use search for allCritical_allocated_geometric, allCritical_regular_zero_chart, raw_zero_moduli_from_inputs found only their three defining modules. Current/vendor search found no joined result.",
+    "scope": "Compose existing physical rechart, ActualModuli, phase_block_linear_data, stripCorner_zero and archived allCritical_allocated_geometric. Conclude an equivalent actual current AllCritical carrier with conjugate rows. No original correlation nonvanishing premise; retain z>=-3 and z!=0,-3,-2.",
+    "checked_utc": "2026-10-11T04:37:16.788434+00:00"
+  },
+  "checked_utc": "2026-10-11T04:40:35.611292+00:00",
+  "pass_evidence": "KERNEL_AUDIT_CRITICAL_ZERO_GEOMETRY_STATUS.json"
+}

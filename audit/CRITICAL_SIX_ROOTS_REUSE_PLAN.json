@@ -1,0 +1,153 @@
+{
+  "status": "PINNED_REVIEWED_NOT_COMPILED",
+  "scope": "critical_six_roots_reuse",
+  "roots": [
+    "GeometricRowsTriples"
+  ],
+  "selected": {
+    "SixRootPolynomial": {
+      "availability": "resident",
+      "blob": "blobs/0e/0e0399299b5d759b9201a8bfa4425be55a1e5cfd552260d4c65f7765fea4ee2d/SixRootPolynomial.lean",
+      "bytes": 4094,
+      "sha256": "0e0399299b5d759b9201a8bfa4425be55a1e5cfd552260d4c65f7765fea4ee2d",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/global_assembly/geometric_six_roots/SixRootPolynomial.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/0e/0e0399299b5d759b9201a8bfa4425be55a1e5cfd552260d4c65f7765fea4ee2d/SixRootPolynomial.lean",
+      "imports": [
+        "Mathlib.Analysis.Complex.Polynomial.Basic",
+        "Mathlib.Tactic",
+        "NoFourMUBs.Step2.CriticalZero.PhaseFacts"
+      ],
+      "review": "CRITICAL_SIX_ROOTS_REUSE_REVIEW.json",
+      "proof_tactic_replacements": [
+        {
+          "before": "import Mathlib.Tactic\n",
+          "after": "import Mathlib.Tactic\nimport NoFourMUBs.Step2.CriticalZero.PhaseFacts\n",
+          "count": 1,
+          "reason": "Use existing checked phase helpers, not duplicate their derivations."
+        },
+        {
+          "before": "theorem unit_ne_zero {z : \u2102} (hz : Complex.normSq z = 1) : z \u2260 0 := by\n  intro h\n  simpa [h] using hz\n\ntheorem unit_star_eq_inv {z : \u2102} (hz : Complex.normSq z = 1) : star z = z\u207b\u00b9 := by\n  apply (mul_left_cancel\u2080 (unit_ne_zero hz))\n  calc\n    z * star z = 1 := by simpa [Complex.star_def, hz] using Complex.mul_conj z\n    _ = z * z\u207b\u00b9 := (mul_inv_cancel\u2080 (unit_ne_zero hz)).symm\n\n",
+          "after": "",
+          "count": 1,
+          "reason": "Omit two unit-phase helper proofs already checked in PhaseFacts. All coefficient identities retained."
+        },
+        {
+          "before": "#print axioms GeometricSixRoots20261003.unit_ne_zero\n",
+          "after": "",
+          "count": 1,
+          "reason": "Omit audit of a helper now directly reused."
+        },
+        {
+          "before": "#print axioms GeometricSixRoots20261003.unit_star_eq_inv\n",
+          "after": "",
+          "count": 1,
+          "reason": "Omit audit of a helper now directly reused."
+        },
+        {
+          "before": "unit_ne_zero",
+          "after": "FourierSeedBinding.phase_ne_zero",
+          "count": 6,
+          "reason": "Direct call to the already checked shared helper."
+        },
+        {
+          "before": "unit_star_eq_inv",
+          "after": "FourierSeedBinding.phase_star",
+          "count": 6,
+          "reason": "Direct call to the already checked shared helper."
+        }
+      ]
+    },
+    "SixRootTriples": {
+      "availability": "resident",
+      "blob": "blobs/e1/e1ea27de3fb9ccc70a888a5576228c66503296562826a35a4855fbefed093c7e/SixRootTriples.lean",
+      "bytes": 3378,
+      "sha256": "e1ea27de3fb9ccc70a888a5576228c66503296562826a35a4855fbefed093c7e",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/global_assembly/geometric_six_roots/SixRootTriples.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/e1/e1ea27de3fb9ccc70a888a5576228c66503296562826a35a4855fbefed093c7e/SixRootTriples.lean",
+      "imports": [
+        "SixRootPolynomial",
+        "Hadamard6.FourierAutocorrelation"
+      ],
+      "review": "CRITICAL_SIX_ROOTS_REUSE_REVIEW.json",
+      "proof_tactic_replacements": [
+        {
+          "before": "set_option autoImplicit false",
+          "after": "import Hadamard6.FourierAutocorrelation\n\nset_option autoImplicit false",
+          "count": 1,
+          "reason": "Reuse the current quadratic-to-cubic theorem from the vendor source."
+        },
+        {
+          "before": "\u03c9^3=1 := by\n  linear_combination (\u03c9-1)*h\u03c9",
+          "after": "\u03c9^3=1 :=\n  Hadamard6.cubic_of_quadratic h\u03c9",
+          "count": 1,
+          "reason": "Preserve the original helper interface while delegating to the existing vendor theorem."
+        }
+      ]
+    },
+    "SixRootOrdering": {
+      "availability": "resident",
+      "blob": "blobs/0a/0aff5528be592be04153fe4e5b514d5fb0741ff567ade3d93884311e5736a4ce/SixRootOrdering.lean",
+      "bytes": 2535,
+      "sha256": "0aff5528be592be04153fe4e5b514d5fb0741ff567ade3d93884311e5736a4ce",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/global_assembly/geometric_six_roots/SixRootOrdering.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/0a/0aff5528be592be04153fe4e5b514d5fb0741ff567ade3d93884311e5736a4ce/SixRootOrdering.lean",
+      "imports": [
+        "SixRootTriples",
+        "Mathlib.Logic.Equiv.Basic",
+        "Mathlib.Data.Fintype.EquivFin"
+      ],
+      "review": "CRITICAL_SIX_ROOTS_REUSE_REVIEW.json",
+      "proof_tactic_replacements": []
+    },
+    "GeometricRowsTriples": {
+      "availability": "resident",
+      "blob": "blobs/05/05c50009da79f5d50f2a9ea2d5ca6cd27ec2d9880d440b7a273874a62b29ec1f/GeometricRowsTriples.lean",
+      "bytes": 2573,
+      "sha256": "05c50009da79f5d50f2a9ea2d5ca6cd27ec2d9880d440b7a273874a62b29ec1f",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/global_assembly/geometric_six_roots/GeometricRowsTriples.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/05/05c50009da79f5d50f2a9ea2d5ca6cd27ec2d9880d440b7a273874a62b29ec1f/GeometricRowsTriples.lean",
+      "imports": [
+        "GeometricFourierTail",
+        "SixRootOrdering"
+      ],
+      "review": "CRITICAL_SIX_ROOTS_REUSE_REVIEW.json",
+      "import_replacements": {
+        "GeometricFourierTail": "NoFourMUBs.Step2.CriticalZero.GeometricMoments"
+      },
+      "model_identifier_replacements": {
+        "Mub6.BasisMatrix": "OAI.MUB6.CMatrix",
+        "PhaseHadamard": "OAI.MUB6.IsHadamard",
+        "Worker12.PrimitiveCubicPhase": "Hadamard6.IsPrimitiveCubicPhase"
+      },
+      "model_identifier_counts": {
+        "Mub6.BasisMatrix": 3,
+        "PhaseHadamard": 3,
+        "Worker12.PrimitiveCubicPhase": 1
+      },
+      "namespace_open_replacements": {
+        "open Mub6 Mub6.Numerical\n": "open NoFourMUBs.Step2.Critical\n"
+      }
+    }
+  },
+  "existing_modules": {
+    "NoFourMUBs.Step2.CriticalZero.PhaseFacts": {
+      "active_path": "NoFourMUBs/Step2/CriticalZero/PhaseFacts.lean",
+      "active_sha256": "f4318cd3a421b5d8ae172b96cf7e4a7ccf8ed271f988c59db0823617baae9ee3"
+    }
+  },
+  "local_adapters": [
+    {
+      "module": "NoFourMUBs.Step2.CriticalZero.GeometricMoments",
+      "active_path": "NoFourMUBs/Step2/CriticalZero/GeometricMoments.lean",
+      "active_sha256": "3cb13135408b9fbbe742dcf3b18db80a5c4a9c18d4167a0ae26b52a7f06b8a63",
+      "after_archived_module": "SixRootOrdering"
+    }
+  ],
+  "external": [],
+  "unresolved": [],
+  "atlas_certification": false
+}

@@ -1,0 +1,19 @@
+import NoFourMUBs.Step2.CriticalZero.ActualFourier
+
+#check NoFourMUBs.Step2.Critical.allCritical_regular_zero_fourier
+#check GeometricNormalization20261003.geometric_rows_fourier
+#print CriticalFourierRouting20261003.FourierOrTranspose
+#print axioms NoFourMUBs.Step2.Critical.allCritical_regular_zero_fourier
+#print axioms GeometricNormalization20261003.geometric_rows_fourier
+#print axioms GeometricNormalization20261003.monomial_geometric_rows_fourier
+#print axioms GeometricNormalization20261003.geometric_rows_top_blocks
+#print axioms GeometricNormalization20261003.conjugate_first_blocks_normalization
+#print axioms CriticalFourierRouting20261003.geometric_first_three_blocks_fourier
+#print axioms CriticalFourierRouting20261003.geometric_forced_parameters
+#print axioms Worker12.forced_flat_parameter_branches
+#print axioms Worker12.pure_alpha_monomial
+#print axioms Worker12.pure_A_monomial
+#print axioms Worker12.splitMatrix_isHadamard
+#print axioms Worker12.equivalent_unsplit
+#print axioms Worker12.literal_fourier3_isHadamard
+#print axioms Worker12.embeddingPermutation_apply

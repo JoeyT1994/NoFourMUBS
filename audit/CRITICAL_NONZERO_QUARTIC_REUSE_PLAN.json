@@ -1,0 +1,186 @@
+{
+  "status": "PINNED_REVIEWED_NOT_COMPILED",
+  "scope": "critical_nonzero_quartic_reuse",
+  "roots": [
+    "CriticalNonzeroPoles"
+  ],
+  "selected": {
+    "CriticalNonzeroPolynomialData": {
+      "availability": "resident",
+      "blob": "blobs/d3/d326f36bd196fff27bbbc148f8242d4d8bd840f5eda5fac619840112fdfcc442/CriticalNonzeroPolynomialData.lean",
+      "bytes": 29533,
+      "sha256": "d326f36bd196fff27bbbc148f8242d4d8bd840f5eda5fac619840112fdfcc442",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/CriticalNonzeroPolynomialData.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/d3/d326f36bd196fff27bbbc148f8242d4d8bd840f5eda5fac619840112fdfcc442/CriticalNonzeroPolynomialData.lean",
+      "imports": [
+        "Mathlib.Tactic.Ring"
+      ],
+      "review": "CRITICAL_NONZERO_QUARTIC_REUSE_REVIEW.json",
+      "import_replacements": {
+        "CriticalNonzeroSplitting": "NoFourMUBs.Reuse.Archive.CriticalNonzeroSplitting"
+      }
+    },
+    "CriticalNonzeroFactorData": {
+      "availability": "resident",
+      "blob": "blobs/45/454b173bea6f9d58041758f80b842453b63d80dd784440144d866a74e8238897/CriticalNonzeroFactorData.lean",
+      "bytes": 7187,
+      "sha256": "454b173bea6f9d58041758f80b842453b63d80dd784440144d866a74e8238897",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/CriticalNonzeroFactorData.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/45/454b173bea6f9d58041758f80b842453b63d80dd784440144d866a74e8238897/CriticalNonzeroFactorData.lean",
+      "imports": [
+        "CriticalNonzeroPolynomialData"
+      ],
+      "review": "CRITICAL_NONZERO_QUARTIC_REUSE_REVIEW.json",
+      "import_replacements": {
+        "CriticalNonzeroSplitting": "NoFourMUBs.Reuse.Archive.CriticalNonzeroSplitting"
+      }
+    },
+    "CriticalNonzeroFactor00": {
+      "availability": "resident",
+      "blob": "blobs/13/13dc0fbed80a401f69cc49703427f72791085d499d72e645515a20e4c197566a/CriticalNonzeroFactor00.lean",
+      "bytes": 1257,
+      "sha256": "13dc0fbed80a401f69cc49703427f72791085d499d72e645515a20e4c197566a",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/CriticalNonzeroFactor00.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/13/13dc0fbed80a401f69cc49703427f72791085d499d72e645515a20e4c197566a/CriticalNonzeroFactor00.lean",
+      "imports": [
+        "CriticalNonzeroFactorData"
+      ],
+      "review": "CRITICAL_NONZERO_QUARTIC_REUSE_REVIEW.json",
+      "import_replacements": {
+        "CriticalNonzeroSplitting": "NoFourMUBs.Reuse.Archive.CriticalNonzeroSplitting"
+      }
+    },
+    "CriticalNonzeroFactor01": {
+      "availability": "resident",
+      "blob": "blobs/6f/6f2cd2dae5e8364a319d38a37ea2a39879b661f52e5d56d2d1e8753845d318fd/CriticalNonzeroFactor01.lean",
+      "bytes": 1553,
+      "sha256": "6f2cd2dae5e8364a319d38a37ea2a39879b661f52e5d56d2d1e8753845d318fd",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/CriticalNonzeroFactor01.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/6f/6f2cd2dae5e8364a319d38a37ea2a39879b661f52e5d56d2d1e8753845d318fd/CriticalNonzeroFactor01.lean",
+      "imports": [
+        "CriticalNonzeroFactorData"
+      ],
+      "review": "CRITICAL_NONZERO_QUARTIC_REUSE_REVIEW.json",
+      "import_replacements": {
+        "CriticalNonzeroSplitting": "NoFourMUBs.Reuse.Archive.CriticalNonzeroSplitting"
+      }
+    },
+    "CriticalNonzeroFactor02": {
+      "availability": "resident",
+      "blob": "blobs/5d/5dce24485ff294d699180d58a4951ed63ba6c112ae99b22b89051f09625d2ed1/CriticalNonzeroFactor02.lean",
+      "bytes": 1479,
+      "sha256": "5dce24485ff294d699180d58a4951ed63ba6c112ae99b22b89051f09625d2ed1",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/CriticalNonzeroFactor02.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/5d/5dce24485ff294d699180d58a4951ed63ba6c112ae99b22b89051f09625d2ed1/CriticalNonzeroFactor02.lean",
+      "imports": [
+        "CriticalNonzeroFactorData"
+      ],
+      "review": "CRITICAL_NONZERO_QUARTIC_REUSE_REVIEW.json",
+      "import_replacements": {
+        "CriticalNonzeroSplitting": "NoFourMUBs.Reuse.Archive.CriticalNonzeroSplitting"
+      }
+    },
+    "CriticalNonzeroFactor03": {
+      "availability": "resident",
+      "blob": "blobs/17/17329e913235bae415e1246b1d11f33256ffe36b855accb3aaf64fe12d4c5371/CriticalNonzeroFactor03.lean",
+      "bytes": 886,
+      "sha256": "17329e913235bae415e1246b1d11f33256ffe36b855accb3aaf64fe12d4c5371",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/CriticalNonzeroFactor03.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/17/17329e913235bae415e1246b1d11f33256ffe36b855accb3aaf64fe12d4c5371/CriticalNonzeroFactor03.lean",
+      "imports": [
+        "CriticalNonzeroFactorData"
+      ],
+      "review": "CRITICAL_NONZERO_QUARTIC_REUSE_REVIEW.json",
+      "import_replacements": {
+        "CriticalNonzeroSplitting": "NoFourMUBs.Reuse.Archive.CriticalNonzeroSplitting"
+      }
+    },
+    "CriticalNonzeroPolynomial": {
+      "availability": "resident",
+      "blob": "blobs/fd/fd274b076dd7ebc02c25af6e4bda0ac5bafebe0feeea184efb174a59b94c867d/CriticalNonzeroPolynomial.lean",
+      "bytes": 1432,
+      "sha256": "fd274b076dd7ebc02c25af6e4bda0ac5bafebe0feeea184efb174a59b94c867d",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/CriticalNonzeroPolynomial.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/fd/fd274b076dd7ebc02c25af6e4bda0ac5bafebe0feeea184efb174a59b94c867d/CriticalNonzeroPolynomial.lean",
+      "imports": [
+        "CriticalNonzeroFactor00",
+        "CriticalNonzeroFactor01",
+        "CriticalNonzeroFactor02",
+        "CriticalNonzeroFactor03"
+      ],
+      "review": "CRITICAL_NONZERO_QUARTIC_REUSE_REVIEW.json",
+      "import_replacements": {
+        "CriticalNonzeroSplitting": "NoFourMUBs.Reuse.Archive.CriticalNonzeroSplitting"
+      }
+    },
+    "CriticalNonzeroQuartic": {
+      "availability": "resident",
+      "blob": "blobs/a3/a30b6fab169dee5ade88cf5a54fece7cbada5028793cb6d403e119d7bb301425/CriticalNonzeroQuartic.lean",
+      "bytes": 673,
+      "sha256": "a30b6fab169dee5ade88cf5a54fece7cbada5028793cb6d403e119d7bb301425",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/CriticalNonzeroQuartic.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/a3/a30b6fab169dee5ade88cf5a54fece7cbada5028793cb6d403e119d7bb301425/CriticalNonzeroQuartic.lean",
+      "imports": [
+        "CriticalNonzeroSplitting",
+        "CriticalNonzeroPolynomial"
+      ],
+      "review": "CRITICAL_NONZERO_QUARTIC_REUSE_REVIEW.json",
+      "import_replacements": {
+        "CriticalNonzeroSplitting": "NoFourMUBs.Reuse.Archive.CriticalNonzeroSplitting"
+      }
+    },
+    "CriticalNonzeroPolynomialPoles": {
+      "availability": "resident",
+      "blob": "blobs/91/9114883efad9d315158b7f966bdd392628c64306fa1e39c86658fe4ad4394843/CriticalNonzeroPolynomialPoles.lean",
+      "bytes": 1163,
+      "sha256": "9114883efad9d315158b7f966bdd392628c64306fa1e39c86658fe4ad4394843",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/CriticalNonzeroPolynomialPoles.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/91/9114883efad9d315158b7f966bdd392628c64306fa1e39c86658fe4ad4394843/CriticalNonzeroPolynomialPoles.lean",
+      "imports": [
+        "CriticalNonzeroPolynomialData",
+        "Mathlib.Tactic.FieldSimp"
+      ],
+      "review": "CRITICAL_NONZERO_QUARTIC_REUSE_REVIEW.json",
+      "import_replacements": {
+        "CriticalNonzeroSplitting": "NoFourMUBs.Reuse.Archive.CriticalNonzeroSplitting"
+      }
+    },
+    "CriticalNonzeroPoles": {
+      "availability": "resident",
+      "blob": "blobs/d5/d5672451039ceec46a87875fba81c3fb796baaf6da4d756369f20f4a8b99a296/CriticalNonzeroPoles.lean",
+      "bytes": 3973,
+      "sha256": "d5672451039ceec46a87875fba81c3fb796baaf6da4d756369f20f4a8b99a296",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/CriticalNonzeroPoles.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/d5/d5672451039ceec46a87875fba81c3fb796baaf6da4d756369f20f4a8b99a296/CriticalNonzeroPoles.lean",
+      "imports": [
+        "CriticalNonzeroQuartic",
+        "CriticalNonzeroPolynomialPoles",
+        "Mathlib.Tactic.Positivity"
+      ],
+      "review": "CRITICAL_NONZERO_QUARTIC_REUSE_REVIEW.json",
+      "import_replacements": {
+        "CriticalNonzeroSplitting": "NoFourMUBs.Reuse.Archive.CriticalNonzeroSplitting"
+      }
+    }
+  },
+  "existing_modules": {
+    "NoFourMUBs.Reuse.Archive.CriticalNonzeroSplitting": {
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalNonzeroSplitting.lean",
+      "active_sha256": "c64b504947667a1884141ebc93c0264115306949c6a3d788e1deb392d81b13c1"
+    }
+  },
+  "local_adapters": [],
+  "external": [],
+  "unresolved": [],
+  "atlas_certification": false
+}

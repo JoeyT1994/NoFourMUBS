@@ -1,0 +1,45 @@
+{
+  "status": "PASS",
+  "checked_utc": "2026-10-11T20:15:23.038766+00:00",
+  "modules": 1,
+  "axiom_endpoints": {
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.candidate_product_quadratic": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.cached_discriminant_of_candidate": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.cached_discriminant_strict": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.cached_omega_strict": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "source_hashes": {
+    "NoFourMUBs/Step2/Reconstruction/BaseCoefficients/Discriminant.lean": "45d5e56b24e26451f14c0c668d847c010bf7392d97ae6dbf25ce9db09ecf1dfa"
+  },
+  "manifest_sha256": "0ce5bf1271093ca4d0c3f3e5b69bb33f9053cab1415c2a1bcffb1fb184fe5a21",
+  "audit_log_sha256": "c082e92aa2474e05b8d2ea016be74d55b97d7f28ba27cd3e09aa6c9684c72d4f",
+  "scope": "The existing actual product quadratic and signed-side constructor prove the cached discriminant on every strict seed. Its quotient equals minus seedR under the explicit nonzero cached-delta guard. No expanded discriminant calculation, companion proof, universal norm, or atlas certification.",
+  "dependency_audits": {
+    "KERNEL_AUDIT_MATCHED_CENTERED_PRODUCT_STATUS.json": "6e2f5307b390f74076edea6d9d732d95e574f3fd0fbb60c226cb5c88e532d007",
+    "KERNEL_AUDIT_MATCHED_PRODUCT_RELATIONS_STATUS.json": "5bfaf1002c2beb3d2022ec45b08a022b099cce7f2c4eb566e69fe255c9c27c50",
+    "KERNEL_AUDIT_SIGNED_SIDES_PATH_PINS.json": "1fc7de40b599146c178d47ce9e3948360d6cc0be16e7a7d87c210818915a1f69"
+  },
+  "dependency_source_hashes": {
+    "NoFourMUBs/Step2/Reconstruction/BaseCoefficients/Centered.lean": "0a74257b9c2fc64e57046f9abef7ee87e7bd308b889f3528ef52b5550f13162f",
+    "NoFourMUBs/Step2/Reconstruction/RowProductRelations.lean": "3f3fdb13ccc279c14142c125d10790c01473e069316f18b777f939ed309a086e",
+    "NoFourMUBs/Step2/Reconstruction/MatchedSides.lean": "c1e79372a8c993e0f1bf45658f0e96aedced94c8a62d0fdd61ed2073c660c9a9",
+    "NoFourMUBs/Step2/Reconstruction/FourierSignature.lean": "e1bb3526dd76e880c951dd058aa333383c15eda4e0867bea2a62a6daaf73eae1"
+  },
+  "atlas_certification": false
+}

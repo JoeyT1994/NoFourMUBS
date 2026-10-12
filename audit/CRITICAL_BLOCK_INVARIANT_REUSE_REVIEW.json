@@ -1,0 +1,70 @@
+{
+  "status": "PASS",
+  "reviewed_utc": "2026-10-11T01:32:17.647419+00:00",
+  "scope": "One binding from the archived signedInvariant to the current sideSignature; reuse the checked scalar signature identity.",
+  "archive_source": "audit/upstream_repository/archive/long_proof/Lean/blobs/2e/2e1a6cca797a57bda81dca82dd45c814def98cefff1df43d0030b987bb2b9260/CriticalBlockInvariant.lean",
+  "archive_sha256": "2e1a6cca797a57bda81dca82dd45c814def98cefff1df43d0030b987bb2b9260",
+  "extracted_blocks": {
+    "data_and_normalized_invariant": "27f182acb54f090a10179236d2175051455924bad4894d6bb61f65de6f016e15",
+    "negative_square_lemmas": "43ed14548b7200b966db2feb92208f209e18c74769592dace65de696be491686"
+  },
+  "search_evidence": [
+    "CRITICAL_PHASE_INVARIANT_REUSE_FILES.txt",
+    "ARCHIVE_SOURCE_INDEX.jsonl",
+    "ARCHIVE_IMPORT_INDEX.json",
+    "ARCHIVE_BLOB_INDEX.jsonl",
+    "CRITICAL_ACTUAL_SIGNATURE_REVIEW.json"
+  ],
+  "comparison": "The7archive files using phaseInvariant/signedInvariant contain no binding to the current sideSignature. The current signature_discriminant and moment_R_signature are already checked and include singular sides. Reuse them; do not copy the six-skew polynomial discriminant proof.",
+  "new_adapters": [
+    "phaseInvariant_eq_neg_sideSignature: unit entry product inverse equals its conjugate; six-term permanent agrees with existing permanent3_expand.",
+    "invariant_square_scalar: the existing negative-square lemma and checked moment_R_signature give the same scalar endpoint."
+  ],
+  "preserved": "All archived data definitions and the normalized-invariant/negative-square proof bodies, except Mat3 namespace substitution.",
+  "omitted": "Unused signedExpression_eq_sixSkew and invariant_square_radicand proof route; do not import full legacy CriticalBlockInvariant as a second active derivation.",
+  "explicit_hypotheses": [
+    "entrywise unit3x3 matrix",
+    "first row1 only for scalar endpoint"
+  ],
+  "atlas_certification": false,
+  "checked_utc": "2026-10-11T01:43:28.542209+00:00",
+  "source_sha256": "b2107b421c0ad56b7bc9815b371f79fbaec2df8b6f2b842ae32854fa35b252c2",
+  "build_log": "critical_zero_physical_build_status_logs/batch_0207.log",
+  "axioms": {
+    "CriticalStripMoments20261003.normalized_invariant": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "CriticalStripMoments20261003.signedInvariant_re": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "CriticalStripMoments20261003.negative_square_re": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "CriticalStripMoments20261003.negative_square_im": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "CriticalStripMoments20261003.negative_square_nonnegative": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "CriticalStripMoments20261003.phaseInvariant_eq_neg_sideSignature": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "CriticalStripMoments20261003.invariant_square_scalar": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  }
+}

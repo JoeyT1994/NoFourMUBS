@@ -1,0 +1,30 @@
+{
+  "scope": "matched_moment_product",
+  "records": [
+    {
+      "active_path": "NoFourMUBs/Step2/Reconstruction/RowMomentProduct.lean",
+      "active_sha256": "51ee701670f5dd2609920eecf888f6a4e4bbdcc884f38ae9e8ac8eb5727f6207",
+      "module": "NoFourMUBs.Step2.Reconstruction.RowMomentProduct",
+      "local_model_adapter": true,
+      "review": "MATCHED_MOMENT_PRODUCT_REUSE_REVIEW.json"
+    }
+  ],
+  "dependency_pins": [
+    {
+      "active_path": "NoFourMUBs/Reuse/Archive/SideIntrinsicUnitBindings.lean",
+      "active_sha256": "0b9439dba8222d68e06eceb609212239feacb0ad3eb482ca835dce10076a3ab2"
+    },
+    {
+      "active_path": "NoFourMUBs/Reuse/Archive/SideIntrinsicPolynomialDefs.lean",
+      "active_sha256": "1291afc792342d1241ca5a0ec63d77ba8ac9d838f254a7e420b7c8ce334abc53"
+    }
+  ],
+  "axiom_endpoints": [
+    "StrictReconstruction20261007.SideIntrinsic.row_linear_product"
+  ],
+  "dependency_audits": [
+    "KERNEL_AUDIT_CRITICAL_EQUICORRELATION_ROW_PRODUCTS_STATUS.json"
+  ],
+  "atlas_certification": false,
+  "scope_note": "Only the necessary linear-row product adapter; no universal matched norm or MatchedExistence proof claimed."
+}

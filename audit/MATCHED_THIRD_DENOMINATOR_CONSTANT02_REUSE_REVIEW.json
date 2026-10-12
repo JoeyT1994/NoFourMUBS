@@ -1,0 +1,44 @@
+{
+  "status": "REVIEWED_REUSE_EXISTING_PRODUCTS_AND_MONOMIAL_SHIFT",
+  "reviewed_utc": "2026-10-12T13:36:47.451337+00:00",
+  "search": "MATCHED_THIRD_DENOMINATOR_CONSTANT02_REUSE_SEARCH.json",
+  "source_pins": [
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/DenominatorSingle.lean",
+      "sha256": "cecc5488c8c0702a945bacc6de6932aaa87c7a1d119d8d31abcf06562bdfde85"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/DenominatorGram.lean",
+      "sha256": "9c1c562c944efb13cb4dfe03a30ecbe74c4208669b53ae40f9e7c2ef0f726b80"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/Products/Product019.lean",
+      "sha256": "95b60640122a5dea63975c48b88b0cc8072885120cea938166a1aabc3d80d64a"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/Polynomials/P012.lean",
+      "sha256": "a42f40e97b443d9302862052668dfa4559287d03593efbaa3f90c22525791274"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/Polynomials/P042.lean",
+      "sha256": "1d07970a5691da7aff217ac6d6cdc19911fb8e4d6cdbc6180ac9f95522db7151"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/Products/MonomialTransport1.lean",
+      "sha256": "52bdb9674278c7c3317bde57eb13d671c4fca14d1dae622633ade97471fb96ae"
+    }
+  ],
+  "comparisons": [
+    "P012 and P042 are original51term cofactors with matching scale2. Their recorded supports differ only by one c exponent; use the existing polynomial evaluator and original arrays to prove P012=c*P042 over any commutative ring. No new coefficients or checker.",
+    "Product019 gives P041*P042=P031, while Product021 gives P031=P045*P004. Existing P045_seed_factor, Product000 and Product004 then give P041=-(a*b*c^2*d)*seedG*P011 by cancellation of P042.",
+    "P042 is nonzero on every StrictSeed because its checked product is P031 and P031_strict_ne_zero is already proved. No generic exception or extra guard.",
+    "This is a denominator representation needed for the original constant summand02; its actual matrix-expression binding is still unproved. No separate proof route introduced."
+  ],
+  "dependency_audits": [
+    "KERNEL_AUDIT_MATCHED_THIRD_DENOMINATOR_SINGLE_STATUS.json",
+    "KERNEL_AUDIT_MATCHED_THIRD_DENOMINATOR_GRAM_STATUS.json",
+    "KERNEL_AUDIT_MATCHED_THIRD_PRODUCT_019_STATUS.json"
+  ],
+  "new_numeric_arrays": 0,
+  "atlas_certification": false
+}

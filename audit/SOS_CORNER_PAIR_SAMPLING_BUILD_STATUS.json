@@ -1,0 +1,24 @@
+{
+  "status": "KERNEL_CHECKED",
+  "theorems": [
+    "covers_injective_halves",
+    "pairAssignmentsEquiv",
+    "sum_pair_injections",
+    "weight_eq_card",
+    "average_pair_injections"
+  ],
+  "file_hashes": {
+    "CornerPairPatterns.lean": "a1c4c5d6b700e05b77e35394149e2e54d21fb2346ef645f7900d168c8de015af",
+    "CornerPairSampling.lean": "7010fe2da54f5a148d8cffd320013fec7233c05960516399f4cbd270a7fbf758"
+  },
+  "log": "SOS_CORNER_PAIR_SAMPLING_WEIGHTED_BUILD.log",
+  "log_sha256": "92c6f840b2bf6dbbd42b3fcec74fb83503bc03a89c60484453a05d4d2e569748",
+  "scope": "The original 34 overlap patterns form an exact weighted expansion of a pair of sampled triples. Full matrix-product and target-coefficient bindings remain pending.",
+  "axiom_audit": "KERNEL_AUDIT_CORNER_PAIRS.log",
+  "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "axiom_audit_sha256": "72b6fade2035e010b9cdb1b778b12f534bf8871ef08b81717b2b9dc1d7b4f316"
+}

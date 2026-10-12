@@ -1,0 +1,34 @@
+import NoFourMUBs.Reuse.Archive.CriticalZeroSumExprCommonData
+import NoFourMUBs.Reuse.Archive.CriticalZeroSumDenominatorData
+set_option autoImplicit false
+set_option maxRecDepth 100000
+set_option maxHeartbeats 1500000
+namespace CriticalZeroSumAssembly20261003
+open CriticalZeroSplitReduction20261003 HornerReflector
+noncomputable section
+variable {K : Type*} [Field K] [CharZero K]
+theorem rawNumeratorExprCoefficients_interpret (X Y : K) :
+    ExprCoefficients.interpret X Y rawNumeratorExprCoefficients=numeratorCoefficients X Y := by
+  simp only [rawNumeratorExprCoefficients,numeratorCoefficients,ExprCoefficients.interpret,
+    numRaw_00_00_interpret,numRaw_00_01_interpret,numRaw_00_02_interpret,numRaw_00_03_interpret,numRaw_00_04_interpret,numRaw_00_05_interpret,numRaw_00_06_interpret,numRaw_00_07_interpret,numRaw_00_08_interpret,numRaw_00_09_interpret,numRaw_00_10_interpret,numRaw_00_11_interpret,numRaw_00_12_interpret,numRaw_00_13_interpret,numRaw_00_14_interpret,numRaw_00_15_interpret,numRaw_00_16_interpret,numRaw_00_17_interpret,numRaw_00_18_interpret,numRaw_00_19_interpret,numRaw_00_20_interpret,numRaw_00_21_interpret,numRaw_00_22_interpret,numRaw_00_23_interpret,numRaw_00_24_interpret,numRaw_00_25_interpret,numRaw_00_26_interpret,numRaw_00_27_interpret,numRaw_00_28_interpret,numRaw_00_29_interpret,numRaw_00_30_interpret,numRaw_00_31_interpret,numRaw_00_32_interpret,numRaw_00_33_interpret,numRaw_00_34_interpret,numRaw_00_35_interpret,numRaw_00_36_interpret,value,Int.cast_zero]
+#print axioms rawNumeratorExprCoefficients_interpret
+theorem rawDenominatorExprCoefficients_interpret (X Y : K) :
+    ExprCoefficients.interpret X Y rawDenominatorExprCoefficients=denominatorCoefficients X Y := by
+  simp only [rawDenominatorExprCoefficients,denominatorCoefficients,ExprCoefficients.interpret,
+    denRaw_00_12_interpret,denRaw_00_13_interpret,denRaw_00_14_interpret,denRaw_00_15_interpret,denRaw_00_16_interpret,denRaw_00_17_interpret,denRaw_00_18_interpret,denRaw_00_19_interpret,denRaw_00_20_interpret,denRaw_00_21_interpret,denRaw_00_22_interpret,denRaw_00_23_interpret,denRaw_00_24_interpret,denRaw_00_25_interpret,denRaw_00_26_interpret,denRaw_00_27_interpret,denRaw_00_28_interpret,denRaw_00_29_interpret,denRaw_00_30_interpret,denRaw_00_31_interpret,denRaw_00_32_interpret,value,Int.cast_zero]
+#print axioms rawDenominatorExprCoefficients_interpret
+theorem commonDenominatorExprCoefficients_interpret (X Y : K) :
+    ExprCoefficients.interpret X Y commonDenominatorExprCoefficients=commonDenominatorCoefficients X Y := by
+  simp only [commonDenominatorExprCoefficients,commonDenominatorCoefficients,
+    ExprCoefficients.interpret_shift,ExprCoefficients.interpret_mul,ExprCoefficients.interpret_pow,
+    ExprCoefficients.interpret,value,Int.cast_ofNat,Int.cast_neg,Int.cast_zero,Int.cast_one,sub_eq_add_neg]
+#print axioms commonDenominatorExprCoefficients_interpret
+
+theorem denominatorExprResidual_interpret (X Y : K) :
+    ExprCoefficients.interpret X Y denominatorExprResidual=denominatorResidual X Y := by
+  simp only [denominatorExprResidual,denominatorResidual,ExprCoefficients.interpret_add,
+    ExprCoefficients.interpret_neg,commonDenominatorExprCoefficients_interpret,
+    rawDenominatorExprCoefficients_interpret]
+#print axioms denominatorExprResidual_interpret
+end
+end CriticalZeroSumAssembly20261003

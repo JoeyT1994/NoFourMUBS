@@ -1,0 +1,39 @@
+{
+  "status": "PASS",
+  "checked_utc": "2026-10-12T03:50:37.089467+00:00",
+  "modules": 1,
+  "axiom_endpoints": {
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.seedComplement_eq_gram": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.seedComplement_det": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.seedCoefficient_adjugate": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "source_hashes": {
+    "NoFourMUBs/Step2/Reconstruction/ThirdMoment/ForcedCoefficient.lean": "a558026f7e3710666de76112713da240862bc9f6527c8600f52c969ddfc70b35"
+  },
+  "manifest_sha256": "23c3ba1dfb30ff887484ef418c5dd6c1ffbd42b54d3e9f97c003f2d65702d8fb",
+  "audit_log_sha256": "331105642f84e970df7fc8120315062c4fa5fa69003b59d8ca0d85d619558831",
+  "scope": "Three representation adapters reusing the existing Gram determinant and standard inverse formula. Every Seed; no generic or completion hypothesis. No atlas certification.",
+  "dependency_audits": {
+    "KERNEL_AUDIT_CRITICAL_ACTUAL_ZERO_STATUS.json": "8b0ed893cc02094fa937ee78ae82845ba84d1911814469afa95eab96c7c05fbe",
+    "KERNEL_AUDIT_MATCHED_THIRD_CONTRACTION_STATUS.json": "4ddde7e7bd0425863a63185d7daa1e354277860483f9b86f0b8709838282b3b8"
+  },
+  "dependency_source_hashes": {
+    "NoFourMUBs/Reuse/Archive/GramNumerators.lean": "edb7de8e4499b9d6f8cae7b05213b414b46efd17b4692cd5cf67b5caff2fc0ba",
+    "NoFourMUBs/Reuse/Archive/SideMatrixSeedGram.lean": "d709828ce61df2a2b93f58ac70536b55821d46f064c33b838d74b1fac5b2456c",
+    "NoFourMUBs/Step2/Reconstruction/SeedModel.lean": "7020e49ca7d9303f213bb75991290cd1bba125db6de255f0e1b39a51ab079aa3",
+    "NoFourMUBs/Step2/Reconstruction/ForcedProductMoments.lean": "8777f15e1665c6df08a04c52da33737a7aee0dcf2f80a0d7e79bf04722f15408"
+  },
+  "atlas_certification": false
+}

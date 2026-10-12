@@ -1,0 +1,6 @@
+import NoFourMUBs.Step2.Reconstruction.RowProductRelations
+
+#check StrictReconstruction20261007.SideIntrinsic.row_product_quadratic
+#print axioms StrictReconstruction20261007.SideIntrinsic.row_permanent_product_relation
+#print axioms StrictReconstruction20261007.SideIntrinsic.row_second_product_relation
+#print axioms StrictReconstruction20261007.SideIntrinsic.row_product_quadratic

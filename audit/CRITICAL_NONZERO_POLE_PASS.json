@@ -1,0 +1,86 @@
+{
+  "status": "PASS",
+  "checked_utc": "2026-10-11T17:11:17.289714+00:00",
+  "scope": "Full physical nonzero-J pole branch for every one of20strip corners of an actual all-critical normalized matrix. Only the positive cubic-root scalar value survives. The signed parameter is derived, not supplied.",
+  "modules": 5,
+  "axiom_endpoints": {
+    "NoFourMUBs.Step2.Critical.Poles.numerator0_im": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.Poles.zero_numerator_degeneracy": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.Poles.modulus_boundary_of_zero_numerator": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.Poles.actual_pole_modulus_boundary": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.Poles.quartic_pole_boundary_identity": [
+      "propext",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.Poles.poleBoundaryProduct_eq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.Poles.quartic_zero_of_pole_boundary": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.Poles.actual_pole_quartic_zero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.Poles.actual_pole_candidates": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.strip_nonzero_quartic_special": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.strip_nonzero_pole_special": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "source_hashes": {
+    "NoFourMUBs/Step2/CriticalZero/PoleNumerator.lean": "e76a6dfef7aa74666830500287df298ae0bcbe11042b598d74bb06f30853210e",
+    "NoFourMUBs/Step2/CriticalZero/PhysicalPoleBoundary.lean": "98d0d52e341b06d19da09d9fc75a585583da85254667cfe0f485806fc0acd100",
+    "NoFourMUBs/Step2/CriticalZero/PoleQuartic.lean": "ef5706adcf5d4c84cefebd6c4fc72976e83e9c157273e1fc49f826ff595c7f32",
+    "NoFourMUBs/Step2/CriticalZero/PhysicalPoleClassification.lean": "511de5ea08c2d1a454fcfcb6a81a4a0d86237ec24029ac1f1d0ea4ef21c3ebff",
+    "NoFourMUBs/Step2/CriticalZero/NonzeroScalarEndpoint.lean": "2a6bc29e9a89069925f344cd6837462b36a9b7bc7bb291b6cd1a14f834144dd6"
+  },
+  "audits": {
+    "KERNEL_AUDIT_CRITICAL_PHYSICAL_POLE_BOUNDARY_STATUS.json": "896e38981403fbdeb50f76556c9794eb9f9dc624f4401ebef6ccfbd4082b136d",
+    "KERNEL_AUDIT_CRITICAL_POLE_QUARTIC_STATUS.json": "2f02f20304a13553c246cbb038972c7354ce98a047ce0ef04efbf35c6a8a7b53",
+    "KERNEL_AUDIT_CRITICAL_PHYSICAL_POLE_CLASSIFICATION_STATUS.json": "c66f5af6074a22afaa21cbd053c7d6b9c93fefc7abd13b3cef9e0a3b0bf8a7a3",
+    "KERNEL_AUDIT_CRITICAL_NONZERO_SCALAR_ENDPOINT_STATUS.json": "e3ce4d563cbbf7edaaa35f73a7c54c867d610a4197151f48bb4ef9873da0538a"
+  },
+  "terminal_theorem": "NoFourMUBs.Step2.Critical.strip_nonzero_pole_special",
+  "terminal_file": "lean/NoFourMUBs/Step2/CriticalZero/NonzeroScalarEndpoint.lean",
+  "same_scalar_classification_route": true,
+  "eight_case_pole_certificates_generated": false,
+  "main_source_sha256": "9316a2a26614e4d1782334d03709321b378540e2cb4002a888110d85c01e3556",
+  "main_remaining_inputs": [
+    "AtlasCertificate (excluded by user)",
+    "MatchedExistence (open)",
+    "CriticalClassification (open)"
+  ],
+  "atlas_certification": false
+}

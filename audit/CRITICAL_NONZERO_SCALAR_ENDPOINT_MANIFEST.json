@@ -1,0 +1,41 @@
+{
+  "scope": "critical_nonzero_scalar_endpoint",
+  "records": [
+    {
+      "active_path": "NoFourMUBs/Step2/CriticalZero/NonzeroScalarEndpoint.lean",
+      "active_sha256": "2a6bc29e9a89069925f344cd6837462b36a9b7bc7bb291b6cd1a14f834144dd6",
+      "module": "NoFourMUBs.Step2.CriticalZero.NonzeroScalarEndpoint",
+      "local_model_adapter": true,
+      "review": "CRITICAL_SCALAR_ENDPOINT_REUSE_REVIEW.json"
+    }
+  ],
+  "dependency_pins": [
+    {
+      "active_path": "NoFourMUBs/Step2/CriticalZero/PhysicalPoleClassification.lean",
+      "active_sha256": "511de5ea08c2d1a454fcfcb6a81a4a0d86237ec24029ac1f1d0ea4ef21c3ebff"
+    },
+    {
+      "active_path": "NoFourMUBs/Step2/CriticalZero/EquicorrelationScalarEndpoint.lean",
+      "active_sha256": "022371eb1de73c0b341e3e58e95840663f507b7a343e2518d79a1b34e399883d"
+    },
+    {
+      "active_path": "NoFourMUBs/Step2/CriticalZero/P7StripEndpoint.lean",
+      "active_sha256": "3e967a2d9bd7668d169b27c4774c1b4f3379e9158c06f80e5f01c763ddc44743"
+    },
+    {
+      "active_path": "NoFourMUBs/Step2/CriticalStripMatrix.lean",
+      "active_sha256": "7afefa1ebbb250dfd3039c4576224c1af58ebb522a98db8bfa7218db705e5f5a"
+    }
+  ],
+  "axiom_endpoints": [
+    "NoFourMUBs.Step2.Critical.strip_nonzero_quartic_special",
+    "NoFourMUBs.Step2.Critical.strip_nonzero_pole_special"
+  ],
+  "dependency_audits": [
+    "KERNEL_AUDIT_CRITICAL_PHYSICAL_POLE_CLASSIFICATION_STATUS.json",
+    "KERNEL_AUDIT_CRITICAL_P7_STRIP_ENDPOINT_STATUS.json",
+    "KERNEL_AUDIT_CRITICAL_EQUICORRELATION_SCALAR_ENDPOINT_STATUS.json"
+  ],
+  "atlas_certification": false,
+  "scope_note": "Every nonzero-J physical pole in any of twenty all-critical strip corners has the existing positive cubic-root exceptional value. The signed parameter is derived from actual critical scalar premises. No scalar parameter, quartic-zero or normalization premise is supplied to the final pole endpoint. The shared consumer is also ready for regular quartic zeros; the general regular binding and global CriticalClassification remain open."
+}

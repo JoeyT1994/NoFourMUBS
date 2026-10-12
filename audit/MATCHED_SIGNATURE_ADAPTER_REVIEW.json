@@ -1,0 +1,62 @@
+{
+  "reviewed_at": "2026-10-10T22:00:23.870069+00:00",
+  "repository_head": "4e048ec8a2888f198f5432efd7f201f98d473878",
+  "searched": [
+    "active Step2.SideAlg, SidePerm, SideDiscriminant and MatchedUnique",
+    "vendored Hadamard6 and OAI sources",
+    "complete ARCHIVE_SOURCE_INDEX.jsonl and archived Lean blobs",
+    "reverse uses of phaseFourierMatrix, prescribed_mixed_permanent and permanent/Fourier identities"
+  ],
+  "reuse": {
+    "side_identity": "NoFourMUBs.Side.side_identities, already checked; first identity directly gives T = pi * conjugate(P0) - (9 - normSq(r)) * normSq(pi).",
+    "scalar_guards": "StrictSideRootGuards.prescribedLambdas_eq_sideLambdas, strict_sideLambda_units, sideZ_normSq, and strict_sideP_nonzero; already checked.",
+    "forward_fourier_identity": {
+      "theorem": "Hadamard6Extensions.FourierSide.phase_gamma",
+      "module": "FourierPhaseData",
+      "sha256": "ca7f02bf54bf797e7ac9a9ca7fd8926af986143b9c3032ee00f155d172bde66d",
+      "premise": "omega^2 + omega + 1 = 0 only; no existing phase side or Hadamard is assumed.",
+      "conclusion": "2*s*t - 3*permanentSide(fourierRow s A B omega)(fourierRow t C D omega) = 9*(A*D+B*C).",
+      "dependency_closure": {
+        "FourierSide": "3762488932e158f54493a7ca66556a76edbb3f45b4ae58559ef091b18e4a9795",
+        "FourierReconstruction": "a1df385d7936b2da11e8ea0c52c9738753f25608cb4a0aa111c5ef7a6829c903",
+        "FourierPhaseData": "ca7f02bf54bf797e7ac9a9ca7fd8926af986143b9c3032ee00f155d172bde66d"
+      },
+      "status": "Queued unchanged sources; not yet checked on current toolchain."
+    }
+  },
+  "alternatives_examined": {
+    "SideIntrinsicLambdaRecovery": "Its inverse reconstruction conclusions assume intrinsicTheta = sideZ; cannot use that equality as a proof of the desired forward signature.",
+    "SideIntrinsicFourierPolynomial": "mode_gamma_numerator is reusable but uses inverse DFT coordinates. FourierPhaseData.phase_gamma has the forward formula directly; adopt only the latter route.",
+    "UnitSideMoments": "Provides phase moment identities, not the direct signature binding; existing Side.side_identities already provides the exact required relation."
+  },
+  "adapter": "SignatureFromPermanent.lean",
+  "adapter_status": "PASS: matched_side_build_status_logs/batch_0038.log",
+  "fourth_block_flatness": "Still unresolved; none of the reused results or this adapter asserts it.",
+  "atlas_certification": false,
+  "forward_adapter": {
+    "file": "NoFourMUBs/Step2/Reconstruction/FourierSignature.lean",
+    "status": "UNCOMPILED",
+    "theorems": [
+      "phaseFourier_permanent",
+      "prescribed_side_permanent",
+      "prescribed_side_signature",
+      "strict_seed_signed_side_exists"
+    ],
+    "reused_results": [
+      "FourierPhaseData.phase_gamma",
+      "SideFourierMatrixAlgebra.phaseFourier_row_entries",
+      "SideFourierFirstRow.phaseFourier_first_row",
+      "SideMatrixMoments.prescribed_mixed_permanent",
+      "StrictSideFinalGuards.prescribed_sigma_xi_guards",
+      "SideFourierActual.prescribed_side_conditions"
+    ],
+    "scope": "Definition, matrix-entry and scalar substitutions only; no alternate polynomial certificate, side constructor or flatness proof.",
+    "final_scope": "For every strict seed and epsilon^2 = 1, a unit side exists with first row 1, the exact complementary Gram and 2*signature = chi + i*epsilon*sqrt(R). This is still UNCOMPILED and does not supply fourth-block flatness."
+  },
+  "first_build": {
+    "log": "matched_side_build_status_logs/batch_0030.log",
+    "outcome": "One unknown helper name conj_ne_zero_of_ne_zero; replaced by the existing map_ne_zero lemma. Statement unchanged; recheck pending."
+  },
+  "adapter_checked_utc": "2026-10-10T22:12:15.652023+00:00",
+  "axiom_audit": "PASS: KERNEL_AUDIT_RECONSTRUCTION_SIGNATURE.log, standard axioms only; exact premises recorded."
+}

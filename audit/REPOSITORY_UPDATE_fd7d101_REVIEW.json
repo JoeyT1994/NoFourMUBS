@@ -1,0 +1,93 @@
+{
+  "status": "REVIEWED_NO_NEW_MATHEMATICAL_RESULT",
+  "checked_utc": "2026-10-11T19:18:14.448199+00:00",
+  "base": "632701b52c0d294e865d991e4eabf2b947367933",
+  "head": "fd7d1019fa4a7f3551bf9ade5d31ebbce9501055",
+  "comparison_file": "REPOSITORY_UPDATE_fd7d101_COMPARE.json",
+  "comparison_sha256": "5366bf7c61f2a0f4c1f2b4f7bd7d62edae13bdbea0efb9715c2e336cb8dece0a",
+  "commits": 2,
+  "changed_files": [
+    {
+      "filename": "lean/NoFourMUBs/Step1/AnchorOrbit.lean",
+      "status": "modified",
+      "sha": "dfe7d305f857182629b0494a53494eca40749b98",
+      "additions": 2,
+      "deletions": 2
+    },
+    {
+      "filename": "lean/NoFourMUBs/Step1/Census.lean",
+      "status": "modified",
+      "sha": "f640ea0d57d698b361f6e38fc0fd652508b6c4c4",
+      "additions": 3,
+      "deletions": 3
+    },
+    {
+      "filename": "lean/NoFourMUBs/Step1/Lift.lean",
+      "status": "modified",
+      "sha": "2f06620ae278dd1af9f3313a45d6977b4bb230a4",
+      "additions": 3,
+      "deletions": 3
+    },
+    {
+      "filename": "lean/NoFourMUBs/Step1/Smooth.lean",
+      "status": "modified",
+      "sha": "78d1e7f23d93accc0ca89e0aa6d6d01b91b44447",
+      "additions": 2,
+      "deletions": 2
+    },
+    {
+      "filename": "lean/NoFourMUBs/Step2/AnchorTransport.lean",
+      "status": "modified",
+      "sha": "47ee225bbfe07c4ca94771a7e556142c2345753d",
+      "additions": 2,
+      "deletions": 2
+    },
+    {
+      "filename": "lean/NoFourMUBs/Step2/BaseAnchor.lean",
+      "status": "modified",
+      "sha": "d22e0b9470e332fa29dafb00a2041fc2d4657098",
+      "additions": 6,
+      "deletions": 0
+    },
+    {
+      "filename": "lean/NoFourMUBs/Step2/Connected.lean",
+      "status": "modified",
+      "sha": "a4eb96e3e48399a4a1e3252f24d101d8d12fceb4",
+      "additions": 1,
+      "deletions": 1
+    },
+    {
+      "filename": "lean/NoFourMUBs/Step2/MatchedUnique.lean",
+      "status": "modified",
+      "sha": "bf4d3a047c6621d0ed6f04473bb1e24aaa2a0bc2",
+      "additions": 4,
+      "deletions": 4
+    },
+    {
+      "filename": "lean/NoFourMUBs/Step2/SideAlg.lean",
+      "status": "modified",
+      "sha": "c288df1bc3e901866777b162fc600f40191d7c9d",
+      "additions": 2,
+      "deletions": 2
+    },
+    {
+      "filename": "lean/NoFourMUBs/Step4.lean",
+      "status": "modified",
+      "sha": "7b3db723422f9cbc5777c08063a61b1fd17def99",
+      "additions": 8,
+      "deletions": 8
+    },
+    {
+      "filename": "proof/atlas/results/.gitignore",
+      "status": "modified",
+      "sha": "2034e09dee2fcd356d17f52c36abf7a4ee5a5f37",
+      "additions": 2,
+      "deletions": 0
+    }
+  ],
+  "scope": "Read all eleven text patches. Ten Lean files only remove unused simp arguments, replace a deprecated set-membership lemma, remove subtraction of zero in a tactic, or suppress linter warnings in the generated BaseAnchor file. No mathematical definition, theorem statement, new endpoint, coefficient input or missing handoff changes. The remaining .gitignore patch excludes local atlas backups/logs; none were opened or run.",
+  "adoption": "Retain already checked local sources and receipts; cosmetic proof-script cleanup provides no missing result and would invalidate hashes without strengthening the theorem. No additional Lean build is needed to rely on unchanged local proofs.",
+  "active_proof_sources_changed": false,
+  "atlas_certification": false,
+  "no_unshared_work_coverage_claim": true
+}

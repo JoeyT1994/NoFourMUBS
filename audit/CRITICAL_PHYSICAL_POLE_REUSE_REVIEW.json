@@ -1,0 +1,128 @@
+{
+  "status": "FULL_PHYSICAL_POLE_SCALAR_CLASSIFICATION_PASS",
+  "checked_utc": "2026-10-11T16:34:02.055145+00:00",
+  "repository_head": "4e048ec8a2888f198f5432efd7f201f98d473878",
+  "scope": "Remaining physical nonzero-J pole classification; atlas work excluded.",
+  "indexes": {
+    "ARCHIVE_SOURCE_INDEX.jsonl": "e56835aafa2eee86f3e3a340cabbd4d891e4044661ecfb6902a255ebe62ab323",
+    "ARCHIVE_BLOB_INDEX.jsonl": "8a124c5d9477fa048eb28a0be4c77a82b4d4c374e8861a60d85b355a1de73a26",
+    "ARCHIVE_IMPORT_INDEX.json": "4f3d7d6f8a9949a13c3c8fc65fe3d5c098f18a2efd4f0c0985f237ada38a4f4f"
+  },
+  "queries": [
+    "CRITICAL_POLE_REUSE_INDEX_CANDIDATES.json",
+    "CRITICAL_POLE_REUSE_CONTENT_FILES.txt",
+    "CRITICAL_POLE_NUMERATOR_REUSE_FILES.txt",
+    "CRITICAL_POLE_BOUNDARY_REUSE_FILES.txt",
+    "CRITICAL_POLE_ENDPOINT_REUSE_FILES.txt",
+    "CRITICAL_POLE_ZERO_NUMERATOR_REUSE_FILES.txt"
+  ],
+  "query_counts": {
+    "pole_content_files": 114,
+    "numerator_content_files": 42,
+    "boundary_content_files": 34
+  },
+  "source_bodies_reviewed": {
+    "lean/NoFourMUBs/Reuse/Archive/CriticalNonzeroPoles.lean": "fe40a3bf15781e23884f80f0a66099640226b24e861196dc5b7a5e901933a402",
+    "lean/NoFourMUBs/Reuse/Archive/CriticalNonzeroPolynomialPoles.lean": "b198fb9afebdcd2aa78eadb7e8b7c3a784b755b56d349c8d3ef9ac4790ee1dbb",
+    "lean/NoFourMUBs/Reuse/Archive/CriticalNonzeroPhysicalSheet.lean": "a9f89e6a2b3f7cf122a9d3beab9bf910524c8476c5d7000bfdc5721de0f313ea",
+    "lean/NoFourMUBs/Reuse/Archive/PhysicalSideRational.lean": "641712e811c0d48dfbf8e7dc30f61abc497fb1771efeb83d1fa9e0c3ab0b5a70",
+    "lean/NoFourMUBs/Reuse/Archive/GramNumerators.lean": "edb7de8e4499b9d6f8cae7b05213b414b46efd17b4692cd5cf67b5caff2fc0ba",
+    "lean/NoFourMUBs/Reuse/Archive/CriticalModulusMatrixDomain.lean": "94589ec035ad07868012e71b051c69efe5204b53a213e028916ef74c22cf1b2a",
+    "lean/NoFourMUBs/Reuse/Archive/StrictSideScalarGuards.lean": "75741b3091aeb2ce36f1b9fdab822add16b2e2514bfa27822105c93fb936d042",
+    "lean/NoFourMUBs/Reuse/Archive/SideIntrinsicLambdaRecovery.lean": "577759e6717fb98ac6cdf4d64b2c1b0f7f702ac0bfc6b00fc34b278176b102ae",
+    "source_material/MinimalConstruction/Proofs/CRITICAL_STRIP_CLASSIFICATION.md": "3921e6b8fb31c37fb547ad02f48b8643575a9c76ce104f8023912c8b8ceddaa5",
+    "source_material/MinimalConstruction/Proofs/verify_critical_scalar_classification.py": "8cba7dc2708451581178668316cad9ec5296e365386b225d4d2696a9b8daaa0c",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/0c/0c466192db9580c380126d8be35e25bd961fdbd62e67be2bd173bb0433f48e3d/SeedPoleLocus.lean": "0c466192db9580c380126d8be35e25bd961fdbd62e67be2bd173bb0433f48e3d",
+    "lean/NoFourMUBs/Reuse/Archive/CriticalModulusDiscriminant.lean": "d9ce299342b1e6e2a60afebcd9d85b80f3c812b47292a5b7c8738f65e503e1be",
+    "lean/NoFourMUBs/Reuse/Archive/PreRhoActualBindings.lean": "95bd24d7140b39595e579e0c45b39df1533f43902380f4534c81c07e93e89caa",
+    "lean/NoFourMUBs/Reuse/Archive/SideIntrinsicActualBindings.lean": "01583704c909e9bfcda9dc0978abfd33e6f5eb7d811292b402e1bfafc5c29910",
+    "lean/NoFourMUBs/Reuse/Archive/PreRhoNormBindings.lean": "2dc366315b498ad9dd3de167f804d26eecbe943704d6f79977edd523e4bd3ef1",
+    "lean/NoFourMUBs/Reuse/Archive/SideIntrinsicActualLambda.lean": "94951a45e12f8f8560d1a024d2c23dd76e0ccd5d092602eae8c983fefeb8b403",
+    "lean/vendor/hadamard6/Hadamard6/LeadingFibreCriterion.lean": "16942562cf1cc0f3c45acca5cdbedf8ec0d7b0c27f9e513f1a0343e9d551f118"
+  },
+  "exact_comparisons": [
+    {
+      "theorem": "physical_numerators_factor",
+      "hypotheses": "Six unit entries, nonzero determinant. No nonzero denominator or strict R assumption.",
+      "conclusion": "P_i=L_i*physicalLambda_i. A zero physical denominator therefore forces a zero numerator.",
+      "adoption": "Reuse; no new norm-factor or row-sheet proof."
+    },
+    {
+      "theorem": "actual_parameter_denominators",
+      "hypotheses": "Unit block with first row one and actual p,J,W parameter data.",
+      "conclusion": "Identifies each actual denominator with the scalar pole.",
+      "adoption": "Reuse; it does not classify a zero pole."
+    },
+    {
+      "theorem": "pole_products",
+      "hypotheses": "Three modulus elementary symmetric equations; h(k) nonzero.",
+      "conclusion": "Product of three poles is a nonzero scalar multiple of denFactorPlus/Minus.",
+      "adoption": "Reuse directly; no regeneration of product identity."
+    },
+    {
+      "theorem": "SeedPoleLocus.denominator_boundary_iff / not_noPoles_iff",
+      "hypotheses": "g nonzero and R=0 / R nonnegative.",
+      "conclusion": "Boundary pole locus expressed by 2g^2+chi*q_i=0.",
+      "adoption": "Does not classify the possible k,K values; do not import another matrix/atlas model solely for this condition."
+    },
+    {
+      "theorem": "strict_sideP_nonzero",
+      "hypotheses": "R>0",
+      "conclusion": "All three side numerators nonzero.",
+      "adoption": "Inapplicable at R=0; never apply it to the critical boundary."
+    },
+    {
+      "theorem": "discriminant_of_three_roots / discriminant_factorization",
+      "hypotheses": "Real scalar moduli with their sum/product/second symmetric moment, no strictness premise",
+      "conclusion": "Discriminant is the squared Vandermonde and equals -4 times the three scalar boundary factors",
+      "adoption": "Reuse both existing identities, do not regenerate the modulus cubic or its discriminant."
+    },
+    {
+      "theorem": "trace_square",
+      "hypotheses": "Any real k",
+      "conclusion": "(8k/h(k)^2)^2=4*minimum(k)",
+      "adoption": "Reuse for the equality case of the norm bound."
+    },
+    {
+      "theorem": "PreRhoActualBindings/PreRhoNormBindings lambda and residual results",
+      "hypotheses": "Recipe results require R>0; general binding results identify polynomial coefficients",
+      "conclusion": "No zero-numerator classification",
+      "adoption": "Strict results inapplicable at R=0. Reuse numerator definitions and the physical factor theorem instead."
+    },
+    {
+      "theorem": "LeadingFibreCriterion / SideStrictFibreFinite",
+      "hypotheses": "Nonzero endpoint coefficients or strict R>0",
+      "conclusion": "Finite row/column Gram fibre",
+      "adoption": "Not the zero-numerator boundary statement."
+    },
+    {
+      "theorem": "HybridLambdaMasks.lambda_pole_numerator_zero",
+      "hypotheses": "Abstract LambdaEquations and zero lifted denominator",
+      "conclusion": "Numerator zero",
+      "adoption": "Same consequence available directly in the already compiled physical_numerators_factor. Use that theorem with a model adapter, without importing or certifying any atlas."
+    },
+    {
+      "theorem": "FourierSeamCertificateZeroCasesB",
+      "hypotheses": "Specific Cayley parameters on the affine Fourier seam",
+      "conclusion": "Seam exceptional cases",
+      "adoption": "Wrong parameter family for arbitrary critical block correlations; not adopted."
+    },
+    {
+      "theorem": "SideIntrinsicFourierPolynomial",
+      "hypotheses": "Three-root Fourier modes and a cubic root of unity",
+      "conclusion": "Mode polynomial identities",
+      "adoption": "Not a scalar pole-boundary theorem."
+    }
+  ],
+  "next_review": [
+    "Finish the shared consumer of existing P7/E0 exclusions; regular nonpole raw identity is still independent and open."
+  ],
+  "possible_minimal_adapter": "Implemented and axiom-audited: numerator0_im, zero_numerator_degeneracy, modulus_boundary_of_zero_numerator and actual_pole_modulus_boundary.",
+  "separate_cauchy_exclusion_needed": false,
+  "atlas_certification": false,
+  "limits": "The boundary adapter review and the separate CRITICAL_POLE_QUARTIC_REUSE_REVIEW.json cover the complete physical pole scalar-classification connection in the available sources. No claim about unavailable or unshared work.",
+  "reviewed_scope": "The initial boundary adapter plus the separate reviewed single-quartic connection. The original eight substitutions are unnecessary and were not generated.",
+  "new_proof_planned": "Four boundary adapters compiled and axiom-audited. Full physical pole classification connection is in progress.",
+  "boundary_audit": "KERNEL_AUDIT_CRITICAL_PHYSICAL_POLE_BOUNDARY_STATUS.json",
+  "physical_scalar_classification_audit": "KERNEL_AUDIT_CRITICAL_PHYSICAL_POLE_CLASSIFICATION_STATUS.json"
+}

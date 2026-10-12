@@ -1,0 +1,5 @@
+import NoFourMUBs.Step2.CriticalZero.EquicorrelationRowProducts
+
+#check NoFourMUBs.Step2.Critical.Equicorrelation.oriented_row_products
+#print axioms NoFourMUBs.Step2.Critical.Equicorrelation.oriented_gram_constants
+#print axioms NoFourMUBs.Step2.Critical.Equicorrelation.oriented_row_products

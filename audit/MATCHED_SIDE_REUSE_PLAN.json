@@ -1,0 +1,2527 @@
+{
+  "status": "ADOPTED_PARTIALLY_COMPILED; see MATCHED_SIDE_BUILD_STATUS.json",
+  "roots": [
+    "SideMatrixSeedGram",
+    "SideMatrixDeterminant",
+    "SideMatrixPhaseRows",
+    "SideFourierActual",
+    "FourierPhaseData",
+    "SideHorizontalCandidates",
+    "SideVerticalCandidates"
+  ],
+  "preferred_original_directory": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/",
+  "selected": {
+    "SideMatrixSeedGram": {
+      "availability": "resident",
+      "blob": "blobs/e6/e6e4b69b081a604cca952f78416aba48393f0d02df5a9f6b0487d24e602d0a5f/SideMatrixSeedGram.lean",
+      "bytes": 1715,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideMatrixSeedGram",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideMatrixSeedGram",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideMatrixSeedGram",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "e6e4b69b081a604cca952f78416aba48393f0d02df5a9f6b0487d24e602d0a5f",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/SideMatrixSeedGram.lean",
+      "imports": [
+        "SideMatrixGram",
+        "SideSeedComplement"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/e6/e6e4b69b081a604cca952f78416aba48393f0d02df5a9f6b0487d24e602d0a5f/SideMatrixSeedGram.lean"
+    },
+    "SideMatrixGram": {
+      "availability": "resident",
+      "blob": "blobs/8c/8cc0d65df953b9ce69fbf1d6da35b3a1ce51aa33a5c72a3cd70de0a9d355de0c/SideMatrixGram.lean",
+      "bytes": 4668,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideMatrixGram",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideMatrixGram",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideMatrixGram",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "8cc0d65df953b9ce69fbf1d6da35b3a1ce51aa33a5c72a3cd70de0a9d355de0c",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/SideMatrixGram.lean",
+      "imports": [
+        "SideMatrixRows",
+        "StrictSideOrientedRoot",
+        "Mathlib.Tactic.FinCases"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/8c/8cc0d65df953b9ce69fbf1d6da35b3a1ce51aa33a5c72a3cd70de0a9d355de0c/SideMatrixGram.lean"
+    },
+    "SideMatrixRows": {
+      "availability": "resident",
+      "blob": "blobs/8d/8deb618d3b53b56c2ef00853c0c538ac1ee5c6918f7944748e52e188415c7a32/SideMatrixRows.lean",
+      "bytes": 2987,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideMatrixRows",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideMatrixRows",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideMatrixRows",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "8deb618d3b53b56c2ef00853c0c538ac1ee5c6918f7944748e52e188415c7a32",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/SideMatrixRows.lean",
+      "imports": [
+        "SideMatrixScalar"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/8d/8deb618d3b53b56c2ef00853c0c538ac1ee5c6918f7944748e52e188415c7a32/SideMatrixRows.lean"
+    },
+    "SideMatrixScalar": {
+      "availability": "resident",
+      "blob": "blobs/f0/f0f23db193b3f35a6c4f99f622ef9d6e5098738d5813b74207375d3a32a95f92/SideMatrixScalar.lean",
+      "bytes": 1759,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideMatrixScalar",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideMatrixScalar",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideMatrixScalar",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "f0f23db193b3f35a6c4f99f622ef9d6e5098738d5813b74207375d3a32a95f92",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/SideMatrixScalar.lean",
+      "imports": [
+        "SideMatrixCoefficientAlgebra",
+        "SideMatrixSchurPolynomial",
+        "StrictSideFinalGuards"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/f0/f0f23db193b3f35a6c4f99f622ef9d6e5098738d5813b74207375d3a32a95f92/SideMatrixScalar.lean"
+    },
+    "SideMatrixCoefficientAlgebra": {
+      "availability": "resident",
+      "blob": "blobs/cb/cbebacb15e4a2cd7f57d3fe177369698a0483ea3caeb8021cc3e95ef1cbccfbb/SideMatrixCoefficientAlgebra.lean",
+      "bytes": 3575,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideMatrixCoefficientAlgebra",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideMatrixCoefficientAlgebra",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideMatrixCoefficientAlgebra",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "cbebacb15e4a2cd7f57d3fe177369698a0483ea3caeb8021cc3e95ef1cbccfbb",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/SideMatrixCoefficientAlgebra.lean",
+      "imports": [
+        "Mathlib.Data.Complex.Basic",
+        "Mathlib.Tactic.FieldSimp",
+        "Mathlib.Tactic.Ring",
+        "Mathlib.Tactic.NormNum",
+        "Mathlib.Tactic.Linarith"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/cb/cbebacb15e4a2cd7f57d3fe177369698a0483ea3caeb8021cc3e95ef1cbccfbb/SideMatrixCoefficientAlgebra.lean"
+    },
+    "SideMatrixSchurPolynomial": {
+      "availability": "resident",
+      "blob": "blobs/21/21fa6d31278b2ddd252485dc0661357d411594e921754211a2323fc7b0a4f20b/SideMatrixSchurPolynomial.lean",
+      "bytes": 824,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideMatrixSchurPolynomial",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideMatrixSchurPolynomial",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideMatrixSchurPolynomial",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "21fa6d31278b2ddd252485dc0661357d411594e921754211a2323fc7b0a4f20b",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/SideMatrixSchurPolynomial.lean",
+      "imports": [
+        "Mathlib.Data.Complex.Basic",
+        "Mathlib.Tactic.Ring"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/21/21fa6d31278b2ddd252485dc0661357d411594e921754211a2323fc7b0a4f20b/SideMatrixSchurPolynomial.lean"
+    },
+    "StrictSideFinalGuards": {
+      "availability": "resident",
+      "blob": "blobs/8f/8fecb574a563ec3d063a171b9eb15f309cf2ea66d3273f043ebef52f7697b246/StrictSideFinalGuards.lean",
+      "bytes": 9330,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "StrictSideFinalGuards",
+          "selected_in_prior_packet": false
+        },
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "StrictSideFinalGuards",
+          "selected_in_prior_packet": false
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "StrictSideFinalGuards",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "8fecb574a563ec3d063a171b9eb15f309cf2ea66d3273f043ebef52f7697b246",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/StrictSideFinalGuards.lean",
+      "imports": [
+        "PreRhoNormActual",
+        "StrictSideSigmaAlgebra"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/8f/8fecb574a563ec3d063a171b9eb15f309cf2ea66d3273f043ebef52f7697b246/StrictSideFinalGuards.lean"
+    },
+    "PreRhoNormActual": {
+      "availability": "resident",
+      "blob": "blobs/19/19b886e0413e4580cd36ee7140276562503a2ef713e4e9680f772ce0b3a60795/PreRhoNormActual.lean",
+      "bytes": 6675,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "PreRhoNormActual",
+          "selected_in_prior_packet": false
+        },
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "PreRhoNormActual",
+          "selected_in_prior_packet": false
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "PreRhoNormActual",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "19b886e0413e4580cd36ee7140276562503a2ef713e4e9680f772ce0b3a60795",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/PreRhoNormActual.lean",
+      "imports": [
+        "PreRhoNormBindings",
+        "PreRhoAlignmentActual"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/19/19b886e0413e4580cd36ee7140276562503a2ef713e4e9680f772ce0b3a60795/PreRhoNormActual.lean"
+    },
+    "PreRhoNormBindings": {
+      "availability": "resident",
+      "blob": "blobs/c6/c68d1249b0050dcc400fb599751ce5a3aa3d94d2737377b583ce69a49be9546c/PreRhoNormBindings.lean",
+      "bytes": 5502,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "PreRhoNormBindings",
+          "selected_in_prior_packet": false
+        },
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "PreRhoNormBindings",
+          "selected_in_prior_packet": false
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "PreRhoNormBindings",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "c68d1249b0050dcc400fb599751ce5a3aa3d94d2737377b583ce69a49be9546c",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/PreRhoNormBindings.lean",
+      "imports": [
+        "PreRhoActualBindings",
+        "PreRhoNormPolynomial"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/c6/c68d1249b0050dcc400fb599751ce5a3aa3d94d2737377b583ce69a49be9546c/PreRhoNormBindings.lean"
+    },
+    "PreRhoActualBindings": {
+      "availability": "resident",
+      "blob": "blobs/b6/b6c73061f4c3552ce6bf61ece85368add1ad8c6dcf7d498b676f5dfbc218672f/PreRhoActualBindings.lean",
+      "bytes": 5780,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "PreRhoActualBindings",
+          "selected_in_prior_packet": false
+        },
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "PreRhoActualBindings",
+          "selected_in_prior_packet": false
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "PreRhoActualBindings",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "b6c73061f4c3552ce6bf61ece85368add1ad8c6dcf7d498b676f5dfbc218672f",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/PreRhoActualBindings.lean",
+      "imports": [
+        "StrictSideRootGuards",
+        "PreRhoAlignmentPolynomial"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/b6/b6c73061f4c3552ce6bf61ece85368add1ad8c6dcf7d498b676f5dfbc218672f/PreRhoActualBindings.lean"
+    },
+    "StrictSideRootGuards": {
+      "availability": "resident",
+      "blob": "blobs/dd/ddf93ee57b1cf7af6cb79e5b51206b3dff316836c505b1ec0ec34d1ac68464fa/StrictSideRootGuards.lean",
+      "bytes": 9986,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "StrictSideRootGuards",
+          "selected_in_prior_packet": false
+        },
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "StrictSideRootGuards",
+          "selected_in_prior_packet": false
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "StrictSideRootGuards",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "ddf93ee57b1cf7af6cb79e5b51206b3dff316836c505b1ec0ec34d1ac68464fa",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/StrictSideRootGuards.lean",
+      "imports": [
+        "StrictSeedGuards",
+        "Mathlib.Analysis.Real.Sqrt",
+        "Mathlib.Tactic.FieldSimp"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/dd/ddf93ee57b1cf7af6cb79e5b51206b3dff316836c505b1ec0ec34d1ac68464fa/StrictSideRootGuards.lean"
+    },
+    "StrictSeedGuards": {
+      "availability": "resident",
+      "blob": "blobs/d0/d0d72b40ac259f53947242634c343989ba9fc064024b3e93b078c974e6b61f9c/StrictSeedGuards.lean",
+      "bytes": 5221,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "StrictSeedGuards",
+          "selected_in_prior_packet": false
+        },
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "StrictSeedGuards",
+          "selected_in_prior_packet": false
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "StrictSeedGuards",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "d0d72b40ac259f53947242634c343989ba9fc064024b3e93b078c974e6b61f9c",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/StrictSeedGuards.lean",
+      "imports": [
+        "StrictSideScalarGuards",
+        "Hadamard6.GramInvariant"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/d0/d0d72b40ac259f53947242634c343989ba9fc064024b3e93b078c974e6b61f9c/StrictSeedGuards.lean"
+    },
+    "StrictSideScalarGuards": {
+      "availability": "resident",
+      "blob": "blobs/9f/9fa3fa47f481d1937fe2af47838460df3c0706b9ea7c47b0bb15db774f7b3c9c/StrictSideScalarGuards.lean",
+      "bytes": 5848,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "StrictSideScalarGuards",
+          "selected_in_prior_packet": false
+        },
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "StrictSideScalarGuards",
+          "selected_in_prior_packet": false
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "StrictSideScalarGuards",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "9fa3fa47f481d1937fe2af47838460df3c0706b9ea7c47b0bb15db774f7b3c9c",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/StrictSideScalarGuards.lean",
+      "imports": [
+        "CentiradianPhysical",
+        "Mathlib.Tactic.Positivity"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/9f/9fa3fa47f481d1937fe2af47838460df3c0706b9ea7c47b0bb15db774f7b3c9c/StrictSideScalarGuards.lean"
+    },
+    "PreRhoAlignmentPolynomial": {
+      "availability": "resident",
+      "blob": "blobs/d1/d175ca01d671cdd9ccddbac8ad9c61b7eeaaac0c93a796ad407d5b0f3a22fe91/PreRhoAlignmentPolynomial.lean",
+      "bytes": 2105,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "PreRhoAlignmentPolynomial",
+          "selected_in_prior_packet": false
+        },
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "PreRhoAlignmentPolynomial",
+          "selected_in_prior_packet": false
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "PreRhoAlignmentPolynomial",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "d175ca01d671cdd9ccddbac8ad9c61b7eeaaac0c93a796ad407d5b0f3a22fe91",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/PreRhoAlignmentPolynomial.lean",
+      "imports": [
+        "PreRhoAlignmentResidual0",
+        "PreRhoAlignmentResidual1",
+        "Mathlib.Tactic.LinearCombination"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/d1/d175ca01d671cdd9ccddbac8ad9c61b7eeaaac0c93a796ad407d5b0f3a22fe91/PreRhoAlignmentPolynomial.lean"
+    },
+    "PreRhoAlignmentResidual0": {
+      "availability": "resident",
+      "blob": "blobs/76/761ddbbae4a35acce8293a95ef8b47e5e8a3a119c3cd4e8af3deb05f547e1075/PreRhoAlignmentResidual0.lean",
+      "bytes": 528,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "PreRhoAlignmentResidual0",
+          "selected_in_prior_packet": false
+        },
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "PreRhoAlignmentResidual0",
+          "selected_in_prior_packet": false
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "PreRhoAlignmentResidual0",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "761ddbbae4a35acce8293a95ef8b47e5e8a3a119c3cd4e8af3deb05f547e1075",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/PreRhoAlignmentResidual0.lean",
+      "imports": [
+        "PreRhoAlignmentDefs"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/76/761ddbbae4a35acce8293a95ef8b47e5e8a3a119c3cd4e8af3deb05f547e1075/PreRhoAlignmentResidual0.lean"
+    },
+    "PreRhoAlignmentDefs": {
+      "availability": "resident",
+      "blob": "blobs/96/9636d93b3569b9dccb1f8571d9c4ff51895ad0dd19165c1772184d2bad8dfa76/PreRhoAlignmentDefs.lean",
+      "bytes": 4685,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "PreRhoAlignmentDefs",
+          "selected_in_prior_packet": false
+        },
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "PreRhoAlignmentDefs",
+          "selected_in_prior_packet": false
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "PreRhoAlignmentDefs",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "9636d93b3569b9dccb1f8571d9c4ff51895ad0dd19165c1772184d2bad8dfa76",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/PreRhoAlignmentDefs.lean",
+      "imports": [
+        "Mathlib.Tactic.Ring"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/96/9636d93b3569b9dccb1f8571d9c4ff51895ad0dd19165c1772184d2bad8dfa76/PreRhoAlignmentDefs.lean"
+    },
+    "PreRhoAlignmentResidual1": {
+      "availability": "resident",
+      "blob": "blobs/24/24357da6f6da7385d0126c2c7dbeeecb588dce11d91d8fe82378e7a6096593fb/PreRhoAlignmentResidual1.lean",
+      "bytes": 528,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "PreRhoAlignmentResidual1",
+          "selected_in_prior_packet": false
+        },
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "PreRhoAlignmentResidual1",
+          "selected_in_prior_packet": false
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "PreRhoAlignmentResidual1",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "24357da6f6da7385d0126c2c7dbeeecb588dce11d91d8fe82378e7a6096593fb",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/PreRhoAlignmentResidual1.lean",
+      "imports": [
+        "PreRhoAlignmentDefs"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/24/24357da6f6da7385d0126c2c7dbeeecb588dce11d91d8fe82378e7a6096593fb/PreRhoAlignmentResidual1.lean"
+    },
+    "PreRhoNormPolynomial": {
+      "availability": "resident",
+      "blob": "blobs/87/87a2d52717bc549b92dbbceeaa05cda81ea7483a2d36590987fea9a47f632a2c/PreRhoNormPolynomial.lean",
+      "bytes": 1887,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "PreRhoNormPolynomial",
+          "selected_in_prior_packet": false
+        },
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "PreRhoNormPolynomial",
+          "selected_in_prior_packet": false
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "PreRhoNormPolynomial",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "87a2d52717bc549b92dbbceeaa05cda81ea7483a2d36590987fea9a47f632a2c",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/PreRhoNormPolynomial.lean",
+      "imports": [
+        "PreRhoNormResidual0",
+        "PreRhoNormResidual1",
+        "Mathlib.Tactic.LinearCombination"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/87/87a2d52717bc549b92dbbceeaa05cda81ea7483a2d36590987fea9a47f632a2c/PreRhoNormPolynomial.lean"
+    },
+    "PreRhoNormResidual0": {
+      "availability": "resident",
+      "blob": "blobs/a0/a0c2e1570c911f2dddbba5ec63f7d17b352a42d24fce7067abe23c9f8decdf35/PreRhoNormResidual0.lean",
+      "bytes": 2198,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "PreRhoNormResidual0",
+          "selected_in_prior_packet": false
+        },
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "PreRhoNormResidual0",
+          "selected_in_prior_packet": false
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "PreRhoNormResidual0",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "a0c2e1570c911f2dddbba5ec63f7d17b352a42d24fce7067abe23c9f8decdf35",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/PreRhoNormResidual0.lean",
+      "imports": [
+        "PreRhoNormAtoms"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/a0/a0c2e1570c911f2dddbba5ec63f7d17b352a42d24fce7067abe23c9f8decdf35/PreRhoNormResidual0.lean"
+    },
+    "PreRhoNormAtoms": {
+      "availability": "resident",
+      "blob": "blobs/a5/a5cfa0ef600b4f5963f823d5da2c53c08fdd59ee1e97da336d5c9b448b129fa2/PreRhoNormAtoms.lean",
+      "bytes": 2789,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "PreRhoNormAtoms",
+          "selected_in_prior_packet": false
+        },
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "PreRhoNormAtoms",
+          "selected_in_prior_packet": false
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "PreRhoNormAtoms",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "a5cfa0ef600b4f5963f823d5da2c53c08fdd59ee1e97da336d5c9b448b129fa2",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/PreRhoNormAtoms.lean",
+      "imports": [
+        "PreRhoNormDefs"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/a5/a5cfa0ef600b4f5963f823d5da2c53c08fdd59ee1e97da336d5c9b448b129fa2/PreRhoNormAtoms.lean"
+    },
+    "PreRhoNormDefs": {
+      "availability": "resident",
+      "blob": "blobs/c7/c7e8294c8294507f596253e5ea3f9b31cd1d7a087dcb724c7bd782292c8abfe9/PreRhoNormDefs.lean",
+      "bytes": 5291,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "PreRhoNormDefs",
+          "selected_in_prior_packet": false
+        },
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "PreRhoNormDefs",
+          "selected_in_prior_packet": false
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "PreRhoNormDefs",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "c7e8294c8294507f596253e5ea3f9b31cd1d7a087dcb724c7bd782292c8abfe9",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/PreRhoNormDefs.lean",
+      "imports": [
+        "PreRhoAlignmentDefs"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/c7/c7e8294c8294507f596253e5ea3f9b31cd1d7a087dcb724c7bd782292c8abfe9/PreRhoNormDefs.lean"
+    },
+    "PreRhoNormResidual1": {
+      "availability": "resident",
+      "blob": "blobs/a9/a9cf8a0ae510b3b407b62a4dd83d843b6711b54fdac84c33fbd4c33010a35206/PreRhoNormResidual1.lean",
+      "bytes": 543,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "PreRhoNormResidual1",
+          "selected_in_prior_packet": false
+        },
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "PreRhoNormResidual1",
+          "selected_in_prior_packet": false
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "PreRhoNormResidual1",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "a9cf8a0ae510b3b407b62a4dd83d843b6711b54fdac84c33fbd4c33010a35206",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/PreRhoNormResidual1.lean",
+      "imports": [
+        "PreRhoNormDefs"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/a9/a9cf8a0ae510b3b407b62a4dd83d843b6711b54fdac84c33fbd4c33010a35206/PreRhoNormResidual1.lean"
+    },
+    "PreRhoAlignmentActual": {
+      "availability": "resident",
+      "blob": "blobs/12/12e3f9c55cd06b1f6bd57a24489e6bb65ae5fda45126ff5252171eb4b64cf40e/PreRhoAlignmentActual.lean",
+      "bytes": 6109,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "PreRhoAlignmentActual",
+          "selected_in_prior_packet": false
+        },
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "PreRhoAlignmentActual",
+          "selected_in_prior_packet": false
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "PreRhoAlignmentActual",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "12e3f9c55cd06b1f6bd57a24489e6bb65ae5fda45126ff5252171eb4b64cf40e",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/PreRhoAlignmentActual.lean",
+      "imports": [
+        "PreRhoActualBindings"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/12/12e3f9c55cd06b1f6bd57a24489e6bb65ae5fda45126ff5252171eb4b64cf40e/PreRhoAlignmentActual.lean"
+    },
+    "StrictSideSigmaAlgebra": {
+      "availability": "resident",
+      "blob": "blobs/18/18a485306c92ba1d590ad0f0f87dbc18d8e4c238c46de51b746791c82bcb35d3/StrictSideSigmaAlgebra.lean",
+      "bytes": 3023,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "StrictSideSigmaAlgebra",
+          "selected_in_prior_packet": false
+        },
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "StrictSideSigmaAlgebra",
+          "selected_in_prior_packet": false
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "StrictSideSigmaAlgebra",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "18a485306c92ba1d590ad0f0f87dbc18d8e4c238c46de51b746791c82bcb35d3",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/StrictSideSigmaAlgebra.lean",
+      "imports": [
+        "StrictSideScalarGuards",
+        "Mathlib.Tactic.FieldSimp"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/18/18a485306c92ba1d590ad0f0f87dbc18d8e4c238c46de51b746791c82bcb35d3/StrictSideSigmaAlgebra.lean"
+    },
+    "StrictSideOrientedRoot": {
+      "availability": "resident",
+      "blob": "blobs/10/10ab456eb962c653d7ccdd236aad26f9f348895f50e4ec18a537a4a0f0138574/StrictSideOrientedRoot.lean",
+      "bytes": 4909,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "StrictSideOrientedRoot",
+          "selected_in_prior_packet": false
+        },
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "StrictSideOrientedRoot",
+          "selected_in_prior_packet": false
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "StrictSideOrientedRoot",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "10ab456eb962c653d7ccdd236aad26f9f348895f50e4ec18a537a4a0f0138574",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/StrictSideOrientedRoot.lean",
+      "imports": [
+        "StrictSideFinalGuards"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/10/10ab456eb962c653d7ccdd236aad26f9f348895f50e4ec18a537a4a0f0138574/StrictSideOrientedRoot.lean"
+    },
+    "SideSeedComplement": {
+      "availability": "resident",
+      "blob": "blobs/15/15185a04f48efafe38e63ef3e877a21a63ac5d7be7259ec4054404a683707864/SideSeedComplement.lean",
+      "bytes": 2007,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideSeedComplement",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideSeedComplement",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideSeedComplement",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "15185a04f48efafe38e63ef3e877a21a63ac5d7be7259ec4054404a683707864",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/SideSeedComplement.lean",
+      "imports": [
+        "Hadamard6.GramInvariant"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/15/15185a04f48efafe38e63ef3e877a21a63ac5d7be7259ec4054404a683707864/SideSeedComplement.lean"
+    },
+    "SideMatrixDeterminant": {
+      "availability": "resident",
+      "blob": "blobs/2d/2d583b7059d2008b0fb09ac845de3f66d89beca5fe094267262ffe3965080973/SideMatrixDeterminant.lean",
+      "bytes": 1392,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideMatrixDeterminant",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideMatrixDeterminant",
+          "selected_in_prior_packet": true
+        }
+      ],
+      "sha256": "2d583b7059d2008b0fb09ac845de3f66d89beca5fe094267262ffe3965080973",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/SideMatrixDeterminant.lean",
+      "imports": [
+        "SideMatrixGram",
+        "SideMatrixMoments"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/2d/2d583b7059d2008b0fb09ac845de3f66d89beca5fe094267262ffe3965080973/SideMatrixDeterminant.lean"
+    },
+    "SideMatrixMoments": {
+      "availability": "resident",
+      "blob": "blobs/7e/7ea77628ff5d12cd67cd146b1a2d58f0a03978952ce5f9195b6581349a0674ba/SideMatrixMoments.lean",
+      "bytes": 6133,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideMatrixMoments",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideMatrixMoments",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideMatrixMoments",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "7ea77628ff5d12cd67cd146b1a2d58f0a03978952ce5f9195b6581349a0674ba",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/SideMatrixMoments.lean",
+      "imports": [
+        "SideMatrixMomentAlgebra",
+        "SideMatrixScalar"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/7e/7ea77628ff5d12cd67cd146b1a2d58f0a03978952ce5f9195b6581349a0674ba/SideMatrixMoments.lean"
+    },
+    "SideMatrixMomentAlgebra": {
+      "availability": "resident",
+      "blob": "blobs/d2/d2d10e774d56224e1b81300d64d5d853ba116261fdd3fb40df118e16ee59cb38/SideMatrixMomentAlgebra.lean",
+      "bytes": 3700,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideMatrixMomentAlgebra",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideMatrixMomentAlgebra",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideMatrixMomentAlgebra",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "d2d10e774d56224e1b81300d64d5d853ba116261fdd3fb40df118e16ee59cb38",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/SideMatrixMomentAlgebra.lean",
+      "imports": [
+        "SideMatrixCoefficientAlgebra",
+        "Mathlib.Tactic.LinearCombination"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/d2/d2d10e774d56224e1b81300d64d5d853ba116261fdd3fb40df118e16ee59cb38/SideMatrixMomentAlgebra.lean"
+    },
+    "SideMatrixPhaseRows": {
+      "availability": "resident",
+      "blob": "blobs/e5/e569a5ffb93ccdeaf5cd5f8fe6bc14ad2ff6f9d00835b330b2c3cc5a791a00fa/SideMatrixPhaseRows.lean",
+      "bytes": 1502,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideMatrixPhaseRows",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideMatrixPhaseRows",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "e569a5ffb93ccdeaf5cd5f8fe6bc14ad2ff6f9d00835b330b2c3cc5a791a00fa",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/SideMatrixPhaseRows.lean",
+      "imports": [
+        "ThirdRowGateActual",
+        "SideMatrixGram"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/e5/e569a5ffb93ccdeaf5cd5f8fe6bc14ad2ff6f9d00835b330b2c3cc5a791a00fa/SideMatrixPhaseRows.lean"
+    },
+    "ThirdRowGateActual": {
+      "availability": "resident",
+      "blob": "blobs/35/35469b4cd9bc0afc023d68af350c35657f5e4c060dd4fef57ed6fa6358b103b0/ThirdRowGateActual.lean",
+      "bytes": 5894,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "ThirdRowGateActual",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "ThirdRowGateActual",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "ThirdRowGateActual",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "35469b4cd9bc0afc023d68af350c35657f5e4c060dd4fef57ed6fa6358b103b0",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/ThirdRowGateActual.lean",
+      "imports": [
+        "ThirdRowGateActualResiduals",
+        "SideMatrixMoments"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/35/35469b4cd9bc0afc023d68af350c35657f5e4c060dd4fef57ed6fa6358b103b0/ThirdRowGateActual.lean"
+    },
+    "ThirdRowGateActualResiduals": {
+      "availability": "resident",
+      "blob": "blobs/7c/7c7269a73dc4f8d41bc8db3166242b7a79106c9d3916cf4941b2efc2b14545ff/ThirdRowGateActualResiduals.lean",
+      "bytes": 2367,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "ThirdRowGateActualResiduals",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "ThirdRowGateActualResiduals",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "ThirdRowGateActualResiduals",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "7c7269a73dc4f8d41bc8db3166242b7a79106c9d3916cf4941b2efc2b14545ff",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/ThirdRowGateActualResiduals.lean",
+      "imports": [
+        "ThirdRowGateActualBindings"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/7c/7c7269a73dc4f8d41bc8db3166242b7a79106c9d3916cf4941b2efc2b14545ff/ThirdRowGateActualResiduals.lean"
+    },
+    "ThirdRowGateActualBindings": {
+      "availability": "resident",
+      "blob": "blobs/db/dbe7db852ca74672aac913259a8a48c4bfb2ddef694615126a105766099e8b20/ThirdRowGateActualBindings.lean",
+      "bytes": 3868,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "ThirdRowGateActualBindings",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "ThirdRowGateActualBindings",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "ThirdRowGateActualBindings",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "dbe7db852ca74672aac913259a8a48c4bfb2ddef694615126a105766099e8b20",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/ThirdRowGateActualBindings.lean",
+      "imports": [
+        "ThirdRowGateActualPolynomial",
+        "ThirdRowGateScaling",
+        "SideMatrixScalar"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/db/dbe7db852ca74672aac913259a8a48c4bfb2ddef694615126a105766099e8b20/ThirdRowGateActualBindings.lean"
+    },
+    "ThirdRowGateActualPolynomial": {
+      "availability": "resident",
+      "blob": "blobs/47/4787c3f925aff815f6ddd17268b2d061b43c0a2f38c5be164dde7c0537858e59/ThirdRowGateActualPolynomial.lean",
+      "bytes": 2368,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "ThirdRowGateActualPolynomial",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "ThirdRowGateActualPolynomial",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "ThirdRowGateActualPolynomial",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "4787c3f925aff815f6ddd17268b2d061b43c0a2f38c5be164dde7c0537858e59",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/ThirdRowGateActualPolynomial.lean",
+      "imports": [
+        "ThirdRowGatePolynomial",
+        "PreRhoActualBindings"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/47/4787c3f925aff815f6ddd17268b2d061b43c0a2f38c5be164dde7c0537858e59/ThirdRowGateActualPolynomial.lean"
+    },
+    "ThirdRowGatePolynomial": {
+      "availability": "resident",
+      "blob": "blobs/c6/c66e7ab1cdda39d2e6497cd22f2a1e6195e291ca53edd383f1c2aed440a87ec4/ThirdRowGatePolynomial.lean",
+      "bytes": 2317,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "ThirdRowGatePolynomial",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "ThirdRowGatePolynomial",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "ThirdRowGatePolynomial",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "c66e7ab1cdda39d2e6497cd22f2a1e6195e291ca53edd383f1c2aed440a87ec4",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/ThirdRowGatePolynomial.lean",
+      "imports": [
+        "ThirdRowGateConstResidual0",
+        "ThirdRowGateConstResidual1",
+        "ThirdRowGateLinearResidual0",
+        "ThirdRowGateLinearResidual1",
+        "ThirdRowGateReduction"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/c6/c66e7ab1cdda39d2e6497cd22f2a1e6195e291ca53edd383f1c2aed440a87ec4/ThirdRowGatePolynomial.lean"
+    },
+    "ThirdRowGateConstResidual0": {
+      "availability": "resident",
+      "blob": "blobs/d8/d8501f00ff86c2deb1da613cde3d68c1969f001353700f23d16f5e30f4ba1dd1/ThirdRowGateConstResidual0.lean",
+      "bytes": 585,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "ThirdRowGateConstResidual0",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "ThirdRowGateConstResidual0",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "ThirdRowGateConstResidual0",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "d8501f00ff86c2deb1da613cde3d68c1969f001353700f23d16f5e30f4ba1dd1",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/ThirdRowGateConstResidual0.lean",
+      "imports": [
+        "ThirdRowGateDefs"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/d8/d8501f00ff86c2deb1da613cde3d68c1969f001353700f23d16f5e30f4ba1dd1/ThirdRowGateConstResidual0.lean"
+    },
+    "ThirdRowGateDefs": {
+      "availability": "resident",
+      "blob": "blobs/8c/8c8c7f1f9390976348b51cecd85532c8bf2c0bf233615a3e2344aefe30a91b2b/ThirdRowGateDefs.lean",
+      "bytes": 2002,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "ThirdRowGateDefs",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "ThirdRowGateDefs",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "ThirdRowGateDefs",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "8c8c7f1f9390976348b51cecd85532c8bf2c0bf233615a3e2344aefe30a91b2b",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/ThirdRowGateDefs.lean",
+      "imports": [
+        "PreRhoAlignmentDefs"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/8c/8c8c7f1f9390976348b51cecd85532c8bf2c0bf233615a3e2344aefe30a91b2b/ThirdRowGateDefs.lean"
+    },
+    "ThirdRowGateConstResidual1": {
+      "availability": "resident",
+      "blob": "blobs/e0/e024f44cd0b9d537e3740ba52af10dd648de4b934eb19c4c508e4573cf117a52/ThirdRowGateConstResidual1.lean",
+      "bytes": 585,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "ThirdRowGateConstResidual1",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "ThirdRowGateConstResidual1",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "ThirdRowGateConstResidual1",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "e024f44cd0b9d537e3740ba52af10dd648de4b934eb19c4c508e4573cf117a52",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/ThirdRowGateConstResidual1.lean",
+      "imports": [
+        "ThirdRowGateDefs"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/e0/e024f44cd0b9d537e3740ba52af10dd648de4b934eb19c4c508e4573cf117a52/ThirdRowGateConstResidual1.lean"
+    },
+    "ThirdRowGateLinearResidual0": {
+      "availability": "resident",
+      "blob": "blobs/e4/e472bc2c1272eca88740b4ef73cf129226c7d48fe613e49b33567be1fecbbcd0/ThirdRowGateLinearResidual0.lean",
+      "bytes": 589,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "ThirdRowGateLinearResidual0",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "ThirdRowGateLinearResidual0",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "ThirdRowGateLinearResidual0",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "e472bc2c1272eca88740b4ef73cf129226c7d48fe613e49b33567be1fecbbcd0",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/ThirdRowGateLinearResidual0.lean",
+      "imports": [
+        "ThirdRowGateDefs"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/e4/e472bc2c1272eca88740b4ef73cf129226c7d48fe613e49b33567be1fecbbcd0/ThirdRowGateLinearResidual0.lean"
+    },
+    "ThirdRowGateLinearResidual1": {
+      "availability": "resident",
+      "blob": "blobs/dd/dd231ff8caba7a125a0e452944cb56a866286b9036125908708605074b204b5b/ThirdRowGateLinearResidual1.lean",
+      "bytes": 589,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "ThirdRowGateLinearResidual1",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "ThirdRowGateLinearResidual1",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "ThirdRowGateLinearResidual1",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "dd231ff8caba7a125a0e452944cb56a866286b9036125908708605074b204b5b",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/ThirdRowGateLinearResidual1.lean",
+      "imports": [
+        "ThirdRowGateDefs"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/dd/dd231ff8caba7a125a0e452944cb56a866286b9036125908708605074b204b5b/ThirdRowGateLinearResidual1.lean"
+    },
+    "ThirdRowGateReduction": {
+      "availability": "resident",
+      "blob": "blobs/81/8132ca94ea9d79138f0072916c539eb0f033466aba9911fbcbd57d512e1b4b93/ThirdRowGateReduction.lean",
+      "bytes": 4925,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "ThirdRowGateReduction",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "ThirdRowGateReduction",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "ThirdRowGateReduction",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "8132ca94ea9d79138f0072916c539eb0f033466aba9911fbcbd57d512e1b4b93",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/ThirdRowGateReduction.lean",
+      "imports": [
+        "ThirdRowGateDefs",
+        "Mathlib.Tactic.LinearCombination"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/81/8132ca94ea9d79138f0072916c539eb0f033466aba9911fbcbd57d512e1b4b93/ThirdRowGateReduction.lean"
+    },
+    "ThirdRowGateScaling": {
+      "availability": "resident",
+      "blob": "blobs/36/365b59ffbae5d0f23264fb509cc5988d7fe9d8a650f874949f43246333534d33/ThirdRowGateScaling.lean",
+      "bytes": 1807,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "ThirdRowGateScaling",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "ThirdRowGateScaling",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "ThirdRowGateScaling",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "365b59ffbae5d0f23264fb509cc5988d7fe9d8a650f874949f43246333534d33",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/ThirdRowGateScaling.lean",
+      "imports": [
+        "ThirdRowGateDefs",
+        "ThirdRowGateGeometry"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/36/365b59ffbae5d0f23264fb509cc5988d7fe9d8a650f874949f43246333534d33/ThirdRowGateScaling.lean"
+    },
+    "ThirdRowGateGeometry": {
+      "availability": "resident",
+      "blob": "blobs/af/af1f1e7efe52c8ab7918c419b45963c7a4edc21de87b6d22a6057fc88a7b75cc/ThirdRowGateGeometry.lean",
+      "bytes": 5064,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "ThirdRowGateGeometry",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "ThirdRowGateGeometry",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "ThirdRowGateGeometry",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "af1f1e7efe52c8ab7918c419b45963c7a4edc21de87b6d22a6057fc88a7b75cc",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/ThirdRowGateGeometry.lean",
+      "imports": [
+        "Mathlib.Tactic.FieldSimp",
+        "Mathlib.Tactic.Ring",
+        "Mathlib.Tactic.LinearCombination"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/af/af1f1e7efe52c8ab7918c419b45963c7a4edc21de87b6d22a6057fc88a7b75cc/ThirdRowGateGeometry.lean"
+    },
+    "CentiradianPhysical": {
+      "availability": "resident",
+      "blob": "blobs/f3/f3a81569f51a4eac1e147df81bfa9d713ad386891c2d6ea45ff51eb9fd2cc703/CentiradianPhysical.lean",
+      "bytes": 9401,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "CentiradianPhysical",
+          "selected_in_prior_packet": false
+        },
+        {
+          "file": "provenance/portable/ShoulderPhysicalAdaptersLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "CentiradianPhysical",
+          "selected_in_prior_packet": false
+        },
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "CentiradianPhysical",
+          "selected_in_prior_packet": false
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "CentiradianPhysical",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "f3a81569f51a4eac1e147df81bfa9d713ad386891c2d6ea45ff51eb9fd2cc703",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean-completion-20261006/coefficient-bridge/public/lean/CentiradianPhysical.lean",
+      "imports": [
+        "Mathlib.Analysis.Complex.Trigonometric",
+        "Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic",
+        "Mathlib.Data.Fintype.Card",
+        "Mathlib.Tactic.Ring",
+        "Mathlib.Tactic.NormNum",
+        "Mathlib.Tactic.Linarith"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/f3/f3a81569f51a4eac1e147df81bfa9d713ad386891c2d6ea45ff51eb9fd2cc703/CentiradianPhysical.lean"
+    },
+    "SideFourierActual": {
+      "availability": "resident",
+      "blob": "blobs/71/7186ff2f60ffdb2e1ef76d012bda7e640958458d4d40de8930c170226c0211d4/SideFourierActual.lean",
+      "bytes": 3123,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideFourierActual",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideFourierActual",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "7186ff2f60ffdb2e1ef76d012bda7e640958458d4d40de8930c170226c0211d4",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/SideFourierActual.lean",
+      "imports": [
+        "SideFourierActualCore",
+        "SideFourierElementaryRoots",
+        "SideMatrixSeedGram"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/71/7186ff2f60ffdb2e1ef76d012bda7e640958458d4d40de8930c170226c0211d4/SideFourierActual.lean"
+    },
+    "SideFourierActualCore": {
+      "availability": "resident",
+      "blob": "blobs/f9/f94006e43da3a7ec72780f1547c5b359a6527bdedfa436a97889aab66cb50412/SideFourierActualCore.lean",
+      "bytes": 2192,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideFourierActualCore",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideFourierActualCore",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "f94006e43da3a7ec72780f1547c5b359a6527bdedfa436a97889aab66cb50412",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/SideFourierActualCore.lean",
+      "imports": [
+        "SideFourierFirstRow",
+        "SideMatrixPhaseRows"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/f9/f94006e43da3a7ec72780f1547c5b359a6527bdedfa436a97889aab66cb50412/SideFourierActualCore.lean"
+    },
+    "SideFourierFirstRow": {
+      "availability": "resident",
+      "blob": "blobs/e1/e180cd22063dd20ed348317339ef4f50c5e093df19b56f9439aa5cac1429e872/SideFourierFirstRow.lean",
+      "bytes": 759,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideFourierFirstRow",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideFourierFirstRow",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "e180cd22063dd20ed348317339ef4f50c5e093df19b56f9439aa5cac1429e872",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/SideFourierFirstRow.lean",
+      "imports": [
+        "SideFourierMatrixAlgebra"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/e1/e180cd22063dd20ed348317339ef4f50c5e093df19b56f9439aa5cac1429e872/SideFourierFirstRow.lean"
+    },
+    "SideFourierMatrixAlgebra": {
+      "availability": "resident",
+      "blob": "blobs/ef/efdc7f269ad94a4462dd08bda8842b50d7430922643e9119cf2b0540ea9abfb3/SideFourierMatrixAlgebra.lean",
+      "bytes": 5483,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideFourierMatrixAlgebra",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideFourierMatrixAlgebra",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "efdc7f269ad94a4462dd08bda8842b50d7430922643e9119cf2b0540ea9abfb3",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/SideFourierMatrixAlgebra.lean",
+      "imports": [
+        "SideFourierPhaseAlgebra",
+        "Mathlib.Tactic.FinCases",
+        "Mathlib.Tactic.LinearCombination"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/ef/efdc7f269ad94a4462dd08bda8842b50d7430922643e9119cf2b0540ea9abfb3/SideFourierMatrixAlgebra.lean"
+    },
+    "SideFourierPhaseAlgebra": {
+      "availability": "resident",
+      "blob": "blobs/c2/c2dd5642ddd8e3b9ec6f00fbccd44030c0f55994eb405af4c9685523ac2fa645/SideFourierPhaseAlgebra.lean",
+      "bytes": 4767,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideFourierPhaseAlgebra",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideFourierPhaseAlgebra",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "c2dd5642ddd8e3b9ec6f00fbccd44030c0f55994eb405af4c9685523ac2fa645",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/SideFourierPhaseAlgebra.lean",
+      "imports": [
+        "SideDFTIdentities",
+        "Mathlib.Tactic.FieldSimp",
+        "Mathlib.Tactic.Linarith"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/c2/c2dd5642ddd8e3b9ec6f00fbccd44030c0f55994eb405af4c9685523ac2fa645/SideFourierPhaseAlgebra.lean"
+    },
+    "SideDFTIdentities": {
+      "availability": "resident",
+      "blob": "blobs/8e/8e5e28b3c3e70c139c684e068df41e51085bb9669edbb6c5c735257f295e752e/SideDFTIdentities.lean",
+      "bytes": 4670,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideDFTIdentities",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideDFTIdentities",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "8e5e28b3c3e70c139c684e068df41e51085bb9669edbb6c5c735257f295e752e",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/SideDFTIdentities.lean",
+      "imports": [
+        "Hadamard6.Basic",
+        "Mathlib.Tactic.Ring",
+        "Mathlib.Tactic.NormNum"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/8e/8e5e28b3c3e70c139c684e068df41e51085bb9669edbb6c5c735257f295e752e/SideDFTIdentities.lean"
+    },
+    "SideFourierElementaryRoots": {
+      "availability": "resident",
+      "blob": "blobs/e6/e6b06f22d7cc802ff9f9a8a000dfd889442c4512a42881deeb85314b24f2ba89/SideFourierElementaryRoots.lean",
+      "bytes": 2346,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideFourierElementaryRoots",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideFourierElementaryRoots",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "e6b06f22d7cc802ff9f9a8a000dfd889442c4512a42881deeb85314b24f2ba89",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/SideFourierElementaryRoots.lean",
+      "imports": [
+        "Mathlib.Analysis.SpecialFunctions.Complex.Log",
+        "Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic",
+        "Mathlib.Tactic.Linarith",
+        "Mathlib.Tactic.Ring"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/e6/e6b06f22d7cc802ff9f9a8a000dfd889442c4512a42881deeb85314b24f2ba89/SideFourierElementaryRoots.lean"
+    },
+    "FourierSide": {
+      "availability": "dataless_recovered_by_exact_pin",
+      "blob": "blobs/37/3762488932e158f54493a7ca66556a76edbb3f45b4ae58559ef091b18e4a9795/FourierSide.lean",
+      "bytes": 6208,
+      "inventory_origin": "exact dependency pin identified authored worker source root",
+      "sha256": "3762488932e158f54493a7ca66556a76edbb3f45b4ae58559ef091b18e4a9795",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/worker/dependencies/src/FourierSide.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/37/3762488932e158f54493a7ca66556a76edbb3f45b4ae58559ef091b18e4a9795/FourierSide.lean",
+      "imports": [
+        "Mathlib.Data.Complex.Basic",
+        "Mathlib.LinearAlgebra.Matrix.Notation",
+        "Mathlib.LinearAlgebra.Matrix.Determinant.Basic",
+        "Mathlib.Tactic.Ring",
+        "Mathlib.Tactic.FieldSimp",
+        "Mathlib.Tactic.LinearCombination",
+        "Mathlib.Tactic.FinCases"
+      ]
+    },
+    "FourierReconstruction": {
+      "availability": "dataless_recovered_by_exact_pin",
+      "blob": "blobs/a1/a1df385d7936b2da11e8ea0c52c9738753f25608cb4a0aa111c5ef7a6829c903/FourierReconstruction.lean",
+      "bytes": 5650,
+      "inventory_origin": "exact dependency pin identified authored worker source root",
+      "sha256": "a1df385d7936b2da11e8ea0c52c9738753f25608cb4a0aa111c5ef7a6829c903",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/worker/dependencies/src/FourierReconstruction.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/a1/a1df385d7936b2da11e8ea0c52c9738753f25608cb4a0aa111c5ef7a6829c903/FourierReconstruction.lean",
+      "imports": [
+        "FourierSide"
+      ]
+    },
+    "FourierPhaseData": {
+      "availability": "dataless_recovered_by_exact_pin",
+      "blob": "blobs/ca/ca7f02bf54bf797e7ac9a9ca7fd8926af986143b9c3032ee00f155d172bde66d/FourierPhaseData.lean",
+      "bytes": 4831,
+      "inventory_origin": "exact dependency pin identified authored worker source root",
+      "sha256": "ca7f02bf54bf797e7ac9a9ca7fd8926af986143b9c3032ee00f155d172bde66d",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/worker/dependencies/src/FourierPhaseData.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/ca/ca7f02bf54bf797e7ac9a9ca7fd8926af986143b9c3032ee00f155d172bde66d/FourierPhaseData.lean",
+      "imports": [
+        "FourierReconstruction"
+      ]
+    },
+    "SideHorizontalCandidates": {
+      "availability": "resident",
+      "blob": "blobs/8f/8f0d86d15b6230eb465bcaf3b853234fbf1718c7b886bc1b48d4a52892579f86/SideHorizontalCandidates.lean",
+      "bytes": 1301,
+      "sha256": "8f0d86d15b6230eb465bcaf3b853234fbf1718c7b886bc1b48d4a52892579f86",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/SideHorizontalCandidates.lean",
+      "imports": [
+        "SideActualFibreFinite",
+        "Hadamard6.FiniteDilation"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/8f/8f0d86d15b6230eb465bcaf3b853234fbf1718c7b886bc1b48d4a52892579f86/SideHorizontalCandidates.lean"
+    },
+    "SideActualFibreFinite": {
+      "availability": "resident",
+      "blob": "blobs/9c/9c6a2637c6037124f5ef208a7d9000d2a6185ff8a180e51ad390fa942f11e433/SideActualFibreFinite.lean",
+      "bytes": 1378,
+      "sha256": "9c6a2637c6037124f5ef208a7d9000d2a6185ff8a180e51ad390fa942f11e433",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/SideActualFibreFinite.lean",
+      "imports": [
+        "SideFiniteRecipeImages",
+        "SideIntrinsicExhaustion"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/9c/9c6a2637c6037124f5ef208a7d9000d2a6185ff8a180e51ad390fa942f11e433/SideActualFibreFinite.lean"
+    },
+    "SideFiniteRecipeImages": {
+      "availability": "resident",
+      "blob": "blobs/d8/d8d06b4b481e9189f8ceaf390741a7511080b69d74adc374aa05277a67683cda/SideFiniteRecipeImages.lean",
+      "bytes": 1424,
+      "sha256": "d8d06b4b481e9189f8ceaf390741a7511080b69d74adc374aa05277a67683cda",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/SideFiniteRecipeImages.lean",
+      "imports": [
+        "ElementaryPowerFibres",
+        "SideFourierActual",
+        "Mathlib.Data.Set.Finite.Lattice",
+        "Mathlib.Data.Fintype.Perm"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/d8/d8d06b4b481e9189f8ceaf390741a7511080b69d74adc374aa05277a67683cda/SideFiniteRecipeImages.lean"
+    },
+    "ElementaryPowerFibres": {
+      "availability": "resident",
+      "blob": "blobs/43/43b91c8a3663f2955e89a5313c0c56805f35fc18cad85fce6462c45c4bd7ab1f/ElementaryPowerFibres.lean",
+      "bytes": 2548,
+      "sha256": "43b91c8a3663f2955e89a5313c0c56805f35fc18cad85fce6462c45c4bd7ab1f",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/ElementaryPowerFibres.lean",
+      "imports": [
+        "Mathlib.Data.Set.Finite.Basic",
+        "Mathlib.Tactic.LinearCombination",
+        "Mathlib.Tactic.Ring"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/43/43b91c8a3663f2955e89a5313c0c56805f35fc18cad85fce6462c45c4bd7ab1f/ElementaryPowerFibres.lean"
+    },
+    "SideIntrinsicExhaustion": {
+      "availability": "resident",
+      "blob": "blobs/81/81c0603ede41be405fd797fd1e38a41d12e89790ef56c930fe2456266c1fef04/SideIntrinsicExhaustion.lean",
+      "bytes": 4549,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideIntrinsicExhaustion",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideIntrinsicExhaustion",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "81c0603ede41be405fd797fd1e38a41d12e89790ef56c930fe2456266c1fef04",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/SideIntrinsicExhaustion.lean",
+      "imports": [
+        "SideIntrinsicOrientedMatrix",
+        "SideIntrinsicReflection",
+        "SideIntrinsicSheetChoice",
+        "SideFourierActual"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/81/81c0603ede41be405fd797fd1e38a41d12e89790ef56c930fe2456266c1fef04/SideIntrinsicExhaustion.lean"
+    },
+    "SideIntrinsicOrientedMatrix": {
+      "availability": "resident",
+      "blob": "blobs/7d/7d51699a6d0cb262eae1410eb4dad7dee47f58477916fd8fb884df5f9273bcb1/SideIntrinsicOrientedMatrix.lean",
+      "bytes": 2378,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideIntrinsicOrientedMatrix",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideIntrinsicOrientedMatrix",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "7d51699a6d0cb262eae1410eb4dad7dee47f58477916fd8fb884df5f9273bcb1",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/SideIntrinsicOrientedMatrix.lean",
+      "imports": [
+        "SideIntrinsicCoefficientRecovery",
+        "SideModeMatrixFactor"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/7d/7d51699a6d0cb262eae1410eb4dad7dee47f58477916fd8fb884df5f9273bcb1/SideIntrinsicOrientedMatrix.lean"
+    },
+    "SideIntrinsicCoefficientRecovery": {
+      "availability": "resident",
+      "blob": "blobs/ee/ee3c3d8af5e96980a75369097bd02f1739735264bdd5be0b2d94f9beb3630b50/SideIntrinsicCoefficientRecovery.lean",
+      "bytes": 2581,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideIntrinsicCoefficientRecovery",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideIntrinsicCoefficientRecovery",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "ee3c3d8af5e96980a75369097bd02f1739735264bdd5be0b2d94f9beb3630b50",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/SideIntrinsicCoefficientRecovery.lean",
+      "imports": [
+        "SideIntrinsicOrientedModes",
+        "SideModeCoefficientAlgebra"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/ee/ee3c3d8af5e96980a75369097bd02f1739735264bdd5be0b2d94f9beb3630b50/SideIntrinsicCoefficientRecovery.lean"
+    },
+    "SideIntrinsicOrientedModes": {
+      "availability": "resident",
+      "blob": "blobs/5c/5c90390b666ad2868b94782e343e17e79dfed2650cdb413175be15ce2b340004/SideIntrinsicOrientedModes.lean",
+      "bytes": 2947,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideIntrinsicOrientedModes",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideIntrinsicOrientedModes",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "5c90390b666ad2868b94782e343e17e79dfed2650cdb413175be15ce2b340004",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/SideIntrinsicOrientedModes.lean",
+      "imports": [
+        "SideIntrinsicModeRecovery"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/5c/5c90390b666ad2868b94782e343e17e79dfed2650cdb413175be15ce2b340004/SideIntrinsicOrientedModes.lean"
+    },
+    "SideIntrinsicModeRecovery": {
+      "availability": "resident",
+      "blob": "blobs/44/4455598c3b089cdafcbdd819ff987018e7c01e30943bce393ffd2445d86fb3bc/SideIntrinsicModeRecovery.lean",
+      "bytes": 6257,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideIntrinsicModeRecovery",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideIntrinsicModeRecovery",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "4455598c3b089cdafcbdd819ff987018e7c01e30943bce393ffd2445d86fb3bc",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/SideIntrinsicModeRecovery.lean",
+      "imports": [
+        "SideIntrinsicFourierMatrix",
+        "SideIntrinsicLambdaRecovery",
+        "SideMatrixMoments"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/44/4455598c3b089cdafcbdd819ff987018e7c01e30943bce393ffd2445d86fb3bc/SideIntrinsicModeRecovery.lean"
+    },
+    "SideIntrinsicFourierMatrix": {
+      "availability": "resident",
+      "blob": "blobs/b7/b72e1849e83e06d308d1375602df04fb98a399707f8ce5660f5fc2ab007be9c8/SideIntrinsicFourierMatrix.lean",
+      "bytes": 4561,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideIntrinsicFourierMatrix",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideIntrinsicFourierMatrix",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "b72e1849e83e06d308d1375602df04fb98a399707f8ce5660f5fc2ab007be9c8",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/SideIntrinsicFourierMatrix.lean",
+      "imports": [
+        "SideIntrinsicFourierModes",
+        "SideIntrinsicMatrixBindings",
+        "SideFourierMatrixAlgebra"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/b7/b72e1849e83e06d308d1375602df04fb98a399707f8ce5660f5fc2ab007be9c8/SideIntrinsicFourierMatrix.lean"
+    },
+    "SideIntrinsicFourierModes": {
+      "availability": "resident",
+      "blob": "blobs/43/43c8d934b588650f10b6bbca8589c114a93f44eb360ef40cb9748bfa2f9c5b68/SideIntrinsicFourierModes.lean",
+      "bytes": 3453,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideIntrinsicFourierModes",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideIntrinsicFourierModes",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "43c8d934b588650f10b6bbca8589c114a93f44eb360ef40cb9748bfa2f9c5b68",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/SideIntrinsicFourierModes.lean",
+      "imports": [
+        "SideIntrinsicFourierPolynomial",
+        "SideIntrinsicUnitBindings",
+        "SideDFTIdentities",
+        "Mathlib.Tactic.FieldSimp"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/43/43c8d934b588650f10b6bbca8589c114a93f44eb360ef40cb9748bfa2f9c5b68/SideIntrinsicFourierModes.lean"
+    },
+    "SideIntrinsicFourierPolynomial": {
+      "availability": "resident",
+      "blob": "blobs/87/875c39577f1849ab130202621c8fb635a635f2224991ba4a8230ea3a7a3f1067/SideIntrinsicFourierPolynomial.lean",
+      "bytes": 3144,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideIntrinsicFourierPolynomial",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideIntrinsicFourierPolynomial",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "875c39577f1849ab130202621c8fb635a635f2224991ba4a8230ea3a7a3f1067",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/SideIntrinsicFourierPolynomial.lean",
+      "imports": [
+        "SideIntrinsicPolynomialDefs",
+        "Mathlib.Tactic.LinearCombination"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/87/875c39577f1849ab130202621c8fb635a635f2224991ba4a8230ea3a7a3f1067/SideIntrinsicFourierPolynomial.lean"
+    },
+    "SideIntrinsicPolynomialDefs": {
+      "availability": "resident",
+      "blob": "blobs/12/1291afc792342d1241ca5a0ec63d77ba8ac9d838f254a7e420b7c8ce334abc53/SideIntrinsicPolynomialDefs.lean",
+      "bytes": 2959,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideIntrinsicPolynomialDefs",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideIntrinsicPolynomialDefs",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "1291afc792342d1241ca5a0ec63d77ba8ac9d838f254a7e420b7c8ce334abc53",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/SideIntrinsicPolynomialDefs.lean",
+      "imports": [
+        "Mathlib.Tactic.Ring"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/12/1291afc792342d1241ca5a0ec63d77ba8ac9d838f254a7e420b7c8ce334abc53/SideIntrinsicPolynomialDefs.lean"
+    },
+    "SideIntrinsicUnitBindings": {
+      "availability": "resident",
+      "blob": "blobs/95/9546d661cb8d38e64d034d38fe115c242eb6a9619774d2a533a09ec68b76ef7f/SideIntrinsicUnitBindings.lean",
+      "bytes": 4921,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideIntrinsicUnitBindings",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideIntrinsicUnitBindings",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "9546d661cb8d38e64d034d38fe115c242eb6a9619774d2a533a09ec68b76ef7f",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/SideIntrinsicUnitBindings.lean",
+      "imports": [
+        "SideIntrinsicPolynomialDefs",
+        "Hadamard6.Basic",
+        "Mathlib.Tactic.LinearCombination",
+        "Mathlib.Tactic.NormNum"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/95/9546d661cb8d38e64d034d38fe115c242eb6a9619774d2a533a09ec68b76ef7f/SideIntrinsicUnitBindings.lean"
+    },
+    "SideIntrinsicMatrixBindings": {
+      "availability": "resident",
+      "blob": "blobs/ab/ab8fdb12ea85611e8f725d7a9c47c20159dc0f5ab87d356155d9eb6dd4b6893a/SideIntrinsicMatrixBindings.lean",
+      "bytes": 2696,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideIntrinsicMatrixBindings",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideIntrinsicMatrixBindings",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "ab8fdb12ea85611e8f725d7a9c47c20159dc0f5ab87d356155d9eb6dd4b6893a",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/SideIntrinsicMatrixBindings.lean",
+      "imports": [
+        "SideIntrinsicUnitBindings",
+        "Hadamard6.GramInvariant",
+        "Mathlib.Tactic.FinCases"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/ab/ab8fdb12ea85611e8f725d7a9c47c20159dc0f5ab87d356155d9eb6dd4b6893a/SideIntrinsicMatrixBindings.lean"
+    },
+    "SideIntrinsicLambdaRecovery": {
+      "availability": "resident",
+      "blob": "blobs/5f/5fcc5a094f18913b3351826f400b1392edb200336bae98d42423e32f2c056bc5/SideIntrinsicLambdaRecovery.lean",
+      "bytes": 4215,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideIntrinsicLambdaRecovery",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideIntrinsicLambdaRecovery",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "5fcc5a094f18913b3351826f400b1392edb200336bae98d42423e32f2c056bc5",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/SideIntrinsicLambdaRecovery.lean",
+      "imports": [
+        "SideIntrinsicTheta",
+        "SideIntrinsicActualLambda"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/5f/5fcc5a094f18913b3351826f400b1392edb200336bae98d42423e32f2c056bc5/SideIntrinsicLambdaRecovery.lean"
+    },
+    "SideIntrinsicTheta": {
+      "availability": "resident",
+      "blob": "blobs/15/15946324e6d4c4dbcda80bbda42cc9f59aede16b7c15b470809ca67de6025992/SideIntrinsicTheta.lean",
+      "bytes": 3285,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideIntrinsicTheta",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideIntrinsicTheta",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "15946324e6d4c4dbcda80bbda42cc9f59aede16b7c15b470809ca67de6025992",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/SideIntrinsicTheta.lean",
+      "imports": [
+        "SideIntrinsicActualNorms",
+        "SideIntrinsicActualChi"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/15/15946324e6d4c4dbcda80bbda42cc9f59aede16b7c15b470809ca67de6025992/SideIntrinsicTheta.lean"
+    },
+    "SideIntrinsicActualNorms": {
+      "availability": "resident",
+      "blob": "blobs/40/401f1f94e74f28805736bfa6699ebe59bf5bb7695f6e1b8b05b7acb1e9e78c15/SideIntrinsicActualNorms.lean",
+      "bytes": 1799,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideIntrinsicActualNorms",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideIntrinsicActualNorms",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "401f1f94e74f28805736bfa6699ebe59bf5bb7695f6e1b8b05b7acb1e9e78c15",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/SideIntrinsicActualNorms.lean",
+      "imports": [
+        "SideIntrinsicActualBindings",
+        "SideIntrinsicPolynomialNorms"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/40/401f1f94e74f28805736bfa6699ebe59bf5bb7695f6e1b8b05b7acb1e9e78c15/SideIntrinsicActualNorms.lean"
+    },
+    "SideIntrinsicActualBindings": {
+      "availability": "resident",
+      "blob": "blobs/0e/0ea2284ae4f5f0dd72d781d92d937099577a23b75317f1a009f77315437d9853/SideIntrinsicActualBindings.lean",
+      "bytes": 3094,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideIntrinsicActualBindings",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideIntrinsicActualBindings",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "0ea2284ae4f5f0dd72d781d92d937099577a23b75317f1a009f77315437d9853",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/SideIntrinsicActualBindings.lean",
+      "imports": [
+        "SideIntrinsicUnitBindings",
+        "SideIntrinsicDenominatorAlgebra",
+        "PreRhoActualBindings"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/0e/0ea2284ae4f5f0dd72d781d92d937099577a23b75317f1a009f77315437d9853/SideIntrinsicActualBindings.lean"
+    },
+    "SideIntrinsicDenominatorAlgebra": {
+      "availability": "resident",
+      "blob": "blobs/50/50ca6ecc96358342206f355bca1c21b558a7964bfe764f1d4f949b891a52dcfb/SideIntrinsicDenominatorAlgebra.lean",
+      "bytes": 1926,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideIntrinsicDenominatorAlgebra",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideIntrinsicDenominatorAlgebra",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "50ca6ecc96358342206f355bca1c21b558a7964bfe764f1d4f949b891a52dcfb",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/SideIntrinsicDenominatorAlgebra.lean",
+      "imports": [
+        "SideIntrinsicPolynomialDefs",
+        "PreRhoAlignmentDefs",
+        "Mathlib.Tactic.FieldSimp"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/50/50ca6ecc96358342206f355bca1c21b558a7964bfe764f1d4f949b891a52dcfb/SideIntrinsicDenominatorAlgebra.lean"
+    },
+    "SideIntrinsicPolynomialNorms": {
+      "availability": "resident",
+      "blob": "blobs/1b/1be085f5915803c5ce132e48d62934d17bf4276e444da0675ad0a3e575bdca99/SideIntrinsicPolynomialNorms.lean",
+      "bytes": 743,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideIntrinsicPolynomialNorms",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideIntrinsicPolynomialNorms",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "1be085f5915803c5ce132e48d62934d17bf4276e444da0675ad0a3e575bdca99",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/SideIntrinsicPolynomialNorms.lean",
+      "imports": [
+        "SideIntrinsicPolynomialDefs"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/1b/1be085f5915803c5ce132e48d62934d17bf4276e444da0675ad0a3e575bdca99/SideIntrinsicPolynomialNorms.lean"
+    },
+    "SideIntrinsicActualChi": {
+      "availability": "resident",
+      "blob": "blobs/26/269293fb2352dee3dbdd316db455d699834490af325a2521793ab4e18c54ff56/SideIntrinsicActualChi.lean",
+      "bytes": 2122,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideIntrinsicActualChi",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideIntrinsicActualChi",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "269293fb2352dee3dbdd316db455d699834490af325a2521793ab4e18c54ff56",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/SideIntrinsicActualChi.lean",
+      "imports": [
+        "SideIntrinsicActualBindings",
+        "SideIntrinsicPolynomialChi"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/26/269293fb2352dee3dbdd316db455d699834490af325a2521793ab4e18c54ff56/SideIntrinsicActualChi.lean"
+    },
+    "SideIntrinsicPolynomialChi": {
+      "availability": "resident",
+      "blob": "blobs/5b/5b2922aee0f3832d22ac124a62d455e0d599aac124e3a2c3b462835e6ed71cfe/SideIntrinsicPolynomialChi.lean",
+      "bytes": 748,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideIntrinsicPolynomialChi",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideIntrinsicPolynomialChi",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "5b2922aee0f3832d22ac124a62d455e0d599aac124e3a2c3b462835e6ed71cfe",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/SideIntrinsicPolynomialChi.lean",
+      "imports": [
+        "SideIntrinsicPolynomialDefs"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/5b/5b2922aee0f3832d22ac124a62d455e0d599aac124e3a2c3b462835e6ed71cfe/SideIntrinsicPolynomialChi.lean"
+    },
+    "SideIntrinsicActualLambda": {
+      "availability": "resident",
+      "blob": "blobs/c2/c2e40900c799547b3e8759e3222734acb071af983b28e1c0805b23a5b590f88b/SideIntrinsicActualLambda.lean",
+      "bytes": 1701,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideIntrinsicActualLambda",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideIntrinsicActualLambda",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "c2e40900c799547b3e8759e3222734acb071af983b28e1c0805b23a5b590f88b",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/SideIntrinsicActualLambda.lean",
+      "imports": [
+        "SideIntrinsicActualBindings",
+        "SideIntrinsicPolynomialLambda"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/c2/c2e40900c799547b3e8759e3222734acb071af983b28e1c0805b23a5b590f88b/SideIntrinsicActualLambda.lean"
+    },
+    "SideIntrinsicPolynomialLambda": {
+      "availability": "resident",
+      "blob": "blobs/5e/5e1dda273c2b9d88471c75d2bfb35dc37ab80fa2bf205e7e7f3e897bef82c30f/SideIntrinsicPolynomialLambda.lean",
+      "bytes": 1071,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideIntrinsicPolynomialLambda",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideIntrinsicPolynomialLambda",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "5e1dda273c2b9d88471c75d2bfb35dc37ab80fa2bf205e7e7f3e897bef82c30f",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/SideIntrinsicPolynomialLambda.lean",
+      "imports": [
+        "SideIntrinsicPolynomialDefs"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/5e/5e1dda273c2b9d88471c75d2bfb35dc37ab80fa2bf205e7e7f3e897bef82c30f/SideIntrinsicPolynomialLambda.lean"
+    },
+    "SideModeCoefficientAlgebra": {
+      "availability": "resident",
+      "blob": "blobs/f1/f178c7636a96c936ccf5f003cb1393fbdc292cfb29f0bd10f45cc8d75c3b0b6c/SideModeCoefficientAlgebra.lean",
+      "bytes": 3154,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideModeCoefficientAlgebra",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideModeCoefficientAlgebra",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "f178c7636a96c936ccf5f003cb1393fbdc292cfb29f0bd10f45cc8d75c3b0b6c",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/SideModeCoefficientAlgebra.lean",
+      "imports": [
+        "Hadamard6.Basic",
+        "Mathlib.Tactic.FieldSimp",
+        "Mathlib.Tactic.LinearCombination"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/f1/f178c7636a96c936ccf5f003cb1393fbdc292cfb29f0bd10f45cc8d75c3b0b6c/SideModeCoefficientAlgebra.lean"
+    },
+    "SideModeMatrixFactor": {
+      "availability": "resident",
+      "blob": "blobs/f2/f242196553601a1e75f72b6b1306d26a0dc030258df8cc933b8459ca766f41b7/SideModeMatrixFactor.lean",
+      "bytes": 998,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideModeMatrixFactor",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideModeMatrixFactor",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "f242196553601a1e75f72b6b1306d26a0dc030258df8cc933b8459ca766f41b7",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/SideModeMatrixFactor.lean",
+      "imports": [
+        "SideModeCoefficientAlgebra",
+        "SideMatrixGram",
+        "SideFourierMatrixAlgebra"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/f2/f242196553601a1e75f72b6b1306d26a0dc030258df8cc933b8459ca766f41b7/SideModeMatrixFactor.lean"
+    },
+    "SideIntrinsicReflection": {
+      "availability": "resident",
+      "blob": "blobs/07/070246616448631c7255740be53fa4b94e9f1af5ce4703e519cda0e2561a8bc7/SideIntrinsicReflection.lean",
+      "bytes": 2424,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideIntrinsicReflection",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideIntrinsicReflection",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "070246616448631c7255740be53fa4b94e9f1af5ce4703e519cda0e2561a8bc7",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/SideIntrinsicReflection.lean",
+      "imports": [
+        "SideIntrinsicFourierModes",
+        "SideIntrinsicMatrixBindings",
+        "Mathlib.Tactic.FinCases"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/07/070246616448631c7255740be53fa4b94e9f1af5ce4703e519cda0e2561a8bc7/SideIntrinsicReflection.lean"
+    },
+    "SideIntrinsicSheetChoice": {
+      "availability": "resident",
+      "blob": "blobs/4e/4eca5ba5c1562d38de7ba830489027e0f21b30e49ef56c6341ea875088cd67bd/SideIntrinsicSheetChoice.lean",
+      "bytes": 3300,
+      "historical_portable_evidence": [
+        {
+          "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideIntrinsicSheetChoice",
+          "selected_in_prior_packet": true
+        },
+        {
+          "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+          "historical_evidence_only": true,
+          "module": "SideIntrinsicSheetChoice",
+          "selected_in_prior_packet": false
+        }
+      ],
+      "sha256": "4eca5ba5c1562d38de7ba830489027e0f21b30e49ef56c6341ea875088cd67bd",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/SideIntrinsicSheetChoice.lean",
+      "imports": [
+        "SideIntrinsicTheta"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/4e/4eca5ba5c1562d38de7ba830489027e0f21b30e49ef56c6341ea875088cd67bd/SideIntrinsicSheetChoice.lean"
+    },
+    "SideVerticalCandidates": {
+      "availability": "resident",
+      "blob": "blobs/09/09669ff1cfd9da5420e05b1bab4c3a2f394d41f9ed8eb1d941205215b1251d4c/SideVerticalCandidates.lean",
+      "bytes": 1670,
+      "sha256": "09669ff1cfd9da5420e05b1bab4c3a2f394d41f9ed8eb1d941205215b1251d4c",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/SideVerticalCandidates.lean",
+      "imports": [
+        "SideHorizontalCandidates"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/09/09669ff1cfd9da5420e05b1bab4c3a2f394d41f9ed8eb1d941205215b1251d4c/SideVerticalCandidates.lean"
+    }
+  },
+  "external": [
+    "Hadamard6.Basic",
+    "Hadamard6.GramInvariant",
+    "Mathlib.Analysis.Complex.Trigonometric",
+    "Mathlib.Analysis.Real.Sqrt",
+    "Mathlib.Analysis.SpecialFunctions.Complex.Log",
+    "Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic",
+    "Mathlib.Data.Complex.Basic",
+    "Mathlib.Data.Fintype.Card",
+    "Mathlib.Tactic.FieldSimp",
+    "Mathlib.Tactic.FinCases",
+    "Mathlib.Tactic.Linarith",
+    "Mathlib.Tactic.LinearCombination",
+    "Mathlib.Tactic.NormNum",
+    "Mathlib.Tactic.Positivity",
+    "Mathlib.Tactic.Ring"
+  ],
+  "unresolved": {},
+  "variant_resolution": "CentiradianPhysical f3a81569... is the publication-new variant. The differences from the older variants are explicit tactic/trigonometric imports; scalar definitions and theorem statements inspected. It defines a local exclusion proposition but proves no concrete exclusion or atlas certificate.",
+  "local_adapters": [
+    {
+      "module": "NoFourMUBs.Step2.Reconstruction.SeedModel",
+      "active_path": "NoFourMUBs/Step2/Reconstruction/SeedModel.lean",
+      "active_sha256": "7020e49ca7d9303f213bb75991290cd1bba125db6de255f0e1b39a51ab079aa3",
+      "after_archived_module": "StrictSeedGuards",
+      "purpose": "Bind the existing constructor scalar convention and unit-corner premise to Step2.Seed."
+    },
+    {
+      "module": "NoFourMUBs.Step2.Reconstruction.SideRecipe",
+      "active_path": "NoFourMUBs/Step2/Reconstruction/SideRecipe.lean",
+      "active_sha256": "fe73fa02463794ca4ad95a6b6d47d1c1292123023cb8132c63dd0cfccd8e215a",
+      "after_archived_module": "SideFourierActual",
+      "purpose": "Substitute our strict-seed model into the existing universal side constructor. No extra hypothesis or new construction."
+    },
+    {
+      "module": "NoFourMUBs.Step2.Reconstruction.SignatureFromPermanent",
+      "active_path": "NoFourMUBs/Step2/Reconstruction/SignatureFromPermanent.lean",
+      "active_sha256": "ed967a342e9c416df5134b250b4c5f4346317c3ec47dcde8599d1fa8e560fae8",
+      "after_archived_module": "StrictSideRootGuards",
+      "purpose": "Apply the checked side Laurent identity and the existing prescribed scalar guards to bind the permanent formula to the unified signature."
+    },
+    {
+      "module": "NoFourMUBs.Step2.Reconstruction.FourierSignature",
+      "active_path": "NoFourMUBs/Step2/Reconstruction/FourierSignature.lean",
+      "active_sha256": "e1bb3526dd76e880c951dd058aa333383c15eda4e0867bea2a62a6daaf73eae1",
+      "after_archived_module": "FourierPhaseData",
+      "purpose": "Bind the archived forward Fourier permanent and prescribed mixed permanent to the already checked matrix model and signature adapter."
+    },
+    {
+      "module": "NoFourMUBs.Step2.Reconstruction.MatchedSides",
+      "active_path": "NoFourMUBs/Step2/Reconstruction/MatchedSides.lean",
+      "active_sha256": "c1e79372a8c993e0f1bf45658f0e96aedced94c8a62d0fdd61ed2073c660c9a9",
+      "after_module": "NoFourMUBs.Step2.Reconstruction.FourierSignature",
+      "reuse_review": "MATCHED_SIGNED_SIDES_REUSE_REVIEW.json"
+    },
+    {
+      "module": "NoFourMUBs.Step2.Reconstruction.MatchedCompletion",
+      "active_path": "NoFourMUBs/Step2/Reconstruction/MatchedCompletion.lean",
+      "active_sha256": "db4229833397c4bb758b82d77828007b8c64750dfdbb218d42b3da25ede93c2c",
+      "after_archived_module": "SideVerticalCandidates",
+      "reuse_review": "MATCHED_COMPLETION_REUSE_REVIEW.json"
+    },
+    {
+      "module": "NoFourMUBs.Step2.Reconstruction.RowNormFlatness",
+      "active_path": "NoFourMUBs/Step2/Reconstruction/RowNormFlatness.lean",
+      "active_sha256": "9a079f39961c8e291f0243a0e2f081ebfa83da4468a258eb8d6286d69c7344d9",
+      "after_module": "NoFourMUBs.Step2.Reconstruction.MatchedSides"
+    },
+    {
+      "module": "NoFourMUBs.Step2.Reconstruction.ForcedRowNorms",
+      "active_path": "NoFourMUBs/Step2/Reconstruction/ForcedRowNorms.lean",
+      "active_sha256": "61f03e080569bdb95f51c3eae47268265054d62eed6d021a1af4f00e39411cf8",
+      "after_module": "NoFourMUBs.Step2.Reconstruction.RowNormFlatness",
+      "reuse_review": "MATCHED_ROW_GRAM_GENERALIZATION_REVIEW.json"
+    }
+  ],
+  "vendor_dependency_revision": "MATCHED_ROW_GRAM_GENERALIZATION_REVIEW.json"
+}

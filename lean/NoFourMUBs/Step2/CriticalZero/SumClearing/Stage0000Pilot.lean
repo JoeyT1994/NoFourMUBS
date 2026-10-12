@@ -1,0 +1,10 @@
+import NoFourMUBs.Step2.CriticalZero.SumClearing.Stage0000Check000
+import NoFourMUBs.Step2.CriticalZero.SumClearing.Stage0000Check023
+import NoFourMUBs.Step2.CriticalZero.SumClearing.Stage0000Check035
+import NoFourMUBs.Step2.CriticalZero.SumClearing.Stage0000Check069
+set_option autoImplicit false
+set_option maxRecDepth 100000
+set_option maxHeartbeats 3000000
+namespace NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing.Stages
+
+end NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing.Stages

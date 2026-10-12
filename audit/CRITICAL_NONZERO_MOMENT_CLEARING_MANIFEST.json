@@ -1,0 +1,39 @@
+{
+  "scope": "critical_nonzero_moment_clearing_reuse",
+  "status": "ADOPTED_UNCOMPILED",
+  "records": [
+    {
+      "module": "NoFourMUBs.Reuse.Archive.CriticalNonzeroLightMoments",
+      "original_module": "CriticalNonzeroLightMoments",
+      "original_sha256": "c87ca56d81435dc00aa26d634368dcc7da39f9368e92d30ffdffc7c3ed9123d5",
+      "original_source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/CriticalNonzeroLightMoments.lean",
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalNonzeroLightMoments.lean",
+      "active_sha256": "2660f8f5077594f212c7824b36bcff02824c92fdc0ac107635c87ec1d1ef0eca",
+      "imports_only_adaptation": true,
+      "proof_adaptations": [],
+      "import_replacements": {
+        "CriticalNonzeroLightData": "NoFourMUBs.Reuse.Archive.CriticalNonzeroLightData"
+      },
+      "omitted_reused_declarations": [],
+      "model_identifier_replacements": {},
+      "namespace_open_replacements": {},
+      "proof_tactic_replacements": []
+    },
+    {
+      "module": "NoFourMUBs.Step2.CriticalZero.NonzeroQuadAlgebra",
+      "active_path": "NoFourMUBs/Step2/CriticalZero/NonzeroQuadAlgebra.lean",
+      "active_sha256": "3cc35f4c2c1c5d497c1e931f88d93768d7c26469c28778558f10d5e0de9e8482",
+      "review": "CRITICAL_NONZERO_MOMENT_CLEARING_REVIEW.json",
+      "after_archived_module": "CriticalNonzeroLightMoments",
+      "local_model_adapter": true
+    },
+    {
+      "module": "NoFourMUBs.Step2.CriticalZero.NonzeroMomentClearing",
+      "active_path": "NoFourMUBs/Step2/CriticalZero/NonzeroMomentClearing.lean",
+      "active_sha256": "3145241d15b1787f7a3b742586244ed5ca2da3972a820e6f5d3f176c4eca7b45",
+      "review": "CRITICAL_NONZERO_MOMENT_CLEARING_REVIEW.json",
+      "after_module": "NoFourMUBs.Step2.CriticalZero.NonzeroQuadAlgebra",
+      "local_model_adapter": true
+    }
+  ]
+}

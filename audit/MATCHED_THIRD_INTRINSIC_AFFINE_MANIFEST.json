@@ -1,0 +1,32 @@
+{
+  "scope": "matched_third_flatness",
+  "records": [
+    {
+      "module": "NoFourMUBs.Step2.Reconstruction.ThirdMoment.IntrinsicAffine",
+      "active_path": "NoFourMUBs/Step2/Reconstruction/ThirdMoment/IntrinsicAffine.lean",
+      "active_sha256": "df43c1379f9daf433d2d883faa4d6c5cca961a28d0ffe2be5f12e06ed627e153",
+      "local_model_adapter": true,
+      "review": "MATCHED_THIRD_FLATNESS_REUSE_REVIEW.json"
+    }
+  ],
+  "axiom_endpoints": [
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.lambda_affine_forms",
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.intrinsic_affine_moments"
+  ],
+  "dependency_pins": [
+    {
+      "active_path": "NoFourMUBs/Reuse/Archive/SideIntrinsicModeRecovery.lean",
+      "active_sha256": "95b5f46eccf408e53618d9a0a986a2595f6239717765998a75823aecb8d7e82b"
+    },
+    {
+      "active_path": "NoFourMUBs/Reuse/Archive/SideIntrinsicLambdaRecovery.lean",
+      "active_sha256": "577759e6717fb98ac6cdf4d64b2c1b0f7f702ac0bfc6b00fc34b278176b102ae"
+    },
+    {
+      "active_path": "NoFourMUBs/Reuse/Archive/SideIntrinsicTheta.lean",
+      "active_sha256": "2f4160f9d9ecd11d381dc17ca3396f4ba5b291724b74e51cf2c62e09a3b84699"
+    }
+  ],
+  "scope_note": "Bind the direct proof affine rational formulas to actual unit side products and permanent throughout R>0. Existing strict P guards reused; no generic or atlas input.",
+  "atlas_certification": false
+}

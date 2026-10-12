@@ -1,0 +1,55 @@
+{
+  "status": "PASS",
+  "reviewed_utc": "2026-10-11T01:05:22.201667+00:00",
+  "scope": "One necessary adapter from the current Frames.AllCritical predicate to raw selected-block scalar zero equations.",
+  "search": [
+    "CRITICAL_SELECTED_SIGNATURE_REUSE_FILES.txt",
+    "ARCHIVE_SOURCE_INDEX.jsonl",
+    "ARCHIVE_IMPORT_INDEX.json",
+    "ARCHIVE_BLOB_INDEX.jsonl",
+    "lean/NoFourMUBs/Step2/ActualCorners.lean",
+    "lean/NoFourMUBs/Step2/SOS/FrameSignatures.lean",
+    "lean/NoFourMUBs/Step2/SideDiscriminant.lean"
+  ],
+  "archive_equivalent": "CriticalCornerPhysical.allCritical_selected_R_zero exists for the old normalized carrier/global-score model; its proof imports global-max machinery. The current model already has the stronger denominator-free frame signature identity, so only its selected-index/dephasing binding is needed.",
+  "reused_theorems": [
+    "Equiv.Perm.exists_extending_pair",
+    "NoFourMUBs.Step2.frameScalarIdentities",
+    "NoFourMUBs.Step2.frameRight_raw",
+    "NoFourMUBs.Step2.sig_rows",
+    "NoFourMUBs.Side.signature_discriminant"
+  ],
+  "new_math": "None beyond index selection, the equality of two literal scalar conventions, and zero-square elimination. Existing polynomial signature proof is called directly.",
+  "explicit_guards": [
+    "Current AllCritical H",
+    "row and column selections injective",
+    "selected first row equals1 for scalar normalization"
+  ],
+  "scope_limit": "Does not prove CriticalClassification or discard singular/exceptional scalar cases. No atlas certification.",
+  "atlas_certification": false,
+  "checked_utc": "2026-10-11T01:10:23.806553+00:00",
+  "log": "critical_zero_physical_build_status_logs/batch_0163.log",
+  "current_source_sha256": "ea868b396733763127082fa622677a0cc182c023939136c6d47b96eaac1b76e0",
+  "axioms": {
+    "allCritical_submatrix_signature_im": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "moment_R_discriminant": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "moment_R_signature": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "allCritical_submatrix_scalar_zero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  }
+}

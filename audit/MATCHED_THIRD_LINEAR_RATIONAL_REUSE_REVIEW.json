@@ -1,0 +1,27 @@
+{
+  "status": "REVIEWED_REUSE_CLEARED_SUM_AND_CHECKED_PRODUCTS",
+  "reviewed_utc": "2026-10-12T03:24:09.675492+00:00",
+  "search": "MATCHED_THIRD_LINEAR_RATIONAL_REUSE_SEARCH.json",
+  "comparisons": [
+    "ClearedSum00_value proves the exact right-associated sum of9raw cleared numerators is zero in every commutative ring. Reuse it without recomputation.",
+    "Products0..14, including6and9throughMonomialTransport0, prove the9cofactor denominator/numerator pairs needed for the saved linear fractions. Every primitive integer scale is1, each numerator scale equals its denominator scale, and integer_scale equals the common denominator scale16.",
+    "Use the existing field theorem div_eq_div_iff and elementary multiplication rearrangement to replace each fraction by cleared/commonD. The strict-domain common-denominator guard is supplied by DenominatorInputs, not assumed generically.",
+    "The general archived rational-polynomial substitution machinery uses a different real carrier and is unnecessary for this finite9term assembly. No new arithmetic checker or coefficient is introduced.",
+    "This proves the saved linear rational sum vanishes on strict seeds. Its equality to the actual seedLinearResidual still requires9matrix-expression bindings and is not claimed."
+  ],
+  "source_pins": [
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/Sums/ClearedSum00.lean",
+      "sha256": "8ca9c794b43241724c0fdb182843db80775c439285b15b28ca48f548dac41b63"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/Products/Product000.lean",
+      "sha256": "2c8d36029be060567bd247c48830f8f31ae09306e4e9cd6131f5967710beaf75"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/Products/MonomialTransport0.lean",
+      "sha256": "97ea96afb3d4877b73bba96cf947271b7bcfb036e6cbfc0b45d3a65a7a899452"
+    }
+  ],
+  "atlas_certification": false
+}

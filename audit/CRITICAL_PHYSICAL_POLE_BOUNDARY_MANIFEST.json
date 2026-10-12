@@ -1,0 +1,90 @@
+{
+  "scope": "critical_physical_pole_boundary",
+  "records": [
+    {
+      "module": "NoFourMUBs.Step2.CriticalZero.PoleNumerator",
+      "active_path": "NoFourMUBs/Step2/CriticalZero/PoleNumerator.lean",
+      "active_sha256": "e76a6dfef7aa74666830500287df298ae0bcbe11042b598d74bb06f30853210e",
+      "local_model_adapter": true,
+      "review": "CRITICAL_PHYSICAL_POLE_REUSE_REVIEW.json"
+    },
+    {
+      "module": "NoFourMUBs.Step2.CriticalZero.PhysicalPoleBoundary",
+      "active_path": "NoFourMUBs/Step2/CriticalZero/PhysicalPoleBoundary.lean",
+      "active_sha256": "98d0d52e341b06d19da09d9fc75a585583da85254667cfe0f485806fc0acd100",
+      "local_model_adapter": true,
+      "review": "CRITICAL_PHYSICAL_POLE_REUSE_REVIEW.json"
+    }
+  ],
+  "axiom_endpoints": [
+    "NoFourMUBs.Step2.Critical.Poles.numerator0_im",
+    "NoFourMUBs.Step2.Critical.Poles.zero_numerator_degeneracy",
+    "NoFourMUBs.Step2.Critical.Poles.modulus_boundary_of_zero_numerator",
+    "NoFourMUBs.Step2.Critical.Poles.actual_pole_modulus_boundary"
+  ],
+  "dependency_pins": [
+    {
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalNonzeroPoles.lean",
+      "active_sha256": "fe40a3bf15781e23884f80f0a66099640226b24e861196dc5b7a5e901933a402"
+    },
+    {
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalNonzeroPolynomialPoles.lean",
+      "active_sha256": "b198fb9afebdcd2aa78eadb7e8b7c3a784b755b56d349c8d3ef9ac4790ee1dbb"
+    },
+    {
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalNonzeroPhysicalSheet.lean",
+      "active_sha256": "a9f89e6a2b3f7cf122a9d3beab9bf910524c8476c5d7000bfdc5721de0f313ea"
+    },
+    {
+      "active_path": "NoFourMUBs/Reuse/Archive/PhysicalSideRational.lean",
+      "active_sha256": "641712e811c0d48dfbf8e7dc30f61abc497fb1771efeb83d1fa9e0c3ab0b5a70"
+    },
+    {
+      "active_path": "NoFourMUBs/Reuse/Archive/GramNumerators.lean",
+      "active_sha256": "edb7de8e4499b9d6f8cae7b05213b414b46efd17b4692cd5cf67b5caff2fc0ba"
+    },
+    {
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalModulusMatrixDomain.lean",
+      "active_sha256": "94589ec035ad07868012e71b051c69efe5204b53a213e028916ef74c22cf1b2a"
+    },
+    {
+      "active_path": "NoFourMUBs/Reuse/Archive/StrictSideScalarGuards.lean",
+      "active_sha256": "75741b3091aeb2ce36f1b9fdab822add16b2e2514bfa27822105c93fb936d042"
+    },
+    {
+      "active_path": "NoFourMUBs/Reuse/Archive/SideIntrinsicLambdaRecovery.lean",
+      "active_sha256": "577759e6717fb98ac6cdf4d64b2c1b0f7f702ac0bfc6b00fc34b278176b102ae"
+    },
+    {
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalModulusDiscriminant.lean",
+      "active_sha256": "d9ce299342b1e6e2a60afebcd9d85b80f3c812b47292a5b7c8738f65e503e1be"
+    },
+    {
+      "active_path": "NoFourMUBs/Reuse/Archive/PreRhoActualBindings.lean",
+      "active_sha256": "95bd24d7140b39595e579e0c45b39df1533f43902380f4534c81c07e93e89caa"
+    },
+    {
+      "active_path": "NoFourMUBs/Reuse/Archive/SideIntrinsicActualBindings.lean",
+      "active_sha256": "01583704c909e9bfcda9dc0978abfd33e6f5eb7d811292b402e1bfafc5c29910"
+    },
+    {
+      "active_path": "NoFourMUBs/Reuse/Archive/PreRhoNormBindings.lean",
+      "active_sha256": "2dc366315b498ad9dd3de167f804d26eecbe943704d6f79977edd523e4bd3ef1"
+    },
+    {
+      "active_path": "NoFourMUBs/Reuse/Archive/SideIntrinsicActualLambda.lean",
+      "active_sha256": "94951a45e12f8f8560d1a024d2c23dd76e0ccd5d092602eae8c983fefeb8b403"
+    },
+    {
+      "active_path": "vendor/hadamard6/Hadamard6/LeadingFibreCriterion.lean",
+      "active_sha256": "16942562cf1cc0f3c45acca5cdbedf8ec0d7b0c27f9e513f1a0343e9d551f118"
+    }
+  ],
+  "atlas_certification": false,
+  "full_pole_classification_complete": false,
+  "scope_note": "Every actual block pole lies on one of four scalar boundaries, using the existing physical numerator factorization and scalar discriminant. No claim that the eight boundary substitutions are proved.",
+  "dependency_audits": [
+    "KERNEL_AUDIT_CRITICAL_BRANCHES_STATUS.json",
+    "KERNEL_AUDIT_CRITICAL_MODULUS_STATUS.json"
+  ]
+}

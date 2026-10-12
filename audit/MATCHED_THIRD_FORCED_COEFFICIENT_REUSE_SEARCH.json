@@ -1,0 +1,2425 @@
+{
+  "searched_utc": "2026-10-12T03:38:02.113852+00:00",
+  "purpose": "Reuse exact determinant/complement inverse bindings for actual forced K; no atlas or certificate regeneration.",
+  "content_roots": [
+    "lean/NoFourMUBs",
+    "lean/vendor",
+    "audit/archive_sources",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs"
+  ],
+  "query": "forcedCoefficientMatrix|reconstructionGram.{0,50}(det|inv)|det.{0,50}reconstructionGram|seedComplement.{0,50}(det|inv)|adjugate_fin_three|sixI3.{0,50}det|actual_gramG_norm_det|seedG.{0,45}(adjugate|det)",
+  "matching_files": [
+    "audit/archive_sources/686af38725b9dfae80086894d9a47e4a24ac0e70ece8435d99f220d2d151afac/GlobalCornerScalar.lean",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/03/03b5110dbc308ec00e6c36c3c23a4837c35c9742e604ee1d232f2eebb0f8c743/SeedBinding.lean",
+    "audit/archive_sources/a32cae3651f35b6699e710624856a1d19d8411bda99429a53436582d6e8e4c15/GlobalCornerScalar.lean",
+    "audit/archive_sources/c4f2b31a761c69f606ecc08ed2b2eda15349bcda7296671d52624971ce28911b/GramNumerators.lean",
+    "audit/archive_sources/693ed0294e09c543614a4cf702d71e2d6bacb732e40ce4b7bb8013e571cde724/GramNumerators.lean",
+    "audit/archive_sources/63a3d55b1f370cd508a41ebd305a3466eb079d3bf23831b9d7c56519c4c18848/GlobalCornerScalar.lean",
+    "audit/archive_sources/3fcad317a06df873261a4c8e10e782ecc6bacc22b458a2b2be2408dec44f63a3/GlobalCornerScalar.lean",
+    "audit/archive_sources/910524e98bf4539bd65ad0bbea6098809e321190e1e46cc8291357a34174c61a/GramNumerators.lean",
+    "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/Contraction.lean",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/8e/8e19e25653307d3e6c18bd4b8b46dccdde0f30a2728efa3e74b29b5b75a9c705/SideIntrinsicTransposeInvariants.lean",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/bc/bc8f5b9d8bef34d15d81f2adf709f77cf38a27d5dac84a903150701717e40561/RationalCarrierIntervals.lean",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/0b/0be6d3398463bb946845cce850e3b240a2941ed1522df9f9f501266920bdee60/NativeBlockInverse.lean",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/3b/3bfd9c2dfc22a4ae85a7dac01b682ee77f343c84302b6b861bc323111a1d3053/GramChartAudit.lean",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/68/686af38725b9dfae80086894d9a47e4a24ac0e70ece8435d99f220d2d151afac/GlobalCornerScalar.lean",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/a3/a32cae3651f35b6699e710624856a1d19d8411bda99429a53436582d6e8e4c15/GlobalCornerScalar.lean",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/44/4455598c3b089cdafcbdd819ff987018e7c01e30943bce393ffd2445d86fb3bc/SideIntrinsicModeRecovery.lean",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/13/134745363d642993f40f706075f7fab5258d1aacbdcca30bc8000fe82ffdc90c/SeedBinding.lean",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/8b/8bc7896ae1a97c47117c4a41096eee4a964b8d1218ae886be80f566984bd2d7c/SeedGramGuard.lean",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/8b/8b35fa2b74b12e98222f0fea06e57750ad2d24c04520633f07346124ad0eca20/NativeBlockInverse.lean",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/3e/3eb8c71a3b1349ffd1af0e822b9bd87c633d3934af3690bb251f54d1325b3f21/SeedBinding.lean",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/56/568536c9516cc9bcd46eeda0f64f12ebd12c0b01183a2f60b9a5b090bc8d8505/SeedBinding.lean",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/c8/c89c68e187ca733ec6e1e75b74c5e69bf49a056cb92a512a72f6d87fee13ab69/SeedBinding.lean",
+    "lean/NoFourMUBs/Step2/Reconstruction/ForcedProductMoments.lean",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/69/693ed0294e09c543614a4cf702d71e2d6bacb732e40ce4b7bb8013e571cde724/GramNumerators.lean",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/05/051d762867cb3f86fbbf7249e665c854de6f37fa1f8f77208f18f1e522281548/SeedBinding.lean",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/35/3576ea282df907c7d90f690f54f0d8e59058a3f7814bfd5b3a098d81bc80e6c7/SeedGramGuard.lean",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/40/401f1f94e74f28805736bfa6699ebe59bf5bb7695f6e1b8b05b7acb1e9e78c15/SideIntrinsicActualNorms.lean",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/5f/5fcc5a094f18913b3351826f400b1392edb200336bae98d42423e32f2c056bc5/SideIntrinsicLambdaRecovery.lean",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/40/40ede60ea56559c738f57c9e62748dc704dc1c832e59f30e7867f2891384229f/NativeGramEvaluators.lean",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/37/37c915a821c910559c470d3a82aa4f041303f2cb587426bc84be192788e6507b/NativeGramEvaluators.lean",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/28/280c9de08ca4bf26bd67eac1141b5dc5b2a30c0220de4310626e80acf7cad9df/SeedBinding.lean",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/3f/3fcad317a06df873261a4c8e10e782ecc6bacc22b458a2b2be2408dec44f63a3/GlobalCornerScalar.lean",
+    "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/MatchedParameter.lean",
+    "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/SeedResiduals.lean",
+    "lean/NoFourMUBs/Reuse/Archive/GramNumerators.lean",
+    "lean/NoFourMUBs/Reuse/Archive/SideIntrinsicActualNorms.lean",
+    "lean/NoFourMUBs/Reuse/Archive/SideIntrinsicTheta.lean",
+    "lean/NoFourMUBs/Reuse/Archive/SideIntrinsicModeRecovery.lean",
+    "lean/NoFourMUBs/Reuse/Archive/SideIntrinsicTransposeInvariants.lean",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/dc/dca59ea942a9bfe5f9bf72d89eb5c15eac3316fab896b5d61162dc8dbbadb776/LiftedAtlasPolynomial.lean",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/15/15946324e6d4c4dbcda80bbda42cc9f59aede16b7c15b470809ca67de6025992/SideIntrinsicTheta.lean",
+    "lean/NoFourMUBs/Reuse/Archive/SideIntrinsicLambdaRecovery.lean",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/f3/f36b343f03747d9c8ee7fbaf2f5b4bbcc1ed77fe26771c9d74a36bb1b14042c7/SeedGramGuard.lean",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/91/910524e98bf4539bd65ad0bbea6098809e321190e1e46cc8291357a34174c61a/GramNumerators.lean",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/24/24177fae7153ea7a3254f3f10c7d89077c0e846e3ac0e72574978f750260420b/RationalCarrierIntervals.lean",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/e8/e8e8f11dba2c3cd72c4e89ec1a4af829c3c194d21fe88168247a5e28729c065c/GramChartOffLocus.lean",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/f1/f1bc05e88fb5b74901e73fbea73568905145153378a32d96de53de022df8a95c/PhysicalGramRecovery.lean",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/97/97a494c2f5663184a637ee5a10e96686243aab3ca0dfe5b8120fdc4d99ddec2a/GramChartOffLocus.lean",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/63/63a3d55b1f370cd508a41ebd305a3466eb079d3bf23831b9d7c56519c4c18848/GlobalCornerScalar.lean",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/c4/c4f2b31a761c69f606ecc08ed2b2eda15349bcda7296671d52624971ce28911b/GramNumerators.lean",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/ef/ef5c86ddc7a1c027ff6ba1487ba2edc6eff0abbd1298a3f91fff3f301f6cdc61/PhysicalGramRecovery.lean"
+  ],
+  "atlas_certification": false,
+  "ARCHIVE_SOURCE_INDEX.jsonl": {
+    "total": 77948,
+    "matches": [
+      {
+        "availability": "unavailable_dataless",
+        "blob": null,
+        "bytes": 6280,
+        "sha256": null,
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/evidence/constraint_efficiency/baseline/worker/dependencies/src/AdjugateReconstruction.lean"
+      },
+      {
+        "availability": "unavailable_dataless",
+        "blob": null,
+        "bytes": 6280,
+        "sha256": null,
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/evidence/next_efficiency/baseline/worker/dependencies/src/AdjugateReconstruction.lean"
+      },
+      {
+        "availability": "unavailable_dataless",
+        "blob": null,
+        "bytes": 6280,
+        "sha256": null,
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/evidence/propagation_counting/baseline/worker/dependencies/src/AdjugateReconstruction.lean"
+      },
+      {
+        "availability": "unavailable_dataless",
+        "blob": null,
+        "bytes": 6280,
+        "sha256": null,
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/evidence/runtime_integration/baseline/worker/dependencies/src/AdjugateReconstruction.lean"
+      },
+      {
+        "availability": "unavailable_dataless",
+        "blob": null,
+        "bytes": 6270,
+        "sha256": null,
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/prerequisites/karlsson/port/src/Hadamard6/GramInvariant.lean"
+      },
+      {
+        "availability": "unavailable_dataless",
+        "blob": null,
+        "bytes": 6270,
+        "sha256": null,
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/prerequisites/karlsson/src/Hadamard6/GramInvariant.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/40/40ede60ea56559c738f57c9e62748dc704dc1c832e59f30e7867f2891384229f/NativeGramEvaluators.lean",
+        "bytes": 3876,
+        "sha256": "40ede60ea56559c738f57c9e62748dc704dc1c832e59f30e7867f2891384229f",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/global-frontier-consumer-new/adjugate-cross-new/NativeGramEvaluators.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/b1/b103f43580183e5f83873a45799e0d5d5c334b64cdf34069fc0de55e1346f127/PhysicalAdjugateCross.lean",
+        "bytes": 2793,
+        "historical_portable_evidence": [
+          {
+            "file": "provenance/portable/ShoulderPhysicalAdaptersLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "PhysicalAdjugateCross",
+            "selected_in_prior_packet": true
+          }
+        ],
+        "sha256": "b103f43580183e5f83873a45799e0d5d5c334b64cdf34069fc0de55e1346f127",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/global-frontier-consumer-new/adjugate-cross-new/PhysicalAdjugateCross.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/d9/d9b1dde67705fc26758540f5df10808f4bf1a27bd1888d0aec86c588d145df91/PhysicalAdjugateLiteral.lean",
+        "bytes": 1632,
+        "historical_portable_evidence": [
+          {
+            "file": "provenance/portable/ShoulderPhysicalAdaptersLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "PhysicalAdjugateLiteral",
+            "selected_in_prior_packet": true
+          }
+        ],
+        "sha256": "d9b1dde67705fc26758540f5df10808f4bf1a27bd1888d0aec86c588d145df91",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/global-frontier-consumer-new/adjugate-cross-new/PhysicalAdjugateLiteral.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/0b/0b45aea777ac68502480a5e11ad1eb4c11cd54941c4bc29342a644e00569b85e/PhysicalSeedComplement.lean",
+        "bytes": 1044,
+        "historical_portable_evidence": [
+          {
+            "file": "provenance/portable/ShoulderPhysicalAdaptersLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "PhysicalSeedComplement",
+            "selected_in_prior_packet": true
+          }
+        ],
+        "sha256": "0b45aea777ac68502480a5e11ad1eb4c11cd54941c4bc29342a644e00569b85e",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/global-frontier-consumer-new/adjugate-cross-new/PhysicalSeedComplement.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/c1/c1b2c6a1cb8a9e94b6e61ad5441fda5b470332a8116730097d3c8d858577b369/PhysicalAdjugateCross.lean",
+        "bytes": 2783,
+        "sha256": "c1b2c6a1cb8a9e94b6e61ad5441fda5b470332a8116730097d3c8d858577b369",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/global-frontier-consumer-new/adjugate-cross-new/check-01/PhysicalAdjugateCross.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/c1/c1b2c6a1cb8a9e94b6e61ad5441fda5b470332a8116730097d3c8d858577b369/PhysicalAdjugateCross.lean",
+        "bytes": 2783,
+        "sha256": "c1b2c6a1cb8a9e94b6e61ad5441fda5b470332a8116730097d3c8d858577b369",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/global-frontier-consumer-new/adjugate-cross-new/check-02/PhysicalAdjugateCross.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/b1/b103f43580183e5f83873a45799e0d5d5c334b64cdf34069fc0de55e1346f127/PhysicalAdjugateCross.lean",
+        "bytes": 2793,
+        "historical_portable_evidence": [
+          {
+            "file": "provenance/portable/ShoulderPhysicalAdaptersLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "PhysicalAdjugateCross",
+            "selected_in_prior_packet": true
+          }
+        ],
+        "sha256": "b103f43580183e5f83873a45799e0d5d5c334b64cdf34069fc0de55e1346f127",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/global-frontier-consumer-new/adjugate-cross-new/check-03/PhysicalAdjugateCross.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/f5/f5d52248501d26c6f569257636139cb1045dbb17c33172dc1897c0d891c04fde/PhysicalAdjugateLiteral.lean",
+        "bytes": 2299,
+        "sha256": "f5d52248501d26c6f569257636139cb1045dbb17c33172dc1897c0d891c04fde",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/global-frontier-consumer-new/adjugate-cross-new/check-literal-01/PhysicalAdjugateLiteral.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/53/5364f6c90e8c31ac89a5e7c70692d060faf962572a2ee27263d8db409b1892ab/PhysicalAdjugateLiteral.lean",
+        "bytes": 2349,
+        "sha256": "5364f6c90e8c31ac89a5e7c70692d060faf962572a2ee27263d8db409b1892ab",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/global-frontier-consumer-new/adjugate-cross-new/check-literal-02/PhysicalAdjugateLiteral.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/d9/d9b1dde67705fc26758540f5df10808f4bf1a27bd1888d0aec86c588d145df91/PhysicalAdjugateLiteral.lean",
+        "bytes": 1632,
+        "historical_portable_evidence": [
+          {
+            "file": "provenance/portable/ShoulderPhysicalAdaptersLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "PhysicalAdjugateLiteral",
+            "selected_in_prior_packet": true
+          }
+        ],
+        "sha256": "d9b1dde67705fc26758540f5df10808f4bf1a27bd1888d0aec86c588d145df91",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/global-frontier-consumer-new/adjugate-cross-new/check-literal-03/PhysicalAdjugateLiteral.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/37/37c915a821c910559c470d3a82aa4f041303f2cb587426bc84be192788e6507b/NativeGramEvaluators.lean",
+        "bytes": 3966,
+        "sha256": "37c915a821c910559c470d3a82aa4f041303f2cb587426bc84be192788e6507b",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/global-frontier-consumer-new/adjugate-cross-new/check-native-gram-evaluators-01/NativeGramEvaluators.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/40/40ede60ea56559c738f57c9e62748dc704dc1c832e59f30e7867f2891384229f/NativeGramEvaluators.lean",
+        "bytes": 3876,
+        "sha256": "40ede60ea56559c738f57c9e62748dc704dc1c832e59f30e7867f2891384229f",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/global-frontier-consumer-new/adjugate-cross-new/check-native-gram-evaluators-02/NativeGramEvaluators.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/0b/0b45aea777ac68502480a5e11ad1eb4c11cd54941c4bc29342a644e00569b85e/PhysicalSeedComplement.lean",
+        "bytes": 1044,
+        "historical_portable_evidence": [
+          {
+            "file": "provenance/portable/ShoulderPhysicalAdaptersLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "PhysicalSeedComplement",
+            "selected_in_prior_packet": true
+          }
+        ],
+        "sha256": "0b45aea777ac68502480a5e11ad1eb4c11cd54941c4bc29342a644e00569b85e",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/global-frontier-consumer-new/adjugate-cross-new/check-seed-complement-01/PhysicalSeedComplement.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/74/74c26adcb8494a4fd72d19754543fc95383de24b4265fb68060c37f5cfa23d6f/PhysicalSameSidePair.lean",
+        "bytes": 2910,
+        "sha256": "74c26adcb8494a4fd72d19754543fc95383de24b4265fb68060c37f5cfa23d6f",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/global-frontier-consumer-new/adjugate-cross-new/review-adapter/PhysicalSameSidePair.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/19/19629b094f77e749afa6fc55e085d5d142dd374f9e3bbd98ac249c2b86463812/PhysicalSameSidePair02.lean",
+        "bytes": 2931,
+        "historical_portable_evidence": [
+          {
+            "file": "provenance/portable/ShoulderPhysicalAdaptersLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "PhysicalSameSidePair02",
+            "selected_in_prior_packet": true
+          }
+        ],
+        "sha256": "19629b094f77e749afa6fc55e085d5d142dd374f9e3bbd98ac249c2b86463812",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/global-frontier-consumer-new/adjugate-cross-new/review-adapter/PhysicalSameSidePair02.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/19/19629b094f77e749afa6fc55e085d5d142dd374f9e3bbd98ac249c2b86463812/PhysicalSameSidePair02.lean",
+        "bytes": 2931,
+        "historical_portable_evidence": [
+          {
+            "file": "provenance/portable/ShoulderPhysicalAdaptersLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "PhysicalSameSidePair02",
+            "selected_in_prior_packet": true
+          }
+        ],
+        "sha256": "19629b094f77e749afa6fc55e085d5d142dd374f9e3bbd98ac249c2b86463812",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/global-frontier-consumer-new/adjugate-cross-new/review-adapter/check-02/PhysicalSameSidePair02.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/b1/b103f43580183e5f83873a45799e0d5d5c334b64cdf34069fc0de55e1346f127/PhysicalAdjugateCross.lean",
+        "bytes": 2793,
+        "historical_portable_evidence": [
+          {
+            "file": "provenance/portable/ShoulderPhysicalAdaptersLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "PhysicalAdjugateCross",
+            "selected_in_prior_packet": true
+          }
+        ],
+        "sha256": "b103f43580183e5f83873a45799e0d5d5c334b64cdf34069fc0de55e1346f127",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/global-frontier-consumer-new/shoulder-adapter-publication-new/packet/lean/PhysicalAdjugateCross.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/d9/d9b1dde67705fc26758540f5df10808f4bf1a27bd1888d0aec86c588d145df91/PhysicalAdjugateLiteral.lean",
+        "bytes": 1632,
+        "historical_portable_evidence": [
+          {
+            "file": "provenance/portable/ShoulderPhysicalAdaptersLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "PhysicalAdjugateLiteral",
+            "selected_in_prior_packet": true
+          }
+        ],
+        "sha256": "d9b1dde67705fc26758540f5df10808f4bf1a27bd1888d0aec86c588d145df91",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/global-frontier-consumer-new/shoulder-adapter-publication-new/packet/lean/PhysicalAdjugateLiteral.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/c9/c96f0f6a4992b5894317de3f0173e1e24ab8a845ff6685d17ff914eb33d544fb/GramInvariant.lean",
+        "bytes": 6270,
+        "historical_portable_evidence": [
+          {
+            "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.GramInvariant",
+            "selected_in_prior_packet": false
+          },
+          {
+            "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.GramInvariant",
+            "selected_in_prior_packet": false
+          },
+          {
+            "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.GramInvariant",
+            "selected_in_prior_packet": false
+          }
+        ],
+        "sha256": "c96f0f6a4992b5894317de3f0173e1e24ab8a845ff6685d17ff914eb33d544fb",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-publication-new/packet-before-review-bindings/lean/Hadamard6/GramInvariant.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/c9/c96f0f6a4992b5894317de3f0173e1e24ab8a845ff6685d17ff914eb33d544fb/GramInvariant.lean",
+        "bytes": 6270,
+        "historical_portable_evidence": [
+          {
+            "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.GramInvariant",
+            "selected_in_prior_packet": false
+          },
+          {
+            "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.GramInvariant",
+            "selected_in_prior_packet": false
+          },
+          {
+            "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.GramInvariant",
+            "selected_in_prior_packet": false
+          }
+        ],
+        "sha256": "c96f0f6a4992b5894317de3f0173e1e24ab8a845ff6685d17ff914eb33d544fb",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-publication-new/packet/lean/Hadamard6/GramInvariant.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/40/401f1f94e74f28805736bfa6699ebe59bf5bb7695f6e1b8b05b7acb1e9e78c15/SideIntrinsicActualNorms.lean",
+        "bytes": 1799,
+        "historical_portable_evidence": [
+          {
+            "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "SideIntrinsicActualNorms",
+            "selected_in_prior_packet": true
+          },
+          {
+            "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "SideIntrinsicActualNorms",
+            "selected_in_prior_packet": false
+          }
+        ],
+        "sha256": "401f1f94e74f28805736bfa6699ebe59bf5bb7695f6e1b8b05b7acb1e9e78c15",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/check-side-intrinsic-actual-norms-01/SideIntrinsicActualNorms.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/ab/ab8fdb12ea85611e8f725d7a9c47c20159dc0f5ab87d356155d9eb6dd4b6893a/SideIntrinsicMatrixBindings.lean",
+        "bytes": 2696,
+        "historical_portable_evidence": [
+          {
+            "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "SideIntrinsicMatrixBindings",
+            "selected_in_prior_packet": true
+          },
+          {
+            "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "SideIntrinsicMatrixBindings",
+            "selected_in_prior_packet": false
+          }
+        ],
+        "sha256": "ab8fdb12ea85611e8f725d7a9c47c20159dc0f5ab87d356155d9eb6dd4b6893a",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/check-side-intrinsic-matrix-bindings-01/SideIntrinsicMatrixBindings.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/87/8755ed21765d752512c908c0b2851279fc88347fadfdee09596eff5563b1aa64/SideMatrixSeedGram.lean",
+        "bytes": 2447,
+        "sha256": "8755ed21765d752512c908c0b2851279fc88347fadfdee09596eff5563b1aa64",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/check-side-matrix-seed-gram-01/SideMatrixSeedGram.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/e6/e6e4b69b081a604cca952f78416aba48393f0d02df5a9f6b0487d24e602d0a5f/SideMatrixSeedGram.lean",
+        "bytes": 1715,
+        "historical_portable_evidence": [
+          {
+            "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "SideMatrixSeedGram",
+            "selected_in_prior_packet": true
+          },
+          {
+            "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "SideMatrixSeedGram",
+            "selected_in_prior_packet": true
+          },
+          {
+            "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "SideMatrixSeedGram",
+            "selected_in_prior_packet": false
+          }
+        ],
+        "sha256": "e6e4b69b081a604cca952f78416aba48393f0d02df5a9f6b0487d24e602d0a5f",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/check-side-matrix-seed-gram-02/SideMatrixSeedGram.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/9e/9ee15130145d65ed08dbe5f40b0aa97302072cd7202df7d772f39829b56e8444/SideSeedComplement.lean",
+        "bytes": 1778,
+        "sha256": "9ee15130145d65ed08dbe5f40b0aa97302072cd7202df7d772f39829b56e8444",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/check-side-seed-complement-01/SideSeedComplement.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/15/15185a04f48efafe38e63ef3e877a21a63ac5d7be7259ec4054404a683707864/SideSeedComplement.lean",
+        "bytes": 2007,
+        "historical_portable_evidence": [
+          {
+            "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "SideSeedComplement",
+            "selected_in_prior_packet": true
+          },
+          {
+            "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "SideSeedComplement",
+            "selected_in_prior_packet": true
+          },
+          {
+            "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "SideSeedComplement",
+            "selected_in_prior_packet": false
+          }
+        ],
+        "sha256": "15185a04f48efafe38e63ef3e877a21a63ac5d7be7259ec4054404a683707864",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/check-side-seed-complement-02/SideSeedComplement.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/87/8755ed21765d752512c908c0b2851279fc88347fadfdee09596eff5563b1aa64/SideMatrixSeedGram.lean",
+        "bytes": 2447,
+        "sha256": "8755ed21765d752512c908c0b2851279fc88347fadfdee09596eff5563b1aa64",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/draft-history/SideMatrixSeedGram.check-seed-gram-01-timeout.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/9e/9ee15130145d65ed08dbe5f40b0aa97302072cd7202df7d772f39829b56e8444/SideSeedComplement.lean",
+        "bytes": 1778,
+        "sha256": "9ee15130145d65ed08dbe5f40b0aa97302072cd7202df7d772f39829b56e8444",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/draft-history/SideSeedComplement.check01-simp-failure.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/40/401f1f94e74f28805736bfa6699ebe59bf5bb7695f6e1b8b05b7acb1e9e78c15/SideIntrinsicActualNorms.lean",
+        "bytes": 1799,
+        "historical_portable_evidence": [
+          {
+            "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "SideIntrinsicActualNorms",
+            "selected_in_prior_packet": true
+          },
+          {
+            "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "SideIntrinsicActualNorms",
+            "selected_in_prior_packet": false
+          }
+        ],
+        "sha256": "401f1f94e74f28805736bfa6699ebe59bf5bb7695f6e1b8b05b7acb1e9e78c15",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/SideIntrinsicActualNorms.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/ab/ab8fdb12ea85611e8f725d7a9c47c20159dc0f5ab87d356155d9eb6dd4b6893a/SideIntrinsicMatrixBindings.lean",
+        "bytes": 2696,
+        "historical_portable_evidence": [
+          {
+            "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "SideIntrinsicMatrixBindings",
+            "selected_in_prior_packet": true
+          },
+          {
+            "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "SideIntrinsicMatrixBindings",
+            "selected_in_prior_packet": false
+          }
+        ],
+        "sha256": "ab8fdb12ea85611e8f725d7a9c47c20159dc0f5ab87d356155d9eb6dd4b6893a",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/SideIntrinsicMatrixBindings.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/e6/e6e4b69b081a604cca952f78416aba48393f0d02df5a9f6b0487d24e602d0a5f/SideMatrixSeedGram.lean",
+        "bytes": 1715,
+        "historical_portable_evidence": [
+          {
+            "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "SideMatrixSeedGram",
+            "selected_in_prior_packet": true
+          },
+          {
+            "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "SideMatrixSeedGram",
+            "selected_in_prior_packet": true
+          },
+          {
+            "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "SideMatrixSeedGram",
+            "selected_in_prior_packet": false
+          }
+        ],
+        "sha256": "e6e4b69b081a604cca952f78416aba48393f0d02df5a9f6b0487d24e602d0a5f",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/SideMatrixSeedGram.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/15/15185a04f48efafe38e63ef3e877a21a63ac5d7be7259ec4054404a683707864/SideSeedComplement.lean",
+        "bytes": 2007,
+        "historical_portable_evidence": [
+          {
+            "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "SideSeedComplement",
+            "selected_in_prior_packet": true
+          },
+          {
+            "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "SideSeedComplement",
+            "selected_in_prior_packet": true
+          },
+          {
+            "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "SideSeedComplement",
+            "selected_in_prior_packet": false
+          }
+        ],
+        "sha256": "15185a04f48efafe38e63ef3e877a21a63ac5d7be7259ec4054404a683707864",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/SideSeedComplement.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/c9/c96f0f6a4992b5894317de3f0173e1e24ab8a845ff6685d17ff914eb33d544fb/GramInvariant.lean",
+        "bytes": 6270,
+        "historical_portable_evidence": [
+          {
+            "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.GramInvariant",
+            "selected_in_prior_packet": false
+          },
+          {
+            "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.GramInvariant",
+            "selected_in_prior_packet": false
+          },
+          {
+            "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.GramInvariant",
+            "selected_in_prior_packet": false
+          }
+        ],
+        "sha256": "c96f0f6a4992b5894317de3f0173e1e24ab8a845ff6685d17ff914eb33d544fb",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/reviews/third-gate-independent-new/expanded-publication-new/packet/lean/Hadamard6/GramInvariant.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/40/401f1f94e74f28805736bfa6699ebe59bf5bb7695f6e1b8b05b7acb1e9e78c15/SideIntrinsicActualNorms.lean",
+        "bytes": 1799,
+        "historical_portable_evidence": [
+          {
+            "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "SideIntrinsicActualNorms",
+            "selected_in_prior_packet": true
+          },
+          {
+            "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "SideIntrinsicActualNorms",
+            "selected_in_prior_packet": false
+          }
+        ],
+        "sha256": "401f1f94e74f28805736bfa6699ebe59bf5bb7695f6e1b8b05b7acb1e9e78c15",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/reviews/third-gate-independent-new/expanded-publication-new/packet/lean/SideIntrinsicActualNorms.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/ab/ab8fdb12ea85611e8f725d7a9c47c20159dc0f5ab87d356155d9eb6dd4b6893a/SideIntrinsicMatrixBindings.lean",
+        "bytes": 2696,
+        "historical_portable_evidence": [
+          {
+            "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "SideIntrinsicMatrixBindings",
+            "selected_in_prior_packet": true
+          },
+          {
+            "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "SideIntrinsicMatrixBindings",
+            "selected_in_prior_packet": false
+          }
+        ],
+        "sha256": "ab8fdb12ea85611e8f725d7a9c47c20159dc0f5ab87d356155d9eb6dd4b6893a",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/reviews/third-gate-independent-new/expanded-publication-new/packet/lean/SideIntrinsicMatrixBindings.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/e6/e6e4b69b081a604cca952f78416aba48393f0d02df5a9f6b0487d24e602d0a5f/SideMatrixSeedGram.lean",
+        "bytes": 1715,
+        "historical_portable_evidence": [
+          {
+            "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "SideMatrixSeedGram",
+            "selected_in_prior_packet": true
+          },
+          {
+            "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "SideMatrixSeedGram",
+            "selected_in_prior_packet": true
+          },
+          {
+            "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "SideMatrixSeedGram",
+            "selected_in_prior_packet": false
+          }
+        ],
+        "sha256": "e6e4b69b081a604cca952f78416aba48393f0d02df5a9f6b0487d24e602d0a5f",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/reviews/third-gate-independent-new/expanded-publication-new/packet/lean/SideMatrixSeedGram.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/15/15185a04f48efafe38e63ef3e877a21a63ac5d7be7259ec4054404a683707864/SideSeedComplement.lean",
+        "bytes": 2007,
+        "historical_portable_evidence": [
+          {
+            "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "SideSeedComplement",
+            "selected_in_prior_packet": true
+          },
+          {
+            "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "SideSeedComplement",
+            "selected_in_prior_packet": true
+          },
+          {
+            "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "SideSeedComplement",
+            "selected_in_prior_packet": false
+          }
+        ],
+        "sha256": "15185a04f48efafe38e63ef3e877a21a63ac5d7be7259ec4054404a683707864",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/reviews/third-gate-independent-new/expanded-publication-new/packet/lean/SideSeedComplement.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/c9/c96f0f6a4992b5894317de3f0173e1e24ab8a845ff6685d17ff914eb33d544fb/GramInvariant.lean",
+        "bytes": 6270,
+        "historical_portable_evidence": [
+          {
+            "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.GramInvariant",
+            "selected_in_prior_packet": false
+          },
+          {
+            "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.GramInvariant",
+            "selected_in_prior_packet": false
+          },
+          {
+            "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.GramInvariant",
+            "selected_in_prior_packet": false
+          }
+        ],
+        "sha256": "c96f0f6a4992b5894317de3f0173e1e24ab8a845ff6685d17ff914eb33d544fb",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/reviews/third-gate-independent-new/physical-publication-new/packet/lean/Hadamard6/GramInvariant.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/40/401f1f94e74f28805736bfa6699ebe59bf5bb7695f6e1b8b05b7acb1e9e78c15/SideIntrinsicActualNorms.lean",
+        "bytes": 1799,
+        "historical_portable_evidence": [
+          {
+            "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "SideIntrinsicActualNorms",
+            "selected_in_prior_packet": true
+          },
+          {
+            "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "SideIntrinsicActualNorms",
+            "selected_in_prior_packet": false
+          }
+        ],
+        "sha256": "401f1f94e74f28805736bfa6699ebe59bf5bb7695f6e1b8b05b7acb1e9e78c15",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/reviews/third-gate-independent-new/physical-publication-new/packet/lean/SideIntrinsicActualNorms.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/ab/ab8fdb12ea85611e8f725d7a9c47c20159dc0f5ab87d356155d9eb6dd4b6893a/SideIntrinsicMatrixBindings.lean",
+        "bytes": 2696,
+        "historical_portable_evidence": [
+          {
+            "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "SideIntrinsicMatrixBindings",
+            "selected_in_prior_packet": true
+          },
+          {
+            "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "SideIntrinsicMatrixBindings",
+            "selected_in_prior_packet": false
+          }
+        ],
+        "sha256": "ab8fdb12ea85611e8f725d7a9c47c20159dc0f5ab87d356155d9eb6dd4b6893a",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/reviews/third-gate-independent-new/physical-publication-new/packet/lean/SideIntrinsicMatrixBindings.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/e6/e6e4b69b081a604cca952f78416aba48393f0d02df5a9f6b0487d24e602d0a5f/SideMatrixSeedGram.lean",
+        "bytes": 1715,
+        "historical_portable_evidence": [
+          {
+            "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "SideMatrixSeedGram",
+            "selected_in_prior_packet": true
+          },
+          {
+            "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "SideMatrixSeedGram",
+            "selected_in_prior_packet": true
+          },
+          {
+            "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "SideMatrixSeedGram",
+            "selected_in_prior_packet": false
+          }
+        ],
+        "sha256": "e6e4b69b081a604cca952f78416aba48393f0d02df5a9f6b0487d24e602d0a5f",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/reviews/third-gate-independent-new/physical-publication-new/packet/lean/SideMatrixSeedGram.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/15/15185a04f48efafe38e63ef3e877a21a63ac5d7be7259ec4054404a683707864/SideSeedComplement.lean",
+        "bytes": 2007,
+        "historical_portable_evidence": [
+          {
+            "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "SideSeedComplement",
+            "selected_in_prior_packet": true
+          },
+          {
+            "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "SideSeedComplement",
+            "selected_in_prior_packet": true
+          },
+          {
+            "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "SideSeedComplement",
+            "selected_in_prior_packet": false
+          }
+        ],
+        "sha256": "15185a04f48efafe38e63ef3e877a21a63ac5d7be7259ec4054404a683707864",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/reviews/third-gate-independent-new/physical-publication-new/packet/lean/SideSeedComplement.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/c9/c96f0f6a4992b5894317de3f0173e1e24ab8a845ff6685d17ff914eb33d544fb/GramInvariant.lean",
+        "bytes": 6270,
+        "historical_portable_evidence": [
+          {
+            "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.GramInvariant",
+            "selected_in_prior_packet": false
+          },
+          {
+            "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.GramInvariant",
+            "selected_in_prior_packet": false
+          },
+          {
+            "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.GramInvariant",
+            "selected_in_prior_packet": false
+          }
+        ],
+        "sha256": "c96f0f6a4992b5894317de3f0173e1e24ab8a845ff6685d17ff914eb33d544fb",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/reviews/third-gate-independent-new/publication-new/packet/lean/Hadamard6/GramInvariant.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/e6/e6e4b69b081a604cca952f78416aba48393f0d02df5a9f6b0487d24e602d0a5f/SideMatrixSeedGram.lean",
+        "bytes": 1715,
+        "historical_portable_evidence": [
+          {
+            "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "SideMatrixSeedGram",
+            "selected_in_prior_packet": true
+          },
+          {
+            "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "SideMatrixSeedGram",
+            "selected_in_prior_packet": true
+          },
+          {
+            "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "SideMatrixSeedGram",
+            "selected_in_prior_packet": false
+          }
+        ],
+        "sha256": "e6e4b69b081a604cca952f78416aba48393f0d02df5a9f6b0487d24e602d0a5f",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/reviews/third-gate-independent-new/publication-new/packet/lean/SideMatrixSeedGram.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/15/15185a04f48efafe38e63ef3e877a21a63ac5d7be7259ec4054404a683707864/SideSeedComplement.lean",
+        "bytes": 2007,
+        "historical_portable_evidence": [
+          {
+            "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "SideSeedComplement",
+            "selected_in_prior_packet": true
+          },
+          {
+            "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "SideSeedComplement",
+            "selected_in_prior_packet": true
+          },
+          {
+            "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "SideSeedComplement",
+            "selected_in_prior_packet": false
+          }
+        ],
+        "sha256": "15185a04f48efafe38e63ef3e877a21a63ac5d7be7259ec4054404a683707864",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/reviews/third-gate-independent-new/publication-new/packet/lean/SideSeedComplement.lean"
+      },
+      {
+        "availability": "dataless_recovered_by_exact_pin",
+        "blob": "blobs/4e/4e8183a2abbee770c2f95576eb0def3d6a1e1840ad3f69668229938efc3ddbe2/AdjugateReconstruction.lean",
+        "bytes": 6280,
+        "inventory_origin": "exact dependency pin identified authored worker source root",
+        "sha256": "4e8183a2abbee770c2f95576eb0def3d6a1e1840ad3f69668229938efc3ddbe2",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/worker/dependencies/src/AdjugateReconstruction.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/4e/4e8183a2abbee770c2f95576eb0def3d6a1e1840ad3f69668229938efc3ddbe2/AdjugateReconstruction.lean",
+        "bytes": 6280,
+        "sha256": "4e8183a2abbee770c2f95576eb0def3d6a1e1840ad3f69668229938efc3ddbe2",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-21_atlas.nosync/reviews/proof/forward_addendum/port_sources/AdjugateReconstruction.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/ac/ac5e3d7c2cd501c81b2bd33ddd1a85cf94a1c164d1bbdb4ae7f157304e832c97/AdjugateReconstruction.lean",
+        "bytes": 6287,
+        "sha256": "ac5e3d7c2cd501c81b2bd33ddd1a85cf94a1c164d1bbdb4ae7f157304e832c97",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-21_atlas.nosync/reviews/proof/replay01/checks/AdjugateReconstruction/AdjugateReconstruction.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/ac/ac5e3d7c2cd501c81b2bd33ddd1a85cf94a1c164d1bbdb4ae7f157304e832c97/AdjugateReconstruction.lean",
+        "bytes": 6287,
+        "sha256": "ac5e3d7c2cd501c81b2bd33ddd1a85cf94a1c164d1bbdb4ae7f157304e832c97",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-21_atlas.nosync/reviews/proof/replay01/sources/AdjugateReconstruction.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/ac/ac5e3d7c2cd501c81b2bd33ddd1a85cf94a1c164d1bbdb4ae7f157304e832c97/AdjugateReconstruction.lean",
+        "bytes": 6287,
+        "sha256": "ac5e3d7c2cd501c81b2bd33ddd1a85cf94a1c164d1bbdb4ae7f157304e832c97",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-21_atlas.nosync/workers/compact_cover/AdjugateReconstruction.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/eb/eb650b038abc00d74ec72a6398cd3ad720331d9ef64a7b4c854d974b9b141920/AdjugateReconstruction.lean",
+        "bytes": 5735,
+        "sha256": "eb650b038abc00d74ec72a6398cd3ad720331d9ef64a7b4c854d974b9b141920",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-21_atlas.nosync/workers/compact_cover/checks/reconstruction01/AdjugateReconstruction.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/65/658a3d7e72ca4def4de93476c97b128e7e3b8ba17270f808931bd1fdda7bf3ba/AdjugateReconstruction.lean",
+        "bytes": 5956,
+        "sha256": "658a3d7e72ca4def4de93476c97b128e7e3b8ba17270f808931bd1fdda7bf3ba",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-21_atlas.nosync/workers/compact_cover/checks/reconstruction02/AdjugateReconstruction.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/ac/ac5e3d7c2cd501c81b2bd33ddd1a85cf94a1c164d1bbdb4ae7f157304e832c97/AdjugateReconstruction.lean",
+        "bytes": 6287,
+        "sha256": "ac5e3d7c2cd501c81b2bd33ddd1a85cf94a1c164d1bbdb4ae7f157304e832c97",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-21_atlas.nosync/workers/compact_cover/checks/reconstruction03/AdjugateReconstruction.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/4e/4e8183a2abbee770c2f95576eb0def3d6a1e1840ad3f69668229938efc3ddbe2/AdjugateReconstruction.lean",
+        "bytes": 6280,
+        "sha256": "4e8183a2abbee770c2f95576eb0def3d6a1e1840ad3f69668229938efc3ddbe2",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-21_atlas.nosync/workers/toolchain_port/sources/AdjugateReconstruction.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/ac/ac5e3d7c2cd501c81b2bd33ddd1a85cf94a1c164d1bbdb4ae7f157304e832c97/AdjugateReconstruction.lean",
+        "bytes": 6287,
+        "sha256": "ac5e3d7c2cd501c81b2bd33ddd1a85cf94a1c164d1bbdb4ae7f157304e832c97",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-21_four_phase.nosync/reviews/coverage/sealed/base01/inherited/2026-09-21_atlas.nosync/workers/compact_cover/AdjugateReconstruction.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/ac/ac5e3d7c2cd501c81b2bd33ddd1a85cf94a1c164d1bbdb4ae7f157304e832c97/AdjugateReconstruction.lean",
+        "bytes": 6287,
+        "sha256": "ac5e3d7c2cd501c81b2bd33ddd1a85cf94a1c164d1bbdb4ae7f157304e832c97",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-21_four_phase.nosync/reviews/coverage/sealed/final01/inherited/2026-09-21_atlas.nosync/workers/compact_cover/AdjugateReconstruction.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/c9/c96f0f6a4992b5894317de3f0173e1e24ab8a845ff6685d17ff914eb33d544fb/GramInvariant.lean",
+        "bytes": 6270,
+        "historical_portable_evidence": [
+          {
+            "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.GramInvariant",
+            "selected_in_prior_packet": false
+          },
+          {
+            "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.GramInvariant",
+            "selected_in_prior_packet": false
+          },
+          {
+            "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.GramInvariant",
+            "selected_in_prior_packet": false
+          }
+        ],
+        "sha256": "c96f0f6a4992b5894317de3f0173e1e24ab8a845ff6685d17ff914eb33d544fb",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-21_karlsson_production.nosync/dist/karlsson-popeye-replay-test1/src/Hadamard6/GramInvariant.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/c9/c96f0f6a4992b5894317de3f0173e1e24ab8a845ff6685d17ff914eb33d544fb/GramInvariant.lean",
+        "bytes": 6270,
+        "historical_portable_evidence": [
+          {
+            "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.GramInvariant",
+            "selected_in_prior_packet": false
+          },
+          {
+            "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.GramInvariant",
+            "selected_in_prior_packet": false
+          },
+          {
+            "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.GramInvariant",
+            "selected_in_prior_packet": false
+          }
+        ],
+        "sha256": "c96f0f6a4992b5894317de3f0173e1e24ab8a845ff6685d17ff914eb33d544fb",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-21_karlsson_production.nosync/dist/karlsson-popeye-replay-test2/src/Hadamard6/GramInvariant.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/c9/c96f0f6a4992b5894317de3f0173e1e24ab8a845ff6685d17ff914eb33d544fb/GramInvariant.lean",
+        "bytes": 6270,
+        "historical_portable_evidence": [
+          {
+            "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.GramInvariant",
+            "selected_in_prior_packet": false
+          },
+          {
+            "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.GramInvariant",
+            "selected_in_prior_packet": false
+          },
+          {
+            "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.GramInvariant",
+            "selected_in_prior_packet": false
+          }
+        ],
+        "sha256": "c96f0f6a4992b5894317de3f0173e1e24ab8a845ff6685d17ff914eb33d544fb",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-21_karlsson_production.nosync/dist/karlsson-popeye-replay-v1/src/Hadamard6/GramInvariant.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/c9/c96f0f6a4992b5894317de3f0173e1e24ab8a845ff6685d17ff914eb33d544fb/GramInvariant.lean",
+        "bytes": 6270,
+        "historical_portable_evidence": [
+          {
+            "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.GramInvariant",
+            "selected_in_prior_packet": false
+          },
+          {
+            "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.GramInvariant",
+            "selected_in_prior_packet": false
+          },
+          {
+            "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.GramInvariant",
+            "selected_in_prior_packet": false
+          }
+        ],
+        "sha256": "c96f0f6a4992b5894317de3f0173e1e24ab8a845ff6685d17ff914eb33d544fb",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/history/snapshot-1790082761753415000/port/src/Hadamard6/GramInvariant.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/c9/c96f0f6a4992b5894317de3f0173e1e24ab8a845ff6685d17ff914eb33d544fb/GramInvariant.lean",
+        "bytes": 6270,
+        "historical_portable_evidence": [
+          {
+            "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.GramInvariant",
+            "selected_in_prior_packet": false
+          },
+          {
+            "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.GramInvariant",
+            "selected_in_prior_packet": false
+          },
+          {
+            "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.GramInvariant",
+            "selected_in_prior_packet": false
+          }
+        ],
+        "sha256": "c96f0f6a4992b5894317de3f0173e1e24ab8a845ff6685d17ff914eb33d544fb",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/history/snapshot-1790082761753415000/src/Hadamard6/GramInvariant.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/c9/c96f0f6a4992b5894317de3f0173e1e24ab8a845ff6685d17ff914eb33d544fb/GramInvariant.lean",
+        "bytes": 6270,
+        "historical_portable_evidence": [
+          {
+            "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.GramInvariant",
+            "selected_in_prior_packet": false
+          },
+          {
+            "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.GramInvariant",
+            "selected_in_prior_packet": false
+          },
+          {
+            "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.GramInvariant",
+            "selected_in_prior_packet": false
+          }
+        ],
+        "sha256": "c96f0f6a4992b5894317de3f0173e1e24ab8a845ff6685d17ff914eb33d544fb",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/history/snapshot-1790087968026307000/port/src/Hadamard6/GramInvariant.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/c9/c96f0f6a4992b5894317de3f0173e1e24ab8a845ff6685d17ff914eb33d544fb/GramInvariant.lean",
+        "bytes": 6270,
+        "historical_portable_evidence": [
+          {
+            "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.GramInvariant",
+            "selected_in_prior_packet": false
+          },
+          {
+            "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.GramInvariant",
+            "selected_in_prior_packet": false
+          },
+          {
+            "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.GramInvariant",
+            "selected_in_prior_packet": false
+          }
+        ],
+        "sha256": "c96f0f6a4992b5894317de3f0173e1e24ab8a845ff6685d17ff914eb33d544fb",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/history/snapshot-1790087968026307000/src/Hadamard6/GramInvariant.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/c9/c96f0f6a4992b5894317de3f0173e1e24ab8a845ff6685d17ff914eb33d544fb/GramInvariant.lean",
+        "bytes": 6270,
+        "historical_portable_evidence": [
+          {
+            "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.GramInvariant",
+            "selected_in_prior_packet": false
+          },
+          {
+            "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.GramInvariant",
+            "selected_in_prior_packet": false
+          },
+          {
+            "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.GramInvariant",
+            "selected_in_prior_packet": false
+          }
+        ],
+        "sha256": "c96f0f6a4992b5894317de3f0173e1e24ab8a845ff6685d17ff914eb33d544fb",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/karlsson-closure-replay-v2/port/src/Hadamard6/GramInvariant.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/c9/c96f0f6a4992b5894317de3f0173e1e24ab8a845ff6685d17ff914eb33d544fb/GramInvariant.lean",
+        "bytes": 6270,
+        "historical_portable_evidence": [
+          {
+            "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.GramInvariant",
+            "selected_in_prior_packet": false
+          },
+          {
+            "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.GramInvariant",
+            "selected_in_prior_packet": false
+          },
+          {
+            "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.GramInvariant",
+            "selected_in_prior_packet": false
+          }
+        ],
+        "sha256": "c96f0f6a4992b5894317de3f0173e1e24ab8a845ff6685d17ff914eb33d544fb",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/karlsson-closure-replay-v2/src/Hadamard6/GramInvariant.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/c9/c96f0f6a4992b5894317de3f0173e1e24ab8a845ff6685d17ff914eb33d544fb/GramInvariant.lean",
+        "bytes": 6270,
+        "historical_portable_evidence": [
+          {
+            "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.GramInvariant",
+            "selected_in_prior_packet": false
+          },
+          {
+            "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.GramInvariant",
+            "selected_in_prior_packet": false
+          },
+          {
+            "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.GramInvariant",
+            "selected_in_prior_packet": false
+          }
+        ],
+        "sha256": "c96f0f6a4992b5894317de3f0173e1e24ab8a845ff6685d17ff914eb33d544fb",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/port/logs/Hadamard6.GramInvariant.001.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/c9/c96f0f6a4992b5894317de3f0173e1e24ab8a845ff6685d17ff914eb33d544fb/GramInvariant.lean",
+        "bytes": 6270,
+        "historical_portable_evidence": [
+          {
+            "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.GramInvariant",
+            "selected_in_prior_packet": false
+          },
+          {
+            "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.GramInvariant",
+            "selected_in_prior_packet": false
+          },
+          {
+            "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.GramInvariant",
+            "selected_in_prior_packet": false
+          }
+        ],
+        "sha256": "c96f0f6a4992b5894317de3f0173e1e24ab8a845ff6685d17ff914eb33d544fb",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/port/src/Hadamard6/GramInvariant.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/c9/c96f0f6a4992b5894317de3f0173e1e24ab8a845ff6685d17ff914eb33d544fb/GramInvariant.lean",
+        "bytes": 6270,
+        "historical_portable_evidence": [
+          {
+            "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.GramInvariant",
+            "selected_in_prior_packet": false
+          },
+          {
+            "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.GramInvariant",
+            "selected_in_prior_packet": false
+          },
+          {
+            "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.GramInvariant",
+            "selected_in_prior_packet": false
+          }
+        ],
+        "sha256": "c96f0f6a4992b5894317de3f0173e1e24ab8a845ff6685d17ff914eb33d544fb",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/numerical/2026-09-20_no_four_mub6.nosync/milestones/local_certificate_v1/classification_cover/public_port/Hadamard6/GramInvariant.lean"
+      }
+    ]
+  },
+  "ARCHIVE_BLOB_INDEX.jsonl": {
+    "total": 19386,
+    "matches": [
+      {
+        "blob": "blobs/03/03b5110dbc308ec00e6c36c3c23a4837c35c9742e604ee1d232f2eebb0f8c743/SeedBinding.lean",
+        "bytes": 6213,
+        "lexical_markers_heuristic": [],
+        "sha256": "03b5110dbc308ec00e6c36c3c23a4837c35c9742e604ee1d232f2eebb0f8c743",
+        "static_imports_heuristic": [
+          "LiftedSheetGuards",
+          "Mathlib.Data.Complex.Basic",
+          "Mathlib.Data.Matrix.Notation",
+          "Mathlib.LinearAlgebra.Matrix.Adjugate",
+          "Mathlib.LinearAlgebra.Matrix.Determinant.Basic",
+          "Mathlib.Tactic.FieldSimp",
+          "Mathlib.Tactic.FinCases",
+          "Mathlib.Tactic.Linarith",
+          "Mathlib.Tactic.LinearCombination",
+          "Mathlib.Tactic.Ring"
+        ]
+      },
+      {
+        "blob": "blobs/04/044138235dc7378370a4b664b6ed7ea811850a460deeb914791cf40c8eb07c8b/SeedBinding.lean",
+        "bytes": 2729,
+        "lexical_markers_heuristic": [],
+        "sha256": "044138235dc7378370a4b664b6ed7ea811850a460deeb914791cf40c8eb07c8b",
+        "static_imports_heuristic": [
+          "LiftedSheetGuards",
+          "Mathlib.Data.Complex.Basic",
+          "Mathlib.Data.Matrix.Notation",
+          "Mathlib.LinearAlgebra.Matrix.Adjugate",
+          "Mathlib.LinearAlgebra.Matrix.Determinant.Basic",
+          "Mathlib.Tactic.FieldSimp",
+          "Mathlib.Tactic.FinCases",
+          "Mathlib.Tactic.Linarith",
+          "Mathlib.Tactic.LinearCombination",
+          "Mathlib.Tactic.Ring"
+        ]
+      },
+      {
+        "blob": "blobs/05/051d762867cb3f86fbbf7249e665c854de6f37fa1f8f77208f18f1e522281548/SeedBinding.lean",
+        "bytes": 6721,
+        "lexical_markers_heuristic": [],
+        "sha256": "051d762867cb3f86fbbf7249e665c854de6f37fa1f8f77208f18f1e522281548",
+        "static_imports_heuristic": [
+          "LiftedSheetGuards",
+          "Mathlib.Data.Complex.Basic",
+          "Mathlib.Data.Matrix.Notation",
+          "Mathlib.LinearAlgebra.Matrix.Adjugate",
+          "Mathlib.LinearAlgebra.Matrix.Determinant.Basic",
+          "Mathlib.LinearAlgebra.Matrix.Hermitian",
+          "Mathlib.Tactic.FieldSimp",
+          "Mathlib.Tactic.FinCases",
+          "Mathlib.Tactic.Linarith",
+          "Mathlib.Tactic.LinearCombination",
+          "Mathlib.Tactic.Ring"
+        ]
+      },
+      {
+        "blob": "blobs/06/06a5b9d5bbbabc2d2ba26fa53c97cd3b36f354f56386572b9ec8e4a9256aff7a/SeedBinding.lean",
+        "bytes": 2898,
+        "lexical_markers_heuristic": [],
+        "sha256": "06a5b9d5bbbabc2d2ba26fa53c97cd3b36f354f56386572b9ec8e4a9256aff7a",
+        "static_imports_heuristic": [
+          "LiftedSheetGuards",
+          "Mathlib.Data.Complex.Basic",
+          "Mathlib.Data.Matrix.Notation",
+          "Mathlib.LinearAlgebra.Matrix.Adjugate",
+          "Mathlib.LinearAlgebra.Matrix.Determinant.Basic",
+          "Mathlib.Tactic.FieldSimp",
+          "Mathlib.Tactic.FinCases",
+          "Mathlib.Tactic.Linarith",
+          "Mathlib.Tactic.LinearCombination",
+          "Mathlib.Tactic.Ring"
+        ]
+      },
+      {
+        "blob": "blobs/07/070246616448631c7255740be53fa4b94e9f1af5ce4703e519cda0e2561a8bc7/SideIntrinsicReflection.lean",
+        "bytes": 2424,
+        "lexical_markers_heuristic": [],
+        "sha256": "070246616448631c7255740be53fa4b94e9f1af5ce4703e519cda0e2561a8bc7",
+        "static_imports_heuristic": [
+          "Mathlib.Tactic.FinCases",
+          "SideIntrinsicFourierModes",
+          "SideIntrinsicMatrixBindings"
+        ]
+      },
+      {
+        "blob": "blobs/0a/0a4f7d70ebb0e37f2264c5748a1e2beddab2603e84e01abb318f06c35c604cf7/SeedBinding.lean",
+        "bytes": 1874,
+        "lexical_markers_heuristic": [],
+        "sha256": "0a4f7d70ebb0e37f2264c5748a1e2beddab2603e84e01abb318f06c35c604cf7",
+        "static_imports_heuristic": [
+          "LiftedSheetGuards",
+          "Mathlib.Data.Complex.Basic",
+          "Mathlib.Data.Matrix.Notation",
+          "Mathlib.LinearAlgebra.Matrix.Adjugate",
+          "Mathlib.LinearAlgebra.Matrix.Determinant.Basic",
+          "Mathlib.Tactic.FieldSimp",
+          "Mathlib.Tactic.FinCases",
+          "Mathlib.Tactic.Linarith",
+          "Mathlib.Tactic.LinearCombination",
+          "Mathlib.Tactic.Ring"
+        ]
+      },
+      {
+        "blob": "blobs/0b/0b45aea777ac68502480a5e11ad1eb4c11cd54941c4bc29342a644e00569b85e/PhysicalSeedComplement.lean",
+        "bytes": 1044,
+        "lexical_markers_heuristic": [],
+        "sha256": "0b45aea777ac68502480a5e11ad1eb4c11cd54941c4bc29342a644e00569b85e",
+        "static_imports_heuristic": [
+          "PhysicalAdjugateCross"
+        ]
+      },
+      {
+        "blob": "blobs/0e/0ed2915245876237ce196f894b0cfaff069ad070c992b74a1b0522b7188aa531/PhysicalSeedSides.lean",
+        "bytes": 10606,
+        "lexical_markers_heuristic": [],
+        "sha256": "0ed2915245876237ce196f894b0cfaff069ad070c992b74a1b0522b7188aa531",
+        "static_imports_heuristic": [
+          "AdjugateReconstruction",
+          "PhysicalSideRational",
+          "SeedInvariants"
+        ]
+      },
+      {
+        "blob": "blobs/13/134745363d642993f40f706075f7fab5258d1aacbdcca30bc8000fe82ffdc90c/SeedBinding.lean",
+        "bytes": 6702,
+        "lexical_markers_heuristic": [],
+        "sha256": "134745363d642993f40f706075f7fab5258d1aacbdcca30bc8000fe82ffdc90c",
+        "static_imports_heuristic": [
+          "LiftedSheetGuards",
+          "Mathlib.Data.Complex.Basic",
+          "Mathlib.Data.Matrix.Notation",
+          "Mathlib.LinearAlgebra.Matrix.Adjugate",
+          "Mathlib.LinearAlgebra.Matrix.Determinant.Basic",
+          "Mathlib.LinearAlgebra.Matrix.Hermitian",
+          "Mathlib.Tactic.FieldSimp",
+          "Mathlib.Tactic.FinCases",
+          "Mathlib.Tactic.Linarith",
+          "Mathlib.Tactic.LinearCombination",
+          "Mathlib.Tactic.Ring"
+        ]
+      },
+      {
+        "blob": "blobs/15/15185a04f48efafe38e63ef3e877a21a63ac5d7be7259ec4054404a683707864/SideSeedComplement.lean",
+        "bytes": 2007,
+        "lexical_markers_heuristic": [],
+        "sha256": "15185a04f48efafe38e63ef3e877a21a63ac5d7be7259ec4054404a683707864",
+        "static_imports_heuristic": [
+          "Hadamard6.GramInvariant"
+        ]
+      },
+      {
+        "blob": "blobs/15/15946324e6d4c4dbcda80bbda42cc9f59aede16b7c15b470809ca67de6025992/SideIntrinsicTheta.lean",
+        "bytes": 3285,
+        "lexical_markers_heuristic": [],
+        "sha256": "15946324e6d4c4dbcda80bbda42cc9f59aede16b7c15b470809ca67de6025992",
+        "static_imports_heuristic": [
+          "SideIntrinsicActualChi",
+          "SideIntrinsicActualNorms"
+        ]
+      },
+      {
+        "blob": "blobs/19/19629b094f77e749afa6fc55e085d5d142dd374f9e3bbd98ac249c2b86463812/PhysicalSameSidePair02.lean",
+        "bytes": 2931,
+        "lexical_markers_heuristic": [],
+        "sha256": "19629b094f77e749afa6fc55e085d5d142dd374f9e3bbd98ac249c2b86463812",
+        "static_imports_heuristic": [
+          "Mathlib.Tactic.FinCases",
+          "PhysicalAdjugateLiteral"
+        ]
+      },
+      {
+        "blob": "blobs/1a/1a2531aec61bcae3b3bfbd0550ea6e0785397b47231e0a95509a2bb0b313c798/QuotientAllocation.lean",
+        "bytes": 11563,
+        "lexical_markers_heuristic": [],
+        "sha256": "1a2531aec61bcae3b3bfbd0550ea6e0785397b47231e0a95509a2bb0b313c798",
+        "static_imports_heuristic": [
+          "Hadamard6.GramInvariant",
+          "Hadamard6.QuotientReal",
+          "Hadamard6.UnitSymmetric",
+          "Mathlib.Tactic.FinCases",
+          "Mathlib.Tactic.LinearCombination",
+          "Mathlib.Tactic.Ring"
+        ]
+      },
+      {
+        "blob": "blobs/1d/1d11ea4728234715ff90bdbc68e2541706832b0c525ec7373a167c79c9837264/BlockGram.lean",
+        "bytes": 9803,
+        "lexical_markers_heuristic": [],
+        "sha256": "1d11ea4728234715ff90bdbc68e2541706832b0c525ec7373a167c79c9837264",
+        "static_imports_heuristic": [
+          "Hadamard6.Blocks",
+          "Hadamard6.GramInvariant",
+          "Mathlib.Tactic.FinCases"
+        ]
+      },
+      {
+        "blob": "blobs/20/20c8fcb5dad19a1ff9419c885a9513149e35af0e913beeaae04d151fbe521a69/SideFourierActual.lean",
+        "bytes": 3718,
+        "lexical_markers_heuristic": [],
+        "sha256": "20c8fcb5dad19a1ff9419c885a9513149e35af0e913beeaae04d151fbe521a69",
+        "static_imports_heuristic": [
+          "SideFourierMatrixAlgebra",
+          "SideFourierRootChoices",
+          "SideMatrixPhaseRows",
+          "SideMatrixSeedGram"
+        ]
+      },
+      {
+        "blob": "blobs/23/23278538829ce5e6eb13ea9b496f8e0f3549b64eeeb1d5768dba6dd764a6ce23/PhysicalSeedSides.lean",
+        "bytes": 7244,
+        "lexical_markers_heuristic": [],
+        "sha256": "23278538829ce5e6eb13ea9b496f8e0f3549b64eeeb1d5768dba6dd764a6ce23",
+        "static_imports_heuristic": [
+          "AdjugateReconstruction",
+          "PhysicalSideRational",
+          "SeedInvariants"
+        ]
+      },
+      {
+        "blob": "blobs/24/24177fae7153ea7a3254f3f10c7d89077c0e846e3ac0e72574978f750260420b/RationalCarrierIntervals.lean",
+        "bytes": 7956,
+        "lexical_markers_heuristic": [],
+        "sha256": "24177fae7153ea7a3254f3f10c7d89077c0e846e3ac0e72574978f750260420b",
+        "static_imports_heuristic": [
+          "IntervalKernel",
+          "Mathlib.Algebra.Order.Field.Basic",
+          "Mathlib.LinearAlgebra.Matrix.Adjugate",
+          "RationalCircleCharts"
+        ]
+      },
+      {
+        "blob": "blobs/28/280c9de08ca4bf26bd67eac1141b5dc5b2a30c0220de4310626e80acf7cad9df/SeedBinding.lean",
+        "bytes": 6220,
+        "lexical_markers_heuristic": [],
+        "sha256": "280c9de08ca4bf26bd67eac1141b5dc5b2a30c0220de4310626e80acf7cad9df",
+        "static_imports_heuristic": [
+          "LiftedSheetGuards",
+          "Mathlib.Data.Complex.Basic",
+          "Mathlib.Data.Matrix.Notation",
+          "Mathlib.LinearAlgebra.Matrix.Adjugate",
+          "Mathlib.LinearAlgebra.Matrix.Determinant.Basic",
+          "Mathlib.Tactic.FieldSimp",
+          "Mathlib.Tactic.FinCases",
+          "Mathlib.Tactic.Linarith",
+          "Mathlib.Tactic.LinearCombination",
+          "Mathlib.Tactic.Ring"
+        ]
+      },
+      {
+        "blob": "blobs/2c/2cd2390dadff29760f7ad976c731a9186f406c268bad4b3beac767d81055a8dc/AllNewAudit.lean",
+        "bytes": 11682,
+        "lexical_markers_heuristic": [],
+        "sha256": "2cd2390dadff29760f7ad976c731a9186f406c268bad4b3beac767d81055a8dc",
+        "static_imports_heuristic": [
+          "AdjugateReconstruction",
+          "CompactCarrierCover",
+          "CompactChartFilters",
+          "ConditionedFourierChart",
+          "FiniteCarrierEnclosures",
+          "FourierConditioning",
+          "GaussianCarrierExport",
+          "GlobalFourierConditioning",
+          "GramNumerators",
+          "MixedCarrierExport",
+          "NeighborhoodCarrierExport",
+          "NormalizedCarrierTransport",
+          "PhysicalCarrierEnclosures",
+          "PhysicalSideForward",
+          "PhysicalSideRational",
+          "PhysicalSideSheet",
+          "RationalCarrierIntervals",
+          "RootCarrierExport",
+          "SeedInvariants",
+          "SideLambdaPhases",
+          "SixteenCarrierEnclosure",
+          "SixteenCircleCover",
+          "SixteenDyadicCover"
+        ]
+      },
+      {
+        "blob": "blobs/2f/2fd421fc89f9e11d14eb8348353d582326a1515546813c39fa35f513d47a4791/SideIntrinsicFourierMatrix.lean",
+        "bytes": 4174,
+        "lexical_markers_heuristic": [],
+        "sha256": "2fd421fc89f9e11d14eb8348353d582326a1515546813c39fa35f513d47a4791",
+        "static_imports_heuristic": [
+          "SideFourierMatrixAlgebra",
+          "SideIntrinsicFourierModes",
+          "SideIntrinsicMatrixBindings"
+        ]
+      },
+      {
+        "blob": "blobs/37/37c915a821c910559c470d3a82aa4f041303f2cb587426bc84be192788e6507b/NativeGramEvaluators.lean",
+        "bytes": 3966,
+        "lexical_markers_heuristic": [],
+        "sha256": "37c915a821c910559c470d3a82aa4f041303f2cb587426bc84be192788e6507b",
+        "static_imports_heuristic": [
+          "Mathlib.LinearAlgebra.Matrix.Adjugate",
+          "PhysicalAdjugateLiteral",
+          "PhysicalSideSums"
+        ]
+      },
+      {
+        "blob": "blobs/3e/3eb8c71a3b1349ffd1af0e822b9bd87c633d3934af3690bb251f54d1325b3f21/SeedBinding.lean",
+        "bytes": 8811,
+        "lexical_markers_heuristic": [],
+        "sha256": "3eb8c71a3b1349ffd1af0e822b9bd87c633d3934af3690bb251f54d1325b3f21",
+        "static_imports_heuristic": [
+          "LiftedSheetGuards",
+          "Mathlib.Data.Complex.Basic",
+          "Mathlib.LinearAlgebra.Matrix.Adjugate",
+          "Mathlib.LinearAlgebra.Matrix.Determinant.Basic",
+          "Mathlib.LinearAlgebra.Matrix.Hermitian",
+          "Mathlib.LinearAlgebra.Matrix.Notation",
+          "Mathlib.Tactic.FieldSimp",
+          "Mathlib.Tactic.FinCases",
+          "Mathlib.Tactic.Linarith",
+          "Mathlib.Tactic.LinearCombination",
+          "Mathlib.Tactic.Ring"
+        ]
+      },
+      {
+        "blob": "blobs/40/401f1f94e74f28805736bfa6699ebe59bf5bb7695f6e1b8b05b7acb1e9e78c15/SideIntrinsicActualNorms.lean",
+        "bytes": 1799,
+        "lexical_markers_heuristic": [],
+        "sha256": "401f1f94e74f28805736bfa6699ebe59bf5bb7695f6e1b8b05b7acb1e9e78c15",
+        "static_imports_heuristic": [
+          "SideIntrinsicActualBindings",
+          "SideIntrinsicPolynomialNorms"
+        ]
+      },
+      {
+        "blob": "blobs/40/40dbee3c8666550ddde139ff4fd82da9dc3f8070e205a3f4d977efee272f4101/SideFourierActual.lean",
+        "bytes": 3047,
+        "lexical_markers_heuristic": [],
+        "sha256": "40dbee3c8666550ddde139ff4fd82da9dc3f8070e205a3f4d977efee272f4101",
+        "static_imports_heuristic": [
+          "SideFourierActualCore",
+          "SideFourierRootChoices",
+          "SideMatrixSeedGram"
+        ]
+      },
+      {
+        "blob": "blobs/40/40ede60ea56559c738f57c9e62748dc704dc1c832e59f30e7867f2891384229f/NativeGramEvaluators.lean",
+        "bytes": 3876,
+        "lexical_markers_heuristic": [],
+        "sha256": "40ede60ea56559c738f57c9e62748dc704dc1c832e59f30e7867f2891384229f",
+        "static_imports_heuristic": [
+          "Mathlib.LinearAlgebra.Matrix.Adjugate",
+          "PhysicalAdjugateLiteral",
+          "PhysicalSideSums"
+        ]
+      },
+      {
+        "blob": "blobs/41/4175e262c0f6479f168b75a1402611f7a8cfd6d0ddbefeb4faf12048a4ebd4f0/CompactCarrierCover.lean",
+        "bytes": 6326,
+        "lexical_markers_heuristic": [],
+        "sha256": "4175e262c0f6479f168b75a1402611f7a8cfd6d0ddbefeb4faf12048a4ebd4f0",
+        "static_imports_heuristic": [
+          "GoodSideBlocks",
+          "Mathlib.LinearAlgebra.Matrix.Adjugate",
+          "SymmetryTransport"
+        ]
+      },
+      {
+        "blob": "blobs/42/426ea07c0f535399b4616c1d4aabbc39c9b3c3363cb5d5cb8637dcf9de5874e9/SixteenCircleCover.lean",
+        "bytes": 6487,
+        "lexical_markers_heuristic": [],
+        "sha256": "426ea07c0f535399b4616c1d4aabbc39c9b3c3363cb5d5cb8637dcf9de5874e9",
+        "static_imports_heuristic": [
+          "AdjugateReconstruction",
+          "NormalizedCarrierTransport",
+          "RationalCircleCharts"
+        ]
+      },
+      {
+        "blob": "blobs/4c/4c3aa6efcc70e432e82b21a94f8dfd94db5bd08f7f76c7a988066a27100547ef/SeedBinding.lean",
+        "bytes": 2934,
+        "lexical_markers_heuristic": [],
+        "sha256": "4c3aa6efcc70e432e82b21a94f8dfd94db5bd08f7f76c7a988066a27100547ef",
+        "static_imports_heuristic": [
+          "LiftedSheetGuards",
+          "Mathlib.Data.Complex.Basic",
+          "Mathlib.Data.Matrix.Notation",
+          "Mathlib.LinearAlgebra.Matrix.Adjugate",
+          "Mathlib.LinearAlgebra.Matrix.Determinant.Basic",
+          "Mathlib.Tactic.FieldSimp",
+          "Mathlib.Tactic.FinCases",
+          "Mathlib.Tactic.Linarith",
+          "Mathlib.Tactic.LinearCombination",
+          "Mathlib.Tactic.Ring"
+        ]
+      },
+      {
+        "blob": "blobs/4e/4e8183a2abbee770c2f95576eb0def3d6a1e1840ad3f69668229938efc3ddbe2/AdjugateReconstruction.lean",
+        "bytes": 6280,
+        "lexical_markers_heuristic": [],
+        "sha256": "4e8183a2abbee770c2f95576eb0def3d6a1e1840ad3f69668229938efc3ddbe2",
+        "static_imports_heuristic": [
+          "CompactCarrierCover"
+        ]
+      },
+      {
+        "blob": "blobs/50/50a39fe40c0c71c0bf73803f78618187e763feacc491c1326a30ca30e4e945f9/SeedBinding.lean",
+        "bytes": 3232,
+        "lexical_markers_heuristic": [],
+        "sha256": "50a39fe40c0c71c0bf73803f78618187e763feacc491c1326a30ca30e4e945f9",
+        "static_imports_heuristic": [
+          "LiftedSheetGuards",
+          "Mathlib.Data.Complex.Basic",
+          "Mathlib.Data.Matrix.Notation",
+          "Mathlib.LinearAlgebra.Matrix.Adjugate",
+          "Mathlib.LinearAlgebra.Matrix.Determinant.Basic",
+          "Mathlib.Tactic.FieldSimp",
+          "Mathlib.Tactic.FinCases",
+          "Mathlib.Tactic.Linarith",
+          "Mathlib.Tactic.LinearCombination",
+          "Mathlib.Tactic.Ring"
+        ]
+      },
+      {
+        "blob": "blobs/53/5364f6c90e8c31ac89a5e7c70692d060faf962572a2ee27263d8db409b1892ab/PhysicalAdjugateLiteral.lean",
+        "bytes": 2349,
+        "lexical_markers_heuristic": [],
+        "sha256": "5364f6c90e8c31ac89a5e7c70692d060faf962572a2ee27263d8db409b1892ab",
+        "static_imports_heuristic": [
+          "PhysicalAdjugateCross"
+        ]
+      },
+      {
+        "blob": "blobs/56/568536c9516cc9bcd46eeda0f64f12ebd12c0b01183a2f60b9a5b090bc8d8505/SeedBinding.lean",
+        "bytes": 4402,
+        "lexical_markers_heuristic": [],
+        "sha256": "568536c9516cc9bcd46eeda0f64f12ebd12c0b01183a2f60b9a5b090bc8d8505",
+        "static_imports_heuristic": [
+          "LiftedSheetGuards",
+          "Mathlib.Data.Complex.Basic",
+          "Mathlib.Data.Matrix.Notation",
+          "Mathlib.LinearAlgebra.Matrix.Adjugate",
+          "Mathlib.LinearAlgebra.Matrix.Determinant.Basic",
+          "Mathlib.Tactic.FieldSimp",
+          "Mathlib.Tactic.FinCases",
+          "Mathlib.Tactic.Linarith",
+          "Mathlib.Tactic.LinearCombination",
+          "Mathlib.Tactic.Ring"
+        ]
+      },
+      {
+        "blob": "blobs/5b/5b6bc034d56cfd834306ebbb86b4324900235724af98967febd34d8ba2b2f680/SideIntrinsicTransposeBindings.lean",
+        "bytes": 1722,
+        "lexical_markers_heuristic": [],
+        "sha256": "5b6bc034d56cfd834306ebbb86b4324900235724af98967febd34d8ba2b2f680",
+        "static_imports_heuristic": [
+          "SideIntrinsicMatrixBindings"
+        ]
+      },
+      {
+        "blob": "blobs/5f/5f1a525c5fd7484ab3487b33349a90c11996481c490d77dcc7c668ccb09ca27c/SeedBinding.lean",
+        "bytes": 2715,
+        "lexical_markers_heuristic": [],
+        "sha256": "5f1a525c5fd7484ab3487b33349a90c11996481c490d77dcc7c668ccb09ca27c",
+        "static_imports_heuristic": [
+          "LiftedSheetGuards",
+          "Mathlib.Data.Complex.Basic",
+          "Mathlib.Data.Matrix.Notation",
+          "Mathlib.LinearAlgebra.Matrix.Adjugate",
+          "Mathlib.LinearAlgebra.Matrix.Determinant.Basic",
+          "Mathlib.Tactic.FieldSimp",
+          "Mathlib.Tactic.FinCases",
+          "Mathlib.Tactic.Linarith",
+          "Mathlib.Tactic.LinearCombination",
+          "Mathlib.Tactic.Ring"
+        ]
+      },
+      {
+        "blob": "blobs/62/62e88718834bbc7b6022b8215c3e6974ab6aad3430f35e0a8c4e3fc58ad96630/PhysicalSeedSides.lean",
+        "bytes": 7287,
+        "lexical_markers_heuristic": [],
+        "sha256": "62e88718834bbc7b6022b8215c3e6974ab6aad3430f35e0a8c4e3fc58ad96630",
+        "static_imports_heuristic": [
+          "AdjugateReconstruction",
+          "PhysicalSideRational",
+          "SeedInvariants"
+        ]
+      },
+      {
+        "blob": "blobs/65/658a3d7e72ca4def4de93476c97b128e7e3b8ba17270f808931bd1fdda7bf3ba/AdjugateReconstruction.lean",
+        "bytes": 5956,
+        "lexical_markers_heuristic": [],
+        "sha256": "658a3d7e72ca4def4de93476c97b128e7e3b8ba17270f808931bd1fdda7bf3ba",
+        "static_imports_heuristic": [
+          "CompactCarrierCover"
+        ]
+      },
+      {
+        "blob": "blobs/71/7186ff2f60ffdb2e1ef76d012bda7e640958458d4d40de8930c170226c0211d4/SideFourierActual.lean",
+        "bytes": 3123,
+        "lexical_markers_heuristic": [],
+        "sha256": "7186ff2f60ffdb2e1ef76d012bda7e640958458d4d40de8930c170226c0211d4",
+        "static_imports_heuristic": [
+          "SideFourierActualCore",
+          "SideFourierElementaryRoots",
+          "SideMatrixSeedGram"
+        ]
+      },
+      {
+        "blob": "blobs/73/734c71ba3a55da91aed5b83bac905a3e0f27c0ca75bf8e64b5c79dc9152463a9/SeedBinding.lean",
+        "bytes": 2897,
+        "lexical_markers_heuristic": [],
+        "sha256": "734c71ba3a55da91aed5b83bac905a3e0f27c0ca75bf8e64b5c79dc9152463a9",
+        "static_imports_heuristic": [
+          "LiftedSheetGuards",
+          "Mathlib.Data.Complex.Basic",
+          "Mathlib.Data.Matrix.Notation",
+          "Mathlib.LinearAlgebra.Matrix.Adjugate",
+          "Mathlib.LinearAlgebra.Matrix.Determinant.Basic",
+          "Mathlib.Tactic.FieldSimp",
+          "Mathlib.Tactic.FinCases",
+          "Mathlib.Tactic.Linarith",
+          "Mathlib.Tactic.LinearCombination",
+          "Mathlib.Tactic.Ring"
+        ]
+      },
+      {
+        "blob": "blobs/74/74c26adcb8494a4fd72d19754543fc95383de24b4265fb68060c37f5cfa23d6f/PhysicalSameSidePair.lean",
+        "bytes": 2910,
+        "lexical_markers_heuristic": [],
+        "sha256": "74c26adcb8494a4fd72d19754543fc95383de24b4265fb68060c37f5cfa23d6f",
+        "static_imports_heuristic": [
+          "Mathlib.Tactic.FinCases",
+          "PhysicalAdjugateLiteral"
+        ]
+      },
+      {
+        "blob": "blobs/87/8755ed21765d752512c908c0b2851279fc88347fadfdee09596eff5563b1aa64/SideMatrixSeedGram.lean",
+        "bytes": 2447,
+        "lexical_markers_heuristic": [],
+        "sha256": "8755ed21765d752512c908c0b2851279fc88347fadfdee09596eff5563b1aa64",
+        "static_imports_heuristic": [
+          "SideMatrixGram"
+        ]
+      },
+      {
+        "blob": "blobs/8d/8d2a0938882a6abe78cc6943a45781ec89a70cd4e2032be8802a533295c95204/SeedBinding.lean",
+        "bytes": 1805,
+        "lexical_markers_heuristic": [],
+        "sha256": "8d2a0938882a6abe78cc6943a45781ec89a70cd4e2032be8802a533295c95204",
+        "static_imports_heuristic": [
+          "LiftedSheetGuards",
+          "Mathlib.Data.Complex.Basic",
+          "Mathlib.Data.Matrix.Notation",
+          "Mathlib.LinearAlgebra.Matrix.Adjugate",
+          "Mathlib.LinearAlgebra.Matrix.Determinant.Basic",
+          "Mathlib.Tactic.FieldSimp",
+          "Mathlib.Tactic.FinCases",
+          "Mathlib.Tactic.Linarith",
+          "Mathlib.Tactic.LinearCombination",
+          "Mathlib.Tactic.Ring"
+        ]
+      },
+      {
+        "blob": "blobs/8e/8e19e25653307d3e6c18bd4b8b46dccdde0f30a2728efa3e74b29b5b75a9c705/SideIntrinsicTransposeInvariants.lean",
+        "bytes": 4385,
+        "lexical_markers_heuristic": [],
+        "sha256": "8e19e25653307d3e6c18bd4b8b46dccdde0f30a2728efa3e74b29b5b75a9c705",
+        "static_imports_heuristic": [
+          "Mathlib.Tactic.LinearCombination",
+          "SideIntrinsicActualChi",
+          "SideIntrinsicActualNorms",
+          "SideIntrinsicTransposeBindings"
+        ]
+      },
+      {
+        "blob": "blobs/9a/9a81d781c042597c1bde8b5ca3caba55fb79f1492547f71ddfa12b1389f5d1a2/NewModuleAudit.lean",
+        "bytes": 10899,
+        "lexical_markers_heuristic": [],
+        "sha256": "9a81d781c042597c1bde8b5ca3caba55fb79f1492547f71ddfa12b1389f5d1a2",
+        "static_imports_heuristic": [
+          "AdjugateReconstruction",
+          "CompactCarrierCover",
+          "CompactChartFilters",
+          "ConditionedFourierChart",
+          "FiniteCarrierEnclosures",
+          "FourierConditioning",
+          "GlobalFourierConditioning",
+          "GramNumerators",
+          "NormalizedCarrierTransport",
+          "PhysicalCarrierEnclosures",
+          "PhysicalSideForward",
+          "PhysicalSideRational",
+          "PhysicalSideSheet",
+          "RationalCarrierIntervals",
+          "SeedInvariants",
+          "SideLambdaPhases",
+          "SixteenCarrierEnclosure",
+          "SixteenCircleCover",
+          "SixteenDyadicCover"
+        ]
+      },
+      {
+        "blob": "blobs/9e/9ee15130145d65ed08dbe5f40b0aa97302072cd7202df7d772f39829b56e8444/SideSeedComplement.lean",
+        "bytes": 1778,
+        "lexical_markers_heuristic": [],
+        "sha256": "9ee15130145d65ed08dbe5f40b0aa97302072cd7202df7d772f39829b56e8444",
+        "static_imports_heuristic": [
+          "Hadamard6.GramInvariant"
+        ]
+      },
+      {
+        "blob": "blobs/a2/a2ffe77d11202d9fd195c766bdb10e1ca2fa610ee7100e802e9d8b3c8288fa7a/SeedBinding.lean",
+        "bytes": 2872,
+        "lexical_markers_heuristic": [],
+        "sha256": "a2ffe77d11202d9fd195c766bdb10e1ca2fa610ee7100e802e9d8b3c8288fa7a",
+        "static_imports_heuristic": [
+          "LiftedSheetGuards",
+          "Mathlib.Data.Complex.Basic",
+          "Mathlib.Data.Matrix.Notation",
+          "Mathlib.LinearAlgebra.Matrix.Adjugate",
+          "Mathlib.LinearAlgebra.Matrix.Determinant.Basic",
+          "Mathlib.Tactic.FieldSimp",
+          "Mathlib.Tactic.FinCases",
+          "Mathlib.Tactic.Linarith",
+          "Mathlib.Tactic.LinearCombination",
+          "Mathlib.Tactic.Ring"
+        ]
+      },
+      {
+        "blob": "blobs/a3/a39a4b15c5109c7080df9e06be4e29307a210addd4d75a42f8e94a1a0cf78931/SeedBinding.lean",
+        "bytes": 1804,
+        "lexical_markers_heuristic": [],
+        "sha256": "a39a4b15c5109c7080df9e06be4e29307a210addd4d75a42f8e94a1a0cf78931",
+        "static_imports_heuristic": [
+          "LiftedSheetGuards",
+          "Mathlib.Data.Complex.Basic",
+          "Mathlib.Data.Matrix.Notation",
+          "Mathlib.LinearAlgebra.Matrix.Adjugate",
+          "Mathlib.LinearAlgebra.Matrix.Determinant.Basic",
+          "Mathlib.Tactic.FieldSimp",
+          "Mathlib.Tactic.FinCases",
+          "Mathlib.Tactic.Linarith",
+          "Mathlib.Tactic.LinearCombination",
+          "Mathlib.Tactic.Ring"
+        ]
+      },
+      {
+        "blob": "blobs/a6/a6056a1acfc6dd1d0718e8b7b7192b16c1b8b02343e2522a62407e21477a1c90/PhysicalSeedSides.lean",
+        "bytes": 10624,
+        "lexical_markers_heuristic": [],
+        "sha256": "a6056a1acfc6dd1d0718e8b7b7192b16c1b8b02343e2522a62407e21477a1c90",
+        "static_imports_heuristic": [
+          "AdjugateReconstruction",
+          "PhysicalSideRational",
+          "SeedInvariants"
+        ]
+      },
+      {
+        "blob": "blobs/ab/ab8fdb12ea85611e8f725d7a9c47c20159dc0f5ab87d356155d9eb6dd4b6893a/SideIntrinsicMatrixBindings.lean",
+        "bytes": 2696,
+        "lexical_markers_heuristic": [],
+        "sha256": "ab8fdb12ea85611e8f725d7a9c47c20159dc0f5ab87d356155d9eb6dd4b6893a",
+        "static_imports_heuristic": [
+          "Hadamard6.GramInvariant",
+          "Mathlib.Tactic.FinCases",
+          "SideIntrinsicUnitBindings"
+        ]
+      },
+      {
+        "blob": "blobs/ac/ac5e3d7c2cd501c81b2bd33ddd1a85cf94a1c164d1bbdb4ae7f157304e832c97/AdjugateReconstruction.lean",
+        "bytes": 6287,
+        "lexical_markers_heuristic": [],
+        "sha256": "ac5e3d7c2cd501c81b2bd33ddd1a85cf94a1c164d1bbdb4ae7f157304e832c97",
+        "static_imports_heuristic": [
+          "CompactCarrierCover"
+        ]
+      },
+      {
+        "blob": "blobs/b1/b103f43580183e5f83873a45799e0d5d5c334b64cdf34069fc0de55e1346f127/PhysicalAdjugateCross.lean",
+        "bytes": 2793,
+        "lexical_markers_heuristic": [],
+        "sha256": "b103f43580183e5f83873a45799e0d5d5c334b64cdf34069fc0de55e1346f127",
+        "static_imports_heuristic": [
+          "PhysicalBlockRecovery"
+        ]
+      },
+      {
+        "blob": "blobs/b7/b72e1849e83e06d308d1375602df04fb98a399707f8ce5660f5fc2ab007be9c8/SideIntrinsicFourierMatrix.lean",
+        "bytes": 4561,
+        "lexical_markers_heuristic": [],
+        "sha256": "b72e1849e83e06d308d1375602df04fb98a399707f8ce5660f5fc2ab007be9c8",
+        "static_imports_heuristic": [
+          "SideFourierMatrixAlgebra",
+          "SideIntrinsicFourierModes",
+          "SideIntrinsicMatrixBindings"
+        ]
+      },
+      {
+        "blob": "blobs/b8/b85346680e6579d1e14252c0183b0dcf025027b54ef6e9bdeb2ec037bb666357/SeedBinding.lean",
+        "bytes": 2762,
+        "lexical_markers_heuristic": [],
+        "sha256": "b85346680e6579d1e14252c0183b0dcf025027b54ef6e9bdeb2ec037bb666357",
+        "static_imports_heuristic": [
+          "LiftedSheetGuards",
+          "Mathlib.Data.Complex.Basic",
+          "Mathlib.Data.Matrix.Notation",
+          "Mathlib.LinearAlgebra.Matrix.Adjugate",
+          "Mathlib.LinearAlgebra.Matrix.Determinant.Basic",
+          "Mathlib.Tactic.FieldSimp",
+          "Mathlib.Tactic.FinCases",
+          "Mathlib.Tactic.Linarith",
+          "Mathlib.Tactic.LinearCombination",
+          "Mathlib.Tactic.Ring"
+        ]
+      },
+      {
+        "blob": "blobs/bc/bc8f5b9d8bef34d15d81f2adf709f77cf38a27d5dac84a903150701717e40561/RationalCarrierIntervals.lean",
+        "bytes": 8012,
+        "lexical_markers_heuristic": [],
+        "sha256": "bc8f5b9d8bef34d15d81f2adf709f77cf38a27d5dac84a903150701717e40561",
+        "static_imports_heuristic": [
+          "IntervalKernel",
+          "Mathlib.Algebra.Order.Field.Basic",
+          "Mathlib.LinearAlgebra.Matrix.Adjugate",
+          "RationalCircleCharts"
+        ]
+      },
+      {
+        "blob": "blobs/c1/c1b2c6a1cb8a9e94b6e61ad5441fda5b470332a8116730097d3c8d858577b369/PhysicalAdjugateCross.lean",
+        "bytes": 2783,
+        "lexical_markers_heuristic": [],
+        "sha256": "c1b2c6a1cb8a9e94b6e61ad5441fda5b470332a8116730097d3c8d858577b369",
+        "static_imports_heuristic": [
+          "PhysicalBlockRecovery"
+        ]
+      },
+      {
+        "blob": "blobs/c8/c89c68e187ca733ec6e1e75b74c5e69bf49a056cb92a512a72f6d87fee13ab69/SeedBinding.lean",
+        "bytes": 8065,
+        "lexical_markers_heuristic": [],
+        "sha256": "c89c68e187ca733ec6e1e75b74c5e69bf49a056cb92a512a72f6d87fee13ab69",
+        "static_imports_heuristic": [
+          "LiftedSheetGuards",
+          "Mathlib.Data.Complex.Basic",
+          "Mathlib.Data.Matrix.Notation",
+          "Mathlib.LinearAlgebra.Matrix.Adjugate",
+          "Mathlib.LinearAlgebra.Matrix.Determinant.Basic",
+          "Mathlib.LinearAlgebra.Matrix.Hermitian",
+          "Mathlib.Tactic.FieldSimp",
+          "Mathlib.Tactic.FinCases",
+          "Mathlib.Tactic.Linarith",
+          "Mathlib.Tactic.LinearCombination",
+          "Mathlib.Tactic.Ring"
+        ]
+      },
+      {
+        "blob": "blobs/c9/c96f0f6a4992b5894317de3f0173e1e24ab8a845ff6685d17ff914eb33d544fb/GramInvariant.lean",
+        "bytes": 6270,
+        "lexical_markers_heuristic": [],
+        "sha256": "c96f0f6a4992b5894317de3f0173e1e24ab8a845ff6685d17ff914eb33d544fb",
+        "static_imports_heuristic": [
+          "Hadamard6.FiniteDilation",
+          "Mathlib.LinearAlgebra.Matrix.Hermitian",
+          "Mathlib.LinearAlgebra.Matrix.Trace",
+          "Mathlib.Tactic.Linarith",
+          "Mathlib.Tactic.LinearCombination",
+          "Mathlib.Tactic.Ring"
+        ]
+      },
+      {
+        "blob": "blobs/cc/ccb45fe8d03fa712c1249a597738f9a7b3352a68c41d3bcf4ef0a8c863b16cb4/SixteenCircleCover.lean",
+        "bytes": 6695,
+        "lexical_markers_heuristic": [],
+        "sha256": "ccb45fe8d03fa712c1249a597738f9a7b3352a68c41d3bcf4ef0a8c863b16cb4",
+        "static_imports_heuristic": [
+          "AdjugateReconstruction",
+          "NormalizedCarrierTransport",
+          "RationalCircleCharts"
+        ]
+      },
+      {
+        "blob": "blobs/d0/d0d72b40ac259f53947242634c343989ba9fc064024b3e93b078c974e6b61f9c/StrictSeedGuards.lean",
+        "bytes": 5221,
+        "lexical_markers_heuristic": [],
+        "sha256": "d0d72b40ac259f53947242634c343989ba9fc064024b3e93b078c974e6b61f9c",
+        "static_imports_heuristic": [
+          "Hadamard6.GramInvariant",
+          "StrictSideScalarGuards"
+        ]
+      },
+      {
+        "blob": "blobs/d2/d2c84a656220417014acf89a13686e5865a5d10de4a81bf8e5495614eb5d117c/SeedBinding.lean",
+        "bytes": 2798,
+        "lexical_markers_heuristic": [],
+        "sha256": "d2c84a656220417014acf89a13686e5865a5d10de4a81bf8e5495614eb5d117c",
+        "static_imports_heuristic": [
+          "LiftedSheetGuards",
+          "Mathlib.Data.Complex.Basic",
+          "Mathlib.Data.Matrix.Notation",
+          "Mathlib.LinearAlgebra.Matrix.Adjugate",
+          "Mathlib.LinearAlgebra.Matrix.Determinant.Basic",
+          "Mathlib.Tactic.FieldSimp",
+          "Mathlib.Tactic.FinCases",
+          "Mathlib.Tactic.Linarith",
+          "Mathlib.Tactic.LinearCombination",
+          "Mathlib.Tactic.Ring"
+        ]
+      },
+      {
+        "blob": "blobs/d8/d86f9d0e5aad3abecd6675e2f7cf4fcafcf4905c2807a4b6c3282f04639f9070/SeedBinding.lean",
+        "bytes": 2900,
+        "lexical_markers_heuristic": [],
+        "sha256": "d86f9d0e5aad3abecd6675e2f7cf4fcafcf4905c2807a4b6c3282f04639f9070",
+        "static_imports_heuristic": [
+          "LiftedSheetGuards",
+          "Mathlib.Data.Complex.Basic",
+          "Mathlib.Data.Matrix.Notation",
+          "Mathlib.LinearAlgebra.Matrix.Adjugate",
+          "Mathlib.LinearAlgebra.Matrix.Determinant.Basic",
+          "Mathlib.Tactic.FieldSimp",
+          "Mathlib.Tactic.FinCases",
+          "Mathlib.Tactic.Linarith",
+          "Mathlib.Tactic.LinearCombination",
+          "Mathlib.Tactic.Ring"
+        ]
+      },
+      {
+        "blob": "blobs/d9/d9b1dde67705fc26758540f5df10808f4bf1a27bd1888d0aec86c588d145df91/PhysicalAdjugateLiteral.lean",
+        "bytes": 1632,
+        "lexical_markers_heuristic": [],
+        "sha256": "d9b1dde67705fc26758540f5df10808f4bf1a27bd1888d0aec86c588d145df91",
+        "static_imports_heuristic": [
+          "PhysicalSeedComplement"
+        ]
+      },
+      {
+        "blob": "blobs/da/da8a3b1fdc690f19d712d5dfccf948b4443137f7ed550176e04fb5093f6e31ce/PhysicalSeedSides.lean",
+        "bytes": 7297,
+        "lexical_markers_heuristic": [],
+        "sha256": "da8a3b1fdc690f19d712d5dfccf948b4443137f7ed550176e04fb5093f6e31ce",
+        "static_imports_heuristic": [
+          "AdjugateReconstruction",
+          "PhysicalSideRational",
+          "SeedInvariants"
+        ]
+      },
+      {
+        "blob": "blobs/dd/ddbd962c3e43cfdb4a1176acf9f9568a322c8dcef63c1a2dfc6b7a61404fc59a/PortAddendumAudit.lean",
+        "bytes": 22906,
+        "lexical_markers_heuristic": [],
+        "sha256": "ddbd962c3e43cfdb4a1176acf9f9568a322c8dcef63c1a2dfc6b7a61404fc59a",
+        "static_imports_heuristic": [
+          "AdjugateReconstruction",
+          "CompactCarrierCover",
+          "CompactChartFilters",
+          "ConditionedFourierChart",
+          "FiniteCarrierEnclosures",
+          "FourierConditioning",
+          "GaussianCarrierExport",
+          "GlobalFourierConditioning",
+          "GramNumerators",
+          "MixedCarrierExport",
+          "NeighborhoodCarrierExport",
+          "NormalizedCarrierTransport",
+          "PhysicalCarrierEnclosures",
+          "PhysicalSideForward",
+          "PhysicalSideRational",
+          "PhysicalSideSheet",
+          "RationalCarrierIntervals",
+          "RootCarrierExport",
+          "SeedInvariants",
+          "SideLambdaPhases",
+          "SixteenCarrierEnclosure",
+          "SixteenCircleCover",
+          "SixteenDyadicCover"
+        ]
+      },
+      {
+        "blob": "blobs/e6/e6e4b69b081a604cca952f78416aba48393f0d02df5a9f6b0487d24e602d0a5f/SideMatrixSeedGram.lean",
+        "bytes": 1715,
+        "lexical_markers_heuristic": [],
+        "sha256": "e6e4b69b081a604cca952f78416aba48393f0d02df5a9f6b0487d24e602d0a5f",
+        "static_imports_heuristic": [
+          "SideMatrixGram",
+          "SideSeedComplement"
+        ]
+      },
+      {
+        "blob": "blobs/e7/e760d3a3c195be98bd21cce2988cd4c442c9474c74c86deda5ac90b6f901e659/SideIntrinsicFourierMatrix.lean",
+        "bytes": 4124,
+        "lexical_markers_heuristic": [],
+        "sha256": "e760d3a3c195be98bd21cce2988cd4c442c9474c74c86deda5ac90b6f901e659",
+        "static_imports_heuristic": [
+          "SideFourierMatrixAlgebra",
+          "SideIntrinsicFourierModes",
+          "SideIntrinsicMatrixBindings"
+        ]
+      },
+      {
+        "blob": "blobs/eb/eb650b038abc00d74ec72a6398cd3ad720331d9ef64a7b4c854d974b9b141920/AdjugateReconstruction.lean",
+        "bytes": 5735,
+        "lexical_markers_heuristic": [],
+        "sha256": "eb650b038abc00d74ec72a6398cd3ad720331d9ef64a7b4c854d974b9b141920",
+        "static_imports_heuristic": [
+          "CompactCarrierCover"
+        ]
+      },
+      {
+        "blob": "blobs/f4/f4850581c5d7465ef8d090e8178c1d2320101aeda3277cb15f6eca616356ddbe/CompactCarrierCover.lean",
+        "bytes": 6335,
+        "lexical_markers_heuristic": [],
+        "sha256": "f4850581c5d7465ef8d090e8178c1d2320101aeda3277cb15f6eca616356ddbe",
+        "static_imports_heuristic": [
+          "GoodSideBlocks",
+          "Mathlib.LinearAlgebra.Matrix.Adjugate",
+          "SymmetryTransport"
+        ]
+      },
+      {
+        "blob": "blobs/f5/f5d52248501d26c6f569257636139cb1045dbb17c33172dc1897c0d891c04fde/PhysicalAdjugateLiteral.lean",
+        "bytes": 2299,
+        "lexical_markers_heuristic": [],
+        "sha256": "f5d52248501d26c6f569257636139cb1045dbb17c33172dc1897c0d891c04fde",
+        "static_imports_heuristic": [
+          "PhysicalAdjugateCross"
+        ]
+      },
+      {
+        "blob": "blobs/ff/ffc633f6d70270bdb32c7a4212d9b99abf86cef9e074541a1f25f2ae6caf4d04/SeedBinding.lean",
+        "bytes": 1804,
+        "lexical_markers_heuristic": [],
+        "sha256": "ffc633f6d70270bdb32c7a4212d9b99abf86cef9e074541a1f25f2ae6caf4d04",
+        "static_imports_heuristic": [
+          "LiftedSheetGuards",
+          "Mathlib.Data.Complex.Basic",
+          "Mathlib.Data.Matrix.Notation",
+          "Mathlib.LinearAlgebra.Matrix.Adjugate",
+          "Mathlib.LinearAlgebra.Matrix.Determinant.Basic",
+          "Mathlib.Tactic.FieldSimp",
+          "Mathlib.Tactic.FinCases",
+          "Mathlib.Tactic.Linarith",
+          "Mathlib.Tactic.LinearCombination",
+          "Mathlib.Tactic.Ring"
+        ]
+      }
+    ]
+  },
+  "ARCHIVE_IMPORT_INDEX.json": {
+    "total": 16532,
+    "matches": [
+      {
+        "candidate_source_sha256": [
+          "4e8183a2abbee770c2f95576eb0def3d6a1e1840ad3f69668229938efc3ddbe2",
+          "658a3d7e72ca4def4de93476c97b128e7e3b8ba17270f808931bd1fdda7bf3ba",
+          "ac5e3d7c2cd501c81b2bd33ddd1a85cf94a1c164d1bbdb4ae7f157304e832c97",
+          "eb650b038abc00d74ec72a6398cd3ad720331d9ef64a7b4c854d974b9b141920"
+        ],
+        "classification": "authored_candidates_available",
+        "module": "AdjugateReconstruction",
+        "resolution_is_context_dependent": true
+      },
+      {
+        "candidate_source_sha256": [
+          "c96f0f6a4992b5894317de3f0173e1e24ab8a845ff6685d17ff914eb33d544fb"
+        ],
+        "classification": "authored_candidates_available",
+        "module": "Hadamard6.GramInvariant",
+        "resolution_is_context_dependent": false
+      },
+      {
+        "candidate_source_sha256": [],
+        "classification": "external_dependency_not_bundled",
+        "module": "Mathlib.LinearAlgebra.Matrix.Adjugate",
+        "resolution_is_context_dependent": true
+      },
+      {
+        "candidate_source_sha256": [
+          "b103f43580183e5f83873a45799e0d5d5c334b64cdf34069fc0de55e1346f127",
+          "c1b2c6a1cb8a9e94b6e61ad5441fda5b470332a8116730097d3c8d858577b369"
+        ],
+        "classification": "authored_candidates_available",
+        "module": "PhysicalAdjugateCross",
+        "resolution_is_context_dependent": true
+      },
+      {
+        "candidate_source_sha256": [
+          "5364f6c90e8c31ac89a5e7c70692d060faf962572a2ee27263d8db409b1892ab",
+          "d9b1dde67705fc26758540f5df10808f4bf1a27bd1888d0aec86c588d145df91",
+          "f5d52248501d26c6f569257636139cb1045dbb17c33172dc1897c0d891c04fde"
+        ],
+        "classification": "authored_candidates_available",
+        "module": "PhysicalAdjugateLiteral",
+        "resolution_is_context_dependent": true
+      },
+      {
+        "candidate_source_sha256": [
+          "401f1f94e74f28805736bfa6699ebe59bf5bb7695f6e1b8b05b7acb1e9e78c15"
+        ],
+        "classification": "authored_candidates_available",
+        "module": "SideIntrinsicActualNorms",
+        "resolution_is_context_dependent": false
+      },
+      {
+        "candidate_source_sha256": [
+          "ab8fdb12ea85611e8f725d7a9c47c20159dc0f5ab87d356155d9eb6dd4b6893a"
+        ],
+        "classification": "authored_candidates_available",
+        "module": "SideIntrinsicMatrixBindings",
+        "resolution_is_context_dependent": false
+      },
+      {
+        "candidate_source_sha256": [
+          "8755ed21765d752512c908c0b2851279fc88347fadfdee09596eff5563b1aa64",
+          "e6e4b69b081a604cca952f78416aba48393f0d02df5a9f6b0487d24e602d0a5f"
+        ],
+        "classification": "authored_candidates_available",
+        "module": "SideMatrixSeedGram",
+        "resolution_is_context_dependent": true
+      },
+      {
+        "candidate_source_sha256": [
+          "15185a04f48efafe38e63ef3e877a21a63ac5d7be7259ec4054404a683707864",
+          "9ee15130145d65ed08dbe5f40b0aa97302072cd7202df7d772f39829b56e8444"
+        ],
+        "classification": "authored_candidates_available",
+        "module": "SideSeedComplement",
+        "resolution_is_context_dependent": true
+      }
+    ]
+  }
+}

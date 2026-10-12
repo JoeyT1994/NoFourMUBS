@@ -1,0 +1,46 @@
+{
+  "status": "PASS",
+  "checked_utc": "2026-10-11T20:13:19.685325+00:00",
+  "modules": 1,
+  "axiom_endpoints": {
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.cached_eliminantA_eq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.cached_eliminantA_seed": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.cached_eliminantB_eq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.cached_eliminantB_seed": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "source_hashes": {
+    "NoFourMUBs/Step2/Reconstruction/BaseCoefficients/Eliminants.lean": "3ae325de28da1896954ef3270bff34a2a18de68ea1813a7745b327840e804c5a"
+  },
+  "manifest_sha256": "3d0cc59898ef893f00f159dc1fdf5e30e2756aae3481e654619f7d4702a50812",
+  "audit_log_sha256": "ea07b3604494eda677cf919e4c0faa9507756303d9128984e21c409aa2d4a9fd",
+  "scope": "Original cached A/B cubic entry coefficients equal the existing checked Haagerup eliminants after phase substitution. This does not check the reduced quadratic companion or discharge its denominator. No atlas certification.",
+  "dependency_audits": {
+    "KERNEL_AUDIT_MATCHED_BASE_BINDING_STATUS.json": "b6a3dae407e055f67371f0512f66568b1dd62542384ce34db3e09a205f9a3632",
+    "KERNEL_AUDIT_MATCHED_ENTRY_COMPANION_STATUS.json": "14bb46750e24a49edac99989bbe6869af3310afa1070925562231253fe72cd2a"
+  },
+  "dependency_source_hashes": {
+    "vendor/hadamard6/Hadamard6/QuotientAlgebra.lean": "e771892e157ec91624d5fe1dada562bb43651696a673e0bc4fb08c5c640b03ed",
+    "NoFourMUBs/Step2/Reconstruction/EntryCompanion.lean": "d1849acb23e557ce8a0f41543b0ea41855a4f2fd98829b0a7e743320aefbe468",
+    "NoFourMUBs/Step2/Reconstruction/BaseCoefficients/Bindings.lean": "f488d52f6e644ee826f25f359886ef3f9a1da0a3c27660246bf11b459dc40509",
+    "NoFourMUBs/Step1/Lift.lean": "b8a35ba93c6fc0759092edad30be2d649921351c66c2a8c154d4b71941479064",
+    "vendor/hadamard6/Hadamard6/LeadingFibreCriterion.lean": "16942562cf1cc0f3c45acca5cdbedf8ec0d7b0c27f9e513f1a0343e9d551f118",
+    "vendor/hadamard6/Hadamard6/DependentAlgebra.lean": "89d05a0c20671fa6582c92f1999c525ac53148eebfea30c08b7e0994a371c503"
+  },
+  "atlas_certification": false
+}

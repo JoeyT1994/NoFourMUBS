@@ -1,0 +1,5 @@
+import NoFourMUBs.Step2.CriticalZero.NonzeroRationalTable
+
+#check NoFourMUBs.Step2.Critical.NonzeroClearing.pairedCoefficient_eq_rationalCoefficients
+#print axioms NoFourMUBs.Step2.Critical.NonzeroClearing.pairedCoefficient_eq_rationalCoefficients
+#print axioms NoFourMUBs.Step2.Critical.NonzeroClearing.sumCoefficients_via_rationalTable

@@ -1,0 +1,36 @@
+{
+  "status": "REVIEWED_REUSE_SIDE_DENOMINATOR_FACTORS",
+  "reviewed_utc": "2026-10-12T12:05:23.655001+00:00",
+  "search": "MATCHED_THIRD_DENOMINATOR_SIDE_REUSE_SEARCH.json",
+  "source_pins": [
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/BaseCoefficients/Bindings.lean",
+      "sha256": "f488d52f6e644ee826f25f359886ef3f9a1da0a3c27660246bf11b459dc40509"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/BaseCoefficients/Data.lean",
+      "sha256": "8762870b591931264431f85658053b7ce1496ae35d318f036f34d5b02656f170"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Frames.lean",
+      "sha256": "6a9f4c607d0cf945d60ef45b0c9ee7e7405f46176bd2fc2d4e25dec076f4284f"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/DenominatorInputs.lean",
+      "sha256": "bffff62bd3f41de73a70183e11a498564f1b037c841fb81882169b972132fc82"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/Products/MonomialTransport0.lean",
+      "sha256": "97ea96afb3d4877b73bba96cf947271b7bcfb036e6cbfc0b45d3a65a7a899452"
+    }
+  ],
+  "comparisons": [
+    "DenominatorInputs.P003_eq_inverse_inputDen already binds rawP003 to4*a^6*b^5*c^6*d^6 times the original inputDen at inverse phases. Reuse it directly.",
+    "BaseCoefficients.cachedC6_seed identifies4*inputDen/phaseMonomial with conjugate(P0)*P1. At the inverse seed this is P0*conjugate(P1). Frames.inverseSeed_invariants contains exactly the needed three definitional correlation/conjugation conversions; no new invariant proof is needed.",
+    "Combining these existing equalities leaves only phase monomial cancellation: rawP003=a^2*b*c^3*d^3*(P0*conjugate(P1)). This new representation theorem uses no expanded coefficient list.",
+    "P003_eq_a_mul_P015 then cancels the nonzero phase a to give the rawP015 factor. Both statements apply to every Seed, including singular and boundary seeds; no g or P guard is added.",
+    "This is a representation adapter for later actual matrix entries, not a second flatness route or a replacement arithmetic certificate."
+  ],
+  "atlas_certification": false,
+  "new_numeric_arrays": 0
+}

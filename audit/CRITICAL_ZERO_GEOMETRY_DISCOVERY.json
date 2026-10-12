@@ -1,0 +1,108 @@
+{
+  "status": "READ_ONLY_DISCOVERY_NOT_ADOPTED",
+  "root": "CriticalAllocatedWholeStrip",
+  "unambiguous": {
+    "CriticalAllocatedWholeStrip": {
+      "blob": "blobs/e2/e26ca63c808d0b529efe4551e6240579aadf01ccc8aac35e80086dc6cea7f300/CriticalAllocatedWholeStrip.lean",
+      "bytes": 2581,
+      "lexical_markers_heuristic": [],
+      "sha256": "e26ca63c808d0b529efe4551e6240579aadf01ccc8aac35e80086dc6cea7f300",
+      "static_imports_heuristic": [
+        "CriticalAllocatedBlockGeometric",
+        "CriticalGeometricHalves"
+      ]
+    },
+    "CriticalGeometricHalves": {
+      "blob": "blobs/27/27dd047efdcd53a48ba035c9ef3dbbd60089530b75ca1301d9ae5853e26d62e6/CriticalGeometricHalves.lean",
+      "bytes": 2051,
+      "lexical_markers_heuristic": [],
+      "sha256": "27dd047efdcd53a48ba035c9ef3dbbd60089530b75ca1301d9ae5853e26d62e6",
+      "static_imports_heuristic": [
+        "CriticalStripPhysical",
+        "CriticalTriplesComplement"
+      ]
+    },
+    "CriticalTriplesComplement": {
+      "blob": "blobs/ca/ca9eb5147cccb71507a65758b3b923caf29ca6036115e185171ad9d0946e902f/CriticalTriplesComplement.lean",
+      "bytes": 465,
+      "lexical_markers_heuristic": [],
+      "sha256": "ca9eb5147cccb71507a65758b3b923caf29ca6036115e185171ad9d0946e902f",
+      "static_imports_heuristic": [
+        "CriticalRowSum"
+      ]
+    },
+    "CriticalAllocatedBlockGeometric": {
+      "blob": "blobs/c8/c8f269b40f6692ea6af224f7e0c5402d3295714c1a6735e22988bb7a83d4cfeb/CriticalAllocatedBlockGeometric.lean",
+      "bytes": 2034,
+      "lexical_markers_heuristic": [],
+      "sha256": "c8f269b40f6692ea6af224f7e0c5402d3295714c1a6735e22988bb7a83d4cfeb",
+      "static_imports_heuristic": [
+        "CriticalGeometricActualLambda",
+        "CriticalUnitSumTerminal"
+      ]
+    },
+    "CriticalGeometricActualLambda": {
+      "blob": "blobs/df/df2bb601d9781f00a52653b4d8d0fec137d23079096b4945e487ca7dff5e8ca3/CriticalGeometricActualLambda.lean",
+      "bytes": 6269,
+      "lexical_markers_heuristic": [],
+      "sha256": "df2bb601d9781f00a52653b4d8d0fec137d23079096b4945e487ca7dff5e8ca3",
+      "static_imports_heuristic": [
+        "CriticalGeometricNumerator",
+        "CriticalLightSheet"
+      ]
+    }
+  },
+  "ambiguous": {
+    "CriticalUnitSumTerminal": [
+      {
+        "sha256": "8af8f023349773be6fcfcd01892a8c46ea23e7f7d76f5ec84ae1351f62aacfec",
+        "blob": "blobs/8a/8af8f023349773be6fcfcd01892a8c46ea23e7f7d76f5ec84ae1351f62aacfec/CriticalUnitSumTerminal.lean",
+        "bytes": 2806,
+        "static_imports_heuristic": [
+          "Mathlib.Algebra.BigOperators.Fin",
+          "Mathlib.Data.Complex.Basic",
+          "Mathlib.Tactic.FinCases",
+          "Mathlib.Tactic.Linarith",
+          "Mathlib.Tactic.LinearCombination"
+        ]
+      },
+      {
+        "sha256": "8b3d74241e3273949b3bf2572ca9f031551d3e813b66113f8da4c8aa1ca976cd",
+        "blob": "blobs/8b/8b3d74241e3273949b3bf2572ca9f031551d3e813b66113f8da4c8aa1ca976cd/CriticalUnitSumTerminal.lean",
+        "bytes": 2789,
+        "static_imports_heuristic": [
+          "Mathlib.Algebra.BigOperators.Fin",
+          "Mathlib.Data.Complex.Basic",
+          "Mathlib.Tactic.FinCases",
+          "Mathlib.Tactic.Linarith",
+          "Mathlib.Tactic.LinearCombination"
+        ]
+      }
+    ],
+    "CriticalGeometricNumerator": [
+      {
+        "sha256": "35510adb3cb26638710eb6abea12abeec33aeea29b28e7638f575cacd823d6bd",
+        "blob": "blobs/35/35510adb3cb26638710eb6abea12abeec33aeea29b28e7638f575cacd823d6bd/CriticalGeometricNumerator.lean",
+        "bytes": 3475,
+        "static_imports_heuristic": [
+          "CriticalMomentBinding"
+        ]
+      },
+      {
+        "sha256": "db3948d220a6f0a6c9cc04a8c2fd453b0ecb764a525723073cb29c85a9a330c4",
+        "blob": "blobs/db/db3948d220a6f0a6c9cc04a8c2fd453b0ecb764a525723073cb29c85a9a330c4/CriticalGeometricNumerator.lean",
+        "bytes": 3393,
+        "static_imports_heuristic": [
+          "CriticalMomentBinding"
+        ]
+      }
+    ]
+  },
+  "shared": [
+    "CriticalLightSheet",
+    "CriticalRowSum",
+    "CriticalStripPhysical"
+  ],
+  "missing": [],
+  "atlas_certification": false
+}

@@ -1,0 +1,48 @@
+{
+  "status": "PASS",
+  "checked_utc": "2026-10-10T23:52:02.813737+00:00",
+  "returncode": 0,
+  "file": "KERNEL_AUDIT_COMPLETION_AND_GROUP.lean",
+  "log": "KERNEL_AUDIT_COMPLETION_AND_GROUP.log",
+  "source_hashes": {
+    "NoFourMUBs/Step2/Reconstruction/MatchedCompletion.lean": "3ae1f9ea21d0e2d0a1ff1ae9c8d4f0fc575ee4211d675e107b3db3fc43a4834c",
+    "NoFourMUBs/Step2/Reconstruction/RowNormFlatness.lean": "9a079f39961c8e291f0243a0e2f081ebfa83da4468a258eb8d6286d69c7344d9",
+    "NoFourMUBs/Step2/CriticalZero/Group00Exact.lean": "02719f7b9db540303f48819377555ea6ce3c1667cc83187f492e461fe8de5f20",
+    "NoFourMUBs/Step2/CriticalZero/NumeratorGroups.lean": "b10888f50d4b9a87be8e9b695a45758eb4c3a2b8d9dd9301585d7b8d54853b72",
+    "NoFourMUBs/Step2/CriticalZero/NumeratorCheck18.lean": "6f08656359c5d7030c05c60d8417dc48cac79b509d64e035c334db896a7e2043",
+    "NoFourMUBs/MainTheorem.lean": "d3e9fc94ce26cfbb3e0922fdaae8f5cb9c531c495dbe4fed2b09873e4e033dd5"
+  },
+  "axioms": {
+    "NoFourMUBs.Step2.Reconstruction.matched_completion_of_flat_signed_sides": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.entrywiseUnit_of_row_norms_and_products": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "CriticalZeroSumAssembly20261003.numerator_group00_eval_identity": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "CriticalZeroSumAssembly20261003.groupedNumeratorOriginal_eval": [
+      "propext",
+      "Quot.sound"
+    ],
+    "CriticalZeroSumAssembly20261003.groupedNumeratorResidual_interpret": [
+      "propext",
+      "Quot.sound"
+    ],
+    "CriticalZeroSumAssembly20261003.numerator_certificate_18": [
+      "propext"
+    ]
+  },
+  "exact_types_printed": true,
+  "universal_flatness_proved": false,
+  "whole_numerator_proved": false,
+  "main_still_has_four_explicit_inputs": true,
+  "atlas_certification": false
+}

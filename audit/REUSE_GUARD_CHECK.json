@@ -1,0 +1,68 @@
+{
+  "checks": [
+    {
+      "case": "missing repository check",
+      "result": "blocked"
+    },
+    {
+      "case": "unreviewed scope",
+      "result": "blocked"
+    },
+    {
+      "case": "fresh matching scoped review",
+      "result": "allowed"
+    },
+    {
+      "case": "stale repository check",
+      "result": "blocked"
+    },
+    {
+      "case": "failed repository check",
+      "result": "blocked"
+    },
+    {
+      "case": "changed repository commit",
+      "result": "blocked"
+    },
+    {
+      "case": "pending update review",
+      "result": "blocked"
+    }
+  ],
+  "guarded_scripts": {
+    "discover_sos_normalization.py": "28e7c96cdc3d0ec22fceabed7fe10ec99c50ea474a1648f12b17ecda74fa9f56",
+    "generate_sos_canonical.py": "06c189dad011614844ef87da975c45b71c8678beff7782b77961ff9229e2878e",
+    "generate_sos_normalization_context.py": "5cb6991649c093a43b379529c715953b1a7d1d34f7850b3eb027e7c3349d2355",
+    "generate_sos_old_projections.py": "e592f6f87ce7cb569ceed846c9126ba9a2d928e867f710d2dfde90599151b5aa",
+    "generate_sos_semantics.py": "913d8338022e41ec3572b3198133342edf79eff3e2a8b77ec1497e519f1e1946",
+    "prepare_sos_reductions.py": "8236aaf3468e2175cc61643e1e89e851bd93a36901f764c8b4249763a392bc3b",
+    "export_sos_system.py": "ab7c102dfdacda2fead5869049b988cbdefab75c6b45041615942ddabbf04a14",
+    "export_sos_unprojected.py": "74d323f32524a2ba66e6e7fe7d28e1825174a563b15e2edd47d36e7f89c01849",
+    "solve_sos_witness.py": "f5c575dc473377ff8570087ce54411f04740c5f0e844e1c837490a544875d3a7",
+    "generate_sos_arithmetic.py": "f714b70a69c55ddeac394458d1632f1964427f497eeaac55902aad1a2ce5e80e",
+    "integrate_archive_counts.py": "51e25d911a04dcf7a1384aaa7c32890820e256ddc78085a301daa4595a283834",
+    "integrate_archive_permanent.py": "224cd15bcd0a24d795cc6887cf53db8b1ca2eb36f1a3b598f9c6cd89fa17bdd9",
+    "reuse_canonical_overlaps.py": "b5feb4baa86f13eb071c202cdfcbcdc60021f173569d8d67225ba89270c2c536",
+    "generate_sos_reductions.py": "3a534ab723bab3770017e2921f33eac90e9018dca91a155cbddd21c964f06da6",
+    "generate_sos_boundary_rows.py": "e48af055d868907eba448a3b0e17a9b16d47f0d0ff21c6a7a6925b3f632be524",
+    "generate_sos_fourier_rows.py": "bd3f86581ab03ebd41676728611fb68375bc59b4c8aa560ef448f365ae71b75d",
+    "generate_signature_laurent.py": "16e0b8bfc5253a49def6f3d1cca3a914b81a65ecc324dd5cee4b17ea27b4b79a",
+    "generate_sos_psi_rows.py": "22f990d1a5eaa488a58f2486219c542f46eae13aaa918bc8becbe2549ff598e3",
+    "generate_corner_pair_patterns.py": "a7b1860bcf6dbfc1337f5ae0dfdff5858bf9af7db9a5563405adbe05fa436c44",
+    "generate_sos_target_projection.py": "9cffcceb0dd4f019b63046abd9500ca4870c80088fd7b1411fa9b6223bc1b19d",
+    "generate_sos_row_assembly.py": "34bc449f5a4641935e8907da1693b7cd86970d97463cfd643c895f22a20c58c6",
+    "integrate_archive_zero_scalar.py": "edf53445d492fec74e02623cf7b4990b5fdb025677b3a1d8ead6a8278c2e7077",
+    "generate_critical_zero_numerator.py": "2f393c3b8eec334dacb1c86072c94c0b57f400d0410eafb8b4b4df14d9ec8f94",
+    "generate_critical_zero_group00_checks.py": "385aab5318351214c0ee0b7d49422dfa78103cc0d015b438b2cb0b279d12ca45"
+  },
+  "moment_binding_extension": {
+    "checked_utc": "2026-10-11T01:01:32.255934+00:00",
+    "change": "Hash-checked omission of definitions already extracted verbatim; proof statements and bodies unchanged. Existing24generation guards retained.",
+    "review": "CRITICAL_MOMENT_BINDING_REUSE_REVIEW.json"
+  },
+  "strip_model_extension": {
+    "checked_utc": "2026-10-11T01:13:09.442599+00:00",
+    "change": "Explicit counted model-identifier/open-namespace adaptations and hash-checked existing shared imports; no proof-body/data generation.",
+    "review": "CRITICAL_STRIP_MODEL_REUSE_REVIEW.json"
+  }
+}

@@ -1,0 +1,5 @@
+import NoFourMUBs.Step2.Reconstruction.ThirdMoment.Certificates.ConstantRational
+
+#check NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.savedW11Constant_strict_zero
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.savedW11Constant_zero
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.savedW11Constant_strict_zero

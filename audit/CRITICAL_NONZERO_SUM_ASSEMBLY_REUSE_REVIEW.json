@@ -1,0 +1,37 @@
+{
+  "status": "READ_ONLY_REUSE_REVIEW_NO_NEW_SUM_CERTIFICATES",
+  "checked_utc": "2026-10-11T09:50:44.912773+00:00",
+  "head": "4e048ec8a2888f198f5432efd7f201f98d473878",
+  "query_results": "NONZERO_SUM_ASSEMBLY_REUSE_FILES.txt",
+  "scope": "Reuse candidates for the remaining nonzero-J 66term numerator identity.",
+  "findings": [
+    "All4archived CriticalNonzeroCoefficientProgram variants retain ha:a*D=N and hb:b*D=0. The current adopted interface has the same premises.",
+    "CriticalZeroSumCleared supplies a zero-J-specific 66term denominator assembly; its physical relation sets the linear root coefficient to zero. Its branch-specific numerator is not interchangeable with the nonzero-J target.",
+    "The existing DenseCoefficients/BinaryCertificate arithmetic evaluator is generic and remains the selected checker. No new normalizer needed.",
+    "Current b=0 is already proved by involution. Only the constant-coefficient raw-numerator identity needs new checks.",
+    "Other direct query matches concern interval/residual chart certificates; no atlas verification was started."
+  ],
+  "source_pins": {
+    "lean/NoFourMUBs/Reuse/Archive/CriticalNonzeroCoefficientProgram.lean": "a31e3a113b7fd463b35c0066c508d1d6c9d98d928bc99d2700a8a4a8ff8d235e",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/b3/b34026d24196ca6a485446c46c674ee02562c5f810e31f1c020afbaeacf063b4/CriticalNonzeroCoefficientProgram.lean": "b34026d24196ca6a485446c46c674ee02562c5f810e31f1c020afbaeacf063b4",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/33/339296bcc767e4b102be67a52c59c16933d6ab3961c69d1882a54d2a2f98c15b/CriticalNonzeroCoefficientProgram.lean": "339296bcc767e4b102be67a52c59c16933d6ab3961c69d1882a54d2a2f98c15b",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/af/af7e67ca9c7f376207940eac57e1a0110646ce0b4594007d623b20ce7ca1ad87/CriticalNonzeroCoefficientProgram.lean": "af7e67ca9c7f376207940eac57e1a0110646ce0b4594007d623b20ce7ca1ad87",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/b7/b76413c2ac0caf9c115f9d91c3c9d7c5918a7fef16cb4e1f3383615283a20ff7/CriticalNonzeroCoefficientProgram.lean": "b76413c2ac0caf9c115f9d91c3c9d7c5918a7fef16cb4e1f3383615283a20ff7",
+    "lean/NoFourMUBs/Reuse/Archive/CriticalZeroSumCleared.lean": "a73f9c7be9b6c6f08b984a061affbdc98ced34876865462f0c83d8d75e700c9c",
+    "lean/NoFourMUBs/Reuse/Archive/CriticalZeroSumEvalBase.lean": "27f406b1b4930f16ed5f1058ad4b0df949e9f03caffa51a364b645e813890856",
+    "lean/NoFourMUBs/Reuse/Archive/CriticalZeroSumPhysicalCleared.lean": "61a4ea4436167fe56be90582a5536805b16f2bd3b24f3041fe9f8f4b6674835c",
+    "lean/NoFourMUBs/Reuse/Archive/CriticalZeroSumBinaryCertificate.lean": "1b0aa20b70be2198d9ebd75ea58c52ed89b661518049027e586b16680d0ac2cc",
+    "lean/NoFourMUBs/Reuse/Archive/CriticalZeroSumDenseCoefficients.lean": "b9bfcd6c882329da43a6d318ac481580385621442600a6bb102e0ad1298af29c",
+    "lean/NoFourMUBs/Step2/CriticalZero/NonzeroQuadAlgebra.lean": "3cc35f4c2c1c5d497c1e931f88d93768d7c26469c28778558f10d5e0de9e8482"
+  },
+  "next": "After the existing 18moment table compiles, assemble the unchanged66term program using that table and compare to the original44722term numerator. Do not recompute square_sum or replace its target.",
+  "atlas_certification": false,
+  "selected_algebra_adapter": {
+    "source": "prepare_nonzero_sum_clearing.py",
+    "scope": "66literal original terms over the checked rational table. No scalar polynomial arrays generated. Each field identity must compile.",
+    "reused": "NonzeroQuadAlgebra.toQuadratic and existing Mathlib projections; no new quadratic arithmetic helper.",
+    "common_denominator": "64*X^8*Y^7*h(k)^8*original commonDenominator",
+    "required_polynomial_identity": "computedNumerator = 2*X^8*Y^7*h(k)^8*rawIntegerNumerator",
+    "pilot": "Base,constantterm00,largestterm01PASS. Full68modules not yet checked."
+  }
+}

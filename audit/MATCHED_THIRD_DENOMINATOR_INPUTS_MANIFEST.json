@@ -1,0 +1,34 @@
+{
+  "scope": "matched_third_flatness",
+  "records": [
+    {
+      "module": "NoFourMUBs.Step2.Reconstruction.ThirdMoment.Certificates.DenominatorInputs",
+      "active_path": "NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/DenominatorInputs.lean",
+      "active_sha256": "bffff62bd3f41de73a70183e11a498564f1b037c841fb81882169b972132fc82",
+      "local_model_adapter": true
+    }
+  ],
+  "axiom_endpoints": [
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P003_eq_inverse_inputDen",
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P004_eq_bc_mul_P003_swap",
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P003_strict_ne_zero",
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P004_strict_ne_zero",
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P000_strict_ne_zero"
+  ],
+  "dependency_audits": [
+    "KERNEL_AUDIT_MATCHED_THIRD_PRODUCT_000_STATUS.json",
+    "KERNEL_AUDIT_MATCHED_BASE_BINDING_STATUS.json"
+  ],
+  "dependency_pins": [
+    {
+      "active_path": "NoFourMUBs/Step2/Frames.lean",
+      "active_sha256": "6a9f4c607d0cf945d60ef45b0c9ee7e7405f46176bd2fc2d4e25dec076f4284f"
+    },
+    {
+      "active_path": "NoFourMUBs/Step2/ActualCorners.lean",
+      "active_sha256": "f5a46634e2318abb93603ed50169c47c47df9e94463869da48110e63654ba7e0"
+    }
+  ],
+  "scope_note": "Reuse checked strict input denominator and original product000 to prove saved W11 linear common denominator nonzero everywhere on StrictSeed. No atlas.",
+  "atlas_certification": false
+}

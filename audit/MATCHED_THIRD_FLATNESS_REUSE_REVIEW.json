@@ -1,0 +1,154 @@
+{
+  "status": "REVIEWED_SELECTED_FOR_LEAN_PORT",
+  "reviewed_utc": "2026-10-11T23:50:03.862147+00:00",
+  "repository_commit": "4a3728d7f388aa2f2cb4a42bfb5c00b27566f23f",
+  "search_evidence": [
+    "MATCHED_THIRD_FLATNESS_REUSE_SEARCH.json",
+    "MATCHED_THIRD_FLATNESS_LINEAR_REUSE_FILES.txt",
+    "REPOSITORY_UPDATE_4a3728_REVIEW.json",
+    "REPOSITORY_UPDATE_4a3728_COMPLETE_SOURCE_DIFF.json",
+    "MATCHED_THIRD_MOMENT_EXPANSION_REUSE_FILES.txt",
+    "MATCHED_THIRD_REDUCTION_REUSE_SEARCH.json"
+  ],
+  "coverage": "Current sources, pinned full source77948/blob19386/import16532 indexes, full locally available archived Lean blobs, vendor Hadamard/OAI, and complete new upstream E/F source inventory. No claim covers unshared work or unavailable dataless source.",
+  "comparisons": [
+    {
+      "existing": "Hadamard6.BlockCompletion",
+      "use": "Directly reuse forcedD_bottomRowGram, forcedD_row_cross, completion_rowGram_blocks. retained_completion_rowGram assumes flatness through Retained and cannot be called here; add only the candidate-input assembly of its existing block equations."
+    },
+    {
+      "existing": "Hadamard6.BlockGram.hadamard_column_gram and OAI.MUB6.isHadamard_of_row_gram",
+      "use": "Both retain entrywise-unit input. Reuse the same Matrix.mul_eq_one_comm scaling proof with only the row Gram equation; do not assume the desired flatness."
+    },
+    {
+      "existing": "DFlatnessLinear.nine_flat_entries_of_four (both archived variants read)",
+      "use": "Requires four actual entries already flat. New weighted equations differ; cannot use as the four-weighted-defect adapter."
+    },
+    {
+      "existing": "Mathlib Matrix inverse cancellation",
+      "use": "Cancel C conjugate-transpose and B conjugate-transpose directly; W=C\u1d34*Delta*B\u1d34 agrees exactly with upstream V=C\u1d40 convention and needs no additional V conversion."
+    },
+    {
+      "existing": "SideIntrinsic actual lambda and theta endpoints, MatchedSides.strict_seed_signed_sides_exist",
+      "use": "Reuse all actual identities and strict guards and full signed-side existence. New upstream F only supplies scalar Lean helpers; no re-proving or porting its overlapping construction."
+    },
+    {
+      "existing": "E_matched_flatness/direct",
+      "use": "Adopt only the third-moment paper proof and saved255polynomial certificate (110sums/136products). Upstream explicitly says Lean port pending. Build missing semantic adapters and finite coefficient checks using saved coefficients; no rediscovery, external symbolic norm work or alternate fourth-moment route."
+    },
+    {
+      "existing": "ForcedProductMoments.forcedD_factorization",
+      "use": "Reuse checked D=C*K*B binding exactly; do not redo inverse algebra."
+    },
+    {
+      "existing": "SideIntrinsicUnitBindings.row_pair_bindings and row_sum_conjugate_bindings; RowMomentProduct; SideIntrinsicFourierModes",
+      "use": "Pair and sum bindings supply the phase cancellations. RowMomentProduct concerns a product of three linear forms and FourierModes concerns DFT modes; neither states the third-moment matrices. Add only their small scalar-combination/3x3 adapters for the upstream universal matrices."
+    },
+    {
+      "existing": "SideIntrinsicModeRecovery.intrinsic_row_products",
+      "use": "Exact existing lambda0*conj(lambda1)=rowU and lambda0*conj(lambda2)=rowV endpoints were read. Reuse, conjugate and combine with intrinsicTheta_lambda; do not write new row-product identities. The new affine forms are small field-algebra consequences of these and intrinsic_lambda_P_bindings/intrinsicTheta_moments."
+    },
+    {
+      "existing": "Mathlib.Matrix.trace_mul_comm, trace_mul_cycle, mul_diagonal and diagonal_mul (exact statements read)",
+      "use": "Reuse standard trace cyclicity to bind weighted defects to the same-ordered-index third-moment contraction; this avoids a separate large universal polynomial certificate."
+    },
+    {
+      "existing": "CriticalMomentQuad20261003.eval_mul and SideIntrinsicTheta.intrinsicTheta_moments",
+      "use": "Reuse the existing two-coefficient quadratic evaluator with A=-eta and B=chi/g; only adapt its variables to the displayed paired third-moment contraction. Derive the actual quadratic premise from the already checked intrinsic moments and strict determinant guard. No alternate polynomial engine."
+    }
+  ],
+  "source_pins": [
+    {
+      "path": "lean/vendor/hadamard6/Hadamard6/BlockCompletion.lean",
+      "sha256": "b916c1eceba6086551173f8053a34ada370c47e45ee940b6846fc5b104cb722d"
+    },
+    {
+      "path": "lean/vendor/hadamard6/Hadamard6/BlockGram.lean",
+      "sha256": "1d11ea4728234715ff90bdbc68e2541706832b0c525ec7373a167c79c9837264"
+    },
+    {
+      "path": "lean/vendor/hadamard6/Hadamard6/FiniteDilation.lean",
+      "sha256": "81bf8e0002e08ef0f69ab59f2b66071eb38b6fe595ae8bcd95dabea75a7fb627"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ForcedRowNorms.lean",
+      "sha256": "61f03e080569bdb95f51c3eae47268265054d62eed6d021a1af4f00e39411cf8"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ForcedProductMoments.lean",
+      "sha256": "8777f15e1665c6df08a04c52da33737a7aee0dcf2f80a0d7e79bf04722f15408"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/RowMomentProduct.lean",
+      "sha256": "51ee701670f5dd2609920eecf888f6a4e4bbdcc884f38ae9e8ac8eb5727f6207"
+    },
+    {
+      "path": "lean/NoFourMUBs/Reuse/Archive/SideIntrinsicLambdaRecovery.lean",
+      "sha256": "577759e6717fb98ac6cdf4d64b2c1b0f7f702ac0bfc6b00fc34b278176b102ae"
+    },
+    {
+      "path": "lean/NoFourMUBs/Reuse/Archive/SideIntrinsicTheta.lean",
+      "sha256": "2f4160f9d9ecd11d381dc17ca3396f4ba5b291724b74e51cf2c62e09a3b84699"
+    },
+    {
+      "path": "lean/NoFourMUBs/Reuse/Archive/SideIntrinsicUnitBindings.lean",
+      "sha256": "0b9439dba8222d68e06eceb609212239feacb0ad3eb482ca835dce10076a3ab2"
+    },
+    {
+      "path": "lean/NoFourMUBs/Reuse/Archive/SideIntrinsicMatrixBindings.lean",
+      "sha256": "28e1b68230d5b0372200d1bc65f9f98e6db18afdda19c6f1c46cacdc0377a5a5"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/MatchedSides.lean",
+      "sha256": "c1e79372a8c993e0f1bf45658f0e96aedced94c8a62d0fdd61ed2073c660c9a9"
+    },
+    {
+      "path": "lean/.lake/packages/mathlib/Mathlib/LinearAlgebra/Matrix/NonsingularInverse.lean",
+      "sha256": "1ee785b6ebd213ad2ed971bf3c804afee8cc6ce52be69e63572b4cf1bdb5e880"
+    },
+    {
+      "path": "audit/updates/4a3728/files/proof/coverage/returns/E_matched_flatness/direct/DERIVATION.md",
+      "sha256": "f383eb644fd6460cdc0e3ab837a8edc581350f2a62dfd69ddf452d2ea9bff8a3"
+    },
+    {
+      "path": "audit/updates/4a3728/files/proof/coverage/returns/E_matched_flatness/FLATNESS.md",
+      "sha256": "6e8b99cf30de55ad9b2dccb033a502d03e57783473886d3dc62cab2a7842b9dd"
+    },
+    {
+      "path": "audit/updates/4a3728/files/proof/coverage/returns/E_matched_flatness/direct/verify_third_moments.py",
+      "sha256": "c0a7fb6c220ce7afd458b8d7700a4552d8aa40e08ee9970b24fb22db7bb7e430"
+    },
+    {
+      "path": "audit/updates/4a3728/files/proof/coverage/returns/E_matched_flatness/direct/verify_certificate_slices.py",
+      "sha256": "d67c51b45590795bbdfedee44101c32f667e35df3c27bb1e146ebe49572ff936"
+    },
+    {
+      "path": "audit/updates/4a3728/files/proof/coverage/returns/E_matched_flatness/direct/third_moment_certificates.json.gz",
+      "sha256": "f986a996673ec0089ec09c3b9ee827c71463fe6f7f57f67b0ded6b793beaad8f"
+    },
+    {
+      "path": "lean/NoFourMUBs/Reuse/Archive/SideIntrinsicModeRecovery.lean",
+      "sha256": "95b5f46eccf408e53618d9a0a986a2595f6239717765998a75823aecb8d7e82b"
+    },
+    {
+      "path": "lean/.lake/packages/mathlib/Mathlib/LinearAlgebra/Matrix/Trace.lean",
+      "sha256": "8053b04dc1c67b3a7d14262acc43b574e521940085e031726947f3c2241b7a73"
+    },
+    {
+      "path": "lean/NoFourMUBs/Reuse/Archive/CriticalMomentQuad.lean",
+      "sha256": "1408c2169bd58005fbe77872fe1cb7be3ea6c2670e0c51a305ac620afa0bce05"
+    }
+  ],
+  "open": [
+    "Weighted-defect and column-Gram adapters",
+    "Actual third-moment matrices and affine-in-theta formulas",
+    "Saved finite arithmetic and its exact rational-expression bindings",
+    "Strict denominators and final MatchedExistence assembly"
+  ],
+  "lean_complete": false,
+  "atlas_certification": false,
+  "retired_routes": [
+    "companion/universal-row-product norm",
+    "alternative fourth-moment proof"
+  ]
+}

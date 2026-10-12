@@ -1,0 +1,63 @@
+{
+  "status": "REVIEWED_REUSE_EXISTING_TRANSPOSE_AND_SIGNATURE_IDENTITIES",
+  "reviewed_utc": "2026-10-12T00:21:56.606126+00:00",
+  "repository_commit": "4a3728d7f388aa2f2cb4a42bfb5c00b27566f23f",
+  "search": "MATCHED_THIRD_PARAMETER_REUSE_SEARCH.json",
+  "comparisons": [
+    {
+      "existing": "SideIntrinsicTransposeBindings and SideIntrinsicTransposeInvariants",
+      "decision": "Adopt archived proofs verbatim except local import prefix. They prove positive-correlation scalar invariance on arbitrary dephased unit 3x3 seeds. Add only conversion to negative seed correlations and existing seed model."
+    },
+    {
+      "existing": "SideIntrinsicTheta.intrinsicTheta_moments",
+      "decision": "Its needed g*theta=-intrinsicTerm identity is local inside the proof, not an exported theorem. Expose exactly that short literal-formula consequence in the adapter, then reuse sideSignature_intrinsic; do not edit or reprove checked archive source."
+    },
+    {
+      "existing": "BaseCoefficients.candidate_intrinsic_correlations and vertical_candidate_transposed",
+      "decision": "Reuse both checked model adapters directly. No companion or row-product route is restarted."
+    },
+    {
+      "existing": "SideIntrinsicSheetChoice.strict_intrinsic_sheet_exists",
+      "decision": "Proves existence of an unspecified sign only. For matching, use actual opposite signatures to identify the two theta values; no additional root-existence theorem needed."
+    },
+    {
+      "existing": "ActualCorners.transposedSeed_invariants",
+      "decision": "Directly reuse chi and R invariance. Its P and J equalities are internal; use archived public intrinsic scalar invariance for G/eta instead of new expanded seed algebra."
+    }
+  ],
+  "source_pins": [
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/5b/5b6bc034d56cfd834306ebbb86b4324900235724af98967febd34d8ba2b2f680/SideIntrinsicTransposeBindings.lean",
+      "sha256": "5b6bc034d56cfd834306ebbb86b4324900235724af98967febd34d8ba2b2f680"
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/8e/8e19e25653307d3e6c18bd4b8b46dccdde0f30a2728efa3e74b29b5b75a9c705/SideIntrinsicTransposeInvariants.lean",
+      "sha256": "8e19e25653307d3e6c18bd4b8b46dccdde0f30a2728efa3e74b29b5b75a9c705"
+    },
+    {
+      "path": "lean/NoFourMUBs/Reuse/Archive/SideIntrinsicTheta.lean",
+      "sha256": "2f4160f9d9ecd11d381dc17ca3396f4ba5b291724b74e51cf2c62e09a3b84699"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/RowProductSignature.lean",
+      "sha256": "1c94b70a0b87dacc3199c544cad22766ce194d4441ba16a940119eb9d749f83a"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/BaseCoefficients/Centered.lean",
+      "sha256": "0a74257b9c2fc64e57046f9abef7ee87e7bd308b889f3528ef52b5550f13162f"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/BaseCoefficients/VerticalProduct.lean",
+      "sha256": "74104c8570340687fbf1d7df3635d44cdbf7ac1dda2f8db91145e7349e1ac3b2"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/ActualCorners.lean",
+      "sha256": "f5a46634e2318abb93603ed50169c47c47df9e94463869da48110e63654ba7e0"
+    },
+    {
+      "path": "lean/NoFourMUBs/Reuse/Archive/SideIntrinsicMatrixBindings.lean",
+      "sha256": "28e1b68230d5b0372200d1bc65f9f98e6db18afdda19c6f1c46cacdc0377a5a5"
+    }
+  ],
+  "atlas_certification": false
+}

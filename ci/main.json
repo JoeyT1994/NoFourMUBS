@@ -1,0 +1,68 @@
+{
+  "schema": 1,
+  "name": "main",
+  "modules": [
+    "NoFourMUBs.MainTheorem",
+    "NoFourMUBs.Step2.FourierVanishing",
+    "NoFourMUBs.Step2.CriticalStripMatrix",
+    "NoFourMUBs.Step2.SOS.Arithmetic",
+    "NoFourMUBs.Step2.SOS.ReusedRows",
+    "NoFourMUBs.Step2.SOS.ComplementaryMoments",
+    "NoFourMUBs.Step2.SOS.FourierRowInputs",
+    "NoFourMUBs.Step2.SOS.PrimitiveRows",
+    "NoFourMUBs.Step2.SOS.TargetFrames",
+    "NoFourMUBs.Step2.SOS.DefectFrames",
+    "NoFourMUBs.Step2.SOS.FourierRows00",
+    "NoFourMUBs.Step2.SOS.FourierRows01",
+    "NoFourMUBs.Step2.SOS.FourierRows02",
+    "NoFourMUBs.Step2.SOS.FourierRows03",
+    "NoFourMUBs.Step2.SOS.FourierRows04",
+    "NoFourMUBs.Step2.SOS.FourierRows05"
+  ],
+  "source_hashes": {
+    "Audit.lean": "d9e66d93f241ec58106b7c562643afb59dbe0488d016b729b7764580ae89ac4b",
+    "NoFourMUBs/MainTheorem.lean": "9316a2a26614e4d1782334d03709321b378540e2cb4002a888110d85c01e3556"
+  },
+  "axiom_endpoints": [
+    "NoFourMUBs.no_four_mubs_main",
+    "NoFourMUBs.Step2.SOS.conditionalSOS",
+    "NoFourMUBs.Step2.SOS.Semantics.rowsSound",
+    "NoFourMUBs.Step2.frameScalarIdentities",
+    "NoFourMUBs.Step2.repaired_exactReach",
+    "NoFourMUBs.Side.signature_discriminant",
+    "NoFourMUBs.Side.permanent_norm",
+    "FourierPhysicalSide.eta_permanent",
+    "NoFourMUBs.Step2.fourier_vanishing",
+    "NoFourMUBs.Step2.fourier_vanishing_transpose",
+    "NoFourMUBs.Step2.Critical.carrier_strip_not_all_classified",
+    "NoFourMUBs.Step2.SOS.Arithmetic.consequence",
+    "NoFourMUBs.Step2.SOS.Semantics.rowSound668",
+    "NoFourMUBs.Step2.SOS.sideSignature_laurent",
+    "NoFourMUBs.Step2.SOS.sameLabels_complementarySignatures",
+    "NoFourMUBs.Step2.SOS.complementary_moments",
+    "NoFourMUBs.Step2.SOS.Semantics.fourierInputZero0",
+    "NoFourMUBs.Step2.SOS.Semantics.fourierInputZero12",
+    "NoFourMUBs.Step2.SOS.Normalization.projected_zero",
+    "NoFourMUBs.Step2.SOS.cubicMoment_real",
+    "NoFourMUBs.Step2.SOS.physical_defect_average",
+    "NoFourMUBs.Step2.SOS.signatureDefect_average_transpose",
+    "NoFourMUBs.Step2.SOS.Semantics.rowSound0",
+    "NoFourMUBs.Step2.SOS.Semantics.rowSound1",
+    "NoFourMUBs.Step2.SOS.Semantics.rowSound2",
+    "NoFourMUBs.Step2.SOS.Semantics.rowSound3",
+    "NoFourMUBs.Step2.SOS.Semantics.rowSound4",
+    "NoFourMUBs.Step2.SOS.Semantics.rowSound5"
+  ],
+  "allowed_axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "atlas_certification": false,
+  "remaining_inputs": [
+    "NoFourMUBs.AtlasCertificate",
+    "NoFourMUBs.Step2.MatchedExistence",
+    "NoFourMUBs.Step2.CriticalClassification"
+  ],
+  "check_main_type": true
+}

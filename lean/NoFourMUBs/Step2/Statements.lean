@@ -1,4 +1,5 @@
-import Hadamard6.PaperTheorem
+import Hadamard6.AffineFourierCore
+import Hadamard6.StandardPhase
 import NoFourMUBs.Skeleton
 import NoFourMUBs.Step2.TopologyCore
 import NoFourMUBs.Step2.QuotientTopology

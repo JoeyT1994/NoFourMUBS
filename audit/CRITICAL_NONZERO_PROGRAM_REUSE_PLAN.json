@@ -1,0 +1,745 @@
+{
+  "status": "PINNED_REVIEWED_NOT_COMPILED",
+  "scope": "critical_nonzero_program_reuse",
+  "roots": [
+    "CriticalNonzeroCoefficientProgram",
+    "CriticalNonzeroSumDenominator"
+  ],
+  "selected": {
+    "CriticalNonzeroCoefficientProgram": {
+      "availability": "resident",
+      "blob": "blobs/af/af7e67ca9c7f376207940eac57e1a0110646ce0b4594007d623b20ce7ca1ad87/CriticalNonzeroCoefficientProgram.lean",
+      "bytes": 8273,
+      "sha256": "af7e67ca9c7f376207940eac57e1a0110646ce0b4594007d623b20ce7ca1ad87",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/numerator_bridge/CriticalNonzeroCoefficientProgram.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/af/af7e67ca9c7f376207940eac57e1a0110646ce0b4594007d623b20ce7ca1ad87/CriticalNonzeroCoefficientProgram.lean",
+      "imports": [
+        "CriticalQuadProgram",
+        "CriticalNonzeroMomentProgram"
+      ],
+      "review": "CRITICAL_NONZERO_PROGRAM_REUSE_REVIEW.json",
+      "import_replacements": {
+        "CriticalZeroLightData": "NoFourMUBs.Reuse.Archive.CriticalZeroLightData",
+        "CriticalNonzeroData": "NoFourMUBs.Reuse.Archive.CriticalNonzeroData"
+      },
+      "proof_tactic_replacements": [],
+      "reviewed_previous_active_sha256": "01cfd8e4787ea84e667b6637b28c8d807afb238507fb0f5074f4f27e93ae2d0f"
+    },
+    "CriticalQuadProgram": {
+      "availability": "resident",
+      "blob": "blobs/c5/c5c81928c033c52567869d63352bbff882b8bcd6a127c904c59d33991ac47cdf/CriticalQuadProgram.lean",
+      "bytes": 2094,
+      "sha256": "c5c81928c033c52567869d63352bbff882b8bcd6a127c904c59d33991ac47cdf",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/numerator_bridge/CriticalQuadProgram.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/c5/c5c81928c033c52567869d63352bbff882b8bcd6a127c904c59d33991ac47cdf/CriticalQuadProgram.lean",
+      "imports": [
+        "CriticalMomentQuad"
+      ],
+      "review": "CRITICAL_NONZERO_PROGRAM_REUSE_REVIEW.json",
+      "import_replacements": {
+        "CriticalZeroLightData": "NoFourMUBs.Reuse.Archive.CriticalZeroLightData",
+        "CriticalNonzeroData": "NoFourMUBs.Reuse.Archive.CriticalNonzeroData"
+      },
+      "proof_tactic_replacements": []
+    },
+    "CriticalMomentQuad": {
+      "availability": "resident",
+      "blob": "blobs/50/50f9735cf09e31e5ed9edb8bb25533f865cc3ed9e08e3c496053b3bf9508cf10/CriticalMomentQuad.lean",
+      "bytes": 2739,
+      "sha256": "50f9735cf09e31e5ed9edb8bb25533f865cc3ed9e08e3c496053b3bf9508cf10",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/CriticalMomentQuad.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/50/50f9735cf09e31e5ed9edb8bb25533f865cc3ed9e08e3c496053b3bf9508cf10/CriticalMomentQuad.lean",
+      "imports": [
+        "CriticalZeroLightData",
+        "Mathlib.Tactic.LinearCombination"
+      ],
+      "review": "CRITICAL_NONZERO_PROGRAM_REUSE_REVIEW.json",
+      "import_replacements": {
+        "CriticalZeroLightData": "NoFourMUBs.Reuse.Archive.CriticalZeroLightData",
+        "CriticalNonzeroData": "NoFourMUBs.Reuse.Archive.CriticalNonzeroData"
+      },
+      "proof_tactic_replacements": [],
+      "reviewed_previous_active_sha256": "428461694a2dc37651288ba9709403100e7dec9e67af12019f4eea762cf41dfd"
+    },
+    "CriticalNonzeroMomentProgram": {
+      "availability": "resident",
+      "blob": "blobs/fa/fa0200ebe6602c9ec1a5d32e3b130df4f250cf5102797508f98c66c312c0b651/CriticalNonzeroMomentProgram.lean",
+      "bytes": 4538,
+      "sha256": "fa0200ebe6602c9ec1a5d32e3b130df4f250cf5102797508f98c66c312c0b651",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/CriticalNonzeroMomentProgram.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/fa/fa0200ebe6602c9ec1a5d32e3b130df4f250cf5102797508f98c66c312c0b651/CriticalNonzeroMomentProgram.lean",
+      "imports": [
+        "CriticalNonzeroMomentInterface"
+      ],
+      "review": "CRITICAL_NONZERO_PROGRAM_REUSE_REVIEW.json",
+      "import_replacements": {
+        "CriticalZeroLightData": "NoFourMUBs.Reuse.Archive.CriticalZeroLightData",
+        "CriticalNonzeroData": "NoFourMUBs.Reuse.Archive.CriticalNonzeroData"
+      },
+      "proof_tactic_replacements": []
+    },
+    "CriticalNonzeroMomentInterface": {
+      "availability": "resident",
+      "blob": "blobs/81/818bdaa7bdcad696d6e1b12b2b08f33f621d8b404b9fe8bcd8066109754b6800/CriticalNonzeroMomentInterface.lean",
+      "bytes": 6249,
+      "sha256": "818bdaa7bdcad696d6e1b12b2b08f33f621d8b404b9fe8bcd8066109754b6800",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/CriticalNonzeroMomentInterface.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/81/818bdaa7bdcad696d6e1b12b2b08f33f621d8b404b9fe8bcd8066109754b6800/CriticalNonzeroMomentInterface.lean",
+      "imports": [
+        "CriticalNonzeroPairComplex00",
+        "CriticalNonzeroPairComplex01",
+        "CriticalNonzeroPairComplex02",
+        "CriticalNonzeroPairComplex03",
+        "CriticalNonzeroPairComplex04",
+        "CriticalNonzeroPairComplex05",
+        "CriticalNonzeroPairComplex06",
+        "CriticalNonzeroPairComplex07",
+        "CriticalNonzeroPairComplex08"
+      ],
+      "review": "CRITICAL_NONZERO_PROGRAM_REUSE_REVIEW.json",
+      "import_replacements": {
+        "CriticalZeroLightData": "NoFourMUBs.Reuse.Archive.CriticalZeroLightData",
+        "CriticalNonzeroData": "NoFourMUBs.Reuse.Archive.CriticalNonzeroData"
+      },
+      "proof_tactic_replacements": []
+    },
+    "CriticalNonzeroPairComplex00": {
+      "availability": "resident",
+      "blob": "blobs/84/843045b72af2dde1c5879fdbb95df649e5645a69a55e1c08153e176c122999d5/CriticalNonzeroPairComplex00.lean",
+      "bytes": 2208,
+      "sha256": "843045b72af2dde1c5879fdbb95df649e5645a69a55e1c08153e176c122999d5",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/CriticalNonzeroPairComplex00.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/84/843045b72af2dde1c5879fdbb95df649e5645a69a55e1c08153e176c122999d5/CriticalNonzeroPairComplex00.lean",
+      "imports": [
+        "CriticalNonzeroPair00",
+        "CriticalNonzeroData"
+      ],
+      "review": "CRITICAL_NONZERO_PROGRAM_REUSE_REVIEW.json",
+      "import_replacements": {
+        "CriticalZeroLightData": "NoFourMUBs.Reuse.Archive.CriticalZeroLightData",
+        "CriticalNonzeroData": "NoFourMUBs.Reuse.Archive.CriticalNonzeroData"
+      },
+      "proof_tactic_replacements": []
+    },
+    "CriticalNonzeroPair00": {
+      "availability": "resident",
+      "blob": "blobs/eb/eb126cafa298bbcc9bce592ab1c8d3eeb68e641c4580d44c50b0fb139bd82fb2/CriticalNonzeroPair00.lean",
+      "bytes": 3124,
+      "sha256": "eb126cafa298bbcc9bce592ab1c8d3eeb68e641c4580d44c50b0fb139bd82fb2",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/CriticalNonzeroPair00.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/eb/eb126cafa298bbcc9bce592ab1c8d3eeb68e641c4580d44c50b0fb139bd82fb2/CriticalNonzeroPair00.lean",
+      "imports": [
+        "CriticalMomentQuadNewton00",
+        "CriticalNonzeroQuadSide"
+      ],
+      "review": "CRITICAL_NONZERO_PROGRAM_REUSE_REVIEW.json",
+      "import_replacements": {
+        "CriticalZeroLightData": "NoFourMUBs.Reuse.Archive.CriticalZeroLightData",
+        "CriticalNonzeroData": "NoFourMUBs.Reuse.Archive.CriticalNonzeroData"
+      },
+      "proof_tactic_replacements": []
+    },
+    "CriticalMomentQuadNewton00": {
+      "availability": "resident",
+      "blob": "blobs/4a/4ab9b6c6e7c053f70f2d0eae201e3ac5d3d594e0c6a317a41c536814832c30ef/CriticalMomentQuadNewton00.lean",
+      "bytes": 2054,
+      "sha256": "4ab9b6c6e7c053f70f2d0eae201e3ac5d3d594e0c6a317a41c536814832c30ef",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/CriticalMomentQuadNewton00.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/4a/4ab9b6c6e7c053f70f2d0eae201e3ac5d3d594e0c6a317a41c536814832c30ef/CriticalMomentQuadNewton00.lean",
+      "imports": [
+        "CriticalMomentQuadData"
+      ],
+      "review": "CRITICAL_NONZERO_PROGRAM_REUSE_REVIEW.json",
+      "import_replacements": {
+        "CriticalZeroLightData": "NoFourMUBs.Reuse.Archive.CriticalZeroLightData",
+        "CriticalNonzeroData": "NoFourMUBs.Reuse.Archive.CriticalNonzeroData"
+      },
+      "proof_tactic_replacements": []
+    },
+    "CriticalMomentQuadData": {
+      "availability": "resident",
+      "blob": "blobs/2d/2da3c745459a6fa07e310e7f6bf415c8a22c02a69494022e1e2b7b1e3c36d294/CriticalMomentQuadData.lean",
+      "bytes": 1479,
+      "sha256": "2da3c745459a6fa07e310e7f6bf415c8a22c02a69494022e1e2b7b1e3c36d294",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/CriticalMomentQuadData.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/2d/2da3c745459a6fa07e310e7f6bf415c8a22c02a69494022e1e2b7b1e3c36d294/CriticalMomentQuadData.lean",
+      "imports": [
+        "CriticalMomentQuad"
+      ],
+      "review": "CRITICAL_NONZERO_PROGRAM_REUSE_REVIEW.json",
+      "import_replacements": {
+        "CriticalZeroLightData": "NoFourMUBs.Reuse.Archive.CriticalZeroLightData",
+        "CriticalNonzeroData": "NoFourMUBs.Reuse.Archive.CriticalNonzeroData"
+      },
+      "proof_tactic_replacements": []
+    },
+    "CriticalNonzeroQuadSide": {
+      "availability": "resident",
+      "blob": "blobs/0e/0e70ca1312f1979195d332b84babf9b46b33e0edb7c7be7e661872c68b76d68d/CriticalNonzeroQuadSide.lean",
+      "bytes": 2164,
+      "sha256": "0e70ca1312f1979195d332b84babf9b46b33e0edb7c7be7e661872c68b76d68d",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/CriticalNonzeroQuadSide.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/0e/0e70ca1312f1979195d332b84babf9b46b33e0edb7c7be7e661872c68b76d68d/CriticalNonzeroQuadSide.lean",
+      "imports": [
+        "CriticalMomentQuadData",
+        "CriticalNonzeroLightData"
+      ],
+      "review": "CRITICAL_NONZERO_PROGRAM_REUSE_REVIEW.json",
+      "import_replacements": {
+        "CriticalZeroLightData": "NoFourMUBs.Reuse.Archive.CriticalZeroLightData",
+        "CriticalNonzeroData": "NoFourMUBs.Reuse.Archive.CriticalNonzeroData"
+      },
+      "proof_tactic_replacements": []
+    },
+    "CriticalNonzeroLightData": {
+      "availability": "resident",
+      "blob": "blobs/0a/0aa45894a539abc3bda327124ccb49dc3be5dd56860581eee564f9a132812a6d/CriticalNonzeroLightData.lean",
+      "bytes": 1386,
+      "sha256": "0aa45894a539abc3bda327124ccb49dc3be5dd56860581eee564f9a132812a6d",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/CriticalNonzeroLightData.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/0a/0aa45894a539abc3bda327124ccb49dc3be5dd56860581eee564f9a132812a6d/CriticalNonzeroLightData.lean",
+      "imports": [
+        "CriticalZeroLightData"
+      ],
+      "review": "CRITICAL_NONZERO_PROGRAM_REUSE_REVIEW.json",
+      "import_replacements": {
+        "CriticalZeroLightData": "NoFourMUBs.Reuse.Archive.CriticalZeroLightData",
+        "CriticalNonzeroData": "NoFourMUBs.Reuse.Archive.CriticalNonzeroData"
+      },
+      "proof_tactic_replacements": []
+    },
+    "CriticalNonzeroPairComplex01": {
+      "availability": "resident",
+      "blob": "blobs/23/23dc4d4b0d6563f1ae7b8d7907a4c33660331368d562ba1e2656344ef338bd87/CriticalNonzeroPairComplex01.lean",
+      "bytes": 2208,
+      "sha256": "23dc4d4b0d6563f1ae7b8d7907a4c33660331368d562ba1e2656344ef338bd87",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/CriticalNonzeroPairComplex01.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/23/23dc4d4b0d6563f1ae7b8d7907a4c33660331368d562ba1e2656344ef338bd87/CriticalNonzeroPairComplex01.lean",
+      "imports": [
+        "CriticalNonzeroPair01",
+        "CriticalNonzeroData"
+      ],
+      "review": "CRITICAL_NONZERO_PROGRAM_REUSE_REVIEW.json",
+      "import_replacements": {
+        "CriticalZeroLightData": "NoFourMUBs.Reuse.Archive.CriticalZeroLightData",
+        "CriticalNonzeroData": "NoFourMUBs.Reuse.Archive.CriticalNonzeroData"
+      },
+      "proof_tactic_replacements": []
+    },
+    "CriticalNonzeroPair01": {
+      "availability": "resident",
+      "blob": "blobs/4f/4f3a58e70650f442bd65aaf9d8fac536a9375353648b70ec948da2354f77a05d/CriticalNonzeroPair01.lean",
+      "bytes": 3124,
+      "sha256": "4f3a58e70650f442bd65aaf9d8fac536a9375353648b70ec948da2354f77a05d",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/CriticalNonzeroPair01.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/4f/4f3a58e70650f442bd65aaf9d8fac536a9375353648b70ec948da2354f77a05d/CriticalNonzeroPair01.lean",
+      "imports": [
+        "CriticalMomentQuadNewton01",
+        "CriticalNonzeroQuadSide"
+      ],
+      "review": "CRITICAL_NONZERO_PROGRAM_REUSE_REVIEW.json",
+      "import_replacements": {
+        "CriticalZeroLightData": "NoFourMUBs.Reuse.Archive.CriticalZeroLightData",
+        "CriticalNonzeroData": "NoFourMUBs.Reuse.Archive.CriticalNonzeroData"
+      },
+      "proof_tactic_replacements": []
+    },
+    "CriticalNonzeroPairComplex02": {
+      "availability": "resident",
+      "blob": "blobs/1f/1f13fd2fa14321225e035b340b8f1029ccd291de345aca9650567b0de07b1b7a/CriticalNonzeroPairComplex02.lean",
+      "bytes": 2208,
+      "sha256": "1f13fd2fa14321225e035b340b8f1029ccd291de345aca9650567b0de07b1b7a",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/CriticalNonzeroPairComplex02.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/1f/1f13fd2fa14321225e035b340b8f1029ccd291de345aca9650567b0de07b1b7a/CriticalNonzeroPairComplex02.lean",
+      "imports": [
+        "CriticalNonzeroPair02",
+        "CriticalNonzeroData"
+      ],
+      "review": "CRITICAL_NONZERO_PROGRAM_REUSE_REVIEW.json",
+      "import_replacements": {
+        "CriticalZeroLightData": "NoFourMUBs.Reuse.Archive.CriticalZeroLightData",
+        "CriticalNonzeroData": "NoFourMUBs.Reuse.Archive.CriticalNonzeroData"
+      },
+      "proof_tactic_replacements": []
+    },
+    "CriticalNonzeroPair02": {
+      "availability": "resident",
+      "blob": "blobs/d1/d15d97ce0f0b6ce6c66e392e5c555d1f61b33dbad4b2feac6dd47f6734a8f2ab/CriticalNonzeroPair02.lean",
+      "bytes": 3124,
+      "sha256": "d15d97ce0f0b6ce6c66e392e5c555d1f61b33dbad4b2feac6dd47f6734a8f2ab",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/CriticalNonzeroPair02.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/d1/d15d97ce0f0b6ce6c66e392e5c555d1f61b33dbad4b2feac6dd47f6734a8f2ab/CriticalNonzeroPair02.lean",
+      "imports": [
+        "CriticalMomentQuadNewton02",
+        "CriticalNonzeroQuadSide"
+      ],
+      "review": "CRITICAL_NONZERO_PROGRAM_REUSE_REVIEW.json",
+      "import_replacements": {
+        "CriticalZeroLightData": "NoFourMUBs.Reuse.Archive.CriticalZeroLightData",
+        "CriticalNonzeroData": "NoFourMUBs.Reuse.Archive.CriticalNonzeroData"
+      },
+      "proof_tactic_replacements": []
+    },
+    "CriticalNonzeroPairComplex03": {
+      "availability": "resident",
+      "blob": "blobs/71/712453535e02753e95190ffed0c74f5f3b6649788e76a8b78d960ebedb8de7a6/CriticalNonzeroPairComplex03.lean",
+      "bytes": 2208,
+      "sha256": "712453535e02753e95190ffed0c74f5f3b6649788e76a8b78d960ebedb8de7a6",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/CriticalNonzeroPairComplex03.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/71/712453535e02753e95190ffed0c74f5f3b6649788e76a8b78d960ebedb8de7a6/CriticalNonzeroPairComplex03.lean",
+      "imports": [
+        "CriticalNonzeroPair03",
+        "CriticalNonzeroData"
+      ],
+      "review": "CRITICAL_NONZERO_PROGRAM_REUSE_REVIEW.json",
+      "import_replacements": {
+        "CriticalZeroLightData": "NoFourMUBs.Reuse.Archive.CriticalZeroLightData",
+        "CriticalNonzeroData": "NoFourMUBs.Reuse.Archive.CriticalNonzeroData"
+      },
+      "proof_tactic_replacements": []
+    },
+    "CriticalNonzeroPair03": {
+      "availability": "resident",
+      "blob": "blobs/76/76b26638e07fdec235aa1dbcfc2ce032512b80691191834ee29cf404fe12cf6d/CriticalNonzeroPair03.lean",
+      "bytes": 3124,
+      "sha256": "76b26638e07fdec235aa1dbcfc2ce032512b80691191834ee29cf404fe12cf6d",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/CriticalNonzeroPair03.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/76/76b26638e07fdec235aa1dbcfc2ce032512b80691191834ee29cf404fe12cf6d/CriticalNonzeroPair03.lean",
+      "imports": [
+        "CriticalMomentQuadNewton03",
+        "CriticalNonzeroQuadSide"
+      ],
+      "review": "CRITICAL_NONZERO_PROGRAM_REUSE_REVIEW.json",
+      "import_replacements": {
+        "CriticalZeroLightData": "NoFourMUBs.Reuse.Archive.CriticalZeroLightData",
+        "CriticalNonzeroData": "NoFourMUBs.Reuse.Archive.CriticalNonzeroData"
+      },
+      "proof_tactic_replacements": []
+    },
+    "CriticalNonzeroPairComplex04": {
+      "availability": "resident",
+      "blob": "blobs/e8/e86193f5a59db2f6495ceaff9e6dd44fc0c44e0e3db7c4836cd7cb8a535cac65/CriticalNonzeroPairComplex04.lean",
+      "bytes": 2208,
+      "sha256": "e86193f5a59db2f6495ceaff9e6dd44fc0c44e0e3db7c4836cd7cb8a535cac65",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/CriticalNonzeroPairComplex04.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/e8/e86193f5a59db2f6495ceaff9e6dd44fc0c44e0e3db7c4836cd7cb8a535cac65/CriticalNonzeroPairComplex04.lean",
+      "imports": [
+        "CriticalNonzeroPair04",
+        "CriticalNonzeroData"
+      ],
+      "review": "CRITICAL_NONZERO_PROGRAM_REUSE_REVIEW.json",
+      "import_replacements": {
+        "CriticalZeroLightData": "NoFourMUBs.Reuse.Archive.CriticalZeroLightData",
+        "CriticalNonzeroData": "NoFourMUBs.Reuse.Archive.CriticalNonzeroData"
+      },
+      "proof_tactic_replacements": []
+    },
+    "CriticalNonzeroPair04": {
+      "availability": "resident",
+      "blob": "blobs/56/56fef7d397a21509c66aed75322ebf369804b0162e2fdbcfe8aa2d3129f3b2b4/CriticalNonzeroPair04.lean",
+      "bytes": 3124,
+      "sha256": "56fef7d397a21509c66aed75322ebf369804b0162e2fdbcfe8aa2d3129f3b2b4",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/CriticalNonzeroPair04.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/56/56fef7d397a21509c66aed75322ebf369804b0162e2fdbcfe8aa2d3129f3b2b4/CriticalNonzeroPair04.lean",
+      "imports": [
+        "CriticalMomentQuadNewton04",
+        "CriticalNonzeroQuadSide"
+      ],
+      "review": "CRITICAL_NONZERO_PROGRAM_REUSE_REVIEW.json",
+      "import_replacements": {
+        "CriticalZeroLightData": "NoFourMUBs.Reuse.Archive.CriticalZeroLightData",
+        "CriticalNonzeroData": "NoFourMUBs.Reuse.Archive.CriticalNonzeroData"
+      },
+      "proof_tactic_replacements": []
+    },
+    "CriticalNonzeroPairComplex05": {
+      "availability": "resident",
+      "blob": "blobs/75/7585b9187eb3ff33983178c4aa80cba0836c8548a087b38788deb9ed2cf217db/CriticalNonzeroPairComplex05.lean",
+      "bytes": 2208,
+      "sha256": "7585b9187eb3ff33983178c4aa80cba0836c8548a087b38788deb9ed2cf217db",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/CriticalNonzeroPairComplex05.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/75/7585b9187eb3ff33983178c4aa80cba0836c8548a087b38788deb9ed2cf217db/CriticalNonzeroPairComplex05.lean",
+      "imports": [
+        "CriticalNonzeroPair05",
+        "CriticalNonzeroData"
+      ],
+      "review": "CRITICAL_NONZERO_PROGRAM_REUSE_REVIEW.json",
+      "import_replacements": {
+        "CriticalZeroLightData": "NoFourMUBs.Reuse.Archive.CriticalZeroLightData",
+        "CriticalNonzeroData": "NoFourMUBs.Reuse.Archive.CriticalNonzeroData"
+      },
+      "proof_tactic_replacements": []
+    },
+    "CriticalNonzeroPair05": {
+      "availability": "resident",
+      "blob": "blobs/29/29b0d6a4a5f777b3173e423ba1f242222ac2f82713d421e28578fe25dab49921/CriticalNonzeroPair05.lean",
+      "bytes": 3124,
+      "sha256": "29b0d6a4a5f777b3173e423ba1f242222ac2f82713d421e28578fe25dab49921",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/CriticalNonzeroPair05.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/29/29b0d6a4a5f777b3173e423ba1f242222ac2f82713d421e28578fe25dab49921/CriticalNonzeroPair05.lean",
+      "imports": [
+        "CriticalMomentQuadNewton05",
+        "CriticalNonzeroQuadSide"
+      ],
+      "review": "CRITICAL_NONZERO_PROGRAM_REUSE_REVIEW.json",
+      "import_replacements": {
+        "CriticalZeroLightData": "NoFourMUBs.Reuse.Archive.CriticalZeroLightData",
+        "CriticalNonzeroData": "NoFourMUBs.Reuse.Archive.CriticalNonzeroData"
+      },
+      "proof_tactic_replacements": []
+    },
+    "CriticalNonzeroPairComplex06": {
+      "availability": "resident",
+      "blob": "blobs/95/95ae3a0121b3e476ab113033144050b86bdf0a36378b52dfd2f7d62b53ef990d/CriticalNonzeroPairComplex06.lean",
+      "bytes": 2208,
+      "sha256": "95ae3a0121b3e476ab113033144050b86bdf0a36378b52dfd2f7d62b53ef990d",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/CriticalNonzeroPairComplex06.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/95/95ae3a0121b3e476ab113033144050b86bdf0a36378b52dfd2f7d62b53ef990d/CriticalNonzeroPairComplex06.lean",
+      "imports": [
+        "CriticalNonzeroPair06",
+        "CriticalNonzeroData"
+      ],
+      "review": "CRITICAL_NONZERO_PROGRAM_REUSE_REVIEW.json",
+      "import_replacements": {
+        "CriticalZeroLightData": "NoFourMUBs.Reuse.Archive.CriticalZeroLightData",
+        "CriticalNonzeroData": "NoFourMUBs.Reuse.Archive.CriticalNonzeroData"
+      },
+      "proof_tactic_replacements": []
+    },
+    "CriticalNonzeroPair06": {
+      "availability": "resident",
+      "blob": "blobs/ce/cec033ae5be0add9fc15eba2f187fd8dc0023972cfe5e4d85fff9af407790ad0/CriticalNonzeroPair06.lean",
+      "bytes": 3124,
+      "sha256": "cec033ae5be0add9fc15eba2f187fd8dc0023972cfe5e4d85fff9af407790ad0",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/CriticalNonzeroPair06.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/ce/cec033ae5be0add9fc15eba2f187fd8dc0023972cfe5e4d85fff9af407790ad0/CriticalNonzeroPair06.lean",
+      "imports": [
+        "CriticalMomentQuadNewton06",
+        "CriticalNonzeroQuadSide"
+      ],
+      "review": "CRITICAL_NONZERO_PROGRAM_REUSE_REVIEW.json",
+      "import_replacements": {
+        "CriticalZeroLightData": "NoFourMUBs.Reuse.Archive.CriticalZeroLightData",
+        "CriticalNonzeroData": "NoFourMUBs.Reuse.Archive.CriticalNonzeroData"
+      },
+      "proof_tactic_replacements": []
+    },
+    "CriticalNonzeroPairComplex07": {
+      "availability": "resident",
+      "blob": "blobs/a0/a01fa37516347cd97dd6cff3ee899b23f0d673fcc730aec1bd899d3ca2ffb988/CriticalNonzeroPairComplex07.lean",
+      "bytes": 2208,
+      "sha256": "a01fa37516347cd97dd6cff3ee899b23f0d673fcc730aec1bd899d3ca2ffb988",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/CriticalNonzeroPairComplex07.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/a0/a01fa37516347cd97dd6cff3ee899b23f0d673fcc730aec1bd899d3ca2ffb988/CriticalNonzeroPairComplex07.lean",
+      "imports": [
+        "CriticalNonzeroPair07",
+        "CriticalNonzeroData"
+      ],
+      "review": "CRITICAL_NONZERO_PROGRAM_REUSE_REVIEW.json",
+      "import_replacements": {
+        "CriticalZeroLightData": "NoFourMUBs.Reuse.Archive.CriticalZeroLightData",
+        "CriticalNonzeroData": "NoFourMUBs.Reuse.Archive.CriticalNonzeroData"
+      },
+      "proof_tactic_replacements": []
+    },
+    "CriticalNonzeroPair07": {
+      "availability": "resident",
+      "blob": "blobs/f7/f77b4e1524d241957347370e4dcf20afa3febbca2dc7065af2cedeae97cc77f2/CriticalNonzeroPair07.lean",
+      "bytes": 3124,
+      "sha256": "f77b4e1524d241957347370e4dcf20afa3febbca2dc7065af2cedeae97cc77f2",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/CriticalNonzeroPair07.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/f7/f77b4e1524d241957347370e4dcf20afa3febbca2dc7065af2cedeae97cc77f2/CriticalNonzeroPair07.lean",
+      "imports": [
+        "CriticalMomentQuadNewton07",
+        "CriticalNonzeroQuadSide"
+      ],
+      "review": "CRITICAL_NONZERO_PROGRAM_REUSE_REVIEW.json",
+      "import_replacements": {
+        "CriticalZeroLightData": "NoFourMUBs.Reuse.Archive.CriticalZeroLightData",
+        "CriticalNonzeroData": "NoFourMUBs.Reuse.Archive.CriticalNonzeroData"
+      },
+      "proof_tactic_replacements": []
+    },
+    "CriticalNonzeroPairComplex08": {
+      "availability": "resident",
+      "blob": "blobs/c4/c43df4c3c46fdee7680ee37ee4dc130127a2b00511a46efcb8b61e517bf7bba6/CriticalNonzeroPairComplex08.lean",
+      "bytes": 2208,
+      "sha256": "c43df4c3c46fdee7680ee37ee4dc130127a2b00511a46efcb8b61e517bf7bba6",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/CriticalNonzeroPairComplex08.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/c4/c43df4c3c46fdee7680ee37ee4dc130127a2b00511a46efcb8b61e517bf7bba6/CriticalNonzeroPairComplex08.lean",
+      "imports": [
+        "CriticalNonzeroPair08",
+        "CriticalNonzeroData"
+      ],
+      "review": "CRITICAL_NONZERO_PROGRAM_REUSE_REVIEW.json",
+      "import_replacements": {
+        "CriticalZeroLightData": "NoFourMUBs.Reuse.Archive.CriticalZeroLightData",
+        "CriticalNonzeroData": "NoFourMUBs.Reuse.Archive.CriticalNonzeroData"
+      },
+      "proof_tactic_replacements": []
+    },
+    "CriticalNonzeroPair08": {
+      "availability": "resident",
+      "blob": "blobs/cf/cff37a828feaf83724eb07ea2ed2d86341d06bad7278467ba07f1e30c5ce7ef5/CriticalNonzeroPair08.lean",
+      "bytes": 3124,
+      "sha256": "cff37a828feaf83724eb07ea2ed2d86341d06bad7278467ba07f1e30c5ce7ef5",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/CriticalNonzeroPair08.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/cf/cff37a828feaf83724eb07ea2ed2d86341d06bad7278467ba07f1e30c5ce7ef5/CriticalNonzeroPair08.lean",
+      "imports": [
+        "CriticalMomentQuadNewton08",
+        "CriticalNonzeroQuadSide"
+      ],
+      "review": "CRITICAL_NONZERO_PROGRAM_REUSE_REVIEW.json",
+      "import_replacements": {
+        "CriticalZeroLightData": "NoFourMUBs.Reuse.Archive.CriticalZeroLightData",
+        "CriticalNonzeroData": "NoFourMUBs.Reuse.Archive.CriticalNonzeroData"
+      },
+      "proof_tactic_replacements": []
+    },
+    "CriticalNonzeroSumDenominator": {
+      "availability": "resident",
+      "blob": "blobs/e7/e7f6db760f01dbb2893316cedccee55b30720c048a4383c49b95333c343bb2bd/CriticalNonzeroSumDenominator.lean",
+      "bytes": 2979,
+      "sha256": "e7f6db760f01dbb2893316cedccee55b30720c048a4383c49b95333c343bb2bd",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/numerator_bridge/CriticalNonzeroSumDenominator.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/e7/e7f6db760f01dbb2893316cedccee55b30720c048a4383c49b95333c343bb2bd/CriticalNonzeroSumDenominator.lean",
+      "imports": [
+        "CriticalNonzeroLightData"
+      ],
+      "review": "CRITICAL_NONZERO_PROGRAM_REUSE_REVIEW.json",
+      "import_replacements": {
+        "CriticalZeroLightData": "NoFourMUBs.Reuse.Archive.CriticalZeroLightData",
+        "CriticalNonzeroData": "NoFourMUBs.Reuse.Archive.CriticalNonzeroData"
+      },
+      "proof_tactic_replacements": []
+    },
+    "CriticalMomentQuadNewton01": {
+      "availability": "resident",
+      "blob": "blobs/f4/f482a5fe16166ad9736044b2c583529a145adf6cf13940b6e835faa719534d7f/CriticalMomentQuadNewton01.lean",
+      "bytes": 2184,
+      "sha256": "f482a5fe16166ad9736044b2c583529a145adf6cf13940b6e835faa719534d7f",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/CriticalMomentQuadNewton01.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/f4/f482a5fe16166ad9736044b2c583529a145adf6cf13940b6e835faa719534d7f/CriticalMomentQuadNewton01.lean",
+      "imports": [
+        "CriticalMomentQuadData",
+        "CriticalMomentQuadNumerals"
+      ],
+      "review": "CRITICAL_NONZERO_PROGRAM_REUSE_REVIEW.json",
+      "import_replacements": {
+        "CriticalZeroLightData": "NoFourMUBs.Reuse.Archive.CriticalZeroLightData",
+        "CriticalNonzeroData": "NoFourMUBs.Reuse.Archive.CriticalNonzeroData"
+      },
+      "proof_tactic_replacements": []
+    },
+    "CriticalMomentQuadNewton02": {
+      "availability": "resident",
+      "blob": "blobs/12/120b052c6a34c0c45e714d356105d52399a487af62b5e1d19b4ce9b0c89c1af2/CriticalMomentQuadNewton02.lean",
+      "bytes": 2215,
+      "sha256": "120b052c6a34c0c45e714d356105d52399a487af62b5e1d19b4ce9b0c89c1af2",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/CriticalMomentQuadNewton02.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/12/120b052c6a34c0c45e714d356105d52399a487af62b5e1d19b4ce9b0c89c1af2/CriticalMomentQuadNewton02.lean",
+      "imports": [
+        "CriticalMomentQuadData",
+        "CriticalMomentQuadNumerals"
+      ],
+      "review": "CRITICAL_NONZERO_PROGRAM_REUSE_REVIEW.json",
+      "import_replacements": {
+        "CriticalZeroLightData": "NoFourMUBs.Reuse.Archive.CriticalZeroLightData",
+        "CriticalNonzeroData": "NoFourMUBs.Reuse.Archive.CriticalNonzeroData"
+      },
+      "proof_tactic_replacements": []
+    },
+    "CriticalMomentQuadNewton03": {
+      "availability": "resident",
+      "blob": "blobs/6a/6a55c9f72eed74d254f1e6a4a58e52f43b702bdc4e7dd7daa78b5a2b1baeeca9/CriticalMomentQuadNewton03.lean",
+      "bytes": 2250,
+      "sha256": "6a55c9f72eed74d254f1e6a4a58e52f43b702bdc4e7dd7daa78b5a2b1baeeca9",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/CriticalMomentQuadNewton03.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/6a/6a55c9f72eed74d254f1e6a4a58e52f43b702bdc4e7dd7daa78b5a2b1baeeca9/CriticalMomentQuadNewton03.lean",
+      "imports": [
+        "CriticalMomentQuadData",
+        "CriticalMomentQuadNumerals"
+      ],
+      "review": "CRITICAL_NONZERO_PROGRAM_REUSE_REVIEW.json",
+      "import_replacements": {
+        "CriticalZeroLightData": "NoFourMUBs.Reuse.Archive.CriticalZeroLightData",
+        "CriticalNonzeroData": "NoFourMUBs.Reuse.Archive.CriticalNonzeroData"
+      },
+      "proof_tactic_replacements": []
+    },
+    "CriticalMomentQuadNewton04": {
+      "availability": "resident",
+      "blob": "blobs/d9/d9da7ec09a02df2e8c677652cf59483ddb2713cc78db303f684b8f44ea3a0fc2/CriticalMomentQuadNewton04.lean",
+      "bytes": 2160,
+      "sha256": "d9da7ec09a02df2e8c677652cf59483ddb2713cc78db303f684b8f44ea3a0fc2",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/CriticalMomentQuadNewton04.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/d9/d9da7ec09a02df2e8c677652cf59483ddb2713cc78db303f684b8f44ea3a0fc2/CriticalMomentQuadNewton04.lean",
+      "imports": [
+        "CriticalMomentQuadData",
+        "CriticalMomentQuadNumerals"
+      ],
+      "review": "CRITICAL_NONZERO_PROGRAM_REUSE_REVIEW.json",
+      "import_replacements": {
+        "CriticalZeroLightData": "NoFourMUBs.Reuse.Archive.CriticalZeroLightData",
+        "CriticalNonzeroData": "NoFourMUBs.Reuse.Archive.CriticalNonzeroData"
+      },
+      "proof_tactic_replacements": []
+    },
+    "CriticalMomentQuadNewton05": {
+      "availability": "resident",
+      "blob": "blobs/d1/d15edf1d3d7cb9f36efb15d0059d6d7d95137bc3dcc257b72969f99768cfbe24/CriticalMomentQuadNewton05.lean",
+      "bytes": 2168,
+      "sha256": "d15edf1d3d7cb9f36efb15d0059d6d7d95137bc3dcc257b72969f99768cfbe24",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/CriticalMomentQuadNewton05.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/d1/d15edf1d3d7cb9f36efb15d0059d6d7d95137bc3dcc257b72969f99768cfbe24/CriticalMomentQuadNewton05.lean",
+      "imports": [
+        "CriticalMomentQuadData",
+        "CriticalMomentQuadNumerals"
+      ],
+      "review": "CRITICAL_NONZERO_PROGRAM_REUSE_REVIEW.json",
+      "import_replacements": {
+        "CriticalZeroLightData": "NoFourMUBs.Reuse.Archive.CriticalZeroLightData",
+        "CriticalNonzeroData": "NoFourMUBs.Reuse.Archive.CriticalNonzeroData"
+      },
+      "proof_tactic_replacements": []
+    },
+    "CriticalMomentQuadNewton06": {
+      "availability": "resident",
+      "blob": "blobs/a3/a3ce8d68a8b5939a32b9292d7fbdcf2bb9451147ca81fd06c78e34a81fe666c2/CriticalMomentQuadNewton06.lean",
+      "bytes": 2184,
+      "sha256": "a3ce8d68a8b5939a32b9292d7fbdcf2bb9451147ca81fd06c78e34a81fe666c2",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/CriticalMomentQuadNewton06.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/a3/a3ce8d68a8b5939a32b9292d7fbdcf2bb9451147ca81fd06c78e34a81fe666c2/CriticalMomentQuadNewton06.lean",
+      "imports": [
+        "CriticalMomentQuadData",
+        "CriticalMomentQuadNumerals"
+      ],
+      "review": "CRITICAL_NONZERO_PROGRAM_REUSE_REVIEW.json",
+      "import_replacements": {
+        "CriticalZeroLightData": "NoFourMUBs.Reuse.Archive.CriticalZeroLightData",
+        "CriticalNonzeroData": "NoFourMUBs.Reuse.Archive.CriticalNonzeroData"
+      },
+      "proof_tactic_replacements": []
+    },
+    "CriticalMomentQuadNewton07": {
+      "availability": "resident",
+      "blob": "blobs/62/622f40773145a7a341a47449479a09ba4be1b1bf373215c1a6c0c2cd6839f27d/CriticalMomentQuadNewton07.lean",
+      "bytes": 2232,
+      "sha256": "622f40773145a7a341a47449479a09ba4be1b1bf373215c1a6c0c2cd6839f27d",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/CriticalMomentQuadNewton07.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/62/622f40773145a7a341a47449479a09ba4be1b1bf373215c1a6c0c2cd6839f27d/CriticalMomentQuadNewton07.lean",
+      "imports": [
+        "CriticalMomentQuadData",
+        "CriticalMomentQuadNumerals"
+      ],
+      "review": "CRITICAL_NONZERO_PROGRAM_REUSE_REVIEW.json",
+      "import_replacements": {
+        "CriticalZeroLightData": "NoFourMUBs.Reuse.Archive.CriticalZeroLightData",
+        "CriticalNonzeroData": "NoFourMUBs.Reuse.Archive.CriticalNonzeroData"
+      },
+      "proof_tactic_replacements": []
+    },
+    "CriticalMomentQuadNewton08": {
+      "availability": "resident",
+      "blob": "blobs/75/75e5b64e9eff276147124d6e362134fcc665d4884f15d07762c1e46fb455b70e/CriticalMomentQuadNewton08.lean",
+      "bytes": 2233,
+      "sha256": "75e5b64e9eff276147124d6e362134fcc665d4884f15d07762c1e46fb455b70e",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/CriticalMomentQuadNewton08.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/75/75e5b64e9eff276147124d6e362134fcc665d4884f15d07762c1e46fb455b70e/CriticalMomentQuadNewton08.lean",
+      "imports": [
+        "CriticalMomentQuadData",
+        "CriticalMomentQuadNumerals"
+      ],
+      "review": "CRITICAL_NONZERO_PROGRAM_REUSE_REVIEW.json",
+      "import_replacements": {
+        "CriticalZeroLightData": "NoFourMUBs.Reuse.Archive.CriticalZeroLightData",
+        "CriticalNonzeroData": "NoFourMUBs.Reuse.Archive.CriticalNonzeroData"
+      },
+      "proof_tactic_replacements": []
+    },
+    "CriticalMomentQuadNumerals": {
+      "availability": "resident",
+      "blob": "blobs/95/9523fc78f9c807a91eaad3fa8ddfe0380f60fc646a799da3fab9469cb6704eaf/CriticalMomentQuadNumerals.lean",
+      "bytes": 487,
+      "sha256": "9523fc78f9c807a91eaad3fa8ddfe0380f60fc646a799da3fab9469cb6704eaf",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/CriticalMomentQuadNumerals.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/95/9523fc78f9c807a91eaad3fa8ddfe0380f60fc646a799da3fab9469cb6704eaf/CriticalMomentQuadNumerals.lean",
+      "imports": [
+        "CriticalMomentQuad"
+      ],
+      "review": "CRITICAL_NONZERO_PROGRAM_REUSE_REVIEW.json",
+      "import_replacements": {
+        "CriticalZeroLightData": "NoFourMUBs.Reuse.Archive.CriticalZeroLightData",
+        "CriticalNonzeroData": "NoFourMUBs.Reuse.Archive.CriticalNonzeroData"
+      },
+      "proof_tactic_replacements": []
+    }
+  },
+  "existing_modules": {
+    "NoFourMUBs.Reuse.Archive.CriticalZeroLightData": {
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalZeroLightData.lean",
+      "active_sha256": "92ca2feeae7cc6f47503db5b98826c99f3eb16ab7e6e4d4d44a5cc9a43cd168e"
+    },
+    "NoFourMUBs.Reuse.Archive.CriticalNonzeroData": {
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalNonzeroData.lean",
+      "active_sha256": "ae45707caa769686cc6098148717327f1596e593a7cadce592ee742764cb7d7e"
+    },
+    "NoFourMUBs.Reuse.Archive.CriticalNonzeroAllCritical": {
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalNonzeroAllCritical.lean",
+      "active_sha256": "68d847d6a446f12aa2ea8c826812c85e2c1afd39948d7c4a30c296d578dd58aa"
+    },
+    "NoFourMUBs.Reuse.Archive.CriticalZeroChartTransport": {
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalZeroChartTransport.lean",
+      "active_sha256": "cf5acd52a2f355e97cafe87b83a03d893f42e6bbb4d5b41ee10d3c94763ea861"
+    }
+  },
+  "local_adapters": [
+    {
+      "module": "NoFourMUBs.Step2.CriticalZero.ActualNonzeroCoefficients",
+      "active_path": "NoFourMUBs/Step2/CriticalZero/ActualNonzeroCoefficients.lean",
+      "active_sha256": "a7955ba1be6b302f8bb8e52b853ea9024d65d4c68a6c9050fbca0c209e0e97b8",
+      "after_archived_module": "CriticalNonzeroCoefficientProgram",
+      "review": "CRITICAL_NONZERO_PROGRAM_REUSE_REVIEW.json"
+    }
+  ],
+  "external": [],
+  "unresolved": [],
+  "atlas_certification": false
+}

@@ -1,0 +1,8 @@
+import NoFourMUBs.Step2.CriticalZero.EquicorrelationPhased
+
+#check NoFourMUBs.Step2.Critical.Equicorrelation.phased_selected_impossible
+#print axioms NoFourMUBs.Step2.Critical.Equicorrelation.repeated_coordinate_roots
+#print axioms NoFourMUBs.Step2.Critical.Equicorrelation.repeated_coordinate_position
+#print axioms NoFourMUBs.Step2.Critical.Equicorrelation.oriented_coordinate_allocation
+#print axioms NoFourMUBs.Step2.Critical.Equicorrelation.phased_corner_impossible
+#print axioms NoFourMUBs.Step2.Critical.Equicorrelation.phased_selected_impossible

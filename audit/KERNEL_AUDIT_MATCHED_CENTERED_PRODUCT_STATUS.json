@@ -1,0 +1,62 @@
+{
+  "status": "PASS",
+  "checked_utc": "2026-10-11T20:10:24.607209+00:00",
+  "modules": 1,
+  "axiom_endpoints": {
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.cachedDelta_eq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.cachedDelta_seed": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.cachedC6_strict": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.cachedU_seed": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.cachedV_seed": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.candidate_intrinsic_correlations": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.candidate_product_centered": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "source_hashes": {
+    "NoFourMUBs/Step2/Reconstruction/BaseCoefficients/Centered.lean": "0a74257b9c2fc64e57046f9abef7ee87e7bd308b889f3528ef52b5550f13162f"
+  },
+  "manifest_sha256": "0ee5f72fb6f1a58dca4096598b43d346420aa3d09ba35cc6689780263049a281",
+  "audit_log_sha256": "ad6186df24d97bf13de7008a7a8e13ab905949a445093e9cb4794effa7b1bd17",
+  "scope": "Reuse the checked signature equation, base coefficients and strict denominator guard to bind the original centered product to an actual signed horizontal candidate. No correlation-gap guard. The companion and universal norm remain open. No atlas certification.",
+  "dependency_audits": {
+    "KERNEL_AUDIT_MATCHED_BASE_BINDING_STATUS.json": "b6a3dae407e055f67371f0512f66568b1dd62542384ce34db3e09a205f9a3632",
+    "KERNEL_AUDIT_MATCHED_PRODUCT_SIGNATURE_STATUS.json": "6c49177e56fd356e55894e12a11c118eb68e297bc7cd7792fd19198c32601c34"
+  },
+  "dependency_source_hashes": {
+    "NoFourMUBs/Step2/Reconstruction/BaseCoefficients/Bindings.lean": "f488d52f6e644ee826f25f359886ef3f9a1da0a3c27660246bf11b459dc40509",
+    "NoFourMUBs/Step2/Reconstruction/RowProductSignature.lean": "1c94b70a0b87dacc3199c544cad22766ce194d4441ba16a940119eb9d749f83a",
+    "NoFourMUBs/Step2/Reconstruction/SeedModel.lean": "7020e49ca7d9303f213bb75991290cd1bba125db6de255f0e1b39a51ab079aa3",
+    "NoFourMUBs/Reuse/Archive/SideIntrinsicMatrixBindings.lean": "28e1b68230d5b0372200d1bc65f9f98e6db18afdda19c6f1c46cacdc0377a5a5",
+    "NoFourMUBs/Reuse/Archive/PreRhoActualBindings.lean": "95bd24d7140b39595e579e0c45b39df1533f43902380f4534c81c07e93e89caa",
+    "NoFourMUBs/Reuse/Archive/PreRhoNormBindings.lean": "2dc366315b498ad9dd3de167f804d26eecbe943704d6f79977edd523e4bd3ef1",
+    "NoFourMUBs/Reuse/Archive/StrictSideScalarGuards.lean": "75741b3091aeb2ce36f1b9fdab822add16b2e2514bfa27822105c93fb936d042"
+  },
+  "atlas_certification": false
+}

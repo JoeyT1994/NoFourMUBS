@@ -1,0 +1,41 @@
+{
+  "status": "REVIEWED_COMPANION_INTERPRETATION_ADAPTER",
+  "scope": "matched_companion_interpretation",
+  "checked_utc": "2026-10-11T20:42:08.100503+00:00",
+  "repository_head": "fd7d1019fa4a7f3551bf9ade5d31ebbce9501055",
+  "search": "MATCHED_COMPANION_INTERPRETATION_REUSE_SEARCH.json",
+  "source_pins": {
+    "lean/NoFourMUBs/Step2/Reconstruction/Companion/Model.lean": "bce26b754cd3f4b2a88e9a6fef2379c3819f21233f164ca2d26cdde9ec68f414",
+    "lean/NoFourMUBs/Step2/Reconstruction/CubicEvaluation.lean": "a2f91aa59296859951df6d724089ce86000f33f7c53d2c786928dca118cee612",
+    "lean/NoFourMUBs/Reuse/Archive/CriticalMomentQuad.lean": "1408c2169bd58005fbe77872fe1cb7be3ea6c2670e0c51a305ac620afa0bce05",
+    "lean/NoFourMUBs/Step2/Reconstruction/EntryCompanion.lean": "d1849acb23e557ce8a0f41543b0ea41855a4f2fd98829b0a7e743320aefbe468",
+    "lean/NoFourMUBs/Step2/Reconstruction/BaseCoefficients/VerticalProduct.lean": "74104c8570340687fbf1d7df3635d44cdbf7ac1dda2f8db91145e7349e1ac3b2",
+    "lean/NoFourMUBs/Step2/Reconstruction/BaseCoefficients/Discriminant.lean": "45d5e56b24e26451f14c0c668d847c010bf7392d97ae6dbf25ce9db09ecf1dfa",
+    "lean/NoFourMUBs/Step2/Reconstruction/BaseCoefficients/Centered.lean": "0a74257b9c2fc64e57046f9abef7ee87e7bd308b889f3528ef52b5550f13162f",
+    "lean/NoFourMUBs/Step2/Reconstruction/BaseCoefficients/Eliminants.lean": "3ae325de28da1896954ef3270bff34a2a18de68ea1813a7745b327840e804c5a",
+    "lean/vendor/hadamard6/Hadamard6/QuotientAlgebra.lean": "e771892e157ec91624d5fe1dada562bb43651696a673e0bc4fb08c5c640b03ed",
+    "lean/vendor/hadamard6/Hadamard6/HaagerupFromFibre.lean": "85df946b9fa4ce7ec028d623e45dd5e827dfb0738fda37aeb0203269c21673d8",
+    "lean/vendor/hadamard6/Hadamard6/FactorAllocation.lean": "874c61e65e476105ee4f7db2032792ab9415755ac81cd17fb7e6922d8f097cbc",
+    "lean/vendor/hadamard6/Hadamard6/QuotientGoodRow.lean": "0ffff87363d96b42185cc6224207dc2a0fb7dfe57ad2ea35e66f4e68bd8274b3"
+  },
+  "comparisons": [
+    {
+      "existing": "CubicEvaluation.cubicEval_mul and CriticalMomentQuad.eval_scalar/eval_add/eval_mul",
+      "reuse": "Compose the existing evaluators with the literal reducePoly representation. No new quotient algebra or polynomial arithmetic checker."
+    },
+    {
+      "existing": "Hadamard6.eliminantA_factorization, eliminantB_coefficients and BaseCoefficients.cached_eliminantA/B_eq/seed",
+      "reuse": "Identify the two reduced polynomials with their already checked original eliminants at a cubic root. No regeneration or checking of expanded A/B arrays."
+    },
+    {
+      "existing": "candidate_product_quadratic, matched_product_affine, candidate_intrinsic_correlations, vertical_candidate_transposed and side_entry_cubic/eliminant/companion",
+      "reuse": "Bind the exact formal roots to an actual opposite-sign pair, then reuse the existing entry relation. Retain the residual identity and entrywise B nonzero as explicit inputs until proved."
+    },
+    {
+      "existing": "Archive/vendor FactorAllocation.quotient_quadratic_reduction and QuotientGoodRow.quotient_good_row_negative",
+      "comparison": "Their cleared-norm/critical-row hypotheses and sign conclusions do not interpret the reconstruction companion. Archived candidates are byte-identical to the inspected vendor copies. They are not alternate proofs of the required adapter."
+    }
+  ],
+  "limits": "Only interpretation adapters. Residual and generic denominator inputs remain explicit. Does not assert full matched existence or cover unshared work. No atlas certification.",
+  "atlas_certification": false
+}

@@ -1,0 +1,153 @@
+{
+  "status": "PASS",
+  "checked_utc": "2026-10-11T12:51:02.902769+00:00",
+  "modules": 4,
+  "axiom_endpoints": {
+    "NoFourMUBs.Step2.Critical.Equicorrelation.two_cube_norms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.Equicorrelation.three_cube_norms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.Equicorrelation.ordinary_im_nonneg": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.Equicorrelation.no_ordinary_sum": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.Equicorrelation.no_one_cube_sum": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.Equicorrelation.no_two_cube_sum": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.Equicorrelation.no_three_cube_sum": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.Equicorrelation.coordinates_sum_ne": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.Equicorrelation.coordinate_of_critical_constraints": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.Equicorrelation.complement_impossible": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "Hadamard6Extensions.FourierSide.cube_roots_are_modes": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "StrictReconstruction20261007.ElementaryFourier.reconstructionOmega_explicit": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "StrictReconstruction20261007.ElementaryFourier.reconstructionOmega_unit_quadratic": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.Equicorrelation.mixed_signed_formula": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.Equicorrelation.mixed_signed_zero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.Equicorrelation.alpha_unit": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.Equicorrelation.alpha_ne_one": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.Equicorrelation.alpha_ne_neg_one": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.Equicorrelation.first_mixed_constraint": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.Equicorrelation.second_mixed_constraint": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.Equicorrelation.selected_signed_zero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.Equicorrelation.mixedCols_one_injective": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.Equicorrelation.mixedCols_two_injective": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.Equicorrelation.swappedRows_injective": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.Equicorrelation.normalized_block_impossible": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "source_hashes": {
+    "NoFourMUBs/Step2/CriticalZero/EquicorrelationCubeSums.lean": "44e344f1968b7e3535815e014f2b3189b2772634e57effc10c4f32bc6218949e",
+    "NoFourMUBs/Step2/CriticalZero/EquicorrelationComplement.lean": "e5791d20fede5489eba8c3854ec53a4059c44cb1c9886f5ad99661b6681302bc",
+    "NoFourMUBs/Step2/CriticalZero/EquicorrelationMixedCorner.lean": "9639be1effb74f784779cdc3eee311ab04321cf6c687b6e319744d2dafe05909",
+    "NoFourMUBs/Step2/CriticalZero/EquicorrelationNormalized.lean": "3d7fe0da977cfaf88b319ce6d27b6f8e8c2fad791fea05f5d1acc0cbca2ba8ba"
+  },
+  "manifest_sha256": "e373bdda65ab6f0784d69c5c54f0301be0754b0ca05cdb2b59d986aed44c769e",
+  "audit_log_sha256": "2ff263a43dafb017d2493becd8b108d664c99e4a95896040f71be5df8150989c",
+  "scope": "An actual all-critical normalized Hadamard matrix cannot contain the exact original equicorrelation block. Scalar-invariant-to-block normalization remains open. No atlas certification.",
+  "dependency_audits": {
+    "KERNEL_AUDIT_CRITICAL_EQUICORRELATION_STATUS.json": "1f7af055133c5f2aa68cae0c057d2ca1c66f56044542e78fe61bdc87a66e58ab"
+  },
+  "dependency_source_hashes": {
+    "NoFourMUBs/Reuse/Archive/FourierSide.lean": "3762488932e158f54493a7ca66556a76edbb3f45b4ae58559ef091b18e4a9795",
+    "NoFourMUBs/Reuse/Archive/SideFourierElementaryRoots.lean": "e6b06f22d7cc802ff9f9a8a000dfd889442c4512a42881deeb85314b24f2ba89",
+    "NoFourMUBs/Step2/CriticalZero/BlockInvariant.lean": "b2107b421c0ad56b7bc9815b371f79fbaec2df8b6f2b842ae32854fa35b252c2",
+    "NoFourMUBs/Step2/CriticalZero/ActualSignatures.lean": "ea868b396733763127082fa622677a0cc182c023939136c6d47b96eaac1b76e0",
+    "NoFourMUBs/Step2/CriticalZero/PhysicalModel.lean": "9520b896d5795301a97d296ecd4ca4f999507feed6ac967271147f8e795ed3e0",
+    "NoFourMUBs/Reuse/Archive/CriticalStripPhysical.lean": "0e726f519d28a449b1895952067a44a422c9c31e7f51ae64b1656dc8762b5731"
+  },
+  "atlas_certification": false
+}

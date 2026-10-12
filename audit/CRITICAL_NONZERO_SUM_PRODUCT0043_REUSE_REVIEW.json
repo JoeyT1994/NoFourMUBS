@@ -1,0 +1,29 @@
+{
+  "status": "REVIEWED_NECESSARY_INTERMEDIATE_PRODUCT",
+  "node": 43,
+  "prior_full_corpus_review": "CRITICAL_NONZERO_SUM_DAG_REUSE_REVIEW.json",
+  "existing_checker": "BinaryCertificate.binary_eval_eq and CoefficientAt.mulAt",
+  "equal_polynomial_matches": {
+    "old": [],
+    "earlier_sum_nodes": []
+  },
+  "old_nodes_compared": 533,
+  "earlier_sum_nodes_compared": 43,
+  "source_pins": {
+    "audit/CRITICAL_NONZERO_SUM_DAG_REUSE_REVIEW.json": "54389be1f2463889a19112e610459217a9b807da8aabe41df73ef56190f4608a",
+    "audit/CRITICAL_NONZERO_SUM_DAG.json": "619968b18d8712cf00eae3dc7a5a97e394698199b50ec921318b629affafc7fc",
+    "audit/CRITICAL_NONZERO_P2P2_EXPRESSION_DAG.json": "44122d3c6aa017024b83c2d76f35e5958938d4852d9d14d50c999a368f5b8618",
+    "lean/NoFourMUBs/Reuse/Archive/CriticalZeroSumBinaryCertificate.lean": "1b0aa20b70be2198d9ebd75ea58c52ed89b661518049027e586b16680d0ac2cc"
+  },
+  "atlas_certification": false,
+  "shared_input": {
+    "node": 41,
+    "terms": 2291,
+    "coefficient_checks": 45,
+    "equal_polynomial_matches": {
+      "old": [],
+      "earlier_sum_nodes": []
+    },
+    "reason": "Avoid repeated expansion of a linear combination of existing numerator arrays inside every convolution coefficient. Existing target and passed data receipt retained."
+  }
+}

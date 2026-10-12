@@ -1,0 +1,8 @@
+{
+  "reviewed_utc": "2026-10-12T17:59:45.350232+00:00",
+  "before_sha256": "9c71497976e1bb38e3df92012878bc60cedf189344507f32a8c84c4c433d27ae",
+  "after_sha256": "e0b0f2403b5636d330b5c0a3c47e1ff3553f99eb98e1efe922c19149efcc9fbc",
+  "error": "Two zero matrix entries reached a simplifier that had no remaining rewrite; the tactic failed before subsequent ring checks.",
+  "change": "Permit the final simplifier to make no changes, then close each remaining algebra goal with ring. No formula, hypothesis or statement changed.",
+  "atlas_certification": false
+}

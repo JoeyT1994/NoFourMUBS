@@ -1,0 +1,10 @@
+lean/NoFourMUBs/Reuse/Archive/CriticalPositiveParam.lean:26:  have hd : (1+k^2)^2≠0 := pow_ne_zero 2 (ne_of_gt (denominator_pos k))
+lean/NoFourMUBs/Reuse/Archive/CriticalPositiveParam.lean:35:  have hd : (1+k^2)^2≠0 := pow_ne_zero 2 (ne_of_gt (denominator_pos k))
+lean/NoFourMUBs/Reuse/Archive/CriticalGeometricNumerator.lean:23:    (hj : momentJ s t r=0) : r*s^2+star r*t^2=0 := by
+lean/NoFourMUBs/Reuse/Archive/CriticalRationalParam.lean:15:theorem denominator_pos (k : ℝ) : 0 < 1+k^2 := by positivity
+lean/NoFourMUBs/Reuse/Archive/CriticalRationalParam.lean:24:  have hd0 : 1+k^2≠0 := ne_of_gt (denominator_pos k)
+lean/NoFourMUBs/Reuse/Archive/CriticalRationalParam.lean:60:  have hd := ne_of_gt (denominator_pos k)
+lean/NoFourMUBs/Reuse/Archive/CriticalRationalParam.lean:66:  have hd := ne_of_gt (denominator_pos k)
+lean/NoFourMUBs/Reuse/Archive/CriticalRationalParam.lean:79:  have hd := ne_of_gt (denominator_pos k)
+lean/NoFourMUBs/Reuse/Archive/CriticalRationalParam.lean:92:  have hd := denominator_pos k
+lean/vendor/fourier/OAI/Analysis/MutuallyUnbiased/PairData/Data.lean:778:theorem denominator_pos : 0 < denominator := by decide

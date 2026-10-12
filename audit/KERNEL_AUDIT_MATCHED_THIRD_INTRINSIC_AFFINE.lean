@@ -1,0 +1,5 @@
+import NoFourMUBs.Step2.Reconstruction.ThirdMoment.IntrinsicAffine
+
+#check NoFourMUBs.Step2.Reconstruction.ThirdMoment.intrinsic_affine_moments
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.lambda_affine_forms
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.intrinsic_affine_moments

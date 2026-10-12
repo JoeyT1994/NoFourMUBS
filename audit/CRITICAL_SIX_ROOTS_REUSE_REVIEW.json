@@ -1,0 +1,32 @@
+{
+  "status": "PASS",
+  "reviewed_utc": "2026-10-11T04:39:12.282343+00:00",
+  "scope": "Reuse three archived generic six-unit-root polynomial/triple/ordering modules for the geometric Fourier route, preserving multiplicities and all original hypotheses. No atlas certification. Extend to actual geometric rows by the original three GeometricRowsTriples theorems and checked current row-orthogonality.",
+  "sources": {
+    "SixRootPolynomial": "0e0399299b5d759b9201a8bfa4425be55a1e5cfd552260d4c65f7765fea4ee2d",
+    "SixRootTriples": "e1ea27de3fb9ccc70a888a5576228c66503296562826a35a4855fbefed093c7e",
+    "SixRootOrdering": "0aff5528be592be04153fe4e5b514d5fb0741ff567ade3d93884311e5736a4ce",
+    "GeometricRowsTriples": "05c50009da79f5d50f2a9ea2d5ca6cd27ec2d9880d440b7a273874a62b29ec1f"
+  },
+  "search_evidence": "CRITICAL_SIX_ROOTS_REUSE_SEARCH.json; both polynomial variants, all five ordering variants and the unique triples source compared. Existing PhaseFacts helpers and Hadamard6.cubic_of_quadratic reused directly.",
+  "variant_selection": "Polynomial0e039 has explicit associativity normalization. Ordering0aff552 has an explicit finite-count identity and preserves repeated roots.",
+  "omitted_blocks": [
+    {
+      "module": "SixRootPolynomial",
+      "block_sha256": "931ebdbea999a6fcadf6f771d5afdb5c0d919802fd2ff41e515f00a62183b0fd",
+      "reused_from": "NoFourMUBs.Step2.CriticalZero.PhaseFacts"
+    }
+  ],
+  "existing_dependencies": {
+    "NoFourMUBs.Step2.CriticalZero.PhaseFacts": {
+      "active_path": "NoFourMUBs/Step2/CriticalZero/PhaseFacts.lean",
+      "active_sha256": "f4318cd3a421b5d8ae172b96cf7e4a7ccf8ed271f988c59db0823617baae9ee3"
+    }
+  },
+  "remaining_connection": "Actual row moments, top-block normalization and Fourier family conclusion remain separate. This is not CriticalClassification.",
+  "atlas_certification": false,
+  "original_generic_modules_build": "3/3 PASS",
+  "actual_row_moment_connection": "PASS: reused row orthogonality and original row/triple proofs",
+  "checked_utc": "2026-10-11T04:45:57.082612+00:00",
+  "pass_evidence": "KERNEL_AUDIT_CRITICAL_SIX_ROOTS_STATUS.json"
+}

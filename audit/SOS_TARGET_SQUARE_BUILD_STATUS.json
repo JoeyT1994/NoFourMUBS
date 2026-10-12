@@ -1,0 +1,27 @@
+{
+  "status": "KERNEL_CHECKED",
+  "theorems": [
+    "blockExponent_moment",
+    "cubicMoment_small",
+    "cubicMoment_square"
+  ],
+  "file_hashes": {
+    "TargetFrames.lean": "b4dd0e8281c68e1bf218cd76753c2493667a687760429b19e2f24488adc18dbd",
+    "MomentExponentData.lean": "c3b5530c9bced5b39e9cbb1482e04cf239e6ca6ca5693530ff3a69d4d258e59b"
+  },
+  "build_log": "SOS_PHYSICAL_TARGET_DATA_SPLIT_FIXED.log",
+  "scope": "Cubic first/square moments and block padding checked on the same current sources. Full target coefficient assembly remains pending.",
+  "prior_build_receipt": {
+    "status": "KERNEL_CHECKED",
+    "theorems": [
+      "blockExponent_moment",
+      "cubicMoment_small",
+      "cubicMoment_square"
+    ],
+    "file_hashes": {
+      "TargetFrames.lean": "85e5a40b0e633dc6c195cb02140ffc89a240ba0ade328dee77f6e2bf4f8825b6"
+    },
+    "build_log": "SOS_DEFECT_MOMENTS_BUILD.log",
+    "scope": "Only named stages in this still-running log are certified. Final physical target and coefficient projection remain pending."
+  }
+}

@@ -1,0 +1,33 @@
+import NoFourMUBs.Step2.CriticalZero.SumClearing.Stage0000Data
+import NoFourMUBs.Step2.CriticalZero.SumClearing.Stage0000Factors
+set_option autoImplicit false
+set_option maxRecDepth 100000
+set_option maxHeartbeats 3000000
+noncomputable section
+namespace NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing.Stages
+theorem n0020_coefficient_019 :
+    CriticalZeroSplitReduction20261003.IntegerReflector.zeroII (CriticalZeroSplitReduction20261003.Coefficients.add2 (CriticalZeroSumAssembly20261003.CoefficientAt.mulAt n0017 n0019 19)
+      (CriticalZeroSplitReduction20261003.Coefficients.neg2 (n0020.getD 19 []))) = true := by rfl
+#print axioms n0020_coefficient_019
+theorem n0020_coefficient_020 :
+    CriticalZeroSplitReduction20261003.IntegerReflector.zeroII (CriticalZeroSplitReduction20261003.Coefficients.add2 (CriticalZeroSumAssembly20261003.CoefficientAt.mulAt n0017 n0019 20)
+      (CriticalZeroSplitReduction20261003.Coefficients.neg2 (n0020.getD 20 []))) = true := by rfl
+#print axioms n0020_coefficient_020
+theorem n0020_coefficient_021 :
+    CriticalZeroSplitReduction20261003.IntegerReflector.zeroII (CriticalZeroSplitReduction20261003.Coefficients.add2 (CriticalZeroSumAssembly20261003.CoefficientAt.mulAt n0017 n0019 21)
+      (CriticalZeroSplitReduction20261003.Coefficients.neg2 (n0020.getD 21 []))) = true := by rfl
+#print axioms n0020_coefficient_021
+theorem n0020_coefficient_022 :
+    CriticalZeroSplitReduction20261003.IntegerReflector.zeroII (CriticalZeroSplitReduction20261003.Coefficients.add2 (CriticalZeroSumAssembly20261003.CoefficientAt.mulAt n0017 n0019 22)
+      (CriticalZeroSplitReduction20261003.Coefficients.neg2 (n0020.getD 22 []))) = true := by rfl
+#print axioms n0020_coefficient_022
+theorem n0020_coefficient_024 :
+    CriticalZeroSplitReduction20261003.IntegerReflector.zeroII (CriticalZeroSplitReduction20261003.Coefficients.add2 (CriticalZeroSumAssembly20261003.CoefficientAt.mulAt n0017 n0019 24)
+      (CriticalZeroSplitReduction20261003.Coefficients.neg2 (n0020.getD 24 []))) = true := by rfl
+#print axioms n0020_coefficient_024
+theorem n0020_coefficient_025 :
+    CriticalZeroSplitReduction20261003.IntegerReflector.zeroII (CriticalZeroSplitReduction20261003.Coefficients.add2 (CriticalZeroSumAssembly20261003.CoefficientAt.mulAt n0017 n0019 25)
+      (CriticalZeroSplitReduction20261003.Coefficients.neg2 (n0020.getD 25 []))) = true := by rfl
+#print axioms n0020_coefficient_025
+
+end NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing.Stages

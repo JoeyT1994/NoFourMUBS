@@ -1,0 +1,43 @@
+import NoFourMUBs.Step2.Reconstruction.ThirdMoment.Certificates.Products.Product026
+
+#check NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.Product026_value
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.Product026A01_length
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.Product026A01_checked
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.Product026A01_value
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.Product026A02_length
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.Product026A02_checked
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.Product026A02_value
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.Product026A03_length
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.Product026A03_checked
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.Product026A03_value
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.Product026A04_length
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.Product026A04_checked
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.Product026A04_value
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.Product026A05_length
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.Product026A05_checked
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.Product026A05_value
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.Product026A06_length
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.Product026A06_checked
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.Product026A06_value
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.Product026A07_length
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.Product026A07_checked
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.Product026A07_value
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.Product026A08_length
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.Product026A08_checked
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.Product026A08_value
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.Product026A09_length
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.Product026A09_checked
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.Product026A09_value
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.Product026A10_length
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.Product026A10_checked
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.Product026A10_value
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.Product026A11_length
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.Product026A11_checked
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.Product026A11_value
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.Product026A12_length
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.Product026A12_checked
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.Product026A12_value
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.Product026A13_length
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.Product026A13_checked
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.Product026A13_value
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.Product026_value

@@ -1,0 +1,68 @@
+[
+  {
+    "module": "CriticalCounts",
+    "sha256": "e0f1e50c6b13495af302fa7ecfd805f83c6c55e08aa32edc20d3e7fd07eeecd5",
+    "bytes": 3525,
+    "source": "archive/long_proof/Lean/blobs/e0/e0f1e50c6b13495af302fa7ecfd805f83c6c55e08aa32edc20d3e7fd07eeecd5/CriticalCounts.lean",
+    "local": "archive_sources/e0f1e50c6b13495af302fa7ecfd805f83c6c55e08aa32edc20d3e7fd07eeecd5/CriticalCounts.lean",
+    "commit": "75d27258972d9838c2a7857371becc7271bc7b81",
+    "active_path": "NoFourMUBs/Reuse/Archive/CriticalCounts.lean",
+    "active_sha256": "286368d6fc9c1c876d2fadb1fc36eded3dd85abf4834c2dbde8b700443d6a799",
+    "adaptations": [
+      [
+        "import RadianSeedBounds",
+        "import Mathlib.Data.Real.Basic\nimport Mathlib.Tactic"
+      ]
+    ],
+    "row_gram_delegates_to_existing_OAI_theorem": false,
+    "other_proof_bodies_rewritten": false
+  },
+  {
+    "module": "CriticalCountApplication",
+    "sha256": "37844cdd6590f51abd396e660c49cd5be72e3ca6faad812b924176fd2a19918d",
+    "bytes": 2149,
+    "source": "archive/long_proof/Lean/blobs/37/37844cdd6590f51abd396e660c49cd5be72e3ca6faad812b924176fd2a19918d/CriticalCountApplication.lean",
+    "local": "archive_sources/37844cdd6590f51abd396e660c49cd5be72e3ca6faad812b924176fd2a19918d/CriticalCountApplication.lean",
+    "commit": "75d27258972d9838c2a7857371becc7271bc7b81",
+    "active_path": "NoFourMUBs/Reuse/Archive/CriticalCountApplication.lean",
+    "active_sha256": "9c53fe1ff37d752a55933742cc51519dff85e0a5ba4c5e489b752a9e92fe757e",
+    "adaptations": [
+      [
+        "import CriticalCounts",
+        "import NoFourMUBs.Reuse.Archive.CriticalCounts\nopen scoped BigOperators"
+      ]
+    ],
+    "row_gram_delegates_to_existing_OAI_theorem": false,
+    "other_proof_bodies_rewritten": false
+  },
+  {
+    "module": "CriticalRowSum",
+    "sha256": "34b9f80fc7880a263872fd670b2fa1b600f6b653b631d1802954cd19f2ea40ee",
+    "bytes": 3968,
+    "source": "archive/long_proof/Lean/blobs/34/34b9f80fc7880a263872fd670b2fa1b600f6b653b631d1802954cd19f2ea40ee/CriticalRowSum.lean",
+    "local": "archive_sources/34b9f80fc7880a263872fd670b2fa1b600f6b653b631d1802954cd19f2ea40ee/CriticalRowSum.lean",
+    "commit": "75d27258972d9838c2a7857371becc7271bc7b81",
+    "active_path": "NoFourMUBs/Reuse/Archive/CriticalRowSum.lean",
+    "active_sha256": "643b19836a15425426054bdc1847f4a364f44606a4b2830dba5161872d698048",
+    "adaptations": [
+      [
+        "import RadianSeedBounds",
+        "import OAI.Analysis.MutuallyUnbiased.Matrix.Hadamard"
+      ],
+      [
+        "open Mub6 Mub6.Numerical\n",
+        ""
+      ],
+      [
+        "BasisMatrix",
+        "OAI.MUB6.CMatrix"
+      ],
+      [
+        "PhaseHadamard",
+        "OAI.MUB6.IsHadamard"
+      ]
+    ],
+    "row_gram_delegates_to_existing_OAI_theorem": true,
+    "other_proof_bodies_rewritten": false
+  }
+]

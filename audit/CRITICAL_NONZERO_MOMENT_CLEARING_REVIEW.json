@@ -1,0 +1,44 @@
+{
+  "status": "PASS",
+  "reviewed_utc": "2026-10-11T06:18:22.378068+00:00",
+  "scope": "Reuse the existing p1_p1 and m2_p1 denominator-cleared scalar formulae and bind their two coefficients to the current pairedQuad program. This is the first intermediate step of the missing coefficient clearing proof.",
+  "source_pins": {
+    "CriticalNonzeroLightMoments": "c87ca56d81435dc00aa26d634368dcc7da39f9368e92d30ffdffc7c3ed9123d5"
+  },
+  "search_evidence": [
+    "CRITICAL_NONZERO_MOMENT_CLEARING_SEARCH.json",
+    "CRITICAL_NONZERO_MOMENT_CLEARING_CURRENT_SEARCH.txt",
+    "CRITICAL_NONZERO_NUMERATOR_GAP_REVIEW.json",
+    "CRITICAL_NONZERO_INVOLUTION_SEARCH.json",
+    "CRITICAL_NONZERO_QUADRATIC_MODEL_CURRENT_SEARCH.txt"
+  ],
+  "reuse_decisions": [
+    "Reuse the original linearA/B/D and quadraticA/B/D formulas; no new polynomial arrays for these two moments.",
+    "Import only the original generic LightMoments. Its Complex specialization would duplicate an evaluation interface already checked in the full36moment program and is unnecessary.",
+    "New local adapter must prove equality of both actual Quad coefficients, not merely evaluation at one assumed root. All divisor hypotheses remain explicit.",
+    "Remaining34moment clearings require source review/appropriate binding and the final66term numerator identity remains separate.",
+    "Literal map from existing Quad to Mathlib.QuadraticAlgebra reuses its already proved ring/projection/involution infrastructure. No second quadratic ring implementation or new coefficient arrays."
+  ],
+  "mathematical_hypothesis_changes": [],
+  "atlas_certification": false,
+  "local_adapters": [
+    {
+      "module": "NoFourMUBs.Step2.CriticalZero.NonzeroQuadAlgebra",
+      "active_path": "NoFourMUBs/Step2/CriticalZero/NonzeroQuadAlgebra.lean",
+      "active_sha256": "3cc35f4c2c1c5d497c1e931f88d93768d7c26469c28778558f10d5e0de9e8482",
+      "review": "CRITICAL_NONZERO_MOMENT_CLEARING_REVIEW.json",
+      "after_archived_module": "CriticalNonzeroLightMoments"
+    },
+    {
+      "module": "NoFourMUBs.Step2.CriticalZero.NonzeroMomentClearing",
+      "active_path": "NoFourMUBs/Step2/CriticalZero/NonzeroMomentClearing.lean",
+      "active_sha256": "3145241d15b1787f7a3b742586244ed5ca2da3972a820e6f5d3f176c4eca7b45",
+      "review": "CRITICAL_NONZERO_MOMENT_CLEARING_REVIEW.json",
+      "after_module": "NoFourMUBs.Step2.CriticalZero.NonzeroQuadAlgebra"
+    }
+  ],
+  "checked_utc": "2026-10-11T06:33:49.713831+00:00",
+  "compiled_modules": 3,
+  "axiom_endpoints": 17,
+  "audit": "KERNEL_AUDIT_CRITICAL_NONZERO_MOMENT_CLEARING_STATUS.json"
+}

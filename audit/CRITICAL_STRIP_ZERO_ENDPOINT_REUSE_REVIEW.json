@@ -1,0 +1,65 @@
+{
+  "status": "PASS",
+  "checked_utc": "2026-10-11T17:19:07.978858+00:00",
+  "repository_head": "4e048ec8a2888f198f5432efd7f201f98d473878",
+  "scope": "Transport the existing regular-zero-J Fourier endpoint to every actual strip corner and consume the existing scalar parameterization at its boundary values.",
+  "index_review": "CRITICAL_STRIP_ZERO_ENDPOINT_INDEX_REVIEW.json",
+  "content_review": "CRITICAL_STRIP_ZERO_ENDPOINT_CONTENT_REVIEW.txt",
+  "source_pins": {
+    "lean/NoFourMUBs/Step2/CriticalZero/ActualFixedFourier.lean": "d25da451ee2ae8a6ecb68651ad5de93e84053d265829df5bcae986ad94ad86af",
+    "lean/NoFourMUBs/Step2/CriticalZero/ActualSingularFourier.lean": "bd8acb60bc781fa5d7ddef55a475894b96f832343cbe3e3b82894392f9f66d0c",
+    "lean/NoFourMUBs/Step2/CriticalZero/ColumnRechart.lean": "1530e264196c059538a1cdd67aae356d3a458066ad9630c542a935e62028a71d",
+    "lean/NoFourMUBs/Step2/CriticalZero/RechartModel.lean": "7ba67fb8000833df557e18483a1745590ed57812a033c995c810ef9b9f9928b1",
+    "lean/NoFourMUBs/Step2/CriticalZero/PhysicalModel.lean": "9520b896d5795301a97d296ecd4ca4f999507feed6ac967271147f8e795ed3e0",
+    "lean/NoFourMUBs/Step2/FourierModelBridge.lean": "e9c53a3cbd4feca8a4e14503c26d24e8e6eff14d8f883b5ab57bb03757cc7f63",
+    "lean/NoFourMUBs/Reuse/Archive/CriticalPhysicalParams.lean": "35bd3eb1f7c6eee3f693139a669e50794046629397671a29de2b3d2575d11fe7",
+    "lean/NoFourMUBs/Reuse/Archive/CriticalZeroChartTransport.lean": "cf5acd52a2f355e97cafe87b83a03d893f42e6bbb4d5b41ee10d3c94763ea861",
+    "lean/NoFourMUBs/Reuse/Archive/CriticalStripPhysical.lean": "0e726f519d28a449b1895952067a44a422c9c31e7f51ae64b1656dc8762b5731",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/92/923a392080b4062aaac1d2f3e29c880de2a1a18efbbda0f92c36bd232c15a365/CriticalZeroSideStripLight.lean": "923a392080b4062aaac1d2f3e29c880de2a1a18efbbda0f92c36bd232c15a365",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/c9/c95ab31e9a42b9befba7ea3ce47e6a9c5b771c65bb9b77139897c4365a4cfd75/CriticalZeroSideStrip.lean": "c95ab31e9a42b9befba7ea3ce47e6a9c5b771c65bb9b77139897c4365a4cfd75",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/ca/caa7158a1e4a2f0c6a2899d9a67e1f7572a4ce4d4918ae4b2e3d93adc090d21b/CriticalZeroSideStripLight.lean": "caa7158a1e4a2f0c6a2899d9a67e1f7572a4ce4d4918ae4b2e3d93adc090d21b",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/47/470fda4157c40e2f89241be9d57dfaa2238ac685afc01c265af89ab6af54fc48/CriticalZeroSideStripFull.draft.lean": "470fda4157c40e2f89241be9d57dfaa2238ac685afc01c265af89ab6af54fc48",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/f4/f45075faf8175910ffb176b663b0a81c768f58c39f0f6669ffcbd72c214b27ac/CriticalZeroStripIndependentReview.lean": "f45075faf8175910ffb176b663b0a81c768f58c39f0f6669ffcbd72c214b27ac",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/6c/6c44449247c42bfbb0ccea8594978121de284a67f806268fd7366a59f730d70b/CriticalZeroAllCriticalInputs.lean": "6c44449247c42bfbb0ccea8594978121de284a67f806268fd7366a59f730d70b",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/37/374add0d377dfc94a3ffab77c6578829ebea86f73edb98bf7d7b1da5eaa64003/CriticalZeroSideStrip.lean": "374add0d377dfc94a3ffab77c6578829ebea86f73edb98bf7d7b1da5eaa64003",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/40/40d1cea9e383a50ce2abbd351db5aa64a3efb6836978832ff7d09faac2f426fa/CriticalZeroChartTransport.lean": "40d1cea9e383a50ce2abbd351db5aa64a3efb6836978832ff7d09faac2f426fa",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/3a/3a264770d925bd0d440910d99bec4ac33e5762e7ab2418db382797467dc111a3/CriticalZeroSideAllCritical.lean": "3a264770d925bd0d440910d99bec4ac33e5762e7ab2418db382797467dc111a3",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/91/91811862e3de568fb03a644de6fd616161c0b567c34a64740bf8724e3236d21d/CriticalZeroSidePhysical.lean": "91811862e3de568fb03a644de6fd616161c0b567c34a64740bf8724e3236d21d",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/1b/1b1858c2851ca0a306aebc8e3c82a39e0beaf80589b13d068d20e9956c995911/CriticalCorrelationCore.lean": "1b1858c2851ca0a306aebc8e3c82a39e0beaf80589b13d068d20e9956c995911",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/b8/b8bdff3a2d92ceb42888bfc893100e3808687b4617273060a49e7994fab57439/CriticalZeroSidePhysical.lean": "b8bdff3a2d92ceb42888bfc893100e3808687b4617273060a49e7994fab57439",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/9a/9aeae5d8dc7187ccfa33e345e71f372ef12dd39a6af86b49b69da441290d1102/CriticalZeroSidePhysicalLight.lean": "9aeae5d8dc7187ccfa33e345e71f372ef12dd39a6af86b49b69da441290d1102"
+  },
+  "comparisons": [
+    {
+      "existing": "allCritical_regular_zero_standard",
+      "hypotheses": "Actual all-critical carrier; leading block p,J,W values, z>=-3 and z!=0,-3,-2",
+      "conclusion": "Equivalent to the exact main Fourier representative",
+      "decision": "Reuse directly after existing column permutation/dephasing. No repeated numerator, chart, geometry or Fourier proof."
+    },
+    {
+      "existing": "column_candidate_invariants, allCritical_candidate, candidate_monomial_equivalent",
+      "hypotheses": "Normalized physical matrix and any column permutation",
+      "conclusion": "Preserve p,J,W,K and criticality under the existing candidate model",
+      "decision": "Reuse existing model adapter and permutation extension."
+    },
+    {
+      "existing": "actual_zero_corner_parameter and allCritical_p9_standard",
+      "hypotheses": "All-critical matrix, any one of20corners; zero J / p=9",
+      "conclusion": "Exact z parameter / fixed Fourier equivalence",
+      "decision": "Consume directly: z=0 goes to Fourier; z=-3/-2 give p=0/5; all other parameters use the existing regular endpoint."
+    },
+    {
+      "existing": "CriticalZeroSideStripFull.draft, CriticalZeroStripIndependentReview, CriticalZeroSideAllCritical variants",
+      "hypotheses": "Leading physical block, explicit z bounds and usually correlation guards",
+      "conclusion": "The leading-block66equation, not an arbitrary-corner Fourier/value cover",
+      "decision": "Their adopted results already feed allCritical_regular_zero_standard. No second derivation."
+    }
+  ],
+  "planned_adapters": [
+    "One column-rechart connection from a selected corner to the existing regular leading-block Fourier endpoint",
+    "One boundary case split giving p=0 or p=5 or Fourier equivalence for every zero-J corner"
+  ],
+  "atlas_certification": false,
+  "limits": "Available complete indexes/current/vendor/OAI sources only; no claim about unshared work.",
+  "audit": "KERNEL_AUDIT_CRITICAL_STRIP_ZERO_ENDPOINT_STATUS.json"
+}

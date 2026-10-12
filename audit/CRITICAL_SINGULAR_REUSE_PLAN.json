@@ -1,0 +1,719 @@
+{
+  "status": "PINNED_REVIEWED_NOT_COMPILED",
+  "scope": "critical_singular_reuse",
+  "roots": [
+    "CriticalSingularBoundary"
+  ],
+  "selected": {
+    "EndpointSupport": {
+      "availability": "resident",
+      "blob": "blobs/71/716d6c429f3c8713e0983f7ab6a9a8e9489dfbe2c717880c4e8e0d727762fd68/EndpointSupport.lean",
+      "bytes": 826,
+      "sha256": "716d6c429f3c8713e0983f7ab6a9a8e9489dfbe2c717880c4e8e0d727762fd68",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/history/snapshot-1790082761753415000/port/src/Worker12/EndpointSupport.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/71/716d6c429f3c8713e0983f7ab6a9a8e9489dfbe2c717880c4e8e0d727762fd68/EndpointSupport.lean",
+      "imports": [
+        "Worker12.PureFamilies"
+      ],
+      "review": "CRITICAL_SINGULAR_REUSE_REVIEW.json",
+      "import_replacements": {
+        "Worker12.PureFamilies": "NoFourMUBs.Step2.CriticalZero.SingularModel"
+      },
+      "model_identifier_replacements": {
+        "Mub6.BasisMatrix": "OAI.MUB6.CMatrix"
+      },
+      "model_identifier_counts": {
+        "Mub6.BasisMatrix": 1
+      },
+      "namespace_open_replacements": {},
+      "proof_tactic_replacements": []
+    },
+    "NonphysicalEndpoints": {
+      "availability": "resident",
+      "blob": "blobs/3e/3efa6a8c48e919e563c4d029a3f6e5127c85cee20c1b219b5203cf24dfb67c78/NonphysicalEndpoints.lean",
+      "bytes": 17936,
+      "sha256": "3efa6a8c48e919e563c4d029a3f6e5127c85cee20c1b219b5203cf24dfb67c78",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/history/snapshot-1790082761753415000/port/src/Worker12/NonphysicalEndpoints.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/3e/3efa6a8c48e919e563c4d029a3f6e5127c85cee20c1b219b5203cf24dfb67c78/NonphysicalEndpoints.lean",
+      "imports": [
+        "Worker12.EndpointSupport"
+      ],
+      "review": "CRITICAL_SINGULAR_REUSE_REVIEW.json",
+      "import_replacements": {
+        "Worker12.EndpointSupport": "EndpointSupport"
+      },
+      "model_identifier_replacements": {},
+      "model_identifier_counts": {},
+      "namespace_open_replacements": {},
+      "proof_tactic_replacements": [
+        {
+          "before": "cubicSeed, unsplitMatrix,",
+          "after": "cubicSeed, unsplitMatrix, NoFourMUBs.Step2.FourierBridge.toOAI,",
+          "count": 18,
+          "reason": "Expose the shared toOAI alias while retaining the original checked splitIndex numeral simplification lemmas. Do not unfold their coordinate map prematurely."
+        }
+      ],
+      "reviewed_previous_active_sha256": "7e50f9e49f86a9d0ad0149ad6df2372fc145284b7328debc96f0d9781a5db2a8"
+    },
+    "CubicEndpoints": {
+      "availability": "resident",
+      "blob": "blobs/cd/cdd398e48888b74152a9b3687de8f9f039e2ea2000bc194a7edb7dd0555aa27e/CubicEndpoints.lean",
+      "bytes": 9052,
+      "sha256": "cdd398e48888b74152a9b3687de8f9f039e2ea2000bc194a7edb7dd0555aa27e",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/history/snapshot-1790082761753415000/port/src/Worker12/CubicEndpoints.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/cd/cdd398e48888b74152a9b3687de8f9f039e2ea2000bc194a7edb7dd0555aa27e/CubicEndpoints.lean",
+      "imports": [
+        "Worker12.ContinuousBindings",
+        "Worker12.NonphysicalEndpoints",
+        "Worker12.Endpoint0102",
+        "Worker12.Endpoint0111",
+        "Worker12.Endpoint0120",
+        "Worker12.Endpoint0201",
+        "Worker12.Endpoint0210",
+        "Worker12.Endpoint0222",
+        "Worker12.Endpoint1002",
+        "Worker12.Endpoint1011",
+        "Worker12.Endpoint1020",
+        "Worker12.Endpoint1101",
+        "Worker12.Endpoint1110",
+        "Worker12.Endpoint1122",
+        "Worker12.Endpoint2001",
+        "Worker12.Endpoint2010",
+        "Worker12.Endpoint2022",
+        "Worker12.Endpoint2202",
+        "Worker12.Endpoint2211",
+        "Worker12.Endpoint2220"
+      ],
+      "review": "CRITICAL_SINGULAR_REUSE_REVIEW.json",
+      "import_replacements": {
+        "Worker12.ContinuousBindings": "NoFourMUBs.Step2.CriticalZero.SingularModel",
+        "Worker12.NonphysicalEndpoints": "NonphysicalEndpoints",
+        "Worker12.Endpoint0102": "NoFourMUBs.Step2.CriticalZero.SingularModel",
+        "Worker12.Endpoint0111": "NoFourMUBs.Step2.CriticalZero.SingularModel",
+        "Worker12.Endpoint0120": "NoFourMUBs.Step2.CriticalZero.SingularModel",
+        "Worker12.Endpoint0201": "NoFourMUBs.Step2.CriticalZero.SingularModel",
+        "Worker12.Endpoint0210": "NoFourMUBs.Step2.CriticalZero.SingularModel",
+        "Worker12.Endpoint0222": "NoFourMUBs.Step2.CriticalZero.SingularModel",
+        "Worker12.Endpoint1002": "NoFourMUBs.Step2.CriticalZero.SingularModel",
+        "Worker12.Endpoint1011": "NoFourMUBs.Step2.CriticalZero.SingularModel",
+        "Worker12.Endpoint1020": "NoFourMUBs.Step2.CriticalZero.SingularModel",
+        "Worker12.Endpoint1101": "NoFourMUBs.Step2.CriticalZero.SingularModel",
+        "Worker12.Endpoint1110": "NoFourMUBs.Step2.CriticalZero.SingularModel",
+        "Worker12.Endpoint1122": "NoFourMUBs.Step2.CriticalZero.SingularModel",
+        "Worker12.Endpoint2001": "NoFourMUBs.Step2.CriticalZero.SingularModel",
+        "Worker12.Endpoint2010": "NoFourMUBs.Step2.CriticalZero.SingularModel",
+        "Worker12.Endpoint2022": "NoFourMUBs.Step2.CriticalZero.SingularModel",
+        "Worker12.Endpoint2202": "NoFourMUBs.Step2.CriticalZero.SingularModel",
+        "Worker12.Endpoint2211": "NoFourMUBs.Step2.CriticalZero.SingularModel",
+        "Worker12.Endpoint2220": "NoFourMUBs.Step2.CriticalZero.SingularModel"
+      },
+      "model_identifier_replacements": {},
+      "model_identifier_counts": {},
+      "namespace_open_replacements": {},
+      "proof_tactic_replacements": [
+        {
+          "before": "import NoFourMUBs.Step2.CriticalZero.SingularModel\nimport NoFourMUBs.Reuse.Archive.NonphysicalEndpoints\nimport NoFourMUBs.Step2.CriticalZero.SingularModel\nimport NoFourMUBs.Step2.CriticalZero.SingularModel\nimport NoFourMUBs.Step2.CriticalZero.SingularModel\nimport NoFourMUBs.Step2.CriticalZero.SingularModel\nimport NoFourMUBs.Step2.CriticalZero.SingularModel\nimport NoFourMUBs.Step2.CriticalZero.SingularModel\nimport NoFourMUBs.Step2.CriticalZero.SingularModel\nimport NoFourMUBs.Step2.CriticalZero.SingularModel\nimport NoFourMUBs.Step2.CriticalZero.SingularModel\nimport NoFourMUBs.Step2.CriticalZero.SingularModel\nimport NoFourMUBs.Step2.CriticalZero.SingularModel\nimport NoFourMUBs.Step2.CriticalZero.SingularModel\nimport NoFourMUBs.Step2.CriticalZero.SingularModel\nimport NoFourMUBs.Step2.CriticalZero.SingularModel\nimport NoFourMUBs.Step2.CriticalZero.SingularModel\nimport NoFourMUBs.Step2.CriticalZero.SingularModel\nimport NoFourMUBs.Step2.CriticalZero.SingularModel\nimport NoFourMUBs.Step2.CriticalZero.SingularModel",
+          "after": "import NoFourMUBs.Step2.CriticalZero.SingularModel\nimport NoFourMUBs.Reuse.Archive.NonphysicalEndpoints",
+          "count": 1,
+          "reason": "Reuse the existing finite Tao table once; do not import18duplicated matrix-endpoint proofs."
+        },
+        {
+          "before": "theorem cubic_has_exponent {\u03c9 z : \u2102} (h\u03c9 : \u03c9 ^ 2 + \u03c9 + 1 = 0)\n    (hz : Hadamard6.IsCubicRoot z) : \u2203 a : Fin 3, z = \u03c9 ^ a.val := by\n  rcases Hadamard6.cubic_root_eq_one_or_omega h\u03c9 hz with h1 | h\u03c9z | h\u03c92\n  \u00b7 exact \u27e80, by simpa using h1\u27e9\n  \u00b7 exact \u27e81, by simpa using h\u03c9z\u27e9\n  \u00b7 exact \u27e82, h\u03c92\u27e9\n\n",
+          "after": "",
+          "count": 1,
+          "reason": "Reuse checked cubic_has_exponent extracted in FourierCriticalData."
+        },
+        {
+          "before": "exact Or.inr \u27e8\u03c9, \u27e8h\u03c9u, h\u03c9\u27e9, endpoint_0102_tao h\u03c9u h\u03c9\u27e9",
+          "after": "simpa [cubicSeed, Hadamard6.cubicTaoP, Hadamard6.cubicTaoQ, Hadamard6.cubicTaoR, Hadamard6.cubicTaoS] using\n      (cubic_table_families \u27e8h\u03c9u, h\u03c9\u27e9 (0 : Fin 18) (by\n        simpa [cubicSeed, Hadamard6.cubicTaoP, Hadamard6.cubicTaoQ, Hadamard6.cubicTaoR, Hadamard6.cubicTaoS] using hu))",
+          "count": 1,
+          "reason": "Use the matching row of the existing Hadamard6 Tao table, retaining both primitive orientations and original unit-entry hypotheses."
+        },
+        {
+          "before": "exact Or.inr \u27e8\u03c9, \u27e8h\u03c9u, h\u03c9\u27e9, endpoint_0111_tao h\u03c9u h\u03c9\u27e9",
+          "after": "simpa [cubicSeed, Hadamard6.cubicTaoP, Hadamard6.cubicTaoQ, Hadamard6.cubicTaoR, Hadamard6.cubicTaoS] using\n      (cubic_table_families \u27e8h\u03c9u, h\u03c9\u27e9 (1 : Fin 18) (by\n        simpa [cubicSeed, Hadamard6.cubicTaoP, Hadamard6.cubicTaoQ, Hadamard6.cubicTaoR, Hadamard6.cubicTaoS] using hu))",
+          "count": 1,
+          "reason": "Use the matching row of the existing Hadamard6 Tao table, retaining both primitive orientations and original unit-entry hypotheses."
+        },
+        {
+          "before": "exact Or.inr \u27e8\u03c9, \u27e8h\u03c9u, h\u03c9\u27e9, endpoint_0120_tao h\u03c9u h\u03c9\u27e9",
+          "after": "simpa [cubicSeed, Hadamard6.cubicTaoP, Hadamard6.cubicTaoQ, Hadamard6.cubicTaoR, Hadamard6.cubicTaoS] using\n      (cubic_table_families \u27e8h\u03c9u, h\u03c9\u27e9 (2 : Fin 18) (by\n        simpa [cubicSeed, Hadamard6.cubicTaoP, Hadamard6.cubicTaoQ, Hadamard6.cubicTaoR, Hadamard6.cubicTaoS] using hu))",
+          "count": 1,
+          "reason": "Use the matching row of the existing Hadamard6 Tao table, retaining both primitive orientations and original unit-entry hypotheses."
+        },
+        {
+          "before": "exact Or.inr \u27e8\u03c9, \u27e8h\u03c9u, h\u03c9\u27e9, endpoint_0201_tao h\u03c9u h\u03c9\u27e9",
+          "after": "simpa [cubicSeed, Hadamard6.cubicTaoP, Hadamard6.cubicTaoQ, Hadamard6.cubicTaoR, Hadamard6.cubicTaoS] using\n      (cubic_table_families \u27e8h\u03c9u, h\u03c9\u27e9 (3 : Fin 18) (by\n        simpa [cubicSeed, Hadamard6.cubicTaoP, Hadamard6.cubicTaoQ, Hadamard6.cubicTaoR, Hadamard6.cubicTaoS] using hu))",
+          "count": 1,
+          "reason": "Use the matching row of the existing Hadamard6 Tao table, retaining both primitive orientations and original unit-entry hypotheses."
+        },
+        {
+          "before": "exact Or.inr \u27e8\u03c9, \u27e8h\u03c9u, h\u03c9\u27e9, endpoint_0210_tao h\u03c9u h\u03c9\u27e9",
+          "after": "simpa [cubicSeed, Hadamard6.cubicTaoP, Hadamard6.cubicTaoQ, Hadamard6.cubicTaoR, Hadamard6.cubicTaoS] using\n      (cubic_table_families \u27e8h\u03c9u, h\u03c9\u27e9 (4 : Fin 18) (by\n        simpa [cubicSeed, Hadamard6.cubicTaoP, Hadamard6.cubicTaoQ, Hadamard6.cubicTaoR, Hadamard6.cubicTaoS] using hu))",
+          "count": 1,
+          "reason": "Use the matching row of the existing Hadamard6 Tao table, retaining both primitive orientations and original unit-entry hypotheses."
+        },
+        {
+          "before": "exact Or.inr \u27e8\u03c9, \u27e8h\u03c9u, h\u03c9\u27e9, endpoint_0222_tao h\u03c9u h\u03c9\u27e9",
+          "after": "simpa [cubicSeed, Hadamard6.cubicTaoP, Hadamard6.cubicTaoQ, Hadamard6.cubicTaoR, Hadamard6.cubicTaoS] using\n      (cubic_table_families \u27e8h\u03c9u, h\u03c9\u27e9 (5 : Fin 18) (by\n        simpa [cubicSeed, Hadamard6.cubicTaoP, Hadamard6.cubicTaoQ, Hadamard6.cubicTaoR, Hadamard6.cubicTaoS] using hu))",
+          "count": 1,
+          "reason": "Use the matching row of the existing Hadamard6 Tao table, retaining both primitive orientations and original unit-entry hypotheses."
+        },
+        {
+          "before": "exact Or.inr \u27e8\u03c9, \u27e8h\u03c9u, h\u03c9\u27e9, endpoint_1002_tao h\u03c9u h\u03c9\u27e9",
+          "after": "simpa [cubicSeed, Hadamard6.cubicTaoP, Hadamard6.cubicTaoQ, Hadamard6.cubicTaoR, Hadamard6.cubicTaoS] using\n      (cubic_table_families \u27e8h\u03c9u, h\u03c9\u27e9 (6 : Fin 18) (by\n        simpa [cubicSeed, Hadamard6.cubicTaoP, Hadamard6.cubicTaoQ, Hadamard6.cubicTaoR, Hadamard6.cubicTaoS] using hu))",
+          "count": 1,
+          "reason": "Use the matching row of the existing Hadamard6 Tao table, retaining both primitive orientations and original unit-entry hypotheses."
+        },
+        {
+          "before": "exact Or.inr \u27e8\u03c9, \u27e8h\u03c9u, h\u03c9\u27e9, endpoint_1011_tao h\u03c9u h\u03c9\u27e9",
+          "after": "simpa [cubicSeed, Hadamard6.cubicTaoP, Hadamard6.cubicTaoQ, Hadamard6.cubicTaoR, Hadamard6.cubicTaoS] using\n      (cubic_table_families \u27e8h\u03c9u, h\u03c9\u27e9 (7 : Fin 18) (by\n        simpa [cubicSeed, Hadamard6.cubicTaoP, Hadamard6.cubicTaoQ, Hadamard6.cubicTaoR, Hadamard6.cubicTaoS] using hu))",
+          "count": 1,
+          "reason": "Use the matching row of the existing Hadamard6 Tao table, retaining both primitive orientations and original unit-entry hypotheses."
+        },
+        {
+          "before": "exact Or.inr \u27e8\u03c9, \u27e8h\u03c9u, h\u03c9\u27e9, endpoint_1020_tao h\u03c9u h\u03c9\u27e9",
+          "after": "simpa [cubicSeed, Hadamard6.cubicTaoP, Hadamard6.cubicTaoQ, Hadamard6.cubicTaoR, Hadamard6.cubicTaoS] using\n      (cubic_table_families \u27e8h\u03c9u, h\u03c9\u27e9 (8 : Fin 18) (by\n        simpa [cubicSeed, Hadamard6.cubicTaoP, Hadamard6.cubicTaoQ, Hadamard6.cubicTaoR, Hadamard6.cubicTaoS] using hu))",
+          "count": 1,
+          "reason": "Use the matching row of the existing Hadamard6 Tao table, retaining both primitive orientations and original unit-entry hypotheses."
+        },
+        {
+          "before": "exact Or.inr \u27e8\u03c9, \u27e8h\u03c9u, h\u03c9\u27e9, endpoint_1101_tao h\u03c9u h\u03c9\u27e9",
+          "after": "simpa [cubicSeed, Hadamard6.cubicTaoP, Hadamard6.cubicTaoQ, Hadamard6.cubicTaoR, Hadamard6.cubicTaoS] using\n      (cubic_table_families \u27e8h\u03c9u, h\u03c9\u27e9 (9 : Fin 18) (by\n        simpa [cubicSeed, Hadamard6.cubicTaoP, Hadamard6.cubicTaoQ, Hadamard6.cubicTaoR, Hadamard6.cubicTaoS] using hu))",
+          "count": 1,
+          "reason": "Use the matching row of the existing Hadamard6 Tao table, retaining both primitive orientations and original unit-entry hypotheses."
+        },
+        {
+          "before": "exact Or.inr \u27e8\u03c9, \u27e8h\u03c9u, h\u03c9\u27e9, endpoint_1110_tao h\u03c9u h\u03c9\u27e9",
+          "after": "simpa [cubicSeed, Hadamard6.cubicTaoP, Hadamard6.cubicTaoQ, Hadamard6.cubicTaoR, Hadamard6.cubicTaoS] using\n      (cubic_table_families \u27e8h\u03c9u, h\u03c9\u27e9 (10 : Fin 18) (by\n        simpa [cubicSeed, Hadamard6.cubicTaoP, Hadamard6.cubicTaoQ, Hadamard6.cubicTaoR, Hadamard6.cubicTaoS] using hu))",
+          "count": 1,
+          "reason": "Use the matching row of the existing Hadamard6 Tao table, retaining both primitive orientations and original unit-entry hypotheses."
+        },
+        {
+          "before": "exact Or.inr \u27e8\u03c9, \u27e8h\u03c9u, h\u03c9\u27e9, endpoint_1122_tao h\u03c9u h\u03c9\u27e9",
+          "after": "simpa [cubicSeed, Hadamard6.cubicTaoP, Hadamard6.cubicTaoQ, Hadamard6.cubicTaoR, Hadamard6.cubicTaoS] using\n      (cubic_table_families \u27e8h\u03c9u, h\u03c9\u27e9 (11 : Fin 18) (by\n        simpa [cubicSeed, Hadamard6.cubicTaoP, Hadamard6.cubicTaoQ, Hadamard6.cubicTaoR, Hadamard6.cubicTaoS] using hu))",
+          "count": 1,
+          "reason": "Use the matching row of the existing Hadamard6 Tao table, retaining both primitive orientations and original unit-entry hypotheses."
+        },
+        {
+          "before": "exact Or.inr \u27e8\u03c9, \u27e8h\u03c9u, h\u03c9\u27e9, endpoint_2001_tao h\u03c9u h\u03c9\u27e9",
+          "after": "simpa [cubicSeed, Hadamard6.cubicTaoP, Hadamard6.cubicTaoQ, Hadamard6.cubicTaoR, Hadamard6.cubicTaoS] using\n      (cubic_table_families \u27e8h\u03c9u, h\u03c9\u27e9 (12 : Fin 18) (by\n        simpa [cubicSeed, Hadamard6.cubicTaoP, Hadamard6.cubicTaoQ, Hadamard6.cubicTaoR, Hadamard6.cubicTaoS] using hu))",
+          "count": 1,
+          "reason": "Use the matching row of the existing Hadamard6 Tao table, retaining both primitive orientations and original unit-entry hypotheses."
+        },
+        {
+          "before": "exact Or.inr \u27e8\u03c9, \u27e8h\u03c9u, h\u03c9\u27e9, endpoint_2010_tao h\u03c9u h\u03c9\u27e9",
+          "after": "simpa [cubicSeed, Hadamard6.cubicTaoP, Hadamard6.cubicTaoQ, Hadamard6.cubicTaoR, Hadamard6.cubicTaoS] using\n      (cubic_table_families \u27e8h\u03c9u, h\u03c9\u27e9 (13 : Fin 18) (by\n        simpa [cubicSeed, Hadamard6.cubicTaoP, Hadamard6.cubicTaoQ, Hadamard6.cubicTaoR, Hadamard6.cubicTaoS] using hu))",
+          "count": 1,
+          "reason": "Use the matching row of the existing Hadamard6 Tao table, retaining both primitive orientations and original unit-entry hypotheses."
+        },
+        {
+          "before": "exact Or.inr \u27e8\u03c9, \u27e8h\u03c9u, h\u03c9\u27e9, endpoint_2022_tao h\u03c9u h\u03c9\u27e9",
+          "after": "simpa [cubicSeed, Hadamard6.cubicTaoP, Hadamard6.cubicTaoQ, Hadamard6.cubicTaoR, Hadamard6.cubicTaoS] using\n      (cubic_table_families \u27e8h\u03c9u, h\u03c9\u27e9 (14 : Fin 18) (by\n        simpa [cubicSeed, Hadamard6.cubicTaoP, Hadamard6.cubicTaoQ, Hadamard6.cubicTaoR, Hadamard6.cubicTaoS] using hu))",
+          "count": 1,
+          "reason": "Use the matching row of the existing Hadamard6 Tao table, retaining both primitive orientations and original unit-entry hypotheses."
+        },
+        {
+          "before": "exact Or.inr \u27e8\u03c9, \u27e8h\u03c9u, h\u03c9\u27e9, endpoint_2202_tao h\u03c9u h\u03c9\u27e9",
+          "after": "simpa [cubicSeed, Hadamard6.cubicTaoP, Hadamard6.cubicTaoQ, Hadamard6.cubicTaoR, Hadamard6.cubicTaoS] using\n      (cubic_table_families \u27e8h\u03c9u, h\u03c9\u27e9 (15 : Fin 18) (by\n        simpa [cubicSeed, Hadamard6.cubicTaoP, Hadamard6.cubicTaoQ, Hadamard6.cubicTaoR, Hadamard6.cubicTaoS] using hu))",
+          "count": 1,
+          "reason": "Use the matching row of the existing Hadamard6 Tao table, retaining both primitive orientations and original unit-entry hypotheses."
+        },
+        {
+          "before": "exact Or.inr \u27e8\u03c9, \u27e8h\u03c9u, h\u03c9\u27e9, endpoint_2211_tao h\u03c9u h\u03c9\u27e9",
+          "after": "simpa [cubicSeed, Hadamard6.cubicTaoP, Hadamard6.cubicTaoQ, Hadamard6.cubicTaoR, Hadamard6.cubicTaoS] using\n      (cubic_table_families \u27e8h\u03c9u, h\u03c9\u27e9 (16 : Fin 18) (by\n        simpa [cubicSeed, Hadamard6.cubicTaoP, Hadamard6.cubicTaoQ, Hadamard6.cubicTaoR, Hadamard6.cubicTaoS] using hu))",
+          "count": 1,
+          "reason": "Use the matching row of the existing Hadamard6 Tao table, retaining both primitive orientations and original unit-entry hypotheses."
+        },
+        {
+          "before": "exact Or.inr \u27e8\u03c9, \u27e8h\u03c9u, h\u03c9\u27e9, endpoint_2220_tao h\u03c9u h\u03c9\u27e9",
+          "after": "simpa [cubicSeed, Hadamard6.cubicTaoP, Hadamard6.cubicTaoQ, Hadamard6.cubicTaoR, Hadamard6.cubicTaoS] using\n      (cubic_table_families \u27e8h\u03c9u, h\u03c9\u27e9 (17 : Fin 18) (by\n        simpa [cubicSeed, Hadamard6.cubicTaoP, Hadamard6.cubicTaoQ, Hadamard6.cubicTaoR, Hadamard6.cubicTaoS] using hu))",
+          "count": 1,
+          "reason": "Use the matching row of the existing Hadamard6 Tao table, retaining both primitive orientations and original unit-entry hypotheses."
+        }
+      ]
+    },
+    "SaturatedClassification": {
+      "availability": "resident",
+      "blob": "blobs/6b/6be5075200efd240b9f104868eeddceaf5f7167cce4bd6695d70a1baaf2fa0f3/SaturatedClassification.lean",
+      "bytes": 3586,
+      "sha256": "6be5075200efd240b9f104868eeddceaf5f7167cce4bd6695d70a1baaf2fa0f3",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/history/snapshot-1790082761753415000/port/src/Worker12/SaturatedClassification.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/6b/6be5075200efd240b9f104868eeddceaf5f7167cce4bd6695d70a1baaf2fa0f3/SaturatedClassification.lean",
+      "imports": [
+        "Worker12.CubicEndpoints"
+      ],
+      "review": "CRITICAL_SINGULAR_REUSE_REVIEW.json",
+      "import_replacements": {
+        "Worker12.CubicEndpoints": "CubicEndpoints"
+      },
+      "model_identifier_replacements": {
+        "Mub6.MonomialEquivalent": "OAI.MUB6.Equivalent",
+        "Mub6.IsPhaseHadamard6": "OAI.MUB6.IsHadamard",
+        "Mub6.BasisMatrix": "OAI.MUB6.CMatrix",
+        "monomialEquivalent_trans": "OAI.MUB6.equivalent_trans",
+        "ExactFourierPresentation": "Hadamard6.FourierNormalization"
+      },
+      "model_identifier_counts": {
+        "Mub6.MonomialEquivalent": 4,
+        "Mub6.IsPhaseHadamard6": 1,
+        "Mub6.BasisMatrix": 5,
+        "monomialEquivalent_trans": 4,
+        "ExactFourierPresentation": 1
+      },
+      "namespace_open_replacements": {},
+      "proof_tactic_replacements": [
+        {
+          "before": "theorem OAI.MUB6.equivalent_trans {H K L : OAI.MUB6.CMatrix}\n    (hHK : OAI.MUB6.Equivalent H K) (hKL : OAI.MUB6.Equivalent K L) :\n    OAI.MUB6.Equivalent H L := by\n  rcases hHK with \u27e8p\u2081, q\u2081, r\u2081, c\u2081, hr\u2081, hc\u2081, hHK\u27e9\n  rcases hKL with \u27e8p\u2082, q\u2082, r\u2082, c\u2082, hr\u2082, hc\u2082, hKL\u27e9\n  refine \u27e8p\u2082.trans p\u2081, q\u2082.trans q\u2081,\n    (fun i \u21a6 r\u2082 i * r\u2081 (p\u2082 i)), (fun j \u21a6 c\u2081 (q\u2082 j) * c\u2082 j), ?_, ?_, ?_\u27e9\n  \u00b7 intro i\n    simp [Complex.normSq_mul, hr\u2082 i, hr\u2081 (p\u2082 i)]\n  \u00b7 intro j\n    simp [Complex.normSq_mul, hc\u2081 (q\u2082 j), hc\u2082 j]\n  \u00b7 rw [hKL, hHK]\n    funext i j\n    simp only [Mub6.monomialEdge, Equiv.trans_apply]\n    ring\n\n",
+          "after": "",
+          "count": 1,
+          "reason": "Reuse existing OAI equivalence transitivity directly."
+        },
+        {
+          "before": "n.form",
+          "after": "n.normalForm",
+          "count": 2,
+          "reason": "Current FourierNormalization has the same normal-form equality under this field name."
+        },
+        {
+          "before": "  rcases n.parameters with hA | ha | hc",
+          "after": "  have hD : Hadamard6.EntrywiseUnit (Hadamard6.fourierForcedD n.\u03c9 n.p n.q n.r n.s) := by\n    intro i j\n    have h := n.hK.1 (Sum.inr i) (Sum.inr j)\n    rw [n.normalForm] at h\n    exact h\n  rcases forced_flat_parameter_branches n.omega_unit n.omega_quadratic\n    n.p_unit n.q_unit n.r_unit n.s_unit hD with hA | ha | hc",
+          "count": 1,
+          "reason": "Reuse the current FourierNormalization record and the already checked parameter-branch theorem; no duplicate ExactFourierPresentation structure."
+        },
+        {
+          "before": "theorem unsplit_splitMatrix (H : OAI.MUB6.CMatrix) : unsplitMatrix (splitMatrix H) = H := by\n  funext i j\n  simp [unsplitMatrix, splitMatrix]\n\n/-- Unconditional stronger classification for every determinant-27 minor.\nBoth Fourier orientations, arbitrary continuous parameters and all cubic\nendpoints are included. No external exclusion is asserted. -/\ntheorem saturated_selectedMinor_classified {H : OAI.MUB6.CMatrix}\n    (hH : OAI.MUB6.IsHadamard H) (rows cols : Fin 3 \u21aa Fin 6)\n    (hdet : Complex.normSq (selectedMinor H rows cols).det = 27) :\n    FourierOrTransposeOrTao H := by\n  rcases saturated_selectedMinor_exactFourierPresentation hH rows cols hdet with \u27e8n\u27e9\n  have hclass := exactFourierPresentation_classified n\n  have heq := equivalent_unsplit\n    (Hadamard6.equivalent_reindexMatrix (selectedPermutation rows)\n      (selectedPermutation cols) (splitMatrix H))\n  rw [unsplit_splitMatrix] at heq\n  exact families_of_monomialEquivalent heq hclass\n\ntheorem actual_edge_one_eighth_minor_classified\n    {B : Fin 4 \u2192 OAI.MUB6.CMatrix} (hB : Mub6.IsMUBQuartet B)\n    (a b : Fin 4) (hab : a \u2260 b) (rows cols : Fin 3 \u21aa Fin 6)\n    (hdet : Complex.normSq (selectedMinor (Mub6.overlap (B a) (B b)) rows cols).det = 1 / 8) :\n    FourierOrTransposeOrTao (Mub6.phaseScale (Real.sqrt 6) (Mub6.overlap (B a) (B b))) := by\n  apply saturated_selectedMinor_classified (Mub6.actual_edge_sqrt_six_phaseHadamard hB a b hab) rows cols\n  rw [selectedMinor_sqrt_six_normSq, hdet]\n  norm_num\n\n#print axioms saturated_selectedMinor_classified\n#print axioms actual_edge_one_eighth_minor_classified\n",
+          "after": "",
+          "count": 1,
+          "reason": "Existing coordinate roundtrip replaces the duplicate. Omit unrelated saturated-minor/quartet wrappers; singular branch uses exactFourierPresentation_classified directly."
+        },
+        {
+          "before": "end Worker12",
+          "after": "#print axioms families_of_monomialEquivalent\n#print axioms exactFourierPresentation_classified\nend Worker12",
+          "count": 1,
+          "reason": "Audit retained generic endpoints."
+        }
+      ],
+      "reviewed_previous_active_sha256": "d4fb57133896a26e3f811cec29c9b008894f14fa291b558d40e760390a246ba7"
+    },
+    "ZeroPattern": {
+      "availability": "resident",
+      "blob": "blobs/4e/4ed3f8f42b42f3c78eede94a00e5c138c140883f64a9fad2fbeadcf3b4c6806c/ZeroPattern.lean",
+      "bytes": 4802,
+      "sha256": "4ed3f8f42b42f3c78eede94a00e5c138c140883f64a9fad2fbeadcf3b4c6806c",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/history/snapshot-1790082761753415000/port/src/Worker12/ZeroPattern.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/4e/4ed3f8f42b42f3c78eede94a00e5c138c140883f64a9fad2fbeadcf3b4c6806c/ZeroPattern.lean",
+      "imports": [
+        "Worker12.SaturatedClassification"
+      ],
+      "review": "CRITICAL_SINGULAR_REUSE_REVIEW.json",
+      "import_replacements": {
+        "Worker12.SaturatedClassification": "SaturatedClassification"
+      },
+      "model_identifier_replacements": {
+        "Mub6.IsPhaseHadamard6": "OAI.MUB6.IsHadamard",
+        "Mub6.BasisMatrix": "OAI.MUB6.CMatrix",
+        "Mub6.Matrix6": "OAI.MUB6.CMatrix"
+      },
+      "model_identifier_counts": {
+        "Mub6.IsPhaseHadamard6": 4,
+        "Mub6.BasisMatrix": 4,
+        "Mub6.Matrix6": 2
+      },
+      "namespace_open_replacements": {},
+      "proof_tactic_replacements": [
+        {
+          "before": "theorem phase_row_orthogonal {H : OAI.MUB6.CMatrix}\n    (hH : OAI.MUB6.IsHadamard H) {i j : Fin 6} (hij : i \u2260 j) :\n    \u2211 k, H i k * star (H j k) = 0 := by\n  simpa [Matrix.mul_apply, Matrix.conjTranspose_apply, Matrix.smul_apply,\n    Matrix.one_apply, hij] using congrArg (fun M : OAI.MUB6.CMatrix \u21a6 M i j) hH.2\n\n",
+          "after": "",
+          "count": 1,
+          "reason": "Reuse current relative_row_sum_zero through the shared model."
+        },
+        {
+          "before": "theorem literal_fourier3_isHadamard {\u03c9 : \u2102}\n    (hu : Complex.normSq \u03c9 = 1) (hq : \u03c9 ^ 2 + \u03c9 + 1 = 0) :\n    Hadamard6.IsHadamard3 (Worker12.fourier3 \u03c9) := by\n  have h3 : \u03c9 ^ 3 = 1 := Hadamard6.cubic_of_quadratic hq\n  have h4 : \u03c9 ^ 4 = \u03c9 := by calc\n    \u03c9 ^ 4 = \u03c9 * \u03c9 ^ 3 := by ring\n    _ = \u03c9 := by rw [h3, mul_one]\n  have hs := Hadamard6.star_eq_square_of_quadratic_unit hu hq\n  have hs2 := Hadamard6.star_square_eq_of_quadratic_unit hu hq\n  have hsc : (starRingEnd \u2102) \u03c9 = \u03c9 ^ 2 := hs\n  have hs2c : (starRingEnd \u2102) (\u03c9 ^ 2) = \u03c9 := hs2\n  constructor\n  \u00b7 intro i j\n    fin_cases i <;> fin_cases j <;> simp [Worker12.fourier3, map_pow, hu]\n  \u00b7 ext i j\n    fin_cases i <;> fin_cases j <;>\n      simp [Worker12.fourier3, Matrix.mul_apply, Matrix.conjTranspose_apply,\n        Fin.sum_univ_three, Matrix.smul_apply, Matrix.one_apply, hs, hs2, hsc, hs2c] <;>\n      ring_nf <;> (try simp [h3, h4]) <;> (try ring) <;> linear_combination hq\n\n",
+          "after": "",
+          "count": 1,
+          "reason": "Reuse the already checked original literal_fourier3 theorem in FourierRoutingModel."
+        },
+        {
+          "before": "#print axioms literal_fourier3_isHadamard\n",
+          "after": "",
+          "count": 1,
+          "reason": "Already audited shared theorem."
+        }
+      ]
+    },
+    "ZeroExtraction": {
+      "availability": "resident",
+      "blob": "blobs/5c/5cb805a90c5b6f47ebb55fd5440c63d54adc44c95d3cf0202e77d78f66003987/ZeroExtraction.lean",
+      "bytes": 3331,
+      "sha256": "5cb805a90c5b6f47ebb55fd5440c63d54adc44c95d3cf0202e77d78f66003987",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/history/snapshot-1790087968026307000/port/src/Worker12/ZeroExtraction.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/5c/5cb805a90c5b6f47ebb55fd5440c63d54adc44c95d3cf0202e77d78f66003987/ZeroExtraction.lean",
+      "imports": [
+        "Worker12.ZeroPattern"
+      ],
+      "review": "CRITICAL_SINGULAR_REUSE_REVIEW.json",
+      "import_replacements": {
+        "Worker12.ZeroPattern": "ZeroPattern"
+      },
+      "model_identifier_replacements": {
+        "Mub6.IsPhaseHadamard6": "OAI.MUB6.IsHadamard",
+        "Mub6.BasisMatrix": "OAI.MUB6.CMatrix"
+      },
+      "model_identifier_counts": {
+        "Mub6.IsPhaseHadamard6": 4,
+        "Mub6.BasisMatrix": 3
+      },
+      "namespace_open_replacements": {},
+      "proof_tactic_replacements": [
+        {
+          "before": "theorem unsplit_isPhaseHadamard {H : Hadamard6.Mat6}\n    (hH : Hadamard6.IsHadamard H) : OAI.MUB6.IsHadamard (unsplitMatrix H) := by\n  refine \u27e8fun i j \u21a6 hH.1 (splitIndex.symm i) (splitIndex.symm j), ?_\u27e9\n  ext i j\n  change (\u2211 k, H (splitIndex.symm i) (splitIndex.symm k) *\n      star (H (splitIndex.symm j) (splitIndex.symm k))) = _\n  rw [splitIndex.symm.sum_comp (fun k \u21a6 H (splitIndex.symm i) k * star (H (splitIndex.symm j) k))]\n  have h := congrArg (fun M : Hadamard6.Mat6 \u21a6 M (splitIndex.symm i) (splitIndex.symm j)) hH.2\n  simpa [Matrix.mul_apply, Matrix.conjTranspose_apply, Matrix.smul_apply,\n    Matrix.one_apply, splitIndex.symm.injective.eq_iff] using h\n\n",
+          "after": "",
+          "count": 1,
+          "reason": "Reuse existing FourierBridge.hadamard_toOAI."
+        }
+      ]
+    },
+    "ZeroRowTransport": {
+      "availability": "resident",
+      "blob": "blobs/ac/ac6bfb1ffd99ba970f466c97c6c0134e2a3d7372545a3782804743badc5da722/ZeroRowTransport.lean",
+      "bytes": 2462,
+      "sha256": "ac6bfb1ffd99ba970f466c97c6c0134e2a3d7372545a3782804743badc5da722",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/history/snapshot-1790087968026307000/port/src/Worker12/ZeroRowTransport.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/ac/ac6bfb1ffd99ba970f466c97c6c0134e2a3d7372545a3782804743badc5da722/ZeroRowTransport.lean",
+      "imports": [
+        "Worker12.ZeroExtraction"
+      ],
+      "review": "CRITICAL_SINGULAR_REUSE_REVIEW.json",
+      "import_replacements": {
+        "Worker12.ZeroExtraction": "ZeroExtraction"
+      },
+      "model_identifier_replacements": {},
+      "model_identifier_counts": {},
+      "namespace_open_replacements": {},
+      "proof_tactic_replacements": [
+        {
+          "before": "[unsplitMatrix]",
+          "after": "[unsplitMatrix, NoFourMUBs.Step2.FourierBridge.toOAI]",
+          "count": 4,
+          "reason": "Expose the shared coordinate definition in original dephasing transport."
+        }
+      ]
+    },
+    "TransposeClassification": {
+      "availability": "resident",
+      "blob": "blobs/47/47344714e7b1832514526003e0a378300253dea1ffb295423175424c2aafcf82/TransposeClassification.lean",
+      "bytes": 2129,
+      "sha256": "47344714e7b1832514526003e0a378300253dea1ffb295423175424c2aafcf82",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/history/snapshot-1790082761753415000/port/src/Worker12/TransposeClassification.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/47/47344714e7b1832514526003e0a378300253dea1ffb295423175424c2aafcf82/TransposeClassification.lean",
+      "imports": [
+        "Worker12.ZeroRowTransport"
+      ],
+      "review": "CRITICAL_SINGULAR_REUSE_REVIEW.json",
+      "import_replacements": {
+        "Worker12.ZeroRowTransport": "ZeroRowTransport"
+      },
+      "model_identifier_replacements": {
+        "Mub6.transposeEdge_involutive": "Matrix.transpose_transpose",
+        "Mub6.MonomialEquivalent": "OAI.MUB6.Equivalent",
+        "Mub6.BasisMatrix": "OAI.MUB6.CMatrix",
+        "Mub6.transposeEdge": "Matrix.transpose",
+        "monomialEquivalent_transpose": "NoFourMUBs.Step2.FourierBridge.oai_equivalent_transpose",
+        "internal_transpose_isHadamard": "Hadamard6.transpose_isHadamard"
+      },
+      "model_identifier_counts": {
+        "Mub6.transposeEdge_involutive": 2,
+        "Mub6.MonomialEquivalent": 2,
+        "Mub6.BasisMatrix": 2,
+        "Mub6.transposeEdge": 7,
+        "monomialEquivalent_transpose": 4,
+        "internal_transpose_isHadamard": 2
+      },
+      "namespace_open_replacements": {},
+      "proof_tactic_replacements": [
+        {
+          "before": "theorem NoFourMUBs.Step2.FourierBridge.oai_equivalent_transpose {H K : OAI.MUB6.CMatrix}\n    (h : OAI.MUB6.Equivalent H K) :\n    OAI.MUB6.Equivalent (Matrix.transpose H) (Matrix.transpose K) := by\n  rcases h with \u27e8p, q, r, c, hr, hc, h\u27e9\n  refine \u27e8q, p, c, r, hc, hr, ?_\u27e9\n  rw [h]\n  funext i j\n  simp only [Matrix.transpose, Mub6.monomialEdge]\n  ring\n\n",
+          "after": "",
+          "count": 1,
+          "reason": "Reuse existing transpose-equivalence proof directly."
+        },
+        {
+          "before": "theorem Hadamard6.transpose_isHadamard {H : Hadamard6.Mat6}\n    (hH : Hadamard6.IsHadamard H) : Hadamard6.IsHadamard H.transpose := by\n  refine \u27e8fun i j \u21a6 hH.1 j i, ?_\u27e9\n  ext i j\n  have h := congrArg (fun M : Hadamard6.Mat6 \u21a6 M j i) (Hadamard6.hadamard_column_gram hH)\n  simpa [Matrix.mul_apply, Matrix.conjTranspose_apply, Matrix.transpose_apply,\n    Matrix.smul_apply, Matrix.one_apply, eq_comm, mul_comm] using h\n\n",
+          "after": "",
+          "count": 1,
+          "reason": "Reuse existing Hadamard6.transpose_isHadamard directly."
+        }
+      ]
+    },
+    "ZeroClassification": {
+      "availability": "dataless_recovered_by_exact_pin",
+      "blob": "blobs/8f/8fb23e9abf5e576abeb5e1687ab08d36a72d77d249798e56464cec4b705b11ae/ZeroClassification.lean",
+      "bytes": 3333,
+      "sha256": "8fb23e9abf5e576abeb5e1687ab08d36a72d77d249798e56464cec4b705b11ae",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/prerequisites/karlsson/port/src/Worker12/ZeroClassification.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/8f/8fb23e9abf5e576abeb5e1687ab08d36a72d77d249798e56464cec4b705b11ae/ZeroClassification.lean",
+      "imports": [
+        "Worker12.TransposeClassification"
+      ],
+      "review": "CRITICAL_SINGULAR_REUSE_REVIEW.json",
+      "import_replacements": {
+        "Worker12.TransposeClassification": "TransposeClassification"
+      },
+      "model_identifier_replacements": {
+        "Mub6.IsPhaseHadamard6": "OAI.MUB6.IsHadamard",
+        "Mub6.BasisMatrix": "OAI.MUB6.CMatrix"
+      },
+      "model_identifier_counts": {
+        "Mub6.IsPhaseHadamard6": 1,
+        "Mub6.BasisMatrix": 2
+      },
+      "namespace_open_replacements": {},
+      "proof_tactic_replacements": [
+        {
+          "before": "theorem actual_edge_zero_minor_classified\n    {B : Fin 4 \u2192 OAI.MUB6.CMatrix} (hB : Mub6.IsMUBQuartet B)\n    (a b : Fin 4) (hab : a \u2260 b) (rows cols : Fin 3 \u21aa Fin 6)\n    (hdet : (selectedMinor (Mub6.overlap (B a) (B b)) rows cols).det = 0) :\n    FourierOrTransposeOrTao (Mub6.phaseScale (Real.sqrt 6) (Mub6.overlap (B a) (B b))) := by\n  apply singular_selectedMinor_classified (Mub6.actual_edge_sqrt_six_phaseHadamard hB a b hab) rows cols\n  exact selectedMinor_phaseScale_det_zero rows cols (Real.sqrt 6) hdet\n\ntheorem strongBoundaryRouting_checked : StrongBoundaryRouting := by\n  intro H hH rows cols hd\n  rcases hd with h0 | h27\n  \u00b7 apply singular_selectedMinor_classified hH rows cols\n    exact Complex.normSq_eq_zero.mp h0\n  \u00b7 exact saturated_selectedMinor_classified hH rows cols h27\n\n#print axioms singular_selectedMinor_classified\n#print axioms actual_edge_zero_minor_classified\n#print axioms strongBoundaryRouting_checked\n",
+          "after": "",
+          "count": 1,
+          "reason": "Omit unrelated quartet/exact-boundary wrappers; retain both singular classification endpoints."
+        },
+        {
+          "before": "end Worker12",
+          "after": "#print axioms singular_topLeft_classified\n#print axioms singular_selectedMinor_classified\nend Worker12",
+          "count": 1,
+          "reason": "Audit retained endpoints."
+        }
+      ]
+    },
+    "InjectedRouting": {
+      "availability": "resident",
+      "blob": "blobs/5c/5cfc199de0f645359e8278a70a37232cbc100626dd0ad3ac9c2daa09fe39e438/InjectedRouting.lean",
+      "bytes": 3875,
+      "sha256": "5cfc199de0f645359e8278a70a37232cbc100626dd0ad3ac9c2daa09fe39e438",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/history/snapshot-1790082761753415000/port/src/Worker12/InjectedRouting.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/5c/5cfc199de0f645359e8278a70a37232cbc100626dd0ad3ac9c2daa09fe39e438/InjectedRouting.lean",
+      "imports": [
+        "Worker12.Indexing",
+        "Worker12.VanishingMinorReduction"
+      ],
+      "review": "CRITICAL_SINGULAR_REUSE_REVIEW.json",
+      "import_replacements": {
+        "Worker12.Indexing": "NoFourMUBs.Step2.CriticalZero.SingularModel",
+        "Worker12.VanishingMinorReduction": "NoFourMUBs.Step2.CriticalZero.SingularModel"
+      },
+      "model_identifier_replacements": {
+        "Mub6.IsPhaseHadamard6": "OAI.MUB6.IsHadamard",
+        "Mub6.BasisMatrix": "OAI.MUB6.CMatrix"
+      },
+      "model_identifier_counts": {
+        "Mub6.IsPhaseHadamard6": 2,
+        "Mub6.BasisMatrix": 7
+      },
+      "namespace_open_replacements": {},
+      "proof_tactic_replacements": [
+        {
+          "before": "/-- Actual permutations, not a convention that the chosen minor was already\nin a distinguished corner. -/\nnoncomputable def selectedMatrix (H : OAI.MUB6.CMatrix)\n    (rows cols : Fin 3 \u21aa Fin 6) : Hadamard6.Mat6 :=\n  Hadamard6.reindexMatrix (selectedPermutation rows) (selectedPermutation cols)\n    (splitMatrix H)\n\ntheorem selectedMatrix_corner (H : OAI.MUB6.CMatrix) (rows cols : Fin 3 \u21aa Fin 6) :\n    Matrix.toBlocks\u2081\u2081 (selectedMatrix H rows cols) = selectedMinor H rows cols := by\n  ext i j\n  simp [selectedMatrix, Hadamard6.reindexMatrix, Matrix.toBlocks\u2081\u2081,\n    splitMatrix, selectedPermutation_apply, selectedMinor]\n\ntheorem selectedMatrix_isHadamard {H : OAI.MUB6.CMatrix}\n    (hH : OAI.MUB6.IsHadamard H) (rows cols : Fin 3 \u21aa Fin 6) :\n    Hadamard6.IsHadamard (selectedMatrix H rows cols) :=\n  Hadamard6.reindexMatrix_isHadamard (splitMatrix_isHadamard hH)\n\n",
+          "after": "",
+          "count": 1,
+          "reason": "Selected matrix, corner and Hadamard bindings were extracted once in SingularModel."
+        },
+        {
+          "before": "/-- Quartet-bound version at the proved sqrt(6) phase normalization. All four\nphysical bases remain quantified by the genuine quartet hypothesis. -/\ntheorem actual_edge_singular_selectedMinor_hasHadamardTwoByTwo\n    {B : Fin 4 \u2192 OAI.MUB6.CMatrix} (hB : Mub6.IsMUBQuartet B)\n    (a b : Fin 4) (hab : a \u2260 b) (rows cols : Fin 3 \u21aa Fin 6)\n    (hdet : Matrix.det (selectedMinor\n      (Mub6.phaseScale (Real.sqrt 6) (Mub6.overlap (B a) (B b))) rows cols) = 0) :\n    HasHadamardTwoByTwo (Mub6.phaseScale (Real.sqrt 6) (Mub6.overlap (B a) (B b))) :=\n  singular_selectedMinor_hasHadamardTwoByTwo\n    (Mub6.actual_edge_sqrt_six_phaseHadamard hB a b hab) rows cols hdet\n\n/-- The same literal zero-minor statement on an unscaled physical overlap\nimplies the phase-normalized statement; scalar multiplication does not\nsilently change which zero minor is being used. -/\ntheorem selectedMinor_phaseScale_det_zero {H : OAI.MUB6.CMatrix}\n    (rows cols : Fin 3 \u21aa Fin 6) (s : \u211d)\n    (hdet : Matrix.det (selectedMinor H rows cols) = 0) :\n    Matrix.det (selectedMinor (Mub6.phaseScale s H) rows cols) = 0 := by\n  have heq : selectedMinor (Mub6.phaseScale s H) rows cols =\n      (s : \u2102) \u2022 selectedMinor H rows cols := by\n    ext i j\n    rfl\n  rw [heq, Matrix.det_smul, hdet, mul_zero]\n\ntheorem actual_edge_zero_minor_hasHadamardTwoByTwo\n    {B : Fin 4 \u2192 OAI.MUB6.CMatrix} (hB : Mub6.IsMUBQuartet B)\n    (a b : Fin 4) (hab : a \u2260 b) (rows cols : Fin 3 \u21aa Fin 6)\n    (hdet : Matrix.det (selectedMinor (Mub6.overlap (B a) (B b)) rows cols) = 0) :\n    HasHadamardTwoByTwo (Mub6.phaseScale (Real.sqrt 6) (Mub6.overlap (B a) (B b))) :=\n  actual_edge_singular_selectedMinor_hasHadamardTwoByTwo hB a b hab rows cols\n    (selectedMinor_phaseScale_det_zero rows cols (Real.sqrt 6) hdet)\n\n#print axioms singular_selectedMinor_hasHadamardTwoByTwo\n#print axioms actual_edge_singular_selectedMinor_hasHadamardTwoByTwo\n#print axioms selectedMinor_phaseScale_det_zero\n#print axioms actual_edge_zero_minor_hasHadamardTwoByTwo\n\n",
+          "after": "",
+          "count": 1,
+          "reason": "Omit unrelated quartet/scale wrappers from the singular-minor proof."
+        },
+        {
+          "before": "end Worker12",
+          "after": "#print axioms singular_selectedMinor_hasHadamardTwoByTwo\nend Worker12",
+          "count": 1,
+          "reason": "Audit retained generic endpoint."
+        }
+      ]
+    },
+    "SingularFourierRouting": {
+      "availability": "resident",
+      "blob": "blobs/e5/e5f87d22ba177f742ad0d27a0e966f849093b1b3a34d62e1ab355e9effbbbad1/SingularFourierRouting.lean",
+      "bytes": 4596,
+      "sha256": "e5f87d22ba177f742ad0d27a0e966f849093b1b3a34d62e1ab355e9effbbbad1",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/global_assembly/critical_fourier_routing/check-singular-01/SingularFourierRouting.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/e5/e5f87d22ba177f742ad0d27a0e966f849093b1b3a34d62e1ab355e9effbbbad1/SingularFourierRouting.lean",
+      "imports": [
+        "Worker12.ZeroClassification",
+        "Hadamard6.TaoAtlas",
+        "GoodMinorPhysical",
+        "InjectedRouting"
+      ],
+      "review": "CRITICAL_SINGULAR_REUSE_REVIEW.json",
+      "import_replacements": {
+        "Worker12.ZeroClassification": "ZeroClassification",
+        "GoodMinorPhysical": "NoFourMUBs.Step2.CriticalZero.SingularModel"
+      },
+      "model_identifier_replacements": {
+        "Mub6.MonomialEquivalent": "OAI.MUB6.Equivalent",
+        "Mub6.IsPhaseHadamard6": "OAI.MUB6.IsHadamard",
+        "Mub6.BasisMatrix": "OAI.MUB6.CMatrix",
+        "Mub6.transposeEdge": "Matrix.transpose",
+        "PhaseHadamard": "OAI.MUB6.IsHadamard"
+      },
+      "model_identifier_counts": {
+        "Mub6.MonomialEquivalent": 4,
+        "Mub6.IsPhaseHadamard6": 2,
+        "Mub6.BasisMatrix": 8,
+        "Mub6.transposeEdge": 1,
+        "PhaseHadamard": 2
+      },
+      "namespace_open_replacements": {
+        "open Mub6 Mub6.Numerical Worker12": "open Worker12"
+      },
+      "proof_tactic_replacements": [
+        {
+          "before": "import NoFourMUBs.Step2.CriticalZero.SingularModel\n",
+          "after": "import NoFourMUBs.Step2.CriticalZero.SingularModel\nimport NoFourMUBs.Reuse.Archive.InjectedRouting\n",
+          "count": 1,
+          "reason": "Import the reused generic singular-minor H2 producer explicitly."
+        },
+        {
+          "before": "def FourierOrTranspose (H : OAI.MUB6.CMatrix) : Prop :=\n  \u2203 \u03c9 p q : \u2102, PrimitiveCubicPhase \u03c9 \u2227\n    Complex.normSq p = 1 \u2227 Complex.normSq q = 1 \u2227\n    (OAI.MUB6.Equivalent H (fourierPhase \u03c9 p q) \u2228\n     OAI.MUB6.Equivalent H (Matrix.transpose (fourierPhase \u03c9 p q)))\n\ntheorem phaseHadamard_boundary {H : OAI.MUB6.CMatrix}\n    (hH : OAI.MUB6.IsHadamard H) : OAI.MUB6.IsHadamard H :=\n  \u27e8hH.1, Mub6.Classification.GoodMinor.phaseHadamard_rowGram hH\u27e9\n\n",
+          "after": "",
+          "count": 1,
+          "reason": "Reuse existing FourierOrTranspose definition and identical current column-Gram Hadamard predicate."
+        },
+        {
+          "before": " := by\n  rcases h with \u27e8p, q, r, c, hr, hc, heq\u27e9\n  refine \u27e8(splitIndex.trans p).trans splitIndex.symm,\n    (splitIndex.trans q).trans splitIndex.symm,\n    (fun i => r (splitIndex i)), (fun j => c (splitIndex j)),\n    (fun i => hr _), (fun j => hc _), ?_\u27e9\n  intro i j\n  simp [splitMatrix, Mub6.monomialEdge, heq]\n",
+          "after": " := by\n  apply NoFourMUBs.Step2.FourierBridge.equivalent_fromOAI\n  simpa only [NoFourMUBs.Step2.FourierBridge.toOAI_fromOAI] using h\n",
+          "count": 1,
+          "reason": "Reuse existing model equivalence bridge instead of duplicating permutation transport."
+        },
+        {
+          "before": " := by\n  ext i j\n  simp [splitMatrix, taoPhase, unsplitMatrix, Hadamard6.taoMatrix]\n",
+          "after": " :=\n  NoFourMUBs.Step2.FourierBridge.fromOAI_toOAI (Hadamard6.taoMatrix \u03c9)\n",
+          "count": 1,
+          "reason": "Reuse existing coordinate roundtrip and the shared Tao matrix."
+        },
+        {
+          "before": "(phaseHadamard_boundary hH)",
+          "after": "hH",
+          "count": 1,
+          "reason": "Both current physical predicates use the same checked OAI column-Gram convention."
+        },
+        {
+          "before": "/-- The unscaled actual quartet overlap uses the same selected zero minor;\nthe target representative is explicitly multiplied by sqrt(6). -/\ntheorem actual_edge_zero_minor_fourier\n    {B : Fin 4 \u2192 OAI.MUB6.CMatrix} (hB : Mub6.IsMUBQuartet B)\n    (a b : Fin 4) (hab : a \u2260 b) (rows cols : Fin 3 \u21aa Fin 6)\n    (hdet : (selectedMinor (Mub6.overlap (B a) (B b)) rows cols).det = 0) :\n    FourierOrTranspose\n      (Mub6.phaseScale (Real.sqrt 6) (Mub6.overlap (B a) (B b))) :=\n  singular_selectedMinor_fourier\n    (Mub6.actual_edge_sqrt_six_phaseHadamard hB a b hab) rows cols\n    (selectedMinor_phaseScale_det_zero rows cols (Real.sqrt 6) hdet)\n\n",
+          "after": "",
+          "count": 1,
+          "reason": "Omit unrelated quartet wrapper."
+        },
+        {
+          "before": "#print axioms CriticalFourierRouting20261003.phaseHadamard_boundary\n",
+          "after": "",
+          "count": 1,
+          "reason": "Omitted unrelated/redundant wrapper."
+        },
+        {
+          "before": "#print axioms CriticalFourierRouting20261003.actual_edge_zero_minor_fourier\n",
+          "after": "",
+          "count": 1,
+          "reason": "Omitted unrelated/redundant wrapper."
+        },
+        {
+          "before": "  simpa [splitMatrix, Matrix.submatrix_apply] using h",
+          "after": "  simpa [splitMatrix, NoFourMUBs.Step2.FourierBridge.fromOAI,\n    Matrix.submatrix, splitIndex] using h",
+          "count": 1,
+          "reason": "Expose the shared coordinate conversion in the existing submatrix transport; same row and column embeddings."
+        }
+      ],
+      "reviewed_previous_active_sha256": "1b9609863455b00275aaf28bbe47c0dd124ca02d1f7cb1f005f77d0062dc765a"
+    },
+    "CriticalSingularBoundary": {
+      "availability": "resident",
+      "blob": "blobs/34/344ab3d5d57a13977e499a9760698a7fe8689fb07c9f71c112fa637dfc3ee500/CriticalSingularBoundary.lean",
+      "bytes": 2926,
+      "sha256": "344ab3d5d57a13977e499a9760698a7fe8689fb07c9f71c112fa637dfc3ee500",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/CriticalSingularBoundary.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/34/344ab3d5d57a13977e499a9760698a7fe8689fb07c9f71c112fa637dfc3ee500/CriticalSingularBoundary.lean",
+      "imports": [
+        "CriticalPhysicalParams",
+        "SingularFourierRouting"
+      ],
+      "review": "CRITICAL_SINGULAR_REUSE_REVIEW.json",
+      "import_replacements": {
+        "CriticalPhysicalParams": "NoFourMUBs.Reuse.Archive.CriticalPhysicalParams",
+        "SingularFourierRouting": "SingularFourierRouting"
+      },
+      "model_identifier_replacements": {
+        "CompactCover.Mat6": "OAI.MUB6.CMatrix",
+        "CompactCover.Mat3": "Hadamard6.Mat3"
+      },
+      "model_identifier_counts": {
+        "CompactCover.Mat6": 2,
+        "CompactCover.Mat3": 2
+      },
+      "namespace_open_replacements": {
+        "open Mub6 Mub6.Numerical Mub6.Classification\nopen CompactCover GoodMinor FourierSeedBinding FourPhase GlobalCornerDomain\n": "open NoFourMUBs.Step2.Critical\n"
+      },
+      "proof_tactic_replacements": [
+        {
+          "before": "/-- The actual normalized block determinant has the literal Gram norm. -/\ntheorem side_g_determinant (E : Hadamard6.Mat3)\n    (hE : \u2200 i j, Complex.normSq (E i j)=1) (h0 : \u2200 j, E 0 j=1) :\n    FourierGramNumerators.g (sideS E) (sideT E) (sideR E)=Complex.normSq E.det := by\n  have he : FourierPhysicalSide.side (E 1 0) (E 1 1) (E 1 2)\n      (E 2 0) (E 2 1) (E 2 2)=E := by\n    ext i j\n    fin_cases i <;> fin_cases j <;> simp [FourierPhysicalSide.side,h0]\n  have hd := FourierPhysicalSide.g_determinant (E 1 0) (E 1 1) (E 1 2)\n    (E 2 0) (E 2 1) (E 2 2) (hE 1 0) (hE 1 1) (hE 1 2)\n    (hE 2 0) (hE 2 1) (hE 2 2)\n  simpa only [sideS,sideT,sideR,FourierPhysicalSide.determinant,he] using hd\n\n",
+          "after": "",
+          "count": 1,
+          "reason": "Reuse the identical already checked CriticalLightSheet.side_g_determinant; remove this duplicated archived wrapper.",
+          "omitted_adapted_block_sha256": "23f21f44bbbe8c9ee12f18685bc0735ca0d8527836b636f2eda40abee686cfc9"
+        },
+        {
+          "before": "import NoFourMUBs.Reuse.Archive.CriticalPhysicalParams\n",
+          "after": "import NoFourMUBs.Reuse.Archive.CriticalPhysicalParams\nimport NoFourMUBs.Reuse.Archive.CriticalLightSheet\n",
+          "count": 1,
+          "reason": "Import the existing determinant and scalar conversion identities directly."
+        },
+        {
+          "before": "have hg := side_g_determinant E hE h0",
+          "after": "have hg := CriticalLightSheet20261003.side_g_determinant E hE h0",
+          "count": 1,
+          "reason": "Call the already checked determinant identity."
+        },
+        {
+          "before": "rw [moment_g] at hg",
+          "after": "rw [CriticalLightSheet20261003.moment_g] at hg",
+          "count": 1,
+          "reason": "Use the existing scalar identity in its current namespace."
+        },
+        {
+          "before": "#print axioms side_g_determinant\n",
+          "after": "",
+          "count": 1,
+          "reason": "The redundant local wrapper is omitted; existing original endpoint is audited separately."
+        }
+      ],
+      "reviewed_previous_active_sha256": "ffb771d65cf36d90afb2a6dab8baa85046a8e2a7d3e323822e01a64ab40fff5e"
+    }
+  },
+  "existing_modules": {
+    "NoFourMUBs.Step2.CriticalZero.SingularModel": {
+      "active_path": "NoFourMUBs/Step2/CriticalZero/SingularModel.lean",
+      "active_sha256": "6dbc3708461a031679900c3db7970eb5b50f48466902d2b0456f6998993156ca"
+    },
+    "NoFourMUBs.Reuse.Archive.CriticalPhysicalParams": {
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalPhysicalParams.lean",
+      "active_sha256": "35bd3eb1f7c6eee3f693139a669e50794046629397671a29de2b3d2575d11fe7"
+    },
+    "NoFourMUBs.Reuse.Archive.CriticalLightSheet": {
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalLightSheet.lean",
+      "active_sha256": "31a0b6ee7901abcd3ff9361d8ca8a49c00f8cf074639f769a5116cfd03573855"
+    }
+  },
+  "local_adapters": [],
+  "external": [],
+  "unresolved": [],
+  "atlas_certification": false
+}

@@ -1,0 +1,94 @@
+{
+  "status": "PASS",
+  "checked_utc": "2026-10-11T11:47:16.979041+00:00",
+  "modules": 2,
+  "axiom_endpoints": {
+    "NoFourMUBs.Step2.Critical.NonzeroScalar.quartic_low01_neg": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.NonzeroScalar.quartic_low1inf_neg": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.NonzeroScalar.quartic_high013_neg": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.NonzeroScalar.quartic_high131_neg": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.NonzeroScalar.quartic_high1inf_neg": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.NonzeroScalar.low01_candidate": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.NonzeroScalar.quartic_one": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.NonzeroScalar.quartic_abs": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.NonzeroScalar.allowed_one_upper": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.NonzeroScalar.candidates_of_quartic_zero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.NonzeroScalar.candidates_of_signed_quartic_zero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "source_hashes": {
+    "NoFourMUBs/Step2/CriticalZero/ScalarSigns/Intervals.lean": "1ee1fc690d34fb438cf938063bf2a378ad85a1461a0f631182e410e1cf96fb1d",
+    "NoFourMUBs/Step2/CriticalZero/ScalarSigns/Classification.lean": "d22a2321d0f7eeb9bac8bfd0df22ce63d75d8171871abe24bab9bc1c1181d1f9"
+  },
+  "manifest_sha256": "bb2e040d3c66eb44a90aa97d03ad0092262f52c0d7632602dd636248d8f3b82e",
+  "audit_log_sha256": "e2fe201df8374f8e294faa96a914ad92f2624c48c6e981a668725a3f21e8984d",
+  "scope": "Quartic-zero candidates on the necessary real modulus domain, including k=1/3, k=1, kappa=0, all interval endpoints and signed k. Actual matrix-to-quartic implication and denominator-pole handling remain separate. No atlas certification.",
+  "dependency_audits": {
+    "KERNEL_AUDIT_CRITICAL_NONZERO_BERNSTEIN_STATUS.json": "3bfa2a40b6d5218c17a78be3d116264a0f673af2d0c84b66d5989bee08681355"
+  },
+  "dependency_source_hashes": {
+    "NoFourMUBs/Step2/CriticalZero/ScalarSigns/Coefficients.lean": "bb5feac1733a6a9b6627ed74b8768f56140088ccdef6f19a0f79e5eacbcf4d7c",
+    "NoFourMUBs/Step2/CriticalZero/ScalarSigns/Blend.lean": "71d0d956b12411af7a93fbed668d541a94a023090414c60b75f0700ad4deddce",
+    "NoFourMUBs/Step2/CriticalZero/ScalarSigns/Binding_low01.lean": "f023486d6f5d442d4d91925b934670e11ea1c890e811438bb1b156793a0f7dfb",
+    "NoFourMUBs/Step2/CriticalZero/ScalarSigns/Binding_low1inf.lean": "fce86bcb404fe17151911979a331a1e6d1b02d7a7dc665232f1a449b64de3ca1",
+    "NoFourMUBs/Step2/CriticalZero/ScalarSigns/Binding_high013.lean": "d152996ee11c0388de2f63c3aef180ad636d9efe8ee15118c49dc5aa6f592035",
+    "NoFourMUBs/Step2/CriticalZero/ScalarSigns/Binding_high1inf.lean": "db844bec35c9ec3fd4ce06c713ce6a9785b4d289d017393f3f89715939073dc3",
+    "NoFourMUBs/Step2/CriticalZero/ScalarSigns/Bindings.lean": "5245ffd5e442ee0e922675258a9534d70eb5ccd27b40b3c77375077a3a67423e",
+    "NoFourMUBs/Step2/CriticalZero/ScalarSigns/Bernstein.lean": "dba88c83de680a762dbf9bc571391501eb6082e5d316554709bb975a6c1fcfef",
+    "NoFourMUBs/Step2/CriticalZero/ScalarSigns/Data.lean": "2e701eb929c2afcc8f4bb0d7c242b2d4ede5c18d2bb2cc3448ccbf9fc2b08401",
+    "NoFourMUBs/Step2/CriticalZero/ScalarSigns/PLow.lean": "8799044e55f5ad2e9e868853b5b9f8ae768f16120b4640d441b1b8faba6e2396",
+    "NoFourMUBs/Step2/CriticalZero/ScalarSigns/PLower1.lean": "3da408933e85a8e75db1f2d912449e58e008943e28d21db99ea2d1c54d8e8bc4",
+    "NoFourMUBs/Step2/CriticalZero/ScalarSigns/PLower2.lean": "cced89f77bc5bb20c173f2508a0fa58e2e386d7f5fba9e16010d43133a3e6752",
+    "NoFourMUBs/Step2/CriticalZero/ScalarSigns/PUpper1.lean": "5008e2f6f4ac3136e7febbbee42f349875523942fe3c9f568612a4751405237b",
+    "NoFourMUBs/Step2/CriticalZero/ScalarSigns/PUpper2.lean": "6531917acdb9ce121251bf881ee7d94350b613f044ca0392dd8b92952d795e6c",
+    "NoFourMUBs/Step2/CriticalZero/ScalarSigns/Common.lean": "6b73c259d165d98939018af0b23d32cd13db549eb396bda4d00a1420628b5fa5",
+    "NoFourMUBs/Reuse/Archive/CriticalNonzeroPolynomialData.lean": "d326f36bd196fff27bbbc148f8242d4d8bd840f5eda5fac619840112fdfcc442",
+    "NoFourMUBs/Reuse/Archive/CriticalModulusIntervals.lean": "bbfce89cbfe478e0878fe9927b0dc001f97a0b58961c646312f6a14c6e667b78",
+    "NoFourMUBs/Reuse/Archive/CriticalModulusDiscriminant.lean": "d9ce299342b1e6e2a60afebcd9d85b80f3c812b47292a5b7c8738f65e503e1be",
+    "NoFourMUBs/Reuse/Archive/CriticalModulusSignedDomain.lean": "68169dc2e4fe6491e63b660b1cffa97cf39e7da3da8076af888f169ee70d12e3"
+  },
+  "atlas_certification": false
+}

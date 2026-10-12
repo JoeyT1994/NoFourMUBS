@@ -1,0 +1,57 @@
+{
+  "status": "EXACT_REPRESENTATION_CHANGE_ONLY",
+  "checked_utc": "2026-10-11T07:54:13.148890+00:00",
+  "rows": [
+    {
+      "tag": "p2_m4",
+      "component": "a",
+      "integer_scale": 4,
+      "monomials": 2553,
+      "chunks": 6,
+      "actual_source_array_readback_equal": true
+    },
+    {
+      "tag": "p2_m4",
+      "component": "b",
+      "integer_scale": 2,
+      "monomials": 1998,
+      "chunks": 5,
+      "actual_source_array_readback_equal": true
+    },
+    {
+      "tag": "p2_p2",
+      "component": "a",
+      "integer_scale": 4,
+      "monomials": 2082,
+      "chunks": 5,
+      "actual_source_array_readback_equal": true
+    },
+    {
+      "tag": "p2_p2",
+      "component": "b",
+      "integer_scale": 2,
+      "monomials": 1682,
+      "chunks": 5,
+      "actual_source_array_readback_equal": true
+    },
+    {
+      "tag": "p4_m2",
+      "component": "a",
+      "integer_scale": 4,
+      "monomials": 2553,
+      "chunks": 6,
+      "actual_source_array_readback_equal": true
+    },
+    {
+      "tag": "p4_m2",
+      "component": "b",
+      "integer_scale": 2,
+      "monomials": 1998,
+      "chunks": 5,
+      "actual_source_array_readback_equal": true
+    }
+  ],
+  "theorem_statements_unchanged": true,
+  "diagnosis": "One unsplit nested coefficient list also exceeded elaboration heartbeats. Reuse original eight-k-row layout and isolate data from legacy quadratic numeral instances.",
+  "atlas_certification": false
+}

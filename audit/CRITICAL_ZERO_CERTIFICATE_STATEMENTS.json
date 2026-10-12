@@ -1,0 +1,794 @@
+[
+  {
+    "module": "CriticalZeroSumDenominatorCertificatePilot",
+    "sha256": "92dc8792a2fc8b1f80fec52b6185a4263e62fde0c5beb19c9c874786dd4bad4f",
+    "name": "denominator_certificate_22",
+    "statement": "theorem denominator_certificate_22 :\n    IntegerReflector.zeroII\n      (HornerReflector.normalize (denominatorExprResidual.getD 22 (.lit 0)))=true"
+  },
+  {
+    "module": "CriticalZeroSumBinaryAtControl",
+    "sha256": "6acd7dc88498dfe11525033535a5096a02583827a716cb768654eb5aa3139f74",
+    "name": "binary_at_changed_coefficient_rejected",
+    "statement": "theorem binary_at_changed_coefficient_rejected :\n    IntegerReflector.zeroII (Coefficients.add2\n      (CoefficientAt.mulAt (DenseCoefficients.fromExpr primitiveExprCoefficients_p2_m4)\n        (DenseCoefficients.fromExpr primitiveExprCoefficients_p2_p2) 10)\n      (Coefficients.neg2 (HornerReflector.normalize (.add binaryPilotCoefficient10 (.lit 1)))))=false"
+  },
+  {
+    "module": "CriticalZeroSumRowCertificate",
+    "sha256": "322e791bf97ce7e252cba018f423cffa702b0215a575fb0911aa95b82f45426b",
+    "name": "length_getD_le_maxWidth",
+    "statement": "theorem length_getD_le_maxWidth (as : List DenseCoefficients.XY) (n : \u2115) :\n    (as.getD n []).length\u2264maxWidth as"
+  },
+  {
+    "module": "CriticalZeroSumRowCertificate",
+    "sha256": "322e791bf97ce7e252cba018f423cffa702b0215a575fb0911aa95b82f45426b",
+    "name": "length_add2",
+    "statement": "theorem length_add2 (as bs : DenseCoefficients.XY) :\n    (Coefficients.add2 as bs).length=max as.length bs.length"
+  },
+  {
+    "module": "CriticalZeroSumRowCertificate",
+    "sha256": "322e791bf97ce7e252cba018f423cffa702b0215a575fb0911aa95b82f45426b",
+    "name": "length_mulII_le",
+    "statement": "theorem length_mulII_le (as bs : DenseCoefficients.XY) :\n    (mulII as bs).length\u2264as.length+bs.length"
+  },
+  {
+    "module": "CriticalZeroSumRowCertificate",
+    "sha256": "322e791bf97ce7e252cba018f423cffa702b0215a575fb0911aa95b82f45426b",
+    "name": "length_mulAt_le",
+    "statement": "theorem length_mulAt_le (as bs : List DenseCoefficients.XY) (n : \u2115) :\n    (CoefficientAt.mulAt as bs n).length\u2264maxWidth as+maxWidth bs"
+  },
+  {
+    "module": "CriticalZeroSumTrip00Certificates02",
+    "sha256": "05899e5c54da36aee6244b4a2e41f9f8fb3276006ae12b8fdcb5e604ae2e7f74",
+    "name": "trip00_certificate_08",
+    "statement": "theorem trip00_certificate_08 :\n    IntegerReflector.zeroII (Coefficients.add2 (CoefficientAt.mulAt trip00As trip00Bs 8)\n      (Coefficients.neg2 (trip00Cs.getD 8 [])))=true"
+  },
+  {
+    "module": "CriticalZeroSumTrip00Certificates02",
+    "sha256": "05899e5c54da36aee6244b4a2e41f9f8fb3276006ae12b8fdcb5e604ae2e7f74",
+    "name": "trip00_certificate_09",
+    "statement": "theorem trip00_certificate_09 :\n    IntegerReflector.zeroII (Coefficients.add2 (CoefficientAt.mulAt trip00As trip00Bs 9)\n      (Coefficients.neg2 (trip00Cs.getD 9 [])))=true"
+  },
+  {
+    "module": "CriticalZeroSumTrip00Certificates02",
+    "sha256": "05899e5c54da36aee6244b4a2e41f9f8fb3276006ae12b8fdcb5e604ae2e7f74",
+    "name": "trip00_certificate_10",
+    "statement": "theorem trip00_certificate_10 :\n    IntegerReflector.zeroII (Coefficients.add2 (CoefficientAt.mulAt trip00As trip00Bs 10)\n      (Coefficients.neg2 (trip00Cs.getD 10 [])))=true"
+  },
+  {
+    "module": "CriticalZeroSumTrip00Certificates02",
+    "sha256": "05899e5c54da36aee6244b4a2e41f9f8fb3276006ae12b8fdcb5e604ae2e7f74",
+    "name": "trip00_certificate_11",
+    "statement": "theorem trip00_certificate_11 :\n    IntegerReflector.zeroII (Coefficients.add2 (CoefficientAt.mulAt trip00As trip00Bs 11)\n      (Coefficients.neg2 (trip00Cs.getD 11 [])))=true"
+  },
+  {
+    "module": "CriticalZeroSumNumeratorKernelSinglePilot",
+    "sha256": "9c5c1d3464a73b0e9c83deecfe4a85c0201543a5bf2803e95b0b2bb04a9ac511",
+    "name": "kernel_dense_single_term_certificate_01_10",
+    "statement": "theorem kernel_dense_single_term_certificate_01_10 :\n    IntegerReflector.zeroII (Coefficients.add2\n      (commonDenseCoefficients_01.getD 10 []) (Coefficients.neg2 (HornerReflector.normalize kernelDenseTerm01Coefficient10)))=true"
+  },
+  {
+    "module": "CriticalZeroSumTrip00Exact",
+    "sha256": "adcf8ab228ba4329b5d8eb36f21355280c9de4bb47f9cca88db1c12aceb1d367",
+    "name": "trip00_all_certificates",
+    "statement": "theorem trip00_all_certificates (n : \u2115) (hn : n<trip00Cs.length) :\n    IntegerReflector.zeroII (Coefficients.add2 (CoefficientAt.mulAt trip00As trip00Bs n)\n      (Coefficients.neg2 (trip00Cs.getD n [])))=true"
+  },
+  {
+    "module": "CriticalZeroSumTrip00Exact",
+    "sha256": "adcf8ab228ba4329b5d8eb36f21355280c9de4bb47f9cca88db1c12aceb1d367",
+    "name": "trip00_eval",
+    "statement": "theorem trip00_eval (X Y z : K) :\n    Coefficients.eval z (DenseCoefficients.interpret X Y trip00Cs)=\n      primitive_m4_p2 X Y z*(primitive_p2_m4 X Y z*primitive_p2_p2 X Y z)"
+  },
+  {
+    "module": "CriticalZeroSumPair00Certificates01",
+    "sha256": "bbd3dd418bfb6871ac031ab7b9c265cf470e9515479304e61ec2e3d83c12d239",
+    "name": "pair00_certificate_04",
+    "statement": "theorem pair00_certificate_04 :\n    IntegerReflector.zeroII (Coefficients.add2 (CoefficientAt.mulAt pair00As pair00Bs 4)\n      (Coefficients.neg2 (pair00Cs.getD 4 [])))=true"
+  },
+  {
+    "module": "CriticalZeroSumPair00Certificates01",
+    "sha256": "bbd3dd418bfb6871ac031ab7b9c265cf470e9515479304e61ec2e3d83c12d239",
+    "name": "pair00_certificate_05",
+    "statement": "theorem pair00_certificate_05 :\n    IntegerReflector.zeroII (Coefficients.add2 (CoefficientAt.mulAt pair00As pair00Bs 5)\n      (Coefficients.neg2 (pair00Cs.getD 5 [])))=true"
+  },
+  {
+    "module": "CriticalZeroSumPair00Certificates01",
+    "sha256": "bbd3dd418bfb6871ac031ab7b9c265cf470e9515479304e61ec2e3d83c12d239",
+    "name": "pair00_certificate_06",
+    "statement": "theorem pair00_certificate_06 :\n    IntegerReflector.zeroII (Coefficients.add2 (CoefficientAt.mulAt pair00As pair00Bs 6)\n      (Coefficients.neg2 (pair00Cs.getD 6 [])))=true"
+  },
+  {
+    "module": "CriticalZeroSumPair00Certificates01",
+    "sha256": "bbd3dd418bfb6871ac031ab7b9c265cf470e9515479304e61ec2e3d83c12d239",
+    "name": "pair00_certificate_07",
+    "statement": "theorem pair00_certificate_07 :\n    IntegerReflector.zeroII (Coefficients.add2 (CoefficientAt.mulAt pair00As pair00Bs 7)\n      (Coefficients.neg2 (pair00Cs.getD 7 [])))=true"
+  },
+  {
+    "module": "CriticalZeroSumExprLengths",
+    "sha256": "d0e029291b0e8716e0eae5d57a35c4b74e62769c89c425f067a50173faf567f0",
+    "name": "numeratorExprResidual_length",
+    "statement": "theorem numeratorExprResidual_length : numeratorExprResidual.length=37"
+  },
+  {
+    "module": "CriticalZeroSumExprLengths",
+    "sha256": "d0e029291b0e8716e0eae5d57a35c4b74e62769c89c425f067a50173faf567f0",
+    "name": "denominatorExprResidual_length",
+    "statement": "theorem denominatorExprResidual_length : denominatorExprResidual.length=33"
+  },
+  {
+    "module": "CriticalZeroSumTrip00Certificates04",
+    "sha256": "be03a39109e4cbc502d7b568ef009444c375596556f60237e7a9c49ae4982278",
+    "name": "trip00_certificate_16",
+    "statement": "theorem trip00_certificate_16 :\n    IntegerReflector.zeroII (Coefficients.add2 (CoefficientAt.mulAt trip00As trip00Bs 16)\n      (Coefficients.neg2 (trip00Cs.getD 16 [])))=true"
+  },
+  {
+    "module": "CriticalZeroSumTrip00Certificates04",
+    "sha256": "be03a39109e4cbc502d7b568ef009444c375596556f60237e7a9c49ae4982278",
+    "name": "trip00_certificate_17",
+    "statement": "theorem trip00_certificate_17 :\n    IntegerReflector.zeroII (Coefficients.add2 (CoefficientAt.mulAt trip00As trip00Bs 17)\n      (Coefficients.neg2 (trip00Cs.getD 17 [])))=true"
+  },
+  {
+    "module": "CriticalZeroSumTrip00Certificates04",
+    "sha256": "be03a39109e4cbc502d7b568ef009444c375596556f60237e7a9c49ae4982278",
+    "name": "trip00_certificate_18",
+    "statement": "theorem trip00_certificate_18 :\n    IntegerReflector.zeroII (Coefficients.add2 (CoefficientAt.mulAt trip00As trip00Bs 18)\n      (Coefficients.neg2 (trip00Cs.getD 18 [])))=true"
+  },
+  {
+    "module": "CriticalZeroSumTrip00Certificates04",
+    "sha256": "be03a39109e4cbc502d7b568ef009444c375596556f60237e7a9c49ae4982278",
+    "name": "trip00_certificate_19",
+    "statement": "theorem trip00_certificate_19 :\n    IntegerReflector.zeroII (Coefficients.add2 (CoefficientAt.mulAt trip00As trip00Bs 19)\n      (Coefficients.neg2 (trip00Cs.getD 19 [])))=true"
+  },
+  {
+    "module": "CriticalZeroSumNumeratorSinglePilot",
+    "sha256": "aef40824afabbcc443224162a7c1e8b492c24e44fc8fbf9345a2395c0b88fece",
+    "name": "single_term_certificate_01_10",
+    "statement": "theorem single_term_certificate_01_10 :\n    IntegerReflector.zeroII (HornerReflector.normalize\n      (.add (commonExprCoefficients_01.getD 10 (.lit 0)) (.neg term01Coefficient10)))=true"
+  },
+  {
+    "module": "CriticalZeroSumPair00Certificates04",
+    "sha256": "c0c38da29a12e35b99029413b3e91defc4aa52dc7ff8cad221e16681eb4614c9",
+    "name": "pair00_certificate_16",
+    "statement": "theorem pair00_certificate_16 :\n    IntegerReflector.zeroII (Coefficients.add2 (CoefficientAt.mulAt pair00As pair00Bs 16)\n      (Coefficients.neg2 (pair00Cs.getD 16 [])))=true"
+  },
+  {
+    "module": "CriticalZeroSumPair00Certificates04",
+    "sha256": "c0c38da29a12e35b99029413b3e91defc4aa52dc7ff8cad221e16681eb4614c9",
+    "name": "pair00_certificate_17",
+    "statement": "theorem pair00_certificate_17 :\n    IntegerReflector.zeroII (Coefficients.add2 (CoefficientAt.mulAt pair00As pair00Bs 17)\n      (Coefficients.neg2 (pair00Cs.getD 17 [])))=true"
+  },
+  {
+    "module": "CriticalZeroSumPair00Certificates04",
+    "sha256": "c0c38da29a12e35b99029413b3e91defc4aa52dc7ff8cad221e16681eb4614c9",
+    "name": "pair00_certificate_18",
+    "statement": "theorem pair00_certificate_18 :\n    IntegerReflector.zeroII (Coefficients.add2 (CoefficientAt.mulAt pair00As pair00Bs 18)\n      (Coefficients.neg2 (pair00Cs.getD 18 [])))=true"
+  },
+  {
+    "module": "CriticalZeroSumPair00Certificates04",
+    "sha256": "c0c38da29a12e35b99029413b3e91defc4aa52dc7ff8cad221e16681eb4614c9",
+    "name": "pair00_certificate_19",
+    "statement": "theorem pair00_certificate_19 :\n    IntegerReflector.zeroII (Coefficients.add2 (CoefficientAt.mulAt pair00As pair00Bs 19)\n      (Coefficients.neg2 (pair00Cs.getD 19 [])))=true"
+  },
+  {
+    "module": "CriticalZeroSumTrip00Certificates00",
+    "sha256": "ed7257d66822bfe636aeda3507802d4116aa0840753f9cb346097033068b99d7",
+    "name": "trip00_certificate_00",
+    "statement": "theorem trip00_certificate_00 :\n    IntegerReflector.zeroII (Coefficients.add2 (CoefficientAt.mulAt trip00As trip00Bs 0)\n      (Coefficients.neg2 (trip00Cs.getD 0 [])))=true"
+  },
+  {
+    "module": "CriticalZeroSumTrip00Certificates00",
+    "sha256": "ed7257d66822bfe636aeda3507802d4116aa0840753f9cb346097033068b99d7",
+    "name": "trip00_certificate_01",
+    "statement": "theorem trip00_certificate_01 :\n    IntegerReflector.zeroII (Coefficients.add2 (CoefficientAt.mulAt trip00As trip00Bs 1)\n      (Coefficients.neg2 (trip00Cs.getD 1 [])))=true"
+  },
+  {
+    "module": "CriticalZeroSumTrip00Certificates00",
+    "sha256": "ed7257d66822bfe636aeda3507802d4116aa0840753f9cb346097033068b99d7",
+    "name": "trip00_certificate_02",
+    "statement": "theorem trip00_certificate_02 :\n    IntegerReflector.zeroII (Coefficients.add2 (CoefficientAt.mulAt trip00As trip00Bs 2)\n      (Coefficients.neg2 (trip00Cs.getD 2 [])))=true"
+  },
+  {
+    "module": "CriticalZeroSumTrip00Certificates00",
+    "sha256": "ed7257d66822bfe636aeda3507802d4116aa0840753f9cb346097033068b99d7",
+    "name": "trip00_certificate_03",
+    "statement": "theorem trip00_certificate_03 :\n    IntegerReflector.zeroII (Coefficients.add2 (CoefficientAt.mulAt trip00As trip00Bs 3)\n      (Coefficients.neg2 (trip00Cs.getD 3 [])))=true"
+  },
+  {
+    "module": "CriticalZeroSumTrip00Certificates01",
+    "sha256": "4ece8893e6bf7b5ad7df33cb3ad05bd8f11af2c731053f7886224cafa2e52563",
+    "name": "trip00_certificate_04",
+    "statement": "theorem trip00_certificate_04 :\n    IntegerReflector.zeroII (Coefficients.add2 (CoefficientAt.mulAt trip00As trip00Bs 4)\n      (Coefficients.neg2 (trip00Cs.getD 4 [])))=true"
+  },
+  {
+    "module": "CriticalZeroSumTrip00Certificates01",
+    "sha256": "4ece8893e6bf7b5ad7df33cb3ad05bd8f11af2c731053f7886224cafa2e52563",
+    "name": "trip00_certificate_05",
+    "statement": "theorem trip00_certificate_05 :\n    IntegerReflector.zeroII (Coefficients.add2 (CoefficientAt.mulAt trip00As trip00Bs 5)\n      (Coefficients.neg2 (trip00Cs.getD 5 [])))=true"
+  },
+  {
+    "module": "CriticalZeroSumTrip00Certificates01",
+    "sha256": "4ece8893e6bf7b5ad7df33cb3ad05bd8f11af2c731053f7886224cafa2e52563",
+    "name": "trip00_certificate_06",
+    "statement": "theorem trip00_certificate_06 :\n    IntegerReflector.zeroII (Coefficients.add2 (CoefficientAt.mulAt trip00As trip00Bs 6)\n      (Coefficients.neg2 (trip00Cs.getD 6 [])))=true"
+  },
+  {
+    "module": "CriticalZeroSumTrip00Certificates01",
+    "sha256": "4ece8893e6bf7b5ad7df33cb3ad05bd8f11af2c731053f7886224cafa2e52563",
+    "name": "trip00_certificate_07",
+    "statement": "theorem trip00_certificate_07 :\n    IntegerReflector.zeroII (Coefficients.add2 (CoefficientAt.mulAt trip00As trip00Bs 7)\n      (Coefficients.neg2 (trip00Cs.getD 7 [])))=true"
+  },
+  {
+    "module": "CriticalZeroSumCleared",
+    "sha256": "4b4455edcca629d821da5b90ce1e638c172d62e668ef6fe033db61d4825bc7fb",
+    "name": "computedNumerator_eq_terms",
+    "statement": "theorem computedNumerator_eq_terms (X Y z : K) : computedNumerator X Y z=\n  commonTerm_00 X Y z +\n  commonTerm_01 X Y z +\n  commonTerm_02 X Y z +\n  commonTerm_03 X Y z +\n  commonTerm_04 X Y z +\n  commonTerm_05 X Y z +\n  commonTerm_06 X Y z +\n  commonTerm_07 X Y z +\n  commonTerm_08 X Y z +\n  commonTerm_09 X Y z +\n  commonTerm_10 X Y z +\n  commonTerm_11 X Y z +\n  commonTerm_12 X Y z +\n  commonTerm_13 X Y z +\n  commonTerm_14 X Y z +\n  commonTerm_15 X Y z +\n  commonTerm_16 X Y z +\n  commonTerm_17 X Y z +\n  commonTerm_18 X Y z +\n  commonTerm_19 X Y z +\n  commonTerm_20 X Y z +\n  commonTerm_21 X Y z +\n  commonTerm_22 X Y z +\n  commonTerm_23 X Y z +\n  commonTerm_24 X Y z +\n  commonTerm_25 X Y z +\n  commonTerm_26 X Y z +\n  commonTerm_27 X Y z +\n  commonTerm_28 X Y z +\n  commonTerm_29 X Y z +\n  commonTerm_30 X Y z +\n  commonTerm_31 X Y z +\n  commonTerm_32 X Y z +\n  commonTerm_33 X Y z +\n  commonTerm_34 X Y z +\n  commonTerm_35 X Y z +\n  commonTerm_36 X Y z +\n  commonTerm_37 X Y z +\n  commonTerm_38 X Y z +\n  commonTerm_39 X Y z +\n  commonTerm_40 X Y z +\n  commonTerm_41 X Y z +\n  commonTerm_42 X Y z +\n  commonTerm_43 X Y z +\n  commonTerm_44 X Y z +\n  commonTerm_45 X Y z +\n  commonTerm_46 X Y z +\n  commonTerm_47 X Y z +\n  commonTerm_48 X Y z +\n  commonTerm_49 X Y z +\n  commonTerm_50 X Y z +\n  commonTerm_51 X Y z +\n  commonTerm_52 X Y z +\n  commonTerm_53 X Y z +\n  commonTerm_54 X Y z +\n  commonTerm_55 X Y z +\n  commonTerm_56 X Y z +\n  commonTerm_57 X Y z +\n  commonTerm_58 X Y z +\n  commonTerm_59 X Y z +\n  commonTerm_60 X Y z +\n  commonTerm_61 X Y z +\n  commonTerm_62 X Y z +\n  commonTerm_63 X Y z +\n  commonTerm_64 X Y z +\n  commonTerm_65 X Y z"
+  },
+  {
+    "module": "CriticalZeroSumNumeratorGroupPilot",
+    "sha256": "118d23fc27926d14afa6333dd26d22b4ee4e181791bbdbf83f2eb0df85f2ba01",
+    "name": "numerator_group_00_certificate_10",
+    "statement": "theorem numerator_group_00_certificate_10 :\n    IntegerReflector.zeroII (HornerReflector.normalize\n      (numeratorGroupResidual_00.getD 10 (.lit 0)))=true"
+  },
+  {
+    "module": "CriticalZeroSumTrip00Certificates05",
+    "sha256": "45cf16d4a2d7a9cc90bf29895f6ec920c75737d01c0b59f0fa20244aa9c53e89",
+    "name": "trip00_certificate_20",
+    "statement": "theorem trip00_certificate_20 :\n    IntegerReflector.zeroII (Coefficients.add2 (CoefficientAt.mulAt trip00As trip00Bs 20)\n      (Coefficients.neg2 (trip00Cs.getD 20 [])))=true"
+  },
+  {
+    "module": "CriticalZeroSumTrip00Certificates05",
+    "sha256": "45cf16d4a2d7a9cc90bf29895f6ec920c75737d01c0b59f0fa20244aa9c53e89",
+    "name": "trip00_certificate_21",
+    "statement": "theorem trip00_certificate_21 :\n    IntegerReflector.zeroII (Coefficients.add2 (CoefficientAt.mulAt trip00As trip00Bs 21)\n      (Coefficients.neg2 (trip00Cs.getD 21 [])))=true"
+  },
+  {
+    "module": "CriticalZeroSumTrip00Certificates05",
+    "sha256": "45cf16d4a2d7a9cc90bf29895f6ec920c75737d01c0b59f0fa20244aa9c53e89",
+    "name": "trip00_certificate_22",
+    "statement": "theorem trip00_certificate_22 :\n    IntegerReflector.zeroII (Coefficients.add2 (CoefficientAt.mulAt trip00As trip00Bs 22)\n      (Coefficients.neg2 (trip00Cs.getD 22 [])))=true"
+  },
+  {
+    "module": "CriticalZeroSumTrip00Certificates05",
+    "sha256": "45cf16d4a2d7a9cc90bf29895f6ec920c75737d01c0b59f0fa20244aa9c53e89",
+    "name": "trip00_certificate_23",
+    "statement": "theorem trip00_certificate_23 :\n    IntegerReflector.zeroII (Coefficients.add2 (CoefficientAt.mulAt trip00As trip00Bs 23)\n      (Coefficients.neg2 (trip00Cs.getD 23 [])))=true"
+  },
+  {
+    "module": "CriticalZeroSumIndependentReview",
+    "sha256": "81ad2506d96dc6bc567008bd71834541131427156415374da1395de7588da6be",
+    "name": "original_equation_iff_numerator_zero",
+    "statement": "theorem original_equation_iff_numerator_zero (X Y z r : \u2102)\n    (hX : X\u22600) (hY : Y\u22600) (hz : z\u22600) (hDx : X-3*z-9\u22600)\n    (hDy : Y-3*z-9\u22600) (hDz : X+Y+z^2+3*z\u22600)\n    (hq : Y*r^2= -X*(9-z^2-X-Y)) :\n    (pureNewtonPolynomial66 (zeroSide X Y z r 1) (zeroSide X Y z r (-1))=0 \u2194\n      computedNumerator X Y z=0)"
+  },
+  {
+    "module": "CriticalZeroSumPair00Certificates05",
+    "sha256": "44a88d9680347b047fca8069fbefeefd9c84dd85849dfd451bae8a37d8f9ea1d",
+    "name": "pair00_certificate_20",
+    "statement": "theorem pair00_certificate_20 :\n    IntegerReflector.zeroII (Coefficients.add2 (CoefficientAt.mulAt pair00As pair00Bs 20)\n      (Coefficients.neg2 (pair00Cs.getD 20 [])))=true"
+  },
+  {
+    "module": "CriticalZeroSumPair00Certificates05",
+    "sha256": "44a88d9680347b047fca8069fbefeefd9c84dd85849dfd451bae8a37d8f9ea1d",
+    "name": "pair00_certificate_21",
+    "statement": "theorem pair00_certificate_21 :\n    IntegerReflector.zeroII (Coefficients.add2 (CoefficientAt.mulAt pair00As pair00Bs 21)\n      (Coefficients.neg2 (pair00Cs.getD 21 [])))=true"
+  },
+  {
+    "module": "CriticalZeroSumPair00Certificates05",
+    "sha256": "44a88d9680347b047fca8069fbefeefd9c84dd85849dfd451bae8a37d8f9ea1d",
+    "name": "pair00_certificate_22",
+    "statement": "theorem pair00_certificate_22 :\n    IntegerReflector.zeroII (Coefficients.add2 (CoefficientAt.mulAt pair00As pair00Bs 22)\n      (Coefficients.neg2 (pair00Cs.getD 22 [])))=true"
+  },
+  {
+    "module": "CriticalZeroSumTrip00Certificates08",
+    "sha256": "9f6ca3932b49ef5c8867c22beee9273f1df177b2c5abb342562f4f39f28adbb4",
+    "name": "trip00_certificate_32",
+    "statement": "theorem trip00_certificate_32 :\n    IntegerReflector.zeroII (Coefficients.add2 (CoefficientAt.mulAt trip00As trip00Bs 32)\n      (Coefficients.neg2 (trip00Cs.getD 32 [])))=true"
+  },
+  {
+    "module": "CriticalZeroSumTrip00Certificates08",
+    "sha256": "9f6ca3932b49ef5c8867c22beee9273f1df177b2c5abb342562f4f39f28adbb4",
+    "name": "trip00_certificate_33",
+    "statement": "theorem trip00_certificate_33 :\n    IntegerReflector.zeroII (Coefficients.add2 (CoefficientAt.mulAt trip00As trip00Bs 33)\n      (Coefficients.neg2 (trip00Cs.getD 33 [])))=true"
+  },
+  {
+    "module": "CriticalZeroSumTrip00Certificates08",
+    "sha256": "9f6ca3932b49ef5c8867c22beee9273f1df177b2c5abb342562f4f39f28adbb4",
+    "name": "trip00_certificate_34",
+    "statement": "theorem trip00_certificate_34 :\n    IntegerReflector.zeroII (Coefficients.add2 (CoefficientAt.mulAt trip00As trip00Bs 34)\n      (Coefficients.neg2 (trip00Cs.getD 34 [])))=true"
+  },
+  {
+    "module": "CriticalZeroSumDenseLengths",
+    "sha256": "9f327ddbb8c5c49dc4012bdf797be069b23e281c698e512af68be687ffc52a8f",
+    "name": "length_fromExpr",
+    "statement": "theorem length_fromExpr (as : List CriticalZeroSplitReduction20261003.HornerReflector.HExpr) :\n    (fromExpr as).length=as.length"
+  },
+  {
+    "module": "CriticalZeroSumDenseLengths",
+    "sha256": "9f327ddbb8c5c49dc4012bdf797be069b23e281c698e512af68be687ffc52a8f",
+    "name": "length_add",
+    "statement": "theorem length_add (as bs : List XY) : (add as bs).length=max as.length bs.length"
+  },
+  {
+    "module": "CriticalZeroSumDenseLengths",
+    "sha256": "9f327ddbb8c5c49dc4012bdf797be069b23e281c698e512af68be687ffc52a8f",
+    "name": "length_scale",
+    "statement": "theorem length_scale (a : XY) (as : List XY) : (scale a as).length=as.length"
+  },
+  {
+    "module": "CriticalZeroSumDenseLengths",
+    "sha256": "9f327ddbb8c5c49dc4012bdf797be069b23e281c698e512af68be687ffc52a8f",
+    "name": "length_mul_cons",
+    "statement": "theorem length_mul_cons (a : XY) (as bs : List XY) (hb : bs\u2260[]) :\n    (mul (a::as) bs).length=as.length+bs.length"
+  },
+  {
+    "module": "CriticalZeroSumDenseLengths",
+    "sha256": "9f327ddbb8c5c49dc4012bdf797be069b23e281c698e512af68be687ffc52a8f",
+    "name": "length_mul",
+    "statement": "theorem length_mul (as bs : List XY) (ha : as\u2260[]) (hb : bs\u2260[]) :\n    (mul as bs).length=as.length+bs.length-1"
+  },
+  {
+    "module": "CriticalZeroSumNumeratorSmartSinglePilot",
+    "sha256": "6b5dde48c4c014587575f9f438f89e11e434bea41556795bce4c4d8f63c7cf87",
+    "name": "smart_single_term_certificate_01_10",
+    "statement": "theorem smart_single_term_certificate_01_10 :\n    IntegerReflector.zeroII (HornerReflector.normalize\n      (.add (commonSmartCoefficients_01.getD 10 (.lit 0)) (.neg smartTerm01Coefficient10)))=true"
+  },
+  {
+    "module": "CriticalZeroSumDenseLengths",
+    "sha256": "3639330d73789a8e1b3061f27f5bb682709d37794445909499fa9c7a3732a879",
+    "name": "length_fromExpr",
+    "statement": "theorem length_fromExpr (as : List CriticalZeroSplitReduction20261003.HornerReflector.HExpr) :\n    (fromExpr as).length=as.length"
+  },
+  {
+    "module": "CriticalZeroSumDenseLengths",
+    "sha256": "3639330d73789a8e1b3061f27f5bb682709d37794445909499fa9c7a3732a879",
+    "name": "length_add",
+    "statement": "theorem length_add (as bs : List XY) : (add as bs).length=max as.length bs.length"
+  },
+  {
+    "module": "CriticalZeroSumDenseLengths",
+    "sha256": "3639330d73789a8e1b3061f27f5bb682709d37794445909499fa9c7a3732a879",
+    "name": "length_scale",
+    "statement": "theorem length_scale (a : XY) (as : List XY) : (scale a as).length=as.length"
+  },
+  {
+    "module": "CriticalZeroSumDenseLengths",
+    "sha256": "3639330d73789a8e1b3061f27f5bb682709d37794445909499fa9c7a3732a879",
+    "name": "length_mul_cons",
+    "statement": "theorem length_mul_cons (a : XY) (as bs : List XY) (hb : bs\u2260[]) :\n    (mul (a::as) bs).length=as.length+bs.length"
+  },
+  {
+    "module": "CriticalZeroSumDenseLengths",
+    "sha256": "3639330d73789a8e1b3061f27f5bb682709d37794445909499fa9c7a3732a879",
+    "name": "length_mul",
+    "statement": "theorem length_mul (as bs : List XY) (ha : as\u2260[]) (hb : bs\u2260[]) :\n    (mul as bs).length=as.length+bs.length-1"
+  },
+  {
+    "module": "CriticalZeroSumPair00Exact",
+    "sha256": "097c8711cd08a300a3ef6f7896fc90213471502df4f6a718e4a58c5bd058d589",
+    "name": "pair00_all_certificates",
+    "statement": "theorem pair00_all_certificates (n : \u2115) (hn : n<pair00Cs.length) :\n    IntegerReflector.zeroII (Coefficients.add2 (CoefficientAt.mulAt pair00As pair00Bs n)\n      (Coefficients.neg2 (pair00Cs.getD n [])))=true"
+  },
+  {
+    "module": "CriticalZeroSumPair00Exact",
+    "sha256": "097c8711cd08a300a3ef6f7896fc90213471502df4f6a718e4a58c5bd058d589",
+    "name": "pair00_eval",
+    "statement": "theorem pair00_eval (X Y z : K) :\n    Coefficients.eval z (DenseCoefficients.interpret X Y pair00Cs)=\n      primitive_p2_m4 X Y z*primitive_p2_p2 X Y z"
+  },
+  {
+    "module": "CriticalZeroSumDenominatorExact",
+    "sha256": "5d0345a9595aef683b0a769d5b14d8c405ba99fcb6a814e948054e85ce48ccfb",
+    "name": "denominator_all_certificates",
+    "statement": "theorem denominator_all_certificates (n : \u2115) (hn : n<denominatorExprResidual.length) :\n    IntegerReflector.zeroII\n      (HornerReflector.normalize (denominatorExprResidual.getD n (.lit 0)))=true"
+  },
+  {
+    "module": "CriticalZeroSumNumeratorDenseSinglePilot",
+    "sha256": "98bca8d72db27836c44f771ce3a6c856f8a3e791a830c3e85b3f40446811beeb",
+    "name": "dense_single_term_certificate_01_10",
+    "statement": "theorem dense_single_term_certificate_01_10 :\n    IntegerReflector.zeroII (Coefficients.add2\n      (commonDenseCoefficients_01.getD 10 []) (Coefficients.neg2 (HornerReflector.normalize denseTerm01Coefficient10)))=true"
+  },
+  {
+    "module": "CriticalZeroSumDenominatorCertificates02",
+    "sha256": "5e90ca1b1b2f23bc9ff5751e4cd2d3473519ab917057136d5f05680be9645f01",
+    "name": "denominator_certificate_23",
+    "statement": "theorem denominator_certificate_23 :\n    IntegerReflector.zeroII\n      (HornerReflector.normalize (denominatorExprResidual.getD 23 (.lit 0)))=true"
+  },
+  {
+    "module": "CriticalZeroSumDenominatorCertificates02",
+    "sha256": "5e90ca1b1b2f23bc9ff5751e4cd2d3473519ab917057136d5f05680be9645f01",
+    "name": "denominator_certificate_24",
+    "statement": "theorem denominator_certificate_24 :\n    IntegerReflector.zeroII\n      (HornerReflector.normalize (denominatorExprResidual.getD 24 (.lit 0)))=true"
+  },
+  {
+    "module": "CriticalZeroSumDenominatorCertificates02",
+    "sha256": "5e90ca1b1b2f23bc9ff5751e4cd2d3473519ab917057136d5f05680be9645f01",
+    "name": "denominator_certificate_25",
+    "statement": "theorem denominator_certificate_25 :\n    IntegerReflector.zeroII\n      (HornerReflector.normalize (denominatorExprResidual.getD 25 (.lit 0)))=true"
+  },
+  {
+    "module": "CriticalZeroSumDenominatorCertificates02",
+    "sha256": "5e90ca1b1b2f23bc9ff5751e4cd2d3473519ab917057136d5f05680be9645f01",
+    "name": "denominator_certificate_26",
+    "statement": "theorem denominator_certificate_26 :\n    IntegerReflector.zeroII\n      (HornerReflector.normalize (denominatorExprResidual.getD 26 (.lit 0)))=true"
+  },
+  {
+    "module": "CriticalZeroSumDenominatorCertificates02",
+    "sha256": "5e90ca1b1b2f23bc9ff5751e4cd2d3473519ab917057136d5f05680be9645f01",
+    "name": "denominator_certificate_27",
+    "statement": "theorem denominator_certificate_27 :\n    IntegerReflector.zeroII\n      (HornerReflector.normalize (denominatorExprResidual.getD 27 (.lit 0)))=true"
+  },
+  {
+    "module": "CriticalZeroSumDenominatorCertificates02",
+    "sha256": "5e90ca1b1b2f23bc9ff5751e4cd2d3473519ab917057136d5f05680be9645f01",
+    "name": "denominator_certificate_28",
+    "statement": "theorem denominator_certificate_28 :\n    IntegerReflector.zeroII\n      (HornerReflector.normalize (denominatorExprResidual.getD 28 (.lit 0)))=true"
+  },
+  {
+    "module": "CriticalZeroSumDenominatorCertificates02",
+    "sha256": "5e90ca1b1b2f23bc9ff5751e4cd2d3473519ab917057136d5f05680be9645f01",
+    "name": "denominator_certificate_29",
+    "statement": "theorem denominator_certificate_29 :\n    IntegerReflector.zeroII\n      (HornerReflector.normalize (denominatorExprResidual.getD 29 (.lit 0)))=true"
+  },
+  {
+    "module": "CriticalZeroSumDenominatorCertificates02",
+    "sha256": "5e90ca1b1b2f23bc9ff5751e4cd2d3473519ab917057136d5f05680be9645f01",
+    "name": "denominator_certificate_30",
+    "statement": "theorem denominator_certificate_30 :\n    IntegerReflector.zeroII\n      (HornerReflector.normalize (denominatorExprResidual.getD 30 (.lit 0)))=true"
+  },
+  {
+    "module": "CriticalZeroSumDenominatorCertificates02",
+    "sha256": "5e90ca1b1b2f23bc9ff5751e4cd2d3473519ab917057136d5f05680be9645f01",
+    "name": "denominator_certificate_31",
+    "statement": "theorem denominator_certificate_31 :\n    IntegerReflector.zeroII\n      (HornerReflector.normalize (denominatorExprResidual.getD 31 (.lit 0)))=true"
+  },
+  {
+    "module": "CriticalZeroSumDenominatorCertificates02",
+    "sha256": "5e90ca1b1b2f23bc9ff5751e4cd2d3473519ab917057136d5f05680be9645f01",
+    "name": "denominator_certificate_32",
+    "statement": "theorem denominator_certificate_32 :\n    IntegerReflector.zeroII\n      (HornerReflector.normalize (denominatorExprResidual.getD 32 (.lit 0)))=true"
+  },
+  {
+    "module": "CriticalZeroSumPair00Certificates02",
+    "sha256": "01b1d728d4065aa0d8eb053b62905d2a2d55dc09c0d30cc03061585af0d3e0a9",
+    "name": "pair00_certificate_08",
+    "statement": "theorem pair00_certificate_08 :\n    IntegerReflector.zeroII (Coefficients.add2 (CoefficientAt.mulAt pair00As pair00Bs 8)\n      (Coefficients.neg2 (pair00Cs.getD 8 [])))=true"
+  },
+  {
+    "module": "CriticalZeroSumPair00Certificates02",
+    "sha256": "01b1d728d4065aa0d8eb053b62905d2a2d55dc09c0d30cc03061585af0d3e0a9",
+    "name": "pair00_certificate_09",
+    "statement": "theorem pair00_certificate_09 :\n    IntegerReflector.zeroII (Coefficients.add2 (CoefficientAt.mulAt pair00As pair00Bs 9)\n      (Coefficients.neg2 (pair00Cs.getD 9 [])))=true"
+  },
+  {
+    "module": "CriticalZeroSumPair00Certificates02",
+    "sha256": "01b1d728d4065aa0d8eb053b62905d2a2d55dc09c0d30cc03061585af0d3e0a9",
+    "name": "pair00_certificate_10",
+    "statement": "theorem pair00_certificate_10 :\n    IntegerReflector.zeroII (Coefficients.add2 (CoefficientAt.mulAt pair00As pair00Bs 10)\n      (Coefficients.neg2 (pair00Cs.getD 10 [])))=true"
+  },
+  {
+    "module": "CriticalZeroSumPair00Certificates02",
+    "sha256": "01b1d728d4065aa0d8eb053b62905d2a2d55dc09c0d30cc03061585af0d3e0a9",
+    "name": "pair00_certificate_11",
+    "statement": "theorem pair00_certificate_11 :\n    IntegerReflector.zeroII (Coefficients.add2 (CoefficientAt.mulAt pair00As pair00Bs 11)\n      (Coefficients.neg2 (pair00Cs.getD 11 [])))=true"
+  },
+  {
+    "module": "CriticalZeroSumPair00Certificates03",
+    "sha256": "6cd5d55343503619cb1bc819a4d17493bd8d698a71163335c84151be28e51946",
+    "name": "pair00_certificate_12",
+    "statement": "theorem pair00_certificate_12 :\n    IntegerReflector.zeroII (Coefficients.add2 (CoefficientAt.mulAt pair00As pair00Bs 12)\n      (Coefficients.neg2 (pair00Cs.getD 12 [])))=true"
+  },
+  {
+    "module": "CriticalZeroSumPair00Certificates03",
+    "sha256": "6cd5d55343503619cb1bc819a4d17493bd8d698a71163335c84151be28e51946",
+    "name": "pair00_certificate_13",
+    "statement": "theorem pair00_certificate_13 :\n    IntegerReflector.zeroII (Coefficients.add2 (CoefficientAt.mulAt pair00As pair00Bs 13)\n      (Coefficients.neg2 (pair00Cs.getD 13 [])))=true"
+  },
+  {
+    "module": "CriticalZeroSumPair00Certificates03",
+    "sha256": "6cd5d55343503619cb1bc819a4d17493bd8d698a71163335c84151be28e51946",
+    "name": "pair00_certificate_14",
+    "statement": "theorem pair00_certificate_14 :\n    IntegerReflector.zeroII (Coefficients.add2 (CoefficientAt.mulAt pair00As pair00Bs 14)\n      (Coefficients.neg2 (pair00Cs.getD 14 [])))=true"
+  },
+  {
+    "module": "CriticalZeroSumPair00Certificates03",
+    "sha256": "6cd5d55343503619cb1bc819a4d17493bd8d698a71163335c84151be28e51946",
+    "name": "pair00_certificate_15",
+    "statement": "theorem pair00_certificate_15 :\n    IntegerReflector.zeroII (Coefficients.add2 (CoefficientAt.mulAt pair00As pair00Bs 15)\n      (Coefficients.neg2 (pair00Cs.getD 15 [])))=true"
+  },
+  {
+    "module": "CriticalZeroSumPair00Certificates00",
+    "sha256": "6388ec3686a415eca73ffc3aadad98de11e892ea867379f19826a5a663bdeecf",
+    "name": "pair00_certificate_00",
+    "statement": "theorem pair00_certificate_00 :\n    IntegerReflector.zeroII (Coefficients.add2 (CoefficientAt.mulAt pair00As pair00Bs 0)\n      (Coefficients.neg2 (pair00Cs.getD 0 [])))=true"
+  },
+  {
+    "module": "CriticalZeroSumPair00Certificates00",
+    "sha256": "6388ec3686a415eca73ffc3aadad98de11e892ea867379f19826a5a663bdeecf",
+    "name": "pair00_certificate_01",
+    "statement": "theorem pair00_certificate_01 :\n    IntegerReflector.zeroII (Coefficients.add2 (CoefficientAt.mulAt pair00As pair00Bs 1)\n      (Coefficients.neg2 (pair00Cs.getD 1 [])))=true"
+  },
+  {
+    "module": "CriticalZeroSumPair00Certificates00",
+    "sha256": "6388ec3686a415eca73ffc3aadad98de11e892ea867379f19826a5a663bdeecf",
+    "name": "pair00_certificate_02",
+    "statement": "theorem pair00_certificate_02 :\n    IntegerReflector.zeroII (Coefficients.add2 (CoefficientAt.mulAt pair00As pair00Bs 2)\n      (Coefficients.neg2 (pair00Cs.getD 2 [])))=true"
+  },
+  {
+    "module": "CriticalZeroSumPair00Certificates00",
+    "sha256": "6388ec3686a415eca73ffc3aadad98de11e892ea867379f19826a5a663bdeecf",
+    "name": "pair00_certificate_03",
+    "statement": "theorem pair00_certificate_03 :\n    IntegerReflector.zeroII (Coefficients.add2 (CoefficientAt.mulAt pair00As pair00Bs 3)\n      (Coefficients.neg2 (pair00Cs.getD 3 [])))=true"
+  },
+  {
+    "module": "CriticalZeroSumTrip00Certificates06",
+    "sha256": "64392dc4dcb1bdf2ac06187b775e15ce8fd88f735689854912ff827c94368809",
+    "name": "trip00_certificate_24",
+    "statement": "theorem trip00_certificate_24 :\n    IntegerReflector.zeroII (Coefficients.add2 (CoefficientAt.mulAt trip00As trip00Bs 24)\n      (Coefficients.neg2 (trip00Cs.getD 24 [])))=true"
+  },
+  {
+    "module": "CriticalZeroSumTrip00Certificates06",
+    "sha256": "64392dc4dcb1bdf2ac06187b775e15ce8fd88f735689854912ff827c94368809",
+    "name": "trip00_certificate_25",
+    "statement": "theorem trip00_certificate_25 :\n    IntegerReflector.zeroII (Coefficients.add2 (CoefficientAt.mulAt trip00As trip00Bs 25)\n      (Coefficients.neg2 (trip00Cs.getD 25 [])))=true"
+  },
+  {
+    "module": "CriticalZeroSumTrip00Certificates06",
+    "sha256": "64392dc4dcb1bdf2ac06187b775e15ce8fd88f735689854912ff827c94368809",
+    "name": "trip00_certificate_26",
+    "statement": "theorem trip00_certificate_26 :\n    IntegerReflector.zeroII (Coefficients.add2 (CoefficientAt.mulAt trip00As trip00Bs 26)\n      (Coefficients.neg2 (trip00Cs.getD 26 [])))=true"
+  },
+  {
+    "module": "CriticalZeroSumTrip00Certificates06",
+    "sha256": "64392dc4dcb1bdf2ac06187b775e15ce8fd88f735689854912ff827c94368809",
+    "name": "trip00_certificate_27",
+    "statement": "theorem trip00_certificate_27 :\n    IntegerReflector.zeroII (Coefficients.add2 (CoefficientAt.mulAt trip00As trip00Bs 27)\n      (Coefficients.neg2 (trip00Cs.getD 27 [])))=true"
+  },
+  {
+    "module": "CriticalZeroSumLiteralTripRowPilot",
+    "sha256": "d4a57aa83816165f124e63aa3efa504f0f13cf881b46964c50bac7c922462b03",
+    "name": "literal_trip_coefficient_08_row_00",
+    "statement": "theorem literal_trip_coefficient_08_row_00 :\n    IntegerReflector.zeroI (Coefficients.add\n      (CoefficientRow.mulAtRow literalTripAs literalTripBs 8 0)\n      (Coefficients.neg (literalTripCoefficient08.getD 0 [])))=true"
+  },
+  {
+    "module": "CriticalZeroSumDenominatorCertificates01",
+    "sha256": "d58cc076288f60eb4914b05d6abf236d64de7c15bda9958afb4872b1116cf38f",
+    "name": "denominator_certificate_11",
+    "statement": "theorem denominator_certificate_11 :\n    IntegerReflector.zeroII\n      (HornerReflector.normalize (denominatorExprResidual.getD 11 (.lit 0)))=true"
+  },
+  {
+    "module": "CriticalZeroSumDenominatorCertificates01",
+    "sha256": "d58cc076288f60eb4914b05d6abf236d64de7c15bda9958afb4872b1116cf38f",
+    "name": "denominator_certificate_12",
+    "statement": "theorem denominator_certificate_12 :\n    IntegerReflector.zeroII\n      (HornerReflector.normalize (denominatorExprResidual.getD 12 (.lit 0)))=true"
+  },
+  {
+    "module": "CriticalZeroSumDenominatorCertificates01",
+    "sha256": "d58cc076288f60eb4914b05d6abf236d64de7c15bda9958afb4872b1116cf38f",
+    "name": "denominator_certificate_13",
+    "statement": "theorem denominator_certificate_13 :\n    IntegerReflector.zeroII\n      (HornerReflector.normalize (denominatorExprResidual.getD 13 (.lit 0)))=true"
+  },
+  {
+    "module": "CriticalZeroSumDenominatorCertificates01",
+    "sha256": "d58cc076288f60eb4914b05d6abf236d64de7c15bda9958afb4872b1116cf38f",
+    "name": "denominator_certificate_14",
+    "statement": "theorem denominator_certificate_14 :\n    IntegerReflector.zeroII\n      (HornerReflector.normalize (denominatorExprResidual.getD 14 (.lit 0)))=true"
+  },
+  {
+    "module": "CriticalZeroSumDenominatorCertificates01",
+    "sha256": "d58cc076288f60eb4914b05d6abf236d64de7c15bda9958afb4872b1116cf38f",
+    "name": "denominator_certificate_15",
+    "statement": "theorem denominator_certificate_15 :\n    IntegerReflector.zeroII\n      (HornerReflector.normalize (denominatorExprResidual.getD 15 (.lit 0)))=true"
+  },
+  {
+    "module": "CriticalZeroSumDenominatorCertificates01",
+    "sha256": "d58cc076288f60eb4914b05d6abf236d64de7c15bda9958afb4872b1116cf38f",
+    "name": "denominator_certificate_16",
+    "statement": "theorem denominator_certificate_16 :\n    IntegerReflector.zeroII\n      (HornerReflector.normalize (denominatorExprResidual.getD 16 (.lit 0)))=true"
+  },
+  {
+    "module": "CriticalZeroSumDenominatorCertificates01",
+    "sha256": "d58cc076288f60eb4914b05d6abf236d64de7c15bda9958afb4872b1116cf38f",
+    "name": "denominator_certificate_17",
+    "statement": "theorem denominator_certificate_17 :\n    IntegerReflector.zeroII\n      (HornerReflector.normalize (denominatorExprResidual.getD 17 (.lit 0)))=true"
+  },
+  {
+    "module": "CriticalZeroSumDenominatorCertificates01",
+    "sha256": "d58cc076288f60eb4914b05d6abf236d64de7c15bda9958afb4872b1116cf38f",
+    "name": "denominator_certificate_18",
+    "statement": "theorem denominator_certificate_18 :\n    IntegerReflector.zeroII\n      (HornerReflector.normalize (denominatorExprResidual.getD 18 (.lit 0)))=true"
+  },
+  {
+    "module": "CriticalZeroSumDenominatorCertificates01",
+    "sha256": "d58cc076288f60eb4914b05d6abf236d64de7c15bda9958afb4872b1116cf38f",
+    "name": "denominator_certificate_19",
+    "statement": "theorem denominator_certificate_19 :\n    IntegerReflector.zeroII\n      (HornerReflector.normalize (denominatorExprResidual.getD 19 (.lit 0)))=true"
+  },
+  {
+    "module": "CriticalZeroSumDenominatorCertificates01",
+    "sha256": "d58cc076288f60eb4914b05d6abf236d64de7c15bda9958afb4872b1116cf38f",
+    "name": "denominator_certificate_20",
+    "statement": "theorem denominator_certificate_20 :\n    IntegerReflector.zeroII\n      (HornerReflector.normalize (denominatorExprResidual.getD 20 (.lit 0)))=true"
+  },
+  {
+    "module": "CriticalZeroSumDenominatorCertificates01",
+    "sha256": "d58cc076288f60eb4914b05d6abf236d64de7c15bda9958afb4872b1116cf38f",
+    "name": "denominator_certificate_21",
+    "statement": "theorem denominator_certificate_21 :\n    IntegerReflector.zeroII\n      (HornerReflector.normalize (denominatorExprResidual.getD 21 (.lit 0)))=true"
+  },
+  {
+    "module": "CriticalZeroSumNumeratorCertificatePilot",
+    "sha256": "af7fc0f5b554598157bfcf45ba01c9787f28403ef48cd7c760adb4191267f978",
+    "name": "numerator_certificate_10",
+    "statement": "theorem numerator_certificate_10 :\n    IntegerReflector.zeroII\n      (HornerReflector.normalize (numeratorExprResidual.getD 10 (.lit 0)))=true"
+  },
+  {
+    "module": "CriticalZeroSumBinaryAtPilot",
+    "sha256": "ff5c69f8ad7dcff524ad74a649f841884d3aebc8fa519121c95263fc977ede81",
+    "name": "binary_at_certificate_10",
+    "statement": "theorem binary_at_certificate_10 :\n    IntegerReflector.zeroII (Coefficients.add2\n      (CoefficientAt.mulAt (DenseCoefficients.fromExpr primitiveExprCoefficients_p2_m4)\n        (DenseCoefficients.fromExpr primitiveExprCoefficients_p2_p2) 10)\n      (Coefficients.neg2 (HornerReflector.normalize binaryPilotCoefficient10)))=true"
+  },
+  {
+    "module": "CriticalZeroSumLiteralTripMiddleRowPilot",
+    "sha256": "cba7e45735862c4ac00910ad45c195eb84e66b3410b52762063e5d1da7cdca0c",
+    "name": "literal_trip_coefficient_08_row_08",
+    "statement": "theorem literal_trip_coefficient_08_row_08 :\n    IntegerReflector.zeroI (Coefficients.add\n      (CoefficientRow.mulAtRow literalTripAs literalTripBs 8 8)\n      (Coefficients.neg (literalTripCoefficient08.getD 8 [])))=true"
+  },
+  {
+    "module": "CriticalZeroSumRowCertificate",
+    "sha256": "794a31a721ffcdf79051a5171e6a3be4199778cfd19d1f9ccd602c66d8083e74",
+    "name": "length_getD_le_maxWidth",
+    "statement": "theorem length_getD_le_maxWidth (as : List DenseCoefficients.XY) (n : \u2115) :\n    (as.getD n []).length\u2264maxWidth as"
+  },
+  {
+    "module": "CriticalZeroSumRowCertificate",
+    "sha256": "794a31a721ffcdf79051a5171e6a3be4199778cfd19d1f9ccd602c66d8083e74",
+    "name": "length_add2",
+    "statement": "theorem length_add2 (as bs : DenseCoefficients.XY) :\n    (Coefficients.add2 as bs).length=max as.length bs.length"
+  },
+  {
+    "module": "CriticalZeroSumRowCertificate",
+    "sha256": "794a31a721ffcdf79051a5171e6a3be4199778cfd19d1f9ccd602c66d8083e74",
+    "name": "length_mulII_le",
+    "statement": "theorem length_mulII_le (as bs : DenseCoefficients.XY) :\n    (mulII as bs).length\u2264as.length+bs.length"
+  },
+  {
+    "module": "CriticalZeroSumRowCertificate",
+    "sha256": "794a31a721ffcdf79051a5171e6a3be4199778cfd19d1f9ccd602c66d8083e74",
+    "name": "length_mulAt_le",
+    "statement": "theorem length_mulAt_le (as bs : List DenseCoefficients.XY) (n : \u2115) :\n    (CoefficientAt.mulAt as bs n).length\u2264maxWidth as+maxWidth bs"
+  },
+  {
+    "module": "CriticalZeroSumDenominatorCertificates00",
+    "sha256": "240da9b9e4f65a3df4ca44ba6ba199640f0fb5eec7a41dff3e5523176bb88a6d",
+    "name": "denominator_certificate_00",
+    "statement": "theorem denominator_certificate_00 :\n    IntegerReflector.zeroII\n      (HornerReflector.normalize (denominatorExprResidual.getD 0 (.lit 0)))=true"
+  },
+  {
+    "module": "CriticalZeroSumDenominatorCertificates00",
+    "sha256": "240da9b9e4f65a3df4ca44ba6ba199640f0fb5eec7a41dff3e5523176bb88a6d",
+    "name": "denominator_certificate_01",
+    "statement": "theorem denominator_certificate_01 :\n    IntegerReflector.zeroII\n      (HornerReflector.normalize (denominatorExprResidual.getD 1 (.lit 0)))=true"
+  },
+  {
+    "module": "CriticalZeroSumDenominatorCertificates00",
+    "sha256": "240da9b9e4f65a3df4ca44ba6ba199640f0fb5eec7a41dff3e5523176bb88a6d",
+    "name": "denominator_certificate_02",
+    "statement": "theorem denominator_certificate_02 :\n    IntegerReflector.zeroII\n      (HornerReflector.normalize (denominatorExprResidual.getD 2 (.lit 0)))=true"
+  },
+  {
+    "module": "CriticalZeroSumDenominatorCertificates00",
+    "sha256": "240da9b9e4f65a3df4ca44ba6ba199640f0fb5eec7a41dff3e5523176bb88a6d",
+    "name": "denominator_certificate_03",
+    "statement": "theorem denominator_certificate_03 :\n    IntegerReflector.zeroII\n      (HornerReflector.normalize (denominatorExprResidual.getD 3 (.lit 0)))=true"
+  },
+  {
+    "module": "CriticalZeroSumDenominatorCertificates00",
+    "sha256": "240da9b9e4f65a3df4ca44ba6ba199640f0fb5eec7a41dff3e5523176bb88a6d",
+    "name": "denominator_certificate_04",
+    "statement": "theorem denominator_certificate_04 :\n    IntegerReflector.zeroII\n      (HornerReflector.normalize (denominatorExprResidual.getD 4 (.lit 0)))=true"
+  },
+  {
+    "module": "CriticalZeroSumDenominatorCertificates00",
+    "sha256": "240da9b9e4f65a3df4ca44ba6ba199640f0fb5eec7a41dff3e5523176bb88a6d",
+    "name": "denominator_certificate_05",
+    "statement": "theorem denominator_certificate_05 :\n    IntegerReflector.zeroII\n      (HornerReflector.normalize (denominatorExprResidual.getD 5 (.lit 0)))=true"
+  },
+  {
+    "module": "CriticalZeroSumDenominatorCertificates00",
+    "sha256": "240da9b9e4f65a3df4ca44ba6ba199640f0fb5eec7a41dff3e5523176bb88a6d",
+    "name": "denominator_certificate_06",
+    "statement": "theorem denominator_certificate_06 :\n    IntegerReflector.zeroII\n      (HornerReflector.normalize (denominatorExprResidual.getD 6 (.lit 0)))=true"
+  },
+  {
+    "module": "CriticalZeroSumDenominatorCertificates00",
+    "sha256": "240da9b9e4f65a3df4ca44ba6ba199640f0fb5eec7a41dff3e5523176bb88a6d",
+    "name": "denominator_certificate_07",
+    "statement": "theorem denominator_certificate_07 :\n    IntegerReflector.zeroII\n      (HornerReflector.normalize (denominatorExprResidual.getD 7 (.lit 0)))=true"
+  },
+  {
+    "module": "CriticalZeroSumDenominatorCertificates00",
+    "sha256": "240da9b9e4f65a3df4ca44ba6ba199640f0fb5eec7a41dff3e5523176bb88a6d",
+    "name": "denominator_certificate_08",
+    "statement": "theorem denominator_certificate_08 :\n    IntegerReflector.zeroII\n      (HornerReflector.normalize (denominatorExprResidual.getD 8 (.lit 0)))=true"
+  },
+  {
+    "module": "CriticalZeroSumDenominatorCertificates00",
+    "sha256": "240da9b9e4f65a3df4ca44ba6ba199640f0fb5eec7a41dff3e5523176bb88a6d",
+    "name": "denominator_certificate_09",
+    "statement": "theorem denominator_certificate_09 :\n    IntegerReflector.zeroII\n      (HornerReflector.normalize (denominatorExprResidual.getD 9 (.lit 0)))=true"
+  },
+  {
+    "module": "CriticalZeroSumDenominatorCertificates00",
+    "sha256": "240da9b9e4f65a3df4ca44ba6ba199640f0fb5eec7a41dff3e5523176bb88a6d",
+    "name": "denominator_certificate_10",
+    "statement": "theorem denominator_certificate_10 :\n    IntegerReflector.zeroII\n      (HornerReflector.normalize (denominatorExprResidual.getD 10 (.lit 0)))=true"
+  },
+  {
+    "module": "CriticalZeroSumBinaryCertificate",
+    "sha256": "15efa580db389430a775f3f51c31ee4e6d5e6d9e32a21fc3bf660464225d3348",
+    "name": "binary_interpret_eq",
+    "statement": "theorem binary_interpret_eq (X Y : R) (as bs cs : List DenseCoefficients.XY)\n    (hl : (DenseCoefficients.mul as bs).length=cs.length)\n    (h : \u2200 n : \u2115, n<cs.length \u2192\n      zeroII (Coefficients.add2 (mulAt as bs n) (Coefficients.neg2 (cs.getD n [])))=true) :\n    DenseCoefficients.interpret X Y (DenseCoefficients.mul as bs)=\n      DenseCoefficients.interpret X Y cs"
+  },
+  {
+    "module": "CriticalZeroSumBinaryCertificate",
+    "sha256": "15efa580db389430a775f3f51c31ee4e6d5e6d9e32a21fc3bf660464225d3348",
+    "name": "binary_eval_eq",
+    "statement": "theorem binary_eval_eq (X Y z : R) (as bs cs : List DenseCoefficients.XY)\n    (hl : (DenseCoefficients.mul as bs).length=cs.length)\n    (h : \u2200 n : \u2115, n<cs.length \u2192\n      zeroII (Coefficients.add2 (mulAt as bs n) (Coefficients.neg2 (cs.getD n [])))=true) :\n    Coefficients.eval z (DenseCoefficients.interpret X Y cs)=\n      Coefficients.eval z (DenseCoefficients.interpret X Y as)*\n      Coefficients.eval z (DenseCoefficients.interpret X Y bs)"
+  },
+  {
+    "module": "CriticalZeroSumLiteralTripPilot",
+    "sha256": "82599b2fd23f2301bf6d4b30efee2258c5f8195f26a74b9c0daed218113365c4",
+    "name": "literal_trip_coefficient_08",
+    "statement": "theorem literal_trip_coefficient_08 :\n    IntegerReflector.zeroII (Coefficients.add2\n      (CoefficientAt.mulAt literalTripAs literalTripBs 8)\n      (Coefficients.neg2 literalTripCoefficient08))=true"
+  },
+  {
+    "module": "CriticalZeroSumTrip00Certificates03",
+    "sha256": "8b8e4c38937d2fa33b497180948a2f81ced156f312ca3a3cae4667502d21efc3",
+    "name": "trip00_certificate_12",
+    "statement": "theorem trip00_certificate_12 :\n    IntegerReflector.zeroII (Coefficients.add2 (CoefficientAt.mulAt trip00As trip00Bs 12)\n      (Coefficients.neg2 (trip00Cs.getD 12 [])))=true"
+  },
+  {
+    "module": "CriticalZeroSumTrip00Certificates03",
+    "sha256": "8b8e4c38937d2fa33b497180948a2f81ced156f312ca3a3cae4667502d21efc3",
+    "name": "trip00_certificate_13",
+    "statement": "theorem trip00_certificate_13 :\n    IntegerReflector.zeroII (Coefficients.add2 (CoefficientAt.mulAt trip00As trip00Bs 13)\n      (Coefficients.neg2 (trip00Cs.getD 13 [])))=true"
+  },
+  {
+    "module": "CriticalZeroSumTrip00Certificates03",
+    "sha256": "8b8e4c38937d2fa33b497180948a2f81ced156f312ca3a3cae4667502d21efc3",
+    "name": "trip00_certificate_14",
+    "statement": "theorem trip00_certificate_14 :\n    IntegerReflector.zeroII (Coefficients.add2 (CoefficientAt.mulAt trip00As trip00Bs 14)\n      (Coefficients.neg2 (trip00Cs.getD 14 [])))=true"
+  },
+  {
+    "module": "CriticalZeroSumTrip00Certificates03",
+    "sha256": "8b8e4c38937d2fa33b497180948a2f81ced156f312ca3a3cae4667502d21efc3",
+    "name": "trip00_certificate_15",
+    "statement": "theorem trip00_certificate_15 :\n    IntegerReflector.zeroII (Coefficients.add2 (CoefficientAt.mulAt trip00As trip00Bs 15)\n      (Coefficients.neg2 (trip00Cs.getD 15 [])))=true"
+  },
+  {
+    "module": "CriticalZeroSumDenominatorExact",
+    "sha256": "7ad6c66fd529b99210409e0c485e38dfc87ad80c3d03338e5857bf4d4a378870",
+    "name": "denominator_all_certificates",
+    "statement": "theorem denominator_all_certificates (n : \u2115) (hn : n<denominatorExprResidual.length) :\n    IntegerReflector.zeroII\n      (HornerReflector.normalize (denominatorExprResidual.getD n (.lit 0)))=true"
+  },
+  {
+    "module": "CriticalZeroSumTrip00Certificates07",
+    "sha256": "25689462aa0baa1aa6d356daeeb573087fe22a8736295f264f9f5528d9f291d0",
+    "name": "trip00_certificate_28",
+    "statement": "theorem trip00_certificate_28 :\n    IntegerReflector.zeroII (Coefficients.add2 (CoefficientAt.mulAt trip00As trip00Bs 28)\n      (Coefficients.neg2 (trip00Cs.getD 28 [])))=true"
+  },
+  {
+    "module": "CriticalZeroSumTrip00Certificates07",
+    "sha256": "25689462aa0baa1aa6d356daeeb573087fe22a8736295f264f9f5528d9f291d0",
+    "name": "trip00_certificate_29",
+    "statement": "theorem trip00_certificate_29 :\n    IntegerReflector.zeroII (Coefficients.add2 (CoefficientAt.mulAt trip00As trip00Bs 29)\n      (Coefficients.neg2 (trip00Cs.getD 29 [])))=true"
+  },
+  {
+    "module": "CriticalZeroSumTrip00Certificates07",
+    "sha256": "25689462aa0baa1aa6d356daeeb573087fe22a8736295f264f9f5528d9f291d0",
+    "name": "trip00_certificate_30",
+    "statement": "theorem trip00_certificate_30 :\n    IntegerReflector.zeroII (Coefficients.add2 (CoefficientAt.mulAt trip00As trip00Bs 30)\n      (Coefficients.neg2 (trip00Cs.getD 30 [])))=true"
+  },
+  {
+    "module": "CriticalZeroSumTrip00Certificates07",
+    "sha256": "25689462aa0baa1aa6d356daeeb573087fe22a8736295f264f9f5528d9f291d0",
+    "name": "trip00_certificate_31",
+    "statement": "theorem trip00_certificate_31 :\n    IntegerReflector.zeroII (Coefficients.add2 (CoefficientAt.mulAt trip00As trip00Bs 31)\n      (Coefficients.neg2 (trip00Cs.getD 31 [])))=true"
+  }
+]

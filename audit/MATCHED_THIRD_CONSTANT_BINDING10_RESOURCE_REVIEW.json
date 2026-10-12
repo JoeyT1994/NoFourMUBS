@@ -1,0 +1,12 @@
+{
+  "changed_utc": "2026-10-12T14:05:03.234303+00:00",
+  "prior_terminal_pid": 2773,
+  "prior_log": "matched_third_constant_binding10_build_status_logs/batch_0000.log",
+  "prior_result": "Compiler terminated with exit137; no mathematical result. Cause not independently established. Do not rerun the unmodified direct expansion.",
+  "source_sha256_before": "88b5c39b5b3889e226dbab08cb0ede9461bb963ee8480a9909870ad90503e30d",
+  "source_sha256_after": "574dae5f892effb5aa4caeb01a320f70a8ee3178ba3e3c6ea83bdbba68585ce0",
+  "change": "Normalize the cleared actual matrix side before expanding seed scalars, using standard ring_nf with recursive=false to preserve scalar atoms. Restrict original P044 unfolding to RHS. Same4000000heartbeat limit, with component timing. No arrays, guards or statement changed.",
+  "source_for_normalizer_behavior": "lean/.lake/packages/mathlib/Mathlib/Tactic/Ring/RingNF.lean",
+  "proof_status": "UNPROVED_PENDING_RETRY",
+  "atlas_certification": false
+}

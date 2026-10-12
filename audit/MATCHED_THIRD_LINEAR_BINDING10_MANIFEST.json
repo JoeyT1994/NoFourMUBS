@@ -1,0 +1,25 @@
+{
+  "scope": "matched_third_flatness",
+  "records": [
+    {
+      "module": "NoFourMUBs.Step2.Reconstruction.ThirdMoment.Certificates.LinearBinding10",
+      "active_path": "NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/LinearBinding10.lean",
+      "active_sha256": "7ee3fb78e3f3f8a8280d2773786fc90b5e99b3576d362610fb5ebd0bc4f67f19",
+      "local_model_adapter": true,
+      "review": "MATCHED_THIRD_LINEAR_BINDINGS_REUSE_REVIEW.json"
+    }
+  ],
+  "axiom_endpoints": [
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.savedLinearBinding10"
+  ],
+  "dependency_audits": [
+    "KERNEL_AUDIT_MATCHED_THIRD_SEED_RESIDUALS_STATUS.json",
+    "KERNEL_AUDIT_MATCHED_THIRD_FORCED_COEFFICIENT_STATUS.json",
+    "KERNEL_AUDIT_MATCHED_THIRD_DENOMINATOR_INPUTS_STATUS.json",
+    "KERNEL_AUDIT_MATCHED_THIRD_MONOMIAL_TRANSPORT_0_STATUS.json",
+    "KERNEL_AUDIT_MATCHED_THIRD_PRODUCT_007_STATUS.json",
+    "KERNEL_AUDIT_MATCHED_THIRD_DENOMINATOR_SIDE_STATUS.json"
+  ],
+  "scope_note": "Original W11 linear summand3 at matrix(1,0) bound to the actual seed matrix expression. Reuse P015_side_factor before denominator cancellation; only the original132term numerator is expanded. All strict-domain guards discharged; no new arrays and no atlas.",
+  "atlas_certification": false
+}

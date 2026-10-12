@@ -1,0 +1,85 @@
+{
+  "scope": "critical_nonzero_scalar_signs",
+  "status": "PREPARED_NOT_COMPILED",
+  "records": [
+    {
+      "module": "NoFourMUBs.Step2.CriticalZero.ScalarSigns.Coefficients",
+      "active_path": "NoFourMUBs/Step2/CriticalZero/ScalarSigns/Coefficients.lean",
+      "active_sha256": "bb5feac1733a6a9b6627ed74b8768f56140088ccdef6f19a0f79e5eacbcf4d7c",
+      "local_model_adapter": true,
+      "review": "CRITICAL_NONZERO_SCALAR_SIGN_REUSE_REVIEW.json"
+    }
+  ],
+  "dependency_pins": [
+    {
+      "active_path": "NoFourMUBs/Step2/CriticalZero/ScalarSigns/Data.lean",
+      "active_sha256": "2e701eb929c2afcc8f4bb0d7c242b2d4ede5c18d2bb2cc3448ccbf9fc2b08401"
+    },
+    {
+      "active_path": "NoFourMUBs/Step2/CriticalZero/ScalarSigns/PLow.lean",
+      "active_sha256": "8799044e55f5ad2e9e868853b5b9f8ae768f16120b4640d441b1b8faba6e2396"
+    },
+    {
+      "active_path": "NoFourMUBs/Step2/CriticalZero/ScalarSigns/PLower1.lean",
+      "active_sha256": "3da408933e85a8e75db1f2d912449e58e008943e28d21db99ea2d1c54d8e8bc4"
+    },
+    {
+      "active_path": "NoFourMUBs/Step2/CriticalZero/ScalarSigns/PLower2.lean",
+      "active_sha256": "cced89f77bc5bb20c173f2508a0fa58e2e386d7f5fba9e16010d43133a3e6752"
+    },
+    {
+      "active_path": "NoFourMUBs/Step2/CriticalZero/ScalarSigns/PUpper1.lean",
+      "active_sha256": "5008e2f6f4ac3136e7febbbee42f349875523942fe3c9f568612a4751405237b"
+    },
+    {
+      "active_path": "NoFourMUBs/Step2/CriticalZero/ScalarSigns/PUpper2.lean",
+      "active_sha256": "6531917acdb9ce121251bf881ee7d94350b613f044ca0392dd8b92952d795e6c"
+    },
+    {
+      "active_path": "NoFourMUBs/Step2/CriticalZero/ScalarSigns/Common.lean",
+      "active_sha256": "6b73c259d165d98939018af0b23d32cd13db549eb396bda4d00a1420628b5fa5"
+    }
+  ],
+  "axiom_endpoints": [
+    "NoFourMUBs.Step2.Critical.NonzeroScalar.low01_0_neg",
+    "NoFourMUBs.Step2.Critical.NonzeroScalar.low01_1_neg",
+    "NoFourMUBs.Step2.Critical.NonzeroScalar.low01_2_neg",
+    "NoFourMUBs.Step2.Critical.NonzeroScalar.low01_3_neg",
+    "NoFourMUBs.Step2.Critical.NonzeroScalar.low01_4_neg",
+    "NoFourMUBs.Step2.Critical.NonzeroScalar.low1inf_1_neg",
+    "NoFourMUBs.Step2.Critical.NonzeroScalar.low1inf_2_neg",
+    "NoFourMUBs.Step2.Critical.NonzeroScalar.low1inf_3_neg",
+    "NoFourMUBs.Step2.Critical.NonzeroScalar.low1inf_4_neg",
+    "NoFourMUBs.Step2.Critical.NonzeroScalar.high013_0_neg",
+    "NoFourMUBs.Step2.Critical.NonzeroScalar.high013_1_neg",
+    "NoFourMUBs.Step2.Critical.NonzeroScalar.high013_2_neg",
+    "NoFourMUBs.Step2.Critical.NonzeroScalar.high013_3_neg",
+    "NoFourMUBs.Step2.Critical.NonzeroScalar.high1inf_1_neg",
+    "NoFourMUBs.Step2.Critical.NonzeroScalar.high1inf_2_neg",
+    "NoFourMUBs.Step2.Critical.NonzeroScalar.high1inf_3_neg"
+  ],
+  "shared_expression_names": {
+    "low01_0": "low01_0",
+    "low01_1": "low01_1",
+    "low01_2": "low01_2",
+    "low01_3": "low01_3",
+    "low01_4": "low01_4",
+    "low1inf_0": "low01_0",
+    "low1inf_1": "low1inf_1",
+    "low1inf_2": "low1inf_2",
+    "low1inf_3": "low1inf_3",
+    "low1inf_4": "low1inf_4",
+    "high013_0": "high013_0",
+    "high013_1": "high013_1",
+    "high013_2": "high013_2",
+    "high013_3": "high013_3",
+    "high013_4": "low1inf_4",
+    "high1inf_0": "low01_4",
+    "high1inf_1": "high1inf_1",
+    "high1inf_2": "high1inf_2",
+    "high1inf_3": "high1inf_3",
+    "high1inf_4": "high013_0"
+  },
+  "atlas_certification": false,
+  "scope_note": "Signs of the sixteen distinct stored Bernstein expressions; no quartic interpolation identity yet."
+}

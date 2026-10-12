@@ -1,0 +1,62 @@
+{
+  "scope": "matched_product_signature",
+  "records": [
+    {
+      "active_path": "NoFourMUBs/Step2/Reconstruction/RowProductSignature.lean",
+      "active_sha256": "1c94b70a0b87dacc3199c544cad22766ce194d4441ba16a940119eb9d749f83a",
+      "module": "NoFourMUBs.Step2.Reconstruction.RowProductSignature",
+      "local_model_adapter": true,
+      "review": "MATCHED_PRODUCT_SIGNATURE_REUSE_REVIEW.json"
+    }
+  ],
+  "dependency_pins": [
+    {
+      "active_path": "NoFourMUBs/Step2/Reconstruction/RowProductRelations.lean",
+      "active_sha256": "3f3fdb13ccc279c14142c125d10790c01473e069316f18b777f939ed309a086e"
+    },
+    {
+      "active_path": "NoFourMUBs/Step2/Reconstruction/SignatureFromPermanent.lean",
+      "active_sha256": "ed967a342e9c416df5134b250b4c5f4346317c3ec47dcde8599d1fa8e560fae8"
+    },
+    {
+      "active_path": "NoFourMUBs/Reuse/Archive/SideIntrinsicActualLambda.lean",
+      "active_sha256": "94951a45e12f8f8560d1a024d2c23dd76e0ccd5d092602eae8c983fefeb8b403"
+    },
+    {
+      "active_path": "NoFourMUBs/Reuse/Archive/SideIntrinsicActualNorms.lean",
+      "active_sha256": "56d0fbfdfcd10a376e554d83f1311726967568c80a36638161c2be4ed6b65fca"
+    },
+    {
+      "active_path": "NoFourMUBs/Reuse/Archive/SideIntrinsicActualChi.lean",
+      "active_sha256": "a53c2da827820536fffe293e0a2ddda383c7bd8dfad5de787c3eda1db1d839f5"
+    },
+    {
+      "active_path": "NoFourMUBs/Reuse/Archive/SideIntrinsicMatrixBindings.lean",
+      "active_sha256": "28e1b68230d5b0372200d1bc65f9f98e6db18afdda19c6f1c46cacdc0377a5a5"
+    },
+    {
+      "active_path": "NoFourMUBs/Reuse/Archive/StrictSideScalarGuards.lean",
+      "active_sha256": "75741b3091aeb2ce36f1b9fdab822add16b2e2514bfa27822105c93fb936d042"
+    },
+    {
+      "active_path": "NoFourMUBs/Reuse/Archive/SideIntrinsicLambdaRecovery.lean",
+      "active_sha256": "577759e6717fb98ac6cdf4d64b2c1b0f7f702ac0bfc6b00fc34b278176b102ae"
+    },
+    {
+      "active_path": "NoFourMUBs/Step2/MatchedUnique.lean",
+      "active_sha256": "e143def12a98bf2db1326dc71301a96dfac34c1a33d7b3a81eed7e14ed6e4433"
+    }
+  ],
+  "axiom_endpoints": [
+    "StrictReconstruction20261007.SideIntrinsic.intrinsic_signature_permanent",
+    "StrictReconstruction20261007.SideIntrinsic.row_product_signature_centered",
+    "NoFourMUBs.Step2.Reconstruction.sideSignature_intrinsic",
+    "NoFourMUBs.Step2.Reconstruction.side_product_of_signature"
+  ],
+  "dependency_audits": [
+    "KERNEL_AUDIT_MATCHED_PRODUCT_RELATIONS_STATUS.json",
+    "KERNEL_AUDIT_SIGNED_SIDES_PATH_PINS.json"
+  ],
+  "atlas_certification": false,
+  "scope_note": "Actual signature and affine row-product model binding only. Universal matched norm and MatchedExistence remain open."
+}

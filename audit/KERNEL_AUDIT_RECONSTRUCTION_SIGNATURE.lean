@@ -1,0 +1,4 @@
+import NoFourMUBs.Step2.Reconstruction.SignatureFromPermanent
+
+#check NoFourMUBs.Step2.Reconstruction.sideSignature_of_prescribed_permanent
+#print axioms NoFourMUBs.Step2.Reconstruction.sideSignature_of_prescribed_permanent

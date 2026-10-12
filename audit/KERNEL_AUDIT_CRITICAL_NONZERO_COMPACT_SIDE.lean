@@ -1,0 +1,4 @@
+import NoFourMUBs.Step2.CriticalZero.NonzeroCompactSide
+
+#check NoFourMUBs.Step2.Critical.NonzeroClearing.quadSide_eq_compactSide
+#print axioms NoFourMUBs.Step2.Critical.NonzeroClearing.quadSide_eq_compactSide

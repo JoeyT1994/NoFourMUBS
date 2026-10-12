@@ -1,0 +1,108 @@
+{
+  "status": "PASS",
+  "checked_utc": "2026-10-11T06:33:49.713831+00:00",
+  "modules": 3,
+  "axiom_endpoints": {
+    "CriticalNonzeroLight20261003.paired_p1_p1": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "CriticalNonzeroLight20261003.paired_m2_p1_raw": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "CriticalNonzeroLight20261003.quadratic_numerator_reduction": [
+      "propext",
+      "Quot.sound"
+    ],
+    "CriticalNonzeroLight20261003.paired_m2_p1": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.NonzeroClearing.toQuadratic_re": [
+      "propext",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.NonzeroClearing.toQuadratic_im": [
+      "propext",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.NonzeroClearing.toQuadratic_add": [
+      "propext",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.NonzeroClearing.toQuadratic_sub": [
+      "propext",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.NonzeroClearing.toQuadratic_neg": [
+      "propext",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.NonzeroClearing.toQuadratic_mul": [
+      "propext",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.NonzeroClearing.toQuadratic_nat": [
+      "propext",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.NonzeroClearing.toQuadratic_scalar": [
+      "propext",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.NonzeroClearing.toQuadratic_root": [
+      "propext",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.NonzeroClearing.toQuadratic_divScalar": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.NonzeroClearing.toQuadratic_pow": [
+      "propext",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.NonzeroClearing.paired_p1_p1_coefficients": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.NonzeroClearing.paired_m2_p1_coefficients": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "source_hashes": {
+    "NoFourMUBs/Reuse/Archive/CriticalNonzeroLightMoments.lean": "2660f8f5077594f212c7824b36bcff02824c92fdc0ac107635c87ec1d1ef0eca",
+    "NoFourMUBs/Step2/CriticalZero/NonzeroQuadAlgebra.lean": "3cc35f4c2c1c5d497c1e931f88d93768d7c26469c28778558f10d5e0de9e8482",
+    "NoFourMUBs/Step2/CriticalZero/NonzeroMomentClearing.lean": "3145241d15b1787f7a3b742586244ed5ca2da3972a820e6f5d3f176c4eca7b45"
+  },
+  "existing_dependency_pins": {
+    "NoFourMUBs.Reuse.Archive.CriticalNonzeroLightData": {
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalNonzeroLightData.lean",
+      "active_sha256": "5bfaa1d0a764f9d9a015af69168f06cf1aa40c36c2872e2ecd4b0d8fe9262269"
+    },
+    "NoFourMUBs.Reuse.Archive.CriticalNonzeroPair01": {
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalNonzeroPair01.lean",
+      "active_sha256": "1d4e6323cf0387122cb837c81243056b0a1f24efa1ab1a6ae42d4e094325b493"
+    },
+    "NoFourMUBs.Reuse.Archive.CriticalNonzeroPair05": {
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalNonzeroPair05.lean",
+      "active_sha256": "a7a5f997862fd9a7bbb63239ec259eb574d6beaf24cbb48b0037b0e693ffcec9"
+    },
+    "NoFourMUBs.Reuse.Archive.CriticalMomentQuad": {
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalMomentQuad.lean",
+      "active_sha256": "1408c2169bd58005fbe77872fe1cb7be3ea6c2670e0c51a305ac620afa0bce05"
+    }
+  },
+  "build_status": "CRITICAL_NONZERO_MOMENT_CLEARING_BUILD_STATUS.json",
+  "scope": "Two original moment-clearing formulas now bound to both current Quad coefficients. Literal model map to existing Mathlib QuadraticAlgebra.",
+  "remaining": "Full66term coefficient clearing and raw-to-reduced numerator proof remain open.",
+  "atlas_certification": false
+}

@@ -1,0 +1,329 @@
+{
+  "status": "PINNED_REVIEWED_NOT_COMPILED",
+  "scope": "critical_geometric_fourier_reuse",
+  "roots": [
+    "GeometricFourierComplete"
+  ],
+  "selected": {
+    "FourierRouting": {
+      "availability": "resident",
+      "blob": "blobs/0a/0ae4fae4f37ecbf02e1efab051075624581e4b11c8d258cc2f32caf3b11e2154/FourierRouting.lean",
+      "bytes": 6339,
+      "sha256": "0ae4fae4f37ecbf02e1efab051075624581e4b11c8d258cc2f32caf3b11e2154",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/history/snapshot-1790082761753415000/port/src/Worker12/FourierRouting.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/0a/0ae4fae4f37ecbf02e1efab051075624581e4b11c8d258cc2f32caf3b11e2154/FourierRouting.lean",
+      "imports": [
+        "Worker12.Orientations",
+        "Worker12.SimultaneousFourierNormalization",
+        "Worker12.FourierForcedCompletion",
+        "Worker12.FactorAllocation",
+        "Worker12.UnmixedParameters"
+      ],
+      "review": "CRITICAL_GEOMETRIC_FOURIER_REUSE_REVIEW.json",
+      "import_replacements": {
+        "Worker12.Orientations": "NoFourMUBs.Step2.CriticalZero.FourierRoutingModel",
+        "Worker12.SimultaneousFourierNormalization": "Hadamard6.SimultaneousFourierNormalization",
+        "Worker12.FourierForcedCompletion": "Hadamard6.FourierForcedCompletion",
+        "Worker12.FactorAllocation": "Hadamard6.FourierCoordinateAllocation",
+        "Worker12.UnmixedParameters": "Hadamard6.FourierUnmixed"
+      },
+      "proof_tactic_replacements": [
+        {
+          "before": "structure ExactFourierPresentation (H : Hadamard6.Mat6) where\n  K : Hadamard6.Mat6\n  hK : IsHadamard K\n  equivalent : Equivalent H K\n  \u03c9 : \u2102\n  p : \u2102\n  q : \u2102\n  r : \u2102\n  s : \u2102\n  omega_unit : Complex.normSq \u03c9 = 1\n  omega_quadratic : \u03c9 ^ 2 + \u03c9 + 1 = 0\n  p_unit : Complex.normSq p = 1\n  q_unit : Complex.normSq q = 1\n  r_unit : Complex.normSq r = 1\n  s_unit : Complex.normSq s = 1\n  form : K = fourierNormalForm \u03c9 p q r s (fourierForcedD \u03c9 p q r s)\n  allocations : FourAllocations \u03c9 p q r s\n  parameters : CharacterPair \u03c9 p q \u2228 CharacterPair \u03c9 r s \u2228\n    (IsCubicRoot p \u2227 IsCubicRoot q \u2227 IsCubicRoot r \u2227 IsCubicRoot s)\n\ntheorem allFourBlocks_exactFourierPresentation (H : Hadamard6.Mat6)\n    (hH : IsHadamard H) (hfour : AllFourBlocksHadamard H) :\n    Nonempty (ExactFourierPresentation H) := by\n  rcases simultaneous_threeBlockFourierNormalization H hH hfour with \u27e8n\u27e9\n  have hf := first_three_blocks_force_full_normalForm n.hK n.firstThreeBlocks\n    n.omega_unit n.omega_quadratic n.topRight_hadamard\n  have hD : EntrywiseUnit (fourierForcedD n.\u03c9 n.p n.q n.r n.s) := by\n    intro i j\n    have h := n.hK.1 (Sum.inr i) (Sum.inr j)\n    rw [hf] at h\n    exact h\n  exact \u27e8{\n    K := n.K, hK := n.hK, equivalent := n.equivalent,\n    \u03c9 := n.\u03c9, p := n.p, q := n.q, r := n.r, s := n.s,\n    omega_unit := n.omega_unit, omega_quadratic := n.omega_quadratic,\n    p_unit := n.p_unit, q_unit := n.q_unit, r_unit := n.r_unit, s_unit := n.s_unit,\n    form := hf,\n    allocations := forced_flat_four_allocations n.omega_unit n.omega_quadratic hD,\n    parameters := forced_flat_parameter_branches n.omega_unit n.omega_quadratic\n      n.p_unit n.q_unit n.r_unit n.s_unit hD }\u27e9\n\ntheorem saturated_selectedMinor_exactFourierPresentation\n    {H : OAI.MUB6.CMatrix} (hH : Mub6.IsPhaseHadamard6 H)\n    (rows cols : Fin 3 \u21aa Fin 6)\n    (hdet : Complex.normSq (selectedMinor H rows cols).det = 27) :\n    Nonempty (ExactFourierPresentation (selectedMatrix H rows cols)) :=\n  allFourBlocks_exactFourierPresentation _ (selectedMatrix_isHadamard hH rows cols)\n    (saturated_selectedMinor_allFourBlocks hH rows cols hdet)\n\n",
+          "after": "",
+          "count": 1,
+          "reason": "Omit unrelated presentation/saturated-minor wrappers; original forced-flat branch proof is retained and sufficient."
+        },
+        {
+          "before": "#print axioms allFourBlocks_exactFourierPresentation\n",
+          "after": "",
+          "count": 1,
+          "reason": "Omit audit of an unused omitted wrapper."
+        },
+        {
+          "before": "#print axioms saturated_selectedMinor_exactFourierPresentation\n",
+          "after": "",
+          "count": 1,
+          "reason": "Omit audit of an unused omitted wrapper."
+        }
+      ],
+      "model_identifier_replacements": {
+        "Mub6.BasisMatrix": "OAI.MUB6.CMatrix"
+      },
+      "model_identifier_counts": {
+        "Mub6.BasisMatrix": 1
+      }
+    },
+    "PureFamilies": {
+      "availability": "resident",
+      "blob": "blobs/a0/a08c911babd9bf4cb0905d5a8e644e1e82027ae9850a2712b2a34b468b84b039/PureFamilies.lean",
+      "bytes": 4684,
+      "sha256": "a08c911babd9bf4cb0905d5a8e644e1e82027ae9850a2712b2a34b468b84b039",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/history/snapshot-1790082761753415000/port/src/Worker12/PureFamilies.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/a0/a08c911babd9bf4cb0905d5a8e644e1e82027ae9850a2712b2a34b468b84b039/PureFamilies.lean",
+      "imports": [
+        "Worker12.FourierRouting"
+      ],
+      "review": "CRITICAL_GEOMETRIC_FOURIER_REUSE_REVIEW.json",
+      "import_replacements": {
+        "Worker12.FourierRouting": "FourierRouting"
+      },
+      "proof_tactic_replacements": [],
+      "model_identifier_replacements": {},
+      "model_identifier_counts": {}
+    },
+    "ContinuousBindings": {
+      "availability": "resident",
+      "blob": "blobs/96/9614f3a4fd88262021665f56c609b6126aee0b0e6c91a4a6fa1456c41459e272/ContinuousBindings.lean",
+      "bytes": 6273,
+      "sha256": "9614f3a4fd88262021665f56c609b6126aee0b0e6c91a4a6fa1456c41459e272",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/history/snapshot-1790082761753415000/port/src/Worker12/ContinuousBindings.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/96/9614f3a4fd88262021665f56c609b6126aee0b0e6c91a4a6fa1456c41459e272/ContinuousBindings.lean",
+      "imports": [
+        "Worker12.PureFamilies"
+      ],
+      "review": "CRITICAL_GEOMETRIC_FOURIER_REUSE_REVIEW.json",
+      "import_replacements": {
+        "Worker12.PureFamilies": "PureFamilies"
+      },
+      "proof_tactic_replacements": [
+        {
+          "before": "theorem equivalent_unsplit {H K : Hadamard6.Mat6} (h : Equivalent H K) :\n    OAI.MUB6.Equivalent (unsplitMatrix H) (unsplitMatrix K) := by\n  rcases h with \u27e8\u03c3, \u03c4, r, c, hr, hc, heq\u27e9\n  refine \u27e8(splitIndex.symm.trans \u03c3).trans splitIndex,\n    (splitIndex.symm.trans \u03c4).trans splitIndex,\n    (fun i \u21a6 r (splitIndex.symm i)), (fun j \u21a6 c (splitIndex.symm j)),\n    (fun i \u21a6 hr _), (fun j \u21a6 hc _), ?_\u27e9\n  funext i j\n  simp [unsplitMatrix, Mub6.monomialEdge, heq]\n\n",
+          "after": "",
+          "count": 1,
+          "reason": "Reuse the single current-model equivalent_unsplit already supplied by FourierRoutingModel."
+        }
+      ],
+      "model_identifier_replacements": {
+        "Mub6.MonomialEquivalent": "OAI.MUB6.Equivalent",
+        "Mub6.transposeEdge": "Matrix.transpose"
+      },
+      "model_identifier_counts": {
+        "Mub6.MonomialEquivalent": 3,
+        "Mub6.transposeEdge": 3
+      }
+    },
+    "GeometricTopBlocks": {
+      "availability": "resident",
+      "blob": "blobs/f1/f1ea0f6bd81cfa7bd1818119baf38861ae985d879c5d0967d620b31dd1da5e8d/GeometricTopBlocks.lean",
+      "bytes": 4759,
+      "sha256": "f1ea0f6bd81cfa7bd1818119baf38861ae985d879c5d0967d620b31dd1da5e8d",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/global_assembly/geometric_normalization/GeometricTopBlocks.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/f1/f1ea0f6bd81cfa7bd1818119baf38861ae985d879c5d0967d620b31dd1da5e8d/GeometricTopBlocks.lean",
+      "imports": [
+        "GeometricRowsTriples",
+        "NoFourMUBs.Step2.CriticalZero.FourierRoutingModel",
+        "ContinuousBindings"
+      ],
+      "review": "CRITICAL_GEOMETRIC_FOURIER_REUSE_REVIEW.json",
+      "import_replacements": {
+        "GeometricRowsTriples": "NoFourMUBs.Reuse.Archive.GeometricRowsTriples"
+      },
+      "proof_tactic_replacements": [
+        {
+          "before": "set_option autoImplicit false",
+          "after": "import NoFourMUBs.Step2.CriticalZero.FourierRoutingModel\n\nset_option autoImplicit false",
+          "count": 1,
+          "reason": "Import the current coordinate/model adapter explicitly, avoiding the legacy unrelated routing closure."
+        },
+        {
+          "before": "(CriticalFourierRouting20261003.phaseHadamard_boundary hH)",
+          "after": "hH",
+          "count": 1,
+          "reason": "The current splitMatrix_isHadamard consumes the already checked current Hadamard predicate directly."
+        },
+        {
+          "before": "import NoFourMUBs.Step2.CriticalZero.FourierRoutingModel\n",
+          "after": "import NoFourMUBs.Step2.CriticalZero.FourierRoutingModel\nimport NoFourMUBs.Reuse.Archive.ContinuousBindings\n",
+          "count": 1,
+          "reason": "The original power-to-literal Fourier identity is retained in ContinuousBindings; import it explicitly."
+        },
+        {
+          "before": "Worker12.selectedPermutation_apply,splitPerm]",
+          "after": "Worker12.selectedPermutation_apply,splitPerm,Worker12.splitIndex,\n    NoFourMUBs.Step2.FourierBridge.fromOAI]",
+          "count": 1,
+          "reason": "Expose the shared current coordinate-map definition in the original row-entry simplification."
+        },
+        {
+          "before": "Worker12.splitIndex,finSumFinEquiv,",
+          "after": "Worker12.splitIndex,NoFourMUBs.Step2.FourierBridge.coordinates,finSumFinEquiv,",
+          "count": 2,
+          "reason": "Unfold the shared coordinate alias for the original finite block calculations."
+        }
+      ],
+      "model_identifier_replacements": {
+        "Mub6.Numerical.PhaseHadamard": "OAI.MUB6.IsHadamard",
+        "Mub6.BasisMatrix": "OAI.MUB6.CMatrix",
+        "GeometricSixRoots20261003.unit_star_eq_inv": "FourierSeedBinding.phase_star",
+        "GeometricSixRoots20261003.unit_ne_zero": "FourierSeedBinding.phase_ne_zero"
+      },
+      "model_identifier_counts": {
+        "Mub6.Numerical.PhaseHadamard": 2,
+        "Mub6.BasisMatrix": 5,
+        "GeometricSixRoots20261003.unit_star_eq_inv": 1,
+        "GeometricSixRoots20261003.unit_ne_zero": 1
+      },
+      "reviewed_previous_active_sha256": "ff497af6c4034b48344f45d2ae2a69f078552e68fda9adfaaf416a8224998cb2"
+    },
+    "ConjugateBlockNormalization": {
+      "availability": "resident",
+      "blob": "blobs/09/09308ea7019f4b47eda5e2a407062fad4df3b0612983722993f8c6b207bf5bae/ConjugateBlockNormalization.lean",
+      "bytes": 4787,
+      "sha256": "09308ea7019f4b47eda5e2a407062fad4df3b0612983722993f8c6b207bf5bae",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/global_assembly/geometric_normalization/ConjugateBlockNormalization.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/09/09308ea7019f4b47eda5e2a407062fad4df3b0612983722993f8c6b207bf5bae/ConjugateBlockNormalization.lean",
+      "imports": [
+        "Hadamard6.SimultaneousFourierNormalization",
+        "Worker12.ContinuousBindings",
+        "Worker12.ZeroPattern"
+      ],
+      "review": "CRITICAL_GEOMETRIC_FOURIER_REUSE_REVIEW.json",
+      "import_replacements": {
+        "Worker12.ContinuousBindings": "ContinuousBindings",
+        "Worker12.ZeroPattern": "NoFourMUBs.Step2.CriticalZero.FourierRoutingModel"
+      },
+      "proof_tactic_replacements": [],
+      "model_identifier_replacements": {},
+      "model_identifier_counts": {}
+    },
+    "GeometricFourierTail": {
+      "availability": "resident",
+      "blob": "blobs/0f/0fb863a47be88b25b9884d84cd5a4944357f83fa5e91efc16776d911375c7643/GeometricFourierTail.lean",
+      "bytes": 6280,
+      "sha256": "0fb863a47be88b25b9884d84cd5a4944357f83fa5e91efc16776d911375c7643",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/global_assembly/critical_fourier_routing/GeometricFourierTail.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/0f/0fb863a47be88b25b9884d84cd5a4944357f83fa5e91efc16776d911375c7643/GeometricFourierTail.lean",
+      "imports": [
+        "SingularFourierRouting",
+        "ContinuousBindings"
+      ],
+      "review": "CRITICAL_GEOMETRIC_FOURIER_REUSE_REVIEW.json",
+      "import_replacements": {
+        "SingularFourierRouting": "NoFourMUBs.Step2.CriticalZero.FourierRoutingModel"
+      },
+      "proof_tactic_replacements": [
+        {
+          "before": "import NoFourMUBs.Step2.CriticalZero.FourierRoutingModel\n",
+          "after": "import NoFourMUBs.Step2.CriticalZero.FourierRoutingModel\nimport NoFourMUBs.Reuse.Archive.ContinuousBindings\n",
+          "count": 1,
+          "reason": "Import existing continuous-family bindings before the Lean module documentation command."
+        },
+        {
+          "before": "theorem fourier_transpose {H : OAI.MUB6.CMatrix} (hH : FourierOrTranspose H) :\n    FourierOrTranspose (Matrix.transpose H) := by\n  rcases hH with \u27e8\u03c9, p, q, h\u03c9, hp, hq, h\u27e9\n  refine \u27e8\u03c9, p, q, h\u03c9, hp, hq, ?_\u27e9\n  rcases h with h | h\n  \u00b7 exact Or.inr (monomialEquivalent_transpose h)\n  \u00b7 exact Or.inl (by\n      simpa only [Matrix.transpose_transpose] using monomialEquivalent_transpose h)\n\n",
+          "after": "",
+          "count": 1,
+          "reason": "Omit unused transpose helper; geometric routing uses only equivalence transitivity."
+        },
+        {
+          "before": "/-- Consequences of three literal full rows (1,x,conjugate x), selected by an\nembedding.  Repeated x values are permitted and no x-value is divided by. -/\ntheorem geometric_rows_moments {H : OAI.MUB6.CMatrix}\n    (hH : OAI.MUB6.IsHadamard H) (\u03c1 : Fin 3 \u21aa Fin 6) (x : Fin 6 \u2192 \u2102)\n    (h0 : \u2200 j, H (\u03c1 0) j = 1)\n    (h1 : \u2200 j, H (\u03c1 1) j = x j)\n    (h2 : \u2200 j, H (\u03c1 2) j = star (x j)) :\n    (\u2200 j, Complex.normSq (x j) = 1) \u2227\n      (\u2211 j, x j) = 0 \u2227 (\u2211 j, (x j) ^ 2) = 0 := by\n  have hb := phaseHadamard_boundary hH\n  have h10 : \u03c1 1 \u2260 \u03c1 0 := fun h => (by decide : (1 : Fin 3) \u2260 0) (\u03c1.injective h)\n  have h12 : \u03c1 1 \u2260 \u03c1 2 := fun h => (by decide : (1 : Fin 3) \u2260 2) (\u03c1.injective h)\n  refine \u27e8?_, ?_, ?_\u27e9\n  \u00b7 intro j\n    simpa only [h1] using hH.1 (\u03c1 1) j\n  \u00b7 simpa only [h1, h0, star_one, mul_one] using phase_row_orthogonal hb h10\n  \u00b7 simpa only [h1, h2, star_star, \u2190 pow_two] using phase_row_orthogonal hb h12\n\n",
+          "after": "",
+          "count": 1,
+          "reason": "Reuse checked GeometricMoments instead of duplicating the row-orthogonality argument."
+        },
+        {
+          "before": "#print axioms CriticalFourierRouting20261003.fourier_transpose\n",
+          "after": "",
+          "count": 1,
+          "reason": "Omit repeated/unused endpoint audit; geometric_rows_moments is already checked separately."
+        },
+        {
+          "before": "#print axioms CriticalFourierRouting20261003.geometric_rows_moments\n",
+          "after": "",
+          "count": 1,
+          "reason": "Omit repeated/unused endpoint audit; geometric_rows_moments is already checked separately."
+        }
+      ],
+      "model_identifier_replacements": {
+        "Mub6.BasisMatrix": "OAI.MUB6.CMatrix",
+        "Mub6.MonomialEquivalent": "OAI.MUB6.Equivalent",
+        "Mub6.transposeEdge_involutive": "Matrix.transpose_transpose",
+        "Mub6.transposeEdge": "Matrix.transpose",
+        "monomialEquivalent_trans": "OAI.MUB6.equivalent_trans",
+        "PhaseHadamard": "OAI.MUB6.IsHadamard"
+      },
+      "model_identifier_counts": {
+        "Mub6.BasisMatrix": 3,
+        "Mub6.MonomialEquivalent": 1,
+        "Mub6.transposeEdge_involutive": 1,
+        "Mub6.transposeEdge": 1,
+        "monomialEquivalent_trans": 2,
+        "PhaseHadamard": 1
+      },
+      "namespace_open_replacements": {
+        "open Mub6 Mub6.Numerical Worker12 Hadamard6\n": "open Worker12 Hadamard6\n"
+      },
+      "reviewed_previous_active_sha256": "b93050efeb7da2175a50dadfe6cc2fb6e9e65e7ad81d4fc316b71c7fe2eafadf"
+    },
+    "GeometricFourierComplete": {
+      "availability": "resident",
+      "blob": "blobs/24/24a31639f077eaae527f9b940590113695c0a25bfa0b8a3c66133b9f969e0bbc/GeometricFourierComplete.lean",
+      "bytes": 2053,
+      "sha256": "24a31639f077eaae527f9b940590113695c0a25bfa0b8a3c66133b9f969e0bbc",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/global_assembly/geometric_normalization/GeometricFourierComplete.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/24/24a31639f077eaae527f9b940590113695c0a25bfa0b8a3c66133b9f969e0bbc/GeometricFourierComplete.lean",
+      "imports": [
+        "GeometricTopBlocks",
+        "ConjugateBlockNormalization",
+        "GeometricFourierTail"
+      ],
+      "review": "CRITICAL_GEOMETRIC_FOURIER_REUSE_REVIEW.json",
+      "import_replacements": {},
+      "proof_tactic_replacements": [
+        {
+          "before": "set_option autoImplicit false",
+          "after": "import NoFourMUBs.Reuse.Archive.GeometricFourierTail\n\nset_option autoImplicit false",
+          "count": 1,
+          "reason": "Import the selected original Fourier-family conclusion explicitly."
+        },
+        {
+          "before": "=H := by\n    funext i j\n    simp [Worker12.unsplitMatrix,Worker12.splitMatrix]",
+          "after": "=H :=\n    NoFourMUBs.Step2.FourierBridge.toOAI_fromOAI H",
+          "count": 1,
+          "reason": "Reuse the existing coordinate round-trip theorem directly."
+        }
+      ],
+      "model_identifier_replacements": {
+        "Mub6.Numerical.PhaseHadamard": "OAI.MUB6.IsHadamard",
+        "Mub6.BasisMatrix": "OAI.MUB6.CMatrix",
+        "Mub6.MonomialEquivalent": "OAI.MUB6.Equivalent"
+      },
+      "model_identifier_counts": {
+        "Mub6.Numerical.PhaseHadamard": 2,
+        "Mub6.BasisMatrix": 2,
+        "Mub6.MonomialEquivalent": 2
+      }
+    }
+  },
+  "existing_modules": {
+    "NoFourMUBs.Step2.CriticalZero.FourierRoutingModel": {
+      "active_path": "NoFourMUBs/Step2/CriticalZero/FourierRoutingModel.lean",
+      "active_sha256": "f917964eeddcd05646e3f0bf79845ba1375766bfead28675b8b3eef2165d1b5b"
+    },
+    "NoFourMUBs.Reuse.Archive.GeometricRowsTriples": {
+      "active_path": "NoFourMUBs/Reuse/Archive/GeometricRowsTriples.lean",
+      "active_sha256": "02a5b38b180bd1aeb3342773ecf2d49c971597e2949852bd6f58b3d6f7e3aa7c"
+    },
+    "NoFourMUBs.Step2.CriticalZero.ActualGeometry": {
+      "active_path": "NoFourMUBs/Step2/CriticalZero/ActualGeometry.lean",
+      "active_sha256": "701e6d054ca92aeaef808cbd72400e35af180b92e5944083f3ecf93c40f9bf22"
+    }
+  },
+  "local_adapters": [
+    {
+      "module": "NoFourMUBs.Step2.CriticalZero.ActualFourier",
+      "active_path": "NoFourMUBs/Step2/CriticalZero/ActualFourier.lean",
+      "active_sha256": "48a3e2d4d032d057fe6cc8e653b9d9a04811d06eeb3ec748a5c94166c7bf0094",
+      "after_archived_module": "GeometricFourierComplete"
+    }
+  ],
+  "external": [],
+  "unresolved": [],
+  "atlas_certification": false
+}

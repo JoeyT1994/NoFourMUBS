@@ -1,0 +1,4 @@
+import NoFourMUBs.Step2.Reconstruction.ThirdMoment.ConstantGramCancellation
+
+#check NoFourMUBs.Step2.Reconstruction.ThirdMoment.oneConstant_adjugate
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.oneConstant_adjugate

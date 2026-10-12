@@ -1,0 +1,529 @@
+{
+  "status": "PASS:MODEL_STRIP_WHOLE_MOMENTS_AND_NEWTON_TABLE",
+  "reviewed_utc": "2026-10-11T01:11:37.168249+00:00",
+  "scope": "Reuse the archive actual twenty-corner bounds and whole-strip moment lemmas with the current OAI matrix model.",
+  "sources": {
+    "GoodMinorPhysical": "cb760aee9549808f0b56d3168d71dbb90659fe3b83da7992b67b55a66b03565d",
+    "PhysicalSeedSides": "62e88718834bbc7b6022b8215c3e6974ab6aad3430f35e0a8c4e3fc58ad96630",
+    "CriticalCornerPhysical": "db4d603d95d25eae85e3cc87f277e9497a39217bb620939e6f2139b7e00c9027",
+    "CriticalStripPhysical": "0f511d6c980b2fa4135750a739f8e383207e08498fefc89cde65bee5bf3e11b1",
+    "CriticalWholeMoments": "d857b5b265bb1ce585950dce4c95bd37fc9c00a2421bf6c91cab404ce8debf06"
+  },
+  "extracted_block_hashes": {
+    "front_and_injectivity": "3e0ac707d1c2015f18f9b713e6058368c1e46aee060097c4dab22523f20fb7f3",
+    "side_correlations": "32ea862e6cf5b4593355e0170e550a40519d029c88ace140ffbec818fda4c608",
+    "side_invariants": "c62e1007e5b1e0fea4a2ceb6e555e9fc92b2910dbef4355d798cdb4c86a0d3e7",
+    "side_eta_nonnegative": "65e92d294124c1e91a8024622b6d2bd743fadb52af871bf93193f846757a231e"
+  },
+  "existing_proofs_reused": [
+    "CriticalRowSum20261003.physical_sum",
+    "CriticalRowSum20261003.row_gram",
+    "CriticalPhysical20261003.complementary_eta_bound",
+    "NoFourMUBs.Step2.Critical.allCritical_submatrix_scalar_zero",
+    "FourierBridge.hadamard_toOAI"
+  ],
+  "matrix_model": "Archive PhaseHadamard and OAI.IsHadamard have the same unit-entry/column-Gram predicate. Use OAI directly, as already done in CriticalRowSum. Mat3 remains Matrix(Fin3)(Fin3)Complex.",
+  "hypothesis_adaptation": "AllCriticalCarrier H consists of NormalizedCarrier H and a current Had6/Frames.AllCritical witness whose toOAI matrix is H. Its constructor from a normalized current Had6 is proved, not assumed. Selected scalar zeros call the checked ActualSignatures adapter. This deliberately replaces the legacy global-maximum interface; it does not import a second global coverage theorem.",
+  "proof_reuse": "Retain all11CriticalStripPhysical and all7CriticalWholeMoments proof bodies except matrix/predicate identifier substitutions; no polynomial or finite certificate data are generated. Extract only required data/front injection/eta lemma from original modules; no existing matrix axioms or sum108 proof are duplicated.",
+  "future_rule": "Do not later redeclare these sideP/J/W or data predicates. Adapt imports to this shared PhysicalModel. Full legacy CriticalCornerPhysical/global-max modules are not an additional active route.",
+  "atlas_certification": false,
+  "newton_table_extension": {
+    "reviewed_utc": "2026-10-11T01:15:54.505868+00:00",
+    "new_archived_modules": 10,
+    "existing_data_reused": "CriticalNewtonCore, all43original Newton formulae and literal momentIndices/newtonTable arrays. No coefficients or formulas generated.",
+    "roots": [
+      "CriticalNewtonTable",
+      "CriticalStripNewton"
+    ],
+    "variant_resolution": "CriticalNewtonPhysical e3e674 retains the same statements as0710c1; differences are simp/commutativity fixes only. Selected source is the archived final version.",
+    "sources": {
+      "CriticalStripNewton": "9acba11caf4233e5ab509f6c69d7431c25448f9a96910373a24036b7cbf2cdcc",
+      "CriticalNewtonBatch00": "0f9f60d51cd64bf573fd7688c9898b6f81beb88aaa70085b9a73917c41a57aa9",
+      "CriticalNewtonBatch01": "3095baa267b2bcd263e10a40b130da583acb46dd58132e477d415cc7b3356f2a",
+      "CriticalNewtonBatch02": "524c7eac573dc19ba4f621d904af4eebabb4a6b1ee3af2a49562571b90941518",
+      "CriticalNewtonBatch03": "923ae5c0a4a1fc9aaf2bb0d80fadf96ac701bac234e670790b94cda726553f72",
+      "CriticalNewtonBatch04": "3ac61ad4a9779dd9ee1d7f4919de4ee5128ffd80c5476ec393656b3d7cbb7421",
+      "CriticalNewtonBatch05": "5b68bc80021d37febd37ed3a39b596dcf4d98c0117a9bc90f03d7effce2b8023",
+      "CriticalNewtonBatch06": "afe43f7508a1105cedcd988c204c9f4c5cb22416af9fc6cca1f3014245c2b49d",
+      "CriticalNewtonPhysical": "e3e674e07871a2ade9352f0d6e25c59a90f429015a4b368d222504b49d9d07b8",
+      "CriticalNewtonTable": "e1bd6c64b054dc91a535301f433bfac28f43a4edaa33c6f72755ee49e9d969e8"
+    },
+    "adaptation": "CriticalStripNewton changes only Mat6/Mat3/front identifiers and namespace opens. All other new modules have import-only adaptation.",
+    "status": "PASS",
+    "checked_modules": {
+      "NoFourMUBs.Reuse.Archive.CriticalNewtonBatch00": {
+        "log": "critical_zero_physical_build_status_logs/batch_0176.log",
+        "source_sha256": "cc24165b4c0c95eec6c77191c7d4caf8e9148c769a353cdf31b5d59e489b737b",
+        "axioms": {
+          "CriticalNewton20261003.actual_m4_p2": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "CriticalNewton20261003.actual_m3_p0": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "CriticalNewton20261003.actual_m3_p1": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "CriticalNewton20261003.actual_m3_p2": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "CriticalNewton20261003.actual_m3_p3": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "CriticalNewton20261003.actual_m2_m2": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "CriticalNewton20261003.actual_m2_m1": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      },
+      "NoFourMUBs.Reuse.Archive.CriticalNewtonBatch01": {
+        "log": "critical_zero_physical_build_status_logs/batch_0177.log",
+        "source_sha256": "bf608301f4455e6a535140ad7c8f30dcd0e435bf212563ea60d9895461f0c842",
+        "axioms": {
+          "CriticalNewton20261003.actual_m2_p0": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "CriticalNewton20261003.actual_m2_p1": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "CriticalNewton20261003.actual_m2_p2": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "CriticalNewton20261003.actual_m2_p3": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "CriticalNewton20261003.actual_m2_p4": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "CriticalNewton20261003.actual_m1_m2": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "CriticalNewton20261003.actual_m1_m1": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      },
+      "NoFourMUBs.Reuse.Archive.CriticalNewtonBatch02": {
+        "log": "critical_zero_physical_build_status_logs/batch_0178.log",
+        "source_sha256": "150002c60434a401d47cf92de9da0fe728f80501a0953ace6d00514f8de2ba10",
+        "axioms": {
+          "CriticalNewton20261003.actual_m1_p0": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "CriticalNewton20261003.actual_m1_p1": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "CriticalNewton20261003.actual_m1_p2": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "CriticalNewton20261003.actual_m1_p3": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "CriticalNewton20261003.actual_p0_m3": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "CriticalNewton20261003.actual_p0_m2": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "CriticalNewton20261003.actual_p0_m1": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      },
+      "NoFourMUBs.Reuse.Archive.CriticalNewtonBatch03": {
+        "log": "critical_zero_physical_build_status_logs/batch_0179.log",
+        "source_sha256": "2b4f2bbcfb9d2e456825d64d724189fa2580ddf0cff10b4b52ac353f8a0bb177",
+        "axioms": {
+          "CriticalNewton20261003.actual_p0_p0": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "CriticalNewton20261003.actual_p0_p1": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "CriticalNewton20261003.actual_p0_p2": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "CriticalNewton20261003.actual_p0_p3": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "CriticalNewton20261003.actual_p1_m3": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "CriticalNewton20261003.actual_p1_m2": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "CriticalNewton20261003.actual_p1_m1": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      },
+      "NoFourMUBs.Reuse.Archive.CriticalNewtonBatch04": {
+        "log": "critical_zero_physical_build_status_logs/batch_0180.log",
+        "source_sha256": "27013a677cfd4a98645efe2297876bfa4909ddacb2efca95bfea81ec2ba4e72d",
+        "axioms": {
+          "CriticalNewton20261003.actual_p1_p0": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "CriticalNewton20261003.actual_p1_p1": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "CriticalNewton20261003.actual_p1_p2": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "CriticalNewton20261003.actual_p2_m4": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "CriticalNewton20261003.actual_p2_m3": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "CriticalNewton20261003.actual_p2_m2": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "CriticalNewton20261003.actual_p2_m1": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      },
+      "NoFourMUBs.Reuse.Archive.CriticalNewtonBatch05": {
+        "log": "critical_zero_physical_build_status_logs/batch_0181.log",
+        "source_sha256": "56b49eb52c741642e8e967c846e77fa237cfd73461407ce812152c4fd22377fe",
+        "axioms": {
+          "CriticalNewton20261003.actual_p2_p0": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "CriticalNewton20261003.actual_p2_p1": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "CriticalNewton20261003.actual_p2_p2": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "CriticalNewton20261003.actual_p3_m3": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "CriticalNewton20261003.actual_p3_m2": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "CriticalNewton20261003.actual_p3_m1": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "CriticalNewton20261003.actual_p3_p0": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      },
+      "NoFourMUBs.Reuse.Archive.CriticalNewtonBatch06": {
+        "log": "critical_zero_physical_build_status_logs/batch_0182.log",
+        "source_sha256": "98fb3bfa89ded4434e0bbee7009d44eeeed5ab4c4d211dda7799c88245c6a92a",
+        "axioms": {
+          "CriticalNewton20261003.actual_p4_m2": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      },
+      "NoFourMUBs.Reuse.Archive.CriticalNewtonPhysical": {
+        "log": "critical_zero_physical_build_status_logs/batch_0183.log",
+        "source_sha256": "1793b5ab77630755de47687083a3021b92e08927ea83b07619f8a81ecd79ab58",
+        "axioms": {
+          "CriticalNewton20261003.phase_nonzero": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "CriticalNewton20261003.phase_inverse": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "CriticalNewton20261003.phase_invRow": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "CriticalNewton20261003.phase_data_conjugates": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "CriticalNewton20261003.phase_moment_conjugate": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      },
+      "NoFourMUBs.Reuse.Archive.CriticalNewtonTable": {
+        "log": "critical_zero_physical_build_status_logs/batch_0184.log",
+        "source_sha256": "b153d36077c9c434c4738430632da7f752e5824449f1129a5e49c2a6b28b5224",
+        "axioms": {
+          "CriticalNewton20261003.actual_newton_table": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "CriticalNewton20261003.phase_block_newton_table": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      },
+      "NoFourMUBs.Reuse.Archive.CriticalStripNewton": {
+        "log": "critical_zero_physical_build_status_logs/batch_0185.log",
+        "source_sha256": "2002e0a4f2c778a6e993e3814d2937ec69d024987770793be0753f4c4bf1f60c",
+        "axioms": {
+          "CriticalStripMoments20261003.stripMoment_split": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "CriticalStripMoments20261003.normalized_strip_newton_table": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "CriticalStripMoments20261003.complementary_block_moment": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "CriticalStripMoments20261003.normalized_opposite_data": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      }
+    },
+    "checked_theorems": 54
+  },
+  "strip_tactic_compatibility": [
+    {
+      "before": "  simp only [correlation,relativeRow,star_add,star_mul,star_star]\n  ring\n",
+      "after": "  simp only [correlation,relativeRow,star_add,star_mul,star_star]\n",
+      "count": 1,
+      "reason": "Reuse exact correlation_relative_swap proof from archived0d2248, whose final simp closes the goal. Keep the0f511d shared row_gram import; statements unchanged.",
+      "source_sha256": "0d2248e90c65c3b5d650943232241a550c3fb758c7ef6129e02b929f345d6243"
+    }
+  ],
+  "first_strip_build": "Failed only on no-goals-to-be-solved at the redundant ring. No failed build is counted.",
+  "checked_utc": "2026-10-11T01:29:18.755286+00:00",
+  "checked_modules": {
+    "NoFourMUBs.Step2.CriticalZero.PhysicalModel": {
+      "log": "critical_zero_physical_build_status_logs/batch_0170.log",
+      "source_sha256": "9520b896d5795301a97d296ecd4ca4f999507feed6ac967271147f8e795ed3e0",
+      "axioms": {
+        "CriticalPhysical20261003.side_eta_nonnegative": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalPhysical20261003.allCritical_selected_R_zero": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "NoFourMUBs.Step2.Critical.front_injective": [],
+        "NoFourMUBs.Step2.Critical.normalized_toOAI": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "NoFourMUBs.Step2.Critical.allCritical_toOAI": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ]
+      }
+    },
+    "NoFourMUBs.Reuse.Archive.CriticalStripPhysical": {
+      "log": "critical_zero_physical_build_status_logs/batch_0174.log",
+      "source_sha256": "0e726f519d28a449b1895952067a44a422c9c31e7f51ae64b1656dc8762b5731",
+      "axioms": {
+        "CriticalPhysical20261003.strip_triples_injective": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalPhysical20261003.correlation_complement_sum": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalPhysical20261003.relative_row_sum_zero": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalPhysical20261003.relative_correlation_complement": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalPhysical20261003.strip_moments": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalPhysical20261003.strip_complementary_moments": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalPhysical20261003.strip_scalar_bounds": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalPhysical20261003.correlation_relative_swap": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalPhysical20261003.stripP_count_binding": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalPhysical20261003.stripP_sum": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalPhysical20261003.allCritical_strip_scalar_premises": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ]
+      }
+    },
+    "NoFourMUBs.Reuse.Archive.CriticalWholeMoments": {
+      "log": "critical_zero_physical_build_status_logs/batch_0175.log",
+      "source_sha256": "04ed6b6c6fbad973c0629b370b18f1eef109db3432a57f52f3b1eb5cd9f58dbc",
+      "axioms": {
+        "CriticalStripMoments20261003.stripMoment_zero_zero": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalStripMoments20261003.stripMoment_conjugate": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalStripMoments20261003.stripMoment_one_zero": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalStripMoments20261003.stripMoment_zero_one": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalStripMoments20261003.stripMoment_neg_one_one": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalStripMoments20261003.stripMoment_six_zeros": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalStripMoments20261003.triple_monomial_sum": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ]
+      }
+    }
+  }
+}

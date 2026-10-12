@@ -1,0 +1,19 @@
+{
+  "status": "REVIEWED_EXACT_ARCHIVE_REUSE_PENDING_COMPILATION",
+  "checked_utc": "2026-10-11T10:51:48.389916+00:00",
+  "search_results": [
+    "NONZERO_SUM_SMALLER_CHECKER_REUSE_FILES.txt",
+    "NONZERO_SUM_ROW_CONSUMER_REUSE_FILES.txt"
+  ],
+  "variants_opened": {
+    "CoefficientRow": 3,
+    "RowCertificate": 2
+  },
+  "selection": "Reuse the archived variant with the explicit negation evaluation rewrite, and the certificate variant that uses the tail induction hypothesis in the empty-left case. Only imports changed; theorem statements and proof bodies are identical to the pinned archived sources.",
+  "scope": "Generic finite row-convolution checker; no zero-J-specific parameter hypotheses. This is the repository implementation for smaller checks of the same product.",
+  "source_pins": {
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/eb/eb31e9928ed6a032067c8924ee13b7df061a216ac91e5612231953cc139e8558/CriticalZeroSumCoefficientRow.lean": "eb31e9928ed6a032067c8924ee13b7df061a216ac91e5612231953cc139e8558",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/79/794a31a721ffcdf79051a5171e6a3be4199778cfd19d1f9ccd602c66d8083e74/CriticalZeroSumRowCertificate.lean": "794a31a721ffcdf79051a5171e6a3be4199778cfd19d1f9ccd602c66d8083e74"
+  },
+  "atlas_certification": false
+}

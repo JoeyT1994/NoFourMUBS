@@ -1,0 +1,71 @@
+{
+  "status": "REVIEWED_NEW_NORMALIZATION_TARGETS_NOT_PROVED",
+  "checked_utc": "2026-10-11T11:55:41.612502+00:00",
+  "prior_full_corpus_review": "CRITICAL_NONZERO_SUM_DAG_REUSE_REVIEW.json",
+  "query_results": "NONZERO_PAIRED_DENOMINATOR_REUSE_FILES.txt",
+  "candidate_review": "The nonzero denominator source defines and connects six factors to poles; it has no polynomial normalization certificate. The zero-J denominator certificate proves a different branch-specific polynomial and cannot be reused as this identity. Existing factor/row checker and all successful product receipts remain active.",
+  "reuse": "Reuse n0017 and original DAG bindings. Pair FY+/FY- and FZ+/FZ- before the same original products. Ring proves the reassociations; no branch guard or target changes. Existing CoefficientRow/RowCertificate check every resulting coefficient.",
+  "exact_duplicate_checks": {
+    "denPairY5": {
+      "terms": 176,
+      "degrees": [
+        0,
+        10,
+        30,
+        0
+      ],
+      "old_exact_polynomial_matches": [],
+      "existing_stage_matches": []
+    },
+    "denPairZ5": {
+      "terms": 931,
+      "degrees": [
+        10,
+        10,
+        30,
+        0
+      ],
+      "old_exact_polynomial_matches": [],
+      "existing_stage_matches": []
+    },
+    "n0023": {
+      "terms": 5203,
+      "degrees": [
+        18,
+        17,
+        84,
+        0
+      ],
+      "old_exact_polynomial_matches": [],
+      "existing_stage_matches": []
+    },
+    "n0029": {
+      "terms": 22263,
+      "degrees": [
+        28,
+        27,
+        114,
+        0
+      ],
+      "old_exact_polynomial_matches": [],
+      "existing_stage_matches": []
+    }
+  },
+  "source_pins": {
+    "audit/CRITICAL_NONZERO_SUM_DAG.json": "619968b18d8712cf00eae3dc7a5a97e394698199b50ec921318b629affafc7fc",
+    "audit/CRITICAL_NONZERO_P2P2_EXPRESSION_DAG.json": "44122d3c6aa017024b83c2d76f35e5958938d4852d9d14d50c999a368f5b8618",
+    "lean/NoFourMUBs/Reuse/Archive/CriticalNonzeroSumDenominator.lean": "0fa2adfb9cb93945a5130d5f4321b601f25e5113c710f9747a400c945c29e9e2",
+    "lean/NoFourMUBs/Reuse/Archive/CriticalZeroSumRowCertificate.lean": "51a0ae0887f442c11bf0193dfdea2c34487d42052b40f9e6f10c8ddf8d0fdaa4",
+    "lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Stage0000Factors.lean": "64592b57da2e5ad2bd026e1128b40ade48834469ed7cd7c7a544021ddcc8d197"
+  },
+  "estimated_multiplication_work": {
+    "original_n0023": 443520,
+    "paired_n0023": 54208,
+    "original_n0026_and_n0029": 8649416,
+    "paired_n0029": 4843993
+  },
+  "scope": "Only denominator-prefix normalization in the one original raw numerator proof. No full numerator or atlas generated.",
+  "atlas_certification": false,
+  "failed_attempt": "Full three-variable ring expansion for Z was terminated with exit137. Data and passed Y proof retained; unverified source preserved in retired_attempts.",
+  "split_argument": "The existing third factors depend on X+Y. Reuse the931term table at X=0 for a compact two-variable ring check, then check its31coefficient shift identities with existing evaluation and list soundness. No new arrays."
+}

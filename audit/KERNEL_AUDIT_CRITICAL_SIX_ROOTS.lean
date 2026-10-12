@@ -1,0 +1,12 @@
+import NoFourMUBs.Reuse.Archive.GeometricRowsTriples
+
+#check GeometricSixRoots20261003.geometric_rows_standard_ordered
+#print axioms CriticalFourierRouting20261003.geometric_rows_moments
+#print axioms GeometricSixRoots20261003.first_two_coefficients
+#print axioms GeometricSixRoots20261003.complementary_coefficients
+#print axioms GeometricSixRoots20261003.sparse_six_product
+#print axioms GeometricSixRoots20261003.six_product_two_cubics
+#print axioms GeometricSixRoots20261003.six_unit_roots_two_triples
+#print axioms GeometricSixRoots20261003.sixValues_eq_order
+#print axioms GeometricSixRoots20261003.six_unit_roots_ordered
+#print axioms GeometricSixRoots20261003.geometric_rows_standard_ordered

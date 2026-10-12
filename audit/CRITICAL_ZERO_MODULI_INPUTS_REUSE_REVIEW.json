@@ -1,0 +1,35 @@
+{
+  "status": "REVIEWED_FOR_REUSE_WITH_DEFINITION_EXTRACTION_NOT_COMPILED",
+  "reviewed_utc": "2026-10-11T00:07:49.912352+00:00",
+  "roots": [
+    "CriticalZeroRawModuliJoin",
+    "CriticalZeroPoles"
+  ],
+  "selected_modules": 97,
+  "new_archived_modules": [
+    "CriticalZeroRawModuliJoin",
+    "CriticalZeroModuliInputs",
+    "CriticalZeroSplitting"
+  ],
+  "archive_search": "Complete ARCHIVE_SOURCE_INDEX: one ModuliInputs source and one RawModuliJoin source; two CriticalMomentBinding variants; no CriticalMomentData source. Current NoFourMUBs and OAI sources contain no declarations named momentP, momentJ, momentW.",
+  "definition_extraction": {
+    "source": "mub6-numerical/runs/full-proof-integration-2026-10-03/domain_bridge/critical_physical/CriticalMomentBinding.lean",
+    "sha256": "e476d3678c690f4425415108e2696e3a772e38f2be393057f62180c25767644e",
+    "declarations": [
+      "CriticalPhysical20261003.momentP",
+      "CriticalPhysical20261003.momentJ",
+      "CriticalPhysical20261003.momentW"
+    ],
+    "change": "Three definitions copied verbatim into one small dependency module. No theorem copied or reproved. If CriticalMomentBinding is later adopted, import this module and omit its three original definitions."
+  },
+  "import_adaptation": {
+    "CriticalZeroModuliInputs": "Replace unused CriticalLightSheet umbrella import by MomentData, which imports the already selected CriticalZeroPoles. All theorem statements and proof bodies remain unchanged."
+  },
+  "exact_hypotheses": "moment_inputs requires s,t nonzero, z >= -3 with z != 0,-3,-2, and literal momentP/momentW equations. raw_zero_moduli_from_inputs requires nonnegative X,Y,Z, regular z, Inputs, and rawNumerator = 0.",
+  "conclusion": "Every guarded splitting input is supplied from the actual squared moduli; the existing raw factorization then gives the modulus allocation only under rawNumerator = 0.",
+  "scope_limit": "Does not provide the all-critical physical equation, computed-to-raw numerator identity, exceptional/nonzero-J classification, universal flatness or atlas.",
+  "integrator_change": "A local import is accepted only when it is registered in plan.local_adapters and its current file hash matches. Existing scoped repository freshness guard remains first.",
+  "atlas_certification": false,
+  "checked_inputs": "CRITICAL_ZERO_MODULI_INPUTS_PASS.json",
+  "raw_moduli_join_status": "Adopted and queued; not yet compiled."
+}

@@ -1,0 +1,46 @@
+{
+  "scope": "critical_zero_group01_pilot",
+  "status": "BUILD_IN_PROGRESS",
+  "records": [
+    {
+      "module": "NoFourMUBs.Reuse.Archive.CriticalZeroSumDenseCommonBindings01",
+      "original_module": "CriticalZeroSumDenseCommonBindings01",
+      "original_sha256": "90e3ddc7ebe08d7a637bfd5e01d106925d42df645d9c89dfa3241b7bddd44ccf",
+      "original_source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumDenseCommonBindings01.lean",
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalZeroSumDenseCommonBindings01.lean",
+      "active_sha256": "478ba413ff4b58aed2db5c765086895d88e38199257728145a30e4b70d64e890",
+      "imports_only_adaptation": true,
+      "proof_adaptations": [],
+      "import_replacements": {}
+    },
+    {
+      "module": "NoFourMUBs.Reuse.Archive.CriticalZeroSumNumeratorGroupData01",
+      "original_module": "CriticalZeroSumNumeratorGroupData01",
+      "original_sha256": "beeabd5782c1898264d5a535d46534b825e4331de3083edc21fa92b07863bd38",
+      "original_source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumNumeratorGroupData01.lean",
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalZeroSumNumeratorGroupData01.lean",
+      "active_sha256": "a151fa953c5893bcbdc245db2d85fb9ca9404cf7fa4e70c9f18835f12892824e",
+      "imports_only_adaptation": true,
+      "proof_adaptations": [],
+      "import_replacements": {}
+    },
+    {
+      "module": "NoFourMUBs.Step2.CriticalZero.CommonGroup01",
+      "active_path": "NoFourMUBs/Step2/CriticalZero/CommonGroup01.lean",
+      "active_sha256": "da1206dbe75b4380deebbe737579a59034f3092d7fb4ce7f2ede4a3c80de9ed1",
+      "local_model_adapter": true,
+      "closed_normalization_check": false
+    },
+    {
+      "module": "NoFourMUBs.Step2.CriticalZero.Group01Check18",
+      "active_path": "NoFourMUBs/Step2/CriticalZero/Group01Check18.lean",
+      "active_sha256": "32fac736a382876a3105fe74e31e1cee7c7a88b4bd134cac46c1614024426dbb",
+      "local_model_adapter": false,
+      "closed_normalization_check": true
+    }
+  ],
+  "data_generated": false,
+  "group_coefficient_count": 37,
+  "checked_coefficient_candidate": 18,
+  "remaining": "This pilot does not prove group01. Use the shared compiler slot; never launch alongside both current workers."
+}

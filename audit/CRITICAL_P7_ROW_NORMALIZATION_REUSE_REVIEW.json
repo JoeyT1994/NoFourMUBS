@@ -1,0 +1,58 @@
+{
+  "status": "REVIEWED_NECESSARY_ROW_AND_INDEX_ADAPTERS_NOT_COMPILED",
+  "checked_utc": "2026-10-11T13:11:04.292652+00:00",
+  "repository_head": "4e048ec8a2888f198f5432efd7f201f98d473878",
+  "queries": [
+    "P7_ROW_NORMALIZATION_REUSE_FILES.txt",
+    "P7_ROW_OAI_REUSE_FILES.txt",
+    "P7_ROW_EXACT_EQUATION_REUSE_MATCHES.txt",
+    "P7_ORIENTATION_REUSE_MATCHES.txt",
+    "P7_MODULI_REUSE_FILES.txt"
+  ],
+  "prior_reviews": [
+    "CRITICAL_ENDPOINT_NORMALIZATION_REFERENCES.json",
+    "CRITICAL_P7_FIXED_CORNER_REUSE_REVIEW.json"
+  ],
+  "source_pins": {
+    "lean/vendor/hadamard6/Hadamard6/H2CanonicalForm.lean": "10b04290503036c54f46a9c62421e0d06126695206ea662ce42eb361c1e401ab",
+    "lean/vendor/hadamard6/Hadamard6/ExceptionalFibre.lean": "2147fe10a85c8e45644c6dd021a2cb77623aa4427ae76757d9c2d68bdcfc748c",
+    "lean/NoFourMUBs/Step2/CriticalZero/RechartModel.lean": "7ba67fb8000833df557e18483a1745590ed57812a033c995c810ef9b9f9928b1",
+    "lean/NoFourMUBs/Step2/CriticalZero/P7FixedCorner.lean": "38fa2ce9a1c25cf6af61bdf7c2de29b3fc95e0f1a3eca5964b70bcb861b195e6",
+    "lean/vendor/fourier/OAI/Analysis/MutuallyUnbiased/Matrix/Equivalence.lean": "3b33e86903bdf07f281ed438b14d5f549d878d71c9ac5690836eb4338922ab49",
+    "lean/vendor/fourier/OAI/Analysis/MutuallyUnbiased/PairSemantics/Canonical283.lean": "9b5d0be1a847c39c14d6c9b047dd55409750b92abdb6b2aec7cd8a61715d83b1",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/6a/6af0681f7c2b3faf86634d30eaa6ec35fd35f14f7f820342f16b1b43b9bb733e/UnitTripleBounds.lean": "6af0681f7c2b3faf86634d30eaa6ec35fd35f14f7f820342f16b1b43b9bb733e",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/cf/cffce9f8d48db7a80c3bbe587c197b28b9146ab3ac8bd0dad72f10716d1252cb/Radius01PositiveAnchor.lean": "cffce9f8d48db7a80c3bbe587c197b28b9146ab3ac8bd0dad72f10716d1252cb",
+    "../full_repair_2026_10_09/MinimalConstruction/Proofs/CRITICAL_P7_EXCLUSION.md": "35f03016d8cc129d2b82ba10d5edb1b5862e52fe8b0022179a08c6ba02e32d3c",
+    "lean/NoFourMUBs/Reuse/Archive/CriticalCorrelationRechart.lean": "cb18e37a7b7be7292293f8a26c123fa7d75be455febb749161d0e4cec4c2fd1d",
+    "lean/NoFourMUBs/Step2/CriticalZero/MomentData.lean": "44e46454c5938528058573cca62d535ca7dade76967a6a11c05769bfbef6f8c4",
+    "lean/NoFourMUBs/Reuse/Archive/CriticalStripPhysical.lean": "0e726f519d28a449b1895952067a44a422c9c31e7f51ae64b1656dc8762b5731",
+    "lean/NoFourMUBs/Reuse/Archive/CriticalZeroModuli.lean": "adb9a0e0600c91150736a23effaee302fb77ac2a957261953495f544df1b40cc",
+    "lean/NoFourMUBs/Step2/CriticalZero/LeadingScalarPremises.lean": "14a07425f314b81be1cdde425235a6647b35b5e87004798e6eee96731b20901f",
+    "lean/NoFourMUBs/Reuse/Archive/CriticalScalarReduction.lean": "ba71032fa04f819af8d6aa18edecfe7fbe5ae1fbaf367ffab918a8997df98fa2"
+  },
+  "index_pins": {
+    "audit/ARCHIVE_IMPORT_INDEX.json": "4f3d7d6f8a9949a13c3c8fc65fe3d5c098f18a2efd4f0c0985f237ada38a4f4f",
+    "audit/ARCHIVE_SOURCE_INDEX.jsonl": "e56835aafa2eee86f3e3a340cabbd4d891e4044661ecfb6902a255ebe62ab323",
+    "audit/ARCHIVE_BLOB_INDEX.jsonl": "8a124c5d9477fa048eb28a0be4c77a82b4d4c374e8861a60d85b355a1de73a26",
+    "audit/upstream_repository/archive/long_proof/Lean/SOURCE_INDEX.jsonl": "e56835aafa2eee86f3e3a340cabbd4d891e4044661ecfb6902a255ebe62ab323",
+    "audit/upstream_repository/archive/long_proof/Lean/BLOB_INDEX.jsonl": "8a124c5d9477fa048eb28a0be4c77a82b4d4c374e8861a60d85b355a1de73a26",
+    "audit/upstream_repository/archive/long_proof/Lean/IMPORT_INDEX.json": "4f3d7d6f8a9949a13c3c8fc65fe3d5c098f18a2efd4f0c0985f237ada38a4f4f"
+  },
+  "findings": [
+    "Reuse Hadamard6.four_unit_sum_zero_pairs directly with the fourth phase equal to minus the unit sum. The existing phaseTriple_sum_one_containing_one already assumes the distinguished entry, so it does not establish its existence.",
+    "The other exact query hits in UnitTripleBounds and Radius01PositiveAnchor prove estimates near small sums; their hypotheses/conclusions do not give the p=7 correlations and aligned entries. Canonical283 contains no unit-triple normalization theorem.",
+    "No p=7 row-normalization endpoint was identified in the current, vendor, complete available archive corpus or OAI closure reviewed here and in the preceding endpoint reviews. Only necessary Fin3 and physical-model adapters are added.",
+    "Prove the two crossed-pair unit equations by normSq; no division by u+1 or 1-u, so the denominator-zero cases are included.",
+    "Reuse P7.normalized_strip_impossible, allCritical_candidate, existing dephase and finite permutation extension for physical transport. Do not reproduce the signed-corner contradiction, twenty-corner sum, or any atlas certificate.",
+    "Scalar-to-oriented-row conditions, ordering of the moduli and the global critical classification remain separate obligations until actually connected.",
+    "The crossed H2CoreAB result assumes H2CanonicalPresentation and equal phases, and PhaseAlignment is a Hilbert-distance estimate; neither gives these p=7 row equations.",
+    "Reuse CriticalCorrelationChart20261003.swap01_correlations, swap02_correlations and SameInvariants to order the moduli when needed. No existing swap12/all-critical-conjugation endpoint was identified; use current candidate with swap12 for the necessary orientation adapter.",
+    "The oriented row-step will take actual scalar unit correlations as input; it must not assume a pre-existing distinguished common column or preserved first-column normalization after an arbitrary row phase.",
+    "Reuse repeated_modulus_assignment for the full (1,1,5) allocation. Its general a,b,X,Y,Z statement applies directly. zero_modulus_root is specialized to a different zero-J cubic and cannot yield (1,1,5); add only its necessary p=7 specialization via a checked linear combination.",
+    "Reuse allCritical_scalar_premises and nonzero_reduction to obtain W=6 at p=7,J=2. K=5 remains an explicit candidate input; it must not be inferred merely from the existence of three moduli."
+  ],
+  "atlas_certification": false,
+  "compilation_status": "PASS",
+  "audit": "KERNEL_AUDIT_CRITICAL_P7_ROW_NORMALIZATION_STATUS.json",
+  "verified_utc": "2026-10-11T13:36:02.872727+00:00"
+}

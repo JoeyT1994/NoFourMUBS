@@ -1,0 +1,21 @@
+{
+  "scope": "matched_third_flatness",
+  "records": [
+    {
+      "module": "NoFourMUBs.Step2.Reconstruction.ThirdMoment.ConstantGramCancellation",
+      "active_path": "NoFourMUBs/Step2/Reconstruction/ThirdMoment/ConstantGramCancellation.lean",
+      "active_sha256": "e0b0f2403b5636d330b5c0a3c47e1ff3553f99eb98e1efe922c19149efcc9fbc",
+      "local_model_adapter": true
+    }
+  ],
+  "axiom_endpoints": [
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.oneConstant_adjugate"
+  ],
+  "dependency_audits": [
+    "KERNEL_AUDIT_MATCHED_THIRD_AFFINE_MATRICES_STATUS.json",
+    "KERNEL_AUDIT_MATCHED_THIRD_FORCED_COEFFICIENT_STATUS.json"
+  ],
+  "scope_note": "Cancel one Gram factor in the existing affine constant third-moment matrix before expanding seed phases. Only original side denominator nonzero guards. Original saved arrays unchanged; actual matrix bindings remain open.",
+  "new_numeric_certificate_arrays": 0,
+  "atlas_certification": false
+}

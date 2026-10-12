@@ -1,0 +1,42 @@
+{
+  "scope": "matched_discriminant",
+  "records": [
+    {
+      "module": "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.Discriminant",
+      "active_path": "NoFourMUBs/Step2/Reconstruction/BaseCoefficients/Discriminant.lean",
+      "active_sha256": "45d5e56b24e26451f14c0c668d847c010bf7392d97ae6dbf25ce9db09ecf1dfa",
+      "local_model_adapter": true,
+      "review": "MATCHED_DISCRIMINANT_REUSE_REVIEW.json"
+    }
+  ],
+  "dependency_pins": [
+    {
+      "active_path": "NoFourMUBs/Step2/Reconstruction/BaseCoefficients/Centered.lean",
+      "active_sha256": "0a74257b9c2fc64e57046f9abef7ee87e7bd308b889f3528ef52b5550f13162f"
+    },
+    {
+      "active_path": "NoFourMUBs/Step2/Reconstruction/RowProductRelations.lean",
+      "active_sha256": "3f3fdb13ccc279c14142c125d10790c01473e069316f18b777f939ed309a086e"
+    },
+    {
+      "active_path": "NoFourMUBs/Step2/Reconstruction/MatchedSides.lean",
+      "active_sha256": "c1e79372a8c993e0f1bf45658f0e96aedced94c8a62d0fdd61ed2073c660c9a9"
+    },
+    {
+      "active_path": "NoFourMUBs/Step2/Reconstruction/FourierSignature.lean",
+      "active_sha256": "e1bb3526dd76e880c951dd058aa333383c15eda4e0867bea2a62a6daaf73eae1"
+    }
+  ],
+  "dependency_audits": [
+    "KERNEL_AUDIT_MATCHED_CENTERED_PRODUCT_STATUS.json",
+    "KERNEL_AUDIT_MATCHED_PRODUCT_RELATIONS_STATUS.json",
+    "KERNEL_AUDIT_SIGNED_SIDES_PATH_PINS.json"
+  ],
+  "axiom_endpoints": [
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.candidate_product_quadratic",
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.cached_discriminant_of_candidate",
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.cached_discriminant_strict",
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.cached_omega_strict"
+  ],
+  "atlas_certification": false
+}

@@ -1,0 +1,33 @@
+{
+  "status": "REVIEWED_REUSE_LINEAR_QUOTIENT_HELPER_FOR_CONSTANT_SUM",
+  "reviewed_utc": "2026-10-12T03:48:29.797164+00:00",
+  "search": "MATCHED_THIRD_CONSTANT_RATIONAL_REUSE_SEARCH.json",
+  "source_pins": [
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/LinearRational.lean",
+      "sha256": "eac242afa1219779973ecb0e2c9e558c6772aa93f9938e637a213e47a5891f8a"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/Sums/ClearedSum01.lean",
+      "sha256": "3d6a43bf3267751f7d7de5e48c56705c24c15ede08765527cd39e72fbc6f4d7c"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/DenominatorGram.lean",
+      "sha256": "9c1c562c944efb13cb4dfe03a30ecbe74c4208669b53ae40f9e7c2ef0f726b80"
+    },
+    {
+      "path": "lean/NoFourMUBs/Reuse/Archive/CriticalZeroSumCleared.lean",
+      "sha256": "a73f9c7be9b6c6f08b984a061affbdc98ced34876865462f0c83d8d75e700c9c"
+    }
+  ],
+  "comparisons": [
+    "LinearRational.quotient_of_cofactor already proves the generic fraction identity over any field. Import it without creating another lemma.",
+    "Existing ClearedSum01_value states that the ten original cleared constant summands add to zero. P031_strict_ne_zero covers the full StrictSeed domain.",
+    "Select the original summand-to-product pairs from the supplied packet and require current PASS receipts for all of them before emitting or claiming the rational constant proof. Eight product checks are still pending at review time.",
+    "All original constant numerator/denominator scale pairs match; denScale*cofactorScale=80 equals the common denominator scale. The raw product identities have scale1. Do not change or regenerate any array.",
+    "The actual matrix bindings remain separate; this assembly proves only the saved rational sum.",
+    "CriticalZeroSumCleared.computedNumerator_eq_terms and its cleared-sum lemmas are specialized to the critical proof in X,Y,z and66moment terms. They do not supply a smaller adapter for the ten W11 rational fractions; use the existing generic quotient_of_cofactor result directly."
+  ],
+  "new_numeric_arrays": 0,
+  "atlas_certification": false
+}

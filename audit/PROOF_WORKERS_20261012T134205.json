@@ -1,0 +1,37 @@
+{
+  "jobs": [
+    {
+      "name": "linear_binding02",
+      "pid": 3952,
+      "argv": [
+        "/usr/local/bin/python3",
+        "-u",
+        "audit/run_third_moment_adapter.py",
+        "MATCHED_THIRD_LINEAR_BINDING02",
+        "--lane",
+        "semantic",
+        "--wait-for-lane"
+      ],
+      "log": "audit/worker_logs/linear_binding02_20261012T134205.log",
+      "started_utc": "2026-10-12T13:42:05.362860+00:00",
+      "atlas_certification": false
+    },
+    {
+      "name": "denominator_constant02",
+      "pid": 3953,
+      "argv": [
+        "/usr/local/bin/python3",
+        "-u",
+        "audit/run_third_moment_adapter.py",
+        "MATCHED_THIRD_DENOMINATOR_CONSTANT02",
+        "--lane",
+        "semantic",
+        "--wait-for-lane"
+      ],
+      "log": "audit/worker_logs/denominator_constant02_20261012T134205.log",
+      "started_utc": "2026-10-12T13:42:05.364079+00:00",
+      "atlas_certification": false
+    }
+  ],
+  "atlas_certification": false
+}

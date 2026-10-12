@@ -1,0 +1,79 @@
+{
+  "status": "PASS",
+  "checked_utc": "2026-10-11T06:53:36.021262+00:00",
+  "modules": 4,
+  "axiom_endpoints": {
+    "NoFourMUBs.Step2.Critical.NonzeroClearing.side_conjugates": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.NonzeroClearing.star_algebraMap_fixed": [
+      "propext",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.NonzeroClearing.moment_conjugates": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.NonzeroClearing.pairedCoefficient_as_quadMoment": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.NonzeroClearing.pairedCoefficient_conjugate": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.NonzeroClearing.program66_conjugate": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.NonzeroClearing.sumCoefficients_b_zero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.allCritical_nonzero_a_zero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.NonzeroClearing.opposite_involutive": []
+  },
+  "source_hashes": {
+    "NoFourMUBs/Step2/CriticalZero/NonzeroSideInvolution.lean": "6cb7e2752e10114b3f9ffd39ddf2a6d106cefa5f5fb67ba807a0321f659e5d2b",
+    "NoFourMUBs/Step2/CriticalZero/NonzeroMomentInvolution.lean": "14115fb54c750f14132ae82da49f7634d52a30d153813750f5dd9250cefc2088",
+    "NoFourMUBs/Step2/CriticalZero/NonzeroProgramInvolution.lean": "24676af2adbb68e60f1b2625fd4cb5a023289392ce6d6b8c3939e84416f5ee70",
+    "NoFourMUBs/Step2/CriticalZero/ActualNonzeroCoefficientZero.lean": "d5eb85831681fb47e940d6ad429d93d0db692f6345a3679ff17b9d6c36d9b575"
+  },
+  "existing_dependency_pins": {
+    "NoFourMUBs.Step2.CriticalZero.NonzeroQuadAlgebra": {
+      "active_path": "NoFourMUBs/Step2/CriticalZero/NonzeroQuadAlgebra.lean",
+      "active_sha256": "3cc35f4c2c1c5d497c1e931f88d93768d7c26469c28778558f10d5e0de9e8482"
+    },
+    "NoFourMUBs.Reuse.Archive.CriticalNonzeroQuadSide": {
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalNonzeroQuadSide.lean",
+      "active_sha256": "04f170268e01d6c061310e89742b4d0ef5b5c2b742b7c9f1a59b6c397ebb5122"
+    },
+    "NoFourMUBs.Reuse.Archive.CriticalNonzeroMomentInterface": {
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalNonzeroMomentInterface.lean",
+      "active_sha256": "d6cbe37b256ff1131fbaa82923126413fd9f711d477c3163069b710174a59854"
+    },
+    "NoFourMUBs.Reuse.Archive.CriticalNonzeroCoefficientProgram": {
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalNonzeroCoefficientProgram.lean",
+      "active_sha256": "a31e3a113b7fd463b35c0066c508d1d6c9d98d928bc99d2700a8a4a8ff8d235e"
+    },
+    "NoFourMUBs.Step2.CriticalZero.ActualNonzeroCoefficients": {
+      "active_path": "NoFourMUBs/Step2/CriticalZero/ActualNonzeroCoefficients.lean",
+      "active_sha256": "a7955ba1be6b302f8bb8e52b853ea9024d65d4c68a6c9050fbca0c209e0e97b8"
+    }
+  },
+  "build_status": "CRITICAL_NONZERO_INVOLUTION_BUILD_STATUS.json",
+  "scope": "Structural conjugation proves sumCoefficients.b=0 for nonzero X,Y. Existing actual physical equation then supplies sumCoefficients.a=0, retaining six physical nonpole guards.",
+  "remaining": "Constant coefficient times the pinned common denominator still needs identification with the raw numerator; raw-to-reduced trace, classification and matched completion remain open.",
+  "atlas_certification": false
+}

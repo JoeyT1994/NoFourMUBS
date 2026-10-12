@@ -1,0 +1,4 @@
+import NoFourMUBs.Step2.Reconstruction.ThirdMoment.ConstantImageReduction
+
+#check NoFourMUBs.Step2.Reconstruction.ThirdMoment.seedImageConstant_reduced
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.seedImageConstant_reduced

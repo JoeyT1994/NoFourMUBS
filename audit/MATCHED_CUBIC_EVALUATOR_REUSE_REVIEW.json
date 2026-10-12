@@ -1,0 +1,39 @@
+{
+  "status": "REVIEWED_SAME_QUADRATIC_BY_CUBIC_EVALUATOR",
+  "scope": "matched_cubic_evaluator",
+  "checked_utc": "2026-10-11T19:20:28.116905+00:00",
+  "repository_head": "fd7d1019fa4a7f3551bf9ade5d31ebbce9501055",
+  "search": "MATCHED_CUBIC_EVALUATOR_REUSE_SEARCH.json",
+  "source_pins": {
+    "lean/NoFourMUBs/Reuse/Archive/CriticalMomentQuad.lean": "1408c2169bd58005fbe77872fe1cb7be3ea6c2670e0c51a305ac620afa0bce05",
+    "lean/NoFourMUBs/Reuse/Archive/CriticalZeroSumCoefficientOps.lean": "dbac17d85ee200ee769b6f82f9397efb4eb6bb3a17bf3ce6046957c574ccc4a3",
+    "lean/vendor/hadamard6/Hadamard6/QuotientAlgebra.lean": "e771892e157ec91624d5fe1dada562bb43651696a673e0bc4fb08c5c640b03ed",
+    "lean/NoFourMUBs/Step2/Reconstruction/EntryCompanion.lean": "d1849acb23e557ce8a0f41543b0ea41855a4f2fd98829b0a7e743320aefbe468",
+    "audit/diagnose_matched_universal_norm.py": "c21aceafa1d62db446c7b20efc4003c482be3a47e838458575ad9f83ac64cd8d",
+    "audit/diagnose_matched_moment_norm.py": "071cc62d29c6aa271b2996d422fbef08665b62a5313edaccd125e97cdf56ce28"
+  },
+  "comparisons": [
+    {
+      "existing": "CriticalMomentQuad20261003.Quad, eval_mul and eval_pow",
+      "reuse": "Use literally the checked quadratic coefficient type and evaluator. Do not build another quadratic algebra or assume its root polynomial irreducible."
+    },
+    {
+      "existing": "CriticalZeroSumAssembly20261003.Coefficients.eval_mul",
+      "difference": "Ordinary commutative-ring polynomial-list convolution. It does not reduce by the actual cubic relation, and Quad has no CommRing instance; retain for existing integer certificates, do not duplicate or change it."
+    },
+    {
+      "existing": "Hadamard6.QuotientAlgebra and current EntryCompanion",
+      "reuse": "The existing eliminant is the actual companion equation, and side_entry_cubic supplies the actual cubic relation. No side existence or Haagerup result is reproved."
+    },
+    {
+      "existing": "Original Cubic.__mul__ in diagnose_matched_universal_norm.py",
+      "adapter": "Encode the same three quadratic coefficients and the exact degree4 then degree3 reduction. Prove evaluation under precisely the existing quadratic and cubic equations. The cached norm arithmetic itself is still not certified."
+    },
+    {
+      "existing": "CubicRoots, FourierCubicClassification and OAI Cubic files",
+      "difference": "Special cube-root matrix classifications, not an evaluator of the forced-row companion calculation."
+    }
+  ],
+  "limits": "Generic evaluation interface only. Does not prove original norm coefficients or generic nonzero/density obligations. No coverage claim for unavailable or unshared work.",
+  "atlas_certification": false
+}

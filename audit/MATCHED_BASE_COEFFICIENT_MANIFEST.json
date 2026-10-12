@@ -1,0 +1,74 @@
+{
+  "scope": "matched_base_coefficients",
+  "records": [
+    {
+      "module": "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.Data",
+      "active_path": "NoFourMUBs/Step2/Reconstruction/BaseCoefficients/Data.lean",
+      "active_sha256": "8762870b591931264431f85658053b7ce1496ae35d318f036f34d5b02656f170",
+      "local_model_adapter": true,
+      "review": "MATCHED_BASE_COEFFICIENT_REUSE_REVIEW.json"
+    },
+    {
+      "module": "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.C6",
+      "active_path": "NoFourMUBs/Step2/Reconstruction/BaseCoefficients/C6.lean",
+      "active_sha256": "e8f3730ef60eedcdd4c7d1f1991d8737d3a72473d6cfb8a2ee9c41ade6021a5b",
+      "local_model_adapter": true,
+      "review": "MATCHED_BASE_COEFFICIENT_REUSE_REVIEW.json"
+    },
+    {
+      "module": "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.U",
+      "active_path": "NoFourMUBs/Step2/Reconstruction/BaseCoefficients/U.lean",
+      "active_sha256": "9ed07dadb5d58e92835585586474daaac41d4c79be133f5127899eae38e966b9",
+      "local_model_adapter": true,
+      "review": "MATCHED_BASE_COEFFICIENT_REUSE_REVIEW.json"
+    },
+    {
+      "module": "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.V",
+      "active_path": "NoFourMUBs/Step2/Reconstruction/BaseCoefficients/V.lean",
+      "active_sha256": "e9aae02e166e83000ea9d98efae3440272779f886663617f85b13beb3841a825",
+      "local_model_adapter": true,
+      "review": "MATCHED_BASE_COEFFICIENT_REUSE_REVIEW.json"
+    },
+    {
+      "module": "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.Checked",
+      "active_path": "NoFourMUBs/Step2/Reconstruction/BaseCoefficients/Checked.lean",
+      "active_sha256": "ffb30122284cabfc33746fd802aeaf42d85a714ca3860a8993853bec0098b1ef",
+      "local_model_adapter": true,
+      "review": "MATCHED_BASE_COEFFICIENT_REUSE_REVIEW.json"
+    }
+  ],
+  "axiom_endpoints": [
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.clearedC6",
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.clearedU",
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.clearedV"
+  ],
+  "dependency_pins": [
+    {
+      "active_path": "NoFourMUBs/Reuse/Archive/PreRhoAlignmentDefs.lean",
+      "active_sha256": "9636d93b3569b9dccb1f8571d9c4ff51895ad0dd19165c1772184d2bad8dfa76"
+    },
+    {
+      "active_path": "NoFourMUBs/Reuse/Archive/PreRhoNormDefs.lean",
+      "active_sha256": "7d8b0f0ea546a9ad1b5223f4ba347da654c9316860edcd9e564c8f5f131e75d1"
+    },
+    {
+      "active_path": "NoFourMUBs/Reuse/Archive/PreRhoActualBindings.lean",
+      "active_sha256": "95bd24d7140b39595e579e0c45b39df1533f43902380f4534c81c07e93e89caa"
+    },
+    {
+      "active_path": "NoFourMUBs/Reuse/Archive/PreRhoNormBindings.lean",
+      "active_sha256": "2dc366315b498ad9dd3de167f804d26eecbe943704d6f79977edd523e4bd3ef1"
+    },
+    {
+      "active_path": "NoFourMUBs/Step2/Reconstruction/RowProductSignature.lean",
+      "active_sha256": "1c94b70a0b87dacc3199c544cad22766ce194d4441ba16a940119eb9d749f83a"
+    },
+    {
+      "active_path": "NoFourMUBs/Step2/Reconstruction/EntryCompanion.lean",
+      "active_sha256": "d1849acb23e557ce8a0f41543b0ea41855a4f2fd98829b0a7e743320aefbe468"
+    }
+  ],
+  "dependency_audits": [],
+  "atlas_certification": false,
+  "scope_note": "Exact cached base U,V,c6 coefficients only; universal norm still open."
+}

@@ -1,0 +1,52 @@
+{
+  "status": "REVIEWED_FOR_SYMMETRY_ADAPTER",
+  "checked_utc": "2026-10-12T00:56:28.957899+00:00",
+  "repository_commit": "4d757de5d30330fab3583677b9a38b284b586b22",
+  "search": "MATCHED_THIRD_SYMMETRY_REUSE_SEARCH.json",
+  "comparisons": [
+    {
+      "existing": "AnchorTransport.sideSignature_submatrix and move_invariants, AnchorOrbit.mR12/mC12",
+      "decision": "Reuse signature and strict-domain invariance. matched_move itself assumes an already Hadamard completion and cannot prove pre-flatness; add only candidate-block permutation transport."
+    },
+    {
+      "existing": "Mathlib.inv_submatrix_equiv, submatrix_mul_equiv, isUnit_submatrix_equiv and isUnit_iff_isUnit_det",
+      "decision": "Reuse to prove the forced block is unchanged when the seed and its side rows/columns are relabelled; weighted defects get the corresponding row/column relabelling."
+    },
+    {
+      "existing": "WeightedDefect.forcedD_entrywiseUnit_of_four_weighted_defects",
+      "decision": "Reuse the already checked four-entry criterion. If the new symmetry adapter checks, it will suffice to prove the universal W11 identity and use swaps to discharge W12,W21,W22."
+    }
+  ],
+  "source_pins": [
+    {
+      "path": "lean/NoFourMUBs/Step2/AnchorTransport.lean",
+      "sha256": "7c189a09c481bd57ae651afd1eee094aacfab73451611d73a4e23f0e2a1384a5"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step1/AnchorOrbit.lean",
+      "sha256": "bbdb345790d3106611b39d6348a323ae65c7ea0198ef2c3e45afa62dd6473070"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/WeightedDefect.lean",
+      "sha256": "69d7a3f21ecea6ef5d5cb3ec1d618d2ef9864ec982983eafb591b28452cfe5bf"
+    },
+    {
+      "path": "lean/vendor/hadamard6/Hadamard6/FiniteDilation.lean",
+      "sha256": "81bf8e0002e08ef0f69ab59f2b66071eb38b6fe595ae8bcd95dabea75a7fb627"
+    },
+    {
+      "path": "lean/.lake/packages/mathlib/Mathlib/LinearAlgebra/Matrix/NonsingularInverse.lean",
+      "sha256": "1ee785b6ebd213ad2ed971bf3c804afee8cc6ce52be69e63572b4cf1bdb5e880"
+    },
+    {
+      "path": "lean/.lake/packages/mathlib/Mathlib/Data/Matrix/Mul.lean",
+      "sha256": "9ce6ecd0751e977f58fc47d6f271dff381e59868474a6955730ff07a99aa0e6b"
+    }
+  ],
+  "not_claimed": [
+    "symmetry adapter compiled",
+    "remaining six coefficient identities retired",
+    "W11 actual rational identities proved"
+  ],
+  "atlas_certification": false
+}

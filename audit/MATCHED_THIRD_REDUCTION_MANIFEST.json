@@ -1,0 +1,29 @@
+{
+  "scope": "matched_third_flatness",
+  "records": [
+    {
+      "module": "NoFourMUBs.Step2.Reconstruction.ThirdMoment.Reduction",
+      "active_path": "NoFourMUBs/Step2/Reconstruction/ThirdMoment/Reduction.lean",
+      "active_sha256": "2d719b0d0467ebba5795f8574c65f93d190c109c17629bc681bd9d4dd3924a5f",
+      "local_model_adapter": true,
+      "review": "MATCHED_THIRD_FLATNESS_REUSE_REVIEW.json"
+    }
+  ],
+  "axiom_endpoints": [
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.intrinsicTheta_quadratic",
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.paired_affine_entry",
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.paired_affine_contraction",
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.sandwich_affine"
+  ],
+  "dependency_audits": [
+    "KERNEL_AUDIT_MATCHED_THIRD_INTRINSIC_AFFINE_STATUS.json"
+  ],
+  "dependency_pins": [
+    {
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalMomentQuad.lean",
+      "active_sha256": "1408c2169bd58005fbe77872fe1cb7be3ea6c2670e0c51a305ac620afa0bce05"
+    }
+  ],
+  "scope_note": "Actual intrinsic quadratic and exact reduction to the two saved residual coefficients, reusing the existing quadratic evaluator. No certificate identity or atlas assumed proved.",
+  "atlas_certification": false
+}

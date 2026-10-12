@@ -60,7 +60,7 @@ theorem side_identities {x y : Fin 3 → ℂ} (hx : ∀ j, Complex.normSq (x j) 
   have k0 := ny 0; have k1 := ny 1; have k2 := ny 2
   simp only [cR, P0, P1, P2, gS, Complex.ofReal_sub, Complex.ofReal_add, Complex.ofReal_mul,
     Complex.ofReal_ofNat, Complex.re_eq_add_conj, ← Complex.mul_conj]
-  simp only [sS, rS, uS, hS, piS, map_add, map_sub, map_mul, map_pow, map_ofNat,
+  simp only [sS, rS, uS, hS, piS, map_add, map_sub, map_mul, map_neg, map_pow, map_ofNat, Complex.conj_conj,
     cx, cy, map_inv₀, inv_inv]
   refine ⟨?_, ?_, ?_, ?_⟩ <;> (field_simp; ring)
 
@@ -70,7 +70,7 @@ lemma lam_eq {u v π h : ℂ} {c : ℝ} {P : ℂ} (hh : h ≠ 0) (a : ℂ)
     (I : h ^ 2 = u * v * (c : ℂ) * conj π - a * conj P) :
     (-a * conj h / h) * conj P = h * conj h + c * conj ((-π * h ^ 2 * conj u * conj v) / (h * conj h)) := by
   have hc : conj h ≠ 0 := (map_ne_zero _).mpr hh
-  simp only [map_div₀, map_mul, map_neg, map_pow, Complex.conj_conj]
+  simp only [map_div₀, map_mul, map_neg, map_pow, Complex.conj_conj, Complex.conj_ofReal]
   field_simp
   linear_combination (-1 : ℂ) * I
 

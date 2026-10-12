@@ -1,0 +1,18 @@
+{
+  "status": "REVIEWED_MISSING_INTERMEDIATE_PRODUCT",
+  "checked_utc": "2026-10-11T10:35:34.805810+00:00",
+  "prior_full_corpus_review": "CRITICAL_NONZERO_SUM_DAG_REUSE_REVIEW.json",
+  "reuse": "Existing BinaryCertificate.binary_eval_eq and CoefficientAt.mulAt supply the checker and soundness. Reuse all input expression interpretations. New arrays are untrusted until every coefficient checks.",
+  "duplicate_check": "The selected intermediate has nonzero degree69 in k; every polynomial in the533node reused moment DAG has degree at most48. It cannot be any of those existing intermediates. Original raw numerator and moment arrays remain untouched.",
+  "source_pins": {
+    "audit/CRITICAL_NONZERO_SUM_DAG_REUSE_REVIEW.json": "54389be1f2463889a19112e610459217a9b807da8aabe41df73ef56190f4608a",
+    "audit/CRITICAL_NONZERO_SUM_DAG.json": "619968b18d8712cf00eae3dc7a5a97e394698199b50ec921318b629affafc7fc",
+    "audit/CRITICAL_NONZERO_SUM_DAG_DIAGNOSTIC.json": "7f9e1eba5dd870dd8970b838745efae064c9e2176d12fc5bbc2331f269f33220",
+    "audit/CRITICAL_NONZERO_P2P2_EXPRESSION_DAG.json": "44122d3c6aa017024b83c2d76f35e5958938d4852d9d14d50c999a368f5b8618",
+    "lean/NoFourMUBs/Reuse/Archive/CriticalZeroSumBinaryCertificate.lean": "1b0aa20b70be2198d9ebd75ea58c52ed89b661518049027e586b16680d0ac2cc",
+    "lean/NoFourMUBs/Reuse/Archive/CriticalZeroSumCoefficientAt.lean": "4e4ed861b02268c234a5c3be7114dfb3ac0a01bda3ca3a468a8bb209e34d5922"
+  },
+  "atlas_certification": false,
+  "factor_sharing": "The first nested coefficient pilot was stopped after approximately2minutes per middle coefficient. Preserve its target array and passed coefficient0. Nodes17 and19 have308/96nonzero terms; exact comparison against all533old nodes finds no duplicate. Prove these two small polynomial expansions with the existing ring tactic, then use the existing binary checker on their arrays.",
+  "factor_reuse_diagnostic": "CRITICAL_NONZERO_SUM_FACTOR_REUSE_DIAGNOSTIC.json"
+}

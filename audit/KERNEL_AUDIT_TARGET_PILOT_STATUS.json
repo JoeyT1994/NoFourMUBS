@@ -1,0 +1,26 @@
+{
+  "status": "KERNEL_AND_AXIOM_AUDIT_PASS",
+  "checked_utc": "2026-10-10T20:14:29.262826+00:00",
+  "returncode": 0,
+  "log": "KERNEL_AUDIT_TARGET_PILOT.log",
+  "log_sha256": "8292d10b76287367e1b4b8c515a39904b5b5b7bbf88307f6487b50bd69126932",
+  "audit_source": "PhysicalTargetAudit.lean",
+  "audit_source_sha256": "fdebba03e1bb0e924137cd140d14a14bf5e592238ff4813ac933c76337bd92a2",
+  "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "file_hashes": {
+    "MomentExponentData.lean": "c3b5530c9bced5b39e9cbb1482e04cf239e6ca6ca5693530ff3a69d4d258e59b",
+    "SignatureLaurent.lean": "8b979d728b4726b947ce2f3021ef3124a593f553a3b4f763a67134a173ac3bcb",
+    "ComplementaryMoments.lean": "90def272edf853612995fef395f4af2c9f0d2af97552831ee25c917c32ddc67f",
+    "TargetFrames.lean": "b4dd0e8281c68e1bf218cd76753c2493667a687760429b19e2f24488adc18dbd",
+    "DefectMoments.lean": "e19ff52bd28bdd5836d62cb9a0462204c4c1c377a9b49ea537c0f20b3374120b",
+    "PhysicalTarget.lean": "398eb03d4d1711841b4120c2afb68547928968df2857c5d468af0f5550096e79",
+    "TargetProjectionTerms.lean": "acb3ff2dbc0106cfb1a0a83b43f47caa78b47c1ee0e7c1f962c77ec5b24e5cdf",
+    "TargetTail.lean": "bcc322a839266479cefbd8315b95a49b8ba7744ce694e028d17e7d3540a14e85",
+    "TargetPsiRow16.lean": "d5ceadd1a59cf08992afaeacdb9646c93dd7736b38b0885e9f8ef1235086e9b5"
+  },
+  "scope": "Current physical expansion, target constant/cubic tail and complete55term TargetPsiRow16. Other88targetrows and final SOS assembly remain pending. Main theorem explicitly retains AtlasCertificate, MatchedExistence, ConditionalSOS and CriticalClassification."
+}

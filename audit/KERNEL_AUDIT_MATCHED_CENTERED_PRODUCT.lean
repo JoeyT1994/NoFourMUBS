@@ -1,0 +1,10 @@
+import NoFourMUBs.Step2.Reconstruction.BaseCoefficients.Centered
+
+#check NoFourMUBs.Step2.Reconstruction.BaseCoefficients.candidate_product_centered
+#print axioms NoFourMUBs.Step2.Reconstruction.BaseCoefficients.cachedDelta_eq
+#print axioms NoFourMUBs.Step2.Reconstruction.BaseCoefficients.cachedDelta_seed
+#print axioms NoFourMUBs.Step2.Reconstruction.BaseCoefficients.cachedC6_strict
+#print axioms NoFourMUBs.Step2.Reconstruction.BaseCoefficients.cachedU_seed
+#print axioms NoFourMUBs.Step2.Reconstruction.BaseCoefficients.cachedV_seed
+#print axioms NoFourMUBs.Step2.Reconstruction.BaseCoefficients.candidate_intrinsic_correlations
+#print axioms NoFourMUBs.Step2.Reconstruction.BaseCoefficients.candidate_product_centered

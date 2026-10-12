@@ -1,4 +1,5 @@
 import NoFourMUBs.Basic
+import Hadamard6.TaoOrbit
 
 /-!
 # The skeleton of the minimal proof

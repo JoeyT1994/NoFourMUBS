@@ -1,0 +1,79 @@
+{
+  "status": "PASS",
+  "reviewed_utc": "2026-10-11T04:19:06.352777+00:00",
+  "scope": "Reuse the archived physical rechart covering zero original correlations at regular zero-J points; use the checked current AllCritical equivalence transport. No global classification or quartet exclusion.",
+  "search_evidence": "Full archive/source/blob indexes and current/vendor Lean searched. CriticalCorrelationCore, both CriticalCorrelationRechart variants, CriticalZeroChartTransport and legacy CriticalCornerPhysical inspected. OAI existing dephase, phase/column preservation, equivalence transitivity and unit inverse proofs supply normalization.",
+  "sources": {
+    "CriticalCorrelationCore": "1b1858c2851ca0a306aebc8e3c82a39e0beaf80589b13d068d20e9956c995911",
+    "CriticalCorrelationRechart": "de782778df3672ddde40a269dd803dea293869bfd575acd7589de02d350fb993",
+    "CriticalZeroChartTransport": "40d1cea9e383a50ce2abbd351db5aa64a3efb6836978832ff7d09faac2f426fa"
+  },
+  "model_adapter": "candidate is OAI.dephase after permutations. Normalization/equivalence come from current OAI proofs; allCritical preservation from checked Equivalence.lean. No legacy global-max or canonical-corner route is imported.",
+  "variant_resolution": "de7827 omits the final ring now closed by simp in swap02; earlier46430b gave No goals to be solved. Both archived variants reviewed; exact statements unchanged.",
+  "omissions": [
+    "Replace archived row_candidate_entry and candidate_monomial_equivalent model proofs by the necessary current OAI model adapter.",
+    "Omit the unrelated rechart_preserves_quartet_occurrence endpoint; critical classification does not require it."
+  ],
+  "atlas_certification": false,
+  "omitted_blocks": [
+    {
+      "module": "CriticalCorrelationRechart",
+      "start": "/-- The column permutation is the identity.",
+      "stop_before": "/-- Literal oriented correlations for the swap 0,1,",
+      "original_block_sha256": "e0945a14ba3f0b2cb79853098b82a28008756d392a83568fae2a60df076ba368"
+    },
+    {
+      "module": "CriticalCorrelationRechart",
+      "start": "#print axioms row_candidate_entry\n#print axioms candidate_monomial_equivalent\n",
+      "stop_before": null,
+      "original_block_sha256": "896a325c8e9e11369492c19fdb0d9a4ffd2b8b8e03f3f46311a726b5219e6e93"
+    },
+    {
+      "module": "CriticalZeroChartTransport",
+      "start": "/-- The actual quartet-edge predicate",
+      "stop_before": "/-- Nonzero J needs no relabeling",
+      "original_block_sha256": "3497d46812b27d2e8c7d73ee2d7a2b7a96de734112dfbe4887c215cf4babebd0"
+    },
+    {
+      "module": "CriticalZeroChartTransport",
+      "start": "#print axioms rechart_preserves_quartet_occurrence\n",
+      "stop_before": null,
+      "original_block_sha256": "b6e73af79c46e92f9bde3c81ad2cb58f89b37db28a0b95209d91b646fcc16658"
+    }
+  ],
+  "model_identifier_replacements": {
+    "CompactCover.Mat6": "OAI.MUB6.CMatrix",
+    "CompactCover.Mat3": "Hadamard6.Mat3",
+    "AllCritical": "AllCriticalCarrier",
+    "PhaseHadamard": "OAI.MUB6.IsHadamard",
+    "MonomialEquivalent": "OAI.MUB6.Equivalent",
+    "GoodMinor.front": "NoFourMUBs.Step2.Critical.front",
+    "CompactCover.unit_mul_star": "NoFourMUBs.Side.unit_mul_conj"
+  },
+  "local_adapter": {
+    "module": "NoFourMUBs.Step2.CriticalZero.RechartModel",
+    "active_path": "NoFourMUBs/Step2/CriticalZero/RechartModel.lean",
+    "active_sha256": "7ba67fb8000833df557e18483a1745590ed57812a033c995c810ef9b9f9928b1",
+    "after_archived_module": "CriticalCorrelationCore"
+  },
+  "existing_dependencies": {
+    "NoFourMUBs.Reuse.Archive.CriticalMomentBinding": {
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalMomentBinding.lean",
+      "active_sha256": "7cb6f10d9381e82738d0c83ed5ece66dc262cc4f7502874435196a49d7a99dc7"
+    },
+    "NoFourMUBs.Reuse.Archive.CriticalStripPhysical": {
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalStripPhysical.lean",
+      "active_sha256": "0e726f519d28a449b1895952067a44a422c9c31e7f51ae64b1656dc8762b5731"
+    },
+    "NoFourMUBs.Reuse.Archive.CriticalStripNewton": {
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalStripNewton.lean",
+      "active_sha256": "2002e0a4f2c778a6e993e3814d2937ec69d024987770793be0753f4c4bf1f60c"
+    }
+  },
+  "manifest": "CRITICAL_RECHART_REUSE_MANIFEST.json",
+  "compatibility_fix": "Two original unit-multiplication rewrites now use simp only [Complex.star_def, existing unit_mul_conj, mul_one]. RechartModel also uses Complex.star_def. No algebraic data or hypotheses change.",
+  "failure_log": "critical_rechart_build_status_logs/batch_0003.log",
+  "checked_utc": "2026-10-11T04:28:15.145150+00:00",
+  "axiom_type_audit": "KERNEL_AUDIT_CRITICAL_BRANCHES.log",
+  "pass_evidence": "KERNEL_AUDIT_CRITICAL_BRANCHES_STATUS.json"
+}

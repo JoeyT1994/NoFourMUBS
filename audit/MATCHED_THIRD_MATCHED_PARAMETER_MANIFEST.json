@@ -1,0 +1,70 @@
+{
+  "scope": "matched_third_flatness",
+  "records": [
+    {
+      "module": "NoFourMUBs.Reuse.Archive.SideIntrinsicTransposeBindings",
+      "active_path": "NoFourMUBs/Reuse/Archive/SideIntrinsicTransposeBindings.lean",
+      "active_sha256": "43e9b16e8641bef7c06cf57715a676e4f611a5a60b14de9af4e42c707f03d638",
+      "review": "MATCHED_THIRD_PARAMETER_REUSE_REVIEW.json",
+      "archived_source": "audit/upstream_repository/archive/long_proof/Lean/blobs/5b/5b6bc034d56cfd834306ebbb86b4324900235724af98967febd34d8ba2b2f680/SideIntrinsicTransposeBindings.lean",
+      "archived_sha256": "5b6bc034d56cfd834306ebbb86b4324900235724af98967febd34d8ba2b2f680",
+      "changes": "Import prefixes only"
+    },
+    {
+      "module": "NoFourMUBs.Reuse.Archive.SideIntrinsicTransposeInvariants",
+      "active_path": "NoFourMUBs/Reuse/Archive/SideIntrinsicTransposeInvariants.lean",
+      "active_sha256": "bfaf3e24e7757a36155a18e57ff1a5654cdba2848ede4ee82226fdeef480098a",
+      "review": "MATCHED_THIRD_PARAMETER_REUSE_REVIEW.json",
+      "archived_source": "audit/upstream_repository/archive/long_proof/Lean/blobs/8e/8e19e25653307d3e6c18bd4b8b46dccdde0f30a2728efa3e74b29b5b75a9c705/SideIntrinsicTransposeInvariants.lean",
+      "archived_sha256": "8e19e25653307d3e6c18bd4b8b46dccdde0f30a2728efa3e74b29b5b75a9c705",
+      "changes": "Import prefixes only"
+    },
+    {
+      "module": "NoFourMUBs.Step2.Reconstruction.ThirdMoment.MatchedParameter",
+      "active_path": "NoFourMUBs/Step2/Reconstruction/ThirdMoment/MatchedParameter.lean",
+      "active_sha256": "7d8c0632cfafc570fec5f89e5230485f520f77ece6528068efb164f51aa98291",
+      "review": "MATCHED_THIRD_PARAMETER_REUSE_REVIEW.json",
+      "local_model_adapter": true
+    }
+  ],
+  "axiom_endpoints": [
+    "StrictReconstruction20261007.SideIntrinsic.permanent3_transpose",
+    "StrictReconstruction20261007.SideIntrinsic.dephased_transpose_intrinsic_bindings",
+    "StrictReconstruction20261007.SideIntrinsic.dephased_transpose_scalar_triple",
+    "StrictReconstruction20261007.SideIntrinsic.gram_triple_of_intrinsic_scalars",
+    "StrictReconstruction20261007.SideIntrinsic.gramInvariant_all_neg",
+    "StrictReconstruction20261007.SideIntrinsic.dephased_negative_gramInvariant_transpose",
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.intrinsicTheta_signature",
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.candidate_signature_parameter",
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.transposedSeed_scalar_pair",
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.matched_intrinsic_parameters"
+  ],
+  "dependency_pins": [
+    {
+      "active_path": "NoFourMUBs/Reuse/Archive/SideIntrinsicTheta.lean",
+      "active_sha256": "2f4160f9d9ecd11d381dc17ca3396f4ba5b291724b74e51cf2c62e09a3b84699"
+    },
+    {
+      "active_path": "NoFourMUBs/Step2/Reconstruction/RowProductSignature.lean",
+      "active_sha256": "1c94b70a0b87dacc3199c544cad22766ce194d4441ba16a940119eb9d749f83a"
+    },
+    {
+      "active_path": "NoFourMUBs/Step2/Reconstruction/BaseCoefficients/Centered.lean",
+      "active_sha256": "0a74257b9c2fc64e57046f9abef7ee87e7bd308b889f3528ef52b5550f13162f"
+    },
+    {
+      "active_path": "NoFourMUBs/Step2/Reconstruction/BaseCoefficients/VerticalProduct.lean",
+      "active_sha256": "74104c8570340687fbf1d7df3635d44cdbf7ac1dda2f8db91145e7349e1ac3b2"
+    },
+    {
+      "active_path": "NoFourMUBs/Step2/ActualCorners.lean",
+      "active_sha256": "f5a46634e2318abb93603ed50169c47c47df9e94463869da48110e63654ba7e0"
+    },
+    {
+      "active_path": "NoFourMUBs/Reuse/Archive/SideIntrinsicMatrixBindings.lean",
+      "active_sha256": "28e1b68230d5b0372200d1bc65f9f98e6db18afdda19c6f1c46cacdc0377a5a5"
+    }
+  ],
+  "scope_note": "Actual opposite side signatures force conjugate intrinsic theta parameters; two archived transpose modules reused unchanged except imports. No atlas certification.",
+  "atlas_certification": false
+}

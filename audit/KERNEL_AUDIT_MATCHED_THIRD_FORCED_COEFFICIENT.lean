@@ -1,0 +1,6 @@
+import NoFourMUBs.Step2.Reconstruction.ThirdMoment.ForcedCoefficient
+
+#check NoFourMUBs.Step2.Reconstruction.ThirdMoment.seedCoefficient_adjugate
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.seedComplement_eq_gram
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.seedComplement_det
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.seedCoefficient_adjugate

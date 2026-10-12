@@ -1,0 +1,95 @@
+{
+  "status": "REVIEWED_PILOT_ACTUAL_LINEAR_SUMMAND_BINDING",
+  "reviewed_utc": "2026-10-12T03:45:51.164381+00:00",
+  "search": "MATCHED_THIRD_LINEAR_BINDINGS_REUSE_SEARCH.json",
+  "source_pins": [
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/SeedResiduals.lean",
+      "sha256": "c94274f074eebe811f0008d56656e476e5533f7e94e7f367cb03b9552f88e830"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/ForcedCoefficient.lean",
+      "sha256": "a558026f7e3710666de76112713da240862bc9f6527c8600f52c969ddfc70b35"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/Polynomials/P014.lean",
+      "sha256": "6396526b22270824c7a993c2488c013a482bc5d0c69a09c88bbc71a2cb0b236a"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/Polynomials/P015.lean",
+      "sha256": "a82b496756d152807bd7bfc13d5b28d22df2ceace0ed780c3b958ee7317bdf28"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/Products/MonomialTransport0.lean",
+      "sha256": "97ea96afb3d4877b73bba96cf947271b7bcfb036e6cbfc0b45d3a65a7a899452"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/DenominatorInputs.lean",
+      "sha256": "bffff62bd3f41de73a70183e11a498564f1b037c841fb81882169b972132fc82"
+    },
+    {
+      "path": "audit/updates/4a3728/files/proof/coverage/returns/E_matched_flatness/direct/verify_third_moments.py",
+      "sha256": "c0a7fb6c220ce7afd458b8d7700a4552d8aa40e08ee9970b24fb22db7bb7e430"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/DenominatorSide.lean",
+      "sha256": "3bdf7106842cfd1717d4edac8a945a314f9e4d2f3d938eda125e62258103ed5f"
+    }
+  ],
+  "comparisons": [
+    "The original packet uses row-major order for its nine matrix summands. W11 linear summand3 is matrix(1,0), stored P014/P015; original numerator and denominator scales are both4, so their raw quotient is unchanged.",
+    "For matrix(1,0), the existing vertical constant and linear matrices evaluate definitionally to3 and0. The target is therefore3*seedImageLinear(1,0).",
+    "Reuse seedCoefficient_adjugate for both actual K factors, the checked oneLinear formula, and the existing strict g/P guards. ForcedCoefficient remains pending until its independent audit passes.",
+    "P015 nonzero follows directly from already checked P003=a*P015 and P003_strict_ne_zero. No new polynomial nonvanishing calculation.",
+    "The saved arrays P014 and P015 and every referenced alias are reused as Lean definitions; the pilot adds only an exact formula-to-array equality. No external generator, verifier, atlas, or new numerical coefficient array.",
+    "After an unchanged direct expansion was system-terminated (exit137), use the representation adapter P015_side_factor before clearing denominators. This removes the445term saved divisor from the expansion and retains the same actual matrix equality. No failed run is counted as a proof.",
+    "The first factored attempt completed normalization but retained opaque forcedCoefficientMatrix terms: unfolding seedCorner too early prevented the cofactor rewrite. Apply seedCoefficient_adjugate at the explicit seed before entry expansion; the statement and saved data are unchanged."
+  ],
+  "atlas_certification": false,
+  "new_numeric_arrays": 0,
+  "revised_utc": "2026-10-12T12:08:57.883432+00:00",
+  "scope_extension": {
+    "indices": [
+      [
+        0,
+        0
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        2,
+        0
+      ],
+      [
+        2,
+        2
+      ]
+    ],
+    "saved_numerator_ids": [
+      2,
+      18,
+      20,
+      24,
+      30
+    ],
+    "saved_denominator_ids": [
+      3,
+      3,
+      21,
+      3,
+      3
+    ],
+    "reason": "The five remaining entries with vertical linear coefficient zero. Use the now-checked binding10 proof pattern, existing P003/P015 factorizations and P021=b*P015. No source arrays or polynomial product proofs are regenerated.",
+    "search": "MATCHED_THIRD_LINEAR_BINDINGS_REUSE_SEARCH.json",
+    "checked_template_source": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/LinearBinding10.lean",
+    "checked_template_sha256": "7ee3fb78e3f3f8a8280d2773786fc90b5e99b3576d362610fb5ebd0bc4f67f19",
+    "checked_template_audit": "KERNEL_AUDIT_MATCHED_THIRD_LINEAR_BINDING10_STATUS.json",
+    "hypotheses": "Same full StrictSeed domain; no new guards or completion assumptions."
+  }
+}

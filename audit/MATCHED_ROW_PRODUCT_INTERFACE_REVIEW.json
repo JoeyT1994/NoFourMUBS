@@ -1,0 +1,41 @@
+{
+  "reviewed_utc": "2026-10-10T23:28:13.340957+00:00",
+  "status": "PASS;ROW_SUM_AND_PRODUCT_PREMISES_EXPLICIT",
+  "scope": "One model adapter for the last AM-GM line of the existing generic-flatness argument.",
+  "source": "source_material/ClassificationPaper/source/supp_body.tex:1713",
+  "reused": [
+    "Real.geom_mean_eq_arith_mean_weighted_iff_of_pos'",
+    "Real.finsetProd_rpow",
+    "Complex.normSq map_prod"
+  ],
+  "mathlib_source_hashes": {
+    "lean/.lake/packages/mathlib/Mathlib/Analysis/MeanInequalities.lean": "aea57be3b9fba6441497656bbdf98633ab43b41ccbc6a45bde71c5d3e1e9fcdc",
+    "lean/.lake/packages/mathlib/Mathlib/Analysis/SpecialFunctions/Pow/NNReal.lean": "34ca617eac6d3903c15dde5c1c833a0f490de28c10f3f4f8e21f912bb0028687"
+  },
+  "search": "Searched all verified archive blobs, current Lean sources and OAI closure for AM-GM and row-norm/product endpoints. DFlatnessLinear assumes four entries already flat; it is not this implication. Reuse Mathlib AM-GM directly.",
+  "explicit_inputs": [
+    "Every squared row norm equals3",
+    "Each row product has squared modulus1"
+  ],
+  "open": "AM-GM itself retains explicit row-sum and row-product hypotheses. ForcedRowNorms now derives the row sums from the generalized existing Gram proof without flatness. Only the row-product norm identity remains open for this completion step.",
+  "active_path": "NoFourMUBs/Step2/Reconstruction/RowNormFlatness.lean",
+  "active_sha256": "9a079f39961c8e291f0243a0e2f081ebfa83da4468a258eb8d6286d69c7344d9",
+  "atlas_certification": false,
+  "audit": "KERNEL_AUDIT_COMPLETION_AND_GROUP_STATUS.json",
+  "build_log": "matched_side_build_status_logs/batch_0111.log",
+  "row_gram_generalization_review": {
+    "checked_utc": "2026-10-11T00:25:30.775849+00:00",
+    "source_sha256": "5fa386752747e883cba63f6cd955f4a376cb2a7ed2515b6de2f86eec57176199",
+    "actual_retained_projections_used": [
+      "B_isUnit_det",
+      "C_isUnit_det",
+      "horizontalGram",
+      "verticalGram"
+    ],
+    "decision": "Reuse by generalizing the existing proof to these four hypotheses and make Retained.bottomRowGram a wrapper. Do not apply Retained.bottomRowGram circularly or copy a second block-Gram proof.",
+    "status": "APPLIED_AND_KERNEL_CHECKED",
+    "rebuild_impact": "Local import graph has87descendants, including20SOSmodules and4reconstruction adapters; zero critical coefficient modules. Plan a controlled build transition before changing this vendor source.",
+    "pass_review": "MATCHED_ROW_GRAM_GENERALIZATION_REVIEW.json"
+  },
+  "updated_utc": "2026-10-11T00:57:10.067145+00:00"
+}

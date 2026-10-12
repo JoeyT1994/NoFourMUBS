@@ -1,0 +1,58 @@
+{
+  "status": "REVIEWED_REUSE_SAVED_CONSTANT_SUMMAND",
+  "reviewed_utc": "2026-10-12T13:06:12.160211+00:00",
+  "search": "MATCHED_THIRD_CONSTANT_BINDING10_REUSE_SEARCH.json",
+  "source_pins": [
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/LinearBinding10.lean",
+      "sha256": "7ee3fb78e3f3f8a8280d2773786fc90b5e99b3576d362610fb5ebd0bc4f67f19"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/DenominatorSide.lean",
+      "sha256": "3bdf7106842cfd1717d4edac8a945a314f9e4d2f3d938eda125e62258103ed5f"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/DenominatorGram.lean",
+      "sha256": "9c1c562c944efb13cb4dfe03a30ecbe74c4208669b53ae40f9e7c2ef0f726b80"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/SeedResiduals.lean",
+      "sha256": "c94274f074eebe811f0008d56656e476e5533f7e94e7f367cb03b9552f88e830"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/ForcedCoefficient.lean",
+      "sha256": "a558026f7e3710666de76112713da240862bc9f6527c8600f52c969ddfc70b35"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/AffineMatrices.lean",
+      "sha256": "60a383a50489a3c083174749058cb1d7f3037cacd5c91062cb63a8be402dd00c"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/Polynomials/P044.lean",
+      "sha256": "84988b84b49cd47f10b518137596099e7a8f5f35362d9ed2203ea86f8e4c232b"
+    }
+  ],
+  "source_certificate_sha256": "f986a996673ec0089ec09c3b9ee827c71463fe6f7f57f67b0ded6b793beaad8f",
+  "actual_matrix_index": [
+    1,
+    0
+  ],
+  "saved_fraction": [
+    44,
+    45
+  ],
+  "original_matching_scale": 20,
+  "comparisons": [
+    "The actual constant summand at10 reduces definitionally to3*seedImageConstant: vertical V0=3,V1=0. Existing LinearBinding10 uses3*seedImageLinear, a different expression; reuse its checked expansion sequence without claiming its conclusion.",
+    "Use the checked adjugate representation of the actual forced coefficient matrix. Use existing oneConstant/productAffine/permanentAffine/mixedAffine definitions; these are not new side-existence or completion assumptions.",
+    "P045_seed_factor and P003_side_factor express the divisor through seedG and existing side factors. Use existing strict guards before expanding seed scalars. Only the original1537term numerator P044 is unfolded.",
+    "Existing Product022 already binds the same saved numerator into the original constant common-denominator identity. Reuse its current audit and saved coefficient arrays; no new product certificate or coefficient data is generated."
+  ],
+  "dependency_audits": [
+    "KERNEL_AUDIT_MATCHED_THIRD_LINEAR_BINDING10_STATUS.json",
+    "KERNEL_AUDIT_MATCHED_THIRD_DENOMINATOR_GRAM_STATUS.json",
+    "KERNEL_AUDIT_MATCHED_THIRD_PRODUCT_022_STATUS.json"
+  ],
+  "new_numeric_arrays": 0,
+  "atlas_certification": false
+}

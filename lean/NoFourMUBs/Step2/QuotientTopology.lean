@@ -1,4 +1,4 @@
-import Hadamard6.HadamardQuotient
+import Hadamard6.HadamardQuotientCore
 import Mathlib.Analysis.Complex.Basic
 import Mathlib.Topology.Instances.Matrix
 import Mathlib.Topology.Compactness.Compact

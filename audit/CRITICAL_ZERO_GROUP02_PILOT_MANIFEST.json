@@ -1,0 +1,49 @@
+{
+  "scope": "critical_zero_remaining_group_pilots",
+  "status": "GENERATED_NOT_CHECKED",
+  "records": [
+    {
+      "module": "NoFourMUBs.Reuse.Archive.CriticalZeroSumDenseCommonBindings01",
+      "original_module": "CriticalZeroSumDenseCommonBindings01",
+      "original_sha256": "90e3ddc7ebe08d7a637bfd5e01d106925d42df645d9c89dfa3241b7bddd44ccf",
+      "original_source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumDenseCommonBindings01.lean",
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalZeroSumDenseCommonBindings01.lean",
+      "active_sha256": "478ba413ff4b58aed2db5c765086895d88e38199257728145a30e4b70d64e890",
+      "imports_only_adaptation": true,
+      "proof_adaptations": [],
+      "import_replacements": {}
+    },
+    {
+      "module": "NoFourMUBs.Reuse.Archive.CriticalZeroSumNumeratorGroupData02",
+      "original_module": "CriticalZeroSumNumeratorGroupData02",
+      "original_sha256": "320ba21dd6d38a2abcaa75f402d59a25b10ca3313644eb0dc2752d337d338f72",
+      "original_source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumNumeratorGroupData02.lean",
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalZeroSumNumeratorGroupData02.lean",
+      "active_sha256": "c6497c0e6d3d530ca828869d0f8d8ac6472cf14ea0ce6e236b1dfd7a6bd33558",
+      "imports_only_adaptation": true,
+      "proof_adaptations": [],
+      "import_replacements": {}
+    },
+    {
+      "module": "NoFourMUBs.Step2.CriticalZero.CommonGroup02",
+      "active_path": "NoFourMUBs/Step2/CriticalZero/CommonGroup02.lean",
+      "active_sha256": "de831adad489294e187027ab99b74f440b9c2e3e08b03241d17015265f53d014"
+    },
+    {
+      "module": "NoFourMUBs.Step2.CriticalZero.Group02Check18",
+      "active_path": "NoFourMUBs/Step2/CriticalZero/Group02Check18.lean",
+      "active_sha256": "1693efcbdb52e48bff7456d4ebfa7815b9fd9a8acc31969b32c2d9f6541715d5"
+    }
+  ],
+  "coefficient_count": 37,
+  "data_generated": false,
+  "reused_group_data": "CriticalZeroSumNumeratorGroupData02",
+  "resource_pilots": [
+    "CRITICAL_ZERO_GROUP02_PILOT_BUILD.log"
+  ],
+  "remaining": "All group02 coefficients and assembly require checks; the complete numerator is still open.",
+  "reused_dense_data": "CriticalZeroSumDenseCommonData",
+  "generated_coefficient_indices": [
+    18
+  ]
+}

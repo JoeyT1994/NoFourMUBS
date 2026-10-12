@@ -1,0 +1,8 @@
+import NoFourMUBs.Step2.Reconstruction.ThirdMoment.WeightedDefect
+
+#check NoFourMUBs.Step2.Reconstruction.ThirdMoment.forcedD_entrywiseUnit_of_four_weighted_defects
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.candidate_completion_rowGram
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.candidate_completion_columnGram
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.forcedD_column_norms
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.entrywiseUnit_of_four_weighted_defects
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.forcedD_entrywiseUnit_of_four_weighted_defects

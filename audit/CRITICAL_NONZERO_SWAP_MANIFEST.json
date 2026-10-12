@@ -1,0 +1,27 @@
+{
+  "scope": "critical_nonzero_raw_clearing",
+  "records": [
+    {
+      "module": "NoFourMUBs.Step2.CriticalZero.NonzeroSwap",
+      "active_path": "NoFourMUBs/Step2/CriticalZero/NonzeroSwap.lean",
+      "active_sha256": "c590488db3bd821b9043259d23eb31069f3acb812d3d04065e5616e67dc51b78",
+      "local_model_adapter": true,
+      "review": "CRITICAL_NONZERO_SWAP_REVIEW.json"
+    },
+    {
+      "module": "NoFourMUBs.Step2.CriticalZero.NonzeroSwapMoment",
+      "active_path": "NoFourMUBs/Step2/CriticalZero/NonzeroSwapMoment.lean",
+      "active_sha256": "aea2ccf82c112c9562682fc8235ac930f2a8c878edc2ec43d8ee54a358fbaa99",
+      "local_model_adapter": true,
+      "review": "CRITICAL_NONZERO_SWAP_REVIEW.json"
+    }
+  ],
+  "axiom_endpoints": [
+    "NoFourMUBs.Step2.Critical.NonzeroClearing.swapRootHom_apply",
+    "NoFourMUBs.Step2.Critical.NonzeroClearing.side_swap",
+    "NoFourMUBs.Step2.Critical.NonzeroClearing.swap_newton_p2_m4",
+    "NoFourMUBs.Step2.Critical.NonzeroClearing.paired_p2_m4_swap",
+    "NoFourMUBs.Step2.Critical.NonzeroClearing.paired_p4_m2_coefficients_from_swap"
+  ],
+  "atlas_certification": false
+}

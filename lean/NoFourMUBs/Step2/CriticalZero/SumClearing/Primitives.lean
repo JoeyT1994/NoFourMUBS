@@ -1,0 +1,28 @@
+import NoFourMUBs.Step2.CriticalZero.SumClearing.Primitive_p0_p2
+import NoFourMUBs.Step2.CriticalZero.SumClearing.Primitive_p0_p3
+import NoFourMUBs.Step2.CriticalZero.SumClearing.Primitive_p1_m2
+import NoFourMUBs.Step2.CriticalZero.SumClearing.Primitive_p1_m3
+import NoFourMUBs.Step2.CriticalZero.SumClearing.Primitive_p1_p1
+import NoFourMUBs.Step2.CriticalZero.SumClearing.Primitive_p1_p2
+import NoFourMUBs.Step2.CriticalZero.SumClearing.Primitive_p2_m1
+import NoFourMUBs.Step2.CriticalZero.SumClearing.Primitive_p2_m2
+import NoFourMUBs.Step2.CriticalZero.SumClearing.Primitive_p2_m3
+import NoFourMUBs.Step2.CriticalZero.SumClearing.Primitive_p2_m4
+import NoFourMUBs.Step2.CriticalZero.SumClearing.Primitive_p2_p0
+import NoFourMUBs.Step2.CriticalZero.SumClearing.Primitive_p2_p1
+import NoFourMUBs.Step2.CriticalZero.SumClearing.Primitive_p2_p2
+import NoFourMUBs.Step2.CriticalZero.SumClearing.Primitive_p3_m1
+import NoFourMUBs.Step2.CriticalZero.SumClearing.Primitive_p3_m2
+import NoFourMUBs.Step2.CriticalZero.SumClearing.Primitive_p3_m3
+import NoFourMUBs.Step2.CriticalZero.SumClearing.Primitive_p3_p0
+import NoFourMUBs.Step2.CriticalZero.SumClearing.Primitive_p4_m2
+set_option autoImplicit false
+set_option maxRecDepth 100000
+set_option maxHeartbeats 3000000
+set_option linter.unusedVariables false
+set_option linter.unusedSimpArgs false
+noncomputable section
+namespace NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing
+open CriticalNonzeroLight20261003 CriticalNonzeroSumDenominator20261003
+
+end NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing

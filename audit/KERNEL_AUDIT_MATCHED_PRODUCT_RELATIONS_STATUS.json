@@ -1,0 +1,37 @@
+{
+  "status": "PASS",
+  "checked_utc": "2026-10-11T18:35:25.166066+00:00",
+  "modules": 1,
+  "axiom_endpoints": {
+    "StrictReconstruction20261007.SideIntrinsic.row_permanent_product_relation": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "StrictReconstruction20261007.SideIntrinsic.row_second_product_relation": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "StrictReconstruction20261007.SideIntrinsic.row_product_quadratic": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "source_hashes": {
+    "NoFourMUBs/Step2/Reconstruction/RowProductRelations.lean": "3f3fdb13ccc279c14142c125d10790c01473e069316f18b777f939ed309a086e"
+  },
+  "manifest_sha256": "658f0a4d84c7f1ee4b31ce6cdfb573d31dbf5d87223007c6afc6e148deea4bec",
+  "audit_log_sha256": "72228d2ee66b22150b7e8fc07db0e17517ee472ac03a6f95e18011f29efe5361",
+  "scope": "Two actual row-product/permanent relations and the original first-product quadratic follow from existing intrinsic identities, with no denominator or determinant guard. MatchedExistence remains open.",
+  "dependency_audits": {
+    "KERNEL_AUDIT_CRITICAL_EQUICORRELATION_ROW_PRODUCTS_STATUS.json": "571b696089d1ae6c1bceca3a10e23b385b9d661dc477d52df88d214eb0ad9487"
+  },
+  "dependency_source_hashes": {
+    "NoFourMUBs/Reuse/Archive/SideIntrinsicActualLambda.lean": "94951a45e12f8f8560d1a024d2c23dd76e0ccd5d092602eae8c983fefeb8b403",
+    "NoFourMUBs/Reuse/Archive/SideIntrinsicActualNorms.lean": "56d0fbfdfcd10a376e554d83f1311726967568c80a36638161c2be4ed6b65fca",
+    "NoFourMUBs/Reuse/Archive/SideIntrinsicUnitBindings.lean": "0b9439dba8222d68e06eceb609212239feacb0ad3eb482ca835dce10076a3ab2"
+  },
+  "atlas_certification": false
+}

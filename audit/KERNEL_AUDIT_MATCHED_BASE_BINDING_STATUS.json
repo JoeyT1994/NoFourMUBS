@@ -1,0 +1,69 @@
+{
+  "status": "PASS",
+  "checked_utc": "2026-10-11T19:57:31.077315+00:00",
+  "modules": 1,
+  "axiom_endpoints": {
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.phaseMonomial_ne_zero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.normData_seed": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.cachedC6_eq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.inputDen_ne_zero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.cachedU_eq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.cachedV_eq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.cachedC6_seed": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.inputDen_strict": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "source_hashes": {
+    "NoFourMUBs/Step2/Reconstruction/BaseCoefficients/Bindings.lean": "f488d52f6e644ee826f25f359886ef3f9a1da0a3c27660246bf11b459dc40509"
+  },
+  "manifest_sha256": "504c231238db10ce5d4ce5039bca2811f75d74de570adc9364e6975afce60ad3",
+  "audit_log_sha256": "d6d1784cd0f9a9549e16ea8912912fbb003c0c0db774efd03acfcedebd0930e4",
+  "scope": "Reuse the three checked base coefficient identities and existing strict guards to bind cached U,V,c6. The shared input denominator is nonzero on the strict seed locus. Companion denominators and universal norm remain open. No atlas certification.",
+  "dependency_audits": {
+    "KERNEL_AUDIT_MATCHED_BASE_COEFFICIENT_STATUS.json": "120ca231900822a5597d03ca413024356abe51f94513fddd2e123430e8fb1309"
+  },
+  "dependency_source_hashes": {
+    "NoFourMUBs/Reuse/Archive/PreRhoActualBindings.lean": "95bd24d7140b39595e579e0c45b39df1533f43902380f4534c81c07e93e89caa",
+    "NoFourMUBs/Reuse/Archive/PreRhoNormBindings.lean": "2dc366315b498ad9dd3de167f804d26eecbe943704d6f79977edd523e4bd3ef1",
+    "NoFourMUBs/Reuse/Archive/StrictSideScalarGuards.lean": "75741b3091aeb2ce36f1b9fdab822add16b2e2514bfa27822105c93fb936d042",
+    "NoFourMUBs/Step1/Lift.lean": "b8a35ba93c6fc0759092edad30be2d649921351c66c2a8c154d4b71941479064",
+    "NoFourMUBs/Step2/Reconstruction/BaseCoefficients/C6.lean": "e8f3730ef60eedcdd4c7d1f1991d8737d3a72473d6cfb8a2ee9c41ade6021a5b",
+    "NoFourMUBs/Step2/Reconstruction/BaseCoefficients/Checked.lean": "ffb30122284cabfc33746fd802aeaf42d85a714ca3860a8993853bec0098b1ef",
+    "NoFourMUBs/Step2/Reconstruction/BaseCoefficients/Data.lean": "8762870b591931264431f85658053b7ce1496ae35d318f036f34d5b02656f170",
+    "NoFourMUBs/Step2/Reconstruction/BaseCoefficients/U.lean": "9ed07dadb5d58e92835585586474daaac41d4c79be133f5127899eae38e966b9",
+    "NoFourMUBs/Step2/Reconstruction/BaseCoefficients/V.lean": "e9aae02e166e83000ea9d98efae3440272779f886663617f85b13beb3841a825",
+    "NoFourMUBs/Step2/Reconstruction/SeedModel.lean": "7020e49ca7d9303f213bb75991290cd1bba125db6de255f0e1b39a51ab079aa3"
+  },
+  "atlas_certification": false
+}

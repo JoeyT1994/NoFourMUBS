@@ -1,0 +1,31 @@
+{
+  "status": "PASS",
+  "checked_utc": "2026-10-12T12:57:07.705460+00:00",
+  "modules": 1,
+  "axiom_endpoints": {
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P007_side_factors": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P038_seed_factor": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "source_hashes": {
+    "NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/DenominatorPaired.lean": "510145944755d25fe8e423d4589cbafd87515613b52d58c4586a9d2cd7f186c2"
+  },
+  "manifest_sha256": "41d94f4e60da45e1e1e269fa83db7ec51f32824ebfa1d332415f5736cc56ff89",
+  "audit_log_sha256": "05f0d55c5f370d5bdadf2f145b9048cf0511518c88541b74dea10d32088df1c6",
+  "scope": "Reuse checked cofactor identities and phase-unit cancellation to express the paired divisors through existing side/Gram factors. Every Seed; no generic guard or new arrays. No atlas.",
+  "dependency_audits": {
+    "KERNEL_AUDIT_MATCHED_THIRD_DENOMINATOR_SIDE_STATUS.json": "f59dcddbdb4b1c7d73a706f37e3cc14b6840a81d6c2530b3f296d5aab6fde15b",
+    "KERNEL_AUDIT_MATCHED_THIRD_DENOMINATOR_GRAM_STATUS.json": "ab17b65084fb2a5b10f22107785f06c88017838ccd56207710c2a71dc6260523",
+    "KERNEL_AUDIT_MATCHED_THIRD_PRODUCT_002_STATUS.json": "0e2fe721f585b39ad2b9014d6684cea36a6d243d5d3b95d0de99f875d83ee46a",
+    "KERNEL_AUDIT_MATCHED_THIRD_MONOMIAL_TRANSPORT_2_STATUS.json": "e38752f999d7e1e970070625ec86d2af520b0edcdd72c882d3ea3f44e3a9925b"
+  },
+  "dependency_source_hashes": {},
+  "atlas_certification": false
+}

@@ -1,0 +1,8 @@
+import NoFourMUBs.Step2.Reconstruction.ThirdMoment.Certificates.DenominatorInputs
+
+#check NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P000_strict_ne_zero
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P003_eq_inverse_inputDen
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P004_eq_bc_mul_P003_swap
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P003_strict_ne_zero
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P004_strict_ne_zero
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P000_strict_ne_zero

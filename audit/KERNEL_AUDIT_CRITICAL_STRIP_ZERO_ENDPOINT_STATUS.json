@@ -1,0 +1,35 @@
+{
+  "status": "PASS",
+  "checked_utc": "2026-10-11T17:28:29.729641+00:00",
+  "modules": 1,
+  "axiom_endpoints": {
+    "NoFourMUBs.Step2.Critical.strip_regular_zero_standard": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.strip_zero_values_or_standard": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "source_hashes": {
+    "NoFourMUBs/Step2/CriticalZero/StripZeroEndpoint.lean": "3a4e7cf92327f0215e40e9c5a7dda0143fec14f9a10fde8bee2c27b5b6705f05"
+  },
+  "manifest_sha256": "0c5ffe8a7186007c9210bbf62b206500bd217ba695de3f92a025684e357c3534",
+  "audit_log_sha256": "f6453280d7c06b61d9343ca26e350981d27761cd4b93e91e7fa35dcd2aa4b72b",
+  "scope": "Every actual zero-J strip corner has p=0 or p=5 or the all-critical matrix is equivalent to the exact main Fourier representative. All z boundaries and all20corners are included.",
+  "dependency_audits": {
+    "KERNEL_AUDIT_CRITICAL_FOURIER_FIXED_STATUS.json": "55d4d33646b1b6adf3aef51761b1e159fffba145df228cfe3de6219bc7061495",
+    "KERNEL_AUDIT_CRITICAL_SINGULAR_STATUS.json": "5cdfe0d37aacef41f56b5c2a476110c37fb42b5ea4cdd428e98540386a5af0b2",
+    "KERNEL_AUDIT_CRITICAL_P7_ROW_NORMALIZATION_STATUS.json": "d41161621793a43bbb98643c1003d3a3b81efa629d16e6b3b2da17978a70b3f9"
+  },
+  "dependency_source_hashes": {
+    "NoFourMUBs/Step2/CriticalZero/ActualSingularFourier.lean": "bd8acb60bc781fa5d7ddef55a475894b96f832343cbe3e3b82894392f9f66d0c",
+    "NoFourMUBs/Step2/CriticalZero/ColumnRechart.lean": "1530e264196c059538a1cdd67aae356d3a458066ad9630c542a935e62028a71d",
+    "NoFourMUBs/Reuse/Archive/CriticalPhysicalParams.lean": "35bd3eb1f7c6eee3f693139a669e50794046629397671a29de2b3d2575d11fe7",
+    "NoFourMUBs/Step2/CriticalZero/ActualFixedFourier.lean": "d25da451ee2ae8a6ecb68651ad5de93e84053d265829df5bcae986ad94ad86af"
+  },
+  "atlas_certification": false
+}

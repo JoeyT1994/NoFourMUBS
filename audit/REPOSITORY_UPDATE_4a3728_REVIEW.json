@@ -1,0 +1,19 @@
+{
+  "status": "REVIEWED_SOURCE_UPDATE",
+  "checked_utc": "2026-10-11T23:43:48.924684+00:00",
+  "old_head": "fd7d1019fa4a7f3551bf9ade5d31ebbce9501055",
+  "new_head": "4a3728d7f388aa2f2cb4a42bfb5c00b27566f23f",
+  "comparison_truncated_at_300_files": true,
+  "replacement_inventory": "Complete nontruncated current tree (581 entries) plus complete parent lean/proof/MinimalConstruction/openai trees and both root trees. ClassificationPaper tree unchanged. Local full archive retained; upstream archive moved to archive-2026-10-11 tag.",
+  "inventory_files": [
+    "REPOSITORY_UPDATE_4a3728_TREE.json",
+    "REPOSITORY_UPDATE_4a3728_COMPLETE_SOURCE_DIFF.json",
+    "REPOSITORY_UPDATE_4a3728_RETRIEVAL.json"
+  ],
+  "lean_review": "14 current Lean-tree path changes: same-blob Saddle move, import/audit cleanup, two obsolete wrappers removed, direct assembly in MainTheorem. MatchedExistence and MatchedDensityReach remain explicit theorem inputs; no strengthened classification conclusion. Three new F_side_existence Lean files are scalar/cofactor support, not full side-existence theorems.",
+  "new_math": "E_matched_flatness supplies the exact eight third-moment coefficient identities, 255 saved polynomials, 110 coefficient-slice sums and 136 cofactor/product identities. It explicitly states its Lean port is pending. F_side_existence overlaps the already kernel-checked local signed-side constructor.",
+  "decision": "Select E direct third-moment route as the only remaining matched-flatness route. Reuse existing compiled strict sides, actual lambda identities and block Gram machinery. Retire the unverified companion/universal-row-product norm work; do not port the alternative fourth-moment proof or re-prove side existence. New certificate remains untrusted until Lean checks arithmetic AND bindings.",
+  "critical_disposition": "Resume original critical sum from retained782 modules; classification sources and theorem requirements unchanged by this commit.",
+  "excluded": "Atlas and independent-atlas changes inventoried only. No atlas verifier, generator, certificate check or replay executed. Local AtlasCertificate input and main source unchanged.",
+  "atlas_certification": false
+}

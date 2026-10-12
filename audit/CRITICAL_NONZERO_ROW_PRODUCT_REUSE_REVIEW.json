@@ -1,0 +1,14 @@
+{
+  "status": "PASS",
+  "search_results": "NONZERO_PRODUCT_CONSUMER_REUSE_FILES.txt",
+  "source_selection": "The complete current/vendor/archive search found the two RowCertificate variants and original BinaryCertificate. Current adopted row checker reused unchanged. BinaryCertificate requires closed zeroII checks; this adapter consumes the semantic coefficient equalities already produced by the row checker.",
+  "source_pins": {
+    "lean/NoFourMUBs/Reuse/Archive/CriticalZeroSumBinaryCertificate.lean": "1b0aa20b70be2198d9ebd75ea58c52ed89b661518049027e586b16680d0ac2cc",
+    "lean/NoFourMUBs/Reuse/Archive/CriticalZeroSumRowCertificate.lean": "51a0ae0887f442c11bf0193dfdea2c34487d42052b40f9e6f10c8ddf8d0fdaa4",
+    "lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Product0043.lean": "d96d8d1ca4e3866fadce7ad51ecb98ea9af12b7ec7a50f3ee6a215010fcda647"
+  },
+  "scope": "Compose existing list_eq_of_getD, interpret_getD, eval_mulAt and eval_mul before substituting concrete arrays. Same semantic argument already checked for product43, generalized as a reusable adapter; no new arithmetic checker.",
+  "atlas_certification": false,
+  "audit": "KERNEL_AUDIT_CRITICAL_NONZERO_SUM_PRODUCT0029_PILOT_STATUS.json",
+  "checked_utc": "2026-10-11T12:10:56.722504+00:00"
+}

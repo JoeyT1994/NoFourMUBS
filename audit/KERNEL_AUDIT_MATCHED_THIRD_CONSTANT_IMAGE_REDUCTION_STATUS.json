@@ -1,0 +1,25 @@
+{
+  "status": "PASS",
+  "checked_utc": "2026-10-12T18:08:39.025265+00:00",
+  "modules": 1,
+  "axiom_endpoints": {
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.seedImageConstant_reduced": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "source_hashes": {
+    "NoFourMUBs/Step2/Reconstruction/ThirdMoment/ConstantImageReduction.lean": "4823786673828d1e1ca30993b16ac9c894001d60996028abc26e7060e4af200e"
+  },
+  "manifest_sha256": "3779964ed2e2bade156a8b43b36700ed619d25d306417f4b3063f14c53246659",
+  "audit_log_sha256": "34f095e5c4ec138aca2c0603868b89c0fe513d6af7ee884d66517d0cc50f509a",
+  "scope": "Apply the checked Gram-factor cancellation to the same actual seedImageConstant on every StrictSeed. Pure matrix/scalar algebra; no new saved array and no new hypothesis. Actual individual numerator bindings remain separate.",
+  "dependency_audits": {
+    "KERNEL_AUDIT_MATCHED_THIRD_CONSTANT_GRAM_CANCELLATION_STATUS.json": "4c63c33e47eb98d5074e06012aed3f96b3a08ae2793039f45a136559be487d6c",
+    "KERNEL_AUDIT_MATCHED_THIRD_SEED_RESIDUALS_STATUS.json": "f6c2040373229884ad4256909e818bac7ff0c42de88effa79f4c222cdc7c53f4",
+    "KERNEL_AUDIT_MATCHED_THIRD_FORCED_COEFFICIENT_STATUS.json": "43a268fbfc282ceaf3eaba298dca453ac803069441ad119e13b608d621b6cced"
+  },
+  "dependency_source_hashes": {},
+  "atlas_certification": false
+}

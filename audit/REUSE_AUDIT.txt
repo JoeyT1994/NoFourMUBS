@@ -1,0 +1,410 @@
+Reuse audit — 10 October 2026
+
+The earlier reuse check was incomplete. It searched too narrow a certificate
+family and relied on a truncated root tree. This audit corrects that omission;
+it does not claim that no redundant work had previously been written.
+
+Sources checked
+  Source inventory: 75d27258972d9838c2a7857371becc7271bc7b81.
+  Current reviewed main: 4e048ec8a2888f198f5432efd7f201f98d473878.
+  The 17:01 UTC scheduled check caught this update and stopped new work.
+  Its three changed files are independent Julia/atlas verification receipts.
+  The source inventory, atlas inputs and checked Lean outputs remain valid.
+  updates/4e048ec/REVIEW.json records the exact comparison and receipt checks.
+  Complete current Lean tree: 63 Lean files; 61 match the earlier snapshot.
+  The two snapshot differences are the root imports and MainTheorem.lean.
+  Both current files were retrieved; the active theorem uses the same atlas
+  interface and final implication, with the selected repaired Step 2 inputs.
+  Complete proof subtree: 20 Lean files, including the reused Step 1 returns.
+  The repository's openai subtree contains a README, not extra Lean proofs.
+  Archive: all 19386 distinct Lean blobs, 273077698 bytes, SHA256 verified.
+  OAI Fourier closure: 663 pinned modules, all compiled on the active toolchain.
+
+Redundant local work retired
+  CriticalCounting and CriticalStripSum, plus the previous CriticalStripMatrix
+  derivation, are preserved as audit text outside the active Lean sources.
+  Their endpoints now come from archived CriticalCounts, CriticalCountApplication
+  and CriticalRowSum. The active CriticalStripMatrix is a 41-line model adapter.
+  The archived row_gram in turn delegates to the existing OAI row-Gram theorem.
+  SideDiscriminant.permanent_norm now calls the archived eta_permanent proof.
+  Its determinant-norm dependency delegates to the already used Side.side_identities.
+  MainTheorem compiles after these changes.
+
+Additional certificate reuse
+  31769 explicit OAI exponent-matrix definitions were compared with the planned
+  new canonicalization inputs. The expanded search found 37 additional unique
+  overlaps. One uses an existing canonical theorem directly; 26 use it through
+  transpose symmetry, one through negation and one through zero-row deletion;
+  eight reuse pivot data and existing permutation/transpose lemmas.
+  All 37 adapters passed Lean. A matching definition is not counted as a
+  previously proved canonical theorem. CANONICAL_REUSE_LEDGER.json distinguishes
+  these cases and records checked file hashes.
+  All 261 selected boundary-equation adapters also passed Lean. The remaining
+  normalization plan refers to 2668 existing soundness lemmas and both existing
+  permutation families. There is one active SOS witness and one selected atlas.
+  All 2668 projection adapters have now passed Lean, as has the full 909-entry
+  coordinate adapter. ReuseProjection invokes the existing list-permutation
+  evaluation theorem; it does not need a new sorting proof.
+  All 17 pivot permutations required by the new reduction nodes already exist
+  in the OAI sources. The reduction generator reuses these and the already
+  selected canonical equalities. Its first 32 nodes passed Lean.
+
+Necessary local difference retained
+  signature_real is unrestricted at singular sides. The available archived
+  physicalSheet_real assumes a nonzero determinant. Another archived module
+  references UnitMomentTrace, but its declaration is absent from the verified
+  corpus. We retain the checked unrestricted local identity; replacing it by
+  the guarded theorem would leave a missing case.
+
+Controls for ongoing work
+  watch_repository.py checks branch heads and open PR heads every 1800 seconds.
+  Updates create REPOSITORY_REVIEW_REQUIRED.json and stop new canonical batches.
+  reuse_preflight.py refuses new certificate generation if the GitHub check
+  is older than 30 minutes, an update awaits review, or the scope is unreviewed.
+  REUSE_REVIEW.json is the scoped ledger. Generated canonicalization includes
+  reuse_canonical_overlaps.py, so regeneration preserves the discovered reuse.
+  The guard now covers all fourteen SOS generation/discovery and archive
+  integration entry points. REUSE_GUARD_CHECK.json records seven exercised
+  guard cases, including stale checks, changed commits and pending reviews.
+  Rediscovery or regeneration of the already checked SOS witness is disabled
+  pending a specific reuse review; its existing outputs remain in use.
+  Recompiling an adopted theorem to check compatibility is validation, not a
+  second mathematical derivation. Existing certificates are retained and cited.
+
+Further reuse candidates
+  CRITICAL_REUSE_ENDPOINTS.json indexes the available critical-case theorem
+  candidates and their pinned source hashes. This is a search index, not a
+  claim that their complete dependencies compile or their hypotheses have
+  been discharged. These candidates must be examined before new critical-case
+  mathematics is written.
+
+Limits
+  Exact hashes and array comparisons are machine checked; identifying equivalent
+  theorems with different statements requires mathematical review. No claim can
+  cover unpublished work that the other LLM has not made available. The active
+  main theorem is still conditional on four completion gates listed in STATUS.txt.
+
+Additional reuse review, 10 October:
+  The activeEmbedding and active_moment lemmas already existed in the
+  normalization context. An attempted duplicate was rejected and removed;
+  PrimitiveRows invokes the existing lemma. Its zero-relation rule is a
+  specialization of integer_projection, not a second sparse checker.
+  The first eight pending seven-row equations now compile by invoking the
+  existing contraction theorem and existing/new normalization nodes once.
+  All 583 canonicalization modules and the frame-signature adapter compile.
+
+Sparse coordinate transport now directly reuses Integer.Sparse.reindex
+and eval_reindex from OAI Certificate.Interpretation. The adapter passed Lean
+after replacement; its earlier map/sum derivation is no longer active.
+The latest repository completion claim was rechecked against the actual Lean
+theorem and audit text; see STATUS_RECHECK_4e048ec.txt.
+
+10 October, Fourier and complementary-signature integration
+  All 13 Fourier input equations now compile from the existing contraction,
+  product-partition, family4 and partitionWeight4 theorems. No partition or
+  Fourier identity was reproved. ComplementaryFrames compiles the existing
+  physical frame equality in OAI coordinates and its transpose.
+  The 55 Laurent terms come directly from the existing verifier psi(). The
+  complete determinant/permanent Laurent identity and its signature
+  interpretation now compile. ComplementaryMoments also compiles, deriving
+  the averaged equation from the physical complementary signatures. Nine existing Psi rows were adapted
+  using 495 pairs of existing normalization projections. Exact coefficient
+  agreement passed; these adapters are not yet kernel-certified.
+  Two concurrent Lean compilers are now used after observing severe memory
+  compression with three. Completed source-hash receipts are retained.
+  The build preflight now waits for an in-flight 30-minute GitHub refresh
+  without starting a new batch; failed checks or pending reviews still block.
+
+10 October, completed physical moment adapters
+  SignatureLaurent and ComplementaryMoments passed Lean. TargetFrames now
+  identifies the certificate cubic moment with the real physical frame average
+  using the existing transpose and finite-equivalence lemmas. The updated axiom
+  audit passed with only propext, Classical.choice and Quot.sound. All nine Psi
+  input arrays compile, but their projected row equations remain pending. Six
+  of thirteen Fourier projected rows now pass, reusing all existing input
+  equations and normalization results. No SOS witness was regenerated.
+  CriticalZeroChartTransport was inspected and supplies the s,t nonvanishing
+  guards after a physical rechart in the regular zero-J case, and directly in
+  the nonzero-J case. It is recorded for reuse, not yet adopted or compiled.
+
+10 October, exact corner-pair sampling
+  All 34 existing overlap patterns, their completeness, the assignment
+  bijection and the original weights now pass Lean and a standard-axioms
+  audit. This reuses OAI Family.flatten_injective, Mathlib factorsThrough_iff,
+  Equiv.sum_comp and OAI sum_eq_card_mul_average. It supplies the sampling
+  step; matrix-product interpretation and target projection remain pending.
+
+10 October, physical target interpretation
+  CornerPairMoments reuses product_grouped for both matrix axes, and
+  CornerPairSquares uses the elementary real-product identity plus OAI
+  average algebra. The symmetric-average proof was moved from TargetFrames
+  into MomentRealAverage and shared, not copied. TargetFrames now proves
+  the physical cubic-square identity. DefectMoments and PhysicalTarget
+  passed Lean, reusing the same55-term expansion, half-swap, conjugation and
+  transpose adapters. The selected sparse coefficient binding is still open.
+
+  Exact target reuse replay:4477 existing raw inputs,76 existing projection
+  endpoints,138 final coordinates. Every coefficient agrees with the selected
+  target. TailPadding passed Lean and uses only pad6_moment and two existing
+  permutation invariances. This replay is not yet the kernel coefficient
+  binding; PHYSICAL_TARGET_REUSE_PLAN.json records its precise scope.
+
+2026-10-10 TARGET CONNECTION AND SHARED DATA
+Moved the same psiExponent, psiCoefficient, blockExponent and cubicExponent definitions into MomentExponentData; no duplicate definitions remain. Psi term checks and target adapters now import the light data rather than physical coverage theory. PhysicalTarget and its dependencies rebuilt successfully in SOS_PHYSICAL_TARGET_DATA_SPLIT_FIXED.log. The alias change finSumFinEquiv/coordinates needed one explicit simp unfolding.
+generate_sos_target_projection.py reads the pinned PHYSICAL_TARGET_REUSE_PLAN and existing projection tables, and calls only already selected canonical/projection theorems. All 138 Arithmetic.target coefficients match unchanged. Generated 89 target rows plus collection adapters; not yet all kernel checked. TailPadding and integer_projection are reused. No normalizer or SOS witness regenerated.
+generate_sos_row_assembly.py checks that each of 1338 selected rows has exactly one active rowSound theorem. RowsSound and Conditional are pending their full dependency builds. The bounded row builder now handles target rows and Psi terms, and auto schedules families sequentially alongside one reduction worker. Heavy final assemblies still run alone.
+Further archive comparisons recorded in REUSE_REVIEW: raw-polynomial coefficient assemblies do not supply computed-to-raw binding; DFlatnessLinear assumes four flat entries and margins; BlockCompletion assumes retained forced-block flatness; ExactCornerSeed supplies four unit seed phases only. These are not proofs of the remaining global inputs.
+
+TARGET PILOT CHECKED 2026-10-10T20:14:29.262826+00:00
+TargetTail and all55terms plus integer collection in TargetPsiRow16 now compile. PhysicalTargetAudit includes both and all current physical lemmas; all11 printed results use only propext, Classical.choice and Quot.sound. The main theorem still shows allfour explicit inputs. The collection bridge normalizes Int.cast_one explicitly for unit denominators; the same pendingPsi assembly fix changes only3coercions, not coefficients or term proofs.
+
+10 October, critical scalar assembly review
+  The archive contains a complete33-coefficient denominator assembly and
+  a complete23-coefficient pair00 product assembly. Their exact statements
+  and pinned hashes are now in REUSE_REVIEW.json. They are reuse candidates,
+  not newly compiled active results. The computed-to-raw numerator connection
+  remains unverified; do not regenerate these existing partial certificates.
+
+10 October, critical scalar reuse and resource audit
+  The archive supplies all66 common-term interpretation lemmas; all six files
+  and their primitive bindings now compile. The new sum-level adapter calls
+  those lemmas directly. The archived full33-coefficient denominator identity
+  also compiles. Five existing scalar modules (reduction, parameterization,
+  poles and modulus allocation) compile after replacing an unused
+  RadianSeedBounds import by Mathlib.Tactic. The theorem statements and all
+  polynomial data are unchanged. KERNEL_AUDIT_CRITICAL_ZERO_SCALAR.log confirms
+  standard axioms for seven endpoints; it does not discharge their hypotheses.
+  The whole numerator pilot first exceeded1500000 elaborator heartbeats. A
+  same-statement decide+kernel attempt reached a10GB footprint with9.6GB swap
+  and was interrupted. It is unverified, not a counterexample. The smaller
+  existing group00 pilot is now being assessed; all11 group data files already
+  exist upstream and must not be regenerated. No new group checks were made.
+  Atlas certification remains excluded by the user's explicit instruction.
+
+  Follow-up: the original group00 coefficient10 pilot also developed heavy
+  memory pressure (7.5Gfootprint,5.4Gswap) and was interrupted. No new group
+  checks were generated. The already existing Pair00Exact23-coefficient product
+  and its12dependencies have been selected unchanged to check smaller pieces.
+  Neither interrupted pilot is counted as a proof. NumeratorBindings alone
+  of the39new numerator files passed Lean; the other38are held uncompiled.
+
+CHECKED PRODUCT COMPONENTS, 10October
+  All23Pair00 coefficients and all35Trip00 coefficients now compile unchanged
+  from the archive. Their final evaluations use the existing binary convolution
+  theorem, and Trip00 directly calls Pair00. A new two-line proof adapter
+  common_term01_from_trip00 joins that checked triple product to the original
+  common coefficient term01 through the existing eval_common_01. It compiled
+  in1.4seconds. KERNEL_AUDIT_CRITICAL_ZERO_PRODUCT.log audits allthree endpoints
+  with standardaxioms only. No coefficient data or normalizer was regenerated.
+  The active archive selection is81modules,79checked and two resource-limited
+  pilots explicitly deferred. Fullnumerator/classification remain unproved.
+  SOS Reductions223, the firstsix-row branch, has passed. Normalization and one
+  automatic rowworker continue. No atlas certification has been run.
+
+PSI SCALE SYNTAX FIX
+  The first ready Psi term module exposed missing parentheses around negative
+  Integer.Sparse.scale coefficients. Fixed the existing generator only; all2970
+  scale values and referenced projections are identical before/after, and the
+  same witness is retained. PsiTerms667_05 now passes allfive terms. The other
+ 53term modules andnine physical row assemblies remain pending. No proof data
+  was rediscovered. The automaticrowworker has been resumed.
+
+2026-10-10T21:32:55.896144+00:00 — Target corner arithmetic and staged numerator reuse
+All1156 target corner weight proof tactics now expose exact Nat casts before norm_num; all theorem statements, coefficients and138finaltarget entries unchanged. TargetCornerRow01(all34children/collection)PASS. CommonGroup00 reuses the existing dense terms and checked trip00 product; both evaluation adapters PASS, standardaxioms only. Closed coefficients10and18PASS, propextonly. First-group remaining37-coefficient assembly generated with no new arrays/normalizer; kernel work continues in ONE shared row/scalar queue. Atlas certification remains excluded.
+
+2026-10-10T21:52:44.983974+00:00 — Reused side construction
+The full-source reverse-use search found SideFourierActual.strict_seed_prescribed_side_exists. Its51-module dependency closure is adopted unchanged apartfromimports; no newsideconstructor waswritten. SeedModel directlyreuses cornerData_entrywiseUnit andbinds threeseedcorrelations/invariant; PASS. SideRecipeis onlythe pendingunified-model substitution. SelectedCentiradianPhysicalcontainsgenericGramlemmas/definitions, no concreteexclusioncertificate; atlas certificationremains excluded. NewsourcehEisnotdischargeduntilthefullphysicalmatchedcompletionisproved. GitHub21:49pollunchanged.
+
+2026-10-10T22:07:47.235359+00:00 — Forward side-signature reuse: selected existing FourierPhaseData.phase_gamma and its two dependencies; archived statements unchanged. Added SignatureFromPermanent and FourierSignature model adapters; no duplicate polynomial data. First adapter build failed only on an unavailable helper name, replaced by standard map_ne_zero; recheck pending. Shared queue now PID41033/session32374. Atlas certification remains excluded. Main still conditional on all four inputs.
+
+2026-10-10T22:12:15.652023+00:00 — SignatureFromPermanent PASS, batch_0038.log. Existing Laurent identity + prescribed scalar guards yield T = g*sideZ; no new polynomial certificate or completion assumption. FourierSignature remains uncompiled. Normalization 9280/12345 nodes; first group 17/39 modules. Atlas certification excluded.
+
+2026-10-10T22:30:28.296718+00:00 — Progress: signature endpoint axiom audit PASS. Reused two more archive modules for group01; both adapters and midpoint18 compile and pass axiom audit. Generalized the existing group-check generator; all39 group00 files and passed group01 midpoint preserved, no arrays generated. Full group01 checks share the same compiler queue. Receipt invalidation now follows tracked dependencies, with8 passing cases. GitHub22:19 poll unchanged; watcher confirmed live. Atlas certification remains excluded.
+
+2026-10-10T22:38:40.521789+00:00 Remaining critical groups: reused13archived data/binding modules after complete source-index and reverse-use review. Same generator emits only midpoint18 pilots for02..10; no new polynomial arrays. All78prior group00/01files unchanged. Current compiler queue now includes32pilot-stage modules; full group identities remain unproved. Atlas work excluded.
+
+2026-10-10T22:49:01.692124+00:00 Group02/03/04 adapters and midpoint18 checks pass. Their full checks are queued on the existing shared worker. The numerator generator now assembles the11unchanged archived group expansions; only its regrouping adapter and midpoint18 sum check have been emitted, not yet checked.38uncompiled direct drafts archived with current hashes and retired; checked NumeratorBindings unchanged. Full generation gate remains closed; exclusion of atlas work preserved.
+
+2026-10-10T23:09:40.664762+00:00 Signed-side and paired-candidate endpoints compile and audit with standard axioms only;6explicit endpoints in KERNEL_AUDIT_SIGNED_SIDES_STATUS.json.30archived semantic finiteness modules adopted unchanged except imports; MatchedCompletion reuses retained_completion_isHadamard, keeping fourth-block flatness explicit. Disk ENOSPC interrupted two modules: recovered5.45GB by deleting generated setup.json only, validated cache preservation, normalization retry passed. Shared queue resumed for target retry and other algebra. No atlas certificates generated or certified.
+
+10 October, existing zero-J interpretation closure
+181 archived modules adopted, with9existing scalar-source hashes preserved.
+The172new sources reuse all36moment substitutions and66denominator-clearing terms.
+No polynomial data generated; all11group midpoint pilots now pass.
+RowNormFlatness adds only the existing Mathlib AM-GM equality-case adapter.
+Its row-sum/product hypotheses remain explicit; universal flatness is still open.
+Successful build workers remove only regenerable setup descriptions to avoid
+repeat disk-full failure, preserving every source/proof/data/cache artifact.
+Atlas certification remains excluded.
+
+10 October, complete normalization and first group assembly
+All386normalization modules/12,345nodes PASS. Group00 all37coefficients and
+full evaluation identity PASS. Grouping and expanded-sum coefficient18 PASS;
+remaining sum checks use the same selected data and normalizer.
+All91side/construction modules PASS. MatchedCompletion uses explicit corner
+arguments to the existing theorem, avoiding expensive backward unification.
+RowNormFlatness directly reuses Mathlib AM-GM. Six new endpoints have only
+standard axioms; hflat and all4Main inputs remain explicit in the audit.
+Split critical/semantic lanes now occupy the2compiler slots; mixed queue and
+normalization worker are closed. GitHub23:49poll unchanged. No atlas work.
+
+11 October 2026 UTC — zero-J reuse extension (atlas excluded)
+The existing raw scalar factorization closure has 87 modules, including 21 already-selected identical sources and 66 new unique archived sources. It joins the existing expression interpretation in the same proof chain. All 181 original physical-closure source hashes are preserved.
+The guarded modulus-input and raw-modulus join proofs are reused with unchanged statements/bodies. Three literal moment definitions are extracted once into MomentData; replacing the unused CriticalLightSheet umbrella import avoids unrelated FormalCore/interval machinery. The resulting physical manifest has 273 archived modules plus this one data adapter. Adoption is not a compiled-proof claim.
+The integrator accepts a local import only when registered and hash-checked, and orders its archived anchor before consumers. All 24 generation/integration guard hashes match. Reviews: CRITICAL_ZERO_SPLIT_REDUCTION_REUSE_REVIEW.json and CRITICAL_ZERO_MODULI_INPUTS_REUSE_REVIEW.json.
+Future actual-matrix integration must reuse the current SidePermanent and CriticalRowSum declarations; importing the unadapted full archive versions would duplicate names. CRITICAL_ACTUAL_MODEL_REUSE_NOTES.json records the exact overlap and remaining model obligations. No atlas worker or concrete atlas certification is involved.
+
+Checked continuation: Group01Exact and Group02Exact now pass (three full numerator groups including Group00). MomentData, CriticalZeroSplitting and CriticalZeroModuliInputs pass with current source hashes. The input theorem and quadratic conversion print only propext/Classical.choice/Quot.sound; all nonzero and moment hypotheses remain explicit. CRITICAL_ZERO_MODULI_INPUTS_PASS.json records the successful log.
+376completed normalization logs were stored losslessly in sos_reduction_build/completed_batches_0000_0375.zip; all members verified by CRC and SHA256 before removing the redundant plain copies. NORMALIZATION_LOG_ARCHIVE.json preserves original paths/hashes. Last ten logs remain plain so batch numbering and current receipts retain their paths. No proof/source artifacts were removed.
+
+2026-10-11T00:57:10.067145+00:00 — Noncircular forced row norms: reused the existing vendor Gram proof by
+weakening its hypotheses; original endpoint preserved as wrapper. ForcedRowNorms
+and matched_completion_of_row_products PASS, standard axioms only. The row-product
+identity is still an explicit premise. All24affected compiled consumers refreshed
+successfully with current hashes. No atlas certification. Semantic recovery94864
+resumes the same SOS/side manifests; critical lane42663 continues unchanged.
+
+2026-10-11T01:25:37.049591+00:00 — Current matrix-to-critical-strip binding
+The8archived CriticalMomentBinding lemmas and4ActualSignatures adapter endpoints
+pass. PhysicalModel(5endpoints), CriticalStripPhysical(11lemmas), and
+CriticalWholeMoments(7lemmas) now pass with standard axioms only. The precise
+AllCriticalCarrier constructor is checked; it uses the current Had6 predicate.
+A redundant ring tactic was replaced with the exact earlier archived0d2248proof.
+The same physical manifest has290records:286archive modules and4necessary data/
+model adapters. All43Newton formulae and their10existing table/strip modules are
+reused unchanged except model identifiers; they remain queued. No coefficient
+regeneration, atlas certification, or second global coverage proof was added.
+The proposed next signed-invariant/signature binding is only a read-only plan.
+GitHub01:19:14UTCcheck unchanged4e048ec.388olderbuildlogs archived losslessly,
+CRC/SHA256verified; latest10in eachdirectory remain plain. Critical lane96563,
+semantic94864, watcher22382remain active. All24generation guard hashes match.
+
+2026-10-11T01:29:18.755286+00:00: All10Newton-table/strip extension modules now PASS:54theorems, including43original Newton moment identities. Each direct-build log and current source hash is checked; all printed axiom lists are standard only. CriticalStripNewton.normalized_strip_newton_table and normalized_opposite_data are included. Global66term zero/classification remain open.
+
+2026-10-11T01:54:33.793884+00:00 — Physical66/gauge endpoint PASS
+BlockInvariant7printedendpoints and all21archivedphysical66/gauge modules with91printedendpoints PASS, standardaxioms only. The current AllCriticalCarrier yields the original66term equation; reciprocalgauge retains s,t nonzero. All8full numeratorgroups00..07PASS. LightSide22archivedmodules plus1exact PhaseFacts extraction adopted;old312sourcehashes preserved. SharedGram/side/radicand definitions reused, originalnumerator certificates retained.335physicalmanifestrecords. All89targetrows and495Psi terms PASS;remainingboundaryrowscontinue. Prepared14existing finalSOSassemblies,1338rowhashes checked;9stalePsi hashreceipts refreshed,RowsSound sourceunchanged. Noatlas certification.
+
+2026-10-11T03:57:16.077414+00:00 — ConditionalSOS discharged
+All14finalassemblies PASS:9complementary-signature rows,2target sums,targetprojection,RowsSound(1338rows),Conditional. KERNEL_AUDIT_CONDITIONAL_SOS.lean exited0;all16printedendpoints use propext/Classical.choice/Quot.sound only. CONDITIONAL_SOS_PASS.json pins current sourcehashes and exact type. No witness or equation data regenerated. MainTheorem now calls SOS.conditionalSOS directly and is rebuilding;3other inputs stayexplicit. Atlasexcluded.
+The interruptedRowsSound process was confirmedabsent before recovery;all12earlierassemblies retained. GitHubwatcherrestored afterOSstop;03:46head4e048ec unchanged. ActualModuli.lean is an uncompiled minimaljoin of3existingendpoints withallregularityguards retained;buildonlyafterbothcriticalmanifestsfinish.
+
+2026-10-11T04:02:17.125216+00:00 — Main SOS integration PASS
+MainTheorem and Audit.lean exit0. All28printed endpoints use standard axioms only. Main now requires precisely AtlasCertificate, MatchedExistence and CriticalClassification; ConditionalSOS is supplied by its checked theorem. MAIN_SOS_INTEGRATION_REVIEW.json records exact signature and hashes. No atlas certification. Disjoint critical groups/physical streams resumed, maximum2Lean compilers.
+
+2026-10-11T04:16:58.091748+00:00 — Critical transport and necessary parameter cases
+Equivalence.lean PASS: two current-model adapters use existing sideSignature_scale, arbitrary-submatrix signature and coordinate-equivalence proofs; standard axioms only. Three archived parameter modules PASS,18printed endpoints standard axioms. The two duplicate moment/denominator proofs in PhysicalParams were omitted in favor of existing CriticalLightSheet. The actual zero-J computed-numerator endpoint compiled; explicit type audit pending a free compiler slot.
+Earlier ScalarGaugeAlgebra d9bf68 and ZeroSideInterface2893eb variants fixed failed tactics, retaining original statements/data. All existing checked sources preserved except those selected failing variants. Nine existing nonzero-J physical modules plus one leading-corner adapter adopted but uncompiled. The duplicate LightStrip module, sign proof and redundant definition equality were replaced by existing results. All denominator/correlation guards remain; atlas certification excluded.
+
+2026-10-11T04:32:55.928318+00:00 — Actual zero-J algebra and physical charts COMPLETE
+All407numerator and335physical/scalar modules PASS. Computed-to-raw identification, ActualModuli, current AllCritical equivalence transport, parameter cases and physical rechart PASS. The10-module nonzero physical equation passes with allsix denominator hypotheses explicit. KERNEL_AUDIT_CRITICAL_BRANCHES_STATUS.json checks12standard-axiom endpoints. Main hasTHREEinputs; atlas excluded, MatchedExistence andCriticalClassification stillopen. Geometry is next; no polynomial data regenerated.
+
+2026-10-11T04:55:25.077013+00:00 — Regular zero-J branch reaches the actual Fourier family
+10geometry modules,5six-root modules and9geometric-Fourier modules/model adapters PASS. Three new audits check12+9+14endpoints with standard axioms only. Original geometric and Fourier arguments retained, shared phase and coordinate facts reused. No atlas/certificate endpoint closure imported; no polynomial data generated. ActualFourier keeps z>=-3,z!=0,-3,-2 and actual p,J,W equalities; original s,t need not be nonzero. CriticalClassification still needs exceptional/nonzero cases and continuous-Fourier-to-fixed-F6 binding. MatchedExistence remains open. Main still hasTHREEexplicit inputs.
+
+2026-10-11T05:17:05.867296+00:00 — All-critical Fourier family reaches the exact main representative
+8modules and33standard-axiom endpoints PASS. Original FourierCritical algebra,
+twelve-point grid and equivalences are reused, with a checked direct binding
+sixSkew=-(TS-starTS). Missing legacy UnitMomentTrace is not assumed/imported.
+KarlssonFourierImport.007 raw_source_binding is extracted unchanged except
+coordinate names; identical current canonicalPermutation45 is reused. Existing
+FourierBridge.oai_equivalent_transpose replaces a removed redundant adapter.
+ActualFixedFourier reaches main fourierHadamard. Regular zero-J guards remain.
+Singular z=0 and nonzero-J/global assembly remain open, as does MatchedExistence.
+Atlas remains explicit/excluded. CRITICAL_SINGULAR_BOUNDARY_DISCOVERY.json is
+read-only dependency evidence, not an adopted or certified singular route.
+
+2026-10-11T05:45:34.703100+00:00 — Singular boundary and necessary nonzero-J domain PASS
+Singular assembly:14modules,58standard-axiom endpoints. Generic singular3x3minor and p=9/z=0 boundary now join the current all-critical main Fourier representative. Existing18Tao matrix table and FourierNormalization are reused; identical CriticalLightSheet determinant lemma replaces its redundant archive copy. Source hashes and exact endpoint types checked. No new matrix witnesses or coefficient data.
+Modulus domain:5reusedmodules,32standard-axiom endpoints. Current signed parameter and denominator positivity are reused; actual all-critical nonzero-J now has the original closed interval cover. It does not prove the quartic, pole handling or final classification. The complete blob search recovered the existing allCritical wrapper, avoiding a new duplicate adapter.
+Main still requiresAtlasCertificate,MatchedExistence,CriticalClassification. Atlasexcluded. Full nonzero-J/global assembly and universal/dense row-product identity remain open. No Lean worker remains live; watcher54301isrunning.
+
+2026-10-11T06:12:24.677798+00:00 — Nonzero-J interpretation and supplied scalar tail PASS
+38modules/138standard-axiom endpoints: complete36pairedNewton moments, original66term finite program, actual all-critical coefficient equation. Existing nonzero_J_original_chart supplies correlation guards; six physical denominator guards retained. All original data/proof bodies reused, imports only; two already-archived successful variants replace failed tactics.
+10modules/23standard-axiom endpoints: original generic factorization and exact pole products. Read-only integer-polynomial comparison matches615numerator and105quartic terms to pinned original JSON. Conditional hn=0 is not discharged. Source/receipt hashes match.
+Coefficient clearingha/hb, earlier68pseudo-reduction steps, scalar/pole exceptions and global classification remain open. Bounded complete-source/relevant-subtree searches are recorded in CRITICAL_NONZERO_NUMERATOR_GAP_REVIEW.json; do not claim unpublished work absent. No atlas certification. Main still hasTHREEinputs. No Lean compiler live; watcher54301continues.
+
+2026-10-11T06:41:35.661480+00:00 — First coefficient clearing and Mathlib model adapter PASS
+3modules/17standard-axiom endpoints. Original two moment formulas reused, with both quadratic coefficients connected. Existing Mathlib quadratic algebra supplies ring operations; no replacement ring or moment arrays generated. Read-only comparison identifies the original raw denominator exactly, without claiming it as a Lean certificate. Side conjugation compiled; full-program b=0 still open. Main inputs unchanged; atlas certification excluded.
+
+2026-10-11T06:54:23.269678+00:00 — Quadratic involution eliminates the b coefficient: PASS
+4modules/9exact audited endpoints, standard axioms only. The existing Mathlib involution and unchanged36quadNewton formulas/66term program show b=0 for nonzero X,Y. Denominator inverses are arbitrary scalars in this algebraic symmetry; no extra pole conditions are needed. ActualNonzeroCoefficientZero reuses the earlier actual coefficient equation and retains its original six physical nonpole guards. No coefficient arrays or atlas certificates generated. Raw a clearing, reduction trace, classification and matched-completion gates remain open. All current sources/dependency pins/build receipts agree. Watcher06:46:41unchanged4e048ec; next07:16:41UTC. No live Lean compiler.
+
+11 October, nonzero moment clearing (partial)
+  Seven new intermediate rational moment checks and two formulas adapted from
+  the already checked first moment block pass (8modules,9audited endpoints).
+  The original evaluator was used only for18representative moment candidates;
+  the existing66term raw numerator was not regenerated. Its44,722rational
+  coefficients are copied exactly into15Lean data modules, scaled32and divided
+  back in the definition. Data equality is not the missing program identity.
+  Three largest unverified checks retain exactly their data and statements;
+  a factored-pole tactic refinement is being tested to reduce memory.
+  Atlas certification remains excluded. GitHub07:16:41UTC unchanged.
+
+11 October, further clearing and structural adapters
+  Thirteen direct identities andtwo reused formulas pass independent audits
+  (15moment endpoints). The opposite map and compact reconstruction each add
+  one checked endpoint, reusing the existing quadratic algebra and constructor.
+  Three large moment identities still fail resource limits, not certified.
+  Their exact coefficient data now compiles in separate8k-row chunks using
+  the existing dense evaluator. No full raw numerator or witness regenerated.
+  NONZERO_COMPACT_CLEARED_GOAL_FULL is a diagnostic for smaller future checks,
+  not a certificate. NonzeroRationalTable is prepared, not compiled.
+  Atlas remains excluded; main still has the three explicit inputs.
+
+2026-10-11T09:06:52.833578+00:00 — First large nonzero moment PASS
+cleared_p2_m4 nowcompiles withits exactoriginalstatementandnine nonzero/poleguards. Reusedexistingdense evaluator/checker and281-nodeexpressioninterpretation; sixteenstagedproductidentities,606intermediate and96finalcoefficientchecks.220modules/723independentlyauditedendpointsPASS, standardaxiomsonly. No originalnumerator/witnessregenerated; no atlaswork. Priorwhole-expressionpilotsretired, notcounted. RAWreceipt17/19files includes3datafiles; actualmomentcount16/18. Twootherlargeidentities, raw44722termassembly/reduction/classificationanduniversalmatchednormremainOPEN. GitHub08:46:41unchanged.
+
+2026-10-11T09:33:57.823341+00:00 p4_m2 PASS: reuse p2_m4 through Mathlib quadratic lift, original conjugation and existing numerator tables.26modules/93endpoints independently audited; originalstatement/guards retained.17/18representatives. p2_p2 onlyremaining, reuses30exactDAGnodes and existingdensechecker; pilotpending. Atlas certification excluded.
+
+2026-10-11T09:38:04.252880+00:00 p2_p2 furtherreuseaudit: exactpolynomialcomparison finds no oldDAGmatches for any of16newnormalizationcheckpoints.36noncheckpointASTnodes represent reassociations/algebraicidentities but have only genericcompositionadapters, not newnormalizationcertificates. Existingtargetdata untouched. Diagnostic isnotLeanproof; assemblycontinues.
+
+2026-10-11T10:06:45.694998+00:00 COMPLETE moment inputs: p2_p2 originalstatement nowPASS196modules/889endpoints;18/18representatives. Full36moment table and unchanged66term lookupPASS1module/2endpoints with22dependency hashes. Reused30exact oldDAGnodes, existingdensechecker and all originaltargetdata. Noatlas certification. Raw66term numerator identity, reduction/classification and matchedexistence remainOPEN. Worker78709and12135terminalexit0; noactiveLeancompiler.
+
+2026-10-11T10:36:20.470104+00:00 — Original66term clearing68modules/70endpoints, primitive bindings20modules/47endpoints, and expression interpretation38modules/1803endpoints independently PASS.27exact oldDAGsubexpressions reused; original36moment and raw numerator data retained. Exact external residual zero is only diagnostic. Missing Lean coefficient comparisons are being piloted using the existing BinaryCertificate checker. No atlas certification; main inputs unchanged.
+
+2026-10-11T11:01:04.382775+00:00 — Further sum verification PASS: first product19modules/77endpoints, shared input plus2exact archived row-checker modules15/65, and all28rows of one difficult coefficient11/30. Product43 only coefficient44 is checked; other88 remain open. Whole-coefficient rfl attempts were stopped and retired, never counted. Archive variants opened:3CoefficientRow,2RowCertificate; selected originals eb31e9928ed6a032067c8924ee13b7df061a216ac91e5612231953cc139e8558 and794a31a721ffcdf79051a5171e6a3be4199778cfd19d1f9ccd602c66d8083e74, imports only. Original numerator unchanged; no atlas work. Allcurrent sixauditblocks rechecked for exactcurrent source hashes and standard axioms. Watcher10:46:41UTCunchanged4e048ec; noactiveLeanprocess expected.
+
+2026-10-11T11:49:20.252418+00:00 — Product43 and scalar quartic tail PASS
+Product43:238modules/1403audited endpoints. Existing coefficients44 and45, unchanged product data and exact archived row checker reused; no raw numerator regenerated. Scalar tail:17modules/42audited endpoints, using the original quartic and all25stored Bernstein entries as16distinct expressions. Five algebraic sign proofs replace the original external Sturm procedure. Four interpolation bindings reuse the reversed interval. Mathlib Convex.mem_Icc supplies interval combinations. Signed candidate theorem retains Allowed and quartic=0; all endpoints and kappa=0 are covered. Physical-to-quartic identity/reduction, poles, global assembly and universal matched norm remain OPEN. Atlas certification EXCLUDED. GitHub 2026-10-11T11:46:41.332308+00:00 unchanged 4e048ec8a2888f198f5432efd7f201f98d473878. All current worker handles closed.
+
+2026-10-11T12:25:18.648485+00:00 — Equicorrelation finite-coordinate adapter PREPARED, NOT COMPILED.
+Read current, vendor/OAI and complete available archive sources/indexes; scoped review CRITICAL_EQUICORRELATION_REUSE_REVIEW.json. Reuse existing cube_roots_are_modes and reconstructionOmega. Replace only the unformalized field-degree paragraph with unit-norm finite cases. No atlas work; matrix normalization/mixed-corner identities still required.
+
+2026-10-11T12:46:31.082811+00:00 — Product29 PASS:237modules/1891independent standard-axiom endpoints. Original pilot retained; paired-factor and product23 audits/source hashes rechecked. Generic product adapter reuses existing coefficient and list evaluation; no arithmetic checker replaced, no raw numerator or atlas regenerated. Full66term numerator comparison remains open.
+
+2026-10-11T12:54:37.229017+00:00 — Normalized equicorrelation PASS:4modules/25standard-axiom endpoints. Reuses cube-root enumeration, literal Fourier constant, normalized_invariant, physical signature, and row orthogonality. Generic selected_signed_zero is the only necessary arbitrary-row/index adapter. The original finite-coordinate obstruction is strengthened to an actual normalized-block impossibility. Gram-to-E0 normalization remains open. No atlas work.
+
+2026-10-11T12:59:58.605421+00:00 — P7 normalized-strip exclusion PASS:1module/3standard-axiom endpoints. The literal fixed corner at columns0,3,5 has signed invariant -16i. Reuse selected_signed_zero and normalized_invariant. No twenty-corner certificate is needed or generated. Scalar-to-strip normalization remains open.
+All six relevant current audit blocks/source hashes rechecked, including paired factors14/37,product23 17/89,product29 237/1891,equicorrelation finite2/13 and full4/25,P7 1/3. No atlas work, raw target regeneration, other-LLM certificate regeneration, remote mutation or toolchain change. All proof sessions terminal.
+
+2026-10-11T13:11:04.292652+00:00 — P7 row normalization reuse review: direct reuse of four_unit_sum_zero_pairs, P7 fixed-corner exclusion and current OAI candidate equivalence. Exact norm equations replace division; no duplicate finite certificate. See CRITICAL_P7_ROW_NORMALIZATION_REUSE_REVIEW.json.
+
+2026-10-11T13:30:47.278715+00:00 — PASS: P7 positive scalar endpoint,7modules/15auditedendpoints, only standard axioms. Reuses four-unit pairing, repeated_modulus_assignment, row-correlation swaps, scalar nonzero reduction, candidate equivalence and original fixed-corner exclusion. No twenty-corner certificate, raw numerator regeneration or atlas certification. All20columntriples/bothsign extension is building separately as an index/complement adapter, not a second proof.
+
+2026-10-11T13:36:02.872727+00:00 — PASS: actualP7 strip endpoint,2additionalmodules/5auditedendpoints. The positive7module/15endpoint chain is reused unchanged. New ColumnRechart is a necessary current-OAI/index adapter. Existing strip_complementary_moments/momentP_neg/momentJ_neg cover the negative sign. All20stripcorners included, no nonzero pole or normal-form premise. Rechecked source/dependency hashes and unchanged main theorem. No atlas certificates generated/certified, no original polynomial/witness arrays changed.
+
+2026-10-11T13:56:18.790085+00:00 Remaining original nonzero sum DAG: reuse review recorded in CRITICAL_NONZERO_SUM_REMAINING_REUSE_REVIEW.json. Existing staged evaluator and row checker only; seven completed nodes retained; original raw target unchanged. Lossless build compression PASS; atlas remains excluded.
+
+2026-10-11T14:21:09.768145+00:00 Read-only reconstruction review: PreRhoNormActual24512e, SideMatrixCoefficientAlgebra d6f411 and DirectCubeLinear57ca23 do not supply forcedD row-product norms. Reused original fixed_data symbolically for size counts only; no new norm certificate. Matched-existence reuse gate stays closed. Latest GitHub14:16:41UTC unchanged.
+
+2026-10-11T14:29:41.976625+00:00 PASS: remaining original sum throughnode58,222modules/1248endpoints; all current source/dependency hashes verified. Only propext,Classical.choice,Quot.sound. Immutable THROUGH0058 receipts saved. No atlas or final raw identity claimed. Session83352 closed0.
+
+2026-10-11T14:36:01.391954+00:00 PASS second remaining sum batch through63:27newmodules/101newendpoints; cumulative249/1349. All222first-batchmodules retained, not recomputed. Current source/dependency hashes rechecked; original raw target and main theorem unchanged. Session52482closed0.
+
+2026-10-11T14:52:43.619163+00:00 Product66Data PASS naturally before planned interrupt; oldPID55984absent, no process killed, no completed source regenerated. Keep the Data66 receipt. Native profile retained; future unprepared>20000term tables after66 use the existing eight-row data-file format. Current coefficient checks remain active in session11258.
+
+2026-10-11T15:02:53.171181+00:00 — Read-only fourth-block reuse review: 19 archived variants compared at their exact hypotheses and conclusions. Physical/PhaseHadamard reconstruction results assume an existing flat matrix and cannot discharge arbitrary strict-seed existence. No theorem or certificate generated. Matched-existence generation gate remains closed pending remaining candidate review. Atlas work excluded. Evidence: MATCHED_FOURTH_BLOCK_HYPOTHESIS_REVIEW.json.
+
+2026-10-11T15:07:03.146178+00:00 — Completed scoped matched-existence reuse review. All original56file and9content candidate statements resolved by their explicit hypotheses/conclusions; supplementary norm/fourth-block/current/OAI searches retained. Full indexes contain77948source records,19386available blobs,16532imports; OAI closure663files. Universal forced-row product norm not identified among the reviewed results. The matched-existence generation gate now records this completed review (not a proof). Only the missing norm may be developed, reusing existing construction/algebra. Atlas candidates were screened by declarations only; no atlas certificate compiled or executed. Evidence: MATCHED_EXISTENCE_UNIVERSAL_REUSE_REVIEW.json.
+
+2026-10-11T15:10:24.236862+00:00 — User exclusion reaffirmed: no atlas certification. Main source unchanged (9316a2a26614e4d1782334d03709321b378540e2cb4002a888110d85c01e3556). Current product66 build 276/509; no failures reported. Runner55956/builder55958/watcher89431 confirmed live. Current independent audit pending; through63PASS remains authoritative. No full theorem or full raw identity claimed.
+
+2026-10-11T15:45:43.987685+00:00 — PASS: equicorrelation row-products adapter,1 module/2 standard-axiom endpoints. Reuse actual_intrinsic_lambda_identities and row_product_units unchanged; equal Gram moduli cancel the common permanent term. New assumptions only UnitRows and the explicit oriented Gram, with no determinant/sheet/pole premise. Main source unchanged. Scalar-to-Gram phases, repeated roots and column transport remain open. Reuse review and audit pinned. Original sum temporarily yielded at318 successful modules, all retained; resumed same manifest in session44269/PID62204. Atlas certification excluded.
+
+2026-10-11T15:45:43.987685+00:00 — Untrusted matched-norm attempts04–06: original fixed_data and literal cubic norm formula reused, no alternate mathematical route. Saved horizontal inverse gives vertical companion by transposition/reciprocal involution; exact defining relation checked externally. Forced-entry coefficients and one square cached; same quadratic basis recentered, no field changed. Attempt06 times out before cubic norm/residual. No universal norm or Lean certificate claimed. All partial values remain diagnostic-only.
+
+2026-10-11T16:22:28.820347+00:00 — PASS full physical equicorrelation endpoint. Four new adapters/11audited endpoints reuse the existing products, second moment, allocation, AM-GM, row/column rechart and normalized obstruction. Whole E0 route9modules/38endpoints; all20corners/bothsigns, no normalization or pole premise. Only standard axioms; MainTheorem unchanged; atlas excluded. Scalar helper overlap discovered in archived CriticalModulusQuarticReal; three duplicate local proofs and manual k=1 consumer removed, existing module adopted import-only. Consolidation build/audit pending; prior receipts preserved. The Cauchy-equality candidate requires no standalone exclusion and is retained for existing counting.
+
+2026-10-11T16:24:39.740805+00:00 — PASS scalar reuse consolidation: archive CriticalModulusQuarticReal adopted with imports only; three duplicate local helpers and manual k=1 branch removed. Affected batch3modules/14standard-axiom endpoints, complete scalar route18/45. Prior unchanged Bernstein checks retained. Original sum requested to yield between modules for restoring jobs2; no active check interrupted. Atlas excluded.
+
+2026-10-11T16:29:28.243908+00:00 — Original sum25187yielded cleanly at356modules; no check interrupted. Existing verified compression utility preserved every artifact byte/hash/mtime and recovered474902528bytes across78files. Resumed same manifest jobs2in50612/PID66320, both locks held, prior356retained. Main source unchanged; atlas certification excluded.

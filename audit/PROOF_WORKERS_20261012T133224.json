@@ -1,0 +1,66 @@
+{
+  "started_utc": "2026-10-12T13:32:24.288321+00:00",
+  "purpose": "Separate process sessions and saved output preserve authorized long-running Lean checks across loss of the tool observation session. Existing two-lane locks remain enforced.",
+  "jobs": [
+    {
+      "name": "critical_through95",
+      "pid": 2767,
+      "argv": [
+        "/usr/local/bin/python3",
+        "-u",
+        "audit/run_nonzero_sum_remaining.py",
+        "--jobs",
+        "1"
+      ],
+      "log": "audit/worker_logs/critical_through95_20261012T133224.log",
+      "started_utc": "2026-10-12T13:32:24.072485+00:00",
+      "atlas_certification": false
+    },
+    {
+      "name": "linear_binding02",
+      "pid": 2769,
+      "argv": [
+        "/usr/local/bin/python3",
+        "-u",
+        "audit/run_third_moment_adapter.py",
+        "MATCHED_THIRD_LINEAR_BINDING02"
+      ],
+      "log": "audit/worker_logs/linear_binding02_20261012T133224.log",
+      "started_utc": "2026-10-12T13:32:24.180255+00:00",
+      "atlas_certification": false
+    },
+    {
+      "name": "sparse_linear_bindings",
+      "pid": 2772,
+      "argv": [
+        "/usr/local/bin/python3",
+        "-u",
+        "audit/run_third_moment_adapter.py",
+        "MATCHED_THIRD_SPARSE_LINEAR_BINDINGS",
+        "--lane",
+        "critical",
+        "--wait-for-lane"
+      ],
+      "log": "audit/worker_logs/sparse_linear_bindings_20261012T133224.log",
+      "started_utc": "2026-10-12T13:32:24.287123+00:00",
+      "atlas_certification": false
+    },
+    {
+      "name": "constant_binding10",
+      "pid": 2773,
+      "argv": [
+        "/usr/local/bin/python3",
+        "-u",
+        "audit/run_third_moment_adapter.py",
+        "MATCHED_THIRD_CONSTANT_BINDING10",
+        "--lane",
+        "semantic",
+        "--wait-for-lane"
+      ],
+      "log": "audit/worker_logs/constant_binding10_20261012T133224.log",
+      "started_utc": "2026-10-12T13:32:24.288291+00:00",
+      "atlas_certification": false
+    }
+  ],
+  "atlas_certification": false
+}

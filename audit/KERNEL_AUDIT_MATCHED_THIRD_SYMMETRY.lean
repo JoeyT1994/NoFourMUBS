@@ -1,0 +1,7 @@
+import NoFourMUBs.Step2.Reconstruction.ThirdMoment.Symmetry
+
+#check NoFourMUBs.Step2.Reconstruction.ThirdMoment.flatness_of_one_weighted_identity
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.candidates_permuted
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.forcedD_permuted
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.weightedDefect_permuted
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.flatness_of_one_weighted_identity

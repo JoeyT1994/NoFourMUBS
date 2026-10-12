@@ -1,0 +1,39 @@
+{
+  "scope": "matched_third_flatness",
+  "records": [
+    {
+      "module": "NoFourMUBs.Step2.Reconstruction.ThirdMoment.WeightedDefect",
+      "active_path": "NoFourMUBs/Step2/Reconstruction/ThirdMoment/WeightedDefect.lean",
+      "active_sha256": "69d7a3f21ecea6ef5d5cb3ec1d618d2ef9864ec982983eafb591b28452cfe5bf",
+      "local_model_adapter": true,
+      "review": "MATCHED_THIRD_FLATNESS_REUSE_REVIEW.json"
+    }
+  ],
+  "axiom_endpoints": [
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.candidate_completion_rowGram",
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.candidate_completion_columnGram",
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.forcedD_column_norms",
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.entrywiseUnit_of_four_weighted_defects",
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.forcedD_entrywiseUnit_of_four_weighted_defects"
+  ],
+  "dependency_pins": [
+    {
+      "active_path": "NoFourMUBs/Step2/Reconstruction/ForcedRowNorms.lean",
+      "active_sha256": "61f03e080569bdb95f51c3eae47268265054d62eed6d021a1af4f00e39411cf8"
+    },
+    {
+      "active_path": "vendor/hadamard6/Hadamard6/BlockGram.lean",
+      "active_sha256": "1d11ea4728234715ff90bdbc68e2541706832b0c525ec7373a167c79c9837264"
+    },
+    {
+      "active_path": "vendor/hadamard6/Hadamard6/BlockCompletion.lean",
+      "active_sha256": "b916c1eceba6086551173f8053a34ada370c47e45ee940b6846fc5b104cb722d"
+    },
+    {
+      "active_path": "vendor/hadamard6/Hadamard6/FiniteDilation.lean",
+      "active_sha256": "81bf8e0002e08ef0f69ab59f2b66071eb38b6fe595ae8bcd95dabea75a7fb627"
+    }
+  ],
+  "atlas_certification": false,
+  "scope_note": "Four weighted-defect reduction using only invertible phase candidates; four weighted zero identities remain explicit. No atlas certification."
+}

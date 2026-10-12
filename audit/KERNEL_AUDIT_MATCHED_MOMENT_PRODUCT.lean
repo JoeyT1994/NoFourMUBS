@@ -1,0 +1,4 @@
+import NoFourMUBs.Step2.Reconstruction.RowMomentProduct
+
+#check StrictReconstruction20261007.SideIntrinsic.row_linear_product
+#print axioms StrictReconstruction20261007.SideIntrinsic.row_linear_product

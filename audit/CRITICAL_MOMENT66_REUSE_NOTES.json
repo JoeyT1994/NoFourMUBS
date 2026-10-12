@@ -1,0 +1,37 @@
+{
+  "status": "PHYSICAL_MOMENT66_AND_GAUGE_PASS;REGULAR_LIGHT_SIDE_ADOPTED_BUILDING",
+  "checked_utc": "2026-10-11T01:51:55.851245+00:00",
+  "roots": [
+    "CriticalPhysicalGauge",
+    "CriticalZeroSideAllCritical",
+    "CriticalZeroActualComputedNoAudit"
+  ],
+  "current_model": "BlockInvariant7endpoints and all21physical66/gauge modules PASS; every printed endpoint has standard axioms only. AllCritical implies original66term Newton polynomial zero; reciprocal-gauge endpoint keeps s,t nonzero. Regular zero-J computed numerator chain adopted, not yet compiled.",
+  "next_reuse_chain": [
+    "CriticalBlockInvariant",
+    "CriticalStripSquareSum",
+    "CriticalLaurentCorner",
+    "CriticalOrderedSquareSum",
+    "CriticalPhysicalMoment66",
+    "CriticalNewtonMoment66",
+    "CriticalGenericNewtonGauge",
+    "CriticalPhysicalGauge"
+  ],
+  "minimal_proposed_binding": "IMPLEMENTED AND PASS: phaseInvariant_eq_neg_sideSignature and invariant_square_scalar. See CRITICAL_BLOCK_INVARIANT_REUSE_REVIEW.json. Uses the current checked scalar signature identity.",
+  "avoid_duplicate_route": "Extract the existing invariant data and elementary negative-square lemmas from CriticalBlockInvariant. The current signature identity can supply its scalar endpoint without importing the legacy global-max/six-skew physical-radicand route. Do not introduce a second polynomial signature proof.",
+  "reuse_evidence": [
+    "CRITICAL_PHASE_INVARIANT_REUSE_FILES.txt:7matching archive files, none binds phaseInvariant to the current signature interface",
+    "CRITICAL_SELECTED_SIGNATURE_REUSE_FILES.txt",
+    "CRITICAL_ACTUAL_SIGNATURE_REVIEW.json"
+  ],
+  "sources": {
+    "CriticalBlockInvariant": "2e1a6cca797a57bda81dca82dd45c814def98cefff1df43d0030b987bb2b9260",
+    "CriticalPhysicalMoment66": "2601ed1a1e8fa588bc0256d183254ee0b86f7deafa62bd4e2cba6b6d3b23253c",
+    "CriticalNewtonMoment66": "604727905e88a1ec89d8da93d9f963b1c5dbfd020a20ed6372c9f212ab550651",
+    "CriticalGenericNewtonGauge": "3cf4ef8775a404ccd66ad15a6668a9bf62ae1df828a4b727f076e84d65f475e3"
+  },
+  "variant_review_still_needed": [],
+  "separate_pending_light_side_chain": "CriticalZeroSideStripLight923a392 ->CriticalZeroSidePhysicalLight ->CriticalLightSheet/PhysicalSideRational and rational side gauge. Shared Gram/moment/permanent definitions already exist; omit them from any later full module adaptation. No duplicate declarations.",
+  "atlas_certification": false,
+  "variant_review": "All7variants reviewed and pinned in CRITICAL_PHYSICAL_MOMENT66_REUSE_REVIEW.json;21archive modules adopted into existing physical manifest. Compilation in progress, not yet a completed66term endpoint."
+}

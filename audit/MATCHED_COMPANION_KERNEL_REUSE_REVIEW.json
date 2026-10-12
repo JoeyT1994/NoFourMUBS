@@ -1,0 +1,56 @@
+{
+  "status": "REVIEWED_ORIGINAL_COMPANION_COEFFICIENT_CHECK",
+  "scope": "matched_companion_kernel",
+  "checked_utc": "2026-10-11T20:29:05.069389+00:00",
+  "repository_head": "fd7d1019fa4a7f3551bf9ade5d31ebbce9501055",
+  "search": "MATCHED_COMPANION_KERNEL_REUSE_SEARCH.json",
+  "source_pins": {
+    "audit/MATCHED_UNIVERSAL_NORM_WORK_CACHE.json": "a3dd3c0a1fef286107e83ff2b21cb37311e8189b0c89a056428edd5ab11bcec0",
+    "audit/MATCHED_SYMBOLIC_BASE_CACHE.json": "a0940de2c81be584bb5ff394eb5fc10d258f03e105ab379d9ae8b04f32f6e4a3",
+    "audit/MATCHED_COMPANION_DENOMINATOR_FACTORS.json": "d630fa4642ea5783709558edc5d56aa4600d57a662aaf0021fa7d5516b99997f",
+    "audit/diagnose_matched_universal_norm.py": "c21aceafa1d62db446c7b20efc4003c482be3a47e838458575ad9f83ac64cd8d",
+    "audit/prepare_matched_base_coefficients.py": "806da107f00b7d0e1528e67e5e97a430320708e9d74f3ae75aa3eacc64b7a446",
+    "lean/NoFourMUBs/Step2/Reconstruction/CubicEvaluation.lean": "a2f91aa59296859951df6d724089ce86000f33f7c53d2c786928dca118cee612",
+    "lean/NoFourMUBs/Reuse/Archive/CriticalMomentQuad.lean": "1408c2169bd58005fbe77872fe1cb7be3ea6c2670e0c51a305ac620afa0bce05",
+    "lean/vendor/hadamard6/Hadamard6/QuotientAlgebra.lean": "e771892e157ec91624d5fe1dada562bb43651696a673e0bc4fb08c5c640b03ed",
+    "lean/NoFourMUBs/Step2/Reconstruction/BaseCoefficients/Bindings.lean": "f488d52f6e644ee826f25f359886ef3f9a1da0a3c27660246bf11b459dc40509",
+    "lean/NoFourMUBs/Step2/Reconstruction/BaseCoefficients/Centered.lean": "0a74257b9c2fc64e57046f9abef7ee87e7bd308b889f3528ef52b5550f13162f",
+    "lean/NoFourMUBs/Step2/Reconstruction/BaseCoefficients/Eliminants.lean": "3ae325de28da1896954ef3270bff34a2a18de68ea1813a7745b327840e804c5a"
+  },
+  "comparisons": [
+    {
+      "existing": "CriticalMomentQuad and CubicEvaluation",
+      "reuse": "Use the already checked quadratic and cubic reduction literally. Original variable p obeys p^2=-V+U*p; vertical cubic uses the original affine-minus product. No irreducibility assumption."
+    },
+    {
+      "existing": "Original saved vertical_companion (six rational coefficients)",
+      "reuse": "Serialize only the saved numerators and the one shared3826-term denominator core with its recorded monomial shifts. Check all six original denominator arrays match that representation before emission. No companion inversion or universal norm computation is repeated."
+    },
+    {
+      "existing": "Hadamard6.eliminantA_factorization and eliminantB_coefficients; checked cached A/B bindings",
+      "reuse": "Use the compact existing generic A/B coefficients, specialized to the transposed seed. The pilot checks one coefficient of A+B*companion modulo the exact same cubic/quadratic."
+    },
+    {
+      "existing": "BaseCoefficients.Bindings and Centered",
+      "reuse": "Rewrite U,V,c6,delta to already checked invariant expressions before polynomial normalization; do not recheck their large cached coefficient arrays."
+    },
+    {
+      "existing": "FourierCubicClassification.CubicPowerFacts",
+      "difference": "Facts about a primitive cube-root phase in the singular Fourier/Tao classification, not the generic quadratic-extension cubic companion."
+    }
+  ],
+  "limits": "Only the first of six defining-relation coefficients is the initial pilot. No full companion or norm claim until all components and physical guards are proved. The saved denominator factorization remains diagnostic; no factorization is needed for this pilot. No coverage claim for unshared work.",
+  "atlas_certification": false,
+  "generator_review": {
+    "path": "audit/prepare_matched_companion_pilot.py",
+    "sha256": "2956d0a7ecc7e15e61bd9a3018c6068911455fadb95e3890bd6a48ba89583a25",
+    "description": "Reads saved six companion rational coefficients; validates every original denominator equals one shared literal core times its recorded monomial shift; serializes numerators/core in separate modules. The first residual coefficient is a Lean target, not an externally accepted result. No arithmetic discovery or norm re-evaluation."
+  },
+  "component_unfold_review": {
+    "search": "MATCHED_COMPANION_COMPONENT_RULES_REUSE_SEARCH.json",
+    "original": "lean/NoFourMUBs/Reuse/Archive/CriticalMomentQuad.lean",
+    "comparison": "Existing structure instances define addition, multiplication and negation literally. Add only three rfl record-constructor rewrite rules for those same instances, shared by all coefficient checks. Unfolding generic HMul/HAdd across Complex itself caused unnecessary computation. No alternate algebra or coefficients.",
+    "atlas_certification": false
+  },
+  "pending_pilot_diagnostic": "Keep saved polynomial definitions locally opaque until their explicit unfolding. Add stage messages to identify computational limit without changing any coefficient or theorem statement. Nine compiled sources retained."
+}

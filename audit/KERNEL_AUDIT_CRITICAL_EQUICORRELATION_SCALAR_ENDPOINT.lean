@@ -1,0 +1,9 @@
+import NoFourMUBs.Step2.CriticalZero.EquicorrelationScalarEndpoint
+
+#check NoFourMUBs.Step2.Critical.Equicorrelation.strip_scalar_impossible
+#print axioms NoFourMUBs.Step2.Critical.Equicorrelation.gram_phases
+#print axioms NoFourMUBs.Step2.Critical.Equicorrelation.oriented_selected_impossible
+#print axioms NoFourMUBs.Step2.Critical.Equicorrelation.selected_positive_gram_impossible
+#print axioms NoFourMUBs.Step2.Critical.Equicorrelation.strip_gram_impossible
+#print axioms NoFourMUBs.Step2.Critical.Equicorrelation.equal_moduli_of_scalar_data
+#print axioms NoFourMUBs.Step2.Critical.Equicorrelation.strip_scalar_impossible

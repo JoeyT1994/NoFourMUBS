@@ -1,0 +1,35 @@
+{
+  "status": "PASS",
+  "checked_utc": "2026-10-10T21:08:02.736629+00:00",
+  "exit_code": 0,
+  "log": "audit/KERNEL_AUDIT_CRITICAL_ZERO_PRODUCT.log",
+  "log_sha256": "5600e8f43da41e11683e9c4ecd296e26c0f20bca99ecaa617c378c78ecc4f5eb",
+  "source_hashes": {
+    "lean/NoFourMUBs/Step2/CriticalZero/CommonTerm01.lean": "38922c8a01a0c7027d7b235b13b3455db3533c42a9be52b44167592fdc5f7ec0",
+    "lean/NoFourMUBs/Reuse/Archive/CriticalZeroSumTrip00Exact.lean": "2d87b5a3b8267789309fd3ce6badb19a1c67ac684d00bc293a561f0278191914",
+    "lean/NoFourMUBs/Reuse/Archive/CriticalZeroSumEval00.lean": "f8b1053cbe3f5d52090cf5e19932bf70868b22a2e6a4c191c86da79543eca78f",
+    "audit/CriticalZeroProductAudit.lean": "637d945752d895a443ba3824c45b377f48df5a7df6f001de247b8d78e8b62388"
+  },
+  "audited_declarations": {
+    "CriticalZeroSumAssembly20261003.pair00_eval": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "CriticalZeroSumAssembly20261003.trip00_eval": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "CriticalZeroSumAssembly20261003.common_term01_from_trip00": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "coefficient_counts": {
+    "pair00": 23,
+    "trip00": 35
+  },
+  "scope": "Existing pair and triple product plus minimal adapter into common term01. The other common terms and whole numerator identity are not certified by these statements."
+}

@@ -1,0 +1,95 @@
+ONE ACTIVE PROOF — FORMALIZATION IN PROGRESS
+Snapshot: 2026-10-11T19:30:36.639848+00:00
+
+USER CONSTRAINT: DO NOT CERTIFY ATLAS CERTIFICATES
+AtlasCertificate remains an explicit external input. No atlas checker is run,
+no concrete atlas is certified, and excluded atlas work is not counted as done.
+
+CANONICAL LEAN RESULT
+lean/NoFourMUBs/MainTheorem.lean: no_four_mubs_main
+Required inputs: AtlasCertificate, MatchedExistence, CriticalClassification.
+ConditionalSOS is discharged by its checked theorem. No unconditional theorem,
+or complete theorem conditional only on the atlas, is claimed.
+Main SHA256: 9316a2a26614e4d1782334d03709321b378540e2cb4002a888110d85c01e3556
+
+COMPLETE — Existing framework and SOS
+The main implication, maximum/uniqueness/topological framework, coverage
+adapters and final conditional SOS integration compile and pass axiom audits.
+The existing SOS witness is reused: all12345 normalization nodes,583canonical
+modules,2668projection adapters,909moment bindings,1338rows and14assemblies.
+Final SOS audit:16endpoints. Main audit:28endpoints. Only standard Lean axioms.
+Receipts: CONDITIONAL_SOS_PASS.json and MAIN_SOS_INTEGRATION_REVIEW.json.
+
+OPEN — CriticalClassification
+Completed: zero-J numerator and physical arguments; singular/Fourier cases;
+necessary nonzero-J modulus domain; physical moment and pole arguments;
+quartic candidate classification given the quartic; both exceptional rational
+scalar exclusions; all20corner transport; global counting and normalization.
+The complete classification assembly is checked given RegularCriticalQuartic.
+Receipt: CRITICAL_CLASSIFICATION_ASSEMBLY_PASS.json (3modules/9endpoints).
+Remaining: original raw-numerator identity, pseudo-reduction, and connection
+to the actual regular matrix equation. The original moment identities,
+66-term denominator clearing and expression bindings are checked. The supplied
+44,722-term numerator is unchanged.
+Last full remaining-sum batch: through68,641modules/5338endpoints PASS.
+Receipt: KERNEL_AUDIT_CRITICAL_NONZERO_SUM_REMAINING_STATUS_THROUGH0068.json.
+Node69 separately PASS23modules/89endpoints by the original numerator symmetry
+and checked58/68; the small swap adapters PASS2modules/9endpoints. This includes
+Y=0. It is adopted as CHECKED69; no duplicate product69 is generated.
+Receipt: KERNEL_AUDIT_CRITICAL_NONZERO_SUM_REUSED0069_STATUS.json.
+Through76 is IN PROGRESS:895planned modules/7732planned endpoints, not proof counts.
+Current build has 674successful modules; full batch audit remains pending.
+Live session63908/PID85428,two workers;674 successful modules retained at restart.
+The r0074 input cache equality is PASS1endpoint. Only unchecked future proof
+scripts rewrite by this equality; all propositions and all660then-completed
+sources were preserved. Pilot row60/batch01 passed in138s; the adjacent old
+row58/batch01 took237s, not a controlled speedup comparison.
+
+OPEN — MatchedExistence
+Completed:84archived construction/candidate modules and8adapters; strict signed
+side candidates; forced row norms; completion conditional on row-product norms;
+the existing dense-set extension theorem.
+The universal forced-row product norm has exact symbolic residual ZERO in
+all four seed variables. This is NOT a Lean proof. Its cached arithmetic is
+reused, not rerun. Formal arithmetic, the cached companion binding and generic
+guard/density arguments remain. Original matching and one route are retained.
+Symbolic receipt: MATCHED_MOMENT_NORM_SYMBOLIC_RESULT.json.
+New Lean adapters, independently axiom-audited:
+- RowMomentProduct:1module/1endpoint, existing row moments give the cubic product.
+- RowProductRelations:1module/3endpoints, actual permanent/product/quadratic facts.
+- RowProductSignature:1module/4endpoints, actual matrix signature gives a cleared
+  linear equation for the row product. No gap division; the equation includes
+  singular sides. Its coefficient is nonzero on the existing strict domain.
+Audits: KERNEL_AUDIT_MATCHED_MOMENT_PRODUCT_STATUS.json,
+ KERNEL_AUDIT_MATCHED_PRODUCT_RELATIONS_STATUS.json,
+ KERNEL_AUDIT_MATCHED_PRODUCT_SIGNATURE_STATUS.json.
+The original c6=conj(P0)*P1, delta=-gap, Omega=-R were compared exactly as
+rational functions. That comparison is symbolic, NOT yet a Lean binding.
+Receipt: MATCHED_SIGNATURE_PARAMETER_COMPARISON.json.
+- EntryCompanion:1module/3endpoints PASS, actual cubic and eliminant; y=-A/B
+  retains its nonzero denominator guard.
+- CubicEvaluation:1module/6endpoints PASS, original cubic reduction reuses the
+  existing Quad evaluator. This does not check the norm arithmetic itself.
+- ForcedProductMoments:1module/4endpoints PASS, actual forcedD=C*N*B and its
+  row product is given by the existing ten-moment identity, without flatness.
+Audits: KERNEL_AUDIT_MATCHED_ENTRY_COMPANION_STATUS.json,
+ KERNEL_AUDIT_MATCHED_CUBIC_EVALUATOR_STATUS.json,
+ KERNEL_AUDIT_MATCHED_FORCED_PRODUCT_STATUS.json.
+
+REPOSITORY REUSE
+Latest GitHub check:2026-10-11T19:16:41.392386+00:00.
+Reviewed head:fd7d1019fa4a7f3551bf9ade5d31ebbce9501055.
+Two commits change11paths: proof-script lint cleanup in10Lean files and ignore
+rules for local backups/logs. All text patches reviewed. No theorem statement,
+new result, coefficient or mathematical proof input changed. Local checked
+proofs retained; no cosmetic rebuild. Review: REPOSITORY_UPDATE_fd7d101_REVIEW.json.
+Existing read-only watcher54301/PID89431 checks every30minutes; next19:46:41UTC.
+Full source/blob/import indexes and existing OAI remain the reuse basis. No
+claim covers unavailable or unshared work. No remote mutation or atlas check.
+
+CONTINUATION
+Authoritative handles, gates and receipts: audit/RESUME_STATE.json.
+Both compiler lanes held by sum63908; no stop marker remains.
+Maximum2Lean compiler processes enforced by existing locks. All new semantic
+adapters passed and are terminal. Do not repeat checked proofs or norm diagnostics.
+Earlier detailed status snapshots: audit/STATUS_HISTORY_BEFORE_20261011_1826.txt.

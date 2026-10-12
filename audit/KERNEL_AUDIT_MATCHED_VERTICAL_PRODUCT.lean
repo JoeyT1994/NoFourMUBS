@@ -1,0 +1,6 @@
+import NoFourMUBs.Step2.Reconstruction.BaseCoefficients.VerticalProduct
+
+#check NoFourMUBs.Step2.Reconstruction.BaseCoefficients.matched_product_affine
+#print axioms NoFourMUBs.Step2.Reconstruction.BaseCoefficients.vertical_candidate_transposed
+#print axioms NoFourMUBs.Step2.Reconstruction.BaseCoefficients.vertical_product_centered
+#print axioms NoFourMUBs.Step2.Reconstruction.BaseCoefficients.matched_product_affine

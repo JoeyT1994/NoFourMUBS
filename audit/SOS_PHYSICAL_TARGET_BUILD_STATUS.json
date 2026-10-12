@@ -1,0 +1,50 @@
+{
+  "status": "KERNEL_CHECKED",
+  "checked_utc": "2026-10-10T20:14:29.262826+00:00",
+  "file_hashes": {
+    "MomentRealAverage.lean": "3442fe875e91cb557f9c1a3dbe612efe76fb2a0536618832918ab77ab2774b74",
+    "CornerPairMoments.lean": "4cda6c2c83b4f6fc0b3d0d86d2a503decb25a7008a8313333a344c15411b53d3",
+    "CornerPairSquares.lean": "d44faae5cb906df13d1187acfa83d0bf7b9097dc09ca588a5ed0f08d1e36c3d1",
+    "TargetFrames.lean": "b4dd0e8281c68e1bf218cd76753c2493667a687760429b19e2f24488adc18dbd",
+    "DefectMoments.lean": "e19ff52bd28bdd5836d62cb9a0462204c4c1c377a9b49ea537c0f20b3374120b",
+    "PhysicalTarget.lean": "398eb03d4d1711841b4120c2afb68547928968df2857c5d468af0f5550096e79",
+    "MomentExponentData.lean": "c3b5530c9bced5b39e9cbb1482e04cf239e6ca6ca5693530ff3a69d4d258e59b",
+    "SignatureLaurent.lean": "8b979d728b4726b947ce2f3021ef3124a593f553a3b4f763a67134a173ac3bcb",
+    "ComplementaryMoments.lean": "90def272edf853612995fef395f4af2c9f0d2af97552831ee25c917c32ddc67f"
+  },
+  "log": "SOS_PHYSICAL_TARGET_DATA_SPLIT_FIXED.log",
+  "log_sha256": "5f7b043d6b7a4de699e58823f84e8df03ddd9c9105ffb7d57e162a07787a69ee",
+  "theorem": "NoFourMUBs.Step2.SOS.physical_target",
+  "scope": "Physical nonnegative expression equals the exact unprojected moment expression. This is not the zero identity: coefficient projection and row semantics remain pending.",
+  "axiom_audit": "KERNEL_AUDIT_TARGET_PILOT.log",
+  "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "prior_build_receipt": {
+    "status": "KERNEL_CHECKED",
+    "checked_utc": "2026-10-10T19:41:08.213626+00:00",
+    "file_hashes": {
+      "MomentRealAverage.lean": "3442fe875e91cb557f9c1a3dbe612efe76fb2a0536618832918ab77ab2774b74",
+      "CornerPairMoments.lean": "4cda6c2c83b4f6fc0b3d0d86d2a503decb25a7008a8313333a344c15411b53d3",
+      "CornerPairSquares.lean": "d44faae5cb906df13d1187acfa83d0bf7b9097dc09ca588a5ed0f08d1e36c3d1",
+      "TargetFrames.lean": "b4dd0e8281c68e1bf218cd76753c2493667a687760429b19e2f24488adc18dbd",
+      "DefectMoments.lean": "e19ff52bd28bdd5836d62cb9a0462204c4c1c377a9b49ea537c0f20b3374120b",
+      "PhysicalTarget.lean": "398eb03d4d1711841b4120c2afb68547928968df2857c5d468af0f5550096e79",
+      "MomentExponentData.lean": "c3b5530c9bced5b39e9cbb1482e04cf239e6ca6ca5693530ff3a69d4d258e59b",
+      "SignatureLaurent.lean": "8b979d728b4726b947ce2f3021ef3124a593f553a3b4f763a67134a173ac3bcb",
+      "ComplementaryMoments.lean": "90def272edf853612995fef395f4af2c9f0d2af97552831ee25c917c32ddc67f"
+    },
+    "log": "SOS_PHYSICAL_TARGET_BUILD.log",
+    "log_sha256": "b579fb2258520e2bd5e520c4afa6634a797ee56a071246c74062905e2058aab2",
+    "theorem": "NoFourMUBs.Step2.SOS.physical_target",
+    "scope": "Physical nonnegative expression equals the exact unprojected moment expression. This is not the zero identity: coefficient projection and row semantics remain pending.",
+    "axiom_audit": "KERNEL_AUDIT_PHYSICAL_TARGET.log",
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  }
+}

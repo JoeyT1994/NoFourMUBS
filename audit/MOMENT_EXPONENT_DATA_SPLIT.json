@@ -1,0 +1,50 @@
+{
+  "utc": "2026-10-10T20:00:42.066408+00:00",
+  "status": "DATA_AND_PHYSICAL_REBUILD_PASS",
+  "reason": "Share the same four existing exponent definitions without importing physical theory in finite coefficient checks. No mathematical definition duplicated. blockExponent replaces the definitional alias FourierBridge.coordinates with finSumFinEquiv.",
+  "before_sha256": {
+    "SignatureLaurent.lean": "25f8759f9c679c23a339deaf3fec26dd99c2dc8f65f4d07137c596b72b890de3",
+    "ComplementaryMoments.lean": "1427036c9049d4c2efe61955663e1f34fd1ed9bec71ff91e448739803073f2bd",
+    "TargetFrames.lean": "85e5a40b0e633dc6c195cb02140ffc89a240ba0ade328dee77f6e2bf4f8825b6",
+    "PsiRowInputs.lean": "7521b645e3b2ae71485c50432eab389b94c594ddf1eeb572a4d1d7002e236c9c",
+    "PsiRows659.lean": "8f09d6e0262857add9dc5d1688cb2bb02b7df414788487fed1e3fda2af9f7b40",
+    "PsiRows660.lean": "301e76825c5606956d4fb59e7740d2e36cfa2d051f999102636fa12d438d4e36",
+    "PsiRows661.lean": "b775cb1c89e05d080896afa1dd6d1c792fada2e206e61cf82459d370512a2d48",
+    "PsiRows662.lean": "f8a604a18d4af4c3d5cb7927a62dd6b1a10ae4641f751b2520c31b18ff6837c5",
+    "PsiRows663.lean": "a770cfcc193925421ed7a7cea1a41e14234ce0e5bb20d6d0a52656beb5925dbd",
+    "PsiRows664.lean": "7a01e83499f89142a6b1c0d18879658cdfee21d6edfdd8ee8edd849e63e31d33",
+    "PsiRows665.lean": "e1c16ec6db628e7a0e8fda091a4832013341646511e1e370cefeec15b4691707",
+    "PsiRows666.lean": "0bd239d9fc2a6278f978e18103c71ab7f73ec05e0ca482da2da67aa63df0b2c3",
+    "PsiRows667.lean": "aec124e2b5a275d340d95ae0cb16e3e40806f57c088fa713081d062d3c5191af"
+  },
+  "after_sha256": {
+    "SignatureLaurent.lean": "8b979d728b4726b947ce2f3021ef3124a593f553a3b4f763a67134a173ac3bcb",
+    "ComplementaryMoments.lean": "90def272edf853612995fef395f4af2c9f0d2af97552831ee25c917c32ddc67f",
+    "TargetFrames.lean": "b4dd0e8281c68e1bf218cd76753c2493667a687760429b19e2f24488adc18dbd",
+    "PsiRowInputs.lean": "c6b93d34edf3a765b445a1a375124523fb789643864ce54d6ae7e2ff0e6f8f6b",
+    "PsiRows659.lean": "3f21853fb5d718d461a7bfb300dcf07ffa3255329df4b8de3d18a5f8fb7ce36a",
+    "PsiRows660.lean": "5cf2ac196aad005cfdaed5771b15afdfe2bf3ffa5cb13dd903d94f8d1930b99a",
+    "PsiRows661.lean": "32b78a6d92a7aee8494356bd7569b98a1f59ec2bddf5a82e42d2e6143ca38f9c",
+    "PsiRows662.lean": "f292e6f49da516669348afbaf7878bbada9f0756757126ca8df59e8fe8a26e4a",
+    "PsiRows663.lean": "1647b348e90e84325a69564c560db67c885b8e4eda1b810a3dfb85834799c927",
+    "PsiRows664.lean": "2ced5682ca0f2e36c5ba62b6448dd564d1bb151abddeae1b4d84705b61e1dfd3",
+    "PsiRows665.lean": "519c984c3b838405879af6c4a84b75261f80704435b4886ee647c9863b8600e2",
+    "PsiRows666.lean": "4f9fedd0a0dac04b0c7ec53c520aa330606d88dae66b724f5d8e40c20055312b",
+    "PsiRows667.lean": "3ab139f74c3cf9bbb544c82b8ec36093e646de1bc252f0691005cdd98c452a22",
+    "MomentExponentData.lean": "c3b5530c9bced5b39e9cbb1482e04cf239e6ca6ca5693530ff3a69d4d258e59b"
+  },
+  "data_build": "SOS_MOMENT_DATA_BUILD_FIXED.log: exit0, 3076 jobs",
+  "proof_adjustment": "exponentMonomial_block explicitly unfolds FourierBridge.coordinates in simp, because the shared data uses finSumFinEquiv directly. No changed hypotheses or conclusion.",
+  "physical_build_log": "SOS_PHYSICAL_TARGET_DATA_SPLIT_FIXED.log",
+  "unchecked_files": [
+    "PsiRows659.lean",
+    "PsiRows660.lean",
+    "PsiRows661.lean",
+    "PsiRows662.lean",
+    "PsiRows663.lean",
+    "PsiRows664.lean",
+    "PsiRows665.lean",
+    "PsiRows666.lean",
+    "PsiRows667.lean"
+  ]
+}

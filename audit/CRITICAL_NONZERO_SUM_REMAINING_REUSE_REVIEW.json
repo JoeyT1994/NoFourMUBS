@@ -1,0 +1,77 @@
+{
+  "status": "REVIEWED_EXISTING_STAGER_AND_CHECKER",
+  "checked_utc": "2026-10-11T13:56:18.790085+00:00",
+  "scope": "critical_nonzero_raw_clearing",
+  "head": "4e048ec8a2888f198f5432efd7f201f98d473878",
+  "prior_full_corpus_review": "CRITICAL_NONZERO_SUM_ASSEMBLY_REUSE_REVIEW.json",
+  "finding": "Current sources, archived source/import/blob indexes and OAI closure checked against the existing full-corpus review. The four archived coefficient-program variants retain ha and hb. No checked nonzero raw-numerator identity identified. Zero-J sum certificates have different scalar hypotheses and targets. The generic DenseCoefficients/CoefficientRow checker and RowProduct adapter are reused unchanged.",
+  "selected_route": "Extend existing P2P2 staged composition and completed product43 row checking to the original sum DAG. Reuse all seven completed normalized nodes and 533 old moment nodes. Exact old-polynomial matches receive new equality adapters, never duplicate arrays. No original moment or target numerator regenerated.",
+  "storage_fix": "3954 checked build artifacts compressed losslessly; 12640337920 bytes recovered; per-file SHA256 and mtimes verified; no mathematical source changes.",
+  "source_pins": {
+    "audit/CRITICAL_NONZERO_SUM_DAG_REUSE_REVIEW.json": "54389be1f2463889a19112e610459217a9b807da8aabe41df73ef56190f4608a",
+    "audit/CRITICAL_NONZERO_SUM_ASSEMBLY_REUSE_REVIEW.json": "2d4f99094fb9ab0d09b88787da13cff3843cab160311ccbba1a3f6385f37b85f",
+    "audit/NONZERO_SUM_REMAINING_REUSE_FILES.txt": "077643471b97136e1ca1ea026c463c0ed7da175504767243b8d5a261ea15ad06",
+    "audit/ARCHIVE_IMPORT_INDEX.json": "4f3d7d6f8a9949a13c3c8fc65fe3d5c098f18a2efd4f0c0985f237ada38a4f4f",
+    "audit/ARCHIVE_BLOB_INDEX.jsonl": "8a124c5d9477fa048eb28a0be4c77a82b4d4c374e8861a60d85b355a1de73a26",
+    "audit/ARCHIVE_SOURCE_INDEX.jsonl": "e56835aafa2eee86f3e3a340cabbd4d891e4044661ecfb6902a255ebe62ab323",
+    "audit/CRITICAL_NONZERO_SUM_DAG.json": "619968b18d8712cf00eae3dc7a5a97e394698199b50ec921318b629affafc7fc",
+    "audit/CRITICAL_NONZERO_P2P2_EXPRESSION_DAG.json": "44122d3c6aa017024b83c2d76f35e5958938d4852d9d14d50c999a368f5b8618",
+    "audit/CRITICAL_NONZERO_SUM_REMAINDER_SIZE_REVIEW.json": "181fefa7f3052ff30565a102025e8f32ac932c57fbddf1cf9d06a77340d3414a",
+    "audit/prepare_nonzero_p2p2_staged.py": "c7cb05aa236b41175e68e89c93aea030d6a2aefe7b070664f754e50308b9517c",
+    "audit/complete_nonzero_sum_product43.py": "c8514ced01e141c945b537aa0ff1fbea33dd4c33a01285935c75163efc2fb2ed",
+    "audit/prepare_nonzero_sum_remaining.py": "e60a072534279f6c903e69873e0f6f99545228c66edc2228adc23b0b18faf81e",
+    "lean/NoFourMUBs/Step2/CriticalZero/SumClearing/RowProduct.lean": "5fbe4792a0a77c2c4ade8e06986afb3040b17c707c488b0173c3385a141baf1f",
+    "lean/NoFourMUBs/Reuse/Archive/CriticalZeroSumRowCertificate.lean": "51a0ae0887f442c11bf0193dfdea2c34487d42052b40f9e6f10c8ddf8d0fdaa4",
+    "lean/NoFourMUBs/Reuse/Archive/CriticalZeroSumDenseCoefficients.lean": "b9bfcd6c882329da43a6d318ac481580385621442600a6bb102e0ad1298af29c",
+    "lean/NoFourMUBs/Reuse/Archive/CriticalNonzeroCoefficientProgram.lean": "a31e3a113b7fd463b35c0066c508d1d6c9d98d928bc99d2700a8a4a8ff8d235e",
+    "audit/run_nonzero_sum_remaining.py": "8c432bbbee7e36fff5876b97985c3b6f19e6c9e9d8996cba72d870c4354dfa26",
+    "audit/CRITICAL_NONZERO_SUM_CACHED_PROOF_PLAN.json": "7de336b453d356062c817da197e1a17c5c238157de936f3b8db7706b45cb9239"
+  },
+  "atlas_certification": false,
+  "script_maintenance": "Persist plan keys as strings so the same plan survives JSON round trips. Generated Lean source, coefficients and statements unchanged.",
+  "future_batch_checker": "For later moderate binary products, call existing CoefficientAt.binary_eval_eq directly, as product23 already does, instead of expanding the entire DC.mul before coefficient extraction. Current batch through58 has no such case; its emitted files remain unchanged.",
+  "future_only_extensions": [
+    "Larger row batches after node58 reduce compiler-startup overhead while retaining identical per-row proof statements. Current emitted files unchanged.",
+    "When all original DAG stages are prepared, bind normalized remaining sum/target to the already checked original expression endpoints. No equality between sum and target is asserted.",
+    "For unprepared products after63, use the shorter outer coefficient list first, as already done for checked product29. The final scalar binding uses multiplication commutativity; targets and original DAG unchanged. No current emitted source changes."
+  ],
+  "runner": "Existing build and audit tools wrapped with the two established compiler locks; source-pinned PASS audit reused unchanged on retries. Current live session83352 predates this wrapper and must not be duplicated.",
+  "future_data_partition": {
+    "checked_utc": "2026-10-11T14:48:40.835444+00:00",
+    "existing_pattern": "lean/NoFourMUBs/Step2/CriticalZero/RawNumerator/Data00.lean",
+    "existing_pattern_sha256": "f970b87beeb923524164484791a7072151c9af860e927132d41f9a83ade3a46f",
+    "scope": "Unprepared nodes after66 with over20000nonzero entries: eight outer rows per data module, same concatenated literal values. All currently emitted sources through66 remain unchanged.",
+    "reason": "Live1second native profile shows literal application elaboration; splitting the table permits the existing two compiler lanes to work independently and bounds individual module size.",
+    "new_checker": false,
+    "proof_or_data_regenerated": false,
+    "atlas_certification": false
+  },
+  "runner_maintenance_review": {
+    "checked_utc": "2026-10-11T18:06:11.980005+00:00",
+    "previous_sha256": "0e5e8d879014b185dc7c0c29c94064126d89e27db79a27cb9fd7d9a81b6804da",
+    "reviewed_sha256": "8c432bbbee7e36fff5876b97985c3b6f19e6c9e9d8996cba72d870c4354dfa26",
+    "finding": "Read the complete current 105-line runner. It retains the same build and independent axiom-audit calls, two lane locks, manifest immutability and source/hash pin checks. It handles intentional between-module yield before any full audit and preserves immutable bounded-batch receipts after PASS. No theorem, polynomial, certificate or generation plan is changed.",
+    "atlas_certification": false
+  },
+  "checked_node69_adoption": {
+    "checked_utc": "2026-10-11T18:57:51.412397+00:00",
+    "audit": "KERNEL_AUDIT_CRITICAL_NONZERO_SUM_REUSED0069_STATUS.json",
+    "audit_sha256": "ed8473d9e382cd82a6da221e07cd733ce5b80ff9fc61ef0f363304fbeef13960",
+    "old_plan": "CRITICAL_NONZERO_SUM_REMAINING_PLAN_BEFORE_CHECKED0069.json",
+    "old_generator": "prepare_nonzero_sum_remaining_BEFORE_CHECKED0069.py",
+    "changes": "Only add node69 to CHECKED, remove its now redundant future product checkpoint and pin its PASS audit. All other plan decisions must compare exactly; every through68 source/record/endpoint is still protected by the existing assertions. No extra mathematical hypothesis or atlas work."
+  },
+  "cached_proof_script_review": {
+    "checked_utc": "2026-10-11T19:15:27.766633+00:00",
+    "plan": "CRITICAL_NONZERO_SUM_CACHED_PROOF_PLAN.json",
+    "existing_review": "CRITICAL_NONZERO_SUM_CACHED_INPUT_REUSE_REVIEW.json",
+    "change": "Only the reviewed, not previously checked, stage76 row batch imports the audited exact cache equality and rewrites r0074 before the unchanged coefficient reduction. All propositions, polynomial values, 659 completed sources and endpoints are unchanged. The generator reproduces only hash-pinned transformations and retains all preservation checks.",
+    "generator_sha256": "e60a072534279f6c903e69873e0f6f99545228c66edc2228adc23b0b18faf81e",
+    "cache_audit": "KERNEL_AUDIT_CRITICAL_NONZERO_SUM_CACHED_INPUT_STATUS.json",
+    "performance_claimed": false,
+    "adoption_plan_sha256": "7de336b453d356062c817da197e1a17c5c238157de936f3b8db7706b45cb9239",
+    "additional_unchecked_modules_optimized": 176,
+    "completed_modules_preserved": 660,
+    "pilot_status": "PASS"
+  }
+}

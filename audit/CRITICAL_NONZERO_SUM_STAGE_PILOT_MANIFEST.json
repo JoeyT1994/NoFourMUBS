@@ -1,0 +1,83 @@
+{
+  "scope": "critical_nonzero_raw_clearing",
+  "records": [
+    {
+      "module": "NoFourMUBs.Step2.CriticalZero.SumClearing.Stage0000Data",
+      "active_path": "NoFourMUBs/Step2/CriticalZero/SumClearing/Stage0000Data.lean",
+      "active_sha256": "29579efa7cf9cea8a29a8dadf048a9e7266b15edd9e04e5c8fd9d0ddce1aa852",
+      "local_model_adapter": true,
+      "review": "CRITICAL_NONZERO_SUM_STAGE_REUSE_REVIEW.json"
+    },
+    {
+      "module": "NoFourMUBs.Step2.CriticalZero.SumClearing.Stage0000Factors",
+      "active_path": "NoFourMUBs/Step2/CriticalZero/SumClearing/Stage0000Factors.lean",
+      "active_sha256": "64592b57da2e5ad2bd026e1128b40ade48834469ed7cd7c7a544021ddcc8d197",
+      "local_model_adapter": true,
+      "review": "CRITICAL_NONZERO_SUM_STAGE_REUSE_REVIEW.json"
+    },
+    {
+      "module": "NoFourMUBs.Step2.CriticalZero.SumClearing.Stage0000Check000",
+      "active_path": "NoFourMUBs/Step2/CriticalZero/SumClearing/Stage0000Check000.lean",
+      "active_sha256": "b0192aff22df02a21e4f49ccf35862805a1ae0c9c3b17f99cae51f97c3428960",
+      "local_model_adapter": true,
+      "review": "CRITICAL_NONZERO_SUM_STAGE_REUSE_REVIEW.json"
+    },
+    {
+      "module": "NoFourMUBs.Step2.CriticalZero.SumClearing.Stage0000Check023",
+      "active_path": "NoFourMUBs/Step2/CriticalZero/SumClearing/Stage0000Check023.lean",
+      "active_sha256": "1ded6887787b9f0fab37ac02fdfbda4895d869cebcb2de2597162de1b9fb40f0",
+      "local_model_adapter": true,
+      "review": "CRITICAL_NONZERO_SUM_STAGE_REUSE_REVIEW.json"
+    },
+    {
+      "module": "NoFourMUBs.Step2.CriticalZero.SumClearing.Stage0000Check035",
+      "active_path": "NoFourMUBs/Step2/CriticalZero/SumClearing/Stage0000Check035.lean",
+      "active_sha256": "d5e59a3bafec77e5022a83c3c4337a24a221ea66977edea1e1ebf8134151f8ce",
+      "local_model_adapter": true,
+      "review": "CRITICAL_NONZERO_SUM_STAGE_REUSE_REVIEW.json"
+    },
+    {
+      "module": "NoFourMUBs.Step2.CriticalZero.SumClearing.Stage0000Check069",
+      "active_path": "NoFourMUBs/Step2/CriticalZero/SumClearing/Stage0000Check069.lean",
+      "active_sha256": "cacc28773eff8722810f161143899e82c5ade09a9031b878f47c643780d0eefa",
+      "local_model_adapter": true,
+      "review": "CRITICAL_NONZERO_SUM_STAGE_REUSE_REVIEW.json"
+    },
+    {
+      "module": "NoFourMUBs.Step2.CriticalZero.SumClearing.Stage0000Pilot",
+      "active_path": "NoFourMUBs/Step2/CriticalZero/SumClearing/Stage0000Pilot.lean",
+      "active_sha256": "6488e3f9dd6e49b0c5f8d9a9fbbe579c719c92120615111260bc445d32179dfc",
+      "local_model_adapter": true,
+      "review": "CRITICAL_NONZERO_SUM_STAGE_REUSE_REVIEW.json"
+    }
+  ],
+  "axiom_endpoints": [
+    "NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing.Stages.n0020_length",
+    "NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing.Stages.n0020_product_length",
+    "NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing.Stages.n0020_coefficient_000",
+    "NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing.Stages.n0020_coefficient_023",
+    "NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing.Stages.n0020_coefficient_035",
+    "NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing.Stages.n0020_coefficient_069",
+    "NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing.Stages.n0017_eval",
+    "NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing.Stages.n0019_eval"
+  ],
+  "status": "PREPARED_FACTOR_SHARING_NOT_COMPILED",
+  "node": 20,
+  "expected_coefficients": 70,
+  "selected_coefficients": [
+    0,
+    23,
+    35,
+    69
+  ],
+  "nonzero_terms": 4620,
+  "dependency_audits": [
+    "KERNEL_AUDIT_CRITICAL_NONZERO_SUM_DAG_STATUS.json"
+  ],
+  "raw_numerator_identity_claimed": false,
+  "atlas_certification": false,
+  "shared_factor_nodes": [
+    17,
+    19
+  ]
+}

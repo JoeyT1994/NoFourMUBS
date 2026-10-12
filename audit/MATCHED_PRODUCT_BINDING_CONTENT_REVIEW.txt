@@ -1,0 +1,105 @@
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicFourierMatrix.lean:17:theorem side_fourier_factorization (a : Rows ℂ) (w : ℂ) (hw : w^2+w+1=0) :
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicFourierMatrix.lean:26:  have h4 := quadratic_fourth_power w hw
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicFourierMatrix.lean:37:theorem phaseSide_unit (a : Rows ℂ) (ha : UnitRows a) : Hadamard6.EntrywiseUnit (phaseSide a) := by
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicFourierMatrix.lean:44:theorem side_fourier_gram (a : Rows ℂ) (w : ℂ)
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicFourierMatrix.lean:59:theorem side_fourier_row_norms (a : Rows ℂ) (ha : UnitRows a) (w : ℂ)
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicFourierMatrix.lean:84:theorem side_fourier_cross_moment (a : Rows ℂ) (w : ℂ)
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicCoefficientRecovery.lean:13:theorem oriented_mode_coefficient_recovery (a : Rows ℂ) (ha : UnitRows a)
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicFourierPolynomial.lean:19:theorem quadratic_root_powers (w : K) (hw : w^2+w+1=0) :
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicFourierPolynomial.lean:29:theorem mode_alpha_numerator (a : Rows K) (w : K) (hw : w^2+w+1=0) :
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicFourierPolynomial.lean:31:  obtain ⟨h2,h3,h4,h5,h6,h7,h8⟩ := quadratic_root_powers w hw
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicFourierPolynomial.lean:36:theorem mode_gamma_numerator (a : Rows K) (w : K) (hw : w^2+w+1=0) :
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicFourierPolynomial.lean:39:  obtain ⟨h2,h3,h4,h5,h6,h7,h8⟩ := quadratic_root_powers w hw
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicFourierPolynomial.lean:44:theorem mode_det_numerator (a : Rows K) (w : K) (hw : w^2+w+1=0) :
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicFourierPolynomial.lean:46:  obtain ⟨h2,h3,h4,h5,h6,h7,h8⟩ := quadratic_root_powers w hw
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicFourierPolynomial.lean:51:theorem mode_cubic_numerator (a : Rows K) (w : K) (hw : w^2+w+1=0) :
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicFourierPolynomial.lean:53:  obtain ⟨h2,h3,h4,h5,h6,h7,h8⟩ := quadratic_root_powers w hw
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicFourierPolynomial.lean:58:theorem mode_inverse_numerators (a : Rows K) (w : K) (hw : w^2+w+1=0) :
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicFourierPolynomial.lean:62:  obtain ⟨h2,h3,h4,h5,h6,h7,h8⟩ := quadratic_root_powers w hw
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicExhaustion.lean:16:theorem strict_phase_rows_exhaustion (a : Rows ℂ) (ha : UnitRows a)
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicExhaustion.lean:25:  obtain ⟨homega,hquad⟩ := ElementaryFourier.reconstructionOmega_unit_quadratic
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicExhaustion.lean:58:theorem strict_normalized_matrix_side_exhaustion (X : Hadamard6.Mat3)
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicActualChi.lean:12:def intrinsicTerm (a : Rows ℂ) : ℂ := rowPerm a * rowDet a ^ 2 / (rowU a * rowV a)
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicActualChi.lean:14:theorem actual_chi_identity (a : Rows ℂ) (ha : UnitRows a) :
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicReflection.lean:15:theorem reflectRows_unit (a : Rows ℂ) (ha : UnitRows a) : UnitRows (reflectRows a) := by
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicReflection.lean:19:theorem reflectRows_correlations (a : Rows ℂ) :
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicReflection.lean:24:theorem reflectRows_modes (a : Rows ℂ) (w : ℂ) :
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicReflection.lean:32:theorem reflectRows_matrix (a : Rows ℂ) (i j : Fin 3) :
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicReflection.lean:36:theorem choose_oriented_rows (a : Rows ℂ) (ha : UnitRows a) (w : ℂ) :
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicActualNorms.lean:11:theorem actual_gramG_norm_det (a : Rows ℂ) (ha : UnitRows a) :
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicActualNorms.lean:26:theorem actual_gramEta_norm_perm (a : Rows ℂ) (ha : UnitRows a) :
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicActualNorms.lean:37:    _ = rowPerm a * ((rowU a * rowV a) * conj (rowPerm a)) := by rw [hb]
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicActualNorms.lean:38:    _ = (rowPerm a * conj (rowPerm a)) * (rowU a * rowV a) := by ring
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicMatrixBindings.lean:20:theorem rowsOfSide_unit (X : Hadamard6.Mat3) (hX : Hadamard6.EntrywiseUnit X) :
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicMatrixBindings.lean:24:theorem phaseSide_rowsOfSide (X : Hadamard6.Mat3) (hfirst : ∀ j, X 0 j = 1) :
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicMatrixBindings.lean:32:theorem phaseSide_det_perm (a : Rows ℂ) :
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicMatrixBindings.lean:38:theorem phaseSide_correlations (a : Rows ℂ) :
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicMatrixBindings.lean:48:theorem arbitrary_side_intrinsic_interface (X : Hadamard6.Mat3)
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicOrientedMatrix.lean:13:theorem oriented_side_modes_reconstruct (a : Rows ℂ) (ha : UnitRows a)
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicActualBindings.lean:12:theorem fractionData_actual (a : Rows ℂ) (ha : UnitRows a) :
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicActualBindings.lean:18:theorem conjugateFractionData_actual (a : Rows ℂ) (ha : UnitRows a) :
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicActualBindings.lean:29:theorem actual_scalar_numerators (a : Rows ℂ) (ha : UnitRows a) :
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicActualBindings.lean:41:theorem sideP_conjugate (s t r : ℂ) :
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicActualBindings.lean:46:theorem actual_lambda_numerators (a : Rows ℂ) (ha : UnitRows a) :
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicFourierModes.lean:21:theorem actual_mode_alpha (a : Rows ℂ) (ha : UnitRows a) (w : ℂ) (hw : w^2+w+1=0) :
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicFourierModes.lean:32:theorem actual_mode_gamma (a : Rows ℂ) (w : ℂ) (hw : w^2+w+1=0) :
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicFourierModes.lean:42:theorem actual_mode_determinant (a : Rows ℂ) (w : ℂ) (hw : w^2+w+1=0) :
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicFourierModes.lean:55:theorem actual_mode_conjugate (a : Rows ℂ) (ha : UnitRows a) (w : ℂ)
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicFourierModes.lean:59:    simpa only [Complex.star_def] using SideDFT.star_eq_square_of_quadratic_unit hwu hw
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicFourierModes.lean:61:    simpa only [Complex.star_def] using SideDFT.star_square_eq_of_quadratic_unit hwu hw
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicFourierModes.lean:71:theorem actual_mode_cubic (a : Rows ℂ) (ha : UnitRows a) (w : ℂ)
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicLambdaRecovery.lean:13:theorem intrinsicTheta_lambda (a : Rows ℂ) (ha : UnitRows a) (hd : rowDet a ≠ 0) :
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicLambdaRecovery.lean:35:theorem intrinsic_lambda_P_bindings (a : Rows ℂ) (ha : UnitRows a) (hd : rowDet a ≠ 0) :
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicLambdaRecovery.lean:71:theorem intrinsic_lambdas_eq_prescribed (a : Rows ℂ) (ha : UnitRows a)
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicPolynomialChi.lean:9:theorem gramChi_numerator (a : Rows K) :
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicTheta.lean:18:theorem strict_intrinsic_det_guard (a : Rows ℂ) (ha : UnitRows a)
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicTheta.lean:31:theorem intrinsic_lambdas_unit (a : Rows ℂ) (ha : UnitRows a) (hd : rowDet a ≠ 0) :
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicTheta.lean:45:theorem intrinsicTheta_literal (a : Rows ℂ) (ha : UnitRows a) (hd : rowDet a ≠ 0) :
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicTheta.lean:56:theorem intrinsicTheta_moments (a : Rows ℂ) (ha : UnitRows a) (hd : rowDet a ≠ 0) :
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicActualLambda.lean:12:theorem actual_intrinsic_lambda_identities (a : Rows ℂ) (ha : UnitRows a) :
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicActualLambda.lean:14:      conj (rowPerm a) - rowU a * rowV a * conj (sideP0 (rowS a) (rowT a) (rowR a)) ∧
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicActualLambda.lean:18:      conj (rowPerm a) - rowU a * conj (sideP2 (rowS a) (rowT a) (rowR a)) := by
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicPolynomialNorms.lean:7:theorem gramG_numerator (a : Rows K) : gramGN a = rowDet a * detBarN a := by
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicPolynomialNorms.lean:12:theorem gramEta_numerator (a : Rows K) : gramEtaN a = rowPerm a * permBarN a := by
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicDenominatorAlgebra.lean:19:theorem fraction_scalar_numerators (a : Rows K) (hu : rowU a ≠ 0) (hv : rowV a ≠ 0) :
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicDenominatorAlgebra.lean:30:theorem fraction_lambda_numerators (a : Rows K) (hu : rowU a ≠ 0) (hv : rowV a ≠ 0) :
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicOrientedModes.lean:12:theorem oriented_mode_scalar_recovery (a : Rows ℂ) (ha : UnitRows a)
+lean/NoFourMUBs/Step2/Reconstruction/RowNormFlatness.lean:12:theorem entrywiseUnit_of_row_norms_and_products (D : Mat3)
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicModeRecovery.lean:14:theorem intrinsic_row_products (a : Rows ℂ) (ha : UnitRows a) (hd : rowDet a ≠ 0) :
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicModeRecovery.lean:37:theorem prescribed_intrinsic_products (a : Rows ℂ) (ha : UnitRows a)
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicModeRecovery.lean:53:theorem prescribed_intrinsic_delta_radicand (a : Rows ℂ) (ha : UnitRows a)
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicModeRecovery.lean:76:theorem actual_mode_reconstruction_moments (a : Rows ℂ) (ha : UnitRows a)
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicModeRecovery.lean:117:theorem actual_mode_delta_is_prescribed_root (a : Rows ℂ) (ha : UnitRows a)
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicPolynomialLambda.lean:7:theorem lambda0_numerator (a : Rows K) :
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicPolynomialLambda.lean:13:theorem lambda1_numerator (a : Rows K) :
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicPolynomialLambda.lean:19:theorem lambda2_numerator (a : Rows K) :
+lean/NoFourMUBs/Step2/Reconstruction/MatchedCompletion.lean:13:/-- The repository's completion theorem in our matched-seed model.
+lean/NoFourMUBs/Step2/Reconstruction/MatchedCompletion.lean:15:theorem matched_completion_of_flat_signed_sides (p : StrictSeed) {B C : Mat3}
+lean/NoFourMUBs/Step2/Reconstruction/MatchedCompletion.lean:56:theorem matched_completion_of_row_products (p : StrictSeed) {B C : Mat3}
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicSheetChoice.lean:12:theorem moments_coordinates {s t r z : ℂ}
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicSheetChoice.lean:26:theorem sideZ_eq_of_coordinates {s t r z : ℂ} {epsilon : ℝ}
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicSheetChoice.lean:42:theorem moments_choose_sheet {s t r z : ℂ}
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicSheetChoice.lean:67:theorem strict_intrinsic_sheet_exists (a : Rows ℂ) (ha : UnitRows a)
+lean/NoFourMUBs/Step2/Reconstruction/SignatureFromPermanent.lean:13:theorem sideSignature_of_prescribed_permanent {B : Mat3}
+lean/NoFourMUBs/Step2/Reconstruction/RowMomentProduct.lean:10:theorem row_linear_product (a : Rows ℂ) (ha : UnitRows a) (A B C : ℂ) :
+lean/NoFourMUBs/Step2/Reconstruction/SideRecipe.lean:12:theorem strict_seed_recipe_exists (s : StrictSeed)
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicUnitBindings.lean:23:theorem triple_conj_first (x y z : ℂ) (hx : Complex.normSq x = 1) :
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicUnitBindings.lean:28:theorem triple_conj_second (x y z : ℂ) (hy : Complex.normSq y = 1) :
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicUnitBindings.lean:33:theorem triple_conj_third (x y z : ℂ) (hz : Complex.normSq z = 1) :
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicUnitBindings.lean:38:theorem row_pair_bindings (a : Rows ℂ) (ha : UnitRows a) :
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicUnitBindings.lean:52:theorem row_product_units (a : Rows ℂ) (ha : UnitRows a) :
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicUnitBindings.lean:64:theorem row_sum_conjugate_bindings (a : Rows ℂ) (ha : UnitRows a) :
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicUnitBindings.lean:86:theorem row_det_perm_conjugate_bindings (a : Rows ℂ) (ha : UnitRows a) :
+lean/NoFourMUBs/Reuse/Archive/SideIntrinsicUnitBindings.lean:102:theorem row_fraction_bindings (a : Rows ℂ) (ha : UnitRows a) :
+lean/NoFourMUBs/Step2/Reconstruction/SeedModel.lean:10:theorem seedCorner_entrywiseUnit (p : Seed) : EntrywiseUnit (seedCorner p) := by
+lean/NoFourMUBs/Step2/Reconstruction/SeedModel.lean:16:theorem seed_correlations (p : Seed) :
+lean/NoFourMUBs/Step2/Reconstruction/SeedModel.lean:25:theorem seed_invariant (p : Seed) :
+lean/NoFourMUBs/Step2/Reconstruction/SeedModel.lean:34:theorem strict_seed_invariant_pos (s : StrictSeed) :
+lean/NoFourMUBs/Step2/Reconstruction/ForcedRowNorms.lean:13:theorem forcedD_row_norms {E B C : Mat3}
+lean/NoFourMUBs/Step2/Reconstruction/ForcedRowNorms.lean:27:theorem forcedD_entrywiseUnit_of_row_products {E B C : Mat3}
+lean/NoFourMUBs/Step2/Reconstruction/MatchedSides.lean:12:theorem strict_seed_signed_sides_exist (p : StrictSeed) :
+lean/NoFourMUBs/Step2/Reconstruction/FourierSignature.lean:14:theorem phaseFourier_permanent (M : Mat3) (omega w : ℂ)
+lean/NoFourMUBs/Step2/Reconstruction/FourierSignature.lean:41:theorem prescribed_side_permanent {s t r : ℂ}
+lean/NoFourMUBs/Step2/Reconstruction/FourierSignature.lean:54:    ElementaryFourier.reconstructionOmega_unit_quadratic.2 hw rfl rfl rfl
+lean/NoFourMUBs/Step2/Reconstruction/FourierSignature.lean:75:theorem prescribed_side_signature {s t r : ℂ}
+lean/NoFourMUBs/Step2/Reconstruction/FourierSignature.lean:95:theorem strict_seed_signed_side_exists (p : StrictSeed)

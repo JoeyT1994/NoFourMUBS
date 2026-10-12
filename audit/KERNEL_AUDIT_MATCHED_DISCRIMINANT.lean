@@ -1,0 +1,7 @@
+import NoFourMUBs.Step2.Reconstruction.BaseCoefficients.Discriminant
+
+#check NoFourMUBs.Step2.Reconstruction.BaseCoefficients.cached_omega_strict
+#print axioms NoFourMUBs.Step2.Reconstruction.BaseCoefficients.candidate_product_quadratic
+#print axioms NoFourMUBs.Step2.Reconstruction.BaseCoefficients.cached_discriminant_of_candidate
+#print axioms NoFourMUBs.Step2.Reconstruction.BaseCoefficients.cached_discriminant_strict
+#print axioms NoFourMUBs.Step2.Reconstruction.BaseCoefficients.cached_omega_strict

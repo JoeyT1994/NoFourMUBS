@@ -1,0 +1,32 @@
+{
+  "status": "READ_ONLY_REUSE_SEARCH",
+  "archive_blobs": 19386,
+  "matches": [
+    {
+      "blob": "blobs/1b/1b1858c2851ca0a306aebc8e3c82a39e0beaf80589b13d068d20e9956c995911/CriticalCorrelationCore.lean",
+      "sha256": "1b1858c2851ca0a306aebc8e3c82a39e0beaf80589b13d068d20e9956c995911",
+      "declarations": [
+        "nonzero_W_two_correlations",
+        "regular_zero_W_nonzero",
+        "regular_zero_two_correlations",
+        "nonzero_J_all_correlations",
+        "star_nonzero",
+        "moments_swap01",
+        "moments_swap02"
+      ]
+    },
+    {
+      "blob": "blobs/40/40d1cea9e383a50ce2abbd351db5aa64a3efb6836978832ff7d09faac2f426fa/CriticalZeroChartTransport.lean",
+      "sha256": "40d1cea9e383a50ce2abbd351db5aa64a3efb6836978832ff7d09faac2f426fa",
+      "declarations": [
+        "allCritical_regular_zero_chart",
+        "recharted_opposite_data",
+        "rechart_preserves_quartet_occurrence",
+        "nonzero_J_original_chart"
+      ]
+    }
+  ],
+  "current_evidence": "CRITICAL_NONZERO_CORRELATION_CURRENT_SEARCH.txt",
+  "decision": "Reuse existing nonzero_J_correlations endpoint; only compose actual physical66zero with archived coefficient interpretation.",
+  "atlas_certification": false
+}

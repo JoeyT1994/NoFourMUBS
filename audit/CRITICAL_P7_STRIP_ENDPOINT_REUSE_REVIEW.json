@@ -1,0 +1,32 @@
+{
+  "status": "REVIEWED_NECESSARY_COLUMN_AND_COMPLEMENT_ADAPTERS",
+  "checked_utc": "2026-10-11T13:29:23.083054+00:00",
+  "repository_head": "4e048ec8a2888f198f5432efd7f201f98d473878",
+  "prior_reviews": [
+    "CRITICAL_P7_ROW_NORMALIZATION_REUSE_REVIEW.json",
+    "CRITICAL_ENDPOINT_NORMALIZATION_REFERENCES.json"
+  ],
+  "queries": [
+    "P7_COLUMN_TRANSPORT_REUSE_FILES.txt",
+    "P7_ORIENTATION_REUSE_MATCHES.txt"
+  ],
+  "source_pins": {
+    "lean/NoFourMUBs/Step2/CriticalZero/RechartModel.lean": "7ba67fb8000833df557e18483a1745590ed57812a033c995c810ef9b9f9928b1",
+    "lean/NoFourMUBs/Reuse/Archive/CriticalCorrelationRechart.lean": "cb18e37a7b7be7292293f8a26c123fa7d75be455febb749161d0e4cec4c2fd1d",
+    "lean/NoFourMUBs/Reuse/Archive/CriticalStripPhysical.lean": "0e726f519d28a449b1895952067a44a422c9c31e7f51ae64b1656dc8762b5731",
+    "lean/NoFourMUBs/Reuse/Archive/CriticalMomentBinding.lean": "7cb6f10d9381e82738d0c83ed5ece66dc262cc4f7502874435196a49d7a99dc7",
+    "lean/NoFourMUBs/Reuse/Archive/CriticalScalarGaugeAlgebra.lean": "586ba24b6b3cf188d5fc77ee141d98ccb55b7618ebb588e9ad053733b4bf93f4",
+    "lean/NoFourMUBs/Step2/CriticalZero/P7PositiveEndpoint.lean": "51c3ec910ad426e14a7a757ca640d3c1e188fd5f7ebbafd69050945cc8fbcf81"
+  },
+  "findings": [
+    "Current and full available archive/OAI search found no actual column_candidate_entry or SameInvariants adapter for arbitrary column permutations. The only phrase matches in IntegerMomentSemantics are an unrelated integer moment-list evaluation.",
+    "Reuse current candidate, allCritical_candidate, unit_inv_eq_conj and finite permutation extension. The new column adapter retains the original matrix model.",
+    "CriticalScalarGaugeAlgebra.scaleData_moduli/trace use an eighteen-field reciprocal Newton data model. The necessary actual-column adapter expresses its three unit-scaled correlations directly and uses existing unit norm multiplication and cancellation; no Newton data or certificate is regenerated.",
+    "Reuse SameInvariants and the positive p7 endpoint unchanged. Then reuse strip_complementary_moments, momentP_neg and momentJ_neg for J=-2. No second p7 exclusion argument.",
+    "The resulting target is every one of the twenty column triples of the first three normalized rows, with actual p=7, |J|=2, K=5 as inputs. It does not derive the scalar quartic or replace the global critical classification."
+  ],
+  "atlas_certification": false,
+  "compilation_status": "PASS",
+  "audit": "KERNEL_AUDIT_CRITICAL_P7_STRIP_ENDPOINT_STATUS.json",
+  "verified_utc": "2026-10-11T13:36:02.872727+00:00"
+}

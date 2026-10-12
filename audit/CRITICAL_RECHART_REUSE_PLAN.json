@@ -1,0 +1,159 @@
+{
+  "status": "PINNED_REVIEWED_NOT_COMPILED",
+  "scope": "critical_rechart_reuse",
+  "roots": [
+    "CriticalZeroChartTransport"
+  ],
+  "selected": {
+    "CriticalCorrelationCore": {
+      "availability": "resident",
+      "blob": "blobs/1b/1b1858c2851ca0a306aebc8e3c82a39e0beaf80589b13d068d20e9956c995911/CriticalCorrelationCore.lean",
+      "bytes": 3662,
+      "sha256": "1b1858c2851ca0a306aebc8e3c82a39e0beaf80589b13d068d20e9956c995911",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/global_assembly/exceptional_interfaces/CriticalCorrelationCore.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/1b/1b1858c2851ca0a306aebc8e3c82a39e0beaf80589b13d068d20e9956c995911/CriticalCorrelationCore.lean",
+      "imports": [
+        "CriticalMomentBinding"
+      ],
+      "review": "CRITICAL_RECHART_REUSE_REVIEW.json",
+      "import_replacements": {
+        "CriticalMomentBinding": "NoFourMUBs.Reuse.Archive.CriticalMomentBinding"
+      },
+      "model_identifier_replacements": {},
+      "model_identifier_counts": {}
+    },
+    "CriticalCorrelationRechart": {
+      "availability": "resident",
+      "blob": "blobs/de/de782778df3672ddde40a269dd803dea293869bfd575acd7589de02d350fb993/CriticalCorrelationRechart.lean",
+      "bytes": 7767,
+      "sha256": "de782778df3672ddde40a269dd803dea293869bfd575acd7589de02d350fb993",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/global_assembly/exceptional_interfaces/CriticalCorrelationRechart.lean",
+      "imports": [
+        "CriticalCorrelationCore",
+        "CriticalStripPhysical"
+      ],
+      "review": "CRITICAL_RECHART_REUSE_REVIEW.json",
+      "import_replacements": {
+        "CriticalStripPhysical": "NoFourMUBs.Step2.CriticalZero.RechartModel"
+      },
+      "model_identifier_replacements": {
+        "CompactCover.Mat6": "OAI.MUB6.CMatrix",
+        "CompactCover.Mat3": "Hadamard6.Mat3",
+        "AllCritical": "AllCriticalCarrier",
+        "PhaseHadamard": "OAI.MUB6.IsHadamard",
+        "MonomialEquivalent": "OAI.MUB6.Equivalent",
+        "CompactCover.unit_mul_star": "NoFourMUBs.Side.unit_mul_conj"
+      },
+      "model_identifier_counts": {
+        "CompactCover.Mat6": 7,
+        "CompactCover.Mat3": 2,
+        "AllCritical": 3,
+        "PhaseHadamard": 1,
+        "MonomialEquivalent": 2,
+        "CompactCover.unit_mul_star": 2
+      },
+      "namespace_open_replacements": {
+        "open Mub6 Mub6.Numerical Mub6.Classification Matrix\nopen CompactCover GoodMinor FourierSeedBinding FourPhase FourPhaseWorker\nopen CanonicalCorners GlobalCornerDomain CriticalPhysical20261003\n": "open Matrix NoFourMUBs.Step2.Critical CriticalPhysical20261003\n"
+      },
+      "proof_tactic_replacements": [
+        {
+          "before": "/-- The column permutation is the identity. The same physical row operation\nis applied to all six columns, including both halves of the chosen strip. -/\ntheorem row_candidate_entry {H : OAI.MUB6.CMatrix} (hH : NormalizedCarrier H)\n    (p : Perm) (i j : Fin 6) :\n    candidate H p (Equiv.refl _) i j=H (p i) j*star (H (p 0) j) := by\n  change (H (p 0) 0*star (H (p i) 0))*H (p i) j*star (H (p 0) j)=_\n  simp only [hH.2.2,star_one,one_mul]\n\ntheorem candidate_monomial_equivalent {H : OAI.MUB6.CMatrix}\n    (hH : OAI.MUB6.IsHadamard H) (p q : Perm) :\n    OAI.MUB6.Equivalent H (candidate H p q) := by\n  have hu := submatrix_hadamard hH p q\n  refine \u27e8p,q,normalizingRows (H.submatrix p q),normalizingCols (H.submatrix p q),\n    normalizingRows_unit hu,normalizingCols_unit hu,?_\u27e9\n  rfl\n\n",
+          "after": "",
+          "count": 1,
+          "reason": "Omit replaced legacy model proofs or unrelated quartet-occurrence endpoint; retain original scalar/invariant rechart proof."
+        },
+        {
+          "before": "#print axioms row_candidate_entry\n#print axioms candidate_monomial_equivalent\n",
+          "after": "",
+          "count": 1,
+          "reason": "Omit replaced legacy model proofs or unrelated quartet-occurrence endpoint; retain original scalar/invariant rechart proof."
+        },
+        {
+          "before": "by rw [NoFourMUBs.Side.unit_mul_conj (hH.1.1 1 j),mul_one]",
+          "after": "by simp only [Complex.star_def, NoFourMUBs.Side.unit_mul_conj (hH.1.1 1 j),mul_one]",
+          "count": 1,
+          "reason": "Expose current Complex.star_def to reuse the checked unit_mul_conj identity in the archived calculation."
+        },
+        {
+          "before": "by rw [NoFourMUBs.Side.unit_mul_conj (hH.1.1 2 j),mul_one]",
+          "after": "by simp only [Complex.star_def, NoFourMUBs.Side.unit_mul_conj (hH.1.1 2 j),mul_one]",
+          "count": 1,
+          "reason": "Expose current Complex.star_def to reuse the checked unit_mul_conj identity in the archived calculation."
+        }
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/de/de782778df3672ddde40a269dd803dea293869bfd575acd7589de02d350fb993/CriticalCorrelationRechart.lean",
+      "reviewed_previous_active_sha256": "17c14e074d17d2aa05d282314172cf033e41005182f966e61b2a2537cecd8ef8"
+    },
+    "CriticalZeroChartTransport": {
+      "availability": "resident",
+      "blob": "blobs/40/40d1cea9e383a50ce2abbd351db5aa64a3efb6836978832ff7d09faac2f426fa/CriticalZeroChartTransport.lean",
+      "bytes": 3469,
+      "sha256": "40d1cea9e383a50ce2abbd351db5aa64a3efb6836978832ff7d09faac2f426fa",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/global_assembly/exceptional_interfaces/CriticalZeroChartTransport.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/40/40d1cea9e383a50ce2abbd351db5aa64a3efb6836978832ff7d09faac2f426fa/CriticalZeroChartTransport.lean",
+      "imports": [
+        "CriticalCorrelationRechart",
+        "CriticalStripNewton"
+      ],
+      "review": "CRITICAL_RECHART_REUSE_REVIEW.json",
+      "import_replacements": {
+        "CriticalStripNewton": "NoFourMUBs.Reuse.Archive.CriticalStripNewton"
+      },
+      "model_identifier_replacements": {
+        "CompactCover.Mat6": "OAI.MUB6.CMatrix",
+        "AllCritical": "AllCriticalCarrier",
+        "MonomialEquivalent": "OAI.MUB6.Equivalent"
+      },
+      "model_identifier_counts": {
+        "CompactCover.Mat6": 4,
+        "AllCritical": 4,
+        "MonomialEquivalent": 1
+      },
+      "namespace_open_replacements": {
+        "open Mub6 Mub6.Numerical Mub6.Classification Matrix\nopen CompactCover GoodMinor FourierSeedBinding FourPhase FourPhaseWorker\nopen CanonicalCorners GlobalCornerDomain CriticalPhysical20261003\n": "open Matrix NoFourMUBs.Step2.Critical CriticalPhysical20261003\n"
+      },
+      "proof_tactic_replacements": [
+        {
+          "before": "/-- The actual quartet-edge predicate is transported by the very same\ncandidate; no matrix-existence hypothesis is replaced by scalar data. -/\ntheorem rechart_preserves_quartet_occurrence {H : OAI.MUB6.CMatrix}\n    (hH : AllCriticalCarrier H) (p : Perm)\n    (ho : OccursAsQuartetEdge (normalizedNumerical H)) :\n    OccursAsQuartetEdge (normalizedNumerical (candidate H p (Equiv.refl _))) :=\n  candidate_occurs hH.1.1 ho p (Equiv.refl _)\n\n",
+          "after": "",
+          "count": 1,
+          "reason": "Omit replaced legacy model proofs or unrelated quartet-occurrence endpoint; retain original scalar/invariant rechart proof."
+        },
+        {
+          "before": "#print axioms rechart_preserves_quartet_occurrence\n",
+          "after": "",
+          "count": 1,
+          "reason": "Omit replaced legacy model proofs or unrelated quartet-occurrence endpoint; retain original scalar/invariant rechart proof."
+        }
+      ]
+    }
+  },
+  "existing_modules": {
+    "NoFourMUBs.Reuse.Archive.CriticalMomentBinding": {
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalMomentBinding.lean",
+      "active_sha256": "7cb6f10d9381e82738d0c83ed5ece66dc262cc4f7502874435196a49d7a99dc7"
+    },
+    "NoFourMUBs.Reuse.Archive.CriticalStripPhysical": {
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalStripPhysical.lean",
+      "active_sha256": "0e726f519d28a449b1895952067a44a422c9c31e7f51ae64b1656dc8762b5731"
+    },
+    "NoFourMUBs.Reuse.Archive.CriticalStripNewton": {
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalStripNewton.lean",
+      "active_sha256": "2002e0a4f2c778a6e993e3814d2937ec69d024987770793be0753f4c4bf1f60c"
+    }
+  },
+  "local_adapters": [
+    {
+      "module": "NoFourMUBs.Step2.CriticalZero.RechartModel",
+      "active_path": "NoFourMUBs/Step2/CriticalZero/RechartModel.lean",
+      "active_sha256": "7ba67fb8000833df557e18483a1745590ed57812a033c995c810ef9b9f9928b1",
+      "after_archived_module": "CriticalCorrelationCore"
+    }
+  ],
+  "external": [],
+  "unresolved": [],
+  "atlas_certification": false
+}

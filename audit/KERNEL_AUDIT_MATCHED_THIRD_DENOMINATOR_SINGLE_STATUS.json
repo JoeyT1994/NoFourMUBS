@@ -1,0 +1,40 @@
+{
+  "status": "PASS",
+  "checked_utc": "2026-10-12T13:01:44.816615+00:00",
+  "modules": 1,
+  "axiom_endpoints": {
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P012_side_factor": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P028_side_factor": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P011_side_factor": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P027_side_factor": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "source_hashes": {
+    "NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/DenominatorSingle.lean": "cecc5488c8c0702a945bacc6de6932aaa87c7a1d119d8d31abcf06562bdfde85"
+  },
+  "manifest_sha256": "e2e7946fd8f8ff88a79074bcdbe2dc5638010ce275844eeceb06347c51f2f6bc",
+  "audit_log_sha256": "be45beb3b72370012f622835c4e2415b0b7fc4eca56712bcfdbaa6f471f6a0f2",
+  "scope": "Small saved cofactor representations on every Seed; larger saved divisor factors follow by checked product cancellation on every StrictSeed. No new arrays or generic exceptional set. No atlas.",
+  "dependency_audits": {
+    "KERNEL_AUDIT_MATCHED_THIRD_DENOMINATOR_SIDE_STATUS.json": "f59dcddbdb4b1c7d73a706f37e3cc14b6840a81d6c2530b3f296d5aab6fde15b",
+    "KERNEL_AUDIT_MATCHED_THIRD_PRODUCT_004_STATUS.json": "a9cea522cf3675fa2f884297bbf48c1da94462ed51e1bd87044666ee3c3b97cc",
+    "KERNEL_AUDIT_MATCHED_THIRD_PRODUCT_012_STATUS.json": "13a4baff3b240a840101390175d658c5366e3284ab5a247a4fc4efc04bcb3dbe"
+  },
+  "dependency_source_hashes": {},
+  "atlas_certification": false
+}

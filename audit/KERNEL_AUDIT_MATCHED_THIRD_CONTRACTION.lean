@@ -1,0 +1,8 @@
+import NoFourMUBs.Step2.Reconstruction.ThirdMoment.Contraction
+
+#check NoFourMUBs.Step2.Reconstruction.ThirdMoment.forcedD_weighted_contraction
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.thirdMoment_sandwich
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.thirdMoment_transpose_sandwich
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.weightedDefect_trace
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.weightedDefect_contraction
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.forcedD_weighted_contraction

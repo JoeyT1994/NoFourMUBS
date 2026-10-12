@@ -1,0 +1,871 @@
+{
+  "status": "PASS",
+  "reviewed_utc": "2026-10-11T01:38:08.345218+00:00",
+  "scope": "Existing physical ordered-square/48row reduction/66term Newton/gauge chain, adapted to the current matrix carrier.",
+  "root": "CriticalPhysicalGauge",
+  "new_archived_modules": 21,
+  "sources": {
+    "CriticalPhysicalGauge": {
+      "sha256": "11d2c221f81e2f63c5d4bb073f03f94c6bc57bb47e648e3c2c345cb67ecbf0a8",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/domain_bridge/critical_strip_moments/reciprocal_gauge/CriticalPhysicalGauge.lean",
+      "imports": [
+        "CriticalGenericNewtonGauge",
+        "CriticalReconstructionData"
+      ],
+      "model_identifier_replacements": {
+        "CompactCover.Mat6": "OAI.MUB6.CMatrix",
+        "GoodMinor.front": "NoFourMUBs.Step2.Critical.front",
+        "AllCritical": "AllCriticalCarrier"
+      },
+      "namespace_open_replacements": {
+        "open Mub6 Mub6.Classification CompactCover GlobalCornerDomain\n": "open NoFourMUBs.Step2.Critical\n"
+      }
+    },
+    "CriticalGenericNewtonGauge": {
+      "sha256": "3cf4ef8775a404ccd66ad15a6668a9bf62ae1df828a4b727f076e84d65f475e3",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/domain_bridge/critical_strip_moments/reciprocal_gauge/CriticalGenericNewtonGauge.lean",
+      "imports": [
+        "CriticalDataGauge",
+        "CriticalMomentGauge",
+        "CriticalNewtonMoment66"
+      ],
+      "model_identifier_replacements": {
+        "GoodMinor.front": "NoFourMUBs.Step2.Critical.front"
+      },
+      "namespace_open_replacements": {
+        "open Mub6 Mub6.Classification\n": "open NoFourMUBs.Step2.Critical\n"
+      }
+    },
+    "CriticalDataGauge": {
+      "sha256": "14388fe9fb61f9c8c1ece5f8d25fef6a658a4d2819a01c44f5e7ab96f29dbe65",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/domain_bridge/critical_strip_moments/reciprocal_gauge/CriticalDataGauge.lean",
+      "imports": [
+        "CriticalNewtonCore"
+      ],
+      "model_identifier_replacements": {},
+      "namespace_open_replacements": {}
+    },
+    "CriticalMomentGauge": {
+      "sha256": "6d5e1f1b226f55fe5200ab2c901ebf52b8bfe30060d461626326f965f60e2501",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/domain_bridge/critical_strip_moments/reciprocal_gauge/CriticalMomentGauge.lean",
+      "imports": [
+        "CriticalMomentReductionData"
+      ],
+      "model_identifier_replacements": {},
+      "namespace_open_replacements": {}
+    },
+    "CriticalMomentReductionData": {
+      "sha256": "1b156fb64a8b875c8d353e3db178dfdb32d0428c6a908a08382f0d3a65356d3d",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/domain_bridge/critical_strip_moments/CriticalMomentReductionData.lean",
+      "imports": [
+        "CriticalCornerTerms"
+      ],
+      "model_identifier_replacements": {},
+      "namespace_open_replacements": {}
+    },
+    "CriticalCornerTerms": {
+      "sha256": "91f6c4ae0ba667b7c751142fa7401fb7da3231ead3c0b007bfd75d79ab321fc2",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/domain_bridge/critical_strip_moments/CriticalCornerTerms.lean",
+      "imports": [
+        "CriticalLaurentSum"
+      ],
+      "model_identifier_replacements": {},
+      "namespace_open_replacements": {}
+    },
+    "CriticalLaurentSum": {
+      "sha256": "b3e1ebcbd5fe2b2542041bd13d3a191b79ac2032230e317bf21edd8ee7068492",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/domain_bridge/critical_strip_moments/CriticalLaurentSum.lean",
+      "imports": [
+        "CriticalNewtonCore",
+        "Mathlib.Algebra.BigOperators.Fin",
+        "Mathlib.Algebra.BigOperators.Group.Finset.Pi",
+        "Mathlib.Tactic.FinCases"
+      ],
+      "model_identifier_replacements": {},
+      "namespace_open_replacements": {}
+    },
+    "CriticalNewtonMoment66": {
+      "sha256": "604727905e88a1ec89d8da93d9f963b1c5dbfd020a20ed6372c9f212ab550651",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/domain_bridge/critical_strip_moments/CriticalNewtonMoment66.lean",
+      "imports": [
+        "CriticalPhysicalMoment66",
+        "CriticalStripNewton"
+      ],
+      "model_identifier_replacements": {
+        "CompactCover.Mat6": "OAI.MUB6.CMatrix",
+        "AllCritical": "AllCriticalCarrier"
+      },
+      "namespace_open_replacements": {
+        "open Mub6 Mub6.Classification CompactCover GlobalCornerDomain\n": "open NoFourMUBs.Step2.Critical\n"
+      }
+    },
+    "CriticalPhysicalMoment66": {
+      "sha256": "2601ed1a1e8fa588bc0256d183254ee0b86f7deafa62bd4e2cba6b6d3b23253c",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/domain_bridge/critical_strip_moments/CriticalPhysicalMoment66.lean",
+      "imports": [
+        "CriticalMomentReduction",
+        "CriticalOrderedSquareSum"
+      ],
+      "model_identifier_replacements": {
+        "CompactCover.Mat6": "OAI.MUB6.CMatrix",
+        "AllCritical": "AllCriticalCarrier"
+      },
+      "namespace_open_replacements": {
+        "open Mub6 Mub6.Classification CompactCover GlobalCornerDomain\n": "open NoFourMUBs.Step2.Critical\n"
+      }
+    },
+    "CriticalMomentReduction": {
+      "sha256": "80473f2a7d1ef81a492981ea1eadecb0bf54441a82d9d59d86552ce6070ebcc0",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/domain_bridge/critical_strip_moments/CriticalMomentReduction.lean",
+      "imports": [
+        "CriticalMomentReductionBatch00",
+        "CriticalMomentReductionBatch01",
+        "CriticalMomentReductionBatch02",
+        "CriticalMomentReductionBatch03",
+        "CriticalMomentReductionBatch04",
+        "CriticalMomentReductionBatch05",
+        "CriticalMomentReductionBatch06",
+        "CriticalMomentReductionBatch07"
+      ],
+      "model_identifier_replacements": {},
+      "namespace_open_replacements": {}
+    },
+    "CriticalMomentReductionBatch00": {
+      "sha256": "38367cfbf799cfb0864d942337dff69e0c6aa2872136d959f7c0e8d41eced959",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/domain_bridge/critical_strip_moments/CriticalMomentReductionBatch00.lean",
+      "imports": [
+        "CriticalMomentReductionData"
+      ],
+      "model_identifier_replacements": {},
+      "namespace_open_replacements": {}
+    },
+    "CriticalMomentReductionBatch01": {
+      "sha256": "8589861e00060660ce9f54a427ac9805a61f024840b42a39a64a1bdc3094a8db",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/domain_bridge/critical_strip_moments/CriticalMomentReductionBatch01.lean",
+      "imports": [
+        "CriticalMomentReductionData"
+      ],
+      "model_identifier_replacements": {},
+      "namespace_open_replacements": {}
+    },
+    "CriticalMomentReductionBatch02": {
+      "sha256": "e351e247570b119b3c51018fa4bffc29860fb7e0570281c166977121a9ce1662",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/domain_bridge/critical_strip_moments/CriticalMomentReductionBatch02.lean",
+      "imports": [
+        "CriticalMomentReductionData"
+      ],
+      "model_identifier_replacements": {},
+      "namespace_open_replacements": {}
+    },
+    "CriticalMomentReductionBatch03": {
+      "sha256": "e3702bc598083759f9fe48f54692dcaa8407e2e611b0e3ed495d097cd542bece",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/domain_bridge/critical_strip_moments/CriticalMomentReductionBatch03.lean",
+      "imports": [
+        "CriticalMomentReductionData"
+      ],
+      "model_identifier_replacements": {},
+      "namespace_open_replacements": {}
+    },
+    "CriticalMomentReductionBatch04": {
+      "sha256": "74304eea5aade75731986e002f61e577e4344634327581261654815203120604",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/domain_bridge/critical_strip_moments/CriticalMomentReductionBatch04.lean",
+      "imports": [
+        "CriticalMomentReductionData"
+      ],
+      "model_identifier_replacements": {},
+      "namespace_open_replacements": {}
+    },
+    "CriticalMomentReductionBatch05": {
+      "sha256": "966ebc9a9634a94086e59f3407215dd1a7c99deb572589d7131f09c06eda36c9",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/domain_bridge/critical_strip_moments/CriticalMomentReductionBatch05.lean",
+      "imports": [
+        "CriticalMomentReductionData"
+      ],
+      "model_identifier_replacements": {},
+      "namespace_open_replacements": {}
+    },
+    "CriticalMomentReductionBatch06": {
+      "sha256": "336b56b063c0c99de9ed8a571e272369f5be944d024ded80b8bd362998b6155e",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/domain_bridge/critical_strip_moments/CriticalMomentReductionBatch06.lean",
+      "imports": [
+        "CriticalMomentReductionData"
+      ],
+      "model_identifier_replacements": {},
+      "namespace_open_replacements": {}
+    },
+    "CriticalMomentReductionBatch07": {
+      "sha256": "931783a1b8fe05a4a3c325299f6deb80b618ebd50b13d22c959f765015ba2be9",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/domain_bridge/critical_strip_moments/CriticalMomentReductionBatch07.lean",
+      "imports": [
+        "CriticalMomentReductionData"
+      ],
+      "model_identifier_replacements": {},
+      "namespace_open_replacements": {}
+    },
+    "CriticalOrderedSquareSum": {
+      "sha256": "a5b0e81190a42b07566b38e115091ba0e7f9f59e884d1cb858319f2375d86b1f",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/domain_bridge/critical_strip_moments/CriticalOrderedSquareSum.lean",
+      "imports": [
+        "CriticalLaurentCorner",
+        "CriticalStripSquareSum",
+        "CriticalWholeMoments"
+      ],
+      "model_identifier_replacements": {
+        "CompactCover.Mat6": "OAI.MUB6.CMatrix",
+        "CompactCover.Mat3": "Hadamard6.Mat3",
+        "AllCritical": "AllCriticalCarrier"
+      },
+      "namespace_open_replacements": {
+        "open Mub6 Mub6.Classification\n": "open NoFourMUBs.Step2.Critical\n",
+        "open CompactCover GoodMinor FourierSeedBinding FourPhase GlobalCornerDomain\n": ""
+      }
+    },
+    "CriticalLaurentCorner": {
+      "sha256": "69e67fe35d4e9141973421fbb38ad8bfc394df176a3d708aae7a2e09399f3e11",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/domain_bridge/critical_strip_moments/CriticalLaurentCorner.lean",
+      "imports": [
+        "CriticalCornerTerms"
+      ],
+      "model_identifier_replacements": {},
+      "namespace_open_replacements": {}
+    },
+    "CriticalStripSquareSum": {
+      "sha256": "6c55019181bd914e2f76aa7be36223998f831ba99d511e952808ad59b3293db0",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/domain_bridge/critical_strip_moments/CriticalStripSquareSum.lean",
+      "imports": [
+        "CriticalBlockInvariant"
+      ],
+      "model_identifier_replacements": {
+        "CompactCover.Mat6": "OAI.MUB6.CMatrix",
+        "AllCritical": "AllCriticalCarrier"
+      },
+      "namespace_open_replacements": {
+        "open Mub6 Mub6.Classification\n": "open NoFourMUBs.Step2.Critical\n",
+        "open CompactCover GoodMinor FourierSeedBinding FourPhase GlobalCornerDomain\n": ""
+      }
+    }
+  },
+  "variant_resolution": {
+    "selected": {
+      "CriticalDataGauge": "14388fe9fb61f9c8c1ece5f8d25fef6a658a4d2819a01c44f5e7ab96f29dbe65",
+      "CriticalMomentGauge": "6d5e1f1b226f55fe5200ab2c901ebf52b8bfe30060d461626326f965f60e2501",
+      "CriticalMomentReductionBatch00": "38367cfbf799cfb0864d942337dff69e0c6aa2872136d959f7c0e8d41eced959",
+      "CriticalLaurentSum": "b3e1ebcbd5fe2b2542041bd13d3a191b79ac2032230e317bf21edd8ee7068492",
+      "CriticalOrderedSquareSum": "a5b0e81190a42b07566b38e115091ba0e7f9f59e884d1cb858319f2375d86b1f",
+      "CriticalStripSquareSum": "6c55019181bd914e2f76aa7be36223998f831ba99d511e952808ad59b3293db0",
+      "CriticalLaurentCorner": "69e67fe35d4e9141973421fbb38ad8bfc394df176a3d708aae7a2e09399f3e11"
+    },
+    "comparison": "Reviewed variant diffs. Selected canonical full-proof-integration sources retain identical mathematical statements; fixes concern explicit Fin6vector projections, commutative power and sum simplification, typed Complex0, column-index proofs and the final rfl. Mathlib currently provides mul_zpow; CriticalDataGauge uses that existing version. CriticalMomentGauge uses the existing variant without a redundant ring."
+  },
+  "data_reuse": "Original48Laurent cornerTerms,48row reductions,43Newton formulae and66term polynomial are copied from the pinned sources without regenerated arrays or coefficients.",
+  "existing_adapters": "BlockInvariant binds the archived invariant to the already checked current signature. PhysicalModel provides normalized carrier and current AllCritical witness. CriticalWholeMoments supplies all7OrthogonalMoments equations.",
+  "endpoint_inputs": [
+    "actual AllCriticalCarrier H",
+    "two nonzero original correlations for reciprocal gauge"
+  ],
+  "endpoint_scope": "AllCritical physical rows force the literal66term polynomial to vanish, and a nonzero common row gauge preserves this equation. Does not supply the remaining rational zero-J side reconstruction, computed-to-raw equality, exceptional routing or global classification.",
+  "atlas_certification": false,
+  "checked_utc": "2026-10-11T01:51:55.846132+00:00",
+  "checked_modules": {
+    "CriticalDataGauge": {
+      "log": "critical_zero_physical_build_status_logs/batch_0208.log",
+      "source_sha256": "df4ed6b1120583b3feaaf172133a0458f15874d7b6d962ab64cf922009708596",
+      "printed_axioms": {
+        "CriticalNewtonGauge20261003.scaleRow_nonzero": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalNewtonGauge20261003.dataOf_scaleRow": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalNewtonGauge20261003.moment_scaleRow": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalNewtonGauge20261003.reciprocal_gauge_inputs": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ]
+      },
+      "printed_endpoints": 4
+    },
+    "CriticalLaurentSum": {
+      "log": "critical_zero_physical_build_status_logs/batch_0209.log",
+      "source_sha256": "d01506d2057330206be030f18276ffea6b7bbd30e15ccf6d8eacacf037755bec",
+      "printed_axioms": {
+        "CriticalLaurent20261003.value_add": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalLaurent20261003.columns_nonzero": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalLaurent20261003.ordered_monomial_sum": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalLaurent20261003.polynomial_square": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalLaurent20261003.ordered_square_moment_expansion": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ]
+      },
+      "printed_endpoints": 5
+    },
+    "CriticalCornerTerms": {
+      "log": "critical_zero_physical_build_status_logs/batch_0210.log",
+      "source_sha256": "2a500c791e92385e3684610696b3964628573386d45e7dea5727fa40910070de",
+      "printed_axioms": {},
+      "printed_endpoints": 0
+    },
+    "CriticalMomentReductionData": {
+      "log": "critical_zero_physical_build_status_logs/batch_0211.log",
+      "source_sha256": "9e959eb35d4515225672d4cca0d9c5b1cd44b9255e97236db83654fef318f47a",
+      "printed_axioms": {},
+      "printed_endpoints": 0
+    },
+    "CriticalMomentGauge": {
+      "log": "critical_zero_physical_build_status_logs/batch_0212.log",
+      "source_sha256": "92f92dde94fa11bb00fefc2920011cc2209b4e4e39c55a468d9056ee7d1bb149",
+      "printed_axioms": {
+        "CriticalNewtonGauge20261003.momentPolynomial66_scale": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ]
+      },
+      "printed_endpoints": 1
+    },
+    "CriticalMomentReductionBatch00": {
+      "log": "critical_zero_physical_build_status_logs/batch_0213.log",
+      "source_sha256": "15f076737a3aadaa9ac8a79ca63d016334c6ee981ebf4e78f218b8fefb63bfed",
+      "printed_axioms": {
+        "CriticalLaurent20261003.row_reduction_00": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalLaurent20261003.row_reduction_01": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalLaurent20261003.row_reduction_02": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalLaurent20261003.row_reduction_03": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalLaurent20261003.row_reduction_04": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalLaurent20261003.row_reduction_05": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ]
+      },
+      "printed_endpoints": 6
+    },
+    "CriticalMomentReductionBatch01": {
+      "log": "critical_zero_physical_build_status_logs/batch_0214.log",
+      "source_sha256": "43b43806b5ec401407cfb7e1e6d5570f7e18f2f604947027c80a6fd4470e0a90",
+      "printed_axioms": {
+        "CriticalLaurent20261003.row_reduction_06": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalLaurent20261003.row_reduction_07": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalLaurent20261003.row_reduction_08": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalLaurent20261003.row_reduction_09": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalLaurent20261003.row_reduction_10": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalLaurent20261003.row_reduction_11": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ]
+      },
+      "printed_endpoints": 6
+    },
+    "CriticalMomentReductionBatch02": {
+      "log": "critical_zero_physical_build_status_logs/batch_0215.log",
+      "source_sha256": "25ea444dcd3b72841d16d909fc37905292b7b38ba8e3a480cabc0deae4f4b001",
+      "printed_axioms": {
+        "CriticalLaurent20261003.row_reduction_12": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalLaurent20261003.row_reduction_13": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalLaurent20261003.row_reduction_14": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalLaurent20261003.row_reduction_15": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalLaurent20261003.row_reduction_16": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalLaurent20261003.row_reduction_17": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ]
+      },
+      "printed_endpoints": 6
+    },
+    "CriticalMomentReductionBatch03": {
+      "log": "critical_zero_physical_build_status_logs/batch_0216.log",
+      "source_sha256": "09328371b9c9702cd24a043ea66b51b9a43a1de18fdcd4483fba7d62e7e3c529",
+      "printed_axioms": {
+        "CriticalLaurent20261003.row_reduction_18": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalLaurent20261003.row_reduction_19": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalLaurent20261003.row_reduction_20": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalLaurent20261003.row_reduction_21": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalLaurent20261003.row_reduction_22": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalLaurent20261003.row_reduction_23": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ]
+      },
+      "printed_endpoints": 6
+    },
+    "CriticalMomentReductionBatch04": {
+      "log": "critical_zero_physical_build_status_logs/batch_0217.log",
+      "source_sha256": "caf15310fa257781a66647ae6fd176b22001c6cf7c580628f7370af76d815d3a",
+      "printed_axioms": {
+        "CriticalLaurent20261003.row_reduction_24": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalLaurent20261003.row_reduction_25": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalLaurent20261003.row_reduction_26": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalLaurent20261003.row_reduction_27": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalLaurent20261003.row_reduction_28": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalLaurent20261003.row_reduction_29": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ]
+      },
+      "printed_endpoints": 6
+    },
+    "CriticalMomentReductionBatch05": {
+      "log": "critical_zero_physical_build_status_logs/batch_0218.log",
+      "source_sha256": "c01ff275d527762f168c37d3e51b8b6d75a8a2ef299cc2a038ff67e61f7700c0",
+      "printed_axioms": {
+        "CriticalLaurent20261003.row_reduction_30": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalLaurent20261003.row_reduction_31": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalLaurent20261003.row_reduction_32": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalLaurent20261003.row_reduction_33": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalLaurent20261003.row_reduction_34": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalLaurent20261003.row_reduction_35": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ]
+      },
+      "printed_endpoints": 6
+    },
+    "CriticalMomentReductionBatch06": {
+      "log": "critical_zero_physical_build_status_logs/batch_0219.log",
+      "source_sha256": "082c8a8e1f372608c83839f642d61da5cec0799dadb5ac13e269f011a4f7e9fd",
+      "printed_axioms": {
+        "CriticalLaurent20261003.row_reduction_36": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalLaurent20261003.row_reduction_37": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalLaurent20261003.row_reduction_38": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalLaurent20261003.row_reduction_39": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalLaurent20261003.row_reduction_40": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalLaurent20261003.row_reduction_41": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ]
+      },
+      "printed_endpoints": 6
+    },
+    "CriticalMomentReductionBatch07": {
+      "log": "critical_zero_physical_build_status_logs/batch_0220.log",
+      "source_sha256": "24f001005b7698bcec2b5ea8141685c502b2b604700504a45d7e176dd4db9046",
+      "printed_axioms": {
+        "CriticalLaurent20261003.row_reduction_42": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalLaurent20261003.row_reduction_43": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalLaurent20261003.row_reduction_44": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalLaurent20261003.row_reduction_45": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalLaurent20261003.row_reduction_46": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalLaurent20261003.row_reduction_47": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ]
+      },
+      "printed_endpoints": 6
+    },
+    "CriticalMomentReduction": {
+      "log": "critical_zero_physical_build_status_logs/batch_0221.log",
+      "source_sha256": "e27a58b2db3d5b62e9df2eba2595502f00b34008dcf2a71ea2c245cff1ace309",
+      "printed_axioms": {
+        "CriticalLaurent20261003.row_reduction": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalLaurent20261003.reducedRows_sum": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalLaurent20261003.moment_quadratic_reduction": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ]
+      },
+      "printed_endpoints": 3
+    },
+    "CriticalLaurentCorner": {
+      "log": "critical_zero_physical_build_status_logs/batch_0222.log",
+      "source_sha256": "ce615f8221e357b0307c914ed1bc4535660166622b97c852badc34e24d68dc70",
+      "printed_axioms": {
+        "CriticalLaurent20261003.phaseLaurentValue_star": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalLaurent20261003.cornerPolynomial_exact": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalLaurent20261003.cornerPolynomial_unit": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ]
+      },
+      "printed_endpoints": 3
+    },
+    "CriticalStripSquareSum": {
+      "log": "critical_zero_physical_build_status_logs/batch_0223.log",
+      "source_sha256": "09d42aef0948ee84d03be8575d267cff95b6d859177b4f92fe686414b5100d25",
+      "printed_axioms": {
+        "CriticalStripMoments20261003.squareSum_nonnegative": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalStripMoments20261003.complexSquareSum_real": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalStripMoments20261003.allCritical_invariant_zero": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalStripMoments20261003.allCritical_squareSum_zero": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalStripMoments20261003.allCritical_complexSquareSum_zero": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ]
+      },
+      "printed_endpoints": 5
+    },
+    "CriticalOrderedSquareSum": {
+      "log": "critical_zero_physical_build_status_logs/batch_0224.log",
+      "source_sha256": "345f8afaedd6e34694c83e9de560dc339956e6fae78574ccc3d40b147920ed4a",
+      "printed_axioms": {
+        "CriticalStripMoments20261003.allCritical_ordered_invariant_zero": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalStripMoments20261003.normalized_cornerPolynomial": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalStripMoments20261003.allCritical_cornerPolynomial_zero": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalStripMoments20261003.allCritical_moment_quadratic_zero": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ]
+      },
+      "printed_endpoints": 4
+    },
+    "CriticalPhysicalMoment66": {
+      "log": "critical_zero_physical_build_status_logs/batch_0225.log",
+      "source_sha256": "300cff5343e15a0e36817d685cf27266d91801a40ee964a1e7e96db21760aaf0",
+      "printed_axioms": {
+        "CriticalStripMoments20261003.normalized_orthogonalMoments": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalStripMoments20261003.allCritical_momentPolynomial66_zero": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ]
+      },
+      "printed_endpoints": 2
+    },
+    "CriticalNewtonMoment66": {
+      "log": "critical_zero_physical_build_status_logs/batch_0226.log",
+      "source_sha256": "b8da45402bf54552ba8a3dde59d98ec5ecf29e4974980ef9c4c9a11ba96a42c9",
+      "printed_axioms": {
+        "CriticalStripMoments20261003.normalized_newtonPolynomial66": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalStripMoments20261003.allCritical_newtonPolynomial66_zero": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ]
+      },
+      "printed_endpoints": 2
+    },
+    "CriticalGenericNewtonGauge": {
+      "log": "critical_zero_physical_build_status_logs/batch_0227.log",
+      "source_sha256": "226f610ea47de08e0ba7dc356de3e3f8a28bf52b8e8d8b26653159008f542bb9",
+      "printed_axioms": {
+        "CriticalNewtonGauge20261003.wholeMoment_split": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalNewtonGauge20261003.wholeMoment_scale": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalNewtonGauge20261003.generic_newton_table": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalNewtonGauge20261003.generic_newtonPolynomial66": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalNewtonGauge20261003.leftData_scale": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalNewtonGauge20261003.rightData_scale": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalNewtonGauge20261003.generic_newtonPolynomial66_scale": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ]
+      },
+      "printed_endpoints": 7
+    },
+    "CriticalPhysicalGauge": {
+      "log": "critical_zero_physical_build_status_logs/batch_0228.log",
+      "source_sha256": "e1a8b7245706050c08db087ab72ab5fe66bba2a50eff191f8270452ae871d184",
+      "printed_axioms": {
+        "CriticalNewtonGauge20261003.pureNewtonPolynomial66_eq": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalNewtonGauge20261003.allCritical_reciprocal_pureNewton_zero": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalNewtonGauge20261003.scaleData_oppositeInputs": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalNewtonGauge20261003.normalized_gauged_oppositeInputs": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalNewtonGauge20261003.allCritical_gauged_newtonPolynomial66_zero": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalNewtonGauge20261003.allCritical_reciprocal_newtonPolynomial66_zero": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "CriticalNewtonGauge20261003.normalized_reciprocal_inputs": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ]
+      },
+      "printed_endpoints": 7
+    }
+  }
+}

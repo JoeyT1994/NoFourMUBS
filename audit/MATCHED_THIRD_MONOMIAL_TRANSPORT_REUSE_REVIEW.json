@@ -1,0 +1,33 @@
+{
+  "status": "REVIEWED_REUSE_SHIFT_SCALE_AND_PRODUCT000",
+  "reviewed_utc": "2026-10-12T01:36:04.808606+00:00",
+  "search": "MATCHED_THIRD_MONOMIAL_TRANSPORT_REUSE_SEARCH.json",
+  "comparisons": [
+    "DenseCoefficients.interpret_shift plus Coefficients.eval_shift directly prove the b-variable monomial action in the existing four-variable slice model.",
+    "Coefficients.eval_scale assembles componentwise b shifts. Leading/trailing zero padding is evaluated by the existing Horner recursion.",
+    "Product000_value already proves the common product. Products006 and009 move factors a,b between its factors, so two ring rearrangements suffice after exact saved-polynomial bindings; no cancellation or nonzero assumption is needed."
+  ],
+  "source_pins": [
+    {
+      "path": "lean/NoFourMUBs/Reuse/Archive/CriticalZeroCoefficientCore.lean",
+      "sha256": "432fed0290217430549866252f3d424e071fc185a8ea1333115a46ef43f7dbd3"
+    },
+    {
+      "path": "lean/NoFourMUBs/Reuse/Archive/CriticalZeroSumDenseCoefficients.lean",
+      "sha256": "b9bfcd6c882329da43a6d318ac481580385621442600a6bb102e0ad1298af29c"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/Model.lean",
+      "sha256": "11ba438c48cc9078b7593e5846f117744a6f69dfa3c03c2072262aeb8b7bfa16"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/Products/Product000.lean",
+      "sha256": "2c8d36029be060567bd247c48830f8f31ae09306e4e9cd6131f5967710beaf75"
+    }
+  ],
+  "not_claimed": [
+    "The candidate transports are not yet compiled.",
+    "The other monomial groups and rational-expression bindings remain open."
+  ],
+  "atlas_certification": false
+}

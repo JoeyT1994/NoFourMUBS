@@ -1,0 +1,45 @@
+{
+  "status": "REVIEWED_ASSEMBLY_OF_EXISTING_CHECKED_RESULTS",
+  "search": "MATCHED_THIRD_SEED_RESIDUALS_REUSE_SEARCH.json",
+  "comparisons": [
+    "thirdMoment_intrinsic_affine is rebound using the already checked candidate_intrinsic_correlations and phaseSide_rowsOfSide.",
+    "matched_intrinsic_parameters and intrinsicTheta_quadratic give the opposite vertical coordinate and its quadratic; no extra generic guard is introduced.",
+    "forcedD_weighted_contraction plus paired_affine_contraction produce exactly the constant and linear residuals of upstream E/direct.",
+    "flatness_of_one_weighted_identity supplies all entries; strict_seed_signed_sides_exist and matched_completion_of_flat_signed_sides finish the existing construction once the two explicit residuals vanish."
+  ],
+  "source_pins": [
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/AffineMatrices.lean",
+      "sha256": "60a383a50489a3c083174749058cb1d7f3037cacd5c91062cb63a8be402dd00c"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/MatchedParameter.lean",
+      "sha256": "7d8c0632cfafc570fec5f89e5230485f520f77ece6528068efb164f51aa98291"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/Contraction.lean",
+      "sha256": "d61e55342bac921010b955bae2b1eeb29f70a6cc613bce828f8d11f6eb81e1a7"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/Reduction.lean",
+      "sha256": "2d719b0d0467ebba5795f8574c65f93d190c109c17629bc681bd9d4dd3924a5f"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/Symmetry.lean",
+      "sha256": "ff0df7bdd8e6dbdff7b7207cc1c5975d036ad342730a2d24ae531009e8e0e961"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/MatchedCompletion.lean",
+      "sha256": "db4229833397c4bb758b82d77828007b8c64750dfdbb218d42b3da25ede93c2c"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/MatchedSides.lean",
+      "sha256": "c1e79372a8c993e0f1bf45658f0e96aedced94c8a62d0fdd61ed2073c660c9a9"
+    }
+  ],
+  "not_claimed": [
+    "Saved polynomial sums have not yet been bound to these rational residual expressions.",
+    "MatchedExistence remains open until the residual inputs are proved."
+  ],
+  "atlas_certification": false
+}

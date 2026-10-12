@@ -1,0 +1,43 @@
+{
+  "status": "PASS",
+  "reviewed_utc": "2026-10-11T05:40:08.143224+00:00",
+  "scope": "Reuse necessary real modulus interval cover for the current actual nonzero-J parameter. This is not the quartic equation, a guard-discharge proof or a completed classification.",
+  "search_evidence": [
+    "CRITICAL_MODULUS_CURRENT_SEARCH.txt",
+    "CRITICAL_MODULUS_ARCHIVE_SEARCH.json",
+    "Complete archive import/source/blob indexes reviewed; chosen four source bodies read. Existing vendor OAI/Hadamard closure searched.",
+    "CRITICAL_NONZERO_ENDPOINT_REFERENCES.json: complete blob text search recovered CriticalModulusAllCritical variants omitted from basename import listing."
+  ],
+  "source_pins": {
+    "CriticalModulusDiscriminant": "df68ed4d2d63218f77066d8b1d8adc8a20f43fe5e33c38460963d598248b94c1",
+    "CriticalModulusIntervals": "f4a711b34289a784a50fd44e4ae104bbcb958e07331ebd9a1f49f1b80131b11b",
+    "CriticalModulusSignedDomain": "a60fed8636c2d005b0bd11f3d1fb46bdab6eeb4eccc7bc8297a84bb5784c4446",
+    "CriticalModulusMatrixDomain": "543302a6f4e8f11eeebc9335380ed394c16b11ddb54b7dad9908500b4f90dcee",
+    "CriticalModulusAllCritical": "3dc1b23efc292d90b85f60dd796696f733cca8cc87b29ececf5d0db2a15c7a61"
+  },
+  "variant_choices": {
+    "CriticalModulusDiscriminant": "df68ed includes the Real import missing from the earlier variant.",
+    "CriticalModulusMatrixDomain": "543302 handles normSq conjugation explicitly."
+  },
+  "reuse_decisions": [
+    "Reuse the existing CriticalRationalParam.denominator_pos directly in h_pos.",
+    "Reuse four original discriminant, interval, sign and physical binding arguments. No new polynomial tables, witness construction or finite certificates.",
+    "Current side/moment definitions replace removed legacy namespaces; hypotheses unchanged.",
+    "Reuse archived allCritical_nonzero_allowed and existing allCritical_signed_parameter; no new parameterization proof."
+  ],
+  "mathematical_hypothesis_changes": [],
+  "atlas_certification": false,
+  "checked_utc": "2026-10-11T05:44:16.413994+00:00",
+  "manifest": "CRITICAL_MODULUS_REUSE_MANIFEST.json",
+  "build_status": "CRITICAL_MODULUS_BUILD_STATUS.json",
+  "axiom_audit": "KERNEL_AUDIT_CRITICAL_MODULUS_STATUS.json",
+  "modules": 5,
+  "axiom_endpoints": 32,
+  "source_hashes": {
+    "NoFourMUBs/Reuse/Archive/CriticalModulusDiscriminant.lean": "d9ce299342b1e6e2a60afebcd9d85b80f3c812b47292a5b7c8738f65e503e1be",
+    "NoFourMUBs/Reuse/Archive/CriticalModulusIntervals.lean": "bbfce89cbfe478e0878fe9927b0dc001f97a0b58961c646312f6a14c6e667b78",
+    "NoFourMUBs/Reuse/Archive/CriticalModulusSignedDomain.lean": "68169dc2e4fe6491e63b660b1cffa97cf39e7da3da8076af888f169ee70d12e3",
+    "NoFourMUBs/Reuse/Archive/CriticalModulusMatrixDomain.lean": "94589ec035ad07868012e71b051c69efe5204b53a213e028916ef74c22cf1b2a",
+    "NoFourMUBs/Reuse/Archive/CriticalModulusAllCritical.lean": "9ea017e4d309fdaa779141868313cfc41cda66cf5cf9d4ecd9384b62b85f176b"
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "status": "PASS",
+  "checked_utc": "2026-10-11T16:24:39.740805+00:00",
+  "repository_head": "4e048ec8a2888f198f5432efd7f201f98d473878",
+  "indexes": {
+    "ARCHIVE_SOURCE_INDEX.jsonl": "e56835aafa2eee86f3e3a340cabbd4d891e4044661ecfb6902a255ebe62ab323",
+    "ARCHIVE_BLOB_INDEX.jsonl": "8a124c5d9477fa048eb28a0be4c77a82b4d4c374e8861a60d85b355a1de73a26",
+    "ARCHIVE_IMPORT_INDEX.json": "4f3d7d6f8a9949a13c3c8fc65fe3d5c098f18a2efd4f0c0985f237ada38a4f4f"
+  },
+  "scope": "Remove three duplicate scalar helpers and the duplicated k=1 consumer; directly import the existing archived real quartic module. No polynomial data, certificate or theorem statement is changed.",
+  "source_pins": {
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/1b/1b3c1278bc9d6865f4c94445ef5e5a69a2a5f1ea4f62ff0361c4cdbbe114d2cb/CriticalModulusQuarticReal.lean": "1b3c1278bc9d6865f4c94445ef5e5a69a2a5f1ea4f62ff0361c4cdbbe114d2cb",
+    "lean/NoFourMUBs/Step2/CriticalZero/ScalarSigns/Classification.lean": "d22a2321d0f7eeb9bac8bfd0df22ce63d75d8171871abe24bab9bc1c1181d1f9",
+    "lean/NoFourMUBs/Reuse/Archive/CriticalModulusSignedDomain.lean": "68169dc2e4fe6491e63b660b1cffa97cf39e7da3da8076af888f169ee70d12e3",
+    "lean/NoFourMUBs/Reuse/Archive/CriticalNonzeroPolynomialData.lean": "d326f36bd196fff27bbbc148f8242d4d8bd840f5eda5fac619840112fdfcc442"
+  },
+  "available_variants_reviewed": [
+    "1b3c1278bc9d6865f4c94445ef5e5a69a2a5f1ea4f62ff0361c4cdbbe114d2cb",
+    "cc8af2c4741e4ae2310a4dbd172d909ff78a280f23e53097aba80955e9a85eb3"
+  ],
+  "variant_choice": "Use the variant with the explicit real-to-complex cast in quartic_real_cast.",
+  "exact_comparisons": [
+    {
+      "theorems": [
+        "quartic_one",
+        "quartic_abs",
+        "allowed_one_upper"
+      ],
+      "comparison": "Same quartic and Allowed definitions, same conclusions; 1073741824=2^30. Existing proofs replace the local helper proofs."
+    },
+    {
+      "theorem": "quartic_zero_at_one",
+      "hypotheses": "K real; Allowed 1 K; quartic 1 K=0",
+      "conclusion": "K=5",
+      "adoption": "Directly replaces the manual K=1 branch of candidates_of_quartic_zero."
+    }
+  ],
+  "changed_hypotheses": false,
+  "adoption_changes": "Imports only in adopted archive module; remove local helpers and use archived quartic_zero_at_one.",
+  "atlas_certification": false,
+  "limits": "Available sources only; no claim about unavailable or unshared work.",
+  "compiled_modules_in_affected_batch": 3,
+  "axiom_endpoints_in_affected_batch": 14,
+  "audit": "KERNEL_AUDIT_CRITICAL_NONZERO_SCALAR_CLASSIFICATION_STATUS.json",
+  "closed_session": 46479,
+  "proof_statements_changed": false
+}

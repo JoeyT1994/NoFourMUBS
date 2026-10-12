@@ -1,0 +1,5 @@
+import NoFourMUBs.Step2.Reconstruction.ThirdMoment.Certificates.DenominatorSide
+
+#check NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P015_side_factor
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P003_side_factor
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P015_side_factor

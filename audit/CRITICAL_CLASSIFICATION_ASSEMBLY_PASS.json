@@ -1,0 +1,73 @@
+{
+  "status": "PASS_CONDITIONAL_ASSEMBLY",
+  "checked_utc": "2026-10-11T17:45:07.485141+00:00",
+  "modules": 3,
+  "axiom_endpoints": {
+    "NoFourMUBs.Step2.Critical.strip_regular_zero_standard": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.strip_zero_values_or_standard": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.kappa_positive_root_unique": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.strip_classified_values_impossible": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.stripCorner_rev_zero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.leading_nonzero_special_of_regular_quartic": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.strip_nonzero_special_of_regular_quartic": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.allCriticalCarrier_standard_of_regular_quartic": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.criticalClassification_of_regular_quartic": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "source_hashes": {
+    "NoFourMUBs/Step2/CriticalZero/StripZeroEndpoint.lean": "3a4e7cf92327f0215e40e9c5a7dda0143fec14f9a10fde8bee2c27b5b6705f05",
+    "NoFourMUBs/Step2/CriticalZero/StripCountEndpoint.lean": "06e68538b19ba1be0837ef2e73ccfd60a56476a41bb0cf5c0ee0169306abed3b",
+    "NoFourMUBs/Step2/CriticalZero/ClassificationAssembly.lean": "98d701edbb6bdf6865896280aac936ad2efc64b7880865d3a5b2337941fa179d"
+  },
+  "audits": {
+    "KERNEL_AUDIT_CRITICAL_STRIP_ZERO_ENDPOINT_STATUS.json": "47f12a5c364800d92376d9b4b5e4cadb1cc4e333431a5bd489380c9667b38e4c",
+    "KERNEL_AUDIT_CRITICAL_STRIP_COUNT_ENDPOINT_STATUS.json": "ecefe24f051fa55fcd77360508d55150e14d212acb886b75b53fb1ec27023ad2",
+    "KERNEL_AUDIT_CRITICAL_CLASSIFICATION_ASSEMBLY_STATUS.json": "72de1a46e475ef89b8f4e1cf93cb73ec8cee23e89e7351cefd9d637fe174f645"
+  },
+  "terminal_theorem": "NoFourMUBs.Step2.Critical.criticalClassification_of_regular_quartic",
+  "remaining_explicit_critical_premise": "RegularCriticalQuartic",
+  "critical_classification_unconditionally_proved": false,
+  "matched_existence_proved": false,
+  "main_source_sha256_unchanged": "9316a2a26614e4d1782334d03709321b378540e2cb4002a888110d85c01e3556",
+  "main_explicit_inputs": [
+    "AtlasCertificate",
+    "MatchedExistence",
+    "CriticalClassification"
+  ],
+  "atlas_certification": false
+}

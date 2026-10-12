@@ -1,0 +1,70 @@
+{
+  "checked_at": "2026-10-10T22:14:37.333188+00:00",
+  "script": "build_archive_reuse.py",
+  "sha256": "52eaff902be05675c579c3fed0e39a33cd3af471606287aeb0358329674dbc36",
+  "scope": "Tracked source-dependency receipts only. All current source hashes are still checked and every missing or invalidated receipt still requires lake build success. Final full-target build and axiom audit remain required.",
+  "tests": [
+    {
+      "case": "unchanged",
+      "retained": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "pass": true
+    },
+    {
+      "case": "edit uncompiled independent consumer",
+      "retained": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "pass": true
+    },
+    {
+      "case": "edit transitive dependency",
+      "retained": [
+        "D"
+      ],
+      "pass": true
+    },
+    {
+      "case": "edit root only",
+      "retained": [
+        "B",
+        "C",
+        "D"
+      ],
+      "pass": true
+    },
+    {
+      "case": "remove transitive dependency",
+      "retained": [
+        "D"
+      ],
+      "pass": true
+    },
+    {
+      "case": "newly tracked dependency requires a fresh receipt",
+      "retained": [
+        "D"
+      ],
+      "pass": true
+    },
+    {
+      "case": "no previous hashes cannot preserve receipts",
+      "retained": [],
+      "pass": true
+    },
+    {
+      "case": "uncompiled modules never gain a receipt",
+      "retained": [],
+      "pass": true
+    }
+  ],
+  "atlas_certification": false,
+  "guard_inventory_note": "REUSE_GUARD_CHECK.json inventories certificate generators and integrators, not this build driver. It remains unchanged at 24 scripts; this review separately pins the build driver hash. All 8 receipt-dependency tests passed."
+}

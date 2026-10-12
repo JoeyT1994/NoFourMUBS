@@ -174,7 +174,7 @@ theorem matched_move (k : Fin 4) {s : StrictSeed} {H : Had6} (hH : Matched s H) 
     · rcases j with j | j <;> simpa [genK] using entry_mul_conj H (Sum.inl 1) _
     · have h1 := hcol (Equiv.sumCongr (Equiv.swap 0 1) (Equiv.refl I3) i)
       have h2 := hcol (Sum.inl 1)
-      simp only [genK, Matrix.of_apply, Equiv.sumCongr_apply, Sum.map_inl, Equiv.coe_refl] at h1 ⊢
+      simp only [genK, Matrix.of_apply, Equiv.sumCongr_apply, Sum.map_inl, Equiv.coe_refl, id] at h1 ⊢
       simp [h2]
       rcases i with i | i <;> simpa using h1
     · ext i j
@@ -188,7 +188,7 @@ theorem matched_move (k : Fin 4) {s : StrictSeed} {H : Had6} (hH : Matched s H) 
       hR hχ ⟨fun j => ?_, fun i => ?_⟩ ?_
     · have h1 := hrow (Equiv.sumCongr (Equiv.swap 0 1) (Equiv.refl I3) j)
       have h2 := hrow (Sum.inl 1)
-      simp only [genK, Matrix.of_apply, Equiv.sumCongr_apply, Sum.map_inl, Equiv.coe_refl] at h1 ⊢
+      simp only [genK, Matrix.of_apply, Equiv.sumCongr_apply, Sum.map_inl, Equiv.coe_refl, id] at h1 ⊢
       simp [h2]
       rcases j with j | j <;> simpa using h1
     · rcases i with i | i <;> simpa [genK, mul_comm] using entry_mul_conj H _ (Sum.inl 1)

@@ -1,0 +1,75 @@
+{
+  "scope": "critical_equicorrelation_endpoint",
+  "status": "PREPARED_NOT_COMPILED",
+  "records": [
+    {
+      "module": "NoFourMUBs.Step2.CriticalZero.EquicorrelationCoordinates",
+      "active_path": "NoFourMUBs/Step2/CriticalZero/EquicorrelationCoordinates.lean",
+      "active_sha256": "5b19991a4fc4669711574b08a7a665ba730f6190122fc72b17bd85e1b5471e72",
+      "local_model_adapter": true,
+      "review": "EQUICORRELATION_ROOT_ALLOCATION_REUSE_REVIEW.json"
+    },
+    {
+      "module": "NoFourMUBs.Step2.CriticalZero.EquicorrelationPhased",
+      "active_path": "NoFourMUBs/Step2/CriticalZero/EquicorrelationPhased.lean",
+      "active_sha256": "de515d143d2783b25c51f34f145b19906a2916a43460a1cbe86be2c9d81823e0",
+      "local_model_adapter": true,
+      "review": "EQUICORRELATION_ROOT_ALLOCATION_REUSE_REVIEW.json"
+    }
+  ],
+  "axiom_endpoints": [
+    "NoFourMUBs.Step2.Critical.Equicorrelation.repeated_coordinate_roots",
+    "NoFourMUBs.Step2.Critical.Equicorrelation.repeated_coordinate_position",
+    "NoFourMUBs.Step2.Critical.Equicorrelation.oriented_coordinate_allocation",
+    "NoFourMUBs.Step2.Critical.Equicorrelation.phased_corner_impossible",
+    "NoFourMUBs.Step2.Critical.Equicorrelation.phased_selected_impossible"
+  ],
+  "dependency_audits": [
+    "KERNEL_AUDIT_CRITICAL_EQUICORRELATION_ROW_PRODUCTS_STATUS.json",
+    "KERNEL_AUDIT_CRITICAL_EQUICORRELATION_NORMALIZED_STATUS.json"
+  ],
+  "atlas_certification": false,
+  "physical_endpoint_complete": false,
+  "dependency_pins": [
+    {
+      "active_path": "NoFourMUBs/Reuse/Archive/FourierPhaseData.lean",
+      "active_sha256": "71c542f2dadb44b000f3547a1e49e91648403d88373f7bd2eb015812b8eb4f7e"
+    },
+    {
+      "active_path": "vendor/hadamard6/Hadamard6/CubicRoots.lean",
+      "active_sha256": "00ce2ce0901d261f02a6538a71596d995fc78fe4074d3ba55286cb0622548338"
+    },
+    {
+      "active_path": "vendor/fourier/OAI/Analysis/MutuallyUnbiased/Cubic/CubicPrelim.lean",
+      "active_sha256": "5fa37667399ebb1f0dfaecc4400d907b54f60fcc4602d64f07845b875c9fe7f8"
+    },
+    {
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalZeroModuli.lean",
+      "active_sha256": "adb9a0e0600c91150736a23effaee302fb77ac2a957261953495f544df1b40cc"
+    },
+    {
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalAllocatedChart.lean",
+      "active_sha256": "dd7e3603f621f76cf67861d4db94f5733af31597437cfde4a147641ece6d56c3"
+    },
+    {
+      "active_path": "NoFourMUBs/Step2/CriticalZero/ColumnRechart.lean",
+      "active_sha256": "1530e264196c059538a1cdd67aae356d3a458066ad9630c542a935e62028a71d"
+    },
+    {
+      "active_path": "NoFourMUBs/Step2/CriticalZero/EquicorrelationNormalized.lean",
+      "active_sha256": "3d7fe0da977cfaf88b319ce6d27b6f8e8c2fad791fea05f5d1acc0cbca2ba8ba"
+    },
+    {
+      "active_path": "NoFourMUBs/Step2/CriticalZero/EquicorrelationRowProducts.lean",
+      "active_sha256": "ea65b62b0fa81c913087c639b3caa75a6ed472ea58040c86a193b7bdf7bb2051"
+    },
+    {
+      "active_path": "NoFourMUBs/Step2/CriticalZero/P7Triples.lean",
+      "active_sha256": "0811fbd4f76d77bebe80a5b815e32ba3557a8366ab5c9292fbc8b227c5facfde"
+    },
+    {
+      "active_path": "NoFourMUBs/Step2/CriticalZero/P7CornerTransport.lean",
+      "active_sha256": "bc03c99f6f5efe51b7c9964aaf5731de30701609f3fa079fc9e72afa2d20a7c2"
+    }
+  ]
+}

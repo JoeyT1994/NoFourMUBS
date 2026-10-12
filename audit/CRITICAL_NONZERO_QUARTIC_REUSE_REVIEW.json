@@ -1,0 +1,39 @@
+{
+  "status": "PASS",
+  "reviewed_utc": "2026-10-11T06:06:17.350785+00:00",
+  "scope": "Reuse the original supplied reduced-numerator factorization and exact three-pole product identities. This is the existing scalar tail, not a physical-to-quartic conclusion.",
+  "source_pins": {
+    "CriticalNonzeroPolynomialData": "d326f36bd196fff27bbbc148f8242d4d8bd840f5eda5fac619840112fdfcc442",
+    "CriticalNonzeroFactorData": "454b173bea6f9d58041758f80b842453b63d80dd784440144d866a74e8238897",
+    "CriticalNonzeroFactor00": "13dc0fbed80a401f69cc49703427f72791085d499d72e645515a20e4c197566a",
+    "CriticalNonzeroFactor01": "6f2cd2dae5e8364a319d38a37ea2a39879b661f52e5d56d2d1e8753845d318fd",
+    "CriticalNonzeroFactor02": "5dce24485ff294d699180d58a4951ed63ba6c112ae99b22b89051f09625d2ed1",
+    "CriticalNonzeroFactor03": "17329e913235bae415e1246b1d11f33256ffe36b855accb3aaf64fe12d4c5371",
+    "CriticalNonzeroPolynomial": "fd274b076dd7ebc02c25af6e4bda0ac5bafebe0feeea184efb174a59b94c867d",
+    "CriticalNonzeroQuartic": "a30b6fab169dee5ade88cf5a54fece7cbada5028793cb6d403e119d7bb301425",
+    "CriticalNonzeroPolynomialPoles": "9114883efad9d315158b7f966bdd392628c64306fa1e39c86658fe4ad4394843",
+    "CriticalNonzeroPoles": "d5672451039ceec46a87875fba81c3fb796baaf6da4d756369f20f4a8b99a296"
+  },
+  "search_evidence": [
+    "CRITICAL_NONZERO_QUARTIC_CURRENT_SEARCH.txt",
+    "CRITICAL_NONZERO_TRACE_REFERENCES.json",
+    "CRITICAL_NONZERO_QUARTIC_DATA_REVIEW.json",
+    "ARCHIVE_SOURCE_INDEX.jsonl",
+    "ARCHIVE_BLOB_INDEX.jsonl",
+    "ARCHIVE_IMPORT_INDEX.json"
+  ],
+  "reuse_decisions": [
+    "The active current/vendor/OAI closure contains no existing quartic factorization or denominator-factor theorem; use the archived ten-module closure.",
+    "Select a30b6f quartic consumer of generic polynomial data, avoiding the duplicated Complex QuarticData/Binding route.",
+    "All original theorem statements and proof bodies retained; imports only adapted. Existing CriticalNonzeroSplitting reused unchanged.",
+    "Read-only integer-polynomial comparison confirms that the615term reduced numerator and105term quartic are exactly the pinned original JSON data.",
+    "quartic_zero_of_reduced_zero retains its required reduced-numerator-zero hypothesis; pole-product lemmas retain all six nonzero-pole assumptions."
+  ],
+  "mathematical_hypothesis_changes": [],
+  "remaining": "Actual coefficient-to-numerator identity and pseudo-reduction trace, pole and special cases, and global assembly.",
+  "atlas_certification": false,
+  "checked_utc": "2026-10-11T06:09:32.427600+00:00",
+  "compiled_modules": 10,
+  "axiom_endpoints": 23,
+  "audit": "KERNEL_AUDIT_CRITICAL_NONZERO_QUARTIC_STATUS.json"
+}

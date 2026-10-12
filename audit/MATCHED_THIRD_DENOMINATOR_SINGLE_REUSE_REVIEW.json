@@ -1,0 +1,52 @@
+{
+  "status": "REVIEWED_REUSE_SAVED_COFACTORS_AND_PRODUCTS",
+  "reviewed_utc": "2026-10-12T12:55:59.899925+00:00",
+  "search": "MATCHED_THIRD_DENOMINATOR_SINGLE_REUSE_SEARCH.json",
+  "source_pins": [
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/DenominatorSide.lean",
+      "sha256": "3bdf7106842cfd1717d4edac8a945a314f9e4d2f3d938eda125e62258103ed5f"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/Products/Product004.lean",
+      "sha256": "7aff40ea76de4c560e607e8c5e49e77d0c08006bfbfa8073238f7e2e46d0a2f5"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/Products/Product012.lean",
+      "sha256": "90b9e0e72b6bcc4b5a69764d0888291f0969d0e9adc8e856610412f1d48c2024"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/Polynomials/P012.lean",
+      "sha256": "a42f40e97b443d9302862052668dfa4559287d03593efbaa3f90c22525791274"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/Polynomials/P028.lean",
+      "sha256": "556953dac531fd3c2fdc6f1b3759aed7d8fcb08b2d70f2d86fbff8d2ccae98f0"
+    },
+    {
+      "path": "lean/NoFourMUBs/Reuse/Archive/StrictSideScalarGuards.lean",
+      "sha256": "75741b3091aeb2ce36f1b9fdab822add16b2e2514bfa27822105c93fb936d042"
+    },
+    {
+      "path": "lean/NoFourMUBs/Reuse/Archive/SideIntrinsicDenominatorAlgebra.lean",
+      "sha256": "d80ac8d204c686150a5e73c2bb6a42575defac013f13e0524827818dea84d4ff"
+    },
+    {
+      "path": "lean/NoFourMUBs/Reuse/Archive/SideIntrinsicPolynomialDefs.lean",
+      "sha256": "1291afc792342d1241ca5a0ec63d77ba8ac9d838f254a7e420b7c8ce334abc53"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Frames.lean",
+      "sha256": "6a9f4c607d0cf945d60ef45b0c9ee7e7405f46176bd2fc2d4e25dec076f4284f"
+    }
+  ],
+  "comparisons": [
+    "Existing SideIntrinsicDenominatorAlgebra clears intrinsic six-phase row fractions. Its exact statements do not mention saved four-seed arrays P012/P028. Keep its definitions and strict side guards; do not reproduce its algebraic route.",
+    "The two saved cofactors each have51terms and no new coefficient array is needed. Proposed model adapters express rawP012=-(a*b^2*c*d^2)*conj(sideP1(transposed seed)), rawP028=-(a*b^2*c*d)*sideP0(transposed seed). These are not yet Lean-verified.",
+    "Reuse Product004 and Product012 plus P000_strict_ne_zero to cancel only provably nonzero saved cofactors. P004=bc*P003_swap and existing P003_side_factor then express P011/P027 through the original horizontal divisor and one vertical side factor.",
+    "The resulting denominator factors are valid for every StrictSeed; no generic subset, exceptional exclusion, g assumption or new arithmetic checker is introduced.",
+    "RawP012=c*rawP042 and rawP028=b*rawP061 were observed by exact translation of original saved exponent supports. They are prospective reuse for the later constant denominators, not proved or adopted here."
+  ],
+  "new_numeric_arrays": 0,
+  "atlas_certification": false
+}

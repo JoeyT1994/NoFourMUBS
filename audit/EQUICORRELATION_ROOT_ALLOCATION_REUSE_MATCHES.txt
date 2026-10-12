@@ -1,0 +1,46 @@
+lean/NoFourMUBs/Step1/DoubleSetup.lean:6:Write the two repeated roots as `a = zw`, `b = z w̄` with `|z| = |w| = 1`, and put `c = Re w`, `h = Re z³`.  Then
+audit/upstream_repository/archive/long_proof/Lean/blobs/25/255c7d8d4ec1f9c6d1dacc8eb07215bfd2cbb9304917b42b71688ce4ad98bfc9/CriticalZeroModuli.lean:7:/-- Each literal modulus is a root of the surviving repeated-root cubic.
+lean/NoFourMUBs/Reuse/Archive/CriticalModulusIntervals.lean:64:/-- This necessary interval cover includes repeated and coincident roots. -/
+lean/NoFourMUBs/Reuse/Archive/CriticalZeroPoles.lean:100:/-- The surviving product gives the literal repeated-root modulus cubic. -/
+lean/NoFourMUBs/Reuse/Archive/CriticalZeroModuli.lean:7:/-- Each literal modulus is a root of the surviving repeated-root cubic.
+lean/NoFourMUBs/Reuse/Archive/CriticalAllocatedChart.lean:17:/-- The three checked row operations place the repeated root in the first two
+lean/NoFourMUBs/Reuse/Archive/FourierPhaseData.lean:9:def second3 (x : Fin 3 → ℂ) : ℂ := x 0*x 1+x 0*x 2+x 1*x 2
+lean/NoFourMUBs/Reuse/Archive/FourierPhaseData.lean:20:theorem phase_second_moment {x : Fin 3 → ℂ} (hx : IsPhase3 x) :
+lean/NoFourMUBs/Reuse/Archive/FourierPhaseData.lean:21:    prod3 x*star (sum3 x)=second3 x := by
+lean/NoFourMUBs/Reuse/Archive/FourierPhaseData.lean:25:  simp only [prod3,sum3,second3,star_add]
+lean/NoFourMUBs/Reuse/Archive/FourierPhaseData.lean:48:  have h := phase_second_moment hx
+lean/NoFourMUBs/Reuse/Archive/FourierPhaseData.lean:53:    _ = s^2-3*second3 (fourierRow s A B w) := by rw [h]
+lean/NoFourMUBs/Reuse/Archive/FourierPhaseData.lean:106:#print axioms phase_second_moment
+lean/NoFourMUBs/Step2/CriticalZero/P7StripEndpoint.lean:30:of the twenty strip corners. Pole values and repeated roots are included. -/
+lean/NoFourMUBs/Step2/CriticalZero/P7Moduli.lean:3:/-! The p=7 specialization; reuse the existing repeated-root assignment. -/
+audit/upstream_repository/archive/long_proof/Lean/blobs/ca/ca7f02bf54bf797e7ac9a9ca7fd8926af986143b9c3032ee00f155d172bde66d/FourierPhaseData.lean:9:def second3 (x : Fin 3 → ℂ) : ℂ := x 0*x 1+x 0*x 2+x 1*x 2
+audit/upstream_repository/archive/long_proof/Lean/blobs/ca/ca7f02bf54bf797e7ac9a9ca7fd8926af986143b9c3032ee00f155d172bde66d/FourierPhaseData.lean:20:theorem phase_second_moment {x : Fin 3 → ℂ} (hx : IsPhase3 x) :
+audit/upstream_repository/archive/long_proof/Lean/blobs/ca/ca7f02bf54bf797e7ac9a9ca7fd8926af986143b9c3032ee00f155d172bde66d/FourierPhaseData.lean:21:    prod3 x*star (sum3 x)=second3 x := by
+audit/upstream_repository/archive/long_proof/Lean/blobs/ca/ca7f02bf54bf797e7ac9a9ca7fd8926af986143b9c3032ee00f155d172bde66d/FourierPhaseData.lean:25:  simp only [prod3,sum3,second3,star_add]
+audit/upstream_repository/archive/long_proof/Lean/blobs/ca/ca7f02bf54bf797e7ac9a9ca7fd8926af986143b9c3032ee00f155d172bde66d/FourierPhaseData.lean:48:  have h := phase_second_moment hx
+audit/upstream_repository/archive/long_proof/Lean/blobs/ca/ca7f02bf54bf797e7ac9a9ca7fd8926af986143b9c3032ee00f155d172bde66d/FourierPhaseData.lean:53:    _ = s^2-3*second3 (fourierRow s A B w) := by rw [h]
+audit/upstream_repository/archive/long_proof/Lean/blobs/ca/ca7f02bf54bf797e7ac9a9ca7fd8926af986143b9c3032ee00f155d172bde66d/FourierPhaseData.lean:106:#print axioms phase_second_moment
+audit/upstream_repository/archive/long_proof/Lean/blobs/51/5150621f53e59f4d87dd74977f692add4d713e3f88f90555512919291be7d6bf/ZeroPolesReview.lean:59:theorem repeated_modulus_roots (z T : ℝ)
+audit/upstream_repository/archive/long_proof/Lean/blobs/51/5150621f53e59f4d87dd74977f692add4d713e3f88f90555512919291be7d6bf/ZeroPolesReview.lean:79:#print axioms ZeroPolesIndependentReview20261003.repeated_modulus_roots
+audit/upstream_repository/archive/long_proof/Lean/blobs/2b/2bdb9a989e5de1f7102464951e16ae2a5de0537e5a72abbb8c63396db20e10a0/CriticalZeroModuli.lean:7:/-- Each literal modulus is a root of the surviving repeated-root cubic.
+audit/upstream_repository/archive/long_proof/Lean/blobs/73/73c8d73bc3c5d097bf09382140f179ec10bfd35ae657eaa5b9696fa15b8328c2/PackageAudit.lean:251:#print axioms Hadamard6Extensions.FourierSide.phase_second_moment
+audit/upstream_repository/archive/long_proof/Lean/blobs/be/be54a968a6c10ab79e0c2d4f2913f71433c5a71f66183e68e160f6bd4a8a94bf/CompleteAudit.lean:226:#check @Hadamard6Extensions.FourierSide.phase_second_moment
+audit/upstream_repository/archive/long_proof/Lean/blobs/be/be54a968a6c10ab79e0c2d4f2913f71433c5a71f66183e68e160f6bd4a8a94bf/CompleteAudit.lean:227:#print axioms Hadamard6Extensions.FourierSide.phase_second_moment
+audit/upstream_repository/archive/long_proof/Lean/blobs/75/752e260d96fd68dbf9dafb238c1e389c47b1b9f7f81b0ab0f71f7a8f32f54695/PackageAudit.lean:476:#print Hadamard6Extensions.FourierSide.phase_second_moment
+audit/upstream_repository/archive/long_proof/Lean/blobs/75/752e260d96fd68dbf9dafb238c1e389c47b1b9f7f81b0ab0f71f7a8f32f54695/PackageAudit.lean:477:#print axioms Hadamard6Extensions.FourierSide.phase_second_moment
+audit/upstream_repository/archive/long_proof/Lean/blobs/c8/c82f8497e092479a50be1742844c62a298c390c01afcc63588635bf1ee6e6a94/CriticalAllocatedChart.lean:18:/-- The three checked row operations place the repeated root in the first two
+audit/upstream_repository/archive/long_proof/Lean/blobs/31/31dbe174c631c1a892a1dad9175bd4e856b58000e230c29e8b3a1f8c23847f78/CriticalAllocatedChart.lean:18:/-- The three checked row operations place the repeated root in the first two
+audit/upstream_repository/archive/long_proof/Lean/blobs/f3/f3e73ac689b908ebf9a2e8e2ba6c423e46aadc3703eef02d259dec0338ad554b/CriticalAllocatedChart.lean:19:/-- The three checked row operations place the repeated root in the first two
+audit/upstream_repository/archive/long_proof/Lean/blobs/f4/f4a711b34289a784a50fd44e4ae104bbcb958e07331ebd9a1f49f1b80131b11b/CriticalModulusIntervals.lean:64:/-- This necessary interval cover includes repeated and coincident roots. -/
+audit/upstream_repository/archive/long_proof/Lean/blobs/1d/1d4cd1f98905c461868aa4dc83c3bd022b45c534b50aac2160a0d36f83af677d/ZeroPolesReview.lean:59:theorem repeated_modulus_roots (z T : ℝ)
+audit/upstream_repository/archive/long_proof/Lean/blobs/1d/1d4cd1f98905c461868aa4dc83c3bd022b45c534b50aac2160a0d36f83af677d/ZeroPolesReview.lean:78:#print axioms ZeroPolesIndependentReview20261003.repeated_modulus_roots
+audit/upstream_repository/archive/long_proof/Lean/blobs/5c/5c57e69d4db4662f72494d03dda81fe55d8445310c3bd4094d2cbf22d70acf80/CriticalAllocatedChart.lean:18:/-- The three checked row operations place the repeated root in the first two
+audit/upstream_repository/archive/long_proof/Lean/blobs/38/38eb19111e49a90f9e7ea3287db12a6f262b40860a8e0cd9d8b82dc8104cdb2a/CriticalAllocatedChart.lean:18:/-- The three checked row operations place the repeated root in the first two
+audit/upstream_repository/archive/long_proof/Lean/blobs/0a/0ae283ab37656f29d4105c84f0b7dceea470cc648f96cb509ee10ede14e51475/CriticalZeroPoles.lean:100:/-- The surviving product gives the literal repeated-root modulus cubic. -/
+audit/upstream_repository/archive/long_proof/Lean/blobs/63/635d5cb86528c50577552aa09e8567615fbb1c9dd98f3f665a29bd403d5c30ea/FourierPhaseData.lean:9:def second3 (x : Fin 3 → ℂ) : ℂ := x 0*x 1+x 0*x 2+x 1*x 2
+audit/upstream_repository/archive/long_proof/Lean/blobs/63/635d5cb86528c50577552aa09e8567615fbb1c9dd98f3f665a29bd403d5c30ea/FourierPhaseData.lean:20:theorem phase_second_moment {x : Fin 3 → ℂ} (hx : IsPhase3 x) :
+audit/upstream_repository/archive/long_proof/Lean/blobs/63/635d5cb86528c50577552aa09e8567615fbb1c9dd98f3f665a29bd403d5c30ea/FourierPhaseData.lean:21:    prod3 x*star (sum3 x)=second3 x := by
+audit/upstream_repository/archive/long_proof/Lean/blobs/63/635d5cb86528c50577552aa09e8567615fbb1c9dd98f3f665a29bd403d5c30ea/FourierPhaseData.lean:25:  simp only [prod3,sum3,second3,map_add]
+audit/upstream_repository/archive/long_proof/Lean/blobs/63/635d5cb86528c50577552aa09e8567615fbb1c9dd98f3f665a29bd403d5c30ea/FourierPhaseData.lean:48:  have h := phase_second_moment hx
+audit/upstream_repository/archive/long_proof/Lean/blobs/63/635d5cb86528c50577552aa09e8567615fbb1c9dd98f3f665a29bd403d5c30ea/FourierPhaseData.lean:53:    _ = s^2-3*second3 (fourierRow s A B w) := by rw [h]
+audit/upstream_repository/archive/long_proof/Lean/blobs/63/635d5cb86528c50577552aa09e8567615fbb1c9dd98f3f665a29bd403d5c30ea/FourierPhaseData.lean:106:#print axioms phase_second_moment

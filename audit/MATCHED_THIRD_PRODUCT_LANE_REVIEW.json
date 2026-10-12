@@ -1,0 +1,6 @@
+{
+  "reviewed_utc": "2026-10-12T14:06:11.410088+00:00",
+  "change": "Allow the existing saved-product queue to use either of the existing two compiler lane locks. Default semantic behavior unchanged; global product queue lock still prevents duplicate product workers. No checker/manifest/coefficient/proof changes.",
+  "purpose": "After the current sparse batch passes, finish remaining products on the free critical lane while the actual matrix-entry adapter uses semantic.",
+  "atlas_certification": false
+}

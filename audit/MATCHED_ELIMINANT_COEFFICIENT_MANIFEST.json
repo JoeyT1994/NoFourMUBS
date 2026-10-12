@@ -1,0 +1,49 @@
+{
+  "scope": "matched_eliminant_coefficients",
+  "records": [
+    {
+      "module": "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.Eliminants",
+      "active_path": "NoFourMUBs/Step2/Reconstruction/BaseCoefficients/Eliminants.lean",
+      "active_sha256": "3ae325de28da1896954ef3270bff34a2a18de68ea1813a7745b327840e804c5a",
+      "local_model_adapter": true,
+      "review": "MATCHED_ELIMINANT_COEFFICIENT_REUSE_REVIEW.json"
+    }
+  ],
+  "dependency_pins": [
+    {
+      "active_path": "vendor/hadamard6/Hadamard6/QuotientAlgebra.lean",
+      "active_sha256": "e771892e157ec91624d5fe1dada562bb43651696a673e0bc4fb08c5c640b03ed"
+    },
+    {
+      "active_path": "NoFourMUBs/Step2/Reconstruction/EntryCompanion.lean",
+      "active_sha256": "d1849acb23e557ce8a0f41543b0ea41855a4f2fd98829b0a7e743320aefbe468"
+    },
+    {
+      "active_path": "NoFourMUBs/Step2/Reconstruction/BaseCoefficients/Bindings.lean",
+      "active_sha256": "f488d52f6e644ee826f25f359886ef3f9a1da0a3c27660246bf11b459dc40509"
+    },
+    {
+      "active_path": "NoFourMUBs/Step1/Lift.lean",
+      "active_sha256": "b8a35ba93c6fc0759092edad30be2d649921351c66c2a8c154d4b71941479064"
+    },
+    {
+      "active_path": "vendor/hadamard6/Hadamard6/LeadingFibreCriterion.lean",
+      "active_sha256": "16942562cf1cc0f3c45acca5cdbedf8ec0d7b0c27f9e513f1a0343e9d551f118"
+    },
+    {
+      "active_path": "vendor/hadamard6/Hadamard6/DependentAlgebra.lean",
+      "active_sha256": "89d05a0c20671fa6582c92f1999c525ac53148eebfea30c08b7e0994a371c503"
+    }
+  ],
+  "dependency_audits": [
+    "KERNEL_AUDIT_MATCHED_BASE_BINDING_STATUS.json",
+    "KERNEL_AUDIT_MATCHED_ENTRY_COMPANION_STATUS.json"
+  ],
+  "axiom_endpoints": [
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.cached_eliminantA_eq",
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.cached_eliminantA_seed",
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.cached_eliminantB_eq",
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.cached_eliminantB_seed"
+  ],
+  "atlas_certification": false
+}

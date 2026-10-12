@@ -1,0 +1,982 @@
+{
+  "status": "READ_ONLY_DISCOVERY_NOT_ADOPTED",
+  "root": "GeometricFourierComplete",
+  "unambiguous": {
+    "GeometricFourierComplete": {
+      "blob": "blobs/24/24a31639f077eaae527f9b940590113695c0a25bfa0b8a3c66133b9f969e0bbc/GeometricFourierComplete.lean",
+      "bytes": 2053,
+      "lexical_markers_heuristic": [],
+      "sha256": "24a31639f077eaae527f9b940590113695c0a25bfa0b8a3c66133b9f969e0bbc",
+      "static_imports_heuristic": [
+        "ConjugateBlockNormalization",
+        "GeometricTopBlocks"
+      ]
+    },
+    "Worker12.ContinuousBindings": {
+      "blob": "blobs/96/9614f3a4fd88262021665f56c609b6126aee0b0e6c91a4a6fa1456c41459e272/ContinuousBindings.lean",
+      "bytes": 6273,
+      "lexical_markers_heuristic": [],
+      "sha256": "9614f3a4fd88262021665f56c609b6126aee0b0e6c91a4a6fa1456c41459e272",
+      "static_imports_heuristic": [
+        "Worker12.PureFamilies"
+      ]
+    },
+    "Worker12.PureFamilies": {
+      "blob": "blobs/a0/a08c911babd9bf4cb0905d5a8e644e1e82027ae9850a2712b2a34b468b84b039/PureFamilies.lean",
+      "bytes": 4684,
+      "lexical_markers_heuristic": [],
+      "sha256": "a08c911babd9bf4cb0905d5a8e644e1e82027ae9850a2712b2a34b468b84b039",
+      "static_imports_heuristic": [
+        "Worker12.FourierRouting"
+      ]
+    },
+    "Worker12.FourierRouting": {
+      "blob": "blobs/0a/0ae4fae4f37ecbf02e1efab051075624581e4b11c8d258cc2f32caf3b11e2154/FourierRouting.lean",
+      "bytes": 6339,
+      "lexical_markers_heuristic": [],
+      "sha256": "0ae4fae4f37ecbf02e1efab051075624581e4b11c8d258cc2f32caf3b11e2154",
+      "static_imports_heuristic": [
+        "Worker12.FactorAllocation",
+        "Worker12.FourierForcedCompletion",
+        "Worker12.Orientations",
+        "Worker12.SimultaneousFourierNormalization",
+        "Worker12.UnmixedParameters"
+      ]
+    },
+    "Worker12.Orientations": {
+      "blob": "blobs/b9/b9223971589e2c836d4590080660db9e3ac6fe5fc0d4ef1783ad37d88388abcb/Orientations.lean",
+      "bytes": 3770,
+      "lexical_markers_heuristic": [],
+      "sha256": "b9223971589e2c836d4590080660db9e3ac6fe5fc0d4ef1783ad37d88388abcb",
+      "static_imports_heuristic": [
+        "Worker12.BoundaryTargets",
+        "Worker12.Saturation"
+      ]
+    },
+    "Worker12.BoundaryTargets": {
+      "blob": "blobs/06/069071d653919cc0b01c75f69384382b526802b256b22a960692efa8edbc1e26/BoundaryTargets.lean",
+      "bytes": 4637,
+      "lexical_markers_heuristic": [],
+      "sha256": "069071d653919cc0b01c75f69384382b526802b256b22a960692efa8edbc1e26",
+      "static_imports_heuristic": [
+        "Worker12.InjectedRouting"
+      ]
+    },
+    "Worker12.InjectedRouting": {
+      "blob": "blobs/5c/5cfc199de0f645359e8278a70a37232cbc100626dd0ad3ac9c2daa09fe39e438/InjectedRouting.lean",
+      "bytes": 3875,
+      "lexical_markers_heuristic": [],
+      "sha256": "5cfc199de0f645359e8278a70a37232cbc100626dd0ad3ac9c2daa09fe39e438",
+      "static_imports_heuristic": [
+        "Worker12.Indexing",
+        "Worker12.VanishingMinorReduction"
+      ]
+    },
+    "Worker12.Indexing": {
+      "blob": "blobs/4b/4b114e8d75059648bd40c9ea71e41665ed6ff44ad71eada4882781298740a39b/Indexing.lean",
+      "bytes": 2692,
+      "lexical_markers_heuristic": [],
+      "sha256": "4b114e8d75059648bd40c9ea71e41665ed6ff44ad71eada4882781298740a39b",
+      "static_imports_heuristic": [
+        "Mathlib.Logic.Equiv.Fin.Basic",
+        "Mathlib.Logic.Equiv.Fintype",
+        "Worker12.BoundaryTransport",
+        "Worker12.Strata"
+      ]
+    },
+    "Worker12.BoundaryTransport": {
+      "blob": "blobs/4e/4eb98b336da040053f9c1cefb951470591edd473bfa760e9c89dc694b64511d5/BoundaryTransport.lean",
+      "bytes": 91,
+      "lexical_markers_heuristic": [],
+      "sha256": "4eb98b336da040053f9c1cefb951470591edd473bfa760e9c89dc694b64511d5",
+      "static_imports_heuristic": [
+        "ReuseBoundaryTransport"
+      ]
+    },
+    "Worker12.Saturation": {
+      "blob": "blobs/34/34ddd217989281f9dfcf066f99d40e23ffe3d612fb9cc557d9987d799babdb40/Saturation.lean",
+      "bytes": 6006,
+      "lexical_markers_heuristic": [],
+      "sha256": "34ddd217989281f9dfcf066f99d40e23ffe3d612fb9cc557d9987d799babdb40",
+      "static_imports_heuristic": [
+        "Worker12.InjectedRouting"
+      ]
+    },
+    "Worker12.UnmixedParameters": {
+      "blob": "blobs/0d/0d9f270853ac363f8a4096d51397ed0202c55e447fc644e480910517fce174cd/UnmixedParameters.lean",
+      "bytes": 252,
+      "lexical_markers_heuristic": [],
+      "sha256": "0d9f270853ac363f8a4096d51397ed0202c55e447fc644e480910517fce174cd",
+      "static_imports_heuristic": [
+        "Hadamard6.FourierUnmixed"
+      ]
+    },
+    "Worker12.ZeroPattern": {
+      "blob": "blobs/4e/4ed3f8f42b42f3c78eede94a00e5c138c140883f64a9fad2fbeadcf3b4c6806c/ZeroPattern.lean",
+      "bytes": 4802,
+      "lexical_markers_heuristic": [],
+      "sha256": "4ed3f8f42b42f3c78eede94a00e5c138c140883f64a9fad2fbeadcf3b4c6806c",
+      "static_imports_heuristic": [
+        "Worker12.SaturatedClassification"
+      ]
+    },
+    "Worker12.SaturatedClassification": {
+      "blob": "blobs/6b/6be5075200efd240b9f104868eeddceaf5f7167cce4bd6695d70a1baaf2fa0f3/SaturatedClassification.lean",
+      "bytes": 3586,
+      "lexical_markers_heuristic": [],
+      "sha256": "6be5075200efd240b9f104868eeddceaf5f7167cce4bd6695d70a1baaf2fa0f3",
+      "static_imports_heuristic": [
+        "Worker12.CubicEndpoints"
+      ]
+    },
+    "Worker12.CubicEndpoints": {
+      "blob": "blobs/cd/cdd398e48888b74152a9b3687de8f9f039e2ea2000bc194a7edb7dd0555aa27e/CubicEndpoints.lean",
+      "bytes": 9052,
+      "lexical_markers_heuristic": [],
+      "sha256": "cdd398e48888b74152a9b3687de8f9f039e2ea2000bc194a7edb7dd0555aa27e",
+      "static_imports_heuristic": [
+        "Worker12.ContinuousBindings",
+        "Worker12.Endpoint0102",
+        "Worker12.Endpoint0111",
+        "Worker12.Endpoint0120",
+        "Worker12.Endpoint0201",
+        "Worker12.Endpoint0210",
+        "Worker12.Endpoint0222",
+        "Worker12.Endpoint1002",
+        "Worker12.Endpoint1011",
+        "Worker12.Endpoint1020",
+        "Worker12.Endpoint1101",
+        "Worker12.Endpoint1110",
+        "Worker12.Endpoint1122",
+        "Worker12.Endpoint2001",
+        "Worker12.Endpoint2010",
+        "Worker12.Endpoint2022",
+        "Worker12.Endpoint2202",
+        "Worker12.Endpoint2211",
+        "Worker12.Endpoint2220",
+        "Worker12.NonphysicalEndpoints"
+      ]
+    },
+    "Worker12.Endpoint0102": {
+      "blob": "blobs/a2/a2d33a31cb8c3cf09f4c322e97d65691498b3eb3ccbcef20673a14d4bc1f6403/Endpoint0102.lean",
+      "bytes": 28891,
+      "lexical_markers_heuristic": [],
+      "sha256": "a2d33a31cb8c3cf09f4c322e97d65691498b3eb3ccbcef20673a14d4bc1f6403",
+      "static_imports_heuristic": [
+        "Worker12.EndpointSupport"
+      ]
+    },
+    "Worker12.EndpointSupport": {
+      "blob": "blobs/71/716d6c429f3c8713e0983f7ab6a9a8e9489dfbe2c717880c4e8e0d727762fd68/EndpointSupport.lean",
+      "bytes": 826,
+      "lexical_markers_heuristic": [],
+      "sha256": "716d6c429f3c8713e0983f7ab6a9a8e9489dfbe2c717880c4e8e0d727762fd68",
+      "static_imports_heuristic": [
+        "Worker12.PureFamilies"
+      ]
+    },
+    "Worker12.Endpoint0111": {
+      "blob": "blobs/38/3800015dfd7e2ea1f4a1b67cb6e69a350121f5330cfe6f266c075dd0953f920a/Endpoint0111.lean",
+      "bytes": 28878,
+      "lexical_markers_heuristic": [],
+      "sha256": "3800015dfd7e2ea1f4a1b67cb6e69a350121f5330cfe6f266c075dd0953f920a",
+      "static_imports_heuristic": [
+        "Worker12.EndpointSupport"
+      ]
+    },
+    "Worker12.Endpoint0120": {
+      "blob": "blobs/fe/fee06b350d6f902e83cbf630d1c52462d2dcd215b1a895acb7e36287880d0302/Endpoint0120.lean",
+      "bytes": 28983,
+      "lexical_markers_heuristic": [],
+      "sha256": "fee06b350d6f902e83cbf630d1c52462d2dcd215b1a895acb7e36287880d0302",
+      "static_imports_heuristic": [
+        "Worker12.EndpointSupport"
+      ]
+    },
+    "Worker12.Endpoint0201": {
+      "blob": "blobs/05/0587b078a21d5c036f7997c2fb649520281c7945255b07138ff37f3c9dda5cd8/Endpoint0201.lean",
+      "bytes": 28987,
+      "lexical_markers_heuristic": [],
+      "sha256": "0587b078a21d5c036f7997c2fb649520281c7945255b07138ff37f3c9dda5cd8",
+      "static_imports_heuristic": [
+        "Worker12.EndpointSupport"
+      ]
+    },
+    "Worker12.Endpoint0210": {
+      "blob": "blobs/44/4448a624581b6b438004994d08c0163bc6314064ea05a4e0721ef9cc79ba1c0a/Endpoint0210.lean",
+      "bytes": 29064,
+      "lexical_markers_heuristic": [],
+      "sha256": "4448a624581b6b438004994d08c0163bc6314064ea05a4e0721ef9cc79ba1c0a",
+      "static_imports_heuristic": [
+        "Worker12.EndpointSupport"
+      ]
+    },
+    "Worker12.Endpoint0222": {
+      "blob": "blobs/6c/6ca5fc2fe50cb731295ae01061703f59305493e3f1ce3c28583e37aff9f92a04/Endpoint0222.lean",
+      "bytes": 29345,
+      "lexical_markers_heuristic": [],
+      "sha256": "6ca5fc2fe50cb731295ae01061703f59305493e3f1ce3c28583e37aff9f92a04",
+      "static_imports_heuristic": [
+        "Worker12.EndpointSupport"
+      ]
+    },
+    "Worker12.Endpoint1002": {
+      "blob": "blobs/e7/e776d4b6cd80e7be81733bdbdbfa839cf4b791f8a3e03ad658f357186d8eba2d/Endpoint1002.lean",
+      "bytes": 28987,
+      "lexical_markers_heuristic": [],
+      "sha256": "e776d4b6cd80e7be81733bdbdbfa839cf4b791f8a3e03ad658f357186d8eba2d",
+      "static_imports_heuristic": [
+        "Worker12.EndpointSupport"
+      ]
+    },
+    "Worker12.Endpoint1011": {
+      "blob": "blobs/64/647e0ed03c10af53cf028cc33dc2b8fb5abcc848603fc3181fae3f6134810354/Endpoint1011.lean",
+      "bytes": 28878,
+      "lexical_markers_heuristic": [],
+      "sha256": "647e0ed03c10af53cf028cc33dc2b8fb5abcc848603fc3181fae3f6134810354",
+      "static_imports_heuristic": [
+        "Worker12.EndpointSupport"
+      ]
+    },
+    "Worker12.Endpoint1020": {
+      "blob": "blobs/7d/7d7912a541308afb7cbc9990526c1ca6796be28dc96d3faff9d8ea5fe6b36205/Endpoint1020.lean",
+      "bytes": 29011,
+      "lexical_markers_heuristic": [],
+      "sha256": "7d7912a541308afb7cbc9990526c1ca6796be28dc96d3faff9d8ea5fe6b36205",
+      "static_imports_heuristic": [
+        "Worker12.EndpointSupport"
+      ]
+    },
+    "Worker12.Endpoint1101": {
+      "blob": "blobs/99/99675f0931267193d9ee4d6d5584d87238c2cd571624ca82927e5082a21841ac/Endpoint1101.lean",
+      "bytes": 28787,
+      "lexical_markers_heuristic": [],
+      "sha256": "99675f0931267193d9ee4d6d5584d87238c2cd571624ca82927e5082a21841ac",
+      "static_imports_heuristic": [
+        "Worker12.EndpointSupport"
+      ]
+    },
+    "Worker12.Endpoint1110": {
+      "blob": "blobs/04/04d0075a7ae360e79273fc29f3781e0fe5da83b55bf75f073382513bf93513d0/Endpoint1110.lean",
+      "bytes": 28787,
+      "lexical_markers_heuristic": [],
+      "sha256": "04d0075a7ae360e79273fc29f3781e0fe5da83b55bf75f073382513bf93513d0",
+      "static_imports_heuristic": [
+        "Worker12.EndpointSupport"
+      ]
+    },
+    "Worker12.Endpoint1122": {
+      "blob": "blobs/61/61093dd27d497b3b5412d3f7f626e1c58be0fd0fd693b883feb86963ed8a17ee/Endpoint1122.lean",
+      "bytes": 29297,
+      "lexical_markers_heuristic": [],
+      "sha256": "61093dd27d497b3b5412d3f7f626e1c58be0fd0fd693b883feb86963ed8a17ee",
+      "static_imports_heuristic": [
+        "Worker12.EndpointSupport"
+      ]
+    },
+    "Worker12.Endpoint2001": {
+      "blob": "blobs/5a/5aa3e5b84095d1676fba5ca0736d7e0c6ac13323368837eea26bc08629fe98da/Endpoint2001.lean",
+      "bytes": 29060,
+      "lexical_markers_heuristic": [],
+      "sha256": "5aa3e5b84095d1676fba5ca0736d7e0c6ac13323368837eea26bc08629fe98da",
+      "static_imports_heuristic": [
+        "Worker12.EndpointSupport"
+      ]
+    },
+    "Worker12.Endpoint2010": {
+      "blob": "blobs/7c/7c34b94791b958e22fd26689665db3869773a52223ef1bf2f4afbc94ed34299c/Endpoint2010.lean",
+      "bytes": 28983,
+      "lexical_markers_heuristic": [],
+      "sha256": "7c34b94791b958e22fd26689665db3869773a52223ef1bf2f4afbc94ed34299c",
+      "static_imports_heuristic": [
+        "Worker12.EndpointSupport"
+      ]
+    },
+    "Worker12.Endpoint2022": {
+      "blob": "blobs/b9/b997bc7366de454d1f66fd901a28a96bf34466916f6998c637ae9eb9e38b1a95/Endpoint2022.lean",
+      "bytes": 29341,
+      "lexical_markers_heuristic": [],
+      "sha256": "b997bc7366de454d1f66fd901a28a96bf34466916f6998c637ae9eb9e38b1a95",
+      "static_imports_heuristic": [
+        "Worker12.EndpointSupport"
+      ]
+    },
+    "Worker12.Endpoint2202": {
+      "blob": "blobs/ea/eafa9b47a372bc45acfca42bc8b375bcf489686ff6d02622adfbdc2464174b60/Endpoint2202.lean",
+      "bytes": 29246,
+      "lexical_markers_heuristic": [],
+      "sha256": "eafa9b47a372bc45acfca42bc8b375bcf489686ff6d02622adfbdc2464174b60",
+      "static_imports_heuristic": [
+        "Worker12.EndpointSupport"
+      ]
+    },
+    "Worker12.Endpoint2211": {
+      "blob": "blobs/1b/1b7bd9280dc585304185891bc8b5fd69fffe21420891a1c77c85e240ab2eb029/Endpoint2211.lean",
+      "bytes": 29297,
+      "lexical_markers_heuristic": [],
+      "sha256": "1b7bd9280dc585304185891bc8b5fd69fffe21420891a1c77c85e240ab2eb029",
+      "static_imports_heuristic": [
+        "Worker12.EndpointSupport"
+      ]
+    },
+    "Worker12.Endpoint2220": {
+      "blob": "blobs/fe/fe1ea6c27d90d73ad3f149db92a1e8f55144f30bd659f364bb8d952a6f9f19a9/Endpoint2220.lean",
+      "bytes": 29242,
+      "lexical_markers_heuristic": [],
+      "sha256": "fe1ea6c27d90d73ad3f149db92a1e8f55144f30bd659f364bb8d952a6f9f19a9",
+      "static_imports_heuristic": [
+        "Worker12.EndpointSupport"
+      ]
+    },
+    "Worker12.NonphysicalEndpoints": {
+      "blob": "blobs/3e/3efa6a8c48e919e563c4d029a3f6e5127c85cee20c1b219b5203cf24dfb67c78/NonphysicalEndpoints.lean",
+      "bytes": 17936,
+      "lexical_markers_heuristic": [],
+      "sha256": "3efa6a8c48e919e563c4d029a3f6e5127c85cee20c1b219b5203cf24dfb67c78",
+      "static_imports_heuristic": [
+        "Worker12.EndpointSupport"
+      ]
+    },
+    "GeometricRowsTriples": {
+      "blob": "blobs/05/05c50009da79f5d50f2a9ea2d5ca6cd27ec2d9880d440b7a273874a62b29ec1f/GeometricRowsTriples.lean",
+      "bytes": 2573,
+      "lexical_markers_heuristic": [],
+      "sha256": "05c50009da79f5d50f2a9ea2d5ca6cd27ec2d9880d440b7a273874a62b29ec1f",
+      "static_imports_heuristic": [
+        "GeometricFourierTail",
+        "SixRootOrdering"
+      ]
+    },
+    "Worker12.ZeroClassification": {
+      "blob": "blobs/8f/8fb23e9abf5e576abeb5e1687ab08d36a72d77d249798e56464cec4b705b11ae/ZeroClassification.lean",
+      "bytes": 3333,
+      "lexical_markers_heuristic": [],
+      "sha256": "8fb23e9abf5e576abeb5e1687ab08d36a72d77d249798e56464cec4b705b11ae",
+      "static_imports_heuristic": [
+        "Worker12.TransposeClassification"
+      ]
+    },
+    "Worker12.TransposeClassification": {
+      "blob": "blobs/47/47344714e7b1832514526003e0a378300253dea1ffb295423175424c2aafcf82/TransposeClassification.lean",
+      "bytes": 2129,
+      "lexical_markers_heuristic": [],
+      "sha256": "47344714e7b1832514526003e0a378300253dea1ffb295423175424c2aafcf82",
+      "static_imports_heuristic": [
+        "Worker12.ZeroRowTransport"
+      ]
+    },
+    "SixRootTriples": {
+      "blob": "blobs/e1/e1ea27de3fb9ccc70a888a5576228c66503296562826a35a4855fbefed093c7e/SixRootTriples.lean",
+      "bytes": 3378,
+      "lexical_markers_heuristic": [],
+      "sha256": "e1ea27de3fb9ccc70a888a5576228c66503296562826a35a4855fbefed093c7e",
+      "static_imports_heuristic": [
+        "SixRootPolynomial"
+      ]
+    }
+  },
+  "ambiguous": {
+    "ConjugateBlockNormalization": [
+      {
+        "blob": "blobs/09/09308ea7019f4b47eda5e2a407062fad4df3b0612983722993f8c6b207bf5bae/ConjugateBlockNormalization.lean",
+        "bytes": 4787,
+        "lexical_markers_heuristic": [],
+        "sha256": "09308ea7019f4b47eda5e2a407062fad4df3b0612983722993f8c6b207bf5bae",
+        "static_imports_heuristic": [
+          "Hadamard6.SimultaneousFourierNormalization",
+          "Worker12.ContinuousBindings",
+          "Worker12.ZeroPattern"
+        ]
+      },
+      {
+        "blob": "blobs/24/24f1ca6ca5dd719e72f49b5d6b505ac42b79206501cd17e99334fbcbbb7b5fac/ConjugateBlockNormalization.lean",
+        "bytes": 4726,
+        "lexical_markers_heuristic": [],
+        "sha256": "24f1ca6ca5dd719e72f49b5d6b505ac42b79206501cd17e99334fbcbbb7b5fac",
+        "static_imports_heuristic": [
+          "Hadamard6.SimultaneousFourierNormalization",
+          "Worker12.ContinuousBindings",
+          "Worker12.ZeroPattern"
+        ]
+      }
+    ],
+    "Worker12.FactorAllocation": [
+      {
+        "blob": "blobs/2d/2d6ceaa06c414ed165403f91e8f668c36232f02fc568719c5906c1f760d3f9a1/FactorAllocation.lean",
+        "bytes": 265,
+        "lexical_markers_heuristic": [],
+        "sha256": "2d6ceaa06c414ed165403f91e8f668c36232f02fc568719c5906c1f760d3f9a1",
+        "static_imports_heuristic": [
+          "Hadamard6.FourierCoordinateAllocation"
+        ]
+      },
+      {
+        "blob": "blobs/87/874c61e65e476105ee4f7db2032792ab9415755ac81cd17fb7e6922d8f097cbc/FactorAllocation.lean",
+        "bytes": 18279,
+        "lexical_markers_heuristic": [],
+        "sha256": "874c61e65e476105ee4f7db2032792ab9415755ac81cd17fb7e6922d8f097cbc",
+        "static_imports_heuristic": [
+          "Hadamard6.QuotientReal",
+          "Mathlib.Algebra.Polynomial.Derivative",
+          "Mathlib.Algebra.Polynomial.Roots",
+          "Mathlib.Analysis.Complex.Polynomial.Basic",
+          "Mathlib.Tactic.Ring"
+        ]
+      }
+    ],
+    "Worker12.FourierForcedCompletion": [
+      {
+        "blob": "blobs/28/28c8b5302f9723dd7348336c1243f3b4450fc0146dbcf2b1c26f559f5106ae04/FourierForcedCompletion.lean",
+        "bytes": 4476,
+        "lexical_markers_heuristic": [],
+        "sha256": "28c8b5302f9723dd7348336c1243f3b4450fc0146dbcf2b1c26f559f5106ae04",
+        "static_imports_heuristic": [
+          "Hadamard6.FiniteCornerFromBlocks",
+          "Hadamard6.FourierBlockCoordinates"
+        ]
+      },
+      {
+        "blob": "blobs/2e/2ec44164e83f42164cc46d62854c4a238ce68f8c28fe297db952b8baf30ed18d/FourierForcedCompletion.lean",
+        "bytes": 261,
+        "lexical_markers_heuristic": [],
+        "sha256": "2ec44164e83f42164cc46d62854c4a238ce68f8c28fe297db952b8baf30ed18d",
+        "static_imports_heuristic": [
+          "Hadamard6.FourierForcedCompletion"
+        ]
+      }
+    ],
+    "ReuseBoundaryTransport": [
+      {
+        "blob": "blobs/ac/ace77161cf28bced2a4738951fe6cf5cf8c3a52320cf40e71109ad73d2f34749/ReuseBoundaryTransport.lean",
+        "bytes": 15261,
+        "lexical_markers_heuristic": [],
+        "sha256": "ace77161cf28bced2a4738951fe6cf5cf8c3a52320cf40e71109ad73d2f34749",
+        "static_imports_heuristic": [
+          "Mathlib.Analysis.Real.Sqrt",
+          "Mathlib.LinearAlgebra.Matrix.NonsingularInverse",
+          "Mub6.Basic"
+        ]
+      },
+      {
+        "blob": "blobs/ad/ad17fc05586f9fbaafd10916ff69d2e8f5da645f28998ce8bbf84f2fdcbf3654/ReuseBoundaryTransport.lean",
+        "bytes": 15268,
+        "lexical_markers_heuristic": [],
+        "sha256": "ad17fc05586f9fbaafd10916ff69d2e8f5da645f28998ce8bbf84f2fdcbf3654",
+        "static_imports_heuristic": [
+          "Mathlib.Analysis.Real.Sqrt",
+          "Mathlib.LinearAlgebra.Matrix.NonsingularInverse",
+          "Mub6.Basic"
+        ]
+      }
+    ],
+    "Mub6.Basic": [
+      {
+        "blob": "blobs/31/3103079b18ae8340e5b544a85a68c19bc0ea6558070bb8e82ce92f16a4e6a5d4/Basic.lean",
+        "bytes": 5025,
+        "lexical_markers_heuristic": [],
+        "sha256": "3103079b18ae8340e5b544a85a68c19bc0ea6558070bb8e82ce92f16a4e6a5d4",
+        "static_imports_heuristic": [
+          "Mathlib.Data.Complex.Basic",
+          "Mathlib.Data.Matrix.ColumnRowPartitioned",
+          "Mathlib.LinearAlgebra.Matrix.ConjTranspose",
+          "Mathlib.LinearAlgebra.Matrix.NonsingularInverse",
+          "Mathlib.LinearAlgebra.Matrix.Notation",
+          "Mathlib.Tactic.Ring"
+        ]
+      },
+      {
+        "blob": "blobs/5b/5b62849a009b9d2f7bb2f32d7e7848a644bcb3dd2d16440f08d4ab34a0bb6ec4/Basic.lean",
+        "bytes": 277,
+        "lexical_markers_heuristic": [],
+        "sha256": "5b62849a009b9d2f7bb2f32d7e7848a644bcb3dd2d16440f08d4ab34a0bb6ec4",
+        "static_imports_heuristic": [
+          "Hadamard6.Basic",
+          "Hadamard6.PhaseEquivalence"
+        ]
+      },
+      {
+        "blob": "blobs/ac/ac1e8bb2783d1a38db4a12d76d21457b36a4e2b29e3dbb061ed5328933e0c769/Basic.lean",
+        "bytes": 3882,
+        "lexical_markers_heuristic": [],
+        "sha256": "ac1e8bb2783d1a38db4a12d76d21457b36a4e2b29e3dbb061ed5328933e0c769",
+        "static_imports_heuristic": [
+          "Mathlib.Algebra.BigOperators.Group.Finset.Basic",
+          "Mathlib.Algebra.BigOperators.Ring.Finset",
+          "Mathlib.Data.Complex.Basic",
+          "Mathlib.Data.Fintype.Basic",
+          "Mathlib.Tactic.Ring"
+        ]
+      }
+    ],
+    "Worker12.Strata": [
+      {
+        "blob": "blobs/04/04f45e5377bda5fbd98bd1a7c338e489a65684718ce63f3184a6c03c1d2ffe34/Strata.lean",
+        "bytes": 981,
+        "lexical_markers_heuristic": [],
+        "sha256": "04f45e5377bda5fbd98bd1a7c338e489a65684718ce63f3184a6c03c1d2ffe34",
+        "static_imports_heuristic": [
+          "Hadamard6.Basic"
+        ]
+      },
+      {
+        "blob": "blobs/27/275011786ea601e6fda350b5462ee2aa2298c6c9f9ebe7c9f4fd1e81902d192f/Strata.lean",
+        "bytes": 244,
+        "lexical_markers_heuristic": [],
+        "sha256": "275011786ea601e6fda350b5462ee2aa2298c6c9f9ebe7c9f4fd1e81902d192f",
+        "static_imports_heuristic": [
+          "Hadamard6.Strata"
+        ]
+      }
+    ],
+    "Worker12.VanishingMinorReduction": [
+      {
+        "blob": "blobs/74/742fde41cdd2e64d6fc246e2de3b4af42b2c50a1f4917756ab6e467cff23c0bc/VanishingMinorReduction.lean",
+        "bytes": 18470,
+        "lexical_markers_heuristic": [],
+        "sha256": "742fde41cdd2e64d6fc246e2de3b4af42b2c50a1f4917756ab6e467cff23c0bc",
+        "static_imports_heuristic": [
+          "Hadamard6.BlockGram",
+          "Hadamard6.BlockSwapMatrices",
+          "Hadamard6.EquivalentStrata",
+          "Hadamard6.FibreGauge",
+          "Mathlib.Tactic.FinCases",
+          "Mathlib.Tactic.Linarith",
+          "Mathlib.Tactic.LinearCombination",
+          "Mathlib.Tactic.NormNum",
+          "Mathlib.Tactic.Ring"
+        ]
+      },
+      {
+        "blob": "blobs/f3/f3f0200edb3b1b9b592749c7189d726dbbb1b98feaa3d50c4235476a77b51050/VanishingMinorReduction.lean",
+        "bytes": 289,
+        "lexical_markers_heuristic": [],
+        "sha256": "f3f0200edb3b1b9b592749c7189d726dbbb1b98feaa3d50c4235476a77b51050",
+        "static_imports_heuristic": [
+          "Hadamard6.FibreGauge",
+          "Hadamard6.VanishingMinorReduction"
+        ]
+      }
+    ],
+    "Worker12.SimultaneousFourierNormalization": [
+      {
+        "blob": "blobs/aa/aa8f05efc1b771f419c134e2dbea8b4d368e8844d635c6c29f78777f727c3b17/SimultaneousFourierNormalization.lean",
+        "bytes": 16092,
+        "lexical_markers_heuristic": [],
+        "sha256": "aa8f05efc1b771f419c134e2dbea8b4d368e8844d635c6c29f78777f727c3b17",
+        "static_imports_heuristic": [
+          "Hadamard6.FourierCoreFromNormalization",
+          "Hadamard6.HadamardThreeFourier"
+        ]
+      },
+      {
+        "blob": "blobs/b6/b63f9443de9ce93ee1327f731ff0e1f0165211cb75e28206c3a3cc47ca1ed24f/SimultaneousFourierNormalization.lean",
+        "bytes": 270,
+        "lexical_markers_heuristic": [],
+        "sha256": "b63f9443de9ce93ee1327f731ff0e1f0165211cb75e28206c3a3cc47ca1ed24f",
+        "static_imports_heuristic": [
+          "Hadamard6.SimultaneousFourierNormalization"
+        ]
+      }
+    ],
+    "GeometricTopBlocks": [
+      {
+        "blob": "blobs/75/75ce30556916ef1403f294749f648184322e48a0fe37e69b45ac54de042f733b/GeometricTopBlocks.lean",
+        "bytes": 4638,
+        "lexical_markers_heuristic": [],
+        "sha256": "75ce30556916ef1403f294749f648184322e48a0fe37e69b45ac54de042f733b",
+        "static_imports_heuristic": [
+          "GeometricRowsTriples"
+        ]
+      },
+      {
+        "blob": "blobs/f1/f1ea0f6bd81cfa7bd1818119baf38861ae985d879c5d0967d620b31dd1da5e8d/GeometricTopBlocks.lean",
+        "bytes": 4759,
+        "lexical_markers_heuristic": [],
+        "sha256": "f1ea0f6bd81cfa7bd1818119baf38861ae985d879c5d0967d620b31dd1da5e8d",
+        "static_imports_heuristic": [
+          "GeometricRowsTriples"
+        ]
+      }
+    ],
+    "GeometricFourierTail": [
+      {
+        "blob": "blobs/0f/0fb863a47be88b25b9884d84cd5a4944357f83fa5e91efc16776d911375c7643/GeometricFourierTail.lean",
+        "bytes": 6280,
+        "lexical_markers_heuristic": [],
+        "sha256": "0fb863a47be88b25b9884d84cd5a4944357f83fa5e91efc16776d911375c7643",
+        "static_imports_heuristic": [
+          "SingularFourierRouting"
+        ]
+      },
+      {
+        "blob": "blobs/86/862a48e6e5a6efba302ff62b6d0d2ca5c909812b5fc4fb07d0bd658d7faf943e/GeometricFourierTail.lean",
+        "bytes": 5848,
+        "lexical_markers_heuristic": [],
+        "sha256": "862a48e6e5a6efba302ff62b6d0d2ca5c909812b5fc4fb07d0bd658d7faf943e",
+        "static_imports_heuristic": [
+          "SingularFourierRouting"
+        ]
+      }
+    ],
+    "SingularFourierRouting": [
+      {
+        "blob": "blobs/1e/1ed3526ae3974af9f74e2b759276c0591524d4f9caa19f8f4373ec82348d55e5/SingularFourierRouting.lean",
+        "bytes": 4766,
+        "lexical_markers_heuristic": [],
+        "sha256": "1ed3526ae3974af9f74e2b759276c0591524d4f9caa19f8f4373ec82348d55e5",
+        "static_imports_heuristic": [
+          "GoodMinorPhysical",
+          "Hadamard6.TaoAtlas",
+          "Worker12.ZeroClassification"
+        ]
+      },
+      {
+        "blob": "blobs/34/341e38406943cc938f014ae35ef7d7203913b9b71ae32307d8b3bf09d4f20805/SingularFourierRouting.lean",
+        "bytes": 4962,
+        "lexical_markers_heuristic": [],
+        "sha256": "341e38406943cc938f014ae35ef7d7203913b9b71ae32307d8b3bf09d4f20805",
+        "static_imports_heuristic": [
+          "GoodMinorPhysical",
+          "Hadamard6.TaoAtlas",
+          "Worker12.ZeroClassification"
+        ]
+      },
+      {
+        "blob": "blobs/44/4462db1ec6d851254aa5658911428f494dd9ba9d23e2ce7837512e75edc062e8/SingularFourierRouting.lean",
+        "bytes": 4731,
+        "lexical_markers_heuristic": [],
+        "sha256": "4462db1ec6d851254aa5658911428f494dd9ba9d23e2ce7837512e75edc062e8",
+        "static_imports_heuristic": [
+          "GoodMinorPhysical",
+          "Hadamard6.TaoAtlas",
+          "Worker12.ZeroClassification"
+        ]
+      },
+      {
+        "blob": "blobs/e5/e5f87d22ba177f742ad0d27a0e966f849093b1b3a34d62e1ab355e9effbbbad1/SingularFourierRouting.lean",
+        "bytes": 4596,
+        "lexical_markers_heuristic": [],
+        "sha256": "e5f87d22ba177f742ad0d27a0e966f849093b1b3a34d62e1ab355e9effbbbad1",
+        "static_imports_heuristic": [
+          "GoodMinorPhysical",
+          "Hadamard6.TaoAtlas",
+          "Worker12.ZeroClassification"
+        ]
+      }
+    ],
+    "GoodMinorPhysical": [
+      {
+        "blob": "blobs/48/483cb13d81f31d0a9bd6ccf89f70f40b2e4a10c5d674d5708cbc8d5c577b75be/GoodMinorPhysical.lean",
+        "bytes": 4955,
+        "lexical_markers_heuristic": [],
+        "sha256": "483cb13d81f31d0a9bd6ccf89f70f40b2e4a10c5d674d5708cbc8d5c577b75be",
+        "static_imports_heuristic": [
+          "FormalCore",
+          "GoodMinor",
+          "Mathlib.LinearAlgebra.Matrix.SemiringInverse"
+        ]
+      },
+      {
+        "blob": "blobs/79/79c38a43cfda2ec275a0edc47a79eea0745e6d4dd3baa4c0b70cd7f444c070a5/GoodMinorPhysical.lean",
+        "bytes": 6259,
+        "lexical_markers_heuristic": [],
+        "sha256": "79c38a43cfda2ec275a0edc47a79eea0745e6d4dd3baa4c0b70cd7f444c070a5",
+        "static_imports_heuristic": [
+          "FormalCore",
+          "GoodMinor",
+          "Mathlib.LinearAlgebra.Matrix.SemiringInverse"
+        ]
+      },
+      {
+        "blob": "blobs/cb/cb760aee9549808f0b56d3168d71dbb90659fe3b83da7992b67b55a66b03565d/GoodMinorPhysical.lean",
+        "bytes": 6255,
+        "lexical_markers_heuristic": [],
+        "sha256": "cb760aee9549808f0b56d3168d71dbb90659fe3b83da7992b67b55a66b03565d",
+        "static_imports_heuristic": [
+          "FormalCore",
+          "GoodMinor",
+          "Mathlib.LinearAlgebra.Matrix.NonsingularInverse"
+        ]
+      }
+    ],
+    "FormalCore": [
+      {
+        "blob": "blobs/14/148a2c324acf23fb8e5be634804115d921adc8075ac60d8572edb424e0f039c2/FormalCore.lean",
+        "bytes": 23177,
+        "lexical_markers_heuristic": [],
+        "sha256": "148a2c324acf23fb8e5be634804115d921adc8075ac60d8572edb424e0f039c2",
+        "static_imports_heuristic": [
+          "Mathlib.Algebra.BigOperators.Field",
+          "Mathlib.Algebra.BigOperators.Fin",
+          "Mathlib.Data.Fintype.Pi",
+          "Mathlib.Data.Matrix.ConjTranspose",
+          "Mathlib.Data.Matrix.Mul",
+          "Mathlib.Tactic.FinCases",
+          "Mathlib.Tactic.Linarith",
+          "Mathlib.Tactic.NormNum",
+          "Mub6.Basic"
+        ]
+      },
+      {
+        "blob": "blobs/22/22a939f55ba07d82132525940b6358cb07070748a0d11575bab038247d78a0f2/FormalCore.lean",
+        "bytes": 23140,
+        "lexical_markers_heuristic": [],
+        "sha256": "22a939f55ba07d82132525940b6358cb07070748a0d11575bab038247d78a0f2",
+        "static_imports_heuristic": [
+          "Mathlib.Algebra.BigOperators.Field",
+          "Mathlib.Algebra.BigOperators.Fin",
+          "Mathlib.Data.Fintype.Pi",
+          "Mathlib.Data.Matrix.Mul",
+          "Mathlib.LinearAlgebra.Matrix.ConjTranspose",
+          "Mathlib.Tactic.FinCases",
+          "Mathlib.Tactic.Linarith",
+          "Mathlib.Tactic.NormNum",
+          "Mub6.Basic"
+        ]
+      },
+      {
+        "blob": "blobs/39/3996edc723f71defc7b553d88350a1259f88365fbce328857dc866b8b852a2f0/FormalCore.lean",
+        "bytes": 23244,
+        "lexical_markers_heuristic": [],
+        "sha256": "3996edc723f71defc7b553d88350a1259f88365fbce328857dc866b8b852a2f0",
+        "static_imports_heuristic": [
+          "Mathlib.Algebra.BigOperators.Field",
+          "Mathlib.Algebra.BigOperators.Fin",
+          "Mathlib.Data.Fintype.Pi",
+          "Mathlib.Data.Matrix.Mul",
+          "Mathlib.LinearAlgebra.Matrix.ConjTranspose",
+          "Mathlib.Tactic.FinCases",
+          "Mathlib.Tactic.Linarith",
+          "Mathlib.Tactic.NormNum",
+          "Mub6.Basic"
+        ]
+      },
+      {
+        "blob": "blobs/ab/abe94f21f1ed717ff125cc31524e570db67e8d8556d694501d4911ac441a880d/FormalCore.lean",
+        "bytes": 8243,
+        "lexical_markers_heuristic": [],
+        "sha256": "abe94f21f1ed717ff125cc31524e570db67e8d8556d694501d4911ac441a880d",
+        "static_imports_heuristic": [
+          "Mathlib.Algebra.BigOperators.Fin",
+          "Mathlib.Data.Fintype.Pi",
+          "Mathlib.Data.Matrix.ConjTranspose",
+          "Mathlib.Tactic.FinCases",
+          "Mathlib.Tactic.Linarith",
+          "Mathlib.Tactic.NormNum",
+          "Mub6.Basic"
+        ]
+      },
+      {
+        "blob": "blobs/df/dfe11ed09407284f2a5a3d79c8ed71234c3f97f3a22c822e5880ad36fa898266/FormalCore.lean",
+        "bytes": 21186,
+        "lexical_markers_heuristic": [],
+        "sha256": "dfe11ed09407284f2a5a3d79c8ed71234c3f97f3a22c822e5880ad36fa898266",
+        "static_imports_heuristic": [
+          "Mathlib.Algebra.BigOperators.Field",
+          "Mathlib.Algebra.BigOperators.Fin",
+          "Mathlib.Data.Fintype.Pi",
+          "Mathlib.Data.Matrix.ConjTranspose",
+          "Mathlib.Data.Matrix.Mul",
+          "Mathlib.Tactic.FinCases",
+          "Mathlib.Tactic.Linarith",
+          "Mathlib.Tactic.NormNum",
+          "Mub6.Basic"
+        ]
+      },
+      {
+        "blob": "blobs/fe/fea62216aee7231da1bb7c98747ec182defe6479f858f63ad1159e3cc39d8408/FormalCore.lean",
+        "bytes": 16965,
+        "lexical_markers_heuristic": [],
+        "sha256": "fea62216aee7231da1bb7c98747ec182defe6479f858f63ad1159e3cc39d8408",
+        "static_imports_heuristic": [
+          "Mathlib.Algebra.BigOperators.Field",
+          "Mathlib.Algebra.BigOperators.Fin",
+          "Mathlib.Data.Fintype.Pi",
+          "Mathlib.Data.Matrix.ConjTranspose",
+          "Mathlib.Data.Matrix.Mul",
+          "Mathlib.Tactic.FinCases",
+          "Mathlib.Tactic.Linarith",
+          "Mathlib.Tactic.NormNum",
+          "Mub6.Basic"
+        ]
+      }
+    ],
+    "GoodMinor": [
+      {
+        "blob": "blobs/7a/7aa1a678228f9dbf80272dc52c17cc06912fb5f628912515f4f7500ed16b4575/GoodMinor.lean",
+        "bytes": 1687,
+        "lexical_markers_heuristic": [],
+        "sha256": "7aa1a678228f9dbf80272dc52c17cc06912fb5f628912515f4f7500ed16b4575",
+        "static_imports_heuristic": [
+          "Mathlib.Algebra.BigOperators.Fin",
+          "Mathlib.Algebra.Order.BigOperators.Group.Finset",
+          "Mathlib.Data.Complex.Basic",
+          "Mathlib.LinearAlgebra.Matrix.Determinant.Basic",
+          "Mathlib.Tactic.FinCases",
+          "Mathlib.Tactic.Linarith",
+          "Mathlib.Tactic.NormNum",
+          "Mathlib.Tactic.Ring"
+        ]
+      },
+      {
+        "blob": "blobs/f4/f418aa8d79a975041206be553a233904986476a3e7445f555f8450b7d19257e4/GoodMinor.lean",
+        "bytes": 4477,
+        "lexical_markers_heuristic": [],
+        "sha256": "f418aa8d79a975041206be553a233904986476a3e7445f555f8450b7d19257e4",
+        "static_imports_heuristic": [
+          "Mathlib.Algebra.BigOperators.Fin",
+          "Mathlib.Algebra.Order.BigOperators.Group.Finset",
+          "Mathlib.Analysis.Complex.Basic",
+          "Mathlib.LinearAlgebra.Matrix.Determinant.Basic",
+          "Mathlib.Tactic.FinCases",
+          "Mathlib.Tactic.Linarith",
+          "Mathlib.Tactic.NormNum",
+          "Mathlib.Tactic.Ring"
+        ]
+      }
+    ],
+    "Worker12.ZeroRowTransport": [
+      {
+        "blob": "blobs/17/177f948c732dd5c9d5a8fbca2171f3710cc9a90f25b4588d4f84b92ea2542442/ZeroRowTransport.lean",
+        "bytes": 2439,
+        "lexical_markers_heuristic": [],
+        "sha256": "177f948c732dd5c9d5a8fbca2171f3710cc9a90f25b4588d4f84b92ea2542442",
+        "static_imports_heuristic": [
+          "Worker12.ZeroExtraction"
+        ]
+      },
+      {
+        "blob": "blobs/ac/ac6bfb1ffd99ba970f466c97c6c0134e2a3d7372545a3782804743badc5da722/ZeroRowTransport.lean",
+        "bytes": 2462,
+        "lexical_markers_heuristic": [],
+        "sha256": "ac6bfb1ffd99ba970f466c97c6c0134e2a3d7372545a3782804743badc5da722",
+        "static_imports_heuristic": [
+          "Worker12.ZeroExtraction"
+        ]
+      }
+    ],
+    "Worker12.ZeroExtraction": [
+      {
+        "blob": "blobs/5c/5cb805a90c5b6f47ebb55fd5440c63d54adc44c95d3cf0202e77d78f66003987/ZeroExtraction.lean",
+        "bytes": 3331,
+        "lexical_markers_heuristic": [],
+        "sha256": "5cb805a90c5b6f47ebb55fd5440c63d54adc44c95d3cf0202e77d78f66003987",
+        "static_imports_heuristic": [
+          "Worker12.ZeroPattern"
+        ]
+      },
+      {
+        "blob": "blobs/dd/ddf3b22d161098ba1b8b0982e9ff3615b4856c01049166103c8c1cbcb25d1e7f/ZeroExtraction.lean",
+        "bytes": 3157,
+        "lexical_markers_heuristic": [],
+        "sha256": "ddf3b22d161098ba1b8b0982e9ff3615b4856c01049166103c8c1cbcb25d1e7f",
+        "static_imports_heuristic": [
+          "Worker12.ZeroPattern"
+        ]
+      }
+    ],
+    "SixRootOrdering": [
+      {
+        "blob": "blobs/0a/0aff5528be592be04153fe4e5b514d5fb0741ff567ade3d93884311e5736a4ce/SixRootOrdering.lean",
+        "bytes": 2535,
+        "lexical_markers_heuristic": [],
+        "sha256": "0aff5528be592be04153fe4e5b514d5fb0741ff567ade3d93884311e5736a4ce",
+        "static_imports_heuristic": [
+          "Mathlib.Data.Fintype.EquivFin",
+          "Mathlib.Logic.Equiv.Basic",
+          "SixRootTriples"
+        ]
+      },
+      {
+        "blob": "blobs/44/447e74bd7341a44cc989475697890e2e376737a7b1253fbc18152f1b61c1b0e9/SixRootOrdering.lean",
+        "bytes": 2136,
+        "lexical_markers_heuristic": [],
+        "sha256": "447e74bd7341a44cc989475697890e2e376737a7b1253fbc18152f1b61c1b0e9",
+        "static_imports_heuristic": [
+          "Mathlib.Data.Fintype.EquivFin",
+          "Mathlib.Logic.Equiv.Basic",
+          "SixRootTriples"
+        ]
+      },
+      {
+        "blob": "blobs/8b/8bedbde866487b7916687c4ba2af61413bb650ef8946e5e56a6ac3861ac4f27e/SixRootOrdering.lean",
+        "bytes": 1829,
+        "lexical_markers_heuristic": [],
+        "sha256": "8bedbde866487b7916687c4ba2af61413bb650ef8946e5e56a6ac3861ac4f27e",
+        "static_imports_heuristic": [
+          "Mathlib.Data.Fintype.EquivFin",
+          "Mathlib.Logic.Equiv.Basic",
+          "SixRootTriples"
+        ]
+      },
+      {
+        "blob": "blobs/d0/d07fec690bac8df824e54e763b2a78ea75b25254eaaeb222bd665074e255cfbb/SixRootOrdering.lean",
+        "bytes": 1893,
+        "lexical_markers_heuristic": [],
+        "sha256": "d07fec690bac8df824e54e763b2a78ea75b25254eaaeb222bd665074e255cfbb",
+        "static_imports_heuristic": [
+          "Mathlib.Data.Fintype.EquivFin",
+          "Mathlib.Logic.Equiv.Basic",
+          "SixRootTriples"
+        ]
+      },
+      {
+        "blob": "blobs/dd/ddac4d0ee41938157a7a373c1ee5b30e0bdf0bb1e560f20730bba0e1b7a7d09b/SixRootOrdering.lean",
+        "bytes": 1955,
+        "lexical_markers_heuristic": [],
+        "sha256": "ddac4d0ee41938157a7a373c1ee5b30e0bdf0bb1e560f20730bba0e1b7a7d09b",
+        "static_imports_heuristic": [
+          "Mathlib.Data.Fintype.EquivFin",
+          "Mathlib.Logic.Equiv.Basic",
+          "SixRootTriples"
+        ]
+      }
+    ],
+    "SixRootPolynomial": [
+      {
+        "blob": "blobs/0e/0e0399299b5d759b9201a8bfa4425be55a1e5cfd552260d4c65f7765fea4ee2d/SixRootPolynomial.lean",
+        "bytes": 4094,
+        "lexical_markers_heuristic": [],
+        "sha256": "0e0399299b5d759b9201a8bfa4425be55a1e5cfd552260d4c65f7765fea4ee2d",
+        "static_imports_heuristic": [
+          "Mathlib.Analysis.Complex.Polynomial.Basic",
+          "Mathlib.Tactic"
+        ]
+      },
+      {
+        "blob": "blobs/ea/eaee007ed7d76d1532bf06ccd183b5659a4b198daa82565566a890211b5e4389/SixRootPolynomial.lean",
+        "bytes": 4088,
+        "lexical_markers_heuristic": [],
+        "sha256": "eaee007ed7d76d1532bf06ccd183b5659a4b198daa82565566a890211b5e4389",
+        "static_imports_heuristic": [
+          "Mathlib.Analysis.Complex.Polynomial.Basic",
+          "Mathlib.Tactic"
+        ]
+      }
+    ]
+  },
+  "shared": [],
+  "vendor": [
+    "lean/vendor/hadamard6/Hadamard6/SimultaneousFourierNormalization.lean",
+    "lean/vendor/hadamard6/Hadamard6/FourierCoordinateAllocation.lean",
+    "lean/vendor/hadamard6/Hadamard6/QuotientReal.lean",
+    "lean/vendor/hadamard6/Hadamard6/FiniteCornerFromBlocks.lean",
+    "lean/vendor/hadamard6/Hadamard6/FourierBlockCoordinates.lean",
+    "lean/vendor/hadamard6/Hadamard6/FourierForcedCompletion.lean",
+    "lean/vendor/hadamard6/Hadamard6/Basic.lean",
+    "lean/vendor/hadamard6/Hadamard6/PhaseEquivalence.lean",
+    "lean/vendor/hadamard6/Hadamard6/Strata.lean",
+    "lean/vendor/hadamard6/Hadamard6/BlockGram.lean",
+    "lean/vendor/hadamard6/Hadamard6/BlockSwapMatrices.lean",
+    "lean/vendor/hadamard6/Hadamard6/EquivalentStrata.lean",
+    "lean/vendor/hadamard6/Hadamard6/FibreGauge.lean",
+    "lean/vendor/hadamard6/Hadamard6/VanishingMinorReduction.lean",
+    "lean/vendor/hadamard6/Hadamard6/FourierCoreFromNormalization.lean",
+    "lean/vendor/hadamard6/Hadamard6/HadamardThreeFourier.lean",
+    "lean/vendor/hadamard6/Hadamard6/FourierUnmixed.lean",
+    "lean/vendor/hadamard6/Hadamard6/TaoAtlas.lean"
+  ],
+  "missing": [],
+  "atlas_certification": false,
+  "selection_warning": "Basename-only transitive discovery is heuristic, not an import resolution: same-stem compatibility shims and legacy originals can have different declarations. Before adoption use exact ARCHIVE_IMPORT_INDEX and ARCHIVE_SOURCE_INDEX records and read all selected definitions."
+}

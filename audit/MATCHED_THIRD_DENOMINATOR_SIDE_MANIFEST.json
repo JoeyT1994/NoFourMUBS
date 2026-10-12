@@ -1,0 +1,22 @@
+{
+  "scope": "matched_third_flatness",
+  "records": [
+    {
+      "module": "NoFourMUBs.Step2.Reconstruction.ThirdMoment.Certificates.DenominatorSide",
+      "active_path": "NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/DenominatorSide.lean",
+      "active_sha256": "3bdf7106842cfd1717d4edac8a945a314f9e4d2f3d938eda125e62258103ed5f",
+      "local_model_adapter": true,
+      "review": "MATCHED_THIRD_DENOMINATOR_SIDE_REUSE_REVIEW.json"
+    }
+  ],
+  "axiom_endpoints": [
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P003_side_factor",
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P015_side_factor"
+  ],
+  "dependency_audits": [
+    "KERNEL_AUDIT_MATCHED_THIRD_DENOMINATOR_INPUTS_STATUS.json",
+    "KERNEL_AUDIT_MATCHED_THIRD_MONOMIAL_TRANSPORT_0_STATUS.json"
+  ],
+  "scope_note": "Reuse cachedC6 and inverse-seed representation to factor saved P003/P015 without expanding or generating arrays. Every Seed; no strict or generic guard. No atlas.",
+  "atlas_certification": false
+}

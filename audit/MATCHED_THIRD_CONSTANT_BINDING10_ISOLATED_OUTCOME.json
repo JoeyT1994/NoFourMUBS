@@ -1,0 +1,22 @@
+{
+  "status": "ISOLATED_ENTRY_CHECK_NOT_PROVED",
+  "checked_utc": "2026-10-12T14:48:31.818574+00:00",
+  "run_status": {
+    "status": "BUILD_FAILED",
+    "pid": 9092,
+    "lane": "semantic",
+    "exclusive": true,
+    "atlas_certification": false,
+    "started_utc": "2026-10-12T14:40:23.132698+00:00",
+    "returncode": 1
+  },
+  "last_log": "matched_third_constant_binding10_build_status_logs/batch_0003.log",
+  "elapsed_seconds": 300.99348683399967,
+  "compiler_exit": 137,
+  "observation": "Lean was terminated. Exit137 alone does not establish out-of-memory or a mathematical error. The last process inventory confirmed no compiler remains active.",
+  "decision": "Do not repeat the same whole-entry expansion. Preserve its source and log. Progress independent saved products while reviewing how to reduce the size of the matrix-to-polynomial calculation using existing algebra.",
+  "source_sha256": "336eaf0b2bd72b2643193ed2923482ed712bfde9b2ea3f674f76d930506f9116",
+  "actual_bindings_proved": 7,
+  "selected_products_proved": 29,
+  "atlas_certification": false
+}

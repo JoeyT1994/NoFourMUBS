@@ -1,0 +1,9 @@
+import NoFourMUBs.Step2.CriticalZero.SumClearing.DenominatorPairY
+import NoFourMUBs.Step2.CriticalZero.SumClearing.DenominatorPairZ
+set_option autoImplicit false
+set_option maxRecDepth 100000
+set_option maxHeartbeats 5000000
+namespace NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing.Stages
+open CriticalNonzeroLight20261003 CriticalNonzeroSumDenominator20261003
+
+end NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing.Stages

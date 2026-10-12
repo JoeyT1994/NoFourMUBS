@@ -1,0 +1,7 @@
+{
+  "reviewed_utc": "2026-10-12T14:38:19.140133+00:00",
+  "change": "Existing adapter may acquire both compiler lanes in the same critical-then-semantic order as the compression and two-worker runners, while its builder still uses jobs1. It does not change proof/audit/source-pin logic.",
+  "sequence": "Finish retained Product026, verify its source-pinned PASS, then run unchanged reviewed ConstantBinding10 in isolation. Pin the entry manifest before queuing; stop on failure/yield.",
+  "reason": "Resource-limited entry attempts and low disk space while simultaneous large checks ran. No mathematical result is inferred from these failures.",
+  "atlas_certification": false
+}

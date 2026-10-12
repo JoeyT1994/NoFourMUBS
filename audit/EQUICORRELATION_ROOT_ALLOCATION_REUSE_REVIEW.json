@@ -1,0 +1,130 @@
+{
+  "status": "PASS",
+  "checked_utc": "2026-10-11T16:22:28.820347+00:00",
+  "repository_head": "4e048ec8a2888f198f5432efd7f201f98d473878",
+  "indexes": {
+    "ARCHIVE_SOURCE_INDEX.jsonl": "e56835aafa2eee86f3e3a340cabbd4d891e4044661ecfb6902a255ebe62ab323",
+    "ARCHIVE_BLOB_INDEX.jsonl": "8a124c5d9477fa048eb28a0be4c77a82b4d4c374e8861a60d85b355a1de73a26",
+    "ARCHIVE_IMPORT_INDEX.json": "4f3d7d6f8a9949a13c3c8fc65fe3d5c098f18a2efd4f0c0985f237ada38a4f4f"
+  },
+  "queries": [
+    "EQUICORRELATION_ROOT_BINDING_REUSE_FILES.txt",
+    "EQUICORRELATION_ROOT_ALLOCATION_REUSE_MATCHES.txt",
+    "EQUICORRELATION_ROW_PRODUCT_REUSE_FILES.txt",
+    "EQUICORRELATION_GRAM_PHASE_REUSE_FILES.txt",
+    "EQUICORRELATION_AMGM_REUSE_MATCHES.txt"
+  ],
+  "source_pins": {
+    "lean/NoFourMUBs/Reuse/Archive/FourierPhaseData.lean": "71c542f2dadb44b000f3547a1e49e91648403d88373f7bd2eb015812b8eb4f7e",
+    "lean/vendor/hadamard6/Hadamard6/CubicRoots.lean": "00ce2ce0901d261f02a6538a71596d995fc78fe4074d3ba55286cb0622548338",
+    "lean/vendor/fourier/OAI/Analysis/MutuallyUnbiased/Cubic/CubicPrelim.lean": "5fa37667399ebb1f0dfaecc4400d907b54f60fcc4602d64f07845b875c9fe7f8",
+    "lean/NoFourMUBs/Reuse/Archive/CriticalZeroModuli.lean": "adb9a0e0600c91150736a23effaee302fb77ac2a957261953495f544df1b40cc",
+    "lean/NoFourMUBs/Reuse/Archive/CriticalAllocatedChart.lean": "dd7e3603f621f76cf67861d4db94f5733af31597437cfde4a147641ece6d56c3",
+    "lean/NoFourMUBs/Step2/CriticalZero/ColumnRechart.lean": "1530e264196c059538a1cdd67aae356d3a458066ad9630c542a935e62028a71d",
+    "lean/NoFourMUBs/Step2/CriticalZero/EquicorrelationNormalized.lean": "3d7fe0da977cfaf88b319ce6d27b6f8e8c2fad791fea05f5d1acc0cbca2ba8ba",
+    "lean/NoFourMUBs/Step2/CriticalZero/EquicorrelationRowProducts.lean": "ea65b62b0fa81c913087c639b3caa75a6ed472ea58040c86a193b7bdf7bb2051",
+    "lean/NoFourMUBs/Step2/CriticalZero/P7Triples.lean": "0811fbd4f76d77bebe80a5b815e32ba3557a8366ab5c9292fbc8b227c5facfde",
+    "lean/NoFourMUBs/Step2/CriticalZero/P7CornerTransport.lean": "bc03c99f6f5efe51b7c9964aaf5731de30701609f3fa079fc9e72afa2d20a7c2",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/ca/ca7f02bf54bf797e7ac9a9ca7fd8926af986143b9c3032ee00f155d172bde66d/FourierPhaseData.lean": "ca7f02bf54bf797e7ac9a9ca7fd8926af986143b9c3032ee00f155d172bde66d",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/63/635d5cb86528c50577552aa09e8567615fbb1c9dd98f3f665a29bd403d5c30ea/FourierPhaseData.lean": "635d5cb86528c50577552aa09e8567615fbb1c9dd98f3f665a29bd403d5c30ea",
+    "lean/NoFourMUBs/Reuse/Archive/CriticalCorrelationRechart.lean": "cb18e37a7b7be7292293f8a26c123fa7d75be455febb749161d0e4cec4c2fd1d",
+    "lean/NoFourMUBs/Reuse/Archive/CriticalStripPhysical.lean": "0e726f519d28a449b1895952067a44a422c9c31e7f51ae64b1656dc8762b5731",
+    "lean/NoFourMUBs/Step2/CriticalZero/P7OrderedGram.lean": "de078248dd9aa6698c22c50bf2c0cac0987e805ac55534cc84c8f87222259f57",
+    "lean/NoFourMUBs/Step2/CriticalZero/P7StripEndpoint.lean": "3e967a2d9bd7668d169b27c4774c1b4f3379e9158c06f80e5f01c763ddc44743",
+    "lean/vendor/hadamard6/Hadamard6/FibreSymmetry.lean": "0356fb89afe51b45c07fc5e651f052dd4f16b9a78fce84c209daf4b20fe43e0e",
+    "lean/vendor/hadamard6/Hadamard6/PhaseEquivalence.lean": "6497192001067e64e9d47c432ed8c73a4299f0c90c444e71a56acf919bf428e9",
+    "lean/vendor/hadamard6/Hadamard6/BlockNormalization.lean": "ad19a2c23e7c04a4a6ccfecf6d4fc629e960c84f27059018079c9bc644fd5d67",
+    "lean/NoFourMUBs/Step2/Reconstruction/RowNormFlatness.lean": "9a079f39961c8e291f0243a0e2f081ebfa83da4468a258eb8d6286d69c7344d9"
+  },
+  "scope": "Full equicorrelation scalar endpoint via existing row products, unit second moment, real allocation, normalized-block obstruction, row rechart/complement and existing AM-GM flatness theorem; only coordinate and model adapters are new.",
+  "statement_comparisons": [
+    {
+      "theorem": "FourierSide.phase_second_moment",
+      "hypotheses": "three unit complex entries",
+      "conclusion": "second symmetric moment equals product times conjugate sum",
+      "adoption": "reuse unchanged; specialize sum=2+a and product=a to factor the coordinate cubic as (T-1)^2(T-a)"
+    },
+    {
+      "theorem": "Hadamard6.unit_sum_zero_product_one_are_cubic",
+      "hypotheses": "sum0 and product1",
+      "conclusion": "entries cube to1",
+      "adoption": "not applicable to nonzero sum2+a; do not duplicate its unit moment calculation"
+    },
+    {
+      "theorem": "OAI.MUB6.cubed_entry_quadratic",
+      "hypotheses": "six unit entries, first and second power sums0",
+      "conclusion": "cubes satisfy a quadratic",
+      "adoption": "wrong length and hypotheses; existing phase_second_moment is the applicable input"
+    },
+    {
+      "theorem": "CriticalZeroModuli.repeated_modulus_assignment",
+      "hypotheses": "arbitrary real a,b,X,Y,Z, each X/Y/Z equals a or b, sum=2*a+b; no zero-J or positivity premise",
+      "adoption": "reuse on imaginary parts with a=0 and b=phase.im; a small complex-coordinate adapter uses phase.im nonzero to recover the entry values. Do not repeat the eight-case allocation proof.",
+      "conclusion": "three possible allocations of two a values and one b value, coincident roots allowed"
+    },
+    {
+      "theorem": "Equicorrelation.oriented_row_products",
+      "hypotheses": "six unit entries and explicit oriented Gram",
+      "adoption": "reuse both product conclusions unchanged"
+    },
+    {
+      "theorem": "column_candidate_entry and allCritical_candidate",
+      "hypotheses": "normalized Hadamard and column permutation",
+      "adoption": "reuse for common-one pivot dephasing and all-critical transport"
+    },
+    {
+      "theorem": "P7.phased_corner_impossible",
+      "hypotheses": "a different explicit p=7 corner",
+      "adoption": "not applicable as endpoint; reuse its existing permutation-extension infrastructure through column_candidate_entry"
+    },
+    {
+      "theorem": "Equicorrelation.normalized_block_impossible",
+      "hypotheses": "actual all-critical carrier and four exact noninitial entries",
+      "adoption": "the only final obstruction; no second finite-coordinate proof"
+    },
+    {
+      "theorem": "CriticalCorrelationChart.swap01_correlations",
+      "hypotheses": "NormalizedCarrier and any three column indices",
+      "conclusion": "(s,t,r) maps to (star s,r,t), so the cubic product is conjugated",
+      "adoption": "reuse the existing permutation to choose orientation; no new row-swap transport lemma"
+    },
+    {
+      "theorem": "P7.oriented_strip_impossible",
+      "hypotheses": "squared moduli1,1 and cubic product1+2i",
+      "adoption": "wrong numerical endpoint; only necessary numeric phasing adapter, directly using complex norm multiplication and finite-sum distribution"
+    },
+    {
+      "theorem": "Hadamard6.phaseNoninitialRows_rowGram",
+      "hypotheses": "arbitrary 3x3 matrix and two phases",
+      "conclusion": "general diagonal conjugation of the Gram",
+      "adoption": "the current OAI selected-row adapter uses the same elementary finite sum distribution without introducing a second transformed-matrix model"
+    },
+    {
+      "theorem": "Hadamard6.nonnegativePhase_unit and nonnegativePhase_mul",
+      "hypotheses": "arbitrary complex scalar",
+      "conclusion": "normalize to a nonnegative real scalar",
+      "adoption": "target correlations are specified complex numbers; use exact constant-scaled conjugates, no new normalization framework"
+    },
+    {
+      "theorem": "CriticalPhysical.strip_complementary_moments",
+      "hypotheses": "existing normalized Hadamard and one of20columntriples",
+      "conclusion": "the three complementary correlations are their negatives",
+      "adoption": "reuse to pass from negative J to positive J with unchanged squared moduli"
+    },
+    {
+      "theorem": "Reconstruction.entrywiseUnit_of_row_norms_and_products",
+      "hypotheses": "arbitrary3x3complex D, each row squared norms sum3 and each row product has squared norm1; no Hadamard, orthogonality or existing unit-entry premise",
+      "conclusion": "every entry has squared norm1",
+      "adoption": "reuse directly on three repeated copies of the normalized correlation triple (s,t,r)/(2+alpha). The scalar p=27/5 and K=729/125 supply exactly its two premises. This avoids a second AM-GM equality proof."
+    }
+  ],
+  "atlas_certification": false,
+  "physical_endpoint_complete": true,
+  "limits": "Only available sources covered; no coverage claim for unavailable or unshared work.",
+  "new_modules": 4,
+  "new_axiom_endpoints": 11,
+  "audits": [
+    "KERNEL_AUDIT_CRITICAL_EQUICORRELATION_COORDINATES_STATUS.json",
+    "KERNEL_AUDIT_CRITICAL_EQUICORRELATION_SCALAR_ENDPOINT_STATUS.json"
+  ]
+}

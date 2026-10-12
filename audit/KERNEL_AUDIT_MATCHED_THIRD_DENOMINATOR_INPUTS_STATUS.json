@@ -1,0 +1,47 @@
+{
+  "status": "PASS",
+  "checked_utc": "2026-10-12T03:25:41.217825+00:00",
+  "modules": 1,
+  "axiom_endpoints": {
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P003_eq_inverse_inputDen": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P004_eq_bc_mul_P003_swap": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P003_strict_ne_zero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P004_strict_ne_zero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P000_strict_ne_zero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "source_hashes": {
+    "NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/DenominatorInputs.lean": "bffff62bd3f41de73a70183e11a498564f1b037c841fb81882169b972132fc82"
+  },
+  "manifest_sha256": "972593ba2a3c4cdaeb8251e5b50c9eac6b86f65de07fbd255061a0fcf51d48d0",
+  "audit_log_sha256": "49b3b1ae96eea4bab15b79f6b1dfbdd164562825189951d1290c72fa645bbb29",
+  "scope": "Reuse checked strict input denominator and original product000 to prove saved W11 linear common denominator nonzero everywhere on StrictSeed. No atlas.",
+  "dependency_audits": {
+    "KERNEL_AUDIT_MATCHED_THIRD_PRODUCT_000_STATUS.json": "874248f836b741915646c9b07763f17fe5eb7d98a807c33559bfbe228b822c99",
+    "KERNEL_AUDIT_MATCHED_BASE_BINDING_STATUS.json": "b6a3dae407e055f67371f0512f66568b1dd62542384ce34db3e09a205f9a3632"
+  },
+  "dependency_source_hashes": {
+    "NoFourMUBs/Step2/Frames.lean": "6a9f4c607d0cf945d60ef45b0c9ee7e7405f46176bd2fc2d4e25dec076f4284f",
+    "NoFourMUBs/Step2/ActualCorners.lean": "f5a46634e2318abb93603ed50169c47c47df9e94463869da48110e63654ba7e0"
+  },
+  "atlas_certification": false
+}

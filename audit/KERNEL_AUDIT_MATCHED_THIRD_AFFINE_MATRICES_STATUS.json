@@ -1,0 +1,24 @@
+{
+  "status": "PASS",
+  "checked_utc": "2026-10-12T00:31:05.707560+00:00",
+  "modules": 1,
+  "axiom_endpoints": {
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.thirdMoment_intrinsic_affine": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "source_hashes": {
+    "NoFourMUBs/Step2/Reconstruction/ThirdMoment/AffineMatrices.lean": "60a383a50489a3c083174749058cb1d7f3037cacd5c91062cb63a8be402dd00c"
+  },
+  "manifest_sha256": "178cae915d990a410b6c666c110a384f7112373bfa60137ad36374f060421aa1",
+  "audit_log_sha256": "1d131b8962418afa0da3f78c2c23fe84360c7c10666bafee3d6677402ffab2df",
+  "scope": "Assemble the already checked actual third moments and affine scalar formulas into the exact constant/linear matrices used upstream. No new polynomial certificate or atlas work.",
+  "dependency_audits": {
+    "KERNEL_AUDIT_MATCHED_THIRD_SIDE_MATRICES_STATUS.json": "13ee05349f1d000ec1f882caf85ac56df0ac24b5d9de11e3db715e1490de226b",
+    "KERNEL_AUDIT_MATCHED_THIRD_INTRINSIC_AFFINE_STATUS.json": "4946d7f9d55d0cc295e454fbda197ebacd67243a7ea711f80450f2897343ebea"
+  },
+  "dependency_source_hashes": {},
+  "atlas_certification": false
+}

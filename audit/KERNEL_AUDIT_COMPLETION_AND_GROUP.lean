@@ -1,0 +1,19 @@
+import NoFourMUBs.Step2.Reconstruction.MatchedCompletion
+import NoFourMUBs.Step2.Reconstruction.RowNormFlatness
+import NoFourMUBs.Step2.CriticalZero.Group00Exact
+import NoFourMUBs.Step2.CriticalZero.NumeratorGroups
+import NoFourMUBs.Step2.CriticalZero.NumeratorCheck18
+import NoFourMUBs.MainTheorem
+
+#check NoFourMUBs.Step2.Reconstruction.matched_completion_of_flat_signed_sides
+#check NoFourMUBs.Step2.Reconstruction.entrywiseUnit_of_row_norms_and_products
+#check CriticalZeroSumAssembly20261003.numerator_group00_eval_identity
+#check CriticalZeroSumAssembly20261003.groupedNumeratorOriginal_eval
+#check NoFourMUBs.no_four_mubs_main
+
+#print axioms NoFourMUBs.Step2.Reconstruction.matched_completion_of_flat_signed_sides
+#print axioms NoFourMUBs.Step2.Reconstruction.entrywiseUnit_of_row_norms_and_products
+#print axioms CriticalZeroSumAssembly20261003.numerator_group00_eval_identity
+#print axioms CriticalZeroSumAssembly20261003.groupedNumeratorOriginal_eval
+#print axioms CriticalZeroSumAssembly20261003.groupedNumeratorResidual_interpret
+#print axioms CriticalZeroSumAssembly20261003.numerator_certificate_18

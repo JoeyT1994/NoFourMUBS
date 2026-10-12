@@ -1,0 +1,110 @@
+{
+  "status": "REVIEWED_PARTIAL_CLEARING_ADAPTER",
+  "checked_utc": "2026-10-11T07:00:55.869663+00:00",
+  "scope": "Connect the existing nonzero-J coefficient program to the original raw numerator. The b identity is already complete; do not reprove it.",
+  "evidence": [
+    "CRITICAL_NONZERO_NUMERATOR_GAP_REVIEW.json",
+    "CRITICAL_NONZERO_CLEARING_ARCHIVE_INVENTORY.json",
+    "CRITICAL_NONZERO_REFLECTOR_SEARCH.json",
+    "CRITICAL_NONZERO_MOMENT_CLEARING_SEARCH.json"
+  ],
+  "reuse": [
+    "Existing core.side/newton_moments and exact_rational.F supply candidate intermediate rational expressions; use their original formulas unchanged.",
+    "Existing44,722term raw numerator and19,175term denominator remain targets; do not call square_sum or regenerate them.",
+    "Use existing dense/Horner/binary coefficient evaluators. No new polynomial normalizer.",
+    "Already checked two first moment-clearing formulas and quadratic involution supply their reusable identities.",
+    "No nonzero primitive coefficient certificates found in the complete19386Leanblob inventory or reviewed current/vendor sources; only generic paired-moment interpretations and two first clearing formulas were present."
+  ],
+  "new_work": "Export only missing intermediate rational-moment coefficient data needed to verify the original formula in Lean; untrusted candidates until compiled. This is a connection in the single existing numerator chain, not a new classification route.",
+  "source_pins": {
+    "/Users/mateo2/Desktop/NoFourMUBs/full_repair_2026_10_09/MinimalConstruction/Proofs/critical_moment_core.py": {
+      "sha256": "862d6ff3e112bc6185240ee83a112febb43afb81b71a85445af744bad66a3fb8",
+      "bytes": 3581
+    },
+    "/Users/mateo2/Desktop/NoFourMUBs/full_repair_2026_10_09/MinimalConstruction/Proofs/exact_rational.py": {
+      "sha256": "ebe8bf42e7c7ed381bda16bc608776cb50e821087f77f027f2365a02a8491276",
+      "bytes": 2410
+    },
+    "/Users/mateo2/Desktop/NoFourMUBs/full_repair_2026_10_09/MinimalConstruction/Proofs/Research/critical_nonzero_J_moments.json": {
+      "sha256": "a7c624ad264b713edb2a8ee97309e405a63d12658da38f222ae5c993adb53c21",
+      "bytes": 2767292
+    },
+    "lean/NoFourMUBs/Reuse/Archive/CriticalZeroSumDenseCoefficients.lean": {
+      "sha256": "b9bfcd6c882329da43a6d318ac481580385621442600a6bb102e0ad1298af29c",
+      "bytes": 4695
+    },
+    "lean/NoFourMUBs/Reuse/Archive/CriticalZeroSumBinaryCertificate.lean": {
+      "sha256": "1b0aa20b70be2198d9ebd75ea58c52ed89b661518049027e586b16680d0ac2cc",
+      "bytes": 2501
+    },
+    "lean/NoFourMUBs/Reuse/Archive/CriticalNonzeroCoefficientProgram.lean": {
+      "sha256": "a31e3a113b7fd463b35c0066c508d1d6c9d98d928bc99d2700a8a4a8ff8d235e",
+      "bytes": 8323
+    },
+    "lean/NoFourMUBs/Reuse/Archive/CriticalNonzeroSumDenominator.lean": {
+      "sha256": "0fa2adfb9cb93945a5130d5f4321b601f25e5113c710f9747a400c945c29e9e2",
+      "bytes": 3004
+    },
+    "lean/NoFourMUBs/Reuse/Archive/CriticalNonzeroLightMoments.lean": {
+      "sha256": "2660f8f5077594f212c7824b36bcff02824c92fdc0ac107635c87ec1d1ef0eca",
+      "bytes": 3120
+    }
+  },
+  "atlas_certification": false,
+  "large_check_refinement": {
+    "checked_utc": "2026-10-11T08:00:43.515914+00:00",
+    "finding": "Direct large normalization exceeded resources. Data-only compilation is now complete in three modules. The unchanged three moment identities require a smaller proof.",
+    "selected_next_step": "Simplify six original side-constructor arguments before multiplying them in the same original Newton formulas. Generic identity retains pole inverses and only needs X,Y nonzero.",
+    "existing_search_evidence": "Original scoped complete archive search found no nonzero primitive coefficient certificates. Existing side_conjugates is reused separately; it proves conjugation, not these coefficient normal forms.",
+    "atlas_certification": false
+  },
+  "next_verification_plan": {
+    "goal_diagnostic": "NONZERO_COMPACT_CLEARED_GOAL_FULL.log",
+    "numeric_comparison": "CRITICAL_NONZERO_LARGE_GOAL_EXACT_DIAGNOSTIC.json",
+    "do_not_repeat": "Whole ring normalization on the largest identities terminated137 even after compactSide. No new candidate values needed.",
+    "reuse_exact_modules": [
+      "CriticalZeroSumDenseCoefficients",
+      "CriticalZeroSumExprCoefficients",
+      "CriticalZeroSumBinaryCertificate",
+      "CriticalZeroSumCoefficientAt",
+      "CriticalZeroHornerReflector",
+      "CriticalZeroIntegerReflector"
+    ],
+    "suggested_sequence": [
+      "Reify the exact printed left polynomial in the existing dense operations; verify its scalar interpretation with existing interpret/eval lemmas. Do not create another polynomial normalization engine.",
+      "Use current Data_p2_m4 integer arrays as targets. Account for scales4 and2: targets2XYh*evalA and4X^2Yh^4*evalB.",
+      "Check one representative nontrivial k coefficient first. If the full-expression reduction is too large, reuse the binary product checker and share repeated small subexpressions.",
+      "Only after all coefficient checks, replace the pending final ring calls and audit the actual cleared_p2_m4 endpoint. Then finish the other two and compile the prepared rational table."
+    ],
+    "not_adopted": "A read-only change to an h=1+k^2 polynomial basis roughlyhalves term counts, but no new basis representation/proof route was adopted.",
+    "selected_next": "The unchanged36moment table now passes. Assemble the unchanged66term scalar coefficient and bind the existing raw numerator. Use CRITICAL_NONZERO_SUM_ASSEMBLY_REUSE_REVIEW.json; do not reprove b=0 or regenerate square_sum."
+  },
+  "staged_refinement": {
+    "checked_utc": "2026-10-11T08:32:45.060326+00:00",
+    "reason": "Whole-expression coefficient22 exceeded1500000 elaboration heartbeats; no proof claimed.",
+    "approach": "Use existing DenseCoefficients operations, allZero_of_certificates and eval_allZero on sixteen bounded subexpression arrays. Arrays are untrusted until Lean checks them. Preserve existing target numerator arrays and the compiled expression interpretation.",
+    "certificate_source_search": "Same missing nonzero primitive checks; complete source search evidence remains in this review. No alternative arithmetic checker or atlas work.",
+    "generator_sha256": "1bdf45ac8d5c4c71bc8cfa33ecfa8b47e94ed2ed9b2945bd2207976d5776b82b",
+    "final_generator_sha256": "39c7b9ce4e160f41d3bccf5f65f82884c4e4e6cd227cd8b43613aaf41c5b47e1",
+    "in_progress": "All18representative identities are checked and independently audited.",
+    "status": "ALL_REPRESENTATIVE_MOMENTS_CHECKED"
+  },
+  "possible_future_reuse": {
+    "diagnostic": "CRITICAL_NONZERO_SWAP_DIAGNOSTIC.json",
+    "status": "P4_M2_CHECKED_AND_INDEPENDENTLY_AUDITED",
+    "finding": "p4_m2.a(X,Y,k)=Y^2/X^4*p2_m4.a(Y,X,k), p4_m2.b(X,Y,k)=Y^3/X^5*p2_m4.b(Y,X,k). The a numerator is the exact X/Y swap; b differs by Y/X.",
+    "formal_work_needed": "None for this moment identity. The original statement and all guards have been checked.",
+    "reuse_search": "Direct side/moment swap and dense-evaluation swap queries over complete archive and current/vendor sources returned no direct matches. This is not a complete semantic absence claim.",
+    "decision": "One adopted p4_m2 route reuses p2_m4; former unverified monolithic proof retained only as audit evidence.",
+    "audit": "KERNEL_AUDIT_CRITICAL_NONZERO_SWAP_FINAL_STATUS.json"
+  },
+  "final_moment_review": "CRITICAL_NONZERO_P2P2_REUSE_REVIEW.json",
+  "table_completion": {
+    "checked_utc": "2026-10-11T10:06:45.694998+00:00",
+    "representatives": 18,
+    "moments": 36,
+    "audit": "KERNEL_AUDIT_CRITICAL_NONZERO_TABLE_STATUS.json",
+    "all_original_guards_retained": true,
+    "raw_66term_numerator_identity": false
+  }
+}

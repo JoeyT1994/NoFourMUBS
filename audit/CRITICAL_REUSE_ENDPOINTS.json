@@ -1,0 +1,1316 @@
+{
+  "status": "SEARCH_INDEX_ONLY_NOT_A_COMPILATION_OR_COMPLETENESS_CLAIM",
+  "repository_commit": "75d27258972d9838c2a7857371becc7271bc7b81",
+  "parsing_limit": "Heuristic theorem header excerpts; embedded let assignments can truncate an excerpt. Read the pinned source for the exact complete statement and its dependencies.",
+  "candidates": [
+    {
+      "module": "FourierCriticalPilotBinding",
+      "sha256": "0326dd06f56e6b4727f106eb1326b7cec33cfd9ed61b4e56ccaec836c51925cf",
+      "theorem": "allCritical_fourier_pilot",
+      "type": "theorem allCritical_fourier_pilot {H : CompactCover.Mat6}\n    (hH : GlobalCornerDomain.AllCritical H)\n    (hf : CriticalFourierRouting20261003.FourierOrTranspose H) :\n    MonomialEquivalent H FourierExactCarrier20261003.matrix ",
+      "imports": [
+        "FourierCriticalPhysical",
+        "FourierEndpoint"
+      ]
+    },
+    {
+      "module": "FourierCriticalPilotBinding",
+      "sha256": "0326dd06f56e6b4727f106eb1326b7cec33cfd9ed61b4e56ccaec836c51925cf",
+      "theorem": "allCritical_fourier_exclusion_of_cover",
+      "type": "theorem allCritical_fourier_exclusion_of_cover\n    (hcover : FourierEndpoint20261003.CoverObligation)\n    {H : CompactCover.Mat6} (hH : GlobalCornerDomain.AllCritical H)\n    (hf : CriticalFourierRouting20261003.FourierOrTranspose H) :\n    \u00ac OccursAsQuartetEdge (phaseScale (Real.sqrt 6)\u207b\u00b9 H) ",
+      "imports": [
+        "FourierCriticalPhysical",
+        "FourierEndpoint"
+      ]
+    },
+    {
+      "module": "CriticalStripPhysical",
+      "sha256": "0d2248e90c65c3b5d650943232241a550c3fb758c7ef6129e02b929f345d6243",
+      "theorem": "allCritical_strip_scalar_premises",
+      "type": "theorem allCritical_strip_scalar_premises {H : CompactCover.Mat6}\n    (hH : AllCritical H) (c : Fin 20) :\n    let E ",
+      "imports": [
+        "CriticalCornerPhysical",
+        "CriticalRowSum"
+      ]
+    },
+    {
+      "module": "CriticalStripPhysical",
+      "sha256": "0f511d6c980b2fa4135750a739f8e383207e08498fefc89cde65bee5bf3e11b1",
+      "theorem": "allCritical_strip_scalar_premises",
+      "type": "theorem allCritical_strip_scalar_premises {H : CompactCover.Mat6}\n    (hH : AllCritical H) (c : Fin 20) :\n    let E ",
+      "imports": [
+        "CriticalCornerPhysical",
+        "CriticalRowSum"
+      ]
+    },
+    {
+      "module": "GeometricFourierTail",
+      "sha256": "0fb863a47be88b25b9884d84cd5a4944357f83fa5e91efc16776d911375c7643",
+      "theorem": "fourier_of_monomial",
+      "type": "theorem fourier_of_monomial {H K : Mub6.BasisMatrix}\n    (heq : Mub6.MonomialEquivalent H K) (hK : FourierOrTranspose K) :\n    FourierOrTranspose H ",
+      "imports": [
+        "SingularFourierRouting"
+      ]
+    },
+    {
+      "module": "GeometricFourierTail",
+      "sha256": "0fb863a47be88b25b9884d84cd5a4944357f83fa5e91efc16776d911375c7643",
+      "theorem": "fourier_transpose",
+      "type": "theorem fourier_transpose {H : Mub6.BasisMatrix} (hH : FourierOrTranspose H) :\n    FourierOrTranspose (Mub6.transposeEdge H) ",
+      "imports": [
+        "SingularFourierRouting"
+      ]
+    },
+    {
+      "module": "GeometricFourierTail",
+      "sha256": "0fb863a47be88b25b9884d84cd5a4944357f83fa5e91efc16776d911375c7643",
+      "theorem": "geometric_normalForm_fourier",
+      "type": "theorem geometric_normalForm_fourier {\u03c9 u r s : \u2102}\n    (h\u03c9 : Worker12.PrimitiveCubicPhase \u03c9)\n    (hu : Complex.normSq u = 1) (hr : Complex.normSq r = 1)\n    (hs : Complex.normSq s = 1)\n    (hH : IsHadamard\n      (fourierNormalForm \u03c9 u (star u) r s (fourierForcedD \u03c9 u (star u) r s))) :\n    FourierOrTranspose (unsplitMatrix\n      (fourierNormalForm \u03c9 u (star u) r s (fourierForcedD \u03c9 u (star u) r s))) ",
+      "imports": [
+        "SingularFourierRouting"
+      ]
+    },
+    {
+      "module": "GeometricFourierTail",
+      "sha256": "0fb863a47be88b25b9884d84cd5a4944357f83fa5e91efc16776d911375c7643",
+      "theorem": "geometric_first_three_blocks_fourier",
+      "type": "theorem geometric_first_three_blocks_fourier {H : Mat6} {\u03c9 u r s : \u2102} {D : Mat3}\n    (hH : IsHadamard H)\n    (hform : H = fourierNormalForm \u03c9 u (star u) r s D)\n    (h\u03c9 : Worker12.PrimitiveCubicPhase \u03c9) :\n    FourierOrTranspose (unsplitMatrix H) ",
+      "imports": [
+        "SingularFourierRouting"
+      ]
+    },
+    {
+      "module": "CriticalPhysicalGauge",
+      "sha256": "11d2c221f81e2f63c5d4bb073f03f94c6bc57bb47e648e3c2c345cb67ecbf0a8",
+      "theorem": "allCritical_gauged_newtonPolynomial66_zero",
+      "type": "theorem allCritical_gauged_newtonPolynomial66_zero {H : CompactCover.Mat6}\n    (hH : AllCritical H) (a b : \u2102) (ha : a\u22600) (hb : b\u22600) :\n    newtonPolynomial66 (scaleData a b (stripLeftData H))\n      (scaleData a b (stripRightData H))=0 ",
+      "imports": [
+        "CriticalGenericNewtonGauge",
+        "CriticalReconstructionData"
+      ]
+    },
+    {
+      "module": "CriticalPhysicalGauge",
+      "sha256": "11d2c221f81e2f63c5d4bb073f03f94c6bc57bb47e648e3c2c345cb67ecbf0a8",
+      "theorem": "allCritical_reciprocal_newtonPolynomial66_zero",
+      "type": "theorem allCritical_reciprocal_newtonPolynomial66_zero {H : CompactCover.Mat6}\n    (hH : AllCritical H) (hs : (stripLeftData H).s\u22600) (ht : (stripLeftData H).t\u22600) :\n    newtonPolynomial66\n      (scaleData (stripLeftData H).s\u207b\u00b9 (stripLeftData H).t\u207b\u00b9 (stripLeftData H))\n      (scaleData (stripLeftData H).s\u207b\u00b9 (stripLeftData H).t\u207b\u00b9 (stripRightData H))=0 ",
+      "imports": [
+        "CriticalGenericNewtonGauge",
+        "CriticalReconstructionData"
+      ]
+    },
+    {
+      "module": "CriticalPhysicalGauge",
+      "sha256": "11d2c221f81e2f63c5d4bb073f03f94c6bc57bb47e648e3c2c345cb67ecbf0a8",
+      "theorem": "allCritical_reciprocal_pureNewton_zero",
+      "type": "theorem allCritical_reciprocal_pureNewton_zero {H : CompactCover.Mat6}\n    (hH : AllCritical H) (hs : (stripLeftData H).s\u22600) (ht : (stripLeftData H).t\u22600) :\n    pureNewtonPolynomial66\n      (scaleData (stripLeftData H).s\u207b\u00b9 (stripLeftData H).t\u207b\u00b9 (stripLeftData H))\n      (scaleData (stripLeftData H).s\u207b\u00b9 (stripLeftData H).t\u207b\u00b9 (stripRightData H))=0 ",
+      "imports": [
+        "CriticalGenericNewtonGauge",
+        "CriticalReconstructionData"
+      ]
+    },
+    {
+      "module": "CriticalOrderedSquareSum",
+      "sha256": "169dc6ead1562de32e645ed0da85911eaa6e1349dc5e16e26c1b5a166d15c9ea",
+      "theorem": "allCritical_ordered_invariant_zero",
+      "type": "theorem allCritical_ordered_invariant_zero {H : CompactCover.Mat6}\n    (hH : AllCritical H) (c : Fin 3 \u2192 Fin 6) :\n    signedInvariant (H.submatrix front c)=0 ",
+      "imports": [
+        "CriticalLaurentCorner",
+        "CriticalStripSquareSum",
+        "CriticalWholeMoments"
+      ]
+    },
+    {
+      "module": "CriticalOrderedSquareSum",
+      "sha256": "169dc6ead1562de32e645ed0da85911eaa6e1349dc5e16e26c1b5a166d15c9ea",
+      "theorem": "allCritical_cornerPolynomial_zero",
+      "type": "theorem allCritical_cornerPolynomial_zero {H : CompactCover.Mat6}\n    (hH : AllCritical H) (t : Triple) : cornerPolynomial (columns (H 1) (H 2) t)=0 ",
+      "imports": [
+        "CriticalLaurentCorner",
+        "CriticalStripSquareSum",
+        "CriticalWholeMoments"
+      ]
+    },
+    {
+      "module": "CriticalOrderedSquareSum",
+      "sha256": "169dc6ead1562de32e645ed0da85911eaa6e1349dc5e16e26c1b5a166d15c9ea",
+      "theorem": "allCritical_moment_quadratic_zero",
+      "type": "theorem allCritical_moment_quadratic_zero {H : CompactCover.Mat6} (hH : AllCritical H) :\n    (-(\u2211 rs : Fin 48 \u00d7 Fin 48,\n      (((cornerTerms rs.1).1*(cornerTerms rs.2).1 : \u2124) : \u2102) *\n        momentProduct (H 1) (H 2) ((cornerTerms rs.1).2+(cornerTerms rs.2).2)))/6=0 ",
+      "imports": [
+        "CriticalLaurentCorner",
+        "CriticalStripSquareSum",
+        "CriticalWholeMoments"
+      ]
+    },
+    {
+      "module": "CriticalModulusQuarticReal",
+      "sha256": "1b3c1278bc9d6865f4c94445ef5e5a69a2a5f1ea4f62ff0361c4cdbbe114d2cb",
+      "theorem": "allowed_one_upper",
+      "type": "theorem allowed_one_upper (K : \u211d) (ha : Allowed 1 K) : K\u22649 ",
+      "imports": [
+        "CriticalModulusSignedDomain",
+        "CriticalNonzeroPolynomialData",
+        "Mathlib.Data.Complex.Basic"
+      ]
+    },
+    {
+      "module": "SingularFourierRouting",
+      "sha256": "1ed3526ae3974af9f74e2b759276c0591524d4f9caa19f8f4373ec82348d55e5",
+      "theorem": "singular_selectedMinor_fourier",
+      "type": "theorem singular_selectedMinor_fourier {H : Mub6.BasisMatrix}\n    (hH : Mub6.IsPhaseHadamard6 H) (rows cols : Fin 3 \u21aa Fin 6)\n    (hdet : (selectedMinor H rows cols).det = 0) : FourierOrTranspose H ",
+      "imports": [
+        "GoodMinorPhysical",
+        "Hadamard6.TaoAtlas",
+        "Worker12.ZeroClassification"
+      ]
+    },
+    {
+      "module": "SingularFourierRouting",
+      "sha256": "1ed3526ae3974af9f74e2b759276c0591524d4f9caa19f8f4373ec82348d55e5",
+      "theorem": "phaseHadamard_singular_minor_fourier",
+      "type": "theorem phaseHadamard_singular_minor_fourier {H : Mub6.BasisMatrix}\n    (hH : PhaseHadamard H) (rows cols : Fin 3 \u21aa Fin 6)\n    (hdet : (Matrix.submatrix H rows cols).det = 0) : FourierOrTranspose H ",
+      "imports": [
+        "GoodMinorPhysical",
+        "Hadamard6.TaoAtlas",
+        "Worker12.ZeroClassification"
+      ]
+    },
+    {
+      "module": "SingularFourierRouting",
+      "sha256": "1ed3526ae3974af9f74e2b759276c0591524d4f9caa19f8f4373ec82348d55e5",
+      "theorem": "actual_edge_zero_minor_fourier",
+      "type": "theorem actual_edge_zero_minor_fourier\n    {B : Fin 4 \u2192 Mub6.BasisMatrix} (hB : Mub6.IsMUBQuartet B)\n    (a b : Fin 4) (hab : a \u2260 b) (rows cols : Fin 3 \u21aa Fin 6)\n    (hdet : (selectedMinor (Mub6.overlap (B a) (B b)) rows cols).det = 0) :\n    FourierOrTranspose\n      (Mub6.phaseScale (Real.sqrt 6) (Mub6.overlap (B a) (B b))) ",
+      "imports": [
+        "GoodMinorPhysical",
+        "Hadamard6.TaoAtlas",
+        "Worker12.ZeroClassification"
+      ]
+    },
+    {
+      "module": "GeometricFourierComplete",
+      "sha256": "24a31639f077eaae527f9b940590113695c0a25bfa0b8a3c66133b9f969e0bbc",
+      "theorem": "geometric_rows_fourier",
+      "type": "theorem geometric_rows_fourier {H : Mub6.BasisMatrix}\n    (hH : Mub6.Numerical.PhaseHadamard H) (\u03c1 : Fin 3 \u21aa Fin 6) (x : Fin 6 \u2192 \u2102)\n    (h0 : \u2200 j, H (\u03c1 0) j=1)\n    (h1 : \u2200 j, H (\u03c1 1) j=x j)\n    (h2 : \u2200 j, H (\u03c1 2) j=star (x j)) : FourierOrTranspose H ",
+      "imports": [
+        "ConjugateBlockNormalization",
+        "GeometricTopBlocks"
+      ]
+    },
+    {
+      "module": "GeometricFourierComplete",
+      "sha256": "24a31639f077eaae527f9b940590113695c0a25bfa0b8a3c66133b9f969e0bbc",
+      "theorem": "monomial_geometric_rows_fourier",
+      "type": "theorem monomial_geometric_rows_fourier {H K : Mub6.BasisMatrix}\n    (he : Mub6.MonomialEquivalent H K)\n    (hK : Mub6.Numerical.PhaseHadamard K) (\u03c1 : Fin 3 \u21aa Fin 6) (x : Fin 6 \u2192 \u2102)\n    (h0 : \u2200 j, K (\u03c1 0) j=1)\n    (h1 : \u2200 j, K (\u03c1 1) j=x j)\n    (h2 : \u2200 j, K (\u03c1 2) j=star (x j)) : FourierOrTranspose H ",
+      "imports": [
+        "ConjugateBlockNormalization",
+        "GeometricTopBlocks"
+      ]
+    },
+    {
+      "module": "CriticalPhysicalMoment66",
+      "sha256": "2601ed1a1e8fa588bc0256d183254ee0b86f7deafa62bd4e2cba6b6d3b23253c",
+      "theorem": "allCritical_momentPolynomial66_zero",
+      "type": "theorem allCritical_momentPolynomial66_zero {H : CompactCover.Mat6}\n    (hH : AllCritical H) : momentPolynomial66 (stripMoment H)=0 ",
+      "imports": [
+        "CriticalMomentReduction",
+        "CriticalOrderedSquareSum"
+      ]
+    },
+    {
+      "module": "CriticalPhysicalParams",
+      "sha256": "2c48b32fbc887b0cb64f399c4489ed83ba6d7cd2538a1d6d69c1bb4dd9c76e6d",
+      "theorem": "actual_nonzero_corner_parameter",
+      "type": "theorem actual_nonzero_corner_parameter {H : CompactCover.Mat6}\n    (hH : AllCritical H) (c : Fin 20) (hj : sideJ (stripCorner H c)\u22600) :\n    \u2203 k : \u211d, 0<k \u2227 sideP (stripCorner H c)=CriticalRationalParam20261003.p k \u2227\n      |sideJ (stripCorner H c)|=CriticalRationalParam20261003.j k \u2227\n      sideW (stripCorner H c)=CriticalRationalParam20261003.w k ",
+      "imports": [
+        "CriticalPositiveParam",
+        "CriticalStripPhysical",
+        "CriticalZeroPoles"
+      ]
+    },
+    {
+      "module": "CriticalPhysicalParams",
+      "sha256": "2c48b32fbc887b0cb64f399c4489ed83ba6d7cd2538a1d6d69c1bb4dd9c76e6d",
+      "theorem": "actual_zero_corner_parameter",
+      "type": "theorem actual_zero_corner_parameter {H : CompactCover.Mat6}\n    (hH : AllCritical H) (c : Fin 20) (hj : sideJ (stripCorner H c)=0) :\n    \u2203 z : \u211d, -3\u2264z \u2227 z\u22643 \u2227 sideP (stripCorner H c)=9-z^2 \u2227\n      sideW (stripCorner H c)=z^2*(z+3)^2 ",
+      "imports": [
+        "CriticalPositiveParam",
+        "CriticalStripPhysical",
+        "CriticalZeroPoles"
+      ]
+    },
+    {
+      "module": "CriticalPhysicalParams",
+      "sha256": "2c48b32fbc887b0cb64f399c4489ed83ba6d7cd2538a1d6d69c1bb4dd9c76e6d",
+      "theorem": "actual_corner_parameter_cases",
+      "type": "theorem actual_corner_parameter_cases {H : CompactCover.Mat6}\n    (hH : AllCritical H) (c : Fin 20) :\n    (sideJ (stripCorner H c)=0 \u2227 \u2203 z : \u211d, -3\u2264z \u2227 z\u22643 \u2227\n      sideP (stripCorner H c)=9-z^2 \u2227 sideW (stripCorner H c)=z^2*(z+3)^2) \u2228\n    (sideJ (stripCorner H c)\u22600 \u2227 \u2203 k : \u211d, 0<k \u2227\n      sideP (stripCorner H c)=CriticalRationalParam20261003.p k \u2227\n      |sideJ (stripCorner H c)|=CriticalRationalParam20261003.j k \u2227\n      sideW (stripCorner H c)=CriticalRationalParam20261003.w k) ",
+      "imports": [
+        "CriticalPositiveParam",
+        "CriticalStripPhysical",
+        "CriticalZeroPoles"
+      ]
+    },
+    {
+      "module": "CriticalMomentsReview",
+      "sha256": "3177b4919eb1fec7beca6f00e87bbdf3b325436e00f0182a21c144cea5c27a28",
+      "theorem": "global_supplies_literal_strip",
+      "type": "theorem global_supplies_literal_strip {H : CompactCover.Mat6}\n    (hH : AllCritical H) : StripAllCritical H \u2227 squareSum H=0 \u2227 complexSquareSum H=0 ",
+      "imports": [
+        "CriticalNewtonTable",
+        "CriticalStripLocal",
+        "CriticalWholeMoments"
+      ]
+    },
+    {
+      "module": "CriticalAllocatedChart",
+      "sha256": "31dbe174c631c1a892a1dad9175bd4e856b58000e230c29e8b3a1f8c23847f78",
+      "theorem": "allCritical_allocated_chart",
+      "type": "theorem allCritical_allocated_chart {H : CompactCover.Mat6} (hH : AllCritical H)\n    (c : Fin 3 \u2192 Fin 6) (z : \u211d) (hj : sideJ (H.submatrix front c)=0)\n    (ha : Allocated (H.submatrix front c) z) :\n    \u2203 p : Perm,\n      (p=Equiv.refl _ \u2228 p=Equiv.swap 0 1 \u2228 p=Equiv.swap 0 2) \u2227\n      let K ",
+      "imports": [
+        "CriticalCorrelationRechart"
+      ]
+    },
+    {
+      "module": "SingularFourierRouting",
+      "sha256": "341e38406943cc938f014ae35ef7d7203913b9b71ae32307d8b3bf09d4f20805",
+      "theorem": "singular_selectedMinor_fourier",
+      "type": "theorem singular_selectedMinor_fourier {H : Mub6.BasisMatrix}\n    (hH : Mub6.IsPhaseHadamard6 H) (rows cols : Fin 3 \u21aa Fin 6)\n    (hdet : (selectedMinor H rows cols).det = 0) : FourierOrTranspose H ",
+      "imports": [
+        "GoodMinorPhysical",
+        "Hadamard6.TaoAtlas",
+        "Worker12.ZeroClassification"
+      ]
+    },
+    {
+      "module": "SingularFourierRouting",
+      "sha256": "341e38406943cc938f014ae35ef7d7203913b9b71ae32307d8b3bf09d4f20805",
+      "theorem": "phaseHadamard_singular_minor_fourier",
+      "type": "theorem phaseHadamard_singular_minor_fourier {H : Mub6.BasisMatrix}\n    (hH : PhaseHadamard H) (rows cols : Fin 3 \u21aa Fin 6)\n    (hdet : (Matrix.submatrix H rows cols).det = 0) : FourierOrTranspose H ",
+      "imports": [
+        "GoodMinorPhysical",
+        "Hadamard6.TaoAtlas",
+        "Worker12.ZeroClassification"
+      ]
+    },
+    {
+      "module": "SingularFourierRouting",
+      "sha256": "341e38406943cc938f014ae35ef7d7203913b9b71ae32307d8b3bf09d4f20805",
+      "theorem": "actual_edge_zero_minor_fourier",
+      "type": "theorem actual_edge_zero_minor_fourier\n    {B : Fin 4 \u2192 Mub6.BasisMatrix} (hB : Mub6.IsMUBQuartet B)\n    (a b : Fin 4) (hab : a \u2260 b) (rows cols : Fin 3 \u21aa Fin 6)\n    (hdet : (selectedMinor (Mub6.overlap (B a) (B b)) rows cols).det = 0) :\n    FourierOrTranspose\n      (Mub6.phaseScale (Real.sqrt 6) (Mub6.overlap (B a) (B b))) ",
+      "imports": [
+        "GoodMinorPhysical",
+        "Hadamard6.TaoAtlas",
+        "Worker12.ZeroClassification"
+      ]
+    },
+    {
+      "module": "CriticalSingularBoundary",
+      "sha256": "344ab3d5d57a13977e499a9760698a7fe8689fb07c9f71c112fa637dfc3ee500",
+      "theorem": "normalized_strip_p9_fourier",
+      "type": "theorem normalized_strip_p9_fourier {H : CompactCover.Mat6}\n    (hH : NormalizedCarrier H) (c : Fin 20) (hp : sideP (stripCorner H c)=9) :\n    FourierOrTranspose H ",
+      "imports": [
+        "CriticalPhysicalParams",
+        "SingularFourierRouting"
+      ]
+    },
+    {
+      "module": "CriticalSingularBoundary",
+      "sha256": "344ab3d5d57a13977e499a9760698a7fe8689fb07c9f71c112fa637dfc3ee500",
+      "theorem": "normalized_strip_zero_parameter_fourier",
+      "type": "theorem normalized_strip_zero_parameter_fourier {H : CompactCover.Mat6}\n    (hH : NormalizedCarrier H) (c : Fin 20) (z : \u211d)\n    (hp : sideP (stripCorner H c)=9-z^2) (hz : z=0) : FourierOrTranspose H ",
+      "imports": [
+        "CriticalPhysicalParams",
+        "SingularFourierRouting"
+      ]
+    },
+    {
+      "module": "CriticalStripObstruction",
+      "sha256": "34ecb0baa36ca0b75484c7fe7eb96a97e5c4760782e7b1ed7db73e090225c1cf",
+      "theorem": "no_classified_strip",
+      "type": "theorem no_classified_strip {H : BasisMatrix} (hH : PhaseHadamard H)\n    (rows : Fin 3 \u2192 Fin 6) (hr : Function.Injective rows)\n    {k : \u211d} (hk : 0<k) (hc : cubic k=0)\n    (hclass : \u2200 c, cornerP H rows c=0 \u2228 cornerP H rows c=5 \u2228\n      cornerP H rows c=specialValue k) : False ",
+      "imports": [
+        "CriticalCountApplication",
+        "CriticalRowSum"
+      ]
+    },
+    {
+      "module": "CriticalStripObstruction",
+      "sha256": "34ecb0baa36ca0b75484c7fe7eb96a97e5c4760782e7b1ed7db73e090225c1cf",
+      "theorem": "no_classified_strip_in_band",
+      "type": "theorem no_classified_strip_in_band {H : BasisMatrix} (hH : PhaseHadamard H)\n    (rows : Fin 3 \u2192 Fin 6) (hr : Function.Injective rows)\n    {p : \u211d} (hl : (572220/100000:\u211d)\u2264p) (hu : p\u2264(572221/100000:\u211d))\n    (hclass : \u2200 c, cornerP H rows c=0 \u2228 cornerP H rows c=5 \u2228 cornerP H rows c=p) : False ",
+      "imports": [
+        "CriticalCountApplication",
+        "CriticalRowSum"
+      ]
+    },
+    {
+      "module": "CriticalModulusMatrixDomain",
+      "sha256": "37464e957f5163065da1257ce104556e09fe8e1e74a6cc02a6a8b7f13e47a5b7",
+      "theorem": "actual_block_allowed_abs",
+      "type": "theorem actual_block_allowed_abs (E : Matrix (Fin 3) (Fin 3) \u2102) (k : \u211d)\n    (hk : k\u22600)\n    (hp : CriticalLightSheet20261003.sideP E=CriticalRationalParam20261003.p k)\n    (hj : CriticalLightSheet20261003.sideJ E=CriticalRationalParam20261003.j k)\n    (hw : CriticalLightSheet20261003.sideW E=CriticalRationalParam20261003.w k) :\n    Allowed |k| (Complex.normSq (CriticalLightSheet20261003.sideS E)*\n      Complex.normSq (CriticalLightSheet20261003.sideT E)*\n      Complex.normSq (CriticalLightSheet20261003.sideR E)) ",
+      "imports": [
+        "CriticalLightSheet",
+        "CriticalModulusSignedDomain",
+        "CriticalRationalParam"
+      ]
+    },
+    {
+      "module": "CriticalCountApplication",
+      "sha256": "37844cdd6590f51abd396e660c49cd5be72e3ca6faad812b924176fd2a19918d",
+      "theorem": "no_twenty_special_values",
+      "type": "theorem no_twenty_special_values {k : \u211d} (hk : 0<k) (hc : cubic k=0)\n    (v : Fin 20 \u2192 \u211d) (hv : \u2200 c, v c=0 \u2228 v c=5 \u2228 v c=specialValue k)\n    (hsum : \u2211 c, v c=108) : False ",
+      "imports": [
+        "CriticalCounts"
+      ]
+    },
+    {
+      "module": "CriticalAllocatedChart",
+      "sha256": "38eb19111e49a90f9e7ea3287db12a6f262b40860a8e0cd9d8b82dc8104cdb2a",
+      "theorem": "allCritical_allocated_chart",
+      "type": "theorem allCritical_allocated_chart {H : CompactCover.Mat6} (hH : AllCritical H)\n    (c : Fin 3 \u2192 Fin 6) (z : \u211d) (hj : sideJ (H.submatrix front c)=0)\n    (ha : Allocated (H.submatrix front c) z) :\n    \u2203 p : Perm,\n      (p=Equiv.refl _ \u2228 p=Equiv.swap 0 1 \u2228 p=Equiv.swap 0 2) \u2227\n      let K ",
+      "imports": [
+        "CriticalCorrelationRechart"
+      ]
+    },
+    {
+      "module": "CriticalZeroSideAllCritical",
+      "sha256": "3a264770d925bd0d440910d99bec4ac33e5762e7ab2418db382797467dc111a3",
+      "theorem": "allCritical_regular_zero_scalar_equation",
+      "type": "theorem allCritical_regular_zero_scalar_equation {H : CompactCover.Mat6}\n    (hH : AllCritical H) (z : \u211d)\n    (hzlo : -3\u2264z) (hz0 : z\u22600) (hz3 : z\u2260 -3) (hz2 : z\u2260 -2)\n    (hp : sideP (stripLeftBlock H)=9-z^2)\n    (hj : sideJ (stripLeftBlock H)=0)\n    (hw : sideW (stripLeftBlock H)=z^2*(z+3)^2)\n    (hs : (stripLeftData H).s\u22600) (ht : (stripLeftData H).t\u22600) :\n    let D ",
+      "imports": [
+        "CriticalPhysicalGauge",
+        "CriticalZeroSideStripLight"
+      ]
+    },
+    {
+      "module": "CriticalModulusAllCritical",
+      "sha256": "3dc1b23efc292d90b85f60dd796696f733cca8cc87b29ececf5d0db2a15c7a61",
+      "theorem": "allCritical_nonzero_allowed",
+      "type": "theorem allCritical_nonzero_allowed {H : CompactCover.Mat6}\n    (hH : AllCritical H)\n    (hj : CriticalPhysical20261003.sideJ (northwest H)\u22600) :\n    \u2203 k : \u211d, k\u22600 \u2227\n      CriticalPhysical20261003.sideP (northwest H)=CriticalRationalParam20261003.p k \u2227\n      CriticalPhysical20261003.sideJ (northwest H)=CriticalRationalParam20261003.j k \u2227\n      CriticalPhysical20261003.sideW (northwest H)=CriticalRationalParam20261003.w k \u2227\n      Allowed |k| (Complex.normSq (CriticalLightSheet20261003.sideS (northwest H))*\n        Complex.normSq (CriticalLightSheet20261003.sideT (northwest H))*\n        Complex.normSq (CriticalLightSheet20261003.sideR (northwest H))) ",
+      "imports": [
+        "CriticalCornerPhysical",
+        "CriticalModulusMatrixDomain"
+      ]
+    },
+    {
+      "module": "CriticalZeroChartTransport",
+      "sha256": "40d1cea9e383a50ce2abbd351db5aa64a3efb6836978832ff7d09faac2f426fa",
+      "theorem": "allCritical_regular_zero_chart",
+      "type": "theorem allCritical_regular_zero_chart {H : CompactCover.Mat6} (hH : AllCritical H)\n    (z : \u211d) (hz0 : z\u22600) (hz3 : z\u2260 -3)\n    (hp : sideP (stripLeftBlock H)=9-z^2)\n    (hj : sideJ (stripLeftBlock H)=0)\n    (hw : sideW (stripLeftBlock H)=z^2*(z+3)^2) :\n    \u2203 p : Perm,\n      (p=Equiv.refl _ \u2228 p=Equiv.swap 0 1 \u2228 p=Equiv.swap 0 2) \u2227\n      let K ",
+      "imports": [
+        "CriticalCorrelationRechart",
+        "CriticalStripNewton"
+      ]
+    },
+    {
+      "module": "CriticalZeroChartTransport",
+      "sha256": "40d1cea9e383a50ce2abbd351db5aa64a3efb6836978832ff7d09faac2f426fa",
+      "theorem": "recharted_opposite_data",
+      "type": "theorem recharted_opposite_data {H : CompactCover.Mat6} (hH : AllCritical H)\n    (p : Perm) :\n    let K ",
+      "imports": [
+        "CriticalCorrelationRechart",
+        "CriticalStripNewton"
+      ]
+    },
+    {
+      "module": "CriticalZeroChartTransport",
+      "sha256": "40d1cea9e383a50ce2abbd351db5aa64a3efb6836978832ff7d09faac2f426fa",
+      "theorem": "rechart_preserves_quartet_occurrence",
+      "type": "theorem rechart_preserves_quartet_occurrence {H : CompactCover.Mat6}\n    (hH : AllCritical H) (p : Perm)\n    (ho : OccursAsQuartetEdge (normalizedNumerical H)) :\n    OccursAsQuartetEdge (normalizedNumerical (candidate H p (Equiv.refl _))) ",
+      "imports": [
+        "CriticalCorrelationRechart",
+        "CriticalStripNewton"
+      ]
+    },
+    {
+      "module": "CriticalPhysicalParams",
+      "sha256": "426526dca7bb4f7885070ac1c72ebc7b3bfa09ce3415d2a6dda6bfefa839b2c8",
+      "theorem": "actual_nonzero_corner_parameter",
+      "type": "theorem actual_nonzero_corner_parameter {H : CompactCover.Mat6}\n    (hH : AllCritical H) (c : Fin 20) (hj : sideJ (stripCorner H c)\u22600) :\n    \u2203 k : \u211d, 0<k \u2227 sideP (stripCorner H c)=CriticalRationalParam20261003.p k \u2227\n      |sideJ (stripCorner H c)|=CriticalRationalParam20261003.j k \u2227\n      sideW (stripCorner H c)=CriticalRationalParam20261003.w k ",
+      "imports": [
+        "CriticalPositiveParam",
+        "CriticalStripPhysical",
+        "CriticalZeroPoles"
+      ]
+    },
+    {
+      "module": "CriticalPhysicalParams",
+      "sha256": "426526dca7bb4f7885070ac1c72ebc7b3bfa09ce3415d2a6dda6bfefa839b2c8",
+      "theorem": "actual_zero_corner_parameter",
+      "type": "theorem actual_zero_corner_parameter {H : CompactCover.Mat6}\n    (hH : AllCritical H) (c : Fin 20) (hj : sideJ (stripCorner H c)=0) :\n    \u2203 z : \u211d, -3\u2264z \u2227 z\u22643 \u2227 sideP (stripCorner H c)=9-z^2 \u2227\n      sideW (stripCorner H c)=z^2*(z+3)^2 ",
+      "imports": [
+        "CriticalPositiveParam",
+        "CriticalStripPhysical",
+        "CriticalZeroPoles"
+      ]
+    },
+    {
+      "module": "CriticalPhysicalParams",
+      "sha256": "426526dca7bb4f7885070ac1c72ebc7b3bfa09ce3415d2a6dda6bfefa839b2c8",
+      "theorem": "actual_corner_parameter_cases",
+      "type": "theorem actual_corner_parameter_cases {H : CompactCover.Mat6}\n    (hH : AllCritical H) (c : Fin 20) :\n    (sideJ (stripCorner H c)=0 \u2227 \u2203 z : \u211d, -3\u2264z \u2227 z\u22643 \u2227\n      sideP (stripCorner H c)=9-z^2 \u2227 sideW (stripCorner H c)=z^2*(z+3)^2) \u2228\n    (sideJ (stripCorner H c)\u22600 \u2227 \u2203 k : \u211d, 0<k \u2227\n      sideP (stripCorner H c)=CriticalRationalParam20261003.p k \u2227\n      |sideJ (stripCorner H c)|=CriticalRationalParam20261003.j k \u2227\n      sideW (stripCorner H c)=CriticalRationalParam20261003.w k) ",
+      "imports": [
+        "CriticalPositiveParam",
+        "CriticalStripPhysical",
+        "CriticalZeroPoles"
+      ]
+    },
+    {
+      "module": "SingularFourierRouting",
+      "sha256": "4462db1ec6d851254aa5658911428f494dd9ba9d23e2ce7837512e75edc062e8",
+      "theorem": "singular_selectedMinor_fourier",
+      "type": "theorem singular_selectedMinor_fourier {H : Mub6.BasisMatrix}\n    (hH : Mub6.IsPhaseHadamard6 H) (rows cols : Fin 3 \u21aa Fin 6)\n    (hdet : (selectedMinor H rows cols).det = 0) : FourierOrTranspose H ",
+      "imports": [
+        "GoodMinorPhysical",
+        "Hadamard6.TaoAtlas",
+        "Worker12.ZeroClassification"
+      ]
+    },
+    {
+      "module": "SingularFourierRouting",
+      "sha256": "4462db1ec6d851254aa5658911428f494dd9ba9d23e2ce7837512e75edc062e8",
+      "theorem": "phaseHadamard_singular_minor_fourier",
+      "type": "theorem phaseHadamard_singular_minor_fourier {H : Mub6.BasisMatrix}\n    (hH : PhaseHadamard H) (rows cols : Fin 3 \u21aa Fin 6)\n    (hdet : (Matrix.submatrix H rows cols).det = 0) : FourierOrTranspose H ",
+      "imports": [
+        "GoodMinorPhysical",
+        "Hadamard6.TaoAtlas",
+        "Worker12.ZeroClassification"
+      ]
+    },
+    {
+      "module": "SingularFourierRouting",
+      "sha256": "4462db1ec6d851254aa5658911428f494dd9ba9d23e2ce7837512e75edc062e8",
+      "theorem": "actual_edge_zero_minor_fourier",
+      "type": "theorem actual_edge_zero_minor_fourier\n    {B : Fin 4 \u2192 Mub6.BasisMatrix} (hB : Mub6.IsMUBQuartet B)\n    (a b : Fin 4) (hab : a \u2260 b) (rows cols : Fin 3 \u21aa Fin 6)\n    (hdet : (selectedMinor (Mub6.overlap (B a) (B b)) rows cols).det = 0) :\n    FourierOrTranspose\n      (Mub6.phaseScale (Real.sqrt 6) (Mub6.overlap (B a) (B b))) ",
+      "imports": [
+        "GoodMinorPhysical",
+        "Hadamard6.TaoAtlas",
+        "Worker12.ZeroClassification"
+      ]
+    },
+    {
+      "module": "CriticalCorrelationRechart",
+      "sha256": "46430bb17d6b39c1de4aff4281941890a9a377f378334d4df0479d2f045d0fde",
+      "theorem": "allCritical_nonzero_W_rechart",
+      "type": "theorem allCritical_nonzero_W_rechart {H : CompactCover.Mat6} (hH : AllCritical H)\n    (c : Fin 3 \u2192 Fin 6) (hw : sideW (H.submatrix front c)\u22600) :\n    \u2203 p : Perm, (p=Equiv.refl _ \u2228 p=Equiv.swap 0 1 \u2228 p=Equiv.swap 0 2) \u2227\n      AllCritical (candidate H p (Equiv.refl _)) \u2227\n      MonomialEquivalent H (candidate H p (Equiv.refl _)) \u2227\n      (\u2200 d : Fin 3 \u2192 Fin 6, SameInvariants\n        ((candidate H p (Equiv.refl _)).submatrix front d) (H.submatrix front d)) \u2227\n      sideS ((candidate H p (Equiv.refl _)).submatrix front c)\u22600 \u2227\n      sideT ((candidate H p (Equiv.refl _)).submatrix front c)\u22600 ",
+      "imports": [
+        "CriticalCorrelationCore",
+        "CriticalStripPhysical"
+      ]
+    },
+    {
+      "module": "CriticalZeroSideStripFull.draft",
+      "sha256": "470fda4157c40e2f89241be9d57dfaa2238ac685afc01c265af89ab6af54fc48",
+      "theorem": "allCritical_regular_zero_scalar_equation",
+      "type": "theorem allCritical_regular_zero_scalar_equation {H : CompactCover.Mat6}\n    (hH : AllCritical H) (z : \u211d)\n    (hzlo : -3\u2264z) (hz0 : z\u22600) (hz3 : z\u2260 -3) (hz2 : z\u2260 -2)\n    (hp : sideP (stripLeftBlock H)=9-z^2)\n    (hj : sideJ (stripLeftBlock H)=0)\n    (hw : sideW (stripLeftBlock H)=z^2*(z+3)^2)\n    (hs : (stripLeftData H).s\u22600) (ht : (stripLeftData H).t\u22600) :\n    let D ",
+      "imports": [
+        "CriticalPhysicalGauge",
+        "CriticalZeroSidePhysical"
+      ]
+    },
+    {
+      "module": "CriticalPhysicalReview",
+      "sha256": "4951d33e84f2146a9843fdada25230a6f54fff0c808f331b5cf26a3cb978cb32",
+      "theorem": "literal_twenty_corner_constraints",
+      "type": "theorem literal_twenty_corner_constraints {H : CompactCover.Mat6}\n    (hH : AllCritical H) (c : Fin 20) :\n    let A ",
+      "imports": [
+        "CriticalStripPhysical"
+      ]
+    },
+    {
+      "module": "CriticalPhysicalReview",
+      "sha256": "4951d33e84f2146a9843fdada25230a6f54fff0c808f331b5cf26a3cb978cb32",
+      "theorem": "all_ordered_corners",
+      "type": "theorem all_ordered_corners {H : CompactCover.Mat6} (hH : AllCritical H)\n    (p q : Perm) : AllCritical (CanonicalCorners.candidate H p q) ",
+      "imports": [
+        "CriticalStripPhysical"
+      ]
+    },
+    {
+      "module": "CriticalStripSquareSum",
+      "sha256": "4ed043652defc268030fa9df4e5b91d372ea91ed6c467a7ee9076afc5e7f76eb",
+      "theorem": "allCritical_invariant_zero",
+      "type": "theorem allCritical_invariant_zero {H : CompactCover.Mat6}\n    (hH : AllCritical H) (c : Fin 20) : signedInvariant (stripCorner H c)=0 ",
+      "imports": [
+        "CriticalBlockInvariant"
+      ]
+    },
+    {
+      "module": "CriticalStripSquareSum",
+      "sha256": "4ed043652defc268030fa9df4e5b91d372ea91ed6c467a7ee9076afc5e7f76eb",
+      "theorem": "allCritical_squareSum_zero",
+      "type": "theorem allCritical_squareSum_zero {H : CompactCover.Mat6} (hH : AllCritical H) :\n    squareSum H=0 ",
+      "imports": [
+        "CriticalBlockInvariant"
+      ]
+    },
+    {
+      "module": "CriticalStripSquareSum",
+      "sha256": "4ed043652defc268030fa9df4e5b91d372ea91ed6c467a7ee9076afc5e7f76eb",
+      "theorem": "allCritical_complexSquareSum_zero",
+      "type": "theorem allCritical_complexSquareSum_zero {H : CompactCover.Mat6} (hH : AllCritical H) :\n    complexSquareSum H=0 ",
+      "imports": [
+        "CriticalBlockInvariant"
+      ]
+    },
+    {
+      "module": "FourierCriticalPhysical",
+      "sha256": "50cd8ac9f417e5937205acc1d0c1db3df09fc76dfe8a90c2b4615660ce608346",
+      "theorem": "allCritical_monomial",
+      "type": "theorem allCritical_monomial {H K : Mat6} (hH : AllCritical H)\n    (he : MonomialEquivalent H K) (hrow : \u2200 j, K 0 j=1) (hcol : \u2200 i, K i 0=1) :\n    AllCritical K ",
+      "imports": [
+        "CriticalCornerPhysical",
+        "FourierCriticalEquivalences",
+        "SingularFourierRouting"
+      ]
+    },
+    {
+      "module": "FourierCriticalPhysical",
+      "sha256": "50cd8ac9f417e5937205acc1d0c1db3df09fc76dfe8a90c2b4615660ce608346",
+      "theorem": "allCritical_transpose",
+      "type": "theorem allCritical_transpose {H : Mat6} (hH : AllCritical H) : AllCritical H\u1d40 ",
+      "imports": [
+        "CriticalCornerPhysical",
+        "FourierCriticalEquivalences",
+        "SingularFourierRouting"
+      ]
+    },
+    {
+      "module": "FourierCriticalPhysical",
+      "sha256": "50cd8ac9f417e5937205acc1d0c1db3df09fc76dfe8a90c2b4615660ce608346",
+      "theorem": "allCritical_selected_sixSkew_zero",
+      "type": "theorem allCritical_selected_sixSkew_zero {H : Mat6} (hH : AllCritical H)\n    (c : Fin 3 \u2192 Fin 6) (hc : Function.Injective c) :\n    sixSkew (H 1 (c 0)) (H 1 (c 1)) (H 1 (c 2))\n      (H 2 (c 0)) (H 2 (c 1)) (H 2 (c 2))=0 ",
+      "imports": [
+        "CriticalCornerPhysical",
+        "FourierCriticalEquivalences",
+        "SingularFourierRouting"
+      ]
+    },
+    {
+      "module": "FourierCriticalPhysical",
+      "sha256": "50cd8ac9f417e5937205acc1d0c1db3df09fc76dfe8a90c2b4615660ce608346",
+      "theorem": "allCritical_N_selected",
+      "type": "theorem allCritical_N_selected {\u03c9 z w : \u2102} (hN : AllCritical (N \u03c9 z w)) :\n    sixSkew 1 z w 1 (\u03c9*z) (\u03c9^2*w)=0 \u2227\n    sixSkew 1 z (-w) 1 (\u03c9*z) (-(\u03c9^2*w))=0 \u2227\n    sixSkew 1 (-z) w 1 (-(\u03c9*z)) (\u03c9^2*w)=0 ",
+      "imports": [
+        "CriticalCornerPhysical",
+        "FourierCriticalEquivalences",
+        "SingularFourierRouting"
+      ]
+    },
+    {
+      "module": "FourierCriticalPhysical",
+      "sha256": "50cd8ac9f417e5937205acc1d0c1db3df09fc76dfe8a90c2b4615660ce608346",
+      "theorem": "allCritical_N_grid",
+      "type": "theorem allCritical_N_grid {\u03c9 z w : \u2102}\n    (h\u03c9 : Worker12.PrimitiveCubicPhase \u03c9) (hz : Complex.normSq z=1) (hw : Complex.normSq w=1)\n    (hN : AllCritical (N \u03c9 z w)) :\n    \u2203 a : Fin 3, \u2203 \u03b5 \u03b4 : Bool,\n      z=signedPower \u03c9 \u03b5 (2*a.val) \u2227 w=signedPower \u03c9 \u03b4 a.val ",
+      "imports": [
+        "CriticalCornerPhysical",
+        "FourierCriticalEquivalences",
+        "SingularFourierRouting"
+      ]
+    },
+    {
+      "module": "FourierCriticalPhysical",
+      "sha256": "50cd8ac9f417e5937205acc1d0c1db3df09fc76dfe8a90c2b4615660ce608346",
+      "theorem": "allCritical_N_fixed",
+      "type": "theorem allCritical_N_fixed {\u03c9 z w : \u2102}\n    (h\u03c9 : Worker12.PrimitiveCubicPhase \u03c9) (hz : Complex.normSq z=1) (hw : Complex.normSq w=1)\n    (hN : AllCritical (N \u03c9 z w)) : MonomialEquivalent (N \u03c9 z w) fixedF6 ",
+      "imports": [
+        "CriticalCornerPhysical",
+        "FourierCriticalEquivalences",
+        "SingularFourierRouting"
+      ]
+    },
+    {
+      "module": "FourierCriticalPhysical",
+      "sha256": "50cd8ac9f417e5937205acc1d0c1db3df09fc76dfe8a90c2b4615660ce608346",
+      "theorem": "allCritical_fourier_fixed",
+      "type": "theorem allCritical_fourier_fixed {H : Mat6} (hH : AllCritical H)\n    (hf : CriticalFourierRouting20261003.FourierOrTranspose H) :\n    MonomialEquivalent H fixedF6 ",
+      "imports": [
+        "CriticalCornerPhysical",
+        "FourierCriticalEquivalences",
+        "SingularFourierRouting"
+      ]
+    },
+    {
+      "module": "CriticalModulusMatrixDomain",
+      "sha256": "543302a6f4e8f11eeebc9335380ed394c16b11ddb54b7dad9908500b4f90dcee",
+      "theorem": "actual_block_allowed_abs",
+      "type": "theorem actual_block_allowed_abs (E : Matrix (Fin 3) (Fin 3) \u2102) (k : \u211d)\n    (hk : k\u22600)\n    (hp : CriticalLightSheet20261003.sideP E=CriticalRationalParam20261003.p k)\n    (hj : CriticalLightSheet20261003.sideJ E=CriticalRationalParam20261003.j k)\n    (hw : CriticalLightSheet20261003.sideW E=CriticalRationalParam20261003.w k) :\n    Allowed |k| (Complex.normSq (CriticalLightSheet20261003.sideS E)*\n      Complex.normSq (CriticalLightSheet20261003.sideT E)*\n      Complex.normSq (CriticalLightSheet20261003.sideR E)) ",
+      "imports": [
+        "CriticalLightSheet",
+        "CriticalModulusSignedDomain",
+        "CriticalRationalParam"
+      ]
+    },
+    {
+      "module": "CriticalZeroActualComputedNumerator",
+      "sha256": "54cf1eec20432f67096486dd471fbcedcec83ba11d0f21a5cf9a60a00feeb839",
+      "theorem": "allCritical_computed_numerator_zero",
+      "type": "theorem allCritical_computed_numerator_zero {H : CompactCover.Mat6}\n    (hH : AllCritical H) (z : \u211d)\n    (hzlo : -3\u2264z) (hz0 : z\u22600) (hz3 : z\u2260 -3) (hz2 : z\u2260 -2)\n    (hp : sideP (stripLeftBlock H)=9-z^2)\n    (hj : sideJ (stripLeftBlock H)=0)\n    (hw : sideW (stripLeftBlock H)=z^2*(z+3)^2)\n    (hs : (stripLeftData H).s\u22600) (ht : (stripLeftData H).t\u22600) :\n    let D ",
+      "imports": [
+        "CriticalZeroAllCriticalInputs",
+        "CriticalZeroSumPhysicalCleared"
+      ]
+    },
+    {
+      "module": "CriticalMomentsReview",
+      "sha256": "5917b0211394824f348fade4169916d518a2640a7b7e848743275ecc0ec717f5",
+      "theorem": "global_supplies_literal_strip",
+      "type": "theorem global_supplies_literal_strip {H : CompactCover.Mat6}\n    (hH : AllCritical H) : StripAllCritical H \u2227 squareSum H=0 \u2227 complexSquareSum H=0 ",
+      "imports": [
+        "CriticalNewtonTable",
+        "CriticalStripLocal",
+        "CriticalWholeMoments"
+      ]
+    },
+    {
+      "module": "CriticalAllocatedChart",
+      "sha256": "5c57e69d4db4662f72494d03dda81fe55d8445310c3bd4094d2cbf22d70acf80",
+      "theorem": "allCritical_allocated_chart",
+      "type": "theorem allCritical_allocated_chart {H : CompactCover.Mat6} (hH : AllCritical H)\n    (c : Fin 3 \u2192 Fin 6) (z : \u211d) (hj : sideJ (H.submatrix front c)=0)\n    (ha : Allocated (H.submatrix front c) z) :\n    \u2203 p : Perm,\n      (p=Equiv.refl _ \u2228 p=Equiv.swap 0 1 \u2228 p=Equiv.swap 0 2) \u2227\n      let K ",
+      "imports": [
+        "CriticalCorrelationRechart"
+      ]
+    },
+    {
+      "module": "CriticalNewtonMoment66",
+      "sha256": "604727905e88a1ec89d8da93d9f963b1c5dbfd020a20ed6372c9f212ab550651",
+      "theorem": "allCritical_newtonPolynomial66_zero",
+      "type": "theorem allCritical_newtonPolynomial66_zero {H : CompactCover.Mat6}\n    (hH : AllCritical H) : newtonPolynomial66 (stripLeftData H) (stripRightData H)=0 ",
+      "imports": [
+        "CriticalPhysicalMoment66",
+        "CriticalStripNewton"
+      ]
+    },
+    {
+      "module": "CriticalNonzeroAllCritical",
+      "sha256": "6a1a69c077ba049fb79653e064fe02c83a741c85ef8aca2b314415b13c9655c2",
+      "theorem": "allCritical_regular_nonzero_scalar_equation",
+      "type": "theorem allCritical_regular_nonzero_scalar_equation {H : CompactCover.Mat6}\n    (hH : AllCritical H) (k : \u211d)\n    (hp : CriticalLightSheet20261003.sideP (leftBlock H)=CriticalRationalParam20261003.p k)\n    (hj : CriticalLightSheet20261003.sideJ (leftBlock H)=CriticalRationalParam20261003.j k)\n    (hw : CriticalLightSheet20261003.sideW (leftBlock H)=CriticalRationalParam20261003.w k)\n    (hs : (leftData H).s\u22600) (ht : (leftData H).t\u22600)\n    (hL : \u2200 i,CriticalLightSheet20261003.blockDenominator (leftBlock H) i\u22600)\n    (hR : \u2200 i,CriticalLightSheet20261003.blockDenominator (rightBlock H) i\u22600) :\n    let D ",
+      "imports": [
+        "CriticalNonzeroLightPair",
+        "CriticalPhysicalGauge"
+      ]
+    },
+    {
+      "module": "CriticalNonzeroAllCritical",
+      "sha256": "6a1a69c077ba049fb79653e064fe02c83a741c85ef8aca2b314415b13c9655c2",
+      "theorem": "allCritical_signed_parameter",
+      "type": "theorem allCritical_signed_parameter {H : CompactCover.Mat6}\n    (hH : AllCritical H) (hj : CriticalLightSheet20261003.sideJ (leftBlock H)\u22600) :\n    \u2203 k : \u211d, k\u22600 \u2227\n      CriticalLightSheet20261003.sideP (leftBlock H)=CriticalRationalParam20261003.p k \u2227\n      CriticalLightSheet20261003.sideJ (leftBlock H)=CriticalRationalParam20261003.j k \u2227\n      CriticalLightSheet20261003.sideW (leftBlock H)=CriticalRationalParam20261003.w k ",
+      "imports": [
+        "CriticalNonzeroLightPair",
+        "CriticalPhysicalGauge"
+      ]
+    },
+    {
+      "module": "CriticalNonzeroAllCritical",
+      "sha256": "6a1a69c077ba049fb79653e064fe02c83a741c85ef8aca2b314415b13c9655c2",
+      "theorem": "allCritical_nonzero_exists_scalar_equation",
+      "type": "theorem allCritical_nonzero_exists_scalar_equation {H : CompactCover.Mat6}\n    (hH : AllCritical H) (hj : CriticalLightSheet20261003.sideJ (leftBlock H)\u22600)\n    (hs : (leftData H).s\u22600) (ht : (leftData H).t\u22600)\n    (hL : \u2200 i,CriticalLightSheet20261003.blockDenominator (leftBlock H) i\u22600)\n    (hR : \u2200 i,CriticalLightSheet20261003.blockDenominator (rightBlock H) i\u22600) :\n    \u2203 k : \u211d, k\u22600 \u2227\n      CriticalLightSheet20261003.sideP (leftBlock H)=CriticalRationalParam20261003.p k \u2227\n      CriticalLightSheet20261003.sideJ (leftBlock H)=CriticalRationalParam20261003.j k \u2227\n      CriticalLightSheet20261003.sideW (leftBlock H)=CriticalRationalParam20261003.w k \u2227\n      (let D ",
+      "imports": [
+        "CriticalNonzeroLightPair",
+        "CriticalPhysicalGauge"
+      ]
+    },
+    {
+      "module": "CriticalZeroAllCriticalInputs",
+      "sha256": "6c44449247c42bfbb0ccea8594978121de284a67f806268fd7366a59f730d70b",
+      "theorem": "allCritical_inputs_and_equation",
+      "type": "theorem allCritical_inputs_and_equation {H : CompactCover.Mat6}\n    (hH : AllCritical H) (z : \u211d)\n    (hzlo : -3\u2264z) (hz0 : z\u22600) (hz3 : z\u2260 -3) (hz2 : z\u2260 -2)\n    (hp : sideP (stripLeftBlock H)=9-z^2)\n    (hj : sideJ (stripLeftBlock H)=0)\n    (hw : sideW (stripLeftBlock H)=z^2*(z+3)^2)\n    (hs : (stripLeftData H).s\u22600) (ht : (stripLeftData H).t\u22600) :\n    let D ",
+      "imports": [
+        "CriticalZeroModuliInputs",
+        "CriticalZeroSideAllCritical"
+      ]
+    },
+    {
+      "module": "CriticalStripSquareSum",
+      "sha256": "6c55019181bd914e2f76aa7be36223998f831ba99d511e952808ad59b3293db0",
+      "theorem": "allCritical_invariant_zero",
+      "type": "theorem allCritical_invariant_zero {H : CompactCover.Mat6}\n    (hH : AllCritical H) (c : Fin 20) : signedInvariant (stripCorner H c)=0 ",
+      "imports": [
+        "CriticalBlockInvariant"
+      ]
+    },
+    {
+      "module": "CriticalStripSquareSum",
+      "sha256": "6c55019181bd914e2f76aa7be36223998f831ba99d511e952808ad59b3293db0",
+      "theorem": "allCritical_squareSum_zero",
+      "type": "theorem allCritical_squareSum_zero {H : CompactCover.Mat6} (hH : AllCritical H) :\n    squareSum H=0 ",
+      "imports": [
+        "CriticalBlockInvariant"
+      ]
+    },
+    {
+      "module": "CriticalStripSquareSum",
+      "sha256": "6c55019181bd914e2f76aa7be36223998f831ba99d511e952808ad59b3293db0",
+      "theorem": "allCritical_complexSquareSum_zero",
+      "type": "theorem allCritical_complexSquareSum_zero {H : CompactCover.Mat6} (hH : AllCritical H) :\n    complexSquareSum H=0 ",
+      "imports": [
+        "CriticalBlockInvariant"
+      ]
+    },
+    {
+      "module": "CriticalStripLocal",
+      "sha256": "765253097f2c1c62001d0243efa839c3c5396b3479feace91071da6ff1beb89c",
+      "theorem": "allCritical_stripAllCritical",
+      "type": "theorem allCritical_stripAllCritical {H : CompactCover.Mat6} (hH : AllCritical H) :\n    StripAllCritical H ",
+      "imports": [
+        "CriticalStripSquareSum"
+      ]
+    },
+    {
+      "module": "CriticalStripLocal",
+      "sha256": "765253097f2c1c62001d0243efa839c3c5396b3479feace91071da6ff1beb89c",
+      "theorem": "stripAllCritical_squareSum_zero",
+      "type": "theorem stripAllCritical_squareSum_zero {H : CompactCover.Mat6}\n    (hH : StripAllCritical H) : squareSum H=0 ",
+      "imports": [
+        "CriticalStripSquareSum"
+      ]
+    },
+    {
+      "module": "CriticalStripLocal",
+      "sha256": "765253097f2c1c62001d0243efa839c3c5396b3479feace91071da6ff1beb89c",
+      "theorem": "stripAllCritical_complexSquareSum_zero",
+      "type": "theorem stripAllCritical_complexSquareSum_zero {H : CompactCover.Mat6}\n    (hH : StripAllCritical H) : complexSquareSum H=0 ",
+      "imports": [
+        "CriticalStripSquareSum"
+      ]
+    },
+    {
+      "module": "CriticalScalarReduction",
+      "sha256": "82255a7886f39a4c135cd2788d646efd06b18cf807cfdf5df37776f1a9bd80a7",
+      "theorem": "nonzero_reduction",
+      "type": "theorem nonzero_reduction {p j w : \u211d} (hp : 0\u2264p) (hphys : p+|j|\u22649)\n    (hj : j\u22600) (hplus : R p j w=0) (hminus : R p (-j) w=0) :\n    5<p \u2227 p<9 \u2227 j^2=(9-p)^3*(p-5)/4 \u2227\n      w=-(p-9)*(p^2-10*p+27)/2 ",
+      "imports": [
+        "RadianSeedBounds"
+      ]
+    },
+    {
+      "module": "GeometricFourierTail",
+      "sha256": "862a48e6e5a6efba302ff62b6d0d2ca5c909812b5fc4fb07d0bd658d7faf943e",
+      "theorem": "fourier_of_monomial",
+      "type": "theorem fourier_of_monomial {H K : Mub6.BasisMatrix}\n    (heq : Mub6.MonomialEquivalent H K) (hK : FourierOrTranspose K) :\n    FourierOrTranspose H ",
+      "imports": [
+        "SingularFourierRouting"
+      ]
+    },
+    {
+      "module": "GeometricFourierTail",
+      "sha256": "862a48e6e5a6efba302ff62b6d0d2ca5c909812b5fc4fb07d0bd658d7faf943e",
+      "theorem": "fourier_transpose",
+      "type": "theorem fourier_transpose {H : Mub6.BasisMatrix} (hH : FourierOrTranspose H) :\n    FourierOrTranspose (Mub6.transposeEdge H) ",
+      "imports": [
+        "SingularFourierRouting"
+      ]
+    },
+    {
+      "module": "GeometricFourierTail",
+      "sha256": "862a48e6e5a6efba302ff62b6d0d2ca5c909812b5fc4fb07d0bd658d7faf943e",
+      "theorem": "geometric_normalForm_fourier",
+      "type": "theorem geometric_normalForm_fourier {\u03c9 u r s : \u2102}\n    (h\u03c9 : Worker12.PrimitiveCubicPhase \u03c9)\n    (hu : Complex.normSq u = 1) (hr : Complex.normSq r = 1)\n    (hs : Complex.normSq s = 1)\n    (hH : IsHadamard\n      (fourierNormalForm \u03c9 u (star u) r s (fourierForcedD \u03c9 u (star u) r s))) :\n    FourierOrTranspose (unsplitMatrix\n      (fourierNormalForm \u03c9 u (star u) r s (fourierForcedD \u03c9 u (star u) r s))) ",
+      "imports": [
+        "SingularFourierRouting"
+      ]
+    },
+    {
+      "module": "GeometricFourierTail",
+      "sha256": "862a48e6e5a6efba302ff62b6d0d2ca5c909812b5fc4fb07d0bd658d7faf943e",
+      "theorem": "geometric_first_three_blocks_fourier",
+      "type": "theorem geometric_first_three_blocks_fourier {H : Mat6} {\u03c9 u r s : \u2102} {D : Mat3}\n    (hH : IsHadamard H)\n    (hform : H = fourierNormalForm \u03c9 u (star u) r s D)\n    (h\u03c9 : Worker12.PrimitiveCubicPhase \u03c9)\n    (hu : Complex.normSq u = 1) (hr : Complex.normSq r = 1)\n    (hs : Complex.normSq s = 1) :\n    FourierOrTranspose (unsplitMatrix H) ",
+      "imports": [
+        "SingularFourierRouting"
+      ]
+    },
+    {
+      "module": "CriticalCornerPhysical",
+      "sha256": "91802e692d09d0bbff7213bbfe5e419c8e673ba4255b2247ab6eda6faf7e1eaa",
+      "theorem": "allCritical_selected_R_zero",
+      "type": "theorem allCritical_selected_R_zero {H : CompactCover.Mat6} (hH : AllCritical H)\n    (c : Fin 3 \u2192 Fin 6) (hc : Function.Injective c) :\n    CriticalScalarReduction20261003.R\n      (sideP (H.submatrix front c)) (sideJ (H.submatrix front c))\n      (sideW (H.submatrix front c)) = 0 ",
+      "imports": [
+        "CriticalMomentBinding",
+        "GlobalCornerSelectedColumns"
+      ]
+    },
+    {
+      "module": "CriticalCornerPhysical",
+      "sha256": "91802e692d09d0bbff7213bbfe5e419c8e673ba4255b2247ab6eda6faf7e1eaa",
+      "theorem": "allCritical_scalar_premises",
+      "type": "theorem allCritical_scalar_premises {H : CompactCover.Mat6} (hH : AllCritical H) :\n    0 \u2264 sideP (northwest H) \u2227\n    sideP (northwest H)+|sideJ (northwest H)| \u2264 9 \u2227\n    CriticalScalarReduction20261003.R\n      (sideP (northwest H)) (sideJ (northwest H)) (sideW (northwest H))=0 \u2227\n    CriticalScalarReduction20261003.R\n      (sideP (northwest H)) (-sideJ (northwest H)) (sideW (northwest H))=0 ",
+      "imports": [
+        "CriticalMomentBinding",
+        "GlobalCornerSelectedColumns"
+      ]
+    },
+    {
+      "module": "CriticalCornerPhysical",
+      "sha256": "91802e692d09d0bbff7213bbfe5e419c8e673ba4255b2247ab6eda6faf7e1eaa",
+      "theorem": "allCritical_candidate",
+      "type": "theorem allCritical_candidate {H : CompactCover.Mat6} (hH : AllCritical H)\n    (p q : Perm) : AllCritical (candidate H p q) ",
+      "imports": [
+        "CriticalMomentBinding",
+        "GlobalCornerSelectedColumns"
+      ]
+    },
+    {
+      "module": "CriticalCornerPhysical",
+      "sha256": "91802e692d09d0bbff7213bbfe5e419c8e673ba4255b2247ab6eda6faf7e1eaa",
+      "theorem": "allCritical_candidate_scalar_premises",
+      "type": "theorem allCritical_candidate_scalar_premises {H : CompactCover.Mat6}\n    (hH : AllCritical H) (p q : Perm) :\n    let E ",
+      "imports": [
+        "CriticalMomentBinding",
+        "GlobalCornerSelectedColumns"
+      ]
+    },
+    {
+      "module": "CriticalCountApplication",
+      "sha256": "9303e22746f6b540d8278e6e9a15906df11ffd387e6c1bd5dce713077b465993",
+      "theorem": "no_twenty_special_values",
+      "type": "theorem no_twenty_special_values {k : \u211d} (hk : 0<k) (hc : cubic k=0)\n    (v : Fin 20 \u2192 \u211d) (hv : \u2200 c, v c=0 \u2228 v c=5 \u2228 v c=specialValue k)\n    (hsum : \u2211 c, v c=108) : False ",
+      "imports": [
+        "CriticalCounts"
+      ]
+    },
+    {
+      "module": "CriticalOrderedSquareSum",
+      "sha256": "a5b0e81190a42b07566b38e115091ba0e7f9f59e884d1cb858319f2375d86b1f",
+      "theorem": "allCritical_ordered_invariant_zero",
+      "type": "theorem allCritical_ordered_invariant_zero {H : CompactCover.Mat6}\n    (hH : AllCritical H) (c : Fin 3 \u2192 Fin 6) :\n    signedInvariant (H.submatrix front c)=0 ",
+      "imports": [
+        "CriticalLaurentCorner",
+        "CriticalStripSquareSum",
+        "CriticalWholeMoments"
+      ]
+    },
+    {
+      "module": "CriticalOrderedSquareSum",
+      "sha256": "a5b0e81190a42b07566b38e115091ba0e7f9f59e884d1cb858319f2375d86b1f",
+      "theorem": "allCritical_cornerPolynomial_zero",
+      "type": "theorem allCritical_cornerPolynomial_zero {H : CompactCover.Mat6}\n    (hH : AllCritical H) (t : Triple) : cornerPolynomial (columns (H 1) (H 2) t)=0 ",
+      "imports": [
+        "CriticalLaurentCorner",
+        "CriticalStripSquareSum",
+        "CriticalWholeMoments"
+      ]
+    },
+    {
+      "module": "CriticalOrderedSquareSum",
+      "sha256": "a5b0e81190a42b07566b38e115091ba0e7f9f59e884d1cb858319f2375d86b1f",
+      "theorem": "allCritical_moment_quadratic_zero",
+      "type": "theorem allCritical_moment_quadratic_zero {H : CompactCover.Mat6} (hH : AllCritical H) :\n    (-(\u2211 rs : Fin 48 \u00d7 Fin 48,\n      (((cornerTerms rs.1).1*(cornerTerms rs.2).1 : \u2124) : \u2102) *\n        momentProduct (H 1) (H 2) ((cornerTerms rs.1).2+(cornerTerms rs.2).2)))/6=0 ",
+      "imports": [
+        "CriticalLaurentCorner",
+        "CriticalStripSquareSum",
+        "CriticalWholeMoments"
+      ]
+    },
+    {
+      "module": "CriticalModulusSignedDomain",
+      "sha256": "a60fed8636c2d005b0bd11f3d1fb46bdab6eeb4eccc7bc8297a84bb5784c4446",
+      "theorem": "physical_allowed_abs",
+      "type": "theorem physical_allowed_abs (X Y Z k K : \u211d) (hkn : k\u22600)\n    (hp : X+Y+Z=p k) (hw : X*Y+X*Z+Y*Z=w k+K) (hk : X*Y*Z=K)\n    (hb : (8*k/(h k)^2)^2\u22644*K) : Allowed |k| K ",
+      "imports": [
+        "CriticalModulusIntervals"
+      ]
+    },
+    {
+      "module": "CriticalZeroActualComputedNoAudit",
+      "sha256": "a713e0b8443313de80c9236d7c7b47fc1105d93cec5373eaed099c3736641264",
+      "theorem": "allCritical_computed_numerator_zero",
+      "type": "theorem allCritical_computed_numerator_zero {H : CompactCover.Mat6}\n    (hH : AllCritical H) (z : \u211d)\n    (hzlo : -3\u2264z) (hz0 : z\u22600) (hz3 : z\u2260 -3) (hz2 : z\u2260 -2)\n    (hp : sideP (stripLeftBlock H)=9-z^2)\n    (hj : sideJ (stripLeftBlock H)=0)\n    (hw : sideW (stripLeftBlock H)=z^2*(z+3)^2)\n    (hs : (stripLeftData H).s\u22600) (ht : (stripLeftData H).t\u22600) :\n    let D ",
+      "imports": [
+        "CriticalZeroAllCriticalInputs",
+        "CriticalZeroComputedEquation"
+      ]
+    },
+    {
+      "module": "CriticalAllocatedFourier",
+      "sha256": "aaa74db5d4738318eeb86094c55c3e21ba08ac5121d2ddbf450b3a584d2507b8",
+      "theorem": "normalized_allocated_fourier",
+      "type": "theorem normalized_allocated_fourier {H : CompactCover.Mat6}\n    (hH : NormalizedCarrier H) (c : Fin 20) (z : \u211d)\n    (hz0 : z\u22600) (hz3 : z\u2260 -3) (hz2 : z\u2260 -2)\n    (hs : Complex.normSq (sideS (stripCorner H c))=z+3)\n    (ht : Complex.normSq (sideT (stripCorner H c))=z+3)\n    (hr : Complex.normSq (sideR (stripCorner H c))=(1-z)*(z+3))\n    (hj : sideJ (stripCorner H c)=0) : FourierOrTranspose H ",
+      "imports": [
+        "CriticalAllocatedWholeStrip",
+        "GeometricFourierComplete"
+      ]
+    },
+    {
+      "module": "CriticalAllocatedGeometricCandidate",
+      "sha256": "af06219f2aeb10f384daeca65c5a02cfbf1da4c9b9eb976a8f6c0a5fb43ac8c5",
+      "theorem": "allCritical_allocated_geometric",
+      "type": "theorem allCritical_allocated_geometric {H : CompactCover.Mat6}\n    (hH : AllCritical H) (c : Fin 20) (z : \u211d)\n    (hz0 : z\u22600) (hz3 : z\u2260 -3) (hz2 : z\u2260 -2)\n    (hj : sideJ (stripCorner H c)=0) (ha : Allocated (stripCorner H c) z) :\n    \u2203 p : Perm,\n      (p=Equiv.refl _ \u2228 p=Equiv.swap 0 1 \u2228 p=Equiv.swap 0 2) \u2227\n      let K ",
+      "imports": [
+        "CriticalAllocatedChart",
+        "CriticalAllocatedWholeStrip"
+      ]
+    },
+    {
+      "module": "CriticalAllocatedGeometricCandidate",
+      "sha256": "af06219f2aeb10f384daeca65c5a02cfbf1da4c9b9eb976a8f6c0a5fb43ac8c5",
+      "theorem": "allCritical_allocated_geometric_occurs",
+      "type": "theorem allCritical_allocated_geometric_occurs {H : CompactCover.Mat6}\n    (hH : AllCritical H) (c : Fin 20) (z : \u211d)\n    (hz0 : z\u22600) (hz3 : z\u2260 -3) (hz2 : z\u2260 -2)\n    (hj : sideJ (stripCorner H c)=0) (ha : Allocated (stripCorner H c) z)\n    (ho : OccursAsQuartetEdge (normalizedNumerical H)) :\n    \u2203 p : Perm,\n      (p=Equiv.refl _ \u2228 p=Equiv.swap 0 1 \u2228 p=Equiv.swap 0 2) \u2227\n      let K ",
+      "imports": [
+        "CriticalAllocatedChart",
+        "CriticalAllocatedWholeStrip"
+      ]
+    },
+    {
+      "module": "CriticalPhysicalReview",
+      "sha256": "b5eeb9495c612573333296d6558e84de19b499ee008a4e56e6c8d6ea5335cf50",
+      "theorem": "literal_twenty_corner_constraints",
+      "type": "theorem literal_twenty_corner_constraints {H : CompactCover.Mat6}\n    (hH : AllCritical H) (c : Fin 20) :\n    let A ",
+      "imports": [
+        "CriticalStripPhysical"
+      ]
+    },
+    {
+      "module": "CriticalPhysicalReview",
+      "sha256": "b5eeb9495c612573333296d6558e84de19b499ee008a4e56e6c8d6ea5335cf50",
+      "theorem": "all_ordered_corners",
+      "type": "theorem all_ordered_corners {H : CompactCover.Mat6} (hH : AllCritical H)\n    (p q : Perm) : AllCritical (CanonicalCorners.candidate H p q) ",
+      "imports": [
+        "CriticalStripPhysical"
+      ]
+    },
+    {
+      "module": "CriticalModulusAllCritical",
+      "sha256": "bfe6578830d1e450dff7c6508af25710c6ea9747a27699b241557f6a03e1cb35",
+      "theorem": "allCritical_nonzero_allowed",
+      "type": "theorem allCritical_nonzero_allowed {H : CompactCover.Mat6}\n    (hH : AllCritical H)\n    (hj : CriticalPhysical20261003.sideJ (northwest H)\u22600) :\n    \u2203 k : \u211d, k\u22600 \u2227\n      CriticalPhysical20261003.sideP (northwest H)=CriticalRationalParam20261003.p k \u2227\n      CriticalPhysical20261003.sideJ (northwest H)=CriticalRationalParam20261003.j k \u2227\n      CriticalPhysical20261003.sideW (northwest H)=CriticalRationalParam20261003.w k \u2227\n      Allowed |k| (Complex.normSq (CriticalLightSheet20261003.sideS (northwest H))*\n        Complex.normSq (CriticalLightSheet20261003.sideT (northwest H))*\n        Complex.normSq (CriticalLightSheet20261003.sideR (northwest H))) ",
+      "imports": [
+        "CriticalCornerPhysical",
+        "CriticalModulusMatrixDomain"
+      ]
+    },
+    {
+      "module": "FourierCriticalPilotBinding",
+      "sha256": "c826b6f6f7221a4dd8c26431f49234802dc068ef3003db924a2e666a73ce7eda",
+      "theorem": "allCritical_fourier_pilot",
+      "type": "theorem allCritical_fourier_pilot {H : CompactCover.Mat6}\n    (hH : GlobalCornerDomain.AllCritical H)\n    (hf : CriticalFourierRouting20261003.FourierOrTranspose H) :\n    MonomialEquivalent H FourierExactCarrier20261003.matrix ",
+      "imports": [
+        "FourierCriticalPhysical",
+        "FourierEndpoint"
+      ]
+    },
+    {
+      "module": "FourierCriticalPilotBinding",
+      "sha256": "c826b6f6f7221a4dd8c26431f49234802dc068ef3003db924a2e666a73ce7eda",
+      "theorem": "allCritical_fourier_exclusion_of_cover",
+      "type": "theorem allCritical_fourier_exclusion_of_cover\n    (hcover : FourierEndpoint20261003.CoverObligation)\n    {H : CompactCover.Mat6} (hH : GlobalCornerDomain.AllCritical H)\n    (hf : CriticalFourierRouting20261003.FourierOrTranspose H) :\n    \u00ac OccursAsQuartetEdge (phaseScale (Real.sqrt 6)\u207b\u00b9 H) ",
+      "imports": [
+        "FourierCriticalPhysical",
+        "FourierEndpoint"
+      ]
+    },
+    {
+      "module": "CriticalAllocatedChart",
+      "sha256": "c82f8497e092479a50be1742844c62a298c390c01afcc63588635bf1ee6e6a94",
+      "theorem": "allCritical_allocated_chart",
+      "type": "theorem allCritical_allocated_chart {H : CompactCover.Mat6} (hH : AllCritical H)\n    (c : Fin 3 \u2192 Fin 6) (z : \u211d) (hj : sideJ (H.submatrix front c)=0)\n    (ha : Allocated (H.submatrix front c) z) :\n    \u2203 p : Perm,\n      (p=Equiv.refl _ \u2228 p=Equiv.swap 0 1 \u2228 p=Equiv.swap 0 2) \u2227\n      let K ",
+      "imports": [
+        "CriticalCorrelationRechart"
+      ]
+    },
+    {
+      "module": "CriticalModulusQuarticReal",
+      "sha256": "cc8af2c4741e4ae2310a4dbd172d909ff78a280f23e53097aba80955e9a85eb3",
+      "theorem": "allowed_one_upper",
+      "type": "theorem allowed_one_upper (K : \u211d) (ha : Allowed 1 K) : K\u22649 ",
+      "imports": [
+        "CriticalModulusSignedDomain",
+        "CriticalNonzeroPolynomialData",
+        "Mathlib.Data.Complex.Basic"
+      ]
+    },
+    {
+      "module": "CriticalCountApplication",
+      "sha256": "d9092a63f98b00226a2f3b945fe135b99de85ca5d24178811856524e5d9f5f3a",
+      "theorem": "no_twenty_special_values",
+      "type": "theorem no_twenty_special_values {k : \u211d} (hk : 0<k) (hc : cubic k=0)\n    (v : Fin 20 \u2192 \u211d) (hv : \u2200 c, v c=0 \u2228 v c=5 \u2228 v c=specialValue k)\n    (hsum : \u2211 c, v c=108) : False ",
+      "imports": [
+        "CriticalCounts"
+      ]
+    },
+    {
+      "module": "CriticalCornerPhysical",
+      "sha256": "db4d603d95d25eae85e3cc87f277e9497a39217bb620939e6f2139b7e00c9027",
+      "theorem": "allCritical_selected_R_zero",
+      "type": "theorem allCritical_selected_R_zero {H : CompactCover.Mat6} (hH : AllCritical H)\n    (c : Fin 3 \u2192 Fin 6) (hc : Function.Injective c) :\n    CriticalScalarReduction20261003.R\n      (sideP (H.submatrix front c)) (sideJ (H.submatrix front c))\n      (sideW (H.submatrix front c)) = 0 ",
+      "imports": [
+        "CriticalMomentBinding",
+        "GlobalCornerSelectedColumns"
+      ]
+    },
+    {
+      "module": "CriticalCornerPhysical",
+      "sha256": "db4d603d95d25eae85e3cc87f277e9497a39217bb620939e6f2139b7e00c9027",
+      "theorem": "allCritical_scalar_premises",
+      "type": "theorem allCritical_scalar_premises {H : CompactCover.Mat6} (hH : AllCritical H) :\n    0 \u2264 sideP (northwest H) \u2227\n    sideP (northwest H)+|sideJ (northwest H)| \u2264 9 \u2227\n    CriticalScalarReduction20261003.R\n      (sideP (northwest H)) (sideJ (northwest H)) (sideW (northwest H))=0 \u2227\n    CriticalScalarReduction20261003.R\n      (sideP (northwest H)) (-sideJ (northwest H)) (sideW (northwest H))=0 ",
+      "imports": [
+        "CriticalMomentBinding",
+        "GlobalCornerSelectedColumns"
+      ]
+    },
+    {
+      "module": "CriticalCornerPhysical",
+      "sha256": "db4d603d95d25eae85e3cc87f277e9497a39217bb620939e6f2139b7e00c9027",
+      "theorem": "allCritical_candidate",
+      "type": "theorem allCritical_candidate {H : CompactCover.Mat6} (hH : AllCritical H)\n    (p q : Perm) : AllCritical (candidate H p q) ",
+      "imports": [
+        "CriticalMomentBinding",
+        "GlobalCornerSelectedColumns"
+      ]
+    },
+    {
+      "module": "CriticalCornerPhysical",
+      "sha256": "db4d603d95d25eae85e3cc87f277e9497a39217bb620939e6f2139b7e00c9027",
+      "theorem": "allCritical_candidate_scalar_premises",
+      "type": "theorem allCritical_candidate_scalar_premises {H : CompactCover.Mat6}\n    (hH : AllCritical H) (p q : Perm) :\n    let E ",
+      "imports": [
+        "CriticalMomentBinding",
+        "GlobalCornerSelectedColumns"
+      ]
+    },
+    {
+      "module": "CriticalIndependentReview",
+      "sha256": "dd24ed3aac5cd7199ac61798cf99acd7c03ea0adda4dbe1cd712f5a745890804",
+      "theorem": "expected_strip_endpoint",
+      "type": "theorem expected_strip_endpoint {H : BasisMatrix} (hH : PhaseHadamard H)\n    (rows : Fin 3 \u2192 Fin 6) (hr : Function.Injective rows)\n    {k : \u211d} (hk : 0 < k) (hc : 3*k^3+k^2+k-1 = 0)\n    (hclass : \u2200 c : Fin 20, cornerP H rows c = 0 \u2228\n      cornerP H rows c = 5 \u2228 cornerP H rows c = 9-4/(1+k^2)) : False ",
+      "imports": [
+        "CriticalScalarReduction",
+        "CriticalStripObstruction"
+      ]
+    },
+    {
+      "module": "CriticalIndependentReview",
+      "sha256": "dd24ed3aac5cd7199ac61798cf99acd7c03ea0adda4dbe1cd712f5a745890804",
+      "theorem": "expected_closed_band_endpoint",
+      "type": "theorem expected_closed_band_endpoint {H : BasisMatrix} (hH : PhaseHadamard H)\n    (rows : Fin 3 \u2192 Fin 6) (hr : Function.Injective rows)\n    {p : \u211d} (hl : (572220/100000 : \u211d) \u2264 p) (hu : p \u2264 (572221/100000 : \u211d))\n    (hclass : \u2200 c : Fin 20, cornerP H rows c = 0 \u2228\n      cornerP H rows c = 5 \u2228 cornerP H rows c = p) : False ",
+      "imports": [
+        "CriticalScalarReduction",
+        "CriticalStripObstruction"
+      ]
+    },
+    {
+      "module": "CriticalIndependentReview",
+      "sha256": "dd24ed3aac5cd7199ac61798cf99acd7c03ea0adda4dbe1cd712f5a745890804",
+      "theorem": "scalar_nonzero_endpoint",
+      "type": "theorem scalar_nonzero_endpoint {p j w : \u211d}\n    (hp : 0 \u2264 p) (hphys : p + |j| \u2264 9) (hj : j \u2260 0)\n    (hplus : R p j w = 0) (hminus : R p (-j) w = 0) :\n    5 < p \u2227 p < 9 \u2227 j^2 = (9-p)^3*(p-5)/4 \u2227\n      w = -(p-9)*(p^2-10*p+27)/2 ",
+      "imports": [
+        "CriticalScalarReduction",
+        "CriticalStripObstruction"
+      ]
+    },
+    {
+      "module": "CriticalIndependentReview",
+      "sha256": "dd24ed3aac5cd7199ac61798cf99acd7c03ea0adda4dbe1cd712f5a745890804",
+      "theorem": "algebraic_converse_endpoint",
+      "type": "theorem algebraic_converse_endpoint {p j w : \u211d}\n    (hj : j^2 = (9-p)^3*(p-5)/4)\n    (hw : w = -(p-9)*(p^2-10*p+27)/2) :\n    R p j w = 0 \u2227 R p (-j) w = 0 ",
+      "imports": [
+        "CriticalScalarReduction",
+        "CriticalStripObstruction"
+      ]
+    },
+    {
+      "module": "CriticalCorrelationRechart",
+      "sha256": "de782778df3672ddde40a269dd803dea293869bfd575acd7589de02d350fb993",
+      "theorem": "allCritical_nonzero_W_rechart",
+      "type": "theorem allCritical_nonzero_W_rechart {H : CompactCover.Mat6} (hH : AllCritical H)\n    (c : Fin 3 \u2192 Fin 6) (hw : sideW (H.submatrix front c)\u22600) :\n    \u2203 p : Perm, (p=Equiv.refl _ \u2228 p=Equiv.swap 0 1 \u2228 p=Equiv.swap 0 2) \u2227\n      AllCritical (candidate H p (Equiv.refl _)) \u2227\n      MonomialEquivalent H (candidate H p (Equiv.refl _)) \u2227\n      (\u2200 d : Fin 3 \u2192 Fin 6, SameInvariants\n        ((candidate H p (Equiv.refl _)).submatrix front d) (H.submatrix front d)) \u2227\n      sideS ((candidate H p (Equiv.refl _)).submatrix front c)\u22600 \u2227\n      sideT ((candidate H p (Equiv.refl _)).submatrix front c)\u22600 ",
+      "imports": [
+        "CriticalCorrelationCore",
+        "CriticalStripPhysical"
+      ]
+    },
+    {
+      "module": "CriticalCounts",
+      "sha256": "e0f1e50c6b13495af302fa7ecfd805f83c6c55e08aa32edc20d3e7fd07eeecd5",
+      "theorem": "special_bounds",
+      "type": "theorem special_bounds {k : \u211d} (hk : 0<k) (hc : cubic k=0) :\n    (572220/100000:\u211d) \u2264 specialValue k \u2227 specialValue k \u2264 (572221/100000:\u211d) ",
+      "imports": [
+        "RadianSeedBounds"
+      ]
+    },
+    {
+      "module": "FourierAllCriticalExcluded",
+      "sha256": "e1dca85b21d73e579e346e007df2f373897703f71f5f1ac04c31be577d3ced92",
+      "theorem": "allCritical_fourier_excluded",
+      "type": "theorem allCritical_fourier_excluded {H : CompactCover.Mat6}\n    (hH : GlobalCornerDomain.AllCritical H)\n    (hf : CriticalFourierRouting20261003.FourierOrTranspose H) :\n    \u00ac OccursAsQuartetEdge (phaseScale (Real.sqrt 6)\u207b\u00b9 H) ",
+      "imports": [
+        "FourierCompleteEndpoint",
+        "FourierCriticalPilotBinding"
+      ]
+    },
+    {
+      "module": "FourierCriticalPhysical",
+      "sha256": "e2f01137566a986be770a8cc43303139e14c45a45bf1ccadec48a51addbd6ff8",
+      "theorem": "allCritical_monomial",
+      "type": "theorem allCritical_monomial {H K : Mat6} (hH : AllCritical H)\n    (he : MonomialEquivalent H K) (hrow : \u2200 j, K 0 j=1) (hcol : \u2200 i, K i 0=1) :\n    AllCritical K ",
+      "imports": [
+        "CriticalCornerPhysical",
+        "FourierCriticalEquivalences",
+        "SingularFourierRouting"
+      ]
+    },
+    {
+      "module": "FourierCriticalPhysical",
+      "sha256": "e2f01137566a986be770a8cc43303139e14c45a45bf1ccadec48a51addbd6ff8",
+      "theorem": "allCritical_transpose",
+      "type": "theorem allCritical_transpose {H : Mat6} (hH : AllCritical H) : AllCritical H\u1d40 ",
+      "imports": [
+        "CriticalCornerPhysical",
+        "FourierCriticalEquivalences",
+        "SingularFourierRouting"
+      ]
+    },
+    {
+      "module": "FourierCriticalPhysical",
+      "sha256": "e2f01137566a986be770a8cc43303139e14c45a45bf1ccadec48a51addbd6ff8",
+      "theorem": "allCritical_selected_sixSkew_zero",
+      "type": "theorem allCritical_selected_sixSkew_zero {H : Mat6} (hH : AllCritical H)\n    (c : Fin 3 \u2192 Fin 6) (hc : Function.Injective c) :\n    sixSkew (H 1 (c 0)) (H 1 (c 1)) (H 1 (c 2))\n      (H 2 (c 0)) (H 2 (c 1)) (H 2 (c 2))=0 ",
+      "imports": [
+        "CriticalCornerPhysical",
+        "FourierCriticalEquivalences",
+        "SingularFourierRouting"
+      ]
+    },
+    {
+      "module": "FourierCriticalPhysical",
+      "sha256": "e2f01137566a986be770a8cc43303139e14c45a45bf1ccadec48a51addbd6ff8",
+      "theorem": "allCritical_N_selected",
+      "type": "theorem allCritical_N_selected {\u03c9 z w : \u2102} (hN : AllCritical (N \u03c9 z w)) :\n    sixSkew 1 z w 1 (\u03c9*z) (\u03c9^2*w)=0 \u2227\n    sixSkew 1 z (-w) 1 (\u03c9*z) (-(\u03c9^2*w))=0 \u2227\n    sixSkew 1 (-z) w 1 (-(\u03c9*z)) (\u03c9^2*w)=0 ",
+      "imports": [
+        "CriticalCornerPhysical",
+        "FourierCriticalEquivalences",
+        "SingularFourierRouting"
+      ]
+    },
+    {
+      "module": "FourierCriticalPhysical",
+      "sha256": "e2f01137566a986be770a8cc43303139e14c45a45bf1ccadec48a51addbd6ff8",
+      "theorem": "allCritical_N_grid",
+      "type": "theorem allCritical_N_grid {\u03c9 z w : \u2102}\n    (h\u03c9 : Worker12.PrimitiveCubicPhase \u03c9) (hz : Complex.normSq z=1) (hw : Complex.normSq w=1)\n    (hN : AllCritical (N \u03c9 z w)) :\n    \u2203 a : Fin 3, \u2203 \u03b5 \u03b4 : Bool,\n      z=signedPower \u03c9 \u03b5 (2*a.val) \u2227 w=signedPower \u03c9 \u03b4 a.val ",
+      "imports": [
+        "CriticalCornerPhysical",
+        "FourierCriticalEquivalences",
+        "SingularFourierRouting"
+      ]
+    },
+    {
+      "module": "FourierCriticalPhysical",
+      "sha256": "e2f01137566a986be770a8cc43303139e14c45a45bf1ccadec48a51addbd6ff8",
+      "theorem": "allCritical_N_fixed",
+      "type": "theorem allCritical_N_fixed {\u03c9 z w : \u2102}\n    (h\u03c9 : Worker12.PrimitiveCubicPhase \u03c9) (hz : Complex.normSq z=1) (hw : Complex.normSq w=1)\n    (hN : AllCritical (N \u03c9 z w)) : MonomialEquivalent (N \u03c9 z w) fixedF6 ",
+      "imports": [
+        "CriticalCornerPhysical",
+        "FourierCriticalEquivalences",
+        "SingularFourierRouting"
+      ]
+    },
+    {
+      "module": "FourierCriticalPhysical",
+      "sha256": "e2f01137566a986be770a8cc43303139e14c45a45bf1ccadec48a51addbd6ff8",
+      "theorem": "allCritical_fourier_fixed",
+      "type": "theorem allCritical_fourier_fixed {H : Mat6} (hH : AllCritical H)\n    (hf : CriticalFourierRouting20261003.FourierOrTranspose H) :\n    MonomialEquivalent H fixedF6 ",
+      "imports": [
+        "CriticalCornerPhysical",
+        "FourierCriticalEquivalences",
+        "SingularFourierRouting"
+      ]
+    },
+    {
+      "module": "SingularFourierRouting",
+      "sha256": "e5f87d22ba177f742ad0d27a0e966f849093b1b3a34d62e1ab355e9effbbbad1",
+      "theorem": "singular_selectedMinor_fourier",
+      "type": "theorem singular_selectedMinor_fourier {H : Mub6.BasisMatrix}\n    (hH : Mub6.IsPhaseHadamard6 H) (rows cols : Fin 3 \u21aa Fin 6)\n    (hdet : (selectedMinor H rows cols).det = 0) : FourierOrTranspose H ",
+      "imports": [
+        "GoodMinorPhysical",
+        "Hadamard6.TaoAtlas",
+        "Worker12.ZeroClassification"
+      ]
+    },
+    {
+      "module": "SingularFourierRouting",
+      "sha256": "e5f87d22ba177f742ad0d27a0e966f849093b1b3a34d62e1ab355e9effbbbad1",
+      "theorem": "phaseHadamard_singular_minor_fourier",
+      "type": "theorem phaseHadamard_singular_minor_fourier {H : Mub6.BasisMatrix}\n    (hH : PhaseHadamard H) (rows cols : Fin 3 \u21aa Fin 6)\n    (hdet : (H.submatrix rows cols).det = 0) : FourierOrTranspose H ",
+      "imports": [
+        "GoodMinorPhysical",
+        "Hadamard6.TaoAtlas",
+        "Worker12.ZeroClassification"
+      ]
+    },
+    {
+      "module": "SingularFourierRouting",
+      "sha256": "e5f87d22ba177f742ad0d27a0e966f849093b1b3a34d62e1ab355e9effbbbad1",
+      "theorem": "actual_edge_zero_minor_fourier",
+      "type": "theorem actual_edge_zero_minor_fourier\n    {B : Fin 4 \u2192 Mub6.BasisMatrix} (hB : Mub6.IsMUBQuartet B)\n    (a b : Fin 4) (hab : a \u2260 b) (rows cols : Fin 3 \u21aa Fin 6)\n    (hdet : (selectedMinor (Mub6.overlap (B a) (B b)) rows cols).det = 0) :\n    FourierOrTranspose\n      (Mub6.phaseScale (Real.sqrt 6) (Mub6.overlap (B a) (B b))) ",
+      "imports": [
+        "GoodMinorPhysical",
+        "Hadamard6.TaoAtlas",
+        "Worker12.ZeroClassification"
+      ]
+    },
+    {
+      "module": "CriticalActualSheet",
+      "sha256": "e8dc864f4e623a6179b30d9c8c90f5c82f048f97945c9adcd70bafc29b399f02",
+      "theorem": "allCritical_actual_sheet",
+      "type": "theorem allCritical_actual_sheet {H : CompactCover.Mat6} (hH : AllCritical H)\n    (c : Fin 20) (hd : (stripCorner H c).det\u22600) :\n    blockSheet (stripCorner H c) =\n      ((FourierGramNumerators.chi (sideS (stripCorner H c)) (sideT (stripCorner H c))\n        (sideR (stripCorner H c)) /\n      (2*FourierGramNumerators.g (sideS (stripCorner H c)) (sideT (stripCorner H c))\n        (sideR (stripCorner H c))) : \u211d) : \u2102) ",
+      "imports": [
+        "CriticalSingularBoundary",
+        "PhysicalSideRational"
+      ]
+    },
+    {
+      "module": "CriticalCounts",
+      "sha256": "eb4a797f3fa8ead29c7eef7b34f2088296d01675cf2c21e217a923b4104545c7",
+      "theorem": "special_bounds",
+      "type": "theorem special_bounds {k : \u211d} (hk : 0<k) (hc : cubic k=0) :\n    (572220/100000:\u211d) \u2264 specialValue k \u2227 specialValue k \u2264 (572221/100000:\u211d) ",
+      "imports": [
+        "RadianSeedBounds"
+      ]
+    },
+    {
+      "module": "CriticalAllocatedFourierCandidate",
+      "sha256": "ef01fe4f96f73530fac084f0d6217acc70bd4e66d44b03b89f4cf9901a89d6ee",
+      "theorem": "allCritical_allocated_fourier",
+      "type": "theorem allCritical_allocated_fourier {H : CompactCover.Mat6}\n    (hH : AllCritical H) (c : Fin 20) (z : \u211d)\n    (hz0 : z\u22600) (hz3 : z\u2260 -3) (hz2 : z\u2260 -2)\n    (hj : sideJ (stripCorner H c)=0) (ha : Allocated (stripCorner H c) z) :\n    FourierOrTranspose H ",
+      "imports": [
+        "CriticalAllocatedChart",
+        "CriticalAllocatedFourier"
+      ]
+    },
+    {
+      "module": "CriticalAllocatedChart",
+      "sha256": "f3e73ac689b908ebf9a2e8e2ba6c423e46aadc3703eef02d259dec0338ad554b",
+      "theorem": "allCritical_allocated_chart",
+      "type": "theorem allCritical_allocated_chart {H : CompactCover.Mat6} (hH : AllCritical H)\n    (c : Fin 3 \u2192 Fin 6) (z : \u211d) (hj : sideJ (H.submatrix front c)=0)\n    (ha : Allocated (H.submatrix front c) z) :\n    \u2203 p : Perm,\n      (p=Equiv.refl _ \u2228 p=Equiv.swap 0 1 \u2228 p=Equiv.swap 0 2) \u2227\n      let K ",
+      "imports": [
+        "CriticalCorrelationRechart"
+      ]
+    },
+    {
+      "module": "CriticalZeroStripIndependentReview",
+      "sha256": "f45075faf8175910ffb176b663b0a81c768f58c39f0f6669ffcbd72c214b27ac",
+      "theorem": "actual_strip_equation",
+      "type": "theorem actual_strip_equation {H : CompactCover.Mat6}\n    (hH : AllCritical H) (z : \u211d)\n    (hzlo : -3\u2264z) (hz0 : z\u22600) (hz3 : z\u2260 -3) (hz2 : z\u2260 -2)\n    (hp : sideP (stripLeftBlock H)=9-z^2)\n    (hj : sideJ (stripLeftBlock H)=0)\n    (hw : sideW (stripLeftBlock H)=z^2*(z+3)^2)\n    (hs : (stripLeftData H).s\u22600) (ht : (stripLeftData H).t\u22600) :\n    let D ",
+      "imports": [
+        "CriticalZeroSideAllCritical"
+      ]
+    },
+    {
+      "module": "CriticalScalarReduction",
+      "sha256": "f4675794d588286a9e68a36e0aecdb63ff309c05fd64b3da99044b310080b720",
+      "theorem": "nonzero_reduction",
+      "type": "theorem nonzero_reduction {p j w : \u211d} (hp : 0\u2264p) (hphys : p+|j|\u22649)\n    (hj : j\u22600) (hplus : R p j w=0) (hminus : R p (-j) w=0) :\n    5<p \u2227 p<9 \u2227 j^2=(9-p)^3*(p-5)/4 \u2227\n      w=-(p-9)*(p^2-10*p+27)/2 ",
+      "imports": [
+        "RadianSeedBounds"
+      ]
+    },
+    {
+      "module": "CriticalZeroActualComputedNumeratorV2",
+      "sha256": "f5ef1c88c4e44960ffceabb48f393ccff11b6cc5b2c2efb3e3b6b2a1e0b30996",
+      "theorem": "allCritical_computed_numerator_zero",
+      "type": "theorem allCritical_computed_numerator_zero {H : CompactCover.Mat6}\n    (hH : AllCritical H) (z : \u211d)\n    (hzlo : -3\u2264z) (hz0 : z\u22600) (hz3 : z\u2260 -3) (hz2 : z\u2260 -2)\n    (hp : sideP (stripLeftBlock H)=9-z^2)\n    (hj : sideJ (stripLeftBlock H)=0)\n    (hw : sideW (stripLeftBlock H)=z^2*(z+3)^2)\n    (hs : (stripLeftData H).s\u22600) (ht : (stripLeftData H).t\u22600) :\n    let D ",
+      "imports": [
+        "CriticalZeroAllCriticalInputs",
+        "CriticalZeroComputedEquation"
+      ]
+    }
+  ]
+}

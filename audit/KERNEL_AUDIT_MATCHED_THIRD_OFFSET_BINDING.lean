@@ -1,0 +1,8 @@
+import NoFourMUBs.Step2.Reconstruction.ThirdMoment.Certificates.OffsetBinding
+
+#check NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.savedOffset_value
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P065_value
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P066_value
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.seedWeightedOffset_formula
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P066_seed_ne_zero
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.savedOffset_value

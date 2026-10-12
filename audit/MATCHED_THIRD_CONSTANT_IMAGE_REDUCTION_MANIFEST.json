@@ -1,0 +1,22 @@
+{
+  "scope": "matched_third_flatness",
+  "records": [
+    {
+      "module": "NoFourMUBs.Step2.Reconstruction.ThirdMoment.ConstantImageReduction",
+      "active_path": "NoFourMUBs/Step2/Reconstruction/ThirdMoment/ConstantImageReduction.lean",
+      "active_sha256": "4823786673828d1e1ca30993b16ac9c894001d60996028abc26e7060e4af200e",
+      "local_model_adapter": true
+    }
+  ],
+  "axiom_endpoints": [
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.seedImageConstant_reduced"
+  ],
+  "dependency_audits": [
+    "KERNEL_AUDIT_MATCHED_THIRD_CONSTANT_GRAM_CANCELLATION_STATUS.json",
+    "KERNEL_AUDIT_MATCHED_THIRD_SEED_RESIDUALS_STATUS.json",
+    "KERNEL_AUDIT_MATCHED_THIRD_FORCED_COEFFICIENT_STATUS.json"
+  ],
+  "scope_note": "Apply the checked Gram-factor cancellation to the same actual seedImageConstant on every StrictSeed. Pure matrix/scalar algebra; no new saved array and no new hypothesis. Actual individual numerator bindings remain separate.",
+  "new_numeric_arrays": 0,
+  "atlas_certification": false
+}

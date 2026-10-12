@@ -1,0 +1,41 @@
+{
+  "scope": "critical_nonzero_scalar_endpoint",
+  "records": [
+    {
+      "active_path": "NoFourMUBs/Step2/CriticalZero/NonzeroScalarEndpoint.lean",
+      "active_sha256": "25ce1d9aa29b51b3dafccc98c6506c5dea2f0fe8b3d306616228c7adfdc591f4",
+      "module": "NoFourMUBs.Step2.CriticalZero.NonzeroScalarEndpoint",
+      "local_model_adapter": true,
+      "review": "CRITICAL_SCALAR_ENDPOINT_REUSE_REVIEW.json"
+    }
+  ],
+  "dependency_pins": [
+    {
+      "active_path": "NoFourMUBs/Step2/CriticalZero/PhysicalPoleClassification.lean",
+      "active_sha256": "511de5ea08c2d1a454fcfcb6a81a4a0d86237ec24029ac1f1d0ea4ef21c3ebff"
+    },
+    {
+      "active_path": "NoFourMUBs/Step2/CriticalZero/EquicorrelationScalarEndpoint.lean",
+      "active_sha256": "022371eb1de73c0b341e3e58e95840663f507b7a343e2518d79a1b34e399883d"
+    },
+    {
+      "active_path": "NoFourMUBs/Step2/CriticalZero/P7StripEndpoint.lean",
+      "active_sha256": "3e967a2d9bd7668d169b27c4774c1b4f3379e9158c06f80e5f01c763ddc44743"
+    },
+    {
+      "active_path": "NoFourMUBs/Step2/CriticalStripMatrix.lean",
+      "active_sha256": "7afefa1ebbb250dfd3039c4576224c1af58ebb522a98db8bfa7218db705e5f5a"
+    }
+  ],
+  "axiom_endpoints": [
+    "NoFourMUBs.Step2.Critical.strip_nonzero_quartic_special",
+    "NoFourMUBs.Step2.Critical.strip_nonzero_pole_special"
+  ],
+  "dependency_audits": [
+    "KERNEL_AUDIT_CRITICAL_PHYSICAL_POLE_CLASSIFICATION_STATUS.json",
+    "KERNEL_AUDIT_CRITICAL_P7_STRIP_ENDPOINT_STATUS.json",
+    "KERNEL_AUDIT_CRITICAL_EQUICORRELATION_SCALAR_ENDPOINT_STATUS.json"
+  ],
+  "atlas_certification": false,
+  "scope_note": "Every nonzero signed-parameter physical pole in any of twenty all-critical strip corners has the existing cubic-root exceptional value. The same consumer handles regular quartic zeros when that premise is available. The general regular quartic binding and global CriticalClassification remain open."
+}

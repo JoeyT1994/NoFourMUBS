@@ -1,0 +1,161 @@
+{
+  "status": "PASS",
+  "reviewed_utc": "2026-10-11T03:56:05.488480+00:00",
+  "before_sha256": "d3e9fc94ce26cfbb3e0922fdaae8f5cb9c531c495dbe4fed2b09873e4e033dd5",
+  "change": "Use the checked SOS.conditionalSOS in the existing single main implication; remove its hSOS argument. No alternate final proof.",
+  "evidence": "CONDITIONAL_SOS_PASS.json",
+  "remaining_inputs": [
+    "AtlasCertificate",
+    "MatchedExistence",
+    "CriticalClassification"
+  ],
+  "atlas_certification": false,
+  "checked_utc": "2026-10-11T03:58:41.492162+00:00",
+  "after_sha256": "9316a2a26614e4d1782334d03709321b378540e2cb4002a888110d85c01e3556",
+  "audit_source_sha256": "d9e66d93f241ec58106b7c562643afb59dbe0488d016b729b7764580ae89ac4b",
+  "build_log": "MAIN_SOS_INTEGRATION_BUILD.log",
+  "audit_log": "MAIN_SOS_INTEGRATION_AUDIT.log",
+  "printed_signature": "NoFourMUBs.no_four_mubs_main : \u2200 (C : NoFourMUBs.AtlasCertificate),\n  NoFourMUBs.Step2.MatchedExistence \u2192 NoFourMUBs.Step2.CriticalClassification \u2192 \u00acNoFourMUBs.FourMUBs",
+  "axioms": {
+    "NoFourMUBs.no_four_mubs_main": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.SOS.conditionalSOS": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.SOS.Semantics.rowsSound": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.frameScalarIdentities": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.repaired_exactReach": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Side.signature_discriminant": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Side.permanent_norm": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "FourierPhysicalSide.eta_permanent": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.fourier_vanishing": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.fourier_vanishing_transpose": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.carrier_strip_not_all_classified": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.SOS.Arithmetic.consequence": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.SOS.Semantics.rowSound668": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.SOS.sideSignature_laurent": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.SOS.sameLabels_complementarySignatures": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.SOS.complementary_moments": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.SOS.Semantics.fourierInputZero0": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.SOS.Semantics.fourierInputZero12": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.SOS.Normalization.projected_zero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.SOS.cubicMoment_real": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.SOS.physical_defect_average": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.SOS.signatureDefect_average_transpose": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.SOS.Semantics.rowSound0": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.SOS.Semantics.rowSound1": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.SOS.Semantics.rowSound2": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.SOS.Semantics.rowSound3": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.SOS.Semantics.rowSound4": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.SOS.Semantics.rowSound5": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  }
+}

@@ -1,0 +1,8 @@
+import NoFourMUBs.Step2.CriticalZero.CommonTerm01
+
+#check CriticalZeroSumAssembly20261003.pair00_eval
+#check CriticalZeroSumAssembly20261003.trip00_eval
+#check CriticalZeroSumAssembly20261003.common_term01_from_trip00
+#print axioms CriticalZeroSumAssembly20261003.pair00_eval
+#print axioms CriticalZeroSumAssembly20261003.trip00_eval
+#print axioms CriticalZeroSumAssembly20261003.common_term01_from_trip00

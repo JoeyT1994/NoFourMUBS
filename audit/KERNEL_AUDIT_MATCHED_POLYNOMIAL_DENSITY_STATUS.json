@@ -1,0 +1,40 @@
+{
+  "status": "PASS",
+  "checked_utc": "2026-10-11T20:01:32.570150+00:00",
+  "modules": 1,
+  "axiom_endpoints": {
+    "NoFourMUBs.Step2.Reconstruction.dense_polynomial_nonzero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.dense_strict_polynomial_nonzero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.matchedExistence_of_polynomial": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "source_hashes": {
+    "NoFourMUBs/Step2/Reconstruction/PolynomialDensity.lean": "449b837268f84cc9a77f8c6d484da1f267e9d1c8ccb17ab4dfaabd63d7d9f071"
+  },
+  "manifest_sha256": "b99394bf1f46c18fe4a375e2a38ebcea0f3aef12645cfbc892ed85aacc8b17dd",
+  "audit_log_sha256": "93409c5effa31e43f39d6d91650de08d15ba0c195d27f960bb74e1025ff39f45",
+  "scope": "Polynomial nonvanishing is dense on the phase torus and the strict open locus, by the existing Mathlib funext_set theorem. The existing closed-projection theorem extends generic matched existence. A particular nonzero guard polynomial and its generic completion theorem remain explicit inputs. No atlas certification.",
+  "dependency_audits": {},
+  "dependency_source_hashes": {
+    "NoFourMUBs/Step2/DenseExistence.lean": "cbbc671200490f214646dc7ab797e300fb4e61bed98e89f5b21844b35a10c1fe",
+    "NoFourMUBs/Step2/Statements.lean": "47388a383d3ab3c6412ae0257f53d98aa86bfc52991f5bc25dddf17613e049fc",
+    ".lake/packages/mathlib/Mathlib/Algebra/MvPolynomial/Funext.lean": "cb1821884a139917b692103a0b267115179cd4e7084da5487857ec49abb0cc7e",
+    ".lake/packages/mathlib/Mathlib/Topology/Perfect.lean": "4979ebc223592b62580b7bfa1f130fdb4154a831cdc90033d090351d7d976caa",
+    ".lake/packages/mathlib/Mathlib/Topology/Separation/Basic.lean": "d3932db8d5fae4c6ec691d4ee3ecc39c94d684edef7602f290bbe7c1f174c6f8",
+    ".lake/packages/mathlib/Mathlib/Topology/Constructions.lean": "1b2099fa575c72263e2d512bf166ed78cc483fb09100b0e56a923e9b8dc31048",
+    ".lake/packages/mathlib/Mathlib/Topology/Maps/Basic.lean": "f5775adabdf497e328542ea77e5fe0ac46011bc34905a7e02ffe0284ec1e79d8",
+    ".lake/packages/mathlib/Mathlib/Analysis/SpecialFunctions/Complex/Circle.lean": "d9a0411670e53da4c2eb0ba1b9a1ff3a7ce45505b7d52ba237b46b62a1d1b55b"
+  },
+  "atlas_certification": false
+}

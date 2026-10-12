@@ -1,0 +1,84 @@
+{
+  "status": "REVIEWED_REUSE_EXISTING_THREE_VARIABLE_CHECKER",
+  "reviewed_utc": "2026-10-12T00:09:21.684816+00:00",
+  "repository_commit": "4a3728d7f388aa2f2cb4a42bfb5c00b27566f23f",
+  "search": "MATCHED_THIRD_ARITHMETIC_REUSE_SEARCH.json",
+  "coverage": "All77948source/19386blob/16532import index rows searched, current Lean, full available archive content and complete vendor/OAI searched. Only supplied available work is covered.",
+  "comparisons": [
+    {
+      "existing": "CriticalZeroSumDenseCoefficients.interpret_add/neg/mul, allZero_of_certificates",
+      "decision": "Directly reuse the existing three-variable integer coefficient representation and soundness. Each upstream a coefficient is a three-variable b,c,d polynomial, exactly the supported model."
+    },
+    {
+      "existing": "CriticalZeroIntegerReflector.evalII_zero and CriticalZeroCoefficientCore.eval_allZero",
+      "decision": "Reuse to turn closed integer-list checks into arbitrary commutative-ring polynomial equalities. Kernel rfl checks only; no native_decide/ofReduceBool."
+    },
+    {
+      "existing": "CriticalZeroSumCoefficientAt and CoefficientRow",
+      "decision": "Existing coefficient-at-a-time convolution and per-row certificates are candidates for larger cofactor/product checks. Do not introduce a new reflector before using these available helpers."
+    },
+    {
+      "existing": "SparsePolynomialIntervals (two available versions, declarations inspected)",
+      "decision": "Supplies evaluation and interval enclosures, not exact addition/multiplication normalization for the saved arrays. Do not adopt or certify any atlas source."
+    },
+    {
+      "existing": "Saved E third_moment_certificates.json.gz",
+      "decision": "Preserve exact saved coefficients. Serialize a-slices into the existing nested b,c,d list format; round-trip back to the sparse original before emitting. This is data-format adaptation, not symbolic regeneration. Pilot W11 linear a^5 is one of110already supplied slice identities. Its cofactor/product/semantic bindings remain separate obligations."
+    },
+    {
+      "existing": "CriticalZeroCoefficientCore.eval, add, allZero, eval_add, eval_allZero",
+      "decision": "For the outer a variable, reuse this same generic one-variable Horner evaluator directly. Assemble the supplied slices by references and zero padding only; consume their checked cancellation statements via allZero and eval_add. No new normalization engine and no regenerated coefficients."
+    }
+  ],
+  "source_pins": [
+    {
+      "path": "lean/NoFourMUBs/Reuse/Archive/CriticalZeroCoefficientCore.lean",
+      "sha256": "432fed0290217430549866252f3d424e071fc185a8ea1333115a46ef43f7dbd3"
+    },
+    {
+      "path": "lean/NoFourMUBs/Reuse/Archive/CriticalZeroIntegerReflector.lean",
+      "sha256": "5ce93847bac62f47c9b123906dca3642f93d8a0bfeb53c6921f1cfd603d9164a"
+    },
+    {
+      "path": "lean/NoFourMUBs/Reuse/Archive/CriticalZeroSumCoefficientOps.lean",
+      "sha256": "dbac17d85ee200ee769b6f82f9397efb4eb6bb3a17bf3ce6046957c574ccc4a3"
+    },
+    {
+      "path": "lean/NoFourMUBs/Reuse/Archive/CriticalZeroSumDenseCoefficients.lean",
+      "sha256": "b9bfcd6c882329da43a6d318ac481580385621442600a6bb102e0ad1298af29c"
+    },
+    {
+      "path": "lean/NoFourMUBs/Reuse/Archive/CriticalZeroSumDenseLengths.lean",
+      "sha256": "259421dcb53b149def4319e8ee364dfbdb0f640214dcc27bce01d82a18fe9541"
+    },
+    {
+      "path": "lean/NoFourMUBs/Reuse/Archive/CriticalZeroSumCoefficientAt.lean",
+      "sha256": "4e4ed861b02268c234a5c3be7114dfb3ac0a01bda3ca3a468a8bb209e34d5922"
+    },
+    {
+      "path": "lean/NoFourMUBs/Reuse/Archive/CriticalZeroSumCoefficientRow.lean",
+      "sha256": "22dd3ad1bd034ec9cfe8a6c83e9ea7f367b735e66e70e02896d407c70c4af9ef"
+    },
+    {
+      "path": "lean/NoFourMUBs/Reuse/Archive/CriticalZeroSumBinaryCertificate.lean",
+      "sha256": "1b0aa20b70be2198d9ebd75ea58c52ed89b661518049027e586b16680d0ac2cc"
+    },
+    {
+      "path": "lean/NoFourMUBs/Reuse/Archive/CriticalZeroSumRowCertificate.lean",
+      "sha256": "51a0ae0887f442c11bf0193dfdea2c34487d42052b40f9e6f10c8ddf8d0fdaa4"
+    },
+    {
+      "path": "audit/updates/4a3728/files/proof/coverage/returns/E_matched_flatness/direct/third_moment_certificates.json.gz",
+      "sha256": "f986a996673ec0089ec09c3b9ee827c71463fe6f7f57f67b0ded6b793beaad8f"
+    }
+  ],
+  "atlas_certification": false,
+  "pilot": "W11 linear, a_power5; all nine original cleared integer summands",
+  "not_claimed": [
+    "full eight rational identities",
+    "cofactor products",
+    "specialization to actual strict seed",
+    "MatchedExistence"
+  ],
+  "outer_assembly_reviewed_utc": "2026-10-12T00:29:25.196848+00:00"
+}

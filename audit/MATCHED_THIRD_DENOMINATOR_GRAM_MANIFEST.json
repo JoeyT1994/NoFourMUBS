@@ -1,0 +1,22 @@
+{
+  "scope": "matched_third_flatness",
+  "records": [
+    {
+      "module": "NoFourMUBs.Step2.Reconstruction.ThirdMoment.Certificates.DenominatorGram",
+      "active_path": "NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/DenominatorGram.lean",
+      "active_sha256": "9c1c562c944efb13cb4dfe03a30ecbe74c4208669b53ae40f9e7c2ef0f726b80",
+      "local_model_adapter": true
+    }
+  ],
+  "axiom_endpoints": [
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P045_seed_factor",
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P045_strict_ne_zero",
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P031_strict_ne_zero"
+  ],
+  "dependency_audits": [
+    "KERNEL_AUDIT_MATCHED_THIRD_DENOMINATOR_INPUTS_STATUS.json",
+    "KERNEL_AUDIT_MATCHED_THIRD_MONOMIAL_TRANSPORT_1_STATUS.json"
+  ],
+  "scope_note": "Reuse strict Gram guard and checked product021 for the W11 constant common denominator; no new arrays and no atlas.",
+  "atlas_certification": false
+}

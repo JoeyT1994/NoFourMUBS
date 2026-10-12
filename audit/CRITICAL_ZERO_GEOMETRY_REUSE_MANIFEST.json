@@ -1,0 +1,220 @@
+{
+  "scope": "critical_zero_geometry_reuse",
+  "status": "ADOPTED_UNCOMPILED",
+  "records": [
+    {
+      "module": "NoFourMUBs.Reuse.Archive.CriticalTriplesComplement",
+      "original_module": "CriticalTriplesComplement",
+      "original_sha256": "ca9eb5147cccb71507a65758b3b923caf29ca6036115e185171ad9d0946e902f",
+      "original_source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/global_assembly/exceptional_interfaces/whole_strip/CriticalTriplesComplement.lean",
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalTriplesComplement.lean",
+      "active_sha256": "fa9d8c77334d9a7fc6ec6ad25addc22e4d1edcd353c3f2d51302717e6e067588",
+      "imports_only_adaptation": true,
+      "proof_adaptations": [],
+      "import_replacements": {
+        "CriticalRowSum": "NoFourMUBs.Reuse.Archive.CriticalRowSum"
+      },
+      "omitted_reused_declarations": [],
+      "model_identifier_replacements": {},
+      "namespace_open_replacements": {},
+      "proof_tactic_replacements": []
+    },
+    {
+      "module": "NoFourMUBs.Reuse.Archive.CriticalGeometricHalves",
+      "original_module": "CriticalGeometricHalves",
+      "original_sha256": "27dd047efdcd53a48ba035c9ef3dbbd60089530b75ca1301d9ae5853e26d62e6",
+      "original_source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/global_assembly/exceptional_interfaces/whole_strip/CriticalGeometricHalves.lean",
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalGeometricHalves.lean",
+      "active_sha256": "a91efbda28287e3c93885da328533a8d9376e1f08899209c8b3f49aae9a36020",
+      "imports_only_adaptation": false,
+      "proof_adaptations": [
+        "Reviewed matrix/predicate identifier and namespace-open substitutions only; all algebraic proof bodies retained"
+      ],
+      "import_replacements": {
+        "CriticalStripPhysical": "NoFourMUBs.Reuse.Archive.CriticalStripPhysical"
+      },
+      "omitted_reused_declarations": [],
+      "model_identifier_replacements": {
+        "CompactCover.Mat6": "OAI.MUB6.CMatrix"
+      },
+      "namespace_open_replacements": {
+        "open Mub6 Mub6.Numerical Mub6.Classification\nopen CompactCover GoodMinor FourierSeedBinding FourPhase FourPhaseWorker CanonicalCorners\nopen GlobalCornerDomain ": "open Matrix NoFourMUBs.Step2.Critical\nopen "
+      },
+      "proof_tactic_replacements": []
+    },
+    {
+      "module": "NoFourMUBs.Reuse.Archive.CriticalGeometricNumerator",
+      "original_module": "CriticalGeometricNumerator",
+      "original_sha256": "35510adb3cb26638710eb6abea12abeec33aeea29b28e7638f575cacd823d6bd",
+      "original_source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/global_assembly/exceptional_interfaces/geometric_binding/CriticalGeometricNumerator.lean",
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalGeometricNumerator.lean",
+      "active_sha256": "f29c1ca88844dd76b02f900413d34376f13aa80c428394cf9a7658d72248bc15",
+      "imports_only_adaptation": false,
+      "proof_adaptations": [
+        "Import the already checked shared numerator definition explicitly; the current light moment module no longer imports it transitively. No statement/proof body changes."
+      ],
+      "import_replacements": {
+        "CriticalMomentBinding": "NoFourMUBs.Reuse.Archive.CriticalMomentBinding",
+        "GramNumerators": "NoFourMUBs.Reuse.Archive.GramNumerators"
+      },
+      "omitted_reused_declarations": [],
+      "model_identifier_replacements": {},
+      "namespace_open_replacements": {},
+      "proof_tactic_replacements": [
+        {
+          "before": "import NoFourMUBs.Reuse.Archive.CriticalMomentBinding\n",
+          "after": "import NoFourMUBs.Reuse.Archive.CriticalMomentBinding\nimport NoFourMUBs.Reuse.Archive.GramNumerators\n",
+          "count": 1,
+          "reason": "Import the already checked shared numerator definition explicitly; the current light moment module no longer imports it transitively. No statement/proof body changes."
+        }
+      ]
+    },
+    {
+      "module": "NoFourMUBs.Reuse.Archive.CriticalGeometricActualLambda",
+      "original_module": "CriticalGeometricActualLambda",
+      "original_sha256": "df2bb601d9781f00a52653b4d8d0fec137d23079096b4945e487ca7dff5e8ca3",
+      "original_source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/global_assembly/exceptional_interfaces/geometric_binding/CriticalGeometricActualLambda.lean",
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalGeometricActualLambda.lean",
+      "active_sha256": "f4633ba6f2b2bb1385cf3e396fb0444fd052a48832072a52da20d54dd5c393c1",
+      "imports_only_adaptation": false,
+      "proof_adaptations": [
+        "Reviewed matrix/predicate identifier and namespace-open substitutions only; all algebraic proof bodies retained"
+      ],
+      "import_replacements": {
+        "CriticalLightSheet": "NoFourMUBs.Reuse.Archive.CriticalLightSheet"
+      },
+      "omitted_reused_declarations": [],
+      "model_identifier_replacements": {},
+      "namespace_open_replacements": {
+        "open Matrix CriticalPhysical20261003 CriticalLightSheet20261003\n": "open Matrix NoFourMUBs.Step2.Critical CriticalPhysical20261003 CriticalLightSheet20261003\n"
+      },
+      "proof_tactic_replacements": []
+    },
+    {
+      "module": "NoFourMUBs.Reuse.Archive.CriticalUnitSumTerminal",
+      "original_module": "CriticalUnitSumTerminal",
+      "original_sha256": "8af8f023349773be6fcfcd01892a8c46ea23e7f7d76f5ec84ae1351f62aacfec",
+      "original_source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_physical_inputs/CriticalUnitSumTerminal.lean",
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalUnitSumTerminal.lean",
+      "active_sha256": "8af8f023349773be6fcfcd01892a8c46ea23e7f7d76f5ec84ae1351f62aacfec",
+      "imports_only_adaptation": true,
+      "proof_adaptations": [],
+      "import_replacements": {},
+      "omitted_reused_declarations": [],
+      "model_identifier_replacements": {},
+      "namespace_open_replacements": {},
+      "proof_tactic_replacements": []
+    },
+    {
+      "module": "NoFourMUBs.Reuse.Archive.CriticalAllocatedBlockGeometric",
+      "original_module": "CriticalAllocatedBlockGeometric",
+      "original_sha256": "c8f269b40f6692ea6af224f7e0c5402d3295714c1a6735e22988bb7a83d4cfeb",
+      "original_source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_physical_inputs/CriticalAllocatedBlockGeometric.lean",
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalAllocatedBlockGeometric.lean",
+      "active_sha256": "1249699b133618755be62d223ced747f60bd7b903b64f849d85557d87c10c69b",
+      "imports_only_adaptation": false,
+      "proof_adaptations": [
+        "Reviewed matrix/predicate identifier and namespace-open substitutions only; all algebraic proof bodies retained"
+      ],
+      "import_replacements": {},
+      "omitted_reused_declarations": [],
+      "model_identifier_replacements": {},
+      "namespace_open_replacements": {
+        "open Matrix CriticalPhysical20261003 CriticalLightSheet20261003\n": "open Matrix NoFourMUBs.Step2.Critical CriticalPhysical20261003 CriticalLightSheet20261003\n"
+      },
+      "proof_tactic_replacements": []
+    },
+    {
+      "module": "NoFourMUBs.Reuse.Archive.CriticalAllocatedWholeStrip",
+      "original_module": "CriticalAllocatedWholeStrip",
+      "original_sha256": "e26ca63c808d0b529efe4551e6240579aadf01ccc8aac35e80086dc6cea7f300",
+      "original_source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/global_assembly/exceptional_interfaces/whole_strip/CriticalAllocatedWholeStrip.lean",
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalAllocatedWholeStrip.lean",
+      "active_sha256": "b6e95e323cabd9f0b3054f95030ca296a16b31944ce717afd3713c3e4ec584a8",
+      "imports_only_adaptation": false,
+      "proof_adaptations": [
+        "Reviewed matrix/predicate identifier and namespace-open substitutions only; all algebraic proof bodies retained"
+      ],
+      "import_replacements": {},
+      "omitted_reused_declarations": [],
+      "model_identifier_replacements": {
+        "CompactCover.Mat6": "OAI.MUB6.CMatrix"
+      },
+      "namespace_open_replacements": {
+        "open Mub6 Mub6.Numerical Mub6.Classification\nopen CompactCover GoodMinor FourierSeedBinding FourPhase FourPhaseWorker CanonicalCorners\nopen GlobalCornerDomain ": "open Matrix NoFourMUBs.Step2.Critical\nopen "
+      },
+      "proof_tactic_replacements": []
+    },
+    {
+      "module": "NoFourMUBs.Reuse.Archive.CriticalAllocatedChart",
+      "original_module": "CriticalAllocatedChart",
+      "original_sha256": "c82f8497e092479a50be1742844c62a298c390c01afcc63588635bf1ee6e6a94",
+      "original_source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/global_assembly/exceptional_interfaces/whole_strip/CriticalAllocatedChart.lean",
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalAllocatedChart.lean",
+      "active_sha256": "dd7e3603f621f76cf67861d4db94f5733af31597437cfde4a147641ece6d56c3",
+      "imports_only_adaptation": false,
+      "proof_adaptations": [
+        "Reviewed matrix/predicate identifier and namespace-open substitutions only; all algebraic proof bodies retained"
+      ],
+      "import_replacements": {
+        "CriticalCorrelationRechart": "NoFourMUBs.Reuse.Archive.CriticalCorrelationRechart"
+      },
+      "omitted_reused_declarations": [],
+      "model_identifier_replacements": {
+        "CompactCover.Mat6": "OAI.MUB6.CMatrix",
+        "CompactCover.Mat3": "Hadamard6.Mat3",
+        "AllCritical": "AllCriticalCarrier",
+        "MonomialEquivalent": "OAI.MUB6.Equivalent"
+      },
+      "namespace_open_replacements": {
+        "open Mub6 Mub6.Numerical Mub6.Classification\nopen CompactCover GoodMinor FourierSeedBinding FourPhase FourPhaseWorker CanonicalCorners\nopen GlobalCornerDomain ": "open Matrix NoFourMUBs.Step2.Critical\nopen "
+      },
+      "proof_tactic_replacements": []
+    },
+    {
+      "module": "NoFourMUBs.Reuse.Archive.CriticalAllocatedGeometricCandidate",
+      "original_module": "CriticalAllocatedGeometricCandidate",
+      "original_sha256": "af06219f2aeb10f384daeca65c5a02cfbf1da4c9b9eb976a8f6c0a5fb43ac8c5",
+      "original_source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/global_assembly/exceptional_interfaces/whole_strip/CriticalAllocatedGeometricCandidate.lean",
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalAllocatedGeometricCandidate.lean",
+      "active_sha256": "2e35390e899a83eed159124f87e9053971b46eff790eb83b0d82b29d326ac078",
+      "imports_only_adaptation": false,
+      "proof_adaptations": [
+        "Reviewed matrix/predicate identifier and namespace-open substitutions only; all algebraic proof bodies retained",
+        "Omit unrelated quartet-occurrence theorem, which is not used in the critical classification route.",
+        "Remove audit of the omitted unrelated endpoint."
+      ],
+      "import_replacements": {},
+      "omitted_reused_declarations": [],
+      "model_identifier_replacements": {
+        "CompactCover.Mat6": "OAI.MUB6.CMatrix",
+        "AllCritical": "AllCriticalCarrier",
+        "MonomialEquivalent": "OAI.MUB6.Equivalent"
+      },
+      "namespace_open_replacements": {
+        "open Mub6 Mub6.Numerical Mub6.Classification\nopen CompactCover GoodMinor FourierSeedBinding FourPhase FourPhaseWorker CanonicalCorners\nopen GlobalCornerDomain ": "open Matrix NoFourMUBs.Step2.Critical\nopen "
+      },
+      "proof_tactic_replacements": [
+        {
+          "before": "/-- The same actual carrier still occurs in a physical quartet if the\noriginal carrier did. The conclusion is not an existence claim for scalar data. -/\ntheorem allCritical_allocated_geometric_occurs {H : OAI.MUB6.CMatrix}\n    (hH : AllCriticalCarrier H) (c : Fin 20) (z : \u211d)\n    (hz0 : z\u22600) (hz3 : z\u2260 -3) (hz2 : z\u2260 -2)\n    (hj : sideJ (stripCorner H c)=0) (ha : Allocated (stripCorner H c) z)\n    (ho : OccursAsQuartetEdge (normalizedNumerical H)) :\n    \u2203 p : Perm,\n      (p=Equiv.refl _ \u2228 p=Equiv.swap 0 1 \u2228 p=Equiv.swap 0 2) \u2227\n      let K := candidate H p (Equiv.refl _)\n      AllCriticalCarrier K \u2227 OAI.MUB6.Equivalent H K \u2227\n      OccursAsQuartetEdge (normalizedNumerical K) \u2227\n      \u2200 j : Fin 6,K 2 j=star (K 1 j) := by\n  obtain \u27e8p,hpick,hK,he,hgeom\u27e9 := allCritical_allocated_geometric hH c z hz0 hz3 hz2 hj ha\n  exact \u27e8p,hpick,hK,he,candidate_occurs hH.1.1 ho p (Equiv.refl _),hgeom\u27e9\n",
+          "after": "",
+          "count": 1,
+          "reason": "Omit unrelated quartet-occurrence theorem, which is not used in the critical classification route."
+        },
+        {
+          "before": "#print axioms allCritical_allocated_geometric_occurs\n",
+          "after": "",
+          "count": 1,
+          "reason": "Remove audit of the omitted unrelated endpoint."
+        }
+      ]
+    },
+    {
+      "module": "NoFourMUBs.Step2.CriticalZero.ActualGeometry",
+      "active_path": "NoFourMUBs/Step2/CriticalZero/ActualGeometry.lean",
+      "active_sha256": "701e6d054ca92aeaef808cbd72400e35af180b92e5944083f3ecf93c40f9bf22",
+      "after_archived_module": "CriticalAllocatedGeometricCandidate",
+      "local_model_adapter": true
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "status": "PASS",
+  "checked_utc": "2026-10-12T00:15:26.655403+00:00",
+  "modules": 10,
+  "axiom_endpoints": {
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.Slice00A05_length": [
+      "propext"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.Slice00A05_checked": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.Slice00A05_value": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "source_hashes": {
+    "NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/Data/P001A05.lean": "1c535348b09aa244f1e5cbcede802e34ff7dab93c1be812ea3d1defb42276da9",
+    "NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/Data/P005A05.lean": "74bc112a6262501a1572cece2450e72a573415594e0d63df3f3982b70cea0e50",
+    "NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/Data/P009A05.lean": "72fceeffdb4d228c7f0775af2dd26d91f87ecfb684ca7354cf42ecdf4a227ae3",
+    "NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/Data/P013A05.lean": "911755392c2c16eadb08e5f17051a98c1f675deb589fb5f3959bbf5c89cecef0",
+    "NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/Data/P017A05.lean": "d222ff68a1ea1fc681efa6348834d3a6c06201ace66ec52673c1ecadc92070aa",
+    "NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/Data/P019A05.lean": "d5017426c45756ef8beb399bb3dbd518a8a1e9a6fe7ab2365147d954f4fbc8d0",
+    "NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/Data/P023A05.lean": "ae63e08fadc90ab06516340f4386a7e097bb6fddb2ecef0c8a6baf1ff233078a",
+    "NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/Data/P025A05.lean": "90492a5146407b20f848bb66ef5b9c724b2dc4cea64801106ead0c198e181415",
+    "NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/Data/P029A05.lean": "e1bd9b1a97b98516fcb2fdd4904ac9035a628f0e8f8906032cd92889de3c2b7e",
+    "NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/Slices/Slice00A05.lean": "681ae98ceeff7089ca7a15bbbc2d8d9064bed034f5a269db4e710e9acae296a9"
+  },
+  "manifest_sha256": "d50420cd3dd6e38c3bb0f2c7c0d335ebddfb64b4a67e212f708b799c9227ea78",
+  "audit_log_sha256": "5cdb72047413117caf499bd3aaf9dbba49648850a213fbbed4e421ffb5eeea89",
+  "scope": "One supplied coefficient slice: W11 linear, a^5. Only the cleared-summand cancellation; cofactor products and semantic bindings remain open.",
+  "dependency_audits": {},
+  "dependency_source_hashes": {
+    "NoFourMUBs/Reuse/Archive/CriticalZeroSumDenseCoefficients.lean": "b9bfcd6c882329da43a6d318ac481580385621442600a6bb102e0ad1298af29c",
+    "NoFourMUBs/Reuse/Archive/CriticalZeroIntegerReflector.lean": "5ce93847bac62f47c9b123906dca3642f93d8a0bfeb53c6921f1cfd603d9164a",
+    "NoFourMUBs/Reuse/Archive/CriticalZeroCoefficientCore.lean": "432fed0290217430549866252f3d424e071fc185a8ea1333115a46ef43f7dbd3",
+    "NoFourMUBs/Reuse/Archive/CriticalZeroSumCoefficientOps.lean": "dbac17d85ee200ee769b6f82f9397efb4eb6bb3a17bf3ce6046957c574ccc4a3"
+  },
+  "atlas_certification": false
+}

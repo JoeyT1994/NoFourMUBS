@@ -1,0 +1,51 @@
+{
+  "status": "REVIEWED_FACTOR_CANCELLATION_WITHIN_EXISTING_MATRIX_BINDING_ROUTE",
+  "reviewed_utc": "2026-10-12T17:53:06.300230+00:00",
+  "search": "MATCHED_THIRD_CONSTANT_GRAM_CANCELLATION_REUSE_SEARCH.json",
+  "source_pins": [
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/AffineMatrices.lean",
+      "sha256": "60a383a50489a3c083174749058cb1d7f3037cacd5c91062cb63a8be402dd00c"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/ForcedCoefficient.lean",
+      "sha256": "a558026f7e3710666de76112713da240862bc9f6527c8600f52c969ddfc70b35"
+    },
+    {
+      "path": "lean/NoFourMUBs/Reuse/Archive/GramNumerators.lean",
+      "sha256": "edb7de8e4499b9d6f8cae7b05213b414b46efd17b4692cd5cf67b5caff2fc0ba"
+    },
+    {
+      "path": "lean/NoFourMUBs/Reuse/Archive/PreRhoAlignmentDefs.lean",
+      "sha256": "9636d93b3569b9dccb1f8571d9c4ff51895ad0dd19165c1772184d2bad8dfa76"
+    },
+    {
+      "path": "lean/NoFourMUBs/Reuse/Archive/PreRhoActualBindings.lean",
+      "sha256": "95bd24d7140b39595e579e0c45b39df1533f43902380f4534c81c07e93e89caa"
+    },
+    {
+      "path": "lean/NoFourMUBs/Reuse/Archive/SideIntrinsicMatrixBindings.lean",
+      "sha256": "28e1b68230d5b0372200d1bc65f9f98e6db18afdda19c6f1c46cacdc0377a5a5"
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/c1/c1b2c6a1cb8a9e94b6e61ad5441fda5b470332a8116730097d3c8d858577b369/PhysicalAdjugateCross.lean",
+      "sha256": "c1b2c6a1cb8a9e94b6e61ad5441fda5b470332a8116730097d3c8d858577b369"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/SeedResiduals.lean",
+      "sha256": "c94274f074eebe811f0008d56656e476e5533f7e94e7f367cb03b9552f88e830"
+    }
+  ],
+  "comparisons": [
+    "The active oneConstant formula and seedCoefficient_adjugate are already checked. Whole-entry expansion produces repeated Gram factors and exceeded available computation. The proposed adapter cancels one such factor before expanding the four seed phases, retaining the same existing residual and original saved numerator target.",
+    "Exact untrusted six-variable polynomial calculations find adj(G)*(P0*Q1*Q0)=g*C, with C containing two zero entries and factored third column. This diagnostic is not a Lean proof and introduces no completed binding. Each matrix entry must be checked by Lean ring algebra using the existing definitions.",
+    "Reuse PreRhoAlignment.gramData and actualAlignmentData_scalar_bindings/P_bindings for scalar notation; do not introduce a second definition of g, eta, chi or the side denominators.",
+    "The archived gram_adjugate_sandwich takes an actual matrix B and its Gram BB*. It proves B*adj(BB*)B=det(BB*)I, not adj(G)*Q0. The physical cross variants require an already physical six-by-six matrix. Those assumptions cannot replace the unconditional strict-seed matrix identity needed here.",
+    "The archived SideIntrinsic matrix and Fourier bindings recover actual phase sides. They do not identify the constant affine matrix alone under Gram inversion. Existing scalar guards and affine third moments remain dependencies.",
+    "This is a computationally smaller algebraic adapter for the same E/direct third-moment certificate route. Original numerator arrays, product certificates and completed results remain unchanged; no retired companion or norm route is resumed.",
+    "The seedImageConstant_reduced adapter applies this same cancellation to the checked seedCoefficient_adjugate and uses matrix associativity and scalar multiplication. Its only domain is StrictSeed, which already proves g and both side denominators nonzero. It preserves the exact actual matrix, without a new semantic assumption."
+  ],
+  "original_saved_polynomials_unchanged": true,
+  "new_numeric_certificate_arrays": 0,
+  "atlas_certification": false
+}

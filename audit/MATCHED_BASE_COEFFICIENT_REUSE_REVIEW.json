@@ -1,0 +1,49 @@
+{
+  "status": "REVIEWED_ORIGINAL_CACHED_BASE_BINDINGS",
+  "scope": "matched_base_coefficients",
+  "checked_utc": "2026-10-11T19:36:59.100065+00:00",
+  "repository_head": "fd7d1019fa4a7f3551bf9ade5d31ebbce9501055",
+  "search": "MATCHED_BASE_COEFFICIENT_REUSE_SEARCH.json",
+  "source_pins": {
+    "audit/MATCHED_SYMBOLIC_BASE_CACHE.json": "a0940de2c81be584bb5ff394eb5fc10d258f03e105ab379d9ae8b04f32f6e4a3",
+    "audit/MATCHED_SIGNATURE_PARAMETER_COMPARISON.json": "d02d7b264bb53a3c782d31aadf6405da521c4e235fe95df891ab4f65864c62f5",
+    "audit/MATCHED_PRODUCT_QUADRATIC_COMPARISON.json": "78f556989d935c06223a3422912e909aaf39842815a9f45703f9236b614eebfe",
+    "lean/NoFourMUBs/Reuse/Archive/PreRhoAlignmentDefs.lean": "9636d93b3569b9dccb1f8571d9c4ff51895ad0dd19165c1772184d2bad8dfa76",
+    "lean/NoFourMUBs/Reuse/Archive/PreRhoNormDefs.lean": "7d8b0f0ea546a9ad1b5223f4ba347da654c9316860edcd9e564c8f5f131e75d1",
+    "lean/NoFourMUBs/Reuse/Archive/PreRhoActualBindings.lean": "95bd24d7140b39595e579e0c45b39df1533f43902380f4534c81c07e93e89caa",
+    "lean/NoFourMUBs/Reuse/Archive/PreRhoNormBindings.lean": "2dc366315b498ad9dd3de167f804d26eecbe943704d6f79977edd523e4bd3ef1",
+    "lean/NoFourMUBs/Step2/Reconstruction/RowProductSignature.lean": "1c94b70a0b87dacc3199c544cad22766ce194d4441ba16a940119eb9d749f83a",
+    "lean/NoFourMUBs/Step2/Reconstruction/EntryCompanion.lean": "d1849acb23e557ce8a0f41543b0ea41855a4f2fd98829b0a7e743320aefbe468",
+    "source_material/ClassificationPaper/CertificatesandLean/certificates/generic_cover/exact_lower_block_specialization.py": "f93c0a06af80e6a3cb90edbfc8491aa3d8b8b537e6c0a11a2490b532a37d8577"
+  },
+  "comparisons": [
+    {
+      "existing": "PreRhoNorm.gramData, PreRhoAlignment.gramData and their actualNormData/actualAlignmentData bindings",
+      "reuse": "Use the existing six-correlation polynomial definitions literally, including p0,p0bar,p1,p1bar,eta,c0,c1. No parallel invariant formulas or side construction."
+    },
+    {
+      "existing": "Original MATCHED_SYMBOLIC_BASE_CACHE.json",
+      "reuse": "Import the exact existing U,V,c6 numerators and common denominator. U and V have the same literal denominator; c6 numerator is four times this denominator. Share that input and kernel-check three cleared identities, rather than recomputing any symbolic norm or discovering coefficients."
+    },
+    {
+      "existing": "RowProductSignature and RowProductRelations",
+      "reuse": "Their actual centered linear/quadratic equations are the target physical formulas. Previously recorded rational comparisons are not Lean proofs and remain so until these source-pinned identities compile and pass an axiom audit."
+    },
+    {
+      "existing": "RationalPolynomialSubstitution.clearDenominators_eval",
+      "difference": "A general real polynomial substitution theorem in an atlas carrier model. Here the fixed four complex phase denominators are explicit monomials; existing FieldSimp/Ring suffice without importing a second carrier model or running atlas work."
+    },
+    {
+      "existing": "LeadingFibreCriterion and QuotientAlgebra",
+      "reuse": "Keep existing eliminant formulas for later entry bindings. Leading-fibre results concern finiteness and do not certify the original cached U,V rational coefficients."
+    }
+  ],
+  "atlas_certification": false,
+  "limits": "Three starting coefficient identities, not the universal norm certificate. Every phase denominator remains explicit. No coverage claim for unshared work.",
+  "generator_review": {
+    "path": "audit/prepare_matched_base_coefficients.py",
+    "sha256": "806da107f00b7d0e1528e67e5e97a430320708e9d74f3ae75aa3eacc64b7a446",
+    "description": "Only serializes pinned U,V,c6 cached rational coefficients, shares their exact matching denominator, and emits three denominator-cleared identities against existing PreRhoNorm.gramData. No external computation is accepted as a proof; Lean FieldSimp/Ring must close every identity. No atlas data or norm certificate is generated.",
+    "typing_review": "MATCHED_BASE_TYPE_INFERENCE_REVIEW.json"
+  }
+}

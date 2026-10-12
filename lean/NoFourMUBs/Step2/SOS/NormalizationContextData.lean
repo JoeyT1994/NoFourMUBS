@@ -1,0 +1,240 @@
+import NoFourMUBs.Step2.SOS.MomentData
+import NoFourMUBs.Step2.SOS.Normalization
+import NoFourMUBs.Step2.SOS.ReuseProjection
+
+namespace NoFourMUBs.Step2.SOS.Normalization
+open OAI.MUB6 OAI.MUB6.Certificate
+set_option maxRecDepth 10000
+set_option maxHeartbeats 800000
+
+/-- The 1,400 active coordinates followed by 213 reused OAI coordinates. -/
+def coordinates (i : Fin 1613) : ExponentCode :=
+  if h : i.val < 1400 then Semantics.code ⟨i.val, h⟩ else
+  match i.val - 1400 with
+  | 0 => OAI.MUB6.Certificate.PairSemantics.coordinate164
+  | 1 => OAI.MUB6.Certificate.PairSemantics.coordinate176
+  | 2 => OAI.MUB6.Certificate.PairSemantics.coordinate202
+  | 3 => OAI.MUB6.Certificate.PairSemantics.coordinate229
+  | 4 => OAI.MUB6.Certificate.PairSemantics.coordinate241
+  | 5 => OAI.MUB6.Certificate.PairSemantics.coordinate247
+  | 6 => OAI.MUB6.Certificate.PairSemantics.coordinate265
+  | 7 => OAI.MUB6.Certificate.PairSemantics.coordinate332
+  | 8 => OAI.MUB6.Certificate.PairSemantics.coordinate347
+  | 9 => OAI.MUB6.Certificate.PairSemantics.coordinate348
+  | 10 => OAI.MUB6.Certificate.PairSemantics.coordinate350
+  | 11 => OAI.MUB6.Certificate.PairSemantics.coordinate351
+  | 12 => OAI.MUB6.Certificate.PairSemantics.coordinate353
+  | 13 => OAI.MUB6.Certificate.PairSemantics.coordinate355
+  | 14 => OAI.MUB6.Certificate.PairSemantics.coordinate359
+  | 15 => OAI.MUB6.Certificate.PairSemantics.coordinate374
+  | 16 => OAI.MUB6.Certificate.PairSemantics.coordinate375
+  | 17 => OAI.MUB6.Certificate.PairSemantics.coordinate377
+  | 18 => OAI.MUB6.Certificate.PairSemantics.coordinate380
+  | 19 => OAI.MUB6.Certificate.PairSemantics.coordinate382
+  | 20 => OAI.MUB6.Certificate.PairSemantics.coordinate385
+  | 21 => OAI.MUB6.Certificate.PairSemantics.coordinate386
+  | 22 => OAI.MUB6.Certificate.PairSemantics.coordinate390
+  | 23 => OAI.MUB6.Certificate.PairSemantics.coordinate412
+  | 24 => OAI.MUB6.Certificate.PairSemantics.coordinate416
+  | 25 => OAI.MUB6.Certificate.PairSemantics.coordinate418
+  | 26 => OAI.MUB6.Certificate.PairSemantics.coordinate419
+  | 27 => OAI.MUB6.Certificate.PairSemantics.coordinate420
+  | 28 => OAI.MUB6.Certificate.PairSemantics.coordinate421
+  | 29 => OAI.MUB6.Certificate.PairSemantics.coordinate422
+  | 30 => OAI.MUB6.Certificate.PairSemantics.coordinate424
+  | 31 => OAI.MUB6.Certificate.PairSemantics.coordinate429
+  | 32 => OAI.MUB6.Certificate.PairSemantics.coordinate430
+  | 33 => OAI.MUB6.Certificate.PairSemantics.coordinate440
+  | 34 => OAI.MUB6.Certificate.PairSemantics.coordinate461
+  | 35 => OAI.MUB6.Certificate.PairSemantics.coordinate465
+  | 36 => OAI.MUB6.Certificate.PairSemantics.coordinate480
+  | 37 => OAI.MUB6.Certificate.PairSemantics.coordinate491
+  | 38 => OAI.MUB6.Certificate.PairSemantics.coordinate496
+  | 39 => OAI.MUB6.Certificate.PairSemantics.coordinate497
+  | 40 => OAI.MUB6.Certificate.PairSemantics.coordinate509
+  | 41 => OAI.MUB6.Certificate.PairSemantics.coordinate511
+  | 42 => OAI.MUB6.Certificate.PairSemantics.coordinate512
+  | 43 => OAI.MUB6.Certificate.PairSemantics.coordinate514
+  | 44 => OAI.MUB6.Certificate.PairSemantics.coordinate515
+  | 45 => OAI.MUB6.Certificate.PairSemantics.coordinate518
+  | 46 => OAI.MUB6.Certificate.PairSemantics.coordinate519
+  | 47 => OAI.MUB6.Certificate.PairSemantics.coordinate520
+  | 48 => OAI.MUB6.Certificate.PairSemantics.coordinate521
+  | 49 => OAI.MUB6.Certificate.PairSemantics.coordinate526
+  | 50 => OAI.MUB6.Certificate.PairSemantics.coordinate529
+  | 51 => OAI.MUB6.Certificate.PairSemantics.coordinate531
+  | 52 => OAI.MUB6.Certificate.PairSemantics.coordinate532
+  | 53 => OAI.MUB6.Certificate.PairSemantics.coordinate534
+  | 54 => OAI.MUB6.Certificate.PairSemantics.coordinate536
+  | 55 => OAI.MUB6.Certificate.PairSemantics.coordinate537
+  | 56 => OAI.MUB6.Certificate.PairSemantics.coordinate544
+  | 57 => OAI.MUB6.Certificate.PairSemantics.coordinate548
+  | 58 => OAI.MUB6.Certificate.PairSemantics.coordinate549
+  | 59 => OAI.MUB6.Certificate.PairSemantics.coordinate553
+  | 60 => OAI.MUB6.Certificate.PairSemantics.coordinate556
+  | 61 => OAI.MUB6.Certificate.PairSemantics.coordinate557
+  | 62 => OAI.MUB6.Certificate.PairSemantics.coordinate558
+  | 63 => OAI.MUB6.Certificate.PairSemantics.coordinate559
+  | 64 => OAI.MUB6.Certificate.PairSemantics.coordinate560
+  | 65 => OAI.MUB6.Certificate.PairSemantics.coordinate562
+  | 66 => OAI.MUB6.Certificate.PairSemantics.coordinate563
+  | 67 => OAI.MUB6.Certificate.PairSemantics.coordinate564
+  | 68 => OAI.MUB6.Certificate.PairSemantics.coordinate566
+  | 69 => OAI.MUB6.Certificate.PairSemantics.coordinate567
+  | 70 => OAI.MUB6.Certificate.PairSemantics.coordinate568
+  | 71 => OAI.MUB6.Certificate.PairSemantics.coordinate571
+  | 72 => OAI.MUB6.Certificate.PairSemantics.coordinate576
+  | 73 => OAI.MUB6.Certificate.PairSemantics.coordinate577
+  | 74 => OAI.MUB6.Certificate.PairSemantics.coordinate578
+  | 75 => OAI.MUB6.Certificate.PairSemantics.coordinate579
+  | 76 => OAI.MUB6.Certificate.PairSemantics.coordinate580
+  | 77 => OAI.MUB6.Certificate.PairSemantics.coordinate581
+  | 78 => OAI.MUB6.Certificate.PairSemantics.coordinate585
+  | 79 => OAI.MUB6.Certificate.PairSemantics.coordinate586
+  | 80 => OAI.MUB6.Certificate.PairSemantics.coordinate589
+  | 81 => OAI.MUB6.Certificate.PairSemantics.coordinate590
+  | 82 => OAI.MUB6.Certificate.PairSemantics.coordinate593
+  | 83 => OAI.MUB6.Certificate.PairSemantics.coordinate594
+  | 84 => OAI.MUB6.Certificate.PairSemantics.coordinate596
+  | 85 => OAI.MUB6.Certificate.PairSemantics.coordinate598
+  | 86 => OAI.MUB6.Certificate.PairSemantics.coordinate599
+  | 87 => OAI.MUB6.Certificate.PairSemantics.coordinate600
+  | 88 => OAI.MUB6.Certificate.PairSemantics.coordinate601
+  | 89 => OAI.MUB6.Certificate.PairSemantics.coordinate603
+  | 90 => OAI.MUB6.Certificate.PairSemantics.coordinate604
+  | 91 => OAI.MUB6.Certificate.PairSemantics.coordinate605
+  | 92 => OAI.MUB6.Certificate.PairSemantics.coordinate609
+  | 93 => OAI.MUB6.Certificate.PairSemantics.coordinate610
+  | 94 => OAI.MUB6.Certificate.PairSemantics.coordinate615
+  | 95 => OAI.MUB6.Certificate.PairSemantics.coordinate618
+  | 96 => OAI.MUB6.Certificate.PairSemantics.coordinate621
+  | 97 => OAI.MUB6.Certificate.PairSemantics.coordinate623
+  | 98 => OAI.MUB6.Certificate.PairSemantics.coordinate624
+  | 99 => OAI.MUB6.Certificate.PairSemantics.coordinate626
+  | 100 => OAI.MUB6.Certificate.PairSemantics.coordinate629
+  | 101 => OAI.MUB6.Certificate.PairSemantics.coordinate630
+  | 102 => OAI.MUB6.Certificate.PairSemantics.coordinate631
+  | 103 => OAI.MUB6.Certificate.PairSemantics.coordinate632
+  | 104 => OAI.MUB6.Certificate.PairSemantics.coordinate635
+  | 105 => OAI.MUB6.Certificate.PairSemantics.coordinate636
+  | 106 => OAI.MUB6.Certificate.PairSemantics.coordinate637
+  | 107 => OAI.MUB6.Certificate.PairSemantics.coordinate645
+  | 108 => OAI.MUB6.Certificate.PairSemantics.coordinate646
+  | 109 => OAI.MUB6.Certificate.PairSemantics.coordinate650
+  | 110 => OAI.MUB6.Certificate.PairSemantics.coordinate653
+  | 111 => OAI.MUB6.Certificate.PairSemantics.coordinate654
+  | 112 => OAI.MUB6.Certificate.PairSemantics.coordinate656
+  | 113 => OAI.MUB6.Certificate.PairSemantics.coordinate657
+  | 114 => OAI.MUB6.Certificate.PairSemantics.coordinate661
+  | 115 => OAI.MUB6.Certificate.PairSemantics.coordinate662
+  | 116 => OAI.MUB6.Certificate.PairSemantics.coordinate669
+  | 117 => OAI.MUB6.Certificate.PairSemantics.coordinate671
+  | 118 => OAI.MUB6.Certificate.PairSemantics.coordinate675
+  | 119 => OAI.MUB6.Certificate.PairSemantics.coordinate678
+  | 120 => OAI.MUB6.Certificate.PairSemantics.coordinate679
+  | 121 => OAI.MUB6.Certificate.PairSemantics.coordinate680
+  | 122 => OAI.MUB6.Certificate.PairSemantics.coordinate684
+  | 123 => OAI.MUB6.Certificate.PairSemantics.coordinate690
+  | 124 => OAI.MUB6.Certificate.PairSemantics.coordinate691
+  | 125 => OAI.MUB6.Certificate.PairSemantics.coordinate692
+  | 126 => OAI.MUB6.Certificate.PairSemantics.coordinate693
+  | 127 => OAI.MUB6.Certificate.PairSemantics.coordinate694
+  | 128 => OAI.MUB6.Certificate.PairSemantics.coordinate695
+  | 129 => OAI.MUB6.Certificate.PairSemantics.coordinate696
+  | 130 => OAI.MUB6.Certificate.PairSemantics.coordinate706
+  | 131 => OAI.MUB6.Certificate.PairSemantics.coordinate710
+  | 132 => OAI.MUB6.Certificate.PairSemantics.coordinate711
+  | 133 => OAI.MUB6.Certificate.PairSemantics.coordinate712
+  | 134 => OAI.MUB6.Certificate.PairSemantics.coordinate715
+  | 135 => OAI.MUB6.Certificate.PairSemantics.coordinate729
+  | 136 => OAI.MUB6.Certificate.PairSemantics.coordinate730
+  | 137 => OAI.MUB6.Certificate.PairSemantics.coordinate731
+  | 138 => OAI.MUB6.Certificate.PairSemantics.coordinate732
+  | 139 => OAI.MUB6.Certificate.PairSemantics.coordinate734
+  | 140 => OAI.MUB6.Certificate.PairSemantics.coordinate741
+  | 141 => OAI.MUB6.Certificate.PairSemantics.coordinate743
+  | 142 => OAI.MUB6.Certificate.PairSemantics.coordinate747
+  | 143 => OAI.MUB6.Certificate.PairSemantics.coordinate754
+  | 144 => OAI.MUB6.Certificate.PairSemantics.coordinate756
+  | 145 => OAI.MUB6.Certificate.PairSemantics.coordinate767
+  | 146 => OAI.MUB6.Certificate.PairSemantics.coordinate771
+  | 147 => OAI.MUB6.Certificate.PairSemantics.coordinate772
+  | 148 => OAI.MUB6.Certificate.PairSemantics.coordinate775
+  | 149 => OAI.MUB6.Certificate.PairSemantics.coordinate777
+  | 150 => OAI.MUB6.Certificate.PairSemantics.coordinate780
+  | 151 => OAI.MUB6.Certificate.PairSemantics.coordinate781
+  | 152 => OAI.MUB6.Certificate.PairSemantics.coordinate792
+  | 153 => OAI.MUB6.Certificate.PairSemantics.coordinate797
+  | 154 => OAI.MUB6.Certificate.PairSemantics.coordinate799
+  | 155 => OAI.MUB6.Certificate.PairSemantics.coordinate800
+  | 156 => OAI.MUB6.Certificate.PairSemantics.coordinate801
+  | 157 => OAI.MUB6.Certificate.PairSemantics.coordinate802
+  | 158 => OAI.MUB6.Certificate.PairSemantics.coordinate803
+  | 159 => OAI.MUB6.Certificate.PairSemantics.coordinate804
+  | 160 => OAI.MUB6.Certificate.PairSemantics.coordinate805
+  | 161 => OAI.MUB6.Certificate.PairSemantics.coordinate816
+  | 162 => OAI.MUB6.Certificate.PairSemantics.coordinate817
+  | 163 => OAI.MUB6.Certificate.PairSemantics.coordinate819
+  | 164 => OAI.MUB6.Certificate.PairSemantics.coordinate820
+  | 165 => OAI.MUB6.Certificate.PairSemantics.coordinate823
+  | 166 => OAI.MUB6.Certificate.PairSemantics.coordinate827
+  | 167 => OAI.MUB6.Certificate.PairSemantics.coordinate828
+  | 168 => OAI.MUB6.Certificate.PairSemantics.coordinate829
+  | 169 => OAI.MUB6.Certificate.PairSemantics.coordinate830
+  | 170 => OAI.MUB6.Certificate.PairSemantics.coordinate831
+  | 171 => OAI.MUB6.Certificate.PairSemantics.coordinate832
+  | 172 => OAI.MUB6.Certificate.PairSemantics.coordinate833
+  | 173 => OAI.MUB6.Certificate.PairSemantics.coordinate834
+  | 174 => OAI.MUB6.Certificate.PairSemantics.coordinate835
+  | 175 => OAI.MUB6.Certificate.PairSemantics.coordinate836
+  | 176 => OAI.MUB6.Certificate.PairSemantics.coordinate837
+  | 177 => OAI.MUB6.Certificate.PairSemantics.coordinate841
+  | 178 => OAI.MUB6.Certificate.PairSemantics.coordinate845
+  | 179 => OAI.MUB6.Certificate.PairSemantics.coordinate847
+  | 180 => OAI.MUB6.Certificate.PairSemantics.coordinate848
+  | 181 => OAI.MUB6.Certificate.PairSemantics.coordinate851
+  | 182 => OAI.MUB6.Certificate.PairSemantics.coordinate852
+  | 183 => OAI.MUB6.Certificate.PairSemantics.coordinate856
+  | 184 => OAI.MUB6.Certificate.PairSemantics.coordinate857
+  | 185 => OAI.MUB6.Certificate.PairSemantics.coordinate858
+  | 186 => OAI.MUB6.Certificate.PairSemantics.coordinate859
+  | 187 => OAI.MUB6.Certificate.PairSemantics.coordinate862
+  | 188 => OAI.MUB6.Certificate.PairSemantics.coordinate866
+  | 189 => OAI.MUB6.Certificate.PairSemantics.coordinate868
+  | 190 => OAI.MUB6.Certificate.PairSemantics.coordinate869
+  | 191 => OAI.MUB6.Certificate.PairSemantics.coordinate874
+  | 192 => OAI.MUB6.Certificate.PairSemantics.coordinate875
+  | 193 => OAI.MUB6.Certificate.PairSemantics.coordinate876
+  | 194 => OAI.MUB6.Certificate.PairSemantics.coordinate879
+  | 195 => OAI.MUB6.Certificate.PairSemantics.coordinate883
+  | 196 => OAI.MUB6.Certificate.PairSemantics.coordinate884
+  | 197 => OAI.MUB6.Certificate.PairSemantics.coordinate885
+  | 198 => OAI.MUB6.Certificate.PairSemantics.coordinate887
+  | 199 => OAI.MUB6.Certificate.PairSemantics.coordinate889
+  | 200 => OAI.MUB6.Certificate.PairSemantics.coordinate890
+  | 201 => OAI.MUB6.Certificate.PairSemantics.coordinate891
+  | 202 => OAI.MUB6.Certificate.PairSemantics.coordinate893
+  | 203 => OAI.MUB6.Certificate.PairSemantics.coordinate894
+  | 204 => OAI.MUB6.Certificate.PairSemantics.coordinate895
+  | 205 => OAI.MUB6.Certificate.PairSemantics.coordinate896
+  | 206 => OAI.MUB6.Certificate.PairSemantics.coordinate897
+  | 207 => OAI.MUB6.Certificate.PairSemantics.coordinate898
+  | 208 => OAI.MUB6.Certificate.PairSemantics.coordinate899
+  | 209 => OAI.MUB6.Certificate.PairSemantics.coordinate901
+  | 210 => OAI.MUB6.Certificate.PairSemantics.coordinate903
+  | 211 => OAI.MUB6.Certificate.PairSemantics.coordinate905
+  | _ => OAI.MUB6.Certificate.PairSemantics.coordinate907
+
+noncomputable def momentVector (H : CMatrix) (i : Fin 1613) : ℝ :=
+  (coordinates i).moment H
+
+def activeEmbedding : Fin 1400 → Fin 1613 := Fin.castLE (by decide)
+
+theorem active_moment (H : CMatrix) (i : Fin 1400) :
+    momentVector H (activeEmbedding i) = Semantics.momentVector H i := by
+  simp [momentVector, coordinates, activeEmbedding, Semantics.momentVector, i.isLt]
+
+def oldEmbedding (i : Fin 909) : Fin 1613 :=
+  (#[0, 1251, 94, 698, 1227, 19, 20, 241, 247, 3, 238, 1225, 1059, 700, 864, 865, 867, 869, 890, 956, 957, 1016, 1027, 1050, 1055, 1221, 1226, 1250, 1376, 1385, 1388, 1389, 60, 81, 90, 243, 423, 426, 427, 433, 434, 461, 489, 602, 610, 617, 635, 666, 668, 669, 674, 697, 704, 1015, 1052, 1058, 1219, 1356, 4, 38, 42, 56, 58, 72, 76, 79, 87, 88, 93, 104, 105, 108, 126, 127, 129, 130, 143, 169, 174, 201, 205, 228, 244, 287, 288, 294, 326, 418, 420, 430, 431, 437, 438, 446, 462, 465, 467, 478, 479, 483, 484, 486, 492, 505, 508, 541, 546, 549, 553, 555, 559, 563, 565, 578, 586, 590, 603, 611, 616, 618, 623, 636, 638, 682, 690, 691, 694, 695, 701, 758, 759, 761, 762, 763, 764, 767, 768, 775, 781, 782, 789, 791, 801, 803, 806, 807, 808, 837, 838, 839, 840, 841, 842, 845, 846, 847, 848, 850, 853, 857, 859, 860, 863, 874, 1400, 878, 883, 884, 886, 887, 889, 895, 903, 906, 907, 916, 1401, 919, 943, 948, 955, 964, 965, 966, 972, 973, 985, 986, 988, 998, 1004, 1005, 1009, 1026, 1032, 1034, 1044, 1047, 1048, 1053, 1056, 1061, 1402, 1114, 1117, 1128, 1139, 1140, 1141, 1142, 1158, 1161, 1166, 1168, 1171, 1172, 1174, 1175, 1190, 1195, 1197, 1198, 1203, 1204, 1205, 1212, 1217, 1220, 1223, 1403, 1266, 1270, 1272, 1273, 1276, 1277, 1319, 1321, 1323, 1333, 1341, 1404, 1362, 1365, 1367, 1368, 1373, 1405, 1380, 1381, 1383, 1384, 1392, 1396, 1397, 1399, 23, 26, 36, 37, 40, 44, 45, 52, 53, 1406, 55, 61, 62, 71, 73, 77, 80, 82, 84, 89, 91, 102, 106, 111, 113, 119, 124, 125, 132, 134, 137, 138, 140, 141, 153, 156, 158, 160, 162, 163, 170, 175, 179, 197, 200, 204, 206, 211, 223, 224, 229, 231, 240, 242, 246, 283, 285, 289, 291, 293, 297, 298, 299, 302, 303, 307, 309, 311, 312, 325, 327, 329, 330, 332, 333, 387, 1407, 388, 389, 390, 391, 392, 395, 397, 398, 399, 400, 401, 404, 405, 406, 1408, 1409, 407, 1410, 1411, 408, 1412, 412, 1413, 415, 416, 417, 1414, 419, 421, 422, 424, 425, 428, 432, 435, 436, 439, 440, 441, 444, 445, 1415, 1416, 452, 1417, 454, 455, 1418, 457, 1419, 458, 459, 1420, 1421, 460, 466, 468, 1422, 469, 480, 485, 487, 488, 490, 491, 493, 498, 502, 503, 506, 511, 512, 525, 526, 527, 528, 529, 531, 532, 1423, 533, 534, 535, 1424, 540, 1425, 1426, 1427, 1428, 1429, 542, 1430, 543, 545, 547, 548, 1431, 1432, 550, 551, 552, 556, 557, 558, 561, 572, 573, 1433, 574, 576, 577, 579, 581, 582, 584, 585, 587, 588, 593, 594, 596, 597, 599, 600, 605, 606, 608, 609, 1434, 612, 613, 620, 1435, 622, 630, 631, 634, 639, 640, 642, 643, 644, 659, 660, 662, 663, 664, 1436, 667, 670, 671, 672, 673, 678, 680, 681, 683, 686, 1437, 692, 696, 699, 703, 1438, 1439, 716, 717, 720, 729, 730, 732, 733, 738, 741, 750, 751, 1440, 754, 1441, 1442, 755, 1443, 1444, 756, 757, 1445, 1446, 1447, 1448, 771, 772, 773, 776, 1449, 777, 783, 1450, 787, 1451, 1452, 790, 1453, 792, 1454, 1455, 794, 795, 796, 798, 799, 800, 1456, 804, 809, 810, 1457, 1458, 832, 833, 834, 1459, 835, 836, 1460, 1461, 1462, 1463, 1464, 843, 1465, 1466, 1467, 844, 1468, 1469, 1470, 849, 851, 1471, 852, 854, 855, 856, 1472, 1473, 1474, 1475, 1476, 1477, 858, 861, 862, 1478, 1479, 866, 868, 1480, 1481, 870, 871, 1482, 1483, 875, 1484, 876, 1485, 1486, 1487, 1488, 879, 1489, 1490, 1491, 880, 881, 882, 1492, 1493, 885, 888, 891, 892, 1494, 893, 894, 1495, 896, 898, 1496, 899, 1497, 1498, 900, 1499, 901, 902, 1500, 1501, 1502, 1503, 905, 908, 1504, 1505, 1506, 909, 910, 911, 912, 913, 914, 915, 1507, 1508, 924, 927, 928, 1509, 930, 934, 1510, 1511, 935, 1512, 1513, 936, 937, 938, 1514, 1515, 942, 944, 946, 951, 952, 953, 1516, 958, 1517, 959, 960, 961, 1518, 968, 969, 1519, 1520, 1521, 971, 974, 976, 1522, 977, 979, 980, 981, 982, 1523, 1524, 1525, 1526, 1527, 1528, 1529, 989, 990, 997, 1000, 1002, 1003, 1006, 1007, 1011, 1530, 1012, 1013, 1014, 1531, 1532, 1533, 1022, 1024, 1534, 1029, 1035, 1036, 1037, 1038, 1040, 1043, 1045, 1049, 1051, 1054, 1057, 1060, 1535, 1536, 1537, 1538, 1064, 1539, 1086, 1089, 1095, 1103, 1105, 1111, 1540, 1112, 1541, 1113, 1115, 1116, 1542, 1119, 1122, 1123, 1124, 1125, 1126, 1543, 1129, 1544, 1131, 1143, 1144, 1146, 1151, 1152, 1153, 1154, 1156, 1157, 1545, 1160, 1162, 1163, 1546, 1547, 1164, 1165, 1548, 1167, 1549, 1178, 1180, 1550, 1551, 1183, 1184, 1186, 1187, 1188, 1189, 1191, 1192, 1193, 1194, 1552, 1206, 1207, 1210, 1214, 1553, 1231, 1554, 1555, 1556, 1557, 1558, 1559, 1560, 1237, 1238, 1239, 1242, 1248, 1249, 1252, 1260, 1261, 1262, 1561, 1562, 1278, 1563, 1564, 1300, 1301, 1565, 1302, 1303, 1304, 1566, 1567, 1568, 1569, 1570, 1571, 1572, 1573, 1574, 1575, 1576, 1306, 1307, 1308, 1577, 1309, 1310, 1311, 1578, 1312, 1579, 1580, 1314, 1315, 1581, 1582, 1316, 1320, 1331, 1583, 1584, 1585, 1586, 1334, 1335, 1587, 1336, 1343, 1344, 1588, 1345, 1589, 1590, 1352, 1353, 1354, 1355, 1591, 1592, 1593, 1358, 1359, 1594, 1361, 1363, 1364, 1595, 1596, 1597, 1366, 1598, 1369, 1599, 1600, 1601, 1372, 1602, 1603, 1604, 1605, 1606, 1607, 1608, 1374, 1609, 1377, 1610, 1387, 1611, 1390, 1612, 1391])[i.val]!
+
+end NoFourMUBs.Step2.SOS.Normalization

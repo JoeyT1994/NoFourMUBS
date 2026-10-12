@@ -1,0 +1,79 @@
+{
+  "scope": "critical_parameter_reuse",
+  "status": "ADOPTED_UNCOMPILED",
+  "records": [
+    {
+      "module": "NoFourMUBs.Reuse.Archive.CriticalRationalParam",
+      "original_module": "CriticalRationalParam",
+      "original_sha256": "36d2206bade193a3deb7d70711b4460a9996c9a8f4f05c7bc57143bb8888277d",
+      "original_source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/CriticalRationalParam.lean",
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalRationalParam.lean",
+      "active_sha256": "1e99f0b3e8ffa5ad18f5d65ec08dfa6cb88d858994da7719ce58a86de67fef32",
+      "imports_only_adaptation": true,
+      "proof_adaptations": [],
+      "import_replacements": {
+        "CriticalScalarReduction": "NoFourMUBs.Reuse.Archive.CriticalScalarReduction"
+      },
+      "omitted_reused_declarations": [],
+      "model_identifier_replacements": {},
+      "namespace_open_replacements": {},
+      "proof_tactic_replacements": []
+    },
+    {
+      "module": "NoFourMUBs.Reuse.Archive.CriticalPositiveParam",
+      "original_module": "CriticalPositiveParam",
+      "original_sha256": "77d6847749b420417e7694af1b1cdadaef3f0a7470572ab52babe77a09b4ca89",
+      "original_source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/CriticalPositiveParam.lean",
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalPositiveParam.lean",
+      "active_sha256": "f6243f0789b6a88a04b382a3f6eeae9105538669f109283d25f540679f28220c",
+      "imports_only_adaptation": true,
+      "proof_adaptations": [],
+      "import_replacements": {},
+      "omitted_reused_declarations": [],
+      "model_identifier_replacements": {},
+      "namespace_open_replacements": {},
+      "proof_tactic_replacements": []
+    },
+    {
+      "module": "NoFourMUBs.Reuse.Archive.CriticalPhysicalParams",
+      "original_module": "CriticalPhysicalParams",
+      "original_sha256": "2c48b32fbc887b0cb64f399c4489ed83ba6d7cd2538a1d6d69c1bb4dd9c76e6d",
+      "original_source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/CriticalPhysicalParams.lean",
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalPhysicalParams.lean",
+      "active_sha256": "35bd3eb1f7c6eee3f693139a669e50794046629397671a29de2b3d2575d11fe7",
+      "imports_only_adaptation": false,
+      "proof_adaptations": [
+        "Reviewed matrix/predicate identifier and namespace-open substitutions only; all algebraic proof bodies retained",
+        "Remove print commands for the two omitted duplicate lemmas; reuse existing CriticalLightSheet endpoints.",
+        "Omit definitions already extracted verbatim into CriticalLightSheet.moment_g and actual_moment_denominators (already adopted); no duplicate lemmas; all theorem statements and proof bodies retained"
+      ],
+      "import_replacements": {
+        "CriticalStripPhysical": "NoFourMUBs.Reuse.Archive.CriticalStripPhysical",
+        "CriticalZeroPoles": "NoFourMUBs.Reuse.Archive.CriticalZeroPoles"
+      },
+      "omitted_reused_declarations": [
+        {
+          "start": "/-- Exact binding of the Gram g coefficient, with no physical hypothesis. -/",
+          "stop_before": "end\n#print axioms actual_nonzero_corner_parameter",
+          "sha256": "0e813ca0e2128bbc6d5ac92508be2842cccdee836b2aa41d498429d4d0cd3ef2",
+          "reused_from": "CriticalLightSheet.moment_g and actual_moment_denominators (already adopted); no duplicate lemmas"
+        }
+      ],
+      "model_identifier_replacements": {
+        "CompactCover.Mat6": "OAI.MUB6.CMatrix",
+        "AllCritical": "AllCriticalCarrier"
+      },
+      "namespace_open_replacements": {
+        "open Mub6 Mub6.Classification\nopen CompactCover GlobalCornerDomain CriticalPhysical20261003\n": "open NoFourMUBs.Step2.Critical CriticalPhysical20261003\n"
+      },
+      "proof_tactic_replacements": [
+        {
+          "before": "#print axioms moment_g\n#print axioms actual_moment_denominators\n",
+          "after": "",
+          "count": 1,
+          "reason": "Remove print commands for the two omitted duplicate lemmas; reuse existing CriticalLightSheet endpoints."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "status": "PASS",
+  "checked_utc": "2026-10-11T11:04:09.977330+00:00",
+  "modules": 1,
+  "axiom_endpoints": {
+    "NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing.Stages.n0043_whole_045": [
+      "propext"
+    ],
+    "NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing.Stages.n0043_coefficient_045_eval": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "source_hashes": {
+    "NoFourMUBs/Step2/CriticalZero/SumClearing/Product0043Whole045.lean": "9f7d724ff48bbfbd513e8e621e5290cdb1f9951817ddcf9f42d3379b446e2cb4"
+  },
+  "manifest_sha256": "21d8f2c2270441a7ff1ead221851d4006e35bc742d85d6366dee1be02f879a8a",
+  "audit_log_sha256": "d03722892a0df5e892669fe67926330679d3571ef791fc721bdd6459b569297f",
+  "scope": "One odd coefficient of product43; other coefficients and raw numerator equality remain open.",
+  "dependency_audits": {
+    "KERNEL_AUDIT_CRITICAL_NONZERO_SUM_ROW_CHECKER_STATUS.json": "0133f1721e1eba83816f3fec81f499742a61bf5d2ba4b782a6434df52121f34d"
+  },
+  "dependency_source_hashes": {},
+  "atlas_certification": false
+}

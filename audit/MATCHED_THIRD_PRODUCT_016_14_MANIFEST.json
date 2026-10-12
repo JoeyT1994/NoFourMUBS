@@ -1,0 +1,94 @@
+{
+  "scope": "matched_third_arithmetic",
+  "records": [
+    {
+      "module": "NoFourMUBs.Step2.Reconstruction.ThirdMoment.Certificates.Data.P033A08",
+      "active_path": "NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/Data/P033A08.lean",
+      "active_sha256": "86a97d66076df2c3b67e85303f491e82b6aeff8e7c22711f494fede2cef5d8f1",
+      "saved_certificate_data": true
+    },
+    {
+      "module": "NoFourMUBs.Step2.Reconstruction.ThirdMoment.Certificates.Data.P035A06",
+      "active_path": "NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/Data/P035A06.lean",
+      "active_sha256": "fe1e03345addba7437cee888ac81f59378a301a6129661abdf8e777a524c0608",
+      "saved_certificate_data": true
+    },
+    {
+      "module": "NoFourMUBs.Step2.Reconstruction.ThirdMoment.Certificates.Data.P032A14",
+      "active_path": "NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/Data/P032A14.lean",
+      "active_sha256": "4715e9a464c04c637a5888be92b4770da6aae244fa015b252b5d3e5837fbe5be",
+      "saved_certificate_data": true
+    },
+    {
+      "module": "NoFourMUBs.Step2.Reconstruction.ThirdMoment.Certificates.Products.Product016A14",
+      "active_path": "NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/Products/Product016A14.lean",
+      "active_sha256": "849acd3380d53ac384491d781969c4fcf308cb9d66993bbf55578ffd46f9b3d7",
+      "local_model_adapter": true
+    }
+  ],
+  "axiom_endpoints": [
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.Product016A14_length",
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.Product016A14_checked",
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.Product016A14_value"
+  ],
+  "dependency_pins": [
+    {
+      "active_path": "NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/Model.lean",
+      "active_sha256": "11ba438c48cc9078b7593e5846f117744a6f69dfa3c03c2072262aeb8b7bfa16"
+    }
+  ],
+  "dependency_audits": [
+    "KERNEL_AUDIT_MATCHED_THIRD_SUM00_STATUS.json"
+  ],
+  "source_certificate_sha256": "f986a996673ec0089ec09c3b9ee827c71463fe6f7f57f67b0ded6b793beaad8f",
+  "product_index": 16,
+  "source_product": {
+    "kind": "cleared",
+    "left": 33,
+    "right": 35,
+    "target": 32,
+    "scale": 80,
+    "source_identity": 1,
+    "label": "W11 constant"
+  },
+  "a_power": 14,
+  "convolution_pairs": [
+    [
+      8,
+      6
+    ]
+  ],
+  "integer_scales": {
+    "left": 1,
+    "right": 1,
+    "cancelled_common": 80
+  },
+  "serialization_bindings": [
+    {
+      "polynomial_id": 33,
+      "a_power": 8,
+      "source_terms": 87,
+      "original_polynomial_scale": 20,
+      "round_trip_equal": true,
+      "module": "NoFourMUBs.Step2.Reconstruction.ThirdMoment.Certificates.Data.P033A08"
+    },
+    {
+      "polynomial_id": 35,
+      "a_power": 6,
+      "source_terms": 24,
+      "original_polynomial_scale": 4,
+      "round_trip_equal": true,
+      "module": "NoFourMUBs.Step2.Reconstruction.ThirdMoment.Certificates.Data.P035A06"
+    },
+    {
+      "polynomial_id": 32,
+      "a_power": 14,
+      "source_terms": 303,
+      "original_polynomial_scale": 1,
+      "round_trip_equal": true,
+      "module": "NoFourMUBs.Step2.Reconstruction.ThirdMoment.Certificates.Data.P032A14"
+    }
+  ],
+  "scope_note": "Only coefficient a^14 of supplied cofactor/product 16. Full product and rational bindings remain open.",
+  "atlas_certification": false
+}

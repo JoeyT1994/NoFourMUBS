@@ -1,0 +1,21 @@
+{
+  "scope": "matched_third_flatness",
+  "records": [
+    {
+      "module": "NoFourMUBs.Step2.Reconstruction.ThirdMoment.AffineMatrices",
+      "active_path": "NoFourMUBs/Step2/Reconstruction/ThirdMoment/AffineMatrices.lean",
+      "active_sha256": "60a383a50489a3c083174749058cb1d7f3037cacd5c91062cb63a8be402dd00c",
+      "local_model_adapter": true,
+      "review": "MATCHED_THIRD_FLATNESS_REUSE_REVIEW.json"
+    }
+  ],
+  "axiom_endpoints": [
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.thirdMoment_intrinsic_affine"
+  ],
+  "dependency_audits": [
+    "KERNEL_AUDIT_MATCHED_THIRD_SIDE_MATRICES_STATUS.json",
+    "KERNEL_AUDIT_MATCHED_THIRD_INTRINSIC_AFFINE_STATUS.json"
+  ],
+  "scope_note": "Assemble the already checked actual third moments and affine scalar formulas into the exact constant/linear matrices used upstream. No new polynomial certificate or atlas work.",
+  "atlas_certification": false
+}

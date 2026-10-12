@@ -1,0 +1,40 @@
+{
+  "status": "PASS",
+  "reviewed_utc": "2026-10-11T11:34:21.566685+00:00",
+  "scope": "Formalize the supplied scalar Bernstein argument by elementary algebraic sign proofs, without changing the quartic or recomputing its Bernstein coefficients.",
+  "search_evidence": [
+    "NONZERO_SCALAR_SIGN_REUSE_FILES.txt",
+    "ARCHIVE_IMPORT_INDEX.json",
+    "ARCHIVE_SOURCE_INDEX.jsonl",
+    "ARCHIVE_BLOB_INDEX.jsonl",
+    "NONZERO_QUARTIC_EXCLUSION_REUSE_FILES.txt"
+  ],
+  "source_pins": {
+    "/Users/mateo2/Desktop/NoFourMUBs/full_repair_2026_10_09/MinimalConstruction/Proofs/verify_critical_scalar_classification.py": "8cba7dc2708451581178668316cad9ec5296e365386b225d4d2696a9b8daaa0c",
+    "/Users/mateo2/Desktop/NoFourMUBs/full_repair_2026_10_09/MinimalConstruction/Proofs/Research/critical_nonzero_J_bernstein.json": "ed5f29b92d3b8a4883853a3946d5aab90fa2a02513361e510b8349aed66bb399",
+    "lean/NoFourMUBs/Reuse/Archive/CriticalNonzeroPolynomialData.lean": "d326f36bd196fff27bbbc148f8242d4d8bd840f5eda5fac619840112fdfcc442",
+    "lean/NoFourMUBs/Reuse/Archive/CriticalModulusSignedDomain.lean": "68169dc2e4fe6491e63b660b1cffa97cf39e7da3da8076af888f169ee70d12e3",
+    "lean/NoFourMUBs/Reuse/Archive/CriticalModulusIntervals.lean": "bbfce89cbfe478e0878fe9927b0dc001f97a0b58961c646312f6a14c6e667b78",
+    "lean/NoFourMUBs/Reuse/Archive/CriticalModulusDiscriminant.lean": "d9ce299342b1e6e2a60afebcd9d85b80f3c812b47292a5b7c8738f65e503e1be"
+  },
+  "decisions": [
+    "The current sources, entire available 19386-blob Lean archive and existing vendor OAI closure were searched. The 64 broad matches concern other uses of kappa, critical row phases or Karlsson quotient models; no scalar Bernstein or Sturm implementation was located.",
+    "CriticalScalarReduction is the existing p,J,W reduction, not the remaining quartic interval exclusion; CriticalScalarGaugeAlgebra changes Newton coordinates. Existing quartic variants supply factorization, not interval signs.",
+    "Reuse the current generic quartic definition and current modulus interval definitions and the supplied 25 factored Bernstein expressions. High131 is High013 in reverse order; avoid duplicated identities.",
+    "Only five higher-degree factors need new sign arguments. Use their supplied polynomials, algebraic shifts and Mathlib ring/positivity. This changes only the method of proving signs, not the quartic or allowed domain.",
+    "Keep endpoints k=1/3 and k=1 and the kappa=0 case explicit. No physical-to-quartic implication is claimed.",
+    "Use Mathlib Convex.mem_Icc directly for the interval argument. Four quartic interpolation identities cover five patches. The16distinct stored coefficient expressions share proofs; no root-count, gcd or root-isolation certificate is needed for the candidate implication.",
+    "A later targeted reuse review found that three local scalar helpers and the k=1 consumer overlapped CriticalModulusQuarticReal. The local proofs have been removed and the archive module is now directly imported, with imports changed only. The consolidated classification compiles and passes its14endpoint audit."
+  ],
+  "atlas_certification": false,
+  "checked_utc": "2026-10-11T16:24:39.740805+00:00",
+  "compiled_modules": 18,
+  "axiom_endpoints": 45,
+  "audits": [
+    "KERNEL_AUDIT_CRITICAL_NONZERO_SCALAR_SIGNS_STATUS.json",
+    "KERNEL_AUDIT_CRITICAL_NONZERO_BERNSTEIN_STATUS.json",
+    "KERNEL_AUDIT_CRITICAL_NONZERO_SCALAR_CLASSIFICATION_STATUS.json"
+  ],
+  "remaining": "Physical raw numerator binding/reduction, poles and global assembly remain open; MatchedExistence also remains open.",
+  "reuse_consolidation": "CRITICAL_SCALAR_HELPER_REUSE_CORRECTION.json"
+}

@@ -1,0 +1,1583 @@
+{
+  "repository_commit": "fd7d1019fa4a7f3551bf9ade5d31ebbce9501055",
+  "scopes": {
+    "moment_normalization": {
+      "reviewed": true,
+      "reviewed_at": "2026-10-10T16:27:30.705885+00:00",
+      "evidence": [
+        "LATEST_LEAN_TREE.json",
+        "LATEST_PROOF_TREE.json",
+        "LATEST_OPENAI_TREE.json",
+        "ARCHIVE_CORPUS_AUDIT.json",
+        "ARCHIVE_NORMALIZATION_MATCHING_HITS.txt",
+        "sos/CANONICAL_REUSE_LEDGER.json"
+      ],
+      "comparison": "Full OAI closure searched by exponent arrays, including ExtraCanonical and internal matrices. All 37 additional overlaps now reuse published definitions/lemmas and pass Lean. The full archived source corpus was searched for injective/averaged moment normalization and SOS/matching terminology; the only additional SOS hits are order-three determinant saturation, a different statement. Existing OAI nodes, 2668 required soundness lemmas, 261 boundary equations, and both permutation families are reused.",
+      "remaining_new_padded_equalities": 34383,
+      "limitations": "A semantic reuse review of available sources, not a claim about unpublished work or a decision procedure for equivalence of all theorem statements.",
+      "boundary_input_review": {
+        "evidence": "sos/PENDING_BOUNDARY_INPUT_REUSE.json",
+        "result": "None of the 1055 pending seven-row input arrays equals an OAI boundaryOriginal/boundaryMatrix array. All 261 previously matched projected equations remain direct upstream calls. The generic seven-row theorem, all available projection nodes and all canonical lemmas are reused. The active coordinate embedding and its moment lemma already existed and are reused."
+      },
+      "sparse_reindex_reuse": {
+        "source": "lean/vendor/fourier/OAI/Analysis/MutuallyUnbiased/Certificate/Interpretation.lean",
+        "theorems": [
+          "OAI.MUB6.Certificate.Integer.Sparse.reindex",
+          "OAI.MUB6.Certificate.Integer.Sparse.eval_reindex"
+        ],
+        "decision": "PrimitiveRows.extendRow delegates to the upstream reindex operation; extendRow_eval invokes its theorem and the existing active_moment adapter. Removed the local expansion of map and sum."
+      },
+      "fourier_row_reuse": {
+        "sources": [
+          "lean/NoFourMUBs/Step2/SOS/FourierContraction.lean",
+          "lean/NoFourMUBs/Step2/SOS/FourierProducts.lean",
+          "lean/vendor/fourier/OAI/Analysis/MutuallyUnbiased/Moments/SmallPartitions.lean",
+          "lean/vendor/fourier/OAI/Analysis/MutuallyUnbiased/PairTargets/PartitionRules.lean"
+        ],
+        "decision": "The 5 contraction rows call fourier_contraction; the 8 product rows call fourier_products_partition_zero. Reuse family4, covers4 and all partitionWeight4 lemmas verbatim. Reuse the normalization lookup and sparse zero-rule already selected. No new partition cover, sampling argument, Fourier-vanishing proof or witness is generated."
+      }
+    },
+    "critical_counting": {
+      "reviewed": true,
+      "sources": "ARCHIVE_REUSE_MANIFEST.json",
+      "result": "Archived count and physical-sum proofs replace local derivations; CRITICAL_REUSE_BRIDGE_BUILD.log passed."
+    },
+    "side_identities": {
+      "reviewed": true,
+      "reviewed_at": "2026-10-10T16:28:23.823438+00:00",
+      "evidence": [
+        "ARCHIVE_PERMANENT_REUSE.json",
+        "ARCHIVE_CORPUS_AUDIT.json",
+        "ARCHIVE_MOMENT_TRACE_DECLARATIONS.txt",
+        "SIDE_REUSE_MAIN_BUILD_SMALL_BRIDGE.log"
+      ],
+      "decision": "Permanent norm now calls the archived eta_permanent theorem. Its determinant norm delegates to the existing Side.side_identities. Retain signature_real, which includes singular sides: the available physicalSheet_real theorem requires nonzero determinant, and the archived UnitMomentTrace is referenced but its defining source is absent from the corpus. The exact needed unrestricted statement is already checked locally."
+    },
+    "sos_witness": {
+      "reviewed": false,
+      "decision": "The selected unprojected witness and its 1338-row integer arithmetic already exist and are checked. Further witness discovery or regeneration is disabled pending a specific reuse review; use the existing outputs. This does not invalidate the checked witness."
+    },
+    "critical_classification": {
+      "reviewed": false,
+      "decision": "Reuse discovery is in progress. Do not generate a replacement critical-case certificate before resolving the existing candidate statements and dependencies.",
+      "candidate_index": "CRITICAL_REUSE_ENDPOINTS.json",
+      "examined_endpoints": [
+        {
+          "module": "CriticalNonzeroAllCritical",
+          "sha256": "6a1a69c077ba049fb79653e064fe02c83a741c85ef8aca2b314415b13c9655c2",
+          "comparison": "The physical 66-term equation is supplied by AllCritical. The endpoint still assumes nonzero s and t and all three denominators in each half. It is a reusable regular-chart result, not the whole classification."
+        },
+        {
+          "module": "CriticalZeroSideAllCritical",
+          "sha256": "3a264770d925bd0d440910d99bec4ac33e5762e7ab2418db382797467dc111a3",
+          "comparison": "The zero-J physical 66-term equation is supplied. Guards z != 0,-3,-2 and nonzero s,t remain explicit."
+        },
+        {
+          "module": "CriticalAllocatedFourierCandidate",
+          "sha256": "ef01fe4f96f73530fac084f0d6217acc70bd4e66d44b03b89f4cf9901a89d6ee",
+          "comparison": "AllCritical plus a zero-J corner, the excluded-z guards and an explicit Allocated premise imply FourierOrTranspose. The allocation premise must not be dropped."
+        },
+        {
+          "module": "CriticalNonzeroQuartic",
+          "sha256": "a30b6fab169dee5ade88cf5a54fece7cbada5028793cb6d403e119d7bb301425",
+          "comparison": "This variant specializes the generic reduced-numerator factorization. It explicitly leaves the physical square-sum binding as a separate obligation; other variants remain to be compared."
+        },
+        {
+          "module": "FourierCriticalPhysical",
+          "sha256": "50cd8ac9f417e5937205acc1d0c1db3df09fc76dfe8a90c2b4615660ce608346",
+          "comparison": "The source derives equivalence to fixedF6 from AllCritical plus FourierOrTranspose. It includes both orientations and an explicit Fourier parameter grid, but does not supply the FourierOrTranspose premise."
+        },
+        {
+          "module": "CriticalZeroActualComputedNoAudit",
+          "sha256": "a713e0b8443313de80c9236d7c7b47fc1105d93cec5373eaed099c3736641264",
+          "comparison": "The physical critical hypothesis forces the computed numerator to vanish on the guarded chart. The source explicitly leaves identification with the separate raw polynomial to a later obligation. z!=0,-3,-2 and s,t!=0 remain."
+        },
+        {
+          "module": "CriticalNonzeroFinalScalarBinding",
+          "sha256": "f700e616ef7320736366a1975b096588304b4cfeec6f6822935e72d5ee732d37",
+          "comparison": "Supplies the final coefficient identities for the reduced numerator. These are reusable polynomial assembly results, not the physical scalar classification endpoint."
+        },
+        {
+          "module": "CriticalNonzeroPolynomialPoles",
+          "sha256": "9114883efad9d315158b7f966bdd392628c64306fa1e39c86658fe4ad4394843",
+          "comparison": "Proves exact denominator-product identities for 1+k^2!=0. It does not eliminate zero physical denominator cases."
+        },
+        {
+          "module": "CriticalZeroChartTransport",
+          "sha256": "40d1cea9e383a50ce2abbd351db5aa64a3efb6836978832ff7d09faac2f426fa",
+          "comparison": "On the zero-J chart with z!=0,-3, allCritical_regular_zero_chart supplies an equivalent actual carrier with s,t nonzero while preserving all corner invariants and the parameter. nonzero_J_original_chart supplies s,t!=0 directly when J!=0. These resolve the two-correlation nonvanishing guards without a new argument. They do not supply the remaining denominator conditions, scalar numerator binding or exceptional z classification."
+        },
+        {
+          "module": "CriticalZeroRawModuliJoin",
+          "sha256": "84d6ca4f7448a47eaed57d2428f3be8ae199cf2cf4e1f4911c96eabe183acdb7",
+          "comparison": "Provides the scalar moduli allocation from Inputs and an explicit rawNumerator=0 premise. Its own documentation separates the computed-to-raw identification. Reuse this tail when the scalar identity is linked; it is not a complete physical classification theorem."
+        },
+        {
+          "module": "CriticalZeroSumExprRawBindings",
+          "sha256": "16c4a3a383c025ea7bb1ac1df67014dd0f4ec3aec65a66ff5f7ecc8660c53f85",
+          "comparison": "Interprets raw numerator/denominator coefficient arrays and the denominator residual. It does not itself identify the computed physical numerator with rawNumerator."
+        },
+        {
+          "module": "CriticalZeroComputedBundle",
+          "sha256": "ee8fa748101ee1d5f68f0d52801460d4d454493ee334131e11dbe186364400d6",
+          "comparison": "Combines Inputs and an explicit physical scalar equation to get computedNumerator=0 and nonzero commonDenominator; the zero equation is still an input to this scalar bundle."
+        },
+        {
+          "module": "CriticalZeroSumNumeratorCertificatePilot",
+          "sha256": "af7fc0f5b554598157bfcf45ba01c9787f28403ef48cd7c760adb4191267f978",
+          "comparison": "Only numerator residual coefficient10 is certified. Reuse that check; it does not cover the37-coefficient equality."
+        },
+        {
+          "module": "CriticalZeroSumNumeratorGroupPilot",
+          "sha256": "118d23fc27926d14afa6333dd26d22b4ee4e181791bbdbf83f2eb0df85f2ba01",
+          "comparison": "Only coefficient10 of numerator group00 is certified; all11 group data files are indexed separately."
+        },
+        {
+          "module": "CriticalZeroSumNumeratorKernelSinglePilot",
+          "sha256": "9c5c1d3464a73b0e9c83deecfe4a85c0201543a5bf2803e95b0b2bb04a9ac511",
+          "comparison": "Kernel-decided check for coefficient10 of common term01. Smart/dense pilot alternatives prove the same single coefficient; choose one if adopted."
+        },
+        {
+          "module": "CriticalZeroSumBinaryCertificate",
+          "sha256": "15efa580db389430a775f3f51c31ee4e6d5e6d9e32a21fc3bf660464225d3348",
+          "comparison": "Generic binary_interpret_eq and binary_eval_eq consume equality checks for every coefficient. They are reusable assembly, not a completed full numerator equality."
+        },
+        {
+          "module": "CriticalZeroSumRowCertificate",
+          "sha256": "794a31a721ffcdf79051a5171e6a3be4199778cfd19d1f9ccd602c66d8083e74",
+          "comparison": "Generic coefficient_eq_of_rows consumes every finite row check and structural length bounds. This variant fixes the nil/cons branch seen in322e791; do not adopt both variants."
+        },
+        {
+          "module": "CriticalZeroFineAssembly",
+          "sha256": "6c6a936392ffa609225699275a7e9fafca39f81cbf4195ad5105f1f695109db9",
+          "comparison": "Assembles all ideal-reduction coefficient checks for rawNumerator/rawDenominator. It starts with the raw polynomial and reduces modulo fy/fx; it does not identify the computed physical numerator with that raw polynomial."
+        },
+        {
+          "module": "CriticalZeroSumIndependentReview",
+          "sha256": "81ad2506d96dc6bc567008bd71834541131427156415374da1395de7588da6be",
+          "comparison": "Proves guarded physical-equation iff computedNumerator=0 and retains the constant term; does not connect computedNumerator to rawNumerator."
+        },
+        {
+          "module": "CriticalZeroCompactAssemblyV2",
+          "sha256": "7ca67e2c83fc3bae702d95282d11558b663a7974842e447c66fe75f0b3b493f4",
+          "comparison": "Compact assembly of the same raw-polynomial ideal reduction, with mul_zero added to simplification. This is an alternative implementation of the factorization tail, not the missing computed-to-raw bridge."
+        },
+        {
+          "module": "CriticalZeroCoefficientAssembly",
+          "sha256": "ba871ed2f9e403efa22ea8c7adf66b6db639cb4a1eb0ff584519df0e522b6c26",
+          "comparison": "Earlier raw-polynomial ideal-reduction assembly. The input is rawNumerator, not the computed physical numerator; avoid adopting a second assembly route."
+        },
+        {
+          "module": "CriticalZeroComputedEquation",
+          "sha256": "3540ccc11159524dbf29ce4d821cb2310f79148023eb3cd6a6a588052e8836d1",
+          "comparison": "computed_zero_from_original derives computedNumerator=0 and nonzero commonDenominator from the guarded physical 66-term equation. It does not identify the raw numerator."
+        },
+        {
+          "module": "CriticalZeroSumPolynomialBinding",
+          "sha256": "4b088ede05185178988cbdaabc1e2e91525283e6f00c3bf102400779364ae280",
+          "comparison": "physical_polynomial66 is a literal equality retaining all paired Newton terms and the constant1728. This is reusable physical-polynomial plumbing, not the computed-to-raw numerator equality."
+        },
+        {
+          "module": "CriticalZeroSumDenominatorExact",
+          "sha256": "7ad6c66fd529b99210409e0c485e38dfc87ad80c3d03338e5857bf4d4a378870",
+          "comparison": "Assembles all33 existing denominator coefficient checks and derives commonDenominator_eq_rawDenominator over any characteristic-zero field without extra scalar assumptions. The5d0345a variant differs only by the obsolete Mathlib.Tactic.Omega import. Reuse this route if adopted; do not regenerate denominator certificates. Not yet compiled in the active proof."
+        },
+        {
+          "module": "CriticalZeroSumPair00Exact",
+          "sha256": "097c8711cd08a300a3ef6f7896fc90213471502df4f6a718e4a58c5bd058d589",
+          "comparison": "Assembles all23 coefficients for primitive_p2_m4 times primitive_p2_p2 using the existing binary-evaluation lemma. Reuse this particular product if needed; it is not the complete66-term numerator identity. Not yet compiled in the active proof."
+        },
+        {
+          "module": "CriticalZeroSumExprCommonBindings00",
+          "sha256": "fb103a36e08341a8e147c0d894fe286d6de5b4f947bf8946bc58cbe9fdb6ba41",
+          "comparison": "Provides eleven consecutive identities interpreting the existing HExpr common-term coefficient arrays as the existing field-valued coefficient arrays. Reuse directly; no new term-by-term interpretation proofs. Compilation pending."
+        },
+        {
+          "module": "CriticalZeroSumExprCommonBindings01",
+          "sha256": "46bac8362981680a9b62354bf46d829458a8a8d28f410eb03bdc46521bf69f88",
+          "comparison": "Provides eleven consecutive identities interpreting the existing HExpr common-term coefficient arrays as the existing field-valued coefficient arrays. Reuse directly; no new term-by-term interpretation proofs. Compilation pending."
+        },
+        {
+          "module": "CriticalZeroSumExprCommonBindings02",
+          "sha256": "8b88900d0b774b5000e74d370de2a25b5f82eff6286d92e7e33287a526fe0893",
+          "comparison": "Provides eleven consecutive identities interpreting the existing HExpr common-term coefficient arrays as the existing field-valued coefficient arrays. Reuse directly; no new term-by-term interpretation proofs. Compilation pending."
+        },
+        {
+          "module": "CriticalZeroSumExprCommonBindings03",
+          "sha256": "0ebde9f6093fbbd39fec8e7d5876d6effba146e9f8e2bf4d694e3e577cf6dd18",
+          "comparison": "Provides eleven consecutive identities interpreting the existing HExpr common-term coefficient arrays as the existing field-valued coefficient arrays. Reuse directly; no new term-by-term interpretation proofs. Compilation pending."
+        },
+        {
+          "module": "CriticalZeroSumExprCommonBindings04",
+          "sha256": "9e31112fa3d9d61bbb11d7cce600cb26a0c60c568adb307903ef85f64b4b5fff",
+          "comparison": "Provides eleven consecutive identities interpreting the existing HExpr common-term coefficient arrays as the existing field-valued coefficient arrays. Reuse directly; no new term-by-term interpretation proofs. Compilation pending."
+        },
+        {
+          "module": "CriticalZeroSumExprCommonBindings05",
+          "sha256": "c87dbd0de842da0f4798c5b2c484dc11a568ea845c42faedfd1aaa8612263c9f",
+          "comparison": "Provides eleven consecutive identities interpreting the existing HExpr common-term coefficient arrays as the existing field-valued coefficient arrays. Reuse directly; no new term-by-term interpretation proofs. Compilation pending."
+        },
+        {
+          "module": "CriticalSingularBoundary",
+          "sha256": "344ab3d5d57a13977e499a9760698a7fe8689fb07c9f71c112fa637dfc3ee500",
+          "comparison": "normalized_strip_zero_parameter_fourier routes z=0 to FourierOrTranspose through the actual singular-minor theorem. It requires NormalizedCarrier and the physical sideP=9-z^2 relation; no all-critical premise is needed. Reuse this boundary route. Not yet adopted/compiled."
+        },
+        {
+          "module": "CriticalZeroPoles",
+          "sha256": "0ae283ab37656f29d4105c84f0b7dceea470cc648f96cb509ee10ede14e51475",
+          "comparison": "Nonnegative physical squared moduli and the two scalar relations exclude all zero-J moment poles away from z=0,-3,-2. The factor consumer still assumes the cleared square-sum numerator is zero. This supplies regular-chart denominators, not the exceptional strata."
+        },
+        {
+          "module": "CriticalNonzeroPoles",
+          "sha256": "d5672451039ceec46a87875fba81c3fb796baaf6da4d756369f20f4a8b99a296",
+          "comparison": "Identifies pole products with denominator factors and derives their nonvanishing from six explicit physical pole nonvanishing assumptions. The quartic consumer requires reducedNumerator=0. It does not discharge physical pole guards or bind the computed numerator."
+        }
+      ],
+      "compilation_status": "The selected denominator identity, all66 common-term bindings, the sum-level interpretation bridge and the five scalar-tail modules now compile; KERNEL_AUDIT_CRITICAL_ZERO_SCALAR_STATUS.json reports standard axioms. Other physical/classification candidates remain uncompiled. Whole numerator identity is unproved; resource failures are recorded separately.",
+      "quartic_variants_reviewed": {
+        "sha256": [
+          "18facb58f9f180e6133d6d29d183b2f006c02713c9d254432a81deed570306b6",
+          "514c8547e2fe324d1a0359f4b0c75f2bd30a4c2ee07530b922e92ae9a730603a",
+          "64f07b9feaaa744e37701293df76cfdd917d4f9ea6da2f3d0c30145aa492d353",
+          "a30b6fab169dee5ade88cf5a54fece7cbada5028793cb6d403e119d7bb301425"
+        ],
+        "decision": "All four expose reduced_numerator_factorization and explicitly separate its physical Newton-sum identification. The variants differ in polynomial storage/proof implementation; do not adopt multiple versions."
+      },
+      "numerator_bridge_search": {
+        "evidence": [
+          "CRITICAL_ZERO_NUMERATOR_USE_FILES.txt",
+          "CRITICAL_ZERO_RESIDUAL_USE_FILES.txt",
+          "CRITICAL_ZERO_SUM_CERTIFICATE_FILES.txt",
+          "CRITICAL_ZERO_NUMERATOR_REVERSE_USES.txt",
+          "CRITICAL_ZERO_FULL_COMMON_USES.txt"
+        ],
+        "result": "Expanded beyond exact computedNumerator/rawNumerator co-occurrence to residual arrays and dense/smart/binary aliases. Several reusable single-coefficient pilots and generic assembly theorems found; full37-coefficient bridge has not been identified or admitted. Do not regenerate pilot certificates or select multiple representations.",
+        "reverse_use_review": "Read-only reverse-use search over all verified archived source blobs found six files referencing allCommonCoefficients/rawNumeratorExprCoefficients/numeratorExprResidual and the searched dense/Expr aliases. Complete denominator and pair00-product assemblies were inspected separately; neither supplies the full numerator identification. Search remains a reuse audit, not a proof that no differently presented endpoint exists."
+      },
+      "exceptional_parameter_search": {
+        "evidence": "CRITICAL_EXCEPTIONAL_PARAMETER_USES.txt",
+        "result": "Zero parameter z=0 has an existing singular-minor routing theorem, not yet adopted. The checked signed parameterization gives z=-3 => p=0 and z=-2 => p=5, the allowed scalar values in the existing strip-count obstruction. Those two values need no extra regular-stratum square-sum identity; the physical routing and final case assembly are still pending."
+      }
+    },
+    "signature_semantics": {
+      "reviewed": true,
+      "comparison": "The current repository already proves sideSignature_scale and sideSignature_submatrix in AnchorTransport. PhaseEquivalence supplies the unit dephasing factors. The new adapter only removes dephasing from actual frame signatures and swaps the two column halves to express SameLabels on complementary diagonal blocks. No new proof of phase or permutation invariance is needed.",
+      "sources": [
+        "lean/NoFourMUBs/Step2/AnchorTransport.lean",
+        "lean/vendor/hadamard6/Hadamard6/PhaseEquivalence.lean",
+        "lean/NoFourMUBs/Step2/Frames.lean"
+      ],
+      "archive_search": "The verified archived corpus was searched for phaseInvariant/signedInvariant/sideSignature/Psi with monomial, dephasing, invariance, scaling and permutation terminology; the current repository theorem is the directly applicable result.",
+      "laurent_expansion_review": {
+        "search": "Complete resident archive plus current/OAI sources; candidate file list audit/SIGNATURE_EXPANSION_REUSE_CANDIDATES.txt. Targeted complementary-Psi/monomial search found no implementation.",
+        "inspected": "CriticalBlockInvariant.lean, sha256 2e1a6cca797a57bda81dca82dd45c814def98cefff1df43d0030b987bb2b9260",
+        "exact_comparison": "The archived signedExpression_eq_sixSkew applies only to a normalized block and computes its imaginary part. It does not supply the full 55-term Laurent polynomial of sideSignature. Reuse current permanent3_expand, Matrix.det_fin_three, OAI exponentMonomial_neg, and generic averages; add only the missing Laurent interpretation of the existing psi() data.",
+        "source_of_55_terms": "../lean_proof_2026_10_09/verify_one_identity.py::psi (already used by the selected witness)",
+        "kernel_status": "All 55 terms and signature interpretation passed Lean; see sos/SIGNATURE_LAURENT_MANIFEST.json."
+      },
+      "complementary_moment_adapter": {
+        "reuse": "Reuse FrameSignatures.sameLabels_complementary, FourierBridge.coordinates/toOAI, Equiv.embeddingEquivOfFinite, OAI.average_congr/average_sum/average_mul, OAI.exponentMonomial_neg and character_add. No finite-sampling theorem is reproved.",
+        "missing_binding": "Interpret the 9 existing complementary-Psi witness rows as averages of the physical signature equality times a unit monomial.",
+        "kernel_status": "ComplementaryMoments passed Lean; see SOS_COMPLEMENTARY_MOMENTS_BUILD_STATUS.json."
+      },
+      "complementary_row_generation": {
+        "source": "audit/sos/unprojected_system.json.gz",
+        "row_ids": [
+          659,
+          660,
+          661,
+          662,
+          663,
+          664,
+          665,
+          666,
+          667
+        ],
+        "adapter_generator": "audit/generate_sos_psi_rows.py",
+        "exact_check": "For every selected row, the sum of the existing normalized 55 left-minus-right terms equals its existing rational row. No witness equation or multiplier was replaced.",
+        "kernel_status": "Input interpretation and row projections still being compiled; not a completed ConditionalSOS proof."
+      }
+    },
+    "target_frame_binding": {
+      "reviewed": true,
+      "reviewed_at": "2026-10-10T18:56:07.812630+00:00",
+      "scope": "Only the cubic first-moment identification with physical frame averages. Product-of-two-averages and the full target remain separate pending work.",
+      "evidence": [
+        "ARCHIVE_IMPORT_INDEX.json",
+        "ARCHIVE_SOURCE_INDEX.jsonl",
+        "ARCHIVE_BLOB_INDEX.jsonl",
+        "PHYSICAL_TARGET_REUSE_CANDIDATES.txt",
+        "PHYSICAL_TARGET_REUSE_BROAD_CANDIDATES.txt",
+        "PHYSICAL_TARGET_AVERAGE_REUSE_CANDIDATES.txt"
+      ],
+      "archive_comparison": "No injectiveMoment, pairAverage, average definition or permutation-cardinality sampling result occurs in the verified archive. Inspected MomentInterpretationAudit (146911e3...) concerns a fixed seed2442 phase character; CriticalLaurentSum (b3e1ebcb...) concerns ordered triples of two scalar strips with repetitions; GlobalCornerSixSkew (4c220da9...) concerns an individual side invariant. These statements do not identify the physical full-frame cubic average.",
+      "reuse": [
+        "OAI.MUB6.exponentMonomial_transpose",
+        "OAI.MUB6.average_equiv",
+        "NoFourMUBs.Step2.SOS.exponentMonomial_block",
+        "Equiv.embeddingEquivOfFinite",
+        "Equiv.permCongr",
+        "Matrix.fromBlocks_transpose",
+        "Matrix.transpose_submatrix"
+      ],
+      "decision": "Add only index/real-average adapters and the direct -2/+1 exponent binding; preserve the existing moment definition and selected witness.",
+      "kernel_status": "Passed Lean; see SOS_TARGET_FRAMES_BUILD_STATUS.json."
+    },
+    "defect_frame_binding": {
+      "reviewed": true,
+      "reviewed_at": "2026-10-10T19:06:00.008063+00:00",
+      "evidence": [
+        "PHYSICAL_TARGET_REUSE_CANDIDATES.txt",
+        "PHYSICAL_TARGET_REUSE_BROAD_CANDIDATES.txt",
+        "PHYSICAL_TARGET_AVERAGE_REUSE_CANDIDATES.txt",
+        "SIGNATURE_EXPANSION_REUSE_CANDIDATES.txt"
+      ],
+      "comparison": "The physical frameRight_raw/frameLower_raw and sameLabels_complementary already give dephasing removal and the half-column swap. ComplementaryFrames already proves sideSignature_transpose and the OAI sampling model. No extra invariant or sampling theorem is needed: transport the real average by existing Equiv.prodCongr, Equiv.mulRight, sampledFrame and OAI.average_equiv. Archived GlobalCornerSixSkew concerns an individual normalized side, not a frame average.",
+      "scope": "Only bind the physical defect average to raw complementary blocks and transport its transpose. Polynomial target expansion and product-of-two-averages remain pending.",
+      "kernel_status": "Passed Lean; see SOS_DEFECT_FRAMES_BUILD_STATUS.json."
+    },
+    "corner_pair_sampling": {
+      "reviewed": true,
+      "reviewed_at": "2026-10-10T19:10:54.416902+00:00",
+      "source": "../lean_proof_2026_10_09/verify_one_identity.py, patterns and relative in the existing target expansion",
+      "scope": "The existing 34 overlap patterns for two injective triples, their completeness and use as an EqualityPatterns.Family. No target or SOS witness coefficient is recomputed.",
+      "evidence": [
+        "ARCHIVE_IMPORT_INDEX.json",
+        "ARCHIVE_SOURCE_INDEX.jsonl",
+        "PHYSICAL_TARGET_AVERAGE_REUSE_CANDIDATES.txt",
+        "PHYSICAL_TARGET_REUSE_BROAD_CANDIDATES.txt"
+      ],
+      "compared": [
+        "OAI Moments/EqualityPatterns.lean: reuse Family and flatten_injective; the full assignmentsEquiv requires coverage of all functions, whereas this table covers functions injective on both triples.",
+        "OAI Moments/SmallPartitions.lean: family1 through family4 apply to one through four unrestricted positions; no table for the six positions of two injective triples.",
+        "Mathlib Logic/Equiv/Embedding.lean: sumEmbeddingEquivProdEmbeddingDisjoint assumes the ranges are disjoint. The present table must retain every possible overlap, so that equivalence alone does not provide the requested expansion."
+      ],
+      "decision": "Encode only the already used 34 patterns and their finite completeness, reusing the OAI family representation. Subsequent sampling uses the existing generic family and finite-sum equivalence machinery.",
+      "factorization_reuse": "Use Mathlib Function.factorsThrough_iff to factor each pair through its equality labels; this avoids copying the surjInv construction of OAI Family.flatten_surjective. Reuse Family.flatten_injective and Equiv.sum_comp for uniqueness and the finite sum.",
+      "weight_reuse": "The existing target weight (3)_new/120 is identified with card(Fin(blocks p) \u21aa Fin6)/14400 using Mathlib Fintype.card_embedding_eq and Nat.descFactorial. The weighted average invokes OAI sum_eq_card_mul_average.",
+      "kernel_status": "Patterns, completeness, pair-assignment equivalence, finite sum and original weights all passed Lean; see SOS_CORNER_PAIR_SAMPLING_BUILD_STATUS.json."
+    },
+    "corner_pair_products": {
+      "reviewed": true,
+      "reviewed_at": "2026-10-10T19:24:58.839507+00:00",
+      "evidence": [
+        "ARCHIVE_SOURCE_INDEX.jsonl",
+        "ARCHIVE_IMPORT_INDEX.json",
+        "PHYSICAL_TARGET_REUSE_BROAD_CANDIDATES.txt",
+        "PHYSICAL_TARGET_AVERAGE_REUSE_CANDIDATES.txt"
+      ],
+      "compared": [
+        "OAI PartitionExpansion.product_grouped already proves each grouping of Laurent powers; reuse it twice for rows and columns.",
+        "OAI NormalizedPartitions.averagedRowProducts_partition and PairAverage.pairAverage_products_partition sample unrestricted Fourier positions, not two injective row and column triples. Their average algebra is reused.",
+        "CornerPairSampling.average_pair_injections already gives every overlap and weight; do not make another pattern table.",
+        "TargetFrames.injectiveMoment_of_symmetric supplies the later symmetric cubic-moment identification; reuse it rather than deriving a second copy."
+      ],
+      "scope": "Only bind the two-triple sampled monomial product to grouped exponent matrices, and combine existing row/column sampling and average algebra. No new SOS witness or normalization discovery.",
+      "decision": "Add the row/column index adapter and finite-average algebra around existing product_grouped; retain the selected target coefficients.",
+      "shared_adapter": "Moved the existing injectiveMoment_of_symmetric proof verbatim from TargetFrames into MomentRealAverage and made it public; TargetFrames imports that same theorem. There is one declaration and proof.",
+      "tail_padding_adapter": "Read-only lookup found 2235 corner-product raw shapes need transport to their already normalized 6x6 zero extension. Reuse existing pad6_moment plus moment_permute and Mathlib Fin.revPerm: reverse the small array, prepend zeros with pad6, then reverse the 6x6 array. Add no normalization trace and change no existing core padding module.",
+      "kernel_status": "CornerPairMoments, CornerPairSquares and physical cubic-square binding passed Lean. PhysicalTarget passed; final coefficient projection pending."
+    },
+    "defect_moment_expansion": {
+      "reviewed": true,
+      "reviewed_at": "2026-10-10T19:29:02.914953+00:00",
+      "evidence": [
+        "DEFECT_EXPANSION_REUSE_CANDIDATES.txt",
+        "ARCHIVE_IMPORT_INDEX.json",
+        "ARCHIVE_SOURCE_INDEX.jsonl"
+      ],
+      "comparison": "Inspected both archived RowPairDefect variants: they concern nearly repeated entries in one dephased row, not a signature Laurent sum. FormalCore.unit_close_re_overlap assumes unit scalar norms and a distance bound. Seed0024Geometry gives phase distance bounds. None binds the complementary signature target.",
+      "reuse": [
+        "Mathlib Complex.normSq_sub, normSq_conj and mul_conj",
+        "SignatureLaurent.sideSignature_laurent (same existing 55 terms)",
+        "ComplementaryMoments.exponentMonomial_add_six and exponentMonomial_block",
+        "OAI exponentMonomial_neg and average algebra",
+        "DefectFrames.signatureDefect_average_transpose",
+        "TargetFrames.halfSwap and OAI.average_equiv"
+      ],
+      "scope": "Expand the existing averaged complementary-signature defect into exactly the original target moment expression. No new certificate coefficients or witness are discovered.",
+      "kernel_status": "DefectMoments and PhysicalTarget passed Lean; see SOS_PHYSICAL_TARGET_BUILD.log. No determinant or exceptional parameter is divided by."
+    },
+    "physical_target_projection": {
+      "reviewed": true,
+      "reviewed_at": "2026-10-10T19:42:16.362898+00:00",
+      "evidence": [
+        "sos/PHYSICAL_TARGET_REUSE_PLAN.json",
+        "sos/CORNER_PRODUCT_EXISTING_NORMALIZATION_LOOKUP.json",
+        "sos/CANONICAL_REUSE_LEDGER.json",
+        "ARCHIVE_CORPUS_AUDIT.json",
+        "PHYSICAL_TARGET_REUSE_BROAD_CANDIDATES.txt"
+      ],
+      "comparison": "Original target source replay with ONLY existing canonical inputs and old/new projection data agrees exactly with all138 selected target coefficients.4477 raw inputs lead to just76 distinct existing projection endpoints. All required canonical proofs and the normalization DAG are already generated. OAI PairTargets.Weighted/IntegerTerms represent the Fourier pair target, not this physical complementary-signature target; their sparse evaluation, scale/merge/reindex and permutation lemmas remain the shared checker.",
+      "reuse": [
+        "generate_sos_reductions.canonical and projection lookups",
+        "OLD_PROJECTION_MANIFEST record projection and denominator fields",
+        "existing canonicalSound and oldProjectionSound/reductionSound theorems",
+        "IntegerProjection.integer_projection with c=-1,d=L,k=-1 to collect a finite sum",
+        "IntegerProjection.sumScaled_eval",
+        "PrimitiveRows.extendRow_eval",
+        "TailPadding.tailPad6_moment",
+        "OAI Integer.Sparse.eval_merge/eval_scale/eval_reindex"
+      ],
+      "scope": "Only bind the now-checked physicalTargetMoment expression to the already selected Arithmetic.target using existing canonicalization and76 projection endpoints. Preserve the original SOS witness, normalizer DAG and all data; no discovery or duplicate normalization proofs.",
+      "implementation_note": "The old projection manifest already stores the integer projection in1613 coordinates and its denominator. Use it directly; no need to parse Values*.lean again. Share identical raw and canonical endpoint bindings. TailPadding handles small overlap arrays by reversal of existing front padding, so use the original6x6 raw inputs.",
+      "data_import_split": "Share the same four existing exponent definitions without importing physical theory in finite coefficient checks. No mathematical definition duplicated. blockExponent replaces the definitional alias FourierBridge.coordinates with finSumFinEquiv.",
+      "assembly": "All 1338 selected rows have exactly one active rowSound theorem; RowsSound assembles those calls. Conditional.lean joins their arithmetic consequence to physical_target_projection and physical_target, using the existing non-Tao Fourier theorem and sameLabels bridge. These final assembly modules remain UNCOMPILED until their dependency checks finish.",
+      "kernel_status": "TargetTail, TargetPsiRow16 and TargetCornerRow01 pass. The corner arithmetic fix only changes tactic lines; all1156weights/statements/data retained. Remaining87targetrows and finalassembly pending."
+    },
+    "matched_existence": {
+      "reviewed": true,
+      "decision": "No available candidate reviewed supplies the target universal norm theorem. Continue only the missing norm/semantic binding, reusing the supplied exact_lower_block_specialization.py algebra and the already checked side, Gram, AM-GM and dense-extension results. The rational specialization is not a universal proof.",
+      "evidence": [
+        "MATCHED_EXISTENCE_CANDIDATE_FILES.txt",
+        "MATCHED_EXISTENCE_CONTENT_CANDIDATES.txt",
+        "MATCHED_NORM_IDENTITY_REUSE_FILES.txt",
+        "MATCHED_FOURTH_BLOCK_REUSE_FILES.txt",
+        "MATCHED_UNIVERSAL_COMPLETION_CONTENT_FILES.txt"
+      ],
+      "examined_endpoints": [
+        {
+          "module": "DFlatnessLinear",
+          "sha256": "28ef5253b56c39c4742797262fa37422947892032c81bb490997fbde4a8ce735",
+          "comparison": "nine_flat_entries_of_four only propagates four assumed unit squared moduli using assumed row and column sums3. It does not construct a completion or prove those four entries flat. The fe9cf variant has the identical hypotheses/conclusion and a shorter tactic body."
+        },
+        {
+          "module": "ForcedBlockAlgebra",
+          "sha256": "02abe8e6ee3b874ed43fdab4035329b52ae64858bc5ecfeff2711446fc430dd2",
+          "comparison": "Compatibility import of the same public Hadamard6.BlockCompletion, FiniteCornerFromBlocks and FiniteDilation modules already in the pinned dependency closure; no new theorem."
+        },
+        {
+          "module": "BlockCompletion",
+          "sha256": "5fa386752747e883cba63f6cd955f4a376cb2a7ed2515b6de2f86eec57176199",
+          "comparison": "retained_completion_entrywiseUnit takes Retained E B C, whose final field already asserts the forced block is entrywise unit. The general row-Gram identities are reusable and already imported, but this endpoint cannot supply missing forced-block flatness."
+        },
+        {
+          "module": "FourierForcedCompletion",
+          "sha256": "28c8b5302f9723dd7348336c1243f3b4450fc0146dbcf2b1c26f559f5106ae04",
+          "comparison": "Determines the fourth block of an already existing Hadamard in Fourier normal form. Its IsHadamard and Fourier-normal-form hypotheses exclude use as arbitrary strict-seed matched existence."
+        },
+        {
+          "module": "ExactCornerSeed",
+          "sha256": "8f178cb99d213d6ac75cca9ec89519003c5efb428f45eb5dc900b093db024cb4",
+          "comparison": "exact_corner_seed_exists produces four exact unit phases in one benchmark rectangle; it constructs neither side blocks nor a Hadamard completion. Other indexed versions have the same existential conclusion."
+        },
+        {
+          "module": "FourierRouting",
+          "sha256": "0ae4fae4f37ecbf02e1efab051075624581e4b11c8d258cc2f32caf3b11e2154",
+          "comparison": "forced_flat_parameter_branches takes EntrywiseUnit of the forced Fourier block as a hypothesis, then classifies its parameters. It does not prove forced-block flatness for generic strict seeds."
+        },
+        {
+          "module": "RegularGraphBinding",
+          "sha256": "133184ce5ae533486857dfcd7043663d3adf63f36a48f6378937f97c254ddec0",
+          "comparison": "The exact graph and interval-row identities imply a no-five-pair exclusion conditional on CompleteRayCover. This is local exclusion/certificate work, not matched completion existence, and is excluded from adoption or verification here by the user atlas constraint."
+        },
+        {
+          "module": "DenominatorImFlatProbe",
+          "sha256": "8758ae9ae9c518e16e14d314bbdad5fac2c9783f29f03ff4b89a76dacbc3e922",
+          "comparison": "Proves one imaginary denominator polynomial identity and its expression-program binding; does not prove forcedD flatness or construct a matched Hadamard."
+        },
+        {
+          "module": "RegularFamilySeparation",
+          "sha256": "a1adc57e126094c9a39b4b3006dd9c1afa3e3b617d63d57f04db921954204c68",
+          "comparison": "Carrier-box interval checks exclude Karlsson/Tao properties in that particular region. These are not a strict-seed existence or forced-block flatness theorem. No certificate work is pursued."
+        },
+        {
+          "module": "MatchedFrobenius",
+          "sha256": "a6266e098a844469184773fd8d30600bf6190b4d4eb395264422bb79abb18081",
+          "comparison": "Bounds distance between already matched nearby matrices in a local Fourier reference problem. RowMatching is an explicit premise; no strict-seed Hadamard construction or forced-block flatness conclusion. No adoption or certification pursued."
+        },
+        {
+          "module": "MatchedProjectorMetric",
+          "sha256": "f2570b324eed6a9b3c1d7f6062d879fe85c203a7c739daec11e72848999a02d5",
+          "comparison": "Translates an assumed Frobenius distance and unit reference columns into a projector-distance bound. It is not a strict-seed matched-existence theorem. No adoption or certification pursued."
+        },
+        {
+          "module": "StrictSeedGuards",
+          "sha256": "d0d72b40ac259f53947242634c343989ba9fc064024b3e93b078c974e6b61f9c",
+          "comparison": "Proves initial positivity and nonzero reconstruction numerators from a strict unit seed. Useful guard reuse candidate, but contains no side existence or forced fourth-block flatness conclusion."
+        },
+        {
+          "module": "AdjugateReconstruction",
+          "sha256": "4e8183a2abbee770c2f95576eb0def3d6a1e1840ad3f69668229938efc3ddbe2",
+          "comparison": "All four variants reconstruct southeast H from an existing PhaseHadamard H (or NormalizedGoodSideCarrier H). The generic matrix inverse identity is useful, but no theorem constructs an entrywise-unit fourth block for an arbitrary strict seed."
+        },
+        {
+          "module": "AdjugateReconstruction",
+          "sha256": "658a3d7e72ca4def4de93476c97b128e7e3b8ba17270f808931bd1fdda7bf3ba",
+          "comparison": "All four variants reconstruct southeast H from an existing PhaseHadamard H (or NormalizedGoodSideCarrier H). The generic matrix inverse identity is useful, but no theorem constructs an entrywise-unit fourth block for an arbitrary strict seed."
+        },
+        {
+          "module": "AdjugateReconstruction",
+          "sha256": "ac5e3d7c2cd501c81b2bd33ddd1a85cf94a1c164d1bbdb4ae7f157304e832c97",
+          "comparison": "All four variants reconstruct southeast H from an existing PhaseHadamard H (or NormalizedGoodSideCarrier H). The generic matrix inverse identity is useful, but no theorem constructs an entrywise-unit fourth block for an arbitrary strict seed."
+        },
+        {
+          "module": "AdjugateReconstruction",
+          "sha256": "eb650b038abc00d74ec72a6398cd3ad720331d9ef64a7b4c854d974b9b141920",
+          "comparison": "All four variants reconstruct southeast H from an existing PhaseHadamard H (or NormalizedGoodSideCarrier H). The generic matrix inverse identity is useful, but no theorem constructs an entrywise-unit fourth block for an arbitrary strict seed."
+        },
+        {
+          "module": "PhaseCertificateToRetained36",
+          "sha256": "e66f50ec2ed4d462105778a83baf3e9826c7b17c9f7f89808818df7e2dbb254c",
+          "comparison": "The statements consume LeafSound and checked ordinal tapes to prove an approximate Fourier-centre cover and exclusion in residual boxes. This is atlas work and does not establish universal matched existence. Only declarations read; no atlas certificate generated or checked."
+        },
+        {
+          "module": "PhysicalAdjugateCross",
+          "sha256": "b103f43580183e5f83873a45799e0d5d5c334b64cdf34069fc0de55e1346f127",
+          "comparison": "Both variants derive the fourth-block modulus from Physical H. The adjugate sandwich and cross identity are general algebraic helpers, but the modulus endpoint retains the existing-Hadamard premise."
+        },
+        {
+          "module": "PhysicalAdjugateCross",
+          "sha256": "c1b2c6a1cb8a9e94b6e61ad5441fda5b470332a8116730097d3c8d858577b369",
+          "comparison": "Both variants derive the fourth-block modulus from Physical H. The adjugate sandwich and cross identity are general algebraic helpers, but the modulus endpoint retains the existing-Hadamard premise."
+        },
+        {
+          "module": "PhysicalAdjugateLiteral",
+          "sha256": "5364f6c90e8c31ac89a5e7c70692d060faf962572a2ee27263d8db409b1892ab",
+          "comparison": "All three variants rewrite the physical adjugate modulus using literal seed expressions, retaining Physical H. No universal reconstruction flatness follows."
+        },
+        {
+          "module": "PhysicalAdjugateLiteral",
+          "sha256": "d9b1dde67705fc26758540f5df10808f4bf1a27bd1888d0aec86c588d145df91",
+          "comparison": "All three variants rewrite the physical adjugate modulus using literal seed expressions, retaining Physical H. No universal reconstruction flatness follows."
+        },
+        {
+          "module": "PhysicalAdjugateLiteral",
+          "sha256": "f5d52248501d26c6f569257636139cb1045dbb17c33172dc1897c0d891c04fde",
+          "comparison": "All three variants rewrite the physical adjugate modulus using literal seed expressions, retaining Physical H. No universal reconstruction flatness follows."
+        },
+        {
+          "module": "RayPolynomialRegularity",
+          "sha256": "55dd80fb1a300ddafce088c1c776b1004089baf70141c0926b4eec0fb32c5b46",
+          "comparison": "Both variants prove ray-fibre isolation/finiteness from an invertible derivative of a cleared residual; no strict-seed completion or forced-row product norm is concluded."
+        },
+        {
+          "module": "RayPolynomialRegularity",
+          "sha256": "9c605d99384070ae58aa24c8a3e3900359ede29eadbdf78896199f358f418dac",
+          "comparison": "Both variants prove ray-fibre isolation/finiteness from an invertible derivative of a cleared residual; no strict-seed completion or forced-row product norm is concluded."
+        },
+        {
+          "module": "RayRegularity",
+          "sha256": "b73f163e8c662669b702a1ec74c05c5ab3b61e2c42de2f098de6cd04cd0854c0",
+          "comparison": "Both variants prove local isolation/finiteness of common unbiased rays given invertible strict derivatives. Their objects and conclusion differ from existence of a matched Hadamard completion."
+        },
+        {
+          "module": "RayRegularity",
+          "sha256": "d9c37617b4324934c36c9c852dadc782684371c79fc09d0e781039a2640d8a56",
+          "comparison": "Both variants prove local isolation/finiteness of common unbiased rays given invertible strict derivatives. Their objects and conclusion differ from existence of a matched Hadamard completion."
+        },
+        {
+          "module": "SidePhysicalCandidateMembership",
+          "sha256": "96dc8ad0b0f6622b56377bc3023fca6ea7f96986e0dc039801b2c5a63d6172a0",
+          "comparison": "Both variants derive candidates and forcedD from Physical H. The Physical premise already supplies all unit entries; it cannot prove universal matched existence."
+        },
+        {
+          "module": "SidePhysicalCandidateMembership",
+          "sha256": "c45b0e6dd66b4d5769a45473d6b1af86e15ef83c6eb7a6588407290c1947369b",
+          "comparison": "Both variants derive candidates and forcedD from Physical H. The Physical premise already supplies all unit entries; it cannot prove universal matched existence."
+        },
+        {
+          "module": "SidePhysicalExhaustion",
+          "sha256": "0eb4498e8aabe9da8fcbbdfe0315649853cccb1349031f821d252be6380f2b39",
+          "comparison": "physical_two_side_exhaustion_and_completion assumes Physical H, Dephased H and positive invariants. It represents existing side blocks and their forced fourth block; it is not a construction from seed data."
+        },
+        {
+          "module": "SidePhysicalReconstruction",
+          "sha256": "3c3e2d435413fe10936b8e4b206754a89c21adfe559ced5abfebe9207468638d",
+          "comparison": "strict_physical_matrix_reconstruction takes Physical H, Dephased H and positive leadingR. Its existential variables parameterize that pre-existing matrix, not an arbitrary strict seed."
+        },
+        {
+          "module": "SidePhysicalRetained",
+          "sha256": "a0d437792f1d1c01f487427652ae383557e36cd1661775dca04f100ff2fa4374",
+          "comparison": "physical_retained_completion_hadamard assumes Physical H, Dephased H and positive leadingR. The flatness proof in physical_strict_corner_retained rewrites the forced block to blockT H and invokes hH.1. Using this as existence for a fresh seed would be circular."
+        }
+      ],
+      "printed_dependency_review": "MATCHED_EXISTENCE_PRINTED_DEPENDENCY_REVIEW.json",
+      "side_construction_candidates": "MATCHED_SIDE_CONSTRUCTION_CANDIDATE_REVIEW.json",
+      "fourth_block_hypothesis_review": "MATCHED_FOURTH_BLOCK_HYPOTHESIS_REVIEW.json",
+      "universal_norm_review": "MATCHED_EXISTENCE_UNIVERSAL_REUSE_REVIEW.json",
+      "reviewed_utc": "2026-10-11T15:07:03.146178+00:00",
+      "universal_norm_proved": false,
+      "atlas_certification": false
+    },
+    "critical_zero_scalar_reuse": {
+      "reviewed": true,
+      "checked_utc": "2026-10-10T21:22:34.242322+00:00",
+      "decision": "Adopt the98pinned archived modules, preserving existing proof adaptations and all polynomial data. Two resource-heavy pilots remain deferred; newly adopted sources remain uncompiled until actual build receipts.",
+      "source_plan": "CRITICAL_ZERO_SCALAR_REUSE_PLAN.json",
+      "search_evidence": [
+        "CRITICAL_REUSE_ENDPOINTS.json",
+        "CRITICAL_ZERO_NUMERATOR_REVERSE_USES.txt",
+        "CRITICAL_ZERO_NUMERATOR_USE_FILES.txt",
+        "CRITICAL_ZERO_RESIDUAL_USE_FILES.txt",
+        "CRITICAL_ZERO_SUM_CERTIFICATE_FILES.txt"
+      ],
+      "hypotheses": "Generic commutative-ring coefficient interpretation; denominator identity in a characteristic-zero field; one closed integer numerator coefficient10. No result in this scope proves full physical classification or full numerator equality.",
+      "variant_selection": "The primary full-proof-integration-2026-10-03 run resolves all35 modules uniquely. DenominatorExact uses Lean.Elab.Tactic.Omega, the sole difference from its5d0345a variant. No active module shares these names. The native_decide token occurs only in a comment asserting it is not used.",
+      "remaining": "Full critical_classification reuse review stays false; all missing physical hypotheses and numerator assembly remain open.",
+      "additional_reuse": "Six ExprCommonBindings files supply all66 common-term interpretations, using six primitive-binding files. Their statements are generic field identities, with no physical matrix hypotheses. Reuse all66 before writing the missing sum-level bridge.",
+      "pilot_compatibility_failure": {
+        "log": "audit/critical_zero_scalar_build_status_logs/batch_0025.log",
+        "sha256": "e25ac0a6e99f12687403ffed4699105c9a09782e9b14195c723855c7668d8476",
+        "error": "deterministic timeout at whnf, maximum1500000heartbeats",
+        "meaning": "evaluation-limit failure, not a counterexample",
+        "adaptation": "decide +kernel retains trusted-kernel checking; no native_decide"
+      },
+      "kernel_pilot_resource_limit": {
+        "status": "INTERRUPTED_FOR_MEMORY_PRESSURE_NOT_A_MATHEMATICAL_FAILURE",
+        "checked_at": "2026-10-10T20:45:54.506534+00:00",
+        "module": "NoFourMUBs.Reuse.Archive.CriticalZeroSumNumeratorCertificatePilot",
+        "pid": 29616,
+        "proof_tactic": "decide +kernel",
+        "observed_footprint": "10.1 GiB",
+        "observed_swapped_memory": "9.6 GiB",
+        "observed_elapsed": "12 minutes",
+        "observed_cpu_time": "4 minutes 20 seconds",
+        "action": "Sent SIGINT to this Lean process only; archived proof and new whole-numerator checks remain unverified. Check independent existing bindings and denominator identity next.",
+        "source_sha256": "59d375343623109bcf99ca7a7a5bd40a8c1b1c935169ea64abb72c55bd2406fc",
+        "earlier_failure": "rfl exceeded 1500000 elaborator heartbeats; exact log batch_0025.log",
+        "reuse_followup": "DenseCoefficients, CoefficientAt and BinaryCertificate provide existing smaller convolution machinery; audited statements but no replacement coefficient data generated."
+      },
+      "scalar_tail_review": {
+        "modules": {
+          "CriticalScalarReduction": "f4675794d588286a9e68a36e0aecdb63ff309c05fd64b3da99044b310080b720",
+          "CriticalZeroReduction": "fc5f7495f37ff3cd52f988b989bc753d570f34d60c33023ab41f9967871a5851",
+          "CriticalZeroParam": "6ed10a9a2ab25b91b1a5c156620f254e114ff70e9bfcc0264bab67cf0c0e634c",
+          "CriticalZeroPoles": "0ae283ab37656f29d4105c84f0b7dceea470cc648f96cb509ee10ede14e51475",
+          "CriticalZeroModuli": "255c7d8d4ec1f9c6d1dacc8eb07215bfd2cbb9304917b42b71688ce4ad98bfc9"
+        },
+        "exact_comparison": "Existing nonzero scalar reduction, signed zero-parameterization, denominator pole exclusion and repeated-root modulus allocation. All statements inspected. The final zero_cleared_square_sum_moduli keeps its physical square-sum input and z != 0,-3,-2 guards. No exceptional case or matrix classification is inferred.",
+        "reuse_search": "No active module defines these scalar lemmas; use the primary archived run directly. The full archive statement/source indexes identify the pinned originals.",
+        "import_adaptation": "CriticalScalarReduction uses only real arithmetic and tactics, no declaration from RadianSeedBounds. Replacing that environment-only import with Mathlib.Tactic prevents importing irrelevant interval/atlas dependencies; compilation will verify this."
+      },
+      "grouped_pilot_review": {
+        "data": "26e552d5dfbf6dd38f14f431bc6e12992d56abb79e14784ce87e14b1eeea4902",
+        "pilot": "118d23fc27926d14afa6333dd26d22b4ee4e181791bbdbf83f2eb0df85f2ba01",
+        "statement": "Existing coefficient10 check for the first six common terms against the existing expanded group polynomial. Original rfl proof unchanged. This is a component of the same numerator equality, not a second mathematical proof.",
+        "reason": "Test the existing smaller component after the whole numerator expression hit a 10 GiB footprint. All 11 group data files already exist in the complete archive; do not regenerate them. No new group certificate is authorized until this existing pilot has been checked.",
+        "pending_full_equality": "All groups and all coefficients would still need checked bindings before a numerator equality follows."
+      },
+      "grouped_pilot_resource_limit": {
+        "status": "INTERRUPTED_FOR_MEMORY_PRESSURE_NOT_A_MATHEMATICAL_FAILURE",
+        "checked_utc": "2026-10-10T20:56:23.345654+00:00",
+        "module": "NoFourMUBs.Reuse.Archive.CriticalZeroSumNumeratorGroupPilot",
+        "pid": 32175,
+        "proof_tactic": "original rfl",
+        "footprint_report": "7.5G",
+        "swap_report": "5.4G",
+        "action": "SIGINT to the single identified Lean process. No coefficient check proved; group data file alone compiled. Do not generate or run more whole-expression/group checks from this result.",
+        "source_sha256": "40fab027c9ed54b5c4bc624e8041af261ee3bc8e3a9a08e34eab39f04bc83466"
+      },
+      "binary_product_review": {
+        "root": "CriticalZeroSumPair00Exact",
+        "root_sha256": "097c8711cd08a300a3ef6f7896fc90213471502df4f6a718e4a58c5bd058d589",
+        "new_modules": {
+          "CriticalZeroSumPair00Exact": "097c8711cd08a300a3ef6f7896fc90213471502df4f6a718e4a58c5bd058d589",
+          "CriticalZeroSumPair00Certificates00": "6388ec3686a415eca73ffc3aadad98de11e892ea867379f19826a5a663bdeecf",
+          "CriticalZeroSumPair00Data": "aa99405863048b5a793475183b8b733a82f381c52afd3d19617382761a63898a",
+          "CriticalZeroSumBinaryCertificate": "15efa580db389430a775f3f51c31ee4e6d5e6d9e32a21fc3bf660464225d3348",
+          "CriticalZeroSumCoefficientAt": "a9c468a4e45a9546da852a4e81eb43204c31484b58d940130ac4862f95144366",
+          "CriticalZeroSumDenseCoefficients": "f88ae651c24d8901ee606367a83a55a0e365338b84989ade50b33f24a7f7791a",
+          "CriticalZeroSumPair00Certificates01": "bbd3dd418bfb6871ac031ab7b9c265cf470e9515479304e61ec2e3d83c12d239",
+          "CriticalZeroSumPair00Certificates02": "01b1d728d4065aa0d8eb053b62905d2a2d55dc09c0d30cc03061585af0d3e0a9",
+          "CriticalZeroSumBinaryAtPilot": "ff5c69f8ad7dcff524ad74a649f841884d3aebc8fa519121c95263fc977ede81",
+          "CriticalZeroSumPair00Certificates03": "6cd5d55343503619cb1bc819a4d17493bd8d698a71163335c84151be28e51946",
+          "CriticalZeroSumPair00Certificates04": "c0c38da29a12e35b99029413b3e91defc4aa52dc7ff8cad221e16681eb4614c9",
+          "CriticalZeroSumPair00Certificates05": "44a88d9680347b047fca8069fbefeefd9c84dd85849dfd451bae8a37d8f9ea1d"
+        },
+        "exact_statement": "pair00_eval identifies the existing23-coefficient dense array with primitive_p2_m4 * primitive_p2_p2, for arbitrary characteristic-zero fields. Its complete23 closed checks use existing CoefficientAt.binary_eval_eq; coefficient10 directly reuses binary_at_certificate_10.",
+        "role": "Existing product inside common term01. Assess the existing bounded convolution checks before generating any missing numerator checks. No alternate mathematical identity, new normalizer or new polynomial data.",
+        "deferred": "Whole numerator and group00 pilots remain unverified and must be deferred in the builder.",
+        "build_status": "PASS; all23coefficients and pair00_eval; standardaxioms, KERNEL_AUDIT_CRITICAL_ZERO_PAIR_STATUS.json."
+      },
+      "triple_product_review": {
+        "root": "CriticalZeroSumTrip00Exact",
+        "root_sha256": "adcf8ab228ba4329b5d8eb36f21355280c9de4bb47f9cca88db1c12aceb1d367",
+        "new_modules": {
+          "CriticalZeroSumTrip00Exact": "adcf8ab228ba4329b5d8eb36f21355280c9de4bb47f9cca88db1c12aceb1d367",
+          "CriticalZeroSumTrip00Certificates00": "ed7257d66822bfe636aeda3507802d4116aa0840753f9cb346097033068b99d7",
+          "CriticalZeroSumTrip00Data": "b5bfaa953b4d7701ecd5f9cfd1fde279144ef37a4444dbd014d67d0e5c8e7449",
+          "CriticalZeroSumDenseLengths": "3639330d73789a8e1b3061f27f5bb682709d37794445909499fa9c7a3732a879",
+          "CriticalZeroSumTrip00Certificates01": "4ece8893e6bf7b5ad7df33cb3ad05bd8f11af2c731053f7886224cafa2e52563",
+          "CriticalZeroSumTrip00Certificates02": "05899e5c54da36aee6244b4a2e41f9f8fb3276006ae12b8fdcb5e604ae2e7f74",
+          "CriticalZeroSumTrip00Certificates03": "8b8e4c38937d2fa33b497180948a2f81ced156f312ca3a3cae4667502d21efc3",
+          "CriticalZeroSumTrip00Certificates04": "be03a39109e4cbc502d7b568ef009444c375596556f60237e7a9c49ae4982278",
+          "CriticalZeroSumTrip00Certificates05": "45cf16d4a2d7a9cc90bf29895f6ec920c75737d01c0b59f0fa20244aa9c53e89",
+          "CriticalZeroSumTrip00Certificates06": "64392dc4dcb1bdf2ac06187b775e15ce8fd88f735689854912ff827c94368809",
+          "CriticalZeroSumTrip00Certificates07": "25689462aa0baa1aa6d356daeeb573087fe22a8736295f264f9f5528d9f291d0",
+          "CriticalZeroSumTrip00Certificates08": "9f6ca3932b49ef5c8867c22beee9273f1df177b2c5abb342562f4f39f28adbb4"
+        },
+        "exact_statement": "Existing35-coefficient trip00Cs evaluates to primitive_m4_p2 * (primitive_p2_m4 * primitive_p2_p2), for arbitrary characteristic-zero fields. Directly reuses the now-checked pair00_eval and the existing binary convolution theorem.",
+        "role": "The product in common term01, unchanged data and proof bodies. This is the next component of the same numerator equality. No new polynomial data or normalizer.",
+        "status": "PASS: all35coefficients, trip00_eval, standardaxioms. See KERNEL_AUDIT_CRITICAL_ZERO_PRODUCT_STATUS.json."
+      },
+      "coefficient_evaluation_reuse": {
+        "CriticalZeroSumEvalBase": "09009d754d9f4bd0eaa09416dca1909e1268e9a2df09ebc14e30b8855fd267ad",
+        "CriticalZeroSumEval00": "9c25859d670ad897c11fa724e3305c0d631abc5c1c75fa294c4c3f62e45a3912"
+      },
+      "dense_common_review": {
+        "modules": {
+          "CriticalZeroSumDenseCommonData": "901846b906da73ef1f43cf2084d45bdf1768e4890c70ea115060c8ae031b24e7",
+          "CriticalZeroSumDenseCommonBindings00": "cd225f3cd12c92238a67b1f95bbbe1794ae5fbc27cfe872f9e2acd898245c956"
+        },
+        "exact_comparison": "Archived DenseCoefficients interpretation lemmas00..10 have the same original commonCoefficients as the checked expression bindings. They supply the existing efficient dense representation; reusing them avoids writing another interpretation proof. Imports reuse the already checked expression primitive bindings. No coefficient data or theorem statement changes.",
+        "purpose": "Stage the same missing numerator equality after substituting the already checked trip00 product into common term01. Full dense residual still unproved.",
+        "status": "PASS",
+        "build_log": "CRITICAL_ZERO_DENSE_COMMON_REUSE_BUILD.log"
+      },
+      "group01_extension_review": "CRITICAL_ZERO_GROUP01_REUSE_REVIEW.json",
+      "remaining_groups_extension_review": "CRITICAL_ZERO_REMAINING_GROUP_REUSE_REVIEW.json"
+    },
+    "critical_zero_numerator_completion": {
+      "reviewed": true,
+      "reviewed_at": "2026-10-10T23:31:23.103177+00:00",
+      "decision": "Complete the SAME numerator using the11unchanged archived group expansions. All11midpoint group pilots and the expanded-sum midpoint18 now pass. Reuse checked NumeratorGroups and NumeratorBindings; emit only36missing expanded-sum coefficient checks plus finite assembly and evaluation identity. No new polynomial array or normalizer.",
+      "evidence": [
+        "CRITICAL_ZERO_GROUPED_NUMERATOR_REVIEW.json",
+        "CRITICAL_ZERO_REMAINING_GROUPS_BUILD_STATUS.json",
+        "critical_zero_remaining_groups_build_status_logs/batch_0034.log",
+        "critical_zero_remaining_groups_build_status_logs/batch_0035.log"
+      ],
+      "explicit_remaining": "All11whole group identities, all37expanded-sum coefficients, and final numerator assembly must compile. No full numerator or critical classification is yet claimed.",
+      "atlas_certification": false
+    },
+    "critical_zero_product_adapter": {
+      "reviewed": true,
+      "checked_utc": "2026-10-10T21:05:21.552847+00:00",
+      "decision": "Add only an evaluation adapter from the existing negated trip00Cs array to commonCoefficients_01. Reuse trip00_eval, eval_common_01, DenseCoefficients.interpret_neg and Coefficients.eval_neg. No new polynomial data, normalizer, coefficient check or physical assumption.",
+      "search_evidence": [
+        "CRITICAL_ZERO_TRIP_REVERSE_USES.txt"
+      ],
+      "exact_comparison": "The complete archive reverse-use search finds trip00_eval only in its defining source. eval_common_01 evaluates the original common coefficient array to commonTerm_01, which is exactly the negative triple product after removing powers0. The adapter joins these existing results.",
+      "status": "PASS: common_term01_from_trip00 compiled in1.4s with standardaxioms only."
+    },
+    "critical_zero_group_trip_adapter": {
+      "reviewed": true,
+      "reviewed_at": "2026-10-10T21:23:47.074811+00:00",
+      "search_evidence": [
+        "ARCHIVE_SOURCE_INDEX.jsonl",
+        "ARCHIVE_IMPORT_INDEX.json",
+        "ARCHIVE_BLOB_INDEX.jsonl",
+        "CRITICAL_ZERO_GROUP_TRIP_ARCHIVE_USES.txt",
+        "CRITICAL_ZERO_GROUP_TRIP_ACTIVE_USES.txt"
+      ],
+      "comparison": "The only archived uses of trip00_eval and numeratorGroupOriginal_00/Expanded_00 are their defining modules. The existing GroupPilot checks the raw expanded expression and was interrupted for memory. CommonTerm01 already proves equality after evaluating the checked trip00 array. DenseCommonBindings00 supplies all other component interpretations. No existing adapter combines these results.",
+      "scope": "Two evaluation adapters for the existing first numerator group and its existing residual, replacing only term01 with the checked trip00 array. Allow one bounded coefficient10 pilot to assess kernel resources. No new polynomial arrays, normalizer, or atlas work. Full numerator completion remains unreviewed/unproved.",
+      "reuse": [
+        "CommonTerm01.common_term01_from_trip00",
+        "CriticalZeroSumDenseCommonBindings00",
+        "CriticalZeroSumExprCommonBindings00",
+        "CriticalZeroSumNumeratorGroupData00",
+        "DenseCoefficients.interpret_add/neg/fromExpr",
+        "ExprCoefficients.interpret_add/neg",
+        "Coefficients.eval_add/neg"
+      ],
+      "status": "ADAPTER_AND_COEFFICIENT10_PASS",
+      "manifest": "CRITICAL_ZERO_GROUP_TRIP_ADAPTER_MANIFEST.json",
+      "next_bounded_pilot": "Allow coefficient18 in the same unchanged residual to check resource use near the degree midpoint before generating further coefficient proofs. No new coefficient arrays.",
+      "midpoint_pilot": "PASS: coefficient18; only propext, log CRITICAL_ZERO_GROUP_TRIP_MIDPOINT_PILOT.log."
+    },
+    "critical_zero_group_trip_checks": {
+      "reviewed": true,
+      "evidence": [
+        "CRITICAL_ZERO_GROUP_TRIP_ARCHIVE_USES.txt",
+        "CRITICAL_ZERO_GROUP_TRIP_ACTIVE_USES.txt",
+        "CRITICAL_ZERO_GROUP_TRIP_ADAPTER_MANIFEST.json",
+        "CRITICAL_ZERO_GROUP_TRIP_PILOT.log",
+        "CRITICAL_ZERO_GROUP_TRIP_MIDPOINT_PILOT.log"
+      ],
+      "scope": "Check the37coefficients of the same existing first numerator-group residual through group00TripResidual, then use the archived allZero/evaluation lemmas. No polynomial arrays generated; no new normalizer; no full-numerator claim. Both resource pilots10and18 passed.",
+      "reuse": "The two passed audit pilots are adopted once as project coefficient10and18 modules; the other35coefficients have no archived group certificate. Original raw GroupPilot remains deferred as a superseded implementation. All existing group-expanded data and trip00 product are reused.",
+      "decision": "Generate only trivial per-coefficient rfl wrappers plus finite assembly for group00. Keep the remaining10group equalities and final numerator identity pending."
+    },
+    "side_construction_reuse": {
+      "reviewed": true,
+      "reviewed_at": "2026-10-11T00:33:13.626565+00:00",
+      "plan": "MATCHED_SIDE_REUSE_PLAN.json",
+      "evidence": [
+        "MATCHED_SIDE_CONSTRUCTION_CANDIDATE_REVIEW.json",
+        "MATCHED_SIDE_DEPENDENCY_REVIEW.json",
+        "MATCHED_SIDE_MATRIX_REVERSE_USES.txt",
+        "ARCHIVE_SOURCE_INDEX.jsonl",
+        "ARCHIVE_IMPORT_INDEX.json",
+        "ARCHIVE_BLOB_INDEX.jsonl"
+      ],
+      "decision": "Reuse84archived modules plus8necessary local model/adaptation modules. Existing side construction, finite-candidate proofs, Fourier permanent identity and generalized block-completion proof are used directly.",
+      "exact_scope": "Arbitrary strict unit3x3 seed: oriented root and scalar guards, complementary Gram, determinant and all3row phase gates of the prescribed coefficient matrix. These do not imply fourth-block flatness or MatchedExistence.",
+      "atlas_exclusion": "The selected source closure contains generic scalar, matrix and Fourier algebra. No concrete atlas certificate, interval record, local-exclusion verifier, or atlas certification is adopted or run.",
+      "status": "PASS_SOURCES;ROW_PRODUCT_IDENTITY_OPEN",
+      "side_constructor_endpoint": {
+        "name": "StrictReconstruction20261007.strict_seed_prescribed_side_exists",
+        "source": "SideFourierActual",
+        "sha256": "7186ff2f60ffdb2e1ef76d012bda7e640958458d4d40de8930c170226c0211d4",
+        "comparison": "Constructs unit side entries, first row1, and required complementary Gram for every strict unit seed and either sign epsilon. No pre-existing Hadamard completion, genericity, atlas, or forced fourth-block flatness is assumed. Reuse directly; do not write another side constructor.",
+        "additional_modules": {
+          "SideFourierPhaseAlgebra": "c2dd5642ddd8e3b9ec6f00fbccd44030c0f55994eb405af4c9685523ac2fa645",
+          "SideFourierActual": "7186ff2f60ffdb2e1ef76d012bda7e640958458d4d40de8930c170226c0211d4",
+          "SideDFTIdentities": "8e5e28b3c3e70c139c684e068df41e51085bb9669edbb6c5c735257f295e752e",
+          "SideFourierMatrixAlgebra": "efdc7f269ad94a4462dd08bda8842b50d7430922643e9119cf2b0540ea9abfb3",
+          "SideFourierActualCore": "f94006e43da3a7ec72780f1547c5b359a6527bdedfa436a97889aab66cb50412",
+          "SideFourierElementaryRoots": "e6b06f22d7cc802ff9f9a8a000dfd889442c4512a42881deeb85314b24f2ba89",
+          "SideFourierFirstRow": "e180cd22063dd20ed348317339ef4f50c5e093df19b56f9439aa5cac1429e872"
+        }
+      },
+      "seed_model_adapter_review": {
+        "reviewed_at": "2026-10-10T21:43:58.600202+00:00",
+        "evidence": [
+          "MATCHED_SEED_ADAPTER_REUSE_FILES.txt",
+          "MATCHED_UNIT_CORNER_REUSE_MATCHES.txt",
+          "lean/vendor/hadamard6/Hadamard6/Basic.lean",
+          "lean/NoFourMUBs/Step2/ActualCorners.lean"
+        ],
+        "comparison": "No direct archive-to-Step2 seed binding exists. Hadamard6.cornerData_entrywiseUnit proves the unit-corner fact; reuse it directly. ActualCorners.right_gram_data assumes an already existing Hadamard, so it cannot provide the arbitrary-seed constructor input. Only finite definition/index bindings are needed for the three correlations and invariant.",
+        "scope": "One small SeedModel adapter, no replacement side existence or scalar guard proof. Input is an arbitrary four-phase Seed; strictness only for the final positivity specialization.",
+        "status": "PASS: matched_side_build_status_logs/batch_0006.log"
+      },
+      "recipe_model_adapter_review": {
+        "evidence": [
+          "MATCHED_PRESCRIBED_SIDE_REVERSE_USES.txt",
+          "MATCHED_SIDE_MATRIX_REVERSE_USES.txt",
+          "MATCHED_SEED_ADAPTER_REUSE_FILES.txt"
+        ],
+        "comparison": "The universal constructor is already SideFourierActual.strict_seed_prescribed_side_exists. Other reverse uses reconstruct an already existing Physical H or prove finite recipe images. Only its substitution into our StrictSeed model is missing.",
+        "scope": "A single theorem calls that existing constructor and rewrites the3already-checked seed-correlation bindings. Keep all root/orientation/recipe witnesses and exact Gram equality; add no fourth-block flatness or signature claim."
+      },
+      "signature_adapter_review": "MATCHED_SIGNATURE_ADAPTER_REVIEW.json",
+      "signed_sides_extension": "MATCHED_SIGNED_SIDES_REUSE_REVIEW.json",
+      "finite_candidates_extension": "MATCHED_SIDE_FINITE_REUSE_REVIEW.json",
+      "completion_model_extension": "MATCHED_COMPLETION_REUSE_REVIEW.json",
+      "row_product_adapter": "MATCHED_ROW_PRODUCT_INTERFACE_REVIEW.json; only reuses Mathlib AM-GM with row-sum and row-product hypotheses explicit.",
+      "row_gram_generalization": "MATCHED_ROW_GRAM_GENERALIZATION_REVIEW.json",
+      "manifest": "MATCHED_SIDE_REUSE_MANIFEST.json",
+      "row_gram_result": "Forced row norms and matched_completion_of_row_products PASS; row-product premise explicit. Full24affected dependency refresh PASS."
+    },
+    "critical_zero_group01_pilot": {
+      "reviewed": true,
+      "reviewed_at": "2026-10-10T22:19:24.712488+00:00",
+      "evidence": [
+        "CRITICAL_ZERO_GROUP01_REUSE_REVIEW.json"
+      ],
+      "decision": "Reuse unchanged archived dense common data and group expansion. Two interpretation adapters and one closed normalization check; no coefficient array, mathematical witness, or normalizer generated. A passing midpoint would not prove the whole group."
+    },
+    "critical_zero_group_dense_checks": {
+      "reviewed": true,
+      "reviewed_at": "2026-10-10T22:26:19.572474+00:00",
+      "exact_scope": "Group01 only: check all 37 existing dense residual coefficients and assemble the equality with the unchanged archived expansion. No coefficient data, witness or normalizer generation.",
+      "evidence": [
+        "CRITICAL_ZERO_GROUP01_REUSE_REVIEW.json",
+        "CRITICAL_ZERO_GROUP01_PILOT_BUILD_STATUS.json",
+        "critical_zero_group01_pilot_build_status_logs/batch_0003.log"
+      ],
+      "decision": "The existing dense group model and midpoint check pass. Extend the single current group-check generator with a group01 option, preserving every group00 source and the checked group01 midpoint source."
+    },
+    "critical_zero_remaining_group_pilots": {
+      "reviewed": true,
+      "reviewed_at": "2026-10-10T22:34:44.732098+00:00",
+      "evidence": [
+        "CRITICAL_ZERO_REMAINING_GROUP_REUSE_REVIEW.json",
+        "CRITICAL_ZERO_REMAINING_GROUP_REVERSE_USES.txt"
+      ],
+      "decision": "Adopt existing archived sources unchanged except imports. Reuse all current bindings. Add the same two dense interpretation adapters and one midpoint18 closed normalization check for each group02..10 before scheduling full checks. No polynomial arrays, normalizer or witness generated."
+    },
+    "critical_zero_group02_checks": {
+      "reviewed": true,
+      "reviewed_at": "2026-10-10T22:41:22.146052+00:00",
+      "evidence": [
+        "CRITICAL_ZERO_REMAINING_GROUP_REUSE_REVIEW.json",
+        "CRITICAL_ZERO_REMAINING_GROUPS_BUILD_STATUS.json",
+        "critical_zero_remaining_groups_build_status_logs/batch_0003.log"
+      ],
+      "exact_scope": "Group02 only: all37closed integer checks using the same existing dense residual, then finite assembly. The two interpretation adapters and midpoint18 have actual passing receipts. No new polynomial arrays, witness or normalizer."
+    },
+    "critical_zero_remaining_group_checks": {
+      "reviewed": true,
+      "reviewed_at": "2026-10-10T23:28:37.681786+00:00",
+      "full_groups": [
+        "02",
+        "03",
+        "04",
+        "05",
+        "06",
+        "07",
+        "08",
+        "09",
+        "10"
+      ],
+      "pilot_only_groups": [],
+      "decision": "Shared manifest contains all reviewed pilot-stage modules, plus only explicitly reviewed complete group checks. Each full group must have a passing midpoint and unchanged source hashes before it is added. Atlas work excluded.",
+      "evidence": [
+        "CRITICAL_ZERO_REMAINING_GROUP_REUSE_REVIEW.json"
+      ],
+      "expanded_sum_pilot": "Reviewed in critical_zero_grouped_sum_pilot; adds the same eleven expanded groups and checks coefficient18. Whole numerator remains open.",
+      "expanded_sum_completion": "Reviewed in critical_zero_numerator_completion after passing grouped-sum pilot. Appended allremaining37coefficient/assembly obligations; whole numerator remains open."
+    },
+    "critical_zero_grouped_sum_pilot": {
+      "reviewed": true,
+      "reviewed_at": "2026-10-10T22:42:38.741001+00:00",
+      "evidence": [
+        "CRITICAL_ZERO_REMAINING_GROUP_REUSE_REVIEW.json",
+        "CRITICAL_ZERO_GROUPED_NUMERATOR_REVIEW.json"
+      ],
+      "decision": "Replace38uncompiled direct numerator drafts with a final assembly through the11existing group expansions. Add an evaluation regrouping adapter, an interpreted residual and one midpoint18 closed check for the sum of archived expanded groups minus the archived raw numerator. Preserve checked NumeratorBindings. No polynomial array or normalizer generation."
+    },
+    "critical_zero_group03_checks": {
+      "reviewed": true,
+      "reviewed_at": "2026-10-10T22:45:25.707013+00:00",
+      "evidence": [
+        "CRITICAL_ZERO_REMAINING_GROUP_REUSE_REVIEW.json",
+        "CRITICAL_ZERO_REMAINING_GROUPS_BUILD_STATUS.json"
+      ],
+      "exact_scope": "Group03only: all37checks of the unchanged archived dense residual and finite assembly. Both interpretation adapters and midpoint18 pass with current source hashes. No polynomial data or normalizer generation."
+    },
+    "critical_zero_group04_checks": {
+      "reviewed": true,
+      "reviewed_at": "2026-10-10T22:48:24.318992+00:00",
+      "evidence": [
+        "CRITICAL_ZERO_REMAINING_GROUP_REUSE_REVIEW.json",
+        "CRITICAL_ZERO_REMAINING_GROUPS_BUILD_STATUS.json",
+        "critical_zero_remaining_groups_build_status_logs/batch_0010.log"
+      ],
+      "exact_scope": "Group04only: all37checks and finite assembly using unchanged archived data. Both interpretation adapters and midpoint18 pass with current hashes. No new polynomial data or normalizer."
+    },
+    "critical_zero_group05_checks": {
+      "reviewed": true,
+      "reviewed_at": "2026-10-10T23:04:51.120523+00:00",
+      "evidence": [
+        "CRITICAL_ZERO_REMAINING_GROUP_REUSE_REVIEW.json",
+        "CRITICAL_ZERO_REMAINING_GROUPS_BUILD_STATUS.json",
+        "critical_zero_remaining_groups_build_status_logs/batch_0014.log"
+      ],
+      "exact_scope": "Group05 only: all37checks and finite assembly with unchanged archived arrays and normalizer. Interpretation adapters and midpoint18 passed with current source hashes."
+    },
+    "critical_zero_group06_checks": {
+      "reviewed": true,
+      "reviewed_at": "2026-10-10T23:10:48.326523+00:00",
+      "evidence": [
+        "CRITICAL_ZERO_REMAINING_GROUP_REUSE_REVIEW.json",
+        "CRITICAL_ZERO_REMAINING_GROUPS_BUILD_STATUS.json",
+        "critical_zero_remaining_groups_build_status_logs/batch_0017.log"
+      ],
+      "exact_scope": "Group06 only: all37checks and finite assembly using the existing dense residual; adapters and midpoint18 pass with current hashes. No new polynomial array or normalizer."
+    },
+    "critical_zero_group07_checks": {
+      "reviewed": true,
+      "reviewed_at": "2026-10-10T23:16:35.713772+00:00",
+      "evidence": [
+        "CRITICAL_ZERO_REMAINING_GROUP_REUSE_REVIEW.json",
+        "CRITICAL_ZERO_REMAINING_GROUPS_BUILD_STATUS.json",
+        "critical_zero_remaining_groups_build_status_logs/batch_0023.log"
+      ],
+      "exact_scope": "Group07 only: all37 checks and finite assembly using the existing dense residual; adapters and midpoint18 pass with current hashes. No new polynomial array or normalizer."
+    },
+    "critical_zero_physical_reuse": {
+      "reviewed": true,
+      "reviewed_at": "2026-10-11T00:07:49.912352+00:00",
+      "evidence": [
+        "CRITICAL_ZERO_PHYSICAL_REUSE_REVIEW.json",
+        "CRITICAL_ZERO_PHYSICAL_REUSE_PLAN.json",
+        "CRITICAL_ZERO_SPLIT_REDUCTION_REUSE_REVIEW.json",
+        "CRITICAL_ZERO_SPLIT_REDUCTION_REUSE_PLAN.json",
+        "CRITICAL_ZERO_MODULI_INPUTS_REUSE_REVIEW.json"
+      ],
+      "exact_scope": "Existing zero-J expression-to-computed-numerator binding plus existing raw scalar factorization, one successive chain; no new polynomial data or atlas certification. Reuse guarded modulus-input and raw-modulus join proofs; extract their existing three moment definitions once, without introducing a new proof.",
+      "atlas_certification": false,
+      "moment_binding_extension": "CRITICAL_MOMENT_BINDING_REUSE_REVIEW.json",
+      "actual_signature_adapter": "CRITICAL_ACTUAL_SIGNATURE_REVIEW.json",
+      "strip_model_extension": "CRITICAL_STRIP_MODEL_REUSE_REVIEW.json",
+      "block_invariant_adapter": "CRITICAL_BLOCK_INVARIANT_REUSE_REVIEW.json",
+      "physical_moment66_extension": "CRITICAL_PHYSICAL_MOMENT66_REUSE_REVIEW.json",
+      "light_side_extension": "CRITICAL_LIGHT_SIDE_REUSE_REVIEW.json",
+      "actual_zero_moduli_join": "CRITICAL_ZERO_FINAL_JOIN_REUSE_REVIEW.json"
+    },
+    "critical_zero_group08_checks": {
+      "reviewed": true,
+      "reviewed_at": "2026-10-10T23:22:26.983407+00:00",
+      "evidence": [
+        "CRITICAL_ZERO_REMAINING_GROUP_REUSE_REVIEW.json",
+        "CRITICAL_ZERO_REMAINING_GROUPS_BUILD_STATUS.json",
+        "critical_zero_remaining_groups_build_status_logs/batch_0024.log"
+      ],
+      "exact_scope": "Group08 only: all37 checks and finite assembly using the existing dense residual; adapters and midpoint18 pass with current hashes. No new polynomial array or normalizer."
+    },
+    "critical_zero_group09_checks": {
+      "reviewed": true,
+      "reviewed_at": "2026-10-10T23:26:07.156515+00:00",
+      "evidence": [
+        "CRITICAL_ZERO_REMAINING_GROUP_REUSE_REVIEW.json",
+        "CRITICAL_ZERO_REMAINING_GROUPS_BUILD_STATUS.json",
+        "critical_zero_remaining_groups_build_status_logs/batch_0028.log"
+      ],
+      "exact_scope": "Group09 only: all37 checks and finite assembly using the existing dense residual; adapters and midpoint18 pass with current hashes. No new polynomial array or normalizer."
+    },
+    "critical_zero_group10_checks": {
+      "reviewed": true,
+      "reviewed_at": "2026-10-10T23:28:37.627161+00:00",
+      "evidence": [
+        "CRITICAL_ZERO_REMAINING_GROUP_REUSE_REVIEW.json",
+        "CRITICAL_ZERO_REMAINING_GROUPS_BUILD_STATUS.json",
+        "critical_zero_remaining_groups_build_status_logs/batch_0031.log"
+      ],
+      "exact_scope": "Group10 only: all37 checks and finite assembly using the existing dense residual; adapters and midpoint18 pass with current hashes. No new polynomial array or normalizer."
+    },
+    "matched_row_gram_reuse": {
+      "reviewed": true,
+      "reviewed_at": "2026-10-11T00:33:13.626565+00:00",
+      "evidence": [
+        "MATCHED_ROW_GRAM_GENERALIZATION_REVIEW.json",
+        "MATCHED_ROW_PRODUCT_INTERFACE_REVIEW.json"
+      ],
+      "exact_scope": "Generalize the existing unitary-completion proof, then apply its diagonal entries to row norms and the already checked AM-GM interface. No new block-matrix proof route.",
+      "atlas_certification": false,
+      "status": "PASS;ROW_PRODUCT_PREMISE_EXPLICIT",
+      "pass_review": "MATCHED_ROW_GRAM_GENERALIZATION_REVIEW.json"
+    },
+    "critical_parameter_reuse": {
+      "reviewed": true,
+      "reviewed_at": "2026-10-11T04:04:42.720551+00:00",
+      "evidence": [
+        "CRITICAL_PARAMETER_REUSE_REVIEW.json",
+        "CRITICAL_PARAMETER_REUSE_PLAN.json"
+      ],
+      "exact_scope": "Exhaustive necessary zero-J or positive-|J| parameter descriptions for current all-critical strip corners. No existence or finite-classification assertion.",
+      "atlas_certification": false
+    },
+    "critical_equivalence_adapter": {
+      "reviewed": true,
+      "reviewed_at": "2026-10-11T04:08:31.064183+00:00",
+      "evidence": [
+        "CRITICAL_EQUIVALENCE_REUSE_REVIEW.json"
+      ],
+      "exact_scope": "Transport current AllCritical and AllCriticalCarrier across the existing matrix equivalence. Reuse phase invariance and arbitrary-submatrix signature theorem, no new algebraic identity.",
+      "atlas_certification": false
+    },
+    "critical_nonzero_physical_reuse": {
+      "reviewed": true,
+      "reviewed_at": "2026-10-11T04:15:52.429441+00:00",
+      "evidence": [
+        "CRITICAL_NONZERO_PHYSICAL_REUSE_REVIEW.json",
+        "CRITICAL_NONZERO_PHYSICAL_DISCOVERY.json"
+      ],
+      "exact_scope": "Reuse the existing actual matrix to signed nonzero-J paired66 equation. Keep every original nonzero correlation and six physical denominator hypotheses. No polynomial certificate or global classification is asserted.",
+      "atlas_certification": false
+    },
+    "critical_rechart_reuse": {
+      "reviewed": true,
+      "reviewed_at": "2026-10-11T04:19:06.352777+00:00",
+      "evidence": [
+        "CRITICAL_RECHART_REUSE_REVIEW.json"
+      ],
+      "exact_scope": "Reuse the archived physical rechart covering zero original correlations at regular zero-J points; use the checked current AllCritical equivalence transport. No global classification or quartet exclusion.",
+      "atlas_certification": false
+    },
+    "critical_zero_geometry_reuse": {
+      "reviewed": true,
+      "reviewed_at": "2026-10-11T04:33:37.877056+00:00",
+      "evidence": [
+        "CRITICAL_ZERO_GEOMETRY_REUSE_REVIEW.json"
+      ],
+      "exact_scope": "Reuse the original regular zero-J allocated-modulus to conjugate-row argument and ordering chart in the current matrix model. Exceptional parameters remain excluded, no atlas certification.",
+      "atlas_certification": false
+    },
+    "critical_six_roots_reuse": {
+      "reviewed": true,
+      "reviewed_at": "2026-10-11T04:39:12.282343+00:00",
+      "evidence": [
+        "CRITICAL_SIX_ROOTS_REUSE_REVIEW.json",
+        "CRITICAL_GEOMETRIC_MOMENTS_EXTRACTION_REVIEW.json"
+      ],
+      "exact_scope": "Reuse three archived generic six-unit-root polynomial/triple/ordering modules for the geometric Fourier route, preserving multiplicities and all original hypotheses. No atlas certification. Actual row connection through original row-moment theorem/current row orthogonality; GeometricRowsTriples.",
+      "atlas_certification": false
+    },
+    "critical_geometric_fourier_reuse": {
+      "reviewed": true,
+      "reviewed_at": "2026-10-11T04:44:22.375583+00:00",
+      "evidence": [
+        "CRITICAL_GEOMETRIC_FOURIER_REUSE_REVIEW.json"
+      ],
+      "exact_scope": "Reuse the geometric Fourier route with current OAI/Hadamard model bindings. Extract generic indexing/Fourier definitions and the literal 3x3 Hadamard proof only; use current phase helpers, row Gram, coordinates and equivalence. Reuse original Fourier allocation and pure-family proofs. No atlas or finite endpoint exclusion certificates.",
+      "atlas_certification": false
+    },
+    "critical_fourier_fixed_reuse": {
+      "reviewed": true,
+      "reviewed_at": "2026-10-11T04:58:06.142380+00:00",
+      "evidence": [
+        "CRITICAL_FOURIER_FIXED_REUSE_REVIEW.json"
+      ],
+      "exact_scope": "Reuse the original all-critical Fourier-to-fixed-F6 algebra and equivalences, with only current matrix/critical-predicate bindings. No atlas or concrete exclusion certificates.",
+      "atlas_certification": false,
+      "compiled_audit": "KERNEL_AUDIT_CRITICAL_FOURIER_FIXED_STATUS.json",
+      "checked_utc": "2026-10-11T05:17:05.867296+00:00"
+    },
+    "critical_singular_reuse": {
+      "reviewed": true,
+      "reviewed_at": "2026-10-11T05:22:44.224989+00:00",
+      "evidence": [
+        "CRITICAL_SINGULAR_REUSE_REVIEW.json"
+      ],
+      "exact_scope": "Reuse the generic singular-minor classification and original p=9 boundary routing in the current model. No concrete atlas generation or certification.",
+      "atlas_certification": false
+    },
+    "critical_modulus_reuse": {
+      "reviewed": true,
+      "reviewed_at": "2026-10-11T05:40:08.143224+00:00",
+      "evidence": [
+        "CRITICAL_MODULUS_REUSE_REVIEW.json",
+        "CRITICAL_MODULUS_CURRENT_SEARCH.txt",
+        "CRITICAL_MODULUS_ARCHIVE_SEARCH.json"
+      ],
+      "comparison": "The exact four archived nonzero-J modulus-domain proofs are absent from the active current/vendor closure. Reuse them with current side namespaces and existing denominator positivity. No atlas work or new coefficient certificate.",
+      "limitations": "Necessary interval domain only. Quartic identification, nonpole guards and global classification remain separate."
+    },
+    "critical_nonzero_program_reuse": {
+      "reviewed": true,
+      "reviewed_at": "2026-10-11T05:51:02.203837+00:00",
+      "evidence": [
+        "CRITICAL_NONZERO_PROGRAM_REUSE_REVIEW.json",
+        "CRITICAL_NONZERO_PROGRAM_TEMPLATE_REVIEW.json",
+        "CRITICAL_NONZERO_PROGRAM_DISCOVERY.json"
+      ],
+      "comparison": "Reuse37existing archived modules for the full paired-moment/program interpretation; active current/vendor closure has no existing general nonzero-J quadratic program. Retain existing Newton/physical definitions and original finite expression without data generation.",
+      "limitations": "The actual coefficient clearing and68priorpseudo-reduction steps remain separate; no full quartic conclusion is asserted.",
+      "compiled_audit": "KERNEL_AUDIT_CRITICAL_NONZERO_PROGRAM_STATUS.json",
+      "checked_utc": "2026-10-11T06:02:17.357792+00:00"
+    },
+    "critical_nonzero_quartic_reuse": {
+      "reviewed": true,
+      "reviewed_at": "2026-10-11T06:06:17.350785+00:00",
+      "evidence": [
+        "CRITICAL_NONZERO_QUARTIC_REUSE_REVIEW.json",
+        "CRITICAL_NONZERO_QUARTIC_DATA_REVIEW.json"
+      ],
+      "comparison": "Reuse the original supplied reduced-numerator factorization and exact three-pole product identities. This is the existing scalar tail, not a physical-to-quartic conclusion.",
+      "limitations": "Actual coefficient-to-numerator identity and pseudo-reduction trace, pole and special cases, and global assembly.",
+      "atlas_certification": false,
+      "compiled_audit": "KERNEL_AUDIT_CRITICAL_NONZERO_QUARTIC_STATUS.json",
+      "checked_utc": "2026-10-11T06:09:32.427600+00:00"
+    },
+    "critical_nonzero_moment_clearing_reuse": {
+      "reviewed": true,
+      "reviewed_at": "2026-10-11T06:18:22.378068+00:00",
+      "evidence": [
+        "CRITICAL_NONZERO_MOMENT_CLEARING_REVIEW.json",
+        "CRITICAL_NONZERO_MOMENT_CLEARING_SEARCH.json"
+      ],
+      "comparison": "Reuse the existing p1_p1 and m2_p1 denominator-cleared scalar formulae and bind their two coefficients to the current pairedQuad program. This is the first intermediate step of the missing coefficient clearing proof.",
+      "limitations": "Two existing moment formulas only; full coefficient clearing remains open.",
+      "atlas_certification": false,
+      "compiled_audit": "KERNEL_AUDIT_CRITICAL_NONZERO_MOMENT_CLEARING_STATUS.json",
+      "checked_utc": "2026-10-11T06:33:49.713831+00:00"
+    },
+    "critical_nonzero_involution_adapter": {
+      "reviewed": true,
+      "reviewed_at": "2026-10-11T06:33:49.713831+00:00",
+      "evidence": [
+        "CRITICAL_NONZERO_INVOLUTION_REVIEW.json"
+      ],
+      "comparison": "Prove the reciprocal conjugation relations of the existing quadSide using Mathlib QuadraticAlgebra, as a structural simplification of the missing b coefficient identity in the one active numerator chain.",
+      "limitations": "Self-conjugacy of the full66term program, b=0, or the a coefficient identity until proved.",
+      "atlas_certification": false,
+      "status": "PASS",
+      "checked_utc": "2026-10-11T06:53:36.021262+00:00",
+      "audit": "KERNEL_AUDIT_CRITICAL_NONZERO_INVOLUTION_STATUS.json"
+    },
+    "critical_nonzero_raw_clearing": {
+      "reviewed": true,
+      "review": "CRITICAL_NONZERO_RAW_CLEARING_REVIEW.json",
+      "source_pins": {
+        "/Users/mateo2/Desktop/NoFourMUBs/full_repair_2026_10_09/MinimalConstruction/Proofs/critical_moment_core.py": {
+          "sha256": "862d6ff3e112bc6185240ee83a112febb43afb81b71a85445af744bad66a3fb8",
+          "bytes": 3581
+        },
+        "/Users/mateo2/Desktop/NoFourMUBs/full_repair_2026_10_09/MinimalConstruction/Proofs/exact_rational.py": {
+          "sha256": "ebe8bf42e7c7ed381bda16bc608776cb50e821087f77f027f2365a02a8491276",
+          "bytes": 2410
+        },
+        "/Users/mateo2/Desktop/NoFourMUBs/full_repair_2026_10_09/MinimalConstruction/Proofs/Research/critical_nonzero_J_moments.json": {
+          "sha256": "a7c624ad264b713edb2a8ee97309e405a63d12658da38f222ae5c993adb53c21",
+          "bytes": 2767292
+        },
+        "lean/NoFourMUBs/Reuse/Archive/CriticalZeroSumDenseCoefficients.lean": {
+          "sha256": "b9bfcd6c882329da43a6d318ac481580385621442600a6bb102e0ad1298af29c",
+          "bytes": 4695
+        },
+        "lean/NoFourMUBs/Reuse/Archive/CriticalZeroSumBinaryCertificate.lean": {
+          "sha256": "1b0aa20b70be2198d9ebd75ea58c52ed89b661518049027e586b16680d0ac2cc",
+          "bytes": 2501
+        },
+        "lean/NoFourMUBs/Reuse/Archive/CriticalNonzeroCoefficientProgram.lean": {
+          "sha256": "a31e3a113b7fd463b35c0066c508d1d6c9d98d928bc99d2700a8a4a8ff8d235e",
+          "bytes": 8323
+        },
+        "lean/NoFourMUBs/Reuse/Archive/CriticalNonzeroSumDenominator.lean": {
+          "sha256": "0fa2adfb9cb93945a5130d5f4321b601f25e5113c710f9747a400c945c29e9e2",
+          "bytes": 3004
+        },
+        "lean/NoFourMUBs/Reuse/Archive/CriticalNonzeroLightMoments.lean": {
+          "sha256": "2660f8f5077594f212c7824b36bcff02824c92fdc0ac107635c87ec1d1ef0eca",
+          "bytes": 3120
+        }
+      },
+      "atlas_certification": false
+    },
+    "critical_nonzero_scalar_signs": {
+      "reviewed": true,
+      "review_file": "CRITICAL_NONZERO_SCALAR_SIGN_REUSE_REVIEW.json",
+      "scope": "Formalize the supplied scalar Bernstein argument by elementary algebraic sign proofs, without changing the quartic or recomputing its Bernstein coefficients."
+    },
+    "critical_equicorrelation_endpoint": {
+      "reviewed": true,
+      "review": "CRITICAL_EQUICORRELATION_REUSE_REVIEW.json",
+      "scope": "Elementary finite-coordinate obstruction for the nonzero-J equicorrelation endpoint. No matrix-normalization or atlas theorem claimed."
+    },
+    "critical_p7_fixed_corner": {
+      "reviewed": true,
+      "review": "CRITICAL_P7_FIXED_CORNER_REUSE_REVIEW.json",
+      "scope": "Only the original normalized p7 strip is excluded; obtaining that strip from scalar data remains open."
+    },
+    "critical_p7_row_normalization": {
+      "reviewed": true,
+      "review": "CRITICAL_P7_ROW_NORMALIZATION_REUSE_REVIEW.json",
+      "scope": "Unit triples, division-free exceptional row alignment, and necessary physical/index adapters, reusing the already checked fixed corner. No atlas certification."
+    },
+    "critical_p7_strip_endpoint": {
+      "reviewed": true,
+      "review": "CRITICAL_P7_STRIP_ENDPOINT_REUSE_REVIEW.json",
+      "scope": "Necessary current-model column and complement adapters, reusing the positive p7 endpoint. No atlas work."
+    },
+    "critical_physical_pole_boundary": {
+      "reviewed": true,
+      "review": "CRITICAL_PHYSICAL_POLE_REUSE_REVIEW.json",
+      "scope": "Zero physical denominator implies one of four existing scalar modulus boundaries; full pole classification remains open.",
+      "atlas_certification": false
+    },
+    "critical_pole_quartic": {
+      "reviewed": true,
+      "review": "CRITICAL_POLE_QUARTIC_REUSE_REVIEW.json",
+      "atlas_certification": false,
+      "scope": "Necessary connection from a zero original denominator factor and an existing modulus boundary to the already formalized quartic classification. No separate pole classification route."
+    },
+    "critical_nonzero_scalar_endpoint": {
+      "reviewed": true,
+      "review": "CRITICAL_SCALAR_ENDPOINT_REUSE_REVIEW.json",
+      "atlas_certification": false
+    },
+    "critical_strip_zero_endpoint": {
+      "reviewed": true,
+      "review": "CRITICAL_STRIP_ZERO_ENDPOINT_REUSE_REVIEW.json",
+      "atlas_certification": false
+    },
+    "critical_strip_count_endpoint": {
+      "reviewed": true,
+      "review": "CRITICAL_STRIP_COUNT_REUSE_REVIEW.json",
+      "atlas_certification": false
+    },
+    "critical_classification_assembly": {
+      "reviewed": true,
+      "review_file": "CRITICAL_CLASSIFICATION_ASSEMBLY_REUSE_REVIEW.json",
+      "scope": "Assemble the one all-critical classification conditional on the still-open regular nonzero-J quartic implication; poles, zero-J corners, transport and counting consume existing checked results.",
+      "atlas_certification": false
+    },
+    "matched_moment_product": {
+      "reviewed": true,
+      "review": "MATCHED_MOMENT_PRODUCT_REUSE_REVIEW.json",
+      "atlas_certification": false
+    },
+    "matched_product_relations": {
+      "reviewed": true,
+      "review": "MATCHED_PRODUCT_RELATIONS_REUSE_REVIEW.json",
+      "atlas_certification": false
+    },
+    "matched_product_signature": {
+      "reviewed": true,
+      "review": "MATCHED_PRODUCT_SIGNATURE_REUSE_REVIEW.json",
+      "atlas_certification": false
+    },
+    "critical_nonzero_sum_swap_reuse": {
+      "reviewed": true,
+      "review": "CRITICAL_NONZERO_SUM_SWAP_REUSE_REVIEW.json",
+      "atlas_certification": false
+    },
+    "matched_entry_companion": {
+      "reviewed": true,
+      "review": "MATCHED_ENTRY_COMPANION_REUSE_REVIEW.json",
+      "atlas_certification": false
+    },
+    "critical_nonzero_sum_cached_input": {
+      "reviewed": true,
+      "review": "CRITICAL_NONZERO_SUM_CACHED_INPUT_REUSE_REVIEW.json",
+      "atlas_certification": false
+    },
+    "matched_cubic_evaluator": {
+      "reviewed": true,
+      "evidence": [
+        "MATCHED_CUBIC_EVALUATOR_REUSE_REVIEW.json",
+        "MATCHED_CUBIC_EVALUATOR_REUSE_SEARCH.json"
+      ],
+      "comparison": [
+        {
+          "existing": "CriticalMomentQuad20261003.Quad, eval_mul and eval_pow",
+          "reuse": "Use literally the checked quadratic coefficient type and evaluator. Do not build another quadratic algebra or assume its root polynomial irreducible."
+        },
+        {
+          "existing": "CriticalZeroSumAssembly20261003.Coefficients.eval_mul",
+          "difference": "Ordinary commutative-ring polynomial-list convolution. It does not reduce by the actual cubic relation, and Quad has no CommRing instance; retain for existing integer certificates, do not duplicate or change it."
+        },
+        {
+          "existing": "Hadamard6.QuotientAlgebra and current EntryCompanion",
+          "reuse": "The existing eliminant is the actual companion equation, and side_entry_cubic supplies the actual cubic relation. No side existence or Haagerup result is reproved."
+        },
+        {
+          "existing": "Original Cubic.__mul__ in diagnose_matched_universal_norm.py",
+          "adapter": "Encode the same three quadratic coefficients and the exact degree4 then degree3 reduction. Prove evaluation under precisely the existing quadratic and cubic equations. The cached norm arithmetic itself is still not certified."
+        },
+        {
+          "existing": "CubicRoots, FourierCubicClassification and OAI Cubic files",
+          "difference": "Special cube-root matrix classifications, not an evaluator of the forced-row companion calculation."
+        }
+      ]
+    },
+    "matched_forced_product": {
+      "reviewed": true,
+      "evidence": [
+        "MATCHED_FORCED_PRODUCT_REUSE_REVIEW.json",
+        "MATCHED_FORCED_PRODUCT_REUSE_SEARCH.json"
+      ],
+      "comparison": [
+        {
+          "existing": "Hadamard6.forcedD and Matrix.mul_inv_rev/nonsing_inv_mul",
+          "reuse": "Reassociate exactly the original forced block as C*(-E\u1d34*(6I-EE\u1d34)\u207b\u00b9)*B using only horizontal candidate Gram and invertibility. This is the matrix-coordinate binding for the original diagnostic, not another completion theorem."
+        },
+        {
+          "existing": "Archived AdjugateReconstruction.phaseHadamard_forcedD (all four source variants)",
+          "difference": "Assumes a complete PhaseHadamard. That assumption cannot be used to prove flatness of a candidate. Existing inverse matrix identities suffice for the necessary weaker binding; importing another full carrier model is unnecessary."
+        },
+        {
+          "existing": "row_linear_product and rowsOfSide_unit",
+          "reuse": "Apply directly to the three coefficients of each actual forced row. Do not re-expand or reprove its ten-term moment identity."
+        },
+        {
+          "existing": "forcedD_row_norms and matched_completion_of_row_products",
+          "reuse": "Existing row norms and completion stay unchanged. New binding does not assert row-product norm one."
+        }
+      ]
+    },
+    "matched_base_coefficients": {
+      "reviewed": true,
+      "evidence": [
+        "MATCHED_BASE_COEFFICIENT_REUSE_REVIEW.json",
+        "MATCHED_BASE_COEFFICIENT_REUSE_SEARCH.json"
+      ],
+      "comparison": [
+        {
+          "existing": "PreRhoNorm.gramData, PreRhoAlignment.gramData and their actualNormData/actualAlignmentData bindings",
+          "reuse": "Use the existing six-correlation polynomial definitions literally, including p0,p0bar,p1,p1bar,eta,c0,c1. No parallel invariant formulas or side construction."
+        },
+        {
+          "existing": "Original MATCHED_SYMBOLIC_BASE_CACHE.json",
+          "reuse": "Import the exact existing U,V,c6 numerators and common denominator. U and V have the same literal denominator; c6 numerator is four times this denominator. Share that input and kernel-check three cleared identities, rather than recomputing any symbolic norm or discovering coefficients."
+        },
+        {
+          "existing": "RowProductSignature and RowProductRelations",
+          "reuse": "Their actual centered linear/quadratic equations are the target physical formulas. Previously recorded rational comparisons are not Lean proofs and remain so until these source-pinned identities compile and pass an axiom audit."
+        },
+        {
+          "existing": "RationalPolynomialSubstitution.clearDenominators_eval",
+          "difference": "A general real polynomial substitution theorem in an atlas carrier model. Here the fixed four complex phase denominators are explicit monomials; existing FieldSimp/Ring suffice without importing a second carrier model or running atlas work."
+        },
+        {
+          "existing": "LeadingFibreCriterion and QuotientAlgebra",
+          "reuse": "Keep existing eliminant formulas for later entry bindings. Leading-fibre results concern finiteness and do not certify the original cached U,V rational coefficients."
+        }
+      ]
+    },
+    "matched_base_bindings": {
+      "reviewed": true,
+      "evidence": [
+        "MATCHED_BASE_BINDING_REUSE_REVIEW.json",
+        "MATCHED_BASE_COEFFICIENT_REUSE_SEARCH.json"
+      ],
+      "comparison": "Use the three cleared cached identities once they pass, together with existing actualNormData/actualAlignmentData bindings, conj_circle and strict_sideP_nonzero. Prove that the one cached input denominator is nonzero on the full strict seed domain; no new generic exceptional condition is assumed. Apply ordinary fraction cancellation without expanding or checking any cached polynomial again."
+    },
+    "matched_polynomial_density": {
+      "reviewed": true,
+      "evidence": [
+        "MATCHED_POLYNOMIAL_DENSITY_REUSE_SEARCH.json",
+        "MATCHED_POLYNOMIAL_DENSITY_REUSE_REVIEW.json"
+      ],
+      "comparison": [
+        {
+          "existing": "Mathlib.MvPolynomial.funext_set; both archived ClassificationPolynomialFunext variants",
+          "reuse": "The archived mathematical proof is the Mathlib theorem (one variant only changes an import). Import the pinned Mathlib theorem directly. Do not copy or re-prove polynomial extensionality."
+        },
+        {
+          "existing": "Mathlib isOpen_pi_iff, PerfectSpace from connected nontrivial T1, infinite_of_mem_nhds, Circle PathConnectedSpace",
+          "reuse": "Use open boxes of circle arcs as the infinite sets in funext_set. Only the torus topology adapter is new."
+        },
+        {
+          "existing": "Dense.preimage and continuous_seedR",
+          "reuse": "Restrict the dense nonvanishing locus to the open strict seed locus by the existing open subtype map."
+        },
+        {
+          "existing": "Step2.matchedExistence_of_dense",
+          "reuse": "Use the existing compactness/closed-projection extension theorem. The generic construction and a nonzero polynomial guard remain explicit assumptions."
+        },
+        {
+          "existing": "Archived DFlatnessLinear",
+          "difference": "Only propagates four already-flat entries using row/column sums. It neither establishes generic flatness nor density and is not another target."
+        }
+      ]
+    },
+    "matched_centered_product": {
+      "reviewed": true,
+      "evidence": [
+        "MATCHED_CENTERED_PRODUCT_REUSE_SEARCH.json",
+        "MATCHED_CENTERED_PRODUCT_REUSE_REVIEW.json"
+      ],
+      "comparison": [
+        {
+          "existing": "BaseCoefficients.Bindings: cachedC6_eq, cachedU_eq, cachedV_eq, normData_seed, inputDen_strict",
+          "reuse": "Reuse checked original U,V,c6 identities without expanding their coefficients again. Specialize with actualNormData and actualAlignmentData bindings."
+        },
+        {
+          "existing": "Pinned original cached delta (12 numerator terms / a*b*c*d)",
+          "reuse": "Serialize the original coefficients literally and prove the single small identity delta=c1-c0. The symbolic signature comparison is not treated as a proof."
+        },
+        {
+          "existing": "SideIntrinsic.arbitrary_side_intrinsic_interface and SeedModel.seed_correlations",
+          "reuse": "Bind a horizontal candidate to its seed correlations using its existing Gram equality. This is a model adapter, not a new side construction."
+        },
+        {
+          "existing": "side_product_of_signature",
+          "reuse": "Cancel its already established linear product equation using cachedC6 nonvanishing, obtaining the exact original centered product (cachedU + cachedDelta/cachedC6*w)/2. No gap division or exceptional-case assumption."
+        }
+      ]
+    },
+    "matched_eliminant_coefficients": {
+      "reviewed": true,
+      "evidence": [
+        "MATCHED_ELIMINANT_COEFFICIENT_REUSE_SEARCH.json",
+        "MATCHED_ELIMINANT_COEFFICIENT_REUSE_REVIEW.json"
+      ],
+      "comparison": [
+        {
+          "existing": "Hadamard6.eliminantA_factorization and eliminantB_coefficients",
+          "reuse": "Reuse these exact checked generic formulas. Check only that original cached rational A/B coefficients are their four-phase substitutions. No new Haagerup or elimination proof."
+        },
+        {
+          "existing": "EntryCompanion.side_entry_eliminant and side_entry_companion",
+          "reuse": "The existing theorem supplies the actual entry equation with its explicit denominator guard. This adapter binds the cached A/B expressions but does not assert their denominator is nonzero."
+        },
+        {
+          "existing": "LeadingFibreCriterion and DependentAlgebra",
+          "difference": "LeadingFibreCriterion identifies two endpoint coefficients and proves fibre finiteness. DependentAlgebra specializes the same beta coefficients under a dependent-Gram relation. Neither identifies these original four-phase cached rational coefficient arrays or supplies the universal norm."
+        },
+        {
+          "existing": "MATCHED_SYMBOLIC_BASE_CACHE and unchanged typed polynomial serializer",
+          "reuse": "Serialize original eight A/B rational coefficient pairs verbatim; do not rerun original symbolic elimination or norm calculations. The only proof of equality is the subsequent Lean check."
+        }
+      ]
+    },
+    "matched_discriminant": {
+      "reviewed": true,
+      "evidence": [
+        "MATCHED_DISCRIMINANT_REUSE_SEARCH.json",
+        "MATCHED_DISCRIMINANT_REUSE_REVIEW.json"
+      ],
+      "comparison": [
+        {
+          "existing": "row_product_quadratic and candidate_intrinsic_correlations, cachedU_seed, cachedV_seed",
+          "reuse": "Divide the checked intrinsic quadratic by checked nonzero c6, obtaining the original cached quadratic for the actual candidate product."
+        },
+        {
+          "existing": "candidate_product_centered",
+          "reuse": "Substitute the already checked centered product into that quadratic. A short field identity yields U^2-4V=(delta/c6)^2*w^2. No expanded coefficient recomputation."
+        },
+        {
+          "existing": "strict_seed_signed_sides_exist",
+          "reuse": "Use its actual horizontal candidate and w=i*sqrt(seedR). This existing side construction does not assume MatchedExistence or fourth-block flatness. Obtain the cleared discriminant on all strict seeds, then cancel delta only in the quotient statement."
+        }
+      ]
+    },
+    "matched_vertical_product": {
+      "reviewed": true,
+      "evidence": [
+        "MATCHED_VERTICAL_PRODUCT_REUSE_SEARCH.json",
+        "MATCHED_VERTICAL_PRODUCT_REUSE_REVIEW.json"
+      ],
+      "comparison": [
+        {
+          "existing": "candidate_product_centered, transposedSeed_invariants, sig_rows/sig_cols",
+          "reuse": "Apply the same centered product theorem to C transpose and the transposed seed with opposite signature. No second side construction."
+        },
+        {
+          "existing": "MatchedSides local transpose argument; existing Matrix transpose and determinant identities",
+          "reuse": "Expose only the necessary index/model adapter from an arbitrary vertical candidate to a horizontal candidate of the transposed seed. The existing local construction is not directly callable as a theorem."
+        },
+        {
+          "existing": "Original calculate() vertical product m=(vU-kappa*(2*p-hU))/2, kappa=vDelta*hC6/(hDelta*vC6)",
+          "reuse": "Bind that exact formula to the actual vertical product by substituting the already checked centered horizontal and vertical products. Retain hDelta nonzero; use existing strict c6 guards. Do not regenerate cached companion coefficients."
+        }
+      ]
+    },
+    "matched_companion_kernel": {
+      "reviewed": true,
+      "evidence": [
+        "MATCHED_COMPANION_KERNEL_REUSE_SEARCH.json",
+        "MATCHED_COMPANION_KERNEL_REUSE_REVIEW.json"
+      ],
+      "comparison": [
+        {
+          "existing": "CriticalMomentQuad and CubicEvaluation",
+          "reuse": "Use the already checked quadratic and cubic reduction literally. Original variable p obeys p^2=-V+U*p; vertical cubic uses the original affine-minus product. No irreducibility assumption."
+        },
+        {
+          "existing": "Original saved vertical_companion (six rational coefficients)",
+          "reuse": "Serialize only the saved numerators and the one shared3826-term denominator core with its recorded monomial shifts. Check all six original denominator arrays match that representation before emission. No companion inversion or universal norm computation is repeated."
+        },
+        {
+          "existing": "Hadamard6.eliminantA_factorization and eliminantB_coefficients; checked cached A/B bindings",
+          "reuse": "Use the compact existing generic A/B coefficients, specialized to the transposed seed. The pilot checks one coefficient of A+B*companion modulo the exact same cubic/quadratic."
+        },
+        {
+          "existing": "BaseCoefficients.Bindings and Centered",
+          "reuse": "Rewrite U,V,c6,delta to already checked invariant expressions before polynomial normalization; do not recheck their large cached coefficient arrays."
+        }
+      ]
+    },
+    "matched_companion_interpretation": {
+      "reviewed": true,
+      "evidence": [
+        "MATCHED_COMPANION_INTERPRETATION_REUSE_SEARCH.json",
+        "MATCHED_COMPANION_INTERPRETATION_REUSE_REVIEW.json"
+      ],
+      "comparison": [
+        {
+          "existing": "CubicEvaluation.cubicEval_mul and CriticalMomentQuad.eval_scalar/eval_add/eval_mul",
+          "reuse": "Compose the existing evaluators with the literal reducePoly representation. No new quotient algebra or polynomial arithmetic checker."
+        },
+        {
+          "existing": "Hadamard6.eliminantA_factorization, eliminantB_coefficients and BaseCoefficients.cached_eliminantA/B_eq/seed",
+          "reuse": "Identify the two reduced polynomials with their already checked original eliminants at a cubic root. No regeneration or checking of expanded A/B arrays."
+        },
+        {
+          "existing": "candidate_product_quadratic, matched_product_affine, candidate_intrinsic_correlations, vertical_candidate_transposed and side_entry_cubic/eliminant/companion",
+          "reuse": "Bind the exact formal roots to an actual opposite-sign pair, then reuse the existing entry relation. Retain the residual identity and entrywise B nonzero as explicit inputs until proved."
+        },
+        {
+          "existing": "Archive/vendor FactorAllocation.quotient_quadratic_reduction and QuotientGoodRow.quotient_good_row_negative",
+          "comparison": "Their cleared-norm/critical-row hypotheses and sign conclusions do not interpret the reconstruction companion. Archived candidates are byte-identical to the inspected vendor copies. They are not alternate proofs of the required adapter."
+        }
+      ],
+      "atlas_certification": false
+    }
+  },
+  "latest_update_review": "REPOSITORY_UPDATE_3a79a98_REVIEW.json",
+  "user_constraints": {
+    "recorded_utc": "2026-10-10T20:25:30.387928+00:00",
+    "user_instruction": "Do not certify the atlas certificates.",
+    "effect": "Do not generate or run atlas certification. Continue SOS, critical classification and matched existence. The current main theorem keeps AtlasCertificate explicit; no unconditional completion claim while it remains unsupplied.",
+    "atlas_certificate_generation_authorized": false,
+    "atlas_certificate_verification_authorized": false
+  },
+  "latest_repository_review": "REPOSITORY_UPDATE_fd7d101_REVIEW.json"
+}

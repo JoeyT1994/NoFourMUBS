@@ -1,0 +1,40 @@
+{
+  "status": "REVIEWED_EXISTING_SWAP_AND_EVALUATOR_ADAPTERS",
+  "checked_utc": "2026-10-11T18:50:40.873770+00:00",
+  "repository_head": "632701b52c0d294e865d991e4eabf2b947367933",
+  "scope": "critical_nonzero_sum_swap_reuse",
+  "search": "CRITICAL_NONZERO_SUM_SWAP_REUSE_SEARCH.json",
+  "previous_full_review": "CRITICAL_NONZERO_SUM_REMAINING_REUSE_REVIEW.json",
+  "source_pins": {
+    "lean/NoFourMUBs/Reuse/Archive/CriticalZeroIntegerReflector.lean": "5ce93847bac62f47c9b123906dca3642f93d8a0bfeb53c6921f1cfd603d9164a",
+    "lean/NoFourMUBs/Reuse/Archive/CriticalZeroHornerReflector.lean": "8e400607070d0839657b99811769537119103a455c6342c3f1615e3b9499530a",
+    "lean/NoFourMUBs/Reuse/Archive/CriticalZeroCoefficientCore.lean": "432fed0290217430549866252f3d424e071fc185a8ea1333115a46ef43f7dbd3",
+    "lean/NoFourMUBs/Reuse/Archive/CriticalZeroSumDenseCoefficients.lean": "b9bfcd6c882329da43a6d318ac481580385621442600a6bb102e0ad1298af29c",
+    "lean/NoFourMUBs/Step2/CriticalZero/ClearedMoments/SwapNumerator.lean": "68b319219ef02a05a71eef2df9eaeadbbc32c534da14433951fccb1710894cb2",
+    "lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Expressions00.lean": "206be91644429b7dc8c723d60dc2426010bc0f7a817db6600dd16c38fff11db2",
+    "lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Expressions01.lean": "8d24f35cae8613d20403591278aeb5fe68a9555127f971c50a0a17d91ab179a9"
+  },
+  "comparisons": [
+    {
+      "existing": "numerator_p4_m2_a_swap / numerator_p4_m2_b_swap",
+      "reuse": "Exactly the required original numerator swap. Derive only the scaled node69 relation to checked nodes58 and68."
+    },
+    {
+      "existing": "IntegerReflector evalII_add and HornerReflector evalII_shiftY / evalII_shiftX",
+      "reuse": "Transpose coefficient rows by existing addition and monomial shifts; prove only this small interpretation adapter."
+    },
+    {
+      "existing": "CriticalZeroSumDenseCoefficients and existing coefficient certificates",
+      "reuse": "Use original interpreter, shift, scale, zero coefficient checker. No alternate normalizer or supplied numerator is generated."
+    }
+  ],
+  "planned": "First compile the generic swap interpretation and node69 semantic identity. Then change only the unprepared future node69 stage mode after review; preserve every through68 source, plan history and receipt.",
+  "atlas_certification": false,
+  "limits": "Available source/blob/import/OAI corpus only; a symbolic swap identity is not a Lean proof.",
+  "new_stager_review": {
+    "checked_utc": "2026-10-11T18:54:21.074971+00:00",
+    "path": "audit/prepare_nonzero_sum_swap0069.py",
+    "sha256": "decedaec1dc72eed40cba32994404048808de8e8c6b3f3220b34af0da30814b6",
+    "scope": "Only unprepared node69 divided by its common Y factor is stored as integer data, then multiplied back by a checked shift. Every coefficient of the full 84-coefficient swap residual is checked by kernel rfl. Reuses checked58/68 and the already audited original numerator-swap adapter. Y=0 handled by an explicit semantic theorem. No old polynomial proof or atlas regenerated."
+  }
+}

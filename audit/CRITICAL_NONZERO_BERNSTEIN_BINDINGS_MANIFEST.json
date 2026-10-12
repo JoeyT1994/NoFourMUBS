@@ -1,0 +1,77 @@
+{
+  "scope": "critical_nonzero_scalar_signs",
+  "status": "PREPARED_NOT_COMPILED",
+  "records": [
+    {
+      "module": "NoFourMUBs.Step2.CriticalZero.ScalarSigns.Blend",
+      "active_path": "NoFourMUBs/Step2/CriticalZero/ScalarSigns/Blend.lean",
+      "active_sha256": "71d0d956b12411af7a93fbed668d541a94a023090414c60b75f0700ad4deddce",
+      "local_model_adapter": true,
+      "review": "CRITICAL_NONZERO_SCALAR_SIGN_REUSE_REVIEW.json"
+    },
+    {
+      "module": "NoFourMUBs.Step2.CriticalZero.ScalarSigns.Binding_low01",
+      "active_path": "NoFourMUBs/Step2/CriticalZero/ScalarSigns/Binding_low01.lean",
+      "active_sha256": "f023486d6f5d442d4d91925b934670e11ea1c890e811438bb1b156793a0f7dfb",
+      "local_model_adapter": true,
+      "review": "CRITICAL_NONZERO_SCALAR_SIGN_REUSE_REVIEW.json"
+    },
+    {
+      "module": "NoFourMUBs.Step2.CriticalZero.ScalarSigns.Binding_low1inf",
+      "active_path": "NoFourMUBs/Step2/CriticalZero/ScalarSigns/Binding_low1inf.lean",
+      "active_sha256": "fce86bcb404fe17151911979a331a1e6d1b02d7a7dc665232f1a449b64de3ca1",
+      "local_model_adapter": true,
+      "review": "CRITICAL_NONZERO_SCALAR_SIGN_REUSE_REVIEW.json"
+    },
+    {
+      "module": "NoFourMUBs.Step2.CriticalZero.ScalarSigns.Binding_high013",
+      "active_path": "NoFourMUBs/Step2/CriticalZero/ScalarSigns/Binding_high013.lean",
+      "active_sha256": "d152996ee11c0388de2f63c3aef180ad636d9efe8ee15118c49dc5aa6f592035",
+      "local_model_adapter": true,
+      "review": "CRITICAL_NONZERO_SCALAR_SIGN_REUSE_REVIEW.json"
+    },
+    {
+      "module": "NoFourMUBs.Step2.CriticalZero.ScalarSigns.Binding_high1inf",
+      "active_path": "NoFourMUBs/Step2/CriticalZero/ScalarSigns/Binding_high1inf.lean",
+      "active_sha256": "db844bec35c9ec3fd4ce06c713ce6a9785b4d289d017393f3f89715939073dc3",
+      "local_model_adapter": true,
+      "review": "CRITICAL_NONZERO_SCALAR_SIGN_REUSE_REVIEW.json"
+    },
+    {
+      "module": "NoFourMUBs.Step2.CriticalZero.ScalarSigns.Bindings",
+      "active_path": "NoFourMUBs/Step2/CriticalZero/ScalarSigns/Bindings.lean",
+      "active_sha256": "5245ffd5e442ee0e922675258a9534d70eb5ccd27b40b3c77375077a3a67423e",
+      "local_model_adapter": true,
+      "review": "CRITICAL_NONZERO_SCALAR_SIGN_REUSE_REVIEW.json"
+    }
+  ],
+  "axiom_endpoints": [
+    "NoFourMUBs.Step2.Critical.NonzeroScalar.blend_neg",
+    "NoFourMUBs.Step2.Critical.NonzeroScalar.negative_on_interval",
+    "NoFourMUBs.Step2.Critical.NonzeroScalar.blend_reverse",
+    "NoFourMUBs.Step2.Critical.NonzeroScalar.low01_binding",
+    "NoFourMUBs.Step2.Critical.NonzeroScalar.low1inf_binding",
+    "NoFourMUBs.Step2.Critical.NonzeroScalar.high013_binding",
+    "NoFourMUBs.Step2.Critical.NonzeroScalar.high1inf_binding"
+  ],
+  "atlas_certification": false,
+  "dependency_pins": [
+    {
+      "active_path": "NoFourMUBs/Step2/CriticalZero/ScalarSigns/Data.lean",
+      "active_sha256": "2e701eb929c2afcc8f4bb0d7c242b2d4ede5c18d2bb2cc3448ccbf9fc2b08401"
+    },
+    {
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalNonzeroPolynomialData.lean",
+      "active_sha256": "d326f36bd196fff27bbbc148f8242d4d8bd840f5eda5fac619840112fdfcc442"
+    },
+    {
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalModulusIntervals.lean",
+      "active_sha256": "bbfce89cbfe478e0878fe9927b0dc001f97a0b58961c646312f6a14c6e667b78"
+    },
+    {
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalModulusDiscriminant.lean",
+      "active_sha256": "d9ce299342b1e6e2a60afebcd9d85b80f3c812b47292a5b7c8738f65e503e1be"
+    }
+  ],
+  "scope_note": "Four identities bind the supplied Bernstein data to the existing quartic. Reversed middle high interval uses the same identity."
+}

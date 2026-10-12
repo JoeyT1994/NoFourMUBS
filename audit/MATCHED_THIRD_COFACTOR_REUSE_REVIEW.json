@@ -1,0 +1,60 @@
+{
+  "status": "REVIEWED_REUSE_THREE_VARIABLE_PRODUCTS_AND_OUTER_COEFFICIENTS",
+  "reviewed_utc": "2026-10-12T00:48:22.743301+00:00",
+  "repository_commit": "4d757de5d30330fab3583677b9a38b284b586b22",
+  "search_evidence": [
+    "MATCHED_THIRD_ARITHMETIC_REUSE_SEARCH.json",
+    "MATCHED_THIRD_ARITHMETIC_REUSE_REVIEW.json"
+  ],
+  "comparisons": [
+    {
+      "existing": "DenseCoefficients.mul/interpret_mul and allZero_of_certificates",
+      "decision": "For each a coefficient of a four-variable product, form only the finite sum of existing three-variable products of supplied slices. Reuse exact integer checking and soundness; no new multivariate reflection engine."
+    },
+    {
+      "existing": "CoefficientAt.getD_add/getD_scale/list_eq_of_getD and generic Coefficients.mul/eval_mul",
+      "decision": "These provide the outer a-coefficient convolution and assembly. Pad coefficient lists structurally and bind all indices before claiming a full product. A single slice is not the full cofactor identity."
+    },
+    {
+      "existing": "CoefficientRow.mulAtRow/eval_mulAtRow/coefficient_eq_of_rows",
+      "decision": "If the closed three-variable check is too large, reuse the existing per-row checker for its b,c coefficients; do not regenerate product witness coefficients."
+    },
+    {
+      "existing": "Upstream verify_certificate_slices.py first unique cofactor: P3*P4=P0 after common integer scale16 cancels",
+      "decision": "Pilot the nontrivial a^6 coefficient. Its five product contributions and target array are transcribed from the original saved polynomial255-file packet; no external verification or symbolic coefficient multiplication is run."
+    }
+  ],
+  "source_pins": [
+    {
+      "path": "lean/NoFourMUBs/Reuse/Archive/CriticalZeroSumDenseCoefficients.lean",
+      "sha256": "b9bfcd6c882329da43a6d318ac481580385621442600a6bb102e0ad1298af29c"
+    },
+    {
+      "path": "lean/NoFourMUBs/Reuse/Archive/CriticalZeroSumCoefficientAt.lean",
+      "sha256": "4e4ed861b02268c234a5c3be7114dfb3ac0a01bda3ca3a468a8bb209e34d5922"
+    },
+    {
+      "path": "lean/NoFourMUBs/Reuse/Archive/CriticalZeroSumCoefficientRow.lean",
+      "sha256": "22dd3ad1bd034ec9cfe8a6c83e9ea7f367b735e66e70e02896d407c70c4af9ef"
+    },
+    {
+      "path": "lean/NoFourMUBs/Reuse/Archive/CriticalZeroSumBinaryCertificate.lean",
+      "sha256": "1b0aa20b70be2198d9ebd75ea58c52ed89b661518049027e586b16680d0ac2cc"
+    },
+    {
+      "path": "lean/NoFourMUBs/Reuse/Archive/CriticalZeroSumRowCertificate.lean",
+      "sha256": "51a0ae0887f442c11bf0193dfdea2c34487d42052b40f9e6f10c8ddf8d0fdaa4"
+    },
+    {
+      "path": "lean/NoFourMUBs/Reuse/Archive/CriticalZeroSumCoefficientOps.lean",
+      "sha256": "dbac17d85ee200ee769b6f82f9397efb4eb6bb3a17bf3ce6046957c574ccc4a3"
+    }
+  ],
+  "not_claimed": [
+    "full136cofactor identities",
+    "eight rational residuals",
+    "strict seed specialization",
+    "MatchedExistence"
+  ],
+  "atlas_certification": false
+}

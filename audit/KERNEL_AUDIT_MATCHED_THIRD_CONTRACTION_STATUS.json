@@ -1,0 +1,48 @@
+{
+  "status": "PASS",
+  "checked_utc": "2026-10-12T00:03:39.728808+00:00",
+  "modules": 1,
+  "axiom_endpoints": {
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.thirdMoment_sandwich": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.thirdMoment_transpose_sandwich": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.weightedDefect_trace": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.weightedDefect_contraction": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.forcedD_weighted_contraction": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "source_hashes": {
+    "NoFourMUBs/Step2/Reconstruction/ThirdMoment/Contraction.lean": "d61e55342bac921010b955bae2b1eeb29f70a6cc613bce828f8d11f6eb81e1a7"
+  },
+  "manifest_sha256": "488680953da9a2b144e5612a90d7acdf5bc7406cd631b59e0c356f41da61dded",
+  "audit_log_sha256": "af96e311bb0c7792933145a0c44df7da8c1c956c68b7dda443a6939b2ef7589e",
+  "scope": "Exact actual forced-block weighted-defect contraction in the upstream same-index convention; weighted zero and rational coefficient identities are not assumed or proved here. No atlas certification.",
+  "dependency_audits": {
+    "KERNEL_AUDIT_MATCHED_THIRD_WEIGHTED_DEFECT_STATUS.json": "7a5e04c8d165012c900254026efe5160114695b7b7513c89c333dda964835038",
+    "KERNEL_AUDIT_MATCHED_THIRD_SIDE_MATRICES_STATUS.json": "13ee05349f1d000ec1f882caf85ac56df0ac24b5d9de11e3db715e1490de226b"
+  },
+  "dependency_source_hashes": {
+    "NoFourMUBs/Step2/Reconstruction/ThirdMoment/SideMatrices.lean": "7ebe56ec3baf678a9de7104afba14d795adeb064f2bf823a317eb6521df46a8e",
+    "NoFourMUBs/Step2/Reconstruction/ThirdMoment/WeightedDefect.lean": "69d7a3f21ecea6ef5d5cb3ec1d618d2ef9864ec982983eafb591b28452cfe5bf",
+    "NoFourMUBs/Step2/Reconstruction/ForcedProductMoments.lean": "8777f15e1665c6df08a04c52da33737a7aee0dcf2f80a0d7e79bf04722f15408"
+  },
+  "atlas_certification": false
+}

@@ -1,0 +1,22 @@
+{
+  "status": "REVIEWED_FOR_IMPORT_ONLY_ADOPTION_NOT_COMPILED",
+  "reviewed_utc": "2026-10-11T00:03:52.874268+00:00",
+  "root": "CriticalZeroSplitReduction",
+  "dependency_review": "CRITICAL_ZERO_MODULI_DEPENDENCY_REVIEW.json",
+  "selected_modules": 87,
+  "existing_identical_modules": 21,
+  "new_unique_archived_modules": 66,
+  "exact_hypotheses": {
+    "raw_numerator_split": "CommRing R, fy X Y z K = 0, fx X z K = 0",
+    "raw_fraction_split": "Field F, fy = 0, fx = 0, z != 0, A z K != 0"
+  },
+  "conclusion": "Raw numerator equals its displayed scalar factorization; raw denominator equals z^12 * A^5; their quotient has the displayed cancelled form only with the denominator guards.",
+  "denominator_reuse": "The already adopted commonDenominator_eq_rawDenominator identifies the original common denominator with the raw table. raw_denominator_split subsequently reduces that same raw table under fy/fx; these are successive bindings, not alternative proofs.",
+  "source_scan": "All87source hashes verified; no sorry/admit/custom axiom/native_decide/ofReduceBool in executable declarations after comments removed.",
+  "comment_only_tokens": [
+    "CriticalZeroIntegerReflector"
+  ],
+  "reuse": "Existing compact Horner certificates, quotient data, coefficient assembly and factorization are adopted. No polynomial coefficients or alternative normalizer generated.",
+  "scope_limit": "Does not supply actual-matrix guards or classification, computed-to-raw numerator identity, universal flatness, or atlas.",
+  "atlas_certification": false
+}

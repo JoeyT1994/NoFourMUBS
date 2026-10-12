@@ -1,0 +1,49 @@
+{
+  "status": "PASS",
+  "checked_utc": "2026-10-11T18:52:18.047609+00:00",
+  "modules": 1,
+  "axiom_endpoints": {
+    "StrictReconstruction20261007.SideIntrinsic.intrinsic_signature_permanent": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "StrictReconstruction20261007.SideIntrinsic.row_product_signature_centered": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.sideSignature_intrinsic": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.side_product_of_signature": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "source_hashes": {
+    "NoFourMUBs/Step2/Reconstruction/RowProductSignature.lean": "1c94b70a0b87dacc3199c544cad22766ce194d4441ba16a940119eb9d749f83a"
+  },
+  "manifest_sha256": "2bdaf7b14fab8bc66ae67fe4b4ad3c2d74226d22ee91daf4084bef472c6b3d91",
+  "audit_log_sha256": "a9b49e7eeb62e87c4e455985703d99b9d07d2971b8829088f5fc999c6fa757a7",
+  "scope": "Actual matrix signature determines the original row product by a cleared linear equation, including singular cases. No matched norm or atlas certified.",
+  "dependency_audits": {
+    "KERNEL_AUDIT_MATCHED_PRODUCT_RELATIONS_STATUS.json": "5bfaf1002c2beb3d2022ec45b08a022b099cce7f2c4eb566e69fe255c9c27c50",
+    "KERNEL_AUDIT_SIGNED_SIDES_PATH_PINS.json": "1fc7de40b599146c178d47ce9e3948360d6cc0be16e7a7d87c210818915a1f69"
+  },
+  "dependency_source_hashes": {
+    "NoFourMUBs/Step2/Reconstruction/RowProductRelations.lean": "3f3fdb13ccc279c14142c125d10790c01473e069316f18b777f939ed309a086e",
+    "NoFourMUBs/Step2/Reconstruction/SignatureFromPermanent.lean": "ed967a342e9c416df5134b250b4c5f4346317c3ec47dcde8599d1fa8e560fae8",
+    "NoFourMUBs/Reuse/Archive/SideIntrinsicActualLambda.lean": "94951a45e12f8f8560d1a024d2c23dd76e0ccd5d092602eae8c983fefeb8b403",
+    "NoFourMUBs/Reuse/Archive/SideIntrinsicActualNorms.lean": "56d0fbfdfcd10a376e554d83f1311726967568c80a36638161c2be4ed6b65fca",
+    "NoFourMUBs/Reuse/Archive/SideIntrinsicActualChi.lean": "a53c2da827820536fffe293e0a2ddda383c7bd8dfad5de787c3eda1db1d839f5",
+    "NoFourMUBs/Reuse/Archive/SideIntrinsicMatrixBindings.lean": "28e1b68230d5b0372200d1bc65f9f98e6db18afdda19c6f1c46cacdc0377a5a5",
+    "NoFourMUBs/Reuse/Archive/StrictSideScalarGuards.lean": "75741b3091aeb2ce36f1b9fdab822add16b2e2514bfa27822105c93fb936d042",
+    "NoFourMUBs/Reuse/Archive/SideIntrinsicLambdaRecovery.lean": "577759e6717fb98ac6cdf4d64b2c1b0f7f702ac0bfc6b00fc34b278176b102ae",
+    "NoFourMUBs/Step2/MatchedUnique.lean": "e143def12a98bf2db1326dc71301a96dfac34c1a33d7b3a81eed7e14ed6e4433"
+  },
+  "atlas_certification": false
+}

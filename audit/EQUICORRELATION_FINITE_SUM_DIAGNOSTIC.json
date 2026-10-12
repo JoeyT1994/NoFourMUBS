@@ -1,0 +1,86 @@
+{
+  "status": "READ_ONLY_DIAGNOSTIC_NOT_LEAN_PROOF",
+  "checked_utc": "2026-10-11T12:36:55.864797+00:00",
+  "one_cube_cases": [
+    {
+      "ordinary": [
+        "1",
+        "1"
+      ],
+      "cube_residual": "-3564/125 - 2352*I/125"
+    },
+    {
+      "ordinary": [
+        "1",
+        "-1"
+      ],
+      "cube_residual": "46/125 - 372*I/125"
+    },
+    {
+      "ordinary": [
+        "1",
+        "-4/5 + 3*I/5"
+      ],
+      "cube_residual": "513/125 - 741*I/125"
+    },
+    {
+      "ordinary": [
+        "-1",
+        "1"
+      ],
+      "cube_residual": "46/125 - 372*I/125"
+    },
+    {
+      "ordinary": [
+        "-1",
+        "-1"
+      ],
+      "cube_residual": "56/125 - 192*I/125"
+    },
+    {
+      "ordinary": [
+        "-1",
+        "-4/5 + 3*I/5"
+      ],
+      "cube_residual": "-197/125 - 21*I/125"
+    },
+    {
+      "ordinary": [
+        "-4/5 + 3*I/5",
+        "1"
+      ],
+      "cube_residual": "513/125 - 741*I/125"
+    },
+    {
+      "ordinary": [
+        "-4/5 + 3*I/5",
+        "-1"
+      ],
+      "cube_residual": "-197/125 - 21*I/125"
+    },
+    {
+      "ordinary": [
+        "-4/5 + 3*I/5",
+        "-4/5 + 3*I/5"
+      ],
+      "cube_residual": "-378/125 + 546*I/125"
+    }
+  ],
+  "two_cube_cases": [
+    {
+      "ordinary": "1",
+      "remaining_pair_normSq": "26/5"
+    },
+    {
+      "ordinary": "-1",
+      "remaining_pair_normSq": "2/5"
+    },
+    {
+      "ordinary": "-4/5 + 3*I/5",
+      "remaining_pair_normSq": "8/5"
+    }
+  ],
+  "three_cube_required_normSq": "9/5",
+  "no_cubes_reason": "Every ordinary coordinate has nonnegative imaginary part, whereas target.im=-3/5.",
+  "atlas_certification": false
+}

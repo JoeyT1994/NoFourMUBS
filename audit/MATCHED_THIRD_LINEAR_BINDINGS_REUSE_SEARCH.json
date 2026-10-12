@@ -1,0 +1,542 @@
+{
+  "searched_utc": "2026-10-12T03:44:49.990766+00:00",
+  "purpose": "Bind original W11 linear summand at matrix(1,0), P014/P015, using already checked source arrays and forced cofactor adapter. No certificate regeneration.",
+  "content_roots": [
+    "lean/NoFourMUBs",
+    "lean/vendor",
+    "audit/archive_sources",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs"
+  ],
+  "query": "seedImageLinear|savedW11Linear|P014.{0,40}seed|seed.{0,40}P014|thirdMoment.{0,30}(cofactor|adjugate)",
+  "matching_files": [
+    "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/LinearRational.lean",
+    "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/SeedResiduals.lean"
+  ],
+  "atlas_certification": false,
+  "ARCHIVE_SOURCE_INDEX.jsonl": {
+    "total": 77948,
+    "matches": [
+      {
+        "availability": "unavailable_dataless",
+        "blob": null,
+        "bytes": 2155,
+        "sha256": null,
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/evidence/constraint_efficiency/baseline/worker/dependencies/src/GramNumerators.lean"
+      },
+      {
+        "availability": "unavailable_dataless",
+        "blob": null,
+        "bytes": 2155,
+        "sha256": null,
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/evidence/next_efficiency/baseline/worker/dependencies/src/GramNumerators.lean"
+      },
+      {
+        "availability": "unavailable_dataless",
+        "blob": null,
+        "bytes": 2155,
+        "sha256": null,
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/evidence/propagation_counting/baseline/worker/dependencies/src/GramNumerators.lean"
+      },
+      {
+        "availability": "unavailable_dataless",
+        "blob": null,
+        "bytes": 2155,
+        "sha256": null,
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/evidence/runtime_integration/baseline/worker/dependencies/src/GramNumerators.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/91/910524e98bf4539bd65ad0bbea6098809e321190e1e46cc8291357a34174c61a/GramNumerators.lean",
+        "bytes": 2155,
+        "sha256": "910524e98bf4539bd65ad0bbea6098809e321190e1e46cc8291357a34174c61a",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/side_cube/root0_global/legacy_replay/GramNumerators-01/GramNumerators.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/0b/0be6d3398463bb946845cce850e3b240a2941ed1522df9f9f501266920bdee60/NativeBlockInverse.lean",
+        "bytes": 5241,
+        "sha256": "0be6d3398463bb946845cce850e3b240a2941ed1522df9f9f501266920bdee60",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/phase3/NativeBlockInverse.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/8b/8b35fa2b74b12e98222f0fea06e57750ad2d24c04520633f07346124ad0eca20/NativeBlockInverse.lean",
+        "bytes": 5155,
+        "sha256": "8b35fa2b74b12e98222f0fea06e57750ad2d24c04520633f07346124ad0eca20",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/phase3/check-native-inverse-01/NativeBlockInverse.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/0b/0be6d3398463bb946845cce850e3b240a2941ed1522df9f9f501266920bdee60/NativeBlockInverse.lean",
+        "bytes": 5241,
+        "sha256": "0be6d3398463bb946845cce850e3b240a2941ed1522df9f9f501266920bdee60",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/phase3/check-native-inverse-02/NativeBlockInverse.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/44/4455598c3b089cdafcbdd819ff987018e7c01e30943bce393ffd2445d86fb3bc/SideIntrinsicModeRecovery.lean",
+        "bytes": 6257,
+        "historical_portable_evidence": [
+          {
+            "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "SideIntrinsicModeRecovery",
+            "selected_in_prior_packet": true
+          },
+          {
+            "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "SideIntrinsicModeRecovery",
+            "selected_in_prior_packet": false
+          }
+        ],
+        "sha256": "4455598c3b089cdafcbdd819ff987018e7c01e30943bce393ffd2445d86fb3bc",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/check-side-intrinsic-mode-recovery-01/SideIntrinsicModeRecovery.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/44/4455598c3b089cdafcbdd819ff987018e7c01e30943bce393ffd2445d86fb3bc/SideIntrinsicModeRecovery.lean",
+        "bytes": 6257,
+        "historical_portable_evidence": [
+          {
+            "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "SideIntrinsicModeRecovery",
+            "selected_in_prior_packet": true
+          },
+          {
+            "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "SideIntrinsicModeRecovery",
+            "selected_in_prior_packet": false
+          }
+        ],
+        "sha256": "4455598c3b089cdafcbdd819ff987018e7c01e30943bce393ffd2445d86fb3bc",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/lean/SideIntrinsicModeRecovery.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/44/4455598c3b089cdafcbdd819ff987018e7c01e30943bce393ffd2445d86fb3bc/SideIntrinsicModeRecovery.lean",
+        "bytes": 6257,
+        "historical_portable_evidence": [
+          {
+            "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "SideIntrinsicModeRecovery",
+            "selected_in_prior_packet": true
+          },
+          {
+            "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "SideIntrinsicModeRecovery",
+            "selected_in_prior_packet": false
+          }
+        ],
+        "sha256": "4455598c3b089cdafcbdd819ff987018e7c01e30943bce393ffd2445d86fb3bc",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/reviews/third-gate-independent-new/expanded-publication-new/packet/lean/SideIntrinsicModeRecovery.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/44/4455598c3b089cdafcbdd819ff987018e7c01e30943bce393ffd2445d86fb3bc/SideIntrinsicModeRecovery.lean",
+        "bytes": 6257,
+        "historical_portable_evidence": [
+          {
+            "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "SideIntrinsicModeRecovery",
+            "selected_in_prior_packet": true
+          },
+          {
+            "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "SideIntrinsicModeRecovery",
+            "selected_in_prior_packet": false
+          }
+        ],
+        "sha256": "4455598c3b089cdafcbdd819ff987018e7c01e30943bce393ffd2445d86fb3bc",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/reviews/third-gate-independent-new/physical-publication-new/packet/lean/SideIntrinsicModeRecovery.lean"
+      },
+      {
+        "availability": "dataless_recovered_by_exact_pin",
+        "blob": "blobs/91/910524e98bf4539bd65ad0bbea6098809e321190e1e46cc8291357a34174c61a/GramNumerators.lean",
+        "bytes": 2155,
+        "inventory_origin": "exact dependency pin identified authored worker source root",
+        "sha256": "910524e98bf4539bd65ad0bbea6098809e321190e1e46cc8291357a34174c61a",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/worker/dependencies/src/GramNumerators.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/91/910524e98bf4539bd65ad0bbea6098809e321190e1e46cc8291357a34174c61a/GramNumerators.lean",
+        "bytes": 2155,
+        "sha256": "910524e98bf4539bd65ad0bbea6098809e321190e1e46cc8291357a34174c61a",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-21_atlas.nosync/reviews/proof/forward_addendum/port_sources/GramNumerators.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/c4/c4f2b31a761c69f606ecc08ed2b2eda15349bcda7296671d52624971ce28911b/GramNumerators.lean",
+        "bytes": 2143,
+        "sha256": "c4f2b31a761c69f606ecc08ed2b2eda15349bcda7296671d52624971ce28911b",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-21_atlas.nosync/reviews/proof/replay01/checks/GramNumerators/GramNumerators.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/c4/c4f2b31a761c69f606ecc08ed2b2eda15349bcda7296671d52624971ce28911b/GramNumerators.lean",
+        "bytes": 2143,
+        "sha256": "c4f2b31a761c69f606ecc08ed2b2eda15349bcda7296671d52624971ce28911b",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-21_atlas.nosync/reviews/proof/replay01/sources/GramNumerators.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/c4/c4f2b31a761c69f606ecc08ed2b2eda15349bcda7296671d52624971ce28911b/GramNumerators.lean",
+        "bytes": 2143,
+        "sha256": "c4f2b31a761c69f606ecc08ed2b2eda15349bcda7296671d52624971ce28911b",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-21_atlas.nosync/workers/seed_invariants/GramNumerators.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/69/693ed0294e09c543614a4cf702d71e2d6bacb732e40ce4b7bb8013e571cde724/GramNumerators.lean",
+        "bytes": 2166,
+        "sha256": "693ed0294e09c543614a4cf702d71e2d6bacb732e40ce4b7bb8013e571cde724",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-21_atlas.nosync/workers/seed_invariants/checks/gram01/GramNumerators.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/c4/c4f2b31a761c69f606ecc08ed2b2eda15349bcda7296671d52624971ce28911b/GramNumerators.lean",
+        "bytes": 2143,
+        "sha256": "c4f2b31a761c69f606ecc08ed2b2eda15349bcda7296671d52624971ce28911b",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-21_atlas.nosync/workers/seed_invariants/checks/gram02/GramNumerators.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/91/910524e98bf4539bd65ad0bbea6098809e321190e1e46cc8291357a34174c61a/GramNumerators.lean",
+        "bytes": 2155,
+        "sha256": "910524e98bf4539bd65ad0bbea6098809e321190e1e46cc8291357a34174c61a",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-21_atlas.nosync/workers/toolchain_port/sources/GramNumerators.lean"
+      }
+    ]
+  },
+  "ARCHIVE_BLOB_INDEX.jsonl": {
+    "total": 19386,
+    "matches": [
+      {
+        "blob": "blobs/0b/0be6d3398463bb946845cce850e3b240a2941ed1522df9f9f501266920bdee60/NativeBlockInverse.lean",
+        "bytes": 5241,
+        "lexical_markers_heuristic": [],
+        "sha256": "0be6d3398463bb946845cce850e3b240a2941ed1522df9f9f501266920bdee60",
+        "static_imports_heuristic": [
+          "Mathlib.Tactic.FinCases",
+          "PhysicalBlockRecovery"
+        ]
+      },
+      {
+        "blob": "blobs/15/1523ee39155b68946712ec431d5906225c626a8182b18f2b7c8d29ea9a4a5896/SeedInvariants.lean",
+        "bytes": 9861,
+        "lexical_markers_heuristic": [],
+        "sha256": "1523ee39155b68946712ec431d5906225c626a8182b18f2b7c8d29ea9a4a5896",
+        "static_imports_heuristic": [
+          "GramNumerators"
+        ]
+      },
+      {
+        "blob": "blobs/2c/2cd2390dadff29760f7ad976c731a9186f406c268bad4b3beac767d81055a8dc/AllNewAudit.lean",
+        "bytes": 11682,
+        "lexical_markers_heuristic": [],
+        "sha256": "2cd2390dadff29760f7ad976c731a9186f406c268bad4b3beac767d81055a8dc",
+        "static_imports_heuristic": [
+          "AdjugateReconstruction",
+          "CompactCarrierCover",
+          "CompactChartFilters",
+          "ConditionedFourierChart",
+          "FiniteCarrierEnclosures",
+          "FourierConditioning",
+          "GaussianCarrierExport",
+          "GlobalFourierConditioning",
+          "GramNumerators",
+          "MixedCarrierExport",
+          "NeighborhoodCarrierExport",
+          "NormalizedCarrierTransport",
+          "PhysicalCarrierEnclosures",
+          "PhysicalSideForward",
+          "PhysicalSideRational",
+          "PhysicalSideSheet",
+          "RationalCarrierIntervals",
+          "RootCarrierExport",
+          "SeedInvariants",
+          "SideLambdaPhases",
+          "SixteenCarrierEnclosure",
+          "SixteenCircleCover",
+          "SixteenDyadicCover"
+        ]
+      },
+      {
+        "blob": "blobs/3e/3eba5f1cb4ecd467a46b9ba4d67554193e9f566e105036d2640601dc33e8dd3c/SeedInvariants.lean",
+        "bytes": 6188,
+        "lexical_markers_heuristic": [],
+        "sha256": "3eba5f1cb4ecd467a46b9ba4d67554193e9f566e105036d2640601dc33e8dd3c",
+        "static_imports_heuristic": [
+          "GramNumerators"
+        ]
+      },
+      {
+        "blob": "blobs/44/4455598c3b089cdafcbdd819ff987018e7c01e30943bce393ffd2445d86fb3bc/SideIntrinsicModeRecovery.lean",
+        "bytes": 6257,
+        "lexical_markers_heuristic": [],
+        "sha256": "4455598c3b089cdafcbdd819ff987018e7c01e30943bce393ffd2445d86fb3bc",
+        "static_imports_heuristic": [
+          "SideIntrinsicFourierMatrix",
+          "SideIntrinsicLambdaRecovery",
+          "SideMatrixMoments"
+        ]
+      },
+      {
+        "blob": "blobs/52/523dddd39bad3411959f1f146858a2b48c9d06e53dafb152f1239160efb8e6e8/SeedInvariants.lean",
+        "bytes": 9773,
+        "lexical_markers_heuristic": [],
+        "sha256": "523dddd39bad3411959f1f146858a2b48c9d06e53dafb152f1239160efb8e6e8",
+        "static_imports_heuristic": [
+          "GramNumerators"
+        ]
+      },
+      {
+        "blob": "blobs/5c/5c90390b666ad2868b94782e343e17e79dfed2650cdb413175be15ce2b340004/SideIntrinsicOrientedModes.lean",
+        "bytes": 2947,
+        "lexical_markers_heuristic": [],
+        "sha256": "5c90390b666ad2868b94782e343e17e79dfed2650cdb413175be15ce2b340004",
+        "static_imports_heuristic": [
+          "SideIntrinsicModeRecovery"
+        ]
+      },
+      {
+        "blob": "blobs/5e/5e93e76eaa61112f07c085418ff6fcb00d33c2d0dd87388496ced440bf5dcf20/SideConstructorUnit.lean",
+        "bytes": 5879,
+        "lexical_markers_heuristic": [],
+        "sha256": "5e93e76eaa61112f07c085418ff6fcb00d33c2d0dd87388496ced440bf5dcf20",
+        "static_imports_heuristic": [
+          "NativeBlockInverse",
+          "RadiusDependentGuards"
+        ]
+      },
+      {
+        "blob": "blobs/69/693ed0294e09c543614a4cf702d71e2d6bacb732e40ce4b7bb8013e571cde724/GramNumerators.lean",
+        "bytes": 2166,
+        "lexical_markers_heuristic": [],
+        "sha256": "693ed0294e09c543614a4cf702d71e2d6bacb732e40ce4b7bb8013e571cde724",
+        "static_imports_heuristic": [
+          "SeedSixGuards"
+        ]
+      },
+      {
+        "blob": "blobs/72/728325057525037d40ac127f1279e35e568932b774afd030541fd35dca676eb7/SeedInvariants.lean",
+        "bytes": 8945,
+        "lexical_markers_heuristic": [],
+        "sha256": "728325057525037d40ac127f1279e35e568932b774afd030541fd35dca676eb7",
+        "static_imports_heuristic": [
+          "GramNumerators"
+        ]
+      },
+      {
+        "blob": "blobs/76/76535754cbaa05f86ca54b8de69c0339920077354a21bbb043b39d9f5c426c0f/SeedInvariants.lean",
+        "bytes": 8975,
+        "lexical_markers_heuristic": [],
+        "sha256": "76535754cbaa05f86ca54b8de69c0339920077354a21bbb043b39d9f5c426c0f",
+        "static_imports_heuristic": [
+          "GramNumerators"
+        ]
+      },
+      {
+        "blob": "blobs/8b/8b35fa2b74b12e98222f0fea06e57750ad2d24c04520633f07346124ad0eca20/NativeBlockInverse.lean",
+        "bytes": 5155,
+        "lexical_markers_heuristic": [],
+        "sha256": "8b35fa2b74b12e98222f0fea06e57750ad2d24c04520633f07346124ad0eca20",
+        "static_imports_heuristic": [
+          "Mathlib.Tactic.FinCases",
+          "PhysicalBlockRecovery"
+        ]
+      },
+      {
+        "blob": "blobs/91/910524e98bf4539bd65ad0bbea6098809e321190e1e46cc8291357a34174c61a/GramNumerators.lean",
+        "bytes": 2155,
+        "lexical_markers_heuristic": [],
+        "sha256": "910524e98bf4539bd65ad0bbea6098809e321190e1e46cc8291357a34174c61a",
+        "static_imports_heuristic": [
+          "SeedSixGuards"
+        ]
+      },
+      {
+        "blob": "blobs/9a/9a81d781c042597c1bde8b5ca3caba55fb79f1492547f71ddfa12b1389f5d1a2/NewModuleAudit.lean",
+        "bytes": 10899,
+        "lexical_markers_heuristic": [],
+        "sha256": "9a81d781c042597c1bde8b5ca3caba55fb79f1492547f71ddfa12b1389f5d1a2",
+        "static_imports_heuristic": [
+          "AdjugateReconstruction",
+          "CompactCarrierCover",
+          "CompactChartFilters",
+          "ConditionedFourierChart",
+          "FiniteCarrierEnclosures",
+          "FourierConditioning",
+          "GlobalFourierConditioning",
+          "GramNumerators",
+          "NormalizedCarrierTransport",
+          "PhysicalCarrierEnclosures",
+          "PhysicalSideForward",
+          "PhysicalSideRational",
+          "PhysicalSideSheet",
+          "RationalCarrierIntervals",
+          "SeedInvariants",
+          "SideLambdaPhases",
+          "SixteenCarrierEnclosure",
+          "SixteenCircleCover",
+          "SixteenDyadicCover"
+        ]
+      },
+      {
+        "blob": "blobs/a2/a2324bb34e4935c36443c31c5c96a762d0a8f8019bf492a07197bcd3f69360f0/SeedInvariants.lean",
+        "bytes": 10029,
+        "lexical_markers_heuristic": [],
+        "sha256": "a2324bb34e4935c36443c31c5c96a762d0a8f8019bf492a07197bcd3f69360f0",
+        "static_imports_heuristic": [
+          "GramNumerators"
+        ]
+      },
+      {
+        "blob": "blobs/be/beecd2b5825195928e85869da2a9fc9aa89f96e05236514ba40fcfda306de24f/SideConstructorUnit.lean",
+        "bytes": 5955,
+        "lexical_markers_heuristic": [],
+        "sha256": "beecd2b5825195928e85869da2a9fc9aa89f96e05236514ba40fcfda306de24f",
+        "static_imports_heuristic": [
+          "NativeBlockInverse",
+          "RadiusDependentGuards"
+        ]
+      },
+      {
+        "blob": "blobs/c4/c4f2b31a761c69f606ecc08ed2b2eda15349bcda7296671d52624971ce28911b/GramNumerators.lean",
+        "bytes": 2143,
+        "lexical_markers_heuristic": [],
+        "sha256": "c4f2b31a761c69f606ecc08ed2b2eda15349bcda7296671d52624971ce28911b",
+        "static_imports_heuristic": [
+          "SeedSixGuards"
+        ]
+      },
+      {
+        "blob": "blobs/dc/dcabf4107de4f71163e3f7d02aa49c08a90cc4d9842c9c9c1b7f79cc29a42a7e/Phase3Audit.lean",
+        "bytes": 4537,
+        "lexical_markers_heuristic": [],
+        "sha256": "dcabf4107de4f71163e3f7d02aa49c08a90cc4d9842c9c9c1b7f79cc29a42a7e",
+        "static_imports_heuristic": [
+          "NativeBlockInverse",
+          "NativeResidual94"
+        ]
+      },
+      {
+        "blob": "blobs/dd/ddbd962c3e43cfdb4a1176acf9f9568a322c8dcef63c1a2dfc6b7a61404fc59a/PortAddendumAudit.lean",
+        "bytes": 22906,
+        "lexical_markers_heuristic": [],
+        "sha256": "ddbd962c3e43cfdb4a1176acf9f9568a322c8dcef63c1a2dfc6b7a61404fc59a",
+        "static_imports_heuristic": [
+          "AdjugateReconstruction",
+          "CompactCarrierCover",
+          "CompactChartFilters",
+          "ConditionedFourierChart",
+          "FiniteCarrierEnclosures",
+          "FourierConditioning",
+          "GaussianCarrierExport",
+          "GlobalFourierConditioning",
+          "GramNumerators",
+          "MixedCarrierExport",
+          "NeighborhoodCarrierExport",
+          "NormalizedCarrierTransport",
+          "PhysicalCarrierEnclosures",
+          "PhysicalSideForward",
+          "PhysicalSideRational",
+          "PhysicalSideSheet",
+          "RationalCarrierIntervals",
+          "RootCarrierExport",
+          "SeedInvariants",
+          "SideLambdaPhases",
+          "SixteenCarrierEnclosure",
+          "SixteenCircleCover",
+          "SixteenDyadicCover"
+        ]
+      },
+      {
+        "blob": "blobs/e5/e5dc0eb38a083f1c29b547e6eba69b7951fab7f75d66e8dc17a37201b476183e/SeedInvariants.lean",
+        "bytes": 6115,
+        "lexical_markers_heuristic": [],
+        "sha256": "e5dc0eb38a083f1c29b547e6eba69b7951fab7f75d66e8dc17a37201b476183e",
+        "static_imports_heuristic": [
+          "GramNumerators"
+        ]
+      },
+      {
+        "blob": "blobs/ef/ef5c86ddc7a1c027ff6ba1487ba2edc6eff0abbd1298a3f91fff3f301f6cdc61/PhysicalGramRecovery.lean",
+        "bytes": 3910,
+        "lexical_markers_heuristic": [],
+        "sha256": "ef5c86ddc7a1c027ff6ba1487ba2edc6eff0abbd1298a3f91fff3f301f6cdc61",
+        "static_imports_heuristic": [
+          "NativeBlockInverse"
+        ]
+      },
+      {
+        "blob": "blobs/f1/f1bc05e88fb5b74901e73fbea73568905145153378a32d96de53de022df8a95c/PhysicalGramRecovery.lean",
+        "bytes": 3874,
+        "lexical_markers_heuristic": [],
+        "sha256": "f1bc05e88fb5b74901e73fbea73568905145153378a32d96de53de022df8a95c",
+        "static_imports_heuristic": [
+          "NativeBlockInverse"
+        ]
+      }
+    ]
+  },
+  "ARCHIVE_IMPORT_INDEX.json": {
+    "total": 16532,
+    "matches": [
+      {
+        "candidate_source_sha256": [
+          "693ed0294e09c543614a4cf702d71e2d6bacb732e40ce4b7bb8013e571cde724",
+          "910524e98bf4539bd65ad0bbea6098809e321190e1e46cc8291357a34174c61a",
+          "c4f2b31a761c69f606ecc08ed2b2eda15349bcda7296671d52624971ce28911b"
+        ],
+        "classification": "authored_candidates_available",
+        "module": "GramNumerators",
+        "resolution_is_context_dependent": true
+      },
+      {
+        "candidate_source_sha256": [
+          "0be6d3398463bb946845cce850e3b240a2941ed1522df9f9f501266920bdee60",
+          "8b35fa2b74b12e98222f0fea06e57750ad2d24c04520633f07346124ad0eca20"
+        ],
+        "classification": "authored_candidates_available",
+        "module": "NativeBlockInverse",
+        "resolution_is_context_dependent": true
+      },
+      {
+        "candidate_source_sha256": [
+          "4455598c3b089cdafcbdd819ff987018e7c01e30943bce393ffd2445d86fb3bc"
+        ],
+        "classification": "authored_candidates_available",
+        "module": "SideIntrinsicModeRecovery",
+        "resolution_is_context_dependent": false
+      }
+    ]
+  }
+}

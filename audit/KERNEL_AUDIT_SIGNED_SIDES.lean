@@ -1,0 +1,12 @@
+import NoFourMUBs.Step2.Reconstruction.MatchedSides
+
+#check NoFourMUBs.Step2.Reconstruction.strict_seed_recipe_exists
+#check NoFourMUBs.Step2.Reconstruction.strict_seed_signed_side_exists
+#check NoFourMUBs.Step2.Reconstruction.strict_seed_signed_sides_exist
+
+#print axioms NoFourMUBs.Step2.Reconstruction.strict_seed_recipe_exists
+#print axioms NoFourMUBs.Step2.Reconstruction.phaseFourier_permanent
+#print axioms NoFourMUBs.Step2.Reconstruction.prescribed_side_permanent
+#print axioms NoFourMUBs.Step2.Reconstruction.prescribed_side_signature
+#print axioms NoFourMUBs.Step2.Reconstruction.strict_seed_signed_side_exists
+#print axioms NoFourMUBs.Step2.Reconstruction.strict_seed_signed_sides_exist

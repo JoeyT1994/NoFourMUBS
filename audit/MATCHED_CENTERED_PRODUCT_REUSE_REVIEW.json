@@ -1,0 +1,38 @@
+{
+  "status": "REVIEWED_SIGNED_PRODUCT_PARAMETER_ADAPTER",
+  "scope": "matched_centered_product",
+  "checked_utc": "2026-10-11T20:02:03.173626+00:00",
+  "repository_head": "fd7d1019fa4a7f3551bf9ade5d31ebbce9501055",
+  "search": "MATCHED_CENTERED_PRODUCT_REUSE_SEARCH.json",
+  "source_pins": {
+    "audit/MATCHED_SYMBOLIC_BASE_CACHE.json": "a0940de2c81be584bb5ff394eb5fc10d258f03e105ab379d9ae8b04f32f6e4a3",
+    "audit/MATCHED_SIGNATURE_PARAMETER_COMPARISON.json": "d02d7b264bb53a3c782d31aadf6405da521c4e235fe95df891ab4f65864c62f5",
+    "lean/NoFourMUBs/Step2/Reconstruction/BaseCoefficients/Bindings.lean": "f488d52f6e644ee826f25f359886ef3f9a1da0a3c27660246bf11b459dc40509",
+    "lean/NoFourMUBs/Step2/Reconstruction/RowProductSignature.lean": "1c94b70a0b87dacc3199c544cad22766ce194d4441ba16a940119eb9d749f83a",
+    "lean/NoFourMUBs/Step2/Reconstruction/SeedModel.lean": "7020e49ca7d9303f213bb75991290cd1bba125db6de255f0e1b39a51ab079aa3",
+    "lean/NoFourMUBs/Reuse/Archive/SideIntrinsicMatrixBindings.lean": "28e1b68230d5b0372200d1bc65f9f98e6db18afdda19c6f1c46cacdc0377a5a5",
+    "lean/NoFourMUBs/Reuse/Archive/PreRhoActualBindings.lean": "95bd24d7140b39595e579e0c45b39df1533f43902380f4534c81c07e93e89caa",
+    "lean/NoFourMUBs/Reuse/Archive/PreRhoNormBindings.lean": "2dc366315b498ad9dd3de167f804d26eecbe943704d6f79977edd523e4bd3ef1",
+    "lean/NoFourMUBs/Reuse/Archive/StrictSideScalarGuards.lean": "75741b3091aeb2ce36f1b9fdab822add16b2e2514bfa27822105c93fb936d042"
+  },
+  "comparisons": [
+    {
+      "existing": "BaseCoefficients.Bindings: cachedC6_eq, cachedU_eq, cachedV_eq, normData_seed, inputDen_strict",
+      "reuse": "Reuse checked original U,V,c6 identities without expanding their coefficients again. Specialize with actualNormData and actualAlignmentData bindings."
+    },
+    {
+      "existing": "Pinned original cached delta (12 numerator terms / a*b*c*d)",
+      "reuse": "Serialize the original coefficients literally and prove the single small identity delta=c1-c0. The symbolic signature comparison is not treated as a proof."
+    },
+    {
+      "existing": "SideIntrinsic.arbitrary_side_intrinsic_interface and SeedModel.seed_correlations",
+      "reuse": "Bind a horizontal candidate to its seed correlations using its existing Gram equality. This is a model adapter, not a new side construction."
+    },
+    {
+      "existing": "side_product_of_signature",
+      "reuse": "Cancel its already established linear product equation using cachedC6 nonvanishing, obtaining the exact original centered product (cachedU + cachedDelta/cachedC6*w)/2. No gap division or exceptional-case assumption."
+    }
+  ],
+  "limits": "This binds the signed horizontal product to the original cached parameters. It does not bind the reduced entry companion or establish the universal norm. No coverage claim for unshared work.",
+  "atlas_certification": false
+}

@@ -1,0 +1,16 @@
+import NoFourMUBs.Step2.Reconstruction.ThirdMoment.Certificates.Products.MonomialTransport1
+
+#check NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.Product027_value
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.sliceValue_eq_c_mul_tail
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P048_eq_a_mul_P034
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P035_eq_a_mul_P049
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P034_eq_c_mul_P045
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P004_eq_c_mul_P035
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P052_eq_b_mul_P045
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P004_eq_b_mul_P053
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P056_eq_b_mul_P034
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P035_eq_b_mul_P057
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.Product021_value
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.Product023_value
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.Product025_value
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.Product027_value

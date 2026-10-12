@@ -1,0 +1,281 @@
+{
+  "status": "PINNED_REVIEWED_NOT_COMPILED",
+  "scope": "critical_zero_geometry_reuse",
+  "roots": [
+    "CriticalAllocatedGeometricCandidate"
+  ],
+  "selected": {
+    "CriticalAllocatedWholeStrip": {
+      "availability": "resident",
+      "blob": "blobs/e2/e26ca63c808d0b529efe4551e6240579aadf01ccc8aac35e80086dc6cea7f300/CriticalAllocatedWholeStrip.lean",
+      "bytes": 2581,
+      "sha256": "e26ca63c808d0b529efe4551e6240579aadf01ccc8aac35e80086dc6cea7f300",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/global_assembly/exceptional_interfaces/whole_strip/CriticalAllocatedWholeStrip.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/e2/e26ca63c808d0b529efe4551e6240579aadf01ccc8aac35e80086dc6cea7f300/CriticalAllocatedWholeStrip.lean",
+      "imports": [
+        "CriticalGeometricHalves",
+        "CriticalAllocatedBlockGeometric"
+      ],
+      "review": "CRITICAL_ZERO_GEOMETRY_REUSE_REVIEW.json",
+      "import_replacements": {},
+      "model_identifier_replacements": {
+        "CompactCover.Mat6": "OAI.MUB6.CMatrix"
+      },
+      "model_identifier_counts": {
+        "CompactCover.Mat6": 1
+      },
+      "namespace_open_replacements": {
+        "open Mub6 Mub6.Numerical Mub6.Classification\nopen CompactCover GoodMinor FourierSeedBinding FourPhase FourPhaseWorker CanonicalCorners\nopen GlobalCornerDomain ": "open Matrix NoFourMUBs.Step2.Critical\nopen "
+      }
+    },
+    "CriticalGeometricHalves": {
+      "availability": "resident",
+      "blob": "blobs/27/27dd047efdcd53a48ba035c9ef3dbbd60089530b75ca1301d9ae5853e26d62e6/CriticalGeometricHalves.lean",
+      "bytes": 2051,
+      "sha256": "27dd047efdcd53a48ba035c9ef3dbbd60089530b75ca1301d9ae5853e26d62e6",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/global_assembly/exceptional_interfaces/whole_strip/CriticalGeometricHalves.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/27/27dd047efdcd53a48ba035c9ef3dbbd60089530b75ca1301d9ae5853e26d62e6/CriticalGeometricHalves.lean",
+      "imports": [
+        "CriticalStripPhysical",
+        "CriticalTriplesComplement"
+      ],
+      "review": "CRITICAL_ZERO_GEOMETRY_REUSE_REVIEW.json",
+      "import_replacements": {
+        "CriticalStripPhysical": "NoFourMUBs.Reuse.Archive.CriticalStripPhysical"
+      },
+      "model_identifier_replacements": {
+        "CompactCover.Mat6": "OAI.MUB6.CMatrix"
+      },
+      "model_identifier_counts": {
+        "CompactCover.Mat6": 3
+      },
+      "namespace_open_replacements": {
+        "open Mub6 Mub6.Numerical Mub6.Classification\nopen CompactCover GoodMinor FourierSeedBinding FourPhase FourPhaseWorker CanonicalCorners\nopen GlobalCornerDomain ": "open Matrix NoFourMUBs.Step2.Critical\nopen "
+      }
+    },
+    "CriticalTriplesComplement": {
+      "availability": "resident",
+      "blob": "blobs/ca/ca9eb5147cccb71507a65758b3b923caf29ca6036115e185171ad9d0946e902f/CriticalTriplesComplement.lean",
+      "bytes": 465,
+      "sha256": "ca9eb5147cccb71507a65758b3b923caf29ca6036115e185171ad9d0946e902f",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/global_assembly/exceptional_interfaces/whole_strip/CriticalTriplesComplement.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/ca/ca9eb5147cccb71507a65758b3b923caf29ca6036115e185171ad9d0946e902f/CriticalTriplesComplement.lean",
+      "imports": [
+        "CriticalRowSum"
+      ],
+      "review": "CRITICAL_ZERO_GEOMETRY_REUSE_REVIEW.json",
+      "import_replacements": {
+        "CriticalRowSum": "NoFourMUBs.Reuse.Archive.CriticalRowSum"
+      },
+      "model_identifier_replacements": {},
+      "model_identifier_counts": {},
+      "namespace_open_replacements": {}
+    },
+    "CriticalAllocatedBlockGeometric": {
+      "availability": "resident",
+      "blob": "blobs/c8/c8f269b40f6692ea6af224f7e0c5402d3295714c1a6735e22988bb7a83d4cfeb/CriticalAllocatedBlockGeometric.lean",
+      "bytes": 2034,
+      "sha256": "c8f269b40f6692ea6af224f7e0c5402d3295714c1a6735e22988bb7a83d4cfeb",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_physical_inputs/CriticalAllocatedBlockGeometric.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/c8/c8f269b40f6692ea6af224f7e0c5402d3295714c1a6735e22988bb7a83d4cfeb/CriticalAllocatedBlockGeometric.lean",
+      "imports": [
+        "CriticalGeometricActualLambda",
+        "CriticalUnitSumTerminal"
+      ],
+      "review": "CRITICAL_ZERO_GEOMETRY_REUSE_REVIEW.json",
+      "import_replacements": {},
+      "model_identifier_replacements": {},
+      "model_identifier_counts": {},
+      "namespace_open_replacements": {
+        "open Matrix CriticalPhysical20261003 CriticalLightSheet20261003\n": "open Matrix NoFourMUBs.Step2.Critical CriticalPhysical20261003 CriticalLightSheet20261003\n"
+      }
+    },
+    "CriticalGeometricActualLambda": {
+      "availability": "resident",
+      "blob": "blobs/df/df2bb601d9781f00a52653b4d8d0fec137d23079096b4945e487ca7dff5e8ca3/CriticalGeometricActualLambda.lean",
+      "bytes": 6269,
+      "sha256": "df2bb601d9781f00a52653b4d8d0fec137d23079096b4945e487ca7dff5e8ca3",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/global_assembly/exceptional_interfaces/geometric_binding/CriticalGeometricActualLambda.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/df/df2bb601d9781f00a52653b4d8d0fec137d23079096b4945e487ca7dff5e8ca3/CriticalGeometricActualLambda.lean",
+      "imports": [
+        "CriticalGeometricNumerator",
+        "CriticalLightSheet"
+      ],
+      "review": "CRITICAL_ZERO_GEOMETRY_REUSE_REVIEW.json",
+      "import_replacements": {
+        "CriticalLightSheet": "NoFourMUBs.Reuse.Archive.CriticalLightSheet"
+      },
+      "model_identifier_replacements": {},
+      "model_identifier_counts": {},
+      "namespace_open_replacements": {
+        "open Matrix CriticalPhysical20261003 CriticalLightSheet20261003\n": "open Matrix NoFourMUBs.Step2.Critical CriticalPhysical20261003 CriticalLightSheet20261003\n"
+      }
+    },
+    "CriticalUnitSumTerminal": {
+      "availability": "resident",
+      "blob": "blobs/8a/8af8f023349773be6fcfcd01892a8c46ea23e7f7d76f5ec84ae1351f62aacfec/CriticalUnitSumTerminal.lean",
+      "bytes": 2806,
+      "sha256": "8af8f023349773be6fcfcd01892a8c46ea23e7f7d76f5ec84ae1351f62aacfec",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_physical_inputs/CriticalUnitSumTerminal.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/8a/8af8f023349773be6fcfcd01892a8c46ea23e7f7d76f5ec84ae1351f62aacfec/CriticalUnitSumTerminal.lean",
+      "imports": [
+        "Mathlib.Data.Complex.Basic",
+        "Mathlib.Algebra.BigOperators.Fin",
+        "Mathlib.Tactic.LinearCombination",
+        "Mathlib.Tactic.Linarith",
+        "Mathlib.Tactic.FinCases"
+      ],
+      "review": "CRITICAL_ZERO_GEOMETRY_REUSE_REVIEW.json",
+      "import_replacements": {},
+      "model_identifier_replacements": {},
+      "model_identifier_counts": {},
+      "namespace_open_replacements": {}
+    },
+    "CriticalGeometricNumerator": {
+      "availability": "resident",
+      "blob": "blobs/35/35510adb3cb26638710eb6abea12abeec33aeea29b28e7638f575cacd823d6bd/CriticalGeometricNumerator.lean",
+      "bytes": 3475,
+      "sha256": "35510adb3cb26638710eb6abea12abeec33aeea29b28e7638f575cacd823d6bd",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/global_assembly/exceptional_interfaces/geometric_binding/CriticalGeometricNumerator.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/35/35510adb3cb26638710eb6abea12abeec33aeea29b28e7638f575cacd823d6bd/CriticalGeometricNumerator.lean",
+      "imports": [
+        "CriticalMomentBinding",
+        "GramNumerators"
+      ],
+      "review": "CRITICAL_ZERO_GEOMETRY_REUSE_REVIEW.json",
+      "import_replacements": {
+        "CriticalMomentBinding": "NoFourMUBs.Reuse.Archive.CriticalMomentBinding",
+        "GramNumerators": "NoFourMUBs.Reuse.Archive.GramNumerators"
+      },
+      "model_identifier_replacements": {},
+      "model_identifier_counts": {},
+      "namespace_open_replacements": {},
+      "reviewed_previous_active_sha256": "7cf36e562133bf54a4fab65d815732053f8fba8d5308623b9a13b99011836084",
+      "proof_tactic_replacements": [
+        {
+          "before": "import NoFourMUBs.Reuse.Archive.CriticalMomentBinding\n",
+          "after": "import NoFourMUBs.Reuse.Archive.CriticalMomentBinding\nimport NoFourMUBs.Reuse.Archive.GramNumerators\n",
+          "count": 1,
+          "reason": "Import the already checked shared numerator definition explicitly; the current light moment module no longer imports it transitively. No statement/proof body changes."
+        }
+      ]
+    },
+    "CriticalAllocatedChart": {
+      "availability": "resident",
+      "blob": "blobs/c8/c82f8497e092479a50be1742844c62a298c390c01afcc63588635bf1ee6e6a94/CriticalAllocatedChart.lean",
+      "bytes": 3174,
+      "sha256": "c82f8497e092479a50be1742844c62a298c390c01afcc63588635bf1ee6e6a94",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/global_assembly/exceptional_interfaces/whole_strip/CriticalAllocatedChart.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/c8/c82f8497e092479a50be1742844c62a298c390c01afcc63588635bf1ee6e6a94/CriticalAllocatedChart.lean",
+      "imports": [
+        "CriticalCorrelationRechart"
+      ],
+      "review": "CRITICAL_ZERO_GEOMETRY_REUSE_REVIEW.json",
+      "import_replacements": {
+        "CriticalCorrelationRechart": "NoFourMUBs.Reuse.Archive.CriticalCorrelationRechart"
+      },
+      "model_identifier_replacements": {
+        "CompactCover.Mat6": "OAI.MUB6.CMatrix",
+        "CompactCover.Mat3": "Hadamard6.Mat3",
+        "AllCritical": "AllCriticalCarrier",
+        "MonomialEquivalent": "OAI.MUB6.Equivalent"
+      },
+      "model_identifier_counts": {
+        "CompactCover.Mat6": 5,
+        "CompactCover.Mat3": 1,
+        "AllCritical": 2,
+        "MonomialEquivalent": 1
+      },
+      "namespace_open_replacements": {
+        "open Mub6 Mub6.Numerical Mub6.Classification\nopen CompactCover GoodMinor FourierSeedBinding FourPhase FourPhaseWorker CanonicalCorners\nopen GlobalCornerDomain ": "open Matrix NoFourMUBs.Step2.Critical\nopen "
+      }
+    },
+    "CriticalAllocatedGeometricCandidate": {
+      "availability": "resident",
+      "blob": "blobs/af/af06219f2aeb10f384daeca65c5a02cfbf1da4c9b9eb976a8f6c0a5fb43ac8c5/CriticalAllocatedGeometricCandidate.lean",
+      "bytes": 2297,
+      "sha256": "af06219f2aeb10f384daeca65c5a02cfbf1da4c9b9eb976a8f6c0a5fb43ac8c5",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/global_assembly/exceptional_interfaces/whole_strip/CriticalAllocatedGeometricCandidate.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/af/af06219f2aeb10f384daeca65c5a02cfbf1da4c9b9eb976a8f6c0a5fb43ac8c5/CriticalAllocatedGeometricCandidate.lean",
+      "imports": [
+        "CriticalAllocatedWholeStrip",
+        "CriticalAllocatedChart"
+      ],
+      "review": "CRITICAL_ZERO_GEOMETRY_REUSE_REVIEW.json",
+      "import_replacements": {},
+      "model_identifier_replacements": {
+        "CompactCover.Mat6": "OAI.MUB6.CMatrix",
+        "AllCritical": "AllCriticalCarrier",
+        "MonomialEquivalent": "OAI.MUB6.Equivalent"
+      },
+      "model_identifier_counts": {
+        "CompactCover.Mat6": 2,
+        "AllCritical": 4,
+        "MonomialEquivalent": 2
+      },
+      "namespace_open_replacements": {
+        "open Mub6 Mub6.Numerical Mub6.Classification\nopen CompactCover GoodMinor FourierSeedBinding FourPhase FourPhaseWorker CanonicalCorners\nopen GlobalCornerDomain ": "open Matrix NoFourMUBs.Step2.Critical\nopen "
+      },
+      "proof_tactic_replacements": [
+        {
+          "before": "/-- The same actual carrier still occurs in a physical quartet if the\noriginal carrier did. The conclusion is not an existence claim for scalar data. -/\ntheorem allCritical_allocated_geometric_occurs {H : OAI.MUB6.CMatrix}\n    (hH : AllCriticalCarrier H) (c : Fin 20) (z : \u211d)\n    (hz0 : z\u22600) (hz3 : z\u2260 -3) (hz2 : z\u2260 -2)\n    (hj : sideJ (stripCorner H c)=0) (ha : Allocated (stripCorner H c) z)\n    (ho : OccursAsQuartetEdge (normalizedNumerical H)) :\n    \u2203 p : Perm,\n      (p=Equiv.refl _ \u2228 p=Equiv.swap 0 1 \u2228 p=Equiv.swap 0 2) \u2227\n      let K := candidate H p (Equiv.refl _)\n      AllCriticalCarrier K \u2227 OAI.MUB6.Equivalent H K \u2227\n      OccursAsQuartetEdge (normalizedNumerical K) \u2227\n      \u2200 j : Fin 6,K 2 j=star (K 1 j) := by\n  obtain \u27e8p,hpick,hK,he,hgeom\u27e9 := allCritical_allocated_geometric hH c z hz0 hz3 hz2 hj ha\n  exact \u27e8p,hpick,hK,he,candidate_occurs hH.1.1 ho p (Equiv.refl _),hgeom\u27e9\n",
+          "after": "",
+          "count": 1,
+          "reason": "Omit unrelated quartet-occurrence theorem, which is not used in the critical classification route."
+        },
+        {
+          "before": "#print axioms allCritical_allocated_geometric_occurs\n",
+          "after": "",
+          "count": 1,
+          "reason": "Remove audit of the omitted unrelated endpoint."
+        }
+      ]
+    }
+  },
+  "existing_modules": {
+    "NoFourMUBs.Reuse.Archive.CriticalStripPhysical": {
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalStripPhysical.lean",
+      "active_sha256": "0e726f519d28a449b1895952067a44a422c9c31e7f51ae64b1656dc8762b5731"
+    },
+    "NoFourMUBs.Reuse.Archive.CriticalRowSum": {
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalRowSum.lean",
+      "active_sha256": "643b19836a15425426054bdc1847f4a364f44606a4b2830dba5161872d698048"
+    },
+    "NoFourMUBs.Reuse.Archive.CriticalLightSheet": {
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalLightSheet.lean",
+      "active_sha256": "31a0b6ee7901abcd3ff9361d8ca8a49c00f8cf074639f769a5116cfd03573855"
+    },
+    "NoFourMUBs.Reuse.Archive.CriticalMomentBinding": {
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalMomentBinding.lean",
+      "active_sha256": "7cb6f10d9381e82738d0c83ed5ece66dc262cc4f7502874435196a49d7a99dc7"
+    },
+    "NoFourMUBs.Reuse.Archive.CriticalCorrelationRechart": {
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalCorrelationRechart.lean",
+      "active_sha256": "cb18e37a7b7be7292293f8a26c123fa7d75be455febb749161d0e4cec4c2fd1d"
+    },
+    "NoFourMUBs.Reuse.Archive.GramNumerators": {
+      "active_path": "NoFourMUBs/Reuse/Archive/GramNumerators.lean",
+      "active_sha256": "edb7de8e4499b9d6f8cae7b05213b414b46efd17b4692cd5cf67b5caff2fc0ba"
+    }
+  },
+  "local_adapters": [
+    {
+      "module": "NoFourMUBs.Step2.CriticalZero.ActualGeometry",
+      "active_path": "NoFourMUBs/Step2/CriticalZero/ActualGeometry.lean",
+      "active_sha256": "701e6d054ca92aeaef808cbd72400e35af180b92e5944083f3ecf93c40f9bf22",
+      "after_archived_module": "CriticalAllocatedGeometricCandidate"
+    }
+  ],
+  "external": [],
+  "unresolved": [],
+  "atlas_certification": false
+}

@@ -1,0 +1,61 @@
+{
+  "status": "READ_ONLY_DISCOVERY_NOT_ADOPTED",
+  "root": "GeometricFourierComplete",
+  "unambiguous": {
+    "GeometricFourierComplete": {
+      "blob": "blobs/24/24a31639f077eaae527f9b940590113695c0a25bfa0b8a3c66133b9f969e0bbc/GeometricFourierComplete.lean",
+      "bytes": 2053,
+      "lexical_markers_heuristic": [],
+      "sha256": "24a31639f077eaae527f9b940590113695c0a25bfa0b8a3c66133b9f969e0bbc",
+      "static_imports_heuristic": [
+        "ConjugateBlockNormalization",
+        "GeometricTopBlocks"
+      ]
+    }
+  },
+  "ambiguous": {
+    "ConjugateBlockNormalization": [
+      {
+        "sha256": "09308ea7019f4b47eda5e2a407062fad4df3b0612983722993f8c6b207bf5bae",
+        "blob": "blobs/09/09308ea7019f4b47eda5e2a407062fad4df3b0612983722993f8c6b207bf5bae/ConjugateBlockNormalization.lean",
+        "bytes": 4787,
+        "imports": [
+          "Hadamard6.SimultaneousFourierNormalization",
+          "Worker12.ContinuousBindings",
+          "Worker12.ZeroPattern"
+        ]
+      },
+      {
+        "sha256": "24f1ca6ca5dd719e72f49b5d6b505ac42b79206501cd17e99334fbcbbb7b5fac",
+        "blob": "blobs/24/24f1ca6ca5dd719e72f49b5d6b505ac42b79206501cd17e99334fbcbbb7b5fac/ConjugateBlockNormalization.lean",
+        "bytes": 4726,
+        "imports": [
+          "Hadamard6.SimultaneousFourierNormalization",
+          "Worker12.ContinuousBindings",
+          "Worker12.ZeroPattern"
+        ]
+      }
+    ],
+    "GeometricTopBlocks": [
+      {
+        "sha256": "75ce30556916ef1403f294749f648184322e48a0fe37e69b45ac54de042f733b",
+        "blob": "blobs/75/75ce30556916ef1403f294749f648184322e48a0fe37e69b45ac54de042f733b/GeometricTopBlocks.lean",
+        "bytes": 4638,
+        "imports": [
+          "GeometricRowsTriples"
+        ]
+      },
+      {
+        "sha256": "f1ea0f6bd81cfa7bd1818119baf38861ae985d879c5d0967d620b31dd1da5e8d",
+        "blob": "blobs/f1/f1ea0f6bd81cfa7bd1818119baf38861ae985d879c5d0967d620b31dd1da5e8d/GeometricTopBlocks.lean",
+        "bytes": 4759,
+        "imports": [
+          "GeometricRowsTriples"
+        ]
+      }
+    ]
+  },
+  "shared": [],
+  "missing": [],
+  "atlas_certification": false
+}

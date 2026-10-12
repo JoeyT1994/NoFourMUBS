@@ -1,0 +1,179 @@
+{
+  "status": "BOUNDED_DIAGNOSTIC_TIMEOUT_NOT_A_PROOF",
+  "pid": 78108,
+  "started_utc": "2026-10-11T18:12:23.075462+00:00",
+  "source_sha256": "0e6db0f1fe78194bae4025e2e0dbbb27173306596cc1d472dbb96cfcd7c40b25",
+  "universal_norm_lean_proved": false,
+  "lean_certificate": false,
+  "atlas_certification": false,
+  "phase": "fraction_free_reduce",
+  "elapsed_seconds": 203.98107633300242,
+  "reduced_input_sizes": [
+    [
+      [
+        {
+          "numerator_terms": 30786,
+          "denominator_terms": 30918
+        },
+        {
+          "numerator_terms": 10777,
+          "denominator_terms": 30918
+        }
+      ],
+      [
+        {
+          "numerator_terms": 34169,
+          "denominator_terms": 30918
+        },
+        {
+          "numerator_terms": 12432,
+          "denominator_terms": 30918
+        }
+      ],
+      [
+        {
+          "numerator_terms": 17734,
+          "denominator_terms": 16140
+        },
+        {
+          "numerator_terms": 5172,
+          "denominator_terms": 16140
+        }
+      ]
+    ],
+    [
+      [
+        {
+          "numerator_terms": 34169,
+          "denominator_terms": 30918
+        },
+        {
+          "numerator_terms": 12432,
+          "denominator_terms": 30918
+        }
+      ],
+      [
+        {
+          "numerator_terms": 17772,
+          "denominator_terms": 16140
+        },
+        {
+          "numerator_terms": 5301,
+          "denominator_terms": 16140
+        }
+      ],
+      [
+        {
+          "numerator_terms": 16794,
+          "denominator_terms": 16140
+        },
+        {
+          "numerator_terms": 4838,
+          "denominator_terms": 16140
+        }
+      ]
+    ],
+    [
+      [
+        {
+          "numerator_terms": 17734,
+          "denominator_terms": 16140
+        },
+        {
+          "numerator_terms": 5172,
+          "denominator_terms": 16140
+        }
+      ],
+      [
+        {
+          "numerator_terms": 16794,
+          "denominator_terms": 16140
+        },
+        {
+          "numerator_terms": 4838,
+          "denominator_terms": 16140
+        }
+      ],
+      [
+        {
+          "numerator_terms": 0,
+          "denominator_terms": 1
+        },
+        {
+          "numerator_terms": 0,
+          "denominator_terms": 1
+        }
+      ]
+    ]
+  ],
+  "validation": "Two exact six-coordinate products match the original arithmetic",
+  "backend_metrics": {
+    "multiplications": 2,
+    "fallback_common_denominators": 0,
+    "output_fraction_reductions": 12
+  },
+  "multiplication": 4,
+  "left_terms": [
+    151054,
+    77532,
+    156036,
+    80705,
+    145710,
+    74450
+  ],
+  "right_terms": [
+    1902,
+    177,
+    2568,
+    261,
+    1980,
+    168
+  ],
+  "numerator_terms": [
+    784689,
+    511760,
+    817096,
+    535526,
+    808754,
+    529249
+  ],
+  "denominator_terms": 722161,
+  "output_coefficient": 1,
+  "output_size": {
+    "numerator_terms": 78972,
+    "denominator_terms": 136872
+  },
+  "product_seconds": 127.55661150001106,
+  "first_step_sizes": [
+    [
+      {
+        "numerator_terms": 151054,
+        "denominator_terms": 136872
+      },
+      {
+        "numerator_terms": 77532,
+        "denominator_terms": 136872
+      }
+    ],
+    [
+      {
+        "numerator_terms": 101215,
+        "denominator_terms": 88113
+      },
+      {
+        "numerator_terms": 48064,
+        "denominator_terms": 88113
+      }
+    ],
+    [
+      {
+        "numerator_terms": 64809,
+        "denominator_terms": 60561
+      },
+      {
+        "numerator_terms": 27910,
+        "denominator_terms": 60561
+      }
+    ]
+  ]
+}

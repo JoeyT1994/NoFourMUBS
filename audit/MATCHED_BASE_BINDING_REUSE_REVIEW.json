@@ -1,0 +1,25 @@
+{
+  "status": "REVIEWED_REUSE_OF_CLEARED_IDENTITIES_AND_STRICT_GUARDS",
+  "scope": "matched_base_bindings",
+  "checked_utc": "2026-10-11T19:40:34.135139+00:00",
+  "repository_head": "fd7d1019fa4a7f3551bf9ade5d31ebbce9501055",
+  "existing_full_search": "MATCHED_BASE_COEFFICIENT_REUSE_SEARCH.json",
+  "source_pins": {
+    "lean/NoFourMUBs/Step2/Reconstruction/BaseCoefficients/Data.lean": "8762870b591931264431f85658053b7ce1496ae35d318f036f34d5b02656f170",
+    "lean/NoFourMUBs/Step2/Reconstruction/BaseCoefficients/C6.lean": "e8f3730ef60eedcdd4c7d1f1991d8737d3a72473d6cfb8a2ee9c41ade6021a5b",
+    "lean/NoFourMUBs/Step2/Reconstruction/BaseCoefficients/U.lean": "9ed07dadb5d58e92835585586474daaac41d4c79be133f5127899eae38e966b9",
+    "lean/NoFourMUBs/Step2/Reconstruction/BaseCoefficients/V.lean": "e9aae02e166e83000ea9d98efae3440272779f886663617f85b13beb3841a825",
+    "lean/NoFourMUBs/Step2/Reconstruction/SeedModel.lean": "7020e49ca7d9303f213bb75991290cd1bba125db6de255f0e1b39a51ab079aa3",
+    "lean/NoFourMUBs/Reuse/Archive/PreRhoActualBindings.lean": "95bd24d7140b39595e579e0c45b39df1533f43902380f4534c81c07e93e89caa",
+    "lean/NoFourMUBs/Reuse/Archive/PreRhoNormBindings.lean": "2dc366315b498ad9dd3de167f804d26eecbe943704d6f79977edd523e4bd3ef1",
+    "lean/NoFourMUBs/Reuse/Archive/StrictSideScalarGuards.lean": "75741b3091aeb2ce36f1b9fdab822add16b2e2514bfa27822105c93fb936d042",
+    "lean/NoFourMUBs/Step1/Lift.lean": "b8a35ba93c6fc0759092edad30be2d649921351c66c2a8c154d4b71941479064"
+  },
+  "reuse": "Use the three cleared cached identities once they pass, together with existing actualNormData/actualAlignmentData bindings, conj_circle and strict_sideP_nonzero. Prove that the one cached input denominator is nonzero on the full strict seed domain; no new generic exceptional condition is assumed. Apply ordinary fraction cancellation without expanding or checking any cached polynomial again.",
+  "limits": "The three cleared identities passed Lean and an independent axiom audit. This adapter only cancels and specializes these checked identities; it does not discharge the companion denominator or universal norm.",
+  "atlas_certification": false,
+  "data_annotation_review": "MATCHED_BASE_TYPE_INFERENCE_REVIEW.json",
+  "base_coefficient_audit": "KERNEL_AUDIT_MATCHED_BASE_COEFFICIENT_STATUS.json",
+  "base_coefficient_audit_sha256": "120ca231900822a5597d03ca413024356abe51f94513fddd2e123430e8fb1309",
+  "updated_utc": "2026-10-11T19:52:35.554630+00:00"
+}

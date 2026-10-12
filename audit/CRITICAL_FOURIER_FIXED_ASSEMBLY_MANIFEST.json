@@ -1,0 +1,214 @@
+{
+  "scope": "critical_fourier_fixed_reuse",
+  "status": "ADOPTED_UNCOMPILED",
+  "records": [
+    {
+      "module": "NoFourMUBs.Step2.CriticalZero.FourierCriticalData",
+      "active_path": "NoFourMUBs/Step2/CriticalZero/FourierCriticalData.lean",
+      "active_sha256": "0a2e1b44a60a7ce0cba25427a31f2d336798750a1fdaaca84e664fb0135b21fe",
+      "local_model_adapter": true,
+      "review": "CRITICAL_FOURIER_FIXED_REUSE_REVIEW.json"
+    },
+    {
+      "module": "NoFourMUBs.Step2.CriticalZero.Transpose",
+      "active_path": "NoFourMUBs/Step2/CriticalZero/Transpose.lean",
+      "active_sha256": "aeeff53df391cb414f6e89b73d9ffa4f6697610b3351b8a2b698807d2a0d1b51",
+      "local_model_adapter": true,
+      "review": "CRITICAL_FOURIER_FIXED_REUSE_REVIEW.json"
+    },
+    {
+      "module": "NoFourMUBs.Step2.CriticalZero.FourierCriticalModel",
+      "active_path": "NoFourMUBs/Step2/CriticalZero/FourierCriticalModel.lean",
+      "active_sha256": "84504e164ebbc757e2e52dd34edd976533b82827ee41e1d041b6984c427f5aa9",
+      "local_model_adapter": true,
+      "review": "CRITICAL_FOURIER_FIXED_REUSE_REVIEW.json"
+    },
+    {
+      "module": "NoFourMUBs.Reuse.Archive.FourierCriticalAlgebra",
+      "original_module": "FourierCriticalAlgebra",
+      "original_sha256": "b73035566c0870702f2d7239b70bd65a05082385a5684ed391654caf92ae215c",
+      "original_source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/global_assembly/critical_fourier_locus/FourierCriticalAlgebra.lean",
+      "active_path": "NoFourMUBs/Reuse/Archive/FourierCriticalAlgebra.lean",
+      "active_sha256": "d6683f629681e0a602f48116610933299ac61fc298cbfe9a4c69e91478218be1",
+      "imports_only_adaptation": false,
+      "proof_adaptations": [
+        "The exact original data and cubic-root wrapper share one light extraction; no legacy moment or endpoint certificate closure."
+      ],
+      "import_replacements": {
+        "GlobalCornerSixSkew": "NoFourMUBs.Step2.CriticalZero.FourierCriticalData",
+        "Worker12.CubicEndpoints": "NoFourMUBs.Step2.CriticalZero.FourierCriticalData"
+      },
+      "omitted_reused_declarations": [],
+      "model_identifier_replacements": {},
+      "namespace_open_replacements": {},
+      "proof_tactic_replacements": [
+        {
+          "before": "import NoFourMUBs.Step2.CriticalZero.FourierCriticalData\nimport NoFourMUBs.Step2.CriticalZero.FourierCriticalData\n",
+          "after": "import NoFourMUBs.Step2.CriticalZero.FourierCriticalData\n",
+          "count": 1,
+          "reason": "The exact original data and cubic-root wrapper share one light extraction; no legacy moment or endpoint certificate closure."
+        }
+      ]
+    },
+    {
+      "module": "NoFourMUBs.Reuse.Archive.FourierCriticalEquivalences",
+      "original_module": "FourierCriticalEquivalences",
+      "original_sha256": "9e41252d87de6290ef1cdc32d949afd3227f19b7a7d5a5a2170fa7386c19b4fd",
+      "original_source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/global_assembly/critical_fourier_locus/check-equivalences-06/FourierCriticalEquivalences.lean",
+      "active_path": "NoFourMUBs/Reuse/Archive/FourierCriticalEquivalences.lean",
+      "active_sha256": "515ede5d8770cfe371e737818d162fe7c10034f27a01c4cbb6a81a5f28f7756c",
+      "imports_only_adaptation": false,
+      "proof_adaptations": [
+        "Reviewed matrix/predicate identifier and namespace-open substitutions only; all algebraic proof bodies retained",
+        "Current equivalence stores pointwise equalities rather than a function equality; same original permutation/phase witnesses.",
+        "The current pointwise equivalence has no monomialEdge wrapper to unfold.",
+        "Expose the checked shared index and phase-vector aliases in the original literal matrix calculation.",
+        "Reuse the nine remaining negative-block cases verbatim from original3f46b8, since shared coordinates expose exactly these goals. No matrix witness or theorem hypothesis changes."
+      ],
+      "import_replacements": {
+        "Worker12.TransposeClassification": "NoFourMUBs.Step2.CriticalZero.FourierRoutingModel",
+        "Hadamard6.TaoAtlas": "Hadamard6.StandardPhase"
+      },
+      "omitted_reused_declarations": [],
+      "model_identifier_replacements": {
+        "BasisMatrix": "OAI.MUB6.CMatrix",
+        "MonomialEquivalent": "OAI.MUB6.Equivalent",
+        "Worker12.monomialEquivalent_trans": "OAI.MUB6.equivalent_trans"
+      },
+      "namespace_open_replacements": {
+        "open Mub6 Matrix\n": "open Matrix\n"
+      },
+      "proof_tactic_replacements": [
+        {
+          "before": "  funext i j\n",
+          "after": "  intro i j\n",
+          "count": 3,
+          "reason": "Current equivalence stores pointwise equalities rather than a function equality; same original permutation/phase witnesses."
+        },
+        {
+          "before": "monomialEdge,",
+          "after": "",
+          "count": 3,
+          "reason": "The current pointwise equivalence has no monomialEdge wrapper to unfold."
+        },
+        {
+          "before": "Worker12.unsplitMatrix,Worker12.splitIndex,finSumFinEquiv,",
+          "after": "Worker12.unsplitMatrix,NoFourMUBs.Step2.FourierBridge.toOAI,Worker12.splitIndex,\n      NoFourMUBs.Step2.FourierBridge.coordinates,Hadamard6.fourierParameters,finSumFinEquiv,",
+          "count": 1,
+          "reason": "Expose the checked shared index and phase-vector aliases in the original literal matrix calculation."
+        },
+        {
+          "before": "Matrix.neg_apply,Pi.neg_apply] <;> ring\n",
+          "after": "Matrix.neg_apply,Pi.neg_apply] <;> try ring\n  \u00b7 change (-1:\u2102)= -(1*1); ring\n  \u00b7 change -z= -(z*1); ring\n  \u00b7 change -w= -(w*1); ring\n  \u00b7 change (-1:\u2102)= -(1*1); ring\n  \u00b7 change -(\u03c9*z)= -(z*\u03c9); ring\n  \u00b7 change -(\u03c9^2*w)= -(w*\u03c9^2); ring\n  \u00b7 change (-1:\u2102)= -(1*1); ring\n  \u00b7 change -(\u03c9^2*z)= -(z*\u03c9^2); ring\n  \u00b7 change -(\u03c9*w)= -(w*\u03c9); ring\n",
+          "count": 1,
+          "reason": "Reuse the nine remaining negative-block cases verbatim from original3f46b8, since shared coordinates expose exactly these goals. No matrix witness or theorem hypothesis changes.",
+          "reused_sha256": "3f46b8b5a52166aada4029e0243cdc3934c239db89efbd4782ab9e2a97682f3f",
+          "reused_block_sha256": "e76b2b525f658107f16f68658937486813128f6e79f3382a13f82103d0d618d7"
+        }
+      ]
+    },
+    {
+      "module": "NoFourMUBs.Reuse.Archive.FourierCriticalPhysical",
+      "original_module": "FourierCriticalPhysical",
+      "original_sha256": "50cd8ac9f417e5937205acc1d0c1db3df09fc76dfe8a90c2b4615660ce608346",
+      "original_source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/global_assembly/critical_fourier_locus/FourierCriticalPhysical.lean",
+      "active_path": "NoFourMUBs/Reuse/Archive/FourierCriticalPhysical.lean",
+      "active_sha256": "1ac76fb93b089cce89b5ac0ebab615789f6867f3d552a4c0bd0f0279a5516eef",
+      "imports_only_adaptation": false,
+      "proof_adaptations": [
+        "Reviewed matrix/predicate identifier and namespace-open substitutions only; all algebraic proof bodies retained",
+        "Remove legacy normalization, transpose, and unsupported radicand/score bindings. The checked current FourierCriticalModel and Transpose supply identical critical-predicate endpoints directly from sideSignature; no duplicated derivation.",
+        "Current normalized_fixed is stated for the identity candidate; the permuted original matrix has the same definitional candidate.",
+        "Omitted legacy endpoint; shared current binding is audited separately.",
+        "Omitted legacy endpoint; shared current binding is audited separately.",
+        "Omitted legacy endpoint; shared current binding is audited separately.",
+        "Omitted legacy endpoint; shared current binding is audited separately.",
+        "Omitted legacy endpoint; shared current binding is audited separately.",
+        "Omitted legacy endpoint; shared current binding is audited separately."
+      ],
+      "import_replacements": {
+        "CriticalCornerPhysical": "NoFourMUBs.Step2.CriticalZero.FourierCriticalModel",
+        "SingularFourierRouting": "NoFourMUBs.Step2.CriticalZero.FourierRoutingModel"
+      },
+      "omitted_reused_declarations": [],
+      "model_identifier_replacements": {
+        "Mat6": "OAI.MUB6.CMatrix",
+        "AllCritical": "NoFourMUBs.Step2.Critical.AllCriticalCarrier",
+        "MonomialEquivalent": "OAI.MUB6.Equivalent",
+        "Worker12.monomialEquivalent_trans": "OAI.MUB6.equivalent_trans",
+        "Worker12.monomialEquivalent_transpose": "NoFourMUBs.Step2.FourierBridge.oai_equivalent_transpose",
+        "allCritical_transpose": "NoFourMUBs.Step2.Critical.allCriticalCarrier_transpose"
+      },
+      "namespace_open_replacements": {
+        "open Mub6 Mub6.Numerical Mub6.Classification Matrix\nopen CompactCover GoodMinor FourierSeedBinding FourPhase FourPhaseWorker CanonicalCorners GlobalCornerDomain CriticalPhysical20261003\n": "open Matrix NoFourMUBs.Step2.Critical CriticalPhysical20261003\n"
+      },
+      "proof_tactic_replacements": [
+        {
+          "before": "theorem candidate_monomial (H : OAI.MUB6.CMatrix) (p q : Perm) (r c : Fin 6 \u2192 \u2102)\n    (hr : \u2200 i, Complex.normSq (r i)=1) (hc : \u2200 j, Complex.normSq (c j)=1)\n    (u v : Perm) :\n    candidate (monomialEdge p q r c H) u v=candidate H (u.trans p) (v.trans q) := by\n  change normalizeCarrier (rephase (fun i => r (u i)) (fun j => c (v j))\n    (H.submatrix (u.trans p) (v.trans q))) = _\n  exact normalize_rephase _ _ _ (fun i => hr (u i)) (fun j => hc (v j))\n\n/-- Exact normalized monomial transport of the all-critical predicate. -/\ntheorem allCritical_monomial {H K : OAI.MUB6.CMatrix} (hH : NoFourMUBs.Step2.Critical.AllCriticalCarrier H)\n    (he : OAI.MUB6.Equivalent H K) (hrow : \u2200 j, K 0 j=1) (hcol : \u2200 i, K i 0=1) :\n    NoFourMUBs.Step2.Critical.AllCriticalCarrier K := by\n  rcases he with \u27e8p,q,r,c,hr,hc,rfl\u27e9\n  refine \u27e8\u27e8rephase_PhaseHadamard r c hr hc (submatrix_hadamard hH.1.1 p q),hrow,hcol\u27e9,?_\u27e9\n  intro u v\n  rw [candidate_monomial H p q r c hr hc u v]\n  exact hH.2 _ _\n\ntheorem NoFourMUBs.Step2.Critical.allCriticalCarrier_transpose {H : OAI.MUB6.CMatrix} (hH : NoFourMUBs.Step2.Critical.AllCriticalCarrier H) : NoFourMUBs.Step2.Critical.AllCriticalCarrier H\u1d40 := by\n  refine \u27e8normalized_transpose hH.1,?_\u27e9\n  intro p q\n  rw [candidate_transpose]\n  have hc := oriented_score true (candidate_normalized hH.1.1 q p).1\n  change score (candidate H q p)\u1d40=score (candidate H q p) at hc\n  rw [hc]\n  exact hH.2 q p\n\ntheorem sixSkew_re_zero (a b c d e f : \u2102) : (sixSkew a b c d e f).re=0 := by\n  have hs : star (sixSkew a b c d e f)= -sixSkew a b c d e f := by\n    simp only [sixSkew,skew,star_add,star_sub,star_mul,star_star]\n    ring\n  have hr := congrArg Complex.re hs\n  simp only [Complex.star_def,Complex.conj_re,Complex.neg_re] at hr\n  linarith\n\ntheorem zero_sideScore_sixSkew {A : Mat3}\n    (hA : \u2200 i j, Complex.normSq (A i j)=1) (hz : physicalSideScore A=0) :\n    sixSkew (A 1 0) (A 1 1) (A 1 2) (A 2 0) (A 2 1) (A 2 2)=0 := by\n  rw [physicalSideScore_sixSkew (hA 1) (hA 2)] at hz\n  have hr := sixSkew_re_zero (A 1 0) (A 1 1) (A 1 2) (A 2 0) (A 2 1) (A 2 2)\n  apply Complex.ext\n  \u00b7 exact hr\n  \u00b7 simp only [pow_two,Complex.neg_re,Complex.mul_re,hr,zero_mul,zero_sub,neg_neg] at hz\n    apply sq_eq_zero_iff.mp\n    simpa only [pow_two] using hz\n\ntheorem allCritical_selected_sixSkew_zero {H : OAI.MUB6.CMatrix} (hH : NoFourMUBs.Step2.Critical.AllCriticalCarrier H)\n    (c : Fin 3 \u2192 Fin 6) (hc : Function.Injective c) :\n    sixSkew (H 1 (c 0)) (H 1 (c 1)) (H 1 (c 2))\n      (H 2 (c 0)) (H 2 (c 1)) (H 2 (c 2))=0 := by\n  have h := allCritical_selected_R_zero hH c hc\n  rw [side_R_score] at h\n  exact zero_sideScore_sixSkew (A := H.submatrix front c)\n    (fun i j => hH.1.1.1 (front i) (c j)) h\n\n\n",
+          "after": "",
+          "count": 1,
+          "reason": "Remove legacy normalization, transpose, and unsupported radicand/score bindings. The checked current FourierCriticalModel and Transpose supply identical critical-predicate endpoints directly from sideSignature; no duplicated derivation.",
+          "omitted_original_block_sha256": "06add8b28b8160724b2e65b323c64dd725948f4a09d549ddb1594e95ab920eef"
+        },
+        {
+          "before": "=K := normalized_fixed hrow hcol",
+          "=unused": "",
+          "after": "=K := by\n    change candidate K (Equiv.refl _) (Equiv.refl _) = K\n    exact normalized_fixed hrow hcol",
+          "count": 1,
+          "reason": "Current normalized_fixed is stated for the identity candidate; the permuted original matrix has the same definitional candidate."
+        },
+        {
+          "before": "#print axioms candidate_monomial\n",
+          "after": "",
+          "count": 1,
+          "reason": "Omitted legacy endpoint; shared current binding is audited separately."
+        },
+        {
+          "before": "#print axioms allCritical_monomial\n",
+          "after": "",
+          "count": 1,
+          "reason": "Omitted legacy endpoint; shared current binding is audited separately."
+        },
+        {
+          "before": "#print axioms NoFourMUBs.Step2.Critical.allCriticalCarrier_transpose\n",
+          "after": "",
+          "count": 1,
+          "reason": "Omitted legacy endpoint; shared current binding is audited separately."
+        },
+        {
+          "before": "#print axioms sixSkew_re_zero\n",
+          "after": "",
+          "count": 1,
+          "reason": "Omitted legacy endpoint; shared current binding is audited separately."
+        },
+        {
+          "before": "#print axioms zero_sideScore_sixSkew\n",
+          "after": "",
+          "count": 1,
+          "reason": "Omitted legacy endpoint; shared current binding is audited separately."
+        },
+        {
+          "before": "#print axioms allCritical_selected_sixSkew_zero\n",
+          "after": "",
+          "count": 1,
+          "reason": "Omitted legacy endpoint; shared current binding is audited separately."
+        }
+      ]
+    },
+    {
+      "module": "NoFourMUBs.Step2.CriticalZero.FourierAffineBinding",
+      "active_path": "NoFourMUBs/Step2/CriticalZero/FourierAffineBinding.lean",
+      "active_sha256": "fc1195dfe7cbcb8388727f9d3dc80232e3d87c03161cd32ddbc4514958f8f1c9",
+      "local_model_adapter": true,
+      "review": "CRITICAL_FOURIER_FIXED_REUSE_REVIEW.json"
+    },
+    {
+      "module": "NoFourMUBs.Step2.CriticalZero.ActualFixedFourier",
+      "active_path": "NoFourMUBs/Step2/CriticalZero/ActualFixedFourier.lean",
+      "active_sha256": "d25da451ee2ae8a6ecb68651ad5de93e84053d265829df5bcae986ad94ad86af",
+      "local_model_adapter": true,
+      "review": "CRITICAL_FOURIER_FIXED_REUSE_REVIEW.json"
+    }
+  ],
+  "atlas_certification": false
+}

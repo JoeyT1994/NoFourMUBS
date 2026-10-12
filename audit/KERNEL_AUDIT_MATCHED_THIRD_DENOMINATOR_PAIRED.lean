@@ -1,0 +1,5 @@
+import NoFourMUBs.Step2.Reconstruction.ThirdMoment.Certificates.DenominatorPaired
+
+#check NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P038_seed_factor
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P007_side_factors
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P038_seed_factor

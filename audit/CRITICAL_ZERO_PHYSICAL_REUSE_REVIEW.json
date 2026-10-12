@@ -1,0 +1,29 @@
+{
+  "status": "REVIEWED_FOR_IMPORT_ONLY_ADOPTION",
+  "reviewed_utc": "2026-10-10T23:19:28.902011+00:00",
+  "root": "CriticalZeroSumIndependentReview.original_equation_iff_numerator_zero",
+  "source_index": "ARCHIVE_SOURCE_INDEX.jsonl",
+  "plan": "CRITICAL_ZERO_PHYSICAL_REUSE_PLAN.json",
+  "selected_modules": 181,
+  "already_adopted_modules": 9,
+  "new_archived_modules": 172,
+  "variant_resolution": {
+    "CriticalZeroLightQuadratic_m1_m1": {
+      "sha256": "d81e8aaaf0dc7b4845cc0478d986d6361c02d3909741f22cce271f2465cb42b9",
+      "reason": "Use the original zero_square_sum run shared by the other35 moment proofs. The two alternate copies only change tactic sequencing/explicit alias unfolding; theorem statements and data agree."
+    },
+    "CriticalZeroLightQuadratic_p2_p2": {
+      "sha256": "ed50ce5feecdb1deffbe3a83285e791ac003c99cec1e6da4f34fbb5076738239",
+      "reason": "Use the original zero_square_sum run shared by the other35 moment proofs. The two alternate copies only change tactic sequencing/explicit alias unfolding; theorem statements and data agree."
+    }
+  },
+  "exact_hypotheses": [
+    "X, Y, z, X-3z-9, Y-3z-9 and X+Y+z^2+3z are nonzero",
+    "Y*r^2=-X*(9-z^2-X-Y)"
+  ],
+  "conclusion": "The original pureNewtonPolynomial66 on the two literal zeroSide data is zero iff computedNumerator is zero. This is NOT yet rawNumerator or a classification of actual Hadamard matrices.",
+  "reuse": "Reuse all36 moment substitutions, all66 denominator-clearing terms and the existing scalar evaluation interpretation. The nine already-adopted files keep exact versions and hashes. No coefficients or normalizers are regenerated.",
+  "scope_limit": "Does not supply physical chart guards, all-critical scalar equations, whole numerator identity, nonzero-J branch or universal matched flatness. No atlas generation/certification.",
+  "source_scan": "All181 selected sources hash-verified and checked for sorry, admit, custom axiom, native_decide and ofReduceBool tokens; none found.",
+  "atlas_certification": false
+}

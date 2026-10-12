@@ -1,0 +1,8 @@
+import NoFourMUBs.Step2.Reconstruction.ThirdMoment.Certificates.LinearBindingsSparse
+
+#check NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.savedLinearBinding22
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.savedLinearBinding00
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.savedLinearBinding11
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.savedLinearBinding12
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.savedLinearBinding20
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.savedLinearBinding22

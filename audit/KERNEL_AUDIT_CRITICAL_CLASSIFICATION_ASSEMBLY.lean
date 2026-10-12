@@ -1,0 +1,8 @@
+import NoFourMUBs.Step2.CriticalZero.ClassificationAssembly
+
+#check NoFourMUBs.Step2.Critical.criticalClassification_of_regular_quartic
+#print axioms NoFourMUBs.Step2.Critical.stripCorner_rev_zero
+#print axioms NoFourMUBs.Step2.Critical.leading_nonzero_special_of_regular_quartic
+#print axioms NoFourMUBs.Step2.Critical.strip_nonzero_special_of_regular_quartic
+#print axioms NoFourMUBs.Step2.Critical.allCriticalCarrier_standard_of_regular_quartic
+#print axioms NoFourMUBs.Step2.Critical.criticalClassification_of_regular_quartic

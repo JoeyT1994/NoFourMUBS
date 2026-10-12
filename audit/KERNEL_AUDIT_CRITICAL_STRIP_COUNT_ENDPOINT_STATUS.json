@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "checked_utc": "2026-10-11T17:37:39.505822+00:00",
+  "modules": 1,
+  "axiom_endpoints": {
+    "NoFourMUBs.Step2.Critical.kappa_positive_root_unique": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.strip_classified_values_impossible": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "source_hashes": {
+    "NoFourMUBs/Step2/CriticalZero/StripCountEndpoint.lean": "06e68538b19ba1be0837ef2e73ccfd60a56476a41bb0cf5c0ee0169306abed3b"
+  },
+  "manifest_sha256": "e7adcad60f51f085ceba5ef1e0866a7dd4ee3a09e0ef0e279e8a1365268b93d5",
+  "audit_log_sha256": "a083312ebebdf1723e43c640d71b1ef96e7d46ca28a32eb8ec9781e8325416c3",
+  "scope": "Per-corner existential positive cubic-root witnesses give the existing uniform-value count contradiction. Physical value classification remains an explicit premise.",
+  "dependency_audits": {
+    "KERNEL_AUDIT_CRITICAL_NONZERO_SCALAR_ENDPOINT_STATUS.json": "e3ce4d563cbbf7edaaa35f73a7c54c867d610a4197151f48bb4ef9873da0538a"
+  },
+  "dependency_source_hashes": {
+    "NoFourMUBs/Step2/CriticalZero/NonzeroScalarEndpoint.lean": "2a6bc29e9a89069925f344cd6837462b36a9b7bc7bb291b6cd1a14f834144dd6",
+    "NoFourMUBs/Reuse/Archive/CriticalCounts.lean": "286368d6fc9c1c876d2fadb1fc36eded3dd85abf4834c2dbde8b700443d6a799",
+    "NoFourMUBs/Reuse/Archive/CriticalCountApplication.lean": "9c53fe1ff37d752a55933742cc51519dff85e0a5ba4c5e489b752a9e92fe757e",
+    "NoFourMUBs/Reuse/Archive/CriticalStripPhysical.lean": "0e726f519d28a449b1895952067a44a422c9c31e7f51ae64b1656dc8762b5731"
+  },
+  "atlas_certification": false
+}

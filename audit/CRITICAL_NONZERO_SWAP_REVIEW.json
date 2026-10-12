@@ -1,0 +1,37 @@
+{
+  "status": "REVIEWED_NECESSARY_MODEL_ADAPTER",
+  "checked_utc": "2026-10-11T09:10:30.274566+00:00",
+  "scope": "Obtain the remaining p4_m2 moment by swapping X,Y in the checked p2_m4 result, reusing the existing quadratic involution.",
+  "existing_results": "Mathlib QuadraticAlgebra.lift supplies the algebra morphism; side_conjugates and moment_conjugates supply the conjugation relation; use original quadSide and original Newton formulas.",
+  "search_evidence": [
+    "NONZERO_SWAP_REUSE_FILES.txt",
+    "NONZERO_SWAP_ADAPTER_REUSE_FILES.txt",
+    "NONZERO_DENSE_SWAP_REUSE_FILES.txt",
+    "CRITICAL_NONZERO_MOMENT_CLEARING_SEARCH.json"
+  ],
+  "search_limit": "Direct named/textual swap searches found no compatible adapter in the complete corpus. This is not a claim about unpublished work or all equivalent formulations.",
+  "source_pins": {
+    "lean/NoFourMUBs/Step2/CriticalZero/NonzeroSideInvolution.lean": "6cb7e2752e10114b3f9ffd39ddf2a6d106cefa5f5fb67ba807a0321f659e5d2b",
+    "lean/NoFourMUBs/Step2/CriticalZero/NonzeroMomentInvolution.lean": "14115fb54c750f14132ae82da49f7634d52a30d153813750f5dd9250cefc2088",
+    "lean/NoFourMUBs/Step2/CriticalZero/NonzeroQuadAlgebra.lean": "3cc35f4c2c1c5d497c1e931f88d93768d7c26469c28778558f10d5e0de9e8482",
+    "/Users/mateo2/Desktop/NoFourMUBs/lean/.lake/packages/mathlib/Mathlib/Algebra/QuadraticAlgebra/Basic.lean": "0cdb07cb3e3a031d1164bb5eff4f680d2feb836dc5d29edb23f5691a66a6b848",
+    "lean/NoFourMUBs/Reuse/Archive/CriticalNonzeroPair06.lean": "77f9994d8561e106936334608adedf86175fa1fdbe1d87a37b77dc93b132c970",
+    "lean/NoFourMUBs/Reuse/Archive/CriticalNonzeroPair08.lean": "c30bb3b48f50569c95d86307ba58cf318b93cc76c5c8fc7b0f4554e8f6978e0c"
+  },
+  "new_work": "Only the necessary parameter/root scaling adapter; no competing p4_m2 normalization or new moment arrays.",
+  "retained_hypotheses": [
+    "Field F",
+    "CharZero F",
+    "X\u22600",
+    "Y\u22600"
+  ],
+  "atlas_certification": false,
+  "table_binding": {
+    "approach": "Compare each existing k coefficient in the two existing dense tables using ring in X,Y only; existing list_eq_of_getD and eval_scale assemble the result. No arrays generated.",
+    "pilot": "a22 and b22",
+    "source_pins": {
+      "lean/NoFourMUBs/Step2/CriticalZero/ClearedMoments/Data_p2_m4.lean": "42303dd647a20e5dff13101edf8394d65d0c52c9657ff0e563d15e35bfde441e",
+      "lean/NoFourMUBs/Step2/CriticalZero/ClearedMoments/Data_p4_m2.lean": "4e0b1387109441ffed987139c565e34d5f56e58db0b88878c2613bcc585aba6d"
+    }
+  }
+}

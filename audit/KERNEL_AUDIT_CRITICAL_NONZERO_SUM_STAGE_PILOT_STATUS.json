@@ -1,0 +1,50 @@
+{
+  "status": "PASS",
+  "checked_utc": "2026-10-11T10:41:16.605750+00:00",
+  "modules": 7,
+  "axiom_endpoints": {
+    "NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing.Stages.n0020_product_length": [
+      "propext"
+    ],
+    "NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing.Stages.n0020_coefficient_000": [
+      "propext"
+    ],
+    "NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing.Stages.n0020_coefficient_023": [
+      "propext"
+    ],
+    "NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing.Stages.n0020_coefficient_035": [
+      "propext"
+    ],
+    "NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing.Stages.n0020_coefficient_069": [
+      "propext"
+    ],
+    "NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing.Stages.n0017_eval": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing.Stages.n0019_eval": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing.Stages.n0020_length": []
+  },
+  "source_hashes": {
+    "NoFourMUBs/Step2/CriticalZero/SumClearing/Stage0000Data.lean": "29579efa7cf9cea8a29a8dadf048a9e7266b15edd9e04e5c8fd9d0ddce1aa852",
+    "NoFourMUBs/Step2/CriticalZero/SumClearing/Stage0000Factors.lean": "64592b57da2e5ad2bd026e1128b40ade48834469ed7cd7c7a544021ddcc8d197",
+    "NoFourMUBs/Step2/CriticalZero/SumClearing/Stage0000Check000.lean": "b0192aff22df02a21e4f49ccf35862805a1ae0c9c3b17f99cae51f97c3428960",
+    "NoFourMUBs/Step2/CriticalZero/SumClearing/Stage0000Check023.lean": "1ded6887787b9f0fab37ac02fdfbda4895d869cebcb2de2597162de1b9fb40f0",
+    "NoFourMUBs/Step2/CriticalZero/SumClearing/Stage0000Check035.lean": "d5e59a3bafec77e5022a83c3c4337a24a221ea66977edea1e1ebf8134151f8ce",
+    "NoFourMUBs/Step2/CriticalZero/SumClearing/Stage0000Check069.lean": "cacc28773eff8722810f161143899e82c5ade09a9031b878f47c643780d0eefa",
+    "NoFourMUBs/Step2/CriticalZero/SumClearing/Stage0000Pilot.lean": "6488e3f9dd6e49b0c5f8d9a9fbbe579c719c92120615111260bc445d32179dfc"
+  },
+  "manifest_sha256": "3d8cb27269b9b8507be05fbd4ab8ad9c83c1717cf34c3026b0beebd193671ec5",
+  "audit_log_sha256": "53477d9c2b98f260b6aa0eaf88f1c5d14d7d89ba3aa6f13c37f6ad8efe04a8ad",
+  "scope": "Two shared factors and four of70coefficients of one product; not a completed product or raw numerator identity.",
+  "dependency_audits": {
+    "KERNEL_AUDIT_CRITICAL_NONZERO_SUM_DAG_STATUS.json": "59fd1b770d7a226e2fb451a65f2f769117f6123c0b3b6f6c6eaff8db42ab1cbe"
+  },
+  "dependency_source_hashes": {},
+  "atlas_certification": false
+}

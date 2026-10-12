@@ -1,0 +1,43 @@
+{
+  "status": "REVIEWED_REUSE_EXISTING_STRICT_INPUT_DENOMINATOR",
+  "reviewed_utc": "2026-10-12T03:16:21.592020+00:00",
+  "search": "MATCHED_THIRD_DENOMINATOR_BINDING_REUSE_SEARCH.json",
+  "comparisons": [
+    "BaseCoefficients.inputDen_strict already proves its445term denominator nonzero on every StrictSeed. It derives the guard from existing sideP0/sideP1 guards and does not assume completion or genericity.",
+    "Frames.inverseSeed_invariants preserves seedR, so inputDen_strict applies to inverted phase variables. TransposedSeed invariants likewise preserve the strict seed condition.",
+    "Exact saved coefficient comparison identifies rawP003=4*a^6*b^5*c^6*d^6*inputDen(a^-1,b^-1,c^-1,d^-1) and rawP004=b*c*rawP003(a,c,b,d). Only these representation adapters require new Lean proofs; do not reprove strict-domain mathematics.",
+    "Product000_value already proves rawP003*rawP004=rawP000. Once the two adapter proofs pass, reuse it to establish the full selected linear common denominator nonzero on every StrictSeed.",
+    "All candidate numerical coefficient comparisons remain metadata until their Lean proofs compile and pass the axiom audit. The constant denominator factor involving seedG remains separate and unproved."
+  ],
+  "source_pins": [
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/BaseCoefficients/Data.lean",
+      "sha256": "8762870b591931264431f85658053b7ce1496ae35d318f036f34d5b02656f170"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/BaseCoefficients/Bindings.lean",
+      "sha256": "f488d52f6e644ee826f25f359886ef3f9a1da0a3c27660246bf11b459dc40509"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Frames.lean",
+      "sha256": "6a9f4c607d0cf945d60ef45b0c9ee7e7405f46176bd2fc2d4e25dec076f4284f"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/Products/Product000.lean",
+      "sha256": "2c8d36029be060567bd247c48830f8f31ae09306e4e9cd6131f5967710beaf75"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/Polynomials/P003.lean",
+      "sha256": "7fb6b7fb1651abbf6fa9d43062bb1e43c61f3278e16458e4c221e3e8d356e6c2"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/Polynomials/P004.lean",
+      "sha256": "c6263785a90a9ed06bbe913b36cebc4cbacc8f3877361ff2ff72526ee20049c3"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/ActualCorners.lean",
+      "sha256": "f5a46634e2318abb93603ed50169c47c47df9e94463869da48110e63654ba7e0"
+    }
+  ],
+  "atlas_certification": false
+}

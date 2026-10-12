@@ -1,0 +1,71 @@
+{
+  "status": "PASS",
+  "checked_utc": "2026-10-11T20:49:22.163147+00:00",
+  "modules": 1,
+  "axiom_endpoints": {
+    "NoFourMUBs.Step2.Reconstruction.Companion.eval_reducePoly": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.Companion.eval_reducedA": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.Companion.eval_reducedB": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.Companion.candidate_vertical_product": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.Companion.candidate_root_relations": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.Companion.candidate_entry_companion": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "source_hashes": {
+    "NoFourMUBs/Step2/Reconstruction/Companion/Interpretation.lean": "ad7edf3eace06644f9cda1c7f48d6a163436d7106dbcd1bf88ae7df4ae9f0cc0"
+  },
+  "manifest_sha256": "6dd6f6ad4ca248d0b28b06b16ddb06955f812978a63796bfc728c3d4fe9e2897",
+  "audit_log_sha256": "9606adf342cf1e710be36d924e8fc3a0c0ebce634e40d79d04a3b5b6c247d58e",
+  "scope": "Interpretation only. Residual and B(entry) nonzero remain explicit hypotheses.",
+  "dependency_audits": {
+    "KERNEL_AUDIT_MATCHED_CUBIC_EVALUATOR_STATUS.json": "e7187c4ff3be9da84838f2592486b983a4cd203a8e9e1f90b6d5e941e1814c13",
+    "KERNEL_AUDIT_MATCHED_ELIMINANT_COEFFICIENT_STATUS.json": "f35d419692cbc6f78acff313764ef38f5be92248314e234fc663993b3281aee9",
+    "KERNEL_AUDIT_MATCHED_VERTICAL_PRODUCT_STATUS.json": "b6327b653e067c5ad50c6d9624e8f49fd91ba037f6f375a8658bb3062a5501cf",
+    "KERNEL_AUDIT_MATCHED_DISCRIMINANT_STATUS.json": "ccebecc9425d376375a00d5655596b7807804ef551438b70fccd2b3791699c20"
+  },
+  "dependency_source_hashes": {
+    "NoFourMUBs/Reuse/Archive/CriticalMomentQuad.lean": "1408c2169bd58005fbe77872fe1cb7be3ea6c2670e0c51a305ac620afa0bce05",
+    "NoFourMUBs/Step2/Reconstruction/BaseCoefficients/Centered.lean": "0a74257b9c2fc64e57046f9abef7ee87e7bd308b889f3528ef52b5550f13162f",
+    "NoFourMUBs/Step2/Reconstruction/BaseCoefficients/Discriminant.lean": "45d5e56b24e26451f14c0c668d847c010bf7392d97ae6dbf25ce9db09ecf1dfa",
+    "NoFourMUBs/Step2/Reconstruction/BaseCoefficients/Eliminants.lean": "3ae325de28da1896954ef3270bff34a2a18de68ea1813a7745b327840e804c5a",
+    "NoFourMUBs/Step2/Reconstruction/BaseCoefficients/VerticalProduct.lean": "74104c8570340687fbf1d7df3635d44cdbf7ac1dda2f8db91145e7349e1ac3b2",
+    "NoFourMUBs/Step2/Reconstruction/Companion/Core.lean": "68610ffe6576d8d23a8429de21279853fadb859268b8372ee0069b9900af79f2",
+    "NoFourMUBs/Step2/Reconstruction/Companion/Model.lean": "bce26b754cd3f4b2a88e9a6fef2379c3819f21233f164ca2d26cdde9ec68f414",
+    "NoFourMUBs/Step2/Reconstruction/Companion/Numerator00.lean": "a474c967a2e7726f5cb3d343c8683106636a58b37f1ef0ac655223c66ff76cca",
+    "NoFourMUBs/Step2/Reconstruction/Companion/Numerator01.lean": "a1d5b6381b5d8b0c2d5f05f15256e8b753bfa0aafff3a39cfb64730f13eb7ba7",
+    "NoFourMUBs/Step2/Reconstruction/Companion/Numerator10.lean": "0477994b229794dc068e84977c8f3d2bc596327c238f77125267b24049c8dce0",
+    "NoFourMUBs/Step2/Reconstruction/Companion/Numerator11.lean": "19c36e6f2827774dc64089293e82c2484a94640f4792ae361a6672716e0b624d",
+    "NoFourMUBs/Step2/Reconstruction/Companion/Numerator20.lean": "dd6a3172ea6f7ff7f23472cf9f4355cf2d4320e11d0212dab420d1619ff90e40",
+    "NoFourMUBs/Step2/Reconstruction/Companion/Numerator21.lean": "06f7b08be83004e355bc47c9f0fae952d0fc23c6620739cbe6228336f131d5cd",
+    "NoFourMUBs/Step2/Reconstruction/CubicEvaluation.lean": "a2f91aa59296859951df6d724089ce86000f33f7c53d2c786928dca118cee612",
+    "NoFourMUBs/Step2/Reconstruction/EntryCompanion.lean": "d1849acb23e557ce8a0f41543b0ea41855a4f2fd98829b0a7e743320aefbe468",
+    "vendor/hadamard6/Hadamard6/FactorAllocation.lean": "874c61e65e476105ee4f7db2032792ab9415755ac81cd17fb7e6922d8f097cbc",
+    "vendor/hadamard6/Hadamard6/HaagerupFromFibre.lean": "85df946b9fa4ce7ec028d623e45dd5e827dfb0738fda37aeb0203269c21673d8",
+    "vendor/hadamard6/Hadamard6/QuotientAlgebra.lean": "e771892e157ec91624d5fe1dada562bb43651696a673e0bc4fb08c5c640b03ed",
+    "vendor/hadamard6/Hadamard6/QuotientGoodRow.lean": "0ffff87363d96b42185cc6224207dc2a0fb7dfe57ad2ea35e66f4e68bd8274b3"
+  },
+  "atlas_certification": false
+}

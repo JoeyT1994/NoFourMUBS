@@ -1,0 +1,41 @@
+import NoFourMUBs.Step2.CriticalZero.ActualFixedFourier
+
+#check NoFourMUBs.Step2.Critical.allCritical_regular_zero_standard
+#check NoFourMUBs.Step2.Critical.allCritical_fourier_standard
+#check FourierCriticalLocus20261003.allCritical_fourier_fixed
+#check NoFourMUBs.Step2.Critical.sixSkew_signature
+#print NoFourMUBs.Step2.Critical.AllCriticalCarrier
+#print CriticalFourierRouting20261003.FourierOrTranspose
+#print axioms Worker12.cubic_has_exponent
+#print axioms NoFourMUBs.Step2.Critical.allCritical_transpose
+#print axioms NoFourMUBs.Step2.Critical.allCriticalCarrier_transpose
+#print axioms NoFourMUBs.Step2.Critical.sixSkew_signature
+#print axioms NoFourMUBs.Step2.Critical.allCritical_selected_sixSkew_zero
+#print axioms NoFourMUBs.Step2.Critical.allCritical_monomial
+#print axioms FourierCriticalLocus20261003.sixSkew_fourier
+#print axioms FourierCriticalLocus20261003.sixSkew_fourier_neg_w
+#print axioms FourierCriticalLocus20261003.sixSkew_fourier_neg_z
+#print axioms FourierCriticalLocus20261003.three_skews_zero
+#print axioms FourierCriticalLocus20261003.zero_phases_squares
+#print axioms FourierCriticalLocus20261003.locus_sixth_root
+#print axioms FourierCriticalLocus20261003.sixth_root_signed_cubic
+#print axioms FourierCriticalLocus20261003.locus_twelve_grid
+#print axioms FourierCriticalLocus20261003.N_eq_fourier_transpose
+#print axioms FourierCriticalLocus20261003.N_first_row
+#print axioms FourierCriticalLocus20261003.N_first_column
+#print axioms FourierCriticalLocus20261003.N_sign_equivalent
+#print axioms FourierCriticalLocus20261003.N_character_equivalent
+#print axioms FourierCriticalLocus20261003.N_grid_equivalent
+#print axioms FourierCriticalLocus20261003.N_square_equivalent
+#print axioms FourierCriticalLocus20261003.N_primitive_fixed
+#print axioms FourierCriticalLocus20261003.fixedF6_transpose
+#print axioms FourierCriticalLocus20261003.allCritical_N_selected
+#print axioms FourierCriticalLocus20261003.allCritical_N_grid
+#print axioms FourierCriticalLocus20261003.allCritical_N_fixed
+#print axioms FourierCriticalLocus20261003.allCritical_fourier_fixed
+#print axioms FourierCriticalLocus20261003.fixedF6_literal
+#print axioms NoFourMUBs.Step2.Critical.raw_source_binding
+#print axioms NoFourMUBs.Step2.Critical.fourier_to_fixed
+#print axioms NoFourMUBs.Step2.Critical.allCritical_fourier_standard
+#print axioms NoFourMUBs.Step2.Critical.allCritical_regular_zero_standard
+#print axioms NoFourMUBs.Step2.FourierBridge.oai_equivalent_transpose

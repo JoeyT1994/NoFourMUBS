@@ -1,0 +1,29 @@
+{
+  "scope": "matched_third_flatness",
+  "records": [
+    {
+      "module": "NoFourMUBs.Step2.Reconstruction.ThirdMoment.Symmetry",
+      "active_path": "NoFourMUBs/Step2/Reconstruction/ThirdMoment/Symmetry.lean",
+      "active_sha256": "ff0df7bdd8e6dbdff7b7207cc1c5975d036ad342730a2d24ae531009e8e0e961",
+      "local_model_adapter": true,
+      "review": "MATCHED_THIRD_SYMMETRY_REUSE_REVIEW.json"
+    }
+  ],
+  "axiom_endpoints": [
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.candidates_permuted",
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.forcedD_permuted",
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.weightedDefect_permuted",
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.flatness_of_one_weighted_identity"
+  ],
+  "dependency_pins": [
+    {
+      "active_path": "NoFourMUBs/Step2/AnchorTransport.lean",
+      "active_sha256": "7c189a09c481bd57ae651afd1eee094aacfab73451611d73a4e23f0e2a1384a5"
+    }
+  ],
+  "dependency_audits": [
+    "KERNEL_AUDIT_MATCHED_THIRD_WEIGHTED_DEFECT_STATUS.json"
+  ],
+  "scope_note": "A universal W11 identity suffices for full forced-block flatness by checked corner row/column permutations, without assuming a pre-existing Hadamard completion. W11 proof remains an explicit premise.",
+  "atlas_certification": false
+}

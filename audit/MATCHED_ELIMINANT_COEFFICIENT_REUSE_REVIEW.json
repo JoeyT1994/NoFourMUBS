@@ -1,0 +1,38 @@
+{
+  "status": "REVIEWED_CACHED_ENTRY_COEFFICIENT_SUBSTITUTION",
+  "scope": "matched_eliminant_coefficients",
+  "checked_utc": "2026-10-11T20:07:22.100393+00:00",
+  "repository_head": "fd7d1019fa4a7f3551bf9ade5d31ebbce9501055",
+  "search": "MATCHED_ELIMINANT_COEFFICIENT_REUSE_SEARCH.json",
+  "source_pins": {
+    "audit/MATCHED_SYMBOLIC_BASE_CACHE.json": "a0940de2c81be584bb5ff394eb5fc10d258f03e105ab379d9ae8b04f32f6e4a3",
+    "audit/MATCHED_ENTRY_ELIMINANT_COMPARISON.json": "153553b47ca49e2ad24472cd2d1e877b4dcb9f13663a99f6a2483059fd2009d2",
+    "lean/vendor/hadamard6/Hadamard6/QuotientAlgebra.lean": "e771892e157ec91624d5fe1dada562bb43651696a673e0bc4fb08c5c640b03ed",
+    "lean/NoFourMUBs/Step2/Reconstruction/EntryCompanion.lean": "d1849acb23e557ce8a0f41543b0ea41855a4f2fd98829b0a7e743320aefbe468",
+    "lean/NoFourMUBs/Step2/Reconstruction/BaseCoefficients/Bindings.lean": "f488d52f6e644ee826f25f359886ef3f9a1da0a3c27660246bf11b459dc40509",
+    "lean/NoFourMUBs/Step1/Lift.lean": "b8a35ba93c6fc0759092edad30be2d649921351c66c2a8c154d4b71941479064",
+    "audit/prepare_matched_base_coefficients.py": "806da107f00b7d0e1528e67e5e97a430320708e9d74f3ae75aa3eacc64b7a446",
+    "lean/vendor/hadamard6/Hadamard6/LeadingFibreCriterion.lean": "16942562cf1cc0f3c45acca5cdbedf8ec0d7b0c27f9e513f1a0343e9d551f118",
+    "lean/vendor/hadamard6/Hadamard6/DependentAlgebra.lean": "89d05a0c20671fa6582c92f1999c525ac53148eebfea30c08b7e0994a371c503"
+  },
+  "comparisons": [
+    {
+      "existing": "Hadamard6.eliminantA_factorization and eliminantB_coefficients",
+      "reuse": "Reuse these exact checked generic formulas. Check only that original cached rational A/B coefficients are their four-phase substitutions. No new Haagerup or elimination proof."
+    },
+    {
+      "existing": "EntryCompanion.side_entry_eliminant and side_entry_companion",
+      "reuse": "The existing theorem supplies the actual entry equation with its explicit denominator guard. This adapter binds the cached A/B expressions but does not assert their denominator is nonzero."
+    },
+    {
+      "existing": "LeadingFibreCriterion and DependentAlgebra",
+      "difference": "LeadingFibreCriterion identifies two endpoint coefficients and proves fibre finiteness. DependentAlgebra specializes the same beta coefficients under a dependent-Gram relation. Neither identifies these original four-phase cached rational coefficient arrays or supplies the universal norm."
+    },
+    {
+      "existing": "MATCHED_SYMBOLIC_BASE_CACHE and unchanged typed polynomial serializer",
+      "reuse": "Serialize original eight A/B rational coefficient pairs verbatim; do not rerun original symbolic elimination or norm calculations. The only proof of equality is the subsequent Lean check."
+    }
+  ],
+  "limits": "This is the unreduced cubic eliminant A/B, not yet the reduced quadratic companion. Four phase denominators remain explicit before specialization to Circle. No coverage claim for unshared work.",
+  "atlas_certification": false
+}

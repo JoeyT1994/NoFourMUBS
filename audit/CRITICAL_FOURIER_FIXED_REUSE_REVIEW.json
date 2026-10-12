@@ -1,0 +1,59 @@
+{
+  "status": "PASS",
+  "reviewed_utc": "2026-10-11T04:58:06.142380+00:00",
+  "scope": "Reuse the original all-critical Fourier-to-fixed-F6 algebra and equivalences, with only current matrix/critical-predicate bindings. No atlas or concrete exclusion certificates.",
+  "search_evidence": "CRITICAL_FOURIER_FIXED_DISCOVERY.json; full current/vendor/archive searches found allCritical_transpose only in the two legacy FourierCriticalPhysical variants. Reuse current SOS.ComplementaryFrames.sideSignature_transpose and allCritical_submatrix_signature_im. Original cubic_has_exponent uses existing cubic_root_eq_one_or_omega; extract only that wrapper.",
+  "sources": {
+    "FourierCriticalAlgebra": "b73035566c0870702f2d7239b70bd65a05082385a5684ed391654caf92ae215c",
+    "FourierCriticalEquivalences": "9e41252d87de6290ef1cdc32d949afd3227f19b7a7d5a5a2170fa7386c19b4fd",
+    "FourierCriticalPhysical": "50cd8ac9f417e5937205acc1d0c1db3df09fc76dfe8a90c2b4615660ce608346"
+  },
+  "data_extractions": [
+    {
+      "source_sha256": "4c220da95181b13d22729d0a4f9a548e49f863d4d9f73ace7723572e54361f35",
+      "start": "def skew",
+      "stop_before": "/-- An exact unit-phase Laurent identity",
+      "block_sha256": "983a3f4ee8bc03a0ac50c8da8b21726d85449d95ec78bfb38441029033eb8a30"
+    },
+    {
+      "source_sha256": "cdd398e48888b74152a9b3687de8f9f039e2ea2000bc194a7edb7dd0555aa27e",
+      "start": "theorem cubic_has_exponent",
+      "block_sha256": "dcf6cf789bdea3a967fdbd114efa9b2b4282d9a7f0df7b945e32bc92dfcae142"
+    }
+  ],
+  "variant_selection": "All7equivalence variants compared.9e41252 retains explicit matrix-neg simplifications without later redundant goal blocks. Fullb730 algebra includes the necessary signed twelve-point grid.",
+  "necessary_adapters": [
+    "AllCritical transpose follows from the already checked transpose signature equality and current scalar identity.",
+    "OAI equivalence transpose transports the already checked Hadamard6 equivalent_transposed using current coordinate bridges.",
+    "Current selected-sixSkew binding PASS via sixSkew_signature. Do not use absent UnitMomentTrace or treat an unproved input as discharged."
+  ],
+  "atlas_certification": false,
+  "current_binding_review": {
+    "reviewed_utc": "2026-10-11T05:05:30.830685+00:00",
+    "search": "Full current Lean tree including vendors and all19386archive blobs; archive import/source indexes reviewed. Six-skew occurrences preserved in CRITICAL_FOURIER_SIXSKEW_SEARCH.txt.",
+    "reuse": "Use the existing sixSkew literal data, current Side.TS and sig_rows, allCritical_submatrix_signature_im, phase inversion, equivalence/transpose transport. Original sixSkew_moment clearing-and-ring proof method is applied directly to current TS; no new copy of legacy moment definitions.",
+    "reason": "The legacy ShoulderPhaseGatePhysical import and UnitMomentTrace declaration are absent; its radicand theorem cannot supply a checked endpoint. Necessary current-model equality sixSkew=-(TS-starTS) will be checked directly, with all six unit hypotheses retained. This is an interface proof, not a second classification or regenerated certificate.",
+    "remaining": "Binding and original physical Fourier route now compile and pass the33endpoint standard-axiom audit.",
+    "atlas_certification": false
+  },
+  "additional_reuse": {
+    "transpose": "Found existing FourierBridge.oai_equivalent_transpose in FourierTaoBridge. Removed new equivalent_carrier_transpose adapter entirely; original physical proof now uses the existing theorem directly.",
+    "affine_coordinates": "Found raw_source_binding in archived KarlssonFourierImport.007, f8923f8a9bf005eb90e6615d27adce9c0ba10800c69090d8c3b72f24f1c4a575. Exact undoInterleave data already equals current SOS.canonicalPermutation45; reuse it. Only generic raw binding will be extracted, no endpoint/atlas imports."
+  },
+  "affine_binding_extraction": {
+    "source_sha256": "f8923f8a9bf005eb90e6615d27adce9c0ba10800c69090d8c3b72f24f1c4a575",
+    "original_block_sha256": "ce4655c7798131c31e932710c0a1dfc113a1eb2bcfd78f3d004a716a288397d7",
+    "changes": [
+      "ClassificationCover.toNumerical replaced by existing FourierBridge.toOAI, same index equivalence",
+      "Original undoInterleave replaced by identical already checked SOS.Normalization.canonicalPermutation45",
+      "Original raw_source_binding proof body unchanged; no other source theorem or certificate imported"
+    ],
+    "status": "PASS"
+  },
+  "checked_utc": "2026-10-11T05:14:13.896396+00:00",
+  "audit": "KERNEL_AUDIT_CRITICAL_FOURIER_FIXED_STATUS.json",
+  "assembly_manifest": "CRITICAL_FOURIER_FIXED_ASSEMBLY_MANIFEST.json",
+  "verified_modules": 8,
+  "verified_standard_axiom_endpoints": 33,
+  "remaining": "Singular/exceptional routing, nonzero-J completion and MatchedExistence. Atlas excluded."
+}

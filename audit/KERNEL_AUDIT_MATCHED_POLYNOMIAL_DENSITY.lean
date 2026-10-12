@@ -1,0 +1,6 @@
+import NoFourMUBs.Step2.Reconstruction.PolynomialDensity
+
+#check NoFourMUBs.Step2.Reconstruction.matchedExistence_of_polynomial
+#print axioms NoFourMUBs.Step2.Reconstruction.dense_polynomial_nonzero
+#print axioms NoFourMUBs.Step2.Reconstruction.dense_strict_polynomial_nonzero
+#print axioms NoFourMUBs.Step2.Reconstruction.matchedExistence_of_polynomial

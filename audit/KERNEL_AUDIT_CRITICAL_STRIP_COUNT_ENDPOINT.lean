@@ -1,0 +1,5 @@
+import NoFourMUBs.Step2.CriticalZero.StripCountEndpoint
+
+#check NoFourMUBs.Step2.Critical.strip_classified_values_impossible
+#print axioms NoFourMUBs.Step2.Critical.kappa_positive_root_unique
+#print axioms NoFourMUBs.Step2.Critical.strip_classified_values_impossible

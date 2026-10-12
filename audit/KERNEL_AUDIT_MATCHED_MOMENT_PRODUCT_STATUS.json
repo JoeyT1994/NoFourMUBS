@@ -1,0 +1,26 @@
+{
+  "status": "PASS",
+  "checked_utc": "2026-10-11T18:22:38.227737+00:00",
+  "modules": 1,
+  "axiom_endpoints": {
+    "StrictReconstruction20261007.SideIntrinsic.row_linear_product": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "source_hashes": {
+    "NoFourMUBs/Step2/Reconstruction/RowMomentProduct.lean": "51ee701670f5dd2609920eecf888f6a4e4bbdcc884f38ae9e8ac8eb5727f6207"
+  },
+  "manifest_sha256": "01667cadaa0a4722575d5419f0e87531b81fd612a1cb759bb263e78745fda056",
+  "audit_log_sha256": "52978ad1b127bf1bbe00dd9184001bd87185b160db2e4ca8b5da5d86b91c09db",
+  "scope": "The product of three linear side-row combinations uses existing intrinsic row moments. No generic flatness, universal norm or atlas certificate is proved here.",
+  "dependency_audits": {
+    "KERNEL_AUDIT_CRITICAL_EQUICORRELATION_ROW_PRODUCTS_STATUS.json": "571b696089d1ae6c1bceca3a10e23b385b9d661dc477d52df88d214eb0ad9487"
+  },
+  "dependency_source_hashes": {
+    "NoFourMUBs/Reuse/Archive/SideIntrinsicUnitBindings.lean": "0b9439dba8222d68e06eceb609212239feacb0ad3eb482ca835dce10076a3ab2",
+    "NoFourMUBs/Reuse/Archive/SideIntrinsicPolynomialDefs.lean": "1291afc792342d1241ca5a0ec63d77ba8ac9d838f254a7e420b7c8ce334abc53"
+  },
+  "atlas_certification": false
+}

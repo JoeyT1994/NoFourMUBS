@@ -1,0 +1,57 @@
+{
+  "status": "EXTERNAL_DIAGNOSTIC_NOT_LEAN_PROOF",
+  "checked_utc": "2026-10-11T08:49:48.585663+00:00",
+  "candidate_sha256": "92802906a24c1ea9e26f0f707a5ff860d67616d1c6c193bdc0363765b856a799",
+  "results": {
+    "a": {
+      "numerator": {
+        "equal_after_monomial_shift": true,
+        "scale": "1",
+        "p4_excess_exponents": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "denominator": {
+        "equal_after_monomial_shift": true,
+        "scale": "1",
+        "p4_excess_exponents": [
+          4,
+          -2,
+          0,
+          0
+        ]
+      },
+      "exact_rational_identity": true,
+      "equation": "p4_m2.a(X,Y,k) = Y^2/X^4 * p2_m4.a(Y,X,k)"
+    },
+    "b": {
+      "numerator": {
+        "equal_after_monomial_shift": true,
+        "scale": "1",
+        "p4_excess_exponents": [
+          -1,
+          1,
+          0,
+          0
+        ]
+      },
+      "denominator": {
+        "equal_after_monomial_shift": true,
+        "scale": "1",
+        "p4_excess_exponents": [
+          4,
+          -2,
+          0,
+          0
+        ]
+      },
+      "exact_rational_identity": true,
+      "equation": "p4_m2.b(X,Y,k) = Y^3/X^5 * p2_m4.b(Y,X,k)"
+    }
+  },
+  "scope": "Read-only check of a possible symmetry reuse; no replacement proof or numerator generated.",
+  "atlas_certification": false
+}

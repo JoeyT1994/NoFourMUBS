@@ -1,0 +1,298 @@
+{
+  "archive_blobs_examined": 19386,
+  "references": [
+    {
+      "sha256": "13afe0b502ad806f1634d2ba9a18ac9f761994f77692c73bf1dbf0fdac6db601",
+      "blob": "blobs/13/13afe0b502ad806f1634d2ba9a18ac9f761994f77692c73bf1dbf0fdac6db601/CriticalNonzeroPolynomialMonolithic.lean",
+      "bytes": 914,
+      "declarations": [
+        "factorization"
+      ],
+      "imports": [
+        "CriticalNonzeroPolynomialData"
+      ]
+    },
+    {
+      "sha256": "18facb58f9f180e6133d6d29d183b2f006c02713c9d254432a81deed570306b6",
+      "blob": "blobs/18/18facb58f9f180e6133d6d29d183b2f006c02713c9d254432a81deed570306b6/CriticalNonzeroQuartic.lean",
+      "bytes": 701,
+      "declarations": [
+        "reduced_numerator_factorization"
+      ],
+      "imports": [
+        "CriticalNonzeroPolynomial",
+        "CriticalNonzeroQuarticData"
+      ]
+    },
+    {
+      "sha256": "3d10bba7d90bc62e3eb2d15fb31717ae11bd041672019638dd8cf542a67e8476",
+      "blob": "blobs/3d/3d10bba7d90bc62e3eb2d15fb31717ae11bd041672019638dd8cf542a67e8476/CriticalNonzeroQuarticBinding.lean",
+      "bytes": 3292,
+      "declarations": [
+        "quartic_generic",
+        "denFactorMinus_generic",
+        "denFactorPlus_generic",
+        "reducedCoefficient00_generic",
+        "reducedCoefficient01_generic",
+        "reducedCoefficient02_generic",
+        "reducedCoefficient03_generic",
+        "reducedCoefficient04_generic",
+        "reducedCoefficient05_generic",
+        "reducedCoefficient06_generic",
+        "reducedCoefficient07_generic",
+        "reducedCoefficient08_generic",
+        "reducedCoefficient09_generic",
+        "reducedCoefficient10_generic",
+        "reducedNumerator_generic"
+      ],
+      "imports": [
+        "CriticalNonzeroPolynomialData",
+        "CriticalNonzeroQuarticData"
+      ]
+    },
+    {
+      "sha256": "49c777a43124cbebcf03100ed8fcb4e31337956e2ef5ece1d38de36988e2f1c6",
+      "blob": "blobs/49/49c777a43124cbebcf03100ed8fcb4e31337956e2ef5ece1d38de36988e2f1c6/CriticalNonzeroQuarticBinding.lean",
+      "bytes": 4522,
+      "declarations": [
+        "quartic_generic",
+        "denFactorMinus_generic",
+        "denFactorPlus_generic",
+        "reducedCoefficient00_generic",
+        "reducedCoefficient01_generic",
+        "reducedCoefficient02_generic",
+        "reducedCoefficient03_generic",
+        "reducedCoefficient04_generic",
+        "reducedCoefficient05_generic",
+        "reducedCoefficient06_generic",
+        "reducedCoefficient07_generic",
+        "reducedCoefficient08_generic",
+        "reducedCoefficient09_generic",
+        "reducedCoefficient10_generic",
+        "reducedNumerator_generic"
+      ],
+      "imports": [
+        "CriticalNonzeroPolynomialData",
+        "CriticalNonzeroQuarticData"
+      ]
+    },
+    {
+      "sha256": "514c8547e2fe324d1a0359f4b0c75f2bd30a4c2ee07530b922e92ae9a730603a",
+      "blob": "blobs/51/514c8547e2fe324d1a0359f4b0c75f2bd30a4c2ee07530b922e92ae9a730603a/CriticalNonzeroQuartic.lean",
+      "bytes": 30798,
+      "declarations": [
+        "quartic",
+        "denFactorMinus",
+        "denFactorPlus",
+        "reducedNumerator",
+        "reduced_numerator_factorization"
+      ],
+      "imports": [
+        "CriticalNonzeroSplitting"
+      ]
+    },
+    {
+      "sha256": "54fca5043ae4dadf870b145a6c95d7a0bf4b7d25bea311b6fc10ae517e813801",
+      "blob": "blobs/54/54fca5043ae4dadf870b145a6c95d7a0bf4b7d25bea311b6fc10ae517e813801/CriticalNonzeroLastStepBinding.lean",
+      "bytes": 4318,
+      "declarations": [
+        "reducedCoefficient00_interpret",
+        "reducedCoefficient01_interpret",
+        "reducedCoefficient02_interpret",
+        "reducedCoefficient03_interpret",
+        "reducedCoefficient04_interpret",
+        "reducedCoefficient05_interpret",
+        "reducedCoefficient06_interpret",
+        "reducedCoefficient07_interpret",
+        "reducedCoefficient08_interpret",
+        "reducedCoefficient09_interpret",
+        "reducedCoefficient10_interpret",
+        "target_interpret"
+      ],
+      "imports": [
+        "CriticalNonzeroLastStepData"
+      ]
+    },
+    {
+      "sha256": "571798ae4444faa482ab7b677a789a4c3201dcc39bdef7d3f0d6bd202672f707",
+      "blob": "blobs/57/571798ae4444faa482ab7b677a789a4c3201dcc39bdef7d3f0d6bd202672f707/CriticalNonzeroFinalStep.lean",
+      "bytes": 2847,
+      "declarations": [
+        "integerBefore",
+        "integerQuotient",
+        "fx",
+        "integer_identity",
+        "before",
+        "quotient",
+        "rational_identity",
+        "final_step_zero"
+      ],
+      "imports": [
+        "CriticalNonzeroCubicAssembly",
+        "CriticalNonzeroFinalScalarBinding"
+      ]
+    },
+    {
+      "sha256": "64f07b9feaaa744e37701293df76cfdd917d4f9ea6da2f3d0c30145aa492d353",
+      "blob": "blobs/64/64f07b9feaaa744e37701293df76cfdd917d4f9ea6da2f3d0c30145aa492d353/CriticalNonzeroQuartic.lean",
+      "bytes": 918,
+      "declarations": [
+        "reduced_numerator_factorization"
+      ],
+      "imports": [
+        "CriticalNonzeroQuarticData"
+      ]
+    },
+    {
+      "sha256": "774a6d75de6911f88a2ed889e0d9bde0068393a67e3e7f608fd1cd5fc37f82f0",
+      "blob": "blobs/77/774a6d75de6911f88a2ed889e0d9bde0068393a67e3e7f608fd1cd5fc37f82f0/CriticalNonzeroQuarticData.lean",
+      "bytes": 31102,
+      "declarations": [
+        "quartic",
+        "denFactorMinus",
+        "denFactorPlus",
+        "reducedCoefficient00",
+        "reducedCoefficient01",
+        "reducedCoefficient02",
+        "reducedCoefficient03",
+        "reducedCoefficient04",
+        "reducedCoefficient05",
+        "reducedCoefficient06",
+        "reducedCoefficient07",
+        "reducedCoefficient08",
+        "reducedCoefficient09",
+        "reducedCoefficient10",
+        "reducedNumerator"
+      ],
+      "imports": [
+        "CriticalNonzeroSplitting"
+      ]
+    },
+    {
+      "sha256": "a30b6fab169dee5ade88cf5a54fece7cbada5028793cb6d403e119d7bb301425",
+      "blob": "blobs/a3/a30b6fab169dee5ade88cf5a54fece7cbada5028793cb6d403e119d7bb301425/CriticalNonzeroQuartic.lean",
+      "bytes": 673,
+      "declarations": [
+        "reduced_numerator_factorization"
+      ],
+      "imports": [
+        "CriticalNonzeroPolynomial",
+        "CriticalNonzeroSplitting"
+      ]
+    },
+    {
+      "sha256": "a7dc590fdea28185ac8df442508f1b0583d6e92370b88729b4b07ac0213ecc4e",
+      "blob": "blobs/a7/a7dc590fdea28185ac8df442508f1b0583d6e92370b88729b4b07ac0213ecc4e/NonzeroNumeratorCoreIndependentReview.lean",
+      "bytes": 1532,
+      "declarations": [
+        "zero_multiplier_counterexample",
+        "constant_term_retained",
+        "minus_factor_at_one"
+      ],
+      "imports": [
+        "CriticalNonzeroCoefficientProgram",
+        "CriticalNonzeroSumDenominator",
+        "CriticalPseudoReduction"
+      ]
+    },
+    {
+      "sha256": "d326f36bd196fff27bbbc148f8242d4d8bd840f5eda5fac619840112fdfcc442",
+      "blob": "blobs/d3/d326f36bd196fff27bbbc148f8242d4d8bd840f5eda5fac619840112fdfcc442/CriticalNonzeroPolynomialData.lean",
+      "bytes": 29533,
+      "declarations": [
+        "quartic",
+        "denFactorMinus",
+        "denFactorPlus",
+        "reducedCoefficient00",
+        "reducedCoefficient01",
+        "reducedCoefficient02",
+        "reducedCoefficient03",
+        "reducedCoefficient04",
+        "reducedCoefficient05",
+        "reducedCoefficient06",
+        "reducedCoefficient07",
+        "reducedCoefficient08",
+        "reducedCoefficient09",
+        "reducedCoefficient10",
+        "reducedNumerator"
+      ],
+      "imports": [
+        "Mathlib.Tactic.Ring"
+      ]
+    },
+    {
+      "sha256": "d5672451039ceec46a87875fba81c3fb796baaf6da4d756369f20f4a8b99a296",
+      "blob": "blobs/d5/d5672451039ceec46a87875fba81c3fb796baaf6da4d756369f20f4a8b99a296/CriticalNonzeroPoles.lean",
+      "bytes": 3973,
+      "declarations": [
+        "scalar_denominator_plus",
+        "scalar_denominator_minus",
+        "pole_products",
+        "denominator_factors_nonzero",
+        "quartic_zero_of_reduced_zero",
+        "real_parameter_regular"
+      ],
+      "imports": [
+        "CriticalNonzeroPolynomialPoles",
+        "CriticalNonzeroQuartic",
+        "Mathlib.Tactic.Positivity"
+      ]
+    },
+    {
+      "sha256": "e7f6db760f01dbb2893316cedccee55b30720c048a4383c49b95333c343bb2bd",
+      "blob": "blobs/e7/e7f6db760f01dbb2893316cedccee55b30720c048a4383c49b95333c343bb2bd/CriticalNonzeroSumDenominator.lean",
+      "bytes": 2979,
+      "declarations": [
+        "plusFactor",
+        "minusFactor",
+        "thirdPlusFactor",
+        "thirdMinusFactor",
+        "commonDenominator",
+        "plusFactor_pole",
+        "minusFactor_pole",
+        "thirdPlusFactor_pole",
+        "thirdMinusFactor_pole",
+        "commonDenominator_ne_zero"
+      ],
+      "imports": [
+        "CriticalNonzeroLightData"
+      ]
+    },
+    {
+      "sha256": "f700e616ef7320736366a1975b096588304b4cfeec6f6822935e72d5ee732d37",
+      "blob": "blobs/f7/f700e616ef7320736366a1975b096588304b4cfeec6f6822935e72d5ee732d37/CriticalNonzeroFinalScalarBinding.lean",
+      "bytes": 4710,
+      "declarations": [
+        "stepH",
+        "stepU",
+        "stepV",
+        "h3_interpret",
+        "h4_interpret",
+        "u_interpret",
+        "v_interpret",
+        "coefficient_equation0",
+        "coefficient_equation1",
+        "coefficient_equation2",
+        "coefficient_equation3"
+      ],
+      "imports": [
+        "CriticalNonzeroFinalResiduals",
+        "CriticalNonzeroLastStepBinding"
+      ]
+    },
+    {
+      "sha256": "fd274b076dd7ebc02c25af6e4bda0ac5bafebe0feeea184efb174a59b94c867d",
+      "blob": "blobs/fd/fd274b076dd7ebc02c25af6e4bda0ac5bafebe0feeea184efb174a59b94c867d/CriticalNonzeroPolynomial.lean",
+      "bytes": 1432,
+      "declarations": [
+        "factorization"
+      ],
+      "imports": [
+        "CriticalNonzeroFactor00",
+        "CriticalNonzeroFactor01",
+        "CriticalNonzeroFactor02",
+        "CriticalNonzeroFactor03"
+      ]
+    }
+  ]
+}

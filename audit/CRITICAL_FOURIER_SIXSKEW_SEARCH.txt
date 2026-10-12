@@ -1,0 +1,164 @@
+audit/upstream_repository/archive/long_proof/Lean/blobs/39/39d279ed53d381c2f3c95eb3683c1e638e16af023e9bba430590676c8fa06962/FourierCompleteLocus.lean:37:    (h0 : sixSkew 1 z w 1 (ω*z) (ω^2*w) = 0)
+audit/upstream_repository/archive/long_proof/Lean/blobs/39/39d279ed53d381c2f3c95eb3683c1e638e16af023e9bba430590676c8fa06962/FourierCompleteLocus.lean:38:    (h1 : sixSkew 1 z (-w) 1 (ω*z) (-(ω^2*w)) = 0)
+audit/upstream_repository/archive/long_proof/Lean/blobs/39/39d279ed53d381c2f3c95eb3683c1e638e16af023e9bba430590676c8fa06962/FourierCompleteLocus.lean:39:    (h2 : sixSkew 1 (-z) w 1 (-(ω*z)) (ω^2*w) = 0) :
+audit/upstream_repository/archive/long_proof/Lean/blobs/39/39d279ed53d381c2f3c95eb3683c1e638e16af023e9bba430590676c8fa06962/FourierCompleteLocus.lean:55:    (h0 : sixSkew 1 z w 1 (ω*z) (ω^2*w) = 0)
+audit/upstream_repository/archive/long_proof/Lean/blobs/39/39d279ed53d381c2f3c95eb3683c1e638e16af023e9bba430590676c8fa06962/FourierCompleteLocus.lean:56:    (h1 : sixSkew 1 z (-w) 1 (ω*z) (-(ω^2*w)) = 0)
+audit/upstream_repository/archive/long_proof/Lean/blobs/39/39d279ed53d381c2f3c95eb3683c1e638e16af023e9bba430590676c8fa06962/FourierCompleteLocus.lean:57:    (h2 : sixSkew 1 (-z) w 1 (-(ω*z)) (ω^2*w) = 0)
+audit/upstream_repository/archive/long_proof/Lean/blobs/b7/b73035566c0870702f2d7239b70bd65a05082385a5684ed391654caf92ae215c/FourierCriticalAlgebra.lean:16:theorem sixSkew_fourier {ω z w : ℂ}
+audit/upstream_repository/archive/long_proof/Lean/blobs/b7/b73035566c0870702f2d7239b70bd65a05082385a5684ed391654caf92ae215c/FourierCriticalAlgebra.lean:19:    sixSkew 1 z w 1 (ω*z) (ω^2*w)=3*(-phaseX z w+phaseY z w+phaseT z w) := by
+audit/upstream_repository/archive/long_proof/Lean/blobs/b7/b73035566c0870702f2d7239b70bd65a05082385a5684ed391654caf92ae215c/FourierCriticalAlgebra.lean:87:  simp only [sixSkew,skew,star_mul,star_pow,star_star,star_one,hωs]
+audit/upstream_repository/archive/long_proof/Lean/blobs/b7/b73035566c0870702f2d7239b70bd65a05082385a5684ed391654caf92ae215c/FourierCriticalAlgebra.lean:95:theorem sixSkew_fourier_neg_w {ω z w : ℂ}
+audit/upstream_repository/archive/long_proof/Lean/blobs/b7/b73035566c0870702f2d7239b70bd65a05082385a5684ed391654caf92ae215c/FourierCriticalAlgebra.lean:98:    sixSkew 1 z (-w) 1 (ω*z) (-(ω^2*w))=
+audit/upstream_repository/archive/long_proof/Lean/blobs/b7/b73035566c0870702f2d7239b70bd65a05082385a5684ed391654caf92ae215c/FourierCriticalAlgebra.lean:100:  have h := sixSkew_fourier hωu hω hz (show Complex.normSq (-w)=1 by simpa using hw)
+audit/upstream_repository/archive/long_proof/Lean/blobs/b7/b73035566c0870702f2d7239b70bd65a05082385a5684ed391654caf92ae215c/FourierCriticalAlgebra.lean:103:theorem sixSkew_fourier_neg_z {ω z w : ℂ}
+audit/upstream_repository/archive/long_proof/Lean/blobs/b7/b73035566c0870702f2d7239b70bd65a05082385a5684ed391654caf92ae215c/FourierCriticalAlgebra.lean:106:    sixSkew 1 (-z) w 1 (-(ω*z)) (ω^2*w)=
+audit/upstream_repository/archive/long_proof/Lean/blobs/b7/b73035566c0870702f2d7239b70bd65a05082385a5684ed391654caf92ae215c/FourierCriticalAlgebra.lean:108:  have h := sixSkew_fourier hωu hω (show Complex.normSq (-z)=1 by simpa using hz) hw
+audit/upstream_repository/archive/long_proof/Lean/blobs/b7/b73035566c0870702f2d7239b70bd65a05082385a5684ed391654caf92ae215c/FourierCriticalAlgebra.lean:114:    (h0 : sixSkew 1 z w 1 (ω*z) (ω^2*w)=0)
+audit/upstream_repository/archive/long_proof/Lean/blobs/b7/b73035566c0870702f2d7239b70bd65a05082385a5684ed391654caf92ae215c/FourierCriticalAlgebra.lean:115:    (h1 : sixSkew 1 z (-w) 1 (ω*z) (-(ω^2*w))=0)
+audit/upstream_repository/archive/long_proof/Lean/blobs/b7/b73035566c0870702f2d7239b70bd65a05082385a5684ed391654caf92ae215c/FourierCriticalAlgebra.lean:116:    (h2 : sixSkew 1 (-z) w 1 (-(ω*z)) (ω^2*w)=0) :
+audit/upstream_repository/archive/long_proof/Lean/blobs/b7/b73035566c0870702f2d7239b70bd65a05082385a5684ed391654caf92ae215c/FourierCriticalAlgebra.lean:118:  rw [sixSkew_fourier hωu hω hz hw] at h0
+audit/upstream_repository/archive/long_proof/Lean/blobs/b7/b73035566c0870702f2d7239b70bd65a05082385a5684ed391654caf92ae215c/FourierCriticalAlgebra.lean:119:  rw [sixSkew_fourier_neg_w hωu hω hz hw] at h1
+audit/upstream_repository/archive/long_proof/Lean/blobs/b7/b73035566c0870702f2d7239b70bd65a05082385a5684ed391654caf92ae215c/FourierCriticalAlgebra.lean:120:  rw [sixSkew_fourier_neg_z hωu hω hz hw] at h2
+audit/upstream_repository/archive/long_proof/Lean/blobs/b7/b73035566c0870702f2d7239b70bd65a05082385a5684ed391654caf92ae215c/FourierCriticalAlgebra.lean:183:#print axioms sixSkew_fourier
+audit/upstream_repository/archive/long_proof/Lean/blobs/b7/b73035566c0870702f2d7239b70bd65a05082385a5684ed391654caf92ae215c/FourierCriticalAlgebra.lean:184:#print axioms sixSkew_fourier_neg_w
+audit/upstream_repository/archive/long_proof/Lean/blobs/b7/b73035566c0870702f2d7239b70bd65a05082385a5684ed391654caf92ae215c/FourierCriticalAlgebra.lean:185:#print axioms sixSkew_fourier_neg_z
+audit/upstream_repository/archive/long_proof/Lean/blobs/50/50cd8ac9f417e5937205acc1d0c1db3df09fc76dfe8a90c2b4615660ce608346/FourierCriticalPhysical.lean:41:theorem sixSkew_re_zero (a b c d e f : ℂ) : (sixSkew a b c d e f).re=0 := by
+audit/upstream_repository/archive/long_proof/Lean/blobs/50/50cd8ac9f417e5937205acc1d0c1db3df09fc76dfe8a90c2b4615660ce608346/FourierCriticalPhysical.lean:42:  have hs : star (sixSkew a b c d e f)= -sixSkew a b c d e f := by
+audit/upstream_repository/archive/long_proof/Lean/blobs/50/50cd8ac9f417e5937205acc1d0c1db3df09fc76dfe8a90c2b4615660ce608346/FourierCriticalPhysical.lean:43:    simp only [sixSkew,skew,star_add,star_sub,star_mul,star_star]
+audit/upstream_repository/archive/long_proof/Lean/blobs/50/50cd8ac9f417e5937205acc1d0c1db3df09fc76dfe8a90c2b4615660ce608346/FourierCriticalPhysical.lean:49:theorem zero_sideScore_sixSkew {A : Mat3}
+audit/upstream_repository/archive/long_proof/Lean/blobs/50/50cd8ac9f417e5937205acc1d0c1db3df09fc76dfe8a90c2b4615660ce608346/FourierCriticalPhysical.lean:51:    sixSkew (A 1 0) (A 1 1) (A 1 2) (A 2 0) (A 2 1) (A 2 2)=0 := by
+audit/upstream_repository/archive/long_proof/Lean/blobs/50/50cd8ac9f417e5937205acc1d0c1db3df09fc76dfe8a90c2b4615660ce608346/FourierCriticalPhysical.lean:52:  rw [physicalSideScore_sixSkew (hA 1) (hA 2)] at hz
+audit/upstream_repository/archive/long_proof/Lean/blobs/50/50cd8ac9f417e5937205acc1d0c1db3df09fc76dfe8a90c2b4615660ce608346/FourierCriticalPhysical.lean:53:  have hr := sixSkew_re_zero (A 1 0) (A 1 1) (A 1 2) (A 2 0) (A 2 1) (A 2 2)
+audit/upstream_repository/archive/long_proof/Lean/blobs/50/50cd8ac9f417e5937205acc1d0c1db3df09fc76dfe8a90c2b4615660ce608346/FourierCriticalPhysical.lean:60:theorem allCritical_selected_sixSkew_zero {H : Mat6} (hH : AllCritical H)
+audit/upstream_repository/archive/long_proof/Lean/blobs/50/50cd8ac9f417e5937205acc1d0c1db3df09fc76dfe8a90c2b4615660ce608346/FourierCriticalPhysical.lean:62:    sixSkew (H 1 (c 0)) (H 1 (c 1)) (H 1 (c 2))
+audit/upstream_repository/archive/long_proof/Lean/blobs/50/50cd8ac9f417e5937205acc1d0c1db3df09fc76dfe8a90c2b4615660ce608346/FourierCriticalPhysical.lean:66:  exact zero_sideScore_sixSkew (A := H.submatrix front c)
+audit/upstream_repository/archive/long_proof/Lean/blobs/50/50cd8ac9f417e5937205acc1d0c1db3df09fc76dfe8a90c2b4615660ce608346/FourierCriticalPhysical.lean:73:    sixSkew 1 z w 1 (ω*z) (ω^2*w)=0 ∧
+audit/upstream_repository/archive/long_proof/Lean/blobs/50/50cd8ac9f417e5937205acc1d0c1db3df09fc76dfe8a90c2b4615660ce608346/FourierCriticalPhysical.lean:74:    sixSkew 1 z (-w) 1 (ω*z) (-(ω^2*w))=0 ∧
+audit/upstream_repository/archive/long_proof/Lean/blobs/50/50cd8ac9f417e5937205acc1d0c1db3df09fc76dfe8a90c2b4615660ce608346/FourierCriticalPhysical.lean:75:    sixSkew 1 (-z) w 1 (-(ω*z)) (ω^2*w)=0 := by
+audit/upstream_repository/archive/long_proof/Lean/blobs/50/50cd8ac9f417e5937205acc1d0c1db3df09fc76dfe8a90c2b4615660ce608346/FourierCriticalPhysical.lean:86:  have h0 := allCritical_selected_sixSkew_zero hK (![0,1,2] : Fin 3 → Fin 6) (by decide +kernel)
+audit/upstream_repository/archive/long_proof/Lean/blobs/50/50cd8ac9f417e5937205acc1d0c1db3df09fc76dfe8a90c2b4615660ce608346/FourierCriticalPhysical.lean:87:  have h1 := allCritical_selected_sixSkew_zero hK (![0,1,5] : Fin 3 → Fin 6) (by decide +kernel)
+audit/upstream_repository/archive/long_proof/Lean/blobs/50/50cd8ac9f417e5937205acc1d0c1db3df09fc76dfe8a90c2b4615660ce608346/FourierCriticalPhysical.lean:88:  have h2 := allCritical_selected_sixSkew_zero hK (![0,4,2] : Fin 3 → Fin 6) (by decide +kernel)
+audit/upstream_repository/archive/long_proof/Lean/blobs/50/50cd8ac9f417e5937205acc1d0c1db3df09fc76dfe8a90c2b4615660ce608346/FourierCriticalPhysical.lean:165:#print axioms sixSkew_re_zero
+audit/upstream_repository/archive/long_proof/Lean/blobs/50/50cd8ac9f417e5937205acc1d0c1db3df09fc76dfe8a90c2b4615660ce608346/FourierCriticalPhysical.lean:166:#print axioms zero_sideScore_sixSkew
+audit/upstream_repository/archive/long_proof/Lean/blobs/50/50cd8ac9f417e5937205acc1d0c1db3df09fc76dfe8a90c2b4615660ce608346/FourierCriticalPhysical.lean:167:#print axioms allCritical_selected_sixSkew_zero
+audit/upstream_repository/archive/long_proof/Lean/blobs/9c/9c99f48c7a4f996d17e4e4fdf6dc92e16f33164b0281f88205f74e500438851a/AngularLeaf.lean:60:theorem sixSkew_sixValue (a b c d e f : ℂ) :
+audit/upstream_repository/archive/long_proof/Lean/blobs/9c/9c99f48c7a4f996d17e4e4fdf6dc92e16f33164b0281f88205f74e500438851a/AngularLeaf.lean:61:    sixSkew a b c d e f = -(8:ℂ)*Complex.I*(sixValue a b c d e f : ℂ) := by
+audit/upstream_repository/archive/long_proof/Lean/blobs/9c/9c99f48c7a4f996d17e4e4fdf6dc92e16f33164b0281f88205f74e500438851a/AngularLeaf.lean:62:  simp only [sixSkew,skew_sineDiff]
+audit/upstream_repository/archive/long_proof/Lean/blobs/9c/9c99f48c7a4f996d17e4e4fdf6dc92e16f33164b0281f88205f74e500438851a/AngularLeaf.lean:69:  rw [physical_radicand_sixSkew a b c d e f ha hb hc hd he hf,sixSkew_sixValue]
+audit/upstream_repository/archive/long_proof/Lean/blobs/2e/2e1a6cca797a57bda81dca82dd45c814def98cefff1df43d0030b987bb2b9260/CriticalBlockInvariant.lean:48:theorem signedExpression_eq_sixSkew (a b c d e f : ℂ)
+audit/upstream_repository/archive/long_proof/Lean/blobs/2e/2e1a6cca797a57bda81dca82dd45c814def98cefff1df43d0030b987bb2b9260/CriticalBlockInvariant.lean:51:    signedExpression a b c d e f = GlobalCornerSixSine.sixSkew a b c d e f := by
+audit/upstream_repository/archive/long_proof/Lean/blobs/2e/2e1a6cca797a57bda81dca82dd45c814def98cefff1df43d0030b987bb2b9260/CriticalBlockInvariant.lean:53:    GlobalCornerSixSine.sixSkew,GlobalCornerSixSine.skew]
+audit/upstream_repository/archive/long_proof/Lean/blobs/2e/2e1a6cca797a57bda81dca82dd45c814def98cefff1df43d0030b987bb2b9260/CriticalBlockInvariant.lean:93:  rw [normalized_invariant E h0, signedExpression_eq_sixSkew _ _ _ _ _ _
+audit/upstream_repository/archive/long_proof/Lean/blobs/2e/2e1a6cca797a57bda81dca82dd45c814def98cefff1df43d0030b987bb2b9260/CriticalBlockInvariant.lean:95:  exact (GlobalCornerSixSine.physical_radicand_sixSkew _ _ _ _ _ _
+audit/upstream_repository/archive/long_proof/Lean/blobs/2e/2e1a6cca797a57bda81dca82dd45c814def98cefff1df43d0030b987bb2b9260/CriticalBlockInvariant.lean:106:#print axioms signedExpression_eq_sixSkew
+audit/upstream_repository/archive/long_proof/Lean/blobs/21/214cb41272c2ade63691015ce32e2d59e618d7cbe8fe31832952f9d0bd207697/InspectMoments.lean:8:#print axioms GlobalCornerSixSine.physical_radicand_sixSkew
+audit/upstream_repository/archive/long_proof/Lean/blobs/df/dfc534a5888a7fbab5313702fd4f3bf3bda5975ed3d0119f959e8ce5bfa161d2/FourierCompleteLocus.lean:37:    (h0 : sixSkew 1 z w 1 (ω*z) (ω^2*w) = 0)
+audit/upstream_repository/archive/long_proof/Lean/blobs/df/dfc534a5888a7fbab5313702fd4f3bf3bda5975ed3d0119f959e8ce5bfa161d2/FourierCompleteLocus.lean:38:    (h1 : sixSkew 1 z (-w) 1 (ω*z) (-(ω^2*w)) = 0)
+audit/upstream_repository/archive/long_proof/Lean/blobs/df/dfc534a5888a7fbab5313702fd4f3bf3bda5975ed3d0119f959e8ce5bfa161d2/FourierCompleteLocus.lean:39:    (h2 : sixSkew 1 (-z) w 1 (-(ω*z)) (ω^2*w) = 0) :
+audit/upstream_repository/archive/long_proof/Lean/blobs/df/dfc534a5888a7fbab5313702fd4f3bf3bda5975ed3d0119f959e8ce5bfa161d2/FourierCompleteLocus.lean:55:    (h0 : sixSkew 1 z w 1 (ω*z) (ω^2*w) = 0)
+audit/upstream_repository/archive/long_proof/Lean/blobs/df/dfc534a5888a7fbab5313702fd4f3bf3bda5975ed3d0119f959e8ce5bfa161d2/FourierCompleteLocus.lean:56:    (h1 : sixSkew 1 z (-w) 1 (ω*z) (-(ω^2*w)) = 0)
+audit/upstream_repository/archive/long_proof/Lean/blobs/df/dfc534a5888a7fbab5313702fd4f3bf3bda5975ed3d0119f959e8ce5bfa161d2/FourierCompleteLocus.lean:57:    (h2 : sixSkew 1 (-z) w 1 (-(ω*z)) (ω^2*w) = 0)
+audit/upstream_repository/archive/long_proof/Lean/blobs/4c/4c220da95181b13d22729d0a4f9a548e49f863d4d9f73ace7723572e54361f35/GlobalCornerSixSkew.lean:14:def sixSkew (a b c d e f : ℂ) : ℂ :=
+audit/upstream_repository/archive/long_proof/Lean/blobs/4c/4c220da95181b13d22729d0a4f9a548e49f863d4d9f73ace7723572e54361f35/GlobalCornerSixSkew.lean:24:theorem sixSkew_moment (a b c d e f : ℂ)
+audit/upstream_repository/archive/long_proof/Lean/blobs/4c/4c220da95181b13d22729d0a4f9a548e49f863d4d9f73ace7723572e54361f35/GlobalCornerSixSkew.lean:28:    sixSkew a b c d e f =
+audit/upstream_repository/archive/long_proof/Lean/blobs/4c/4c220da95181b13d22729d0a4f9a548e49f863d4d9f73ace7723572e54361f35/GlobalCornerSixSkew.lean:31:  dsimp only [sixSkew,skew,moment,overlap,P0,X]
+audit/upstream_repository/archive/long_proof/Lean/blobs/4c/4c220da95181b13d22729d0a4f9a548e49f863d4d9f73ace7723572e54361f35/GlobalCornerSixSkew.lean:51:theorem physical_radicand_sixSkew (a b c d e f : ℂ)
+audit/upstream_repository/archive/long_proof/Lean/blobs/4c/4c220da95181b13d22729d0a4f9a548e49f863d4d9f73ace7723572e54361f35/GlobalCornerSixSkew.lean:55:    radicand (a+b+c) (d+e+f) (overlap a b c d e f) = -(sixSkew a b c d e f)^2 := by
+audit/upstream_repository/archive/long_proof/Lean/blobs/4c/4c220da95181b13d22729d0a4f9a548e49f863d4d9f73ace7723572e54361f35/GlobalCornerSixSkew.lean:59:  rw [sixSkew_moment a b c d e f ha hb hc hd he hf,neg_sq,h,neg_neg]
+audit/upstream_repository/archive/long_proof/Lean/blobs/4c/4c220da95181b13d22729d0a4f9a548e49f863d4d9f73ace7723572e54361f35/GlobalCornerSixSkew.lean:62:#print axioms sixSkew_moment
+audit/upstream_repository/archive/long_proof/Lean/blobs/4c/4c220da95181b13d22729d0a4f9a548e49f863d4d9f73ace7723572e54361f35/GlobalCornerSixSkew.lean:63:#print axioms physical_radicand_sixSkew
+audit/upstream_repository/archive/long_proof/Lean/blobs/19/1956671e3f2e058e9d870fca2173f96e4355a462356070923ab9f9bb453bd9c2/GlobalCornerRawSide.lean:17:theorem sixSkew_row_mul (a b c d e f u v : ℂ)
+audit/upstream_repository/archive/long_proof/Lean/blobs/19/1956671e3f2e058e9d870fca2173f96e4355a462356070923ab9f9bb453bd9c2/GlobalCornerRawSide.lean:19:    sixSkew (u*a) (u*b) (u*c) (v*d) (v*e) (v*f) = sixSkew a b c d e f := by
+audit/upstream_repository/archive/long_proof/Lean/blobs/19/1956671e3f2e058e9d870fca2173f96e4355a462356070923ab9f9bb453bd9c2/GlobalCornerRawSide.lean:25:  simp only [sixSkew,hmul,skew_unit_mul u _ _ hu,skew_unit_mul v _ _ hv,
+audit/upstream_repository/archive/long_proof/Lean/blobs/19/1956671e3f2e058e9d870fca2173f96e4355a462356070923ab9f9bb453bd9c2/GlobalCornerRawSide.lean:30:#print axioms sixSkew_row_mul
+audit/upstream_repository/archive/long_proof/Lean/blobs/19/1956671e3f2e058e9d870fca2173f96e4355a462356070923ab9f9bb453bd9c2/GlobalCornerRawSide.lean:39:theorem physicalSideScore_sixSkew {A : CompactCover.Mat3}
+audit/upstream_repository/archive/long_proof/Lean/blobs/19/1956671e3f2e058e9d870fca2173f96e4355a462356070923ab9f9bb453bd9c2/GlobalCornerRawSide.lean:41:    physicalSideScore A = (-(GlobalCornerSixSine.sixSkew
+audit/upstream_repository/archive/long_proof/Lean/blobs/19/1956671e3f2e058e9d870fca2173f96e4355a462356070923ab9f9bb453bd9c2/GlobalCornerRawSide.lean:47:  have hs := congrArg Complex.re (GlobalCornerSixSine.physical_radicand_sixSkew
+audit/upstream_repository/archive/long_proof/Lean/blobs/19/1956671e3f2e058e9d870fca2173f96e4355a462356070923ab9f9bb453bd9c2/GlobalCornerRawSide.lean:67:  rw [physicalSideScore_sixSkew hBu hBv,physicalSideScore_sixSkew hA1 hA2,
+audit/upstream_repository/archive/long_proof/Lean/blobs/19/1956671e3f2e058e9d870fca2173f96e4355a462356070923ab9f9bb453bd9c2/GlobalCornerRawSide.lean:68:    hB1 0,hB1 1,hB1 2,hB2 0,hB2 1,hB2 2,GlobalCornerSixSine.sixSkew_row_mul _ _ _ _ _ _ u v hu hv]
+audit/upstream_repository/archive/long_proof/Lean/blobs/19/1956671e3f2e058e9d870fca2173f96e4355a462356070923ab9f9bb453bd9c2/GlobalCornerRawSide.lean:144:#print axioms physicalSideScore_sixSkew
+lean/NoFourMUBs/Step2/CriticalZero/FourierCriticalData.lean:14:def sixSkew (a b c d e f : ℂ) : ℂ :=
+audit/upstream_repository/archive/long_proof/Lean/blobs/17/17e88223bd58add2479175d621c8f536dbdb00de603e7221393d2d5e31ec9b08/GlobalCornerRawSide.lean:17:theorem sixSkew_row_mul (a b c d e f u v : ℂ)
+audit/upstream_repository/archive/long_proof/Lean/blobs/17/17e88223bd58add2479175d621c8f536dbdb00de603e7221393d2d5e31ec9b08/GlobalCornerRawSide.lean:19:    sixSkew (u*a) (u*b) (u*c) (v*d) (v*e) (v*f) = sixSkew a b c d e f := by
+audit/upstream_repository/archive/long_proof/Lean/blobs/17/17e88223bd58add2479175d621c8f536dbdb00de603e7221393d2d5e31ec9b08/GlobalCornerRawSide.lean:25:  simp only [sixSkew,hmul,skew_unit_mul u _ _ hu,skew_unit_mul v _ _ hv,
+audit/upstream_repository/archive/long_proof/Lean/blobs/17/17e88223bd58add2479175d621c8f536dbdb00de603e7221393d2d5e31ec9b08/GlobalCornerRawSide.lean:30:#print axioms sixSkew_row_mul
+audit/upstream_repository/archive/long_proof/Lean/blobs/17/17e88223bd58add2479175d621c8f536dbdb00de603e7221393d2d5e31ec9b08/GlobalCornerRawSide.lean:39:theorem physicalSideScore_sixSkew {A : CompactCover.Mat3}
+audit/upstream_repository/archive/long_proof/Lean/blobs/17/17e88223bd58add2479175d621c8f536dbdb00de603e7221393d2d5e31ec9b08/GlobalCornerRawSide.lean:41:    physicalSideScore A = (-(GlobalCornerSixSine.sixSkew
+audit/upstream_repository/archive/long_proof/Lean/blobs/17/17e88223bd58add2479175d621c8f536dbdb00de603e7221393d2d5e31ec9b08/GlobalCornerRawSide.lean:47:  have hs := congrArg Complex.re (GlobalCornerSixSine.physical_radicand_sixSkew
+audit/upstream_repository/archive/long_proof/Lean/blobs/17/17e88223bd58add2479175d621c8f536dbdb00de603e7221393d2d5e31ec9b08/GlobalCornerRawSide.lean:71:  rw [physicalSideScore_sixSkew hBu hBv,physicalSideScore_sixSkew hA1 hA2,
+audit/upstream_repository/archive/long_proof/Lean/blobs/17/17e88223bd58add2479175d621c8f536dbdb00de603e7221393d2d5e31ec9b08/GlobalCornerRawSide.lean:72:    hB1 0,hB1 1,hB1 2,hB2 0,hB2 1,hB2 2,GlobalCornerSixSine.sixSkew_row_mul _ _ _ _ _ _ u v hu hv]
+audit/upstream_repository/archive/long_proof/Lean/blobs/17/17e88223bd58add2479175d621c8f536dbdb00de603e7221393d2d5e31ec9b08/GlobalCornerRawSide.lean:179:#print axioms physicalSideScore_sixSkew
+lean/NoFourMUBs/Reuse/Archive/FourierCriticalAlgebra.lean:15:theorem sixSkew_fourier {ω z w : ℂ}
+lean/NoFourMUBs/Reuse/Archive/FourierCriticalAlgebra.lean:18:    sixSkew 1 z w 1 (ω*z) (ω^2*w)=3*(-phaseX z w+phaseY z w+phaseT z w) := by
+lean/NoFourMUBs/Reuse/Archive/FourierCriticalAlgebra.lean:86:  simp only [sixSkew,skew,star_mul,star_pow,star_star,star_one,hωs]
+lean/NoFourMUBs/Reuse/Archive/FourierCriticalAlgebra.lean:94:theorem sixSkew_fourier_neg_w {ω z w : ℂ}
+lean/NoFourMUBs/Reuse/Archive/FourierCriticalAlgebra.lean:97:    sixSkew 1 z (-w) 1 (ω*z) (-(ω^2*w))=
+lean/NoFourMUBs/Reuse/Archive/FourierCriticalAlgebra.lean:99:  have h := sixSkew_fourier hωu hω hz (show Complex.normSq (-w)=1 by simpa using hw)
+lean/NoFourMUBs/Reuse/Archive/FourierCriticalAlgebra.lean:102:theorem sixSkew_fourier_neg_z {ω z w : ℂ}
+lean/NoFourMUBs/Reuse/Archive/FourierCriticalAlgebra.lean:105:    sixSkew 1 (-z) w 1 (-(ω*z)) (ω^2*w)=
+lean/NoFourMUBs/Reuse/Archive/FourierCriticalAlgebra.lean:107:  have h := sixSkew_fourier hωu hω (show Complex.normSq (-z)=1 by simpa using hz) hw
+lean/NoFourMUBs/Reuse/Archive/FourierCriticalAlgebra.lean:113:    (h0 : sixSkew 1 z w 1 (ω*z) (ω^2*w)=0)
+lean/NoFourMUBs/Reuse/Archive/FourierCriticalAlgebra.lean:114:    (h1 : sixSkew 1 z (-w) 1 (ω*z) (-(ω^2*w))=0)
+lean/NoFourMUBs/Reuse/Archive/FourierCriticalAlgebra.lean:115:    (h2 : sixSkew 1 (-z) w 1 (-(ω*z)) (ω^2*w)=0) :
+lean/NoFourMUBs/Reuse/Archive/FourierCriticalAlgebra.lean:117:  rw [sixSkew_fourier hωu hω hz hw] at h0
+lean/NoFourMUBs/Reuse/Archive/FourierCriticalAlgebra.lean:118:  rw [sixSkew_fourier_neg_w hωu hω hz hw] at h1
+lean/NoFourMUBs/Reuse/Archive/FourierCriticalAlgebra.lean:119:  rw [sixSkew_fourier_neg_z hωu hω hz hw] at h2
+lean/NoFourMUBs/Reuse/Archive/FourierCriticalAlgebra.lean:182:#print axioms sixSkew_fourier
+lean/NoFourMUBs/Reuse/Archive/FourierCriticalAlgebra.lean:183:#print axioms sixSkew_fourier_neg_w
+lean/NoFourMUBs/Reuse/Archive/FourierCriticalAlgebra.lean:184:#print axioms sixSkew_fourier_neg_z
+audit/upstream_repository/archive/long_proof/Lean/blobs/8d/8d13335ef47b25d372e96ffc90caab40d57404898afea1e0a20bb63f8dd21353/GlobalCornerSixSine.lean:37:theorem sixSkew_phase (x y : Fin 3 → ℝ) :
+audit/upstream_repository/archive/long_proof/Lean/blobs/8d/8d13335ef47b25d372e96ffc90caab40d57404898afea1e0a20bb63f8dd21353/GlobalCornerSixSine.lean:38:    sixSkew (phase (x 0)) (phase (x 1)) (phase (x 2))
+audit/upstream_repository/archive/long_proof/Lean/blobs/8d/8d13335ef47b25d372e96ffc90caab40d57404898afea1e0a20bb63f8dd21353/GlobalCornerSixSine.lean:41:  simp only [sixSkew,phase_mul_star,skew_phase]
+audit/upstream_repository/archive/long_proof/Lean/blobs/8d/8d13335ef47b25d372e96ffc90caab40d57404898afea1e0a20bb63f8dd21353/GlobalCornerSixSine.lean:51:  rw [physical_radicand_sixSkew _ _ _ _ _ _
+audit/upstream_repository/archive/long_proof/Lean/blobs/8d/8d13335ef47b25d372e96ffc90caab40d57404898afea1e0a20bb63f8dd21353/GlobalCornerSixSine.lean:53:    sixSkew_phase]
+audit/upstream_repository/archive/long_proof/Lean/blobs/8d/8d13335ef47b25d372e96ffc90caab40d57404898afea1e0a20bb63f8dd21353/GlobalCornerSixSine.lean:71:#print axioms sixSkew_phase
+audit/upstream_repository/archive/long_proof/Lean/blobs/e2/e2f01137566a986be770a8cc43303139e14c45a45bf1ccadec48a51addbd6ff8/FourierCriticalPhysical.lean:41:theorem sixSkew_re_zero (a b c d e f : ℂ) : (sixSkew a b c d e f).re=0 := by
+audit/upstream_repository/archive/long_proof/Lean/blobs/e2/e2f01137566a986be770a8cc43303139e14c45a45bf1ccadec48a51addbd6ff8/FourierCriticalPhysical.lean:42:  have hs : star (sixSkew a b c d e f)= -sixSkew a b c d e f := by
+audit/upstream_repository/archive/long_proof/Lean/blobs/e2/e2f01137566a986be770a8cc43303139e14c45a45bf1ccadec48a51addbd6ff8/FourierCriticalPhysical.lean:43:    simp only [sixSkew,skew,star_add,star_sub,star_mul,star_star]
+audit/upstream_repository/archive/long_proof/Lean/blobs/e2/e2f01137566a986be770a8cc43303139e14c45a45bf1ccadec48a51addbd6ff8/FourierCriticalPhysical.lean:49:theorem zero_sideScore_sixSkew {A : Mat3}
+audit/upstream_repository/archive/long_proof/Lean/blobs/e2/e2f01137566a986be770a8cc43303139e14c45a45bf1ccadec48a51addbd6ff8/FourierCriticalPhysical.lean:51:    sixSkew (A 1 0) (A 1 1) (A 1 2) (A 2 0) (A 2 1) (A 2 2)=0 := by
+audit/upstream_repository/archive/long_proof/Lean/blobs/e2/e2f01137566a986be770a8cc43303139e14c45a45bf1ccadec48a51addbd6ff8/FourierCriticalPhysical.lean:52:  rw [physicalSideScore_sixSkew (hA 1) (hA 2)] at hz
+audit/upstream_repository/archive/long_proof/Lean/blobs/e2/e2f01137566a986be770a8cc43303139e14c45a45bf1ccadec48a51addbd6ff8/FourierCriticalPhysical.lean:53:  have hr := sixSkew_re_zero (A 1 0) (A 1 1) (A 1 2) (A 2 0) (A 2 1) (A 2 2)
+audit/upstream_repository/archive/long_proof/Lean/blobs/e2/e2f01137566a986be770a8cc43303139e14c45a45bf1ccadec48a51addbd6ff8/FourierCriticalPhysical.lean:59:theorem allCritical_selected_sixSkew_zero {H : Mat6} (hH : AllCritical H)
+audit/upstream_repository/archive/long_proof/Lean/blobs/e2/e2f01137566a986be770a8cc43303139e14c45a45bf1ccadec48a51addbd6ff8/FourierCriticalPhysical.lean:61:    sixSkew (H 1 (c 0)) (H 1 (c 1)) (H 1 (c 2))
+audit/upstream_repository/archive/long_proof/Lean/blobs/e2/e2f01137566a986be770a8cc43303139e14c45a45bf1ccadec48a51addbd6ff8/FourierCriticalPhysical.lean:65:  exact zero_sideScore_sixSkew (fun i j => hH.1.1.1 (front i) (c j)) h
+audit/upstream_repository/archive/long_proof/Lean/blobs/e2/e2f01137566a986be770a8cc43303139e14c45a45bf1ccadec48a51addbd6ff8/FourierCriticalPhysical.lean:71:    sixSkew 1 z w 1 (ω*z) (ω^2*w)=0 ∧
+audit/upstream_repository/archive/long_proof/Lean/blobs/e2/e2f01137566a986be770a8cc43303139e14c45a45bf1ccadec48a51addbd6ff8/FourierCriticalPhysical.lean:72:    sixSkew 1 z (-w) 1 (ω*z) (-(ω^2*w))=0 ∧
+audit/upstream_repository/archive/long_proof/Lean/blobs/e2/e2f01137566a986be770a8cc43303139e14c45a45bf1ccadec48a51addbd6ff8/FourierCriticalPhysical.lean:73:    sixSkew 1 (-z) w 1 (-(ω*z)) (ω^2*w)=0 := by
+audit/upstream_repository/archive/long_proof/Lean/blobs/e2/e2f01137566a986be770a8cc43303139e14c45a45bf1ccadec48a51addbd6ff8/FourierCriticalPhysical.lean:84:  have h0 := allCritical_selected_sixSkew_zero hK (![0,1,2] : Fin 3 → Fin 6) (by decide +kernel)
+audit/upstream_repository/archive/long_proof/Lean/blobs/e2/e2f01137566a986be770a8cc43303139e14c45a45bf1ccadec48a51addbd6ff8/FourierCriticalPhysical.lean:85:  have h1 := allCritical_selected_sixSkew_zero hK (![0,1,5] : Fin 3 → Fin 6) (by decide +kernel)
+audit/upstream_repository/archive/long_proof/Lean/blobs/e2/e2f01137566a986be770a8cc43303139e14c45a45bf1ccadec48a51addbd6ff8/FourierCriticalPhysical.lean:86:  have h2 := allCritical_selected_sixSkew_zero hK (![0,4,2] : Fin 3 → Fin 6) (by decide +kernel)
+audit/upstream_repository/archive/long_proof/Lean/blobs/e2/e2f01137566a986be770a8cc43303139e14c45a45bf1ccadec48a51addbd6ff8/FourierCriticalPhysical.lean:162:#print axioms sixSkew_re_zero
+audit/upstream_repository/archive/long_proof/Lean/blobs/e2/e2f01137566a986be770a8cc43303139e14c45a45bf1ccadec48a51addbd6ff8/FourierCriticalPhysical.lean:163:#print axioms zero_sideScore_sixSkew
+audit/upstream_repository/archive/long_proof/Lean/blobs/e2/e2f01137566a986be770a8cc43303139e14c45a45bf1ccadec48a51addbd6ff8/FourierCriticalPhysical.lean:164:#print axioms allCritical_selected_sixSkew_zero
+audit/upstream_repository/archive/long_proof/Lean/blobs/e6/e666014b2510a70d15b35741c9a27b3c6e3b2e1f4d473b7e7dd0d5a5ccaf61b7/FourierCompleteIndependentReview.lean:25:    (h0 : sixSkew 1 z w 1 (ω*z) (ω^2*w)=0)
+audit/upstream_repository/archive/long_proof/Lean/blobs/e6/e666014b2510a70d15b35741c9a27b3c6e3b2e1f4d473b7e7dd0d5a5ccaf61b7/FourierCompleteIndependentReview.lean:26:    (h1 : sixSkew 1 z (-w) 1 (ω*z) (-(ω^2*w))=0)
+audit/upstream_repository/archive/long_proof/Lean/blobs/e6/e666014b2510a70d15b35741c9a27b3c6e3b2e1f4d473b7e7dd0d5a5ccaf61b7/FourierCompleteIndependentReview.lean:27:    (h2 : sixSkew 1 (-z) w 1 (-(ω*z)) (ω^2*w)=0)
+audit/upstream_repository/archive/long_proof/Lean/blobs/24/240ad83d13e008b4f9dd8552341c33def27326c6ca621a90d18bbb59695da0d3/GlobalCornerSixSine.lean:39:theorem sixSkew_phase (x y : Fin 3 → ℝ) :
+audit/upstream_repository/archive/long_proof/Lean/blobs/24/240ad83d13e008b4f9dd8552341c33def27326c6ca621a90d18bbb59695da0d3/GlobalCornerSixSine.lean:40:    sixSkew (phase (x 0)) (phase (x 1)) (phase (x 2))
+audit/upstream_repository/archive/long_proof/Lean/blobs/24/240ad83d13e008b4f9dd8552341c33def27326c6ca621a90d18bbb59695da0d3/GlobalCornerSixSine.lean:43:  simp only [sixSkew,phase_mul_star,skew_phase]
+audit/upstream_repository/archive/long_proof/Lean/blobs/24/240ad83d13e008b4f9dd8552341c33def27326c6ca621a90d18bbb59695da0d3/GlobalCornerSixSine.lean:53:  rw [physical_radicand_sixSkew _ _ _ _ _ _
+audit/upstream_repository/archive/long_proof/Lean/blobs/24/240ad83d13e008b4f9dd8552341c33def27326c6ca621a90d18bbb59695da0d3/GlobalCornerSixSine.lean:55:    sixSkew_phase]
+audit/upstream_repository/archive/long_proof/Lean/blobs/24/240ad83d13e008b4f9dd8552341c33def27326c6ca621a90d18bbb59695da0d3/GlobalCornerSixSine.lean:73:#print axioms sixSkew_phase
+audit/upstream_repository/archive/long_proof/Lean/blobs/cc/cc42edfb1c20430047eac933f0fbdb3806af97222ec5e3118034e3e436886b57/AngularLeaf.lean:60:theorem sixSkew_sixValue (a b c d e f : ℂ) :
+audit/upstream_repository/archive/long_proof/Lean/blobs/cc/cc42edfb1c20430047eac933f0fbdb3806af97222ec5e3118034e3e436886b57/AngularLeaf.lean:61:    sixSkew a b c d e f = -(8:ℂ)*Complex.I*(sixValue a b c d e f : ℂ) := by
+audit/upstream_repository/archive/long_proof/Lean/blobs/cc/cc42edfb1c20430047eac933f0fbdb3806af97222ec5e3118034e3e436886b57/AngularLeaf.lean:62:  simp only [sixSkew,skew_sineDiff]
+audit/upstream_repository/archive/long_proof/Lean/blobs/cc/cc42edfb1c20430047eac933f0fbdb3806af97222ec5e3118034e3e436886b57/AngularLeaf.lean:69:  rw [physical_radicand_sixSkew a b c d e f ha hb hc hd he hf,sixSkew_sixValue]
+audit/upstream_repository/archive/long_proof/Lean/blobs/ef/efd146c6df8d36a4905180dc926dc2a44801a3cf3fc49cef0e75a2e78d7aded9/FourierCriticalAlgebra.lean:16:theorem sixSkew_fourier {ω z w : ℂ}
+audit/upstream_repository/archive/long_proof/Lean/blobs/ef/efd146c6df8d36a4905180dc926dc2a44801a3cf3fc49cef0e75a2e78d7aded9/FourierCriticalAlgebra.lean:19:    sixSkew 1 z w 1 (ω*z) (ω^2*w)=3*(-phaseX z w+phaseY z w+phaseT z w) := by
+audit/upstream_repository/archive/long_proof/Lean/blobs/ef/efd146c6df8d36a4905180dc926dc2a44801a3cf3fc49cef0e75a2e78d7aded9/FourierCriticalAlgebra.lean:87:  simp only [sixSkew,skew,star_mul,star_pow,star_star,star_one,hωs]
+audit/upstream_repository/archive/long_proof/Lean/blobs/ef/efd146c6df8d36a4905180dc926dc2a44801a3cf3fc49cef0e75a2e78d7aded9/FourierCriticalAlgebra.lean:95:theorem sixSkew_fourier_neg_w {ω z w : ℂ}
+audit/upstream_repository/archive/long_proof/Lean/blobs/ef/efd146c6df8d36a4905180dc926dc2a44801a3cf3fc49cef0e75a2e78d7aded9/FourierCriticalAlgebra.lean:98:    sixSkew 1 z (-w) 1 (ω*z) (-(ω^2*w))=
+audit/upstream_repository/archive/long_proof/Lean/blobs/ef/efd146c6df8d36a4905180dc926dc2a44801a3cf3fc49cef0e75a2e78d7aded9/FourierCriticalAlgebra.lean:100:  have h := sixSkew_fourier hωu hω hz (show Complex.normSq (-w)=1 by simpa using hw)
+audit/upstream_repository/archive/long_proof/Lean/blobs/ef/efd146c6df8d36a4905180dc926dc2a44801a3cf3fc49cef0e75a2e78d7aded9/FourierCriticalAlgebra.lean:103:theorem sixSkew_fourier_neg_z {ω z w : ℂ}
+audit/upstream_repository/archive/long_proof/Lean/blobs/ef/efd146c6df8d36a4905180dc926dc2a44801a3cf3fc49cef0e75a2e78d7aded9/FourierCriticalAlgebra.lean:106:    sixSkew 1 (-z) w 1 (-(ω*z)) (ω^2*w)=
+audit/upstream_repository/archive/long_proof/Lean/blobs/ef/efd146c6df8d36a4905180dc926dc2a44801a3cf3fc49cef0e75a2e78d7aded9/FourierCriticalAlgebra.lean:108:  have h := sixSkew_fourier hωu hω (show Complex.normSq (-z)=1 by simpa using hz) hw
+audit/upstream_repository/archive/long_proof/Lean/blobs/ef/efd146c6df8d36a4905180dc926dc2a44801a3cf3fc49cef0e75a2e78d7aded9/FourierCriticalAlgebra.lean:114:    (h0 : sixSkew 1 z w 1 (ω*z) (ω^2*w)=0)
+audit/upstream_repository/archive/long_proof/Lean/blobs/ef/efd146c6df8d36a4905180dc926dc2a44801a3cf3fc49cef0e75a2e78d7aded9/FourierCriticalAlgebra.lean:115:    (h1 : sixSkew 1 z (-w) 1 (ω*z) (-(ω^2*w))=0)
+audit/upstream_repository/archive/long_proof/Lean/blobs/ef/efd146c6df8d36a4905180dc926dc2a44801a3cf3fc49cef0e75a2e78d7aded9/FourierCriticalAlgebra.lean:116:    (h2 : sixSkew 1 (-z) w 1 (-(ω*z)) (ω^2*w)=0) :
+audit/upstream_repository/archive/long_proof/Lean/blobs/ef/efd146c6df8d36a4905180dc926dc2a44801a3cf3fc49cef0e75a2e78d7aded9/FourierCriticalAlgebra.lean:118:  rw [sixSkew_fourier hωu hω hz hw] at h0
+audit/upstream_repository/archive/long_proof/Lean/blobs/ef/efd146c6df8d36a4905180dc926dc2a44801a3cf3fc49cef0e75a2e78d7aded9/FourierCriticalAlgebra.lean:119:  rw [sixSkew_fourier_neg_w hωu hω hz hw] at h1
+audit/upstream_repository/archive/long_proof/Lean/blobs/ef/efd146c6df8d36a4905180dc926dc2a44801a3cf3fc49cef0e75a2e78d7aded9/FourierCriticalAlgebra.lean:120:  rw [sixSkew_fourier_neg_z hωu hω hz hw] at h2
+audit/upstream_repository/archive/long_proof/Lean/blobs/ef/efd146c6df8d36a4905180dc926dc2a44801a3cf3fc49cef0e75a2e78d7aded9/FourierCriticalAlgebra.lean:141:#print axioms sixSkew_fourier
+audit/upstream_repository/archive/long_proof/Lean/blobs/ef/efd146c6df8d36a4905180dc926dc2a44801a3cf3fc49cef0e75a2e78d7aded9/FourierCriticalAlgebra.lean:142:#print axioms sixSkew_fourier_neg_w
+audit/upstream_repository/archive/long_proof/Lean/blobs/ef/efd146c6df8d36a4905180dc926dc2a44801a3cf3fc49cef0e75a2e78d7aded9/FourierCriticalAlgebra.lean:143:#print axioms sixSkew_fourier_neg_z

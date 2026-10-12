@@ -1,0 +1,41 @@
+{
+  "scope": "critical_strip_zero_endpoint",
+  "records": [
+    {
+      "active_path": "NoFourMUBs/Step2/CriticalZero/StripZeroEndpoint.lean",
+      "active_sha256": "3a4e7cf92327f0215e40e9c5a7dda0143fec14f9a10fde8bee2c27b5b6705f05",
+      "module": "NoFourMUBs.Step2.CriticalZero.StripZeroEndpoint",
+      "local_model_adapter": true,
+      "review": "CRITICAL_STRIP_ZERO_ENDPOINT_REUSE_REVIEW.json"
+    }
+  ],
+  "dependency_pins": [
+    {
+      "active_path": "NoFourMUBs/Step2/CriticalZero/ActualSingularFourier.lean",
+      "active_sha256": "bd8acb60bc781fa5d7ddef55a475894b96f832343cbe3e3b82894392f9f66d0c"
+    },
+    {
+      "active_path": "NoFourMUBs/Step2/CriticalZero/ColumnRechart.lean",
+      "active_sha256": "1530e264196c059538a1cdd67aae356d3a458066ad9630c542a935e62028a71d"
+    },
+    {
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalPhysicalParams.lean",
+      "active_sha256": "35bd3eb1f7c6eee3f693139a669e50794046629397671a29de2b3d2575d11fe7"
+    },
+    {
+      "active_path": "NoFourMUBs/Step2/CriticalZero/ActualFixedFourier.lean",
+      "active_sha256": "d25da451ee2ae8a6ecb68651ad5de93e84053d265829df5bcae986ad94ad86af"
+    }
+  ],
+  "axiom_endpoints": [
+    "NoFourMUBs.Step2.Critical.strip_regular_zero_standard",
+    "NoFourMUBs.Step2.Critical.strip_zero_values_or_standard"
+  ],
+  "dependency_audits": [
+    "KERNEL_AUDIT_CRITICAL_FOURIER_FIXED_STATUS.json",
+    "KERNEL_AUDIT_CRITICAL_SINGULAR_STATUS.json",
+    "KERNEL_AUDIT_CRITICAL_P7_ROW_NORMALIZATION_STATUS.json"
+  ],
+  "atlas_certification": false,
+  "scope_note": "Every actual zero-J strip corner has p=0 or p=5 or the all-critical matrix is equivalent to the exact main Fourier representative. All z boundaries and all20corners are included."
+}

@@ -1,0 +1,56 @@
+{
+  "scope": "matched_centered_product",
+  "records": [
+    {
+      "module": "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.Centered",
+      "active_path": "NoFourMUBs/Step2/Reconstruction/BaseCoefficients/Centered.lean",
+      "active_sha256": "0a74257b9c2fc64e57046f9abef7ee87e7bd308b889f3528ef52b5550f13162f",
+      "local_model_adapter": true,
+      "review": "MATCHED_CENTERED_PRODUCT_REUSE_REVIEW.json"
+    }
+  ],
+  "dependency_pins": [
+    {
+      "active_path": "NoFourMUBs/Step2/Reconstruction/BaseCoefficients/Bindings.lean",
+      "active_sha256": "f488d52f6e644ee826f25f359886ef3f9a1da0a3c27660246bf11b459dc40509"
+    },
+    {
+      "active_path": "NoFourMUBs/Step2/Reconstruction/RowProductSignature.lean",
+      "active_sha256": "1c94b70a0b87dacc3199c544cad22766ce194d4441ba16a940119eb9d749f83a"
+    },
+    {
+      "active_path": "NoFourMUBs/Step2/Reconstruction/SeedModel.lean",
+      "active_sha256": "7020e49ca7d9303f213bb75991290cd1bba125db6de255f0e1b39a51ab079aa3"
+    },
+    {
+      "active_path": "NoFourMUBs/Reuse/Archive/SideIntrinsicMatrixBindings.lean",
+      "active_sha256": "28e1b68230d5b0372200d1bc65f9f98e6db18afdda19c6f1c46cacdc0377a5a5"
+    },
+    {
+      "active_path": "NoFourMUBs/Reuse/Archive/PreRhoActualBindings.lean",
+      "active_sha256": "95bd24d7140b39595e579e0c45b39df1533f43902380f4534c81c07e93e89caa"
+    },
+    {
+      "active_path": "NoFourMUBs/Reuse/Archive/PreRhoNormBindings.lean",
+      "active_sha256": "2dc366315b498ad9dd3de167f804d26eecbe943704d6f79977edd523e4bd3ef1"
+    },
+    {
+      "active_path": "NoFourMUBs/Reuse/Archive/StrictSideScalarGuards.lean",
+      "active_sha256": "75741b3091aeb2ce36f1b9fdab822add16b2e2514bfa27822105c93fb936d042"
+    }
+  ],
+  "dependency_audits": [
+    "KERNEL_AUDIT_MATCHED_BASE_BINDING_STATUS.json",
+    "KERNEL_AUDIT_MATCHED_PRODUCT_SIGNATURE_STATUS.json"
+  ],
+  "axiom_endpoints": [
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.cachedDelta_eq",
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.cachedDelta_seed",
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.cachedC6_strict",
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.cachedU_seed",
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.cachedV_seed",
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.candidate_intrinsic_correlations",
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.candidate_product_centered"
+  ],
+  "atlas_certification": false
+}

@@ -1,21 +1,18 @@
-# Step 1 certificates and their Lean library
+# Step 1 certificates in Lean
 
-The finite algebra of Step 1's sextic-free saddle proof. Its proof documents are in [`../../proof/coverage/returns/C_step1_saddle/`](../../proof/coverage/returns/C_step1_saddle/README.md).
+The source is `../../proof/coverage/returns/C_step1_lean`, the sextic-free proof of (W): every component of {R > 0} contains an orbit point. That return is kept pristine there. This folder is our working copy:
+- `certificates/`: the 12 JSON bundles, unchanged. `python3 verify_certificates.py` replays all 651 claims exactly, in 7 s.
+- `generation/`: the JSON-to-Lean generator. It is untrusted; the Lean kernel checks its output.
+- `lean/Step1/`: the generated modules plus three hand-written ones (`Common`, `InteriorConsequences`, `FiniteOrbit`).
 
-| Path | Role |
-|---|---|
-| `certificates/` | 12 JSON bundles, 651 exact claims: polynomial identities with cofactors, Bernstein positivity, quadratic isolation, the finite orbit |
-| `verify_certificates.py` | Exact acceptance checker, standard library only: `python3 verify_certificates.py` (about 7 s; run by `verify.py`) |
-| `audit_checks.py` | Supplementary audit: 14 rejected mutations and 13 cross-file source comparisons |
-| `generation/` | The untrusted JSON-to-Lean generator; the Lean kernel checks its output |
-| `lean/Step1/` | Library `Step1`: the generated modules plus `Common`, `InteriorConsequences` and `FiniteOrbit` (216 theorems, standard axioms, no `sorry` or `native_decide`) |
+**Status (10 Oct 2026).** `lake build Step1` succeeds. All 216 theorems depend only on `propext`, `Quot.sound` and (for 122 of them) `Classical.choice`. There is no `sorry`, `native_decide` or `polyrith`. The audit is `lake env lean Step1Gen/lean/Step1/Audit.lean`.
 
-The analytic assembly that turns this algebra into Step 1 (`Step1Geo.maximumCensus`) is in `../NoFourMUBs/Step1/`.
+**Repairs to the returned generator.** The return's author had no working Lean, so these came from our first build:
+1. Identity proofs: `simp only [defs] <;> ring` became `(try simp only [defs]) <;> ring`. Several identities have no definitions to unfold.
+2. Derivative proofs: `convert … using 1` left instance-equality goals that `ring` cannot close. They now use `(h.congr_deriv ?_).congr_of_eventuallyEq (Filter.Eventually.of_forall …)`, with `norm_num [Pi.*_apply] <;> ring` for the value and the pointwise function identity.
+3. `FiniteOrbit.lean`: two `decide` calls over ℚ do not reduce. They now use `norm_num` (q·q̄ = 1) and `decide +kernel`, kernel evaluation with no compiler trust (the 18 algebraic coordinates are distinct).
+4. The generator no longer writes a nested `lakefile.toml`. The library is built from the root `lean/lakefile.toml`.
 
-Regenerate with `python3 generation/generate_lean.py`, then run `lake build Step1` from `lean/`.
+To regenerate: `cd Step1Gen && python3 generation/generate_lean.py && cd .. && lake build Step1`.
 
-**Repairs made to the returned generator.** The return's author had no working Lean.
-- **Identity proofs** use `(try simp only [defs]) <;> ring`.
-- **Derivative proofs** use `congr_deriv` and `congr_of_eventuallyEq` in place of `convert`.
-- **`FiniteOrbit`** uses `norm_num` and `decide +kernel` where `decide` over ℚ does not reduce.
-- **Build layout:** the generator no longer writes a nested lakefile.
+**What this is and is not.** It is every finite algebraic fact of the Step 1 blueprint (`../../proof/coverage/returns/C_step1_lean/STEP1_BLUEPRINT.md`), checked by the kernel. It is not yet (W) in Lean. That still needs the seed and triple spaces, the open finite quotient, the local-maximum calculus on the deltoid strata, and compactness. The blueprint gives the paper arguments.

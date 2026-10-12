@@ -1,0 +1,45 @@
+{
+  "status": "PASS",
+  "checked_utc": "2026-10-12T17:47:46.303525+00:00",
+  "modules": 1,
+  "axiom_endpoints": {
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.savedW11Constant_zero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.savedW11Constant_strict_zero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "source_hashes": {
+    "NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/ConstantRational.lean": "d451eb78b4d4d9e30e8db2507093689357e15e6dbfd964c86c0cdb263e776203"
+  },
+  "manifest_sha256": "ec7562a6350e5ef7760f1c1bc88aa891be98c103065e372a47f3d1805040f9a3",
+  "audit_log_sha256": "c08a2e45d181a2317831db4a33d582bc514de7785b711b36b281a054de288bf9",
+  "scope": "Reuse the checked quotient lemma, products and cleared sum for the saved constant rational identity on all strict seeds. Matrix bindings remain separate.",
+  "dependency_audits": {
+    "KERNEL_AUDIT_MATCHED_THIRD_PRODUCT_015_STATUS.json": "d51337932a258a96fede78b147da2d0443b15cbc76566a2e0735e385807bc2ca",
+    "KERNEL_AUDIT_MATCHED_THIRD_PRODUCT_016_STATUS.json": "31bda65c3269e81e085ba0330d36cefb97495efbd5f75e4d5b09d82bd8506bd8",
+    "KERNEL_AUDIT_MATCHED_THIRD_MONOMIAL_TRANSPORT_2_STATUS.json": "e38752f999d7e1e970070625ec86d2af520b0edcdd72c882d3ea3f44e3a9925b",
+    "KERNEL_AUDIT_MATCHED_THIRD_PRODUCT_019_STATUS.json": "78c620831749be1c316f8aa5d4369167f30010cacb00679ce79d136865a921fb",
+    "KERNEL_AUDIT_MATCHED_THIRD_PRODUCT_020_STATUS.json": "524c89132c08c93c66b53007443a899e6660e29ce2ce3e3b8cf9b96b8508b6d8",
+    "KERNEL_AUDIT_MATCHED_THIRD_MONOMIAL_TRANSPORT_1_STATUS.json": "7f4dc32d341a479ec930807039faf1983945287e68c175e11092abac3385832d",
+    "KERNEL_AUDIT_MATCHED_THIRD_PRODUCT_022_STATUS.json": "c057f6b524654e6e51c8d1c3142e1b71910573f0cf21da9b3ab8ffb15718c32a",
+    "KERNEL_AUDIT_MATCHED_THIRD_PRODUCT_024_STATUS.json": "de07a414e1b6e946f4b6e3f43e802dc2ddbc4c9b1a862f4c117dd44020afbf40",
+    "KERNEL_AUDIT_MATCHED_THIRD_PRODUCT_026_STATUS.json": "a42dcb6d6e2c489fd831be82179ddbb5569103ddad4000558e10389de282af52",
+    "KERNEL_AUDIT_MATCHED_THIRD_PRODUCT_028_STATUS.json": "ba31c17ab99c6ce417df824f8a181094dd0041615de6620997607e7919eefee1",
+    "KERNEL_AUDIT_MATCHED_THIRD_PRODUCT_029_STATUS.json": "5c3878b489939022cffd3dca9e3435915d69df193894795f87fcec3d52b74289",
+    "KERNEL_AUDIT_MATCHED_THIRD_PRODUCT_030_STATUS.json": "691dd6d9f92fb5b277e08364b79c3922a2d149bd47929a012795873c4a82c85e",
+    "KERNEL_AUDIT_MATCHED_THIRD_PRODUCT_031_STATUS.json": "c68d531d1ed31ff67e6fcfea6da0290cf8f938bd2e66507abcb2453d63448195",
+    "KERNEL_AUDIT_MATCHED_THIRD_MONOMIAL_TRANSPORT_3_STATUS.json": "ec39b553859dc1ed9d4cb6784ee99359d0f156ad20032f0eb977f45efff15933",
+    "KERNEL_AUDIT_MATCHED_THIRD_PRODUCT_033_STATUS.json": "37e352d8b0bcb724ead319b96bf3120aad233ca5a363e2421a8c7e78ff221d2f",
+    "KERNEL_AUDIT_MATCHED_THIRD_W11_SUMS_STATUS.json": "df6f730b9cee9d102dc3f49a895cf5e52f539d0ca6ab12d7ae1f5d4a323ed75f",
+    "KERNEL_AUDIT_MATCHED_THIRD_LINEAR_RATIONAL_STATUS.json": "0ded1e10a27c1bb76db1febc6950a5dcada0f5b5281e6e56b01d68c88bd2c3d8",
+    "KERNEL_AUDIT_MATCHED_THIRD_DENOMINATOR_GRAM_STATUS.json": "ab17b65084fb2a5b10f22107785f06c88017838ccd56207710c2a71dc6260523"
+  },
+  "dependency_source_hashes": {},
+  "atlas_certification": false
+}

@@ -1,0 +1,62 @@
+{
+  "status": "PASS",
+  "checked_utc": "2026-10-11T18:52:25.704901+00:00",
+  "modules": 2,
+  "axiom_endpoints": {
+    "NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing.SwapCoefficients.evalII_column": [
+      "propext"
+    ],
+    "NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing.SwapCoefficients.evalII_swap": [
+      "propext"
+    ],
+    "NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing.SwapCoefficients.interpret_swap": [
+      "propext"
+    ],
+    "NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing.SwapCoefficients.interpret_shiftY": [
+      "propext"
+    ],
+    "NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing.SwapCoefficients.interpret_shiftX": [
+      "propext"
+    ],
+    "NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing.v0056_literal": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing.v0041_literal": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing.node0069_swap": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing.node0069_at_zero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "source_hashes": {
+    "NoFourMUBs/Step2/CriticalZero/SumClearing/SwapCoefficients.lean": "40250a4f48fccf1435fc757327215766f86f2db83ecd5d29581ad4a0cd9d1de1",
+    "NoFourMUBs/Step2/CriticalZero/SumClearing/Swap0069.lean": "eea3edc8d6388b57f512d9a7c58f7f7d7cd3c9dfa8b6b87270cec201891da343"
+  },
+  "manifest_sha256": "c6e3fbb2a1485bc8cd0932fd959387d5735f91b4fdd6122f2e71f06ec3a87b50",
+  "audit_log_sha256": "25df7cfa960633071a5bbb298df4119ca91e63f7b1ca59c4ddc2cd41a8a57226",
+  "scope": "Generic coefficient swap interpretation and semantic node69 reuse identity only. New normalized node69 table and full raw-numerator identity remain unverified. Atlas excluded.",
+  "dependency_audits": {
+    "KERNEL_AUDIT_CRITICAL_NONZERO_SUM_REMAINING_STATUS_THROUGH0068.json": "913bf727f41fb398abd216a4ceb303585707b96e7e065eda4d77eb28b4131d43"
+  },
+  "dependency_source_hashes": {
+    "NoFourMUBs/Reuse/Archive/CriticalZeroIntegerReflector.lean": "5ce93847bac62f47c9b123906dca3642f93d8a0bfeb53c6921f1cfd603d9164a",
+    "NoFourMUBs/Reuse/Archive/CriticalZeroHornerReflector.lean": "8e400607070d0839657b99811769537119103a455c6342c3f1615e3b9499530a",
+    "NoFourMUBs/Reuse/Archive/CriticalZeroCoefficientCore.lean": "432fed0290217430549866252f3d424e071fc185a8ea1333115a46ef43f7dbd3",
+    "NoFourMUBs/Reuse/Archive/CriticalZeroSumDenseCoefficients.lean": "b9bfcd6c882329da43a6d318ac481580385621442600a6bb102e0ad1298af29c",
+    "NoFourMUBs/Step2/CriticalZero/ClearedMoments/SwapNumerator.lean": "68b319219ef02a05a71eef2df9eaeadbbc32c534da14433951fccb1710894cb2",
+    "NoFourMUBs/Step2/CriticalZero/SumClearing/Expressions00.lean": "206be91644429b7dc8c723d60dc2426010bc0f7a817db6600dd16c38fff11db2",
+    "NoFourMUBs/Step2/CriticalZero/SumClearing/Expressions01.lean": "8d24f35cae8613d20403591278aeb5fe68a9555127f971c50a0a17d91ab179a9"
+  },
+  "atlas_certification": false
+}

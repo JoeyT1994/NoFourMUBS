@@ -1,0 +1,63 @@
+{
+  "status": "PINNED_REVIEWED_NOT_COMPILED",
+  "scope": "critical_nonzero_moment_clearing_reuse",
+  "roots": [
+    "CriticalNonzeroLightMoments"
+  ],
+  "selected": {
+    "CriticalNonzeroLightMoments": {
+      "availability": "resident",
+      "blob": "blobs/c8/c87ca56d81435dc00aa26d634368dcc7da39f9368e92d30ffdffc7c3ed9123d5/CriticalNonzeroLightMoments.lean",
+      "bytes": 3095,
+      "sha256": "c87ca56d81435dc00aa26d634368dcc7da39f9368e92d30ffdffc7c3ed9123d5",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/CriticalNonzeroLightMoments.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/c8/c87ca56d81435dc00aa26d634368dcc7da39f9368e92d30ffdffc7c3ed9123d5/CriticalNonzeroLightMoments.lean",
+      "imports": [
+        "CriticalNonzeroLightData",
+        "Mathlib.Tactic.LinearCombination"
+      ],
+      "import_replacements": {
+        "CriticalNonzeroLightData": "NoFourMUBs.Reuse.Archive.CriticalNonzeroLightData"
+      },
+      "review": "CRITICAL_NONZERO_MOMENT_CLEARING_REVIEW.json"
+    }
+  },
+  "existing_modules": {
+    "NoFourMUBs.Reuse.Archive.CriticalNonzeroLightData": {
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalNonzeroLightData.lean",
+      "active_sha256": "5bfaa1d0a764f9d9a015af69168f06cf1aa40c36c2872e2ecd4b0d8fe9262269"
+    },
+    "NoFourMUBs.Reuse.Archive.CriticalNonzeroPair01": {
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalNonzeroPair01.lean",
+      "active_sha256": "1d4e6323cf0387122cb837c81243056b0a1f24efa1ab1a6ae42d4e094325b493"
+    },
+    "NoFourMUBs.Reuse.Archive.CriticalNonzeroPair05": {
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalNonzeroPair05.lean",
+      "active_sha256": "a7a5f997862fd9a7bbb63239ec259eb574d6beaf24cbb48b0037b0e693ffcec9"
+    },
+    "NoFourMUBs.Reuse.Archive.CriticalMomentQuad": {
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalMomentQuad.lean",
+      "active_sha256": "1408c2169bd58005fbe77872fe1cb7be3ea6c2670e0c51a305ac620afa0bce05"
+    }
+  },
+  "local_adapters": [
+    {
+      "module": "NoFourMUBs.Step2.CriticalZero.NonzeroQuadAlgebra",
+      "active_path": "NoFourMUBs/Step2/CriticalZero/NonzeroQuadAlgebra.lean",
+      "active_sha256": "3cc35f4c2c1c5d497c1e931f88d93768d7c26469c28778558f10d5e0de9e8482",
+      "review": "CRITICAL_NONZERO_MOMENT_CLEARING_REVIEW.json",
+      "after_archived_module": "CriticalNonzeroLightMoments"
+    },
+    {
+      "module": "NoFourMUBs.Step2.CriticalZero.NonzeroMomentClearing",
+      "active_path": "NoFourMUBs/Step2/CriticalZero/NonzeroMomentClearing.lean",
+      "active_sha256": "3145241d15b1787f7a3b742586244ed5ca2da3972a820e6f5d3f176c4eca7b45",
+      "review": "CRITICAL_NONZERO_MOMENT_CLEARING_REVIEW.json",
+      "after_module": "NoFourMUBs.Step2.CriticalZero.NonzeroQuadAlgebra"
+    }
+  ],
+  "external": [],
+  "unresolved": [],
+  "atlas_certification": false
+}

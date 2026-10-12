@@ -1,0 +1,80 @@
+{
+  "status": "PASS",
+  "reviewed_utc": "2026-10-11T01:01:12.864350+00:00",
+  "scope": "Reuse the archived moment invariant and eta-bound lemmas. Only missing invariant definitions are extracted; existing moment and permanent declarations remain single-source.",
+  "evidence": [
+    "ARCHIVE_SOURCE_INDEX.jsonl",
+    "ARCHIVE_BLOB_INDEX.jsonl",
+    "ARCHIVE_IMPORT_INDEX.json",
+    "CRITICAL_ZERO_MODULI_DEPENDENCY_REVIEW.json",
+    "CRITICAL_ACTUAL_MODEL_REUSE_NOTES.json",
+    "lean/NoFourMUBs/Reuse/Archive/SidePermanent.lean",
+    "lean/NoFourMUBs/Step2/CriticalZero/MomentData.lean"
+  ],
+  "source_hashes": {
+    "GramNumerators": "910524e98bf4539bd65ad0bbea6098809e321190e1e46cc8291357a34174c61a",
+    "LiftedSheetGuards": "2091e7874f814238fb6c0e1716df4dfb49bb1ded1cdb2c478b0059f64b741ad9",
+    "CriticalMomentBinding": "e476d3678c690f4425415108e2696e3a772e38f2be393057f62180c25767644e"
+  },
+  "omitted_moment_definitions_sha256": "011b5e545c608f0128f0554f281583752830272252719ab6c7b0da4da06804e3",
+  "literal_data_blocks": {
+    "chi": "27029cd29ef8b7929bf8d7ef85a81f0cb85f232f24b76ecdcce6eb8a7ea611a7",
+    "radicand": "6ba2c1696937136af2fdc7fd7459497cf2f75fadbae7c68c06960bb7b35f8bdd"
+  },
+  "duplicate_checks": "Existing q,g,sigma,eta definitions match the selected GramNumerators text exactly. All3moment definitions match the checked MomentData text exactly. Current Lean and OAI sources do not declare the missing FourierGramNumerators.chi/FourierRadicalGuards.radicand or CriticalPhysical moment theorem names. Complete archive indexes identify the selected existing theorem, so no second proof is written.",
+  "future_import_rule": "Any later full GramNumerators or LiftedSheetGuards adoption must import GramInvariantData and omit its existing chi/radicand declarations. Any full CriticalMomentBinding adoption omits its3MomentData definitions.",
+  "remaining": "This binds scalar invariants and proves the complementary eta bound. No actual AllCritical matrix binding or universal critical classification is concluded.",
+  "atlas_certification": false,
+  "integrator_sha256": "17e1a8d937244ad9c1ea215f782b05e90469d369108b5b72df9446f55b0e95b9",
+  "previous_274_sources_unchanged": true,
+  "manifest_records": 276,
+  "active_sources": {
+    "NoFourMUBs.Step2.CriticalZero.GramInvariantData": "7f24ac263b2699ac9eae3391cf0381d76f137da64f5086e51d850a8a0feffb38",
+    "NoFourMUBs.Reuse.Archive.CriticalMomentBinding": "7cb6f10d9381e82738d0c83ed5ece66dc262cc4f7502874435196a49d7a99dc7"
+  },
+  "checked_utc": "2026-10-11T01:10:23.806553+00:00",
+  "log": "critical_zero_physical_build_status_logs/batch_0148.log",
+  "current_source_sha256": "7cb6f10d9381e82738d0c83ed5ece66dc262cc4f7502874435196a49d7a99dc7",
+  "axioms": {
+    "momentP_nonnegative": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "momentP_neg": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "momentJ_neg": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "momentW_neg": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "eta_binding": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "R_binding": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "unit_side_eta_nonnegative": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "complementary_eta_bound": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  }
+}

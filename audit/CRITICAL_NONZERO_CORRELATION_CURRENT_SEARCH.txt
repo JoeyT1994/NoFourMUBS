@@ -1,0 +1,42 @@
+lean/NoFourMUBs/Reuse/Archive/CriticalAllocatedWholeStrip.lean:37:    rw [hcs,hct,hcr,momentJ_neg]
+lean/NoFourMUBs/Reuse/Archive/CriticalZeroSplitting.lean:17:No choice of a root ordering, distinctness, or nonzero correlation is needed. -/
+lean/NoFourMUBs/Reuse/Archive/CriticalRationalSidePhysical.lean:88:actual denominator is required nonzero. Zero correlations are allowed here;
+lean/NoFourMUBs/Reuse/Archive/CriticalCorrelationRechart.lean:115:      sideS ((candidate H p (Equiv.refl _)).submatrix front c)≠0 ∧
+lean/NoFourMUBs/Reuse/Archive/CriticalCorrelationRechart.lean:116:      sideT ((candidate H p (Equiv.refl _)).submatrix front c)≠0 := by
+lean/NoFourMUBs/Reuse/Archive/CriticalCorrelationRechart.lean:117:  rcases nonzero_W_two_correlations _ _ _ hw with ⟨hs,ht⟩ | ⟨hs,hr⟩ | ⟨ht,hr⟩
+lean/NoFourMUBs/Reuse/Archive/CriticalNonzeroLightPair.lean:48:    rw [hS,hT,hR,momentJ_neg]
+lean/NoFourMUBs/Reuse/Archive/CriticalModulusMatrixDomain.lean:23:No unit-entry, nonzero-correlation or matrix-reconstruction assumption is needed. -/
+lean/NoFourMUBs/Reuse/Archive/CriticalCorrelationCore.lean:8:/-- A nonzero W forbids two vanishing original correlations. -/
+lean/NoFourMUBs/Reuse/Archive/CriticalCorrelationCore.lean:9:theorem nonzero_W_two_correlations (s t r : ℂ) (hw : momentW s t r≠0) :
+lean/NoFourMUBs/Reuse/Archive/CriticalCorrelationCore.lean:28:  apply nonzero_W_two_correlations
+lean/NoFourMUBs/Reuse/Archive/CriticalCorrelationCore.lean:32:/-- The nonzero-J branch has no zero-correlation chart exception. -/
+lean/NoFourMUBs/Reuse/Archive/CriticalCorrelationCore.lean:33:theorem nonzero_J_all_correlations (s t r : ℂ) (hj : momentJ s t r≠0) :
+lean/NoFourMUBs/Reuse/Archive/CriticalCorrelationCore.lean:83:#print axioms nonzero_W_two_correlations
+lean/NoFourMUBs/Reuse/Archive/CriticalCorrelationCore.lean:86:#print axioms nonzero_J_all_correlations
+lean/NoFourMUBs/Step2/MatchedUnique.lean:66:lemma det_ne_of_sig {B : Mat3} (h : (sideSignature B).im ≠ 0) : IsUnit B.det := by
+lean/NoFourMUBs/Step2/MatchedUnique.lean:103:  have imB : (sideSignature BH).im ≠ 0 := im_of_matched hR (Or.inl tH)
+lean/NoFourMUBs/Step2/MatchedUnique.lean:104:  have imC : (sideSignature CH).im ≠ 0 := im_of_matched hR (Or.inr lH)
+lean/NoFourMUBs/Reuse/Archive/CriticalZeroChartTransport.lean:11:where the two correlations divided by the existing chart are nonzero. The
+lean/NoFourMUBs/Reuse/Archive/CriticalZeroChartTransport.lean:53:    (hj : sideJ (stripLeftBlock H)≠0) :
+lean/NoFourMUBs/Reuse/Archive/CriticalZeroChartTransport.lean:55:  have h := nonzero_J_all_correlations _ _ _ hj
+lean/NoFourMUBs/Step2/CriticalZero/ActualSignatures.lean:50:/-- No determinant or nonzero-correlation hypothesis is needed. -/
+lean/NoFourMUBs/Reuse/Archive/CriticalZeroSidePhysicalLight.lean:20:listed explicitly, and no nonzero correlation is needed for this result. -/
+lean/NoFourMUBs/Reuse/Archive/CriticalZeroSidePhysicalLight.lean:56:The two original correlations are nonzero precisely because this chart divides
+lean/NoFourMUBs/Reuse/Archive/CriticalModulusAllCritical.lean:11:inequality, nonzero correlation, or pole guard is added to this endpoint. -/
+lean/NoFourMUBs/Reuse/Archive/CriticalModulusAllCritical.lean:14:    (hj : CriticalPhysical20261003.sideJ (CriticalStripMoments20261003.stripLeftBlock H)≠0) :
+lean/NoFourMUBs/Reuse/Archive/CriticalMomentBinding.lean:16:theorem momentJ_neg (s t r : ℂ) : momentJ (-s) (-t) (-r) = -momentJ s t r := by
+lean/NoFourMUBs/Reuse/Archive/CriticalMomentBinding.lean:17:  simp [momentJ, star_neg]
+lean/NoFourMUBs/Reuse/Archive/CriticalMomentBinding.lean:58:  rw [momentP_neg, momentJ_neg] at hminus
+lean/NoFourMUBs/Reuse/Archive/CriticalMomentBinding.lean:66:#print axioms momentJ_neg
+lean/NoFourMUBs/Reuse/Archive/CriticalPhysicalParams.lean:11:    (hH : AllCriticalCarrier H) (c : Fin 20) (hj : sideJ (stripCorner H c)≠0) :
+lean/NoFourMUBs/Reuse/Archive/CriticalPhysicalParams.lean:33:    (sideJ (stripCorner H c)≠0 ∧ ∃ k : ℝ, 0<k ∧
+lean/NoFourMUBs/Reuse/Archive/CriticalPhysicalScalarInputs.lean:46:claims come from the original two nonzero correlations, not from a choice of
+lean/NoFourMUBs/Reuse/Archive/CriticalZeroSideStripLight.lean:42:      rw [hS,hT,hR,momentJ_neg]
+lean/NoFourMUBs/Reuse/Archive/CriticalLightSheet.lean:154:stratum. No nonzero-correlation hypothesis is used. -/
+lean/NoFourMUBs/Reuse/Archive/CriticalZeroModuliInputs.lean:26:condition. No nonzero third correlation or distinct-root hypothesis is used. -/
+lean/NoFourMUBs/Reuse/Archive/CriticalGeometricActualLambda.lean:29:    (hr : Complex.normSq (sideR E)=(1-z)*(z+3)) (hj : sideJ E=0) : E.det≠0 := by
+lean/NoFourMUBs/Reuse/Archive/CriticalStripPhysical.lean:111:  simp only [sideP,sideJ,sideW,hs,ht,hr,momentP_neg,momentJ_neg,momentW_neg] at hm
+lean/NoFourMUBs/Reuse/Archive/CriticalNonzeroAllCritical.lean:40:    (hH : AllCriticalCarrier H) (hj : CriticalPhysical20261003.sideJ (CriticalStripMoments20261003.stripLeftBlock H)≠0) :
+lean/NoFourMUBs/Reuse/Archive/CriticalNonzeroAllCritical.lean:49:paired 66 equation on this explicit nonzero-correlation/nonpole chart. -/
+lean/NoFourMUBs/Reuse/Archive/CriticalNonzeroAllCritical.lean:51:    (hH : AllCriticalCarrier H) (hj : CriticalPhysical20261003.sideJ (CriticalStripMoments20261003.stripLeftBlock H)≠0)
+lean/NoFourMUBs/Reuse/Archive/CriticalAllocatedChart.lean:18:correlations. No ordering, distinctness or nonzero correlation is assumed. -/

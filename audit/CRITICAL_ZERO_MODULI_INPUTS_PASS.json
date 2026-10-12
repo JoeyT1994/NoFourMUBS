@@ -1,0 +1,23 @@
+{
+  "checked_utc": "2026-10-11T00:26:58.714936+00:00",
+  "status": "PASS_FOR_GUARDED_INPUTS_ONLY",
+  "checked_modules": {
+    "NoFourMUBs.Step2.CriticalZero.MomentData": "44e46454c5938528058573cca62d535ca7dade76967a6a11c05769bfbef6f8c4",
+    "NoFourMUBs.Reuse.Archive.CriticalZeroSplitting": "7161b23585888765aaee59e78b88cf56f215ca50204ee4ca78d1fc654c24968d",
+    "NoFourMUBs.Reuse.Archive.CriticalZeroModuliInputs": "e76cee1818a81715a98e9d143992a00e81fa83a3d5ea449dc3b3cc33e788d51b"
+  },
+  "build_status": "CRITICAL_ZERO_PHYSICAL_BUILD_STATUS.json",
+  "successful_input_log": "critical_zero_physical_build_status_logs/batch_0062.log",
+  "axiom_output": [
+    "info: NoFourMUBs/Reuse/Archive/CriticalZeroModuliInputs.lean:89:0: 'CriticalZeroPhysicalInputs20261003.moment_inputs' depends on axioms: [propext, Classical.choice, Quot.sound]",
+    "info: NoFourMUBs/Reuse/Archive/CriticalZeroModuliInputs.lean:90:0: 'CriticalZeroPhysicalInputs20261003.quadratic_from_product' depends on axioms: [propext, Classical.choice, Quot.sound]"
+  ],
+  "proof_changes": "Moment definitions extracted verbatim once. Archived splitting and modulus-input proof bodies unchanged; imports adapted.",
+  "explicit_hypotheses": [
+    "s != 0 and t != 0",
+    "z >= -3 and z != 0,-3,-2",
+    "momentP s t r = 9-z^2 and momentW s t r = z^2*(z+3)^2"
+  ],
+  "remaining": "Raw factorization, raw_moduli join, computed-to-raw numerator equality and actual-matrix classification are not discharged by this check.",
+  "atlas_certification": false
+}

@@ -1,0 +1,86 @@
+Critical audit findings — 10 October 2026
+
+The selected theorem is still conditional. The compiled theorem type must be
+read before its axiom report: AtlasCertificate, MatchedExistence,
+ConditionalSOS and CriticalClassification are explicit inputs. Standard Lean
+axioms only does not mean that these inputs have been constructed.
+
+The original matching issue
+The implication from a generically nonzero plus-pairing residual to universal
+necessity of the minus pairing is not valid by itself. The latest repository
+acknowledges this gap. Our selected route needs only one matched strict frame
+for each non-Tao/non-F6 carrier. The repaired implication, including the actual
+side identities at singular and critical corners, has been checked by Lean.
+It still needs the conditional SOS and all-critical classification inputs.
+
+Reasoning checked during this audit
+The singular 3x3 phase-block lemma is valid: at rank two, a third nonproportional
+row constrains the three unit ratios to a line, so two ratios coincide. This
+forces proportional columns. In a Hadamard, a proportional triple of row
+ratios forces the other three ratios to be their negatives, which gives the
+stated Fourier-family routing argument.
+
+The fixed-row counting endpoint is valid and can be slightly simplified.
+The exceptional scalar p satisfies p^3 - 17p^2 + 107p - 243 = 0 and 5<p<6.
+The rational-root theorem makes p irrational, giving a valid short counting
+argument. The reuse audit subsequently found that the archive already proves
+the required endpoint using a finite rational separation certificate, and
+already proves the actual strip sum 108. The new irrationality/counting and
+strip-sum derivations were therefore retired from the active proof. The one
+active route imports CriticalCounts, CriticalCountApplication and CriticalRowSum
+from the archive, with checked model adapters. The scalar case classification
+that supplies the allowed list is still needed.
+
+The generic matched-flatness argument must retain its density and
+irreducibility reasoning. The exact nonflat plus witness only selects which
+identity vanishes after that reasoning; it cannot replace it. The written
+repaired dependency audit uses the independent all-critical classification
+and a published physical dimension theorem, not universal matching. This
+entire existence input has not yet been formalized in this Lean project.
+
+One SOS, with explicit arithmetic dependencies
+The existing exact verifier was reused to extract its target and primitive
+equations. A direct witness first reduced 7900 projected equations to 668.
+That intermediate witness still used the earlier 909-coordinate pair-table
+projection. Expanding that projection adds 670 original seven-row equations.
+The active certificate therefore has 1338 equations, 1400 actual moment
+coordinates and a 138-term target. Its integer multiplier is 11593580544000.
+All generated merge equalities and its arithmetic consequence have passed
+Lean's kernel using the existing OAI integer-sparse checker.
+
+This is an arithmetic implication for a real moment vector, not yet the
+actual ConditionalSOS theorem. The existing Fourier contraction and product
+partition semantics have been reused/proved. The new normalization steps,
+complementary-Psi equations and physical target interpretation still require
+Lean proofs. NORMALIZATION_PENDING_PLAN.json excludes the 261 boundary equations
+already reused, avoiding 470 unnecessary normalization bridges. The remaining
+plan uses 2668 existing soundness lemmas. A complete OAI source search also found
+37 additional overlapping exponent arrays, including ExtraCanonical and internal
+pivot matrices. All 37 now use existing definitions/theorems through checked
+adapters; 34383 new padded-array equalities remain. The 11208 degree-one steps
+and 15 six-row splits remain proof-generation work, not discharged assumptions.
+
+Correction to the earlier reuse audit
+The root GitHub recursive tree was truncated. The complete current Lean and
+proof subtrees and the archive indexes have now been obtained separately.
+All 19386 archived Lean blobs were downloaded in a sparse audit checkout and
+hash-verified. This exposed the previously overlooked counting, strip-sum and
+permanent-norm results. Those are now reused. The archive also references
+UnitMomentTrace, but its defining source was not found in the complete corpus;
+the available physicalSheet_real assumes a nonzero determinant. Our checked
+signature_real keeps the needed singular cases. See REUSE_REVIEW.json for
+the exact scope and limits of these comparisons.
+
+One selected numerical atlas
+The active atlas is repository v3, commit
+75d27258972d9838c2a7857371becc7271bc7b81. Its blob and SHA256 were verified.
+Both published independent result tables contain 12021 distinct PASS records.
+Their existence and hashes are external evidence. They do not instantiate
+the semantic RecordCert/BoundaryCover structures in Lean. v3 repairs a Stage C
+certificate that failed in v2; that failure is not a physical counterexample.
+
+Conclusion of this audit checkpoint
+There is one integration workspace and one selected global argument. The
+verified reductions and arithmetic do not yet constitute an unconditional
+proof that four MUBs in dimension six do not exist. No counterexample has
+been established by this audit. The four explicit completion gates remain.

@@ -1,0 +1,64 @@
+{
+  "status": "REVIEWED_REUSE_EXISTING_MODELS_AND_SAVED_NUMERATOR",
+  "reviewed_utc": "2026-10-12T13:02:46.945469+00:00",
+  "search": "MATCHED_THIRD_LINEAR_BINDING02_REUSE_SEARCH.json",
+  "source_pins": [
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/LinearBinding10.lean",
+      "sha256": "7ee3fb78e3f3f8a8280d2773786fc90b5e99b3576d362610fb5ebd0bc4f67f19"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/DenominatorSingle.lean",
+      "sha256": "cecc5488c8c0702a945bacc6de6932aaa87c7a1d119d8d31abcf06562bdfde85"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/SeedResiduals.lean",
+      "sha256": "c94274f074eebe811f0008d56656e476e5533f7e94e7f367cb03b9552f88e830"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/ForcedCoefficient.lean",
+      "sha256": "a558026f7e3710666de76112713da240862bc9f6527c8600f52c969ddfc70b35"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/AffineMatrices.lean",
+      "sha256": "60a383a50489a3c083174749058cb1d7f3037cacd5c91062cb63a8be402dd00c"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/MatchedParameter.lean",
+      "sha256": "7d8c0632cfafc570fec5f89e5230485f520f77ece6528068efb164f51aa98291"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/ActualCorners.lean",
+      "sha256": "f5a46634e2318abb93603ed50169c47c47df9e94463869da48110e63654ba7e0"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/Polynomials/P010.lean",
+      "sha256": "c2d9cc753f8cead482e9175a5ec8a7d993f536e54ee4d1d8da5a9451ea1619d8"
+    }
+  ],
+  "source_certificate_sha256": "f986a996673ec0089ec09c3b9ee827c71463fe6f7f57f67b0ded6b793beaad8f",
+  "saved_identity": 0,
+  "saved_summand_index": 2,
+  "actual_matrix_index": [
+    0,
+    2
+  ],
+  "saved_fraction": [
+    10,
+    11
+  ],
+  "original_matching_scale": 8,
+  "comparisons": [
+    "The checked LinearBinding10 proves a different entry where the vertical linear coefficient is zero. It supplies the matrix-adjugate expansion pattern, not the desired conclusion. The other five prepared sparse entries also have zero vertical coefficient.",
+    "For02 keep both actual products V0*M1 and V1*M0. SeedResiduals supplies their definitions. AffineMatrices supplies the original constant and linear matrices; use its existing product/permanent/mixed formulas.",
+    "Reuse checked P011_side_factor and P003_side_factor, reducing the saved1876term denominator to original horizontal/vertical side factors. Only the original1709term numerator is unfolded; no arrays or alternative certificates generated.",
+    "Reuse transposedSeed_scalar_pair for g/eta and transposedSeed_invariants for chi/R. Existing strict-side nonzero guards apply to the seed and its transpose. The domain is all StrictSeed, with no genericity or completion assumption."
+  ],
+  "dependency_audits": [
+    "KERNEL_AUDIT_MATCHED_THIRD_LINEAR_BINDING10_STATUS.json",
+    "KERNEL_AUDIT_MATCHED_THIRD_DENOMINATOR_SINGLE_STATUS.json",
+    "KERNEL_AUDIT_MATCHED_THIRD_MATCHED_PARAMETER_STATUS.json"
+  ],
+  "new_numeric_arrays": 0,
+  "atlas_certification": false
+}

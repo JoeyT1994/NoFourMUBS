@@ -1,0 +1,25 @@
+{
+  "changed_utc": "2026-10-12T14:17:10.555960+00:00",
+  "changes": [
+    {
+      "module": "ConstantBinding10",
+      "before_sha256": "574dae5f892effb5aa4caeb01a320f70a8ee3178ba3e3c6ea83bdbba68585ce0",
+      "after_sha256": "2be9999ce26b93d7ef9113b68eb34d3dab928c9ce1bf806a456b7386d97856c1",
+      "unchanged_statement": true,
+      "retired_source": "audit/retired_attempts/ConstantBinding10_before_phase_order_20261012T141710.lean.txt",
+      "terminal_previous_pid": 6245
+    },
+    {
+      "module": "LinearBinding02",
+      "before_sha256": "8cad514a3a04e92268533dea3234bb504c8177def19f16bb99f1327d2fb37c04",
+      "after_sha256": "0fa57bebd3a2a23a2ddad9593831c1f6248878830df3df9a2850244e76922363",
+      "unchanged_statement": true,
+      "retired_source": "audit/retired_attempts/LinearBinding02_before_phase_order_20261012T141710.lean.txt",
+      "terminal_previous_pid": 3952
+    }
+  ],
+  "evidence": "ConstantBinding10 retry reported unsupported recursive config plus4000000heartbeat timeout. Timing showed FieldSimp114seconds. LinearBinding02 previous retry terminated137. Neither has any PASS result.",
+  "strategy": "Normalize the cleared LHS with standard ring_nf while seed scalars remain atomic; clear unit-phase denominators before unfolding the original saved numerator only on RHS; then ring. This avoids asking FieldSimp to traverse the large saved coefficient expression. No new arrays, checker, hypothesis or statement.",
+  "lean_api_correction": "Remove recursive config: installed RingNF.Config rejected that field despite its source comment; use the supported default tactic.",
+  "atlas_certification": false
+}

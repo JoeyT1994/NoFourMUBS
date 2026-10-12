@@ -1,0 +1,4 @@
+import NoFourMUBs.Step2.CriticalZero.NonzeroOppositeCoefficients
+
+#check NoFourMUBs.Step2.Critical.NonzeroClearing.pairedCoefficient_opposite_coefficients
+#print axioms NoFourMUBs.Step2.Critical.NonzeroClearing.pairedCoefficient_opposite_coefficients

@@ -1,0 +1,38 @@
+{
+  "status": "PASS",
+  "checked_utc": "2026-10-11T09:20:01.826471+00:00",
+  "modules": 2,
+  "axiom_endpoints": {
+    "NoFourMUBs.Step2.Critical.NonzeroClearing.swapRootHom_apply": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.NonzeroClearing.side_swap": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.NonzeroClearing.swap_newton_p2_m4": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.NonzeroClearing.paired_p2_m4_swap": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.NonzeroClearing.paired_p4_m2_coefficients_from_swap": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "source_hashes": {
+    "NoFourMUBs/Step2/CriticalZero/NonzeroSwap.lean": "c590488db3bd821b9043259d23eb31069f3acb812d3d04065e5616e67dc51b78",
+    "NoFourMUBs/Step2/CriticalZero/NonzeroSwapMoment.lean": "aea2ccf82c112c9562682fc8235ac930f2a8c878edc2ec43d8ee54a358fbaa99"
+  },
+  "scope": "Generic parameter swap for original side/moment formulas; X,Y nonzero only. No numerator-table identity assumed or proved here.",
+  "atlas_certification": false
+}

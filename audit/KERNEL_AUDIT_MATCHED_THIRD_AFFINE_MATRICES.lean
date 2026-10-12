@@ -1,0 +1,4 @@
+import NoFourMUBs.Step2.Reconstruction.ThirdMoment.AffineMatrices
+
+#check NoFourMUBs.Step2.Reconstruction.ThirdMoment.thirdMoment_intrinsic_affine
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.thirdMoment_intrinsic_affine

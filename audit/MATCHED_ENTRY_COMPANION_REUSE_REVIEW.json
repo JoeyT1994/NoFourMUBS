@@ -1,0 +1,46 @@
+{
+  "status": "REVIEWED_EXISTING_ENTRY_ELIMINANT_AND_VIETA",
+  "checked_utc": "2026-10-11T19:03:59.193439+00:00",
+  "scope": "matched_entry_companion",
+  "repository_head": "632701b52c0d294e865d991e4eabf2b947367933",
+  "index_review": "MATCHED_COMPANION_BINDING_INDEX_REVIEW.json",
+  "content_review": "MATCHED_COMPANION_BINDING_CONTENT_REVIEW.json",
+  "source_pins": {
+    "lean/vendor/hadamard6/Hadamard6/HaagerupFromFibre.lean": "85df946b9fa4ce7ec028d623e45dd5e827dfb0738fda37aeb0203269c21673d8",
+    "lean/vendor/hadamard6/Hadamard6/QuotientAlgebra.lean": "e771892e157ec91624d5fe1dada562bb43651696a673e0bc4fb08c5c640b03ed",
+    "lean/vendor/hadamard6/Hadamard6/UnitSymmetric.lean": "5ed76b4074e68e175002430f951615ae7eb82c527df97a78368852d87b096a49",
+    "lean/NoFourMUBs/Step2/SidePerm.lean": "e375e44327613c207ae7e8c4fcb690c1bf3bf2e408b4a9afa31277d4a11ccb2a",
+    "lean/NoFourMUBs/Step2/SideAlg.lean": "337e461592676dbbf87b75812cc08bbd06d7dcbdf6cb6f57fa5792d1ba2595c4",
+    "lean/NoFourMUBs/Step2/Reconstruction/RowProductSignature.lean": "1c94b70a0b87dacc3199c544cad22766ce194d4441ba16a940119eb9d749f83a",
+    "source_material/ClassificationPaper/CertificatesandLean/certificates/generic_cover/exact_lower_block_specialization.py": "f93c0a06af80e6a3cb90edbfc8491aa3d8b8b537e6c0a11a2490b532a37d8577"
+  },
+  "comparisons": [
+    {
+      "existing": "Hadamard6.clearedHaagerup_all_coordinates and eliminant_eq_zero",
+      "statement": "Every coordinate pair of two unit triples satisfies A(x)+B(x)y=0; no reality, strictness or nonzero determinant hypothesis.",
+      "reuse": "Only a Fin3-index and star/conj model adapter to the current Side data. Reuse the existing eliminant definitions literally."
+    },
+    {
+      "existing": "NoFourMUBs.Side.e2S_unit",
+      "statement": "Second elementary symmetric coefficient equals product times conjugated sum, without sum-real normalization.",
+      "reuse": "The actual entry cubic used by the original quotient calculation follows by evaluation at any of the three existing entries."
+    },
+    {
+      "existing": "Hadamard6.phaseTriple_pair_sum and unit_sum_zero_product_one_are_cubic",
+      "statement": "Specialized real-sum or zero-sum/product-one cases.",
+      "decision": "Do not extend these narrower routes; reuse e2S_unit directly."
+    },
+    {
+      "existing": "Original exact_lower_block_specialization.py",
+      "statement": "Uses eliminants A=f2*g0-f0*g2 and B=f2*g1-f1*g2, and cubic x^3-S*x^2+u*barS*x-u.",
+      "reuse": "Use the literal same equations. The rational companion conclusion retains its explicit B(x) nonzero guard; generic guards and universal norm still open."
+    }
+  ],
+  "planned_endpoints": [
+    "side_entry_cubic",
+    "side_entry_eliminant",
+    "side_entry_companion"
+  ],
+  "atlas_certification": false,
+  "limits": "No claim covers unavailable or unshared work. Existing side existence is not reproved."
+}

@@ -1,0 +1,39 @@
+{
+  "scope": "critical_strip_count_endpoint",
+  "records": [
+    {
+      "active_path": "NoFourMUBs/Step2/CriticalZero/StripCountEndpoint.lean",
+      "active_sha256": "06e68538b19ba1be0837ef2e73ccfd60a56476a41bb0cf5c0ee0169306abed3b",
+      "module": "NoFourMUBs.Step2.CriticalZero.StripCountEndpoint",
+      "local_model_adapter": true,
+      "review": "CRITICAL_STRIP_COUNT_REUSE_REVIEW.json"
+    }
+  ],
+  "dependency_pins": [
+    {
+      "active_path": "NoFourMUBs/Step2/CriticalZero/NonzeroScalarEndpoint.lean",
+      "active_sha256": "2a6bc29e9a89069925f344cd6837462b36a9b7bc7bb291b6cd1a14f834144dd6"
+    },
+    {
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalCounts.lean",
+      "active_sha256": "286368d6fc9c1c876d2fadb1fc36eded3dd85abf4834c2dbde8b700443d6a799"
+    },
+    {
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalCountApplication.lean",
+      "active_sha256": "9c53fe1ff37d752a55933742cc51519dff85e0a5ba4c5e489b752a9e92fe757e"
+    },
+    {
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalStripPhysical.lean",
+      "active_sha256": "0e726f519d28a449b1895952067a44a422c9c31e7f51ae64b1656dc8762b5731"
+    }
+  ],
+  "axiom_endpoints": [
+    "NoFourMUBs.Step2.Critical.kappa_positive_root_unique",
+    "NoFourMUBs.Step2.Critical.strip_classified_values_impossible"
+  ],
+  "dependency_audits": [
+    "KERNEL_AUDIT_CRITICAL_NONZERO_SCALAR_ENDPOINT_STATUS.json"
+  ],
+  "atlas_certification": false,
+  "scope_note": "Per-corner existential positive cubic-root witnesses give the existing uniform-value count contradiction. Physical value classification remains an explicit premise."
+}

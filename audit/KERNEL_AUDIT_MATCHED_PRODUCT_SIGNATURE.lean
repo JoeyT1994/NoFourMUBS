@@ -1,0 +1,7 @@
+import NoFourMUBs.Step2.Reconstruction.RowProductSignature
+
+#check NoFourMUBs.Step2.Reconstruction.side_product_of_signature
+#print axioms StrictReconstruction20261007.SideIntrinsic.intrinsic_signature_permanent
+#print axioms StrictReconstruction20261007.SideIntrinsic.row_product_signature_centered
+#print axioms NoFourMUBs.Step2.Reconstruction.sideSignature_intrinsic
+#print axioms NoFourMUBs.Step2.Reconstruction.side_product_of_signature

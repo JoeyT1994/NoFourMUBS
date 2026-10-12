@@ -1,0 +1,45 @@
+{
+  "status": "PASS",
+  "reviewed_utc": "2026-10-11T04:08:31.064183+00:00",
+  "scope": "Transport current AllCritical and AllCriticalCarrier across the existing matrix equivalence. Reuse phase invariance and arbitrary-submatrix signature theorem, no new algebraic identity.",
+  "search_evidence": "Full archive/import/source indexes and active plus vendor Lean searched for allCritical/equivalent/candidate/framed. Archived CriticalCornerPhysical.allCritical_candidate uses a different legacy predicate and candidate_comp; current model does not import that global-domain route. No current predicate transport theorem found.",
+  "archive_reference": {
+    "module": "CriticalCornerPhysical",
+    "sha256": "db4d603d95d25eae85e3cc87f277e9497a39217bb620939e6f2139b7e00c9027",
+    "endpoint": "allCritical_candidate"
+  },
+  "reused_current_proofs": [
+    "allCritical_submatrix_signature_im",
+    "sideSignature_scale",
+    "frameRight_raw",
+    "frameScalarIdentities",
+    "FourierBridge.equivalent_fromOAI",
+    "FourierBridge.toOAI_fromOAI",
+    "Hadamard6.isHadamard_of_equivalent"
+  ],
+  "dependency_source_hashes": {
+    "lean/NoFourMUBs/Step2/CriticalZero/ActualSignatures.lean": "ea868b396733763127082fa622677a0cc182c023939136c6d47b96eaac1b76e0",
+    "lean/NoFourMUBs/Step2/AnchorTransport.lean": "7c189a09c481bd57ae651afd1eee094aacfab73451611d73a4e23f0e2a1384a5",
+    "lean/NoFourMUBs/Step2/SOS/FrameSignatures.lean": "90113511fe96982cfe8c6eac4a36dd8483ce49502a262e86968c0ee8d74adac3",
+    "lean/NoFourMUBs/Step2/FourierModelBridge.lean": "e9c53a3cbd4feca8a4e14503c26d24e8e6eff14d8f883b5ab57bb03757cc7f63",
+    "lean/NoFourMUBs/Step2/CriticalZero/PhysicalModel.lean": "9520b896d5795301a97d296ecd4ca4f999507feed6ac967271147f8e795ed3e0"
+  },
+  "assumptions": "Keep matrix equivalence and target normalization explicit. No critical classification, matching, or atlas assertion.",
+  "atlas_certification": false,
+  "manifest": "CRITICAL_EQUIVALENCE_MANIFEST.json",
+  "active_sha256": "7f8a60e4776698ba93c85a84cd0d49aa0c904f8deada5555de546cfeeabd67c3",
+  "checked_utc": "2026-10-11T04:10:58.616670+00:00",
+  "build_log": "critical_equivalence_build_status_logs/batch_0000.log",
+  "axioms": {
+    "NoFourMUBs.Step2.Critical.allCritical_of_equivalent": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.allCriticalCarrier_of_equivalent": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  }
+}

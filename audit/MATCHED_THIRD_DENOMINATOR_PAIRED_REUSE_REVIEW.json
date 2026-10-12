@@ -1,0 +1,39 @@
+{
+  "status": "REVIEWED_REUSE_EXISTING_PRODUCTS_ONLY",
+  "reviewed_utc": "2026-10-12T12:41:36.087907+00:00",
+  "search": "MATCHED_THIRD_DENOMINATOR_PAIRED_REUSE_SEARCH.json",
+  "source_pins": [
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/DenominatorSide.lean",
+      "sha256": "3bdf7106842cfd1717d4edac8a945a314f9e4d2f3d938eda125e62258103ed5f"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/DenominatorGram.lean",
+      "sha256": "9c1c562c944efb13cb4dfe03a30ecbe74c4208669b53ae40f9e7c2ef0f726b80"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/Products/Product002.lean",
+      "sha256": "4904f79fed758e40a8042be95309884dea96e7a0838cf983faa7a78979a3996c"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/Products/MonomialTransport0.lean",
+      "sha256": "97ea96afb3d4877b73bba96cf947271b7bcfb036e6cbfc0b45d3a65a7a899452"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/Products/MonomialTransport1.lean",
+      "sha256": "52bdb9674278c7c3317bde57eb13d671c4fca14d1dae622633ade97471fb96ae"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/Products/MonomialTransport2.lean",
+      "sha256": "dd288d007ef83b7d1b41c8b139b6ca0987c7a76c7c59d58c98a341c96c11f32b"
+    }
+  ],
+  "comparisons": [
+    "Product002 and P008_value give P007*b=P000. Product000 gives P000=P003*P004. P003=a*P015 and P004=bc*P003_swap then give P007=ac*P015*P003_swap by cancelling only the nonzero unit phase b. No5377term polynomial expansion is needed.",
+    "P031=b*P038 and P031=P045*P004 are already checked. P045=-(abcd)*seedG*P003 and the same two linear product identities give P038=-(abcd)*seedG*P007, again cancelling only b. This avoids a10557term polynomial expansion.",
+    "Both are representation adapters on every Seed; no g or side-polynomial nonzero assumption is introduced. The strict guards are already checked separately.",
+    "The paired actual matrix-entry identities remain open; these helpers only express the saved denominators through the smaller existing factors."
+  ],
+  "new_numeric_arrays": 0,
+  "atlas_certification": false
+}

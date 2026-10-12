@@ -1,0 +1,39 @@
+{
+  "status": "PASS",
+  "checked_utc": "2026-10-12T02:04:14.562971+00:00",
+  "modules": 1,
+  "axiom_endpoints": {
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.thirdMoment_seed_one": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.weightedDefect_seed_residuals": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.matchedExistence_of_seed_residuals": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "source_hashes": {
+    "NoFourMUBs/Step2/Reconstruction/ThirdMoment/SeedResiduals.lean": "c94274f074eebe811f0008d56656e476e5533f7e94e7f367cb03b9552f88e830"
+  },
+  "manifest_sha256": "cf91c82a9054be60c3b8c8b9009a1d3302824e479cec8956b4a9c21b234251b4",
+  "audit_log_sha256": "ce304b303e3edfdc1f600dbe77dd162989f4c969b779d59e82c985ecf3014ed5",
+  "scope": "The actual W11 matrix defect is exactly the two seed rational residuals; their vanishing implies the existing full MatchedExistence proposition. Vanishing remains an explicit unproved input.",
+  "dependency_audits": {
+    "KERNEL_AUDIT_MATCHED_THIRD_AFFINE_MATRICES_STATUS.json": "5d8c5035c30f3efa132cf81ad8e1343c82b72c4f28144883959c2e5688bde46a",
+    "KERNEL_AUDIT_MATCHED_THIRD_MATCHED_PARAMETER_STATUS.json": "9bd7782d08bb048574fd13d74da87db4470d74702ad6deb4c4514979192a7eb9",
+    "KERNEL_AUDIT_MATCHED_THIRD_CONTRACTION_STATUS.json": "4ddde7e7bd0425863a63185d7daa1e354277860483f9b86f0b8709838282b3b8",
+    "KERNEL_AUDIT_MATCHED_THIRD_REDUCTION_STATUS.json": "baff175317b937adee48f0a309d467886fcd742370400cd409f65db6398f41e7",
+    "KERNEL_AUDIT_MATCHED_THIRD_SYMMETRY_STATUS.json": "6420dfb9ce50e8c2030792bf78691947be1b8754bf1e86a85334baf45296c1ca"
+  },
+  "dependency_source_hashes": {
+    "NoFourMUBs/Step2/Reconstruction/MatchedCompletion.lean": "db4229833397c4bb758b82d77828007b8c64750dfdbb218d42b3da25ede93c2c"
+  },
+  "atlas_certification": false
+}

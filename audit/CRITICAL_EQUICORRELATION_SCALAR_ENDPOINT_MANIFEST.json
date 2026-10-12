@@ -1,0 +1,116 @@
+{
+  "scope": "critical_equicorrelation_endpoint",
+  "status": "PREPARED_NOT_COMPILED",
+  "records": [
+    {
+      "module": "NoFourMUBs.Step2.CriticalZero.EquicorrelationGram",
+      "active_path": "NoFourMUBs/Step2/CriticalZero/EquicorrelationGram.lean",
+      "active_sha256": "01ad620f2e615d3f7c37e1ae3d92c6df3dcb6a875cd8013fe3e30b79127e7b07",
+      "local_model_adapter": true,
+      "review": "EQUICORRELATION_ROOT_ALLOCATION_REUSE_REVIEW.json"
+    },
+    {
+      "module": "NoFourMUBs.Step2.CriticalZero.EquicorrelationScalarEndpoint",
+      "active_path": "NoFourMUBs/Step2/CriticalZero/EquicorrelationScalarEndpoint.lean",
+      "active_sha256": "022371eb1de73c0b341e3e58e95840663f507b7a343e2518d79a1b34e399883d",
+      "local_model_adapter": true,
+      "review": "EQUICORRELATION_ROOT_ALLOCATION_REUSE_REVIEW.json"
+    }
+  ],
+  "axiom_endpoints": [
+    "NoFourMUBs.Step2.Critical.Equicorrelation.gram_phases",
+    "NoFourMUBs.Step2.Critical.Equicorrelation.oriented_selected_impossible",
+    "NoFourMUBs.Step2.Critical.Equicorrelation.selected_positive_gram_impossible",
+    "NoFourMUBs.Step2.Critical.Equicorrelation.strip_gram_impossible",
+    "NoFourMUBs.Step2.Critical.Equicorrelation.equal_moduli_of_scalar_data",
+    "NoFourMUBs.Step2.Critical.Equicorrelation.strip_scalar_impossible"
+  ],
+  "dependency_audits": [
+    "KERNEL_AUDIT_CRITICAL_EQUICORRELATION_COORDINATES_STATUS.json"
+  ],
+  "dependency_pins": [
+    {
+      "active_path": "NoFourMUBs/Reuse/Archive/FourierPhaseData.lean",
+      "active_sha256": "71c542f2dadb44b000f3547a1e49e91648403d88373f7bd2eb015812b8eb4f7e"
+    },
+    {
+      "active_path": "vendor/hadamard6/Hadamard6/CubicRoots.lean",
+      "active_sha256": "00ce2ce0901d261f02a6538a71596d995fc78fe4074d3ba55286cb0622548338"
+    },
+    {
+      "active_path": "vendor/fourier/OAI/Analysis/MutuallyUnbiased/Cubic/CubicPrelim.lean",
+      "active_sha256": "5fa37667399ebb1f0dfaecc4400d907b54f60fcc4602d64f07845b875c9fe7f8"
+    },
+    {
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalZeroModuli.lean",
+      "active_sha256": "adb9a0e0600c91150736a23effaee302fb77ac2a957261953495f544df1b40cc"
+    },
+    {
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalAllocatedChart.lean",
+      "active_sha256": "dd7e3603f621f76cf67861d4db94f5733af31597437cfde4a147641ece6d56c3"
+    },
+    {
+      "active_path": "NoFourMUBs/Step2/CriticalZero/ColumnRechart.lean",
+      "active_sha256": "1530e264196c059538a1cdd67aae356d3a458066ad9630c542a935e62028a71d"
+    },
+    {
+      "active_path": "NoFourMUBs/Step2/CriticalZero/EquicorrelationNormalized.lean",
+      "active_sha256": "3d7fe0da977cfaf88b319ce6d27b6f8e8c2fad791fea05f5d1acc0cbca2ba8ba"
+    },
+    {
+      "active_path": "NoFourMUBs/Step2/CriticalZero/EquicorrelationRowProducts.lean",
+      "active_sha256": "ea65b62b0fa81c913087c639b3caa75a6ed472ea58040c86a193b7bdf7bb2051"
+    },
+    {
+      "active_path": "NoFourMUBs/Step2/CriticalZero/P7Triples.lean",
+      "active_sha256": "0811fbd4f76d77bebe80a5b815e32ba3557a8366ab5c9292fbc8b227c5facfde"
+    },
+    {
+      "active_path": "NoFourMUBs/Step2/CriticalZero/P7CornerTransport.lean",
+      "active_sha256": "bc03c99f6f5efe51b7c9964aaf5731de30701609f3fa079fc9e72afa2d20a7c2"
+    },
+    {
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalCorrelationRechart.lean",
+      "active_sha256": "cb18e37a7b7be7292293f8a26c123fa7d75be455febb749161d0e4cec4c2fd1d"
+    },
+    {
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalStripPhysical.lean",
+      "active_sha256": "0e726f519d28a449b1895952067a44a422c9c31e7f51ae64b1656dc8762b5731"
+    },
+    {
+      "active_path": "NoFourMUBs/Step2/CriticalZero/P7OrderedGram.lean",
+      "active_sha256": "de078248dd9aa6698c22c50bf2c0cac0987e805ac55534cc84c8f87222259f57"
+    },
+    {
+      "active_path": "NoFourMUBs/Step2/CriticalZero/P7StripEndpoint.lean",
+      "active_sha256": "3e967a2d9bd7668d169b27c4774c1b4f3379e9158c06f80e5f01c763ddc44743"
+    },
+    {
+      "active_path": "vendor/hadamard6/Hadamard6/FibreSymmetry.lean",
+      "active_sha256": "0356fb89afe51b45c07fc5e651f052dd4f16b9a78fce84c209daf4b20fe43e0e"
+    },
+    {
+      "active_path": "vendor/hadamard6/Hadamard6/PhaseEquivalence.lean",
+      "active_sha256": "6497192001067e64e9d47c432ed8c73a4299f0c90c444e71a56acf919bf428e9"
+    },
+    {
+      "active_path": "vendor/hadamard6/Hadamard6/BlockNormalization.lean",
+      "active_sha256": "ad19a2c23e7c04a4a6ccfecf6d4fc629e960c84f27059018079c9bc644fd5d67"
+    },
+    {
+      "active_path": "NoFourMUBs/Step2/Reconstruction/RowNormFlatness.lean",
+      "active_sha256": "9a079f39961c8e291f0243a0e2f081ebfa83da4468a258eb8d6286d69c7344d9"
+    },
+    {
+      "active_path": "NoFourMUBs/Step2/CriticalZero/EquicorrelationCoordinates.lean",
+      "active_sha256": "5b19991a4fc4669711574b08a7a665ba730f6190122fc72b17bd85e1b5471e72"
+    },
+    {
+      "active_path": "NoFourMUBs/Step2/CriticalZero/EquicorrelationPhased.lean",
+      "active_sha256": "de515d143d2783b25c51f34f145b19906a2916a43460a1cbe86be2c9d81823e0"
+    }
+  ],
+  "atlas_certification": false,
+  "physical_endpoint_complete": false,
+  "dependency_audit_scope_note": "Historical completion/group audit includes later-changed MatchedCompletion and MainTheorem, neither imported here. The reused RowNormFlatness source pin is unchanged and remains in dependency_pins; its proof assumptions are audited transitively through equal_moduli_of_scalar_data and strip_scalar_impossible. No build or proof check is skipped."
+}

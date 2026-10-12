@@ -1,0 +1,31 @@
+{
+  "status": "REVIEWED_REUSE_GRAM_GUARD_AND_PRODUCT021",
+  "reviewed_utc": "2026-10-12T03:27:15.544333+00:00",
+  "search": "MATCHED_THIRD_DENOMINATOR_BINDING_REUSE_SEARCH.json",
+  "candidate_metadata": "MATCHED_THIRD_DENOMINATOR_REUSE_CANDIDATES.json",
+  "comparisons": [
+    "Product021_value already gives rawP045*rawP004=rawP031. The new semantic factor target is rawP045=-(abcd)*seedG*rawP003. Reuse the existing products; do not expand the10557term rawP031 again.",
+    "Both saved arrays P045 and P003 are already checked source data. The target uses the original seedG definition directly, so no new polynomial array or external factorization certificate is needed.",
+    "Existing strict_eta_pos_g_ne_zero supplies seedG nonzero on the entire strict seed domain. Circle.coe_ne_zero and DenominatorInputs supply the other factors.",
+    "The field/ring adapter must pass Lean before the constant common denominator is declared nonzero. The9actual constant matrix summand bindings remain separate."
+  ],
+  "source_pins": [
+    {
+      "path": "lean/NoFourMUBs/Reuse/Archive/StrictSideScalarGuards.lean",
+      "sha256": "75741b3091aeb2ce36f1b9fdab822add16b2e2514bfa27822105c93fb936d042"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Statements.lean",
+      "sha256": "47388a383d3ab3c6412ae0257f53d98aa86bfc52991f5bc25dddf17613e049fc"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/Products/MonomialTransport1.lean",
+      "sha256": "52bdb9674278c7c3317bde57eb13d671c4fca14d1dae622633ade97471fb96ae"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/Polynomials/P045.lean",
+      "sha256": "fe5ed4a1aaff7f49fbaca3efa109a0812c323ebeeb6194b3a955875d354b3139"
+    }
+  ],
+  "atlas_certification": false
+}

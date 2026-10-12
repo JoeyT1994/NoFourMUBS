@@ -1,0 +1,43 @@
+name: Lean Action CI
+
+# Branch pushes are covered by the pull_request build, so only `main` needs a
+# push build. Without this every branch push costs a second full build.
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# A full build takes tens of minutes, so do not let pushes stack up.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    # The heaviest generated certificate modules peak near 8 GiB each, so two
+    # of them at once exceeds a 16 GiB runner. Lake has no `--jobs` option,
+    # but it schedules module builds on Lean's thread pool, so this serialises
+    # them and caps peak memory at one module. Slower, but it fits.
+    #
+    # This needs a public-repository runner (4-core, 16 GiB). On a private
+    # repository `ubuntu-latest` is 2-core / 7 GiB and a single certificate
+    # module does not fit; the job is then torn down and reported as cancelled
+    # with exit code 143, which looks like a timeout but is not one.
+    env:
+      LEAN_NUM_THREADS: 1
+
+    steps:
+      - uses: actions/checkout@v5
+      - uses: leanprover/lean-action@v1
+        with:
+          # This target transitively imports the complete 107-module audited
+          # proof spine. Naming it avoids building unrelated default targets.
+          build-args: Hadamard6.PaperTheorem
+      - name: Audit paper-facing theorem boundary
+        run: python3 audit_public_theorem.py

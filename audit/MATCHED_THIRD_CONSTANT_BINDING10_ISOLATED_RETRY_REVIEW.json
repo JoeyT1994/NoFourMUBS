@@ -1,0 +1,21 @@
+{
+  "reviewed_utc": "2026-10-12T14:36:40.252912+00:00",
+  "previous_terminal_pid": 7434,
+  "previous_log": "matched_third_constant_binding10_build_status_logs/batch_0002.log",
+  "previous_result": "4000000heartbeat deterministic whnf timeout; no unsolved mathematical goal reported. The unsupported configuration is gone.",
+  "timings_seconds": {
+    "early_ring_nf": 1.31,
+    "simp": 42.5,
+    "field_simp": 133,
+    "numerator_conv_rhs": 153,
+    "ring": 56.8,
+    "elaboration": 12.4
+  },
+  "source_before": "2be9999ce26b93d7ef9113b68eb34d3dab928c9ce1bf806a456b7386d97856c1",
+  "source_after": "336eaf0b2bd72b2643193ed2923482ed712bfde9b2ea3f674f76d930506f9116",
+  "only_source_change": "Increase bounded heartbeat budget4000000to8000000 for the same phase-clear-first proof.",
+  "execution_change": "Finish retained Product026 first, then run this one compiler in isolation while holding both existing lane locks. Do not overlap another large proof during this resource retry.",
+  "linear02_last_result": "Queued PID7437 stopped before compilation because GitHub freshness check failed; current phase-clear-first source has not yet been tried.",
+  "repository_failure": "Transient GitHub check14:30:39 failed; direct retry and full inventory14:34:57 succeeded, unchanged4d757de.",
+  "atlas_certification": false
+}

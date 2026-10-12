@@ -1,0 +1,52 @@
+{
+  "status": "REVIEWED_NECESSARY_PHYSICAL_MOMENT_ADAPTERS",
+  "checked_utc": "2026-10-11T18:32:16.707966+00:00",
+  "scope": "matched_product_relations",
+  "repository_head": "3a79a98fb3792ba9f4470a209123ac90c4ba23d1",
+  "full_corpus_review": "MATCHED_EXISTENCE_UNIVERSAL_REUSE_REVIEW.json",
+  "indexes": "MATCHED_PRODUCT_BINDING_INDEX_REVIEW.json",
+  "content_review": "MATCHED_PRODUCT_BINDING_FULL_CONTENT_REVIEW.txt",
+  "source_pins": {
+    "lean/NoFourMUBs/Reuse/Archive/SideIntrinsicActualLambda.lean": "94951a45e12f8f8560d1a024d2c23dd76e0ccd5d092602eae8c983fefeb8b403",
+    "lean/NoFourMUBs/Reuse/Archive/SideIntrinsicActualNorms.lean": "56d0fbfdfcd10a376e554d83f1311726967568c80a36638161c2be4ed6b65fca",
+    "lean/NoFourMUBs/Reuse/Archive/SideIntrinsicUnitBindings.lean": "0b9439dba8222d68e06eceb609212239feacb0ad3eb482ca835dce10076a3ab2",
+    "lean/NoFourMUBs/Reuse/Archive/SideIntrinsicLambdaRecovery.lean": "577759e6717fb98ac6cdf4d64b2c1b0f7f702ac0bfc6b00fc34b278176b102ae",
+    "lean/NoFourMUBs/Reuse/Archive/StrictSideScalarGuards.lean": "75741b3091aeb2ce36f1b9fdab822add16b2e2514bfa27822105c93fb936d042",
+    "lean/NoFourMUBs/Reuse/Archive/PreRhoNormBindings.lean": "2dc366315b498ad9dd3de167f804d26eecbe943704d6f79977edd523e4bd3ef1"
+  },
+  "comparisons": [
+    {
+      "existing": "actual_intrinsic_lambda_identities",
+      "statement": "Three determinant-squared equalities for arbitrary UnitRows, without determinant or pole guards.",
+      "reuse": "Subtract the first from the other two and cancel only the already-unit row products. This supplies the two relations used by the existing symbolic diagnostic."
+    },
+    {
+      "existing": "actual_gramEta_norm_perm and row_product_units",
+      "statement": "Permanent squared norm equals eta; each row product has norm one.",
+      "reuse": "Derive the first row-product quadratic from the preceding permanent relation; no sextic or new coefficient arrays."
+    },
+    {
+      "existing": "intrinsic_lambda_P_bindings",
+      "statement": "Determines three intrinsic lambdas with nonzero determinant.",
+      "decision": "Retain it. The current adapter instead removes the shared determinant and does not assume its nonvanishing."
+    },
+    {
+      "existing": "StrictSideScalarGuards and PreRhoNormBindings",
+      "statement": "Norm identities/positivity for scalar P factors and side-construction residuals.",
+      "decision": "Reuse scalar definitions and norm facts. These do not state the actual row-product/permanent relations or the needed quadratic."
+    },
+    {
+      "existing": "DFlatnessLinear and MatchedFrobenius/ProjectorMetric",
+      "statement": "Four already-flat entries plus row/column sums, or distances between existing carriers.",
+      "decision": "Previously reviewed unchanged; no universal matched row-product theorem."
+    }
+  ],
+  "external_coefficient_comparison": "MATCHED_PRODUCT_QUADRATIC_COMPARISON.json confirms the new factored U,V equal the original supplied U,V exactly; not counted as a Lean proof.",
+  "new_adapters_planned": [
+    "Permanent versus first row product, no determinant guard",
+    "Second row-product relation, no determinant guard",
+    "Actual first row-product quadratic, no denominator or determinant guard"
+  ],
+  "atlas_certification": false,
+  "limits": "Available current/archive/OAI corpus; no claim about unshared sources."
+}

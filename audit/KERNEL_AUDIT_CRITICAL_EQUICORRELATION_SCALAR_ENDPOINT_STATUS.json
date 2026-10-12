@@ -1,0 +1,70 @@
+{
+  "status": "PASS",
+  "checked_utc": "2026-10-11T16:19:46.787824+00:00",
+  "modules": 2,
+  "axiom_endpoints": {
+    "NoFourMUBs.Step2.Critical.Equicorrelation.gram_phases": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.Equicorrelation.oriented_selected_impossible": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.Equicorrelation.selected_positive_gram_impossible": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.Equicorrelation.strip_gram_impossible": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.Equicorrelation.equal_moduli_of_scalar_data": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.Equicorrelation.strip_scalar_impossible": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "source_hashes": {
+    "NoFourMUBs/Step2/CriticalZero/EquicorrelationGram.lean": "01ad620f2e615d3f7c37e1ae3d92c6df3dcb6a875cd8013fe3e30b79127e7b07",
+    "NoFourMUBs/Step2/CriticalZero/EquicorrelationScalarEndpoint.lean": "022371eb1de73c0b341e3e58e95840663f507b7a343e2518d79a1b34e399883d"
+  },
+  "manifest_sha256": "79b96aa77b260622fc404bb5adc00bad443a41e43d9c496bf5279bf40edba9e6",
+  "audit_log_sha256": "211bc64755c98b57a28d4ea5c6a20032ad447c537467a61a15a46b14d0dd0aba",
+  "scope": "Full physical E0 scalar-candidate exclusion at all twenty strip corners, both signs of J, without a coordinate normal-form or reconstruction-pole premise. Atlas excluded.",
+  "dependency_audits": {
+    "KERNEL_AUDIT_CRITICAL_EQUICORRELATION_COORDINATES_STATUS.json": "04e7d9f3a6c4271f9bafd0371675ec2c12aa10c6f00f1c282f6a923434dd982d"
+  },
+  "dependency_source_hashes": {
+    "NoFourMUBs/Reuse/Archive/FourierPhaseData.lean": "71c542f2dadb44b000f3547a1e49e91648403d88373f7bd2eb015812b8eb4f7e",
+    "vendor/hadamard6/Hadamard6/CubicRoots.lean": "00ce2ce0901d261f02a6538a71596d995fc78fe4074d3ba55286cb0622548338",
+    "vendor/fourier/OAI/Analysis/MutuallyUnbiased/Cubic/CubicPrelim.lean": "5fa37667399ebb1f0dfaecc4400d907b54f60fcc4602d64f07845b875c9fe7f8",
+    "NoFourMUBs/Reuse/Archive/CriticalZeroModuli.lean": "adb9a0e0600c91150736a23effaee302fb77ac2a957261953495f544df1b40cc",
+    "NoFourMUBs/Reuse/Archive/CriticalAllocatedChart.lean": "dd7e3603f621f76cf67861d4db94f5733af31597437cfde4a147641ece6d56c3",
+    "NoFourMUBs/Step2/CriticalZero/ColumnRechart.lean": "1530e264196c059538a1cdd67aae356d3a458066ad9630c542a935e62028a71d",
+    "NoFourMUBs/Step2/CriticalZero/EquicorrelationNormalized.lean": "3d7fe0da977cfaf88b319ce6d27b6f8e8c2fad791fea05f5d1acc0cbca2ba8ba",
+    "NoFourMUBs/Step2/CriticalZero/EquicorrelationRowProducts.lean": "ea65b62b0fa81c913087c639b3caa75a6ed472ea58040c86a193b7bdf7bb2051",
+    "NoFourMUBs/Step2/CriticalZero/P7Triples.lean": "0811fbd4f76d77bebe80a5b815e32ba3557a8366ab5c9292fbc8b227c5facfde",
+    "NoFourMUBs/Step2/CriticalZero/P7CornerTransport.lean": "bc03c99f6f5efe51b7c9964aaf5731de30701609f3fa079fc9e72afa2d20a7c2",
+    "NoFourMUBs/Reuse/Archive/CriticalCorrelationRechart.lean": "cb18e37a7b7be7292293f8a26c123fa7d75be455febb749161d0e4cec4c2fd1d",
+    "NoFourMUBs/Reuse/Archive/CriticalStripPhysical.lean": "0e726f519d28a449b1895952067a44a422c9c31e7f51ae64b1656dc8762b5731",
+    "NoFourMUBs/Step2/CriticalZero/P7OrderedGram.lean": "de078248dd9aa6698c22c50bf2c0cac0987e805ac55534cc84c8f87222259f57",
+    "NoFourMUBs/Step2/CriticalZero/P7StripEndpoint.lean": "3e967a2d9bd7668d169b27c4774c1b4f3379e9158c06f80e5f01c763ddc44743",
+    "vendor/hadamard6/Hadamard6/FibreSymmetry.lean": "0356fb89afe51b45c07fc5e651f052dd4f16b9a78fce84c209daf4b20fe43e0e",
+    "vendor/hadamard6/Hadamard6/PhaseEquivalence.lean": "6497192001067e64e9d47c432ed8c73a4299f0c90c444e71a56acf919bf428e9",
+    "vendor/hadamard6/Hadamard6/BlockNormalization.lean": "ad19a2c23e7c04a4a6ccfecf6d4fc629e960c84f27059018079c9bc644fd5d67",
+    "NoFourMUBs/Step2/Reconstruction/RowNormFlatness.lean": "9a079f39961c8e291f0243a0e2f081ebfa83da4468a258eb8d6286d69c7344d9",
+    "NoFourMUBs/Step2/CriticalZero/EquicorrelationCoordinates.lean": "5b19991a4fc4669711574b08a7a665ba730f6190122fc72b17bd85e1b5471e72",
+    "NoFourMUBs/Step2/CriticalZero/EquicorrelationPhased.lean": "de515d143d2783b25c51f34f145b19906a2916a43460a1cbe86be2c9d81823e0"
+  },
+  "atlas_certification": false
+}

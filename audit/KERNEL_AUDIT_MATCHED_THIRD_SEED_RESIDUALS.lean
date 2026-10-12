@@ -1,0 +1,6 @@
+import NoFourMUBs.Step2.Reconstruction.ThirdMoment.SeedResiduals
+
+#check NoFourMUBs.Step2.Reconstruction.ThirdMoment.matchedExistence_of_seed_residuals
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.thirdMoment_seed_one
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.weightedDefect_seed_residuals
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.matchedExistence_of_seed_residuals

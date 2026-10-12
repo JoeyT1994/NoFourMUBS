@@ -1,0 +1,27 @@
+{
+  "status": "REVIEWED_REUSE_MONOMIAL_EVALUATION_FOR_PRODUCT032",
+  "reviewed_utc": "2026-10-12T02:34:09.362048+00:00",
+  "search": "MATCHED_THIRD_MONOMIAL_TRANSPORT_1_REUSE_SEARCH.json",
+  "parent_full_index_search": "MATCHED_THIRD_MONOMIAL_TRANSPORT_REUSE_SEARCH.json",
+  "comparisons": [
+    "The saved P067 is the coefficient array of P031 with its a^2*b*c factor stripped. No expansion or cancellation is needed.",
+    "Product017 moves the b factor. The checked c-tail evaluator and ordinary outer Horner evaluation move a^2*c. Reuse P066_value from OffsetBinding for the exact a^2*b*c factor.",
+    "New aliases refer directly to canonical checked P031 slices; no chained alias or new numeric array is needed. The adoption script requires PASS audits for all reused theorems before preparing this proof.",
+    "The resulting product32 identity holds over every commutative ring without nonzero assumptions. It does not yet bind its numerator/cofactor to the original matrix residual."
+  ],
+  "source_pins": [
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/Products/MonomialTail.lean",
+      "sha256": "fb41378a8346fd72db1a869e1e7020ea6be65f4004f17fe33fac089e94040dd1"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/Products/MonomialTransport2.lean",
+      "sha256": "dd288d007ef83b7d1b41c8b139b6ca0987c7a76c7c59d58c98a341c96c11f32b"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/OffsetBinding.lean",
+      "sha256": "c60548491ef06c44e0ac9dabb90632bfdb8eec5b9c6d2eaafba0654f42220574"
+    }
+  ],
+  "atlas_certification": false
+}

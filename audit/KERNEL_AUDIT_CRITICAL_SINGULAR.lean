@@ -1,0 +1,68 @@
+import NoFourMUBs.Step2.CriticalZero.ActualSingularFourier
+
+#check CriticalFourierRouting20261003.phaseHadamard_singular_minor_fourier
+#check CriticalSingularBoundary20261003.normalized_strip_p9_fourier
+#check CriticalSingularBoundary20261003.normalized_strip_zero_parameter_fourier
+#check NoFourMUBs.Step2.Critical.allCritical_singular_standard
+#check NoFourMUBs.Step2.Critical.allCritical_p9_standard
+#print NoFourMUBs.Step2.Critical.AllCriticalCarrier
+#print Worker12.FourierOrTransposeOrTao
+#print CriticalFourierRouting20261003.FourierOrTranspose
+#print axioms Worker12.splitMatrix_hasHadamardTwoByTwo
+#print axioms Worker12.selectedMatrix_corner
+#print axioms Worker12.selectedMatrix_isHadamard
+#print axioms Worker12.phase_row_orthogonal
+#print axioms Worker12.phaseHadamard_columnGram
+#print axioms Worker12.unsplit_isPhaseHadamard
+#print axioms Worker12.unsplit_splitMatrix
+#print axioms Worker12.cubic_table_families
+#print axioms Worker12.endpoint_0101_nonphysical
+#print axioms Worker12.endpoint_0110_nonphysical
+#print axioms Worker12.endpoint_0122_nonphysical
+#print axioms Worker12.endpoint_0202_nonphysical
+#print axioms Worker12.endpoint_0211_nonphysical
+#print axioms Worker12.endpoint_0220_nonphysical
+#print axioms Worker12.endpoint_1001_nonphysical
+#print axioms Worker12.endpoint_1010_nonphysical
+#print axioms Worker12.endpoint_1022_nonphysical
+#print axioms Worker12.endpoint_1102_nonphysical
+#print axioms Worker12.endpoint_1111_nonphysical
+#print axioms Worker12.endpoint_1120_nonphysical
+#print axioms Worker12.endpoint_2002_nonphysical
+#print axioms Worker12.endpoint_2011_nonphysical
+#print axioms Worker12.endpoint_2020_nonphysical
+#print axioms Worker12.endpoint_2201_nonphysical
+#print axioms Worker12.endpoint_2210_nonphysical
+#print axioms Worker12.endpoint_2222_nonphysical
+#print axioms Worker12.cubic_seed_pure_A
+#print axioms Worker12.cubic_seed_pure_alpha
+#print axioms Worker12.cubic_seed_classification
+#print axioms Worker12.cubic_parameters_classified
+#print axioms Worker12.families_of_monomialEquivalent
+#print axioms Worker12.exactFourierPresentation_classified
+#print axioms Worker12.normalized_repeated_row_complement
+#print axioms Worker12.normalized_other_row_sum
+#print axioms Worker12.normalized_repeated_pattern_has_fourier_rows
+#print axioms Worker12.normalized_repeated_pattern_hasHadamard3
+#print axioms Worker12.hadamard3_minor_classified
+#print axioms Worker12.normalized_repeated_pattern_classified
+#print axioms Worker12.repeatedRows_topLeft_classified
+#print axioms Worker12.taoPhase_transpose
+#print axioms Worker12.families_transpose
+#print axioms Worker12.repeatedColumns_topLeft_classified
+#print axioms Worker12.singular_topLeft_classified
+#print axioms Worker12.singular_selectedMinor_classified
+#print axioms Worker12.singular_selectedMinor_hasHadamardTwoByTwo
+#print axioms CriticalFourierRouting20261003.equivalent_split
+#print axioms CriticalFourierRouting20261003.hasTwoByTwo_split
+#print axioms CriticalFourierRouting20261003.split_taoPhase
+#print axioms CriticalFourierRouting20261003.tao_equivalent_no_hadamard2
+#print axioms CriticalFourierRouting20261003.singular_selectedMinor_fourier
+#print axioms CriticalFourierRouting20261003.phaseHadamard_singular_minor_fourier
+#print axioms CriticalSingularBoundary20261003.side_p9_j0_singular
+#print axioms CriticalSingularBoundary20261003.normalized_strip_p9_fourier
+#print axioms CriticalSingularBoundary20261003.normalized_strip_zero_parameter_fourier
+#print axioms NoFourMUBs.Step2.Critical.allCritical_singular_standard
+#print axioms NoFourMUBs.Step2.Critical.allCritical_p9_standard
+#print axioms CriticalLightSheet20261003.side_g_determinant
+#print axioms CriticalLightSheet20261003.moment_g

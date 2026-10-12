@@ -1,0 +1,63 @@
+{
+  "reviewed_utc": "2026-10-11T00:33:13.626565+00:00",
+  "status": "PASS;ROW_PRODUCT_PREMISE_EXPLICIT",
+  "scope": "Generalize the existing unitary-completion proof, then apply its diagonal entries to row norms and the already checked AM-GM interface. No new block-matrix proof route.",
+  "reuse_search": "Prior complete-source review MATCHED_ROW_GRAM_REUSE_FILES.txt and MATCHED_ROW_PRODUCT_INTERFACE_REVIEW.json; current GitHub unchanged. Existing Retained.bottomRowGram body uses exactly four Gram/invertibility projections and no flatness projection.",
+  "vendor_source": "lean/vendor/hadamard6/Hadamard6/BlockCompletion.lean",
+  "before_sha256": "5fa386752747e883cba63f6cd955f4a376cb2a7ed2515b6de2f86eec57176199",
+  "after_sha256": "b916c1eceba6086551173f8053a34ada370c47e45ee940b6846fc5b104cb722d",
+  "proof_changes": "Existing proof body is unchanged except the four projection-to-argument replacements. Original Retained.bottomRowGram remains a wrapper with its original statement.",
+  "explicit_generalized_inputs": [
+    "IsUnit B.det",
+    "IsUnit C.det",
+    "E*E\u1d34+B*B\u1d34=sixI3",
+    "E\u1d34*E+C\u1d34*C=sixI3"
+  ],
+  "adapter": "ForcedRowNorms imports only BlockCompletion and the checked RowNormFlatness, so its first build has one changed vendor dependency before the new module. Current target/Psi/boundary coefficient workers and the critical algebra are outside its affected closure.",
+  "current_compiled_receipts": "All24previously compiled affected consumers rebuilt successfully with current source hashes; MainTheorem still has the same four explicit inputs.",
+  "remaining": "The universal/dense row-product norm identity remains unproved. Atlas certification excluded.",
+  "atlas_certification": false,
+  "forced_norms_status": "PASS: matched_side_build_status_logs/batch_0128.log; row sums and row-product-to-flatness endpoint compile.",
+  "completion_extension": "The original MatchedCompletion proof is reused to conclude a matched Hadamard from the same signed sides and row-product norms. This remains conditional on the product norms.",
+  "refresh_manifest": "MATCHED_ROW_GRAM_REBUILD_MANIFEST.json",
+  "full_compiled_refresh_manifest": "BLOCK_COMPLETION_DESCENDANT_REBUILD_MANIFEST.json",
+  "rebuild_scope": {
+    "matched_completion_ancestors": 10,
+    "all_previously_compiled_affected_modules": 24,
+    "heavy_uncompiled_SOS_assemblies_excluded": true
+  },
+  "builder_changes": "Preserve tracked vendor dependency paths in reusable_modules. Release only generated setup descriptions in the registered NoFourMUBs and Hadamard6 task packages after successful builds.",
+  "helper_hashes": {
+    "build_archive_reuse.py": "e942d0fb89478862cfc2fe234706bfd29eedf0906ff22f62b14d7e5c1adb2c13",
+    "release_checked_setup.py": "530e01466899aee8f755cdf2bc20a2d96018ff67475c637c2b82a96d258bb855"
+  },
+  "checked_utc": "2026-10-11T00:57:10.067145+00:00",
+  "axiom_audits": {
+    "forcedD_row_norms": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "log": "block_completion_descendant_rebuild_status_logs/batch_0011.log"
+    },
+    "forcedD_entrywiseUnit_of_row_products": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "log": "block_completion_descendant_rebuild_status_logs/batch_0011.log"
+    },
+    "matched_completion_of_row_products": {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "log": "block_completion_descendant_rebuild_status_logs/batch_0015.log"
+    }
+  },
+  "refresh_status": "BLOCK_COMPLETION_DESCENDANT_REBUILD_STATUS.json",
+  "refresh_session": "25521: exit0; closed"
+}

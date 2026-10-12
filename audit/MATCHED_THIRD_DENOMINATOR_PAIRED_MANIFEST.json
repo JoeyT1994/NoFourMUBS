@@ -1,0 +1,24 @@
+{
+  "scope": "matched_third_flatness",
+  "records": [
+    {
+      "module": "NoFourMUBs.Step2.Reconstruction.ThirdMoment.Certificates.DenominatorPaired",
+      "active_path": "NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/DenominatorPaired.lean",
+      "active_sha256": "510145944755d25fe8e423d4589cbafd87515613b52d58c4586a9d2cd7f186c2",
+      "local_model_adapter": true,
+      "review": "MATCHED_THIRD_DENOMINATOR_PAIRED_REUSE_REVIEW.json"
+    }
+  ],
+  "axiom_endpoints": [
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P007_side_factors",
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P038_seed_factor"
+  ],
+  "dependency_audits": [
+    "KERNEL_AUDIT_MATCHED_THIRD_DENOMINATOR_SIDE_STATUS.json",
+    "KERNEL_AUDIT_MATCHED_THIRD_DENOMINATOR_GRAM_STATUS.json",
+    "KERNEL_AUDIT_MATCHED_THIRD_PRODUCT_002_STATUS.json",
+    "KERNEL_AUDIT_MATCHED_THIRD_MONOMIAL_TRANSPORT_2_STATUS.json"
+  ],
+  "scope_note": "Reuse checked cofactor identities and phase-unit cancellation to express the paired divisors through existing side/Gram factors. Every Seed; no generic guard or new arrays. No atlas.",
+  "atlas_certification": false
+}

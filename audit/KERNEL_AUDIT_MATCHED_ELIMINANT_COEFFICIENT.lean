@@ -1,0 +1,7 @@
+import NoFourMUBs.Step2.Reconstruction.BaseCoefficients.Eliminants
+
+#check NoFourMUBs.Step2.Reconstruction.BaseCoefficients.cached_eliminantB_seed
+#print axioms NoFourMUBs.Step2.Reconstruction.BaseCoefficients.cached_eliminantA_eq
+#print axioms NoFourMUBs.Step2.Reconstruction.BaseCoefficients.cached_eliminantA_seed
+#print axioms NoFourMUBs.Step2.Reconstruction.BaseCoefficients.cached_eliminantB_eq
+#print axioms NoFourMUBs.Step2.Reconstruction.BaseCoefficients.cached_eliminantB_seed

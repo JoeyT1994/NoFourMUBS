@@ -1,0 +1,46 @@
+{
+  "status": "REVIEWED_EXISTING_POLYNOMIAL_EXT_AND_DENSE_EXTENSION",
+  "scope": "matched_polynomial_density",
+  "checked_utc": "2026-10-11T19:55:54.702125+00:00",
+  "repository_head": "fd7d1019fa4a7f3551bf9ade5d31ebbce9501055",
+  "search": "MATCHED_POLYNOMIAL_DENSITY_REUSE_SEARCH.json",
+  "source_pins": {
+    "lean/NoFourMUBs/Step2/DenseExistence.lean": "cbbc671200490f214646dc7ab797e300fb4e61bed98e89f5b21844b35a10c1fe",
+    "lean/NoFourMUBs/Step2/Statements.lean": "47388a383d3ab3c6412ae0257f53d98aa86bfc52991f5bc25dddf17613e049fc",
+    "lean/.lake/packages/mathlib/Mathlib/Algebra/MvPolynomial/Funext.lean": "cb1821884a139917b692103a0b267115179cd4e7084da5487857ec49abb0cc7e",
+    "lean/.lake/packages/mathlib/Mathlib/Topology/Perfect.lean": "4979ebc223592b62580b7bfa1f130fdb4154a831cdc90033d090351d7d976caa",
+    "lean/.lake/packages/mathlib/Mathlib/Topology/Separation/Basic.lean": "d3932db8d5fae4c6ec691d4ee3ecc39c94d684edef7602f290bbe7c1f174c6f8",
+    "lean/.lake/packages/mathlib/Mathlib/Topology/Constructions.lean": "1b2099fa575c72263e2d512bf166ed78cc483fb09100b0e56a923e9b8dc31048",
+    "lean/.lake/packages/mathlib/Mathlib/Topology/Maps/Basic.lean": "f5775adabdf497e328542ea77e5fe0ac46011bc34905a7e02ffe0284ec1e79d8",
+    "lean/.lake/packages/mathlib/Mathlib/Analysis/SpecialFunctions/Complex/Circle.lean": "d9a0411670e53da4c2eb0ba1b9a1ff3a7ce45505b7d52ba237b46b62a1d1b55b",
+    "audit/ARCHIVE_SOURCE_INDEX.jsonl": "e56835aafa2eee86f3e3a340cabbd4d891e4044661ecfb6902a255ebe62ab323",
+    "audit/ARCHIVE_BLOB_INDEX.jsonl": "8a124c5d9477fa048eb28a0be4c77a82b4d4c374e8861a60d85b355a1de73a26",
+    "audit/ARCHIVE_IMPORT_INDEX.json": "4f3d7d6f8a9949a13c3c8fc65fe3d5c098f18a2efd4f0c0985f237ada38a4f4f",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/83/839cbe165148dbf1d287bd86127c2126005dadb93d3d2bd9ce8c2a8eee62594b/ClassificationPolynomialFunext.lean": "839cbe165148dbf1d287bd86127c2126005dadb93d3d2bd9ce8c2a8eee62594b",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/cb/cb373058794f06876cdbcc74334eaf57b5859025256773861c0813bd11d2b103/ClassificationPolynomialFunext.lean": "cb373058794f06876cdbcc74334eaf57b5859025256773861c0813bd11d2b103"
+  },
+  "comparisons": [
+    {
+      "existing": "Mathlib.MvPolynomial.funext_set; both archived ClassificationPolynomialFunext variants",
+      "reuse": "The archived mathematical proof is the Mathlib theorem (one variant only changes an import). Import the pinned Mathlib theorem directly. Do not copy or re-prove polynomial extensionality."
+    },
+    {
+      "existing": "Mathlib isOpen_pi_iff, PerfectSpace from connected nontrivial T1, infinite_of_mem_nhds, Circle PathConnectedSpace",
+      "reuse": "Use open boxes of circle arcs as the infinite sets in funext_set. Only the torus topology adapter is new."
+    },
+    {
+      "existing": "Dense.preimage and continuous_seedR",
+      "reuse": "Restrict the dense nonvanishing locus to the open strict seed locus by the existing open subtype map."
+    },
+    {
+      "existing": "Step2.matchedExistence_of_dense",
+      "reuse": "Use the existing compactness/closed-projection extension theorem. The generic construction and a nonzero polynomial guard remain explicit assumptions."
+    },
+    {
+      "existing": "Archived DFlatnessLinear",
+      "difference": "Only propagates four already-flat entries using row/column sums. It neither establishes generic flatness nor density and is not another target."
+    }
+  ],
+  "limits": "This general density adapter does not supply a particular nonzero denominator polynomial or a generic completion proof. The universal norm and companion binding remain open. No coverage claim for unshared work.",
+  "atlas_certification": false
+}

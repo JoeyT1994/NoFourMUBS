@@ -1,0 +1,36 @@
+{
+  "status": "PASS",
+  "checked_utc": "2026-10-11T16:56:11.442367+00:00",
+  "modules": 1,
+  "axiom_endpoints": {
+    "NoFourMUBs.Step2.Critical.Poles.actual_pole_quartic_zero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.Poles.actual_pole_candidates": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "source_hashes": {
+    "NoFourMUBs/Step2/CriticalZero/PhysicalPoleClassification.lean": "511de5ea08c2d1a454fcfcb6a81a4a0d86237ec24029ac1f1d0ea4ef21c3ebff"
+  },
+  "manifest_sha256": "6502994c83f4f10550a656d5bdf94c20e57ffbb9d4b356da2801c1a63de2cc3d",
+  "audit_log_sha256": "71d7f3e97da1016bf75ad7718273ab7547acc515870392834b2e8213aa089ca9",
+  "scope": "Every nonzero signed-parameter unit-entry block with a physical pole belongs to the same three existing scalar candidates. No regular-case numerator identity or atlas certification is claimed.",
+  "dependency_audits": {
+    "KERNEL_AUDIT_CRITICAL_PHYSICAL_POLE_BOUNDARY_STATUS.json": "896e38981403fbdeb50f76556c9794eb9f9dc624f4401ebef6ccfbd4082b136d",
+    "KERNEL_AUDIT_CRITICAL_POLE_QUARTIC_STATUS.json": "2f02f20304a13553c246cbb038972c7354ce98a047ce0ef04efbf35c6a8a7b53",
+    "KERNEL_AUDIT_CRITICAL_NONZERO_SCALAR_CLASSIFICATION_STATUS.json": "2bf494614a6f371289d80d463e8706f254e1361a371207827e67448afaf2028f"
+  },
+  "dependency_source_hashes": {
+    "NoFourMUBs/Reuse/Archive/CriticalNonzeroPoles.lean": "fe40a3bf15781e23884f80f0a66099640226b24e861196dc5b7a5e901933a402",
+    "NoFourMUBs/Reuse/Archive/CriticalNonzeroBlockGauge.lean": "a037c9ac4064fa7ff1eda692364cd340c9eb6bee96f1230c1af3e2a71715424d",
+    "NoFourMUBs/Reuse/Archive/CriticalNonzeroPhysicalSheet.lean": "a9f89e6a2b3f7cf122a9d3beab9bf910524c8476c5d7000bfdc5721de0f313ea",
+    "NoFourMUBs/Reuse/Archive/CriticalModulusMatrixDomain.lean": "94589ec035ad07868012e71b051c69efe5204b53a213e028916ef74c22cf1b2a",
+    "NoFourMUBs/Step2/CriticalZero/ScalarSigns/Classification.lean": "f0391ab5bc87dade8fe2e5946d0434a710a6e11cc6346909fe3a3e876ce11594"
+  },
+  "atlas_certification": false
+}

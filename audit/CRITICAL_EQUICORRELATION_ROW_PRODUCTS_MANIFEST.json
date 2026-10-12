@@ -1,0 +1,56 @@
+{
+  "scope": "critical_equicorrelation_endpoint",
+  "status": "PREPARED_NOT_COMPILED",
+  "records": [
+    {
+      "module": "NoFourMUBs.Step2.CriticalZero.EquicorrelationRowProducts",
+      "active_path": "NoFourMUBs/Step2/CriticalZero/EquicorrelationRowProducts.lean",
+      "active_sha256": "ea65b62b0fa81c913087c639b3caa75a6ed472ea58040c86a193b7bdf7bb2051",
+      "local_model_adapter": true,
+      "review": "EQUICORRELATION_ROW_PRODUCTS_REUSE_REVIEW.json"
+    }
+  ],
+  "axiom_endpoints": [
+    "NoFourMUBs.Step2.Critical.Equicorrelation.oriented_gram_constants",
+    "NoFourMUBs.Step2.Critical.Equicorrelation.oriented_row_products"
+  ],
+  "dependency_pins": [
+    {
+      "active_path": "NoFourMUBs/Reuse/Archive/SideIntrinsicActualLambda.lean",
+      "active_sha256": "94951a45e12f8f8560d1a024d2c23dd76e0ccd5d092602eae8c983fefeb8b403"
+    },
+    {
+      "active_path": "NoFourMUBs/Reuse/Archive/SideIntrinsicUnitBindings.lean",
+      "active_sha256": "0b9439dba8222d68e06eceb609212239feacb0ad3eb482ca835dce10076a3ab2"
+    },
+    {
+      "active_path": "NoFourMUBs/Reuse/Archive/StrictSideScalarGuards.lean",
+      "active_sha256": "75741b3091aeb2ce36f1b9fdab822add16b2e2514bfa27822105c93fb936d042"
+    },
+    {
+      "active_path": "NoFourMUBs/Reuse/Archive/SideIntrinsicLambdaRecovery.lean",
+      "active_sha256": "577759e6717fb98ac6cdf4d64b2c1b0f7f702ac0bfc6b00fc34b278176b102ae"
+    },
+    {
+      "active_path": "NoFourMUBs/Reuse/Archive/PhysicalSideRational.lean",
+      "active_sha256": "641712e811c0d48dfbf8e7dc30f61abc497fb1771efeb83d1fa9e0c3ab0b5a70"
+    },
+    {
+      "active_path": "NoFourMUBs/Reuse/Archive/FourierPhaseData.lean",
+      "active_sha256": "71c542f2dadb44b000f3547a1e49e91648403d88373f7bd2eb015812b8eb4f7e"
+    },
+    {
+      "active_path": "NoFourMUBs/Step2/CriticalZero/EquicorrelationMixedCorner.lean",
+      "active_sha256": "9639be1effb74f784779cdc3eee311ab04321cf6c687b6e319744d2dafe05909"
+    },
+    {
+      "active_path": "NoFourMUBs/Step2/CriticalZero/P7CornerTransport.lean",
+      "active_sha256": "bc03c99f6f5efe51b7c9964aaf5731de30701609f3fa079fc9e72afa2d20a7c2"
+    }
+  ],
+  "dependency_audits": [
+    "KERNEL_AUDIT_CRITICAL_EQUICORRELATION_NORMALIZED_STATUS.json"
+  ],
+  "atlas_certification": false,
+  "physical_endpoint_complete": false
+}

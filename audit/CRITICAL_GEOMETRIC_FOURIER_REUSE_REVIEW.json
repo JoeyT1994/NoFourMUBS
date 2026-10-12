@@ -1,0 +1,149 @@
+{
+  "status": "PASS",
+  "reviewed_utc": "2026-10-11T04:44:22.375583+00:00",
+  "scope": "Reuse the geometric Fourier route with current OAI/Hadamard model bindings. Extract generic indexing/Fourier definitions and the literal 3x3 Hadamard proof only; use current phase helpers, row Gram, coordinates and equivalence. Reuse original Fourier allocation and pure-family proofs. No atlas or finite endpoint exclusion certificates.",
+  "search_evidence": [
+    "CRITICAL_GEOMETRIC_FOURIER_DISCOVERY.json",
+    "CRITICAL_GEOMETRIC_FOURIER_CLOSURE_DISCOVERY.json",
+    "CRITICAL_SIX_ROOTS_REUSE_SEARCH.json"
+  ],
+  "scope_resolution": "Basename closure is heuristic only. Direct inspection confirms the needed Worker12.FourierRouting statements already call current Hadamard6 vendor lemmas. Its unrelated ExactFourierPresentation and saturated-minor wrapper can be omitted. Entire endpoint/certificate/legacy Basic closure is unnecessary.",
+  "sources": {
+    "Worker12.Indexing": "4b114e8d75059648bd40c9ea71e41665ed6ff44ad71eada4882781298740a39b",
+    "Worker12.BoundaryTargets": "069071d653919cc0b01c75f69384382b526802b256b22a960692efa8edbc1e26",
+    "Worker12.ZeroPattern": "4ed3f8f42b42f3c78eede94a00e5c138c140883f64a9fad2fbeadcf3b4c6806c",
+    "Worker12.FourierRouting": "0ae4fae4f37ecbf02e1efab051075624581e4b11c8d258cc2f32caf3b11e2154",
+    "Worker12.PureFamilies": "a08c911babd9bf4cb0905d5a8e644e1e82027ae9850a2712b2a34b468b84b039",
+    "Worker12.ContinuousBindings": "9614f3a4fd88262021665f56c609b6126aee0b0e6c91a4a6fa1456c41459e272",
+    "SingularFourierRouting.definition": "1ed3526ae3974af9f74e2b759276c0591524d4f9caa19f8f4373ec82348d55e5",
+    "GeometricTopBlocks": "f1ea0f6bd81cfa7bd1818119baf38861ae985d879c5d0967d620b31dd1da5e8d",
+    "ConjugateBlockNormalization": "09308ea7019f4b47eda5e2a407062fad4df3b0612983722993f8c6b207bf5bae",
+    "GeometricFourierTail": "0fb863a47be88b25b9884d84cd5a4944357f83fa5e91efc16776d911375c7643",
+    "GeometricFourierComplete": "24a31639f077eaae527f9b940590113695c0a25bfa0b8a3c66133b9f969e0bbc"
+  },
+  "reuse_policy": "Omit the row-moment theorem already extracted and checked; call it through GeometricMoments. Preserve all algebraic identities and original hypotheses. Exact model substitutions and omissions will be pinned in plan.",
+  "atlas_certification": false,
+  "model_extractions": [
+    {
+      "source_sha256": "4b114e8d75059648bd40c9ea71e41665ed6ff44ad71eada4882781298740a39b",
+      "start": "noncomputable def embeddingPermutation",
+      "stop_before": "def splitIndex",
+      "block_sha256": "600e288e53409b625faac9fdcbaacf6c6f305185d8d1304e112f265a04816c4e"
+    },
+    {
+      "source_sha256": "4b114e8d75059648bd40c9ea71e41665ed6ff44ad71eada4882781298740a39b",
+      "start": "def splitEmbedding",
+      "stop_before": "theorem splitMatrix_isHadamard",
+      "block_sha256": "7e77325dade0e491f7fc4dd45ad99b362240c89a272341aa6a2eb1ce836a25d4"
+    },
+    {
+      "source_sha256": "4b114e8d75059648bd40c9ea71e41665ed6ff44ad71eada4882781298740a39b",
+      "start": "theorem splitMatrix_isHadamard",
+      "stop_before": "def selectedMinor",
+      "block_sha256": "ddd101ea301aa1a2b45fd2421a924de5e9a57297260e9c10aee27653d22e8b0f"
+    },
+    {
+      "source_sha256": "069071d653919cc0b01c75f69384382b526802b256b22a960692efa8edbc1e26",
+      "start": "def fourier3",
+      "stop_before": "def phaseVector",
+      "block_sha256": "3576c36d1d05684863cf6cafae7f74d55b820daf1c7851e20fcc02dcfc72b107"
+    },
+    {
+      "source_sha256": "069071d653919cc0b01c75f69384382b526802b256b22a960692efa8edbc1e26",
+      "start": "/-- Block representative",
+      "stop_before": "/-- Both primitive roots",
+      "block_sha256": "600b2b5ca7b0ff7145cb525b67cfa76eb4000453e2f4bbc1dbf7fdf00b19baaa"
+    },
+    {
+      "source_sha256": "9614f3a4fd88262021665f56c609b6126aee0b0e6c91a4a6fa1456c41459e272",
+      "start": "theorem equivalent_unsplit",
+      "stop_before": "theorem fourier3_power_eq_literal",
+      "block_sha256": "b76c537288f6ecb30bcb315c9d12e566166cdc2d3d1e12d7cb03d0dbea6475f5"
+    },
+    {
+      "source_sha256": "4ed3f8f42b42f3c78eede94a00e5c138c140883f64a9fad2fbeadcf3b4c6806c",
+      "start": "theorem literal_fourier3_isHadamard",
+      "stop_before": "theorem normalized_repeated_pattern_has_fourier_rows",
+      "block_sha256": "88fa928c0e1227d5aa57fc2a820141146df15002d440351883d9d0a17721b1f0"
+    },
+    {
+      "source_sha256": "1ed3526ae3974af9f74e2b759276c0591524d4f9caa19f8f4373ec82348d55e5",
+      "start": "def FourierOrTranspose",
+      "stop_before": "theorem ",
+      "block_sha256": "3c63cfac05167d22642927a444acde4ce0b169442d44405f72ccfe8f0da66486"
+    }
+  ],
+  "model_changes": [
+    "splitIndex/splitMatrix/unsplitMatrix alias existing coordinate maps; PrimitiveCubicPhase and phaseVector alias current vendor definitions.",
+    "Original splitMatrix_isHadamard uses the checked current row_gram to bridge the column-Gram convention.",
+    "Original equivalent_unsplit uses the current pointwise equivalence representation; exact same permutation and phase data.",
+    "All other selected finite embedding and literal 3x3 Hadamard proof bodies are retained.",
+    "The pointwise equivalence transport needs simp to cancel the existing coordinate equivalence and its inverse. Initial failure log:critical_geometric_fourier_model_build_status_logs/batch_0000.log."
+  ],
+  "local_model": {
+    "module": "NoFourMUBs.Step2.CriticalZero.FourierRoutingModel",
+    "active_path": "NoFourMUBs/Step2/CriticalZero/FourierRoutingModel.lean",
+    "active_sha256": "f917964eeddcd05646e3f0bf79845ba1375766bfead28675b8b3eef2165d1b5b"
+  },
+  "omitted_blocks": [
+    {
+      "module": "FourierRouting",
+      "start": "structure ExactFourierPresentation",
+      "stop_before": "#print axioms forced_flat_four_allocations",
+      "source_block_sha256": "da3990d31bef16fa7928d8d97ec9c34ba9b6acc0012dd521c15f0c4103b2bbd2",
+      "reason": "Omit unrelated presentation/saturated-minor wrappers; original forced-flat branch proof is retained and sufficient."
+    },
+    {
+      "module": "ContinuousBindings",
+      "start": "theorem equivalent_unsplit",
+      "stop_before": "theorem fourier3_power_eq_literal",
+      "source_block_sha256": "b76c537288f6ecb30bcb315c9d12e566166cdc2d3d1e12d7cb03d0dbea6475f5",
+      "reason": "Reuse the single current-model equivalent_unsplit already supplied by FourierRoutingModel."
+    },
+    {
+      "module": "GeometricFourierTail",
+      "start": "theorem fourier_transpose",
+      "stop_before": "/-- Consequences of three literal full rows",
+      "source_block_sha256": "56780185fda2376e3b060e0dac34307b5bb0363f08be19d869beac267cc8d36a",
+      "reason": "Omit unused transpose helper; geometric routing uses only equivalence transitivity."
+    },
+    {
+      "module": "GeometricFourierTail",
+      "start": "/-- Consequences of three literal full rows",
+      "stop_before": "theorem cubic_conjugate_character",
+      "source_block_sha256": "7fa0b0833abfc1f0941397c9a237a341d5ebaca6186a2c1f5e95747add1c9492",
+      "reason": "Reuse checked GeometricMoments instead of duplicating the row-orthogonality argument."
+    }
+  ],
+  "selected_modules": {
+    "FourierRouting": "0ae4fae4f37ecbf02e1efab051075624581e4b11c8d258cc2f32caf3b11e2154",
+    "PureFamilies": "a08c911babd9bf4cb0905d5a8e644e1e82027ae9850a2712b2a34b468b84b039",
+    "ContinuousBindings": "9614f3a4fd88262021665f56c609b6126aee0b0e6c91a4a6fa1456c41459e272",
+    "GeometricTopBlocks": "f1ea0f6bd81cfa7bd1818119baf38861ae985d879c5d0967d620b31dd1da5e8d",
+    "ConjugateBlockNormalization": "09308ea7019f4b47eda5e2a407062fad4df3b0612983722993f8c6b207bf5bae",
+    "GeometricFourierTail": "0fb863a47be88b25b9884d84cd5a4944357f83fa5e91efc16776d911375c7643",
+    "GeometricFourierComplete": "24a31639f077eaae527f9b940590113695c0a25bfa0b8a3c66133b9f969e0bbc"
+  },
+  "existing_dependencies": {
+    "NoFourMUBs.Step2.CriticalZero.FourierRoutingModel": {
+      "active_path": "NoFourMUBs/Step2/CriticalZero/FourierRoutingModel.lean",
+      "active_sha256": "f917964eeddcd05646e3f0bf79845ba1375766bfead28675b8b3eef2165d1b5b"
+    },
+    "NoFourMUBs.Reuse.Archive.GeometricRowsTriples": {
+      "active_path": "NoFourMUBs/Reuse/Archive/GeometricRowsTriples.lean",
+      "active_sha256": "02a5b38b180bd1aeb3342773ecf2d49c971597e2949852bd6f58b3d6f7e3aa7c"
+    }
+  },
+  "remaining_status": "Exceptional zero-J values, nonzero-J completion, continuous all-critical Fourier family to fixed F6, MatchedExistence. Atlas excluded.",
+  "top_blocks_compatibility": "Add existing ContinuousBindings import and expose shared coordinate aliases to simp. No algebra or hypotheses changed.",
+  "top_blocks_initial_failure": "critical_geometric_fourier_build_status_logs/batch_0003.log",
+  "tail_import_order_fix": "Move the explicit reused ContinuousBindings import before /-! module documentation. Initial syntax failure in critical_geometric_fourier_build_status_logs/batch_0006.log; no proof change.",
+  "actual_regular_join_review": {
+    "reviewed_utc": "2026-10-11T04:51:48.513653+00:00",
+    "status": "PASS",
+    "scope": "Compose the checked ActualGeometry result with original geometric_rows_fourier and fourier_of_monomial. Preserve regular zero-J guards and actual parameter equalities. No additional geometry/allocation derivation.",
+    "search": "Full current/vendor/archive endpoint search and CriticalAllocatedFourier/CriticalAllocatedFourierCandidate sources inspected. They connect allocated norms directly to Fourier; current ActualGeometry already supplies conjugate rows including physical rechart. Only the final model-level composition is new."
+  },
+  "checked_utc": "2026-10-11T04:54:07.899342+00:00",
+  "pass_evidence": "KERNEL_AUDIT_CRITICAL_GEOMETRIC_FOURIER_STATUS.json"
+}

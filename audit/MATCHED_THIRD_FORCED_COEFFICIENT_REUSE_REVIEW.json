@@ -1,0 +1,45 @@
+{
+  "status": "REVIEWED_REUSE_EXISTING_GRAM_DETERMINANT_AND_STANDARD_INVERSE",
+  "reviewed_utc": "2026-10-12T03:40:46.159470+00:00",
+  "search": "MATCHED_THIRD_FORCED_COEFFICIENT_REUSE_SEARCH.json",
+  "source_pins": [
+    {
+      "path": "lean/NoFourMUBs/Reuse/Archive/GramNumerators.lean",
+      "sha256": "edb7de8e4499b9d6f8cae7b05213b414b46efd17b4692cd5cf67b5caff2fc0ba"
+    },
+    {
+      "path": "lean/NoFourMUBs/Reuse/Archive/SidePermanent.lean",
+      "sha256": "77b0b8e8dbd35b9cba63bd620f9a50e726c52f2cfb27738f5fbc98acebe03fa9"
+    },
+    {
+      "path": "lean/NoFourMUBs/Reuse/Archive/SideMatrixSeedGram.lean",
+      "sha256": "d709828ce61df2a2b93f58ac70536b55821d46f064c33b838d74b1fac5b2456c"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/SeedModel.lean",
+      "sha256": "7020e49ca7d9303f213bb75991290cd1bba125db6de255f0e1b39a51ab079aa3"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ForcedProductMoments.lean",
+      "sha256": "8777f15e1665c6df08a04c52da33737a7aee0dcf2f80a0d7e79bf04722f15408"
+    },
+    {
+      "path": "lean/.lake/packages/mathlib/Mathlib/LinearAlgebra/Matrix/NonsingularInverse.lean",
+      "sha256": "1ee785b6ebd213ad2ed971bf3c804afee8cc6ce52be69e63572b4cf1bdb5e880"
+    },
+    {
+      "path": "lean/.lake/packages/mathlib/Mathlib/LinearAlgebra/Matrix/Adjugate.lean",
+      "sha256": "7e28f11ff275a95412e8e8849715da0c763ff96709005d75843b8e0c40c5fef3"
+    }
+  ],
+  "comparisons": [
+    "Existing FourierGramNumerators.gram_det applies to exactly the literal Hermitian matrix used by reconstructionGram. Its scalar g equals seedG after commuting the first two factors of the real-part term. Reuse this theorem rather than recalculate the determinant or invoke side existence.",
+    "Existing reconstructionGram_eq_seedComplement and SeedModel.seed_correlations bind this literal matrix to sixI3-E*E\u1d34 for every Seed. No strictness, determinant guard or completion hypothesis is needed for these equalities.",
+    "Matrix.inv_def and Ring.inverse_eq_inv already give adjugate divided by determinant, including totalized inverse at zero. The new adapter only changes the actual seed/determinant representation. Nonzero guards on StrictSeed are proved separately.",
+    "Archived NativeBlockInverse.nativeInverse_eq_nonsingInverse uses the same Mathlib facts but includes a different cyclic cofactor representation. No need to import or duplicate it: use Mathlib directly and retain Matrix.adjugate_fin_three for later entry expansion.",
+    "Archived SeedGramGuard.seedGram_det_formula is the same determinant fact in another matrix model, importing physical/chart dependencies. The already adopted GramNumerators result gives the smaller existing dependency closure.",
+    "PhysicalGramRecovery and GlobalCornerScalar require a Physical/GlobalStrict full matrix. The reconstruction target starts from an arbitrary strict seed; do not introduce those stronger hypotheses."
+  ],
+  "new_numeric_arrays": 0,
+  "atlas_certification": false
+}

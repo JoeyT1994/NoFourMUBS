@@ -1,0 +1,60 @@
+{
+  "status": "PASS",
+  "checked_utc": "2026-10-11T17:43:49.589624+00:00",
+  "modules": 1,
+  "axiom_endpoints": {
+    "NoFourMUBs.Step2.Critical.stripCorner_rev_zero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.leading_nonzero_special_of_regular_quartic": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.strip_nonzero_special_of_regular_quartic": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.allCriticalCarrier_standard_of_regular_quartic": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.criticalClassification_of_regular_quartic": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "source_hashes": {
+    "NoFourMUBs/Step2/CriticalZero/ClassificationAssembly.lean": "98d701edbb6bdf6865896280aac936ad2efc64b7880865d3a5b2337941fa179d"
+  },
+  "manifest_sha256": "8f6a50468a8b63e7e14f9bb072bf9e24eefa11810a309f41f10c1e59f2a05d34",
+  "audit_log_sha256": "f1583d80ab6fde7055edbf32ac572008067291d6d236b8d038487dccb1a39abf",
+  "scope": "Assemble the one all-critical classification conditional on the still-open regular nonzero-J quartic implication; poles, zero-J corners, transport and counting consume existing checked results.",
+  "dependency_audits": {
+    "KERNEL_AUDIT_CRITICAL_STRIP_ZERO_ENDPOINT_STATUS.json": "47f12a5c364800d92376d9b4b5e4cadb1cc4e333431a5bd489380c9667b38e4c",
+    "KERNEL_AUDIT_CRITICAL_STRIP_COUNT_ENDPOINT_STATUS.json": "ecefe24f051fa55fcd77360508d55150e14d212acb886b75b53fb1ec27023ad2"
+  },
+  "dependency_source_hashes": {
+    "NoFourMUBs/Step2/CriticalZero/StripZeroEndpoint.lean": "3a4e7cf92327f0215e40e9c5a7dda0143fec14f9a10fde8bee2c27b5b6705f05",
+    "NoFourMUBs/Step2/CriticalZero/StripCountEndpoint.lean": "06e68538b19ba1be0837ef2e73ccfd60a56476a41bb0cf5c0ee0169306abed3b",
+    "NoFourMUBs/Step2/CriticalZero/NonzeroScalarEndpoint.lean": "2a6bc29e9a89069925f344cd6837462b36a9b7bc7bb291b6cd1a14f834144dd6",
+    "NoFourMUBs/Step2/CriticalZero/ColumnRechart.lean": "1530e264196c059538a1cdd67aae356d3a458066ad9630c542a935e62028a71d",
+    "NoFourMUBs/Step2/CriticalZero/RechartModel.lean": "7ba67fb8000833df557e18483a1745590ed57812a033c995c810ef9b9f9928b1",
+    "NoFourMUBs/Step2/CriticalZero/Equivalence.lean": "7f8a60e4776698ba93c85a84cd0d49aa0c904f8deada5555de546cfeeabd67c3",
+    "NoFourMUBs/Step2/CriticalZero/LeadingScalarPremises.lean": "14a07425f314b81be1cdde425235a6647b35b5e87004798e6eee96731b20901f",
+    "NoFourMUBs/Step2/CriticalZero/ActualNonzeroCoefficientZero.lean": "d5eb85831681fb47e940d6ad429d93d0db692f6345a3679ff17b9d6c36d9b575",
+    "NoFourMUBs/Step2/CriticalZero/PhysicalModel.lean": "9520b896d5795301a97d296ecd4ca4f999507feed6ac967271147f8e795ed3e0",
+    "NoFourMUBs/Step2/Frames.lean": "6a9f4c607d0cf945d60ef45b0c9ee7e7405f46176bd2fc2d4e25dec076f4284f",
+    "NoFourMUBs/Step2/RepairedCoverage.lean": "9f4c3195dd8d22d9cef693f29f481eea0af6f4d8cadc463df7900133d50e7bbd",
+    "NoFourMUBs/Step2/FourierModelBridge.lean": "e9c53a3cbd4feca8a4e14503c26d24e8e6eff14d8f883b5ab57bb03757cc7f63",
+    "NoFourMUBs/Reuse/Archive/CriticalStripPhysical.lean": "0e726f519d28a449b1895952067a44a422c9c31e7f51ae64b1656dc8762b5731",
+    "NoFourMUBs/Reuse/Archive/CriticalStripNewton.lean": "2002e0a4f2c778a6e993e3814d2937ec69d024987770793be0753f4c4bf1f60c",
+    "NoFourMUBs/Reuse/Archive/CriticalNonzeroAllCritical.lean": "68d847d6a446f12aa2ea8c826812c85e2c1afd39948d7c4a30c296d578dd58aa"
+  },
+  "atlas_certification": false
+}

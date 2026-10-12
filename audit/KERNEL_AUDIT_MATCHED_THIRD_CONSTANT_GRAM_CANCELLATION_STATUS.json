@@ -1,0 +1,24 @@
+{
+  "status": "PASS",
+  "checked_utc": "2026-10-12T18:02:45.984204+00:00",
+  "modules": 1,
+  "axiom_endpoints": {
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.oneConstant_adjugate": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "source_hashes": {
+    "NoFourMUBs/Step2/Reconstruction/ThirdMoment/ConstantGramCancellation.lean": "e0b0f2403b5636d330b5c0a3c47e1ff3553f99eb98e1efe922c19149efcc9fbc"
+  },
+  "manifest_sha256": "486cc80dc29a2926c1b98594efc0f2e86337729440b91ab0ea81b9a813718f4b",
+  "audit_log_sha256": "609cf0f87d7f37c814c66b6ae88f5086ebe70c00b1e348701143e862d98826f9",
+  "scope": "Cancel one Gram factor in the existing affine constant third-moment matrix before expanding seed phases. Only original side denominator nonzero guards. Original saved arrays unchanged; actual matrix bindings remain open.",
+  "dependency_audits": {
+    "KERNEL_AUDIT_MATCHED_THIRD_AFFINE_MATRICES_STATUS.json": "5d8c5035c30f3efa132cf81ad8e1343c82b72c4f28144883959c2e5688bde46a",
+    "KERNEL_AUDIT_MATCHED_THIRD_FORCED_COEFFICIENT_STATUS.json": "43a268fbfc282ceaf3eaba298dca453ac803069441ad119e13b608d621b6cced"
+  },
+  "dependency_source_hashes": {},
+  "atlas_certification": false
+}

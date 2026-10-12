@@ -1,0 +1,6 @@
+import NoFourMUBs.Step2.Reconstruction.ThirdMoment.Certificates.Products.Product000A06
+
+#check NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.Product000A06_value
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.Product000A06_length
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.Product000A06_checked
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.Product000A06_value

@@ -1,0 +1,31 @@
+{
+  "scope": "critical_nonzero_raw_clearing",
+  "records": [
+    {
+      "module": "NoFourMUBs.Step2.CriticalZero.ClearedMoments.Data_p2_m4",
+      "active_path": "NoFourMUBs/Step2/CriticalZero/ClearedMoments/Data_p2_m4.lean",
+      "active_sha256": "42303dd647a20e5dff13101edf8394d65d0c52c9657ff0e563d15e35bfde441e",
+      "data_only": true,
+      "review": "CRITICAL_NONZERO_LARGE_CLEARING_DATA_REVIEW.json"
+    },
+    {
+      "module": "NoFourMUBs.Step2.CriticalZero.ClearedMoments.Pair_p2_m4",
+      "active_path": "NoFourMUBs/Step2/CriticalZero/ClearedMoments/Pair_p2_m4.lean",
+      "active_sha256": "9d7fd980a2c67969f01c447f77c5ce35003c5c729a4c15c35015665238f2adee",
+      "local_model_adapter": true,
+      "review": "CRITICAL_NONZERO_RAW_CLEARING_REVIEW.json",
+      "tactic_refinement": "Reuse checked quadSide_eq_compactSide before the same Newton formula. Data and theorem statement unchanged.",
+      "syntax_refinement": "Same cached coefficients in separate8-row data declarations, using existing dense evaluator. No polynomial value or theorem statement changed.",
+      "data_dependency": "NoFourMUBs.Step2.CriticalZero.ClearedMoments.Data_p2_m4"
+    }
+  ],
+  "existing_dependency_pins": [
+    {
+      "module": "NoFourMUBs.Step2.CriticalZero.NonzeroCompactSide",
+      "active_path": "NoFourMUBs/Step2/CriticalZero/NonzeroCompactSide.lean",
+      "active_sha256": "05bf40ab7316643cf1f406abaa5b7c40f53bd8c4013e961abea595b7d05cdd00",
+      "local_model_adapter": true,
+      "review": "CRITICAL_NONZERO_RAW_CLEARING_REVIEW.json"
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+import NoFourMUBs.Step2.Reconstruction.Companion.Model
+import Mathlib.Tactic.FieldSimp
+set_option autoImplicit false
+set_option maxRecDepth 100000
+set_option maxHeartbeats 4000000
+noncomputable section
+namespace NoFourMUBs.Step2.Reconstruction.Companion
+open BaseCoefficients StrictReconstruction20261007
+theorem residual_c0_a (a b c d : ℂ)
+    (ha : a ≠ 0) (hb : b ≠ 0) (hc : c ≠ 0) (hd : d ≠ 0)
+    (hden : denominatorCore a b c d ≠ 0)
+    (hdelta : cachedDelta a b c d ≠ 0)
+    (hPh : (normData a b c d).a.p0bar * (normData a b c d).a.p1 ≠ 0)
+    (hPv : (normData a c b d).a.p0bar * (normData a c b d).a.p1 ≠ 0) :
+    (residual a b c d).c0.a = 0 := by
+  have hU := cachedU_eq a b c d ha hb hc hd hPh
+  have hV := cachedV_eq a b c d ha hb hc hd hPh
+  have hvU := cachedU_eq a c b d ha hc hb hd hPv
+  dsimp only at hU hV hvU
+  have hdelta' := hdelta
+  rw [cachedDelta_eq a b c d ha hb hc hd] at hdelta'
+  obtain ⟨hP0,hP1⟩ := mul_ne_zero_iff.mp hPh
+  obtain ⟨hvP0,hvP1⟩ := mul_ne_zero_iff.mp hPv
+  dsimp [residual,reducedA,reducedB,reducePoly,modulus,verticalProduct,kappa,companion,
+    CubicEvaluation.add,CubicEvaluation.mul,CriticalMomentQuad20261003.scalar]
+  rw [hU,hV,hvU,cachedC6_eq a b c d ha hb hc hd,
+    cachedC6_eq a c b d ha hc hb hd,cachedDelta_eq a b c d ha hb hc hd,
+    cachedDelta_eq a c b d ha hc hb hd]
+  field_simp [ha,hb,hc,hd,hden,hdelta',hP0,hP1,hvP0,hvP1]
+  dsimp only [normData,PreRhoNorm.gramData,PreRhoAlignment.gramData,
+    Hadamard6.eliminantBeta0,Hadamard6.eliminantBeta1,
+    Hadamard6.eliminantBeta2,Hadamard6.eliminantBeta3,
+    denominatorCore,num00,num01,num10,num11,num20,num21]
+  field_simp [ha,hb,hc,hd]
+  <;> ring
+
+end NoFourMUBs.Step2.Reconstruction.Companion

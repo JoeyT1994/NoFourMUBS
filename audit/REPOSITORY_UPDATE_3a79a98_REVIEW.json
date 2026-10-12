@@ -1,0 +1,72 @@
+{
+  "status": "REVIEWED_NO_CHANGE_TO_ACTIVE_PROOF_INPUTS",
+  "checked_utc": "2026-10-11T18:18:33.366696+00:00",
+  "base": "4e048ec8a2888f198f5432efd7f201f98d473878",
+  "head": "3a79a98fb3792ba9f4470a209123ac90c4ba23d1",
+  "comparison_file": "REPOSITORY_UPDATE_3a79a98_COMPARE.json",
+  "comparison_sha256": "47869f0454503b19c04d4bfc157d2787fe52a46dce3b690d882f2443a9b89167",
+  "commits": 1,
+  "changed_files": [
+    {
+      "filename": "proof/atlas/results/RECEIPT.md",
+      "status": "modified",
+      "sha": "2547d03817f31ee034e85246d0bfc33bc45b1a7a",
+      "additions": 3,
+      "deletions": 2
+    },
+    {
+      "filename": "proof/independent/README.md",
+      "status": "modified",
+      "sha": "f4c179ae6f3ce3bd194c491d9d3f74497b512826",
+      "additions": 7,
+      "deletions": 0
+    },
+    {
+      "filename": "proof/independent/results_v3_fresh/RESULT.txt",
+      "status": "added",
+      "sha": "2aefd5611c00d332432f6a8b28b25af7b0fd2d5f",
+      "additions": 12034,
+      "deletions": 0
+    },
+    {
+      "filename": "proof/independent/results_v3_fresh/indep_7213978.log",
+      "status": "added",
+      "sha": "6a4c455f3abc2d178363dde1a5ad141e5f0c65f7",
+      "additions": 14477,
+      "deletions": 0
+    },
+    {
+      "filename": "proof/independent/results_v3_fresh/step3.tsv",
+      "status": "added",
+      "sha": "a071aeca4731ca10b0d710b1687016fc962e3896",
+      "additions": 12022,
+      "deletions": 0
+    },
+    {
+      "filename": "proof/independent/results_v3_fresh/step4.tsv",
+      "status": "added",
+      "sha": "eb9dd9ccc4b6ef640a78603af756840c8fc39bd2",
+      "additions": 12022,
+      "deletions": 0
+    },
+    {
+      "filename": "proof/independent/run_rusty.sh",
+      "status": "added",
+      "sha": "abb7511269e83be6ca8c883a4f7d60d92a078d0a",
+      "additions": 19,
+      "deletions": 0
+    },
+    {
+      "filename": "proof/independent/src/boundary.jl",
+      "status": "modified",
+      "sha": "d114c6678e37e6a3f7bdd60f6bc2b263a4ce3860",
+      "additions": 7,
+      "deletions": 2
+    }
+  ],
+  "scope": "All eight changed paths are independent atlas-checker results, documentation, the cluster runner, or threaded F6 search. Read the complete supplied patches for the four changed source/documentation files. Four added large result/log tables are excluded certificate evidence and are not executed, certified or adopted. No Lean file, classification/reconstruction input, coefficient certificate, or existing archive dependency changed. The previous full source/blob/import/OAI reuse reviews remain applicable to active proof work.",
+  "atlas_results_claim": "The commit reports a fresh full independent atlas run. This local review does not verify that claim or construct AtlasCertificate.",
+  "active_lean_proof_changes": false,
+  "atlas_certification": false,
+  "no_unshared_work_coverage_claim": true
+}

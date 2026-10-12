@@ -1,0 +1,19 @@
+lean/NoFourMUBs/Step2/CriticalZero/NonzeroScalarEndpoint.lean:32:  have hc := NonzeroScalar.candidates_of_signed_quartic_zero hk
+lean/NoFourMUBs/Step2/CriticalZero/NonzeroScalarEndpoint.lean:61:  apply Poles.actual_pole_quartic_zero (stripCorner H c) k i
+lean/NoFourMUBs/Step2/CriticalZero/RawNumerator/Data.lean:21:def rawIntegerNumerator {R : Type*} [CommRing R] (X Y k : R) : R :=
+lean/NoFourMUBs/Step2/CriticalZero/RawNumerator/Data.lean:25:def rawNumerator {F : Type*} [Field F] (X Y k : F) : F := rawIntegerNumerator X Y k / 32
+lean/NoFourMUBs/Step2/CriticalZero/PoleQuartic.lean:50:theorem quartic_zero_of_pole_boundary (k K : ℝ)
+lean/NoFourMUBs/Step2/CriticalZero/PoleQuartic.lean:58:  rw [quartic_pole_boundary_identity, hb, mul_zero, add_zero]
+lean/NoFourMUBs/Step2/CriticalZero/ScalarSigns/Classification.lean:12:domain. Deriving this quartic from an actual nonzero-J matrix is separate. -/
+lean/NoFourMUBs/Step2/CriticalZero/ScalarSigns/Classification.lean:13:theorem candidates_of_quartic_zero {k K : ℝ} (hk : 0<k)
+lean/NoFourMUBs/Step2/CriticalZero/ScalarSigns/Classification.lean:18:    exact Or.inr (Or.inl ⟨rfl, quartic_zero_at_one K hA hQ⟩)
+lean/NoFourMUBs/Step2/CriticalZero/ScalarSigns/Classification.lean:59:theorem candidates_of_signed_quartic_zero {k K : ℝ} (hk : k≠0)
+lean/NoFourMUBs/Step2/CriticalZero/ScalarSigns/Classification.lean:63:  have hc := candidates_of_quartic_zero (abs_pos.mpr hk) hA
+lean/NoFourMUBs/Step2/CriticalZero/ScalarSigns/Classification.lean:68:#print axioms candidates_of_quartic_zero
+lean/NoFourMUBs/Step2/CriticalZero/ScalarSigns/Classification.lean:69:#print axioms candidates_of_signed_quartic_zero
+lean/NoFourMUBs/Step2/CriticalZero/PhysicalPoleClassification.lean:15:theorem actual_pole_quartic_zero (E : Hadamard6.Mat3) (k : ℝ) (i : Fin 3)
+lean/NoFourMUBs/Step2/CriticalZero/PhysicalPoleClassification.lean:79:  exact quartic_zero_of_pole_boundary k K (Or.inr ha')
+lean/NoFourMUBs/Step2/CriticalZero/PhysicalPoleClassification.lean:94:  exact NonzeroScalar.candidates_of_signed_quartic_zero hk
+lean/NoFourMUBs/Step2/CriticalZero/PhysicalPoleClassification.lean:96:    (actual_pole_quartic_zero E k i hE h0 hp hj hw hL)
+lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Expressions.lean:285:      integerMultiplier X Y k * NoFourMUBs.Step2.Critical.NonzeroRawNumerator.rawIntegerNumerator X Y k := by
+lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Expressions.lean:287:    multiplierExpression_eval,NoFourMUBs.Step2.Critical.NonzeroRawNumerator.rawIntegerNumerator]

@@ -1,0 +1,63 @@
+import NoFourMUBs.Step2.CriticalZero.PhysicalPoleClassification
+import NoFourMUBs.Step2.CriticalZero.EquicorrelationScalarEndpoint
+import NoFourMUBs.Step2.CriticalZero.P7StripEndpoint
+import NoFourMUBs.Step2.CriticalStripMatrix
+
+/-! One consumer of the scalar classification and both physical exclusions.
+The regular-case quartic premise is still a separate obligation. -/
+
+set_option autoImplicit false
+set_option maxHeartbeats 1500000
+noncomputable section
+namespace NoFourMUBs.Step2.Critical
+open CriticalPhysical20261003 CriticalModulusDomain20261003
+
+theorem strip_nonzero_quartic_special {H : OAI.MUB6.CMatrix}
+    (hH : AllCriticalCarrier H) (c : Fin 20) (k : ℝ) (hk : k≠0)
+    (hp : sideP (stripCorner H c)=CriticalRationalParam20261003.p k)
+    (hj : sideJ (stripCorner H c)=CriticalRationalParam20261003.j k)
+    (hw : sideW (stripCorner H c)=CriticalRationalParam20261003.w k)
+    (hQ : CriticalNonzeroPolynomial20261003.quartic k
+      (Complex.normSq (sideS (stripCorner H c))*Complex.normSq (sideT (stripCorner H c))*
+        Complex.normSq (sideR (stripCorner H c)))=0) :
+    NonzeroScalar.kappa |k|=0 ∧ sideP (stripCorner H c)=exceptionalP |k| := by
+  have hpabs : sideP (stripCorner H c)=CriticalRationalParam20261003.p |k| := by
+    rw [hp]
+    exact (p_abs k).symm
+  have hjabs : |sideJ (stripCorner H c)|=CriticalRationalParam20261003.j |k| := by
+    rw [hj]
+    simp only [CriticalRationalParam20261003.j, abs_div, abs_mul,
+      abs_sq, sq_abs]
+    norm_num
+  have hc := NonzeroScalar.candidates_of_signed_quartic_zero hk
+    (actual_block_allowed_abs (stripCorner H c) k hk hp hj hw) hQ
+  rcases hc with ⟨hthird,hK⟩ | ⟨hone,hK⟩ | ⟨hroot,_⟩
+  · exact (Equicorrelation.strip_scalar_impossible hH c
+      (by norm_num [hthird, CriticalRationalParam20261003.p,
+        CriticalRationalParam20261003.q] at hpabs ⊢; exact hpabs)
+      (by norm_num [hthird, CriticalRationalParam20261003.j] at hjabs ⊢; exact hjabs)
+      hK).elim
+  · exact (P7.strip_p7_impossible hH c
+      (by norm_num [hone, CriticalRationalParam20261003.p,
+        CriticalRationalParam20261003.q] at hpabs ⊢; exact hpabs)
+      (by norm_num [hone, CriticalRationalParam20261003.j] at hjabs ⊢; exact hjabs)
+      hK).elim
+  · exact ⟨hroot,hpabs⟩
+
+/-- The complete nonzero-J pole branch, for every corner and either sign.
+Only the cubic-root candidate survives the already checked exclusions. -/
+theorem strip_nonzero_pole_special {H : OAI.MUB6.CMatrix}
+    (hH : AllCriticalCarrier H) (c : Fin 20) (k : ℝ) (hk : k≠0)
+    (hp : sideP (stripCorner H c)=CriticalRationalParam20261003.p k)
+    (hj : sideJ (stripCorner H c)=CriticalRationalParam20261003.j k)
+    (hw : sideW (stripCorner H c)=CriticalRationalParam20261003.w k)
+    (i : Fin 3) (hL : CriticalLightSheet20261003.blockDenominator (stripCorner H c) i=0) :
+    NonzeroScalar.kappa |k|=0 ∧ sideP (stripCorner H c)=exceptionalP |k| := by
+  apply strip_nonzero_quartic_special hH c k hk hp hj hw
+  apply Poles.actual_pole_quartic_zero (stripCorner H c) k i
+    (fun a b => hH.1.1.1 (front a)
+      (CriticalRowSum20261003.triples c b)) ?_ hp hj hw hL
+  intro j
+  exact hH.1.2.1 (CriticalRowSum20261003.triples c j)
+
+end NoFourMUBs.Step2.Critical

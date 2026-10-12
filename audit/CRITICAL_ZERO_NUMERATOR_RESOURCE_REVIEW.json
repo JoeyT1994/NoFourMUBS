@@ -1,0 +1,15 @@
+{
+  "status": "INTERRUPTED_FOR_MEMORY_PRESSURE_NOT_A_MATHEMATICAL_FAILURE",
+  "checked_at": "2026-10-10T20:45:54.506534+00:00",
+  "module": "NoFourMUBs.Reuse.Archive.CriticalZeroSumNumeratorCertificatePilot",
+  "pid": 29616,
+  "proof_tactic": "decide +kernel",
+  "observed_footprint": "10.1 GiB",
+  "observed_swapped_memory": "9.6 GiB",
+  "observed_elapsed": "12 minutes",
+  "observed_cpu_time": "4 minutes 20 seconds",
+  "action": "Sent SIGINT to this Lean process only; archived proof and new whole-numerator checks remain unverified. Check independent existing bindings and denominator identity next.",
+  "source_sha256": "59d375343623109bcf99ca7a7a5bd40a8c1b1c935169ea64abb72c55bd2406fc",
+  "earlier_failure": "rfl exceeded 1500000 elaborator heartbeats; exact log batch_0025.log",
+  "reuse_followup": "DenseCoefficients, CoefficientAt and BinaryCertificate provide existing smaller convolution machinery; audited statements but no replacement coefficient data generated."
+}

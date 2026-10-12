@@ -1,0 +1,61 @@
+{
+  "status": "REVIEWED_REUSE_EXISTING_PRODUCTS_AND_COFACTOR_SHIFT",
+  "reviewed_utc": "2026-10-12T14:46:53.749135+00:00",
+  "search": "MATCHED_THIRD_DENOMINATOR_CONSTANT21_REUSE_SEARCH.json",
+  "source_pins": [
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/DenominatorConstant02.lean",
+      "sha256": "a53f4a5ba758fd4a4aae09960189d8a65a82518260634c43fac9c08f7f72a93a"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/DenominatorSingle.lean",
+      "sha256": "cecc5488c8c0702a945bacc6de6932aaa87c7a1d119d8d31abcf06562bdfde85"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/DenominatorGram.lean",
+      "sha256": "9c1c562c944efb13cb4dfe03a30ecbe74c4208669b53ae40f9e7c2ef0f726b80"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/Products/Product012.lean",
+      "sha256": "90b9e0e72b6bcc4b5a69764d0888291f0969d0e9adc8e856610412f1d48c2024"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/Products/MonomialTransport1.lean",
+      "sha256": "52bdb9674278c7c3317bde57eb13d671c4fca14d1dae622633ade97471fb96ae"
+    },
+    {
+      "path": "lean/NoFourMUBs/Reuse/Archive/SideIntrinsicActualBindings.lean",
+      "sha256": "01583704c909e9bfcda9dc0978abfd33e6f5eb7d811292b402e1bfafc5c29910"
+    },
+    {
+      "path": "lean/NoFourMUBs/Reuse/Archive/SideIntrinsicPolynomialDefs.lean",
+      "sha256": "1291afc792342d1241ca5a0ec63d77ba8ac9d838f254a7e420b7c8ce334abc53"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/Products/Product029.lean",
+      "sha256": "53435df865f01ce58d6b785a21d2ffd3c169925c0a5e70d86ae37f2eaa9fa53d"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/Polynomials/P028.lean",
+      "sha256": "556953dac531fd3c2fdc6f1b3759aed7d8fcb08b2d70f2d86fbff8d2ccae98f0"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/Polynomials/P061.lean",
+      "sha256": "0300bf179def1a30de903828ed8dcc85fbd201fee394e3190e06e9d6bf8b63b4"
+    }
+  ],
+  "comparisons": [
+    "Original P028 and P061 have 51 terms each and scale2. A complete support comparison finds P028=b*P061. Reuse the original arrays and polynomial evaluator; no new coefficients or checker.",
+    "Reuse the already checked constant02 cancellation argument with P060*P061=P031 (saved Product029) and P027*P028=P000 (checked Product012). Together with P031=P045*P004, P000=P003*P004 and P045=-(a*b*c*d)*g*P003 this yields P060=-(a*b^2*c*d)*g*P027 on every StrictSeed.",
+    "The cofactor is nonzero on every StrictSeed once Product029 is checked, since P031_strict_ne_zero is proved. No exceptional parameter exclusion or new nonzero premise.",
+    "Product029 is now adopted and audited PASS. Reuse its exact generic commutative-ring equation P060*P061=P031; this adds no new mathematical hypothesis.",
+    "The archived SideIntrinsic actual-lambda results assume six unit phases and identify abstract side denominators. They are already used in the strict side machinery; they do not identify these four-phase saved integer polynomials. The existing local factorization and product facts are the direct reusable endpoints.",
+    "All three complete archive indexes were searched; no exact local cofactor or divisor theorem was found in current, vendor, resident archive or blob sources. This is a local representation adapter for the active E/direct route, not a second proof route."
+  ],
+  "source_certificate_sha256": "f986a996673ec0089ec09c3b9ee827c71463fe6f7f57f67b0ded6b793beaad8f",
+  "required_product_index": 29,
+  "new_numeric_arrays": 0,
+  "atlas_certification": false,
+  "updated_utc": "2026-10-12T17:44:05.216661+00:00",
+  "required_product_status": "PASS with current source closure and audit"
+}

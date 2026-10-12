@@ -1,0 +1,35 @@
+{
+  "status": "EXACT_ARITHMETIC_DIAGNOSTIC_ONLY",
+  "checked_utc": "2026-10-11T08:14:48.888083+00:00",
+  "log_sha256": "f88203872c7199aba0d3dadada59e788f5146932dd697f99688b8425a0c28639",
+  "goals": [
+    {
+      "component": "a",
+      "actual_cleared_goal_matches_cached_numerator": true,
+      "polynomial_terms": 2674,
+      "degrees": [
+        13,
+        11,
+        46,
+        0
+      ],
+      "remaining_Lean_proof": true
+    },
+    {
+      "component": "b",
+      "actual_cleared_goal_matches_cached_numerator": true,
+      "polynomial_terms": 2418,
+      "degrees": [
+        13,
+        11,
+        47,
+        0
+      ],
+      "remaining_Lean_proof": true
+    }
+  ],
+  "lean_certified": false,
+  "no_new_numerator_witness_generated": true,
+  "atlas_certification": false,
+  "next": "Use existing dense/binary coefficient checker on these exact final goals; do not retry unchanged monolithic ring normalization."
+}

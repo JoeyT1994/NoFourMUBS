@@ -1,0 +1,138 @@
+{
+  "status": "PASS",
+  "reviewed_utc": "2026-10-11T01:49:41.184991+00:00",
+  "root": "CriticalZeroActualComputedNoAudit",
+  "sources": {
+    "LiftedSheetGuards": "2091e7874f814238fb6c0e1716df4dfb49bb1ded1cdb2c478b0059f64b741ad9",
+    "CriticalZeroActualComputedNoAudit": "a713e0b8443313de80c9236d7c7b47fc1105d93cec5373eaed099c3736641264",
+    "CriticalZeroComputedEquation": "3540ccc11159524dbf29ce4d821cb2310f79148023eb3cd6a6a588052e8836d1",
+    "CriticalZeroAllCriticalInputs": "6c44449247c42bfbb0ccea8594978121de284a67f806268fd7366a59f730d70b",
+    "CriticalZeroSideAllCritical": "3a264770d925bd0d440910d99bec4ac33e5762e7ab2418db382797467dc111a3",
+    "CriticalZeroSideStripLight": "923a392080b4062aaac1d2f3e29c880de2a1a18efbbda0f92c36bd232c15a365",
+    "CriticalZeroSidePhysicalLight": "9aeae5d8dc7187ccfa33e345e71f372ef12dd39a6af86b49b69da441290d1102",
+    "CriticalLightSheet": "803848b94d00d1968adde2b8e4f965714be3a62a480fe605f89046790eb30921",
+    "PhysicalSideRational": "1b0c95e3e0be7224b47a6466096a05c1f31125f6e47683512a0cc0efc42ad845",
+    "PhysicalSideSheet": "67e91634543b624828e6e43494cc791dc4ed7c3b398d79f3967a99f9df170246",
+    "PhysicalSideForward": "e2d7aee53a5f9eaea460d79e7b5e947bce1272f36d76e5bcfea146dae8bdc7c2",
+    "GramNumerators": "910524e98bf4539bd65ad0bbea6098809e321190e1e46cc8291357a34174c61a",
+    "CriticalZeroSideInterface": "2893ebf43e545b525b285c562a30b537a5f68c49d3e7185f9771f12b39d7fd37",
+    "CriticalRationalSideData": "8453e7ea3b6783bb9a1dfdb017dddf906fcd096f62189adf274e47714db08a4b",
+    "CriticalRationalSideActualGauge": "0c300a9949e038e9ef6b2fc8133dc2bd3c9839f63f0eb0f729f5df2d1c8254e3",
+    "CriticalRationalSidePhysical": "b83464b292c65a40d9d1719b2af887dd40a3844a438782ad38899a5761a42aa0",
+    "CriticalPhysicalScalarInputs": "31c732cd3ac50069430614d1aeea86d78012822ca8479362ee643183cf1e921c",
+    "CriticalScalarGaugeAlgebra": "d9bf68ccf2b9042f95639ab3df623b24042429f1d202c8d38c837061c3911dca",
+    "CriticalActualReconstruction": "00e51cd1641b95400d24f7bfba2e799886a0198547712e538469046af0bfefd9",
+    "CriticalReconstructionAlgebra": "d37bfaaa331ad2c790cdddddae7c77e30adf5d3c3a171731398baeb149d553ba",
+    "CriticalRationalSideGauge": "e131ce6a37bc21b8a258efff51e8d2f9d9f38335b65742e4c44e87af906ff8c3",
+    "CriticalReconstructionGauge": "1faadb74870587be94b603df8df85e9572dcd9b8cb47a5dac96faeba8805c99e"
+  },
+  "search_evidence": [
+    "CRITICAL_LIGHT_SIDE_REUSE_FILES.txt:23matching archive files",
+    "Full ARCHIVE_SOURCE_INDEX/ARCHIVE_BLOB_INDEX/ARCHIVE_IMPORT_INDEX reviewed for the selected modules and variants",
+    "Current NoFourMUBs and complete existing OAI closure scanned for selected endpoint/helper names"
+  ],
+  "scope": "Existing physical matrix to regular zero-J computed-numerator equality. Retain z>=-3,z!=0,-3,-2,parameter equations and original s,t nonzero guards. Does not handle exceptions, identify raw numerator or prove global classification.",
+  "variant_resolution": {
+    "CriticalLightSheet": "803848 reuses physical side definitions;34f613 repeats those only to avoid old global-corner import. Use803848 with current PhysicalModel. Proof bodies identical under Mat3 substitution.",
+    "PhysicalSideForward": "e2d7ae has explicit matrix rw compatibility fixes;f249f9 lacks all3needed numerator bindings. Omit side data, determinant and permanent proofs already provided by SidePermanent. Retain actual_gram and all3original numerator certificates.",
+    "PhysicalSideSheet": "67e916 includes required physicalSheet_lifted;8a6495 incomplete for this consumer.",
+    "PhysicalSideRational": "1b0c95 includes same proofs plus permanent product endpoint.",
+    "GramNumerators": "910524 uses explicit determinant/adjugate rewrites and pow_two compatibility. Omit shared q/g/sigma/eta/chi declarations; data unchanged.",
+    "LiftedSheetGuards": "2091e7 uses current Mathlib.Analysis.Real.Sqrt; otherwise identical to1c2d4d. Reuse shared radicand.",
+    "CriticalZeroSideInterface": "2893eb retains original final rfl, needed after rewriting before reduction of the two record constructors.3126c5 removed it and leaves an unsolved definitional equality.",
+    "CriticalRationalSidePhysical": "b83464 commutativity simp and current star_div notation; same statements.",
+    "CriticalRationalSideGauge": "e131ce dsimp-only denominator and rationalSide; same formulas.",
+    "CriticalPhysicalScalarInputs": "31c732 includes local D unfolding in final two simp steps.",
+    "CriticalReconstructionAlgebra": "d37bfa simp-only substitutions replace rw.",
+    "CriticalScalarGaugeAlgebra": "d9bf68 restores the original ring for conjugate multiplication order and uses eq_div_iff instead of field_simp. fee82e failed both obligations on current Mathlib; no theorem or data changed."
+  },
+  "extraction": "PhaseFacts will reuse only archived IsPhase,phase_ne_zero,phase_star,phase_conj,phase_mul_conj,phase_div, avoiding the unused seed/strict-side/SideLambdaPhases import closure. No new polynomial data or proof route.",
+  "model_adaptation": "Use current OAI matrix and AllCriticalCarrier. Replace LightSheet repeated side definitions/references with shared PhysicalModel names. All algebraic hypotheses retained.",
+  "atlas_certification": false,
+  "phase_facts_extraction": [
+    {
+      "source": "audit/upstream_repository/archive/long_proof/Lean/blobs/3e/3eb8c71a3b1349ffd1af0e822b9bd87c633d3934af3690bb251f54d1325b3f21/SeedBinding.lean",
+      "sha256": "3eb8c71a3b1349ffd1af0e822b9bd87c633d3934af3690bb251f54d1325b3f21",
+      "start": "def IsPhase (z : \u2102)",
+      "stop_before": "theorem detE_formula",
+      "block_sha256": "2533c7c70b8a58b8a06d035c00333bb61c0f7bb8f143ee9a1fef1b9333d1ab54"
+    },
+    {
+      "source": "audit/upstream_repository/archive/long_proof/Lean/blobs/3e/3eb8c71a3b1349ffd1af0e822b9bd87c633d3934af3690bb251f54d1325b3f21/SeedBinding.lean",
+      "sha256": "3eb8c71a3b1349ffd1af0e822b9bd87c633d3934af3690bb251f54d1325b3f21",
+      "start": "theorem phase_ne_zero",
+      "stop_before": "private theorem gramH_apply",
+      "block_sha256": "e2b476fa2ead9a6381c53d9c81d7cfba94498ba398ac3658f1da584edbc97c45"
+    },
+    {
+      "source": "audit/upstream_repository/archive/long_proof/Lean/blobs/37/37d1dcbd01639d1d6fd203cd652606df923f56367f18dd3e69df9f7cbc76a801/SideLambdaPhases.lean",
+      "sha256": "37d1dcbd01639d1d6fd203cd652606df923f56367f18dd3e69df9f7cbc76a801",
+      "start": "theorem phase_div",
+      "stop_before": "/-- In particular",
+      "block_sha256": "bd71c7d07417b8cf25368341ad5e6f7cbb6e8aea06f7a1d172b4133b97610866"
+    }
+  ],
+  "new_archived_modules": 22,
+  "shared_definition_omissions": {
+    "LiftedSheetGuards": [
+      {
+        "start": "def radicand (g chi eta : \u211d)",
+        "stop_before": "theorem sheet_re",
+        "sha256": "6ba2c1696937136af2fdc7fd7459497cf2f75fadbae7c68c06960bb7b35f8bdd",
+        "reused_from": "GramInvariantData"
+      }
+    ],
+    "PhysicalSideForward": [
+      {
+        "start": "def side (x0 x1 x2 y0 y1 y2 : \u2102)",
+        "stop_before": "theorem actual_gram",
+        "sha256": "00d7c2b8403418b454f2f0bbe664fa0ff972148489ebee909ad637d7286ae681",
+        "reused_from": "SidePermanent"
+      },
+      {
+        "start": "theorem g_determinant",
+        "stop_before": "set_option maxHeartbeats 0 in\ntheorem numerator0_binding",
+        "sha256": "8110664850a5f1aa80a22f8963b49adb5948c3dd16d0b3279c92701f53adbc22",
+        "reused_from": "SidePermanent checked determinant-norm and permanent-norm proofs"
+      }
+    ],
+    "GramNumerators": [
+      {
+        "start": "def q (s t r : \u2102)",
+        "stop_before": "def numerator (s t r : \u2102)",
+        "sha256": "062ff5f0ad02afefb01496f85b075721ce03c215d8f5adfb6df7ca9ce72b12c9",
+        "reused_from": "SidePermanent and GramInvariantData"
+      }
+    ]
+  },
+  "old_source_hash_preservation": "All312prior active source hashes unchanged",
+  "manifest_records": 335,
+  "adapted_source_scan": {
+    "checked_utc": "2026-10-11T01:58:25.138967+00:00",
+    "modules": 22,
+    "unreplaced_model_identifiers": [],
+    "forbidden_proof_placeholders_found": false,
+    "note": "Lexical hygiene only; compilation and endpoint axiom audit still required."
+  },
+  "compatibility_failures": [
+    {
+      "module": "CriticalScalarGaugeAlgebra",
+      "failed_source": "fee82e67b87c622a98baabe23117032a314a3362c0449aacfd0007cf547895d2",
+      "failed_log": "critical_zero_physical_build_status_logs/batch_0243.log",
+      "replacement_source": "d9bf68ccf2b9042f95639ab3df623b24042429f1d202c8d38c837061c3911dca",
+      "reviewed_utc": "2026-10-11T04:05:38.846859+00:00",
+      "reason": "The earlier archived proof solves precisely the two remaining multiplication/denominator goals; reuse it unchanged."
+    },
+    {
+      "module": "CriticalZeroSideInterface",
+      "failed_source": "3126c56af0e8037451fd38e50b974fa0fd618088e220f9175d8d3198bb2129e8",
+      "failed_log": "critical_zero_physical_build_status_logs/batch_0248.log",
+      "replacement_source": "2893ebf43e545b525b285c562a30b537a5f68c49d3e7185f9771f12b39d7fd37",
+      "reviewed_utc": "2026-10-11T04:09:14.274296+00:00",
+      "reason": "Reuse original final rfl without altering definitions or theorem statement."
+    }
+  ],
+  "checked_utc": "2026-10-11T04:22:08.055867+00:00",
+  "pass_evidence": "CRITICAL_ZERO_PHYSICAL_PASS.json",
+  "axiom_audit": "KERNEL_AUDIT_CRITICAL_ACTUAL_ZERO.log"
+}

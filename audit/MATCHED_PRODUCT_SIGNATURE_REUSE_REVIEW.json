@@ -1,0 +1,54 @@
+{
+  "status": "REVIEWED_NECESSARY_SIGNATURE_MODEL_ADAPTER",
+  "checked_utc": "2026-10-11T18:45:49.716278+00:00",
+  "scope": "matched_product_signature",
+  "repository_head": "3a79a98fb3792ba9f4470a209123ac90c4ba23d1",
+  "search": "MATCHED_SIGNATURE_BINDING_SEARCH.json",
+  "previous_full_review": "MATCHED_EXISTENCE_UNIVERSAL_REUSE_REVIEW.json",
+  "source_pins": {
+    "lean/NoFourMUBs/Step2/Reconstruction/RowProductRelations.lean": "3f3fdb13ccc279c14142c125d10790c01473e069316f18b777f939ed309a086e",
+    "lean/NoFourMUBs/Step2/Reconstruction/SignatureFromPermanent.lean": "ed967a342e9c416df5134b250b4c5f4346317c3ec47dcde8599d1fa8e560fae8",
+    "lean/NoFourMUBs/Reuse/Archive/SideIntrinsicActualLambda.lean": "94951a45e12f8f8560d1a024d2c23dd76e0ccd5d092602eae8c983fefeb8b403",
+    "lean/NoFourMUBs/Reuse/Archive/SideIntrinsicActualNorms.lean": "56d0fbfdfcd10a376e554d83f1311726967568c80a36638161c2be4ed6b65fca",
+    "lean/NoFourMUBs/Reuse/Archive/SideIntrinsicActualChi.lean": "a53c2da827820536fffe293e0a2ddda383c7bd8dfad5de787c3eda1db1d839f5",
+    "lean/NoFourMUBs/Reuse/Archive/SideIntrinsicMatrixBindings.lean": "28e1b68230d5b0372200d1bc65f9f98e6db18afdda19c6f1c46cacdc0377a5a5",
+    "lean/NoFourMUBs/Reuse/Archive/StrictSideScalarGuards.lean": "75741b3091aeb2ce36f1b9fdab822add16b2e2514bfa27822105c93fb936d042",
+    "lean/NoFourMUBs/Reuse/Archive/SideIntrinsicLambdaRecovery.lean": "577759e6717fb98ac6cdf4d64b2c1b0f7f702ac0bfc6b00fc34b278176b102ae",
+    "lean/NoFourMUBs/Step2/MatchedUnique.lean": "e143def12a98bf2db1326dc71301a96dfac34c1a33d7b3a81eed7e14ed6e4433"
+  },
+  "comparisons": [
+    {
+      "existing": "SignatureFromPermanent.sideSignature_of_prescribed_permanent",
+      "conclusion": "A constructed permanent has the prescribed signature under strictness; its local hsig proves the necessary permanent/signature relation for unit rows.",
+      "reuse": "Extract only the needed same algebra for actual intrinsic rows and bind it to sig_rows; do not redo any constructor."
+    },
+    {
+      "existing": "actual_intrinsic_lambda_identities; actual_gramEta_norm_perm; row_permanent_product_relation",
+      "conclusion": "Actual determinant/permanent/product relations without determinant guards.",
+      "reuse": "Eliminate the determinant and permanent to give an affine signature/product equation; cancel only unit products."
+    },
+    {
+      "existing": "sideP0_normSq; sideP1_normSq",
+      "conclusion": "Universal scalar P norm identities.",
+      "reuse": "Subtract these checked identities to center the affine equation; no new polynomial certificates."
+    },
+    {
+      "existing": "intrinsic_lambda_P_bindings and intrinsic_lambdas_eq_prescribed",
+      "conclusion": "Reconstruction recipe lambdas for nonsingular/strict sides.",
+      "decision": "Retain. The needed signed-product binding is a short consequence, not an existing endpoint. Use the already checked no-determinant row relation to retain singular cases."
+    },
+    {
+      "existing": "sig_rows; arbitrary_side_intrinsic_interface",
+      "conclusion": "Current matrix and archived row-coordinate models.",
+      "reuse": "Bridge the literal signature to intrinsicTerm by unit row products."
+    }
+  ],
+  "planned_endpoints": [
+    "intrinsic_signature_permanent",
+    "row_product_signature_centered",
+    "sideSignature_intrinsic",
+    "side_product_of_signature"
+  ],
+  "limits": "Only available sources searched; the full universal matched norm, generic guards and MatchedExistence remain open.",
+  "atlas_certification": false
+}

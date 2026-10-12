@@ -1,0 +1,27 @@
+{
+  "status": "PHYSICAL66_GAUGE_PASS;THREE_FINAL_ROOTS_ADOPTED_NOT_YET_COMPILED",
+  "checked_utc": "2026-10-11T00:17:05.404296+00:00",
+  "next_existing_roots": {
+    "CriticalZeroAllCriticalInputs": "6c44449247c42bfbb0ccea8594978121de284a67f806268fd7366a59f730d70b",
+    "CriticalZeroSideAllCritical": "3a264770d925bd0d440910d99bec4ac33e5762e7ab2418db382797467dc111a3",
+    "CriticalZeroActualComputedNoAudit": "a713e0b8443313de80c9236d7c7b47fc1105d93cec5373eaed099c3736641264"
+  },
+  "exact_endpoint": "Actual normalized AllCritical H with z >= -3, z != 0,-3,-2, literal sideP/J/W parameter equations and two nonzero correlations gives Inputs, computedNumerator=0, and a nonzero common denominator. It does not identify rawNumerator or handle the exceptional cases.",
+  "active_model": "Frames.AllCritical H universally quantifies seedR(frameSeed H f)=0 over all row/column permutations; H uses the checked Hadamard6 Sum(Fin3)(Fin3) convention.",
+  "archive_model": "GlobalCornerDomain.NormalizedCarrier H is PhaseHadamard H plus first row/column equal one. GlobalCornerScalar.AllCritical additionally quantifies score(candidate H p q)=0 over both permutations, using Fin6.",
+  "reuse_requirements": [
+    "Use the checked PhysicalModel/ActualSignatures bridges and existing FourierModelBridge. AllCriticalCarrier is constructed from the current normalized Had6, not assumed from a separate legacy global-max interface.",
+    "Current CriticalRowSum already adapts the archive to OAI.IsHadamard and supplies physical_sum; do not import an unadapted duplicate.",
+    "SidePermanent already exports FourierGramNumerators.q/g/sigma/eta and FourierPhysicalSide.side/s/t/r/rowProduct/determinant/permanent/determinant_formula/g_determinant/eta_permanent. Full PhysicalSideForward or GramNumerators cannot be imported unchanged alongside it because declarations collide. Reuse these declarations and import only missing material after exact dependency review.",
+    "CriticalMomentBinding now imports MomentData and omits its3definitions. GramInvariantData also extracts chi/radicand; future GramNumerators/LiftedSheetGuards imports must reuse all shared declarations.",
+    "Neither FormalCore variant is needed by the newly adopted guarded modulus-input closure. Actual-matrix modules still need model/import adaptation."
+  ],
+  "nonzero_branch_reviewed_only": [
+    "CriticalNonzeroFinalScalarBinding (f700e616ef7320736366a1975b096588304b4cfeec6f6822935e72d5ee732d37) supplies four final coefficient equations via existing finite residual certificates.",
+    "CriticalNonzeroCubicAssembly has two variants differing only by an explicit Ring import; its consumer still requires the preceding numerator zero. Neither variant was adopted this turn."
+  ],
+  "atlas_certification": false,
+  "updated_utc": "2026-10-11T02:03:30.854100+00:00",
+  "current_progress": "Current AllCriticalCarrier constructor, selected signatures, physical strip, all43Newton table formulae, and all21physical66/gauge modules PASS. All91printedphysical66/gaugeendpoints use standardaxiomsonly. CriticalZeroAllCriticalInputs, CriticalZeroSideAllCritical and CriticalZeroActualComputedNoAudit are now adopted in335recordphysicalmanifest, with source/model hypotheses explicit; their remaining dependencies are not yet all compiled.",
+  "next_review": "CRITICAL_MOMENT66_REUSE_NOTES.json"
+}

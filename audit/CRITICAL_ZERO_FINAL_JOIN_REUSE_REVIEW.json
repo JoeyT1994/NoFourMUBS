@@ -1,0 +1,25 @@
+{
+  "status": "PASS",
+  "checked_utc": "2026-10-11T04:28:15.144117+00:00",
+  "evidence": "CRITICAL_ZERO_FINAL_JOIN_REUSE_FILES.txt:9matching archived files; full current numerator/physical manifests checked.",
+  "available_endpoints": [
+    "CriticalZeroPhysicalInputs20261003.allCritical_computed_numerator_zero: adopted but incomplete build",
+    "CriticalZeroSumAssembly20261003.computed_coefficients_eq_rawNumerator: existing grouped assembly; only8/11groups complete",
+    "CriticalZeroPhysicalInputs20261003.raw_zero_moduli_from_inputs: existing raw-factorization closure; incomplete build"
+  ],
+  "necessary_glue": "Once these pass, apply computed-to-raw equality to the actual computed-zero endpoint, then invoke raw_zero_moduli_from_inputs on original nonnegative squared correlations. No polynomial recomputation is needed.",
+  "remaining_guards": [
+    "z>=-3 and z!=0,-3,-2",
+    "sideP=9-z^2,sideJ=0,sideW=z^2*(z+3)^2",
+    "Original left correlations s,t are nonzero"
+  ],
+  "limits": "Regular zero-J stratum only; nonzero-J, exceptional parameters, zero-correlation chart routing and final Fourier equivalence remain separate obligations.",
+  "atlas_certification": false,
+  "current_source_comparison": "Only NumeratorIdentity and archived RawModuliJoin provide the two named scalar endpoints; no actual-matrix moduli join found in current/OAI/archive search.",
+  "adaptation": "Compose exactly the3existing endpoints and Complex.normSq_nonneg. No new elimination, factorization, modulus or matrix proof. All hypotheses unchanged.",
+  "compile_gate": "Both current remaining-groups and physical manifests must finish before compiling the join. Keep outside the two disjoint worker manifests.",
+  "active_path": "NoFourMUBs/Step2/CriticalZero/ActualModuli.lean",
+  "active_sha256": "922c05e3aa609cc5b0f12e05705d8c10c6520660ed4311748766425916b77925",
+  "axiom_type_audit": "KERNEL_AUDIT_CRITICAL_BRANCHES.log",
+  "pass_evidence": "KERNEL_AUDIT_CRITICAL_BRANCHES_STATUS.json"
+}

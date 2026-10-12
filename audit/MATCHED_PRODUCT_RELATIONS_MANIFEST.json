@@ -1,0 +1,36 @@
+{
+  "scope": "matched_product_relations",
+  "records": [
+    {
+      "active_path": "NoFourMUBs/Step2/Reconstruction/RowProductRelations.lean",
+      "active_sha256": "3f3fdb13ccc279c14142c125d10790c01473e069316f18b777f939ed309a086e",
+      "module": "NoFourMUBs.Step2.Reconstruction.RowProductRelations",
+      "local_model_adapter": true,
+      "review": "MATCHED_PRODUCT_RELATIONS_REUSE_REVIEW.json"
+    }
+  ],
+  "dependency_pins": [
+    {
+      "active_path": "NoFourMUBs/Reuse/Archive/SideIntrinsicActualLambda.lean",
+      "active_sha256": "94951a45e12f8f8560d1a024d2c23dd76e0ccd5d092602eae8c983fefeb8b403"
+    },
+    {
+      "active_path": "NoFourMUBs/Reuse/Archive/SideIntrinsicActualNorms.lean",
+      "active_sha256": "56d0fbfdfcd10a376e554d83f1311726967568c80a36638161c2be4ed6b65fca"
+    },
+    {
+      "active_path": "NoFourMUBs/Reuse/Archive/SideIntrinsicUnitBindings.lean",
+      "active_sha256": "0b9439dba8222d68e06eceb609212239feacb0ad3eb482ca835dce10076a3ab2"
+    }
+  ],
+  "axiom_endpoints": [
+    "StrictReconstruction20261007.SideIntrinsic.row_permanent_product_relation",
+    "StrictReconstruction20261007.SideIntrinsic.row_second_product_relation",
+    "StrictReconstruction20261007.SideIntrinsic.row_product_quadratic"
+  ],
+  "dependency_audits": [
+    "KERNEL_AUDIT_CRITICAL_EQUICORRELATION_ROW_PRODUCTS_STATUS.json"
+  ],
+  "atlas_certification": false,
+  "scope_note": "Actual unit-row moment relations and product quadratic from existing intrinsic identities; no universal matched norm claimed."
+}

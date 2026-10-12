@@ -1,0 +1,27 @@
+{
+  "status": "EXACT_SYMBOLIC_RESIDUAL_ZERO_NOT_LEAN_PROOF",
+  "checked_utc": "2026-10-11T18:24:42.992560+00:00",
+  "repository_head": "3a79a98fb3792ba9f4470a209123ac90c4ba23d1",
+  "calculation": "The same forced-row cubic product in Q(a,b,c,d)[w,z], with w^2=Omega and the matched vertical cubic, multiplied by the reciprocal involution, has all six residual coefficients exactly zero.",
+  "same_formula_exact_comparisons": 2,
+  "external_arithmetic": "FLINT rational functions; untrusted by Lean.",
+  "input_and_result_pins": {
+    "MATCHED_MOMENT_NORM_COEFFICIENT_CACHE.json": "747ee8c615aa99085115f83f68487e5a6490f3e72be80e112ec219dd0eb192aa",
+    "MATCHED_MOMENT_NORM_HORNER_FIRST.json": "39521aad7d6c8413aa4ed3a6bef84232a7db8818d8f86444be75d304021d96e3",
+    "MATCHED_MOMENT_NORM_ROW_PRODUCT.json": "5b0238779250f146b0ac14fd67f1204f6f0d6f1885538e71768c9d93500be085",
+    "MATCHED_MOMENT_NORM_CONJUGATE_ROW_PRODUCT.json": "35913f6dc7a5fa23b9e3f2c7c0ba66221a48d70da27f977c2c0f0e6533bd8cdb",
+    "MATCHED_MOMENT_NORM_RECIPROCAL_RESIDUAL.json": "186e16645b429e4d2e0fd955ad94bfdd40bec32572fb3034ad5c5cdf40fa0738",
+    "MATCHED_MOMENT_NORM_REUSE_REVIEW.json": "45e28169a4392b40abb485bb20aa482927f662c639d578c1fcb1f67b07fd4a5c",
+    "MATCHED_MOMENT_NORM_SPECIALIZATION_COMPARISON.json": "df1be33d642f885e04cbab5b541a56882e95fc4489cfe47932e8c2debcdbc3de",
+    "MATCHED_MOMENT_NORM_RECIPROCAL_SPECIALIZATIONS.json": "0b10c3c90cbd6743621dfbe21fee1a2bf0ba4afc7988cd518af6ee11ccd4a2b9"
+  },
+  "remaining_obligations": [
+    "Kernel-check the universal polynomial/rational identity using existing checkers.",
+    "Bind the formal quotient variables, matched sign and intrinsic row moments to actual candidate rows.",
+    "Discharge generic denominator guards on a dense subset and reuse existing matchedExistence_of_dense."
+  ],
+  "row_moment_adapter_audit": "KERNEL_AUDIT_MATCHED_MOMENT_PRODUCT_STATUS.json",
+  "matched_existence_lean_proved": false,
+  "universal_norm_lean_proved": false,
+  "atlas_certification": false
+}

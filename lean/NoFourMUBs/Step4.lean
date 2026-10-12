@@ -130,18 +130,18 @@ lemma gfun_comp (k k' : Fin 4) : ∃ k'', ∀ H, gfun k' (gfun k H) = gfun k'' H
   have c2 : ∀ H : Mat6, conjM (conjM H) = H := Step2.conjugate_conjugate
   have ct : ∀ H : Mat6, conjM Hᵀ = (conjM H)ᵀ := fun H => rfl
   fin_cases k <;> fin_cases k'
-  · exact ⟨0, fun H => by simp [gfun, ct]⟩
-  · exact ⟨1, fun H => by simp [gfun, ct]⟩
-  · exact ⟨2, fun H => by simp [gfun, ct]⟩
-  · exact ⟨3, fun H => by simp [gfun, ct]⟩
+  · exact ⟨0, fun H => by simp [gfun, c2, ct]⟩
+  · exact ⟨1, fun H => by simp [gfun, c2, ct]⟩
+  · exact ⟨2, fun H => by simp [gfun, c2, ct]⟩
+  · exact ⟨3, fun H => by simp [gfun, c2, ct]⟩
   · exact ⟨1, fun H => by simp [gfun, c2, ct]⟩
   · exact ⟨0, fun H => by simp [gfun, c2, ct]⟩
   · exact ⟨3, fun H => by simp [gfun, c2, ct]⟩
   · exact ⟨2, fun H => by simp [gfun, c2, ct]⟩
-  · exact ⟨2, fun H => by simp [gfun, ct]⟩
-  · exact ⟨3, fun H => by simp [gfun, ct]⟩
-  · exact ⟨0, fun H => by simp [gfun, ct]⟩
-  · exact ⟨1, fun H => by simp [gfun, ct]⟩
+  · exact ⟨2, fun H => by simp [gfun, c2, ct]⟩
+  · exact ⟨3, fun H => by simp [gfun, c2, ct]⟩
+  · exact ⟨0, fun H => by simp [gfun, c2, ct]⟩
+  · exact ⟨1, fun H => by simp [gfun, c2, ct]⟩
   · exact ⟨3, fun H => by simp [gfun, c2, ct]⟩
   · exact ⟨2, fun H => by simp [gfun, c2, ct]⟩
   · exact ⟨1, fun H => by simp [gfun, c2, ct]⟩

@@ -1,0 +1,241 @@
+{
+  "scope": "critical_nonzero_physical_reuse",
+  "status": "ADOPTED_UNCOMPILED",
+  "records": [
+    {
+      "module": "NoFourMUBs.Reuse.Archive.CriticalNonzeroData",
+      "original_module": "CriticalNonzeroData",
+      "original_sha256": "c84348e8d75175a9529e199eb8f5e98662e33d9c0754233ce2ed50db9e57950d",
+      "original_source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/CriticalNonzeroData.lean",
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalNonzeroData.lean",
+      "active_sha256": "ae45707caa769686cc6098148717327f1596e593a7cadce592ee742764cb7d7e",
+      "imports_only_adaptation": true,
+      "proof_adaptations": [],
+      "import_replacements": {
+        "CriticalReconstructionData": "NoFourMUBs.Reuse.Archive.CriticalReconstructionData"
+      },
+      "omitted_reused_declarations": [],
+      "model_identifier_replacements": {},
+      "namespace_open_replacements": {},
+      "proof_tactic_replacements": []
+    },
+    {
+      "module": "NoFourMUBs.Step2.CriticalZero.LeadingScalarPremises",
+      "active_path": "NoFourMUBs/Step2/CriticalZero/LeadingScalarPremises.lean",
+      "active_sha256": "14a07425f314b81be1cdde425235a6647b35b5e87004798e6eee96731b20901f",
+      "after_archived_module": "CriticalNonzeroData",
+      "local_model_adapter": true
+    },
+    {
+      "module": "NoFourMUBs.Reuse.Archive.CriticalNonzeroSplitting",
+      "original_module": "CriticalNonzeroSplitting",
+      "original_sha256": "254572ad2d93d9ddbdffb30e0d3027d734ac9cd05a5f959eada74c49ff68ac05",
+      "original_source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/CriticalNonzeroSplitting.lean",
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalNonzeroSplitting.lean",
+      "active_sha256": "c64b504947667a1884141ebc93c0264115306949c6a3d788e1deb392d81b13c1",
+      "imports_only_adaptation": true,
+      "proof_adaptations": [],
+      "import_replacements": {},
+      "omitted_reused_declarations": [],
+      "model_identifier_replacements": {},
+      "namespace_open_replacements": {},
+      "proof_tactic_replacements": []
+    },
+    {
+      "module": "NoFourMUBs.Reuse.Archive.CriticalNonzeroRationalBinding",
+      "original_module": "CriticalNonzeroRationalBinding",
+      "original_sha256": "ec6a90d5cbc7df96296e86dd9f910b0ec032a4a23e37b7a89e62a61d8f4f8ba6",
+      "original_source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/CriticalNonzeroRationalBinding.lean",
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalNonzeroRationalBinding.lean",
+      "active_sha256": "246040fe996d55c853de32a500c024171ab0f1b865109788cfc5d33785ebf7c1",
+      "imports_only_adaptation": true,
+      "proof_adaptations": [],
+      "import_replacements": {
+        "CriticalRationalSideData": "NoFourMUBs.Reuse.Archive.CriticalRationalSideData"
+      },
+      "omitted_reused_declarations": [],
+      "model_identifier_replacements": {},
+      "namespace_open_replacements": {},
+      "proof_tactic_replacements": []
+    },
+    {
+      "module": "NoFourMUBs.Reuse.Archive.CriticalNonzeroReciprocalAssembly",
+      "original_module": "CriticalNonzeroReciprocalAssembly",
+      "original_sha256": "240f50bf757dc7b7f2e17cf442117a26fbbd877f9512167a7da1e4765e31c2e2",
+      "original_source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/physical_binding/CriticalNonzeroReciprocalAssembly.lean",
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalNonzeroReciprocalAssembly.lean",
+      "active_sha256": "360d2c96ae60a64df4ca6666b8b4337033cb9dc31b4e032a2cd33f5d3a877abb",
+      "imports_only_adaptation": true,
+      "proof_adaptations": [],
+      "import_replacements": {
+        "CriticalDataGauge": "NoFourMUBs.Reuse.Archive.CriticalDataGauge"
+      },
+      "omitted_reused_declarations": [],
+      "model_identifier_replacements": {},
+      "namespace_open_replacements": {},
+      "proof_tactic_replacements": []
+    },
+    {
+      "module": "NoFourMUBs.Reuse.Archive.CriticalNonzeroPhysicalSheet",
+      "original_module": "CriticalNonzeroPhysicalSheet",
+      "original_sha256": "9c9d58a81925ca3228578f24c0e1e905854759efa85b09005b1d6a9b90819e34",
+      "original_source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_physical_inputs/CriticalNonzeroPhysicalSheet.lean",
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalNonzeroPhysicalSheet.lean",
+      "active_sha256": "a9f89e6a2b3f7cf122a9d3beab9bf910524c8476c5d7000bfdc5721de0f313ea",
+      "imports_only_adaptation": false,
+      "proof_adaptations": [
+        "Reviewed matrix/predicate identifier and namespace-open substitutions only; all algebraic proof bodies retained"
+      ],
+      "import_replacements": {
+        "CriticalLightSheet": "NoFourMUBs.Reuse.Archive.CriticalLightSheet",
+        "CriticalRationalParam": "NoFourMUBs.Reuse.Archive.CriticalPositiveParam"
+      },
+      "omitted_reused_declarations": [],
+      "model_identifier_replacements": {},
+      "namespace_open_replacements": {
+        "open Matrix CriticalPhysical20261003 CriticalLightSheet20261003\n": "open Matrix NoFourMUBs.Step2.Critical CriticalPhysical20261003 CriticalLightSheet20261003\n"
+      },
+      "proof_tactic_replacements": []
+    },
+    {
+      "module": "NoFourMUBs.Reuse.Archive.CriticalNonzeroComplementarySheet",
+      "original_module": "CriticalNonzeroComplementarySheet",
+      "original_sha256": "b24ca7d4cf4b6d67b37a85ca0f592bad49ae8a6f752389089e576767bb5c2116",
+      "original_source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_physical_inputs/CriticalNonzeroComplementarySheet.lean",
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalNonzeroComplementarySheet.lean",
+      "active_sha256": "1408e4d3558d4ae24694795edb90cd83a2269f82582859da2b0e708588bfaec9",
+      "imports_only_adaptation": false,
+      "proof_adaptations": [
+        "Reviewed matrix/predicate identifier and namespace-open substitutions only; all algebraic proof bodies retained",
+        "Omit a duplicate definition-binding/sign proof or its print command; direct existing endpoint/name is reused.",
+        "Omit a duplicate definition-binding/sign proof or its print command; direct existing endpoint/name is reused."
+      ],
+      "import_replacements": {},
+      "omitted_reused_declarations": [],
+      "model_identifier_replacements": {
+        "parameter_neg": "CriticalRationalParam20261003.parameter_signs"
+      },
+      "namespace_open_replacements": {
+        "open Matrix CriticalPhysical20261003 CriticalLightSheet20261003\n": "open Matrix NoFourMUBs.Step2.Critical CriticalPhysical20261003 CriticalLightSheet20261003\n"
+      },
+      "proof_tactic_replacements": [
+        {
+          "before": "theorem CriticalRationalParam20261003.parameter_signs (k : \u211d) :\n    CriticalRationalParam20261003.p (-k)=CriticalRationalParam20261003.p k \u2227\n    CriticalRationalParam20261003.j (-k)= -CriticalRationalParam20261003.j k \u2227\n    CriticalRationalParam20261003.w (-k)=CriticalRationalParam20261003.w k := by\n  simp [neg_div,CriticalRationalParam20261003.p,CriticalRationalParam20261003.q,\n    CriticalRationalParam20261003.j,CriticalRationalParam20261003.w]\n\n",
+          "after": "",
+          "count": 1,
+          "reason": "Omit a duplicate definition-binding/sign proof or its print command; direct existing endpoint/name is reused."
+        },
+        {
+          "before": "#print axioms CriticalRationalParam20261003.parameter_signs\n",
+          "after": "",
+          "count": 1,
+          "reason": "Omit a duplicate definition-binding/sign proof or its print command; direct existing endpoint/name is reused."
+        }
+      ]
+    },
+    {
+      "module": "NoFourMUBs.Reuse.Archive.CriticalNonzeroBlockGauge",
+      "original_module": "CriticalNonzeroBlockGauge",
+      "original_sha256": "a2d680a7af5db0c5a9949bea85936373011c5df4f013e15f017904c981173e52",
+      "original_source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/physical_binding/CriticalNonzeroBlockGauge.lean",
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalNonzeroBlockGauge.lean",
+      "active_sha256": "a037c9ac4064fa7ff1eda692364cd340c9eb6bee96f1230c1af3e2a71715424d",
+      "imports_only_adaptation": false,
+      "proof_adaptations": [
+        "Reviewed matrix/predicate identifier and namespace-open substitutions only; all algebraic proof bodies retained"
+      ],
+      "import_replacements": {
+        "CriticalZeroSidePhysicalLight": "NoFourMUBs.Reuse.Archive.CriticalZeroSidePhysicalLight"
+      },
+      "omitted_reused_declarations": [],
+      "model_identifier_replacements": {
+        "parameter_neg": "CriticalRationalParam20261003.parameter_signs"
+      },
+      "namespace_open_replacements": {
+        "open Matrix CriticalNewton20261003 CriticalPhysical20261003\n": "open Matrix NoFourMUBs.Step2.Critical CriticalNewton20261003 CriticalPhysical20261003\n"
+      },
+      "proof_tactic_replacements": []
+    },
+    {
+      "module": "NoFourMUBs.Reuse.Archive.CriticalNonzeroLightPair",
+      "original_module": "CriticalNonzeroLightPair",
+      "original_sha256": "f52a61712be6c2d5e35189f887e1e75ecbb5f4cf13733fa04717e4833f9e2fb4",
+      "original_source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/physical_binding/CriticalNonzeroLightPair.lean",
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalNonzeroLightPair.lean",
+      "active_sha256": "52f6399e07d9915036f3cf8c396adf7991c580304211c6db1b62e6e590229ee4",
+      "imports_only_adaptation": false,
+      "proof_adaptations": [
+        "Reviewed matrix/predicate identifier and namespace-open substitutions only; all algebraic proof bodies retained"
+      ],
+      "import_replacements": {
+        "CriticalNonzeroLightStrip": "NoFourMUBs.Reuse.Archive.CriticalStripNewton"
+      },
+      "omitted_reused_declarations": [],
+      "model_identifier_replacements": {
+        "CompactCover.Mat6": "OAI.MUB6.CMatrix",
+        "GoodMinor.front": "NoFourMUBs.Step2.Critical.front",
+        "leftBlock": "CriticalStripMoments20261003.stripLeftBlock",
+        "rightBlock": "CriticalStripMoments20261003.stripRightBlock",
+        "leftData": "CriticalStripMoments20261003.stripLeftData",
+        "rightData": "CriticalStripMoments20261003.stripRightData",
+        "normalized_opposite_inputs": "CriticalStripMoments20261003.normalized_opposite_data",
+        "CriticalLightSheet20261003.sideP": "CriticalPhysical20261003.sideP",
+        "CriticalLightSheet20261003.sideJ": "CriticalPhysical20261003.sideJ",
+        "CriticalLightSheet20261003.sideW": "CriticalPhysical20261003.sideW",
+        "CriticalLightSheet20261003.sideS": "NoFourMUBs.Step2.Critical.sideS",
+        "CriticalLightSheet20261003.sideT": "NoFourMUBs.Step2.Critical.sideT",
+        "CriticalLightSheet20261003.sideR": "NoFourMUBs.Step2.Critical.sideR"
+      },
+      "namespace_open_replacements": {
+        "open Mub6 Mub6.Classification CompactCover GlobalCornerDomain\n": "open NoFourMUBs.Step2.Critical\n"
+      },
+      "proof_tactic_replacements": []
+    },
+    {
+      "module": "NoFourMUBs.Reuse.Archive.CriticalNonzeroAllCritical",
+      "original_module": "CriticalNonzeroAllCritical",
+      "original_sha256": "6a1a69c077ba049fb79653e064fe02c83a741c85ef8aca2b314415b13c9655c2",
+      "original_source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/physical_binding/CriticalNonzeroAllCritical.lean",
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalNonzeroAllCritical.lean",
+      "active_sha256": "68d847d6a446f12aa2ea8c826812c85e2c1afd39948d7c4a30c296d578dd58aa",
+      "imports_only_adaptation": false,
+      "proof_adaptations": [
+        "Reviewed matrix/predicate identifier and namespace-open substitutions only; all algebraic proof bodies retained",
+        "Omit a duplicate definition-binding/sign proof or its print command; direct existing endpoint/name is reused.",
+        "Omit a duplicate definition-binding/sign proof or its print command; direct existing endpoint/name is reused."
+      ],
+      "import_replacements": {
+        "CriticalPhysicalGauge": "NoFourMUBs.Step2.CriticalZero.LeadingScalarPremises"
+      },
+      "omitted_reused_declarations": [],
+      "model_identifier_replacements": {
+        "CompactCover.Mat6": "OAI.MUB6.CMatrix",
+        "AllCritical": "AllCriticalCarrier",
+        "leftBlock": "CriticalStripMoments20261003.stripLeftBlock",
+        "rightBlock": "CriticalStripMoments20261003.stripRightBlock",
+        "leftData": "CriticalStripMoments20261003.stripLeftData",
+        "rightData": "CriticalStripMoments20261003.stripRightData",
+        "CriticalLightSheet20261003.sideP": "CriticalPhysical20261003.sideP",
+        "CriticalLightSheet20261003.sideJ": "CriticalPhysical20261003.sideJ",
+        "CriticalLightSheet20261003.sideW": "CriticalPhysical20261003.sideW"
+      },
+      "namespace_open_replacements": {
+        "open Mub6 Mub6.Classification CompactCover GlobalCornerDomain\n": "open NoFourMUBs.Step2.Critical\n"
+      },
+      "proof_tactic_replacements": [
+        {
+          "before": "/-- The light reconstruction layer uses exactly the original literal blocks\nand Data records underlying the admitted actual 66-term equation. -/\ntheorem strip_definitions_agree (H : OAI.MUB6.CMatrix) :\n    CriticalStripMoments20261003.stripLeftBlock H=CriticalStripMoments20261003.stripLeftBlock H \u2227\n    CriticalStripMoments20261003.stripRightBlock H=CriticalStripMoments20261003.stripRightBlock H \u2227\n    CriticalStripMoments20261003.stripLeftData H=CriticalStripMoments20261003.stripLeftData H \u2227\n    CriticalStripMoments20261003.stripRightData H=CriticalStripMoments20261003.stripRightData H := \u27e8rfl,rfl,rfl,rfl\u27e9\n\n",
+          "after": "",
+          "count": 1,
+          "reason": "Omit a duplicate definition-binding/sign proof or its print command; direct existing endpoint/name is reused."
+        },
+        {
+          "before": "#print axioms strip_definitions_agree\n",
+          "after": "",
+          "count": 1,
+          "reason": "Omit a duplicate definition-binding/sign proof or its print command; direct existing endpoint/name is reused."
+        }
+      ]
+    }
+  ]
+}

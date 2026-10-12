@@ -1,0 +1,25 @@
+{
+  "status": "REVIEWED_NEW_SMALL_CORNER_ADAPTER_NOT_COMPILED",
+  "checked_utc": "2026-10-11T12:52:38.834645+00:00",
+  "repository_head": "4e048ec8a2888f198f5432efd7f201f98d473878",
+  "prior_full_reviews": [
+    "CRITICAL_NONZERO_NUMERATOR_GAP_REVIEW.json",
+    "CRITICAL_ENDPOINT_NORMALIZATION_REFERENCES.json"
+  ],
+  "query": "P7_FIXED_CORNER_REUSE_FILES.txt",
+  "scope": "Only the original normalized p7 strip is excluded; obtaining that strip from scalar data remains open.",
+  "source_pins": {
+    "lean/NoFourMUBs/Step2/CriticalZero/BlockInvariant.lean": "b2107b421c0ad56b7bc9815b371f79fbaec2df8b6f2b842ae32854fa35b252c2",
+    "lean/NoFourMUBs/Step2/CriticalZero/EquicorrelationNormalized.lean": "3d7fe0da977cfaf88b319ce6d27b6f8e8c2fad791fea05f5d1acc0cbca2ba8ba",
+    "../full_repair_2026_10_09/MinimalConstruction/Proofs/CRITICAL_P7_EXCLUSION.md": "35f03016d8cc129d2b82ba10d5edb1b5862e52fe8b0022179a08c6ba02e32d3c",
+    "../full_repair_2026_10_09/MinimalConstruction/Proofs/verify_critical_p7.py": "a2c04c733b31b4f07c5d1433b5ed64970ff14a36273fafda12fa0a5429e6232b"
+  },
+  "findings": [
+    "The written proof computes a twenty-corner sum for the strip (1,1,1,1,1,1);(1,u,-u,-1,-i,i);(1,iu,-iu,i,-1,-i). No existing Lean p7 exclusion was identified in the reviewed current/vendor/full available archive corpus.",
+    "Columns0,3,5 form the fixed block [[1,1,1],[1,-1,i],[1,i,-i]], independent of u. Its signed invariant is -16i, so a single corner suffices.",
+    "Reuse BlockInvariant.normalized_invariant and Equicorrelation.selected_signed_zero, the now-audited arbitrary-corner adapter. Do not regenerate the original twenty-corner sum or prove another signature/discriminant bridge.",
+    "All-critical normalization and the original p7 strip classification remain separate obligations.",
+    "The text-query matches are the already checked zero-J Group07 coefficient/aggregate modules; their exact statements concern a generic raw numerator and do not supply this unit-matrix corner exclusion."
+  ],
+  "atlas_certification": false
+}

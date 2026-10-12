@@ -1,0 +1,39 @@
+{
+  "scope": "matched_third_flatness",
+  "records": [
+    {
+      "module": "NoFourMUBs.Step2.Reconstruction.ThirdMoment.Contraction",
+      "active_path": "NoFourMUBs/Step2/Reconstruction/ThirdMoment/Contraction.lean",
+      "active_sha256": "d61e55342bac921010b955bae2b1eeb29f70a6cc613bce828f8d11f6eb81e1a7",
+      "local_model_adapter": true,
+      "review": "MATCHED_THIRD_FLATNESS_REUSE_REVIEW.json"
+    }
+  ],
+  "axiom_endpoints": [
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.thirdMoment_sandwich",
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.thirdMoment_transpose_sandwich",
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.weightedDefect_trace",
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.weightedDefect_contraction",
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.forcedD_weighted_contraction"
+  ],
+  "dependency_pins": [
+    {
+      "active_path": "NoFourMUBs/Step2/Reconstruction/ThirdMoment/SideMatrices.lean",
+      "active_sha256": "7ebe56ec3baf678a9de7104afba14d795adeb064f2bf823a317eb6521df46a8e"
+    },
+    {
+      "active_path": "NoFourMUBs/Step2/Reconstruction/ThirdMoment/WeightedDefect.lean",
+      "active_sha256": "69d7a3f21ecea6ef5d5cb3ec1d618d2ef9864ec982983eafb591b28452cfe5bf"
+    },
+    {
+      "active_path": "NoFourMUBs/Step2/Reconstruction/ForcedProductMoments.lean",
+      "active_sha256": "8777f15e1665c6df08a04c52da33737a7aee0dcf2f80a0d7e79bf04722f15408"
+    }
+  ],
+  "dependency_audits": [
+    "KERNEL_AUDIT_MATCHED_THIRD_WEIGHTED_DEFECT_STATUS.json",
+    "KERNEL_AUDIT_MATCHED_THIRD_SIDE_MATRICES_STATUS.json"
+  ],
+  "scope_note": "Exact actual forced-block weighted-defect contraction in the upstream same-index convention; weighted zero and rational coefficient identities are not assumed or proved here. No atlas certification.",
+  "atlas_certification": false
+}

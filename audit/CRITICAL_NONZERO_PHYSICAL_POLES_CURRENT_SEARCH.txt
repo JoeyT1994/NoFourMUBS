@@ -1,0 +1,21 @@
+lean/NoFourMUBs/Reuse/Archive/CriticalNonzeroPolynomial.lean:17:      (denFactorMinus k K)^3 * (denFactorPlus k K)^3 := by
+lean/NoFourMUBs/Reuse/Archive/CriticalNonzeroPolynomial.lean:19:      (denFactorMinus k K*denFactorPlus k K)^3 := by
+lean/NoFourMUBs/Reuse/Archive/CriticalNonzeroPoles.lean:25:        (sheet k (-1))^3*K = 16*denFactorMinus k K/(h k)^7 := by
+lean/NoFourMUBs/Reuse/Archive/CriticalNonzeroPoles.lean:32:theorem pole_products (X Y Z k K : ℂ) (hh : h k≠0)
+lean/NoFourMUBs/Reuse/Archive/CriticalNonzeroPoles.lean:37:      16*denFactorMinus k K/(h k)^7 := by
+lean/NoFourMUBs/Reuse/Archive/CriticalNonzeroPoles.lean:46:theorem denominator_factors_nonzero (X Y Z k K : ℂ) (hh : h k≠0)
+lean/NoFourMUBs/Reuse/Archive/CriticalNonzeroPoles.lean:51:    denFactorMinus k K≠0 ∧ denFactorPlus k K≠0 := by
+lean/NoFourMUBs/Reuse/Archive/CriticalNonzeroPoles.lean:52:  obtain ⟨hpole,hmole⟩ := pole_products X Y Z k K hh hp hw hk
+lean/NoFourMUBs/Reuse/Archive/CriticalNonzeroPoles.lean:65:theorem quartic_zero_of_reduced_zero (k K : ℂ)
+lean/NoFourMUBs/Reuse/Archive/CriticalNonzeroPoles.lean:67:    (hm : denFactorMinus k K≠0) (hp : denFactorPlus k K≠0)
+lean/NoFourMUBs/Reuse/Archive/CriticalNonzeroPoles.lean:71:  have ht : k^2*(3*k^2+1)^3*(denFactorMinus k K)^3*(denFactorPlus k K)^3≠0 :=
+lean/NoFourMUBs/Reuse/Archive/CriticalNonzeroPoles.lean:75:      (denFactorMinus k K)^3*(denFactorPlus k K)^3))=0 := by
+lean/NoFourMUBs/Reuse/Archive/CriticalNonzeroPoles.lean:90:#print axioms pole_products
+lean/NoFourMUBs/Reuse/Archive/CriticalNonzeroPoles.lean:91:#print axioms denominator_factors_nonzero
+lean/NoFourMUBs/Reuse/Archive/CriticalNonzeroPoles.lean:92:#print axioms quartic_zero_of_reduced_zero
+lean/NoFourMUBs/Reuse/Archive/CriticalNonzeroQuartic.lean:13:      (denFactorMinus k K)^3 * (denFactorPlus k K)^3 := by
+lean/NoFourMUBs/Reuse/Archive/CriticalNonzeroFactorData.lean:71:    denFactorMinus k K*denFactorPlus k K=denominatorCoefficient0 k+
+lean/NoFourMUBs/Reuse/Archive/CriticalNonzeroFactorData.lean:73:  unfold denFactorMinus denFactorPlus denominatorCoefficient0 denominatorCoefficient1 denominatorCoefficient2
+lean/NoFourMUBs/Reuse/Archive/CriticalNonzeroPolynomialData.lean:13:def denFactorMinus (k K : R) : R :=
+lean/NoFourMUBs/Reuse/Archive/CriticalNonzeroPolynomialPoles.lean:35:      16*denFactorMinus k K/h^7 := by
+lean/NoFourMUBs/Reuse/Archive/CriticalNonzeroPolynomialPoles.lean:37:  unfold denFactorMinus

@@ -1,0 +1,19 @@
+{
+  "reviewed_at": "2026-10-10T22:52:49.458575+00:00",
+  "status": "ADAPTER_REVIEW_ONLY",
+  "repository_head": "4e048ec8a2888f198f5432efd7f201f98d473878",
+  "search": "Full archive source/import indexes and reverse uses across active/vendor/archive Lean. PhysicalSeedSides, SidePhysicalRetained, SidePhysicalTranspose and SideVerticalCandidates endpoints inspected.",
+  "comparison": "Physical-side recovery endpoints assume an existing physical Hadamard. SideVerticalCandidates only transposes membership and proves finiteness. ActualCorners.transposedSeed_invariants already proves both needed scalar invariances for our seed model. FourierSignature provides the branch-prescribed row-side constructor once compiled. No existing endpoint constructs both signed candidates in this model.",
+  "reuse": [
+    "ActualCorners.transposedSeed_invariants",
+    "MatchedUnique.sig_rows",
+    "MatchedUnique.sig_cols",
+    "MatchedUnique.im_of_matched",
+    "MatchedUnique.det_ne_of_sig",
+    "FourierSignature.strict_seed_signed_side_exists",
+    "Hadamard6.invertibleHorizontalCandidates",
+    "Hadamard6.invertibleVerticalCandidates"
+  ],
+  "scope": "One transpose/model adapter constructs both signed invertible side candidates for every strict seed. Reuse all existing invariants and signature/determinant lemmas. No full completion or fourth-block flatness claim, and no atlas work.",
+  "atlas_certification": false
+}

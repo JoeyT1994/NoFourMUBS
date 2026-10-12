@@ -1,0 +1,46 @@
+{
+  "status": "PASS",
+  "checked_at": "2026-10-10T23:07:56.064181+00:00",
+  "log": "KERNEL_AUDIT_SIGNED_SIDES.log",
+  "log_sha256": "1e9db91ef5eb6058b6b431e08bed9e95778c5356c10614a975a45e0d63f63f50",
+  "endpoints": {
+    "NoFourMUBs.Step2.Reconstruction.strict_seed_recipe_exists": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.phaseFourier_permanent": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.prescribed_side_permanent": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.prescribed_side_signature": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.strict_seed_signed_side_exists": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.strict_seed_signed_sides_exist": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "source_hashes": {
+    "SideRecipe": "fe73fa02463794ca4ad95a6b6d47d1c1292123023cb8132c63dd0cfccd8e215a",
+    "SignatureFromPermanent": "ed967a342e9c416df5134b250b4c5f4346317c3ec47dcde8599d1fa8e560fae8",
+    "FourierSignature": "e1bb3526dd76e880c951dd058aa333383c15eda4e0867bea2a62a6daaf73eae1",
+    "MatchedSides": "c1e79372a8c993e0f1bf45658f0e96aedced94c8a62d0fdd61ed2073c660c9a9"
+  },
+  "scope": "Both signed invertible side candidates exist for every strict seed. Endpoint types printed explicitly; no existing physical Hadamard or fourth-block flatness input. This does not prove full MatchedExistence.",
+  "atlas_certification": false
+}

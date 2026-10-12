@@ -1,0 +1,48 @@
+{
+  "scope": "matched_entry_companion",
+  "records": [
+    {
+      "active_path": "NoFourMUBs/Step2/Reconstruction/EntryCompanion.lean",
+      "active_sha256": "d1849acb23e557ce8a0f41543b0ea41855a4f2fd98829b0a7e743320aefbe468",
+      "module": "NoFourMUBs.Step2.Reconstruction.EntryCompanion",
+      "local_model_adapter": true,
+      "review": "MATCHED_ENTRY_COMPANION_REUSE_REVIEW.json"
+    }
+  ],
+  "dependency_pins": [
+    {
+      "active_path": "vendor/hadamard6/Hadamard6/HaagerupFromFibre.lean",
+      "active_sha256": "85df946b9fa4ce7ec028d623e45dd5e827dfb0738fda37aeb0203269c21673d8"
+    },
+    {
+      "active_path": "vendor/hadamard6/Hadamard6/QuotientAlgebra.lean",
+      "active_sha256": "e771892e157ec91624d5fe1dada562bb43651696a673e0bc4fb08c5c640b03ed"
+    },
+    {
+      "active_path": "vendor/hadamard6/Hadamard6/UnitSymmetric.lean",
+      "active_sha256": "5ed76b4074e68e175002430f951615ae7eb82c527df97a78368852d87b096a49"
+    },
+    {
+      "active_path": "NoFourMUBs/Step2/SidePerm.lean",
+      "active_sha256": "e375e44327613c207ae7e8c4fcb690c1bf3bf2e408b4a9afa31277d4a11ccb2a"
+    },
+    {
+      "active_path": "NoFourMUBs/Step2/SideAlg.lean",
+      "active_sha256": "337e461592676dbbf87b75812cc08bbd06d7dcbdf6cb6f57fa5792d1ba2595c4"
+    },
+    {
+      "active_path": "NoFourMUBs/Step2/Reconstruction/RowProductSignature.lean",
+      "active_sha256": "1c94b70a0b87dacc3199c544cad22766ce194d4441ba16a940119eb9d749f83a"
+    }
+  ],
+  "axiom_endpoints": [
+    "NoFourMUBs.Step2.Reconstruction.side_entry_cubic",
+    "NoFourMUBs.Step2.Reconstruction.side_entry_eliminant",
+    "NoFourMUBs.Step2.Reconstruction.side_entry_companion"
+  ],
+  "dependency_audits": [
+    "KERNEL_AUDIT_MATCHED_PRODUCT_SIGNATURE_STATUS.json"
+  ],
+  "atlas_certification": false,
+  "scope_note": "Actual entry cubic and eliminant follow from the existing Vieta and Haagerup theorems. The rational companion keeps its explicit nonzero denominator guard."
+}

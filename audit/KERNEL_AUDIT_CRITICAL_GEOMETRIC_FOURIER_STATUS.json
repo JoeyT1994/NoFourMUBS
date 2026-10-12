@@ -1,0 +1,91 @@
+{
+  "status": "PASS",
+  "checked_utc": "2026-10-11T04:54:07.899342+00:00",
+  "modules": 9,
+  "axiom_endpoints": {
+    "NoFourMUBs.Step2.Critical.allCritical_regular_zero_fourier": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "GeometricNormalization20261003.geometric_rows_fourier": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "GeometricNormalization20261003.monomial_geometric_rows_fourier": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "GeometricNormalization20261003.geometric_rows_top_blocks": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "GeometricNormalization20261003.conjugate_first_blocks_normalization": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "CriticalFourierRouting20261003.geometric_first_three_blocks_fourier": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "CriticalFourierRouting20261003.geometric_forced_parameters": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "Worker12.forced_flat_parameter_branches": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "Worker12.pure_alpha_monomial": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "Worker12.pure_A_monomial": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "Worker12.splitMatrix_isHadamard": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "Worker12.equivalent_unsplit": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "Worker12.literal_fourier3_isHadamard": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "Worker12.embeddingPermutation_apply": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "source_hashes": {
+    "NoFourMUBs/Reuse/Archive/FourierRouting.lean": "890aa343e52fc30259e236b1e536abcfafa992c119eecca34c0cda6aa878ddfc",
+    "NoFourMUBs/Reuse/Archive/PureFamilies.lean": "4e26a2581cefea9b6602649b2f12b23b28ac83e9ee03d07fca5700c063116a60",
+    "NoFourMUBs/Reuse/Archive/ContinuousBindings.lean": "f4885113eaf924788cb129db8794c214333cbe985fb636a5c01a926c71575479",
+    "NoFourMUBs/Reuse/Archive/GeometricTopBlocks.lean": "022a1cb27bebfb85ca6fde7967f37cfc039601acb73fd3c908149e87a750770e",
+    "NoFourMUBs/Reuse/Archive/ConjugateBlockNormalization.lean": "059c39f631e054303d09b4261598ce223b4ac93d19d400b38771a6dc8ad4cbfe",
+    "NoFourMUBs/Reuse/Archive/GeometricFourierTail.lean": "ec91ea050e30201194fe3f7d5908ece6a4d826e4b907cbcb45e12a04c0bd65dc",
+    "NoFourMUBs/Reuse/Archive/GeometricFourierComplete.lean": "8af67da53b4714b6fa3fe2fa7d08ae609c7f9b9b0a0520db6d11609bc146e136",
+    "NoFourMUBs/Step2/CriticalZero/ActualFourier.lean": "48a3e2d4d032d057fe6cc8e653b9d9a04811d06eeb3ec748a5c94166c7bf0094",
+    "NoFourMUBs/Step2/CriticalZero/FourierRoutingModel.lean": "f917964eeddcd05646e3f0bf79845ba1375766bfead28675b8b3eef2165d1b5b"
+  },
+  "scope": "Actual regular zero-J => Fourier family or its transpose. Retains z>=-3, z!=0,-3,-2 and actual p,J,W equalities. No correlation-nonzero premises, unproved normalization, or new classification input.",
+  "remaining": "Exceptional zero-J values, nonzero-J completion, continuous all-critical Fourier family to fixed F6, MatchedExistence. Atlas excluded.",
+  "atlas_certification": false
+}

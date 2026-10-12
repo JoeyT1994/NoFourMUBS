@@ -1,0 +1,32 @@
+{
+  "scope": "matched_third_flatness",
+  "records": [
+    {
+      "module": "NoFourMUBs.Step2.Reconstruction.ThirdMoment.SeedResiduals",
+      "active_path": "NoFourMUBs/Step2/Reconstruction/ThirdMoment/SeedResiduals.lean",
+      "active_sha256": "c94274f074eebe811f0008d56656e476e5533f7e94e7f367cb03b9552f88e830",
+      "local_model_adapter": true,
+      "review": "MATCHED_THIRD_SEED_RESIDUALS_REUSE_REVIEW.json"
+    }
+  ],
+  "axiom_endpoints": [
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.thirdMoment_seed_one",
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.weightedDefect_seed_residuals",
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.matchedExistence_of_seed_residuals"
+  ],
+  "dependency_audits": [
+    "KERNEL_AUDIT_MATCHED_THIRD_AFFINE_MATRICES_STATUS.json",
+    "KERNEL_AUDIT_MATCHED_THIRD_MATCHED_PARAMETER_STATUS.json",
+    "KERNEL_AUDIT_MATCHED_THIRD_CONTRACTION_STATUS.json",
+    "KERNEL_AUDIT_MATCHED_THIRD_REDUCTION_STATUS.json",
+    "KERNEL_AUDIT_MATCHED_THIRD_SYMMETRY_STATUS.json"
+  ],
+  "dependency_pins": [
+    {
+      "active_path": "NoFourMUBs/Step2/Reconstruction/MatchedCompletion.lean",
+      "active_sha256": "db4229833397c4bb758b82d77828007b8c64750dfdbb218d42b3da25ede93c2c"
+    }
+  ],
+  "scope_note": "The actual W11 matrix defect is exactly the two seed rational residuals; their vanishing implies the existing full MatchedExistence proposition. Vanishing remains an explicit unproved input.",
+  "atlas_certification": false
+}

@@ -1,0 +1,49 @@
+{
+  "status": "PASS",
+  "checked_utc": "2026-10-10T20:51:57.881316+00:00",
+  "exit_code": 0,
+  "log": "audit/KERNEL_AUDIT_CRITICAL_ZERO_SCALAR.log",
+  "log_sha256": "59e959c05cfcd897e623065b14becfa63116773ba8d26ce02d66fb8bb033b58d",
+  "source_hashes": {
+    "audit/CriticalZeroScalarAudit.lean": "3eb830654cf84f2657bad98b82d6b0679a7493d49671142e88a30a9d828b0d98",
+    "lean/NoFourMUBs/Step2/CriticalZero/NumeratorBindings.lean": "c65acd0d999cdb59ab1aa84d4350448119c2c9e343603af4de0887db1947b43e",
+    "lean/NoFourMUBs/Reuse/Archive/CriticalZeroSumDenominatorExact.lean": "53b3cba29e45ad8d9c1e99463558e0240438389742b957510d7d0bbaab8b4e15",
+    "lean/NoFourMUBs/Reuse/Archive/CriticalZeroModuli.lean": "adb9a0e0600c91150736a23effaee302fb77ac2a957261953495f544df1b40cc"
+  },
+  "audited_declarations": {
+    "CriticalZeroSumAssembly20261003.commonDenominator_eq_rawDenominator": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "CriticalZeroSumAssembly20261003.allCommonExprCoefficients_interpret": [
+      "propext",
+      "Quot.sound"
+    ],
+    "CriticalZeroSumAssembly20261003.numeratorExprResidual_interpret": [
+      "propext",
+      "Quot.sound"
+    ],
+    "CriticalScalarReduction20261003.nonzero_reduction": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "CriticalScalarReduction20261003.zero_parameterization": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "CriticalScalarReduction20261003.zero_all_moment_denominators": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "CriticalScalarReduction20261003.zero_cleared_square_sum_moduli": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "scope": "Existing complete denominator identity, existing scalar reduction and regular modulus tail, and the sum-level interpretation bridge using all66 existing term bindings. No full numerator identity, physical classification, matched existence or atlas certificate is proved by this audit."
+}

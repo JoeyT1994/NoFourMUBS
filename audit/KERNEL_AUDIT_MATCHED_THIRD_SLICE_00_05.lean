@@ -1,0 +1,6 @@
+import NoFourMUBs.Step2.Reconstruction.ThirdMoment.Certificates.Slices.Slice00A05
+
+#check NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.Slice00A05_value
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.Slice00A05_length
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.Slice00A05_checked
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.Slice00A05_value

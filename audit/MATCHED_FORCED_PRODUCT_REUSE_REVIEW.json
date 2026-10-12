@@ -1,0 +1,41 @@
+{
+  "status": "REVIEWED_ACTUAL_FORCED_PRODUCT_BINDING",
+  "scope": "matched_forced_product",
+  "checked_utc": "2026-10-11T19:26:08.208616+00:00",
+  "repository_head": "fd7d1019fa4a7f3551bf9ade5d31ebbce9501055",
+  "search": "MATCHED_FORCED_PRODUCT_REUSE_SEARCH.json",
+  "source_pins": {
+    "lean/vendor/hadamard6/Hadamard6/FiniteDilation.lean": "81bf8e0002e08ef0f69ab59f2b66071eb38b6fe595ae8bcd95dabea75a7fb627",
+    "lean/vendor/hadamard6/Hadamard6/BlockCompletion.lean": "b916c1eceba6086551173f8053a34ada370c47e45ee940b6846fc5b104cb722d",
+    "lean/vendor/hadamard6/Hadamard6/FiniteCornerFromBlocks.lean": "fe72eebb9738b657ef2a91ecf0c87b02e7a8ebd5c5662e55933a3f4a6365de04",
+    "lean/NoFourMUBs/Step2/Reconstruction/RowMomentProduct.lean": "51ee701670f5dd2609920eecf888f6a4e4bbdcc884f38ae9e8ac8eb5727f6207",
+    "lean/NoFourMUBs/Step2/Reconstruction/ForcedRowNorms.lean": "61f03e080569bdb95f51c3eae47268265054d62eed6d021a1af4f00e39411cf8",
+    "lean/NoFourMUBs/Reuse/Archive/SideIntrinsicMatrixBindings.lean": "28e1b68230d5b0372200d1bc65f9f98e6db18afdda19c6f1c46cacdc0377a5a5",
+    "lean/.lake/packages/mathlib/Mathlib/LinearAlgebra/Matrix/NonsingularInverse.lean": "1ee785b6ebd213ad2ed971bf3c804afee8cc6ce52be69e63572b4cf1bdb5e880",
+    "audit/diagnose_matched_moment_norm.py": "071cc62d29c6aa271b2996d422fbef08665b62a5313edaccd125e97cdf56ce28",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/ac/ac5e3d7c2cd501c81b2bd33ddd1a85cf94a1c164d1bbdb4ae7f157304e832c97/AdjugateReconstruction.lean": "ac5e3d7c2cd501c81b2bd33ddd1a85cf94a1c164d1bbdb4ae7f157304e832c97",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/eb/eb650b038abc00d74ec72a6398cd3ad720331d9ef64a7b4c854d974b9b141920/AdjugateReconstruction.lean": "eb650b038abc00d74ec72a6398cd3ad720331d9ef64a7b4c854d974b9b141920",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/4e/4e8183a2abbee770c2f95576eb0def3d6a1e1840ad3f69668229938efc3ddbe2/AdjugateReconstruction.lean": "4e8183a2abbee770c2f95576eb0def3d6a1e1840ad3f69668229938efc3ddbe2",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/65/658a3d7e72ca4def4de93476c97b128e7e3b8ba17270f808931bd1fdda7bf3ba/AdjugateReconstruction.lean": "658a3d7e72ca4def4de93476c97b128e7e3b8ba17270f808931bd1fdda7bf3ba"
+  },
+  "comparisons": [
+    {
+      "existing": "Hadamard6.forcedD and Matrix.mul_inv_rev/nonsing_inv_mul",
+      "reuse": "Reassociate exactly the original forced block as C*(-E\u1d34*(6I-EE\u1d34)\u207b\u00b9)*B using only horizontal candidate Gram and invertibility. This is the matrix-coordinate binding for the original diagnostic, not another completion theorem."
+    },
+    {
+      "existing": "Archived AdjugateReconstruction.phaseHadamard_forcedD (all four source variants)",
+      "difference": "Assumes a complete PhaseHadamard. That assumption cannot be used to prove flatness of a candidate. Existing inverse matrix identities suffice for the necessary weaker binding; importing another full carrier model is unnecessary."
+    },
+    {
+      "existing": "row_linear_product and rowsOfSide_unit",
+      "reuse": "Apply directly to the three coefficients of each actual forced row. Do not re-expand or reprove its ten-term moment identity."
+    },
+    {
+      "existing": "forcedD_row_norms and matched_completion_of_row_products",
+      "reuse": "Existing row norms and completion stay unchanged. New binding does not assert row-product norm one."
+    }
+  ],
+  "atlas_certification": false,
+  "limits": "Coefficient and product bindings only. Universal norm arithmetic and generic guards remain open. No claim covers unshared work."
+}

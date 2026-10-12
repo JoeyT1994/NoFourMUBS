@@ -1,0 +1,49 @@
+{
+  "status": "PASS",
+  "checked_utc": "2026-10-12T02:32:23.336823+00:00",
+  "modules": 7,
+  "axiom_endpoints": {
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P065_value": [
+      "propext",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P066_value": [
+      "propext"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.seedWeightedOffset_formula": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P066_seed_ne_zero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.savedOffset_value": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "source_hashes": {
+    "NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/Data/P065A00.lean": "0e36ca63b17397268d090d72d0b99ec78a0f1b2728695f90b00c60a08107f6d5",
+    "NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/Data/P065A01.lean": "ab18bdc6543cb8ba34cdc82a8f7b38118bd6cd4ecef342aed35614c34ad8c4dc",
+    "NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/Data/P065A02.lean": "f003bb234d7c3b8b8d4022f2c534ee446891248c342dcd327427e99e60dd0a18",
+    "NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/Polynomials/P065.lean": "9435c28a4334c84f46db13de453685626b99d8318e650d0048b2e02ae0642a04",
+    "NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/Data/P066A02.lean": "f63f7400d11858dd829586fc473ec0f8ab23a4b6af6e381a5c894f23a633068e",
+    "NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/Polynomials/P066.lean": "e99c81c63cc3ed0dd022813a4cef7797562e7d456594f7aac129aebe2166e039",
+    "NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/OffsetBinding.lean": "c60548491ef06c44e0ac9dabb90632bfdb8eec5b9c6d2eaafba0654f42220574"
+  },
+  "manifest_sha256": "aea6441f1e5660e3fdf1aa2ebf7ceae2c7a665dc49ed3d55bd54360ebed37021",
+  "audit_log_sha256": "0dfefa1a030928e59a370774f280c9e9bd53db4cd240e9d7f9775ccb63b5c305",
+  "scope": "Bind only the last W11 constant summand to the actual seed matrix and prove its saved denominator nonzero on every unit-phase seed; no atlas.",
+  "dependency_audits": {
+    "KERNEL_AUDIT_MATCHED_THIRD_SEED_RESIDUALS_STATUS.json": "f6c2040373229884ad4256909e818bac7ff0c42de88effa79f4c222cdc7c53f4",
+    "KERNEL_AUDIT_MATCHED_THIRD_W11_SUMS_STATUS.json": "df6f730b9cee9d102dc3f49a895cf5e52f539d0ca6ab12d7ae1f5d4a323ed75f"
+  },
+  "dependency_source_hashes": {
+    "NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/Model.lean": "11ba438c48cc9078b7593e5846f117744a6f69dfa3c03c2072262aeb8b7bfa16"
+  },
+  "atlas_certification": false
+}

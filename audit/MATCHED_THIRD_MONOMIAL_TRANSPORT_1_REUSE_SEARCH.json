@@ -1,0 +1,22 @@
+{
+  "searched_utc": "2026-10-12T02:17:42.328915+00:00",
+  "parent_full_index_search": "MATCHED_THIRD_MONOMIAL_TRANSPORT_REUSE_SEARCH.json",
+  "parent_index_counts": {
+    "ARCHIVE_SOURCE_INDEX.jsonl": 77948,
+    "ARCHIVE_BLOB_INDEX.jsonl": 19386,
+    "ARCHIVE_IMPORT_INDEX.json": 16532
+  },
+  "content_roots": [
+    "lean/NoFourMUBs",
+    "lean/vendor",
+    "audit/archive_sources",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs"
+  ],
+  "query": "evalII.{0,60}tail|tail.{0,60}evalII|interpret.{0,60}tail|headD.{0,60}replicate|sliceValue.{0,60}(shift|tail)|Product0(15|17|21|23|25|27|32)_value",
+  "matching_files": [
+    "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/Products/MonomialTransport0.lean",
+    "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/Products/Product015.lean"
+  ],
+  "scope": "Exact c-tail and monomial transports for already saved products15/21/23/25/27; no atlas.",
+  "atlas_certification": false
+}

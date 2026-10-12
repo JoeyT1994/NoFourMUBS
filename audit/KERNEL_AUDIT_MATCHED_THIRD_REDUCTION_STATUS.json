@@ -1,0 +1,40 @@
+{
+  "status": "PASS",
+  "checked_utc": "2026-10-12T00:35:12.501566+00:00",
+  "modules": 1,
+  "axiom_endpoints": {
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.intrinsicTheta_quadratic": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.paired_affine_entry": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.paired_affine_contraction": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.sandwich_affine": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "source_hashes": {
+    "NoFourMUBs/Step2/Reconstruction/ThirdMoment/Reduction.lean": "2d719b0d0467ebba5795f8574c65f93d190c109c17629bc681bd9d4dd3924a5f"
+  },
+  "manifest_sha256": "20b0dece0668f766f3154f57a7dbd8b811df1e6c7179061ff83763108953e2d9",
+  "audit_log_sha256": "aec48f93545c2bf403a9f3a23ccbc885b2422da96b860e1d3a5f60978615e1f5",
+  "scope": "Actual intrinsic quadratic and exact reduction to the two saved residual coefficients, reusing the existing quadratic evaluator. No certificate identity or atlas assumed proved.",
+  "dependency_audits": {
+    "KERNEL_AUDIT_MATCHED_THIRD_INTRINSIC_AFFINE_STATUS.json": "4946d7f9d55d0cc295e454fbda197ebacd67243a7ea711f80450f2897343ebea"
+  },
+  "dependency_source_hashes": {
+    "NoFourMUBs/Reuse/Archive/CriticalMomentQuad.lean": "1408c2169bd58005fbe77872fe1cb7be3ea6c2670e0c51a305ac620afa0bce05"
+  },
+  "atlas_certification": false
+}

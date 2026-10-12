@@ -1,0 +1,94 @@
+import NoFourMUBs.Step2.CriticalZero.SumClearing.Remaining0076Row114Batch00
+import NoFourMUBs.Step2.CriticalZero.SumClearing.Remaining0076Row114Batch01
+import NoFourMUBs.Step2.CriticalZero.SumClearing.Remaining0076Row114Batch02
+import Lean.Elab.Tactic.Omega
+set_option autoImplicit false
+set_option maxRecDepth 100000
+set_option maxHeartbeats 4000000
+namespace NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing.Stages
+theorem r0076_rows_114 (i : ℕ) (hi : i < 38) :
+    CriticalZeroSplitReduction20261003.IntegerReflector.zeroI (CriticalZeroSplitReduction20261003.Coefficients.add (CriticalZeroSumAssembly20261003.CoefficientRow.mulAtRow r0075 r0074 114 i)
+      (CriticalZeroSplitReduction20261003.Coefficients.neg ((r0076.getD 114 []).getD i []))) = true := by
+  have hc : i = 0 ∨ i = 1 ∨ i = 2 ∨ i = 3 ∨ i = 4 ∨ i = 5 ∨ i = 6 ∨ i = 7 ∨ i = 8 ∨ i = 9 ∨ i = 10 ∨ i = 11 ∨ i = 12 ∨ i = 13 ∨ i = 14 ∨ i = 15 ∨ i = 16 ∨ i = 17 ∨ i = 18 ∨ i = 19 ∨ i = 20 ∨ i = 21 ∨ i = 22 ∨ i = 23 ∨ i = 24 ∨ i = 25 ∨ i = 26 ∨ i = 27 ∨ i = 28 ∨ i = 29 ∨ i = 30 ∨ i = 31 ∨ i = 32 ∨ i = 33 ∨ i = 34 ∨ i = 35 ∨ i = 36 ∨ i = 37 := by omega
+  rcases hc with hi | hi | hi | hi | hi | hi | hi | hi | hi | hi | hi | hi | hi | hi | hi | hi | hi | hi | hi | hi | hi | hi | hi | hi | hi | hi | hi | hi | hi | hi | hi | hi | hi | hi | hi | hi | hi | hi
+  · subst i
+    exact r0076_row_114_000
+  · subst i
+    exact r0076_row_114_001
+  · subst i
+    exact r0076_row_114_002
+  · subst i
+    exact r0076_row_114_003
+  · subst i
+    exact r0076_row_114_004
+  · subst i
+    exact r0076_row_114_005
+  · subst i
+    exact r0076_row_114_006
+  · subst i
+    exact r0076_row_114_007
+  · subst i
+    exact r0076_row_114_008
+  · subst i
+    exact r0076_row_114_009
+  · subst i
+    exact r0076_row_114_010
+  · subst i
+    exact r0076_row_114_011
+  · subst i
+    exact r0076_row_114_012
+  · subst i
+    exact r0076_row_114_013
+  · subst i
+    exact r0076_row_114_014
+  · subst i
+    exact r0076_row_114_015
+  · subst i
+    exact r0076_row_114_016
+  · subst i
+    exact r0076_row_114_017
+  · subst i
+    exact r0076_row_114_018
+  · subst i
+    exact r0076_row_114_019
+  · subst i
+    exact r0076_row_114_020
+  · subst i
+    exact r0076_row_114_021
+  · subst i
+    exact r0076_row_114_022
+  · subst i
+    exact r0076_row_114_023
+  · subst i
+    exact r0076_row_114_024
+  · subst i
+    exact r0076_row_114_025
+  · subst i
+    exact r0076_row_114_026
+  · subst i
+    exact r0076_row_114_027
+  · subst i
+    exact r0076_row_114_028
+  · subst i
+    exact r0076_row_114_029
+  · subst i
+    exact r0076_row_114_030
+  · subst i
+    exact r0076_row_114_031
+  · subst i
+    exact r0076_row_114_032
+  · subst i
+    exact r0076_row_114_033
+  · subst i
+    exact r0076_row_114_034
+  · subst i
+    exact r0076_row_114_035
+  · subst i
+    exact r0076_row_114_036
+  · subst i
+    exact r0076_row_114_037
+theorem r0076_coefficient_114_eval (X Y : ℂ) :
+    CriticalZeroSplitReduction20261003.IntegerReflector.evalII X Y (CriticalZeroSumAssembly20261003.CoefficientAt.mulAt r0075 r0074 114) = CriticalZeroSplitReduction20261003.IntegerReflector.evalII X Y (r0076.getD 114 []) :=
+  r0076_from_rows X Y 114 r0076_rows_114
+
+end NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing.Stages

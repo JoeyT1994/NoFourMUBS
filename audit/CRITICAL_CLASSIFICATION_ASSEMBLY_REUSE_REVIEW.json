@@ -1,0 +1,94 @@
+{
+  "status": "PASS_CONDITIONAL_ASSEMBLY",
+  "checked_utc": "2026-10-11T17:29:58.844787+00:00",
+  "repository_head": "4e048ec8a2888f198f5432efd7f201f98d473878",
+  "scope": "Assemble the one all-critical classification conditional on the still-open regular nonzero-J quartic implication; poles, zero-J corners, transport and counting consume existing checked results.",
+  "index_review": "CRITICAL_CLASSIFICATION_ASSEMBLY_INDEX_REVIEW.json",
+  "content_review": "CRITICAL_CLASSIFICATION_ASSEMBLY_CONTENT_REVIEW.txt",
+  "source_pins": {
+    "lean/NoFourMUBs/Step2/CriticalZero/StripZeroEndpoint.lean": "3a4e7cf92327f0215e40e9c5a7dda0143fec14f9a10fde8bee2c27b5b6705f05",
+    "lean/NoFourMUBs/Step2/CriticalZero/StripCountEndpoint.lean": "06e68538b19ba1be0837ef2e73ccfd60a56476a41bb0cf5c0ee0169306abed3b",
+    "lean/NoFourMUBs/Step2/CriticalZero/NonzeroScalarEndpoint.lean": "2a6bc29e9a89069925f344cd6837462b36a9b7bc7bb291b6cd1a14f834144dd6",
+    "lean/NoFourMUBs/Step2/CriticalZero/ColumnRechart.lean": "1530e264196c059538a1cdd67aae356d3a458066ad9630c542a935e62028a71d",
+    "lean/NoFourMUBs/Step2/CriticalZero/RechartModel.lean": "7ba67fb8000833df557e18483a1745590ed57812a033c995c810ef9b9f9928b1",
+    "lean/NoFourMUBs/Step2/CriticalZero/Equivalence.lean": "7f8a60e4776698ba93c85a84cd0d49aa0c904f8deada5555de546cfeeabd67c3",
+    "lean/NoFourMUBs/Step2/CriticalZero/LeadingScalarPremises.lean": "14a07425f314b81be1cdde425235a6647b35b5e87004798e6eee96731b20901f",
+    "lean/NoFourMUBs/Step2/CriticalZero/ActualNonzeroCoefficientZero.lean": "d5eb85831681fb47e940d6ad429d93d0db692f6345a3679ff17b9d6c36d9b575",
+    "lean/NoFourMUBs/Step2/CriticalZero/PhysicalModel.lean": "9520b896d5795301a97d296ecd4ca4f999507feed6ac967271147f8e795ed3e0",
+    "lean/NoFourMUBs/Step2/Frames.lean": "6a9f4c607d0cf945d60ef45b0c9ee7e7405f46176bd2fc2d4e25dec076f4284f",
+    "lean/NoFourMUBs/Step2/RepairedCoverage.lean": "9f4c3195dd8d22d9cef693f29f481eea0af6f4d8cadc463df7900133d50e7bbd",
+    "lean/NoFourMUBs/Step2/FourierModelBridge.lean": "e9c53a3cbd4feca8a4e14503c26d24e8e6eff14d8f883b5ab57bb03757cc7f63",
+    "lean/NoFourMUBs/Reuse/Archive/CriticalStripPhysical.lean": "0e726f519d28a449b1895952067a44a422c9c31e7f51ae64b1656dc8762b5731",
+    "lean/NoFourMUBs/Reuse/Archive/CriticalStripNewton.lean": "2002e0a4f2c778a6e993e3814d2937ec69d024987770793be0753f4c4bf1f60c",
+    "lean/NoFourMUBs/Reuse/Archive/CriticalNonzeroAllCritical.lean": "68d847d6a446f12aa2ea8c826812c85e2c1afd39948d7c4a30c296d578dd58aa",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/34/34ecb0baa36ca0b75484c7fe7eb96a97e5c4760782e7b1ed7db73e090225c1cf/CriticalStripObstruction.lean": "34ecb0baa36ca0b75484c7fe7eb96a97e5c4760782e7b1ed7db73e090225c1cf",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/3d/3dc1b23efc292d90b85f60dd796696f733cca8cc87b29ececf5d0db2a15c7a61/CriticalModulusAllCritical.lean": "3dc1b23efc292d90b85f60dd796696f733cca8cc87b29ececf5d0db2a15c7a61",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/6a/6a1a69c077ba049fb79653e064fe02c83a741c85ef8aca2b314415b13c9655c2/CriticalNonzeroAllCritical.lean": "6a1a69c077ba049fb79653e064fe02c83a741c85ef8aca2b314415b13c9655c2",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/bf/bfe6578830d1e450dff7c6508af25710c6ea9747a27699b241557f6a03e1cb35/CriticalModulusAllCritical.lean": "bfe6578830d1e450dff7c6508af25710c6ea9747a27699b241557f6a03e1cb35",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/dd/dd24ed3aac5cd7199ac61798cf99acd7c03ea0adda4dbe1cd712f5a745890804/CriticalIndependentReview.lean": "dd24ed3aac5cd7199ac61798cf99acd7c03ea0adda4dbe1cd712f5a745890804",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/ef/ef01fe4f96f73530fac084f0d6217acc70bd4e66d44b03b89f4cf9901a89d6ee/CriticalAllocatedFourierCandidate.lean": "ef01fe4f96f73530fac084f0d6217acc70bd4e66d44b03b89f4cf9901a89d6ee",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/03/0326dd06f56e6b4727f106eb1326b7cec33cfd9ed61b4e56ccaec836c51925cf/FourierCriticalPilotBinding.lean": "0326dd06f56e6b4727f106eb1326b7cec33cfd9ed61b4e56ccaec836c51925cf",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/22/22c5fac05fdc0c72f5e67670017e7467082bdd70e8030a2060d1be8282020314/FourierCompleteCritical.lean": "22c5fac05fdc0c72f5e67670017e7467082bdd70e8030a2060d1be8282020314",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/43/43f564136036537f287a64d16cead1738f8f14036934fa7d3383c64701d79904/FourierCompleteCritical.lean": "43f564136036537f287a64d16cead1738f8f14036934fa7d3383c64701d79904",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/c8/c826b6f6f7221a4dd8c26431f49234802dc068ef3003db924a2e666a73ce7eda/FourierCriticalPilotBinding.lean": "c826b6f6f7221a4dd8c26431f49234802dc068ef3003db924a2e666a73ce7eda",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/e1/e1dca85b21d73e579e346e007df2f373897703f71f5f1ac04c31be577d3ced92/FourierAllCriticalExcluded.lean": "e1dca85b21d73e579e346e007df2f373897703f71f5f1ac04c31be577d3ced92"
+  },
+  "comparisons": [
+    {
+      "existing": "strip_nonzero_pole_special and strip_nonzero_quartic_special",
+      "hypotheses": "Actual all-critical matrix; nonzero J plus an actual pole / an explicit signed parameter and quartic zero",
+      "conclusion": "Only the positive cubic-root scalar survives",
+      "decision": "Direct reuse; split the leading and complementary actual poles before using the remaining regular implication. No pole or scalar reproof."
+    },
+    {
+      "existing": "allCritical_nonzero_a_zero, CriticalNonzeroAllCritical variants",
+      "hypotheses": "Actual all-critical matrix, nonzero leading J, both triples of nonzero reconstruction denominators",
+      "conclusion": "Signed parameter and original 66-expression coefficient zero, not yet quartic zero",
+      "decision": "RegularCriticalQuartic remains an explicit obligation. Existing raw identity and pseudo-reduction work is its single intended provider."
+    },
+    {
+      "existing": "stripCorner_zero, strip_complementary_moments, CriticalStripNewton",
+      "hypotheses": "Arbitrary / normalized actual matrix",
+      "conclusion": "Leading corner equality and negated complementary S,T,R",
+      "decision": "Add only the missing right-block index equality. Reuse momentP_neg and momentJ_neg; do not repeat complementary orthogonality."
+    },
+    {
+      "existing": "column_candidate_invariants, allCritical_candidate, equivalent_framed, framed_dephased, allCritical_of_equivalent, allCritical_toOAI",
+      "hypotheses": "Existing matrix model and equivalences",
+      "conclusion": "Invariants/criticality and normalization transport",
+      "decision": "Direct reuse for arbitrary column triple and arbitrary main Hadamard representative."
+    },
+    {
+      "existing": "strip_zero_values_or_standard; strip_classified_values_impossible; CriticalStripObstruction/IndependentReview",
+      "hypotheses": "Zero J at one corner / classification of all20values; the archive endpoints retain uniform scalar cover explicitly",
+      "conclusion": "Fourier or values0/5 / physical count contradiction",
+      "decision": "Assemble the existing classification/count consumer without new polynomial or finite certificate."
+    },
+    {
+      "existing": "CriticalModulusAllCritical",
+      "hypotheses": "All-critical and nonzero J",
+      "conclusion": "Signed parameter and allowed modulus interval, not quartic zero or complete cover",
+      "decision": "Its adopted modulus theorem is already part of the scalar consumer; no replacement proof."
+    },
+    {
+      "existing": "CriticalAllocatedFourierCandidate, FourierCompleteCritical/AllCriticalExcluded/PilotBinding",
+      "hypotheses": "Explicit Allocated zero-J data / explicit FourierOrTranspose membership",
+      "conclusion": "Fourier orbit / quartet exclusion",
+      "decision": "These do not prove general critical classification. Existing zero-J/Fourier bridge already uses the corresponding geometry. No new Fourier certificate."
+    }
+  ],
+  "new_adapters_planned": [
+    "Right block equals the complementary indexed corner",
+    "Leading and arbitrary nonzero-J scalar classification conditional on regular quartic implication",
+    "Carrier and main critical classification using the existing count obstruction"
+  ],
+  "open_obligations": [
+    "RegularCriticalQuartic: actual regular 66-equation to quartic zero",
+    "MatchedExistence: universal forced-D row-product norm1"
+  ],
+  "main_file_change": false,
+  "atlas_certification": false,
+  "limits": "All available complete archive indexes, current sources and installed vendor/OAI sources searched. No assertion about unshared work.",
+  "audit": "KERNEL_AUDIT_CRITICAL_CLASSIFICATION_ASSEMBLY_STATUS.json",
+  "receipt": "CRITICAL_CLASSIFICATION_ASSEMBLY_PASS.json"
+}

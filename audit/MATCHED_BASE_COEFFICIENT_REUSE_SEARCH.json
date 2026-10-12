@@ -1,0 +1,1273 @@
+{
+  "checked_utc": "2026-10-11T19:33:12.723464+00:00",
+  "index_counts": {
+    "ARCHIVE_SOURCE_INDEX.jsonl": {
+      "total": 77948,
+      "matches": 3857
+    },
+    "ARCHIVE_BLOB_INDEX.jsonl": {
+      "total": 19386,
+      "matches": 401
+    },
+    "ARCHIVE_IMPORT_INDEX.json": {
+      "total": 16532,
+      "matches": 274
+    }
+  },
+  "files_searched": 6403,
+  "records": [
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/01/01ed873ef91b83a61d43be6d63cbcd02363af20c10b519e43f20b9b042ab3321/RationalCircleCharts.lean",
+      "sha256": "01ed873ef91b83a61d43be6d63cbcd02363af20c10b519e43f20b9b042ab3321",
+      "hits": [
+        "31:theorem circlePoint_quotient (t : \u211d) :"
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/03/03ba3ed4c7c8ad4783feb07f5ee6bd3dfacca67a329bdaedb329fcd37e1486c8/Root1CertificateData.lean",
+      "sha256": "03ba3ed4c7c8ad4783feb07f5ee6bd3dfacca67a329bdaedb329fcd37e1486c8",
+      "hits": [
+        "17:def seed0 : RationalRectangle := \u27e8(-269950791/536870912),(-536270925/1073741824),(-465117807/536870912),(-464065969/536870912)\u27e9",
+        "18:def seed1 : RationalRectangle := \u27e8(123254091/268435456),(496739573/1073741824),(-953865733/1073741824),(-951930795/1073741824)\u27e9",
+        "19:def seed2 : RationalRectangle := \u27e8(131071/131072),(1073743873/1073741824),(-4194301/1073741824),(3/1073741824)\u27e9",
+        "20:def seed3 : RationalRectangle := \u27e8(-536871685/536870912),(-536864535/536870912),(-5233303/1073741824),(-1039007/1073741824)\u27e9",
+        "21:def seeds : Fin 4 \u2192 RationalRectangle := ![seed0,seed1,seed2,seed3]",
+        "22:def EX : Fin 3 \u2192 RationalRectangle := ![boxPoint 1 0,seed0,seed2]",
+        "23:def EY : Fin 3 \u2192 RationalRectangle := ![boxPoint 1 0,seed1,seed3]"
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/05/052d91df42f07474f5219eb58f5cfb2d625ccf9ffcd2b6c3142279fa84d11b50/FourierSideIntervals.lean",
+      "sha256": "052d91df42f07474f5219eb58f5cfb2d625ccf9ffcd2b6c3142279fa84d11b50",
+      "hits": [
+        "18:def boxFourierRow (s A B w : RationalRectangle) : Fin 3 \u2192 RationalRectangle :=",
+        "35:def boxAffineSide (s t A B C D w : RationalRectangle) : Rect3 :=",
+        "52:def boxRadicalSide (s t alpha beta h tau w : RationalRectangle) : Rect3 :=",
+        "76:def boxAlpha (s u : RationalRectangle) : RationalRectangle :=",
+        "78:def boxGamma (s t W : RationalRectangle) : RationalRectangle :=",
+        "80:def boxPivot (s t W delta : RationalRectangle) : RationalRectangle :=",
+        "102:def boxReconstructedSide (s t u v W delta tau w : RationalRectangle) : Rect3 :="
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/0e/0ea2284ae4f5f0dd72d781d92d937099577a23b75317f1a009f77315437d9853/SideIntrinsicActualBindings.lean",
+      "sha256": "0ea2284ae4f5f0dd72d781d92d937099577a23b75317f1a009f77315437d9853",
+      "hits": [
+        "42:    sideP1 (conj s) (conj t) (conj r) = conj (sideP1 s t r) \u2227",
+        "43:    sideP2 (conj s) (conj t) (conj r) = conj (sideP2 s t r) := by",
+        "44:  constructor <;> simp [sideP0, sideP1, sideP2, map_ofNat]",
+        "50:    conj (sideP0 (rowS a) (rowT a) (rowR a)) * (rowU a * rowV a)^2 = p0barN a \u2227",
+        "51:    conj (sideP1 (rowS a) (rowT a) (rowR a)) * rowV a^2 = p1barN a \u2227",
+        "52:    conj (sideP2 (rowS a) (rowT a) (rowR a)) * rowU a^2 = p2barN a := by"
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/12/124eb16ec92dc50126cd026e5075b40d23e10d3c71e3cc61f0f2dd7662551ff9/SharedResidualPolynomials.lean",
+      "sha256": "124eb16ec92dc50126cd026e5075b40d23e10d3c71e3cc61f0f2dd7662551ff9",
+      "hits": [
+        "52:@[simp] theorem eval_mul (p : Variable \u2192 \u211d) (P Q : ComplexPoly) :"
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/13/13adcf1fb278ce976a5a41c36e98ea9212b097aae7d931ecb54c701cb4e45c53/PhysicalThickPoleMasks.lean",
+      "sha256": "13adcf1fb278ce976a5a41c36e98ea9212b097aae7d931ecb54c701cb4e45c53",
+      "hits": [
+        "84:def thickPoleLambdaBox (active : Bool) (residual denominator : RationalRectangle)"
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/18/189873dfffebdeb98c08d38a86b1341c5b33eaa2f5ea770863bc7021a19417ec/ClassificationFiniteReuseJoin.lean",
+      "sha256": "189873dfffebdeb98c08d38a86b1341c5b33eaa2f5ea770863bc7021a19417ec",
+      "hits": [
+        "10:    (h0 : rowFibreEndpoint0 G \u2260 0) (h3 : rowFibreEndpoint3 G \u2260 0)",
+        "11:    (h0s : rowFibreEndpoint0 (swapRowGram G) \u2260 0)",
+        "12:    (h3s : rowFibreEndpoint3 (swapRowGram G) \u2260 0) :"
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/1a/1aeaa0d55721d0a8f69addbbec5e661be600be19fa0b9beace623676b70b705f/PhaseSideIntervals.lean",
+      "sha256": "1aeaa0d55721d0a8f69addbbec5e661be600be19fa0b9beace623676b70b705f",
+      "hits": [
+        "12:def asTarget (b : RationalRectangle) : TargetBox :=",
+        "15:def phaseTargetBox (b : RationalRectangle) : RationalRectangle :=",
+        "29:def gateRootBox (r : RootRecipe) : RationalRectangle :=",
+        "39:def RadialValid (a : Interval) (b : RationalRectangle) : Prop :=",
+        "85:def phaseTauBox (b : RationalRectangle) (a : Interval) (r : RootRecipe) :"
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/1c/1c8664a5631acf24c16d622b9e70d795ab8c7f737600afbfaa37e859ef69bc23/Root1PhaseBoxes.lean",
+      "sha256": "1c8664a5631acf24c16d622b9e70d795ab8c7f737600afbfaa37e859ef69bc23",
+      "hits": [
+        "11:def Phase0 : RationalRectangle := ShoulderRoot0Moments20261003.Phase0",
+        "12:def Phase1 : RationalRectangle := ShoulderRoot0Moments20261003.Phase1",
+        "13:def Phase2 : RationalRectangle := ShoulderRoot0Moments20261003.Phase2",
+        "16:def Phase3 : RationalRectangle := rectangle Re3 Im3"
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/24/24177fae7153ea7a3254f3f10c7d89077c0e846e3ac0e72574978f750260420b/RationalCarrierIntervals.lean",
+      "sha256": "24177fae7153ea7a3254f3f10c7d89077c0e846e3ac0e72574978f750260420b",
+      "hits": [
+        "33:def boxDivideReal (a : RationalRectangle) (b : Interval) : RationalRectangle :=",
+        "42:def circleBox (negative : Bool) (a : Interval) : RationalRectangle :=",
+        "119:def detBox (A : Rect3) : RationalRectangle :="
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/25/253d72dc29ac7729b6c906d0deacfe17899c4edaa509f64d70c834886e5dcb84/RadianSeedBounds.lean",
+      "sha256": "253d72dc29ac7729b6c906d0deacfe17899c4edaa509f64d70c834886e5dcb84",
+      "hits": [
+        "80:def radianBox (S C : Interval) (r : \u211a) : RationalRectangle :="
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/2b/2b5bc069b2fd54781445fadc406953fde7467e76645db6d7903fb0d49921776e/ParametricPhysicalSide.lean",
+      "sha256": "2b5bc069b2fd54781445fadc406953fde7467e76645db6d7903fb0d49921776e",
+      "hits": [
+        "24:def seedEX (E : Fin 4 \u2192 RationalRectangle) : Fin 3 \u2192 RationalRectangle :=",
+        "26:def seedEY (E : Fin 4 \u2192 RationalRectangle) : Fin 3 \u2192 RationalRectangle :="
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/2f/2f2e003325983a151baaf4301e687a6a868413d84d62bae349f39a7880a80d3a/002.lean",
+      "sha256": "2f2e003325983a151baaf4301e687a6a868413d84d62bae349f39a7880a80d3a",
+      "hits": [
+        "52:@[simp] theorem eval_mul (p : Variable \u2192 \u211d) (P Q : ComplexPoly) :"
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/32/328308d54bf4e07841ec33b908f7fd84497139c97815c09a43d5c4c36027e0b4/Root255Trig.lean",
+      "sha256": "328308d54bf4e07841ec33b908f7fd84497139c97815c09a43d5c4c36027e0b4",
+      "hits": [
+        "78:def B0 : RationalRectangle := \u27e8(295346627/536870912),(594192467/1073741824),(-896663841/1073741824),(-223586973/268435456)\u27e9",
+        "154:def B1 : RationalRectangle := \u27e8(485549325/1073741824),(15290235/33554432),(955782467/1073741824),(239422071/268435456)\u27e9",
+        "230:def B2 : RationalRectangle := \u27e8(481804667/1073741824),(485550265/1073741824),(478843223/536870912),(959577653/1073741824)\u27e9",
+        "306:def B3 : RationalRectangle := \u27e8(587186169/1073741824),(295347195/536870912),(-449482197/536870912),(-896662123/1073741824)\u27e9",
+        "313:def seedBoxes : Fin 4 \u2192 RationalRectangle := ![B0,B1,B2,B3]"
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/32/32949de8c5afe4c68e86e134d0c3cfdfe6a35759b9026093e21f03dbd2506693/GuardedComplexIntervals.lean",
+      "sha256": "32949de8c5afe4c68e86e134d0c3cfdfe6a35759b9026093e21f03dbd2506693",
+      "hits": [
+        "10:def boxScale (q : \u211a) (a : RationalRectangle) : RationalRectangle :=",
+        "24:def boxPow (a : RationalRectangle) : \u2115 \u2192 RationalRectangle",
+        "37:def boxDivide (a b : RationalRectangle) (floor : \u211a) : RationalRectangle :=",
+        "58:def unitBox : RationalRectangle := \u27e8-1,1,-1,1\u27e9",
+        "71:def boxMeet (a b : RationalRectangle) : RationalRectangle :=",
+        "82:def phaseQuotientBox (numerator denominator : RationalRectangle) : RationalRectangle :=",
+        "87:theorem phaseQuotientBox_sound {a b : RationalRectangle} {n d L : \u2102}"
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/36/366165c7645cca8e742b011cee2bfd16c94014b864918e57a29897315a4ab3e8/002.lean",
+      "sha256": "366165c7645cca8e742b011cee2bfd16c94014b864918e57a29897315a4ab3e8",
+      "hits": [
+        "56:def rationalCarrier {\u03c3 : Type*} (M : CarrierModel \u03c3) (p : \u03c3 \u2192 \u211d) : BasisMatrix :="
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/39/3996edc723f71defc7b553d88350a1259f88365fbce328857dc866b8b852a2f0/FormalCore.lean",
+      "sha256": "3996edc723f71defc7b553d88350a1259f88365fbce328857dc866b8b852a2f0",
+      "hits": [
+        "29:def MemRectangle (q : RationalRectangle) (z : \u2102) : Prop :=",
+        "33:def squaredDiameter (q : RationalRectangle) : \u211a :=",
+        "64:def circleRectangle (p : CircleSquare) : RationalRectangle :=",
+        "425:def splitRectangleReLeft (q : RationalRectangle) (cut : \u211a) : RationalRectangle :=",
+        "428:def splitRectangleReRight (q : RationalRectangle) (cut : \u211a) : RationalRectangle :=",
+        "431:def splitRectangleImLeft (q : RationalRectangle) (cut : \u211a) : RationalRectangle :=",
+        "434:def splitRectangleImRight (q : RationalRectangle) (cut : \u211a) : RationalRectangle :="
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/3a/3a7b8838c0a538ee7e9461faa294b912c72e0bf74004be4deaa402af900afb2c/RadianSeedBounds.lean",
+      "sha256": "3a7b8838c0a538ee7e9461faa294b912c72e0bf74004be4deaa402af900afb2c",
+      "hits": [
+        "80:def radianBox (S C : Interval) (r : \u211a) : RationalRectangle :="
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/3d/3d1506af3503780fbd799e0c24011167a8df502c897ed2ba182ca1f68aebd8a6/LaurentList.lean",
+      "sha256": "3d1506af3503780fbd799e0c24011167a8df502c897ed2ba182ca1f68aebd8a6",
+      "hits": [
+        "115:theorem eval_mulTerm (h : Exp4 \u2192 \u2102)",
+        "140:theorem eval_mul (h : Exp4 \u2192 \u2102)"
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/3d/3d401bdf22ea2dabacfaf97d5088ec194a2a2bd1837bfc4be6eaacd9fc0cf30f/LocalPhysicalSideEnclosure.lean",
+      "sha256": "3d401bdf22ea2dabacfaf97d5088ec194a2a2bd1837bfc4be6eaacd9fc0cf30f",
+      "hits": [
+        "31:def signedRootBox (negative : Bool) (a b radius : \u211a) : RationalRectangle :="
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/46/46a7df845473c02dc9b34a77ea3bd54b2a711f4c5cbff8925acd7536df449cd0/Root255Trig.lean",
+      "sha256": "46a7df845473c02dc9b34a77ea3bd54b2a711f4c5cbff8925acd7536df449cd0",
+      "hits": [
+        "78:def B0 : RationalRectangle := \u27e8(295346627/536870912),(594192467/1073741824),(-896663841/1073741824),(-223586973/268435456)\u27e9",
+        "154:def B1 : RationalRectangle := \u27e8(485549325/1073741824),(15290235/33554432),(955782467/1073741824),(239422071/268435456)\u27e9",
+        "230:def B2 : RationalRectangle := \u27e8(481804667/1073741824),(485550265/1073741824),(478843223/536870912),(959577653/1073741824)\u27e9",
+        "306:def B3 : RationalRectangle := \u27e8(587186169/1073741824),(295347195/536870912),(-449482197/536870912),(-896662123/1073741824)\u27e9",
+        "313:def seedBoxes : Fin 4 \u2192 RationalRectangle := ![B0,B1,B2,B3]"
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/49/49ab80279b6deb27ad4c3f60382536252389ba60093d81331419c91e256082ed/ParametricAngularLeaf.lean",
+      "sha256": "49ab80279b6deb27ad4c3f60382536252389ba60093d81331419c91e256082ed",
+      "hits": [
+        "15:def cornerCheck (cap : \u211a) (A B C D E F : RationalRectangle) : Bool :="
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/4b/4b3d2bd9978f0e2eb5c1cb20b51955a68bb4d426feface4a97fcfcc3d8e1935e/001.lean",
+      "sha256": "4b3d2bd9978f0e2eb5c1cb20b51955a68bb4d426feface4a97fcfcc3d8e1935e",
+      "hits": [
+        "37:def seedCoordinateBoxes (B : Fin 4 \u2192 RationalRectangle) (Z : RationalRectangle) :"
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/4c/4c5b0c802e39d9f963fa9c734ce692f0dbabea0499be1a53ab95d5bbaabf7ca2/LocalPhysicalSideEnclosure.lean",
+      "sha256": "4c5b0c802e39d9f963fa9c734ce692f0dbabea0499be1a53ab95d5bbaabf7ca2",
+      "hits": [
+        "31:def signedRootBox (negative : Bool) (a b radius : \u211a) : RationalRectangle :="
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/4c/4c9d2f69e20675dceadf6d9014f1ba917fb4e03727e78b30b3a7a3c5ef0347b7/RationalPolynomialSubstitution.lean",
+      "sha256": "4c9d2f69e20675dceadf6d9014f1ba917fb4e03727e78b30b3a7a3c5ef0347b7",
+      "hits": [
+        "59:theorem clearDenominators_quotient {\u03c3 \u03c4 : Type*} (Q : CarrierPoly \u03c4)"
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/4e/4e8183a2abbee770c2f95576eb0def3d6a1e1840ad3f69668229938efc3ddbe2/AdjugateReconstruction.lean",
+      "sha256": "4e8183a2abbee770c2f95576eb0def3d6a1e1840ad3f69668229938efc3ddbe2",
+      "hits": [
+        "13:theorem gram_mul_quotient (E : Mat3) (hg : (gram E).det \u2260 0) :"
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/51/5194f675b9a78bce2673b04127572c24bfecbeb073161bf8e3707d5600d533fe/LaurentList.lean",
+      "sha256": "5194f675b9a78bce2673b04127572c24bfecbeb073161bf8e3707d5600d533fe",
+      "hits": [
+        "113:theorem eval_mulTerm (h : Exp4 \u2192 \u2102)",
+        "138:theorem eval_mul (h : Exp4 \u2192 \u2102)"
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/52/52663197a16909e29eca3824bec06a69af3ba1e03a805b62644804c9aa7a2555/PreRhoActualBindings.lean",
+      "sha256": "52663197a16909e29eca3824bec06a69af3ba1e03a805b62644804c9aa7a2555",
+      "hits": [
+        "28:    (actualAlignmentData s t r).p0bar = conj (sideP0 s t r) \u2227",
+        "29:    (actualAlignmentData s t r).p1 = sideP1 s t r \u2227",
+        "30:    (actualAlignmentData s t r).p2 = sideP2 s t r := by",
+        "32:    simp [actualAlignmentData, PreRhoAlignment.gramData, sideP0, sideP1, sideP2,",
+        "85:    have h := sideLambda_mul_conjP s t r epsilon (9 - Complex.normSq t) (sideP1 s t r) hP1",
+        "88:    have h := sideLambda_mul_conjP s t r epsilon (9 - Complex.normSq s) (sideP2 s t r) hP2"
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/5a/5a4686216efcc756c6f5ed11a66e148e6e2b819f7a6eaed1040e3d30ecc0363b/KernelLaurentList.lean",
+      "sha256": "5a4686216efcc756c6f5ed11a66e148e6e2b819f7a6eaed1040e3d30ecc0363b",
+      "hits": [
+        "119:theorem eval_mulTerm (h : Exp4 \u2192 \u2102)",
+        "144:theorem eval_mul (h : Exp4 \u2192 \u2102)"
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/5b/5bf808f10ea74c280cfb6f56af2d7b25384e15ca50c264b30c5d6e4176f75394/SideStrictFibreFinite.lean",
+      "sha256": "5bf808f10ea74c280cfb6f56af2d7b25384e15ca50c264b30c5d6e4176f75394",
+      "hits": [
+        "14:theorem rowFibreEndpoint0_eq_sideP1 (G : Hadamard6.Mat3) :",
+        "15:    Hadamard6.rowFibreEndpoint0 G=sideP1 (G 1 0) (G 2 0) (G 2 1) := by",
+        "16:  unfold Hadamard6.rowFibreEndpoint0 sideP1 sideP0",
+        "21:theorem rowFibreEndpoint3_eq_neg_conj_sideP0 (G : Hadamard6.Mat3) :",
+        "22:    Hadamard6.rowFibreEndpoint3 G= -conj (sideP0 (G 1 0) (G 2 0) (G 2 1)) := by",
+        "23:  simp only [Hadamard6.rowFibreEndpoint3,sideP0,Complex.star_def,map_add,map_sub,",
+        "29:    sideP0 t s (conj r)=sideP0 s t r := by",
+        "30:  simp [sideP0]",
+        "34:    Hadamard6.rowFibreEndpoint0 (Hadamard6.swapRowGram G)=",
+        "35:      sideP2 (G 1 0) (G 2 0) (G 2 1) \u2227",
+        "36:    Hadamard6.rowFibreEndpoint3 (Hadamard6.swapRowGram G)=",
+        "37:      -conj (sideP0 (G 1 0) (G 2 0) (G 2 1)) := by",
+        "41:  \u00b7 rw [rowFibreEndpoint0_eq_sideP1]",
+        "43:      Hadamard6.swapNoninitialIndex_one,Hadamard6.swapNoninitialIndex_two,h12,sideP1,sideP2]",
+        "44:  \u00b7 rw [rowFibreEndpoint3_eq_neg_conj_sideP0]",
+        "54:  \u00b7 rw [rowFibreEndpoint0_eq_sideP1]",
+        "56:  \u00b7 rw [rowFibreEndpoint3_eq_neg_conj_sideP0]",
+        "63:#print axioms rowFibreEndpoint0_eq_sideP1",
+        "64:#print axioms rowFibreEndpoint3_eq_neg_conj_sideP0"
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/5f/5fcc5a094f18913b3351826f400b1392edb200336bae98d42423e32f2c056bc5/SideIntrinsicLambdaRecovery.lean",
+      "sha256": "5fcc5a094f18913b3351826f400b1392edb200336bae98d42423e32f2c056bc5",
+      "hits": [
+        "36:    intrinsicLambda0 a * conj (sideP0 (rowS a) (rowT a) (rowR a)) =",
+        "39:    intrinsicLambda1 a * conj (sideP1 (rowS a) (rowT a) (rowR a)) =",
+        "42:    intrinsicLambda2 a * conj (sideP2 (rowS a) (rowT a) (rowR a)) =",
+        "65:      rowV a * conj (sideP1 (rowS a) (rowT a) (rowR a)) * h1rel",
+        "67:      rowU a * conj (sideP2 (rowS a) (rowT a) (rowR a)) * h2rel"
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/63/638ff050d503b5395c116fa31c83df9f9058fe37f9c0e1e0fcb9c89239ddc2fd/RadianSeedBounds.lean",
+      "sha256": "638ff050d503b5395c116fa31c83df9f9058fe37f9c0e1e0fcb9c89239ddc2fd",
+      "hits": [
+        "19:def BoxIncludes (a b : RationalRectangle) : Prop :=",
+        "91:def radianBox (S C : Interval) (r : \u211a) : RationalRectangle :="
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/65/658a3d7e72ca4def4de93476c97b128e7e3b8ba17270f808931bd1fdda7bf3ba/AdjugateReconstruction.lean",
+      "sha256": "658a3d7e72ca4def4de93476c97b128e7e3b8ba17270f808931bd1fdda7bf3ba",
+      "hits": [
+        "13:theorem gram_mul_quotient (E : Mat3) (hg : (gram E).det \u2260 0) :"
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/69/69bbba6f9820877d3f4f2230bb78911698e1b6018c52113e0df19ff2332954ba/FourierSideIntervals.lean",
+      "sha256": "69bbba6f9820877d3f4f2230bb78911698e1b6018c52113e0df19ff2332954ba",
+      "hits": [
+        "18:def boxFourierRow (s A B w : RationalRectangle) : Fin 3 \u2192 RationalRectangle :=",
+        "35:def boxAffineSide (s t A B C D w : RationalRectangle) : Rect3 :=",
+        "52:def boxRadicalSide (s t alpha beta h tau w : RationalRectangle) : Rect3 :=",
+        "79:def boxAlpha (s u : RationalRectangle) : RationalRectangle :=",
+        "81:def boxGamma (s t W : RationalRectangle) : RationalRectangle :=",
+        "83:def boxPivot (s t W delta : RationalRectangle) : RationalRectangle :=",
+        "105:def boxReconstructedSide (s t u v W delta tau w : RationalRectangle) : Rect3 :="
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/6b/6b0934e111ae42869f34b0b14a23b4f168652d6f5bb5afb2cf28d7f5b6fe9006/Root255Trig.lean",
+      "sha256": "6b0934e111ae42869f34b0b14a23b4f168652d6f5bb5afb2cf28d7f5b6fe9006",
+      "hits": [
+        "78:def B0 : RationalRectangle := \u27e8(295346627/536870912),(594192467/1073741824),(-896663841/1073741824),(-223586973/268435456)\u27e9",
+        "154:def B1 : RationalRectangle := \u27e8(485549325/1073741824),(15290235/33554432),(955782467/1073741824),(239422071/268435456)\u27e9",
+        "230:def B2 : RationalRectangle := \u27e8(481804667/1073741824),(485550265/1073741824),(478843223/536870912),(959577653/1073741824)\u27e9",
+        "306:def B3 : RationalRectangle := \u27e8(587186169/1073741824),(295347195/536870912),(-449482197/536870912),(-896662123/1073741824)\u27e9",
+        "313:def seedBoxes : Fin 4 \u2192 RationalRectangle := ![B0,B1,B2,B3]"
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/6b/6b9422ac42eaff86f47448a821e204560aad49aad1110396167f5346802c2b79/FourierSideIntervals.lean",
+      "sha256": "6b9422ac42eaff86f47448a821e204560aad49aad1110396167f5346802c2b79",
+      "hits": [
+        "18:def boxFourierRow (s A B w : RationalRectangle) : Fin 3 \u2192 RationalRectangle :=",
+        "35:def boxAffineSide (s t A B C D w : RationalRectangle) : Rect3 :=",
+        "52:def boxRadicalSide (s t alpha beta h tau w : RationalRectangle) : Rect3 :=",
+        "76:def boxAlpha (s u : RationalRectangle) : RationalRectangle :=",
+        "78:def boxGamma (s t W : RationalRectangle) : RationalRectangle :=",
+        "80:def boxPivot (s t W delta : RationalRectangle) : RationalRectangle :=",
+        "102:def boxReconstructedSide (s t u v W delta tau w : RationalRectangle) : Rect3 :="
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/6c/6c5dcdd8d0069a9960d8b6d9937db541173d40c0f1e146d3e5701432145231d1/RationalCentreCore.lean",
+      "sha256": "6c5dcdd8d0069a9960d8b6d9937db541173d40c0f1e146d3e5701432145231d1",
+      "hits": [
+        "12:def rationalPoint (z : \u211a \u00d7 \u211a) : \u2102 := \u27e8(z.1 : \u211d), (z.2 : \u211d)\u27e9",
+        "14:def rationalRay (z : RationalRay) : Vector := fun j => rationalPoint (z j)",
+        "16:def rationalCircle (negative : Bool) (t : \u211a) : \u211a \u00d7 \u211a :=",
+        "30:def rationalChart (signs : Fin 5 \u2192 Bool) (t : Fin 5 \u2192 \u211a) : RationalRay :=",
+        "45:def rationalOverlapRe (z w : RationalRay) : \u211a :=",
+        "48:def rationalOverlapIm (z w : RationalRay) : \u211a :=",
+        "51:def rationalProbability (z w : RationalRay) : \u211a :=",
+        "73:def rationalOrthogonalPredicate (p : \u211a) : Prop :=",
+        "76:def rationalUnbiasedPredicate (p : \u211a) : Prop :="
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/6c/6c7a3992b425cef114c38596d4c218bb876696d1a80e29d950837e27f2007ff2/StrictSideRootGuards.lean",
+      "sha256": "6c7a3992b425cef114c38596d4c218bb876696d1a80e29d950837e27f2007ff2",
+      "hits": [
+        "54:  sideLambda s t r epsilon (9 - Complex.normSq r) (sideP0 s t r)",
+        "56:  sideLambda s t r epsilon (9 - Complex.normSq t) (sideP1 s t r)",
+        "58:  sideLambda s t r epsilon (9 - Complex.normSq s) (sideP2 s t r)"
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/6f/6f08bc4b3717c5aa57853c8bbcdb1afde60aa81e70f2359ae938e4b588848125/FourierSideIntervals.lean",
+      "sha256": "6f08bc4b3717c5aa57853c8bbcdb1afde60aa81e70f2359ae938e4b588848125",
+      "hits": [
+        "18:def boxFourierRow (s A B w : RationalRectangle) : Fin 3 \u2192 RationalRectangle :=",
+        "35:def boxAffineSide (s t A B C D w : RationalRectangle) : Rect3 :=",
+        "52:def boxRadicalSide (s t alpha beta h tau w : RationalRectangle) : Rect3 :=",
+        "79:def boxAlpha (s u : RationalRectangle) : RationalRectangle :=",
+        "81:def boxGamma (s t W : RationalRectangle) : RationalRectangle :=",
+        "83:def boxPivot (s t W delta : RationalRectangle) : RationalRectangle :=",
+        "105:def boxReconstructedSide (s t u v W delta tau w : RationalRectangle) : Rect3 :="
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/74/74ebbe28a6d92631ee6abcc0fe5734c78747375fe286a7cefe0c59c93e9bf5e6/FourCircleCarrierSubstitution.lean",
+      "sha256": "74ebbe28a6d92631ee6abcc0fe5734c78747375fe286a7cefe0c59c93e9bf5e6",
+      "hits": [
+        "98:def circleCarrierModel (s : SeedSigns) : SharedRationalIncidence.CarrierModel CircleVariable where",
+        "171:theorem actual_lift_polynomial_quotient (P : CarrierPoly LiftedAtlasPolynomial.Variable)"
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/7c/7cf69ff6bce6c911b64f732b2e0adf898840e1d834f32f3d9b829860d9adfbba/PhaseCoordinateReuse.lean",
+      "sha256": "7cf69ff6bce6c911b64f732b2e0adf898840e1d834f32f3d9b829860d9adfbba",
+      "hits": [
+        "8:def root0Phases : Fin 4 \u2192 RationalRectangle :="
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/7f/7facad65839eab3f502c05fc4eb156ea2355f3c97c3c428296fcf7a79e7981c7/Root255Certificate.lean",
+      "sha256": "7facad65839eab3f502c05fc4eb156ea2355f3c97c3c428296fcf7a79e7981c7",
+      "hits": [
+        "10:def oneBox : RationalRectangle := boxPoint 1 0"
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/81/8106e564f4360aee5b226c77af62408228d0826ce8c1f257773721618eb90f20/KernelLaurentList.lean",
+      "sha256": "8106e564f4360aee5b226c77af62408228d0826ce8c1f257773721618eb90f20",
+      "hits": [
+        "119:theorem eval_mulTerm (h : Exp4 \u2192 \u2102)",
+        "144:theorem eval_mul (h : Exp4 \u2192 \u2102)"
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/81/811632245d0fb70bad3b8c22ec4399e22945a9b71aacbced4de51c2c3c6bbe8b/LocalPhysicalSideEnclosure.lean",
+      "sha256": "811632245d0fb70bad3b8c22ec4399e22945a9b71aacbced4de51c2c3c6bbe8b",
+      "hits": [
+        "25:def signedRootBox (negative : Bool) (a b radius : \u211a) : RationalRectangle :="
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/84/8453e7ea3b6783bb9a1dfdb017dddf906fcd096f62189adf274e47714db08a4b/CriticalRationalSideData.lean",
+      "sha256": "8453e7ea3b6783bb9a1dfdb017dddf906fcd096f62189adf274e47714db08a4b",
+      "hits": [
+        "10:def rationalNumerator (s S t T r Q : \u2102) : Fin 3 \u2192 \u2102 :=",
+        "15:def rationalConumerator (s S t T r Q : \u2102) : Fin 3 \u2192 \u2102 :=",
+        "20:def rationalDenominator (s S t T r Q z g : \u2102) : Fin 3 \u2192 \u2102 :=",
+        "25:def rationalSide (s S t T r Q z g : \u2102) : Data :="
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/88/8864995e75f0fd4366c512ede2451c5227701134e37c70a0ef444e4352024cd6/ModulusIdentity.lean",
+      "sha256": "8864995e75f0fd4366c512ede2451c5227701134e37c70a0ef444e4352024cd6",
+      "hits": [
+        "7:# From infinitely many unit companions to the cleared norm identity",
+        "97:/-- Infinitely many unit-circle points satisfying the companion relation"
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/8f/8f9780f9c31fcc085eb8c205792110f484974df451a5c05eaf4957de72ffaeb2/RationalRootCertificates.lean",
+      "sha256": "8f9780f9c31fcc085eb8c205792110f484974df451a5c05eaf4957de72ffaeb2",
+      "hits": [
+        "12:def rationalCenter (a b : \u211a) : \u2102 := \u27e8a,b\u27e9",
+        "13:def centerBox (a b \u03b5 : \u211a) : RationalRectangle :=",
+        "15:def rootResidual (B : RationalRectangle) (a b : \u211a) (n : \u2115) : Interval :=",
+        "18:def CubeCertificate (B : RationalRectangle) (a b \u03b5 : \u211a) : Prop :=",
+        "20:def SquareCertificate (B : RationalRectangle) (a b \u03b5 : \u211a) : Prop :="
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/9f/9fa3fa47f481d1937fe2af47838460df3c0706b9ea7c47b0bb15db774f7b3c9c/StrictSideScalarGuards.lean",
+      "sha256": "9fa3fa47f481d1937fe2af47838460df3c0706b9ea7c47b0bb15db774f7b3c9c",
+      "hits": [
+        "29:def sideP0 (s t r : \u2102) : \u2102 :=",
+        "31:def sideP1 (s t r : \u2102) : \u2102 := sideP0 (conj s) r t",
+        "32:def sideP2 (s t r : \u2102) : \u2102 := sideP0 (conj t) (conj r) s",
+        "54:    Complex.normSq (sideP0 s t r) = gramG s t r ^ 2 +",
+        "57:  simp [sideP0, gramG, gramEta, gramChi, gramP, gramJ, gramW,",
+        "80:    Complex.normSq (sideP1 s t r) = gramG s t r ^ 2 +",
+        "83:  simpa only [sideP1, gramG, gramChi, gramEta, gramP_rotate1,",
+        "87:    Complex.normSq (sideP2 s t r) = gramG s t r ^ 2 +",
+        "90:  simpa only [sideP2, gramG, gramChi, gramEta, gramP_rotate2,",
+        "110:    sideP0 s t r \u2260 0 \u2227 sideP1 s t r \u2260 0 \u2227 sideP2 s t r \u2260 0 := by",
+        "111:  have h0 : 0 < Complex.normSq (sideP0 s t r) := by",
+        "114:  have h1 : 0 < Complex.normSq (sideP1 s t r) := by",
+        "117:  have h2 : 0 < Complex.normSq (sideP2 s t r) := by"
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/a0/a0d490426ce7ed6d178cebdd6b4e92122de3794ce0849300055530d18a024ac4/PreRhoActualBindings.before-generic-base.lean",
+      "sha256": "a0d490426ce7ed6d178cebdd6b4e92122de3794ce0849300055530d18a024ac4",
+      "hits": [
+        "28:    (actualAlignmentData s t r).p0bar = conj (sideP0 s t r) \u2227",
+        "29:    (actualAlignmentData s t r).p1 = sideP1 s t r \u2227",
+        "30:    (actualAlignmentData s t r).p2 = sideP2 s t r := by",
+        "32:    simp [actualAlignmentData, PreRhoAlignment.gramData, sideP0, sideP1, sideP2,",
+        "85:    have h := sideLambda_mul_conjP s t r epsilon (9 - Complex.normSq t) (sideP1 s t r) hP1",
+        "88:    have h := sideLambda_mul_conjP s t r epsilon (9 - Complex.normSq s) (sideP2 s t r) hP2"
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/a1/a17214264f3ea0a65e3e07e0b92cefe9732441733c8f87b48a9928ced3ae6e0b/Root0MomentsProbe.lean",
+      "sha256": "a17214264f3ea0a65e3e07e0b92cefe9732441733c8f87b48a9928ced3ae6e0b",
+      "hits": [
+        "15:def Phase0 : RationalRectangle := rectangle Re0 Im0",
+        "18:def Phase1 : RationalRectangle := rectangle Re1 Im1",
+        "21:def Phase2 : RationalRectangle := rectangle Re2 Im2",
+        "24:def Phase3 : RationalRectangle := rectangle Re3 Im3"
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/a2/a2aac9b9653bdd2bfcc7ec236057c31ebccfae1b2c84e7d67cef72ab91daf4e3/001.lean",
+      "sha256": "a2aac9b9653bdd2bfcc7ec236057c31ebccfae1b2c84e7d67cef72ab91daf4e3",
+      "hits": [
+        "56:def rationalCarrier {\u03c3 : Type*} (M : CarrierModel \u03c3) (p : \u03c3 \u2192 \u211d) : BasisMatrix :="
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/a7/a73d04f48e3bb76b0d861839f12c5f8c7070d9c5e4cb08f03d9304e5596f8007/Root1Moments.lean",
+      "sha256": "a73d04f48e3bb76b0d861839f12c5f8c7070d9c5e4cb08f03d9304e5596f8007",
+      "hits": [
+        "12:def oneBox : RationalRectangle := boxPoint 1 0"
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/a7/a7c0bc6a32b9695be99b4ea471b24db76ed65fe4baef145d9890f446b917d748/001.lean",
+      "sha256": "a7c0bc6a32b9695be99b4ea471b24db76ed65fe4baef145d9890f446b917d748",
+      "hits": [
+        "52:@[simp] theorem eval_mul (p : Variable \u2192 \u211d) (P Q : ComplexPoly) :"
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/a9/a9c468a4e45a9546da852a4e81eb43204c31484b58d940130ac4862f95144366/CriticalZeroSumCoefficientAt.lean",
+      "sha256": "a9c468a4e45a9546da852a4e81eb43204c31484b58d940130ac4862f95144366",
+      "hits": [
+        "35:theorem eval_mulAt (X Y : R) (as bs : List DenseCoefficients.XY) (n : \u2115) :"
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/ac/ac5e3d7c2cd501c81b2bd33ddd1a85cf94a1c164d1bbdb4ae7f157304e832c97/AdjugateReconstruction.lean",
+      "sha256": "ac5e3d7c2cd501c81b2bd33ddd1a85cf94a1c164d1bbdb4ae7f157304e832c97",
+      "hits": [
+        "13:theorem gram_mul_quotient (E : Mat3) (hg : (gram E).det \u2260 0) :"
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/b3/b37788f3a295221c267374349ad0d662b8df1d25e9a57cb0b9bf0747cee81720/CriticalZeroSumCoefficientRow.lean",
+      "sha256": "b37788f3a295221c267374349ad0d662b8df1d25e9a57cb0b9bf0747cee81720",
+      "hits": [
+        "65:theorem eval_mulRowAt (Y : R) (as bs : DenseCoefficients.XY) (n : \u2115) :",
+        "81:theorem eval_mulRowAt_actual (Y : R) (as bs : DenseCoefficients.XY) (n : \u2115) :",
+        "94:theorem eval_mulAtRow (Y : R) (as bs : List DenseCoefficients.XY) (n i : \u2115) :"
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/b3/b3c614dc6b954292490a304382b14657f4b5fcc2d53382500ae15de35d3e5714/RationalCentreCore.lean",
+      "sha256": "b3c614dc6b954292490a304382b14657f4b5fcc2d53382500ae15de35d3e5714",
+      "hits": [
+        "11:def rationalPoint (z : \u211a \u00d7 \u211a) : \u2102 := \u27e8(z.1 : \u211d), (z.2 : \u211d)\u27e9",
+        "13:def rationalRay (z : RationalRay) : Vector := fun j => rationalPoint (z j)",
+        "15:def rationalCircle (negative : Bool) (t : \u211a) : \u211a \u00d7 \u211a :=",
+        "29:def rationalChart (signs : Fin 5 \u2192 Bool) (t : Fin 5 \u2192 \u211a) : RationalRay :=",
+        "44:def rationalOverlapRe (z w : RationalRay) : \u211a :=",
+        "47:def rationalOverlapIm (z w : RationalRay) : \u211a :=",
+        "50:def rationalProbability (z w : RationalRay) : \u211a :=",
+        "69:def rationalOrthogonalPredicate (p : \u211a) : Prop :=",
+        "72:def rationalUnbiasedPredicate (p : \u211a) : Prop :="
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/b4/b42b82faa663ca5d32042703ecd55f68f771ba8ae5ed4efc73012a14bb8ada53/SideMatrixScalar.lean",
+      "sha256": "b42b82faa663ca5d32042703ecd55f68f771ba8ae5ed4efc73012a14bb8ada53",
+      "hits": [
+        "18:theorem rho_quotient_balance (alpha : \u2102) (rho n : \u211d) (hr : 0 < rho)"
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/b4/b4d932d1510c33d5fb6483263b7f8f2b1b1919194db0d18eb7e7108ecf2aa308/ZeroParamReview.lean",
+      "sha256": "b4d932d1510c33d5fb6483263b7f8f2b1b1919194db0d18eb7e7108ecf2aa308",
+      "hits": [
+        "47:theorem literal_safe_quotient {z : \u211d} (hz : z \u2260 0) :"
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/b6/b6c73061f4c3552ce6bf61ece85368add1ad8c6dcf7d498b676f5dfbc218672f/PreRhoActualBindings.lean",
+      "sha256": "b6c73061f4c3552ce6bf61ece85368add1ad8c6dcf7d498b676f5dfbc218672f",
+      "hits": [
+        "28:    (actualAlignmentData s t r).p0bar = conj (sideP0 s t r) \u2227",
+        "29:    (actualAlignmentData s t r).p1 = sideP1 s t r \u2227",
+        "30:    (actualAlignmentData s t r).p2 = sideP2 s t r := by",
+        "32:    simp [actualAlignmentData, PreRhoAlignment.gramData, sideP0, sideP1, sideP2,",
+        "85:    have h := sideLambda_mul_conjP s t r epsilon (9 - Complex.normSq t) (sideP1 s t r) hP1",
+        "88:    have h := sideLambda_mul_conjP s t r epsilon (9 - Complex.normSq s) (sideP2 s t r) hP2"
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/b8/b800bc6c4c1ed6e6dd9ddae0039494238113f103f203a2f9937fc16279cf543a/RationalCircleCharts.lean",
+      "sha256": "b800bc6c4c1ed6e6dd9ddae0039494238113f103f203a2f9937fc16279cf543a",
+      "hits": [
+        "31:theorem circlePoint_quotient (t : \u211d) :"
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/bc/bc8e354e3e557c809288f7da1d147d1464c400ed3c6fc02b23b8e0aba5e3a338/CriticalZeroSumCoefficientOps.lean",
+      "sha256": "bc8e354e3e557c809288f7da1d147d1464c400ed3c6fc02b23b8e0aba5e3a338",
+      "hits": [
+        "18:theorem eval_mul (t : R) (as bs : List R) :"
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/bc/bc8f5b9d8bef34d15d81f2adf709f77cf38a27d5dac84a903150701717e40561/RationalCarrierIntervals.lean",
+      "sha256": "bc8f5b9d8bef34d15d81f2adf709f77cf38a27d5dac84a903150701717e40561",
+      "hits": [
+        "33:def boxDivideReal (a : RationalRectangle) (b : Interval) : RationalRectangle :=",
+        "42:def circleBox (negative : Bool) (a : Interval) : RationalRectangle :=",
+        "119:def detBox (A : Rect3) : RationalRectangle :="
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/bd/bd0f593474236fa310671ee6f7eedfaeb54f919c48c2879f61a949c3ac73f417/ReflectedLaurentList.lean",
+      "sha256": "bd0f593474236fa310671ee6f7eedfaeb54f919c48c2879f61a949c3ac73f417",
+      "hits": [
+        "164:theorem eval_mulTerm (h : Exp4 \u2192 \u2102)",
+        "189:theorem eval_mul (h : Exp4 \u2192 \u2102)"
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/bf/bffcda5756752caf3af04e1c8124d5f023d7d64633adda99a1b7c597c0eb970c/KernelLaurentList.lean",
+      "sha256": "bffcda5756752caf3af04e1c8124d5f023d7d64633adda99a1b7c597c0eb970c",
+      "hits": [
+        "119:theorem eval_mulTerm (h : Exp4 \u2192 \u2102)",
+        "144:theorem eval_mul (h : Exp4 \u2192 \u2102)"
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/c2/c2e40900c799547b3e8759e3222734acb071af983b28e1c0805b23a5b590f88b/SideIntrinsicActualLambda.lean",
+      "sha256": "c2e40900c799547b3e8759e3222734acb071af983b28e1c0805b23a5b590f88b",
+      "hits": [
+        "14:      conj (rowPerm a) - rowU a * rowV a * conj (sideP0 (rowS a) (rowT a) (rowR a)) \u2227",
+        "16:      conj (rowPerm a) - rowV a * conj (sideP1 (rowS a) (rowT a) (rowR a)) \u2227",
+        "18:      conj (rowPerm a) - rowU a * conj (sideP2 (rowS a) (rowT a) (rowR a)) := by"
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/c3/c3058722214342959ae40f52fc6fd32e11f5e15ab5e83c65c5ea2da8eff4a0fa/RadianSeedBounds.lean",
+      "sha256": "c3058722214342959ae40f52fc6fd32e11f5e15ab5e83c65c5ea2da8eff4a0fa",
+      "hits": [
+        "78:def radianBox (S C : Interval) (r : \u211a) : RationalRectangle :="
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/c3/c37de7b926ccd574d82c2bb8ec198bf53ea420e3e093e6e6e73293b19d98c617/LaurentList.lean",
+      "sha256": "c37de7b926ccd574d82c2bb8ec198bf53ea420e3e093e6e6e73293b19d98c617",
+      "hits": [
+        "115:theorem eval_mulTerm (h : Exp4 \u2192 \u2102)",
+        "140:theorem eval_mul (h : Exp4 \u2192 \u2102)"
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/c6/c68d1249b0050dcc400fb599751ce5a3aa3d94d2737377b583ce69a49be9546c/PreRhoNormBindings.lean",
+      "sha256": "c68d1249b0050dcc400fb599751ce5a3aa3d94d2737377b583ce69a49be9546c",
+      "hits": [
+        "17:    (actualNormData s t r).p0 = sideP0 s t r \u2227",
+        "18:    (actualNormData s t r).p1bar = conj (sideP1 s t r) := by",
+        "20:    simp [actualNormData, PreRhoNorm.gramData, sideP0, sideP1,",
+        "38:    have h := sideLambda_mul_conjP s t r epsilon (9 - Complex.normSq r) (sideP0 s t r) hP0",
+        "101:    change d.a.p0bar = conj (sideP0 s t r) at hp0bar",
+        "102:    change d.a.p1 = sideP1 s t r at hp1",
+        "103:    change d.p0 = sideP0 s t r at hp0",
+        "104:    change d.p1bar = conj (sideP1 s t r) at hp1bar"
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/c7/c7ae1f65bbafcc125fa22511725af52c2f1bb80fec0f1bcb776893cdcd656cd2/RationalCentreCore.lean",
+      "sha256": "c7ae1f65bbafcc125fa22511725af52c2f1bb80fec0f1bcb776893cdcd656cd2",
+      "hits": [
+        "12:def rationalPoint (z : \u211a \u00d7 \u211a) : \u2102 := \u27e8(z.1 : \u211d), (z.2 : \u211d)\u27e9",
+        "14:def rationalRay (z : RationalRay) : Vector := fun j => rationalPoint (z j)",
+        "16:def rationalCircle (negative : Bool) (t : \u211a) : \u211a \u00d7 \u211a :=",
+        "30:def rationalChart (signs : Fin 5 \u2192 Bool) (t : Fin 5 \u2192 \u211a) : RationalRay :=",
+        "45:def rationalOverlapRe (z w : RationalRay) : \u211a :=",
+        "48:def rationalOverlapIm (z w : RationalRay) : \u211a :=",
+        "51:def rationalProbability (z w : RationalRay) : \u211a :=",
+        "70:def rationalOrthogonalPredicate (p : \u211a) : Prop :=",
+        "73:def rationalUnbiasedPredicate (p : \u211a) : Prop :="
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/cb/cbebacb15e4a2cd7f57d3fe177369698a0483ea3caeb8021cc3e95ef1cbccfbb/SideMatrixCoefficientAlgebra.lean",
+      "sha256": "cbebacb15e4a2cd7f57d3fe177369698a0483ea3caeb8021cc3e95ef1cbccfbb",
+      "hits": [
+        "15:theorem rho_quotient_balance (alpha : \u2102) (rho n : \u211d) (hr : 0 < rho)"
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/ce/ce89ac0c2ffe8e9d6b6d52ce89c53b39bb440117661be2b45361e4bf453f90e2/Root0Moments.lean",
+      "sha256": "ce89ac0c2ffe8e9d6b6d52ce89c53b39bb440117661be2b45361e4bf453f90e2",
+      "hits": [
+        "15:def Phase0 : RationalRectangle := rectangle Re0 Im0",
+        "18:def Phase1 : RationalRectangle := rectangle Re1 Im1",
+        "21:def Phase2 : RationalRectangle := rectangle Re2 Im2",
+        "24:def Phase3 : RationalRectangle := rectangle Re3 Im3",
+        "197:def oneBox : RationalRectangle := boxPoint 1 0"
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/d0/d0d72b40ac259f53947242634c343989ba9fc064024b3e93b078c974e6b61f9c/StrictSeedGuards.lean",
+      "sha256": "d0d72b40ac259f53947242634c343989ba9fc064024b3e93b078c974e6b61f9c",
+      "hits": [
+        "93:    sideP0 (seedS E) (seedT E) (seedR E) \u2260 0 \u2227",
+        "94:    sideP1 (seedS E) (seedT E) (seedR E) \u2260 0 \u2227",
+        "95:    sideP2 (seedS E) (seedT E) (seedR E) \u2260 0 := by"
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/d1/d1286e52ae62dd165c059a099baa42dca1092446138cecbd2f2cfe12c3f135dc/CertifiedResidualEnclosures.lean",
+      "sha256": "d1286e52ae62dd165c059a099baa42dca1092446138cecbd2f2cfe12c3f135dc",
+      "hits": [
+        "37:def seedCoordinateBoxes (B : Fin 4 \u2192 RationalRectangle) (Z : RationalRectangle) :"
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/d6/d6f411d1fb35537959c1dc7e892431f7964b651005ee2ad7ec64bb92997e8fe5/SideMatrixCoefficientAlgebra.lean",
+      "sha256": "d6f411d1fb35537959c1dc7e892431f7964b651005ee2ad7ec64bb92997e8fe5",
+      "hits": [
+        "15:theorem rho_quotient_balance (alpha : \u2102) (rho n : \u211d) (hr : 0 < rho)"
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/d7/d7dbe219358becb9195b0958696e8764afd6bc0f20d6fa6601c4d062b861462e/Root0Moments.lean",
+      "sha256": "d7dbe219358becb9195b0958696e8764afd6bc0f20d6fa6601c4d062b861462e",
+      "hits": [
+        "12:def oneBox : RationalRectangle := boxPoint 1 0"
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/dc/dca59ea942a9bfe5f9bf72d89eb5c15eac3316fab896b5d61162dc8dbbadb776/LiftedAtlasPolynomial.lean",
+      "sha256": "dca59ea942a9bfe5f9bf72d89eb5c15eac3316fab896b5d61162dc8dbbadb776",
+      "hits": [
+        "258:def carrierModel : SharedRationalIncidence.CarrierModel Variable where"
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/dd/ddf93ee57b1cf7af6cb79e5b51206b3dff316836c505b1ec0ec34d1ac68464fa/StrictSideRootGuards.lean",
+      "sha256": "ddf93ee57b1cf7af6cb79e5b51206b3dff316836c505b1ec0ec34d1ac68464fa",
+      "hits": [
+        "57:  sideLambda s t r epsilon (9 - Complex.normSq r) (sideP0 s t r)",
+        "59:  sideLambda s t r epsilon (9 - Complex.normSq t) (sideP1 s t r)",
+        "61:  sideLambda s t r epsilon (9 - Complex.normSq s) (sideP2 s t r)",
+        "147:  prescribedLambda s t r epsilon (9 - Complex.normSq r) (sideP0 s t r)",
+        "149:  prescribedLambda s t r epsilon (9 - Complex.normSq t) (sideP1 s t r)",
+        "151:  prescribedLambda s t r epsilon (9 - Complex.normSq s) (sideP2 s t r)"
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/e2/e286b9353c38e9d5b5a92cebcc2e8dedce3c15ed9f40bb06c6f9487e7909dded/Root0PhaseBoxes.lean",
+      "sha256": "e286b9353c38e9d5b5a92cebcc2e8dedce3c15ed9f40bb06c6f9487e7909dded",
+      "hits": [
+        "12:def Phase0 : RationalRectangle := rectangle Re0 Im0",
+        "15:def Phase1 : RationalRectangle := rectangle Re1 Im1",
+        "18:def Phase2 : RationalRectangle := rectangle Re2 Im2",
+        "21:def Phase3 : RationalRectangle := rectangle Re3 Im3"
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/e8/e8af1ee5d22fe8975ff732c14385c5ae2acd417ddbd0e67448737dc8e888450f/CriticalZeroSumCoefficientRow.lean",
+      "sha256": "e8af1ee5d22fe8975ff732c14385c5ae2acd417ddbd0e67448737dc8e888450f",
+      "hits": [
+        "61:theorem eval_mulRowAt (Y : R) (as bs : DenseCoefficients.XY) (n : \u2115) :",
+        "77:theorem eval_mulRowAt_actual (Y : R) (as bs : DenseCoefficients.XY) (n : \u2115) :",
+        "90:theorem eval_mulAtRow (Y : R) (as bs : List DenseCoefficients.XY) (n i : \u2115) :"
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/eb/eb31e9928ed6a032067c8924ee13b7df061a216ac91e5612231953cc139e8558/CriticalZeroSumCoefficientRow.lean",
+      "sha256": "eb31e9928ed6a032067c8924ee13b7df061a216ac91e5612231953cc139e8558",
+      "hits": [
+        "68:theorem eval_mulRowAt (Y : R) (as bs : DenseCoefficients.XY) (n : \u2115) :",
+        "84:theorem eval_mulRowAt_actual (Y : R) (as bs : DenseCoefficients.XY) (n : \u2115) :",
+        "97:theorem eval_mulAtRow (Y : R) (as bs : List DenseCoefficients.XY) (n i : \u2115) :"
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/eb/eb650b038abc00d74ec72a6398cd3ad720331d9ef64a7b4c854d974b9b141920/AdjugateReconstruction.lean",
+      "sha256": "eb650b038abc00d74ec72a6398cd3ad720331d9ef64a7b4c854d974b9b141920",
+      "hits": [
+        "13:theorem gram_mul_quotient (E : Mat3) (hg : (gram E).det \u2260 0) :"
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/f1/f10c5301421ec32d10fac90951793766d737499fae0b8a5c08843c29dd67d2fb/LaurentList.lean",
+      "sha256": "f10c5301421ec32d10fac90951793766d737499fae0b8a5c08843c29dd67d2fb",
+      "hits": [
+        "113:theorem eval_mulTerm (h : Exp4 \u2192 \u2102)",
+        "138:theorem eval_mul (h : Exp4 \u2192 \u2102)"
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/f1/f178c7636a96c936ccf5f003cb1393fbdc292cfb29f0bd10f45cc8d75c3b0b6c/SideModeCoefficientAlgebra.lean",
+      "sha256": "f178c7636a96c936ccf5f003cb1393fbdc292cfb29f0bd10f45cc8d75c3b0b6c",
+      "hits": [
+        "13:theorem mode_q_quotient (A B : \u2102) (hA : A \u2260 0) :",
+        "20:theorem mode_sigma_quotient (mu u A B : \u2102) (hA : A \u2260 0)",
+        "33:theorem mode_cplus_quotient (A B C D : \u2102) (hA : A \u2260 0) :",
+        "44:theorem mode_cminus_quotient (A B C D : \u2102) (hA : A \u2260 0) :"
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/f5/f593a014060663cbb8a840f03ae0caf73df4d86533178308d9d85b36ae6454f9/FourierSideIntervals.lean",
+      "sha256": "f593a014060663cbb8a840f03ae0caf73df4d86533178308d9d85b36ae6454f9",
+      "hits": [
+        "18:def boxFourierRow (s A B w : RationalRectangle) : Fin 3 \u2192 RationalRectangle :=",
+        "35:def boxAffineSide (s t A B C D w : RationalRectangle) : Rect3 :=",
+        "55:def boxRadicalSide (s t alpha beta h tau w : RationalRectangle) : Rect3 :=",
+        "82:def boxAlpha (s u : RationalRectangle) : RationalRectangle :=",
+        "84:def boxGamma (s t W : RationalRectangle) : RationalRectangle :=",
+        "86:def boxPivot (s t W delta : RationalRectangle) : RationalRectangle :=",
+        "120:def boxReconstructedSide (s t u v W delta tau w : RationalRectangle) : Rect3 :="
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/f6/f62ae6afe8f74e5ea7ab6847774b1c5f326d0cea0ca482c8575359e7fc66c7b1/Root0MomentsProbe2.lean",
+      "sha256": "f62ae6afe8f74e5ea7ab6847774b1c5f326d0cea0ca482c8575359e7fc66c7b1",
+      "hits": [
+        "15:def Phase0 : RationalRectangle := rectangle Re0 Im0",
+        "18:def Phase1 : RationalRectangle := rectangle Re1 Im1",
+        "21:def Phase2 : RationalRectangle := rectangle Re2 Im2",
+        "24:def Phase3 : RationalRectangle := rectangle Re3 Im3"
+      ]
+    },
+    {
+      "path": "audit/upstream_repository/archive/long_proof/Lean/blobs/f8/f8572251a80b50cf572e746308a400faa1d4c6fd15d154f5067d7c6017567fe1/RationalCircleCharts.lean",
+      "sha256": "f8572251a80b50cf572e746308a400faa1d4c6fd15d154f5067d7c6017567fe1",
+      "hits": [
+        "29:theorem circlePoint_quotient (t : \u211d) :"
+      ]
+    },
+    {
+      "path": "lean/NoFourMUBs/Reuse/Archive/CriticalMomentQuad.lean",
+      "sha256": "1408c2169bd58005fbe77872fe1cb7be3ea6c2670e0c51a305ac620afa0bce05",
+      "hits": [
+        "56:theorem eval_mul (r : F) (hq : r^2=A+B*r) (u v : Quad A B) :"
+      ]
+    },
+    {
+      "path": "lean/NoFourMUBs/Reuse/Archive/CriticalRationalSideData.lean",
+      "sha256": "b7d87c333427a319baa95b391968a74b6da183750d9683adccc418ef746e4881",
+      "hits": [
+        "10:def rationalNumerator (s S t T r Q : \u2102) : Fin 3 \u2192 \u2102 :=",
+        "15:def rationalConumerator (s S t T r Q : \u2102) : Fin 3 \u2192 \u2102 :=",
+        "20:def rationalDenominator (s S t T r Q z g : \u2102) : Fin 3 \u2192 \u2102 :=",
+        "25:def rationalSide (s S t T r Q z g : \u2102) : Data :="
+      ]
+    },
+    {
+      "path": "lean/NoFourMUBs/Reuse/Archive/CriticalZeroSumCoefficientAt.lean",
+      "sha256": "4e4ed861b02268c234a5c3be7114dfb3ac0a01bda3ca3a468a8bb209e34d5922",
+      "hits": [
+        "35:theorem eval_mulAt (X Y : R) (as bs : List DenseCoefficients.XY) (n : \u2115) :"
+      ]
+    },
+    {
+      "path": "lean/NoFourMUBs/Reuse/Archive/CriticalZeroSumCoefficientOps.lean",
+      "sha256": "dbac17d85ee200ee769b6f82f9397efb4eb6bb3a17bf3ce6046957c574ccc4a3",
+      "hits": [
+        "18:theorem eval_mul (t : R) (as bs : List R) :"
+      ]
+    },
+    {
+      "path": "lean/NoFourMUBs/Reuse/Archive/CriticalZeroSumCoefficientRow.lean",
+      "sha256": "22dd3ad1bd034ec9cfe8a6c83e9ea7f367b735e66e70e02896d407c70c4af9ef",
+      "hits": [
+        "68:theorem eval_mulRowAt (Y : R) (as bs : DenseCoefficients.XY) (n : \u2115) :",
+        "84:theorem eval_mulRowAt_actual (Y : R) (as bs : DenseCoefficients.XY) (n : \u2115) :",
+        "97:theorem eval_mulAtRow (Y : R) (as bs : List DenseCoefficients.XY) (n i : \u2115) :"
+      ]
+    },
+    {
+      "path": "lean/NoFourMUBs/Reuse/Archive/CriticalZeroSumPhysicalCleared.lean",
+      "sha256": "61a4ea4436167fe56be90582a5536805b16f2bd3b24f3041fe9f8f4b6674835c",
+      "hits": [
+        "11:theorem pure_zeroSide_eq_computed_quotient (X Y z r : \u2102)"
+      ]
+    },
+    {
+      "path": "lean/NoFourMUBs/Reuse/Archive/PreRhoActualBindings.lean",
+      "sha256": "95bd24d7140b39595e579e0c45b39df1533f43902380f4534c81c07e93e89caa",
+      "hits": [
+        "28:    (actualAlignmentData s t r).p0bar = conj (sideP0 s t r) \u2227",
+        "29:    (actualAlignmentData s t r).p1 = sideP1 s t r \u2227",
+        "30:    (actualAlignmentData s t r).p2 = sideP2 s t r := by",
+        "32:    simp [actualAlignmentData, PreRhoAlignment.gramData, sideP0, sideP1, sideP2,",
+        "85:    have h := sideLambda_mul_conjP s t r epsilon (9 - Complex.normSq t) (sideP1 s t r) hP1",
+        "88:    have h := sideLambda_mul_conjP s t r epsilon (9 - Complex.normSq s) (sideP2 s t r) hP2"
+      ]
+    },
+    {
+      "path": "lean/NoFourMUBs/Reuse/Archive/PreRhoNormBindings.lean",
+      "sha256": "2dc366315b498ad9dd3de167f804d26eecbe943704d6f79977edd523e4bd3ef1",
+      "hits": [
+        "17:    (actualNormData s t r).p0 = sideP0 s t r \u2227",
+        "18:    (actualNormData s t r).p1bar = conj (sideP1 s t r) := by",
+        "20:    simp [actualNormData, PreRhoNorm.gramData, sideP0, sideP1,",
+        "38:    have h := sideLambda_mul_conjP s t r epsilon (9 - Complex.normSq r) (sideP0 s t r) hP0",
+        "101:    change d.a.p0bar = conj (sideP0 s t r) at hp0bar",
+        "102:    change d.a.p1 = sideP1 s t r at hp1",
+        "103:    change d.p0 = sideP0 s t r at hp0",
+        "104:    change d.p1bar = conj (sideP1 s t r) at hp1bar"
+      ]
+    },
+    {
+      "path": "lean/NoFourMUBs/Reuse/Archive/SideIntrinsicActualBindings.lean",
+      "sha256": "01583704c909e9bfcda9dc0978abfd33e6f5eb7d811292b402e1bfafc5c29910",
+      "hits": [
+        "42:    sideP1 (conj s) (conj t) (conj r) = conj (sideP1 s t r) \u2227",
+        "43:    sideP2 (conj s) (conj t) (conj r) = conj (sideP2 s t r) := by",
+        "44:  constructor <;> simp [sideP0, sideP1, sideP2, map_ofNat]",
+        "50:    conj (sideP0 (rowS a) (rowT a) (rowR a)) * (rowU a * rowV a)^2 = p0barN a \u2227",
+        "51:    conj (sideP1 (rowS a) (rowT a) (rowR a)) * rowV a^2 = p1barN a \u2227",
+        "52:    conj (sideP2 (rowS a) (rowT a) (rowR a)) * rowU a^2 = p2barN a := by"
+      ]
+    },
+    {
+      "path": "lean/NoFourMUBs/Reuse/Archive/SideIntrinsicActualLambda.lean",
+      "sha256": "94951a45e12f8f8560d1a024d2c23dd76e0ccd5d092602eae8c983fefeb8b403",
+      "hits": [
+        "14:      conj (rowPerm a) - rowU a * rowV a * conj (sideP0 (rowS a) (rowT a) (rowR a)) \u2227",
+        "16:      conj (rowPerm a) - rowV a * conj (sideP1 (rowS a) (rowT a) (rowR a)) \u2227",
+        "18:      conj (rowPerm a) - rowU a * conj (sideP2 (rowS a) (rowT a) (rowR a)) := by"
+      ]
+    },
+    {
+      "path": "lean/NoFourMUBs/Reuse/Archive/SideIntrinsicLambdaRecovery.lean",
+      "sha256": "577759e6717fb98ac6cdf4d64b2c1b0f7f702ac0bfc6b00fc34b278176b102ae",
+      "hits": [
+        "36:    intrinsicLambda0 a * conj (sideP0 (rowS a) (rowT a) (rowR a)) =",
+        "39:    intrinsicLambda1 a * conj (sideP1 (rowS a) (rowT a) (rowR a)) =",
+        "42:    intrinsicLambda2 a * conj (sideP2 (rowS a) (rowT a) (rowR a)) =",
+        "65:      rowV a * conj (sideP1 (rowS a) (rowT a) (rowR a)) * h1rel",
+        "67:      rowU a * conj (sideP2 (rowS a) (rowT a) (rowR a)) * h2rel"
+      ]
+    },
+    {
+      "path": "lean/NoFourMUBs/Reuse/Archive/SideMatrixCoefficientAlgebra.lean",
+      "sha256": "cbebacb15e4a2cd7f57d3fe177369698a0483ea3caeb8021cc3e95ef1cbccfbb",
+      "hits": [
+        "15:theorem rho_quotient_balance (alpha : \u2102) (rho n : \u211d) (hr : 0 < rho)"
+      ]
+    },
+    {
+      "path": "lean/NoFourMUBs/Reuse/Archive/SideModeCoefficientAlgebra.lean",
+      "sha256": "f178c7636a96c936ccf5f003cb1393fbdc292cfb29f0bd10f45cc8d75c3b0b6c",
+      "hits": [
+        "13:theorem mode_q_quotient (A B : \u2102) (hA : A \u2260 0) :",
+        "20:theorem mode_sigma_quotient (mu u A B : \u2102) (hA : A \u2260 0)",
+        "33:theorem mode_cplus_quotient (A B C D : \u2102) (hA : A \u2260 0) :",
+        "44:theorem mode_cminus_quotient (A B C D : \u2102) (hA : A \u2260 0) :"
+      ]
+    },
+    {
+      "path": "lean/NoFourMUBs/Reuse/Archive/StrictSeedGuards.lean",
+      "sha256": "6e8377a400f3f275c0542e4ea7f6411321195d790a18be8de63527181afc6317",
+      "hits": [
+        "93:    sideP0 (seedS E) (seedT E) (seedR E) \u2260 0 \u2227",
+        "94:    sideP1 (seedS E) (seedT E) (seedR E) \u2260 0 \u2227",
+        "95:    sideP2 (seedS E) (seedT E) (seedR E) \u2260 0 := by"
+      ]
+    },
+    {
+      "path": "lean/NoFourMUBs/Reuse/Archive/StrictSideRootGuards.lean",
+      "sha256": "370f53e459c496f8826b5c80fa6bb016b4815e63b78ec5c3211e2af1d774c545",
+      "hits": [
+        "57:  sideLambda s t r epsilon (9 - Complex.normSq r) (sideP0 s t r)",
+        "59:  sideLambda s t r epsilon (9 - Complex.normSq t) (sideP1 s t r)",
+        "61:  sideLambda s t r epsilon (9 - Complex.normSq s) (sideP2 s t r)",
+        "147:  prescribedLambda s t r epsilon (9 - Complex.normSq r) (sideP0 s t r)",
+        "149:  prescribedLambda s t r epsilon (9 - Complex.normSq t) (sideP1 s t r)",
+        "151:  prescribedLambda s t r epsilon (9 - Complex.normSq s) (sideP2 s t r)"
+      ]
+    },
+    {
+      "path": "lean/NoFourMUBs/Reuse/Archive/StrictSideScalarGuards.lean",
+      "sha256": "75741b3091aeb2ce36f1b9fdab822add16b2e2514bfa27822105c93fb936d042",
+      "hits": [
+        "29:def sideP0 (s t r : \u2102) : \u2102 :=",
+        "31:def sideP1 (s t r : \u2102) : \u2102 := sideP0 (conj s) r t",
+        "32:def sideP2 (s t r : \u2102) : \u2102 := sideP0 (conj t) (conj r) s",
+        "54:    Complex.normSq (sideP0 s t r) = gramG s t r ^ 2 +",
+        "57:  simp [sideP0, gramG, gramEta, gramChi, gramP, gramJ, gramW,",
+        "80:    Complex.normSq (sideP1 s t r) = gramG s t r ^ 2 +",
+        "83:  simpa only [sideP1, gramG, gramChi, gramEta, gramP_rotate1,",
+        "87:    Complex.normSq (sideP2 s t r) = gramG s t r ^ 2 +",
+        "90:  simpa only [sideP2, gramG, gramChi, gramEta, gramP_rotate2,",
+        "110:    sideP0 s t r \u2260 0 \u2227 sideP1 s t r \u2260 0 \u2227 sideP2 s t r \u2260 0 := by",
+        "111:  have h0 : 0 < Complex.normSq (sideP0 s t r) := by",
+        "114:  have h1 : 0 < Complex.normSq (sideP1 s t r) := by",
+        "117:  have h2 : 0 < Complex.normSq (sideP2 s t r) := by"
+      ]
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Connected.lean",
+      "sha256": "cd2ee4f1010914d7a593561a4cb9e7a25ff0001c50daeae5824bf179c59de735",
+      "hits": [
+        "6:`PROOF.md` Step 2 (Theorem 2): the non-Tao quotient `X` is connected.  With the clopen covered set of Step 4 and"
+      ]
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/CriticalZero/EquicorrelationRowProducts.lean",
+      "sha256": "ea65b62b0fa81c913087c639b3caa75a6ed472ea58040c86a193b7bdf7bb2051",
+      "hits": [
+        "18:    conj (sideP0 (2 + alpha) (2 + conj alpha) (1 + 2 * conj alpha)) = 108 / 25 \u2227",
+        "19:    conj (sideP1 (2 + alpha) (2 + conj alpha) (1 + 2 * conj alpha)) =",
+        "21:    conj (sideP2 (2 + alpha) (2 + conj alpha) (1 + 2 * conj alpha)) =",
+        "23:  norm_num [alpha, sideP0, sideP1, sideP2, Complex.normSq_apply,"
+      ]
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/CriticalZero/NonzeroRationalTable.lean",
+      "sha256": "60ffd28e92726f2dee265e97f078c9c43d7ecca7c09cbe82dbf46af7565e02a5",
+      "hits": [
+        "81:def rationalCoefficients (m : MomentTag) (X Y k : \u2102) :"
+      ]
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/QuotientTopology.lean",
+      "sha256": "880c63482d47576d23fb370da1ec1ac92f9863fe0e0ec62ebd6a0f725fd9358b",
+      "hits": [
+        "83:theorem continuous_hadamardQuotient : Continuous hadamardQuotient :=",
+        "86:theorem isQuotientMap_hadamardQuotient :",
+        "94:theorem hadamardQuotient_surjective : Function.Surjective hadamardQuotient := by",
+        "99:@[simp] theorem hadamardQuotient_eq_iff (H K : Had6) :"
+      ]
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/CubicEvaluation.lean",
+      "sha256": "a2f91aa59296859951df6d724089ce86000f33f7c53d2c786928dca118cee612",
+      "hits": [
+        "10:/-- The three coefficients of the original companion calculation, each in",
+        "60:theorem cubicEval_mul (w z : F) (hw : w^2 = A+B*w)"
+      ]
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/EntryCompanion.lean",
+      "sha256": "d1849acb23e557ce8a0f41543b0ea41855a4f2fd98829b0a7e743320aefbe468",
+      "hits": [
+        "38:/-- The generic companion formula is valid for the actual paired entry;",
+        "40:theorem side_entry_companion {x y : Fin 3 \u2192 \u2102}"
+      ]
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/RowProductRelations.lean",
+      "sha256": "3f3fdb13ccc279c14142c125d10790c01473e069316f18b777f939ed309a086e",
+      "hits": [
+        "14:      sideP0 (rowS a) (rowT a) (rowR a) -",
+        "15:        rowU a * sideP1 (rowS a) (rowT a) (rowR a) := by",
+        "20:      conj (rowPerm a) = rowU a * conj (sideP0 (rowS a) (rowT a) (rowR a)) -",
+        "21:        conj (sideP1 (rowS a) (rowT a) (rowR a)) := by",
+        "30:    show conj (conj (sideP0 (rowS a) (rowT a) (rowR a))) =",
+        "31:      sideP0 (rowS a) (rowT a) (rowR a) from by simp,",
+        "32:    show conj (conj (sideP1 (rowS a) (rowT a) (rowR a))) =",
+        "33:      sideP1 (rowS a) (rowT a) (rowR a) from by simp] at hh",
+        "36:      sideP0 (rowS a) (rowT a) (rowR a)) * hu",
+        "41:    rowV a * (conj (sideP0 (rowS a) (rowT a) (rowR a)) -",
+        "43:        conj (rowPerm a)) = conj (sideP2 (rowS a) (rowT a) (rowR a)) := by",
+        "50:/-- The original product quadratic follows from the intrinsic permanent",
+        "52:theorem row_product_quadratic (a : Rows \u2102) (ha : UnitRows a) :",
+        "53:    let P0 := sideP0 (rowS a) (rowT a) (rowR a)",
+        "54:    let P1 := sideP1 (rowS a) (rowT a) (rowR a)",
+        "60:  let P0 := sideP0 (rowS a) (rowT a) (rowR a)",
+        "61:  let P1 := sideP1 (rowS a) (rowT a) (rowR a)"
+      ]
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/RowProductSignature.lean",
+      "sha256": "1c94b70a0b87dacc3199c544cad22766ce194d4441ba16a940119eb9d749f83a",
+      "hits": [
+        "15:    -intrinsicTerm a = rowPerm a * conj (sideP0 (rowS a) (rowT a) (rowR a)) -",
+        "27:          conj (sideP0 (rowS a) (rowT a) (rowR a)))) := by",
+        "36:    let P0 := sideP0 (rowS a) (rowT a) (rowR a)",
+        "37:    let P1 := sideP1 (rowS a) (rowT a) (rowR a)",
+        "44:  let P0 := sideP0 (rowS a) (rowT a) (rowR a)",
+        "45:  let P1 := sideP1 (rowS a) (rowT a) (rowR a)",
+        "60:  linear_combination 2 * conj (sideP0 (rowS a) (rowT a) (rowR a)) * hp +",
+        "98:    let P0 := sideP0 (rowS a) (rowT a) (rowR a)",
+        "99:    let P1 := sideP1 (rowS a) (rowT a) (rowR a)"
+      ]
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/SignatureFromPermanent.lean",
+      "sha256": "ed967a342e9c416df5134b250b4c5f4346317c3ec47dcde8599d1fa8e560fae8",
+      "hits": [
+        "49:  have hP : conj (sideP0 s t r) \u2260 0 :=",
+        "51:  have hLP : prescribedLambda0 s t r epsilon * conj (sideP0 s t r) =",
+        "55:  have hP0 : P0 s t r = sideP0 s t r := by",
+        "56:    simp [P0, sideP0, Complex.ofReal_sub, Complex.ofReal_ofNat]"
+      ]
+    },
+    {
+      "path": "lean/vendor/fourier/OAI/Analysis/MutuallyUnbiased/Certificate/Interpretation.lean",
+      "sha256": "504a3fd521d63fa5cc0d45a92647f5055f9018f40b26021fe1de08745f4474f9",
+      "hits": [
+        "52:def toRational (v : Integer.Sparse \u03b9) : Certificate.Sparse \u03b9 :="
+      ]
+    },
+    {
+      "path": "lean/vendor/fourier/OAI/Analysis/MutuallyUnbiased/Cubic/CubicClassification.lean",
+      "sha256": "5a2150f19ced41d2168c173605e525fed7f78da88783133bcb38694f4a62867c",
+      "hits": [
+        "11:/-- The cubic classification from the companion: no restriction is imposed"
+      ]
+    },
+    {
+      "path": "lean/vendor/fourier/OAI/Analysis/MutuallyUnbiased/Cubic/CubicSupport.lean",
+      "sha256": "16cf4f5c0cb85088414cce7d84bb13d409a7400adcec18dba569d3b0325a8ffd",
+      "hits": [
+        "13:The last theorem states that a quotient having the cubed-value pattern proved"
+      ]
+    },
+    {
+      "path": "lean/vendor/fourier/OAI/Analysis/MutuallyUnbiased/Matrix/Definitions.lean",
+      "sha256": "5c4560207bf015e1981173c96c8d60087b8b5a5af4865788d6b3198e1c25e16c",
+      "hits": [
+        "13:/-! Mathematical definitions for the exact Fourier companion."
+      ]
+    },
+    {
+      "path": "lean/vendor/fourier/OAI/Analysis/MutuallyUnbiased/Moments/Moments.lean",
+      "sha256": "fc0f597fb9318b4f957c491508f011fab1262998eaa648eaa93cc5ad9e9ca8f0",
+      "hits": [
+        "7:/-! Finite injective moments of Section 2 of the exact companion."
+      ]
+    },
+    {
+      "path": "lean/vendor/hadamard6/Hadamard6/AllocationToMobius.lean",
+      "sha256": "b2f2eb9324304e9923d95731419918e0f5e317a734f740ecdf526f77a5b02c8c",
+      "hits": [
+        "7:# From allocated quadratic factors to the two M\u00f6bius companions"
+      ]
+    },
+    {
+      "path": "lean/vendor/hadamard6/Hadamard6/DependentFibre.lean",
+      "sha256": "13f5b09400b40979fd9a951b366eb1dedb8adede8b6cca38f2f6ffc2a8ed76ac",
+      "hits": [
+        "9:the companion row can be cancelled without division by a polynomial.  Thus"
+      ]
+    },
+    {
+      "path": "lean/vendor/hadamard6/Hadamard6/FactorAllocation.lean",
+      "sha256": "874c61e65e476105ee4f7db2032792ab9415755ac81cd17fb7e6922d8f097cbc",
+      "hits": [
+        "371:theorem quotient_degree_drop",
+        "381:theorem quotient_factor_allocation",
+        "452:theorem quotient_quadratic_reduction"
+      ]
+    },
+    {
+      "path": "lean/vendor/hadamard6/Hadamard6/FourierSeamCertificatePullbackBswap0.lean",
+      "sha256": "915dfc13a6d040509fff3632a9311205ec0a6709be89b15b18a61188b4a61a9a",
+      "hits": [
+        "9:def seamP_Bswap0Companion (z\u2081 z\u2082 : \u2102) : \u2102 :=",
+        "18:      -(z\u2081 * z\u2082 + z\u2081 + z\u2082) * seamP_Bswap0Companion z\u2081 z\u2082 := by",
+        "19:  simp [seamP_Bswap0, seamP_Bswap0Companion]",
+        "23:theorem seamP_Bswap0Companion_pullback_norm (x y : \u211d) :",
+        "26:          seamP_Bswap0Companion (seamCayley x) (seamCayley y)) =",
+        "31:  simp [seamDen, seamP_Bswap0Companion, seamCayleyCoord, seamQminus,"
+      ]
+    },
+    {
+      "path": "lean/vendor/hadamard6/Hadamard6/FourierSeamCertificatePullbacksA.lean",
+      "sha256": "29b18a4633c2e925d49453d862bff06baa49f32ae35098196c2bae8bf3b19abe",
+      "hits": [
+        "9:reciprocal-conjugate symmetry of the two companion factors. -/"
+      ]
+    },
+    {
+      "path": "lean/vendor/hadamard6/Hadamard6/FourierSeamCertificateZeroCasesA.lean",
+      "sha256": "736ed8a073f9b0a3cfb5dcd5e3e2248311a54e2b6e0d49eb69f12efb4e1f191d",
+      "hits": [
+        "137:  \u00b7 have hid := seamP_Bswap0Companion_pullback_norm x y"
+      ]
+    },
+    {
+      "path": "lean/vendor/hadamard6/Hadamard6/FourierSeamCertificateZeroCasesB.lean",
+      "sha256": "ce4da0d934bf495baa89dc2b8f0782d37848a1b3d6e5c93aadbc53099323bec4",
+      "hits": [
+        "315:      rowEndpoint0, rowEndpoint3, rowFibreEndpoint0, rowFibreEndpoint3,"
+      ]
+    },
+    {
+      "path": "lean/vendor/hadamard6/Hadamard6/H2KarlssonParametrization.lean",
+      "sha256": "cc560555855f881200a36259426d5bb8d937d88b306eb1957a263600f233e6f1",
+      "hits": [
+        "673:equivalence; no published fundamental-domain statement is assumed. -/"
+      ]
+    },
+    {
+      "path": "lean/vendor/hadamard6/Hadamard6/HadamardQuotient.lean",
+      "sha256": "92f7bb0f7bd346b7af9e90468c248d33ae997eedc3a9cf0c81d532b88f71969d",
+      "hits": [
+        "10:This file states the concrete atlas theorem on the actual quotient by"
+      ]
+    },
+    {
+      "path": "lean/vendor/hadamard6/Hadamard6/KarlssonMixedBlocks.lean",
+      "sha256": "c90262a9616bd7db37e898bf5aa14bf61d16ebf1109ba0ca977c235df8cc2692",
+      "hits": [
+        "495:-- This identity reduces the companion endpoint to the repeated square in",
+        "547:/-- The repeated-square factor excludes vanishing of the companion endpoint"
+      ]
+    },
+    {
+      "path": "lean/vendor/hadamard6/Hadamard6/LeadingFibreCriterion.lean",
+      "sha256": "16942562cf1cc0f3c45acca5cdbedf8ec0d7b0c27f9e513f1a0343e9d551f118",
+      "hits": [
+        "18:def rowFibreEndpoint0 (G : Mat3) : \u2102 :=",
+        "25:def rowFibreEndpoint3 (G : Mat3) : \u2102 :=",
+        "31:theorem rowFibreEndpoint0_phaseRowGram",
+        "34:    rowFibreEndpoint0 (phaseRowGram u v G) =",
+        "35:      star u ^ 2 * v * rowFibreEndpoint0 G := by",
+        "40:  simp only [rowFibreEndpoint0, phaseRowGram, rowPhaseFactor_zero,",
+        "48:theorem rowFibreEndpoint3_phaseRowGram",
+        "51:    rowFibreEndpoint3 (phaseRowGram u v G) =",
+        "52:      star u * star v * rowFibreEndpoint3 G := by",
+        "57:  simp only [rowFibreEndpoint3, phaseRowGram, rowPhaseFactor_zero,",
+        "69:theorem rowFibreEndpoint0_eq_neg_star_specializedBeta0",
+        "72:    rowFibreEndpoint0 G =",
+        "74:  simp only [rowFibreEndpoint0, specializedBeta0, eliminantBeta0,",
+        "80:theorem rowFibreEndpoint3_eq_neg_specializedBeta3",
+        "83:    rowFibreEndpoint3 G =",
+        "85:  simp only [rowFibreEndpoint3, specializedBeta3, eliminantBeta3,",
+        "92:    (h0 : rowFibreEndpoint0 G \u2260 0)",
+        "93:    (h3 : rowFibreEndpoint3 G \u2260 0) :",
+        "111:  have h0' : rowFibreEndpoint0 (phaseRowGram u v G) \u2260 0 := by",
+        "112:    rw [rowFibreEndpoint0_phaseRowGram hu hv]",
+        "118:  have h3' : rowFibreEndpoint3 (phaseRowGram u v G) \u2260 0 := by",
+        "119:    rw [rowFibreEndpoint3_phaseRowGram hu hv]",
+        "126:    rw [rowFibreEndpoint0_eq_neg_star_specializedBeta0 hS hT, hb0]",
+        "129:    rw [rowFibreEndpoint3_eq_neg_specializedBeta3 hS hT, hb3]",
+        "136:    (h0 : rowFibreEndpoint0 G \u2260 0)",
+        "137:    (h3 : rowFibreEndpoint3 G \u2260 0)",
+        "138:    (h0swap : rowFibreEndpoint0 (swapRowGram G) \u2260 0)",
+        "139:    (h3swap : rowFibreEndpoint3 (swapRowGram G) \u2260 0) :",
+        "149:  rowFibreEndpoint0 (X * Matrix.conjTranspose X)",
+        "153:  rowFibreEndpoint3 (X * Matrix.conjTranspose X)",
+        "164:  simp only [rowEndpoint0, rowFibreEndpoint0, Matrix.mul_apply,",
+        "178:  simp only [rowEndpoint3, rowFibreEndpoint3, Matrix.mul_apply,"
+      ]
+    },
+    {
+      "path": "lean/vendor/hadamard6/Hadamard6/ModulusIdentity.lean",
+      "sha256": "8864995e75f0fd4366c512ede2451c5227701134e37c70a0ef444e4352024cd6",
+      "hits": [
+        "7:# From infinitely many unit companions to the cleared norm identity",
+        "97:/-- Infinitely many unit-circle points satisfying the companion relation"
+      ]
+    },
+    {
+      "path": "lean/vendor/hadamard6/Hadamard6/QuotientAllocation.lean",
+      "sha256": "1a2531aec61bcae3b3bfbd0550ea6e0785397b47231e0a95509a2bb0b313c798",
+      "hits": [
+        "247:for the three companion coordinates. -/"
+      ]
+    },
+    {
+      "path": "lean/vendor/hadamard6/Hadamard6/QuotientGoodRow.lean",
+      "sha256": "0ffff87363d96b42185cc6224207dc2a0fb7dfe57ad2ea35e66f4e68bd8274b3",
+      "hits": [
+        "12:theorem quotient_good_row_negative"
+      ]
+    }
+  ],
+  "atlas_certification": false
+}

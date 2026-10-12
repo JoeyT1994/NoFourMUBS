@@ -1,0 +1,35 @@
+{
+  "status": "PASS",
+  "checked_utc": "2026-10-11T16:49:17.386550+00:00",
+  "modules": 1,
+  "axiom_endpoints": {
+    "NoFourMUBs.Step2.Critical.Poles.quartic_pole_boundary_identity": [
+      "propext",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.Poles.poleBoundaryProduct_eq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.Poles.quartic_zero_of_pole_boundary": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "source_hashes": {
+    "NoFourMUBs/Step2/CriticalZero/PoleQuartic.lean": "ef5706adcf5d4c84cefebd6c4fc72976e83e9c157273e1fc49f826ff595c7f32"
+  },
+  "manifest_sha256": "1703a52aeac754c8aeb0058e67af726769a305fc3afe4614eeeb820e388f5f70",
+  "audit_log_sha256": "9977aa29f1e2d517efd2b0bceeb46098e8de898f7cd8d749d1434d43d2d46bff",
+  "scope": "Connect the four existing pole boundaries and original denominator factors to the existing scalar quartic. This does not establish the regular-case numerator identity.",
+  "dependency_audits": {
+    "KERNEL_AUDIT_CRITICAL_MODULUS_STATUS.json": "5cf8df36df6471a94c02b805533597e7ff6508b78fabfaa683452b46c023f4d4"
+  },
+  "dependency_source_hashes": {
+    "NoFourMUBs/Reuse/Archive/CriticalNonzeroPolynomialData.lean": "d326f36bd196fff27bbbc148f8242d4d8bd840f5eda5fac619840112fdfcc442",
+    "NoFourMUBs/Reuse/Archive/CriticalModulusDiscriminant.lean": "d9ce299342b1e6e2a60afebcd9d85b80f3c812b47292a5b7c8738f65e503e1be"
+  },
+  "atlas_certification": false
+}

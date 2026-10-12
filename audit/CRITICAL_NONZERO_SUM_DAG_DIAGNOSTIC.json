@@ -1,0 +1,95 @@
+{
+  "status": "READ_ONLY_DIAGNOSTIC_NOT_LEAN_PROOF",
+  "nodes": 1734,
+  "residual_zero": true,
+  "residual_terms": 0,
+  "largest_node_terms": 56978,
+  "max_outer_length": 127,
+  "stage_size_estimates": [
+    {
+      "threshold": 20000,
+      "checkpoints": 648,
+      "coefficient_rows": 40988,
+      "expanded_nonzero_entries": 5878227,
+      "first_checkpoints": [
+        13,
+        16,
+        17,
+        19,
+        20,
+        22,
+        23,
+        25,
+        26,
+        28,
+        29,
+        30,
+        43,
+        58,
+        59
+      ],
+      "kinds": {
+        "pow": 6,
+        "mul": 578,
+        "add": 64
+      }
+    },
+    {
+      "threshold": 100000,
+      "checkpoints": 355,
+      "coefficient_rows": 26428,
+      "expanded_nonzero_entries": 4614099,
+      "first_checkpoints": [
+        20,
+        23,
+        25,
+        26,
+        28,
+        29,
+        43,
+        58,
+        59,
+        64,
+        66,
+        67,
+        68,
+        69,
+        74
+      ],
+      "kinds": {
+        "mul": 313,
+        "pow": 2,
+        "add": 40
+      }
+    },
+    {
+      "threshold": 500000,
+      "checkpoints": 195,
+      "coefficient_rows": 17190,
+      "expanded_nonzero_entries": 3523587,
+      "first_checkpoints": [
+        23,
+        26,
+        29,
+        43,
+        58,
+        66,
+        68,
+        69,
+        76,
+        81,
+        87,
+        90,
+        95,
+        98,
+        99
+      ],
+      "kinds": {
+        "mul": 177,
+        "add": 18
+      }
+    }
+  ],
+  "original_numerator_unchanged": true,
+  "atlas_certification": false
+}

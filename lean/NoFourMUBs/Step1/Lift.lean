@@ -70,7 +70,7 @@ theorem seedR_Psi (q : Tr × Tr) : seedR (Psi q) = calRUV' (Phi q) := by
     (Circle.coe_ne_zero _) (Circle.coe_ne_zero _)
   dsimp only at L
   obtain ⟨L1, L2, L3⟩ := L
-  simp only [mul_inv] at L1 L2 L3
+  simp only [mul_inv, inv_inv] at L1 L2 L3
   have e0 : ((Psi ((x1, x2), (y1, y2)) 0 : Circle) : ℂ) = x1 * (y2 : ℂ)⁻¹ := by simp [Psi]
   have e1 : ((Psi ((x1, x2), (y1, y2)) 1 : Circle) : ℂ) = x1 * x2 * y1 := by simp [Psi]
   have e2 : ((Psi ((x1, x2), (y1, y2)) 2 : Circle) : ℂ) = y1 * (x2 : ℂ)⁻¹ := by simp [Psi]
@@ -87,7 +87,7 @@ theorem seedR_Psi (q : Tr × Tr) : seedR (Psi q) = calRUV' (Phi q) := by
     linear_combination L1
   have rJ : 2 * seedJ p = Complex.normSq B - 3 * Complex.normSq A := by
     apply Complex.ofReal_injective
-    simp only [seedJ, Complex.ofReal_mul, Complex.ofReal_sub, Complex.ofReal_ofNat,
+    simp only [seedJ, Complex.ofReal_add, Complex.ofReal_mul, Complex.ofReal_sub, Complex.ofReal_ofNat,
       ← Complex.mul_conj, Complex.re_eq_add_conj]
     simp only [hA, hB, seedS, seedT, seedRho, e0, e1, e2, e3, sumT, third, Circle.coe_mul, Circle.coe_inv,
       Complex.star_def, map_neg, map_add, map_sub, map_one, map_mul, map_inv₀, conj_circle, inv_inv, mul_inv]
@@ -269,7 +269,7 @@ theorem relmax_of_seed {q₀ : Tr × Tr} (hmax : IsLocalMax seedR (Psi q₀)) :
   obtain ⟨y, hy⟩ := exists_sumT hzD.2
   obtain ⟨g, ⟨_, hgΦ⟩, hgt⟩ := hz (x, y) (Prod.ext hx hy)
   have hle := htW hgt
-  rw [Set.mem_ofPred_eq, seedR_Psi, seedR_Psi, hgΦ] at hle
+  rw [Set.mem_setOf_eq, seedR_Psi, seedR_Psi, hgΦ] at hle
   have : Phi (x, y) = z := Prod.ext hx hy
   rwa [this] at hle
 

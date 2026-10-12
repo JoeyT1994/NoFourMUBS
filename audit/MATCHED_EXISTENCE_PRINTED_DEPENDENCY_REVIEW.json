@@ -1,0 +1,67 @@
+{
+  "status": "MATHEMATICAL_DEPENDENCY_REVIEW_ONLY",
+  "reviewed_utc": "2026-10-10T21:28:35.864296+00:00",
+  "sources": [
+    {
+      "file": "source_material/ClassificationPaper/source/supp_body.tex",
+      "sha256": "95585d35dfe027c1754d5f84bb416092d7d5bb896c025ef3739bee0af32e7f38"
+    },
+    {
+      "file": "source_material/ClassificationPaper/source/paper_body.tex",
+      "sha256": "d15dce416fa27b3cfb439fe5fdbffbf5cc82262805c340b65bbf1450cba52e16"
+    },
+    {
+      "file": "source_material/ClassificationPaper/CertificatesandLean/certificates/README.md",
+      "sha256": "968068e77e4dcf464b85c4d8f53ef3c0d368de7a5ea1ce8da75c1582dfd65676"
+    },
+    {
+      "file": "source_material/ClassificationPaper/CertificatesandLean/certificates/PAPER_CLAIM_AUDIT.md",
+      "sha256": "d693fdbbeaa4479689165906fa885f9debb4855940395e7c00d4b5744a923da0"
+    }
+  ],
+  "matched_existence_open": true,
+  "findings": [
+    "MATCHED_FLATNESS imports the regular seed-domain theorem; that theorem invokes Supplemental generic-flatness and localization.",
+    "Supplemental generic-flatness proves a universal cubic norm identity through irreducibility/dominance, citing Bondal--Zhdanovskiy dimension results and semialgebraic Hardt triviality; the final passage to entrywise flatness uses row Gram sums and AM-GM.",
+    "The repository README explicitly limits exact_lower_block_specialization.py to nonempty regular localization and exclusion of the plus matching. It explicitly does not present it as a four-variable characteristic-zero normal-form proof.",
+    "Therefore the specialization certificate alone cannot discharge universal matched existence in Lean. The dimension/dominance proof still needs formalization, or an exact universal algebraic identity with its existing reconstruction bindings needs a kernel-checked proof.",
+    "The already checked DenseExistence.matchedExistence_of_dense supplies the final topological extension, but does not supply existence on the dense set."
+  ],
+  "reuse_evidence": "MATCHED_NORM_IDENTITY_REUSE_FILES.txt",
+  "scope": "Read-only review of mathematical dependencies. No atlas certificates executed or adopted.",
+  "primary_dimension_reference_check": {
+    "checked_utc": "2026-10-11T00:46:47.318489+00:00",
+    "source": "https://arxiv.org/pdf/1510.05317",
+    "title": "Orthogonal pairs and mutually unbiased bases",
+    "authors": "Alexey Bondal and Ilya Zhdanovskiy",
+    "locations": [
+      "Theorem17, PDFpage16",
+      "Theorem22 and following remark, PDFpage20"
+    ],
+    "finding": "Theorem17 supplies a four-dimensional irreducible component. Theorem22 and its proof obtain a real four-dimensional family of order-six complex Hadamard matrices on that component. This supports the cited dimension input, but is not a Lean formalization of either that theorem or its use in the norm-identity argument.",
+    "formal_gap_unchanged": true
+  },
+  "row_norm_progress": "PASS: forcedD_bottomRowGram, ForcedRowNorms, and matched_completion_of_row_products. All24affected compiled consumers refreshed. Universal/dense row-product norms remain unproved; no universal norm computation has been run.",
+  "next_algebraic_review": {
+    "checked_utc": "2026-10-11T02:02:39.637594+00:00",
+    "source": "source_material/ClassificationPaper/CertificatesandLean/certificates/generic_cover/exact_lower_block_specialization.py",
+    "existing_universal_components": [
+      "universal_eliminants gives the two elimination polynomials and six-degree fundamental coefficients",
+      "fixed_data accepts symbolic seeds and supplies the side cubic and row-product quadratic",
+      "build_row_norm derives forced-row entries via the existing cubic trace pairing and computes the existing cubic norm formula"
+    ],
+    "unproved_connection": "The script reduces the reciprocal norm identity only at the rational specialization. A universal calculation, its specialization to actual sides, and nonempty dense localization would still be necessary if selecting an algebraic route.",
+    "possible_efficiency_issue": "build_row_norm works over QQ(product,seed variables) and imposes the product quadratic only later. Early quotient reduction could reduce symbolic growth, but has not been implemented, benchmarked or proved.",
+    "decision": "Read-only planning; no new norm certificate or competing proof route started."
+  },
+  "symbolic_base_size_diagnostic": {
+    "file": "MATCHED_SYMBOLIC_BASE_SIZE_DIAGNOSTIC.json",
+    "checked_utc": "2026-10-11T14:21:09.768145+00:00",
+    "status": "READ_ONLY_NOT_A_PROOF",
+    "all_four_seed_variables_symbolic": true,
+    "existing_script_reused": true,
+    "elapsed_seconds": 27.33403837500373,
+    "universal_norm_identity_computed": false,
+    "lean_certificate_generated": false
+  }
+}

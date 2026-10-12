@@ -1,0 +1,40 @@
+import NoFourMUBs.Step2.CriticalZero.SumClearing.DenominatorPairs
+
+#check NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing.Stages.denPairZ5_eval
+#print axioms NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing.Stages.denPairY5_length
+#print axioms NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing.Stages.denPairZ5_length
+#print axioms NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing.Stages.denPairY5_eval
+#print axioms NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing.Stages.denPairZ5_eval
+#print axioms NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing.Stages.denPairZ5_zero_eval
+#print axioms NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing.Stages.denPairZ5_shift_coefficient_000
+#print axioms NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing.Stages.denPairZ5_shift_coefficient_001
+#print axioms NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing.Stages.denPairZ5_shift_coefficient_002
+#print axioms NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing.Stages.denPairZ5_shift_coefficient_003
+#print axioms NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing.Stages.denPairZ5_shift_coefficient_004
+#print axioms NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing.Stages.denPairZ5_shift_coefficient_005
+#print axioms NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing.Stages.denPairZ5_shift_coefficient_006
+#print axioms NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing.Stages.denPairZ5_shift_coefficient_007
+#print axioms NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing.Stages.denPairZ5_shift_coefficient_008
+#print axioms NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing.Stages.denPairZ5_shift_coefficient_009
+#print axioms NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing.Stages.denPairZ5_shift_coefficient_010
+#print axioms NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing.Stages.denPairZ5_shift_coefficient_011
+#print axioms NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing.Stages.denPairZ5_shift_coefficient_012
+#print axioms NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing.Stages.denPairZ5_shift_coefficient_013
+#print axioms NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing.Stages.denPairZ5_shift_coefficient_014
+#print axioms NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing.Stages.denPairZ5_shift_coefficient_015
+#print axioms NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing.Stages.denPairZ5_shift_coefficient_016
+#print axioms NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing.Stages.denPairZ5_shift_coefficient_017
+#print axioms NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing.Stages.denPairZ5_shift_coefficient_018
+#print axioms NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing.Stages.denPairZ5_shift_coefficient_019
+#print axioms NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing.Stages.denPairZ5_shift_coefficient_020
+#print axioms NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing.Stages.denPairZ5_shift_coefficient_021
+#print axioms NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing.Stages.denPairZ5_shift_coefficient_022
+#print axioms NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing.Stages.denPairZ5_shift_coefficient_023
+#print axioms NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing.Stages.denPairZ5_shift_coefficient_024
+#print axioms NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing.Stages.denPairZ5_shift_coefficient_025
+#print axioms NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing.Stages.denPairZ5_shift_coefficient_026
+#print axioms NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing.Stages.denPairZ5_shift_coefficient_027
+#print axioms NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing.Stages.denPairZ5_shift_coefficient_028
+#print axioms NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing.Stages.denPairZ5_shift_coefficient_029
+#print axioms NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing.Stages.denPairZ5_shift_coefficient_030
+#print axioms NoFourMUBs.Step2.Critical.NonzeroClearing.SumClearing.Stages.denPairZ5_shift

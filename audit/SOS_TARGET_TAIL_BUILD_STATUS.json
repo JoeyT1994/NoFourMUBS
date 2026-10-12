@@ -1,0 +1,20 @@
+{
+  "status": "KERNEL_CHECKED",
+  "checked_utc": "2026-10-10T20:05:34.745860+00:00",
+  "log": "SOS_TARGET_TAIL_BUILD_FINITE.log",
+  "log_sha256": "919045693e4749e4320973bcc32f5f2afcf24e55e33dde184acff66ae2f30368",
+  "file_hashes": {
+    "TargetTail.lean": "bcc322a839266479cefbd8315b95a49b8ba7744ce694e028d17e7d3540a14e85",
+    "TargetProjectionTerms.lean": "acb3ff2dbc0106cfb1a0a83b43f47caa78b47c1ee0e7c1f962c77ec5b24e5cdf",
+    "MomentExponentData.lean": "c3b5530c9bced5b39e9cbb1482e04cf239e6ca6ca5693530ff3a69d4d258e59b",
+    "TailPadding.lean": "1663d804e830f5fc96a3d164385e24143e4fc340f783b5b33657b7d40c3003b4"
+  },
+  "theorem": "NoFourMUBs.Step2.SOS.Semantics.targetTail",
+  "scope": "Constant and cubic-linear terms of the existing physical target; all normalization/projection proofs reused. Remaining target rows pending.",
+  "axiom_audit": "KERNEL_AUDIT_TARGET_PILOT.log",
+  "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ]
+}

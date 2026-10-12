@@ -1,0 +1,22 @@
+{
+  "status": "READ_ONLY_CONTINUATION_REFERENCES_NOT_ADOPTED",
+  "checked_utc": "2026-10-11T12:40:43.527077+00:00",
+  "equicorrelation_normalization": [
+    "CriticalLightSheet.actual_critical_sheet applies at R=0 and needs unit entries, first row one, and nonzero determinant; do not substitute strict_intrinsic_sheet_exists, which requires R>0.",
+    "PhysicalSideRational.rational_lambda_matches_physical and physicalLambda_row_products provide the original coordinate products after the three nonzero denominators are supplied.",
+    "CriticalGeometricActualLambda is specialized to J=0; use its physical-lambda binding pattern, not its zero-J theorem at this endpoint.",
+    "Remaining E0 work: choose row phases/conjugation from the equal-modulus Gram; compute sheet/three denominators/products; factor the repeated-root coordinate cubics; align the exceptional entries using the third correlation."
+  ],
+  "p7_reuse": [
+    "Hadamard6.four_unit_sum_zero_pairs supplies the antipodal-pair step by adjoining -1 to a unit triple of sum one.",
+    "ExceptionalFibre.phaseTriple_sum_one_containing_one assumes an entry equal to one; discharge it with four_unit_sum_zero_pairs before use."
+  ],
+  "source_pins": {
+    "lean/NoFourMUBs/Reuse/Archive/CriticalLightSheet.lean": "31a0b6ee7901abcd3ff9361d8ca8a49c00f8cf074639f769a5116cfd03573855",
+    "lean/NoFourMUBs/Reuse/Archive/PhysicalSideRational.lean": "641712e811c0d48dfbf8e7dc30f61abc497fb1771efeb83d1fa9e0c3ab0b5a70",
+    "lean/NoFourMUBs/Reuse/Archive/CriticalGeometricActualLambda.lean": "f4633ba6f2b2bb1385cf3e396fb0444fd052a48832072a52da20d54dd5c393c1",
+    "lean/vendor/hadamard6/Hadamard6/H2CanonicalForm.lean": "10b04290503036c54f46a9c62421e0d06126695206ea662ce42eb361c1e401ab",
+    "lean/vendor/hadamard6/Hadamard6/ExceptionalFibre.lean": "2147fe10a85c8e45644c6dd021a2cb77623aa4427ae76757d9c2d68bdcfc748c"
+  },
+  "atlas_certification": false
+}

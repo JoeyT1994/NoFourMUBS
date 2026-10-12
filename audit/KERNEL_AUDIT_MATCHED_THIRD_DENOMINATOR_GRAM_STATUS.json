@@ -1,0 +1,34 @@
+{
+  "status": "PASS",
+  "checked_utc": "2026-10-12T03:32:40.896126+00:00",
+  "modules": 1,
+  "axiom_endpoints": {
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P045_seed_factor": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P045_strict_ne_zero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P031_strict_ne_zero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "source_hashes": {
+    "NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/DenominatorGram.lean": "9c1c562c944efb13cb4dfe03a30ecbe74c4208669b53ae40f9e7c2ef0f726b80"
+  },
+  "manifest_sha256": "d6a9f8d3d421af277be40a870566d8429ea5323ddc2f21251068950c202f475e",
+  "audit_log_sha256": "ffd0ef6bcdbad1a9012752182292769de9bfe27790836ba412029c8865eff796",
+  "scope": "Reuse strict Gram guard and checked product021 for the W11 constant common denominator; no new arrays and no atlas.",
+  "dependency_audits": {
+    "KERNEL_AUDIT_MATCHED_THIRD_DENOMINATOR_INPUTS_STATUS.json": "b48ea6e5c84c4acde64b3b5f2fd1b053808cf6d3cadce6c4f1025fce89d277bd",
+    "KERNEL_AUDIT_MATCHED_THIRD_MONOMIAL_TRANSPORT_1_STATUS.json": "7f4dc32d341a479ec930807039faf1983945287e68c175e11092abac3385832d"
+  },
+  "dependency_source_hashes": {},
+  "atlas_certification": false
+}

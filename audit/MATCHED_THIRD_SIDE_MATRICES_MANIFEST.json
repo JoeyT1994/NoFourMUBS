@@ -1,0 +1,32 @@
+{
+  "scope": "matched_third_flatness",
+  "records": [
+    {
+      "module": "NoFourMUBs.Step2.Reconstruction.ThirdMoment.SideMatrices",
+      "active_path": "NoFourMUBs/Step2/Reconstruction/ThirdMoment/SideMatrices.lean",
+      "active_sha256": "7ebe56ec3baf678a9de7104afba14d795adeb064f2bf823a317eb6521df46a8e",
+      "local_model_adapter": true,
+      "review": "MATCHED_THIRD_FLATNESS_REUSE_REVIEW.json"
+    }
+  ],
+  "axiom_endpoints": [
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.thirdMoment_phase_one",
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.thirdMoment_phase_two"
+  ],
+  "dependency_pins": [
+    {
+      "active_path": "NoFourMUBs/Reuse/Archive/SideIntrinsicUnitBindings.lean",
+      "active_sha256": "0b9439dba8222d68e06eceb609212239feacb0ad3eb482ca835dce10076a3ab2"
+    },
+    {
+      "active_path": "NoFourMUBs/Reuse/Archive/SideIntrinsicMatrixBindings.lean",
+      "active_sha256": "28e1b68230d5b0372200d1bc65f9f98e6db18afdda19c6f1c46cacdc0377a5a5"
+    },
+    {
+      "active_path": "NoFourMUBs/Reuse/Archive/SideIntrinsicPolynomialDefs.lean",
+      "active_sha256": "1291afc792342d1241ca5a0ec63d77ba8ac9d838f254a7e420b7c8ce334abc53"
+    }
+  ],
+  "scope_note": "The two universal third-moment matrices for normalized phase sides; no completion flatness or atlas input.",
+  "atlas_certification": false
+}

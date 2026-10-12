@@ -1,0 +1,141 @@
+{
+  "scope": "critical_modulus_reuse",
+  "status": "ADOPTED_UNCOMPILED",
+  "records": [
+    {
+      "module": "NoFourMUBs.Reuse.Archive.CriticalModulusDiscriminant",
+      "original_module": "CriticalModulusDiscriminant",
+      "original_sha256": "df68ed4d2d63218f77066d8b1d8adc8a20f43fe5e33c38460963d598248b94c1",
+      "original_source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_modulus_domain/CriticalModulusDiscriminant.lean",
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalModulusDiscriminant.lean",
+      "active_sha256": "d9ce299342b1e6e2a60afebcd9d85b80f3c812b47292a5b7c8738f65e503e1be",
+      "imports_only_adaptation": false,
+      "proof_adaptations": [
+        "Reuse the existing positive parameter denominator lemma.",
+        "Directly reuse the already checked identical denominator positivity result."
+      ],
+      "import_replacements": {
+        "CriticalLightSheet": "NoFourMUBs.Reuse.Archive.CriticalLightSheet",
+        "CriticalRationalParam": "NoFourMUBs.Reuse.Archive.CriticalRationalParam"
+      },
+      "omitted_reused_declarations": [],
+      "model_identifier_replacements": {},
+      "namespace_open_replacements": {},
+      "proof_tactic_replacements": [
+        {
+          "before": "import Mathlib.Data.Real.Basic\n",
+          "after": "import Mathlib.Data.Real.Basic\nimport NoFourMUBs.Reuse.Archive.CriticalRationalParam\n",
+          "count": 1,
+          "reason": "Reuse the existing positive parameter denominator lemma."
+        },
+        {
+          "before": "theorem h_pos (k : \u211d) : 0<h k := by\n  unfold h\n  nlinarith [sq_nonneg k]",
+          "after": "theorem h_pos (k : \u211d) : 0<h k :=\n  CriticalRationalParam20261003.denominator_pos k",
+          "count": 1,
+          "reason": "Directly reuse the already checked identical denominator positivity result."
+        }
+      ]
+    },
+    {
+      "module": "NoFourMUBs.Reuse.Archive.CriticalModulusIntervals",
+      "original_module": "CriticalModulusIntervals",
+      "original_sha256": "f4a711b34289a784a50fd44e4ae104bbcb958e07331ebd9a1f49f1b80131b11b",
+      "original_source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_modulus_domain/CriticalModulusIntervals.lean",
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalModulusIntervals.lean",
+      "active_sha256": "bbfce89cbfe478e0878fe9927b0dc001f97a0b58961c646312f6a14c6e667b78",
+      "imports_only_adaptation": true,
+      "proof_adaptations": [],
+      "import_replacements": {
+        "CriticalLightSheet": "NoFourMUBs.Reuse.Archive.CriticalLightSheet",
+        "CriticalRationalParam": "NoFourMUBs.Reuse.Archive.CriticalRationalParam"
+      },
+      "omitted_reused_declarations": [],
+      "model_identifier_replacements": {},
+      "namespace_open_replacements": {},
+      "proof_tactic_replacements": []
+    },
+    {
+      "module": "NoFourMUBs.Reuse.Archive.CriticalModulusSignedDomain",
+      "original_module": "CriticalModulusSignedDomain",
+      "original_sha256": "a60fed8636c2d005b0bd11f3d1fb46bdab6eeb4eccc7bc8297a84bb5784c4446",
+      "original_source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_modulus_domain/CriticalModulusSignedDomain.lean",
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalModulusSignedDomain.lean",
+      "active_sha256": "68169dc2e4fe6491e63b660b1cffa97cf39e7da3da8076af888f169ee70d12e3",
+      "imports_only_adaptation": true,
+      "proof_adaptations": [],
+      "import_replacements": {
+        "CriticalLightSheet": "NoFourMUBs.Reuse.Archive.CriticalLightSheet",
+        "CriticalRationalParam": "NoFourMUBs.Reuse.Archive.CriticalRationalParam"
+      },
+      "omitted_reused_declarations": [],
+      "model_identifier_replacements": {},
+      "namespace_open_replacements": {},
+      "proof_tactic_replacements": []
+    },
+    {
+      "module": "NoFourMUBs.Reuse.Archive.CriticalModulusMatrixDomain",
+      "original_module": "CriticalModulusMatrixDomain",
+      "original_sha256": "543302a6f4e8f11eeebc9335380ed394c16b11ddb54b7dad9908500b4f90dcee",
+      "original_source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_modulus_domain/CriticalModulusMatrixDomain.lean",
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalModulusMatrixDomain.lean",
+      "active_sha256": "94589ec035ad07868012e71b051c69efe5204b53a213e028916ef74c22cf1b2a",
+      "imports_only_adaptation": false,
+      "proof_adaptations": [
+        "Reviewed matrix/predicate identifier and namespace-open substitutions only; all algebraic proof bodies retained"
+      ],
+      "import_replacements": {
+        "CriticalLightSheet": "NoFourMUBs.Reuse.Archive.CriticalLightSheet",
+        "CriticalRationalParam": "NoFourMUBs.Reuse.Archive.CriticalRationalParam"
+      },
+      "omitted_reused_declarations": [],
+      "model_identifier_replacements": {
+        "CriticalLightSheet20261003.sideP": "CriticalPhysical20261003.sideP",
+        "CriticalLightSheet20261003.sideJ": "CriticalPhysical20261003.sideJ",
+        "CriticalLightSheet20261003.sideW": "CriticalPhysical20261003.sideW",
+        "CriticalLightSheet20261003.sideS": "NoFourMUBs.Step2.Critical.sideS",
+        "CriticalLightSheet20261003.sideT": "NoFourMUBs.Step2.Critical.sideT",
+        "CriticalLightSheet20261003.sideR": "NoFourMUBs.Step2.Critical.sideR"
+      },
+      "namespace_open_replacements": {
+        "open CriticalPhysical20261003\n": "open CriticalPhysical20261003 NoFourMUBs.Step2.Critical\n"
+      },
+      "proof_tactic_replacements": []
+    },
+    {
+      "module": "NoFourMUBs.Reuse.Archive.CriticalModulusAllCritical",
+      "original_module": "CriticalModulusAllCritical",
+      "original_sha256": "3dc1b23efc292d90b85f60dd796696f733cca8cc87b29ececf5d0db2a15c7a61",
+      "original_source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_modulus_domain/allcritical-domain-01/CriticalModulusAllCritical.lean",
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalModulusAllCritical.lean",
+      "active_sha256": "9ea017e4d309fdaa779141868313cfc41cda66cf5cf9d4ecd9384b62b85f176b",
+      "imports_only_adaptation": false,
+      "proof_adaptations": [
+        "Reviewed matrix/predicate identifier and namespace-open substitutions only; all algebraic proof bodies retained",
+        "Reuse the already checked current signed parameter endpoint; avoid duplicating its extraction from scalar premises."
+      ],
+      "import_replacements": {
+        "CriticalCornerPhysical": "NoFourMUBs.Reuse.Archive.CriticalNonzeroAllCritical"
+      },
+      "omitted_reused_declarations": [],
+      "model_identifier_replacements": {
+        "CompactCover.Mat6": "OAI.MUB6.CMatrix",
+        "AllCritical": "NoFourMUBs.Step2.Critical.AllCriticalCarrier",
+        "northwest": "CriticalStripMoments20261003.stripLeftBlock",
+        "CriticalLightSheet20261003.sideS": "NoFourMUBs.Step2.Critical.sideS",
+        "CriticalLightSheet20261003.sideT": "NoFourMUBs.Step2.Critical.sideT",
+        "CriticalLightSheet20261003.sideR": "NoFourMUBs.Step2.Critical.sideR"
+      },
+      "namespace_open_replacements": {
+        "open Mub6 Mub6.Classification CompactCover GlobalCornerDomain\n": "open NoFourMUBs.Step2.Critical\n"
+      },
+      "proof_tactic_replacements": [
+        {
+          "before": "  obtain \u27e8h0,hb,hplus,hminus\u27e9 := CriticalPhysical20261003.allCritical_scalar_premises hH\n  obtain \u27e8k,hk,hp,hj',hw\u27e9 :=\n    CriticalRationalParam20261003.nonzero_critical_parameterization h0 hb hj hplus hminus",
+          "after": "  obtain \u27e8k,hk,hp,hj',hw\u27e9 :=\n    CriticalNonzeroPhysicalBinding20261003.allCritical_signed_parameter hH hj",
+          "count": 1,
+          "reason": "Reuse the already checked current signed parameter endpoint; avoid duplicating its extraction from scalar premises."
+        }
+      ]
+    }
+  ]
+}

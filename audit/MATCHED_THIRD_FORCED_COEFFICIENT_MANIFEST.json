@@ -1,0 +1,41 @@
+{
+  "scope": "matched_third_flatness",
+  "records": [
+    {
+      "module": "NoFourMUBs.Step2.Reconstruction.ThirdMoment.ForcedCoefficient",
+      "active_path": "NoFourMUBs/Step2/Reconstruction/ThirdMoment/ForcedCoefficient.lean",
+      "active_sha256": "a558026f7e3710666de76112713da240862bc9f6527c8600f52c969ddfc70b35",
+      "local_model_adapter": true,
+      "review": "MATCHED_THIRD_FORCED_COEFFICIENT_REUSE_REVIEW.json"
+    }
+  ],
+  "axiom_endpoints": [
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.seedComplement_eq_gram",
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.seedComplement_det",
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.seedCoefficient_adjugate"
+  ],
+  "dependency_audits": [
+    "KERNEL_AUDIT_CRITICAL_ACTUAL_ZERO_STATUS.json",
+    "KERNEL_AUDIT_MATCHED_THIRD_CONTRACTION_STATUS.json"
+  ],
+  "dependency_pins": [
+    {
+      "active_path": "NoFourMUBs/Reuse/Archive/GramNumerators.lean",
+      "active_sha256": "edb7de8e4499b9d6f8cae7b05213b414b46efd17b4692cd5cf67b5caff2fc0ba"
+    },
+    {
+      "active_path": "NoFourMUBs/Reuse/Archive/SideMatrixSeedGram.lean",
+      "active_sha256": "d709828ce61df2a2b93f58ac70536b55821d46f064c33b838d74b1fac5b2456c"
+    },
+    {
+      "active_path": "NoFourMUBs/Step2/Reconstruction/SeedModel.lean",
+      "active_sha256": "7020e49ca7d9303f213bb75991290cd1bba125db6de255f0e1b39a51ab079aa3"
+    },
+    {
+      "active_path": "NoFourMUBs/Step2/Reconstruction/ForcedProductMoments.lean",
+      "active_sha256": "8777f15e1665c6df08a04c52da33737a7aee0dcf2f80a0d7e79bf04722f15408"
+    }
+  ],
+  "scope_note": "Three representation adapters reusing the existing Gram determinant and standard inverse formula. Every Seed; no generic or completion hypothesis. No atlas certification.",
+  "atlas_certification": false
+}

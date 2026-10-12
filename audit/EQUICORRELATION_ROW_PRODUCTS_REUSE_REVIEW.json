@@ -1,0 +1,69 @@
+{
+  "status": "ADAPTER_COMPILED_AND_AUDITED_PASS",
+  "checked_utc": "2026-10-11T15:35:07.846848+00:00",
+  "repository_head": "4e048ec8a2888f198f5432efd7f201f98d473878",
+  "scope": "Necessary adapter from three existing intrinsic lambda identities to the two row products at the oriented equicorrelation Gram; no new identity arrays, no atlas work. Root classification and scalar-to-Gram transport remain separate.",
+  "source_pins": {
+    "lean/NoFourMUBs/Reuse/Archive/SideIntrinsicActualLambda.lean": "94951a45e12f8f8560d1a024d2c23dd76e0ccd5d092602eae8c983fefeb8b403",
+    "lean/NoFourMUBs/Reuse/Archive/SideIntrinsicUnitBindings.lean": "0b9439dba8222d68e06eceb609212239feacb0ad3eb482ca835dce10076a3ab2",
+    "lean/NoFourMUBs/Reuse/Archive/StrictSideScalarGuards.lean": "75741b3091aeb2ce36f1b9fdab822add16b2e2514bfa27822105c93fb936d042",
+    "lean/NoFourMUBs/Reuse/Archive/SideIntrinsicLambdaRecovery.lean": "577759e6717fb98ac6cdf4d64b2c1b0f7f702ac0bfc6b00fc34b278176b102ae",
+    "lean/NoFourMUBs/Reuse/Archive/PhysicalSideRational.lean": "641712e811c0d48dfbf8e7dc30f61abc497fb1771efeb83d1fa9e0c3ab0b5a70",
+    "lean/NoFourMUBs/Reuse/Archive/FourierPhaseData.lean": "71c542f2dadb44b000f3547a1e49e91648403d88373f7bd2eb015812b8eb4f7e",
+    "lean/NoFourMUBs/Step2/CriticalZero/EquicorrelationMixedCorner.lean": "9639be1effb74f784779cdc3eee311ab04321cf6c687b6e319744d2dafe05909",
+    "lean/NoFourMUBs/Step2/CriticalZero/P7CornerTransport.lean": "bc03c99f6f5efe51b7c9964aaf5731de30701609f3fa079fc9e72afa2d20a7c2",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/c2/c2e40900c799547b3e8759e3222734acb071af983b28e1c0805b23a5b590f88b/SideIntrinsicActualLambda.lean": "c2e40900c799547b3e8759e3222734acb071af983b28e1c0805b23a5b590f88b"
+  },
+  "indexes": {
+    "ARCHIVE_SOURCE_INDEX.jsonl": "e56835aafa2eee86f3e3a340cabbd4d891e4044661ecfb6902a255ebe62ab323",
+    "ARCHIVE_BLOB_INDEX.jsonl": "8a124c5d9477fa048eb28a0be4c77a82b4d4c374e8861a60d85b355a1de73a26",
+    "ARCHIVE_IMPORT_INDEX.json": "4f3d7d6f8a9949a13c3c8fc65fe3d5c098f18a2efd4f0c0985f237ada38a4f4f"
+  },
+  "queries": [
+    "EQUICORRELATION_ROOT_BINDING_REUSE_FILES.txt",
+    "EQUICORRELATION_ROW_PRODUCT_REUSE_FILES.txt"
+  ],
+  "exact_hypothesis_comparison": [
+    {
+      "theorem": "SideIntrinsic.actual_intrinsic_lambda_identities",
+      "hypotheses": "arbitrary six complex entries with UnitRows; no determinant, sheet, R>0, or denominator premise",
+      "conclusion": "three identities for the same squared determinant",
+      "adoption": "reuse unchanged; equality of the three squared correlation moduli makes the permanent coefficients equal. Subtract identities and cancel the already-unit row products."
+    },
+    {
+      "theorem": "SideIntrinsic.row_product_units",
+      "hypotheses": "same UnitRows",
+      "conclusion": "both products have squared norm one and are nonzero",
+      "adoption": "reuse its two nonzero conclusions for cancellation"
+    },
+    {
+      "theorem": "SideIntrinsic.intrinsic_lambda_P_bindings",
+      "hypotheses": "UnitRows and nonzero row determinant",
+      "adoption": "not required; actual_intrinsic_lambda_identities is strictly earlier in the same proof chain and suffices."
+    },
+    {
+      "theorem": "PhysicalSideRational.rational_lambda_matches_physical",
+      "hypotheses": "six unit entries, determinant nonzero, selected denominator nonzero",
+      "adoption": "not needed for this endpoint adapter; its underlying intrinsic identities already eliminate the shared terms without sheet division."
+    }
+  ],
+  "derived_cancellation": [
+    "V*(U*conj(P0)-conj(P1))=0",
+    "U*(V*conj(P0)-conj(P2))=0"
+  ],
+  "target_gram": [
+    "s=2+alpha",
+    "t=2+conj(alpha)",
+    "r=1+2*conj(alpha)",
+    "alpha=(-4+3*i)/5"
+  ],
+  "target_products": [
+    "U=alpha",
+    "V=conj(alpha)"
+  ],
+  "completed_lean_proof": true,
+  "atlas_certification": false,
+  "limits": "This scoped review does not assert that all broad-query files are relevant or fully reviewed, and does not cover unavailable or unshared sources.",
+  "lean_audit": "KERNEL_AUDIT_CRITICAL_EQUICORRELATION_ROW_PRODUCTS_STATUS.json",
+  "physical_endpoint_complete": false
+}

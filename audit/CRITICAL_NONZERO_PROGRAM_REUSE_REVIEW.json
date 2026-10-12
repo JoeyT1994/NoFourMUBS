@@ -1,0 +1,84 @@
+{
+  "status": "PASS",
+  "reviewed_utc": "2026-10-11T05:51:02.203837+00:00",
+  "scope": "Reuse original complete nonzero-J paired Newton evaluation and polynomial-program coefficient interpretation, then connect its output to the checked actual matrix equation. Coefficient clearing identities and earlier pseudo-reduction steps stay unresolved.",
+  "search_evidence": [
+    "CRITICAL_NONZERO_PROGRAM_CURRENT_SEARCH.txt",
+    "CRITICAL_NONZERO_PROGRAM_DISCOVERY.json",
+    "CRITICAL_NONZERO_PROGRAM_TEMPLATE_REVIEW.json",
+    "CRITICAL_NONZERO_ENDPOINT_REFERENCES.json",
+    "CRITICAL_NONZERO_ASSEMBLY_DISCOVERY.json"
+  ],
+  "reuse_decisions": [
+    "Use the existing current CriticalZeroLightData and CriticalNonzeroData with their exact source hashes.",
+    "Reuse original general quadratic algebra, all36pairedNewton moments and66term program unchanged. These interpret the physical polynomial, not a second classification route.",
+    "The tagged36-input expression preserves the existing66term polynomial, checked by original pureNewtonPolynomial66_as_moments. No new coefficient arrays or normalizer are generated.",
+    "Use original common-denominator identity with allsix pole guards; do not count an assumed coefficient numerator identity as a proved one."
+  ],
+  "source_pins": {
+    "CriticalNonzeroCoefficientProgram": "af7e67ca9c7f376207940eac57e1a0110646ce0b4594007d623b20ce7ca1ad87",
+    "CriticalQuadProgram": "c5c81928c033c52567869d63352bbff882b8bcd6a127c904c59d33991ac47cdf",
+    "CriticalMomentQuad": "50f9735cf09e31e5ed9edb8bb25533f865cc3ed9e08e3c496053b3bf9508cf10",
+    "CriticalNonzeroMomentProgram": "fa0200ebe6602c9ec1a5d32e3b130df4f250cf5102797508f98c66c312c0b651",
+    "CriticalNonzeroMomentInterface": "818bdaa7bdcad696d6e1b12b2b08f33f621d8b404b9fe8bcd8066109754b6800",
+    "CriticalNonzeroPairComplex00": "843045b72af2dde1c5879fdbb95df649e5645a69a55e1c08153e176c122999d5",
+    "CriticalNonzeroPair00": "eb126cafa298bbcc9bce592ab1c8d3eeb68e641c4580d44c50b0fb139bd82fb2",
+    "CriticalMomentQuadNewton00": "4ab9b6c6e7c053f70f2d0eae201e3ac5d3d594e0c6a317a41c536814832c30ef",
+    "CriticalMomentQuadData": "2da3c745459a6fa07e310e7f6bf415c8a22c02a69494022e1e2b7b1e3c36d294",
+    "CriticalNonzeroQuadSide": "0e70ca1312f1979195d332b84babf9b46b33e0edb7c7be7e661872c68b76d68d",
+    "CriticalNonzeroLightData": "0aa45894a539abc3bda327124ccb49dc3be5dd56860581eee564f9a132812a6d",
+    "CriticalNonzeroPairComplex01": "23dc4d4b0d6563f1ae7b8d7907a4c33660331368d562ba1e2656344ef338bd87",
+    "CriticalNonzeroPair01": "4f3a58e70650f442bd65aaf9d8fac536a9375353648b70ec948da2354f77a05d",
+    "CriticalNonzeroPairComplex02": "1f13fd2fa14321225e035b340b8f1029ccd291de345aca9650567b0de07b1b7a",
+    "CriticalNonzeroPair02": "d15d97ce0f0b6ce6c66e392e5c555d1f61b33dbad4b2feac6dd47f6734a8f2ab",
+    "CriticalNonzeroPairComplex03": "712453535e02753e95190ffed0c74f5f3b6649788e76a8b78d960ebedb8de7a6",
+    "CriticalNonzeroPair03": "76b26638e07fdec235aa1dbcfc2ce032512b80691191834ee29cf404fe12cf6d",
+    "CriticalNonzeroPairComplex04": "e86193f5a59db2f6495ceaff9e6dd44fc0c44e0e3db7c4836cd7cb8a535cac65",
+    "CriticalNonzeroPair04": "56fef7d397a21509c66aed75322ebf369804b0162e2fdbcfe8aa2d3129f3b2b4",
+    "CriticalNonzeroPairComplex05": "7585b9187eb3ff33983178c4aa80cba0836c8548a087b38788deb9ed2cf217db",
+    "CriticalNonzeroPair05": "29b0d6a4a5f777b3173e423ba1f242222ac2f82713d421e28578fe25dab49921",
+    "CriticalNonzeroPairComplex06": "95ae3a0121b3e476ab113033144050b86bdf0a36378b52dfd2f7d62b53ef990d",
+    "CriticalNonzeroPair06": "cec033ae5be0add9fc15eba2f187fd8dc0023972cfe5e4d85fff9af407790ad0",
+    "CriticalNonzeroPairComplex07": "a01fa37516347cd97dd6cff3ee899b23f0d673fcc730aec1bd899d3ca2ffb988",
+    "CriticalNonzeroPair07": "f77b4e1524d241957347370e4dcf20afa3febbca2dc7065af2cedeae97cc77f2",
+    "CriticalNonzeroPairComplex08": "c43df4c3c46fdee7680ee37ee4dc130127a2b00511a46efcb8b61e517bf7bba6",
+    "CriticalNonzeroPair08": "cff37a828feaf83724eb07ea2ed2d86341d06bad7278467ba07f1e30c5ce7ef5",
+    "CriticalNonzeroSumDenominator": "e7f6db760f01dbb2893316cedccee55b30720c048a4383c49b95333c343bb2bd",
+    "CriticalMomentQuadNewton01": "f482a5fe16166ad9736044b2c583529a145adf6cf13940b6e835faa719534d7f",
+    "CriticalMomentQuadNewton02": "120b052c6a34c0c45e714d356105d52399a487af62b5e1d19b4ce9b0c89c1af2",
+    "CriticalMomentQuadNewton03": "6a55c9f72eed74d254f1e6a4a58e52f43b702bdc4e7dd7daa78b5a2b1baeeca9",
+    "CriticalMomentQuadNewton04": "d9da7ec09a02df2e8c677652cf59483ddb2713cc78db303f684b8f44ea3a0fc2",
+    "CriticalMomentQuadNewton05": "d15edf1d3d7cb9f36efb15d0059d6d7d95137bc3dcc257b72969f99768cfbe24",
+    "CriticalMomentQuadNewton06": "a3ce8d68a8b5939a32b9292d7fbdcf2bb9451147ca81fd06c78e34a81fe666c2",
+    "CriticalMomentQuadNewton07": "622f40773145a7a341a47449479a09ba4be1b1bf373215c1a6c0c2cd6839f27d",
+    "CriticalMomentQuadNewton08": "75e5b64e9eff276147124d6e362134fcc665d4884f15d07762c1e46fb455b70e",
+    "CriticalMomentQuadNumerals": "9523fc78f9c807a91eaad3fa8ddfe0380f60fc646a799da3fab9469cb6704eaf"
+  },
+  "mathematical_hypothesis_changes": [],
+  "atlas_certification": false,
+  "variant_resolution": [
+    {
+      "module": "CriticalMomentQuad",
+      "previous": "df12eecff6f0af45fcd0587eb87e7d013d2d78ced8fb62fbd15f54d0617e1ae7",
+      "selected": "50f9735cf09e31e5ed9edb8bb25533f865cc3ed9e08e3c496053b3bf9508cf10",
+      "reason": "Original df12zero-power change relied on definitional equality of Nat.cast1 with1. Use original50f973proof rw[qpow,eval_nat];simp, retaining the same Field-only statement and all data."
+    },
+    {
+      "module": "CriticalNonzeroCoefficientProgram",
+      "previous": "b76413c2ac0caf9c115f9d91c3c9d7c5918a7fef16cb4e1f3383615283a20ff7",
+      "selected": "af7e67ca9c7f376207940eac57e1a0110646ce0b4594007d623b20ce7ca1ad87",
+      "reason": "Reuse original af7e67 variant using Int.cast_one, matching the integer1left after Int.cast_ofNat. Literal program and theorem statements unchanged."
+    }
+  ],
+  "local_adapter": {
+    "module": "NoFourMUBs.Step2.CriticalZero.ActualNonzeroCoefficients",
+    "search": "CRITICAL_NONZERO_PROGRAM_JOIN_SEARCH.json",
+    "reuse": "Direct composition of allCritical_nonzero_exists_scalar_equation with nonzero_polynomial66_via_coefficients. Existing nonzero_J_original_chart supplies both correlation guards, so only the original six denominator assumptions remain.",
+    "new_mathematical_assumptions": []
+  },
+  "checked_utc": "2026-10-11T06:02:17.357792+00:00",
+  "compiled_modules": 38,
+  "axiom_endpoints": 138,
+  "audit": "KERNEL_AUDIT_CRITICAL_NONZERO_PROGRAM_STATUS.json",
+  "remaining": "The coefficient clearing identities ha/hb, the earlier68pseudo-reduction steps, pole and exceptional cases, and final global classification assembly remain unproved."
+}

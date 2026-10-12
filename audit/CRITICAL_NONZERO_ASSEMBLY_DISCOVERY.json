@@ -1,0 +1,200 @@
+{
+  "status": "READ_ONLY_DISCOVERY_NOT_ADOPTED",
+  "selected_candidates": [
+    {
+      "module": "CriticalNonzeroQuadSide",
+      "sha256": "0e70ca1312f1979195d332b84babf9b46b33e0edb7c7be7e661872c68b76d68d",
+      "blob": "blobs/0e/0e70ca1312f1979195d332b84babf9b46b33e0edb7c7be7e661872c68b76d68d/CriticalNonzeroQuadSide.lean",
+      "bytes": 2160,
+      "imports": [
+        "CriticalMomentQuadData",
+        "CriticalNonzeroLightData"
+      ],
+      "declarations": [
+        "R2",
+        "R1",
+        "quadSide",
+        "reciprocal_square",
+        "eval_quadSide"
+      ]
+    },
+    {
+      "module": "CriticalNonzeroCubicAssembly",
+      "sha256": "1f7b38ae19820bd6df8eb8f2fb9678f98504078f473a2c1b141f9d0f00210c3b",
+      "blob": "blobs/1f/1f7b38ae19820bd6df8eb8f2fb9678f98504078f473a2c1b141f9d0f00210c3b/CriticalNonzeroCubicAssembly.lean",
+      "bytes": 1645,
+      "imports": [
+        "Mathlib.Tactic.FieldSimp",
+        "Mathlib.Tactic.LinearCombination"
+      ],
+      "declarations": [
+        "assemble",
+        "cubic_form",
+        "divide_multiplier",
+        "preserves_zero"
+      ]
+    },
+    {
+      "module": "CriticalNonzeroCoefficientProgram",
+      "sha256": "339296bcc767e4b102be67a52c59c16933d6ab3961c69d1882a54d2a2f98c15b",
+      "blob": "blobs/33/339296bcc767e4b102be67a52c59c16933d6ab3961c69d1882a54d2a2f98c15b/CriticalNonzeroCoefficientProgram.lean",
+      "bytes": 8196,
+      "imports": [
+        "CriticalNonzeroMomentProgram",
+        "CriticalQuadProgram"
+      ],
+      "declarations": [
+        "program66",
+        "program66_value",
+        "sumCoefficients",
+        "nonzero_polynomial66_via_coefficients",
+        "nonzero_polynomial66_times_denominator",
+        "numerator_zero_of_polynomial66_zero"
+      ]
+    },
+    {
+      "module": "CriticalNonzeroMomentInterface",
+      "sha256": "818bdaa7bdcad696d6e1b12b2b08f33f621d8b404b9fe8bcd8066109754b6800",
+      "blob": "blobs/81/818bdaa7bdcad696d6e1b12b2b08f33f621d8b404b9fe8bcd8066109754b6800/CriticalNonzeroMomentInterface.lean",
+      "bytes": 6237,
+      "imports": [
+        "CriticalNonzeroPairComplex00",
+        "CriticalNonzeroPairComplex01",
+        "CriticalNonzeroPairComplex02",
+        "CriticalNonzeroPairComplex03",
+        "CriticalNonzeroPairComplex04",
+        "CriticalNonzeroPairComplex05",
+        "CriticalNonzeroPairComplex06",
+        "CriticalNonzeroPairComplex07",
+        "CriticalNonzeroPairComplex08"
+      ],
+      "declarations": [
+        "momentValue",
+        "pairedCoefficient",
+        "complete_moment_interface"
+      ]
+    },
+    {
+      "module": "CriticalNonzeroCubicAssembly",
+      "sha256": "abdebc826689cba32d091721875f45f2f65c1bc1f6102fb8b00878c3c0f45332",
+      "blob": "blobs/ab/abdebc826689cba32d091721875f45f2f65c1bc1f6102fb8b00878c3c0f45332/CriticalNonzeroCubicAssembly.lean",
+      "bytes": 1672,
+      "imports": [
+        "Mathlib.Tactic.FieldSimp",
+        "Mathlib.Tactic.LinearCombination",
+        "Mathlib.Tactic.Ring"
+      ],
+      "declarations": [
+        "assemble",
+        "cubic_form",
+        "divide_multiplier",
+        "preserves_zero"
+      ]
+    },
+    {
+      "module": "CriticalNonzeroCoefficientProgram",
+      "sha256": "af7e67ca9c7f376207940eac57e1a0110646ce0b4594007d623b20ce7ca1ad87",
+      "blob": "blobs/af/af7e67ca9c7f376207940eac57e1a0110646ce0b4594007d623b20ce7ca1ad87/CriticalNonzeroCoefficientProgram.lean",
+      "bytes": 8255,
+      "imports": [
+        "CriticalNonzeroMomentProgram",
+        "CriticalQuadProgram"
+      ],
+      "declarations": [
+        "program66",
+        "program66_value",
+        "sumCoefficients",
+        "nonzero_polynomial66_via_coefficients",
+        "nonzero_polynomial66_times_denominator",
+        "numerator_zero_of_polynomial66_zero"
+      ]
+    },
+    {
+      "module": "CriticalNonzeroCoefficientProgram",
+      "sha256": "b34026d24196ca6a485446c46c674ee02562c5f810e31f1c020afbaeacf063b4",
+      "blob": "blobs/b3/b34026d24196ca6a485446c46c674ee02562c5f810e31f1c020afbaeacf063b4/CriticalNonzeroCoefficientProgram.lean",
+      "bytes": 8224,
+      "imports": [
+        "CriticalNonzeroMomentProgram",
+        "CriticalQuadProgram"
+      ],
+      "declarations": [
+        "program66",
+        "program66_value",
+        "sumCoefficients",
+        "nonzero_polynomial66_via_coefficients",
+        "nonzero_polynomial66_times_denominator",
+        "numerator_zero_of_polynomial66_zero"
+      ]
+    },
+    {
+      "module": "CriticalNonzeroCoefficientProgram",
+      "sha256": "b76413c2ac0caf9c115f9d91c3c9d7c5918a7fef16cb4e1f3383615283a20ff7",
+      "blob": "blobs/b7/b76413c2ac0caf9c115f9d91c3c9d7c5918a7fef16cb4e1f3383615283a20ff7/CriticalNonzeroCoefficientProgram.lean",
+      "bytes": 8255,
+      "imports": [
+        "CriticalNonzeroMomentProgram",
+        "CriticalQuadProgram"
+      ],
+      "declarations": [
+        "program66",
+        "program66_value",
+        "sumCoefficients",
+        "nonzero_polynomial66_via_coefficients",
+        "nonzero_polynomial66_times_denominator",
+        "numerator_zero_of_polynomial66_zero"
+      ]
+    },
+    {
+      "module": "CriticalNonzeroSumDenominator",
+      "sha256": "e7f6db760f01dbb2893316cedccee55b30720c048a4383c49b95333c343bb2bd",
+      "blob": "blobs/e7/e7f6db760f01dbb2893316cedccee55b30720c048a4383c49b95333c343bb2bd/CriticalNonzeroSumDenominator.lean",
+      "bytes": 2953,
+      "imports": [
+        "CriticalNonzeroLightData"
+      ],
+      "declarations": [
+        "plusFactor",
+        "minusFactor",
+        "thirdPlusFactor",
+        "thirdMinusFactor",
+        "commonDenominator",
+        "plusFactor_pole",
+        "minusFactor_pole",
+        "thirdPlusFactor_pole",
+        "thirdMinusFactor_pole",
+        "commonDenominator_ne_zero"
+      ]
+    },
+    {
+      "module": "CriticalNonzeroMomentProgram",
+      "sha256": "fa0200ebe6602c9ec1a5d32e3b130df4f250cf5102797508f98c66c312c0b651",
+      "blob": "blobs/fa/fa0200ebe6602c9ec1a5d32e3b130df4f250cf5102797508f98c66c312c0b651/CriticalNonzeroMomentProgram.lean",
+      "bytes": 4396,
+      "imports": [
+        "CriticalNonzeroMomentInterface"
+      ],
+      "declarations": [
+        "momentPolynomial66",
+        "pureNewtonPolynomial66_as_moments",
+        "nonzero_polynomial66_via_moments"
+      ]
+    },
+    {
+      "module": "CriticalNonzeroPolynomial",
+      "sha256": "fd274b076dd7ebc02c25af6e4bda0ac5bafebe0feeea184efb174a59b94c867d",
+      "blob": "blobs/fd/fd274b076dd7ebc02c25af6e4bda0ac5bafebe0feeea184efb174a59b94c867d/CriticalNonzeroPolynomial.lean",
+      "bytes": 1432,
+      "imports": [
+        "CriticalNonzeroFactor00",
+        "CriticalNonzeroFactor01",
+        "CriticalNonzeroFactor02",
+        "CriticalNonzeroFactor03"
+      ],
+      "declarations": [
+        "factorization"
+      ]
+    }
+  ],
+  "atlas_certification": false
+}

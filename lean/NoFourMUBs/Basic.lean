@@ -1,5 +1,5 @@
 import Mathlib
-import Hadamard6
+import Hadamard6.Basic
 
 /-!
 # Mutually unbiased bases in `ℂ⁶` and quartet edges

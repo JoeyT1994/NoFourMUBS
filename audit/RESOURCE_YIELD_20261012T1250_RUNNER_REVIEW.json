@@ -1,0 +1,21 @@
+{
+  "recorded_utc": "2026-10-12T12:53:28.881022+00:00",
+  "proof_source_changes": false,
+  "changes": [
+    "Recognize safe yield before any module has produced a build status.",
+    "Recognize a safe partial product yield without mislabelling it as proof failure.",
+    "Optionally apply the same byte/metadata-verified lossless compression to build logs while both compiler lanes are locked."
+  ],
+  "prior_safe_yield_sessions": {
+    "critical": 86642,
+    "product": 20583,
+    "sparse": 99863
+  },
+  "prior_compression": {
+    "session": 31314,
+    "status": "PASS",
+    "files": 60,
+    "saved_bytes": 71176192
+  },
+  "atlas_certification": false
+}

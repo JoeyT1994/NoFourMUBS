@@ -1,0 +1,75 @@
+{
+  "status": "PASS",
+  "checked_utc": "2026-10-11T13:34:01.797351+00:00",
+  "modules": 2,
+  "axiom_endpoints": {
+    "NoFourMUBs.Step2.Critical.column_candidate_entry": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.column_candidate_correlations": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.column_candidate_invariants": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.P7.selected_p7_positive_impossible": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.P7.strip_p7_impossible": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "source_hashes": {
+    "NoFourMUBs/Step2/CriticalZero/ColumnRechart.lean": "1530e264196c059538a1cdd67aae356d3a458066ad9630c542a935e62028a71d",
+    "NoFourMUBs/Step2/CriticalZero/P7StripEndpoint.lean": "3e967a2d9bd7668d169b27c4774c1b4f3379e9158c06f80e5f01c763ddc44743"
+  },
+  "manifest_sha256": "4502fdb2ee6ebb86867114e2880091312451ab01193d8959b40bd33cbf836548",
+  "audit_log_sha256": "6385df3bf092e0fab12ee86f8835a756e0df4a3d3d169942b438b39eae0698fe",
+  "scope": "Actual p=7,|J|=2,K=5 is impossible in every one of the20stripcorners. The complete scalar-to-fixed-corner chain is reused with both signs and repeated roots, no denominator guards. Other scalar candidates, quartic derivation, poles outside this candidate, matched existence and global classification remain separate. No atlas certification.",
+  "dependency_audits": {
+    "KERNEL_AUDIT_CRITICAL_P7_ROW_NORMALIZATION_STATUS.json": "d41161621793a43bbb98643c1003d3a3b81efa629d16e6b3b2da17978a70b3f9"
+  },
+  "dependency_source_hashes": {
+    "NoFourMUBs/Step2/CriticalZero/P7UnitRows.lean": "caf7486ffe45f9675a59697d40c6c17966559f99d3436a10d30d4e96d170bc49",
+    "NoFourMUBs/Step2/CriticalZero/P7Triples.lean": "0811fbd4f76d77bebe80a5b815e32ba3557a8366ab5c9292fbc8b227c5facfde",
+    "NoFourMUBs/Step2/CriticalZero/P7CornerTransport.lean": "bc03c99f6f5efe51b7c9964aaf5731de30701609f3fa079fc9e72afa2d20a7c2",
+    "NoFourMUBs/Step2/CriticalZero/P7PhasedStrip.lean": "d182bc3d0634871fff8d7d761c0e1a39dbccca3d439f05fa824f16c5f21e0d75",
+    "NoFourMUBs/Step2/CriticalZero/P7OrderedGram.lean": "de078248dd9aa6698c22c50bf2c0cac0987e805ac55534cc84c8f87222259f57",
+    "NoFourMUBs/Step2/CriticalZero/P7Moduli.lean": "836141a9735eb9250dff66b152accd11220010557996ebe05ff3ad580e4c68ad",
+    "NoFourMUBs/Step2/CriticalZero/P7PositiveEndpoint.lean": "51c3ec910ad426e14a7a757ca640d3c1e188fd5f7ebbafd69050945cc8fbcf81",
+    "vendor/hadamard6/Hadamard6/H2CanonicalForm.lean": "10b04290503036c54f46a9c62421e0d06126695206ea662ce42eb361c1e401ab",
+    "NoFourMUBs/Step2/CriticalZero/P7FixedCorner.lean": "38fa2ce9a1c25cf6af61bdf7c2de29b3fc95e0f1a3eca5964b70bcb861b195e6",
+    "NoFourMUBs/Step2/CriticalZero/EquicorrelationCubeSums.lean": "44e344f1968b7e3535815e014f2b3189b2772634e57effc10c4f32bc6218949e",
+    "NoFourMUBs/Step2/CriticalZero/EquicorrelationComplement.lean": "e5791d20fede5489eba8c3854ec53a4059c44cb1c9886f5ad99661b6681302bc",
+    "NoFourMUBs/Step2/CriticalZero/EquicorrelationMixedCorner.lean": "9639be1effb74f784779cdc3eee311ab04321cf6c687b6e319744d2dafe05909",
+    "NoFourMUBs/Step2/CriticalZero/EquicorrelationNormalized.lean": "3d7fe0da977cfaf88b319ce6d27b6f8e8c2fad791fea05f5d1acc0cbca2ba8ba",
+    "NoFourMUBs/Reuse/Archive/FourierSide.lean": "3762488932e158f54493a7ca66556a76edbb3f45b4ae58559ef091b18e4a9795",
+    "NoFourMUBs/Reuse/Archive/SideFourierElementaryRoots.lean": "e6b06f22d7cc802ff9f9a8a000dfd889442c4512a42881deeb85314b24f2ba89",
+    "NoFourMUBs/Step2/CriticalZero/BlockInvariant.lean": "b2107b421c0ad56b7bc9815b371f79fbaec2df8b6f2b842ae32854fa35b252c2",
+    "NoFourMUBs/Step2/CriticalZero/ActualSignatures.lean": "ea868b396733763127082fa622677a0cc182c023939136c6d47b96eaac1b76e0",
+    "NoFourMUBs/Step2/CriticalZero/PhysicalModel.lean": "9520b896d5795301a97d296ecd4ca4f999507feed6ac967271147f8e795ed3e0",
+    "NoFourMUBs/Reuse/Archive/CriticalStripPhysical.lean": "0e726f519d28a449b1895952067a44a422c9c31e7f51ae64b1656dc8762b5731",
+    "NoFourMUBs/Step2/CriticalZero/RechartModel.lean": "7ba67fb8000833df557e18483a1745590ed57812a033c995c810ef9b9f9928b1",
+    "NoFourMUBs/Step2/CriticalZero/Equivalence.lean": "7f8a60e4776698ba93c85a84cd0d49aa0c904f8deada5555de546cfeeabd67c3",
+    "vendor/fourier/OAI/Analysis/MutuallyUnbiased/Matrix/Equivalence.lean": "3b33e86903bdf07f281ed438b14d5f549d878d71c9ac5690836eb4338922ab49",
+    "NoFourMUBs/Reuse/Archive/CriticalZeroModuli.lean": "adb9a0e0600c91150736a23effaee302fb77ac2a957261953495f544df1b40cc",
+    "NoFourMUBs/Reuse/Archive/CriticalCorrelationRechart.lean": "cb18e37a7b7be7292293f8a26c123fa7d75be455febb749161d0e4cec4c2fd1d",
+    "NoFourMUBs/Step2/CriticalZero/LeadingScalarPremises.lean": "14a07425f314b81be1cdde425235a6647b35b5e87004798e6eee96731b20901f",
+    "NoFourMUBs/Reuse/Archive/CriticalScalarReduction.lean": "ba71032fa04f819af8d6aa18edecfe7fbe5ae1fbaf367ffab918a8997df98fa2",
+    "NoFourMUBs/Step2/CriticalZero/MomentData.lean": "44e46454c5938528058573cca62d535ca7dade76967a6a11c05769bfbef6f8c4",
+    "NoFourMUBs/Reuse/Archive/CriticalCorrelationCore.lean": "dae81b63d1bc9cda4eccf684ffa1ba9038365b1c88b5a01d90751a1239165b25",
+    "NoFourMUBs/Reuse/Archive/CriticalMomentBinding.lean": "7cb6f10d9381e82738d0c83ed5ece66dc262cc4f7502874435196a49d7a99dc7",
+    "NoFourMUBs/Reuse/Archive/CriticalRowSum.lean": "643b19836a15425426054bdc1847f4a364f44606a4b2830dba5161872d698048"
+  },
+  "atlas_certification": false
+}

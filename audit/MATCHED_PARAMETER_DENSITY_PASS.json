@@ -1,0 +1,181 @@
+{
+  "status": "PASS",
+  "checked_utc": "2026-10-11T20:16:28.867740+00:00",
+  "unique_modules": 10,
+  "unique_endpoints": 29,
+  "receipts": {
+    "KERNEL_AUDIT_MATCHED_BASE_COEFFICIENT_STATUS.json": "120ca231900822a5597d03ca413024356abe51f94513fddd2e123430e8fb1309",
+    "KERNEL_AUDIT_MATCHED_BASE_BINDING_STATUS.json": "b6a3dae407e055f67371f0512f66568b1dd62542384ce34db3e09a205f9a3632",
+    "KERNEL_AUDIT_MATCHED_POLYNOMIAL_DENSITY_STATUS.json": "9ea78332449193577dab76dbb2201c4e3f80401e2305b562fd9c6bc6265033b6",
+    "KERNEL_AUDIT_MATCHED_CENTERED_PRODUCT_STATUS.json": "6e2f5307b390f74076edea6d9d732d95e574f3fd0fbb60c226cb5c88e532d007",
+    "KERNEL_AUDIT_MATCHED_ELIMINANT_COEFFICIENT_STATUS.json": "f35d419692cbc6f78acff313764ef38f5be92248314e234fc663993b3281aee9",
+    "KERNEL_AUDIT_MATCHED_DISCRIMINANT_STATUS.json": "ccebecc9425d376375a00d5655596b7807804ef551438b70fccd2b3791699c20"
+  },
+  "source_hashes": {
+    "NoFourMUBs/Step2/Reconstruction/BaseCoefficients/Data.lean": "8762870b591931264431f85658053b7ce1496ae35d318f036f34d5b02656f170",
+    "NoFourMUBs/Step2/Reconstruction/BaseCoefficients/C6.lean": "e8f3730ef60eedcdd4c7d1f1991d8737d3a72473d6cfb8a2ee9c41ade6021a5b",
+    "NoFourMUBs/Step2/Reconstruction/BaseCoefficients/U.lean": "9ed07dadb5d58e92835585586474daaac41d4c79be133f5127899eae38e966b9",
+    "NoFourMUBs/Step2/Reconstruction/BaseCoefficients/V.lean": "e9aae02e166e83000ea9d98efae3440272779f886663617f85b13beb3841a825",
+    "NoFourMUBs/Step2/Reconstruction/BaseCoefficients/Checked.lean": "ffb30122284cabfc33746fd802aeaf42d85a714ca3860a8993853bec0098b1ef",
+    "NoFourMUBs/Step2/Reconstruction/BaseCoefficients/Bindings.lean": "f488d52f6e644ee826f25f359886ef3f9a1da0a3c27660246bf11b459dc40509",
+    "NoFourMUBs/Step2/Reconstruction/PolynomialDensity.lean": "449b837268f84cc9a77f8c6d484da1f267e9d1c8ccb17ab4dfaabd63d7d9f071",
+    "NoFourMUBs/Step2/Reconstruction/BaseCoefficients/Centered.lean": "0a74257b9c2fc64e57046f9abef7ee87e7bd308b889f3528ef52b5550f13162f",
+    "NoFourMUBs/Step2/Reconstruction/BaseCoefficients/Eliminants.lean": "3ae325de28da1896954ef3270bff34a2a18de68ea1813a7745b327840e804c5a",
+    "NoFourMUBs/Step2/Reconstruction/BaseCoefficients/Discriminant.lean": "45d5e56b24e26451f14c0c668d847c010bf7392d97ae6dbf25ce9db09ecf1dfa"
+  },
+  "axiom_endpoints": {
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.clearedC6": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.clearedU": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.clearedV": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.phaseMonomial_ne_zero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.normData_seed": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.cachedC6_eq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.inputDen_ne_zero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.cachedU_eq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.cachedV_eq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.cachedC6_seed": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.inputDen_strict": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.dense_polynomial_nonzero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.dense_strict_polynomial_nonzero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.matchedExistence_of_polynomial": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.cachedDelta_eq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.cachedDelta_seed": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.cachedC6_strict": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.cachedU_seed": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.cachedV_seed": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.candidate_intrinsic_correlations": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.candidate_product_centered": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.cached_eliminantA_eq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.cached_eliminantA_seed": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.cached_eliminantB_eq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.cached_eliminantB_seed": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.candidate_product_quadratic": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.cached_discriminant_of_candidate": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.cached_discriminant_strict": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.cached_omega_strict": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "scope": "Original cached U,V,c6,delta and A/B bindings, strict c6 denominator, actual centered candidate product/quadratic, discriminant/omega and polynomial-density extension. Only standard axioms. No companion norm arithmetic or generic completion claimed.",
+  "main_unchanged_sha256": "9316a2a26614e4d1782334d03709321b378540e2cb4002a888110d85c01e3556",
+  "open_inputs": [
+    "AtlasCertificate (excluded from work)",
+    "MatchedExistence",
+    "CriticalClassification"
+  ],
+  "atlas_certification": false
+}

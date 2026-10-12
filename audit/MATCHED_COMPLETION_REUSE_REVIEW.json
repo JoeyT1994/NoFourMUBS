@@ -1,0 +1,39 @@
+{
+  "reviewed_at": "2026-10-10T23:04:16.782209+00:00",
+  "status": "PASS;FLATNESS_PREMISE_EXPLICIT",
+  "reuse": [
+    "Hadamard6.retained_completion_isHadamard",
+    "Hadamard6.cornerData_firstRow",
+    "Hadamard6.cornerData_firstColumn",
+    "StrictReconstruction20261007.SideIntrinsic.strict_horizontal_candidates_finite",
+    "StrictReconstruction20261007.SideIntrinsic.strict_vertical_candidates_finite",
+    "Reconstruction.strict_seed_invariant_pos",
+    "ActualCorners.transposedSeed_invariants"
+  ],
+  "search": "Current/vendor/full-archive completion and forcedD endpoints inspected. Existing SidePhysicalRetained assumes a physical Hadamard. Vendored retained_completion_isHadamard has exactly the matrix soundness conclusion needed, and is reused directly.",
+  "scope": "Only convert the signed side candidates and the explicit EntrywiseUnit(forcedD E B C) hypothesis to the existing Retained interface, then to Matched. No new block algebra, finite-fibre argument or atlas certification.",
+  "open_hypothesis": "Fourth-block flatness is an explicit input and is NOT discharged by this adapter.",
+  "compatibility_fix": {
+    "checked_utc": "2026-10-10T23:40:06.811564+00:00",
+    "error": "Ambiguous IsHadamard after combined imports expose Matrix.IsHadamard and Hadamard6.IsHadamard.",
+    "change": "Qualify the existing local type annotation as Hadamard6.IsHadamard. Statement, hypotheses and proof method unchanged.",
+    "source_sha256": "eb04beabcf363fc66b6f8514878dd01fe2f9c367315b6d13d99480179b542897",
+    "previous_log": "matched_side_build_status_logs/batch_0122.log"
+  },
+  "elaboration_budget_fix": {
+    "checked_utc": "2026-10-10T23:42:44.461492+00:00",
+    "error": "Default200000heartbeat whnf timeout at theorem declaration.",
+    "change": "maxHeartbeats800000; kernel checking unchanged, no admissions and no change to theorem or proof.",
+    "source_sha256": "2cac059a6f570f01122dc491ed4d21dbda298bc30bf9a2a5adfb3dd547a3ca47",
+    "previous_log": "matched_side_build_status_logs/batch_0123.log"
+  },
+  "implicit_argument_fix": {
+    "checked_utc": "2026-10-10T23:47:27.226019+00:00",
+    "diagnostic_log": "matched_side_build_status_logs/batch_0125.log",
+    "evidence": "Repeated backward unification of Fin.cons and CornerData.a:37532Fin.cases heuristic reductions,187838CornerData.a projections.",
+    "change": "Give p:=d,B:=B,C:=C explicitly to the existing retained_completion_isHadamard theorem. Restore default heartbeat limit and remove diagnostics. Mathematical statement unchanged.",
+    "source_sha256": "3ae1f9ea21d0e2d0a1ff1ae9c8d4f0fc575ee4211d675e107b3db3fc43a4834c"
+  },
+  "audit": "KERNEL_AUDIT_COMPLETION_AND_GROUP_STATUS.json",
+  "build_log": "matched_side_build_status_logs/batch_0126.log"
+}

@@ -1,0 +1,72 @@
+{
+  "status": "PASS",
+  "checked_utc": "2026-10-11T17:11:17.289714+00:00",
+  "repository_head": "4e048ec8a2888f198f5432efd7f201f98d473878",
+  "scope": "Connect the one scalar quartic classification to the two completed physical exclusions and retain the cubic-root candidate for the existing counting endpoint.",
+  "index_review": "CRITICAL_SCALAR_ENDPOINT_INDEX_REVIEW.json",
+  "content_review": "CRITICAL_SCALAR_ENDPOINT_CONTENT_REVIEW.txt",
+  "source_body_pins": {
+    "lean/NoFourMUBs/Step2/CriticalZero/ScalarSigns/Classification.lean": "f0391ab5bc87dade8fe2e5946d0434a710a6e11cc6346909fe3a3e876ce11594",
+    "lean/NoFourMUBs/Step2/CriticalZero/EquicorrelationScalarEndpoint.lean": "022371eb1de73c0b341e3e58e95840663f507b7a343e2518d79a1b34e399883d",
+    "lean/NoFourMUBs/Step2/CriticalZero/P7StripEndpoint.lean": "3e967a2d9bd7668d169b27c4774c1b4f3379e9158c06f80e5f01c763ddc44743",
+    "lean/NoFourMUBs/Reuse/Archive/CriticalModulusMatrixDomain.lean": "94589ec035ad07868012e71b051c69efe5204b53a213e028916ef74c22cf1b2a",
+    "lean/NoFourMUBs/Reuse/Archive/CriticalModulusSignedDomain.lean": "68169dc2e4fe6491e63b660b1cffa97cf39e7da3da8076af888f169ee70d12e3",
+    "lean/NoFourMUBs/Reuse/Archive/CriticalStripPhysical.lean": "0e726f519d28a449b1895952067a44a422c9c31e7f51ae64b1656dc8762b5731",
+    "lean/NoFourMUBs/Reuse/Archive/CriticalPositiveParam.lean": "f6243f0789b6a88a04b382a3f6eeae9105538669f109283d25f540679f28220c",
+    "lean/NoFourMUBs/Step2/CriticalStripMatrix.lean": "7afefa1ebbb250dfd3039c4576224c1af58ebb522a98db8bfa7218db705e5f5a",
+    "lean/NoFourMUBs/Step2/CriticalZero/P7CornerTransport.lean": "bc03c99f6f5efe51b7c9964aaf5731de30701609f3fa079fc9e72afa2d20a7c2",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/2c/2c48b32fbc887b0cb64f399c4489ed83ba6d7cd2538a1d6d69c1bb4dd9c76e6d/CriticalPhysicalParams.lean": "2c48b32fbc887b0cb64f399c4489ed83ba6d7cd2538a1d6d69c1bb4dd9c76e6d",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/34/34ecb0baa36ca0b75484c7fe7eb96a97e5c4760782e7b1ed7db73e090225c1cf/CriticalStripObstruction.lean": "34ecb0baa36ca0b75484c7fe7eb96a97e5c4760782e7b1ed7db73e090225c1cf",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/42/426526dca7bb4f7885070ac1c72ebc7b3bfa09ce3415d2a6dda6bfefa839b2c8/CriticalPhysicalParams.lean": "426526dca7bb4f7885070ac1c72ebc7b3bfa09ce3415d2a6dda6bfefa839b2c8",
+    "audit/upstream_repository/archive/long_proof/Lean/blobs/dd/dd24ed3aac5cd7199ac61798cf99acd7c03ea0adda4dbe1cd712f5a745890804/CriticalIndependentReview.lean": "dd24ed3aac5cd7199ac61798cf99acd7c03ea0adda4dbe1cd712f5a745890804",
+    "lean/NoFourMUBs/Reuse/Archive/CriticalRationalParam.lean": "1e99f0b3e8ffa5ad18f5d65ec08dfa6cb88d858994da7719ce58a86de67fef32"
+  },
+  "comparisons": [
+    {
+      "existing": "NonzeroScalar.candidates_of_signed_quartic_zero",
+      "hypotheses": "Signed nonzero k, Allowed absolute-parameter domain, quartic zero",
+      "conclusion": "Three scalar candidates",
+      "decision": "Call directly; no repeated interval or sign proof."
+    },
+    {
+      "existing": "Equicorrelation.strip_scalar_impossible and P7.strip_p7_impossible",
+      "hypotheses": "Actual all-critical matrix, any one of twenty corners, stated scalar candidate",
+      "conclusion": "False",
+      "decision": "Call directly; no repeated physical endpoint proof."
+    },
+    {
+      "existing": "actual_block_allowed_abs, p_abs and parameter definitions",
+      "hypotheses": "Actual p,J,W parameter data",
+      "conclusion": "Necessary physical interval and even p parameter",
+      "decision": "Reuse domain theorem and p_abs; only absolute-J arithmetic conversion is needed."
+    },
+    {
+      "existing": "CriticalStripObstruction.no_classified_strip and CriticalIndependentReview.expected_strip_endpoint",
+      "hypotheses": "Universal corner classification at one positive cubic root, sum rule",
+      "conclusion": "Contradiction",
+      "decision": "Already adapted in CriticalStripMatrix. These do not supply the local nonzero-J corner classification; do not duplicate counting."
+    },
+    {
+      "existing": "CriticalPhysicalParams and P7CornerTransport",
+      "hypotheses": "All-critical physical matrix / a specific phase-normalized P7 corner",
+      "conclusion": "Rational parameterization / endpoint contradiction",
+      "decision": "No quartic-to-surviving-cubic-candidate consumer. Reuse their actual models."
+    },
+    {
+      "existing": "CriticalRationalParam20261003.nonzero_critical_parameterization with CriticalPhysical20261003.allCritical_strip_scalar_premises",
+      "hypotheses": "Nonnegative p, actual physical bound, nonzero J, both complementary critical equations",
+      "conclusion": "Signed nonzero k and the exact p,J,W parameter formulas",
+      "decision": "Use directly in the final pole endpoint to discharge its scalar-parameter premises. Do not reprove parameterization or add a parallel signed-parameter theorem."
+    }
+  ],
+  "new_adapters_planned": [
+    "Completed the one shared consumer of scalar classification and existing E0/P7 exclusions.",
+    "Completed the actual nonzero-J pole endpoint with the existing parameterization."
+  ],
+  "regular_case_quartic_still_open": true,
+  "atlas_certification": false,
+  "limits": "Available current, archive and OAI work only.",
+  "audit": "KERNEL_AUDIT_CRITICAL_NONZERO_SCALAR_ENDPOINT_STATUS.json",
+  "parameter_premises_discharged": true,
+  "full_pole_branch_receipt": "CRITICAL_NONZERO_POLE_PASS.json"
+}

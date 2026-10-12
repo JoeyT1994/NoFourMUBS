@@ -1,0 +1,15 @@
+{
+  "status": "REVIEWED_NECESSARY_COEFFICIENT_FORMAT_ADAPTERS",
+  "checked_utc": "2026-10-11T10:22:34.796691+00:00",
+  "search": "NONZERO_SUM_PRIMITIVE_REUSE_FILES.txt",
+  "scope": "Interpret the alreadychecked numerator functions in the existing dense coefficient checker.",
+  "finding": "Current three large numerator tables already use exactly the required dense representation; reference those six arrays directly. Other named matches are prior P2M4 factor/intermediate evaluations, the new symbolic sum expressions, or zero-J-specific formulas. They do not bind the remaining nonzero-J numerator functions to this dense format.",
+  "reuse": "Reuse all10basefactor evaluations fromP2M4, the three existing large data modules and the generic DenseCoefficients interpreter. Convert only the30smaller numerator polynomials from their existing pinned candidate data, and prove scalar equality to their existing Lean definitions. No new moment or raw numerator is discovered.",
+  "source_pins": {
+    "lean/NoFourMUBs/Step2/CriticalZero/ClearedMoments/PolynomialChecks/P2M4.lean": "192fc5041567973d60a3711e5fb62e94950eedf53c3f91aa42f80b3b55981389",
+    "lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Base.lean": "e86cd4317ff46a9f6b767a09f9dbe5f6357b68f87abac8f6992954d55cb292f9",
+    "audit/CRITICAL_NONZERO_PAIRED_COEFFICIENT_CANDIDATES.json": "92802906a24c1ea9e26f0f707a5ff860d67616d1c6c193bdc0363765b856a799",
+    "lean/NoFourMUBs/Reuse/Archive/CriticalZeroSumDenseCoefficients.lean": "b9bfcd6c882329da43a6d318ac481580385621442600a6bb102e0ad1298af29c"
+  },
+  "atlas_certification": false
+}

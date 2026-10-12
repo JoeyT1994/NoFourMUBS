@@ -1,0 +1,13 @@
+import NoFourMUBs.Step2.Reconstruction.ThirdMoment.MatchedParameter
+
+#check NoFourMUBs.Step2.Reconstruction.ThirdMoment.matched_intrinsic_parameters
+#print axioms StrictReconstruction20261007.SideIntrinsic.permanent3_transpose
+#print axioms StrictReconstruction20261007.SideIntrinsic.dephased_transpose_intrinsic_bindings
+#print axioms StrictReconstruction20261007.SideIntrinsic.dephased_transpose_scalar_triple
+#print axioms StrictReconstruction20261007.SideIntrinsic.gram_triple_of_intrinsic_scalars
+#print axioms StrictReconstruction20261007.SideIntrinsic.gramInvariant_all_neg
+#print axioms StrictReconstruction20261007.SideIntrinsic.dephased_negative_gramInvariant_transpose
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.intrinsicTheta_signature
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.candidate_signature_parameter
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.transposedSeed_scalar_pair
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.matched_intrinsic_parameters

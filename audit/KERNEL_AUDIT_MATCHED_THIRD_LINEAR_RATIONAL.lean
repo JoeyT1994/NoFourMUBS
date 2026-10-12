@@ -1,0 +1,6 @@
+import NoFourMUBs.Step2.Reconstruction.ThirdMoment.Certificates.LinearRational
+
+#check NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.savedW11Linear_strict_zero
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.quotient_of_cofactor
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.savedW11Linear_zero
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.savedW11Linear_strict_zero

@@ -1,0 +1,1353 @@
+{
+  "status": "READ_ONLY_DEPENDENCY_REVIEW",
+  "roots": [
+    "CriticalZeroSumNumeratorCertificatePilot",
+    "CriticalZeroSumDenominatorExact",
+    "CriticalZeroSumExprRawBindings",
+    "CriticalZeroSumExprCommonBindings00",
+    "CriticalZeroSumExprCommonBindings01",
+    "CriticalZeroSumExprCommonBindings02",
+    "CriticalZeroSumExprCommonBindings03",
+    "CriticalZeroSumExprCommonBindings04",
+    "CriticalZeroSumExprCommonBindings05",
+    "CriticalZeroModuli",
+    "CriticalZeroSumNumeratorGroupPilot",
+    "CriticalZeroSumPair00Exact",
+    "CriticalZeroSumTrip00Exact",
+    "CriticalZeroSumEval00",
+    "CriticalZeroSumDenseCommonBindings00",
+    "CriticalZeroSumDenseCommonBindings01",
+    "CriticalZeroSumNumeratorGroupData01",
+    "CriticalZeroSumDenseCommonBindings02",
+    "CriticalZeroSumDenseCommonBindings03",
+    "CriticalZeroSumDenseCommonBindings04",
+    "CriticalZeroSumDenseCommonBindings05",
+    "CriticalZeroSumNumeratorGroupData02",
+    "CriticalZeroSumNumeratorGroupData03",
+    "CriticalZeroSumNumeratorGroupData04",
+    "CriticalZeroSumNumeratorGroupData05",
+    "CriticalZeroSumNumeratorGroupData06",
+    "CriticalZeroSumNumeratorGroupData07",
+    "CriticalZeroSumNumeratorGroupData08",
+    "CriticalZeroSumNumeratorGroupData09",
+    "CriticalZeroSumNumeratorGroupData10"
+  ],
+  "selected": {
+    "CriticalZeroSumNumeratorCertificatePilot": {
+      "availability": "resident",
+      "blob": "blobs/af/af7fc0f5b554598157bfcf45ba01c9787f28403ef48cd7c760adb4191267f978/CriticalZeroSumNumeratorCertificatePilot.lean",
+      "bytes": 523,
+      "sha256": "af7fc0f5b554598157bfcf45ba01c9787f28403ef48cd7c760adb4191267f978",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumNumeratorCertificatePilot.lean",
+      "imports": [
+        "CriticalZeroSumExprCommonData"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/af/af7fc0f5b554598157bfcf45ba01c9787f28403ef48cd7c760adb4191267f978/CriticalZeroSumNumeratorCertificatePilot.lean"
+    },
+    "CriticalZeroSumExprCommonData": {
+      "availability": "resident",
+      "blob": "blobs/d2/d2725374e1f94becb6e681d0a61b4668f0bdd2268f80d368ddd58712186e4d00/CriticalZeroSumExprCommonData.lean",
+      "bytes": 47981,
+      "sha256": "d2725374e1f94becb6e681d0a61b4668f0bdd2268f80d368ddd58712186e4d00",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumExprCommonData.lean",
+      "imports": [
+        "CriticalZeroSumExprPrimitiveData",
+        "CriticalZeroHornerBindingPilot",
+        "CriticalZeroHornerInputs00",
+        "CriticalZeroHornerInputs01",
+        "CriticalZeroHornerInputs02",
+        "CriticalZeroHornerInputs03",
+        "CriticalZeroHornerInputs04"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/d2/d2725374e1f94becb6e681d0a61b4668f0bdd2268f80d368ddd58712186e4d00/CriticalZeroSumExprCommonData.lean"
+    },
+    "CriticalZeroSumExprPrimitiveData": {
+      "availability": "resident",
+      "blob": "blobs/c8/c81a694054697c5de68c3788d596741cb601edbf5f118a82b615479724023f8e/CriticalZeroSumExprPrimitiveData.lean",
+      "bytes": 77693,
+      "sha256": "c81a694054697c5de68c3788d596741cb601edbf5f118a82b615479724023f8e",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumExprPrimitiveData.lean",
+      "imports": [
+        "CriticalZeroSumExprCoefficients"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/c8/c81a694054697c5de68c3788d596741cb601edbf5f118a82b615479724023f8e/CriticalZeroSumExprPrimitiveData.lean"
+    },
+    "CriticalZeroSumExprCoefficients": {
+      "availability": "resident",
+      "blob": "blobs/b8/b8cbdd33154678e62ed64bff0ade273692b870b232e80a88f3311677da669099/CriticalZeroSumExprCoefficients.lean",
+      "bytes": 4509,
+      "sha256": "b8cbdd33154678e62ed64bff0ade273692b870b232e80a88f3311677da669099",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumExprCoefficients.lean",
+      "imports": [
+        "CriticalZeroSumCoefficientOps",
+        "CriticalZeroHornerReflector"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/b8/b8cbdd33154678e62ed64bff0ade273692b870b232e80a88f3311677da669099/CriticalZeroSumExprCoefficients.lean"
+    },
+    "CriticalZeroSumCoefficientOps": {
+      "availability": "resident",
+      "blob": "blobs/bc/bc8e354e3e557c809288f7da1d147d1464c400ed3c6fc02b23b8e0aba5e3a338/CriticalZeroSumCoefficientOps.lean",
+      "bytes": 1384,
+      "sha256": "bc8e354e3e557c809288f7da1d147d1464c400ed3c6fc02b23b8e0aba5e3a338",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumCoefficientOps.lean",
+      "imports": [
+        "CriticalZeroCoefficientCore"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/bc/bc8e354e3e557c809288f7da1d147d1464c400ed3c6fc02b23b8e0aba5e3a338/CriticalZeroSumCoefficientOps.lean"
+    },
+    "CriticalZeroCoefficientCore": {
+      "availability": "resident",
+      "blob": "blobs/1c/1c1843e4e79156190d86574308ed29f3489d8b5588ff1bfdd3b1f8009bf6d2c3/CriticalZeroCoefficientCore.lean",
+      "bytes": 5752,
+      "sha256": "1c1843e4e79156190d86574308ed29f3489d8b5588ff1bfdd3b1f8009bf6d2c3",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_split_reduction/CriticalZeroCoefficientCore.lean",
+      "imports": [
+        "CriticalZeroSplitCore"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/1c/1c1843e4e79156190d86574308ed29f3489d8b5588ff1bfdd3b1f8009bf6d2c3/CriticalZeroCoefficientCore.lean"
+    },
+    "CriticalZeroSplitCore": {
+      "availability": "resident",
+      "blob": "blobs/d4/d48a087cd41c9408783f9726f80b2fe1a6da46feb3ab5bb3e2ec2903061db96c/CriticalZeroSplitCore.lean",
+      "bytes": 1808,
+      "sha256": "d48a087cd41c9408783f9726f80b2fe1a6da46feb3ab5bb3e2ec2903061db96c",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_split_reduction/CriticalZeroSplitCore.lean",
+      "imports": [
+        "Mathlib.Tactic.LinearCombination",
+        "Mathlib.Tactic.FieldSimp",
+        "Mathlib.Tactic.Ring"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/d4/d48a087cd41c9408783f9726f80b2fe1a6da46feb3ab5bb3e2ec2903061db96c/CriticalZeroSplitCore.lean"
+    },
+    "CriticalZeroHornerReflector": {
+      "availability": "resident",
+      "blob": "blobs/b1/b1011af7bb08ade9b3b7ad9f4e949640145668330f402c0a3e8732b03cd2e657/CriticalZeroHornerReflector.lean",
+      "bytes": 3001,
+      "sha256": "b1011af7bb08ade9b3b7ad9f4e949640145668330f402c0a3e8732b03cd2e657",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_split_reduction/CriticalZeroHornerReflector.lean",
+      "imports": [
+        "CriticalZeroIntegerReflector"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/b1/b1011af7bb08ade9b3b7ad9f4e949640145668330f402c0a3e8732b03cd2e657/CriticalZeroHornerReflector.lean"
+    },
+    "CriticalZeroIntegerReflector": {
+      "availability": "resident",
+      "blob": "blobs/cc/cc30c9e387b1055d9286e08cc5f4d1c65416dbc6023bb138831611382dd51163/CriticalZeroIntegerReflector.lean",
+      "bytes": 5707,
+      "sha256": "cc30c9e387b1055d9286e08cc5f4d1c65416dbc6023bb138831611382dd51163",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_split_reduction/CriticalZeroIntegerReflector.lean",
+      "imports": [
+        "CriticalZeroCoefficientCore"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/cc/cc30c9e387b1055d9286e08cc5f4d1c65416dbc6023bb138831611382dd51163/CriticalZeroIntegerReflector.lean"
+    },
+    "CriticalZeroHornerBindingPilot": {
+      "availability": "resident",
+      "blob": "blobs/fa/fa4d3eebc52b48819593467a65189c872fc1117042ab3c66945326d98e10af66/CriticalZeroHornerBindingPilot.lean",
+      "bytes": 3557,
+      "sha256": "fa4d3eebc52b48819593467a65189c872fc1117042ab3c66945326d98e10af66",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_split_reduction/CriticalZeroHornerBindingPilot.lean",
+      "imports": [
+        "CriticalZeroHornerPilot"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/fa/fa4d3eebc52b48819593467a65189c872fc1117042ab3c66945326d98e10af66/CriticalZeroHornerBindingPilot.lean"
+    },
+    "CriticalZeroHornerPilot": {
+      "availability": "resident",
+      "blob": "blobs/db/dbab42ce729d9d4c88b09a766d74b0acc6f218098aac71ba2a522fc5ce4801c3/CriticalZeroHornerPilot.lean",
+      "bytes": 59483,
+      "sha256": "dbab42ce729d9d4c88b09a766d74b0acc6f218098aac71ba2a522fc5ce4801c3",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_split_reduction/CriticalZeroHornerPilot.lean",
+      "imports": [
+        "CriticalZeroHornerReflector",
+        "CriticalZeroQuotientData"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/db/dbab42ce729d9d4c88b09a766d74b0acc6f218098aac71ba2a522fc5ce4801c3/CriticalZeroHornerPilot.lean"
+    },
+    "CriticalZeroQuotientData": {
+      "availability": "resident",
+      "blob": "blobs/8c/8c3c08775c563a21ea03d8426c9aab1a9fd8b7e68ef53f4ad9e26efca07b7ecb/CriticalZeroQuotientData.lean",
+      "bytes": 16092,
+      "sha256": "8c3c08775c563a21ea03d8426c9aab1a9fd8b7e68ef53f4ad9e26efca07b7ecb",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_split_reduction/CriticalZeroQuotientData.lean",
+      "imports": [
+        "CriticalZeroQuotientDataPart00",
+        "CriticalZeroQuotientDataPart01",
+        "CriticalZeroQuotientDataPart02",
+        "CriticalZeroQuotientDataPart03",
+        "CriticalZeroQuotientDataPart04",
+        "CriticalZeroQuotientDataPart05",
+        "CriticalZeroQuotientDataPart06",
+        "CriticalZeroQuotientDataPart07"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/8c/8c3c08775c563a21ea03d8426c9aab1a9fd8b7e68ef53f4ad9e26efca07b7ecb/CriticalZeroQuotientData.lean"
+    },
+    "CriticalZeroQuotientDataPart00": {
+      "availability": "resident",
+      "blob": "blobs/47/477a487c79e33037c5067f2574fa1d5e0b424050788198a55074ac4a1710f6c9/CriticalZeroQuotientDataPart00.lean",
+      "bytes": 72628,
+      "sha256": "477a487c79e33037c5067f2574fa1d5e0b424050788198a55074ac4a1710f6c9",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_split_reduction/CriticalZeroQuotientDataPart00.lean",
+      "imports": [
+        "CriticalZeroRawPolynomials"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/47/477a487c79e33037c5067f2574fa1d5e0b424050788198a55074ac4a1710f6c9/CriticalZeroQuotientDataPart00.lean"
+    },
+    "CriticalZeroRawPolynomials": {
+      "availability": "resident",
+      "blob": "blobs/04/04ca1ba0d49e682618c95746a5a2fb75d79f846b01af87ad61fb7627b87888bb/CriticalZeroRawPolynomials.lean",
+      "bytes": 160771,
+      "sha256": "04ca1ba0d49e682618c95746a5a2fb75d79f846b01af87ad61fb7627b87888bb",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_split_reduction/CriticalZeroRawPolynomials.lean",
+      "imports": [
+        "CriticalZeroCoefficientCore"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/04/04ca1ba0d49e682618c95746a5a2fb75d79f846b01af87ad61fb7627b87888bb/CriticalZeroRawPolynomials.lean"
+    },
+    "CriticalZeroQuotientDataPart01": {
+      "availability": "resident",
+      "blob": "blobs/08/0863f3fb860a3c4570931106ef27fe69dc03e7b53b064fc08dab6aaeceff0ac4/CriticalZeroQuotientDataPart01.lean",
+      "bytes": 75061,
+      "sha256": "0863f3fb860a3c4570931106ef27fe69dc03e7b53b064fc08dab6aaeceff0ac4",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_split_reduction/CriticalZeroQuotientDataPart01.lean",
+      "imports": [
+        "CriticalZeroRawPolynomials"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/08/0863f3fb860a3c4570931106ef27fe69dc03e7b53b064fc08dab6aaeceff0ac4/CriticalZeroQuotientDataPart01.lean"
+    },
+    "CriticalZeroQuotientDataPart02": {
+      "availability": "resident",
+      "blob": "blobs/a8/a89516bfe13235acfb09d1b294a7e6378e55401fcbe8952c709773e97474f850/CriticalZeroQuotientDataPart02.lean",
+      "bytes": 74030,
+      "sha256": "a89516bfe13235acfb09d1b294a7e6378e55401fcbe8952c709773e97474f850",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_split_reduction/CriticalZeroQuotientDataPart02.lean",
+      "imports": [
+        "CriticalZeroRawPolynomials"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/a8/a89516bfe13235acfb09d1b294a7e6378e55401fcbe8952c709773e97474f850/CriticalZeroQuotientDataPart02.lean"
+    },
+    "CriticalZeroQuotientDataPart03": {
+      "availability": "resident",
+      "blob": "blobs/bd/bd3dd80ee14ada1e57083e0e4f6b62a635bfccf9d32979d72c5862f0c0d9f17a/CriticalZeroQuotientDataPart03.lean",
+      "bytes": 74350,
+      "sha256": "bd3dd80ee14ada1e57083e0e4f6b62a635bfccf9d32979d72c5862f0c0d9f17a",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_split_reduction/CriticalZeroQuotientDataPart03.lean",
+      "imports": [
+        "CriticalZeroRawPolynomials"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/bd/bd3dd80ee14ada1e57083e0e4f6b62a635bfccf9d32979d72c5862f0c0d9f17a/CriticalZeroQuotientDataPart03.lean"
+    },
+    "CriticalZeroQuotientDataPart04": {
+      "availability": "resident",
+      "blob": "blobs/80/8097b16f1b1c003280a04ae298ecc82412d334837c705b9c2ab74359c39de297/CriticalZeroQuotientDataPart04.lean",
+      "bytes": 74027,
+      "sha256": "8097b16f1b1c003280a04ae298ecc82412d334837c705b9c2ab74359c39de297",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_split_reduction/CriticalZeroQuotientDataPart04.lean",
+      "imports": [
+        "CriticalZeroRawPolynomials"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/80/8097b16f1b1c003280a04ae298ecc82412d334837c705b9c2ab74359c39de297/CriticalZeroQuotientDataPart04.lean"
+    },
+    "CriticalZeroQuotientDataPart05": {
+      "availability": "resident",
+      "blob": "blobs/15/1565a2f914933145dbcdb72c5fe57352427f4cebff1d5203102f17af73148d6c/CriticalZeroQuotientDataPart05.lean",
+      "bytes": 75094,
+      "sha256": "1565a2f914933145dbcdb72c5fe57352427f4cebff1d5203102f17af73148d6c",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_split_reduction/CriticalZeroQuotientDataPart05.lean",
+      "imports": [
+        "CriticalZeroRawPolynomials"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/15/1565a2f914933145dbcdb72c5fe57352427f4cebff1d5203102f17af73148d6c/CriticalZeroQuotientDataPart05.lean"
+    },
+    "CriticalZeroQuotientDataPart06": {
+      "availability": "resident",
+      "blob": "blobs/75/7597785466f4b01cb3652725e52ebf32bc44601b8c3350fe08b5462f9ad49717/CriticalZeroQuotientDataPart06.lean",
+      "bytes": 74643,
+      "sha256": "7597785466f4b01cb3652725e52ebf32bc44601b8c3350fe08b5462f9ad49717",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_split_reduction/CriticalZeroQuotientDataPart06.lean",
+      "imports": [
+        "CriticalZeroRawPolynomials"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/75/7597785466f4b01cb3652725e52ebf32bc44601b8c3350fe08b5462f9ad49717/CriticalZeroQuotientDataPart06.lean"
+    },
+    "CriticalZeroQuotientDataPart07": {
+      "availability": "resident",
+      "blob": "blobs/29/295a5e0174d805a56f0945165d8443c231bf3f67fb89bae2ab5e7978143e0c2b/CriticalZeroQuotientDataPart07.lean",
+      "bytes": 23146,
+      "sha256": "295a5e0174d805a56f0945165d8443c231bf3f67fb89bae2ab5e7978143e0c2b",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_split_reduction/CriticalZeroQuotientDataPart07.lean",
+      "imports": [
+        "CriticalZeroRawPolynomials"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/29/295a5e0174d805a56f0945165d8443c231bf3f67fb89bae2ab5e7978143e0c2b/CriticalZeroQuotientDataPart07.lean"
+    },
+    "CriticalZeroHornerInputs00": {
+      "availability": "resident",
+      "blob": "blobs/f9/f9bb08f71468be525322bfa671d247891ef43962547a68da880a5207a139021e/CriticalZeroHornerInputs00.lean",
+      "bytes": 55175,
+      "sha256": "f9bb08f71468be525322bfa671d247891ef43962547a68da880a5207a139021e",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_split_reduction/CriticalZeroHornerInputs00.lean",
+      "imports": [
+        "CriticalZeroHornerBindingPilot"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/f9/f9bb08f71468be525322bfa671d247891ef43962547a68da880a5207a139021e/CriticalZeroHornerInputs00.lean"
+    },
+    "CriticalZeroHornerInputs01": {
+      "availability": "resident",
+      "blob": "blobs/a6/a6656b49ea30ab3c945b1d9d3d75636b7211c4a37c3bc9e573c7748eb629d446/CriticalZeroHornerInputs01.lean",
+      "bytes": 59400,
+      "sha256": "a6656b49ea30ab3c945b1d9d3d75636b7211c4a37c3bc9e573c7748eb629d446",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_split_reduction/CriticalZeroHornerInputs01.lean",
+      "imports": [
+        "CriticalZeroHornerBindingPilot"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/a6/a6656b49ea30ab3c945b1d9d3d75636b7211c4a37c3bc9e573c7748eb629d446/CriticalZeroHornerInputs01.lean"
+    },
+    "CriticalZeroHornerInputs02": {
+      "availability": "resident",
+      "blob": "blobs/a4/a472cf0c9971330b7b372863c76326942977088a2169082ebde1f567dd2846c0/CriticalZeroHornerInputs02.lean",
+      "bytes": 52584,
+      "sha256": "a472cf0c9971330b7b372863c76326942977088a2169082ebde1f567dd2846c0",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_split_reduction/CriticalZeroHornerInputs02.lean",
+      "imports": [
+        "CriticalZeroHornerBindingPilot"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/a4/a472cf0c9971330b7b372863c76326942977088a2169082ebde1f567dd2846c0/CriticalZeroHornerInputs02.lean"
+    },
+    "CriticalZeroHornerInputs03": {
+      "availability": "resident",
+      "blob": "blobs/83/832f2b5c9005d52662c1349b9d30d6f1f0787fae6cd0eabd5763ecf574fd2033/CriticalZeroHornerInputs03.lean",
+      "bytes": 55774,
+      "sha256": "832f2b5c9005d52662c1349b9d30d6f1f0787fae6cd0eabd5763ecf574fd2033",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_split_reduction/CriticalZeroHornerInputs03.lean",
+      "imports": [
+        "CriticalZeroHornerBindingPilot"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/83/832f2b5c9005d52662c1349b9d30d6f1f0787fae6cd0eabd5763ecf574fd2033/CriticalZeroHornerInputs03.lean"
+    },
+    "CriticalZeroHornerInputs04": {
+      "availability": "resident",
+      "blob": "blobs/83/83be62fef47527ed5a70c5a64734bad8b8ba17a90da4f9605fbe513c6f7ee20e/CriticalZeroHornerInputs04.lean",
+      "bytes": 60286,
+      "sha256": "83be62fef47527ed5a70c5a64734bad8b8ba17a90da4f9605fbe513c6f7ee20e",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_split_reduction/CriticalZeroHornerInputs04.lean",
+      "imports": [
+        "CriticalZeroHornerBindingPilot"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/83/83be62fef47527ed5a70c5a64734bad8b8ba17a90da4f9605fbe513c6f7ee20e/CriticalZeroHornerInputs04.lean"
+    },
+    "CriticalZeroSumDenominatorExact": {
+      "availability": "resident",
+      "blob": "blobs/7a/7ad6c66fd529b99210409e0c485e38dfc87ad80c3d03338e5857bf4d4a378870/CriticalZeroSumDenominatorExact.lean",
+      "bytes": 3735,
+      "sha256": "7ad6c66fd529b99210409e0c485e38dfc87ad80c3d03338e5857bf4d4a378870",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumDenominatorExact.lean",
+      "imports": [
+        "CriticalZeroSumDenominatorCertificates00",
+        "CriticalZeroSumDenominatorCertificates01",
+        "CriticalZeroSumDenominatorCertificates02",
+        "CriticalZeroSumExprLengths",
+        "CriticalZeroSumExprRawBindings",
+        "Lean.Elab.Tactic.Omega"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/7a/7ad6c66fd529b99210409e0c485e38dfc87ad80c3d03338e5857bf4d4a378870/CriticalZeroSumDenominatorExact.lean"
+    },
+    "CriticalZeroSumDenominatorCertificates00": {
+      "availability": "resident",
+      "blob": "blobs/24/240da9b9e4f65a3df4ca44ba6ba199640f0fb5eec7a41dff3e5523176bb88a6d/CriticalZeroSumDenominatorCertificates00.lean",
+      "bytes": 2432,
+      "sha256": "240da9b9e4f65a3df4ca44ba6ba199640f0fb5eec7a41dff3e5523176bb88a6d",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumDenominatorCertificates00.lean",
+      "imports": [
+        "CriticalZeroSumExprCommonData"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/24/240da9b9e4f65a3df4ca44ba6ba199640f0fb5eec7a41dff3e5523176bb88a6d/CriticalZeroSumDenominatorCertificates00.lean"
+    },
+    "CriticalZeroSumDenominatorCertificates01": {
+      "availability": "resident",
+      "blob": "blobs/d5/d58cc076288f60eb4914b05d6abf236d64de7c15bda9958afb4872b1116cf38f/CriticalZeroSumDenominatorCertificates01.lean",
+      "bytes": 2442,
+      "sha256": "d58cc076288f60eb4914b05d6abf236d64de7c15bda9958afb4872b1116cf38f",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumDenominatorCertificates01.lean",
+      "imports": [
+        "CriticalZeroSumExprCommonData"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/d5/d58cc076288f60eb4914b05d6abf236d64de7c15bda9958afb4872b1116cf38f/CriticalZeroSumDenominatorCertificates01.lean"
+    },
+    "CriticalZeroSumDenominatorCertificates02": {
+      "availability": "resident",
+      "blob": "blobs/5e/5e90ca1b1b2f23bc9ff5751e4cd2d3473519ab917057136d5f05680be9645f01/CriticalZeroSumDenominatorCertificates02.lean",
+      "bytes": 2294,
+      "sha256": "5e90ca1b1b2f23bc9ff5751e4cd2d3473519ab917057136d5f05680be9645f01",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumDenominatorCertificates02.lean",
+      "imports": [
+        "CriticalZeroSumExprCommonData",
+        "CriticalZeroSumDenominatorCertificatePilot"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/5e/5e90ca1b1b2f23bc9ff5751e4cd2d3473519ab917057136d5f05680be9645f01/CriticalZeroSumDenominatorCertificates02.lean"
+    },
+    "CriticalZeroSumDenominatorCertificatePilot": {
+      "availability": "resident",
+      "blob": "blobs/92/92dc8792a2fc8b1f80fec52b6185a4263e62fde0c5beb19c9c874786dd4bad4f/CriticalZeroSumDenominatorCertificatePilot.lean",
+      "bytes": 527,
+      "sha256": "92dc8792a2fc8b1f80fec52b6185a4263e62fde0c5beb19c9c874786dd4bad4f",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumDenominatorCertificatePilot.lean",
+      "imports": [
+        "CriticalZeroSumExprCommonData"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/92/92dc8792a2fc8b1f80fec52b6185a4263e62fde0c5beb19c9c874786dd4bad4f/CriticalZeroSumDenominatorCertificatePilot.lean"
+    },
+    "CriticalZeroSumExprLengths": {
+      "availability": "resident",
+      "blob": "blobs/d0/d0e029291b0e8716e0eae5d57a35c4b74e62769c89c425f067a50173faf567f0/CriticalZeroSumExprLengths.lean",
+      "bytes": 431,
+      "sha256": "d0e029291b0e8716e0eae5d57a35c4b74e62769c89c425f067a50173faf567f0",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumExprLengths.lean",
+      "imports": [
+        "CriticalZeroSumExprCommonData"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/d0/d0e029291b0e8716e0eae5d57a35c4b74e62769c89c425f067a50173faf567f0/CriticalZeroSumExprLengths.lean"
+    },
+    "CriticalZeroSumExprRawBindings": {
+      "availability": "resident",
+      "blob": "blobs/16/16c4a3a383c025ea7bb1ac1df67014dd0f4ec3aec65a66ff5f7ecc8660c53f85/CriticalZeroSumExprRawBindings.lean",
+      "bytes": 3292,
+      "sha256": "16c4a3a383c025ea7bb1ac1df67014dd0f4ec3aec65a66ff5f7ecc8660c53f85",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumExprRawBindings.lean",
+      "imports": [
+        "CriticalZeroSumExprCommonData",
+        "CriticalZeroSumDenominatorData"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/16/16c4a3a383c025ea7bb1ac1df67014dd0f4ec3aec65a66ff5f7ecc8660c53f85/CriticalZeroSumExprRawBindings.lean"
+    },
+    "CriticalZeroSumDenominatorData": {
+      "availability": "resident",
+      "blob": "blobs/2d/2d641671938b2bfebd5b87a63c7aea52d7ac5da0d67cb5b8f9261d354405d562/CriticalZeroSumDenominatorData.lean",
+      "bytes": 2016,
+      "sha256": "2d641671938b2bfebd5b87a63c7aea52d7ac5da0d67cb5b8f9261d354405d562",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumDenominatorData.lean",
+      "imports": [
+        "CriticalZeroSumPrimitiveData",
+        "CriticalZeroRawPolynomials"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/2d/2d641671938b2bfebd5b87a63c7aea52d7ac5da0d67cb5b8f9261d354405d562/CriticalZeroSumDenominatorData.lean"
+    },
+    "CriticalZeroSumPrimitiveData": {
+      "availability": "resident",
+      "blob": "blobs/8d/8debe5692b2303cbc805da949c7a1c994f961c397cde676e2e3d3c65574f19fc/CriticalZeroSumPrimitiveData.lean",
+      "bytes": 52834,
+      "sha256": "8debe5692b2303cbc805da949c7a1c994f961c397cde676e2e3d3c65574f19fc",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumPrimitiveData.lean",
+      "imports": [
+        "CriticalZeroSumCoefficientOps"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/8d/8debe5692b2303cbc805da949c7a1c994f961c397cde676e2e3d3c65574f19fc/CriticalZeroSumPrimitiveData.lean"
+    },
+    "CriticalZeroSumExprCommonBindings00": {
+      "availability": "resident",
+      "blob": "blobs/fb/fb103a36e08341a8e147c0d894fe286d6de5b4f947bf8946bc58cbe9fdb6ba41/CriticalZeroSumExprCommonBindings00.lean",
+      "bytes": 7493,
+      "sha256": "fb103a36e08341a8e147c0d894fe286d6de5b4f947bf8946bc58cbe9fdb6ba41",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumExprCommonBindings00.lean",
+      "imports": [
+        "CriticalZeroSumExprCommonData",
+        "CriticalZeroSumCommonData",
+        "CriticalZeroSumExprPrimitiveBindings01",
+        "CriticalZeroSumExprPrimitiveBindings02",
+        "CriticalZeroSumExprPrimitiveBindings03",
+        "CriticalZeroSumExprPrimitiveBindings04",
+        "CriticalZeroSumExprPrimitiveBindings05"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/fb/fb103a36e08341a8e147c0d894fe286d6de5b4f947bf8946bc58cbe9fdb6ba41/CriticalZeroSumExprCommonBindings00.lean"
+    },
+    "CriticalZeroSumCommonData": {
+      "availability": "resident",
+      "blob": "blobs/5f/5f502f4cb06f3a76d4dabf11cb446d21f871a5b12f97efcf1f06aea88cec2ee9/CriticalZeroSumCommonData.lean",
+      "bytes": 53060,
+      "sha256": "5f502f4cb06f3a76d4dabf11cb446d21f871a5b12f97efcf1f06aea88cec2ee9",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumCommonData.lean",
+      "imports": [
+        "CriticalZeroSumPrimitiveData"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/5f/5f502f4cb06f3a76d4dabf11cb446d21f871a5b12f97efcf1f06aea88cec2ee9/CriticalZeroSumCommonData.lean"
+    },
+    "CriticalZeroSumExprPrimitiveBindings01": {
+      "availability": "resident",
+      "blob": "blobs/c4/c46a5ebccc5733c07420c67ba02678845a933710500bb334d1c5fffb2f19c981/CriticalZeroSumExprPrimitiveBindings01.lean",
+      "bytes": 15477,
+      "sha256": "c46a5ebccc5733c07420c67ba02678845a933710500bb334d1c5fffb2f19c981",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumExprPrimitiveBindings01.lean",
+      "imports": [
+        "CriticalZeroSumExprPrimitiveData",
+        "CriticalZeroSumPrimitiveData"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/c4/c46a5ebccc5733c07420c67ba02678845a933710500bb334d1c5fffb2f19c981/CriticalZeroSumExprPrimitiveBindings01.lean"
+    },
+    "CriticalZeroSumExprPrimitiveBindings02": {
+      "availability": "resident",
+      "blob": "blobs/87/87c21a6413e88d62463e7f1289a16a789ef5dbdd04feedf83f498e5f70e46cd5/CriticalZeroSumExprPrimitiveBindings02.lean",
+      "bytes": 16267,
+      "sha256": "87c21a6413e88d62463e7f1289a16a789ef5dbdd04feedf83f498e5f70e46cd5",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumExprPrimitiveBindings02.lean",
+      "imports": [
+        "CriticalZeroSumExprPrimitiveData",
+        "CriticalZeroSumPrimitiveData"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/87/87c21a6413e88d62463e7f1289a16a789ef5dbdd04feedf83f498e5f70e46cd5/CriticalZeroSumExprPrimitiveBindings02.lean"
+    },
+    "CriticalZeroSumExprPrimitiveBindings03": {
+      "availability": "resident",
+      "blob": "blobs/c8/c810bebeea10f26c51490ae60021ef54ce13fa3d50ab60af23316c90f1ebeca9/CriticalZeroSumExprPrimitiveBindings03.lean",
+      "bytes": 10737,
+      "sha256": "c810bebeea10f26c51490ae60021ef54ce13fa3d50ab60af23316c90f1ebeca9",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumExprPrimitiveBindings03.lean",
+      "imports": [
+        "CriticalZeroSumExprPrimitiveData",
+        "CriticalZeroSumPrimitiveData"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/c8/c810bebeea10f26c51490ae60021ef54ce13fa3d50ab60af23316c90f1ebeca9/CriticalZeroSumExprPrimitiveBindings03.lean"
+    },
+    "CriticalZeroSumExprPrimitiveBindings04": {
+      "availability": "resident",
+      "blob": "blobs/3b/3bc42136c59764adfad0abcee4f7d8d2740cd32998296ded1f061f93104db607/CriticalZeroSumExprPrimitiveBindings04.lean",
+      "bytes": 16267,
+      "sha256": "3bc42136c59764adfad0abcee4f7d8d2740cd32998296ded1f061f93104db607",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumExprPrimitiveBindings04.lean",
+      "imports": [
+        "CriticalZeroSumExprPrimitiveData",
+        "CriticalZeroSumPrimitiveData"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/3b/3bc42136c59764adfad0abcee4f7d8d2740cd32998296ded1f061f93104db607/CriticalZeroSumExprPrimitiveBindings04.lean"
+    },
+    "CriticalZeroSumExprPrimitiveBindings05": {
+      "availability": "resident",
+      "blob": "blobs/fd/fd9634bd195a37309a63e9dda7b63f5db3ae8e957db614a1a3f62cca0ef69928/CriticalZeroSumExprPrimitiveBindings05.lean",
+      "bytes": 18637,
+      "sha256": "fd9634bd195a37309a63e9dda7b63f5db3ae8e957db614a1a3f62cca0ef69928",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumExprPrimitiveBindings05.lean",
+      "imports": [
+        "CriticalZeroSumExprPrimitiveData",
+        "CriticalZeroSumPrimitiveData"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/fd/fd9634bd195a37309a63e9dda7b63f5db3ae8e957db614a1a3f62cca0ef69928/CriticalZeroSumExprPrimitiveBindings05.lean"
+    },
+    "CriticalZeroSumExprCommonBindings01": {
+      "availability": "resident",
+      "blob": "blobs/46/46bac8362981680a9b62354bf46d829458a8a8d28f410eb03bdc46521bf69f88/CriticalZeroSumExprCommonBindings01.lean",
+      "bytes": 7573,
+      "sha256": "46bac8362981680a9b62354bf46d829458a8a8d28f410eb03bdc46521bf69f88",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumExprCommonBindings01.lean",
+      "imports": [
+        "CriticalZeroSumExprCommonData",
+        "CriticalZeroSumCommonData",
+        "CriticalZeroSumExprPrimitiveBindings02",
+        "CriticalZeroSumExprPrimitiveBindings03",
+        "CriticalZeroSumExprPrimitiveBindings04",
+        "CriticalZeroSumExprPrimitiveBindings05"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/46/46bac8362981680a9b62354bf46d829458a8a8d28f410eb03bdc46521bf69f88/CriticalZeroSumExprCommonBindings01.lean"
+    },
+    "CriticalZeroSumExprCommonBindings02": {
+      "availability": "resident",
+      "blob": "blobs/8b/8b88900d0b774b5000e74d370de2a25b5f82eff6286d92e7e33287a526fe0893/CriticalZeroSumExprCommonBindings02.lean",
+      "bytes": 7623,
+      "sha256": "8b88900d0b774b5000e74d370de2a25b5f82eff6286d92e7e33287a526fe0893",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumExprCommonBindings02.lean",
+      "imports": [
+        "CriticalZeroSumExprCommonData",
+        "CriticalZeroSumCommonData",
+        "CriticalZeroSumExprPrimitiveBindings00",
+        "CriticalZeroSumExprPrimitiveBindings01",
+        "CriticalZeroSumExprPrimitiveBindings02",
+        "CriticalZeroSumExprPrimitiveBindings03",
+        "CriticalZeroSumExprPrimitiveBindings04",
+        "CriticalZeroSumExprPrimitiveBindings05"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/8b/8b88900d0b774b5000e74d370de2a25b5f82eff6286d92e7e33287a526fe0893/CriticalZeroSumExprCommonBindings02.lean"
+    },
+    "CriticalZeroSumExprPrimitiveBindings00": {
+      "availability": "resident",
+      "blob": "blobs/c8/c8cb12700142313478044b0c13cb1bd81f7f84fab479089c6d10d2117a2b5624/CriticalZeroSumExprPrimitiveBindings00.lean",
+      "bytes": 13897,
+      "sha256": "c8cb12700142313478044b0c13cb1bd81f7f84fab479089c6d10d2117a2b5624",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumExprPrimitiveBindings00.lean",
+      "imports": [
+        "CriticalZeroSumExprPrimitiveData",
+        "CriticalZeroSumPrimitiveData"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/c8/c8cb12700142313478044b0c13cb1bd81f7f84fab479089c6d10d2117a2b5624/CriticalZeroSumExprPrimitiveBindings00.lean"
+    },
+    "CriticalZeroSumExprCommonBindings03": {
+      "availability": "resident",
+      "blob": "blobs/0e/0ebde9f6093fbbd39fec8e7d5876d6effba146e9f8e2bf4d694e3e577cf6dd18/CriticalZeroSumExprCommonBindings03.lean",
+      "bytes": 7623,
+      "sha256": "0ebde9f6093fbbd39fec8e7d5876d6effba146e9f8e2bf4d694e3e577cf6dd18",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumExprCommonBindings03.lean",
+      "imports": [
+        "CriticalZeroSumExprCommonData",
+        "CriticalZeroSumCommonData",
+        "CriticalZeroSumExprPrimitiveBindings00",
+        "CriticalZeroSumExprPrimitiveBindings01",
+        "CriticalZeroSumExprPrimitiveBindings02",
+        "CriticalZeroSumExprPrimitiveBindings03",
+        "CriticalZeroSumExprPrimitiveBindings04",
+        "CriticalZeroSumExprPrimitiveBindings05"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/0e/0ebde9f6093fbbd39fec8e7d5876d6effba146e9f8e2bf4d694e3e577cf6dd18/CriticalZeroSumExprCommonBindings03.lean"
+    },
+    "CriticalZeroSumExprCommonBindings04": {
+      "availability": "resident",
+      "blob": "blobs/9e/9e31112fa3d9d61bbb11d7cce600cb26a0c60c568adb307903ef85f64b4b5fff/CriticalZeroSumExprCommonBindings04.lean",
+      "bytes": 7623,
+      "sha256": "9e31112fa3d9d61bbb11d7cce600cb26a0c60c568adb307903ef85f64b4b5fff",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumExprCommonBindings04.lean",
+      "imports": [
+        "CriticalZeroSumExprCommonData",
+        "CriticalZeroSumCommonData",
+        "CriticalZeroSumExprPrimitiveBindings00",
+        "CriticalZeroSumExprPrimitiveBindings01",
+        "CriticalZeroSumExprPrimitiveBindings02",
+        "CriticalZeroSumExprPrimitiveBindings03",
+        "CriticalZeroSumExprPrimitiveBindings04",
+        "CriticalZeroSumExprPrimitiveBindings05"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/9e/9e31112fa3d9d61bbb11d7cce600cb26a0c60c568adb307903ef85f64b4b5fff/CriticalZeroSumExprCommonBindings04.lean"
+    },
+    "CriticalZeroSumExprCommonBindings05": {
+      "availability": "resident",
+      "blob": "blobs/c8/c87dbd0de842da0f4798c5b2c484dc11a568ea845c42faedfd1aaa8612263c9f/CriticalZeroSumExprCommonBindings05.lean",
+      "bytes": 7367,
+      "sha256": "c87dbd0de842da0f4798c5b2c484dc11a568ea845c42faedfd1aaa8612263c9f",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumExprCommonBindings05.lean",
+      "imports": [
+        "CriticalZeroSumExprCommonData",
+        "CriticalZeroSumCommonData",
+        "CriticalZeroSumExprPrimitiveBindings00",
+        "CriticalZeroSumExprPrimitiveBindings02",
+        "CriticalZeroSumExprPrimitiveBindings03",
+        "CriticalZeroSumExprPrimitiveBindings04",
+        "CriticalZeroSumExprPrimitiveBindings05"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/c8/c87dbd0de842da0f4798c5b2c484dc11a568ea845c42faedfd1aaa8612263c9f/CriticalZeroSumExprCommonBindings05.lean"
+    },
+    "CriticalScalarReduction": {
+      "availability": "resident",
+      "blob": "blobs/f4/f4675794d588286a9e68a36e0aecdb63ff309c05fd64b3da99044b310080b720/CriticalScalarReduction.lean",
+      "bytes": 3416,
+      "sha256": "f4675794d588286a9e68a36e0aecdb63ff309c05fd64b3da99044b310080b720",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/CriticalScalarReduction.lean",
+      "imports": [
+        "RadianSeedBounds"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/f4/f4675794d588286a9e68a36e0aecdb63ff309c05fd64b3da99044b310080b720/CriticalScalarReduction.lean",
+      "import_replacements": {
+        "RadianSeedBounds": "Mathlib.Tactic"
+      }
+    },
+    "CriticalZeroReduction": {
+      "availability": "resident",
+      "blob": "blobs/fc/fc5f7495f37ff3cd52f988b989bc753d570f34d60c33023ab41f9967871a5851/CriticalZeroReduction.lean",
+      "bytes": 1540,
+      "sha256": "fc5f7495f37ff3cd52f988b989bc753d570f34d60c33023ab41f9967871a5851",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/CriticalZeroReduction.lean",
+      "imports": [
+        "CriticalScalarReduction",
+        "Mathlib.Analysis.Real.Sqrt"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/fc/fc5f7495f37ff3cd52f988b989bc753d570f34d60c33023ab41f9967871a5851/CriticalZeroReduction.lean"
+    },
+    "CriticalZeroParam": {
+      "availability": "resident",
+      "blob": "blobs/6e/6ed10a9a2ab25b91b1a5c156620f254e114ff70e9bfcc0264bab67cf0c0e634c/CriticalZeroParam.lean",
+      "bytes": 2102,
+      "sha256": "6ed10a9a2ab25b91b1a5c156620f254e114ff70e9bfcc0264bab67cf0c0e634c",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/CriticalZeroParam.lean",
+      "imports": [
+        "CriticalZeroReduction"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/6e/6ed10a9a2ab25b91b1a5c156620f254e114ff70e9bfcc0264bab67cf0c0e634c/CriticalZeroParam.lean"
+    },
+    "CriticalZeroPoles": {
+      "availability": "resident",
+      "blob": "blobs/0a/0ae283ab37656f29d4105c84f0b7dceea470cc648f96cb509ee10ede14e51475/CriticalZeroPoles.lean",
+      "bytes": 5150,
+      "sha256": "0ae283ab37656f29d4105c84f0b7dceea470cc648f96cb509ee10ede14e51475",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/CriticalZeroPoles.lean",
+      "imports": [
+        "CriticalZeroParam"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/0a/0ae283ab37656f29d4105c84f0b7dceea470cc648f96cb509ee10ede14e51475/CriticalZeroPoles.lean"
+    },
+    "CriticalZeroModuli": {
+      "availability": "resident",
+      "blob": "blobs/25/255c7d8d4ec1f9c6d1dacc8eb07215bfd2cbb9304917b42b71688ce4ad98bfc9/CriticalZeroModuli.lean",
+      "bytes": 3867,
+      "sha256": "255c7d8d4ec1f9c6d1dacc8eb07215bfd2cbb9304917b42b71688ce4ad98bfc9",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/CriticalZeroModuli.lean",
+      "imports": [
+        "CriticalZeroPoles"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/25/255c7d8d4ec1f9c6d1dacc8eb07215bfd2cbb9304917b42b71688ce4ad98bfc9/CriticalZeroModuli.lean"
+    },
+    "CriticalZeroSumNumeratorGroupData00": {
+      "availability": "resident",
+      "blob": "blobs/26/26e552d5dfbf6dd38f14f431bc6e12992d56abb79e14784ce87e14b1eeea4902/CriticalZeroSumNumeratorGroupData00.lean",
+      "bytes": 228848,
+      "sha256": "26e552d5dfbf6dd38f14f431bc6e12992d56abb79e14784ce87e14b1eeea4902",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumNumeratorGroupData00.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/26/26e552d5dfbf6dd38f14f431bc6e12992d56abb79e14784ce87e14b1eeea4902/CriticalZeroSumNumeratorGroupData00.lean",
+      "imports": [
+        "CriticalZeroSumExprCommonData"
+      ]
+    },
+    "CriticalZeroSumNumeratorGroupPilot": {
+      "availability": "resident",
+      "blob": "blobs/11/118d23fc27926d14afa6333dd26d22b4ee4e181791bbdbf83f2eb0df85f2ba01/CriticalZeroSumNumeratorGroupPilot.lean",
+      "bytes": 485,
+      "sha256": "118d23fc27926d14afa6333dd26d22b4ee4e181791bbdbf83f2eb0df85f2ba01",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumNumeratorGroupPilot.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/11/118d23fc27926d14afa6333dd26d22b4ee4e181791bbdbf83f2eb0df85f2ba01/CriticalZeroSumNumeratorGroupPilot.lean",
+      "imports": [
+        "CriticalZeroSumNumeratorGroupData00"
+      ]
+    },
+    "CriticalZeroSumPair00Exact": {
+      "availability": "resident",
+      "blob": "blobs/09/097c8711cd08a300a3ef6f7896fc90213471502df4f6a718e4a58c5bd058d589/CriticalZeroSumPair00Exact.lean",
+      "bytes": 3007,
+      "sha256": "097c8711cd08a300a3ef6f7896fc90213471502df4f6a718e4a58c5bd058d589",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumPair00Exact.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/09/097c8711cd08a300a3ef6f7896fc90213471502df4f6a718e4a58c5bd058d589/CriticalZeroSumPair00Exact.lean",
+      "imports": [
+        "CriticalZeroSumPair00Certificates00",
+        "CriticalZeroSumPair00Certificates01",
+        "CriticalZeroSumPair00Certificates02",
+        "CriticalZeroSumPair00Certificates03",
+        "CriticalZeroSumPair00Certificates04",
+        "CriticalZeroSumPair00Certificates05",
+        "CriticalZeroSumExprPrimitiveBindings00",
+        "CriticalZeroSumExprPrimitiveBindings01",
+        "CriticalZeroSumExprPrimitiveBindings02",
+        "CriticalZeroSumExprPrimitiveBindings03",
+        "CriticalZeroSumExprPrimitiveBindings04",
+        "CriticalZeroSumExprPrimitiveBindings05",
+        "Lean.Elab.Tactic.Omega"
+      ]
+    },
+    "CriticalZeroSumPair00Certificates00": {
+      "availability": "resident",
+      "blob": "blobs/63/6388ec3686a415eca73ffc3aadad98de11e892ea867379f19826a5a663bdeecf/CriticalZeroSumPair00Certificates00.lean",
+      "bytes": 1147,
+      "sha256": "6388ec3686a415eca73ffc3aadad98de11e892ea867379f19826a5a663bdeecf",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumPair00Certificates00.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/63/6388ec3686a415eca73ffc3aadad98de11e892ea867379f19826a5a663bdeecf/CriticalZeroSumPair00Certificates00.lean",
+      "imports": [
+        "CriticalZeroSumPair00Data"
+      ]
+    },
+    "CriticalZeroSumPair00Data": {
+      "availability": "resident",
+      "blob": "blobs/aa/aa99405863048b5a793475183b8b733a82f381c52afd3d19617382761a63898a/CriticalZeroSumPair00Data.lean",
+      "bytes": 59781,
+      "sha256": "aa99405863048b5a793475183b8b733a82f381c52afd3d19617382761a63898a",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumPair00Data.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/aa/aa99405863048b5a793475183b8b733a82f381c52afd3d19617382761a63898a/CriticalZeroSumPair00Data.lean",
+      "imports": [
+        "CriticalZeroSumBinaryCertificate",
+        "CriticalZeroSumExprPrimitiveData"
+      ]
+    },
+    "CriticalZeroSumBinaryCertificate": {
+      "availability": "resident",
+      "blob": "blobs/15/15efa580db389430a775f3f51c31ee4e6d5e6d9e32a21fc3bf660464225d3348/CriticalZeroSumBinaryCertificate.lean",
+      "bytes": 2476,
+      "sha256": "15efa580db389430a775f3f51c31ee4e6d5e6d9e32a21fc3bf660464225d3348",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumBinaryCertificate.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/15/15efa580db389430a775f3f51c31ee4e6d5e6d9e32a21fc3bf660464225d3348/CriticalZeroSumBinaryCertificate.lean",
+      "imports": [
+        "CriticalZeroSumCoefficientAt"
+      ]
+    },
+    "CriticalZeroSumCoefficientAt": {
+      "availability": "resident",
+      "blob": "blobs/a9/a9c468a4e45a9546da852a4e81eb43204c31484b58d940130ac4862f95144366/CriticalZeroSumCoefficientAt.lean",
+      "bytes": 2321,
+      "sha256": "a9c468a4e45a9546da852a4e81eb43204c31484b58d940130ac4862f95144366",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumCoefficientAt.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/a9/a9c468a4e45a9546da852a4e81eb43204c31484b58d940130ac4862f95144366/CriticalZeroSumCoefficientAt.lean",
+      "imports": [
+        "CriticalZeroSumDenseCoefficients"
+      ]
+    },
+    "CriticalZeroSumDenseCoefficients": {
+      "availability": "resident",
+      "blob": "blobs/f8/f88ae651c24d8901ee606367a83a55a0e365338b84989ade50b33f24a7f7791a/CriticalZeroSumDenseCoefficients.lean",
+      "bytes": 4670,
+      "sha256": "f88ae651c24d8901ee606367a83a55a0e365338b84989ade50b33f24a7f7791a",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumDenseCoefficients.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/f8/f88ae651c24d8901ee606367a83a55a0e365338b84989ade50b33f24a7f7791a/CriticalZeroSumDenseCoefficients.lean",
+      "imports": [
+        "CriticalZeroSumExprCoefficients"
+      ]
+    },
+    "CriticalZeroSumPair00Certificates01": {
+      "availability": "resident",
+      "blob": "blobs/bb/bbd3dd418bfb6871ac031ab7b9c265cf470e9515479304e61ec2e3d83c12d239/CriticalZeroSumPair00Certificates01.lean",
+      "bytes": 1147,
+      "sha256": "bbd3dd418bfb6871ac031ab7b9c265cf470e9515479304e61ec2e3d83c12d239",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumPair00Certificates01.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/bb/bbd3dd418bfb6871ac031ab7b9c265cf470e9515479304e61ec2e3d83c12d239/CriticalZeroSumPair00Certificates01.lean",
+      "imports": [
+        "CriticalZeroSumPair00Data"
+      ]
+    },
+    "CriticalZeroSumPair00Certificates02": {
+      "availability": "resident",
+      "blob": "blobs/01/01b1d728d4065aa0d8eb053b62905d2a2d55dc09c0d30cc03061585af0d3e0a9/CriticalZeroSumPair00Certificates02.lean",
+      "bytes": 1214,
+      "sha256": "01b1d728d4065aa0d8eb053b62905d2a2d55dc09c0d30cc03061585af0d3e0a9",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumPair00Certificates02.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/01/01b1d728d4065aa0d8eb053b62905d2a2d55dc09c0d30cc03061585af0d3e0a9/CriticalZeroSumPair00Certificates02.lean",
+      "imports": [
+        "CriticalZeroSumPair00Data",
+        "CriticalZeroSumBinaryAtPilot"
+      ]
+    },
+    "CriticalZeroSumBinaryAtPilot": {
+      "availability": "resident",
+      "blob": "blobs/ff/ff5c69f8ad7dcff524ad74a649f841884d3aebc8fa519121c95263fc977ede81/CriticalZeroSumBinaryAtPilot.lean",
+      "bytes": 3596,
+      "sha256": "ff5c69f8ad7dcff524ad74a649f841884d3aebc8fa519121c95263fc977ede81",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumBinaryAtPilot.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/ff/ff5c69f8ad7dcff524ad74a649f841884d3aebc8fa519121c95263fc977ede81/CriticalZeroSumBinaryAtPilot.lean",
+      "imports": [
+        "CriticalZeroSumCoefficientAt",
+        "CriticalZeroSumExprPrimitiveData"
+      ]
+    },
+    "CriticalZeroSumPair00Certificates03": {
+      "availability": "resident",
+      "blob": "blobs/6c/6cd5d55343503619cb1bc819a4d17493bd8d698a71163335c84151be28e51946/CriticalZeroSumPair00Certificates03.lean",
+      "bytes": 1155,
+      "sha256": "6cd5d55343503619cb1bc819a4d17493bd8d698a71163335c84151be28e51946",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumPair00Certificates03.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/6c/6cd5d55343503619cb1bc819a4d17493bd8d698a71163335c84151be28e51946/CriticalZeroSumPair00Certificates03.lean",
+      "imports": [
+        "CriticalZeroSumPair00Data"
+      ]
+    },
+    "CriticalZeroSumPair00Certificates04": {
+      "availability": "resident",
+      "blob": "blobs/c0/c0c38da29a12e35b99029413b3e91defc4aa52dc7ff8cad221e16681eb4614c9/CriticalZeroSumPair00Certificates04.lean",
+      "bytes": 1155,
+      "sha256": "c0c38da29a12e35b99029413b3e91defc4aa52dc7ff8cad221e16681eb4614c9",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumPair00Certificates04.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/c0/c0c38da29a12e35b99029413b3e91defc4aa52dc7ff8cad221e16681eb4614c9/CriticalZeroSumPair00Certificates04.lean",
+      "imports": [
+        "CriticalZeroSumPair00Data"
+      ]
+    },
+    "CriticalZeroSumPair00Certificates05": {
+      "availability": "resident",
+      "blob": "blobs/44/44a88d9680347b047fca8069fbefeefd9c84dd85849dfd451bae8a37d8f9ea1d/CriticalZeroSumPair00Certificates05.lean",
+      "bytes": 931,
+      "sha256": "44a88d9680347b047fca8069fbefeefd9c84dd85849dfd451bae8a37d8f9ea1d",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumPair00Certificates05.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/44/44a88d9680347b047fca8069fbefeefd9c84dd85849dfd451bae8a37d8f9ea1d/CriticalZeroSumPair00Certificates05.lean",
+      "imports": [
+        "CriticalZeroSumPair00Data"
+      ]
+    },
+    "CriticalZeroSumTrip00Exact": {
+      "availability": "resident",
+      "blob": "blobs/ad/adcf8ab228ba4329b5d8eb36f21355280c9de4bb47f9cca88db1c12aceb1d367/CriticalZeroSumTrip00Exact.lean",
+      "bytes": 3563,
+      "sha256": "adcf8ab228ba4329b5d8eb36f21355280c9de4bb47f9cca88db1c12aceb1d367",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumTrip00Exact.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/ad/adcf8ab228ba4329b5d8eb36f21355280c9de4bb47f9cca88db1c12aceb1d367/CriticalZeroSumTrip00Exact.lean",
+      "imports": [
+        "CriticalZeroSumTrip00Certificates00",
+        "CriticalZeroSumTrip00Certificates01",
+        "CriticalZeroSumTrip00Certificates02",
+        "CriticalZeroSumTrip00Certificates03",
+        "CriticalZeroSumTrip00Certificates04",
+        "CriticalZeroSumTrip00Certificates05",
+        "CriticalZeroSumTrip00Certificates06",
+        "CriticalZeroSumTrip00Certificates07",
+        "CriticalZeroSumTrip00Certificates08",
+        "CriticalZeroSumPair00Exact",
+        "Lean.Elab.Tactic.Omega"
+      ]
+    },
+    "CriticalZeroSumTrip00Certificates00": {
+      "availability": "resident",
+      "blob": "blobs/ed/ed7257d66822bfe636aeda3507802d4116aa0840753f9cb346097033068b99d7/CriticalZeroSumTrip00Certificates00.lean",
+      "bytes": 1147,
+      "sha256": "ed7257d66822bfe636aeda3507802d4116aa0840753f9cb346097033068b99d7",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumTrip00Certificates00.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/ed/ed7257d66822bfe636aeda3507802d4116aa0840753f9cb346097033068b99d7/CriticalZeroSumTrip00Certificates00.lean",
+      "imports": [
+        "CriticalZeroSumTrip00Data"
+      ]
+    },
+    "CriticalZeroSumTrip00Data": {
+      "availability": "resident",
+      "blob": "blobs/b5/b5bfaa953b4d7701ecd5f9cfd1fde279144ef37a4444dbd014d67d0e5c8e7449/CriticalZeroSumTrip00Data.lean",
+      "bytes": 216449,
+      "sha256": "b5bfaa953b4d7701ecd5f9cfd1fde279144ef37a4444dbd014d67d0e5c8e7449",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumTrip00Data.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/b5/b5bfaa953b4d7701ecd5f9cfd1fde279144ef37a4444dbd014d67d0e5c8e7449/CriticalZeroSumTrip00Data.lean",
+      "imports": [
+        "CriticalZeroSumPair00Data",
+        "CriticalZeroSumDenseLengths"
+      ]
+    },
+    "CriticalZeroSumDenseLengths": {
+      "availability": "resident",
+      "blob": "blobs/36/3639330d73789a8e1b3061f27f5bb682709d37794445909499fa9c7a3732a879/CriticalZeroSumDenseLengths.lean",
+      "bytes": 1740,
+      "sha256": "3639330d73789a8e1b3061f27f5bb682709d37794445909499fa9c7a3732a879",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumDenseLengths.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/36/3639330d73789a8e1b3061f27f5bb682709d37794445909499fa9c7a3732a879/CriticalZeroSumDenseLengths.lean",
+      "imports": [
+        "CriticalZeroSumDenseCoefficients",
+        "Lean.Elab.Tactic.Omega"
+      ]
+    },
+    "CriticalZeroSumTrip00Certificates01": {
+      "availability": "resident",
+      "blob": "blobs/4e/4ece8893e6bf7b5ad7df33cb3ad05bd8f11af2c731053f7886224cafa2e52563/CriticalZeroSumTrip00Certificates01.lean",
+      "bytes": 1147,
+      "sha256": "4ece8893e6bf7b5ad7df33cb3ad05bd8f11af2c731053f7886224cafa2e52563",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumTrip00Certificates01.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/4e/4ece8893e6bf7b5ad7df33cb3ad05bd8f11af2c731053f7886224cafa2e52563/CriticalZeroSumTrip00Certificates01.lean",
+      "imports": [
+        "CriticalZeroSumTrip00Data"
+      ]
+    },
+    "CriticalZeroSumTrip00Certificates02": {
+      "availability": "resident",
+      "blob": "blobs/05/05899e5c54da36aee6244b4a2e41f9f8fb3276006ae12b8fdcb5e604ae2e7f74/CriticalZeroSumTrip00Certificates02.lean",
+      "bytes": 1151,
+      "sha256": "05899e5c54da36aee6244b4a2e41f9f8fb3276006ae12b8fdcb5e604ae2e7f74",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumTrip00Certificates02.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/05/05899e5c54da36aee6244b4a2e41f9f8fb3276006ae12b8fdcb5e604ae2e7f74/CriticalZeroSumTrip00Certificates02.lean",
+      "imports": [
+        "CriticalZeroSumTrip00Data"
+      ]
+    },
+    "CriticalZeroSumTrip00Certificates03": {
+      "availability": "resident",
+      "blob": "blobs/8b/8b8e4c38937d2fa33b497180948a2f81ced156f312ca3a3cae4667502d21efc3/CriticalZeroSumTrip00Certificates03.lean",
+      "bytes": 1155,
+      "sha256": "8b8e4c38937d2fa33b497180948a2f81ced156f312ca3a3cae4667502d21efc3",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumTrip00Certificates03.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/8b/8b8e4c38937d2fa33b497180948a2f81ced156f312ca3a3cae4667502d21efc3/CriticalZeroSumTrip00Certificates03.lean",
+      "imports": [
+        "CriticalZeroSumTrip00Data"
+      ]
+    },
+    "CriticalZeroSumTrip00Certificates04": {
+      "availability": "resident",
+      "blob": "blobs/be/be03a39109e4cbc502d7b568ef009444c375596556f60237e7a9c49ae4982278/CriticalZeroSumTrip00Certificates04.lean",
+      "bytes": 1155,
+      "sha256": "be03a39109e4cbc502d7b568ef009444c375596556f60237e7a9c49ae4982278",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumTrip00Certificates04.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/be/be03a39109e4cbc502d7b568ef009444c375596556f60237e7a9c49ae4982278/CriticalZeroSumTrip00Certificates04.lean",
+      "imports": [
+        "CriticalZeroSumTrip00Data"
+      ]
+    },
+    "CriticalZeroSumTrip00Certificates05": {
+      "availability": "resident",
+      "blob": "blobs/45/45cf16d4a2d7a9cc90bf29895f6ec920c75737d01c0b59f0fa20244aa9c53e89/CriticalZeroSumTrip00Certificates05.lean",
+      "bytes": 1155,
+      "sha256": "45cf16d4a2d7a9cc90bf29895f6ec920c75737d01c0b59f0fa20244aa9c53e89",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumTrip00Certificates05.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/45/45cf16d4a2d7a9cc90bf29895f6ec920c75737d01c0b59f0fa20244aa9c53e89/CriticalZeroSumTrip00Certificates05.lean",
+      "imports": [
+        "CriticalZeroSumTrip00Data"
+      ]
+    },
+    "CriticalZeroSumTrip00Certificates06": {
+      "availability": "resident",
+      "blob": "blobs/64/64392dc4dcb1bdf2ac06187b775e15ce8fd88f735689854912ff827c94368809/CriticalZeroSumTrip00Certificates06.lean",
+      "bytes": 1155,
+      "sha256": "64392dc4dcb1bdf2ac06187b775e15ce8fd88f735689854912ff827c94368809",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumTrip00Certificates06.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/64/64392dc4dcb1bdf2ac06187b775e15ce8fd88f735689854912ff827c94368809/CriticalZeroSumTrip00Certificates06.lean",
+      "imports": [
+        "CriticalZeroSumTrip00Data"
+      ]
+    },
+    "CriticalZeroSumTrip00Certificates07": {
+      "availability": "resident",
+      "blob": "blobs/25/25689462aa0baa1aa6d356daeeb573087fe22a8736295f264f9f5528d9f291d0/CriticalZeroSumTrip00Certificates07.lean",
+      "bytes": 1155,
+      "sha256": "25689462aa0baa1aa6d356daeeb573087fe22a8736295f264f9f5528d9f291d0",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumTrip00Certificates07.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/25/25689462aa0baa1aa6d356daeeb573087fe22a8736295f264f9f5528d9f291d0/CriticalZeroSumTrip00Certificates07.lean",
+      "imports": [
+        "CriticalZeroSumTrip00Data"
+      ]
+    },
+    "CriticalZeroSumTrip00Certificates08": {
+      "availability": "resident",
+      "blob": "blobs/9f/9f6ca3932b49ef5c8867c22beee9273f1df177b2c5abb342562f4f39f28adbb4/CriticalZeroSumTrip00Certificates08.lean",
+      "bytes": 931,
+      "sha256": "9f6ca3932b49ef5c8867c22beee9273f1df177b2c5abb342562f4f39f28adbb4",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumTrip00Certificates08.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/9f/9f6ca3932b49ef5c8867c22beee9273f1df177b2c5abb342562f4f39f28adbb4/CriticalZeroSumTrip00Certificates08.lean",
+      "imports": [
+        "CriticalZeroSumTrip00Data"
+      ]
+    },
+    "CriticalZeroSumEvalBase": {
+      "availability": "resident",
+      "blob": "blobs/09/09009d754d9f4bd0eaa09416dca1909e1268e9a2df09ebc14e30b8855fd267ad/CriticalZeroSumEvalBase.lean",
+      "bytes": 1552,
+      "sha256": "09009d754d9f4bd0eaa09416dca1909e1268e9a2df09ebc14e30b8855fd267ad",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumEvalBase.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/09/09009d754d9f4bd0eaa09416dca1909e1268e9a2df09ebc14e30b8855fd267ad/CriticalZeroSumEvalBase.lean",
+      "imports": [
+        "CriticalZeroSumCommonData"
+      ]
+    },
+    "CriticalZeroSumEval00": {
+      "availability": "resident",
+      "blob": "blobs/9c/9c25859d670ad897c11fa724e3305c0d631abc5c1c75fa294c4c3f62e45a3912/CriticalZeroSumEval00.lean",
+      "bytes": 6810,
+      "sha256": "9c25859d670ad897c11fa724e3305c0d631abc5c1c75fa294c4c3f62e45a3912",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumEval00.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/9c/9c25859d670ad897c11fa724e3305c0d631abc5c1c75fa294c4c3f62e45a3912/CriticalZeroSumEval00.lean",
+      "imports": [
+        "CriticalZeroSumEvalBase"
+      ]
+    },
+    "CriticalZeroSumDenseCommonData": {
+      "availability": "resident",
+      "blob": "blobs/90/901846b906da73ef1f43cf2084d45bdf1768e4890c70ea115060c8ae031b24e7/CriticalZeroSumDenseCommonData.lean",
+      "bytes": 61140,
+      "sha256": "901846b906da73ef1f43cf2084d45bdf1768e4890c70ea115060c8ae031b24e7",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumDenseCommonData.lean",
+      "imports": [
+        "CriticalZeroSumDenseCoefficients",
+        "CriticalZeroSumExprPrimitiveData"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/90/901846b906da73ef1f43cf2084d45bdf1768e4890c70ea115060c8ae031b24e7/CriticalZeroSumDenseCommonData.lean"
+    },
+    "CriticalZeroSumDenseCommonBindings00": {
+      "availability": "resident",
+      "blob": "blobs/cd/cd225f3cd12c92238a67b1f95bbbe1794ae5fbc27cfe872f9e2acd898245c956/CriticalZeroSumDenseCommonBindings00.lean",
+      "bytes": 8352,
+      "sha256": "cd225f3cd12c92238a67b1f95bbbe1794ae5fbc27cfe872f9e2acd898245c956",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumDenseCommonBindings00.lean",
+      "imports": [
+        "CriticalZeroSumDenseCommonData",
+        "CriticalZeroSumCommonData",
+        "CriticalZeroSumExprPrimitiveBindings01",
+        "CriticalZeroSumExprPrimitiveBindings02",
+        "CriticalZeroSumExprPrimitiveBindings03",
+        "CriticalZeroSumExprPrimitiveBindings04",
+        "CriticalZeroSumExprPrimitiveBindings05"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/cd/cd225f3cd12c92238a67b1f95bbbe1794ae5fbc27cfe872f9e2acd898245c956/CriticalZeroSumDenseCommonBindings00.lean"
+    },
+    "CriticalZeroSumDenseCommonBindings01": {
+      "availability": "resident",
+      "blob": "blobs/90/90e3ddc7ebe08d7a637bfd5e01d106925d42df645d9c89dfa3241b7bddd44ccf/CriticalZeroSumDenseCommonBindings01.lean",
+      "bytes": 8432,
+      "sha256": "90e3ddc7ebe08d7a637bfd5e01d106925d42df645d9c89dfa3241b7bddd44ccf",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumDenseCommonBindings01.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/90/90e3ddc7ebe08d7a637bfd5e01d106925d42df645d9c89dfa3241b7bddd44ccf/CriticalZeroSumDenseCommonBindings01.lean",
+      "imports": [
+        "CriticalZeroSumDenseCommonData",
+        "CriticalZeroSumCommonData",
+        "CriticalZeroSumExprPrimitiveBindings02",
+        "CriticalZeroSumExprPrimitiveBindings03",
+        "CriticalZeroSumExprPrimitiveBindings04",
+        "CriticalZeroSumExprPrimitiveBindings05"
+      ]
+    },
+    "CriticalZeroSumNumeratorGroupData01": {
+      "availability": "resident",
+      "blob": "blobs/be/beeabd5782c1898264d5a535d46534b825e4331de3083edc21fa92b07863bd38/CriticalZeroSumNumeratorGroupData01.lean",
+      "bytes": 147609,
+      "sha256": "beeabd5782c1898264d5a535d46534b825e4331de3083edc21fa92b07863bd38",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumNumeratorGroupData01.lean",
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/be/beeabd5782c1898264d5a535d46534b825e4331de3083edc21fa92b07863bd38/CriticalZeroSumNumeratorGroupData01.lean",
+      "imports": [
+        "CriticalZeroSumExprCommonData"
+      ]
+    },
+    "CriticalZeroSumDenseCommonBindings02": {
+      "availability": "resident",
+      "blob": "blobs/cb/cb492bd328a77f03a9a659d80c692cb272d5d38a5dadc074e32247fa7e8493be/CriticalZeroSumDenseCommonBindings02.lean",
+      "bytes": 8482,
+      "sha256": "cb492bd328a77f03a9a659d80c692cb272d5d38a5dadc074e32247fa7e8493be",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumDenseCommonBindings02.lean",
+      "imports": [
+        "CriticalZeroSumDenseCommonData",
+        "CriticalZeroSumCommonData",
+        "CriticalZeroSumExprPrimitiveBindings00",
+        "CriticalZeroSumExprPrimitiveBindings01",
+        "CriticalZeroSumExprPrimitiveBindings02",
+        "CriticalZeroSumExprPrimitiveBindings03",
+        "CriticalZeroSumExprPrimitiveBindings04",
+        "CriticalZeroSumExprPrimitiveBindings05"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/cb/cb492bd328a77f03a9a659d80c692cb272d5d38a5dadc074e32247fa7e8493be/CriticalZeroSumDenseCommonBindings02.lean"
+    },
+    "CriticalZeroSumDenseCommonBindings03": {
+      "availability": "resident",
+      "blob": "blobs/ce/ce679b33cd62cde258fc35f2f13d62437fca9675d11a7dbfcac70cf0db44deff/CriticalZeroSumDenseCommonBindings03.lean",
+      "bytes": 8482,
+      "sha256": "ce679b33cd62cde258fc35f2f13d62437fca9675d11a7dbfcac70cf0db44deff",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumDenseCommonBindings03.lean",
+      "imports": [
+        "CriticalZeroSumDenseCommonData",
+        "CriticalZeroSumCommonData",
+        "CriticalZeroSumExprPrimitiveBindings00",
+        "CriticalZeroSumExprPrimitiveBindings01",
+        "CriticalZeroSumExprPrimitiveBindings02",
+        "CriticalZeroSumExprPrimitiveBindings03",
+        "CriticalZeroSumExprPrimitiveBindings04",
+        "CriticalZeroSumExprPrimitiveBindings05"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/ce/ce679b33cd62cde258fc35f2f13d62437fca9675d11a7dbfcac70cf0db44deff/CriticalZeroSumDenseCommonBindings03.lean"
+    },
+    "CriticalZeroSumDenseCommonBindings04": {
+      "availability": "resident",
+      "blob": "blobs/ff/ff7e46374525e12590483091fd75e03908d79495b76e5004d8e271e7c5940018/CriticalZeroSumDenseCommonBindings04.lean",
+      "bytes": 8482,
+      "sha256": "ff7e46374525e12590483091fd75e03908d79495b76e5004d8e271e7c5940018",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumDenseCommonBindings04.lean",
+      "imports": [
+        "CriticalZeroSumDenseCommonData",
+        "CriticalZeroSumCommonData",
+        "CriticalZeroSumExprPrimitiveBindings00",
+        "CriticalZeroSumExprPrimitiveBindings01",
+        "CriticalZeroSumExprPrimitiveBindings02",
+        "CriticalZeroSumExprPrimitiveBindings03",
+        "CriticalZeroSumExprPrimitiveBindings04",
+        "CriticalZeroSumExprPrimitiveBindings05"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/ff/ff7e46374525e12590483091fd75e03908d79495b76e5004d8e271e7c5940018/CriticalZeroSumDenseCommonBindings04.lean"
+    },
+    "CriticalZeroSumDenseCommonBindings05": {
+      "availability": "resident",
+      "blob": "blobs/af/af9604f33f80922aa02cf45ff03de6d55512abf6d414f07b2483473ee824c83e/CriticalZeroSumDenseCommonBindings05.lean",
+      "bytes": 8226,
+      "sha256": "af9604f33f80922aa02cf45ff03de6d55512abf6d414f07b2483473ee824c83e",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumDenseCommonBindings05.lean",
+      "imports": [
+        "CriticalZeroSumDenseCommonData",
+        "CriticalZeroSumCommonData",
+        "CriticalZeroSumExprPrimitiveBindings00",
+        "CriticalZeroSumExprPrimitiveBindings02",
+        "CriticalZeroSumExprPrimitiveBindings03",
+        "CriticalZeroSumExprPrimitiveBindings04",
+        "CriticalZeroSumExprPrimitiveBindings05"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/af/af9604f33f80922aa02cf45ff03de6d55512abf6d414f07b2483473ee824c83e/CriticalZeroSumDenseCommonBindings05.lean"
+    },
+    "CriticalZeroSumNumeratorGroupData02": {
+      "availability": "resident",
+      "blob": "blobs/32/320ba21dd6d38a2abcaa75f402d59a25b10ca3313644eb0dc2752d337d338f72/CriticalZeroSumNumeratorGroupData02.lean",
+      "bytes": 158410,
+      "sha256": "320ba21dd6d38a2abcaa75f402d59a25b10ca3313644eb0dc2752d337d338f72",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumNumeratorGroupData02.lean",
+      "imports": [
+        "CriticalZeroSumExprCommonData"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/32/320ba21dd6d38a2abcaa75f402d59a25b10ca3313644eb0dc2752d337d338f72/CriticalZeroSumNumeratorGroupData02.lean"
+    },
+    "CriticalZeroSumNumeratorGroupData03": {
+      "availability": "resident",
+      "blob": "blobs/a7/a72c1274a26fc16a40b276d70299ebe6025dc6d7c56c3c97cd14783ad83dd883/CriticalZeroSumNumeratorGroupData03.lean",
+      "bytes": 222397,
+      "sha256": "a72c1274a26fc16a40b276d70299ebe6025dc6d7c56c3c97cd14783ad83dd883",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumNumeratorGroupData03.lean",
+      "imports": [
+        "CriticalZeroSumExprCommonData"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/a7/a72c1274a26fc16a40b276d70299ebe6025dc6d7c56c3c97cd14783ad83dd883/CriticalZeroSumNumeratorGroupData03.lean"
+    },
+    "CriticalZeroSumNumeratorGroupData04": {
+      "availability": "resident",
+      "blob": "blobs/1b/1b791e358637d67649bf34975efe280b935f2eaf118c8406b5aaf3fed87fad8c/CriticalZeroSumNumeratorGroupData04.lean",
+      "bytes": 154261,
+      "sha256": "1b791e358637d67649bf34975efe280b935f2eaf118c8406b5aaf3fed87fad8c",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumNumeratorGroupData04.lean",
+      "imports": [
+        "CriticalZeroSumExprCommonData"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/1b/1b791e358637d67649bf34975efe280b935f2eaf118c8406b5aaf3fed87fad8c/CriticalZeroSumNumeratorGroupData04.lean"
+    },
+    "CriticalZeroSumNumeratorGroupData05": {
+      "availability": "resident",
+      "blob": "blobs/93/939d9fee5d87de539110a4072f0b1494f784d7a611124c968dd947ff1aaca7d8/CriticalZeroSumNumeratorGroupData05.lean",
+      "bytes": 139265,
+      "sha256": "939d9fee5d87de539110a4072f0b1494f784d7a611124c968dd947ff1aaca7d8",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumNumeratorGroupData05.lean",
+      "imports": [
+        "CriticalZeroSumExprCommonData"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/93/939d9fee5d87de539110a4072f0b1494f784d7a611124c968dd947ff1aaca7d8/CriticalZeroSumNumeratorGroupData05.lean"
+    },
+    "CriticalZeroSumNumeratorGroupData06": {
+      "availability": "resident",
+      "blob": "blobs/c8/c8f36d5952801abdd74458d384a960b1c73780039d105801d6b49b7738f8b796/CriticalZeroSumNumeratorGroupData06.lean",
+      "bytes": 101266,
+      "sha256": "c8f36d5952801abdd74458d384a960b1c73780039d105801d6b49b7738f8b796",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumNumeratorGroupData06.lean",
+      "imports": [
+        "CriticalZeroSumExprCommonData"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/c8/c8f36d5952801abdd74458d384a960b1c73780039d105801d6b49b7738f8b796/CriticalZeroSumNumeratorGroupData06.lean"
+    },
+    "CriticalZeroSumNumeratorGroupData07": {
+      "availability": "resident",
+      "blob": "blobs/d3/d36acf4043845a6022caa71d0e8f3af6c877ed052728e3f223e54a8a5ea24849/CriticalZeroSumNumeratorGroupData07.lean",
+      "bytes": 155458,
+      "sha256": "d36acf4043845a6022caa71d0e8f3af6c877ed052728e3f223e54a8a5ea24849",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumNumeratorGroupData07.lean",
+      "imports": [
+        "CriticalZeroSumExprCommonData"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/d3/d36acf4043845a6022caa71d0e8f3af6c877ed052728e3f223e54a8a5ea24849/CriticalZeroSumNumeratorGroupData07.lean"
+    },
+    "CriticalZeroSumNumeratorGroupData08": {
+      "availability": "resident",
+      "blob": "blobs/0a/0ada2027870058d9eea6b75dec38184608a9f24fe7de8df9fe53b11991388981/CriticalZeroSumNumeratorGroupData08.lean",
+      "bytes": 165060,
+      "sha256": "0ada2027870058d9eea6b75dec38184608a9f24fe7de8df9fe53b11991388981",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumNumeratorGroupData08.lean",
+      "imports": [
+        "CriticalZeroSumExprCommonData"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/0a/0ada2027870058d9eea6b75dec38184608a9f24fe7de8df9fe53b11991388981/CriticalZeroSumNumeratorGroupData08.lean"
+    },
+    "CriticalZeroSumNumeratorGroupData09": {
+      "availability": "resident",
+      "blob": "blobs/fe/fe6acd3c6cf8aac44f515121c6ad3a7dccd9a2ecfbe8a838a54fcce45ae423a8/CriticalZeroSumNumeratorGroupData09.lean",
+      "bytes": 95778,
+      "sha256": "fe6acd3c6cf8aac44f515121c6ad3a7dccd9a2ecfbe8a838a54fcce45ae423a8",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumNumeratorGroupData09.lean",
+      "imports": [
+        "CriticalZeroSumExprCommonData"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/fe/fe6acd3c6cf8aac44f515121c6ad3a7dccd9a2ecfbe8a838a54fcce45ae423a8/CriticalZeroSumNumeratorGroupData09.lean"
+    },
+    "CriticalZeroSumNumeratorGroupData10": {
+      "availability": "resident",
+      "blob": "blobs/53/539237df89cd120b42069db98c32d18554e3d91a4ddd85d0a8db29876c8ed34b/CriticalZeroSumNumeratorGroupData10.lean",
+      "bytes": 102663,
+      "sha256": "539237df89cd120b42069db98c32d18554e3d91a4ddd85d0a8db29876c8ed34b",
+      "snapshot_status": "archival_source_not_admitted",
+      "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/zero_sum_assembly/CriticalZeroSumNumeratorGroupData10.lean",
+      "imports": [
+        "CriticalZeroSumExprCommonData"
+      ],
+      "file": "audit/upstream_repository/archive/long_proof/Lean/blobs/53/539237df89cd120b42069db98c32d18554e3d91a4ddd85d0a8db29876c8ed34b/CriticalZeroSumNumeratorGroupData10.lean"
+    }
+  },
+  "unresolved": {}
+}

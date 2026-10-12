@@ -1,0 +1,900 @@
+{
+  "checked_utc": "2026-10-12T00:32:44.464352+00:00",
+  "purpose": "Reuse quadratic evaluation for actual third-moment contraction reduction.",
+  "ARCHIVE_SOURCE_INDEX.jsonl": {
+    "total": 77948,
+    "matches": [
+      {
+        "availability": "resident",
+        "blob": "blobs/50/50f9735cf09e31e5ed9edb8bb25533f865cc3ed9e08e3c496053b3bf9508cf10/CriticalMomentQuad.lean",
+        "bytes": 2739,
+        "sha256": "50f9735cf09e31e5ed9edb8bb25533f865cc3ed9e08e3c496053b3bf9508cf10",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/CriticalMomentQuad.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/2d/2da3c745459a6fa07e310e7f6bf415c8a22c02a69494022e1e2b7b1e3c36d294/CriticalMomentQuadData.lean",
+        "bytes": 1479,
+        "sha256": "2da3c745459a6fa07e310e7f6bf415c8a22c02a69494022e1e2b7b1e3c36d294",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/CriticalMomentQuadData.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/4a/4ab9b6c6e7c053f70f2d0eae201e3ac5d3d594e0c6a317a41c536814832c30ef/CriticalMomentQuadNewton00.lean",
+        "bytes": 2054,
+        "sha256": "4ab9b6c6e7c053f70f2d0eae201e3ac5d3d594e0c6a317a41c536814832c30ef",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/CriticalMomentQuadNewton00.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/f4/f482a5fe16166ad9736044b2c583529a145adf6cf13940b6e835faa719534d7f/CriticalMomentQuadNewton01.lean",
+        "bytes": 2184,
+        "sha256": "f482a5fe16166ad9736044b2c583529a145adf6cf13940b6e835faa719534d7f",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/CriticalMomentQuadNewton01.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/12/120b052c6a34c0c45e714d356105d52399a487af62b5e1d19b4ce9b0c89c1af2/CriticalMomentQuadNewton02.lean",
+        "bytes": 2215,
+        "sha256": "120b052c6a34c0c45e714d356105d52399a487af62b5e1d19b4ce9b0c89c1af2",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/CriticalMomentQuadNewton02.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/6a/6a55c9f72eed74d254f1e6a4a58e52f43b702bdc4e7dd7daa78b5a2b1baeeca9/CriticalMomentQuadNewton03.lean",
+        "bytes": 2250,
+        "sha256": "6a55c9f72eed74d254f1e6a4a58e52f43b702bdc4e7dd7daa78b5a2b1baeeca9",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/CriticalMomentQuadNewton03.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/d9/d9da7ec09a02df2e8c677652cf59483ddb2713cc78db303f684b8f44ea3a0fc2/CriticalMomentQuadNewton04.lean",
+        "bytes": 2160,
+        "sha256": "d9da7ec09a02df2e8c677652cf59483ddb2713cc78db303f684b8f44ea3a0fc2",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/CriticalMomentQuadNewton04.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/d1/d15edf1d3d7cb9f36efb15d0059d6d7d95137bc3dcc257b72969f99768cfbe24/CriticalMomentQuadNewton05.lean",
+        "bytes": 2168,
+        "sha256": "d15edf1d3d7cb9f36efb15d0059d6d7d95137bc3dcc257b72969f99768cfbe24",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/CriticalMomentQuadNewton05.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/a3/a3ce8d68a8b5939a32b9292d7fbdcf2bb9451147ca81fd06c78e34a81fe666c2/CriticalMomentQuadNewton06.lean",
+        "bytes": 2184,
+        "sha256": "a3ce8d68a8b5939a32b9292d7fbdcf2bb9451147ca81fd06c78e34a81fe666c2",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/CriticalMomentQuadNewton06.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/62/622f40773145a7a341a47449479a09ba4be1b1bf373215c1a6c0c2cd6839f27d/CriticalMomentQuadNewton07.lean",
+        "bytes": 2232,
+        "sha256": "622f40773145a7a341a47449479a09ba4be1b1bf373215c1a6c0c2cd6839f27d",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/CriticalMomentQuadNewton07.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/75/75e5b64e9eff276147124d6e362134fcc665d4884f15d07762c1e46fb455b70e/CriticalMomentQuadNewton08.lean",
+        "bytes": 2233,
+        "sha256": "75e5b64e9eff276147124d6e362134fcc665d4884f15d07762c1e46fb455b70e",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/CriticalMomentQuadNewton08.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/95/9523fc78f9c807a91eaad3fa8ddfe0380f60fc646a799da3fab9469cb6704eaf/CriticalMomentQuadNumerals.lean",
+        "bytes": 487,
+        "sha256": "9523fc78f9c807a91eaad3fa8ddfe0380f60fc646a799da3fab9469cb6704eaf",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/CriticalMomentQuadNumerals.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/2a/2ae8c7411a64e9e2a20274c7690871d22d8c276cec2e2485a937fcfe3a9b22b9/CriticalMomentQuad.lean",
+        "bytes": 2733,
+        "sha256": "2ae8c7411a64e9e2a20274c7690871d22d8c276cec2e2485a937fcfe3a9b22b9",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/quad-core-01/CriticalMomentQuad.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/df/df12eecff6f0af45fcd0587eb87e7d013d2d78ced8fb62fbd15f54d0617e1ae7/CriticalMomentQuad.lean",
+        "bytes": 2758,
+        "sha256": "df12eecff6f0af45fcd0587eb87e7d013d2d78ced8fb62fbd15f54d0617e1ae7",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/quad-core-02/CriticalMomentQuad.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/50/50f9735cf09e31e5ed9edb8bb25533f865cc3ed9e08e3c496053b3bf9508cf10/CriticalMomentQuad.lean",
+        "bytes": 2739,
+        "sha256": "50f9735cf09e31e5ed9edb8bb25533f865cc3ed9e08e3c496053b3bf9508cf10",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/quad-core-03/CriticalMomentQuad.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/2d/2da3c745459a6fa07e310e7f6bf415c8a22c02a69494022e1e2b7b1e3c36d294/CriticalMomentQuadData.lean",
+        "bytes": 1479,
+        "sha256": "2da3c745459a6fa07e310e7f6bf415c8a22c02a69494022e1e2b7b1e3c36d294",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/quad-data-01/CriticalMomentQuadData.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/07/07d212f86419b0c490544d71e2e3bef95561bd995695b8a670f5849cde51e3c7/CriticalMomentQuadNewton01.lean",
+        "bytes": 2070,
+        "sha256": "07d212f86419b0c490544d71e2e3bef95561bd995695b8a670f5849cde51e3c7",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/quad-newton-v1/CriticalMomentQuadNewton01.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/27/27453599688610649c369e6941781b01e9392104cbd0bd13d76a49184a30c8fe/CriticalMomentQuadNewton02.lean",
+        "bytes": 2101,
+        "sha256": "27453599688610649c369e6941781b01e9392104cbd0bd13d76a49184a30c8fe",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/quad-newton-v1/CriticalMomentQuadNewton02.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/f9/f9fcec78d6eb95e865891886e8e462288ad198084b4209cab5c069a78fe33c98/CriticalMomentQuadNewton03.lean",
+        "bytes": 2136,
+        "sha256": "f9fcec78d6eb95e865891886e8e462288ad198084b4209cab5c069a78fe33c98",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/quad-newton-v1/CriticalMomentQuadNewton03.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/7a/7a08dbc60ae2f65a3348edb253c46ca6d37084d0e0d4d546d1c61bc22334a022/CriticalMomentQuadNewton04.lean",
+        "bytes": 2046,
+        "sha256": "7a08dbc60ae2f65a3348edb253c46ca6d37084d0e0d4d546d1c61bc22334a022",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/quad-newton-v1/CriticalMomentQuadNewton04.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/b0/b0c5624691c094e3d3d1aba9bfe7616ab45b19744b03112a88a95895c0e0ca32/CriticalMomentQuadNewton05.lean",
+        "bytes": 2054,
+        "sha256": "b0c5624691c094e3d3d1aba9bfe7616ab45b19744b03112a88a95895c0e0ca32",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/quad-newton-v1/CriticalMomentQuadNewton05.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/7b/7ba994ae05db6b3fa40c7d663ad1299f6bf4f4a7ed328bf6db71353aa1564a1b/CriticalMomentQuadNewton06.lean",
+        "bytes": 2070,
+        "sha256": "7ba994ae05db6b3fa40c7d663ad1299f6bf4f4a7ed328bf6db71353aa1564a1b",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/quad-newton-v1/CriticalMomentQuadNewton06.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/62/6270411e0ab6040dff3a4972b15ae0938e4397d242068b1dd8e24d6b3ab59b5e/CriticalMomentQuadNewton07.lean",
+        "bytes": 2118,
+        "sha256": "6270411e0ab6040dff3a4972b15ae0938e4397d242068b1dd8e24d6b3ab59b5e",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/quad-newton-v1/CriticalMomentQuadNewton07.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/0a/0a76a6c75a13e1a6e1783c4eb4e54c26a0166f671881d03d94c6ae06c0fdd773/CriticalMomentQuadNewton08.lean",
+        "bytes": 2119,
+        "sha256": "0a76a6c75a13e1a6e1783c4eb4e54c26a0166f671881d03d94c6ae06c0fdd773",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/quad-newton-v1/CriticalMomentQuadNewton08.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/4a/4ab9b6c6e7c053f70f2d0eae201e3ac5d3d594e0c6a317a41c536814832c30ef/CriticalMomentQuadNewton00.lean",
+        "bytes": 2054,
+        "sha256": "4ab9b6c6e7c053f70f2d0eae201e3ac5d3d594e0c6a317a41c536814832c30ef",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/quad-newton00-01/CriticalMomentQuadNewton00.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/07/07d212f86419b0c490544d71e2e3bef95561bd995695b8a670f5849cde51e3c7/CriticalMomentQuadNewton01.lean",
+        "bytes": 2070,
+        "sha256": "07d212f86419b0c490544d71e2e3bef95561bd995695b8a670f5849cde51e3c7",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/quad-newton01-01/CriticalMomentQuadNewton01.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/f4/f482a5fe16166ad9736044b2c583529a145adf6cf13940b6e835faa719534d7f/CriticalMomentQuadNewton01.lean",
+        "bytes": 2184,
+        "sha256": "f482a5fe16166ad9736044b2c583529a145adf6cf13940b6e835faa719534d7f",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/quad-newton01-02/CriticalMomentQuadNewton01.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/12/120b052c6a34c0c45e714d356105d52399a487af62b5e1d19b4ce9b0c89c1af2/CriticalMomentQuadNewton02.lean",
+        "bytes": 2215,
+        "sha256": "120b052c6a34c0c45e714d356105d52399a487af62b5e1d19b4ce9b0c89c1af2",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/quad-newton02-01/CriticalMomentQuadNewton02.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/6a/6a55c9f72eed74d254f1e6a4a58e52f43b702bdc4e7dd7daa78b5a2b1baeeca9/CriticalMomentQuadNewton03.lean",
+        "bytes": 2250,
+        "sha256": "6a55c9f72eed74d254f1e6a4a58e52f43b702bdc4e7dd7daa78b5a2b1baeeca9",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/quad-newton03-01/CriticalMomentQuadNewton03.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/d9/d9da7ec09a02df2e8c677652cf59483ddb2713cc78db303f684b8f44ea3a0fc2/CriticalMomentQuadNewton04.lean",
+        "bytes": 2160,
+        "sha256": "d9da7ec09a02df2e8c677652cf59483ddb2713cc78db303f684b8f44ea3a0fc2",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/quad-newton04-01/CriticalMomentQuadNewton04.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/d1/d15edf1d3d7cb9f36efb15d0059d6d7d95137bc3dcc257b72969f99768cfbe24/CriticalMomentQuadNewton05.lean",
+        "bytes": 2168,
+        "sha256": "d15edf1d3d7cb9f36efb15d0059d6d7d95137bc3dcc257b72969f99768cfbe24",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/quad-newton05-01/CriticalMomentQuadNewton05.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/a3/a3ce8d68a8b5939a32b9292d7fbdcf2bb9451147ca81fd06c78e34a81fe666c2/CriticalMomentQuadNewton06.lean",
+        "bytes": 2184,
+        "sha256": "a3ce8d68a8b5939a32b9292d7fbdcf2bb9451147ca81fd06c78e34a81fe666c2",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/quad-newton06-01/CriticalMomentQuadNewton06.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/62/622f40773145a7a341a47449479a09ba4be1b1bf373215c1a6c0c2cd6839f27d/CriticalMomentQuadNewton07.lean",
+        "bytes": 2232,
+        "sha256": "622f40773145a7a341a47449479a09ba4be1b1bf373215c1a6c0c2cd6839f27d",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/quad-newton07-01/CriticalMomentQuadNewton07.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/75/75e5b64e9eff276147124d6e362134fcc665d4884f15d07762c1e46fb455b70e/CriticalMomentQuadNewton08.lean",
+        "bytes": 2233,
+        "sha256": "75e5b64e9eff276147124d6e362134fcc665d4884f15d07762c1e46fb455b70e",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/quad-newton08-01/CriticalMomentQuadNewton08.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/95/9523fc78f9c807a91eaad3fa8ddfe0380f60fc646a799da3fab9469cb6704eaf/CriticalMomentQuadNumerals.lean",
+        "bytes": 487,
+        "sha256": "9523fc78f9c807a91eaad3fa8ddfe0380f60fc646a799da3fab9469cb6704eaf",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/critical_arithmetic/nonzero_square_sum/quad-numerals-01/CriticalMomentQuadNumerals.lean"
+      }
+    ]
+  },
+  "ARCHIVE_BLOB_INDEX.jsonl": {
+    "total": 19386,
+    "matches": [
+      {
+        "blob": "blobs/07/07d212f86419b0c490544d71e2e3bef95561bd995695b8a670f5849cde51e3c7/CriticalMomentQuadNewton01.lean",
+        "bytes": 2070,
+        "lexical_markers_heuristic": [],
+        "sha256": "07d212f86419b0c490544d71e2e3bef95561bd995695b8a670f5849cde51e3c7",
+        "static_imports_heuristic": [
+          "CriticalMomentQuadData"
+        ]
+      },
+      {
+        "blob": "blobs/0a/0a76a6c75a13e1a6e1783c4eb4e54c26a0166f671881d03d94c6ae06c0fdd773/CriticalMomentQuadNewton08.lean",
+        "bytes": 2119,
+        "lexical_markers_heuristic": [],
+        "sha256": "0a76a6c75a13e1a6e1783c4eb4e54c26a0166f671881d03d94c6ae06c0fdd773",
+        "static_imports_heuristic": [
+          "CriticalMomentQuadData"
+        ]
+      },
+      {
+        "blob": "blobs/0e/0e70ca1312f1979195d332b84babf9b46b33e0edb7c7be7e661872c68b76d68d/CriticalNonzeroQuadSide.lean",
+        "bytes": 2164,
+        "lexical_markers_heuristic": [],
+        "sha256": "0e70ca1312f1979195d332b84babf9b46b33e0edb7c7be7e661872c68b76d68d",
+        "static_imports_heuristic": [
+          "CriticalMomentQuadData",
+          "CriticalNonzeroLightData"
+        ]
+      },
+      {
+        "blob": "blobs/12/120b052c6a34c0c45e714d356105d52399a487af62b5e1d19b4ce9b0c89c1af2/CriticalMomentQuadNewton02.lean",
+        "bytes": 2215,
+        "lexical_markers_heuristic": [],
+        "sha256": "120b052c6a34c0c45e714d356105d52399a487af62b5e1d19b4ce9b0c89c1af2",
+        "static_imports_heuristic": [
+          "CriticalMomentQuadData",
+          "CriticalMomentQuadNumerals"
+        ]
+      },
+      {
+        "blob": "blobs/27/27453599688610649c369e6941781b01e9392104cbd0bd13d76a49184a30c8fe/CriticalMomentQuadNewton02.lean",
+        "bytes": 2101,
+        "lexical_markers_heuristic": [],
+        "sha256": "27453599688610649c369e6941781b01e9392104cbd0bd13d76a49184a30c8fe",
+        "static_imports_heuristic": [
+          "CriticalMomentQuadData"
+        ]
+      },
+      {
+        "blob": "blobs/29/29b0d6a4a5f777b3173e423ba1f242222ac2f82713d421e28578fe25dab49921/CriticalNonzeroPair05.lean",
+        "bytes": 3124,
+        "lexical_markers_heuristic": [],
+        "sha256": "29b0d6a4a5f777b3173e423ba1f242222ac2f82713d421e28578fe25dab49921",
+        "static_imports_heuristic": [
+          "CriticalMomentQuadNewton05",
+          "CriticalNonzeroQuadSide"
+        ]
+      },
+      {
+        "blob": "blobs/2a/2ae8c7411a64e9e2a20274c7690871d22d8c276cec2e2485a937fcfe3a9b22b9/CriticalMomentQuad.lean",
+        "bytes": 2733,
+        "lexical_markers_heuristic": [],
+        "sha256": "2ae8c7411a64e9e2a20274c7690871d22d8c276cec2e2485a937fcfe3a9b22b9",
+        "static_imports_heuristic": [
+          "CriticalZeroLightData",
+          "Mathlib.Tactic.LinearCombination"
+        ]
+      },
+      {
+        "blob": "blobs/2d/2da3c745459a6fa07e310e7f6bf415c8a22c02a69494022e1e2b7b1e3c36d294/CriticalMomentQuadData.lean",
+        "bytes": 1479,
+        "lexical_markers_heuristic": [],
+        "sha256": "2da3c745459a6fa07e310e7f6bf415c8a22c02a69494022e1e2b7b1e3c36d294",
+        "static_imports_heuristic": [
+          "CriticalMomentQuad"
+        ]
+      },
+      {
+        "blob": "blobs/4a/4ab9b6c6e7c053f70f2d0eae201e3ac5d3d594e0c6a317a41c536814832c30ef/CriticalMomentQuadNewton00.lean",
+        "bytes": 2054,
+        "lexical_markers_heuristic": [],
+        "sha256": "4ab9b6c6e7c053f70f2d0eae201e3ac5d3d594e0c6a317a41c536814832c30ef",
+        "static_imports_heuristic": [
+          "CriticalMomentQuadData"
+        ]
+      },
+      {
+        "blob": "blobs/4f/4f3a58e70650f442bd65aaf9d8fac536a9375353648b70ec948da2354f77a05d/CriticalNonzeroPair01.lean",
+        "bytes": 3124,
+        "lexical_markers_heuristic": [],
+        "sha256": "4f3a58e70650f442bd65aaf9d8fac536a9375353648b70ec948da2354f77a05d",
+        "static_imports_heuristic": [
+          "CriticalMomentQuadNewton01",
+          "CriticalNonzeroQuadSide"
+        ]
+      },
+      {
+        "blob": "blobs/50/50f9735cf09e31e5ed9edb8bb25533f865cc3ed9e08e3c496053b3bf9508cf10/CriticalMomentQuad.lean",
+        "bytes": 2739,
+        "lexical_markers_heuristic": [],
+        "sha256": "50f9735cf09e31e5ed9edb8bb25533f865cc3ed9e08e3c496053b3bf9508cf10",
+        "static_imports_heuristic": [
+          "CriticalZeroLightData",
+          "Mathlib.Tactic.LinearCombination"
+        ]
+      },
+      {
+        "blob": "blobs/56/56fef7d397a21509c66aed75322ebf369804b0162e2fdbcfe8aa2d3129f3b2b4/CriticalNonzeroPair04.lean",
+        "bytes": 3124,
+        "lexical_markers_heuristic": [],
+        "sha256": "56fef7d397a21509c66aed75322ebf369804b0162e2fdbcfe8aa2d3129f3b2b4",
+        "static_imports_heuristic": [
+          "CriticalMomentQuadNewton04",
+          "CriticalNonzeroQuadSide"
+        ]
+      },
+      {
+        "blob": "blobs/62/622f40773145a7a341a47449479a09ba4be1b1bf373215c1a6c0c2cd6839f27d/CriticalMomentQuadNewton07.lean",
+        "bytes": 2232,
+        "lexical_markers_heuristic": [],
+        "sha256": "622f40773145a7a341a47449479a09ba4be1b1bf373215c1a6c0c2cd6839f27d",
+        "static_imports_heuristic": [
+          "CriticalMomentQuadData",
+          "CriticalMomentQuadNumerals"
+        ]
+      },
+      {
+        "blob": "blobs/62/6270411e0ab6040dff3a4972b15ae0938e4397d242068b1dd8e24d6b3ab59b5e/CriticalMomentQuadNewton07.lean",
+        "bytes": 2118,
+        "lexical_markers_heuristic": [],
+        "sha256": "6270411e0ab6040dff3a4972b15ae0938e4397d242068b1dd8e24d6b3ab59b5e",
+        "static_imports_heuristic": [
+          "CriticalMomentQuadData"
+        ]
+      },
+      {
+        "blob": "blobs/6a/6a55c9f72eed74d254f1e6a4a58e52f43b702bdc4e7dd7daa78b5a2b1baeeca9/CriticalMomentQuadNewton03.lean",
+        "bytes": 2250,
+        "lexical_markers_heuristic": [],
+        "sha256": "6a55c9f72eed74d254f1e6a4a58e52f43b702bdc4e7dd7daa78b5a2b1baeeca9",
+        "static_imports_heuristic": [
+          "CriticalMomentQuadData",
+          "CriticalMomentQuadNumerals"
+        ]
+      },
+      {
+        "blob": "blobs/75/75e5b64e9eff276147124d6e362134fcc665d4884f15d07762c1e46fb455b70e/CriticalMomentQuadNewton08.lean",
+        "bytes": 2233,
+        "lexical_markers_heuristic": [],
+        "sha256": "75e5b64e9eff276147124d6e362134fcc665d4884f15d07762c1e46fb455b70e",
+        "static_imports_heuristic": [
+          "CriticalMomentQuadData",
+          "CriticalMomentQuadNumerals"
+        ]
+      },
+      {
+        "blob": "blobs/76/76b26638e07fdec235aa1dbcfc2ce032512b80691191834ee29cf404fe12cf6d/CriticalNonzeroPair03.lean",
+        "bytes": 3124,
+        "lexical_markers_heuristic": [],
+        "sha256": "76b26638e07fdec235aa1dbcfc2ce032512b80691191834ee29cf404fe12cf6d",
+        "static_imports_heuristic": [
+          "CriticalMomentQuadNewton03",
+          "CriticalNonzeroQuadSide"
+        ]
+      },
+      {
+        "blob": "blobs/7a/7a08dbc60ae2f65a3348edb253c46ca6d37084d0e0d4d546d1c61bc22334a022/CriticalMomentQuadNewton04.lean",
+        "bytes": 2046,
+        "lexical_markers_heuristic": [],
+        "sha256": "7a08dbc60ae2f65a3348edb253c46ca6d37084d0e0d4d546d1c61bc22334a022",
+        "static_imports_heuristic": [
+          "CriticalMomentQuadData"
+        ]
+      },
+      {
+        "blob": "blobs/7b/7ba994ae05db6b3fa40c7d663ad1299f6bf4f4a7ed328bf6db71353aa1564a1b/CriticalMomentQuadNewton06.lean",
+        "bytes": 2070,
+        "lexical_markers_heuristic": [],
+        "sha256": "7ba994ae05db6b3fa40c7d663ad1299f6bf4f4a7ed328bf6db71353aa1564a1b",
+        "static_imports_heuristic": [
+          "CriticalMomentQuadData"
+        ]
+      },
+      {
+        "blob": "blobs/95/9523fc78f9c807a91eaad3fa8ddfe0380f60fc646a799da3fab9469cb6704eaf/CriticalMomentQuadNumerals.lean",
+        "bytes": 487,
+        "lexical_markers_heuristic": [],
+        "sha256": "9523fc78f9c807a91eaad3fa8ddfe0380f60fc646a799da3fab9469cb6704eaf",
+        "static_imports_heuristic": [
+          "CriticalMomentQuad"
+        ]
+      },
+      {
+        "blob": "blobs/a3/a3ce8d68a8b5939a32b9292d7fbdcf2bb9451147ca81fd06c78e34a81fe666c2/CriticalMomentQuadNewton06.lean",
+        "bytes": 2184,
+        "lexical_markers_heuristic": [],
+        "sha256": "a3ce8d68a8b5939a32b9292d7fbdcf2bb9451147ca81fd06c78e34a81fe666c2",
+        "static_imports_heuristic": [
+          "CriticalMomentQuadData",
+          "CriticalMomentQuadNumerals"
+        ]
+      },
+      {
+        "blob": "blobs/b0/b0c5624691c094e3d3d1aba9bfe7616ab45b19744b03112a88a95895c0e0ca32/CriticalMomentQuadNewton05.lean",
+        "bytes": 2054,
+        "lexical_markers_heuristic": [],
+        "sha256": "b0c5624691c094e3d3d1aba9bfe7616ab45b19744b03112a88a95895c0e0ca32",
+        "static_imports_heuristic": [
+          "CriticalMomentQuadData"
+        ]
+      },
+      {
+        "blob": "blobs/c5/c5c81928c033c52567869d63352bbff882b8bcd6a127c904c59d33991ac47cdf/CriticalQuadProgram.lean",
+        "bytes": 2094,
+        "lexical_markers_heuristic": [],
+        "sha256": "c5c81928c033c52567869d63352bbff882b8bcd6a127c904c59d33991ac47cdf",
+        "static_imports_heuristic": [
+          "CriticalMomentQuad"
+        ]
+      },
+      {
+        "blob": "blobs/ce/cec033ae5be0add9fc15eba2f187fd8dc0023972cfe5e4d85fff9af407790ad0/CriticalNonzeroPair06.lean",
+        "bytes": 3124,
+        "lexical_markers_heuristic": [],
+        "sha256": "cec033ae5be0add9fc15eba2f187fd8dc0023972cfe5e4d85fff9af407790ad0",
+        "static_imports_heuristic": [
+          "CriticalMomentQuadNewton06",
+          "CriticalNonzeroQuadSide"
+        ]
+      },
+      {
+        "blob": "blobs/cf/cff37a828feaf83724eb07ea2ed2d86341d06bad7278467ba07f1e30c5ce7ef5/CriticalNonzeroPair08.lean",
+        "bytes": 3124,
+        "lexical_markers_heuristic": [],
+        "sha256": "cff37a828feaf83724eb07ea2ed2d86341d06bad7278467ba07f1e30c5ce7ef5",
+        "static_imports_heuristic": [
+          "CriticalMomentQuadNewton08",
+          "CriticalNonzeroQuadSide"
+        ]
+      },
+      {
+        "blob": "blobs/d1/d15d97ce0f0b6ce6c66e392e5c555d1f61b33dbad4b2feac6dd47f6734a8f2ab/CriticalNonzeroPair02.lean",
+        "bytes": 3124,
+        "lexical_markers_heuristic": [],
+        "sha256": "d15d97ce0f0b6ce6c66e392e5c555d1f61b33dbad4b2feac6dd47f6734a8f2ab",
+        "static_imports_heuristic": [
+          "CriticalMomentQuadNewton02",
+          "CriticalNonzeroQuadSide"
+        ]
+      },
+      {
+        "blob": "blobs/d1/d15edf1d3d7cb9f36efb15d0059d6d7d95137bc3dcc257b72969f99768cfbe24/CriticalMomentQuadNewton05.lean",
+        "bytes": 2168,
+        "lexical_markers_heuristic": [],
+        "sha256": "d15edf1d3d7cb9f36efb15d0059d6d7d95137bc3dcc257b72969f99768cfbe24",
+        "static_imports_heuristic": [
+          "CriticalMomentQuadData",
+          "CriticalMomentQuadNumerals"
+        ]
+      },
+      {
+        "blob": "blobs/d9/d9da7ec09a02df2e8c677652cf59483ddb2713cc78db303f684b8f44ea3a0fc2/CriticalMomentQuadNewton04.lean",
+        "bytes": 2160,
+        "lexical_markers_heuristic": [],
+        "sha256": "d9da7ec09a02df2e8c677652cf59483ddb2713cc78db303f684b8f44ea3a0fc2",
+        "static_imports_heuristic": [
+          "CriticalMomentQuadData",
+          "CriticalMomentQuadNumerals"
+        ]
+      },
+      {
+        "blob": "blobs/df/df12eecff6f0af45fcd0587eb87e7d013d2d78ced8fb62fbd15f54d0617e1ae7/CriticalMomentQuad.lean",
+        "bytes": 2758,
+        "lexical_markers_heuristic": [],
+        "sha256": "df12eecff6f0af45fcd0587eb87e7d013d2d78ced8fb62fbd15f54d0617e1ae7",
+        "static_imports_heuristic": [
+          "CriticalZeroLightData",
+          "Mathlib.Tactic.LinearCombination"
+        ]
+      },
+      {
+        "blob": "blobs/eb/eb126cafa298bbcc9bce592ab1c8d3eeb68e641c4580d44c50b0fb139bd82fb2/CriticalNonzeroPair00.lean",
+        "bytes": 3124,
+        "lexical_markers_heuristic": [],
+        "sha256": "eb126cafa298bbcc9bce592ab1c8d3eeb68e641c4580d44c50b0fb139bd82fb2",
+        "static_imports_heuristic": [
+          "CriticalMomentQuadNewton00",
+          "CriticalNonzeroQuadSide"
+        ]
+      },
+      {
+        "blob": "blobs/f4/f482a5fe16166ad9736044b2c583529a145adf6cf13940b6e835faa719534d7f/CriticalMomentQuadNewton01.lean",
+        "bytes": 2184,
+        "lexical_markers_heuristic": [],
+        "sha256": "f482a5fe16166ad9736044b2c583529a145adf6cf13940b6e835faa719534d7f",
+        "static_imports_heuristic": [
+          "CriticalMomentQuadData",
+          "CriticalMomentQuadNumerals"
+        ]
+      },
+      {
+        "blob": "blobs/f7/f77b4e1524d241957347370e4dcf20afa3febbca2dc7065af2cedeae97cc77f2/CriticalNonzeroPair07.lean",
+        "bytes": 3124,
+        "lexical_markers_heuristic": [],
+        "sha256": "f77b4e1524d241957347370e4dcf20afa3febbca2dc7065af2cedeae97cc77f2",
+        "static_imports_heuristic": [
+          "CriticalMomentQuadNewton07",
+          "CriticalNonzeroQuadSide"
+        ]
+      },
+      {
+        "blob": "blobs/f9/f9fcec78d6eb95e865891886e8e462288ad198084b4209cab5c069a78fe33c98/CriticalMomentQuadNewton03.lean",
+        "bytes": 2136,
+        "lexical_markers_heuristic": [],
+        "sha256": "f9fcec78d6eb95e865891886e8e462288ad198084b4209cab5c069a78fe33c98",
+        "static_imports_heuristic": [
+          "CriticalMomentQuadData"
+        ]
+      }
+    ]
+  },
+  "ARCHIVE_IMPORT_INDEX.json": {
+    "total": 16532,
+    "matches": [
+      {
+        "candidate_source_sha256": [
+          "2ae8c7411a64e9e2a20274c7690871d22d8c276cec2e2485a937fcfe3a9b22b9",
+          "50f9735cf09e31e5ed9edb8bb25533f865cc3ed9e08e3c496053b3bf9508cf10",
+          "df12eecff6f0af45fcd0587eb87e7d013d2d78ced8fb62fbd15f54d0617e1ae7"
+        ],
+        "classification": "authored_candidates_available",
+        "module": "CriticalMomentQuad",
+        "resolution_is_context_dependent": true
+      },
+      {
+        "candidate_source_sha256": [
+          "2da3c745459a6fa07e310e7f6bf415c8a22c02a69494022e1e2b7b1e3c36d294"
+        ],
+        "classification": "authored_candidates_available",
+        "module": "CriticalMomentQuadData",
+        "resolution_is_context_dependent": false
+      },
+      {
+        "candidate_source_sha256": [
+          "4ab9b6c6e7c053f70f2d0eae201e3ac5d3d594e0c6a317a41c536814832c30ef"
+        ],
+        "classification": "authored_candidates_available",
+        "module": "CriticalMomentQuadNewton00",
+        "resolution_is_context_dependent": false
+      },
+      {
+        "candidate_source_sha256": [
+          "07d212f86419b0c490544d71e2e3bef95561bd995695b8a670f5849cde51e3c7",
+          "f482a5fe16166ad9736044b2c583529a145adf6cf13940b6e835faa719534d7f"
+        ],
+        "classification": "authored_candidates_available",
+        "module": "CriticalMomentQuadNewton01",
+        "resolution_is_context_dependent": true
+      },
+      {
+        "candidate_source_sha256": [
+          "120b052c6a34c0c45e714d356105d52399a487af62b5e1d19b4ce9b0c89c1af2",
+          "27453599688610649c369e6941781b01e9392104cbd0bd13d76a49184a30c8fe"
+        ],
+        "classification": "authored_candidates_available",
+        "module": "CriticalMomentQuadNewton02",
+        "resolution_is_context_dependent": true
+      },
+      {
+        "candidate_source_sha256": [
+          "6a55c9f72eed74d254f1e6a4a58e52f43b702bdc4e7dd7daa78b5a2b1baeeca9",
+          "f9fcec78d6eb95e865891886e8e462288ad198084b4209cab5c069a78fe33c98"
+        ],
+        "classification": "authored_candidates_available",
+        "module": "CriticalMomentQuadNewton03",
+        "resolution_is_context_dependent": true
+      },
+      {
+        "candidate_source_sha256": [
+          "7a08dbc60ae2f65a3348edb253c46ca6d37084d0e0d4d546d1c61bc22334a022",
+          "d9da7ec09a02df2e8c677652cf59483ddb2713cc78db303f684b8f44ea3a0fc2"
+        ],
+        "classification": "authored_candidates_available",
+        "module": "CriticalMomentQuadNewton04",
+        "resolution_is_context_dependent": true
+      },
+      {
+        "candidate_source_sha256": [
+          "b0c5624691c094e3d3d1aba9bfe7616ab45b19744b03112a88a95895c0e0ca32",
+          "d15edf1d3d7cb9f36efb15d0059d6d7d95137bc3dcc257b72969f99768cfbe24"
+        ],
+        "classification": "authored_candidates_available",
+        "module": "CriticalMomentQuadNewton05",
+        "resolution_is_context_dependent": true
+      },
+      {
+        "candidate_source_sha256": [
+          "7ba994ae05db6b3fa40c7d663ad1299f6bf4f4a7ed328bf6db71353aa1564a1b",
+          "a3ce8d68a8b5939a32b9292d7fbdcf2bb9451147ca81fd06c78e34a81fe666c2"
+        ],
+        "classification": "authored_candidates_available",
+        "module": "CriticalMomentQuadNewton06",
+        "resolution_is_context_dependent": true
+      },
+      {
+        "candidate_source_sha256": [
+          "622f40773145a7a341a47449479a09ba4be1b1bf373215c1a6c0c2cd6839f27d",
+          "6270411e0ab6040dff3a4972b15ae0938e4397d242068b1dd8e24d6b3ab59b5e"
+        ],
+        "classification": "authored_candidates_available",
+        "module": "CriticalMomentQuadNewton07",
+        "resolution_is_context_dependent": true
+      },
+      {
+        "candidate_source_sha256": [
+          "0a76a6c75a13e1a6e1783c4eb4e54c26a0166f671881d03d94c6ae06c0fdd773",
+          "75e5b64e9eff276147124d6e362134fcc665d4884f15d07762c1e46fb455b70e"
+        ],
+        "classification": "authored_candidates_available",
+        "module": "CriticalMomentQuadNewton08",
+        "resolution_is_context_dependent": true
+      },
+      {
+        "candidate_source_sha256": [
+          "9523fc78f9c807a91eaad3fa8ddfe0380f60fc646a799da3fab9469cb6704eaf"
+        ],
+        "classification": "authored_candidates_available",
+        "module": "CriticalMomentQuadNumerals",
+        "resolution_is_context_dependent": false
+      }
+    ]
+  },
+  "current": {
+    "paths": [
+      "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/WeightedDefect.lean",
+      "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/SideMatrices.lean",
+      "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/Contraction.lean",
+      "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/AffineMatrices.lean",
+      "lean/NoFourMUBs/Step2/Reconstruction/CubicEvaluation.lean",
+      "lean/NoFourMUBs/Step2/Reconstruction/Companion/Interpretation.lean",
+      "lean/NoFourMUBs/Step2/Reconstruction/Companion/ComponentRules.lean",
+      "lean/NoFourMUBs/Step2/Reconstruction/Companion/Model.lean",
+      "lean/NoFourMUBs/Reuse/Archive/CriticalMomentQuadNewton04.lean",
+      "lean/NoFourMUBs/Reuse/Archive/CriticalQuadProgram.lean",
+      "lean/NoFourMUBs/Reuse/Archive/CriticalNonzeroPair01.lean",
+      "lean/NoFourMUBs/Reuse/Archive/CriticalNonzeroQuadSide.lean",
+      "lean/NoFourMUBs/Reuse/Archive/CriticalMomentQuadData.lean",
+      "lean/NoFourMUBs/Reuse/Archive/CriticalNonzeroPair00.lean",
+      "lean/NoFourMUBs/Reuse/Archive/CriticalMomentQuadNewton06.lean",
+      "lean/NoFourMUBs/Reuse/Archive/CriticalMomentQuadNewton07.lean",
+      "lean/NoFourMUBs/Reuse/Archive/CriticalMomentQuadNumerals.lean",
+      "lean/NoFourMUBs/Reuse/Archive/CriticalNonzeroMomentInterface.lean",
+      "lean/NoFourMUBs/Reuse/Archive/CriticalNonzeroCoefficientProgram.lean",
+      "lean/NoFourMUBs/Reuse/Archive/CriticalNonzeroPair07.lean",
+      "lean/NoFourMUBs/Reuse/Archive/CriticalMomentQuadNewton01.lean",
+      "lean/NoFourMUBs/Reuse/Archive/CriticalMomentQuadNewton00.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Term30.lean",
+      "lean/NoFourMUBs/Reuse/Archive/CriticalMomentQuadNewton08.lean",
+      "lean/NoFourMUBs/Reuse/Archive/CriticalNonzeroPair08.lean",
+      "lean/NoFourMUBs/Reuse/Archive/CriticalNonzeroPair05.lean",
+      "lean/NoFourMUBs/Reuse/Archive/CriticalNonzeroPair06.lean",
+      "lean/NoFourMUBs/Reuse/Archive/CriticalNonzeroPair02.lean",
+      "lean/NoFourMUBs/Reuse/Archive/CriticalMomentQuadNewton03.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Term26.lean",
+      "lean/NoFourMUBs/Reuse/Archive/CriticalMomentQuadNewton02.lean",
+      "lean/NoFourMUBs/Reuse/Archive/CriticalMomentQuad.lean",
+      "lean/NoFourMUBs/Reuse/Archive/CriticalNonzeroPair04.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/NonzeroRationalTable.lean",
+      "lean/NoFourMUBs/Reuse/Archive/CriticalNonzeroPair03.lean",
+      "lean/NoFourMUBs/Reuse/Archive/CriticalMomentQuadNewton05.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/NonzeroCompactSide.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/NonzeroOppositeCoefficients.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/NonzeroSideInvolution.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/ClearedMoments/Pair_p4_m2.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/NonzeroMomentClearing.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/ClearedMoments/Pair_p3_p0.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/ClearedMoments/Pair_p0_p2.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/ClearedMoments/Pair_p1_p2.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/ClearedMoments/Pair_p2_p2.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/ClearedMoments/Pair_p0_p3.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/ClearedMoments/Pair_p2_m4.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/NonzeroMomentInvolution.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/ClearedMoments/Pair_p2_p1.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/ClearedMoments/Pair_p1_m3.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/ClearedMoments/ExistingPairs.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/ClearedMoments/Pair_p1_m2.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/ClearedMoments/Pair_p3_m1.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/ClearedMoments/Pair_p2_p0.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/ClearedMoments/Pair_p2_m3.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/ClearedMoments/Pair_p3_m2.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/ClearedMoments/Pair_p2_m2.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/ClearedMoments/Pair_p3_m3.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/NonzeroSwap.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Term51.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/NonzeroProgramInvolution.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Term06.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/NonzeroQuadAlgebra.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Term10.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Term47.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/NonzeroSwapMoment.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Term46.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Term11.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Term48.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Term09.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Term07.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Term13.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Term25.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Term64.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Term33.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Term44.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Term05.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Term50.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Term52.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Term29.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Term28.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Term53.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Term65.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Term12.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Term04.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Term45.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Term32.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Term08.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Term42.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Term49.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Term24.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Term03.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Base.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Term39.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Term15.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Term19.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Term54.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Term23.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Term34.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Term58.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Term62.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Term35.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Term18.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Term38.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Term22.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Term59.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Term55.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Term02.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Term01.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Term63.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Term14.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Assembly.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Term43.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Term56.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Term17.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Term37.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Term60.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Term21.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Term40.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Term36.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Term27.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Term41.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Term61.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Term20.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Term16.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Term00.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Term57.lean",
+      "lean/NoFourMUBs/Step2/CriticalZero/SumClearing/Term31.lean"
+    ]
+  },
+  "vendor": {
+    "paths": []
+  },
+  "archive": {
+    "paths": [
+      "audit/upstream_repository/archive/long_proof/Lean/blobs/0e/0e70ca1312f1979195d332b84babf9b46b33e0edb7c7be7e661872c68b76d68d/CriticalNonzeroQuadSide.lean",
+      "audit/upstream_repository/archive/long_proof/Lean/blobs/95/9523fc78f9c807a91eaad3fa8ddfe0380f60fc646a799da3fab9469cb6704eaf/CriticalMomentQuadNumerals.lean",
+      "audit/upstream_repository/archive/long_proof/Lean/blobs/d1/d15d97ce0f0b6ce6c66e392e5c555d1f61b33dbad4b2feac6dd47f6734a8f2ab/CriticalNonzeroPair02.lean",
+      "audit/upstream_repository/archive/long_proof/Lean/blobs/d1/d15edf1d3d7cb9f36efb15d0059d6d7d95137bc3dcc257b72969f99768cfbe24/CriticalMomentQuadNewton05.lean",
+      "audit/upstream_repository/archive/long_proof/Lean/blobs/50/50f9735cf09e31e5ed9edb8bb25533f865cc3ed9e08e3c496053b3bf9508cf10/CriticalMomentQuad.lean",
+      "audit/upstream_repository/archive/long_proof/Lean/blobs/d9/d9da7ec09a02df2e8c677652cf59483ddb2713cc78db303f684b8f44ea3a0fc2/CriticalMomentQuadNewton04.lean",
+      "audit/upstream_repository/archive/long_proof/Lean/blobs/29/29b0d6a4a5f777b3173e423ba1f242222ac2f82713d421e28578fe25dab49921/CriticalNonzeroPair05.lean",
+      "audit/upstream_repository/archive/long_proof/Lean/blobs/33/339296bcc767e4b102be67a52c59c16933d6ab3961c69d1882a54d2a2f98c15b/CriticalNonzeroCoefficientProgram.lean",
+      "audit/upstream_repository/archive/long_proof/Lean/blobs/56/56fef7d397a21509c66aed75322ebf369804b0162e2fdbcfe8aa2d3129f3b2b4/CriticalNonzeroPair04.lean",
+      "audit/upstream_repository/archive/long_proof/Lean/blobs/7a/7a08dbc60ae2f65a3348edb253c46ca6d37084d0e0d4d546d1c61bc22334a022/CriticalMomentQuadNewton04.lean",
+      "audit/upstream_repository/archive/long_proof/Lean/blobs/a3/a3ce8d68a8b5939a32b9292d7fbdcf2bb9451147ca81fd06c78e34a81fe666c2/CriticalMomentQuadNewton06.lean",
+      "audit/upstream_repository/archive/long_proof/Lean/blobs/27/27453599688610649c369e6941781b01e9392104cbd0bd13d76a49184a30c8fe/CriticalMomentQuadNewton02.lean",
+      "audit/upstream_repository/archive/long_proof/Lean/blobs/7b/7ba994ae05db6b3fa40c7d663ad1299f6bf4f4a7ed328bf6db71353aa1564a1b/CriticalMomentQuadNewton06.lean",
+      "audit/upstream_repository/archive/long_proof/Lean/blobs/df/df12eecff6f0af45fcd0587eb87e7d013d2d78ced8fb62fbd15f54d0617e1ae7/CriticalMomentQuad.lean",
+      "audit/upstream_repository/archive/long_proof/Lean/blobs/cf/cff37a828feaf83724eb07ea2ed2d86341d06bad7278467ba07f1e30c5ce7ef5/CriticalNonzeroPair08.lean",
+      "audit/upstream_repository/archive/long_proof/Lean/blobs/b3/b34026d24196ca6a485446c46c674ee02562c5f810e31f1c020afbaeacf063b4/CriticalNonzeroCoefficientProgram.lean",
+      "audit/upstream_repository/archive/long_proof/Lean/blobs/2a/2ae8c7411a64e9e2a20274c7690871d22d8c276cec2e2485a937fcfe3a9b22b9/CriticalMomentQuad.lean",
+      "audit/upstream_repository/archive/long_proof/Lean/blobs/6a/6a55c9f72eed74d254f1e6a4a58e52f43b702bdc4e7dd7daa78b5a2b1baeeca9/CriticalMomentQuadNewton03.lean",
+      "audit/upstream_repository/archive/long_proof/Lean/blobs/eb/eb126cafa298bbcc9bce592ab1c8d3eeb68e641c4580d44c50b0fb139bd82fb2/CriticalNonzeroPair00.lean",
+      "audit/upstream_repository/archive/long_proof/Lean/blobs/62/6270411e0ab6040dff3a4972b15ae0938e4397d242068b1dd8e24d6b3ab59b5e/CriticalMomentQuadNewton07.lean",
+      "audit/upstream_repository/archive/long_proof/Lean/blobs/81/818bdaa7bdcad696d6e1b12b2b08f33f621d8b404b9fe8bcd8066109754b6800/CriticalNonzeroMomentInterface.lean",
+      "audit/upstream_repository/archive/long_proof/Lean/blobs/62/622f40773145a7a341a47449479a09ba4be1b1bf373215c1a6c0c2cd6839f27d/CriticalMomentQuadNewton07.lean",
+      "audit/upstream_repository/archive/long_proof/Lean/blobs/f4/f482a5fe16166ad9736044b2c583529a145adf6cf13940b6e835faa719534d7f/CriticalMomentQuadNewton01.lean",
+      "audit/upstream_repository/archive/long_proof/Lean/blobs/b0/b0c5624691c094e3d3d1aba9bfe7616ab45b19744b03112a88a95895c0e0ca32/CriticalMomentQuadNewton05.lean",
+      "audit/upstream_repository/archive/long_proof/Lean/blobs/75/75e5b64e9eff276147124d6e362134fcc665d4884f15d07762c1e46fb455b70e/CriticalMomentQuadNewton08.lean",
+      "audit/upstream_repository/archive/long_proof/Lean/blobs/b7/b76413c2ac0caf9c115f9d91c3c9d7c5918a7fef16cb4e1f3383615283a20ff7/CriticalNonzeroCoefficientProgram.lean",
+      "audit/upstream_repository/archive/long_proof/Lean/blobs/2d/2da3c745459a6fa07e310e7f6bf415c8a22c02a69494022e1e2b7b1e3c36d294/CriticalMomentQuadData.lean",
+      "audit/upstream_repository/archive/long_proof/Lean/blobs/af/af7e67ca9c7f376207940eac57e1a0110646ce0b4594007d623b20ce7ca1ad87/CriticalNonzeroCoefficientProgram.lean",
+      "audit/upstream_repository/archive/long_proof/Lean/blobs/07/07d212f86419b0c490544d71e2e3bef95561bd995695b8a670f5849cde51e3c7/CriticalMomentQuadNewton01.lean",
+      "audit/upstream_repository/archive/long_proof/Lean/blobs/76/76b26638e07fdec235aa1dbcfc2ce032512b80691191834ee29cf404fe12cf6d/CriticalNonzeroPair03.lean",
+      "audit/upstream_repository/archive/long_proof/Lean/blobs/4f/4f3a58e70650f442bd65aaf9d8fac536a9375353648b70ec948da2354f77a05d/CriticalNonzeroPair01.lean",
+      "audit/upstream_repository/archive/long_proof/Lean/blobs/ce/cec033ae5be0add9fc15eba2f187fd8dc0023972cfe5e4d85fff9af407790ad0/CriticalNonzeroPair06.lean",
+      "audit/upstream_repository/archive/long_proof/Lean/blobs/c5/c5c81928c033c52567869d63352bbff882b8bcd6a127c904c59d33991ac47cdf/CriticalQuadProgram.lean",
+      "audit/upstream_repository/archive/long_proof/Lean/blobs/f7/f77b4e1524d241957347370e4dcf20afa3febbca2dc7065af2cedeae97cc77f2/CriticalNonzeroPair07.lean",
+      "audit/upstream_repository/archive/long_proof/Lean/blobs/0a/0a76a6c75a13e1a6e1783c4eb4e54c26a0166f671881d03d94c6ae06c0fdd773/CriticalMomentQuadNewton08.lean",
+      "audit/upstream_repository/archive/long_proof/Lean/blobs/f9/f9fcec78d6eb95e865891886e8e462288ad198084b4209cab5c069a78fe33c98/CriticalMomentQuadNewton03.lean",
+      "audit/upstream_repository/archive/long_proof/Lean/blobs/12/120b052c6a34c0c45e714d356105d52399a487af62b5e1d19b4ce9b0c89c1af2/CriticalMomentQuadNewton02.lean",
+      "audit/upstream_repository/archive/long_proof/Lean/blobs/4a/4ab9b6c6e7c053f70f2d0eae201e3ac5d3d594e0c6a317a41c536814832c30ef/CriticalMomentQuadNewton00.lean"
+    ]
+  }
+}

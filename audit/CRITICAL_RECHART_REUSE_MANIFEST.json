@@ -1,0 +1,127 @@
+{
+  "scope": "critical_rechart_reuse",
+  "status": "ADOPTED_UNCOMPILED",
+  "records": [
+    {
+      "module": "NoFourMUBs.Reuse.Archive.CriticalCorrelationCore",
+      "original_module": "CriticalCorrelationCore",
+      "original_sha256": "1b1858c2851ca0a306aebc8e3c82a39e0beaf80589b13d068d20e9956c995911",
+      "original_source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/global_assembly/exceptional_interfaces/CriticalCorrelationCore.lean",
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalCorrelationCore.lean",
+      "active_sha256": "dae81b63d1bc9cda4eccf684ffa1ba9038365b1c88b5a01d90751a1239165b25",
+      "imports_only_adaptation": true,
+      "proof_adaptations": [],
+      "import_replacements": {
+        "CriticalMomentBinding": "NoFourMUBs.Reuse.Archive.CriticalMomentBinding"
+      },
+      "omitted_reused_declarations": [],
+      "model_identifier_replacements": {},
+      "namespace_open_replacements": {},
+      "proof_tactic_replacements": []
+    },
+    {
+      "module": "NoFourMUBs.Step2.CriticalZero.RechartModel",
+      "active_path": "NoFourMUBs/Step2/CriticalZero/RechartModel.lean",
+      "active_sha256": "7ba67fb8000833df557e18483a1745590ed57812a033c995c810ef9b9f9928b1",
+      "after_archived_module": "CriticalCorrelationCore",
+      "local_model_adapter": true
+    },
+    {
+      "module": "NoFourMUBs.Reuse.Archive.CriticalCorrelationRechart",
+      "original_module": "CriticalCorrelationRechart",
+      "original_sha256": "de782778df3672ddde40a269dd803dea293869bfd575acd7589de02d350fb993",
+      "original_source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/global_assembly/exceptional_interfaces/CriticalCorrelationRechart.lean",
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalCorrelationRechart.lean",
+      "active_sha256": "cb18e37a7b7be7292293f8a26c123fa7d75be455febb749161d0e4cec4c2fd1d",
+      "imports_only_adaptation": false,
+      "proof_adaptations": [
+        "Reviewed matrix/predicate identifier and namespace-open substitutions only; all algebraic proof bodies retained",
+        "Omit replaced legacy model proofs or unrelated quartet-occurrence endpoint; retain original scalar/invariant rechart proof.",
+        "Omit replaced legacy model proofs or unrelated quartet-occurrence endpoint; retain original scalar/invariant rechart proof.",
+        "Expose current Complex.star_def to reuse the checked unit_mul_conj identity in the archived calculation.",
+        "Expose current Complex.star_def to reuse the checked unit_mul_conj identity in the archived calculation."
+      ],
+      "import_replacements": {
+        "CriticalStripPhysical": "NoFourMUBs.Step2.CriticalZero.RechartModel"
+      },
+      "omitted_reused_declarations": [],
+      "model_identifier_replacements": {
+        "CompactCover.Mat6": "OAI.MUB6.CMatrix",
+        "CompactCover.Mat3": "Hadamard6.Mat3",
+        "AllCritical": "AllCriticalCarrier",
+        "PhaseHadamard": "OAI.MUB6.IsHadamard",
+        "MonomialEquivalent": "OAI.MUB6.Equivalent",
+        "CompactCover.unit_mul_star": "NoFourMUBs.Side.unit_mul_conj"
+      },
+      "namespace_open_replacements": {
+        "open Mub6 Mub6.Numerical Mub6.Classification Matrix\nopen CompactCover GoodMinor FourierSeedBinding FourPhase FourPhaseWorker\nopen CanonicalCorners GlobalCornerDomain CriticalPhysical20261003\n": "open Matrix NoFourMUBs.Step2.Critical CriticalPhysical20261003\n"
+      },
+      "proof_tactic_replacements": [
+        {
+          "before": "/-- The column permutation is the identity. The same physical row operation\nis applied to all six columns, including both halves of the chosen strip. -/\ntheorem row_candidate_entry {H : OAI.MUB6.CMatrix} (hH : NormalizedCarrier H)\n    (p : Perm) (i j : Fin 6) :\n    candidate H p (Equiv.refl _) i j=H (p i) j*star (H (p 0) j) := by\n  change (H (p 0) 0*star (H (p i) 0))*H (p i) j*star (H (p 0) j)=_\n  simp only [hH.2.2,star_one,one_mul]\n\ntheorem candidate_monomial_equivalent {H : OAI.MUB6.CMatrix}\n    (hH : OAI.MUB6.IsHadamard H) (p q : Perm) :\n    OAI.MUB6.Equivalent H (candidate H p q) := by\n  have hu := submatrix_hadamard hH p q\n  refine \u27e8p,q,normalizingRows (H.submatrix p q),normalizingCols (H.submatrix p q),\n    normalizingRows_unit hu,normalizingCols_unit hu,?_\u27e9\n  rfl\n\n",
+          "after": "",
+          "count": 1,
+          "reason": "Omit replaced legacy model proofs or unrelated quartet-occurrence endpoint; retain original scalar/invariant rechart proof."
+        },
+        {
+          "before": "#print axioms row_candidate_entry\n#print axioms candidate_monomial_equivalent\n",
+          "after": "",
+          "count": 1,
+          "reason": "Omit replaced legacy model proofs or unrelated quartet-occurrence endpoint; retain original scalar/invariant rechart proof."
+        },
+        {
+          "before": "by rw [NoFourMUBs.Side.unit_mul_conj (hH.1.1 1 j),mul_one]",
+          "after": "by simp only [Complex.star_def, NoFourMUBs.Side.unit_mul_conj (hH.1.1 1 j),mul_one]",
+          "count": 1,
+          "reason": "Expose current Complex.star_def to reuse the checked unit_mul_conj identity in the archived calculation."
+        },
+        {
+          "before": "by rw [NoFourMUBs.Side.unit_mul_conj (hH.1.1 2 j),mul_one]",
+          "after": "by simp only [Complex.star_def, NoFourMUBs.Side.unit_mul_conj (hH.1.1 2 j),mul_one]",
+          "count": 1,
+          "reason": "Expose current Complex.star_def to reuse the checked unit_mul_conj identity in the archived calculation."
+        }
+      ]
+    },
+    {
+      "module": "NoFourMUBs.Reuse.Archive.CriticalZeroChartTransport",
+      "original_module": "CriticalZeroChartTransport",
+      "original_sha256": "40d1cea9e383a50ce2abbd351db5aa64a3efb6836978832ff7d09faac2f426fa",
+      "original_source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/global_assembly/exceptional_interfaces/CriticalZeroChartTransport.lean",
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalZeroChartTransport.lean",
+      "active_sha256": "cf5acd52a2f355e97cafe87b83a03d893f42e6bbb4d5b41ee10d3c94763ea861",
+      "imports_only_adaptation": false,
+      "proof_adaptations": [
+        "Reviewed matrix/predicate identifier and namespace-open substitutions only; all algebraic proof bodies retained",
+        "Omit replaced legacy model proofs or unrelated quartet-occurrence endpoint; retain original scalar/invariant rechart proof.",
+        "Omit replaced legacy model proofs or unrelated quartet-occurrence endpoint; retain original scalar/invariant rechart proof."
+      ],
+      "import_replacements": {
+        "CriticalStripNewton": "NoFourMUBs.Reuse.Archive.CriticalStripNewton"
+      },
+      "omitted_reused_declarations": [],
+      "model_identifier_replacements": {
+        "CompactCover.Mat6": "OAI.MUB6.CMatrix",
+        "AllCritical": "AllCriticalCarrier",
+        "MonomialEquivalent": "OAI.MUB6.Equivalent"
+      },
+      "namespace_open_replacements": {
+        "open Mub6 Mub6.Numerical Mub6.Classification Matrix\nopen CompactCover GoodMinor FourierSeedBinding FourPhase FourPhaseWorker\nopen CanonicalCorners GlobalCornerDomain CriticalPhysical20261003\n": "open Matrix NoFourMUBs.Step2.Critical CriticalPhysical20261003\n"
+      },
+      "proof_tactic_replacements": [
+        {
+          "before": "/-- The actual quartet-edge predicate is transported by the very same\ncandidate; no matrix-existence hypothesis is replaced by scalar data. -/\ntheorem rechart_preserves_quartet_occurrence {H : OAI.MUB6.CMatrix}\n    (hH : AllCriticalCarrier H) (p : Perm)\n    (ho : OccursAsQuartetEdge (normalizedNumerical H)) :\n    OccursAsQuartetEdge (normalizedNumerical (candidate H p (Equiv.refl _))) :=\n  candidate_occurs hH.1.1 ho p (Equiv.refl _)\n\n",
+          "after": "",
+          "count": 1,
+          "reason": "Omit replaced legacy model proofs or unrelated quartet-occurrence endpoint; retain original scalar/invariant rechart proof."
+        },
+        {
+          "before": "#print axioms rechart_preserves_quartet_occurrence\n",
+          "after": "",
+          "count": 1,
+          "reason": "Omit replaced legacy model proofs or unrelated quartet-occurrence endpoint; retain original scalar/invariant rechart proof."
+        }
+      ]
+    }
+  ]
+}

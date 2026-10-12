@@ -1,0 +1,51 @@
+{
+  "status": "PASS",
+  "reviewed_utc": "2026-10-11T06:33:49.713831+00:00",
+  "scope": "Prove the reciprocal conjugation relations of the existing quadSide using Mathlib QuadraticAlgebra, as a structural simplification of the missing b coefficient identity in the one active numerator chain.",
+  "search_evidence": [
+    "CRITICAL_NONZERO_INVOLUTION_SEARCH.json",
+    "CRITICAL_NONZERO_STAR_PROGRAM_SEARCH.json",
+    "CRITICAL_NONZERO_QUADRATIC_MODEL_CURRENT_SEARCH.txt",
+    "CRITICAL_NONZERO_REFLECTOR_SEARCH.json"
+  ],
+  "reuse": [
+    "Existing37module moment/program definitions remain unchanged.",
+    "Use the checked literal toQuadratic map and Mathlib ring/involution; do not implement a second quadratic algebra or new polynomial normalizer.",
+    "Existing moment clearing formulas remain available; raw numerator/denominator JSON unchanged.",
+    "Adapt the existing MomentTag lookup to Quad over a generic field; tag opposites/degrees are read from the existing 36 tags, and all Newton formulas remain imported unchanged. Use the existing program66 syntax directly.",
+    "Close the existing actual coefficient equation using b=0. No repeated scalar parameterization or physical reconstruction; ActualNonzeroCoefficients is used directly."
+  ],
+  "not_claimed": "Constant coefficient times the pinned common denominator still needs identification with the raw numerator; raw-to-reduced trace, classification and matched completion remain open.",
+  "atlas_certification": false,
+  "existing_dependency_pins": {
+    "NoFourMUBs.Step2.CriticalZero.NonzeroQuadAlgebra": {
+      "active_path": "NoFourMUBs/Step2/CriticalZero/NonzeroQuadAlgebra.lean",
+      "active_sha256": "3cc35f4c2c1c5d497c1e931f88d93768d7c26469c28778558f10d5e0de9e8482"
+    },
+    "NoFourMUBs.Reuse.Archive.CriticalNonzeroQuadSide": {
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalNonzeroQuadSide.lean",
+      "active_sha256": "04f170268e01d6c061310e89742b4d0ef5b5c2b742b7c9f1a59b6c397ebb5122"
+    },
+    "NoFourMUBs.Reuse.Archive.CriticalNonzeroMomentInterface": {
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalNonzeroMomentInterface.lean",
+      "active_sha256": "d6cbe37b256ff1131fbaa82923126413fd9f711d477c3163069b710174a59854"
+    },
+    "NoFourMUBs.Reuse.Archive.CriticalNonzeroCoefficientProgram": {
+      "active_path": "NoFourMUBs/Reuse/Archive/CriticalNonzeroCoefficientProgram.lean",
+      "active_sha256": "a31e3a113b7fd463b35c0066c508d1d6c9d98d928bc99d2700a8a4a8ff8d235e"
+    },
+    "NoFourMUBs.Step2.CriticalZero.ActualNonzeroCoefficients": {
+      "active_path": "NoFourMUBs/Step2/CriticalZero/ActualNonzeroCoefficients.lean",
+      "active_sha256": "a7955ba1be6b302f8bb8e52b853ea9024d65d4c68a6c9050fbca0c209e0e97b8"
+    }
+  },
+  "hypothesis_review": "CHECKED: conjugation treats scalar pole inverses as arbitrary scalars, so no nonpole hypotheses are needed for b=0 as a total-expression identity. Physical reconstruction and allCritical_nonzero_a_zero retain their original six physical guards.",
+  "checked_utc": "2026-10-11T06:53:36.021262+00:00",
+  "audit_status": "KERNEL_AUDIT_CRITICAL_NONZERO_INVOLUTION_STATUS.json",
+  "source_hashes": {
+    "NoFourMUBs/Step2/CriticalZero/NonzeroSideInvolution.lean": "6cb7e2752e10114b3f9ffd39ddf2a6d106cefa5f5fb67ba807a0321f659e5d2b",
+    "NoFourMUBs/Step2/CriticalZero/NonzeroMomentInvolution.lean": "14115fb54c750f14132ae82da49f7634d52a30d153813750f5dd9250cefc2088",
+    "NoFourMUBs/Step2/CriticalZero/NonzeroProgramInvolution.lean": "24676af2adbb68e60f1b2625fd4cb5a023289392ce6d6b8c3939e84416f5ee70",
+    "NoFourMUBs/Step2/CriticalZero/ActualNonzeroCoefficientZero.lean": "d5eb85831681fb47e940d6ad429d93d0db692f6345a3679ff17b9d6c36d9b575"
+  }
+}

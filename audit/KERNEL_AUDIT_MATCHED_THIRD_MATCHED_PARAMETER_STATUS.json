@@ -1,0 +1,75 @@
+{
+  "status": "PASS",
+  "checked_utc": "2026-10-12T00:29:26.486654+00:00",
+  "modules": 3,
+  "axiom_endpoints": {
+    "StrictReconstruction20261007.SideIntrinsic.permanent3_transpose": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "StrictReconstruction20261007.SideIntrinsic.dephased_transpose_intrinsic_bindings": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "StrictReconstruction20261007.SideIntrinsic.dephased_transpose_scalar_triple": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "StrictReconstruction20261007.SideIntrinsic.gram_triple_of_intrinsic_scalars": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "StrictReconstruction20261007.SideIntrinsic.gramInvariant_all_neg": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "StrictReconstruction20261007.SideIntrinsic.dephased_negative_gramInvariant_transpose": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.intrinsicTheta_signature": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.candidate_signature_parameter": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.transposedSeed_scalar_pair": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Reconstruction.ThirdMoment.matched_intrinsic_parameters": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "source_hashes": {
+    "NoFourMUBs/Reuse/Archive/SideIntrinsicTransposeBindings.lean": "43e9b16e8641bef7c06cf57715a676e4f611a5a60b14de9af4e42c707f03d638",
+    "NoFourMUBs/Reuse/Archive/SideIntrinsicTransposeInvariants.lean": "bfaf3e24e7757a36155a18e57ff1a5654cdba2848ede4ee82226fdeef480098a",
+    "NoFourMUBs/Step2/Reconstruction/ThirdMoment/MatchedParameter.lean": "7d8c0632cfafc570fec5f89e5230485f520f77ece6528068efb164f51aa98291"
+  },
+  "manifest_sha256": "e5cdae61cd0be92f5fc2ba2077df2595913bf8b2a83eec36522c6b91bc263aad",
+  "audit_log_sha256": "3d4e2dfaa423b270d2b5fc6f40af43f12bd5245b44305a4da97e156c0fb41511",
+  "scope": "Actual opposite side signatures force conjugate intrinsic theta parameters; two archived transpose modules reused unchanged except imports. No atlas certification.",
+  "dependency_audits": {},
+  "dependency_source_hashes": {
+    "NoFourMUBs/Reuse/Archive/SideIntrinsicTheta.lean": "2f4160f9d9ecd11d381dc17ca3396f4ba5b291724b74e51cf2c62e09a3b84699",
+    "NoFourMUBs/Step2/Reconstruction/RowProductSignature.lean": "1c94b70a0b87dacc3199c544cad22766ce194d4441ba16a940119eb9d749f83a",
+    "NoFourMUBs/Step2/Reconstruction/BaseCoefficients/Centered.lean": "0a74257b9c2fc64e57046f9abef7ee87e7bd308b889f3528ef52b5550f13162f",
+    "NoFourMUBs/Step2/Reconstruction/BaseCoefficients/VerticalProduct.lean": "74104c8570340687fbf1d7df3635d44cdbf7ac1dda2f8db91145e7349e1ac3b2",
+    "NoFourMUBs/Step2/ActualCorners.lean": "f5a46634e2318abb93603ed50169c47c47df9e94463869da48110e63654ba7e0",
+    "NoFourMUBs/Reuse/Archive/SideIntrinsicMatrixBindings.lean": "28e1b68230d5b0372200d1bc65f9f98e6db18afdda19c6f1c46cacdc0377a5a5"
+  },
+  "atlas_certification": false
+}

@@ -1,0 +1,43 @@
+{
+  "status": "REVIEWED_REUSE_PRODUCT015_AND_EXISTING_HORNER_EVALUATORS",
+  "reviewed_utc": "2026-10-12T02:18:30.581890+00:00",
+  "search": "MATCHED_THIRD_MONOMIAL_TRANSPORT_1_REUSE_SEARCH.json",
+  "comparisons": [
+    "Product015_value already establishes rawP034*rawP035=rawP031 over every commutative ring, no hypotheses. It is the reuse base for products21,23,25,27.",
+    "MonomialTransport0.sliceValue_shift and existing Coefficients.eval_scale directly handle b shifts and assemble scalar multiples; reuse unchanged.",
+    "IntegerReflector.evalII exposes its leading coefficient and tail directly. DenseCoefficients.interpret and Coefficients.eval_scale give the c-tail adapter when all leading rows are empty. Existing evalII_shiftX handles forward padding, but the saved zero rows use [] instead of [[]], so a small tail adapter is needed; no new polynomial arithmetic checker.",
+    "All a,b,c shift/tail relationships were compared with original saved arrays and agree exactly. Lean will prove the evaluation relationships independently; these metadata comparisons are not proof receipts.",
+    "No rational specialization, nonzero denominator claim, MatchedExistence theorem, or atlas result is obtained from these transports alone."
+  ],
+  "source_pins": [
+    {
+      "path": "lean/NoFourMUBs/Reuse/Archive/CriticalZeroCoefficientCore.lean",
+      "sha256": "432fed0290217430549866252f3d424e071fc185a8ea1333115a46ef43f7dbd3"
+    },
+    {
+      "path": "lean/NoFourMUBs/Reuse/Archive/CriticalZeroIntegerReflector.lean",
+      "sha256": "5ce93847bac62f47c9b123906dca3642f93d8a0bfeb53c6921f1cfd603d9164a"
+    },
+    {
+      "path": "lean/NoFourMUBs/Reuse/Archive/CriticalZeroHornerReflector.lean",
+      "sha256": "8e400607070d0839657b99811769537119103a455c6342c3f1615e3b9499530a"
+    },
+    {
+      "path": "lean/NoFourMUBs/Reuse/Archive/CriticalZeroSumDenseCoefficients.lean",
+      "sha256": "b9bfcd6c882329da43a6d318ac481580385621442600a6bb102e0ad1298af29c"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/Model.lean",
+      "sha256": "11ba438c48cc9078b7593e5846f117744a6f69dfa3c03c2072262aeb8b7bfa16"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/Products/MonomialTransport0.lean",
+      "sha256": "97ea96afb3d4877b73bba96cf947271b7bcfb036e6cbfc0b45d3a65a7a899452"
+    },
+    {
+      "path": "lean/NoFourMUBs/Step2/Reconstruction/ThirdMoment/Certificates/Products/Product015.lean",
+      "sha256": "953d3487a5d46a7a60c74bf6ce1efcac8ea4a0c0560f4d1de7fe1641bdb84dab"
+    }
+  ],
+  "atlas_certification": false
+}

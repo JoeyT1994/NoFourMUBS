@@ -1,0 +1,35 @@
+{
+  "status": "PASS",
+  "checked_utc": "2026-10-11T17:05:10.751079+00:00",
+  "modules": 1,
+  "axiom_endpoints": {
+    "NoFourMUBs.Step2.Critical.strip_nonzero_quartic_special": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "NoFourMUBs.Step2.Critical.strip_nonzero_pole_special": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "source_hashes": {
+    "NoFourMUBs/Step2/CriticalZero/NonzeroScalarEndpoint.lean": "25ce1d9aa29b51b3dafccc98c6506c5dea2f0fe8b3d306616228c7adfdc591f4"
+  },
+  "manifest_sha256": "946f83fbea97772f268513f61ebc094620c8c1be79d1cd003fa2c78111c7f5d6",
+  "audit_log_sha256": "4166e1f1dab468738b2fc73065f476d2602cb0acb5366b12962a9920e9a62e34",
+  "scope": "Every nonzero signed-parameter physical pole in any of twenty all-critical strip corners has the existing cubic-root exceptional value. The same consumer handles regular quartic zeros when that premise is available. The general regular quartic binding and global CriticalClassification remain open.",
+  "dependency_audits": {
+    "KERNEL_AUDIT_CRITICAL_PHYSICAL_POLE_CLASSIFICATION_STATUS.json": "c66f5af6074a22afaa21cbd053c7d6b9c93fefc7abd13b3cef9e0a3b0bf8a7a3",
+    "KERNEL_AUDIT_CRITICAL_P7_STRIP_ENDPOINT_STATUS.json": "9b1af916aeee7476e284818364a460463e53f9d87a854a6d451fac57e32bdcab",
+    "KERNEL_AUDIT_CRITICAL_EQUICORRELATION_SCALAR_ENDPOINT_STATUS.json": "837b996598943b1e2fb23ffa3422c9d9d5f96c0b4b006b7595a3e86be8c64a10"
+  },
+  "dependency_source_hashes": {
+    "NoFourMUBs/Step2/CriticalZero/PhysicalPoleClassification.lean": "511de5ea08c2d1a454fcfcb6a81a4a0d86237ec24029ac1f1d0ea4ef21c3ebff",
+    "NoFourMUBs/Step2/CriticalZero/EquicorrelationScalarEndpoint.lean": "022371eb1de73c0b341e3e58e95840663f507b7a343e2518d79a1b34e399883d",
+    "NoFourMUBs/Step2/CriticalZero/P7StripEndpoint.lean": "3e967a2d9bd7668d169b27c4774c1b4f3379e9158c06f80e5f01c763ddc44743",
+    "NoFourMUBs/Step2/CriticalStripMatrix.lean": "7afefa1ebbb250dfd3039c4576224c1af58ebb522a98db8bfa7218db705e5f5a"
+  },
+  "atlas_certification": false
+}

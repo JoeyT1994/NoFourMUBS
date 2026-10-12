@@ -1,0 +1,68 @@
+{
+  "scope": "matched_base_bindings",
+  "records": [
+    {
+      "module": "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.Bindings",
+      "active_path": "NoFourMUBs/Step2/Reconstruction/BaseCoefficients/Bindings.lean",
+      "active_sha256": "f488d52f6e644ee826f25f359886ef3f9a1da0a3c27660246bf11b459dc40509",
+      "local_model_adapter": true,
+      "review": "MATCHED_BASE_BINDING_REUSE_REVIEW.json"
+    }
+  ],
+  "dependency_pins": [
+    {
+      "active_path": "NoFourMUBs/Reuse/Archive/PreRhoActualBindings.lean",
+      "active_sha256": "95bd24d7140b39595e579e0c45b39df1533f43902380f4534c81c07e93e89caa"
+    },
+    {
+      "active_path": "NoFourMUBs/Reuse/Archive/PreRhoNormBindings.lean",
+      "active_sha256": "2dc366315b498ad9dd3de167f804d26eecbe943704d6f79977edd523e4bd3ef1"
+    },
+    {
+      "active_path": "NoFourMUBs/Reuse/Archive/StrictSideScalarGuards.lean",
+      "active_sha256": "75741b3091aeb2ce36f1b9fdab822add16b2e2514bfa27822105c93fb936d042"
+    },
+    {
+      "active_path": "NoFourMUBs/Step1/Lift.lean",
+      "active_sha256": "b8a35ba93c6fc0759092edad30be2d649921351c66c2a8c154d4b71941479064"
+    },
+    {
+      "active_path": "NoFourMUBs/Step2/Reconstruction/BaseCoefficients/C6.lean",
+      "active_sha256": "e8f3730ef60eedcdd4c7d1f1991d8737d3a72473d6cfb8a2ee9c41ade6021a5b"
+    },
+    {
+      "active_path": "NoFourMUBs/Step2/Reconstruction/BaseCoefficients/Checked.lean",
+      "active_sha256": "ffb30122284cabfc33746fd802aeaf42d85a714ca3860a8993853bec0098b1ef"
+    },
+    {
+      "active_path": "NoFourMUBs/Step2/Reconstruction/BaseCoefficients/Data.lean",
+      "active_sha256": "8762870b591931264431f85658053b7ce1496ae35d318f036f34d5b02656f170"
+    },
+    {
+      "active_path": "NoFourMUBs/Step2/Reconstruction/BaseCoefficients/U.lean",
+      "active_sha256": "9ed07dadb5d58e92835585586474daaac41d4c79be133f5127899eae38e966b9"
+    },
+    {
+      "active_path": "NoFourMUBs/Step2/Reconstruction/BaseCoefficients/V.lean",
+      "active_sha256": "e9aae02e166e83000ea9d98efae3440272779f886663617f85b13beb3841a825"
+    },
+    {
+      "active_path": "NoFourMUBs/Step2/Reconstruction/SeedModel.lean",
+      "active_sha256": "7020e49ca7d9303f213bb75991290cd1bba125db6de255f0e1b39a51ab079aa3"
+    }
+  ],
+  "dependency_audits": [
+    "KERNEL_AUDIT_MATCHED_BASE_COEFFICIENT_STATUS.json"
+  ],
+  "axiom_endpoints": [
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.phaseMonomial_ne_zero",
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.normData_seed",
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.cachedC6_eq",
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.inputDen_ne_zero",
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.cachedU_eq",
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.cachedV_eq",
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.cachedC6_seed",
+    "NoFourMUBs.Step2.Reconstruction.BaseCoefficients.inputDen_strict"
+  ],
+  "atlas_certification": false
+}

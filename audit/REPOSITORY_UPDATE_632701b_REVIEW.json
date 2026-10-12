@@ -1,0 +1,87 @@
+{
+  "status": "REVIEWED_NO_CHANGE_TO_ACTIVE_PROOF_INPUTS",
+  "checked_utc": "2026-10-11T18:48:57.233604+00:00",
+  "base": "3a79a98fb3792ba9f4470a209123ac90c4ba23d1",
+  "head": "632701b52c0d294e865d991e4eabf2b947367933",
+  "comparison_file": "REPOSITORY_UPDATE_632701b_COMPARE.json",
+  "comparison_sha256": "823cd407270dc73ea2fdbfc97bbefcb0ef92111e0ec7d253aee1561e58626666",
+  "commits": 3,
+  "changed_files": [
+    {
+      "filename": "AUDIT.md",
+      "status": "modified",
+      "sha": "f49775e4d814624938b37cf3df1f8fac0f8b1b34",
+      "additions": 4,
+      "deletions": 3
+    },
+    {
+      "filename": "PROOF.md",
+      "status": "modified",
+      "sha": "b8730f3d5b9037307bd4696c954f91dc05cdc7e2",
+      "additions": 1,
+      "deletions": 0
+    },
+    {
+      "filename": "README.md",
+      "status": "modified",
+      "sha": "fce76ac170ca7b7770e4a25e64ef25b3b27c1b66",
+      "additions": 1,
+      "deletions": 0
+    },
+    {
+      "filename": "lean/NoFourMUBs/Axioms.lean",
+      "status": "modified",
+      "sha": "4b9b009fda6b1326b154fafdbe2f5520a8d747ba",
+      "additions": 8,
+      "deletions": 0
+    },
+    {
+      "filename": "lean/README.md",
+      "status": "modified",
+      "sha": "e54393b54245fe508e8958a84c11b509d4876b35",
+      "additions": 1,
+      "deletions": 1
+    },
+    {
+      "filename": "lean/ROADMAP.md",
+      "status": "modified",
+      "sha": "e5dda34867cf59da708c109fc094628e3e93afea",
+      "additions": 2,
+      "deletions": 0
+    },
+    {
+      "filename": "lean/check_axioms.py",
+      "status": "added",
+      "sha": "e8d42107bb2dc58f35a448a1b77a2db2b3db9efe",
+      "additions": 27,
+      "deletions": 0
+    },
+    {
+      "filename": "proof/note/no_four_mubs.pdf",
+      "status": "modified",
+      "sha": "cf1f0e9120cda759d1ce61f9afa03345321b14d1",
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "filename": "proof/note/no_four_mubs.tex",
+      "status": "modified",
+      "sha": "8d623d7e2cdadf0a240e27dabd831a5a070d1552",
+      "additions": 9,
+      "deletions": 3
+    },
+    {
+      "filename": "verify.py",
+      "status": "modified",
+      "sha": "893587887a563b07a908112e55f9f7538321db73",
+      "additions": 5,
+      "deletions": 1
+    }
+  ],
+  "scope": "Read every supplied text patch. Ten changed paths: documentation, the note source and rendered PDF, audit commands and a Lean audit runner. The only .lean change adds eight #print axioms commands to Axioms.lean; no theorem, definition, coefficient table or proof input changes. No atlas checker was run or certificate admitted. PDF is the rendered companion of the reviewed TeX change, not a new formal proof input.",
+  "upstream_open_obligations": "Updated lean/README.md still lists MatchedExistence as unformalized beyond the dense-set reduction, with flatness and side-existence handoffs E/F out. ROADMAP.md also lists the PR-M handoff C. No new handoff result or mathematical Lean theorem is supplied by these commits.",
+  "audit_runner_review": "Reads/built sources and standard axiom list; like any axiom audit it does not discharge explicit theorem arguments. Existing local stronger source-pinned audit is retained, no duplicate build launched.",
+  "active_lean_proof_changes": false,
+  "atlas_certification": false,
+  "no_unshared_work_coverage_claim": true
+}

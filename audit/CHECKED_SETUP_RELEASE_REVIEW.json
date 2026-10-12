@@ -1,0 +1,27 @@
+{
+  "checked_utc": "2026-10-10T23:23:04.532487+00:00",
+  "reason": "Prevent repeat ENOSPC while preserving all Lean proof artifacts.",
+  "previous_evidence": [
+    "GENERATED_DEPENDENCY_SETUP_CLEANUP.json",
+    "BUILD_CACHE_AFTER_SETUP_CLEANUP.log"
+  ],
+  "change": "After a successful build, remove only that NoFourMUBs module setup.json, requiring its olean to exist. Do not delete Lean sources, compiled proofs, traces, C files or data. Append path, hash and byte count to RELEASED_CHECKED_SETUP.jsonl.",
+  "source_hashes": {
+    "release_checked_setup.py": "c340acb0eb72b94b9012fcb48db40fa13df0879380f372c9c173ada673bb011f",
+    "build_archive_reuse.py": "4f6e7c4d1cac8d103f7b6536374646a757e67844170e60fbbb13fb86fe7750c3",
+    "build_sos_reductions.py": "7b09f31d0c9f3f6181bfa1360c8f42a06b88f7146d43b5751b0471895d20c4cd",
+    "build_sos_boundary_rows.py": "5eafbaf2e045b0c20730e94a5daa8af1e0b48692d06d4b511edb9caab6ae8de6"
+  },
+  "verification": "All edited helpers parse. Cleanup executed only on completed status entries; 71 descriptions released, 120846377 bytes. Existing cache-reuse experiment established setup files are not required by Lake Module.checkArtifactsExist.",
+  "atlas_certification": false,
+  "vendor_extension": {
+    "checked_utc": "2026-10-11T00:57:10.067145+00:00",
+    "change": "Also supports registered Hadamard6 package; removes only successful module setup.json when olean exists. Mixed-package builder tracks manifest active paths in dependency hashes. No proof/source/trace/C deletion.",
+    "source_hashes": {
+      "release_checked_setup.py": "530e01466899aee8f755cdf2bc20a2d96018ff67475c637c2b82a96d258bb855",
+      "build_archive_reuse.py": "e942d0fb89478862cfc2fe234706bfd29eedf0906ff22f62b14d7e5c1adb2c13"
+    },
+    "verification": "AST checked;24target dependency refresh passed, including5vendor modules.",
+    "atlas_certification": false
+  }
+}

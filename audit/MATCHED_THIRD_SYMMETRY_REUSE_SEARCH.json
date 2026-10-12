@@ -1,0 +1,3504 @@
+{
+  "checked_utc": "2026-10-12T00:56:28.957899+00:00",
+  "purpose": "Reuse corner permutations to reduce all four weighted defects to one universal entry.",
+  "ARCHIVE_SOURCE_INDEX.jsonl": {
+    "total": 77948,
+    "matches": [
+      {
+        "availability": "unavailable_dataless",
+        "blob": null,
+        "bytes": 13610,
+        "sha256": null,
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/evidence/constraint_efficiency/baseline/worker/dependencies/src/CarrierPermutationReduction.lean"
+      },
+      {
+        "availability": "unavailable_dataless",
+        "blob": null,
+        "bytes": 8828,
+        "sha256": null,
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/evidence/constraint_efficiency/baseline/worker/dependencies/src/SymmetryTransport.lean"
+      },
+      {
+        "availability": "unavailable_dataless",
+        "blob": null,
+        "bytes": 3372,
+        "sha256": null,
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/evidence/constraint_efficiency/baseline/worker/lean/JointSymmetry.lean"
+      },
+      {
+        "availability": "unavailable_dataless",
+        "blob": null,
+        "bytes": 13610,
+        "sha256": null,
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/evidence/next_efficiency/baseline/worker/dependencies/src/CarrierPermutationReduction.lean"
+      },
+      {
+        "availability": "unavailable_dataless",
+        "blob": null,
+        "bytes": 8828,
+        "sha256": null,
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/evidence/next_efficiency/baseline/worker/dependencies/src/SymmetryTransport.lean"
+      },
+      {
+        "availability": "unavailable_dataless",
+        "blob": null,
+        "bytes": 3372,
+        "sha256": null,
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/evidence/next_efficiency/baseline/worker/lean/JointSymmetry.lean"
+      },
+      {
+        "availability": "unavailable_dataless",
+        "blob": null,
+        "bytes": 13610,
+        "sha256": null,
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/evidence/propagation_counting/baseline/worker/dependencies/src/CarrierPermutationReduction.lean"
+      },
+      {
+        "availability": "unavailable_dataless",
+        "blob": null,
+        "bytes": 8828,
+        "sha256": null,
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/evidence/propagation_counting/baseline/worker/dependencies/src/SymmetryTransport.lean"
+      },
+      {
+        "availability": "unavailable_dataless",
+        "blob": null,
+        "bytes": 3372,
+        "sha256": null,
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/evidence/propagation_counting/baseline/worker/lean/JointSymmetry.lean"
+      },
+      {
+        "availability": "unavailable_dataless",
+        "blob": null,
+        "bytes": 13610,
+        "sha256": null,
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/evidence/runtime_integration/baseline/worker/dependencies/src/CarrierPermutationReduction.lean"
+      },
+      {
+        "availability": "unavailable_dataless",
+        "blob": null,
+        "bytes": 8828,
+        "sha256": null,
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/evidence/runtime_integration/baseline/worker/dependencies/src/SymmetryTransport.lean"
+      },
+      {
+        "availability": "unavailable_dataless",
+        "blob": null,
+        "bytes": 3372,
+        "sha256": null,
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/evidence/runtime_integration/baseline/worker/lean/JointSymmetry.lean"
+      },
+      {
+        "availability": "unavailable_dataless",
+        "blob": null,
+        "bytes": 2543,
+        "sha256": null,
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/prerequisites/karlsson/port/src/CircleD0SymmetryClosing.lean"
+      },
+      {
+        "availability": "unavailable_dataless",
+        "blob": null,
+        "bytes": 41290,
+        "sha256": null,
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/prerequisites/karlsson/port/src/CircleD0SymmetryDataFast.lean"
+      },
+      {
+        "availability": "unavailable_dataless",
+        "blob": null,
+        "bytes": 4914,
+        "sha256": null,
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/prerequisites/karlsson/port/src/CircleSymmetry.lean"
+      },
+      {
+        "availability": "unavailable_dataless",
+        "blob": null,
+        "bytes": 4592,
+        "sha256": null,
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/prerequisites/karlsson/port/src/CircleTaoSymmetryClosing.lean"
+      },
+      {
+        "availability": "unavailable_dataless",
+        "blob": null,
+        "bytes": 31817,
+        "sha256": null,
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/prerequisites/karlsson/port/src/CircleTaoSymmetryData.lean"
+      },
+      {
+        "availability": "unavailable_dataless",
+        "blob": null,
+        "bytes": 4968,
+        "sha256": null,
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/prerequisites/karlsson/port/src/D0CircleSymmetry.lean"
+      },
+      {
+        "availability": "unavailable_dataless",
+        "blob": null,
+        "bytes": 8237,
+        "sha256": null,
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/prerequisites/karlsson/port/src/Hadamard6/BlockCompletion.lean"
+      },
+      {
+        "availability": "unavailable_dataless",
+        "blob": null,
+        "bytes": 1841,
+        "sha256": null,
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/prerequisites/karlsson/port/src/Hadamard6/BlockPermutations.lean"
+      },
+      {
+        "availability": "unavailable_dataless",
+        "blob": null,
+        "bytes": 3778,
+        "sha256": null,
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/prerequisites/karlsson/port/src/Hadamard6/ColumnFibreSymmetry.lean"
+      },
+      {
+        "availability": "unavailable_dataless",
+        "blob": null,
+        "bytes": 18270,
+        "sha256": null,
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/prerequisites/karlsson/port/src/Hadamard6/FibreSymmetry.lean"
+      },
+      {
+        "availability": "unavailable_dataless",
+        "blob": null,
+        "bytes": 3700,
+        "sha256": null,
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/prerequisites/karlsson/port/src/Hadamard6/FiniteDilation.lean"
+      },
+      {
+        "availability": "unavailable_dataless",
+        "blob": null,
+        "bytes": 2838,
+        "sha256": null,
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/prerequisites/karlsson/port/src/Hadamard6/UnitSymmetric.lean"
+      },
+      {
+        "availability": "unavailable_dataless",
+        "blob": null,
+        "bytes": 11775,
+        "sha256": null,
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/prerequisites/karlsson/port/src/KarlssonSeamSymmetry.lean"
+      },
+      {
+        "availability": "unavailable_dataless",
+        "blob": null,
+        "bytes": 2543,
+        "sha256": null,
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/prerequisites/karlsson/src/CircleD0SymmetryClosing.lean"
+      },
+      {
+        "availability": "unavailable_dataless",
+        "blob": null,
+        "bytes": 41290,
+        "sha256": null,
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/prerequisites/karlsson/src/CircleD0SymmetryDataFast.lean"
+      },
+      {
+        "availability": "unavailable_dataless",
+        "blob": null,
+        "bytes": 4914,
+        "sha256": null,
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/prerequisites/karlsson/src/CircleSymmetry.lean"
+      },
+      {
+        "availability": "unavailable_dataless",
+        "blob": null,
+        "bytes": 4592,
+        "sha256": null,
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/prerequisites/karlsson/src/CircleTaoSymmetryClosing.lean"
+      },
+      {
+        "availability": "unavailable_dataless",
+        "blob": null,
+        "bytes": 31817,
+        "sha256": null,
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/prerequisites/karlsson/src/CircleTaoSymmetryData.lean"
+      },
+      {
+        "availability": "unavailable_dataless",
+        "blob": null,
+        "bytes": 4968,
+        "sha256": null,
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/prerequisites/karlsson/src/D0CircleSymmetry.lean"
+      },
+      {
+        "availability": "unavailable_dataless",
+        "blob": null,
+        "bytes": 8237,
+        "sha256": null,
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/prerequisites/karlsson/src/Hadamard6/BlockCompletion.lean"
+      },
+      {
+        "availability": "unavailable_dataless",
+        "blob": null,
+        "bytes": 1841,
+        "sha256": null,
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/prerequisites/karlsson/src/Hadamard6/BlockPermutations.lean"
+      },
+      {
+        "availability": "unavailable_dataless",
+        "blob": null,
+        "bytes": 3778,
+        "sha256": null,
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/prerequisites/karlsson/src/Hadamard6/ColumnFibreSymmetry.lean"
+      },
+      {
+        "availability": "unavailable_dataless",
+        "blob": null,
+        "bytes": 18270,
+        "sha256": null,
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/prerequisites/karlsson/src/Hadamard6/FibreSymmetry.lean"
+      },
+      {
+        "availability": "unavailable_dataless",
+        "blob": null,
+        "bytes": 3700,
+        "sha256": null,
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/prerequisites/karlsson/src/Hadamard6/FiniteDilation.lean"
+      },
+      {
+        "availability": "unavailable_dataless",
+        "blob": null,
+        "bytes": 2838,
+        "sha256": null,
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/prerequisites/karlsson/src/Hadamard6/UnitSymmetric.lean"
+      },
+      {
+        "availability": "unavailable_dataless",
+        "blob": null,
+        "bytes": 11775,
+        "sha256": null,
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/prerequisites/karlsson/src/KarlssonSeamSymmetry.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/d2/d296f5bb1d25da5e4643ca8cff3146495c2ef4afe03e0cefe1a70dc7300468c4/SymmetryTransport.lean",
+        "bytes": 8828,
+        "sha256": "d296f5bb1d25da5e4643ca8cff3146495c2ef4afe03e0cefe1a70dc7300468c4",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/full-proof-integration-2026-10-03/side_cube/root0_global/legacy_replay/SymmetryTransport-01/SymmetryTransport.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/4e/4e0ec84a3fa27a838cbf58bf75292d52024b6df517a5cd301cf649e30ea7f8f3/Radius01CanonicalPermutations.lean",
+        "bytes": 7470,
+        "sha256": "4e0ec84a3fa27a838cbf58bf75292d52024b6df517a5cd301cf649e30ea7f8f3",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/phase3/chart-radius01/Radius01CanonicalPermutations.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/6f/6fef64d3546c2f61ac894c66ea9308e40c3481eb9d194416ec3f996f00738014/Radius01Permutations.lean",
+        "bytes": 8023,
+        "sha256": "6fef64d3546c2f61ac894c66ea9308e40c3481eb9d194416ec3f996f00738014",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/phase3/chart-radius01/Radius01Permutations.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/08/08be57a9ea776c8a304b27cb68a9e4e78fced104e68667595862d62c2be97ba5/Radius01CanonicalPermutations.lean",
+        "bytes": 7327,
+        "sha256": "08be57a9ea776c8a304b27cb68a9e4e78fced104e68667595862d62c2be97ba5",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/phase3/chart-radius01/check-radius01-canonical-01/Radius01CanonicalPermutations.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/4e/4e0ec84a3fa27a838cbf58bf75292d52024b6df517a5cd301cf649e30ea7f8f3/Radius01CanonicalPermutations.lean",
+        "bytes": 7470,
+        "sha256": "4e0ec84a3fa27a838cbf58bf75292d52024b6df517a5cd301cf649e30ea7f8f3",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/phase3/chart-radius01/check-radius01-canonical-02/Radius01CanonicalPermutations.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/ed/edbebedae83f2b8d37ae20927a09ee29fd7a8d3df63f929c339c0a9912fa10c4/Radius01Permutations.lean",
+        "bytes": 8017,
+        "sha256": "edbebedae83f2b8d37ae20927a09ee29fd7a8d3df63f929c339c0a9912fa10c4",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/phase3/chart-radius01/check-radius01-permutations-01/Radius01Permutations.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/6f/6fef64d3546c2f61ac894c66ea9308e40c3481eb9d194416ec3f996f00738014/Radius01Permutations.lean",
+        "bytes": 8023,
+        "sha256": "6fef64d3546c2f61ac894c66ea9308e40c3481eb9d194416ec3f996f00738014",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/centiradian-integration-2026-10-06/lean/phase3/chart-radius01/check-radius01-permutations-02/Radius01Permutations.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/b2/b24beb2ae6ffc2f0e8e838566fe640a19779aca2911e3aa702257b4a15cd3656/CentreSymmetry.lean",
+        "bytes": 1739,
+        "sha256": "b24beb2ae6ffc2f0e8e838566fe640a19779aca2911e3aa702257b4a15cd3656",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/cluster-tube-amplitude/monomial-bridge/centre-interface/public/lean/CentreSymmetry.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/51/518f8e5b45bb03b83e75539667daec2200618db3270b9bb647be248bde340733/RowPermutationMetric.lean",
+        "bytes": 1387,
+        "sha256": "518f8e5b45bb03b83e75539667daec2200618db3270b9bb647be248bde340733",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/cluster-tube-amplitude/monomial-bridge/centre-interface/public/lean/RowPermutationMetric.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/51/518f8e5b45bb03b83e75539667daec2200618db3270b9bb647be248bde340733/RowPermutationMetric.lean",
+        "bytes": 1387,
+        "sha256": "518f8e5b45bb03b83e75539667daec2200618db3270b9bb647be248bde340733",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/cluster-tube-amplitude/monomial-bridge/public/lean/RowPermutationMetric.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/b2/b24beb2ae6ffc2f0e8e838566fe640a19779aca2911e3aa702257b4a15cd3656/CentreSymmetry.lean",
+        "bytes": 1739,
+        "sha256": "b24beb2ae6ffc2f0e8e838566fe640a19779aca2911e3aa702257b4a15cd3656",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/cluster-tube-graph/centre-binding/CentreSymmetry.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/b2/b24beb2ae6ffc2f0e8e838566fe640a19779aca2911e3aa702257b4a15cd3656/CentreSymmetry.lean",
+        "bytes": 1739,
+        "sha256": "b24beb2ae6ffc2f0e8e838566fe640a19779aca2911e3aa702257b4a15cd3656",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/cluster-tube-graph/centre-binding/check-symmetry-01/CentreSymmetry.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/b2/b24beb2ae6ffc2f0e8e838566fe640a19779aca2911e3aa702257b4a15cd3656/CentreSymmetry.lean",
+        "bytes": 1739,
+        "sha256": "b24beb2ae6ffc2f0e8e838566fe640a19779aca2911e3aa702257b4a15cd3656",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/cluster-tube-graph/centre-binding/public-source/CentreSymmetry.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/b2/b24beb2ae6ffc2f0e8e838566fe640a19779aca2911e3aa702257b4a15cd3656/CentreSymmetry.lean",
+        "bytes": 1739,
+        "sha256": "b24beb2ae6ffc2f0e8e838566fe640a19779aca2911e3aa702257b4a15cd3656",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/cluster-tube-inclusion/frontend-bridge/square-acceleration/no-init/concrete/public/lean/CentreSymmetry.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/51/518f8e5b45bb03b83e75539667daec2200618db3270b9bb647be248bde340733/RowPermutationMetric.lean",
+        "bytes": 1387,
+        "sha256": "518f8e5b45bb03b83e75539667daec2200618db3270b9bb647be248bde340733",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/cluster-tube-inclusion/frontend-bridge/square-acceleration/no-init/concrete/public/lean/RowPermutationMetric.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/b2/b24beb2ae6ffc2f0e8e838566fe640a19779aca2911e3aa702257b4a15cd3656/CentreSymmetry.lean",
+        "bytes": 1739,
+        "sha256": "b24beb2ae6ffc2f0e8e838566fe640a19779aca2911e3aa702257b4a15cd3656",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/cluster-tube-inclusion/frontend-bridge/square-acceleration/no-init/endpoint-squares/public/lean/CentreSymmetry.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/51/518f8e5b45bb03b83e75539667daec2200618db3270b9bb647be248bde340733/RowPermutationMetric.lean",
+        "bytes": 1387,
+        "sha256": "518f8e5b45bb03b83e75539667daec2200618db3270b9bb647be248bde340733",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/cluster-tube-inclusion/frontend-bridge/square-acceleration/no-init/endpoint-squares/public/lean/RowPermutationMetric.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/51/518f8e5b45bb03b83e75539667daec2200618db3270b9bb647be248bde340733/RowPermutationMetric.lean",
+        "bytes": 1387,
+        "sha256": "518f8e5b45bb03b83e75539667daec2200618db3270b9bb647be248bde340733",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/cluster-tube-phase-frontend/public/lean/RowPermutationMetric.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/51/518f8e5b45bb03b83e75539667daec2200618db3270b9bb647be248bde340733/RowPermutationMetric.lean",
+        "bytes": 1387,
+        "sha256": "518f8e5b45bb03b83e75539667daec2200618db3270b9bb647be248bde340733",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/cluster-tube-table/pure-leaf-bridge/physical37-publication-staging/packet-before-verifier-self-match-fix/lean/RowPermutationMetric.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/51/518f8e5b45bb03b83e75539667daec2200618db3270b9bb647be248bde340733/RowPermutationMetric.lean",
+        "bytes": 1387,
+        "sha256": "518f8e5b45bb03b83e75539667daec2200618db3270b9bb647be248bde340733",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/cluster-tube-table/pure-leaf-bridge/physical37-publication-staging/packet/lean/RowPermutationMetric.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/b2/b24beb2ae6ffc2f0e8e838566fe640a19779aca2911e3aa702257b4a15cd3656/CentreSymmetry.lean",
+        "bytes": 1739,
+        "sha256": "b24beb2ae6ffc2f0e8e838566fe640a19779aca2911e3aa702257b4a15cd3656",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/phase-cover-progress-publication/packet-203-history/lean/CentreSymmetry.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/51/518f8e5b45bb03b83e75539667daec2200618db3270b9bb647be248bde340733/RowPermutationMetric.lean",
+        "bytes": 1387,
+        "sha256": "518f8e5b45bb03b83e75539667daec2200618db3270b9bb647be248bde340733",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/phase-cover-progress-publication/packet-203-history/lean/RowPermutationMetric.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/b2/b24beb2ae6ffc2f0e8e838566fe640a19779aca2911e3aa702257b4a15cd3656/CentreSymmetry.lean",
+        "bytes": 1739,
+        "sha256": "b24beb2ae6ffc2f0e8e838566fe640a19779aca2911e3aa702257b4a15cd3656",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/phase-cover-progress-publication/packet-206-before-reproduction/lean/CentreSymmetry.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/51/518f8e5b45bb03b83e75539667daec2200618db3270b9bb647be248bde340733/RowPermutationMetric.lean",
+        "bytes": 1387,
+        "sha256": "518f8e5b45bb03b83e75539667daec2200618db3270b9bb647be248bde340733",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/phase-cover-progress-publication/packet-206-before-reproduction/lean/RowPermutationMetric.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/b2/b24beb2ae6ffc2f0e8e838566fe640a19779aca2911e3aa702257b4a15cd3656/CentreSymmetry.lean",
+        "bytes": 1739,
+        "sha256": "b24beb2ae6ffc2f0e8e838566fe640a19779aca2911e3aa702257b4a15cd3656",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/phase-cover-progress-publication/packet-206-import-history/lean/CentreSymmetry.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/51/518f8e5b45bb03b83e75539667daec2200618db3270b9bb647be248bde340733/RowPermutationMetric.lean",
+        "bytes": 1387,
+        "sha256": "518f8e5b45bb03b83e75539667daec2200618db3270b9bb647be248bde340733",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/phase-cover-progress-publication/packet-206-import-history/lean/RowPermutationMetric.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/b2/b24beb2ae6ffc2f0e8e838566fe640a19779aca2911e3aa702257b4a15cd3656/CentreSymmetry.lean",
+        "bytes": 1739,
+        "sha256": "b24beb2ae6ffc2f0e8e838566fe640a19779aca2911e3aa702257b4a15cd3656",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/phase-cover-progress-publication/packet/lean/CentreSymmetry.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/51/518f8e5b45bb03b83e75539667daec2200618db3270b9bb647be248bde340733/RowPermutationMetric.lean",
+        "bytes": 1387,
+        "sha256": "518f8e5b45bb03b83e75539667daec2200618db3270b9bb647be248bde340733",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/phase-cover-progress-publication/packet/lean/RowPermutationMetric.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/51/518f8e5b45bb03b83e75539667daec2200618db3270b9bb647be248bde340733/RowPermutationMetric.lean",
+        "bytes": 1387,
+        "sha256": "518f8e5b45bb03b83e75539667daec2200618db3270b9bb647be248bde340733",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/projector-metric-lean/RowPermutationMetric.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/51/518f8e5b45bb03b83e75539667daec2200618db3270b9bb647be248bde340733/RowPermutationMetric.lean",
+        "bytes": 1387,
+        "sha256": "518f8e5b45bb03b83e75539667daec2200618db3270b9bb647be248bde340733",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/projector-metric-lean/check-permutation-01/RowPermutationMetric.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/51/518f8e5b45bb03b83e75539667daec2200618db3270b9bb647be248bde340733/RowPermutationMetric.lean",
+        "bytes": 1387,
+        "sha256": "518f8e5b45bb03b83e75539667daec2200618db3270b9bb647be248bde340733",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/projector-metric-lean/public/lean/RowPermutationMetric.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/51/518f8e5b45bb03b83e75539667daec2200618db3270b9bb647be248bde340733/RowPermutationMetric.lean",
+        "bytes": 1387,
+        "sha256": "518f8e5b45bb03b83e75539667daec2200618db3270b9bb647be248bde340733",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/public/lean/RowPermutationMetric.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/81/81bf8e0002e08ef0f69ab59f2b66071eb38b6fe595ae8bcd95dabea75a7fb627/FiniteDilation.lean",
+        "bytes": 3700,
+        "historical_portable_evidence": [
+          {
+            "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.FiniteDilation",
+            "selected_in_prior_packet": false
+          },
+          {
+            "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.FiniteDilation",
+            "selected_in_prior_packet": false
+          },
+          {
+            "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.FiniteDilation",
+            "selected_in_prior_packet": false
+          }
+        ],
+        "sha256": "81bf8e0002e08ef0f69ab59f2b66071eb38b6fe595ae8bcd95dabea75a7fb627",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-publication-new/packet-before-review-bindings/lean/Hadamard6/FiniteDilation.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/81/81bf8e0002e08ef0f69ab59f2b66071eb38b6fe595ae8bcd95dabea75a7fb627/FiniteDilation.lean",
+        "bytes": 3700,
+        "historical_portable_evidence": [
+          {
+            "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.FiniteDilation",
+            "selected_in_prior_packet": false
+          },
+          {
+            "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.FiniteDilation",
+            "selected_in_prior_packet": false
+          },
+          {
+            "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.FiniteDilation",
+            "selected_in_prior_packet": false
+          }
+        ],
+        "sha256": "81bf8e0002e08ef0f69ab59f2b66071eb38b6fe595ae8bcd95dabea75a7fb627",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-publication-new/packet/lean/Hadamard6/FiniteDilation.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/03/0356fb89afe51b45c07fc5e651f052dd4f16b9a78fce84c209daf4b20fe43e0e/FibreSymmetry.lean",
+        "bytes": 18270,
+        "sha256": "0356fb89afe51b45c07fc5e651f052dd4f16b9a78fce84c209daf4b20fe43e0e",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/classification-restore-sources/Hadamard6/FibreSymmetry.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/81/81bf8e0002e08ef0f69ab59f2b66071eb38b6fe595ae8bcd95dabea75a7fb627/FiniteDilation.lean",
+        "bytes": 3700,
+        "historical_portable_evidence": [
+          {
+            "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.FiniteDilation",
+            "selected_in_prior_packet": false
+          },
+          {
+            "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.FiniteDilation",
+            "selected_in_prior_packet": false
+          },
+          {
+            "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.FiniteDilation",
+            "selected_in_prior_packet": false
+          }
+        ],
+        "sha256": "81bf8e0002e08ef0f69ab59f2b66071eb38b6fe595ae8bcd95dabea75a7fb627",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/reviews/third-gate-independent-new/expanded-publication-new/packet/lean/Hadamard6/FiniteDilation.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/81/81bf8e0002e08ef0f69ab59f2b66071eb38b6fe595ae8bcd95dabea75a7fb627/FiniteDilation.lean",
+        "bytes": 3700,
+        "historical_portable_evidence": [
+          {
+            "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.FiniteDilation",
+            "selected_in_prior_packet": false
+          },
+          {
+            "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.FiniteDilation",
+            "selected_in_prior_packet": false
+          },
+          {
+            "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.FiniteDilation",
+            "selected_in_prior_packet": false
+          }
+        ],
+        "sha256": "81bf8e0002e08ef0f69ab59f2b66071eb38b6fe595ae8bcd95dabea75a7fb627",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/reviews/third-gate-independent-new/physical-publication-new/packet/lean/Hadamard6/FiniteDilation.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/81/81bf8e0002e08ef0f69ab59f2b66071eb38b6fe595ae8bcd95dabea75a7fb627/FiniteDilation.lean",
+        "bytes": 3700,
+        "historical_portable_evidence": [
+          {
+            "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.FiniteDilation",
+            "selected_in_prior_packet": false
+          },
+          {
+            "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.FiniteDilation",
+            "selected_in_prior_packet": false
+          },
+          {
+            "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.FiniteDilation",
+            "selected_in_prior_packet": false
+          }
+        ],
+        "sha256": "81bf8e0002e08ef0f69ab59f2b66071eb38b6fe595ae8bcd95dabea75a7fb627",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/runs/popeye-ring-2026-10-04.nosync/work/seed0024-mathematical-20261007/reconstruction-translation-new/reviews/third-gate-independent-new/publication-new/packet/lean/Hadamard6/FiniteDilation.lean"
+      },
+      {
+        "availability": "dataless_recovered_by_exact_pin",
+        "blob": "blobs/db/db67e4f74a5bb0980dc4ae920479915a575d598dfdcf47049cb7b2490e785741/CarrierPermutationReduction.lean",
+        "bytes": 13610,
+        "inventory_origin": "exact dependency pin identified authored worker source root",
+        "sha256": "db67e4f74a5bb0980dc4ae920479915a575d598dfdcf47049cb7b2490e785741",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/worker/dependencies/src/CarrierPermutationReduction.lean"
+      },
+      {
+        "availability": "dataless_recovered_by_exact_pin",
+        "blob": "blobs/d2/d296f5bb1d25da5e4643ca8cff3146495c2ef4afe03e0cefe1a70dc7300468c4/SymmetryTransport.lean",
+        "bytes": 8828,
+        "inventory_origin": "exact dependency pin identified authored worker source root",
+        "sha256": "d296f5bb1d25da5e4643ca8cff3146495c2ef4afe03e0cefe1a70dc7300468c4",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/worker/dependencies/src/SymmetryTransport.lean"
+      },
+      {
+        "availability": "unavailable_dataless",
+        "blob": null,
+        "bytes": 3372,
+        "inventory_origin": "exact dependency pin identified authored worker source root",
+        "sha256": null,
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "mub6-numerical/worker/lean/JointSymmetry.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/d2/d296f5bb1d25da5e4643ca8cff3146495c2ef4afe03e0cefe1a70dc7300468c4/SymmetryTransport.lean",
+        "bytes": 8828,
+        "sha256": "d296f5bb1d25da5e4643ca8cff3146495c2ef4afe03e0cefe1a70dc7300468c4",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-20_fourier.nosync/reports/replay_final01/SymmetryTransport/SymmetryTransport.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/d2/d296f5bb1d25da5e4643ca8cff3146495c2ef4afe03e0cefe1a70dc7300468c4/SymmetryTransport.lean",
+        "bytes": 8828,
+        "sha256": "d296f5bb1d25da5e4643ca8cff3146495c2ef4afe03e0cefe1a70dc7300468c4",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-20_fourier.nosync/reviews/proof/replays/symmetry/SymmetryTransport.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/d2/d296f5bb1d25da5e4643ca8cff3146495c2ef4afe03e0cefe1a70dc7300468c4/SymmetryTransport.lean",
+        "bytes": 8828,
+        "sha256": "d296f5bb1d25da5e4643ca8cff3146495c2ef4afe03e0cefe1a70dc7300468c4",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-20_fourier.nosync/workers/transport/SymmetryTransport.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/33/33db88b6414f6f30136a2db213ac028dea114102993f49b9080b59bde7be877c/SymmetryTransport.lean",
+        "bytes": 5208,
+        "sha256": "33db88b6414f6f30136a2db213ac028dea114102993f49b9080b59bde7be877c",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-20_fourier.nosync/workers/transport/checks/symmetry01/SymmetryTransport.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/c6/c6e1b54f8f85322086e41469cc5e4554f8f7f85138faf8505f87a6a2a048004f/SymmetryTransport.lean",
+        "bytes": 5418,
+        "sha256": "c6e1b54f8f85322086e41469cc5e4554f8f7f85138faf8505f87a6a2a048004f",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-20_fourier.nosync/workers/transport/checks/symmetry02/SymmetryTransport.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/da/da957f81ee3deb8d4fd39a64e233f9b7b8955422e0ac8b070f53186130c4eca8/SymmetryTransport.lean",
+        "bytes": 8134,
+        "sha256": "da957f81ee3deb8d4fd39a64e233f9b7b8955422e0ac8b070f53186130c4eca8",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-20_fourier.nosync/workers/transport/checks/symmetry03/SymmetryTransport.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/e7/e733cf12634fc89e416f52e30a4ac49bb053b68f05dd7acd3b917537e507a051/SymmetryTransport.lean",
+        "bytes": 8585,
+        "sha256": "e733cf12634fc89e416f52e30a4ac49bb053b68f05dd7acd3b917537e507a051",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-20_fourier.nosync/workers/transport/checks/symmetry04/SymmetryTransport.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/d2/d296f5bb1d25da5e4643ca8cff3146495c2ef4afe03e0cefe1a70dc7300468c4/SymmetryTransport.lean",
+        "bytes": 8828,
+        "sha256": "d296f5bb1d25da5e4643ca8cff3146495c2ef4afe03e0cefe1a70dc7300468c4",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-20_fourier.nosync/workers/transport/checks/symmetry_final/SymmetryTransport.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/5f/5fa386752747e883cba63f6cd955f4a376cb2a7ed2515b6de2f86eec57176199/BlockCompletion.lean",
+        "bytes": 8237,
+        "sha256": "5fa386752747e883cba63f6cd955f4a376cb2a7ed2515b6de2f86eec57176199",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-21_atlas.nosync/workers/compact_cover/input_snapshots/BlockCompletion.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/d2/d296f5bb1d25da5e4643ca8cff3146495c2ef4afe03e0cefe1a70dc7300468c4/SymmetryTransport.lean",
+        "bytes": 8828,
+        "sha256": "d296f5bb1d25da5e4643ca8cff3146495c2ef4afe03e0cefe1a70dc7300468c4",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-21_atlas.nosync/workers/compact_cover/input_snapshots/SymmetryTransport.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/d2/d296f5bb1d25da5e4643ca8cff3146495c2ef4afe03e0cefe1a70dc7300468c4/SymmetryTransport.lean",
+        "bytes": 8828,
+        "sha256": "d296f5bb1d25da5e4643ca8cff3146495c2ef4afe03e0cefe1a70dc7300468c4",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-21_atlas.nosync/workers/toolchain_port/sources/SymmetryTransport.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/94/94dcfed0cac69bedff8d24cf07369735fcb94f38b212032da2393246e2229755/CarrierPermutationReduction.lean",
+        "bytes": 13036,
+        "sha256": "94dcfed0cac69bedff8d24cf07369735fcb94f38b212032da2393246e2229755",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-21_four_phase.nosync/reviews/coverage/sealed/final01/sources/workers/fourier_bridge/CarrierPermutationReduction.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/94/94dcfed0cac69bedff8d24cf07369735fcb94f38b212032da2393246e2229755/CarrierPermutationReduction.lean",
+        "bytes": 13036,
+        "sha256": "94dcfed0cac69bedff8d24cf07369735fcb94f38b212032da2393246e2229755",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-21_four_phase.nosync/reviews/proof/checks/CarrierPermutationReduction/CarrierPermutationReduction.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/94/94dcfed0cac69bedff8d24cf07369735fcb94f38b212032da2393246e2229755/CarrierPermutationReduction.lean",
+        "bytes": 13036,
+        "sha256": "94dcfed0cac69bedff8d24cf07369735fcb94f38b212032da2393246e2229755",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-21_four_phase.nosync/reviews/proof/sources/CarrierPermutationReduction.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/94/94dcfed0cac69bedff8d24cf07369735fcb94f38b212032da2393246e2229755/CarrierPermutationReduction.lean",
+        "bytes": 13036,
+        "sha256": "94dcfed0cac69bedff8d24cf07369735fcb94f38b212032da2393246e2229755",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-21_four_phase.nosync/workers/fourier_bridge/CarrierPermutationReduction.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/83/834f2b8fb2f02c7ffdbbd8f20eaa909321b32e57dfdd780fa228f029866251b7/CarrierPermutationReduction.lean",
+        "bytes": 5319,
+        "sha256": "834f2b8fb2f02c7ffdbbd8f20eaa909321b32e57dfdd780fa228f029866251b7",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-21_four_phase.nosync/workers/fourier_bridge/checks/reduction01/CarrierPermutationReduction.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/71/7110368788bb1dca0c18978dbbc41acc90456dede48d09e727be0e79fb2ee234/CarrierPermutationReduction.lean",
+        "bytes": 5369,
+        "sha256": "7110368788bb1dca0c18978dbbc41acc90456dede48d09e727be0e79fb2ee234",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-21_four_phase.nosync/workers/fourier_bridge/checks/reduction02/CarrierPermutationReduction.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/b3/b384e43740a287adfbc4d28f0d678444181f324028a10079e8b5c92a7a221c57/CarrierPermutationReduction.lean",
+        "bytes": 5535,
+        "sha256": "b384e43740a287adfbc4d28f0d678444181f324028a10079e8b5c92a7a221c57",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-21_four_phase.nosync/workers/fourier_bridge/checks/reduction03/CarrierPermutationReduction.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/94/94dcfed0cac69bedff8d24cf07369735fcb94f38b212032da2393246e2229755/CarrierPermutationReduction.lean",
+        "bytes": 13036,
+        "sha256": "94dcfed0cac69bedff8d24cf07369735fcb94f38b212032da2393246e2229755",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-21_four_phase.nosync/workers/fourier_bridge/checks/reduction04/CarrierPermutationReduction.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/db/db67e4f74a5bb0980dc4ae920479915a575d598dfdcf47049cb7b2490e785741/CarrierPermutationReduction.lean",
+        "bytes": 13610,
+        "sha256": "db67e4f74a5bb0980dc4ae920479915a575d598dfdcf47049cb7b2490e785741",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-21_four_phase.nosync/workers/toolchain_port/sources/CarrierPermutationReduction.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/5f/5fa386752747e883cba63f6cd955f4a376cb2a7ed2515b6de2f86eec57176199/BlockCompletion.lean",
+        "bytes": 8237,
+        "sha256": "5fa386752747e883cba63f6cd955f4a376cb2a7ed2515b6de2f86eec57176199",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-21_karlsson_production.nosync/dist/karlsson-popeye-replay-test1/src/Hadamard6/BlockCompletion.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/42/42bfb49854a2919f02ddf600cf040ee81e90f46bf0362f187f61e1a5b40198d1/BlockPermutations.lean",
+        "bytes": 1841,
+        "sha256": "42bfb49854a2919f02ddf600cf040ee81e90f46bf0362f187f61e1a5b40198d1",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-21_karlsson_production.nosync/dist/karlsson-popeye-replay-test1/src/Hadamard6/BlockPermutations.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/03/0329c890443172582d13466aa327c2573c5cfcb917a898bdee47c7892e675b12/ColumnFibreSymmetry.lean",
+        "bytes": 3778,
+        "sha256": "0329c890443172582d13466aa327c2573c5cfcb917a898bdee47c7892e675b12",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-21_karlsson_production.nosync/dist/karlsson-popeye-replay-test1/src/Hadamard6/ColumnFibreSymmetry.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/03/0356fb89afe51b45c07fc5e651f052dd4f16b9a78fce84c209daf4b20fe43e0e/FibreSymmetry.lean",
+        "bytes": 18270,
+        "sha256": "0356fb89afe51b45c07fc5e651f052dd4f16b9a78fce84c209daf4b20fe43e0e",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-21_karlsson_production.nosync/dist/karlsson-popeye-replay-test1/src/Hadamard6/FibreSymmetry.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/81/81bf8e0002e08ef0f69ab59f2b66071eb38b6fe595ae8bcd95dabea75a7fb627/FiniteDilation.lean",
+        "bytes": 3700,
+        "historical_portable_evidence": [
+          {
+            "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.FiniteDilation",
+            "selected_in_prior_packet": false
+          },
+          {
+            "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.FiniteDilation",
+            "selected_in_prior_packet": false
+          },
+          {
+            "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.FiniteDilation",
+            "selected_in_prior_packet": false
+          }
+        ],
+        "sha256": "81bf8e0002e08ef0f69ab59f2b66071eb38b6fe595ae8bcd95dabea75a7fb627",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-21_karlsson_production.nosync/dist/karlsson-popeye-replay-test1/src/Hadamard6/FiniteDilation.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/5e/5ed76b4074e68e175002430f951615ae7eb82c527df97a78368852d87b096a49/UnitSymmetric.lean",
+        "bytes": 2838,
+        "sha256": "5ed76b4074e68e175002430f951615ae7eb82c527df97a78368852d87b096a49",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-21_karlsson_production.nosync/dist/karlsson-popeye-replay-test1/src/Hadamard6/UnitSymmetric.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/5f/5fa386752747e883cba63f6cd955f4a376cb2a7ed2515b6de2f86eec57176199/BlockCompletion.lean",
+        "bytes": 8237,
+        "sha256": "5fa386752747e883cba63f6cd955f4a376cb2a7ed2515b6de2f86eec57176199",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-21_karlsson_production.nosync/dist/karlsson-popeye-replay-test2/src/Hadamard6/BlockCompletion.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/42/42bfb49854a2919f02ddf600cf040ee81e90f46bf0362f187f61e1a5b40198d1/BlockPermutations.lean",
+        "bytes": 1841,
+        "sha256": "42bfb49854a2919f02ddf600cf040ee81e90f46bf0362f187f61e1a5b40198d1",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-21_karlsson_production.nosync/dist/karlsson-popeye-replay-test2/src/Hadamard6/BlockPermutations.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/03/0329c890443172582d13466aa327c2573c5cfcb917a898bdee47c7892e675b12/ColumnFibreSymmetry.lean",
+        "bytes": 3778,
+        "sha256": "0329c890443172582d13466aa327c2573c5cfcb917a898bdee47c7892e675b12",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-21_karlsson_production.nosync/dist/karlsson-popeye-replay-test2/src/Hadamard6/ColumnFibreSymmetry.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/03/0356fb89afe51b45c07fc5e651f052dd4f16b9a78fce84c209daf4b20fe43e0e/FibreSymmetry.lean",
+        "bytes": 18270,
+        "sha256": "0356fb89afe51b45c07fc5e651f052dd4f16b9a78fce84c209daf4b20fe43e0e",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-21_karlsson_production.nosync/dist/karlsson-popeye-replay-test2/src/Hadamard6/FibreSymmetry.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/81/81bf8e0002e08ef0f69ab59f2b66071eb38b6fe595ae8bcd95dabea75a7fb627/FiniteDilation.lean",
+        "bytes": 3700,
+        "historical_portable_evidence": [
+          {
+            "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.FiniteDilation",
+            "selected_in_prior_packet": false
+          },
+          {
+            "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.FiniteDilation",
+            "selected_in_prior_packet": false
+          },
+          {
+            "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.FiniteDilation",
+            "selected_in_prior_packet": false
+          }
+        ],
+        "sha256": "81bf8e0002e08ef0f69ab59f2b66071eb38b6fe595ae8bcd95dabea75a7fb627",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-21_karlsson_production.nosync/dist/karlsson-popeye-replay-test2/src/Hadamard6/FiniteDilation.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/5e/5ed76b4074e68e175002430f951615ae7eb82c527df97a78368852d87b096a49/UnitSymmetric.lean",
+        "bytes": 2838,
+        "sha256": "5ed76b4074e68e175002430f951615ae7eb82c527df97a78368852d87b096a49",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-21_karlsson_production.nosync/dist/karlsson-popeye-replay-test2/src/Hadamard6/UnitSymmetric.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/5f/5fa386752747e883cba63f6cd955f4a376cb2a7ed2515b6de2f86eec57176199/BlockCompletion.lean",
+        "bytes": 8237,
+        "sha256": "5fa386752747e883cba63f6cd955f4a376cb2a7ed2515b6de2f86eec57176199",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-21_karlsson_production.nosync/dist/karlsson-popeye-replay-v1/src/Hadamard6/BlockCompletion.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/42/42bfb49854a2919f02ddf600cf040ee81e90f46bf0362f187f61e1a5b40198d1/BlockPermutations.lean",
+        "bytes": 1841,
+        "sha256": "42bfb49854a2919f02ddf600cf040ee81e90f46bf0362f187f61e1a5b40198d1",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-21_karlsson_production.nosync/dist/karlsson-popeye-replay-v1/src/Hadamard6/BlockPermutations.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/03/0329c890443172582d13466aa327c2573c5cfcb917a898bdee47c7892e675b12/ColumnFibreSymmetry.lean",
+        "bytes": 3778,
+        "sha256": "0329c890443172582d13466aa327c2573c5cfcb917a898bdee47c7892e675b12",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-21_karlsson_production.nosync/dist/karlsson-popeye-replay-v1/src/Hadamard6/ColumnFibreSymmetry.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/03/0356fb89afe51b45c07fc5e651f052dd4f16b9a78fce84c209daf4b20fe43e0e/FibreSymmetry.lean",
+        "bytes": 18270,
+        "sha256": "0356fb89afe51b45c07fc5e651f052dd4f16b9a78fce84c209daf4b20fe43e0e",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-21_karlsson_production.nosync/dist/karlsson-popeye-replay-v1/src/Hadamard6/FibreSymmetry.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/81/81bf8e0002e08ef0f69ab59f2b66071eb38b6fe595ae8bcd95dabea75a7fb627/FiniteDilation.lean",
+        "bytes": 3700,
+        "historical_portable_evidence": [
+          {
+            "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.FiniteDilation",
+            "selected_in_prior_packet": false
+          },
+          {
+            "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.FiniteDilation",
+            "selected_in_prior_packet": false
+          },
+          {
+            "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.FiniteDilation",
+            "selected_in_prior_packet": false
+          }
+        ],
+        "sha256": "81bf8e0002e08ef0f69ab59f2b66071eb38b6fe595ae8bcd95dabea75a7fb627",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-21_karlsson_production.nosync/dist/karlsson-popeye-replay-v1/src/Hadamard6/FiniteDilation.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/5e/5ed76b4074e68e175002430f951615ae7eb82c527df97a78368852d87b096a49/UnitSymmetric.lean",
+        "bytes": 2838,
+        "sha256": "5ed76b4074e68e175002430f951615ae7eb82c527df97a78368852d87b096a49",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-21_karlsson_production.nosync/dist/karlsson-popeye-replay-v1/src/Hadamard6/UnitSymmetric.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/15/15f4d30ab70411338869e5ed90985c2b4608be0baefa3925a4bb0ad77ec2e7db/CircleTaoSymmetryData.001.lean",
+        "bytes": 31817,
+        "sha256": "15f4d30ab70411338869e5ed90985c2b4608be0baefa3925a4bb0ad77ec2e7db",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/development/port/logs/CircleTaoSymmetryData.001.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/f1/f170aecf2706c396e0f4e1e7e30db9c48c35b2ac46822ad815659cbeef8e9a56/CircleD0SymmetryClosing.lean",
+        "bytes": 2543,
+        "sha256": "f170aecf2706c396e0f4e1e7e30db9c48c35b2ac46822ad815659cbeef8e9a56",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/history/snapshot-1790082761753415000/port/src/CircleD0SymmetryClosing.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/e1/e1cc80f8d3dede97338f05e7b99cbec760386e7ffb8306a0ee7fe235363e055f/CircleD0SymmetryDataFast.lean",
+        "bytes": 41290,
+        "sha256": "e1cc80f8d3dede97338f05e7b99cbec760386e7ffb8306a0ee7fe235363e055f",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/history/snapshot-1790082761753415000/port/src/CircleD0SymmetryDataFast.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/65/65ed88885b7fb01105d8793a0009ea792f99a20a6a19dc8d4933db14d3bb7d17/CircleSymmetry.lean",
+        "bytes": 4914,
+        "sha256": "65ed88885b7fb01105d8793a0009ea792f99a20a6a19dc8d4933db14d3bb7d17",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/history/snapshot-1790082761753415000/port/src/CircleSymmetry.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/d4/d45c6ea7f4b486b9b72e07dca1ead5eb341eca9a7e663ddc65959e1c3adf5804/CircleTaoSymmetryClosing.lean",
+        "bytes": 4592,
+        "sha256": "d45c6ea7f4b486b9b72e07dca1ead5eb341eca9a7e663ddc65959e1c3adf5804",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/history/snapshot-1790082761753415000/port/src/CircleTaoSymmetryClosing.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/15/15f4d30ab70411338869e5ed90985c2b4608be0baefa3925a4bb0ad77ec2e7db/CircleTaoSymmetryData.001.lean",
+        "bytes": 31817,
+        "sha256": "15f4d30ab70411338869e5ed90985c2b4608be0baefa3925a4bb0ad77ec2e7db",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/history/snapshot-1790082761753415000/port/src/CircleTaoSymmetryData.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/f4/f499bb91536c0041ef2072585b171cec381bb266eb27bedc789b4de21cafb075/D0CircleSymmetry.lean",
+        "bytes": 4968,
+        "sha256": "f499bb91536c0041ef2072585b171cec381bb266eb27bedc789b4de21cafb075",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/history/snapshot-1790082761753415000/port/src/D0CircleSymmetry.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/5f/5fa386752747e883cba63f6cd955f4a376cb2a7ed2515b6de2f86eec57176199/BlockCompletion.lean",
+        "bytes": 8237,
+        "sha256": "5fa386752747e883cba63f6cd955f4a376cb2a7ed2515b6de2f86eec57176199",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/history/snapshot-1790082761753415000/port/src/Hadamard6/BlockCompletion.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/42/42bfb49854a2919f02ddf600cf040ee81e90f46bf0362f187f61e1a5b40198d1/BlockPermutations.lean",
+        "bytes": 1841,
+        "sha256": "42bfb49854a2919f02ddf600cf040ee81e90f46bf0362f187f61e1a5b40198d1",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/history/snapshot-1790082761753415000/port/src/Hadamard6/BlockPermutations.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/03/0329c890443172582d13466aa327c2573c5cfcb917a898bdee47c7892e675b12/ColumnFibreSymmetry.lean",
+        "bytes": 3778,
+        "sha256": "0329c890443172582d13466aa327c2573c5cfcb917a898bdee47c7892e675b12",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/history/snapshot-1790082761753415000/port/src/Hadamard6/ColumnFibreSymmetry.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/03/0356fb89afe51b45c07fc5e651f052dd4f16b9a78fce84c209daf4b20fe43e0e/FibreSymmetry.lean",
+        "bytes": 18270,
+        "sha256": "0356fb89afe51b45c07fc5e651f052dd4f16b9a78fce84c209daf4b20fe43e0e",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/history/snapshot-1790082761753415000/port/src/Hadamard6/FibreSymmetry.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/81/81bf8e0002e08ef0f69ab59f2b66071eb38b6fe595ae8bcd95dabea75a7fb627/FiniteDilation.lean",
+        "bytes": 3700,
+        "historical_portable_evidence": [
+          {
+            "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.FiniteDilation",
+            "selected_in_prior_packet": false
+          },
+          {
+            "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.FiniteDilation",
+            "selected_in_prior_packet": false
+          },
+          {
+            "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.FiniteDilation",
+            "selected_in_prior_packet": false
+          }
+        ],
+        "sha256": "81bf8e0002e08ef0f69ab59f2b66071eb38b6fe595ae8bcd95dabea75a7fb627",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/history/snapshot-1790082761753415000/port/src/Hadamard6/FiniteDilation.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/5e/5ed76b4074e68e175002430f951615ae7eb82c527df97a78368852d87b096a49/UnitSymmetric.lean",
+        "bytes": 2838,
+        "sha256": "5ed76b4074e68e175002430f951615ae7eb82c527df97a78368852d87b096a49",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/history/snapshot-1790082761753415000/port/src/Hadamard6/UnitSymmetric.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/f1/f170aecf2706c396e0f4e1e7e30db9c48c35b2ac46822ad815659cbeef8e9a56/CircleD0SymmetryClosing.lean",
+        "bytes": 2543,
+        "sha256": "f170aecf2706c396e0f4e1e7e30db9c48c35b2ac46822ad815659cbeef8e9a56",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/history/snapshot-1790082761753415000/src/CircleD0SymmetryClosing.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/e1/e1cc80f8d3dede97338f05e7b99cbec760386e7ffb8306a0ee7fe235363e055f/CircleD0SymmetryDataFast.lean",
+        "bytes": 41290,
+        "sha256": "e1cc80f8d3dede97338f05e7b99cbec760386e7ffb8306a0ee7fe235363e055f",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/history/snapshot-1790082761753415000/src/CircleD0SymmetryDataFast.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/65/65ed88885b7fb01105d8793a0009ea792f99a20a6a19dc8d4933db14d3bb7d17/CircleSymmetry.lean",
+        "bytes": 4914,
+        "sha256": "65ed88885b7fb01105d8793a0009ea792f99a20a6a19dc8d4933db14d3bb7d17",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/history/snapshot-1790082761753415000/src/CircleSymmetry.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/d4/d45c6ea7f4b486b9b72e07dca1ead5eb341eca9a7e663ddc65959e1c3adf5804/CircleTaoSymmetryClosing.lean",
+        "bytes": 4592,
+        "sha256": "d45c6ea7f4b486b9b72e07dca1ead5eb341eca9a7e663ddc65959e1c3adf5804",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/history/snapshot-1790082761753415000/src/CircleTaoSymmetryClosing.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/15/15f4d30ab70411338869e5ed90985c2b4608be0baefa3925a4bb0ad77ec2e7db/CircleTaoSymmetryData.001.lean",
+        "bytes": 31817,
+        "sha256": "15f4d30ab70411338869e5ed90985c2b4608be0baefa3925a4bb0ad77ec2e7db",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/history/snapshot-1790082761753415000/src/CircleTaoSymmetryData.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/f4/f499bb91536c0041ef2072585b171cec381bb266eb27bedc789b4de21cafb075/D0CircleSymmetry.lean",
+        "bytes": 4968,
+        "sha256": "f499bb91536c0041ef2072585b171cec381bb266eb27bedc789b4de21cafb075",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/history/snapshot-1790082761753415000/src/D0CircleSymmetry.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/5f/5fa386752747e883cba63f6cd955f4a376cb2a7ed2515b6de2f86eec57176199/BlockCompletion.lean",
+        "bytes": 8237,
+        "sha256": "5fa386752747e883cba63f6cd955f4a376cb2a7ed2515b6de2f86eec57176199",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/history/snapshot-1790082761753415000/src/Hadamard6/BlockCompletion.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/42/42bfb49854a2919f02ddf600cf040ee81e90f46bf0362f187f61e1a5b40198d1/BlockPermutations.lean",
+        "bytes": 1841,
+        "sha256": "42bfb49854a2919f02ddf600cf040ee81e90f46bf0362f187f61e1a5b40198d1",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/history/snapshot-1790082761753415000/src/Hadamard6/BlockPermutations.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/03/0329c890443172582d13466aa327c2573c5cfcb917a898bdee47c7892e675b12/ColumnFibreSymmetry.lean",
+        "bytes": 3778,
+        "sha256": "0329c890443172582d13466aa327c2573c5cfcb917a898bdee47c7892e675b12",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/history/snapshot-1790082761753415000/src/Hadamard6/ColumnFibreSymmetry.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/03/0356fb89afe51b45c07fc5e651f052dd4f16b9a78fce84c209daf4b20fe43e0e/FibreSymmetry.lean",
+        "bytes": 18270,
+        "sha256": "0356fb89afe51b45c07fc5e651f052dd4f16b9a78fce84c209daf4b20fe43e0e",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/history/snapshot-1790082761753415000/src/Hadamard6/FibreSymmetry.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/81/81bf8e0002e08ef0f69ab59f2b66071eb38b6fe595ae8bcd95dabea75a7fb627/FiniteDilation.lean",
+        "bytes": 3700,
+        "historical_portable_evidence": [
+          {
+            "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.FiniteDilation",
+            "selected_in_prior_packet": false
+          },
+          {
+            "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.FiniteDilation",
+            "selected_in_prior_packet": false
+          },
+          {
+            "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.FiniteDilation",
+            "selected_in_prior_packet": false
+          }
+        ],
+        "sha256": "81bf8e0002e08ef0f69ab59f2b66071eb38b6fe595ae8bcd95dabea75a7fb627",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/history/snapshot-1790082761753415000/src/Hadamard6/FiniteDilation.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/5e/5ed76b4074e68e175002430f951615ae7eb82c527df97a78368852d87b096a49/UnitSymmetric.lean",
+        "bytes": 2838,
+        "sha256": "5ed76b4074e68e175002430f951615ae7eb82c527df97a78368852d87b096a49",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/history/snapshot-1790082761753415000/src/Hadamard6/UnitSymmetric.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/f1/f170aecf2706c396e0f4e1e7e30db9c48c35b2ac46822ad815659cbeef8e9a56/CircleD0SymmetryClosing.lean",
+        "bytes": 2543,
+        "sha256": "f170aecf2706c396e0f4e1e7e30db9c48c35b2ac46822ad815659cbeef8e9a56",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/history/snapshot-1790087968026307000/port/src/CircleD0SymmetryClosing.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/e1/e1cc80f8d3dede97338f05e7b99cbec760386e7ffb8306a0ee7fe235363e055f/CircleD0SymmetryDataFast.lean",
+        "bytes": 41290,
+        "sha256": "e1cc80f8d3dede97338f05e7b99cbec760386e7ffb8306a0ee7fe235363e055f",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/history/snapshot-1790087968026307000/port/src/CircleD0SymmetryDataFast.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/65/65ed88885b7fb01105d8793a0009ea792f99a20a6a19dc8d4933db14d3bb7d17/CircleSymmetry.lean",
+        "bytes": 4914,
+        "sha256": "65ed88885b7fb01105d8793a0009ea792f99a20a6a19dc8d4933db14d3bb7d17",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/history/snapshot-1790087968026307000/port/src/CircleSymmetry.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/d4/d45c6ea7f4b486b9b72e07dca1ead5eb341eca9a7e663ddc65959e1c3adf5804/CircleTaoSymmetryClosing.lean",
+        "bytes": 4592,
+        "sha256": "d45c6ea7f4b486b9b72e07dca1ead5eb341eca9a7e663ddc65959e1c3adf5804",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/history/snapshot-1790087968026307000/port/src/CircleTaoSymmetryClosing.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/15/15f4d30ab70411338869e5ed90985c2b4608be0baefa3925a4bb0ad77ec2e7db/CircleTaoSymmetryData.001.lean",
+        "bytes": 31817,
+        "sha256": "15f4d30ab70411338869e5ed90985c2b4608be0baefa3925a4bb0ad77ec2e7db",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/history/snapshot-1790087968026307000/port/src/CircleTaoSymmetryData.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/f4/f499bb91536c0041ef2072585b171cec381bb266eb27bedc789b4de21cafb075/D0CircleSymmetry.lean",
+        "bytes": 4968,
+        "sha256": "f499bb91536c0041ef2072585b171cec381bb266eb27bedc789b4de21cafb075",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/history/snapshot-1790087968026307000/port/src/D0CircleSymmetry.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/5f/5fa386752747e883cba63f6cd955f4a376cb2a7ed2515b6de2f86eec57176199/BlockCompletion.lean",
+        "bytes": 8237,
+        "sha256": "5fa386752747e883cba63f6cd955f4a376cb2a7ed2515b6de2f86eec57176199",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/history/snapshot-1790087968026307000/port/src/Hadamard6/BlockCompletion.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/42/42bfb49854a2919f02ddf600cf040ee81e90f46bf0362f187f61e1a5b40198d1/BlockPermutations.lean",
+        "bytes": 1841,
+        "sha256": "42bfb49854a2919f02ddf600cf040ee81e90f46bf0362f187f61e1a5b40198d1",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/history/snapshot-1790087968026307000/port/src/Hadamard6/BlockPermutations.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/03/0329c890443172582d13466aa327c2573c5cfcb917a898bdee47c7892e675b12/ColumnFibreSymmetry.lean",
+        "bytes": 3778,
+        "sha256": "0329c890443172582d13466aa327c2573c5cfcb917a898bdee47c7892e675b12",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/history/snapshot-1790087968026307000/port/src/Hadamard6/ColumnFibreSymmetry.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/03/0356fb89afe51b45c07fc5e651f052dd4f16b9a78fce84c209daf4b20fe43e0e/FibreSymmetry.lean",
+        "bytes": 18270,
+        "sha256": "0356fb89afe51b45c07fc5e651f052dd4f16b9a78fce84c209daf4b20fe43e0e",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/history/snapshot-1790087968026307000/port/src/Hadamard6/FibreSymmetry.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/81/81bf8e0002e08ef0f69ab59f2b66071eb38b6fe595ae8bcd95dabea75a7fb627/FiniteDilation.lean",
+        "bytes": 3700,
+        "historical_portable_evidence": [
+          {
+            "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.FiniteDilation",
+            "selected_in_prior_packet": false
+          },
+          {
+            "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.FiniteDilation",
+            "selected_in_prior_packet": false
+          },
+          {
+            "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.FiniteDilation",
+            "selected_in_prior_packet": false
+          }
+        ],
+        "sha256": "81bf8e0002e08ef0f69ab59f2b66071eb38b6fe595ae8bcd95dabea75a7fb627",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/history/snapshot-1790087968026307000/port/src/Hadamard6/FiniteDilation.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/5e/5ed76b4074e68e175002430f951615ae7eb82c527df97a78368852d87b096a49/UnitSymmetric.lean",
+        "bytes": 2838,
+        "sha256": "5ed76b4074e68e175002430f951615ae7eb82c527df97a78368852d87b096a49",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/history/snapshot-1790087968026307000/port/src/Hadamard6/UnitSymmetric.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/f1/f170aecf2706c396e0f4e1e7e30db9c48c35b2ac46822ad815659cbeef8e9a56/CircleD0SymmetryClosing.lean",
+        "bytes": 2543,
+        "sha256": "f170aecf2706c396e0f4e1e7e30db9c48c35b2ac46822ad815659cbeef8e9a56",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/history/snapshot-1790087968026307000/src/CircleD0SymmetryClosing.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/e1/e1cc80f8d3dede97338f05e7b99cbec760386e7ffb8306a0ee7fe235363e055f/CircleD0SymmetryDataFast.lean",
+        "bytes": 41290,
+        "sha256": "e1cc80f8d3dede97338f05e7b99cbec760386e7ffb8306a0ee7fe235363e055f",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/history/snapshot-1790087968026307000/src/CircleD0SymmetryDataFast.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/65/65ed88885b7fb01105d8793a0009ea792f99a20a6a19dc8d4933db14d3bb7d17/CircleSymmetry.lean",
+        "bytes": 4914,
+        "sha256": "65ed88885b7fb01105d8793a0009ea792f99a20a6a19dc8d4933db14d3bb7d17",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/history/snapshot-1790087968026307000/src/CircleSymmetry.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/d4/d45c6ea7f4b486b9b72e07dca1ead5eb341eca9a7e663ddc65959e1c3adf5804/CircleTaoSymmetryClosing.lean",
+        "bytes": 4592,
+        "sha256": "d45c6ea7f4b486b9b72e07dca1ead5eb341eca9a7e663ddc65959e1c3adf5804",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/history/snapshot-1790087968026307000/src/CircleTaoSymmetryClosing.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/15/15f4d30ab70411338869e5ed90985c2b4608be0baefa3925a4bb0ad77ec2e7db/CircleTaoSymmetryData.001.lean",
+        "bytes": 31817,
+        "sha256": "15f4d30ab70411338869e5ed90985c2b4608be0baefa3925a4bb0ad77ec2e7db",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/history/snapshot-1790087968026307000/src/CircleTaoSymmetryData.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/f4/f499bb91536c0041ef2072585b171cec381bb266eb27bedc789b4de21cafb075/D0CircleSymmetry.lean",
+        "bytes": 4968,
+        "sha256": "f499bb91536c0041ef2072585b171cec381bb266eb27bedc789b4de21cafb075",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/history/snapshot-1790087968026307000/src/D0CircleSymmetry.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/5f/5fa386752747e883cba63f6cd955f4a376cb2a7ed2515b6de2f86eec57176199/BlockCompletion.lean",
+        "bytes": 8237,
+        "sha256": "5fa386752747e883cba63f6cd955f4a376cb2a7ed2515b6de2f86eec57176199",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/history/snapshot-1790087968026307000/src/Hadamard6/BlockCompletion.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/42/42bfb49854a2919f02ddf600cf040ee81e90f46bf0362f187f61e1a5b40198d1/BlockPermutations.lean",
+        "bytes": 1841,
+        "sha256": "42bfb49854a2919f02ddf600cf040ee81e90f46bf0362f187f61e1a5b40198d1",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/history/snapshot-1790087968026307000/src/Hadamard6/BlockPermutations.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/03/0329c890443172582d13466aa327c2573c5cfcb917a898bdee47c7892e675b12/ColumnFibreSymmetry.lean",
+        "bytes": 3778,
+        "sha256": "0329c890443172582d13466aa327c2573c5cfcb917a898bdee47c7892e675b12",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/history/snapshot-1790087968026307000/src/Hadamard6/ColumnFibreSymmetry.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/03/0356fb89afe51b45c07fc5e651f052dd4f16b9a78fce84c209daf4b20fe43e0e/FibreSymmetry.lean",
+        "bytes": 18270,
+        "sha256": "0356fb89afe51b45c07fc5e651f052dd4f16b9a78fce84c209daf4b20fe43e0e",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/history/snapshot-1790087968026307000/src/Hadamard6/FibreSymmetry.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/81/81bf8e0002e08ef0f69ab59f2b66071eb38b6fe595ae8bcd95dabea75a7fb627/FiniteDilation.lean",
+        "bytes": 3700,
+        "historical_portable_evidence": [
+          {
+            "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.FiniteDilation",
+            "selected_in_prior_packet": false
+          },
+          {
+            "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.FiniteDilation",
+            "selected_in_prior_packet": false
+          },
+          {
+            "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.FiniteDilation",
+            "selected_in_prior_packet": false
+          }
+        ],
+        "sha256": "81bf8e0002e08ef0f69ab59f2b66071eb38b6fe595ae8bcd95dabea75a7fb627",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/history/snapshot-1790087968026307000/src/Hadamard6/FiniteDilation.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/5e/5ed76b4074e68e175002430f951615ae7eb82c527df97a78368852d87b096a49/UnitSymmetric.lean",
+        "bytes": 2838,
+        "sha256": "5ed76b4074e68e175002430f951615ae7eb82c527df97a78368852d87b096a49",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/history/snapshot-1790087968026307000/src/Hadamard6/UnitSymmetric.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/f1/f170aecf2706c396e0f4e1e7e30db9c48c35b2ac46822ad815659cbeef8e9a56/CircleD0SymmetryClosing.lean",
+        "bytes": 2543,
+        "sha256": "f170aecf2706c396e0f4e1e7e30db9c48c35b2ac46822ad815659cbeef8e9a56",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/karlsson-closure-replay-v2/port/src/CircleD0SymmetryClosing.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/e1/e1cc80f8d3dede97338f05e7b99cbec760386e7ffb8306a0ee7fe235363e055f/CircleD0SymmetryDataFast.lean",
+        "bytes": 41290,
+        "sha256": "e1cc80f8d3dede97338f05e7b99cbec760386e7ffb8306a0ee7fe235363e055f",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/karlsson-closure-replay-v2/port/src/CircleD0SymmetryDataFast.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/65/65ed88885b7fb01105d8793a0009ea792f99a20a6a19dc8d4933db14d3bb7d17/CircleSymmetry.lean",
+        "bytes": 4914,
+        "sha256": "65ed88885b7fb01105d8793a0009ea792f99a20a6a19dc8d4933db14d3bb7d17",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/karlsson-closure-replay-v2/port/src/CircleSymmetry.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/d4/d45c6ea7f4b486b9b72e07dca1ead5eb341eca9a7e663ddc65959e1c3adf5804/CircleTaoSymmetryClosing.lean",
+        "bytes": 4592,
+        "sha256": "d45c6ea7f4b486b9b72e07dca1ead5eb341eca9a7e663ddc65959e1c3adf5804",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/karlsson-closure-replay-v2/port/src/CircleTaoSymmetryClosing.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/15/15f4d30ab70411338869e5ed90985c2b4608be0baefa3925a4bb0ad77ec2e7db/CircleTaoSymmetryData.001.lean",
+        "bytes": 31817,
+        "sha256": "15f4d30ab70411338869e5ed90985c2b4608be0baefa3925a4bb0ad77ec2e7db",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/karlsson-closure-replay-v2/port/src/CircleTaoSymmetryData.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/f4/f499bb91536c0041ef2072585b171cec381bb266eb27bedc789b4de21cafb075/D0CircleSymmetry.lean",
+        "bytes": 4968,
+        "sha256": "f499bb91536c0041ef2072585b171cec381bb266eb27bedc789b4de21cafb075",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/karlsson-closure-replay-v2/port/src/D0CircleSymmetry.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/5f/5fa386752747e883cba63f6cd955f4a376cb2a7ed2515b6de2f86eec57176199/BlockCompletion.lean",
+        "bytes": 8237,
+        "sha256": "5fa386752747e883cba63f6cd955f4a376cb2a7ed2515b6de2f86eec57176199",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/karlsson-closure-replay-v2/port/src/Hadamard6/BlockCompletion.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/42/42bfb49854a2919f02ddf600cf040ee81e90f46bf0362f187f61e1a5b40198d1/BlockPermutations.lean",
+        "bytes": 1841,
+        "sha256": "42bfb49854a2919f02ddf600cf040ee81e90f46bf0362f187f61e1a5b40198d1",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/karlsson-closure-replay-v2/port/src/Hadamard6/BlockPermutations.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/03/0329c890443172582d13466aa327c2573c5cfcb917a898bdee47c7892e675b12/ColumnFibreSymmetry.lean",
+        "bytes": 3778,
+        "sha256": "0329c890443172582d13466aa327c2573c5cfcb917a898bdee47c7892e675b12",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/karlsson-closure-replay-v2/port/src/Hadamard6/ColumnFibreSymmetry.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/03/0356fb89afe51b45c07fc5e651f052dd4f16b9a78fce84c209daf4b20fe43e0e/FibreSymmetry.lean",
+        "bytes": 18270,
+        "sha256": "0356fb89afe51b45c07fc5e651f052dd4f16b9a78fce84c209daf4b20fe43e0e",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/karlsson-closure-replay-v2/port/src/Hadamard6/FibreSymmetry.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/81/81bf8e0002e08ef0f69ab59f2b66071eb38b6fe595ae8bcd95dabea75a7fb627/FiniteDilation.lean",
+        "bytes": 3700,
+        "historical_portable_evidence": [
+          {
+            "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.FiniteDilation",
+            "selected_in_prior_packet": false
+          },
+          {
+            "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.FiniteDilation",
+            "selected_in_prior_packet": false
+          },
+          {
+            "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.FiniteDilation",
+            "selected_in_prior_packet": false
+          }
+        ],
+        "sha256": "81bf8e0002e08ef0f69ab59f2b66071eb38b6fe595ae8bcd95dabea75a7fb627",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/karlsson-closure-replay-v2/port/src/Hadamard6/FiniteDilation.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/5e/5ed76b4074e68e175002430f951615ae7eb82c527df97a78368852d87b096a49/UnitSymmetric.lean",
+        "bytes": 2838,
+        "sha256": "5ed76b4074e68e175002430f951615ae7eb82c527df97a78368852d87b096a49",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/karlsson-closure-replay-v2/port/src/Hadamard6/UnitSymmetric.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/d0/d09a2b39d1e16e121689e11f7bca6e680a69f3ddfbc7c40e925949a1419c139c/KarlssonSeamSymmetry.lean",
+        "bytes": 11775,
+        "sha256": "d09a2b39d1e16e121689e11f7bca6e680a69f3ddfbc7c40e925949a1419c139c",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/karlsson-closure-replay-v2/port/src/KarlssonSeamSymmetry.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/f1/f170aecf2706c396e0f4e1e7e30db9c48c35b2ac46822ad815659cbeef8e9a56/CircleD0SymmetryClosing.lean",
+        "bytes": 2543,
+        "sha256": "f170aecf2706c396e0f4e1e7e30db9c48c35b2ac46822ad815659cbeef8e9a56",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/karlsson-closure-replay-v2/src/CircleD0SymmetryClosing.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/e1/e1cc80f8d3dede97338f05e7b99cbec760386e7ffb8306a0ee7fe235363e055f/CircleD0SymmetryDataFast.lean",
+        "bytes": 41290,
+        "sha256": "e1cc80f8d3dede97338f05e7b99cbec760386e7ffb8306a0ee7fe235363e055f",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/karlsson-closure-replay-v2/src/CircleD0SymmetryDataFast.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/65/65ed88885b7fb01105d8793a0009ea792f99a20a6a19dc8d4933db14d3bb7d17/CircleSymmetry.lean",
+        "bytes": 4914,
+        "sha256": "65ed88885b7fb01105d8793a0009ea792f99a20a6a19dc8d4933db14d3bb7d17",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/karlsson-closure-replay-v2/src/CircleSymmetry.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/d4/d45c6ea7f4b486b9b72e07dca1ead5eb341eca9a7e663ddc65959e1c3adf5804/CircleTaoSymmetryClosing.lean",
+        "bytes": 4592,
+        "sha256": "d45c6ea7f4b486b9b72e07dca1ead5eb341eca9a7e663ddc65959e1c3adf5804",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/karlsson-closure-replay-v2/src/CircleTaoSymmetryClosing.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/15/15f4d30ab70411338869e5ed90985c2b4608be0baefa3925a4bb0ad77ec2e7db/CircleTaoSymmetryData.001.lean",
+        "bytes": 31817,
+        "sha256": "15f4d30ab70411338869e5ed90985c2b4608be0baefa3925a4bb0ad77ec2e7db",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/karlsson-closure-replay-v2/src/CircleTaoSymmetryData.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/f4/f499bb91536c0041ef2072585b171cec381bb266eb27bedc789b4de21cafb075/D0CircleSymmetry.lean",
+        "bytes": 4968,
+        "sha256": "f499bb91536c0041ef2072585b171cec381bb266eb27bedc789b4de21cafb075",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/karlsson-closure-replay-v2/src/D0CircleSymmetry.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/5f/5fa386752747e883cba63f6cd955f4a376cb2a7ed2515b6de2f86eec57176199/BlockCompletion.lean",
+        "bytes": 8237,
+        "sha256": "5fa386752747e883cba63f6cd955f4a376cb2a7ed2515b6de2f86eec57176199",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/karlsson-closure-replay-v2/src/Hadamard6/BlockCompletion.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/42/42bfb49854a2919f02ddf600cf040ee81e90f46bf0362f187f61e1a5b40198d1/BlockPermutations.lean",
+        "bytes": 1841,
+        "sha256": "42bfb49854a2919f02ddf600cf040ee81e90f46bf0362f187f61e1a5b40198d1",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/karlsson-closure-replay-v2/src/Hadamard6/BlockPermutations.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/03/0329c890443172582d13466aa327c2573c5cfcb917a898bdee47c7892e675b12/ColumnFibreSymmetry.lean",
+        "bytes": 3778,
+        "sha256": "0329c890443172582d13466aa327c2573c5cfcb917a898bdee47c7892e675b12",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/karlsson-closure-replay-v2/src/Hadamard6/ColumnFibreSymmetry.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/03/0356fb89afe51b45c07fc5e651f052dd4f16b9a78fce84c209daf4b20fe43e0e/FibreSymmetry.lean",
+        "bytes": 18270,
+        "sha256": "0356fb89afe51b45c07fc5e651f052dd4f16b9a78fce84c209daf4b20fe43e0e",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/karlsson-closure-replay-v2/src/Hadamard6/FibreSymmetry.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/81/81bf8e0002e08ef0f69ab59f2b66071eb38b6fe595ae8bcd95dabea75a7fb627/FiniteDilation.lean",
+        "bytes": 3700,
+        "historical_portable_evidence": [
+          {
+            "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.FiniteDilation",
+            "selected_in_prior_packet": false
+          },
+          {
+            "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.FiniteDilation",
+            "selected_in_prior_packet": false
+          },
+          {
+            "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.FiniteDilation",
+            "selected_in_prior_packet": false
+          }
+        ],
+        "sha256": "81bf8e0002e08ef0f69ab59f2b66071eb38b6fe595ae8bcd95dabea75a7fb627",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/karlsson-closure-replay-v2/src/Hadamard6/FiniteDilation.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/5e/5ed76b4074e68e175002430f951615ae7eb82c527df97a78368852d87b096a49/UnitSymmetric.lean",
+        "bytes": 2838,
+        "sha256": "5ed76b4074e68e175002430f951615ae7eb82c527df97a78368852d87b096a49",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/karlsson-closure-replay-v2/src/Hadamard6/UnitSymmetric.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/d0/d09a2b39d1e16e121689e11f7bca6e680a69f3ddfbc7c40e925949a1419c139c/KarlssonSeamSymmetry.lean",
+        "bytes": 11775,
+        "sha256": "d09a2b39d1e16e121689e11f7bca6e680a69f3ddfbc7c40e925949a1419c139c",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/dist/karlsson-closure-replay-v2/src/KarlssonSeamSymmetry.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/f1/f170aecf2706c396e0f4e1e7e30db9c48c35b2ac46822ad815659cbeef8e9a56/CircleD0SymmetryClosing.lean",
+        "bytes": 2543,
+        "sha256": "f170aecf2706c396e0f4e1e7e30db9c48c35b2ac46822ad815659cbeef8e9a56",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/port/logs/CircleD0SymmetryClosing.001.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/e1/e1cc80f8d3dede97338f05e7b99cbec760386e7ffb8306a0ee7fe235363e055f/CircleD0SymmetryDataFast.lean",
+        "bytes": 41290,
+        "sha256": "e1cc80f8d3dede97338f05e7b99cbec760386e7ffb8306a0ee7fe235363e055f",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/port/logs/CircleD0SymmetryDataFast.001.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/65/65ed88885b7fb01105d8793a0009ea792f99a20a6a19dc8d4933db14d3bb7d17/CircleSymmetry.lean",
+        "bytes": 4914,
+        "sha256": "65ed88885b7fb01105d8793a0009ea792f99a20a6a19dc8d4933db14d3bb7d17",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/port/logs/CircleSymmetry.001.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/d4/d45c6ea7f4b486b9b72e07dca1ead5eb341eca9a7e663ddc65959e1c3adf5804/CircleTaoSymmetryClosing.lean",
+        "bytes": 4592,
+        "sha256": "d45c6ea7f4b486b9b72e07dca1ead5eb341eca9a7e663ddc65959e1c3adf5804",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/port/logs/CircleTaoSymmetryClosing.001.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/a3/a3e94e0069ebd0db9bee054a31ebe29f9478b5298e4ab9a6345193b8bf9483e1/CircleTaoSymmetryData.001.lean",
+        "bytes": 31382,
+        "sha256": "a3e94e0069ebd0db9bee054a31ebe29f9478b5298e4ab9a6345193b8bf9483e1",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/port/logs/CircleTaoSymmetryData.001.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/15/15f4d30ab70411338869e5ed90985c2b4608be0baefa3925a4bb0ad77ec2e7db/CircleTaoSymmetryData.001.lean",
+        "bytes": 31817,
+        "sha256": "15f4d30ab70411338869e5ed90985c2b4608be0baefa3925a4bb0ad77ec2e7db",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/port/logs/CircleTaoSymmetryData.002.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/f4/f499bb91536c0041ef2072585b171cec381bb266eb27bedc789b4de21cafb075/D0CircleSymmetry.lean",
+        "bytes": 4968,
+        "sha256": "f499bb91536c0041ef2072585b171cec381bb266eb27bedc789b4de21cafb075",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/port/logs/D0CircleSymmetry.001.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/5f/5fa386752747e883cba63f6cd955f4a376cb2a7ed2515b6de2f86eec57176199/BlockCompletion.lean",
+        "bytes": 8237,
+        "sha256": "5fa386752747e883cba63f6cd955f4a376cb2a7ed2515b6de2f86eec57176199",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/port/logs/Hadamard6.BlockCompletion.001.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/42/42bfb49854a2919f02ddf600cf040ee81e90f46bf0362f187f61e1a5b40198d1/BlockPermutations.lean",
+        "bytes": 1841,
+        "sha256": "42bfb49854a2919f02ddf600cf040ee81e90f46bf0362f187f61e1a5b40198d1",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/port/logs/Hadamard6.BlockPermutations.001.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/03/0329c890443172582d13466aa327c2573c5cfcb917a898bdee47c7892e675b12/ColumnFibreSymmetry.lean",
+        "bytes": 3778,
+        "sha256": "0329c890443172582d13466aa327c2573c5cfcb917a898bdee47c7892e675b12",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/port/logs/Hadamard6.ColumnFibreSymmetry.001.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/03/0356fb89afe51b45c07fc5e651f052dd4f16b9a78fce84c209daf4b20fe43e0e/FibreSymmetry.lean",
+        "bytes": 18270,
+        "sha256": "0356fb89afe51b45c07fc5e651f052dd4f16b9a78fce84c209daf4b20fe43e0e",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/port/logs/Hadamard6.FibreSymmetry.001.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/81/81bf8e0002e08ef0f69ab59f2b66071eb38b6fe595ae8bcd95dabea75a7fb627/FiniteDilation.lean",
+        "bytes": 3700,
+        "historical_portable_evidence": [
+          {
+            "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.FiniteDilation",
+            "selected_in_prior_packet": false
+          },
+          {
+            "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.FiniteDilation",
+            "selected_in_prior_packet": false
+          },
+          {
+            "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.FiniteDilation",
+            "selected_in_prior_packet": false
+          }
+        ],
+        "sha256": "81bf8e0002e08ef0f69ab59f2b66071eb38b6fe595ae8bcd95dabea75a7fb627",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/port/logs/Hadamard6.FiniteDilation.001.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/5e/5ed76b4074e68e175002430f951615ae7eb82c527df97a78368852d87b096a49/UnitSymmetric.lean",
+        "bytes": 2838,
+        "sha256": "5ed76b4074e68e175002430f951615ae7eb82c527df97a78368852d87b096a49",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/port/logs/Hadamard6.UnitSymmetric.001.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/93/93ab9c0c6999a851bb78871c6222dd04b005de725a8d7cd98c63dd3a499bec4c/KarlssonSeamSymmetry.001.lean",
+        "bytes": 11509,
+        "sha256": "93ab9c0c6999a851bb78871c6222dd04b005de725a8d7cd98c63dd3a499bec4c",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/port/logs/KarlssonSeamSymmetry.001.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/b1/b192fe64d1cd3969101c6a3a63f33c733fc8e86c4505e8e28000f7c86be1f0e4/KarlssonSeamSymmetry.002.lean",
+        "bytes": 11770,
+        "sha256": "b192fe64d1cd3969101c6a3a63f33c733fc8e86c4505e8e28000f7c86be1f0e4",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/port/logs/KarlssonSeamSymmetry.002.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/d0/d09a2b39d1e16e121689e11f7bca6e680a69f3ddfbc7c40e925949a1419c139c/KarlssonSeamSymmetry.lean",
+        "bytes": 11775,
+        "sha256": "d09a2b39d1e16e121689e11f7bca6e680a69f3ddfbc7c40e925949a1419c139c",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/port/logs/KarlssonSeamSymmetry.003.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/f1/f170aecf2706c396e0f4e1e7e30db9c48c35b2ac46822ad815659cbeef8e9a56/CircleD0SymmetryClosing.lean",
+        "bytes": 2543,
+        "sha256": "f170aecf2706c396e0f4e1e7e30db9c48c35b2ac46822ad815659cbeef8e9a56",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/port/src/CircleD0SymmetryClosing.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/e1/e1cc80f8d3dede97338f05e7b99cbec760386e7ffb8306a0ee7fe235363e055f/CircleD0SymmetryDataFast.lean",
+        "bytes": 41290,
+        "sha256": "e1cc80f8d3dede97338f05e7b99cbec760386e7ffb8306a0ee7fe235363e055f",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/port/src/CircleD0SymmetryDataFast.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/65/65ed88885b7fb01105d8793a0009ea792f99a20a6a19dc8d4933db14d3bb7d17/CircleSymmetry.lean",
+        "bytes": 4914,
+        "sha256": "65ed88885b7fb01105d8793a0009ea792f99a20a6a19dc8d4933db14d3bb7d17",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/port/src/CircleSymmetry.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/d4/d45c6ea7f4b486b9b72e07dca1ead5eb341eca9a7e663ddc65959e1c3adf5804/CircleTaoSymmetryClosing.lean",
+        "bytes": 4592,
+        "sha256": "d45c6ea7f4b486b9b72e07dca1ead5eb341eca9a7e663ddc65959e1c3adf5804",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/port/src/CircleTaoSymmetryClosing.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/15/15f4d30ab70411338869e5ed90985c2b4608be0baefa3925a4bb0ad77ec2e7db/CircleTaoSymmetryData.001.lean",
+        "bytes": 31817,
+        "sha256": "15f4d30ab70411338869e5ed90985c2b4608be0baefa3925a4bb0ad77ec2e7db",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/port/src/CircleTaoSymmetryData.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/f4/f499bb91536c0041ef2072585b171cec381bb266eb27bedc789b4de21cafb075/D0CircleSymmetry.lean",
+        "bytes": 4968,
+        "sha256": "f499bb91536c0041ef2072585b171cec381bb266eb27bedc789b4de21cafb075",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/port/src/D0CircleSymmetry.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/5f/5fa386752747e883cba63f6cd955f4a376cb2a7ed2515b6de2f86eec57176199/BlockCompletion.lean",
+        "bytes": 8237,
+        "sha256": "5fa386752747e883cba63f6cd955f4a376cb2a7ed2515b6de2f86eec57176199",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/port/src/Hadamard6/BlockCompletion.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/42/42bfb49854a2919f02ddf600cf040ee81e90f46bf0362f187f61e1a5b40198d1/BlockPermutations.lean",
+        "bytes": 1841,
+        "sha256": "42bfb49854a2919f02ddf600cf040ee81e90f46bf0362f187f61e1a5b40198d1",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/port/src/Hadamard6/BlockPermutations.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/03/0329c890443172582d13466aa327c2573c5cfcb917a898bdee47c7892e675b12/ColumnFibreSymmetry.lean",
+        "bytes": 3778,
+        "sha256": "0329c890443172582d13466aa327c2573c5cfcb917a898bdee47c7892e675b12",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/port/src/Hadamard6/ColumnFibreSymmetry.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/03/0356fb89afe51b45c07fc5e651f052dd4f16b9a78fce84c209daf4b20fe43e0e/FibreSymmetry.lean",
+        "bytes": 18270,
+        "sha256": "0356fb89afe51b45c07fc5e651f052dd4f16b9a78fce84c209daf4b20fe43e0e",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/port/src/Hadamard6/FibreSymmetry.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/81/81bf8e0002e08ef0f69ab59f2b66071eb38b6fe595ae8bcd95dabea75a7fb627/FiniteDilation.lean",
+        "bytes": 3700,
+        "historical_portable_evidence": [
+          {
+            "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.FiniteDilation",
+            "selected_in_prior_packet": false
+          },
+          {
+            "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.FiniteDilation",
+            "selected_in_prior_packet": false
+          },
+          {
+            "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.FiniteDilation",
+            "selected_in_prior_packet": false
+          }
+        ],
+        "sha256": "81bf8e0002e08ef0f69ab59f2b66071eb38b6fe595ae8bcd95dabea75a7fb627",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/port/src/Hadamard6/FiniteDilation.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/5e/5ed76b4074e68e175002430f951615ae7eb82c527df97a78368852d87b096a49/UnitSymmetric.lean",
+        "bytes": 2838,
+        "sha256": "5ed76b4074e68e175002430f951615ae7eb82c527df97a78368852d87b096a49",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/port/src/Hadamard6/UnitSymmetric.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/d0/d09a2b39d1e16e121689e11f7bca6e680a69f3ddfbc7c40e925949a1419c139c/KarlssonSeamSymmetry.lean",
+        "bytes": 11775,
+        "sha256": "d09a2b39d1e16e121689e11f7bca6e680a69f3ddfbc7c40e925949a1419c139c",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/classification_extensions/2026-09-22_karlsson_closure_integration.nosync/port/src/KarlssonSeamSymmetry.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/f1/f170aecf2706c396e0f4e1e7e30db9c48c35b2ac46822ad815659cbeef8e9a56/CircleD0SymmetryClosing.lean",
+        "bytes": 2543,
+        "sha256": "f170aecf2706c396e0f4e1e7e30db9c48c35b2ac46822ad815659cbeef8e9a56",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/lean/integration/2026-09-21_exceptional_terminals.nosync/checks/CircleD0SymmetryClosing/attempt001/CircleD0SymmetryClosing.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/b2/b2becb6fbdbb3a7258622442084582dafdc061f83738cc1b0e4fc48c8c67d87a/CircleD0SymmetryData.lean",
+        "bytes": 40593,
+        "sha256": "b2becb6fbdbb3a7258622442084582dafdc061f83738cc1b0e4fc48c8c67d87a",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/lean/integration/2026-09-21_exceptional_terminals.nosync/checks/CircleD0SymmetryData/attempt001/CircleD0SymmetryData.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/4b/4bec4291e96196f21563089ccbc742c9d5571211f25bb955fc16a86e2e520b61/CircleD0SymmetryDataFast.lean",
+        "bytes": 41295,
+        "sha256": "4bec4291e96196f21563089ccbc742c9d5571211f25bb955fc16a86e2e520b61",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/lean/integration/2026-09-21_exceptional_terminals.nosync/checks/CircleD0SymmetryDataFast/attempt001/CircleD0SymmetryDataFast.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/f4/f499bb91536c0041ef2072585b171cec381bb266eb27bedc789b4de21cafb075/D0CircleSymmetry.lean",
+        "bytes": 4968,
+        "sha256": "f499bb91536c0041ef2072585b171cec381bb266eb27bedc789b4de21cafb075",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/lean/integration/2026-09-21_exceptional_terminals.nosync/checks/D0CircleSymmetry/attempt001/D0CircleSymmetry.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/b2/b2becb6fbdbb3a7258622442084582dafdc061f83738cc1b0e4fc48c8c67d87a/CircleD0SymmetryData.lean",
+        "bytes": 40593,
+        "sha256": "b2becb6fbdbb3a7258622442084582dafdc061f83738cc1b0e4fc48c8c67d87a",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/lean/integration/2026-09-21_exceptional_terminals.nosync/drafts/CircleD0SymmetryData.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/f1/f170aecf2706c396e0f4e1e7e30db9c48c35b2ac46822ad815659cbeef8e9a56/CircleD0SymmetryClosing.lean",
+        "bytes": 2543,
+        "sha256": "f170aecf2706c396e0f4e1e7e30db9c48c35b2ac46822ad815659cbeef8e9a56",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/lean/integration/2026-09-21_exceptional_terminals.nosync/src/CircleD0SymmetryClosing.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/4b/4bec4291e96196f21563089ccbc742c9d5571211f25bb955fc16a86e2e520b61/CircleD0SymmetryDataFast.lean",
+        "bytes": 41295,
+        "sha256": "4bec4291e96196f21563089ccbc742c9d5571211f25bb955fc16a86e2e520b61",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/lean/integration/2026-09-21_exceptional_terminals.nosync/src/CircleD0SymmetryDataFast.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/f4/f499bb91536c0041ef2072585b171cec381bb266eb27bedc789b4de21cafb075/D0CircleSymmetry.lean",
+        "bytes": 4968,
+        "sha256": "f499bb91536c0041ef2072585b171cec381bb266eb27bedc789b4de21cafb075",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/lean/integration/2026-09-21_exceptional_terminals.nosync/src/D0CircleSymmetry.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/65/65ed88885b7fb01105d8793a0009ea792f99a20a6a19dc8d4933db14d3bb7d17/CircleSymmetry.lean",
+        "bytes": 4914,
+        "sha256": "65ed88885b7fb01105d8793a0009ea792f99a20a6a19dc8d4933db14d3bb7d17",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/numerical/2026-09-20_no_four_mub6.nosync/milestones/local_certificate_v1/classification_cover/circle_chart/transport_review/replay01/CircleSymmetry.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/93/93720a0f8f0460397c0645dd344e3e5ce55119c153e76a0a306711a955768ebf/CircleTaoSymmetryData.lean",
+        "bytes": 31386,
+        "sha256": "93720a0f8f0460397c0645dd344e3e5ce55119c153e76a0a306711a955768ebf",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/numerical/2026-09-20_no_four_mub6.nosync/milestones/local_certificate_v1/classification_cover/circle_chart/transport_review/replay01/CircleTaoSymmetryData.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/5f/5fa386752747e883cba63f6cd955f4a376cb2a7ed2515b6de2f86eec57176199/BlockCompletion.lean",
+        "bytes": 8237,
+        "sha256": "5fa386752747e883cba63f6cd955f4a376cb2a7ed2515b6de2f86eec57176199",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/numerical/2026-09-20_no_four_mub6.nosync/milestones/local_certificate_v1/classification_cover/public_port/Hadamard6/BlockCompletion.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/42/42bfb49854a2919f02ddf600cf040ee81e90f46bf0362f187f61e1a5b40198d1/BlockPermutations.lean",
+        "bytes": 1841,
+        "sha256": "42bfb49854a2919f02ddf600cf040ee81e90f46bf0362f187f61e1a5b40198d1",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/numerical/2026-09-20_no_four_mub6.nosync/milestones/local_certificate_v1/classification_cover/public_port/Hadamard6/BlockPermutations.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/03/0329c890443172582d13466aa327c2573c5cfcb917a898bdee47c7892e675b12/ColumnFibreSymmetry.lean",
+        "bytes": 3778,
+        "sha256": "0329c890443172582d13466aa327c2573c5cfcb917a898bdee47c7892e675b12",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/numerical/2026-09-20_no_four_mub6.nosync/milestones/local_certificate_v1/classification_cover/public_port/Hadamard6/ColumnFibreSymmetry.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/03/0356fb89afe51b45c07fc5e651f052dd4f16b9a78fce84c209daf4b20fe43e0e/FibreSymmetry.lean",
+        "bytes": 18270,
+        "sha256": "0356fb89afe51b45c07fc5e651f052dd4f16b9a78fce84c209daf4b20fe43e0e",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/numerical/2026-09-20_no_four_mub6.nosync/milestones/local_certificate_v1/classification_cover/public_port/Hadamard6/FibreSymmetry.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/81/81bf8e0002e08ef0f69ab59f2b66071eb38b6fe595ae8bcd95dabea75a7fb627/FiniteDilation.lean",
+        "bytes": 3700,
+        "historical_portable_evidence": [
+          {
+            "file": "provenance/portable/PrescribedMatrixPhaseGatesLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.FiniteDilation",
+            "selected_in_prior_packet": false
+          },
+          {
+            "file": "provenance/portable/StrictSideClassificationLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.FiniteDilation",
+            "selected_in_prior_packet": false
+          },
+          {
+            "file": "provenance/portable/StrictPhysicalReconstructionLean_2026-10-08/SOURCE_INVENTORY.json",
+            "historical_evidence_only": true,
+            "module": "Hadamard6.FiniteDilation",
+            "selected_in_prior_packet": false
+          }
+        ],
+        "sha256": "81bf8e0002e08ef0f69ab59f2b66071eb38b6fe595ae8bcd95dabea75a7fb627",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/numerical/2026-09-20_no_four_mub6.nosync/milestones/local_certificate_v1/classification_cover/public_port/Hadamard6/FiniteDilation.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/5e/5ed76b4074e68e175002430f951615ae7eb82c527df97a78368852d87b096a49/UnitSymmetric.lean",
+        "bytes": 2838,
+        "sha256": "5ed76b4074e68e175002430f951615ae7eb82c527df97a78368852d87b096a49",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/numerical/2026-09-20_no_four_mub6.nosync/milestones/local_certificate_v1/classification_cover/public_port/Hadamard6/UnitSymmetric.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/65/65ed88885b7fb01105d8793a0009ea792f99a20a6a19dc8d4933db14d3bb7d17/CircleSymmetry.lean",
+        "bytes": 4914,
+        "sha256": "65ed88885b7fb01105d8793a0009ea792f99a20a6a19dc8d4933db14d3bb7d17",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/numerical/2026-09-20_no_four_mub6.nosync/milestones/local_certificate_v1/graph_kernel/circle_full_prototype/CircleSymmetry.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/e0/e0f52ec2edfafc478e3290ed84d718d213f6132e1b0e951f5d3b6aabe315c86e/CircleTaoSymmetryClosing.lean",
+        "bytes": 4486,
+        "sha256": "e0f52ec2edfafc478e3290ed84d718d213f6132e1b0e951f5d3b6aabe315c86e",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/numerical/2026-09-20_no_four_mub6.nosync/milestones/local_certificate_v1/graph_kernel/circle_full_prototype/CircleTaoSymmetryClosing.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/93/93720a0f8f0460397c0645dd344e3e5ce55119c153e76a0a306711a955768ebf/CircleTaoSymmetryData.lean",
+        "bytes": 31386,
+        "sha256": "93720a0f8f0460397c0645dd344e3e5ce55119c153e76a0a306711a955768ebf",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/numerical/2026-09-20_no_four_mub6.nosync/milestones/local_certificate_v1/graph_kernel/circle_full_prototype/CircleTaoSymmetryData.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/65/65ed88885b7fb01105d8793a0009ea792f99a20a6a19dc8d4933db14d3bb7d17/CircleSymmetry.lean",
+        "bytes": 4914,
+        "sha256": "65ed88885b7fb01105d8793a0009ea792f99a20a6a19dc8d4933db14d3bb7d17",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/numerical/2026-09-20_no_four_mub6.nosync/milestones/local_certificate_v1/graph_kernel/circle_full_prototype/closing_sources_02/CircleSymmetry.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/d4/d45c6ea7f4b486b9b72e07dca1ead5eb341eca9a7e663ddc65959e1c3adf5804/CircleTaoSymmetryClosing.lean",
+        "bytes": 4592,
+        "sha256": "d45c6ea7f4b486b9b72e07dca1ead5eb341eca9a7e663ddc65959e1c3adf5804",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/numerical/2026-09-20_no_four_mub6.nosync/milestones/local_certificate_v1/graph_kernel/circle_full_prototype/closing_sources_02/CircleTaoSymmetryClosing.lean"
+      },
+      {
+        "availability": "resident",
+        "blob": "blobs/93/93720a0f8f0460397c0645dd344e3e5ce55119c153e76a0a306711a955768ebf/CircleTaoSymmetryData.lean",
+        "bytes": 31386,
+        "sha256": "93720a0f8f0460397c0645dd344e3e5ce55119c153e76a0a306711a955768ebf",
+        "snapshot_status": "archival_source_not_admitted",
+        "source_path": "research_factory/numerical/2026-09-20_no_four_mub6.nosync/milestones/local_certificate_v1/graph_kernel/circle_full_prototype/closing_sources_02/CircleTaoSymmetryData.lean"
+      }
+    ]
+  },
+  "ARCHIVE_BLOB_INDEX.jsonl": {
+    "total": 19386,
+    "matches": [
+      {
+        "blob": "blobs/02/02abe8e6ee3b874ed43fdab4035329b52ae64858bc5ecfeff2711446fc430dd2/ForcedBlockAlgebra.lean",
+        "bytes": 325,
+        "lexical_markers_heuristic": [],
+        "sha256": "02abe8e6ee3b874ed43fdab4035329b52ae64858bc5ecfeff2711446fc430dd2",
+        "static_imports_heuristic": [
+          "Hadamard6.BlockCompletion",
+          "Hadamard6.FiniteCornerFromBlocks",
+          "Hadamard6.FiniteDilation"
+        ]
+      },
+      {
+        "blob": "blobs/03/0329c890443172582d13466aa327c2573c5cfcb917a898bdee47c7892e675b12/ColumnFibreSymmetry.lean",
+        "bytes": 3778,
+        "lexical_markers_heuristic": [],
+        "sha256": "0329c890443172582d13466aa327c2573c5cfcb917a898bdee47c7892e675b12",
+        "static_imports_heuristic": [
+          "Hadamard6.BlockGram",
+          "Hadamard6.FibreSymmetry"
+        ]
+      },
+      {
+        "blob": "blobs/03/0356fb89afe51b45c07fc5e651f052dd4f16b9a78fce84c209daf4b20fe43e0e/FibreSymmetry.lean",
+        "bytes": 18270,
+        "lexical_markers_heuristic": [],
+        "sha256": "0356fb89afe51b45c07fc5e651f052dd4f16b9a78fce84c209daf4b20fe43e0e",
+        "static_imports_heuristic": [
+          "Hadamard6.InfiniteFibreTrichotomy",
+          "Mathlib.Analysis.Complex.Basic",
+          "Mathlib.Tactic.FinCases"
+        ]
+      },
+      {
+        "blob": "blobs/08/08be57a9ea776c8a304b27cb68a9e4e78fced104e68667595862d62c2be97ba5/Radius01CanonicalPermutations.lean",
+        "bytes": 7327,
+        "lexical_markers_heuristic": [],
+        "sha256": "08be57a9ea776c8a304b27cb68a9e4e78fced104e68667595862d62c2be97ba5",
+        "static_imports_heuristic": [
+          "Radius01Permutations"
+        ]
+      },
+      {
+        "blob": "blobs/15/15f4d30ab70411338869e5ed90985c2b4608be0baefa3925a4bb0ad77ec2e7db/CircleTaoSymmetryData.001.lean",
+        "bytes": 31817,
+        "lexical_markers_heuristic": [],
+        "sha256": "15f4d30ab70411338869e5ed90985c2b4608be0baefa3925a4bb0ad77ec2e7db",
+        "static_imports_heuristic": [
+          "CircleSymmetry"
+        ]
+      },
+      {
+        "blob": "blobs/16/16942562cf1cc0f3c45acca5cdbedf8ec0d7b0c27f9e513f1a0343e9d551f118/LeadingFibreCriterion.lean",
+        "bytes": 12485,
+        "lexical_markers_heuristic": [],
+        "sha256": "16942562cf1cc0f3c45acca5cdbedf8ec0d7b0c27f9e513f1a0343e9d551f118",
+        "static_imports_heuristic": [
+          "Hadamard6.ColumnFibreSymmetry",
+          "Hadamard6.DephasedFiniteCorner",
+          "Hadamard6.FibreNormIdentity"
+        ]
+      },
+      {
+        "blob": "blobs/18/189873dfffebdeb98c08d38a86b1341c5b33eaa2f5ea770863bc7021a19417ec/ClassificationFiniteReuseJoin.lean",
+        "bytes": 821,
+        "lexical_markers_heuristic": [],
+        "sha256": "189873dfffebdeb98c08d38a86b1341c5b33eaa2f5ea770863bc7021a19417ec",
+        "static_imports_heuristic": [
+          "Hadamard6.BlockCompletion",
+          "Hadamard6.LeadingFibreCriterion"
+        ]
+      },
+      {
+        "blob": "blobs/1a/1a2531aec61bcae3b3bfbd0550ea6e0785397b47231e0a95509a2bb0b313c798/QuotientAllocation.lean",
+        "bytes": 11563,
+        "lexical_markers_heuristic": [],
+        "sha256": "1a2531aec61bcae3b3bfbd0550ea6e0785397b47231e0a95509a2bb0b313c798",
+        "static_imports_heuristic": [
+          "Hadamard6.GramInvariant",
+          "Hadamard6.QuotientReal",
+          "Hadamard6.UnitSymmetric",
+          "Mathlib.Tactic.FinCases",
+          "Mathlib.Tactic.LinearCombination",
+          "Mathlib.Tactic.Ring"
+        ]
+      },
+      {
+        "blob": "blobs/1c/1cd3de418c93ccce4152afc6f695ebeda4669985678c9b023ede49a294dfc6cd/PerturbTransport.lean",
+        "bytes": 10311,
+        "lexical_markers_heuristic": [],
+        "sha256": "1cd3de418c93ccce4152afc6f695ebeda4669985678c9b023ede49a294dfc6cd",
+        "static_imports_heuristic": [
+          "Mathlib.Analysis.Complex.Norm",
+          "Mathlib.Analysis.Normed.Ring.Basic",
+          "SymmetryTransport"
+        ]
+      },
+      {
+        "blob": "blobs/1d/1d25b7972007ef573ed4616518454db6a3f5f503fc1d408246c2d70e6ae531f2/AuditEndpointTypes.lean",
+        "bytes": 785,
+        "lexical_markers_heuristic": [],
+        "sha256": "1d25b7972007ef573ed4616518454db6a3f5f503fc1d408246c2d70e6ae531f2",
+        "static_imports_heuristic": [
+          "CircleTaoCompleteLocal",
+          "CircleTaoSymmetryClosing"
+        ]
+      },
+      {
+        "blob": "blobs/23/23fb23374e1cd2ade69e896479dc9fc5d6447958529b8dbfa08d651000b2465c/FiniteCornerConsequences.lean",
+        "bytes": 1777,
+        "lexical_markers_heuristic": [],
+        "sha256": "23fb23374e1cd2ade69e896479dc9fc5d6447958529b8dbfa08d651000b2465c",
+        "static_imports_heuristic": [
+          "Hadamard6.BlockCompletion",
+          "Hadamard6.VanishingMinorReduction"
+        ]
+      },
+      {
+        "blob": "blobs/2a/2acacdc07c2de6217509b51b27acef9d00f839f5bdcfaec61a271ac9454549b2/ReductionDiagnostic2.lean",
+        "bytes": 261,
+        "lexical_markers_heuristic": [],
+        "sha256": "2acacdc07c2de6217509b51b27acef9d00f839f5bdcfaec61a271ac9454549b2",
+        "static_imports_heuristic": [
+          "CentreSymmetry"
+        ]
+      },
+      {
+        "blob": "blobs/30/30801c0bb3bfe98c3a0da1c3187b56c0b4f87c0785d451f7c1476752d57bc0bd/PackageAudit.lean",
+        "bytes": 17906,
+        "lexical_markers_heuristic": [],
+        "sha256": "30801c0bb3bfe98c3a0da1c3187b56c0b4f87c0785d451f7c1476752d57bc0bd",
+        "static_imports_heuristic": [
+          "CarrierPermutationReduction",
+          "CompleteFourPhaseAtlas",
+          "CompleteReducedAtlas",
+          "ExplicitComplexRoots",
+          "FiniteSideCatalogue",
+          "FourCircleAtlas",
+          "FourPhaseCarrier",
+          "FourierActualBridge",
+          "FourierGoodBridge",
+          "FourierScalarBridge",
+          "GramSideData",
+          "PhysicalSeedCover",
+          "PhysicalSeedSheets",
+          "PhysicalSeedSides",
+          "SeedPoleLocus"
+        ]
+      },
+      {
+        "blob": "blobs/33/33ab8995ef38ab7a38b3c2e871426010e12cdf10d881cb6a8cb1e157cb1aef02/FourierTubeMetric.lean",
+        "bytes": 2993,
+        "lexical_markers_heuristic": [],
+        "sha256": "33ab8995ef38ab7a38b3c2e871426010e12cdf10d881cb6a8cb1e157cb1aef02",
+        "static_imports_heuristic": [
+          "FourierReferenceDistance",
+          "RowPermutationMetric"
+        ]
+      },
+      {
+        "blob": "blobs/33/33db88b6414f6f30136a2db213ac028dea114102993f49b9080b59bde7be877c/SymmetryTransport.lean",
+        "bytes": 5208,
+        "lexical_markers_heuristic": [],
+        "sha256": "33db88b6414f6f30136a2db213ac028dea114102993f49b9080b59bde7be877c",
+        "static_imports_heuristic": [
+          "GaugeTransport"
+        ]
+      },
+      {
+        "blob": "blobs/3a/3aea464ae2f3c8c6f68d3af6929550703d84b4370a9775f522e11bd2a81933b8/PerturbTransport.lean",
+        "bytes": 10307,
+        "lexical_markers_heuristic": [],
+        "sha256": "3aea464ae2f3c8c6f68d3af6929550703d84b4370a9775f522e11bd2a81933b8",
+        "static_imports_heuristic": [
+          "Mathlib.Analysis.Normed.Ring.Basic",
+          "Mathlib.Data.Complex.Norm",
+          "SymmetryTransport"
+        ]
+      },
+      {
+        "blob": "blobs/3c/3cbdd6e53d8221e7753a83dbfce7b0196a27858bce069b1c4dbf70f800578dae/BlockSwapTheorem.lean",
+        "bytes": 2481,
+        "lexical_markers_heuristic": [],
+        "sha256": "3cbdd6e53d8221e7753a83dbfce7b0196a27858bce069b1c4dbf70f800578dae",
+        "static_imports_heuristic": [
+          "Hadamard6.BlockPermutations",
+          "Hadamard6.BlockSwapInfiniteSquare"
+        ]
+      },
+      {
+        "blob": "blobs/41/4175e262c0f6479f168b75a1402611f7a8cfd6d0ddbefeb4faf12048a4ebd4f0/CompactCarrierCover.lean",
+        "bytes": 6326,
+        "lexical_markers_heuristic": [],
+        "sha256": "4175e262c0f6479f168b75a1402611f7a8cfd6d0ddbefeb4faf12048a4ebd4f0",
+        "static_imports_heuristic": [
+          "GoodSideBlocks",
+          "Mathlib.LinearAlgebra.Matrix.Adjugate",
+          "SymmetryTransport"
+        ]
+      },
+      {
+        "blob": "blobs/42/42bfb49854a2919f02ddf600cf040ee81e90f46bf0362f187f61e1a5b40198d1/BlockPermutations.lean",
+        "bytes": 1841,
+        "lexical_markers_heuristic": [],
+        "sha256": "42bfb49854a2919f02ddf600cf040ee81e90f46bf0362f187f61e1a5b40198d1",
+        "static_imports_heuristic": [
+          "Hadamard6.BlockSwapMatrices",
+          "Hadamard6.DephasedFiniteCorner"
+        ]
+      },
+      {
+        "blob": "blobs/45/45cc99a0891fea20d9fef984869f3ac8bca01ad41ee3bee1f373fb506cd3bb41/KarlssonCanonicalRootQueue.001.lean",
+        "bytes": 16045,
+        "lexical_markers_heuristic": [],
+        "sha256": "45cc99a0891fea20d9fef984869f3ac8bca01ad41ee3bee1f373fb506cd3bb41",
+        "static_imports_heuristic": [
+          "KarlssonCertificateReuse",
+          "KarlssonConditionedManifest0Bits24",
+          "KarlssonSeamSymmetry"
+        ]
+      },
+      {
+        "blob": "blobs/4b/4bec4291e96196f21563089ccbc742c9d5571211f25bb955fc16a86e2e520b61/CircleD0SymmetryDataFast.lean",
+        "bytes": 41295,
+        "lexical_markers_heuristic": [],
+        "sha256": "4bec4291e96196f21563089ccbc742c9d5571211f25bb955fc16a86e2e520b61",
+        "static_imports_heuristic": [
+          "D0CircleSymmetry"
+        ]
+      },
+      {
+        "blob": "blobs/4e/4e0ec84a3fa27a838cbf58bf75292d52024b6df517a5cd301cf649e30ea7f8f3/Radius01CanonicalPermutations.lean",
+        "bytes": 7470,
+        "lexical_markers_heuristic": [],
+        "sha256": "4e0ec84a3fa27a838cbf58bf75292d52024b6df517a5cd301cf649e30ea7f8f3",
+        "static_imports_heuristic": [
+          "Radius01Permutations"
+        ]
+      },
+      {
+        "blob": "blobs/51/518f8e5b45bb03b83e75539667daec2200618db3270b9bb647be248bde340733/RowPermutationMetric.lean",
+        "bytes": 1387,
+        "lexical_markers_heuristic": [],
+        "sha256": "518f8e5b45bb03b83e75539667daec2200618db3270b9bb647be248bde340733",
+        "static_imports_heuristic": [
+          "SixColumnMetric"
+        ]
+      },
+      {
+        "blob": "blobs/51/51abd24263f91f9c3a0540cb8a34d36d24087b8316997a21de68f4348041ce22/Radius01ModelContainment.lean",
+        "bytes": 8491,
+        "lexical_markers_heuristic": [],
+        "sha256": "51abd24263f91f9c3a0540cb8a34d36d24087b8316997a21de68f4348041ce22",
+        "static_imports_heuristic": [
+          "Mathlib.Analysis.SpecialFunctions.Complex.Arg",
+          "Radius01CanonicalPermutations"
+        ]
+      },
+      {
+        "blob": "blobs/58/58bbd03dad59d9cb6e905d0ff3a37dbc3ed7e805b4c344a985ed71c889049890/RadicalCarrierEnclosure.lean",
+        "bytes": 6841,
+        "lexical_markers_heuristic": [],
+        "sha256": "58bbd03dad59d9cb6e905d0ff3a37dbc3ed7e805b4c344a985ed71c889049890",
+        "static_imports_heuristic": [
+          "CarrierPermutationReduction",
+          "ExplicitComplexRoots",
+          "LocalPhysicalSideEnclosure",
+          "PhysicalSeedSides",
+          "SixteenCarrierEnclosure"
+        ]
+      },
+      {
+        "blob": "blobs/5a/5a099e4baa1da3b73a38758759742422ed99fa1e0e08e2adbe18a12231416c28/FourierTubeMetric.lean",
+        "bytes": 2955,
+        "lexical_markers_heuristic": [],
+        "sha256": "5a099e4baa1da3b73a38758759742422ed99fa1e0e08e2adbe18a12231416c28",
+        "static_imports_heuristic": [
+          "FourierReferenceDistance",
+          "RowPermutationMetric"
+        ]
+      },
+      {
+        "blob": "blobs/5e/5e3a133b83d7a61c2e08ed150bd6336999e74863c06e1cb0516c88029f77a657/TaoQuartetTerminal.lean",
+        "bytes": 3648,
+        "lexical_markers_heuristic": [],
+        "sha256": "5e3a133b83d7a61c2e08ed150bd6336999e74863c06e1cb0516c88029f77a657",
+        "static_imports_heuristic": [
+          "CircleTaoNormalizedWitness",
+          "CircleTaoSymmetryClosing",
+          "Worker12.TaoSourceBinding"
+        ]
+      },
+      {
+        "blob": "blobs/5e/5ed76b4074e68e175002430f951615ae7eb82c527df97a78368852d87b096a49/UnitSymmetric.lean",
+        "bytes": 2838,
+        "lexical_markers_heuristic": [],
+        "sha256": "5ed76b4074e68e175002430f951615ae7eb82c527df97a78368852d87b096a49",
+        "static_imports_heuristic": [
+          "Hadamard6.QuotientMobius",
+          "Mathlib.Tactic.LinearCombination",
+          "Mathlib.Tactic.Ring"
+        ]
+      },
+      {
+        "blob": "blobs/5f/5fa386752747e883cba63f6cd955f4a376cb2a7ed2515b6de2f86eec57176199/BlockCompletion.lean",
+        "bytes": 8237,
+        "lexical_markers_heuristic": [],
+        "sha256": "5fa386752747e883cba63f6cd955f4a376cb2a7ed2515b6de2f86eec57176199",
+        "static_imports_heuristic": [
+          "Hadamard6.FiniteDilation",
+          "Mathlib.Tactic.Module",
+          "Mathlib.Tactic.NoncommRing"
+        ]
+      },
+      {
+        "blob": "blobs/65/657ed22d602d775ecdcd18139f0e7ed7aa0573329322efe5cea3beed74e86db6/PerturbTransport.lean",
+        "bytes": 6590,
+        "lexical_markers_heuristic": [],
+        "sha256": "657ed22d602d775ecdcd18139f0e7ed7aa0573329322efe5cea3beed74e86db6",
+        "static_imports_heuristic": [
+          "Mathlib.Analysis.Normed.Ring.Basic",
+          "Mathlib.Data.Complex.Norm",
+          "SymmetryTransport"
+        ]
+      },
+      {
+        "blob": "blobs/65/65ed88885b7fb01105d8793a0009ea792f99a20a6a19dc8d4933db14d3bb7d17/CircleSymmetry.lean",
+        "bytes": 4914,
+        "lexical_markers_heuristic": [],
+        "sha256": "65ed88885b7fb01105d8793a0009ea792f99a20a6a19dc8d4933db14d3bb7d17",
+        "static_imports_heuristic": [
+          "CircleFullInterface"
+        ]
+      },
+      {
+        "blob": "blobs/68/6867f214487e0d0db4515b61d366e9cb9d2da1d80704d650a6a73f3dd08fdb3b/SideHorizontalCandidates.generic-uncompiled.lean",
+        "bytes": 2913,
+        "lexical_markers_heuristic": [],
+        "sha256": "6867f214487e0d0db4515b61d366e9cb9d2da1d80704d650a6a73f3dd08fdb3b",
+        "static_imports_heuristic": [
+          "Hadamard6.FiniteDilation",
+          "SideActualFibreFinite",
+          "SideIntrinsicTheta"
+        ]
+      },
+      {
+        "blob": "blobs/6b/6ba423f3cc098cac4cd7aff7c1d1f0aac02f9b50fa3117488fcbcf55fd654045/RadicalCarrierEnclosure.lean",
+        "bytes": 6966,
+        "lexical_markers_heuristic": [],
+        "sha256": "6ba423f3cc098cac4cd7aff7c1d1f0aac02f9b50fa3117488fcbcf55fd654045",
+        "static_imports_heuristic": [
+          "CarrierPermutationReduction",
+          "ExplicitComplexRoots",
+          "LocalPhysicalSideEnclosure",
+          "PhysicalSeedSides",
+          "SixteenCarrierEnclosure"
+        ]
+      },
+      {
+        "blob": "blobs/6f/6fef64d3546c2f61ac894c66ea9308e40c3481eb9d194416ec3f996f00738014/Radius01Permutations.lean",
+        "bytes": 8023,
+        "lexical_markers_heuristic": [],
+        "sha256": "6fef64d3546c2f61ac894c66ea9308e40c3481eb9d194416ec3f996f00738014",
+        "static_imports_heuristic": [
+          "Radius01NativeBounds"
+        ]
+      },
+      {
+        "blob": "blobs/71/7110368788bb1dca0c18978dbbc41acc90456dede48d09e727be0e79fb2ee234/CarrierPermutationReduction.lean",
+        "bytes": 5369,
+        "lexical_markers_heuristic": [],
+        "sha256": "7110368788bb1dca0c18978dbbc41acc90456dede48d09e727be0e79fb2ee234",
+        "static_imports_heuristic": [
+          "FourPhaseCarrier",
+          "SymmetryTransport"
+        ]
+      },
+      {
+        "blob": "blobs/71/7192f7f199644291a68364f1f2678194cc581e3487a2226addfa679d9bcf902b/TenPhaseCarrier.lean",
+        "bytes": 6944,
+        "lexical_markers_heuristic": [],
+        "sha256": "7192f7f199644291a68364f1f2678194cc581e3487a2226addfa679d9bcf902b",
+        "static_imports_heuristic": [
+          "CarrierPermutationReduction",
+          "LiftedLambdaSide",
+          "PhysicalSeedCover"
+        ]
+      },
+      {
+        "blob": "blobs/73/73c8d73bc3c5d097bf09382140f179ec10bfd35ae657eaa5b9696fa15b8328c2/PackageAudit.lean",
+        "bytes": 15986,
+        "lexical_markers_heuristic": [],
+        "sha256": "73c8d73bc3c5d097bf09382140f179ec10bfd35ae657eaa5b9696fa15b8328c2",
+        "static_imports_heuristic": [
+          "ComplementaryMinor",
+          "FourierOrientation",
+          "FourierPhaseData",
+          "FourierReconstruction",
+          "FourierSide",
+          "GoodMinor",
+          "GoodMinorGuards",
+          "GoodMinorPhysical",
+          "GoodSideBlocks",
+          "LiftedSheetGuards",
+          "PerturbTransport",
+          "RayCompactness",
+          "RayFamilyTopology",
+          "RayIncidence",
+          "RayMvPolynomial",
+          "RayPolynomial",
+          "RayPolynomialRegularity",
+          "RayRegularity",
+          "SeedBinding",
+          "SeedSixGuards",
+          "SharpReferenceTransport",
+          "SymmetryTransport",
+          "ThirdBasisIncidence",
+          "ThirdBasisSupportTopology"
+        ]
+      },
+      {
+        "blob": "blobs/75/752e260d96fd68dbf9dafb238c1e389c47b1b9f7f81b0ab0f71f7a8f32f54695/PackageAudit.lean",
+        "bytes": 29656,
+        "lexical_markers_heuristic": [],
+        "sha256": "752e260d96fd68dbf9dafb238c1e389c47b1b9f7f81b0ab0f71f7a8f32f54695",
+        "static_imports_heuristic": [
+          "ComplementaryMinor",
+          "FourierOrientation",
+          "FourierPhaseData",
+          "FourierReconstruction",
+          "FourierSide",
+          "GoodMinor",
+          "GoodMinorGuards",
+          "GoodMinorPhysical",
+          "GoodSideBlocks",
+          "LiftedSheetGuards",
+          "PerturbTransport",
+          "RayCompactness",
+          "RayFamilyTopology",
+          "RayIncidence",
+          "RayMvPolynomial",
+          "RayPolynomial",
+          "RayPolynomialRegularity",
+          "RayRegularity",
+          "SeedBinding",
+          "SeedSixGuards",
+          "SharpReferenceTransport",
+          "SymmetryTransport",
+          "ThirdBasisIncidence",
+          "ThirdBasisSupportTopology"
+        ]
+      },
+      {
+        "blob": "blobs/79/794d3d8fdc486ac78fdd0b62ca93d09b114b985e447b74fcf8c207229d689894/CentreRow00.lean",
+        "bytes": 321,
+        "lexical_markers_heuristic": [],
+        "sha256": "794d3d8fdc486ac78fdd0b62ca93d09b114b985e447b74fcf8c207229d689894",
+        "static_imports_heuristic": [
+          "CentreSymmetry"
+        ]
+      },
+      {
+        "blob": "blobs/7c/7c795c833c8a00a2f0bd7ff4af791e58c687af8782355646f2874c47ec11207b/CircleTaoCompleteLocal.lean",
+        "bytes": 2081,
+        "lexical_markers_heuristic": [],
+        "sha256": "7c795c833c8a00a2f0bd7ff4af791e58c687af8782355646f2874c47ec11207b",
+        "static_imports_heuristic": [
+          "CircleTaoNormalizedWitness",
+          "CircleTaoSymmetryClosing"
+        ]
+      },
+      {
+        "blob": "blobs/81/81bf8e0002e08ef0f69ab59f2b66071eb38b6fe595ae8bcd95dabea75a7fb627/FiniteDilation.lean",
+        "bytes": 3700,
+        "lexical_markers_heuristic": [],
+        "sha256": "81bf8e0002e08ef0f69ab59f2b66071eb38b6fe595ae8bcd95dabea75a7fb627",
+        "static_imports_heuristic": [
+          "Hadamard6.Basic"
+        ]
+      },
+      {
+        "blob": "blobs/82/822ea0a6224b7270703c7ffe741c07fb8d0d88c8fef14b9cbc9e8cbcbe11a827/ProjectorMetricAudit.lean",
+        "bytes": 2226,
+        "lexical_markers_heuristic": [],
+        "sha256": "822ea0a6224b7270703c7ffe741c07fb8d0d88c8fef14b9cbc9e8cbcbe11a827",
+        "static_imports_heuristic": [
+          "NormalizedColumnMetric",
+          "RepeatedProjectorMetric",
+          "RowPermutationMetric"
+        ]
+      },
+      {
+        "blob": "blobs/83/834f2b8fb2f02c7ffdbbd8f20eaa909321b32e57dfdd780fa228f029866251b7/CarrierPermutationReduction.lean",
+        "bytes": 5319,
+        "lexical_markers_heuristic": [],
+        "sha256": "834f2b8fb2f02c7ffdbbd8f20eaa909321b32e57dfdd780fa228f029866251b7",
+        "static_imports_heuristic": [
+          "FourPhaseCarrier",
+          "SymmetryTransport"
+        ]
+      },
+      {
+        "blob": "blobs/85/85df946b9fa4ce7ec028d623e45dd5e827dfb0738fda37aeb0203269c21673d8/HaagerupFromFibre.lean",
+        "bytes": 5964,
+        "lexical_markers_heuristic": [],
+        "sha256": "85df946b9fa4ce7ec028d623e45dd5e827dfb0738fda37aeb0203269c21673d8",
+        "static_imports_heuristic": [
+          "Hadamard6.FactorAllocation",
+          "Hadamard6.UnitSymmetric",
+          "Mathlib.Tactic.FieldSimp",
+          "Mathlib.Tactic.Ring"
+        ]
+      },
+      {
+        "blob": "blobs/88/8864995e75f0fd4366c512ede2451c5227701134e37c70a0ef444e4352024cd6/ModulusIdentity.lean",
+        "bytes": 4821,
+        "lexical_markers_heuristic": [],
+        "sha256": "8864995e75f0fd4366c512ede2451c5227701134e37c70a0ef444e4352024cd6",
+        "static_imports_heuristic": [
+          "Hadamard6.FactorAllocation",
+          "Hadamard6.UnitSymmetric",
+          "Mathlib.Tactic.FieldSimp",
+          "Mathlib.Tactic.Ring"
+        ]
+      },
+      {
+        "blob": "blobs/88/8881ecee4e7237059ed2d6b1d4ddc3c582eb318ca83969ed9839c1553a35c4ad/BlockGram.lean",
+        "bytes": 303,
+        "lexical_markers_heuristic": [],
+        "sha256": "8881ecee4e7237059ed2d6b1d4ddc3c582eb318ca83969ed9839c1553a35c4ad",
+        "static_imports_heuristic": [
+          "Hadamard6.BlockGram",
+          "Hadamard6.Blocks",
+          "Hadamard6.FiniteDilation"
+        ]
+      },
+      {
+        "blob": "blobs/8f/8f0d86d15b6230eb465bcaf3b853234fbf1718c7b886bc1b48d4a52892579f86/SideHorizontalCandidates.lean",
+        "bytes": 1301,
+        "lexical_markers_heuristic": [],
+        "sha256": "8f0d86d15b6230eb465bcaf3b853234fbf1718c7b886bc1b48d4a52892579f86",
+        "static_imports_heuristic": [
+          "Hadamard6.FiniteDilation",
+          "SideActualFibreFinite"
+        ]
+      },
+      {
+        "blob": "blobs/90/90caf029d819f262938c917f5c6fa310e377e7791f8fe1c619f84cb26712709d/RadicalCarrierEnclosure.lean",
+        "bytes": 6874,
+        "lexical_markers_heuristic": [],
+        "sha256": "90caf029d819f262938c917f5c6fa310e377e7791f8fe1c619f84cb26712709d",
+        "static_imports_heuristic": [
+          "CarrierPermutationReduction",
+          "ExplicitComplexRoots",
+          "LocalPhysicalSideEnclosure",
+          "PhysicalSeedSides",
+          "SixteenCarrierEnclosure"
+        ]
+      },
+      {
+        "blob": "blobs/93/93720a0f8f0460397c0645dd344e3e5ce55119c153e76a0a306711a955768ebf/CircleTaoSymmetryData.lean",
+        "bytes": 31386,
+        "lexical_markers_heuristic": [],
+        "sha256": "93720a0f8f0460397c0645dd344e3e5ce55119c153e76a0a306711a955768ebf",
+        "static_imports_heuristic": [
+          "CircleSymmetry"
+        ]
+      },
+      {
+        "blob": "blobs/93/93ab9c0c6999a851bb78871c6222dd04b005de725a8d7cd98c63dd3a499bec4c/KarlssonSeamSymmetry.001.lean",
+        "bytes": 11509,
+        "lexical_markers_heuristic": [],
+        "sha256": "93ab9c0c6999a851bb78871c6222dd04b005de725a8d7cd98c63dd3a499bec4c",
+        "static_imports_heuristic": [
+          "KarlssonFourierImport"
+        ]
+      },
+      {
+        "blob": "blobs/94/94dcfed0cac69bedff8d24cf07369735fcb94f38b212032da2393246e2229755/CarrierPermutationReduction.lean",
+        "bytes": 13036,
+        "lexical_markers_heuristic": [],
+        "sha256": "94dcfed0cac69bedff8d24cf07369735fcb94f38b212032da2393246e2229755",
+        "static_imports_heuristic": [
+          "FourPhaseCarrier",
+          "SymmetryTransport"
+        ]
+      },
+      {
+        "blob": "blobs/96/96dc8ad0b0f6622b56377bc3023fca6ea7f96986e0dc039801b2c5a63d6172a0/SidePhysicalCandidateMembership.lean",
+        "bytes": 3538,
+        "lexical_markers_heuristic": [],
+        "sha256": "96dc8ad0b0f6622b56377bc3023fca6ea7f96986e0dc039801b2c5a63d6172a0",
+        "static_imports_heuristic": [
+          "Hadamard6.FiniteDilation",
+          "SidePhysicalSeedParameters",
+          "SidePhysicalTranspose"
+        ]
+      },
+      {
+        "blob": "blobs/97/97dfee4bb0492a960ee1e909d71df3fb3979b3b81bfa926fa569524c720bf1b8/Radius01ModelContainment.lean",
+        "bytes": 8577,
+        "lexical_markers_heuristic": [],
+        "sha256": "97dfee4bb0492a960ee1e909d71df3fb3979b3b81bfa926fa569524c720bf1b8",
+        "static_imports_heuristic": [
+          "Mathlib.Analysis.SpecialFunctions.Complex.Arg",
+          "Radius01CanonicalPermutations"
+        ]
+      },
+      {
+        "blob": "blobs/9a/9a4ed7ae93a513b5893f376e79069a8cb669d940df2b7dcf4f2a7948f0d0e78b/Blocks.lean",
+        "bytes": 2691,
+        "lexical_markers_heuristic": [],
+        "sha256": "9a4ed7ae93a513b5893f376e79069a8cb669d940df2b7dcf4f2a7948f0d0e78b",
+        "static_imports_heuristic": [
+          "Hadamard6.FiniteDilation"
+        ]
+      },
+      {
+        "blob": "blobs/9b/9bd0cffb50d0eb60fcf204ff4b4308e34f8425c75953a55801bad3df6fc9d9d6/ExceptionalQuartetTerminals.lean",
+        "bytes": 4648,
+        "lexical_markers_heuristic": [],
+        "sha256": "9bd0cffb50d0eb60fcf204ff4b4308e34f8425c75953a55801bad3df6fc9d9d6",
+        "static_imports_heuristic": [
+          "CircleD0SymmetryClosing",
+          "D0CoverageConsumer",
+          "TaoQuartetTerminal"
+        ]
+      },
+      {
+        "blob": "blobs/a0/a0d437792f1d1c01f487427652ae383557e36cd1661775dca04f100ff2fa4374/SidePhysicalRetained.lean",
+        "bytes": 3819,
+        "lexical_markers_heuristic": [],
+        "sha256": "a0d437792f1d1c01f487427652ae383557e36cd1661775dca04f100ff2fa4374",
+        "static_imports_heuristic": [
+          "Hadamard6.BlockCompletion",
+          "SidePhysicalCandidateMembership",
+          "SideVerticalCandidates"
+        ]
+      },
+      {
+        "blob": "blobs/a3/a3e94e0069ebd0db9bee054a31ebe29f9478b5298e4ab9a6345193b8bf9483e1/CircleTaoSymmetryData.001.lean",
+        "bytes": 31382,
+        "lexical_markers_heuristic": [],
+        "sha256": "a3e94e0069ebd0db9bee054a31ebe29f9478b5298e4ab9a6345193b8bf9483e1",
+        "static_imports_heuristic": [
+          "CircleSymmetry"
+        ]
+      },
+      {
+        "blob": "blobs/ad/ad19a2c23e7c04a4a6ccfecf6d4fc629e960c84f27059018079c9bc644fd5d67/BlockNormalization.lean",
+        "bytes": 5818,
+        "lexical_markers_heuristic": [],
+        "sha256": "ad19a2c23e7c04a4a6ccfecf6d4fc629e960c84f27059018079c9bc644fd5d67",
+        "static_imports_heuristic": [
+          "Hadamard6.ColumnFibreSymmetry"
+        ]
+      },
+      {
+        "blob": "blobs/ad/ad30e0ec7290f93ca7500f5d42bdb3bac6a19c2d981e6da1402ed290065e4e20/ReductionDiagnostic.lean",
+        "bytes": 367,
+        "lexical_markers_heuristic": [],
+        "sha256": "ad30e0ec7290f93ca7500f5d42bdb3bac6a19c2d981e6da1402ed290065e4e20",
+        "static_imports_heuristic": [
+          "CentreSymmetry"
+        ]
+      },
+      {
+        "blob": "blobs/b1/b192fe64d1cd3969101c6a3a63f33c733fc8e86c4505e8e28000f7c86be1f0e4/KarlssonSeamSymmetry.002.lean",
+        "bytes": 11770,
+        "lexical_markers_heuristic": [],
+        "sha256": "b192fe64d1cd3969101c6a3a63f33c733fc8e86c4505e8e28000f7c86be1f0e4",
+        "static_imports_heuristic": [
+          "KarlssonFourierImport"
+        ]
+      },
+      {
+        "blob": "blobs/b2/b24beb2ae6ffc2f0e8e838566fe640a19779aca2911e3aa702257b4a15cd3656/CentreSymmetry.lean",
+        "bytes": 1739,
+        "lexical_markers_heuristic": [],
+        "sha256": "b24beb2ae6ffc2f0e8e838566fe640a19779aca2911e3aa702257b4a15cd3656",
+        "static_imports_heuristic": [
+          "ExactCentreData"
+        ]
+      },
+      {
+        "blob": "blobs/b2/b2becb6fbdbb3a7258622442084582dafdc061f83738cc1b0e4fc48c8c67d87a/CircleD0SymmetryData.lean",
+        "bytes": 40593,
+        "lexical_markers_heuristic": [],
+        "sha256": "b2becb6fbdbb3a7258622442084582dafdc061f83738cc1b0e4fc48c8c67d87a",
+        "static_imports_heuristic": [
+          "D0CircleSymmetry"
+        ]
+      },
+      {
+        "blob": "blobs/b3/b315ce6c26d42c6c0c57173d9d2462748141ee5d30ceac38149c04d6cd748469/TenPhaseCarrier.lean",
+        "bytes": 6486,
+        "lexical_markers_heuristic": [],
+        "sha256": "b315ce6c26d42c6c0c57173d9d2462748141ee5d30ceac38149c04d6cd748469",
+        "static_imports_heuristic": [
+          "CarrierPermutationReduction",
+          "LiftedLambdaSide",
+          "PhysicalSeedCover"
+        ]
+      },
+      {
+        "blob": "blobs/b3/b384e43740a287adfbc4d28f0d678444181f324028a10079e8b5c92a7a221c57/CarrierPermutationReduction.lean",
+        "bytes": 5535,
+        "lexical_markers_heuristic": [],
+        "sha256": "b384e43740a287adfbc4d28f0d678444181f324028a10079e8b5c92a7a221c57",
+        "static_imports_heuristic": [
+          "FourPhaseCarrier",
+          "SymmetryTransport"
+        ]
+      },
+      {
+        "blob": "blobs/b4/b40b180436bdba9653256c11bab6ea3c3630eda2578f06f67a3bd57b89865431/ExceptionalQuartetTerminals.lean",
+        "bytes": 4785,
+        "lexical_markers_heuristic": [],
+        "sha256": "b40b180436bdba9653256c11bab6ea3c3630eda2578f06f67a3bd57b89865431",
+        "static_imports_heuristic": [
+          "CircleD0SymmetryClosing",
+          "D0CoverageConsumer",
+          "TaoQuartetTerminal"
+        ]
+      },
+      {
+        "blob": "blobs/be/be54a968a6c10ab79e0c2d4f2913f71433c5a71f66183e68e160f6bd4a8a94bf/CompleteAudit.lean",
+        "bytes": 20509,
+        "lexical_markers_heuristic": [],
+        "sha256": "be54a968a6c10ab79e0c2d4f2913f71433c5a71f66183e68e160f6bd4a8a94bf",
+        "static_imports_heuristic": [
+          "FourierPhaseData",
+          "FourierReconstruction",
+          "FourierSide",
+          "LiftedSheetGuards",
+          "PerturbTransport",
+          "RayCompactness",
+          "RayFamilyTopology",
+          "RayIncidence",
+          "RayMvPolynomial",
+          "RayPolynomial",
+          "RayPolynomialRegularity",
+          "RayRegularity",
+          "SymmetryTransport",
+          "ThirdBasisIncidence"
+        ]
+      },
+      {
+        "blob": "blobs/c4/c45b0e6dd66b4d5769a45473d6b1af86e15ef83c6eb7a6588407290c1947369b/SidePhysicalCandidateMembership.lean",
+        "bytes": 3696,
+        "lexical_markers_heuristic": [],
+        "sha256": "c45b0e6dd66b4d5769a45473d6b1af86e15ef83c6eb7a6588407290c1947369b",
+        "static_imports_heuristic": [
+          "Hadamard6.FiniteDilation",
+          "SidePhysicalSeedParameters",
+          "SidePhysicalTranspose"
+        ]
+      },
+      {
+        "blob": "blobs/c6/c6e1b54f8f85322086e41469cc5e4554f8f7f85138faf8505f87a6a2a048004f/SymmetryTransport.lean",
+        "bytes": 5418,
+        "lexical_markers_heuristic": [],
+        "sha256": "c6e1b54f8f85322086e41469cc5e4554f8f7f85138faf8505f87a6a2a048004f",
+        "static_imports_heuristic": [
+          "GaugeTransport"
+        ]
+      },
+      {
+        "blob": "blobs/c9/c96f0f6a4992b5894317de3f0173e1e24ab8a845ff6685d17ff914eb33d544fb/GramInvariant.lean",
+        "bytes": 6270,
+        "lexical_markers_heuristic": [],
+        "sha256": "c96f0f6a4992b5894317de3f0173e1e24ab8a845ff6685d17ff914eb33d544fb",
+        "static_imports_heuristic": [
+          "Hadamard6.FiniteDilation",
+          "Mathlib.LinearAlgebra.Matrix.Hermitian",
+          "Mathlib.LinearAlgebra.Matrix.Trace",
+          "Mathlib.Tactic.Linarith",
+          "Mathlib.Tactic.LinearCombination",
+          "Mathlib.Tactic.Ring"
+        ]
+      },
+      {
+        "blob": "blobs/c9/c9dac330b026c1c4fd7368ac43a3a61b2fa7f8a0c70b13bf8e9fc4b737f2586b/IndependentTransportReview.lean",
+        "bytes": 2706,
+        "lexical_markers_heuristic": [],
+        "sha256": "c9dac330b026c1c4fd7368ac43a3a61b2fa7f8a0c70b13bf8e9fc4b737f2586b",
+        "static_imports_heuristic": [
+          "CircleTaoSymmetryData"
+        ]
+      },
+      {
+        "blob": "blobs/cc/cc41ca4f3ba1b97b09af8feff7d5545a55ecdd5ee85babed4d7c6123020d61e2/TaoAtlas.lean",
+        "bytes": 12633,
+        "lexical_markers_heuristic": [],
+        "sha256": "cc41ca4f3ba1b97b09af8feff7d5545a55ecdd5ee85babed4d7c6123020d61e2",
+        "static_imports_heuristic": [
+          "Hadamard6.ColumnFibreSymmetry",
+          "Hadamard6.FiniteCornerFromBlocks",
+          "Hadamard6.TaoOrbit"
+        ]
+      },
+      {
+        "blob": "blobs/d0/d09a2b39d1e16e121689e11f7bca6e680a69f3ddfbc7c40e925949a1419c139c/KarlssonSeamSymmetry.lean",
+        "bytes": 11775,
+        "lexical_markers_heuristic": [],
+        "sha256": "d09a2b39d1e16e121689e11f7bca6e680a69f3ddfbc7c40e925949a1419c139c",
+        "static_imports_heuristic": [
+          "KarlssonFourierImport"
+        ]
+      },
+      {
+        "blob": "blobs/d2/d296f5bb1d25da5e4643ca8cff3146495c2ef4afe03e0cefe1a70dc7300468c4/SymmetryTransport.lean",
+        "bytes": 8828,
+        "lexical_markers_heuristic": [],
+        "sha256": "d296f5bb1d25da5e4643ca8cff3146495c2ef4afe03e0cefe1a70dc7300468c4",
+        "static_imports_heuristic": [
+          "GaugeTransport"
+        ]
+      },
+      {
+        "blob": "blobs/d4/d45c6ea7f4b486b9b72e07dca1ead5eb341eca9a7e663ddc65959e1c3adf5804/CircleTaoSymmetryClosing.lean",
+        "bytes": 4592,
+        "lexical_markers_heuristic": [],
+        "sha256": "d45c6ea7f4b486b9b72e07dca1ead5eb341eca9a7e663ddc65959e1c3adf5804",
+        "static_imports_heuristic": [
+          "CircleForestRepresentatives",
+          "CircleTaoSymmetryData"
+        ]
+      },
+      {
+        "blob": "blobs/d9/d9b3572ff47947a3723313be7de473816ae9152b8b92b34325cf26b4e0292725/CandidateFibre.lean",
+        "bytes": 6801,
+        "lexical_markers_heuristic": [],
+        "sha256": "d9b3572ff47947a3723313be7de473816ae9152b8b92b34325cf26b4e0292725",
+        "static_imports_heuristic": [
+          "Hadamard6.ExceptionalFibre",
+          "Hadamard6.FiniteDilation",
+          "Hadamard6.QuotientAllocation",
+          "Mathlib.Tactic.Abel",
+          "Mathlib.Tactic.FinCases"
+        ]
+      },
+      {
+        "blob": "blobs/da/da957f81ee3deb8d4fd39a64e233f9b7b8955422e0ac8b070f53186130c4eca8/SymmetryTransport.lean",
+        "bytes": 8134,
+        "lexical_markers_heuristic": [],
+        "sha256": "da957f81ee3deb8d4fd39a64e233f9b7b8955422e0ac8b070f53186130c4eca8",
+        "static_imports_heuristic": [
+          "GaugeTransport"
+        ]
+      },
+      {
+        "blob": "blobs/db/db67e4f74a5bb0980dc4ae920479915a575d598dfdcf47049cb7b2490e785741/CarrierPermutationReduction.lean",
+        "bytes": 13610,
+        "lexical_markers_heuristic": [],
+        "sha256": "db67e4f74a5bb0980dc4ae920479915a575d598dfdcf47049cb7b2490e785741",
+        "static_imports_heuristic": [
+          "FourPhaseCarrier",
+          "SymmetryTransport"
+        ]
+      },
+      {
+        "blob": "blobs/db/dbec1a37bfe8b8b3d1587f7d77afd97ca3fe940597edbe503c92de7daf53c806/CircleTaoCompleteLocal.lean",
+        "bytes": 2051,
+        "lexical_markers_heuristic": [],
+        "sha256": "dbec1a37bfe8b8b3d1587f7d77afd97ca3fe940597edbe503c92de7daf53c806",
+        "static_imports_heuristic": [
+          "CircleTaoNormalizedWitness",
+          "CircleTaoSymmetryClosing"
+        ]
+      },
+      {
+        "blob": "blobs/e0/e0f52ec2edfafc478e3290ed84d718d213f6132e1b0e951f5d3b6aabe315c86e/CircleTaoSymmetryClosing.lean",
+        "bytes": 4486,
+        "lexical_markers_heuristic": [],
+        "sha256": "e0f52ec2edfafc478e3290ed84d718d213f6132e1b0e951f5d3b6aabe315c86e",
+        "static_imports_heuristic": [
+          "CircleForestRepresentatives",
+          "CircleTaoSymmetryData"
+        ]
+      },
+      {
+        "blob": "blobs/e1/e1cc80f8d3dede97338f05e7b99cbec760386e7ffb8306a0ee7fe235363e055f/CircleD0SymmetryDataFast.lean",
+        "bytes": 41290,
+        "lexical_markers_heuristic": [],
+        "sha256": "e1cc80f8d3dede97338f05e7b99cbec760386e7ffb8306a0ee7fe235363e055f",
+        "static_imports_heuristic": [
+          "D0CircleSymmetry"
+        ]
+      },
+      {
+        "blob": "blobs/e2/e2b2876b324823b1179bff8324b425cdcb1b9432fec74c78ea8bba3045e8da1a/PerturbTransport.lean",
+        "bytes": 6980,
+        "lexical_markers_heuristic": [],
+        "sha256": "e2b2876b324823b1179bff8324b425cdcb1b9432fec74c78ea8bba3045e8da1a",
+        "static_imports_heuristic": [
+          "Mathlib.Analysis.Normed.Ring.Basic",
+          "Mathlib.Data.Complex.Norm",
+          "SymmetryTransport"
+        ]
+      },
+      {
+        "blob": "blobs/e7/e733cf12634fc89e416f52e30a4ac49bb053b68f05dd7acd3b917537e507a051/SymmetryTransport.lean",
+        "bytes": 8585,
+        "lexical_markers_heuristic": [],
+        "sha256": "e733cf12634fc89e416f52e30a4ac49bb053b68f05dd7acd3b917537e507a051",
+        "static_imports_heuristic": [
+          "GaugeTransport"
+        ]
+      },
+      {
+        "blob": "blobs/ed/edbebedae83f2b8d37ae20927a09ee29fd7a8d3df63f929c339c0a9912fa10c4/Radius01Permutations.lean",
+        "bytes": 8017,
+        "lexical_markers_heuristic": [],
+        "sha256": "edbebedae83f2b8d37ae20927a09ee29fd7a8d3df63f929c339c0a9912fa10c4",
+        "static_imports_heuristic": [
+          "Radius01NativeBounds"
+        ]
+      },
+      {
+        "blob": "blobs/ee/eeb21650013cb4d993af414d4d0ddd763788928477cf44abfac6ca9051089748/FourierFoundations.lean",
+        "bytes": 360,
+        "lexical_markers_heuristic": [],
+        "sha256": "eeb21650013cb4d993af414d4d0ddd763788928477cf44abfac6ca9051089748",
+        "static_imports_heuristic": [
+          "Hadamard6.ColumnFibreSymmetry",
+          "Hadamard6.FibreGauge",
+          "Hadamard6.FourierAutocorrelation",
+          "Hadamard6.FourierNormalForm"
+        ]
+      },
+      {
+        "blob": "blobs/f1/f170aecf2706c396e0f4e1e7e30db9c48c35b2ac46822ad815659cbeef8e9a56/CircleD0SymmetryClosing.lean",
+        "bytes": 2543,
+        "lexical_markers_heuristic": [],
+        "sha256": "f170aecf2706c396e0f4e1e7e30db9c48c35b2ac46822ad815659cbeef8e9a56",
+        "static_imports_heuristic": [
+          "CircleD0SymmetryDataFast",
+          "D0ForestRepresentatives"
+        ]
+      },
+      {
+        "blob": "blobs/f3/f32892a14917e6f5f4765f00caa3261ecbe527babc86c7b19358436f41a410f5/Radius01ModelContainment.lean",
+        "bytes": 8073,
+        "lexical_markers_heuristic": [],
+        "sha256": "f32892a14917e6f5f4765f00caa3261ecbe527babc86c7b19358436f41a410f5",
+        "static_imports_heuristic": [
+          "Mathlib.Analysis.SpecialFunctions.Complex.Arg",
+          "Radius01CanonicalPermutations"
+        ]
+      },
+      {
+        "blob": "blobs/f4/f4850581c5d7465ef8d090e8178c1d2320101aeda3277cb15f6eca616356ddbe/CompactCarrierCover.lean",
+        "bytes": 6335,
+        "lexical_markers_heuristic": [],
+        "sha256": "f4850581c5d7465ef8d090e8178c1d2320101aeda3277cb15f6eca616356ddbe",
+        "static_imports_heuristic": [
+          "GoodSideBlocks",
+          "Mathlib.LinearAlgebra.Matrix.Adjugate",
+          "SymmetryTransport"
+        ]
+      },
+      {
+        "blob": "blobs/f4/f499bb91536c0041ef2072585b171cec381bb266eb27bedc789b4de21cafb075/D0CircleSymmetry.lean",
+        "bytes": 4968,
+        "lexical_markers_heuristic": [],
+        "sha256": "f499bb91536c0041ef2072585b171cec381bb266eb27bedc789b4de21cafb075",
+        "static_imports_heuristic": [
+          "D0FullInterface"
+        ]
+      },
+      {
+        "blob": "blobs/f6/f69eca3505aa4db343a3356c0d80cfe50ad84ba294a5ef6e44a1801aea86d061/CentreRow00.lean",
+        "bytes": 329,
+        "lexical_markers_heuristic": [],
+        "sha256": "f69eca3505aa4db343a3356c0d80cfe50ad84ba294a5ef6e44a1801aea86d061",
+        "static_imports_heuristic": [
+          "CentreSymmetry"
+        ]
+      },
+      {
+        "blob": "blobs/f6/f6ca4da5ba1f75243dfbf7337a9025678b69e28d29ff76da807babd980563654/CompleteReducedAtlas.lean",
+        "bytes": 5185,
+        "lexical_markers_heuristic": [],
+        "sha256": "f6ca4da5ba1f75243dfbf7337a9025678b69e28d29ff76da807babd980563654",
+        "static_imports_heuristic": [
+          "CarrierPermutationReduction",
+          "CompleteFourPhaseAtlas"
+        ]
+      },
+      {
+        "blob": "blobs/f9/f99e7d549a1cc2a2f0eb79108403afea984cab80c77cbd161a8acf2533403bc8/KarlssonCanonicalRootQueue.lean",
+        "bytes": 16123,
+        "lexical_markers_heuristic": [],
+        "sha256": "f99e7d549a1cc2a2f0eb79108403afea984cab80c77cbd161a8acf2533403bc8",
+        "static_imports_heuristic": [
+          "KarlssonCertificateReuse",
+          "KarlssonConditionedManifest0Bits24",
+          "KarlssonSeamSymmetry"
+        ]
+      },
+      {
+        "blob": "blobs/fb/fb2903788d4ce9e8b09791a99934d3e94be40b4b98d7e2e2eb11d60c6be3fdb9/BlockOppositePair.lean",
+        "bytes": 4747,
+        "lexical_markers_heuristic": [],
+        "sha256": "fb2903788d4ce9e8b09791a99934d3e94be40b4b98d7e2e2eb11d60c6be3fdb9",
+        "static_imports_heuristic": [
+          "Hadamard6.ColumnFibreSymmetry",
+          "Hadamard6.Strata",
+          "Mathlib.Tactic.FinCases"
+        ]
+      },
+      {
+        "blob": "blobs/fe/fe72eebb9738b657ef2a91ecf0c87b02e7a8ebd5c5662e55933a3f4a6365de04/FiniteCornerFromBlocks.lean",
+        "bytes": 4642,
+        "lexical_markers_heuristic": [],
+        "sha256": "fe72eebb9738b657ef2a91ecf0c87b02e7a8ebd5c5662e55933a3f4a6365de04",
+        "static_imports_heuristic": [
+          "Hadamard6.BlockCompletion",
+          "Hadamard6.BlockGram",
+          "Hadamard6.Strata"
+        ]
+      },
+      {
+        "blob": "blobs/ff/ff9b4d6523bd855861ae8cb4ed73a93490907ab92121699b3853394e942ea3f5/FourierTubeMetric.lean",
+        "bytes": 3185,
+        "lexical_markers_heuristic": [],
+        "sha256": "ff9b4d6523bd855861ae8cb4ed73a93490907ab92121699b3853394e942ea3f5",
+        "static_imports_heuristic": [
+          "FourierReferenceDistance",
+          "RowPermutationMetric"
+        ]
+      }
+    ]
+  },
+  "ARCHIVE_IMPORT_INDEX.json": {
+    "total": 16532,
+    "matches": [
+      {
+        "candidate_source_sha256": [
+          "7110368788bb1dca0c18978dbbc41acc90456dede48d09e727be0e79fb2ee234",
+          "834f2b8fb2f02c7ffdbbd8f20eaa909321b32e57dfdd780fa228f029866251b7",
+          "94dcfed0cac69bedff8d24cf07369735fcb94f38b212032da2393246e2229755",
+          "b384e43740a287adfbc4d28f0d678444181f324028a10079e8b5c92a7a221c57",
+          "db67e4f74a5bb0980dc4ae920479915a575d598dfdcf47049cb7b2490e785741"
+        ],
+        "classification": "authored_candidates_available",
+        "module": "CarrierPermutationReduction",
+        "resolution_is_context_dependent": true
+      },
+      {
+        "candidate_source_sha256": [
+          "b24beb2ae6ffc2f0e8e838566fe640a19779aca2911e3aa702257b4a15cd3656"
+        ],
+        "classification": "authored_candidates_available",
+        "module": "CentreSymmetry",
+        "resolution_is_context_dependent": false
+      },
+      {
+        "candidate_source_sha256": [
+          "f170aecf2706c396e0f4e1e7e30db9c48c35b2ac46822ad815659cbeef8e9a56"
+        ],
+        "classification": "authored_candidates_available",
+        "module": "CircleD0SymmetryClosing",
+        "resolution_is_context_dependent": false
+      },
+      {
+        "candidate_source_sha256": [
+          "4bec4291e96196f21563089ccbc742c9d5571211f25bb955fc16a86e2e520b61",
+          "e1cc80f8d3dede97338f05e7b99cbec760386e7ffb8306a0ee7fe235363e055f"
+        ],
+        "classification": "authored_candidates_available",
+        "module": "CircleD0SymmetryDataFast",
+        "resolution_is_context_dependent": true
+      },
+      {
+        "candidate_source_sha256": [
+          "65ed88885b7fb01105d8793a0009ea792f99a20a6a19dc8d4933db14d3bb7d17"
+        ],
+        "classification": "authored_candidates_available",
+        "module": "CircleSymmetry",
+        "resolution_is_context_dependent": false
+      },
+      {
+        "candidate_source_sha256": [
+          "d45c6ea7f4b486b9b72e07dca1ead5eb341eca9a7e663ddc65959e1c3adf5804",
+          "e0f52ec2edfafc478e3290ed84d718d213f6132e1b0e951f5d3b6aabe315c86e"
+        ],
+        "classification": "authored_candidates_available",
+        "module": "CircleTaoSymmetryClosing",
+        "resolution_is_context_dependent": true
+      },
+      {
+        "candidate_source_sha256": [
+          "15f4d30ab70411338869e5ed90985c2b4608be0baefa3925a4bb0ad77ec2e7db",
+          "93720a0f8f0460397c0645dd344e3e5ce55119c153e76a0a306711a955768ebf"
+        ],
+        "classification": "authored_candidates_available",
+        "module": "CircleTaoSymmetryData",
+        "resolution_is_context_dependent": true
+      },
+      {
+        "candidate_source_sha256": [
+          "f499bb91536c0041ef2072585b171cec381bb266eb27bedc789b4de21cafb075"
+        ],
+        "classification": "authored_candidates_available",
+        "module": "D0CircleSymmetry",
+        "resolution_is_context_dependent": false
+      },
+      {
+        "candidate_source_sha256": [
+          "5fa386752747e883cba63f6cd955f4a376cb2a7ed2515b6de2f86eec57176199"
+        ],
+        "classification": "authored_candidates_available",
+        "module": "Hadamard6.BlockCompletion",
+        "resolution_is_context_dependent": false
+      },
+      {
+        "candidate_source_sha256": [
+          "42bfb49854a2919f02ddf600cf040ee81e90f46bf0362f187f61e1a5b40198d1"
+        ],
+        "classification": "authored_candidates_available",
+        "module": "Hadamard6.BlockPermutations",
+        "resolution_is_context_dependent": false
+      },
+      {
+        "candidate_source_sha256": [
+          "0329c890443172582d13466aa327c2573c5cfcb917a898bdee47c7892e675b12"
+        ],
+        "classification": "authored_candidates_available",
+        "module": "Hadamard6.ColumnFibreSymmetry",
+        "resolution_is_context_dependent": false
+      },
+      {
+        "candidate_source_sha256": [
+          "0356fb89afe51b45c07fc5e651f052dd4f16b9a78fce84c209daf4b20fe43e0e"
+        ],
+        "classification": "authored_candidates_available",
+        "module": "Hadamard6.FibreSymmetry",
+        "resolution_is_context_dependent": false
+      },
+      {
+        "candidate_source_sha256": [
+          "81bf8e0002e08ef0f69ab59f2b66071eb38b6fe595ae8bcd95dabea75a7fb627"
+        ],
+        "classification": "authored_candidates_available",
+        "module": "Hadamard6.FiniteDilation",
+        "resolution_is_context_dependent": false
+      },
+      {
+        "candidate_source_sha256": [
+          "5ed76b4074e68e175002430f951615ae7eb82c527df97a78368852d87b096a49"
+        ],
+        "classification": "authored_candidates_available",
+        "module": "Hadamard6.UnitSymmetric",
+        "resolution_is_context_dependent": false
+      },
+      {
+        "candidate_source_sha256": [
+          "d09a2b39d1e16e121689e11f7bca6e680a69f3ddfbc7c40e925949a1419c139c"
+        ],
+        "classification": "authored_candidates_available",
+        "module": "KarlssonSeamSymmetry",
+        "resolution_is_context_dependent": false
+      },
+      {
+        "candidate_source_sha256": [
+          "08be57a9ea776c8a304b27cb68a9e4e78fced104e68667595862d62c2be97ba5",
+          "4e0ec84a3fa27a838cbf58bf75292d52024b6df517a5cd301cf649e30ea7f8f3"
+        ],
+        "classification": "authored_candidates_available",
+        "module": "Radius01CanonicalPermutations",
+        "resolution_is_context_dependent": true
+      },
+      {
+        "candidate_source_sha256": [
+          "6fef64d3546c2f61ac894c66ea9308e40c3481eb9d194416ec3f996f00738014",
+          "edbebedae83f2b8d37ae20927a09ee29fd7a8d3df63f929c339c0a9912fa10c4"
+        ],
+        "classification": "authored_candidates_available",
+        "module": "Radius01Permutations",
+        "resolution_is_context_dependent": true
+      },
+      {
+        "candidate_source_sha256": [
+          "518f8e5b45bb03b83e75539667daec2200618db3270b9bb647be248bde340733"
+        ],
+        "classification": "authored_candidates_available",
+        "module": "RowPermutationMetric",
+        "resolution_is_context_dependent": false
+      },
+      {
+        "candidate_source_sha256": [
+          "33db88b6414f6f30136a2db213ac028dea114102993f49b9080b59bde7be877c",
+          "c6e1b54f8f85322086e41469cc5e4554f8f7f85138faf8505f87a6a2a048004f",
+          "d296f5bb1d25da5e4643ca8cff3146495c2ef4afe03e0cefe1a70dc7300468c4",
+          "da957f81ee3deb8d4fd39a64e233f9b7b8955422e0ac8b070f53186130c4eca8",
+          "e733cf12634fc89e416f52e30a4ac49bb053b68f05dd7acd3b917537e507a051"
+        ],
+        "classification": "authored_candidates_available",
+        "module": "SymmetryTransport",
+        "resolution_is_context_dependent": true
+      }
+    ]
+  },
+  "archive_vendor_content_search": "MATCHED_THIRD_SYMMETRY_REUSE_FILES.txt"
+}

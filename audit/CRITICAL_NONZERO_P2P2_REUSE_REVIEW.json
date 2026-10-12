@@ -1,0 +1,24 @@
+{
+  "status": "REVIEWED_NECESSARY_FINAL_MOMENT_CHECK",
+  "checked_utc": "2026-10-11T09:32:56.932872+00:00",
+  "scope": "The last representative moment p2_p2, same original statement and guards.",
+  "search_evidence": [
+    "NONZERO_P2P2_REUSE_FILES.txt",
+    "CRITICAL_NONZERO_MOMENT_CLEARING_SEARCH.json"
+  ],
+  "search_scope": "Current Lean, complete19386blob archive, full archive source/import/blob indexes, current vendor OAI. Direct matches are the prepared current pair, data and rational table. The existing paired_moment_p2_p2 proves interpretation in the quadratic root, not a denominator-clearing coefficient identity.",
+  "reuse": "Import the checked P2M4Staged expressions and scalar evaluation lemmas for exact AST matches. Check only new bounded expressions with the existing DenseCoefficients checker. Target the existing Data_p2_p2 arrays, unchanged.",
+  "source_pins": {
+    "lean/NoFourMUBs/Reuse/Archive/CriticalNonzeroPair07.lean": "cef01b0d312c9c6d8973500a6d104b36e72b4fdc67f7e90158f4df626157f0a3",
+    "lean/NoFourMUBs/Reuse/Archive/CriticalZeroSumDenseCoefficients.lean": "b9bfcd6c882329da43a6d318ac481580385621442600a6bb102e0ad1298af29c",
+    "lean/NoFourMUBs/Reuse/Archive/CriticalZeroSumBinaryCertificate.lean": "1b0aa20b70be2198d9ebd75ea58c52ed89b661518049027e586b16680d0ac2cc",
+    "lean/NoFourMUBs/Step2/CriticalZero/ClearedMoments/PolynomialChecks/P2M4.lean": "192fc5041567973d60a3711e5fb62e94950eedf53c3f91aa42f80b3b55981389",
+    "lean/NoFourMUBs/Step2/CriticalZero/ClearedMoments/PolynomialChecks/P2M4Staged.lean": "0ce7ee551d7e2fde4154a1b9e7f887679824bdc95f8e634a65741907fa98276b",
+    "lean/NoFourMUBs/Step2/CriticalZero/ClearedMoments/Data_p2_p2.lean": "2102d0302f7f6c507a77df466cfc8dbc9e3c6ceaed5636d7dd74f1a13c9e1acd",
+    "audit/CRITICAL_NONZERO_POLYNOMIAL_EXPRESSION_DAG.json": "aa383a39da42899d0a6120d4e6c6789fad6a4cc267557d62a504aeae1be103e9"
+  },
+  "dependency_audit": "KERNEL_AUDIT_CRITICAL_NONZERO_STAGED_STATUS.json",
+  "atlas_certification": false,
+  "semantic_reuse_diagnostic": "CRITICAL_NONZERO_P2P2_SEMANTIC_REUSE_DIAGNOSTIC.json",
+  "semantic_reuse_finding": "All16numericallycheckedcheckpointpolynomials differ from all281priorDAGpolynomials.36othernewASTnodes are polynomiallyequal topriornodes; these are only composition/interpretation adapters using existing generic eval lemmas, not duplicate numerical normalization certificates."
+}

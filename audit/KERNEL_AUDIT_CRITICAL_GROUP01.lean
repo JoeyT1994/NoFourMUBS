@@ -1,0 +1,5 @@
+import NoFourMUBs.Step2.CriticalZero.Group01Check18
+
+#print axioms CriticalZeroSumAssembly20261003.group01DenseReuse_interpret
+#print axioms CriticalZeroSumAssembly20261003.group01DenseResidual_interpret
+#print axioms CriticalZeroSumAssembly20261003.group01_coefficient_18
