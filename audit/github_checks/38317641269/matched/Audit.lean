@@ -1,0 +1,109 @@
+import NoFourMUBs.Step2.Reconstruction.ThirdMoment.WeightedDefect
+import NoFourMUBs.Step2.Reconstruction.ThirdMoment.SideMatrices
+import NoFourMUBs.Step2.Reconstruction.ThirdMoment.IntrinsicAffine
+import NoFourMUBs.Step2.Reconstruction.ThirdMoment.Contraction
+import NoFourMUBs.Reuse.Archive.SideIntrinsicTransposeBindings
+import NoFourMUBs.Reuse.Archive.SideIntrinsicTransposeInvariants
+import NoFourMUBs.Step2.Reconstruction.ThirdMoment.MatchedParameter
+import NoFourMUBs.Step2.Reconstruction.ThirdMoment.AffineMatrices
+import NoFourMUBs.Step2.Reconstruction.ThirdMoment.Reduction
+import NoFourMUBs.Step2.Reconstruction.ThirdMoment.Symmetry
+import NoFourMUBs.Step2.Reconstruction.ThirdMoment.SeedResiduals
+import NoFourMUBs.Step2.Reconstruction.ThirdMoment.Certificates.OffsetBinding
+import NoFourMUBs.Step2.Reconstruction.ThirdMoment.Certificates.DenominatorInputs
+import NoFourMUBs.Step2.Reconstruction.ThirdMoment.Certificates.LinearRational
+import NoFourMUBs.Step2.Reconstruction.ThirdMoment.Certificates.DenominatorGram
+import NoFourMUBs.Step2.Reconstruction.ThirdMoment.ForcedCoefficient
+import NoFourMUBs.Step2.Reconstruction.ThirdMoment.Certificates.DenominatorSide
+import NoFourMUBs.Step2.Reconstruction.ThirdMoment.Certificates.LinearBinding10
+import NoFourMUBs.Step2.Reconstruction.ThirdMoment.Certificates.DenominatorPaired
+import NoFourMUBs.Step2.Reconstruction.ThirdMoment.Certificates.DenominatorSingle
+import NoFourMUBs.Step2.Reconstruction.ThirdMoment.Certificates.DenominatorConstant02
+import NoFourMUBs.Step2.Reconstruction.ThirdMoment.Certificates.LinearBinding00
+import NoFourMUBs.Step2.Reconstruction.ThirdMoment.Certificates.LinearBinding11
+import NoFourMUBs.Step2.Reconstruction.ThirdMoment.Certificates.LinearBinding12
+import NoFourMUBs.Step2.Reconstruction.ThirdMoment.Certificates.LinearBinding20
+import NoFourMUBs.Step2.Reconstruction.ThirdMoment.Certificates.LinearBinding22
+import NoFourMUBs.Step2.Reconstruction.ThirdMoment.Certificates.LinearBindingsSparse
+import NoFourMUBs.Step2.Reconstruction.ThirdMoment.Certificates.ConstantRational
+import NoFourMUBs.Step2.Reconstruction.ThirdMoment.Certificates.DenominatorConstant21
+import NoFourMUBs.Step2.Reconstruction.ThirdMoment.ConstantGramCancellation
+import NoFourMUBs.Step2.Reconstruction.ThirdMoment.ConstantImageReduction
+
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.candidate_completion_rowGram
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.candidate_completion_columnGram
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.forcedD_column_norms
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.entrywiseUnit_of_four_weighted_defects
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.forcedD_entrywiseUnit_of_four_weighted_defects
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.thirdMoment_phase_one
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.thirdMoment_phase_two
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.lambda_affine_forms
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.intrinsic_affine_moments
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.thirdMoment_sandwich
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.thirdMoment_transpose_sandwich
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.weightedDefect_trace
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.weightedDefect_contraction
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.forcedD_weighted_contraction
+#print axioms StrictReconstruction20261007.SideIntrinsic.permanent3_transpose
+#print axioms StrictReconstruction20261007.SideIntrinsic.dephased_transpose_intrinsic_bindings
+#print axioms StrictReconstruction20261007.SideIntrinsic.dephased_transpose_scalar_triple
+#print axioms StrictReconstruction20261007.SideIntrinsic.gram_triple_of_intrinsic_scalars
+#print axioms StrictReconstruction20261007.SideIntrinsic.gramInvariant_all_neg
+#print axioms StrictReconstruction20261007.SideIntrinsic.dephased_negative_gramInvariant_transpose
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.intrinsicTheta_signature
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.candidate_signature_parameter
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.transposedSeed_scalar_pair
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.matched_intrinsic_parameters
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.thirdMoment_intrinsic_affine
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.intrinsicTheta_quadratic
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.paired_affine_entry
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.paired_affine_contraction
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.sandwich_affine
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.candidates_permuted
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.forcedD_permuted
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.weightedDefect_permuted
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.flatness_of_one_weighted_identity
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.thirdMoment_seed_one
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.weightedDefect_seed_residuals
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.matchedExistence_of_seed_residuals
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P065_value
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P066_value
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.seedWeightedOffset_formula
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P066_seed_ne_zero
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.savedOffset_value
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P003_eq_inverse_inputDen
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P004_eq_bc_mul_P003_swap
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P003_strict_ne_zero
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P004_strict_ne_zero
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P000_strict_ne_zero
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.quotient_of_cofactor
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.savedW11Linear_zero
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.savedW11Linear_strict_zero
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P045_seed_factor
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P045_strict_ne_zero
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P031_strict_ne_zero
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.seedComplement_eq_gram
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.seedComplement_det
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.seedCoefficient_adjugate
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P003_side_factor
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P015_side_factor
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.savedLinearBinding10
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P007_side_factors
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P038_seed_factor
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P012_side_factor
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P028_side_factor
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P011_side_factor
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P027_side_factor
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P012_eq_c_mul_P042
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P041_seed_factor
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.savedLinearBinding00
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.savedLinearBinding11
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.savedLinearBinding12
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.savedLinearBinding20
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.savedLinearBinding22
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.savedW11Constant_zero
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.savedW11Constant_strict_zero
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P028_eq_b_mul_P061
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.CertificateData.P060_seed_factor
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.oneConstant_adjugate
+#print axioms NoFourMUBs.Step2.Reconstruction.ThirdMoment.seedImageConstant_reduced

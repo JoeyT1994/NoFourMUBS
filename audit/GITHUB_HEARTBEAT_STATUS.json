@@ -1,10 +1,10 @@
 {
   "automation_id": "nofourmubs-github-lean-follow-up",
-  "heartbeat_utc": null,
-  "checked_utc": "2026-10-13T00:38:30.891498+00:00",
+  "heartbeat_utc": "2026-10-13T02:15:41.839Z",
+  "checked_utc": "2026-10-13T02:16:07.875841+00:00",
   "repository": "JoeyT1994/NoFourMUBS",
   "branch_heads": {
-    "codex/unified-lean-github-checks": "d13857deb65ef4f2ad6bfe1040945b5e1eaaf302",
+    "codex/unified-lean-github-checks": "4f56be3effdf96b672a6ca72f6da557c3f90ef91",
     "main": "6ad8a4eb23798bd46c125647c4ab947453e0fc09"
   },
   "new_upstream_changes": false,
@@ -28,13 +28,22 @@
     {
       "name": "Lean / matched",
       "job_id": 115037980226,
-      "status": "in_progress",
-      "conclusion": null,
-      "active_steps": [
-        "Build and inspect theorem assumptions"
-      ],
-      "axiom_type_audit_result": null,
-      "audit_note": "No completed audit report is available in this snapshot."
+      "status": "completed",
+      "conclusion": "success",
+      "active_steps": [],
+      "axiom_type_audit_result": {
+        "axiom_audit": "PASS",
+        "endpoint_count": 77,
+        "allowed_axioms": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "main_theorem_type_audit": "NOT_INCLUDED",
+        "unconditional_theorem": false,
+        "receipt": "github_checks/38317641269/matched/RECEIPT.json"
+      },
+      "audit_note": "Actual artifact verified. Selected support results passed; MatchedExistence and CriticalClassification remain open."
     },
     {
       "name": "Lean / main",
@@ -63,6 +72,12 @@
       "conclusion": "failure",
       "audit_status": "NOT_RUN",
       "evidence": "github_checks/38317641269/open-binding-interruption-20261012.json"
+    },
+    {
+      "job_id": 115037980226,
+      "conclusion": "success",
+      "audit_status": "PASS_77_ENDPOINTS",
+      "evidence": "github_checks/38317641269/matched/RECEIPT.json"
     }
   ],
   "failures": [
@@ -75,7 +90,7 @@
     }
   ],
   "meaningful_change": true,
-  "action_taken": "Completed review of all 16 upstream Lean additions. The job-specific retry endpoint returned HTTP 403 because its parent workflow is still running. Preserve the three active jobs; retry the interrupted job after the run completes.",
+  "action_taken": "Downloaded and independently parsed the matched-job audit artifact; verified archive digest, plan pin, completed module list, exact 77-endpoint set, and allowed axioms. Saved the actual report and logs. Preserved the other running jobs and deferred the interrupted-job retry until parent completion.",
   "atlas_certification": false,
   "unconditional_theorem": false,
   "remaining_explicit_inputs": [
@@ -86,6 +101,13 @@
   "notified_failure_job_ids": [
     115037980336
   ],
-  "trigger": "user_continue",
-  "latest_upstream_review": "REPOSITORY_UPDATE_6ad8a4e_REUSE_REVIEW.json"
+  "trigger": "heartbeat",
+  "latest_upstream_review": "REPOSITORY_UPDATE_6ad8a4e_REUSE_REVIEW.json",
+  "newly_completed_jobs": [
+    115037980226
+  ],
+  "new_failures": [],
+  "notified_completed_verification_job_ids": [
+    115037980226
+  ]
 }

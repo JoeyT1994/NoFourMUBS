@@ -1,12 +1,12 @@
 {
-  "updated_utc": "2026-10-13T00:44:06.632075+00:00",
+  "updated_utc": "2026-10-13T02:19:37.570420+00:00",
   "source_commit": "0c678f29051ebe3d78343a99e80f7546f036d2e1",
   "remote_tree_verified": "aa5bb7e604db55d54ce7de1657e4aaa1d4d1e59f",
   "branch": "codex/unified-lean-github-checks",
   "pull_request": "https://github.com/JoeyT1994/NoFourMUBS/pull/1",
   "release": "https://github.com/JoeyT1994/NoFourMUBS/releases/tag/formalization-backup-2026-10-12",
   "archive_uploads": "All11 assets uploaded and server SHA-256 verified;25879 archive files plus2 original attachments preserved.",
-  "workflow": "Three checks still running; open-binding interrupted by GitHub runner shutdown; selective retry pending",
+  "workflow": "Matched support checks PASS: 31 selected modules, 77 audited endpoints. Main and critical still running; open-binding retry awaits parent completion.",
   "local_lean_builds": "stopped; 12 regenerable build directories removed; do not restart local queues",
   "cleanup_result": "BUILD_CACHE_CLEANUP_RESULT.json",
   "atlas_certification": false,
@@ -24,9 +24,12 @@
   "automation_id": "nofourmubs-github-lean-follow-up",
   "automation_interval_minutes": 30,
   "automation_status": "ACTIVE",
-  "last_check_utc": "2026-10-13T00:38:30.891498+00:00",
+  "last_check_utc": "2026-10-13T02:16:07.875841+00:00",
   "last_check_record": "GITHUB_HEARTBEAT_STATUS.json",
   "open_binding_retry_pending": true,
   "latest_failure_record": "github_checks/38317641269/open-binding-interruption-20261012.json",
-  "open_binding_retry_condition": "Parent workflow must complete; confirmed by GitHub HTTP 403."
+  "open_binding_retry_condition": "Parent workflow must complete; confirmed by GitHub HTTP 403.",
+  "completed_verification_groups": {
+    "matched": "github_checks/38317641269/matched/RECEIPT.json"
+  }
 }

@@ -1,0 +1,49 @@
+{
+  "status": "PASS",
+  "recorded_utc": "2026-10-13T02:19:37.570420+00:00",
+  "run_id": 38317641269,
+  "job_id": 115037980226,
+  "job_url": "https://github.com/JoeyT1994/NoFourMUBS/actions/runs/38317641269/job/115037980226",
+  "commit": "23e5bf1634a70186713fab7e7c495d8484313a69",
+  "completed_utc": "2026-10-13T02:10:39.145461+00:00",
+  "artifact_id": 11784846604,
+  "artifact_digest": "sha256:3134942bcd0126f890cd57a7338269bbf2e59ab44460f4d647b2a05d61095c6b",
+  "artifact_digest_verified": true,
+  "plan_sha256": "f363963b18678c6e20c26a90d1208a9573d8930feed53314d3a189fbdbe7e10f",
+  "plan_pin_matches_saved_source": true,
+  "selected_modules": 31,
+  "completed_dependency_modules": 1271,
+  "axiom_endpoints": 77,
+  "axiom_sets": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+  ],
+  "no_sorryAx_or_ofReduceBool": true,
+  "endpoint_set_matches_plan": true,
+  "axiom_log_sha256": "7bcb55fba35a7d76dee2a71cd9cb9a5c0fc26210eaf610f6eb34b0419e25cddd",
+  "axiom_log_reparsed_and_matches_report": true,
+  "main_theorem_type_audit": "Not part of the matched job; the main job has not completed in this snapshot.",
+  "unconditional_theorem": false,
+  "atlas_certification": false,
+  "remaining_inputs": [
+    "NoFourMUBs.AtlasCertificate",
+    "NoFourMUBs.Step2.MatchedExistence",
+    "NoFourMUBs.Step2.CriticalClassification"
+  ],
+  "scope": "Selected reconstruction support lemmas and seven previously checked summand bindings. The residual assembly theorem still takes the two universal zero-residual identities as a premise.",
+  "open_binding10_verified": false,
+  "github_build_cache_save": "success",
+  "cache_reuse_opportunity": {
+    "open_binding_dependencies_built_in_matched_job": 375,
+    "only_missing_module": "NoFourMUBs.Step2.Reconstruction.ThirdMoment.Certificates.ConstantBinding10",
+    "limitation": "The current workflow restores caches by group; a rerun does not automatically use this other group cache. No cache was deleted or downloaded locally."
+  },
+  "artifact_file_sha256": {
+    "Audit.lean": "ccbd3b64096c01af06d11d4c1d5c326475bc55c6611ba694db61d33b081475c6",
+    "axioms.log": "7bcb55fba35a7d76dee2a71cd9cb9a5c0fc26210eaf610f6eb34b0419e25cddd",
+    "build.log": "282dae1cc95d4b0fe165e6fa50d827169a50fb2ff982c3ed7752d6958863793b",
+    "cache.log": "a055ff7742f00a062a594357b247b3011b9c7a37af700a964f5e38a509d9d8bb",
+    "result.json": "d2a6215a4b2e61324c06a90b186ef38d95b4289395a58f9bddeb1bbdae7ede1b"
+  }
+}
