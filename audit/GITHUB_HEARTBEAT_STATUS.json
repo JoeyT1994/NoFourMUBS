@@ -1,0 +1,88 @@
+{
+  "automation_id": "nofourmubs-github-lean-follow-up",
+  "heartbeat_utc": "2026-10-13T00:09:41.354Z",
+  "checked_utc": "2026-10-13T00:11:57.488889+00:00",
+  "repository": "JoeyT1994/NoFourMUBS",
+  "branch_heads": {
+    "codex/unified-lean-github-checks": "2534917e7df617376967307b14d5ad49d26d69c7",
+    "main": "6ad8a4eb23798bd46c125647c4ab947453e0fc09"
+  },
+  "new_upstream_changes": false,
+  "workflow_run_id": 38317641269,
+  "workflow_run_url": "https://github.com/JoeyT1994/NoFourMUBS/actions/runs/38317641269",
+  "workflow_source_commit": "23e5bf1634a70186713fab7e7c495d8484313a69",
+  "workflow_status": "in_progress",
+  "workflow_conclusion": null,
+  "jobs": [
+    {
+      "name": "Lean / critical",
+      "job_id": 115037980057,
+      "status": "in_progress",
+      "conclusion": null,
+      "active_steps": [
+        "Build and inspect theorem assumptions"
+      ],
+      "axiom_type_audit_result": null,
+      "audit_note": "No completed audit report is available in this snapshot."
+    },
+    {
+      "name": "Lean / matched",
+      "job_id": 115037980226,
+      "status": "in_progress",
+      "conclusion": null,
+      "active_steps": [
+        "Build and inspect theorem assumptions"
+      ],
+      "axiom_type_audit_result": null,
+      "audit_note": "No completed audit report is available in this snapshot."
+    },
+    {
+      "name": "Lean / main",
+      "job_id": 115037980331,
+      "status": "in_progress",
+      "conclusion": null,
+      "active_steps": [
+        "Build and inspect theorem assumptions"
+      ],
+      "axiom_type_audit_result": null,
+      "audit_note": "No completed audit report is available in this snapshot."
+    },
+    {
+      "name": "Lean / open-binding",
+      "job_id": 115037980336,
+      "status": "completed",
+      "conclusion": "failure",
+      "active_steps": [],
+      "axiom_type_audit_result": null,
+      "audit_note": "Runner shutdown interrupted the last module; the axiom/type audit did not run."
+    }
+  ],
+  "completed_jobs": [
+    {
+      "job_id": 115037980336,
+      "conclusion": "failure",
+      "audit_status": "NOT_RUN",
+      "evidence": "github_checks/38317641269/open-binding-interruption-20261012.json"
+    }
+  ],
+  "failures": [
+    {
+      "job_id": 115037980336,
+      "reason": "GitHub runner shutdown, exit 143",
+      "retry_pending": true,
+      "retry_response": "job 115037980336 cannot be rerun"
+    }
+  ],
+  "meaningful_change": true,
+  "action_taken": "Saved the completed job log evidence. Attempted to rerun only the interrupted job; GitHub refused. Other three jobs left running. No proof changes or local Lean checks.",
+  "atlas_certification": false,
+  "unconditional_theorem": false,
+  "remaining_explicit_inputs": [
+    "AtlasCertificate",
+    "MatchedExistence",
+    "CriticalClassification"
+  ],
+  "notified_failure_job_ids": [
+    115037980336
+  ]
+}

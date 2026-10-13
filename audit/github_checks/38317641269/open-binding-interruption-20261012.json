@@ -1,0 +1,39 @@
+{
+  "recorded_utc": "2026-10-13T00:14:04.964002+00:00",
+  "run_id": 38317641269,
+  "job_id": 115037980336,
+  "job_url": "https://github.com/JoeyT1994/NoFourMUBS/actions/runs/38317641269/job/115037980336",
+  "commit": "23e5bf1634a70186713fab7e7c495d8484313a69",
+  "group": "open-binding",
+  "job_conclusion": "failure",
+  "completed_utc": "2026-10-12T23:45:45Z",
+  "failure_class": "GitHub runner shutdown; build interrupted",
+  "runner_error": "The runner has received a shutdown signal. This can happen when the runner service is stopped, or a manually started runner is canceled.",
+  "process_exit_code": 143,
+  "last_started_module": "NoFourMUBs.Step2.Reconstruction.ThirdMoment.Certificates.ConstantBinding10",
+  "preceding_module_builds_completed_inferred_from_sequential_log": 375,
+  "module_closure_size": 376,
+  "axiom_type_audit_status": "NOT_RUN",
+  "verified_axiom_endpoints": 0,
+  "target_verified": false,
+  "lean_error_reported_in_job_log": false,
+  "result_artifact_available": false,
+  "cache_save_step": "skipped after runner shutdown",
+  "report_upload_step": "skipped after runner shutdown",
+  "raw_job_log_sha256": "1caa530a57c37b276598d069ccc47cfd217cf88cba3bdf6d77e18193325f18f8",
+  "log_excerpt_file": "open-binding-interruption-20261012.log",
+  "retry_attempt": {
+    "method": "gh run rerun 38317641269 --job 115037980336 --repo JoeyT1994/NoFourMUBS",
+    "exit_code": 1,
+    "response": "job 115037980336 cannot be rerun"
+  },
+  "retry_pending": true,
+  "follow_up": "Retry only this interrupted job when GitHub permits it. Do not restart the three running jobs or discard their build progress.",
+  "atlas_certification": false,
+  "unconditional_theorem": false,
+  "remaining_explicit_inputs": [
+    "AtlasCertificate",
+    "MatchedExistence",
+    "CriticalClassification"
+  ]
+}
