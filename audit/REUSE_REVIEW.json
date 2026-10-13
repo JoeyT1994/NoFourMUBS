@@ -1,5 +1,5 @@
 {
-  "repository_commit": "4d757de5d30330fab3583677b9a38b284b586b22",
+  "repository_commit": "6ad8a4eb23798bd46c125647c4ab947453e0fc09",
   "scopes": {
     "moment_normalization": {
       "reviewed": true,
@@ -354,7 +354,7 @@
       ],
       "decision": "Encode only the already used 34 patterns and their finite completeness, reusing the OAI family representation. Subsequent sampling uses the existing generic family and finite-sum equivalence machinery.",
       "factorization_reuse": "Use Mathlib Function.factorsThrough_iff to factor each pair through its equality labels; this avoids copying the surjInv construction of OAI Family.flatten_surjective. Reuse Family.flatten_injective and Equiv.sum_comp for uniqueness and the finite sum.",
-      "weight_reuse": "The existing target weight (3)_new/120 is identified with card(Fin(blocks p) \u21aa Fin6)/14400 using Mathlib Fintype.card_embedding_eq and Nat.descFactorial. The weighted average invokes OAI sum_eq_card_mul_average.",
+      "weight_reuse": "The existing target weight (3)_new/120 is identified with card(Fin(blocks p) ↪ Fin6)/14400 using Mathlib Fintype.card_embedding_eq and Nat.descFactorial. The weighted average invokes OAI sum_eq_card_mul_average.",
       "kernel_status": "Patterns, completeness, pair-assignment equivalence, finite sum and original weights all passed Lean; see SOS_CORNER_PAIR_SAMPLING_BUILD_STATUS.json."
     },
     "corner_pair_products": {
@@ -1348,7 +1348,7 @@
       "comparison": [
         {
           "existing": "Hadamard6.forcedD and Matrix.mul_inv_rev/nonsing_inv_mul",
-          "reuse": "Reassociate exactly the original forced block as C*(-E\u1d34*(6I-EE\u1d34)\u207b\u00b9)*B using only horizontal candidate Gram and invertibility. This is the matrix-coordinate binding for the original diagnostic, not another completion theorem."
+          "reuse": "Reassociate exactly the original forced block as C*(-Eᴴ*(6I-EEᴴ)⁻¹)*B using only horizontal candidate Gram and invertibility. This is the matrix-coordinate binding for the original diagnostic, not another completion theorem."
         },
         {
           "existing": "Archived AdjugateReconstruction.phaseHadamard_forcedD (all four source variants)",
@@ -1628,5 +1628,13 @@
     "atlas_certificate_generation_authorized": false,
     "atlas_certificate_verification_authorized": false
   },
-  "latest_repository_review": "REPOSITORY_UPDATE_4d757de_REVIEW.json"
+  "latest_repository_review": "REPOSITORY_UPDATE_6ad8a4e_REUSE_REVIEW.json",
+  "latest_upstream_source_review": {
+    "commit": "6ad8a4eb23798bd46c125647c4ab947453e0fc09",
+    "record": "REPOSITORY_UPDATE_6ad8a4e_REUSE_REVIEW.json",
+    "all_new_lean_sources_reviewed": true,
+    "new_lean_files": 16,
+    "independently_lean_verified": false,
+    "adopted_new_proof_route": false
+  }
 }

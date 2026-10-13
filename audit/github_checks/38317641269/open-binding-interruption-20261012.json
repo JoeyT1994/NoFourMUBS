@@ -35,5 +35,12 @@
     "AtlasCertificate",
     "MatchedExistence",
     "CriticalClassification"
-  ]
+  ],
+  "retry_follow_up": {
+    "attempted_utc": "2026-10-13T00:39:09Z",
+    "endpoint": "POST /repos/JoeyT1994/NoFourMUBS/actions/jobs/115037980336/rerun",
+    "http_status": 403,
+    "response": "The workflow run containing this job is already running",
+    "required_condition": "Wait for the overall workflow to complete, then retry only this interrupted job."
+  }
 }
