@@ -7,7 +7,7 @@ Start with [`PROOF.md`](PROOF.md) or the typeset [`proof/note/no_four_mubs.pdf`]
 | Step | Claim | How it is established |
 |---|---|---|
 | 1 | The positive local maxima of R form one 18-point orbit; max R = 3¹³/2¹² | Exact algebra (651 claims), **proved in Lean** (`Step1Geo.maximumCensus`). Two earlier exact proofs are cross-checks |
-| 2 | (𝓗/≅) ∖ {S₆} is connected | Proved without [CT]: matched existence (L1, certificates E and F, and Lean), matched uniqueness (L2, Lean) and exact reach (return G: PR-M and the strict nonmatched converse, a paper proof with exact certificates whose new geometric argument awaits independent review). The earlier route through MC1–MC5 rests on [CT] and on PR-M |
+| 2 | (𝓗/≅) ∖ {S₆} is connected | Proved without [CT]: matched existence (L1, certificates E and F, and Lean), matched uniqueness (L2, Lean) and exact reach (return G: PR-M and the strict nonmatched converse, a paper proof with exact certificates whose new geometric argument awaits independent review). This route keeps the reconstruction: L1 is H₊(θ), with its side recipe from MC2–MC3, and MC1 is rederived from the dossier's critical-strip proofs. Only the [CT] imports are dropped: MC4's nonmatched converse and MC5 are replaced by return G. The earlier route through MC1–MC5 rests on [CT] and on PR-M |
 | 3 | A ball Record plus Stage C excludes quartet edges in its ball; S₆ is a zero-dimensional Record | Lemmas 3.1 and 3.2 proved on paper ([`STAGEC.md`](proof/atlas/STAGEC.md), [`RIGOUR.md`](proof/atlas/RIGOUR.md)) and **in Lean** |
 | 4 | A finite atlas with certified boundary transfers covers X | 12,021 Records, certified by `certify.py` (Arb) and by an independent Julia implementation (intervals); Lemma 4.1 and the open–closed argument proved in Lean |
 
@@ -53,5 +53,5 @@ The independent checker replays separately: see [`proof/independent/README.md`](
 
 ## Inputs taken as given
 
-- None from the classification [CT] on the route through return G. The earlier route used [CT] through MC1–MC5, in Step 2 only.
+- None from the classification [CT] on the route through return G, which still rests on the reconstruction (`MinimalConstruction/`): H₊(θ), its side recipe, and the critical-strip proofs of MC1. The earlier route used [CT] through MC1–MC5, in Step 2 only.
 - The Stage C method of [OAI], with every inequality reproved and formalised.
