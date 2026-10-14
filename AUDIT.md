@@ -7,13 +7,13 @@ Start with [`PROOF.md`](PROOF.md) or the typeset [`proof/note/no_four_mubs.pdf`]
 | Step | Claim | How it is established |
 |---|---|---|
 | 1 | The positive local maxima of R form one 18-point orbit; max R = 3¹³/2¹² | Exact algebra (651 claims), **proved in Lean** (`Step1Geo.maximumCensus`). Two earlier exact proofs are cross-checks |
-| 2 | (𝓗/≅) ∖ {S₆} is connected | Proved relative to [CT] through MC1–MC5. **Open point:** MC4's nonmatched converse uses [CT]'s necessary minus-matching (PR-M), whose supplied proof shows only F₊ ≢ 0; no counterexample is known. Matched existence (MC4's matched half) is proved without [CT] by exact certificates (`proof/coverage/returns/E_matched_flatness`, `F_side_existence`) |
+| 2 | (𝓗/≅) ∖ {S₆} is connected | Proved relative to [CT] through MC1–MC5. **Open point:** MC4's nonmatched converse uses [CT]'s necessary minus-matching (PR-M), whose supplied proof shows only F₊ ≢ 0; no counterexample is known. Matched existence (MC4's matched half) is proved without [CT] by exact certificates (`proof/coverage/returns/E_matched_flatness`, `F_side_existence`), and in Lean (`L1.matchedExistence`) |
 | 3 | A ball Record plus Stage C excludes quartet edges in its ball; S₆ is a zero-dimensional Record | Lemmas 3.1 and 3.2 proved on paper ([`STAGEC.md`](proof/atlas/STAGEC.md), [`RIGOUR.md`](proof/atlas/RIGOUR.md)) and **in Lean** |
 | 4 | A finite atlas with certified boundary transfers covers X | 12,021 Records, certified by `certify.py` (Arb) and by an independent Julia implementation (intervals); Lemma 4.1 and the open–closed argument proved in Lean |
 
 **Lean.** [`lean/NoFourMUBs/MainTheorem.lean`](lean/NoFourMUBs/MainTheorem.lean) proves `¬ FourMUBs`, using only `propext`, `Classical.choice` and `Quot.sound`. It takes one bundled finite certificate, `AtlasCertificate`, together with Step 2 in one of two forms:
 - the connectedness of X;
-- matched existence (L1, now certified) and density (D, the PR-M point).
+- density (D, the PR-M point), with matched existence (L1) proved in Lean: `no_four_mubs_of_density` in [`lean/NoFourMUBs/Complete.lean`](lean/NoFourMUBs/Complete.lean).
 
 ## Replaying
 
@@ -22,6 +22,7 @@ pip install -r requirements.txt     # numpy, scipy, sympy, mpmath, python-flint
 python3 verify.py                   # ~3 min: Step 1 certificates, Steps 1-2 replays, matched existence, MC1-MC5, S6, Stage C sample
 python3 verify.py --atlas -j 9      # ~50 min on 9 cores: certify all 12,021 Records, F6 and the anchor H0
 python3 verify.py --lean            # build the Lean formalisation and audit the axioms of its main theorems
+python3 verify.py --lean-full       # also build L1 in Lean (its kernel checks take about an hour)
 ```
 
 The independent checker replays separately: see [`proof/independent/README.md`](proof/independent/README.md).

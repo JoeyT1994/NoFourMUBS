@@ -84,7 +84,7 @@ Details: [`proof/coverage/returns/A_deltoid/CONNECTEDNESS.md`](proof/coverage/re
   - The change of coordinates W = V̄ΔB̄ᵀ is invertible, and its first row and column vanish, so flatness reduces to four weighted third-moment defects.
   - Their eight coefficients vanish identically in ℚ(a, b, c, d), with integer cofactors. The fourth-moment identities proposed earlier are also certified, as an independent second proof.
 
-This is `MatchedExistence` (L1) of the Lean route, now proved by certified computation (Lean port pending). It removes [CT] from MC4's matched half. Step 2 still uses [CT] through MC1 and MC5.
+This is `MatchedExistence` (L1) of the Lean route, now proved by certified computation and in Lean (`L1.matchedExistence`, kernel-checked from the certificates). It removes [CT] from MC4's matched half. Step 2 still uses [CT] through MC1 and MC5.
 
 **Corollary (coverage).** Let 𝓡 be a finite family of closed Records (Step 3), and let 𝓡̂ be its closure under Γ = {id, conjugation, transposition, conjugate-transpose}. Γ maps a Record ball to a Record ball of the same radius and preserves quartet edges. Let W be the set of classes of Hadamards in ⋃𝓡̂. Suppose:
 1. W contains a non-Tao class;

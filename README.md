@@ -13,9 +13,9 @@
 | 3 | A ball Record plus Stage C excludes every quartet edge in the ball | lemmas proved in Lean; certificate per Record |
 | 4 | A finite atlas of 12,021 ball Records, whose boundaries transfer into one another, covers the quotient | certified computation, confirmed by two independent checkers |
 
-**Lean.** `lean/NoFourMUBs/MainTheorem.lean` proves the theorem, using only the standard axioms. Its hypotheses are the finite atlas certificate and Step 2.
+**Lean.** `lean/NoFourMUBs/MainTheorem.lean` proves the theorem, using only the standard axioms. Its hypotheses are the finite atlas certificate and Step 2. Matched existence (L1) is proved in Lean, so Step 2 enters only as density (D): `no_four_mubs_of_density` in `lean/NoFourMUBs/Complete.lean`.
 
-**Status of Step 2.** It is proved relative to [CT], through five reconstruction facts MC1–MC5. One of them rests on a matching statement (PR-M) whose supplied justification is incomplete; no counterexample is known. Matched existence, the matched half of MC4, is now proved without [CT]. See the trust boundary in [`PROOF.md`](PROOF.md).
+**Status of Step 2.** It is proved relative to [CT], through five reconstruction facts MC1–MC5. One of them rests on a matching statement (PR-M) whose supplied justification is incomplete; no counterexample is known. Matched existence, the matched half of MC4, is now proved without [CT], also in Lean. See the trust boundary in [`PROOF.md`](PROOF.md).
 
 ## Layout
 
@@ -39,6 +39,7 @@ pip install -r requirements.txt
 python3 verify.py            # all exact replays: Steps 1-2, matched existence, MC1-MC5, S6, Stage C sample (~3 min)
 python3 verify.py --atlas    # also certify all 12,021 Records, F6 and the anchor (about 50 min on 9 cores)
 python3 verify.py --lean     # also build the Lean formalisation and audit its axioms
+python3 verify.py --lean-full  # also build L1 in Lean (about an hour of kernel checks)
 ```
 
 ## References

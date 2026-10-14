@@ -225,4 +225,37 @@ theorem exists_side_gram {s t r ζ : ℂ} (hR : 0 < gR s t r) (hdet : 0 ≤ 27 -
     linear_combination β * conj α * this + r * hββ + r * β * conj β * hαα
   · rw [TS_rot hα hβ]; exact hT
 
+theorem P_rot {α β : ℂ} (hα : Complex.normSq α = 1) (hβ : Complex.normSq β = 1) (s t r : ℂ) :
+    P0 (conj α * s) (conj β * t) (α * conj β * r) = conj α * conj β * P0 s t r ∧
+    P1 (conj α * s) (conj β * t) (α * conj β * r) = α ^ 2 * conj β * P1 s t r ∧
+    P2 (conj α * s) (conj β * t) (α * conj β * r) = conj α * β ^ 2 * P2 s t r := by
+  have ha := conj_eq_inv hα
+  have hb := conj_eq_inv hβ
+  have a0 := ne_zero_of_normSq hα
+  have b0 := ne_zero_of_normSq hβ
+  have hn : ∀ z : ℂ, Complex.normSq z = 1 → Complex.normSq (conj z) = 1 := fun z h => by
+    rwa [Complex.normSq_conj]
+  refine ⟨?_, ?_, ?_⟩ <;>
+    simp only [P0, P1, P2, map_mul, Complex.conj_conj, Complex.normSq_mul, Complex.normSq_conj, hα, hβ,
+      one_mul] <;> simp only [ha, hb] <;> field_simp <;> ring
+
+/-- `R > 0` (with `det (6 I − G) ≥ 0`) makes `P₀, P₁, P₂` nonzero. -/
+theorem P_ne_gram {s t r : ℂ} (hR : 0 < gR s t r) (hdet : 0 ≤ 27 - 3 * gPs s t r - gJ s t r) :
+    P0 s t r ≠ 0 ∧ P1 s t r ≠ 0 ∧ P2 s t r ≠ 0 := by
+  obtain ⟨hη, -, -, -⟩ := domain hR hdet
+  obtain ⟨α, hα, hαs⟩ := phase_exists s
+  obtain ⟨β, hβ, hβt⟩ := phase_exists t
+  obtain ⟨hGi, hEi, hCi⟩ := rot_invariants hα hβ s t r
+  let D : SideInput := ⟨conj α * s, conj β * t, α * conj β * r, 0, gG s t r, gEta s t r, gChi s t r⟩
+  obtain ⟨eg, eη, eχ⟩ := SideInput.eval_inv (D := D) hαs hβt
+  rw [hGi] at eg; rw [hEi] at eη; rw [hCi] at eχ
+  obtain ⟨n0, n1, n2⟩ := SideInput.norms (D := D) hαs hβt eg eη eχ
+  obtain ⟨r0, r1, r2⟩ := P_rot hα hβ s t r
+  have a0 := ne_zero_of_normSq hα
+  have b0 := ne_zero_of_normSq hβ
+  refine ⟨fun h => ne_of_norm hη hR n0 ?_, fun h => ne_of_norm hη hR n1 ?_, fun h => ne_of_norm hη hR n2 ?_⟩
+  · change P0 _ _ _ = 0; rw [r0, h, mul_zero]
+  · change P1 _ _ _ = 0; rw [r1, h, mul_zero]
+  · change P2 _ _ _ = 0; rw [r2, h, mul_zero]
+
 end NoFourMUBs.L1
