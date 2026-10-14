@@ -15,7 +15,7 @@
 
 **Lean.** `lean/NoFourMUBs/MainTheorem.lean` proves the theorem, using only the standard axioms. Its hypotheses are the finite atlas certificate and Step 2. Matched existence (L1) is proved in Lean, so Step 2 enters only as density (D): `no_four_mubs_of_density` in `lean/NoFourMUBs/Complete.lean`.
 
-**Status of Step 2.** It is proved relative to [CT], through five reconstruction facts MC1–MC5. One of them rests on a matching statement (PR-M) whose supplied justification is incomplete; no counterexample is known. Matched existence, the matched half of MC4, is now proved without [CT], also in Lean. See the trust boundary in [`PROOF.md`](PROOF.md).
+**Status of Step 2.** It is now proved without the classification [CT]. Matched existence (L1) and uniqueness (L2) are proved in Lean. Exact reach, which includes the minus-matching statement PR-M, is proved on paper with exact certificates in [`proof/coverage/returns/G_prm`](proof/coverage/returns/G_prm/PRM.md); its new geometric argument awaits independent review. See the trust boundary in [`PROOF.md`](PROOF.md).
 
 ## Layout
 

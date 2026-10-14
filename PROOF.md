@@ -64,9 +64,11 @@ So both traces cannot be interior, and the old interior sextic, resultant and St
 
 **Certificates.** 651 exact claims, checked with integers and rationals only, in 7 s (`lean/Step1Gen`, `verify_certificates.py`; proof documents in `proof/coverage/returns/C_step1_saddle`). All of Step 1 is proved in Lean, using only standard axioms: the 216 certificate theorems of library `Step1` and the analytic assembly in `lean/NoFourMUBs/Step1/`. Theorem 1 is `Step1Geo.maximumCensus`, with the explicit anchors `Step1Geo.anchors`. The earlier resultant/Sturm proofs A and B (`returns/A_deltoid`, `returns/B_exact_quotient`) remain as independent cross-checks. Proof B also shows why no interval box cover could work here: at the F3 seed, R, ∇R and Hess R all vanish, with strict seeds arbitrarily close.
 
-## Step 2. X is connected (relative to the classification)
+## Step 2. X is connected
 
-> **Theorem 2.** Assume MC1–MC5. Then X is connected. (S₆ is isolated by Remark 3.3.)
+> **Theorem 2.** X is connected. (S₆ is isolated by Remark 3.3.)
+
+The proof below uses MC1–MC5, and so [CT], at step 4. The route without the classification follows it, after matched existence.
 
 **Proof.**
 1. **Sheet parity.** Let L be a seed symmetry with transposition bit τ and conjugation bit κ. Then [H_σ(Lθ)] = 𝒞^κ 𝒯^τ [H_{(−1)^{τ+κ}σ}(θ)]. The maximal seed E(x) = [[1,1,1],[1,x,x²],[1,x⁻¹,x⁻²]] has two exact frame symmetries. Together these give H₊(Lθ*) ≅ K* for all 144 maps L: a single class.
@@ -84,7 +86,18 @@ Details: [`proof/coverage/returns/A_deltoid/CONNECTEDNESS.md`](proof/coverage/re
   - The change of coordinates W = V̄ΔB̄ᵀ is invertible, and its first row and column vanish, so flatness reduces to four weighted third-moment defects.
   - Their eight coefficients vanish identically in ℚ(a, b, c, d), with integer cofactors. The fourth-moment identities proposed earlier are also certified, as an independent second proof.
 
-This is `MatchedExistence` (L1) of the Lean route, now proved by certified computation and in Lean (`L1.matchedExistence`, kernel-checked from the certificates). It removes [CT] from MC4's matched half. Step 2 still uses [CT] through MC1 and MC5.
+This is `MatchedExistence` (L1) of the Lean route, now proved by certified computation and in Lean (`L1.matchedExistence`, kernel-checked from the certificates). It removes [CT] from MC4's matched half.
+
+**Step 2 without the classification** ([`returns/G_prm`](proof/coverage/returns/G_prm/PRM.md), 14 Oct; its new geometric argument awaits independent review).
+- *Theorem A (strict nonmatched converse).* If a Hadamard has a strict corner (R > 0) whose two sides are not matched, it is Tao.
+  - Compare it with the matched completion of the same top three rows, which exists by L1 for any horizontal side.
+  - Strict side fibres are finite, so the two sets of bottom rows are orthonormal bases of the same 3-space with no common ray.
+  - A dimension count then gives a real diagonal D_w ≠ 0 with P D_w P = 0, where P projects onto that 3-space. The complementary projection Q satisfies |P_jk| = |Q_jk|, which splits the six columns into two orthogonal triples, so the matrix has a 3×3 Hadamard block.
+  - An elementary Fourier normal form and an exact census of 81 cases, together with 400 whole-family Laurent identities showing that the Fourier families are matched at every corner, leave only Tao.
+- *Theorem B (PR-M on the guarded locus).* This follows from A through the exact identity ω_n = −δ_p²R/|f₆|², and because no Tao frame is product regular.
+- *Theorem C (exact reach).* With the critical-strip results of `MinimalConstruction/Proofs` (critical-strip classification, endpoint exclusions, the sum rule over a fixed row triple, and the Fourier critical locus), which use no [CT] input, every non-Tao class is [F6], or [H₊(θ)] or [conj H₊(θ)] for a strict θ. This is the `MatchedExactReach` statement of the Lean route.
+
+With L1 and L2, the matched class map θ ↦ [H₊(θ)] is continuous. Steps 3 and 5 of the proof of Theorem 2 then give X = A ∪ conj A ∪ {[F6]} connected, with no appeal to MC1–MC5 or [CT].
 
 **Corollary (coverage).** Let 𝓡 be a finite family of closed Records (Step 3), and let 𝓡̂ be its closure under Γ = {id, conjugation, transposition, conjugate-transpose}. Γ maps a Record ball to a Record ball of the same radius and preserves quartet edges. Let W be the set of classes of Hadamards in ⋃𝓡̂. Suppose:
 1. W contains a non-Tao class;
@@ -161,7 +174,8 @@ By Step 4 and the Corollary to Step 2, every class in X lies in some ball Record
 
 | Input | Used in | Status |
 |---|---|---|
-| The classification [CT], via MC1–MC5 | Step 2 only | Proved relative to [CT] in [`MinimalConstruction/Proofs`](MinimalConstruction/Proofs/README.md); [CT]'s exceptional Karlsson class H_cross is covered (MC1). **Open point:** MC4's nonmatched converse (`NONMATCHED_EXCEPTIONS.md`) imports [CT]'s *necessary* affine-minus matching (PR-M). [CT]'s supplement proves only that the plus residual F₊ is not identically zero, not that it is nonzero at every physical product-regular point. So MC4–MC5, and hence Step 2, rest on PR-M; no counterexample is known. **Matched existence** (MC4's matched half, L1) is proved without [CT] (Step 2) |
+| Step 2 without [CT]: matched existence (L1), matched uniqueness (L2), exact reach (return G) | Step 2 | L1 and L2 are proved in Lean. Exact reach is proved on paper with exact certificates ([`returns/G_prm`](proof/coverage/returns/G_prm/PRM.md)), relative to L1 and to the [CT]-free critical-strip proofs in `MinimalConstruction/Proofs`. **Its new geometric argument (§§2–5) awaits independent review.** A floating-point stress test found every one of 8.0M strict corners of 20,016 completions matched, while Tao's strict corners are all nonmatched. The Lean port of exact reach (input `MatchedDensityReach`) is pending |
+| The classification [CT], via MC1–MC5 | Step 2, earlier route | Superseded by the row above. Proved relative to [CT] in [`MinimalConstruction/Proofs`](MinimalConstruction/Proofs/README.md). That route imported [CT]'s necessary affine-minus matching (PR-M), whose supplied proof showed only F₊ ≢ 0. Return G's Theorem B now proves PR-M on the guarded locus with ω_n < 0 |
 | The Stage C inequalities (after [OAI] §6) | Step 3 | Proved in [`proof/atlas/STAGEC.md`](proof/atlas/STAGEC.md) by elementary Taylor and Cauchy–Schwarz bounds, and in Lean |
 | Computation | Steps 1 and 4 | Exact (Step 1, also kernel-checked in Lean); Arb plus margined binary64 (Steps 3–4), confirmed by an independent Julia implementation |
 
@@ -169,7 +183,7 @@ By Step 4 and the Corollary to Step 2, every class in X lies in some ball Record
 
 ```bash
 pip install -r requirements.txt
-python3 verify.py            # exact replays: Steps 1-2, matched existence, MC1-MC5, S6, Stage C Arb sample
+python3 verify.py            # exact replays: Steps 1-2, matched existence, PR-M and exact reach, MC1-MC5, S6, Stage C Arb sample
 python3 verify.py --atlas    # also certify all 12,021 Records, F6 and the anchor (about 50 min on 9 cores)
 python3 verify.py --lean     # also build the Lean formalisation and audit its axioms
 ```

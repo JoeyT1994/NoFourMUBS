@@ -30,9 +30,9 @@ All three use only `propext`, `Classical.choice` and `Quot.sound`.
 | Hypothesis | Status |
 |---|---|
 | `AtlasCertificate` | Finite certificate, checked by `certify.py`, `nonempty.py`, `anchor.py` and the independent Julia checker (`proof/atlas/results/RECEIPT.md`) |
-| `NonTaoPreconnected` | `PROOF.md` Theorem 2, proved relative to [CT] via MC1–MC5; open point PR-M |
+| `NonTaoPreconnected` | `PROOF.md` Theorem 2: without [CT] via L1, L2 and return G's exact reach; earlier, relative to [CT] via MC1–MC5 |
 | `MatchedExistence` (L1) | **Proved in Lean**: `L1.matchedExistence` (`L1/Existence.lean`), from the certificates `proof/coverage/returns/F_side_existence` and `E_matched_flatness`, re-checked by the kernel |
-| `MatchedDensityReach` (D) | Open point (PR-M) |
+| `MatchedDensityReach` (D) | Proved on paper as `MatchedExactReach` (`proof/coverage/returns/G_prm`, Theorem C); Lean port pending |
 
 ## Modules
 
@@ -62,4 +62,4 @@ All three use only `propext`, `Classical.choice` and `Quot.sound`.
 | `L1/FlatCheckMh` | 36 entries of `K Qh K*` | about 3 min | 9 GB |
 | `L1/FlatCheckQv`, `FlatCheckTable` | 36 vertical moments, 10 table identities | under 1 min | 6 GB |
 
-**Next.** The open Lean work is Step 2 density (D), which awaits the PR-M result.
+**Next.** The open Lean work is Step 2 density (D): port return G's exact reach (`proof/coverage/returns/G_prm/PRM.md`, Theorems A and C) together with the critical-strip proofs it imports.
