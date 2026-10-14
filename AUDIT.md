@@ -13,7 +13,7 @@ Start with [`PROOF.md`](PROOF.md) or the typeset [`proof/note/no_four_mubs.pdf`]
 
 **Lean.** [`lean/NoFourMUBs/MainTheorem.lean`](lean/NoFourMUBs/MainTheorem.lean) proves `¬ FourMUBs`, using only `propext`, `Classical.choice` and `Quot.sound`. It takes one bundled finite certificate, `AtlasCertificate`, together with Step 2 in one of two forms:
 - the connectedness of X;
-- density (D), with matched existence (L1) proved in Lean: `no_four_mubs_of_density` in [`lean/NoFourMUBs/Complete.lean`](lean/NoFourMUBs/Complete.lean). (D) follows from return G's exact reach, which is proved on paper; its Lean port is pending.
+- density (D), with matched existence (L1) proved in Lean: `no_four_mubs_of_density` in [`lean/NoFourMUBs/Complete.lean`](lean/NoFourMUBs/Complete.lean). (D) follows from return G's exact reach. In Lean, Theorem A and the step from strict-corner coverage (MC1) to (D) are proved (`no_four_mubs_of_coverage`); MC1 itself is proved on paper and its Lean port is pending.
 
 ## Replaying
 
