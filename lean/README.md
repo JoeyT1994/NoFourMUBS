@@ -31,14 +31,21 @@ It also proves the main theorem from the certificate and strict-corner coverage 
 theorem no_four_mubs_of_coverage (C : AtlasCertificate) (hcov : PRM.StrictCornerCoverage) : ¬ FourMUBs
 ```
 
-All four use only `propext`, `Classical.choice` and `Quot.sound`.
+[`NoFourMUBs/Final.lean`](NoFourMUBs/Final.lean) proves coverage (`PRM.strictCornerCoverage`), which leaves the atlas certificate as the only hypothesis:
+
+```lean
+theorem Final.no_four_mubs (C : AtlasCertificate) : ¬ FourMUBs
+```
+
+All five use only `propext`, `Classical.choice` and `Quot.sound`.
 
 | Hypothesis | Status |
 |---|---|
 | `AtlasCertificate` | Finite certificate, checked by `certify.py`, `nonempty.py`, `anchor.py` and the independent Julia checker (`proof/atlas/results/RECEIPT.md`) |
 | `NonTaoPreconnected` | `PROOF.md` Theorem 2: without [CT] via L1, L2 and return G's exact reach; earlier, relative to [CT] via MC1–MC5 |
 | `MatchedExistence` (L1) | **Proved in Lean**: `L1.matchedExistence` (`L1/Existence.lean`), from the certificates `proof/coverage/returns/F_side_existence` and `E_matched_flatness`, re-checked by the kernel |
-| `MatchedDensityReach` (D) | **Proved in Lean from strict-corner coverage** (`PRM.densityReach`, via return G's Theorem A, `PRM.nonmatched_tao`). Coverage itself (MC1, `PRM.StrictCornerCoverage`) is proved on paper; its Lean port is pending |
+| `MatchedDensityReach` (D) | **Proved in Lean from strict-corner coverage** (`PRM.densityReach`, via return G's Theorem A, `PRM.nonmatched_tao`) |
+| `StrictCornerCoverage` (MC1) | **Proved in Lean**: `PRM.strictCornerCoverage` (`Final.lean`), from the critical strip classification I4 (`PRM/CoverageStripParts`, with the sign certificate and pole classification in `PRM/CoverageQuartic` and the two square-sum identities in `PRM/CoverageStripId*`), the endpoint exclusions I5 (`PRM/CoverageEndpoints`) and the routing and ten-corner count (`PRM/CoverageMain`) |
 
 ## Modules
 
@@ -53,10 +60,10 @@ All four use only `propext`, `Classical.choice` and `Quot.sound`.
 | `Step2/` | Step 2 topology (`Statements`, `TopologyCore`, `QuotientTopology`); matched uniqueness (`SideAlg`, `SidePerm`, `MatchedUnique`); anchor transport and the explicit anchor `BaseAnchor`; coverage from connectedness and F6 ≠ Tao (`Connected`); the dense reduction of L1 (`DenseExistence`) |
 | `Identity/` | A verified checker for large polynomial identities: a circuit with bounded degrees and coefficients vanishing at one Kronecker point is the zero polynomial (`Kronecker`), evaluated with sparse outer variables (`Sparse`, and the faster recursor form `Fast`), over a factor table of denominators with one quadratic element (`Frac`) |
 | `L1/` | Matched existence. Side existence (certificate F): the side identities as circuits (`SideInput`, `SideCircuits`), their kernel checks (`SideCheck*`), the rotation bridge and `exists_side_gram` (`SideBridge`, `SideIdentities`, `SideExistence`, `SideConstruction*`) and the side formulas (`SideFormulas`). Matched flatness (certificate E): the weighted-defect criterion `flat_of_W` (`FlatMatrix`), the reduced data and circuits (`FlatData`, `FlatCircuitsBase`, `FlatCircuits`), their kernel checks (`FlatCheck*`) and the bridge `W_zero` (`FlatBridge`). The assembly is `Existence` |
-| `PRM/` | Return G (`proof/coverage/returns/G_prm`). An actual side's signature is a root of its Gram quadratic, R = 4 (Im T)² (`SideRoot`). Sides on the two roots share no column (`SharedColumn`). A strict strip has no proportional columns (`StrictStrip`). The projector argument gives an orthogonal column triple (`Projector`). A 3×3 Hadamard block gives Tao or all corners matched (`FourierBlock`, using upstream's Fourier normalisation and cubic census; the Fourier families are matched at all corners by 200 kernel-checked identities, `FourierMatch`). Theorem A is `Converse`; exact reach and density from coverage are in `Reach` |
-| `MainTheorem`, `Complete`, `Axioms`, `AxiomsComplete` | The main theorem, and with L1 discharged; the axiom audits read by `check_axioms.py` |
+| `PRM/` | Return G (`proof/coverage/returns/G_prm`). An actual side's signature is a root of its Gram quadratic, R = 4 (Im T)² (`SideRoot`). Sides on the two roots share no column (`SharedColumn`). A strict strip has no proportional columns (`StrictStrip`). The projector argument gives an orthogonal column triple (`Projector`). A 3×3 Hadamard block gives Tao or all corners matched (`FourierBlock`, using upstream's Fourier normalisation and cubic census; the Fourier families are matched at all corners by 200 kernel-checked identities, `FourierMatch`). Theorem A is `Converse`; exact reach and density from coverage are in `Reach`. Strict-corner coverage (MC1, `MinimalConstruction/Proofs/STRICT_CORNER_COVERAGE.md`): the routing, Fourier critical locus, block lemma and ten-corner count (`CoverageMain` and its imports); the critical strip classification I4 (`CoverageStrip*`), with its sign certificate and pole classification (`CoverageQuartic*`) and the zero-J and nonzero-J square-sum identities (`CoverageStripId*`, status in `generators/stripid/STATUS.md`); the endpoint exclusions I5 (`CoverageEndpoints`, `CoverageEnd*`) |
+| `MainTheorem`, `Complete`, `Final`, `Axioms`, `AxiomsComplete` | The main theorem, with L1 discharged, and with coverage discharged (`Final.no_four_mubs`); the axiom audits read by `check_axioms.py` |
 
-`generators/base_anchor/` regenerates `Step2/BaseAnchor.lean`, and `generators/flatness/` regenerates `L1/FlatData.lean` (`generate.py`, using E's exact rational helper) and the check modules `L1/FlatCheck{Mh,Qv,F*}.lean` (`checks.py`). The kernel re-checks every identity, so the generators are untrusted.
+`generators/base_anchor/` regenerates `Step2/BaseAnchor.lean`, and `generators/flatness/` regenerates `L1/FlatData.lean` (`generate.py`, using E's exact rational helper) and the check modules `L1/FlatCheck{Mh,Qv,F*}.lean` (`checks.py`). `generators/strip/` and `generators/stripid/` produce the data and check modules of I4. The kernel re-checks every identity, so the generators are untrusted.
 
 **Build cost of L1.** `NoFourMUBs.Complete` is not imported by the library root, so `lake build` stays light. Its kernel checks, measured on a 10-core Apple laptop:
 
@@ -69,4 +76,6 @@ All four use only `propext`, `Classical.choice` and `Quot.sound`.
 | `L1/FlatCheckMh` | 36 entries of `K Qh K*` | about 3 min | 9 GB |
 | `L1/FlatCheckQv`, `FlatCheckTable` | 36 vertical moments, 10 table identities | under 1 min | 6 GB |
 
-**Next.** The open Lean work is strict-corner coverage (MC1, `PRM.StrictCornerCoverage`): the critical-strip classification and the Fourier routing it uses (`MinimalConstruction/Proofs/STRICT_CORNER_COVERAGE.md`, `PRM.md` §7). It is packaged as a Lean handoff.
+**Build cost of `Final`.** `NoFourMUBs.Final` is not imported by the library root either. Its square-sum data modules are slow to elaborate: `CoverageStripIdNonzeroDataN` about 9 min, `DataQ` about 16 min and `DataP1` about 8 min, each at 7–9 GB (including about 6 GB of Mathlib). Build them one module at a time; the order is in `generators/stripid/STATUS.md`. `check_axioms.py --full` builds both `Complete` and `Final`.
+
+**Next.** Every hypothesis except `AtlasCertificate` is now proved. The open Lean work is checking the atlas numbers in the kernel: the feasibility prototype for Record 100's bin cover (`proof/atlas/KERNEL_FEASIBILITY.md`), and the tangent test (`proof/atlas/KERNEL_TANGENT.md`; `NoFourMUBs/KernelAtlas/Tangent.lean` does not compile yet and is not in the default build). Route 2 (`proof/atlas/route2/`) aims to shrink the atlas first.

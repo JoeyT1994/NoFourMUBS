@@ -88,13 +88,13 @@ Details: [`proof/coverage/returns/A_deltoid/CONNECTEDNESS.md`](proof/coverage/re
 
 This is `MatchedExistence` (L1) of the Lean route, now proved by certified computation and in Lean (`L1.matchedExistence`, kernel-checked from the certificates). It removes [CT] from MC4's matched half.
 
-**Step 2 without the classification** ([`returns/G_prm`](proof/coverage/returns/G_prm/PRM.md), 14 Oct; its new geometric argument awaits independent review).
+**Step 2 without the classification** ([`returns/G_prm`](proof/coverage/returns/G_prm/PRM.md), 14 Oct; independently audited with no errors found, [`audits/AUDIT_2026-10-15.md`](proof/coverage/audits/AUDIT_2026-10-15.md); proved in Lean).
 - *Theorem A (strict nonmatched converse).* If a Hadamard has a strict corner (R > 0) whose two sides are not matched, it is Tao.
   - Compare it with the matched completion of the same top three rows, which exists by L1 for any horizontal side.
   - Strict side fibres are finite, so the two sets of bottom rows are orthonormal bases of the same 3-space with no common ray.
   - A dimension count then gives a real diagonal D_w ≠ 0 with P D_w P = 0, where P projects onto that 3-space. The complementary projection Q satisfies |P_jk| = |Q_jk|, which splits the six columns into two orthogonal triples, so the matrix has a 3×3 Hadamard block.
   - An elementary Fourier normal form and an exact census of 81 cases, together with 400 whole-family Laurent identities showing that the Fourier families are matched at every corner, leave only Tao.
-- *Theorem B (PR-M on the guarded locus).* This follows from A through the exact identity ω_n = −δ_p²R/|f₆|², and because no Tao frame is product regular.
+- *Theorem B (PR-M on the guarded locus).* This follows from A through the exact identity ω_n = −δ_p²R/|f₆|², and because no Tao frame is product regular. Theorem B is not on the critical path: neither this proof nor the Lean development uses it ([`audits/AUDIT_THEOREM_B_2026-10-15.md`](proof/coverage/audits/AUDIT_THEOREM_B_2026-10-15.md)).
 - *Theorem C (exact reach).* With the critical-strip results of `MinimalConstruction/Proofs` (critical-strip classification, endpoint exclusions, the sum rule over a fixed row triple, and the Fourier critical locus), which use no [CT] input, every non-Tao class is [F6], or [H₊(θ)] or [conj H₊(θ)] for a strict θ. This is the `MatchedExactReach` statement of the Lean route.
 
 With L1 and L2, the matched class map θ ↦ [H₊(θ)] is continuous. Steps 3 and 5 of the proof of Theorem 2 then give X = A ∪ conj A ∪ {[F6]} connected, with no appeal to [CT]. On this route the reconstruction stays the backbone. H₊(θ) is the object: L1 certifies its side recipe (MC2–MC3, `SIDE_FIBER.md`) and its forced block. MC1 is rederived from the dossier's own critical-strip proofs, with only the Fourier normal form of `FOURIER_ROUTING.md` reproved. MC4's nonmatched converse and MC5 are replaced by Theorem A and exact reach.
@@ -174,10 +174,12 @@ By Step 4 and the Corollary to Step 2, every class in X lies in some ball Record
 
 | Input | Used in | Status |
 |---|---|---|
-| Step 2 without [CT]: matched existence (L1), matched uniqueness (L2), exact reach (return G) | Step 2 | L1 and L2 are proved in Lean. Exact reach is proved on paper with exact certificates ([`returns/G_prm`](proof/coverage/returns/G_prm/PRM.md)), relative to L1 and to the [CT]-free critical-strip proofs in `MinimalConstruction/Proofs`. **Its new geometric argument (§§2–5) awaits independent review.** A floating-point stress test found every one of 8.0M strict corners of 20,016 completions matched, while Tao's strict corners are all nonmatched. In Lean, Theorem A and the deduction of density from coverage are proved (`PRM.nonmatched_tao`, `PRM.densityReach`, `no_four_mubs_of_coverage`); the Lean port of coverage (MC1) is pending |
+| Step 2 without [CT]: matched existence (L1), matched uniqueness (L2), exact reach (return G) | Step 2 | **Proved in Lean.** L1 and L2; Theorem A and the deduction of density from coverage (`PRM.nonmatched_tao`, `PRM.densityReach`, `no_four_mubs_of_coverage`); and strict-corner coverage (MC1, `PRM.strictCornerCoverage`), from the [CT]-free critical-strip proofs in `MinimalConstruction/Proofs`, with the kernel re-checking the sign certificate and both square-sum identities. On paper, exact reach is proved with exact certificates ([`returns/G_prm`](proof/coverage/returns/G_prm/PRM.md)). An independent audit of Theorem A, exact reach and coverage found no errors ([`audits/AUDIT_2026-10-15.md`](proof/coverage/audits/AUDIT_2026-10-15.md)). A floating-point stress test found every one of 8.0M strict corners of 20,016 completions matched, while Tao's strict corners are all nonmatched |
 | The classification [CT], via MC1–MC5 | Step 2, earlier route | Superseded by the row above, which keeps the reconstruction (H₊(θ), its side recipe, and MC1 by the dossier's critical-strip proofs) and drops only its [CT] imports. Proved relative to [CT] in [`MinimalConstruction/Proofs`](MinimalConstruction/Proofs/README.md). That route imported [CT]'s necessary affine-minus matching (PR-M), whose supplied proof showed only F₊ ≢ 0. Return G's Theorem B now proves PR-M on the guarded locus with ω_n < 0 |
 | The Stage C inequalities (after [OAI] §6) | Step 3 | Proved in [`proof/atlas/STAGEC.md`](proof/atlas/STAGEC.md) by elementary Taylor and Cauchy–Schwarz bounds, and in Lean |
-| Computation | Steps 1 and 4 | Exact (Step 1, also kernel-checked in Lean); Arb plus margined binary64 (Steps 3–4), confirmed by an independent Julia implementation |
+| Computation | Steps 1 and 4 | Exact (Step 1, also kernel-checked in Lean); Arb plus margined binary64 (Steps 3–4), confirmed by an independent Julia implementation. **The atlas numbers are the only ingredient checked outside Lean** (plans for a kernel check: `proof/atlas/KERNEL_FEASIBILITY.md`, `KERNEL_TANGENT.md`) |
+
+**In Lean**, the whole argument is `NoFourMUBs.Final.no_four_mubs (C : AtlasCertificate) : ¬ FourMUBs` ([`lean/NoFourMUBs/Final.lean`](lean/NoFourMUBs/Final.lean)), using only `propext`, `Classical.choice` and `Quot.sound`. Its one input is the finite certificate of Step 4.
 
 ## Verifying
 
@@ -186,6 +188,7 @@ pip install -r requirements.txt
 python3 verify.py            # exact replays: Steps 1-2, matched existence, PR-M and exact reach, MC1-MC5, S6, Stage C Arb sample
 python3 verify.py --atlas    # also certify all 12,021 Records, F6 and the anchor (about 50 min on 9 cores)
 python3 verify.py --lean     # also build the Lean formalisation and audit its axioms
+python3 verify.py --lean-full  # also build L1 and NoFourMUBs.Final (hours on a first build)
 ```
 
 ## History

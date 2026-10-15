@@ -4,7 +4,7 @@
                                     flatness), PR-M and exact reach, MC1-MC5, sheet lemmas, S6 as a zero-dimensional Record, Stage C Arb sample
   python3 verify.py --atlas [-j N]  additionally certify every Record of the atlas (Step 4), F6 and the anchor H0
   python3 verify.py --lean          additionally build the Lean formalisation and audit its axioms
-  python3 verify.py --lean-full     as --lean, and also build matched existence (L1) in Lean (about an hour)
+  python3 verify.py --lean-full     as --lean, and also build matched existence (L1) and NoFourMUBs.Final in Lean (hours on a first build)
 """
 import argparse, os, subprocess, sys, time
 from concurrent.futures import ThreadPoolExecutor
@@ -44,7 +44,7 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('--atlas', action='store_true', help='certify the full atlas (Step 4)')
     ap.add_argument('--lean', action='store_true', help='build the Lean formalisation and audit axioms')
-    ap.add_argument('--lean-full', action='store_true', help='as --lean, including L1 (about an hour)')
+    ap.add_argument('--lean-full', action='store_true', help='as --lean, including L1 and NoFourMUBs.Final (hours on a first build)')
     ap.add_argument('-j', '--jobs', type=int, default=4)
     ap.add_argument('--log-dir', type=Path, default=None)
     a = ap.parse_args()
