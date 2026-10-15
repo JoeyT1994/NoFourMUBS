@@ -1,6 +1,6 @@
 # Steps 1 and 2: the maxima of R, and connectedness
 
-Seven returned handoffs prove or audit Steps 1 and 2. Each is kept with its proofs and verifiers; the original zips' SHA-256 hashes are in `returns/SOURCE_ZIPS.sha256`. Every acceptance decision is exact: polynomial identities, Bernstein and Sturm certificates, and rational interval signs.
+Seven returned handoffs prove or audit Steps 1 and 2; an eighth (H) proves a single-matrix theorem used by the draft paper. Each is kept with its proofs and verifiers; the original zips' SHA-256 hashes are in `returns/SOURCE_ZIPS.sha256`. Every acceptance decision is exact: polynomial identities, Bernstein and Sturm certificates, and rational interval signs.
 
 | Return | Role | Replay |
 |---|---|---|
@@ -11,8 +11,9 @@ Seven returned handoffs prove or audit Steps 1 and 2. Each is kept with its proo
 | [`F_side_existence/`](returns/F_side_existence/SIDE_EXISTENCE.md) | **Matched existence, sides.** At every strict seed, explicit phase sides with the prescribed Gram matrices and signatures, by polynomial identities with integer cofactors | `cd returns/F_side_existence && python3 verify_all.py` (16 s) |
 | [`E_matched_flatness/`](returns/E_matched_flatness/FLATNESS.md) | **Matched existence, flatness.** The forced block of any matched pair of sides is unimodular. Flatness reduces to four weighted third-moment defects, whose eight coefficients vanish identically; the fourth-moment identity (L-id) is certified as a second proof | `cd returns/E_matched_flatness && python3 verify_all.py` (90 s) |
 | [`G_prm/`](returns/G_prm/PRM.md) | **PR-M and exact reach.** A strict corner with nonmatched sides forces a 3×3 Hadamard block, and hence Tao (Theorem A); guarded PR-M follows (Theorem B). With the critical-strip proofs, every non-Tao class is [F6] or a matched class or its conjugate (Theorem C, `MatchedExactReach`). This is a paper proof with exact certificates: an 81-case Fourier census, 400 Laurent identities, product-bridge identities and 729 cubic sides | `cd returns/G_prm && python3 verify_all.py` (2 s) |
+| [`H_fourier_vanishing/`](returns/H_fourier_vanishing/REPORT.md) | **Fourier vanishing (paper input, not used by the main proof).** For every non-Tao order-6 Hadamard H and every row triple I, M_I(H) = (1/6) Σ_j Π_{a∈I} H_aj Π_{d∉I} conj(H_dj) = 0, and likewise for Hᵀ. Theorem A at every strict corner gives Ψ(H[I,J]) = conj Ψ(H[Iᶜ,Jᶜ]) for all 3×3 splits; a 3×3 identity, Jacobi's complementary minors and an exterior-duality lemma turn this into the vanishing, given rank H^[2] ≥ 3, which a strict corner supplies (exact reach). Inputs: `PRM.nonmatched_tao`, `PRM.strictCornerCoverage` (both in Lean) and return E's side identities. Certificate: 180 identities with 2,160 integer cofactors, standard library only | `cd returns/H_fourier_vanishing && python3 verify.py` (1 s) |
 
-`verify.py` runs C, A, B, F, E and G.
+`verify.py` runs C, A, B, F, E and G. H is outside the main proof and is replayed on its own.
 
 ## What is proved
 
