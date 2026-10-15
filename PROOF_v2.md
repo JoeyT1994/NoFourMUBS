@@ -140,6 +140,8 @@ is critical (R = 0) and H ≇ F6.
    p = p* := 9 − 4/(1 + κ²), where κ > 0 solves 3κ³ + κ² + κ − 1 = 0. The proof is a whole-strip square-sum
    identity, exact moment algebra, and Bernstein/Sturm sign certificates. The two endpoints are excluded
    separately (`CRITICAL_P7_EXCLUSION.md`, `CRITICAL_EQUI_CORRELATION_EXCLUSION.md`).
+   The explicit square sum on the nonzero-J stratum is S = −256 k²(3k²+1)³ Q(k, K)/(A₊²A₋²), up to a power of
+   1 + k². Its denominator is verified exactly in `proof/coverage/audits/I4_ADDENDUM.md`.
 3. **Counting.** κ ∈ (1/√5, 1/2), since the cubic is increasing for κ > 0 and changes sign there. Hence
    p* ∈ (17/3, 29/5). Fix one column of a strip. Over the ten corners containing it, Σ p_C = 54. This follows
    from row orthogonality, exactly as Σ over all twenty corners is 108; it is 108/2, because complementary
@@ -261,10 +263,10 @@ uses standard axioms only, and its two inputs are the finite certificate of §5 
 Corollary 1.6 or Theorem 1.5. Every step of Theorem 1.4 was verified, matching the Lean proof, and the 81-case
 census and the 400 corner identities were reproduced. All three versions of the final count of Theorem 1.5 are
 correct, and the ten-corner version is used here. The weakest remaining points, ranked:
-1. the nonzero-J branch of the critical-strip classification, which rests on a large exact identity and a
-   Bernstein/Sturm certificate. Its square-sum S should be stated explicitly; the audit recovered
-   S = −256 k²(3k²+1)³ Q(k, K) / (h⁴ A₊² A₋²);
-2. its pole cases, where the row relabelling implicitly assumes how Pⱼ and cⱼ transform;
+1. the nonzero-J branch of the critical-strip classification. It rests on a large exact identity and a
+   Bernstein/Sturm certificate. Its full rational form, including the denominator, is now stated and verified
+   (`I4_ADDENDUM.md` §1);
+2. its pole cases. The row relabelling is now justified (`I4_ADDENDUM.md` §2);
 3. its zero-J geometric-progression step;
 4. the endpoint exclusions;
 5. the routing lemmas.
