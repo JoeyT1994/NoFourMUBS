@@ -280,11 +280,9 @@ correct, and the ten-corner version is used here. The weakest remaining points, 
 All of these are now proved in Lean (`PRM.strictCornerCoverage`).
 
 **What remains outside Lean: the atlas numbers only.** Every row of the table above is in Lean, except the evaluation of
-the inequalities on the 12,021 concrete Records (§5). The plan for checking them in the Lean kernel is in
-`proof/atlas/KERNEL_FEASIBILITY.md` (prototype: Record 100's bin cover, kernel-checked, standard axioms;
-conditional GO) and `proof/atlas/KERNEL_TANGENT.md` (the tangent-test gate, measured at 1.3 ms and 0.18 MB per
-test against a limit of 10 ms and 1 MB; soundness proof in progress). Route 2 (`proof/atlas/route2/`) aims to shrink the
-atlas first.
+the inequalities on the 12,021 concrete Records (§5), which are checked by Arb and by an independent Julia
+implementation. An experimental project to check them in the Lean kernel is in `kernel_atlas/` (Record 100 is a
+complete kernel-checked Record); it is not part of this proof.
 
 **Theorem B audit (15 Oct, `proof/coverage/audits/AUDIT_THEOREM_B_2026-10-15.md`).** No errors were found. Return G's
 Theorem B is not on the critical path: neither this proof nor the Lean development uses it.

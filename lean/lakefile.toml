@@ -19,3 +19,9 @@ name = "NoFourMUBs"
 [[lean_lib]]
 name = "Step1"
 srcDir = "Step1Gen/lean"
+
+# Experimental, not part of the proof: checking the atlas computations in the Lean kernel (../kernel_atlas/).
+# Not a default target; build modules explicitly, e.g. `lake build KernelAtlas.Rec100.Record`.
+[[lean_lib]]
+name = "KernelAtlas"
+srcDir = "../kernel_atlas/lean"

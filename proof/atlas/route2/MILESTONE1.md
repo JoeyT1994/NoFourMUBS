@@ -351,7 +351,7 @@ realistic **with** cluster certificates. Coverage then still comes from the old 
 boundaries, but Lemma 5.1 applies verbatim with R_t = ρ, since Lemma 4.1 holds up to ρ < σ/L ≈ 0.43.
 
 **Lean cost (rough).** One region is about 252 × (5,000 TM products of 35–70 coefficients) ≈ 10⁸–10⁹ rational
-multiply-adds. At the kernel rates of KERNEL_FEASIBILITY.md that is hours per region, *not* the 1–5 minutes
+multiply-adds. At the kernel rates of `kernel_atlas/docs/KERNEL_FEASIBILITY.md` that is hours per region, *not* the 1–5 minutes
 estimated in §7 there, unless the TM degree drops or certificates ship more precomputed data. This needs a real
 benchmark before any Lean commitment.
 
@@ -405,7 +405,7 @@ benchmark before any Lean commitment.
    - local Lemma 4.1′ on sub-cubes in rigorous form;
    - clusters with `rig=True`.
    Then certify 5–10 Records rigorously at R = 0.08.
-4. Benchmark the operation count per region against KERNEL_FEASIBILITY.md rates before choosing Option A or B
+4. Benchmark the operation count per region against `kernel_atlas/docs/KERNEL_FEASIBILITY.md` rates before choosing Option A or B
    (§10). Reducing the TM degree, for example degree 3 with sub-cubes, may matter more for Lean than for Python.
 5. Write up Lemma 4.1′ and the trilinear Krawczyk and Rouché-cluster lemmas for audit.
 
