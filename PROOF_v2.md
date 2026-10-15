@@ -110,7 +110,9 @@ horizontal signature ζ. Its vertical signature is then ζ as well (Lemma 1.1).
 1. **Comparison.** Theorem 1.2 gives an actual vertical side on ζ̄ (side existence). With M's own horizontal
    side, its forced block is flat (flatness holds for any sides on conjugate roots). So there is a matched
    completion H₀ with the **same top three rows** T as M.
-2. **No shared ray.** Two strict sides on different roots share no column. So no bottom row of M is proportional
+2. **No shared ray.** Two strict sides on different roots share no column. If they shared one, the two
+   remaining column pairs would have the same Gram data. Either they coincide (so the signatures agree), or they
+   have one of three degenerate shapes, and each degenerate shape has a real signature. So no bottom row of M is proportional
    to a bottom row of H₀. The two bottom-row bases are orthonormal bases of the same 3-space, the orthogonal
    complement of T's rows, with no common ray.
 3. **A diagonal relation.** Hermitian operators diagonal in both bases are scalar, so a dimension count gives a
@@ -140,9 +142,11 @@ is critical (R = 0) and H ≇ F6.
    separately (`CRITICAL_P7_EXCLUSION.md`, `CRITICAL_EQUI_CORRELATION_EXCLUSION.md`).
 3. **Counting.** κ ∈ (1/√5, 1/2), since the cubic is increasing for κ > 0 and changes sign there. Hence
    p* ∈ (17/3, 29/5). Fix one column of a strip. Over the ten corners containing it, Σ p_C = 54. This follows
-   from row orthogonality, exactly as Σ over all twenty corners is 108. But ten numbers from
+   from row orthogonality, exactly as Σ over all twenty corners is 108; it is 108/2, because complementary
+   corners have the same p. But ten numbers from
    {0, 5} ∪ (17/3, 29/5) cannot sum to 54: the sums ≡ 4 (mod 5) with only 0s and 5s are impossible, and the open
-   intervals (17n/3 + 5m, 29n/5 + 5m) never contain 54. This is a contradiction. ∎
+   intervals (17n/3 + 5m, 29n/5 + 5m) never contain 54. This is a contradiction. The interval must be open:
+   with closed endpoints, six copies of 17/3 and four 5s would sum to 54. ∎
 
 *Status:* this is the one part of §1 that is not yet in Lean (in progress). The counting step replaces the
 original irrationality argument, following an external return. Its arithmetic is verified exactly.
@@ -253,8 +257,19 @@ uses standard axioms only, and its two inputs are the finite certificate of §5 
 | Lemmas 4.1–4.2, Remark 4.3 | `STAGEC.md` | none | yes (as inequalities) |
 | The atlas (§5) | Lemma 5.1, Corollary 5.2 | Arb and margined float; two independent implementations | the topology yes; the numbers checked outside Lean |
 
-**Open review items.** Theorem 1.4 and the counting step of Theorem 1.5 are new (14–15 Oct). An independent audit
-is in progress.
+**Independent audit (15 Oct, `proof/coverage/audits/AUDIT_2026-10-15.md`).** No errors were found in Theorem 1.4,
+Corollary 1.6 or Theorem 1.5. Every step of Theorem 1.4 was verified, matching the Lean proof, and the 81-case
+census and the 400 corner identities were reproduced. All three versions of the final count of Theorem 1.5 are
+correct, and the ten-corner version is used here. The weakest remaining points, ranked:
+1. the nonzero-J branch of the critical-strip classification, which rests on a large exact identity and a
+   Bernstein/Sturm certificate. Its square-sum S should be stated explicitly; the audit recovered
+   S = −256 k²(3k²+1)³ Q(k, K) / (h⁴ A₊² A₋²);
+2. its pole cases, where the row relabelling implicitly assumes how Pⱼ and cⱼ transform;
+3. its zero-J geometric-progression step;
+4. the endpoint exclusions;
+5. the routing lemmas.
+
+All of these are paper proofs with exact checks. None is in Lean yet.
 
 ## Appendix: superseded routes
 
