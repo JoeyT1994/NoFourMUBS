@@ -1,8 +1,9 @@
-# Kernel tangent test C2(b) — the GATE experiment (IN PROGRESS, paused 15 Oct 2026)
+# Kernel tangent test C2(b) — the GATE experiment (done, 15 Oct 2026)
 
-**Status:** the checker is built and benchmarked; the gate numbers are measured. The soundness proof is written but
-the merged file does not compile yet (a handful of tactic errors, listed below). No `Rec100/Tangent*` modules are in
-the repo yet. Paused on request; nothing committed.
+**Status:** done. The checker is built and benchmarked, and the gate passes (GO). The soundness proof compiles:
+`tangB_sound`, `binT_sound`, `slabT_sound` and `topT_sound` use only `propext`, `Classical.choice` and `Quot.sound`.
+**Record 100's whole bin tree, with the direct and the tangent test, is kernel-checked**: `Rec100.coverT`, from 144
+`decide +kernel` sub-slabs in 12 modules (`Rec100/TangentSlab00`–`11`), standard axioms only. See §Result.
 
 ## Measured cost per tangent test (Record 100, kernel, `decide +kernel`)
 
@@ -42,7 +43,7 @@ started from `log2`) were the whole cost. They are now gone: `kU·√X1 + kQ·�
     benchmarking only.
   - **Side conditions:** `TParQ` and `TParOK` (decidable, checked once per Record), and the exact frame `Tmat`
     (`T = (T' − OT)/DT`, `DT = 36·2^30`).
-  - **Proofs** (written; some do not compile yet):
+  - **Proofs** (all compile):
     - `tang_real`/`tang_final`: the real-number core into `StageC.leafRej_of_linear`. **Compiles.**
     - Integer layer: `colX_int`, `pv_digit`/`lane_int` (lane extraction), `sqrtfree`, `tFin_sound`, `tY_sound`,
       `lanes_interp`.
@@ -75,24 +76,28 @@ time. That is less than the 26 min of the direct-only tree, because the tangent 
 - total ≈ **20–25 min per Record**, so **≈ 4,000–5,000 CPU-h for 12,021 Records**. The previous estimate was
   8,000–24,000.
 
-## Exact next steps to resume
+## Result (15 Oct 2026)
 
-1. Scratch dir: `/private/tmp/claude-503/-Users-jtindall-Files-NoFourMUBS/c71c0e42-2268-4e63-8463-bc12919f98b3/scratchpad/tan/`.
-   - Sources: `TangentDefs.lean` (definitions), `TanInt.lean`, `TanReal.lean` (compiles), `TanAsm.part`,
-     `TanTrav.part`.
-   - `python3 merge.py` writes the merged repo `Tangent.lean`.
-   - Build it alone: `bash …/scratchpad/tan/lr.sh …/buildT.out lake build NoFourMUBs.KernelAtlas.Tangent`.
-2. Last build errors, all addressed in the merged file but not yet re-built:
-   - `pv_digit` `hsplit` (rewritten);
-   - `tFin_sound` r4 (now via exact cast identities `k1`, `k2`);
-   - heartbeat limits;
-   - `tY_sound` YY/Q bullets (`abs_mul_abs_self`);
-   - `node_le` (now takes `0 < Z`);
-   - `tangB_sound` Y1/YY bullets.
+- `NoFourMUBs.KernelAtlas.Tangent` builds (about 70 s). The last tactic error (`r4` in the square-root-free comparison)
+  is fixed by casting the difference separately (`hD`).
+- `export_tangent.py 100 … --preflight` and `--all` write `Rec100/TangentData.lean`, `TangentSub.lean` (sub-slabs
+  (0, 8) and (6, 2)), `TangentSlab00`–`11.lean` and `TangentCover.lean`, 68 KB in all.
+- `Rec100.TangentData` (`tparOK`) and `Rec100.TangentSub` build in 20 s and 27 s, at about 8.5 GB peak each (including
+  about 6 GB of Mathlib).
+- `Rec100.TangentCover` with its 12 slab modules: **681 s of CPU in total (11.4 min)**, 76 s of wall time on an
+  18-core, 64 GB laptop with Lake building the slabs in parallel, at most 7.8 GB per process. The provisional estimate
+  was about 14 min.
+- `#print axioms Rec100.coverT`: `propext`, `Classical.choice`, `Quot.sound`.
 
-   Expect a few more rounds.
-3. Generate the Record 100 data in the repo:
-   `python3 lean/generators/kernelatlas/export_tangent.py 100 lean/NoFourMUBs/KernelAtlas/Rec100 --subs 0,8 6,2 --preflight`.
-   Then build, one target at a time: `Rec100.TangentData` (`tparOK`), then `Rec100.TangentSub`.
-   - Use `--all` for all 144 sub-slabs: 12 modules of about 1.5 min each, then `TangentCover`.
-4. `#print axioms` for `tangB_sound`, `topT_sound` and `Rec100.coverT`. Finalise this report.
+Reproduce, from `lean/`:
+
+```bash
+python3 generators/kernelatlas/export_tangent.py 100 NoFourMUBs/KernelAtlas/Rec100 --subs 0,8 6,2 --preflight
+python3 generators/kernelatlas/export_tangent.py 100 NoFourMUBs/KernelAtlas/Rec100 --all
+lake build NoFourMUBs.KernelAtlas.Rec100.TangentSub NoFourMUBs.KernelAtlas.Rec100.TangentCover
+```
+
+**What `coverT` does not yet cover.** It certifies that every bin is rejected by the direct or the tangent test, or is
+a depth-0 (M = 96) survivor. Still missing for a complete Record in the kernel (`KERNEL_FEASIBILITY.md` §6): the
+scalar test, the joint test, label membership for the survivors, the edge tests and the two-clique search, the
+normal bound, and the boundary transfers.

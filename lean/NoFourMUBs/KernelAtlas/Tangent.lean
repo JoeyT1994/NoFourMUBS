@@ -570,9 +570,12 @@ theorem tFin_sound {tc : TCfg} {t : TThr} {SN YY Y1 Yinf Q G : ℕ} {ℓ : ℕ �
     have c3' : t.kU * t.kU * X1 ≤ (W - L0) * (W - L0) + t.kQ * t.kQ * X2 := c3.le
     have k1 : 4 * C ^ 2 * b ^ 2 = ((4 * ((W - L0) * (W - L0)) * (t.kQ * t.kQ * X2) : ℕ) : ℝ) := by
       rw [hb2, ← hCsq]; push_cast; ring
+    have hD : (((W - L0) * (W - L0) + t.kQ * t.kQ * X2 - t.kU * t.kU * X1 : ℕ) : ℝ) =
+        C ^ 2 + b ^ 2 - a ^ 2 := by
+      rw [Nat.cast_sub c3', Nat.cast_add, hCsq, ← ha2, ← hb2]
     have k2 : (C ^ 2 + b ^ 2 - a ^ 2) ^ 2 = ((((W - L0) * (W - L0) + t.kQ * t.kQ * X2 - t.kU * t.kU * X1) *
         ((W - L0) * (W - L0) + t.kQ * t.kQ * X2 - t.kU * t.kU * X1) : ℕ) : ℝ) := by
-      rw [ha2, hb2, ← hCsq, Nat.cast_mul, Nat.cast_sub c3']; push_cast; ring
+      rw [Nat.cast_mul, hD]; ring
     rw [k1, k2]; exact_mod_cast c4
   have key := sqrtfree ha0 hb0 hC r2 r3 r4
   have eSVr : (SV6 : ℝ) = (((|6 * ℓ 1 - ∑ m' ∈ Finset.range 6, ℓ m'| + |6 * ℓ 2 - ∑ m' ∈ Finset.range 6, ℓ m'| + |6 * ℓ 3 - ∑ m' ∈ Finset.range 6, ℓ m'| + |6 * ℓ 4 - ∑ m' ∈ Finset.range 6, ℓ m'| + |6 * ℓ 5 - ∑ m' ∈ Finset.range 6, ℓ m'|) : ℤ) : ℝ) := by
