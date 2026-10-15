@@ -26,7 +26,7 @@ excluded separately.
 
 | Part | Content | How it is checked |
 |---|---|---|
-| §1 | Reconstruction: the corner invariants, matched completions, and when they exist and are unique | Paper proofs with exact certificates; **all in Lean** except strict-corner coverage (Theorem 1.5) |
+| §1 | Reconstruction: the corner invariants, matched completions, and when they exist and are unique | Paper proofs with exact certificates; **all in Lean** |
 | §2 | The maxima of R form one orbit | Exact algebra (651 claims); **in Lean** |
 | §3 | X is connected | Topology; **in Lean** |
 | §4 | Ball Records contain no quartet edge | Proved inequalities (**in Lean**) evaluated in interval arithmetic |
@@ -150,8 +150,12 @@ is critical (R = 0) and H ≇ F6.
    intervals (17n/3 + 5m, 29n/5 + 5m) never contain 54. This is a contradiction. The interval must be open:
    with closed endpoints, six copies of 17/3 and four 5s would sum to 54. ∎
 
-*Status:* this is the one part of §1 that is not yet in Lean (in progress). The counting step replaces the
-original irrationality argument, following an external return. Its arithmetic is verified exactly.
+*Lean:* `PRM.strictCornerCoverage` (`lean/NoFourMUBs/Final.lean`; modules `PRM/Coverage*.lean`). The
+counting step replaces the original irrationality argument, following an external return. The Lean proof also
+differs from the paper in two places. The p = 7 endpoint is excluded by one corner of signature −56 − 8i, instead of
+the 20-corner sum. The cube-root case of the equicorrelation endpoint uses (w³ − 8a)(w³ + a)² = 0, instead of
+the field-degree argument. The Bernstein/Sturm certificate and the two square-sum identities are re-checked by
+the kernel (`Identity/RootFree.lean`, `PRM/CoverageStripId*.lean`).
 
 > **Corollary 1.6 (exact reach).** Every class of X is [F6], or in A, or in conj A.
 
@@ -242,8 +246,10 @@ connected space X. *Lean:* `recordClopen_of_atlas`, `Step2.coverage_of_connected
 By Theorem 3.1 and Corollary 5.2, the Records cover X. By Lemma 4.2, no Hadamard matrix in a Record is a quartet
 edge, and by Remark 4.3 neither is S₆. So no order-6 Hadamard matrix is a quartet edge, and ℂ⁶ has no four MUBs. ∎
 
-In Lean the whole argument is `no_four_mubs_of_coverage (C : AtlasCertificate) (hcov : StrictCornerCoverage)`. It
-uses standard axioms only, and its two inputs are the finite certificate of §5 and Theorem 1.5.
+In Lean the whole argument is `NoFourMUBs.Final.no_four_mubs (C : AtlasCertificate) : ¬ FourMUBs` (`lean/NoFourMUBs/Final.lean`). It
+uses standard axioms only. **Its one input is the finite certificate of §5**: Lean proves "if the 12,021 Records satisfy
+their inequalities, there are no four MUBs", and the inequalities themselves are checked by two independent
+interval implementations (§5), not yet by Lean.
 
 ## 7. What is checked, and how
 
@@ -253,7 +259,7 @@ uses standard axioms only, and its two inputs are the finite certificate of §5 
 | Theorem 1.2 (matched existence) | returns E, F | exact identities | yes (kernel re-checks every identity) |
 | Theorem 1.3 (matched uniqueness) | Step 2 blueprint, §7 | none | yes |
 | Theorem 1.4 (nonmatched converse) | return G §§2–5 | exact: 81-case census, 400 Laurent identities | yes |
-| Theorem 1.5 (coverage) | `STRICT_CORNER_COVERAGE.md` and its imports | exact identities; Bernstein/Sturm | in progress |
+| Theorem 1.5 (coverage) | `STRICT_CORNER_COVERAGE.md` and its imports | exact identities; Bernstein/Sturm | yes (kernel re-checks the sign certificate and both square-sum identities) |
 | Theorem 2.1 (maxima of R) | return C | 651 exact claims | yes |
 | Theorem 3.1 (connectedness) | §3 | none | yes |
 | Lemmas 4.1–4.2, Remark 4.3 | `STAGEC.md` | none | yes (as inequalities) |
@@ -271,7 +277,17 @@ correct, and the ten-corner version is used here. The weakest remaining points, 
 4. the endpoint exclusions;
 5. the routing lemmas.
 
-All of these are paper proofs with exact checks. None is in Lean yet.
+All of these are now proved in Lean (`PRM.strictCornerCoverage`).
+
+**What remains outside Lean: the atlas numbers only.** Every row of the table above is in Lean, except the evaluation of
+the inequalities on the 12,021 concrete Records (§5). The plan for checking them in the Lean kernel is in
+`proof/atlas/KERNEL_FEASIBILITY.md` (prototype: Record 100's bin cover, kernel-checked, standard axioms;
+conditional GO) and `proof/atlas/KERNEL_TANGENT.md` (the tangent-test gate, measured at 1.3 ms and 0.18 MB per
+test against a limit of 10 ms and 1 MB; soundness proof in progress). Route 2 (`proof/atlas/route2/`) aims to shrink the
+atlas first.
+
+**Theorem B audit (15 Oct, `proof/coverage/audits/AUDIT_THEOREM_B_2026-10-15.md`).** No errors were found. Return G's
+Theorem B is not on the critical path: neither this proof nor the Lean development uses it.
 
 ## Appendix: superseded routes
 
