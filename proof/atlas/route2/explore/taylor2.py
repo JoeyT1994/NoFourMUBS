@@ -26,24 +26,25 @@ def quad_fit(f, h=2e-3):
 
 def model(f0, g, Hs, eta): return f0 + g @ eta + 0.5 * np.einsum('nij,i,j->n', Hs, eta, eta)
 
-rng = np.random.default_rng(int(sys.argv[1]))
-for _ in range(int(sys.argv[2])):
-    idx = int(rng.integers(len(cert.recs)))
-    P = cert.recs[idx]['phi'].reshape(6, 6); T = frame(P)
-    c0, cg, cH = quad_fit(lambda e: chart(P, T, e)[0])
-    phis0 = solve(np.exp(1j*P).conj().T, starts=2500, seed=1)
-    fits = [quad_fit(lambda e, p=p: branch_at(P, T, e, p)) for p in phis0]
-    out = [idx, len(phis0)]
-    for rho in [0.16, 0.3]:
-        cres = []; bres = []
-        for _ in range(10):
-            d = rng.normal(size=4); d *= rho / np.linalg.norm(d)
-            dt, ok = chart(P, T, d)
-            cres.append(np.linalg.norm(dt - model(c0, cg, cH, d)))
-            for (f0, g, Hs), p in zip(fits, phis0):
-                # continue the branch along the segment to d
-                q = p.copy()
-                for k in range(1, 7): q = branch_at(P, T, d * k / 6, q)
-                bres.append(np.linalg.norm(np.angle(np.exp(1j*(q - model(f0, g, Hs, d))))))
-        out += [rho, round(max(cres), 5), round(float(np.median(bres)), 5), round(float(np.percentile(bres, 95)), 4)]
-    print(out, flush=True)
+if __name__ == '__main__':
+    rng = np.random.default_rng(int(sys.argv[1]))
+    for _ in range(int(sys.argv[2])):
+        idx = int(rng.integers(len(cert.recs)))
+        P = cert.recs[idx]['phi'].reshape(6, 6); T = frame(P)
+        c0, cg, cH = quad_fit(lambda e: chart(P, T, e)[0])
+        phis0 = solve(np.exp(1j*P).conj().T, starts=2500, seed=1)
+        fits = [quad_fit(lambda e, p=p: branch_at(P, T, e, p)) for p in phis0]
+        out = [idx, len(phis0)]
+        for rho in [0.16, 0.3]:
+            cres = []; bres = []
+            for _ in range(10):
+                d = rng.normal(size=4); d *= rho / np.linalg.norm(d)
+                dt, ok = chart(P, T, d)
+                cres.append(np.linalg.norm(dt - model(c0, cg, cH, d)))
+                for (f0, g, Hs), p in zip(fits, phis0):
+                    # continue the branch along the segment to d
+                    q = p.copy()
+                    for k in range(1, 7): q = branch_at(P, T, d * k / 6, q)
+                    bres.append(np.linalg.norm(np.angle(np.exp(1j*(q - model(f0, g, Hs, d))))))
+            out += [rho, round(max(cres), 5), round(float(np.median(bres)), 5), round(float(np.percentile(bres, 95)), 4)]
+        print(out, flush=True)
