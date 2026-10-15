@@ -97,7 +97,6 @@ python3 generators/kernelatlas/export_tangent.py 100 NoFourMUBs/KernelAtlas/Rec1
 lake build NoFourMUBs.KernelAtlas.Rec100.TangentSub NoFourMUBs.KernelAtlas.Rec100.TangentCover
 ```
 
-**What `coverT` does not yet cover.** It certifies that every bin is rejected by the direct or the tangent test, or is
-a depth-0 (M = 96) survivor. Still missing for a complete Record in the kernel (`KERNEL_FEASIBILITY.md` §6): the
-scalar test, the joint test, label membership for the survivors, the edge tests and the two-clique search, the
-normal bound, and the boundary transfers.
+**Since then.** Label membership, the direct edge tests and the two-clique search are in the kernel too, and
+`Rec100.stageC` assembles a complete Stage C certificate: see `KERNEL_RECORD100.md`. Still missing for a complete
+Record: the normal bound and the boundary transfers.

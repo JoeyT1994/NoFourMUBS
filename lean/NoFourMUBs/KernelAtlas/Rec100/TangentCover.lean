@@ -24,7 +24,7 @@ namespace NoFourMUBs.KernelAtlas.Rec100
 
 open Hadamard6 NoFourMUBs NoFourMUBs.StageC NoFourMUBs.KernelAtlas
 
-theorem tslabs : ∀ c1 ∈ L1, slabT cfg tcfg true true leafT c1 L2 L3 L4 L5 = true := by
+theorem tslabs : ∀ c1 ∈ L1, slabT cfg tcfg true true (leafL labs) c1 L2 L3 L4 L5 = true := by
   intro c1 hc1
   simp only [L1, List.mem_cons, List.mem_nil_iff, or_false] at hc1
   rcases hc1 with rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl
@@ -81,9 +81,9 @@ theorem coverT {rH n r rF K : ℝ} (hK0 : 0 ≤ K)
     (hK : ∀ z, cnorm (Qop ((1 / (2 * Real.pi)) • Pmat tab.pq) z) ≤ K * cnorm z)
     (hKb : K ≤ pq.Kbar) (hr : r ≤ pq.rbar) (hrF : rF ≤ pq.rFbar) (hrH : rH ≤ tq.rHbar) (hn : n ≤ tq.nbar) :
     ∀ β : I6 → ℝ, β j0 = 0 → (∀ j, 0 ≤ β j ∧ β j ≤ 1) →
-      Covered (Pmat tab.pq) (Tmat tcfg tq) rH n r rF cfg.W0 leafT β := by
+      Covered (Pmat tab.pq) (Tmat tcfg tq) rH n r rF cfg.W0 (leafL labs) β := by
   obtain ⟨hW, h1, h2, h3, h4, h5⟩ := tabB_spec tabOK
   obtain ⟨r1, r2, r3, r4, r5⟩ := rootsOK
-  exact topT_sound parOK tparOK hW hK0 hK hKb hr hrF hrH hn true true leafT h1 h2 h3 h4 h5 r1 r2 r3 r4 r5 tslabs
+  exact topT_sound parOK tparOK hW hK0 hK hKb hr hrF hrH hn true true (leafL labs) h1 h2 h3 h4 h5 r1 r2 r3 r4 r5 tslabs
 
 end NoFourMUBs.KernelAtlas.Rec100
