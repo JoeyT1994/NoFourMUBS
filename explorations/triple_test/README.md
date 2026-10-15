@@ -28,7 +28,7 @@ For every one of the 12,021 atlas Record centres H, `triples.py` does the follow
 
 ```bash
 python3 explorations/triple_test/triples.py --validate                     # product triple, 2C bicirculant triple
-python3 explorations/triple_test/triples.py out.jsonl 877 11344 100         # some Records (about 1-20 s each)
+python3 explorations/triple_test/triples.py out.jsonl 877 11344 100         # some Records (about 1-30 s each)
 sbatch explorations/triple_test/run_rusty.sh                               # all 12,021 on one rusty node
 python3 explorations/triple_test/summarize.py <results dir> [--csv file]   # report (SUMMARY.md) and CSV
 ```

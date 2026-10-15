@@ -1,6 +1,7 @@
 #!/bin/bash
 # Triple-conjecture test on rusty: one whole `ccq` node, one triples.py process per core, strided over all 12,021
-# Records (about 1-2 s per Record per core, so a few minutes). Setup as in explorations/atlas_survey/run_rusty.sh.
+# Records (median 14 s per Record on a busy node, at most 35 s; the full run took 22 minutes). Setup as in
+# explorations/atlas_survey/run_rusty.sh.
 # Submit from the repository root:   sbatch explorations/triple_test/run_rusty.sh
 # Summarise:                          $VENV/bin/python explorations/triple_test/summarize.py explorations/triple_test/results/full
 #SBATCH --job-name=triple-test

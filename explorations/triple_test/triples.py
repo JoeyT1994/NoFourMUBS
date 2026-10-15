@@ -6,7 +6,7 @@ two-circulant family X^(2), the transposed Fourier family (F6^(2))^T and the Fou
 
 For each atlas Record centre H (a Hadamard, binary64 phases):
 1. unbiased vectors of {I, H/sqrt6}: Stage C bins at radius 0 (stagec.bins), refined by Newton;
-2. candidate third bases: the 6-sets of unbiased vectors closest to orthonormal (graph |<x,y>|/6 <= t);
+2. starts: up to NSTARTS 6-cliques of the graph |<x,y>|/6 <= delta3 + 0.2 on them, closest to orthonormal first;
 3. Levenberg-Marquardt on the full triple equations in the dephased phase chart of draft/2C (25 phases of H, 30 of
    the third basis K): 96 residuals (orthogonality of H and K, |H^dag K|^2 = 6);
 4. each converged triple (residual < 1e-11) is classified by its transitions T1 = H, T2 = K, T3 = H^dag K / sqrt6:
@@ -14,11 +14,11 @@ For each atlas Record centre H (a Hadamard, binary64 phases):
      invariants are those of F6);
    - d3(T): least ||B B^dag - 3I||_F / 3 over 3x3 submatrices (0 iff T has a 3x3 Hadamard block: Fourier type);
    - x2(T): least residual of the X^(2) corner relation (theta1, theta2, theta1 - theta2, theta1) over all dephased
-     ordered 3x3 corners of T and of conj(T);
+     ordered 3x3 corners of T, conj(T), T^T and conj(T^T);
    class: 'isolated_fourier' if f6 ~ 0 for all three; 'continuous' if at least two are Fourier type and the third
    is Fourier type or satisfies the X^(2) relation; otherwise 'unexplained' (a candidate counterexample).
 
-Usage: python3 triples.py <out.jsonl> <idx> ...   (or --range A B, --validate)
+Usage: python3 triples.py <out.jsonl> <idx> ...   (or --validate)
 """
 import argparse, gzip, itertools, json, math, os, sys, time, traceback
 
@@ -28,7 +28,9 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, '..', '..'))
 sys.path.insert(0, os.path.join(ROOT, 'proof', 'atlas'))
 
-TOL = 1e-6
+TOL = 1e-6          # classification threshold for d3, f6 and x2
+NSTARTS = 64        # starts per Record
+WINDOW = 0.2        # starts: 6-cliques of |<x,y>|/6 <= delta3 + WINDOW
 _ATLAS = None
 
 
@@ -40,17 +42,22 @@ def atlas():
 
 
 # ---------------------------------------------------------------- unbiased vectors of {I, H/sqrt6}
+def flat(phi):
+    """Rows (1, e(phi_1), ..., e(phi_5)) for phases phi in cycles."""
+    return np.exp(2j * np.pi * np.concatenate([np.zeros((len(phi), 1)), phi], 1))
+
+
 def unbiased_vectors(H):
     """All flat x (x_0 = 1) with |sum_j conj(H_ji) x_j|^2 = 6, found from radius-0 Stage C bins plus Newton."""
     import stagec as SC
     P = np.angle(H) / (2 * np.pi)
     U, _ = SC.bins(P, 0.0)
-    if U is None or not len(U):
+    if not len(U):
         return np.zeros((0, 6), complex)
     Hc = H.conj()
     phi = np.array(U, float)
     for _ in range(40):
-        x = np.exp(2j * np.pi * np.concatenate([np.zeros((len(phi), 1)), phi], 1))
+        x = flat(phi)
         S = x @ Hc                                                     # S[n, i] = sum_j conj(H_ji) x_j
         F = np.abs(S[:, 1:]) ** 2 - 6
         # J[n, i, m] = d|S_i|^2/d phi_m = 2 Re(conj(S_i) * conj(H_mi) * 2 pi i x_m)
@@ -60,18 +67,18 @@ def unbiased_vectors(H):
         except np.linalg.LinAlgError:
             break
         phi = phi - np.clip(step, -0.05, 0.05)
-    x = np.exp(2j * np.pi * np.concatenate([np.zeros((len(phi), 1)), phi], 1))
-    res = np.abs(np.abs(x @ Hc) ** 2 - 6).max(1)
+    res = np.abs(np.abs(flat(phi) @ Hc) ** 2 - 6).max(1)
     phi = np.mod(phi[res < 1e-10], 1.0)
     roots = []
     for p in phi:
         if all(np.max(np.abs(((p - r + 0.5) % 1.0) - 0.5)) > 1e-7 for r in roots):
             roots.append(p)
-    return np.array([np.exp(2j * np.pi * np.concatenate([[0.0], r])) for r in roots])
+    return flat(np.array(roots).reshape(-1, 5))
 
 
-def candidate_sets(X, kmax=16, cap=200000):
-    """The kmax 6-sets of rows of X with the smallest largest pairwise |<x,y>|/6."""
+def candidate_sets(X, cap=200000):
+    """(starts, delta3): delta3 = least t with a 6-clique in the graph |<x,y>|/6 <= t on the rows of X, and the
+    NSTARTS 6-cliques of the graph at delta3 + WINDOW with the smallest largest overlap."""
     n = len(X)
     if n < 6:
         return [], None
@@ -103,10 +110,10 @@ def candidate_sets(X, kmax=16, cap=200000):
             hi = mid
         else:
             lo = mid + 1
-    d3c = float(vals[lo])
-    cs = cliques(d3c + 0.2, 4000)
+    delta3 = float(vals[lo])
+    cs = cliques(delta3 + WINDOW, 4000)
     cs.sort(key=lambda c: max(G[a, b] for a, b in itertools.combinations(c, 2)))
-    return cs[:kmax], d3c
+    return cs[:NSTARTS], delta3
 
 
 # ---------------------------------------------------------------- the triple equations (dephased chart)
@@ -134,7 +141,7 @@ def unpack(w, H0, K0):
 
 
 def solve_triple(H0, K0, iters=60):
-    """Levenberg-Marquardt from (H0, K0); returns (H, K, residual norm, chart distance)."""
+    """Levenberg-Marquardt from (H0, K0) with a forward-difference Jacobian; returns (H, K, residual norm)."""
     w = np.zeros(55)
     lam = 1e-3
     f = residuals(*unpack(w, H0, K0))
@@ -148,19 +155,17 @@ def solve_triple(H0, K0, iters=60):
             J[:, k] = (residuals(*unpack(w + e, H0, K0)) - f) / h
         A = J.T @ J
         g = J.T @ f
-        while True:
+        while lam <= 1e8:
             step = np.linalg.solve(A + lam * np.diag(np.diag(A) + 1e-12), -g)
             f2 = residuals(*unpack(w + step, H0, K0))
             if np.linalg.norm(f2) < np.linalg.norm(f):
                 w, f, lam = w + step, f2, max(lam / 5, 1e-12)
                 break
             lam *= 5
-            if lam > 1e8:
-                break
-        if lam > 1e8:
-            break
+        else:
+            break                                                       # no descent step: stuck
     H, K = unpack(w, H0, K0)
-    return H, K, float(np.linalg.norm(f)), float(np.linalg.norm(w))
+    return H, K, float(np.linalg.norm(f))
 
 
 # ---------------------------------------------------------------- invariants for the classification
@@ -185,63 +190,55 @@ PERM3 = np.array(list(itertools.permutations(range(6), 3)))
 def x2_residual(T):
     """Least |wrap(t3 - t1 + t2)| + |wrap(t4 - t1)| over dephased ordered 3x3 corners of T, conj(T) and T^T, where
     (t1, t2, t3, t4) are the phases of the dephased corner's 2x2 lower-right block."""
-    best = 9.0
     wrap = lambda a: np.abs((a + np.pi) % (2 * np.pi) - np.pi)
+    p0, p1, p2 = PERM3.T                                                # ordered row (and column) triples
+    best = []
     for M in (T, T.conj(), T.T, T.T.conj()):
         A = np.angle(M)
-        r0, r1, r2 = PERM3.T
-        c0, c1, c2 = PERM3.T
-        e = lambda ri, cj: A[np.ix_(ri, cj)] - A[np.ix_(r0, cj)] - A[np.ix_(ri, c0)] + \
-            A[np.ix_(r0, c0)]
-        t1, t2, t3, t4 = e(r1, c1), e(r1, c2), e(r2, c1), e(r2, c2)
-        best = min(best, float((wrap(t3 - t1 + t2) + wrap(t4 - t1)).min()))
-    return best
+        e = lambda r, c: A[np.ix_(r, c)] - A[np.ix_(p0, c)] - A[np.ix_(r, p0)] + A[np.ix_(p0, p0)]
+        t1, t2, t3, t4 = e(p1, p1), e(p1, p2), e(p2, p1), e(p2, p2)
+        best.append((wrap(t3 - t1 + t2) + wrap(t4 - t1)).min())
+    return float(min(best))
 
 
 def classify(H, K):
     T = [H, K, H.conj().T @ K / math.sqrt(6)]
     f6 = [f6_distance(t) for t in T]
     dd = [d3(t) for t in T]
-    four = [x < TOL for x in dd]
-    out = dict(f6=f6, d3=dd)
-    if all(x < TOL for x in f6):
+    rest = [t for t, d in zip(T, dd) if d >= TOL]                      # transitions not of Fourier type
+    out = {'f6': f6, 'd3': dd, 'class': 'unexplained'}
+    if max(f6) < TOL:
         out['class'] = 'isolated_fourier'
-        return out
-    if sum(four) >= 2:
-        rest = [i for i in range(3) if not four[i]]
-        if not rest:
+    elif not rest:
+        out['class'] = 'continuous'
+    elif len(rest) == 1:
+        out['x2'] = x2_residual(rest[0])
+        if out['x2'] < TOL:
             out['class'] = 'continuous'
-            return out
-        x2 = x2_residual(T[rest[0]])
-        out['x2'] = x2
-        out['class'] = 'continuous' if x2 < TOL else 'unexplained'
-        return out
-    out['class'] = 'unexplained'
     return out
 
 
 # ---------------------------------------------------------------- one Record
-def one_record(idx, kmax=64):
+def one_record(idx):
     rec = atlas()['records'][idx]
     P = np.array([float.fromhex(x) for x in rec['phi']]).reshape(6, 6)
     H = dephase(np.exp(1j * P))
     out = dict(idx=idx, R=rec['R'])
     X = unbiased_vectors(H)
     out['n_unbiased'] = len(X)
-    cands, d3c = candidate_sets(X, kmax)
-    out['delta3'] = d3c
+    cands, out['delta3'] = candidate_sets(X)
     out['n_candidates'] = len(cands)
     found, fails = [], []
     for c in cands:
         K0 = X[list(c)].T
-        Hs, Ks, res, dist = solve_triple(H, K0)
+        Hs, Ks, res = solve_triple(H, K0)
         if res > 1e-11:
             fails.append(res)
             continue
         cls = classify(Hs, Ks)
         found.append(dict(H=Hs, dist=float(np.linalg.norm(Hs - H)), distK=float(np.linalg.norm(Ks - K0)),
                           res=res, **cls))
-    # keep distinct triples (by H and the class data)
+    # distinct triples: a different H, or the same H with a different third basis (told apart by f6 of K)
     uniq = []
     for f in found:
         if not any(np.linalg.norm(f['H'] - g['H']) < 1e-6 and abs(f['f6'][1] - g['f6'][1]) < 1e-6 for g in uniq):
@@ -280,26 +277,24 @@ def validate():
     rng = np.random.default_rng(0)
     Hp = dephase(H) * np.exp(1j * 0.02 * rng.standard_normal((6, 6)) * MASK_H)
     Kp = K * np.conj(K[0])[None, :] * np.exp(1j * 0.02 * rng.standard_normal((6, 6)) * MASK_K)
-    Hs, Ks, res, dist = solve_triple(Hp, Kp)
-    print('perturbed bicirculant: re-solved residual %.1e, moved %.3f -> %s' % (res, dist, classify(Hs, Ks)['class']))
+    Hs, Ks, res = solve_triple(Hp, Kp)
+    print('perturbed bicirculant: re-solved residual %.1e, H moved %.3f -> %s'
+          % (res, np.linalg.norm(Hs - Hp), classify(Hs, Ks)['class']))
 
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('out', nargs='?')
     ap.add_argument('idx', nargs='*', type=int)
-    ap.add_argument('--range', nargs=2, type=int)
-    ap.add_argument('--step', type=int, default=1)
     ap.add_argument('--validate', action='store_true')
     a = ap.parse_args()
     if a.validate:
         validate(); return
-    idxs = list(a.idx) + (list(range(a.range[0], a.range[1], a.step)) if a.range else [])
     done = set()
     if os.path.exists(a.out):
         done = {json.loads(l)['idx'] for l in open(a.out) if l.strip()}
     with open(a.out, 'a') as f:
-        for idx in idxs:
+        for idx in a.idx:
             if idx in done:
                 continue
             t0 = time.time()
