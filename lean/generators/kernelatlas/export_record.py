@@ -41,6 +41,12 @@ def ct(node):
 
 
 def radii(rec):
+    """r (per column), rF, rH and n in radians, from the kernel normal-bound constants (`knormal.py`)."""
+    from knormal import kernel_radii
+    return kernel_radii(rec)
+
+
+def radii_python(rec):
     """r (per column) and rF (Frobenius) in radians, recomputed as in ballrecord.stage_c."""
     import numpy as np
     from ballrecord import BallRecord
@@ -198,7 +204,7 @@ def main():
     with open(os.path.join(outdir, 'Cover.lean'), 'w') as f:
         f.write('\n'.join(L) + '\n')
     print(json.dumps(dict(idx=a.idx, rcol=rcol, rF=rF, rH=rH, n=nN, p=p, q=q, mirror=mirror,
-                          E=float(par.E), eps1=float(par.eps1)), indent=1))
+                          E=float(par.E), eps1=float(par.eps1)), indent=1, default=float))
 
 
 if __name__ == '__main__':

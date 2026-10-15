@@ -33,9 +33,8 @@ def record_data(idx, p=28, q=20):
     rec = d['records'][idx]
     phi = [float.fromhex(x) for x in rec['phi']]
     Prad = [[Fr(phi[6 * j + i]) for i in range(6)] for j in range(6)]
-    rcol, rF, _, _ = radii(rec)
+    rcol, rF, rH, n0 = radii(rec)              # kernel normal-bound radii (knormal.py)
     B = BallRecord(np.array(phi), Tint=rec.get('Tint'))
-    rH, n0 = B.normal_bound(rec['R'])          # exact frame: no float-frame augmentation of n
     That = [[[0] * 6 for _ in range(6)] for _ in range(4)]
     for k in range(B.rec.dimT):
         for j in range(6):
@@ -285,7 +284,7 @@ def main():
         L.append('end %s' % base)
         with open(os.path.join(a.out, 'TangentCover.lean'), 'w') as f:
             f.write('\n'.join(L) + '\n')
-    print(json.dumps(dict(idx=a.idx, L=tc.L, OT=tc.OT, preflight=pre, **info), indent=1))
+    print(json.dumps(dict(idx=a.idx, L=tc.L, OT=tc.OT, preflight=pre, **info), indent=1, default=float))
 
 
 if __name__ == '__main__':

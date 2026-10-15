@@ -32,15 +32,35 @@ python3 generators/kernelatlas/export_tangent.py 100 NoFourMUBs/KernelAtlas/Rec1
 lake build NoFourMUBs.KernelAtlas.Rec100.StageC
 ```
 
+## Done: the normal bound, and the whole `RecordCert` (`Rec100.cert`)
+
+`NoFourMUBs.KernelAtlas.Rec100.cert : RecordCert` (`lean/NoFourMUBs/KernelAtlas/Rec100/Record.lean`) is assembled by
+`recordK` (`KernelAtlas/NormalK.lean`). Every field is a kernel check:
+
+| Field | Lean | Record 100 | Kernel cost |
+|---|---|---|---|
+| `hproj` (g), `hlam` (λ), `hcol` (t) | `FrameK.lean`: exact Gram matrix, `‖G − I‖_F ≤ e_G`, rational inverse, Gershgorin per column block | e_G = 2.1e-9, g = 1.000000001, t = 0.617265 | seconds |
+| `hσ` (σ) | `SigmaK.lean`: `‖Jν‖² = ½ Σ C d d` (`jac_sq`), table error `≤ 36γ‖ν‖²`, closed-form matrix `M̃` (`quadM`), penalty `c AᵀA` (rows, columns, frame), `M̃ + cAᵀA − sI − LLᵀ` diagonally dominant | σ = 17/10, L dyadic (2⁻⁴⁰), smallest remainder diagonal 1e-3 | 41 s, 14 GB |
+| `he` (e₀), `hK` (K̄) | `E0K.lean`: `Φ(0)` from the table, `‖Zᴴz‖² = 6‖z‖² + zᴴΦz` | e₀ = 6.6e-11 | with σ |
+| `hj` (j₁) | `E0K.lean`: linearity of J, per-frame bounds | j₁ = 9.7e-9 | with σ |
+| radii ≤ bars, `hLR` | `NormalK.lean`: `nroot σ b ≤ 2b̄/(σ + s_lo)` (`nroot_le`), `π̃ ≤ π`, `√3 ≤ s̄₃` | n̄ = 0.0065646 rad | `barsOK_` |
+
+The trig constants use a second table `tabN` (`p = 64`, Taylor order 60) on the same centre as the bin-tree table.
+**The Stage C bars are now derived from these kernel constants** (`knormal.kernel_radii`, used by both
+`export_record.py` and `export_tangent.py`), so nothing in Record 100 depends on the Python float normal bound.
+
+Regenerate and check, from `lean/`:
+
+```bash
+python3 generators/kernelatlas/export_record.py 100 NoFourMUBs/KernelAtlas/Rec100
+python3 generators/kernelatlas/export_tangent.py 100 NoFourMUBs/KernelAtlas/Rec100 --labels --subs 0,8 6,2 --all
+python3 generators/kernelatlas/knormal.py 100 NoFourMUBs/KernelAtlas/Rec100
+lake build NoFourMUBs.KernelAtlas.Rec100.Record
+```
+
 ## To do
 
-1. **Normal bound** (the `RecordCert` fields other than `stageC`), and the five radius hypotheses of `stageC`:
-   - `hproj`, `g`: the frame T is horizontal and its Gram matrix has λ_min ≥ 1/g² (exact rational);
-   - `hσ`, σ: a lower bound on the Jacobian on the 21-dimensional normal space, from trig enclosures of `P` and an
-     exact LDLᵀ of a rational approximation with an error margin; `hLR: 2√3 R < σ`;
-   - `he` (e₀), `hj` (j₁), `hlam` (λ), `hcol` (t): residual and norm bounds;
-   - `hK`: `‖e(P)/√6‖_op ≤ K̄`;
-   - the RecordCert radii (`nroot` expressions) are ≤ the bars r̄, r̄_F, r̄_H, n̄ used by the bin tree.
-2. **Boundary transfers** (`BoundaryCover`): the η-box tree with off-shell and transfer tests against the target
-   Records' centres (Lemma 4.1).
-3. **Measure the other Records**: which need the support or joint edge tests, and the per-Record kernel cost.
+1. **Boundary transfers** (`BoundaryCover A l`): the η-box tree with off-shell and transfer tests against the target
+   Records (Lemma 4.1). These refer to other Records' centres and radii, so they need the atlas indexing.
+2. **Measure the other Records**: which need the support or joint edge tests, and the per-Record kernel cost.
+3. **Scale**: generate and check all 12,021 Records on the cluster; then `AtlasCertificate`.
