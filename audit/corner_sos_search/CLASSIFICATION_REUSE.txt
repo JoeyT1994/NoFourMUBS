@@ -1,0 +1,85 @@
+Strengthening the existing corner SOS search, 16 October 2026
+===========================================================
+
+The missing implication is still quartet => Im Psi(X)=0. The no-four-MUB
+conclusion cannot be an input to its own replacement certificate. In the
+current main source Final.no_four_mubs explicitly takes AtlasCertificate.
+The paper's unconjugated complementary equality also uses the atlas-based
+matched exclusion. Neither is assumed in this search.
+
+1. Diagnose the old candidate before adding more monomials
+
+Run 38842127156 returned Fourier squared norms 4.04410, 4.02927, 4.02937.
+The existing Fourier theorem and exact Tao values imply that an actual
+Hadamard has F=0 or F=9. The old constraints E[F(F-9)]=0 permit mixtures
+of these cases. Intermediate expectations are not contradictions or actual
+Hadamards. They identify a useful place to strengthen the relaxation.
+
+2. Split the classification cases exactly
+
+For H0,H1,H2, fix each F to 0 or 9. Exchange of H1 and H2 leaves the
+objective on H0 unchanged, so six cases cover the eight assignments:
+
+  000, 009, 099, 900, 909, 999.
+
+F=0 implies non-Tao because the exact Tao value is 9. F=9 implies Tao
+because the existing non-Tao Fourier theorem gives F=0.
+
+On a non-Tao matrix use the Fourier sums themselves, not just their norms,
+and use the stronger upstream theorem
+
+  Psi(H[I,J]) = conjugate(Psi(H[I^c,J^c])).
+
+Sources at main 0636c223da1a0879b515fc69812332326136829e:
+  lean/NoFourMUBs/FourierVanishing/Corners.lean: allCornersMatched
+  lean/NoFourMUBs/FourierVanishing/Main.lean: fourierVanishing
+  lean/NoFourMUBs/PRM/Converse.lean: nonmatched_tao
+
+Only the target corner and the existing witness's corner frames are used.
+Every conjugacy equation has a Gram block containing its monomials and
+all support-contained monomial multiples. In particular its squared norm
+is represented; imaginary parts are not lost by conjugation averaging.
+No unconjugated complementary equality is inserted.
+
+On a Tao matrix every dephased entry is a cubic root:
+
+  (H_ij H_00 conjugate(H_i0 H_0j))^3 = 1.
+
+Also H^[2] is Hadamard: Tao squared is Tao conjugated, and unit row/column
+phases and permutations preserve the property. Both facts follow directly
+from the same upstream Tao representative already used in the first search.
+No Tao exclusion certificate is imported or regenerated.
+
+3. Apply the single-Hadamard results to all six edges
+
+For a<b in {0,1,2}, let S=H_a^* H_b and add a unit-phase matrix K_ab with
+
+  6 K_ab[j,k] = S[j,k] conjugate(S[0,0]).
+
+Unbiasedness says |S[j,k]|^2=6. Thus K_ab has unit entries and differs
+from S/sqrt(6) by a single unit scalar. Orthogonality gives
+
+  S S^* = 36 I,       K_ab K_ab^* = 6 I.
+
+Hence every physical quartet lifts to these variables. Conversely the
+definitions introduce no new original quartet. All coefficients are
+integers; there is no square-root variable or independent row dephasing.
+
+Reuse the same Fourier 0-or-9 equations and the unchanged seven-cofactor
+moment-norm identity on these three additional Hadamards. Do not attempt
+to reprove them for a different matrix name. Their individual Tao cases
+are retained. The new link equations receive their own Gram blocks.
+
+4. What an eventual exact result would mean
+
+The moment/SOS ansatz is still incomplete. A successful job, a small
+residual, or numerical infeasibility does not certify any case. The exact
+checker reconstructs every added polynomial and labels a case certificate
+as CONDITIONAL ON THAT CASE. All six sectors must be discharged before
+claiming the result for arbitrary quartets.
+
+These adapters reuse classification/Fourier theorems as mathematical
+dependencies. They are not new Lean proofs and are not a single raw-quartet
+Nullstellensatz certificate: raw-generator cofactors would be additional
+work. The original conditional SOS witness remains unchanged. No atlas
+data, generators, checkers, or exclusion statements enter this search.

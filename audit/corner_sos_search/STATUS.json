@@ -1,9 +1,9 @@
 {
-  "status": "LATEST_SEARCH_COMPLETED_NO_EXACT_CORNER_CERTIFICATE_FOUND",
-  "updated_at": "2026-10-16T11:52:59.938252+00:00",
+  "status": "CLASSIFICATION_STRENGTHENING_PREPARED_FOR_GITHUB",
+  "updated_at": "2026-10-16T11:59:09.528659+00:00",
   "main_commit": "0636c223da1a0879b515fc69812332326136829e",
   "new_upstream_moment_reduction_commit": "66b5c6535c01ca1589bca2ff8779c5000a4b22bd",
-  "tests_passed": 10,
+  "tests_passed": 14,
   "no_atlas": true,
   "no_local_lean": true,
   "existing_witness_unchanged": true,
@@ -63,5 +63,20 @@
     "main": "0636c223da1a0879b515fc69812332326136829e",
     "kernel/tangent-v2": "3a164b38bb4cc84376bae2698ea53b8317d746be",
     "change_scope": "kernel_atlas only; no mathematical certification performed"
+  },
+  "next_run": {
+    "platform": "GitHub Actions",
+    "classification_cases": [
+      "000",
+      "009",
+      "099",
+      "900",
+      "909",
+      "999"
+    ],
+    "phase_variables": 216,
+    "maximum_solver_seconds_per_case": 300,
+    "state": "prepared",
+    "exact_certificate_found": false
   }
 }

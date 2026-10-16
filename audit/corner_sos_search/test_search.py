@@ -32,6 +32,77 @@ def signature(z):
 
 
 class SearchTests(unittest.TestCase):
+    def test_classification_cases_cover_all_assignments(self):
+        from itertools import product
+        for bits in product('09',repeat=3):
+            direct=''.join(bits)
+            swapped=bits[0]+bits[2]+bits[1]
+            self.assertTrue(direct in s.CLASSIFICATION_CASES or swapped in s.CLASSIFICATION_CASES)
+        self.assertEqual(len(s.CLASSIFICATION_CASES),6)
+
+    def test_classification_adapters_on_upstream_anchors(self):
+        import sys
+        sys.path.insert(0,str(s.upstream_path()))
+        import exact_anchors as A
+        roots=A.matrices()
+        root=cmath.exp(2j*cmath.pi/12)
+        for case in s.CLASSIFICATION_CASES:
+            # Row/column phases and permutations exercise the Tao transport,
+            # including the cubic-root equations after dephasing at (0,0).
+            z=[]
+            for b,v in enumerate(case):
+                matrix=roots['Tao' if v=='9' else ('D6' if b==0 else 'F6')]
+                for i in range(6):
+                    for j in range(6):
+                        z.append(root**matrix[(5*i+1)%6][(5*j+2)%6]*
+                                 cmath.exp(.113j*(i+2*b)-.179j*j))
+            for name,f in s.classification_relations(case)[0]:
+                self.assertLess(abs(evaluate(f,z)),2e-8,(case,name))
+
+    def test_conjugacy_is_not_unconjugated_equality(self):
+        import sys
+        sys.path.insert(0,str(s.upstream_path()))
+        import exact_anchors as A
+        root=cmath.exp(2j*cmath.pi/12)
+        D=A.matrices()['D6']
+        z=[root**e for _ in range(3) for row in D for e in row]
+        data,_,_,_,_,_=s.load_inputs()
+        found=False
+        for rows in combinations(range(6),3):
+            for cols in combinations(range(6),3):
+                f={s.monomial(0,rows,cols,e):c for e,c in data['psi']}
+                value=evaluate(f,z)
+                if abs(value.imag)<1e-6:continue
+                cr=tuple(i for i in range(6) if i not in rows)
+                cc=tuple(j for j in range(6) if j not in cols)
+                g={s.monomial(0,cr,cc,e):c for e,c in data['psi']}
+                comp=evaluate(g,z)
+                self.assertLess(abs(value-comp.conjugate()),1e-8)
+                self.assertGreater(abs(value-comp),1)
+                found=True;break
+            if found:break
+        self.assertTrue(found,'The anchor must detect accidentally assuming same signatures.')
+
+    def test_rational_transition_lift_on_genuine_pair(self):
+        w=cmath.exp(2j*cmath.pi/3)
+        first=[];second=[]
+        for i in range(6):
+            for j in range(6):
+                a,b,c,d=i//3,i%3,j//3,j%3
+                f=(-1)**(a*c)*w**(b*d)
+                first.append(f);second.append((1j)**a*w**(b*b)*f)
+        def overlap(j,k):
+            return sum(first[6*i+j].conjugate()*second[6*i+k] for i in range(6))
+        K=[overlap(j,k)*overlap(0,0).conjugate()/6 for j in range(6) for k in range(6)]
+        self.assertTrue(all(abs(abs(v)-1)<1e-12 for v in K))
+        z=first+second+first+K+[1]*72
+        eqs=dict(s.transition_relations()[0])
+        for name,f in eqs.items():
+            if name.startswith(('transition:3:','orth:3:')):
+                self.assertLess(abs(evaluate(f,z)),2e-11,name)
+        z[108+7]*=cmath.exp(.4j)
+        self.assertGreater(abs(evaluate(eqs['transition:3:0:1:1:1'],z)),1)
+
     def test_reused_upstream_tao_moment_values(self):
         # Consume the other LLM's existing exact anchor data, without
         # regenerating its 400-block or ordered-triple calculations.
@@ -178,6 +249,17 @@ class SearchTests(unittest.TestCase):
             cp.write_text(json.dumps(cert))
             with patch.object(s,'load_inputs',return_value=({}, {}, {}, target, 1, [])):
                 self.assertEqual(v.replay(mp,cp)['status'],'EXACT_RATIONAL_SOS_IDENTITY_CHECKED_NOT_LEAN')
+                # A sector result must never be mislabeled unconditional.
+                model['metadata']['classification_case']='000'
+                raw=json.dumps(model).encode()
+                with gzip.open(mp,'wb') as out:out.write(raw)
+                cert['model_sha256']=hashlib.sha256(raw).hexdigest()
+                cp.write_text(json.dumps(cert))
+                with patch.object(s,'classification_relations',return_value=([],[])):
+                    answer=v.replay(mp,cp)
+                    self.assertIn('other cases still required',answer['conclusion'])
+                    self.assertTrue(answer['uses_upstream_fourier_theorem'])
+                del model['metadata']['classification_case']
                 model['metadata']['uses_upstream_seven_cofactor_moment_norm_identity']=True
                 raw=json.dumps(model).encode()
                 with gzip.open(mp,'wb') as out:out.write(raw)

@@ -30,6 +30,10 @@ import time
 
 HERE = Path(__file__).resolve().parent
 ZERO = ()
+# H1 and H2 may be interchanged without changing the H0 corner objective.
+# 0 = non-Tao Fourier norm; 9 = Tao Fourier norm. These six representatives
+# cover all eight triples. No exceptional case is discarded.
+CLASSIFICATION_CASES = ('000', '009', '099', '900', '909', '999')
 
 
 def upstream_path():
@@ -144,6 +148,19 @@ def load_inputs(path=HERE/'inputs.json'):
     return data, psi, p, target, scale, sorted(set(seeds))
 
 
+def hadamard_equations(b):
+    equations = []
+    for transpose in (False, True):
+        for i, k in combinations(range(6), 2):
+            terms = [plus(variable(b, j, i), neg(variable(b, j, k)))
+                     if transpose else plus(variable(b, i, j), neg(variable(b, k, j)))
+                     for j in range(6)]
+            for anchor in range(6):
+                poly = dict(Counter(plus(t, neg(terms[anchor])) for t in terms))
+                equations.append((f'orth:{b}:{int(transpose)}:{i}:{k}:{anchor}', poly))
+    return equations
+
+
 def quartet_equations():
     """Complex Laurent equations; every denominator is a unit entry.
 
@@ -153,14 +170,7 @@ def quartet_equations():
     """
     equations = []
     for b in range(3):
-        for transpose in (False, True):
-            for i, k in combinations(range(6), 2):
-                terms = [plus(variable(b, j, i), neg(variable(b, j, k)))
-                         if transpose else plus(variable(b, i, j), neg(variable(b, k, j)))
-                         for j in range(6)]
-                for anchor in range(6):
-                    poly = dict(Counter(plus(t, neg(terms[anchor])) for t in terms))
-                    equations.append((f'orth:{b}:{int(transpose)}:{i}:{k}:{anchor}', poly))
+        equations.extend(hadamard_equations(b))
     for a, b in combinations(range(3), 2):
         for j, k in product(range(6), repeat=2):
             terms = [plus(neg(variable(a, i, j)), variable(b, i, k)) for i in range(6)]
@@ -171,7 +181,7 @@ def quartet_equations():
     return equations
 
 
-def fourier_relations():
+def fourier_relations(matrix_count=3):
     """Unconditional polynomial consequences of upstream FourierVanishing.
 
     For each Hadamard, F_I = |sum_j prod_i H_ij^(+/-1)|^2 is 0 off
@@ -182,7 +192,7 @@ def fourier_relations():
     in FOURIER_REUSE.txt. This is not a new proof of FourierVanishing.
     """
     equations, blocks, anchors = [], [], []
-    for b in range(3):
+    for b in range(matrix_count):
         norms = []
         for tr in (False, True):
             for I in combinations(range(6), 3):
@@ -203,7 +213,7 @@ def fourier_relations():
         binary = multiply(anchor, anchor)
         add_to(binary, anchor, -9)
         equations.append((f'fourier-binary:{b}', binary))
-    assert len(equations) == 60
+    assert len(equations) == 20*matrix_count
     return equations, blocks, anchors
 
 
@@ -223,15 +233,15 @@ def gram_norm(b, power):
     return poly, blocks
 
 
-def moment_norm_relations():
+def moment_norm_relations(matrix_count=3):
     """Reuse return I's seven-cofactor universal identity (4.2).
 
     18 sum_{20 row/column partitions} F_I -2592 -2 T3 +9 T2 = 0.
     No Fourier-vanishing hypothesis is required by this identity.
     """
-    _, fourier_blocks, _ = fourier_relations()
+    _, fourier_blocks, _ = fourier_relations(matrix_count)
     equations, blocks = [], []
-    for b in range(3):
+    for b in range(matrix_count):
         poly = {ZERO: -2592}
         for name, basis in fourier_blocks:
             if int(name.split(':')[1]) == b:
@@ -246,12 +256,110 @@ def moment_norm_relations():
     return equations, blocks
 
 
+def transition_relations():
+    """Expose the other three Hadamards with a rational, phase-only lift.
+
+    Put S=H_a^* H_b. Since |S_jk|^2=6, the entries of
+    K_jk=S_jk conjugate(S_00)/6 are unit phases. K differs from S/sqrt(6)
+    by one global phase, hence is Hadamard. The defining equations have
+    integer coefficients; no independent dephasing or square root is used.
+    """
+    equations, blocks = [], []
+    for b, (a, c) in enumerate(combinations(range(3), 2), start=3):
+        equations.extend(hadamard_equations(b))
+        anchor = [plus(neg(variable(a, i, 0)), variable(c, i, 0)) for i in range(6)]
+        for j, k in product(range(6), repeat=2):
+            terms = [plus(neg(variable(a, i, j)), variable(c, i, k)) for i in range(6)]
+            poly = dict(Counter(plus(t, neg(u)) for t in terms for u in anchor))
+            add_to(poly, {variable(b, j, k): 1}, -6)
+            name = f'transition:{b}:{a}:{c}:{j}:{k}'
+            equations.append((name, poly))
+            blocks.append((name, sorted(set(poly) | {ZERO})))
+    return equations, blocks
+
+
+def classification_relations(case):
+    """Adapters for upstream theorems, never the atlas-dependent exclusion.
+
+    Non-Tao: the Fourier sums themselves vanish, and complementary Psi
+    values are CONJUGATE. Use only the old witness's corner frames and the
+    target frame. Tao: dephased entries are cubic roots; their square is
+    conjugation up to phases, so the entrywise square is also Hadamard.
+    """
+    if case not in CLASSIFICATION_CASES:
+        raise ValueError('Unknown classification case.')
+    data, _, _, _, _, _ = load_inputs()
+    frames = {(tuple(range(3)), tuple(range(3)))}
+    for record in data['witness_seeds']:
+        def positions(bits):
+            a, b = iter(range(3)), iter(range(3, 6))
+            return tuple(next(a) if x else next(b) for x in bits)
+        rows = tuple(sorted(positions(record['row_membership'])))
+        cols = tuple(sorted(positions(record['column_membership'])))
+        complement = (tuple(i for i in range(6) if i not in rows),
+                      tuple(j for j in range(6) if j not in cols))
+        frames.add(min((rows, cols), complement))
+    equations, blocks = [], []
+    anchors = fourier_relations()[2]
+    for b, value in enumerate(map(int, case)):
+        norm = dict(anchors[b]); add_to(norm, {ZERO: 1}, -value)
+        equations.append((f'class-norm:{b}:{value}', norm))
+        if value == 0:
+            for tr in (False, True):
+                for I in combinations(range(6), 3):
+                    if 0 not in I:
+                        continue
+                    terms = [exponent((36*b+(6*j+i if tr else 6*i+j),
+                                       1 if i in I else -1) for i in range(6))
+                             for j in range(6)]
+                    poly = dict(Counter(plus(t, neg(terms[0])) for t in terms))
+                    name = f'class-fourier:{b}:{int(tr)}:'+''.join(map(str,I))
+                    equations.append((name, poly))
+                    blocks.append((name, sorted(poly)))
+            for rows, cols in sorted(frames):
+                comp_rows = tuple(i for i in range(6) if i not in rows)
+                comp_cols = tuple(j for j in range(6) if j not in cols)
+                poly = {monomial(b, rows, cols, e): c for e,c in data['psi']}
+                add_to(poly, {neg(monomial(b, comp_rows, comp_cols, e)): c
+                              for e,c in data['psi']}, -1)
+                name = f'class-conjugacy:{b}:'+''.join(map(str,rows))+':'+''.join(map(str,cols))
+                equations.append((name, poly))
+                blocks.append((name, sorted(set(poly) | {ZERO})))
+        else:
+            for i,j in product(range(1,6),repeat=2):
+                rectangle = exponent((36*b+6*r+c,3*sign)
+                    for r,c,sign in ((i,j,1),(0,0,1),(i,0,-1),(0,j,-1)))
+                poly = {rectangle:1, ZERO:-1}
+                name = f'class-tao-cubic:{b}:{i}:{j}'
+                equations.append((name, poly));blocks.append((name,sorted(poly)))
+            for name, f in hadamard_equations(b):
+                if not name.endswith(':0'):
+                    continue
+                poly = {tuple((i,2*v) for i,v in e):c for e,c in f.items()}
+                name = name.replace('orth:', 'class-tao-square:')
+                equations.append((name,poly));blocks.append((name,sorted(poly)))
+    return equations, blocks
+
+
 def make_model(width=1, localizer_limit=0, fourier=False, coupled=False,
-               moment_reduction=False, frontier_cap=0):
+               moment_reduction=False, frontier_cap=0, classification_case=None,
+               transition_lift=False):
     started = time.monotonic()
     data, psi, p, target, scale, seeds = load_inputs()
     equations = quartet_equations()
+    matrix_count = 6 if transition_lift else 3
+    transition_blocks = []
+    if transition_lift:
+        extra, transition_blocks = transition_relations()
+        equations.extend(extra)
+    classification_blocks = []
+    if classification_case is not None:
+        extra, classification_blocks = classification_relations(classification_case)
+        equations.extend(extra)
     core = set(p) | set(seeds) | {ZERO}
+    for name, f in equations:
+        if name == 'class-conjugacy:0:012:012':
+            core.update(f)
     mixed_blocks = []
     for name, poly in equations:
         if name.startswith('mixed:'):
@@ -262,13 +370,16 @@ def make_model(width=1, localizer_limit=0, fourier=False, coupled=False,
                 mixed_blocks.append((name, sorted(set(poly) | {ZERO})))
     fourier_blocks = []
     if fourier:
-        extra_equations, extra_blocks, anchors = fourier_relations()
+        extra_equations, extra_blocks, anchors = fourier_relations(matrix_count)
+        if classification_case:
+            extra_equations = [(n,f) for n,f in extra_equations
+                if not (n.startswith('fourier-binary:') and int(n.split(':')[1]) < 3)]
         equations.extend(extra_equations)
-        for anchor in anchors:
+        for anchor in anchors[:3]:
             core.update(anchor)
         # The three anchor blocks are principal submatrices of the core.
         fourier_blocks = [(name, basis) for name, basis in extra_blocks
-                          if not name.endswith(':0:012')]
+                          if not (name.endswith(':0:012') and int(name.split(':')[1]) < 3)]
     coupled_added = 0
     if coupled:
         before = len(core)
@@ -285,10 +396,10 @@ def make_model(width=1, localizer_limit=0, fourier=False, coupled=False,
         coupled_added = len(core)-before
     norm_blocks = []
     if moment_reduction:
-        extra_equations, norm_blocks = moment_norm_relations()
+        extra_equations, norm_blocks = moment_norm_relations(matrix_count)
         equations.extend(extra_equations)
         if not fourier:
-            fourier_blocks = fourier_relations()[1]
+            fourier_blocks = fourier_relations(matrix_count)[1]
     blocks = [('corner_and_three_mixed_edges', sorted(core))]
     # Orthogonality squares fit in these six-monomial blocks. Repeated blocks
     # differing only by a unit monomial give identical Gram entries; retain one.
@@ -307,6 +418,8 @@ def make_model(width=1, localizer_limit=0, fourier=False, coupled=False,
     blocks.extend(mixed_blocks)
     blocks.extend(fourier_blocks)
     blocks.extend(norm_blocks)
+    blocks.extend(classification_blocks)
+    blocks.extend(transition_blocks)
     moments = {ZERO}
     for _, basis in blocks:
         moments.update(real_key(plus(neg(a), b)) for a in basis for b in basis)
@@ -323,7 +436,12 @@ def make_model(width=1, localizer_limit=0, fourier=False, coupled=False,
     rows, provenance, seen_rows = [], [], set()
     stats = Counter()
     for name, f in equations:
-        candidates = ({ZERO} if name.startswith('moment-norm:') else
+        restricted = (name.startswith(('class-', 'transition:')) or
+                      (name.startswith('orth:') and int(name.split(':')[1]) >= 3) or
+                      (name.startswith('fourier') and int(name.split(':')[1]) >= 3))
+        candidates = ({ZERO} if name.startswith('moment-norm:') or
+                      (name.startswith('fourier-binary:') and int(name.split(':')[1]) >= 3) else
+                      {neg(e) for e in f} | {ZERO} if restricted else
                       set(pool) | {neg(e) for e in f} | {ZERO})
         for shift in sorted(candidates):
             shifted = {}
@@ -377,7 +495,7 @@ def make_model(width=1, localizer_limit=0, fourier=False, coupled=False,
         'status': 'NECESSARY_FINITE_RELAXATION_NOT_A_PROOF',
         'generator_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
         'reused_input_sha256': hashlib.sha256((HERE/'inputs.json').read_bytes()).hexdigest(),
-        'main_commit': data['main_commit'], 'phase_variables': 108,
+        'main_commit': data['main_commit'], 'phase_variables': 36*matrix_count,
         'gauge': 'No separate row dephasing; all variables are unit complex phases.',
         'target': '|Psi(H0[0:3,0:3])-conj(Psi(H0[0:3,0:3]))|^2 / scale',
         'target_scale': scale, 'target_real_laurent_terms': len(target),
@@ -396,6 +514,11 @@ def make_model(width=1, localizer_limit=0, fourier=False, coupled=False,
         'moment_reduction_source_commit': ('66b5c6535c01ca1589bca2ff8779c5000a4b22bd'
                                            if moment_reduction else None),
         'complementary_same_signature_assumption': False,
+        'classification_case': classification_case,
+        'classification_case_coverage': list(CLASSIFICATION_CASES) if classification_case else None,
+        'uses_upstream_non_tao_complementary_conjugacy': classification_case is not None,
+        'rational_transition_lift': transition_lift,
+        'case_conclusion_only': classification_case is not None,
         'generation_seconds': time.monotonic()-started,
     }
     return {'metadata': metadata, 'moments': keys, 'rows': indexed_rows,
@@ -454,6 +577,17 @@ def solve(model, directory, seconds=60):
         eigmins = [float(np.linalg.eigvalsh(val[np.asarray(ix)])[0])
                    for _, _, ix in model['blocks']]
         record['minimum_gram_eigenvalue'] = min(eigmins)
+        positions = {e:i for i,e in enumerate(model['moments'])}
+        def expectation(poly):
+            folded = fold(poly)
+            if not set(folded) <= set(positions):
+                return None
+            return float(sum(c*val[positions[e]] for e,c in folded.items()))
+        count = model['metadata'].get('phase_variables',108)//36
+        record['hadamard_diagnostics'] = [dict(matrix=b,
+            fourier_squared_norm=expectation(F),
+            T2=expectation(gram_norm(b,2)[0]), T3=expectation(gram_norm(b,3)[0]))
+            for b,F in enumerate(fourier_relations(count)[2])]
         arrays['moments'] = val
     for i, con in enumerate(constraints):
         if con.dual_value is not None:
@@ -495,6 +629,10 @@ def main():
                         help='Reuse the seven-cofactor norm identity in upstream return I.')
     parser.add_argument('--frontier-cap', type=int, default=0,
                         help='Add this many target-aligned full localizers per selected equation.')
+    parser.add_argument('--classification-case', choices=CLASSIFICATION_CASES,
+                        help='Separate exact Fourier-norm sectors (0 or 9); retain all six cases.')
+    parser.add_argument('--transition-lift', action='store_true',
+                        help='Expose all six transition Hadamards using rational unit-phase equations.')
     args = parser.parse_args()
     assert 1 <= args.seconds <= 300
     assert 0 <= args.frontier_cap <= 512
@@ -503,7 +641,9 @@ def main():
         raise SystemExit('Refusing to overwrite an existing run.')
     args.output.mkdir(parents=True)
     model = make_model(args.width, fourier=args.fourier, coupled=args.coupled,
-                       moment_reduction=args.moment_reduction, frontier_cap=args.frontier_cap)
+                       moment_reduction=args.moment_reduction, frontier_cap=args.frontier_cap,
+                       classification_case=args.classification_case,
+                       transition_lift=args.transition_lift)
     digest = export_model(model, args.output/'model.json.gz')
     model['metadata']['uncompressed_model_sha256'] = digest
     (args.output/'model_summary.json').write_text(json.dumps(model['metadata'], indent=2)+'\n')

@@ -37,9 +37,13 @@ def replay(model_path, certificate_path):
     if bound > 0:
         raise ValueError('A positive upper bound does not force corner reality.')
     keys = [tuple(map(tuple, e)) for e in model['moments']]
+    lifted = model['metadata'].get('rational_transition_lift', False)
+    matrix_count = 6 if lifted else 3
+    variable_count = 36*matrix_count
+    case = model['metadata'].get('classification_case')
     if (len(set(keys)) != len(keys) or
         any(s.real_key(e) != e or s.exponent(e) != e or
-            any(type(i) != int or type(v) != int or not 0 <= i < 108 for i,v in e)
+            any(type(i) != int or type(v) != int or not 0 <= i < variable_count for i,v in e)
             for e in keys)):
         raise ValueError('Invalid moment coordinates.')
     index = {e: i for i, e in enumerate(keys)}
@@ -49,9 +53,13 @@ def replay(model_path, certificate_path):
     if target != {int(i): rational(v) for i, v in model['target'].items()}:
         raise ValueError('Incorrect target.')
     equations = dict(s.quartet_equations())
+    if lifted:
+        equations.update(s.transition_relations()[0])
+    if case is not None:
+        equations.update(s.classification_relations(case)[0])
     uses_fourier = model['metadata'].get('uses_upstream_fourier_theorem_with_tao_case_retained', False)
     if uses_fourier:
-        equations.update(s.fourier_relations()[0])
+        equations.update(s.fourier_relations(matrix_count)[0])
     uses_norm = model['metadata'].get('uses_upstream_seven_cofactor_moment_norm_identity', False)
     if uses_norm:
         # Reuse the upstream checker and its exact existing seven-cofactor
@@ -70,13 +78,13 @@ def replay(model_path, certificate_path):
         data = json.loads((upstream/'certificates/scalar_identities.json').read_text())
         if checker.expand_certificate(data['moment_norm']) != checker.L.scalar_targets()['moment_norm']:
             raise ValueError('Reused seven-cofactor certificate failed.')
-        equations.update(s.moment_norm_relations()[0])
+        equations.update(s.moment_norm_relations(matrix_count)[0])
     rows = []
     if len(model['rows']) != len(model['row_provenance']):
         raise ValueError('Missing localizer provenance.')
     for exported, provenance in zip(model['rows'], model['row_provenance']):
         shift = tuple(map(tuple, provenance['multiplier']))
-        if any(type(i) != int or type(v) != int or i < 0 or i >= 108 for i, v in shift):
+        if any(type(i) != int or type(v) != int or i < 0 or i >= variable_count for i, v in shift):
             raise ValueError('Invalid Laurent exponent.')
         f = equations[provenance['equation']]
         row = s.fold({s.plus(e, shift): v for e, v in f.items()})
@@ -88,7 +96,7 @@ def replay(model_path, certificate_path):
     blocks = []
     for _, basis, exported in model['blocks']:
         basis = [tuple(map(tuple, e)) for e in basis]
-        if any(any(type(i) != int or type(v) != int or i < 0 or i >= 108 for i,v in e)
+        if any(any(type(i) != int or type(v) != int or i < 0 or i >= variable_count for i,v in e)
                for e in basis):
             raise ValueError('Invalid Gram exponent.')
         actual = [[index[s.real_key(s.plus(s.neg(a), b))] for b in basis] for a in basis]
@@ -125,9 +133,14 @@ def replay(model_path, certificate_path):
         residual = dict(lhs)
         add_scaled(residual, rhs, -1)
         raise ValueError(f'Exact identity failed: {len(residual)} nonzero coefficients.')
+    conclusion = 'Im Psi = 0' if not bound else 'No quartet'
+    conclusion += (f' within classification case {case}; other cases still required'
+                   if case else ' for every quartet')
     return dict(status='EXACT_RATIONAL_SOS_IDENTITY_CHECKED_NOT_LEAN', bound=str(bound),
-                conclusion='Im Psi = 0 for every quartet' if not bound else 'No quartet',
-                atlas_used=False, uses_upstream_fourier_theorem=uses_fourier,
+                conclusion=conclusion, classification_case=case,
+                rational_transition_lift=lifted,
+                atlas_used=False, uses_upstream_fourier_theorem=uses_fourier or case is not None,
+                uses_upstream_classification=case is not None,
                 uses_upstream_moment_norm_identity=uses_norm,
                 model_sha256=hashlib.sha256(raw).hexdigest())
 

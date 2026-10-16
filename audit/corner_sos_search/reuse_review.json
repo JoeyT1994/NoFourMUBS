@@ -155,5 +155,74 @@
     "meaning": "Add only complete monomial multiples of the original quartet equations. Unlike the first pilots, retain newly introduced moments with valid unit-monomial bounds.",
     "reused_inputs": "The same Psi target and nine selected witness monomials; no witness regeneration.",
     "bounded_scope": "At most 128 selected rows per one of 30 H0 orthogonality and three mixed generators; whole shifted equations and explicit provenance are retained. No complete-degree claim."
+  },
+  "classification_strengthening": {
+    "reviewed_at": "2026-10-16T11:59:09.528659+00:00",
+    "sources": [
+      {
+        "path": "NoFourMUBs/FourierVanishing/Main.lean",
+        "sha256": "1373318c89304d5d450cc729f8fa0ad20409ad04affaecf7e20270f4fe37b0d6",
+        "commit": "0636c223da1a0879b515fc69812332326136829e"
+      },
+      {
+        "path": "NoFourMUBs/FourierVanishing/Corners.lean",
+        "sha256": "7ca6fab12d3f12e4fd9354f33bb61c080263be0b5109d5d3073eb3e528440ae7",
+        "commit": "0636c223da1a0879b515fc69812332326136829e"
+      },
+      {
+        "path": "NoFourMUBs/FourierVanishing/README.md",
+        "sha256": "07f6fefaba992c89e1c7bcfa04b5277fd77c6fecd6f90a453102b3ec01fe122c",
+        "commit": "0636c223da1a0879b515fc69812332326136829e"
+      },
+      {
+        "path": "NoFourMUBs/Final.lean",
+        "sha256": "52a7a289a645fe2d84f627efeb7629663ad61028dce51a95112dcea92823a3df",
+        "commit": "0636c223da1a0879b515fc69812332326136829e"
+      },
+      {
+        "path": "NoFourMUBs/PRM/CoverageMain.lean",
+        "sha256": "6ed64d2d7432e0ec8863cc28f08620af417e74114e139eaadfe72e044c47729b",
+        "commit": "0636c223da1a0879b515fc69812332326136829e"
+      },
+      {
+        "path": "NoFourMUBs/PRM/Converse.lean",
+        "sha256": "86a106f42bf964447ca509d0c5107de0c475e3c1baad920eb601783a1fbae039",
+        "commit": "0636c223da1a0879b515fc69812332326136829e"
+      },
+      {
+        "path": "NoFourMUBs/PRM/Defs.lean",
+        "sha256": "72c563e0140c2ca794b285e132ae178572ed71b9041e5b5d4c112a293cdd8a5c",
+        "commit": "0636c223da1a0879b515fc69812332326136829e"
+      }
+    ],
+    "archive_index_search": {
+      "ARCHIVE_SOURCE_INDEX.jsonl": {
+        "total": 77948,
+        "matches": 64
+      },
+      "ARCHIVE_BLOB_INDEX.jsonl": {
+        "total": 19386,
+        "matches": 16
+      },
+      "ARCHIVE_IMPORT_INDEX.json": {
+        "total": 16532,
+        "matches": 2
+      }
+    },
+    "main_tree_truncated": false,
+    "new_kernel_branch_paths": "All changes since 66b5c6535c01ca1589bca2ff8779c5000a4b22bd through 3a164b38bb4cc84376bae2698ea53b8317d746be are under kernel_atlas; metadata reviewed and excluded. No source or certificate from those changes is adopted or executed.",
+    "allowed_adapters": [
+      "Exact 0-or-9 case split on the original three Hadamards; six representatives cover all eight cases under exchange of H1,H2.",
+      "Non-Tao Fourier sums, and allCornersMatched as complementary CONJUGACY, on reused witness corner frames.",
+      "Tao cubic cross-ratios and entrywise-square Hadamard equations, from the exact upstream Tao representative and phase/permutation covariance.",
+      "Rational auxiliary transition Hadamards K=(Ha* Hb) conjugate((Ha* Hb)00)/6; transport the same existing Fourier and moment-norm theorems to K."
+    ],
+    "not_adopted": [
+      "Final.no_four_mubs requires AtlasCertificate; using it to prove the desired algebraic certificate would be circular.",
+      "Paper complement equality depends on matched exclusion via W and the atlas; it is not a quartet equation available here.",
+      "Archived TaoQuartetTerminal imports a circle certificate and is not rechecked or assumed.",
+      "PhysicalMomentBound archive modules import MomentMajorant and Source2442Binding; they are not adopted here. Their contents have not been revalidated for this target."
+    ],
+    "acceptance": "A numerical zero or infeasibility in one sector is not a proof. Exact rational checking and all six sectors are required. Fourier/classification adapters remain modular theorem dependencies, not new raw-generator cofactors or new Lean proofs."
   }
 }

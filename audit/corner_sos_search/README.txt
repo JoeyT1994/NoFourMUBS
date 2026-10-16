@@ -1,14 +1,18 @@
 Exact SOS search for a real corner signature
 ============================================
 
-Status: started; NO corner-reality certificate has been found.
+Status: the first GitHub search completed; NO corner-reality certificate
+has been found. A six-case classification strengthening is prepared.
+See CLASSIFICATION_REUSE.txt and STATUS.json for the current search.
 This is one discovery route extending the existing proof. It is not a second
 proof, a new Lean formalization, or an atlas-certification project.
 
 The target is Im Psi(X)=0 for the top-left 3x3 corner X of H0, where a
 hypothetical quartet is I,H0/sqrt(6),H1/sqrt(6),H2/sqrt(6). The search uses
-108 unit complex entry variables, without independently dephasing rows of
+108 original unit complex entry variables, without independently dephasing rows of
 the three matrices. It keeps their physical alignment.
+The strengthened search adds 108 auxiliary unit phases to expose the other
+three transition Hadamards with exact integer-coefficient defining equations.
 
 Reused work
 -----------
@@ -49,21 +53,27 @@ The second adds the case-complete Fourier consequences. The third also adds
 255 witness-times-mixed and three-basis-loop features and return I's norm
 identity; its largest Laurent order is 14. No atlas data enter any model.
 
-What the next run changes
-------------------------
+What the first GitHub run changed
+--------------------------------
 The first pilots allowed shifted equations only when their entire support
 was already represented. Most high-degree reductions were therefore absent:
-the orthogonality-localizer count remained 630. The next run adds complete
+the orthogonality-localizer count remained 630. The first GitHub run added complete
 shifted equations that touch the target's support, including all their new
 moments. No outside term is discarded. It selects at most 128 such rows per
 selected generator, with Laurent order at most 12, and uses all six column
 indices for the mixed Gram blocks. This is a targeted enlargement, not a
 claim of exhaustive search or a degree lower bound.
 
+That completed run had 116,378 moments, 7,434 localizers and numerical
+objective 0.39782108397588023. Its candidate mixes the exact Fourier-norm
+sectors and lacks complementary-conjugacy moments. The next GitHub run
+separates all six classification cases, reuses conjugacy and Tao algebra,
+and applies the existing single-Hadamard identities to all six transitions.
+
 Execution and acceptance
 ------------------------
 The GitHub workflow 'Corner SOS search' runs source guards, the ten focused
-tests, and the next bounded search. It installs only Python SDP dependencies,
+tests, and six bounded classification searches. It installs only Python SDP dependencies,
 runs no Lean, and uploads all model and solver records. Every new upstream
 head must be reviewed before generation; CI does not auto-approve new work.
 The local three-pilot calculations used no new installation or Lean cache.
@@ -71,7 +81,10 @@ The local three-pilot calculations used no new installation or Lean cache.
 For an authorized fresh run after reviewing GitHub, from this directory:
 
   python search.py --width 6 --fourier --coupled --moment-reduction \
-    --frontier-cap 128 --seconds 180 --output runs/next_unique_run
+    --frontier-cap 128 --classification-case 000 --transition-lift \
+    --seconds 300 --output runs/next_unique_run
+
+This runs only sector 000. The other five representatives remain necessary.
 
 The preflight requires the scoped reuse review and a current repository
 snapshot. Existing run directories cannot be overwritten. prepare_inputs.py
