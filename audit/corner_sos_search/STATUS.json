@@ -76,5 +76,12 @@
     "augmentation": "252 short matrix-composition equations, without rebuilding the saved base models",
     "maximum_solver_seconds_per_case": 300,
     "exact_certificate_found": false
+  },
+  "infrastructure_failure": {
+    "run_id": 38900297641,
+    "reason": "The GitHub Ubuntu image does not provide rg. All six jobs stopped at artifact path discovery before model augmentation or numerical solving.",
+    "checks_passed": 16,
+    "model_artifacts_preserved": true,
+    "repair": "Use the standard find utility, retaining the exact-one-file check. No mathematical source changes."
   }
 }

@@ -50,7 +50,7 @@ jobs:
       - name: Append only matrix-composition constraints and search
         working-directory: audit/corner_sos_search
         run: |
-          source_model=$(rg --files /tmp/corner-base -g model.json.gz)
+          source_model=$(find /tmp/corner-base -type f -name model.json.gz)
           test -f "$source_model"
           /tmp/corner-sos-venv/bin/python -u search.py --augment-model "$source_model" --classification-case '${{ matrix.classification-case }}' --seconds 300 --output runs/github-transport-${{ github.run_id }}-${{ matrix.classification-case }}
       - name: Preserve the exact model and numerical result
