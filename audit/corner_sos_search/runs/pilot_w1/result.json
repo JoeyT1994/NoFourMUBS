@@ -1,0 +1,53 @@
+{
+  "status": "NUMERICAL_DISCOVERY_ONLY",
+  "solver_status": "optimal",
+  "solver": "SCS",
+  "versions": {
+    "cvxpy": "1.9.3"
+  },
+  "wall_seconds": 2.0513415000023087,
+  "requested_solver_time_limit_seconds": 60,
+  "exact_certificate_found": false,
+  "error": null,
+  "objective": 0.3978214639035831,
+  "max_equation_residual": 2.159716849803317e-12,
+  "normalization_residual": 6.142479636039866e-09,
+  "max_box_violation": 2.8188203260448574e-07,
+  "minimum_gram_eigenvalue": -7.150725576443383e-07,
+  "scs_info": {
+    "status_val": 1,
+    "iter": 400,
+    "scale_updates": 3,
+    "scale": 5.318443241495045e-06,
+    "pobj": -0.397821463903583,
+    "dobj": -0.397820757985758,
+    "res_pri": 6.479798774698347e-07,
+    "res_dual": 3.971615577893102e-08,
+    "gap": 7.059178249947694e-07,
+    "res_infeas": null,
+    "res_unbdd_a": 2.5136911218153757,
+    "res_unbdd_p": 0.0,
+    "comp_slack": 5.071498776487715e-13,
+    "solve_time": 1925.278458,
+    "setup_time": 10.939708,
+    "lin_sys_time": 117.44770300000003,
+    "cone_time": 1751.3976539999992,
+    "accel_time": 25.269440000000007,
+    "rejected_accel_steps": 4,
+    "accepted_accel_steps": 1,
+    "status": "solved",
+    "lin_sys_solver": "sparse-direct-amd-qdldl",
+    "aa_stats": {
+      "iter": 8,
+      "n_accept": 5,
+      "n_reject_lapack": 0,
+      "n_reject_rank0": 0,
+      "n_reject_nonfinite": 0,
+      "n_reject_weight_cap": 0,
+      "n_safeguard_reject": 4,
+      "last_rank": 10,
+      "last_aa_norm": 1.669269395409779,
+      "last_regularization": 1.9788575927441626e-08
+    }
+  }
+}

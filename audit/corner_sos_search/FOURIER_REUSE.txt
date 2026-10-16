@@ -1,0 +1,82 @@
+A case-complete way to reuse the new GitHub Fourier theorem
+=========================================================
+
+This is a small algebraic adapter for discovery, not a new formal proof of
+the upstream theorem, a completed SOS certificate, or an atlas calculation.
+The scalar adapter now reuses the newly published return I, rather than
+retaining an independent calculation of its Tao anchor.
+
+Pinned source: JoeyT1994/NoFourMUBS at
+0636c223da1a0879b515fc69812332326136829e,
+lean/NoFourMUBs/FourierVanishing/Main.lean, fourierVanishing.
+Its hypotheses are Hadamard6.IsHadamard H and NOT IsTaoOrbit H.
+There is no AtlasCertificate parameter. Its result is used as supplied;
+its recent Lean build has not been independently repeated in this search.
+
+For |I|=3 define
+
+  A_I(H) = sum_j (product_{i in I} H_ij)(product_{i not in I} conjugate(H_ij)),
+  F_I(H) = |A_I(H)|^2.
+
+Outside the Tao orbit the existing theorem gives every A_I=0, for rows and
+columns. On the Tao orbit, return I's existing exact anchor data give every
+|M_I|^2=1/4, where M=A/6, in both orientations. Therefore F_I=36/4=9.
+We use its existing exact_anchors.Z field arithmetic to read these 40
+precomputed values; its full anchor enumeration is not regenerated.
+The other primitive cubic root is conjugate and has the same squared norms.
+Source: proof/coverage/returns/I_moment_reduction/certificates/anchor_expectations.json,
+Tao.row_column_moments, at 66b5c6535c01ca1589bca2ff8779c5000a4b22bd.
+
+This evaluation covers the orbit: under H_ij -> r_i H_{sigma(i),tau(j)} c_j,
+the column phases cancel because 3-3=0. Every summand acquires the same
+unit row factor product_{i in I}r_i product_{i not in I}conjugate(r_i).
+Permutations relabel triples and summands. Thus F_I is unchanged up to
+relabeling. The transpose statement is identical with rows and columns
+interchanged. Both primitive roots have the same squared norms.
+
+Consequently, for EVERY Hadamard H, with F_* one fixed row triple,
+
+  F_I - F_* = 0  (all row and column triples),
+  F_* (F_* - 9) = 0.
+
+These equations retain the Tao case. There is no assumption F_*=0, no
+Tao exclusion, and no same-signature assumption. They are used for each
+of H0,H1,H2, whose Hadamard conditions are part of the quartet equations.
+Complementary triples have the same squared norm, leaving 20 choices per
+matrix: ten row partitions and ten column partitions.
+
+The Laurent norm F has 31 terms (constant 6 and 30 ordered cross terms).
+Its binary equation has Laurent order at most 12. These exact-coefficient
+constraints fit the corner target's order and avoid a new atlas.
+
+For a future successful candidate, the result is a MODULAR analytical SOS
+proof using upstream fourierVanishing. A single identity using only the
+raw quartet generators would additionally need algebraic cofactors for
+these derived equations. A Lean adapter/check would run on GitHub only.
+
+New upstream scalar identity reused in the coupled pilot
+--------------------------------------------------------
+Return I, REPORT.md (4.2), supplies
+
+  mu = 1/5 + T3/6480 - T2/1440,
+  T_k = ||H^[k] (H^[k])*||_F^2,
+  mu = average of the 40 normalized squared Fourier moments.
+
+Its EXISTING seven orthogonality cofactors were checked with its EXISTING
+expand_certificate and scalar_targets routines, unchanged. No coefficients
+were rediscovered. Receipt: upstream/moment_norm_reuse.json.
+
+Since complementary triples have the same norm, let SigmaF be the sum over
+20 row/column partitions of the unnormalized F_I. Then mu=SigmaF/720.
+The direct Laurent form inserted in this search is exactly
+
+  18 SigmaF - 2592 - 2 T3 + 9 T2 = 0.
+
+It holds for every Hadamard, with no non-Tao hypothesis. In the search each
+T_k is represented explicitly, including the diagonal/coincident-index
+constant 396 and the 900 ordered rectangle terms. The matching Gram blocks
+also preserve the nonnegativity of the row-pair norm contributions.
+
+Return I does NOT give the requested quartet-to-real-corner certificate.
+Its full SOS implication still takes unconjugated equality (C) as a premise.
+We retain our existing conditional SOS witness and do not redo that work.

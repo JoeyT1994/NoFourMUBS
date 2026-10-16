@@ -25,7 +25,9 @@ def require_reuse_review(scope):
     approved = review.get('scopes', {}).get(scope, {})
     if not approved.get('reviewed'):
         raise RuntimeError(f'Reuse review is not finished for {scope}; do not generate a parallel proof.')
-    if review.get('repository_commit') != status.get('branches', {}).get('main'):
+    # A new, narrowly reviewed search must not silently refresh older scopes.
+    reviewed_commit = approved.get('repository_commit', review.get('repository_commit'))
+    if reviewed_commit != status.get('branches', {}).get('main'):
         raise RuntimeError('Reuse review does not match the current repository commit.')
     return approved
 

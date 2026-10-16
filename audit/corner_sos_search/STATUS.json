@@ -1,0 +1,46 @@
+{
+  "status": "SEARCH_STARTED_NO_EXACT_CERTIFICATE_FOUND",
+  "updated_at": "2026-10-16T02:43:31.962191+00:00",
+  "main_commit": "0636c223da1a0879b515fc69812332326136829e",
+  "new_upstream_moment_reduction_commit": "66b5c6535c01ca1589bca2ff8779c5000a4b22bd",
+  "tests_passed": 10,
+  "no_atlas": true,
+  "no_local_lean": true,
+  "existing_witness_unchanged": true,
+  "runs": [
+    {
+      "name": "pilot_w1",
+      "model_sha256": "bd4fab874cebe2848b7eb95fd65e5ea6d2ad21ceafdb04a42f63b74ba9e9396a",
+      "moments": 7564,
+      "gram_max": 148,
+      "localizers": 972,
+      "numerical_objective": 0.3978214639035831,
+      "exact_certificate_found": false
+    },
+    {
+      "name": "pilot_w3_fourier",
+      "model_sha256": "738c1f6db90319fc76d65adfc17bbd3edbe44fc42288fcb65cb707a3da43b43a",
+      "moments": 26914,
+      "gram_max": 238,
+      "localizers": 1527,
+      "numerical_objective": 0.397821364988982,
+      "exact_certificate_found": false
+    },
+    {
+      "name": "pilot_w3_fourier_coupled_return_I",
+      "model_sha256": "1b4d363a90a0ad16bbb66819f5d47d70823080a504ef8eb22807929fa3a1425c",
+      "moments": 97710,
+      "gram_max": 493,
+      "localizers": 2295,
+      "numerical_objective": 0.39782024209054484,
+      "exact_certificate_found": false
+    }
+  ],
+  "next_run": {
+    "platform": "GitHub Actions",
+    "workflow": "Corner SOS search",
+    "scope": "width 6, case-complete Fourier, coupled witness/triangle features, reused seven-cofactor norm identity, 128 target-directed frontier localizers per selected equation",
+    "solver_seconds": 180,
+    "state": "prepared"
+  }
+}
