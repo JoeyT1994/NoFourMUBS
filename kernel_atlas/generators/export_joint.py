@@ -233,6 +233,7 @@ def main():
          '    jointUB tab cfg pq t2cfg tq2 (labs2.getD i labD) (labs2.getD j labD) (hintAt HU i j))', '']
     CH = [(lo, min(10, n - lo)) for lo in range(0, n, 10)]
     for c, (lo, ln) in enumerate(CH):
+        L.append('set_option maxHeartbeats 0 in')
         L.append('theorem ck_%d : allNat %d (fun k => erow (%d + k)) = true := by decide +kernel' % (c, ln, lo))
         L.append('')
     L.append('def chunks : List (ℕ × ℕ) := [%s]' % ', '.join('(%d, %d)' % ch for ch in CH))

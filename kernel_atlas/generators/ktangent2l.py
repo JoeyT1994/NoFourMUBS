@@ -1,5 +1,8 @@
 """Exact mirror of the Lean v2 checker `KernelAtlas/Tangent2K.lean` (`tang2B`, `binH`), and its hint generator.
 
+With `labels`, the traversal is `binL` of `Tangent2L.lean`: at depth 0 the hint `4b + 3` names a label `b` that
+contains the bin (`leafLH`), and the generator prefers it to any tangent test.
+
 The Lean checker computes exact integers from the six row values (signed pairs of naturals), so this mirror uses
 Python integers for the same quantities; only `isqU` (the untrusted square root), the hint decoding and the final
 comparisons need to match bit for bit.
@@ -113,9 +116,25 @@ def make_hint(par, t2, d, data):
     return 0
 
 
-def run(par, tc, t2, W0, R5, leaf_cb=None, stats=None, hints=None, only=None):
-    """Mirror of `binH` over all sub-slabs (or `only` = (b1, b2)).  hints=None generates them."""
+def encode_leaf(b):
+    return 3 + (b << 2)
+
+
+def leafLH(labels, h, k):
+    """Mirror of `leafLH` (Tangent2L.lean): hint 4b + 3 checks label b, any other hint scans."""
+    import klabels as KLab
+    if h % 4 == 3:
+        b = h >> 2
+        return b < len(labels) and KLab.accepts(k, labels[b][0], labels[b][1])
+    return KLab.first_label(k, labels) is not None
+
+
+def run(par, tc, t2, W0, R5, leaf_cb=None, stats=None, hints=None, only=None, labels=None):
+    """Mirror of `binH` (or of `binL` with `labels`) over all sub-slabs (or `only` = (b1, b2)).  hints=None generates
+    them."""
     stats = stats if stats is not None else {}
+    if labels is not None:
+        import klabels as KLab
     gen = hints is None
     out = {}
 
@@ -132,7 +151,8 @@ def run(par, tc, t2, W0, R5, leaf_cb=None, stats=None, hints=None, only=None):
         inc(('tangent', d))
         data = KT2.bin_data(par, tc, [W0] + [t[1] for t in ts])
         if gen:
-            h = make_hint(par, t2, d, data)
+            b = KLab.first_label(tuple(t[0] for t in ts), labels) if labels is not None and d == 0 else None
+            h = encode_leaf(b) if b is not None else make_hint(par, t2, d, data)
             st.append(h)
         else:
             h = st.pop(0) if st else 0
@@ -140,6 +160,9 @@ def run(par, tc, t2, W0, R5, leaf_cb=None, stats=None, hints=None, only=None):
             inc(('trej', d))
             return True
         if d == 0:
+            if labels is not None:
+                inc(('leafhint', 0) if h % 4 == 3 else ('leafscan', 0))
+                return leafLH(labels, h, tuple(t[0] for t in ts))
             inc(('survivor', 0))
             return leaf_cb(acc, ts) if leaf_cb else True
         ok = True

@@ -131,12 +131,12 @@ re-checks its graph in the exact model.
 
 | Records | default labels pass with direct + joint | a variant passes | none of the variants |
 |---|---|---|---|
-| 4,350 that needed the support or joint test (rusty job 7252826) | 4,258 | 79 | 13 (of 21 variants tried) |
+| 4,354 that needed the support or joint test (rusty job 7252826) | 4,261 | 80 | 13 (of 21 variants tried) |
 | those 13, with 60 variants | – | 13 (13–16 variants each) | 0 |
 | the 26 that failed | – | 26 | 0 |
 
 So **with the variant search no Record needs the support edge test**: direct + joint suffices for the whole atlas
-(118 Records need a variant, mostly the radius 0.8 or 0.9 × R). Rows: `kernel_atlas/results/graph_v2/`.
+(119 Records need a variant, mostly the radius 0.8 or 0.9 × R). Rows: `kernel_atlas/results/graph_v2/`.
 
 ### Large clique searches: the bitset search (`CliqueB.lean`)
 
