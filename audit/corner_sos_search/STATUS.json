@@ -1,6 +1,6 @@
 {
-  "status": "TRANSPORT_SEARCHES_COMPLETED_ALL_SIX_NONTAO_PROBE_PREPARED",
-  "updated_at": "2026-10-16T12:41:16.497295+00:00",
+  "status": "THREE_STRENGTHENING_ROUNDS_COMPLETED_NO_EXACT_CORNER_CERTIFICATE",
+  "updated_at": "2026-10-16T12:48:29.638683+00:00",
   "main_commit": "0636c223da1a0879b515fc69812332326136829e",
   "new_upstream_moment_reduction_commit": "66b5c6535c01ca1589bca2ff8779c5000a4b22bd",
   "tests_passed": 17,
@@ -48,12 +48,12 @@
     }
   ],
   "last_github_run": {
-    "run_id": 38900607750,
-    "url": "https://github.com/JoeyT1994/NoFourMUBS/actions/runs/38900607750",
+    "run_id": 38902440868,
+    "url": "https://github.com/JoeyT1994/NoFourMUBS/actions/runs/38902440868",
     "state": "completed",
     "conclusion": "success",
     "exact_certificate_found": false,
-    "summary": "TRANSPORT_RUN_RESULT.json"
+    "summary": "SIX_NONTAO_RUN_RESULT.json"
   },
   "no_search_currently_running": true,
   "upstream_snapshot": {
@@ -61,21 +61,32 @@
     "kernel/tangent-v2": "3a164b38bb4cc84376bae2698ea53b8317d746be",
     "change_scope": "kernel_atlas only; no mathematical certification performed"
   },
-  "next_run": {
-    "platform": "GitHub Actions",
-    "state": "prepared",
-    "primary_case": "000",
-    "auxiliary_case": "000",
-    "reuses_run": 38900607750,
-    "maximum_solver_seconds": 300,
-    "scope": "Only the all-six-non-Tao sector; other sectors remain open",
-    "exact_certificate_found": false
-  },
+  "next_run": null,
   "infrastructure_failure": {
     "run_id": 38900297641,
     "reason": "The GitHub Ubuntu image does not provide rg. All six jobs stopped at artifact path discovery before model augmentation or numerical solving.",
     "checks_passed": 16,
     "model_artifacts_preserved": true,
-    "repair": "Use the standard find utility, retaining the exact-one-file check. No mathematical source changes."
-  }
+    "repair": "Use the standard find utility, retaining the exact-one-file check. No mathematical source changes.",
+    "resolved_by_run": 38900607750
+  },
+  "completed_strengthening_rounds": [
+    {
+      "run_id": 38898826837,
+      "cases": 6,
+      "summary": "CLASSIFICATION_RUN_RESULT.json"
+    },
+    {
+      "run_id": 38900607750,
+      "cases": 6,
+      "summary": "TRANSPORT_RUN_RESULT.json"
+    },
+    {
+      "run_id": 38902440868,
+      "cases": 1,
+      "summary": "SIX_NONTAO_RUN_RESULT.json"
+    }
+  ],
+  "remaining_obligation": "Find an exact rational zero-bound SOS identity for corner reality, with all case hypotheses covered. No such identity is currently available.",
+  "search_assessment": "The combined classification/Fourier strengthening lowered non-Tao-target numerical objectives from about 0.397821 to 0.269080. Transport closure and the all-six-non-Tao probe did not show further reliable improvement. Future work should inspect exact kernel/quotient reduction and targeted products coupling the corner to quartet relations; simply repeat-running this ansatz is not justified by these results."
 }

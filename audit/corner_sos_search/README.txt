@@ -1,8 +1,8 @@
 Exact SOS search for a real corner signature
 ============================================
 
-Status: both six-case searches completed; NO corner-reality certificate has
-been found. One fully non-Tao diagnostic probe is prepared.
+Status: all three strengthening rounds completed; NO exact corner-reality
+certificate has been found. No search is currently running.
 See CLASSIFICATION_REUSE.txt and STATUS.json for the current search.
 This is one discovery route extending the existing proof. It is not a second
 proof, a new Lean formalization, or an atlas-certification project.
@@ -73,7 +73,7 @@ and applies the existing single-Hadamard identities to all six transitions.
 Execution and acceptance
 ------------------------
 The GitHub workflow 'Corner SOS search' runs source guards and seventeen
-focused tests. Its current job is one fully non-Tao diagnostic probe. It installs only Python SDP dependencies,
+focused tests. Its last job was one fully non-Tao diagnostic probe. It installs only Python SDP dependencies,
 runs no Lean, and uploads all model and solver records. Every new upstream
 head must be reviewed before generation; CI does not auto-approve new work.
 The local three-pilot calculations used no new installation or Lean cache.
@@ -121,3 +121,10 @@ is ONE additional sector, not a proof for arbitrary quartets. See section 7
 of CLASSIFICATION_REUSE.txt. TRANSPORT_RUN_RESULT.json records all six
 completed transport runs, including solver tolerances and the unchanged
 positive objectives. No exact certificate has been found.
+
+Final probe result (run 38902440868): optimal numerical objective
+0.2690795737493639 with all six Fourier norms approximately zero; still
+not an exact certificate. The model has 272,812 moments and 21,489 rows.
+It reused the prior model and took about 4.2 seconds to add the new
+constraints. All seventeen checks passed on GitHub. See
+SIX_NONTAO_RUN_RESULT.json. Other sectors remain open.

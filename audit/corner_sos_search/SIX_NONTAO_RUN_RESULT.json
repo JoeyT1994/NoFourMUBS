@@ -1,0 +1,50 @@
+{
+  "run_id": 38902440868,
+  "url": "https://github.com/JoeyT1994/NoFourMUBS/actions/runs/38902440868",
+  "source_commit": "f8d43ff07a963ca5e2638f2fa980a43e1a6288ff",
+  "recorded_at": "2026-10-16T12:48:29.638683+00:00",
+  "status": "ALL_SIX_NONTAO_DIAGNOSTIC_COMPLETED_NO_EXACT_CERTIFICATE",
+  "scope": "Only primary 000 plus auxiliary 000. Other sectors are not discharged.",
+  "moments": 272812,
+  "localizer_rows": 21489,
+  "numerical_objective": 0.2690795737493639,
+  "solver_status": "optimal",
+  "minimum_gram_eigenvalue": -2.51237355402956e-06,
+  "max_equation_residual": 1.707020913510604e-10,
+  "all_six_fourier_squared_norms": [
+    -7.010242386584764e-11,
+    -7.010542146801413e-11,
+    -7.008604807623442e-11,
+    1.076984057490904e-10,
+    1.0769790614872932e-10,
+    1.0769102276597664e-10
+  ],
+  "model_sha256": "28990a8d8052f0fd8887af9402da30f43dcdc8d4f8f16b742e20fb6d1fbbebdc",
+  "reused_model_sha256": "26595d0812715510f84b5325d220122c2896ddf4c1dbca9d1aefc840e1787e2a",
+  "augmentation_seconds": 4.194030886999997,
+  "artifact": {
+    "id": 12046821933,
+    "node_id": "MDg6QXJ0aWZhY3QxMjA0NjgyMTkzMw==",
+    "name": "corner-sos-38902440868-000",
+    "size_in_bytes": 22923724,
+    "url": "https://api.github.com/repos/JoeyT1994/NoFourMUBS/actions/artifacts/12046821933",
+    "archive_download_url": "https://api.github.com/repos/JoeyT1994/NoFourMUBS/actions/artifacts/12046821933/zip",
+    "expired": false,
+    "digest": "sha256:478a6076df7130364e085776f94fa0f1ed13f6579afe7099e8d3d07f806d5874",
+    "created_at": "2026-10-16T12:46:08Z",
+    "updated_at": "2026-10-16T12:46:08Z",
+    "expires_at": "2027-01-14T12:42:39Z",
+    "workflow_run": {
+      "id": 38902440868,
+      "repository_id": 1401770743,
+      "head_repository_id": 1401770743,
+      "head_branch": "codex/unified-lean-github-checks",
+      "head_sha": "f8d43ff07a963ca5e2638f2fa980a43e1a6288ff"
+    }
+  },
+  "tests_passed": 17,
+  "exact_certificate_found": false,
+  "no_atlas": true,
+  "no_local_lean": true,
+  "comparison": "Removing auxiliary Tao/non-Tao mixing did not materially change the approximately 0.26908 objective. This does not establish exact feasibility, a quartet, impossibility of an SOS at this degree, or an exact zero bound."
+}
