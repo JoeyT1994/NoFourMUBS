@@ -5,7 +5,8 @@ whole bin tree of atlas Record 146 (one of the 673 Records that the v1 kernel ch
 direct test, the hinted v2 tangent test, and label membership at the leaves. It uses only the standard axioms.
 With the joint edge test (6.23) now in the kernel too, **`Rec146.stageC2` is a complete kernel-checked Stage C
 certificate for Record 146** (`StageCCert`, standard axioms): the v2 bin cover, label membership, direct and joint
-edge exclusions, and the two-clique search.
+edge exclusions, and the two-clique search. With the kernel normal bound on top, **`Rec146.cert : RecordCert` is
+kernel-checked** (standard axioms): the second complete Record after Record 100, and the first that v1 could not do.
 
 ## Why
 
@@ -77,6 +78,15 @@ Stage C with the joint edge test (`export_joint.py`, `Graph2.lean`, `StageC2.lea
 | `StageC2` (assembly via `stageCK2`) | 3 s |
 | `#print axioms Rec146.stageC2` | `propext`, `Classical.choice`, `Quot.sound` |
 
+The whole `RecordCert` (`Rec146/Frame.lean`, `Sigma.lean`, `Record2.lean`, from `knormal.py 146 … --v2`):
+
+| | |
+|---|---|
+| `Frame` (g = 1.0000000007, λ, t = 0.6022) | 3 s |
+| `Sigma` (σ = 17/10, e₀ = 6.6e-11, j₁ = 1.0e-8) | 46 s, 14 GB peak |
+| `Record2` (radii ≤ bars, assembly via `recordK` and `stageC2`) | 3 s |
+| `#print axioms Rec146.cert` | `propext`, `Classical.choice`, `Quot.sound` |
+
 `edgesOK2` as one kernel decision exhausts memory (24 GB, reduction aborted); split into twelve chunks of ten rows
 (`allNat_of_ranges`) it passes in 217 s.
 
@@ -111,6 +121,37 @@ the remaining gap is the labelling, not the tests. Medians per Record: depth-0 s
 tests 1,021,376 → 770,176, tangent tests 216,038 → 175,425. The v2 rejections split 36% scalar test, 63%
 least-squares linear test, 1% linear test with y = c.
 
+### Clustering variants and the support test (floats, then exact)
+
+`graph_v2.py` re-clusters the v2 survivors under *variants*: survivor order (traversal, reversed, sorted, seeded
+shuffles) × label radius (1, 0.8, 1.2, 0.9 × the Record's radius), and checks the graph with **direct + joint edges
+only** (the tests now in the kernel). Any variant is sound: label membership and the label radii are checked by the
+kernel. `export_v2.py --labels --search` exports the first passing variant (`graph_v2.choose`), and `export_joint.py`
+re-checks its graph in the exact model.
+
+| Records | default labels pass with direct + joint | a variant passes | none of the variants |
+|---|---|---|---|
+| 4,350 that needed the support or joint test (rusty job 7252826) | 4,258 | 79 | 13 (of 21 variants tried) |
+| those 13, with 60 variants | – | 13 (13–16 variants each) | 0 |
+| the 26 that failed | – | 26 | 0 |
+
+So **with the variant search no Record needs the support edge test**: direct + joint suffices for the whole atlas
+(118 Records need a variant, mostly the radius 0.8 or 0.9 × R). Rows: `kernel_atlas/results/graph_v2/`.
+
+### Large clique searches: the bitset search (`CliqueB.lean`)
+
+Some of the rescued Records have large two-clique searches. Record 4015 (164 labels, variant traversal × 0.9) needs
+80.7 million calls of the list search `noTwo` (`Clique.lean`); one branch of 88k calls costs 12 s and 10 GB in the
+kernel, and the whole search as one decision exhausts memory. `CliqueB.lean` searches on bitsets: the lowest element
+is removed with `x &&& (x − 1)`, the rows are looked up by `2^j` in a generated comparison tree (the graph is defined
+through it, so no index is recovered), and `popGE` prunes candidate sets smaller than `need` and accumulators that
+cannot hold the second clique. `cbT_complete` and `noTwo_of_chunks` (standard axioms) give `NoTwoCliques` from
+kernel decisions split by the two smallest elements `j < j₂` of the first clique; `noTwo_of_pairs` flattens the pairs
+to ranges of `p = j·n + j₂` (`StageCK2B.lean`, with `stageCK2B` taking the clique step as a statement). Record 4015:
+19.6 million calls in 74 decisions of about 300k calls (about 120 µs and 20 KB of kernel cache per call). The 13
+Records above need 1.0–6.0 million steps in the float search, so they are in the same class. `export_joint.py` uses
+the bitset search when the list search exceeds 200,000 calls (or with `--bitset`).
+
 ## Cost estimate
 
 Measured on the laptop (18 cores, 64 GB):
@@ -129,16 +170,35 @@ Restoring v1's lane packing in the v2 checker (the tests are computed directly f
 proofs short) should cut the bin tree about 3×; storing each sub-slab's hints as one packed natural instead of a list
 literal should cut elaboration time and memory.
 
+### Where the kernel time goes
+
+One sub-slab of Record 146 (3, 7: 404 hints), timed with timing-only copies of the traversal in which a test is
+replaced by a constant (not sound, for measurement only):
+
+| variant | kernel time |
+|---|---|
+| full check | 6.1 s |
+| linear test free | 1.9 s |
+| scalar test free | 5.9 s |
+| both free (direct tests, traversal, leaves) | 1.6 s |
+
+So the linear test is about 70% of the bin tree, the scalar test 4%. Inside the linear test: the 36 entries `Jt_ij`
+cost 1.5 s, of which 0.7 s is just reading the 72 row values (`(row j).re i`, a match on `I6`); `Bt` adds 0.7 s,
+the ten square roots `isqU` about 1.2 s; the products with the multiplier (`GJ`, `GR`, `Bk`) are cheap once `Jt` is
+cached (0.05 s). A match-free accessor saves only a third of the access cost (about 10% of the linear test), and
+`Nat.log2` is not accelerated by the kernel (slower than the bisection). The cost is the kernel's per-step overhead
+(about 10–40 µs per reduction) over many small operations, not the size of the numbers: only lane packing (one GMP
+operation for many values, as in v1) cuts it substantially.
+
 ## What remains
 
-1. **The 26 Records that still fail.** Their kernel labels admit two cliques; certify.py passes with its own labels.
-   Try a less order-dependent clustering (or several orders, keeping one that passes), or split the offending labels.
-2. **The support edge test** is not in the kernel. 1,891 Records need it with v2 labels; the joint test may replace it
-   (it does for Record 146), to be measured.
-3. **Full Records**: Record 146 has a kernel Stage C (`stageC2`); its kernel normal bound (`knormal.py`,
-   `NormalK.lean`, done for Record 100) is a generation run away from a full `RecordCert`. Boundary transfers, the Tao
-   exclusion and the anchor/Fourier fields are not in the kernel yet (see `KERNEL_RECORD100.md`).
-4. **Performance**: lane packing in the v2 checker, packed hints, and the memory per process (above).
+1. **The 26 Records that failed** pass with a clustering variant (above); Record 4015 is being built as the test case.
+2. **The support edge test** is not needed: with the variant search, direct + joint edges suffice for every Record.
+3. **Full Records**: done for Record 146 (`Rec146.cert`). Boundary transfers, the Tao exclusion and the
+   anchor/Fourier fields are not in the kernel yet (see `KERNEL_RECORD100.md`).
+4. **Performance**: lane packing in the linear test (above: 70% of the time). Packed hints would not help: the hint
+   lists are 4 MB of source per Record and their elaboration is a small part of the time. The 15 GB per process is
+   about 6 GB of imported environment plus the kernel's reduction cache.
 
 ## Reproduce
 

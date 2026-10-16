@@ -38,34 +38,57 @@ def graphs(idx, labs, par, tp, P, frame):
     for name, (Og, Ug) in (('dj', (O, U)), ('dsj', (O & O2, U & U2))):
         Oj, Uj = SC.joint_filter(C, s, Og, Ug, *args)
         try:
-            out[name] = bool(SC.two_cliques(Oj, Uj, cap=20_000_000)[0])
+            ok, steps = SC.two_cliques(Oj, Uj, cap=20_000_000)
+            out[name], out[name + '_steps'] = bool(ok), steps
         except RuntimeError:
             out[name] = None
     return out
 
 
-def one(idx, nshuffle=4):
-    import survey as SV
-    rec = SV.atlas()['records'][idx]
-    par, tc, tp, W0, R5, info = record_data(idx)
-    t2 = KT2.TPar2(par, tc, tp.rHbar, tp.nbar, tp.tcol, KB)
-    S = []
-    KT2.run(par, tc, t2, W0, R5, leaf_cb=lambda acc, ts: S.append(tuple(t[0] for t in ts)) or True)
-    P = np.array([float.fromhex(x) for x in rec['phi']]).reshape(6, 6) / SC.TWO_PI
-    frame = SV.atlas_frame(idx)
-    R0 = rec['label_radius']
+def variants(S, R0, idx, nshuffle=4):
+    """The clustering variants in search order: survivor order x label radius (the first is the default)."""
     orders = [('trav', S), ('rev', S[::-1]), ('sort', sorted(S))]
     rng = random.Random(idx)
     for k in range(nshuffle):
         T = list(S); rng.shuffle(T); orders.append(('shuf%d' % k, T))
-    res = []
     for oname, SS in orders:
-        for rad in (R0, R0 * 0.8, R0 * 1.2):
-            labs = KL.cluster(list(SS), rad)
-            g = graphs(idx, labs, par, tp, P, frame)
-            res.append(dict(order=oname, radius=rad, labels=len(labs), **g))
-            if oname == 'trav' and rad == R0 and g['dj']:
-                return dict(idx=idx, survivors=len(S), variants=res)        # exported variant already passes dj
+        for f in (1.0, 0.8, 1.2, 0.9):
+            yield oname, f, SS, R0 * f
+
+
+def setup(idx):
+    import survey as SV
+    rec = SV.atlas()['records'][idx]
+    par, tc, tp, W0, R5, info = record_data(idx)
+    P = np.array([float.fromhex(x) for x in rec['phi']]).reshape(6, 6) / SC.TWO_PI
+    return rec, par, tp, P, SV.atlas_frame(idx)
+
+
+def choose(idx, S, nshuffle=4):
+    """The first variant whose labels pass with direct + joint edges (floats): (labels, order, factor, tried)."""
+    rec, par, tp, P, frame = setup(idx)
+    tried = 0
+    for oname, f, SS, rad in variants(S, rec['label_radius'], idx, nshuffle):
+        tried += 1
+        labs = KL.cluster(list(SS), rad)
+        if graphs(idx, labs, par, tp, P, frame)['dj']:
+            return labs, oname, f, tried
+    return None, None, None, tried
+
+
+def one(idx, nshuffle=12):
+    rec, par, tp, P, frame = setup(idx)
+    _, tc, _, W0, R5, _ = record_data(idx)
+    t2 = KT2.TPar2(par, tc, tp.rHbar, tp.nbar, tp.tcol, KB)
+    S = []
+    KT2.run(par, tc, t2, W0, R5, leaf_cb=lambda acc, ts: S.append(tuple(t[0] for t in ts)) or True)
+    res = []
+    for oname, f, SS, rad in variants(S, rec['label_radius'], idx, nshuffle):
+        labs = KL.cluster(list(SS), rad)
+        g = graphs(idx, labs, par, tp, P, frame)
+        res.append(dict(order=oname, radius=rad, labels=len(labs), **g))
+        if oname == 'trav' and f == 1.0 and g['dj']:
+            break                                                       # exported variant already passes dj
     return dict(idx=idx, survivors=len(S), variants=res)
 
 
