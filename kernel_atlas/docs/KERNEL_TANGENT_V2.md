@@ -118,10 +118,11 @@ Measured on the laptop (18 cores, 64 GB):
 | per Record | Record 146 | Record 100 |
 |---|---|---|
 | v2 bin tree with label leaves | 36 min | 35 min |
-| graph: direct + joint edges, two-clique search | 3.6 min | (direct edges suffice; v1: under a minute) |
+| graph: direct + joint edges, two-clique search | 3.6 min | not measured (direct edges suffice) |
 | peak memory per Lean process | 15 GB | 18 GB |
 
-With the normal bound (about 6 min, measured for Record 100's kernel RecordCert) a Record costs about **45 CPU-min,
+Adding the rest of a Record certificate (labels, edges, normal bound: about 6 min in Record 100's v1 `RecordCert`, 17 min
+in all with its 11 min v1 bin tree), a Record costs about **45 CPU-min,
 so about 9,000 CPU-hours for the atlas**, twice the survey's v1 estimate. Memory, not cores, limits the run on rusty:
 at 15–18 GB per process a 1 TB node takes about 55 processes, so 30 ccq nodes would run the atlas in about 5–6 hours.
 Restoring v1's lane packing in the v2 checker (the tests are computed directly from the rows today, which keeps the

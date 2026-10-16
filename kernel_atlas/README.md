@@ -18,13 +18,19 @@ in about 17 CPU-minutes:
 | Normal bound: frame (g, λ, t), σ, e₀, K, j₁, radii against the bars | `FrameK`, `TrigK`, `SigmaK`, `E0K`, `NormalK` |
 | Record 100 data and checks (generated) | `Rec100/` |
 
+**Record 146** (one of the 673 Records the v1 checker could not settle) **has a complete kernel-checked Stage C**
+(`Rec146.stageC2`, standard axioms) with the sharper tangent test v2 (`Tangent2`, `Tangent2K`, `Tangent2S`: hinted
+least-squares multiplier, full remainder, scalar test) and the joint edge test (`Joint2`, `Joint2K`, `Joint2S`).
+With v2, 26 of 12,021 Records still fail with kernel labels (v1: 673). See
+[`docs/KERNEL_TANGENT_V2.md`](docs/KERNEL_TANGENT_V2.md).
+
 Details and costs: [`docs/KERNEL_RECORD100.md`](docs/KERNEL_RECORD100.md); the design and the cost model:
 [`docs/KERNEL_FEASIBILITY.md`](docs/KERNEL_FEASIBILITY.md), [`docs/KERNEL_TANGENT.md`](docs/KERNEL_TANGENT.md).
 
 ## What remains for an unconditional theorem
 
-1. **Survey** the atlas with the Python mirrors: which Records need the support (6.20)–(6.21) or joint (6.23) edge
-   tests (Record 100 needs neither), and the per-Record kernel cost.
+1. **Survey** (done: `explorations/atlas_survey/`, and for v2 `docs/KERNEL_TANGENT_V2.md`). The joint edge test is
+   in the kernel; the support test is not. 26 Records still fail with the greedy kernel labels.
 2. **Boundary transfers** (`BoundaryCover`, Lemma 4.1) against the target Records.
 3. **Special Records**: Tao's zero-dimensional Record (no frame), and the `tao`, `fourier` and `anchor` fields of
    `AtlasCertificate` (exact equivalences into Records).
