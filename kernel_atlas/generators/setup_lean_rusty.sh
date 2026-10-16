@@ -1,6 +1,5 @@
 #!/bin/bash
 # One-time: build the shared kernel-atlas modules (and the NoFourMUBs/Hadamard6 modules they import) on a ccq node.
-# Run `lake exe cache get` in lean/ on the login node first (Mathlib's build cache), with the variables below.
 # Submit from the repository root:   sbatch kernel_atlas/generators/setup_lean_rusty.sh
 #SBATCH --job-name=lean-setup
 #SBATCH --partition=ccq
@@ -16,6 +15,7 @@ export MATHLIB_CACHE_DIR=${MATHLIB_CACHE_DIR:-/mnt/ceph/users/$USER/mathlib_cach
 export XDG_CACHE_HOME=${XDG_CACHE_HOME:-/mnt/ceph/users/$USER/xdg_cache}
 export PATH=$ELAN_HOME/bin:$PATH
 cd lean
+lake exe cache get          # Mathlib's build cache (into MATHLIB_CACHE_DIR, on ceph)
 lake build KernelAtlas.E0K KernelAtlas.FrameK KernelAtlas.Joint2K KernelAtlas.Joint2S KernelAtlas.Labels \
   KernelAtlas.NormalK KernelAtlas.StageCK2B KernelAtlas.Tables KernelAtlas.Tangent2K KernelAtlas.Tangent2S \
   KernelAtlas.Tangent2L KernelAtlas.SigmaK
