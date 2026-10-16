@@ -1,0 +1,91 @@
+{
+  "status": "NUMERICAL_DISCOVERY_ONLY",
+  "solver_status": "optimal_inaccurate",
+  "solver": "SCS",
+  "versions": {
+    "cvxpy": "1.9.3"
+  },
+  "wall_seconds": 314.65459095899996,
+  "requested_solver_time_limit_seconds": 300,
+  "exact_certificate_found": false,
+  "error": null,
+  "objective": 0.29375293439657596,
+  "max_equation_residual": 1.3086814565355098e-07,
+  "normalization_residual": 1.984854076209075e-06,
+  "max_box_violation": 4.072375309416287e-06,
+  "minimum_gram_eigenvalue": -0.0003999955260660081,
+  "hadamard_diagnostics": [
+    {
+      "matrix": 0,
+      "fourier_squared_norm": 8.999982041187105,
+      "T2": 215.999571253006,
+      "T3": 1295.9974088107056
+    },
+    {
+      "matrix": 1,
+      "fourier_squared_norm": 8.999982528917753,
+      "T2": 215.99957159135957,
+      "T3": 1295.9975273991752
+    },
+    {
+      "matrix": 2,
+      "fourier_squared_norm": 8.99998252891698,
+      "T2": 215.99957159135775,
+      "T3": 1295.9975273982927
+    },
+    {
+      "matrix": 3,
+      "fourier_squared_norm": 3.1050904934301005,
+      "T2": 271.792994386622,
+      "T3": 485.9873359280785
+    },
+    {
+      "matrix": 4,
+      "fourier_squared_norm": 3.1046364011882064,
+      "T2": 271.77897505181835,
+      "T3": 485.8425123179383
+    },
+    {
+      "matrix": 5,
+      "fourier_squared_norm": 3.1044620931359166,
+      "T2": 271.65267492808925,
+      "T3": 485.2427863117363
+    }
+  ],
+  "scs_info": {
+    "status_val": 2,
+    "iter": 3050,
+    "scale_updates": 30,
+    "scale": 1e-06,
+    "pobj": -0.29375293439657596,
+    "dobj": -0.2936601653251983,
+    "res_pri": 0.00030356199048219083,
+    "res_dual": 0.00021229984576120325,
+    "gap": 9.276907137765604e-05,
+    "res_infeas": null,
+    "res_unbdd_a": 3.404235176167709,
+    "res_unbdd_p": 0.0,
+    "comp_slack": 7.425171588693047e-13,
+    "solve_time": 300765.486099,
+    "setup_time": 2213.367139,
+    "lin_sys_time": 60407.74010899998,
+    "cone_time": 215596.92444000035,
+    "accel_time": 6541.2703020000245,
+    "rejected_accel_steps": 30,
+    "accepted_accel_steps": 3,
+    "status": "solved (inaccurate - reached time_limit_secs)",
+    "lin_sys_solver": "sparse-direct-mkl-pardiso",
+    "aa_stats": {
+      "iter": 10,
+      "n_accept": 33,
+      "n_reject_lapack": 0,
+      "n_reject_rank0": 0,
+      "n_reject_nonfinite": 0,
+      "n_reject_weight_cap": 0,
+      "n_safeguard_reject": 30,
+      "last_rank": 10,
+      "last_aa_norm": 3103.5969905480747,
+      "last_regularization": 4.332079789821151e-14
+    }
+  }
+}

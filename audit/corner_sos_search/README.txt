@@ -1,8 +1,8 @@
 Exact SOS search for a real corner signature
 ============================================
 
-Status: the first six-case classification search completed; NO corner-reality
-certificate has been found. An incremental transport strengthening is prepared.
+Status: both six-case searches completed; NO corner-reality certificate has
+been found. One fully non-Tao diagnostic probe is prepared.
 See CLASSIFICATION_REUSE.txt and STATUS.json for the current search.
 This is one discovery route extending the existing proof. It is not a second
 proof, a new Lean formalization, or an atlas-certification project.
@@ -72,13 +72,13 @@ and applies the existing single-Hadamard identities to all six transitions.
 
 Execution and acceptance
 ------------------------
-The GitHub workflow 'Corner SOS search' runs source guards, sixteen focused
-tests, and six bounded classification searches. It installs only Python SDP dependencies,
+The GitHub workflow 'Corner SOS search' runs source guards and seventeen
+focused tests. Its current job is one fully non-Tao diagnostic probe. It installs only Python SDP dependencies,
 runs no Lean, and uploads all model and solver records. Every new upstream
 head must be reviewed before generation; CI does not auto-approve new work.
 The local three-pilot calculations used no new installation or Lean cache.
 
-The current workflow reuses the six exact model artifacts from run 38898826837.
+The transport workflow reused the six exact model artifacts from run 38898826837.
 It checks their pinned model hashes, preserves the old indices and constraints,
 and appends only 252 short matrix-composition equations and their Gram blocks.
 CLASSIFICATION_RUN_RESULT.json records the first six results: approximately
@@ -114,3 +114,10 @@ would additionally require cofactors for the derived Fourier equations.
 Any final Lean check will run on GitHub, after an actual certificate exists.
 AtlasCertificate is not silently discharged. No claim of an unconditional
 no-four-MUB theorem is made by these search results.
+
+The current workflow reuses the transport model from run 38900607750, case
+000, and adds non-Tao constraints on the three auxiliary transitions. This
+is ONE additional sector, not a proof for arbitrary quartets. See section 7
+of CLASSIFICATION_REUSE.txt. TRANSPORT_RUN_RESULT.json records all six
+completed transport runs, including solver tolerances and the unchanged
+positive objectives. No exact certificate has been found.

@@ -228,6 +228,14 @@
       "proof": "Ha Kab=conj(Sab00) Hb, Hb Kab*=Sab00 Ha from Ha Ha*=Hb Hb*=6I and the lift definition. K01 K12 is proportional to K02 by H1 H1*=6I. Since K02[0,0]=1, its proportionality factor is (K01 K12)[0,0].",
       "scope": "252 explicit matrix-composition polynomial consequences; same hypotheses, no atlas or exclusion assumption.",
       "reason": "Short relations connect three bases without requiring the truncated relaxation to derive them through longer substitutions."
+    },
+    "auxiliary_probe": {
+      "source_run": 38900607750,
+      "source_case": "000",
+      "source_model_sha256": "26595d0812715510f84b5325d220122c2896ddf4c1dbca9d1aefc840e1787e2a",
+      "reason": "Auxiliary Fourier norm expectations still lie near 3.84 rather than the physical 0 or 9. Probe one additional exact sector instead of launching all 48 branch combinations.",
+      "adapter": "Reuse classification_relations(000), shifting phase variable indices by 108 to K01,K02,K12. No new theorem, Tao exclusion, or atlas input.",
+      "scope": "One all-six-non-Tao diagnostic case only. Every other auxiliary assignment remains open."
     }
   }
 }

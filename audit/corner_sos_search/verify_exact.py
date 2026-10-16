@@ -62,6 +62,11 @@ def replay(model_path, certificate_path):
         equations.update(s.transport_relations()[0])
     if case is not None:
         equations.update(s.classification_relations(case)[0])
+    auxiliary_case=model['metadata'].get('auxiliary_classification_case')
+    if auxiliary_case is not None:
+        if auxiliary_case!='000' or case!='000' or not lifted:
+            raise ValueError('Unsupported auxiliary classification sector.')
+        equations.update(s.auxiliary_nontao_relations()[0])
     uses_fourier = model['metadata'].get('uses_upstream_fourier_theorem_with_tao_case_retained', False)
     if uses_fourier:
         equations.update(s.fourier_relations(matrix_count)[0])
@@ -141,8 +146,11 @@ def replay(model_path, certificate_path):
     conclusion = 'Im Psi = 0' if not bound else 'No quartet'
     conclusion += (f' within classification case {case}; other cases still required'
                    if case else ' for every quartet')
+    if auxiliary_case is not None:
+        conclusion+='; auxiliary transitions are also assumed non-Tao'
     return dict(status='EXACT_RATIONAL_SOS_IDENTITY_CHECKED_NOT_LEAN', bound=str(bound),
                 conclusion=conclusion, classification_case=case,
+                auxiliary_classification_case=auxiliary_case,
                 rational_transition_lift=lifted,
                 transport_closure=transport,
                 atlas_used=False, uses_upstream_fourier_theorem=uses_fourier or case is not None,

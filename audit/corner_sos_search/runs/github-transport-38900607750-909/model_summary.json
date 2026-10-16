@@ -1,0 +1,241 @@
+{
+  "base_equations": 1555,
+  "case_conclusion_only": true,
+  "classification_case": "909",
+  "classification_case_coverage": [
+    "000",
+    "009",
+    "099",
+    "900",
+    "909",
+    "999"
+  ],
+  "complementary_same_signature_assumption": false,
+  "fourier_assumption": false,
+  "gauge": "No separate row dephasing; all variables are unit complex phases.",
+  "generation_seconds": 112.00765840700001,
+  "generator_sha256": "88e47f2e0eec67e4503bc2422cf1ac9f6e5428233a54726cf89c1be0c64d1d98",
+  "gram_block_sizes": {
+    "493": 1,
+    "6": 440,
+    "31": 222,
+    "2": 50,
+    "109": 3,
+    "32": 3,
+    "38": 105,
+    "13": 252
+  },
+  "localizer_families": {
+    "orth": 6480,
+    "mixed": 4590,
+    "transition": 4086,
+    "class-norm": 48,
+    "class-tao-cubic": 50,
+    "class-tao-square": 360,
+    "class-fourier": 120,
+    "class-conjugacy": 327,
+    "fourier": 114,
+    "fourier-binary": 3,
+    "moment-norm": 6,
+    "transport": 2808,
+    "cycle": 468
+  },
+  "localizer_rows": 19460,
+  "main_commit": "0636c223da1a0879b515fc69812332326136829e",
+  "maximum_laurent_order": 14,
+  "moment_coordinates": 195809,
+  "moment_reduction_source_commit": "66b5c6535c01ca1589bca2ff8779c5000a4b22bd",
+  "no_atlas": true,
+  "phase_variables": 216,
+  "rational_transition_lift": true,
+  "reused_input_sha256": "4ae9b2a153113893d09348f9c120469baa6b1a29605b391a52783840406f2895",
+  "selected_mixed_column_width": 6,
+  "status": "NECESSARY_FINITE_RELAXATION_NOT_A_PROOF",
+  "target": "|Psi(H0[0:3,0:3])-conj(Psi(H0[0:3,0:3]))|^2 / scale",
+  "target_frontier": {
+    "mixed:0:1:0:0": {
+      "added": 50,
+      "admissible": 22890,
+      "selected": 128
+    },
+    "mixed:0:2:0:0": {
+      "added": 50,
+      "admissible": 22890,
+      "selected": 128
+    },
+    "mixed:1:2:0:0": {
+      "added": 98,
+      "admissible": 22710,
+      "selected": 128
+    },
+    "orth:0:0:0:1:0": {
+      "added": 125,
+      "admissible": 3681,
+      "selected": 128
+    },
+    "orth:0:0:0:2:0": {
+      "added": 125,
+      "admissible": 3681,
+      "selected": 128
+    },
+    "orth:0:0:0:3:0": {
+      "added": 122,
+      "admissible": 4830,
+      "selected": 128
+    },
+    "orth:0:0:0:4:0": {
+      "added": 122,
+      "admissible": 4830,
+      "selected": 128
+    },
+    "orth:0:0:0:5:0": {
+      "added": 122,
+      "admissible": 4830,
+      "selected": 128
+    },
+    "orth:0:0:1:2:0": {
+      "added": 125,
+      "admissible": 3681,
+      "selected": 128
+    },
+    "orth:0:0:1:3:0": {
+      "added": 122,
+      "admissible": 4830,
+      "selected": 128
+    },
+    "orth:0:0:1:4:0": {
+      "added": 122,
+      "admissible": 4830,
+      "selected": 128
+    },
+    "orth:0:0:1:5:0": {
+      "added": 122,
+      "admissible": 4830,
+      "selected": 128
+    },
+    "orth:0:0:2:3:0": {
+      "added": 122,
+      "admissible": 4830,
+      "selected": 128
+    },
+    "orth:0:0:2:4:0": {
+      "added": 122,
+      "admissible": 4830,
+      "selected": 128
+    },
+    "orth:0:0:2:5:0": {
+      "added": 122,
+      "admissible": 4830,
+      "selected": 128
+    },
+    "orth:0:0:3:4:0": {
+      "added": 122,
+      "admissible": 4830,
+      "selected": 128
+    },
+    "orth:0:0:3:5:0": {
+      "added": 122,
+      "admissible": 4830,
+      "selected": 128
+    },
+    "orth:0:0:4:5:0": {
+      "added": 122,
+      "admissible": 4830,
+      "selected": 128
+    },
+    "orth:0:1:0:1:0": {
+      "added": 125,
+      "admissible": 3681,
+      "selected": 128
+    },
+    "orth:0:1:0:2:0": {
+      "added": 125,
+      "admissible": 3681,
+      "selected": 128
+    },
+    "orth:0:1:0:3:0": {
+      "added": 122,
+      "admissible": 4830,
+      "selected": 128
+    },
+    "orth:0:1:0:4:0": {
+      "added": 122,
+      "admissible": 4830,
+      "selected": 128
+    },
+    "orth:0:1:0:5:0": {
+      "added": 122,
+      "admissible": 4830,
+      "selected": 128
+    },
+    "orth:0:1:1:2:0": {
+      "added": 125,
+      "admissible": 3681,
+      "selected": 128
+    },
+    "orth:0:1:1:3:0": {
+      "added": 122,
+      "admissible": 4830,
+      "selected": 128
+    },
+    "orth:0:1:1:4:0": {
+      "added": 122,
+      "admissible": 4830,
+      "selected": 128
+    },
+    "orth:0:1:1:5:0": {
+      "added": 122,
+      "admissible": 4830,
+      "selected": 128
+    },
+    "orth:0:1:2:3:0": {
+      "added": 122,
+      "admissible": 4830,
+      "selected": 128
+    },
+    "orth:0:1:2:4:0": {
+      "added": 122,
+      "admissible": 4830,
+      "selected": 128
+    },
+    "orth:0:1:2:5:0": {
+      "added": 122,
+      "admissible": 4830,
+      "selected": 128
+    },
+    "orth:0:1:3:4:0": {
+      "added": 122,
+      "admissible": 4830,
+      "selected": 128
+    },
+    "orth:0:1:3:5:0": {
+      "added": 122,
+      "admissible": 4830,
+      "selected": 128
+    },
+    "orth:0:1:4:5:0": {
+      "added": 122,
+      "admissible": 4830,
+      "selected": 128
+    }
+  },
+  "target_frontier_cap_per_equation": 128,
+  "target_real_laurent_terms": 409,
+  "target_scale": 2304,
+  "uses_upstream_fourier_theorem_with_tao_case_retained": true,
+  "uses_upstream_non_tao_complementary_conjugacy": true,
+  "uses_upstream_seven_cofactor_moment_norm_identity": true,
+  "witness_mixed_and_triangle_features_added": 255,
+  "witness_seeds_reused": 9,
+  "transport_closure": true,
+  "augmentation_source_sha256": "266a8ba18805aa2ac8a2e6f9b94a1b7949d8f39a568e641b96f8394bd4ea3213",
+  "augmentation_original_counts": {
+    "moments": 189641,
+    "rows": 16184,
+    "blocks": 824
+  },
+  "augmentation_preserves_original_indices": true,
+  "previous_generator_sha256": "a8f629767358cfd2cd651bbe7c09ec43e838cd841d7ac78340ae1083ae69594d",
+  "augmentation_seconds": 2.356504659999999,
+  "uncompressed_model_sha256": "00a0b89e0f1b2cb2086d9fb9f0d5638994b1df863a2283db2167d08feb6de025"
+}

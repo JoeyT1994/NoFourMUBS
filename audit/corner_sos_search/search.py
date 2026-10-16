@@ -374,6 +374,18 @@ def classification_relations(case):
     return equations, blocks
 
 
+def auxiliary_nontao_relations():
+    """Reuse the identical three-matrix adapter on K01,K02,K12.
+
+    This is ONLY the additional non-Tao/non-Tao/non-Tao sector, not an
+    exclusion of the other seven auxiliary assignments.
+    """
+    equations,blocks=classification_relations('000')
+    def shift(e):return tuple((i+108,v) for i,v in e)
+    return ([('aux-'+n,{shift(e):c for e,c in f.items()}) for n,f in equations],
+            [('aux-'+n,[shift(e) for e in b]) for n,b in blocks])
+
+
 def make_model(width=1, localizer_limit=0, fourier=False, coupled=False,
                moment_reduction=False, frontier_cap=0, classification_case=None,
                transition_lift=False, transport_closure=False):
@@ -575,8 +587,9 @@ def export_model(model, destination):
     return hashlib.sha256(raw).hexdigest()
 
 
-def augment_transport_model(source, expected_case, expected_source_sha256=None):
-    """Append only the new transport constraints to an existing exact model.
+def augment_transport_model(source, expected_case, expected_source_sha256=None,
+                            auxiliary_nontao=False):
+    """Append only the selected strengthening to an existing exact model.
 
     Existing moment indices, equations and Gram blocks are retained. This
     avoids regenerating the expensive classification/Fourier model. Exact
@@ -585,13 +598,17 @@ def augment_transport_model(source, expected_case, expected_source_sha256=None):
     started=time.monotonic()
     raw=gzip.open(source,'rb').read()
     if expected_source_sha256 is None:
-        receipt=json.loads((HERE/'CLASSIFICATION_RUN_RESULT.json').read_text())
+        receipt=json.loads((HERE/('TRANSPORT_RUN_RESULT.json' if auxiliary_nontao
+                                  else 'CLASSIFICATION_RUN_RESULT.json')).read_text())
         expected_source_sha256=receipt['cases'][expected_case]['model_sha256']
     if hashlib.sha256(raw).hexdigest()!=expected_source_sha256:
         raise ValueError('Base model differs from the pinned completed GitHub artifact.')
     document=json.loads(raw)
     meta=document['metadata']
-    if (not meta.get('rational_transition_lift') or meta.get('transport_closure') or
+    if (not meta.get('rational_transition_lift') or
+        bool(meta.get('transport_closure')) != auxiliary_nontao or
+        meta.get('auxiliary_classification_case') is not None or
+        (auxiliary_nontao and expected_case!='000') or
         meta.get('classification_case') != expected_case or
         expected_case not in CLASSIFICATION_CASES or meta.get('phase_variables') != 216 or
         meta.get('reused_input_sha256') != hashlib.sha256((HERE/'inputs.json').read_bytes()).hexdigest()):
@@ -602,7 +619,8 @@ def augment_transport_model(source, expected_case, expected_source_sha256=None):
     provenance=document['row_provenance']
     original_counts=dict(moments=len(moments),rows=len(rows),blocks=len(blocks))
     index={e:i for i,e in enumerate(moments)}
-    equations,new_blocks=transport_relations()
+    equations,new_blocks=(auxiliary_nontao_relations() if auxiliary_nontao
+                          else transport_relations())
     new_moments=set()
     for _,basis in new_blocks:
         new_moments.update(real_key(plus(neg(a),b)) for a in basis for b in basis)
@@ -622,7 +640,8 @@ def augment_transport_model(source, expected_case, expected_source_sha256=None):
             seen.add(key);rows.append(indexed)
             e,c=normal[0]
             provenance.append(dict(equation=name,multiplier=shift,
-                normalization=str(Fraction(c,row[e])),selection='transport-augmentation'))
+                normalization=str(Fraction(c,row[e])),
+                selection='auxiliary-nontao-augmentation' if auxiliary_nontao else 'transport-augmentation'))
     for name,basis in new_blocks:
         ix=[[index[real_key(plus(neg(a),b))] for b in basis] for a in basis]
         blocks.append((name,basis,ix))
@@ -637,6 +656,9 @@ def augment_transport_model(source, expected_case, expected_source_sha256=None):
         localizer_families=dict(Counter(p['equation'].split(':')[0] for p in provenance)),
         augmentation_seconds=time.monotonic()-started,
         maximum_laurent_order=max(sum(max(v,0) for _,v in e) for e in moments))
+    if auxiliary_nontao:
+        meta['auxiliary_classification_case']='000'
+        meta['case_scope']='All six transition Hadamards non-Tao ONLY; all other sectors remain open.'
     return dict(metadata=meta,moments=moments,rows=rows,row_provenance=provenance,
         blocks=blocks,target={int(i):Fraction(v) for i,v in document['target'].items()},
         zero=document['zero'])
@@ -701,6 +723,11 @@ def solve(model, directory, seconds=60):
     info = getattr(problem.solver_stats, 'extra_stats', None)
     if isinstance(info, dict):
         record['scs_info'] = info.get('info', {})
+        # Retain a numerical infeasibility ray too, if one is returned.
+        # It is only candidate data; exact rational verification is separate.
+        for key in ('x','y','s'):
+            if info.get(key) is not None:
+                arrays['scs_'+key]=np.asarray(info[key])
     np.savez_compressed(directory/'candidate.npz', **arrays)
     def finite_json(v):
         if isinstance(v, dict):
@@ -743,7 +770,11 @@ def main():
                         help='Enforce short forward/backward and triangle composition identities.')
     parser.add_argument('--augment-model', type=Path,
                         help='Reuse an existing six-transition model and append only transport relations.')
+    parser.add_argument('--auxiliary-nontao',action='store_true',
+                        help='Probe the all-six-non-Tao sector using an already augmented model.')
     args = parser.parse_args()
+    if args.auxiliary_nontao and not args.augment_model:
+        raise SystemExit('The auxiliary sector probe must reuse an existing model.')
     assert 1 <= args.seconds <= 300
     assert 0 <= args.frontier_cap <= 512
     preflight()
@@ -751,7 +782,8 @@ def main():
         raise SystemExit('Refusing to overwrite an existing run.')
     args.output.mkdir(parents=True)
     if args.augment_model:
-        model=augment_transport_model(args.augment_model,args.classification_case)
+        model=augment_transport_model(args.augment_model,args.classification_case,
+                                       auxiliary_nontao=args.auxiliary_nontao)
     else:
         model = make_model(args.width, fourier=args.fourier, coupled=args.coupled,
                            moment_reduction=args.moment_reduction, frontier_cap=args.frontier_cap,

@@ -109,3 +109,41 @@ dependencies. They are not new Lean proofs and are not a single raw-quartet
 Nullstellensatz certificate: raw-generator cofactors would be additional
 work. The original conditional SOS witness remains unchanged. No atlas
 data, generators, checkers, or exclusion statements enter this search.
+
+6. Keep one final certificate despite the case split
+
+This is an assembly rule for FUTURE successful case certificates, not a
+certificate currently available. Put e_i=F_i/9. The already reused dichotomy
+gives e_i^2=e_i. For each binary assignment s define the real polynomial
+
+  lambda_s = product_i (e_i if s_i=1, otherwise 1-e_i).
+
+Then sum_s lambda_s=1 and lambda_s^2=lambda_s modulo the three Boolean
+relations. Multiply a certificate for case s by lambda_s^2: every squared
+modulus |q|^2 becomes |lambda_s q|^2, and each case equation e_i-s_i vanishes after
+multiplication, modulo those Boolean relations. Summing the eight identities
+therefore gives a single SOS identity. The two cases omitted from the six
+searches are obtained by interchanging H1,H2; the corner target is unchanged.
+No square roots or positivity tests for selector coefficients are needed.
+
+Class-specific theorem relations must also be gated: (1-e_i) times the
+non-Tao conjugacy/Fourier equations, and e_i times the Tao equations. These
+are valid consequences of the same classification, without an atlas input.
+This gluing retains those theorem dependencies; it does not manufacture
+their currently unavailable raw-generator cofactors.
+
+7. A single fully non-Tao diagnostic probe
+
+The completed transport run 38900607750 left auxiliary Fourier norms near
+3.84 in case 000. It did not improve the converged 009/099 objectives.
+The next probe reuses that completed 000 model, shifts the existing
+non-Tao adapters by 108 variable positions, and assumes each auxiliary
+transition is non-Tao as well. This prevents mixing in all six matrices.
+It does not prove or assume that a quartet must satisfy this extra sector.
+Its exact checker explicitly labels that restriction.
+
+Only one such probe is launched, rather than regenerating the six models
+or immediately expanding into all 48 combinations. If it succeeds, the
+other auxiliary sectors still require proofs. The selector assembly in
+section 6 then extends to six selectors, with every relevant assignment
+covered; the single probe cannot stand in for that complete assembly.

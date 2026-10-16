@@ -1,9 +1,9 @@
 {
-  "status": "SIX_CLASSIFICATION_CASES_COMPLETED_TRANSPORT_AUGMENTATION_PREPARED",
-  "updated_at": "2026-10-16T12:22:27.188497+00:00",
+  "status": "TRANSPORT_SEARCHES_COMPLETED_ALL_SIX_NONTAO_PROBE_PREPARED",
+  "updated_at": "2026-10-16T12:41:16.497295+00:00",
   "main_commit": "0636c223da1a0879b515fc69812332326136829e",
   "new_upstream_moment_reduction_commit": "66b5c6535c01ca1589bca2ff8779c5000a4b22bd",
-  "tests_passed": 16,
+  "tests_passed": 17,
   "no_atlas": true,
   "no_local_lean": true,
   "existing_witness_unchanged": true,
@@ -48,12 +48,12 @@
     }
   ],
   "last_github_run": {
-    "run_id": 38898826837,
-    "url": "https://github.com/JoeyT1994/NoFourMUBS/actions/runs/38898826837",
+    "run_id": 38900607750,
+    "url": "https://github.com/JoeyT1994/NoFourMUBS/actions/runs/38900607750",
     "state": "completed",
     "conclusion": "success",
     "exact_certificate_found": false,
-    "summary": "CLASSIFICATION_RUN_RESULT.json"
+    "summary": "TRANSPORT_RUN_RESULT.json"
   },
   "no_search_currently_running": true,
   "upstream_snapshot": {
@@ -64,17 +64,11 @@
   "next_run": {
     "platform": "GitHub Actions",
     "state": "prepared",
-    "classification_cases": [
-      "000",
-      "009",
-      "099",
-      "900",
-      "909",
-      "999"
-    ],
-    "reuses_run": 38898826837,
-    "augmentation": "252 short matrix-composition equations, without rebuilding the saved base models",
-    "maximum_solver_seconds_per_case": 300,
+    "primary_case": "000",
+    "auxiliary_case": "000",
+    "reuses_run": 38900607750,
+    "maximum_solver_seconds": 300,
+    "scope": "Only the all-six-non-Tao sector; other sectors remain open",
     "exact_certificate_found": false
   },
   "infrastructure_failure": {

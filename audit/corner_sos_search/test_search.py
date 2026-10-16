@@ -59,6 +59,21 @@ class SearchTests(unittest.TestCase):
             for name,f in s.classification_relations(case)[0]:
                 self.assertLess(abs(evaluate(f,z)),2e-8,(case,name))
 
+    def test_auxiliary_nontao_adapter_requires_its_extra_sector(self):
+        import sys
+        sys.path.insert(0,str(s.upstream_path()))
+        import exact_anchors as A
+        root=cmath.exp(2j*cmath.pi/12)
+        matrices=A.matrices()
+        z=[root**e for name in ['Tao','Tao','Tao','F6','D6','F6']
+           for row in matrices[name] for e in row]
+        equations=dict(s.auxiliary_nontao_relations()[0])
+        for name,f in equations.items():
+            self.assertTrue(all(i>=108 for e in f for i,_ in e))
+            self.assertLess(abs(evaluate(f,z)),2e-8,name)
+        z[108:144]=[root**e for row in matrices['Tao'] for e in row]
+        self.assertGreater(abs(evaluate(equations['aux-class-norm:0:0'],z)),8)
+
     def test_conjugacy_is_not_unconjugated_equality(self):
         import sys
         sys.path.insert(0,str(s.upstream_path()))
@@ -150,6 +165,11 @@ class SearchTests(unittest.TestCase):
                 s.augment_transport_model(p,'009',hashlib.sha256(raw).hexdigest())
             with self.assertRaisesRegex(ValueError,'pinned completed'):
                 s.augment_transport_model(p,'000','0'*64)
+            digest=s.export_model(new,p)
+            refined=s.augment_transport_model(p,'000',digest,auxiliary_nontao=True)
+            self.assertEqual(refined['metadata']['auxiliary_classification_case'],'000')
+            self.assertIn('other sectors remain open',refined['metadata']['case_scope'])
+            self.assertEqual(refined['rows'][:len(new['rows'])],new['rows'])
 
     def test_reused_upstream_tao_moment_values(self):
         # Consume the other LLM's existing exact anchor data, without
@@ -307,6 +327,17 @@ class SearchTests(unittest.TestCase):
                     answer=v.replay(mp,cp)
                     self.assertIn('other cases still required',answer['conclusion'])
                     self.assertTrue(answer['uses_upstream_fourier_theorem'])
+                    model['metadata'].update(rational_transition_lift=True,
+                                             auxiliary_classification_case='000')
+                    raw=json.dumps(model).encode()
+                    with gzip.open(mp,'wb') as out:out.write(raw)
+                    cert['model_sha256']=hashlib.sha256(raw).hexdigest()
+                    cp.write_text(json.dumps(cert))
+                    with patch.object(s,'auxiliary_nontao_relations',return_value=([],[])):
+                        self.assertIn('auxiliary transitions are also assumed non-Tao',
+                                      v.replay(mp,cp)['conclusion'])
+                    del model['metadata']['rational_transition_lift']
+                    del model['metadata']['auxiliary_classification_case']
                 del model['metadata']['classification_case']
                 model['metadata']['uses_upstream_seven_cofactor_moment_norm_identity']=True
                 raw=json.dumps(model).encode()
