@@ -41,6 +41,9 @@ def mem_gb(mod):
 
 
 def lean_env():
+    r = subprocess.run(['lake', 'build'] + CORE, cwd=LEAN, capture_output=True, text=True)    # no-op when current
+    if r.returncode:
+        raise RuntimeError('building the shared modules failed:\n' + (r.stdout + r.stderr)[-3000:])
     out = subprocess.run(['lake', 'env', 'printenv', 'LEAN_PATH'], cwd=LEAN, capture_output=True, text=True, check=True)
     lean = subprocess.run(['lake', 'env', 'which', 'lean'], cwd=LEAN, capture_output=True, text=True, check=True)
     env = dict(os.environ, LEAN_PATH=out.stdout.strip())

@@ -170,6 +170,41 @@ Restoring v1's lane packing in the v2 checker (the tests are computed directly f
 proofs short) should cut the bin tree about 3×; storing each sub-slab's hints as one packed natural instead of a list
 literal should cut elaboration time and memory.
 
+### Record 4015 (a former failure), end to end
+
+Record 4015 failed with the default labels. With the variant `traversal × 0.9` (164 labels) its graph passes with
+direct + joint edges, and **`Rec4015.cert : RecordCert` is kernel-checked** (standard axioms): 12 slab files
+86–177 s each (one needed the heartbeat limit lifted), the bitset clique search in 74 decisions (8 files, about
+13 GB each), the graph with 27k ordered pairs (526 s, 47 GB as one file: since split into `Rows2`, `Hints2`, `Edg*`
+and `Clq*`), Stage C and the normal bound. About 72 CPU-min in all, of which the clique search is about 40.
+
+### Label hints (`Tangent2L.lean`)
+
+In Record 146, 79% of the depth-0 bins that the linear test rejects already lie in a label (40.8k of 51.6k), and the
+survivors scan on average 56 labels for theirs. `Tangent2L.lean` passes the hint to the leaf: hint `4b + 3` checks
+label `b` only (`leafLH`), looked up in a generated comparison tree (`labT2`; `List.getD` on the label list costs
+more than the tests it saves); `labTreeOK`, decided once, checks the tree against `labs2`, and `leafLH_imp` gives the
+plain `leafL`, so `Covered` and Stage C are unchanged. `binL_sound`, `subL_sound`, `topL_sound` are `binH_sound` etc.
+for a hinted leaf. Record 146: linear tests 88,023 → 47,215, scalar 24,644 → 14,447, with 58,503 label hints.
+Sub-slab (5, 2): 23.9 s → 9.6 s in the kernel (the same load). Bins of depth ≥ 1 rarely fit in a label whole (390 of
+29,734 in Record 146), so leaves stay at depth 0.
+
+### The node driver (`atlas_run.py`), pilot on the laptop
+
+`atlas_run.py` generates a Record (exporters, variant search, label hints, normal bound), compiles its modules with
+`lean -o` under a node-wide memory budget (not `lake`, so that many Records share one budget), checks
+`#print axioms … .cert`, archives the sources and deletes the build outputs. Pilot (48 GB budget, two slabs at a
+time):
+
+| Record | total CPU | bin tree (12 slabs) | graph (`Edg*`) | `Sigma` | peak memory | axioms |
+|---|---|---|---|---|---|---|
+| 146 | 1,776 s | 1,412 s (was 2,183 s) | 252 s | 52 s | 13.3 GB | standard |
+| 7 | 1,806 s | 1,400 s | – | – | 13.2 GB | standard |
+
+So a typical Record now costs about **30 CPU-min** and 13 GB per process (it was about 45 CPU-min and 15–18 GB),
+and the atlas about 6,000 CPU-hours: on 30 ccq nodes (96 cores, 1.5 TB) about 2–3 hours, CPU- rather than
+memory-bound.
+
 ### Where the kernel time goes
 
 One sub-slab of Record 146 (3, 7: 404 hints), timed with timing-only copies of the traversal in which a test is

@@ -12,7 +12,11 @@
 #SBATCH --output=kernel_atlas/results/atlas/logs/%A_%a.out
 
 set -uo pipefail
-export PATH=$HOME/.elan/bin:$PATH
+# elan and the Mathlib cache live on ceph, not in $HOME (the home file-count quota)
+export ELAN_HOME=${ELAN_HOME:-/mnt/ceph/users/$USER/elan}
+export MATHLIB_CACHE_DIR=${MATHLIB_CACHE_DIR:-/mnt/ceph/users/$USER/mathlib_cache}
+export XDG_CACHE_HOME=${XDG_CACHE_HOME:-/mnt/ceph/users/$USER/xdg_cache}
+export PATH=$ELAN_HOME/bin:$PATH
 VENV=${VENV:-/mnt/ceph/users/$USER/venvs/nofourmubs}
 NTASK=${NTASK:-30}
 FIRST=${FIRST:-0}
