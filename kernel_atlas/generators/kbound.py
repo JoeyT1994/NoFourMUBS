@@ -176,13 +176,9 @@ class Boundary:
             stats['depth'][d] += 1
             if self.off_ok(d, m):
                 codes.append(0); stats['off'] += 1; return
-            best, bj = 0, None
-            for j in range(len(self.tg)):
-                mg = self.margin(j, d, m)
-                if self.tg[j]['Th'][d] > 0 and mg > best:
-                    best, bj = mg, j
-            if bj is not None:
-                codes.append(2 + bj); stats['leaf'] += 1; return
+            ok = [j for j in range(len(self.tg)) if self.tr_ok(j, d, m)]
+            if ok:
+                codes.append(ok); stats['leaf'] += 1; return
             if d == self.dmax:
                 raise AssertionError('undecided boundary box at depth %d, m = %s' % (d, m))
             codes.append(1); stats['split'] += 1
@@ -190,8 +186,30 @@ class Boundary:
                 rec(d + 1, [2 * m[k] + s[k] for k in range(4)])
 
         rec(0, [0, 0, 0, 0])
-        self.codes, self.stats = codes, stats
-        return codes
+        # leaf hints: a greedy set cover, so that few targets need their one-time kernel check
+        leaves = [c for c in codes if isinstance(c, list)]
+        left, hint = set(range(len(leaves))), {}
+        cover = {}
+        for i, ok in enumerate(leaves):
+            for j in ok:
+                cover.setdefault(j, set()).add(i)
+        while left:
+            j = max(cover, key=lambda j: (len(cover[j] & left), -j))
+            for i in cover[j] & left:
+                hint[i] = j
+            left -= cover[j]
+        it = iter(range(len(leaves)))
+        self.codes = [2 + hint[next(it)] if isinstance(c, list) else c for c in codes]
+        self.stats = stats
+        return self.codes
+
+    def prune(self):
+        """Keep only the targets some leaf uses (the kernel checks every listed target once)."""
+        used = sorted({c - 2 for c in self.codes if c >= 2})
+        new = {j: i for i, j in enumerate(used)}
+        self.tg = [self.tg[j] for j in used]
+        self.codes = [c if c < 2 else 2 + new[c - 2] for c in self.codes]
+        return len(used)
 
     def packed(self):
         assert len(self.tg) + 2 <= BASE
