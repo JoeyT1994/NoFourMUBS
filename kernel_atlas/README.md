@@ -32,8 +32,9 @@ targets have the stored centres and radii (`BoundaryK`: an η-box tree with exac
 The exact Python mirror finds a boundary cover for all 12,021 Records.
 **The `fourier`, `tao` and `anchor` fields** are kernel-checked the same way (`ExactK`, `AnchorK`, `Special/`):
 `fourierHadamard` into Record 877, `taoMatrix ω` (both cube roots) into the zero-dimensional Tao Record, and the
-base-anchor completion `H₀` (entries in `ℚ(i, √3, √5, √7)`) into Record 9319. See
-[`docs/KERNEL_BOUNDARY.md`](docs/KERNEL_BOUNDARY.md).
+base-anchor completion `H₀` (entries in `ℚ(i, √3, √5, √7)`) into Record 9319. **Tao's zero-dimensional Record** is a
+kernel-checked `RecordCert` (`RecTao.cert`, frame `T = 0`, `RecordK0`), so the `tao` field holds for any atlas
+containing it. See [`docs/KERNEL_BOUNDARY.md`](docs/KERNEL_BOUNDARY.md).
 
 Details and costs: [`docs/KERNEL_RECORD100.md`](docs/KERNEL_RECORD100.md); the design and the cost model:
 [`docs/KERNEL_FEASIBILITY.md`](docs/KERNEL_FEASIBILITY.md), [`docs/KERNEL_TANGENT.md`](docs/KERNEL_TANGENT.md).
@@ -47,10 +48,11 @@ Details and costs: [`docs/KERNEL_RECORD100.md`](docs/KERNEL_RECORD100.md); the d
 2. **Boundary transfers** (`BoundaryCover`, Lemma 4.1): the checker and Records 100 and 146 are done
    (`docs/KERNEL_BOUNDARY.md`); about 1.5 CPU-minutes per Record, ≈ 300 CPU-hours for the atlas. Each Record's cover
    is conditional on its ≈ 55 targets being kernel-certified with the same centres and radii.
-3. **Special Records**: the `tao`, `fourier` and `anchor` fields are done (conditional on their target Records);
-   Tao's zero-dimensional Record itself (no frame) is not yet a kernel `RecordCert`.
-4. **Scale**: smaller generated data (recompute the trees in the kernel), a hierarchical assembly, and one run over
-   all 12,021 Records (about 4,000–5,000 CPU-hours, less with packed arithmetic and stronger pruning).
+3. **Special Records** (done): Tao's zero-dimensional Record (`RecTao.cert`) and the `tao`, `fourier` and `anchor`
+   fields (conditional on their target Records being in the atlas).
+4. **Scale**: smaller generated data (packed literals; recompute the trees in the kernel), a hierarchical assembly
+   into one `AtlasCertificate`, and one run over all 12,021 Records (about 6,300 CPU-hours with the boundaries). The
+   assembly and the rusty run are designed in [`docs/KERNEL_ASSEMBLY.md`](docs/KERNEL_ASSEMBLY.md).
 
 ## Layout and usage
 
@@ -58,7 +60,7 @@ Details and costs: [`docs/KERNEL_RECORD100.md`](docs/KERNEL_RECORD100.md); the d
   default target).
 - `generators/`: Python generators and exact mirrors (`export_record.py`, `export_tangent.py`, `klabels.py`,
   `knormal.py`, `kbins.py`, `ktangent.py`; boundary and special fields: `kbound.py`, `export_boundary.py`,
-  `survey_boundary.py`, `kexact.py`, `export_exact.py`, `export_anchor.py`).
+  `survey_boundary.py`, `kexact.py`, `export_exact.py`, `export_anchor.py`, `export_tao.py`).
 - `docs/`: design notes and status.
 
 Regenerate Record 100 from the repository root, then build from `lean/`:
@@ -76,6 +78,7 @@ The boundary cover and the special fields (`docs/KERNEL_BOUNDARY.md`):
 python3 kernel_atlas/generators/export_boundary.py 100 kernel_atlas/lean/KernelAtlas/Rec100   # --v2 for v2 Records
 python3 kernel_atlas/generators/export_exact.py     # Special/Exact.lean (fourier, tao)
 python3 kernel_atlas/generators/export_anchor.py    # Special/Anchor.lean (anchor)
+python3 kernel_atlas/generators/export_tao.py       # RecTao/ (Tao's Record; then lake build KernelAtlas.RecTao.Record)
 cd lean && lake build KernelAtlas.Rec100.BoundaryCover KernelAtlas.Special.Exact KernelAtlas.Special.Anchor
 ```
 
