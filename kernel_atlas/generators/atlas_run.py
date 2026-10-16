@@ -35,7 +35,7 @@ def mem_gb(mod):
     name = mod.rsplit('.', 1)[1]
     if name.startswith('H2Slab'):
         return 22
-    if name.startswith('Clq') or name in ('Graph2', 'Sigma'):
+    if name.startswith(('Clq', 'Edg')) or name in ('Graph2', 'Sigma'):
         return 15
     return 10
 
