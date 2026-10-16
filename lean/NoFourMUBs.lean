@@ -41,3 +41,7 @@ import NoFourMUBs.Step2.BaseAnchor
 import NoFourMUBs.Step2.DenseExistence
 import NoFourMUBs.Step2.Connected
 import NoFourMUBs.MainTheorem
+import NoFourMUBs.FourierVanishing.Duality
+import NoFourMUBs.FourierVanishing.Jacobi
+import NoFourMUBs.FourierVanishing.Square
+import NoFourMUBs.FourierVanishing.Criterion

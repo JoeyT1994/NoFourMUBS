@@ -17,5 +17,7 @@ This file is ours; it was not part of the returned zip and is not in `SHA256SUMS
 - **Independent numerical check** (not part of the proof). On 1,500 random atlas centres the largest
   |Ψ(H[I,J]) − conj Ψ(H[Iᶜ,Jᶜ])| over all 400 splits was 3e-12. The largest row or column moment was 4e-14, and
   rank H^[2] was 6. For Tao, (0.2) fails by 15.6 and max |M_I| = 1/2. For F6, (0.2) holds to 1e-13 and rank F6^[2] = 3.
-- **Open.** The proof is not yet in Lean. Every step is finite algebra on top of `PRM.nonmatched_tao` and
-  `PRM.strictCornerCoverage`, so a port looks direct.
+- **Lean.** Proved in Lean as `NoFourMUBs.FourierVanishing.fourierVanishing` (`lean/NoFourMUBs/FourierVanishing/`),
+  for rows and columns, from `PRM.nonmatched_tao` and `PRM.strictCornerCoverage`, using only the standard axioms
+  (`check_axioms.py --full`). §5 is proved by normalisation instead of the 180-identity certificate. The lemma map
+  is in that folder's `README.md`.

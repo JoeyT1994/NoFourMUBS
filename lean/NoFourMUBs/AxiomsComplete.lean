@@ -1,4 +1,5 @@
 import NoFourMUBs.Final
+import NoFourMUBs.FourierVanishing.Main
 #print axioms NoFourMUBs.L1.matchedExistence
 #print axioms NoFourMUBs.no_four_mubs_of_density
 #print axioms NoFourMUBs.PRM.nonmatched_tao
@@ -11,3 +12,4 @@ import NoFourMUBs.Final
 #print axioms NoFourMUBs.PRM.Coverage.Quartic.poleClassification
 #print axioms NoFourMUBs.PRM.strictCornerCoverage
 #print axioms NoFourMUBs.Final.no_four_mubs
+#print axioms NoFourMUBs.FourierVanishing.fourierVanishing
