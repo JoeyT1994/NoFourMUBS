@@ -6,7 +6,7 @@ import KernelAtlas.Tangent2S
 `StageC.edgeOExcl_of_joint` / `edgeUExcl_of_joint` exclude a quartet edge between two labels from two multipliers
 `y₀, y₁ ∈ ℝ⁶` (one per label centre) and an edge multiplier `y_e`.  As for the v2 tangent test, the kernel reads the
 multipliers from a hint and checks the inequality from integer data; the per-label data are the integer node values
-of the label centre (`labB`), and the pair data are the table values of `e(v_a − v_b)` (`joint_core`).
+of the label centre (`labBnd`), and the pair data are the table values of `e(v_a − v_b)` (`joint_core`).
 -/
 
 open Matrix Hadamard6 Complex
@@ -35,7 +35,7 @@ structure LabBounds (P : RMat6) (u y : I6 → ℝ) (T : Fin 4 → RMat6) (Z eW e
 
 set_option maxHeartbeats 4000000 in
 /-- **The bounds of one label centre**, from integer node values (as in `lin2_real`). -/
-theorem labB {P : RMat6} {u : I6 → ℝ} {Z ε1 E : ℝ} (hZ : 0 < Z) (hε : 0 ≤ ε1)
+theorem labBnd {P : RMat6} {u : I6 → ℝ} {Z ε1 E : ℝ} (hZ : 0 < Z) (hε : 0 ≤ ε1)
     {wt : I6 → I6 → ℂ} {s : I6 → ℂ}
     (hw : ∀ j i, ‖wt j i / (Z : ℂ) - wexp P u j i‖ ≤ ε1) (hs : ∀ i, ‖s i / (Z : ℂ) - sigma P u i‖ ≤ E)
     (y : I6 → ℝ) {T : Fin 4 → RMat6} {Th : Fin 4 → I6 → I6 → ℝ} {DT tcol : ℝ} (hDT : 0 < DT)
@@ -46,12 +46,15 @@ theorem labB {P : RMat6} {u : I6 → ℝ} {Z ε1 E : ℝ} (hZ : 0 < Z) (hε : 0 
     (hSp : ∀ i, ‖s i‖ + E * Z ≤ Sp i)
     (hSY2 : ∑ i, y i ^ 2 * Sp i ^ 2 ≤ SY2 ^ 2) (hSY20 : 0 ≤ SY2)
     (hSY1 : SY1 = ∑ i, |y i| * Sp i) (hSYinf : ∀ i, |y i| * Sp i ≤ SYinf)
-    (hYinf : ∀ i, |y i| ≤ Yinf) (hY1 : Y1 = ∑ i, |y i|) :
-    LabBounds P u y T Z ((6 + E) * ε1 + E) (E * (12 + E)) (fun j => ∑ i, y i * (star (s i) * wt j i).im)
-      (fun k => ∑ i, y i * ∑ j, Th k j i * (star (s i) * wt j i).im) (∑ i, y i * (‖s i‖ ^ 2 - 6 * Z ^ 2))
-      Gb Y1 Yinf SY2 SY1 SYinf NJ ∧
-    ∀ k, |Bty ((1 / (2 * Real.pi)) • P) u y T k + (∑ i, y i * ∑ j, Th k j i * (star (s i) * wt j i).im) /
-      (6 * DT * Z ^ 2)| ≤ Y1 * ((6 + E) * ε1 + E) * tcol / 6 := by
+    (hYinf : ∀ i, |y i| ≤ Yinf) (hY1 : Y1 = ∑ i, |y i|)
+    {GJ : I6 → ℝ} (hGJ : ∀ j, GJ j = ∑ i, y i * (star (s i) * wt j i).im)
+    {Bt : Fin 4 → ℝ} (hBt : ∀ k, Bt k = ∑ i, y i * ∑ j, Th k j i * (star (s i) * wt j i).im)
+    {Cl : ℝ} (hCl : Cl = ∑ i, y i * (‖s i‖ ^ 2 - 6 * Z ^ 2)) :
+    LabBounds P u y T Z ((6 + E) * ε1 + E) (E * (12 + E)) GJ Bt Cl Gb Y1 Yinf SY2 SY1 SYinf NJ ∧
+    ∀ k, |Bty ((1 / (2 * Real.pi)) • P) u y T k + Bt k / (6 * DT * Z ^ 2)| ≤ Y1 * ((6 + E) * ε1 + E) * tcol / 6 := by
+  obtain rfl : GJ = fun j => ∑ i, y i * (star (s i) * wt j i).im := funext hGJ
+  obtain rfl : Bt = fun k => ∑ i, y i * ∑ j, Th k j i * (star (s i) * wt j i).im := funext hBt
+  subst hCl
   set P' := (1 / (2 * Real.pi)) • P with hP'
   have hpi0 := Real.pi_pos
   have h6 := sqrt6_pos
