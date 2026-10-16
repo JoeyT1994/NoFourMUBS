@@ -168,5 +168,5 @@ All three build in seconds (`Special.Exact` 15 s, `Special.Anchor` 11 s, wall, i
   all boundaries.
 * **The Tao Record.** `tao` needs the zero-dimensional Tao Record as a `RecordCert` (`T = 0`, `σ = 3/√2` exact, Stage C
   on the ball): not yet in the kernel.
-* **Records not yet certified in the kernel.** Transfers into the 26 Records that still fail the kernel Stage C
-  (`KERNEL_TANGENT_V2.md`) cannot be discharged until those Records are.
+* **Records with a clustering variant.** The 26 Records that fail with the greedy kernel labels pass with a clustering
+  variant (`KERNEL_TANGENT_V2.md`); their boundaries need only their certs to exist, like any other Record.

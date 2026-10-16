@@ -22,8 +22,9 @@ in about 17 CPU-minutes:
 **Record 146** (one of the 673 Records the v1 checker could not settle) **has a complete kernel-checked Stage C**
 (`Rec146.stageC2`, standard axioms) with the sharper tangent test v2 (`Tangent2`, `Tangent2K`, `Tangent2S`: hinted
 least-squares multiplier, full remainder, scalar test) and the joint edge test (`Joint2`, `Joint2K`, `Joint2S`).
-With v2, 26 of 12,021 Records still fail with kernel labels (v1: 673). See
-[`docs/KERNEL_TANGENT_V2.md`](docs/KERNEL_TANGENT_V2.md).
+With v2 the greedy kernel labels leave 26 of 12,021 Records unsettled (v1: 673); a clustering variant (survivor order
+× label radius) settles all 26, so direct + joint edges suffice for every Record (Record 4015, a former failure, is a
+full kernel `RecordCert`). See [`docs/KERNEL_TANGENT_V2.md`](docs/KERNEL_TANGENT_V2.md).
 
 **The `boundary` field** (`BoundaryCover`, Lemma 4.1) is kernel-checked for Record 100 (`Rec100.boundary`, standard
 axioms, about 100 s and < 10 GB) and Record 146 (`Rec146.boundary`), for any atlas containing the Record whose transfer
@@ -40,7 +41,9 @@ Details and costs: [`docs/KERNEL_RECORD100.md`](docs/KERNEL_RECORD100.md); the d
 ## What remains for an unconditional theorem
 
 1. **Survey** (done: `explorations/atlas_survey/`, and for v2 `docs/KERNEL_TANGENT_V2.md`). The joint edge test is
-   in the kernel; the support test is not. 26 Records still fail with the greedy kernel labels.
+   in the kernel; the support test is not needed: the 26 Records that fail with the greedy kernel labels pass with a
+   clustering variant (all 26 in the mirror; Record 4015 end to end in the kernel), so every Record is settled by
+   direct + joint edges.
 2. **Boundary transfers** (`BoundaryCover`, Lemma 4.1): the checker and Records 100 and 146 are done
    (`docs/KERNEL_BOUNDARY.md`); about 1.5 CPU-minutes per Record, ≈ 300 CPU-hours for the atlas. Each Record's cover
    is conditional on its ≈ 55 targets being kernel-certified with the same centres and radii.
