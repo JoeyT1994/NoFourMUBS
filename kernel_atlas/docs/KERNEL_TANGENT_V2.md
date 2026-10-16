@@ -93,15 +93,51 @@ lists add elaboration time.
 
 ### The whole atlas (exact mirror, rusty)
 
-RESULT_ATLAS
+All 12,021 Records with the exact v2 mirror (`check_v2.py --out`, rusty jobs 7251153 and 7251213, one ccq node,
+2 h 53 min in all; per-Record rows in `kernel_atlas/results/v2/v2_all.jsonl.gz`, report in
+`kernel_atlas/results/v2/SUMMARY.md`). Which edge tests the label graph needs, with the kernel labels:
+
+| edge tests needed | v1 kernel labels (atlas survey) | v2 labels |
+|---|---|---|
+| direct | 6,447 | 7,641 |
+| support | 2,314 | 1,891 |
+| joint | 2,587 | 2,463 |
+| **fail** | **673** | **26** |
+
+650 of the 673 v1 failures settle with v2 (9 direct, 56 support, 585 joint); 23 still fail, and 3 Records that v1
+settled with the joint test now fail. **All 26 failures are genuine two-clique graphs of the greedy kernel labels**
+(none hits the search cap; median 118 labels, median δ₃ = 0.047), while certify.py (Arb, its own labels) passes them:
+the remaining gap is the labelling, not the tests. Medians per Record: depth-0 survivors 15,032 → 10,280, direct
+tests 1,021,376 → 770,176, tangent tests 216,038 → 175,425. The v2 rejections split 36% scalar test, 63%
+least-squares linear test, 1% linear test with y = c.
 
 ## Cost estimate
 
-RESULT_COST
+Measured on the laptop (18 cores, 64 GB):
+
+| per Record | Record 146 | Record 100 |
+|---|---|---|
+| v2 bin tree with label leaves | 36 min | 35 min |
+| graph: direct + joint edges, two-clique search | 3.6 min | (direct edges suffice; v1: under a minute) |
+| peak memory per Lean process | 15 GB | 18 GB |
+
+With the normal bound (about 6 min, measured for Record 100's kernel RecordCert) a Record costs about **45 CPU-min,
+so about 9,000 CPU-hours for the atlas**, twice the survey's v1 estimate. Memory, not cores, limits the run on rusty:
+at 15–18 GB per process a 1 TB node takes about 55 processes, so 30 ccq nodes would run the atlas in about 5–6 hours.
+Restoring v1's lane packing in the v2 checker (the tests are computed directly from the rows today, which keeps the
+proofs short) should cut the bin tree about 3×; storing each sub-slab's hints as one packed natural instead of a list
+literal should cut elaboration time and memory.
 
 ## What remains
 
-RESULT_REMAINS
+1. **The 26 Records that still fail.** Their kernel labels admit two cliques; certify.py passes with its own labels.
+   Try a less order-dependent clustering (or several orders, keeping one that passes), or split the offending labels.
+2. **The support edge test** is not in the kernel. 1,891 Records need it with v2 labels; the joint test may replace it
+   (it does for Record 146), to be measured.
+3. **Full Records**: Record 146 has a kernel Stage C (`stageC2`); its kernel normal bound (`knormal.py`,
+   `NormalK.lean`, done for Record 100) is a generation run away from a full `RecordCert`. Boundary transfers, the Tao
+   exclusion and the anchor/Fourier fields are not in the kernel yet (see `KERNEL_RECORD100.md`).
+4. **Performance**: lane packing in the v2 checker, packed hints, and the memory per process (above).
 
 ## Reproduce
 
