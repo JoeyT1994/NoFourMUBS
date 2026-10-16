@@ -1,6 +1,6 @@
 {
-  "status": "SEARCH_STARTED_NO_EXACT_CERTIFICATE_FOUND",
-  "updated_at": "2026-10-16T02:43:31.962191+00:00",
+  "status": "LATEST_SEARCH_COMPLETED_NO_EXACT_CORNER_CERTIFICATE_FOUND",
+  "updated_at": "2026-10-16T11:52:59.938252+00:00",
   "main_commit": "0636c223da1a0879b515fc69812332326136829e",
   "new_upstream_moment_reduction_commit": "66b5c6535c01ca1589bca2ff8779c5000a4b22bd",
   "tests_passed": 10,
@@ -34,13 +34,34 @@
       "localizers": 2295,
       "numerical_objective": 0.39782024209054484,
       "exact_certificate_found": false
+    },
+    {
+      "name": "github-frontier-38842127156",
+      "source_commit": "61a55287b4eef2543df8cd9c830df3fc50d7cbdb",
+      "moments": 116378,
+      "gram_max": 493,
+      "localizers": 7434,
+      "numerical_objective": 0.39782108397588023,
+      "solver_status": "optimal",
+      "exact_certificate_found": false,
+      "receipt": "runs/github-frontier-38842127156/github_receipt.json"
     }
   ],
-  "next_run": {
+  "last_github_run": {
     "platform": "GitHub Actions",
     "workflow": "Corner SOS search",
     "scope": "width 6, case-complete Fourier, coupled witness/triangle features, reused seven-cofactor norm identity, 128 target-directed frontier localizers per selected equation",
     "solver_seconds": 180,
-    "state": "prepared"
+    "state": "completed",
+    "conclusion": "success",
+    "run_id": 38842127156,
+    "url": "https://github.com/JoeyT1994/NoFourMUBS/actions/runs/38842127156",
+    "exact_certificate_found": false
+  },
+  "no_search_currently_running": true,
+  "upstream_snapshot": {
+    "main": "0636c223da1a0879b515fc69812332326136829e",
+    "kernel/tangent-v2": "3a164b38bb4cc84376bae2698ea53b8317d746be",
+    "change_scope": "kernel_atlas only; no mathematical certification performed"
   }
 }
