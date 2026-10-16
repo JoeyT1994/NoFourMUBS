@@ -64,7 +64,7 @@ def main():
          '%d targets (of %d stored transfers), a tree of %d boxes (%d off, %d transfer leaves, %d splits, depth %d). -/' % (
              len(B.tg), ntg, len(B.codes), st['off'], st['leaf'], st['split'], depth), '',
          'namespace %s' % base, '', 'open Hadamard6 NoFourMUBs.KernelAtlas', '', 'set_option maxRecDepth 100000', '',
-         'noncomputable def bd : BData where',
+         'set_option maxHeartbeats 0 in', 'noncomputable def bd : BData where',
          '  DT := %d' % B.DT, '  Wn := %d' % B.Wn, '  Wd := %d' % B.Wd, '  L := %d' % B.L,
          '  R := %s' % q_lit(B.R), '  rH := %s' % q_lit(B.rH), '  lam := %s' % q_lit(B.lam),
          '  nbar := %s' % q_lit(B.nbar), '  slam := %s' % q_lit(B.slam), '  sq := %s' % q_lit(B.sq),

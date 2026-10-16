@@ -7,7 +7,7 @@ form: the certificate's computations checked by the Lean kernel itself, which wo
 (`¬ FourMUBs` with no hypotheses). Nothing in the proof imports this folder, `verify.py` does not run it, and a
 reviewer does not need to: it is here to show that the kernel check exists and works.
 
-## Status (15 Oct 2026)
+## Status (16 Oct 2026)
 
 **Record 100 is a complete kernel-checked `RecordCert`** (`NoFourMUBs.KernelAtlas.Rec100.cert`, standard axioms only),
 in about 17 CPU-minutes:
@@ -25,6 +25,15 @@ least-squares multiplier, full remainder, scalar test) and the joint edge test (
 With v2, 26 of 12,021 Records still fail with kernel labels (v1: 673). See
 [`docs/KERNEL_TANGENT_V2.md`](docs/KERNEL_TANGENT_V2.md).
 
+**The `boundary` field** (`BoundaryCover`, Lemma 4.1) is kernel-checked for Record 100 (`Rec100.boundary`, standard
+axioms, about 100 s and < 10 GB) and Record 146 (`Rec146.boundary`), for any atlas containing the Record whose transfer
+targets have the stored centres and radii (`BoundaryK`: an η-box tree with exact integer tests, one box per target).
+The exact Python mirror finds a boundary cover for all 12,021 Records.
+**The `fourier`, `tao` and `anchor` fields** are kernel-checked the same way (`ExactK`, `AnchorK`, `Special/`):
+`fourierHadamard` into Record 877, `taoMatrix ω` (both cube roots) into the zero-dimensional Tao Record, and the
+base-anchor completion `H₀` (entries in `ℚ(i, √3, √5, √7)`) into Record 9319. See
+[`docs/KERNEL_BOUNDARY.md`](docs/KERNEL_BOUNDARY.md).
+
 Details and costs: [`docs/KERNEL_RECORD100.md`](docs/KERNEL_RECORD100.md); the design and the cost model:
 [`docs/KERNEL_FEASIBILITY.md`](docs/KERNEL_FEASIBILITY.md), [`docs/KERNEL_TANGENT.md`](docs/KERNEL_TANGENT.md).
 
@@ -32,9 +41,11 @@ Details and costs: [`docs/KERNEL_RECORD100.md`](docs/KERNEL_RECORD100.md); the d
 
 1. **Survey** (done: `explorations/atlas_survey/`, and for v2 `docs/KERNEL_TANGENT_V2.md`). The joint edge test is
    in the kernel; the support test is not. 26 Records still fail with the greedy kernel labels.
-2. **Boundary transfers** (`BoundaryCover`, Lemma 4.1) against the target Records.
-3. **Special Records**: Tao's zero-dimensional Record (no frame), and the `tao`, `fourier` and `anchor` fields of
-   `AtlasCertificate` (exact equivalences into Records).
+2. **Boundary transfers** (`BoundaryCover`, Lemma 4.1): the checker and Records 100 and 146 are done
+   (`docs/KERNEL_BOUNDARY.md`); about 1.5 CPU-minutes per Record, ≈ 300 CPU-hours for the atlas. Each Record's cover
+   is conditional on its ≈ 55 targets being kernel-certified with the same centres and radii.
+3. **Special Records**: the `tao`, `fourier` and `anchor` fields are done (conditional on their target Records);
+   Tao's zero-dimensional Record itself (no frame) is not yet a kernel `RecordCert`.
 4. **Scale**: smaller generated data (recompute the trees in the kernel), a hierarchical assembly, and one run over
    all 12,021 Records (about 4,000–5,000 CPU-hours, less with packed arithmetic and stronger pruning).
 
@@ -43,7 +54,8 @@ Details and costs: [`docs/KERNEL_RECORD100.md`](docs/KERNEL_RECORD100.md); the d
 - `lean/KernelAtlas/`: Lean sources, built as the Lake library `KernelAtlas` declared in `lean/lakefile.toml` (not a
   default target).
 - `generators/`: Python generators and exact mirrors (`export_record.py`, `export_tangent.py`, `klabels.py`,
-  `knormal.py`, `kbins.py`, `ktangent.py`).
+  `knormal.py`, `kbins.py`, `ktangent.py`; boundary and special fields: `kbound.py`, `export_boundary.py`,
+  `survey_boundary.py`, `kexact.py`, `export_exact.py`, `export_anchor.py`).
 - `docs/`: design notes and status.
 
 Regenerate Record 100 from the repository root, then build from `lean/`:
@@ -53,6 +65,15 @@ python3 kernel_atlas/generators/export_record.py 100 kernel_atlas/lean/KernelAtl
 python3 kernel_atlas/generators/export_tangent.py 100 kernel_atlas/lean/KernelAtlas/Rec100 --labels --subs 0,8 6,2 --all
 python3 kernel_atlas/generators/knormal.py 100 kernel_atlas/lean/KernelAtlas/Rec100
 cd lean && lake build KernelAtlas.Rec100.Record
+```
+
+The boundary cover and the special fields (`docs/KERNEL_BOUNDARY.md`):
+
+```bash
+python3 kernel_atlas/generators/export_boundary.py 100 kernel_atlas/lean/KernelAtlas/Rec100   # --v2 for v2 Records
+python3 kernel_atlas/generators/export_exact.py     # Special/Exact.lean (fourier, tao)
+python3 kernel_atlas/generators/export_anchor.py    # Special/Anchor.lean (anchor)
+cd lean && lake build KernelAtlas.Rec100.BoundaryCover KernelAtlas.Special.Exact KernelAtlas.Special.Anchor
 ```
 
 The generated modules are named `KernelAtlas.Rec100.*`; their declarations live in the namespace

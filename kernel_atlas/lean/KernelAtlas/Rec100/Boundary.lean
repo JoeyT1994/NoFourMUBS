@@ -11,6 +11,7 @@ open Hadamard6 NoFourMUBs.KernelAtlas
 
 set_option maxRecDepth 100000
 
+set_option maxHeartbeats 0 in
 noncomputable def bd : BData where
   DT := 38654705664
   Wn := 87960930313
