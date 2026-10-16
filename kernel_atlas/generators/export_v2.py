@@ -73,7 +73,7 @@ def write_subs(outdir, base, idx, hints, subs, fname, leaf, imp):
     L = ['import %s' % imp, '',
          '/-! Record %d, tangent test v2: sub-slabs %s, one kernel declaration each (generated). -/'
          % (idx, ', '.join('(%d, %d)' % s for s in subs)), '',
-         'namespace %s' % base, '', 'open NoFourMUBs.KernelAtlas', '']
+         'namespace %s' % base, '', 'open NoFourMUBs.KernelAtlas', '', 'set_option maxRecDepth 100000', '']
     for b1, b2 in subs:
         hs = hints[(b1, b2)]
         L.append('def hs_%d_%d : List ℕ := [%s]' % (b1, b2, ', '.join(str(h) for h in hs)))
