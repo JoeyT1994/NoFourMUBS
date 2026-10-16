@@ -1,10 +1,10 @@
 Exact SOS search for a real corner signature
 ============================================
 
-Status: three strengthening rounds completed; NO exact corner-reality
-certificate has been found. A finite combination experiment is prepared;
-see STATUS.json for its current execution state and SYSTEMATIC_SEARCH.txt
-for its precise completeness boundary.
+Status: four strengthening rounds completed; NO exact corner-reality
+certificate has been found. The finite combination experiment is complete;
+no search is currently running. See FINITE_POOL_RUN_RESULT.json and
+SYSTEMATIC_SEARCH.txt for its results and precise completeness boundary.
 See CLASSIFICATION_REUSE.txt and STATUS.json for the current search.
 This is one discovery route extending the existing proof. It is not a second
 proof, a new Lean formalization, or an atlas-certification project.
@@ -131,3 +131,15 @@ not an exact certificate. The model has 272,812 moments and 21,489 rows.
 It reused the prior model and took about 4.2 seconds to add the new
 constraints. All seventeen checks passed on GitHub. See
 SIX_NONTAO_RUN_RESULT.json. Other sectors remain open.
+
+Finite-pool result (run 38908368235): the complete scan of its specified
+pool examined 2,940,401 generator/multiplier pairs, retained 4,591 new exact
+rows, and preserved every old moment and Gram block. Of these rows, 187
+had normalized residual above 1e-4 at the old candidate. The new numerical
+objective is still 0.2690795433642974. All 22 checks passed on GitHub.
+Exact support peeling excludes pure ideal membership in the tested row span
+(51 target monomials become unsupported). This is NOT an SOS obstruction.
+All new rows were single-matrix/classification consequences; the mixed,
+transition, transport and cycle products not already present require new
+moments. The next useful enlargement should connect these new moments in
+joint Gram blocks. A repeat solve of this pool is not justified.

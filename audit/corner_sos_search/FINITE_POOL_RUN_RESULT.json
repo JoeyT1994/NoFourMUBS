@@ -1,0 +1,88 @@
+{
+  "run_id": 38908368235,
+  "url": "https://github.com/JoeyT1994/NoFourMUBS/actions/runs/38908368235",
+  "source_commit": "86ee02fb6c5edd0c3e2f635bd0eaf514ba92f26a",
+  "recorded_at": "2026-10-16T14:08:01.316698+00:00",
+  "conclusion": "success",
+  "status": "FINITE_POOL_COMPLETE_NO_EXACT_CORNER_CERTIFICATE",
+  "scope": "Primary 000 and auxiliary 000 only. No other classification sector is discharged.",
+  "tests_passed": 22,
+  "equations": 1818,
+  "common_multipliers": 1599,
+  "totals": {
+    "generators": 1818,
+    "tested_pairs": 2940401,
+    "duplicate_or_already_present": 33966,
+    "requires_more_moments": 2901844,
+    "added": 4591,
+    "old_candidate_violation_gt_1e-06": 188,
+    "old_candidate_violation_gt_0.0001": 187
+  },
+  "added_rows": 4591,
+  "moments": 272812,
+  "localizer_rows": 26080,
+  "model_sha256": "d8b8c3b6b0045d63d18dc816e8c029ab3f9742976ac59b801a827c204aa5d017",
+  "reused_model_sha256": "28990a8d8052f0fd8887af9402da30f43dcdc8d4f8f16b742e20fb6d1fbbebdc",
+  "old_numerical_objective": 0.2690795737493639,
+  "numerical_objective": 0.2690795433642974,
+  "solver_status": "optimal",
+  "max_equation_residual": 6.252492967817602e-10,
+  "minimum_gram_eigenvalue": -1.2421377370599405e-05,
+  "exact_certificate_found": false,
+  "pure_ideal_check": {
+    "status": "TARGET_NOT_IN_THIS_FINITE_ROW_SPAN_BY_EXACT_PEELING",
+    "forced_zero_rows": 6562,
+    "orphan_target_monomials": 51,
+    "scope": "Pure linear combinations of these rows only; not an SOS obstruction."
+  },
+  "artifact": {
+    "id": 12049008290,
+    "node_id": "MDg6QXJ0aWZhY3QxMjA0OTAwODI5MA==",
+    "name": "corner-sos-38908368235-000",
+    "size_in_bytes": 23778890,
+    "url": "https://api.github.com/repos/JoeyT1994/NoFourMUBS/actions/artifacts/12049008290",
+    "archive_download_url": "https://api.github.com/repos/JoeyT1994/NoFourMUBS/actions/artifacts/12049008290/zip",
+    "expired": false,
+    "digest": "sha256:be40441f70abb11b40dce4a9238e5d5cecb80bbe25c3390c760dd4d1ffaf9c30",
+    "created_at": "2026-10-16T13:35:14Z",
+    "updated_at": "2026-10-16T13:35:14Z",
+    "expires_at": "2027-01-14T13:30:29Z",
+    "workflow_run": {
+      "id": 38908368235,
+      "repository_id": 1401770743,
+      "head_repository_id": 1401770743,
+      "head_branch": "codex/unified-lean-github-checks",
+      "head_sha": "86ee02fb6c5edd0c3e2f635bd0eaf514ba92f26a"
+    }
+  },
+  "upstream_delta_review": {
+    "previous": "3a164b38bb4cc84376bae2698ea53b8317d746be",
+    "current": "7ca3523d956c3d36c401fd4b6d169f461a59081f",
+    "commits": [
+      "a439e08dc02035c801e49f699c5154edc095fc6c",
+      "7ca3523d956c3d36c401fd4b6d169f461a59081f"
+    ],
+    "files": [
+      "kernel_atlas/docs/KERNEL_TANGENT_V2.md",
+      "kernel_atlas/generators/export_joint.py",
+      "kernel_atlas/generators/export_v2.py",
+      "kernel_atlas/generators/graph_v2.py",
+      "kernel_atlas/generators/knormal.py",
+      "kernel_atlas/generators/run_graph_v2_rusty.sh",
+      "kernel_atlas/lean/KernelAtlas/CliqueB.lean",
+      "kernel_atlas/lean/KernelAtlas/Rec146/Frame.lean",
+      "kernel_atlas/lean/KernelAtlas/Rec146/Record2.lean",
+      "kernel_atlas/lean/KernelAtlas/Rec146/Sigma.lean",
+      "kernel_atlas/lean/KernelAtlas/StageCK2B.lean",
+      "kernel_atlas/results/graph_v2/fail26_variants.jsonl.gz",
+      "kernel_atlas/results/graph_v2/remaining13_variants.jsonl.gz",
+      "kernel_atlas/results/graph_v2/support_joint_dj.jsonl.gz",
+      "kernel_atlas/results/v2/support_joint_idx.txt"
+    ],
+    "decision": "All changes are under kernel_atlas. Metadata reviewed; no source or certificate adopted, executed, replayed or certified."
+  },
+  "no_atlas": true,
+  "no_local_lean": true,
+  "existing_witness_unchanged": true,
+  "assessment": "The additional rows remove substantial violations of the saved candidate but the numerical bound does not materially improve. No new represented rows were found for mixed, transition, transport or cycle families in this finite pool. Their omitted products require new moments. A useful next enlargement must add targeted shared moments and joint Gram blocks; re-solving subsets of this pool is not justified. The numerical result is not an exact SOS infeasibility certificate."
+}

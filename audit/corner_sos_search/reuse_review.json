@@ -277,6 +277,33 @@
     "physical_moment_bound_decision": "PhysicalMomentBound.lean is a local seed-ball Taylor/majorant estimate. Its Fourier representation, cancellations, moment bounds and budget are explicit hypotheses. It supplies no global raw-quartet SOS relation and is not adopted or executed.",
     "existing_discovery_reuse": "audit/sos_linear.py::combination already performs exact sparse rational span recovery. Reuse it instead of implementing another elimination/certificate algorithm. Existing search.py, verify_exact.py, saved model/candidate, and original witness supports remain canonical.",
     "no_atlas": true,
-    "completeness_boundary": "Finite specified equation-by-multiplier pool only. No exhaustive degree hierarchy, all rational supports, all cases, or global SOS nonexistence claim."
+    "completeness_boundary": "Finite specified equation-by-multiplier pool only. No exhaustive degree hierarchy, all rational supports, all cases, or global SOS nonexistence claim.",
+    "upstream_delta_review": {
+      "previous": "3a164b38bb4cc84376bae2698ea53b8317d746be",
+      "current": "7ca3523d956c3d36c401fd4b6d169f461a59081f",
+      "commits": [
+        "a439e08dc02035c801e49f699c5154edc095fc6c",
+        "7ca3523d956c3d36c401fd4b6d169f461a59081f"
+      ],
+      "files": [
+        "kernel_atlas/docs/KERNEL_TANGENT_V2.md",
+        "kernel_atlas/generators/export_joint.py",
+        "kernel_atlas/generators/export_v2.py",
+        "kernel_atlas/generators/graph_v2.py",
+        "kernel_atlas/generators/knormal.py",
+        "kernel_atlas/generators/run_graph_v2_rusty.sh",
+        "kernel_atlas/lean/KernelAtlas/CliqueB.lean",
+        "kernel_atlas/lean/KernelAtlas/Rec146/Frame.lean",
+        "kernel_atlas/lean/KernelAtlas/Rec146/Record2.lean",
+        "kernel_atlas/lean/KernelAtlas/Rec146/Sigma.lean",
+        "kernel_atlas/lean/KernelAtlas/StageCK2B.lean",
+        "kernel_atlas/results/graph_v2/fail26_variants.jsonl.gz",
+        "kernel_atlas/results/graph_v2/remaining13_variants.jsonl.gz",
+        "kernel_atlas/results/graph_v2/support_joint_dj.jsonl.gz",
+        "kernel_atlas/results/v2/support_joint_idx.txt"
+      ],
+      "decision": "All changes are under kernel_atlas. Metadata reviewed; no source or certificate adopted, executed, replayed or certified."
+    },
+    "result": "FINITE_POOL_RUN_RESULT.json"
   }
 }

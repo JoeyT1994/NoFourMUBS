@@ -68,3 +68,34 @@ exactly nonnegative square weights, with its classification hypotheses stated.
 A single certificate directly in the original raw equations additionally
 needs algebraic cofactors for the classification/Fourier theorem inputs.
 Final Lean verification remains on GitHub. No atlas work is performed.
+
+Completed experiment
+--------------------
+
+GitHub run 38908368235 completed successfully at 13:35 UTC on 16 October.
+All 22 adapter/enumeration/checker tests passed. The scan covered 1,818
+generators and 1,599 common multipliers plus each generator's negative
+support: 2,940,401 pairs in total. It retained 4,591 new rows, removed
+33,966 duplicate/already represented rows, and counted 2,901,844 products
+requiring additional moments. Enumeration took about 67 seconds.
+
+Exact pure-ideal peeling forced 6,562 row coefficients to zero and left 51
+unsupported target monomials, excluding a pure ideal certificate in THAT
+finite row span. This permitted skipping rational Gaussian elimination.
+The SOS solve returned approximately 0.26907954, with minimum Gram eigenvalue
+about -1.24e-5. These are approximate solver results, not exact feasibility
+or nonexistence certificates. No exact corner certificate was found.
+
+The useful distinction is that NONE of the new represented rows came from
+mixed-MUB, transition, transport or cycle families. Those additions were
+already present or needed fresh moments. All 187 new rows with old-candidate
+normalized residual above 1e-4 were orthogonality consequences. Adding them
+changed the candidate without materially lowering its target value.
+
+Next prioritize clusters of missing products which share new monomials
+between the corner/witness and quartet compatibility relations. Include
+their complete equations and the joint Gram blocks which constrain the
+same new moments. Avoid isolated new variables whose values can absorb a
+new equation without linking it to the target. The original nine witness
+seeds and the exact coefficient checker remain the reusable starting point.
+No additional search was automatically launched after this diagnosis.

@@ -1,0 +1,815 @@
+{
+  "status": "COMPLETE_ENUMERATION_OF_SPECIFIED_FINITE_POOL_ONLY",
+  "scope": "For every reused generator f: shifts P union -support(f); P is the first Gram basis, target monomials, their negatives, and zero. Retain exactly those complete real multiples represented by the saved moments.",
+  "classification_case": "000",
+  "auxiliary_classification_case": "000",
+  "equations": 1818,
+  "common_multipliers": 1599,
+  "families": {
+    "orth": {
+      "generators": 1080,
+      "tested_pairs": 1732248,
+      "duplicate_or_already_present": 13380,
+      "requires_more_moments": 1718556,
+      "added": 312,
+      "old_candidate_violation_gt_1e-06": 188,
+      "old_candidate_violation_gt_0.0001": 187
+    },
+    "mixed": {
+      "generators": 108,
+      "tested_pairs": 175842,
+      "duplicate_or_already_present": 8988,
+      "requires_more_moments": 166854
+    },
+    "transition": {
+      "generators": 108,
+      "tested_pairs": 176580,
+      "duplicate_or_already_present": 4086,
+      "requires_more_moments": 172494
+    },
+    "transport": {
+      "generators": 216,
+      "tested_pairs": 347976,
+      "duplicate_or_already_present": 2808,
+      "requires_more_moments": 345168
+    },
+    "cycle": {
+      "generators": 36,
+      "tested_pairs": 57996,
+      "duplicate_or_already_present": 468,
+      "requires_more_moments": 57528
+    },
+    "class-norm": {
+      "generators": 3,
+      "tested_pairs": 4797,
+      "duplicate_or_already_present": 1338,
+      "requires_more_moments": 2214,
+      "added": 1245
+    },
+    "class-fourier": {
+      "generators": 60,
+      "tested_pairs": 96225,
+      "duplicate_or_already_present": 360,
+      "requires_more_moments": 93300,
+      "added": 2565
+    },
+    "class-conjugacy": {
+      "generators": 9,
+      "tested_pairs": 15239,
+      "duplicate_or_already_present": 981,
+      "requires_more_moments": 13792,
+      "added": 466
+    },
+    "aux-class-norm": {
+      "generators": 3,
+      "tested_pairs": 4887,
+      "duplicate_or_already_present": 93,
+      "requires_more_moments": 4794
+    },
+    "aux-class-fourier": {
+      "generators": 60,
+      "tested_pairs": 96240,
+      "duplicate_or_already_present": 360,
+      "requires_more_moments": 95880
+    },
+    "aux-class-conjugacy": {
+      "generators": 9,
+      "tested_pairs": 15363,
+      "duplicate_or_already_present": 981,
+      "requires_more_moments": 14382
+    },
+    "fourier": {
+      "generators": 114,
+      "tested_pairs": 187416,
+      "duplicate_or_already_present": 114,
+      "requires_more_moments": 187302
+    },
+    "fourier-binary": {
+      "generators": 6,
+      "tested_pairs": 11124,
+      "added": 3,
+      "requires_more_moments": 11118,
+      "duplicate_or_already_present": 3
+    },
+    "moment-norm": {
+      "generators": 6,
+      "tested_pairs": 18468,
+      "duplicate_or_already_present": 6,
+      "requires_more_moments": 18462
+    }
+  },
+  "totals": {
+    "generators": 1818,
+    "tested_pairs": 2940401,
+    "duplicate_or_already_present": 33966,
+    "requires_more_moments": 2901844,
+    "added": 4591,
+    "old_candidate_violation_gt_1e-06": 188,
+    "old_candidate_violation_gt_0.0001": 187
+  },
+  "added_rows": 4591,
+  "original_rows": 21489,
+  "original_moments_preserved": true,
+  "original_gram_blocks_preserved": true,
+  "new_moments": 0,
+  "top_old_candidate_violations": [
+    {
+      "equation": "orth:0:1:0:5:5",
+      "multiplier": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          -1
+        ],
+        [
+          6,
+          -1
+        ],
+        [
+          7,
+          1
+        ]
+      ],
+      "normalized_residual": 0.02539251685532641,
+      "row_index": 21628
+    },
+    {
+      "equation": "orth:0:1:0:5:4",
+      "multiplier": [
+        [
+          7,
+          1
+        ],
+        [
+          8,
+          -1
+        ],
+        [
+          13,
+          -1
+        ],
+        [
+          14,
+          1
+        ]
+      ],
+      "normalized_residual": 0.022157681224760657,
+      "row_index": 21623
+    },
+    {
+      "equation": "orth:0:1:2:5:4",
+      "multiplier": [
+        [
+          0,
+          -1
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          12,
+          1
+        ],
+        [
+          14,
+          -1
+        ]
+      ],
+      "normalized_residual": 0.021140519561831994,
+      "row_index": 21772
+    },
+    {
+      "equation": "orth:0:1:0:5:4",
+      "multiplier": [
+        [
+          0,
+          -1
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          12,
+          1
+        ],
+        [
+          14,
+          -1
+        ]
+      ],
+      "normalized_residual": 0.021140519554596147,
+      "row_index": 21609
+    },
+    {
+      "equation": "orth:0:1:0:5:4",
+      "multiplier": [
+        [
+          6,
+          -1
+        ],
+        [
+          8,
+          1
+        ],
+        [
+          12,
+          1
+        ],
+        [
+          14,
+          -1
+        ]
+      ],
+      "normalized_residual": 0.019267737127015714,
+      "row_index": 21619
+    },
+    {
+      "equation": "orth:0:1:0:5:3",
+      "multiplier": [
+        [
+          6,
+          1
+        ],
+        [
+          8,
+          -1
+        ],
+        [
+          12,
+          -1
+        ],
+        [
+          14,
+          1
+        ]
+      ],
+      "normalized_residual": 0.01903262189686945,
+      "row_index": 21603
+    },
+    {
+      "equation": "orth:0:1:0:5:3",
+      "multiplier": [
+        [
+          6,
+          -1
+        ],
+        [
+          7,
+          1
+        ],
+        [
+          12,
+          1
+        ],
+        [
+          13,
+          -1
+        ]
+      ],
+      "normalized_residual": 0.01881428596566603,
+      "row_index": 21600
+    },
+    {
+      "equation": "orth:0:1:1:5:4",
+      "multiplier": [
+        [
+          0,
+          -1
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          6,
+          1
+        ],
+        [
+          7,
+          -1
+        ]
+      ],
+      "normalized_residual": 0.018259536552541474,
+      "row_index": 21692
+    },
+    {
+      "equation": "orth:0:1:0:5:4",
+      "multiplier": [
+        [
+          0,
+          -1
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          6,
+          1
+        ],
+        [
+          7,
+          -1
+        ]
+      ],
+      "normalized_residual": 0.018259536548367487,
+      "row_index": 21606
+    },
+    {
+      "equation": "orth:0:1:0:5:5",
+      "multiplier": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          -1
+        ],
+        [
+          12,
+          -1
+        ],
+        [
+          14,
+          1
+        ]
+      ],
+      "normalized_residual": 0.01798728707360667,
+      "row_index": 21631
+    },
+    {
+      "equation": "orth:0:1:0:5:5",
+      "multiplier": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          -1
+        ],
+        [
+          12,
+          -1
+        ],
+        [
+          13,
+          1
+        ]
+      ],
+      "normalized_residual": 0.017818692107323873,
+      "row_index": 21629
+    },
+    {
+      "equation": "orth:0:1:0:5:3",
+      "multiplier": [
+        [
+          6,
+          1
+        ],
+        [
+          7,
+          -1
+        ],
+        [
+          12,
+          -1
+        ],
+        [
+          13,
+          1
+        ]
+      ],
+      "normalized_residual": 0.015872756566857143,
+      "row_index": 21602
+    },
+    {
+      "equation": "orth:0:1:0:5:4",
+      "multiplier": [
+        [
+          6,
+          1
+        ],
+        [
+          8,
+          -1
+        ],
+        [
+          12,
+          -1
+        ],
+        [
+          14,
+          1
+        ]
+      ],
+      "normalized_residual": 0.015338904970253224,
+      "row_index": 21621
+    },
+    {
+      "equation": "orth:0:1:0:5:4",
+      "multiplier": [
+        [
+          6,
+          1
+        ],
+        [
+          7,
+          -1
+        ],
+        [
+          12,
+          -1
+        ],
+        [
+          13,
+          1
+        ]
+      ],
+      "normalized_residual": 0.014862256506488746,
+      "row_index": 21620
+    },
+    {
+      "equation": "orth:0:1:1:5:3",
+      "multiplier": [
+        [
+          6,
+          1
+        ],
+        [
+          7,
+          -1
+        ],
+        [
+          12,
+          -1
+        ],
+        [
+          13,
+          1
+        ]
+      ],
+      "normalized_residual": 0.014566613515188573,
+      "row_index": 21688
+    },
+    {
+      "equation": "orth:0:1:1:5:3",
+      "multiplier": [
+        [
+          6,
+          -1
+        ],
+        [
+          7,
+          1
+        ],
+        [
+          12,
+          1
+        ],
+        [
+          13,
+          -1
+        ]
+      ],
+      "normalized_residual": 0.014455296454368804,
+      "row_index": 21686
+    },
+    {
+      "equation": "orth:0:1:0:1:4",
+      "multiplier": [
+        [
+          7,
+          1
+        ],
+        [
+          8,
+          -1
+        ],
+        [
+          13,
+          -1
+        ],
+        [
+          14,
+          1
+        ]
+      ],
+      "normalized_residual": 0.01444785029181016,
+      "row_index": 21521
+    },
+    {
+      "equation": "orth:0:1:1:5:5",
+      "multiplier": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          -1
+        ],
+        [
+          12,
+          -1
+        ],
+        [
+          13,
+          1
+        ]
+      ],
+      "normalized_residual": 0.013925030369026136,
+      "row_index": 21711
+    },
+    {
+      "equation": "orth:0:1:0:5:4",
+      "multiplier": [
+        [
+          7,
+          -1
+        ],
+        [
+          8,
+          1
+        ],
+        [
+          13,
+          1
+        ],
+        [
+          14,
+          -1
+        ]
+      ],
+      "normalized_residual": 0.013830937685758231,
+      "row_index": 21622
+    },
+    {
+      "equation": "orth:0:1:2:5:4",
+      "multiplier": [
+        [
+          7,
+          1
+        ],
+        [
+          8,
+          -1
+        ],
+        [
+          13,
+          -1
+        ],
+        [
+          14,
+          1
+        ]
+      ],
+      "normalized_residual": 0.013824115128517896,
+      "row_index": 21786
+    },
+    {
+      "equation": "orth:0:1:0:5:3",
+      "multiplier": [
+        [
+          1,
+          -1
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          7,
+          1
+        ],
+        [
+          8,
+          -1
+        ]
+      ],
+      "normalized_residual": 0.01357526436106394,
+      "row_index": 21596
+    },
+    {
+      "equation": "orth:0:1:0:1:3",
+      "multiplier": [
+        [
+          7,
+          -1
+        ],
+        [
+          8,
+          1
+        ],
+        [
+          13,
+          1
+        ],
+        [
+          14,
+          -1
+        ]
+      ],
+      "normalized_residual": 0.013514710047936694,
+      "row_index": 21514
+    },
+    {
+      "equation": "orth:0:1:1:5:3",
+      "multiplier": [
+        [
+          0,
+          -1
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          6,
+          1
+        ],
+        [
+          7,
+          -1
+        ]
+      ],
+      "normalized_residual": 0.013423050737925851,
+      "row_index": 21676
+    },
+    {
+      "equation": "orth:0:1:0:5:3",
+      "multiplier": [
+        [
+          0,
+          -1
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          6,
+          1
+        ],
+        [
+          7,
+          -1
+        ]
+      ],
+      "normalized_residual": 0.013423050733803286,
+      "row_index": 21588
+    },
+    {
+      "equation": "orth:0:1:0:5:4",
+      "multiplier": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          -1
+        ],
+        [
+          7,
+          -1
+        ],
+        [
+          8,
+          1
+        ]
+      ],
+      "normalized_residual": 0.01322289509823473,
+      "row_index": 21616
+    },
+    {
+      "equation": "orth:0:1:1:5:3",
+      "multiplier": [
+        [
+          1,
+          -1
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          7,
+          1
+        ],
+        [
+          8,
+          -1
+        ]
+      ],
+      "normalized_residual": 0.013146686591471085,
+      "row_index": 21682
+    },
+    {
+      "equation": "orth:0:1:0:5:3",
+      "multiplier": [
+        [
+          6,
+          -1
+        ],
+        [
+          8,
+          1
+        ],
+        [
+          12,
+          1
+        ],
+        [
+          14,
+          -1
+        ]
+      ],
+      "normalized_residual": 0.012940032537944806,
+      "row_index": 21601
+    },
+    {
+      "equation": "orth:0:1:0:1:5",
+      "multiplier": [
+        [
+          1,
+          -1
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          13,
+          1
+        ],
+        [
+          14,
+          -1
+        ]
+      ],
+      "normalized_residual": 0.01280495672544722,
+      "row_index": 21523
+    },
+    {
+      "equation": "orth:0:1:2:5:5",
+      "multiplier": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          -1
+        ],
+        [
+          6,
+          -1
+        ],
+        [
+          7,
+          1
+        ]
+      ],
+      "normalized_residual": 0.012760086474005755,
+      "row_index": 21789
+    },
+    {
+      "equation": "orth:0:1:1:5:3",
+      "multiplier": [
+        [
+          0,
+          -1
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          12,
+          1
+        ],
+        [
+          13,
+          -1
+        ]
+      ],
+      "normalized_residual": 0.012736999124239012,
+      "row_index": 21677
+    }
+  ],
+  "numerical_diagnostics_are_not_certificates": true,
+  "exact_certificate_found": false,
+  "no_atlas": true,
+  "wall_seconds": 67.03569142700002,
+  "source_run": 38902440868,
+  "source_model_sha256": "28990a8d8052f0fd8887af9402da30f43dcdc8d4f8f16b742e20fb6d1fbbebdc",
+  "source_candidate_sha256": "f32c82731322f79f736f07a9e5e171bd7392a39132d55fb5837e2d991e15ac29",
+  "old_numerical_objective": 0.2690795737493639
+}
