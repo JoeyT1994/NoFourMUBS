@@ -55,6 +55,11 @@ def replay(model_path, certificate_path):
     equations = dict(s.quartet_equations())
     if lifted:
         equations.update(s.transition_relations()[0])
+    transport = model['metadata'].get('transport_closure',False)
+    if transport:
+        if not lifted:
+            raise ValueError('Transport equations require the transition lift.')
+        equations.update(s.transport_relations()[0])
     if case is not None:
         equations.update(s.classification_relations(case)[0])
     uses_fourier = model['metadata'].get('uses_upstream_fourier_theorem_with_tao_case_retained', False)
@@ -139,6 +144,7 @@ def replay(model_path, certificate_path):
     return dict(status='EXACT_RATIONAL_SOS_IDENTITY_CHECKED_NOT_LEAN', bound=str(bound),
                 conclusion=conclusion, classification_case=case,
                 rational_transition_lift=lifted,
+                transport_closure=transport,
                 atlas_used=False, uses_upstream_fourier_theorem=uses_fourier or case is not None,
                 uses_upstream_classification=case is not None,
                 uses_upstream_moment_norm_identity=uses_norm,

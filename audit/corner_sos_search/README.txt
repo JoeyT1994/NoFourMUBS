@@ -1,8 +1,8 @@
 Exact SOS search for a real corner signature
 ============================================
 
-Status: the first GitHub search completed; NO corner-reality certificate
-has been found. A six-case classification strengthening is prepared.
+Status: the first six-case classification search completed; NO corner-reality
+certificate has been found. An incremental transport strengthening is prepared.
 See CLASSIFICATION_REUSE.txt and STATUS.json for the current search.
 This is one discovery route extending the existing proof. It is not a second
 proof, a new Lean formalization, or an atlas-certification project.
@@ -72,11 +72,18 @@ and applies the existing single-Hadamard identities to all six transitions.
 
 Execution and acceptance
 ------------------------
-The GitHub workflow 'Corner SOS search' runs source guards, the ten focused
+The GitHub workflow 'Corner SOS search' runs source guards, sixteen focused
 tests, and six bounded classification searches. It installs only Python SDP dependencies,
 runs no Lean, and uploads all model and solver records. Every new upstream
 head must be reviewed before generation; CI does not auto-approve new work.
 The local three-pilot calculations used no new installation or Lean cache.
+
+The current workflow reuses the six exact model artifacts from run 38898826837.
+It checks their pinned model hashes, preserves the old indices and constraints,
+and appends only 252 short matrix-composition equations and their Gram blocks.
+CLASSIFICATION_RUN_RESULT.json records the first six results: approximately
+0.269080 in the non-Tao target cases, and approximately 0.294 in the Tao target
+cases (the latter reached the solver time limit). These remain numerical data.
 
 For an authorized fresh run after reviewing GitHub, from this directory:
 

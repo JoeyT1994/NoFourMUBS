@@ -15,6 +15,7 @@ on:
 permissions:
   contents: read
   pull-requests: read
+  actions: read
 
 jobs:
   bounded-search:
@@ -41,17 +42,24 @@ jobs:
         run: |
           python3 -m venv /tmp/corner-sos-venv
           /tmp/corner-sos-venv/bin/python -m pip install -r audit/corner_sos_search/requirements.txt
-      - name: Search one classification sector with all six transition Hadamards
+      - name: Reuse the completed classification model
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh run download 38898826837 --repo JoeyT1994/NoFourMUBS --name 'corner-sos-38898826837-${{ matrix.classification-case }}' --dir /tmp/corner-base
+      - name: Append only matrix-composition constraints and search
         working-directory: audit/corner_sos_search
         run: |
-          /tmp/corner-sos-venv/bin/python -u search.py --width 6 --fourier --coupled --moment-reduction --frontier-cap 128 --classification-case '${{ matrix.classification-case }}' --transition-lift --seconds 300 --output runs/github-classification-${{ github.run_id }}-${{ matrix.classification-case }}
+          source_model=$(rg --files /tmp/corner-base -g model.json.gz)
+          test -f "$source_model"
+          /tmp/corner-sos-venv/bin/python -u search.py --augment-model "$source_model" --classification-case '${{ matrix.classification-case }}' --seconds 300 --output runs/github-transport-${{ github.run_id }}-${{ matrix.classification-case }}
       - name: Preserve the exact model and numerical result
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: corner-sos-${{ github.run_id }}-${{ matrix.classification-case }}
           path: |
-            audit/corner_sos_search/runs/github-classification-*
+            audit/corner_sos_search/runs/github-transport-*
             audit/REPOSITORY_WATCH_STATUS.json
             audit/REPOSITORY_REVIEW_REQUIRED.json
           if-no-files-found: warn

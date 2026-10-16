@@ -100,8 +100,56 @@ class SearchTests(unittest.TestCase):
         for name,f in eqs.items():
             if name.startswith(('transition:3:','orth:3:')):
                 self.assertLess(abs(evaluate(f,z)),2e-11,name)
+        for name,f in s.transport_relations()[0]:
+            if name.startswith('transport:3:'):
+                self.assertLess(abs(evaluate(f,z)),2e-11,name)
         z[108+7]*=cmath.exp(.4j)
         self.assertGreater(abs(evaluate(eqs['transition:3:0:1:1:1'],z)),1)
+
+    def test_triangle_composition_and_orientation(self):
+        # A normalized common third basis gives K12=6I. This control checks
+        # the polynomial composition identity even though that third pair
+        # is not unbiased; it is deliberately not a hypothetical quartet.
+        w=cmath.exp(2j*cmath.pi/3)
+        first=[];second=[]
+        for i in range(6):
+            for j in range(6):
+                a,b,c,d=i//3,i%3,j//3,j%3
+                f=(-1)**(a*c)*w**(b*d)
+                first.append(f);second.append((1j)**a*w**(b*b)*f)
+        S=[sum(first[6*i+j].conjugate()*second[6*i+k] for i in range(6))
+           for j in range(6) for k in range(6)]
+        K=[v*S[0].conjugate()/6 for v in S]
+        z=first+second+second+K+K+[6 if j==k else 0 for j in range(6) for k in range(6)]
+        cycles={n:f for n,f in s.transport_relations()[0] if n.startswith('cycle:')}
+        self.assertTrue(all(v>=0 for f in cycles.values() for e in f for _,v in e))
+        for name,f in cycles.items():self.assertLess(abs(evaluate(f,z)),2e-11,name)
+        z[144+7]*=cmath.exp(.4j)
+        self.assertGreater(abs(evaluate(cycles['cycle:1:1'],z)),1)
+
+    def test_augmentation_preserves_existing_model_and_refuses_wrong_case(self):
+        import gzip,hashlib,json,tempfile
+        from pathlib import Path
+        fixture=dict(metadata=dict(rational_transition_lift=True,
+            classification_case='000',phase_variables=216,
+            reused_input_sha256=hashlib.sha256((s.HERE/'inputs.json').read_bytes()).hexdigest(),
+            generator_sha256='fixture'),moments=[[]],rows=[],row_provenance=[],
+            blocks=[['existing-unit',[[]],[[0]]]],target={'0':'1/2'},zero=0)
+        raw=json.dumps(fixture).encode()
+        with tempfile.TemporaryDirectory() as tmp:
+            p=Path(tmp)/'model.gz'
+            with gzip.open(p,'wb') as f:f.write(raw)
+            new=s.augment_transport_model(p,'000',hashlib.sha256(raw).hexdigest())
+            self.assertEqual(new['moments'][0],())
+            self.assertEqual(new['blocks'][0],('existing-unit',[()],[[0]]))
+            self.assertEqual(str(new['target'][0]),'1/2')
+            self.assertEqual(new['metadata']['augmentation_source_sha256'],hashlib.sha256(raw).hexdigest())
+            self.assertEqual(new['metadata']['augmentation_original_counts'],dict(moments=1,rows=0,blocks=1))
+            self.assertGreater(len(new['rows']),2000)
+            with self.assertRaisesRegex(ValueError,'reviewed unaugmented'):
+                s.augment_transport_model(p,'009',hashlib.sha256(raw).hexdigest())
+            with self.assertRaisesRegex(ValueError,'pinned completed'):
+                s.augment_transport_model(p,'000','0'*64)
 
     def test_reused_upstream_tao_moment_values(self):
         # Consume the other LLM's existing exact anchor data, without

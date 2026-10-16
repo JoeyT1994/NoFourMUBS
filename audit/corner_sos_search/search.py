@@ -278,6 +278,39 @@ def transition_relations():
     return equations, blocks
 
 
+def transport_relations():
+    """Low-degree matrix-composition consequences of the same lift.
+
+    Ha K_ab = conjugate(S_ab[0,0]) Hb and
+    Hb K_ab* = S_ab[0,0] Ha follow by one matrix multiplication.
+    Also K_01 K_12 = (K_01 K_12)[0,0] K_02, since K_02[0,0]=1.
+    These are necessary relations, not classification or atlas exclusions.
+    """
+    equations, blocks = [], []
+    for b,(a,c) in enumerate(combinations(range(3),2),start=3):
+        S = dict(Counter(plus(neg(variable(a,i,0)),variable(c,i,0)) for i in range(6)))
+        for reverse in (False,True):
+            for i,k in product(range(6),repeat=2):
+                if reverse:
+                    poly = dict(Counter(plus(plus(variable(c,i,j),neg(variable(b,k,j))),
+                                             neg(variable(a,i,k))) for j in range(6)))
+                    add_to(poly,S,-1)
+                else:
+                    poly = dict(Counter(plus(plus(variable(a,i,j),variable(b,j,k)),
+                                             neg(variable(c,i,k))) for j in range(6)))
+                    add_to(poly,{neg(e):v for e,v in S.items()},-1)
+                name=f'transport:{b}:{int(reverse)}:{i}:{k}'
+                equations.append((name,poly));blocks.append((name,sorted(set(poly)|{ZERO})))
+    # Lexicographic pair enumeration assigns K01=3, K02=4, K12=5.
+    anchor = [plus(variable(3,0,l),variable(5,l,0)) for l in range(6)]
+    for j,k in product(range(6),repeat=2):
+        poly = dict(Counter(plus(variable(3,j,l),variable(5,l,k)) for l in range(6)))
+        add_to(poly,dict(Counter(plus(variable(4,j,k),e) for e in anchor)),-1)
+        name=f'cycle:{j}:{k}'
+        equations.append((name,poly));blocks.append((name,sorted(set(poly)|{ZERO})))
+    return equations,blocks
+
+
 def classification_relations(case):
     """Adapters for upstream theorems, never the atlas-dependent exclusion.
 
@@ -343,7 +376,7 @@ def classification_relations(case):
 
 def make_model(width=1, localizer_limit=0, fourier=False, coupled=False,
                moment_reduction=False, frontier_cap=0, classification_case=None,
-               transition_lift=False):
+               transition_lift=False, transport_closure=False):
     started = time.monotonic()
     data, psi, p, target, scale, seeds = load_inputs()
     equations = quartet_equations()
@@ -352,6 +385,11 @@ def make_model(width=1, localizer_limit=0, fourier=False, coupled=False,
     if transition_lift:
         extra, transition_blocks = transition_relations()
         equations.extend(extra)
+    if transport_closure:
+        if not transition_lift:
+            raise ValueError('Transport closure requires the rational transition lift.')
+        extra, extra_blocks = transport_relations()
+        equations.extend(extra);transition_blocks.extend(extra_blocks)
     classification_blocks = []
     if classification_case is not None:
         extra, classification_blocks = classification_relations(classification_case)
@@ -436,7 +474,7 @@ def make_model(width=1, localizer_limit=0, fourier=False, coupled=False,
     rows, provenance, seen_rows = [], [], set()
     stats = Counter()
     for name, f in equations:
-        restricted = (name.startswith(('class-', 'transition:')) or
+        restricted = (name.startswith(('class-', 'transition:', 'transport:', 'cycle:')) or
                       (name.startswith('orth:') and int(name.split(':')[1]) >= 3) or
                       (name.startswith('fourier') and int(name.split(':')[1]) >= 3))
         candidates = ({ZERO} if name.startswith('moment-norm:') or
@@ -518,6 +556,7 @@ def make_model(width=1, localizer_limit=0, fourier=False, coupled=False,
         'classification_case_coverage': list(CLASSIFICATION_CASES) if classification_case else None,
         'uses_upstream_non_tao_complementary_conjugacy': classification_case is not None,
         'rational_transition_lift': transition_lift,
+        'transport_closure': transport_closure,
         'case_conclusion_only': classification_case is not None,
         'generation_seconds': time.monotonic()-started,
     }
@@ -534,6 +573,73 @@ def export_model(model, destination):
     with gzip.open(destination, 'wb', compresslevel=6) as f:
         f.write(raw)
     return hashlib.sha256(raw).hexdigest()
+
+
+def augment_transport_model(source, expected_case, expected_source_sha256=None):
+    """Append only the new transport constraints to an existing exact model.
+
+    Existing moment indices, equations and Gram blocks are retained. This
+    avoids regenerating the expensive classification/Fourier model. Exact
+    certificate acceptance still reconstructs all old and new equations.
+    """
+    started=time.monotonic()
+    raw=gzip.open(source,'rb').read()
+    if expected_source_sha256 is None:
+        receipt=json.loads((HERE/'CLASSIFICATION_RUN_RESULT.json').read_text())
+        expected_source_sha256=receipt['cases'][expected_case]['model_sha256']
+    if hashlib.sha256(raw).hexdigest()!=expected_source_sha256:
+        raise ValueError('Base model differs from the pinned completed GitHub artifact.')
+    document=json.loads(raw)
+    meta=document['metadata']
+    if (not meta.get('rational_transition_lift') or meta.get('transport_closure') or
+        meta.get('classification_case') != expected_case or
+        expected_case not in CLASSIFICATION_CASES or meta.get('phase_variables') != 216 or
+        meta.get('reused_input_sha256') != hashlib.sha256((HERE/'inputs.json').read_bytes()).hexdigest()):
+        raise ValueError('Augmentation requires the reviewed unaugmented six-transition classification model.')
+    moments=[tuple(map(tuple,e)) for e in document['moments']]
+    rows=[{int(i):c for i,c in row.items()} for row in document['rows']]
+    blocks=[(n,[tuple(map(tuple,e)) for e in basis],ix) for n,basis,ix in document['blocks']]
+    provenance=document['row_provenance']
+    original_counts=dict(moments=len(moments),rows=len(rows),blocks=len(blocks))
+    index={e:i for i,e in enumerate(moments)}
+    equations,new_blocks=transport_relations()
+    new_moments=set()
+    for _,basis in new_blocks:
+        new_moments.update(real_key(plus(neg(a),b)) for a in basis for b in basis)
+    for e in sorted(new_moments-set(index)):
+        index[e]=len(moments);moments.append(e)
+    seen={tuple(sorted(row.items())) for row in rows}
+    for name,f in equations:
+        for shift in sorted({ZERO}|{neg(e) for e in f}):
+            row=fold({plus(e,shift):c for e,c in f.items()})
+            if not all(e in index for e in row):
+                continue
+            normal=normalized_row(row)
+            if not normal:continue
+            indexed={index[e]:c for e,c in normal}
+            key=tuple(sorted(indexed.items()))
+            if key in seen:continue
+            seen.add(key);rows.append(indexed)
+            e,c=normal[0]
+            provenance.append(dict(equation=name,multiplier=shift,
+                normalization=str(Fraction(c,row[e])),selection='transport-augmentation'))
+    for name,basis in new_blocks:
+        ix=[[index[real_key(plus(neg(a),b))] for b in basis] for a in basis]
+        blocks.append((name,basis,ix))
+    meta.update(transport_closure=True,
+        augmentation_source_sha256=hashlib.sha256(raw).hexdigest(),
+        augmentation_original_counts=original_counts,
+        augmentation_preserves_original_indices=True,
+        previous_generator_sha256=meta['generator_sha256'],
+        generator_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+        moment_coordinates=len(moments),localizer_rows=len(rows),
+        gram_block_sizes=dict(Counter(len(b) for _,b,_ in blocks)),
+        localizer_families=dict(Counter(p['equation'].split(':')[0] for p in provenance)),
+        augmentation_seconds=time.monotonic()-started,
+        maximum_laurent_order=max(sum(max(v,0) for _,v in e) for e in moments))
+    return dict(metadata=meta,moments=moments,rows=rows,row_provenance=provenance,
+        blocks=blocks,target={int(i):Fraction(v) for i,v in document['target'].items()},
+        zero=document['zero'])
 
 
 def solve(model, directory, seconds=60):
@@ -633,6 +739,10 @@ def main():
                         help='Separate exact Fourier-norm sectors (0 or 9); retain all six cases.')
     parser.add_argument('--transition-lift', action='store_true',
                         help='Expose all six transition Hadamards using rational unit-phase equations.')
+    parser.add_argument('--transport-closure', action='store_true',
+                        help='Enforce short forward/backward and triangle composition identities.')
+    parser.add_argument('--augment-model', type=Path,
+                        help='Reuse an existing six-transition model and append only transport relations.')
     args = parser.parse_args()
     assert 1 <= args.seconds <= 300
     assert 0 <= args.frontier_cap <= 512
@@ -640,10 +750,14 @@ def main():
     if args.output.exists():
         raise SystemExit('Refusing to overwrite an existing run.')
     args.output.mkdir(parents=True)
-    model = make_model(args.width, fourier=args.fourier, coupled=args.coupled,
-                       moment_reduction=args.moment_reduction, frontier_cap=args.frontier_cap,
-                       classification_case=args.classification_case,
-                       transition_lift=args.transition_lift)
+    if args.augment_model:
+        model=augment_transport_model(args.augment_model,args.classification_case)
+    else:
+        model = make_model(args.width, fourier=args.fourier, coupled=args.coupled,
+                           moment_reduction=args.moment_reduction, frontier_cap=args.frontier_cap,
+                           classification_case=args.classification_case,
+                           transition_lift=args.transition_lift,
+                           transport_closure=args.transport_closure)
     digest = export_model(model, args.output/'model.json.gz')
     model['metadata']['uncompressed_model_sha256'] = digest
     (args.output/'model_summary.json').write_text(json.dumps(model['metadata'], indent=2)+'\n')

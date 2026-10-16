@@ -70,7 +70,33 @@ moment-norm identity on these three additional Hadamards. Do not attempt
 to reprove them for a different matrix name. Their individual Tao cases
 are retained. The new link equations receive their own Gram blocks.
 
-4. What an eventual exact result would mean
+4. Reuse the saved models to add short composition identities
+
+The first six-case run is 38898826837, source 00981072. The non-Tao target
+sectors have numerical objective about 0.269080, compared with 0.397821
+before the split. The Tao target sectors remain positive and reached the
+solver time limit. None yields an exact certificate.
+
+Add the following necessary relations, with S_ab=H_a^* H_b:
+
+  H_a K_ab = conjugate(S_ab[0,0]) H_b,
+  H_b K_ab^* = S_ab[0,0] H_a,
+  K_01 K_12 = (K_01 K_12)[0,0] K_02.
+
+The first two follow by multiplying the lift definition and using
+H_a H_a^*=H_b H_b^*=6I. For the third, H_1 H_1^*=6I makes the left side
+proportional to K_02. Its (0,0) entry is the factor because K_02[0,0]=1.
+The forward/backward equations, after multiplication by a unit entry,
+have at most twelve monomials, as do the triangle equations.
+
+The follow-up workflow downloads each already saved exact model and only
+appends these 252 polynomial equations and their Gram/localizer blocks.
+It preserves all original indices, equations, blocks and target coefficients
+and records the original model's SHA256. No classification model or existing
+witness is regenerated. The full exact checker recognizes the additional
+identities and retains the same case restriction on its conclusion.
+
+5. What an eventual exact result would mean
 
 The moment/SOS ansatz is still incomplete. A successful job, a small
 residual, or numerical infeasibility does not certify any case. The exact
