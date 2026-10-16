@@ -107,6 +107,35 @@ def write_labels2(outdir, base, idx, S):
     return labs
 
 
+def write_cover(outdir, base, idx, leaf):
+    """`CoverH2.lean`: T2ParOK by kernel decision, the 144 sub-slabs, and the whole bin tree via `topH_sound`."""
+    L = ['import %s.H2Slab%02d' % (mod(base), b) for b in range(12)]
+    L += ['import KernelAtlas.Tangent2S', 'import KernelAtlas.Tables', '',
+          '/-!', '# Record %d: the bin tree with the direct test and the hinted v2 tangent test, end to end (generated)' % idx,
+          '', 'Every phase vector `β ∈ [0,1]⁵` lies in a bin that is rejected by the direct test, or by the v2 test (scalar',
+          'test (6.12) or the linearised test with a hinted multiplier), for every admissible `δ` of the Record ball with the',
+          'exact frame `Tmat tcfg2 tq2`, or in a depth-0 bin accepted by the leaf predicate.', '-/', '',
+          'namespace %s' % base, '', 'open Hadamard6 NoFourMUBs NoFourMUBs.StageC NoFourMUBs.KernelAtlas', '',
+          'theorem t2parOK : T2ParOK cfg pq t2cfg tq2 := by decide +kernel', '',
+          'theorem hsubs : ∀ c1 ∈ L1, ∀ c2 ∈ L2, ∃ hs, subH cfg t2cfg %s c1 c2 L3 L4 L5 hs = true := by' % leaf,
+          '  intro c1 hc1 c2 hc2',
+          '  simp only [L1, List.mem_cons, List.mem_nil_iff, or_false] at hc1',
+          '  simp only [L2, List.mem_cons, List.mem_nil_iff, or_false] at hc2',
+          '  rcases hc1 with %s <;> rcases hc2 with %s' % (' | '.join(['rfl'] * 12), ' | '.join(['rfl'] * 12)),
+          '  exacts [%s]' % ', '.join('⟨_, sub2_%d_%d⟩' % (b1, b2) for b1 in range(12) for b2 in range(12)), '',
+          'theorem coverT2 {rH n r rF K : ℝ} (hK0 : 0 ≤ K)',
+          '    (hK : ∀ z, cnorm (Qop ((1 / (2 * Real.pi)) • Pmat tab.pq) z) ≤ K * cnorm z)',
+          '    (hKb : K ≤ pq.Kbar) (hr : r ≤ pq.rbar) (hrF : rF ≤ pq.rFbar) (hrH : rH ≤ tq2.rHbar) (hn : n ≤ tq2.nbar) :',
+          '    ∀ β : I6 → ℝ, β j0 = 0 → (∀ j, 0 ≤ β j ∧ β j ≤ 1) →',
+          '      Covered (Pmat tab.pq) (Tmat tcfg2 tq2) rH n r rF cfg.W0 %s β := by' % leaf,
+          '  obtain ⟨hW, h1, h2, h3, h4, h5⟩ := tabB_spec tabOK',
+          '  obtain ⟨r1, r2, r3, r4, r5⟩ := rootsOK',
+          '  exact topH_sound parOK t2parOK hW hK0 hK hKb hr hrF hrH hn %s h1 h2 h3 h4 h5 r1 r2 r3 r4 r5 hsubs' % leaf, '',
+          'end %s' % base]
+    with open(os.path.join(outdir, 'CoverH2.lean'), 'w') as f:
+        f.write('\n'.join(L) + '\n')
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('idx', type=int)
@@ -135,6 +164,7 @@ def main():
     if a.all:
         for b1 in range(12):
             write_subs(a.out, base, a.idx, hints, [(b1, b2) for b2 in range(12)], 'H2Slab%02d.lean' % b1, leaf, imp)
+        write_cover(a.out, base, a.idx, leaf)
 
 
 if __name__ == '__main__':
