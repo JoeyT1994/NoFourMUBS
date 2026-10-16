@@ -281,8 +281,8 @@ All of these are now proved in Lean (`PRM.strictCornerCoverage`).
 
 **What remains outside Lean: the atlas numbers only.** Every row of the table above is in Lean, except the evaluation of
 the inequalities on the 12,021 concrete Records (§5), which are checked by Arb and by an independent Julia
-implementation. An experimental project to check them in the Lean kernel is in `kernel_atlas/` (Record 100 is a
-complete kernel-checked Record); it is not part of this proof.
+implementation. An optional project to check them in the Lean kernel as well is in `kernel_atlas/`, with complete
+kernel-checked Records; it is not part of this proof.
 
 **Theorem B audit (15 Oct, `proof/coverage/audits/AUDIT_THEOREM_B_2026-10-15.md`).** No errors were found. Return G's
 Theorem B is not on the critical path: neither this proof nor the Lean development uses it.

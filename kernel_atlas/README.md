@@ -4,7 +4,8 @@
 (C : AtlasCertificate) : ¬ FourMUBs`, with the finite atlas certificate checked by `proof/atlas/certify.py` (Arb and
 margined binary64) and by the independent Julia checker (`proof/independent/`). This folder pursues a stronger
 form: the certificate's computations checked by the Lean kernel itself, which would make the theorem unconditional
-(`¬ FourMUBs` with no hypotheses). Nothing in the proof imports this folder.
+(`¬ FourMUBs` with no hypotheses). Nothing in the proof imports this folder, `verify.py` does not run it, and a
+reviewer does not need to: it is here to show that the kernel check exists and works.
 
 ## Status (15 Oct 2026)
 

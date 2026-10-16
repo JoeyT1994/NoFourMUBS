@@ -29,6 +29,7 @@
 | [`lean/`](lean/README.md) | The Lean formalisation |
 | [`MinimalConstruction/`](MinimalConstruction/README.md) | The corner reconstruction H±(θ) and MC1–MC5, proved relative to [CT]; its [CT]-free critical-strip proofs give MC1 for Step 2 |
 | [`ClassificationPaper/`](ClassificationPaper/README.md) | The classification [CT], with its Lean development as a submodule |
+| [`kernel_atlas/`](kernel_atlas/README.md) | Optional, not part of the proof: the atlas certificate checked Record by Record in the Lean kernel itself. Not run by `verify.py`; reviewers need not run it |
 
 Superseded material (the first, corner-chart proof, the development record and side studies) is preserved at the git tag [`archive-2026-10-11`](../../tree/archive-2026-10-11).
 
