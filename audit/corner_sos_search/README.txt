@@ -1,8 +1,10 @@
 Exact SOS search for a real corner signature
 ============================================
 
-Status: all three strengthening rounds completed; NO exact corner-reality
-certificate has been found. No search is currently running.
+Status: three strengthening rounds completed; NO exact corner-reality
+certificate has been found. A finite combination experiment is prepared;
+see STATUS.json for its current execution state and SYSTEMATIC_SEARCH.txt
+for its precise completeness boundary.
 See CLASSIFICATION_REUSE.txt and STATUS.json for the current search.
 This is one discovery route extending the existing proof. It is not a second
 proof, a new Lean formalization, or an atlas-certification project.
@@ -72,8 +74,9 @@ and applies the existing single-Hadamard identities to all six transitions.
 
 Execution and acceptance
 ------------------------
-The GitHub workflow 'Corner SOS search' runs source guards and seventeen
-focused tests. Its last job was one fully non-Tao diagnostic probe. It installs only Python SDP dependencies,
+The GitHub workflow 'Corner SOS search' runs source guards and twenty-two
+focused tests. The finite-pool job reuses the fully non-Tao diagnostic probe.
+It installs only Python SDP dependencies,
 runs no Lean, and uploads all model and solver records. Every new upstream
 head must be reviewed before generation; CI does not auto-approve new work.
 The local three-pilot calculations used no new installation or Lean cache.

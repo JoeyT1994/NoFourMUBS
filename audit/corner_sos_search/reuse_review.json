@@ -237,5 +237,46 @@
       "adapter": "Reuse classification_relations(000), shifting phase variable indices by 108 to K01,K02,K12. No new theorem, Tao exclusion, or atlas input.",
       "scope": "One all-six-non-Tao diagnostic case only. Every other auxiliary assignment remains open."
     }
+  },
+  "finite_combination_search": {
+    "reviewed_at": "2026-10-16T13:24:39.273304+00:00",
+    "upstream_heads_unchanged": true,
+    "scope": "Use only existing equation adapters and existing saved model; enumerate finite multiplier combinations, canonicalize exact duplicates, use existing sos_linear.combination for bounded pure-ideal attempts; no new mathematical assumption.",
+    "archive_index_search": {
+      "ARCHIVE_SOURCE_INDEX.jsonl": {
+        "rows": 77948,
+        "matches": 15
+      },
+      "ARCHIVE_BLOB_INDEX.jsonl": {
+        "rows": 19386,
+        "matches": 14
+      },
+      "ARCHIVE_IMPORT_INDEX.json": {
+        "rows": 16532,
+        "matches": 3
+      }
+    },
+    "current_sources_searched": {
+      "NoFourMUBs_lean_files": 7461,
+      "OAI_lean_files": 663
+    },
+    "additional_sources": [
+      {
+        "path": "/private/tmp/nofour-sos-combination-review/Source2442Binding.lean",
+        "sha256": "dc74039f444a4cb63c4c510ec28c4f90b72079c08bcb4a8fb9e27a0c4022282b"
+      },
+      {
+        "path": "/private/tmp/nofour-sos-combination-review/PhysicalMomentBound.lean",
+        "sha256": "b8b3921759dc513952cd2edcfd8d2820844578b13e31987bc1f2f9e3e9d5df77"
+      },
+      {
+        "path": "/private/tmp/nofour-sos-combination-review/MomentMajorant.lean",
+        "sha256": "b08d19d9faa3dcd5a75e745d6e1847425d93748888e9432983d0f71f27cf621e"
+      }
+    ],
+    "physical_moment_bound_decision": "PhysicalMomentBound.lean is a local seed-ball Taylor/majorant estimate. Its Fourier representation, cancellations, moment bounds and budget are explicit hypotheses. It supplies no global raw-quartet SOS relation and is not adopted or executed.",
+    "existing_discovery_reuse": "audit/sos_linear.py::combination already performs exact sparse rational span recovery. Reuse it instead of implementing another elimination/certificate algorithm. Existing search.py, verify_exact.py, saved model/candidate, and original witness supports remain canonical.",
+    "no_atlas": true,
+    "completeness_boundary": "Finite specified equation-by-multiplier pool only. No exhaustive degree hierarchy, all rational supports, all cases, or global SOS nonexistence claim."
   }
 }

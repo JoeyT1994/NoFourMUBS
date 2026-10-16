@@ -1,0 +1,70 @@
+Finite combination search, 16 October 2026
+==========================================
+
+There is no finite exhaustive search over every possible polynomial degree,
+multiplier, sum-of-squares support and power of the vanishing target. There is
+also no benefit in solving every subset of a fixed linear multiplier pool:
+the full span includes every subset by setting unused coefficients to zero.
+This observation concerns the chosen mathematical ansatz. A numerical SDP
+solver is not an exact decision procedure for its feasibility.
+
+The next bounded experiment reuses the exact model AND saved numerical vector
+from run 38902440868. It remains restricted to primary 000 and auxiliary 000;
+all six transitions are assumed non-Tao. Other sectors are not discharged.
+
+1. Enumerate every pair in a precisely defined finite product pool
+
+Let B be the saved first Gram basis, T the saved target's Laurent support,
+and P = {0} union B union (-B) union T union (-T). For every existing equation
+f, consider every shift in P union (-support(f)). Reconstruct the COMPLETE
+real Laurent multiple Re(z^shift f), including exact conjugate cancellations.
+Retain the row exactly when every remaining term belongs to the saved moment
+coordinates. Record all rejected products that require more moments. No
+arbitrary row cap or numerical residual threshold omits an admissible row.
+Canonical integer normalization removes exact duplicates and scalar multiples.
+
+All equations are supplied by the existing adapters: raw quartet,
+classification, Fourier, rational transition, transport, and the reused
+seven-cofactor moment-norm identity. The archived PhysicalMomentBound source
+was additionally read. Its local seed-ball and explicit cancellation/budget
+hypotheses prevent its adoption as a global quartet equation. No new theorem
+or unproved complementary equality is introduced.
+
+2. Try the cheaper exact linear problem first
+
+Seek -target as a rational linear combination of the available equation
+rows. An off-target monomial occurring in only one remaining row forces that
+row's coefficient to zero; peel such rows and discard components not touching
+the target. This pruning is exact for PURE IDEAL MEMBERSHIP ONLY. SOS terms
+could cancel those monomials, so it must never be used to rule out an SOS.
+
+The existing audit/sos_linear.py::combination performs rational elimination.
+Its attempt is limited to 45 seconds and 2 GiB. Timeout/resource failure is
+unresolved, not a negative result. Any returned combination is sent through
+the existing independent verify_exact.py reconstruction before acceptance.
+No duplicate elimination or certificate checker is implemented.
+
+3. Search the enlarged SOS model once
+
+If the exact linear attempt does not succeed and new rows exist, retain ALL
+of them and reuse every original moment and Gram block. Run the existing
+solver for at most 300 seconds on GitHub. If no new rows exist, skip an
+identical solve. The old candidate's violation of each new row is diagnostic
+information; a nonzero residual is not a counterexample or a proof.
+
+4. Let the result choose the next enlargement
+
+A significant bound improvement supports extending the same strategy to
+the remaining sectors. If the bound persists, the saved rejected-product
+counts and violated relations help select joint Gram blocks/new moments.
+Before repeating a solver run, make that genuine enlargement explicit.
+Exact kernel/quotient reduction can improve conditioning, but alone does not
+strengthen an equivalent exact relaxation. A later degree hierarchy may also
+need higher even powers of Im Psi for a real-radical certificate; the present
+fixed-square ansatz is not a completeness claim.
+
+An accepted certificate must have exact rational coefficient equality and
+exactly nonnegative square weights, with its classification hypotheses stated.
+A single certificate directly in the original raw equations additionally
+needs algebraic cofactors for the classification/Fourier theorem inputs.
+Final Lean verification remains on GitHub. No atlas work is performed.

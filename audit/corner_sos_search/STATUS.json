@@ -1,9 +1,9 @@
 {
-  "status": "THREE_STRENGTHENING_ROUNDS_COMPLETED_NO_EXACT_CORNER_CERTIFICATE",
-  "updated_at": "2026-10-16T12:48:29.638683+00:00",
+  "status": "FINITE_COMBINATION_EXPERIMENT_PREPARED_NO_EXACT_CERTIFICATE",
+  "updated_at": "2026-10-16T13:29:19.923986+00:00",
   "main_commit": "0636c223da1a0879b515fc69812332326136829e",
   "new_upstream_moment_reduction_commit": "66b5c6535c01ca1589bca2ff8779c5000a4b22bd",
-  "tests_passed": 17,
+  "tests_passed": 22,
   "no_atlas": true,
   "no_local_lean": true,
   "existing_witness_unchanged": true,
@@ -61,7 +61,14 @@
     "kernel/tangent-v2": "3a164b38bb4cc84376bae2698ea53b8317d746be",
     "change_scope": "kernel_atlas only; no mathematical certification performed"
   },
-  "next_run": null,
+  "next_run": {
+    "scope": "Finite represented products of reused equations and corner/witness features; primary 000 plus auxiliary 000 only.",
+    "source_run": 38902440868,
+    "original_model_rebuilt": false,
+    "exact_linear_attempt_seconds": 45,
+    "solver_seconds": 300,
+    "plan": "SYSTEMATIC_SEARCH.txt"
+  },
   "infrastructure_failure": {
     "run_id": 38900297641,
     "reason": "The GitHub Ubuntu image does not provide rg. All six jobs stopped at artifact path discovery before model augmentation or numerical solving.",

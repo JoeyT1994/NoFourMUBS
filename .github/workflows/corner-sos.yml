@@ -37,29 +37,31 @@ jobs:
         run: python3 audit/corner_sos_search/ci_preflight.py
       - name: Check equation adapters and exact-certificate rejection
         working-directory: audit/corner_sos_search
-        run: python3 -m unittest -v test_search.py
+        run: python3 -m unittest -v test_search.py test_systematic.py
       - name: Install the discovery solver
         run: |
           python3 -m venv /tmp/corner-sos-venv
           /tmp/corner-sos-venv/bin/python -m pip install -r audit/corner_sos_search/requirements.txt
-      - name: Reuse the completed classification model
+      - name: Reuse the completed six-transition model and numerical candidate
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh run download 38900607750 --repo JoeyT1994/NoFourMUBS --name 'corner-sos-38900607750-${{ matrix.classification-case }}' --dir /tmp/corner-base
-      - name: Probe the all-six-non-Tao sector using the completed model
+          gh run download 38902440868 --repo JoeyT1994/NoFourMUBS --name 'corner-sos-38902440868-${{ matrix.classification-case }}' --dir /tmp/corner-base
+      - name: Enumerate the finite product pool and search its full combined span
         working-directory: audit/corner_sos_search
         run: |
           source_model=$(find /tmp/corner-base -type f -name model.json.gz)
+          source_candidate=$(find /tmp/corner-base -type f -name candidate.npz)
           test -f "$source_model"
-          /tmp/corner-sos-venv/bin/python -u search.py --augment-model "$source_model" --classification-case '${{ matrix.classification-case }}' --auxiliary-nontao --seconds 300 --output runs/github-six-nontao-${{ github.run_id }}
+          test -f "$source_candidate"
+          /tmp/corner-sos-venv/bin/python -u systematic.py --source-model "$source_model" --source-candidate "$source_candidate" --seconds 300 --output runs/github-finite-pool-${{ github.run_id }}
       - name: Preserve the exact model and numerical result
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: corner-sos-${{ github.run_id }}-${{ matrix.classification-case }}
           path: |
-            audit/corner_sos_search/runs/github-six-nontao-*
+            audit/corner_sos_search/runs/github-finite-pool-*
             audit/REPOSITORY_WATCH_STATUS.json
             audit/REPOSITORY_REVIEW_REQUIRED.json
           if-no-files-found: warn
