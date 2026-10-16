@@ -3,8 +3,9 @@
 **Status (15–16 October 2026).** Experimental, not part of the proof. `Rec146.coverT2` is kernel-checked: the
 whole bin tree of atlas Record 146 (one of the 673 Records that the v1 kernel checker could not settle), with the
 direct test, the hinted v2 tangent test, and label membership at the leaves. It uses only the standard axioms.
-Record 146's Stage C also needs the joint edge test; its real-number core is proved, and the integer layer is in
-progress (see "What remains").
+With the joint edge test (6.23) now in the kernel too, **`Rec146.stageC2` is a complete kernel-checked Stage C
+certificate for Record 146** (`StageCCert`, standard axioms): the v2 bin cover, label membership, direct and joint
+edge exclusions, and the two-clique search.
 
 ## Why
 
@@ -31,6 +32,14 @@ the scalar test (6.12) added. **The atlas does not need to change.**
 - **Soundness** (`Tangent2S.lean`): `lin2B_sound`, `scal2B_sound`, `tang2B_sound` (one bin), `binH_sound`,
   `subH_sound`, `topH_sound` (the traversal, any hints), all sorry-free with standard axioms. The per-Record rational
   conditions on the coefficients are `T2ParOK`, decided once per Record.
+- **The joint edge test** (`Joint2.lean`, `Joint2K.lean`, `Joint2S.lean`). `labBnd` gives the real bounds of one label
+  centre from integer node values; `joint_core` turns the bounds of two labels, an approximated pair vector and an
+  edge term into the inequality of `edgeOExcl_of_joint` / `edgeUExcl_of_joint`; `jointO_excl` / `jointU_excl`
+  instantiate it with the table values of `e(v_a − v_b)` (error `ε_U` each). The kernel checker computes the label
+  centres from the tables (certified by `nodeB`, like tree nodes), each label's integer quantities as in the v2 test,
+  and one exact rational comparison per pair (about 3,200 ordered pairs per Record, so rational arithmetic is
+  affordable here). Multipliers `y₀, y₁, y_e` come from a per-pair hint (least-squares, `kjoint.py`).
+  `jointOB_sound`, `jointUB_sound` and `stageCK2` (the certificate from `edgesOK2`) are sorry-free.
 - **Exporter**: `kernel_atlas/generators/export_v2.py <idx> <dir> --all --labels` writes `T2Data.lean`,
   `L2Data.lean` (labels of the v2 survivors), `H2SlabNN.lean` (12 files, 12 sub-slabs each, with their hint lists)
   and `CoverH2.lean` (`T2ParOK` by kernel decision, and `coverT2` through `topH_sound`).
@@ -56,12 +65,31 @@ Kernel check of `Rec146.coverT2` (18-core, 64 GB laptop, three slab files at a t
 | `#print axioms Rec146.coverT2` | `propext`, `Classical.choice`, `Quot.sound` |
 | source | 4.1 MB, mostly hint lists |
 
+Stage C with the joint edge test (`export_joint.py`, `Graph2.lean`, `StageC2.lean`):
+
+| | |
+|---|---|
+| ordered label pairs | 13,225 |
+| excluded by the direct test | 10,205 (O), 4,555 (U) |
+| excluded by the joint test | 780 (O), 2,392 (U) |
+| edges kept | 2,240 (O), 6,278 (U); no two cliques (39,028 calls in the mirror) |
+| `Graph2` (labels small, `noTwo`, `edgesOK2` in 12 row chunks) | 217 s CPU, 12 GB peak |
+| `StageC2` (assembly via `stageCK2`) | 3 s |
+| `#print axioms Rec146.stageC2` | `propext`, `Classical.choice`, `Quot.sound` |
+
+`edgesOK2` as one kernel decision exhausts memory (24 GB, reduction aborted); split into twelve chunks of ten rows
+(`allNat_of_ranges`) it passes in 217 s.
+
 Checks that the checker computes what the mirror predicts (`Rec146/H2Test.lean`): with leaves rejected outright,
 sub-slab (3, 7) passes with its 404 hints (`pos_3_7`), and fails when one depth-0 hint is removed (`neg_3_7`).
 
 ### Record 100 (a typical Record)
 
-v2 survivors 7,599 (v1: 11,057), 108 labels (v1: 131), 128,608 hints. RESULT_100
+v2 survivors 7,599 (v1: 11,057), 108 labels (v1: 131), 128,608 hints (longest list 3,415, which needs
+`set_option maxRecDepth` to elaborate). `Rec100.coverT2` is kernel-checked (standard axioms): 12 slab files at
+140–213 s each, **about 2,100 s CPU in total (35 min)**, 15–18 GB peak per process. For comparison, v1's
+`Rec100.coverT` takes 681 s: v2 rejects more bins but each test is more expensive (no lane packing), and the hint
+lists add elaboration time.
 
 ### The whole atlas (exact mirror, rusty)
 
