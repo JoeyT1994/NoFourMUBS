@@ -1,6 +1,6 @@
 # Lean formalisation
 
-This builds against the Lean classification of order-6 complex Hadamard matrices, [`all_hadamard_matrices_in_dimension_six`](https://github.com/mateocardeneswuttig/all_hadamard_matrices_in_dimension_six) (pinned at `57b0302`, which brings in Mathlib).
+This builds against Mathlib and a small part of the Lean classification of order-6 complex Hadamard matrices, [`all_hadamard_matrices_in_dimension_six`](https://github.com/mateocardeneswuttig/all_hadamard_matrices_in_dimension_six) (pinned at `57b0302`; see [Dependencies](#dependencies)).
 
 ```bash
 lake exe cache get        # prebuilt Mathlib
@@ -47,6 +47,23 @@ All five use only `propext`, `Classical.choice` and `Quot.sound`.
 | `MatchedDensityReach` (D) | **Proved in Lean from strict-corner coverage** (`PRM.densityReach`, via return G's Theorem A, `PRM.nonmatched_tao`) |
 | `StrictCornerCoverage` (MC1) | **Proved in Lean**: `PRM.strictCornerCoverage` (`Final.lean`), from the critical strip classification I4 (`PRM/CoverageStripParts`, with the sign certificate and pole classification in `PRM/CoverageQuartic` and the two square-sum identities in `PRM/CoverageStripId*`), the endpoint exclusions I5 (`PRM/CoverageEndpoints`) and the routing and ten-corner count (`PRM/CoverageMain`) |
 
+## Dependencies
+
+The upstream package `hadamard6_formal` supplies the matrix model and a few lemmas; the proof does not use its classification theorem. Everything it imports goes through two places:
+
+* [`NoFourMUBs/Lib/Hadamard.lean`](NoFourMUBs/Lib/Hadamard.lean), imported by `Basic`. It imports five upstream leaf modules (`BlockCompletion`, `BlockGram`, `FiniteCornerFromBlocks`, `PhaseEquivalence`, `TaoOrbit`; eleven modules with their imports): the matrix model `Mat6`, `IsHadamard`, `Equivalent`, `IsTaoOrbit`, dephasing, and the block Gram and completion lemmas. It restates, with upstream's statements and proofs, the few short upstream declarations that sit in modules importing most of the classification: the quotient `Had6`, `HadamardClass6`, `TaoClass` (`HadamardQuotient`), `standardOmega` (`TaoAtlas`), `affineFourierMatrix` and its Hadamard property, `transpose_isHadamard` (`KarlssonFourierSeam`), `equivalent_transpose` and `primitiveCubicPhase_eq_standard_or_sq` (`FourierSeamCertificate`), about 150 lines. They live in namespace `NoFourMUBs`.
+* `PRM/FourierBlock` and `PRM/FourierMatch` import upstream's Fourier-block normalisation and cubic census directly (`SimultaneousFourierNormalization`, `FourierCubicTaoTable`, `FourierCoordinateAllocation`, `FourierNormalForm`, `FourierBlockCoordinates`). These proofs are long (about 2,400 lines of the declarations used, including the three 320-line Tao case certificates), so they are imported, not copied; their imports bring in a further 42 upstream modules.
+
+The import closure of `NoFourMUBs.Final`, without Mathlib and Lean core (`python3 import_closure.py`):
+
+| | Modules | Non-blank lines |
+|---|---|---|
+| Ours (`NoFourMUBs`, `Step1`) | 169 | 25,659 |
+| `Hadamard6` | 56 | 10,143 |
+| Total | 225 | 35,802 |
+
+Before `Lib/Hadamard`, `Basic` imported all of `Hadamard6` and the closure held 137 upstream modules (24,180 lines), 305 in all (49,653 lines). The proof uses about 290 upstream declarations (about 3,300 lines), almost all from the modules above.
+
 ## Modules
 
 | Module | Content |
@@ -62,6 +79,7 @@ All five use only `propext`, `Classical.choice` and `Quot.sound`.
 | `L1/` | Matched existence. Side existence (certificate F): the side identities as circuits (`SideInput`, `SideCircuits`), their kernel checks (`SideCheck*`), the rotation bridge and `exists_side_gram` (`SideBridge`, `SideIdentities`, `SideExistence`, `SideConstruction*`) and the side formulas (`SideFormulas`). Matched flatness (certificate E): the weighted-defect criterion `flat_of_W` (`FlatMatrix`), the reduced data and circuits (`FlatData`, `FlatCircuitsBase`, `FlatCircuits`), their kernel checks (`FlatCheck*`) and the bridge `W_zero` (`FlatBridge`). The assembly is `Existence` |
 | `PRM/` | Return G (`proof/coverage/returns/G_prm`). An actual side's signature is a root of its Gram quadratic, R = 4 (Im T)² (`SideRoot`). Sides on the two roots share no column (`SharedColumn`). A strict strip has no proportional columns (`StrictStrip`). The projector argument gives an orthogonal column triple (`Projector`). A 3×3 Hadamard block gives Tao or all corners matched (`FourierBlock`, using upstream's Fourier normalisation and cubic census; the Fourier families are matched at all corners by 200 kernel-checked identities, `FourierMatch`). Theorem A is `Converse`; exact reach and density from coverage are in `Reach`. Strict-corner coverage (MC1, `MinimalConstruction/Proofs/STRICT_CORNER_COVERAGE.md`): the routing, Fourier critical locus, block lemma and ten-corner count (`CoverageMain` and its imports); the critical strip classification I4 (`CoverageStrip*`), with its sign certificate and pole classification (`CoverageQuartic*`) and the zero-J and nonzero-J square-sum identities (`CoverageStripId*`, status in `generators/stripid/STATUS.md`); the endpoint exclusions I5 (`CoverageEndpoints`, `CoverageEnd*`) |
 | `FourierVanishing/` | Return H (`proof/coverage/returns/H_fourier_vanishing`), an input to the draft paper's Section II, not to the main proof: `FourierVanishing.fourierVanishing`, all twenty row and column Fourier moments of a non-Tao order-six Hadamard vanish. It is built from `PRM.nonmatched_tao` and `PRM.strictCornerCoverage`. `Main` imports `Final`, so build it explicitly (`lake build NoFourMUBs.FourierVanishing.Main`); the lemma map is in `FourierVanishing/README.md` |
+| `Lib/` | The upstream interface: narrow imports and the restated upstream declarations (see [Dependencies](#dependencies)) |
 | `MainTheorem`, `Complete`, `Final`, `Axioms`, `AxiomsComplete` | The main theorem, with L1 discharged, and with coverage discharged (`Final.no_four_mubs`); the axiom audits read by `check_axioms.py` |
 
 `generators/base_anchor/` regenerates `Step2/BaseAnchor.lean`, and `generators/flatness/` regenerates `L1/FlatData.lean` (`generate.py`, using E's exact rational helper) and the check modules `L1/FlatCheck{Mh,Qv,F*}.lean` (`checks.py`). `generators/coverage/certificates.py` reproduces the certificates hard-coded in `PRM/Coverage*.lean`, and `generators/critical/` the critical-quartic definitions and regions. `generators/strip/` and `generators/stripid/` produce the data and check modules of I4. The kernel re-checks every identity, so the generators are untrusted.
