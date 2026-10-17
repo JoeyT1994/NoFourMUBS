@@ -1,0 +1,108 @@
+{
+  "input_snapshot": "368fbe04",
+  "uploaded_archive": {
+    "name": "K_nonzero_J_strips_368fbe04.zip",
+    "sha256": "3753fc4a03aa2c8413c3d02dbd6dd7d358627dc0987eddaacd3c8878ae7ba609"
+  },
+  "input_files": [
+    {
+      "path": "BRIEF.md",
+      "sha256": "cdb34609a0ace59535988931ce21a796169f6ebf3f803c6ee88a2a380f19380e"
+    },
+    {
+      "path": "README.txt",
+      "sha256": "f2b4ed9263be26a87d3d69440a5a7a014dcb1cf5e269c20bcf73928332f9cffa"
+    },
+    {
+      "path": "SHA256SUMS",
+      "sha256": "29b3e3e2d9a0a98502807001f230aff253cd45ae08950a0fb7e68fa4364e6988"
+    },
+    {
+      "path": "inputs/MinimalConstruction/Proofs/CRITICAL_CORNER_REDUCTION.md",
+      "sha256": "4a2172519ca3568faaff44e152692a195d9d2a135ca3948840981a418af1da60"
+    },
+    {
+      "path": "inputs/MinimalConstruction/Proofs/CRITICAL_STRIP_CLASSIFICATION.md",
+      "sha256": "3921e6b8fb31c37fb547ad02f48b8643575a9c76ce104f8023912c8b8ceddaa5"
+    },
+    {
+      "path": "inputs/MinimalConstruction/Proofs/SIDE_FIBER.md",
+      "sha256": "c9ab9598e78a7f0aaa64d445dbbca5615976cc0d5f6127e1ed8b479772600adc"
+    },
+    {
+      "path": "inputs/MinimalConstruction/Proofs/STRICT_CORNER_COVERAGE.md",
+      "sha256": "2626acb08d8b3d147028073b10ab26246744f28d084b396922502146314ca8b7"
+    },
+    {
+      "path": "inputs/MinimalConstruction/Proofs/critical_moment_core.py",
+      "sha256": "862d6ff3e112bc6185240ee83a112febb43afb81b71a85445af744bad66a3fb8"
+    },
+    {
+      "path": "inputs/MinimalConstruction/Proofs/critical_quartic.json",
+      "sha256": "54e68ff2c49acc62897efaf856fc50df12dcc1275798a9d169f0e1c0b2758b08"
+    },
+    {
+      "path": "inputs/MinimalConstruction/Proofs/exact_rational.py",
+      "sha256": "ebe8bf42e7c7ed381bda16bc608776cb50e821087f77f027f2365a02a8491276"
+    },
+    {
+      "path": "inputs/PROOF_v2.md",
+      "sha256": "616987698dfc0e8ea70b243e11a71535d83c411bcc9049f53f6769255506eb24"
+    },
+    {
+      "path": "inputs/lean/NoFourMUBs/PRM/CoverageInputs.lean",
+      "sha256": "f15c368fd00371ff615c1b225ae13eade4fdd7695f471ea8fcc2594775a68982"
+    },
+    {
+      "path": "inputs/lean/NoFourMUBs/PRM/CoverageStripNonzero.lean",
+      "sha256": "d6f24f407672766099fbbfad35bd80caceb89fbd1fd6fd4af4ab27464b24ebc1"
+    },
+    {
+      "path": "inputs/lean/NoFourMUBs/PRM/CoverageStripParts.lean",
+      "sha256": "7e9eefee94b53be311016132a9ec09fe776938771b463bf9754a5ada423bfd7a"
+    },
+    {
+      "path": "inputs/lean/generators/stripid/STATUS.md",
+      "sha256": "61beb552382fdae319c8922a543cff5f851c72d7fb47ee660786175a4326a0c5"
+    },
+    {
+      "path": "inputs/proof/coverage/audits/I4_ADDENDUM.md",
+      "sha256": "25b14a2c15ba461e005959774ca9a81e06bcf1df4365708c36b693680e925719"
+    },
+    {
+      "path": "inputs/proof/coverage/handoffs/J_side_existence_jacobian/BRIEF.md",
+      "sha256": "846b68b4e4aee2b649fd5b61473ffb0350cdf66d77fb7c9b12e4754cfcbb8717"
+    },
+    {
+      "path": "inputs/proof/coverage/handoffs/J_side_existence_jacobian/check_jacobian.py",
+      "sha256": "1d0c121de7d2e81a58c88b1ad365d2151a2b88fec5fda541d4b0050f49754f2b"
+    },
+    {
+      "path": "inputs/proof/coverage/returns/H_fourier_vanishing/REPORT.md",
+      "sha256": "a6abdddf893418a6040dc3fced5646567943dcb808f40f436a9b67bee6ee41d7"
+    }
+  ],
+  "copied_helper": {
+    "source": "inputs/MinimalConstruction/Proofs/exact_rational.py",
+    "destination": "support/exact_rational.py",
+    "sha256": "ebe8bf42e7c7ed381bda16bc608776cb50e821087f77f027f2365a02a8491276"
+  },
+  "accepted_proof_inputs": [
+    "Actual-side phase/signature identities and L*lambda=P at R=0",
+    "Complementary-critical nonzero-J scalar reduction",
+    "The phase-block R=4(Im Psi)^2 identity"
+  ],
+  "not_replayed_upstream": [
+    "The existing zero-J classification",
+    "Existing endpoint exclusions and coverage assembly",
+    "The full Lean project and axioms audit"
+  ],
+  "not_used": [
+    "critical_quartic.json",
+    "NonzeroJAlgebra",
+    "NonzeroJSquareSum",
+    "Bernstein/Sturm scalar classification",
+    "Return H Fourier vanishing in the main N1/N2 proof"
+  ],
+  "new_computation": "Exact symbolic and integer polynomial arithmetic; no numerical acceptance criterion"
+}
