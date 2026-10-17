@@ -257,18 +257,36 @@ def joint_filter(C, s, O, Ub, P, r, K, eP, rF, T, rH, nN):
 
 def two_cliques(O, Ub, cap=5_000_000):
     """True iff the pattern (two disjoint O-6-cliques, all cross pairs U) is impossible (complete search).
-    A and B are built alternately: a vertex added to A must be O-adjacent to A and U-adjacent to B, and vice versa; the
-    next vertex goes to the side with the smaller surplus of candidates.  The pattern is symmetric in A and B, so A is
-    taken to hold the least vertex of A u B.  Every pattern is found: the branch adding min(A \\ A_partial) (or the B
-    analogue) keeps all remaining vertices of A and B among the candidates.  O and Ub must be symmetric."""
+    A and B are built alternately: a vertex added to A must be O-adjacent to A and U-adjacent to B, and vice versa.
+    Before each branching the candidates are pruned to a fixed point: a candidate for A that still needs na vertices
+    must have >= na - 1 O-neighbours among the A candidates and >= nb U-neighbours among the B candidates (it would
+    be O-adjacent to the rest of A and U-adjacent to the rest of B), and symmetrically for B.  The next vertex goes to
+    the side with the smaller surplus of candidates.  The pattern is symmetric in A and B, so A is taken to hold the
+    least vertex of A u B.  Every pattern is found: the branch adding min(A \\ A_partial) (or the B analogue) keeps
+    all remaining vertices of A and B among the candidates.  O and Ub must be symmetric."""
     n = len(O)
     assert np.array_equal(O, O.T) and np.array_equal(Ub, Ub.T), 'edge graphs not symmetric'
     orth = [int(''.join('1' if O[i, j] else '0' for j in reversed(range(n))), 2) for i in range(n)]
     ub = [int(''.join('1' if Ub[i, j] else '0' for j in reversed(range(n))), 2) for i in range(n)]
     steps = [0]
+    def prune(PA, PB, na, nb):
+        while True:
+            PA2 = PA if na else 0
+            P = PA2
+            while P:
+                bit = P & -P; i = bit.bit_length() - 1; P ^= bit
+                if (orth[i] & PA).bit_count() < na - 1 or (ub[i] & PB).bit_count() < nb: PA2 ^= bit
+            PB2 = PB if nb else 0
+            P = PB2
+            while P:
+                bit = P & -P; i = bit.bit_length() - 1; P ^= bit
+                if (orth[i] & PB).bit_count() < nb - 1 or (ub[i] & PA).bit_count() < na: PB2 ^= bit
+            if PA2 == PA and PB2 == PB: return PA, PB
+            PA, PB = PA2, PB2
     def grow(PA, PB, na, nb):
         """PA, PB: candidates for A and B; na, nb: vertices still needed.  True iff the pattern can be completed."""
         if na == 0 and nb == 0: return True
+        PA, PB = prune(PA, PB, na, nb)
         if PA.bit_count() < na or PB.bit_count() < nb: return False
         if na == 6 or (na and (nb == 0 or PA.bit_count() - na <= PB.bit_count() - nb)):
             P = PA

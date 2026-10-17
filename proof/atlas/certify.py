@@ -152,8 +152,8 @@ if __name__ == '__main__':
     closed = [s for s in sorted(A.closed) if lo <= s < hi]
     nopen = len([s for s in range(lo, min(hi, len(A.recs))) if s not in A.closed])
     if nopen: print('NOTE: %d records in [%d, %d) are not closed (atlas incomplete)' % (nopen, lo, hi))
-    # Highest index first: the costliest Records were added last (11205-11227 take minutes, a typical one < 1 s), so
-    # the pool's tail is short.  Order affects scheduling only, never a verdict.
+    # Highest index first: later Records cost ~1.5x more on average (all take 0.2-5 CPU-s), so the pool's tail is
+    # short.  Order affects scheduling only, never a verdict.
     order = closed[::-1] if pool else closed
     t0 = time.time(); bad = 0; rows = {}; smax = (0, None)
     results = (f.result() for f in as_completed([pool.submit(_worker, s) for s in order])) if pool else (certify_one(A, s) for s in order)
