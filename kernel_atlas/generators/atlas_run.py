@@ -48,17 +48,25 @@ AXIOMS = {'propext', 'Classical.choice', 'Quot.sound'}
 
 
 def mem_gb(mod):
-    """Memory budget per module (GB).  Peaks measured on rusty (50 Records, 17 Oct 2026): Sigma 14.3, H2Slab <= 13.7,
-    the rest <= 9; Graph2 up to 33 on Record 4015 (laptop).  About 6 GB of each peak is the memory-mapped Mathlib and
-    shared modules, which all processes on a node share in the page cache, so the budget is the peak minus 5."""
+    """Memory budget per module (GB): the private part of its peak, about the 99th percentile over 4,412 Records of
+    the full run on rusty (17 Oct 2026; peaks include about 6 GB of memory-mapped Mathlib and shared modules, which
+    the processes of a node share in the page cache): H2Slab p50 12.7 / p99 17.1 GB, Edg 11.5 / 14.7, Clq 14.5 / 24.2,
+    Sigma 14.3, Boundary 10.2 / 12.5, Graph2 6.9 / 22.5 (max 75.6, rare: the node's unreserved memory absorbs it),
+    the rest <= 8.8.  The first budgets (peak minus 5) left a node at 82-94 Lean processes with 400 GB free."""
     name = mod.rsplit('.', 1)[1]
     if name == 'Graph2':
-        return 30
-    if name.startswith(('H2Slab', 'Clq', 'Edg')) or name == 'Sigma':
-        return 10
-    if name == 'Boundary':
+        return 20
+    if name.startswith('Clq'):
+        return 18
+    if name == 'Sigma':
+        return 9
+    if name.startswith('H2Slab'):
+        return 8
+    if name.startswith('Edg'):
         return 7
-    return 5
+    if name == 'Boundary':
+        return 6
+    return 3
 
 
 def lean_env():
