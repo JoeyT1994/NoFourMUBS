@@ -7,10 +7,11 @@ For chunk k (atlas Records 100k … 100k + 99, fewer in the last): every Record 
 olean tarballs of atlas_run.py --archive).  Their olean tarballs are unpacked into the local build directory,
 `Atlas/Chunk<k>.lean` is generated (export_assembly.py) and compiled with `lean -o`, and one tarball
 ADIR/chunks/Chunk<k>.tar of the chunk's Record oleans and the chunk olean is written (renamed into place when
-complete), then a row to ADIR/chunks/rows/<name>.jsonl.  Chunks with a complete tarball and an `ok` row are skipped.
+complete), then a row to ADIR/chunks/rows/<name>.jsonl, with each Record's tarball hashes (`tar_hashes`: of the
+olean tarball, and of the generated `.lean` sources in its source tarball) for the manifest (full_manifest.py).  Chunks with a complete tarball and an `ok` row are skipped.
 After this step the per-Record olean tarballs are no longer needed (the final step reads the chunk tarballs).
 """
-import argparse, concurrent.futures as CF, glob, gzip, json, os, re, shutil, subprocess, sys, tarfile, time
+import argparse, concurrent.futures as CF, glob, gzip, hashlib, json, os, re, shutil, subprocess, sys, tarfile, time
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, '..', '..'))
@@ -36,15 +37,32 @@ def chunk_done(adir):
     return done
 
 
+def tar_hashes(path, dest=None, suffix=''):
+    """SHA-256 of a tarball and a content hash independent of tar metadata: SHA-256 of the lines
+    `<basename> <sha256 of the file>` of its members ending in `suffix`, sorted by name.  Extracts into dest if given."""
+    with open(path, 'rb') as f:
+        whole = hashlib.sha256(f.read()).hexdigest()
+    lines = []
+    with tarfile.open(path) as t:
+        for m in t.getmembers():
+            if m.isfile() and m.name.endswith(suffix):
+                lines.append('%s %s\n' % (os.path.basename(m.name), hashlib.sha256(t.extractfile(m).read()).hexdigest()))
+        if dest:
+            t.extractall(dest)
+    return dict(tar_sha256=whole, content_sha256=hashlib.sha256(''.join(sorted(lines)).encode()).hexdigest(),
+                files=len(lines))
+
+
 def one(k, adir, ok, env, lean, threads):
     t0 = time.time()
     idx = list(range(k * CHUNK, min(N, (k + 1) * CHUNK)))
     missing = [n for n in idx if n not in ok]
     if missing:
         return dict(chunk=k, status='records_missing', missing=missing)
+    hashes = {}
     for n in idx:
-        with tarfile.open(os.path.join(adir, 'oleans', 'Rec%d.tar' % n)) as t:
-            t.extractall(OLEAN)
+        hashes[n] = dict(olean=tar_hashes(os.path.join(adir, 'oleans', 'Rec%d.tar' % n), OLEAN),
+                         src=tar_hashes(os.path.join(adir, 'src', 'Rec%d.tar.gz' % n), None, '.lean'))
     src = os.path.join(SRC, 'KernelAtlas', 'Atlas', 'Chunk%d.lean' % k)
     os.makedirs(os.path.dirname(src), exist_ok=True)
     with open(src, 'w') as f:
@@ -65,7 +83,7 @@ def one(k, adir, ok, env, lean, threads):
     os.replace(dst + '.tmp', dst)
     for n in idx:                                       # keep the node's disk small; the tarball has them
         shutil.rmtree(os.path.join(OLEAN, 'KernelAtlas', 'Rec%d' % n), ignore_errors=True)
-    return dict(row, status='ok', tar_bytes=os.path.getsize(dst), wall_s=round(time.time() - t0, 1))
+    return dict(row, status='ok', tar_bytes=os.path.getsize(dst), wall_s=round(time.time() - t0, 1), records=hashes)
 
 
 def main():
