@@ -48,6 +48,7 @@ def main():
     ap.add_argument('-j', '--jobs', type=int, default=4)
     ap.add_argument('--log-dir', type=Path, default=None)
     a = ap.parse_args()
+    if a.log_dir: a.log_dir.mkdir(parents=True, exist_ok=True)
     jobs = list(CHECKS)
     if a.atlas:
         pkl = ROOT / 'proof/atlas/results/atlas_certificate.json.gz'
@@ -55,7 +56,8 @@ def main():
         sys.path.insert(0, str(ROOT / 'proof/atlas'))
         from export import load_certificate
         n = len(load_certificate(str(pkl)).recs); ch = (n + 4 * a.jobs - 1) // (4 * a.jobs)
-        jobs += [('step4_certify_%06d' % lo, 'proof/atlas/certify.py', ['results/atlas_certificate.json.gz', str(lo), str(min(n, lo + ch))])
+        tsv = lambda lo: ['--tsv=%s' % (a.log_dir.resolve() / ('step4_certify_%06d.tsv' % lo))] if a.log_dir else []
+        jobs += [('step4_certify_%06d' % lo, 'proof/atlas/certify.py', ['results/atlas_certificate.json.gz', str(lo), str(min(n, lo + ch))] + tsv(lo))
                  for lo in range(0, n, ch)]
         jobs += [('step4_nonempty_F6', 'proof/atlas/nonempty.py', ['results/atlas_certificate.json.gz'])]
         jobs += [('step4_anchor_H0', 'proof/atlas/anchor.py', ['results/atlas_certificate.json.gz'])]

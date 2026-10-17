@@ -51,17 +51,18 @@ def transfer_data(A, Ps, Pt, Ts):
     return cf, 6 * crad, M
 
 
-def certify_record(rec):
+def certify_record(rec, trace=None):
     B = BallRecord(rec['phi'].reshape(36), Tint=rec.get('Tint'))     # stored frame: platform-independent
     rH, n0 = B.normal_bound(rec['R'])
     rec['Tcert'] = np.array(B.rec.Tbn, float)                       # the certifier's own frame
     dT = float(np.abs(np.array([[float(abs(B.rec.Tb[e, k] - arb(float(B.rec.Tbn[e, k]))).upper()) for k in range(4)] for e in range(36)])).sum())
-    o = B.stage_c(rec['R'], radius=rec['label_radius'])
+    o = B.stage_c(rec['R'], radius=rec['label_radius'], trace=trace)
+    if trace is not None: trace.update(sigma=B.sigma, rH=rH, n=n0 + dT * rH, clique_steps=o.get('steps'))
     assert o.get('ok'), 'Stage C failed: %s' % o
     return rH, n0 + dT * rH                                           # recomputed, used for the boundary replay
 
 
-def certify_boundary(A, s, rH, n, wmin_frac=1 / 64):
+def certify_boundary(A, s, rH, n, wmin_frac=1 / 64, trace=None):
     """Replay the adaptive box tree over [-rH, rH]^4 using only the stored transfer targets of s, with the certifier's
     own r_H and normal bound n (recomputed by certify_record)."""
     rs = A.recs[s]; tr = A.transfers[s]
@@ -76,6 +77,7 @@ def certify_boundary(A, s, rH, n, wmin_frac=1 / 64):
     nleaf = 0
     while len(E):
         E = E[~AT.offshell(E, w, T, nT, R, n, rH, margin=MARGIN)]
+        if trace is not None: trace.setdefault('boxes', []).append(len(E))
         done = np.zeros(len(E), bool)
         for t, (cf, cr, M) in tdat:
             sup = np.linalg.norm(cf[None, :] + E @ M.T, axis=1) + cr + Mn * w + 1e-12
@@ -87,22 +89,42 @@ def certify_boundary(A, s, rH, n, wmin_frac=1 / 64):
     return nleaf
 
 
+TSV_COLUMNS = ('record', 'verdict', 'R', 'label_radius', 'sigma', 'rH', 'n', 'bins', 'bins_sha', 'labels', 'labels_sha',
+               'O', 'U', 'edges_sha', 'jO', 'jU', 'joint_sha', 'clique_steps', 'leaves', 'boxes', 'wall_s', 'cpu_s')
+
+
+def tsv_row(s, rec, verdict, tr, wall, cpu):
+    """One line of per-Record intermediates (floats as exact hex), for diffing two runs of the certifier."""
+    f = lambda k: float(tr[k]).hex() if k in tr else ''
+    v = dict(record=s, verdict=verdict, R=float(rec['R']).hex(), label_radius=float(rec['label_radius']).hex(),
+             sigma=f('sigma'), rH=f('rH'), n=f('n'), bins=','.join(map(str, tr.get('bins', []))),
+             boxes=','.join(map(str, tr.get('boxes', []))), wall_s='%.3f' % wall, cpu_s='%.3f' % cpu)
+    return '\t'.join(str(v.get(c, tr.get(c, ''))) for c in TSV_COLUMNS)
+
+
 if __name__ == '__main__':
-    if sys.argv[1].endswith('.json.gz'):
+    args = [x for x in sys.argv[1:] if not x.startswith('--tsv=')]
+    tsv = [x[6:] for x in sys.argv[1:] if x.startswith('--tsv=')]
+    if args[0].endswith('.json.gz'):
         from export import load_certificate
-        A = load_certificate(sys.argv[1])
+        A = load_certificate(args[0])
     else:
-        A = AT.load(sys.argv[1])
-    lo, hi = (int(sys.argv[2]), int(sys.argv[3])) if len(sys.argv) > 3 else (0, len(A.recs))
+        A = AT.load(args[0])
+    lo, hi = (int(args[1]), int(args[2])) if len(args) > 2 else (0, len(A.recs))
     closed = [s for s in sorted(A.closed) if lo <= s < hi]
     nopen = len([s for s in range(lo, min(hi, len(A.recs))) if s not in A.closed])
     if nopen: print('NOTE: %d records in [%d, %d) are not closed (atlas incomplete)' % (nopen, lo, hi))
+    out = open(tsv[0], 'w') if tsv else None
+    if out: out.write('#' + '\t'.join(TSV_COLUMNS) + '\n')
     t0 = time.time(); bad = 0
     for s in closed:
+        tr = {}; w0, c0 = time.perf_counter(), time.process_time()
         try:
-            rH, n = certify_record(A.recs[s]); nl = certify_boundary(A, s, rH, n)
+            rH, n = certify_record(A.recs[s], trace=tr); nl = certify_boundary(A, s, rH, n, trace=tr); tr['leaves'] = nl
+            verdict = 'PASS'
         except AssertionError as e:
-            print('FAIL', s, e); bad += 1; continue
-        if s % 20 == 0: print('record %d ok (%d leaves)  %.0fs' % (s, nl, time.time() - t0), flush=True)
+            print('FAIL', s, e); bad += 1; verdict = 'FAIL'
+        if out: out.write(tsv_row(s, A.recs[s], verdict, tr, time.perf_counter() - w0, time.process_time() - c0) + '\n'); out.flush()
+        if verdict == 'PASS' and s % 20 == 0: print('record %d ok (%d leaves)  %.0fs' % (s, nl, time.time() - t0), flush=True)
     print('certified %d records, %d failures, %.0fs' % (len(closed) - bad, bad, time.time() - t0))
     sys.exit(1 if bad or nopen else 0)

@@ -121,7 +121,8 @@ def tangent_tests(U, P, r, M, K, eP, rF, T, rH, nN):
     return ~(lhs > rhs + MARGIN)
 
 
-def bins(P, r, levels=(12, 24, 48, 96), cap=2_000_000, tang=None, rF=None):
+def bins(P, r, levels=(12, 24, 48, 96), cap=2_000_000, tang=None, rF=None, trace=None):
+    """trace (optional dict): receives the surviving bin count per level and a SHA-1 of every level's bin array."""
     rF = math.sqrt(6) * r if rF is None else min(rF, math.sqrt(6) * r)
     K = opnorm_bound(P); eP = cis_centre(P)
     M = levels[0]
@@ -129,6 +130,7 @@ def bins(P, r, levels=(12, 24, 48, 96), cap=2_000_000, tang=None, rF=None):
     U = np.stack(np.meshgrid(g, g, g, g, g, indexing='ij'), -1).reshape(-1, 5)
     U = U[single_tests(U, P, r, M, K, eP, rF)]
     if tang is not None and len(U): U = U[tangent_tests(U, P, r, M, K, eP, rF, *tang)]
+    if trace is not None: _trace_bins(trace, U)
     for M2 in levels[1:]:
         f = M2 // M
         off = (np.arange(f) + 0.5) / M2 - 0.5 / M                          # child midpoint offsets
@@ -142,7 +144,19 @@ def bins(P, r, levels=(12, 24, 48, 96), cap=2_000_000, tang=None, rF=None):
             if total > cap: return None, M2
         U = np.concatenate(kept) if kept else np.zeros((0, 5))
         M = M2
+        if trace is not None: _trace_bins(trace, U)
     return U, M
+
+
+def _sha(*arrays):
+    import hashlib
+    h = hashlib.sha1()
+    for a in arrays: a = np.ascontiguousarray(a); h.update(str((a.dtype.str, a.shape)).encode()); h.update(a.tobytes())
+    return h.hexdigest()[:16]
+
+
+def _trace_bins(trace, U):
+    trace.setdefault('bins', []).append(len(U)); trace['bins_sha'] = _sha(np.array([trace.get('bins_sha', '')], 'S16'), U)
 
 
 def cluster(U, M, radius=0.042, smax=0.1):
@@ -263,18 +277,23 @@ def two_cliques(O, Ub, cap=5_000_000):
     return True, steps[0]
 
 
-def stage_c(P, r, tang=None, radius=0.03, rF=None):
-    """r: per-column bound on delta; rF: Frobenius bound (defaults to sqrt6 r, always valid)."""
+def stage_c(P, r, tang=None, radius=0.03, rF=None, trace=None):
+    """r: per-column bound on delta; rF: Frobenius bound (defaults to sqrt6 r, always valid).
+    trace (optional dict): receives the intermediates (bin counts per level, labels, edge counts before and after the
+    joint filter, SHA-1s of the arrays), so that two runs can be compared Record by Record."""
     t0 = time.time()
     rF = math.sqrt(6) * r if rF is None else min(rF, math.sqrt(6) * r)
-    U, M = bins(P, r, tang=tang, rF=rF)
+    U, M = bins(P, r, tang=tang, rF=rF, trace=trace)
     if U is None: return dict(ok=False, reason='bin cap')
     cl = cluster(U, M, radius=radius)
     if cl is None: return dict(ok=False, reason='cluster', bins=len(U))
     C, s = cl
     O, Ub = edges(C, s)
+    if trace is not None:
+        trace.update(labels=len(C), labels_sha=_sha(C, s), O=int(O.sum() // 2), U=int(Ub.sum() // 2), edges_sha=_sha(O, Ub))
     if tang is not None:
         O, Ub = joint_filter(C, s, O, Ub, P, r, opnorm_bound(P), cis_centre(P), rF, *tang)
+    if trace is not None: trace.update(jO=int(O.sum() // 2), jU=int(Ub.sum() // 2), joint_sha=_sha(O, Ub))
     try:
         ok, steps = two_cliques(O, Ub)
     except RuntimeError:
