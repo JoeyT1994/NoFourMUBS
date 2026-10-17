@@ -48,8 +48,8 @@
 ## Regenerating data (python-flint; reads the pinned `MinimalConstruction/Proofs/critical_moment_core.py`)
 - `python3 gen_qf.py`: produces `CoverageStripIdQF.lean` from `qf_template.lean`.
 - `python3 gen_zero.py`, then `python3 gen_checks.py zero`: zero-`J` data and moment checks.
-- `python3 gen_nonzero.py`: produces `NonzeroData` and `NonzeroDataN`, and pickles `n` to the scratchpad
-  (`nz_n.pkl`).
+- `python3 gen_nonzero.py`: produces `NonzeroData` and `NonzeroDataN`, and pickles `n` to the git-ignored
+  `_scratch/nz_n.pkl`.
   `gen_nonzero_q.py` needs `nz_n.pkl`, so run `gen_nonzero.py` first, even on a new machine.
 - `python3 gen_nonzero_q.py` (`NonzeroDataQ`), then `gen_nonzero_stage.py` (`NonzeroDataH`).
 - `python3 gen_nonzero_part.py`: produces `Part`, `DataP0–P4` and `DataPA`, and also writes `DataP1a` and
@@ -57,7 +57,8 @@
   - After regenerating, move `DataP1a` and `DataPS` back to `split/` unless you are switching to the split
     version.
 - `python3 gen_checks.py nonzero_stage`: produces `CheckH`, `CheckMA`, `CheckMB`, `CheckC`.
-- Hand-written files (not generated): Defs, Alg, Fast, Grid, Stage, the CheckS*/CheckQ wrappers, Sum, Zero,
+- Hand-written files (not generated): Defs, Alg, Fast, Stage, the CheckS*/CheckQ wrappers, Sum, Zero,
   Nonzero.
-- `explore_*.py`, `sim*.py`, `partial*.py`, `rproto.py`, `uni_proto.py` and `count_ops.py` are exploration
-  scripts and not needed.
+- The exploration scripts (`explore_*.py`, `sim*.py`, `partial*.py`, `rproto.py`, `uni_proto.py`, `count_ops.py`,
+  `pa_sizes.py`) and the unused `Identity/Grid.lean` and `PRM/CoverageStripIdGrid.lean` were removed on 17 Oct 2026;
+  they are preserved at the git tag `archive-2026-10-17`.

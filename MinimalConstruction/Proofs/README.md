@@ -14,7 +14,7 @@ Recovered historical files are provenance, not additional axioms.
 | MC2 | At every strict corner, exactly two orbits of the normalized side fiber under column permutations; finite pairings recover all framed completions | Proved in [SIDE_FIBER.md](SIDE_FIBER.md), on all R>0 without product guards. Which pairings are flat is separately MC4. |
 | MC3 | Every prescribed side-formula divisor is nonzero on all R>0; the formula is flat with the required Gram; allowed root choices act only by the stated permutations | Proved in [STRICT_DOMAIN.md](STRICT_DOMAIN.md) and [SIDE_FIBER.md](SIDE_FIBER.md), including real dF, rho>=n/2>0, sigma, flatness, and all permitted root choices. |
 | MC4 | Both matched completions are flat throughout R>0; all nonmatched exceptions are precisely the stated Tao cases | Proved in [MATCHED_FLATNESS.md](MATCHED_FLATNESS.md), [TAO_PAIRINGS.md](TAO_PAIRINGS.md), and [NONMATCHED_EXCEPTIONS.md](NONMATCHED_EXCEPTIONS.md). The converse explicitly imports the paper's necessary affine-minus matching rule on product-regular completions. |
-| MC5 | Positive-sheet coverage in the exact form used by NumericalCampaign/REDUCTION.md, with Tao accounted for | Proved in [OPPOSITE_CORNER.md](OPPOSITE_CORNER.md), now with MC1 discharged. Both the global opposite-corner surjection and the campaign's fixed-seed conjugation step follow. Tao is exhaustively accounted for separately from the matched image. |
+| MC5 | Positive-sheet coverage in the exact form used by the first proof's `NumericalCampaign/REDUCTION.md` (archived at git tag `archive-2026-10-11`), with Tao accounted for | Proved in [OPPOSITE_CORNER.md](OPPOSITE_CORNER.md), now with MC1 discharged. Both the global opposite-corner surjection and the campaign's fixed-seed conjugation step follow. Tao is exhaustively accounted for separately from the matched image. |
 
 The existing statements in ASSUMPTIONS.md and RECONSTRUCTION.md are
 preserved verbatim. Appended references describe the audit status without
@@ -108,17 +108,9 @@ contain its proof. This recovery does not discharge MC1.
 
 `interval_constructor.py` is the local arithmetic helper for the outward
 witness; its source and hash provenance are recorded in its header.
-`research_nonmatched_residual.py` and `Research/` are exploratory exact
-elimination work, not proof inputs or successful global verifiers. The
-four-variable attempt hit its explicit 240-second limit; the one- and
-two-parameter reductions are retained as research only.
-`research_critical_means.py` generates rational mixed-corner mean equations.
-The modular elimination experiment is also research only: its first
-reduced numerator grew to 84,640 terms, and the bounded run was stopped
-after 45 seconds without a classification certificate.
-The subsequent `research_critical_moments.py` and
-`research_critical_nonzero_J.py` retain the discovery calculations.
-Their historical plan is in [Research/CRITICAL_ROUTE.md](Research/CRITICAL_ROUTE.md).
+The exploratory elimination work that preceded the critical-strip proofs (`research_*.py` and
+`Research/`, including the historical plan `Research/CRITICAL_ROUTE.md`) was not a proof input and is
+preserved at the git tag `archive-2026-10-17`.
 The accepted, independently replayed implementation is now
 `critical_moment_core.py` and `exact_rational.py`, with the checked
 `critical_quartic.json` polynomial data. Its full domain proof is

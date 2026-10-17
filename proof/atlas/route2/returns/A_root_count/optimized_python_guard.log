@@ -1,8 +1,0 @@
-Traceback (most recent call last):
-  File "/mnt/data/route2a/R2A/output/run_all.py", line 6, in <module>
-    from exact_checks import main as exact_checks
-  File "/mnt/data/route2a/R2A/output/exact_checks.py", line 8, in <module>
-    from certify import RI,CI,S
-  File "/mnt/data/route2a/R2A/output/certify.py", line 11, in <module>
-    raise RuntimeError('FAIL: certificate checks require assertions; do not use Python -O')
-RuntimeError: FAIL: certificate checks require assertions; do not use Python -O

@@ -1,5 +1,7 @@
 # Changed-file report — completed reconstruction proof dossier, 1 October 2026
 
+> Note (17 Oct 2026): the `Research/` files and `research_*.py` scripts listed below were removed from `main`; they are preserved at the git tag `archive-2026-10-17`. This report is a historical record and is otherwise unchanged.
+
 All changes for this goal are inside `MinimalConstruction`. The root `verify.py` and external runtime hash pins were not edited.
 
 ## Existing specification files — references appended only
