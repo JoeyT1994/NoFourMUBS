@@ -184,6 +184,7 @@ class Node:
         r = subprocess.run([self.lean, f], cwd=LEAN, env=self.env, capture_output=True, text=True)
         ms = re.findall(r'depends on axioms: \[(.*?)\]', r.stdout, re.S)
         ax = sorted({a.strip() for m in ms for a in m.split(',')}) if len(ms) == 2 else None
+        self.axioms_split = [sorted(a.strip() for a in m.split(',')) for m in ms]    # [cert, boundaryT]
         return ax, r.stdout[-800:]
 
     def archive(self, idx, d, row):
@@ -280,7 +281,8 @@ class Node:
                 if not st['left'] and not any(r[0] == idx for r in self.running.values()):
                     ax, out = self.axioms(idx)
                     if ax is not None and set(ax) <= AXIOMS:
-                        self.finish(idx, 'ok', axioms=ax)
+                        self.finish(idx, 'ok', axioms=ax, axioms_cert=self.axioms_split[0],
+                                    axioms_boundaryT=self.axioms_split[1])
                     else:
                         self.finish(idx, 'axioms_failed', axioms=ax, log=out)
             # start ready modules, oldest Record first, within the memory budget
