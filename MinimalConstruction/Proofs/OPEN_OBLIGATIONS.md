@@ -15,7 +15,6 @@ NONMATCHED_EXCEPTIONS.md. Combined with the side-fiber, matched-flatness,
 Tao and sheet-transport proofs, this supplies the campaign's exact
 reconstruction inputs, including its fixed-seed sheet step.
 
-No reconstruction theorem remains open. Root-runner integration and
-external hash pins await the user's requested review; see CHANGE_REPORT.md.
+No reconstruction theorem remains open. The dossier is replayed by the root `verify.py`; see CHANGE_REPORT.md.
 The numerical campaign and its no-four-MUB coverage certificates remain
 separate work and are not claimed complete here.

@@ -6,7 +6,7 @@ This builds against Mathlib and a small part of the Lean classification of order
 lake exe cache get        # prebuilt Mathlib
 lake build
 python3 check_axioms.py   # build, then audit the axioms of every main theorem (also: verify.py --lean)
-python3 check_axioms.py --full   # also build and audit L1 (NoFourMUBs.Complete; about 20 min, see below)
+python3 check_axioms.py --full   # also build and audit L1 and Final (about 25 min on an Apple M5 Max with the Mathlib cache)
 ```
 
 ## The main theorem
@@ -42,8 +42,8 @@ All five use only `propext`, `Classical.choice` and `Quot.sound`.
 | Hypothesis | Status |
 |---|---|
 | `AtlasCertificate` | Finite certificate, checked by `certify.py`, `nonempty.py`, `anchor.py` and the independent Julia checker (`proof/atlas/results/RECEIPT.md`) |
-| `NonTaoPreconnected` | `PROOF.md` Theorem 2: without [CT] via L1, L2 and return G's exact reach; earlier, relative to [CT] via MC1–MC5 |
-| `MatchedExistence` (L1) | **Proved in Lean**: `L1.matchedExistence` (`L1/Existence.lean`): side existence by the Jacobian identity (J) and the inverse function theorem (`proof/coverage/handoffs/J_side_existence_jacobian`), and flatness from the certificate `E_matched_flatness`, re-checked by the kernel |
+| `NonTaoPreconnected` | `PROOF.md` Theorem 2: via L1, L2 and exact reach (return G), without any classification |
+| `MatchedExistence` (L1) | **Proved in Lean**: `L1.matchedExistence` (`L1/Existence.lean`): side existence by the Jacobian identity (J) and the inverse function theorem (`proof/coverage/returns/J_side_existence`), and flatness from the certificate `E_matched_flatness`, re-checked by the kernel |
 | `MatchedDensityReach` (D) | **Proved in Lean from strict-corner coverage** (`PRM.densityReach`, via return G's Theorem A, `PRM.nonmatched_tao`) |
 | `StrictCornerCoverage` (MC1) | **Proved in Lean**: `PRM.strictCornerCoverage` (`Final.lean`), from the critical strip classification I4 (`PRM/CoverageStripParts`: zero `J` by the zero-`J` square-sum identity `PRM/CoverageStripIdZero*`, nonzero `J` by return K's two signed corner sums `PRM/CoverageSigned*`), the endpoint exclusions I5 (`PRM/CoverageEndpoints`) and the routing and ten-corner count (`PRM/CoverageMain`) |
 
@@ -58,11 +58,11 @@ The import closure of `NoFourMUBs.Final`, without Mathlib and Lean core (`python
 
 | | Modules | Non-blank lines |
 |---|---|---|
-| Ours (`NoFourMUBs`, `Step1`) | 169 | 25,659 |
+| Ours (`NoFourMUBs`, `Step1`) | 130 | 22,445 |
 | `Hadamard6` | 56 | 10,143 |
-| Total | 225 | 35,802 |
+| Total | 186 | 32,588 |
 
-Before `Lib/Hadamard`, `Basic` imported all of `Hadamard6` and the closure held 137 upstream modules (24,180 lines), 305 in all (49,653 lines). The proof uses about 290 upstream declarations (about 3,300 lines), almost all from the modules above.
+Measured 17 Oct 2026, after return K replaced the nonzero-J square-sum modules. Before `Lib/Hadamard`, `Basic` imported all of `Hadamard6` and the closure held 137 upstream modules (24,180 lines), 305 in all (49,653 lines). The proof uses about 290 upstream declarations (about 3,300 lines), almost all from the modules above.
 
 ## Modules
 
@@ -76,9 +76,9 @@ Before `Lib/Hadamard`, `Basic` imported all of `Hadamard6` and the closure held 
 | `Step1/` | Step 1 in full: the saddle theorem, the deltoid, single and double boundary, the trace lift and `Step1Geo.maximumCensus` with explicit anchors, and the anchor orbit. It uses the 216 certificate theorems of library `Step1` (`Step1Gen/`) |
 | `Step2/` | Step 2 topology (`Statements`, `TopologyCore`, `QuotientTopology`); matched uniqueness (`SideAlg`, `SidePerm`, `MatchedUnique`); anchor transport and the explicit anchor `BaseAnchor`; coverage from connectedness and F6 ≠ Tao (`Connected`); the dense reduction of L1 (`DenseExistence`) |
 | `Identity/` | A verified checker for large polynomial identities: a circuit with bounded degrees and coefficients vanishing at one Kronecker point is the zero polynomial (`Kronecker`), evaluated with sparse outer variables (`Sparse`, and the faster recursor form `Fast`), over a factor table of denominators with one quadratic element (`Frac`) |
-| `L1/` | Matched existence. Side existence (handoff J, `proof/coverage/handoffs/J_side_existence_jacobian`): the Gram invariants, domain inequalities and norm identities (`SideGram`); the Jacobian identity (J) of the Gram map in angle coordinates, the inverse function theorem and the open and closed sets of realised Gram data (`SideJacobian`); the clopen/maximum argument over strict seeds, with anchors from H₀ and `Step1Geo.maximumCensus`, giving `exists_side_h` and `exists_side_v` (`SideCover`); and the side formulas (`SideFormulas`). Matched flatness (certificate E): the weighted-defect criterion `flat_of_W` (`FlatMatrix`), the reduced data and circuits (`FlatData`, `FlatCircuitsBase`, `FlatCircuits`), their kernel checks (`FlatCheck*`) and the bridge `W_zero` (`FlatBridge`). The assembly is `Existence` |
+| `L1/` | Matched existence. Side existence (return J, `proof/coverage/returns/J_side_existence`): the Gram invariants, domain inequalities and norm identities (`SideGram`); the Jacobian identity (J) of the Gram map in angle coordinates, the inverse function theorem and the open and closed sets of realised Gram data (`SideJacobian`); the clopen/maximum argument over strict seeds, with anchors from H₀ and `Step1Geo.maximumCensus`, giving `exists_side_h` and `exists_side_v` (`SideCover`); and the side formulas (`SideFormulas`). Matched flatness (certificate E): the weighted-defect criterion `flat_of_W` (`FlatMatrix`), the reduced data and circuits (`FlatData`, `FlatCircuitsBase`, `FlatCircuits`), their kernel checks (`FlatCheck*`) and the bridge `W_zero` (`FlatBridge`). The assembly is `Existence` |
 | `PRM/` | Return G (`proof/coverage/returns/G_prm`). An actual side's signature is a root of its Gram quadratic, R = 4 (Im T)² (`SideRoot`). Sides on the two roots share no column (`SharedColumn`). A strict strip has no proportional columns (`StrictStrip`). The projector argument gives an orthogonal column triple (`Projector`). A 3×3 Hadamard block gives Tao or all corners matched (`FourierBlock`, using upstream's Fourier normalisation and cubic census; the Fourier families are matched at all corners by 200 kernel-checked identities, `FourierMatch`). Theorem A is `Converse`; exact reach and density from coverage are in `Reach`. Strict-corner coverage (MC1, `MinimalConstruction/Proofs/STRICT_CORNER_COVERAGE.md`): the routing, Fourier critical locus, block lemma and ten-corner count (`CoverageMain` and its imports); the critical strip classification I4 (`CoverageStrip*`): the zero-J square-sum identity (`CoverageStripId*`, status in `generators/stripid/STATUS.md`) and, for nonzero J, return K's signed sums (`CoverageSigned*`: the signed corner expansion, the boundary identity (7) with poles, the weighted sum on four curves in the gauge s = t = 1, pole forcing and the product of the six λ-denominators, with the pole factorizations of `CoverageQuarticPole`); the endpoint exclusions I5 (`CoverageEndpoints`, `CoverageEnd*`) |
-| `FourierVanishing/` | Return H (`proof/coverage/returns/H_fourier_vanishing`), an input to the draft paper's Section II, not to the main proof: `FourierVanishing.fourierVanishing`, all twenty row and column Fourier moments of a non-Tao order-six Hadamard vanish. It is built from `PRM.nonmatched_tao` and `PRM.strictCornerCoverage`. `Main` imports `Final`, so build it explicitly (`lake build NoFourMUBs.FourierVanishing.Main`); the lemma map is in `FourierVanishing/README.md` |
+| `FourierVanishing/` | Return H (`explorations/returns/H_fourier_vanishing`), an input to the draft paper's Section II, not to the main proof: `FourierVanishing.fourierVanishing`, all twenty row and column Fourier moments of a non-Tao order-six Hadamard vanish. It is built from `PRM.nonmatched_tao` and `PRM.strictCornerCoverage`. `Main` imports `Final`, so build it explicitly (`lake build NoFourMUBs.FourierVanishing.Main`); the lemma map is in `FourierVanishing/README.md` |
 | `Lib/` | The upstream interface: narrow imports and the restated upstream declarations (see [Dependencies](#dependencies)) |
 | `MainTheorem`, `Complete`, `Final`, `Axioms`, `AxiomsComplete` | The main theorem, with L1 discharged, and with coverage discharged (`Final.no_four_mubs`); the axiom audits read by `check_axioms.py` |
 
@@ -91,7 +91,7 @@ Before `Lib/Hadamard`, `Basic` imported all of `Hadamard6` and the closure held 
 | `L1/FlatCheckF00` … `F11` | the 8 coefficients of the weighted defects (4.6) | about 4 min each, built one at a time (about 8 min each in parallel) | 11 GB each |
 | `L1/FlatCheckMh` | 36 entries of `K Qh K*` | about 3 min | 9 GB |
 | `L1/FlatCheckQv`, `FlatCheckTable` | 36 vertical moments, 10 table identities | under 1 min | 6 GB |
-| `L1/SideGram`, `SideJacobian`, `SideCover` | side existence (handoff J) | 37 s together | 6 GB |
+| `L1/SideGram`, `SideJacobian`, `SideCover` | side existence (return J) | 37 s together | 6 GB |
 
 **Build cost of `Final`.** `NoFourMUBs.Final` is not imported by the library root either. Since return K replaced the nonzero-J square-sum route (17 Oct 2026; `proof/coverage/returns/K_nonzero_J/INTEGRATED.md`), no module of I4 takes more than about a minute or 12 GB (the four curve checks `CoverageSignedK*`; serial build of the nonzero-J part 3.5 min instead of 36 min). Building `Final` one module at a time is still advisable on a shared machine. `check_axioms.py --full` builds both `Complete` and `Final`.
 

@@ -4,7 +4,7 @@ import NoFourMUBs.Step2.SideAlg
 # The Gram invariants of a side
 
 For Gram data `(s, t, r)` (the entries `G₂₁, G₃₁, G₃₂` of `G = B B*` for a normalised side `B`): the
-invariants `X, p, J, g, η, χ, R` of `PROOF_v2.md` §1, the domain inequalities of `SIDE_EXISTENCE.md` §2, and
+invariants `X, p, J, g, η, χ, R` of `PROOF.md` Step 2.1, the domain inequalities of `SIDE_EXISTENCE.md` §2, and
 the norm identities `|Pⱼ|² = g² + cⱼ χ + cⱼ² η` (6), which make `P₀, P₁, P₂` nonzero when `R > 0`.
 -/
 

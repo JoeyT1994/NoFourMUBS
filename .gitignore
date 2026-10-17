@@ -4,14 +4,9 @@ __pycache__/
 .DS_Store
 # Lean build products
 .lake/
-# Delivery archives (contents are committed unpacked where needed)
+# Delivery archives: returns are committed unpacked (or as readable copies); the zips' hashes are in
+# proof/coverage/returns/SOURCE_ZIPS.sha256
 *.zip
-# Superseded material, preserved at the git tag archive-2026-10-11 (kept on disk, not tracked)
-/archive/
-/research/
-# Local working notes
-/manuscript_review/
-/openai/
 
 # generator intermediates
 lean/generators/stripid/_scratch/

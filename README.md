@@ -2,56 +2,62 @@
 
 **Theorem (computer-assisted).** ℂ⁶ does not admit four mutually unbiased bases.
 
-**Read the proof:** [`PROOF.md`](PROOF.md) (a few pages), [`PROOF_v2.md`](PROOF_v2.md) (a self-contained write-up of the classification-free route), or the typeset note [`proof/note/no_four_mubs.pdf`](proof/note/no_four_mubs.pdf). To audit it, see [`AUDIT.md`](AUDIT.md).
+**In Lean:** `NoFourMUBs.Final.no_four_mubs (C : AtlasCertificate) : ¬ FourMUBs`
+([`lean/NoFourMUBs/Final.lean`](lean/NoFourMUBs/Final.lean)), using only the standard axioms (`propext`,
+`Classical.choice`, `Quot.sound`). **Its one input is the finite atlas certificate**: Lean proves that if the 12,021
+Records satisfy their inequalities there are no four MUBs, and those inequalities are checked by two independent
+interval-arithmetic implementations. No classification of order-6 Hadamard matrices is used.
+
+**Read:** [`PROOF.md`](PROOF.md) (the proof), then [`AUDIT.md`](AUDIT.md) (status and where to look hardest), then
+[`lean/README.md`](lean/README.md) (the formalisation).
 
 ## The proof in four steps
 
-| Step | Statement | Kind |
+| Step | Statement | How it is checked |
 |---|---|---|
-| 1 | The positive local maxima of the corner invariant R form one 18-point orbit, with max R = 3¹³/2¹² | exact algebra; **proved in Lean** |
-| 2 | The non-Tao Hadamard quotient (𝓗/≅) ∖ {S₆} is connected | topology, without the classification [CT]; **proved in Lean** |
-| 3 | A ball Record plus Stage C excludes every quartet edge in the ball | lemmas proved in Lean; certificate per Record |
+| 1 | The positive local maxima of the corner invariant R form one 18-point orbit, max R = 3¹³/2¹² | 651 exact claims; **proved in Lean** |
+| 2 | Every non-Tao class other than F6 is a matched completion of a strict corner seed, and the non-Tao quotient is connected | paper proofs with exact certificates; **proved in Lean** |
+| 3 | A ball Record plus Stage C contains no quartet edge | inequalities proved in Lean; evaluated per Record in interval arithmetic |
 | 4 | A finite atlas of 12,021 ball Records, whose boundaries transfer into one another, covers the quotient | certified computation, confirmed by two independent checkers |
 
-**Lean.** `NoFourMUBs.Final.no_four_mubs (C : AtlasCertificate) : ¬ FourMUBs` in [`lean/NoFourMUBs/Final.lean`](lean/NoFourMUBs/Final.lean) proves the theorem, using only the standard axioms. **Its one input is the finite atlas certificate of Step 4.** Lean proves that if the 12,021 Records satisfy their inequalities, there are no four MUBs. The inequalities themselves are checked by two independent interval implementations, not yet by Lean.
+## Check it
 
-**Status of Step 2.** It is proved without the classification [CT], and entirely in Lean: matched existence (L1), matched uniqueness (L2), return G's strict nonmatched converse ([`proof/coverage/returns/G_prm`](proof/coverage/returns/G_prm/PRM.md)) and strict-corner coverage (MC1, `PRM.strictCornerCoverage`). An independent audit of the converse and of coverage found no errors ([`proof/coverage/audits/AUDIT_2026-10-15.md`](proof/coverage/audits/AUDIT_2026-10-15.md)). See the trust boundary in [`PROOF.md`](PROOF.md).
+| Command | What it checks | Time (Apple M5 Max) | Needs |
+|---|---|---|---|
+| `python3 verify.py` | exact replays of Steps 1–3: the Step 1 certificates, matched existence, the converse and exact reach, strict-corner coverage, Tao's Record, a Stage C sample | about 1 min | Python 3.10+, `pip install -r requirements.txt` |
+| `python3 verify.py --atlas -j 8` | also certifies every Record of the atlas (Step 4), F6 and the anchor H₀ | 14 min (about 1.9 CPU-hours) | as above, about 2 GB per worker |
+| `python3 verify.py --lean` | also builds the Lean formalisation and audits the axioms of 248 theorems | about 8 min with the Mathlib cache | elan; about 12 GB of disk |
+| `python3 verify.py --lean-full` | also builds matched existence and `NoFourMUBs.Final`, and audits them | about 25 min | as above; up to about 11 GB of RAM |
+| [`proof/independent/`](proof/independent/README.md) | the independent Julia checker of Steps 3–4 | full replay 24 min on 128 cores | Julia 1.12 |
+
+Continuous integration ([`.github/workflows/ci.yml`](.github/workflows/ci.yml)) runs `verify.py`, the Lean build with
+its axiom audit, the Julia checker on a sub-certificate, and **negative tests** ([`tests/`](tests/corruptions.py),
+[`proof/independent/tests/`](proof/independent/tests/)): targeted corruptions of the certificates (a moved centre, an
+enlarged radius, a dropped transfer target, altered rationals, …) that both checkers must reject, and harmless
+changes they must accept.
 
 ## Layout
 
 | Path | Role |
 |---|---|
-| [`PROOF.md`](PROOF.md), [`AUDIT.md`](AUDIT.md) | The proof, and how to audit it |
-| [`proof/coverage/`](proof/coverage/README.md) | Steps 1–2: the returned proofs with their exact verifiers, including matched existence |
-| [`proof/atlas/`](proof/atlas/README.md) | Steps 3–4: Records, Stage C, the atlas driver, the trusted checker and the certificate |
-| [`proof/independent/`](proof/independent/README.md) | A second implementation of the Step 3–4 checks (Julia, interval arithmetic), written from the specification only |
-| [`proof/note/`](proof/note/no_four_mubs.pdf), [`proof/LITERATURE.md`](proof/LITERATURE.md) | The typeset note; literature and credit (including what we take from openai/math) |
-| [`lean/`](lean/README.md) | The Lean formalisation |
-| [`MinimalConstruction/`](MinimalConstruction/README.md) | The corner reconstruction H±(θ) and MC1–MC5, proved relative to [CT]; its [CT]-free critical-strip proofs give MC1 for Step 2 |
-| [`ClassificationPaper/`](ClassificationPaper/README.md) | The classification [CT], with its Lean development as a submodule |
-| [`kernel_atlas/`](kernel_atlas/README.md) | Optional, not part of the proof: the atlas certificate checked Record by Record in the Lean kernel itself. Not run by `verify.py`; reviewers need not run it |
+| [`PROOF.md`](PROOF.md), [`AUDIT.md`](AUDIT.md), [`verify.py`](verify.py) | The proof, its audit guide, and the replay driver |
+| [`proof/coverage/`](proof/coverage/README.md) | Steps 1–2: the returned proofs used by the proof, with their exact verifiers; cross-checks; audits |
+| [`proof/atlas/`](proof/atlas/README.md) | Steps 3–4: Records, Stage C, the atlas driver, the checker `certify.py`, the certificate and its receipts |
+| [`proof/independent/`](proof/independent/README.md) | An independent implementation of the Step 3–4 checks (Julia, interval arithmetic), written from the specification only |
+| [`MinimalConstruction/`](MinimalConstruction/README.md) | The corner reconstruction and the critical-strip proofs behind strict-corner coverage (Theorem 2.5) |
+| [`lean/`](lean/README.md) | The Lean formalisation and the generators of its certificate modules |
+| [`tests/`](tests/) | Negative tests of the checkers |
+| [`proof/LITERATURE.md`](proof/LITERATURE.md) | Literature and credit, including what is taken from openai/math |
+| [`ClassificationPaper/`](ClassificationPaper/README.md) | The classification paper [CT]: context for the reconstruction, not used by the proof |
+| [`kernel_atlas/`](kernel_atlas/README.md) | Optional: the atlas certificate checked Record by Record in the Lean kernel, which would make the theorem unconditional. Not needed to check the proof |
+| [`explorations/`](explorations/README.md) | Research beyond the proof: open handoffs, results the proof does not use, the atlas-wide triple census |
 
-Superseded material (the first, corner-chart proof, the development record and side studies) is preserved at the git tag [`archive-2026-10-11`](../../tree/archive-2026-10-11). Exploratory and research material removed on 17 Oct 2026 (the second-route atlas `proof/atlas/route2/`, `MinimalConstruction/Proofs/Research/` and its `research_*.py` scripts, and the I4 exploration scripts) is preserved at [`archive-2026-10-17`](../../tree/archive-2026-10-17).
+## History
 
-## Verifying
-
-```bash
-pip install -r requirements.txt
-python3 verify.py            # all exact replays: Steps 1-2, matched existence, MC1-MC5, S6, Stage C sample (~1 min)
-python3 verify.py --atlas -j 8  # also certify all 12,021 Records, F6 and the anchor (~1.9 CPU-hours: 14 min with -j 8 on an M5 Max)
-python3 verify.py --lean     # also build the Lean formalisation and audit its axioms
-python3 verify.py --lean-full  # also build L1 and the final theorem in Lean (hours on a first build)
-```
-
-## Continuous integration and tests
-
-[`.github/workflows/ci.yml`](.github/workflows/ci.yml) runs on every push and pull request: `verify.py`, the Lean build with its axiom audit (as `verify.py --lean`), and the Julia checker on a small sub-certificate (Record 11992 and its 21 transfer targets) with its sanity checks. It does not run `--atlas` or `--lean-full`. The negative tests in [`tests/`](tests/corruptions.py) check that the checkers reject bad input. They corrupt that sub-certificate, the F6 Record and the Step 1 certificates in targeted ways: a moved centre, an enlarged radius or label radius, a non-tangent frame, dropped or misaligned transfer targets, a shrunk target, a moved F6 Record, and altered rationals. Both `certify.py`/`nonempty.py` and the Julia checker must reject every corruption. Harmless changes, such as a redundant target dropped or the frame columns swapped, must still be accepted.
-
-```bash
-python3 tests/negative_exact.py                     # verify_certificates.py (seconds)
-python3 tests/negative_atlas.py                     # certify.py and nonempty.py (~15 s)
-bash proof/independent/tests/run_tests.sh           # check.jl, sanity.jl, tests/negative.jl (a few minutes)
-```
+Earlier versions are preserved at git tags: the first, corner-chart proof (`archive-2026-10-11`); exploratory material
+removed on 17 Oct 2026, including the second-route atlas (`archive-2026-10-17`); and the proof documents before their
+consolidation into `PROOF.md`, including the earlier route through the classification [CT] (`proof-docs-2026-10-17`).
+The typeset note in [`proof/note/`](proof/note/README.md) is the 11 Oct version of that earlier route.
 
 ## References
 

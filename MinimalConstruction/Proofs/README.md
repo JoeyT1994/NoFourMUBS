@@ -1,5 +1,11 @@
 # Reconstruction proof dossier
 
+> **Status (17 Oct 2026).** In the current proof (`PROOF.md`, Step 2) these files supply strict-corner coverage
+> (Theorem 2.5) without the classification; its nonzero-J strips are proved by return K
+> (`../../proof/coverage/returns/K_nonzero_J/`), and the square-sum route of §§3–4 of
+> `CRITICAL_STRIP_CLASSIFICATION.md` is kept as an independent second proof. The rest of this dossier (MC2–MC5
+> relative to [CT]) is the earlier route.
+
 **Proof dossier complete relative to the stated ClassificationPaper inputs.**
 All five reconstruction obligations now have proofs in this folder.
 Recovered historical files are provenance, not additional axioms.
@@ -117,6 +123,5 @@ The accepted, independently replayed implementation is now
 [CRITICAL_STRIP_CLASSIFICATION.md](CRITICAL_STRIP_CLASSIFICATION.md).
 Research snapshots are not used as proof inputs.
 
-These are deliberately not registered in the root verify.py. Integration
-and updates to external hash pins await review. Current receipts and the
-complete changed-file report are retained within this folder.
+The dossier is replayed by the root `verify.py` (job `mc_reconstruction_proofs`). Receipts and the
+changed-file report are retained within this folder.

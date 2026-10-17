@@ -146,6 +146,10 @@ The cases excluded at the start give z=-3 => p=0 and z=-2 => p=5.
 
 ## 3. The nonzero-J stratum with no poles
 
+*Note (17 Oct 2026): return K (`proof/coverage/returns/K_nonzero_J/REPORT.md`) proves the nonzero-J classification of
+§§3–4 more simply, by two signed corner sums, and the Lean proof uses it; §§3–4 below remain an independent second
+proof.*
+
 Exchange halves if necessary to make J>0. Put h=1+k². The proved
 critical reduction gives
 

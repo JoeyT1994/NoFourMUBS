@@ -33,10 +33,10 @@ The statements above are preserved verbatim. Their proof audit now lives in
 and the permitted imports from ClassificationPaper. Historical acceptance
 is not itself a completed proof relative to those imports.
 
-- Strict-corner coverage: MC1 remains open; the cited comprehensive handoff
-  has not yet been recovered.
-- Strict side/completion exhaustion and Tao exceptions: MC2 and MC4 remain
-  open in their full all-R>0 forms.
+- Strict-corner coverage (MC1): proved, without [CT], in
+  [Proofs/STRICT_CORNER_COVERAGE.md](Proofs/STRICT_CORNER_COVERAGE.md) (nonzero-J strips by return K) — `PROOF.md` Theorem 2.5.
+- Strict side/completion exhaustion and Tao exceptions (MC2, MC4): proved; in the current proof they are
+  Theorems 2.2–2.4 of `PROOF.md`.
 - Positive-sheet coverage: [opposite-corner transport](Proofs/OPPOSITE_CORNER.md)
   is proved with explicit matching and uniqueness hypotheses. MC5 records
   the additional fixed-seed obligation used by the campaign and Tao's role.
@@ -45,8 +45,7 @@ is not itself a completed proof relative to those imports.
   side identities and exact permutation claims are tracked under MC3.
 
 Recovered sources are copied verbatim under Proofs/Recovered/ with a hash
-manifest. New verifiers are local to Proofs/ and are not integrated into
-the root runner. Appending this section changes this file's hash; external
+manifest. Its verifiers are replayed by the root `verify.py` (job `mc_reconstruction_proofs`). Appending this section changes this file's hash; external
 pins must be updated after review using the changed-file report.
 
 ### Further proof progress, 30 September 2026
@@ -102,5 +101,4 @@ sheet step; Tao remains separately accounted for by its exceptional pairings.
 The local replay command is `python3 MinimalConstruction/Proofs/verify_dossier.py`.
 [Proofs/COMPLETION_AUDIT.md](Proofs/COMPLETION_AUDIT.md) maps the requirements
 to proofs and verifiers. [Proofs/CHANGE_REPORT.md](Proofs/CHANGE_REPORT.md)
-lists every changed file and the new hashes. External pins and the root
-runner remain unchanged pending integration review.
+lists every changed file and the new hashes. The dossier is part of the root `verify.py`.

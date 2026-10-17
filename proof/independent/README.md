@@ -293,7 +293,7 @@ has to resolve.
 |---|---|
 | `results_v4/` | The current certificate with the faster checker (rusty job 7262168, one 128-core ccq node, 24 min): **12,021 / 12,021 closed Records PASS**, F6 nonemptiness CERTIFIED, sanity checks pass. `RESULT.txt` is identical to `results_v3/`, and so is every line of `step3.tsv.gz` and `step4.tsv.gz` apart from the seconds column |
 | `results_v3/` | The current certificate, fresh and complete (rusty job 7213978, one 128-core node, 8 h): **12,021 / 12,021 closed Records PASS**, F6 nonemptiness CERTIFIED, sanity checks pass |
-| `results_v2_failures.tsv` | The rows that failed on the previous certificate. Record 11403's Stage C found a two-clique configuration in this checker's label graph, and 10 boundary trees needed it as a target. The atlas was repaired by shrinking that Record (`../atlas/results/RECEIPT.md`) |
+| `results_v2/results_v2_failures.tsv` | The rows that failed on the previous certificate. Record 11403's Stage C found a two-clique configuration in this checker's label graph, and 10 boundary trees needed it as a target. The atlas was repaired by shrinking that Record (`../atlas/results/RECEIPT.md`) |
 | `tests/` | Sanity tests, and results on a small test certificate |
 
 The F6 search is multithreaded over candidate Records; only the search is parallel, and each acceptance is the same interval test.

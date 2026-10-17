@@ -1,3 +1,6 @@
+> **Note (17 Oct 2026):** this is the return's own README. Its links point into `L_fourier_edge_return.zip`, which is
+> kept with the owner, not in git; see `REVIEW.md` here for what was checked.
+
 # Return L: proofs and replay bundle
 
 Start with **REPORT.md**. It separates the proved local Fourier-edge theorem,

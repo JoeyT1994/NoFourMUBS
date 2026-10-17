@@ -1,5 +1,11 @@
 # Minimal reconstruction
 
+> **Status (17 Oct 2026).** The current proof ([`PROOF.md`](../PROOF.md), Step 2) uses this reconstruction **without** the
+> classification [CT]: matched existence and uniqueness (Theorems 2.2–2.3; sides by return J, flatness by return E), the
+> nonmatched converse (Theorem 2.4, return G) and strict-corner coverage (Theorem 2.5, proved in `Proofs/` with the
+> nonzero-J strips by return K). The statements MC1–MC5 below, proved relative to [CT], are the earlier route and are kept
+> as a record.
+
 **[One-page construction (PDF)](Hadamard6_Positive_Sheet.pdf)** · [LaTeX](Hadamard6_Positive_Sheet.tex) · [Full definitions](RECONSTRUCTION.md) · [Statements MC1–MC5](ASSUMPTIONS.md)
 
 Four unit phases a, b, c, d with R > 0 determine an order-6 complex Hadamard matrix by the positive-sheet construction. The steps are:
@@ -24,7 +30,7 @@ The five statements the reduction needs are proved in [`Proofs/`](Proofs/README.
 
 `python3 Proofs/verify_dossier.py` replays the local checks.
 
-MC4's matched half (both matched completions are flat) and the side fibre's existence part now also have proofs that do not use the classification, by exact certificates: `../proof/coverage/returns/E_matched_flatness/` and `F_side_existence/`.
+MC4's matched half (both matched completions are flat) and the side fibre's existence part now also have proofs that do not use the classification, by exact certificates: `../proof/coverage/returns/E_matched_flatness/` and `../proof/coverage/returns/J_side_existence/` (earlier: `F_side_existence/`).
 
 ## Executable formulas
 

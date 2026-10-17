@@ -1,7 +1,7 @@
 # Review of return N (17 Oct 2026)
 
-**Return:** `N_stagec_second_order_results_2026-10-17.zip` (18.9 MB; SHA-256 `a3bd3d59…b39`, in `../SOURCE_ZIPS.sha256`),
-from handoff N (`../../handoffs/N_stagec_second_order/BRIEF.md`). Only its readable core is kept here (REPORT, the paper
+**Return:** `N_stagec_second_order_results_2026-10-17.zip` (18.9 MB; SHA-256 `a3bd3d59…b39`, in `proof/coverage/returns/SOURCE_ZIPS.sha256`),
+from handoff N (`handoff/BRIEF.md`). Only its readable core is kept here (REPORT, the paper
 proof `work/quadratic_proof.md`, the formal notes and candidate Lean, the test implementation and the exact verifiers); the
 full zip, with fixtures and survey data, is kept locally in `handoff_packages/` (git-excluded) and can be re-shared.
 

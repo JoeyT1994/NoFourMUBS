@@ -37,7 +37,8 @@ each of their twenty three-column corners, its theorem now says:
 
 CRITICAL_P7_EXCLUSION.md and CRITICAL_EQUI_CORRELATION_EXCLUSION.md
 exclude the two rational exceptional cases from an all-critical strip.
-Every remaining nonzero-J corner consequently has the single value
+(Return K, `proof/coverage/returns/K_nonzero_J/REPORT.md`, gives a shorter proof of the nonzero-J classification by two
+signed corner sums; the Lean proof uses it.) Every remaining nonzero-J corner consequently has the single value
 
     p_star=9-4/(1+kappa²),
     3 kappa³+kappa²+kappa-1=0, kappa>0.                (2)

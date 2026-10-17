@@ -1,10 +1,10 @@
 # Review of return L (17 Oct 2026)
 
-**Input:** handoff package `L_fourier_edge_368fbe04.zip`, from `proof/coverage/handoffs/L_fourier_edge/BRIEF.md`.
-**Return:** `L_fourier_edge_return.zip`, kept here unchanged (SHA-256 `4a76d64a…d5fc`, also in `../SOURCE_ZIPS.sha256`).
+**Input:** handoff package `L_fourier_edge_368fbe04.zip`, from the brief in `handoff/BRIEF.md`.
+**Return:** `L_fourier_edge_return.zip` (12 MB, SHA-256 `4a76d64a…d5fc`, in `proof/coverage/returns/SOURCE_ZIPS.sha256`). The zip is not in git (the repository ignores `*.zip`); it is kept with the owner and can be re-shared, and its hash identifies it.
 It unpacks to 306 files / 85 MB, but 51 of them are byte-identical copies of one 1.6 MB orthogonality table, so only
-~8 MB is distinct; to keep the checkout small we store the zip and readable copies of `REPORT.md` and its README
-(`RETURN_README.md`). To replay: unzip into an empty folder and run `python3 -S verify.py` there.
+~8 MB is distinct. The repository keeps readable copies of `REPORT.md` and its README (`RETURN_README.md`); to replay,
+unzip the original into an empty folder and run `python3 -S verify.py` there.
 
 ## What the return claims (its own labels)
 - **Global F and F′: NOT ESTABLISHED.** The four-dimensional atlas cannot be retired on the basis of this return.

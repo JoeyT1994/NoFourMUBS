@@ -1,37 +1,60 @@
 # C⁶ has no four mutually unbiased bases
 
-**Theorem.** There are no four mutually unbiased bases (MUBs) in C⁶.
+> **Theorem.** There are no four mutually unbiased bases (MUBs) in ℂ⁶.
 
-The proof has four steps:
-1. One exact algebraic fact about a four-variable polynomial.
-2. One topological fact about the space of Hadamard matrices.
-3. One local exclusion lemma.
-4. One finite certified computation.
+## The idea in one page
 
-Steps 1 and 2 are pure mathematics. Steps 3 and 4 are computer-assisted, with every constant enclosed in interval arithmetic.
+Rotate four MUBs so that the first is the standard basis. The second basis is then H/√6 for a complex Hadamard
+matrix H of order 6. Call H a **quartet edge** when this pair extends to four MUBs. The theorem says that no H is a
+quartet edge.
+
+The proof sees the space of Hadamard matrices in two ways.
+
+- **Globally, through corners.** Every non-Tao Hadamard matrix other than F6 is built from a single 3×3 *corner*
+  by an explicit reconstruction, the **matched completion**. Corners are parametrised by a 4-torus of seeds. The
+  function R on seeds that controls the reconstruction has its maxima in a single orbit (Step 1). Together these make
+  the space X of non-Tao classes **connected** (Step 2).
+- **Locally, through balls.** A ball of radius 0.08 around a Hadamard matrix can be certified to contain no quartet
+  edge by a finite interval computation (Step 3). Finitely many such balls, 12,021, whose boundaries map back inside
+  the family, cover a nonempty open-and-closed subset of X (Step 4).
+
+Since X is connected, that subset is all of X. So no non-Tao Hadamard is a quartet edge, and Tao's matrix is
+excluded separately. No classification of order-6 Hadamard matrices is used.
+
+| Step | Content | How it is checked |
+|---|---|---|
+| 1 | The positive local maxima of R form one 18-point orbit | Exact algebra (651 claims); **in Lean** |
+| 2 | Reconstruction (matched completions: existence, uniqueness, converse, coverage) and connectedness of X | Paper proofs with exact certificates; **in Lean** |
+| 3 | A ball Record plus Stage C contains no quartet edge | Proved inequalities (**in Lean**), evaluated in interval arithmetic |
+| 4 | A finite atlas of 12,021 Records covers X | Certified computation, replicated by an independent implementation |
 
 ---
 
 ## 0. Setting
 
-**Reduction to Hadamard matrices.** Rotate a set of four MUBs so that the first is the standard basis I. The second basis is then H/√6, where H is a complex Hadamard matrix of order 6 (|H_ij| = 1, HH* = 6I). Call H a **quartet edge** if I and H/√6 extend to four MUBs. The theorem says that no H is a quartet edge.
+**Reduction to Hadamard matrices.** A complex Hadamard matrix of order 6 has |H_ij| = 1 and HH* = 6I; write 𝓗 for
+the set of them. Call H a **quartet edge** if I and H/√6 extend to four MUBs.
 
-**Equivalence.** H ≅ H′ if H′ = P D₁ H D₂ Q, with P and Q permutation matrices and D₁ and D₂ diagonal unitaries. Write 𝓗 for the set of order-6 Hadamard matrices.
+**Equivalence.** H ≅ H′ if H′ = P D₁ H D₂ Q, with P and Q permutation matrices and D₁ and D₂ diagonal unitaries.
 
 **Symmetries.** Being a quartet edge is invariant under:
 - equivalence;
 - conjugation H ↦ H̄;
 - transposition H ↦ Hᵀ (apply the unitary H*/√6 to all four bases, then conjugate).
 
-**Tao's matrix.** S₆ = (e(k_ij/3)) is an isolated point of 𝓗/≅ and is not a quartet edge. Both facts come from our own machinery: S₆ is a *zero-dimensional* ball Record (Step 3, Remark 3.3). Let
+**Tao's matrix.** S₆ = (e(k_ij/3)) is an isolated point of 𝓗/≅ and is not a quartet edge. Both facts come from our
+own machinery: S₆ is a *zero-dimensional* ball Record (Step 3, Remark 3.3). Let
 
   X = (𝓗/≅) ∖ {[S₆]},
 
-with the quotient phase metric δ(H, K) = min{‖v‖ : v horizontal, H ≅ K ∘ e^{iv}}. A real 6×6 matrix is *horizontal* if all its row and column sums vanish.
+with the quotient phase metric δ(H, K) = min{‖v‖ : v horizontal, H ≅ K ∘ e^{iv}}. A real 6×6 matrix is
+*horizontal* if all its row and column sums vanish.
 
-**Corner seeds.** For θ ∈ T⁴, let E(θ) = [[1,1,1],[1,a,b],[1,c,d]] with a, b, c, d = e^{iθ₁}, …, e^{iθ₄}. The classification invariant of this corner is R(θ) = 4g²η − χ² ([`MinimalConstruction/`](MinimalConstruction/README.md)). On the strict seeds S = {R > 0}, an explicit formula gives a Hadamard completion H₊(θ). Relative to the classification [CT], the reconstruction facts MC1–MC5 say: every class other than F6 and S₆ is [H₊(θ)] or [conj H₊(θ)] for some θ ∈ S.
+## Step 1. The maxima of R (exact algebra)
 
-## Step 1. The maxima of R (exact algebra, no classification)
+**Corners and R.** Write a dephased Hadamard matrix in 3×3 blocks, H = [[E, B], [C, D]]. Its leading block is a
+**corner** E(θ) = [[1,1,1],[1,a,b],[1,c,d]], with seed θ ∈ T⁴ and a, b, c, d = e^{iθ₁}, …, e^{iθ₄}. The corner
+determines the scalar R(θ) = 4g²η − χ² (Step 2.1 gives the formulas).
 
 > **Theorem 1.** Every positive local maximum of R on T⁴ lies in one orbit of 18 points under the 144 seed symmetries:
 >
@@ -51,7 +74,7 @@ A local maximum on T⁴ is therefore a local maximum of ℛ relative to 𝒟 × 
 - At x = −h ≤ 0 and v = 2h² + d, the Jacobian c_x f_v − c_v f_x equals −8(h² + 2d)W(h, d), where W has nonnegative coefficients and W ≥ 6d² > 0. Hence x > 0.
 - Then f_v = 0 forces c < 0. Finally xH_yy = −4vc > 0.
 
-So both traces cannot be interior, and the old interior sextic, resultant and Sturm census are not needed.
+So both traces cannot be interior.
 
 **2. Both traces lie on the boundary.**
 - **One smooth boundary trace, the other interior.** The invariant circle orbit enters the interior to first order, or else has d²Δ/dτ² = −(9/2)(r + 2)²|z³ − 1|⁴ < 0.
@@ -62,42 +85,152 @@ So both traces cannot be interior, and the old interior sextic, resultant and St
 - On that branch, the actual transverse curvature is 660(46y + 9) > 4125/32. Every physical root of 4y² + 6y + 1 lies in (−49/256, −3/16), by a secant identity.
 - On h = 1, four positive Bernstein expansions leave only (c, h) = (1/4, 1). Its lifts are exactly the 18-point orbit, with q = (1 + i√15)/4.
 
-**Certificates.** 651 exact claims, checked with integers and rationals only, in 7 s (`lean/Step1Gen`, `verify_certificates.py`; proof documents in `proof/coverage/returns/C_step1_saddle`). All of Step 1 is proved in Lean, using only standard axioms: the 216 certificate theorems of library `Step1` and the analytic assembly in `lean/NoFourMUBs/Step1/`. Theorem 1 is `Step1Geo.maximumCensus`, with the explicit anchors `Step1Geo.anchors`. The earlier resultant/Sturm proofs A and B (`returns/A_deltoid`, `returns/B_exact_quotient`) remain as independent cross-checks. Proof B also shows why no interval box cover could work here: at the F3 seed, R, ∇R and Hess R all vanish, with strict seeds arbitrarily close.
+**Certificates.** 651 exact claims, checked with integers and rationals only, in seconds (`lean/Step1Gen`, `verify_certificates.py`; proof documents in [`proof/coverage/returns/C_step1_saddle`](proof/coverage/returns/C_step1_saddle/)). All of Step 1 is proved in Lean, using only standard axioms: the 216 certificate theorems of library `Step1` and the analytic assembly in `lean/NoFourMUBs/Step1/`. Theorem 1 is `Step1Geo.maximumCensus`, with the explicit anchors `Step1Geo.anchors`. The earlier resultant/Sturm proofs A and B (`returns/A_deltoid`, `returns/B_exact_quotient`) remain as independent cross-checks. Proof B also shows why no interval box cover could work here: at the F3 seed, R, ∇R and Hess R all vanish, with strict seeds arbitrarily close.
 
-## Step 2. X is connected
+## Step 2. Reconstruction, and X is connected
 
-> **Theorem 2.** X is connected. (S₆ is isolated by Remark 3.3.)
+### 2.1 Corner invariants and the side quadratic
 
-The proof below uses MC1–MC5, and so [CT], at step 4. The route without the classification follows it, after matched existence.
+**Invariants.** For a corner E with H = [[E, B], [C, D]], the other blocks satisfy BB* = 6I − EE* =: G and
+C*C = 6I − E*E. Write s, t, r for the off-diagonal entries G₂₁, G₃₁, G₃₂, and put X = |s|², Y = |t|², Z = |r|²,
+p = X + Y + Z, J = 2 Re(s r t̄), W = XY + XZ + YZ − XYZ. Then
 
-**Proof.**
-1. **Sheet parity.** Let L be a seed symmetry with transposition bit τ and conjugation bit κ. Then [H_σ(Lθ)] = 𝒞^κ 𝒯^τ [H_{(−1)^{τ+κ}σ}(θ)]. The maximal seed E(x) = [[1,1,1],[1,x,x²],[1,x⁻¹,x⁻²]] has two exact frame symmetries. Together these give H₊(Lθ*) ≅ K* for all 144 maps L: a single class.
-2. **Continuity.** θ ↦ [H₊(θ)] is continuous on S, including across root cuts and sign switches.
-3. **Every component of S reaches K\*.** Each component of S has compact closure, R > 0 inside and R = 0 on its boundary, so it contains a local maximum of R. By Step 1 that maximum lies in the orbit of θ*. So every component maps into one connected set A = {[H₊(θ)] : θ ∈ S} containing [K*], and conj A is connected too.
-4. **MC1 and MC5** give X = A ∪ conj A ∪ {[F6]}.
-5. **Joining at F6.** The family [[F₃, F₃], [F₃D(t), −F₃D(t)]], with D(t) = diag(1, e^{it}, 1), tends to F₂⊗F₃ ≅ F6. Its cross-ratio e^{it} keeps it away from F6 and S₆ for 0 < t < π/3. So [F6] lies in the closure of both A and conj A. ∎
+  g = 27 − 3p + J = |det B|²,  η = 9 − p + J,  χ = W − (p−9)(p−18) + (p−15)J,  R = 4g²η − χ².
 
-Details: [`proof/coverage/returns/A_deltoid/CONNECTEDNESS.md`](proof/coverage/returns/A_deltoid/CONNECTEDNESS.md) and `SHEETS_TOPOLOGY.md`, with return B as an independent check.
+The vertical side C has the same g, η and χ.
 
-**Matched existence without the classification.** At every strict seed the positive matched completion exists, with no appeal to [CT]:
-- *Sides* ([`returns/F_side_existence`](proof/coverage/returns/F_side_existence/SIDE_EXISTENCE.md)). The explicit side constructor gives horizontal and vertical phase sides with Gram matrices 6I − EE*, 6I − E*E and signatures (χ ± i√R)/2, by explicit polynomial identities with integer cofactors (no irreducibility or density argument).
-- *Flatness* ([`returns/E_matched_flatness`](proof/coverage/returns/E_matched_flatness/FLATNESS.md)).
-  - For any such sides, the defect Δ_ij = |D_ij|² − 1 of the forced block D = −CE*G_h⁻¹B has zero row and column sums.
-  - The change of coordinates W = V̄ΔB̄ᵀ is invertible, and its first row and column vanish, so flatness reduces to four weighted third-moment defects.
-  - Their eight coefficients vanish identically in ℚ(a, b, c, d), with integer cofactors. The fourth-moment identities proposed earlier are also certified, as an independent second proof.
+**Side signature.** For a 3×3 phase block X, put Ψ(X) = perm(X) det(X)² / ∏ᵢⱼ Xᵢⱼ. It is invariant under row and
+column permutations, row and column phases, and transposition.
 
-This is `MatchedExistence` (L1) of the Lean route, now proved by certified computation and in Lean (`L1.matchedExistence`, kernel-checked from the certificates). It removes [CT] from MC4's matched half.
+> **Lemma 2.1 (the side quadratic).** For a normalised side B = (1; x; y) with det B ≠ 0, its signature
+> T = −Ψ(B) satisfies T T̄ = g²η and T + T̄ = χ. Hence T is a root of ζ² − χζ + g²η, and **R = 4 (Im T)²** ≥ 0.
 
-**Step 2 without the classification** ([`returns/G_prm`](proof/coverage/returns/G_prm/PRM.md), 14 Oct; independently audited with no errors found, [`audits/AUDIT_2026-10-15.md`](proof/coverage/audits/AUDIT_2026-10-15.md); proved in Lean).
-- *Theorem A (strict nonmatched converse).* If a Hadamard has a strict corner (R > 0) whose two sides are not matched, it is Tao.
-  - Compare it with the matched completion of the same top three rows, which exists by L1 for any horizontal side.
-  - Strict side fibres are finite, so the two sets of bottom rows are orthonormal bases of the same 3-space with no common ray.
-  - A dimension count then gives a real diagonal D_w ≠ 0 with P D_w P = 0, where P projects onto that 3-space. The complementary projection Q satisfies |P_jk| = |Q_jk|, which splits the six columns into two orthogonal triples, so the matrix has a 3×3 Hadamard block.
-  - An elementary Fourier normal form and an exact census of 81 cases, together with 400 whole-family Laurent identities showing that the Fourier families are matched at every corner, leave only Tao.
-- *Theorem B (PR-M on the guarded locus).* This follows from A through the exact identity ω_n = −δ_p²R/|f₆|², and because no Tao frame is product regular. Theorem B is not on the critical path: neither this proof nor the Lean development uses it ([`audits/AUDIT_THEOREM_B_2026-10-15.md`](proof/coverage/audits/AUDIT_THEOREM_B_2026-10-15.md)).
-- *Theorem C (exact reach).* With the critical-strip results of `MinimalConstruction/Proofs` (critical-strip classification, endpoint exclusions, the sum rule over a fixed row triple, and the Fourier critical locus), which use no [CT] input, every non-Tao class is [F6], or [H₊(θ)] or [conj H₊(θ)] for a strict θ. This is the `MatchedExactReach` statement of the Lean route.
+So a corner is **strict** (R > 0) exactly when the signature of its complementary side is not real. Its two roots
+are then ζ± = (χ ± i√R)/2.
 
-With L1 and L2, the matched class map θ ↦ [H₊(θ)] is continuous. Steps 3 and 5 of the proof of Theorem 2 then give X = A ∪ conj A ∪ {[F6]} connected, with no appeal to [CT]. On this route the reconstruction stays the backbone. H₊(θ) is the object: L1 certifies its side recipe (MC2–MC3, `SIDE_FIBER.md`) and its forced block. MC1 is rederived from the dossier's own critical-strip proofs, with only the Fourier normal form of `FOURIER_ROUTING.md` reproved. MC4's nonmatched converse and MC5 are replaced by Theorem A and exact reach.
+*Proof.* There are two inputs:
+- |perm B|² = η, a Laurent identity in the six unit entries;
+- the "λ-identity" λ₂ P̄₂ = g + c₂ z̄, with |λ₂| = 1, z = T/g, c₂ = 9 − X and P₂ an explicit Gram polynomial,
+  combined with the norm identity |P₂|² = g² + c₂χ + c₂²η.
+
+Together these give c₂(g(z + z̄) − χ) = 0, and c₂ ≠ 0 whenever det B ≠ 0. *Lean:* `Side.TS_root`,
+`Side.RS_eq_im_sq` (`lean/NoFourMUBs/PRM/SideRoot.lean`). ∎
+
+**Matched completions.** A dephased Hadamard matrix with strict leading corner E(θ) is **matched** if its two side
+signatures are conjugate, −Ψ(B) = ζ₊ and −Ψ(C) = ζ₋. Write H₊(θ) for a matched completion and
+A = {[H] : H matched at a strict seed}.
+
+### 2.2 Existence, uniqueness, the converse and coverage
+
+> **Theorem 2.2 (matched existence).** Every strict seed has a matched Hadamard completion.
+
+*Proof.* There are two certified steps:
+- **Sides.** For each strict seed, each of its two side Gram matrices and each root ζ, there is an actual
+  normalised phase side with that Gram matrix and signature ζ. In the angles φ ∈ ℝ⁶ of a side, the Gram map
+  φ ↦ (s, t, r) ∈ ℂ³ ≅ ℝ⁶ has Jacobian determinant ¼ Im Ψ (**identity (J)**: the derivative of
+  (s, s̄, t, t̄, r, r̄) has determinant Ψ̄ − Ψ, the Laplace expansion into two products of 3×3 determinants). By
+  Lemma 2.1 it is nonzero wherever R > 0, so by the inverse function theorem the strict seeds whose Gram matrix is
+  realised with Im T > 0 form an open set U. U is also closed in S = {R > 0}: the sides form a compact torus, and
+  Im T cannot reach 0 over R > 0. U contains the 18 maxima of R (Theorem 1), where the matched completions
+  transported from the explicit completion H₀ supply the sides, so U = S by the maximum argument of Theorem 2.
+  Conjugating seed and side gives the other root, and the vertical side is the same with the signs exchanged
+  ([`proof/coverage/returns/J_side_existence/RESULT.md`](proof/coverage/returns/J_side_existence/RESULT.md)).
+- **Flatness.** For *any* actual sides B, C on conjugate roots, the forced block D = −C E* G⁻¹ B has unimodular
+  entries. The completion always satisfies HH* = 6I. Its defect matrix |Dᵢⱼ|² − 1 has zero row and column sums, so it
+  is determined by four weighted third-moment defects. Their eight coefficients vanish identically in ℚ(a, b, c, d)
+  ([`proof/coverage/returns/E_matched_flatness`](proof/coverage/returns/E_matched_flatness/FLATNESS.md)).
+
+*Lean:* `L1.matchedExistence`. Side existence is `L1.exists_side_h` and `L1.exists_side_v` (`L1/SideJacobian`,
+`L1/SideCover`); the flatness identities are re-checked by the kernel through a verified Kronecker
+polynomial-identity checker. ∎
+
+> **Theorem 2.3 (matched uniqueness).** Two matched completions of the same strict seed are equivalent.
+
+*Proof.* The data (s, t, r, T) of a strict side determine its row products and permanent: the λ-identities above
+are linear in them, and Im T ≠ 0. A Vieta argument then determines the side up to a column permutation. Matched
+uniqueness follows, since the forced block is determined by the sides. *Lean:* `Step2.matchedUniqueness`. ∎
+
+> **Theorem 2.4 (the nonmatched converse).** If a Hadamard matrix has a strict corner whose two side signatures
+> are *not* conjugate, it is equivalent to S₆.
+
+*Proof* ([`proof/coverage/returns/G_prm/PRM.md`](proof/coverage/returns/G_prm/PRM.md) §§2–5). Let M be such a
+matrix, dephased at the corner, with horizontal signature ζ. Its vertical signature is then ζ as well (Lemma 2.1).
+1. **Comparison.** Theorem 2.2 gives an actual vertical side on ζ̄. With M's own horizontal side, its forced block is
+   flat. So there is a matched completion H₀ with the **same top three rows** T as M.
+2. **No shared ray.** Two strict sides on different roots share no column. If they shared one, the two remaining
+   column pairs would have the same Gram data. Either they coincide (so the signatures agree), or they have one of
+   three degenerate shapes, each with a real signature. So no bottom row of M is proportional to a bottom row of H₀.
+   The two bottom-row bases are orthonormal bases of the same 3-space, the orthogonal complement of T's rows, with
+   no common ray.
+3. **A diagonal relation.** Hermitian operators diagonal in both bases are scalar, so a dimension count gives a
+   nonzero real diagonal D_w with P D_w P = 0, where P projects onto that 3-space. Its complement Q = I − P has
+   |Pⱼₖ| = |Qⱼₖ|, which forces Q D_w Q = 0, i.e. (wⱼ + wₖ) Qⱼₖ = 0.
+4. **A Hadamard block.** A strict strip has no proportional columns. So all |wⱼ| are equal and nonzero, and the
+   three columns of either sign are pairwise orthogonal: a 3×3 Hadamard block.
+5. **Fourier normal form.** A Hadamard matrix with such a block reduces to a Fourier normal form. Exhausting it,
+   using a three-point Fourier criterion and an exact census of the cubic cases, leaves Tao's orbit or the two
+   Fourier families. The Fourier families are matched at every corner (400 Laurent identities on paper; 200 are
+   kernel-checked in Lean and the rest follow by conjugation). So M is Tao.
+
+Independently audited with no errors found ([`proof/coverage/audits/AUDIT_2026-10-15.md`](proof/coverage/audits/AUDIT_2026-10-15.md)).
+*Lean:* `PRM.nonmatched_tao` (`lean/NoFourMUBs/PRM/Converse.lean` and its imports). ∎
+
+> **Theorem 2.5 (strict-corner coverage).** Every Hadamard matrix not equivalent to F6 has a strict corner.
+
+*Proof* ([`MinimalConstruction/Proofs/STRICT_CORNER_COVERAGE.md`](MinimalConstruction/Proofs/STRICT_CORNER_COVERAGE.md),
+with `PRM.md` §7.1). Suppose every corner of H is critical (R = 0) and H ≇ F6.
+1. **Routing.** A singular 3×3 minor, or three rows phased into (1; x; x̄), would put H in a Fourier family
+   (elementary, `PRM.md` §7.1). An all-critical member of a Fourier family is equivalent to F6
+   (`FOURIER_CRITICAL_LOCUS.md`). So all minors are invertible, and no row triple is of that form.
+2. **Critical-strip classification.** On any three-row strip with all twenty blocks invertible and every corner
+   critical, each corner has p ∈ {0, 5}, or one of two rational endpoints, or p = p* := 9 − 4/(1 + κ²), where
+   κ > 0 solves 3κ³ + κ² + κ − 1 = 0.
+   - *Zero J* (`CRITICAL_STRIP_CLASSIFICATION.md`): a whole-strip square-sum identity and exact moment algebra.
+   - *Nonzero J* ([`proof/coverage/returns/K_nonzero_J/REPORT.md`](proof/coverage/returns/K_nonzero_J/REPORT.md)):
+     two sums of the *unsquared* corner signature, Σ_C D_C = ā b c − a b̄ c̄ and its xy-weighted version, vanish on
+     an all-critical strip. With the cleared λ-identities and a universal 24-term identity they force
+     Im(s̄ r̄ t) = 0 or a repeated modulus, poles included; this leaves four one-parameter curves. On each curve, if
+     all six λ-denominators were nonzero the weighted sum would equal an explicit nonzero value, so some
+     denominator vanishes; the product of the six denominators, factored on the four curves, gives exactly the
+     three candidates.
+   - The two endpoints are excluded separately (`CRITICAL_P7_EXCLUSION.md`, `CRITICAL_EQUI_CORRELATION_EXCLUSION.md`).
+3. **Counting.** κ ∈ (1/√5, 1/2), since the cubic is increasing for κ > 0 and changes sign there. Hence
+   p* ∈ (17/3, 29/5). Fix one column of a strip. Over the ten corners containing it, Σ p_C = 54 (row
+   orthogonality; it is half of the 108 over all twenty corners, since complementary corners have the same p). Ten
+   numbers from {0, 5} ∪ (17/3, 29/5) cannot sum to 54: sums of 0s and 5s are multiples of 5, and the open intervals
+   (17n/3 + 5m, 29n/5 + 5m) never contain 54. (The interval must be open: six copies of 17/3 and four 5s sum to 54.) ∎
+
+*Lean:* `PRM.strictCornerCoverage` (`lean/NoFourMUBs/Final.lean`; modules `PRM/Coverage*.lean`). The Lean proof
+differs from the paper in two places: the p = 7 endpoint is excluded by one corner of signature −56 − 8i instead of
+the 20-corner sum, and the cube-root case of the equicorrelation endpoint uses (w³ − 8a)(w³ + a)² = 0 instead of a
+field-degree argument. The zero-J square-sum identity is re-checked by the kernel (`PRM/CoverageStripIdZero*.lean`);
+the nonzero-J stratum is `PRM/CoverageSigned*.lean`.
+
+> **Corollary 2.6 (exact reach).** Every class of X is [F6], or in A, or in conj A.
+
+*Proof.* Let H ≇ F6 be non-Tao. Take a strict corner (Theorem 2.5) and dephase. By Theorem 2.4 its sides are
+matched. If the horizontal signature is ζ₋, conjugate the whole matrix. *Lean:* `PRM.exactReach`. ∎
+
+### 2.3 Connectedness
+
+> **Theorem 2.** X is connected.
+
+*Proof.*
+1. **Continuity.** The class map θ ↦ [H₊(θ)] on strict seeds is continuous: the matched relation is closed, 𝓗 is
+   compact, and the matched class is unique (Theorems 2.2, 2.3).
+2. **A is connected.** Each component of the strict seed set S = {R > 0} has compact closure, with R = 0 on its
+   boundary, so it contains a positive local maximum. By Theorem 1 that maximum lies in the 18-point orbit, and all
+   18 points give one class [K*]: let L be a seed symmetry with transposition bit τ and conjugation bit κ; then
+   [H_σ(Lθ)] = 𝒞^κ 𝒯^τ [H_{(−1)^{τ+κ}σ}(θ)], and the maximal seed E(x) = [[1,1,1],[1,x,x²],[1,x⁻¹,x⁻²]] has two
+   exact frame symmetries; an explicit matched completion H₀ at θ* (`Step2/BaseAnchor.lean`) anchors the class. So
+   the image of every component is connected and contains [K*], and A is connected. So is conj A.
+3. **Joining at F6.** The family [[F₃, F₃], [F₃D(t), −F₃D(t)]], with D(t) = diag(1, e^{it}, 1), tends to
+   F₂⊗F₃ ≅ F6 as t → 0. Its cross-ratio e^{it} keeps it away from F6 and S₆ for 0 < t < π/3. So [F6] lies in the
+   closure of both A and conj A.
+4. **Conclusion.** By Corollary 2.6, X = A ∪ conj A ∪ {[F6]}, which is therefore connected. ∎
+
+Details: [`proof/coverage/returns/A_deltoid/CONNECTEDNESS.md`](proof/coverage/returns/A_deltoid/CONNECTEDNESS.md) and
+`SHEETS_TOPOLOGY.md`, with return B as an independent check. *Lean:* `Step2.coverage_of_matched_density` and its inputs.
 
 **Corollary (coverage).** Let 𝓡 be a finite family of closed Records (Step 3), and let 𝓡̂ be its closure under Γ = {id, conjugation, transposition, conjugate-transpose}. Γ maps a Record ball to a Record ball of the same radius and preserves quartet edges. Let W be the set of classes of Hadamards in ⋃𝓡̂. Suppose:
 1. W contains a non-Tao class;
@@ -110,7 +243,7 @@ Then W ⊇ X.
 - W ∩ X is closed: it is a finite union of compact images.
 - W ∩ X is nonempty.
 
-Since X is connected, W ∩ X = X. ∎
+Since X is connected, W ∩ X = X. *Lean:* `recordClopen_of_atlas`, `Step2.coverage_of_connected`. ∎
 
 ## Step 3. Local exclusion: ball Records
 
@@ -126,7 +259,7 @@ A **ball Record** is a set B_r = {e^{i(P+δ)} : δ horizontal, ‖δ‖ ≤ R}, 
 
 > **Lemma 3.2 (Stage C, after [OAI] §6).** Suppose the vector-bin cover, the label clustering, the O/U edge tests (including the joint test 6.23) and the exact two-clique search succeed for (P, T, r_H, n, r_col, r_F), where r_col bounds the columns of δ and r_F its Frobenius norm. Then no Hadamard in B_r is a quartet edge.
 
-**Proofs.** Every Stage C inequality, the label lemma and the correctness of the clique search are stated and proved in our notation in [`proof/atlas/STAGEC.md`](proof/atlas/STAGEC.md).
+**Proofs.** Every Stage C inequality, the label lemma and the correctness of the clique search are stated and proved in our notation in [`proof/atlas/STAGEC.md`](proof/atlas/STAGEC.md), and in Lean (`lean/NoFourMUBs/StageC/`).
 
 **Code.** [`proof/atlas/ballrecord.py`](proof/atlas/ballrecord.py) and [`stagec.py`](proof/atlas/stagec.py).
 
@@ -136,13 +269,11 @@ A **ball Record** is a set B_r = {e^{i(P+δ)} : δ horizontal, ‖δ‖ ≤ R}, 
 - All other float comparisons carry a margin of 10⁻⁷, against a per-expression error budget below 10⁻¹⁰.
 - An Arb replay of sampled rejections confirms every one.
 
-Records pass at R = 0.08 rad, about 0.5 s each.
-
 > **Remark 3.3 (S₆ is a zero-dimensional Record).** At S₆ the horizontal spectrum of JᵀJ is exactly {9/2 (×16), 12 (×9)}. An exact rational check gives M(M − 9/2)(M − 12) = 0 and the traces, and shows that the 11-dimensional gauge space is the kernel. So J is injective on all 25 horizontal directions, with σ = 3/√2 exactly; T is empty and r_H = 0.
 > - *Isolation.* Φ(0) = 0 at S₆. So for any Hadamard e^{i(P+δ)} with δ horizontal, the remainder bound gives σ‖δ‖ ≤ √3‖δ‖². Hence δ = 0 or ‖δ‖ ≥ σ/√3 = √(3/2). So S₆ is isolated in 𝓗/≅ (Lean: `isolation`).
 > - *Exclusion.* Stage C passes on the ball of radius R = 0.08, so S₆ is not a quartet edge.
 >
-> This is [`proof/atlas/tao.py`](proof/atlas/tao.py), which runs in about 2 s.
+> This is [`proof/atlas/tao.py`](proof/atlas/tao.py).
 
 ## Step 4. A finite atlas
 
@@ -152,50 +283,76 @@ Records pass at R = 0.08 rad, about 0.5 s each.
 >
 > then every boundary Hadamard of s whose tangent coordinate lies in the box is equivalent to an interior point of t.
 
-Because of the normal bound, the boundary of a Record needs only a 4-dimensional cover by η-boxes, not a 25-dimensional one.
+Because of the normal bound, the boundary of a Record needs only a 4-dimensional cover by η-boxes, not a 25-dimensional one. *Lean:* `Transfer.lean`.
 
 **The computation** ([`proof/atlas/`](proof/atlas/README.md)):
 1. `atlas.py` grows ball Records breadth-first from a seed centre until every Record's boundary is transferred.
-2. `certify.py` re-checks every Record independently: σ, the normal bound, Stage C, and a replay of the boundary tree with Arb transfer constants.
+2. `certify.py` re-checks every Record independently: σ, the normal bound, Stage C, and a replay of the boundary tree with Arb transfer constants. It trusts only the centre phases, radii, label radii, integer frames and target lists of the certificate.
 3. `nonempty.py` and `anchor.py` place F6 and the explicit maximum-anchor completion H₀ inside Records.
 
-**Result** ([`proof/atlas/results/`](proof/atlas/results/RECEIPT.md)), with the corrected Stage C:
+**Result** ([`proof/atlas/results/RECEIPT.md`](proof/atlas/results/RECEIPT.md)):
 - **The atlas.** 12,021 ball Records: 10,497 at R = 0.08, 1,029 at 0.063, 419 at 0.05 and 76 at 0.04. Every boundary is transferred, with on average 58 transfer targets per Record.
-- **Certification.** `certify.py` certifies all 12,021, and an independent Julia implementation (`proof/independent/`) passes all 12,021 as well (`proof/atlas/results/RECEIPT.md`).
-- **Nonemptiness.** F6 lies in the interior of Record 877, at distance 0.023 < 0.08.
-- **Cost.** About 1.9 CPU-hours to certify; `verify.py --atlas -j 8` takes 14 minutes on an Apple M5 Max (17 Oct 2026, `proof/atlas/results/RECEIPT.md`).
+- **Certification.** `certify.py` certifies all 12,021 (about 1.9 CPU-hours; 14 minutes with 8 workers on an Apple M5 Max). An independent Julia implementation written from this specification ([`proof/independent/`](proof/independent/README.md)) passes all 12,021 as well (24 minutes on one 128-core node).
+- **Nonemptiness.** F6 lies in the interior of Record 877, at distance 0.023 < 0.08; the anchor H₀ lies in Record 9319.
 - **Certificate.** `atlas_certificate.json.gz` (16 MB, with integer tangent frames).
 
 ## Conclusion
 
-By Step 4 and the Corollary to Step 2, every class in X lies in some ball Record. By Step 3, no Hadamard in a Record is a quartet edge. S₆ is not a quartet edge, by Remark 3.3. Hence no order-6 Hadamard matrix is a quartet edge, and C⁶ has no four MUBs. ∎
+By Step 4 and the Corollary to Step 2, every class in X lies in some ball Record. By Step 3, no Hadamard in a Record is a quartet edge. S₆ is not a quartet edge, by Remark 3.3. Hence no order-6 Hadamard matrix is a quartet edge, and ℂ⁶ has no four MUBs. ∎
 
-## Trust boundary
+**In Lean** the whole argument is `NoFourMUBs.Final.no_four_mubs (C : AtlasCertificate) : ¬ FourMUBs` ([`lean/NoFourMUBs/Final.lean`](lean/NoFourMUBs/Final.lean)), using only `propext`, `Classical.choice` and `Quot.sound`. Its one input is the finite certificate of Step 4: Lean proves "if the 12,021 Records satisfy their inequalities, there are no four MUBs", and the inequalities themselves are checked by two independent interval implementations.
 
-| Input | Used in | Status |
-|---|---|---|
-| Step 2 without [CT]: matched existence (L1), matched uniqueness (L2), exact reach (return G) | Step 2 | **Proved in Lean.** L1 and L2; Theorem A and the deduction of density from coverage (`PRM.nonmatched_tao`, `PRM.densityReach`, `no_four_mubs_of_coverage`); and strict-corner coverage (MC1, `PRM.strictCornerCoverage`), from the [CT]-free critical-strip proofs in `MinimalConstruction/Proofs`, with the kernel re-checking the sign certificate and both square-sum identities. On paper, exact reach is proved with exact certificates ([`returns/G_prm`](proof/coverage/returns/G_prm/PRM.md)). An independent audit of Theorem A, exact reach and coverage found no errors ([`audits/AUDIT_2026-10-15.md`](proof/coverage/audits/AUDIT_2026-10-15.md)). A floating-point stress test found every one of 8.0M strict corners of 20,016 completions matched, while Tao's strict corners are all nonmatched |
-| The classification [CT], via MC1–MC5 | Step 2, earlier route | Superseded by the row above, which keeps the reconstruction (H₊(θ), its side recipe, and MC1 by the dossier's critical-strip proofs) and drops only its [CT] imports. Proved relative to [CT] in [`MinimalConstruction/Proofs`](MinimalConstruction/Proofs/README.md). That route imported [CT]'s necessary affine-minus matching (PR-M), whose supplied proof showed only F₊ ≢ 0. Return G's Theorem B now proves PR-M on the guarded locus with ω_n < 0 |
-| The Stage C inequalities (after [OAI] §6) | Step 3 | Proved in [`proof/atlas/STAGEC.md`](proof/atlas/STAGEC.md) by elementary Taylor and Cauchy–Schwarz bounds, and in Lean |
-| Computation | Steps 1 and 4 | Exact (Step 1, also kernel-checked in Lean); Arb plus margined binary64 (Steps 3–4), confirmed by an independent Julia implementation. **The atlas numbers are the only ingredient checked outside Lean** (an experimental kernel check is in [`kernel_atlas/`](kernel_atlas/README.md)) |
+## What is checked, and how
 
-**In Lean**, the whole argument is `NoFourMUBs.Final.no_four_mubs (C : AtlasCertificate) : ¬ FourMUBs` ([`lean/NoFourMUBs/Final.lean`](lean/NoFourMUBs/Final.lean)), using only `propext`, `Classical.choice` and `Quot.sound`. Its one input is the finite certificate of Step 4.
+| Ingredient | Paper proof | Computation | Lean |
+|---|---|---|---|
+| Theorem 1 (maxima of R) | return C | 651 exact claims | yes |
+| Lemma 2.1 (side quadratic) | Step 2.1 | none | yes |
+| Theorem 2.2 (matched existence) | return J (sides), return E (flatness) | identity (J); exact flatness identities | yes (kernel re-checks every identity) |
+| Theorem 2.3 (matched uniqueness) | Step 2.2 | none | yes |
+| Theorem 2.4 (nonmatched converse) | return G §§2–5 | exact: 81-case census, Laurent identities | yes |
+| Theorem 2.5 (strict-corner coverage) | `STRICT_CORNER_COVERAGE.md`; return K for nonzero J | exact identities | yes (kernel re-checks the zero-J square-sum identity and return K's signed corner expansion) |
+| Theorem 2 (connectedness) | Step 2.3 | none | yes |
+| Lemmas 3.1–3.2, Remark 3.3 | `STAGEC.md` | none | yes (as inequalities) |
+| The atlas (Step 4) | Lemma 4.1, Corollary to Step 2 | Arb and margined float; two independent implementations | the topology yes; the numbers are checked outside Lean |
+
+**Inputs taken as given.** No classification of order-6 Hadamard matrices is used. The Stage C method follows
+[OAI] §6, with every inequality reproved (`STAGEC.md`) and formalised.
+
+**What remains outside Lean: the atlas numbers only.** An optional project checks them in the Lean kernel as well
+([`kernel_atlas/`](kernel_atlas/README.md)); it is not needed for this proof.
 
 ## Verifying
 
 ```bash
-pip install -r requirements.txt
-python3 verify.py            # exact replays: Steps 1-2, matched existence, PR-M and exact reach, MC1-MC5, S6, Stage C Arb sample
-python3 verify.py --atlas -j 8  # also certify all 12,021 Records, F6 and the anchor (~1.9 CPU-hours: 14 min with -j 8 on an M5 Max)
-python3 verify.py --lean     # also build the Lean formalisation and audit its axioms
-python3 verify.py --lean-full  # also build L1 and NoFourMUBs.Final (hours on a first build)
+pip install -r requirements.txt   # Python 3.10+: numpy, sympy, mpmath, python-flint
+python3 verify.py                 # exact replays of Steps 1–3 (about 1 minute)
+python3 verify.py --atlas -j 8    # also certify all 12,021 Records, F6 and the anchor H0 (about 1.9 CPU-hours; 14 min with 8 workers)
+python3 verify.py --lean          # also build the Lean formalisation and audit its axioms (about 8 min with the Mathlib cache)
+python3 verify.py --lean-full     # also build matched existence and NoFourMUBs.Final (about 25 min on an Apple M5 Max)
 ```
+
+The independent Julia checker is run separately ([`proof/independent/README.md`](proof/independent/README.md)).
+Where to look hardest, and the full status, are in [`AUDIT.md`](AUDIT.md).
 
 ## History
 
-The first complete proof used the corner chart directly: a maximal-corner domain, a branch layer and a 45.7M-row ledger, about 10⁵ core-hours. It is preserved, still replayable, at the git tag `archive-2026-10-11` (`archive/long_proof/`). The minimal proof replaces all of it with Steps 1–4.
+- The first complete proof used the corner chart directly: a maximal-corner domain, a branch layer and a 45.7M-row
+  ledger, about 10⁵ core-hours. It is preserved, still replayable, at the git tag `archive-2026-10-11`
+  (`archive/long_proof/`).
+- The first minimal proof deduced X = A ∪ conj A ∪ {F6} from the classification [CT] through five reconstruction
+  facts MC1–MC5 ([`MinimalConstruction/`](MinimalConstruction/README.md)). One of them (the nonmatched converse)
+  imported [CT]'s minus-matching necessity (PR-M), whose supplied proof was incomplete. The route above replaces
+  [CT] entirely: MC2–MC3 by Theorems 2.2–2.3; MC4–MC5 and PR-M by Theorem 2.4 (return G also proves PR-M on the
+  guarded locus, its Theorem B, which is not on the critical path); MC1 by Theorem 2.5.
+- Matched existence first used return F's explicit radical side construction; it now uses identity (J) (return J).
+  The nonzero-J critical strips first used a twenty-corner square sum with a Bernstein/Sturm certificate; they now
+  use return K's signed corner sums.
+- The proof documents before this consolidation (the four-step PROOF.md with the [CT] route first, and the
+  [CT]-free draft PROOF_v2.md) are preserved at the git tag `proof-docs-2026-10-17`.
 
 ## References
 
-- [CT] M. Cárdenes Wuttig, J. Tindall, *A complete classification of complex Hadamard matrices of order six*, arXiv:2608.18053.
 - [OAI] OpenAI, *The maximum number of mutually unbiased bases in dimension six*, preprint, 24 Sep 2026 (openai/math).
+- [CT] M. Cárdenes Wuttig, J. Tindall, *A complete classification of complex Hadamard matrices of order six*,
+  arXiv:2608.18053 (context for the reconstruction; not used by the proof).

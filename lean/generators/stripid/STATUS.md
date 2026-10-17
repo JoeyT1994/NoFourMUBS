@@ -3,7 +3,7 @@
 Only the **zero-`J`** square-sum identity is still used. The nonzero-`J` stratum is now proved by return K's two
 signed corner sums (`PRM/CoverageSigned*.lean`, generator `lean/generators/strip/signed.py`;
 `proof/coverage/returns/K_nonzero_J/INTEGRATED.md`). The nonzero-`J` square-sum identity `nonzeroJAlgebra`, its
-40 `CoverageStripIdNonzero*` modules (7.7 MB of generated data), `CoverageStripIdStage`, `CoverageStripIdFast`,
+28 `CoverageStripIdNonzero*` modules (7.5 MB of generated data), `CoverageStripIdStage`, `CoverageStripIdFast`,
 the quartic `Q(k, K)` and its Bernstein/Sturm sign certificate (`CoverageQuartic`, `CoverageQuarticCore`,
 `…Low*`, `…High*`, `Identity/RootFree`) and their generators (`gen_nonzero*.py`, `staged.py`, `split/`,
 `generators/critical/`) were removed on 17 Oct 2026; they are in git history before that date.

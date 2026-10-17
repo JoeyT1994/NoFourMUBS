@@ -5,7 +5,7 @@ proves side existence at every strict seed by an explicit radical construction w
 (`SIDE_EXISTENCE.md`, `STATUS.md`, `CERTIFICATE_GUIDE.md`).
 
 **Superseded in the proof (17 Oct 2026).** Side existence is now proved by handoff J
-([`../../handoffs/J_side_existence_jacobian/RESULT.md`](../../handoffs/J_side_existence_jacobian/RESULT.md)): in angle
+([`../J_side_existence/RESULT.md`](../J_side_existence/RESULT.md)): in angle
 coordinates the Gram map of a side has Jacobian determinant ¼ Im Ψ (identity (J)), so by Lemma 1.1 and the inverse
 function theorem the Gram data realised with a given sign of Im Ψ form an open set over R > 0; a clopen/maximum
 argument with the anchors from H₀ and Step 1's census of maxima gives every strict seed. In Lean this is

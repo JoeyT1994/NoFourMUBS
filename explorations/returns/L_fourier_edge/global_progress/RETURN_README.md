@@ -1,3 +1,6 @@
+> **Note (17 Oct 2026):** this is the bundle's own README. Its links point into `L_global_F_progress.zip`, which is kept
+> with the owner, not in git; see `REVIEW.md` here for what was checked.
+
 # Global F progress: a complete component and quartet constraints
 
 **17 October 2026 · Exact algebra plus explicit analytic proofs**

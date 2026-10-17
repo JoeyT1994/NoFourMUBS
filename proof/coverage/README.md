@@ -1,38 +1,36 @@
-# Steps 1 and 2: the maxima of R, and connectedness
+# Steps 1 and 2: proofs and certificates
 
-Seven returned handoffs prove or audit Steps 1 and 2; two more (H, I) concern the draft paper's Section II. Each is kept with its proofs and verifiers; the original zips' SHA-256 hashes are in `returns/SOURCE_ZIPS.sha256`. Every acceptance decision is exact: polynomial identities, Bernstein and Sturm certificates, and rational interval signs.
+The proofs behind Steps 1 and 2 of [`PROOF.md`](../../PROOF.md) arrived as self-contained "returns", each kept here
+with its write-up, exact verifiers and certificates. Every acceptance decision is exact: polynomial identities,
+Bernstein and Sturm certificates, and rational interval signs. The original zips' SHA-256 hashes are in
+[`returns/SOURCE_ZIPS.sha256`](returns/SOURCE_ZIPS.sha256). Returns on research questions that the proof does not use
+are in [`explorations/returns/`](../../explorations/returns/).
 
-| Return | Role | Replay |
+## Used by the proof
+
+| Return | Proves (in `PROOF.md`) | Replay |
 |---|---|---|
-| [`C_step1_saddle/`](returns/C_step1_saddle/README.md) | **Step 1, primary proof.** A direct saddle theorem removes the interior sextic; the rest is 651 exact claims. Certificates and Lean live in `lean/Step1Gen/`, and Step 1 is fully proved in Lean | `python3 lean/Step1Gen/verify_certificates.py` (7 s) |
-| [`A_deltoid/`](returns/A_deltoid/README.md) | **Step 2.** Sheet parity, continuity of θ ↦ [H₊(θ)], and connectedness of X (`CONNECTEDNESS.md`, `SHEETS_TOPOLOGY.md`). It also gives a deltoid-route proof of Step 1 | `cd returns/A_deltoid && python3 verify_all.py` (6 s) |
-| [`B_exact_quotient/`](returns/B_exact_quotient/README.md) | **Cross-check.** An independent exact proof of Step 1 and of the quotient coverage. It also shows no interval box cover of T⁴ can terminate: R, ∇R and Hess R vanish at the F3 seed | `cd returns/B_exact_quotient && python3 verify_all.py` (7 s) |
-| [`D_step2_audit/`](returns/D_step2_audit/README.md) | **Audit and blueprint** of Step 2 against the upstream Lean classification. It is the route the Lean formalisation follows, and it found the PR-M point | `cd returns/D_step2_audit/certificates && python3 verify_l2_identities.py` |
-| [`F_side_existence/`](returns/F_side_existence/README.md) | **Matched existence, sides (superseded, kept as provenance).** At every strict seed, explicit phase sides with the prescribed Gram matrices and signatures, by polynomial identities with integer cofactors. The proof and Lean now use handoff J instead ([`handoffs/J_side_existence_jacobian/RESULT.md`](handoffs/J_side_existence_jacobian/RESULT.md)): the Jacobian identity (J), the inverse function theorem and the clopen/maximum argument | `cd returns/F_side_existence && python3 verify_all.py` (16 s) |
-| [`E_matched_flatness/`](returns/E_matched_flatness/FLATNESS.md) | **Matched existence, flatness.** The forced block of any matched pair of sides is unimodular. Flatness reduces to four weighted third-moment defects, whose eight coefficients vanish identically; the fourth-moment identity (L-id) is certified as a second proof | `cd returns/E_matched_flatness && python3 verify_all.py` (90 s) |
-| [`G_prm/`](returns/G_prm/PRM.md) | **PR-M and exact reach.** A strict corner with nonmatched sides forces a 3×3 Hadamard block, and hence Tao (Theorem A); guarded PR-M follows (Theorem B). With the critical-strip proofs, every non-Tao class is [F6] or a matched class or its conjugate (Theorem C, `MatchedExactReach`). This is a paper proof with exact certificates: an 81-case Fourier census, 400 Laurent identities, product-bridge identities and 729 cubic sides | `cd returns/G_prm && python3 verify_all.py` (2 s) |
-| [`H_fourier_vanishing/`](returns/H_fourier_vanishing/REPORT.md) | **Fourier vanishing (paper input, not used by the main proof).** For every non-Tao order-6 Hadamard H and every row triple I, M_I(H) = (1/6) Σ_j Π_{a∈I} H_aj Π_{d∉I} conj(H_dj) = 0, and likewise for Hᵀ. Theorem A at every strict corner gives Ψ(H[I,J]) = conj Ψ(H[Iᶜ,Jᶜ]) for all 3×3 splits; a 3×3 identity, Jacobi's complementary minors and an exterior-duality lemma turn this into the vanishing, given rank H^[2] ≥ 3, which a strict corner supplies (exact reach). Inputs: `PRM.nonmatched_tao`, `PRM.strictCornerCoverage` (both in Lean) and return E's side identities. Certificate: 180 identities with 2,160 integer cofactors, standard library only | `cd returns/H_fourier_vanishing && python3 verify.py` (1 s) |
-| [`I_moment_reduction/`](returns/I_moment_reduction/REPORT.md) | **Moment reduction (paper input, not used by the main proof).** Certifies the identity (R) for Re S from orthogonality and Fourier vanishing, and two orthogonality identities. The draft's Eq. (sos) is proved only via return H's all-corner conjugacy and strict-corner coverage, which make it unnecessary; `PAPER_REPLACEMENT.tex` gives the shorter route (see REVIEW.md) | `cd returns/I_moment_reduction && python3 verify.py` (1 s) |
-| [`K_nonzero_J/`](returns/K_nonzero_J/REPORT.md) | **MC1, nonzero-J critical strips (handoff K).** Every corner with J ≠ 0 of an all-critical strip has (k, K) ∈ {(1/3, 729/125), (1, 5), (κ, K_min(κ))}, so 17/3 < p < 29/5: two sums of the unsquared corner signature, a universal identity, four one-parameter curves and the λ-denominator product. Replaces the twenty-corner square sum, the quartic and its sign certificates. Reviewed and independently re-checked ([`REVIEW.md`](returns/K_nonzero_J/REVIEW.md)); **integrated in Lean** (`PRM/CoverageSigned*`, [`INTEGRATED.md`](returns/K_nonzero_J/INTEGRATED.md)) | `cd returns/K_nonzero_J && python3 verify.py` (4 s) |
-| [`L_fourier_edge/`](returns/L_fourier_edge/REVIEW.md) | **Fourier-edge evidence (handoff L; not used by the main proof).** Global F/F′ not established. Proves F in an explicit neighborhood (1/40000 rad) of the Diţă triple, and re-certifies the Fourier-family exclusion (no quartet edge in N ∪ Nᵀ) with corrected code and validated arithmetic; reports a bug in the 2009 published code (unconfirmed by us). Stored as the original zip plus REPORT.md | unzip into an empty folder, then `python3 -S verify.py` (34 s; the large C++ search is not rerun) |
-| [`N_stagec_second_order/`](returns/N_stagec_second_order/REVIEW.md) | **Second-order Stage C test (handoff N; not used by the proof).** Proves a sharper tangent test (exact quadratic term, cubic remainder, all errors); on samples, 2.4× fewer bins at R = 0.08 and 79% of Records passing at R = 0.12. Exact and Arb checks replayed; filed, not integrated (would need an atlas rebuild) | `python3 work/verify_quadratic_exact.py`; `python3 work/verification/replay_arb.py` (needs the full zip's fixtures) |
+| [`C_step1_saddle/`](returns/C_step1_saddle/README.md) | **Theorem 1** (the maxima of R): a direct saddle theorem, then 651 exact claims; certificates and Lean in `lean/Step1Gen/` | `python3 lean/Step1Gen/verify_certificates.py` |
+| [`A_deltoid/`](returns/A_deltoid/README.md) | **Theorem 2** (connectedness): sheet parity, continuity of θ ↦ [H₊(θ)], the joining family at F6 (`CONNECTEDNESS.md`, `SHEETS_TOPOLOGY.md`) | `cd returns/A_deltoid && python3 verify_all.py` |
+| [`J_side_existence/`](returns/J_side_existence/RESULT.md) | **Theorem 2.2, sides**: the Jacobian identity det ∂(Gram)/∂(angles) = ¼ Im Ψ and the clopen/maximum argument (`RESULT.md`; identity check `check_jacobian.py`) | `python3 returns/J_side_existence/check_jacobian.py` |
+| [`E_matched_flatness/`](returns/E_matched_flatness/FLATNESS.md) | **Theorem 2.2, flatness**: four weighted third-moment defects whose eight coefficients vanish identically (the fourth-moment identity L-id is certified as a second proof) | `cd returns/E_matched_flatness && python3 verify_all.py` |
+| [`G_prm/`](returns/G_prm/PRM.md) | **Theorem 2.4** (the nonmatched converse) and exact reach; an 81-case Fourier census and Laurent identities. Its Theorem B (guarded PR-M) is not on the critical path | `cd returns/G_prm && python3 verify_all.py` |
+| [`K_nonzero_J/`](returns/K_nonzero_J/REPORT.md) | **Theorem 2.5, nonzero-J critical strips**: two signed corner sums, a universal identity, four curves and the λ-denominator product ([`REVIEW.md`](returns/K_nonzero_J/REVIEW.md); Lean `PRM/CoverageSigned*`) | `cd returns/K_nonzero_J && python3 verify.py` |
 
-`verify.py` runs C, A, B, F, E and G. H and I are outside the main proof and are replayed on their own.
+The rest of Theorem 2.5 (routing, the zero-J strips, the endpoint exclusions and the ten-corner count) is in
+[`MinimalConstruction/Proofs/`](../../MinimalConstruction/Proofs/README.md) (`STRICT_CORNER_COVERAGE.md` and the
+files it cites). `python3 verify.py` replays all of the above.
 
-## What is proved
+## Cross-checks and provenance
 
-**Claim A (Step 1, no classification input).** The positive local maxima of R on T⁴ are exactly the 18-point orbit, under the 144 seed maps, of θ* = (α, 2α, −α, −2α), α = arccos(1/4), with R(θ*) = 3¹³/2¹². The Hessian there is negative definite.
+| Return | Role |
+|---|---|
+| [`B_exact_quotient/`](returns/B_exact_quotient/README.md) | Independent exact proof of Step 1 and of the quotient coverage; also shows no interval box cover of T⁴ can terminate (R, ∇R and Hess R vanish at the F3 seed). Replayed by `verify.py` |
+| [`F_side_existence/`](returns/F_side_existence/README.md) | The earlier proof of side existence by explicit radical sides with integer-cofactor identities; superseded by J, still replayed by `verify.py` as a cross-check |
+| [`D_step2_audit/`](returns/D_step2_audit/README.md) | Audit and blueprint of Step 2 that the Lean formalisation follows; it found the PR-M point |
 
-**Claim B (relative to MC2–MC5).** Exact sheet parity: [H_σ(Lθ)] = 𝒞^κ 𝒯^τ [H_{(−1)^{τ+κ}σ}(θ)]. Two frame symmetries at the maximum give H₊(Lθ*) ≅ K* for all 144 maps L, so the maxima carry a single class.
+## Audits
 
-**Claim C (relative to MC1–MC5).** θ ↦ [H₊(θ)] is continuous on {R > 0}, and every component of {R > 0} contains a maximum.
-
-**Theorem 2.** X = (𝓗/≅) ∖ {[S₆]} is connected. The images of H₊ and of conj H₊ are connected, since every component reaches [K*]. The family [[F₃, F₃], [F₃D(t), −F₃D(t)]] joins both images to F6.
-
-**Matched existence (L1), without [CT].** By F and E, every strict seed has a positive matched Hadamard completion. This is the `MatchedExistence` input of the Lean main theorem `no_four_mubs_main`, proved in Lean as `L1.matchedExistence`.
-
-**Coverage corollary** ([`../atlas/COVERAGE.md`](../atlas/COVERAGE.md)). A nonempty finite union of Records in which every boundary Hadamard has an interior representative contains X. In Lean this is `Step2.coverage_of_connected`.
-
-**Exact reach without [CT]** (return G). Every non-Tao class is [F6], [H₊(θ)] or [conj H₊(θ)] for a strict θ. Together with L1, L2 and Claim A, this gives Theorem 2 without [CT] (`../../PROOF.md`, Step 2). On this route the reconstruction stays the backbone. H₊(θ) is the object: L1 certifies its side recipe (MC2–MC3, `SIDE_FIBER.md`) and its forced block. MC1 is rederived from the dossier's own critical-strip proofs, with only the Fourier normal form of `FOURIER_ROUTING.md` reproved. MC4's nonmatched converse and MC5 are replaced by Theorem A and exact reach. Return G's geometric argument was audited independently on 15 Oct 2026 with no errors found ([`audits/AUDIT_2026-10-15.md`](audits/AUDIT_2026-10-15.md)).
-
-**Inputs.** On the earlier route, Claims B and C, and so Theorem 2, rest on MC1–MC5 ([`../../MinimalConstruction/`](../../MinimalConstruction/README.md)), relative to the classification [CT], and on the isolation of S₆. Claim A and matched existence use neither. Return G uses L1 (the reconstruction's sides and forced block, certified) and the dossier's own critical-strip proofs in `MinimalConstruction/Proofs`, which use no [CT] input.
+[`audits/`](audits/): the independent audit of Theorem 2.4, exact reach and strict-corner coverage
+([`AUDIT_2026-10-15.md`](audits/AUDIT_2026-10-15.md), no errors found), the audit of return G's Theorem B, and the I4
+addendum with its check scripts.

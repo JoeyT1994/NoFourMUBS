@@ -1,6 +1,6 @@
 # Review of return K (17 Oct 2026)
 
-**Input:** handoff package `K_nonzero_J_strips_368fbe04.zip` (SHA-256 `3753fc4a…a609`), from `proof/coverage/handoffs/K_nonzero_J_strips/BRIEF.md` at commit `368fbe04`.
+**Input:** handoff package `K_nonzero_J_strips_368fbe04.zip` (SHA-256 `3753fc4a…a609`), from the brief in `handoff/BRIEF.md` at commit `368fbe04`.
 **Return:** `K_nonzero_J_return_2026-10-17.zip` (SHA-256 in `../SOURCE_ZIPS.sha256`), unpacked here unchanged; `review/` is ours.
 
 ## Claim

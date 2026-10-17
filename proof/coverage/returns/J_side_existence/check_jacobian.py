@@ -20,6 +20,7 @@ for _ in range(5000):
     Jr = np.vstack([Jc[0].real, Jc[0].imag, Jc[1].real, Jc[1].imag, Jc[2].real, Jc[2].imag])
     worst = max(worst, abs(np.linalg.det(Jr) - 0.25*Psi.imag))
 print("numeric: max |det J - Im(Psi)/4| over 5000 random sides =", worst)
+assert worst < 1e-9, "identity (J) fails numerically"
 # symbolic Laurent check: det M = conj(Psi) - Psi with M_ab = i v_b dF_a/dv_b, F = (s,t,r,sbar,tbar,rbar)
 v = sp.symbols('x0 x1 x2 y0 y1 y2'); X, Y = v[:3], v[3:]
 s, t, r = sum(X), sum(Y), sum(Y[j]/X[j] for j in range(3))
@@ -30,4 +31,7 @@ Bm = sp.Matrix([[1,1,1], list(X), list(Y)])
 perm = sum(sp.prod([Bm[i, p[i]] for i in range(3)]) for p in itertools.permutations(range(3)))
 Psi = perm*Bm.det()**2/sp.prod(list(X)+list(Y))
 Psibar = Psi.subs({q: 1/q for q in v}, simultaneous=True)
-print("symbolic: det M - (conj Psi - Psi) simplifies to", sp.simplify(sp.together(M.det() - (Psibar - Psi))))
+diff = sp.simplify(sp.together(M.det() - (Psibar - Psi)))
+print("symbolic: det M - (conj Psi - Psi) simplifies to", diff)
+assert diff == 0, "identity (J) fails symbolically"
+print("PASS: identity (J)")

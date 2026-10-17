@@ -1,6 +1,6 @@
 # Review of the global-F progress bundle (17 Oct 2026)
 
-**Return:** `L_global_F_progress.zip` (SHA-256 `4069a04b…4ac4`, in `../../SOURCE_ZIPS.sha256`), a follow-up to return L.
+**Return:** `L_global_F_progress.zip` (SHA-256 `4069a04b…4ac4`, in `proof/coverage/returns/SOURCE_ZIPS.sha256`; the zip itself is kept with the owner, not in git), a follow-up to return L.
 Kept as the original zip plus its README (`RETURN_README.md`).
 
 ## Claims
