@@ -23,7 +23,9 @@ def build(*targets):
 def audit(path):
     a = subprocess.run(['lake', 'env', 'lean', path], cwd=HERE, env=env, text=True,
                        stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-    lines = [l for l in a.stdout.splitlines() if 'depends on axioms' in l or 'does not depend on any axioms' in l]
+    # Lean wraps long axiom lists over several lines; rejoin them so every axiom is checked.
+    out = re.sub(r',\s*\n\s*', ', ', a.stdout)
+    lines = [l for l in out.splitlines() if 'depends on axioms' in l or 'does not depend on any axioms' in l]
     bad = []
     for l in lines:
         m = re.search(r"'(.+?)' depends on axioms: \[(.*)\]", l)
@@ -38,6 +40,7 @@ def audit(path):
 
 build()
 audit('NoFourMUBs/Axioms.lean')
+audit('Step1Gen/lean/Step1/Audit.lean')   # the 216 Step 1 certificate theorems
 if '--full' in sys.argv[1:]:
     build('NoFourMUBs.Complete')
     build('NoFourMUBs.Final')
