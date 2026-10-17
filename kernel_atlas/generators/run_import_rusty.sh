@@ -6,7 +6,9 @@
 #SBATCH --partition=ccq
 #SBATCH --nodes=1
 #SBATCH --exclusive
-#SBATCH --time=08:00:00
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=128   # without it the batch step is bound to one core
+#SBATCH --time=01:00:00
 #SBATCH --output=kernel_atlas/results/pilot/logs/import_%j.out
 
 set -uo pipefail
@@ -17,6 +19,11 @@ export PATH=$ELAN_HOME/bin:$PATH
 VENV=${VENV:-/mnt/ceph/users/$USER/venvs/nofourmubs}
 FIRST=${FIRST:-0}
 LAST=${LAST:-999}
-OUTROOT=${OUTROOT:-kernel_atlas/results/pilot}
-"$VENV/bin/python" -u kernel_atlas/generators/pilot_import.py --first "$FIRST" --last "$LAST" --out "$OUTROOT"
+OUTROOT=$PWD/${OUTROOT:-kernel_atlas/results/pilot}
+source kernel_atlas/generators/rusty_stage.sh
+stage_in                    # local disk (ceph is FUSE: see rusty_stage.sh); includes the Records' oleans
+"$VENV/bin/python" -u kernel_atlas/generators/pilot_import.py --first "$FIRST" --last "$LAST" --out "$OUTROOT" --jobs 8
+stage_out_build
+stage_out_sources
+stage_clean
 echo "done on $(hostname)"

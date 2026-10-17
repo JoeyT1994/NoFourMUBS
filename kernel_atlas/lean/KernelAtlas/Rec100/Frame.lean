@@ -8,7 +8,7 @@ namespace NoFourMUBs.KernelAtlas.Rec100
 
 open NoFourMUBs.KernelAtlas
 
-def fq : FrameQ where
+noncomputable def fq : FrameQ where
   eG := ((2257 : ℚ) / 1099511627776)
   g := ((549755814453 : ℚ) / 549755813888)
   lam := ((1099511630033 : ℚ) / 1099511627776)

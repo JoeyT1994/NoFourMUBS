@@ -8,8 +8,8 @@ namespace NoFourMUBs.KernelAtlas.Rec100
 
 open Hadamard6 NoFourMUBs NoFourMUBs.StageC NoFourMUBs.KernelAtlas
 
-def bars : BarsQ where
-  R := ((5764607523034235 : ℚ) / 72057594037927936)
+noncomputable def bars : BarsQ where
+  R := Table.r100
   sigma := ((17 : ℚ) / 10)
   e0 := e0q
   j1 := j1q

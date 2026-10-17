@@ -6,6 +6,8 @@ namespace NoFourMUBs.KernelAtlas.Rec4015
 
 open Hadamard6 NoFourMUBs.StageC NoFourMUBs.KernelAtlas
 
+set_option maxRecDepth 100000
+
 set_option maxHeartbeats 0 in
 theorem cq_40 : allNat 640 (fun k => pairOK rowT2 labs2.length (2182 + k)) = true := by decide +kernel
 
@@ -35,5 +37,6 @@ theorem cq_48 : allNat 2 (fun k => pairOK rowT2 labs2.length (3151 + k)) = true 
 
 set_option maxHeartbeats 0 in
 theorem cq_49 : allNat 2 (fun k => pairOK rowT2 labs2.length (3153 + k)) = true := by decide +kernel
+
 
 end NoFourMUBs.KernelAtlas.Rec4015

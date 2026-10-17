@@ -17,6 +17,6 @@ theorem labsSmall2 : labsSmall labs2 = true := by decide +kernel
 set_option maxHeartbeats 0 in
 theorem cliqueOK2 : noTwo labs2.length oR2 uR2 = true := by decide +kernel
 
-def chunks : List (ℕ × ℕ) := [(0, 10), (10, 10), (20, 10), (30, 10), (40, 10), (50, 10), (60, 10), (70, 10), (80, 10), (90, 10), (100, 10), (110, 5)]
+noncomputable def chunks : List (ℕ × ℕ) := [(0, 10), (10, 10), (20, 10), (30, 10), (40, 10), (50, 10), (60, 10), (70, 10), (80, 10), (90, 10), (100, 10), (110, 5)]
 
 end NoFourMUBs.KernelAtlas.Rec146

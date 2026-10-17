@@ -10,7 +10,7 @@ import KernelAtlas.Rec4015.H2Slab08
 import KernelAtlas.Rec4015.H2Slab09
 import KernelAtlas.Rec4015.H2Slab10
 import KernelAtlas.Rec4015.H2Slab11
-import KernelAtlas.Tangent2S
+import KernelAtlas.Tangent2L
 import KernelAtlas.Tables
 
 /-!
@@ -18,7 +18,7 @@ import KernelAtlas.Tables
 
 Every phase vector `β ∈ [0,1]⁵` lies in a bin that is rejected by the direct test, or by the v2 test (scalar
 test (6.12) or the linearised test with a hinted multiplier), for every admissible `δ` of the Record ball with the
-exact frame `Tmat tcfg2 tq2`, or in a depth-0 bin accepted by the leaf predicate.
+exact frame `Tmat tcfg2 tq2`, or in a depth-0 bin accepted by the leaf predicate (label hints, `Tangent2L`).
 -/
 
 namespace NoFourMUBs.KernelAtlas.Rec4015
@@ -27,7 +27,9 @@ open Hadamard6 NoFourMUBs NoFourMUBs.StageC NoFourMUBs.KernelAtlas
 
 theorem t2parOK : T2ParOK cfg pq t2cfg tq2 := by decide +kernel
 
-theorem hsubs : ∀ c1 ∈ L1, ∀ c2 ∈ L2, ∃ hs, subH cfg t2cfg (leafL labs2) c1 c2 L3 L4 L5 hs = true := by
+theorem labTOK : labTreeOK labs2 labT2 164 = true := by decide +kernel
+
+theorem hsubs : ∀ c1 ∈ L1, ∀ c2 ∈ L2, ∃ hs, subL cfg t2cfg (leafLH labs2 labT2 164) c1 c2 L3 L4 L5 hs = true := by
   intro c1 hc1 c2 hc2
   simp only [L1, List.mem_cons, List.mem_nil_iff, or_false] at hc1
   simp only [L2, List.mem_cons, List.mem_nil_iff, or_false] at hc2
@@ -41,6 +43,7 @@ theorem coverT2 {rH n r rF K : ℝ} (hK0 : 0 ≤ K)
       Covered (Pmat tab.pq) (Tmat tcfg2 tq2) rH n r rF cfg.W0 (leafL labs2) β := by
   obtain ⟨hW, h1, h2, h3, h4, h5⟩ := tabB_spec tabOK
   obtain ⟨r1, r2, r3, r4, r5⟩ := rootsOK
-  exact topH_sound parOK t2parOK hW hK0 hK hKb hr hrF hrH hn (leafL labs2) h1 h2 h3 h4 h5 r1 r2 r3 r4 r5 hsubs
+  exact topL_sound parOK t2parOK hW hK0 hK hKb hr hrF hrH hn (leafLH labs2 labT2 164) (leafL labs2) (leafLH_imp labs2 labT2 164 (labTree_mem labTOK))
+    h1 h2 h3 h4 h5 r1 r2 r3 r4 r5 hsubs
 
 end NoFourMUBs.KernelAtlas.Rec4015

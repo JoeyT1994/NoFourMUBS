@@ -26,7 +26,7 @@ OUT=${OUTROOT:-kernel_atlas/results/atlas}/node$K
 mkdir -p "$OUT"
 export OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1
 MEM_GB=$(awk '/MemTotal/ {printf "%d", $2 / 1048576 * 0.85}' /proc/meminfo)
-CPUS=$(nproc)
+CPUS=$(env -u OMP_NUM_THREADS nproc)   # (nproc honours OMP_NUM_THREADS=1 set above)
 seq $((FIRST + K)) "$NTASK" "$LAST" > "$OUT/idx.txt"
 echo "node $(hostname): $CPUS cores, memory budget $MEM_GB GB, $(wc -l < "$OUT/idx.txt") Records"
 "$VENV/bin/python" -u kernel_atlas/generators/atlas_run.py --out "$OUT" --idx-file "$OUT/idx.txt" \

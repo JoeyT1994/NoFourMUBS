@@ -36,7 +36,9 @@ def mem_gb(mod):
     name = mod.rsplit('.', 1)[1]
     if name.startswith('H2Slab'):
         return 22
-    if name.startswith(('Clq', 'Edg')) or name in ('Graph2', 'Sigma'):
+    if name == 'Graph2':                      # up to 33 GB (Record 4015, 16 Oct 2026)
+        return 35
+    if name.startswith(('Clq', 'Edg')) or name == 'Sigma':
         return 15
     if name == 'Boundary':
         return 12
@@ -159,7 +161,7 @@ class Node:
         self.running[p] = (idx, mod, gb, time.time(), log, f)
 
     def axioms(self, idx):
-        f = os.path.join(self.args.out, 'logs', 'Rec%d' % idx, 'Axioms.lean')
+        f = os.path.abspath(os.path.join(self.args.out, 'logs', 'Rec%d' % idx, 'Axioms.lean'))
         with open(f, 'w') as g:
             g.write('import KernelAtlas.Rec%d.BoundaryCover\n#print axioms NoFourMUBs.KernelAtlas.Rec%d.cert\n'
                     '#print axioms NoFourMUBs.KernelAtlas.Rec%d.boundaryT\n' % (idx, idx, idx))

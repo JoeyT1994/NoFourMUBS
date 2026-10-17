@@ -8,7 +8,7 @@ namespace NoFourMUBs.KernelAtlas.RecTao
 
 open NoFourMUBs.KernelAtlas
 
-def labs : List Lab := [
+noncomputable def labs : List Lab := [
   ⟨1, 23, 151, 63, 63, 32715394⟩,
   ⟨1, 39, 105, 63, 63, 36884448⟩,
   ⟨1, 87, 87, 23, 23, 31121659⟩,
