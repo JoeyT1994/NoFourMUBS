@@ -233,7 +233,16 @@ class Node:
         pending = list(idxs)
         gens = {}
         budget = self.args.mem_gb
+        end, checked = None, 0
         while pending or gens or self.recs or self.running:
+            # drain: stop admitting Records `--drain-min` minutes before the Slurm job's end (re-read every 5 min, so
+            # lowering the job's time limit drains it cleanly); unstarted Records stay for a resumed run
+            if pending and self.args.drain_min and os.environ.get('SLURM_JOB_ID') and time.time() - checked > 300:
+                checked = time.time()
+                end = slurm_end(os.environ['SLURM_JOB_ID']) or end
+            if pending and end and time.time() > end - 60 * self.args.drain_min:
+                print('%s draining: %d Records left unstarted' % (time.strftime('%H:%M:%S'), len(pending)), flush=True)
+                pending = []
             # keep the generators ahead of the compiler, but not too far
             while pending and len(gens) < self.args.gen_workers and len(self.recs) < self.args.max_records:
                 idx = pending.pop(0)
@@ -295,6 +304,15 @@ class Node:
         pool.shutdown()
 
 
+def slurm_end(job):
+    """End time (epoch seconds) of a Slurm job, or None."""
+    try:
+        out = subprocess.run(['squeue', '-h', '-j', job, '-o', '%e'], capture_output=True, text=True, timeout=60).stdout
+        return time.mktime(time.strptime(out.strip(), '%Y-%m-%dT%H:%M:%S'))
+    except Exception:                                           # noqa: BLE001
+        return None
+
+
 def archived(adir, retry_failed=False):
     """Records already settled in an archive: `ok` with an olean tarball of the recorded size (and, unless
     retry_failed, Records whose only rows are failures)."""
@@ -328,6 +346,8 @@ def main():
     ap.add_argument('--name', default='node', help='archive mode: this driver\'s row file')
     ap.add_argument('--retry-failed', action='store_true', help='archive mode: redo Records whose rows all failed')
     ap.add_argument('--lean-threads', type=int, default=0, help='lean -j (0: Lean\'s default)')
+    ap.add_argument('--drain-min', type=float, default=0, help='in a Slurm job: admit no Records this many minutes '
+                    'before its end')
     args = ap.parse_args()
     idxs = list(args.idx)
     if args.idx_file:
