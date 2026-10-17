@@ -1,4 +1,4 @@
-# Assembling the kernel atlas into one `AtlasCertificate` (design, 16 Oct 2026)
+# Assembling the kernel atlas into one `AtlasCertificate` (design 16 Oct, route A implemented 17 Oct 2026)
 
 **Optional side project, not part of the proof** (see `../README.md`). The proof is `NoFourMUBs.Final.no_four_mubs
 (C : AtlasCertificate) : ¬ FourMUBs` with the certificate checked by Arb and Julia. This note designs the last step of
@@ -147,3 +147,93 @@ import pilot (Phase 3 on a subset). The user runs everything on rusty; nothing h
   Phase 1 and not on the critical path.
 * (B) also shrinks Phase 1 storage (only summaries need to survive), but needs the module-system conversion of the
   proof's sources (§3), which only the user can approve.
+
+## 8. Route A, implemented (17 Oct 2026)
+
+**Why the v2 oleans were large.** Not the hint literals themselves: every generated `def` was computable, so Lean
+stored compiled code for each data literal. Record 146's slab module: 15.6 MB of olean with computable definitions,
+1.1 MB with `noncomputable` (same source).
+
+**Generators** (checkers unchanged):
+* `kpack.py` post-processes every generated file: all `def`s `noncomputable`, and each long `List ℕ` literal packed
+  into one big ℕ, read back by `unpackL w n x` (`Pack.lean`, a decoder the kernel runs once per list). `atlas_run.py`
+  and the `export_*` scripts call it.
+* `export_table.py`: the shared atlas table `Table/T<k>.lean` (`c<n>`, `r<n>` for 100 Records each) and `Table/All.lean`
+  (`N`, `cen t`, `rad t`); generated, not committed (22 MB of source, 121 modules, ≈ 65 s to build in parallel).
+  `Data.lean` sets `tab.PqL := Table.c<n>`, `Record*.lean` sets `bars.R := Table.r<n>`, and the boundary data name
+  their targets as `Pt := Table.c<t>`, `Rt := Table.r<t>`.
+* `Assembly.lean`: `pqL`, `linkOK` (target `j` of the boundary data is atlas Record `tgIdx[j] < N` with the table's
+  centre and radius; one `decide` per Record) and `boundary_of_links`; `boundary_zero` (Tao's Record: `T = 0`,
+  `n < R`, empty shell). Each `BoundaryCover.lean` now ends with `tgIdx`, `linkOK_` and
+  `boundaryT : A l = cert → (∀ t < N, (A (idx t)).P = Pmat (pqL (cen t))) → (∀ t < N, rad t ≤ (A (idx t)).R) →
+  Nonempty (BoundaryCover A l)`; `RecTao.boundary` gives Tao's.
+* `export_assembly.py`: `Atlas/Chunk<k>.lean` (`cert<k>`, `cert<k>_P`, `cert<k>_R` by `rfl`, `bnd<k>`: the chunk's
+  boundaries for any family with the table's centres and radii) and `Atlas/Final.lean` (`ι = Fin (N + 1)`, Tao's Record
+  last; `A`, `boundaryAll`, `atlasCert`, `no_four_mubs_kernel := Final.no_four_mubs atlasCert`). The statements do not
+  depend on `N`. `Final.lean` can only be built once every Record is: its `boundary` field needs all targets.
+* `atlas_run.py` now generates and compiles the boundary modules too, seals the data, checks the axioms of both
+  `cert` and `boundaryT`, and has `--max-procs` (one Lean process at a time locally).
+
+**Local re-verification** (MacBook, one Lean process at a time, standard axioms for every `cert` and `boundaryT`):
+
+| Record | olean before | olean after | CPU | peak |
+|---|---|---|---|---|
+| 146 (v2) | ≈ 177 MB | 5.4 MB | 29 min | 13.2 GB |
+| 4015 (v2, bitset cliques) | — (not built here before) | 6.4 MB | 68 min | 33.2 GB (`Graph2`) |
+| 7 (v2) | — | 5.2 MB | 30 min | 13.2 GB |
+| 100 (v1, with its boundary) | 12.2 MB | 2.9 MB | 16 min | 14.7 GB |
+| Tao's Record (with `RecTao.boundary`) | 7.6 MB | 1.3 MB | 8 min | 13.1 GB |
+| `Special.Exact`, `Special.Anchor` | 2.9 MB | 1.5 MB | < 1 min | 6.0 GB |
+
+So a v2 Record is ≈ 5–6.5 MB of olean (≈ 70 GB for the atlas instead of ≈ 2.1 TB).
+
+**Rusty: what it took** (all in `generators/`):
+* `/mnt/ceph` is a FUSE mount. Lean memory-maps several GB of oleans per process, and over FUSE these pages were
+  neither cached nor fast: ~100 Lean processes sat at ≈ 4% CPU, and a module importing nothing took > 16 min.
+  `rusty_stage.sh` runs every job from the node's local SSD (`/tmp`, 1.8 TB): `stage_in` unpacks one tarball of the
+  toolchain and `lean/.lake` (`/mnt/ceph/users/$USER/nofour_stage.tar`, 13 GB, written by the setup job; ≈ 100 s to
+  stage, against 58 min for copying the same files one by one, ≈ 4 MB/s), and copies results back.
+* `nproc` honours `OMP_NUM_THREADS`, which the job scripts set to 1 just before: the driver saw one core. Fixed in
+  `run_atlas_rusty.sh` and `run_pilot_rusty.sh` (`env -u OMP_NUM_THREADS nproc`).
+* ccq allocates whole nodes (128 cores) whatever `--cpus-per-task` says, so jobs should use all of them; and
+  `--cpus-per-task=128` is needed for the batch step to see them.
+
+### The rusty pilot (17 Oct 2026; `results/pilot/rusty/`)
+
+Planned: Records 0–999. Run: **Records 0–499 on 2 nodes with a 1 h 20 min cap**, because ≈ 255 of the ≈ 600
+core-hours went into the setup job's FUSE problem (above) before it was found. **556 core-hours** were allocated in
+all (11 jobs, `jobs.txt`), within the budget.
+
+| Phase | Result |
+|---|---|
+| 0. Setup (core, `BoundaryK`, `Assembly`, table) | built; the stage tarball (13 GB) written in 161 s |
+| 1. Records (`run_pilot_rusty.sh`, 2 × 128 cores, 65 min) | **50 Records kernel-checked** (0–51; all `ok`, `cert` and `boundaryT` with exactly `propext`, `Classical.choice`, `Quot.sound`), about 130 more in flight at the cutoff |
+| per Record on rusty | **80.5 CPU-min** (median 79.6, max 97), generation 275 s, peak 14.3 GB (`Sigma`; H2Slab ≤ 13.7 GB), 40 min wall |
+| oleans | **4.9 MB per Record** (max 5.4), 29 module oleans per Record |
+| 3. Import (`run_import_rusty.sh`) | one process importing all 50 Records: **4.2 s wall, 6.9 GB peak**, against 3.9 s and 6.7 GB for the shared modules alone; +42k constants and +1,460 modules |
+| chunks | none tested on rusty (no chunk of 100 was complete); see below |
+
+**Extrapolation to the atlas.**
+* Imports: per Record +0.006 s, +4 MB resident, +840 constants, +29 modules, linearly: the final process imports
+  ≈ 350k modules and ≈ 10M constants in **≈ 1–2 min and ≈ 50 GB**, from ≈ 59 GB of oleans. Route A is feasible: no
+  module-system conversion is needed.
+* Compilation: 80.5 CPU-min per Record on rusty (2.7× the laptop's 29–30) gives **≈ 16,000 CPU-hours** plus ≈ 900 for
+  generation, against the 6,300 estimated from laptop timings. Utilisation was ≈ 50% (load ≈ 50–65 on 128 cores): the
+  driver's memory budgets (H2Slab 22 GB, `Graph2` 35 GB) are above the measured peaks (≤ 14 GB on rusty), and
+  `--max-records 60` caps the Records in flight. With budgets from the measured peaks and more Records in flight, a
+  full run is ≈ 17,000–20,000 core-hours (≈ 140 node-hours of 128 cores, e.g. ≈ 1 day on 6 nodes); at the pilot's utilisation, ≈ 34,000.
+* Each job should stage from the tarball (≈ 100–290 s) and copy its outputs back.
+
+**The chunk and final modules, tested locally.** No chunk of 100 Records was complete, so the generated `Final.lean`
+was compiled locally against stub chunks: 121 modules holding exactly the generated statements of `cert<k>`,
+`cert<k>_P`, `cert<k>_R` and `bnd<k>`, proved by `sorry`. It compiles (10 s), `atlasCert : AtlasCertificate`
+type-checks, and its axioms are the standard three plus the stubs' `sorryAx`. So everything in `Final.lean` except
+the chunks' own proofs is checked. Each chunk's proofs (100 `rfl`s per lemma, 100 `boundaryT` instances) were not
+compiled, only the patterns they use (`Table.cen0 (n + 100) = c0 := rfl`, the literal `match` on `k`). The real
+`Final.lean` also imports `NoFourMUBs.Final` (the proof's `--lean-full` build, hours on a first build); the stub
+test used `NoFourMUBs.MainTheorem`, where `AtlasCertificate` is defined.
+
+**Next for a full run.** (1) Set `mem_gb` in `atlas_run.py` from the measured peaks and raise `--max-records`; (2) run
+Records in chunk order so whole chunks finish together, and compile each chunk as soon as it is complete;
+(3) build `NoFourMUBs.Final` once in the setup job; (4) the final job imports the 121 chunks.
+

@@ -7,7 +7,7 @@ form: the certificate's computations checked by the Lean kernel itself, which wo
 (`¬ FourMUBs` with no hypotheses). Nothing in the proof imports this folder, `verify.py` does not run it, and a
 reviewer does not need to: it is here to show that the kernel check exists and works.
 
-## Status (16 Oct 2026)
+## Status (17 Oct 2026)
 
 **Record 100 is a complete kernel-checked `RecordCert`** (`NoFourMUBs.KernelAtlas.Rec100.cert`, standard axioms only),
 in about 17 CPU-minutes:
@@ -50,9 +50,12 @@ Details and costs: [`docs/KERNEL_RECORD100.md`](docs/KERNEL_RECORD100.md); the d
    is conditional on its ≈ 55 targets being kernel-certified with the same centres and radii.
 3. **Special Records** (done): Tao's zero-dimensional Record (`RecTao.cert`) and the `tao`, `fourier` and `anchor`
    fields (conditional on their target Records being in the atlas).
-4. **Scale**: smaller generated data (packed literals; recompute the trees in the kernel), a hierarchical assembly
-   into one `AtlasCertificate`, and one run over all 12,021 Records (about 6,300 CPU-hours with the boundaries). The
-   assembly and the rusty run are designed in [`docs/KERNEL_ASSEMBLY.md`](docs/KERNEL_ASSEMBLY.md).
+4. **Scale** ([`docs/KERNEL_ASSEMBLY.md`](docs/KERNEL_ASSEMBLY.md)): the data are sealed and packed (≈ 5 MB of olean
+   per Record instead of ≈ 177 MB), all Records share the atlas table so cross-Record links are `rfl`, and the chunk
+   and final assembly modules are generated (`export_assembly.py`; `Final.lean` checked against stub chunks). A
+   rusty pilot kernel-checked 50 Records (with boundaries) and imported them into one process in 4 s and 6.9 GB,
+   which extrapolates to ≈ 1–2 min and ≈ 50 GB for the atlas. What remains is the full run: ≈ 80 CPU-min per Record
+   on rusty, ≈ 17,000–20,000 core-hours with better packing of the nodes.
 
 ## Layout and usage
 
