@@ -17,6 +17,7 @@ set -uo pipefail
 export ELAN_HOME=${ELAN_HOME:-/mnt/ceph/users/$USER/elan}
 export MATHLIB_CACHE_DIR=${MATHLIB_CACHE_DIR:-/mnt/ceph/users/$USER/mathlib_cache}
 export XDG_CACHE_HOME=${XDG_CACHE_HOME:-/mnt/ceph/users/$USER/xdg_cache}
+export TMPDIR=/tmp                # node-local; nothing from the builds may land in $HOME (inode quota)
 export PATH=$ELAN_HOME/bin:$PATH
 VENV=${VENV:-/mnt/ceph/users/$USER/venvs/nofourmubs}
 NTASK=${NTASK:-4}

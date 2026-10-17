@@ -233,6 +233,37 @@ compiled, only the patterns they use (`Table.cen0 (n + 100) = c0 := rfl`, the li
 `Final.lean` also imports `NoFourMUBs.Final` (the proof's `--lean-full` build, hours on a first build); the stub
 test used `NoFourMUBs.MainTheorem`, where `AtlasCertificate` is defined.
 
+**File counts on rusty** (measured with `getfattr -n ceph.dir.rfiles`). `$HOME` (`/mnt/home`, an inode quota of
+1,048,576, 45% used) receives nothing from these jobs: `ELAN_HOME`, `MATHLIB_CACHE_DIR`, `XDG_CACHE_HOME`, the build
+directories and the job logs are on ceph, and `TMPDIR` is the node's `/tmp`. Ceph has no per-user quota, but
+`/mnt/ceph/users/jtindall` holds ≈ 948k files, of which the repository copy is 160k (145k before the pilot).
+
+| Per Record, as the pilot left it on ceph | files | size |
+|---|---|---|
+| build (`lean/.lake/build/lib/lean/KernelAtlas/Rec<n>`: 29 `.olean` + 29 `.ilean`; no IR, as `lean -o` is called directly) | 58 | 5.6 MB |
+| generated sources (`kernel_atlas/lean/KernelAtlas/Rec<n>`, kept with `--keep`) | 30 | 4.3 MB |
+| per-module logs (`results/…/logs/Rec<n>`) | 31 | 34 kB |
+| source tarball (`results/…/src/Rec<n>.tar.gz`) | 1 | |
+| **total** | **≈ 120** | |
+
+Shared: the table's build is 610 files (189 MB), the stage tarball one file (13 GB). The pilot as a whole added ≈ 14.6k
+files, partly from ≈ 130 Records still in flight at the cutoff. Left as is, 12,021 Records would add **≈ 1.45M files**.
+
+Plan to keep the full run bounded (to ≈ 15–30k files in all):
+* **Build on node-local disk, keep tarballs on ceph.** Every job already works in `/tmp` (`rusty_stage.sh`); it
+  should copy back one tarball per Record of its oleans (no `.ilean`: drop `-i` from the driver's `lean` command; they
+  are only for editors) and one of its sources and logs, not the trees: ≈ 2 files per Record, ≈ 24k in all, plus
+  `rows.jsonl`.
+* **Chunk step from the tarballs.** A chunk job unpacks its 100 Records' olean tarballs into `/tmp`, compiles
+  `Chunk<k>`, and writes back one tarball of the chunk's oleans (the 100 Records and the chunk module). After the chunk
+  step the per-Record tarballs can be deleted: **121 chunk tarballs**.
+* **Final step from the chunk tarballs.** The final job unpacks the 121 chunk tarballs (≈ 59 GB, ≈ 350k files) into
+  `/tmp` only, so they never exist as files on ceph, and writes back the final olean and the axiom report.
+* **Fewer modules per Record** where memory allows. The 12 tangent slabs and 4–8 edge modules are split for peak
+  memory during compilation (≤ 14 GB on rusty), not for import; merging them in pairs would take a Record from 29 to
+  ≈ 18 modules. This is optional once the files stay on `/tmp`.
+* Data are already sealed and packed (`kpack.py`): ≈ 5 MB of olean per Record.
+
 **Next for a full run.** (1) Set `mem_gb` in `atlas_run.py` from the measured peaks and raise `--max-records`; (2) run
 Records in chunk order so whole chunks finish together, and compile each chunk as soon as it is complete;
 (3) build `NoFourMUBs.Final` once in the setup job; (4) the final job imports the 121 chunks.
