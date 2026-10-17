@@ -6,7 +6,7 @@ This builds against the Lean classification of order-6 complex Hadamard matrices
 lake exe cache get        # prebuilt Mathlib
 lake build
 python3 check_axioms.py   # build, then audit the axioms of every main theorem (also: verify.py --lean)
-python3 check_axioms.py --full   # also build and audit L1 (NoFourMUBs.Complete; about an hour, see below)
+python3 check_axioms.py --full   # also build and audit L1 (NoFourMUBs.Complete; about 20 min, see below)
 ```
 
 ## The main theorem
@@ -70,9 +70,10 @@ All five use only `propext`, `Classical.choice` and `Quot.sound`.
 
 | Module | Identities | Time | Peak memory |
 |---|---|---|---|
-| `L1/FlatCheckF00` … `F11` | the 8 coefficients of the weighted defects (4.6) | about 8 min each, in parallel | 11 GB each |
+| `L1/FlatCheckF00` … `F11` | the 8 coefficients of the weighted defects (4.6) | about 4 min each, built one at a time (about 8 min each in parallel) | 11 GB each |
 | `L1/FlatCheckMh` | 36 entries of `K Qh K*` | about 3 min | 9 GB |
 | `L1/FlatCheckQv`, `FlatCheckTable` | 36 vertical moments, 10 table identities | under 1 min | 6 GB |
+| `L1/SideGram`, `SideJacobian`, `SideCover` | side existence (handoff J) | 37 s together | 6 GB |
 
 **Build cost of `Final`.** `NoFourMUBs.Final` is not imported by the library root either. Its square-sum data modules are slow to elaborate: `CoverageStripIdNonzeroDataN` about 9 min, `DataQ` about 16 min and `DataP1` about 8 min, each at 7–9 GB (including about 6 GB of Mathlib). Build them one module at a time; the order is in `generators/stripid/STATUS.md`. `check_axioms.py --full` builds both `Complete` and `Final`.
 
