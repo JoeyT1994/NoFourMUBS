@@ -43,7 +43,7 @@ jobs:
             /usr/share/swift /usr/lib/jvm /usr/local/share/boost /usr/local/share/chromium /usr/local/share/powershell \
             /opt/microsoft /opt/google /opt/az
           df -h / /mnt
-      - name: Add swap (Lake elaborates the large Hadamard6 certificate modules in parallel; 16 GB RAM is not enough)
+      - name: Add swap (Lake elaborates the large Hadamard6 certificate modules in parallel; the runner has 8 GB of RAM)
         run: |
           sudo fallocate -l 12G /lean-swap
           sudo chmod 600 /lean-swap
