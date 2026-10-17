@@ -60,7 +60,7 @@ def main():
                 ot = os.path.join(a.archive, 'oleans', 'Rec%d.tar' % n)
                 st = os.path.join(a.archive, 'src', 'Rec%d.tar.gz' % n)
                 h = dict(olean=tar_hashes(ot) if os.path.exists(ot) else None,
-                         src=tar_hashes(st, None, '.lean') if os.path.exists(st) else None)
+                         src=tar_hashes(st, None, '.lean', n) if os.path.exists(st) else None)
             m.update(olean=h['olean'], src=h['src'])
         else:
             m['log_tail'] = (r.get('log') or '')[-600:]

@@ -118,8 +118,9 @@ def main():
     sr = [Fr(x.numerator * (2 ** 30 // x.denominator), 2 ** 30) for _, x, _ in labs]
     k = KJ.consts(par, par.epsU, tp, tc)
     data = [KJ.label_data(par, tc, W0, EU, EP, w) for w, _, _ in labs]
-    Kop, eP, Tf = SC.opnorm_bound(P), SC.cis_centre(P), SV.atlas_frame(idx)
+    eP, Tf = SC.cis_centre(P), SV.atlas_frame(idx)
     Z = Fr(2 ** par.p)
+    LS = KJ.LSMult(C, s, eP, Tf, tp.rHbar)                          # platform-independent hints
 
     def direct(A, B):
         zr = EU[0][0] + sum(EU[(a - b) % 192][0] for a, b in zip(A, B))
@@ -143,7 +144,7 @@ def main():
                     continue
                 ok = False
                 if ia != ib:
-                    y0, y1, ye = KJ.ls_mult(C, s, ia, ib, typ, P, Kop, float(tp.rHbar), eP, Tf)
+                    y0, y1, ye = LS(ia, ib, typ)
                     LA, LB = KJ.per_label(par, t2, data[ia], y0), KJ.per_label(par, t2, data[ib], y1)
                     ok = KJ.joint_check(k, typ, LA, LB, sr[ia], sr[ib], KJ.pair_q(EU, wa, wb), ye)
                 if ok:

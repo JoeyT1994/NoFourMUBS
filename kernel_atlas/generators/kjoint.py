@@ -9,7 +9,6 @@ every approximation error added (see `joint_rhs`).
 """
 from fractions import Fraction as Fr
 
-import numpy as np
 
 import kbins as KB
 import ktangent2 as KT2
@@ -115,32 +114,106 @@ def joint_check(k, typ, LA, LB, sa, sb, q, ye):
 
 
 # ---------------------------------------------------------------- multipliers (untrusted, floats)
-def ls_mult(C, s, a, b, typ, P, K, rH, eP, T):
-    """Least-squares multipliers of stagec.joint_filter for the pair (a, b), rounded to |.| <= 511."""
-    import stagec as SC
-    import math
-    k = T.shape[1]
-    eU = SC.cis_table(np.concatenate([np.zeros((len(C), 1), int), SC._toint(C)], axis=1))
-    S = eU @ eP / SC.SQ6
-    q = eU[:, :, None] * eP[None, :, :] / SC.SQ6
-    J = -(np.conj(S)[:, None, :] * q).imag
-    c = (np.abs(S) ** 2 - 1) / (2 * SC.TWO_PI)
-    B = np.einsum('nji,jik->nik', J, T.reshape(6, 6, k))
-    Qv = eU[a] * eU[b].conj(); Ssum = Qv.sum(); aS = abs(Ssum); re = s[a] + s[b]
-    DO = np.stack([-Qv.imag, Qv.real], 0)
-    if typ == 'O':
-        D = DO; qE = np.array([Ssum.real, Ssum.imag]) / SC.TWO_PI; EE = math.pi * re ** 2
-    else:
-        D = ((Ssum.real * DO[0] + Ssum.imag * DO[1]) / 6)[None, :]
-        qE = np.array([(aS ** 2 / 6 - 1) / (2 * SC.TWO_PI)]); EE = math.pi * re ** 2 * (1 + aS / 6)
-    l = D.shape[0]
-    A = np.zeros((12 + k + l, 12 + l))
-    A[0:6, 0:6] = s[a] * J[a]; A[0:6, 12:] = s[a] * D.T
-    A[6:12, 6:12] = s[b] * J[b]; A[6:12, 12:] = -s[b] * D.T
-    A[12:12 + k, 0:6] = rH * B[a].T; A[12:12 + k, 6:12] = rH * B[b].T
-    A[12 + k:, 12:] = EE * np.eye(l)
-    G = A.T @ A + 1e-12 * np.eye(12 + l)
-    z = np.linalg.solve(G, np.concatenate([c[a], c[b], qE]))
-    m = np.abs(z).max()
-    w = np.round(511 * z / m).astype(int)
-    return [int(v) for v in w[:6]], [int(v) for v in w[6:12]], [int(v) for v in w[12:]]
+class LSMult:
+    """Least-squares multipliers of stagec.joint_filter for label pairs, rounded to |.| <= 511 (untrusted hints).
+
+    Plain Python floats in a fixed order (no numpy linear algebra, no complex type, no `sum`, `abs` of complex or `**`),
+    so the hints are the same bits on every platform: each step is one correctly rounded IEEE operation.  The inputs
+    (EXP192 and eP from Arb, the rational frame T, the label radii) are already platform independent."""
+
+    def __init__(self, C, s, eP, T, rH):
+        import stagec as SC
+        self.k, self.rH, self.s = T.shape[1], float(rH), [float(x) for x in s]
+        self.twopi, self.sq6 = SC.TWO_PI, SC.SQ6
+        eP = [[(float(eP[j, i].real), float(eP[j, i].imag)) for i in range(6)] for j in range(6)]
+        T = [[float(T[e, kk]) for kk in range(self.k)] for e in range(36)]
+        K = SC._toint(C)
+        self.eU, self.J, self.c, self.B = [], [], [], []
+        for w in K:
+            eu = [(1.0, 0.0)] + [(float(SC.EXP192[int(x) % SC.DEN].real), float(SC.EXP192[int(x) % SC.DEN].imag))
+                                 for x in w]
+            S = []
+            for i in range(6):
+                re = im = 0.0
+                for j in range(6):
+                    re += eu[j][0] * eP[j][i][0] - eu[j][1] * eP[j][i][1]
+                    im += eu[j][0] * eP[j][i][1] + eu[j][1] * eP[j][i][0]
+                S.append((re / self.sq6, im / self.sq6))
+            J = [[0.0] * 6 for _ in range(6)]                       # J[j][i] = -Im(conj(S_i) q_ji)
+            for j in range(6):
+                for i in range(6):
+                    qr = (eu[j][0] * eP[j][i][0] - eu[j][1] * eP[j][i][1]) / self.sq6
+                    qi = (eu[j][0] * eP[j][i][1] + eu[j][1] * eP[j][i][0]) / self.sq6
+                    J[j][i] = -(S[i][0] * qi - S[i][1] * qr)
+            c = [(S[i][0] * S[i][0] + S[i][1] * S[i][1] - 1.0) / (2 * self.twopi) for i in range(6)]
+            B = [[0.0] * self.k for _ in range(6)]                  # B[i][kk] = sum_j J[j][i] T[6j + i][kk]
+            for i in range(6):
+                for kk in range(self.k):
+                    acc = 0.0
+                    for j in range(6):
+                        acc += J[j][i] * T[6 * j + i][kk]
+                    B[i][kk] = acc
+            self.eU.append(eu); self.J.append(J); self.c.append(c); self.B.append(B)
+
+    def __call__(self, a, b, typ):
+        import math
+        ea, eb, sa, sb, k = self.eU[a], self.eU[b], self.s[a], self.s[b], self.k
+        Q = [(ea[j][0] * eb[j][0] + ea[j][1] * eb[j][1], ea[j][1] * eb[j][0] - ea[j][0] * eb[j][1]) for j in range(6)]
+        sr = si = 0.0
+        for qr, qi in Q:
+            sr += qr; si += qi
+        aS2 = sr * sr + si * si
+        re = sa + sb
+        DO = [[-qi for qr, qi in Q], [qr for qr, qi in Q]]
+        if typ == 'O':
+            D, qE, EE = DO, [sr / self.twopi, si / self.twopi], math.pi * (re * re)
+        else:
+            D = [[(sr * DO[0][j] + si * DO[1][j]) / 6 for j in range(6)]]
+            qE, EE = [(aS2 / 6 - 1.0) / (2 * self.twopi)], math.pi * (re * re) * (1.0 + math.sqrt(aS2) / 6)
+        l = len(D); nc = 12 + l
+        A = [[0.0] * nc for _ in range(12 + k + l)]
+        for r in range(6):
+            for cc in range(6):
+                A[r][cc] = sa * self.J[a][r][cc]
+                A[6 + r][6 + cc] = sb * self.J[b][r][cc]
+            for m in range(l):
+                A[r][12 + m] = sa * D[m][r]
+                A[6 + r][12 + m] = -sb * D[m][r]
+        for kk in range(k):
+            for cc in range(6):
+                A[12 + kk][cc] = self.rH * self.B[a][cc][kk]
+                A[12 + kk][6 + cc] = self.rH * self.B[b][cc][kk]
+        for m in range(l):
+            A[12 + k + m][12 + m] = EE
+        G = [[0.0] * nc for _ in range(nc)]
+        for u in range(nc):
+            for v in range(nc):
+                acc = 0.0
+                for r in range(len(A)):
+                    acc += A[r][u] * A[r][v]
+                G[u][v] = acc + (1e-12 if u == v else 0.0)
+        z = self.c[a] + self.c[b] + qE
+        # Gaussian elimination with partial pivoting (first maximal pivot)
+        M = [G[r][:] + [z[r]] for r in range(nc)]
+        for col in range(nc):
+            piv = col
+            for r in range(col + 1, nc):
+                if math.fabs(M[r][col]) > math.fabs(M[piv][col]):
+                    piv = r
+            M[col], M[piv] = M[piv], M[col]
+            for r in range(col + 1, nc):
+                f = M[r][col] / M[col][col]
+                for cc in range(col, nc + 1):
+                    M[r][cc] = M[r][cc] - f * M[col][cc]
+        x = [0.0] * nc
+        for r in range(nc - 1, -1, -1):
+            acc = M[r][nc]
+            for cc in range(r + 1, nc):
+                acc = acc - M[r][cc] * x[cc]
+            x[r] = acc / M[r][r]
+        m = 0.0
+        for v in x:
+            m = max(m, math.fabs(v))
+        w = [round(511 * v / m) for v in x]
+        return w[:6], w[6:12], w[12:]
+

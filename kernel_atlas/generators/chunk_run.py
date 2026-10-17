@@ -37,20 +37,32 @@ def chunk_done(adir):
     return done
 
 
-def tar_hashes(path, dest=None, suffix=''):
+def tar_hashes(path, dest=None, suffix='', closure=None):
     """SHA-256 of a tarball and a content hash independent of tar metadata: SHA-256 of the lines
-    `<basename> <sha256 of the file>` of its members ending in `suffix`, sorted by name.  Extracts into dest if given."""
+    `<basename> <sha256 of the file>` of its members ending in `suffix`, sorted by name.  With closure=idx (sources),
+    only the modules of Record idx's import closure of Record2 and BoundaryCover count (the Records that are also
+    examples in the repository carry older files beside them).  Extracts into dest if given."""
     with open(path, 'rb') as f:
         whole = hashlib.sha256(f.read()).hexdigest()
-    lines = []
+    files = {}
     with tarfile.open(path) as t:
         for m in t.getmembers():
             if m.isfile() and m.name.endswith(suffix):
-                lines.append('%s %s\n' % (os.path.basename(m.name), hashlib.sha256(t.extractfile(m).read()).hexdigest()))
+                files[os.path.basename(m.name)] = t.extractfile(m).read()
         if dest:
             t.extractall(dest)
-    return dict(tar_sha256=whole, content_sha256=hashlib.sha256(''.join(sorted(lines)).encode()).hexdigest(),
-                files=len(lines))
+    if closure is not None:
+        pre = 'import KernelAtlas.Rec%d.' % closure
+        need, todo = set(), ['Record2.lean', 'BoundaryCover.lean']
+        while todo:
+            f = todo.pop()
+            if f not in need and f in files:
+                need.add(f)
+                todo += [l.split()[1].rsplit('.', 1)[1] + '.lean' for l in files[f].decode().splitlines()
+                         if l.startswith(pre)]
+        files = {f: b for f, b in files.items() if f in need}
+    lines = sorted('%s %s\n' % (f, hashlib.sha256(b).hexdigest()) for f, b in files.items())
+    return dict(tar_sha256=whole, content_sha256=hashlib.sha256(''.join(lines).encode()).hexdigest(), files=len(lines))
 
 
 def one(k, adir, ok, env, lean, threads):
@@ -62,7 +74,7 @@ def one(k, adir, ok, env, lean, threads):
     hashes = {}
     for n in idx:
         hashes[n] = dict(olean=tar_hashes(os.path.join(adir, 'oleans', 'Rec%d.tar' % n), OLEAN),
-                         src=tar_hashes(os.path.join(adir, 'src', 'Rec%d.tar.gz' % n), None, '.lean'))
+                         src=tar_hashes(os.path.join(adir, 'src', 'Rec%d.tar.gz' % n), None, '.lean', n))
     src = os.path.join(SRC, 'KernelAtlas', 'Atlas', 'Chunk%d.lean' % k)
     os.makedirs(os.path.dirname(src), exist_ok=True)
     with open(src, 'w') as f:
