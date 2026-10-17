@@ -286,3 +286,23 @@ jobs named `nofour-katlas*`). Archive: `/mnt/ceph/users/jtindall/nofour_katlas` 
 `lean -j 1` cost ≈ 5% more CPU than Lean's default threads on the same Records (85.7 vs 82 min), so Phase 1 uses the
 default. The time cap is the budget control: 376 + 22,016 + ≈ 150 for chunks and final stays under 23,000; the expected cost is ≈ 19,000–20,000. A job
 reaching its cap leaves its remaining Records unstarted (the drain), and a later run resumes them at no loss.
+
+**What goes to git, and reproducibility.** No generated Lean sources or build outputs of the atlas are committed (≈ 30
+files and 3.5 MB per Record); they stay on ceph (`src/Rec<n>.tar.gz`, then the chunk tarballs). The repository gets
+`kernel_atlas/results/full/` (`full_manifest.py`): one row per Record with its status, the axioms of `cert` and
+`boundaryT`, CPU time, peak memory, the generator commit, and the SHA-256 of its olean and source tarballs, each also
+as a content hash of the files inside (for the sources: the modules of the import closure of `Record2` and
+`BoundaryCover`, `chunk_run.tar_hashes`); the chunk rows; the final job's report. `regen_check.py IDX …` regenerates
+Records from `atlas_certificate.json.gz` in a clean copy and compares content hashes.
+* Generation is deterministic on a fixed platform: Record 7 regenerated on a rusty node reproduces all 29 archived
+  modules byte for byte.
+* Across platforms the joint-edge hints differed: the numpy least squares (`kjoint.ls_mult`, BLAS/LAPACK) rounded
+  25 of 11,690 multipliers of Record 146 one unit differently on macOS arm64 than on rusty, so `Hints2.lean` differed
+  (Records 7 and 146; every other module was identical). Soundness never depended on it (the kernel checks whatever
+  hints are generated). From commit cacef1a9 on, `kjoint.LSMult` does that least squares in plain Python floats in a
+  fixed order (each step one correctly rounded IEEE operation; the inputs come from Arb and exact rationals), and
+  Record 146 is byte-identical on macOS arm64 and rusty.
+* The full run's Records were generated before that change (generators as at fcea9c1a, unchanged up to 31c6d9d2, the
+  commit staged by Phase 1): they regenerate byte for byte at 31c6d9d2 on rusty's x86-64 nodes with the run's
+  environment (Python 3.12.9, numpy 2.2.6 with scipy-openblas 0.3.29); at cacef1a9 or later, a few Records' hints may
+  differ by a unit. Rows carry `gen_commit` from 970f08ce on, so Records added later name their own commit.
