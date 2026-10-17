@@ -15,6 +15,7 @@ import resource
 import subprocess
 import sys
 import tempfile
+import threading
 import time
 from importlib.metadata import version
 
@@ -51,7 +52,7 @@ def main():
             "child_cpu_seconds": children.ru_utime + children.ru_stime,
             "parent_cpu_seconds": parent.ru_utime + parent.ru_stime,
             "peak_process_rss_kib": max(parent.ru_maxrss, children.ru_maxrss),
-            "peak_memory_definition": "Maximum RSS of any sequential verifier process (Linux KiB); parent memory is small and separate.",
+            "peak_memory_definition": "Maximum RSS of any verifier process (Linux KiB; the L-id replay runs alongside the others); parent memory is small and separate.",
             "stages": results,
         }
         if error:
@@ -60,6 +61,8 @@ def main():
         report_path.write_text(json.dumps(report, indent=2) + "\n")
         return report
 
+    running = []
+
     def run_stage(name, script, expected, extra=()):
         log_path = reports / (name + ".log")
         argv = [sys.executable, "-B", str(root / script), *map(str, extra)]
@@ -67,6 +70,7 @@ def main():
         wall = time.perf_counter()
         with log_path.open("w") as log:
             process = subprocess.Popen(argv, cwd=root, env=env, stdout=log, stderr=subprocess.STDOUT)
+            running.append(process)
             if hasattr(os, "wait4"):
                 _, status, usage = os.wait4(process.pid, 0)
                 code = os.waitstatus_to_exitcode(status)
@@ -88,7 +92,23 @@ def main():
             raise RuntimeError(f"{name} failed; exit={code}; see {log_path}\n{content[-3000:]}")
         print(f"PASS {name}: {elapsed:.3f} s wall, {rss} KiB peak RSS", flush=True)
 
+    lid = {}
+
+    def run_lid(generated):
+        try:
+            run_stage("full_L_id", "certificate_agent/verify_factored_rational.py",
+                      "PASS UNIVERSAL MATCHED FOURTH-MOMENT IDENTITY",
+                      ("--certificate", generated))
+        except BaseException as exc:
+            lid["error"] = exc
+
+    tmp = None if args.quick else tempfile.TemporaryDirectory(prefix="matched-flatness-replay-")
     try:
+        if not args.quick:
+            # The L-id replay is independent of the stages below and the longest; it runs alongside them.
+            generated = Path(tmp.name) / "factor_certificate.json"
+            lid_thread = threading.Thread(target=run_lid, args=(generated,))
+            lid_thread.start()
         run_stage("structural", "verify_structural.py", "PASS_EXACT_STRUCTURAL_IDENTITIES")
         run_stage("universal_moments_audit", "audit/verify_universal_moments.py", "PASS")
         run_stage("weighted_defect_contraction", "direct/verify_universal_third.py", "PASS_UNIVERSAL_THIRD_MOMENTS_AND_WEIGHTED_DEFECT_CONTRACTION")
@@ -98,30 +118,34 @@ def main():
         run_stage("exact_anchor", "audit/verify_anchor.py", "PASS_EXACT_ANCHOR")
 
         if not args.quick:
-            with tempfile.TemporaryDirectory(prefix="matched-flatness-replay-") as tmp:
-                generated = Path(tmp) / "factor_certificate.json"
-                run_stage("full_L_id", "certificate_agent/verify_factored_rational.py",
-                          "PASS UNIVERSAL MATCHED FOURTH-MOMENT IDENTITY",
-                          ("--certificate", generated))
-                expected = json.loads((root / "certificate_agent/factor_certificate.json").read_text())
-                actual = json.loads(generated.read_text())
-                expected.pop("measurements", None)
-                actual.pop("measurements", None)
-                if actual != expected:
-                    different = [k for k in set(actual) | set(expected) if actual.get(k) != expected.get(k)]
-                    raise AssertionError("Regenerated L-id certificate differs: " + ", ".join(sorted(different)))
-                source = root / "certificate_agent/verify_factored_rational.py"
-                if actual["source_sha256"] != hashlib.sha256(source.read_bytes()).hexdigest():
-                    raise AssertionError("L-id source hash mismatch")
-                results.append({"stage": "L_id_certificate_binding", "pass": True,
-                                "description": "All regenerated coefficients, factor/cofactor records and numerator digests match; timing excluded."})
-                print("PASS L_id_certificate_binding", flush=True)
+            lid_thread.join()
+            if "error" in lid:
+                raise lid["error"]
+            expected = json.loads((root / "certificate_agent/factor_certificate.json").read_text())
+            actual = json.loads(generated.read_text())
+            expected.pop("measurements", None)
+            actual.pop("measurements", None)
+            if actual != expected:
+                different = [k for k in set(actual) | set(expected) if actual.get(k) != expected.get(k)]
+                raise AssertionError("Regenerated L-id certificate differs: " + ", ".join(sorted(different)))
+            source = root / "certificate_agent/verify_factored_rational.py"
+            if actual["source_sha256"] != hashlib.sha256(source.read_bytes()).hexdigest():
+                raise AssertionError("L-id source hash mismatch")
+            results.append({"stage": "L_id_certificate_binding", "pass": True,
+                            "description": "All regenerated coefficients, factor/cofactor records and numerator digests match; timing excluded."})
+            print("PASS L_id_certificate_binding", flush=True)
         report = write_report("PASS_ALL_EXACT_MATCHED_FLATNESS_CHECKS")
         print(json.dumps({k: report[k] for k in ("status", "mode", "elapsed_wall_seconds", "child_cpu_seconds", "peak_process_rss_kib")}, indent=2), flush=True)
         print(f"REPORT {report_path}", flush=True)
     except BaseException as exc:
+        for process in running:
+            if process.poll() is None:
+                process.kill()
         write_report("FAIL", exc)
         raise
+    finally:
+        if tmp is not None:
+            tmp.cleanup()
 
 
 if __name__ == "__main__":
