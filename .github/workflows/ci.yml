@@ -32,6 +32,10 @@ jobs:
         run: python3 tests/negative_atlas.py -j 4
       - name: Stage C clique search against the reference enumeration
         run: python3 tests/clique_search.py
+      - name: certify.py on Records 4900-5099, every intermediate compared with the Mac receipt
+        run: |
+          (cd proof/atlas && python3 -W ignore certify.py results/atlas_certificate.json.gz 4900 5100 -j 4 --tsv="$RUNNER_TEMP/certify.tsv")
+          python3 tests/compare_certify_tsv.py proof/atlas/results/receipts/step4_certify.tsv.gz "$RUNNER_TEMP/certify.tsv" --subset --strict
 
   lean:
     name: Lean (build and axiom audit)
