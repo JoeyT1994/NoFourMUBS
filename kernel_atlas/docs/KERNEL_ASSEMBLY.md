@@ -269,7 +269,7 @@ Records in chunk order so whole chunks finish together, and compile each chunk a
 
 ## 9. The full run on rusty (17 Oct 2026; in progress)
 
-Budget ≈ 20,000 core-hours, raised to ≈ 23,000 by the user before Phase 1 started (whole 128-core ccq nodes; accounted as allocated cores × elapsed, `sacct` CPUTimeRAW over
+Budget ≈ 20,000 core-hours, raised by the user to ≈ 23,000 before Phase 1 started and to ≈ 33,000 during it (whole 128-core ccq nodes; accounted as allocated cores × elapsed, `sacct` CPUTimeRAW over
 jobs named `nofour-katlas*`). Archive: `/mnt/ceph/users/jtindall/nofour_katlas` (`rows/`, `oleans/Rec<n>.tar`,
 `src/Rec<n>.tar.gz`, `chunks/`, `final/`, `logs/`). Ceph baseline before the run: 947,759 files under
 `/mnt/ceph/users/jtindall`. Scripts: `run_katlas_{setup,records,chunks,final}.sh`, drivers `atlas_run.py --archive`
@@ -282,10 +282,20 @@ jobs named `nofour-katlas*`). Archive: `/mnt/ceph/users/jtindall/nofour_katlas` 
 | smoke: chunk 0 | 7261142 | `ok`: compile 21 s, 7.2 GB; `Chunk0.tar` 519 MB | 10 |
 | smoke: final against chunk 0 + 120 stub chunks | 7261228 | `ok`: Final compiles in 13.6 s (7.6 GB); `no_four_mubs_kernel : ¬ NoFourMUBs.FourMUBs`, axioms `propext, sorryAx, Classical.choice, Quot.sound` (`sorryAx` from the stubs only) | 3.5 |
 | 1. Records 100–12020 (16 nodes, Lean's default threads, 120 Records in flight, cap 10 h 45 per node; drain 70 min before the cap) | 7261367 (7261362, cap 9 h 24, cancelled after 9 s when the budget was raised) | submitted 09:52 EDT | ≤ 22,016 |
+| 1b. Records 12020 down to 9700 (8 nodes, the retuned memory budgets, 160 Records in flight, cap 7 h) | 7263718 | submitted 15:45 EDT, alongside 7261367 | ≤ 7,168 |
 
 `lean -j 1` cost ≈ 5% more CPU than Lean's default threads on the same Records (85.7 vs 82 min), so Phase 1 uses the
 default. The time cap is the budget control: 376 + 22,016 + ≈ 150 for chunks and final stays under 23,000; the expected cost is ≈ 19,000–20,000. A job
 reaching its cap leaves its remaining Records unstarted (the drain), and a later run resumes them at no loss.
+
+At 15:40 (5 h 54 into 7261367): 4,429 Records `ok` (with the smoke), none failed, 12,179 core-hours used. Slower than
+projected, for two reasons. Later Records are heavier (mean CPU 91 min for Records < 3000, 103 for 3000–3999, 114 for
+4000–4999). And a node ran only 82–94 Lean processes (load ≈ 90 of 128): the memory budgets (peak minus 5 GB) reserved
+the whole 856 GB while 470–620 GB were in use. `mem_gb` now reserves the private part of each module's measured peak
+(about the 99th percentile over 4,412 Records; table in `atlas_run.mem_gb`); Graph2 peaked at 75.6 GB once (p99 22.5),
+which the unreserved memory absorbs. 7261367 is expected to end near Record 8,300–9,100 (it admits in index order);
+7263718 takes the top of the index range from above, with the new budgets, and a last resumable run takes the gap and
+any drained Records. Projection: ≈ 22,000 + 5,000 + 1,500 + 200 (chunks and final) ≈ 29,000 core-hours.
 
 **What goes to git, and reproducibility.** No generated Lean sources or build outputs of the atlas are committed (≈ 30
 files and 3.5 MB per Record); they stay on ceph (`src/Rec<n>.tar.gz`, then the chunk tarballs). The repository gets
