@@ -35,9 +35,18 @@ the sum rules Σp = 108 and ΣJ = 0; Lemma 1.1; the Jacobian identity (J) of han
 
 ## Deliverables and checking
 `REPORT.md` with PROVED / CERTIFIED / NUMERICAL labels, an exact `verify.py`, and `SHA256SUMS`. Certificates must replay
-through `lean/NoFourMUBs/Identity`, and the result must plug in behind the existing `NonzeroJAlgebra` interface
-(`PRM/CoverageStripParts`), so `PRM.strictCornerCoverage` and everything downstream is unchanged. Check with
+through `lean/NoFourMUBs/Identity`. **Where it plugs in:** `TopStripClassification` (`PRM/CoverageInputs.lean:90`)
+already states the nonzero-J case as `17/3 < p < 29/5 ∨ EquiEndpoint ∨ P7Endpoint`, i.e. exactly the form of N2, and
+its nonzero-J half is proved in `PRM/CoverageStripNonzero.lean`. An N2 proof replaces that half. (`NonzeroJAlgebra`, in
+`PRM/CoverageStripParts`, fixes the exact square-sum identity S·(∏L)²(∏L′)² = c·Q(k, K)/h³² and is the right interface
+only for N1-style results; `Final.lean` names `PRM.Coverage.nonzeroJAlgebra` at lines 42 and 47, so swapping routes needs
+a small edit there.) `PRM.strictCornerCoverage` and everything downstream stay unchanged. Check with
 `python3 lean/check_axioms.py --full`.
+
+**An untested observation (from reading only).** The nine corners with two columns in E and one in B give a sum S₉ of
+−D² that is symmetric in each half separately, so it is a polynomial in the two halves' moments, which the
+λ-identities already determine. S = S₉ + S₉′ (the corners E and B themselves have D = 0) with both terms ≥ 0, so S₉ = 0
+alone is necessary, and it might give a lower-degree condition than Q. Not computed.
 
 **Risk.** The 20-corner square sum may be the natural symmetric object, in which case no short proof exists; N2 is the
 most promising target because it only needs an inequality, not the full classification.
