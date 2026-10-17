@@ -25,12 +25,13 @@ with d₃ < 0.03, 1,540 with d₃ < 0.1; `explorations/atlas_survey/`). Part of 
 literature on the Fourier family (Jaming et al. 2009); its exact statement needs checking.
 
 ## Evidence — NUMERICAL
-- The atlas-wide triple search (`explorations/triple_test/README.md`): 381,890 triples from 615,734 starts at all
+- The atlas-wide triple search (`explorations/triple_test/README.md`): 379,944 distinct triples (381,890 converged runs from 615,734 starts) at all
   12,021 centres, none unexplained; continuous triples have exactly two Fourier-type transitions (75 near F₆ have three).
-- The Diţă triple (route-2 notes, §3.1, at git tag `archive-2026-10-17`): D has min |3×3 minor| = 2, while K and L have
+- The Diţă triple (route-2 return B: `proof/atlas/route2/returns/B_pairing/REPORT.md` §3.1 and `EXACT_TRIPLE.json`, at
+  git tag `archive-2026-10-17`): D has min |3×3 minor| = 2, while K and L have
   exactly singular minors and 3×3 Hadamard blocks — consistent with F.
-- F follows from the triple-classification conjecture of Matolcsi et al. (Conjecture 1 of the paper draft); the
-  route-2 notes list the inclusion T₃ ⊂ H₂ as not established.
+- F follows from the triple-classification conjecture of Matolcsi et al. (Conjecture 1 of the paper draft); route-2
+  return B lists the inclusion T₃ ⊂ H₂ as not established.
 
 ## Suggested angles
 1. Apply the corner reconstruction to K and L simultaneously, using corner identities that link H, K and L.
