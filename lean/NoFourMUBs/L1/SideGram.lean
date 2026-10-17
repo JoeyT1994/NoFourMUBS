@@ -54,7 +54,8 @@ theorem domain {s t r : ℂ} (hR : 0 < gR s t r) (hdet : 0 ≤ 27 - 3 * gPs s t 
 
 /-! ### The norm identities (6) -/
 
-/-- `|Pⱼ|² = g² + cⱼ χ + cⱼ² η` for `j = 0, 1, 2`, with `c₀ = 9 − |r|²`, `c₁ = 9 − |t|²`, `c₂ = 9 − |s|²`. -/
+/-- `|Pⱼ|² = g² + cⱼ χ + cⱼ² η` for `j = 0, 1, 2`, with `c₀ = 9 − |r|²`, `c₁ = 9 − |t|²`,
+`c₂ = 9 − |s|²`. -/
 theorem normSq_P (s t r : ℂ) :
     Complex.normSq (P0 s t r) = gG s t r ^ 2 + cR r * gChi s t r + cR r ^ 2 * gEta s t r ∧
     Complex.normSq (P1 s t r) = gG s t r ^ 2 + cR t * gChi s t r + cR t ^ 2 * gEta s t r ∧

@@ -22,8 +22,8 @@ namespace NoFourMUBs.L1
 
 /-! ### The Jacobian identity (J) -/
 
-/-- The angle derivative of `(s, s̄, t, t̄, r, r̄)` divided by `i`, in the columns `a₀, a₁, a₂, b₀, b₁, b₂`,
-with `X = x̄` and `Y = ȳ`. -/
+/-- The angle derivative of `(s, s̄, t, t̄, r, r̄)` divided by `i` (up to the signs of the conjugate rows), in
+the columns `a₀, a₁, a₂, b₀, b₁, b₂`, with `X = x̄` and `Y = ȳ`. -/
 def jac (x X y Y : Fin 3 → ℂ) : Matrix (Fin 6) (Fin 6) ℂ :=
   !![x 0, x 1, x 2, 0, 0, 0;
      X 0, X 1, X 2, 0, 0, 0;
@@ -46,7 +46,8 @@ theorem det_jac_laplace (x X y Y : Fin 3 → ℂ) :
     cons_val_succ, empty_val', cons_val_fin_one, Fin.succAbove_zero, Fin.one_succAbove_zero, Fin.one_succAbove_succ,
     Fin.succ_zero_eq_one, Fin.succ_one_eq_two, mul_zero, zero_mul, add_zero, zero_add, Fin.val_zero, Fin.val_one,
     Fin.val_two, pow_zero, pow_one, one_mul, neg_mul, Fin.isValue, head_cons, tail_cons]
-  simp only [Fin.default_eq_zero, Fin.succAbove, Fin.lt_def, Fin.val_zero, Fin.val_one, Fin.val_two, Fin.castSucc_zero, Fin.succ_zero_eq_one, Fin.succ_one_eq_two]
+  simp only [Fin.default_eq_zero, Fin.succAbove, Fin.lt_def, Fin.val_zero, Fin.val_one, Fin.val_two,
+    Fin.castSucc_zero, Fin.succ_zero_eq_one, Fin.succ_one_eq_two]
   norm_num
   simp [Matrix.cons_val, Fin.castSucc, Fin.castAdd, Fin.castLE, det3]
   ring

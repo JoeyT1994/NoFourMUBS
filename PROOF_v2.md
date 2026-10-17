@@ -85,15 +85,24 @@ side signatures are conjugate, −Ψ(B) = ζ₊ and −Ψ(C) = ζ₋. Write A = 
 > **Theorem 1.2 (matched existence).** Every strict seed has a matched Hadamard completion.
 
 *Proof.* There are two certified steps:
-- **Sides.** For each strict Gram datum and each root ζ there is an actual normalised phase side with that Gram
-  matrix and signature ζ. The proof uses explicit polynomial identities with integer cofactors
-  (`proof/coverage/returns/F_side_existence`).
+- **Sides.** For each strict seed, each of its two side Gram matrices and each root ζ there is an actual
+  normalised phase side with that Gram matrix and signature ζ. In the angles φ ∈ ℝ⁶ of a side, the Gram map
+  φ ↦ (s, t, r) ∈ ℂ³ ≅ ℝ⁶ has Jacobian determinant ¼ Im Ψ (**identity (J)**: the derivative of
+  (s, s̄, t, t̄, r, r̄) has determinant Ψ̄ − Ψ, the Laplace expansion into two products of 3×3 determinants). By
+  Lemma 1.1 it is nonzero wherever R > 0, so by the inverse function theorem the strict seeds whose Gram matrix is
+  realised with Im T > 0 form an open set U. U is also closed in S = {R > 0}: the sides form a compact torus, and
+  Im T cannot reach 0 over R > 0. U contains the 18 maxima of R (Theorem 2.1), where the matched completions
+  transported from H₀ (§3) supply the sides, so U = S by the maximum argument of §3. Conjugating seed and side
+  gives the other root, and the vertical side is the same with the signs exchanged
+  (`proof/coverage/handoffs/J_side_existence_jacobian`). This replaces the explicit radical construction of
+  return F, which is kept as provenance.
 - **Flatness.** For *any* actual sides B, C on conjugate roots, the forced block D = −C E* G⁻¹ B has
   unimodular entries. The completion always satisfies HH* = 6I. Its defect matrix |Dᵢⱼ|² − 1 has zero row and
   column sums, so it is determined by four weighted third-moment defects. Their eight coefficients vanish
   identically in ℚ(a, b, c, d) (`proof/coverage/returns/E_matched_flatness`).
 
-*Lean:* `L1.matchedExistence`. Every identity is re-checked by the kernel through a verified Kronecker
+*Lean:* `L1.matchedExistence`. Side existence is `L1.exists_side_h` and `L1.exists_side_v` (`L1/SideJacobian`,
+`L1/SideCover`); the flatness identities are re-checked by the kernel through a verified Kronecker
 polynomial-identity checker. ∎
 
 > **Theorem 1.3 (matched uniqueness).** Two matched completions of the same strict seed are equivalent.
@@ -256,7 +265,7 @@ interval implementations (§5), not yet by Lean.
 | Ingredient | Paper proof | Computation | Lean |
 |---|---|---|---|
 | Lemma 1.1 (side quadratic) | §1 | none | yes |
-| Theorem 1.2 (matched existence) | returns E, F | exact identities | yes (kernel re-checks every identity) |
+| Theorem 1.2 (matched existence) | return E, handoff J | exact identities (flatness); identity (J) | yes (kernel re-checks every identity) |
 | Theorem 1.3 (matched uniqueness) | Step 2 blueprint, §7 | none | yes |
 | Theorem 1.4 (nonmatched converse) | return G §§2–5 | exact: 81-case census, 400 Laurent identities | yes |
 | Theorem 1.5 (coverage) | `STRICT_CORNER_COVERAGE.md` and its imports | exact identities; Bernstein/Sturm | yes (kernel re-checks the sign certificate and both square-sum identities) |

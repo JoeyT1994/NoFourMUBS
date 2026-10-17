@@ -33,14 +33,6 @@ namespace NoFourMUBs.PRM
 
 open L1 L1.FlatCircuits
 
-/-- Two roots of the same real quadratic. -/
-theorem eq_or_eq_conj_of_roots {w ζ P S : ℂ} (hw1 : w * conj w = P) (hw2 : w + conj w = S)
-    (hz1 : ζ * conj ζ = P) (hz2 : ζ + conj ζ = S) : w = ζ ∨ w = conj ζ := by
-  have : (w - ζ) * (w - conj ζ) = 0 := by linear_combination hz1 - hw1 - w * hz2 + w * hw2
-  rcases mul_eq_zero.1 this with h | h
-  · exact Or.inl (sub_eq_zero.1 h)
-  · exact Or.inr (sub_eq_zero.1 h)
-
 /-- Equality in Cauchy–Schwarz for two unit-entry rows of length six, both starting with `1`. -/
 theorem row_eq_of_inner {u v : I6 → ℂ} (hu : ∀ j, Complex.normSq (u j) = 1)
     (hv : ∀ j, Complex.normSq (v j) = 1) (h0 : u (Sum.inl 0) = 1) (h0' : v (Sum.inl 0) = 1)
@@ -72,51 +64,7 @@ theorem row_eq_of_inner {u v : I6 → ℂ} (hu : ∀ j, Complex.normSq (u j) = 1
   funext j; rw [hz j, hc, one_mul]
 
 
-/-! ### Corner Gram data from unit entries -/
-
 variable {ρ : Fin 4 → ℂ}
-
-theorem G_eq' (hu : ∀ i, Complex.normSq (ρ i) = 1) : Hadamard6.sixI3 - Em ρ * (Em ρ)ᴴ =
-    !![3, conj (sh ρ), conj (th ρ); sh ρ, 3, conj (rh ρ); th ρ, rh ρ, 3] := by
-  have n : ∀ i, ρ i * conj (ρ i) = 1 := fun i => by rw [Complex.mul_conj, hu i, Complex.ofReal_one]
-  ext i j
-  simp only [Hadamard6.sixI3, Matrix.sub_apply, Matrix.smul_apply, Matrix.one_apply, Matrix.mul_apply,
-    Fin.sum_univ_three, Matrix.conjTranspose_apply, Complex.star_def, smul_eq_mul]
-  fin_cases i <;> fin_cases j <;>
-    simp [Em, Hadamard6.corner, sh, th, rh] <;>
-    (first
-      | ring1
-      | linear_combination (-1 : ℂ) * n 0 - n 1
-      | linear_combination (-1 : ℂ) * n 2 - n 3)
-
-theorem Gv_eq' (hu : ∀ i, Complex.normSq (ρ i) = 1) : Hadamard6.sixI3 - (Em ρ)ᴴ * Em ρ =
-    !![3, sv ρ, tv ρ; conj (sv ρ), 3, rv ρ; conj (tv ρ), conj (rv ρ), 3] := by
-  have n : ∀ i, ρ i * conj (ρ i) = 1 := fun i => by rw [Complex.mul_conj, hu i, Complex.ofReal_one]
-  have n' : ∀ i, conj (ρ i) * ρ i = 1 := fun i => by rw [mul_comm]; exact n i
-  ext i j
-  simp only [Hadamard6.sixI3, Matrix.sub_apply, Matrix.smul_apply, Matrix.one_apply, Matrix.mul_apply,
-    Fin.sum_univ_three, Matrix.conjTranspose_apply, Complex.star_def, smul_eq_mul]
-  fin_cases i <;> fin_cases j <;>
-    simp [Em, Hadamard6.corner, sv, tv, rv] <;>
-    (first
-      | ring1
-      | linear_combination (-1 : ℂ) * n' 0 - n' 2
-      | linear_combination (-1 : ℂ) * n' 1 - n' 3)
-
-/-! ### The two descriptions of the invariants agree -/
-
-theorem jS_eq (s t r : ℂ) : jS s t r = gJ s t r := by
-  simp only [jS, gJ]
-  rw [← Complex.conj_re]; simp [map_mul]
-
-theorem etaS_eq (s t r : ℂ) : etaS s t r = gEta s t r := by
-  simp only [etaS, gEta, pS, gPs, gX, jS_eq]
-
-theorem chiS_eq (s t r : ℂ) : chiS s t r = gChi s t r := by
-  simp only [chiS, gChi, pS, gPs, gX, jS_eq]
-
-theorem RS_eq (s t r : ℂ) : RS s t r = gR s t r := by
-  simp only [RS, gR, gS_eq, etaS_eq, chiS_eq]
 
 /-- Row orthogonality of a Hadamard matrix, entrywise. -/
 theorem had_rows {M : Mat6} (hM : Hadamard6.IsHadamard M) (a b : I6) :
@@ -172,16 +120,14 @@ theorem nonmatched_tao (M : Mat6) (hM : Hadamard6.IsHadamard M) (hd : Step2.Deph
     rw [hs, ht, hr, RS_eq] at this
     rw [this]; positivity
   have hst : Strict ρ := ⟨hu, hRpos⟩
-  obtain ⟨-, hRv, -, -⟩ := hst.facts
   obtain ⟨eg, ee, ec⟩ := hv_eq hu
-  obtain ⟨d1, d2⟩ := det_nonneg hu
   -- the matched vertical side, on the root `ζ̄`
   have hζ2' : conj ζ ^ 2 = (gChi (sv ρ) (tv ρ) (rv ρ) : ℂ) * conj ζ -
       ((gG (sv ρ) (tv ρ) (rv ρ) : ℝ) : ℂ) ^ 2 * (gEta (sv ρ) (tv ρ) (rv ρ) : ℂ) := by
     rw [eg, ee, ec]; linear_combination conj ζ * r2 - r1
   have hζc' : conj (conj ζ) = (gChi (sv ρ) (tv ρ) (rv ρ) : ℂ) - conj ζ := by
     rw [ec, Complex.conj_conj]; linear_combination r2
-  obtain ⟨x', y', hx', hy', hs', ht', hr', hT'⟩ := exists_side_gram hRv d2 hζ2' hζc'
+  obtain ⟨x', y', hx', hy', hs', ht', hr', hT'⟩ := exists_side_v hst hζ2' hζc'
   have hBdet : IsUnit (sideMat x y).det := Step2.det_ne_of_sig (by rw [← hBM, sigB]; exact hIm)
   have sigC0 : Step2.sideSignature (sideMat x' y')ᵀ = conj ζ := by
     rw [Step2.sig_cols _ (fun i => rfl)]; exact hT'
