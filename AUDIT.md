@@ -17,8 +17,8 @@ Start with [`PROOF.md`](PROOF.md), [`PROOF_v2.md`](PROOF_v2.md) (the classificat
 
 ```bash
 pip install -r requirements.txt     # numpy, sympy, mpmath, python-flint
-python3 verify.py                   # ~3 min: Step 1 certificates, Steps 1-2 replays, matched existence, MC1-MC5, S6, Stage C sample
-python3 verify.py --atlas -j 9      # ~50 min on 9 cores: certify all 12,021 Records, F6 and the anchor H0
+python3 verify.py                   # ~1 min: Step 1 certificates, Steps 1-2 replays, matched existence, MC1-MC5, S6, Stage C sample
+python3 verify.py --atlas -j 8      # ~1.9 CPU-hours, 14 min with -j 8 on an M5 Max: certify all 12,021 Records, F6 and H0
 python3 verify.py --lean            # build the Lean formalisation and audit the axioms of its main theorems
 python3 verify.py --lean-full       # also build L1 and NoFourMUBs.Final in Lean (hours on a first build)
 ```

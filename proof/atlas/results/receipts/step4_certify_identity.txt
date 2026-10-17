@@ -1,0 +1,7 @@
+$ python3 tests/compare_certify_tsv.py step4_certify_before_speedup.tsv.gz step4_certify.tsv.gz --strict
+12021 common Records: 12021 identical in every compared column (record, verdict, R, label_radius, sigma, rH, n, bins, bins_sha, labels, labels_sha, O, U, edges_sha, jO, jU, joint_sha, leaves, boxes), 0 differ
+reference: 12021 Records, 12021 PASS; CPU 9619 s (2.67 CPU-hours), wall 9696 s summed over Records; max clique-search steps 4981068 (Record 9360); costliest 2015 (5 s), 1739 (5 s), 1737 (5 s), 1720 (5 s), 2295 (5 s)
+run: 12021 Records, 12021 PASS; CPU 6706 s (1.86 CPU-hours), wall 6717 s summed over Records; max clique-search steps 873170 (Record 11952); costliest 11227 (4 s), 11949 (4 s), 11224 (4 s), 11157 (4 s), 11223 (4 s)
+COMPARISON PASS
+
+$ diff of nonempty.py and anchor.py outputs (RuntimeWarning lines removed), before vs after: none

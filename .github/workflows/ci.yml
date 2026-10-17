@@ -1,6 +1,6 @@
 # Continuous integration: the quick exact replays, the Lean build with its axiom audit, the independent Julia checker
 # on a small sub-certificate, and negative tests (each checker must reject targeted corruptions).  The full atlas
-# certification (verify.py --atlas, ~23 CPU-hours) and the --lean-full targets are not run here.
+# certification (verify.py --atlas, ~2 CPU-hours; a 200-Record sample is compared with its receipt) and the --lean-full targets are not run here.
 name: CI
 
 on:

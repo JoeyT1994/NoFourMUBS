@@ -39,7 +39,9 @@ All three are also formalised in Lean (`lean/NoFourMUBs/StageC/`, `NormalBound.l
 - `certify.py`, via `verify.py --atlas`;
 - the independent Julia implementation, [`../independent/`](../independent/README.md).
 
-`results/receipts/` holds the per-check outputs. `results/build_logs/` holds the driver and repair logs.
+`results/receipts/` holds the per-check outputs, including `step4_certify.tsv.gz`, one line of intermediates per Record from `certify.py --tsv`. `results/build_logs/` holds the driver and repair logs.
+
+**Cost.** About 1.9 CPU-hours: `verify.py --atlas -j 8` takes 14 min on an Apple M5 Max (17 Oct 2026; 25 min with the code before that day's speed-ups, which leave every intermediate identical; see the receipt). `certify.py -j N` runs one pool of N workers, each loading the certificate once.
 
 **Parameters.**
 - **Radii.** R = 0.08 rad with label radius 0.03, falling back down a ladder to 0.01 where Stage C fails.

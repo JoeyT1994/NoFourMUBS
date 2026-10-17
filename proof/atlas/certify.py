@@ -157,13 +157,15 @@ if __name__ == '__main__':
     order = closed[::-1] if pool else closed
     t0 = time.time(); bad = 0; rows = {}; smax = (0, None)
     results = (f.result() for f in as_completed([pool.submit(_worker, s) for s in order])) if pool else (certify_one(A, s) for s in order)
-    for k, (s, verdict, msg, row, steps) in enumerate(results):
-        rows[s] = row
-        if verdict == 'FAIL': print('FAIL', s, msg, flush=True); bad += 1
-        if steps is not None and steps > smax[0]: smax = (steps, s)
-        if (k + 1) % 500 == 0 or (not pool and verdict == 'PASS' and s % 20 == 0):
-            print('%d / %d records done (record %d %s)  %.0fs' % (k + 1, len(order), s, verdict, time.time() - t0), flush=True)
-    if pool: pool.shutdown()
+    try:
+        for k, (s, verdict, msg, row, steps) in enumerate(results):
+            rows[s] = row
+            if verdict == 'FAIL': print('FAIL', s, msg, flush=True); bad += 1
+            if steps is not None and steps > smax[0]: smax = (steps, s)
+            if (k + 1) % 500 == 0 or (not pool and verdict == 'PASS' and s % 20 == 0):
+                print('%d / %d records done (record %d %s)  %.0fs' % (k + 1, len(order), s, verdict, time.time() - t0), flush=True)
+    finally:                                                   # an exception in a worker ends the run (nonzero exit)
+        if pool: pool.shutdown(cancel_futures=True)
     if a.tsv:
         with open(a.tsv, 'w') as out:
             out.write('#' + '\t'.join(TSV_COLUMNS) + '\n')
