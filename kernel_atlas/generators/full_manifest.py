@@ -19,7 +19,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 from chunk_run import N, tar_hashes
 
-KEEP = ('idx', 'status', 'axioms_cert', 'axioms_boundaryT', 'axioms', 'cpu_s', 'peak_gb', 'gen_s', 'wall_s',
+RUN_COMMIT = '31c6d9d2'      # Phase 1 rows without gen_commit: generators as at fcea9c1a (unchanged up to 31c6d9d2)
+KEEP = ('idx', 'status', 'gen_commit', 'axioms_cert', 'axioms_boundaryT', 'axioms', 'cpu_s', 'peak_gb', 'gen_s', 'wall_s',
         'olean_tar_bytes', 'labels', 'variant', 'module', 'error')
 
 
@@ -54,6 +55,7 @@ def main():
             out.append(dict(idx=n, status='not_run'))
             continue
         m = {k: r[k] for k in KEEP if k in r}
+        m.setdefault('gen_commit', RUN_COMMIT)
         if r['status'] == 'ok':
             h = hashes.get(n)
             if h is None:                                   # chunk rows from before the hashes (chunk 0 of the smoke)

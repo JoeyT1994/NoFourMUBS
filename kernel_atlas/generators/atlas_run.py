@@ -31,6 +31,15 @@ LEAN = os.path.join(ROOT, 'lean')
 SRC = os.path.join(ROOT, 'kernel_atlas', 'lean')
 OLEAN = os.path.join(LEAN, '.lake', 'build', 'lib', 'lean')
 PY = sys.executable
+
+
+def gen_commit():
+    """The generators' commit: SYNCED_FROM_COMMIT of a repository copy (rusty), else git."""
+    f = os.path.join(ROOT, 'SYNCED_FROM_COMMIT')
+    if os.path.exists(f):
+        return open(f).read().strip()
+    r = subprocess.run(['git', 'rev-parse', '--short', 'HEAD'], cwd=ROOT, capture_output=True, text=True)
+    return r.stdout.strip() or None
 CORE = ['KernelAtlas.E0K', 'KernelAtlas.FrameK', 'KernelAtlas.Joint2K', 'KernelAtlas.Joint2S', 'KernelAtlas.Labels',
         'KernelAtlas.NormalK', 'KernelAtlas.StageCK2B', 'KernelAtlas.Tables', 'KernelAtlas.Tangent2K',
         'KernelAtlas.Tangent2S', 'KernelAtlas.Tangent2L', 'KernelAtlas.SigmaK', 'KernelAtlas.BoundaryK',
@@ -145,6 +154,7 @@ class Node:
     def __init__(self, args):
         self.args = args
         self.env, self.lean = lean_env()
+        self.commit = gen_commit()
         self.lock = threading.Lock()
         self.used = 0
         self.running = {}                       # Popen -> (idx, module, gb, t0, log)
@@ -210,7 +220,7 @@ class Node:
 
     def finish(self, idx, status, **kw):
         st = self.recs.pop(idx)
-        row = dict(idx=idx, status=status, **st['info'], modules=st['done'], **kw)
+        row = dict(idx=idx, status=status, **st['info'], modules=st['done'], gen_commit=self.commit, **kw)
         row['cpu_s'] = round(sum(v['cpu_s'] or 0 for v in st['done'].values()), 1)
         row['peak_gb'] = round(max([v['peak_gb'] or 0 for v in st['done'].values()] or [0]), 1)
         row['wall_s'] = round(time.time() - st['t0'], 1)
