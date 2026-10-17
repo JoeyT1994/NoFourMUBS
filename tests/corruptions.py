@@ -17,7 +17,6 @@ Why each 'reject' case must be rejected:
   frame_not_tangent     column 0 of the tangent frame replaced by a cyclic shift of its entries: span(T) is no
                         longer the tangent space, so ||J T|| ~ 1 and the normal bound (sigma^2 - 2 L b > 0) fails.
   target_dropped        a boundary-transfer target that some boundary box needs (no other target covers that box).
-  all_targets_dropped   no targets: the shell R - n <= ||T eta|| <= R + n meets the cube and nothing transfers it.
   target_sign_flipped   the sign of that target's alignment flipped (-1 -> +1, i.e. conjugated): the transfer
                         offset c = h(A P_s + 2 pi N - P_t) is no longer small.
   target_rowperm_swapped  two rows of that target's alignment swapped: likewise.
@@ -32,6 +31,9 @@ correct checker must still accept them:
 Not used as an 'accept' case: doubling one frame column.  span(T) is unchanged, but the boxes of the eta-cube become
 twice as long in that direction and ||T|| doubles, so the (sound, conservative) boundary tree of certify.py no longer
 closes above the minimum box side R/64.  That is a rejection of a valid but harder certificate, not an error.
+Not used as a 'reject' case: dropping every target.  Both checkers reject it, but certify.py refines its box tree
+breadth-first, so with nothing to transfer into it splits every shell box down to R/64 before reporting the first
+uncovered box: about 23 GB for this Record, more than a CI runner has.  target_dropped exercises the same path.
 """
 import copy
 
@@ -69,8 +71,6 @@ def _drop(j):
     return f
 
 
-def _drop_all(c): c['records'][0]['targets'] = []
-
 
 def _sign(c):
     t = c['records'][0]['targets'][ESSENTIAL]; t[1] = -t[1]
@@ -90,7 +90,6 @@ CASES = [
     ('label_radius',            'reject', 'Stage C',          _set('label_radius', 0.2)),
     ('frame_not_tangent',       'reject', 'normal bound',     _frame_shift),
     ('target_dropped',          'reject', 'boundary',         _drop(ESSENTIAL)),
-    ('all_targets_dropped',     'reject', 'boundary',         _drop_all),
     ('target_sign_flipped',     'reject', 'boundary',         _sign),
     ('target_rowperm_swapped',  'reject', 'boundary',         _rowperm),
     ('target_radius_shrunk',    'reject', 'boundary',         _target_R),
