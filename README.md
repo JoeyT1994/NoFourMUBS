@@ -43,6 +43,16 @@ python3 verify.py --lean     # also build the Lean formalisation and audit its a
 python3 verify.py --lean-full  # also build L1 and the final theorem in Lean (hours on a first build)
 ```
 
+## Continuous integration and tests
+
+[`.github/workflows/ci.yml`](.github/workflows/ci.yml) runs on every push and pull request: `verify.py`, the Lean build with its axiom audit (as `verify.py --lean`), and the Julia checker on a small sub-certificate (Record 11992 and its 21 transfer targets) with its sanity checks. It does not run `--atlas` or `--lean-full`. The negative tests in [`tests/`](tests/corruptions.py) check that the checkers reject bad input. They corrupt that sub-certificate, the F6 Record and the Step 1 certificates in targeted ways: a moved centre, an enlarged radius or label radius, a non-tangent frame, dropped or misaligned transfer targets, a shrunk target, a moved F6 Record, and altered rationals. Both `certify.py`/`nonempty.py` and the Julia checker must reject every corruption. Harmless changes, such as a redundant target dropped or the frame columns swapped, must still be accepted.
+
+```bash
+python3 tests/negative_exact.py                     # verify_certificates.py (seconds)
+python3 tests/negative_atlas.py                     # certify.py and nonempty.py (~15 s)
+bash proof/independent/tests/run_tests.sh           # check.jl, sanity.jl, tests/negative.jl (a few minutes)
+```
+
 ## References
 
 - [CT] M. Cárdenes Wuttig, J. Tindall, *A complete classification of complex Hadamard matrices of order six*, arXiv:2608.18053.
