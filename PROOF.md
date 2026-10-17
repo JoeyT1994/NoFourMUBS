@@ -163,7 +163,7 @@ Because of the normal bound, the boundary of a Record needs only a 4-dimensional
 - **The atlas.** 12,021 ball Records: 10,497 at R = 0.08, 1,029 at 0.063, 419 at 0.05 and 76 at 0.04. Every boundary is transferred, with on average 58 transfer targets per Record.
 - **Certification.** `certify.py` certifies all 12,021, and an independent Julia implementation (`proof/independent/`) passes all 12,021 as well (`proof/atlas/results/RECEIPT.md`).
 - **Nonemptiness.** F6 lies in the interior of Record 877, at distance 0.023 < 0.08.
-- **Cost.** About 5 CPU-hours to certify; about 48 minutes on 9 cores.
+- **Cost.** About 1.9 CPU-hours to certify; `verify.py --atlas -j 8` takes 14 minutes on an Apple M5 Max (17 Oct 2026, `proof/atlas/results/RECEIPT.md`).
 - **Certificate.** `atlas_certificate.json.gz` (16 MB, with integer tangent frames).
 
 ## Conclusion
@@ -186,7 +186,7 @@ By Step 4 and the Corollary to Step 2, every class in X lies in some ball Record
 ```bash
 pip install -r requirements.txt
 python3 verify.py            # exact replays: Steps 1-2, matched existence, PR-M and exact reach, MC1-MC5, S6, Stage C Arb sample
-python3 verify.py --atlas    # also certify all 12,021 Records, F6 and the anchor (about 50 min on 9 cores)
+python3 verify.py --atlas -j 8  # also certify all 12,021 Records, F6 and the anchor (~1.9 CPU-hours: 14 min with -j 8 on an M5 Max)
 python3 verify.py --lean     # also build the Lean formalisation and audit its axioms
 python3 verify.py --lean-full  # also build L1 and NoFourMUBs.Final (hours on a first build)
 ```

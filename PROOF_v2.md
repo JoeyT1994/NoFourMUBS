@@ -253,8 +253,8 @@ connected space X. *Lean:* `recordClopen_of_atlas`, `Step2.coverage_of_connected
   and has its boundary transferred, to 58 targets on average.
 - **Nonempty and anchored.** F6 lies in Record 877, and the anchor completion H₀ in Record 9319.
 - **Certified twice.** `proof/atlas/certify.py` (Arb, plus binary64 with a margin of 10⁻⁷ against an error budget
-  below 10⁻¹⁰) and an independent Julia implementation (`proof/independent/`) both pass every Record. About 5
-  CPU-hours.
+  below 10⁻¹⁰) and an independent Julia implementation (`proof/independent/`) both pass every Record. About 1.9
+  CPU-hours for `certify.py` (14 minutes on 8 cores of an Apple M5 Max).
 
 ## 6. Conclusion
 

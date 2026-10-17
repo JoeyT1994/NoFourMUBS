@@ -1,5 +1,6 @@
 """Replay the local reconstruction proof dossier; never edits root verify.py."""
 import hashlib,json,os,subprocess,sys,time
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 HERE=Path(__file__).resolve().parent
@@ -12,16 +13,22 @@ CHECKS=['verify_invariants.py','verify_provenance.py','verify_side_fiber.py',
         'verify_critical_scalar_classification.py','verify_strict_corner_coverage.py']
 
 
-def run():
+def run_one(name):
+    t=time.monotonic()
+    result=subprocess.run([sys.executable,str(HERE/name)],env=dict(os.environ,PYTHONDONTWRITEBYTECODE='1'),
+                          text=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
+    return name,result,time.monotonic()-t
+
+
+def run(jobs=8):
+    """The fifteen verifiers are independent; they run concurrently (jobs at a time), reported in CHECKS order."""
     start=time.monotonic();records=[]
-    env=dict(os.environ,PYTHONDONTWRITEBYTECODE='1')
-    for name in CHECKS:
-        t=time.monotonic()
-        result=subprocess.run([sys.executable,str(HERE/name)],env=env,
-                              text=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
+    with ThreadPoolExecutor(max(1,min(jobs,os.cpu_count() or 1))) as pool:
+        results=list(pool.map(run_one,CHECKS))
+    for name,result,seconds in results:
         assert result.returncode==0,(name,result.stdout)
         assert 'PASS' in result.stdout,(name,'missing success report')
-        records.append(dict(verifier=name,status='PASS',seconds=time.monotonic()-t,
+        records.append(dict(verifier=name,status='PASS',seconds=seconds,
                             output_sha256=hashlib.sha256(result.stdout.encode()).hexdigest()))
         print('PASS',name,flush=True)
     paths=sorted(list(HERE.glob('*.py'))+list(HERE.glob('*.md'))+

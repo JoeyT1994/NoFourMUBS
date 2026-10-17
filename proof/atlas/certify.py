@@ -51,17 +51,18 @@ def transfer_data(A, Ps, Pt, Ts):
     return cf, 6 * crad, M
 
 
-def certify_record(rec):
+def certify_record(rec, trace=None):
     B = BallRecord(rec['phi'].reshape(36), Tint=rec.get('Tint'))     # stored frame: platform-independent
     rH, n0 = B.normal_bound(rec['R'])
     rec['Tcert'] = np.array(B.rec.Tbn, float)                       # the certifier's own frame
     dT = float(np.abs(np.array([[float(abs(B.rec.Tb[e, k] - arb(float(B.rec.Tbn[e, k]))).upper()) for k in range(4)] for e in range(36)])).sum())
-    o = B.stage_c(rec['R'], radius=rec['label_radius'])
+    o = B.stage_c(rec['R'], radius=rec['label_radius'], trace=trace)
+    if trace is not None: trace.update(sigma=B.sigma, rH=rH, n=n0 + dT * rH, clique_steps=o.get('steps'))
     assert o.get('ok'), 'Stage C failed: %s' % o
     return rH, n0 + dT * rH                                           # recomputed, used for the boundary replay
 
 
-def certify_boundary(A, s, rH, n, wmin_frac=1 / 64):
+def certify_boundary(A, s, rH, n, wmin_frac=1 / 64, trace=None):
     """Replay the adaptive box tree over [-rH, rH]^4 using only the stored transfer targets of s, with the certifier's
     own r_H and normal bound n (recomputed by certify_record)."""
     rs = A.recs[s]; tr = A.transfers[s]
@@ -76,6 +77,7 @@ def certify_boundary(A, s, rH, n, wmin_frac=1 / 64):
     nleaf = 0
     while len(E):
         E = E[~AT.offshell(E, w, T, nT, R, n, rH, margin=MARGIN)]
+        if trace is not None: trace.setdefault('boxes', []).append(len(E))
         done = np.zeros(len(E), bool)
         for t, (cf, cr, M) in tdat:
             sup = np.linalg.norm(cf[None, :] + E @ M.T, axis=1) + cr + Mn * w + 1e-12
@@ -87,22 +89,87 @@ def certify_boundary(A, s, rH, n, wmin_frac=1 / 64):
     return nleaf
 
 
-if __name__ == '__main__':
-    if sys.argv[1].endswith('.json.gz'):
+TSV_COLUMNS = ('record', 'verdict', 'R', 'label_radius', 'sigma', 'rH', 'n', 'bins', 'bins_sha', 'labels', 'labels_sha',
+               'O', 'U', 'edges_sha', 'jO', 'jU', 'joint_sha', 'clique_steps', 'leaves', 'boxes', 'wall_s', 'cpu_s')
+
+
+def tsv_row(s, rec, verdict, tr, wall, cpu):
+    """One line of per-Record intermediates (floats as exact hex), for diffing two runs of the certifier."""
+    f = lambda k: float(tr[k]).hex() if k in tr else ''
+    v = dict(record=s, verdict=verdict, R=float(rec['R']).hex(), label_radius=float(rec['label_radius']).hex(),
+             sigma=f('sigma'), rH=f('rH'), n=f('n'), bins=','.join(map(str, tr.get('bins', []))),
+             boxes=','.join(map(str, tr.get('boxes', []))), wall_s='%.3f' % wall, cpu_s='%.3f' % cpu)
+    return '\t'.join(str(v.get(c, tr.get(c, ''))) for c in TSV_COLUMNS)
+
+
+def load(path):
+    if path.endswith('.json.gz'):
         from export import load_certificate
-        A = load_certificate(sys.argv[1])
-    else:
-        A = AT.load(sys.argv[1])
-    lo, hi = (int(sys.argv[2]), int(sys.argv[3])) if len(sys.argv) > 3 else (0, len(A.recs))
+        return load_certificate(path, census=False)          # the corner census is used only by the F6/H0 searches
+    return AT.load(path)
+
+
+def certify_one(A, s):
+    """Certify Record s (Stage C and boundary replay).  Records are independent: the replay of s reads only the
+    centre and radius of its targets.  Returns (s, verdict, failure message, TSV line, steps)."""
+    tr = {}; w0, c0 = time.perf_counter(), time.process_time()
+    try:
+        rH, n = certify_record(A.recs[s], trace=tr); tr['leaves'] = certify_boundary(A, s, rH, n, trace=tr)
+        verdict, msg = 'PASS', ''
+    except AssertionError as e:
+        verdict, msg = 'FAIL', str(e)
+    return s, verdict, msg, tsv_row(s, A.recs[s], verdict, tr, time.perf_counter() - w0, time.process_time() - c0), tr.get('clique_steps')
+
+
+_W = None                                                     # the certificate, loaded once per worker process
+
+
+def _worker_init(path):
+    global _W
+    import warnings; warnings.simplefilter('ignore')
+    _W = load(path)
+
+
+def _worker(s):
+    return certify_one(_W, s)
+
+
+if __name__ == '__main__':
+    import argparse
+    ap = argparse.ArgumentParser(description='Certify the Records [lo, hi) of an atlas certificate (default: all).')
+    ap.add_argument('certificate'); ap.add_argument('lo', type=int, nargs='?'); ap.add_argument('hi', type=int, nargs='?')
+    ap.add_argument('-j', '--jobs', type=int, default=1,
+                    help='worker processes, one certificate load each; Records are scheduled one at a time, highest index first')
+    ap.add_argument('--tsv', help='write the per-Record intermediates (TSV_COLUMNS) here, in Record order')
+    a = ap.parse_args()
+    pool = None
+    if a.jobs > 1:                     # workers start loading while the main process does; a dead worker fails the run
+        import multiprocessing as mp
+        from concurrent.futures import ProcessPoolExecutor, as_completed
+        pool = ProcessPoolExecutor(a.jobs, mp_context=mp.get_context('spawn'), initializer=_worker_init, initargs=(a.certificate,))
+    A = load(a.certificate)
+    lo, hi = (a.lo, a.hi) if a.hi is not None else (0, len(A.recs))
     closed = [s for s in sorted(A.closed) if lo <= s < hi]
     nopen = len([s for s in range(lo, min(hi, len(A.recs))) if s not in A.closed])
     if nopen: print('NOTE: %d records in [%d, %d) are not closed (atlas incomplete)' % (nopen, lo, hi))
-    t0 = time.time(); bad = 0
-    for s in closed:
-        try:
-            rH, n = certify_record(A.recs[s]); nl = certify_boundary(A, s, rH, n)
-        except AssertionError as e:
-            print('FAIL', s, e); bad += 1; continue
-        if s % 20 == 0: print('record %d ok (%d leaves)  %.0fs' % (s, nl, time.time() - t0), flush=True)
+    # Highest index first: later Records cost ~1.5x more on average (all take 0.2-5 CPU-s), so the pool's tail is
+    # short.  Order affects scheduling only, never a verdict.
+    order = closed[::-1] if pool else closed
+    t0 = time.time(); bad = 0; rows = {}; smax = (0, None)
+    results = (f.result() for f in as_completed([pool.submit(_worker, s) for s in order])) if pool else (certify_one(A, s) for s in order)
+    try:
+        for k, (s, verdict, msg, row, steps) in enumerate(results):
+            rows[s] = row
+            if verdict == 'FAIL': print('FAIL', s, msg, flush=True); bad += 1
+            if steps is not None and steps > smax[0]: smax = (steps, s)
+            if (k + 1) % 500 == 0 or (not pool and verdict == 'PASS' and s % 20 == 0):
+                print('%d / %d records done (record %d %s)  %.0fs' % (k + 1, len(order), s, verdict, time.time() - t0), flush=True)
+    finally:                                                   # an exception in a worker ends the run (nonzero exit)
+        if pool: pool.shutdown(cancel_futures=True)
+    if a.tsv:
+        with open(a.tsv, 'w') as out:
+            out.write('#' + '\t'.join(TSV_COLUMNS) + '\n')
+            for s in sorted(rows): out.write(rows[s] + '\n')
+    print('max clique-search steps %s (record %s)' % smax)
     print('certified %d records, %d failures, %.0fs' % (len(closed) - bad, bad, time.time() - t0))
     sys.exit(1 if bad or nopen else 0)

@@ -30,17 +30,22 @@ def export(A):
     return dict(format='nofour-atlas-v1', records=recs, failed={str(k): v for k, v in A.failed.items()})
 
 
-def load_certificate(path):
-    """An Atlas-like object from the compact certificate."""
+def load_certificate(path, census=True):
+    """An Atlas-like object from the compact certificate.  census=False skips the corner census R400 (and the search
+    index built from it), which only the nonemptiness and anchor searches use; certify.py does not."""
     d = json.load(gzip.open(path, 'rt'))
     A = AT.Atlas(); A.failed = d.get('failed', {})
     for i, r in enumerate(d['records']):
         P = np.array([float.fromhex(x) for x in r['phi']]).reshape(6, 6)
-        A.add(dict(phi=P, R=r['R'], label_radius=r['label_radius'], R400=AT.corner_census(np.exp(1j * P))[0],
-                   Tint=np.array(r['Tint'], dtype=np.int64).reshape(36, 4) if r.get('Tint') else None))
+        rec = dict(phi=P, R=r['R'], label_radius=r['label_radius'],
+                   Tint=np.array(r['Tint'], dtype=np.int64).reshape(36, 4) if r.get('Tint') else None)
+        if census:
+            rec['R400'] = AT.corner_census(np.exp(1j * P))[0]; A.add(rec)
+        else:
+            rec['id'] = i; A.recs.append(rec)
         if r['closed']:
             A.closed.add(i)
-            A.transfers[i] = dict(targets=[(t, sg, list(AT.to_sp('tr' if tr else 'id', np.array(rp), np.array(cp))[1]))
+            A.transfers[i] = dict(targets=[(t, sg, [int(k) for k in AT.to_sp('tr' if tr else 'id', np.array(rp), np.array(cp))[1]])
                                            for (t, sg, tr, rp, cp) in r['targets']])
     return A
 

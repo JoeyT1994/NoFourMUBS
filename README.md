@@ -37,8 +37,8 @@ Superseded material (the first, corner-chart proof, the development record and s
 
 ```bash
 pip install -r requirements.txt
-python3 verify.py            # all exact replays: Steps 1-2, matched existence, MC1-MC5, S6, Stage C sample (~3 min)
-python3 verify.py --atlas    # also certify all 12,021 Records, F6 and the anchor (about 50 min on 9 cores)
+python3 verify.py            # all exact replays: Steps 1-2, matched existence, MC1-MC5, S6, Stage C sample (~1 min)
+python3 verify.py --atlas -j 8  # also certify all 12,021 Records, F6 and the anchor (~1.9 CPU-hours: 14 min with -j 8 on an M5 Max)
 python3 verify.py --lean     # also build the Lean formalisation and audit its axioms
 python3 verify.py --lean-full  # also build L1 and the final theorem in Lean (hours on a first build)
 ```
