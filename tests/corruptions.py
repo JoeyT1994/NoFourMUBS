@@ -9,7 +9,10 @@ Julia checker (proof/independent/tests/negative.jl).
 Why each 'reject' case must be rejected:
   centre_phase          one centre phase moved by 0.05 rad: the ball is no longer centred near a Hadamard
                         (||Phi(0)|| ~ 0.1 instead of ~1e-16), and its bins no longer exclude two further bases.
-  radius_enlarged       R 0.05 -> 0.25: still below sigma/L (~0.5), but far beyond what Stage C can exclude.
+  radius_enlarged       R 0.05 -> 0.12 (the atlas chose 0.05 for this Record): Stage C cannot exclude two further
+                        bases in the larger ball; both checkers' label graphs contain a candidate two-clique pair
+                        (certify.py's from R = 0.08 on; the Julia checker's Stage C still passes at R = 0.1, and there
+                        the boundary tree rejects the Record instead).
   label_radius          label radius 0.03 -> 0.2: the label balls get radius s >= 0.1, outside Lemmas 6.4/6.5.
   frame_not_tangent     column 0 of the tangent frame replaced by a cyclic shift of its entries: span(T) is no
                         longer the tangent space, so ||J T|| ~ 1 and the normal bound (sigma^2 - 2 L b > 0) fails.
@@ -83,7 +86,7 @@ def _target_R(c):
 
 CASES = [
     ('centre_phase',            'reject', 'boundary/Stage C', _phase(0, 7, 0.05)),
-    ('radius_enlarged',         'reject', 'Stage C',          _set('R', 0.25)),
+    ('radius_enlarged',         'reject', 'Stage C',          _set('R', 0.12)),
     ('label_radius',            'reject', 'Stage C',          _set('label_radius', 0.2)),
     ('frame_not_tangent',       'reject', 'normal bound',     _frame_shift),
     ('target_dropped',          'reject', 'boundary',         _drop(ESSENTIAL)),

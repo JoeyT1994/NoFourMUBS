@@ -42,8 +42,15 @@ end
 ks = collect(keys(jobs))
 res3 = Vector{Tuple{Bool,String}}(undef, length(ks))
 t0 = time()
+lk = ReentrantLock()
 Threads.@threads :dynamic for i in eachindex(ks)
+    t = time()
     res3[i] = step3(jobs[ks[i]])
+    lock(lk) do
+        @printf("  Step 3, Record %d (R = %g, label radius %g): %s  %.0f s\n", jobs[ks[i]].idx, jobs[ks[i]].R, jobs[ks[i]].lr,
+                res3[i][1] ? "PASS" : "FAIL", time() - t)
+        flush(stdout)
+    end
 end
 done3 = Dict(zip(ks, res3))
 @printf("Step 3 on %d distinct Records: %.0f s (%d threads)\n", length(ks), time() - t0, Threads.nthreads())

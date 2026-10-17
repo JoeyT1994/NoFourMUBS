@@ -19,7 +19,7 @@ grep -q "Non-closed records used as targets: 21; Step 3 PASS for 21 of them." "$
 echo "check.jl on the sub-certificate: PASS"
 
 "${JL[@]}" "$ROOT/proof/independent/tests/sanity.jl" "$OUT/check/certificate.txt" | tee "$OUT/sanity.log"
-! grep -Eq "unsound|FAILED" "$OUT/sanity.log"
+if grep -Eq "unsound|FAILED" "$OUT/sanity.log"; then echo "sanity.jl: FAILED"; exit 1; fi
 grep -q "all 15 O edges among the six labels survive: OK" "$OUT/sanity.log"
 grep -q "none reported in random graphs: OK" "$OUT/sanity.log"
 echo "sanity.jl: PASS"
