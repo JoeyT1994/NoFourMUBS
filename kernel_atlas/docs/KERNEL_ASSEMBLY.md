@@ -269,7 +269,7 @@ Records in chunk order so whole chunks finish together, and compile each chunk a
 
 ## 9. The full run on rusty (17 Oct 2026; in progress)
 
-Budget ≈ 20,000 core-hours (whole 128-core ccq nodes; accounted as allocated cores × elapsed, `sacct` CPUTimeRAW over
+Budget ≈ 20,000 core-hours, raised to ≈ 23,000 by the user before Phase 1 started (whole 128-core ccq nodes; accounted as allocated cores × elapsed, `sacct` CPUTimeRAW over
 jobs named `nofour-katlas*`). Archive: `/mnt/ceph/users/jtindall/nofour_katlas` (`rows/`, `oleans/Rec<n>.tar`,
 `src/Rec<n>.tar.gz`, `chunks/`, `final/`, `logs/`). Ceph baseline before the run: 947,759 files under
 `/mnt/ceph/users/jtindall`. Scripts: `run_katlas_{setup,records,chunks,final}.sh`, drivers `atlas_run.py --archive`
@@ -281,8 +281,8 @@ jobs named `nofour-katlas*`). Archive: `/mnt/ceph/users/jtindall/nofour_katlas` 
 | smoke: Records 0–99 (`lean -j 1`) | 7260687 | **100/100 `ok`**, axioms standard; 85.7 CPU-min per Record, peak 14.3 GB, 4.94 MB olean tarball; 1 h 46 on one node | 226 |
 | smoke: chunk 0 | 7261142 | `ok`: compile 21 s, 7.2 GB; `Chunk0.tar` 519 MB | 10 |
 | smoke: final against chunk 0 + 120 stub chunks | 7261228 | `ok`: Final compiles in 13.6 s (7.6 GB); `no_four_mubs_kernel : ¬ NoFourMUBs.FourMUBs`, axioms `propext, sorryAx, Classical.choice, Quot.sound` (`sorryAx` from the stubs only) | 3.5 |
-| 1. Records 100–12020 (16 nodes, Lean's default threads, 120 Records in flight, cap 9 h 24 per node; drain 70 min before the cap) | 7261362 | submitted 09:45 EDT | ≤ 19,251 |
+| 1. Records 100–12020 (16 nodes, Lean's default threads, 120 Records in flight, cap 10 h 45 per node; drain 70 min before the cap) | 7261367 (7261362, cap 9 h 24, cancelled after 9 s when the budget was raised) | submitted 09:52 EDT | ≤ 22,016 |
 
 `lean -j 1` cost ≈ 5% more CPU than Lean's default threads on the same Records (85.7 vs 82 min), so Phase 1 uses the
-default. The time cap is the budget control: 376 + 19,251 + ≈ 100 for chunks and final stays under 20,000. A job
+default. The time cap is the budget control: 376 + 22,016 + ≈ 150 for chunks and final stays under 23,000; the expected cost is ≈ 19,000–20,000. A job
 reaching its cap leaves its remaining Records unstarted (the drain), and a later run resumes them at no loss.
