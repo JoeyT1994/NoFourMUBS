@@ -1,4 +1,4 @@
-import NoFourMUBs.L1.FlatBridge
+import NoFourMUBs.L1.SideCover
 import NoFourMUBs.L1.FlatCheckMh
 import NoFourMUBs.L1.FlatCheckQv
 import NoFourMUBs.L1.FlatCheckF
@@ -11,7 +11,7 @@ Every strict seed has a positive matched completion (`Step2.MatchedExistence`), 
 classification.  For the seed corner `E` with Gram data `(s, t, r)` and invariants `g, η, χ, R`, put
 `ζ = (χ + i √R) / 2`.
 
-* **Sides** (`SideExistence`): a horizontal phase side with Gram data `(s, t, r)` and signature `ζ`,
+* **Sides** (`SideCover`): a horizontal phase side with Gram data `(s, t, r)` and signature `ζ`,
   and a vertical one with the vertical Gram data and signature `ζ̄`.
 * **Flatness** (`FlatBridge`, with the kernel checks `FlatCheck*`): the four weighted defects of the
   forced block vanish, so the completion is Hadamard (`flat_of_W`).
@@ -39,9 +39,7 @@ theorem matchedExistence : Step2.MatchedExistence := by
   set ρ : Fin 4 → ℂ := fun i => (sd.1 i : ℂ) with hρ
   have hu : ∀ i, Complex.normSq (ρ i) = 1 := fun i => Circle.normSq_coe _
   have h : Strict ρ := ⟨hu, by rw [← seedR_eq]; exact sd.2⟩
-  obtain ⟨hg0, hRv, -, -⟩ := h.facts
   obtain ⟨eg, ee, ec⟩ := hv_eq hu
-  obtain ⟨d1, d2⟩ := det_nonneg hu
   set g := gG (sh ρ) (th ρ) (rh ρ)
   set η := gEta (sh ρ) (th ρ) (rh ρ)
   set χ := gChi (sh ρ) (th ρ) (rh ρ)
@@ -61,14 +59,14 @@ theorem matchedExistence : Step2.MatchedExistence := by
     have : 0 < Real.sqrt R := Real.sqrt_pos.mpr hR
     rw [hζdef]; simp; positivity
   -- the horizontal side
-  obtain ⟨x, y, hx, hy, hs, ht, hr, hT⟩ := exists_side_gram hR d1 hζ2 hζc
+  obtain ⟨x, y, hx, hy, hs, ht, hr, hT⟩ := exists_side_h h hζ2 hζc
   -- the vertical side, on the conjugate root
   have hζ2' : conj ζ ^ 2 = (gChi (sv ρ) (tv ρ) (rv ρ) : ℂ) * conj ζ -
       ((gG (sv ρ) (tv ρ) (rv ρ) : ℝ) : ℂ) ^ 2 * (gEta (sv ρ) (tv ρ) (rv ρ) : ℂ) := by
     rw [eg, ee, ec, hζc]; linear_combination hζ2
   have hζc' : conj (conj ζ) = (gChi (sv ρ) (tv ρ) (rv ρ) : ℂ) - conj ζ := by
     rw [ec, Complex.conj_conj, hζc]; ring
-  obtain ⟨x', y', hx', hy', hs', ht', hr', hT'⟩ := exists_side_gram hRv d2 hζ2' hζc'
+  obtain ⟨x', y', hx', hy', hs', ht', hr', hT'⟩ := exists_side_v h hζ2' hζc'
   set B := sideMat x y
   set C := (sideMat x' y')ᵀ
   have hB0 : ∀ j, B 0 j = 1 := fun j => rfl

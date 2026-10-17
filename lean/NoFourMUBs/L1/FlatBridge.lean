@@ -1,5 +1,5 @@
 import NoFourMUBs.L1.FlatCheckTable
-import NoFourMUBs.L1.SideExistence
+import NoFourMUBs.L1.SideGram
 import NoFourMUBs.L1.SideFormulas
 import NoFourMUBs.L1.FlatMatrix
 
@@ -37,10 +37,10 @@ theorem gram_vals (hC : ∀ k, (C.f k).eval ρ ≠ 0) (G : Gram C) {s t r : ℂ}
     G.c0.val ρ = (cR r : ℂ) ∧ G.c1.val ρ = (cR t : ℂ) ∧ G.c2.val ρ = (cR s : ℂ) ∧
     G.P0.val ρ = P0 s t r ∧ G.B1.val ρ = conj (P1 s t r) ∧ G.B2.val ρ = conj (P2 s t r) := by
   have hJ : ((gJ s t r : ℝ) : ℂ) = s * r * conj t + conj s * conj r * t := by
-    rw [gJ, SideInput.cast_twoRe]; simp [map_mul]
-  have hX : ((gX s : ℝ) : ℂ) = s * conj s := SideInput.cast_normSq s
-  have hY : ((gX t : ℝ) : ℂ) = t * conj t := SideInput.cast_normSq t
-  have hZ : ((gX r : ℝ) : ℂ) = r * conj r := SideInput.cast_normSq r
+    rw [gJ, cast_twoRe]; simp [map_mul]
+  have hX : ((gX s : ℝ) : ℂ) = s * conj s := cast_normSq s
+  have hY : ((gX t : ℝ) : ℂ) = t * conj t := cast_normSq t
+  have hZ : ((gX r : ℝ) : ℂ) = r * conj r := cast_normSq r
   simp only [Gram.g, Gram.eta, Gram.chi, Gram.c0, Gram.c1, Gram.c2, Gram.P0, Gram.B1, Gram.B2, Gram.p,
     Gram.X, Gram.Y, Gram.Z, Gram.J, Frac.val_add hC, Frac.val_sub hC, Frac.val_mul, fval_ofNat, hs, hS, ht,
     hT, hr, hQ]
@@ -121,8 +121,8 @@ def dE (ρ : Fin 4 → ℂ) : ℂ := ρ 0 * ρ 3 - ρ 1 * ρ 2 - ρ 3 + ρ 1 + �
 theorem cast_det (s t r : ℂ) : (((27 - 3 * gPs s t r - gJ s t r : ℝ)) : ℂ) =
     27 - 3 * (s * conj s + t * conj t + r * conj r) - (s * r * conj t + conj s * conj r * t) := by
   have hJ : ((gJ s t r : ℝ) : ℂ) = s * r * conj t + conj s * conj r * t := by
-    rw [gJ, SideInput.cast_twoRe]; simp [map_mul]
-  simp only [gPs, gX]; push_cast [hJ, SideInput.cast_normSq]; ring
+    rw [gJ, cast_twoRe]; simp [map_mul]
+  simp only [gPs, gX]; push_cast [hJ, cast_normSq]; ring
 
 theorem det_gram (hu : ∀ i, Complex.normSq (ρ i) = 1) :
     (((27 - 3 * gPs (sh ρ) (th ρ) (rh ρ) - gJ (sh ρ) (th ρ) (rh ρ) : ℝ) : ℂ) = dE ρ * conj (dE ρ)) ∧
@@ -297,8 +297,8 @@ theorem G_eq (h : Strict ρ) : Hadamard6.sixI3 - Em ρ * (Em ρ)ᴴ =
 theorem det_G (h : Strict ρ) : (Hadamard6.sixI3 - Em ρ * (Em ρ)ᴴ).det = gG (sh ρ) (th ρ) (rh ρ) := by
   rw [G_eq h, Matrix.det_fin_three]
   have hJ : ((gJ (sh ρ) (th ρ) (rh ρ) : ℝ) : ℂ) = sh ρ * rh ρ * conj (th ρ) + conj (sh ρ) * conj (rh ρ) * th ρ := by
-    rw [gJ, SideInput.cast_twoRe]; simp [map_mul]
-  simp only [gG, gPs, gX]; push_cast [hJ, SideInput.cast_normSq]
+    rw [gJ, cast_twoRe]; simp [map_mul]
+  simp only [gG, gPs, gX]; push_cast [hJ, cast_normSq]
   simp; ring
 
 theorem Ginv_val (h : Strict ρ) (i j : Fin 3) :

@@ -1,7 +1,7 @@
 """Build the Lean project and check that every audited theorem uses only propext, Classical.choice and Quot.sound.
 
 Usage: python3 check_axioms.py          (run from lean/; needs elan; exits nonzero on any failure)
-       python3 check_axioms.py --full   also build NoFourMUBs.Complete (L1's kernel checks, about an hour) and
+       python3 check_axioms.py --full   also build NoFourMUBs.Complete (L1's kernel checks, about 20 min) and
                                         NoFourMUBs.Final (strict-corner coverage; its data modules take
                                         hours on first build), and audit NoFourMUBs/AxiomsComplete.lean
 """
