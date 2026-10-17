@@ -116,6 +116,8 @@ def export(rec, idx, out, module=None, p=28, q=20, rads=None, slabs=True):
     L = []
     w = L.append
     w('import KernelAtlas.Tables')
+    if isinstance(idx, int):
+        w('import KernelAtlas.Table.T%d' % (idx // 100))
     w('')
     w('/-!')
     w('# Kernel bin-tree data for atlas Record %s' % idx)
@@ -153,7 +155,10 @@ def export(rec, idx, out, module=None, p=28, q=20, rads=None, slabs=True):
     w('  nT := %d' % KB.NTAYLOR)
     w('  EUL := [%s]' % ', '.join('(%d, %d)' % e for e in EU))
     w('  EPL := [%s]' % ', '.join('[%s]' % ', '.join('(%d, %d)' % e for e in row) for row in EP))
-    w('  PqL := [%s]' % ', '.join('[%s]' % ', '.join(q_lit(x) for x in row) for row in Prad))
+    if isinstance(idx, int):                             # an atlas Record: its centre is the table entry
+        w('  PqL := Table.c%d' % idx)
+    else:
+        w('  PqL := [%s]' % ', '.join('[%s]' % ', '.join(q_lit(x) for x in row) for row in Prad))
     w('  epsU := %s' % q_lit(epsUd))
     w('  epsP := %s' % q_lit(epsPd))
     w('')

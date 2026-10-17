@@ -18,5 +18,6 @@ cd lean
 lake exe cache get          # Mathlib's build cache (into MATHLIB_CACHE_DIR, on ceph)
 lake build KernelAtlas.E0K KernelAtlas.FrameK KernelAtlas.Joint2K KernelAtlas.Joint2S KernelAtlas.Labels \
   KernelAtlas.NormalK KernelAtlas.StageCK2B KernelAtlas.Tables KernelAtlas.Tangent2K KernelAtlas.Tangent2S \
-  KernelAtlas.Tangent2L KernelAtlas.SigmaK
+  KernelAtlas.Tangent2L KernelAtlas.SigmaK KernelAtlas.BoundaryK KernelAtlas.Assembly KernelAtlas.Pack \
+  KernelAtlas.Table.All
 echo "core built on $(hostname)"

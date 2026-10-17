@@ -26,7 +26,8 @@ OLEAN = os.path.join(LEAN, '.lake', 'build', 'lib', 'lean')
 PY = sys.executable
 CORE = ['KernelAtlas.E0K', 'KernelAtlas.FrameK', 'KernelAtlas.Joint2K', 'KernelAtlas.Joint2S', 'KernelAtlas.Labels',
         'KernelAtlas.NormalK', 'KernelAtlas.StageCK2B', 'KernelAtlas.Tables', 'KernelAtlas.Tangent2K',
-        'KernelAtlas.Tangent2S', 'KernelAtlas.Tangent2L', 'KernelAtlas.SigmaK']
+        'KernelAtlas.Tangent2S', 'KernelAtlas.Tangent2L', 'KernelAtlas.SigmaK', 'KernelAtlas.BoundaryK',
+        'KernelAtlas.Assembly', 'KernelAtlas.Pack', 'KernelAtlas.Table.All']
 AXIOMS = {'propext', 'Classical.choice', 'Quot.sound'}
 
 
@@ -37,6 +38,8 @@ def mem_gb(mod):
         return 22
     if name.startswith(('Clq', 'Edg')) or name in ('Graph2', 'Sigma'):
         return 15
+    if name == 'Boundary':
+        return 12
     return 10
 
 
@@ -79,7 +82,8 @@ def generate(idx, log):
     steps = [[PY, '-W', 'ignore', os.path.join(HERE, 'export_record.py'), str(idx), d],
              [PY, '-W', 'ignore', os.path.join(HERE, 'export_v2.py'), str(idx), d, '--all', '--labels', '--search'],
              [PY, '-W', 'ignore', os.path.join(HERE, 'export_joint.py'), str(idx), d],
-             [PY, '-W', 'ignore', os.path.join(HERE, 'knormal.py'), str(idx), d, '--v2']]
+             [PY, '-W', 'ignore', os.path.join(HERE, 'knormal.py'), str(idx), d, '--v2'],
+             [PY, '-W', 'ignore', os.path.join(HERE, 'export_boundary.py'), str(idx), d, '--v2']]
     out = []
     with open(log, 'a') as f:
         for k, cmd in enumerate(steps):
@@ -93,6 +97,8 @@ def generate(idx, log):
                 for p in glob.glob(os.path.join(d, 'Slab*.lean')) + [os.path.join(d, 'Cover.lean')]:
                     if os.path.exists(p):
                         os.remove(p)
+    import kpack
+    kpack.seal(d)                                   # noncomputable data, packed lists (smaller oleans)
     info = dict(gen_s=round(time.time() - t0, 1))
     m = re.search(r'label hints: (\d+) hints \((\d+) leaf, (\d+) scalar, (\d+) linear, (\d+) none\)', out[1])
     if m:
@@ -115,7 +121,7 @@ def modules(idx):
     for p in glob.glob(os.path.join(d, '*.lean')):
         m = pre + os.path.basename(p)[:-5]
         deps[m] = [l.split()[1] for l in open(p) if l.startswith('import ' + pre)]
-    need, todo = set(), [pre + 'Record2']
+    need, todo = set(), [pre + 'Record2', pre + 'BoundaryCover']
     while todo:
         m = todo.pop()
         if m not in need:
@@ -155,10 +161,11 @@ class Node:
     def axioms(self, idx):
         f = os.path.join(self.args.out, 'logs', 'Rec%d' % idx, 'Axioms.lean')
         with open(f, 'w') as g:
-            g.write('import KernelAtlas.Rec%d.Record2\n#print axioms NoFourMUBs.KernelAtlas.Rec%d.cert\n' % (idx, idx))
+            g.write('import KernelAtlas.Rec%d.BoundaryCover\n#print axioms NoFourMUBs.KernelAtlas.Rec%d.cert\n'
+                    '#print axioms NoFourMUBs.KernelAtlas.Rec%d.boundaryT\n' % (idx, idx, idx))
         r = subprocess.run([self.lean, f], cwd=LEAN, env=self.env, capture_output=True, text=True)
-        m = re.search(r'depends on axioms: \[(.*?)\]', r.stdout, re.S)
-        ax = sorted(a.strip() for a in m.group(1).split(',')) if m else None
+        ms = re.findall(r'depends on axioms: \[(.*?)\]', r.stdout, re.S)
+        ax = sorted({a.strip() for m in ms for a in m.split(',')}) if len(ms) == 2 else None
         return ax, r.stdout[-800:]
 
     def finish(self, idx, status, **kw):
@@ -238,7 +245,7 @@ class Node:
                     for mod, deps in sorted(st['left'].items()):
                         if mod in busy or any(dd in st['left'] for dd in deps):
                             continue
-                        if self.used + mem_gb(mod) > budget:
+                        if self.used + mem_gb(mod) > budget or len(self.running) >= self.args.max_procs:
                             break
                         self.start(idx, mod)
                         started = True
@@ -256,6 +263,7 @@ def main():
     ap.add_argument('--gen-workers', type=int, default=16)
     ap.add_argument('--max-records', type=int, default=40, help='Records generated but not yet finished')
     ap.add_argument('--keep', action='store_true', help='keep sources and build outputs')
+    ap.add_argument('--max-procs', type=int, default=10 ** 6, help='at most this many Lean processes at once')
     args = ap.parse_args()
     idxs = list(args.idx)
     if args.idx_file:
