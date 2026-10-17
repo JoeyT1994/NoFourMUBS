@@ -14,9 +14,9 @@ of the Gram data `s, t, r` of the first half and the invariants `z, g` of the tw
 moments (`sum_tri_compl`), Newton's identities (`newton`) and the `λ`-substitution
 (`halfDataOf_eq_lamData`)).
 
-Consequently the square-sum identities follow from two statements about complex numbers `s, t, r` only
-(`NonzeroJAlgebra`, `ZeroJAlgebra`, the computer-algebra content of §§2–3):
-`nonzeroJSquareSum_of_algebra`, `zeroJSquareSum_of_algebra`.
+Consequently the zero-`J` square-sum identity follows from a statement about complex numbers `s, t, r` only
+(`ZeroJAlgebra`, the computer-algebra content of §2): `zeroJSquareSum_of_algebra`.  (`block_moment` is also
+used by the nonzero-`J` stratum, `CoverageSignedNonzero`.)
 -/
 
 open Matrix Hadamard6 ComplexConjugate

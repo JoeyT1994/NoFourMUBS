@@ -28,10 +28,9 @@ Bernstein/Sturm certificates. Inputs used: `CRITICAL_CORNER_REDUCTION.md`, `SIDE
 ## Status
 - **Mathematics: accepted** (PROVED paper deductions + CERTIFIED finite algebra, replayed here; key identities
   independently re-checked).
-- **Lean: NOT YET INTEGRATED.** The return has no Lean (none was available to its authors). `INTEGRATION.md` describes
-  the replacement boundary: prove the nonzero-J half of `TopStripClassification` directly (it plugs in at
-  `PRM/CoverageStripNonzero.lean`), edit `Final.lean`'s two uses of `PRM.Coverage.nonzeroJAlgebra`, then remove the
-  `PRM/CoverageStripIdNonzero*` modules (about 40 files, 7.7 MB of data) and their generators. Until that lands and
-  `lean/check_axioms.py --full` passes, the Lean proof still uses the old square-sum route.
+- **Lean: integrated (17 Oct 2026)**, see `INTEGRATED.md`: `PRM/CoverageSigned*.lean` prove the nonzero-J half of
+  `TopStripClassification`. `Final.no_four_mubs` uses them (standard axioms only), and the
+  `PRM/CoverageStripIdNonzero*` square-sum modules, the quartic sign certificate and their generators are
+  removed.
 - **Extra:** `SUPPLEMENTARY_RANK_LEMMA.md` claims every order-6 complex Hadamard has entrywise-square rank ≥ 3, which
   would remove the rank hypothesis from return H's Fourier criterion. Not used by N1/N2; not yet reviewed.
