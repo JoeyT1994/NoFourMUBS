@@ -111,6 +111,20 @@ Pt = -F6[rp, cp] .+ pert .+ 2π .* rand(-2:2, 6, 6) .+ (1:6) .* 0.3 .+ (1:6)' .*
 rect = IA.Rec(0, true, 0.08, 0.03, Pt, zeros(Int64, 36, 4), IA.Target[])
 ne = IA.nonempty_F6([rect], [1])
 println("  ", ne, "  expected distance ", sqrt(sum(abs2, pert)))
+# the pre-filter of nonempty_F6: the minimum over the 120^2 classes equals the minimum over all 720^2 alignments
+perms = IA.permutations6()
+function f6_exhaustive_min(P)
+    best = Inf
+    for rp in perms, cp in perms
+        D = IA.align(F6, 1, false, rp, cp) .- P
+        Dp = [D[j, c] - D[j, 1] - D[1, c] + D[1, 1] for j in 1:6, c in 1:6]
+        best = min(best, sqrt(sum(abs2, IA.hproj(D .- 2π .* round.(Dp ./ (2π))))))
+    end
+    best
+end
+gap = maximum(abs(IA.f6_class_min(P)[1] - f6_exhaustive_min(P)) for P in [[Pt]; [r.P for r in recs[1:3]]])
+println(gap < 1e-12 ? "  F6 pre-filter: class minimum = exhaustive minimum (max gap $(gap)): OK" :
+                      "  F6 pre-filter: class minimum differs from the exhaustive minimum by $(gap): FAILED")
 
 println("(d) two-clique search on planted random graphs")
 function planted(n, p, plant::Bool; drop_cross=false)

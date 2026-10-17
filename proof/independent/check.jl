@@ -50,7 +50,7 @@ function main(args)
     lk = ReentrantLock()
     todo = [i for i in need if !haskey(done3, i)]
     t0 = time(); ndone = Threads.Atomic{Int}(0)
-    Threads.@threads :dynamic for i in todo
+    Threads.@threads :greedy for i in todo         # one Record at a time per thread (load balance)
         r = recs[i+1]
         nb = IA.normal_bound(r)
         line = ""
@@ -92,7 +92,7 @@ function main(args)
     end
     todo4 = [i for i in closed if !haskey(done4, i)]
     t0 = time(); ndone = Threads.Atomic{Int}(0)
-    Threads.@threads :dynamic for i in todo4
+    Threads.@threads :greedy for i in todo4
         r = recs[i+1]
         nb = IA.normal_bound(r)
         if !nb.ok
@@ -117,7 +117,9 @@ function main(args)
 
     # ---------------- nonemptiness
     cands = [i + 1 for i in closed if pass3(i)]
+    t0 = time()
     ne = IA.nonempty_F6(recs, cands)
+    @printf("  nonemptiness: %d candidate Records searched in %.0f s\n", length(cands), time() - t0); flush(stdout)
     neok = any(x -> x[4], ne)
 
     # ---------------- report

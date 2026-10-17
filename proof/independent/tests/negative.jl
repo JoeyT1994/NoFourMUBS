@@ -43,7 +43,7 @@ ks = collect(keys(jobs))
 res3 = Vector{Tuple{Bool,String}}(undef, length(ks))
 t0 = time()
 lk = ReentrantLock()
-Threads.@threads :dynamic for i in eachindex(ks)
+Threads.@threads :greedy for i in eachindex(ks)
     t = time()
     res3[i] = step3(jobs[ks[i]])
     lock(lk) do

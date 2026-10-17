@@ -1,11 +1,11 @@
 #!/bin/bash
-#SBATCH -J nofour_indep_v3
+#SBATCH -J nofour_indep_v4
 #SBATCH -p gen
 #SBATCH -N 1
 #SBATCH --exclusive
 #SBATCH -t 1-00:00:00
 #SBATCH -o out/indep_%j.log
-# Fresh, complete independent check (Steps 3, 4 and F6 nonemptiness) of the v3 atlas certificate.
+# Fresh, complete independent check (Steps 3, 4 and F6 nonemptiness) of the atlas certificate. See README "Results".
 set -u
 cd "$SLURM_SUBMIT_DIR"
 NT=${SLURM_CPUS_ON_NODE:-$(nproc)}
