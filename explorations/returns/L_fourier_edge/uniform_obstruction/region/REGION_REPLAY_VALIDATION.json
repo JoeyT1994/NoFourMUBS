@@ -1,0 +1,70 @@
+{
+  "files": {
+    "D0_TEMPLATE_CENTERS.json": "65f041e6624e07a2ef755d3f9c6a871650f99898e99427fce1f74985745a98fb",
+    "D0_TEMPLATE_GRAPH_RECEIPT.json": "fa44e603245ce048edc096c965102ae33ab64e479bdc34aa59bb48443aa6fff8",
+    "D0_TUBE_GRAPH_BINDING_RECEIPT.json": "9a3a063561a2ee16d82cc006d60c736e1d50b05a19976870150c009335512aa7",
+    "verify_template_graph.py": "ee007519efef901d05b0dea29ecf8e75f3720d94e1ec47c002b0831049ff55a5",
+    "verify_tube_graph_binding.py": "4dc835cdff0bd056e3f7382c442e72f85306f204997774b53eed781cbe93de0f"
+  },
+  "scope": "Two finite exact entry points only; no global-cover search replay.",
+  "status": "PASS_PORTABLE_REPLAYS_AND_OPTIMIZATION_GUARDS",
+  "tests": [
+    {
+      "authoritative_receipt_byte_match": true,
+      "case": "verify_template_graph.py normal minimal-folder replay from unrelated cwd",
+      "exit_code": 0,
+      "receipt_sha256": "fa44e603245ce048edc096c965102ae33ab64e479bdc34aa59bb48443aa6fff8"
+    },
+    {
+      "authoritative_receipt_byte_match": true,
+      "case": "verify_tube_graph_binding.py normal minimal-folder replay from unrelated cwd",
+      "exit_code": 0,
+      "receipt_sha256": "9a3a063561a2ee16d82cc006d60c736e1d50b05a19976870150c009335512aa7"
+    },
+    {
+      "case": "verify_template_graph.py -O",
+      "exit_code": 1,
+      "receipt_created": false
+    },
+    {
+      "case": "verify_template_graph.py -OO",
+      "exit_code": 1,
+      "receipt_created": false
+    },
+    {
+      "case": "verify_template_graph.py PYTHONOPTIMIZE=1",
+      "exit_code": 1,
+      "receipt_created": false
+    },
+    {
+      "case": "verify_template_graph.py PYTHONOPTIMIZE=2",
+      "exit_code": 1,
+      "receipt_created": false
+    },
+    {
+      "case": "verify_tube_graph_binding.py -O",
+      "exit_code": 1,
+      "receipt_created": false
+    },
+    {
+      "case": "verify_tube_graph_binding.py -OO",
+      "exit_code": 1,
+      "receipt_created": false
+    },
+    {
+      "case": "verify_tube_graph_binding.py PYTHONOPTIMIZE=1",
+      "exit_code": 1,
+      "receipt_created": false
+    },
+    {
+      "case": "verify_tube_graph_binding.py PYTHONOPTIMIZE=2",
+      "exit_code": 1,
+      "receipt_created": false
+    },
+    {
+      "case": "binder -O with graph helper unavailable",
+      "exit_code": 1,
+      "receipt_created": false
+    }
+  ]
+}

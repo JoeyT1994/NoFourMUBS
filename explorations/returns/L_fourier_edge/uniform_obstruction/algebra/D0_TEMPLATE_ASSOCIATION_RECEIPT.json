@@ -1,0 +1,24 @@
+{
+  "status": "PASS_EXACT_TEMPLATE_ASSOCIATION",
+  "ray_count": 120,
+  "coordinate_count": 720,
+  "label_mapping": "identical array indices",
+  "local_cover_and_main_tube_centers_identical": true,
+  "phase_center_coordinate_chord_distance_strict_bound": "1/1000000000",
+  "rational_template_coordinate_distance_strict_bound": "1/1000000000",
+  "sharper_phase_center_bound": "13333/1000000000000000",
+  "sharper_rational_template_bound": "3359/250000000000000",
+  "phase_convention": "Angles modulo2pi; first component1. Chord distance below1e-9 implies principal angular distance below2e-9.",
+  "assertions_enabled": true,
+  "files": {
+    "D0_RAY_ATLAS.json": "28e68649f345ab08d870ba3e3a536de37b50b22c7ead37922a61a0b3c7de3389",
+    "../cover/D0_COVER_INPUT.json": "638ba2ff476ae3d243f947f99b89d8e9604485d306402bf545d195a0a38445ba",
+    "../cover/D0_TUBE_INPUT.json": "f38c49f0e44b4920fa55c3fa92bdbba8b503e807b51d202e3843f197b833c30d",
+    "../region/D0_TEMPLATE_CENTERS.json": "65f041e6624e07a2ef755d3f9c6a871650f99898e99427fce1f74985745a98fb",
+    "verify_template_association.py": "b6df43ff7c60b65ae2328eac87d5266d35d2c7202b568759faed8a4b3dab7454",
+    "verify_dita_gaps.py": "3296d7f8c977883e9a0a4adf690b27478612259299616fa8d5a15982379eca50",
+    "verify_dita_rays.py": "7ca7ad0c66c2b8a4e2f445c37d603e165d0f99bbb24c2efc8c425162c2877775",
+    "exact_core.py": "60df7535e071d4dcb8b610128eb23d4ebf80e268155d30afcfafe976d5e4d81b",
+    "INPUT_EXACT_TRIPLE.json": "559cc995b596df9e425dd3e71fcea4d0ccc1b9e5915af5e11b531feb352fd77e"
+  }
+}
