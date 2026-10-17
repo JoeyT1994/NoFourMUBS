@@ -9,7 +9,8 @@ import common  # noqa: F401
 from common import QCTX, poly_dict, lean_horner, lean_horner_salted, poly_tree, lean_listz
 
 ROOT = Path(__file__).resolve().parents[2]
-SCR = Path('/private/tmp/claude-503/-Users-jtindall-Files-NoFourMUBS/c71c0e42-2268-4e63-8463-bc12919f98b3/scratchpad')
+SCR = Path(__file__).resolve().parent / '_scratch'  # git-ignored hand-off between gen_nonzero.py and gen_nonzero_q.py
+SCR.mkdir(exist_ok=True)
 nD, ne = pickle.load(open(SCR / 'nz_n.pkl', 'rb'))
 assert ne == [0, 0, 4, 5, 5, 5, 5, 5, 5, 5]
 X, Y, k, _ = QCTX.gens()

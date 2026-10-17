@@ -51,7 +51,7 @@ if mode == 'zero':
         print(f"J={d['J']:.1e} z={z:.6f} z^2-(9-p)={z*z-(9-d['p']):.1e} W-z^2(z+3)^2={d['W']-z*z*(z+3)**2:.1e} "
               f"Theta-z={abs(Th-z):.1e} S_direct={S_direct(T):.10f} S_formula(4)={S4:.10f} A/prod(3z+9-X_i)={A/fz:.6f}")
 else:
-    here = '/Users/jtindall/Files/NoFourMUBs/MinimalConstruction/Proofs/critical_quartic.json'
+    here = str(__import__('pathlib').Path(__file__).resolve().parents[3] / 'MinimalConstruction' / 'Proofs' / 'critical_quartic.json')
     data = json.load(open(here))
     c, d_ = sp.symbols('c d')
     mp.mp.dps = 60

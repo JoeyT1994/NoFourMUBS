@@ -1,5 +1,6 @@
 import json, sympy as sp, itertools
-SC='/private/tmp/claude-503/-Users-jtindall-Files-NoFourMUBS/c71c0e42-2268-4e63-8463-bc12919f98b3/scratchpad/'
+import os
+SC=os.path.join(os.path.dirname(os.path.abspath(__file__)), '')  # this folder: reads h0.json, writes intermediates (git-ignored)
 A3,A5,A7,II=sp.symbols('A3 A5 A7 II')
 gens=(A3,A5,A7,II)
 rels=[A3**2-3,A5**2-5,A7**2-7,II**2+1]

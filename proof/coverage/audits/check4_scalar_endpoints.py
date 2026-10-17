@@ -35,7 +35,7 @@ bad20 = [(a, b) for a in range(21) for b in range(21 - a) if b > 0 and 5 * a + b
 print('twenty-corner with p* exactly:', bad20)
 
 # Q sign scan on the physical K region (numerical sanity, not proof)
-data = json.load(open('/Users/jtindall/Files/NoFourMUBs/MinimalConstruction/Proofs/critical_quartic.json'))
+data = json.load(open(str(__import__('pathlib').Path(__file__).resolve().parents[3] / 'MinimalConstruction' / 'Proofs' / 'critical_quartic.json')))
 c, d = sp.symbols('c d')
 Qe = sp.sympify(data['factors'][0][0].replace('^', '**'))
 mp.mp.dps = 40

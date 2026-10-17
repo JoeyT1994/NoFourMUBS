@@ -24,4 +24,4 @@ def T(X):
 TB,TC=T(B),T(C)
 print('2T(B)=',sp.nsimplify(sp.expand(2*TB)),' 2T(C)=',sp.nsimplify(sp.expand(2*TC)))
 print('chi',M.R, mp.nstr((M.R),20))
-json.dump([[str(Hs[i,j]) for j in range(6)] for i in range(6)],open('/private/tmp/claude-503/-Users-jtindall-Files-NoFourMUBS/c71c0e42-2268-4e63-8463-bc12919f98b3/scratchpad/h0.json','w'))
+json.dump([[str(Hs[i,j]) for j in range(6)] for i in range(6)],open(__import__('os').path.join(__import__('os').path.dirname(__import__('os').path.abspath(__file__)), 'h0.json'),'w'))

@@ -1,5 +1,6 @@
 import sympy as sp, pickle
-exec(open('/private/tmp/claude-503/-Users-jtindall-Files-NoFourMUBS/c71c0e42-2268-4e63-8463-bc12919f98b3/scratchpad/gen_h0.py').read().split("out=[]")[0])
+import os
+exec(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'gen_h0.py')).read().split("out=[]")[0])
 H,res=pickle.load(open(SC+'h0data.pkl','rb'))
 L=[]
 def lemma(name,lhs_lean,rhs_sym,lhs_sym,pre=""):

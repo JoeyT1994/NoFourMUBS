@@ -1,7 +1,7 @@
 """Shared helpers for the strip-identity generators (untrusted: Lean re-checks every datum)."""
 import sys
 from fractions import Fraction
-sys.path.insert(0, '/Users/jtindall/Files/NoFourMUBS/MinimalConstruction/Proofs')
+sys.path.insert(0, str(__import__('pathlib').Path(__file__).resolve().parents[3] / 'MinimalConstruction' / 'Proofs'))
 from flint import fmpq_mpoly_ctx, fmpz_mpoly_ctx, fmpq, fmpz  # noqa: E402
 
 # polynomials in (a, b, c, d) = (X, Y, z|k, unused), as in exact_rational.CTX

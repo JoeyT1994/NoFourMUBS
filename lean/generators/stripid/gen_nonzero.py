@@ -17,7 +17,8 @@ import critical_moment_core as core
 from common import QCTX, frac_data, poly_dict, lean_horner, lean_horner_salted, lean_exps, frac_tree, poly_tree, frac_listz, lean_listz
 
 ROOT = Path(__file__).resolve().parents[2]
-SCR = Path('/private/tmp/claude-503/-Users-jtindall-Files-NoFourMUBS/c71c0e42-2268-4e63-8463-bc12919f98b3/scratchpad')
+SCR = Path(__file__).resolve().parent / '_scratch'  # git-ignored hand-off between gen_nonzero.py and gen_nonzero_q.py
+SCR.mkdir(exist_ok=True)
 t0 = time.time()
 X, Y, c, _ = [F(v) for v in CTX.gens()]
 q = 4 / (1 + c * c)
