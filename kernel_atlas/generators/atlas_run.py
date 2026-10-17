@@ -14,6 +14,13 @@ Per Record `n`, in `kernel_atlas/lean/KernelAtlas/Rec<n>/`:
      outputs and sources (unless --keep).
 Rows already in DIR/rows.jsonl are skipped (resumable).  A Record that fails at any stage gets a row with the stage
 and the end of the log; nothing is weakened or skipped silently.
+
+Archive mode (`--archive ADIR`, the full run on rusty; `--out` is then node-local work space for the logs):
+  ADIR/oleans/Rec<n>.tar   the Record's oleans only (no .ilean), what the chunk step imports;
+  ADIR/src/Rec<n>.tar.gz   its generated sources and compile logs;
+  ADIR/rows/<name>.jsonl   one row per Record, written after both tarballs (renamed into place when complete).
+A Record is done when some row says `ok` and its olean tarball exists with the size the row records; such Records
+are skipped, so a job can be killed and resubmitted at any time.  Failed Records are retried with --retry-failed.
 """
 import argparse, concurrent.futures as CF, glob, json, os, platform, re, shutil, subprocess, sys, tarfile, threading
 import time
@@ -32,17 +39,17 @@ AXIOMS = {'propext', 'Classical.choice', 'Quot.sound'}
 
 
 def mem_gb(mod):
-    """Peak memory estimates per module (GB), from Records 100, 146 and 4015 on the laptop."""
+    """Memory budget per module (GB).  Peaks measured on rusty (50 Records, 17 Oct 2026): Sigma 14.3, H2Slab <= 13.7,
+    the rest <= 9; Graph2 up to 33 on Record 4015 (laptop).  About 6 GB of each peak is the memory-mapped Mathlib and
+    shared modules, which all processes on a node share in the page cache, so the budget is the peak minus 5."""
     name = mod.rsplit('.', 1)[1]
-    if name.startswith('H2Slab'):
-        return 22
-    if name == 'Graph2':                      # up to 33 GB (Record 4015, 16 Oct 2026)
-        return 35
-    if name.startswith(('Clq', 'Edg')) or name == 'Sigma':
-        return 15
+    if name == 'Graph2':
+        return 30
+    if name.startswith(('H2Slab', 'Clq', 'Edg')) or name == 'Sigma':
+        return 10
     if name == 'Boundary':
-        return 12
-    return 10
+        return 7
+    return 5
 
 
 def lean_env():
@@ -142,7 +149,12 @@ class Node:
         self.used = 0
         self.running = {}                       # Popen -> (idx, module, gb, t0, log)
         self.recs = {}                          # idx -> state
-        self.rows = open(os.path.join(args.out, 'rows.jsonl'), 'a')
+        if args.archive:
+            for d in ('oleans', 'src', 'rows'):
+                os.makedirs(os.path.join(args.archive, d), exist_ok=True)
+            self.rows = open(os.path.join(args.archive, 'rows', args.name + '.jsonl'), 'a')
+        else:
+            self.rows = open(os.path.join(args.out, 'rows.jsonl'), 'a')
 
     def path(self, mod):
         rel = mod.split('.')
@@ -154,8 +166,12 @@ class Node:
         log = os.path.join(self.args.out, 'logs', 'Rec%d' % idx, mod.rsplit('.', 1)[1] + '.log')
         os.makedirs(os.path.dirname(log), exist_ok=True)
         f = open(log, 'w')
-        p = subprocess.Popen(timed([self.lean, '-R', SRC, '-o', ob + '.olean', '-i', ob + '.ilean', src]),
-                             cwd=LEAN, env=self.env, stdout=f, stderr=subprocess.STDOUT)
+        cmd = [self.lean, '-R', SRC, '-o', ob + '.olean']
+        if not self.args.archive:
+            cmd += ['-i', ob + '.ilean']
+        if self.args.lean_threads:
+            cmd += ['-j', str(self.args.lean_threads)]
+        p = subprocess.Popen(timed(cmd + [src]), cwd=LEAN, env=self.env, stdout=f, stderr=subprocess.STDOUT)
         gb = mem_gb(mod)
         self.used += gb
         self.running[p] = (idx, mod, gb, time.time(), log, f)
@@ -170,6 +186,27 @@ class Node:
         ax = sorted({a.strip() for m in ms for a in m.split(',')}) if len(ms) == 2 else None
         return ax, r.stdout[-800:]
 
+    def archive(self, idx, d, row):
+        """Archive mode: the olean and source tarballs (complete before they get their names), then local cleanup."""
+        ob = os.path.join(OLEAN, 'KernelAtlas', 'Rec%d' % idx)
+        logs = os.path.join(self.args.out, 'logs', 'Rec%d' % idx)
+        if row['status'] == 'ok':
+            dst = os.path.join(self.args.archive, 'oleans', 'Rec%d.tar' % idx)
+            with tarfile.open(dst + '.tmp', 'w') as t:
+                for p in sorted(glob.glob(os.path.join(ob, '*.olean'))):
+                    t.add(p, arcname='KernelAtlas/Rec%d/%s' % (idx, os.path.basename(p)))
+            os.replace(dst + '.tmp', dst)
+            row['olean_tar_bytes'] = os.path.getsize(dst)
+        dst = os.path.join(self.args.archive, 'src', 'Rec%d.tar.gz' % idx)
+        with tarfile.open(dst + '.tmp', 'w:gz') as t:
+            for p in sorted(glob.glob(os.path.join(d, '*.lean'))):
+                t.add(p, arcname='Rec%d/src/%s' % (idx, os.path.basename(p)))
+            for p in sorted(glob.glob(os.path.join(logs, '*'))):
+                t.add(p, arcname='Rec%d/logs/%s' % (idx, os.path.basename(p)))
+        os.replace(dst + '.tmp', dst)
+        for p in (d, ob, logs):
+            shutil.rmtree(p, ignore_errors=True)
+
     def finish(self, idx, status, **kw):
         st = self.recs.pop(idx)
         row = dict(idx=idx, status=status, **st['info'], modules=st['done'], **kw)
@@ -177,7 +214,9 @@ class Node:
         row['peak_gb'] = round(max([v['peak_gb'] or 0 for v in st['done'].values()] or [0]), 1)
         row['wall_s'] = round(time.time() - st['t0'], 1)
         d = os.path.join(SRC, 'KernelAtlas', 'Rec%d' % idx)
-        if os.path.isdir(d):
+        if self.args.archive:
+            self.archive(idx, d, row)
+        elif os.path.isdir(d):
             with tarfile.open(os.path.join(self.args.out, 'src', 'Rec%d.tar.gz' % idx), 'w:gz') as t:
                 for p in sorted(glob.glob(os.path.join(d, '*.lean'))):
                     t.add(p, arcname='Rec%d/%s' % (idx, os.path.basename(p)))
@@ -256,6 +295,25 @@ class Node:
         pool.shutdown()
 
 
+def archived(adir, retry_failed=False):
+    """Records already settled in an archive: `ok` with an olean tarball of the recorded size (and, unless
+    retry_failed, Records whose only rows are failures)."""
+    ok, failed = set(), set()
+    for f in glob.glob(os.path.join(adir, 'rows', '*.jsonl')):
+        for l in open(f):
+            try:
+                r = json.loads(l)
+            except ValueError:                                  # a row cut off by a killed job
+                continue
+            if r['status'] == 'ok':
+                t = os.path.join(adir, 'oleans', 'Rec%d.tar' % r['idx'])
+                if os.path.exists(t) and os.path.getsize(t) == r.get('olean_tar_bytes'):
+                    ok.add(r['idx'])
+            else:
+                failed.add(r['idx'])
+    return ok if retry_failed else ok | failed
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('idx', nargs='*', type=int)
@@ -266,13 +324,20 @@ def main():
     ap.add_argument('--max-records', type=int, default=40, help='Records generated but not yet finished')
     ap.add_argument('--keep', action='store_true', help='keep sources and build outputs')
     ap.add_argument('--max-procs', type=int, default=10 ** 6, help='at most this many Lean processes at once')
+    ap.add_argument('--archive', help='archive mode: tarballs and rows in this (shared) directory')
+    ap.add_argument('--name', default='node', help='archive mode: this driver\'s row file')
+    ap.add_argument('--retry-failed', action='store_true', help='archive mode: redo Records whose rows all failed')
+    ap.add_argument('--lean-threads', type=int, default=0, help='lean -j (0: Lean\'s default)')
     args = ap.parse_args()
     idxs = list(args.idx)
     if args.idx_file:
         idxs += [int(x) for x in open(args.idx_file).read().split()]
     os.makedirs(args.out, exist_ok=True)
-    rp = os.path.join(args.out, 'rows.jsonl')
-    done = {json.loads(l)['idx'] for l in open(rp)} if os.path.exists(rp) else set()
+    if args.archive:
+        done = archived(args.archive, retry_failed=args.retry_failed)
+    else:
+        rp = os.path.join(args.out, 'rows.jsonl')
+        done = {json.loads(l)['idx'] for l in open(rp)} if os.path.exists(rp) else set()
     idxs = [i for i in idxs if i not in done]
     print('%d Records to do (%d already done)' % (len(idxs), len(done)), flush=True)
     Node(args).run(idxs)
