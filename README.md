@@ -59,6 +59,10 @@ removed on 17 Oct 2026, including the second-route atlas (`archive-2026-10-17`);
 consolidation into `PROOF.md`, including the earlier route through the classification [CT] (`proof-docs-2026-10-17`).
 The typeset note in [`proof/note/`](proof/note/README.md) is the 11 Oct version of that earlier route.
 
+## License and citation
+
+MIT ([`LICENSE`](LICENSE)). To cite, see [`CITATION.cff`](CITATION.cff).
+
 ## References
 
 - [CT] M. Cárdenes Wuttig, J. Tindall, *A complete classification of complex Hadamard matrices of order six*, arXiv:2608.18053.
