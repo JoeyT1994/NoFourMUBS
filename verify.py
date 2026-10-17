@@ -2,12 +2,13 @@
 
   python3 verify.py                 Step 1 certificates, Step 2 replays, matched existence (side existence and matched
                                     flatness), PR-M and exact reach, MC1-MC5, sheet lemmas, S6 as a zero-dimensional Record, Stage C Arb sample
-  python3 verify.py --atlas [-j N]  additionally certify every Record of the atlas (Step 4), F6 and the anchor H0
+  python3 verify.py --atlas [-j N]  additionally certify every Record of the atlas (Step 4, one pool of N worker
+                                    processes), F6 and the anchor H0
   python3 verify.py --lean          additionally build the Lean formalisation and audit its axioms
   python3 verify.py --lean-full     as --lean, and also build matched existence (L1) and NoFourMUBs.Final in Lean (hours on a first build)
 """
 import argparse, os, subprocess, sys, time
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
@@ -26,6 +27,10 @@ CHECKS = [
     ('tao_zero_dim_record',     'proof/atlas/tao.py', ['0.08']),
     ('step3_stagec_arb_replay', 'proof/atlas/arb_replay.py', ['centre_fold52.json', '0.08', '100']),
 ]
+# Rough wall seconds of each check (M5 Max, Oct 2026): jobs are started longest first, so the short ones fill in
+# around the long ones.  Scheduling only; every check runs and must pass.
+COST = {'step4_certify': 1e6, 'lean_build_and_axioms': 1e5, 'step4_anchor_H0': 100, 'step4_nonempty_F6': 95,
+        'l1_matched_flatness': 50, 'mc_reconstruction_proofs': 15, 'l1_side_existence': 10}
 
 
 def run(name, rel, args, timeout=3600):
@@ -53,23 +58,22 @@ def main():
     if a.atlas:
         pkl = ROOT / 'proof/atlas/results/atlas_certificate.json.gz'
         if not pkl.exists(): sys.exit('no atlas at %s' % pkl)
-        sys.path.insert(0, str(ROOT / 'proof/atlas'))
-        from export import load_certificate
-        n = len(load_certificate(str(pkl)).recs); ch = (n + 4 * a.jobs - 1) // (4 * a.jobs)
-        tsv = lambda lo: ['--tsv=%s' % (a.log_dir.resolve() / ('step4_certify_%06d.tsv' % lo))] if a.log_dir else []
-        jobs += [('step4_certify_%06d' % lo, 'proof/atlas/certify.py', ['results/atlas_certificate.json.gz', str(lo), str(min(n, lo + ch))] + tsv(lo))
-                 for lo in range(0, n, ch)]
+        tsv = ['--tsv=%s' % (a.log_dir.resolve() / 'step4_certify.tsv')] if a.log_dir else []
+        jobs += [('step4_certify', 'proof/atlas/certify.py', ['results/atlas_certificate.json.gz', '-j', str(a.jobs)] + tsv)]
         jobs += [('step4_nonempty_F6', 'proof/atlas/nonempty.py', ['results/atlas_certificate.json.gz'])]
         jobs += [('step4_anchor_H0', 'proof/atlas/anchor.py', ['results/atlas_certificate.json.gz'])]
     if a.lean or a.lean_full:
         jobs += [('lean_build_and_axioms', 'lean/check_axioms.py', ['--full'] if a.lean_full else [])]
-    fails = 0
+    jobs.sort(key=lambda c: -COST.get(c[0], 0))
+    fails = 0; t0 = time.time()
     with ThreadPoolExecutor(a.jobs) as pool:
-        for name, code, dt, out in pool.map(lambda c: run(*c, timeout=6 * 3600 if c[0].startswith(('step4', 'lean')) else 3600), jobs):
+        futures = [pool.submit(run, *c, timeout=6 * 3600 if c[0].startswith(('step4', 'lean')) else 3600) for c in jobs]
+        for f in as_completed(futures):
+            name, code, dt, out = f.result()
             print('%s: %s (%.0fs)' % ('PASS' if code == 0 else 'FAIL', name, dt), flush=True)
-            if a.log_dir:
-                a.log_dir.mkdir(parents=True, exist_ok=True); (a.log_dir / (name + '.txt')).write_text(out)
+            if a.log_dir: (a.log_dir / (name + '.txt')).write_text(out)
             if code: fails += 1; print('\n'.join(out.splitlines()[-15:]))
+    print('%d checks, %.0fs wall' % (len(jobs), time.time() - t0))
     print('ALL PASS' if fails == 0 else '%d FAILED' % fails)
     sys.exit(1 if fails else 0)
 

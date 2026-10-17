@@ -109,7 +109,7 @@ def tangent_tests(U, P, r, M, K, eP, rF, T, rH, nN):
     A1 = a * J[:, 1:, :]                                                  # (n, 5, 6) rows j, cols i
     A2 = rH * np.transpose(B, (0, 2, 1))                                  # (n, k, 6)
     A = np.concatenate([A1, A2], axis=1)
-    G = np.einsum('nri,nrl->nil', A, A) + 1e-12 * np.eye(6)[None]
+    G = np.matmul(np.transpose(A, (0, 2, 1)), A) + 1e-12 * np.eye(6)[None]
     z = np.linalg.solve(G, c[..., None])[..., 0]
     y = z / np.maximum(np.abs(z).max(axis=1), 1e-300)[:, None]           # any direction is valid; |y| <= 1
     lhs = np.abs(np.einsum('ni,ni->n', y, c))
@@ -160,20 +160,21 @@ def _trace_bins(trace, U):
 
 
 def cluster(U, M, radius=0.042, smax=0.1):
-    """Greedy assignment of bin midpoints to centres (Lemma 6.4); radii s >= ||h|| + X_M with a float margin."""
+    """Greedy assignment of bin midpoints to centres (Lemma 6.4); radii s >= ||h|| + X_M with a float margin.
+    Distances are computed only for the still-unassigned bins (row-wise the same arithmetic as over all bins)."""
     X = math.sqrt(29 / 6) / (2 * M)
     Ki = _toint(U); centres, radii = [], []
-    left = np.ones(len(Ki), bool)
-    while left.any():
-        i0 = np.argmax(left); v = Ki[i0]
-        D = np.mod(Ki - v + DEN // 2, DEN) - DEN // 2                         # exact integer wrap, units 1/192
+    li = np.arange(len(Ki))                                                 # unassigned bins, in index order
+    while len(li):
+        i0 = li[0]; v = Ki[i0]
+        D = np.mod(Ki[li] - v + DEN // 2, DEN) - DEN // 2                     # exact integer wrap, units 1/192
         D6 = np.concatenate([np.zeros((len(D), 1)), D], 1) / DEN
         D6 = D6 - D6.mean(1, keepdims=True)
         nrm = np.linalg.norm(D6, axis=1)
-        take = left & (nrm <= radius)
+        take = nrm <= radius
         s = nrm[take].max() * (1 + 1e-12) + X + 1e-9
         if s >= smax: return None
-        centres.append(U[i0]); radii.append(s); left &= ~take
+        centres.append(U[i0]); radii.append(s); li = li[~take]
     return np.array(centres), np.array(radii)
 
 
@@ -232,7 +233,7 @@ def joint_filter(C, s, O, Ub, P, r, K, eP, rF, T, rH, nN):
         A[:, 6:12, 6:12] = s[b_][:, None, None] * J1; A[:, 6:12, 12:] = -s[b_][:, None, None] * np.transpose(D, (0, 2, 1))
         A[:, 12:12 + k, 0:6] = rH * np.transpose(B[a_], (0, 2, 1)); A[:, 12:12 + k, 6:12] = rH * np.transpose(B[b_], (0, 2, 1))
         A[:, 12 + k:, 12:] = EE[:, None, None] * np.eye(l)[None]
-        G = np.einsum('mra,mrb->mab', A, A) + 1e-12 * np.eye(12 + l)[None]
+        G = np.matmul(np.transpose(A, (0, 2, 1)), A) + 1e-12 * np.eye(12 + l)[None]
         rhs_vec = np.concatenate([c[a_], c[b_], qE], 1)
         z = np.linalg.solve(G, rhs_vec[..., None])[..., 0]
         w = z / np.maximum(np.abs(z).max(1), 1e-300)[:, None]
@@ -255,26 +256,39 @@ def joint_filter(C, s, O, Ub, P, r, K, eP, rF, T, rH, nN):
 
 
 def two_cliques(O, Ub, cap=5_000_000):
-    """True iff the pattern (two disjoint O-6-cliques, all cross pairs U) is impossible (complete search)."""
+    """True iff the pattern (two disjoint O-6-cliques, all cross pairs U) is impossible (complete search).
+    A and B are built alternately: a vertex added to A must be O-adjacent to A and U-adjacent to B, and vice versa; the
+    next vertex goes to the side with the smaller surplus of candidates.  The pattern is symmetric in A and B, so A is
+    taken to hold the least vertex of A u B.  Every pattern is found: the branch adding min(A \\ A_partial) (or the B
+    analogue) keeps all remaining vertices of A and B among the candidates.  O and Ub must be symmetric."""
     n = len(O)
+    assert np.array_equal(O, O.T) and np.array_equal(Ub, Ub.T), 'edge graphs not symmetric'
     orth = [int(''.join('1' if O[i, j] else '0' for j in reversed(range(n))), 2) for i in range(n)]
     ub = [int(''.join('1' if Ub[i, j] else '0' for j in reversed(range(n))), 2) for i in range(n)]
     steps = [0]
-    def cliques(pool, need):
-        if need == 0:
-            yield (); return
-        while pool.bit_count() >= need:
-            steps[0] += 1
-            if steps[0] > cap: raise RuntimeError('cap')
-            bit = pool & -pool; i = bit.bit_length() - 1; pool ^= bit
-            for tail in cliques(pool & orth[i], need - 1):
-                yield (i, *tail)
-    for A in cliques((1 << n) - 1, 6):
-        D = (1 << n) - 1
-        for i in A: D &= ub[i]
-        for B in cliques(D, 6):
-            return False, steps[0]
-    return True, steps[0]
+    def grow(PA, PB, na, nb):
+        """PA, PB: candidates for A and B; na, nb: vertices still needed.  True iff the pattern can be completed."""
+        if na == 0 and nb == 0: return True
+        if PA.bit_count() < na or PB.bit_count() < nb: return False
+        if na == 6 or (na and (nb == 0 or PA.bit_count() - na <= PB.bit_count() - nb)):
+            P = PA
+            while P.bit_count() >= na:
+                steps[0] += 1
+                if steps[0] > cap: raise RuntimeError('cap')
+                bit = P & -P; i = bit.bit_length() - 1; P ^= bit
+                PB2 = PB & ub[i]
+                if na == 6: PB2 &= ~((bit << 1) - 1)                         # the least vertex of A u B is in A
+                if grow(P & orth[i], PB2, na - 1, nb): return True
+        else:
+            P = PB
+            while P.bit_count() >= nb:
+                steps[0] += 1
+                if steps[0] > cap: raise RuntimeError('cap')
+                bit = P & -P; i = bit.bit_length() - 1; P ^= bit
+                if grow(PA & ub[i], P & orth[i], na, nb - 1): return True
+        return False
+    full = (1 << n) - 1
+    return (not grow(full, full, 6, 6)), steps[0]
 
 
 def stage_c(P, r, tang=None, radius=0.03, rF=None, trace=None):

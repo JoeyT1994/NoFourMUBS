@@ -50,7 +50,7 @@ All three are also formalised in Lean (`lean/NoFourMUBs/StageC/`, `NormalBound.l
 ```bash
 python3 atlas.py centre_fold52.json 1000000000 results/atlas.pkl      # build (resumable; the pickle is not tracked)
 python3 export.py results/atlas.pkl results/atlas_certificate.json.gz
-python3 certify.py results/atlas_certificate.json.gz [lo hi]          # certify a range of Records
+python3 certify.py results/atlas_certificate.json.gz [lo hi] [-j N] [--tsv=FILE]   # certify (a range of) Records
 python3 nonempty.py results/atlas_certificate.json.gz
 python3 anchor.py results/atlas_certificate.json.gz
 ```

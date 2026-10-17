@@ -102,29 +102,72 @@ def tsv_row(s, rec, verdict, tr, wall, cpu):
     return '\t'.join(str(v.get(c, tr.get(c, ''))) for c in TSV_COLUMNS)
 
 
-if __name__ == '__main__':
-    args = [x for x in sys.argv[1:] if not x.startswith('--tsv=')]
-    tsv = [x[6:] for x in sys.argv[1:] if x.startswith('--tsv=')]
-    if args[0].endswith('.json.gz'):
+def load(path):
+    if path.endswith('.json.gz'):
         from export import load_certificate
-        A = load_certificate(args[0])
-    else:
-        A = AT.load(args[0])
-    lo, hi = (int(args[1]), int(args[2])) if len(args) > 2 else (0, len(A.recs))
+        return load_certificate(path, census=False)          # the corner census is used only by the F6/H0 searches
+    return AT.load(path)
+
+
+def certify_one(A, s):
+    """Certify Record s (Stage C and boundary replay).  Records are independent: the replay of s reads only the
+    centre and radius of its targets.  Returns (s, verdict, failure message, TSV line, steps)."""
+    tr = {}; w0, c0 = time.perf_counter(), time.process_time()
+    try:
+        rH, n = certify_record(A.recs[s], trace=tr); tr['leaves'] = certify_boundary(A, s, rH, n, trace=tr)
+        verdict, msg = 'PASS', ''
+    except AssertionError as e:
+        verdict, msg = 'FAIL', str(e)
+    return s, verdict, msg, tsv_row(s, A.recs[s], verdict, tr, time.perf_counter() - w0, time.process_time() - c0), tr.get('clique_steps')
+
+
+_W = None                                                     # the certificate, loaded once per worker process
+
+
+def _worker_init(path):
+    global _W
+    import warnings; warnings.simplefilter('ignore')
+    _W = load(path)
+
+
+def _worker(s):
+    return certify_one(_W, s)
+
+
+if __name__ == '__main__':
+    import argparse
+    ap = argparse.ArgumentParser(description='Certify the Records [lo, hi) of an atlas certificate (default: all).')
+    ap.add_argument('certificate'); ap.add_argument('lo', type=int, nargs='?'); ap.add_argument('hi', type=int, nargs='?')
+    ap.add_argument('-j', '--jobs', type=int, default=1,
+                    help='worker processes, one certificate load each; Records are scheduled one at a time, highest index first')
+    ap.add_argument('--tsv', help='write the per-Record intermediates (TSV_COLUMNS) here, in Record order')
+    a = ap.parse_args()
+    pool = None
+    if a.jobs > 1:                     # workers start loading while the main process does; a dead worker fails the run
+        import multiprocessing as mp
+        from concurrent.futures import ProcessPoolExecutor, as_completed
+        pool = ProcessPoolExecutor(a.jobs, mp_context=mp.get_context('spawn'), initializer=_worker_init, initargs=(a.certificate,))
+    A = load(a.certificate)
+    lo, hi = (a.lo, a.hi) if a.hi is not None else (0, len(A.recs))
     closed = [s for s in sorted(A.closed) if lo <= s < hi]
     nopen = len([s for s in range(lo, min(hi, len(A.recs))) if s not in A.closed])
     if nopen: print('NOTE: %d records in [%d, %d) are not closed (atlas incomplete)' % (nopen, lo, hi))
-    out = open(tsv[0], 'w') if tsv else None
-    if out: out.write('#' + '\t'.join(TSV_COLUMNS) + '\n')
-    t0 = time.time(); bad = 0
-    for s in closed:
-        tr = {}; w0, c0 = time.perf_counter(), time.process_time()
-        try:
-            rH, n = certify_record(A.recs[s], trace=tr); nl = certify_boundary(A, s, rH, n, trace=tr); tr['leaves'] = nl
-            verdict = 'PASS'
-        except AssertionError as e:
-            print('FAIL', s, e); bad += 1; verdict = 'FAIL'
-        if out: out.write(tsv_row(s, A.recs[s], verdict, tr, time.perf_counter() - w0, time.process_time() - c0) + '\n'); out.flush()
-        if verdict == 'PASS' and s % 20 == 0: print('record %d ok (%d leaves)  %.0fs' % (s, nl, time.time() - t0), flush=True)
+    # Highest index first: the costliest Records were added last (11205-11227 take minutes, a typical one < 1 s), so
+    # the pool's tail is short.  Order affects scheduling only, never a verdict.
+    order = closed[::-1] if pool else closed
+    t0 = time.time(); bad = 0; rows = {}; smax = (0, None)
+    results = (f.result() for f in as_completed([pool.submit(_worker, s) for s in order])) if pool else (certify_one(A, s) for s in order)
+    for k, (s, verdict, msg, row, steps) in enumerate(results):
+        rows[s] = row
+        if verdict == 'FAIL': print('FAIL', s, msg, flush=True); bad += 1
+        if steps is not None and steps > smax[0]: smax = (steps, s)
+        if (k + 1) % 500 == 0 or (not pool and verdict == 'PASS' and s % 20 == 0):
+            print('%d / %d records done (record %d %s)  %.0fs' % (k + 1, len(order), s, verdict, time.time() - t0), flush=True)
+    if pool: pool.shutdown()
+    if a.tsv:
+        with open(a.tsv, 'w') as out:
+            out.write('#' + '\t'.join(TSV_COLUMNS) + '\n')
+            for s in sorted(rows): out.write(rows[s] + '\n')
+    print('max clique-search steps %s (record %s)' % smax)
     print('certified %d records, %d failures, %.0fs' % (len(closed) - bad, bad, time.time() - t0))
     sys.exit(1 if bad or nopen else 0)

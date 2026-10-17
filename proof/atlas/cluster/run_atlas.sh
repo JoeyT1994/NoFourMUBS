@@ -14,13 +14,10 @@ cd "$SLURM_SUBMIT_DIR/atlas"
 $PY -u atlas.py centre_fold52.json 1000000000 $OUT/atlas.pkl
 echo "=== driver exit $? $(date)"
 $PY export.py $OUT/atlas.pkl $OUT/atlas_certificate.json.gz
-N=$($PY -c "from export import load_certificate as L; print(len(L('$OUT/atlas_certificate.json.gz').recs))")
-NC=${SLURM_CPUS_ON_NODE:-$(nproc)}; CH=$(( (N + 4*NC - 1) / (4*NC) ))
-echo "=== certifying $N records on $NC cores, chunk $CH  $(date)"
-rm -f $OUT/cert_exits.txt
-seq 0 $CH $((N - 1)) | xargs -P $NC -I{} sh -c "$PY certify.py $OUT/atlas_certificate.json.gz {} \$(( {} + $CH )) > $OUT/cert_{}.log 2>&1; echo \"chunk {} exit \$?\" >> $OUT/cert_exits.txt"
-echo "=== certify done $(date)"
-awk '{n++; s+=($4!=0)} END {print "chunks", n, "nonzero exits", s}' $OUT/cert_exits.txt
-grep -h "^certified\|^FAIL\|NOTE" $OUT/cert_*.log | awk '/^certified/{c+=$2; f+=$4} /^FAIL/{print} END {print "TOTAL certified", c, "failures", f}'
+NC=${SLURM_CPUS_ON_NODE:-$(nproc)}
+echo "=== certifying on $NC worker processes  $(date)"
+$PY certify.py $OUT/atlas_certificate.json.gz -j $NC --tsv=$OUT/certify.tsv > $OUT/certify.log 2>&1
+echo "=== certify exit $? $(date)"
+grep "^FAIL\|^NOTE\|^max\|^certified" $OUT/certify.log
 $PY nonempty.py $OUT/atlas_certificate.json.gz
 echo "=== nonempty exit $? $(date)"

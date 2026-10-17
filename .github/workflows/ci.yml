@@ -30,6 +30,8 @@ jobs:
         run: python3 tests/negative_exact.py
       - name: Negative tests, certify.py and nonempty.py
         run: python3 tests/negative_atlas.py -j 4
+      - name: Stage C clique search against the reference enumeration
+        run: python3 tests/clique_search.py
 
   lean:
     name: Lean (build and axiom audit)
