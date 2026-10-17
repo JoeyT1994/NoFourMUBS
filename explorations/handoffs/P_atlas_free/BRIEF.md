@@ -25,12 +25,17 @@ known, so partial results are useful on their own.
   D = diag(1, z, w), or its transpose (`MinimalConstruction/Proofs/FOURIER_ROUTING.md`; the bundled
   `algebra/FOURIER_PREDICATE.md` of the L follow-up proves the equivalence).
 
-> **Lemma 0 (PROVED; one line).** H is of Fourier type ⇔ some corner of H has g = 0.
+> **Lemma 0 (PROVED; one line).** H is of Fourier type ⇔ one of its **400** positional 3×3 minors (any 3 rows × any
+> 3 columns) is singular ⇔ for some choice of rows and columns, the corner there has g = 0.
 > *Proof.* Every 3×3 submatrix of H is the side block B adjacent to some corner (choose the complementary column
 > triple), and g = |det B|² = det(6I − EE*). ∎
+>
+> *Correction (17 Oct 2026, from return P):* an earlier version said "some corner" while taking the product over the
+> twenty corners of one fixed strip; that misses singular minors in other row choices (exact counterexample: N(i, 1)
+> with rows reordered (0,1,3,2,4,5)). Use all 400 minors, or return L's thirty-factor squared-overlap predicate.
 
 So **F** (every triple has a Fourier-type transition) is the polynomial statement
-  Π(H, K) := ∏_{T ∈ {H, K, L}} ∏_{20 corners C of T} g_C(T) = 0 on all of V,
+  Π(H, K) := ∏_{T ∈ {H, K, L}} ∏_{400 positional 3×3 minors M of T} |det M|² = 0 on all of V,
 and **F′** (every quartet has a Fourier-type edge) is the same for the six edges of a quartet.
 
 ## 1. The reduction (what proves the theorem)
@@ -60,6 +65,13 @@ contained in V_F ∪ GM (so no Fourier-free component can approach q). *Known:* 
 centres; a complete two-branch analysis at the 36 trace-zero centres: `root/CENTRAL_CROSSING_THEOREM.md`,
 `globalization/GLOBAL_RANK_THEOREM.md` in `L_global_F_progress.zip`). With A, what remains is the isolated Fourier triple
 (and any further Fourier-edge triples A finds).
+
+**Progress (return P, 17 Oct 2026; `explorations/returns/P_atlas_free/REVIEW.md`).** B is closed: the isolated product
+triple is rigid (Jacobian rank 55) and, with return L's component theorem, both known classes are whole components, so
+**A + C remain**. A is solved locally at the Fourier pair D = diag(1, 1, i) (48 rays, 8 bases); Fourier-free triple and
+quartet spaces have real dimension ≤ 4. Return P also shows the maximum-principle idea in C below does **not** work as
+stated: a maximum over a 2-dimensional triple component does not make the seed derivatives of R vanish, and singular
+points need separate control.
 
 **C. No compact Fourier-free component.** Show V has no connected component on which Π > 0. This is the global step and
 the one that should use the reconstruction. *Suggested idea (a suggestion, not a known route):* a **maximum principle on

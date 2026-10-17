@@ -1,0 +1,90 @@
+{
+  "cap_lemma": {
+    "capped_square_sum_polynomial": "PASS",
+    "equality_multiset": [
+      "5/18",
+      "5/18",
+      "5/18",
+      "1/6",
+      "0",
+      "0"
+    ],
+    "factored_cap_difference": "PASS",
+    "target_square_sum": "7/27",
+    "transport_polynomial": "PASS"
+  },
+  "dichotomy_branches": {
+    "L_lower_bound": {
+      "rational": "1",
+      "sqrt10": "1/6"
+    },
+    "integer_sign_comparisons": {
+      "10_times_37_squared_minus_117_squared": 1,
+      "19_squared_minus_36_times_10": 1,
+      "6_times_251_squared_minus_612_squared": 3462
+    },
+    "negative_eigenvalue_magnitude": {
+      "rational": "-1/2",
+      "sqrt10": "1/6"
+    },
+    "rational_negative_gap": "1/37",
+    "square_hadamard_branch_rational_L": "55/36"
+  },
+  "maximum_principle_audit": {
+    "ambient_gradient": [
+      "0",
+      "0",
+      "-1",
+      "-1"
+    ],
+    "constrained_gradient_zero_but_ambient_nonzero": true,
+    "full_product_factor_counts": {
+      "quartet": 2400,
+      "triple": 1200
+    },
+    "general_countermodels_proved_in_report": [
+      "x^2+y^2=0 has a two-dimensional Jacobian kernel but a singleton real zero set",
+      "t -> t^2 has finite fibres and a ramification point"
+    ],
+    "minimum_abnormal_multiplier_kernel_dimension": 41,
+    "three_by_three_minors_per_matrix": 400
+  },
+  "proves_C_F_or_Fprime": false,
+  "scope": "Exact finite identities and comparisons; analytic proofs are in REPORT.md",
+  "sha256": {
+    "REPORT.md": "f1bfd7489d79f1102329ebbbac165a5d2e168d86f757deaae9de398aecb62b19",
+    "SOURCE_DEPENDENCIES.json": "4038d7e8c945448723e2b34f0e0ac6e70b01b8fe640daf728f372b974265692b",
+    "verify.py": "5ee3b377616c9e8ef35f47ce023aa8f9b943a5809e7a352b4fa5f67c4d18af52"
+  },
+  "status": "PASS",
+  "third_party_python_dependencies": [],
+  "uses_atlas": false,
+  "variance_and_triangles": {
+    "cubic_basis_label_counts": {
+      "1": 4,
+      "2": 36,
+      "3": 24
+    },
+    "exact_energy_lower_bound": {
+      "rational": "14564/28551",
+      "sqrt10": "-1528/9517"
+    },
+    "radical_sign_integer_difference": 1866,
+    "rational_energy_lower_bound": "1/420",
+    "rational_triangle_margin": "1/5040",
+    "scalar_relaxation": {
+      "asserted_to_be_realizable": false,
+      "energy": 60,
+      "rank": 21,
+      "trace": 24,
+      "trace_square": 36
+    },
+    "triangle_multiplicities": {
+      "(0, 1, 2)": 6,
+      "(0, 1, 3)": 6,
+      "(0, 2, 3)": 6,
+      "(1, 2, 3)": 6
+    },
+    "weighted_variance_polynomial": "PASS"
+  }
+}
