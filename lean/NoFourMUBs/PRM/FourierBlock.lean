@@ -1,4 +1,6 @@
-import Hadamard6.FourierNormalizationClassification
+import Hadamard6.FourierCoordinateAllocation
+import Hadamard6.FourierCubicTaoTable
+import Hadamard6.SimultaneousFourierNormalization
 import NoFourMUBs.PRM.Defs
 import NoFourMUBs.Step2.AnchorTransport
 

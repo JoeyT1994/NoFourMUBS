@@ -1,4 +1,4 @@
-import Hadamard6.PaperTheorem
+import NoFourMUBs.Lib.Hadamard
 import NoFourMUBs.Skeleton
 import NoFourMUBs.Step2.TopologyCore
 import NoFourMUBs.Step2.QuotientTopology
@@ -6,8 +6,9 @@ import NoFourMUBs.Step2.QuotientTopology
 /-!
 # Step 2: explicit remaining geometry and a direct coverage theorem
 
-The matrix model, Hadamard predicate, equivalence relation, Tao predicate,
-and Hadamard quotient are those of upstream.  The quotient carries its
+The matrix model, Hadamard predicate, equivalence relation and Tao predicate
+are those of upstream; the Hadamard quotient is upstream's, restated in
+`NoFourMUBs.Lib.Hadamard`.  The quotient carries its
 natural topology.  No project axiom, admitted proof, or numerical predicate
 is introduced here.  The unproved geometric obligations are `def ... : Prop`
 and are explicit arguments of the assembly theorem.
