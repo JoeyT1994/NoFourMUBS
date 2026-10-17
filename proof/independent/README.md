@@ -25,6 +25,9 @@ sbatch run_rusty.sh                                                             
 
 `jlenv/` pins the Julia environment (IntervalArithmetic 1.0.10). Add `--fast` for float decisions with margins only.
 
+The full certificate takes about 24 min on one 128-core rusty node (about 50 thread-hours; `results_v4/`), and the CI
+tests (`tests/run_tests.sh`) take a few minutes on 4 threads. See "Performance" below.
+
 `--startup-file=no` keeps a personal `startup.jl` out of the run.
 `check.jl` calls `convert.py` (Python standard library only) to turn the gzip JSON into plain text, because the Julia
 environment has no JSON or gzip package. All floats are passed as `float.hex`, so the conversion is exact.
@@ -136,8 +139,13 @@ Stage C passes only if no label radius is ≥ 0.1, no pair (A, B) exists and the
 
 ### Nonemptiness
 
-The search covers the closed records that passed Step 3. A record is screened first: its dephased phases must lie
-within 1 rad of multiples of 2π/6. The checker then brute-forces all 720² row/column permutations of F6. Sign and
+The search covers the closed records that passed Step 3. A record is screened first (`f6_class_min`): with
+a = rowperm, b = colperm (0-based), the dephased A·F6 is (2π/6)(a_j − a_1)(b_c − b_1) mod 2π, so the float distance the
+search minimises depends only on the two permutations α = a − a_1, β = b − b_1 (mod 6) that fix 0: 120² classes
+instead of 720² alignments. A record whose class minimum is ≥ R_t + 10⁻⁶ (and has no rounding tie, i.e. no dephased
+entry within 10⁻⁹ of a half-turn) would not be reported by the full search, and is skipped. (The previous screen, dephased
+phases within 1 rad of multiples of 2π/6, never excluded anything, since |rem(x, 2π/6)| ≤ π/6.) For the remaining
+records the checker brute-forces all 720² row/column permutations of F6. Sign and
 transposition can be fixed, because F6ᵀ = F6 and conj F6 is a column permutation of F6 mod 2π. For the best
 alignment it chooses a winding N and certifies ||h(A F6 + 2πN − P_t)|| < R_t in intervals.
 
@@ -153,6 +161,11 @@ alignment it chooses a winding N and certifies ||h(A F6 + 2πN − P_t)|| < R_t 
   rationals.
 - The graph search is exact.
 - The non-dyadic constants a = 1/(2M) and 1/192 are used through interval upper bounds.
+- How the replay is organised only affects speed. The products e(k/192)·e(−P_ji)/√6 are tabulated once per record
+  (`qtable`), in the same number type and by the same expressions, so every bin sees bit-identical intervals. A direct
+  or scalar rejection is first re-decided on the column the float pass rejected; if intervals do not confirm it, the
+  test over all columns is evaluated as before. B is only computed for the tangent test, and conj(S_i) q_ji is computed
+  once per bin (or label) instead of once per evaluation of 𝓔(y).
 
 **`--fast` mode** skips the interval replay. A float rejection then needs lhs > rhs + 10⁻⁸. The error budget is
 written in the style of RIGOUR.md §3 (u = 2⁻⁵³):
@@ -278,8 +291,42 @@ has to resolve.
 
 | Path | Run |
 |---|---|
+| `results_v4/` | The current certificate with the faster checker (rusty job 7262168, one 128-core ccq node, 24 min): **12,021 / 12,021 closed Records PASS**, F6 nonemptiness CERTIFIED, sanity checks pass. `RESULT.txt` is identical to `results_v3/`, and so is every line of `step3.tsv.gz` and `step4.tsv.gz` apart from the seconds column |
 | `results_v3/` | The current certificate, fresh and complete (rusty job 7213978, one 128-core node, 8 h): **12,021 / 12,021 closed Records PASS**, F6 nonemptiness CERTIFIED, sanity checks pass |
 | `results_v2_failures.tsv` | The rows that failed on the previous certificate. Record 11403's Stage C found a two-clique configuration in this checker's label graph, and 10 boundary trees needed it as a target. The atlas was repaired by shrinking that Record (`../atlas/results/RECEIPT.md`) |
 | `tests/` | Sanity tests, and results on a small test certificate |
 
 The F6 search is multithreaded over candidate Records; only the search is parallel, and each acceptance is the same interval test.
+
+## Performance
+
+The full replay of the 12,021-Record certificate on one 128-core node (AMD EPYC 7742):
+
+| | `results_v3` (job 7213978) | `results_v4` (job 7262168) |
+|---|---|---|
+| Step 3 (wall) | 7,102 s | 1,118 s |
+| Step 4 (wall) | 1,569 s | 275 s |
+| F6 nonemptiness (wall) | about 5.5 h | 4 s |
+| whole run (wall) | 8 h 01 min | 23 min 40 s |
+| thread-hours | about 1,030 | about 50 |
+
+The two runs make the same decisions: every line of `step3.tsv` and `step4.tsv` (all columns except the seconds) and the
+whole of `RESULT.txt` are identical. Where the time went in v3, and what changed:
+- **F6 search.** Every Record went through the 720² brute force, because its screen excluded nothing. The class
+  pre-filter (see "Nonemptiness") leaves one Record (877), and the brute force on it is unchanged.
+- **Garbage collection.** At 128 threads the old code spent most of its time stalled: the same Records cost about 5×
+  more CPU per Record in one 128-thread process than in eight 16-thread processes. The allocations came from
+  closures with boxed variables in the bin loop, the per-edge least-squares solve, the bitset operations of the
+  clique search and the float pass of the boundary tree. These loops now reuse buffers. The joint-test direction still
+  comes from the same LAPACK Bunch-Kaufman calls (`dsytrf`/`dsytrs`) as `Symmetric(M) \ g`, with the workspace
+  kept, so it is bit-identical.
+- **Interval replay.** About 90% of Stage C was spent replaying bin rejections in intervals. The table of products
+  and the column-first replay (see "Rigour") cut it by about half, without changing any interval inequality or its
+  operands.
+- **Scheduling.** `@threads :dynamic` gives each thread one contiguous block of Records, and the hardest Records are
+  consecutive (11205–11227). `:greedy` hands out one Record at a time.
+
+On a 30-Record sample, including the slowest Records of v3 and Record 877, the per-Record outputs of the old and new code
+are byte-identical. On 8 local threads, the sample took 45 s with the old code and 22 s with the new. On a random sample
+of 256 Records at 128 threads on rusty, it took 62 s per Record with the old code and 12 s with the new, and the
+outputs were identical again.

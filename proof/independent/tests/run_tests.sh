@@ -22,6 +22,7 @@ echo "check.jl on the sub-certificate: PASS"
 if grep -Eq "unsound|FAILED" "$OUT/sanity.log"; then echo "sanity.jl: FAILED"; exit 1; fi
 grep -q "all 15 O edges among the six labels survive: OK" "$OUT/sanity.log"
 grep -q "none reported in random graphs: OK" "$OUT/sanity.log"
+grep -q "F6 pre-filter: class minimum = exhaustive minimum" "$OUT/sanity.log"
 echo "sanity.jl: PASS"
 
 python3 "$ROOT/tests/negative_atlas.py" --write "$OUT/cases"
