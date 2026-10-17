@@ -84,10 +84,9 @@ theorem Kn_sub_Kmin (k : ℝ) :
   have : (1 + k ^ 2) ≠ 0 := by positivity
   unfold Kn Kmin hk; field_simp; ring
 
-/-- **§4, the pole substitutions.** -/
-theorem poleClassification : PoleClassification := by
-  intro σ k K hσ hk hK hz hf
-  have h0 := poleNum_eq_zero hz hf
+/-- **Reading the positive zeros of a pole numerator** on the four boundary values of `K`. -/
+theorem candidates_of_poleNum {σ k K : ℝ} (hσ : σ = 1 ∨ σ = -1) (hk : 0 < k)
+    (hK : K = Kmin k ∨ K = K0 k ∨ K = Kp k ∨ K = Kn k) (h0 : poleNum σ k K = 0) : Candidates k K := by
   have q1 : 0 < 3 * k ^ 2 + 1 := by positivity
   have q2 : 0 < 3 * k ^ 2 + 2 * k + 3 := by positivity
   have q3 : 0 < 3 * k ^ 2 - 2 * k + 3 := by nlinarith [sq_nonneg (k - 1 / 3)]
@@ -161,5 +160,10 @@ theorem poleClassification : PoleClassification := by
     rw [hκ] at this
     simp at this
     linarith
+
+/-- **§4, the pole substitutions.** -/
+theorem poleClassification : PoleClassification := by
+  intro σ k K hσ hk hK hz hf
+  exact candidates_of_poleNum hσ hk hK (poleNum_eq_zero hz hf)
 
 end NoFourMUBs.PRM.Coverage.Quartic
