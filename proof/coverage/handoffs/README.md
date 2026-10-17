@@ -8,7 +8,7 @@ computation, replayable here), **NUMERICAL** (evidence only), **CONJECTURE**.
 |---|---|---|---|
 | [`J_side_existence_jacobian`](J_side_existence_jacobian/BRIEF.md) | Side existence for both roots, from an exact Jacobian identity (CERTIFIED here) and a covering argument | Return F's radical construction (2.3 MB) and 12 of the 13 Lean `L1/Side*` modules (~54 kernel-minutes, 10 GB) | Low; **done** ([`RESULT.md`](J_side_existence_jacobian/RESULT.md)) |
 | [`K_nonzero_J_strips`](K_nonzero_J_strips/BRIEF.md) | MC1's nonzero-J critical-strip branch from a short proof, or a relaxed window k² ∈ (1/5, 1/4) | Up to 40 `PRM/CoverageStripId*` modules (7.7 MB, data modules up to 16 min and 14 GB to elaborate) | High; **returned and verified** ([`returns/K_nonzero_J`](../returns/K_nonzero_J/REVIEW.md)); Lean integration pending |
-| [`L_fourier_edge`](L_fourier_edge/BRIEF.md) | Every MUB triple (or quartet) in ℂ⁶ has a transition of Fourier type (CONJECTURE) | The 4-D atlas and nearly all of Steps 1–3, replaced by a 2-parameter exclusion on the Fourier family | Very high |
+| [`L_fourier_edge`](L_fourier_edge/BRIEF.md) | Every MUB triple (or quartet) in ℂ⁶ has a transition of Fourier type (CONJECTURE) | The 4-D atlas and nearly all of Steps 1–3, replaced by a 2-parameter exclusion on the Fourier family | Very high; **returned** ([`returns/L_fourier_edge`](../returns/L_fourier_edge/REVIEW.md)): local F near the Diţă triple and the Fourier-family exclusion certified; global F/F′ still open |
 
 A fourth candidate, the second-order "route 2" analytic lemmas that would let Stage C run with far fewer Records, is
 already briefed in `proof/atlas/route2/MILESTONE1.md` §12, preserved at the git tag `archive-2026-10-17`.
