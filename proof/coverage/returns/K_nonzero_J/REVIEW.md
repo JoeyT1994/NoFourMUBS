@@ -33,5 +33,16 @@ Bernstein/Sturm certificates. Inputs used: `CRITICAL_CORNER_REDUCTION.md`, `SIDE
   `PRM/CoverageStripNonzero.lean`), edit `Final.lean`'s two uses of `PRM.Coverage.nonzeroJAlgebra`, then remove the
   `PRM/CoverageStripIdNonzero*` modules (about 40 files, 7.7 MB of data) and their generators. Until that lands and
   `lean/check_axioms.py --full` passes, the Lean proof still uses the old square-sum route.
-- **Extra:** `SUPPLEMENTARY_RANK_LEMMA.md` claims every order-6 complex Hadamard has entrywise-square rank ≥ 3, which
-  would remove the rank hypothesis from return H's Fourier criterion. Not used by N1/N2; not yet reviewed.
+- **Extra, reviewed and accepted:** `SUPPLEMENTARY_RANK_LEMMA.md` proves that for n > 4, n ≡ 2 (mod 4), every complex
+  Hadamard of order n has entrywise-square rank ≥ 3 (in particular every order-6 Hadamard). We checked the proof by hand:
+  Lemma 1's count forces a = b = c = d = n/4; its extension to phase vectors with proportional squares (rephase to equal
+  squares, divide by one vector) is sound; Lemma 2 is "a line meets a circle in at most two points"; the rank-2 case
+  splits correctly (≥ 3 values of u: rows fall into two proportional-square classes; exactly two values: squared columns
+  take two values, so columns fall into two equal-square classes), each class has at most two members by Lemma 1, so
+  n ≤ 4. `support/verify_rank.py` passes. Independent test (`review/check_rank.py`): rank H^[2] = 3 for F₆ and for all
+  2,000 random members of the two-parameter Fourier family under random equivalences, and 6 for Tao's matrix — so the
+  bound is attained on a two-parameter family; brute force confirms no three pairwise orthogonal sign vectors of length 6.
+  **What it simplifies:** in Lean, `FourierVanishing.exists_good` (`FourierVanishing/Main.lean`) obtains its
+  nonsingular H[I,J]^[2] from `PRM.strictCornerCoverage` (the whole MC1 chain) plus a separate Fourier-class case; the
+  lemma supplies it for every order-6 Hadamard, so Fourier vanishing (return H) no longer depends on strict-corner
+  coverage. Return H's criterion then needs only (0.2), i.e. the nonmatched converse.
