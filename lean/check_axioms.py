@@ -43,6 +43,6 @@ audit('NoFourMUBs/Axioms.lean')
 audit('Step1Gen/lean/Step1/Audit.lean')   # the 216 Step 1 certificate theorems
 if '--full' in sys.argv[1:]:
     build('NoFourMUBs.Complete')
-    build('NoFourMUBs.Final')
+    build('NoFourMUBs.Final', 'NoFourMUBs.FourierVanishing.Main')   # AxiomsComplete.lean imports both
     audit('NoFourMUBs/AxiomsComplete.lean')
 print('LEAN PASS: build succeeded; every audited theorem uses only propext, Classical.choice, Quot.sound')

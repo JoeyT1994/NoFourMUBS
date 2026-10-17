@@ -1,7 +1,7 @@
 """Replay the minimal proof (PROOF.md).  Exits nonzero if any check fails.
 
   python3 verify.py                 Step 1 certificates, Step 2 replays, matched existence (side existence and matched
-                                    flatness), PR-M and exact reach, MC1-MC5, sheet lemmas, S6 as a zero-dimensional Record, Stage C Arb sample
+                                    flatness), PR-M and exact reach, MC1-MC5 (with return K's nonzero-J replay), sheet lemmas, S6 as a zero-dimensional Record, Stage C Arb sample
   python3 verify.py --atlas [-j N]  additionally certify every Record of the atlas (Step 4), F6 and the anchor H0
   python3 verify.py --lean          additionally build the Lean formalisation and audit its axioms
   python3 verify.py --lean-full     as --lean, and also build matched existence (L1) and NoFourMUBs.Final in Lean (hours on a first build)
@@ -19,6 +19,7 @@ CHECKS = [
     ('l1_matched_flatness',     'proof/coverage/returns/E_matched_flatness/verify_all.py', []),
     ('step2_prm_exact_reach',   'proof/coverage/returns/G_prm/verify_all.py', []),
     ('mc_reconstruction_proofs', 'MinimalConstruction/Proofs/verify_dossier.py', []),
+    ('mc1_nonzero_j_signed_sums', 'proof/coverage/returns/K_nonzero_J/verify.py', []),
     ('mc_reconstruction',       'MinimalConstruction/Implementation/verify.py', []),
     ('mc_single_radical',       'MinimalConstruction/Implementation/verify_single_radical.py', []),
     ('mc5_sheet_conjugation',   'MinimalConstruction/Sheets/verify.py', []),

@@ -146,11 +146,16 @@ is critical (R = 0) and H ≇ F6.
    (`FOURIER_CRITICAL_LOCUS.md`). So all minors are invertible, and no row triple is of that form.
 2. **Critical-strip classification** (`CRITICAL_STRIP_CLASSIFICATION.md`). On any three-row strip with all twenty
    blocks invertible and every corner critical, each corner has p ∈ {0, 5}, or one of two rational endpoints, or
-   p = p* := 9 − 4/(1 + κ²), where κ > 0 solves 3κ³ + κ² + κ − 1 = 0. The proof is a whole-strip square-sum
-   identity, exact moment algebra, and Bernstein/Sturm sign certificates. The two endpoints are excluded
-   separately (`CRITICAL_P7_EXCLUSION.md`, `CRITICAL_EQUI_CORRELATION_EXCLUSION.md`).
-   The explicit square sum on the nonzero-J stratum is S = −256 k²(3k²+1)³ Q(k, K)/(A₊²A₋²), up to a power of
-   1 + k². Its denominator is verified exactly in `proof/coverage/audits/I4_ADDENDUM.md`.
+   p = p* := 9 − 4/(1 + κ²), where κ > 0 solves 3κ³ + κ² + κ − 1 = 0. On the zero-J stratum the proof is a
+   whole-strip square-sum identity and exact moment algebra. On the nonzero-J stratum it is return K
+   (`proof/coverage/returns/K_nonzero_J/REPORT.md`): two sums of the *unsquared* corner signature,
+   Σ_C D_C = ā b c − a b̄ c̄ and its xy-weighted version, vanish on an all-critical strip. With the cleared
+   λ-identities and a universal 24-term identity they force Im(s̄ r̄ t) = 0 or a repeated modulus, poles included;
+   this leaves four one-parameter curves. On each curve, if all six λ-denominators L_{j,±} were nonzero, the
+   weighted sum would equal an explicit nonzero value; so some L_{j,±} = 0 ("pole forcing"). The product of the six
+   denominators, factored on the four curves, then gives exactly the three candidates. No quartic Q(k, K), square
+   sum or Bernstein/Sturm certificate is used there. The two endpoints are excluded separately
+   (`CRITICAL_P7_EXCLUSION.md`, `CRITICAL_EQUI_CORRELATION_EXCLUSION.md`).
 3. **Counting.** κ ∈ (1/√5, 1/2), since the cubic is increasing for κ > 0 and changes sign there. Hence
    p* ∈ (17/3, 29/5). Fix one column of a strip. Over the ten corners containing it, Σ p_C = 54. This follows
    from row orthogonality, exactly as Σ over all twenty corners is 108; it is 108/2, because complementary
@@ -163,8 +168,9 @@ is critical (R = 0) and H ≇ F6.
 counting step replaces the original irrationality argument, following an external return. The Lean proof also
 differs from the paper in two places. The p = 7 endpoint is excluded by one corner of signature −56 − 8i, instead of
 the 20-corner sum. The cube-root case of the equicorrelation endpoint uses (w³ − 8a)(w³ + a)² = 0, instead of
-the field-degree argument. The Bernstein/Sturm certificate and the two square-sum identities are re-checked by
-the kernel (`Identity/RootFree.lean`, `PRM/CoverageStripId*.lean`).
+the field-degree argument. The zero-J square-sum identity is re-checked by the kernel (`PRM/CoverageStripIdZero*.lean`);
+the nonzero-J stratum is `PRM/CoverageSigned*.lean`: the signed corner expansion and the four weighted values are
+kernel checks, the rest is `ring`/`linear_combination` (`proof/coverage/returns/K_nonzero_J/INTEGRATED.md`).
 
 > **Corollary 1.6 (exact reach).** Every class of X is [F6], or in A, or in conj A.
 
@@ -268,7 +274,7 @@ interval implementations (§5), not yet by Lean.
 | Theorem 1.2 (matched existence) | return E, handoff J | exact identities (flatness); identity (J) | yes (kernel re-checks every identity) |
 | Theorem 1.3 (matched uniqueness) | Step 2 blueprint, §7 | none | yes |
 | Theorem 1.4 (nonmatched converse) | return G §§2–5 | exact: 81-case census, 400 Laurent identities | yes |
-| Theorem 1.5 (coverage) | `STRICT_CORNER_COVERAGE.md` and its imports | exact identities; Bernstein/Sturm | yes (kernel re-checks the sign certificate and both square-sum identities) |
+| Theorem 1.5 (coverage) | `STRICT_CORNER_COVERAGE.md` and its imports; return K for nonzero J | exact identities | yes (kernel re-checks the zero-J square-sum identity, the signed corner expansion and the four weighted values) |
 | Theorem 2.1 (maxima of R) | return C | 651 exact claims | yes |
 | Theorem 3.1 (connectedness) | §3 | none | yes |
 | Lemmas 4.1–4.2, Remark 4.3 | `STAGEC.md` | none | yes (as inequalities) |
@@ -278,11 +284,14 @@ interval implementations (§5), not yet by Lean.
 Corollary 1.6 or Theorem 1.5. Every step of Theorem 1.4 was verified, matching the Lean proof, and the 81-case
 census and the 400 corner identities were reproduced. All three versions of the final count of Theorem 1.5 are
 correct, and the ten-corner version is used here. The weakest remaining points, ranked:
-1. the nonzero-J branch of the critical-strip classification. It rests on a large exact identity and a
-   Bernstein/Sturm certificate. Its full rational form, including the denominator, is now stated and verified
-   (`I4_ADDENDUM.md` §1);
-2. its pole cases. The row relabelling is now justified (`I4_ADDENDUM.md` §2);
-3. its zero-J geometric-progression step;
+1. the nonzero-J branch of the critical-strip classification. The audited route rested on a large exact identity
+   and a Bernstein/Sturm certificate (`I4_ADDENDUM.md` §1). It is now replaced by return K's much smaller argument
+   (two signed corner sums, a universal identity, four curves, the product of six λ-denominators; reviewed in
+   `proof/coverage/returns/K_nonzero_J/REVIEW.md`), which also covers the pole cases without a separate
+   argument;
+2. its pole cases (on the old route: the row relabelling of `I4_ADDENDUM.md` §2; on return K's route they are
+   included in (7) and §6);
+3. the zero-J geometric-progression step;
 4. the endpoint exclusions;
 5. the routing lemmas.
 

@@ -1,4 +1,4 @@
-import Hadamard6.HadamardQuotient
+import NoFourMUBs.Lib.Hadamard
 import Mathlib.Analysis.Complex.Basic
 import Mathlib.Topology.Instances.Matrix
 import Mathlib.Topology.Compactness.Compact
@@ -8,11 +8,11 @@ import Mathlib.Tactic.NormNum
 import Mathlib.Tactic.Linarith
 
 /-!
-# Natural topology and compactness of the upstream Hadamard quotient
+# Natural topology and compactness of the Hadamard quotient
 
-We use the original `Hadamard6.Had6` subtype and the original
-`Hadamard6.HadamardClass6` quotient, with Mathlib's induced and quotient
-topologies. No arbitrary topology, metric, or reconstruction axiom is
+We use the `Had6` subtype and the `HadamardClass6` quotient of upstream's
+`HadamardQuotient` (restated verbatim in `NoFourMUBs.Lib.Hadamard`), with
+Mathlib's induced and quotient topologies. No arbitrary topology, metric, or reconstruction axiom is
 introduced. These compactness results are enough for the closed matched
 relation argument. Hausdorffness of the quotient is not claimed here.
 -/
@@ -76,7 +76,7 @@ theorem isCompact_isHadamard :
 instance had6CompactSpace : CompactSpace Had6 :=
   isCompact_iff_compactSpace.mp isCompact_isHadamard
 
-/-- The canonical map into the original upstream equivalence quotient. -/
+/-- The canonical map into the equivalence quotient. -/
 def hadamardQuotient (H : Had6) : HadamardClass6 :=
   Quotient.mk had6EquivalenceSetoid H
 

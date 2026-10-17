@@ -5,13 +5,14 @@ import NoFourMUBs.PRM.CoverageSingular
 
 `strictCornerCoverage_of_criticalStripGap : CriticalStripGap → StrictCornerCoverage`.
 
-Everything in the paper proof of MC1 (`STRICT_CORNER_COVERAGE.md`, `PRM.md` §7.1–7.2) is now in Lean
-except the two results bundled in `CriticalStripGap`:
+The paper proof of MC1 (`STRICT_CORNER_COVERAGE.md`, `PRM.md` §7.1–7.2) reduces here to the two results
+bundled in `CriticalStripGap`, both proved elsewhere (assembled in `Final.lean`):
 
-* `TopStripClassification` — I4, `CRITICAL_STRIP_CLASSIFICATION.md` (whole-strip square-sum
-  identities, the Sturm/Bernstein sign certificate for the quartic `Q(k, K)`, the pole strata), in the
-  weakened interval form `17/3 < p < 29/5` for the exceptional value;
-* `EndpointExclusions` — I5, `CRITICAL_P7_EXCLUSION.md` and `CRITICAL_EQUI_CORRELATION_EXCLUSION.md`.
+* `TopStripClassification` — I4, in the weakened interval form `17/3 < p < 29/5` for the exceptional value
+  (`CoverageStripParts.topStripClassification`: the zero-`J` square-sum identity, and return K's two signed
+  corner sums for nonzero `J`);
+* `EndpointExclusions` — I5, `CRITICAL_P7_EXCLUSION.md` and `CRITICAL_EQUI_CORRELATION_EXCLUSION.md`
+  (`CoverageEndpoints.endpointExclusions`).
 
 Proved and used: the two Fourier-routing lemmas of §7.1 (`singularMinorRoute`, `geometricRowRoute`),
 the Fourier critical locus I7 (`fourierCore_criticalLocus`), the Tao exclusion and the block

@@ -28,11 +28,10 @@ Bernstein/Sturm certificates. Inputs used: `CRITICAL_CORNER_REDUCTION.md`, `SIDE
 ## Status
 - **Mathematics: accepted** (PROVED paper deductions + CERTIFIED finite algebra, replayed here; key identities
   independently re-checked).
-- **Lean: NOT YET INTEGRATED.** The return has no Lean (none was available to its authors). `INTEGRATION.md` describes
-  the replacement boundary: prove the nonzero-J half of `TopStripClassification` directly (it plugs in at
-  `PRM/CoverageStripNonzero.lean`), edit `Final.lean`'s two uses of `PRM.Coverage.nonzeroJAlgebra`, then remove the
-  `PRM/CoverageStripIdNonzero*` modules (about 40 files, 7.7 MB of data) and their generators. Until that lands and
-  `lean/check_axioms.py --full` passes, the Lean proof still uses the old square-sum route.
+- **Lean: integrated (17 Oct 2026)**, see `INTEGRATED.md`: `PRM/CoverageSigned*.lean` prove the nonzero-J half of
+  `TopStripClassification`. `Final.no_four_mubs` uses them (standard axioms only), and the
+  `PRM/CoverageStripIdNonzero*` square-sum modules, the quartic sign certificate and their generators are
+  removed.
 - **Extra, reviewed and accepted:** `SUPPLEMENTARY_RANK_LEMMA.md` proves that for n > 4, n ≡ 2 (mod 4), every complex
   Hadamard of order n has entrywise-square rank ≥ 3 (in particular every order-6 Hadamard). We checked the proof by hand:
   Lemma 1's count forces a = b = c = d = n/4; its extension to phase vectors with proportional squares (rephase to equal
@@ -45,4 +44,5 @@ Bernstein/Sturm certificates. Inputs used: `CRITICAL_CORNER_REDUCTION.md`, `SIDE
   **What it simplifies:** in Lean, `FourierVanishing.exists_good` (`FourierVanishing/Main.lean`) obtains its
   nonsingular H[I,J]^[2] from `PRM.strictCornerCoverage` (the whole MC1 chain) plus a separate Fourier-class case; the
   lemma supplies it for every order-6 Hadamard, so Fourier vanishing (return H) no longer depends on strict-corner
-  coverage. Return H's criterion then needs only (0.2), i.e. the nonmatched converse.
+  coverage. Return H's criterion then needs only (0.2), i.e. the nonmatched converse. Not formalized: Fourier vanishing is not
+  used by the main theorem, so the change would add Lean without simplifying the proof (decision of 17 Oct 2026).

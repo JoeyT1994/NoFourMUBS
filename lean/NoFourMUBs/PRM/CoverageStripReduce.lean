@@ -3,17 +3,17 @@ import NoFourMUBs.PRM.CoverageStripNonzero
 import NoFourMUBs.PRM.CoverageStripZero
 
 /-!
-# Critical strip classification (I4): the square-sum identities from pure algebra
+# Critical strip classification (I4): the zero-`J` square-sum identity from pure algebra
 
-`NonzeroJAlgebra` and `ZeroJAlgebra` are the identities (6)–(7) and (4) of
-`CRITICAL_STRIP_CLASSIFICATION.md` as statements about three complex numbers `s, t, r` (the Gram data of
-one half; the other half has `−s, −t, −r`) satisfying the scalar relations of the critical corner
-reduction.  They are what the paper's `verify_critical_square_sums.py` checks by exact computer algebra
-(after the row-scaling device `s = t = 1` and reduction in the splitting algebra of the modulus cubic).
+`ZeroJAlgebra` is the identity (4) of `CRITICAL_STRIP_CLASSIFICATION.md` as a statement about three complex
+numbers `s, t, r` (the Gram data of one half; the other half has `−s, −t, −r`) satisfying the scalar
+relations of the critical corner reduction (what the paper's `verify_critical_square_sums.py` checks, after
+the row-scaling device `s = t = 1`).
 
-* `nonzeroJSquareSum_of_algebra : NonzeroJAlgebra → NonzeroJSquareSum`;
 * `zeroJSquareSum_of_algebra : ZeroJAlgebra → ZeroJSquareSum` (with the paper's row relabelling to make
-  `X, Y > 0`: at most one modulus vanishes since `W = z²(z + 3)² ≠ 0`).
+  `X, Y > 0`: at most one modulus vanishes since `W = z²(z + 3)² ≠ 0`);
+* `halves_reduction`, `triBlock_rowperm`, `isHadamard_rowperm`, `blockL_swap01/02`: shared with the
+  nonzero-`J` stratum (`CoverageSigned*`).
 -/
 
 open Matrix Hadamard6 ComplexConjugate
@@ -23,22 +23,6 @@ noncomputable section
 namespace NoFourMUBs.PRM.Coverage
 
 open StripMoments Side
-
-/-- **The nonzero-`J` square-sum identity, pure algebra** (§3, (6)–(7), `I4_ADDENDUM.md` §1). -/
-def NonzeroJAlgebra : Prop :=
-  ∀ (s t r : ℂ) (k : ℝ), 0 < k → s ≠ 0 → t ≠ 0 → r ≠ 0 →
-    pS s t r = Quartic.pk k → jS s t r = Quartic.Jk k →
-    Complex.normSq s * Complex.normSq t + Complex.normSq s * Complex.normSq r +
-      Complex.normSq t * Complex.normSq r - Complex.normSq s * Complex.normSq t * Complex.normSq r =
-        Quartic.Wk k →
-    (∀ j, lamL s t r (Quartic.zS 1 k) (Quartic.gS 1 k) j ≠ 0) →
-    (∀ j, lamL (-s) (-t) (-r) (Quartic.zS (-1) k) (Quartic.gS (-1) k) j ≠ 0) →
-    momentPoly (fun p => (lamData s t r (Quartic.zS 1 k) (Quartic.gS 1 k)).mom p +
-        (lamData (-s) (-t) (-r) (Quartic.zS (-1) k) (Quartic.gS (-1) k)).mom p) *
-      ((∏ j, (lamL s t r (Quartic.zS 1 k) (Quartic.gS 1 k) j : ℂ)) ^ 2 *
-        (∏ j, (lamL (-s) (-t) (-r) (Quartic.zS (-1) k) (Quartic.gS (-1) k) j : ℂ)) ^ 2) =
-      ((-2 ^ 24 * k ^ 2 * (3 * k ^ 2 + 1) ^ 3 *
-          Quartic.Q k (Complex.normSq s * Complex.normSq t * Complex.normSq r) / (1 + k ^ 2) ^ 32 : ℝ) : ℂ)
 
 /-- **The zero-`J` square-sum identity, pure algebra** (§2, (4)). -/
 def ZeroJAlgebra : Prop :=
@@ -80,59 +64,6 @@ theorem halves_reduction {H : Mat6} (hH : Hadamard6.IsHadamard H) (l : Fin 20)
 
 theorem ne_zero_of_normSq_pos {a : ℂ} (h : 0 < Complex.normSq a) : a ≠ 0 := by
   rintro rfl; simp at h
-
-/-- **`NonzeroJAlgebra` gives the nonzero-`J` square-sum identity.** -/
-theorem nonzeroJSquareSum_of_algebra (hA : NonzeroJAlgebra) : NonzeroJSquareSum := by
-  intro H hH l hIm hIm' hd hd' hJ hL hL'
-  have hS := stripSq_alg hH l hIm hIm' hd hd' hL hL'
-  obtain ⟨h1, h2, h3, h4⟩ := halves_reduction hH l hIm hIm' hd hd'
-  obtain ⟨h5, h9, hJ2, hW⟩ := CoverageSum.nonzero_J_reduction _ _ _ h3 h4 hJ.ne' h1 h2
-  obtain ⟨hk0, hp, hJk, hWk⟩ := param_of_reduction h5 h9 hJ2 hW hJ
-  set B := triBlock H 0 l with hBdef
-  set B' := triBlock H 0 (19 - l) with hB'def
-  have hkp : blockKpar B = 2 * blockJ B / (9 - blockP B) ^ 2 := rfl
-  set k := 2 * blockJ B / (9 - blockP B) ^ 2 with hkdef
-  have hp' : blockP B' = Quartic.pk k := by rw [hB'def, blockP_compl hH]; exact hp
-  have hW' : blockW B' = Quartic.Wk k := by rw [hB'def, blockW_compl hH]; exact hWk
-  have hJ' : blockJ B' = -Quartic.Jk k := by rw [hB'def, blockJ_compl hH, ← hJk]
-  obtain ⟨hg, hz⟩ := theta_param (σ := 1) (g := blockG B) (χ := blockChi B) hk0 (Or.inl rfl)
-    (by rw [blockG_eq, hp, ← hJk]; ring) (by rw [blockChi_eq, hp, ← hJk, hWk]; ring)
-  obtain ⟨hg', hz'⟩ := theta_param (σ := -1) (g := blockG B') (χ := blockChi B') hk0 (Or.inr rfl)
-    (by rw [blockG_eq, hp', hJ']; ring) (by rw [blockChi_eq, hp', hJ', hW']; ring)
-  have hz2 : blockTheta B = Quartic.zS 1 k := hz
-  have hz2' : blockTheta B' = Quartic.zS (-1) k := hz'
-  -- `s, t, r ≠ 0` since `J² ≤ 4XYZ` and `J ≠ 0`
-  have hK : 0 < blockK B := by nlinarith [blockJ_sq_le B, sq_pos_of_pos hJ]
-  have hX : 0 < blockX B := by
-    rcases (Complex.normSq_nonneg (blockS B)).lt_or_eq with h | h
-    · exact h
-    · exfalso; simp only [blockK] at hK; rw [show blockX B = 0 from h.symm] at hK; simp at hK
-  have hY : 0 < blockY B := by
-    rcases (Complex.normSq_nonneg (blockT B)).lt_or_eq with h | h
-    · exact h
-    · exfalso; simp only [blockK] at hK; rw [show blockY B = 0 from h.symm] at hK; simp at hK
-  have hZ : 0 < blockZ B := by
-    rcases (Complex.normSq_nonneg (blockR B)).lt_or_eq with h | h
-    · exact h
-    · exfalso; simp only [blockK] at hK; rw [show blockZ B = 0 from h.symm] at hK; simp at hK
-  have hLA : ∀ j, lamL (blockS B) (blockT B) (blockR B) (Quartic.zS 1 k) (Quartic.gS 1 k) j = blockL B j := by
-    intro j; rw [← hz2, ← hg]; exact lamL_block B j
-  have hLB : ∀ j, lamL (-blockS B) (-blockT B) (-blockR B) (Quartic.zS (-1) k) (Quartic.gS (-1) k) j =
-      blockL B' j := by
-    intro j; rw [← hz2', ← hg', hB'def, ← blockS_compl hH, ← blockT_compl hH, ← blockR_compl hH]
-    exact lamL_block _ j
-  have key := hA (blockS B) (blockT B) (blockR B) k hk0 (ne_zero_of_normSq_pos hX)
-    (ne_zero_of_normSq_pos hY) (ne_zero_of_normSq_pos hZ) hp hJk hWk
-    (fun j => by rw [hLA]; exact hL j) (fun j => by rw [hLB]; exact hL' j)
-  rw [hz2, hg, hz2', hg'] at hS
-  rw [← hS] at key
-  simp only [hLA, hLB] at key
-  rw [hkp]
-  have e : ((stripSq H * (∏ j, blockL B j) ^ 2 * (∏ j, blockL B' j) ^ 2 : ℝ) : ℂ) =
-      ((-2 ^ 24 * k ^ 2 * (3 * k ^ 2 + 1) ^ 3 * Quartic.Q k (blockK B) / (1 + k ^ 2) ^ 32 : ℝ) : ℂ) := by
-    rw [show blockK B = Complex.normSq (blockS B) * Complex.normSq (blockT B) * Complex.normSq (blockR B)
-      from rfl, ← key]; push_cast; ring
-  exact_mod_cast e
 
 /-! ### Zero `J` -/
 
@@ -292,13 +223,5 @@ theorem zeroJSquareSum_of_algebra (hA : ZeroJAlgebra) : ZeroJSquareSum := by
     · rw [show ((⟨1, by decide⟩ : Fin 3)) = 1 from rfl, l1]; exact hL 0
     · rw [show ((⟨2, by decide⟩ : Fin 3)) = 2 from rfl, l2]; exact hL 2
   exact zeroJ_direct hA hH l hIm hIm' hd hd' hJ hz3 hz2 hL hs ht
-
-/-- **I4 from the scalar statements and the two algebraic identities.** -/
-theorem topStripClassification_of_algebra (hS : Quartic.ScalarClassification)
-    (hP : Quartic.PoleClassification) (hN : NonzeroJAlgebra) (hZ : ZeroJAlgebra) :
-    TopStripClassification := by
-  intro H hH hc hinv l
-  exact ⟨fun hJ => zeroJ_classification (zeroJSquareSum_of_algebra hZ) hH hc hinv l hJ,
-    fun hJ => nonzeroJ_classification hS hP (nonzeroJSquareSum_of_algebra hN) hH hc hinv l hJ⟩
 
 end NoFourMUBs.PRM.Coverage

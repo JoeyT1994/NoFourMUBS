@@ -14,8 +14,10 @@ import NoFourMUBs.PRM.CoverageCritical
 * `geometric` — §7.1 geometric-row route (`FOURIER_ROUTING.md` §2), up to the block.
   **Proved** in `CoverageGeometric` (`geometricRowRoute`).
 * `classification` — I4, `CRITICAL_STRIP_CLASSIFICATION.md` (Theorem), on the top strip, interval
-  form.  Open; its first step, the critical corner reduction, is `criticalCornerReduction`.
-* `endpoints` — I5, `CRITICAL_P7_EXCLUSION.md`, `CRITICAL_EQUI_CORRELATION_EXCLUSION.md`.  Open.
+  form.  **Proved** in `CoverageStripParts` (`topStripClassification`; its first step, the critical
+  corner reduction, is `criticalCornerReduction`).
+* `endpoints` — I5, `CRITICAL_P7_EXCLUSION.md`, `CRITICAL_EQUI_CORRELATION_EXCLUSION.md`.  **Proved** in
+  `CoverageEndpoints` (`endpointExclusions`).
 
 The open part is `CoverageMain.CriticalStripGap`
 (`strictCornerCoverage_of_criticalStripGap`).  From a Hadamard block to `F6` is
@@ -84,8 +86,8 @@ top strip, in interval form.  At every corner of the top three rows of an all-cr
 whose `3 × 3` minors are all invertible:
 * `J = 0` ⇒ `p = 0`, `p = 5`, or the three rows are geometric (paper §2, the zero-`J` stratum);
 * `J ≠ 0` ⇒ `p = p⋆ = 9 − 4/(1 + κ²)` (stated here as the consequence `17/3 < p < 29/5`,
-  `CoverageTen.pStar_bounds`), or one of the two rational endpoints (paper §3, Sturm/Bernstein sign
-  certificate for the quartic `Q(k, K)`, and §4, the pole strata).
+  `CoverageTen.pStar_bounds`), or one of the two rational endpoints (proved by return K's two signed
+  corner sums, `proof/coverage/returns/K_nonzero_J`, in `CoverageSignedNonzero`).
 The top strip is no restriction: every hypothesis is invariant under row permutations. -/
 def TopStripClassification : Prop :=
   ∀ H : Mat6, Hadamard6.IsHadamard H → AllCritical H → AllMinorsInvertible H → ∀ l : Fin 20,
