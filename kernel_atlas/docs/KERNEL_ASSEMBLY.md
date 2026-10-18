@@ -284,7 +284,9 @@ jobs named `nofour-katlas*`). Archive: `/mnt/ceph/users/jtindall/nofour_katlas` 
 | 1. Records 100–12020 (16 nodes, Lean's default threads, 120 Records in flight, cap 10 h 45 per node; drain 70 min before the cap) | 7261367 (7261362, cap 9 h 24, cancelled after 9 s when the budget was raised) | submitted 09:52 EDT | ≤ 22,016 |
 | 1b. Records 12020 down to 9700 (8 nodes, the retuned memory budgets, 160 Records in flight, cap 7 h) | 7263718 | submitted 15:45 EDT, alongside 7261367 | ≤ 7,168 |
 | 1c. the 3,806 Records left (24 nodes; 1,202 resumed from snapshots of 7263718's nodes; no drain, snapshot at the limit) | 7265961 (7265950, 12 nodes and a 5 h 25 cap for the 38k budget, cancelled after 22 s when the budget was lifted) | submitted 22:47 EDT | |
-| 2. chunks complete by then (61 of them; chunk 0 from the smoke) | 7265986 | submitted 22:50 EDT | |
+| 2. chunks complete by then (61 of them; chunk 0 from the smoke) | 7265986 | all `ok` in 7 min 46 s (about 1 min each, 7.3 GB) | 17 |
+| 1d. the last 196 Records (3 nodes, from the 9 h snapshots of 1c's tasks 0–7, limit 16 h) | 7267871 | submitted 07:55 EDT 18 Oct | |
+| 2b. chunks complete by then (44) | 7267876 | submitted 07:57 EDT | |
 
 `lean -j 1` cost ≈ 5% more CPU than Lean's default threads on the same Records (85.7 vs 82 min), so Phase 1 uses the
 default. The time cap is the budget control: 376 + 22,016 + ≈ 150 for chunks and final stays under 23,000; the expected cost is ≈ 19,000–20,000. A job
@@ -328,3 +330,12 @@ snapshotted (sources, build directories and module logs, 25.7 GB in `$ARCH/parti
 was written before the snapshot began (16,150 module logs over 1,202 Records). The Records job now snapshots itself
 on USR1 (600 s before its limit) after stopping its Lean processes, so a time limit costs nothing but the restart.
 State then: 8,215 Records `ok`, none failed, 29,291 core-hours.
+
+**Overnight (18 Oct, 07:45).** 7265961: tasks 8–23 (Records 2295–9699 and a share of the rest) finished in 3 h 41 –
+4 h 45; tasks 0–7 (the leftovers of 9700–12020) ran to the 9 h limit and snapshotted themselves. 11,825 Records `ok`,
+none failed, 196 left, 47,190 core-hours in all. What makes the top of the index range slow is one module,
+`Hints2` (the tangent-test label hints, one Lean process): median CPU 4 min for Records < 1000, 7 min at 3000–3999,
+17 min at 6000–6999, 33–34 min at 8000–9999, 65 min at 10000–10999 and 6.5 h for the last Records of 11000–11999
+(up to 8.4 h; the number of hints grows from 132k to 250k, the cost faster). It bounds a Record's wall time from
+below and cannot be shared between cores, so the last 196 run on 3 nodes with a 16 h limit. Splitting `Hints2` into
+slabs, as the H2 tests are split, would remove this tail in a later run (a generator change, so not in this one).
