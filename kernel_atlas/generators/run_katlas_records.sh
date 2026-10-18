@@ -31,6 +31,8 @@ if [ -n "${IDX_DIR:-}" ]; then IDX=$IDX_DIR/idx_$K.txt; NTASK=1; K=0; fi   # one
 PART=()                           # resume from a snapshot: $PARTIAL_DIR/part_<task>.tar, modules logged before $PARTIAL_BEFORE
 if [ -n "${PARTIAL_DIR:-}" ] && [ -f "$PARTIAL_DIR/part_$TASK.tar" ]; then
     PART=(--partial "$PARTIAL_DIR/part_$TASK.tar" --partial-before "${PARTIAL_BEFORE:-1e12}")
+elif [ -n "${PARTIAL:-}" ]; then                 # or every snapshot in a directory ($PARTIAL)
+    PART=(--partial "$PARTIAL" --partial-before "${PARTIAL_BEFORE:-1e12}")
 fi
 LT=${LEAN_THREADS:-0}
 MAXREC=${MAXREC:-120}
