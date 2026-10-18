@@ -137,12 +137,15 @@ A = {[H] : H matched at a strict seed}.
   ([`proof/coverage/returns/J_side_existence/RESULT.md`](proof/coverage/returns/J_side_existence/RESULT.md)).
 - **Flatness.** For *any* actual sides B, C on conjugate roots, the forced block D = −C E* G⁻¹ B has unimodular
   entries. The completion always satisfies HH* = 6I. Its defect matrix |Dᵢⱼ|² − 1 has zero row and column sums, so it
-  is determined by four weighted third-moment defects. Their eight coefficients vanish identically in ℚ(a, b, c, d)
-  ([`proof/coverage/returns/E_matched_flatness`](proof/coverage/returns/E_matched_flatness/FLATNESS.md)).
+  is determined by four weighted third-moment defects W₁₁, W₁₂, W₂₁, W₂₂. Exchanging rows 1, 2 of E and B (or columns
+  1, 2 of E and C) leaves D unchanged, keeps the seed strict and the sides actual, and permutes the indices of W, so
+  every defect is W₁₁ at a relabelled seed. The two coefficients of W₁₁ vanish identically in ℚ(a, b, c, d)
+  ([`proof/coverage/returns/E_matched_flatness`](proof/coverage/returns/E_matched_flatness/FLATNESS.md); the
+  relabelling is handoff M, [`explorations/handoffs/M_flatness_one_defect`](explorations/handoffs/M_flatness_one_defect/BRIEF.md)).
 
 *Lean:* `L1.matchedExistence`. Side existence is `L1.exists_side_h` and `L1.exists_side_v` (`L1/SideJacobian`,
-`L1/SideCover`); the flatness identities are re-checked by the kernel through a verified Kronecker
-polynomial-identity checker. ∎
+`L1/SideCover`); the two flatness identities of W₁₁ are re-checked by the kernel through a verified Kronecker
+polynomial-identity checker, and the relabelling is `L1.FlatCircuits.W_zero` (with `W_rowPerm`, `W_colPerm`). ∎
 
 > **Theorem 2.3 (matched uniqueness).** Two matched completions of the same strict seed are equivalent.
 

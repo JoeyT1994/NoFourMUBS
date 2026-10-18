@@ -456,12 +456,12 @@ theorem W_alg {v0 v1 m0 m1 : Fin 3 → Fin 3 → ℂ} {z zb hh η S : ℂ} (h1 :
   rw [e1, h1, h2, F1]
   linear_combination F0
 
-/-- **Matched flatness at a strict seed point**, from the kernel checks: for actual sides on the two
-conjugate roots, the four weighted defects vanish. -/
-theorem W_zero (h : Strict ρ)
-    (hmh : ∀ q i : Fin 2, ∀ a c : Fin 3, (mhUnred q.val i.val a c - mhData q.val i.val a c).num.validR 2 = true)
-    (hqv : ∀ p i : Fin 2, ∀ a c : Fin 3, (Qv p.val i.val a c - qvData p.val i.val a c).num.validR 2 = true)
-    (hF : ∀ p q : Fin 2, (F0 p.val q.val).num.validR 2 = true ∧ (F1 p.val q.val).num.validR 2 = true)
+/-- **The weighted defect `W₁₁` at a strict seed point**, from the kernel checks of the entry `(p, q) = (0, 0)`
+(zero-based, as in `FlatCircuits`): for actual sides on the two conjugate roots, `W₁₁ = F₀ + z F₁ = 0`. -/
+theorem W_zero11 (h : Strict ρ)
+    (hmh : ∀ i : Fin 2, ∀ a c : Fin 3, (mhUnred 0 i.val a c - mhData 0 i.val a c).num.validR 2 = true)
+    (hqv : ∀ i : Fin 2, ∀ a c : Fin 3, (Qv 0 i.val a c - qvData 0 i.val a c).num.validR 2 = true)
+    (hF : (F0 0 0).num.validR 2 = true ∧ (F1 0 0).num.validR 2 = true)
     {x y x' y' : Fin 3 → ℂ} (hx : ∀ j, Complex.normSq (x j) = 1) (hy : ∀ j, Complex.normSq (y j) = 1)
     (hx' : ∀ j, Complex.normSq (x' j) = 1) (hy' : ∀ j, Complex.normSq (y' j) = 1)
     (hs : sS x = sh ρ) (ht : sS y = th ρ) (hr : rS x y = rh ρ)
@@ -469,8 +469,8 @@ theorem W_zero (h : Strict ρ)
     (hT : TS x y = ζ) (hT' : TS x' y' = conj ζ)
     (hζ : ζ * conj ζ = ((gG (sh ρ) (th ρ) (rh ρ) : ℝ) : ℂ) ^ 2 * (gEta (sh ρ) (th ρ) (rh ρ) : ℂ))
     (hζc : ζ + conj ζ = (gChi (sh ρ) (th ρ) (rh ρ) : ℂ))
-    (hBdet : IsUnit (sideMat x y).det) (p q : Fin 3) (hp : p ≠ 0) (hq : q ≠ 0) :
-    W (Em ρ) (sideMat x y) (sideMat x' y')ᵀ p q = 0 := by
+    (hBdet : IsUnit (sideMat x y).det) :
+    W (Em ρ) (sideMat x y) (sideMat x' y')ᵀ 1 1 = 0 := by
   obtain ⟨hg0, -, ⟨p0, p1, p2⟩, ⟨q0, q1, q2⟩⟩ := h.facts
   obtain ⟨eg, -, -⟩ := hv_eq h.unit
   obtain ⟨Hg, He, Hc, Hc0, Hc1, Hc2, -, -, -, Hs, HS, Ht, HT, Hr, HQ⟩ := H_vals h
@@ -490,38 +490,37 @@ theorem W_zero (h : Strict ρ)
     rw [cd, Complex.conj_conj]; field_simp; linear_combination hζ
   have hzs' : (g : ℂ) * (conj ζ / g + conj (conj ζ / g)) = χ := by
     rw [cd, Complex.conj_conj]; field_simp; linear_combination hζc
-  -- the third moments of the two sides
-  have QH : ∀ (q' : Fin 2) a c, Q3 (sideMat x y) q'.succ a c =
-      (Qh q'.val 0 a c).val ρ + ζ / g * (Qh q'.val 1 a c).val ρ := by
-    intro q' a c
+  -- the third moments of the two sides against their second rows
+  have QH : ∀ a c, Q3 (sideMat x y) 1 a c = (Qh 0 0 a c).val ρ + ζ / g * (Qh 0 1 a c).val ρ := by
+    intro a c
     have := Qm_val h H hx hy (Hs.trans hs.symm) (HS.trans (by rw [hs])) (Ht.trans ht.symm)
       (HT.trans (by rw [ht])) (Hr.trans hr.symm) (HQ.trans (by rw [hr])) (Hc0.trans (by rw [hr]))
       (Hc1.trans (by rw [ht])) (Hc2.trans (by rw [hs])) Hg He Hc (by rw [gS_eq, hs, ht, hr]) hg0
       (by rw [hT]; exact hzz) (by rw [hT]; exact hzs) (by rw [hs, ht, hr]; exact p0)
       (by rw [hs, ht, hr]; exact p1) (by rw [hs, ht, hr]; exact p2) (by rw [i0h, hs, ht, hr])
-      (by rw [i1h, hs, ht, hr]) (by rw [i2h, hs, ht, hr]) q' a c
-    rwa [hT] at this
-  have QV : ∀ (p' : Fin 2) a c, Q3 (sideMat x' y') p'.succ a c =
-      (qvData p'.val 0 a c).val ρ + conj ζ / g * (qvData p'.val 1 a c).val ρ := by
-    intro p' a c
+      (by rw [i1h, hs, ht, hr]) (by rw [i2h, hs, ht, hr]) 0 a c
+    rw [hT] at this; exact this
+  have QV : ∀ a c, Q3 (sideMat x' y') 1 a c =
+      (qvData 0 0 a c).val ρ + conj ζ / g * (qvData 0 1 a c).val ρ := by
+    intro a c
     have := Qm_val h Vg hx' hy' (Vs.trans hs'.symm) (VS.trans (by rw [hs'])) (Vt.trans ht'.symm)
       (VT.trans (by rw [ht'])) (Vr.trans hr'.symm) (VQ.trans (by rw [hr'])) (Vc0.trans (by rw [hr']))
       (Vc1.trans (by rw [ht'])) (Vc2.trans (by rw [hs'])) Hg He Hc (by rw [gS_eq, hs', ht', hr', eg]) hg0
       (by rw [hT']; exact hzz') (by rw [hT']; exact hzs') (by rw [hs', ht', hr']; exact q0)
       (by rw [hs', ht', hr']; exact q1) (by rw [hs', ht', hr']; exact q2) (by rw [i0v, hs', ht', hr'])
-      (by rw [i1v, hs', ht', hr']) (by rw [i2v, hs', ht', hr']) p' a c
+      (by rw [i1v, hs', ht', hr']) (by rw [i2v, hs', ht', hr']) 0 a c
     rw [hT'] at this
-    have e0 : (Qv p'.val 0 a c - qvData p'.val 0 a c).num.validR 2 = true := hqv p' 0 a c
-    have e1 : (Qv p'.val 1 a c - qvData p'.val 1 a c).num.validR 2 = true := hqv p' 1 a c
+    have e0 : (Qv 0 0 a c - qvData 0 0 a c).num.validR 2 = true := hqv 0 a c
+    have e1 : (Qv 0 1 a c - qvData 0 1 a c).num.validR 2 = true := hqv 1 a c
     have v0 := Frac.val_eq_zero_of_validR e0 ρ
     have v1 := Frac.val_eq_zero_of_validR e1 ρ
     rw [Frac.val_sub hC, sub_eq_zero] at v0 v1
-    rw [this, ← v0, ← v1]; rfl
-  have M : ∀ (q' : Fin 2) a c, (Kmap (Em ρ) * Q3 (sideMat x y) q'.succ * (Kmap (Em ρ))ᴴ) a c =
-      (mhData q'.val 0 a c).val ρ + ζ / g * (mhData q'.val 1 a c).val ρ := by
-    intro q' a c
-    have e0 : (mhUnred q'.val 0 a c - mhData q'.val 0 a c).num.validR 2 = true := hmh q' 0 a c
-    have e1 : (mhUnred q'.val 1 a c - mhData q'.val 1 a c).num.validR 2 = true := hmh q' 1 a c
+    rw [← v0, ← v1]; exact this
+  have M : ∀ a c, (Kmap (Em ρ) * Q3 (sideMat x y) 1 * (Kmap (Em ρ))ᴴ) a c =
+      (mhData 0 0 a c).val ρ + ζ / g * (mhData 0 1 a c).val ρ := by
+    intro a c
+    have e0 : (mhUnred 0 0 a c - mhData 0 0 a c).num.validR 2 = true := hmh 0 a c
+    have e1 : (mhUnred 0 1 a c - mhData 0 1 a c).num.validR 2 = true := hmh 1 a c
     have v0 := Frac.val_eq_zero_of_validR e0 ρ
     have v1 := Frac.val_eq_zero_of_validR e1 ρ
     rw [Frac.val_sub hC, sub_eq_zero] at v0 v1
@@ -529,21 +528,147 @@ theorem W_zero (h : Strict ρ)
     simp only [mhUnred, Frac.val_add hC, Frac.val_mul, Matrix.mul_apply, Fin.sum_univ_three, ← K_val h,
       ← Kst_val h, QH]
     ring
-  obtain ⟨p', rfl⟩ := Fin.exists_succ_eq.mpr hp
-  obtain ⟨q', rfl⟩ := Fin.exists_succ_eq.mpr hq
-  have hcons : (∑ i, conj ((sideMat x' y')ᵀ i p'.succ)) * (∑ j, conj (sideMat x y q'.succ j)) =
-      (if p'.val = 0 then Vg.S else Vg.T).val ρ * (if q'.val = 0 then H.S else H.T).val ρ := by
-    fin_cases p' <;> fin_cases q' <;>
-      simp [sideMat, Fin.sum_univ_three, VS, VT, HS, HT, ← hs, ← ht, ← hs', ← ht', sS, map_add]
+  have hcons : (∑ i, conj ((sideMat x' y')ᵀ i 1)) * (∑ j, conj (sideMat x y 1 j)) =
+      (if (0 : ℕ) = 0 then Vg.S else Vg.T).val ρ * (if (0 : ℕ) = 0 then H.S else H.T).val ρ := by
+    simp [sideMat, Fin.sum_univ_three, VS, HS, ← hs, ← hs', sS, map_add]
   rw [W_eq _ _ _ (horiz_cand h hx hy hs ht hr) (vert_cand h hx' hy' hs' ht' hr') hBdet,
     Matrix.transpose_transpose, hcons]
   simp only [QV, M]
-  have f0 := Frac.val_eq_zero_of_validR (hF p' q').1 ρ
-  have f1 := Frac.val_eq_zero_of_validR (hF p' q').2 ρ
+  have f0 := Frac.val_eq_zero_of_validR hF.1 ρ
+  have f1 := Frac.val_eq_zero_of_validR hF.2 ρ
   simp only [F0, F1, FlatCircuits.hF, Frac.val_sub hC, Frac.val_add hC, Frac.val_mul, sum9_val hC, Hc, He, ig'] at f0 f1
   refine W_alg (z := ζ / g) (zb := conj ζ / g) (hh := (χ : ℂ) * (g : ℂ)⁻¹)
     (η := (η : ℂ)) ?_ (by rw [← cd]; exact hzz) f0 f1
   rw [← hzs, cd]; field_simp
+
+/-! ### The other three weighted defects, by relabelling (handoff M)
+
+Exchanging rows 1, 2 of the corner (`E ↦ P E`, seeds `(a, b, c, d) ↦ (c, d, a, b)`) and of the horizontal side
+(`B ↦ P B`, rows `x, y ↦ y, x`) keeps the forced block and swaps `W₁₁` with `W₁₂` (`W_rowPerm`); exchanging columns
+(`E ↦ E P`, seeds `↦ (b, a, d, c)`, `C ↦ C P`) swaps `W₁q` with `W₂q` (`W_colPerm`).  The relabelled seed is again
+strict, with the same invariants, and the relabelled sides are again actual sides with the same signatures. -/
+
+/-- The seeds of `P E`: rows 1 and 2 of the corner exchanged. -/
+def rowSwap (ρ : Fin 4 → ℂ) : Fin 4 → ℂ := ![ρ 2, ρ 3, ρ 0, ρ 1]
+/-- The seeds of `E P`: columns 1 and 2 of the corner exchanged. -/
+def colSwap (ρ : Fin 4 → ℂ) : Fin 4 → ℂ := ![ρ 1, ρ 0, ρ 3, ρ 2]
+
+theorem Em_rowSwap : Em (rowSwap ρ) = (Em ρ).submatrix (Equiv.swap 1 2) id := by
+  ext i j; fin_cases i <;> fin_cases j <;> simp [Em, Hadamard6.corner, rowSwap, Equiv.swap_apply_of_ne_of_ne]
+
+theorem Em_colSwap : Em (colSwap ρ) = (Em ρ).submatrix id (Equiv.swap 1 2) := by
+  ext i j; fin_cases i <;> fin_cases j <;> simp [Em, Hadamard6.corner, colSwap, Equiv.swap_apply_of_ne_of_ne]
+
+theorem sh_rowSwap : sh (rowSwap ρ) = th ρ := rfl
+theorem th_rowSwap : th (rowSwap ρ) = sh ρ := rfl
+theorem rh_rowSwap : rh (rowSwap ρ) = conj (rh ρ) := by
+  simp only [rh, rowSwap, map_neg, map_add, map_one, map_mul, Complex.conj_conj]; simp; ring
+theorem sv_rowSwap : sv (rowSwap ρ) = sv ρ := by simp only [sv, rowSwap]; simp; ring
+theorem tv_rowSwap : tv (rowSwap ρ) = tv ρ := by simp only [tv, rowSwap]; simp; ring
+theorem rv_rowSwap : rv (rowSwap ρ) = rv ρ := by simp only [rv, rowSwap]; simp; ring
+
+theorem sh_colSwap : sh (colSwap ρ) = sh ρ := by simp only [sh, colSwap]; simp; ring
+theorem th_colSwap : th (colSwap ρ) = th ρ := by simp only [th, colSwap]; simp; ring
+theorem rh_colSwap : rh (colSwap ρ) = rh ρ := by simp only [rh, colSwap]; simp; ring
+theorem sv_colSwap : sv (colSwap ρ) = tv ρ := rfl
+theorem tv_colSwap : tv (colSwap ρ) = sv ρ := rfl
+theorem rv_colSwap : rv (colSwap ρ) = conj (rv ρ) := by
+  simp only [rv, colSwap, map_neg, map_add, map_one, map_mul, Complex.conj_conj]; simp; ring
+
+/-- The invariants are unchanged by `(s, t, r) ↦ (t, s, r̄)`. -/
+theorem gram_swap (s t r : ℂ) :
+    gG t s (conj r) = gG s t r ∧ gEta t s (conj r) = gEta s t r ∧ gChi t s (conj r) = gChi s t r ∧
+      gR t s (conj r) = gR s t r := by
+  have hX : gX (conj r) = gX r := Complex.normSq_conj r
+  have hP : gPs t s (conj r) = gPs s t r := by simp only [gPs, hX]; ring
+  have hJ : gJ t s (conj r) = gJ s t r := by
+    simp only [gJ]
+    rw [show t * conj r * conj s = conj (s * r * conj t) by simp only [map_mul, Complex.conj_conj]; ring,
+      Complex.conj_re]
+  have hG : gG t s (conj r) = gG s t r := by simp only [gG, hP, hJ]
+  have hE : gEta t s (conj r) = gEta s t r := by simp only [gEta, hP, hJ]
+  have hC : gChi t s (conj r) = gChi s t r := by simp only [gChi, hP, hJ, hX]; ring
+  exact ⟨hG, hE, hC, by simp only [gR, hG, hE, hC]⟩
+
+theorem Strict.rowSwap (h : Strict ρ) : Strict (rowSwap ρ) :=
+  ⟨fun i => by fin_cases i <;> simp [FlatCircuits.rowSwap, h.unit],
+    by rw [sh_rowSwap, th_rowSwap, rh_rowSwap, (gram_swap _ _ _).2.2.2]; exact h.R⟩
+
+theorem Strict.colSwap (h : Strict ρ) : Strict (colSwap ρ) :=
+  ⟨fun i => by fin_cases i <;> simp [FlatCircuits.colSwap, h.unit],
+    by rw [sh_colSwap, th_colSwap, rh_colSwap]; exact h.R⟩
+
+/-- The side with its two lower rows exchanged. -/
+theorem sideMat_swap (x y : Fin 3 → ℂ) : sideMat y x = (sideMat x y).submatrix (Equiv.swap 1 2) id := by
+  ext i j; fin_cases i <;> simp [sideMat, Equiv.swap_apply_of_ne_of_ne]
+
+theorem sideMatT_swap (x y : Fin 3 → ℂ) :
+    (sideMat y x)ᵀ = ((sideMat x y)ᵀ).submatrix id (Equiv.swap 1 2) := by
+  ext i j; fin_cases j <;> simp [sideMat, Equiv.swap_apply_of_ne_of_ne]
+
+theorem rS_swap (x y : Fin 3 → ℂ) : rS y x = conj (rS x y) := by
+  simp only [rS, map_add, map_mul, Complex.conj_conj]; ring
+
+theorem TS_swap (x y : Fin 3 → ℂ) : TS y x = TS x y := by
+  have hp : piS y x = piS x y := by simp only [piS]; ring
+  have hh : hS y x = -hS x y := by simp only [hS]; ring
+  simp only [TS, hp, hh, neg_sq]; ring
+
+theorem det_sideMat_swap (x y : Fin 3 → ℂ) : (sideMat y x).det = -(sideMat x y).det := by
+  rw [sideMat_swap, Matrix.det_permute, Equiv.Perm.sign_swap (by decide)]; simp
+
+/-- The weighted defects `W₁q` (`q ≠ 0`): `W₁₂` is `W₁₁` at the row-relabelled seed. -/
+theorem W_zero_row1 (h : Strict ρ)
+    (hmh : ∀ i : Fin 2, ∀ a c : Fin 3, (mhUnred 0 i.val a c - mhData 0 i.val a c).num.validR 2 = true)
+    (hqv : ∀ i : Fin 2, ∀ a c : Fin 3, (Qv 0 i.val a c - qvData 0 i.val a c).num.validR 2 = true)
+    (hF : (F0 0 0).num.validR 2 = true ∧ (F1 0 0).num.validR 2 = true)
+    {x y x' y' : Fin 3 → ℂ} (hx : ∀ j, Complex.normSq (x j) = 1) (hy : ∀ j, Complex.normSq (y j) = 1)
+    (hx' : ∀ j, Complex.normSq (x' j) = 1) (hy' : ∀ j, Complex.normSq (y' j) = 1)
+    (hs : sS x = sh ρ) (ht : sS y = th ρ) (hr : rS x y = rh ρ)
+    (hs' : sS x' = sv ρ) (ht' : sS y' = tv ρ) (hr' : rS x' y' = rv ρ) {ζ : ℂ}
+    (hT : TS x y = ζ) (hT' : TS x' y' = conj ζ)
+    (hζ : ζ * conj ζ = ((gG (sh ρ) (th ρ) (rh ρ) : ℝ) : ℂ) ^ 2 * (gEta (sh ρ) (th ρ) (rh ρ) : ℂ))
+    (hζc : ζ + conj ζ = (gChi (sh ρ) (th ρ) (rh ρ) : ℂ))
+    (hBdet : IsUnit (sideMat x y).det) (q : Fin 3) (hq : q ≠ 0) :
+    W (Em ρ) (sideMat x y) (sideMat x' y')ᵀ 1 q = 0 := by
+  obtain ⟨hG, hE, hC, -⟩ := gram_swap (sh ρ) (th ρ) (rh ρ)
+  fin_cases q
+  · exact absurd rfl hq
+  · exact W_zero11 h hmh hqv hF hx hy hx' hy' hs ht hr hs' ht' hr' hT hT' hζ hζc hBdet
+  · have e := W_zero11 h.rowSwap hmh hqv hF hy hx hx' hy' (by rw [sh_rowSwap]; exact ht)
+      (by rw [th_rowSwap]; exact hs) (by rw [rS_swap, rh_rowSwap, hr]) (by rw [sv_rowSwap]; exact hs')
+      (by rw [tv_rowSwap]; exact ht') (by rw [rv_rowSwap]; exact hr') (by rw [TS_swap]; exact hT) hT'
+      (by rw [sh_rowSwap, th_rowSwap, rh_rowSwap, hG, hE]; exact hζ)
+      (by rw [sh_rowSwap, th_rowSwap, rh_rowSwap, hC]; exact hζc)
+      (by rw [det_sideMat_swap]; exact hBdet.neg)
+    rw [Em_rowSwap, sideMat_swap x y, W_rowPerm] at e
+    exact e
+
+/-- **Matched flatness at a strict seed point**: for actual sides on the two conjugate roots, the four weighted
+defects vanish.  `W₁₁` is checked (`W_zero11`); the other three are `W₁₁` at relabelled seeds. -/
+theorem W_zero (h : Strict ρ)
+    (hmh : ∀ i : Fin 2, ∀ a c : Fin 3, (mhUnred 0 i.val a c - mhData 0 i.val a c).num.validR 2 = true)
+    (hqv : ∀ i : Fin 2, ∀ a c : Fin 3, (Qv 0 i.val a c - qvData 0 i.val a c).num.validR 2 = true)
+    (hF : (F0 0 0).num.validR 2 = true ∧ (F1 0 0).num.validR 2 = true)
+    {x y x' y' : Fin 3 → ℂ} (hx : ∀ j, Complex.normSq (x j) = 1) (hy : ∀ j, Complex.normSq (y j) = 1)
+    (hx' : ∀ j, Complex.normSq (x' j) = 1) (hy' : ∀ j, Complex.normSq (y' j) = 1)
+    (hs : sS x = sh ρ) (ht : sS y = th ρ) (hr : rS x y = rh ρ)
+    (hs' : sS x' = sv ρ) (ht' : sS y' = tv ρ) (hr' : rS x' y' = rv ρ) {ζ : ℂ}
+    (hT : TS x y = ζ) (hT' : TS x' y' = conj ζ)
+    (hζ : ζ * conj ζ = ((gG (sh ρ) (th ρ) (rh ρ) : ℝ) : ℂ) ^ 2 * (gEta (sh ρ) (th ρ) (rh ρ) : ℂ))
+    (hζc : ζ + conj ζ = (gChi (sh ρ) (th ρ) (rh ρ) : ℂ))
+    (hBdet : IsUnit (sideMat x y).det) (p q : Fin 3) (hp : p ≠ 0) (hq : q ≠ 0) :
+    W (Em ρ) (sideMat x y) (sideMat x' y')ᵀ p q = 0 := by
+  fin_cases p
+  · exact absurd rfl hp
+  · exact W_zero_row1 h hmh hqv hF hx hy hx' hy' hs ht hr hs' ht' hr' hT hT' hζ hζc hBdet q hq
+  · have e := W_zero_row1 h.colSwap hmh hqv hF hx hy hy' hx' (by rw [sh_colSwap]; exact hs)
+      (by rw [th_colSwap]; exact ht) (by rw [rh_colSwap]; exact hr) (by rw [sv_colSwap]; exact ht')
+      (by rw [tv_colSwap]; exact hs') (by rw [rS_swap, rv_colSwap, hr']) hT (by rw [TS_swap]; exact hT')
+      (by rw [sh_colSwap, th_colSwap, rh_colSwap]; exact hζ) (by rw [sh_colSwap, th_colSwap, rh_colSwap]; exact hζc)
+      hBdet q hq
+    rw [Em_colSwap, sideMatT_swap x' y', W_colPerm] at e
+    exact e
 
 end Seeds
 

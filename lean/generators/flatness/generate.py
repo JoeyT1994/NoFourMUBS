@@ -1,10 +1,14 @@
 #!/usr/bin/env python3
 """Generate NoFourMUBs/L1/FlatData.lean: the reduced entries of K Qh K* and the factor table.
 
+Only the data of the weighted defect W11 is generated (q = 0 for K Qh K*, p = 0 for the vertical moments,
+zero-based): the other three defects follow by relabelling (handoff M; `FlatBridge.W_zero`).
+
 Untrusted: every datum is re-checked by the Lean kernel (FlatCheck*.lean).  Uses the exact
 rational-function helper of proof/coverage/returns/E_matched_flatness/direct (python-flint).
 """
 import sys
+sys.set_int_max_str_digits(0)   # the packed numerators are long integers
 from fractions import Fraction
 from math import lcm
 from pathlib import Path
@@ -134,7 +138,7 @@ OUT = g_['OUT']
 K, Ks = OUT['K'], OUT['Kstar']
 
 MH, MHF = {}, {}
-for q in range(2):
+for q in range(1):
     for i in range(2):
         M = mul(K, mul(OUT['Qh'][q][i], Ks))
         for ia in range(3):
@@ -144,7 +148,7 @@ for q in range(2):
 
 # Reduced vertical third moments.
 QV = {}
-for pp in range(2):
+for pp in range(1):
     for i in range(2):
         for ia in range(3):
             for ic in range(3):

@@ -31,6 +31,42 @@ def Kmap (E : Mat3) : Mat3 := -(Eᴴ * (sixI3 - E * Eᴴ)⁻¹)
 def W (E B C : Mat3) (p q : Fin 3) : ℂ :=
   ∑ i, ∑ j, conj (C i p) * conj (B q j) * ((Complex.normSq (forcedD E B C i j) : ℂ) - 1)
 
+/-! ### Relabelling (handoff M): permuting the rows of `E` and `B`, or the columns of `E` and `C`
+
+`E′ = P E`, `B′ = P B` (or `E′ = E Q`, `C′ = C Q`) give the same forced block, since `D B* = −C E*` determines it;
+so the weighted defects are permuted: `W′ = Q* W P*`. -/
+
+/-- Permuting the rows of `E` and `B` leaves the forced block unchanged. -/
+theorem forcedD_rowPerm (σ : Equiv.Perm (Fin 3)) (E B C : Mat3) :
+    forcedD (E.submatrix σ id) (B.submatrix σ id) C = forcedD E B C := by
+  have hinv : (B.submatrix σ id)⁻¹ = B⁻¹.submatrix id σ :=
+    Matrix.inv_submatrix_equiv B σ (Equiv.refl _)
+  rw [forcedD, forcedD, hinv, Matrix.conjTranspose_submatrix, Matrix.conjTranspose_submatrix,
+    Matrix.mul_assoc, Matrix.mul_assoc]
+  congr 1
+  rw [show (Eᴴ.submatrix id σ) = Eᴴ.submatrix (Equiv.refl _) σ from rfl,
+    show ((B⁻¹)ᴴ.submatrix σ id) = (B⁻¹)ᴴ.submatrix σ (Equiv.refl _) from rfl,
+    Matrix.submatrix_mul_equiv]
+  rfl
+
+/-- Permuting the columns of `E` and `C` leaves the forced block unchanged. -/
+theorem forcedD_colPerm (σ : Equiv.Perm (Fin 3)) (E B C : Mat3) :
+    forcedD (E.submatrix id σ) B (C.submatrix id σ) = forcedD E B C := by
+  rw [forcedD, forcedD, Matrix.conjTranspose_submatrix,
+    show (-C.submatrix id σ) = (-C).submatrix (Equiv.refl _) σ from rfl,
+    show (Eᴴ.submatrix σ id) = Eᴴ.submatrix σ (Equiv.refl _) from rfl, Matrix.submatrix_mul_equiv]
+  rfl
+
+/-- Row relabelling permutes the second index of the weighted defects. -/
+theorem W_rowPerm (σ : Equiv.Perm (Fin 3)) (E B C : Mat3) (p q : Fin 3) :
+    W (E.submatrix σ id) (B.submatrix σ id) C p q = W E B C p (σ q) := by
+  simp only [W, forcedD_rowPerm, Matrix.submatrix_apply, id]
+
+/-- Column relabelling permutes the first index of the weighted defects. -/
+theorem W_colPerm (σ : Equiv.Perm (Fin 3)) (E B C : Mat3) (p q : Fin 3) :
+    W (E.submatrix id σ) B (C.submatrix id σ) p q = W E B C (σ p) q := by
+  simp only [W, forcedD_colPerm, Matrix.submatrix_apply, id]
+
 /-- On candidates with `B` invertible, `forcedD E B C = C K B`. -/
 lemma forcedD_eq_CKB (E B C : Mat3) (hB : B ∈ horizontalCandidates E) (hBdet : IsUnit B.det) :
     forcedD E B C = C * Kmap E * B := by
