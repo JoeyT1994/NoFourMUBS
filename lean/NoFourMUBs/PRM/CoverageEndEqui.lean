@@ -39,7 +39,7 @@ def aE : ℂ := ⟨-4 / 5, 3 / 5⟩
 theorem aE_normSq : Complex.normSq aE = 1 := by
   simp [Complex.normSq_apply, aE]; norm_num
 
-theorem aE_mul_conj : aE * conj aE = 1 := mul_conj_one aE_normSq
+theorem aE_mul_conj : aE * conj aE = 1 := mul_conj_of_normSq aE_normSq
 
 theorem conj_aE_normSq : Complex.normSq (conj aE) = 1 := by rw [Complex.normSq_conj]; exact aE_normSq
 
@@ -101,7 +101,7 @@ theorem vieta3 {p0 p1 p2 e1 e2 e3 x : ℂ} (h1 : p0 + p1 + p2 = e1) (h2 : p0 * p
 theorem coord_root {p0 p1 p2 c : ℂ} (n0 : Complex.normSq p0 = 1) (n1 : Complex.normSq p1 = 1)
     (n2 : Complex.normSq p2 = 1) (hc : c * conj c = 1) (hs : p0 + p1 + p2 = 2 + c)
     (hu : p0 * p1 * p2 = c) {x : ℂ} (hx : x = p0 ∨ x = p1 ∨ x = p2) : x = 1 ∨ x = c := by
-  have c0 := mul_conj_one n0; have c1 := mul_conj_one n1; have c2 := mul_conj_one n2
+  have c0 := mul_conj_of_normSq n0; have c1 := mul_conj_of_normSq n1; have c2 := mul_conj_of_normSq n2
   have hsc : conj p0 + conj p1 + conj p2 = 2 + conj c := by
     have := congrArg conj hs
     simpa only [map_add, show conj (2 : ℂ) = 2 from map_ofNat _ 2] using this

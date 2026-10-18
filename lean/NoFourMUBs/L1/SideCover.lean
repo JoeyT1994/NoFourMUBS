@@ -7,15 +7,17 @@ import NoFourMUBs.Step2.TopologyCore
 /-!
 # Side existence at strict seeds
 
-Handoff J, route A (`proof/coverage/returns/J_side_existence`).  For a strict seed `ρ` (unit
-entries, `R > 0`), each of the two side Grams `G_h(ρ) = (s, t, r)` and `G_v(ρ)` is realised by a normalised
-phase side with either sign of `Im T` (`side_h_mem`, `side_v_mem`), hence with signature either root `ζ` of
+Handoff J, route A (`proof/coverage/returns/J_side_existence`); the existence half of
+`MinimalConstruction/Proofs/SIDE_FIBER.md` (a side on each root), proved here without its explicit formulas.
+
+For a strict seed `ρ` (unit entries, `R > 0`), each of the two side Grams `G_h(ρ) = (s, t, r)` and `G_v(ρ)` is
+realised by a normalised phase side with either sign of `Im T` (`side_h_mem`, `side_v_mem`), hence with signature either root `ζ` of
 the sheet quadratic (`exists_side_h`, `exists_side_v`).
 
 Proof, for `G_h` and `ε = +1`: the set `U` of strict seeds whose `G_h` lies in `sideSet 1` is open (inverse
 function theorem, `isOpen_sideSet`), and closed in the strict seeds: it equals the preimage of the closed
-`sideSetC 1`, since a side realising Gram data with `R > 0` has `Im T ≠ 0` (`im_ne_of_gR`, from Lemma 2.1
-`RS_eq_im_sq`).  `U` contains the 18 maxima of `R` (`Step1Geo.maximumCensus`): at each, the matched
+`sideSetC 1`, since a side realising Gram data with `R > 0` has `Im T ≠ 0` (`im_ne_of_gR`, from `PROOF.md`
+Lemma 2.1, `RS_eq_im_sq`).  `U` contains the 18 maxima of `R` (`Step1Geo.maximumCensus`): at each, the matched
 completion transported from `H₀` (`BaseAnchor.matched_H0`, `matched_moveWord`) has a horizontal side with
 `Im T = √R / 2 > 0` (`sides_of_matched`).  So `U` is every strict seed
 (`Step2.TopologyCore.superlevel_clopen_eq_univ`).  The vertical side of a matched completion has `Im T < 0`,

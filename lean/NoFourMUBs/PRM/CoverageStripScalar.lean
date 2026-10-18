@@ -1,4 +1,5 @@
 import NoFourMUBs.PRM.CoverageStripBlock
+import NoFourMUBs.PRM.CoverageTenKappa
 
 /-!
 # Critical strip classification (I4): the scalar layer of the nonzero-`J` stratum

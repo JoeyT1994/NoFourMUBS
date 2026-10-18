@@ -1,5 +1,13 @@
 import NoFourMUBs.Final
 import NoFourMUBs.FourierVanishing.Main
+
+/-!
+# Axiom audit of L1, strict-corner coverage and `Final`
+
+Run by `check_axioms.py --full` after building `NoFourMUBs.Complete`, `NoFourMUBs.Final` and
+`NoFourMUBs.FourierVanishing.Main`, which the library root does not import.  Every theorem below must use only
+`propext`, `Classical.choice` and `Quot.sound`; the last but one is the main theorem `Final.no_four_mubs`.
+-/
 #print axioms NoFourMUBs.L1.exists_side_h
 #print axioms NoFourMUBs.L1.exists_side_v
 #print axioms NoFourMUBs.L1.matchedExistence

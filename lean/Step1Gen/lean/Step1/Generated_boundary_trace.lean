@@ -8,7 +8,7 @@ namespace Step1.boundary_trace
 
 variable {K : Type*} [Field K] [CharZero K]
 
-/- Generated from certificates/boundary_trace.json. See LEAN_NOTES.md. -/
+/- Generated from certificates/boundary_trace.json by generation/generate_lean.py. -/
 
 def d_A (v_c v_h v_z v_zi v_s2 : K) : K :=
   (((v_zi ^ 2) * ((-2 : K) + ((4 : K) * (v_c ^ 2)))) + ((4 : K) * v_c * v_z))

@@ -8,8 +8,9 @@ import NoFourMUBs.Step2.SidePerm
 Gram data `(s, t, r)`, on the two different roots: `T' = T̄`, `Im T ≠ 0`.  Then no column of one equals a
 column of the other.
 
-The paper proof removes the common column and invokes the two-column alternative (Lemma 3.1) together with
-the finiteness of strict side fibres (§2).  Here the infinite branch of Lemma 3.1 is closed more directly:
+The paper proof removes the common column and invokes the two-column alternative (`PRM.md` Lemma 3.1) together
+with the finiteness of strict side fibres (`PRM.md` §2).  Here the infinite branch of `PRM.md` Lemma 3.1 is
+closed more directly:
 on it the signature itself is real.
 
 * **Reduction.** Simultaneous column transpositions preserve `s, t, r` and `T` (`TS_swap0`, `rS_perm`), so
@@ -22,7 +23,7 @@ on it the signature itself is real.
   `x₂ = −x₁, y₂ = ±y₁` or `x₂ = x₁, y₂ = −y₁`.
 * **Degenerate shapes have real signature** (`im_TS_A`, `im_TS_B`, `im_TS_C`).  For example, if `x₂ = −x₁`
   and `y₂ = y₁` then `T = 8 (y₁ − y₀)² ȳ₀ ȳ₁ = 8 (w + w̄ − 2)` with `w = y₁ ȳ₀`.  (These are exactly the
-  one-parameter families of Lemma 3.1; they cannot carry a strict side.)
+  one-parameter families of `PRM.md` Lemma 3.1; they cannot carry a strict side.)
 * **Conclusion.** `T' = T` together with `T' = T̄` gives `Im T = 0`; a degenerate shape gives `Im T = 0`
   directly.  Either contradicts `Im T ≠ 0`.
 
@@ -123,7 +124,7 @@ lemma conj_cancel {a b c : ℂ} (h : a * (conj b - conj c) = 0) (ha : a ≠ 0) :
 lemma conj_sub_ne {b c : ℂ} (h : b ≠ c) : conj b - conj c ≠ 0 :=
   sub_ne_zero.2 fun e => h (by simpa using congrArg conj e)
 
-/-- **Lemma 3.1, Lean form.** Two unit sides with the same Gram data and the same column `0` either have the
+/-- **`PRM.md` Lemma 3.1, Lean form.** Two unit sides with the same Gram data and the same column `0` either have the
 same signature, or the first has a real signature. -/
 theorem shared0 {x y x' y' : Fin 3 → ℂ} (hx : ∀ j, Complex.normSq (x j) = 1)
     (hy : ∀ j, Complex.normSq (y j) = 1) (hx' : ∀ j, Complex.normSq (x' j) = 1)

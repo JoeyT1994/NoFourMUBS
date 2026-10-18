@@ -1,9 +1,10 @@
 import NoFourMUBs.PRM.Converse
 
 /-!
-# Exact reach and density from strict-corner coverage
+# Exact reach and density from strict-corner coverage (`PROOF.md` Corollary 2.6)
 
-`PRM.md` §7.3.  If every Hadamard matrix not equivalent to `F6` has a strict positional corner
+`PRM.md` §7.3; `exactReach` is `PROOF.md` Corollary 2.6, with strict-corner coverage (Theorem 2.5) as
+hypothesis.  If every Hadamard matrix not equivalent to `F6` has a strict positional corner
 (`StrictCornerCoverage`, MC1), then every non-Tao class is `[F6]` or a matched class or its conjugate
 (`MatchedExactReach`): dephase at the strict corner, Theorem A makes it matched, and conjugating if needed
 makes the horizontal signature the positive root.  Hence `MatchedDensityReach`.

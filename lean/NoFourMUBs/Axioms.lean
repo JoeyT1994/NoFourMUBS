@@ -1,4 +1,14 @@
 import NoFourMUBs
+
+/-!
+# Axiom audit of the library root
+
+`check_axioms.py` runs this file and requires every theorem below to use only `propext`, `Classical.choice` and
+`Quot.sound`, and the number of audited theorems to equal the number of `#print axioms` lines.  It covers the
+modules imported by `NoFourMUBs.lean`: the skeleton, Steps 1, 3 and 4, matched uniqueness, the anchor, and the
+two conditional forms of the main theorem (`no_four_mubs_main`, and `no_four_mubs_of_connected` from
+`ConnectedRoute`).  `AxiomsComplete.lean` audits L1 and `Final`.
+-/
 #print axioms NoFourMUBs.no_four_mubs
 #print axioms NoFourMUBs.exists_quartetEdge_of_fourMUBs
 #print axioms NoFourMUBs.quartetEdge_of_equivalent
@@ -30,4 +40,3 @@ import NoFourMUBs
 #print axioms NoFourMUBs.Step2.maximumAnchorCertificate_of_base
 #print axioms NoFourMUBs.BaseAnchor.matched_H0
 #print axioms NoFourMUBs.Step2.coverage_of_connected
-#print axioms NoFourMUBs.Step2.matchedExistence_of_dense

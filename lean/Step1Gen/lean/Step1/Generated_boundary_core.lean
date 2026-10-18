@@ -8,7 +8,7 @@ namespace Step1.boundary_core
 
 variable {K : Type*} [Field K] [CharZero K]
 
-/- Generated from certificates/boundary_core.json. See LEAN_NOTES.md. -/
+/- Generated from certificates/boundary_core.json by generation/generate_lean.py. -/
 
 def d_u (v_c v_h : K) : K :=
   ((4 : K) + ((16 : K) * (v_c ^ 4)) + ((16 : K) * v_c * v_h * ((-1 : K) + ((2 : K) * (v_c ^ 2)))))

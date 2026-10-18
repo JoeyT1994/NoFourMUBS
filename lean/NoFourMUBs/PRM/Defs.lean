@@ -23,4 +23,19 @@ def StrictCornerCoverage : Prop :=
   ∀ H : Mat6, Hadamard6.IsHadamard H → ¬ Equivalent H Step2.fourierHadamard.1 →
     ∃ σ τ : Equiv.Perm I6, (Step2.sideSignature (Step2.rightBlock (H.submatrix σ τ))).im ≠ 0
 
+/-! ### Column indexing: `I6 ≃ Fin 6` and the twenty sorted 3-subsets -/
+
+/-- `I6 ≃ Fin 6`: `inl i ↦ i`, `inr i ↦ i + 3`. -/
+def e6 : I6 ≃ Fin 6 where
+  toFun := Sum.elim (fun i => ⟨i.val, by omega⟩) (fun i => ⟨i.val + 3, by omega⟩)
+  invFun u := if h : u.val < 3 then Sum.inl ⟨u.val, h⟩ else Sum.inr ⟨u.val - 3, by omega⟩
+  left_inv := by decide
+  right_inv := by decide
+
+/-- The 3-subsets of `Fin 6`, sorted, in lexicographic order. -/
+def tri (k : Fin 20) : Fin 3 → Fin 6 :=
+  ![![0, 1, 2], ![0, 1, 3], ![0, 1, 4], ![0, 1, 5], ![0, 2, 3], ![0, 2, 4], ![0, 2, 5], ![0, 3, 4],
+    ![0, 3, 5], ![0, 4, 5], ![1, 2, 3], ![1, 2, 4], ![1, 2, 5], ![1, 3, 4], ![1, 3, 5], ![1, 4, 5],
+    ![2, 3, 4], ![2, 3, 5], ![2, 4, 5], ![3, 4, 5]] k
+
 end NoFourMUBs.PRM

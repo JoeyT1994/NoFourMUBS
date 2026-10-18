@@ -255,10 +255,6 @@ theorem xsH_unit (u : Fin 6) : Complex.normSq (xsH H u) = 1 := by
 theorem ysH_unit (u : Fin 6) : Complex.normSq (ysH H u) = 1 := by
   rw [ysH, Complex.normSq_mul, Complex.normSq_conj, hH.1, hH.1, mul_one]
 
-theorem row_orth {a b : I6} (hab : a ≠ b) : ∑ c : I6, H a c * conj (H b c) = 0 := by
-  have h := congrArg (fun M : Mat6 => M a b) hH.2
-  simpa [Matrix.mul_apply, Matrix.conjTranspose_apply, Matrix.one_apply, Complex.star_def, hab] using h
-
 omit hH in
 theorem sum_e6 (g : I6 → ℂ) : ∑ u : Fin 6, g (e6.symm u) = ∑ j : I6, g j := Equiv.sum_comp e6.symm g
 

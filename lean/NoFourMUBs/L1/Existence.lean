@@ -5,7 +5,7 @@ import NoFourMUBs.L1.FlatCheckF
 import NoFourMUBs.Step2.MatchedUnique
 
 /-!
-# L1: matched existence
+# L1: matched existence (`PROOF.md` Theorem 2.2)
 
 Every strict seed has a positive matched completion (`Step2.MatchedExistence`), with no input from the
 classification.  For the seed corner `E` with Gram data `(s, t, r)` and invariants `g, η, χ, R`, put

@@ -8,7 +8,7 @@ namespace Step1.coordinate_bridges
 
 variable {K : Type*} [Field K] [CharZero K]
 
-/- Generated from certificates/coordinate_bridges.json. See LEAN_NOTES.md. -/
+/- Generated from certificates/coordinate_bridges.json by generation/generate_lean.py. -/
 
 def d_f_y (v_y v_a v_z v_zi v_w v_wi v_c v_b v_s : K) : K :=
   (((4 : K) * (v_y ^ 2)) + ((6 : K) * v_y) + (1 : K))

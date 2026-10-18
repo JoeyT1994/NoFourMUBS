@@ -57,12 +57,4 @@ theorem pStar_bounds {k : ℝ} (hk : 0 < k)
   unfold pStar
   constructor <;> linarith
 
-theorem scalarBin_of_original_alternatives {x k : ℝ} (hk : 0 < k)
-    (hc : 3 * k ^ 3 + k ^ 2 + k - 1 = 0)
-    (hx : x = 0 ∨ x = 5 ∨ x = pStar k) : ScalarBin x := by
-  rcases hx with hx | hx | rfl
-  · exact Or.inl hx
-  · exact Or.inr (Or.inl hx)
-  · exact Or.inr (Or.inr (pStar_bounds hk hc))
-
 end NoFourMUBs.PRM.CoverageTen

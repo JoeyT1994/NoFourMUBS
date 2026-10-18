@@ -53,9 +53,6 @@ theorem AllCritical.triBlock_im {H : Mat6} (h : AllCritical H) (k l : Fin 20) :
 
 /-! ### Invariance -/
 
-private lemma mul_conj_of_normSq {z : ℂ} (h : Complex.normSq z = 1) : z * conj z = 1 := by
-  rw [Complex.mul_conj, h]; simp
-
 /-- Permutations and unit row/column phases preserve the all-critical property. -/
 theorem allCritical_of_equivalent {H K : Mat6} (hHK : Equivalent H K) (hH : AllCritical H) :
     AllCritical K := by

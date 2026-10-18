@@ -8,7 +8,7 @@ namespace Step1.interior_boundary
 
 variable {K : Type*} [Field K] [CharZero K]
 
-/- Generated from certificates/interior_boundary.json. See LEAN_NOTES.md. -/
+/- Generated from certificates/interior_boundary.json by generation/generate_lean.py. -/
 
 def d_norm_z (v_a v_b v_r v_X v_Y : K) : K :=
   ((v_a ^ 2) + (v_b ^ 2))

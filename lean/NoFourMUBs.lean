@@ -38,9 +38,9 @@ import NoFourMUBs.Step2.MatchedUnique
 import NoFourMUBs.Step1.AnchorOrbit
 import NoFourMUBs.Step2.AnchorTransport
 import NoFourMUBs.Step2.BaseAnchor
-import NoFourMUBs.Step2.DenseExistence
 import NoFourMUBs.Step2.Connected
 import NoFourMUBs.MainTheorem
+import NoFourMUBs.ConnectedRoute
 import NoFourMUBs.FourierVanishing.Duality
 import NoFourMUBs.FourierVanishing.Jacobi
 import NoFourMUBs.FourierVanishing.Square

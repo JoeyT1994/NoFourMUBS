@@ -2,12 +2,13 @@ import NoFourMUBs.PRM.CoverageBlock
 import NoFourMUBs.PRM.CoverageCritical
 
 /-!
-# Strict-corner coverage (MC1): the remaining inputs, stated precisely
+# Strict-corner coverage (MC1, `PROOF.md` Theorem 2.5): the four inputs, stated precisely
 
 `strictCornerCoverage_of_inputs : CoverageInputs → StrictCornerCoverage`.
 
 `CoverageInputs` bundles four propositions, the parts of the paper proof
-(`STRICT_CORNER_COVERAGE.md`; `PRM.md` §7.1–7.2) that are not proved in this module:
+(`STRICT_CORNER_COVERAGE.md`; `PRM.md` §7.1–7.2) that are proved in other modules (all four are proved;
+`Final.strictCornerCoverage` assembles them):
 
 * `singular` — §7.1 singular-minor route (`FOURIER_ROUTING.md` §1), up to a `3 × 3` Hadamard block.
   **Proved** in `CoverageSingular` (`singularMinorRoute`).
@@ -19,12 +20,11 @@ import NoFourMUBs.PRM.CoverageCritical
 * `endpoints` — I5, `CRITICAL_P7_EXCLUSION.md`, `CRITICAL_EQUI_CORRELATION_EXCLUSION.md`.  **Proved** in
   `CoverageEndpoints` (`endpointExclusions`).
 
-The open part is `CoverageMain.CriticalStripGap`
+The last two are bundled as `CoverageMain.CriticalStripGap`
 (`strictCornerCoverage_of_criticalStripGap`).  From a Hadamard block to `F6` is
 `equivalent_F6_of_block` (`CoverageBlock`, with the Fourier critical locus I7 of
 `CoverageFourierLocus`).  The count uses the anchored sum rule `Σ p = 54` and the rational gap of
-`CoverageTen*`, and `p⋆ ∈ (17/3, 29/5)` (`CoverageTen.pStar_bounds`); the sum `Σ p = 108` (I6,
-`CoverageSum.hadamard_strip_sum_108`) is not needed on this route.
+`CoverageTen*`, and `p⋆ ∈ (17/3, 29/5)` (`CoverageTen.pStar_bounds`).
 
 Scalar conventions: `blockP`, `blockJ`, `blockX/Y/Z` of `CoverageCritical` (the Gram data of a corner;
 complementary corners have the same `p, X, Y, Z` and opposite `J`, `blockP_compl`, `blockJ_compl`).
@@ -106,7 +106,7 @@ def EndpointExclusions : Prop :=
   ∀ H : Mat6, Hadamard6.IsHadamard H → AllCritical H → AllMinorsInvertible H → ∀ l : Fin 20,
     ¬ EquiEndpoint (triBlock H 0 l) ∧ ¬ P7Endpoint (triBlock H 0 l)
 
-/-- **The remaining gap for MC1**: the four inputs above. -/
+/-- **The four inputs of MC1** above (all proved). -/
 structure CoverageInputs : Prop where
   singular : SingularMinorRoute
   geometric : GeometricRowRoute
@@ -117,10 +117,6 @@ structure CoverageInputs : Prop where
 
 theorem tri0_row : ∀ i : Fin 3, e6.symm (tri 0 i) = Sum.inl i := by decide
 
-theorem sixIndex_anchor : ∀ (k : Fin 10) (j : Fin 3),
-    CoverageSum.sixIndex (anchorCols k j) = e6.symm (tri (Fin.castLE (by norm_num) k) j) := by
-  decide
-
 /-- The ten-corner `p` of the top strip is `blockP` of the corresponding corner. -/
 theorem stripP_top_eq (H : Mat6) (k : Fin 10) :
     stripP (topStrip H) k = blockP (triBlock H 0 (Fin.castLE (by norm_num) k)) := by
@@ -128,7 +124,7 @@ theorem stripP_top_eq (H : Mat6) (k : Fin 10) :
       conj (threeSum (CoverageTen.relativePhase (topStrip H) a b) k) := by
     intro a b
     simp only [gram3, triBlock, Matrix.of_apply, Fin.sum_univ_three, threeSum,
-      CoverageTen.relativePhase, topStrip, rowStrip, tri0_row, ← sixIndex_anchor k, map_add,
+      CoverageTen.relativePhase, topStrip, rowStrip, tri0_row, map_add,
       map_mul, Complex.conj_conj]
     ring
   simp only [stripP, pairEnergy, blockP, Side.pS, blockS, blockT, blockR, key, Complex.normSq_conj]
@@ -142,7 +138,7 @@ theorem equivalent_F6_of_block' {H : Mat6} (hH : Hadamard6.IsHadamard H) (hc : A
       (equivalent_F6_of_block (transpose_isHadamard hH) (allCritical_transpose hc) hb)
     rwa [Matrix.transpose_transpose, fourierHadamard_transpose] at h
 
-/-- The four inputs give the remaining gap `CriticalStripConfinement`. -/
+/-- The four inputs give the scalar confinement `CriticalStripConfinement`. -/
 theorem stripConfinement_of_inputs (h : CoverageInputs) : CriticalStripConfinement := by
   intro H hH hc hF
   have hinv : AllMinorsInvertible H := fun σ τ hd =>
@@ -165,7 +161,7 @@ theorem stripConfinement_of_inputs (h : CoverageInputs) : CriticalStripConfineme
 
 end Coverage
 
-/-- **MC1 from the four remaining inputs.** -/
+/-- **MC1 from the four inputs.** -/
 theorem strictCornerCoverage_of_inputs (h : Coverage.CoverageInputs) : StrictCornerCoverage :=
   strictCornerCoverage_of_stripConfinement (Coverage.stripConfinement_of_inputs h)
 

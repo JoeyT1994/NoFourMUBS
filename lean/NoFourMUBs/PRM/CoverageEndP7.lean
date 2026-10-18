@@ -187,9 +187,6 @@ structure Pre (σ0 τ0 ρ : ℂ) (x y : I6 → ℂ) : Prop where
   rho : conj σ0 * conj (cc y x) * τ0 = ρ
   crit : StripCrit ![fun _ => 1, x, y]
 
-theorem mul_conj_one {z : ℂ} (h : Complex.normSq z = 1) : z * conj z = 1 := by
-  rw [Complex.mul_conj, h, Complex.ofReal_one]
-
 theorem dephase_pre {a b c : I6 → ℂ} (h : StripData a b c) {σ0 τ0 : ℂ}
     (hs0 : Complex.normSq σ0 = Complex.normSq (cc b a)) (ht0 : Complex.normSq τ0 = Complex.normSq (cc c a))
     (hs : cc b a ≠ 0) (ht : cc c a ≠ 0) :
@@ -200,9 +197,9 @@ theorem dephase_pre {a b c : I6 → ℂ} (h : StripData a b c) {σ0 τ0 : ℂ}
     rw [hα, Complex.normSq_div, hs0, div_self ((Complex.normSq_pos.2 hs).ne')]
   have nβ : Complex.normSq β = 1 := by
     rw [hβ, Complex.normSq_div, ht0, div_self ((Complex.normSq_pos.2 ht).ne')]
-  have uα := mul_conj_one nα
-  have uβ := mul_conj_one nβ
-  have ua : ∀ j, a j * conj (a j) = 1 := fun j => mul_conj_one (h.ua j)
+  have uα := mul_conj_of_normSq nα
+  have uβ := mul_conj_of_normSq nβ
+  have ua : ∀ j, a j * conj (a j) = 1 := fun j => mul_conj_of_normSq (h.ua j)
   refine ⟨fun j => α * b j * conj (a j), fun j => β * c j * conj (a j), ?_⟩
   have exy : ∀ j, β * c j * conj (a j) * conj (α * b j * conj (a j)) =
       β * conj α * (c j * conj (b j)) := by
@@ -354,7 +351,7 @@ theorem rho_data (s t r : ℂ) :
 
 theorem three_units (u : Fin 3 → ℂ) (hu : ∀ j, Complex.normSq (u j) = 1) (hs : u 0 + u 1 + u 2 = 1) :
     (u 0 = 1 ∧ u 2 = -u 1) ∨ (u 1 = 1 ∧ u 2 = -u 0) ∨ (u 2 = 1 ∧ u 1 = -u 0) := by
-  have c0 := mul_conj_one (hu 0); have c1 := mul_conj_one (hu 1); have c2 := mul_conj_one (hu 2)
+  have c0 := mul_conj_of_normSq (hu 0); have c1 := mul_conj_of_normSq (hu 1); have c2 := mul_conj_of_normSq (hu 2)
   have hsc : conj (u 0) + conj (u 1) + conj (u 2) = 1 := by
     have := congrArg conj hs; simpa using this
   have key : (u 0 - 1) * (u 1 - 1) * (u 2 - 1) = 0 := by
@@ -379,7 +376,7 @@ theorem three_units_neg (u : Fin 3 → ℂ) (hu : ∀ j, Complex.normSq (u j) = 
 
 theorem p7_pair {u w : ℂ} (hu : Complex.normSq u = 1) (hw : Complex.normSq w = 1)
     (E : w + conj u + w * conj u = 1 - 2 * Complex.I) : u = 1 ∨ w = 1 := by
-  have cu := mul_conj_one hu; have cw := mul_conj_one hw
+  have cu := mul_conj_of_normSq hu; have cw := mul_conj_of_normSq hw
   have Ec : conj w + u + conj w * u = 1 + 2 * Complex.I := by
     have := congrArg conj E
     simp only [map_add, map_sub, map_mul, map_one, Complex.conj_I, Complex.conj_conj,
@@ -431,7 +428,7 @@ theorem p7_corner {p q : Fin 3 → ℂ} (hp : ∀ j, Complex.normSq (p j) = 1)
 
 theorem p7_pair2 {v z : ℂ} (hv : Complex.normSq v = 1) (hz : Complex.normSq z = 1)
     (E : -z - conj v + z * conj v = -1 + 2 * Complex.I) : v = Complex.I ∧ z = -Complex.I := by
-  have cv := mul_conj_one hv; have cz := mul_conj_one hz
+  have cv := mul_conj_of_normSq hv; have cz := mul_conj_of_normSq hz
   have Ec : -conj z - v + conj z * v = -1 - 2 * Complex.I := by
     have := congrArg conj E
     simp only [map_add, map_sub, map_mul, map_one, map_neg, Complex.conj_I, Complex.conj_conj,
