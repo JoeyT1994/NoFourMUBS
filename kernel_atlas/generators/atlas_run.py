@@ -47,6 +47,9 @@ CORE = ['KernelAtlas.E0K', 'KernelAtlas.FrameK', 'KernelAtlas.Joint2K', 'KernelA
 AXIOMS = {'propext', 'Classical.choice', 'Quot.sound'}
 
 
+MEM_OVERRIDE = {}             # module name prefix -> GB (--mem-override), for the largest Records
+
+
 def mem_gb(mod):
     """Memory budget per module (GB): the private part of its peak, about the 99th percentile over 4,412 Records of
     the full run on rusty (17 Oct 2026; peaks include about 6 GB of memory-mapped Mathlib and shared modules, which
@@ -54,6 +57,9 @@ def mem_gb(mod):
     Sigma 14.3, Boundary 10.2 / 12.5, Graph2 6.9 / 22.5 (max 75.6, rare: the node's unreserved memory absorbs it),
     the rest <= 8.8.  The first budgets (peak minus 5) left a node at 82-94 Lean processes with 400 GB free."""
     name = mod.rsplit('.', 1)[1]
+    for k, v in MEM_OVERRIDE.items():
+        if name.startswith(k):
+            return v
     if name == 'Graph2':
         return 20
     if name.startswith('Clq'):
@@ -295,10 +301,10 @@ class Node:
                 idx, mod, gb, t0, log, f = self.running.pop(p)
                 f.close()
                 self.used -= gb
+                if idx not in self.recs:                    # its Record already failed (and was archived)
+                    continue
                 text = open(log).read()
                 cpu, rss = parse_time(text)
-                if idx not in self.recs:
-                    continue
                 st = self.recs[idx]
                 st['done'][mod.rsplit('.', 1)[1]] = dict(cpu_s=cpu, peak_gb=rss and round(rss, 2),
                                                          wall_s=round(time.time() - t0, 1))
@@ -439,11 +445,15 @@ def main():
     ap.add_argument('--name', default='node', help='archive mode: this driver\'s row file')
     ap.add_argument('--retry-failed', action='store_true', help='archive mode: redo Records whose rows all failed')
     ap.add_argument('--lean-threads', type=int, default=0, help='lean -j (0: Lean\'s default)')
+    ap.add_argument('--mem-override', help='per-module memory budgets, e.g. Edg=16,Graph2=100 (name prefixes)')
     ap.add_argument('--partial', help='a node snapshot (tarball), or a directory of them, to resume partially compiled Records from')
     ap.add_argument('--partial-before', type=float, default=0, help='with --partial: the snapshots\' start (epoch s)')
     ap.add_argument('--drain-min', type=float, default=0, help='in a Slurm job: admit no Records this many minutes '
                     'before its end')
     args = ap.parse_args()
+    for kv in filter(None, (args.mem_override or '').split(',')):
+        k, v = kv.split('=')
+        MEM_OVERRIDE[k] = float(v)
     idxs = list(args.idx)
     if args.idx_file:
         idxs += [int(x) for x in open(args.idx_file).read().split()]

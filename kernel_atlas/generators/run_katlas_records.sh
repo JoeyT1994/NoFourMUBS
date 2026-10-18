@@ -54,7 +54,7 @@ snapshot() {
 trap 'kill %1 2>/dev/null; pkill -f "$STAGE/" 2>/dev/null; wait; snapshot; stage_clean; echo "stopped (USR1) on $(hostname), snapshot in $ARCH/partial"; exit 0' USR1
 "$VENV/bin/python" -u kernel_atlas/generators/atlas_run.py --out /tmp/katlas_work_$SLURM_JOB_ID --archive "$ARCH" \
     --name "task${SLURM_ARRAY_JOB_ID:-$SLURM_JOB_ID}_$TASK" --idx-file /tmp/katlas_work_$SLURM_JOB_ID/idx.txt \
-    --mem-gb "$MEM_GB" --gen-workers $((CPUS / 6)) --max-records "$MAXREC" --max-procs "$CPUS" --lean-threads "$LT" --drain-min "$DRAIN" "${PART[@]}" &
-wait %1
+    --mem-gb "$MEM_GB" --gen-workers $((CPUS / 6)) --max-records "$MAXREC" --max-procs "$CPUS" --lean-threads "$LT" --drain-min "$DRAIN" "${PART[@]}" ${RETRY:+--retry-failed} ${MEM_OVERRIDE:+--mem-override "$MEM_OVERRIDE"} &
+wait %1 || { echo "driver exited with $?; snapshot"; pkill -f "$STAGE/"; sleep 5; snapshot; }   # a crash keeps the finished modules too
 stage_clean
 echo "done on $(hostname)"
