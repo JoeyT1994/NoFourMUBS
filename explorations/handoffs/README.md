@@ -6,6 +6,9 @@ computation, replayable), **NUMERICAL** (evidence only), **CONJECTURE**.
 
 | Brief | Statement | What it would remove | Difficulty |
 |---|---|---|---|
+| [`Q_fourier_anchor`](Q_fourier_anchor/BRIEF.md) | One explicit strict corner of the Fourier family K(t) for small t > 0, with R(t) in closed form; the Fourier family then anchors side existence and coverage instead of H₀ | `Step2/BaseAnchor.lean` (73 KB), its generator, `anchor.py`, the `anchor` certificate field | Low |
+| [`R_flatness_structural`](R_flatness_structural/BRIEF.md) | A third-moment transport identity making W₁₁ = 0 follow from the side quadratic and the λ-identities, without expansion | `L1/FlatData.lean` (229 KB), `FlatCheckW11` (3 min, 11 GB) | High |
+| [`S_endpoints_by_counting`](S_endpoints_by_counting/BRIEF.md) | A second ten-corner rule that, with Σ p = 54, excludes the two critical-strip endpoints | `PRM/CoverageEndP7`, `CoverageEndEqui` (48 KB), two exclusion proofs | Medium |
 | [`O_zeroj_without_square_sum`](O_zeroj_without_square_sum/BRIEF.md) | Zero-J critical strips without the twenty-corner square sum (target K = (1−z)(z+3)³); return K's signed sums provably do not suffice here | `CoverageStripIdZeroData` (216 KB) and the rest of the square-sum toolchain | Medium–high |
 | [`P_atlas_free`](P_atlas_free/BRIEF.md) | Replace the atlas by algebra: prove F (every MUB triple has a Fourier-type transition) via (A) triples with a Fourier edge, (B) local completeness along them, (C) no compact Fourier-free component of triple space | Steps 3–4 (the atlas, Stage C, boundary transfers) and the kernel atlas | Very high (C is the core of the MMVW triple conjecture). **Partly returned** ([`../returns/P_atlas_free`](../returns/P_atlas_free/REVIEW.md)): B done, A local; A + C open |
 

@@ -278,7 +278,7 @@ remain obligations MC2 and MC4. Global strict-corner existence remains MC1.
 
 The recovered derivations and their provenance are included in the dossier.
 A successful algebra check does not certify the remaining global claims.
-This appended section changes the file hash; only the original prefix is pinned (`Proofs/APPEND_ONLY_BASELINES.json`).
+This appended section changes the file hash; only the original prefix is pinned (`Proofs/provenance/APPEND_ONLY_BASELINES.json`).
 
 ### Further proof progress, 30 September 2026
 
@@ -332,6 +332,6 @@ positive-sheet coverage and the fixed-seed conjugation relation used by
 NumericalCampaign/REDUCTION.md, with maximality and sorted conditions preserved.
 
 Replay all local checks with `python3 MinimalConstruction/Proofs/verify_dossier.py`.
-See [COMPLETION_AUDIT.md](Proofs/COMPLETION_AUDIT.md) for the requirement
-audit and [CHANGE_REPORT.md](Proofs/CHANGE_REPORT.md) for all changed files
+See [COMPLETION_AUDIT.md](Proofs/provenance/COMPLETION_AUDIT.md) for the requirement
+audit and [CHANGE_REPORT.md](Proofs/provenance/CHANGE_REPORT.md) for all changed files
 and hashes. The dossier is replayed by the root `verify.py`.

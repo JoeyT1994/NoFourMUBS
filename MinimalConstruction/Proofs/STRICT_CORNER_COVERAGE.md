@@ -11,6 +11,10 @@ uses exact identities and the proved ClassificationPaper imports in
 FOURIER_ROUTING.md; no sampled evidence or historical global claim is
 an input.
 
+> **Note (18 Oct 2026).** The ClassificationPaper imports of `FOURIER_ROUTING.md` are no longer needed: `PRM.md` §7.1
+> (return G) proves the same routing directly, and the current proof (`PROOF.md` Theorem 2.5) uses that. The nonzero-J
+> strips are now proved by return K's signed corner sums.
+
 ## Proof
 
 For any physical corner E and its same-row complementary phase block B,

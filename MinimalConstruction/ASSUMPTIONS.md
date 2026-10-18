@@ -44,7 +44,7 @@ is not itself a completed proof relative to those imports.
   identities](Proofs/STRICT_DOMAIN.md) are proved on all R>0; the remaining
   side identities and exact permutation claims are tracked under MC3.
 
-Recovered sources are copied verbatim under Proofs/Recovered/ with a hash
+Recovered sources are copied verbatim under Proofs/provenance/Recovered/ with a hash
 manifest. Its verifiers are replayed by the root `verify.py` (job `mc_reconstruction_proofs`). Appending this section changes this file's hash; external
 pins must be updated after review using the changed-file report.
 
@@ -99,6 +99,6 @@ therefore gives the stated positive-sheet coverage and the exact campaign
 sheet step; Tao remains separately accounted for by its exceptional pairings.
 
 The local replay command is `python3 MinimalConstruction/Proofs/verify_dossier.py`.
-[Proofs/COMPLETION_AUDIT.md](Proofs/COMPLETION_AUDIT.md) maps the requirements
-to proofs and verifiers. [Proofs/CHANGE_REPORT.md](Proofs/CHANGE_REPORT.md)
+[Proofs/COMPLETION_AUDIT.md](Proofs/provenance/COMPLETION_AUDIT.md) maps the requirements
+to proofs and verifiers. [Proofs/CHANGE_REPORT.md](Proofs/provenance/CHANGE_REPORT.md)
 lists every changed file and the new hashes. The dossier is part of the root `verify.py`.

@@ -1,5 +1,9 @@
 # Both matched completions are flat on all R>0
 
+> **Superseded (18 Oct 2026).** The current proof proves matched flatness without [CT]: return E
+> (`proof/coverage/returns/E_matched_flatness/FLATNESS.md`), reduced to the single weighted defect W₁₁ by handoff M
+> (`proof/coverage/audits/AUDIT_2026-10-17/ALGEBRAIC_PROOFS.md`). This file is the earlier route.
+
 Status: proved relative to ClassificationPaper's proved regular
 seed-domain theorem. This resolves the always-flat part of MC4. The
 classification of additional, nonmatched flat pairings is supplied

@@ -39,7 +39,7 @@ def run(jobs=8):
     hashes={str(p.relative_to(HERE.parents[1])):hashlib.sha256(p.read_bytes()).hexdigest() for p in paths}
     return dict(status='PASS_RECONSTRUCTION_PROOF_DOSSIER_REPLAY',checks=records,
                 input_sha256=hashes,seconds=time.monotonic()-start,
-                scope='Algebra, outward witnesses, finite censuses and provenance for the written MC1–MC5 proofs. ClassificationPaper results and the explicit analytic arguments remain proof inputs; this is not a proof-assistant formalization.')
+                scope='Algebra, outward witnesses, finite censuses and provenance for the written MC1–MC5 proofs. The current proof uses only the strict-corner coverage documents (MC1, see README.md), which need no ClassificationPaper input; the [CT]-relative MC2–MC5 proofs are the earlier route. Not a proof-assistant formalization.')
 
 
 if __name__=='__main__':print(json.dumps(run(),indent=2))

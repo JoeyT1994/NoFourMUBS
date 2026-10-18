@@ -1,5 +1,9 @@
 # Every nonmatched strict completion is Tao
 
+> **Superseded (18 Oct 2026).** The current proof's nonmatched converse is return G
+> (`proof/coverage/returns/G_prm/PRM.md` §§2–5, `PROOF.md` Theorem 2.4), with no classification import. This file is
+> the earlier [CT]-relative route.
+
 Status: proved relative to the explicitly identified ClassificationPaper
 inputs below. Together with TAO_PAIRINGS.md, this completes MC4, including
 the converse exceptional assertion. Global strict-corner existence (MC1)

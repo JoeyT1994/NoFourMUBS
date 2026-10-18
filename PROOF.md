@@ -24,9 +24,24 @@ excluded separately. No classification of order-6 Hadamard matrices is used.
 | Step | Content | How it is checked |
 |---|---|---|
 | 1 | The positive local maxima of R form one 18-point orbit | Exact algebra (651 claims); **in Lean** |
-| 2 | Reconstruction (matched completions: existence, uniqueness, converse, coverage) and connectedness of X | Paper proofs with exact certificates; **in Lean** (connectedness in the direct form of 2.3) |
+| 2 | Reconstruction (matched completions: existence, uniqueness, converse, coverage) and connectedness of X | Paper proofs with exact certificates; **in Lean** (connectedness through the maximum principle, §2.3) |
 | 3 | A ball Record plus Stage C contains no quartet edge | Proved inequalities (**in Lean**), evaluated in interval arithmetic |
 | 4 | A finite atlas of 12,021 Records covers X | Certified computation, replicated by an independent implementation |
+
+**How the pieces fit.**
+
+```
+Theorem 1 (maxima of R) ──→ Lemma 1.1 (maximum principle) ─────────────┐
+Lemma 2.1 (side quadratic) ─→ 2.2 existence ─→ 2.3 uniqueness ─────────┤
+                              2.2 ─→ 2.4 converse ──┐                  │
+                              2.5 coverage ─────────┴→ 2.6 exact reach ┴→ Theorem 2 (X connected)
+Lemma 3.1 (normal bound) + Lemma 3.2 (Stage C) ─→ each Record excludes quartet edges
+Lemma 4.1 (boundary transfer) + Lemma 4.2 (coverage) + Theorem 2 ─→ the atlas covers X ─→ no four MUBs
+```
+
+Step 2 is the minimal reconstruction ([`MinimalConstruction/`](MinimalConstruction/README.md)): a corner seed, its two
+sides and the forced fourth block. That folder's README maps each of its documents to the theorem here that uses it,
+with a notation table.
 
 ---
 
@@ -61,6 +76,15 @@ determines the scalar R(θ) = 4g²η − χ² (Step 2.1 gives the formulas).
 >   θ* = α(1, 2, −1, −2), α = arccos(1/4), R(θ*) = 3¹³/2¹².
 >
 > (The Hessian there is negative definite, so these 18 points are exactly the positive local maxima, and max R = 3¹³/2¹².)
+
+Theorem 1 is used in one form, three times (Theorems 2.2 and 2, and the Lean coverage route):
+
+> **Lemma 1.1 (maximum principle).** Let S = {θ ∈ T⁴ : R(θ) > 0}. If U ⊆ S is open and closed in S and contains the
+> 18 maxima of Theorem 1, then U = S.
+
+*Proof.* Otherwise V = S ∖ U is nonempty, open and closed in S. Maximise R on the closure of V in the compact torus
+T⁴. The maximum is positive, so it is attained in S, hence in V (closed in S); V is open in T⁴, so it is a positive
+local maximum of R. By Theorem 1 it is one of the 18 maxima, which lie in U. ∎
 
 **Coordinates.** Normalise the even products (ad, b, c) and the odd products (bc, d, a) of the corner so that each triple has product 1. Let U and V be their traces. Each lies in the filled deltoid 𝒟, and the trace map is an open quotient by S₃. Put A = U + V, B = U − V, u = |A|² and v = |B|². Then
 
@@ -132,16 +156,17 @@ A = {[H] : H matched at a strict seed}.
   Lemma 2.1 it is nonzero wherever R > 0, so by the inverse function theorem the strict seeds whose Gram matrix is
   realised with Im T > 0 form an open set U. U is also closed in S = {R > 0}: the sides form a compact torus, and
   Im T cannot reach 0 over R > 0. U contains the 18 maxima of R (Theorem 1), where the matched completions
-  transported from the explicit completion H₀ supply the sides, so U = S by the maximum argument of Theorem 2.
+  transported from the explicit completion H₀ supply the sides, so U = S by Lemma 1.1.
   Conjugating seed and side gives the other root, and the vertical side is the same with the signs exchanged
   ([`proof/coverage/returns/J_side_existence/RESULT.md`](proof/coverage/returns/J_side_existence/RESULT.md)).
 - **Flatness.** For *any* actual sides B, C on conjugate roots, the forced block D = −C E* G⁻¹ B has unimodular
-  entries. The completion always satisfies HH* = 6I. Its defect matrix |Dᵢⱼ|² − 1 has zero row and column sums, so it
-  is determined by four weighted third-moment defects W₁₁, W₁₂, W₂₁, W₂₂. Exchanging rows 1, 2 of E and B (or columns
+  entries. The completion always satisfies HH* = 6I. Its defect matrix Δᵢⱼ = |Dᵢⱼ|² − 1 has zero row and column sums,
+  so it is determined by the weighted defects W = C̄ᵀ Δ B̄ᵀ, whose first row and column vanish; the remaining entries
+  are W₁₁, W₁₂, W₂₁, W₂₂ (zero-based indices), and W = 0 forces Δ = 0 since B and C are invertible. Exchanging rows 1, 2 of E and B (or columns
   1, 2 of E and C) leaves D unchanged, keeps the seed strict and the sides actual, and permutes the indices of W, so
   every defect is W₁₁ at a relabelled seed. The two coefficients of W₁₁ vanish identically in ℚ(a, b, c, d)
   ([`proof/coverage/returns/E_matched_flatness`](proof/coverage/returns/E_matched_flatness/FLATNESS.md); the
-  relabelling is handoff M, [`explorations/handoffs/M_flatness_one_defect`](explorations/handoffs/M_flatness_one_defect/BRIEF.md)).
+  relabelling is handoff M, proved in [`ALGEBRAIC_PROOFS.md`](proof/coverage/audits/AUDIT_2026-10-17/ALGEBRAIC_PROOFS.md)).
 
 *Lean:* `L1.matchedExistence`. Side existence is `L1.exists_side_h` and `L1.exists_side_v` (`L1/SideJacobian`,
 `L1/SideCover`); the two flatness identities of W₁₁ are re-checked by the kernel through a verified Kronecker
@@ -197,14 +222,13 @@ with `PRM.md` §7.1). Suppose every corner of H is critical (R = 0) and H ≇ F6
      denominator vanishes; the product of the six denominators, factored on the four curves, gives exactly the
      three candidates.
    - The two endpoints are excluded separately (`CRITICAL_P7_EXCLUSION.md`, `CRITICAL_EQUI_CORRELATION_EXCLUSION.md`).
-3. **Counting.** κ ∈ (1/√5, 1/2), since the cubic is increasing for κ > 0 and changes sign there. Hence
-   p* ∈ (17/3, 29/5). Fix one column of a strip. Over the ten corners containing it, Σ p_C = 54 (row
-   orthogonality; it is half of the 108 over all twenty corners, since complementary corners have the same p). Ten
-   numbers from {0, 5} ∪ (17/3, 29/5) cannot sum to 54: sums of 0s and 5s are multiples of 5, and the open intervals
-   (17n/3 + 5m, 29n/5 + 5m) never contain 54. (The interval must be open: six copies of 17/3 and four 5s sum to 54.) ∎
+3. **Counting.** Over the twenty corners of a strip, Σ p_C = 108 (row orthogonality). The cubic
+   3κ³ + κ² + κ − 1 has no rational root, so it is irreducible; then κ² is irrational (κ has degree 3), and so is
+   p*. If n corners have p = p* and m have p = 5, then n p* + 5m = 108 forces n = 0, and 5m = 108 is impossible. ∎
 
 *Lean:* `PRM.strictCornerCoverage` (`lean/NoFourMUBs/Final.lean`; modules `PRM/Coverage*.lean`). The Lean proof
-differs from the paper in two places: the p = 7 endpoint is excluded by one corner of signature −56 − 8i instead of
+counts differently: it fixes one column, uses the ten corners containing it (Σ p_C = 54) and the bounds
+p* ∈ (17/3, 29/5), which avoids irrationality. It also differs from the paper in two places: the p = 7 endpoint is excluded by one corner of signature −56 − 8i instead of
 the 20-corner sum, and the cube-root case of the equicorrelation endpoint uses (w³ − 8a)(w³ + a)² = 0 instead of a
 field-degree argument. The zero-J square-sum identity is re-checked by the kernel (`PRM/CoverageStripIdZero*.lean`);
 the nonzero-J stratum is `PRM/CoverageSigned*.lean`.
@@ -221,10 +245,10 @@ matched. If the horizontal signature is ζ₋, conjugate the whole matrix. *Lean
 *Proof.*
 1. **Continuity.** The class map θ ↦ [H₊(θ)] on strict seeds is continuous: the matched relation is closed, 𝓗 is
    compact, and the matched class is unique (Theorems 2.2, 2.3).
-2. **A is connected.** Each component of the strict seed set S = {R > 0} has compact closure, with R = 0 on its
-   boundary, so it contains a positive local maximum. By Theorem 1 that maximum lies in the 18-point orbit, and all
-   18 points give one class [K*]: let L be a seed symmetry with transposition bit τ and conjugation bit κ; then
-   [H_σ(Lθ)] = 𝒞^κ 𝒯^τ [H_{(−1)^{τ+κ}σ}(θ)], and the maximal seed E(x) = [[1,1,1],[1,x,x²],[1,x⁻¹,x⁻²]] has two
+2. **A is connected.** Each component of S has compact closure, with R = 0 on its boundary, so it contains a
+   positive local maximum (the argument of Lemma 1.1). By Theorem 1 that maximum lies in the 18-point orbit, and all
+   18 points give one class [K*]: let L be a seed symmetry with transposition bit τ and conjugation bit ε; then
+   [H_σ(Lθ)] = 𝒞^ε 𝒯^τ [H_{(−1)^{τ+ε}σ}(θ)], and the maximal seed E(x) = [[1,1,1],[1,x,x²],[1,x⁻¹,x⁻²]] has two
    exact frame symmetries; an explicit matched completion H₀ at θ* (`Step2/BaseAnchor.lean`) anchors the class. So
    the image of every component is connected and contains [K*], and A is connected. So is conj A.
 3. **Joining at F6.** The family [[F₃, F₃], [F₃D(t), −F₃D(t)]], with D(t) = diag(1, e^{it}, 1), tends to
@@ -234,25 +258,6 @@ matched. If the horizontal signature is ζ₋, conjugate the whole matrix. *Lean
 
 Details: [`proof/coverage/returns/A_deltoid/CONNECTEDNESS.md`](proof/coverage/returns/A_deltoid/CONNECTEDNESS.md) and
 `SHEETS_TOPOLOGY.md`, with return B as an independent check. *Lean:* `Step2.coverage_of_matched_density` and its inputs.
-
-**Corollary (coverage).** Let 𝓡 be a finite family of closed Records (Step 3), and let 𝓡̂ be its closure under Γ = {id, conjugation, transposition, conjugate-transpose}. Γ maps a Record ball to a Record ball of the same radius and preserves quartet edges. Let W be the set of classes of Hadamards in ⋃𝓡̂. Suppose:
-1. W contains a non-Tao class;
-2. every Hadamard on the boundary of a Record in 𝓡 is equivalent, after some g ∈ Γ, to one in the interior of a Record in 𝓡.
-
-Then W ⊇ X.
-
-*Proof.* Applying g ∈ Γ, condition 2 holds for every Record in 𝓡̂, with targets in 𝓡̂. So every point of W has a representative in the interior of some Record in 𝓡̂.
-- W ∩ X is open: if H = e^{i(P + δ)} with ‖δ‖ < R and δ(H, K) < R − ‖δ‖, then K ≅ e^{i(P + δ + v)} with ‖δ + v‖ < R.
-- W ∩ X is closed: it is a finite union of compact images.
-- W ∩ X is nonempty.
-
-Since X is connected, W ∩ X = X. ∎
-
-*Lean:* `recordClopen_of_atlas` gives the open–closed step. Theorem 2 is not formalised as a standalone
-statement (`Step2.coverage_of_connected` takes it as a hypothesis). `Final.no_four_mubs` uses the direct route
-`Step2.coverage_of_matched_density` instead: W pulled back to the strict seeds is open and closed and contains the
-anchor H₀ at a maximum of R, so by the argument of Theorem 2, step 2, it contains A and conj A; the certificate puts
-[F6] in W; and X = A ∪ conj A ∪ {[F6]} by Corollary 2.6.
 
 ## Step 3. Local exclusion: ball Records
 
@@ -294,6 +299,25 @@ A **ball Record** is a set B_r = {e^{i(P+δ)} : δ horizontal, ‖δ‖ ≤ R}, 
 
 Because of the normal bound, the boundary of a Record needs only a 4-dimensional cover by η-boxes, not a 25-dimensional one. *Lean:* `Transfer.lean`.
 
+> **Lemma 4.2 (coverage).** Let 𝓡 be a finite family of closed Records (Step 3), and let 𝓡̂ be its closure under Γ = {id, conjugation, transposition, conjugate-transpose}. Γ maps a Record ball to a Record ball of the same radius and preserves quartet edges. Let W be the set of classes of Hadamards in ⋃𝓡̂. Suppose:
+> 1. W contains a non-Tao class;
+> 2. every Hadamard on the boundary of a Record in 𝓡 is equivalent, after some g ∈ Γ, to one in the interior of a Record in 𝓡.
+>
+> Then W ⊇ X.
+
+*Proof.* Applying g ∈ Γ, condition 2 holds for every Record in 𝓡̂, with targets in 𝓡̂. So every point of W has a representative in the interior of some Record in 𝓡̂.
+- W ∩ X is open: if H = e^{i(P + δ)} with ‖δ‖ < R and δ(H, K) < R − ‖δ‖, then K ≅ e^{i(P + δ + v)} with ‖δ + v‖ < R.
+- W ∩ X is closed: it is a finite union of compact images.
+- W ∩ X is nonempty.
+
+Since X is connected (Theorem 2), W ∩ X = X. ∎
+
+*Lean:* `recordClopen_of_atlas` gives the open–closed step. Theorem 2 is not formalised as a standalone
+statement. `Final.no_four_mubs` uses the direct route `Step2.coverage_of_matched_density`: W pulled back to the
+strict seeds is open and closed in S and contains the 18 maxima (all give the class of the anchor H₀, which lies in
+a Record), so by Lemma 1.1 it is all of S, and W contains A and conj A; the certificate puts [F6] in W; and
+X = A ∪ conj A ∪ {[F6]} by Corollary 2.6.
+
 **The computation** ([`proof/atlas/`](proof/atlas/README.md)):
 1. `atlas.py` grows ball Records breadth-first from a seed centre until every Record's boundary is transferred.
 2. `certify.py` re-checks every Record independently: σ, the normal bound, Stage C, and a replay of the boundary tree with Arb transfer constants. It trusts only the centre phases, radii, label radii, integer frames and target lists of the certificate.
@@ -307,7 +331,7 @@ Because of the normal bound, the boundary of a Record needs only a 4-dimensional
 
 ## Conclusion
 
-By Step 4 and the Corollary to Step 2, every class in X lies in some ball Record. By Step 3, no Hadamard in a Record is a quartet edge. S₆ is not a quartet edge, by Remark 3.3. Hence no order-6 Hadamard matrix is a quartet edge, and ℂ⁶ has no four MUBs. ∎
+By Step 4 and Lemma 4.2, every class in X lies in some ball Record. By Step 3, no Hadamard in a Record is a quartet edge. S₆ is not a quartet edge, by Remark 3.3. Hence no order-6 Hadamard matrix is a quartet edge, and ℂ⁶ has no four MUBs. ∎
 
 **In Lean** the whole argument is `NoFourMUBs.Final.no_four_mubs (C : AtlasCertificate) : ¬ FourMUBs` ([`lean/NoFourMUBs/Final.lean`](lean/NoFourMUBs/Final.lean)), using only `propext`, `Classical.choice` and `Quot.sound`. Its one input is the finite certificate of Step 4: Lean proves "if the 12,021 Records satisfy their inequalities, there are no four MUBs", and the inequalities themselves are checked by two independent interval implementations.
 
@@ -321,9 +345,9 @@ By Step 4 and the Corollary to Step 2, every class in X lies in some ball Record
 | Theorem 2.3 (matched uniqueness) | Step 2.2 | none | yes |
 | Theorem 2.4 (nonmatched converse) | return G §§2–5 | exact: 81-case census, Laurent identities | yes |
 | Theorem 2.5 (strict-corner coverage) | `STRICT_CORNER_COVERAGE.md`; return K for nonzero J | exact identities | yes (kernel re-checks the zero-J square-sum identity and return K's signed corner expansion) |
-| Theorem 2 (connectedness) | Step 2.3 | none | in the direct form used by the Corollary (`coverage_of_matched_density`), not as a standalone theorem |
+| Lemma 1.1, Theorem 2 (connectedness) | Steps 1, 2.3 | none | Lemma 1.1 in the direct coverage route (`coverage_of_matched_density`); Theorem 2 not as a standalone theorem |
 | Lemmas 3.1–3.2, Remark 3.3 | `STAGEC.md` | none | yes (as inequalities) |
-| The atlas (Step 4) | Lemma 4.1, Corollary to Step 2 | Arb and margined float; two independent implementations | the topology yes; the numbers are checked outside Lean |
+| The atlas (Step 4) | Lemmas 4.1–4.2 | Arb and margined float; two independent implementations | the topology yes; the numbers are checked outside Lean |
 
 **Inputs taken as given.** No classification of order-6 Hadamard matrices is used. The Stage C method follows
 [OAI] §6, with every inequality reproved (`STAGEC.md`) and formalised.

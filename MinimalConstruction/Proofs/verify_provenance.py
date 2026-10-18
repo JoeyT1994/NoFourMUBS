@@ -3,25 +3,26 @@ from pathlib import Path
 import hashlib,json
 
 HERE=Path(__file__).resolve().parent
+PROV=HERE/'provenance'   # recovered sources, manifests and pinned hashes
 
 
 def run():
-    manifest=json.loads((HERE/'RECOVERY_MANIFEST.json').read_text())
+    manifest=json.loads((PROV/'RECOVERY_MANIFEST.json').read_text())
     for record in manifest['files']:
         path=Path(record['path'])
         assert not path.is_absolute() and '..' not in path.parts
-        data=(HERE/path).read_bytes()
+        data=(PROV/path).read_bytes()
         assert len(data)==record['bytes']
         assert hashlib.sha256(data).hexdigest()==record['sha256']
-    excerpts=json.loads((HERE/'SESSION_EXCERPT_MANIFEST.json').read_text())
+    excerpts=json.loads((PROV/'SESSION_EXCERPT_MANIFEST.json').read_text())
     for record in excerpts['files']:
         path=Path(record['path'])
         assert not path.is_absolute() and '..' not in path.parts
-        data=(HERE/path).read_bytes()
+        data=(PROV/path).read_bytes()
         assert len(data)==record['bytes']
         assert hashlib.sha256(data).hexdigest()==record['sha256']
-    baseline=json.loads((HERE/'APPEND_ONLY_BASELINES.json').read_text())
-    original=json.loads((HERE/'ORIGINAL_PIN_HASHES.json').read_text())
+    baseline=json.loads((PROV/'APPEND_ONLY_BASELINES.json').read_text())
+    original=json.loads((PROV/'ORIGINAL_PIN_HASHES.json').read_text())
     current={}
     for name,record in baseline.items():
         data=(HERE.parent/name).read_bytes()

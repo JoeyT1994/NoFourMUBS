@@ -1,15 +1,33 @@
 # Reconstruction proof dossier
 
-> **Status (17 Oct 2026).** In the current proof (`PROOF.md`, Step 2) these files supply strict-corner coverage
-> (Theorem 2.5) without the classification; its nonzero-J strips are proved by return K
-> (`../../proof/coverage/returns/K_nonzero_J/`), and the square-sum route of §§3–4 of
-> `CRITICAL_STRIP_CLASSIFICATION.md` is kept as an independent second proof. The rest of this dossier (MC2–MC5
-> relative to [CT]) is the earlier route.
+## Used by the current proof
+
+`PROOF.md` uses these documents for **Theorem 2.5 (strict-corner coverage)**, with no classification input. Everything else
+in this folder is the earlier route (below) or provenance (`provenance/`).
+
+| `PROOF.md` | Document | Verifier |
+|---|---|---|
+| Theorem 2.5, overall argument | [STRICT_CORNER_COVERAGE.md](STRICT_CORNER_COVERAGE.md) (routing by `PRM.md` §7.1) | `verify_strict_corner_coverage.py` |
+| 2.5 step 1, all-critical Fourier members are F6 | [FOURIER_CRITICAL_LOCUS.md](FOURIER_CRITICAL_LOCUS.md) | `verify_fourier_critical.py` |
+| 2.5 step 2, corner scalar reduction | [CRITICAL_CORNER_REDUCTION.md](CRITICAL_CORNER_REDUCTION.md) | `verify_critical_reduction.py` |
+| 2.5 step 2, zero-J strips | [CRITICAL_STRIP_CLASSIFICATION.md](CRITICAL_STRIP_CLASSIFICATION.md) §§1–2 (§§3–4: a second, square-sum proof) | `verify_critical_square_sums.py`, `verify_critical_scalar_classification.py` |
+| 2.5 step 2, nonzero-J strips | return K, [`../../proof/coverage/returns/K_nonzero_J/`](../../proof/coverage/returns/K_nonzero_J/REVIEW.md) | its own verifier |
+| 2.5 step 2, the two endpoints | [CRITICAL_P7_EXCLUSION.md](CRITICAL_P7_EXCLUSION.md), [CRITICAL_EQUI_CORRELATION_EXCLUSION.md](CRITICAL_EQUI_CORRELATION_EXCLUSION.md) | `verify_critical_p7.py`, `verify_critical_equicorrelation.py` |
+| Lemma 2.1 and the side fibre (cited by the strip classification) | [SIDE_FIBER.md](SIDE_FIBER.md) §1 | `verify_side_fiber.py` |
+
+Matched existence, uniqueness and the converse (Theorems 2.2–2.4) are proved outside this folder, without [CT]: return J
+(sides), return E with handoff M (flatness), `PROOF.md` §2.2 (uniqueness) and return G (converse); see
+[`../../proof/coverage/README.md`](../../proof/coverage/README.md). `python3 verify_dossier.py` replays every check here.
+
+## Earlier route (relative to the classification [CT])
+
+Kept as a record; not used by the current proof. `FOURIER_ROUTING.md` is superseded by `PRM.md` §7.1,
+`MATCHED_FLATNESS.md` by return E with handoff M, and `NONMATCHED_EXCEPTIONS.md` by return G.
 
 **Proof dossier complete relative to the stated ClassificationPaper inputs.**
 All five reconstruction obligations now have proofs in this folder.
 Recovered historical files are provenance, not additional axioms.
-[COMPLETION_AUDIT.md](COMPLETION_AUDIT.md) records the requirement audit;
+[provenance/COMPLETION_AUDIT.md](provenance/COMPLETION_AUDIT.md) records the requirement audit;
 `python3 MinimalConstruction/Proofs/verify_dossier.py` replays all local checks.
 
 ## Proof obligations
@@ -47,22 +65,22 @@ No proof of the paper's results is requested or repeated here.
 
 ## Recovered sources
 
-[RECOVERY_MANIFEST.json](RECOVERY_MANIFEST.json) records original paths,
+[provenance/RECOVERY_MANIFEST.json](provenance/RECOVERY_MANIFEST.json) records original paths,
 byte sizes and SHA-256 hashes for 56 files recovered from the two historical
 coordinate packages. They include derivations, reviews, implementations and
-old diagnostic receipts. They are copied verbatim under `Recovered/`.
+old diagnostic receipts. They are copied verbatim under `provenance/Recovered/`.
 Their inherited assertions remain subject to the obligations above.
 The search of Documents, Downloads and Files, including 100 ZIP archives,
 did not locate the original COMPREHENSIVE_HANDOFF.md. An archived task did
 retain the decoded output of reading lines 290–440. That verbatim excerpt
-is separately documented in [SESSION_EXCERPT_MANIFEST.json](SESSION_EXCERPT_MANIFEST.json)
-and retained in [Recovered/session_excerpts/COMPREHENSIVE_HANDOFF_lines290-440.md](Recovered/session_excerpts/COMPREHENSIVE_HANDOFF_lines290-440.md).
+is separately documented in [provenance/SESSION_EXCERPT_MANIFEST.json](provenance/SESSION_EXCERPT_MANIFEST.json)
+and retained in [provenance/Recovered/session_excerpts/COMPREHENSIVE_HANDOFF_lines290-440.md](provenance/Recovered/session_excerpts/COMPREHENSIVE_HANDOFF_lines290-440.md).
 It calls global critical-locus closure a proposed result and does not
 contain its proof. This recovery does not discharge MC1.
 
-- [Single-sheet source](Recovered/single_sheet_integration/coordinates/Hadamard6_Single_Sheet_Conjugate_Fourier_Form.md).
-- [Phase-gate source](Recovered/phase_gate_review/coordinates/Hadamard6_Unitary_Core_Phase_Gate_Form.md).
-- [Historical phase-gate review](Recovered/phase_gate_review/coordinates/PHASE_GATE_REVIEW.md).
+- [Single-sheet source](provenance/Recovered/single_sheet_integration/coordinates/Hadamard6_Single_Sheet_Conjugate_Fourier_Form.md).
+- [Phase-gate source](provenance/Recovered/phase_gate_review/coordinates/Hadamard6_Unitary_Core_Phase_Gate_Form.md).
+- [Historical phase-gate review](provenance/Recovered/phase_gate_review/coordinates/PHASE_GATE_REVIEW.md).
 
 ## New local verifiers
 
@@ -123,5 +141,5 @@ The accepted, independently replayed implementation is now
 [CRITICAL_STRIP_CLASSIFICATION.md](CRITICAL_STRIP_CLASSIFICATION.md).
 Research snapshots are not used as proof inputs.
 
-The dossier is replayed by the root `verify.py` (job `mc_reconstruction_proofs`). Receipts and the
-changed-file report are retained within this folder.
+The dossier is replayed by the root `verify.py` (job `mc_reconstruction_proofs`). Receipts, the
+changed-file report and the recovered sources are in `provenance/`.

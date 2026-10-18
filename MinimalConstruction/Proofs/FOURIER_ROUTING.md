@@ -1,5 +1,8 @@
 # Two elementary routes into the Fourier families
 
+> **Superseded (18 Oct 2026).** The current proof routes singular minors and geometric row triples by
+> `PRM.md` §7.1 (return G), which needs no classification import. This file is the earlier [CT]-relative route.
+
 The following statements are proved independently of MC1. Together with
 `FOURIER_CRITICAL_LOCUS.md`, either hypothesis below rules out an
 all-critical carrier other than F6.
