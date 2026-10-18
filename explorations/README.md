@@ -5,7 +5,7 @@ or computed that the proof does not use, open problems, and numerical studies.
 
 | Folder | What it is |
 |---|---|
-| [`handoffs/`](handoffs/README.md) | Open handoffs: statements whose proof would simplify the proof further (M, O, P) |
+| [`handoffs/`](handoffs/README.md) | Open handoffs: statements whose proof would simplify the proof further (O, P) |
 | [`returns/H_fourier_vanishing`](returns/H_fourier_vanishing/REPORT.md) | Every non-Tao order-6 Hadamard has all forty Fourier moments zero (Lean: `NoFourMUBs.FourierVanishing`); an input to an earlier draft of the paper |
 | [`returns/I_moment_reduction`](returns/I_moment_reduction/REPORT.md) | The moment identity (R); shows the draft's Eq. (sos) is unnecessary |
 | [`returns/L_fourier_edge`](returns/L_fourier_edge/REVIEW.md) | Toward "every MUB triple has a Fourier edge": a local theorem near the Diţă triple, a re-certified Fourier-family exclusion, and (in `global_progress/`) a component theorem — the bicirculant family is a whole component of triple space |

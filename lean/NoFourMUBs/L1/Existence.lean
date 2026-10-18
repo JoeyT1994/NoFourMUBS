@@ -13,8 +13,9 @@ classification.  For the seed corner `E` with Gram data `(s, t, r)` and invarian
 
 * **Sides** (`SideCover`): a horizontal phase side with Gram data `(s, t, r)` and signature `ζ`,
   and a vertical one with the vertical Gram data and signature `ζ̄`.
-* **Flatness** (`FlatBridge`, with the kernel checks `FlatCheck*`): the four weighted defects of the
-  forced block vanish, so the completion is Hadamard (`flat_of_W`).
+* **Flatness** (`FlatBridge`, with the kernel checks `FlatCheck*` of the one weighted defect `W₁₁`): the four
+  weighted defects of the forced block vanish, the other three being `W₁₁` at relabelled seeds, so the completion
+  is Hadamard (`flat_of_W`).
 
 The signatures are `ζ` and `ζ̄`, which is the matched relation.
 -/
@@ -77,7 +78,7 @@ theorem matchedExistence : Step2.MatchedExistence := by
   have hCdet : IsUnit C.det := Step2.det_ne_of_sig (by rw [sigC, Complex.conj_im]; exact neg_ne_zero.2 hζim)
   have hE : EntrywiseUnit (Em ρ) := by
     intro i j; fin_cases i <;> fin_cases j <;> simp [Em, Hadamard6.corner, hu]
-  have hW := W_zero h (fun q i a c => mh_valid q i a c) (fun p i a c => qv_valid p i a c) F_valid hx hy hx' hy'
+  have hW := W_zero h mh_valid qv_valid F_valid hx hy hx' hy'
     hs ht hr hs' ht' hr' hT hT' (by rw [hζc]; linear_combination -hζ2) (by rw [hζc]; ring) hBdet
   obtain ⟨-, hHad⟩ := flat_of_W (Em ρ) B C hE (horiz_cand h hx hy hs ht hr) (vert_cand h hx' hy' hs' ht' hr')
     hBdet hCdet hW

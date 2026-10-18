@@ -6,13 +6,16 @@ computation, replayable), **NUMERICAL** (evidence only), **CONJECTURE**.
 
 | Brief | Statement | What it would remove | Difficulty |
 |---|---|---|---|
-| [`M_flatness_one_defect`](M_flatness_one_defect/BRIEF.md) | Matched flatness from one weighted defect: W₁₂, W₂₁, W₂₂ are W₁₁ at relabelled seeds (short lemma, checked by hand) | 3 of the 4 `L1/FlatCheckF*` modules (about 12 of 20 build-minutes, 11 GB each), about half of `FlatData`, `FlatCheckMh`, `FlatCheckQv` | Low (mainly Lean). **Answered** by the 17 Oct audit (permutation covariance W′ = Q*WP*, [`ALGEBRAIC_PROOFS.md`](../../proof/coverage/audits/AUDIT_2026-10-17/ALGEBRAIC_PROOFS.md)); Lean integration pending |
 | [`O_zeroj_without_square_sum`](O_zeroj_without_square_sum/BRIEF.md) | Zero-J critical strips without the twenty-corner square sum (target K = (1−z)(z+3)³); return K's signed sums provably do not suffice here | `CoverageStripIdZeroData` (216 KB) and the rest of the square-sum toolchain | Medium–high |
 | [`P_atlas_free`](P_atlas_free/BRIEF.md) | Replace the atlas by algebra: prove F (every MUB triple has a Fourier-type transition) via (A) triples with a Fourier edge, (B) local completeness along them, (C) no compact Fourier-free component of triple space | Steps 3–4 (the atlas, Stage C, boundary transfers) and the kernel atlas | Very high (C is the core of the MMVW triple conjecture). **Partly returned** ([`../returns/P_atlas_free`](../returns/P_atlas_free/REVIEW.md)): B done, A local; A + C open |
 
-**Completed handoffs.** J (side existence) and K (nonzero-J strips) are part of the proof:
+**Completed handoffs.** J (side existence), K (nonzero-J strips) and M (flatness from one weighted defect) are part
+of the proof:
 [`proof/coverage/returns/J_side_existence`](../../proof/coverage/returns/J_side_existence/RESULT.md),
-[`proof/coverage/returns/K_nonzero_J`](../../proof/coverage/returns/K_nonzero_J/REVIEW.md). L (Fourier edge) and N
+[`proof/coverage/returns/K_nonzero_J`](../../proof/coverage/returns/K_nonzero_J/REVIEW.md), and for M the brief
+[`M_flatness_one_defect`](M_flatness_one_defect/BRIEF.md) with its proof in the 17 Oct audit
+([`ALGEBRAIC_PROOFS.md`](../../proof/coverage/audits/AUDIT_2026-10-17/ALGEBRAIC_PROOFS.md)), in Lean as
+`L1.FlatCircuits.W_zero` (the L1 route now builds in 366 s instead of 1,173 s). L (Fourier edge) and N
 (second-order Stage C) returned results that the proof does not use: [`../returns/`](../returns/).
 
 **Considered and rejected** (survey of 17 Oct 2026): sharper normal-bound constants (the radius cap comes from Stage

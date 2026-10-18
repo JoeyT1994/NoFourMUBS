@@ -8,7 +8,7 @@ import NoFourMUBs.PRM.Reach
 `no_four_mubs_main` with its hypothesis `MatchedExistence` (L1) discharged by `L1.matchedExistence`, and density (D)
 derived from strict-corner coverage (MC1) by return G's Theorem A (`PRM.densityReach`).
 This module is not imported by the library root, since its kernel checks (`L1/FlatCheck*`) take about
-20 minutes to build: `lake build NoFourMUBs.Complete`.
+6 minutes to build: `lake build NoFourMUBs.Complete`.
 -/
 
 namespace NoFourMUBs
