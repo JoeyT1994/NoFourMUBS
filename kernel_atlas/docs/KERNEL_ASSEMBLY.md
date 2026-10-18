@@ -269,7 +269,7 @@ Records in chunk order so whole chunks finish together, and compile each chunk a
 
 ## 9. The full run on rusty (17 Oct 2026; in progress)
 
-Budget ≈ 20,000 core-hours, raised by the user to ≈ 23,000 before Phase 1 started and to ≈ 33,000 during it (whole 128-core ccq nodes; accounted as allocated cores × elapsed, `sacct` CPUTimeRAW over
+Budget ≈ 20,000 core-hours, raised by the user to ≈ 23,000 before Phase 1 started, to ≈ 33,000 and ≈ 38,000 during it, then lifted ("get this done overnight") (whole 128-core ccq nodes; accounted as allocated cores × elapsed, `sacct` CPUTimeRAW over
 jobs named `nofour-katlas*`). Archive: `/mnt/ceph/users/jtindall/nofour_katlas` (`rows/`, `oleans/Rec<n>.tar`,
 `src/Rec<n>.tar.gz`, `chunks/`, `final/`, `logs/`). Ceph baseline before the run: 947,759 files under
 `/mnt/ceph/users/jtindall`. Scripts: `run_katlas_{setup,records,chunks,final}.sh`, drivers `atlas_run.py --archive`
@@ -283,6 +283,8 @@ jobs named `nofour-katlas*`). Archive: `/mnt/ceph/users/jtindall/nofour_katlas` 
 | smoke: final against chunk 0 + 120 stub chunks | 7261228 | `ok`: Final compiles in 13.6 s (7.6 GB); `no_four_mubs_kernel : ¬ NoFourMUBs.FourMUBs`, axioms `propext, sorryAx, Classical.choice, Quot.sound` (`sorryAx` from the stubs only) | 3.5 |
 | 1. Records 100–12020 (16 nodes, Lean's default threads, 120 Records in flight, cap 10 h 45 per node; drain 70 min before the cap) | 7261367 (7261362, cap 9 h 24, cancelled after 9 s when the budget was raised) | submitted 09:52 EDT | ≤ 22,016 |
 | 1b. Records 12020 down to 9700 (8 nodes, the retuned memory budgets, 160 Records in flight, cap 7 h) | 7263718 | submitted 15:45 EDT, alongside 7261367 | ≤ 7,168 |
+| 1c. the 3,806 Records left (24 nodes; 1,202 resumed from snapshots of 7263718's nodes; no drain, snapshot at the limit) | 7265961 (7265950, 12 nodes and a 5 h 25 cap for the 38k budget, cancelled after 22 s when the budget was lifted) | submitted 22:47 EDT | |
+| 2. chunks complete by then (61 of them; chunk 0 from the smoke) | 7265986 | submitted 22:50 EDT | |
 
 `lean -j 1` cost ≈ 5% more CPU than Lean's default threads on the same Records (85.7 vs 82 min), so Phase 1 uses the
 default. The time cap is the budget control: 376 + 22,016 + ≈ 150 for chunks and final stays under 23,000; the expected cost is ≈ 19,000–20,000. A job
@@ -316,3 +318,13 @@ Records from `atlas_certificate.json.gz` in a clean copy and compares content ha
   commit staged by Phase 1): they regenerate byte for byte at 31c6d9d2 on rusty's x86-64 nodes with the run's
   environment (Python 3.12.9, numpy 2.2.6 with scipy-openblas 0.3.29); at cacef1a9 or later, a few Records' hints may
   differ by a unit. Rows carry `gen_commit` from 970f08ce on, so Records added later name their own commit.
+
+**The two capped jobs (22:45).** 7261367 ended at its cap with 7,196 Records `ok`; 7263718 with 894. Both lost
+much of their last hours: with 120–160 Records in flight a Record took 2.5–4.3 h of wall time (the driver compiles
+the oldest Records' modules first, but every Record in flight competes), so the Records in flight when the drain
+began (70 min before the cap) could not finish and were killed with their partial builds. 7263718's nodes were
+snapshotted (sources, build directories and module logs, 25.7 GB in `$ARCH/partial`) 10 minutes before its cap;
+`atlas_run.py --partial` restores a snapshot and compiles only the modules whose log ends in `Exit status: 0` and
+was written before the snapshot began (16,150 module logs over 1,202 Records). The Records job now snapshots itself
+on USR1 (600 s before its limit) after stopping its Lean processes, so a time limit costs nothing but the restart.
+State then: 8,215 Records `ok`, none failed, 29,291 core-hours.
