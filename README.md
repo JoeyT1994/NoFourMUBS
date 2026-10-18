@@ -16,7 +16,7 @@ interval-arithmetic implementations. No classification of order-6 Hadamard matri
 | Step | Statement | How it is checked |
 |---|---|---|
 | 1 | The positive local maxima of the corner invariant R form one 18-point orbit, max R = 3¹³/2¹² | 651 exact claims; **proved in Lean** |
-| 2 | Every non-Tao class other than F6 is a matched completion of a strict corner seed, and the non-Tao quotient is connected | paper proofs with exact certificates; **proved in Lean** |
+| 2 | Every non-Tao class other than F6 is a matched completion of a strict corner seed, and the non-Tao quotient is connected | paper proofs with exact certificates; **proved in Lean** (connectedness in the direct form the coverage argument uses) |
 | 3 | A ball Record plus Stage C contains no quartet edge | inequalities proved in Lean; evaluated per Record in interval arithmetic |
 | 4 | A finite atlas of 12,021 ball Records, whose boundaries transfer into one another, covers the quotient | certified computation, confirmed by two independent checkers |
 

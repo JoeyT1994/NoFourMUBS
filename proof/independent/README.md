@@ -35,10 +35,18 @@ environment has no JSON or gzip package. All floats are passed as `float.hex`, s
 The checker writes these files to OUTDIR:
 - `step3.tsv`: one line per record that needs Step 3.
 - `step4.tsv`: one line per closed record.
+- `BINDING.txt`: SHA-256 digests of the certificate, `check.jl`, `convert.py`, `src/*.jl` and the Julia
+  project and manifest, with the Julia version and the options (`--fast`, `--limit`).
 - `RESULT.txt`: a PASS or FAIL per closed record with the reason, the nonemptiness result and a verdict.
 
 Both `.tsv` files are appended as records finish, so a long run can be interrupted and restarted with the same
-command; it resumes where it stopped. `--limit K` checks only the first K closed records and their targets.
+command; it resumes where it stopped, but only if `BINDING.txt` matches the new run exactly. Otherwise it stops and
+asks for an empty OUTDIR, so receipts are never reused for a changed certificate, checker or mode. `--limit K`
+checks only the first K closed records and their targets, and can never give the complete verdict.
+
+**Exit status.** `check.jl` exits 0 only when the certificate is complete and every check passed. With `--partial`
+(used for sub-certificates, as in `tests/run_tests.sh`) it exits 0 when every checked record passed, and says that
+this is not a complete-atlas certificate. Otherwise it exits 1.
 
 | File | Contents |
 |---|---|

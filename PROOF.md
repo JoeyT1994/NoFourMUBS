@@ -24,7 +24,7 @@ excluded separately. No classification of order-6 Hadamard matrices is used.
 | Step | Content | How it is checked |
 |---|---|---|
 | 1 | The positive local maxima of R form one 18-point orbit | Exact algebra (651 claims); **in Lean** |
-| 2 | Reconstruction (matched completions: existence, uniqueness, converse, coverage) and connectedness of X | Paper proofs with exact certificates; **in Lean** |
+| 2 | Reconstruction (matched completions: existence, uniqueness, converse, coverage) and connectedness of X | Paper proofs with exact certificates; **in Lean** (connectedness in the direct form of 2.3) |
 | 3 | A ball Record plus Stage C contains no quartet edge | Proved inequalities (**in Lean**), evaluated in interval arithmetic |
 | 4 | A finite atlas of 12,021 Records covers X | Certified computation, replicated by an independent implementation |
 
@@ -243,7 +243,13 @@ Then W ⊇ X.
 - W ∩ X is closed: it is a finite union of compact images.
 - W ∩ X is nonempty.
 
-Since X is connected, W ∩ X = X. *Lean:* `recordClopen_of_atlas`, `Step2.coverage_of_connected`. ∎
+Since X is connected, W ∩ X = X. ∎
+
+*Lean:* `recordClopen_of_atlas` gives the open–closed step. Theorem 2 is not formalised as a standalone
+statement (`Step2.coverage_of_connected` takes it as a hypothesis). `Final.no_four_mubs` uses the direct route
+`Step2.coverage_of_matched_density` instead: W pulled back to the strict seeds is open and closed and contains the
+anchor H₀ at a maximum of R, so by the argument of Theorem 2, step 2, it contains A and conj A; the certificate puts
+[F6] in W; and X = A ∪ conj A ∪ {[F6]} by Corollary 2.6.
 
 ## Step 3. Local exclusion: ball Records
 
@@ -312,7 +318,7 @@ By Step 4 and the Corollary to Step 2, every class in X lies in some ball Record
 | Theorem 2.3 (matched uniqueness) | Step 2.2 | none | yes |
 | Theorem 2.4 (nonmatched converse) | return G §§2–5 | exact: 81-case census, Laurent identities | yes |
 | Theorem 2.5 (strict-corner coverage) | `STRICT_CORNER_COVERAGE.md`; return K for nonzero J | exact identities | yes (kernel re-checks the zero-J square-sum identity and return K's signed corner expansion) |
-| Theorem 2 (connectedness) | Step 2.3 | none | yes |
+| Theorem 2 (connectedness) | Step 2.3 | none | in the direct form used by the Corollary (`coverage_of_matched_density`), not as a standalone theorem |
 | Lemmas 3.1–3.2, Remark 3.3 | `STAGEC.md` | none | yes (as inequalities) |
 | The atlas (Step 4) | Lemma 4.1, Corollary to Step 2 | Arb and margined float; two independent implementations | the topology yes; the numbers are checked outside Lean |
 

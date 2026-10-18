@@ -32,5 +32,7 @@ files it cites). `python3 verify.py` replays all of the above.
 ## Audits
 
 [`audits/`](audits/): the independent audit of Theorem 2.4, exact reach and strict-corner coverage
-([`AUDIT_2026-10-15.md`](audits/AUDIT_2026-10-15.md), no errors found), the audit of return G's Theorem B, and the I4
-addendum with its check scripts.
+([`AUDIT_2026-10-15.md`](audits/AUDIT_2026-10-15.md), no errors found), the audit of return G's Theorem B, the I4
+addendum with its check scripts, and the whole-repository audit of 17 Oct
+([`AUDIT_2026-10-17/RESPONSE.md`](audits/AUDIT_2026-10-17/RESPONSE.md): no failed check; two Julia driver defects, now
+fixed; a documentation overclaim on connectedness, now corrected).

@@ -1,22 +1,70 @@
 # Independent certifier for the nofour-atlas-v1 certificate.  See README.md.
 #
-# julia --startup-file=no -t 10 --project=<jlenv_cluster> check.jl CERT OUTDIR [--fast] [--limit K]
+# julia --startup-file=no -t 10 --project=<jlenv_cluster> check.jl CERT OUTDIR [--fast] [--limit K] [--partial]
 #   CERT    the .json.gz certificate (converted with convert.py) or an already converted .txt
-#   OUTDIR  results: step3.tsv, step4.tsv (both resumable), RESULT.txt
+#   OUTDIR  results: step3.tsv, step4.tsv (both resumable), BINDING.txt, RESULT.txt
 #   --fast  float Stage C decisions with MARGIN = 1e-8 only (no interval replay of each rejection)
 #   --limit K   only certify the first K closed records (and their targets), for smoke tests
+#   --partial   exit 0 when every checked record passes, without claiming a complete atlas (sub-certificates)
+#
+# Exit status 0 only for a complete certificate in which every check passed (or, with --partial, every checked
+# record passed); 1 otherwise.  A run resumes from OUTDIR only if BINDING.txt there matches this run exactly: the
+# certificate, the checker sources, the Julia environment and version, and the options.  Otherwise it stops.
 
-using IntervalArithmetic, LinearAlgebra, Printf
+using IntervalArithmetic, LinearAlgebra, Printf, SHA
 include(joinpath(@__DIR__, "src", "IndepAtlas.jl"))
 using .IndepAtlas
 const IA = IndepAtlas
 
+filehash(f) = bytes2hex(open(sha256, f))
+
+# What a set of receipts in OUTDIR certifies: one line per bound input.
+function binding(cert, fast, limit)
+    src = joinpath(@__DIR__, "src")
+    files = [joinpath(@__DIR__, "check.jl"); joinpath(@__DIR__, "convert.py");
+             sort([joinpath(d, f) for (d, _, fs) in walkdir(src) for f in fs if endswith(f, ".jl")])]
+    proj = Base.active_project()
+    man = joinpath(dirname(proj), "Manifest.toml")
+    lines = ["format\tnofour-indep-binding-v1", "certificate\t" * filehash(cert),
+             "julia\t" * string(VERSION), "mode\t" * (fast ? "fast" : "interval-replay"),
+             "limit\t" * (limit == typemax(Int) ? "none" : string(limit)),
+             "Project.toml\t" * filehash(proj), "Manifest.toml\t" * (isfile(man) ? filehash(man) : "missing")]
+    append!(lines, [relpath(f, @__DIR__) * "\t" * filehash(f) for f in files])
+    join(lines, '\n') * '\n'
+end
+
+# Receipts are keyed by record index; a repeated index means the file is not one run's output.
+function read_receipts(f)
+    done = Dict{Int,Tuple{Bool,String}}()
+    for l in readlines(f)
+        startswith(l, "#") && continue
+        p = split(l, '\t'); i = parse(Int, p[1])
+        haskey(done, i) && error("$f: record $i appears twice")
+        done[i] = (p[2] == "PASS", String(p[end]))
+    end
+    done
+end
+
 function main(args)
     cert = args[1]; outdir = args[2]
     fast = "--fast" in args
+    partial = "--partial" in args
     li = findfirst(==("--limit"), args)
     limit = li === nothing ? typemax(Int) : parse(Int, args[li+1])
     mkpath(outdir)
+    bind = binding(cert, fast, limit)
+    fb = joinpath(outdir, "BINDING.txt")
+    f3 = joinpath(outdir, "step3.tsv"); f4 = joinpath(outdir, "step4.tsv")
+    if isfile(f3) || isfile(f4)
+        if !isfile(fb) || read(fb, String) != bind
+            println("ERROR: $outdir holds receipts from a different run (certificate, checker, environment or options ",
+                    "differ, or BINDING.txt is missing). Use an empty OUTDIR.")
+            return false
+        end
+        println("Resuming: BINDING.txt matches this run.")
+    else
+        write(fb, bind)
+    end
     txt = cert
     if endswith(cert, ".gz")
         txt = joinpath(outdir, "certificate.txt")
@@ -35,13 +83,9 @@ function main(args)
     flush(stdout)
 
     # ---------------- Step 3 (sigma, normal bound, Stage C), resumable
-    f3 = joinpath(outdir, "step3.tsv")
     done3 = Dict{Int,Tuple{Bool,String}}()
     if isfile(f3)
-        for l in readlines(f3)
-            startswith(l, "#") && continue
-            p = split(l, '\t'); done3[parse(Int, p[1])] = (p[2] == "PASS", String(p[end]))
-        end
+        done3 = read_receipts(f3)
     else
         open(f3, "w") do io
             println(io, "#idx\tstatus\tR\tsigma\te0\tj1\tlam_max\trH\tn\trcol\trF\tbins12\tbins24\tbins48\tbins96\tlabels\tmax_s\tO\tU\tO_joint\tU_joint\toverruled\tcore\tcliquesA\tsteps\tseconds\tmsg")
@@ -78,13 +122,9 @@ function main(args)
     pass3(t) = get(done3, t, (false, ""))[1]
 
     # ---------------- Step 4 (boundary trees), resumable
-    f4 = joinpath(outdir, "step4.tsv")
     done4 = Dict{Int,Tuple{Bool,String}}()
     if isfile(f4)
-        for l in readlines(f4)
-            startswith(l, "#") && continue
-            p = split(l, '\t'); done4[parse(Int, p[1])] = (p[2] == "PASS", String(p[end]))
-        end
+        done4 = read_receipts(f4)
     else
         open(f4, "w") do io
             println(io, "#idx\tstatus\tntargets\tntargets_step3ok\tnboxes\toffball\toffshell\ttransferred\tmaxdepth\tnused\tnused_not_closed\tseconds\tmsg")
@@ -124,9 +164,11 @@ function main(args)
 
     # ---------------- report
     allclosed_targets = all(recs[tg.t+1].closed for i in closed for tg in recs[i+1].targets)
-    npass = 0
+    allchecked = length(closed) == count(r -> r.closed, recs)      # not truncated by --limit
+    npass = 0; complete = false; passed = false
     open(joinpath(outdir, "RESULT.txt"), "w") do io
         println(io, "Independent certifier (proof/independent), certificate: ", cert)
+        println(io, "Bound inputs (BINDING.txt): certificate sha256 ", split(split(bind, '\n')[2], '\t')[2])
         println(io, "Stage C rejections: ", fast ? "float with MARGIN = 1e-8 (--fast)" : "float, each re-decided in interval arithmetic")
         println(io, "Closed records checked: ", length(closed), "   records needing Step 3 (closed + targets): ", length(need))
         println(io)
@@ -153,13 +195,19 @@ function main(args)
         println(io)
         println(io, @sprintf("SUMMARY: %d / %d closed records PASS.  F6 nonemptiness: %s.  All targets closed (complete atlas): %s.",
                              npass, length(closed), neok ? "CERTIFIED" : "NOT certified", allclosed_targets ? "yes" : "NO"))
-        if npass == length(closed) && neok && allclosed_targets && all(pass3, need)
+        passed = npass == length(closed) && all(pass3, need)
+        complete = passed && neok && allclosed_targets && allchecked
+        if complete
             println(io, "VERDICT: the certificate is complete and every check passed (Steps 3-4 and nonemptiness).")
+        elseif partial && passed
+            println(io, "VERDICT (partial): every checked record passed; this is not a complete-atlas certificate.")
         else
-            println(io, "VERDICT: not a complete certificate of Steps 3-4 (see above).")
+            println(io, "VERDICT: not a complete certificate of Steps 3-4 (see above).",
+                    allchecked ? "" : "  Only $(length(closed)) of $(count(r -> r.closed, recs)) closed records were checked (--limit).")
         end
     end
     print(read(joinpath(outdir, "RESULT.txt"), String))
+    complete || (partial && passed)
 end
 
-main(ARGS)
+exit(main(ARGS) ? 0 : 1)
