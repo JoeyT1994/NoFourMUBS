@@ -5,6 +5,9 @@
   olean, 1.1 MB without the code);
 * a one-line `def NAME : List ℕ := [a, b, …]` with at least MIN_LEN entries becomes
   `noncomputable def NAME : List ℕ := unpackL w n 0x…` (`KernelAtlas/Pack.lean`), the digits in base 2^w.
+* a packed literal longer than CHUNK hex digits is written as `Nat.lor` of `Nat.shiftLeft`ed chunks (`split_text`):
+  Lean reads a numeral in time quadratic in its length (`Hints2` of Records with 343 labels: two literals of 4.2M
+  hex digits, 8 h; chunked, 20 s), while the kernel evaluates `Nat.lor` and `Nat.shiftLeft` with GMP.
 Idempotent.  Usage: python3 kpack.py <dir or file> ...
 """
 import os, re, sys
@@ -12,6 +15,25 @@ import os, re, sys
 sys.set_int_max_str_digits(0)
 
 MIN_LEN = 32
+CHUNK = 16384                 # hex digits per literal
+HEX_RE = re.compile(r'0x([0-9a-f]{%d,})' % (CHUNK + 1))
+
+
+def split_hex(h):
+    """`0x<h>` as `Nat.lor (… (Nat.lor 0x<c0> (Nat.shiftLeft 0x<c1> 4C)) …) (Nat.shiftLeft 0x<ck> 4kC)`, the chunks
+    c0, c1, … of h from the low end."""
+    chunks = []
+    while h:
+        chunks.append(h[-CHUNK:]); h = h[:-CHUNK]
+    e = '0x' + chunks[0]
+    for i, c in enumerate(chunks[1:], 1):
+        e = 'Nat.lor (%s) (Nat.shiftLeft 0x%s %d)' % (e, c, 4 * CHUNK * i)
+    return e
+
+
+def split_text(text):
+    """Every hex literal longer than CHUNK digits, chunked (same value)."""
+    return HEX_RE.sub(lambda m: '(%s)' % split_hex(m.group(1)), text)
 LIST_RE = re.compile(r'^(?:noncomputable )?def (\S+) : List ℕ := \[([0-9, ]*)\]\s*$')
 
 
@@ -26,7 +48,7 @@ def pack_line(line):
     x = 0
     for v in reversed(vals):
         x = (x << w) | v
-    return 'noncomputable def %s : List ℕ := unpackL %d %d 0x%x\n' % (m.group(1), w, len(vals), x)
+    return 'noncomputable def %s : List ℕ := unpackL %d %d %s\n' % (m.group(1), w, len(vals), split_text('0x%x' % x))
 
 
 def seal_text(text):
@@ -39,7 +61,7 @@ def seal_text(text):
         if line.startswith('def '):
             line = 'noncomputable ' + line
         out.append(line)
-    text = ''.join(out)
+    text = split_text(''.join(out))
     if packed and 'import KernelAtlas.Pack\n' not in text:
         lines = text.splitlines(keepends=True)
         last = max(i for i, l in enumerate(lines) if l.startswith('import '))

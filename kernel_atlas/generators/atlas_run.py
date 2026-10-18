@@ -392,6 +392,14 @@ def restore_partial(pdir, mine, out, before):
                 os.remove(p)
         if done:
             res[n] = done
+            import kpack                            # literals of the modules still to compile, chunked (same values)
+            for p in glob.glob(os.path.join(SRC, 'KernelAtlas', 'Rec%d' % n, '*.lean')):
+                if os.path.basename(p)[:-5] not in done:
+                    t = open(p).read()
+                    u = kpack.split_text(t)
+                    if u != t:
+                        with open(p, 'w') as h:
+                            h.write(u)
         else:                                       # nothing compiled yet: generate it again from scratch
             for d in (os.path.join(SRC, 'KernelAtlas', 'Rec%d' % n), ob, logs):
                 shutil.rmtree(d, ignore_errors=True)
