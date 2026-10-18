@@ -27,7 +27,7 @@ interval-arithmetic implementations. No classification of order-6 Hadamard matri
 | `python3 verify.py` | exact replays of Steps 1–3: the Step 1 certificates, matched existence, the converse and exact reach, strict-corner coverage, Tao's Record, a Stage C sample | about 1 min | Python 3.10+, `pip install -r requirements.txt` |
 | `python3 verify.py --atlas -j 8` | also certifies every Record of the atlas (Step 4), F6 and the anchor H₀ | 14 min (about 1.9 CPU-hours) | as above, about 2 GB per worker |
 | `python3 verify.py --lean` | also builds the Lean formalisation and audits the axioms of 248 theorems | about 8 min with the Mathlib cache | elan; about 12 GB of disk |
-| `python3 verify.py --lean-full` | also builds matched existence and `NoFourMUBs.Final`, and audits them | about 25 min | as above; up to about 11 GB of RAM |
+| `python3 verify.py --lean-full` | also builds matched existence and `NoFourMUBs.Final`, and audits them | about 12 min | as above; up to about 11 GB of RAM |
 | [`proof/independent/`](proof/independent/README.md) | the independent Julia checker of Steps 3–4 | full replay 24 min on 128 cores | Julia 1.12 |
 
 Continuous integration ([`.github/workflows/ci.yml`](.github/workflows/ci.yml)) runs `verify.py`, the Lean build with

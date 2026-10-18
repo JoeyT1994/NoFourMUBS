@@ -6,7 +6,7 @@ This builds against Mathlib and a small part of the Lean classification of order
 lake exe cache get        # prebuilt Mathlib
 lake build
 python3 check_axioms.py   # build, then audit the axioms of every main theorem (also: verify.py --lean)
-python3 check_axioms.py --full   # also build and audit L1 and Final (about 25 min on an Apple M5 Max with the Mathlib cache)
+python3 check_axioms.py --full   # also build and audit L1 and Final (about 12 min on an Apple M5 Max with the Mathlib cache)
 ```
 
 ## The main theorem

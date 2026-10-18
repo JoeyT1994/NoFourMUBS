@@ -338,7 +338,7 @@ pip install -r requirements.txt   # Python 3.10+: numpy, sympy, mpmath, python-f
 python3 verify.py                 # exact replays of Steps 1–3 (about 1 minute)
 python3 verify.py --atlas -j 8    # also certify all 12,021 Records, F6 and the anchor H0 (about 1.9 CPU-hours; 14 min with 8 workers)
 python3 verify.py --lean          # also build the Lean formalisation and audit its axioms (about 8 min with the Mathlib cache)
-python3 verify.py --lean-full     # also build matched existence and NoFourMUBs.Final (about 25 min on an Apple M5 Max)
+python3 verify.py --lean-full     # also build matched existence and NoFourMUBs.Final (about 12 min on an Apple M5 Max)
 ```
 
 The independent Julia checker is run separately ([`proof/independent/README.md`](proof/independent/README.md)).
