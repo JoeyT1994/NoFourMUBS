@@ -11,7 +11,7 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=128
 #SBATCH --time=08:00:00
-#SBATCH --signal=B:USR1@300
+#SBATCH --signal=B:USR1@600
 set -uo pipefail
 export ELAN_HOME=${ELAN_HOME:-/mnt/ceph/users/$USER/elan}
 export MATHLIB_CACHE_DIR=${MATHLIB_CACHE_DIR:-/mnt/ceph/users/$USER/mathlib_cache}
@@ -25,7 +25,13 @@ CPUS=$(env -u OMP_NUM_THREADS nproc)   # (nproc honours OMP_NUM_THREADS=1)
 source kernel_atlas/generators/rusty_stage.sh
 NTASK=${NTASK:-20}
 K=${SLURM_ARRAY_TASK_ID:-0}
+TASK=$K
 IDX=${IDX:-$ARCH/idx_all.txt}
+if [ -n "${IDX_DIR:-}" ]; then IDX=$IDX_DIR/idx_$K.txt; NTASK=1; K=0; fi   # one index file per task, as is
+PART=()                           # resume from a snapshot: $PARTIAL_DIR/part_<task>.tar, modules logged before $PARTIAL_BEFORE
+if [ -n "${PARTIAL_DIR:-}" ] && [ -f "$PARTIAL_DIR/part_$TASK.tar" ]; then
+    PART=(--partial "$PARTIAL_DIR/part_$TASK.tar" --partial-before "${PARTIAL_BEFORE:-1e12}")
+fi
 LT=${LEAN_THREADS:-0}
 MAXREC=${MAXREC:-120}
 DRAIN=${DRAIN_MIN:-70}
@@ -34,10 +40,19 @@ stage_in
 mkdir -p /tmp/katlas_work_$SLURM_JOB_ID
 awk -v k="$K" -v n="$NTASK" '(NR - 1) % n == k' "$IDX" > /tmp/katlas_work_$SLURM_JOB_ID/idx.txt
 echo "task $K/$NTASK on $(hostname): $CPUS cores, memory budget $MEM_GB GB, $(wc -l < /tmp/katlas_work_$SLURM_JOB_ID/idx.txt) Records, lean -j $LT"
-trap 'kill %1 2>/dev/null; pkill -f "$STAGE/" 2>/dev/null; wait; stage_clean; echo "stopped (USR1) on $(hostname)"; exit 0' USR1
+# At the time limit: stop the driver and its Lean processes, then snapshot the partially compiled Records (sources,
+# build directories, module logs) to $ARCH/partial, from which a later run resumes them (atlas_run.py --partial).
+snapshot() {
+    mkdir -p "$ARCH/partial"
+    local out="$ARCH/partial/${SLURM_ARRAY_JOB_ID:-$SLURM_JOB_ID}_$TASK.tar"
+    (cd / && tar cf "$out.tmp" --ignore-failed-read ${STAGE#/}/repo/kernel_atlas/lean/KernelAtlas/Rec[0-9]* \
+        ${STAGE#/}/repo/lean/.lake/build/lib/lean/KernelAtlas/Rec[0-9]* tmp/katlas_work_$SLURM_JOB_ID/logs 2>/dev/null)
+    mv "$out.tmp" "$out"
+}
+trap 'kill %1 2>/dev/null; pkill -f "$STAGE/" 2>/dev/null; wait; snapshot; stage_clean; echo "stopped (USR1) on $(hostname), snapshot in $ARCH/partial"; exit 0' USR1
 "$VENV/bin/python" -u kernel_atlas/generators/atlas_run.py --out /tmp/katlas_work_$SLURM_JOB_ID --archive "$ARCH" \
-    --name "task${SLURM_ARRAY_JOB_ID:-$SLURM_JOB_ID}_$K" --idx-file /tmp/katlas_work_$SLURM_JOB_ID/idx.txt \
-    --mem-gb "$MEM_GB" --gen-workers $((CPUS / 6)) --max-records "$MAXREC" --max-procs "$CPUS" --lean-threads "$LT" --drain-min "$DRAIN" &
+    --name "task${SLURM_ARRAY_JOB_ID:-$SLURM_JOB_ID}_$TASK" --idx-file /tmp/katlas_work_$SLURM_JOB_ID/idx.txt \
+    --mem-gb "$MEM_GB" --gen-workers $((CPUS / 6)) --max-records "$MAXREC" --max-procs "$CPUS" --lean-threads "$LT" --drain-min "$DRAIN" "${PART[@]}" &
 wait %1
 stage_clean
 echo "done on $(hostname)"

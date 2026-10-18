@@ -246,10 +246,21 @@ class Node:
         print('%s Rec%d %s cpu %.0fs peak %.1f GB wall %.0fs' % (time.strftime('%H:%M:%S'), idx, status, row['cpu_s'],
                                                                 row['peak_gb'], row['wall_s']), flush=True)
 
-    def run(self, idxs):
+    def run(self, idxs, restored=None):
         os.makedirs(os.path.join(self.args.out, 'src'), exist_ok=True)
         pool = CF.ThreadPoolExecutor(self.args.gen_workers)
-        pending = list(idxs)
+        pending = [i for i in idxs if i not in (restored or {})]
+        for idx, done in (restored or {}).items():      # partially compiled Records first (oldest)
+            left = {m: d for m, d in modules(idx).items() if m.rsplit('.', 1)[1] not in done}
+            self.recs[idx] = dict(info=dict(restored_modules=len(done)), done=dict(done), t0=time.time(),
+                                  left=left)
+            if not left:
+                ax, out = self.axioms(idx)
+                if ax is not None and set(ax) <= AXIOMS:
+                    self.finish(idx, 'ok', axioms=ax, axioms_cert=self.axioms_split[0],
+                                axioms_boundaryT=self.axioms_split[1])
+                else:
+                    self.finish(idx, 'axioms_failed', axioms=ax, log=out)
         gens = {}
         budget = self.args.mem_gb
         end, checked = None, 0
@@ -333,6 +344,60 @@ def slurm_end(job):
         return None
 
 
+PARTIAL = [(re.compile(r'repo/kernel_atlas/lean/KernelAtlas/Rec(\d+)/([^/]+)$'), SRC),
+           (re.compile(r'repo/lean/\.lake/build/lib/lean/KernelAtlas/Rec(\d+)/([^/]+)$'), OLEAN),
+           (re.compile(r'katlas_work_\d+/logs/Rec(\d+)/([^/]+)$'), None)]
+
+
+def restore_partial(pdir, mine, out, before):
+    """Records cut off by a job's end, from snapshots of its nodes (tarballs in pdir of the stage's Record sources,
+    Record build directories and module logs; see docs/KERNEL_ASSEMBLY.md §9).  For each of `mine` with a module log,
+    restores its sources and the oleans of the modules whose log ends in `Exit status: 0` and was written before
+    `before` (epoch s; the snapshot's start, so no olean can have been read while it was being written), and returns
+    {idx: {module: timings}}; the other oleans are deleted, so those modules are compiled again."""
+    got, mt = {}, {}
+    for f in sorted(glob.glob(os.path.join(pdir, '*.tar'))) if os.path.isdir(pdir) else [pdir]:
+        with tarfile.open(f, 'r|') as t:
+            for m in t:
+                if not m.isfile():
+                    continue
+                for rx, base in PARTIAL:
+                    g = rx.search(m.name)
+                    if g and int(g.group(1)) in mine:
+                        n = int(g.group(1))
+                        d = os.path.join(base or os.path.join(out, 'logs'), *(['KernelAtlas'] if base else []),
+                                         'Rec%d' % n)
+                        os.makedirs(d, exist_ok=True)
+                        with open(os.path.join(d, g.group(2)), 'wb') as h:
+                            h.write(t.extractfile(m).read())
+                        got.setdefault(n, set()).add((base, g.group(2)))
+                        mt[(n, base, g.group(2))] = m.mtime
+                        break
+    res = {}
+    for n, files in got.items():
+        logs = os.path.join(out, 'logs', 'Rec%d' % n)
+        ob = os.path.join(OLEAN, 'KernelAtlas', 'Rec%d' % n)
+        done = {}
+        for base, name in files:
+            if base is not None or not name.endswith('.log') or name == 'generate.log':
+                continue
+            mod = name[:-4]
+            text = open(os.path.join(logs, name)).read()
+            olean = os.path.join(ob, mod + '.olean')
+            if 'Exit status: 0' in text and mt[(n, None, name)] < before and os.path.exists(olean):
+                cpu, rss = parse_time(text)
+                done[mod] = dict(cpu_s=cpu, peak_gb=rss and round(rss, 2), wall_s=None, restored=True)
+        for p in glob.glob(os.path.join(ob, '*')):
+            if os.path.basename(p).rsplit('.', 1)[0] not in done:
+                os.remove(p)
+        if done:
+            res[n] = done
+        else:                                       # nothing compiled yet: generate it again from scratch
+            for d in (os.path.join(SRC, 'KernelAtlas', 'Rec%d' % n), ob, logs):
+                shutil.rmtree(d, ignore_errors=True)
+    return res
+
+
 def archived(adir, retry_failed=False):
     """Records already settled in an archive: `ok` with an olean tarball of the recorded size (and, unless
     retry_failed, Records whose only rows are failures)."""
@@ -366,6 +431,8 @@ def main():
     ap.add_argument('--name', default='node', help='archive mode: this driver\'s row file')
     ap.add_argument('--retry-failed', action='store_true', help='archive mode: redo Records whose rows all failed')
     ap.add_argument('--lean-threads', type=int, default=0, help='lean -j (0: Lean\'s default)')
+    ap.add_argument('--partial', help='a node snapshot (tarball), or a directory of them, to resume partially compiled Records from')
+    ap.add_argument('--partial-before', type=float, default=0, help='with --partial: the snapshots\' start (epoch s)')
     ap.add_argument('--drain-min', type=float, default=0, help='in a Slurm job: admit no Records this many minutes '
                     'before its end')
     args = ap.parse_args()
@@ -380,7 +447,13 @@ def main():
         done = {json.loads(l)['idx'] for l in open(rp)} if os.path.exists(rp) else set()
     idxs = [i for i in idxs if i not in done]
     print('%d Records to do (%d already done)' % (len(idxs), len(done)), flush=True)
-    Node(args).run(idxs)
+    restored = None
+    if args.partial:
+        t0 = time.time()
+        restored = restore_partial(args.partial, set(idxs), args.out, args.partial_before)
+        print('restored %d partially compiled Records (%d modules) in %.0f s' % (
+            len(restored), sum(len(v) for v in restored.values()), time.time() - t0), flush=True)
+    Node(args).run(idxs, restored)
 
 
 if __name__ == '__main__':
