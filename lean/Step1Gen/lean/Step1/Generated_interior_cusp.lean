@@ -8,7 +8,7 @@ namespace Step1.interior_cusp
 
 variable {K : Type*} [Field K] [CharZero K]
 
-/- Generated from certificates/interior_cusp.json. See LEAN_NOTES.md. -/
+/- Generated from certificates/interior_cusp.json by generation/generate_lean.py. -/
 
 def d_u (v_x v_y v_t : K) : K :=
   ((v_y ^ 2) + (((3 : K) + v_x) ^ 2))

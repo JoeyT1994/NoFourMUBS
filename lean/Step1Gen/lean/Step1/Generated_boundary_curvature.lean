@@ -8,7 +8,7 @@ namespace Step1.boundary_curvature
 
 variable {K : Type*} [Field K] [CharZero K]
 
-/- Generated from certificates/boundary_curvature.json. See LEAN_NOTES.md. -/
+/- Generated from certificates/boundary_curvature.json by generation/generate_lean.py. -/
 
 def d_ambient_R (v_x v_z v_b2 v_y v_q v_c : K) : K :=
   (((-1 : K) * (((((1 : K) / 2) * ((12 : K) + ((v_x + ((-1 : K) * v_z)) ^ 2) + ((-1 : K) * ((v_x + v_z) ^ 2))) * (((-1 : K) * ((v_x + ((-1 : K) * v_z)) ^ 2)) + ((2 : K) * v_b2) + ((3 : K) * ((v_x + v_z) ^ 2)))) + ((-2 : K) * ((v_x + ((-1 : K) * v_z)) ^ 2) * (v_x + v_z)) + ((2 : K) * v_b2 * (((-1 : K) * v_z) + ((3 : K) * v_x)))) ^ 2)) + ((4 : K) * ((((-1 : K) * v_b2) + ((-3 : K) * ((v_x + v_z) ^ 2)) + ((2 : K) * ((v_x + ((-1 : K) * v_z)) ^ 2))) ^ 2) * (((v_x + ((-1 : K) * v_z)) ^ 2) + ((-1 : K) * v_b2) + ((-2 : K) * ((v_x + v_z) ^ 2)))))

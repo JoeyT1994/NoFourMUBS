@@ -183,19 +183,11 @@ theorem geoBlock_isHadamard3 {ω X : ℂ} (hω : IsPrimitiveCubicPhase ω) (hX :
 
 /-! ### The route -/
 
-theorem row_orth {H : Mat6} (hH : Hadamard6.IsHadamard H) {a b : I6} (hab : a ≠ b) :
-    ∑ j, H a j * conj (H b j) = 0 := by
-  have h := congrArg (fun M : Mat6 => M a b) hH.2
-  simpa [Matrix.mul_apply, Matrix.conjTranspose_apply, Matrix.one_apply, Complex.star_def, hab] using h
-
-private lemma mc {z : ℂ} (h : Complex.normSq z = 1) : z * conj z = 1 := by
-  rw [Complex.mul_conj, h, Complex.ofReal_one]
-
 /-- Solving `a H c = N` for the entry `H`. -/
 private lemma solve_entry {a h c n : ℂ} (ha : Complex.normSq a = 1) (hc : Complex.normSq c = 1)
     (e : a * h * c = n) : h = conj a * n * conj c := by
   rw [← e]
-  linear_combination (-h * (c * conj c)) * mc ha + (-h) * mc hc
+  linear_combination (-h * (c * conj c)) * mul_conj_of_normSq ha + (-h) * mul_conj_of_normSq hc
 
 theorem primitive_ne {ω : ℂ} (hω : IsPrimitiveCubicPhase ω) :
     ω ≠ 1 ∧ ω ^ 2 ≠ 1 ∧ ω ≠ ω ^ 2 := by
@@ -230,7 +222,7 @@ theorem geometricRowRoute : GeometricRowRoute := by
       refine Finset.sum_congr rfl fun j _ => ?_
       rw [e1, e0]
       simp only [map_mul, Complex.conj_conj, map_one]
-      linear_combination (conj (a 1) * a 0 * x j) * mc (hc j)
+      linear_combination (conj (a 1) * a 0 * x j) * mul_conj_of_normSq (hc j)
     rw [e] at h
     have hne : conj (a 1) * a 0 ≠ 0 :=
       mul_ne_zero ((map_ne_zero _).2 (ne_zero' (ha 1))) (ne_zero' (ha 0))
@@ -242,7 +234,7 @@ theorem geometricRowRoute : GeometricRowRoute := by
       refine Finset.sum_congr rfl fun j _ => ?_
       rw [e1, e2]
       simp only [map_mul, Complex.conj_conj]
-      linear_combination (conj (a 1) * a 2 * x j ^ 2) * mc (hc j)
+      linear_combination (conj (a 1) * a 2 * x j ^ 2) * mul_conj_of_normSq (hc j)
     rw [e] at h
     have hne : conj (a 1) * a 2 ≠ 0 :=
       mul_ne_zero ((map_ne_zero _).2 (ne_zero' (ha 1))) (ne_zero' (ha 2))

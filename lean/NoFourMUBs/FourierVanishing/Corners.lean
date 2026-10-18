@@ -102,9 +102,6 @@ theorem dephased_matched (M : Mat6) (hM : Hadamard6.IsHadamard M) (hd : Step2.De
       exact Complex.conj_eq_iff_im.1 (hc.symm.trans h)
   · rw [h, Complex.conj_conj]
 
-lemma mul_conj_of_normSq {z : ℂ} (h : Complex.normSq z = 1) : z * conj z = 1 := by
-  rw [Complex.mul_conj, h, Complex.ofReal_one]
-
 /-- **§2.** Every positional corner of a non-Tao Hadamard is matched. -/
 theorem allCornersMatched (H : Mat6) (hH : Hadamard6.IsHadamard H) (hT : ¬ IsTaoOrbit H) : PRM.AllCornersMatched H := by
   intro σ τ

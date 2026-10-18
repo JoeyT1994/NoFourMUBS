@@ -8,7 +8,7 @@ namespace Step1.boundary_edges
 
 variable {K : Type*} [Field K] [CharZero K]
 
-/- Generated from certificates/boundary_edges.json. See LEAN_NOTES.md. -/
+/- Generated from certificates/boundary_edges.json by generation/generate_lean.py. -/
 
 def d_R (v_c v_h : K) : K :=
   ((((1 : K) + ((-4 : K) * (v_c ^ 2)) + ((8 : K) * (v_c ^ 4)) + ((4 : K) * v_h * (v_c ^ 3))) ^ 2) * ((1 : K) + ((2 : K) * (v_c ^ 2))) * ((-256 : K) + ((-512 : K) * (v_c ^ 2))) * ((-1 : K) + ((-4 : K) * (v_c ^ 2)) + ((16 : K) * (v_c ^ 4)) + ((-4 : K) * v_c * v_h) + ((4 : K) * (v_c ^ 2) * (v_h ^ 2)) + ((16 : K) * v_h * (v_c ^ 3))))

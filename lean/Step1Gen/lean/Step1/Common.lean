@@ -6,9 +6,6 @@ import Mathlib
 This file contains ordinary Lean proofs.  No data-dependent oracle is used.
 `Generated*.lean` files are produced from rational certificate data by
 `generation/generate_lean.py` and rely on `ring`, `norm_num`, and these lemmas.
-
-The current delivery has not been compiled: see `LEAN_NOTES.md` for the
-executable-discovery restriction encountered by the stock Lean binary.
 -/
 
 set_option autoImplicit false

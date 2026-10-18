@@ -66,9 +66,6 @@ theorem RS_eq_critR (s t r : ℂ) :
 /-- The block with its columns phased so that the first row is `1`. -/
 def dephase (B : Mat3) : Mat3 := Matrix.of fun i j => (fun _ => (1 : ℂ)) i * B i j * conj (B 0 j)
 
-private lemma mul_conj_one {z : ℂ} (h : Complex.normSq z = 1) : z * conj z = 1 := by
-  rw [Complex.mul_conj, h, Complex.ofReal_one]
-
 section Dephase
 
 variable {B : Mat3} (hB : ∀ i j, Complex.normSq (B i j) = 1)
@@ -76,10 +73,10 @@ include hB
 
 theorem dephase_sig : Step2.sideSignature (dephase B) = Step2.sideSignature B :=
   Step2.sideSignature_scale B _ _ (fun _ => by simp)
-    (fun j => by rw [Complex.conj_conj, mul_comm]; exact mul_conj_one (hB 0 j))
+    (fun j => by rw [Complex.conj_conj, mul_comm]; exact mul_conj_of_normSq (hB 0 j))
 
 theorem dephase_row0 (j : Fin 3) : dephase B 0 j = 1 := by
-  simp only [dephase, Matrix.of_apply, one_mul]; exact mul_conj_one (hB 0 j)
+  simp only [dephase, Matrix.of_apply, one_mul]; exact mul_conj_of_normSq (hB 0 j)
 
 theorem dephase_unit (i j : Fin 3) : Complex.normSq (dephase B i j) = 1 := by
   simp [dephase, Complex.normSq_mul, Complex.normSq_conj, hB]
@@ -101,7 +98,7 @@ theorem dephase_sS2 : sS (dephase B 2) = blockT B := by
   simp [sS, dephase, blockT, gram3, Fin.sum_univ_three]
 
 theorem dephase_rS : rS (dephase B 1) (dephase B 2) = blockR B := by
-  have u : ∀ j, conj (B 0 j) * B 0 j = 1 := fun j => by rw [mul_comm]; exact mul_conj_one (hB 0 j)
+  have u : ∀ j, conj (B 0 j) * B 0 j = 1 := fun j => by rw [mul_comm]; exact mul_conj_of_normSq (hB 0 j)
   simp only [rS, dephase, blockR, gram3, Fin.sum_univ_three, Matrix.of_apply, one_mul, map_mul,
     Complex.conj_conj]
   linear_combination (B 2 0 * conj (B 1 0)) * u 0 + (B 2 1 * conj (B 1 1)) * u 1 +

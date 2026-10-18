@@ -1,11 +1,13 @@
 import NoFourMUBs.Step2.Statements
 
 /-!
-# Coverage from connectedness (the paper's route for Step 2)
+# Coverage from connectedness (an alternative route for Step 2, not used by `Final`)
 
-`PROOF.md` Step 2 (Theorem 2): the non-Tao quotient `X` is connected.  With the clopen covered set of Step 4 and
-the Fourier class covered, connectedness gives coverage directly (`coverage_of_connected`); this replaces
-L1, L2 and D by the single statement `NonTaoPreconnected`.
+`coverage_of_connected` takes the connectedness of the non-Tao quotient `X` (`NonTaoPreconnected`, the
+statement of `PROOF.md` Theorem 2) as a **hypothesis**; it is not proved here.  With the clopen covered set of
+Step 4 and the Fourier class covered, connectedness gives coverage directly.  `Final.no_four_mubs` does not use
+this route: it gets coverage from matched existence, matched uniqueness and density
+(`coverage_of_matched_density`).  Only `ConnectedRoute` imports this module.
 
 The Fourier class is not Tao (`fourier_not_tao`): the cross ratio `H₀₀H₁₁H̄₀₁H̄₁₀` of `F6` is `−1`, whereas every
 cross ratio of a Tao matrix is a cube root of unity, and equivalence only permutes cross ratios.
@@ -22,8 +24,7 @@ lemma crossRatio_of_equivalent {H K : Mat6} (h : Equivalent H K) :
     ∃ σ τ : Equiv.Perm I6, ∀ i j k l, crossRatio K i j k l = crossRatio H (σ i) (τ j) (σ k) (τ l) := by
   obtain ⟨σ, τ, r, c, hr, hc, hK⟩ := h
   refine ⟨σ, τ, fun i j k l => ?_⟩
-  have u : ∀ z : ℂ, Complex.normSq z = 1 → z * conj z = 1 := fun z hz => by
-    rw [Complex.mul_conj, hz, Complex.ofReal_one]
+  have u : ∀ z : ℂ, Complex.normSq z = 1 → z * conj z = 1 := fun _ hz => mul_conj_of_normSq hz
   simp only [crossRatio, hK, map_mul]
   linear_combination (H (σ i) (τ j) * H (σ k) (τ l) * conj (H (σ i) (τ l)) * conj (H (σ k) (τ j))) *
     ((r i * conj (r i)) * (r k * conj (r k)) * (c j * conj (c j)) * u (c l) (hc l) +
@@ -53,7 +54,7 @@ theorem fourier_not_tao : ¬ TaoClass fourierClass := by
   rw [← e] at this
   norm_num at this
 
-/-- The paper's Step 2: the non-Tao quotient is (pre)connected. -/
+/-- The non-Tao quotient is (pre)connected (the statement of `PROOF.md` Theorem 2; a hypothesis here). -/
 def NonTaoPreconnected : Prop := IsPreconnected {q : HadamardClass6 | ¬ TaoClass q}
 
 /-- **Coverage from connectedness.**  A clopen covered set containing the Fourier class contains every non-Tao

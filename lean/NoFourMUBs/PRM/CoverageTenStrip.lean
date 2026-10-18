@@ -1,4 +1,5 @@
 import NoFourMUBs.PRM.CoverageTenArith
+import NoFourMUBs.PRM.Defs
 
 /-!
 # A universal, anchored ten-corner sum rule and scalar escape
@@ -14,14 +15,11 @@ open ComplexConjugate
 
 namespace NoFourMUBs.PRM.CoverageTen
 
-/-- All ten three-column subsets containing column 0. -/
-def anchorCols (k : Fin 10) : Fin 3 → Fin 6 :=
-  ![![0, 1, 2], ![0, 1, 3], ![0, 1, 4], ![0, 1, 5],
-    ![0, 2, 3], ![0, 2, 4], ![0, 2, 5], ![0, 3, 4],
-    ![0, 3, 5], ![0, 4, 5]] k
-
+/-- The sum of `u` over the `k`-th three-column subset containing column 0: the first ten sorted
+triples `tri 0, …, tri 9` are exactly these. -/
 def threeSum (u : Fin 6 → ℂ) (k : Fin 10) : ℂ :=
-  u (anchorCols k 0) + u (anchorCols k 1) + u (anchorCols k 2)
+  u (tri (Fin.castLE (by norm_num) k) 0) + u (tri (Fin.castLE (by norm_num) k) 1) +
+    u (tri (Fin.castLE (by norm_num) k) 2)
 
 def pairEnergy (u : Fin 6 → ℂ) (k : Fin 10) : ℝ :=
   Complex.normSq (threeSum u k)
@@ -31,7 +29,7 @@ theorem anchored_quadratic_identity (u : Fin 6 → ℂ) :
     (∑ k, pairEnergy u k) =
       3 * (∑ j, Complex.normSq (u j)) + Complex.normSq (∑ j, u j) +
         6 * (u 0 * conj (∑ j, u j)).re := by
-  simp [pairEnergy, threeSum, anchorCols, Fin.sum_univ_succ,
+  simp [pairEnergy, threeSum, tri, Fin.sum_univ_succ,
     Complex.normSq_apply, Complex.mul_re, Complex.conj_re, Complex.conj_im]
   ring
 

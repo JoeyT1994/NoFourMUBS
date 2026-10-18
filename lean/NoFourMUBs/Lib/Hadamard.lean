@@ -23,6 +23,8 @@ and proofs (source file in each docstring):
 * the affine-Fourier family `affineFourierMatrix` and its Hadamard property, and `transpose_isHadamard`
   (`KarlssonFourierSeam.lean`); `equivalent_transpose` (`FourierSeamCertificate.lean`).
 
+Two short project lemmas used throughout, `mul_conj_of_normSq` and `row_orth`, are also stated here.
+
 The long Fourier-block normalisation and cubic census are not restated; `PRM/FourierBlock` and its neighbours
 import those upstream modules directly.
 -/
@@ -32,6 +34,20 @@ open Hadamard6
 noncomputable section
 
 namespace NoFourMUBs
+
+/-! ### Two facts used throughout the project (not from upstream) -/
+
+open ComplexConjugate in
+/-- A unit complex number times its conjugate is `1`. -/
+theorem mul_conj_of_normSq {z : ℂ} (h : Complex.normSq z = 1) : z * conj z = 1 := by
+  rw [Complex.mul_conj, h, Complex.ofReal_one]
+
+open ComplexConjugate in
+/-- Distinct rows of a Hadamard matrix are orthogonal. -/
+theorem row_orth {H : Mat6} (hH : IsHadamard H) {a b : I6} (hab : a ≠ b) :
+    ∑ j, H a j * conj (H b j) = 0 := by
+  have h := congrArg (fun M : Mat6 => M a b) hH.2
+  simpa [Matrix.mul_apply, Matrix.conjTranspose_apply, Matrix.one_apply, Complex.star_def, hab] using h
 
 /-! ### Unit phases (upstream `UnitSymmetric.lean`) -/
 

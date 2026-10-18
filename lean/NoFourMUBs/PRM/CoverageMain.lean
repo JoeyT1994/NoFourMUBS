@@ -1,7 +1,7 @@
 import NoFourMUBs.PRM.CoverageSingular
 
 /-!
-# Strict-corner coverage (MC1) from the critical strip classification
+# Strict-corner coverage (MC1, `PROOF.md` Theorem 2.5) from the critical strip classification
 
 `strictCornerCoverage_of_criticalStripGap : CriticalStripGap → StrictCornerCoverage`.
 
@@ -27,8 +27,8 @@ namespace NoFourMUBs.PRM
 
 namespace Coverage
 
-/-- **The remaining gap for MC1** (see the module docstring and the docstrings of the two
-components). -/
+/-- **The two classification inputs of MC1** (see the module docstring and the docstrings of the two
+components); both are proved, and `Final.strictCornerCoverage` supplies them. -/
 def CriticalStripGap : Prop := TopStripClassification ∧ EndpointExclusions
 
 theorem coverageInputs_of_criticalStripGap (h : CriticalStripGap) : CoverageInputs :=

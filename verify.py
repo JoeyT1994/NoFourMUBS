@@ -7,7 +7,7 @@
   python3 verify.py --atlas [-j N]  additionally certify every Record of the atlas (Step 4, one pool of N worker
                                     processes), F6 and the anchor H0
   python3 verify.py --lean          additionally build the Lean formalisation and audit its axioms
-  python3 verify.py --lean-full     as --lean, and also build matched existence (L1) and NoFourMUBs.Final in Lean (about 25 min with the Mathlib cache)
+  python3 verify.py --lean-full     as --lean, and also build matched existence (L1) and NoFourMUBs.Final in Lean (about 12 min with the Mathlib cache)
 """
 import argparse, os, subprocess, sys, time
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -53,7 +53,7 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('--atlas', action='store_true', help='certify the full atlas (Step 4)')
     ap.add_argument('--lean', action='store_true', help='build the Lean formalisation and audit axioms')
-    ap.add_argument('--lean-full', action='store_true', help='as --lean, including L1 and NoFourMUBs.Final (about 25 min with the Mathlib cache)')
+    ap.add_argument('--lean-full', action='store_true', help='as --lean, including L1 and NoFourMUBs.Final (about 12 min with the Mathlib cache)')
     ap.add_argument('-j', '--jobs', type=int, default=4)
     ap.add_argument('--log-dir', type=Path, default=None)
     a = ap.parse_args()

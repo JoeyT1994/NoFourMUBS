@@ -5,8 +5,7 @@ import Step1.Generated_interior_core
 
 These theorems assemble the signs and identities into the algebraic ambient
 saddle obstruction.  They do not assume that any geometric coordinate chart
-or local maximum has already been formalized.  Compilation status is recorded
-in `LEAN_NOTES.md`; this file is uncompiled in the delivery environment.
+or local maximum has already been formalized.
 -/
 
 set_option autoImplicit false

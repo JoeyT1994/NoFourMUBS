@@ -2,7 +2,7 @@ import NoFourMUBs.Step2.SidePerm
 import NoFourMUBs.Step2.Statements
 
 /-!
-# Matched uniqueness (L2)
+# Matched uniqueness (L2, `PROOF.md` Theorem 2.3)
 
 **Theorem (`matchedUniqueness`).** Two positive matched completions of the same strict seed are equivalent.
 

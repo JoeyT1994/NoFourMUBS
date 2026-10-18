@@ -8,9 +8,9 @@ import NoFourMUBs.PRM.FourierBlock
 import NoFourMUBs.PRM.FourierMatch
 
 /-!
-# Theorem A: a strict nonmatched corner forces Tao
+# Theorem A: a strict nonmatched corner forces Tao (`PROOF.md` Theorem 2.4)
 
-`proof/coverage/returns/G_prm/PRM.md` §§2–5.  Let `M` be a dephased Hadamard matrix whose leading corner
+Formalises MC4 as proved in `proof/coverage/returns/G_prm/PRM.md` §§2–5 (Theorem A there).  Let `M` be a dephased Hadamard matrix whose leading corner
 `E` is strict (its horizontal signature `ζ` is not real) and whose vertical signature is not `ζ̄`.
 
 * By L1 (side existence and matched flatness), the matched completion `H₀` with the same three top rows

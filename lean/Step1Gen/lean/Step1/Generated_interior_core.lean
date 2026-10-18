@@ -8,7 +8,7 @@ namespace Step1.interior_core
 
 variable {K : Type*} [Field K] [CharZero K]
 
-/- Generated from certificates/interior_core.json. See LEAN_NOTES.md. -/
+/- Generated from certificates/interior_core.json by generation/generate_lean.py. -/
 
 def d_u (v_x v_y v_v v_h v_d : K) : K :=
   ((v_x ^ 2) + (v_y ^ 2))

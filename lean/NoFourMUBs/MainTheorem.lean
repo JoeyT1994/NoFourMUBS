@@ -3,17 +3,17 @@ import NoFourMUBs.Step1.Census
 import NoFourMUBs.Step2.MatchedUnique
 import NoFourMUBs.Step2.AnchorTransport
 import NoFourMUBs.Step2.BaseAnchor
-import NoFourMUBs.Step2.Connected
 
 /-!
 # The main theorem
 
 **There are no four mutually unbiased bases in `ℂ⁶`.**
 
-All finite, checkable inputs are bundled into one structure, `AtlasCertificate`. What remains is Step 2, entered in
-one of two forms:
-* `no_four_mubs_of_connected`: the non-Tao quotient is connected (the paper's Theorem 2);
-* `no_four_mubs_main`: matched existence (L1) and density (D).
+All finite, checkable inputs are bundled into one structure, `AtlasCertificate`. What remains is Step 2, entered
+here as matched existence (L1) and density (D) in `no_four_mubs_main`.  `Complete` proves L1 (`L1.matchedExistence`,
+`PROOF.md` Theorem 2.2) and reduces D to strict-corner coverage, which `Final` proves (`Final.no_four_mubs`, via
+`Step2.coverage_of_matched_density`).  The alternative route `no_four_mubs_of_connected`, which takes the
+connectedness of the non-Tao quotient as a hypothesis, is in `ConnectedRoute`, outside `Final`'s import closure.
 
 Everything else is proved here, using only the standard axioms:
 * Step 1, the census of maxima (`Step1Geo.maximumCensus`);
@@ -51,10 +51,6 @@ theorem clopen : Step2.RecordClopen (InAtlas C.A) :=
   recordClopen_of_atlas C.A (boundaryTransfers_of_covers C.A C.boundary)
 
 end AtlasCertificate
-
-/-- **No four MUBs in `ℂ⁶`**, from the finite certificate and the connectedness of the non-Tao quotient. -/
-theorem no_four_mubs_of_connected (C : AtlasCertificate) (hX : Step2.NonTaoPreconnected) : ¬ FourMUBs :=
-  no_four_mubs_of_atlas C.A C.tao (Step2.coverage_of_connected (InAtlas C.A) hX C.clopen C.fourier)
 
 /-- **No four MUBs in `ℂ⁶`**, from the finite certificate, matched existence and density. -/
 theorem no_four_mubs_main (C : AtlasCertificate) (hE : Step2.MatchedExistence)

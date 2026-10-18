@@ -8,7 +8,7 @@ namespace Step1.interior_geometry
 
 variable {K : Type*} [Field K] [CharZero K]
 
-/- Generated from certificates/interior_geometry.json. See LEAN_NOTES.md. -/
+/- Generated from certificates/interior_geometry.json by generation/generate_lean.py. -/
 
 def d_circle_norm (v_ax v_ay v_bx v_by v_p v_q v_a v_b v_k v_rr v_ss v_lam v_z1 v_z2 v_z3 v_tx v_ty : K) : K :=
   ((v_p ^ 2) + (v_q ^ 2))

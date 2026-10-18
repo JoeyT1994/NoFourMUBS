@@ -25,9 +25,6 @@ namespace NoFourMUBs.PRM.Coverage
 
 /-! ### Unit numbers -/
 
-private lemma mc' {z : ℂ} (h : Complex.normSq z = 1) : z * conj z = 1 := by
-  rw [Complex.mul_conj, h, Complex.ofReal_one]
-
 private lemma nz' {z : ℂ} (h : Complex.normSq z = 1) : z ≠ 0 := by
   rintro rfl; simp at h
 
@@ -57,8 +54,8 @@ theorem zero_sum_triple {a b c : ℂ} (ha : Complex.normSq a = 1) (hb : Complex.
   have ha0 := nz' ha
   have hb0 := nz' hb
   have hc' : (a + b) * conj (a + b) = 1 := by
-    rw [show a + b = -c by linear_combination h, map_neg]; linear_combination mc' hc
-  have hbb := mc' hb; have haa := mc' ha
+    rw [show a + b = -c by linear_combination h, map_neg]; linear_combination mul_conj_of_normSq hc
+  have hbb := mul_conj_of_normSq hb; have haa := mul_conj_of_normSq ha
   rw [map_add] at hc'
   have key : b * conj a + conj b * a = -1 := by linear_combination hc' - haa - hbb
   have hca : conj a = a⁻¹ := Side.conj_eq_inv ha
@@ -197,7 +194,7 @@ theorem isHadamard3_of_orth {M : Mat3} (hu : ∀ i j, Complex.normSq (M i j) = 1
     Complex.star_def, smul_eq_mul]
   by_cases h : i = i'
   · subst h
-    simp only [if_true, mul_one, Fin.sum_univ_three, mc' (hu _ _)]
+    simp only [if_true, mul_one, Fin.sum_univ_three, mul_conj_of_normSq (hu _ _)]
     norm_num
   · simp only [h, if_false, mul_zero, ho i i' h]
 
@@ -215,7 +212,7 @@ theorem block_of_prop_rows {H : Mat6} (hH : Hadamard6.IsHadamard H) {p q : I6} (
     rw [← Equiv.sum_comp τ, Fintype.sum_sum_type, Fin.sum_univ_three, Fin.sum_univ_three]
     simp only [hd_def, hτ]
   have unit : ∀ x j, Complex.normSq (H x j) = 1 := hH.1
-  have pp : ∀ j, H p j * conj (H p j) = 1 := fun j => mc' (unit p j)
+  have pp : ∀ j, H p j * conj (H p j) = 1 := fun j => mul_conj_of_normSq (unit p j)
   set v : I6 → I6 → ℂ := fun x j => H x j * conj (H p j) with hv_def
   have hv : ∀ x j, Complex.normSq (v x j) = 1 := fun x j => by
     simp only [hv_def, Complex.normSq_mul, Complex.normSq_conj, unit, mul_one]
@@ -223,7 +220,7 @@ theorem block_of_prop_rows {H : Mat6} (hH : Hadamard6.IsHadamard H) {p q : I6} (
   have hl1 : Complex.normSq l = 1 := by
     have := congrArg Complex.normSq (hl 0)
     rwa [Complex.normSq_mul, unit, unit, mul_one, eq_comm] at this
-  have ll : l * conj l = 1 := mc' hl1
+  have ll : l * conj l = 1 := mul_conj_of_normSq hl1
   -- inner products in terms of `v`
   have inner : ∀ x y j, H x j * conj (H y j) = v x j * conj (v y j) := fun x y j => by
     simp only [hv_def, map_mul, Complex.conj_conj]
@@ -355,7 +352,7 @@ theorem block_of_prop_rows {H : Mat6} (hH : Hadamard6.IsHadamard H) {p q : I6} (
         · have hrel := hD.1 hη
           rw [hrel] at hO
           -- `β_x β̄_y = −α_x ᾱ_y`, then multiply by `α_y β_y`
-          have uα := mc' (hv y (c 0)); have uβ := mc' (hv y (d 0))
+          have uα := mul_conj_of_normSq (hv y (c 0)); have uβ := mul_conj_of_normSq (hv y (d 0))
           linear_combination (v y (c 0) * v y (d 0)) * hO / 3 -
             (v x (d 0) * v y (c 0)) * uβ - (v x (c 0) * v y (d 0)) * uα
         · rw [hD.2 hη, zero_add] at hO

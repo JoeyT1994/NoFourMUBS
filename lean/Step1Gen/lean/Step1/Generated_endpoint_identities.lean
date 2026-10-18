@@ -8,7 +8,7 @@ namespace Step1.endpoint_identities
 
 variable {K : Type*} [Field K] [CharZero K]
 
-/- Generated from certificates/endpoint_identities.json. See LEAN_NOTES.md. -/
+/- Generated from certificates/endpoint_identities.json by generation/generate_lean.py. -/
 
 def d_p (v_x0 v_x1 v_x2 v_x3 v_w v_sqrt_fifteen : K) : K :=
   (v_x0 + v_x2)

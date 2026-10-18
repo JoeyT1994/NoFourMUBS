@@ -6,7 +6,7 @@ import Mathlib
 From the sum-rule return of 14 Oct 2026 (`covret/partial`); compiled here.
 
 This module formalizes the division-free part of
-`reference/MinimalConstruction/Proofs/CRITICAL_CORNER_REDUCTION.md`.
+`MinimalConstruction/Proofs/CRITICAL_CORNER_REDUCTION.md`.
 It assumes only scalar physicality and the two critical equations; it does
 not assume or assert that the scalar data come from a Hadamard matrix.
 -/
@@ -94,20 +94,5 @@ theorem zero_J_critical_iff (p W : ℝ) :
     critR p 0 W = 0 ↔ (W - (9 - p) * (18 - p)) ^ 2 = 36 * (9 - p) ^ 3 := by
   rw [zero_J_identity]
   constructor <;> intro h <;> linarith
-
-/-- Conversely, the two scalar equations imply both critical equations.
-This is not an existence theorem for physical matrices. -/
-theorem scalar_converse (p J W : ℝ)
-    (hJ : J ^ 2 = (9 - p) ^ 3 * (p - 5) / 4)
-    (hW : W = -(p - 9) * (p ^ 2 - 10 * p + 27) / 2) :
-    critR p J W = 0 ∧ critR p (-J) W = 0 := by
-  subst W
-  constructor
-  · unfold critR
-    linear_combination
-      (4 * J + (-p ^ 2 + 2 * p + 27)) * hJ
-  · unfold critR
-    linear_combination
-      (-4 * J + (-p ^ 2 + 2 * p + 27)) * hJ
 
 end NoFourMUBs.PRM.CoverageSum

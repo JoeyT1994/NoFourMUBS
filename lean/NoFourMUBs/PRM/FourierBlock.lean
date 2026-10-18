@@ -36,9 +36,6 @@ namespace NoFourMUBs.PRM
 
 /-! ### `AllCornersMatched` is an equivalence invariant -/
 
-private lemma mul_conj_of_normSq {z : ℂ} (h : Complex.normSq z = 1) : z * conj z = 1 := by
-  rw [Complex.mul_conj, h]; simp
-
 /-- Permutations and unit row/column phases preserve matching at every corner. -/
 theorem allCornersMatched_of_equivalent {H K : Mat6} (hHK : Equivalent H K)
     (hH : AllCornersMatched H) : AllCornersMatched K := by
