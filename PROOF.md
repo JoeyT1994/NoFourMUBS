@@ -221,17 +221,22 @@ with `PRM.md` §7.1). Suppose every corner of H is critical (R = 0) and H ≇ F6
      all six λ-denominators were nonzero the weighted sum would equal an explicit nonzero value, so some
      denominator vanishes; the product of the six denominators, factored on the four curves, gives exactly the
      three candidates.
-   - The two endpoints are excluded separately (`CRITICAL_P7_EXCLUSION.md`, `CRITICAL_EQUI_CORRELATION_EXCLUSION.md`).
-3. **Counting.** Over the twenty corners of a strip, Σ p_C = 108 (row orthogonality). The cubic
-   3κ³ + κ² + κ − 1 has no rational root, so it is irreducible; then κ² is irrational (κ has degree 3), and so is
-   p*. If n corners have p = p* and m have p = 5, then n p* + 5m = 108 forces n = 0, and 5m = 108 is impossible. ∎
+3. **Counting** ([`ENDPOINT_COUNTING.md`](MinimalConstruction/Proofs/ENDPOINT_COUNTING.md), return S,
+   [`proof/coverage/returns/S_endpoints_by_counting`](proof/coverage/returns/S_endpoints_by_counting/PROOF.md)). Fix a
+   column c; identify the ten corners C ∋ c with the edges of K₅ on the other columns. Three universal identities
+   (unit entries, orthogonal rows): Σ_{C∋c} p_C = 54; the signed vertex sums d_i = Σ_{C⊇{c,i}} J_C vanish (the
+   anchored determinant sum Σ_{C∋c} |det E_C|² = 108 with |det E_C|² = 27 − 3p_C − J_C, and opposite J on
+   complementary corners); and Σ_{C∋c} X_C² = 54 + |Σ_j u_j²|² ≥ 54 for one row pair. Since p* is irrational (the
+   cubic has no rational root, so κ has degree 3), Σ p = 54 leaves no corner at p*. At each vertex d_i = 0 reads
+   2A + (54/25)B = 0 for the signed counts A, B ≤ 4 of the two endpoint types, so A = B = 0 and both endpoint counts
+   are even; 25n₅ + 35n₇ + 27n_e = 270 then leaves ten equicorrelated corners (Σ X² = 162/5 < 54) or two p = 7
+   corners, whose two edges cannot balance every vertex. ∎
 
-*Lean:* `PRM.strictCornerCoverage` (`lean/NoFourMUBs/Final.lean`; modules `PRM/Coverage*.lean`). The Lean proof
-counts differently: it fixes one column, uses the ten corners containing it (Σ p_C = 54) and the bounds
-p* ∈ (17/3, 29/5), which avoids irrationality. It also differs from the paper in two places: the p = 7 endpoint is excluded by one corner of signature −56 − 8i instead of
-the 20-corner sum, and the cube-root case of the equicorrelation endpoint uses (w³ − 8a)(w³ + a)² = 0 instead of a
-field-degree argument. The zero-J square-sum identity is re-checked by the kernel (`PRM/CoverageStripIdZero*.lean`);
-the nonzero-J stratum is `PRM/CoverageSigned*.lean`.
+*Lean:* `PRM.strictCornerCoverage` (`lean/NoFourMUBs/Final.lean`; modules `PRM/Coverage*.lean`). The count is
+`CoverageTen.anchored_count` (`PRM/CoverageEndCount.lean`); instead of irrationality it uses p* ∈ (5.722, 5.723)
+(`CoverageTen.pStar_bounds`; the wider window (17/3, 29/5) would admit a corner value such as 143/25). The zero-J
+square-sum identity is re-checked by the kernel (`PRM/CoverageStripIdZero*.lean`); the nonzero-J stratum is
+`PRM/CoverageSigned*.lean`.
 
 > **Corollary 2.6 (exact reach).** Every class of X is [F6], or in A, or in conj A.
 
@@ -344,7 +349,7 @@ By Step 4 and Lemma 4.2, every class in X lies in some ball Record. By Step 3, n
 | Theorem 2.2 (matched existence) | return J (sides), return E (flatness) | identity (J); exact flatness identities | yes (kernel re-checks every identity) |
 | Theorem 2.3 (matched uniqueness) | Step 2.2 | none | yes |
 | Theorem 2.4 (nonmatched converse) | return G §§2–5 | exact: 81-case census, Laurent identities | yes |
-| Theorem 2.5 (strict-corner coverage) | `STRICT_CORNER_COVERAGE.md`; return K for nonzero J | exact identities | yes (kernel re-checks the zero-J square-sum identity and return K's signed corner expansion) |
+| Theorem 2.5 (strict-corner coverage) | `STRICT_CORNER_COVERAGE.md`; return K for nonzero J; return S for the count | exact identities | yes (kernel re-checks the zero-J square-sum identity and return K's signed corner expansion) |
 | Lemma 1.1, Theorem 2 (connectedness) | Steps 1, 2.3 | none | Lemma 1.1 in the direct coverage route (`coverage_of_matched_density`); Theorem 2 not as a standalone theorem |
 | Lemmas 3.1–3.2, Remark 3.3 | `STAGEC.md` | none | yes (as inequalities) |
 | The atlas (Step 4) | Lemmas 4.1–4.2 | Arb and margined float; two independent implementations | the topology yes; the numbers are checked outside Lean |
@@ -380,7 +385,9 @@ Where to look hardest, and the full status, are in [`AUDIT.md`](AUDIT.md).
   guarded locus, its Theorem B, which is not on the critical path); MC1 by Theorem 2.5.
 - Matched existence first used return F's explicit radical side construction; it now uses identity (J) (return J).
   The nonzero-J critical strips first used a twenty-corner square sum with a Bernstein/Sturm certificate; they now
-  use return K's signed corner sums.
+  use return K's signed corner sums. The two rational endpoints were first excluded by two separate proofs
+  (`CRITICAL_P7_EXCLUSION.md`, `CRITICAL_EQUI_CORRELATION_EXCLUSION.md`, removed 18 Oct 2026); return S's anchored
+  count now excludes them.
 - The proof documents before this consolidation (the four-step PROOF.md with the [CT] route first, and the
   [CT]-free draft PROOF_v2.md) are preserved at the git tag `proof-docs-2026-10-17`.
 

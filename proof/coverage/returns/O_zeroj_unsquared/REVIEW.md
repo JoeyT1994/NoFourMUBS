@@ -19,5 +19,8 @@ needs one `simp only [Fin...]` before `linarith` to compile. The new `ZeroJProdu
 certificates to the signatures as in return K, is the remaining work. Note: the return's Ψ has the opposite sign to
 Lean's `TS`.
 
-**Status.** Accepted; being integrated. Then deletable: `PRM/CoverageStripIdZero*` (including the 216 KB data module),
-`generators/stripid/gen_zero.py`.
+**Status.** Accepted; partly integrated (18 Oct 2026): the geometric step is in Lean (`PRM/CoverageStripGeom.lean`,
+the candidate with the `simp only [Fin…]` fix; `CRITICAL_STRIP_CLASSIFICATION.md` §2). Not yet integrated: the
+`ZeroJProduct` theorem (the two mixed sums bound to the corner signatures, the 17 certificates and the scalar steps);
+until it is, the zero-J stratum still uses the square sum (`PRM/CoverageStripIdZero*`). Then deletable:
+`PRM/CoverageStripIdZero*` (including the 216 KB data module), `generators/stripid/gen_zero.py`.

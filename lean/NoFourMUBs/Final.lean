@@ -1,6 +1,5 @@
 import NoFourMUBs.Complete
 import NoFourMUBs.PRM.CoverageMain
-import NoFourMUBs.PRM.CoverageEndpoints
 import NoFourMUBs.PRM.CoverageStripParts
 
 /-!
@@ -9,19 +8,18 @@ import NoFourMUBs.PRM.CoverageStripParts
 `Final.no_four_mubs (C : AtlasCertificate) : ¬ FourMUBs`.  Its only input is the finite atlas certificate of
 `PROOF.md` Steps 2 and 4.  Strict-corner coverage (Theorem 2.5, MC1) is proved:
 
-* routing, the Fourier critical locus, the block lemma and the ten-corner count (`CoverageMain`);
+* routing, the Fourier critical locus, the block lemma and the ten-corner count, which also excludes
+  the two rational endpoints (return S, `CoverageEndCount`; `CoverageMain`);
 * the critical strip classification I4 (`CoverageStripParts`): zero `J` by the zero-`J` square-sum
   identity (`CoverageStripIdZero`), nonzero `J` by the two signed corner sums of return K
-  (`CoverageSignedNonzero`);
-* the two endpoint exclusions I5 (`CoverageEndpoints`).
+  (`CoverageSignedNonzero`).
 -/
 
 namespace NoFourMUBs
 
 /-- **Theorem 2.5 (strict-corner coverage, MC1).** -/
 theorem PRM.strictCornerCoverage : PRM.StrictCornerCoverage :=
-  PRM.strictCornerCoverage_of_criticalStripGap
-    ⟨PRM.Coverage.topStripClassification, PRM.Coverage.endpointExclusions⟩
+  PRM.strictCornerCoverage_of_classification PRM.Coverage.topStripClassification
 
 /-- **There are no four mutually unbiased bases in `ℂ⁶`**, given the atlas certificate.
 (Namespaced, since `NoFourMUBs.no_four_mubs` is the skeleton theorem of `Main.lean`.) -/

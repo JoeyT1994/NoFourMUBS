@@ -21,7 +21,7 @@ Hadamard matrix with invertible minors and `J > 0`:
   `Kmin_gauge`, kernel-checked); contradiction.
 * §6 (`lamProduct`): `h¹⁶ ∏_{j,±} L_{j,±} = poleNum₊ · poleNum₋`, and the factorizations of
   `CoverageQuarticPole` read off the candidates (`candidates_of_poleNum`); the candidates give the
-  conclusion (`conclusion_of_candidates`, with the N2 window `CoverageTen.pStar_bounds`).
+  conclusion (`conclusion_of_candidates`, with the window `CoverageTen.pStar_bounds`).
 
 `nonzeroJ_signed`, and with the zero-`J` stratum `topStripClassification_signed : TopStripClassification`.
 -/
@@ -505,7 +505,7 @@ theorem lamProduct (B : Mat3) (k : ℝ) (hp : blockP B = Quartic.pk k) (hW : blo
 /-- **The nonzero-`J` stratum with `J > 0`**, by the signed sums. -/
 theorem nonzeroJ_pos_signed {H : Mat6} (hH : Hadamard6.IsHadamard H) (hc : AllCritical H)
     (hinv : AllMinorsInvertible H) (l : Fin 20) (hJ : 0 < blockJ (triBlock H 0 l)) :
-    ((17 : ℝ) / 3 < blockP (triBlock H 0 l) ∧ blockP (triBlock H 0 l) < (29 : ℝ) / 5) ∨
+    CoverageTen.PStarWindow (blockP (triBlock H 0 l)) ∨
       EquiEndpoint (triBlock H 0 l) ∨ P7Endpoint (triBlock H 0 l) := by
   have hcrit : ∀ m : Fin 20, (Step2.sideSignature (triBlock H 0 m)).im = 0 := hc.triBlock_im 0
   have hd := triBlock_det_ne hinv 0 l
@@ -561,7 +561,7 @@ theorem nonzeroJ_pos_signed {H : Mat6} (hH : Hadamard6.IsHadamard H) (hc : AllCr
 /-- **The nonzero-`J` stratum** (return K). -/
 theorem nonzeroJ_signed {H : Mat6} (hH : Hadamard6.IsHadamard H) (hc : AllCritical H)
     (hinv : AllMinorsInvertible H) (l : Fin 20) (hJ : blockJ (triBlock H 0 l) ≠ 0) :
-    ((17 : ℝ) / 3 < blockP (triBlock H 0 l) ∧ blockP (triBlock H 0 l) < (29 : ℝ) / 5) ∨
+    CoverageTen.PStarWindow (blockP (triBlock H 0 l)) ∨
       EquiEndpoint (triBlock H 0 l) ∨ P7Endpoint (triBlock H 0 l) := by
   rcases lt_or_gt_of_ne hJ with hneg | hpos
   · have hJ' : 0 < blockJ (triBlock H 0 (19 - l)) := by rw [blockJ_compl hH]; linarith

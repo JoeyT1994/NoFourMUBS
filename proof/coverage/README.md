@@ -16,8 +16,9 @@ are in [`explorations/returns/`](../../explorations/returns/).
 | [`E_matched_flatness/`](returns/E_matched_flatness/FLATNESS.md) | **Theorem 2.2, flatness**: four weighted third-moment defects whose eight coefficients vanish identically (the fourth-moment identity L-id is certified as a second proof). The proof now uses only the two coefficients of W₁₁ and gets the other three defects by relabelling (handoff M, [`audits/AUDIT_2026-10-17/ALGEBRAIC_PROOFS.md`](audits/AUDIT_2026-10-17/ALGEBRAIC_PROOFS.md)) | `cd returns/E_matched_flatness && python3 verify_all.py` |
 | [`G_prm/`](returns/G_prm/PRM.md) | **Theorem 2.4** (the nonmatched converse) and exact reach; an 81-case Fourier census and Laurent identities. Its Theorem B (guarded PR-M) is not on the critical path | `cd returns/G_prm && python3 verify_all.py` |
 | [`K_nonzero_J/`](returns/K_nonzero_J/REPORT.md) | **Theorem 2.5, nonzero-J critical strips**: two signed corner sums, a universal identity, four curves and the λ-denominator product ([`REVIEW.md`](returns/K_nonzero_J/REVIEW.md); Lean `PRM/CoverageSigned*`) | `cd returns/K_nonzero_J && python3 verify.py` |
+| [`S_endpoints_by_counting/`](returns/S_endpoints_by_counting/PROOF.md) | **Theorem 2.5, the count**: three anchored identities (Σ p = 54, vertex sums of the signed J, the fourth moment) exclude both rational endpoints and the exceptional value together ([`REVIEW.md`](returns/S_endpoints_by_counting/REVIEW.md); `MinimalConstruction/Proofs/ENDPOINT_COUNTING.md`; Lean `PRM/CoverageEndCount`) | `cd returns/S_endpoints_by_counting && python3 verify.py` (replayed through `verify_endpoint_counting.py`) |
 
-The rest of Theorem 2.5 (routing, the zero-J strips, the endpoint exclusions and the ten-corner count) is in
+The rest of Theorem 2.5 (routing and the zero-J strips) is in
 [`MinimalConstruction/Proofs/`](../../MinimalConstruction/Proofs/README.md) (`STRICT_CORNER_COVERAGE.md` and the
 files it cites). `python3 verify.py` replays all of the above.
 
@@ -33,9 +34,8 @@ files it cites). `python3 verify.py` replays all of the above.
 
 | Return | Replaces | Review |
 |---|---|---|
-| [`O_zeroj_unsquared/`](returns/O_zeroj_unsquared/REPORT.md) | the zero-J square sum in Theorem 2.5 (216 KB of Lean data) | [REVIEW](returns/O_zeroj_unsquared/REVIEW.md) |
+| [`O_zeroj_unsquared/`](returns/O_zeroj_unsquared/REPORT.md) | the zero-J square sum in Theorem 2.5 (216 KB of Lean data); its geometric step is integrated (`PRM/CoverageStripGeom`), the `ZeroJProduct` binding is not yet | [REVIEW](returns/O_zeroj_unsquared/REVIEW.md) |
 | [`Q_fourier_anchor/`](returns/Q_fourier_anchor/PROOF.md) | the explicit anchor H₀ (73 KB of Lean, `anchor.py`, one certificate field) | [REVIEW](returns/Q_fourier_anchor/REVIEW.md) |
-| [`S_endpoints_by_counting/`](returns/S_endpoints_by_counting/PROOF.md) | the two endpoint exclusions in Theorem 2.5 (about 51 KB of Lean) | [REVIEW](returns/S_endpoints_by_counting/REVIEW.md) |
 
 ## Audits
 

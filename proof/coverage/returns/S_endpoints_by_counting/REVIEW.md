@@ -19,5 +19,8 @@ exclusion is a separate input.
 **Lean caveat.** Lean's `pStar_bounds` gives only 17/3 < p* < 29/5, which admits patterns with p* corners once endpoints
 are allowed (e.g. 143/25). Tighten the bracket (p* ≈ 5.72221; e.g. (5.722, 5.723)) or prove p* irrational.
 
-**Status.** Accepted; being integrated. Then deletable: `PRM/CoverageEndP7`, `CoverageEndEqui`, `CoverageEndpoints`
-(about 51 KB) and the two exclusion proofs in `MinimalConstruction/Proofs/`.
+**Status.** Accepted and integrated (18 Oct 2026). Lean: `PRM/CoverageEndCount.lean` (`CoverageTen.anchored_count`,
+the §7 argument, with `p⋆ ∈ (5.722, 5.723)` in `CoverageTen.pStar_bounds`); paper: `MinimalConstruction/Proofs/
+ENDPOINT_COUNTING.md` with `verify_endpoint_counting.py`. Removed: `PRM/CoverageEndP7`, `CoverageEndEqui`,
+`CoverageEndpoints`, `CoverageTenArith` and the input I5 (`EndpointExclusions`), and the two exclusion proofs with
+their verifiers in `MinimalConstruction/Proofs/`.

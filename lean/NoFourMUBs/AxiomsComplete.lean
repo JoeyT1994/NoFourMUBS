@@ -19,7 +19,7 @@ Run by `check_axioms.py --full` after building `NoFourMUBs.Complete`, `NoFourMUB
 #print axioms NoFourMUBs.PRM.Coverage.noPole
 #print axioms NoFourMUBs.PRM.Coverage.nonzeroJ_signed
 #print axioms NoFourMUBs.PRM.Coverage.topStripClassification
-#print axioms NoFourMUBs.PRM.Coverage.endpointExclusions
+#print axioms NoFourMUBs.PRM.CoverageTen.anchored_count
 #print axioms NoFourMUBs.PRM.Coverage.Quartic.poleClassification
 #print axioms NoFourMUBs.PRM.strictCornerCoverage
 #print axioms NoFourMUBs.Final.no_four_mubs

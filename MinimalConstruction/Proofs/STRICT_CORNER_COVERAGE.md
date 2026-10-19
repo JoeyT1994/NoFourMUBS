@@ -13,7 +13,8 @@ an input.
 
 > **Note (18 Oct 2026).** The ClassificationPaper imports of `FOURIER_ROUTING.md` are no longer needed: `PRM.md` §7.1
 > (return G) proves the same routing directly, and the current proof (`PROOF.md` Theorem 2.5) uses that. The nonzero-J
-> strips are now proved by return K's signed corner sums.
+> strips are now proved by return K's signed corner sums, and the two rational endpoints are excluded by the ten-corner
+> count of return S (ENDPOINT_COUNTING.md) instead of the two former endpoint-exclusion proofs.
 
 ## Proof
 
@@ -37,28 +38,19 @@ Apply CRITICAL_STRIP_CLASSIFICATION.md to any three rows of H. For
 each of their twenty three-column corners, its theorem now says:
 
 * if J=0, then p is 0 or 5;
-* if J!=0, its data are one of the three listed exceptional scalar cases.
+* if J!=0, its data are one of the three listed exceptional scalar cases:
+  the single value
 
-CRITICAL_P7_EXCLUSION.md and CRITICAL_EQUI_CORRELATION_EXCLUSION.md
-exclude the two rational exceptional cases from an all-critical strip.
+      p_star=9-4/(1+kappa²),
+      3 kappa³+kappa²+kappa-1=0, kappa>0,                (2)
+
+  or one of the two rational endpoints (p=27/5 equicorrelated, p=7).
+
 (Return K, `proof/coverage/returns/K_nonzero_J/REPORT.md`, gives a shorter proof of the nonzero-J classification by two
-signed corner sums; the Lean proof uses it.) Every remaining nonzero-J corner consequently has the single value
-
-    p_star=9-4/(1+kappa²),
-    3 kappa³+kappa²+kappa-1=0, kappa>0.                (2)
-
-This number is irrational. The displayed cubic is irreducible over Q:
-its possible rational roots ±1 and ±1/3 are not roots. Hence kappa
-has degree three over Q. If p_star were rational, (2) would make
-kappa² rational, giving kappa degree at most two, a contradiction.
-
-Let n0,n5,nstar count the three possible p values on this row triple.
-The exact fixed-row sum rule in CRITICAL_CORNER_REDUCTION.md gives
-
-    n0+n5+nstar=20,       5 n5+p_star nstar=108.         (3)
-
-If nstar were nonzero, (3) would express p_star as a rational number.
-Thus nstar=0. But then 5 n5<=100, contradicting (3). No such H exists.
+signed corner sums; the Lean proof uses it.) ENDPOINT_COUNTING.md (return S) shows that the ten corners containing one
+column cannot all be of these types: the anchored sum rule Σp=54 leaves no corner at p_star (p_star lies in
+(5.722, 5.723), or use that it is irrational), the vertex sums of the signed J make both endpoint counts even, and the
+two remaining count patterns contradict the fourth moment ΣX²≥54 or the vertex sums. No such H exists.
 
 Conversely F6 is among the twelve zero-maximum Fourier representatives
 in FOURIER_CRITICAL_LOCUS.md, so every corner has R=0. This property
@@ -74,13 +66,13 @@ The proof chain is:
 2. Complementary critical equations and the fixed-row sum 108.
 3. Exact whole-strip square-sum identities; scalar Bernstein/Sturm
    classification; explicit coverage of moment-denominator poles.
-4. The two separately proved endpoint exclusions.
-5. Singular-minor and geometric-row Fourier routing, followed by the
+4. Singular-minor and geometric-row Fourier routing, followed by the
    exact Fourier-family critical-locus census.
-6. The irrationality and integer-count contradiction (2)–(3).
+5. The anchored ten-corner count of ENDPOINT_COUNTING.md, which also
+   excludes both rational endpoints.
 
 `verify_strict_corner_coverage.py` checks the remaining algebraic
-bookkeeping. `verify_dossier.py` replays all prerequisite local verifiers
+bookkeeping; `verify_endpoint_counting.py` the count. `verify_dossier.py` replays all prerequisite local verifiers
 and records their source hashes. The analytic arguments above and in
 the dependency proofs are part of the certificate; the receipt is not
 a claim that a proof assistant has formalized the prose.

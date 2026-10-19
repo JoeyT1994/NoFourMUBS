@@ -12,7 +12,7 @@ in this folder is the earlier route (below) or provenance (`provenance/`).
 | 2.5 step 2, corner scalar reduction | [CRITICAL_CORNER_REDUCTION.md](CRITICAL_CORNER_REDUCTION.md) | `verify_critical_reduction.py` |
 | 2.5 step 2, zero-J strips | [CRITICAL_STRIP_CLASSIFICATION.md](CRITICAL_STRIP_CLASSIFICATION.md) §§1–2 (§§3–4: a second, square-sum proof) | `verify_critical_square_sums.py`, `verify_critical_scalar_classification.py` |
 | 2.5 step 2, nonzero-J strips | return K, [`../../proof/coverage/returns/K_nonzero_J/`](../../proof/coverage/returns/K_nonzero_J/REVIEW.md) | its own verifier |
-| 2.5 step 2, the two endpoints | [CRITICAL_P7_EXCLUSION.md](CRITICAL_P7_EXCLUSION.md), [CRITICAL_EQUI_CORRELATION_EXCLUSION.md](CRITICAL_EQUI_CORRELATION_EXCLUSION.md) | `verify_critical_p7.py`, `verify_critical_equicorrelation.py` |
+| 2.5 step 2, the two endpoints (and the final count) | [ENDPOINT_COUNTING.md](ENDPOINT_COUNTING.md) (return S) | `verify_endpoint_counting.py` |
 | Lemma 2.1 and the side fibre (cited by the strip classification) | [SIDE_FIBER.md](SIDE_FIBER.md) §1 | `verify_side_fiber.py` |
 
 Matched existence, uniqueness and the converse (Theorems 2.2–2.4) are proved outside this folder, without [CT]: return J
@@ -34,7 +34,7 @@ Recovered historical files are provenance, not additional axioms.
 
 | ID | Required conclusion | Current evidence and remaining work |
 |---|---|---|
-| MC1 | Every non-F6 order-six Hadamard has a positional corner with R>0, exactly as ASSUMPTIONS.md states, including Tao | Proved in [STRICT_CORNER_COVERAGE.md](STRICT_CORNER_COVERAGE.md). Exact strip identities, complete pole and scalar classification, endpoint exclusions, Fourier routing and the fixed-row sum rule show the all-critical locus is exactly F6. |
+| MC1 | Every non-F6 order-six Hadamard has a positional corner with R>0, exactly as ASSUMPTIONS.md states, including Tao | Proved in [STRICT_CORNER_COVERAGE.md](STRICT_CORNER_COVERAGE.md). Exact strip identities, complete pole and scalar classification, Fourier routing and the anchored ten-corner count (which excludes the endpoints) show the all-critical locus is exactly F6. |
 | MC2 | At every strict corner, exactly two orbits of the normalized side fiber under column permutations; finite pairings recover all framed completions | Proved in [SIDE_FIBER.md](SIDE_FIBER.md), on all R>0 without product guards. Which pairings are flat is separately MC4. |
 | MC3 | Every prescribed side-formula divisor is nonzero on all R>0; the formula is flat with the required Gram; allowed root choices act only by the stated permutations | Proved in [STRICT_DOMAIN.md](STRICT_DOMAIN.md) and [SIDE_FIBER.md](SIDE_FIBER.md), including real dF, rho>=n/2>0, sigma, flatness, and all permitted root choices. |
 | MC4 | Both matched completions are flat throughout R>0; all nonmatched exceptions are precisely the stated Tao cases | Proved in [MATCHED_FLATNESS.md](MATCHED_FLATNESS.md), [TAO_PAIRINGS.md](TAO_PAIRINGS.md), and [NONMATCHED_EXCEPTIONS.md](NONMATCHED_EXCEPTIONS.md). The converse explicitly imports the paper's necessary affine-minus matching rule on product-regular completions. |
@@ -113,12 +113,10 @@ contain its proof. This recovery does not discharge MC1.
 - `python3 MinimalConstruction/Proofs/verify_fourier_routing.py`: exact
   identities for the singular-minor and geometric-row-progression routes
   into the Fourier families. Their exhaustion arguments are written out.
-- `python3 MinimalConstruction/Proofs/verify_critical_p7.py`: exact
-  20-corner square sum, uniformly at least 768, for the p=7 endpoint
-  strips classified in the accompanying proof.
-- `python3 MinimalConstruction/Proofs/verify_critical_equicorrelation.py`:
-  exact boundary products, cubics and mixed-corner factors for the other
-  rational endpoint exclusion.
+- `python3 MinimalConstruction/Proofs/verify_endpoint_counting.py`: the
+  universal anchored identities (first and fourth moments, vertex sums of
+  J), the window of p⋆ and the ten-corner count that excludes both rational
+  endpoints (return S).
 - `python3 MinimalConstruction/Proofs/verify_critical_square_sums.py`:
   all 43 moment identities on independent Laurent variables and complete
   regeneration of both critical-strip square-sum factorizations.
@@ -127,7 +125,7 @@ contain its proof. This recovery does not discharge MC1.
   physical pole candidates, with no omitted denominator-zero case.
 - `python3 MinimalConstruction/Proofs/verify_strict_corner_coverage.py`:
   the remaining algebra and irrationality bookkeeping for the global proof.
-- `python3 MinimalConstruction/Proofs/verify_dossier.py`: all fifteen
+- `python3 MinimalConstruction/Proofs/verify_dossier.py`: all fourteen
   verifiers above, with input and output hashes in one replay receipt.
 
 `interval_constructor.py` is the local arithmetic helper for the outward
