@@ -23,6 +23,6 @@ CPUS=$(env -u OMP_NUM_THREADS nproc)   # (nproc honours OMP_NUM_THREADS=1)
 source kernel_atlas/generators/rusty_stage.sh
 export STAGE_TAR=${STAGE_TAR_FINAL:-/mnt/ceph/users/$USER/nofour_stage_final.tar}
 stage_in
-"$VENV/bin/python" -u kernel_atlas/generators/final_run.py --archive "$ARCH" --name "${NAME:-final_$SLURM_JOB_ID}" ${STUBS:+--stubs}
+"$VENV/bin/python" -u kernel_atlas/generators/final_run.py --archive "$ARCH" --name "${NAME:-final_$SLURM_JOB_ID}" ${STUBS:+--stubs} ${NO_OLEAN_MMAP:+--no-olean-mmap} ${DIAG:+--diag}
 stage_clean
 echo "done on $(hostname)"

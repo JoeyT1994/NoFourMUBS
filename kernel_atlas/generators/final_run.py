@@ -51,12 +51,45 @@ def compile_(env, lean, mod, text, threads):
                 tail=(r.stdout + r.stderr)[-3000:] if r.returncode else '')
 
 
+def diag_maps(env, lean, text, probe):
+    """The plain final compile (one mapping per .olean) with the Lean process's memory mappings counted every 0.2 s,
+    the node's limits, and the .olean it failed on (size, readability)."""
+    import resource
+    src = os.path.join(SRC, 'KernelAtlas', 'Atlas', 'Final.lean')
+    os.makedirs(os.path.dirname(src), exist_ok=True)
+    with open(src, 'w') as f:
+        f.write(text)
+    p = subprocess.Popen([lean, '-R', SRC, '-o', os.path.join(OLEAN, 'KernelAtlas', 'Atlas', 'FinalDiag.olean'), src],
+                         cwd=LEAN, env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
+    peak = 0
+    while p.poll() is None:
+        try:
+            peak = max(peak, sum(1 for _ in open('/proc/%d/maps' % p.pid)))
+        except OSError:
+            pass
+        time.sleep(0.2)
+    out = p.stdout.read()
+    d = dict(returncode=p.returncode, maps_peak=peak, out=out[-1500:],
+             max_map_count=int(open('/proc/sys/vm/max_map_count').read()),
+             nofile=resource.getrlimit(resource.RLIMIT_NOFILE),
+             oleans=sum(len(fs) for _, _, fs in os.walk(OLEAN)))
+    m = re.search(r"failed to read file '([^']+)'", out)
+    if m:
+        f = m.group(1)
+        d['failed_file'] = dict(path=f, exists=os.path.exists(f), size=os.path.getsize(f) if os.path.exists(f) else None,
+                                readable=len(open(f, 'rb').read()) if os.path.exists(f) else None)
+    return d
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--archive', required=True)
     ap.add_argument('--stubs', action='store_true')
     ap.add_argument('--name', default='final')
     ap.add_argument('--lean-threads', type=int, default=0)
+    ap.add_argument('--diag', action='store_true', help='first the plain compile with its memory mappings counted')
+    ap.add_argument('--no-olean-mmap', action='store_true',
+                    help='read the .oleans into memory instead of one mapping each (nommap_olean.c; vm.max_map_count)')
     a = ap.parse_args()
     os.makedirs(os.path.join(a.archive, 'final'), exist_ok=True)
     res = dict(name=a.name, stubs=a.stubs)
@@ -72,6 +105,15 @@ def main():
                 t.extractall(OLEAN)
         res['unpack_s'] = round(time.time() - t0, 1)
         env, lean = lean_env()
+        if a.diag:
+            res['diag'] = diag_maps(env, lean, EA.final_file(K), None)
+            print(json.dumps(res['diag'], indent=1), flush=True)
+        if a.no_olean_mmap:
+            so = os.path.join(os.environ.get('TMPDIR', '/tmp'), 'nommap_olean.so')
+            subprocess.run(['gcc', '-shared', '-fPIC', '-O2', '-o', so, os.path.join(HERE, 'nommap_olean.c'), '-ldl'],
+                           check=True)
+            env = dict(env, LD_PRELOAD=so, MALLOC_MMAP_THRESHOLD_='33554432', NOMMAP_REPORT='1')
+            res['no_olean_mmap'] = True
         text = EA.final_file(K)
         if missing:
             res['stubs_compile'] = compile_(env, lean, 'KernelAtlas.Atlas.Stubs', stub_module(missing), a.lean_threads)
@@ -90,6 +132,7 @@ def main():
             cpu, rss = parse_time(r.stdout + r.stderr)
             res['axioms_run'] = dict(wall_s=round(time.time() - t0, 1), cpu_s=cpu, peak_gb=rss and round(rss, 2))
             res['axioms_output'] = r.stdout[-3000:]
+            res['axioms_stderr'] = r.stderr[-1500:]
             res['axioms'] = re.findall(r"'([^']+)' depends on axioms: \[(.*?)\]", r.stdout, re.S)
             res['status'] = 'ok' if r.returncode == 0 else 'axioms_failed'
         else:
