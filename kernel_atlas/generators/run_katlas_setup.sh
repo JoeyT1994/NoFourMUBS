@@ -23,8 +23,8 @@ source kernel_atlas/generators/rusty_stage.sh
 STAGE_TAR_FINAL=${STAGE_TAR_FINAL:-/mnt/ceph/users/$USER/nofour_stage_final.tar}
 stage_in
 cd lean
-lake build NoFourMUBs.Final KernelAtlas.RecTao.Record KernelAtlas.Special.Exact KernelAtlas.Special.Anchor 2>&1 | grep -E "error|✖|Build completed" | tail -20
-printf 'import KernelAtlas.RecTao.Record\nimport KernelAtlas.Special.Anchor\nimport NoFourMUBs.Final\n#print axioms NoFourMUBs.KernelAtlas.RecTao.cert\n#print axioms NoFourMUBs.KernelAtlas.RecTao.boundary\n#print axioms NoFourMUBs.KernelAtlas.RecTao.tao\n#print axioms NoFourMUBs.KernelAtlas.Special.fourier\n#print axioms NoFourMUBs.KernelAtlas.Special.anchor\n#print axioms NoFourMUBs.Final.no_four_mubs\n' > /tmp/ax_setup_$SLURM_JOB_ID.lean
+lake build NoFourMUBs.Final KernelAtlas.RecTao.Record KernelAtlas.Special.Exact KernelAtlas.Assembly KernelAtlas.Table.All 2>&1 | grep -E "error|✖|Build completed" | tail -20
+printf 'import KernelAtlas.RecTao.Record\nimport KernelAtlas.Special.Exact\nimport NoFourMUBs.Final\n#print axioms NoFourMUBs.KernelAtlas.RecTao.cert\n#print axioms NoFourMUBs.KernelAtlas.RecTao.boundary\n#print axioms NoFourMUBs.KernelAtlas.RecTao.tao\n#print axioms NoFourMUBs.KernelAtlas.Special.fourier\n#print axioms NoFourMUBs.Final.no_four_mubs\n' > /tmp/ax_setup_$SLURM_JOB_ID.lean
 lake env lean /tmp/ax_setup_$SLURM_JOB_ID.lean
 cd ..
 stage_pack "$STAGE_TAR_FINAL"
