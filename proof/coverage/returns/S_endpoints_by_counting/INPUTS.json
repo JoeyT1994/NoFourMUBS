@@ -1,0 +1,48 @@
+{
+  "task_brief": {
+    "filename": "S_endpoints_by_counting_brief.zip",
+    "sha256": "1551d1b962eedb4bd1cecc8ad9a779f80ade8074d97787ab87ea4179e77845c2",
+    "member": "S_endpoints_by_counting/BRIEF.md",
+    "member_sha256": "0a79ef5cd142573e55de137b47a31bb43f8c95a64902c4e4973bd9bc75d291d0"
+  },
+  "supporting_source_archive": {
+    "filename": "PRMHandoff_2026-10-14.zip",
+    "sha256": "b99f61854a779d31912a2c8e4a0102351298069c306648334441c73a1f94b757",
+    "bytes": 12604805,
+    "note": "Earlier PRM handoff used to recover exact definitions and candidate modulus data; no current repository edit or Lean replay is claimed."
+  },
+  "sources": [
+    {
+      "source_archive_member": "PRMHandoff2/reference/MinimalConstruction/Proofs/CRITICAL_STRIP_CLASSIFICATION.md",
+      "sha256": "3921e6b8fb31c37fb547ad02f48b8643575a9c76ce104f8023912c8b8ceddaa5",
+      "bytes": 9452,
+      "used_for": [
+        "Candidate alternatives before the separate endpoint-exclusion sentence",
+        "Nonzero-J endpoint modulus data",
+        "Exceptional cubic parameter",
+        "Zero-J alternatives, with geometric-row branch subject to upstream routing"
+      ]
+    },
+    {
+      "source_archive_member": "PRMHandoff2/reference/MinimalConstruction/Proofs/CRITICAL_CORNER_REDUCTION.md",
+      "sha256": "4a2172519ca3568faaff44e152692a195d9d2a135ca3948840981a418af1da60",
+      "bytes": 4420,
+      "used_for": [
+        "Definitions of p,J,W and complementary Gram sign",
+        "Critical discriminant formula used at p=5,J=0"
+      ]
+    }
+  ],
+  "excluded_dependencies": [
+    "CRITICAL_P7_EXCLUSION.md",
+    "CRITICAL_EQUI_CORRELATION_EXCLUSION.md",
+    "Their verifiers and their corresponding endpoint Lean modules"
+  ],
+  "new_theorem_hypotheses": [
+    "T is 3x6 with every entry of modulus 1 and TT*=6I",
+    "All ten corners at one fixed column obey the stated candidate scalar table",
+    "p_star is one fixed irrational value"
+  ],
+  "integration_assumption": "The existing upstream geometric-row/Fourier routing has removed the additional zero-J geometric progression alternative, as in Handoff S.",
+  "verification_boundary": "This package proves and checks the new universal algebra and finite arithmetic; it does not independently replay the full upstream candidate classification or claim a compiled Lean port."
+}

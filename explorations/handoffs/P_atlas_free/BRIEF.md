@@ -1,5 +1,11 @@
 # Handoff P: an algebraic replacement for the atlas
 
+> **Status (18 Oct 2026), after two returns** (`explorations/returns/P_atlas_free/REVIEW.md`, `round2/REVIEW.md`).
+> B is done. A is reduced globally to companions of {I, U(D)} whose six rays carry distinct clock-orbit labels (A′).
+> C is open, now phrased through the four-ray determinant D₄ and the 280 minor factors Φ. Correction: the boundary
+> statement needed is closure(V ∖ V_F) ∩ V_F = ∅ (no Fourier-edge triple is a limit of Fourier-free ones); the reverse
+> inclusion is trivial since V_F is closed.
+
 ## Goal
 Replace Steps 3–4 of the proof (the 4-D atlas: 12,021 certified ball Records, Stage C, boundary transfers; ~2 CPU-h in
 Arb, ~50 thread-h in Julia, ~20k core-h in the Lean kernel) by algebra, using two things we now have:

@@ -1,0 +1,61 @@
+{
+  "started_utc": "2026-10-19T00:23:52.424822+00:00",
+  "python": "3.12.14",
+  "dependencies": {
+    "sympy": "1.14.0",
+    "python-flint": "0.9.0",
+    "mpmath": "1.3.0"
+  },
+  "assertions_enabled": true,
+  "implemented_checks": "PASS",
+  "structural_matched_flatness_obligation": "NOT_ESTABLISHED",
+  "lean_files_modified": false,
+  "lean_build_performed": false,
+  "checks": [
+    {
+      "script": "verification/verify_side_identities.py",
+      "scope": "structural",
+      "return_code": 0,
+      "elapsed_seconds": 0.513337,
+      "status": "PASS",
+      "stdout": "PASS cofactor phase (0,0)\nPASS cofactor phase (0,1)\nPASS cofactor phase (0,2)\nPASS cofactor phase (1,0)\nPASS cofactor phase (1,1)\nPASS cofactor phase (1,2)\nPASS cofactor phase (2,0)\nPASS cofactor phase (2,1)\nPASS cofactor phase (2,2)\nPASS Mobius multiplication at column 0\nPASS Mobius multiplication at column 1\nPASS Mobius multiplication at column 2\nPASS Gram expression for Mobius coefficient\nPASS determinant Gram invariant\nPASS permanent Gram invariant\nPASS lambda identity from Mobius multiplication\nPASS lambda identity for normalized row 1\nPASS lambda identity for normalized row 2\nPASS complementary permanent invariant\nPASS complementary determinant invariant\nPASS L Gram diagonal (0)\nPASS L Gram offdiagonal (0,1)\nPASS L Gram offdiagonal (0,2)\nPASS L Gram offdiagonal (1,0)\nPASS L Gram diagonal (1)\nPASS L Gram offdiagonal (1,2)\nPASS L Gram offdiagonal (2,0)\nPASS L Gram offdiagonal (2,1)\nPASS L Gram diagonal (2)\nAll exact structural checks passed.\n",
+      "stderr": ""
+    },
+    {
+      "script": "verification/verify_conic_identities.py",
+      "scope": "structural",
+      "return_code": 0,
+      "elapsed_seconds": 0.028979,
+      "status": "PASS",
+      "stdout": "PASS: det(A) perm(A) = det(A^2) + 2 P det(A^(-1)).\nPASS: all nine 2x2 cofactor phase-conjugation identities.\nPASS: diag(A^2 adj(A#))_i = -R_i det(A); det(A#)=P det(A^(-1)).\nPASS: L G^T L* + 2 diag(bar(lambda)) G^T diag(lambda) = G^(entrywise 2).\nPASS: L_A G^T = N0(G) - bar(z) diag(bar(lambda)).\nThe final notation uses pi=z*lambda0, U=lambda0*bar(lambda1),\nand the analogous V identity; all polynomial coefficients above were checked exactly.\n",
+      "stderr": ""
+    },
+    {
+      "script": "verification/verify_cubic_reduction.py",
+      "scope": "structural",
+      "return_code": 0,
+      "elapsed_seconds": 4.00227,
+      "status": "PASS",
+      "stdout": "PASS: all 9 cofactor phase identities\nPASS: M A^T = T(G) - conjugate(z) diag(conjugate(lambda))\nPASS: diag(M conjugate(A)^-1) = conjugate(lambda)\nPASS: det(M conjugate(A)^-1) = -(z+2)\nPASS: G^-1 Q_p = conjugate(A)^-T diag(conjugate(row_p(A))) conjugate(A)^T\nPASS: exact cubic remainder for 9 independent L entries and 3 independent coordinates\nPASS: coefficient matrices R0, R1, R2 and their traces\nPASS: interpolation basis determinant is P times conjugate(det(A)), hence nonzero\nALL UNIVERSAL CHECKS PASS; no matched horizontal/vertical cancellation asserted\n",
+      "stderr": ""
+    },
+    {
+      "script": "reference/check_existing_W11.py",
+      "scope": "existing_seed_expansion",
+      "return_code": 0,
+      "elapsed_seconds": 0.487057,
+      "status": "PASS",
+      "stdout": "PASS: horizontal/vertical g, eta, chi agree; det(Gh)=det(Gv)=g.\nPASS: B0-C0 = 0 exactly in Q(a,b,c,d).\nPASS: A0+(chi/g)*C0+eta*D0 = 0 exactly in Q(a,b,c,d).\nThus W11 = B0*(z+w-chi/g) + D0*(z*w-eta).\n{\"coefficient_term_counts\": {\"A0\": {\"denominator\": 10557, \"numerator\": 17713}, \"B0\": {\"denominator\": 5377, \"numerator\": 5270}, \"C0\": {\"denominator\": 5377, \"numerator\": 5270}, \"D0\": {\"denominator\": 5377, \"numerator\": 2882}}, \"elapsed_seconds\": 0.432077, \"method\": \"existing rational seed expansion\"}\nREFERENCE METHOD PASS; structural Handoff R remains NOT ESTABLISHED.\n",
+      "stderr": ""
+    },
+    {
+      "script": "diagnostics/check_rejected_claim.py",
+      "scope": "rejected_claim_diagnostic",
+      "return_code": 0,
+      "elapsed_seconds": 0.017574,
+      "status": "PASS",
+      "stdout": "PASS: Tao is phase-flat and HH*=6I exactly.\nStrict invariants: g=9, eta=3, chi=-27, R=243 > 0.\nPsi(B) = Psi(C) = 9 - 9*w.\nPsi(B) - conjugate(Psi(C)) = -9 - 18*w != 0.\nPrior squared-complement identity: lhs=3, rhs=3*w; residual != 0.\nThis only rejects the prior universal claims; it does not refute Handoff R.\n",
+      "stderr": ""
+    }
+  ]
+}

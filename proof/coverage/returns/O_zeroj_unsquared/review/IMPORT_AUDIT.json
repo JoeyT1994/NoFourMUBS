@@ -1,0 +1,103 @@
+{
+  "scope": "Supplied input snapshot 73152c64 excerpt only",
+  "source_files": {
+    "NoFourMUBs/PRM/CoverageInputs.lean": "4b98752c9bdd8a5af3d270004444c25c263a004b72f3d3f5ebf0b0e8474b0ab2",
+    "NoFourMUBs/PRM/CoverageSignedBoundary.lean": "8df1e4c0266ede444f53b004f26c7c68a3014386a904f6a0a2924fe7400c062c",
+    "NoFourMUBs/PRM/CoverageSignedData.lean": "be9c25e4057f3bdf2827594405233ca1969fc65a41b6198da21927dcb6bcf02d",
+    "NoFourMUBs/PRM/CoverageSignedGauge.lean": "df3ccdc16406140a29da74e85acb6f40fc34385da886e1bac0f42e04f3da6946",
+    "NoFourMUBs/PRM/CoverageSignedK0.lean": "ccad96ae44b54c3c1318562a57eba9fe0ed5f4421e1f7996454e1d10f1d52bc9",
+    "NoFourMUBs/PRM/CoverageSignedKmin.lean": "e2af1ade1cc2e8993c08d1b87c72fc14d0abfeda7d3eb855361849fcb7811ab8",
+    "NoFourMUBs/PRM/CoverageSignedKn.lean": "04a62a9befbb4a1c58138d37bef585ed8ba1a07ed2b96dd75b0dcb689165f1a0",
+    "NoFourMUBs/PRM/CoverageSignedKp.lean": "b8a606ed03f9c1ce2a0f0255803d0f3fe314c56b593d1d90d48c86cae0153324",
+    "NoFourMUBs/PRM/CoverageSignedMoments.lean": "d8a707495a799a98ad8fd8413eaff9ed745b4303681b29bd0748ccc31a112d03",
+    "NoFourMUBs/PRM/CoverageSignedNonzero.lean": "484c627bde0f3ac787b5600101175708776dba2c4903c560b13f8e9301b9532d",
+    "NoFourMUBs/PRM/CoverageStripGeom.lean": "f4a0cf2c5748999b4b6b13332679f8bbcf9defa61f76427d97f42b3f4e96f013",
+    "NoFourMUBs/PRM/CoverageStripIdZero.lean": "c095fb14c79ef47e855f67c58801f37564e161bdf05be4fc133224d268406141",
+    "NoFourMUBs/PRM/CoverageStripIdZeroDefs.lean": "9c1d4a30b2fdda97ae968dab5a7d1264a8d887e6079dc264f3525ee83d2b2bc5",
+    "NoFourMUBs/PRM/CoverageStripNonzero.lean": "9087ab87e5e547438b55bef9cac05af0ef1595c018b4f554679239ee1786b674",
+    "NoFourMUBs/PRM/CoverageStripParts.lean": "23560d58551ba9a72b51e71b65066e41cd184197468b508307c3da0e04e8e070",
+    "NoFourMUBs/PRM/CoverageStripReduce.lean": "09ce390c5e3731e49384c1d81667fe13b740b6979bda35ef8a451ebbf53c534a",
+    "NoFourMUBs/PRM/CoverageStripZero.lean": "aee93db6769cc2e6512046c5a8cce2c328dcd1f2aec211e6e2cd463d524999f2"
+  },
+  "direct_imports": {
+    "NoFourMUBs.PRM.CoverageInputs": [
+      "NoFourMUBs.PRM.CoverageBlock",
+      "NoFourMUBs.PRM.CoverageCritical"
+    ],
+    "NoFourMUBs.PRM.CoverageSignedBoundary": [
+      "NoFourMUBs.PRM.CoverageSignedMoments",
+      "NoFourMUBs.PRM.CoverageStripReduce"
+    ],
+    "NoFourMUBs.PRM.CoverageSignedData": [
+      "NoFourMUBs.PRM.CoverageStripMomentData"
+    ],
+    "NoFourMUBs.PRM.CoverageSignedGauge": [
+      "NoFourMUBs.PRM.CoverageSignedMoments",
+      "NoFourMUBs.PRM.CoverageStripIdHalf"
+    ],
+    "NoFourMUBs.PRM.CoverageSignedK0": [
+      "NoFourMUBs.PRM.CoverageSignedGauge"
+    ],
+    "NoFourMUBs.PRM.CoverageSignedKmin": [
+      "NoFourMUBs.PRM.CoverageSignedGauge"
+    ],
+    "NoFourMUBs.PRM.CoverageSignedKn": [
+      "NoFourMUBs.PRM.CoverageSignedGauge"
+    ],
+    "NoFourMUBs.PRM.CoverageSignedKp": [
+      "NoFourMUBs.PRM.CoverageSignedGauge"
+    ],
+    "NoFourMUBs.PRM.CoverageSignedMoments": [
+      "NoFourMUBs.PRM.CoverageStripMoments",
+      "NoFourMUBs.PRM.CoverageSignedData"
+    ],
+    "NoFourMUBs.PRM.CoverageSignedNonzero": [
+      "NoFourMUBs.PRM.CoverageSignedBoundary",
+      "NoFourMUBs.PRM.CoverageSignedK0",
+      "NoFourMUBs.PRM.CoverageSignedKp",
+      "NoFourMUBs.PRM.CoverageSignedKn",
+      "NoFourMUBs.PRM.CoverageSignedKmin",
+      "NoFourMUBs.PRM.CoverageQuarticPole"
+    ],
+    "NoFourMUBs.PRM.CoverageStripGeom": [
+      "NoFourMUBs.PRM.CoverageStripBlock"
+    ],
+    "NoFourMUBs.PRM.CoverageStripIdZero": [
+      "NoFourMUBs.PRM.CoverageStripIdZeroCheckM",
+      "NoFourMUBs.PRM.CoverageStripIdZeroCheckS"
+    ],
+    "NoFourMUBs.PRM.CoverageStripIdZeroDefs": [
+      "NoFourMUBs.PRM.CoverageStripIdHalf"
+    ],
+    "NoFourMUBs.PRM.CoverageStripNonzero": [
+      "NoFourMUBs.PRM.CoverageStripScalar"
+    ],
+    "NoFourMUBs.PRM.CoverageStripParts": [
+      "NoFourMUBs.PRM.CoverageSignedNonzero",
+      "NoFourMUBs.PRM.CoverageStripIdZero"
+    ],
+    "NoFourMUBs.PRM.CoverageStripReduce": [
+      "NoFourMUBs.PRM.CoverageStripAlgebra",
+      "NoFourMUBs.PRM.CoverageStripNonzero",
+      "NoFourMUBs.PRM.CoverageStripZero"
+    ],
+    "NoFourMUBs.PRM.CoverageStripZero": [
+      "NoFourMUBs.PRM.CoverageStripGeom"
+    ]
+  },
+  "absent_direct_dependencies": [
+    "NoFourMUBs.PRM.CoverageBlock",
+    "NoFourMUBs.PRM.CoverageCritical",
+    "NoFourMUBs.PRM.CoverageQuarticPole",
+    "NoFourMUBs.PRM.CoverageStripAlgebra",
+    "NoFourMUBs.PRM.CoverageStripBlock",
+    "NoFourMUBs.PRM.CoverageStripIdHalf",
+    "NoFourMUBs.PRM.CoverageStripIdZeroCheckM",
+    "NoFourMUBs.PRM.CoverageStripIdZeroCheckS",
+    "NoFourMUBs.PRM.CoverageStripMomentData",
+    "NoFourMUBs.PRM.CoverageStripMoments",
+    "NoFourMUBs.PRM.CoverageStripScalar"
+  ],
+  "full_project_build_possible_from_excerpt": false,
+  "lean_check_axioms_present": false
+}

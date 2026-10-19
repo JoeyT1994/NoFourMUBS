@@ -1,0 +1,68 @@
+PASS: cyclotomic relation
+PASS: conjugation on w
+PASS: unitary Laurent parameter
+PASS: F3 F3* = 3I
+PASS: K K* = 6I
+PASS: all 36 entries of K have unit modulus
+PASS: F6 row frequency indices form a permutation
+PASS: F6 column frequency indices form a permutation
+PASS: K(0) equals a row/column permutation of F6
+PASS: dephased first row
+PASS: dephased first column
+PASS: H H* = 6I
+PASS: explicit selected corner E
+PASS: explicit row side B
+PASS: explicit column side C
+PASS: explicit last block G
+PASS: BB* = 6I - EE*
+PASS: C*C = 6I - E*E
+PASS: permanent B
+PASS: determinant B
+PASS: entry product B
+PASS: permanent C
+PASS: determinant C
+PASS: entry product C
+PASS: T(B) factored
+PASS: T(B) expanded
+PASS: T(C) factored
+PASS: T(C) = conjugate T(B)
+PASS: twice-i imaginary part
+PASS: opposite column-side signature
+PASS: R Laurent factorization
+PASS: project vertical Gram is realized by C^T
+PASS: horizontal Gram s,t,r
+PASS: vertical Gram s,t,r
+PASS: horizontal Gram X,Y,Z
+PASS: vertical Gram X,Y,Z
+PASS: horizontal project invariant p
+PASS: horizontal project invariant J
+PASS: horizontal project invariant W
+PASS: horizontal project invariant g
+PASS: horizontal project invariant eta
+PASS: horizontal project invariant chi
+PASS: horizontal project R = side R
+PASS: vertical project invariant p
+PASS: vertical project invariant J
+PASS: vertical project invariant W
+PASS: vertical project invariant g
+PASS: vertical project invariant eta
+PASS: vertical project invariant chi
+PASS: vertical project R = side R
+PASS: project chi = 2 Re T(B)
+PASS: project g = det Gh
+PASS: project g = det Gv
+PASS: R = 144 sin^2(t) (1+cos(t))^2
+PASS: R polynomial in cos(t)
+PASS: R = 2304 sin^2(t/2) cos^6(t/2)
+PASS: R = 288 sin^2(t/2) (1+cos(t))^3
+PASS: R is independent of w
+PASS: R(0)=0
+PASS: R'(0)=0
+PASS: R''(0)=1152
+PASS: R''''(0)=-11520
+
+ALL 62 EXACT IDENTITY CHECKS PASS.
+R(t) = 144 sin(t)^2 (1+cos(t))^2
+     = 2304 sin(t/2)^2 cos(t/2)^6
+     = 576 t^2 - 480 t^4 + O(t^6).
+Consequently R(t)>0 and Im T(B)>0 for every 0<t<pi.

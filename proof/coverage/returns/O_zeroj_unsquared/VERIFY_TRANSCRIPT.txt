@@ -1,0 +1,71 @@
+Return O: exact zero-J mixed-signature verification
+PASS SHA256SUMS: 28 files
+python-flint 0.9.0
+PASS original signature, 21 Newton moments, and 2 mixed regroupings
+PASS 2 source-bound integer DAG identities
+PASS false polynomial target and zero-denominator pseudo-certificate rejected
+PASS root_from_sum_product
+PASS boundary_P_reduction
+PASS q_product_norm
+PASS q_at_one
+PASS linear_coefficient_guard
+PASS both_moduli_one_impossible
+PASS root_at_z_plus_three
+PASS q_difference
+PASS cleared_mixed_boundary_reduction
+PASS nonzero target mutation rejected
+PASS 9 certificates; 5105 JSON bytes
+PASS modulus_at_tau
+PASS repeated_W_factor
+PASS repeated_imag_reduction
+PASS repeated_imag_norm
+PASS repeated_norm_pair
+PASS bezout_746496
+PASS altered Bezout constant rejected
+PASS scalar C,D readouts match the mixed-moment source
+PASS repeated imaginary reduction bound to the generic source
+PASS 6 scalar core certificates; 5837 JSON bytes
+PASS G1: permanent removes the three diagonal products
+PASS G2: |y-conj(x)|^2 = |x|^2+|y|^2-2 Re(xy)
+PASS G3: P0 = z(z+2)(z+3)
+PASS G3: L0 = z(z+2)(z+3)
+PASS G1 saturation: st-pi = 3
+PASS modulus cubic after the assumed Z1 conclusion
+PASS repeated modulus: P0-L0
+PASS repeated modulus: P0+L0
+PASS repeated modulus: W relation
+All 9 exact integer-polynomial identities passed.
+PASS independent original-product source identity (12)
+PASS independent original-product real source identity (27a): Tpair
+PASS independent shortened repeated proof: reduction, two norms, Bezout 746496
+PASS: no return source imports, no signature squares, no column splitting algebra
+PASS primitive cube root equation
+PASS cube root is nontrivial
+PASS Fourier determinant from six permutation terms
+PASS Fourier permanent from six permutation terms
+PASS original signature is 3 q^3/(abc)
+PASS signature difference separates into three sign characters
+PASS unsquared Walsh coefficient 0
+PASS unsquared Walsh coefficient 1
+PASS unsquared Walsh coefficient 2
+PASS a double-pair corner has real signature 24
+PASS matching Fourier matrix is nonsingular
+PASS all normalized squared-coordinate patterns are covered
+PASS constant square pattern has a singular sign corner
+PASS parallel square pattern has a singular sign corner
+PASS geometric sign corner moduli (-1, -1, -1)
+PASS geometric sign corner moduli (-1, -1, 1)
+PASS geometric sign corner moduli (-1, 1, -1)
+PASS geometric sign corner moduli (-1, 1, 1)
+PASS geometric sign corner moduli (1, -1, -1)
+PASS geometric sign corner moduli (1, -1, 1)
+PASS geometric sign corner moduli (1, 1, -1)
+PASS geometric sign corner moduli (1, 1, 1)
+PASS two p=0 corners and six p=8 sign corners
+PASS geometric numerator P0 factor
+PASS geometric denominator L0 factor
+PASS permanent saturation is exactly three
+PASS constant mutation is rejected
+PASS 27 independent exact checks; no external dependencies
+PASS certificate budget: 43138 < 50000 uncompressed bytes
+PASS all exact checks; Z1 and Z2 paper deductions are in REPORT.md

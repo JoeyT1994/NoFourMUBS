@@ -29,6 +29,14 @@ files it cites). `python3 verify.py` replays all of the above.
 | [`F_side_existence/`](returns/F_side_existence/README.md) | The earlier proof of side existence by explicit radical sides with integer-cofactor identities; superseded by J, still replayed by `verify.py` as a cross-check |
 | [`D_step2_audit/`](returns/D_step2_audit/README.md) | Audit and blueprint of Step 2 that the Lean formalisation follows; it found the PR-M point |
 
+## Returned 18 Oct, being integrated
+
+| Return | Replaces | Review |
+|---|---|---|
+| [`O_zeroj_unsquared/`](returns/O_zeroj_unsquared/REPORT.md) | the zero-J square sum in Theorem 2.5 (216 KB of Lean data) | [REVIEW](returns/O_zeroj_unsquared/REVIEW.md) |
+| [`Q_fourier_anchor/`](returns/Q_fourier_anchor/PROOF.md) | the explicit anchor H₀ (73 KB of Lean, `anchor.py`, one certificate field) | [REVIEW](returns/Q_fourier_anchor/REVIEW.md) |
+| [`S_endpoints_by_counting/`](returns/S_endpoints_by_counting/PROOF.md) | the two endpoint exclusions in Theorem 2.5 (about 51 KB of Lean) | [REVIEW](returns/S_endpoints_by_counting/REVIEW.md) |
+
 ## Audits
 
 [`audits/`](audits/): the independent audit of Theorem 2.4, exact reach and strict-corner coverage

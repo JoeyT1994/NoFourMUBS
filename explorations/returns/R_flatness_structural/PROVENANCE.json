@@ -1,0 +1,67 @@
+{
+  "task": "Handoff R: matched flatness without the polynomial expansion",
+  "result": "Partial structural reductions; requested matching-dependent identity not established",
+  "source_commit_as_recorded_in_M_archive": "73152c64",
+  "sources": [
+    {
+      "kind": "uploaded_brief",
+      "name": "R_flatness_structural_brief.zip",
+      "bytes": 1810,
+      "sha256": "b62be048a91012ab8ee36baebddfa5fe7787643643aacf1d247e29272adf721b"
+    },
+    {
+      "kind": "recovered_source_archive",
+      "name": "M_flatness_one_defect_73152c64.zip",
+      "bytes": 5932544,
+      "sha256": "f05b33b18198de682b9898e8408848e0c9498a0fc563d96b74d6a8c0d042f4fa"
+    },
+    {
+      "kind": "recovered_source_archive",
+      "name": "MatchedFlatnessHandoff.zip",
+      "bytes": 2799168,
+      "sha256": "8cd0eacd58a07f753ebf276acf65878c817cab3350168ebea1c9f1e18b51241a"
+    },
+    {
+      "kind": "recovered_source_report",
+      "name": "FLATNESS.md",
+      "bytes": 18184,
+      "sha256": "6e8b99cf30de55ad9b2dccb033a502d03e57783473886d3dc62cab2a7842b9dd"
+    },
+    {
+      "kind": "included_unmodified_source",
+      "path": "reference/HANDOFF_R.md",
+      "bytes": 2598,
+      "sha256": "40cb9c9c863da9744691d2c869c8dadabd3cd8d1f2142bcc69a2836cf3af9d74"
+    },
+    {
+      "kind": "included_unmodified_source",
+      "path": "reference/FLATNESS.md",
+      "bytes": 18184,
+      "sha256": "6e8b99cf30de55ad9b2dccb033a502d03e57783473886d3dc62cab2a7842b9dd"
+    },
+    {
+      "kind": "included_unmodified_source",
+      "path": "reference/rational_helper.py",
+      "bytes": 2218,
+      "sha256": "b77d6b42965ed63bb5287cb389f5a0199a95c2ed31b54473d9166a261e6a8aa4"
+    }
+  ],
+  "generated_material": [
+    "REPORT.md",
+    "README.md",
+    "proofs/",
+    "verification/",
+    "verify_all.py",
+    "reference/check_existing_W11.py",
+    "diagnostics/"
+  ],
+  "adaptation_notes": [
+    "Proof notes edited for notation, audit corrections, and portable reproduction commands.",
+    "Structural verification scripts include an optimization guard.",
+    "Side verifier includes exact checks of both relabelled lambda identities.",
+    "Generic rational_helper.py copied unchanged; no large certificate data imported."
+  ],
+  "lean_files_modified": false,
+  "lean_build_performed": false,
+  "formal_status": "Paper proofs and exact symbolic checks; no new Lean proof of matched flatness"
+}

@@ -1,0 +1,441 @@
+{
+  "arithmetic": "exact integers and fractions; Python standard library",
+  "exceptional_scalar": {
+    "analytic_step": "Rational p_star makes q=k^2 rational, then k=(1-q)/(1+3q) rational; see PROOF.md.",
+    "polynomial": "3*k^3+k^2+k-1",
+    "rational_root_candidates": [
+      "1",
+      "-1",
+      "1/3",
+      "-1/3"
+    ],
+    "rational_roots": 0,
+    "values_at_candidates": [
+      "4",
+      "-4",
+      "-4/9",
+      "-4/3"
+    ]
+  },
+  "format": "handoff_s_anchored_quadratic_certificate_v1",
+  "quadratic_certificate": {
+    "J_square_coefficient": -12,
+    "adjacent_J_product_coefficient": -12,
+    "feasible_profiles": 0,
+    "k5_edges": [
+      [
+        1,
+        2
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        1,
+        4
+      ],
+      [
+        1,
+        5
+      ],
+      [
+        2,
+        3
+      ],
+      [
+        2,
+        4
+      ],
+      [
+        2,
+        5
+      ],
+      [
+        3,
+        4
+      ],
+      [
+        3,
+        5
+      ],
+      [
+        4,
+        5
+      ]
+    ],
+    "largest_Q_upper_bound": "158",
+    "minimum_gap": "4",
+    "number_of_adjacent_edge_pairs": 30,
+    "penalty_coefficient": 6,
+    "profiles": [
+      {
+        "D_lower_bound": 0,
+        "Q_upper_bound": "486/5",
+        "counts_n0_n5_n7_ne": [
+          0,
+          0,
+          0,
+          10
+        ],
+        "gap": "324/5",
+        "sum_A_upper_bound": "486/5",
+        "universal_Q_lower_bound": 162
+      },
+      {
+        "D_lower_bound": 0,
+        "Q_upper_bound": "718/5",
+        "counts_n0_n5_n7_ne": [
+          0,
+          4,
+          1,
+          5
+        ],
+        "gap": "92/5",
+        "sum_A_upper_bound": "718/5",
+        "universal_Q_lower_bound": 162
+      },
+      {
+        "D_lower_bound": 8,
+        "Q_upper_bound": "142",
+        "counts_n0_n5_n7_ne": [
+          0,
+          8,
+          2,
+          0
+        ],
+        "gap": "20",
+        "sum_A_upper_bound": "190",
+        "universal_Q_lower_bound": 162
+      },
+      {
+        "D_lower_bound": 8,
+        "Q_upper_bound": "158",
+        "counts_n0_n5_n7_ne": [
+          2,
+          1,
+          7,
+          0
+        ],
+        "gap": "4",
+        "sum_A_upper_bound": "206",
+        "universal_Q_lower_bound": 162
+      }
+    ]
+  },
+  "scalar_types": {
+    "corner_square_bounds_n0_n5_n7_ne": [
+      "0",
+      "17",
+      "27",
+      "243/25"
+    ],
+    "five_type_R": "2304-(W-52)^2",
+    "five_type_W_roots": [
+      4,
+      100
+    ],
+    "five_type_square_sum": "17-2*X*Y*Z <= 17",
+    "physical_W_upper_bound": "25/3",
+    "retained_W": 4
+  },
+  "scope": "Universal polynomial algebra and finite feasibility checked here; analytic deductions and classification import boundary stated in PROOF.md.",
+  "signed_degree_enumeration": [
+    {
+      "D_histogram": {
+        "16": 60,
+        "24": 60,
+        "8": 60
+      },
+      "attaining_witness": {
+        "degree_sums": [
+          0,
+          -2,
+          2,
+          0,
+          0
+        ],
+        "edge_J_values": [
+          -2,
+          2,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "minimum_D": 8,
+      "nonzero_seven_type_edges": 2,
+      "signed_assignments_checked": 180
+    },
+    {
+      "D_histogram": {
+        "104": 360,
+        "112": 360,
+        "120": 240,
+        "128": 40,
+        "16": 1200,
+        "160": 60,
+        "168": 120,
+        "176": 60,
+        "24": 1200,
+        "32": 1060,
+        "40": 1920,
+        "48": 1980,
+        "56": 1680,
+        "64": 1560,
+        "72": 1080,
+        "8": 360,
+        "80": 880,
+        "88": 720,
+        "96": 480
+      },
+      "attaining_witness": {
+        "degree_sums": [
+          0,
+          -2,
+          -2,
+          0,
+          0
+        ],
+        "edge_J_values": [
+          -2,
+          -2,
+          2,
+          2,
+          2,
+          -2,
+          0,
+          0,
+          -2,
+          0
+        ]
+      },
+      "minimum_D": 8,
+      "nonzero_seven_type_edges": 7,
+      "signed_assignments_checked": 15360
+    }
+  ],
+  "source_sha256": {
+    "BRIEF.md": "0a79ef5cd142573e55de137b47a31bb43f8c95a64902c4e4973bd9bc75d291d0",
+    "INPUTS.json": "9ab702ebbced6f529d2262ea43615ffa7a1f94ab29733ed62b9cce8422f4c8bc",
+    "PROOF.md": "281fc0b46b5759499825e96479e2d67ae0c798873ffda0f4a02b28d734eb6a2c",
+    "verify.py": "64443ba38c34bd0b2a89e085d2aa460879139e14c87f96f70f074c70f5431681",
+    "verify_universal_algebra.py": "90dcb8fc96713f03019b95531bc919d62db565768ff3fe42244c38c5ee26fde4"
+  },
+  "status": "PASS",
+  "ten_corner_profiles": [
+    [
+      0,
+      0,
+      0,
+      10
+    ],
+    [
+      0,
+      4,
+      1,
+      5
+    ],
+    [
+      0,
+      8,
+      2,
+      0
+    ],
+    [
+      2,
+      1,
+      7,
+      0
+    ]
+  ],
+  "universal_algebra": {
+    "arithmetic": "exact rational sparse polynomial and Laurent polynomial coefficients; exact Q(omega) sanity cases",
+    "checks": [
+      {
+        "monomial_coefficients_compared": 91,
+        "name": "fourth_moment_graph_expansion_in_15_independent_edges",
+        "nonzero_residual_coefficients": 0
+      },
+      {
+        "monomial_coefficients_compared": 31,
+        "name": "sum_edge_squares_equals_6_plus_abs_second_moment_squared_over_4",
+        "nonzero_residual_coefficients": 0
+      },
+      {
+        "monomial_coefficients_compared": 30,
+        "name": "sum_real_edges_equals_half_abs_first_moment_squared_minus_3",
+        "nonzero_residual_coefficients": 0
+      },
+      {
+        "monomial_coefficients_compared": 10,
+        "name": "real_edge_degree_at_column_0",
+        "nonzero_residual_coefficients": 0
+      },
+      {
+        "monomial_coefficients_compared": 10,
+        "name": "real_edge_degree_at_column_1",
+        "nonzero_residual_coefficients": 0
+      },
+      {
+        "monomial_coefficients_compared": 10,
+        "name": "real_edge_degree_at_column_2",
+        "nonzero_residual_coefficients": 0
+      },
+      {
+        "monomial_coefficients_compared": 10,
+        "name": "real_edge_degree_at_column_3",
+        "nonzero_residual_coefficients": 0
+      },
+      {
+        "monomial_coefficients_compared": 10,
+        "name": "real_edge_degree_at_column_4",
+        "nonzero_residual_coefficients": 0
+      },
+      {
+        "monomial_coefficients_compared": 10,
+        "name": "real_edge_degree_at_column_5",
+        "nonzero_residual_coefficients": 0
+      },
+      {
+        "monomial_coefficients_compared": 31,
+        "name": "unrestricted_twenty_corner_first_moment",
+        "nonzero_residual_coefficients": 0
+      },
+      {
+        "monomial_coefficients_compared": 181,
+        "name": "unrestricted_twenty_corner_fourth_moment",
+        "nonzero_residual_coefficients": 0
+      },
+      {
+        "monomial_coefficients_compared": 12,
+        "name": "complement_modulus_difference_for_012",
+        "nonzero_residual_coefficients": 0
+      },
+      {
+        "monomial_coefficients_compared": 12,
+        "name": "complement_modulus_difference_for_013",
+        "nonzero_residual_coefficients": 0
+      },
+      {
+        "monomial_coefficients_compared": 12,
+        "name": "complement_modulus_difference_for_014",
+        "nonzero_residual_coefficients": 0
+      },
+      {
+        "monomial_coefficients_compared": 12,
+        "name": "complement_modulus_difference_for_015",
+        "nonzero_residual_coefficients": 0
+      },
+      {
+        "monomial_coefficients_compared": 12,
+        "name": "complement_modulus_difference_for_023",
+        "nonzero_residual_coefficients": 0
+      },
+      {
+        "monomial_coefficients_compared": 12,
+        "name": "complement_modulus_difference_for_024",
+        "nonzero_residual_coefficients": 0
+      },
+      {
+        "monomial_coefficients_compared": 12,
+        "name": "complement_modulus_difference_for_025",
+        "nonzero_residual_coefficients": 0
+      },
+      {
+        "monomial_coefficients_compared": 12,
+        "name": "complement_modulus_difference_for_034",
+        "nonzero_residual_coefficients": 0
+      },
+      {
+        "monomial_coefficients_compared": 12,
+        "name": "complement_modulus_difference_for_035",
+        "nonzero_residual_coefficients": 0
+      },
+      {
+        "monomial_coefficients_compared": 12,
+        "name": "complement_modulus_difference_for_045",
+        "nonzero_residual_coefficients": 0
+      },
+      {
+        "monomial_coefficients_compared": 151,
+        "name": "anchored_complex_cubic_orthogonality_ideal_certificate_0",
+        "nonzero_residual_coefficients": 0
+      },
+      {
+        "monomial_coefficients_compared": 151,
+        "name": "anchored_complex_cubic_orthogonality_ideal_certificate_1",
+        "nonzero_residual_coefficients": 0
+      },
+      {
+        "monomial_coefficients_compared": 151,
+        "name": "anchored_complex_cubic_orthogonality_ideal_certificate_2",
+        "nonzero_residual_coefficients": 0
+      },
+      {
+        "monomial_coefficients_compared": 151,
+        "name": "anchored_complex_cubic_orthogonality_ideal_certificate_3",
+        "nonzero_residual_coefficients": 0
+      },
+      {
+        "monomial_coefficients_compared": 151,
+        "name": "anchored_complex_cubic_orthogonality_ideal_certificate_4",
+        "nonzero_residual_coefficients": 0
+      },
+      {
+        "monomial_coefficients_compared": 151,
+        "name": "anchored_complex_cubic_orthogonality_ideal_certificate_5",
+        "nonzero_residual_coefficients": 0
+      },
+      {
+        "monomial_coefficients_compared": 4,
+        "name": "rank_one_three_by_three_determinant",
+        "nonzero_residual_coefficients": 0
+      }
+    ],
+    "exact_phase_strip_sanity_cases": [
+      {
+        "anchors_checked": 6,
+        "name": "tensor_F2_F3_strip",
+        "quadratic_identity_value": "198",
+        "second_moment_norms_squared": [
+          "36",
+          "0",
+          "0"
+        ],
+        "status": "PASS"
+      },
+      {
+        "anchors_checked": 6,
+        "name": "duplicated_F3_strip",
+        "quadratic_identity_value": "162",
+        "second_moment_norms_squared": [
+          "0",
+          "0",
+          "0"
+        ],
+        "status": "PASS"
+      },
+      {
+        "anchors_checked": 6,
+        "name": "paired_strip_with_nonroot_unit",
+        "quadratic_identity_value": "9402/49",
+        "second_moment_norms_squared": [
+          "300/49",
+          "0",
+          "1164/49"
+        ],
+        "status": "PASS"
+      }
+    ],
+    "external_dependencies": [],
+    "polynomial_identities_checked": 28,
+    "status": "PASS",
+    "total_nonzero_residual_coefficients": 0
+  }
+}
