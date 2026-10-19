@@ -105,7 +105,7 @@ def tsv_row(s, rec, verdict, tr, wall, cpu):
 def load(path):
     if path.endswith('.json.gz'):
         from export import load_certificate
-        return load_certificate(path, census=False)          # the corner census is used only by the F6/H0 searches
+        return load_certificate(path, census=False)          # the corner census is used only by the F6 search
     return AT.load(path)
 
 

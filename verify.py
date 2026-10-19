@@ -5,7 +5,7 @@
                                     sheet lemmas, S6 as a zero-dimensional Record, a Stage C Arb sample; plus the
                                     earlier radical side construction (return F) as a cross-check
   python3 verify.py --atlas [-j N]  additionally certify every Record of the atlas (Step 4, one pool of N worker
-                                    processes), F6 and the anchor H0
+                                    processes) and F6
   python3 verify.py --lean          additionally build the Lean formalisation and audit its axioms
   python3 verify.py --lean-full     as --lean, and also build matched existence (L1) and NoFourMUBs.Final in Lean (about 12 min with the Mathlib cache)
 """
@@ -19,6 +19,7 @@ CHECKS = [
     ('step1_2_deltoid_return',  'proof/coverage/returns/A_deltoid/verify_all.py', []),
     ('step1_2_exact_quotient',  'proof/coverage/returns/B_exact_quotient/verify_all.py', []),
     ('l1_side_existence_identity_J', 'proof/coverage/returns/J_side_existence/check_jacobian.py', []),
+    ('l1_fourier_anchor_Q',      'proof/coverage/returns/Q_fourier_anchor/verify.py', []),
     ('crosscheck_F_radical_sides', 'proof/coverage/returns/F_side_existence/verify_all.py', []),
     ('l1_matched_flatness',     'proof/coverage/returns/E_matched_flatness/verify_all.py', []),
     ('step2_prm_exact_reach',   'proof/coverage/returns/G_prm/verify_all.py', []),
@@ -33,7 +34,7 @@ CHECKS = [
 ]
 # Rough wall seconds of each check (M5 Max, Oct 2026): jobs are started longest first, so the short ones fill in
 # around the long ones.  Scheduling only; every check runs and must pass.
-COST = {'step4_certify': 1e6, 'lean_build_and_axioms': 1e5, 'step4_anchor_H0': 100, 'step4_nonempty_F6': 95,
+COST = {'step4_certify': 1e6, 'lean_build_and_axioms': 1e5, 'step4_nonempty_F6': 95,
         'l1_matched_flatness': 50, 'mc_reconstruction_proofs': 15, 'crosscheck_F_radical_sides': 10}
 
 
@@ -65,7 +66,6 @@ def main():
         tsv = ['--tsv=%s' % (a.log_dir.resolve() / 'step4_certify.tsv')] if a.log_dir else []
         jobs += [('step4_certify', 'proof/atlas/certify.py', ['results/atlas_certificate.json.gz', '-j', str(a.jobs)] + tsv)]
         jobs += [('step4_nonempty_F6', 'proof/atlas/nonempty.py', ['results/atlas_certificate.json.gz'])]
-        jobs += [('step4_anchor_H0', 'proof/atlas/anchor.py', ['results/atlas_certificate.json.gz'])]
     if a.lean or a.lean_full:
         jobs += [('lean_build_and_axioms', 'lean/check_axioms.py', ['--full'] if a.lean_full else [])]
     jobs.sort(key=lambda c: -COST.get(c[0], 0))

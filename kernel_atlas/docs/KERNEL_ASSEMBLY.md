@@ -16,7 +16,6 @@ structure AtlasCertificate where
   A : ι → RecordCert
   boundary : ∀ l, Nonempty (BoundaryCover A l)
   tao : ∀ ω, IsPrimitiveCubicPhase ω → ∃ K, InAtlas A K ∧ Equivalent (taoMatrix ω) K
-  anchor : Step2.CoveredMatrix (InAtlas A) BaseAnchor.H0
   fourier : Step2.FourierAnchorCertificate (InAtlas A)
 ```
 
@@ -27,7 +26,7 @@ Available per Record (all with standard axioms only):
 | `Rec<n>.cert : RecordCert` (Stage C v2 + normal bound) | `Rec<n>/Record2.lean` (`recordK`) | no |
 | `Rec<n>.boundary : ∀ A l, A l = cert → (targets' centres and radii) → Nonempty (BoundaryCover A l)` | `Rec<n>/BoundaryCover.lean` (`boundaryK`) | yes: its ≈ 52 targets' `P` and `R` |
 | `RecTao.cert` (zero-dimensional) and `RecTao.tao` | `RecTao/Record.lean` (`recordK0`) | no |
-| `Special.fourier`, `Special.anchor` | `Special/Exact.lean`, `Special/Anchor.lean` | yes: Records 877 and 9319 |
+| `Special.fourier` | `Special/Exact.lean` | yes: Record 877 |
 
 So `ι = Fin 12022` (the 12,021 atlas Records and Tao's Record), `A i = Rec<i>.cert`, and the work is (a) building a
 12,022-way family without a 12,022-way literal, (b) discharging every Record's target hypotheses, and (c) doing so
@@ -81,7 +80,7 @@ pilot shows the full import is impractical.
 ## 4. Discharging the cross-Record hypotheses
 
 `Rec<n>.boundary` needs, for each target `t` of the data, `(A (tg j)).P = Pmat t.pt` and `t.Rt ≤ (A (tg j)).R`;
-`Special.fourier`/`anchor` need the same for Records 877 and 9319, `RecTao.tao` needs `A l = RecTao.cert`.
+`Special.fourier` needs the same for Record 877, `RecTao.tao` needs `A l = RecTao.cert`.
 
 **A shared atlas table makes the links definitional.** Generate once `AtlasTable.lean`: the 12,021 binary64 centres and
 radii (packed; ≈ 3.5 MB of rationals as source, less packed), with accessors `centre : ℕ → List (List ℚ)` and
@@ -117,7 +116,6 @@ noncomputable def atlasCert : AtlasCertificate where
   A := A
   boundary l := chunkBoundary (l / 100) A … l
   tao := RecTao.tao A ⟨12021, _⟩ rfl
-  anchor := Special.anchor A ⟨9319, _⟩ (A_P 9319) (A_R 9319)
   fourier := Special.fourier A ⟨877, _⟩ (A_P 877) (A_R 877)
 theorem no_four_mubs_kernel : ¬ FourMUBs := NoFourMUBs.Final.no_four_mubs atlasCert
 #print axioms no_four_mubs_kernel     -- expect [propext, Classical.choice, Quot.sound]
@@ -129,9 +127,9 @@ theorem no_four_mubs_kernel : ¬ FourMUBs := NoFourMUBs.Final.no_four_mubs atlas
 
 | Phase | Jobs | Work | Est. cost | Output |
 |---|---|---|---|---|
-| 0. Shared | 1 | build CORE + `BoundaryK`, `ExactK`, `AnchorK`, `RecordK0`; generate `AtlasTable` | < 1 h | oleans on ceph |
+| 0. Shared | 1 | build CORE + `BoundaryK`, `ExactK`, `RecordK0`; generate `AtlasTable` | < 1 h | oleans on ceph |
 | 1. Records | array over 12,021 Records, ≈ 40–60 per 1 TB node (memory-bound at 13–22 GB) | `atlas_run.py` extended with the boundary modules (`export_boundary.py --v2`) and `--keep` | ≈ 6,300 CPU-h (≈ 2 days on 50 nodes) | per Record: oleans, `rows.jsonl` (CPU, peak memory, axioms of `cert` and `boundary`) |
-| 1b. Special | 1 | `RecTao`, `Special.Exact`, `Special.Anchor` | ≈ 10 CPU-min | oleans |
+| 1b. Special | 1 | `RecTao`, `Special.Exact` | ≈ 10 CPU-min | oleans |
 | 2. Chunks | 121 | `Atlas/Chunk<k>`: import 100 Records, 100-way `match`, `chunkBoundary` | minutes each; memory ≈ baseline + imports | oleans |
 | 3. Final | 1 | import the 121 chunks (hence all Records), `atlasCert`, `no_four_mubs_kernel`, `#print axioms` | import-dominated; to be measured by the pilot (estimate tens of minutes, ≤ 64 GB) | the theorem and its axiom list |
 | 4. Replay (optional) | per module | `leanchecker` re-checks every declaration from the oleans | ≈ Phase 1 kernel time | an independent re-check |
@@ -183,7 +181,7 @@ stored compiled code for each data literal. Record 146's slab module: 15.6 MB of
 | 7 (v2) | — | 5.2 MB | 30 min | 13.2 GB |
 | 100 (v1, with its boundary) | 12.2 MB | 2.9 MB | 16 min | 14.7 GB |
 | Tao's Record (with `RecTao.boundary`) | 7.6 MB | 1.3 MB | 8 min | 13.1 GB |
-| `Special.Exact`, `Special.Anchor` | 2.9 MB | 1.5 MB | < 1 min | 6.0 GB |
+| `Special.Exact` (with the former `Special.Anchor`) | 2.9 MB | 1.5 MB | < 1 min | 6.0 GB |
 
 So a v2 Record is ≈ 5–6.5 MB of olean (≈ 70 GB for the atlas instead of ≈ 2.1 TB).
 

@@ -1,30 +1,30 @@
 import NoFourMUBs.L1.SideJacobian
 import NoFourMUBs.L1.FlatBridge
 import NoFourMUBs.PRM.SideRoot
-import NoFourMUBs.Step2.BaseAnchor
-import NoFourMUBs.Step2.TopologyCore
+import NoFourMUBs.Step2.MatchedUnique
 
 /-!
-# Side existence at strict seeds
+# Side existence at strict seeds: the open and closed set
 
-Handoff J, route A (`proof/coverage/returns/J_side_existence`); the existence half of
-`MinimalConstruction/Proofs/SIDE_FIBER.md` (a side on each root), proved here without its explicit formulas.
+Handoff J, route A (`proof/coverage/returns/J_side_existence`), with the anchor of return Q
+(`proof/coverage/returns/Q_fourier_anchor`); the existence half of `MinimalConstruction/Proofs/SIDE_FIBER.md`
+(a side on each root), proved here without its explicit formulas.
 
-For a strict seed `ρ` (unit entries, `R > 0`), each of the two side Grams `G_h(ρ) = (s, t, r)` and `G_v(ρ)` is
-realised by a normalised phase side with either sign of `Im T` (`side_h_mem`, `side_v_mem`), hence with signature either root `ζ` of
-the sheet quadratic (`exists_side_h`, `exists_side_v`).
+For a strict seed `ρ` (unit entries, `R > 0`), let `G_h(ρ) = (s, t, r)` and `G_v(ρ)` be the two side Grams.  The set
+of strict seeds where `G_h` is realised by a normalised phase side with `Im T > 0` and `G_v` by one with `Im T < 0`
+is open and closed in the strict seeds (`isClopen_sides`).  Open: inverse function theorem (`isOpen_sideSet`).
+Closed: it is the preimage of the closed `sideSetC`, since a side realising Gram data with `R > 0` has `Im T ≠ 0`
+(`im_ne_of_gR`, from `PROOF.md` Lemma 2.1, `RS_eq_im_sq`).  The sides of a matched completion are such sides
+(`sides_of_matched`), and a side with signature a given root `ζ` of the sheet quadratic is obtained from a side
+with the same sign of `Im T` (`exists_side_of_sign`).
 
-Proof, for `G_h` and `ε = +1`: the set `U` of strict seeds whose `G_h` lies in `sideSet 1` is open (inverse
-function theorem, `isOpen_sideSet`), and closed in the strict seeds: it equals the preimage of the closed
-`sideSetC 1`, since a side realising Gram data with `R > 0` has `Im T ≠ 0` (`im_ne_of_gR`, from `PROOF.md`
-Lemma 2.1, `RS_eq_im_sq`).  `U` contains the 18 maxima of `R` (`Step1Geo.maximumCensus`): at each, the matched
-completion transported from `H₀` (`BaseAnchor.matched_H0`, `matched_moveWord`) has a horizontal side with
-`Im T = √R / 2 > 0` (`sides_of_matched`).  So `U` is every strict seed
-(`Step2.TopologyCore.superlevel_clopen_eq_univ`).  The vertical side of a matched completion has `Im T < 0`,
-which gives `G_v` with `ε = −1`.  Conjugating the seed and the side gives the other sign (`sideSet_conj`).
+`Existence` shows that this set is every strict seed: it contains the corner of the Fourier family
+(`Step2.exists_matched`), sides give a matched completion (`L1.matched_of_sides`), and matched completions move
+between the 18 maxima (`Step2.eq_univ_of_anchor_transport`).  Conjugating the seed and the side gives the other
+sign (`sideSet_conj`).
 -/
 
-open ComplexConjugate Matrix Hadamard6 NoFourMUBs.Side NoFourMUBs.Step2 NoFourMUBs.Step1Geo
+open ComplexConjugate Matrix Hadamard6 NoFourMUBs.Side NoFourMUBs.Step2
 
 noncomputable section
 
@@ -156,18 +156,6 @@ theorem exists_seed (hu : ∀ i, Complex.normSq (ρ i) = 1) : ∃ p : Seed, seed
   simp only [seedVec, Circle.coe_exp]
   exact ex_arg (hu i)
 
-/-! ### The anchors -/
-
-/-- Every anchor has a matched completion, transported from `H₀`. -/
-theorem anchor_matched {s : StrictSeed} (hs : s ∈ anchors) : ∃ H : Had6, Matched s H := by
-  simp only [anchors, Finset.mem_image, Finset.mem_univ, true_and] at hs
-  obtain ⟨n, rfl⟩ := hs
-  obtain ⟨K, hK, -⟩ := matched_moveWord (wordOf n) (anchor_pos (0, true, 0, 0)) BaseAnchor.matched_H0
-  have : (⟨anchorSeed n, anchor_pos n⟩ : StrictSeed) =
-      ⟨moveWord (wordOf n) (anchorSeed (0, true, 0, 0)), by rw [seedR_moveWord]; exact anchor_pos _⟩ :=
-    Subtype.ext (anchorSeed_eq n)
-  rw [this]; exact ⟨K, hK⟩
-
 /-- The sides of a matched completion: the horizontal one has `Im T > 0`, the vertical one `Im T < 0`. -/
 theorem sides_of_matched {s : StrictSeed} {H : Had6} (hH : Matched s H) :
     Gh (seedVec s.1) ∈ sideSet 1 ∧ Gv (seedVec s.1) ∈ sideSet (-1) := by
@@ -207,37 +195,37 @@ theorem sides_of_matched {s : StrictSeed} {H : Had6} (hH : Matched s H) :
       simp at this
       linarith
 
-/-! ### The covering argument -/
+/-! ### The open and closed set -/
 
-/-- **Clopen/maximum argument.**  If a continuous Gram function `G` of the seed has `R > 0` at strict
-seeds and is realised with `ε Im T > 0` at the 18 anchors, it is so realised at every strict seed. -/
-theorem cover {G : (Fin 4 → ℂ) → ℂ × ℂ × ℂ} (hG : Continuous fun p : Seed => G (seedVec p)) {ε : ℝ}
+/-- If a continuous Gram function `G` of the seed has `R > 0` at strict seeds, the strict seeds where it is
+realised with `ε Im T > 0` form an open and closed set. -/
+theorem isClopen_side {G : (Fin 4 → ℂ) → ℂ × ℂ × ℂ} (hG : Continuous fun p : Seed => G (seedVec p)) {ε : ℝ}
     (hε : ε ≠ 0)
-    (hreg : ∀ p : Seed, 0 < seedR p → 0 < gR (G (seedVec p)).1 (G (seedVec p)).2.1 (G (seedVec p)).2.2)
-    (hanch : ∀ s ∈ anchors, G (seedVec s.1) ∈ sideSet ε) :
-    ∀ p : Seed, 0 < seedR p → G (seedVec p) ∈ sideSet ε := by
-  set U : Set StrictSeed := {s | G (seedVec s.1) ∈ sideSet ε}
+    (hreg : ∀ p : Seed, 0 < seedR p → 0 < gR (G (seedVec p)).1 (G (seedVec p)).2.1 (G (seedVec p)).2.2) :
+    IsClopen {s : StrictSeed | G (seedVec s.1) ∈ sideSet ε} := by
   have hcont : Continuous fun s : StrictSeed => G (seedVec s.1) := hG.comp continuous_subtype_val
-  have hU : IsClopen U := by
-    constructor
-    · have : U = {s : StrictSeed | G (seedVec s.1) ∈ sideSetC ε} := by
-        ext s
-        constructor
-        · rintro ⟨x, y, hx, hy, hg, h⟩; exact ⟨x, y, hx, hy, hg, h.le⟩
-        · rintro ⟨x, y, hx, hy, hg, h⟩
-          refine ⟨x, y, hx, hy, hg, lt_of_le_of_ne h ?_⟩
-          have hR := hreg s.1 s.2
-          rw [← hg] at hR
-          exact (mul_ne_zero hε (im_ne_of_gR hx hy hR)).symm
-      rw [this]; exact (isClosed_sideSetC ε).preimage hcont
-    · exact (isOpen_sideSet ε).preimage hcont
-  have key := Step2.TopologyCore.superlevel_clopen_eq_univ seedR continuous_seedR U hU
-    (fun p hp hmax => hanch _ (maximumCensus p hp hmax))
-  intro p hp
-  have : (⟨p, hp⟩ : StrictSeed) ∈ U := by rw [key]; trivial
-  exact this
+  constructor
+  · have : {s : StrictSeed | G (seedVec s.1) ∈ sideSet ε} = {s : StrictSeed | G (seedVec s.1) ∈ sideSetC ε} := by
+      ext s
+      constructor
+      · rintro ⟨x, y, hx, hy, hg, h⟩; exact ⟨x, y, hx, hy, hg, h.le⟩
+      · rintro ⟨x, y, hx, hy, hg, h⟩
+        refine ⟨x, y, hx, hy, hg, lt_of_le_of_ne h ?_⟩
+        have hR := hreg s.1 s.2
+        rw [← hg] at hR
+        exact (mul_ne_zero hε (im_ne_of_gR hx hy hR)).symm
+    rw [this]; exact (isClosed_sideSetC ε).preimage hcont
+  · exact (isOpen_sideSet ε).preimage hcont
 
-/-! ### Side existence -/
+/-- The strict seeds whose horizontal Gram is realised with `Im T > 0` and vertical Gram with `Im T < 0`. -/
+def SidesSet : Set StrictSeed :=
+  {s | Gh (seedVec s.1) ∈ sideSet 1 ∧ Gv (seedVec s.1) ∈ sideSet (-1)}
+
+theorem isClopen_sides : IsClopen SidesSet :=
+  (isClopen_side continuous_Gh one_ne_zero (fun _ hp => hp)).inter
+    (isClopen_side continuous_Gv (by norm_num) (fun p hp => (strict_seedVec hp).facts.2.1))
+
+/-! ### Conjugation of seeds -/
 
 theorem conj3_conj3 (g : ℂ × ℂ × ℂ) : conj3 (conj3 g) = g := by simp [conj3]
 
@@ -259,21 +247,31 @@ theorem mem_of_conj {G : (Fin 4 → ℂ) → ℂ × ℂ × ℂ} (hG : ∀ ρ, G 
   have := sideSet_conj (h (conjSeed p) (by rw [seedR_conj]; exact hp))
   rwa [seedVec_conj, hG, conj3_conj3] at this
 
-theorem side_h_mem (h : Strict ρ) : Gh ρ ∈ sideSet 1 ∧ Gh ρ ∈ sideSet (-1) := by
-  have hpos : ∀ p : Seed, 0 < seedR p → Gh (seedVec p) ∈ sideSet 1 :=
-    cover continuous_Gh one_ne_zero (fun p hp => hp)
-      (fun s hs => (sides_of_matched (anchor_matched hs).choose_spec).1)
-  obtain ⟨p, rfl⟩ := exists_seed h.unit
-  exact ⟨hpos p h.R, mem_of_conj Gh_conj hpos p h.R⟩
+/-! ### A side with a given signature -/
 
-theorem side_v_mem (h : Strict ρ) : Gv ρ ∈ sideSet 1 ∧ Gv ρ ∈ sideSet (-1) := by
-  have hneg : ∀ p : Seed, 0 < seedR p → Gv (seedVec p) ∈ sideSet (-1) :=
-    cover continuous_Gv (by norm_num) (fun p hp => (strict_seedVec hp).facts.2.1)
-      (fun s hs => (sides_of_matched (anchor_matched hs).choose_spec).2)
-  obtain ⟨p, rfl⟩ := exists_seed h.unit
-  have := mem_of_conj Gv_conj hneg p h.R
-  rw [neg_neg] at this
-  exact ⟨this, hneg p h.R⟩
+/-- Gram data realised with `ε Im T > 0` is realised with signature any root `ζ` with `ε Im ζ > 0`. -/
+theorem exists_side_of_sign {s t r ζ : ℂ} {ε : ℝ} (hmem : (s, t, r) ∈ sideSet ε) (hsgn : 0 < ε * ζ.im)
+    (hζ : ζ ^ 2 = (gChi s t r : ℂ) * ζ - ((gG s t r : ℝ) : ℂ) ^ 2 * (gEta s t r : ℂ))
+    (hζc : conj ζ = (gChi s t r : ℂ) - ζ) :
+    ∃ x y : Fin 3 → ℂ, (∀ j, Complex.normSq (x j) = 1) ∧ (∀ j, Complex.normSq (y j) = 1) ∧
+      sS x = s ∧ sS y = t ∧ rS x y = r ∧ TS x y = ζ := by
+  have hz1 : ζ * conj ζ = ((gG s t r : ℝ) : ℂ) ^ 2 * (gEta s t r : ℂ) := by
+    rw [hζc]; linear_combination -hζ
+  have hz2 : ζ + conj ζ = (gChi s t r : ℂ) := by rw [hζc]; ring
+  obtain ⟨x, y, hx, hy, hg, hT⟩ := hmem
+  have hsgn' : 0 < ζ.im * (TS x y).im := by
+    by_contra hc
+    nlinarith [mul_pos hsgn hT, sq_nonneg ε]
+  simp only [gram, Prod.mk.injEq] at hg
+  obtain ⟨hs, ht, hr⟩ := hg
+  have hT0 : (TS x y).im ≠ 0 := fun h0 => by rw [h0, mul_zero] at hsgn'; exact lt_irrefl _ hsgn'
+  have hh : hS x y ≠ 0 := by intro h0; apply hT0; simp [TS, h0]
+  obtain ⟨r1, r2⟩ := TS_root hx hy hh
+  simp only [hs, ht, hr, gS_eq, etaS_eq, chiS_eq] at r1 r2
+  refine ⟨x, y, hx, hy, hs, ht, hr, ?_⟩
+  rcases eq_or_eq_conj_of_roots r1 r2 hz1 hz2 with e | e
+  · exact e
+  · rw [e, Complex.conj_im] at hsgn'; nlinarith [sq_nonneg ζ.im]
 
 /-- Gram data realised with both signs of `Im T` is realised with signature either root `ζ`. -/
 theorem exists_side_of_mem {s t r ζ : ℂ} (hR : 0 < gR s t r) (h1 : (s, t, r) ∈ sideSet 1)
@@ -293,39 +291,8 @@ theorem exists_side_of_mem {s t r ζ : ℂ} (hR : 0 < gR s t r) (h1 : (s, t, r) 
       push_cast [gR]
       linear_combination (-4 : ℂ) * hz1 + ((gChi s t r : ℂ) + 2 * ζ) * hz2
     exact hR.ne' (by exact_mod_cast this)
-  obtain ⟨x, y, hx, hy, hg, hsgn⟩ : ∃ x y : Fin 3 → ℂ, (∀ j, Complex.normSq (x j) = 1) ∧
-      (∀ j, Complex.normSq (y j) = 1) ∧ gram x y = (s, t, r) ∧ 0 < ζ.im * (TS x y).im := by
-    rcases lt_or_gt_of_ne hζim with hn | hp
-    · obtain ⟨x, y, hx, hy, hg, h⟩ := h2; exact ⟨x, y, hx, hy, hg, by nlinarith⟩
-    · obtain ⟨x, y, hx, hy, hg, h⟩ := h1; exact ⟨x, y, hx, hy, hg, by nlinarith⟩
-  simp only [gram, Prod.mk.injEq] at hg
-  obtain ⟨hs, ht, hr⟩ := hg
-  have hT : (TS x y).im ≠ 0 := fun h0 => by rw [h0, mul_zero] at hsgn; exact lt_irrefl _ hsgn
-  have hh : hS x y ≠ 0 := by intro h0; apply hT; simp [TS, h0]
-  obtain ⟨r1, r2⟩ := TS_root hx hy hh
-  simp only [hs, ht, hr, gS_eq, etaS_eq, chiS_eq] at r1 r2
-  refine ⟨x, y, hx, hy, hs, ht, hr, ?_⟩
-  rcases eq_or_eq_conj_of_roots r1 r2 hz1 hz2 with e | e
-  · exact e
-  · rw [e, Complex.conj_im] at hsgn; nlinarith [sq_nonneg ζ.im]
-
-/-- **Side existence (horizontal).** At a strict seed, the horizontal Gram data `(s, t, r)` is realised by
-a normalised phase side with signature either root `ζ` of `ζ² = χ ζ − g² η`. -/
-theorem exists_side_h (h : Strict ρ) {ζ : ℂ}
-    (hζ : ζ ^ 2 = (gChi (sh ρ) (th ρ) (rh ρ) : ℂ) * ζ -
-      ((gG (sh ρ) (th ρ) (rh ρ) : ℝ) : ℂ) ^ 2 * (gEta (sh ρ) (th ρ) (rh ρ) : ℂ))
-    (hζc : conj ζ = (gChi (sh ρ) (th ρ) (rh ρ) : ℂ) - ζ) :
-    ∃ x y : Fin 3 → ℂ, (∀ j, Complex.normSq (x j) = 1) ∧ (∀ j, Complex.normSq (y j) = 1) ∧
-      sS x = sh ρ ∧ sS y = th ρ ∧ rS x y = rh ρ ∧ TS x y = ζ :=
-  exists_side_of_mem h.R (side_h_mem h).1 (side_h_mem h).2 hζ hζc
-
-/-- **Side existence (vertical).** The same for the vertical Gram data. -/
-theorem exists_side_v (h : Strict ρ) {ζ : ℂ}
-    (hζ : ζ ^ 2 = (gChi (sv ρ) (tv ρ) (rv ρ) : ℂ) * ζ -
-      ((gG (sv ρ) (tv ρ) (rv ρ) : ℝ) : ℂ) ^ 2 * (gEta (sv ρ) (tv ρ) (rv ρ) : ℂ))
-    (hζc : conj ζ = (gChi (sv ρ) (tv ρ) (rv ρ) : ℂ) - ζ) :
-    ∃ x y : Fin 3 → ℂ, (∀ j, Complex.normSq (x j) = 1) ∧ (∀ j, Complex.normSq (y j) = 1) ∧
-      sS x = sv ρ ∧ sS y = tv ρ ∧ rS x y = rv ρ ∧ TS x y = ζ :=
-  exists_side_of_mem h.facts.2.1 (side_v_mem h).1 (side_v_mem h).2 hζ hζc
+  rcases lt_or_gt_of_ne hζim with hn | hp
+  · exact exists_side_of_sign h2 (by linarith) hζ hζc
+  · exact exists_side_of_sign h1 (by linarith) hζ hζc
 
 end NoFourMUBs.L1

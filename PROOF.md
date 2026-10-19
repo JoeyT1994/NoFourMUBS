@@ -86,6 +86,10 @@ Theorem 1 is used in one form, three times (Theorems 2.2 and 2, and the Lean cov
 T⁴. The maximum is positive, so it is attained in S, hence in V (closed in S); V is open in T⁴, so it is a positive
 local maximum of R. By Theorem 1 it is one of the 18 maxima, which lie in U. ∎
 
+The same argument shows that a **nonempty** U ⊆ S, open and closed in S, contains a positive local maximum (maximise
+R on the closure of U). So it suffices that U is nonempty and that, once U contains one of the 18 maxima, it contains
+all of them. This is the form used below, with the seed symmetries moving one maximum to the others.
+
 **Coordinates.** Normalise the even products (ad, b, c) and the odd products (bc, d, a) of the corner so that each triple has product 1. Let U and V be their traces. Each lies in the filled deltoid 𝒟, and the trace map is an open quotient by S₃. Put A = U + V, B = U − V, u = |A|² and v = |B|². Then
 
   R = ℛ(A, B) = 4(2v − 3u)²(v − 2u) − C², C = (3u − v)(v − u + 12)/2 − 2 Re(AB²).
@@ -154,11 +158,17 @@ A = {[H] : H matched at a strict seed}.
   φ ↦ (s, t, r) ∈ ℂ³ ≅ ℝ⁶ has Jacobian determinant ¼ Im Ψ (**identity (J)**: the derivative of
   (s, s̄, t, t̄, r, r̄) has determinant Ψ̄ − Ψ, the Laplace expansion into two products of 3×3 determinants). By
   Lemma 2.1 it is nonzero wherever R > 0, so by the inverse function theorem the strict seeds whose Gram matrix is
-  realised with Im T > 0 form an open set U. U is also closed in S = {R > 0}: the sides form a compact torus, and
-  Im T cannot reach 0 over R > 0. U contains the 18 maxima of R (Theorem 1), where the matched completions
-  transported from the explicit completion H₀ supply the sides, so U = S by Lemma 1.1.
-  Conjugating seed and side gives the other root, and the vertical side is the same with the signs exchanged
-  ([`proof/coverage/returns/J_side_existence/RESULT.md`](proof/coverage/returns/J_side_existence/RESULT.md)).
+  realised with Im T > 0 form an open set. So does the set U of strict seeds whose horizontal Gram matrix is realised
+  with Im T > 0 and whose vertical one is realised with Im T < 0. U is also closed in S = {R > 0}: the sides form a
+  compact torus, and Im T cannot reach 0 over R > 0. U is nonempty: the Fourier family
+  K(t) = [[F₃, F₃], [F₃D(t), −F₃D(t)]], D(t) = diag(1, e^{it}, 1), has a corner (zero-based rows 1, 3, 5 and columns 0, 2, 4)
+  with R(t) = 144 sin²t (1 + cos t)² > 0 for 0 < t < π, and K(t) is a matched completion there, by explicit
+  signatures 2T(B) = χ + i√R and 2T(C) = χ − i√R (return Q,
+  [`proof/coverage/returns/Q_fourier_anchor`](proof/coverage/returns/Q_fourier_anchor/PROOF.md)). The sides of a
+  matched completion lie in U. At a seed of U, the sides and the flatness step below give a matched completion, and
+  the seed symmetries move it to all 18 maxima, whose sides then lie in U. So U = S by Lemma 1.1 (nonempty form).
+  Conjugating seed and side gives the other root ([`proof/coverage/returns/J_side_existence/RESULT.md`](proof/coverage/returns/J_side_existence/RESULT.md)). The flatness step uses any actual sides, so it applies at each seed of U before
+  U = S is known.
 - **Flatness.** For *any* actual sides B, C on conjugate roots, the forced block D = −C E* G⁻¹ B has unimodular
   entries. The completion always satisfies HH* = 6I. Its defect matrix Δᵢⱼ = |Dᵢⱼ|² − 1 has zero row and column sums,
   so it is determined by the weighted defects W = C̄ᵀ Δ B̄ᵀ, whose first row and column vanish; the remaining entries
@@ -168,8 +178,9 @@ A = {[H] : H matched at a strict seed}.
   ([`proof/coverage/returns/E_matched_flatness`](proof/coverage/returns/E_matched_flatness/FLATNESS.md); the
   relabelling is handoff M, proved in [`ALGEBRAIC_PROOFS.md`](proof/coverage/audits/AUDIT_2026-10-17/ALGEBRAIC_PROOFS.md)).
 
-*Lean:* `L1.matchedExistence`. Side existence is `L1.exists_side_h` and `L1.exists_side_v` (`L1/SideJacobian`,
-`L1/SideCover`); the two flatness identities of W₁₁ are re-checked by the kernel through a verified Kronecker
+*Lean:* `L1.matchedExistence`. Side existence is `L1.sides_all`, with `L1.exists_side_h` and `L1.exists_side_v`
+(`L1/SideJacobian`, `L1/SideCover`, `L1/Existence`); the pointwise step is `L1.matched_of_sides`, the Fourier
+anchor `Step2.matched_fourier` (`Step2/FourierAnchor`) and the transport `Step2.eq_univ_of_anchor_transport`; the two flatness identities of W₁₁ are re-checked by the kernel through a verified Kronecker
 polynomial-identity checker, and the relabelling is `L1.FlatCircuits.W_zero` (with `W_rowPerm`, `W_colPerm`). ∎
 
 > **Theorem 2.3 (matched uniqueness).** Two matched completions of the same strict seed are equivalent.
@@ -249,7 +260,7 @@ matched. If the horizontal signature is ζ₋, conjugate the whole matrix. *Lean
    positive local maximum (the argument of Lemma 1.1). By Theorem 1 that maximum lies in the 18-point orbit, and all
    18 points give one class [K*]: let L be a seed symmetry with transposition bit τ and conjugation bit ε; then
    [H_σ(Lθ)] = 𝒞^ε 𝒯^τ [H_{(−1)^{τ+ε}σ}(θ)], and the maximal seed E(x) = [[1,1,1],[1,x,x²],[1,x⁻¹,x⁻²]] has two
-   exact frame symmetries; an explicit matched completion H₀ at θ* (`Step2/BaseAnchor.lean`) anchors the class. So
+   exact frame symmetries; the matched completion at θ* (Theorems 2.2 and 2.3) anchors the class. So
    the image of every component is connected and contains [K*], and A is connected. So is conj A.
 3. **Joining at F6.** The family [[F₃, F₃], [F₃D(t), −F₃D(t)]], with D(t) = diag(1, e^{it}, 1), tends to
    F₂⊗F₃ ≅ F6 as t → 0. Its cross-ratio e^{it} keeps it away from F6 and S₆ for 0 < t < π/3. So [F6] lies in the
@@ -314,19 +325,21 @@ Since X is connected (Theorem 2), W ∩ X = X. ∎
 
 *Lean:* `recordClopen_of_atlas` gives the open–closed step. Theorem 2 is not formalised as a standalone
 statement. `Final.no_four_mubs` uses the direct route `Step2.coverage_of_matched_density`: W pulled back to the
-strict seeds is open and closed in S and contains the 18 maxima (all give the class of the anchor H₀, which lies in
-a Record), so by Lemma 1.1 it is all of S, and W contains A and conj A; the certificate puts [F6] in W; and
-X = A ∪ conj A ∪ {[F6]} by Corollary 2.6.
+strict seeds is open and closed in S. It is nonempty: the certificate puts F6 in the interior of a Record, so W is a
+neighbourhood of [F6]; the Fourier family K(t) tends to F6, so [K(t)] ∈ W for small t > 0; and K(t) is matched at a
+strict corner (return Q, `Step2.exists_matched_mem`). With one maximum it contains all 18, since the seed symmetries
+move matched completions between them and the matched class is unique (Theorem 2.3). So by Lemma 1.1 it is all of S,
+W contains A and conj A, and X = A ∪ conj A ∪ {[F6]} by Corollary 2.6.
 
 **The computation** ([`proof/atlas/`](proof/atlas/README.md)):
 1. `atlas.py` grows ball Records breadth-first from a seed centre until every Record's boundary is transferred.
 2. `certify.py` re-checks every Record independently: σ, the normal bound, Stage C, and a replay of the boundary tree with Arb transfer constants. It trusts only the centre phases, radii, label radii, integer frames and target lists of the certificate.
-3. `nonempty.py` and `anchor.py` place F6 and the explicit maximum-anchor completion H₀ inside Records.
+3. `nonempty.py` places F6 inside a Record.
 
 **Result** ([`proof/atlas/results/RECEIPT.md`](proof/atlas/results/RECEIPT.md)):
 - **The atlas.** 12,021 ball Records: 10,497 at R = 0.08, 1,029 at 0.063, 419 at 0.05 and 76 at 0.04. Every boundary is transferred, with on average 58 transfer targets per Record.
 - **Certification.** `certify.py` certifies all 12,021 (about 1.9 CPU-hours; 14 minutes with 8 workers on an Apple M5 Max). An independent Julia implementation written from this specification ([`proof/independent/`](proof/independent/README.md)) passes all 12,021 as well (24 minutes on one 128-core node).
-- **Nonemptiness.** F6 lies in the interior of Record 877, at distance 0.023 < 0.08; the anchor H₀ lies in Record 9319.
+- **Nonemptiness.** F6 lies in the interior of Record 877, at distance 0.023 < 0.08. This one membership also anchors the reconstruction in Lean (return Q).
 - **Certificate.** `atlas_certificate.json.gz` (16 MB, with integer tangent frames).
 
 ## Conclusion
@@ -341,7 +354,7 @@ By Step 4 and Lemma 4.2, every class in X lies in some ball Record. By Step 3, n
 |---|---|---|---|
 | Theorem 1 (maxima of R) | return C | 651 exact claims | yes |
 | Lemma 2.1 (side quadratic) | Step 2.1 | none | yes |
-| Theorem 2.2 (matched existence) | return J (sides), return E (flatness) | identity (J); exact flatness identities | yes (kernel re-checks every identity) |
+| Theorem 2.2 (matched existence) | return J (sides), return E (flatness), return Q (the Fourier anchor) | identity (J); exact flatness identities; return Q's 62 exact checks | yes (kernel re-checks every identity) |
 | Theorem 2.3 (matched uniqueness) | Step 2.2 | none | yes |
 | Theorem 2.4 (nonmatched converse) | return G §§2–5 | exact: 81-case census, Laurent identities | yes |
 | Theorem 2.5 (strict-corner coverage) | `STRICT_CORNER_COVERAGE.md`; return K for nonzero J | exact identities | yes (kernel re-checks the zero-J square-sum identity and return K's signed corner expansion) |
@@ -360,7 +373,7 @@ By Step 4 and Lemma 4.2, every class in X lies in some ball Record. By Step 3, n
 ```bash
 pip install -r requirements.txt   # Python 3.10+: numpy, sympy, mpmath, python-flint
 python3 verify.py                 # exact replays of Steps 1–3 (about 1 minute)
-python3 verify.py --atlas -j 8    # also certify all 12,021 Records, F6 and the anchor H0 (about 1.9 CPU-hours; 14 min with 8 workers)
+python3 verify.py --atlas -j 8    # also certify all 12,021 Records and F6 (about 1.9 CPU-hours; 14 min with 8 workers)
 python3 verify.py --lean          # also build the Lean formalisation and audit its axioms (about 8 min with the Mathlib cache)
 python3 verify.py --lean-full     # also build matched existence and NoFourMUBs.Final (about 12 min on an Apple M5 Max)
 ```

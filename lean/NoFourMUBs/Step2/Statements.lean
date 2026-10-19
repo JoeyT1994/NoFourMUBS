@@ -13,9 +13,9 @@ natural topology.  No project axiom, admitted proof, or numerical predicate
 is introduced here.  The unproved geometric obligations are `def ... : Prop`
 and are explicit arguments of the assembly theorem.
 
-This route proves precisely the `covered` field of `NoFourMUBs.Inputs`.
-It uses finitely many maximum anchors and does not assert that the strict
-seed set, or the retained finite-corner domain, is connected.
+The direct coverage theorem built on these statements,
+`coverage_of_matched_density`, is in `Step2/FourierAnchor.lean`: it needs the
+anchor transport and the Fourier family, which import this file.
 -/
 
 open Set Matrix Hadamard6
@@ -262,50 +262,9 @@ def CoveredClasses (Ball : Mat6 → Prop) : Set HadamardClass6 := {q | CoveredCl
 compact Record images. It is deliberately on all classes, including Tao. -/
 def RecordClopen (Ball : Mat6 → Prop) : Prop := IsClopen (CoveredClasses Ball)
 
-/-- One matched representative at each maximum seed suffices. -/
-def MaximumAnchorCertificate (Ball : Mat6 → Prop) (anchors : Finset StrictSeed) : Prop :=
-  ∀ s ∈ anchors, ∃ H : Had6, Matched s H ∧ CoveredMatrix Ball H.1
-
+/-- The Fourier class lies in a Record (`nonempty.py`); in the direct coverage route
+`coverage_of_matched_density` (`Step2/FourierAnchor.lean`) it is the one membership input. -/
 def FourierAnchorCertificate (Ball : Mat6 → Prop) : Prop :=
   CoveredMatrix Ball fourierHadamard.1
-
-/-- L1 + L2 + G-density, a maximum census, clopen Records, and finite anchors
-imply exactly `NoFourMUBs.Inputs.covered`. All unresolved inputs are visible. -/
-theorem coverage_of_matched_density
-    (Ball : Mat6 → Prop) (anchors : Finset StrictSeed)
-    (hE : MatchedExistence) (hU : MatchedUniqueness)
-    (hD : MatchedDensityReach) (hCensus : MaximumCensus anchors)
-    (hClopen : RecordClopen Ball)
-    (hAnchors : MaximumAnchorCertificate Ball anchors)
-    (hFourier : FourierAnchorCertificate Ball) :
-    ∀ H, IsHadamard H → ¬ IsTaoOrbit H →
-      ∃ G K, InGamma H G ∧ Ball K ∧ Equivalent G K := by
-  have hImage : ∀ s : StrictSeed, matchedClassMap hE s ∈ CoveredClasses Ball := by
-    apply Step2.TopologyCore.superlevel_image_mem_of_localMax_anchors
-      seedR continuous_seedR (matchedClassMap hE)
-      (continuous_matchedClassMap hE hU) (CoveredClasses Ball) hClopen
-    intro p hp hMax
-    obtain ⟨H, hH, hCover⟩ := hAnchors ⟨p, hp⟩ (hCensus p hp hMax)
-    rw [← matchedClassMap_eq hE hU ⟨p, hp⟩ H hH]
-    exact hCover
-  have hMatched : MatchedClasses ⊆ CoveredClasses Ball := by
-    rintro q ⟨s, H, hH, rfl⟩
-    rw [matchedClassMap_eq hE hU s H hH]
-    exact hImage s
-  have hConjugate : ConjugateMatchedClasses ⊆ CoveredClasses Ball := by
-    rintro q ⟨s, H, hH, rfl⟩
-    exact coveredMatrix_conjugate (hMatched ⟨s, H, hH, rfl⟩)
-  have hUnion : ({fourierClass} ∪ MatchedClasses) ∪ ConjugateMatchedClasses ⊆
-      CoveredClasses Ball := by
-    intro q hq
-    rcases hq with (hq | hq) | hq
-    · rcases hq with rfl
-      exact hFourier
-    · exact hMatched hq
-    · exact hConjugate hq
-  have hClosure := closure_minimal hUnion hClopen.isClosed
-  intro H hH hTao
-  exact hClosure (hD (hadamardQuotient ⟨H, hH⟩) hTao)
-
 
 end NoFourMUBs.Step2

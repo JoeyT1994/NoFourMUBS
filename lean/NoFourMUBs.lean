@@ -37,7 +37,7 @@ import NoFourMUBs.Step2.SidePerm
 import NoFourMUBs.Step2.MatchedUnique
 import NoFourMUBs.Step1.AnchorOrbit
 import NoFourMUBs.Step2.AnchorTransport
-import NoFourMUBs.Step2.BaseAnchor
+import NoFourMUBs.Step2.FourierAnchor
 import NoFourMUBs.Step2.Connected
 import NoFourMUBs.MainTheorem
 import NoFourMUBs.ConnectedRoute
