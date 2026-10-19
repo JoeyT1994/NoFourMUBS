@@ -267,7 +267,7 @@ Records in chunk order so whole chunks finish together, and compile each chunk a
 (3) build `NoFourMUBs.Final` once in the setup job; (4) the final job imports the 121 chunks.
 
 
-## 9. The full run on rusty (17 Oct 2026; in progress)
+## 9. The full run on rusty (16–18 Oct 2026; done)
 
 Budget ≈ 20,000 core-hours, raised by the user to ≈ 23,000 before Phase 1 started, to ≈ 33,000 and ≈ 38,000 during it, then lifted ("get this done overnight") (whole 128-core ccq nodes; accounted as allocated cores × elapsed, `sacct` CPUTimeRAW over
 jobs named `nofour-katlas*`). Archive: `/mnt/ceph/users/jtindall/nofour_katlas` (`rows/`, `oleans/Rec<n>.tar`,
@@ -339,3 +339,23 @@ none failed, 196 left, 47,190 core-hours in all. What makes the top of the index
 (up to 8.4 h; the number of hints grows from 132k to 250k, the cost faster). It bounds a Record's wall time from
 below and cannot be shared between cores, so the last 196 run on 3 nodes with a 16 h limit. Splitting `Hints2` into
 slabs, as the H2 tests are split, would remove this tail in a later run (a generator change, so not in this one).
+
+**Finish (18 Oct).** The last 163 Records were all compiling `Hints2` (9.4 h in, single-threaded) when their job
+neared its limit: the module is two packed hex literals of 4.2M digits, and Lean reads a numeral in quadratic time.
+`kpack` now writes literals longer than 16,384 hex digits as `Nat.lor` of shifted chunks (same value; a 4.2M-digit
+literal in about 20 s), and a resumed Record has the literals of its uncompiled modules chunked. Restarted from the
+snapshots, `Hints2` took minutes. Seven Records were killed by the node's out-of-memory killer (`Edg`/`Graph2` of the
+343-label Records reach 35–98 GB; SIGKILL, no Lean error) and passed on retry with larger budgets (`--mem-override`).
+The final module first failed to import: it reads 377,470 `.olean`s, one memory mapping each, and rusty's
+`vm.max_map_count` is 262,144 (the plain compile failed at 262,092 mappings). An `LD_PRELOAD` shim
+(`nommap_olean.c`, `final_run.py --no-olean-mmap`) refuses Lean's olean mappings, so Lean reads the files into memory.
+Then (job 7276121): Final compiled in 146 s at 85 GB, and
+
+```
+'NoFourMUBs.KernelAtlas.Atlas.no_four_mubs_kernel' depends on axioms: [propext, Classical.choice, Quot.sound]
+```
+
+All 12,021 Records `ok` (axioms of `cert` and `boundaryT` standard), 121 chunks; 53,675 core-hours over 97
+allocations. Manifest, commands and reproducibility notes: `results/full/RUN.md`. On ceph: 12,315 files (87 GB) in
+`nofour_katlas` (sources per Record, chunk tarballs, rows, logs); the per-Record olean tarballs (inside the chunk
+tarballs), the snapshots and the stage tarballs were deleted.
