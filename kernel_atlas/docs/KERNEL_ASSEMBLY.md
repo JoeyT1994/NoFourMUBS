@@ -266,3 +266,96 @@ Plan to keep the full run bounded (to ≈ 15–30k files in all):
 Records in chunk order so whole chunks finish together, and compile each chunk as soon as it is complete;
 (3) build `NoFourMUBs.Final` once in the setup job; (4) the final job imports the 121 chunks.
 
+
+## 9. The full run on rusty (16–18 Oct 2026; done)
+
+Budget ≈ 20,000 core-hours, raised by the user to ≈ 23,000 before Phase 1 started, to ≈ 33,000 and ≈ 38,000 during it, then lifted ("get this done overnight") (whole 128-core ccq nodes; accounted as allocated cores × elapsed, `sacct` CPUTimeRAW over
+jobs named `nofour-katlas*`). Archive: `/mnt/ceph/users/jtindall/nofour_katlas` (`rows/`, `oleans/Rec<n>.tar`,
+`src/Rec<n>.tar.gz`, `chunks/`, `final/`, `logs/`). Ceph baseline before the run: 947,759 files under
+`/mnt/ceph/users/jtindall`. Scripts: `run_katlas_{setup,records,chunks,final}.sh`, drivers `atlas_run.py --archive`
+(resumable: Records `ok` with a tarball of the recorded size, or failed, are skipped), `chunk_run.py`, `final_run.py`.
+
+| Phase | Job | Result | core-h |
+|---|---|---|---|
+| 0b setup: `NoFourMUBs.Final`, RecTao, Special; stage tarball `nofour_stage_final.tar` (16 GB) | 7260686 | done in 1 h 04; axioms of `RecTao.cert`, `RecTao.boundary`, `RecTao.tao`, `Special.fourier`, `Special.anchor`, `NoFourMUBs.Final.no_four_mubs` standard | 137 |
+| smoke: Records 0–99 (`lean -j 1`) | 7260687 | **100/100 `ok`**, axioms standard; 85.7 CPU-min per Record, peak 14.3 GB, 4.94 MB olean tarball; 1 h 46 on one node | 226 |
+| smoke: chunk 0 | 7261142 | `ok`: compile 21 s, 7.2 GB; `Chunk0.tar` 519 MB | 10 |
+| smoke: final against chunk 0 + 120 stub chunks | 7261228 | `ok`: Final compiles in 13.6 s (7.6 GB); `no_four_mubs_kernel : ¬ NoFourMUBs.FourMUBs`, axioms `propext, sorryAx, Classical.choice, Quot.sound` (`sorryAx` from the stubs only) | 3.5 |
+| 1. Records 100–12020 (16 nodes, Lean's default threads, 120 Records in flight, cap 10 h 45 per node; drain 70 min before the cap) | 7261367 (7261362, cap 9 h 24, cancelled after 9 s when the budget was raised) | submitted 09:52 EDT | ≤ 22,016 |
+| 1b. Records 12020 down to 9700 (8 nodes, the retuned memory budgets, 160 Records in flight, cap 7 h) | 7263718 | submitted 15:45 EDT, alongside 7261367 | ≤ 7,168 |
+| 1c. the 3,806 Records left (24 nodes; 1,202 resumed from snapshots of 7263718's nodes; no drain, snapshot at the limit) | 7265961 (7265950, 12 nodes and a 5 h 25 cap for the 38k budget, cancelled after 22 s when the budget was lifted) | submitted 22:47 EDT | |
+| 2. chunks complete by then (61 of them; chunk 0 from the smoke) | 7265986 | all `ok` in 7 min 46 s (about 1 min each, 7.3 GB) | 17 |
+| 1d. the last 196 Records (3 nodes, from the 9 h snapshots of 1c's tasks 0–7, limit 16 h) | 7267871 | submitted 07:55 EDT 18 Oct | |
+| 2b. chunks complete by then (44) | 7267876 | submitted 07:57 EDT | |
+
+`lean -j 1` cost ≈ 5% more CPU than Lean's default threads on the same Records (85.7 vs 82 min), so Phase 1 uses the
+default. The time cap is the budget control: 376 + 22,016 + ≈ 150 for chunks and final stays under 23,000; the expected cost is ≈ 19,000–20,000. A job
+reaching its cap leaves its remaining Records unstarted (the drain), and a later run resumes them at no loss.
+
+At 15:40 (5 h 54 into 7261367): 4,429 Records `ok` (with the smoke), none failed, 12,179 core-hours used. Slower than
+projected, for two reasons. Later Records are heavier (mean CPU 91 min for Records < 3000, 103 for 3000–3999, 114 for
+4000–4999). And a node ran only 82–94 Lean processes (load ≈ 90 of 128): the memory budgets (peak minus 5 GB) reserved
+the whole 856 GB while 470–620 GB were in use. `mem_gb` now reserves the private part of each module's measured peak
+(about the 99th percentile over 4,412 Records; table in `atlas_run.mem_gb`); Graph2 peaked at 75.6 GB once (p99 22.5),
+which the unreserved memory absorbs. 7261367 is expected to end near Record 8,300–9,100 (it admits in index order);
+7263718 takes the top of the index range from above, with the new budgets, and a last resumable run takes the gap and
+any drained Records. Projection: ≈ 22,000 + 5,000 + 1,500 + 200 (chunks and final) ≈ 29,000 core-hours.
+
+**What goes to git, and reproducibility.** No generated Lean sources or build outputs of the atlas are committed (≈ 30
+files and 3.5 MB per Record); they stay on ceph (`src/Rec<n>.tar.gz`, then the chunk tarballs). The repository gets
+`kernel_atlas/results/full/` (`full_manifest.py`): one row per Record with its status, the axioms of `cert` and
+`boundaryT`, CPU time, peak memory, the generator commit, and the SHA-256 of its olean and source tarballs, each also
+as a content hash of the files inside (for the sources: the modules of the import closure of `Record2` and
+`BoundaryCover`, `chunk_run.tar_hashes`); the chunk rows; the final job's report. `regen_check.py IDX …` regenerates
+Records from `atlas_certificate.json.gz` in a clean copy and compares content hashes.
+* Generation is deterministic on a fixed platform: Record 7 regenerated on a rusty node reproduces all 29 archived
+  modules byte for byte.
+* Across platforms the joint-edge hints differed: the numpy least squares (`kjoint.ls_mult`, BLAS/LAPACK) rounded
+  25 of 11,690 multipliers of Record 146 one unit differently on macOS arm64 than on rusty, so `Hints2.lean` differed
+  (Records 7 and 146; every other module was identical). Soundness never depended on it (the kernel checks whatever
+  hints are generated). From commit cacef1a9 on, `kjoint.LSMult` does that least squares in plain Python floats in a
+  fixed order (each step one correctly rounded IEEE operation; the inputs come from Arb and exact rationals), and
+  Record 146 is byte-identical on macOS arm64 and rusty.
+* The full run's Records were generated before that change (generators as at fcea9c1a, unchanged up to 31c6d9d2, the
+  commit staged by Phase 1): they regenerate byte for byte at 31c6d9d2 on rusty's x86-64 nodes with the run's
+  environment (Python 3.12.9, numpy 2.2.6 with scipy-openblas 0.3.29); at cacef1a9 or later, a few Records' hints may
+  differ by a unit. Rows carry `gen_commit` from 970f08ce on, so Records added later name their own commit.
+
+**The two capped jobs (22:45).** 7261367 ended at its cap with 7,196 Records `ok`; 7263718 with 894. Both lost
+much of their last hours: with 120–160 Records in flight a Record took 2.5–4.3 h of wall time (the driver compiles
+the oldest Records' modules first, but every Record in flight competes), so the Records in flight when the drain
+began (70 min before the cap) could not finish and were killed with their partial builds. 7263718's nodes were
+snapshotted (sources, build directories and module logs, 25.7 GB in `$ARCH/partial`) 10 minutes before its cap;
+`atlas_run.py --partial` restores a snapshot and compiles only the modules whose log ends in `Exit status: 0` and
+was written before the snapshot began (16,150 module logs over 1,202 Records). The Records job now snapshots itself
+on USR1 (600 s before its limit) after stopping its Lean processes, so a time limit costs nothing but the restart.
+State then: 8,215 Records `ok`, none failed, 29,291 core-hours.
+
+**Overnight (18 Oct, 07:45).** 7265961: tasks 8–23 (Records 2295–9699 and a share of the rest) finished in 3 h 41 –
+4 h 45; tasks 0–7 (the leftovers of 9700–12020) ran to the 9 h limit and snapshotted themselves. 11,825 Records `ok`,
+none failed, 196 left, 47,190 core-hours in all. What makes the top of the index range slow is one module,
+`Hints2` (the tangent-test label hints, one Lean process): median CPU 4 min for Records < 1000, 7 min at 3000–3999,
+17 min at 6000–6999, 33–34 min at 8000–9999, 65 min at 10000–10999 and 6.5 h for the last Records of 11000–11999
+(up to 8.4 h; the number of hints grows from 132k to 250k, the cost faster). It bounds a Record's wall time from
+below and cannot be shared between cores, so the last 196 run on 3 nodes with a 16 h limit. Splitting `Hints2` into
+slabs, as the H2 tests are split, would remove this tail in a later run (a generator change, so not in this one).
+
+**Finish (18 Oct).** The last 163 Records were all compiling `Hints2` (9.4 h in, single-threaded) when their job
+neared its limit: the module is two packed hex literals of 4.2M digits, and Lean reads a numeral in quadratic time.
+`kpack` now writes literals longer than 16,384 hex digits as `Nat.lor` of shifted chunks (same value; a 4.2M-digit
+literal in about 20 s), and a resumed Record has the literals of its uncompiled modules chunked. Restarted from the
+snapshots, `Hints2` took minutes. Seven Records were killed by the node's out-of-memory killer (`Edg`/`Graph2` of the
+343-label Records reach 35–98 GB; SIGKILL, no Lean error) and passed on retry with larger budgets (`--mem-override`).
+The final module first failed to import: it reads 377,470 `.olean`s, one memory mapping each, and rusty's
+`vm.max_map_count` is 262,144 (the plain compile failed at 262,092 mappings). An `LD_PRELOAD` shim
+(`nommap_olean.c`, `final_run.py --no-olean-mmap`) refuses Lean's olean mappings, so Lean reads the files into memory.
+Then (job 7276121): Final compiled in 146 s at 85 GB, and
+
+```
+'NoFourMUBs.KernelAtlas.Atlas.no_four_mubs_kernel' depends on axioms: [propext, Classical.choice, Quot.sound]
+```
+
+All 12,021 Records `ok` (axioms of `cert` and `boundaryT` standard), 121 chunks; 53,675 core-hours over 97
+allocations. Manifest, commands and reproducibility notes: `results/full/RUN.md`. On ceph: 12,315 files (87 GB) in
+`nofour_katlas` (sources per Record, chunk tarballs, rows, logs); the per-Record olean tarballs (inside the chunk
+tarballs), the snapshots and the stage tarballs were deleted.

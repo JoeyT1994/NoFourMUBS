@@ -95,7 +95,6 @@ def final_file(K):
           '  A := A',
           '  boundary := boundaryAll',
           '  tao := RecTao.tao A ⟨Table.N, lt_N⟩ (by simp only [A, if_true])',
-          '    (hR 9319 (by unfold Table.N; omega))',
           '  fourier := Special.fourier A (idx 877) (by rw [hP 877 (by unfold Table.N; omega)]; rfl)',
           '    (hR 877 (by unfold Table.N; omega))', '',
           '/-- **There are no four mutually unbiased bases in `ℂ⁶`**, with the atlas checked by the kernel. -/',

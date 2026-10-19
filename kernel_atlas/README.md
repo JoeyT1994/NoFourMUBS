@@ -7,7 +7,23 @@ form: the certificate's computations checked by the Lean kernel itself, which wo
 (`¬ FourMUBs` with no hypotheses). Nothing in the proof imports this folder, `verify.py` does not run it, and a
 reviewer does not need to: it is here to show that the kernel check exists and works.
 
-## Status (17 Oct 2026)
+## Status (19 Oct 2026): the whole atlas is kernel-checked
+
+`NoFourMUBs.KernelAtlas.Atlas.no_four_mubs_kernel : ¬ NoFourMUBs.FourMUBs` (`Atlas/Final.lean`, generated) applies
+`NoFourMUBs.Final.no_four_mubs` to an `AtlasCertificate` whose every field is kernel-checked: all **12,021** atlas
+Records and Tao's Record (`cert` and `boundary` for each), the `tao` and `fourier` fields, assembled in **121**
+chunks. On main (without the `anchor` field):
+
+```
+'NoFourMUBs.KernelAtlas.Atlas.no_four_mubs_kernel' depends on axioms: [propext, Classical.choice, Quot.sound]
+```
+
+The run took **53,675 core-hours** on rusty (16–18 Oct, plus 236 for the rebuild on main). The generated Lean
+sources and oleans (≈ 87 GB) are not in git; [`results/full/`](results/full/RUN.md) has the manifest (per Record:
+status, axioms, cost, generator commit, SHA-256 of its sources and oleans), the chunk rows, the final reports and the
+commands. The design, the run and its problems: [`docs/KERNEL_ASSEMBLY.md`](docs/KERNEL_ASSEMBLY.md) §8–9.
+
+### The pieces (17 Oct 2026)
 
 **Record 100 is a complete kernel-checked `RecordCert`** (`NoFourMUBs.KernelAtlas.Rec100.cert`, standard axioms only),
 in about 17 CPU-minutes:
@@ -39,7 +55,7 @@ containing it. See [`docs/KERNEL_BOUNDARY.md`](docs/KERNEL_BOUNDARY.md).
 Details and costs: [`docs/KERNEL_RECORD100.md`](docs/KERNEL_RECORD100.md); the design and the cost model:
 [`docs/KERNEL_FEASIBILITY.md`](docs/KERNEL_FEASIBILITY.md), [`docs/KERNEL_TANGENT.md`](docs/KERNEL_TANGENT.md).
 
-## What remains for an unconditional theorem
+## How it was reached
 
 1. **Survey** (done: `explorations/atlas_survey/`, and for v2 `docs/KERNEL_TANGENT_V2.md`). The joint edge test is
    in the kernel; the support test is not needed: the 26 Records that fail with the greedy kernel labels pass with a
@@ -54,8 +70,8 @@ Details and costs: [`docs/KERNEL_RECORD100.md`](docs/KERNEL_RECORD100.md); the d
    per Record instead of ≈ 177 MB), all Records share the atlas table so cross-Record links are `rfl`, and the chunk
    and final assembly modules are generated (`export_assembly.py`; `Final.lean` checked against stub chunks). A
    rusty pilot kernel-checked 50 Records (with boundaries) and imported them into one process in 4 s and 6.9 GB,
-   which extrapolates to ≈ 1–2 min and ≈ 50 GB for the atlas. What remains is the full run: ≈ 80 CPU-min per Record
-   on rusty, ≈ 17,000–20,000 core-hours with better packing of the nodes.
+   which extrapolates to ≈ 1–2 min and ≈ 50 GB for the atlas. **Done** (19 Oct): the full run, see the status above
+   and `results/full/RUN.md`.
 
 ## Layout and usage
 

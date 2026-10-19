@@ -17,8 +17,9 @@ stage_in() {
   mkdir -p "$STAGE"
   if [ -f "$STAGE_TAR" ] && [ -z "${STAGE_FRESH:-}" ]; then
     tar xf "$STAGE_TAR" -C "$STAGE"
-    # Kernel-atlas builds newer than the tarball (Records of earlier phases)
-    rsync -a "$REPO/lean/.lake/build/lib/lean/KernelAtlas/" "$STAGE/repo/lean/.lake/build/lib/lean/KernelAtlas/"
+    if [ -n "${STAGE_SYNC_BUILD:-}" ]; then   # kernel-atlas builds on ceph newer than the tarball (pilot layout)
+      rsync -a "$REPO/lean/.lake/build/lib/lean/KernelAtlas/" "$STAGE/repo/lean/.lake/build/lib/lean/KernelAtlas/"
+    fi
   else
     rsync -a "$ELAN_HOME/" "$STAGE/elan/"
     mkdir -p "$STAGE/repo/lean"
@@ -43,11 +44,11 @@ stage_out_sources() {
   rsync -a "$STAGE/repo/kernel_atlas/lean/KernelAtlas/" "$REPO/kernel_atlas/lean/KernelAtlas/"
 }
 
-# the staged toolchain and lean/.lake as one tarball on ceph, for the next jobs' stage_in
+# the staged toolchain and lean/.lake as one tarball on ceph, for the next jobs' stage_in (default: $STAGE_TAR)
 stage_pack() {
-  local t0=$(date +%s)
-  tar cf "$STAGE_TAR.tmp" -C "$STAGE" elan repo/lean/.lake && mv "$STAGE_TAR.tmp" "$STAGE_TAR"
-  echo "packed $STAGE_TAR ($(du -sh "$STAGE_TAR" | cut -f1)) in $(( $(date +%s) - t0 )) s"
+  local out=${1:-$STAGE_TAR} t0=$(date +%s)
+  tar cf "$out.tmp" -C "$STAGE" elan repo/lean/.lake && mv "$out.tmp" "$out"
+  echo "packed $out ($(du -sh "$out" | cut -f1)) in $(( $(date +%s) - t0 )) s"
 }
 
 stage_clean() {
