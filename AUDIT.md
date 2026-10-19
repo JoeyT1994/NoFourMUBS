@@ -15,8 +15,9 @@ replay everything is in [`README.md`](README.md#check-it).
 **Lean.** `NoFourMUBs.Final.no_four_mubs (C : AtlasCertificate) : ¬ FourMUBs` uses only `propext`,
 `Classical.choice` and `Quot.sound`. Its one input is the finite certificate `AtlasCertificate`
 ([`MainTheorem.lean`](lean/NoFourMUBs/MainTheorem.lean)): **what remains outside Lean is the evaluation of the
-inequalities on the 12,021 concrete Records**, which `certify.py` and the Julia checker both confirm. Checking those
-numbers in the Lean kernel as well is an optional extra ([`kernel_atlas/`](kernel_atlas/README.md)).
+inequalities on the 12,021 concrete Records**, which `certify.py` and the Julia checker both confirm. They have also
+been checked once in the Lean kernel, an optional extra ([`kernel_atlas/`](kernel_atlas/README.md)):
+`no_four_mubs_kernel : ¬ FourMUBs`, no hypotheses, standard axioms only (19 Oct 2026, about 54,000 core-hours).
 
 | Field of `AtlasCertificate` | Checked by |
 |---|---|

@@ -49,7 +49,7 @@ changes they must accept.
 | [`tests/`](tests/) | Negative tests of the checkers |
 | [`proof/LITERATURE.md`](proof/LITERATURE.md) | Literature and credit, including what is taken from openai/math |
 | [`ClassificationPaper/`](ClassificationPaper/README.md) | The classification paper [CT]: context for the reconstruction, not used by the proof |
-| [`kernel_atlas/`](kernel_atlas/README.md) | Optional: the atlas certificate checked Record by Record in the Lean kernel, which would make the theorem unconditional. Not needed to check the proof |
+| [`kernel_atlas/`](kernel_atlas/README.md) | Optional: the atlas certificate checked Record by Record in the Lean kernel. Done once (19 Oct 2026): `no_four_mubs_kernel : ¬ FourMUBs`, with no hypotheses and only the standard axioms, about 54,000 core-hours. Not needed to check the proof |
 | [`explorations/`](explorations/README.md) | Research beyond the proof: open handoffs, results the proof does not use, the atlas-wide triple census |
 
 ## History

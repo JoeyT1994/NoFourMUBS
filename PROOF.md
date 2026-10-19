@@ -370,8 +370,9 @@ By Step 4 and Lemma 4.2, every class in X lies in some ball Record. By Step 3, n
 **Inputs taken as given.** No classification of order-6 Hadamard matrices is used. The Stage C method follows
 [OAI] §6, with every inequality reproved (`STAGEC.md`) and formalised.
 
-**What remains outside Lean: the atlas numbers only.** An optional project checks them in the Lean kernel as well
-([`kernel_atlas/`](kernel_atlas/README.md)); it is not needed for this proof.
+**What remains outside Lean: the atlas numbers only.** An optional project has also checked them in the Lean kernel
+([`kernel_atlas/`](kernel_atlas/README.md)): `no_four_mubs_kernel : ¬ FourMUBs` holds with no hypotheses and only the
+standard axioms (one run on rusty, 19 Oct 2026, about 54,000 core-hours). It is not needed for this proof.
 
 ## Verifying
 
