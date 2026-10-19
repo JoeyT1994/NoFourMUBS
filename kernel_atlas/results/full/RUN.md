@@ -9,6 +9,23 @@
 NoFourMUBs.KernelAtlas.Atlas.no_four_mubs_kernel : ¬NoFourMUBs.FourMUBs
 ```
 
+**On main without the `anchor` field (19 Oct 2026).** After the rebase onto main (`AtlasCertificate` without
+`anchor`; the Fourier family anchors), the Record and chunk oleans of the run were reused and only the setup
+(`NoFourMUBs.Final`, Tao's Record, `Special.Exact`; job 7279185) and the final module (job 7279536,
+`final_main.json`, `final_main_7279536.log`) were rebuilt:
+
+```
+'NoFourMUBs.KernelAtlas.Atlas.no_four_mubs_kernel' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NoFourMUBs.KernelAtlas.Atlas.atlasCert' depends on axioms: [propext, Classical.choice, Quot.sound]
+NoFourMUBs.KernelAtlas.Atlas.no_four_mubs_kernel : ¬NoFourMUBs.FourMUBs
+```
+
+The reuse is sound because the Records and chunks reach the library only through the `KernelAtlas` core modules,
+and every constant in the reference closure of those modules is unchanged under main: 2,185 constants
+(`NoFourMUBs`, `Hadamard6`, `KernelAtlas`), each with the same module and the same structural hash of type and value
+under the run's library and main's (`lean/KernelAtlas/Check/Fingerprint.lean`); Mathlib and the toolchain are
+unchanged.
+
 Every Record's `cert` and `boundaryT` depend on exactly these three axioms (`records.jsonl.gz`, fields `axioms_cert`
 and `axioms_boundaryT`, from Record 100 on; the smoke Records 0–99 record their union, `axioms`).
 
@@ -18,11 +35,12 @@ and `axioms_boundaryT`, from Record 100 on; the smoke Records 0–99 record thei
 |---|---|
 | `records.jsonl.gz` | one row per Record: `idx`, `status`, axioms, `cpu_s`, `peak_gb`, `gen_s`, `gen_commit`, `olean` and `src` hashes (`tar_sha256` of the tarball, `content_sha256` of the files inside, see below), `restored_modules` for Records resumed from a snapshot |
 | `chunks.jsonl` | one row per chunk `Chunk<k>` (Records 100k … 100k + 99): compile time, memory, tarball size |
-| `final.json`, `final_7276121.log` | the final job's report and log (`#print axioms`, `#check`) |
+| `final.json`, `final_7276121.log` | the final job's report and log (`#print axioms`, `#check`), as of the run (with `anchor`) |
+| `final_main.json`, `final_main_7279536.log` | the same on main, without `anchor` |
 | `summary.json` | counts, CPU totals |
 | `jobs.txt` | every Slurm allocation of the run (`nofour-katlas*`): job id, name, elapsed, allocated core-seconds |
 
-Not in git (on rusty, `/mnt/ceph/users/jtindall/nofour_katlas`, 12,315 files, 87 GB): `src/Rec<n>.tar.gz` (each
+Not in git (on rusty, `/mnt/ceph/users/jtindall/nofour_katlas`, 12,319 files, 87 GB): `src/Rec<n>.tar.gz` (each
 Record's generated Lean sources and per-module logs), `chunks/Chunk<k>.tar` (the oleans of the chunk's Records and of
 `Chunk<k>`), `rows/` (the drivers' rows), `logs/`.
 
@@ -64,7 +82,7 @@ module compiled in 146 s at 85 GB, the axiom check in 124 s.
 
 ## Cost
 
-53,675 core-hours over 97 allocations (`jobs.txt`; whole 128-core nodes), of which 30,772 CPU-hours went into the
+53,675 core-hours over 97 allocations for the run, and 236 for the rebuild on main (setup and final): 53,910 in all, (`jobs.txt` lists the run's; whole 128-core nodes). Of the run's, 30,772 CPU-hours went into the
 Records' Lean and generation processes (`summary.json`). The difference: the first two jobs' time limits cut off
 Records that had been in flight for hours (no snapshots yet), the `Hints2` tail before the literals were chunked
 (single-threaded modules on mostly idle nodes), and out-of-memory kills of the largest Records (retried).

@@ -1,0 +1,33 @@
+staged /mnt/ceph/users/jtindall/NoFourMUBS into /tmp/nofour-7279536-0 in 240 s (16G)
+{
+ "name": "final_main",
+ "stubs": false,
+ "unpack_s": 177.9,
+ "no_olean_mmap": true,
+ "final_compile": {
+  "ok": true,
+  "wall_s": 148.0,
+  "cpu_s": 155.76999999999998,
+  "peak_gb": 82.45,
+  "tail": ""
+ },
+ "axioms_run": {
+  "wall_s": 125.1,
+  "cpu_s": 123.16,
+  "peak_gb": 82.06
+ },
+ "axioms_output": "'NoFourMUBs.KernelAtlas.Atlas.no_four_mubs_kernel' depends on axioms: [propext, Classical.choice, Quot.sound]\n'NoFourMUBs.KernelAtlas.Atlas.atlasCert' depends on axioms: [propext, Classical.choice, Quot.sound]\nNoFourMUBs.KernelAtlas.Atlas.no_four_mubs_kernel : \u00acNoFourMUBs.FourMUBs\n",
+ "axioms_stderr": "nommap_olean: 428563 olean mappings refused\n\tCommand being timed: \"/tmp/nofour-7279536-0/elan/toolchains/leanprover--lean4---v4.33.0-rc2/bin/lean /tmp/nofour-7279536-0/repo/kernel_atlas/lean/KernelAtlas/Atlas/Axioms.lean\"\n\tUser time (seconds): 64.60\n\tSystem time (seconds): 58.56\n\tPercent of CPU this job got: 98%\n\tElapsed (wall clock) time (h:mm:ss or m:ss): 2:05.10\n\tAverage shared text size (kbytes): 0\n\tAverage unshared data size (kbytes): 0\n\tAverage stack size (kbytes): 0\n\tAverage total size (kbytes): 0\n\tMaximum resident set size (kbytes): 86049900\n\tAverage resident set size (kbytes): 0\n\tMajor (requiring I/O) page faults: 0\n\tMinor (reclaiming a frame) page faults: 23101070\n\tVoluntary context switches: 4044\n\tInvoluntary context switches: 188\n\tSwaps: 0\n\tFile system inputs: 787456\n\tFile system outputs: 0\n\tSocket messages sent: 0\n\tSocket messages received: 0\n\tSignals delivered: 0\n\tPage size (bytes): 4096\n\tExit status: 0\nnommap_olean: 0 olean mappings refused\n",
+ "axioms": [
+  [
+   "NoFourMUBs.KernelAtlas.Atlas.no_four_mubs_kernel",
+   "propext, Classical.choice, Quot.sound"
+  ],
+  [
+   "NoFourMUBs.KernelAtlas.Atlas.atlasCert",
+   "propext, Classical.choice, Quot.sound"
+  ]
+ ],
+ "status": "ok"
+}
+done on worker5238
