@@ -79,9 +79,30 @@ section Superlevel
 
 variable {P : Type*} [TopologicalSpace P] [CompactSpace P]
 
+/-- A nonempty clopen part of a positive superlevel set contains a positive
+ambient local maximum: maximize on the compact closure of its open image.
+This is the argument of `PROOF.md` Lemma 1.1. -/
+theorem exists_localMax_mem_of_isClopen
+    (R : P → ℝ) (hR : Continuous R)
+    (V : Set {p : P // 0 < R p}) (hV : IsClopen V) (hne : V.Nonempty) :
+    ∃ (p : P) (hp : 0 < R p), IsLocalMax R p ∧ (⟨p, hp⟩ : {p : P // 0 < R p}) ∈ V := by
+  obtain ⟨s, hs⟩ := hne
+  let A : Set P := Subtype.val '' V
+  have hSopen : IsOpen {p : P | 0 < R p} := isOpen_lt continuous_const hR
+  have hAopen : IsOpen A := hSopen.isOpenMap_subtype_val V hV.isOpen
+  have hsA : (s : P) ∈ A := ⟨s, hs, rfl⟩
+  obtain ⟨b, hb, hbmax⟩ :=
+    (isClosed_closure : IsClosed (closure A)).isCompact.exists_isMaxOn
+      ⟨(s : P), subset_closure hsA⟩ hR.continuousOn
+  have hbpos : 0 < R b := lt_of_lt_of_le s.property (hbmax (subset_closure hsA))
+  have hbV : (⟨b, hbpos⟩ : {p : P // 0 < R p}) ∈ V :=
+    (Topology.IsInducing.subtypeVal.isClosed_iff'.mp hV.isClosed) ⟨b, hbpos⟩ hb
+  have hbA : b ∈ A := ⟨⟨b, hbpos⟩, hbV, rfl⟩
+  exact ⟨b, hbpos, hbmax.isLocalMax (mem_of_superset (hAopen.mem_nhds hbA) subset_closure), hbV⟩
+
 /-- A clopen part of a positive superlevel set which contains every positive
-ambient local maximum must be the whole superlevel set.  The proof maximizes
-on the compact closure of the complementary open part. -/
+ambient local maximum must be the whole superlevel set: otherwise its
+complement, also clopen, would contain one. -/
 theorem superlevel_clopen_eq_univ
     (R : P → ℝ) (hR : Continuous R)
     (U : Set {p : P // 0 < R p}) (hU : IsClopen U)
@@ -91,22 +112,7 @@ theorem superlevel_clopen_eq_univ
   apply Set.eq_univ_of_forall
   intro s
   by_contra hs
-  let B : Set {p : P // 0 < R p} := Uᶜ
-  let A : Set P := Subtype.val '' B
-  have hBclosed : IsClosed B := hU.isOpen.isClosed_compl
-  have hBopen : IsOpen B := hU.isClosed.isOpen_compl
-  have hSopen : IsOpen {p : P | 0 < R p} := isOpen_lt continuous_const hR
-  have hAopen : IsOpen A := hSopen.isOpenMap_subtype_val B hBopen
-  have hsA : (s : P) ∈ A := ⟨s, hs, rfl⟩
-  obtain ⟨b, hb, hbmax⟩ :=
-    (isClosed_closure : IsClosed (closure A)).isCompact.exists_isMaxOn
-      ⟨(s : P), subset_closure hsA⟩ hR.continuousOn
-  have hbpos : 0 < R b := lt_of_lt_of_le s.property (hbmax (subset_closure hsA))
-  have hbB : (⟨b, hbpos⟩ : {p : P // 0 < R p}) ∈ B :=
-    (Topology.IsInducing.subtypeVal.isClosed_iff'.mp hBclosed) ⟨b, hbpos⟩ hb
-  have hbA : b ∈ A := ⟨⟨b, hbpos⟩, hbB, rfl⟩
-  have hbLocal : IsLocalMax R b :=
-    hbmax.isLocalMax (mem_of_superset (hAopen.mem_nhds hbA) subset_closure)
+  obtain ⟨b, hbpos, hbLocal, hbB⟩ := exists_localMax_mem_of_isClopen R hR Uᶜ hU.compl ⟨s, hs⟩
   exact hbB (hmax b hbpos hbLocal)
 
 /-- Continuous quotient images are covered by a clopen region once every

@@ -8,7 +8,7 @@ replay everything is in [`README.md`](README.md#check-it).
 | Step | Claim | How it is established |
 |---|---|---|
 | 1 | The positive local maxima of R form one 18-point orbit; max R = 3¹³/2¹² | Exact algebra (651 claims), **proved in Lean** (`Step1Geo.maximumCensus`). Two earlier exact proofs (returns A, B) are cross-checks |
-| 2 | Every non-Tao class other than F6 is a matched completion of a strict seed; (𝓗/≅) ∖ {S₆} is connected | **Proved in Lean**, with no classification input: matched existence (Theorem 2.2: sides by identity (J), return J; flatness, return E), matched uniqueness (2.3), the nonmatched converse (2.4, return G), strict-corner coverage (2.5: `MinimalConstruction/Proofs` and, for nonzero J, return K). Connectedness (Theorem 2) is a paper proof; Lean uses the direct coverage argument it rests on (`Step2.coverage_of_matched_density`: maximum propagation from H₀ over A and conj A, and F6 from the certificate). An independent audit of the converse, exact reach and coverage found no errors (`proof/coverage/audits/AUDIT_2026-10-15.md`) |
+| 2 | Every non-Tao class other than F6 is a matched completion of a strict seed; (𝓗/≅) ∖ {S₆} is connected | **Proved in Lean**, with no classification input: matched existence (Theorem 2.2: sides by identity (J), return J; flatness, return E; anchored at the Fourier family, return Q), matched uniqueness (2.3), the nonmatched converse (2.4, return G), strict-corner coverage (2.5: `MinimalConstruction/Proofs` and, for nonzero J, return K). Connectedness (Theorem 2) is a paper proof; Lean uses the direct coverage argument it rests on (`Step2.coverage_of_matched_density`: maximum propagation over A and conj A, started from the Fourier family near F6, and F6 from the certificate). An independent audit of the converse, exact reach and coverage found no errors (`proof/coverage/audits/AUDIT_2026-10-15.md`) |
 | 3 | A ball Record plus Stage C excludes quartet edges in its ball; S₆ is a zero-dimensional Record | Lemmas 3.1 and 3.2 proved on paper ([`STAGEC.md`](proof/atlas/STAGEC.md), [`RIGOUR.md`](proof/atlas/RIGOUR.md)) and **in Lean** |
 | 4 | A finite atlas with certified boundary transfers covers X | 12,021 Records, certified by `certify.py` (Arb) and by an independent Julia implementation (intervals); Lemma 4.1 and the open–closed argument proved in Lean |
 
@@ -23,7 +23,6 @@ numbers in the Lean kernel as well is an optional extra ([`kernel_atlas/`](kerne
 | `A`, `boundary` (12,021 Records, boundary covers) | `certify.py` (Arb) and the Julia checker (intervals), independently |
 | `fourier` (F6 lies in a Record) | `nonempty.py` and the Julia checker |
 | `tao` (S₆ is a zero-dimensional Record) | `tao.py` only |
-| `anchor` (H₀ lies in a Record) | `anchor.py` only |
 
 ## Where to look hardest
 

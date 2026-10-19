@@ -1,6 +1,6 @@
 # Step 4 receipt: the certified atlas (v3, 10 Oct 2026)
 
-**Status: PASS, by both checkers.** `certify.py` certifies all 12,021 Records with 0 failures. The independent Julia checker `../../independent/` passes Step 3 and Step 4 for all 12,021 Records. F6 and the explicit base-anchor completion H₀ both lie in Records.
+**Status: PASS, by both checkers.** `certify.py` certifies all 12,021 Records with 0 failures. The independent Julia checker `../../independent/` passes Step 3 and Step 4 for all 12,021 Records. F6 lies in a Record.
 
 | Item | Value |
 |---|---|
@@ -10,7 +10,6 @@
 | Boundary transfers | 58.2 targets per Record on average (at most 350) |
 | `certify.py` | Re-run 17 Oct with the faster certifier (one pool of 8 workers): **12,021 certified, 0 failures**, every per-Record intermediate identical to the previous code (`receipts/step4_certify.txt`, `step4_certify.tsv.gz`; see *Certification cost* below). Original run, 12 Oct: 36 chunks, 12,021 certified, 0 failures (`receipts/step4_certify_0*.txt`, `VERIFY_ATLAS.log`) |
 | `nonempty.py` | F6 is in the interior of Record 877: ‖h(A·F6 − P_t)‖ ≤ 0.0232 < 0.08 (Arb) |
-| `anchor.py` | H₀ (`lean/NoFourMUBs/Step2/BaseAnchor.lean`) is in the interior of Record 9319: ‖h(A·H₀ − P_t)‖ ≤ 0.0426 < 0.08 (Arb) |
 | Independent checker | Re-run 17 Oct with the faster checker: `../../independent/results_v4/`, rusty job 7262168 (128 threads, 24 min, ~50 thread-hours), identical to v3 in every decision and per-Record value. Original run: `../../independent/results_v3/`: rusty job 7213978 (128 threads, 8 h, 11 Oct), every record recomputed from scratch: **12,021 / 12,021 closed Records PASS**, F6 nonemptiness CERTIFIED (Record 877, ≤ 0.02320 < 0.08), all targets closed; sanity tests pass |
 
 ## Certification cost (17 Oct 2026)
@@ -28,7 +27,7 @@ Every Record takes 0.2–4 CPU-s, so the pool has no long tail. `certify.py -j 1
 - *Clustering* computes label distances only for the bins not yet assigned. Each row gets the same arithmetic.
 - *Clique search* grows the two bases alternately and prunes candidates by their O and U degrees. It is an exact, complete search for the same pattern. `tests/clique_search.py` checks it against the old enumeration on random graphs.
 - *Gram matrices* G = AᵀA, which only propose a direction in the tangent and joint tests, use `matmul` instead of `einsum`.
-- *Loading* skips the corner census, which only the F6 and H₀ searches use.
+- *Loading* skips the corner census, which only the F6 search uses.
 - *Scheduling* uses one process pool, one certificate load per worker, and one Record at a time.
 
 The matmul change could in principle change bits on another BLAS. CI therefore re-certifies Records 4900–5099 on Ubuntu (OpenBLAS) and compares every intermediate with this receipt.
@@ -62,6 +61,6 @@ This is a failure to certify, not a counterexample. The two implementations clus
 
 The independent checker then passed every Record of v3 in a fresh, complete run. An earlier incremental run, reusing byte-identical v2 rows, agreed with it row for row.
 
-**What a PASS establishes**, together with `PROOF.md`: every Record excludes quartet edges throughout its ball (Lemmas 3.1 and 3.2); every boundary Hadamard of every Record has an interior representative in some Record, up to equivalence, conjugation and transposition (Lemma 4.1); F6 lies in the union; and so does the matched maximum anchor H₀ (needed by the Lean route `no_four_mubs_main`).
+**What a PASS establishes**, together with `PROOF.md`: every Record excludes quartet edges throughout its ball (Lemmas 3.1 and 3.2); every boundary Hadamard of every Record has an interior representative in some Record, up to equivalence, conjugation and transposition (Lemma 4.1); and F6 lies in the union. (Until return Q, an explicit matched anchor H₀ also had to lie in a Record; `anchor.py` placed it in Record 9319. The Fourier family now anchors the reconstruction, and that check was removed.)
 
 **What the certifier takes from the certificate:** only the centre phases, the radii and label radii, the integer tangent frames, and the lists of transfer targets. It recomputes everything else in Arb or exact arithmetic.

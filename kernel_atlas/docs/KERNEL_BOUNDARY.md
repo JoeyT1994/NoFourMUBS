@@ -145,9 +145,9 @@ total 45.3M leaves, 47.9M off-boxes and 631k target checks.
 Records** (≈ 1.5 CPU-min and ≈ 10 GB per Record; the largest, 9.3k leaves and 174 targets, about 4 min), about 5% on
 top of the Stage C bill (≈ 30 CPU-min per Record).
 
-## 5. The small exact fields: `fourier`, `tao`, `anchor`
+## 5. The small exact fields: `fourier`, `tao`
 
-The three remaining fields of `AtlasCertificate` are exact memberships of special matrices in Records. They are
+The two remaining fields of `AtlasCertificate` are exact memberships of special matrices in Records. They are
 Lemma 4.1 with `u = ν = 0` (no tangent box): a matrix `e^{iΦ}` lies, after `Γ`, in the Record `(P_t, R_t)` if
 `‖h(AΦ + 2πN − P_t)‖ < R_t`. Like `boundary`, each theorem takes the target Record's centre and radius as hypotheses.
 
@@ -155,10 +155,10 @@ Lemma 4.1 with `u = ν = 0` (no tangent box): a matrix `e^{iΦ}` lies, after `Γ
 |---|---|---|---|
 | `fourier` | `ExactK.fourierK`, `Special.fourier` | `fourierHadamard = e^{iπM}` exactly (`fourier_eq`, `M = m/3`, entries `ζ^m`, `ζ = e^{iπ/3}`); into atlas Record 877 (margin 0.057 of R = 0.08) | `memOK`: `sumsq(h(π̃M' − P_t)) < (R_t − 10⁻²⁰(‖M'‖² + 1)/2)²`, `M' = AM + 2N` |
 | `tao` | `ExactK.taoK`, `Special.tao` | `cubic_roots`: `ω = e^{±2πi/3}`; `taoMatrix ω = e^{±2πiK/3}` (`tao_eq_pos`, `tao_eq_neg`); both into the zero-dimensional Tao Record of `proof/atlas/tao.py` (centre fl(2πK/3), R = 0.08) by plain permutations, so `Γ` is not needed | `memOK` twice |
-| `anchor` | `AnchorK.anchorK`, `Special.anchor` | `H₀`'s entries as `ℚ(i)`-combinations of the 8 surd monomials (36 generated `ring` identities); per entry, `θ̃` = binary64 atan2, rational surd intervals and a Taylor enclosure of `e^{−iθ̃}` bound `‖z e^{−iθ̃} − 1‖`, and Jordan's inequality gives `|φ − θ̃| ≤ 3.8·10⁻¹⁶` (`entOK`, `phase_near`); into atlas Record 9319 (margin 0.037) | `entOK` × 36, `memOKg` with slack `Ē = 7.8·10⁻¹⁶` |
 
-All three build in seconds (`Special.Exact` 15 s, `Special.Anchor` 11 s, wall, incl. imports) and depend only on
-`propext`, `Classical.choice`, `Quot.sound`. Generators: `kexact.py`, `export_exact.py`, `export_anchor.py`.
+Both build in seconds (`Special.Exact` 15 s wall, incl. imports) and depend only on `propext`, `Classical.choice`,
+`Quot.sound`. Generators: `kexact.py`, `export_exact.py`. (A third field, `anchor`, the explicit `H₀` in Record 9319,
+was kernel-checked the same way until return Q removed it from `AtlasCertificate`.)
 
 ### Tao's zero-dimensional Record (`RecordK0`, `RecTao/`)
 
@@ -182,7 +182,7 @@ hypothesis of `Special.tao` (`cert_P`, `cert_R`: the centre and radius match `Sp
 
 ## 6. What remains for these fields
 
-* **Assembly** (designed in `KERNEL_ASSEMBLY.md`). Each per-Record `boundary` (and `fourier`, `anchor`, `tao`) needs its targets as kernel-certified
+* **Assembly** (designed in `KERNEL_ASSEMBLY.md`). Each per-Record `boundary` (and `fourier`, `tao`) needs its targets as kernel-certified
   Records with the same centres (`Pmat` of the same binary64 list, closed by `decide`) and radii. So the boundary of a
   Record can only be discharged once its ≈ 50–60 targets are certified; the natural order is all Records first, then
   all boundaries.

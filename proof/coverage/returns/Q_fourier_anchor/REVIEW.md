@@ -21,5 +21,6 @@ V = {Gh ∈ sideSet 1 ∧ Gv ∈ sideSet(−1)}: θ(t) ∈ V, V contains a local
 lemma gives a matched completion there, and anchor transport (with inverse words) gives all 18 maxima. Upstream's
 `affineFourierMatrix` gives an equivalent curve with its Hadamard property already proved.
 
-**Status.** Accepted; being integrated. Then deletable: `Step2/BaseAnchor.lean` (73 KB), its generator,
-`proof/atlas/anchor.py`, and the `AtlasCertificate.anchor` field.
+**Status.** Accepted and integrated (18 Oct): `Step2/FourierAnchor.lean` (`matched_fourier`, `exists_matched_mem`,
+`coverage_of_matched_density`), `L1.sides_all`, and the inverse anchor words `Step1Geo.anchorSeed_back`. Removed:
+`Step2/BaseAnchor.lean` (73 KB), its generator, `proof/atlas/anchor.py`, and the `AtlasCertificate.anchor` field.

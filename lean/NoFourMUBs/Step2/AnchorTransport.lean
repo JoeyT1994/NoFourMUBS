@@ -9,8 +9,10 @@ side signatures are invariant (permutations and unit phases), and so are `R` and
 `X, Y, Z`, which the moves permute, and `J` is fixed).  Hence a matched completion at `s` gives an equivalent
 matched completion at `move k s` (`matched_move`).
 
-With the orbit theorem `anchorSeed_eq`, **one** covered matched completion at the base anchor yields the
-whole `MaximumAnchorCertificate` (`maximumAnchorCertificate_of_base`).
+With the orbit theorems `anchorSeed_eq` and `anchorSeed_back`, a matched completion at one anchor moves to every
+anchor (`matched_anchor_transport`).  So an open and closed set of strict seeds that contains one matched seed and is
+stable in this sense is every strict seed (`eq_univ_of_anchor_transport`), which is how both side existence
+(`L1.sides_all`) and coverage (`coverage_of_matched_density`) start from the Fourier family (`FourierAnchor`).
 -/
 
 open Matrix Hadamard6 ComplexConjugate NoFourMUBs.Step1Geo
@@ -214,20 +216,38 @@ theorem matched_moveWord (w : List (Fin 4)) {p : Seed} (hp : 0 < seedR p) {H : H
     obtain ⟨K₂, hK₂, e₂⟩ := ih _ hK₁
     exact ⟨K₂, hK₂, equivalent_trans e₁ e₂⟩
 
-/-- The base anchor `Ψ` of `(q, q, q̄²; q̄, q̄, q²)`. -/
-def baseAnchor : StrictSeed := ⟨anchorSeed (0, true, 0, 0), anchor_pos _⟩
+lemma matched_congr {p q : Seed} (hpq : p = q) {hp : 0 < seedR p} {hq : 0 < seedR q} {H : Had6}
+    (h : Matched ⟨p, hp⟩ H) : Matched ⟨q, hq⟩ H := by
+  subst hpq; exact h
 
-/-- **One covered matched completion at the base anchor certifies all 18 anchors.** -/
-theorem maximumAnchorCertificate_of_base (Ball : Mat6 → Prop) {H : Had6} (hH : Matched baseAnchor H)
-    (hcov : CoveredMatrix Ball H.1) : MaximumAnchorCertificate Ball anchors := by
-  intro s hs
-  simp only [anchors, Finset.mem_image, Finset.mem_univ, true_and] at hs
+/-- **A matched completion at one anchor moves to every anchor**: back to the base anchor along the
+reversed word (`anchorSeed_back`), then out along `wordOf` (`anchorSeed_eq`). -/
+theorem matched_anchor_transport {s s' : StrictSeed} (hs : s ∈ anchors) (hs' : s' ∈ anchors) {H : Had6}
+    (hH : Matched s H) : ∃ K : Had6, Matched s' K ∧ Equivalent H.1 K.1 := by
+  simp only [anchors, Finset.mem_image, Finset.mem_univ, true_and] at hs hs'
   obtain ⟨n, rfl⟩ := hs
-  obtain ⟨K, hK, e⟩ := matched_moveWord (wordOf n) (anchor_pos (0, true, 0, 0)) hH
-  refine ⟨K, ?_, coveredMatrix_of_equivalent (equivalent_symm e) hcov⟩
-  have : (⟨anchorSeed n, anchor_pos n⟩ : StrictSeed) =
-      ⟨moveWord (wordOf n) (anchorSeed (0, true, 0, 0)), by rw [seedR_moveWord]; exact anchor_pos _⟩ :=
-    Subtype.ext (anchorSeed_eq n)
-  rw [this]; exact hK
+  obtain ⟨n', rfl⟩ := hs'
+  obtain ⟨K₁, hK₁, e₁⟩ := matched_moveWord (wordOf n).reverse (anchor_pos n) hH
+  obtain ⟨K₂, hK₂, e₂⟩ := matched_moveWord (wordOf n') (anchor_pos (0, true, 0, 0))
+    (matched_congr (anchorSeed_back n) hK₁)
+  exact ⟨K₂, matched_congr (anchorSeed_eq n').symm hK₂, equivalent_trans e₁ e₂⟩
+
+/-- **One matched seed reaches every strict seed** (`PROOF.md` Lemma 1.1 with the anchor orbit).  Let `V` be a
+nonempty open and closed set of strict seeds such that, at an anchor in `V`, some matched completion `H` has
+every matched completion equivalent to `H` (at any seed) in `V`.  Then `V` is every strict seed: `V` contains a
+positive local maximum, which is an anchor (`maximumCensus`); `H` moves to every anchor; and an open and closed
+set containing every positive local maximum is everything. -/
+theorem eq_univ_of_anchor_transport (V : Set StrictSeed) (hV : IsClopen V) (hne : V.Nonempty)
+    (hstep : ∀ s ∈ anchors, s ∈ V → ∃ H : Had6, Matched s H ∧
+      ∀ (s' : StrictSeed) (K : Had6), Matched s' K → Equivalent H.1 K.1 → s' ∈ V) :
+    V = Set.univ := by
+  obtain ⟨p, hp, hmax, hpV⟩ :=
+    Step2.TopologyCore.exists_localMax_mem_of_isClopen seedR continuous_seedR V hV hne
+  have hpA := maximumCensus p hp hmax
+  obtain ⟨H, hH, hclose⟩ := hstep _ hpA hpV
+  apply Step2.TopologyCore.superlevel_clopen_eq_univ seedR continuous_seedR V hV
+  intro q hq hqmax
+  obtain ⟨K, hK, e⟩ := matched_anchor_transport hpA (maximumCensus q hq hqmax) hH
+  exact hclose _ K hK e
 
 end NoFourMUBs.Step2

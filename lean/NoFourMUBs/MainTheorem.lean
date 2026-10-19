@@ -1,8 +1,7 @@
 import NoFourMUBs.Boundary
 import NoFourMUBs.Step1.Census
 import NoFourMUBs.Step2.MatchedUnique
-import NoFourMUBs.Step2.AnchorTransport
-import NoFourMUBs.Step2.BaseAnchor
+import NoFourMUBs.Step2.FourierAnchor
 
 /-!
 # The main theorem
@@ -20,25 +19,24 @@ Everything else is proved here, using only the standard axioms:
 * Step 3, Lemma 3.1 and Stage C (`RecordCert.excludes`);
 * Step 4, the clopen atlas (`recordClopen_of_atlas`, via the boundary transfer of Lemma 4.1);
 * matched uniqueness (`Step2.matchedUniqueness`);
-* the anchor orbit and transport, and an explicit matched anchor (`Step2.maximumAnchorCertificate_of_base`,
-  `BaseAnchor.matched_H0`);
-* the coverage topology.
+* the anchor orbit and transport (`Step2.eq_univ_of_anchor_transport`), and the matched Fourier family that
+  starts it (`Step2.matched_fourier`, return Q);
+* the coverage topology (`Step2.coverage_of_matched_density`).
 -/
 
 open Matrix Hadamard6
 
 namespace NoFourMUBs
 
-/-- **The finite certificate**, checked by `verify.py --atlas` (`certify.py`, `nonempty.py`, `anchor.py`) and by the
-independent checker `proof/independent/`.  It consists of a finite family of certified Records whose boundaries
-transfer into the family, containing the Tao matrices, the Fourier matrix and the base-anchor completion. -/
+/-- **The finite certificate**, checked by `verify.py --atlas` (`certify.py`, `nonempty.py`) and by the independent
+checker `proof/independent/`.  It consists of a finite family of certified Records whose boundaries transfer into
+the family, containing the Tao matrices and the Fourier matrix. -/
 structure AtlasCertificate where
   ι : Type
   [fin : Finite ι]
   A : ι → RecordCert
   boundary : ∀ l, Nonempty (BoundaryCover A l)
   tao : ∀ ω, IsPrimitiveCubicPhase ω → ∃ K, InAtlas A K ∧ Equivalent (taoMatrix ω) K
-  anchor : Step2.CoveredMatrix (InAtlas A) BaseAnchor.H0
   fourier : Step2.FourierAnchorCertificate (InAtlas A)
 
 namespace AtlasCertificate
@@ -56,8 +54,6 @@ end AtlasCertificate
 theorem no_four_mubs_main (C : AtlasCertificate) (hE : Step2.MatchedExistence)
     (hD : Step2.MatchedDensityReach) : ¬ FourMUBs :=
   no_four_mubs_of_atlas C.A C.tao
-    (Step2.coverage_of_matched_density (InAtlas C.A) Step1Geo.anchors hE Step2.matchedUniqueness hD
-      Step1Geo.maximumCensus C.clopen
-      (Step2.maximumAnchorCertificate_of_base _ BaseAnchor.matched_H0 C.anchor) C.fourier)
+    (Step2.coverage_of_matched_density (InAtlas C.A) hE Step2.matchedUniqueness hD C.clopen C.fourier)
 
 end NoFourMUBs

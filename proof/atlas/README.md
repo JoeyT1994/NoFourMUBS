@@ -18,7 +18,7 @@ All three are also formalised in Lean (`lean/NoFourMUBs/StageC/`, `NormalBound.l
 | `ballrecord.py` | A ball Record around a rational phase centre: σ by an Arb Cholesky factorisation, Gram bounds, the normal bound n(R) (Lemma 3.1), the column bound, and `stage_c(R)` |
 | `record.py` | The exact data at a centre: the Jacobian in Arb, a rational horizontal tangent frame, its Gram matrix and the projector onto its complement |
 | `stagec.py` | Stage C after [OAI] §6: vector bins (12 → 96), labels, O/U edge tests with the joint test, and an exact two-clique search; exponentials from Arb tables |
-| `nonempty.py`, `anchor.py` | Place F6 and the explicit matched anchor H₀ inside Records, checked in Arb |
+| `nonempty.py` | Places F6 inside a Record, checked in Arb |
 | `tao.py` | S₆ as a zero-dimensional ball Record: isolation and Stage C (Remark 3.3) |
 | `arb_replay.py` | Re-evaluates a random sample of float Stage C rejections in Arb with no margin |
 
@@ -54,5 +54,4 @@ python3 atlas.py centre_fold52.json 1000000000 results/atlas.pkl      # build (r
 python3 export.py results/atlas.pkl results/atlas_certificate.json.gz
 python3 certify.py results/atlas_certificate.json.gz [lo hi] [-j N] [--tsv=FILE]   # certify (a range of) Records
 python3 nonempty.py results/atlas_certificate.json.gz
-python3 anchor.py results/atlas_certificate.json.gz
 ```

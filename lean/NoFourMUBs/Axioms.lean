@@ -5,7 +5,7 @@ import NoFourMUBs
 
 `check_axioms.py` runs this file and requires every theorem below to use only `propext`, `Classical.choice` and
 `Quot.sound`, and the number of audited theorems to equal the number of `#print axioms` lines.  It covers the
-modules imported by `NoFourMUBs.lean`: the skeleton, Steps 1, 3 and 4, matched uniqueness, the anchor, and the
+modules imported by `NoFourMUBs.lean`: the skeleton, Steps 1, 3 and 4, matched uniqueness, the Fourier anchor and anchor transport, coverage, and the
 two conditional forms of the main theorem (`no_four_mubs_main`, and `no_four_mubs_of_connected` from
 `ConnectedRoute`).  `AxiomsComplete.lean` audits L1 and `Final`.
 -/
@@ -37,6 +37,7 @@ two conditional forms of the main theorem (`no_four_mubs_main`, and `no_four_mub
 #print axioms NoFourMUBs.no_four_mubs_of_connected
 #print axioms NoFourMUBs.Step1Geo.maximumCensus
 #print axioms NoFourMUBs.Step2.matchedUniqueness
-#print axioms NoFourMUBs.Step2.maximumAnchorCertificate_of_base
-#print axioms NoFourMUBs.BaseAnchor.matched_H0
+#print axioms NoFourMUBs.Step2.matched_fourier
+#print axioms NoFourMUBs.Step2.eq_univ_of_anchor_transport
+#print axioms NoFourMUBs.Step2.coverage_of_matched_density
 #print axioms NoFourMUBs.Step2.coverage_of_connected

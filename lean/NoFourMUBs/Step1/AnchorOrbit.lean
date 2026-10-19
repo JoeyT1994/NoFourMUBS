@@ -8,7 +8,8 @@ dephasing) act on seeds by monomial maps.  Anchor coordinates are monomials `ζ�
 coordinates `(i mod 3, j)` the moves are linear maps and the orbit check is a finite `decide`.
 
 * `move_toSeed`: moves commute with the exponent model;
-* `anchorSeed_eq`: every anchor is `moveWord (wordOf n) baseSeed`.
+* `anchorSeed_eq`: every anchor is `moveWord (wordOf n) baseSeed`;
+* `anchorSeed_back`: the reversed word leads back, so any anchor reaches any other.
 -/
 
 open NoFourMUBs.Step2
@@ -169,5 +170,13 @@ theorem wordOf_spec : ∀ n : AnchorIdx, moveWordE (wordOf n) baseE = anchorE n 
 /-- **The anchors are one orbit of the corner moves.** -/
 theorem anchorSeed_eq (n : AnchorIdx) : anchorSeed n = moveWord (wordOf n) (anchorSeed (0, true, 0, 0)) := by
   rw [anchorSeed_toSeed, anchorSeed_toSeed, moveWord_toSeed, ← baseE, wordOf_spec]
+
+/-- Each move is an involution, so the reversed word leads back to the base anchor. -/
+theorem wordOf_reverse_spec : ∀ n : AnchorIdx, moveWordE (wordOf n).reverse (anchorE n) = baseE := by decide
+
+/-- **Every anchor leads back to the base anchor.** -/
+theorem anchorSeed_back (n : AnchorIdx) :
+    moveWord (wordOf n).reverse (anchorSeed n) = anchorSeed (0, true, 0, 0) := by
+  rw [anchorSeed_toSeed, anchorSeed_toSeed, moveWord_toSeed, wordOf_reverse_spec]; rfl
 
 end NoFourMUBs.Step1Geo
