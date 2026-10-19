@@ -41,8 +41,8 @@ numbers in the Lean kernel as well is an optional extra ([`kernel_atlas/`](kerne
 5. **Strict-corner coverage** (`MinimalConstruction/Proofs/STRICT_CORNER_COVERAGE.md` and its imports):
    - the nonzero-J strips: return K's signed corner sums and pole forcing (`proof/coverage/returns/K_nonzero_J/REPORT.md`);
    - the zero-J strips (square-sum identity) and the geometric-progression step;
-   - the endpoint exclusions and the routing lemmas;
-   - the ten-corner count.
+   - the routing lemmas;
+   - the ten-corner count, which also excludes the two rational endpoints (return S, `ENDPOINT_COUNTING.md`).
 6. **Connectedness** (`proof/coverage/returns/A_deltoid/CONNECTEDNESS.md`, `SHEETS_TOPOLOGY.md`): continuity of
    θ ↦ [H₊(θ)] across root cuts and sign switches; the sheet-parity formula; the frame symmetries giving one class at
    the maxima.

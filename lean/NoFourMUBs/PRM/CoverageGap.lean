@@ -1,15 +1,16 @@
 import NoFourMUBs.PRM.Defs
-import NoFourMUBs.PRM.CoverageTenStrip
+import NoFourMUBs.PRM.CoverageEndCount
 
 /-!
 # Strict-corner coverage (MC1, `PROOF.md` Theorem 2.5): the ten-corner count
 
-For every phase-orthogonal `3 × 6` strip the ten corners containing column `0` have `Σ p = 54`
-(`CoverageTen.anchored_strip_sum`), and ten numbers in `ScalarBin = {0, 5} ∪ (17/3, 29/5)` cannot sum
-to `54` (`CoverageTen.ten_scalarBin_sum_ne_54`).  So every row strip of a Hadamard matrix has an
-anchored corner outside `ScalarBin` (`hadamard_anchored_scalar_escape`), and MC1 follows from
+For every phase-orthogonal `3 × 6` strip, the ten corners containing column `0` cannot all be of the
+types left by the critical strip classification (`CoverageTen.CornerType`: `J = 0` with
+`p ∈ {0, 5}`, `p` in the window `(5.722, 5.723)` of `p⋆`, or one of the two rational endpoints):
+`CoverageTen.anchored_count` (return S, `CoverageEndCount`; it uses the anchored sum rule `Σ p = 54`,
+the vertex sums `dᵢ = 0` of the signed `J` and the fourth moment `Σ X² ≥ 54`).  So MC1 follows from
 `CriticalStripConfinement`: **some** row triple of an all-critical Hadamard matrix not equivalent to
-`F6` has its ten anchored corners in `ScalarBin` (`strictCornerCoverage_of_stripConfinement`).
+`F6` has its ten anchored corners of these types (`strictCornerCoverage_of_stripConfinement`).
 
 `CriticalStripConfinement` is proved from the inputs of `NoFourMUBs.PRM.CoverageInputs`, all of which
 are proved (assembled in `NoFourMUBs.Final`).
@@ -49,30 +50,20 @@ theorem rowStrip_phaseOrthogonal {H : Mat6} (hH : Hadamard6.IsHadamard H) {r : F
   exact (Equiv.sum_comp e6.symm (fun j : I6 => H (r a) j * conj (H (r b) j))).trans
     (row_orth hH (hr.ne hab))
 
-/-- **Unconditional scalar escape**: every row strip of a Hadamard matrix has an anchored corner whose
-`p` lies outside `{0, 5} ∪ (17/3, 29/5)`. -/
-theorem hadamard_anchored_scalar_escape {H : Mat6} (hH : Hadamard6.IsHadamard H) {r : Fin 3 → I6}
-    (hr : Function.Injective r) : ∃ k : Fin 10, ¬ ScalarBin (stripP (rowStrip H r) k) :=
-  anchored_scalar_escape (rowStrip_phaseOrthogonal hH hr)
-
 /-! ### The scalar confinement and MC1 -/
 
 /-- **The scalar confinement.**  Every all-critical Hadamard matrix not equivalent
-to `F6` has a row triple whose ten corners containing its first column (`stripP … k`, the sum of the
-three squared off-diagonal Gram moduli of the corner) all lie in
-`ScalarBin = {0, 5} ∪ (17/3, 29/5)`.
+to `F6` has a row triple whose ten corners containing its first column are of the classified types
+`CoverageTen.CornerType` (with `stripP`, `stripJ`, `stripX` the `p`, `J`, `X` of the corner).
 
-Paper source: `STRICT_CORNER_COVERAGE.md` and `PRM.md` §7.2 derive the stronger statement "every
-corner of every row triple has `p ∈ {0, 5, p⋆}`", `p⋆ = 9 − 4/(1 + κ²)`, `3κ³ + κ² + κ − 1 = 0`,
-from (i) the Fourier routing lemmas (§7.1, `FOURIER_ROUTING.md`), (ii) the Fourier critical locus
-(`FOURIER_CRITICAL_LOCUS.md`), (iii) the critical strip scalar classification
-(`CRITICAL_STRIP_CLASSIFICATION.md`, built on `CRITICAL_CORNER_REDUCTION.md`), and (iv) the two
-endpoint exclusions (`CRITICAL_P7_EXCLUSION.md`, `CRITICAL_EQUI_CORRELATION_EXCLUSION.md`).
-`p⋆ ∈ (17/3, 29/5)` is `CoverageTen.pStar_bounds`.  It is proved from the named inputs of
-`NoFourMUBs.PRM.CoverageInputs` (`stripConfinement_of_inputs`). -/
+Paper source: `STRICT_CORNER_COVERAGE.md` and `PRM.md` §7.2: (i) the Fourier routing lemmas (§7.1,
+`FOURIER_ROUTING.md`), (ii) the Fourier critical locus (`FOURIER_CRITICAL_LOCUS.md`), (iii) the
+critical strip scalar classification (`CRITICAL_STRIP_CLASSIFICATION.md`, built on
+`CRITICAL_CORNER_REDUCTION.md`); `p⋆ ∈ (5.722, 5.723)` is `CoverageTen.pStar_bounds`.  It is proved
+from the named inputs of `NoFourMUBs.PRM.CoverageInputs` (`stripConfinement_of_inputs`). -/
 def CriticalStripConfinement : Prop :=
   ∀ H : Mat6, Hadamard6.IsHadamard H → AllCritical H → ¬ Equivalent H Step2.fourierHadamard.1 →
-    ∃ r : Fin 3 → I6, Function.Injective r ∧ ∀ k : Fin 10, ScalarBin (stripP (rowStrip H r) k)
+    ∃ r : Fin 3 → I6, Function.Injective r ∧ ∀ k : Fin 10, CornerType (rowStrip H r) k
 
 end Coverage
 
@@ -81,8 +72,7 @@ theorem strictCornerCoverage_of_stripConfinement (h : Coverage.CriticalStripConf
     StrictCornerCoverage := by
   intro H hH hF
   by_contra hn
-  obtain ⟨r, hr, hbin⟩ := h H hH (Coverage.allCritical_of_not_strict hn) hF
-  obtain ⟨k, hk⟩ := Coverage.hadamard_anchored_scalar_escape hH hr
-  exact hk (hbin k)
+  obtain ⟨r, hr, htype⟩ := h H hH (Coverage.allCritical_of_not_strict hn) hF
+  exact CoverageTen.anchored_count (Coverage.rowStrip_phaseOrthogonal hH hr) htype
 
 end NoFourMUBs.PRM

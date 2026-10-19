@@ -8,8 +8,8 @@ CHECKS=['verify_invariants.py','verify_provenance.py','verify_side_fiber.py',
         'verify_matching_bridge.py','verify_tao_pairings.py',
         'verify_all_corner_matching_witness.py','verify_exceptional_matching.py',
         'verify_critical_reduction.py','verify_fourier_critical.py',
-        'verify_fourier_routing.py','verify_critical_p7.py',
-        'verify_critical_equicorrelation.py','verify_critical_square_sums.py',
+        'verify_fourier_routing.py','verify_endpoint_counting.py',
+        'verify_critical_square_sums.py',
         'verify_critical_scalar_classification.py','verify_strict_corner_coverage.py']
 
 
@@ -21,7 +21,7 @@ def run_one(name):
 
 
 def run(jobs=8):
-    """The fifteen verifiers are independent; they run concurrently (jobs at a time), reported in CHECKS order."""
+    """The fourteen verifiers are independent; they run concurrently (jobs at a time), reported in CHECKS order."""
     start=time.monotonic();records=[]
     with ThreadPoolExecutor(max(1,min(jobs,os.cpu_count() or 1))) as pool:
         results=list(pool.map(run_one,CHECKS))

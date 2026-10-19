@@ -1,12 +1,12 @@
-import NoFourMUBs.PRM.CoverageTenArith
 import NoFourMUBs.PRM.Defs
 
 /-!
-# A universal, anchored ten-corner sum rule and scalar escape
+# A universal, anchored ten-corner sum rule
 
 From the ten-corner return of 14 Oct 2026 (`covret/result`); repaired and compiled here.
 These statements concern actual phase-orthogonal strips. They do not assume
-criticality, invertible minors, side reconstruction, or Fourier routing.
+criticality, invertible minors, side reconstruction, or Fourier routing.  The count that uses the
+sum rule is `CoverageEndCount.anchored_count`.
 -/
 
 noncomputable section
@@ -73,12 +73,5 @@ theorem anchored_strip_sum {T : Strip} (hT : IsPhaseOrthogonalStrip T) :
     (relativePhase_unit hT 1 2) (hT.2 1 2 (by decide))
   simp only [stripP, Finset.sum_add_distrib]
   linarith
-
-/-- Every phase-orthogonal strip has an anchored corner outside the scalar bin. -/
-theorem anchored_scalar_escape {T : Strip} (hT : IsPhaseOrthogonalStrip T) :
-    ∃ k : Fin 10, ¬ ScalarBin (stripP T k) := by
-  by_contra h
-  exact ten_scalarBin_sum_ne_54 (stripP T) (fun k => not_not.1 fun hk => h ⟨k, hk⟩)
-    (anchored_strip_sum hT)
 
 end NoFourMUBs.PRM.CoverageTen

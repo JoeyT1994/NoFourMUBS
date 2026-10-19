@@ -11,7 +11,7 @@ import NoFourMUBs.PRM.CoverageTenKappa
 * `kmin_le`, `disc_nonneg`: physical data satisfy `K ≥ J²/4 = K_min` and the modulus-cubic
   discriminant `−4(K − K₀)(K − K₊)(K − K₋)` is `≥ 0` (paper (8)).
 * `pole_K`: at a pole, `K ∈ {K_min, K₀, K₊, K₋}` (paper §4).
-* `conclusion_of_candidates`: the three candidates give `17/3 < p < 29/5`, the equicorrelation
+* `conclusion_of_candidates`: the three candidates give `p = p⋆ ∈ (5.722, 5.723)`, the equicorrelation
   endpoint (`X = Y = Z = 9/5`, `|J| = 54/25`) or the `p = 7` endpoint (`{X, Y, Z} = {1, 1, 5}`,
   `|J| = 2`); the moduli are read off the modulus cubic at those `(k, K)`.
 -/
@@ -136,7 +136,7 @@ theorem mod_of_cubic {B : Mat3} {k : ℝ} (hp : blockP B = pk k) (hW : blockW B 
 /-- **The candidates give the conclusion of `TopStripClassification`.** -/
 theorem conclusion_of_candidates {B : Mat3} {k : ℝ} (hk0 : 0 < k) (hp : blockP B = pk k)
     (hJ : |blockJ B| = Jk k) (hW : blockW B = Wk k) (hc : Candidates k (blockK B)) :
-    ((17 : ℝ) / 3 < blockP B ∧ blockP B < (29 : ℝ) / 5) ∨ EquiEndpoint B ∨ P7Endpoint B := by
+    CoverageTen.PStarWindow (blockP B) ∨ EquiEndpoint B ∨ P7Endpoint B := by
   obtain ⟨fX, fY, fZ⟩ := mod_of_cubic hp hW
   rcases hc with ⟨hc, -⟩ | ⟨rfl, hK⟩ | ⟨rfl, hK⟩
   · left; rw [hp, pk_eq_pStar]; exact CoverageTen.pStar_bounds hk0 hc

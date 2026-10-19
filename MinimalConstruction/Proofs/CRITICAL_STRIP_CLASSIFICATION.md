@@ -26,8 +26,8 @@ Suppose every 3 by 3 block in the strip is invertible. At any corner:
   where K=XYZ and kappa is the unique positive root of
   3k³+k²+k-1=0.
 
-The first two nonzero-J cases cannot occur, by the independently proved
-CRITICAL_EQUI_CORRELATION_EXCLUSION.md and CRITICAL_P7_EXCLUSION.md.
+The first two nonzero-J cases are excluded, together with the third, by
+the ten-corner count of ENDPOINT_COUNTING.md (return S).
 
 ## 1. Exact square-sum identity on actual strips
 
@@ -125,23 +125,21 @@ cubic becomes
 
 Relabel rows to make X=Y=z+3 and Z=(1-z)(z+3). Phase the rows so
 s=t=sqrt(X). Then r is imaginary, because J=0, and direct substitution
-in (1) gives lambda0=1. Also P2=bar(P1) and L2=L1, so lambda2 is
-the conjugate of lambda1. Consequently V=bar(U).
+in (1) gives P0=L0=z(z+2)(z+3), so lambda0=1 and the permanent is
+pi=z lambda0=z. (Return O, `proof/coverage/returns/O_zeroj_unsquared`,
+REPORT.md §8; this replaces an earlier argument by coordinate cubics and
+permutation cases.) Expanding the permanent of the normalized block
+(1;x;y) gives
 
-The two unit-coordinate cubics have sums s=t real and products
-U,bar(U). Hence the multiset of y coordinates is the conjugate of
-the x multiset: y_j=bar(x_{pi(j)}) for some permutation pi. A three-cycle
-would give r=s/U, hence Z=X. By (5) that requires z=0 or -3, already
-excluded. For a transposition, conjugation followed by swapping the
-two noninitial rows is the same as that column transposition. Thus,
-writing h=det(E), -bar(h)=-h, and
-lambda0=-UV bar(h)/h=-1, contrary to lambda0=1. Only the identity
-permutation remains. These alternatives remain exhaustive with repeated
-coordinate roots; the determinant is nonzero by hypothesis.
+    x_0y_0+x_1y_1+x_2y_2 = st-pi = (z+3)-z = 3.
+
+Each x_jy_j is a unit complex number, so its real part is at most one;
+the three real parts sum to three, so every x_jy_j=1 and y=bar(x).
 
 The complementary half has s'=t'=-sqrt(X), r'=-r and exactly the same
-g,z and lambda0=1. The identical argument gives y=bar(x) there too.
-Thus the complete three rows have the asserted geometric progression.
+g,z and lambda0=1; st and pi are unchanged, so y=bar(x) there too, in
+the same row phases. Thus the complete three rows have the asserted
+geometric progression.
 The cases excluded at the start give z=-3 => p=0 and z=-2 => p=5.
 
 ## 3. The nonzero-J stratum with no poles

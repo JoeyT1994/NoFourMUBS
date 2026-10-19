@@ -3,16 +3,15 @@ import NoFourMUBs.PRM.CoverageStripBlock
 /-!
 # Critical strip classification (I4): the geometric-progression step of the zero-`J` stratum
 
-`CRITICAL_STRIP_CLASSIFICATION.md` §2, after `K = (1 − z)(z + 3)³` is known.  With the rows relabelled so
-that `X = Y = z + 3`, `Z = (1 − z)(z + 3)`, and phased so that `s = t = σ = √(z + 3)` (so `r` is
-imaginary, as `J = 0`):
+`CRITICAL_STRIP_CLASSIFICATION.md` §2, after `K = (1 − z)(z + 3)³` is known; the argument of return O
+(`proof/coverage/returns/O_zeroj_unsquared`, `REPORT.md` §8 and `review/GEOMETRIC_STEP.md`).  With the
+rows relabelled so that `X = Y = z + 3`, `Z = (1 − z)(z + 3)`, and phased so that `s = t = σ = √(z + 3)`
+(so `r` is imaginary, as `J = 0`):
 
-* `λ₀ = 1`, because `P₀ = L₀ = z(z + 2)(z + 3)`; and `P₂ = P̄₁`, `L₂ = L₁ = 2z(z + 3) ≠ 0`, so
-  `v = ū` (`half_geometric`, from the `λ`-identities `Side.side_identities`, `Side.lam_eq`);
-* the coordinate cubics of `x` and `y` then coincide up to conjugation, so `y = x̄ ∘ π` for one of the six
-  permutations (`cases_of_esymm`, valid with repeated roots);
-* a three-cycle gives `r = ū σ`, so `Z = X`, i.e. `z(z + 3) = 0`; a transposition makes `det` real, so
-  `λ₀ = −u v = −1`; only the identity remains.
+* `λ₀ = 1`, because `P₀ = L₀ = z(z + 2)(z + 3)` (`Side.side_identities`, `Side.lam_eq`), so the
+  permanent is `z`;
+* the permanent expansion gives `Σ xⱼ yⱼ = st − perm = 3`, three unit numbers summing to `3`, so every
+  `xⱼ yⱼ = 1` (`unit_triple_sum_three`): `y = x̄` (`half_geometric`).
 
 `strip_geometric` applies this to both halves of the strip (the complementary half has `s, t, r`
 negated, i.e. `σ ↦ −σ`) with the same row phases, giving the geometric rows `(1; x; x̄)`.
@@ -26,63 +25,31 @@ namespace NoFourMUBs.PRM.Coverage
 
 open Side
 
-/-! ### Symmetric functions -/
-
-/-- `e₂ = e₃ · conj e₁` for three unit numbers. -/
-theorem esym2_unit {x : Fin 3 → ℂ} (hx : ∀ j, Complex.normSq (x j) = 1) :
-    x 0 * x 1 + x 0 * x 2 + x 1 * x 2 = uS x * conj (sS x) := by
-  have cx : ∀ j, conj (x j) = (x j)⁻¹ := fun j => conj_eq_inv (hx j)
-  have n0 := ne_zero_of_normSq (hx 0)
-  have n1 := ne_zero_of_normSq (hx 1)
-  have n2 := ne_zero_of_normSq (hx 2)
-  simp only [uS, sS, map_add, cx]
-  field_simp
-  ring
-
-theorem two_cases {a b c d : ℂ} (hs : a + b = c + d) (hp : a * b = c * d) :
-    (a = c ∧ b = d) ∨ (a = d ∧ b = c) := by
-  have h : (a - c) * (a - d) = 0 := by linear_combination a * hs - hp
-  rcases mul_eq_zero.1 h with h | h
-  · left; refine ⟨by linear_combination h, by linear_combination hs - h⟩
-  · right; refine ⟨by linear_combination h, by linear_combination hs - h⟩
-
-/-- Equal elementary symmetric functions: `y` is `w` up to one of the six permutations (identity,
-the transpositions `(1 2)`, `(0 1)`, `(0 2)`, the two three-cycles). -/
-theorem cases_of_esymm {y w : Fin 3 → ℂ} (hw : ∀ k, w k ≠ 0)
-    (h1 : y 0 + y 1 + y 2 = w 0 + w 1 + w 2)
-    (h2 : y 0 * y 1 + y 0 * y 2 + y 1 * y 2 = w 0 * w 1 + w 0 * w 2 + w 1 * w 2)
-    (h3 : y 0 * y 1 * y 2 = w 0 * w 1 * w 2) :
-    (y 0 = w 0 ∧ y 1 = w 1 ∧ y 2 = w 2) ∨ (y 0 = w 0 ∧ y 1 = w 2 ∧ y 2 = w 1) ∨
-      (y 0 = w 1 ∧ y 1 = w 0 ∧ y 2 = w 2) ∨ (y 0 = w 2 ∧ y 1 = w 1 ∧ y 2 = w 0) ∨
-      (y 0 = w 1 ∧ y 1 = w 2 ∧ y 2 = w 0) ∨ (y 0 = w 2 ∧ y 1 = w 0 ∧ y 2 = w 1) := by
-  have r0 : (y 0 - w 0) * (y 0 - w 1) * (y 0 - w 2) = 0 := by
-    linear_combination (y 0 ^ 2) * h1 - y 0 * h2 + h3
-  rcases mul_eq_zero.1 r0 with r | r
-  · rcases mul_eq_zero.1 r with r | r
-    · have e0 : y 0 = w 0 := by linear_combination r
-      have hs : y 1 + y 2 = w 1 + w 2 := by linear_combination h1 - e0
-      have hp : y 1 * y 2 = w 1 * w 2 := by
-        apply mul_left_cancel₀ (hw 0)
-        linear_combination h3 - (y 1 * y 2) * e0
-      rcases two_cases hs hp with ⟨a, b⟩ | ⟨a, b⟩
-      · exact Or.inl ⟨e0, a, b⟩
-      · exact Or.inr (Or.inl ⟨e0, a, b⟩)
-    · have e0 : y 0 = w 1 := by linear_combination r
-      have hs : y 1 + y 2 = w 0 + w 2 := by linear_combination h1 - e0
-      have hp : y 1 * y 2 = w 0 * w 2 := by
-        apply mul_left_cancel₀ (hw 1)
-        linear_combination h3 - (y 1 * y 2) * e0
-      rcases two_cases hs hp with ⟨a, b⟩ | ⟨a, b⟩
-      · exact Or.inr (Or.inr (Or.inl ⟨e0, a, b⟩))
-      · exact Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ⟨e0, a, b⟩))))
-  · have e0 : y 0 = w 2 := by linear_combination r
-    have hs : y 1 + y 2 = w 0 + w 1 := by linear_combination h1 - e0
-    have hp : y 1 * y 2 = w 0 * w 1 := by
-      apply mul_left_cancel₀ (hw 2)
-      linear_combination h3 - (y 1 * y 2) * e0
-    rcases two_cases hs hp with ⟨a, b⟩ | ⟨a, b⟩
-    · exact Or.inr (Or.inr (Or.inr (Or.inr (Or.inr ⟨e0, a, b⟩))))
-    · exact Or.inr (Or.inr (Or.inr (Or.inl ⟨e0, a, b⟩)))
+/-- Three unit complex numbers summing to three are all one. -/
+theorem unit_triple_sum_three {u : Fin 3 → ℂ}
+    (hu : ∀ j, Complex.normSq (u j) = 1)
+    (hs : u 0 + u 1 + u 2 = 3) : ∀ j, u j = 1 := by
+  have hb : ∀ j, (u j).re ≤ 1 := by
+    intro j
+    have h := hu j
+    rw [Complex.normSq_apply] at h
+    nlinarith [sq_nonneg (u j).im, sq_nonneg ((u j).re - 1)]
+  have hsum := congrArg Complex.re hs
+  simp only [Complex.add_re] at hsum
+  norm_num at hsum
+  have hr : ∀ j, (u j).re = 1 := by
+    intro j
+    have h0 := hb 0
+    have h1 := hb 1
+    have h2 := hb 2
+    fin_cases j <;> simp only [Fin.zero_eta, Fin.mk_one, Fin.reduceFinMk, Fin.isValue] <;> linarith
+  intro j
+  have h := hu j
+  rw [Complex.normSq_apply, hr j] at h
+  have hi : (u j).im = 0 := by nlinarith [sq_nonneg (u j).im]
+  apply Complex.ext
+  · simpa using hr j
+  · simpa using hi
 
 /-! ### One half -/
 
@@ -95,7 +62,7 @@ theorem half_geometric {x y : Fin 3 → ℂ} (hx : ∀ j, Complex.normSq (x j) =
     (hZ : Complex.normSq (rS x y) = (1 - z) * (z + 3)) (hT : TS x y = ((3 * z ^ 3 : ℝ) : ℂ))
     (hz0 : z ≠ 0) (hz2 : z ≠ -2) (hz3 : z ≠ -3) :
     ∀ j, y j = conj (x j) := by
-  obtain ⟨I0, I1, I2, G⟩ := side_identities hx hy
+  obtain ⟨I0, -, -, G⟩ := side_identities hx hy
   have hrr : rS x y + conj (rS x y) = 0 := by
     rw [Complex.add_conj, hr]; simp
   have hrn : rS x y * conj (rS x y) = (((1 - z) * (z + 3) : ℝ) : ℂ) := by
@@ -128,9 +95,7 @@ theorem half_geometric {x y : Fin 3 → ℂ} (hx : ∀ j, Complex.normSq (x j) =
     push_cast
     field_simp
   have L0 := lam_eq hh (uS x * uS y) I0
-  have L1 := lam_eq hh (uS y) I1
-  have L2 := lam_eq hh (uS x) I2
-  rw [hTz, gC] at L0 L1 L2
+  rw [hTz, gC] at L0
   set u := uS x
   set v := uS y
   set h := hS x y
@@ -157,106 +122,34 @@ theorem half_geometric {x y : Fin 3 → ℂ} (hx : ∀ j, Complex.normSq (x j) =
     have e2 := (mul_eq_zero.1 e).resolve_right hne
     rw [sub_eq_zero, div_eq_one_iff_eq hh] at e2
     exact e2
-  -- `v = ū`
-  have hcRs : ((cR (sS x) : ℝ) : ℂ) = 6 - z := by
-    rw [cR, hs, Complex.normSq_ofReal]; push_cast
-    have := hσ; linear_combination (-1 : ℂ) * this
-  have hcRt : ((cR (sS y) : ℝ) : ℂ) = 6 - z := by
-    rw [cR, ht, Complex.normSq_ofReal]; push_cast
-    have := hσ; linear_combination (-1 : ℂ) * this
-  rw [hcRt] at L1
-  rw [hcRs] at L2
-  have hP2 : conj (P2 (sS x) (sS y) r) = P1 (sS x) (sS y) r := by
-    simp only [P1, P2, hs, ht, map_add, map_mul, map_pow, Complex.conj_ofReal, Complex.conj_conj]
-  rw [hP2] at L2
-  have hn0 : u ≠ 0 := fun h0 => by rw [h0, zero_mul] at hu; exact zero_ne_one hu
-  have hv0 : v ≠ 0 := fun h0 => by rw [h0, zero_mul] at hv; exact zero_ne_one hv
-  have hl1 : -v * conj h / h = conj u := by
-    rw [div_eq_iff hh]
-    linear_combination (conj u) * hstar + (v * conj h) * hu
-  have hl2 : -u * conj h / h = conj v := by
-    rw [div_eq_iff hh]
-    linear_combination (conj v) * hstar + (u * conj h) * hv
-  rw [hl1] at L1
-  rw [hl2] at L2
-  set c1 : ℂ := ((3 * z ^ 2 : ℝ) : ℂ) + (6 - z) * z
-  have hc1 : c1 ≠ 0 := by
-    have : c1 = 2 * z * (z + 3) := by simp only [c1]; push_cast; ring
-    rw [this]
-    exact mul_ne_zero (mul_ne_zero two_ne_zero hz') hz3'
-  have hc1r : conj c1 = c1 := by simp only [c1, map_add, map_mul, map_sub, Complex.conj_ofReal, map_ofNat]
-  -- `conj P₁ = u c₁`, `P₁ = v c₁`
-  have e1 : conj (P1 (sS x) (sS y) r) = u * c1 := by
-    linear_combination u * L1 - conj (P1 (sS x) (sS y) r) * hu
-  have e2 : P1 (sS x) (sS y) r = v * c1 := by
-    linear_combination v * L2 - P1 (sS x) (sS y) r * hv
-  have hvu : v = conj u := by
-    have := congrArg conj e1
-    rw [Complex.conj_conj, map_mul, hc1r, e2] at this
-    exact mul_right_cancel₀ hc1 this
-  -- the two coordinate cubics
-  have hw : ∀ k, conj (x k) ≠ 0 := fun k => (map_ne_zero _).2 (ne_zero_of_normSq (hx k))
-  have ex2 := esym2_unit hx
-  have ey2 := esym2_unit hy
-  rw [hs] at ex2
-  rw [ht] at ey2
-  have h1 : y 0 + y 1 + y 2 = conj (x 0) + conj (x 1) + conj (x 2) := by
-    have e := congrArg conj hs
-    simp only [sS, map_add, Complex.conj_ofReal] at e
-    rw [e]; exact ht
-  have h2 : y 0 * y 1 + y 0 * y 2 + y 1 * y 2 =
-      conj (x 0) * conj (x 1) + conj (x 0) * conj (x 2) + conj (x 1) * conj (x 2) := by
-    have e := congrArg conj ex2
-    simp only [map_add, map_mul, Complex.conj_ofReal] at e
-    rw [e, ey2, Complex.conj_ofReal]
-    change v * (σ : ℂ) = conj u * σ
-    rw [hvu]
-  have h3 : y 0 * y 1 * y 2 = conj (x 0) * conj (x 1) * conj (x 2) := by
-    change v = _
-    rw [hvu]; simp only [u, uS, map_mul]
-  have huu : u * conj u = 1 := hu
-  -- a transposition makes the determinant real
-  have hreal : conj h = h → False := by
-    intro hc
-    rw [hc, hvu] at hstar
-    have : (u * conj u + 1) * h = 0 := by linear_combination -hstar
-    rw [huu] at this
-    have := (mul_eq_zero.1 this).resolve_right hh
-    norm_num at this
-  -- a three-cycle gives `Z = X`
-  have hcyc : r = conj u * σ → False := by
-    intro hr3
-    have e : Complex.normSq r = σ ^ 2 := by
-      rw [hr3, Complex.normSq_mul, Complex.normSq_conj, Complex.normSq_ofReal]
-      have : Complex.normSq u = 1 := by
-        have := hu; rw [Complex.mul_conj] at this; exact_mod_cast this
-      rw [this]; ring
-    rw [hZ, hm] at e
-    have : z * (z + 3) = 0 := by linarith
-    rcases mul_eq_zero.1 this with h0 | h0
-    · exact hz0 h0
-    · exact hz3 (by linarith)
-  have conjx2 : conj u * σ = conj (x 0) * conj (x 1) + conj (x 0) * conj (x 2) +
-      conj (x 1) * conj (x 2) := by
-    have e := congrArg conj ex2
-    simp only [map_add, map_mul, Complex.conj_ofReal] at e
-    rw [e]
-  rcases cases_of_esymm hw h1 h2 h3 with ⟨a, b, c⟩ | ⟨a, b, c⟩ | ⟨a, b, c⟩ | ⟨a, b, c⟩ | ⟨a, b, c⟩ |
-      ⟨a, b, c⟩
-  · intro j; fin_cases j
-    · exact a
-    · exact b
-    · exact c
-  · exfalso; apply hreal
-    simp only [h, hS, a, b, c, map_sub, map_add, map_mul, Complex.conj_conj]; ring
-  · exfalso; apply hreal
-    simp only [h, hS, a, b, c, map_sub, map_add, map_mul, Complex.conj_conj]; ring
-  · exfalso; apply hreal
-    simp only [h, hS, a, b, c, map_sub, map_add, map_mul, Complex.conj_conj]; ring
-  · exfalso; apply hcyc
-    rw [conjx2]; simp only [r, rS, a, b, c]; ring
-  · exfalso; apply hcyc
-    rw [conjx2]; simp only [r, rS, a, b, c]; ring
+  -- The existing actual-side lemma gives `perm = z λ₀ = z`.
+  have hq : (-piS x y * hS x y ^ 2 * conj (uS x) * conj (uS y)) /
+      (hS x y * conj (hS x y)) = (z : ℂ) := by
+    have e := congrArg conj hTz
+    simpa only [Complex.conj_conj, Complex.conj_ofReal] using e
+  have hpi := pi_eq (π := piS x y) hh hu hv
+  rw [hq] at hpi
+  have hl0 : -(uS x * uS y) * conj (hS x y) / hS x y = 1 := by
+    exact (div_eq_one_iff_eq hh).2 hstar
+  have hpiz : piS x y = (z : ℂ) := by
+    rw [hpi, hl0, mul_one]
+  -- `st` contains all nine products and `perm` the six off-diagonal ones.
+  have m11 : x 0 * y 0 + x 1 * y 1 + x 2 * y 2 = 3 := by
+    have ep : x 0 * y 0 + x 1 * y 1 + x 2 * y 2 = sS x * sS y - piS x y := by
+      simp only [sS, piS]
+      ring
+    rw [ep, hs, ht, hpiz]
+    linear_combination hσ
+  have hu3 : ∀ j, Complex.normSq (x j * y j) = 1 := by
+    intro j
+    rw [Complex.normSq_mul, hx j, hy j]
+    norm_num
+  have hprod := unit_triple_sum_three hu3 m11
+  intro j
+  have e : x j * y j = x j * conj (x j) := by
+    rw [hprod j, Complex.mul_conj, hx j]
+    norm_num
+  exact mul_left_cancel₀ (ne_zero_of_normSq (hx j)) e
 
 /-! ### The whole strip -/
 
