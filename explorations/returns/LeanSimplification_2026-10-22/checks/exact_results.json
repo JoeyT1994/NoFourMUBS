@@ -1,0 +1,85 @@
+{
+  "arithmetic": "Exact Fraction coefficients in Q(i) and Q(sqrt(-3)); no floating point",
+  "certificate_replay": "NOT RUN",
+  "cube_root_family": {
+    "Fourier_convention": "F[j,k] = omega^(j*k), j,k = 0,1,2",
+    "Tao_column_order_one_based": [
+      1,
+      4,
+      5,
+      2,
+      6,
+      3
+    ],
+    "Tao_permutation_checks": "PASS",
+    "character_normalization_cases_checked": 81,
+    "flat_cases_in_81_choice_family": 63,
+    "four_cases": [
+      {
+        "D00": {
+          "radicand": -3,
+          "rational": "0",
+          "sqrt_coefficient": "0"
+        },
+        "D00_norm_sq": "0",
+        "delta": 1,
+        "epsilon": 1,
+        "flat": false
+      },
+      {
+        "D00": {
+          "radicand": -3,
+          "rational": "-3/2",
+          "sqrt_coefficient": "1/2"
+        },
+        "D00_norm_sq": "3",
+        "delta": 2,
+        "epsilon": 2,
+        "flat": false
+      },
+      {
+        "D00": {
+          "radicand": -3,
+          "rational": "-1/2",
+          "sqrt_coefficient": "1/2"
+        },
+        "D00_norm_sq": "1",
+        "delta": 2,
+        "epsilon": 1,
+        "flat": true
+      },
+      {
+        "D00": {
+          "radicand": -3,
+          "rational": "-1/2",
+          "sqrt_coefficient": "1/2"
+        },
+        "D00_norm_sq": "1",
+        "delta": 1,
+        "epsilon": 2,
+        "flat": true
+      }
+    ],
+    "opposite_case_uses_same_row_order": true,
+    "scope": "This finite family only; forcing arbitrary parameters to cube roots is not checked"
+  },
+  "elementary_side": {
+    "B0_and_conjugate_side_equations": "PASS",
+    "R_and_Psi": "NOT CHECKED: definitions were not supplied",
+    "fourth_root_grid_solution_count": 12,
+    "gram_complement": "PASS",
+    "orbits_disjoint": true,
+    "ordered_orbit_sizes": [
+      6,
+      6
+    ],
+    "scope": "Finite checks only; arbitrary unit-circle classification requires the proof in BRIEF.md"
+  },
+  "global_no_four_obstruction": "NOT PROVED BY THESE CHECKS",
+  "lean_verification": "NOT RUN",
+  "status": "PASS",
+  "trace_constants": {
+    "five_frame": "1/6",
+    "four_frame": "2/3"
+  }
+}

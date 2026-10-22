@@ -1,0 +1,42 @@
+{
+  "title": "Lean simplification handoff for the no-four-MUBs discussion",
+  "date": "2026-10-22",
+  "entry_point": "PROMPT.md",
+  "artifact_kind": "proof specification and integration handoff",
+  "source": "User-supplied discussion, audited and restated",
+  "manuscript_included": false,
+  "lean_repository_included": false,
+  "lean_verification": "not run; no Lean executable or repository available",
+  "exact_auxiliary_checks": "PASS",
+  "certificate_replay": "not run; no certificate data supplied",
+  "global_no_four_obstruction": "not proved by this handoff",
+  "priority_order": [
+    "Prescribed-label side uniqueness by elementary fiber count",
+    "Direct normal, orthogonal shell, and isometric transfer estimates",
+    "Five-frame and eight-ray completion theorems",
+    "Exceptional-case and classification dependency reductions",
+    "Optional conditional analytic-continuation route"
+  ],
+  "checked_finite_cases": {
+    "elementary_signed_orbit_sizes_before_invariant_sign_check": [
+      6,
+      6
+    ],
+    "fourth_root_grid_solutions": 12,
+    "cube_root_character_normalizations": 81,
+    "cube_root_flat_cases": 63
+  },
+  "files": [
+    "BRIEF.md",
+    "CHECKS.md",
+    "DEPENDENCIES_AND_STATUS.md",
+    "LEAN_TASKS.md",
+    "PROMPT.md",
+    "README.md",
+    "checks/exact_results.json",
+    "checks/verify_exact_cases.py",
+    "sources/SOURCE_NOTES.md",
+    "manifest.json",
+    "SHA256SUMS"
+  ]
+}
