@@ -31,7 +31,8 @@ been checked once in the Lean kernel, an optional extra ([`kernel_atlas/`](kerne
    `MainTheorem.lean`) say what the theorem and Step 4 claim, and that the fields of `RecordCert` match what
    `certify.py` checks for each Record.
 2. **Side existence** (return J, `proof/coverage/returns/J_side_existence/RESULT.md`): identity (J), the inverse
-   function theorem in angle coordinates, and the clopen/maximum argument over strict seeds.
+   function theorem in angle coordinates, and the open-and-closed argument over the strict seeds, which are connected (PROOF.md Lemma 1.1:
+   the 18 maxima joined by explicit paths), starting from one Fourier-family seed (return Q).
 3. **Flatness** (`E_matched_flatness/FLATNESS.md` §4): that the two certified rational identities for W₁₁ are exactly
    (4.6), built from the definitions and not from the certificate data; and that relabelling rows or columns 1, 2
    (handoff M, `proof/coverage/audits/AUDIT_2026-10-17/ALGEBRAIC_PROOFS.md`) moves every other defect to W₁₁.
