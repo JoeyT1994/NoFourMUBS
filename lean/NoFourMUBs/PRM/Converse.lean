@@ -4,10 +4,9 @@ import NoFourMUBs.PRM.SharedColumn
 import NoFourMUBs.PRM.StrictStrip
 import NoFourMUBs.PRM.Projector
 import NoFourMUBs.PRM.FourierBlock
-import NoFourMUBs.PRM.FourierMatch
 
 /-!
-# Theorem A: a strict nonmatched corner forces Tao (`PROOF.md` Theorem 2.4)
+# Theorem A: a strict nonmatched corner forces Tao or the Fourier family (`PROOF.md` Theorem 2.4)
 
 Formalises MC4 as proved in `proof/coverage/returns/G_prm/PRM.md` §§2–5 (Theorem A there).  Let `M` be a dephased Hadamard matrix whose leading corner
 `E` is strict (its horizontal signature `ζ` is not real) and whose vertical signature is not `ζ̄`.
@@ -18,9 +17,11 @@ Formalises MC4 as proved in `proof/coverage/returns/G_prm/PRM.md` §§2–5 (The
   (`Side.no_shared_column`).
 * The top strip has no proportional columns (`strict_no_proportional_columns`), so the projector argument
   (`orthogonal_triple`) gives three orthogonal columns: a `3 × 3` Hadamard block.
-* A Hadamard matrix with such a block is in Tao's orbit or matched at every corner
-  (`tao_or_matched_of_block`, with the Fourier families matched by `matched_v_character`,
-  `matched_w_character`); the second contradicts the nonmatched leading corner.
+* A Hadamard matrix with such a block is in Tao's orbit or in the Fourier family
+  (`tao_or_fourier_of_block`): `nonmatched_tao_or_fourier`.  (Return G's Theorem A, Tao alone, also
+  uses that the Fourier family is matched at every corner: `FourierMatch.nonmatched_tao`, used by
+  `FourierVanishing`; `Final` does not need it, since the Fourier classes are covered by connectedness,
+  `Step2.fourierClasses_subset`.)
 -/
 
 open ComplexConjugate Matrix Hadamard6 NoFourMUBs.Side NoFourMUBs.Kronecker
@@ -80,11 +81,11 @@ theorem injective_three {α : Type*} {a b c : α} (hab : a ≠ b) (hac : a ≠ c
   fin_cases i <;> fin_cases j <;> simp_all [eq_comm]
 
 /-- **Theorem A (strict nonmatched converse).** A dephased Hadamard matrix whose leading corner is strict and
-whose two sides are not matched is in Tao's orbit. -/
-theorem nonmatched_tao (M : Mat6) (hM : Hadamard6.IsHadamard M) (hd : Step2.Dephased M)
+whose two sides are not matched is in Tao's orbit or in the Fourier family. -/
+theorem nonmatched_tao_or_fourier (M : Mat6) (hM : Hadamard6.IsHadamard M) (hd : Step2.Dephased M)
     (hIm : (Step2.sideSignature (Step2.rightBlock M)).im ≠ 0)
     (hnm : Step2.sideSignature (Step2.lowerBlock M) ≠ conj (Step2.sideSignature (Step2.rightBlock M))) :
-    IsTaoOrbit M := by
+    IsTaoOrbit M ∨ Step2.InFourierFamily M := by
   -- the corner
   set ρ : Fin 4 → ℂ := ![M (.inl 1) (.inl 1), M (.inl 1) (.inl 2), M (.inl 2) (.inl 1), M (.inl 2) (.inl 2)]
     with hρ
@@ -231,13 +232,6 @@ theorem nonmatched_tao (M : Mat6) (hM : Hadamard6.IsHadamard M) (hd : Step2.Deph
     rw [Matrix.mul_smul] at h2
     calc X * Xᴴ = (3 : ℂ) • ((3 : ℂ)⁻¹ • (X * Xᴴ)) := by rw [smul_smul]; norm_num
       _ = (3 : ℂ) • (1 : Mat3) := by rw [h2]
-  rcases tao_or_matched_of_block (fun hω hr hs hpq => matched_v_character hω hr hs hpq)
-      (fun hω hp hq hrs => matched_w_character hω hp hq hrs) M hM τ h3 with htao | hmatch
-  · exact htao
-  · exfalso
-    have := hmatch 1 1
-    simp only [Equiv.Perm.coe_one, Matrix.submatrix_id_id] at this
-    apply hnm
-    rw [← sigB, this, Complex.conj_conj]
+  exact tao_or_fourier_of_block M hM τ h3
 
 end NoFourMUBs.PRM

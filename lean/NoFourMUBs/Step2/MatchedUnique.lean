@@ -12,8 +12,8 @@ Both horizontal sides satisfy `BB* = 6I − EE*` and have the same signature `T 
 and `σ` matches `E`, `B` and `C`; orthogonality forces the lower-right block (`eq_forcedD_of_row_cross`), so `K`
 is that permutation of `H`.
 
-The side signature is also invariant under permutations and unit rescalings of rows and columns
-(`sideSignature_submatrix`, `sideSignature_scale`), used by the Fourier-block and corner lemmas of `PRM`.
+The side signature is also invariant under permutations and unit rescalings of rows and columns and under
+transposition (`sideSignature_submatrix`, `sideSignature_scale`, `sideSignature_transpose`), used by the Fourier-block and corner lemmas of `PRM`.
 -/
 
 open Matrix Hadamard6 ComplexConjugate NoFourMUBs.Side
@@ -195,5 +195,10 @@ lemma sideSignature_scale (B : Mat3) (r c : Fin 3 → ℂ) (hr : ∀ i, r i * co
     simp only [Matrix.of_apply, Fin.prod_univ_three, star_mul', Complex.star_def]
     ring
   rw [key, hr, hr, hr, hc, hc, hc]; ring
+
+lemma sideSignature_transpose (B : Mat3) : sideSignature Bᵀ = sideSignature B := by
+  simp only [sideSignature, permanent3_expand, Matrix.det_transpose, Fin.prod_univ_three,
+    Matrix.transpose_apply]
+  ring
 
 end NoFourMUBs.Step2

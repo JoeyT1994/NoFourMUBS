@@ -99,17 +99,33 @@ def fourierHadamard : Had6 :=
 
 def fourierClass : HadamardClass6 := hadamardQuotient fourierHadamard
 
+/-- The two-parameter Fourier family `K(x, y) = [[F, F], [F D, −F D]]` with `F = (ω^{ij})` and
+`D = diag(1, x, y)` (`N(z, w)` of `FOURIER_CRITICAL_LOCUS.md`; `K(1, 1)` is `F6`). -/
+def fourierFamily (ω x y : ℂ) : Mat6 :=
+  Matrix.fromBlocks (Matrix.of fun i j : I3 => ω ^ (i.val * j.val))
+    (Matrix.of fun i j : I3 => ω ^ (i.val * j.val))
+    (Matrix.of fun i j : I3 => ω ^ (i.val * j.val) * ![1, x, y] j)
+    (Matrix.of fun i j : I3 => -(ω ^ (i.val * j.val) * ![1, x, y] j))
+
+/-- `H` is equivalent to a member of the Fourier family or to the transpose of one. -/
+def InFourierFamily (H : Mat6) : Prop :=
+  ∃ ω x y : ℂ, IsPrimitiveCubicPhase ω ∧ Complex.normSq x = 1 ∧ Complex.normSq y = 1 ∧
+    (Equivalent H (fourierFamily ω x y) ∨ Equivalent H (fourierFamily ω x y)ᵀ)
+
+/-- The classes of the Fourier family and of its transpose. -/
+def FourierClasses : Set HadamardClass6 :=
+  {q | ∃ H : Had6, InFourierFamily H.1 ∧ hadamardQuotient H = q}
+
 /-- G-density. The non-Tao classes lie in the closure of the two matched
-images with the Fourier class adjoined. This is independent of all Records. -/
+images with the Fourier classes adjoined. This is independent of all Records. -/
 def MatchedDensityReach : Prop :=
   ∀ q : HadamardClass6, ¬ TaoClass q →
-    q ∈ closure (({fourierClass} ∪ MatchedClasses) ∪ ConjugateMatchedClasses)
+    q ∈ closure ((FourierClasses ∪ MatchedClasses) ∪ ConjugateMatchedClasses)
 
-/-- The stronger, pointwise reach statement supplied by the intended dossier.
-It implies `MatchedDensityReach`; it is not assumed by the assembly theorem. -/
+/-- The stronger, pointwise reach statement (`PRM.exactReach`).  It implies `MatchedDensityReach`. -/
 def MatchedExactReach : Prop :=
   ∀ H : Had6, ¬ IsTaoOrbit H.1 →
-    Equivalent H.1 fourierHadamard.1 ∨
+    InFourierFamily H.1 ∨
     ∃ (s : StrictSeed) (K : Had6), Matched s K ∧
       (Equivalent H.1 K.1 ∨ Equivalent H.1 (conjM K.1))
 
@@ -191,7 +207,7 @@ theorem exactReach_implies_densityReach (h : MatchedExactReach) : MatchedDensity
   | _ H =>
     apply subset_closure
     rcases h H hq with hF | ⟨s, K, hK, hHK | hHK⟩
-    · exact Or.inl (Or.inl (Quotient.sound hF))
+    · exact Or.inl (Or.inl ⟨H, hF, rfl⟩)
     · exact Or.inl (Or.inr ⟨s, K, hK, (Quotient.sound hHK).symm⟩)
     · exact Or.inr ⟨s, K, hK, (Quotient.sound hHK).symm⟩
 

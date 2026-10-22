@@ -1,6 +1,7 @@
 import NoFourMUBs.FourierVanishing.Corners
 import NoFourMUBs.FourierVanishing.Criterion
 import NoFourMUBs.Final
+import NoFourMUBs.PRM.CoverageFourierLocus
 
 
 /-!
@@ -16,7 +17,8 @@ and likewise for every three-element column set.
 * `moments_vanish` (the complementary-invariant criterion, §0): corner conjugacy (0.2) and one nonsingular
   `3 × 3` minor of `H^[2]` kill all twenty row moments.  The nine mixed moments of a good arrangement come from
   `mixed_moments`, their conjugates from `moment_compl`, and the last two from one exchange (`good_swap`).
-* `exists_good` (§§7–8): a strict corner (`PRM.strictCornerCoverage`) has a nonsingular square
+* `exists_good` (§§7–8): a strict corner (`PRM.strictCornerCoverage` with the Fourier critical locus,
+  `PRM.Coverage.strictCorner_of_not_F6`) has a nonsingular square
   (`det_sqMat_ne_zero`); the Fourier class has the explicit minor on rows and columns `{0, 2, 4}`.
 * Columns follow by transposition: the Tao matrix is symmetric (`taoMatrix_transpose`).
 -/
@@ -121,7 +123,7 @@ theorem exists_good {H : Mat6} (hH : Hadamard6.IsHadamard H) :
         pow_ne_zero _ ((map_ne_zero _).2 (Side.ne_zero_of_normSq (hr _)))
     · exact Finset.prod_ne_zero_iff.2 fun j _ =>
         pow_ne_zero _ ((map_ne_zero _).2 (Side.ne_zero_of_normSq (hc _)))
-  · obtain ⟨σ, τ, hIm⟩ := PRM.strictCornerCoverage H hH hF
+  · obtain ⟨σ, τ, hIm⟩ := PRM.Coverage.strictCorner_of_not_F6 PRM.strictCornerCoverage hH hF
     refine ⟨σ, τ * swapHalves, ?_⟩
     have e : blockE (H.submatrix σ id) (τ * swapHalves) = Step2.rightBlock (H.submatrix σ τ) := by
       ext i j; rfl

@@ -1,5 +1,6 @@
 import NoFourMUBs.Step2.MatchedUnique
 import NoFourMUBs.Step2.StrictConnected
+import NoFourMUBs.Step2.FourierFamily
 
 /-!
 # The Fourier family anchors the reconstruction (return Q)
@@ -21,7 +22,7 @@ It is used twice; both uses conclude because the strict seeds are connected
 * **Coverage** (`coverage_of_matched_density`, `PROOF.md` Lemma 4.2).  `A(exp(it)) → F6` as `t → 0`, and the
   covered classes `W` are open and contain `F6`, so for small `t > 0` the matched completion at `θ(exp(it))` lies in
   `W` (`exists_matched_mem`).  So `{s : f₊(s) ∈ W}` is a nonempty open and closed set of strict seeds, hence every
-  strict seed.
+  strict seed.  The Fourier classes are in `W` by `fourierClasses_subset` (`FourierFamily`).
 -/
 
 open Set Matrix Hadamard6 ComplexConjugate NoFourMUBs.Step2Topology
@@ -271,7 +272,8 @@ theorem exists_matched : ∃ (s : StrictSeed) (H : Had6), Matched s H := by
 /-- **Coverage** (`PROOF.md` Lemma 4.2).  L1 + L2 + G-density, clopen Records and `F6` in a Record imply exactly
 `NoFourMUBs.Inputs.covered`.  The seeds whose matched class is covered form an open and closed set (L1, L2 and
 continuity), nonempty by the Fourier family (`exists_matched_mem`), so it is every strict seed (`isConnected_strict`);
-the closure of the matched images is then covered. -/
+the Fourier classes are covered since the covered classes are clopen and contain `F6` (`fourierClasses_subset`);
+the closure of the union is then covered. -/
 theorem coverage_of_matched_density
     (Ball : Mat6 → Prop) (hE : MatchedExistence) (hU : MatchedUniqueness)
     (hD : MatchedDensityReach) (hClopen : RecordClopen Ball)
@@ -290,14 +292,8 @@ theorem coverage_of_matched_density
   have hConjugate : ConjugateMatchedClasses ⊆ CoveredClasses Ball := by
     rintro q ⟨s, H, hH, rfl⟩
     exact coveredMatrix_conjugate (hMatched ⟨s, H, hH, rfl⟩)
-  have hUnion : ({fourierClass} ∪ MatchedClasses) ∪ ConjugateMatchedClasses ⊆
-      CoveredClasses Ball := by
-    intro q hq
-    rcases hq with (hq | hq) | hq
-    · rcases hq with rfl
-      exact hFourier
-    · exact hMatched hq
-    · exact hConjugate hq
+  have hUnion : (FourierClasses ∪ MatchedClasses) ∪ ConjugateMatchedClasses ⊆ CoveredClasses Ball :=
+    union_subset (union_subset (fourierClasses_subset hClopen hFourier) hMatched) hConjugate
   have hClosure := closure_minimal hUnion hClopen.isClosed
   intro H hH hTao
   exact hClosure (hD (hadamardQuotient ⟨H, hH⟩) hTao)

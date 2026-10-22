@@ -1,4 +1,5 @@
 import NoFourMUBs.PRM.CoverageCorners
+import NoFourMUBs.PRM.FourierMatch
 
 /-!
 # The Fourier critical locus (`FOURIER_CRITICAL_LOCUS.md`, input I7 of `PRM.md` §1)
@@ -17,9 +18,11 @@ Let `K(x, y) = fourierCore ω x y = [[F, F], [F D, −F D]]`, `D = diag(1, x, y)
    (`locus_points`): twelve points.  (The paper's form: `sin X = sin Y = sin T = 0`.)
 3. *Equivalences.*  `K(x ω, y ω²)` is `K(x, y)` with its bottom rows cyclically shifted
    (`shift_eq`); so `K(ε t², δ t) ≃ K(ε, δ)`.  `K(ε, δ)` is `K(1, 1)` with columns `inl i, inr i`
-   swapped where the sign is `−1`, and `K(1, 1)` is a row and column reordering of
-   `affineFourierMatrix ω 1 1` and of `affineFourierMatrix ω² 1 1`, one of which is `F6`.
+   swapped where the sign is `−1`, and `K(1, 1)` is equivalent to `F6` (`Step2.family11_equiv_F6`).
    All witnesses are permutations with trivial phases (found by search, checked entrywise here).
+
+Not used by `Final` (whose Fourier classes are covered by connectedness, `Step2.fourierClasses_subset`);
+`FourierVanishing` uses it for the `F6` form of strict-corner coverage, `strictCorner_of_not_F6`.
 -/
 
 open Matrix Hadamard6 ComplexConjugate NoFourMUBs.Kronecker
@@ -253,51 +256,10 @@ theorem core_sign_equiv (ε δ : ℂ) (hε : ε = 1 ∨ ε = -1) (hδ : δ = 1 �
   · exact equivalent_trans (equivalent_of_eq_submatrix (swapX_eq (-1)))
       (equivalent_of_eq_submatrix (swapY_eq 1))
 
-def pA : Fin 6 → Fin 6 := ![0, 3, 1, 4, 2, 5]
-def pB : Fin 6 → Fin 6 := ![0, 3, 2, 5, 1, 4]
-theorem pA_bijective : Function.Bijective pA := by decide
-theorem pB_bijective : Function.Bijective pB := by decide
-
-set_option linter.unusedSimpArgs false in
-set_option linter.unusedTactic false in
-set_option linter.unreachableTactic false in
-theorem aff_eq_core (hω : ω ^ 2 + ω + 1 = 0) :
-    affineFourierMatrix ω 1 1 =
-      (fourierCore ω 1 1).submatrix (tabPerm pA pA_bijective) (tabPerm pA pA_bijective) := by
-  have h3 := cube_one hω
-  have h4 : ω ^ 4 = ω := by rw [pow_succ, h3, one_mul]
-  have h5 : ω ^ 5 = ω ^ 2 := by rw [show 5 = 3 + 2 by rfl, pow_add, h3, one_mul]
-  have h6 : ω ^ 6 = 1 := by rw [show 6 = 3 * 2 by rfl, pow_mul, h3, one_pow]
-  ext a b
-  rcases a with i | i <;> rcases b with j | j <;> fin_cases i <;> fin_cases j <;>
-    simp [fourierCore, coreF, e6, wpar, tabPerm_apply, pA, affineFourierMatrix] <;> ring_nf <;>
-    simp only [h3, h4, h5, h6] <;> ring_nf
-
-set_option linter.unusedSimpArgs false in
-set_option linter.unusedTactic false in
-set_option linter.unreachableTactic false in
-theorem aff_sq_eq_core (hω : ω ^ 2 + ω + 1 = 0) :
-    affineFourierMatrix (ω ^ 2) 1 1 =
-      (fourierCore ω 1 1).submatrix (tabPerm pA pA_bijective) (tabPerm pB pB_bijective) := by
-  have h3 := cube_one hω
-  have h4 : ω ^ 4 = ω := by rw [pow_succ, h3, one_mul]
-  have h5 : ω ^ 5 = ω ^ 2 := by rw [show 5 = 3 + 2 by rfl, pow_add, h3, one_mul]
-  have h6 : ω ^ 6 = 1 := by rw [show 6 = 3 * 2 by rfl, pow_mul, h3, one_pow]
-  ext a b
-  rcases a with i | i <;> rcases b with j | j <;> fin_cases i <;> fin_cases j <;>
-    simp [fourierCore, coreF, e6, wpar, tabPerm_apply, pA, pB, affineFourierMatrix] <;> ring_nf <;>
-    simp only [h3, h4, h5, h6] <;> ring_nf
-
 /-- `K(1, 1)` is equivalent to `F6`. -/
 theorem core11_equiv_F6 (hω : IsPrimitiveCubicPhase ω) :
     Equivalent (fourierCore ω 1 1) Step2.fourierHadamard.1 := by
-  change Equivalent _ (affineFourierMatrix standardOmega 1 1)
-  rcases primitiveCubicPhase_eq_standard_or_sq hω with h | h
-  · rw [← h]; exact equivalent_of_eq_submatrix (aff_eq_core hω.2)
-  · have hs : standardOmega = ω ^ 2 := by
-      have h3 := primitiveCubicPhase_cube standardOmega_isPrimitiveCubicPhase
-      rw [h]; linear_combination (-standardOmega) * h3
-    rw [hs]; exact equivalent_of_eq_submatrix (aff_sq_eq_core hω.2)
+  rw [fourierCore_eq_family]; exact Step2.family11_equiv_F6 hω
 
 /-! ### The critical locus -/
 
@@ -321,12 +283,6 @@ theorem fourierCore_criticalLocus (hω : IsPrimitiveCubicPhase ω) (hx : Complex
   exact equivalent_trans (equivalent_symm (core_equiv_signs hω.2 ε δ ht))
     (equivalent_trans (core_sign_equiv ε δ hε hδ) (core11_equiv_F6 hω))
 
-/-- `F6` is symmetric. -/
-theorem fourierHadamard_transpose : (Step2.fourierHadamard.1)ᵀ = Step2.fourierHadamard.1 := by
-  ext a b
-  rcases a with i | i <;> rcases b with j | j <;> fin_cases i <;> fin_cases j <;>
-    simp [Step2.fourierHadamard, affineFourierMatrix]
-
 /-- **Fourier critical locus, transposed family.** -/
 theorem fourierCore_transpose_criticalLocus (hω : IsPrimitiveCubicPhase ω)
     (hx : Complex.normSq x = 1) (hy : Complex.normSq y = 1)
@@ -334,6 +290,26 @@ theorem fourierCore_transpose_criticalLocus (hω : IsPrimitiveCubicPhase ω)
     Equivalent (fourierCore ω x y)ᵀ Step2.fourierHadamard.1 := by
   have h := fourierCore_criticalLocus hω hx hy (allCritical_transpose_iff.1 hc)
   have := equivalent_transpose h
-  rwa [fourierHadamard_transpose] at this
+  rwa [Step2.fourierHadamard_transpose] at this
+
+/-- **Fourier critical locus, for the whole family up to equivalence.** -/
+theorem equivalent_F6_of_fourierFamily {H : Mat6} (hF : Step2.InFourierFamily H) (hc : AllCritical H) :
+    Equivalent H Step2.fourierHadamard.1 := by
+  obtain ⟨ω, x, y, hω, hx, hy, hK | hK⟩ := hF
+  · rw [← fourierCore_eq_family] at hK
+    exact equivalent_trans hK (fourierCore_criticalLocus hω hx hy (allCritical_of_equivalent hK hc))
+  · rw [← fourierCore_eq_family] at hK
+    exact equivalent_trans hK
+      (fourierCore_transpose_criticalLocus hω hx hy (allCritical_of_equivalent hK hc))
+
+/-- **Strict-corner coverage in its `F6` form**: with the critical locus, every Hadamard matrix not
+equivalent to `F6` has a strict corner. -/
+theorem strictCorner_of_not_F6 (hcov : StrictCornerCoverage) {H : Mat6} (hH : Hadamard6.IsHadamard H)
+    (hF : ¬ Equivalent H Step2.fourierHadamard.1) :
+    ∃ σ τ : Equiv.Perm I6, (Step2.sideSignature (Step2.rightBlock (H.submatrix σ τ))).im ≠ 0 := by
+  by_cases hfam : Step2.InFourierFamily H
+  · by_contra hn
+    exact hF (equivalent_F6_of_fourierFamily hfam (allCritical_of_not_strict hn))
+  · exact hcov H hH hfam
 
 end NoFourMUBs.PRM.Coverage

@@ -36,6 +36,7 @@ import NoFourMUBs.Step2.SideAlg
 import NoFourMUBs.Step2.SidePerm
 import NoFourMUBs.Step2.MatchedUnique
 import NoFourMUBs.Step2.StrictConnected
+import NoFourMUBs.Step2.FourierFamily
 import NoFourMUBs.Step2.FourierAnchor
 import NoFourMUBs.MainTheorem
 import NoFourMUBs.FourierVanishing.Duality

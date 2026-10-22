@@ -9,7 +9,7 @@ import NoFourMUBs.Step2.MatchedUnique
 
 This file formalizes `PRM.md` §5 (§§5.1–5.3 and the assembly of §5.5): if the top three rows of an order-six
 Hadamard `H` contain a `3 × 3` Hadamard submatrix, then `H` is in Tao's orbit, or `H` is equivalent to a
-member of one of the two Fourier families, and hence (by §5.4) every corner of `H` is matched.
+member of the Fourier family `Step2.fourierFamily` or to its transpose (`tao_or_fourier_of_block`).
 
 * §5.1 (block normalisation and the forced fourth block) is upstream:
   `allFourBlocksHadamard_of_topRight`, `simultaneous_threeBlockFourierNormalization`,
@@ -22,9 +22,8 @@ member of one of the two Fourier families, and hence (by §5.4) every corner of 
   (contradicting flatness).  The zero-entry and Tao certificates are the ones of upstream's
   `FourierCubicCases*`; only the conclusion is sharpened from "has a Hadamard `2 × 2`" to "has a character
   parameter pair".
-* §5.4 (matching at every corner of the two Fourier families) is proved separately and enters here as the
-  hypotheses `hv`, `hw` of `tao_or_matched_of_block`.
-* `allCornersMatched_of_equivalent`: `AllCornersMatched` is invariant under permutations and unit phases.
+* At a character gauge the forced matrix is the Fourier family, or its transpose, up to a cyclic shift of
+  the last three columns or rows (`v_form_*`, `w_form_*`, checked entrywise).
 -/
 
 open Hadamard6 ComplexConjugate
@@ -33,31 +32,6 @@ noncomputable section
 
 
 namespace NoFourMUBs.PRM
-
-/-! ### `AllCornersMatched` is an equivalence invariant -/
-
-/-- Permutations and unit row/column phases preserve matching at every corner. -/
-theorem allCornersMatched_of_equivalent {H K : Mat6} (hHK : Equivalent H K)
-    (hH : AllCornersMatched H) : AllCornersMatched K := by
-  obtain ⟨σ, τ, r, c, hr, hc, hK⟩ := hHK
-  intro σ' τ'
-  have hR : Step2.rightBlock (K.submatrix σ' τ') = Matrix.of fun i j =>
-      r (σ' (.inl i)) * Step2.rightBlock (H.submatrix (σ'.trans σ) (τ'.trans τ)) i j *
-        c (τ' (.inr j)) := by
-    ext i j; simp [Step2.rightBlock, hK]
-  have hL : Step2.lowerBlock (K.submatrix σ' τ') = Matrix.of fun i j =>
-      r (σ' (.inr i)) * Step2.lowerBlock (H.submatrix (σ'.trans σ) (τ'.trans τ)) i j *
-        c (τ' (.inl j)) := by
-    ext i j; simp [Step2.lowerBlock, hK]
-  rw [hR, hL, Step2.sideSignature_scale _ _ _ (fun i => mul_conj_of_normSq (hr _))
-      (fun j => mul_conj_of_normSq (hc _)),
-    Step2.sideSignature_scale _ _ _ (fun i => mul_conj_of_normSq (hr _))
-      (fun j => mul_conj_of_normSq (hc _))]
-  exact hH _ _
-
-theorem allCornersMatched_equivalent_iff {H K : Mat6} (hHK : Equivalent H K) :
-    AllCornersMatched H ↔ AllCornersMatched K :=
-  ⟨allCornersMatched_of_equivalent hHK, allCornersMatched_of_equivalent (equivalent_symm hHK)⟩
 
 /-! ### The cubic census (`PRM.md` §5.3, mixed allocations) -/
 
@@ -369,21 +343,90 @@ theorem fourierNormalForm_tao_or_character {ω p q r s : ℂ} (hω : IsPrimitive
     exact cubicCensus hω hp3 hq3 hr3 hs3 hK
   · exact Or.inr (Or.inl (hvchar hA₁ hA₂))
 
+/-! ### The forced Fourier matrices at a character gauge (`PRM.md` §5.4) -/
+
+/-- Shift of the last three indices by `c`. -/
+def shiftR (c : Fin 3) : Equiv.Perm I6 := Equiv.sumCongr (Equiv.refl _) (Equiv.addRight c)
+
+/-- `v = (1, 1, 1)`: the family in `(r, s)` (family (5.5)). -/
+theorem v_form_one {ω r s : ℂ} (hω : IsPrimitiveCubicPhase ω) :
+    fourierNormalForm ω (1) (1) r s (fourierForcedD ω (1) (1) r s) =
+      (Step2.fourierFamily ω r s).submatrix (Equiv.refl _) (shiftR 0) := by
+  have h2 := hω.2
+  have h3 : ω ^ 3 = 1 := by linear_combination (ω - 1) * h2
+  ext a b
+  rcases a with i | i <;> rcases b with j | j <;> fin_cases i <;> fin_cases j <;>
+    simp [fourierNormalForm, fourierForcedD, fourier3, rowGauge, columnGauge, fourierParameters,
+        dftEntry₀, dftEntry₁, dftEntry₂, dft₀, dft₁, dft₂, zCol₀, zCol₁, zCol₂, vHat₀, vHat₁, vHat₂,
+        shiftR, Step2.fourierFamily] <;> grind
+
+/-- `v = (1, ω², ω)`: the family in `(r, s)`, last three columns shifted. -/
+theorem v_form_sq {ω r s : ℂ} (hω : IsPrimitiveCubicPhase ω) :
+    fourierNormalForm ω (ω ^ 2) (ω) r s (fourierForcedD ω (ω ^ 2) (ω) r s) =
+      (Step2.fourierFamily ω r s).submatrix (Equiv.refl _) (shiftR 2) := by
+  have h2 := hω.2
+  have h3 : ω ^ 3 = 1 := by linear_combination (ω - 1) * h2
+  ext a b
+  rcases a with i | i <;> rcases b with j | j <;> fin_cases i <;> fin_cases j <;>
+    simp [fourierNormalForm, fourierForcedD, fourier3, rowGauge, columnGauge, fourierParameters,
+        dftEntry₀, dftEntry₁, dftEntry₂, dft₀, dft₁, dft₂, zCol₀, zCol₁, zCol₂, vHat₀, vHat₁, vHat₂,
+        shiftR, Step2.fourierFamily] <;> grind
+
+/-- `v = (1, ω, ω²)`: the family in `(r, s)`, last three columns shifted. -/
+theorem v_form_om {ω r s : ℂ} (hω : IsPrimitiveCubicPhase ω) :
+    fourierNormalForm ω (ω) (ω ^ 2) r s (fourierForcedD ω (ω) (ω ^ 2) r s) =
+      (Step2.fourierFamily ω r s).submatrix (Equiv.refl _) (shiftR 1) := by
+  have h2 := hω.2
+  have h3 : ω ^ 3 = 1 := by linear_combination (ω - 1) * h2
+  ext a b
+  rcases a with i | i <;> rcases b with j | j <;> fin_cases i <;> fin_cases j <;>
+    simp [fourierNormalForm, fourierForcedD, fourier3, rowGauge, columnGauge, fourierParameters,
+        dftEntry₀, dftEntry₁, dftEntry₂, dft₀, dft₁, dft₂, zCol₀, zCol₁, zCol₂, vHat₀, vHat₁, vHat₂,
+        shiftR, Step2.fourierFamily] <;> grind
+
+/-- `w = (1, 1, 1)`: the transposed family in `(p, q)` (family (5.6)). -/
+theorem w_form_one {ω p q : ℂ} (hω : IsPrimitiveCubicPhase ω) :
+    fourierNormalForm ω p q (1) (1) (fourierForcedD ω p q (1) (1)) =
+      (Step2.fourierFamily ω p q).transpose.submatrix (shiftR 0) (Equiv.refl _) := by
+  have h2 := hω.2
+  have h3 : ω ^ 3 = 1 := by linear_combination (ω - 1) * h2
+  ext a b
+  rcases a with i | i <;> rcases b with j | j <;> fin_cases i <;> fin_cases j <;>
+    simp [fourierNormalForm, fourierForcedD, fourier3, rowGauge, columnGauge, fourierParameters,
+        dftEntry₀, dftEntry₁, dftEntry₂, dft₀, dft₁, dft₂, zCol₀, zCol₁, zCol₂, vHat₀, vHat₁, vHat₂,
+        shiftR, Step2.fourierFamily] <;> grind
+
+/-- `w = (1, ω², ω)`: the transposed family in `(p, q)`, last three rows shifted. -/
+theorem w_form_sq {ω p q : ℂ} (hω : IsPrimitiveCubicPhase ω) :
+    fourierNormalForm ω p q (ω ^ 2) (ω) (fourierForcedD ω p q (ω ^ 2) (ω)) =
+      (Step2.fourierFamily ω p q).transpose.submatrix (shiftR 2) (Equiv.refl _) := by
+  have h2 := hω.2
+  have h3 : ω ^ 3 = 1 := by linear_combination (ω - 1) * h2
+  ext a b
+  rcases a with i | i <;> rcases b with j | j <;> fin_cases i <;> fin_cases j <;>
+    simp [fourierNormalForm, fourierForcedD, fourier3, rowGauge, columnGauge, fourierParameters,
+        dftEntry₀, dftEntry₁, dftEntry₂, dft₀, dft₁, dft₂, zCol₀, zCol₁, zCol₂, vHat₀, vHat₁, vHat₂,
+        shiftR, Step2.fourierFamily] <;> grind
+
+/-- `w = (1, ω, ω²)`: the transposed family in `(p, q)`, last three rows shifted. -/
+theorem w_form_om {ω p q : ℂ} (hω : IsPrimitiveCubicPhase ω) :
+    fourierNormalForm ω p q (ω) (ω ^ 2) (fourierForcedD ω p q (ω) (ω ^ 2)) =
+      (Step2.fourierFamily ω p q).transpose.submatrix (shiftR 1) (Equiv.refl _) := by
+  have h2 := hω.2
+  have h3 : ω ^ 3 = 1 := by linear_combination (ω - 1) * h2
+  ext a b
+  rcases a with i | i <;> rcases b with j | j <;> fin_cases i <;> fin_cases j <;>
+    simp [fourierNormalForm, fourierForcedD, fourier3, rowGauge, columnGauge, fourierParameters,
+        dftEntry₀, dftEntry₁, dftEntry₂, dft₀, dft₁, dft₂, zCol₀, zCol₁, zCol₂, vHat₀, vHat₁, vHat₂,
+        shiftR, Step2.fourierFamily] <;> grind
+
 /-! ### Theorem A, §5.5 -/
 
-/-- `PRM.md` §5: a Hadamard matrix whose top three rows contain a `3 × 3` Hadamard block (on the columns
-`τ (inr ·)`) is in Tao's orbit, or is matched at every corner.  The matching of the two Fourier families
-(§5.4) is taken as the hypotheses `hv` (`v` a character) and `hw` (`w` a character). -/
-theorem tao_or_matched_of_block
-    (hv : ∀ {ω p q r s : ℂ}, IsPrimitiveCubicPhase ω → Complex.normSq r = 1 → Complex.normSq s = 1 →
-      ((p = 1 ∧ q = 1) ∨ (p = ω ^ 2 ∧ q = ω) ∨ (p = ω ∧ q = ω ^ 2)) →
-      AllCornersMatched (fourierNormalForm ω p q r s (fourierForcedD ω p q r s)))
-    (hw : ∀ {ω p q r s : ℂ}, IsPrimitiveCubicPhase ω → Complex.normSq p = 1 → Complex.normSq q = 1 →
-      ((r = 1 ∧ s = 1) ∨ (r = ω ^ 2 ∧ s = ω) ∨ (r = ω ∧ s = ω ^ 2)) →
-      AllCornersMatched (fourierNormalForm ω p q r s (fourierForcedD ω p q r s)))
-    (H : Mat6) (hH : IsHadamard H) (τ : Equiv.Perm I6)
+/-- `PRM.md` §5.1–5.4: a Hadamard matrix whose top three rows contain a `3 × 3` Hadamard block (on the
+columns `τ (inr ·)`) is in Tao's orbit or in the Fourier family. -/
+theorem tao_or_fourier_of_block (H : Mat6) (hH : IsHadamard H) (τ : Equiv.Perm I6)
     (h3 : IsHadamard3 (Matrix.toBlocks₁₂ (H.submatrix id τ))) :
-    IsTaoOrbit H ∨ AllCornersMatched H := by
+    IsTaoOrbit H ∨ Step2.InFourierFamily H := by
   have hHH' : Equivalent H (H.submatrix id τ) :=
     equivalent_reindexMatrix (Equiv.refl I6) τ H
   have hH' : IsHadamard (H.submatrix id τ) := isHadamard_of_equivalent hHH' hH
@@ -394,10 +437,20 @@ theorem tao_or_matched_of_block
   have hHK : Equivalent H n.K := equivalent_trans hHH' n.equivalent
   have hK := n.hK
   rw [n.normalForm] at hHK hK
+  have back : ∀ {M : Mat6} (σ τ : Equiv.Perm I6), Equivalent H (M.submatrix σ τ) → Equivalent H M :=
+    fun σ τ h => equivalent_trans h (equivalent_symm (equivalent_reindexMatrix σ τ _))
   rcases fourierNormalForm_tao_or_character hω n.p_unit n.q_unit n.r_unit n.s_unit hK with
     hT | hc | hc
   · exact Or.inl (isTaoOrbit_of_equivalent hHK hT)
-  · exact Or.inr ((allCornersMatched_equivalent_iff hHK).2 (hv hω n.r_unit n.s_unit hc))
-  · exact Or.inr ((allCornersMatched_equivalent_iff hHK).2 (hw hω n.p_unit n.q_unit hc))
+  · refine Or.inr ⟨n.ω, n.r, n.s, hω, n.r_unit, n.s_unit, Or.inl ?_⟩
+    rcases hc with ⟨hp, hq⟩ | ⟨hp, hq⟩ | ⟨hp, hq⟩ <;> rw [hp, hq] at hHK
+    · rw [v_form_one hω] at hHK; exact back _ _ hHK
+    · rw [v_form_sq hω] at hHK; exact back _ _ hHK
+    · rw [v_form_om hω] at hHK; exact back _ _ hHK
+  · refine Or.inr ⟨n.ω, n.p, n.q, hω, n.p_unit, n.q_unit, Or.inr ?_⟩
+    rcases hc with ⟨hr, hs⟩ | ⟨hr, hs⟩ | ⟨hr, hs⟩ <;> rw [hr, hs] at hHK
+    · rw [w_form_one hω] at hHK; exact back _ _ hHK
+    · rw [w_form_sq hω] at hHK; exact back _ _ hHK
+    · rw [w_form_om hω] at hHK; exact back _ _ hHK
 
 end NoFourMUBs.PRM

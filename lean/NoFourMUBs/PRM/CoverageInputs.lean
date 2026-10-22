@@ -19,11 +19,10 @@ proved; `Final.strictCornerCoverage` assembles them):
   corner reduction, is `criticalCornerReduction`).
 
 The two rational endpoints that the classification leaves are excluded by the ten-corner count
-(return S, `CoverageTen.anchored_count` in `CoverageEndCount`, `ENDPOINT_COUNTING.md`), not by a separate input.
-From a Hadamard block to `F6` is `equivalent_F6_of_block` (`CoverageBlock`, with the Fourier
-critical locus I7 of `CoverageFourierLocus`).  The count uses the anchored sum rule `Σ p = 54`, the
-vertex sums of `J`, the fourth moment `Σ X² ≥ 54` and `p⋆ ∈ (5.722, 5.723)`
-(`CoverageTen.pStar_bounds`).
+(return S, `CoverageTen.anchored_count` in `CoverageEndCount`, `ENDPOINT_COUNTING.md`), not by a
+separate input.  From a Hadamard block to the Fourier family is `inFourierFamily_of_block`
+(`CoverageBlock`).  The count uses the anchored sum rule `Σ p = 54`, the vertex sums of `J`, the fourth
+moment `Σ X² ≥ 54` and `p⋆ ∈ (5.722, 5.723)` (`CoverageTen.pStar_bounds`).
 
 Scalar conventions: `blockP`, `blockJ`, `blockX/Y/Z` of `CoverageCritical` (the Gram data of a corner;
 complementary corners have the same `p, X, Y, Z` and opposite `J`, `blockP_compl`, `blockJ_compl`).
@@ -67,8 +66,8 @@ a singular `3 × 3` minor contains a `3 × 3` Hadamard submatrix (it, or its tra
 case).  Paper proof: a singular phase `3 × 3` matrix has two proportional rows or columns; in the row
 case the two complete rows phase to `(1,1,1; 1,1,1)` and `(1,1,1; −1,−1,−1)`; the other four rows have
 zero-sum halves `(α f_ε; β f_η)` and both orientations `ε` occur, giving the block `(1; f₁; f₂)`.
-(The paper concludes equivalence to `N(z, w)` or its transpose, which contains `F`; the remaining step
-to `F6` is `equivalent_F6_of_block`.) -/
+(The paper concludes equivalence to `N(z, w)` or its transpose, which contains `F`; here that step is
+`inFourierFamily_of_block`.) -/
 def SingularMinorRoute : Prop :=
   ∀ H : Mat6, Hadamard6.IsHadamard H → ∀ σ τ : Equiv.Perm I6,
     (Step2.rightBlock (H.submatrix σ τ)).det = 0 → HasHadamardBlock H ∨ HasHadamardBlock Hᵀ
@@ -137,20 +136,19 @@ theorem stripJ_top_eq (H : Mat6) (k : Fin 10) :
   simp only [stripJ, cornerProd, triProd, blockJ, Side.jS, blockS, blockT, blockR, gram3_top_eq,
     Complex.conj_conj, conj_threeSum_relativePhase]
 
-/-- An all-critical Hadamard matrix with a Hadamard block in it or in its transpose is `F6`. -/
-theorem equivalent_F6_of_block' {H : Mat6} (hH : Hadamard6.IsHadamard H) (hc : AllCritical H)
-    (hb : HasHadamardBlock H ∨ HasHadamardBlock Hᵀ) : Equivalent H Step2.fourierHadamard.1 := by
+/-- An all-critical Hadamard matrix with a Hadamard block in it or in its transpose is in the Fourier
+family. -/
+theorem inFourierFamily_of_block' {H : Mat6} (hH : Hadamard6.IsHadamard H) (hc : AllCritical H)
+    (hb : HasHadamardBlock H ∨ HasHadamardBlock Hᵀ) : Step2.InFourierFamily H := by
   rcases hb with hb | hb
-  · exact equivalent_F6_of_block hH hc hb
-  · have h := equivalent_transpose
-      (equivalent_F6_of_block (transpose_isHadamard hH) (allCritical_transpose hc) hb)
-    rwa [Matrix.transpose_transpose, fourierHadamard_transpose] at h
+  · exact inFourierFamily_of_block hH hc hb
+  · exact (inFourierFamily_of_block (transpose_isHadamard hH) (allCritical_transpose hc) hb).transpose
 
 /-- The three inputs give the scalar confinement `CriticalStripConfinement`. -/
 theorem stripConfinement_of_inputs (h : CoverageInputs) : CriticalStripConfinement := by
   intro H hH hc hF
   have hinv : AllMinorsInvertible H := fun σ τ hd =>
-    hF (equivalent_F6_of_block' hH hc (h.singular H hH σ τ hd))
+    hF (inFourierFamily_of_block' hH hc (h.singular H hH σ τ hd))
   refine ⟨Sum.inl, Sum.inl_injective, fun k => ?_⟩
   change CornerType (topStrip H) k
   simp only [CornerType, stripP_top_eq, stripJ_top_eq, stripX_top_eq]
@@ -159,7 +157,7 @@ theorem stripConfinement_of_inputs (h : CoverageInputs) : CriticalStripConfineme
   · rcases h0 hJ with hz | hz | ⟨π, hg⟩
     · exact Or.inl ⟨hJ, Or.inl hz⟩
     · exact Or.inl ⟨hJ, Or.inr hz⟩
-    · exact absurd (equivalent_F6_of_block hH hc
+    · exact absurd (inFourierFamily_of_block hH hc
         (h.geometric H hH _ (Sum.inl_injective.comp π.injective) hg)) hF
   · rcases h1 hJ with hz | ⟨hX, hY, hZ, hJ'⟩ | ⟨hJ', hXYZ⟩
     · exact Or.inr (Or.inl hz)

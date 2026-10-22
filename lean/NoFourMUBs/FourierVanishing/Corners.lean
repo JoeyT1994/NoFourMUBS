@@ -1,4 +1,4 @@
-import NoFourMUBs.PRM.Converse
+import NoFourMUBs.PRM.FourierMatch
 import NoFourMUBs.PRM.Defs
 
 /-!

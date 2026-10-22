@@ -6,10 +6,11 @@ import NoFourMUBs.PRM.CoverageStripParts
 # The main theorem, with strict-corner coverage proved
 
 `Final.no_four_mubs (C : AtlasCertificate) : ¬ FourMUBs`.  Its only input is the finite atlas certificate of
-`PROOF.md` Steps 2 and 4.  Strict-corner coverage (Theorem 2.5, MC1) is proved:
+`PROOF.md` Steps 2 and 4.  Strict-corner coverage (Theorem 2.5, MC1, for matrices outside the Fourier
+family, whose classes are covered by connectedness: `Step2.fourierClasses_subset`) is proved:
 
-* routing, the Fourier critical locus, the block lemma and the ten-corner count, which also excludes
-  the two rational endpoints (return S, `CoverageEndCount`; `CoverageMain`);
+* routing, the block lemma and the ten-corner count, which also excludes the two rational endpoints
+  (return S, `CoverageEndCount`; `CoverageMain`);
 * the critical strip classification I4 (`CoverageStripParts`): zero `J` by the zero-`J` square-sum
   identity (`CoverageStripIdZero`), nonzero `J` by the two signed corner sums of return K
   (`CoverageSignedNonzero`).

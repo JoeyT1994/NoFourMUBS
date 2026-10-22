@@ -10,7 +10,7 @@ Orthogonality gives `Σ xⱼ = Σ xⱼ² = 0`, so `e₁ = e₂ = 0`; for unit ro
 `e₄ = e₆ ē₂` vanish too, so `P(t) = ∏ (t − xⱼ) = t⁶ − e₃ t³ + e₆` and `P(ω t) = P(t)`
 (`prod_shift`).  Hence with `x₀` also `ω x₀` and `ω² x₀` occur among the `xⱼ` (`geometric_columns`),
 and the three rows on these three columns are, up to phases, `[1, 1, 1; X, Xω, Xω²; X̄, X̄ω², X̄ω]`,
-a `3 × 3` Hadamard matrix.  With `equivalent_F6_of_block` this is the step of §7.1 that the paper
+a `3 × 3` Hadamard matrix.  With `inFourierFamily_of_block` this is the step of §7.1 that the paper
 completes to the Fourier family.
 -/
 

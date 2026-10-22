@@ -9,8 +9,8 @@ types left by the critical strip classification (`CoverageTen.CornerType`: `J = 
 `p ∈ {0, 5}`, `p` in the window `(5.722, 5.723)` of `p⋆`, or one of the two rational endpoints):
 `CoverageTen.anchored_count` (return S, `CoverageEndCount`; it uses the anchored sum rule `Σ p = 54`,
 the vertex sums `dᵢ = 0` of the signed `J` and the fourth moment `Σ X² ≥ 54`).  So MC1 follows from
-`CriticalStripConfinement`: **some** row triple of an all-critical Hadamard matrix not equivalent to
-`F6` has its ten anchored corners of these types (`strictCornerCoverage_of_stripConfinement`).
+`CriticalStripConfinement`: **some** row triple of an all-critical Hadamard matrix outside the Fourier
+family has its ten anchored corners of these types (`strictCornerCoverage_of_stripConfinement`).
 
 `CriticalStripConfinement` is proved from the inputs of `NoFourMUBs.PRM.CoverageInputs`, all of which
 are proved (assembled in `NoFourMUBs.Final`).
@@ -52,17 +52,17 @@ theorem rowStrip_phaseOrthogonal {H : Mat6} (hH : Hadamard6.IsHadamard H) {r : F
 
 /-! ### The scalar confinement and MC1 -/
 
-/-- **The scalar confinement.**  Every all-critical Hadamard matrix not equivalent
-to `F6` has a row triple whose ten corners containing its first column are of the classified types
-`CoverageTen.CornerType` (with `stripP`, `stripJ`, `stripX` the `p`, `J`, `X` of the corner).
+/-- **The scalar confinement.**  Every all-critical Hadamard matrix outside the Fourier family
+(`Step2.InFourierFamily`) has a row triple whose ten corners containing its first column are of the
+classified types `CoverageTen.CornerType` (with `stripP`, `stripJ`, `stripX` the `p`, `J`, `X` of the corner).
 
 Paper source: `STRICT_CORNER_COVERAGE.md` and `PRM.md` §7.2: (i) the Fourier routing lemmas (§7.1,
-`FOURIER_ROUTING.md`), (ii) the Fourier critical locus (`FOURIER_CRITICAL_LOCUS.md`), (iii) the
-critical strip scalar classification (`CRITICAL_STRIP_CLASSIFICATION.md`, built on
+`FOURIER_ROUTING.md`), with the block lemma of §5 (`FourierBlock`), (ii) the critical strip scalar
+classification (`CRITICAL_STRIP_CLASSIFICATION.md`, built on
 `CRITICAL_CORNER_REDUCTION.md`); `p⋆ ∈ (5.722, 5.723)` is `CoverageTen.pStar_bounds`.  It is proved
 from the named inputs of `NoFourMUBs.PRM.CoverageInputs` (`stripConfinement_of_inputs`). -/
 def CriticalStripConfinement : Prop :=
-  ∀ H : Mat6, Hadamard6.IsHadamard H → AllCritical H → ¬ Equivalent H Step2.fourierHadamard.1 →
+  ∀ H : Mat6, Hadamard6.IsHadamard H → AllCritical H → ¬ Step2.InFourierFamily H →
     ∃ r : Fin 3 → I6, Function.Injective r ∧ ∀ k : Fin 10, CornerType (rowStrip H r) k
 
 end Coverage

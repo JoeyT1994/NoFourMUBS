@@ -11,8 +11,8 @@ exceptional value (`CoverageStripParts.topStripClassification`: zero `J` and ret
 corner sums for nonzero `J`), proved elsewhere and assembled in `Final.lean`.
 
 Proved and used: the two Fourier-routing lemmas of §7.1 (`singularMinorRoute`, `geometricRowRoute`),
-the Fourier critical locus I7 (`fourierCore_criticalLocus`), the Tao exclusion and the block
-classification (`equivalent_F6_of_block`), and the ten-corner count of return S
+the Tao exclusion and the block lemma (`inFourierFamily_of_block`: an all-critical matrix with a
+`3 × 3` Hadamard block is in the Fourier family), and the ten-corner count of return S
 (`CoverageTen.anchored_count`), which also excludes the two rational endpoints the classification
 leaves.  The critical corner reduction (`criticalCornerReduction`, `R(E) = 4 (Im Ψ)²`) is the proved
 first step of I4.

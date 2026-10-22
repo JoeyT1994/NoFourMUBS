@@ -14,6 +14,7 @@ Run by `check_axioms.py --full` after building `NoFourMUBs.Complete`, `NoFourMUB
 #print axioms NoFourMUBs.L1.exists_side_v
 #print axioms NoFourMUBs.L1.matchedExistence
 #print axioms NoFourMUBs.no_four_mubs_of_density
+#print axioms NoFourMUBs.PRM.nonmatched_tao_or_fourier
 #print axioms NoFourMUBs.PRM.nonmatched_tao
 #print axioms NoFourMUBs.PRM.densityReach
 #print axioms NoFourMUBs.no_four_mubs_of_coverage

@@ -1,13 +1,15 @@
 import NoFourMUBs.PRM.Converse
+import NoFourMUBs.Step2.FourierFamily
 
 /-!
 # Exact reach and density from strict-corner coverage (`PROOF.md` Corollary 2.6)
 
 `PRM.md` §7.3; `exactReach` is `PROOF.md` Corollary 2.6, with strict-corner coverage (Theorem 2.5) as
-hypothesis.  If every Hadamard matrix not equivalent to `F6` has a strict positional corner
-(`StrictCornerCoverage`, MC1), then every non-Tao class is `[F6]` or a matched class or its conjugate
-(`MatchedExactReach`): dephase at the strict corner, Theorem A makes it matched, and conjugating if needed
-makes the horizontal signature the positive root.  Hence `MatchedDensityReach`.
+hypothesis.  If every Hadamard matrix outside the Fourier family has a strict positional corner
+(`StrictCornerCoverage`, MC1), then every non-Tao class is a Fourier class or a matched class or its
+conjugate (`MatchedExactReach`): dephase at the strict corner, Theorem A (`nonmatched_tao_or_fourier`)
+makes it matched, and conjugating if needed makes the horizontal signature the positive root.  Hence
+`MatchedDensityReach`.
 -/
 
 open ComplexConjugate Matrix Hadamard6 NoFourMUBs.Side NoFourMUBs.Kronecker
@@ -19,10 +21,6 @@ namespace NoFourMUBs.PRM
 open L1 L1.FlatCircuits
 
 /-! ### Exact reach -/
-
-def toCircle (z : ℂ) (h : Complex.normSq z = 1) : Circle :=
-  ⟨z, by rw [Submonoid.unitSphere, Submonoid.mem_mk, Subsemigroup.mem_mk, mem_sphere_zero_iff_norm,
-    Complex.norm_def, h, Real.sqrt_one]⟩
 
 theorem sideSignature_map_conj (B : Mat3) :
     Step2.sideSignature (B.map conj) = conj (Step2.sideSignature B) := by
@@ -39,7 +37,7 @@ theorem matched_of_pos (K : Had6) (hd : Step2.Dephased K.1)
   replace hd : Step2.Dephased M := hd
   set ρ : Fin 4 → ℂ := ![M (.inl 1) (.inl 1), M (.inl 1) (.inl 2), M (.inl 2) (.inl 1), M (.inl 2) (.inl 2)]
   have hu : ∀ i, Complex.normSq (ρ i) = 1 := fun i => by fin_cases i <;> exact hM.1 _ _
-  let p : Step2.Seed := fun i => toCircle (ρ i) (hu i)
+  let p : Step2.Seed := fun i => Step2.circleOf (ρ i) (hu i)
   have hpρ : (fun i => (p i : ℂ)) = ρ := rfl
   have hE : Matrix.toBlocks₁₁ M = Em ρ := by
     ext i j; fin_cases i <;> fin_cases j <;> simp [Matrix.toBlocks₁₁, Em, Hadamard6.corner, ρ, hd.1 (.inl _), hd.2 (.inl _)]
@@ -75,7 +73,7 @@ theorem matched_of_pos (K : Had6) (hd : Step2.Dephased K.1)
   · ext i j
     show M (.inl i) (.inl j) = _
     fin_cases i <;> fin_cases j <;>
-      simp [Step2.seedCorner, Hadamard6.corner, p, toCircle, ρ, hd.1 (.inl _), hd.2 (.inl _)]
+      simp [Step2.seedCorner, Hadamard6.corner, p, Step2.circleOf, ρ, hd.1 (.inl _), hd.2 (.inl _)]
   · have hsq : Real.sqrt (Step2.seedR p) = 2 * ζ.im := by
       rw [L1.seedR_eq, hpρ, hRS, show 4 * ζ.im ^ 2 = (2 * ζ.im) ^ 2 by ring, Real.sqrt_sq (by linarith)]
     rw [show Step2.sideSignature (Step2.rightBlock M) = ζ from sigB, L1.seedChi_eq, hpρ, hsq, ← r2]
@@ -88,7 +86,7 @@ theorem matched_of_pos (K : Had6) (hd : Step2.Dephased K.1)
 /-- **Exact reach** from strict-corner coverage and Theorem A. -/
 theorem exactReach (hcov : StrictCornerCoverage) : Step2.MatchedExactReach := by
   intro H hT
-  by_cases hF : Equivalent H.1 Step2.fourierHadamard.1
+  by_cases hF : Step2.InFourierFamily H.1
   · exact Or.inl hF
   right
   obtain ⟨σ, τ, hIm⟩ := hcov H.1 H.2 hF
@@ -109,7 +107,9 @@ theorem exactReach (hcov : StrictCornerCoverage) : Step2.MatchedExactReach := by
   have hImK : (Step2.sideSignature (Step2.rightBlock K)).im ≠ 0 := by rw [sigK]; exact hIm
   have hm : Step2.sideSignature (Step2.lowerBlock K) = conj (Step2.sideSignature (Step2.rightBlock K)) := by
     by_contra hnm
-    exact hT (isTaoOrbit_of_equivalent eK (nonmatched_tao K hK hKd hImK hnm))
+    rcases nonmatched_tao_or_fourier K hK hKd hImK hnm with hTK | hFK
+    · exact hT (isTaoOrbit_of_equivalent eK hTK)
+    · exact hF (hFK.of_equivalent eK)
   rcases lt_or_gt_of_ne hImK with hneg | hpos
   · -- conjugate: the horizontal signature becomes the positive root
     let K' : Had6 := Step2.conjugateHadamard ⟨K, hK⟩
