@@ -1,5 +1,4 @@
 import NoFourMUBs.L1.Existence
-import NoFourMUBs.Step2.AnchorTransport
 import NoFourMUBs.PRM.SideRoot
 import NoFourMUBs.PRM.SharedColumn
 import NoFourMUBs.PRM.StrictStrip

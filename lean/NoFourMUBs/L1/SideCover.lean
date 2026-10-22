@@ -19,9 +19,8 @@ Closed: it is the preimage of the closed `sideSetC`, since a side realising Gram
 with the same sign of `Im T` (`exists_side_of_sign`).
 
 `Existence` shows that this set is every strict seed: it contains the corner of the Fourier family
-(`Step2.exists_matched`), sides give a matched completion (`L1.matched_of_sides`), and matched completions move
-between the 18 maxima (`Step2.eq_univ_of_anchor_transport`).  Conjugating the seed and the side gives the other
-sign (`sideSet_conj`).
+(`Step2.exists_matched`), and the strict seeds are connected (`Step2.isConnected_strict`).  Sides give a matched
+completion (`L1.matched_of_sides`).  Conjugating the seed and the side gives the other sign (`sideSet_conj`).
 -/
 
 open ComplexConjugate Matrix Hadamard6 NoFourMUBs.Side NoFourMUBs.Step2
