@@ -261,12 +261,16 @@ matched. If the horizontal signature is ζ₋, conjugate the whole matrix. *Lean
 *Proof.*
 1. **Continuity.** The class map θ ↦ [H₊(θ)] on strict seeds is continuous: the matched relation is closed, 𝓗 is
    compact, and the matched class is unique (Theorems 2.2, 2.3).
-2. **A is connected.** Each component of S has compact closure, with R = 0 on its boundary, so it contains a
-   positive local maximum (the argument of Lemma 1.1). By Theorem 1 that maximum lies in the 18-point orbit, and all
-   18 points give one class [K*]: let L be a seed symmetry with transposition bit τ and conjugation bit ε; then
-   [H_σ(Lθ)] = 𝒞^ε 𝒯^τ [H_{(−1)^{τ+ε}σ}(θ)], and the maximal seed E(x) = [[1,1,1],[1,x,x²],[1,x⁻¹,x⁻²]] has two
-   exact frame symmetries; the matched completion at θ* (Theorems 2.2 and 2.3) anchors the class. So
-   the image of every component is connected and contains [K*], and A is connected. So is conj A.
+2. **S is connected.** Each component of S has compact closure, with R = 0 on its boundary, so it contains a
+   positive local maximum (the argument of Lemma 1.1); by Theorem 1 it is one of the 18 maxima. Explicit paths join
+   all 18 inside S. With z = e^{it}, w = e^{is}, the triples e = (z⁻², z, z) and o = (w⁻², w, w), the distinct
+   entry in any of the three positions, give seeds (a, b, c, d) = (e₁/o₂, o₁/e₃, o₁/e₂, e₁/o₃); the nine placements at
+   (t, s) = (α, −α) and (−α, α) are exactly the 18 maxima. On s = −t, with x = cos t,
+   R = 256(1−2x)(1+2x)⁵(1+2x²)²(4x³−2x+1)² > 0 for 0 ≤ x ≤ 1/4, so each maximum reaches the circle s = t + π inside
+   S, and on that circle R ≡ 256. At (0, π) the three placements of e give the same seed, and at (π, 0) those of o
+   do, so the nine circles are joined in a 3 × 3 grid. Hence S is connected, indeed path connected. (Identities checked
+   exactly by computer algebra.)
+   **A is connected**, as the continuous image of S (step 1), and so is conj A.
 3. **Joining at F6.** The family [[F₃, F₃], [F₃D(t), −F₃D(t)]], with D(t) = diag(1, e^{it}, 1), tends to
    F₂⊗F₃ ≅ F6 as t → 0. Its cross-ratio e^{it} keeps it away from F6 and S₆ for 0 < t < π/3. So [F6] lies in the
    closure of both A and conj A.

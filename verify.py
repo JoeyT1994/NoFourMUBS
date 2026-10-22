@@ -20,6 +20,7 @@ CHECKS = [
     ('step1_2_exact_quotient',  'proof/coverage/returns/B_exact_quotient/verify_all.py', []),
     ('l1_side_existence_identity_J', 'proof/coverage/returns/J_side_existence/check_jacobian.py', []),
     ('l1_fourier_anchor_Q',      'proof/coverage/returns/Q_fourier_anchor/verify.py', []),
+    ('step2_omega_connected',   'proof/coverage/omega_connected/verify_paths.py', []),
     ('crosscheck_F_radical_sides', 'proof/coverage/returns/F_side_existence/verify_all.py', []),
     ('l1_matched_flatness',     'proof/coverage/returns/E_matched_flatness/verify_all.py', []),
     ('step2_prm_exact_reach',   'proof/coverage/returns/G_prm/verify_all.py', []),
