@@ -17,11 +17,10 @@ member of the Fourier family `Step2.fourierFamily` or to its transpose (`tao_or_
 * §5.2 (the factor equations `α̂₁ Â₁ = 0`, `α̂₂ Â₂ = 0`) is upstream: `fourierForcedD_factor_equations`.
 * §5.3 (zero allocations).  The unmixed allocations give a Fourier character `v = (1, p, q)` or
   `w = (1, r, s)` (upstream `FourierUnmixed`).  In the mixed allocations all four parameters are cube roots
-  of unity; the 81-case census `cubicCensus_*` below shows that each such tuple has a character `v` or `w`,
-  is one of the 18 rows of upstream's explicit Tao table, or has a forced-block entry equal to `0`
-  (contradicting flatness).  The zero-entry and Tao certificates are the ones of upstream's
-  `FourierCubicCases*`; only the conclusion is sharpened from "has a Hadamard `2 × 2`" to "has a character
-  parameter pair".
+  of unity.  Multiplying `v` or `w` by the character `(1, ω, ω²)` cyclically shifts the last three
+  columns or rows (`shift_v`, `shift_w`), which normalises `p = r = 1` (handoff 22 Oct §5.1); of the
+  nine remaining tuples, five have a character, two have a forced-block entry `0` (contradicting
+  flatness) and two are rows of upstream's explicit Tao table (`censusAt_one_one`, `cubicCensus`).
 * At a character gauge the forced matrix is the Fourier family, or its transpose, up to a cyclic shift of
   the last three columns or rows (`v_form_*`, `w_form_*`, checked entrywise).
 -/
@@ -39,39 +38,87 @@ namespace NoFourMUBs.PRM
 def IsFourierCharacterPair (ω x y : ℂ) : Prop :=
   (x = 1 ∧ y = 1) ∨ (x = ω ^ 2 ∧ y = ω) ∨ (x = ω ∧ y = ω ^ 2)
 
-/-- The cubic census with `p = 1`: Tao, or one of the two Fourier families. -/
-theorem cubicCensus_p_one
-    {omega q r s : ℂ}
-    (homega : IsPrimitiveCubicPhase omega)
-    (hq : IsCubicRoot q) (hr : IsCubicRoot r) (hs : IsCubicRoot s)
-    (hH : IsHadamard (fourierNormalForm omega 1 q r s (fourierForcedD omega 1 q r s))) :
-    IsTaoOrbit (fourierNormalForm omega 1 q r s (fourierForcedD omega 1 q r s)) ∨
-      IsFourierCharacterPair omega 1 q ∨ IsFourierCharacterPair omega r s := by
-  rcases cubicPowerFacts homega with ⟨h3, h4, h5, h6, h7, h8⟩
-  have hsq : omega ^ 2 = -omega - 1 := by
-    linear_combination homega.2
-  have hzero (i j : I3)
-      (hz : fourierForcedD omega 1 q r s i j = 0) :
-      IsTaoOrbit (fourierNormalForm omega 1 q r s (fourierForcedD omega 1 q r s)) ∨
-      IsFourierCharacterPair omega 1 q ∨ IsFourierCharacterPair omega r s :=
-    (false_of_fourierForcedD_entry_zero hH hz).elim
-  rcases cubicRoot_eq_one_or_primitive_or_sq homega hq with hq0 | hq1 | hq2 <;>
-    subst q <;>
-  rcases cubicRoot_eq_one_or_primitive_or_sq homega hr with hr0 | hr1 | hr2 <;>
-    subst r <;>
-  rcases cubicRoot_eq_one_or_primitive_or_sq homega hs with hs0 | hs1 | hs2 <;>
-    subst s
-  · exact Or.inr (Or.inl (Or.inl ⟨rfl, rfl⟩))
-  · exact Or.inr (Or.inl (Or.inl ⟨rfl, rfl⟩))
-  · exact Or.inr (Or.inl (Or.inl ⟨rfl, rfl⟩))
-  · exact Or.inr (Or.inl (Or.inl ⟨rfl, rfl⟩))
-  · exact Or.inr (Or.inl (Or.inl ⟨rfl, rfl⟩))
-  · exact Or.inr (Or.inl (Or.inl ⟨rfl, rfl⟩))
+/-- Shift of the last three indices by `c`. -/
+def shiftR (c : Fin 3) : Equiv.Perm I6 := Equiv.sumCongr (Equiv.refl _) (Equiv.addRight c)
+
+set_option maxHeartbeats 400000 in
+/-- Multiplying `v = (1, p, q)` by the character `(1, ω, ω²)` shifts the last three columns. -/
+theorem shift_v {ω p q r s : ℂ} (hω : IsPrimitiveCubicPhase ω) :
+    fourierNormalForm ω (ω * p) (ω ^ 2 * q) r s (fourierForcedD ω (ω * p) (ω ^ 2 * q) r s) =
+      (fourierNormalForm ω p q r s (fourierForcedD ω p q r s)).submatrix (Equiv.refl _) (shiftR 1) := by
+  have h2 := hω.2
+  have h3 : ω ^ 3 = 1 := by linear_combination (ω - 1) * h2
+  ext a b
+  rcases a with i | i <;> rcases b with j | j <;> fin_cases i <;> fin_cases j <;>
+    simp [fourierNormalForm, fourierForcedD, fourier3, rowGauge, columnGauge, fourierParameters,
+        dftEntry₀, dftEntry₁, dftEntry₂, dft₀, dft₁, dft₂, zCol₀, zCol₁, zCol₂, vHat₀, vHat₁, vHat₂,
+        shiftR] <;> grind
+
+set_option maxHeartbeats 400000 in
+/-- Multiplying `w = (1, r, s)` by the character `(1, ω, ω²)` shifts the last three rows. -/
+theorem shift_w {ω p q r s : ℂ} (hω : IsPrimitiveCubicPhase ω) :
+    fourierNormalForm ω p q (ω * r) (ω ^ 2 * s) (fourierForcedD ω p q (ω * r) (ω ^ 2 * s)) =
+      (fourierNormalForm ω p q r s (fourierForcedD ω p q r s)).submatrix (shiftR 1) (Equiv.refl _) := by
+  have h2 := hω.2
+  have h3 : ω ^ 3 = 1 := by linear_combination (ω - 1) * h2
+  ext a b
+  rcases a with i | i <;> rcases b with j | j <;> fin_cases i <;> fin_cases j <;>
+    simp [fourierNormalForm, fourierForcedD, fourier3, rowGauge, columnGauge, fourierParameters,
+        dftEntry₀, dftEntry₁, dftEntry₂, dft₀, dft₁, dft₂, zCol₀, zCol₁, zCol₂, vHat₀, vHat₁, vHat₂,
+        shiftR] <;> grind
+
+theorem IsFourierCharacterPair.of_shift {ω p q : ℂ} (h3 : ω ^ 3 = 1)
+    (h : IsFourierCharacterPair ω (ω * p) (ω ^ 2 * q)) : IsFourierCharacterPair ω p q := by
+  rcases h with ⟨h1, h2⟩ | ⟨h1, h2⟩ | ⟨h1, h2⟩
+  · exact Or.inr (Or.inl ⟨by linear_combination ω ^ 2 * h1 - p * h3,
+      by linear_combination ω * h2 - q * h3⟩)
+  · exact Or.inr (Or.inr ⟨by linear_combination ω ^ 2 * h1 - p * h3 + ω * h3,
+      by linear_combination ω * h2 - q * h3⟩)
+  · exact Or.inl ⟨by linear_combination ω ^ 2 * h1 - p * h3 + h3,
+      by linear_combination ω * h2 - q * h3 + h3⟩
+
+/-- The census at one parameter tuple: Tao, or one of the two Fourier families. -/
+def CensusAt (ω p q r s : ℂ) : Prop :=
+  IsHadamard (fourierNormalForm ω p q r s (fourierForcedD ω p q r s)) →
+    IsTaoOrbit (fourierNormalForm ω p q r s (fourierForcedD ω p q r s)) ∨
+      IsFourierCharacterPair ω p q ∨ IsFourierCharacterPair ω r s
+
+theorem censusAt_of_shift_v {ω p q r s : ℂ} (hω : IsPrimitiveCubicPhase ω)
+    (h : CensusAt ω (ω * p) (ω ^ 2 * q) r s) : CensusAt ω p q r s := by
+  intro hH
+  have hE : Equivalent (fourierNormalForm ω p q r s (fourierForcedD ω p q r s))
+      (fourierNormalForm ω (ω * p) (ω ^ 2 * q) r s (fourierForcedD ω (ω * p) (ω ^ 2 * q) r s)) := by
+    rw [shift_v hω]; exact equivalent_reindexMatrix _ _ _
+  rcases h (isHadamard_of_equivalent hE hH) with hT | hc | hc
+  · exact Or.inl (isTaoOrbit_of_equivalent hE hT)
+  · exact Or.inr (Or.inl (hc.of_shift (primitiveCubicPhase_cube hω)))
+  · exact Or.inr (Or.inr hc)
+
+theorem censusAt_of_shift_w {ω p q r s : ℂ} (hω : IsPrimitiveCubicPhase ω)
+    (h : CensusAt ω p q (ω * r) (ω ^ 2 * s)) : CensusAt ω p q r s := by
+  intro hH
+  have hE : Equivalent (fourierNormalForm ω p q r s (fourierForcedD ω p q r s))
+      (fourierNormalForm ω p q (ω * r) (ω ^ 2 * s) (fourierForcedD ω p q (ω * r) (ω ^ 2 * s))) := by
+    rw [shift_w hω]; exact equivalent_reindexMatrix _ _ _
+  rcases h (isHadamard_of_equivalent hE hH) with hT | hc | hc
+  · exact Or.inl (isTaoOrbit_of_equivalent hE hT)
+  · exact Or.inr (Or.inl hc)
+  · exact Or.inr (Or.inr (hc.of_shift (primitiveCubicPhase_cube hω)))
+
+/-- The census at `p = r = 1` (handoff 22 Oct §5.1): `q = 1` or `s = 1` is a character; of the four
+other tuples, `(ω, ω)` and `(ω², ω²)` have a forced-block zero and `(ω, ω²)`, `(ω², ω)` are Tao. -/
+theorem censusAt_one_one {omega q s : ℂ} (homega : IsPrimitiveCubicPhase omega)
+    (hq : IsCubicRoot q) (hs : IsCubicRoot s) : CensusAt omega 1 q 1 s := by
+  intro hH
+  rcases cubicPowerFacts homega with ⟨h3, h4, -, -, -, -⟩
+  have hsq : omega ^ 2 = -omega - 1 := by linear_combination homega.2
+  rcases cubicRoot_eq_one_or_primitive_or_sq homega hq with rfl | rfl | rfl <;>
+  rcases cubicRoot_eq_one_or_primitive_or_sq homega hs with rfl | rfl | rfl
   · exact Or.inr (Or.inl (Or.inl ⟨rfl, rfl⟩))
   · exact Or.inr (Or.inl (Or.inl ⟨rfl, rfl⟩))
   · exact Or.inr (Or.inl (Or.inl ⟨rfl, rfl⟩))
   · exact Or.inr (Or.inr (Or.inl ⟨rfl, rfl⟩))
-  · apply hzero 0 2
+  · refine (false_of_fourierForcedD_entry_zero hH (i := 0) (j := 2) ?_).elim
     simp [fourierForcedD, dftEntry₀, zCol₀, zCol₁, zCol₂, vHat₀, vHat₁, vHat₂, dft₀]
     ring_nf
     simp [h3, hsq]
@@ -79,235 +126,41 @@ theorem cubicCensus_p_one
   · exact Or.inl (by
       simpa [cubicTaoP, cubicTaoQ, cubicTaoR, cubicTaoS] using
         cubicTaoTable_isTaoOrbit homega (n := 0) hH)
-  · apply hzero 0 2
-    simp [fourierForcedD, dftEntry₀, zCol₀, zCol₁, zCol₂, vHat₀, vHat₁, vHat₂, dft₀]
-    ring_nf
-    simp [h4, hsq]
-    ring
-  · exact Or.inl (by
-      simpa [cubicTaoP, cubicTaoQ, cubicTaoR, cubicTaoS] using
-        cubicTaoTable_isTaoOrbit homega (n := 1) hH)
-  · exact Or.inr (Or.inr (Or.inr (Or.inr ⟨rfl, rfl⟩)))
-  · exact Or.inl (by
-      simpa [cubicTaoP, cubicTaoQ, cubicTaoR, cubicTaoS] using
-        cubicTaoTable_isTaoOrbit homega (n := 2) hH)
-  · exact Or.inr (Or.inr (Or.inr (Or.inl ⟨rfl, rfl⟩)))
-  · apply hzero 1 2
-    simp [fourierForcedD, dftEntry₁, zCol₀, zCol₁, zCol₂, vHat₀, vHat₁, vHat₂, dft₁]
-    ring_nf
-    simp [h3, h4, h5, h6, hsq]
-    ring
   · exact Or.inr (Or.inr (Or.inl ⟨rfl, rfl⟩))
   · exact Or.inl (by
       simpa [cubicTaoP, cubicTaoQ, cubicTaoR, cubicTaoS] using
         cubicTaoTable_isTaoOrbit homega (n := 3) hH)
-  · apply hzero 0 2
+  · refine (false_of_fourierForcedD_entry_zero hH (i := 0) (j := 2) ?_).elim
     simp [fourierForcedD, dftEntry₀, zCol₀, zCol₁, zCol₂, vHat₀, vHat₁, vHat₂, dft₀]
     ring_nf
     simp [h3, h4, hsq]
-    ring
-  · exact Or.inl (by
-      simpa [cubicTaoP, cubicTaoQ, cubicTaoR, cubicTaoS] using
-        cubicTaoTable_isTaoOrbit homega (n := 4) hH)
-  · apply hzero 0 2
-    simp [fourierForcedD, dftEntry₀, zCol₀, zCol₁, zCol₂, vHat₀, vHat₁, vHat₂, dft₀]
-    ring_nf
-    simp [h3, h5, hsq]
-    ring
-  · exact Or.inr (Or.inr (Or.inr (Or.inr ⟨rfl, rfl⟩)))
-  · apply hzero 2 2
-    simp [fourierForcedD, dftEntry₂, zCol₀, zCol₁, zCol₂, vHat₀, vHat₁, vHat₂, dft₂]
-    ring_nf
-    simp [h3, h4, h5, h8, hsq]
-    ring
-  · exact Or.inr (Or.inr (Or.inr (Or.inl ⟨rfl, rfl⟩)))
-  · exact Or.inl (by
-      simpa [cubicTaoP, cubicTaoQ, cubicTaoR, cubicTaoS] using
-        cubicTaoTable_isTaoOrbit homega (n := 5) hH)
-
-/-- The cubic census with `p = omega`: Tao, or one of the two Fourier families. -/
-theorem cubicCensus_p_omega
-    {omega q r s : ℂ}
-    (homega : IsPrimitiveCubicPhase omega)
-    (hq : IsCubicRoot q) (hr : IsCubicRoot r) (hs : IsCubicRoot s)
-    (hH : IsHadamard (fourierNormalForm omega (omega) q r s (fourierForcedD omega (omega) q r s))) :
-    IsTaoOrbit (fourierNormalForm omega (omega) q r s (fourierForcedD omega (omega) q r s)) ∨
-      IsFourierCharacterPair omega (omega) q ∨ IsFourierCharacterPair omega r s := by
-  rcases cubicPowerFacts homega with ⟨h3, h4, h5, h6, h7, h8⟩
-  have hsq : omega ^ 2 = -omega - 1 := by
-    linear_combination homega.2
-  have hzero (i j : I3)
-      (hz : fourierForcedD omega (omega) q r s i j = 0) :
-      IsTaoOrbit (fourierNormalForm omega (omega) q r s (fourierForcedD omega (omega) q r s)) ∨
-      IsFourierCharacterPair omega (omega) q ∨ IsFourierCharacterPair omega r s :=
-    (false_of_fourierForcedD_entry_zero hH hz).elim
-  rcases cubicRoot_eq_one_or_primitive_or_sq homega hq with hq0 | hq1 | hq2 <;>
-    subst q <;>
-  rcases cubicRoot_eq_one_or_primitive_or_sq homega hr with hr0 | hr1 | hr2 <;>
-    subst r <;>
-  rcases cubicRoot_eq_one_or_primitive_or_sq homega hs with hs0 | hs1 | hs2 <;>
-    subst s
-  · exact Or.inr (Or.inr (Or.inl ⟨rfl, rfl⟩))
-  · apply hzero 0 2
-    simp [fourierForcedD, dftEntry₀, zCol₀, zCol₁, zCol₂, vHat₀, vHat₁, vHat₂, dft₀]
-    ring_nf
-    simp [h3, hsq]
-    ring
-  · exact Or.inl (by
-      simpa [cubicTaoP, cubicTaoQ, cubicTaoR, cubicTaoS] using
-        cubicTaoTable_isTaoOrbit homega (n := 6) hH)
-  · apply hzero 2 2
-    simp [fourierForcedD, dftEntry₂, zCol₀, zCol₁, zCol₂, vHat₀, vHat₁, vHat₂, dft₂]
-    ring_nf
-    simp [h3, h5, hsq]
-    ring
-  · exact Or.inl (by
-      simpa [cubicTaoP, cubicTaoQ, cubicTaoR, cubicTaoS] using
-        cubicTaoTable_isTaoOrbit homega (n := 7) hH)
-  · exact Or.inr (Or.inr (Or.inr (Or.inr ⟨rfl, rfl⟩)))
-  · exact Or.inl (by
-      simpa [cubicTaoP, cubicTaoQ, cubicTaoR, cubicTaoS] using
-        cubicTaoTable_isTaoOrbit homega (n := 8) hH)
-  · exact Or.inr (Or.inr (Or.inr (Or.inl ⟨rfl, rfl⟩)))
-  · apply hzero 1 2
-    simp [fourierForcedD, dftEntry₁, zCol₀, zCol₁, zCol₂, vHat₀, vHat₁, vHat₂, dft₁]
-    ring_nf
-    simp [h3, h4, h5, hsq]
-    ring
-  · exact Or.inr (Or.inr (Or.inl ⟨rfl, rfl⟩))
-  · exact Or.inl (by
-      simpa [cubicTaoP, cubicTaoQ, cubicTaoR, cubicTaoS] using
-        cubicTaoTable_isTaoOrbit homega (n := 9) hH)
-  · apply hzero 1 1
-    simp [fourierForcedD, dftEntry₁, zCol₀, zCol₁, zCol₂, vHat₀, vHat₁, vHat₂, dft₁]
-    ring_nf
-    simp [h3, h4, h6, h7, hsq]
-    ring
-  · exact Or.inl (by
-      simpa [cubicTaoP, cubicTaoQ, cubicTaoR, cubicTaoS] using
-        cubicTaoTable_isTaoOrbit homega (n := 10) hH)
-  · apply hzero 0 2
-    simp [fourierForcedD, dftEntry₀, zCol₀, zCol₁, zCol₂, vHat₀, vHat₁, vHat₂, dft₀]
-    ring_nf
-    simp [h3, h4, hsq]
-    ring
-  · exact Or.inr (Or.inr (Or.inr (Or.inr ⟨rfl, rfl⟩)))
-  · apply hzero 0 2
-    simp [fourierForcedD, dftEntry₀, zCol₀, zCol₁, zCol₂, vHat₀, vHat₁, vHat₂, dft₀]
-    ring_nf
-    simp [h3, h4, h5, hsq]
-    ring
-  · exact Or.inr (Or.inr (Or.inr (Or.inl ⟨rfl, rfl⟩)))
-  · exact Or.inl (by
-      simpa [cubicTaoP, cubicTaoQ, cubicTaoR, cubicTaoS] using
-        cubicTaoTable_isTaoOrbit homega (n := 11) hH)
-  · exact Or.inr (Or.inl (Or.inr (Or.inr ⟨rfl, rfl⟩)))
-  · exact Or.inr (Or.inl (Or.inr (Or.inr ⟨rfl, rfl⟩)))
-  · exact Or.inr (Or.inl (Or.inr (Or.inr ⟨rfl, rfl⟩)))
-  · exact Or.inr (Or.inl (Or.inr (Or.inr ⟨rfl, rfl⟩)))
-  · exact Or.inr (Or.inl (Or.inr (Or.inr ⟨rfl, rfl⟩)))
-  · exact Or.inr (Or.inl (Or.inr (Or.inr ⟨rfl, rfl⟩)))
-  · exact Or.inr (Or.inl (Or.inr (Or.inr ⟨rfl, rfl⟩)))
-  · exact Or.inr (Or.inl (Or.inr (Or.inr ⟨rfl, rfl⟩)))
-  · exact Or.inr (Or.inl (Or.inr (Or.inr ⟨rfl, rfl⟩)))
-
-/-- The cubic census with `p = omega ^ 2`: Tao, or one of the two Fourier families. -/
-theorem cubicCensus_p_omega_sq
-    {omega q r s : ℂ}
-    (homega : IsPrimitiveCubicPhase omega)
-    (hq : IsCubicRoot q) (hr : IsCubicRoot r) (hs : IsCubicRoot s)
-    (hH : IsHadamard (fourierNormalForm omega (omega ^ 2) q r s (fourierForcedD omega (omega ^ 2) q r s))) :
-    IsTaoOrbit (fourierNormalForm omega (omega ^ 2) q r s (fourierForcedD omega (omega ^ 2) q r s)) ∨
-      IsFourierCharacterPair omega (omega ^ 2) q ∨ IsFourierCharacterPair omega r s := by
-  rcases cubicPowerFacts homega with ⟨h3, h4, h5, h6, h7, h8⟩
-  have hsq : omega ^ 2 = -omega - 1 := by
-    linear_combination homega.2
-  have hzero (i j : I3)
-      (hz : fourierForcedD omega (omega ^ 2) q r s i j = 0) :
-      IsTaoOrbit (fourierNormalForm omega (omega ^ 2) q r s (fourierForcedD omega (omega ^ 2) q r s)) ∨
-      IsFourierCharacterPair omega (omega ^ 2) q ∨ IsFourierCharacterPair omega r s :=
-    (false_of_fourierForcedD_entry_zero hH hz).elim
-  rcases cubicRoot_eq_one_or_primitive_or_sq homega hq with hq0 | hq1 | hq2 <;>
-    subst q <;>
-  rcases cubicRoot_eq_one_or_primitive_or_sq homega hr with hr0 | hr1 | hr2 <;>
-    subst r <;>
-  rcases cubicRoot_eq_one_or_primitive_or_sq homega hs with hs0 | hs1 | hs2 <;>
-    subst s
-  · exact Or.inr (Or.inr (Or.inl ⟨rfl, rfl⟩))
-  · exact Or.inl (by
-      simpa [cubicTaoP, cubicTaoQ, cubicTaoR, cubicTaoS] using
-        cubicTaoTable_isTaoOrbit homega (n := 12) hH)
-  · apply hzero 1 0
-    simp [fourierForcedD, dftEntry₁, zCol₀, zCol₁, zCol₂, vHat₀, vHat₁, vHat₂, dft₁]
-    ring_nf
-    simp [h4, h5, h6, h7, hsq]
-    ring
-  · exact Or.inl (by
-      simpa [cubicTaoP, cubicTaoQ, cubicTaoR, cubicTaoS] using
-        cubicTaoTable_isTaoOrbit homega (n := 13) hH)
-  · apply hzero 0 1
-    simp [fourierForcedD, dftEntry₀, zCol₀, zCol₁, zCol₂, vHat₀, vHat₁, vHat₂, dft₀]
-    ring_nf
-    simp [h3, h5, hsq]
-    ring
-  · exact Or.inr (Or.inr (Or.inr (Or.inr ⟨rfl, rfl⟩)))
-  · apply hzero 0 1
-    simp [fourierForcedD, dftEntry₀, zCol₀, zCol₁, zCol₂, vHat₀, vHat₁, vHat₂, dft₀]
-    ring_nf
-    simp [h3, h4, hsq]
-    ring
-  · exact Or.inr (Or.inr (Or.inr (Or.inl ⟨rfl, rfl⟩)))
-  · exact Or.inl (by
-      simpa [cubicTaoP, cubicTaoQ, cubicTaoR, cubicTaoS] using
-        cubicTaoTable_isTaoOrbit homega (n := 14) hH)
-  · exact Or.inr (Or.inl (Or.inr (Or.inl ⟨rfl, rfl⟩)))
-  · exact Or.inr (Or.inl (Or.inr (Or.inl ⟨rfl, rfl⟩)))
-  · exact Or.inr (Or.inl (Or.inr (Or.inl ⟨rfl, rfl⟩)))
-  · exact Or.inr (Or.inl (Or.inr (Or.inl ⟨rfl, rfl⟩)))
-  · exact Or.inr (Or.inl (Or.inr (Or.inl ⟨rfl, rfl⟩)))
-  · exact Or.inr (Or.inl (Or.inr (Or.inl ⟨rfl, rfl⟩)))
-  · exact Or.inr (Or.inl (Or.inr (Or.inl ⟨rfl, rfl⟩)))
-  · exact Or.inr (Or.inl (Or.inr (Or.inl ⟨rfl, rfl⟩)))
-  · exact Or.inr (Or.inl (Or.inr (Or.inl ⟨rfl, rfl⟩)))
-  · exact Or.inr (Or.inr (Or.inl ⟨rfl, rfl⟩))
-  · apply hzero 2 1
-    simp [fourierForcedD, dftEntry₂, zCol₀, zCol₁, zCol₂, vHat₀, vHat₁, vHat₂, dft₂]
-    ring_nf
-    simp [h3, h4, h5, h6, hsq]
-    ring
-  · exact Or.inl (by
-      simpa [cubicTaoP, cubicTaoQ, cubicTaoR, cubicTaoS] using
-        cubicTaoTable_isTaoOrbit homega (n := 15) hH)
-  · apply hzero 1 1
-    simp [fourierForcedD, dftEntry₁, zCol₀, zCol₁, zCol₂, vHat₀, vHat₁, vHat₂, dft₁]
-    ring_nf
-    simp [h3, h4, h5, h6, hsq]
-    ring
-  · exact Or.inl (by
-      simpa [cubicTaoP, cubicTaoQ, cubicTaoR, cubicTaoS] using
-        cubicTaoTable_isTaoOrbit homega (n := 16) hH)
-  · exact Or.inr (Or.inr (Or.inr (Or.inr ⟨rfl, rfl⟩)))
-  · exact Or.inl (by
-      simpa [cubicTaoP, cubicTaoQ, cubicTaoR, cubicTaoS] using
-        cubicTaoTable_isTaoOrbit homega (n := 17) hH)
-  · exact Or.inr (Or.inr (Or.inr (Or.inl ⟨rfl, rfl⟩)))
-  · apply hzero 0 1
-    simp [fourierForcedD, dftEntry₀, zCol₀, zCol₁, zCol₂, vHat₀, vHat₁, vHat₂, dft₀]
-    ring_nf
-    simp [h3, h4, h5, h6, hsq]
     ring
 
 /-- The mixed allocations: with four cubic parameters the forced normal form is Tao, or has a character
-`v` or `w`. -/
+`v` or `w`.  Multiplying `v` or `w` by a character permutes columns or rows (`censusAt_of_shift_v`,
+`censusAt_of_shift_w`), which normalises `p = r = 1` (`censusAt_one_one`). -/
 theorem cubicCensus {omega p q r s : ℂ} (homega : IsPrimitiveCubicPhase omega)
-    (hp : IsCubicRoot p) (hq : IsCubicRoot q) (hr : IsCubicRoot r) (hs : IsCubicRoot s)
-    (hH : IsHadamard (fourierNormalForm omega p q r s (fourierForcedD omega p q r s))) :
-    IsTaoOrbit (fourierNormalForm omega p q r s (fourierForcedD omega p q r s)) ∨
-      IsFourierCharacterPair omega p q ∨ IsFourierCharacterPair omega r s := by
+    (hp : IsCubicRoot p) (hq : IsCubicRoot q) (hr : IsCubicRoot r) (hs : IsCubicRoot s) :
+    CensusAt omega p q r s := by
+  have h3 : omega ^ 3 = 1 := primitiveCubicPhase_cube homega
+  have hω3 : IsCubicRoot (omega ^ 2) := cubic_pow h3 2
+  have e1 : omega * omega ^ 2 = 1 := by linear_combination h3
+  -- normalise `r = 1`
+  have hr2 : ∀ {q s : ℂ}, IsCubicRoot q → IsCubicRoot s → CensusAt omega 1 q (omega ^ 2) s :=
+    fun hq hs => censusAt_of_shift_w homega (by rw [e1]; exact censusAt_one_one homega hq (cubic_mul hω3 hs))
+  have hr' : ∀ {q r s : ℂ}, IsCubicRoot q → IsCubicRoot r → IsCubicRoot s → CensusAt omega 1 q r s := by
+    intro q r s hq hr hs
+    rcases cubicRoot_eq_one_or_primitive_or_sq homega hr with rfl | rfl | rfl
+    · exact censusAt_one_one homega hq hs
+    · exact censusAt_of_shift_w homega (by rw [← sq]; exact hr2 hq (cubic_mul hω3 hs))
+    · exact hr2 hq hs
+  -- normalise `p = 1`
+  have hp2 : ∀ {q : ℂ}, IsCubicRoot q → CensusAt omega (omega ^ 2) q r s :=
+    fun hq => censusAt_of_shift_v homega (by rw [e1]; exact hr' (cubic_mul hω3 hq) hr hs)
   rcases cubicRoot_eq_one_or_primitive_or_sq homega hp with rfl | rfl | rfl
-  · exact cubicCensus_p_one homega hq hr hs hH
-  · exact cubicCensus_p_omega homega hq hr hs hH
-  · exact cubicCensus_p_omega_sq homega hq hr hs hH
+  · exact hr' hq hr hs
+  · exact censusAt_of_shift_v homega (by rw [← sq]; exact hp2 (cubic_mul hω3 hq))
+  · exact hp2 hq
 
 /-! ### All zero allocations (`PRM.md` §5.3) -/
 
@@ -344,9 +197,6 @@ theorem fourierNormalForm_tao_or_character {ω p q r s : ℂ} (hω : IsPrimitive
   · exact Or.inr (Or.inl (hvchar hA₁ hA₂))
 
 /-! ### The forced Fourier matrices at a character gauge (`PRM.md` §5.4) -/
-
-/-- Shift of the last three indices by `c`. -/
-def shiftR (c : Fin 3) : Equiv.Perm I6 := Equiv.sumCongr (Equiv.refl _) (Equiv.addRight c)
 
 /-- `v = (1, 1, 1)`: the family in `(r, s)` (family (5.5)). -/
 theorem v_form_one {ω r s : ℂ} (hω : IsPrimitiveCubicPhase ω) :
