@@ -31,7 +31,7 @@ excluded separately. No classification of order-6 Hadamard matrices is used.
 **How the pieces fit.**
 
 ```
-Theorem 1 (maxima of R) ──→ Lemma 1.1 (maximum principle) ─────────────┐
+Theorem 1 (maxima of R) ──→ Lemma 1.1 (S is connected) ────────────────┐
 Lemma 2.1 (side quadratic) ─→ 2.2 existence ─→ 2.3 uniqueness ─────────┤
                               2.2 ─→ 2.4 converse ──┐                  │
                               2.5 coverage ─────────┴→ 2.6 exact reach ┴→ Theorem 2 (X connected)
@@ -77,18 +77,22 @@ determines the scalar R(θ) = 4g²η − χ² (Step 2.1 gives the formulas).
 >
 > (The Hessian there is negative definite, so these 18 points are exactly the positive local maxima, and max R = 3¹³/2¹².)
 
-Theorem 1 is used in one form, three times (Theorems 2.2 and 2, and the Lean coverage route):
+Theorem 1 is used once, through the following lemma.
 
-> **Lemma 1.1 (maximum principle).** Let S = {θ ∈ T⁴ : R(θ) > 0}. If U ⊆ S is open and closed in S and contains the
-> 18 maxima of Theorem 1, then U = S.
+> **Lemma 1.1 (the strict seeds are connected).** S = {θ ∈ T⁴ : R(θ) > 0} is connected, indeed path connected.
 
-*Proof.* Otherwise V = S ∖ U is nonempty, open and closed in S. Maximise R on the closure of V in the compact torus
-T⁴. The maximum is positive, so it is attained in S, hence in V (closed in S); V is open in T⁴, so it is a positive
-local maximum of R. By Theorem 1 it is one of the 18 maxima, which lie in U. ∎
+*Proof.* Each component of S has compact closure in T⁴ with R = 0 on its boundary, so R attains a positive local
+maximum inside it; by Theorem 1 it is one of the 18 maxima. It remains to join the 18 maxima inside S. With z = e^{it},
+w = e^{is}, the triples e = (z⁻², z, z) and o = (w⁻², w, w), the distinct entry in any of the three positions, give
+seeds (a, b, c, d) = (e₁/o₂, o₁/e₃, o₁/e₂, e₁/o₃); the nine placements at (t, s) = (α, −α) and (−α, α) are exactly the 18
+maxima. On s = −t, with x = cos t, R = 256(1−2x)(1+2x)⁵(1+2x²)²(4x³−2x+1)², positive for 0 ≤ x ≤ 1/4, so each maximum
+reaches the circle s = t + π inside S; on that circle R ≡ 256. At (0, π) the three placements of e give the same seed,
+and at (π, 0) those of o do, so the nine circles are joined in a 3 × 3 grid. All 18 maxima, and so all components, lie
+in one path component. ∎
 
-The same argument shows that a **nonempty** U ⊆ S, open and closed in S, contains a positive local maximum (maximise
-R on the closure of U). So it suffices that U is nonempty and that, once U contains one of the 18 maxima, it contains
-all of them. This is the form used below, with the seed symmetries moving one maximum to the others.
+So a subset of S that is open and closed in S and nonempty is all of S; this is how the lemma is used below.
+The identities are replayed exactly by [`proof/coverage/omega_connected/verify_paths.py`](proof/coverage/omega_connected/verify_paths.py).
+*Lean:* `Step2.isConnected_strict` (`Step2/StrictConnected`), with the paths through Lean's Step 1 coordinates.
 
 **Coordinates.** Normalise the even products (ad, b, c) and the odd products (bc, d, a) of the corner so that each triple has product 1. Let U and V be their traces. Each lies in the filled deltoid 𝒟, and the trace map is an open quotient by S₃. Put A = U + V, B = U − V, u = |A|² and v = |B|². Then
 
@@ -165,8 +169,7 @@ A = {[H] : H matched at a strict seed}.
   with R(t) = 144 sin²t (1 + cos t)² > 0 for 0 < t < π, and K(t) is a matched completion there, by explicit
   signatures 2T(B) = χ + i√R and 2T(C) = χ − i√R (return Q,
   [`proof/coverage/returns/Q_fourier_anchor`](proof/coverage/returns/Q_fourier_anchor/PROOF.md)). The sides of a
-  matched completion lie in U. At a seed of U, the sides and the flatness step below give a matched completion, and
-  the seed symmetries move it to all 18 maxima, whose sides then lie in U. So U = S by Lemma 1.1 (nonempty form).
+  matched completion lie in U. So U is a nonempty open and closed subset of S, and U = S by Lemma 1.1.
   Conjugating seed and side gives the other root ([`proof/coverage/returns/J_side_existence/RESULT.md`](proof/coverage/returns/J_side_existence/RESULT.md)). The flatness step uses any actual sides, so it applies at each seed of U before
   U = S is known.
 - **Flatness.** For *any* actual sides B, C on conjugate roots, the forced block D = −C E* G⁻¹ B has unimodular
@@ -180,7 +183,7 @@ A = {[H] : H matched at a strict seed}.
 
 *Lean:* `L1.matchedExistence`. Side existence is `L1.sides_all`, with `L1.exists_side_h` and `L1.exists_side_v`
 (`L1/SideJacobian`, `L1/SideCover`, `L1/Existence`); the pointwise step is `L1.matched_of_sides`, the Fourier
-anchor `Step2.matched_fourier` (`Step2/FourierAnchor`) and the transport `Step2.eq_univ_of_anchor_transport`; the two flatness identities of W₁₁ are re-checked by the kernel through a verified Kronecker
+anchor `Step2.matched_fourier` (`Step2/FourierAnchor`) and connectedness `Step2.isConnected_strict`; the two flatness identities of W₁₁ are re-checked by the kernel through a verified Kronecker
 polynomial-identity checker, and the relabelling is `L1.FlatCircuits.W_zero` (with `W_rowPerm`, `W_colPerm`). ∎
 
 > **Theorem 2.3 (matched uniqueness).** Two matched completions of the same strict seed are equivalent.
@@ -261,16 +264,8 @@ matched. If the horizontal signature is ζ₋, conjugate the whole matrix. *Lean
 *Proof.*
 1. **Continuity.** The class map θ ↦ [H₊(θ)] on strict seeds is continuous: the matched relation is closed, 𝓗 is
    compact, and the matched class is unique (Theorems 2.2, 2.3).
-2. **S is connected.** Each component of S has compact closure, with R = 0 on its boundary, so it contains a
-   positive local maximum (the argument of Lemma 1.1); by Theorem 1 it is one of the 18 maxima. Explicit paths join
-   all 18 inside S. With z = e^{it}, w = e^{is}, the triples e = (z⁻², z, z) and o = (w⁻², w, w), the distinct
-   entry in any of the three positions, give seeds (a, b, c, d) = (e₁/o₂, o₁/e₃, o₁/e₂, e₁/o₃); the nine placements at
-   (t, s) = (α, −α) and (−α, α) are exactly the 18 maxima. On s = −t, with x = cos t,
-   R = 256(1−2x)(1+2x)⁵(1+2x²)²(4x³−2x+1)² > 0 for 0 ≤ x ≤ 1/4, so each maximum reaches the circle s = t + π inside
-   S, and on that circle R ≡ 256. At (0, π) the three placements of e give the same seed, and at (π, 0) those of o
-   do, so the nine circles are joined in a 3 × 3 grid. Hence S is connected, indeed path connected. (Identities checked
-   exactly by computer algebra.)
-   **A is connected**, as the continuous image of S (step 1), and so is conj A.
+2. **A is connected.** S is connected (Lemma 1.1), so its continuous image A is connected (step 1), and so is
+   conj A.
 3. **Joining at F6.** The family [[F₃, F₃], [F₃D(t), −F₃D(t)]], with D(t) = diag(1, e^{it}, 1), tends to
    F₂⊗F₃ ≅ F6 as t → 0. Its cross-ratio e^{it} keeps it away from F6 and S₆ for 0 < t < π/3. So [F6] lies in the
    closure of both A and conj A.
@@ -336,8 +331,7 @@ Since X is connected (Theorem 2), W ∩ X = X. ∎
 statement. `Final.no_four_mubs` uses the direct route `Step2.coverage_of_matched_density`: W pulled back to the
 strict seeds is open and closed in S. It is nonempty: the certificate puts F6 in the interior of a Record, so W is a
 neighbourhood of [F6]; the Fourier family K(t) tends to F6, so [K(t)] ∈ W for small t > 0; and K(t) is matched at a
-strict corner (return Q, `Step2.exists_matched_mem`). With one maximum it contains all 18, since the seed symmetries
-move matched completions between them and the matched class is unique (Theorem 2.3). So by Lemma 1.1 it is all of S,
+strict corner (return Q, `Step2.exists_matched_mem`). So by Lemma 1.1 it is all of S,
 W contains A and conj A, and X = A ∪ conj A ∪ {[F6]} by Corollary 2.6.
 
 **The computation** ([`proof/atlas/`](proof/atlas/README.md)):
@@ -367,7 +361,7 @@ By Step 4 and Lemma 4.2, every class in X lies in some ball Record. By Step 3, n
 | Theorem 2.3 (matched uniqueness) | Step 2.2 | none | yes |
 | Theorem 2.4 (nonmatched converse) | return G §§2–5 | exact: 81-case census, Laurent identities | yes |
 | Theorem 2.5 (strict-corner coverage) | `STRICT_CORNER_COVERAGE.md`; return K for nonzero J; return S for the count | exact identities | yes (kernel re-checks the zero-J square-sum identity and return K's signed corner expansion) |
-| Lemma 1.1, Theorem 2 (connectedness) | Steps 1, 2.3 | none | Lemma 1.1 in the direct coverage route (`coverage_of_matched_density`); Theorem 2 not as a standalone theorem |
+| Lemma 1.1 (S connected), Theorem 2 (connectedness) | Steps 1, 2.3 | exact path identities | Lemma 1.1 yes (`isConnected_strict`); Theorem 2 in the direct coverage route (`coverage_of_matched_density`), not as a standalone theorem |
 | Lemmas 3.1–3.2, Remark 3.3 | `STAGEC.md` | none | yes (as inequalities) |
 | The atlas (Step 4) | Lemmas 4.1–4.2 | Arb and margined float; two independent implementations | the topology yes; the numbers are checked outside Lean |
 
