@@ -7,6 +7,7 @@ computation, replayable), **NUMERICAL** (evidence only), **CONJECTURE**.
 | Brief | Statement | What it would remove | Difficulty |
 |---|---|---|---|
 | [`R2_flatness_cross_side`](R2_flatness_cross_side/BRIEF.md) | The cross-side step: 𝒞₁₁(z, w) lies in (z + w − χ/g, zw − η); everything single-sided is done (return R, partial) | `L1/FlatData.lean` (229 KB), `FlatCheckW11` (3 min, 11 GB) | Medium–high |
+| [`T_triple_component_maximum`](T_triple_component_maximum/BRIEF.md) | F (every triple has a Fourier-type transition) via a classified maximum on triple space: F ⇔ Π has no positive local maximum on V; work over seed coordinates, as Lemma 1.1 did for Hadamard space | The atlas (with E and Tao, F gives N(6) = 3) | Very high |
 | [`P_atlas_free`](P_atlas_free/BRIEF.md) | Replace the atlas by algebra: prove F (every MUB triple has a Fourier-type transition) via (A) triples with a Fourier edge, (B) local completeness along them, (C) no compact Fourier-free component of triple space | Steps 3–4 (the atlas, Stage C, boundary transfers) and the kernel atlas | Very high (C is the core of the MMVW triple conjecture). **Partly returned** ([`../returns/P_atlas_free`](../returns/P_atlas_free/REVIEW.md)): B done, A local; A + C open |
 
 **Returned and being integrated (18 Oct):** O (zero-J strips by unsquared sums), Q (Fourier-family anchor) and S
