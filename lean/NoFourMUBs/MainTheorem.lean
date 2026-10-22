@@ -19,8 +19,8 @@ Everything else is proved here, using only the standard axioms:
 * Step 3, Lemma 3.1 and Stage C (`RecordCert.excludes`);
 * Step 4, the clopen atlas (`recordClopen_of_atlas`, via the boundary transfer of Lemma 4.1);
 * matched uniqueness (`Step2.matchedUniqueness`);
-* the anchor orbit and transport (`Step2.eq_univ_of_anchor_transport`), and the matched Fourier family that
-  starts it (`Step2.matched_fourier`, return Q);
+* the connectedness of the strict seeds (`Step2.isConnected_strict`), and the matched Fourier family
+  (`Step2.matched_fourier`, return Q);
 * the coverage topology (`Step2.coverage_of_matched_density`).
 -/
 

@@ -15,7 +15,7 @@ and are explicit arguments of the assembly theorem.
 
 The direct coverage theorem built on these statements,
 `coverage_of_matched_density`, is in `Step2/FourierAnchor.lean`: it needs the
-anchor transport and the Fourier family, which import this file.
+connectedness of the strict seeds (`Step2/StrictConnected.lean`) and the Fourier family.
 -/
 
 open Set Matrix Hadamard6

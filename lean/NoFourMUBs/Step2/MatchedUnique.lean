@@ -11,6 +11,9 @@ Both horizontal sides satisfy `BB* = 6I − EE*` and have the same signature `T 
 `T = (χ − i√R)/2`) differ by a row permutation `ρ`.  Permuting the last three rows and columns of `H` by `ρ`
 and `σ` matches `E`, `B` and `C`; orthogonality forces the lower-right block (`eq_forcedD_of_row_cross`), so `K`
 is that permutation of `H`.
+
+The side signature is also invariant under permutations and unit rescalings of rows and columns
+(`sideSignature_submatrix`, `sideSignature_scale`), used by the Fourier-block and corner lemmas of `PRM`.
 -/
 
 open Matrix Hadamard6 ComplexConjugate NoFourMUBs.Side
@@ -149,5 +152,48 @@ theorem matchedUniqueness : MatchedUniqueness := by
   have hKK : K.1 = K' := by
     rw [← Matrix.fromBlocks_toBlocks K.1, ← Matrix.fromBlocks_toBlocks K', hEK, bE, bB, bC, dK, dK']
   rw [hKK]; exact hEq
+
+/-! ### Signatures under permutations and phases -/
+
+lemma permanent3_submatrix (B : Mat3) (π τ : Equiv.Perm (Fin 3)) :
+    permanent3 (B.submatrix π τ) = permanent3 B := by
+  unfold permanent3
+  simp only [Matrix.submatrix_apply]
+  have h1 : ∀ σ : Equiv.Perm (Fin 3), ∏ i, B (π i) (τ (σ i)) = ∏ i, B i ((τ * σ * π⁻¹) i) := by
+    intro σ
+    rw [← Equiv.prod_comp π (fun i => B i ((τ * σ * π⁻¹) i))]
+    simp [Equiv.Perm.mul_apply]
+  simp only [h1]
+  exact Equiv.sum_comp ((Equiv.mulLeft τ).trans (Equiv.mulRight π⁻¹)) (fun σ => ∏ i, B i (σ i))
+
+lemma sideSignature_submatrix (B : Mat3) (π τ : Equiv.Perm (Fin 3)) :
+    sideSignature (B.submatrix π τ) = sideSignature B := by
+  unfold sideSignature
+  rw [permanent3_submatrix]
+  have hd : (B.submatrix π τ).det ^ 2 = B.det ^ 2 := by
+    have : B.submatrix π τ = (B.submatrix π id).submatrix id τ := rfl
+    rw [this, Matrix.det_permute', Matrix.det_permute]
+    have s1 : ((Equiv.Perm.sign π : ℤ) : ℂ) ^ 2 = 1 := by
+      rcases Int.units_eq_one_or (Equiv.Perm.sign π) with h | h <;> simp [h]
+    have s2 : ((Equiv.Perm.sign τ : ℤ) : ℂ) ^ 2 = 1 := by
+      rcases Int.units_eq_one_or (Equiv.Perm.sign τ) with h | h <;> simp [h]
+    linear_combination (B.det ^ 2 * ((Equiv.Perm.sign π : ℤ) : ℂ) ^ 2) * s2 + B.det ^ 2 * s1
+  have hp : ∏ i, ∏ j, star (B.submatrix π τ i j) = ∏ i, ∏ j, star (B i j) := by
+    simp only [Matrix.submatrix_apply]
+    rw [← Equiv.prod_comp π (fun i => ∏ j, star (B i j))]
+    exact Finset.prod_congr rfl fun i _ => Equiv.prod_comp τ (fun j => star (B (π i) j))
+  rw [hd, hp]
+
+lemma sideSignature_scale (B : Mat3) (r c : Fin 3 → ℂ) (hr : ∀ i, r i * conj (r i) = 1)
+    (hc : ∀ j, c j * conj (c j) = 1) :
+    sideSignature (Matrix.of fun i j => r i * B i j * c j) = sideSignature B := by
+  have key : sideSignature (Matrix.of fun i j => r i * B i j * c j) = sideSignature B *
+      ((r 0 * conj (r 0)) * (r 1 * conj (r 1)) * (r 2 * conj (r 2))) ^ 3 *
+      ((c 0 * conj (c 0)) * (c 1 * conj (c 1)) * (c 2 * conj (c 2))) ^ 3 := by
+    rw [sideSignature, sideSignature, permanent3_expand, permanent3_expand, Matrix.det_fin_three,
+      Matrix.det_fin_three]
+    simp only [Matrix.of_apply, Fin.prod_univ_three, star_mul', Complex.star_def]
+    ring
+  rw [key, hr, hr, hr, hc, hc, hc]; ring
 
 end NoFourMUBs.Step2

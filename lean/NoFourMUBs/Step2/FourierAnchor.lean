@@ -1,4 +1,5 @@
-import NoFourMUBs.Step2.AnchorTransport
+import NoFourMUBs.Step2.MatchedUnique
+import NoFourMUBs.Step2.StrictConnected
 
 /-!
 # The Fourier family anchors the reconstruction (return Q)
@@ -14,15 +15,16 @@ so `θ(z)` is strict when `y > 0`, and the complementary blocks `B`, `C` of the 
 `2 T(B) = −6 (1 + z)(1 + z̄)² = χ + i√R` and `2 T(C) = χ − i√R`: the reordered `A(z)` is a matched completion at
 `θ(z)` (`matched_fourier`).  This is return Q's curve `K(t)` up to equivalence (the same `R`).
 
-Two uses replace the explicit anchor `H₀`:
+Two uses replace the explicit anchor `H₀`; both conclude because the strict seeds are connected
+(`isConnected_strict`), so a nonempty open and closed set of strict seeds is all of them:
 * **Side existence** (`L1.sides_all`) needs one strict seed with matched sides: `exists_matched`.
 * **Coverage** (`coverage_of_matched_density`, `PROOF.md` Lemma 4.2).  `A(exp(it)) → F6` as `t → 0`, and the
   covered classes `W` are open and contain `F6`, so for small `t > 0` the matched completion at `θ(exp(it))` lies in
-  `W` (`exists_matched_mem`).  So `{s : f₊(s) ∈ W}` is a nonempty open and closed set of strict seeds, and the anchor
-  transport (`eq_univ_of_anchor_transport`) makes it every strict seed.
+  `W` (`exists_matched_mem`).  So `{s : f₊(s) ∈ W}` is a nonempty open and closed set of strict seeds, hence every
+  strict seed.
 -/
 
-open Set Matrix Hadamard6 ComplexConjugate NoFourMUBs.Step1Geo NoFourMUBs.Step2Topology
+open Set Matrix Hadamard6 ComplexConjugate NoFourMUBs.Step2Topology
 
 noncomputable section
 
@@ -268,8 +270,8 @@ theorem exists_matched : ∃ (s : StrictSeed) (H : Had6), Matched s H := by
 
 /-- **Coverage** (`PROOF.md` Lemma 4.2).  L1 + L2 + G-density, clopen Records and `F6` in a Record imply exactly
 `NoFourMUBs.Inputs.covered`.  The seeds whose matched class is covered form an open and closed set (L1, L2 and
-continuity), nonempty by the Fourier family (`exists_matched_mem`), and stable under the anchor transport (L2), so
-it is every strict seed; the closure of the matched images is then covered. -/
+continuity), nonempty by the Fourier family (`exists_matched_mem`), so it is every strict seed (`isConnected_strict`);
+the closure of the matched images is then covered. -/
 theorem coverage_of_matched_density
     (Ball : Mat6 → Prop) (hE : MatchedExistence) (hU : MatchedUniqueness)
     (hD : MatchedDensityReach) (hClopen : RecordClopen Ball)
@@ -278,15 +280,9 @@ theorem coverage_of_matched_density
       ∃ G K, InGamma H G ∧ Ball K ∧ Equivalent G K := by
   set A : Set StrictSeed := matchedClassMap hE ⁻¹' CoveredClasses Ball
   have hA : A = Set.univ := by
-    apply eq_univ_of_anchor_transport A (hClopen.preimage (continuous_matchedClassMap hE hU))
-    · obtain ⟨s, H, hH, hW⟩ := exists_matched_mem _ hClopen.isOpen hFourier
-      exact ⟨s, by rw [Set.mem_preimage, ← matchedClassMap_eq hE hU s H hH]; exact hW⟩
-    · intro s _ hs
-      refine ⟨_, Classical.choose_spec (hE s), fun s' K hK e => ?_⟩
-      have hq : hadamardQuotient (Classical.choose (hE s)) = hadamardQuotient K := Quotient.sound e
-      rw [Set.mem_preimage, ← matchedClassMap_eq hE hU s' K hK, ← hq,
-        matchedClassMap_eq hE hU s _ (Classical.choose_spec (hE s))]
-      exact hs
+    refine (hClopen.preimage (continuous_matchedClassMap hE hU)).eq_univ ?_
+    obtain ⟨s, H, hH, hW⟩ := exists_matched_mem _ hClopen.isOpen hFourier
+    exact ⟨s, by rw [Set.mem_preimage, ← matchedClassMap_eq hE hU s H hH]; exact hW⟩
   have hMatched : MatchedClasses ⊆ CoveredClasses Ball := by
     rintro q ⟨s, H, hH, rfl⟩
     rw [matchedClassMap_eq hE hU s H hH]

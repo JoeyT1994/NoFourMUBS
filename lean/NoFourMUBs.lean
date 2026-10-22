@@ -35,8 +35,7 @@ import NoFourMUBs.Step1.Census
 import NoFourMUBs.Step2.SideAlg
 import NoFourMUBs.Step2.SidePerm
 import NoFourMUBs.Step2.MatchedUnique
-import NoFourMUBs.Step1.AnchorOrbit
-import NoFourMUBs.Step2.AnchorTransport
+import NoFourMUBs.Step2.StrictConnected
 import NoFourMUBs.Step2.FourierAnchor
 import NoFourMUBs.Step2.Connected
 import NoFourMUBs.MainTheorem

@@ -1,6 +1,5 @@
 import NoFourMUBs.PRM.Converse
 import NoFourMUBs.PRM.Defs
-import NoFourMUBs.Step2.AnchorTransport
 
 /-!
 # Conjugate signatures at every corner of a non-Tao Hadamard (return H, §2)

@@ -2,7 +2,7 @@ import Hadamard6.FourierCoordinateAllocation
 import Hadamard6.FourierCubicTaoTable
 import Hadamard6.SimultaneousFourierNormalization
 import NoFourMUBs.PRM.Defs
-import NoFourMUBs.Step2.AnchorTransport
+import NoFourMUBs.Step2.MatchedUnique
 
 /-!
 # PR-M, Theorem A §5: carriers with a `3 × 3` Hadamard block

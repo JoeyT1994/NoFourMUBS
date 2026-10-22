@@ -16,10 +16,9 @@ classification.  For the seed corner `E` with Gram data `(s, t, r)` and invarian
   forced lower-right block is flat (`FlatBridge`, with the kernel checks `FlatCheck*` of the one weighted defect
   `W₁₁`; the other three are `W₁₁` at relabelled seeds), so the completion is Hadamard (`flat_of_W`) and matched.
 * **Sides** (`sides_all`): the strict seeds with such sides form an open and closed set (`SideCover`), which
-  contains the corner of the Fourier family (return Q, `Step2.exists_matched`, `sides_of_matched`).  By the pointwise
-  step and the anchor transport it contains every positive local maximum, so it is every strict seed
-  (`Step2.eq_univ_of_anchor_transport`).  Conjugation gives the other signs (`side_h_mem`, `side_v_mem`), hence a
-  side with either root as signature (`exists_side_h`, `exists_side_v`).
+  contains the corner of the Fourier family (return Q, `Step2.exists_matched`, `sides_of_matched`).  The strict
+  seeds are connected (`Step2.isConnected_strict`), so it is every strict seed.  Conjugation gives the other signs
+  (`side_h_mem`, `side_v_mem`), hence a side with either root as signature (`exists_side_h`, `exists_side_v`).
 -/
 
 open ComplexConjugate Matrix Hadamard6 NoFourMUBs.Side NoFourMUBs.Kronecker
@@ -102,14 +101,8 @@ theorem matched_of_sides (sd : Step2.StrictSeed) (hh : Gh (seedVec sd.1) ∈ sid
 
 /-- **Side existence on every strict seed.** -/
 theorem sides_all (s : Step2.StrictSeed) : s ∈ SidesSet := by
-  have h : SidesSet = Set.univ := by
-    apply Step2.eq_univ_of_anchor_transport SidesSet isClopen_sides
-    · obtain ⟨s₀, H₀, hH₀⟩ := Step2.exists_matched
-      exact ⟨s₀, sides_of_matched hH₀⟩
-    · intro s _ hs
-      obtain ⟨H, hH⟩ := matched_of_sides s hs.1 hs.2
-      exact ⟨H, hH, fun s' K hK _ => sides_of_matched hK⟩
-  rw [h]; trivial
+  obtain ⟨s₀, H₀, hH₀⟩ := Step2.exists_matched
+  rw [isClopen_sides.eq_univ ⟨s₀, sides_of_matched hH₀⟩]; trivial
 
 variable {ρ : Fin 4 → ℂ}
 
