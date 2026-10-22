@@ -19,7 +19,7 @@ proved; `Final.strictCornerCoverage` assembles them):
   corner reduction, is `criticalCornerReduction`).
 
 The two rational endpoints that the classification leaves are excluded by the ten-corner count
-(return S, `CoverageEndCount.anchored_count`, `ENDPOINT_COUNTING.md`), not by a separate input.
+(return S, `CoverageTen.anchored_count` in `CoverageEndCount`, `ENDPOINT_COUNTING.md`), not by a separate input.
 From a Hadamard block to `F6` is `equivalent_F6_of_block` (`CoverageBlock`, with the Fourier
 critical locus I7 of `CoverageFourierLocus`).  The count uses the anchored sum rule `Σ p = 54`, the
 vertex sums of `J`, the fourth moment `Σ X² ≥ 54` and `p⋆ ∈ (5.722, 5.723)`

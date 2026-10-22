@@ -235,8 +235,8 @@ theorem eval_hyb (Y : ℤ) (key : Fin n → ℕ) (dval : Fin n → ℤ) (sparse 
   | mul a b ha hb => simp only [hyb, eval, SP.eval_mul, ha, hb]
   | pow a k ha => simp only [hyb, eval, SP.eval_pow, ha]
 
-/-- The kernel-decided test: the bounds of `check`, and every coefficient of the hybrid value
-vanishing, with the first `ns` variables sparse. -/
+/-- The kernel-decided test: a positive exponent `K`, the degree bounds `D`, the coefficient bound
+`2 ^ K`, and every coefficient of the hybrid value vanishing, with the first `ns` variables sparse. -/
 def checkSparse (c : Circ n) (D : Fin n → ℕ) (K ns : ℕ) : Bool :=
   decide (1 ≤ K) && decide (ns ≤ n) && (List.finRange n).all (fun i => decide (c.deg i ≤ D i)) &&
     decide (c.abs.eval (fun _ => (1 : ℤ)) < 2 ^ K) &&

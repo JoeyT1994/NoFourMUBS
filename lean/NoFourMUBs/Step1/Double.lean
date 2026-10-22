@@ -64,9 +64,6 @@ lemma Tp_mem {z w : ℂ} (hz : Complex.normSq z = 1) (hw : Complex.normSq w = 1)
 lemma calRUV_Tp {z w : ℂ} (hz : Complex.normSq z = 1) (hw : Complex.normSq w = 1) :
     calRUV' (Tp z w) = Rch w.re (z ^ 3).re := calRUV_boundary hz hw
 
-lemma continuous_Tp : Continuous fun p : ℂ × ℂ => Tp p.1 p.2 := by
-  unfold Tp; fun_prop
-
 /-- A relative local maximum restricts to a local maximum along any continuous curve in `DD`. -/
 lemma localMax_along {p : ℂ × ℂ} (hmax : IsLocalMaxOn calRUV' DD p) {γ : ℝ → ℂ × ℂ} (hγ : Continuous γ)
     (hγD : ∀ t, γ t ∈ DD) (h0 : γ 0 = p) : IsLocalMax (fun t => calRUV' (γ t)) 0 := by

@@ -66,10 +66,6 @@ theorem allCritical_of_equivalent {H K : Mat6} (hHK : Equivalent H K) (hH : AllC
       (fun j => mul_conj_of_normSq (hc _))]
   exact hH _ _
 
-theorem allCritical_equivalent_iff {H K : Mat6} (hHK : Equivalent H K) :
-    AllCritical H ↔ AllCritical K :=
-  ⟨allCritical_of_equivalent hHK, allCritical_of_equivalent (equivalent_symm hHK)⟩
-
 /-- Transposition preserves the all-critical property. -/
 theorem allCritical_transpose {H : Mat6} (h : AllCritical H) : AllCritical Hᵀ := by
   intro σ τ

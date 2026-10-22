@@ -8,8 +8,7 @@ import NoFourMUBs.PRM.CoverageTenKappa
   rational parametrisation `p = 9 − 4/h`, `J = 8k/h²`, `W = q(q² − 8q + 18)/2` of
   `CRITICAL_STRIP_CLASSIFICATION.md` §3, with `k = 2J/(9 − p)² > 0`, `h = 1 + k²`, `q = 4/h`.
 * `theta_param_pos/neg`: the two halves have `g_± = 3q ± J`, `z_± = −2(1 ± k)/h`.
-* `kmin_le`, `disc_nonneg`: physical data satisfy `K ≥ J²/4 = K_min` and the modulus-cubic
-  discriminant `−4(K − K₀)(K − K₊)(K − K₋)` is `≥ 0` (paper (8)).
+* `disc_eq`: the modulus-cubic discriminant is `−4(K − K₀)(K − K₊)(K − K₋)` (paper (8)).
 * `pole_K`: at a pole, `K ∈ {K_min, K₀, K₊, K₋}` (paper §4).
 * `conclusion_of_candidates`: the three candidates give `p = p⋆ ∈ (5.722, 5.723)`, the equicorrelation
   endpoint (`X = Y = Z = 9/5`, `|J| = 54/25`) or the `p = 7` endpoint (`{X, Y, Z} = {1, 1, 5}`,
@@ -74,9 +73,6 @@ theorem kmin_eq (k : ℝ) : Kmin k = Jk k ^ 2 / 4 := by
   field_simp
   ring
 
-theorem kmin_le {B : Mat3} {k : ℝ} (hJ : blockJ B ^ 2 = Jk k ^ 2) : Kmin k ≤ blockK B := by
-  rw [kmin_eq, ← hJ]; linarith [blockJ_sq_le B]
-
 /-- The modulus-cubic discriminant in `(k, K)`. -/
 theorem disc_eq {B : Mat3} {k : ℝ} (hp : blockP B = pk k) (hW : blockW B = Wk k) :
     ((blockX B - blockY B) * (blockX B - blockZ B) * (blockY B - blockZ B)) ^ 2 =
@@ -86,11 +82,6 @@ theorem disc_eq {B : Mat3} {k : ℝ} (hp : blockP B = pk k) (hW : blockW B = Wk 
   simp only [pk, qk, Wk, K0, Kp, Kn, hk]
   field_simp
   ring
-
-theorem disc_nonneg {B : Mat3} {k : ℝ} (hp : blockP B = pk k) (hW : blockW B = Wk k) :
-    0 ≤ -((blockK B - K0 k) * (blockK B - Kp k) * (blockK B - Kn k)) := by
-  have h := disc_eq hp hW
-  nlinarith [sq_nonneg ((blockX B - blockY B) * (blockX B - blockZ B) * (blockY B - blockZ B))]
 
 /-- `Im w = 0` forces `K = J²/4`. -/
 theorem blockK_of_im {B : Mat3} (h : (blockWc B).im = 0) : blockK B = blockJ B ^ 2 / 4 := by

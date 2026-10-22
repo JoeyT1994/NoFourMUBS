@@ -45,12 +45,6 @@ lemma unbiased_rowOp {σ : Equiv.Perm I6} {r : I6 → ℂ} (hr : ∀ i, Complex.
     (h : Unbiased U V) : Unbiased (rowOp σ r U) (rowOp σ r V) := by
   intro i j; rw [rowOp_gram hr]; exact h i j
 
-/-- The matrix `K` of an equivalence, written as a column operation applied to a row operation of `H`. -/
-lemma equivalent_form {H K : Mat6} {σ τ : Equiv.Perm I6} {r c : I6 → ℂ}
-    (hK : ∀ i j, K i j = r i * H (σ i) (τ j) * c j) :
-    ∀ i j, K i j = rowOp σ r H i (τ j) * c j := by
-  intro i j; simp [rowOp, hK]
-
 /-- Quartet edges are invariant under Hadamard equivalence. -/
 theorem quartetEdge_of_equivalent {H K : Mat6} (hHK : Equivalent H K) (hq : QuartetEdge H) :
     QuartetEdge K := by

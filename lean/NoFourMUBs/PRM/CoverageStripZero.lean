@@ -241,10 +241,6 @@ theorem blockP_of_perm {B C : Mat3}
   rcases h with ⟨a, b, c⟩ | ⟨a, b, c⟩ | ⟨a, b, c⟩ <;>
     exact ⟨by rw [blockP_eq, blockP_eq, a, b, c]; try ring, by simp only [blockW, a, b, c]; try ring⟩
 
-theorem triBlock_eq_strip (H : Mat6) (l : Fin 20) :
-    triBlock H 0 l = stripBlock (fun i => H (Sum.inl i)) l := by
-  ext i j; simp [triBlock, stripBlock, tri0_row]
-
 theorem det_submatrix_ne {B : Mat3} (hd : B.det ≠ 0) (π : Equiv.Perm (Fin 3)) :
     (B.submatrix π id).det ≠ 0 := by
   rw [Matrix.det_permute]

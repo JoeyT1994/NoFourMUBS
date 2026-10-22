@@ -94,7 +94,6 @@ variable {ρ ζ}
 
 theorem QF.val_two : (2 : QF C).val ρ ζ = 2 := by rw [QF.val_ofNat]; norm_num
 theorem QF.val_three : (3 : QF C).val ρ ζ = 3 := by rw [QF.val_ofNat]; norm_num
-theorem QF.val_zero' : (0 : QF C).val ρ ζ = 0 := by rw [QF.val_ofNat]; norm_num
 theorem QF.val_one' : (1 : QF C).val ρ ζ = 1 := by rw [QF.val_ofNat]; norm_num
 theorem QF.val_ofNat' (k : ℕ) [k.AtLeastTwo] : (no_index (OfNat.ofNat k : QF C)).val ρ ζ = OfNat.ofNat k := by
   rw [QF.val_ofNat]; exact Nat.cast_ofNat

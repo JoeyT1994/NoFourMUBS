@@ -15,7 +15,7 @@ so `θ(z)` is strict when `y > 0`, and the complementary blocks `B`, `C` of the 
 `2 T(B) = −6 (1 + z)(1 + z̄)² = χ + i√R` and `2 T(C) = χ − i√R`: the reordered `A(z)` is a matched completion at
 `θ(z)` (`matched_fourier`).  This is return Q's curve `K(t)` up to equivalence (the same `R`).
 
-Two uses replace the explicit anchor `H₀`; both conclude because the strict seeds are connected
+It is used twice; both uses conclude because the strict seeds are connected
 (`isConnected_strict`), so a nonempty open and closed set of strict seeds is all of them:
 * **Side existence** (`L1.sides_all`) needs one strict seed with matched sides: `exists_matched`.
 * **Coverage** (`coverage_of_matched_density`, `PROOF.md` Lemma 4.2).  `A(exp(it)) → F6` as `t → 0`, and the

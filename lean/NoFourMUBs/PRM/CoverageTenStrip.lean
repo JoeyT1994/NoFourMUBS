@@ -6,7 +6,7 @@ import NoFourMUBs.PRM.Defs
 From the ten-corner return of 14 Oct 2026 (`covret/result`); repaired and compiled here.
 These statements concern actual phase-orthogonal strips. They do not assume
 criticality, invertible minors, side reconstruction, or Fourier routing.  The count that uses the
-sum rule is `CoverageEndCount.anchored_count`.
+sum rule is `CoverageTen.anchored_count` (in `CoverageEndCount`).
 -/
 
 noncomputable section

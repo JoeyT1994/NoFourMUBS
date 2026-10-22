@@ -37,9 +37,7 @@ import NoFourMUBs.Step2.SidePerm
 import NoFourMUBs.Step2.MatchedUnique
 import NoFourMUBs.Step2.StrictConnected
 import NoFourMUBs.Step2.FourierAnchor
-import NoFourMUBs.Step2.Connected
 import NoFourMUBs.MainTheorem
-import NoFourMUBs.ConnectedRoute
 import NoFourMUBs.FourierVanishing.Duality
 import NoFourMUBs.FourierVanishing.Jacobi
 import NoFourMUBs.FourierVanishing.Square

@@ -18,8 +18,7 @@ For a `3 × 3` block `B` let `s, t, r` be the off-diagonal entries of its Gram m
 * `criticalCornerReduction`: at a corner of an all-critical Hadamard matrix whose block and
   complementary block are nonsingular, `R(p, J, W) = R(p, −J, W) = 0`, `0 ≤ p` and `p + |J| ≤ 9`.
   With `CoverageSum.nonzero_J_reduction` this gives `5 < p < 9`, `J² = (9 − p)³(p − 5)/4` and
-  `W = −(p − 9)(p² − 10p + 27)/2` when `J ≠ 0` (`criticalCorner_nonzeroJ`), and
-  `(W − (9 − p)(18 − p))² = 36 (9 − p)³` when `J = 0` (`criticalCorner_zeroJ`).
+  `W = −(p − 9)(p² − 10p + 27)/2` when `J ≠ 0` (`criticalCorner_nonzeroJ`).
 -/
 
 open Matrix Hadamard6 ComplexConjugate
@@ -214,15 +213,5 @@ theorem criticalCorner_nonzeroJ {H : Mat6} (hH : Hadamard6.IsHadamard H) (hc : A
         (blockP (triBlock H k l) ^ 2 - 10 * blockP (triBlock H k l) + 27) / 2 := by
   obtain ⟨h1, h2, h3, h4⟩ := criticalCornerReduction hH hc k l hd hd'
   exact CoverageSum.nonzero_J_reduction _ _ _ h3 h4 hJ h1 h2
-
-/-- The zero-`J` stratum (`CRITICAL_CORNER_REDUCTION.md` (6)). -/
-theorem criticalCorner_zeroJ {H : Mat6} (hH : Hadamard6.IsHadamard H) (hc : AllCritical H) (k l : Fin 20)
-    (hd : (triBlock H k l).det ≠ 0) (hd' : (triBlock H k (19 - l)).det ≠ 0)
-    (hJ : blockJ (triBlock H k l) = 0) :
-    (blockW (triBlock H k l) - (9 - blockP (triBlock H k l)) * (18 - blockP (triBlock H k l))) ^ 2 =
-      36 * (9 - blockP (triBlock H k l)) ^ 3 := by
-  obtain ⟨h1, -, -, -⟩ := criticalCornerReduction hH hc k l hd hd'
-  rw [hJ] at h1
-  exact (CoverageSum.zero_J_critical_iff _ _).1 h1
 
 end NoFourMUBs.PRM.Coverage

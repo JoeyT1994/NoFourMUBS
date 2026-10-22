@@ -5,7 +5,7 @@ import NoFourMUBs.Basic
 
 A real `6 × 6` matrix is *horizontal* if all its row and column sums vanish.  The projector
 `hor Y i j = Y i j - rowMean i - colMean j + mean` removes a row-plus-column pattern, which is a pure phase gauge:
-`phaseMat Y` is Hadamard-equivalent to `phaseMat (hor Y)`.
+`phaseMat (P + Y)` is Hadamard-equivalent to `phaseMat (P + hor Y)` (`phaseMat_equivalent_add_hor` in `Transfer`).
 -/
 
 open Matrix Hadamard6
@@ -55,16 +55,5 @@ theorem hor_isHorizontal (Y : RMat6) : IsHorizontal (hor Y) := by
 
 lemma normSq_exp_real_mul_I (x : ℝ) : Complex.normSq (Complex.exp (x * Complex.I)) = 1 := by
   rw [Complex.normSq_eq_norm_sq, Complex.norm_exp_ofReal_mul_I]; norm_num
-
-/-- The gauge: `exp(i Y)` is equivalent to `exp(i hor(Y))` (row and column phases only). -/
-theorem phaseMat_equivalent_hor (Y : RMat6) : Equivalent (phaseMat (hor Y)) (phaseMat Y) := by
-  refine ⟨1, 1, fun i => Complex.exp ((rowMean Y i - allMean Y : ℝ) * Complex.I),
-    fun j => Complex.exp ((colMean Y j : ℝ) * Complex.I), fun i => normSq_exp_real_mul_I _,
-    fun j => normSq_exp_real_mul_I _, ?_⟩
-  intro i j
-  simp only [phaseMat, hor, of_apply, Equiv.Perm.coe_one, id_eq]
-  rw [← Complex.exp_add, ← Complex.exp_add]
-  congr 1
-  push_cast; ring
 
 end NoFourMUBs

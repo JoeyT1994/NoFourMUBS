@@ -6,8 +6,8 @@ import NoFourMUBs
 `check_axioms.py` runs this file and requires every theorem below to use only `propext`, `Classical.choice` and
 `Quot.sound`, and the number of audited theorems to equal the number of `#print axioms` lines.  It covers the
 modules imported by `NoFourMUBs.lean`: the skeleton, Steps 1, 3 and 4, matched uniqueness, the connectedness of
-the strict seeds, the Fourier anchor, coverage, and the two conditional forms of the main theorem
-(`no_four_mubs_main`, and `no_four_mubs_of_connected` from `ConnectedRoute`).  `AxiomsComplete.lean` audits L1 and `Final`.
+the strict seeds, the Fourier anchor, coverage, and the conditional form `no_four_mubs_main` of the main theorem.
+`AxiomsComplete.lean` audits L1 and `Final`.
 -/
 #print axioms NoFourMUBs.no_four_mubs
 #print axioms NoFourMUBs.exists_quartetEdge_of_fourMUBs
@@ -34,10 +34,8 @@ the strict seeds, the Fourier anchor, coverage, and the two conditional forms of
 #print axioms NoFourMUBs.Step1Saddle.calR_no_pos_localMax
 #print axioms NoFourMUBs.Step1Geo.both_boundary
 #print axioms NoFourMUBs.no_four_mubs_main
-#print axioms NoFourMUBs.no_four_mubs_of_connected
 #print axioms NoFourMUBs.Step1Geo.maximumCensus
 #print axioms NoFourMUBs.Step2.matchedUniqueness
 #print axioms NoFourMUBs.Step2.matched_fourier
 #print axioms NoFourMUBs.Step2.isConnected_strict
 #print axioms NoFourMUBs.Step2.coverage_of_matched_density
-#print axioms NoFourMUBs.Step2.coverage_of_connected

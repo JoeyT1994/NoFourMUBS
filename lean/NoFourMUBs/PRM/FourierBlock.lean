@@ -59,11 +59,6 @@ theorem allCornersMatched_equivalent_iff {H K : Mat6} (hHK : Equivalent H K) :
     AllCornersMatched H ↔ AllCornersMatched K :=
   ⟨allCornersMatched_of_equivalent hHK, allCornersMatched_of_equivalent (equivalent_symm hHK)⟩
 
-/-- Reordering rows and columns preserves matching at every corner. -/
-theorem allCornersMatched_submatrix {H : Mat6} (σ τ : Equiv.Perm I6) (hH : AllCornersMatched H) :
-    AllCornersMatched (H.submatrix σ τ) :=
-  allCornersMatched_of_equivalent (equivalent_reindexMatrix σ τ H) hH
-
 /-! ### The cubic census (`PRM.md` §5.3, mixed allocations) -/
 
 /-- `(x, y)` makes `(1, x, y)` a Fourier character `(1, ωᵏ, ω²ᵏ)` (relative to the chart's `ω`). -/

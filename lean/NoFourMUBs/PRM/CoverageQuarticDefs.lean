@@ -5,8 +5,8 @@ import Mathlib
 
 Definitions for the nonzero-`J` stratum of `TopStripClassification` (`CRITICAL_STRIP_CLASSIFICATION.md` §3,
 return K): the rational parametrisation, the modulus-cubic data, the four boundary values of `K`, the
-moment-denominator data of the two halves, the three candidates, and the scalar statement
-`PoleClassification` (§4, the pole substitutions; proved in `CoverageQuarticPole`).
+moment-denominator data of the two halves, and the three candidates (the pole substitutions of §4
+are in `CoverageQuarticPole`).
 
 Notation: `h = 1 + k²`, `q = 4/h`, `p = 9 − q`, `J = 8k/h²`, `W = q(q² − 8q + 18)/2`,
 `f(T) = T³ − pT² + (W + K)T − K` (the modulus cubic, roots `X, Y, Z`, `K = XYZ`).
@@ -34,17 +34,9 @@ def Kn (k : ℝ) : ℝ := (27 * k ^ 6 + 9 * k ^ 4 + 17 * k ^ 2 + 3 - 8 * k * hk 
 /-- Moment-denominator data for the two halves, `σ = ±1`. -/
 def zS (σ k : ℝ) : ℝ := -2 * (1 + σ * k) / hk k
 def gS (σ k : ℝ) : ℝ := 3 * qk k + σ * Jk k
-def alphaS (σ k : ℝ) : ℝ := 9 + gS σ k / zS σ k
 
 /-- The three candidates of the theorem (`κ` = positive root of `3k³ + k² + k − 1`). -/
 def Candidates (k K : ℝ) : Prop :=
   (3 * k ^ 3 + k ^ 2 + k - 1 = 0 ∧ K = Kmin k) ∨ (k = 1 / 3 ∧ K = 729 / 125) ∨ (k = 1 ∧ K = 5)
-
-/-- **§4, the pole substitutions.**  If `K` is one of the four boundary values and the pole
-coordinate `α_σ = 9 + g_σ/z_σ` (with `z_σ ≠ 0`) is a root of the modulus cubic, then `(k, K)` is a
-candidate. -/
-def PoleClassification : Prop :=
-  ∀ σ k K : ℝ, (σ = 1 ∨ σ = -1) → 0 < k → (K = Kmin k ∨ K = K0 k ∨ K = Kp k ∨ K = Kn k) →
-    zS σ k ≠ 0 → fM k K (alphaS σ k) = 0 → Candidates k K
 
 end NoFourMUBs.PRM.Coverage.Quartic
