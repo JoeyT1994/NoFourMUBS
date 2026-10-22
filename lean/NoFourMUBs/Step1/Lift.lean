@@ -110,11 +110,6 @@ theorem seedR_Psi (q : Tr × Tr) : seedR (Psi q) = calRUV' (Phi q) := by
 
 /-! ### Every seed is a lift -/
 
-lemma Psi_0 (q : Tr × Tr) : Psi q 0 = q.1.1 * q.2.2⁻¹ := rfl
-lemma Psi_1 (q : Tr × Tr) : Psi q 1 = q.1.1 * q.1.2 * q.2.1 := rfl
-lemma Psi_2 (q : Tr × Tr) : Psi q 2 = q.2.1 * q.1.2⁻¹ := rfl
-lemma Psi_3 (q : Tr × Tr) : Psi q 3 = q.1.1 * q.2.1 * q.2.2 := rfl
-
 lemma lift_key {a b c d k : ℂ} (hk : k ≠ 0) (h : k ^ 3 = a * b * c * d) :
     a * d * k⁻¹ * (b * k⁻¹) * (b * c * k⁻¹) = b ∧ a * d * k⁻¹ * (b * c * k⁻¹) * (d * k⁻¹) = d := by
   constructor <;> field_simp

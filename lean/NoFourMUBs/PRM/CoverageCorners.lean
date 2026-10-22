@@ -1,12 +1,12 @@
-import NoFourMUBs.PRM.FourierMatch
 import NoFourMUBs.PRM.CoverageGap
+import NoFourMUBs.Step2.MatchedUnique
 
 /-!
 # All-critical matrices: corners by sorted triples, and invariance
 
 `AllCritical H` quantifies over positional corners `rightBlock (H.submatrix σ τ)`.  Here:
 
-* every corner `triBlock H k l` (rows `tri k`, columns `tri l`, as in `FourierMatch`) is a positional
+* every corner `triBlock H k l` (rows `tri k`, columns `tri l`, `PRM.Defs`) is a positional
   corner (`rightBlock_triPerm`), so an all-critical matrix has real signature there
   (`AllCritical.triBlock_im`);
 * `AllCritical` is invariant under Hadamard equivalence (`allCritical_of_equivalent`) and under
@@ -66,10 +66,6 @@ theorem allCritical_of_equivalent {H K : Mat6} (hHK : Equivalent H K) (hH : AllC
       (fun j => mul_conj_of_normSq (hc _))]
   exact hH _ _
 
-theorem allCritical_equivalent_iff {H K : Mat6} (hHK : Equivalent H K) :
-    AllCritical H ↔ AllCritical K :=
-  ⟨allCritical_of_equivalent hHK, allCritical_of_equivalent (equivalent_symm hHK)⟩
-
 /-- Transposition preserves the all-critical property. -/
 theorem allCritical_transpose {H : Mat6} (h : AllCritical H) : AllCritical Hᵀ := by
   intro σ τ
@@ -77,7 +73,7 @@ theorem allCritical_transpose {H : Mat6} (h : AllCritical H) : AllCritical Hᵀ 
       (Step2.rightBlock (H.submatrix ((Equiv.sumComm I3 I3).trans τ)
         ((Equiv.sumComm I3 I3).trans σ)))ᵀ := by
     ext i j; rfl
-  rw [e, sideSignature_transpose]
+  rw [e, Step2.sideSignature_transpose]
   exact h _ _
 
 theorem allCritical_transpose_iff {H : Mat6} : AllCritical Hᵀ ↔ AllCritical H :=

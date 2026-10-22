@@ -30,9 +30,6 @@ lemma e_add (s t : ℝ) : e (s + t) = e s * e t := by
 lemma star_e (t : ℝ) : star (e t) = e (-t) := by
   rw [e, e, star_exp_mul_I]; congr 3; ring
 
-lemma e_sub (s t : ℝ) : e (s - t) = e s * star (e t) := by
-  rw [star_e, ← e_add, sub_eq_add_neg]
-
 lemma norm_e_sub_one_le (t : ℝ) : ‖e t - 1‖ ≤ 2 * Real.pi * |t| := by
   have h := Real.norm_exp_I_mul_ofReal_sub_one_le (x := 2 * Real.pi * t)
   rw [e, mul_comm]

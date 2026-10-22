@@ -84,15 +84,4 @@ theorem nonzero_J_reduction (p J W : ℝ) (hp : 0 ≤ p) (hphysical : p + |J| �
     exact (mul_eq_zero.mp hz).resolve_left hne
   exact ⟨hgt5, hlt9, hrel, by linarith⟩
 
-/-- The zero-J stratum is retained, including p=9 and permanent-zero points. -/
-theorem zero_J_identity (p W : ℝ) :
-    critR p 0 W = 36 * (9 - p) ^ 3 - (W - (9 - p) * (18 - p)) ^ 2 := by
-  unfold critR
-  ring
-
-theorem zero_J_critical_iff (p W : ℝ) :
-    critR p 0 W = 0 ↔ (W - (9 - p) * (18 - p)) ^ 2 = 36 * (9 - p) ^ 3 := by
-  rw [zero_J_identity]
-  constructor <;> intro h <;> linarith
-
 end NoFourMUBs.PRM.CoverageSum

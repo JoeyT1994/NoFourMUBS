@@ -10,7 +10,7 @@ Orthogonality gives `Σ xⱼ = Σ xⱼ² = 0`, so `e₁ = e₂ = 0`; for unit ro
 `e₄ = e₆ ē₂` vanish too, so `P(t) = ∏ (t − xⱼ) = t⁶ − e₃ t³ + e₆` and `P(ω t) = P(t)`
 (`prod_shift`).  Hence with `x₀` also `ω x₀` and `ω² x₀` occur among the `xⱼ` (`geometric_columns`),
 and the three rows on these three columns are, up to phases, `[1, 1, 1; X, Xω, Xω²; X̄, X̄ω², X̄ω]`,
-a `3 × 3` Hadamard matrix.  With `equivalent_F6_of_block` this is the step of §7.1 that the paper
+a `3 × 3` Hadamard matrix.  With `inFourierFamily_of_block` this is the step of §7.1 that the paper
 completes to the Fourier family.
 -/
 
@@ -19,6 +19,8 @@ open Matrix Hadamard6 ComplexConjugate
 noncomputable section
 
 namespace NoFourMUBs.PRM.Coverage
+
+open Side (conj_eq_inv ne_zero_of_normSq)
 
 /-! ### Injections into `I6` extend to permutations -/
 
@@ -81,18 +83,12 @@ theorem esym2_eq (u : Fin 6 → ℂ) :
     2 * esym2 u = (∑ j, u j) ^ 2 - ∑ j, u j ^ 2 := by
   simp only [esym2, Fin.sum_univ_six]; ring
 
-private lemma conj_eq_inv' {z : ℂ} (h : Complex.normSq z = 1) : conj z = z⁻¹ := by
-  rw [Complex.inv_def, h, inv_one, Complex.ofReal_one, mul_one]
-
-private lemma ne_zero' {z : ℂ} (h : Complex.normSq z = 1) : z ≠ 0 := by
-  rintro rfl; simp at h
-
 /-- `e₅ = e₆ ē₁` for unit numbers. -/
 theorem esym5_eq {u : Fin 6 → ℂ} (hu : ∀ j, Complex.normSq (u j) = 1) :
     esym5 u = (∏ j, u j) * conj (∑ j, u j) := by
-  have c := fun j => conj_eq_inv' (hu j)
-  have n0 := ne_zero' (hu 0); have n1 := ne_zero' (hu 1); have n2 := ne_zero' (hu 2)
-  have n3 := ne_zero' (hu 3); have n4 := ne_zero' (hu 4); have n5 := ne_zero' (hu 5)
+  have c := fun j => conj_eq_inv (hu j)
+  have n := fun j => ne_zero_of_normSq (hu j)
+  have n0 := n 0; have n1 := n 1; have n2 := n 2; have n3 := n 3; have n4 := n 4; have n5 := n 5
   simp only [esym5, Fin.sum_univ_six, Fin.prod_univ_six, map_add, c]
   field_simp
   ring
@@ -100,9 +96,9 @@ theorem esym5_eq {u : Fin 6 → ℂ} (hu : ∀ j, Complex.normSq (u j) = 1) :
 /-- `e₄ = e₆ ē₂` for unit numbers. -/
 theorem esym4_eq {u : Fin 6 → ℂ} (hu : ∀ j, Complex.normSq (u j) = 1) :
     esym4 u = (∏ j, u j) * conj (esym2 u) := by
-  have c := fun j => conj_eq_inv' (hu j)
-  have n0 := ne_zero' (hu 0); have n1 := ne_zero' (hu 1); have n2 := ne_zero' (hu 2)
-  have n3 := ne_zero' (hu 3); have n4 := ne_zero' (hu 4); have n5 := ne_zero' (hu 5)
+  have c := fun j => conj_eq_inv (hu j)
+  have n := fun j => ne_zero_of_normSq (hu j)
+  have n0 := n 0; have n1 := n 1; have n2 := n 2; have n3 := n 3; have n4 := n 4; have n5 := n 5
   simp only [esym4, esym2, Fin.prod_univ_six, map_add, map_mul, c]
   field_simp
   ring
@@ -225,7 +221,7 @@ theorem geometricRowRoute : GeometricRowRoute := by
       linear_combination (conj (a 1) * a 0 * x j) * mul_conj_of_normSq (hc j)
     rw [e] at h
     have hne : conj (a 1) * a 0 ≠ 0 :=
-      mul_ne_zero ((map_ne_zero _).2 (ne_zero' (ha 1))) (ne_zero' (ha 0))
+      mul_ne_zero ((map_ne_zero _).2 (ne_zero_of_normSq (ha 1))) (ne_zero_of_normSq (ha 0))
     exact (mul_eq_zero.1 h).resolve_left hne
   have hs2 : ∑ j, x j ^ 2 = 0 := by
     have h := row_orth hH (hr.ne (show (1 : Fin 3) ≠ 2 by decide))
@@ -237,7 +233,7 @@ theorem geometricRowRoute : GeometricRowRoute := by
       linear_combination (conj (a 1) * a 2 * x j ^ 2) * mul_conj_of_normSq (hc j)
     rw [e] at h
     have hne : conj (a 1) * a 2 ≠ 0 :=
-      mul_ne_zero ((map_ne_zero _).2 (ne_zero' (ha 1))) (ne_zero' (ha 2))
+      mul_ne_zero ((map_ne_zero _).2 (ne_zero_of_normSq (ha 1))) (ne_zero_of_normSq (ha 2))
     exact (mul_eq_zero.1 h).resolve_left hne
   -- the two equilateral triples
   have hω := standardOmega_isPrimitiveCubicPhase
@@ -245,7 +241,7 @@ theorem geometricRowRoute : GeometricRowRoute := by
   have h3 : ω ^ 3 = 1 := by linear_combination (ω - 1) * hω.2
   obtain ⟨j1, j2, hj1, hj2⟩ := geometric_columns hx hs1 hs2 h3 (Sum.inl 0)
   set X := x (Sum.inl 0)
-  have hX0 : X ≠ 0 := ne_zero' (hx _)
+  have hX0 : X ≠ 0 := ne_zero_of_normSq (hx _)
   obtain ⟨n1, n2, n3⟩ := primitive_ne hω
   let col : Fin 3 → I6 := ![Sum.inl 0, j1, j2]
   have hcol : Function.Injective col := by

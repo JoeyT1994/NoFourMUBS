@@ -115,67 +115,6 @@ theorem superlevel_clopen_eq_univ
   obtain ⟨b, hbpos, hbLocal, hbB⟩ := exists_localMax_mem_of_isClopen R hR Uᶜ hU.compl ⟨s, hs⟩
   exact hbB (hmax b hbpos hbLocal)
 
-/-- Continuous quotient images are covered by a clopen region once every
-positive local maximum is covered. -/
-theorem superlevel_image_mem_of_localMax_anchors
-    {Q : Type*} [TopologicalSpace Q]
-    (R : P → ℝ) (hR : Continuous R)
-    (f : {p : P // 0 < R p} → Q) (hf : Continuous f)
-    (W : Set Q) (hW : IsClopen W)
-    (hanchor : ∀ (p : P) (hp : 0 < R p),
-      IsLocalMax R p → f ⟨p, hp⟩ ∈ W) :
-    ∀ s, f s ∈ W := by
-  have hfull : f ⁻¹' W = Set.univ :=
-    superlevel_clopen_eq_univ R hR (f ⁻¹' W) (hW.preimage hf) hanchor
-  intro s
-  change s ∈ f ⁻¹' W
-  rw [hfull]
-  trivial
-
-/-- A finite or otherwise explicit maximum census can be kept separate from
-the topological propagation theorem.  Finiteness itself is not needed here. -/
-theorem superlevel_image_mem_of_anchor_set
-    {Q : Type*} [TopologicalSpace Q]
-    (R : P → ℝ) (hR : Continuous R)
-    (f : {p : P // 0 < R p} → Q) (hf : Continuous f)
-    (W : Set Q) (hW : IsClopen W)
-    (anchors : Set {p : P // 0 < R p})
-    (hcensus : ∀ (p : P) (hp : 0 < R p),
-      IsLocalMax R p → (⟨p, hp⟩ : {p : P // 0 < R p}) ∈ anchors)
-    (hanchors : ∀ s ∈ anchors, f s ∈ W) :
-    ∀ s, f s ∈ W := by
-  apply superlevel_image_mem_of_localMax_anchors R hR f hf W hW
-  intro p hp hm
-  exact hanchors ⟨p, hp⟩ (hcensus p hp hm)
-
 end Superlevel
-
-section ClosurePropagation
-
-variable {P Q : Type*} [TopologicalSpace P] [TopologicalSpace Q]
-
-/-- Coverage of a parameter subset propagates to its closure under a
-continuous map when the target covered region is closed. -/
-theorem image_closure_subset_of_isClosed
-    (f : P → Q) (hf : Continuous f)
-    (T : Set P) (W : Set Q) (hW : IsClosed W)
-    (hcover : ∀ p ∈ T, f p ∈ W) :
-    ∀ p ∈ closure T, f p ∈ W := by
-  have hsub : T ⊆ f ⁻¹' W := hcover
-  exact closure_minimal hsub (hW.preimage hf)
-
-/-- Dense parameter coverage suffices for a closed target region. -/
-theorem image_subset_of_dense_of_isClosed
-    (f : P → Q) (hf : Continuous f)
-    (T : Set P) (hT : Dense T)
-    (W : Set Q) (hW : IsClosed W)
-    (hcover : ∀ p ∈ T, f p ∈ W) :
-    ∀ p, f p ∈ W := by
-  intro p
-  apply image_closure_subset_of_isClosed f hf T W hW hcover p
-  rw [hT.closure_eq]
-  trivial
-
-end ClosurePropagation
 
 end Step2.TopologyCore

@@ -5,12 +5,11 @@ import Mathlib
 
 A `Circ n` is an integer polynomial circuit in `n` variables.  Suppose its degree in each variable `i`
 is at most `D i`, and its coefficients have absolute value below `X`.  If it also vanishes at the
-Kronecker point `xᵢ = X ^ ∏_{j > i} (D j + 1)`, then it is the zero polynomial, so it vanishes in every
-commutative ring (`Circ.eval_eq_zero`).  The point is that a polynomial with bounded coefficients
+Kronecker point `xᵢ = X ^ ∏_{j > i} (D j + 1)`, then it is the zero polynomial (`eq_zero_of_eval_kpt`),
+so it vanishes in every commutative ring.  The point is that a polynomial with bounded coefficients
 and degrees is the base-`X` expansion of its value there.
 
-The three hypotheses are packaged as the Boolean `Circ.check`, which the kernel decides with GMP
-arithmetic.  Subcircuits shared between Lean definitions are evaluated once.
+The kernel-decided tests that package these hypotheses are in `Sparse` (`Circ.checkSparse`) and `Fast`.
 -/
 
 open MvPolynomial
@@ -278,32 +277,5 @@ theorem eq_zero_of_eval_kpt (X : ℕ) (hX : 2 ≤ X) (M : ℤ) (hM : M < X) : �
       · exact Polynomial.coeff_eq_zero_of_natDegree_lt
           (by rw [natDegree_finSuccEquiv]; exact lt_of_le_of_lt (hD 0) (by omega))
     exact (finSuccEquiv ℤ n).injective (hQ.trans (map_zero _).symm)
-
-namespace Circ
-
-variable {n : ℕ}
-
-/-- The Boolean the kernel evaluates: a positive exponent, the degree bounds, the coefficient bound
-`2 ^ K`, and a zero at the Kronecker point with base `2 ^ K`. -/
-def check (c : Circ n) (D : Fin n → ℕ) (K : ℕ) : Bool :=
-  decide (1 ≤ K) && (List.finRange n).all (fun i => decide (c.deg i ≤ D i)) &&
-    decide (c.abs.eval (fun _ => (1 : ℤ)) < 2 ^ K) && decide (c.eval (kpt (2 ^ K) D) = 0)
-
-theorem toPoly_eq_zero {c : Circ n} {D : Fin n → ℕ} {K : ℕ} (h : c.check D K = true) : c.toPoly = 0 := by
-  simp only [check, Bool.and_eq_true, decide_eq_true_eq, List.all_eq_true, List.mem_finRange,
-    true_implies] at h
-  obtain ⟨⟨⟨hK, hD⟩, hM⟩, h0⟩ := h
-  refine eq_zero_of_eval_kpt (2 ^ K) ?_ _ (by exact_mod_cast hM) D c.toPoly (c.abs_coeff_le)
-    (fun i => (c.degreeOf_le i).trans (hD i)) ?_
-  · calc 2 = 2 ^ 1 := rfl
-      _ ≤ 2 ^ K := Nat.pow_le_pow_right (by norm_num) hK
-  · rw [← eval_eq_eval]; exact h0
-
-/-- **Soundness.** A circuit that passes `check` vanishes in every commutative ring. -/
-theorem eval_eq_zero {c : Circ n} {D : Fin n → ℕ} {K : ℕ} (h : c.check D K = true)
-    {R : Type*} [CommRing R] (ρ : Fin n → R) : c.eval ρ = 0 := by
-  rw [eval_eq_aeval, toPoly_eq_zero h, eval₂_zero]
-
-end Circ
 
 end NoFourMUBs.Kronecker

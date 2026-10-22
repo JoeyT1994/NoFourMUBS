@@ -127,14 +127,6 @@ lemma nuterm_le (P : RMat6) (u y : I6 → ℝ) (ν : RMat6) :
   congr 2
   rw [Finset.sum_comm]
 
-/-- **δ-term.**  For `δ = Σ_k η_k T_k + ν`: `|Σ_i y_i Σ_j J_{ij} δ_{ji}| ≤ ‖η‖‖Bᵀy‖ + ‖ν‖ N_y`. -/
-lemma deltaterm_le (P : RMat6) (u y : I6 → ℝ) (T : Fin 4 → RMat6) (η : Fin 4 → ℝ) (ν : RMat6) :
-    |∑ i, y i * ∑ j, Jm P u i j * ((∑ k, η k • T k) + ν) j i| ≤
-      Real.sqrt (∑ k, η k ^ 2) * Real.sqrt (∑ k, Bty P u y T k ^ 2) +
-      frob ν * Real.sqrt (∑ i, ∑ j, (y i * Jm P u i j) ^ 2) := by
-  rw [deltaterm_split]
-  exact (abs_add_le _ _).trans (add_le_add (abs_sum_mul_le _ _) (nuterm_le P u y ν))
-
 /-! ### The squared-increment term -/
 
 lemma min_scale {c A B : ℝ} (hc : 0 ≤ c) : min (c * A) (c * B) = c * min A B := (mul_min_of_nonneg _ _ hc).symm

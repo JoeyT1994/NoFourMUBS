@@ -51,15 +51,9 @@ theorem row_orth {H : Mat6} (hH : IsHadamard H) {a b : I6} (hab : a ≠ b) :
 
 /-! ### Unit phases (upstream `UnitSymmetric.lean`) -/
 
-private theorem ne_zero_of_normSq_eq_one {x : ℂ}
-    (hx : Complex.normSq x = 1) : x ≠ 0 := by
-  intro h
-  rw [h] at hx
-  norm_num at hx
-
 private theorem one_div_eq_star_of_normSq_eq_one {x : ℂ}
     (hx : Complex.normSq x = 1) : 1 / x = star x := by
-  have hxne := ne_zero_of_normSq_eq_one hx
+  have hxne : x ≠ 0 := Complex.normSq_pos.1 (by rw [hx]; norm_num)
   apply (div_eq_iff hxne).2
   have hunit : star x * x = 1 := by
     simpa [Complex.star_def, Complex.normSq_eq_conj_mul_self] using
@@ -196,8 +190,8 @@ theorem affineFourierMatrix_isHadamard
     exact (one_div_eq_star_of_normSq_eq_one hz₁).symm
   have hstarZ₂ : (starRingEnd ℂ) z₂ = 1 / z₂ := by
     exact (one_div_eq_star_of_normSq_eq_one hz₂).symm
-  have hz₁0 : z₁ ≠ 0 := ne_zero_of_normSq_eq_one hz₁
-  have hz₂0 : z₂ ≠ 0 := ne_zero_of_normSq_eq_one hz₂
+  have hz₁0 : z₁ ≠ 0 := Complex.normSq_pos.1 (by rw [hz₁]; norm_num)
+  have hz₂0 : z₂ ≠ 0 := Complex.normSq_pos.1 (by rw [hz₂]; norm_num)
   have homega0 : omega ≠ 0 := primitiveCubicPhase_ne_zero homega
   have hcube : omega ^ 3 = 1 := primitiveCubicPhase_cube homega
   have hpowFour : omega ^ 4 = omega := by

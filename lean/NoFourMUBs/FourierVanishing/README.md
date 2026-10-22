@@ -11,8 +11,9 @@ theorem NoFourMUBs.FourierVanishing.fourierVanishing (H : Mat6) (hH : Hadamard6.
     (∀ J : Finset I6, J.card = 3 → ∑ i, (∏ b ∈ J, H i b) * ∏ d ∈ Jᶜ, conj (H i d) = 0)
 ```
 
-The only inputs are D2, `PRM.nonmatched_tao` (`PRM/Converse.lean`), and D3, `PRM.strictCornerCoverage`
-(`Final.lean`). D1, the side identities, is the existing `Side.TS_root` / `L1.hv_eq` machinery.
+The only inputs are D2, `PRM.nonmatched_tao` (`PRM/FourierMatch.lean`, from `PRM/Converse.lean`), and D3,
+`PRM.strictCornerCoverage` (`Final.lean`) in its `F6` form `PRM.Coverage.strictCorner_of_not_F6`
+(`PRM/CoverageFourierLocus.lean`). D1, the side identities, is the existing `Side.TS_root` / `L1.hv_eq` machinery.
 
 ## Building
 
@@ -50,7 +51,7 @@ becomes `sign τ`, carried by `det (K.submatrix id τ) = sign τ · det K`.
 | §5.3 (5.4) readout as moments | `readout`, `mixed_moments`, `moment_compl` | `Criterion` |
 | §6 (6.1) Cramer, single exchange | `cramer`, `exists_exchange`, `good_swap` | `Criterion` |
 | §6 the last two moments | `bot` and `classify` inside `moments_vanish` | `Main` |
-| §7 rank from a strict corner | `det_sqMat_ne_zero`, the second case of `exists_good` (uses `PRM.strictCornerCoverage`) | `Square`, `Main` |
+| §7 rank from a strict corner | `det_sqMat_ne_zero`, the second case of `exists_good` (uses `PRM.Coverage.strictCorner_of_not_F6`) | `Square`, `Main` |
 | §8 Fourier class | `fourier_block` and the first case of `exists_good` | `Main` |
 | §8 transpose; the Tao matrix is symmetric | `taoMatrix_transpose`, `not_tao_transpose` | `Main` |
 

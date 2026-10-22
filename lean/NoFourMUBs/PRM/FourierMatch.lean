@@ -1,20 +1,20 @@
-import NoFourMUBs.PRM.Defs
-import NoFourMUBs.Step2.MatchedUnique
+import NoFourMUBs.PRM.Converse
 import NoFourMUBs.Identity.Fast
-import Hadamard6.FourierBlockCoordinates
-import Hadamard6.FourierNormalForm
+import NoFourMUBs.Step2.FourierFamily
 
 /-!
-# PR-M, Theorem A §5.4: every corner of the two continuous Fourier families is matched
+# PR-M, Theorem A §5.4: every corner of the Fourier family is matched (not used by `Final`)
 
-Return G (`proof/coverage/returns/G_prm/PRM.md` §5.3–5.4).  When upstream's factor equations force the
-gauge `v = (1, p, q)` (resp. `w = (1, r, s)`) of the simultaneous Fourier chart to be a Fourier
-character, the forced matrix `fourierNormalForm ω p q r s (fourierForcedD ω p q r s)` is, up to a
-permutation of its last three columns (resp. rows) and a transposition, the core matrix
+Return G (`proof/coverage/returns/G_prm/PRM.md` §5.3–5.4).  The core matrix
 
   `K(x, y) = [[F, F], [F D, −F D]]`,  `F = (ω^{ij})`, `D = diag(1, x, y)`,
 
-with `x, y` unit (families (5.5)/(5.6) of PRM.md).  Every positional corner of `K` is matched.
+with `x, y` unit (`fourierCore`, equal to `Step2.fourierFamily`; families (5.5)/(5.6) of PRM.md, which
+the forced Fourier matrices at a character gauge are, `FourierBlock.v_form_*`, `w_form_*`) is matched
+at every positional corner (`fourierCore_matched`), hence so is every member of `Step2.InFourierFamily`
+(`allCornersMatched_of_inFourierFamily`), and Theorem A in its original form follows: a strict
+nonmatched corner forces Tao (`nonmatched_tao`).  `Final` does not use this module (its Fourier classes
+are covered by connectedness, `Step2.fourierClasses_subset`); `FourierVanishing` does.
 
 ## Proof
 
@@ -28,66 +28,30 @@ with `x, y` unit (families (5.5)/(5.6) of PRM.md).  Every positional corner of `
    verified identity checker (`NoFourMUBs.Identity`: `Frac` over the factor table `x, y`, `QF` with the
    relation `ω² = −ω − 1`) and decided by the kernel (`Circ.validR`).  The identities for `k ≥ 10`
    are the conjugates of those for `19 − k`, so 200 are checked.
-3. *The forced Fourier matrices* are the core matrix up to the permutations above (entrywise, from
-   upstream's explicit `fourierForcedD`); `AllCornersMatched` is invariant under row and column
-   permutations and under transposition.
+3. `AllCornersMatched` is invariant under equivalence and under transposition.
 -/
 
 open Matrix Hadamard6 ComplexConjugate NoFourMUBs.Kronecker
 
 namespace NoFourMUBs.PRM
 
-/-! ### `AllCornersMatched` under permutations and transposition -/
-
-theorem allCornersMatched_reindex {H : Mat6} (h : AllCornersMatched H) (α β : Equiv.Perm I6) :
-    AllCornersMatched (H.submatrix α β) := by
-  intro σ τ
-  simpa only [Matrix.submatrix_submatrix, Equiv.coe_trans] using h (σ.trans α) (τ.trans β)
-
-theorem sideSignature_transpose (B : Mat3) : Step2.sideSignature Bᵀ = Step2.sideSignature B := by
-  simp only [Step2.sideSignature, Step2.permanent3_expand, Matrix.det_transpose, Fin.prod_univ_three,
-    Matrix.transpose_apply]
-  ring
+/-! ### `AllCornersMatched` under transposition -/
 
 theorem allCornersMatched_transpose {H : Mat6} (h : AllCornersMatched H) : AllCornersMatched Hᵀ := by
   intro σ τ
   have e1 : Step2.rightBlock (Hᵀ.submatrix σ τ) = (Step2.lowerBlock (H.submatrix τ σ))ᵀ := rfl
   have e2 : Step2.lowerBlock (Hᵀ.submatrix σ τ) = (Step2.rightBlock (H.submatrix τ σ))ᵀ := rfl
-  rw [e1, e2, sideSignature_transpose, sideSignature_transpose, h τ σ, Complex.conj_conj]
+  rw [e1, e2, Step2.sideSignature_transpose, Step2.sideSignature_transpose, h τ σ, Complex.conj_conj]
 
 /-! ### Reduction to sorted triples -/
 
--- `e6 : I6 ≃ Fin 6` and the sorted triples `tri` are defined in `PRM.Defs`.
-
-/-- The six permutations of `Fin 3`. -/
-def p3 : Fin 6 → Equiv.Perm (Fin 3) :=
-  ![1, Equiv.swap 0 1, Equiv.swap 0 2, Equiv.swap 1 2, Equiv.swap 0 1 * Equiv.swap 1 2,
-    Equiv.swap 1 2 * Equiv.swap 0 1]
-
-theorem cover3 : ∀ a b c : Fin 6, a ≠ b → a ≠ c → b ≠ c →
-    ∃ k : Fin 20, ∃ m : Fin 6, tri k (p3 m 0) = a ∧ tri k (p3 m 1) = b ∧ tri k (p3 m 2) = c := by
-  decide
-
-/-- Every injection `Fin 3 → Fin 6` is a sorted triple after a permutation. -/
-theorem cover (f : Fin 3 → Fin 6) (hf : Function.Injective f) :
-    ∃ k : Fin 20, ∃ m : Fin 6, ∀ i, f i = tri k (p3 m i) := by
-  obtain ⟨k, m, h0, h1, h2⟩ := cover3 (f 0) (f 1) (f 2) (hf.ne (by decide)) (hf.ne (by decide))
-    (hf.ne (by decide))
-  refine ⟨k, m, fun i => ?_⟩
-  fin_cases i
-  · exact h0.symm
-  · exact h1.symm
-  · exact h2.symm
+-- `e6`, the sorted triples `tri`, `p3`, `cover` and `triBlock` are in `PRM.Defs`.
 
 /-- Disjoint sorted triples are complementary. -/
 theorem tri_compl : ∀ k k' : Fin 20, (∀ i j : Fin 3, tri k i ≠ tri k' j) → k' = 19 - k := by
   decide
 
 theorem compl_compl : ∀ k : Fin 20, 19 - (19 - k) = k := by decide
-
-/-- The corner restricted to the sorted triples `tri k` (rows) and `tri l` (columns). -/
-def triBlock (H : Mat6) (k l : Fin 20) : Mat3 :=
-  Matrix.of fun i j => H (e6.symm (tri k i)) (e6.symm (tri l j))
 
 theorem disjoint_of_perm (σ : Equiv.Perm I6) {k k' : Fin 20} {m m' : Fin 6}
     (hk : ∀ i, e6 (σ (Sum.inl i)) = tri k (p3 m i)) (hk' : ∀ i, e6 (σ (Sum.inr i)) = tri k' (p3 m' i)) :
@@ -151,12 +115,11 @@ def coreF (ω x y : ℂ) (u v : Fin 6) : ℂ :=
 /-- The core matrix `K(x, y) = [[F, F], [F D, −F D]]`, `D = diag(1, x, y)`. -/
 def fourierCore (ω x y : ℂ) : Mat6 := Matrix.of fun a b => coreF ω x y (e6 a) (e6 b)
 
-theorem fourierCore_eq (ω x y : ℂ) : fourierCore ω x y =
-    fromBlocks (fourier3 ω) (fourier3 ω) (columnGauge (fourierParameters x y) (fourier3 ω))
-      (-columnGauge (fourierParameters x y) (fourier3 ω)) := by
+/-- The core matrix is the Fourier family `Step2.fourierFamily`. -/
+theorem fourierCore_eq_family (ω x y : ℂ) : fourierCore ω x y = Step2.fourierFamily ω x y := by
   ext a b
   rcases a with i | i <;> rcases b with j | j <;> fin_cases i <;> fin_cases j <;>
-    simp [fourierCore, coreF, e6, wpar, fourier3, columnGauge, rowGauge, fourierParameters] <;> ring
+    simp [fourierCore, coreF, e6, wpar, Step2.fourierFamily]
 
 
 /-! ### The corner identities as circuits
@@ -401,107 +364,47 @@ theorem fourierCore_matched {ω x y : ℂ} (hω : IsPrimitiveCubicPhase ω) (hx 
     rw [h, Complex.conj_conj]
 
 
-/-! ### The forced Fourier matrices at a character gauge -/
+/-! ### Theorem A, §5.4: the Fourier family is matched at every corner -/
 
-/-- Shift of the last three indices by `c`. -/
-def shiftR (c : Fin 3) : Equiv.Perm I6 := Equiv.sumCongr (Equiv.refl _) (Equiv.addRight c)
+/-- Permutations and unit row/column phases preserve matching at every corner. -/
+theorem allCornersMatched_of_equivalent {H K : Mat6} (hHK : Equivalent H K)
+    (hH : AllCornersMatched H) : AllCornersMatched K := by
+  obtain ⟨σ, τ, r, c, hr, hc, hK⟩ := hHK
+  intro σ' τ'
+  have hR : Step2.rightBlock (K.submatrix σ' τ') = Matrix.of fun i j =>
+      r (σ' (.inl i)) * Step2.rightBlock (H.submatrix (σ'.trans σ) (τ'.trans τ)) i j *
+        c (τ' (.inr j)) := by
+    ext i j; simp [Step2.rightBlock, hK]
+  have hL : Step2.lowerBlock (K.submatrix σ' τ') = Matrix.of fun i j =>
+      r (σ' (.inr i)) * Step2.lowerBlock (H.submatrix (σ'.trans σ) (τ'.trans τ)) i j *
+        c (τ' (.inl j)) := by
+    ext i j; simp [Step2.lowerBlock, hK]
+  rw [hR, hL, Step2.sideSignature_scale _ _ _ (fun i => mul_conj_of_normSq (hr _))
+      (fun j => mul_conj_of_normSq (hc _)),
+    Step2.sideSignature_scale _ _ _ (fun i => mul_conj_of_normSq (hr _))
+      (fun j => mul_conj_of_normSq (hc _))]
+  exact hH _ _
 
-/-- `v = (1, 1, 1)`: the core matrix in `(r, s)` (family (5.5)). -/
-theorem v_form_one {ω r s : ℂ} (hω : IsPrimitiveCubicPhase ω) :
-    fourierNormalForm ω (1) (1) r s (fourierForcedD ω (1) (1) r s) =
-      (fourierCore ω r s).submatrix (Equiv.refl _) (shiftR 0) := by
-  have h2 := hω.2
-  have h3 : ω ^ 3 = 1 := by linear_combination (ω - 1) * h2
-  rw [fourierCore_eq]; ext a b
-  rcases a with i | i <;> rcases b with j | j <;> fin_cases i <;> fin_cases j <;>
-    simp [fourierNormalForm, fourierForcedD, fourier3, rowGauge, columnGauge, fourierParameters,
-        dftEntry₀, dftEntry₁, dftEntry₂, dft₀, dft₁, dft₂, zCol₀, zCol₁, zCol₂, vHat₀, vHat₁, vHat₂,
-        shiftR] <;> grind
+/-- **Every member of the Fourier family, and of its transpose, is matched at every corner.** -/
+theorem allCornersMatched_of_inFourierFamily {H : Mat6} (h : Step2.InFourierFamily H) :
+    AllCornersMatched H := by
+  obtain ⟨ω, x, y, hω, hx, hy, hK | hK⟩ := h
+  · have := fourierCore_matched hω hx hy
+    rw [fourierCore_eq_family] at this
+    exact allCornersMatched_of_equivalent (equivalent_symm hK) this
+  · have := allCornersMatched_transpose (fourierCore_matched hω hx hy)
+    rw [fourierCore_eq_family] at this
+    exact allCornersMatched_of_equivalent (equivalent_symm hK) this
 
-/-- `v = (1, ω², ω)`: the core matrix in `(r, s)`, last three columns shifted. -/
-theorem v_form_sq {ω r s : ℂ} (hω : IsPrimitiveCubicPhase ω) :
-    fourierNormalForm ω (ω ^ 2) (ω) r s (fourierForcedD ω (ω ^ 2) (ω) r s) =
-      (fourierCore ω r s).submatrix (Equiv.refl _) (shiftR 2) := by
-  have h2 := hω.2
-  have h3 : ω ^ 3 = 1 := by linear_combination (ω - 1) * h2
-  rw [fourierCore_eq]; ext a b
-  rcases a with i | i <;> rcases b with j | j <;> fin_cases i <;> fin_cases j <;>
-    simp [fourierNormalForm, fourierForcedD, fourier3, rowGauge, columnGauge, fourierParameters,
-        dftEntry₀, dftEntry₁, dftEntry₂, dft₀, dft₁, dft₂, zCol₀, zCol₁, zCol₂, vHat₀, vHat₁, vHat₂,
-        shiftR] <;> grind
-
-/-- `v = (1, ω, ω²)`: the core matrix in `(r, s)`, last three columns shifted. -/
-theorem v_form_om {ω r s : ℂ} (hω : IsPrimitiveCubicPhase ω) :
-    fourierNormalForm ω (ω) (ω ^ 2) r s (fourierForcedD ω (ω) (ω ^ 2) r s) =
-      (fourierCore ω r s).submatrix (Equiv.refl _) (shiftR 1) := by
-  have h2 := hω.2
-  have h3 : ω ^ 3 = 1 := by linear_combination (ω - 1) * h2
-  rw [fourierCore_eq]; ext a b
-  rcases a with i | i <;> rcases b with j | j <;> fin_cases i <;> fin_cases j <;>
-    simp [fourierNormalForm, fourierForcedD, fourier3, rowGauge, columnGauge, fourierParameters,
-        dftEntry₀, dftEntry₁, dftEntry₂, dft₀, dft₁, dft₂, zCol₀, zCol₁, zCol₂, vHat₀, vHat₁, vHat₂,
-        shiftR] <;> grind
-
-/-- `w = (1, 1, 1)`: the transposed core matrix in `(p, q)` (family (5.6)). -/
-theorem w_form_one {ω p q : ℂ} (hω : IsPrimitiveCubicPhase ω) :
-    fourierNormalForm ω p q (1) (1) (fourierForcedD ω p q (1) (1)) =
-      (fourierCore ω p q)ᵀ.submatrix (shiftR 0) (Equiv.refl _) := by
-  have h2 := hω.2
-  have h3 : ω ^ 3 = 1 := by linear_combination (ω - 1) * h2
-  rw [fourierCore_eq]; ext a b
-  rcases a with i | i <;> rcases b with j | j <;> fin_cases i <;> fin_cases j <;>
-    simp [fourierNormalForm, fourierForcedD, fourier3, rowGauge, columnGauge, fourierParameters,
-        dftEntry₀, dftEntry₁, dftEntry₂, dft₀, dft₁, dft₂, zCol₀, zCol₁, zCol₂, vHat₀, vHat₁, vHat₂,
-        shiftR] <;> grind
-
-/-- `w = (1, ω², ω)`: the transposed core matrix in `(p, q)`, last three rows shifted. -/
-theorem w_form_sq {ω p q : ℂ} (hω : IsPrimitiveCubicPhase ω) :
-    fourierNormalForm ω p q (ω ^ 2) (ω) (fourierForcedD ω p q (ω ^ 2) (ω)) =
-      (fourierCore ω p q)ᵀ.submatrix (shiftR 2) (Equiv.refl _) := by
-  have h2 := hω.2
-  have h3 : ω ^ 3 = 1 := by linear_combination (ω - 1) * h2
-  rw [fourierCore_eq]; ext a b
-  rcases a with i | i <;> rcases b with j | j <;> fin_cases i <;> fin_cases j <;>
-    simp [fourierNormalForm, fourierForcedD, fourier3, rowGauge, columnGauge, fourierParameters,
-        dftEntry₀, dftEntry₁, dftEntry₂, dft₀, dft₁, dft₂, zCol₀, zCol₁, zCol₂, vHat₀, vHat₁, vHat₂,
-        shiftR] <;> grind
-
-/-- `w = (1, ω, ω²)`: the transposed core matrix in `(p, q)`, last three rows shifted. -/
-theorem w_form_om {ω p q : ℂ} (hω : IsPrimitiveCubicPhase ω) :
-    fourierNormalForm ω p q (ω) (ω ^ 2) (fourierForcedD ω p q (ω) (ω ^ 2)) =
-      (fourierCore ω p q)ᵀ.submatrix (shiftR 1) (Equiv.refl _) := by
-  have h2 := hω.2
-  have h3 : ω ^ 3 = 1 := by linear_combination (ω - 1) * h2
-  rw [fourierCore_eq]; ext a b
-  rcases a with i | i <;> rcases b with j | j <;> fin_cases i <;> fin_cases j <;>
-    simp [fourierNormalForm, fourierForcedD, fourier3, rowGauge, columnGauge, fourierParameters,
-        dftEntry₀, dftEntry₁, dftEntry₂, dft₀, dft₁, dft₂, zCol₀, zCol₁, zCol₂, vHat₀, vHat₁, vHat₂,
-        shiftR] <;> grind
-
-/-! ### Theorem A, §5.4 -/
-
-/-- **The family (5.5).** When `v = (1, p, q)` is a Fourier character, every corner of the forced
-Fourier matrix is matched. -/
-theorem matched_v_character {ω p q r s : ℂ} (hω : IsPrimitiveCubicPhase ω)
-    (hr : Complex.normSq r = 1) (hs : Complex.normSq s = 1)
-    (hpq : (p = 1 ∧ q = 1) ∨ (p = ω ^ 2 ∧ q = ω) ∨ (p = ω ∧ q = ω ^ 2)) :
-    AllCornersMatched (fourierNormalForm ω p q r s (fourierForcedD ω p q r s)) := by
-  have hK := fourierCore_matched hω hr hs
-  rcases hpq with ⟨rfl, rfl⟩ | ⟨rfl, rfl⟩ | ⟨rfl, rfl⟩
-  · rw [v_form_one hω]; exact allCornersMatched_reindex hK _ _
-  · rw [v_form_sq hω]; exact allCornersMatched_reindex hK _ _
-  · rw [v_form_om hω]; exact allCornersMatched_reindex hK _ _
-
-/-- **The family (5.6).** When `w = (1, r, s)` is a Fourier character, every corner of the forced
-Fourier matrix is matched. -/
-theorem matched_w_character {ω p q r s : ℂ} (hω : IsPrimitiveCubicPhase ω)
-    (hp : Complex.normSq p = 1) (hq : Complex.normSq q = 1)
-    (hrs : (r = 1 ∧ s = 1) ∨ (r = ω ^ 2 ∧ s = ω) ∨ (r = ω ∧ s = ω ^ 2)) :
-    AllCornersMatched (fourierNormalForm ω p q r s (fourierForcedD ω p q r s)) := by
-  have hK := allCornersMatched_transpose (fourierCore_matched hω hp hq)
-  rcases hrs with ⟨rfl, rfl⟩ | ⟨rfl, rfl⟩ | ⟨rfl, rfl⟩
-  · rw [w_form_one hω]; exact allCornersMatched_reindex hK _ _
-  · rw [w_form_sq hω]; exact allCornersMatched_reindex hK _ _
-  · rw [w_form_om hω]; exact allCornersMatched_reindex hK _ _
+/-- **Theorem A** (return G).  A dephased Hadamard matrix whose leading corner is strict and whose two
+sides are not matched is in Tao's orbit. -/
+theorem nonmatched_tao (M : Mat6) (hM : Hadamard6.IsHadamard M) (hd : Step2.Dephased M)
+    (hIm : (Step2.sideSignature (Step2.rightBlock M)).im ≠ 0)
+    (hnm : Step2.sideSignature (Step2.lowerBlock M) ≠ conj (Step2.sideSignature (Step2.rightBlock M))) :
+    IsTaoOrbit M := by
+  refine (nonmatched_tao_or_fourier M hM hd hIm hnm).resolve_right fun hF => hnm ?_
+  have := allCornersMatched_of_inFourierFamily hF 1 1
+  simp only [Equiv.Perm.coe_one, Matrix.submatrix_id_id] at this
+  rw [this, Complex.conj_conj]
 
 end NoFourMUBs.PRM

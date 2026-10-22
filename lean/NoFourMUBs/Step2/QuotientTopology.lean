@@ -87,15 +87,6 @@ theorem isQuotientMap_hadamardQuotient :
     Topology.IsQuotientMap hadamardQuotient :=
   isQuotientMap_quotient_mk'
 
-/-- Compactness descends to the actual quotient with its quotient topology. -/
-theorem hadamardClass6_compactSpace : CompactSpace HadamardClass6 :=
-  inferInstance
-
-theorem hadamardQuotient_surjective : Function.Surjective hadamardQuotient := by
-  intro q
-  induction q using Quotient.inductionOn with
-  | _ H => exact ⟨H, rfl⟩
-
 @[simp] theorem hadamardQuotient_eq_iff (H K : Had6) :
     hadamardQuotient H = hadamardQuotient K ↔ Equivalent H.1 K.1 := by
   constructor

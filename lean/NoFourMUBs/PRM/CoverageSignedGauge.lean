@@ -1,5 +1,8 @@
 import NoFourMUBs.PRM.CoverageSignedMoments
 import NoFourMUBs.PRM.CoverageStripIdHalf
+import NoFourMUBs.PRM.CoverageStripLambda
+import NoFourMUBs.PRM.CoverageStripIdFormal
+import NoFourMUBs.PRM.CoverageStripScalar
 
 /-!
 # The weighted signed sum in the row gauge `s = t = 1`, over `QF` (return K, `REPORT.md` §5)

@@ -25,13 +25,6 @@ lemma isHorizontal_add {Y Z : RMat6} (hY : IsHorizontal Y) (hZ : IsHorizontal Z)
   ⟨fun i => by simp [Matrix.add_apply, Finset.sum_add_distrib, hY.1 i, hZ.1 i],
    fun j => by simp [Matrix.add_apply, Finset.sum_add_distrib, hY.2 j, hZ.2 j]⟩
 
-lemma hor_of_isHorizontal {Y : RMat6} (h : IsHorizontal Y) : hor Y = Y := by
-  ext i j
-  have hr : rowMean Y i = 0 := by simp [rowMean, h.1 i]
-  have hc : colMean Y j = 0 := by simp [colMean, h.2 j]
-  have ha : allMean Y = 0 := by simp [allMean, h.1]
-  simp [hor, hr, hc, ha]
-
 lemma continuous_sumsq : Continuous sumsq := by
   unfold sumsq
   exact continuous_finsetSum _ fun i _ => continuous_finsetSum _ fun j _ =>

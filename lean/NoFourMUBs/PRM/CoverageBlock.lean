@@ -1,19 +1,16 @@
-import NoFourMUBs.PRM.CoverageFourierLocus
+import NoFourMUBs.PRM.CoverageCorners
 import NoFourMUBs.PRM.FourierBlock
+import NoFourMUBs.Step2.FourierFamily
 
 /-!
-# An all-critical matrix with a `3 × 3` Hadamard block is `F6`
+# An all-critical matrix with a `3 × 3` Hadamard block is in the Fourier family
 
 Both Fourier-routing lemmas of `PRM.md` §7.1 end by exhibiting a `3 × 3` Hadamard submatrix (the block
 `F`).  Here we prove what follows from such a block for an all-critical matrix:
 
-* `tao_or_fourier_of_block`: a Hadamard matrix whose top rows contain a `3 × 3` Hadamard block is in
-  Tao's orbit, or is equivalent to a core Fourier matrix `fourierCore ω x y` or to its transpose
-  (`PRM.md` §5.1–5.3, via upstream's normalization and `FourierBlock.fourierNormalForm_tao_or_character`,
-  with the character forms `v_form_*`, `w_form_*` of `FourierMatch`);
 * `tao_not_allCritical`: Tao's matrix has a strict corner (its right block has signature `−9 + 9ω`);
-* `equivalent_F6_of_block`: **an all-critical Hadamard matrix with a `3 × 3` Hadamard submatrix is
-  equivalent to `F6`** (with `CoverageFourierLocus`).
+* `inFourierFamily_of_block`: **an all-critical Hadamard matrix with a `3 × 3` Hadamard submatrix is in
+  the Fourier family** (`Step2.InFourierFamily`), by `FourierBlock.tao_or_fourier_of_block`.
 -/
 
 open Matrix Hadamard6 ComplexConjugate
@@ -56,65 +53,20 @@ theorem not_allCritical_of_taoOrbit {H : Mat6} (hT : IsTaoOrbit H) : ¬ AllCriti
   obtain ⟨ω, hω, hHT⟩ := hT
   exact fun h => tao_not_allCritical hω (allCritical_of_equivalent hHT h)
 
-/-! ### A Hadamard block: Tao or Fourier -/
-
-/-- `H` is equivalent to a core Fourier matrix or to its transpose. -/
-def InFourierFamily (H : Mat6) : Prop :=
-  ∃ ω x y : ℂ, IsPrimitiveCubicPhase ω ∧ Complex.normSq x = 1 ∧ Complex.normSq y = 1 ∧
-    (Equivalent H (fourierCore ω x y) ∨ Equivalent H (fourierCore ω x y)ᵀ)
-
-/-- **Fourier critical locus, for the whole family up to equivalence.** -/
-theorem equivalent_F6_of_fourierFamily {H : Mat6} (hF : InFourierFamily H) (hc : AllCritical H) :
-    Equivalent H Step2.fourierHadamard.1 := by
-  obtain ⟨ω, x, y, hω, hx, hy, hK | hK⟩ := hF
-  · exact equivalent_trans hK (fourierCore_criticalLocus hω hx hy (allCritical_of_equivalent hK hc))
-  · exact equivalent_trans hK
-      (fourierCore_transpose_criticalLocus hω hx hy (allCritical_of_equivalent hK hc))
-
-/-- `PRM.md` §5.1–5.3: a Hadamard matrix whose top three rows contain a `3 × 3` Hadamard block (on the
-columns `τ (inr ·)`) is in Tao's orbit or in the Fourier family. -/
-theorem tao_or_fourier_of_block (H : Mat6) (hH : Hadamard6.IsHadamard H) (τ : Equiv.Perm I6)
-    (h3 : IsHadamard3 (Matrix.toBlocks₁₂ (H.submatrix id τ))) :
-    IsTaoOrbit H ∨ InFourierFamily H := by
-  have hHH' : Equivalent H (H.submatrix id τ) :=
-    equivalent_reindexMatrix (Equiv.refl I6) τ H
-  have hH' : Hadamard6.IsHadamard (H.submatrix id τ) := isHadamard_of_equivalent hHH' hH
-  obtain ⟨n₃⟩ := simultaneous_threeBlockFourierNormalization _ hH'
-    (allFourBlocksHadamard_of_topRight hH' h3)
-  let n := n₃.toNormalization
-  have hω : IsPrimitiveCubicPhase n.ω := ⟨n.omega_unit, n.omega_quadratic⟩
-  have hHK : Equivalent H n.K := equivalent_trans hHH' n.equivalent
-  have hK := n.hK
-  rw [n.normalForm] at hHK hK
-  have back : ∀ {M : Mat6} (σ τ : Equiv.Perm I6), Equivalent H (M.submatrix σ τ) → Equivalent H M :=
-    fun σ τ h => equivalent_trans h (equivalent_symm (equivalent_reindexMatrix σ τ _))
-  rcases fourierNormalForm_tao_or_character hω n.p_unit n.q_unit n.r_unit n.s_unit hK with
-    hT | hc | hc
-  · exact Or.inl (isTaoOrbit_of_equivalent hHK hT)
-  · refine Or.inr ⟨n.ω, n.r, n.s, hω, n.r_unit, n.s_unit, Or.inl ?_⟩
-    rcases hc with ⟨hp, hq⟩ | ⟨hp, hq⟩ | ⟨hp, hq⟩ <;> rw [hp, hq] at hHK
-    · rw [v_form_one hω] at hHK; exact back _ _ hHK
-    · rw [v_form_sq hω] at hHK; exact back _ _ hHK
-    · rw [v_form_om hω] at hHK; exact back _ _ hHK
-  · refine Or.inr ⟨n.ω, n.p, n.q, hω, n.p_unit, n.q_unit, Or.inr ?_⟩
-    rcases hc with ⟨hr, hs⟩ | ⟨hr, hs⟩ | ⟨hr, hs⟩ <;> rw [hr, hs] at hHK
-    · rw [w_form_one hω] at hHK; exact back _ _ hHK
-    · rw [w_form_sq hω] at hHK; exact back _ _ hHK
-    · rw [w_form_om hω] at hHK; exact back _ _ hHK
+/-! ### A Hadamard block -/
 
 /-- Three rows `r` and three columns `c` of `H` (both injective) form a `3 × 3` Hadamard matrix. -/
 def HasHadamardBlock (H : Mat6) : Prop :=
   ∃ σ τ : Equiv.Perm I6, IsHadamard3 (Step2.rightBlock (H.submatrix σ τ))
 
-/-- **An all-critical Hadamard matrix with a `3 × 3` Hadamard submatrix is equivalent to `F6`.** -/
-theorem equivalent_F6_of_block {H : Mat6} (hH : Hadamard6.IsHadamard H) (hc : AllCritical H)
-    (hb : HasHadamardBlock H) : Equivalent H Step2.fourierHadamard.1 := by
+/-- **An all-critical Hadamard matrix with a `3 × 3` Hadamard submatrix is in the Fourier family.** -/
+theorem inFourierFamily_of_block {H : Mat6} (hH : Hadamard6.IsHadamard H) (hc : AllCritical H)
+    (hb : HasHadamardBlock H) : Step2.InFourierFamily H := by
   obtain ⟨σ, τ, h3⟩ := hb
   have hHσ : Equivalent H (H.submatrix σ id) := equivalent_reindexMatrix σ (Equiv.refl I6) H
   have hσ : Hadamard6.IsHadamard (H.submatrix σ id) := isHadamard_of_equivalent hHσ hH
   rcases tao_or_fourier_of_block (H.submatrix σ id) hσ τ h3 with hT | hF
   · exact absurd hc (not_allCritical_of_taoOrbit (isTaoOrbit_of_equivalent hHσ hT))
-  · exact equivalent_trans hHσ
-      (equivalent_F6_of_fourierFamily hF (allCritical_of_equivalent hHσ hc))
+  · exact hF.of_equivalent hHσ
 
 end NoFourMUBs.PRM.Coverage

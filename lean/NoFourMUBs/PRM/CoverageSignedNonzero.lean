@@ -132,9 +132,6 @@ theorem gauge_repeated {s t r : ℂ} (hs : s ≠ 0) (ht : t ≠ 0) {x : ℂ} (hx
   refine ⟨h1, ?_⟩
   rw [hZc]; linear_combination (r * s / t) * h1 - e3
 
-theorem weighted_value_ne {v : ℝ} (hv : v ≠ 0) {s t : ℂ} (hs : s ≠ 0) (ht : t ≠ 0) :
-    s * t * (v : ℂ) ≠ 0 := mul_ne_zero (mul_ne_zero hs ht) (by exact_mod_cast hv)
-
 /-- **No pole-free strip on a labelled curve.** -/
 theorem noPole_core {H : Mat6} (hH : Hadamard6.IsHadamard H)
     (hcrit : ∀ m : Fin 20, (Step2.sideSignature (triBlock H 0 m)).im = 0) (l : Fin 20)
