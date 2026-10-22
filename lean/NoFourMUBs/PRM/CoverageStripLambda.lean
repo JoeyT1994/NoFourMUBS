@@ -153,3 +153,18 @@ theorem halfDataOf_eq_lamData {x y : Fin 3 → ℂ} (hx : ∀ j, Complex.normSq 
     linear_combination (-((z : ℂ) * l0)) * e2
 
 end NoFourMUBs.PRM.Coverage.StripMoments
+
+namespace NoFourMUBs.PRM.Coverage.StripId
+
+open StripMoments Side
+
+/-- `lamData` is `fData` at the conjugates, moduli and `λ`-denominators. -/
+theorem lamData_eq_fData (s t r : ℂ) (z g : ℝ) :
+    lamData s t r z g = fData s (conj s) t (conj t) r (conj r) (Complex.normSq s) (Complex.normSq t)
+      (Complex.normSq r) (lamL s t r z g 0) (lamL s t r z g 1) (lamL s t r z g 2) z := by
+  simp only [lamData, fData, P0, P1, P2, map_add, map_mul, map_pow, Complex.conj_conj,
+    Complex.conj_ofReal]
+  push_cast
+  rfl
+
+end NoFourMUBs.PRM.Coverage.StripId

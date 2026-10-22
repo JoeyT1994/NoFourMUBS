@@ -1,4 +1,5 @@
-import NoFourMUBs.PRM.CoverageStripIdFormal
+import NoFourMUBs.PRM.CoverageStripHalfDefs
+import NoFourMUBs.PRM.CoverageStripMomentData
 import NoFourMUBs.Identity.Fast
 
 /-!

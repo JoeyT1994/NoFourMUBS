@@ -1,5 +1,7 @@
 import NoFourMUBs.PRM.CoverageStripIdZeroCheckM
 import NoFourMUBs.PRM.CoverageStripIdZeroCheckS
+import NoFourMUBs.PRM.CoverageStripIdFormal
+import NoFourMUBs.PRM.CoverageStripReduce
 
 /-!
 # Critical strip classification (I4): the zero-`J` square-sum identity (`ZeroJAlgebra`)
@@ -16,6 +18,48 @@ with `E = e₀e₁e₂`, and on the data the modulus relation `G = 0` holds and 
 open ComplexConjugate
 
 noncomputable section
+
+namespace NoFourMUBs.PRM.Coverage.StripId
+
+open StripMoments Side
+
+/-- The two halves of the strip, scaled to `s = t = 1`. -/
+theorem halves_scaled (s t r : ℂ) (zA gA zB gB : ℝ) (hs : s ≠ 0) (ht : t ≠ 0)
+    (hA : ∀ j, lamL s t r zA gA j ≠ 0) (hB : ∀ j, lamL (-s) (-t) (-r) zB gB j ≠ 0) :
+    momentPoly (fun p => (lamData s t r zA gA).mom p + (lamData (-s) (-t) (-r) zB gB).mom p) =
+      momentPoly (fun p =>
+        (fData 1 (Complex.normSq s) 1 (Complex.normSq t) (r * s / t) (conj r * t / s) (Complex.normSq s)
+          (Complex.normSq t) (Complex.normSq r) (lamL s t r zA gA 0) (lamL s t r zA gA 1)
+          (lamL s t r zA gA 2) zA).mom p +
+        (fData (-1) (-Complex.normSq s) (-1) (-Complex.normSq t) (-(r * s / t)) (-(conj r * t / s))
+          (Complex.normSq s) (Complex.normSq t) (Complex.normSq r) (lamL (-s) (-t) (-r) zB gB 0)
+          (lamL (-s) (-t) (-r) zB gB 1) (lamL (-s) (-t) (-r) zB gB 2) zB).mom p) := by
+  have ha : s⁻¹ ≠ 0 := inv_ne_zero hs
+  have hb : t⁻¹ ≠ 0 := inv_ne_zero ht
+  have cA : ∀ j, ((lamL s t r zA gA j : ℝ) : ℂ) ≠ 0 := fun j => by exact_mod_cast hA j
+  have cB : ∀ j, ((lamL (-s) (-t) (-r) zB gB j : ℝ) : ℂ) ≠ 0 := fun j => by exact_mod_cast hB j
+  rw [← momentPoly_scale _ ha hb]
+  apply momentPoly_congr
+  intro p hp
+  rw [lamData_eq_fData, lamData_eq_fData, mul_add,
+    ← fData_mom_scale _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ ha hb (cA 0) (cA 1) (cA 2) hp,
+    ← fData_mom_scale _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ ha hb (cB 0) (cB 1) (cB 2) hp]
+  have e1 : s⁻¹ * s = 1 := inv_mul_cancel₀ hs
+  have e2 : t⁻¹ * t = 1 := inv_mul_cancel₀ ht
+  have e3 : conj s / s⁻¹ = (Complex.normSq s : ℂ) := by rw [cast_normSq']; field_simp
+  have e4 : conj t / t⁻¹ = (Complex.normSq t : ℂ) := by rw [cast_normSq']; field_simp
+  have e5 : t⁻¹ / s⁻¹ * r = r * s / t := by field_simp
+  have e6 : s⁻¹ / t⁻¹ * conj r = conj r * t / s := by field_simp
+  have e7 : s⁻¹ * -s = -1 := by field_simp
+  have e8 : t⁻¹ * -t = -1 := by field_simp
+  have e9 : conj (-s) / s⁻¹ = -(Complex.normSq s : ℂ) := by rw [cast_normSq', map_neg]; field_simp
+  have e10 : conj (-t) / t⁻¹ = -(Complex.normSq t : ℂ) := by rw [cast_normSq', map_neg]; field_simp
+  have e11 : t⁻¹ / s⁻¹ * -r = -(r * s / t) := by field_simp
+  have e12 : s⁻¹ / t⁻¹ * conj (-r) = -(conj r * t / s) := by rw [map_neg]; field_simp
+  rw [e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12]
+  simp only [Complex.normSq_neg]
+
+end NoFourMUBs.PRM.Coverage.StripId
 
 namespace NoFourMUBs.PRM.Coverage.StripId.Zero
 
