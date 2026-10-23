@@ -165,13 +165,6 @@ theorem blockG_compl :
 
 end Compl
 
-/-- The whole-strip square sum `S = Σ_l 4 (Im Ψ(corner l))²` of the top three rows (`Ψ` up to sign is
-the side signature).  It is `Σ_l −D_l²` of `CRITICAL_STRIP_CLASSIFICATION.md` §1. -/
-def stripSq (H : Mat6) : ℝ := ∑ l : Fin 20, 4 * (Step2.sideSignature (triBlock H 0 l)).im ^ 2
-
-theorem stripSq_eq_zero {H : Mat6} (hc : AllCritical H) : stripSq H = 0 := by
-  simp [stripSq, hc.triBlock_im]
-
 /-- The corner `triBlock H 0 l` of a matrix with invertible minors is nonsingular. -/
 theorem triBlock_det_ne {H : Mat6} (hinv : AllMinorsInvertible H) (k l : Fin 20) :
     (triBlock H k l).det ≠ 0 := by

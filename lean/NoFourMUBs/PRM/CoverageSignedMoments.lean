@@ -19,6 +19,8 @@ corners are critical.
 * `cornerD_expand`: `D` of a unit side `(1; x; y)` is the 48-term Laurent polynomial `dTerms`; after
   clearing `(x₀x₁x₂y₀y₁y₂)²` this is a polynomial identity in six variables, checked by the kernel
   (`dExpansion_valid`).
+* `cornerD_all`: on an all-critical strip `D` vanishes on every ordered column triple (it is symmetric and
+  vanishes on repeated columns).
 * the weight `x_a y_a + x_b y_b + x_c y_c` shifts one exponent pair of each term by `(1, 1)`
   (`termVal_weight`); summing over ordered triples gives products of three moments (`sum_term`);
   the orthogonality moments vanish and `M(0, 0) = 6` (`dTerms_eq`, `dTerms_weight_eq`, by `ring`).
@@ -187,6 +189,39 @@ theorem dTerms_weight_eq (M : ℤ × ℤ → ℂ) (h10 : M (1, 0) = 0) (h01 : M 
   simp only [h10, h01, hm10, h0m1, h1m1, hm11, h00, weightedPoly]
   ring
 
+/-! ### Every ordered column triple of an all-critical strip -/
+
+theorem sorted_tri :
+    ∀ a b c : Fin 6, a < b → b < c → ∃ l : Fin 20, tri l 0 = a ∧ tri l 1 = b ∧ tri l 2 = c := by
+  decide
+
+/-- A symmetric function of three columns vanishing on repeated columns and on the twenty sorted
+triples vanishes. -/
+theorem all_of_tri {R : Type*} [Zero R] (f : Fin 6 → Fin 6 → Fin 6 → R)
+    (s1 : ∀ a b c, f a b c = f b a c) (s2 : ∀ a b c, f a b c = f a c b)
+    (z1 : ∀ a c, f a a c = 0) (z2 : ∀ a b, f a b b = 0)
+    (ht : ∀ l : Fin 20, f (tri l 0) (tri l 1) (tri l 2) = 0) (a b c : Fin 6) : f a b c = 0 := by
+  have st : ∀ a b c : Fin 6, a < b → b < c → f a b c = 0 := by
+    intro a b c hab hbc
+    obtain ⟨l, h0, h1, h2⟩ := sorted_tri a b c hab hbc
+    rw [← h0, ← h1, ← h2]; exact ht l
+  rcases lt_trichotomy a b with hab | rfl | hab
+  · rcases lt_trichotomy b c with hbc | rfl | hbc
+    · exact st a b c hab hbc
+    · exact z2 _ _
+    · rcases lt_trichotomy a c with hac | rfl | hac
+      · rw [s2]; exact st a c b hac hbc
+      · rw [s2]; exact z1 _ _
+      · rw [s2, s1]; exact st c a b hac hab
+  · exact z1 _ _
+  · rcases lt_trichotomy a c with hac | rfl | hac
+    · rw [s1]; exact st b a c hab hac
+    · rw [s1]; exact z2 _ _
+    · rcases lt_trichotomy b c with hbc | rfl | hbc
+      · rw [s1, s2]; exact st b c a hbc hac
+      · exact z2 _ _
+      · rw [s1, s2, s1]; exact st c b a hbc hab
+
 /-! ### The strip -/
 
 section Strip
@@ -234,6 +269,18 @@ theorem strip_orth :
       simp only [momentOf, _root_.zpow_neg_one, zpow_one, map_sum, map_mul, cx, cy, Complex.conj_conj]
     rw [e2, mm11, map_zero]
 
+/-- **Every ordered column triple of an all-critical strip has `D = 0`.** -/
+theorem cornerD_all (hcrit : ∀ m : Fin 20, (Step2.sideSignature (triBlock H 0 m)).im = 0)
+    (a b c : Fin 6) :
+    cornerD ![xsH H a, xsH H b, xsH H c] ![ysH H a, ysH H b, ysH H c] = 0 := by
+  refine all_of_tri (fun a b c => cornerD ![xsH H a, xsH H b, xsH H c] ![ysH H a, ysH H b, ysH H c])
+    (fun a b c => ?_) (fun a b c => ?_) (fun a c => ?_) (fun a b => ?_) (fun l => ?_) a b c
+  · simp only [cornerD, TS_swap01]
+  · simp only [cornerD, TS_swap12]
+  · simp only [cornerD, TS_rep01, map_zero, sub_zero]
+  · simp only [cornerD, TS_rep12, map_zero, sub_zero]
+  · apply cornerD_eq_zero; rw [← sig_triBlock hH]; exact hcrit l
+
 /-- **(3) and (4) vanish** on a strip whose top corners are all critical. -/
 theorem signed_zero (hcrit : ∀ l : Fin 20, (Step2.sideSignature (triBlock H 0 l)).im = 0) :
     signedPoly (momentOf (xsH H) (ysH H)) = 0 ∧ weightedPoly (momentOf (xsH H) (ysH H)) = 0 := by
@@ -248,23 +295,10 @@ theorem signed_zero (hcrit : ∀ l : Fin 20, (Step2.sideSignature (triBlock H 0 
     with hf
   set g : Fin 6 → Fin 6 → Fin 6 → ℂ := fun a b c =>
     (xs a * ys a + xs b * ys b + xs c * ys c) * f a b c with hg
-  -- every corner is critical
-  have hcorner : ∀ l : Fin 20, f (tri l 0) (tri l 1) (tri l 2) = 0 := by
-    intro l; simp only [hf]; apply cornerD_eq_zero; rw [← sig_triBlock hH]; exact hcrit l
-  have hf0 : ∑ a, ∑ b, ∑ c, f a b c = 0 := by
-    have h := ordered_sum f (fun a b c => ?_) (fun a b c => ?_) (fun a c => ?_) (fun a b => ?_)
-    · rw [h, ← sum_tri f]; simp [hcorner]
-    · simp only [hf, cornerD, TS_swap01]
-    · simp only [hf, cornerD, TS_swap12]
-    · simp only [hf, cornerD, TS_rep01, map_zero, sub_zero]
-    · simp only [hf, cornerD, TS_rep12, map_zero, sub_zero]
-  have hg0 : ∑ a, ∑ b, ∑ c, g a b c = 0 := by
-    have h := ordered_sum g (fun a b c => ?_) (fun a b c => ?_) (fun a c => ?_) (fun a b => ?_)
-    · rw [h, ← sum_tri g]; simp [hg, hcorner]
-    · simp only [hg, hf, cornerD, TS_swap01]; ring
-    · simp only [hg, hf, cornerD, TS_swap12]; ring
-    · simp only [hg, hf, cornerD, TS_rep01, map_zero, sub_zero, mul_zero]
-    · simp only [hg, hf, cornerD, TS_rep12, map_zero, sub_zero, mul_zero]
+  -- every ordered column triple is critical
+  have hz : ∀ a b c, f a b c = 0 := fun a b c => cornerD_all hH hcrit a b c
+  have hf0 : ∑ a, ∑ b, ∑ c, f a b c = 0 := by simp [hz]
+  have hg0 : ∑ a, ∑ b, ∑ c, g a b c = 0 := by simp [hg, hz]
   have e : ∀ a b c, f a b c = (dTerms.map (termVal ![xs a, xs b, xs c] ![ys a, ys b, ys c])).sum := by
     intro a b c
     refine cornerD_expand (fun j => ?_) (fun j => ?_) <;> fin_cases j <;> simp [hx, hy]

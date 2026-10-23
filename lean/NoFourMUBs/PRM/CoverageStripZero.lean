@@ -10,8 +10,8 @@ with invertible minors and `J = 0`, put `z = χ/(2g)`:
   the complementary corner has the same `g`, `z`;
 * `z = −3` gives `p = 0` and `z = −2` gives `p = 5`;
 * otherwise no moment denominator vanishes (`zero_pole_free`, the paper's `(Y − Z)² < 0` argument);
-* the square-sum identity (4) (`ZeroJSquareSum`, stated below) and `S = 0` give
-  `K = (1 − z)(z + 3)³`, so the modulus cubic is `(T − (z + 3))² (T − (1 − z)(z + 3))` and two of
+* `K = (1 − z)(z + 3)³` (`ZeroJProduct`, stated below; proved in `CoverageZeroJProduct` from return O's two
+  unsquared mixed-corner sums), so the modulus cubic is `(T − (z + 3))² (T − (1 − z)(z + 3))` and two of
   `X, Y, Z` equal `z + 3` (`zero_moduli`);
 * relabelling the three rows to put the common row first, `strip_geometric` gives the geometric
   rows (`zeroJ_classification`).
@@ -25,27 +25,14 @@ namespace NoFourMUBs.PRM.Coverage
 
 open Side
 
-/-- **The zero-`J` square-sum identity** (`CRITICAL_STRIP_CLASSIFICATION.md` §2, formula (4)).
-
-For three rows of a Hadamard matrix and a column split `l | 19 − l` whose two halves are nonsingular
-with real side signature, `J = 0`, `z = χ/(2g) ∉ {−3, −2}` and no moment pole (`L_j ≠ 0`; with `J = 0`
-both halves have the same `L_j`):
-`S · [3z(z + 3)⁴ + (3z + 8)K]³ = −3888 z (z + 2)² (z + 3)² [K + (z − 1)(z + 3)³] [z²(z + 3)⁴ + (z + 2)²K]²`,
-`K = XYZ`. -/
-def ZeroJSquareSum : Prop :=
-  ∀ H : Mat6, Hadamard6.IsHadamard H → ∀ l : Fin 20,
-    (Step2.sideSignature (triBlock H 0 l)).im = 0 →
-    (Step2.sideSignature (triBlock H 0 (19 - l))).im = 0 →
-    (triBlock H 0 l).det ≠ 0 → (triBlock H 0 (19 - l)).det ≠ 0 →
-    blockJ (triBlock H 0 l) = 0 → blockTheta (triBlock H 0 l) ≠ -3 →
-    blockTheta (triBlock H 0 l) ≠ -2 → (∀ j, blockL (triBlock H 0 l) j ≠ 0) →
-    stripSq H * (3 * blockTheta (triBlock H 0 l) * (blockTheta (triBlock H 0 l) + 3) ^ 4 +
-        (3 * blockTheta (triBlock H 0 l) + 8) * blockK (triBlock H 0 l)) ^ 3 =
-      -3888 * blockTheta (triBlock H 0 l) * (blockTheta (triBlock H 0 l) + 2) ^ 2 *
-        (blockTheta (triBlock H 0 l) + 3) ^ 2 *
-        (blockK (triBlock H 0 l) + (blockTheta (triBlock H 0 l) - 1) * (blockTheta (triBlock H 0 l) + 3) ^ 3) *
-        (blockTheta (triBlock H 0 l) ^ 2 * (blockTheta (triBlock H 0 l) + 3) ^ 4 +
-          (blockTheta (triBlock H 0 l) + 2) ^ 2 * blockK (triBlock H 0 l)) ^ 2
+/-- **The zero-`J` product** (return O, `proof/coverage/returns/O_zeroj_unsquared/REPORT.md` Z1): at a
+corner of the top strip of an all-critical Hadamard matrix with invertible minors, `J = 0` and
+`z = χ/(2g) ∉ {−3, −2}`, `K = (1 − z)(z + 3)³`.  Proved in `CoverageZeroJProduct` from two unsquared
+weighted sums over the nine mixed corners. -/
+def ZeroJProduct : Prop :=
+  ∀ H : Mat6, Hadamard6.IsHadamard H → AllCritical H → AllMinorsInvertible H → ∀ l : Fin 20,
+    blockJ (triBlock H 0 l) = 0 → blockTheta (triBlock H 0 l) ≠ -3 → blockTheta (triBlock H 0 l) ≠ -2 →
+    blockK (triBlock H 0 l) = (1 - blockTheta (triBlock H 0 l)) * (blockTheta (triBlock H 0 l) + 3) ^ 3
 
 /-! ### Scalar data -/
 
@@ -228,6 +215,26 @@ theorem swap02_data (B : Mat3) :
     rw [show blockR B * blockS B * conj (blockT B) = conj (conj (blockS B) * conj (blockR B) * blockT B) by
       simp only [map_mul, Complex.conj_conj]; ring, Complex.conj_re]
 
+/-- The swap of rows `1, 2` permutes `(X, Y, Z) ↦ (Y, X, Z)` and keeps `J`. -/
+theorem swap12_data (B : Mat3) :
+    blockX (B.submatrix (Equiv.swap 1 2) id) = blockY B ∧
+      blockY (B.submatrix (Equiv.swap 1 2) id) = blockX B ∧
+      blockZ (B.submatrix (Equiv.swap 1 2) id) = blockZ B ∧
+      blockJ (B.submatrix (Equiv.swap 1 2) id) = blockJ B := by
+  have e1 : blockS (B.submatrix (Equiv.swap 1 2) id) = blockT B := by
+    rw [blockS, gram3_submatrix]; rfl
+  have e2 : blockT (B.submatrix (Equiv.swap 1 2) id) = blockS B := by
+    rw [blockT, gram3_submatrix]; rfl
+  have e3 : blockR (B.submatrix (Equiv.swap 1 2) id) = conj (blockR B) := by
+    rw [blockR, gram3_submatrix, gram3_swap]; rfl
+  refine ⟨?_, ?_, ?_, ?_⟩
+  · rw [blockX, e1]; rfl
+  · rw [blockY, e2]; rfl
+  · rw [blockZ, e3, Complex.normSq_conj]; rfl
+  · rw [blockJ, jS, e1, e2, e3, blockJ, jS, Complex.conj_conj]
+    rw [show conj (blockT B) * blockR B * blockS B = conj (conj (blockS B) * conj (blockR B) * blockT B) by
+      simp only [map_mul, Complex.conj_conj]; ring, Complex.conj_re]
+
 /-- `z` depends only on `p`, `J`, `W`. -/
 theorem blockTheta_congr {B C : Mat3} (hp : blockP C = blockP B) (hJ : blockJ C = blockJ B)
     (hW : blockW C = blockW B) : blockTheta C = blockTheta B := by
@@ -283,7 +290,7 @@ theorem geometric_of_perm {H : Mat6} (hH : Hadamard6.IsHadamard H) (l : Fin 20)
 /-! ### The zero-`J` stratum -/
 
 /-- **The zero-`J` stratum** (`CRITICAL_STRIP_CLASSIFICATION.md` §2). -/
-theorem zeroJ_classification (hZ : ZeroJSquareSum) {H : Mat6} (hH : Hadamard6.IsHadamard H)
+theorem zeroJ_classification (hZ : ZeroJProduct) {H : Mat6} (hH : Hadamard6.IsHadamard H)
     (hc : AllCritical H) (hinv : AllMinorsInvertible H) (l : Fin 20)
     (hJ : blockJ (triBlock H 0 l) = 0) :
     blockP (triBlock H 0 l) = 0 ∨ blockP (triBlock H 0 l) = 5 ∨
@@ -293,7 +300,6 @@ theorem zeroJ_classification (hZ : ZeroJSquareSum) {H : Mat6} (hH : Hadamard6.Is
   have hBu := triBlock_unit hH 0 l
   have hIm := hc.triBlock_im 0 l
   have hIm' := hc.triBlock_im 0 (19 - l)
-  have hZl := hZ H hH l hIm hIm' hd hd' hJ
   set B := triBlock H 0 l with hBdef
   set B' := triBlock H 0 (19 - l) with hB'def
   obtain ⟨hg, hp, hW, hz0, hz3⟩ := zero_data hBu hd hIm hJ
@@ -304,29 +310,8 @@ theorem zeroJ_classification (hZ : ZeroJSquareSum) {H : Mat6} (hH : Hadamard6.Is
   · right; left; rw [hp, e2]; norm_num
   right; right
   have hz3' : -3 < z := lt_of_le_of_ne hz3 (Ne.symm e3)
-  have hpoles := zero_poles hg hp hW hz0 e2 e3
-  have e := hZl e3 e2 hpoles
-  rw [stripSq_eq_zero hc, zero_mul] at e
-  -- `K = (1 − z)(z + 3)³`
-  have hK : blockK B = (1 - z) * (z + 3) ^ 3 := by
-    have hKnn : 0 ≤ blockK B := by
-      simp only [blockK]
-      exact mul_nonneg (mul_nonneg (Complex.normSq_nonneg _) (Complex.normSq_nonneg _))
-        (Complex.normSq_nonneg _)
-    have hq : 0 < z ^ 2 * (z + 3) ^ 4 + (z + 2) ^ 2 * blockK B := by
-      have : z + 3 ≠ 0 := fun h0 => e3 (by linarith)
-      have : 0 < z ^ 2 * (z + 3) ^ 4 := by positivity
-      nlinarith [sq_nonneg (z + 2)]
-    have hz2' : z + 2 ≠ 0 := fun h0 => e2 (by linarith)
-    have hz3'' : z + 3 ≠ 0 := fun h0 => e3 (by linarith)
-    have hne : -3888 * z * (z + 2) ^ 2 * (z + 3) ^ 2 ≠ 0 := by positivity
-    have e' : (-3888 * z * (z + 2) ^ 2 * (z + 3) ^ 2) * (blockK B + (z - 1) * (z + 3) ^ 3) *
-        (z ^ 2 * (z + 3) ^ 4 + (z + 2) ^ 2 * blockK B) ^ 2 = 0 := by linarith
-    rcases mul_eq_zero.1 e' with h | h
-    · rcases mul_eq_zero.1 h with h | h
-      · exact absurd h hne
-      · linarith
-    · exact absurd (pow_eq_zero_iff (n := 2) (by norm_num) |>.1 h) hq.ne'
+  -- `K = (1 − z)(z + 3)³` (return O)
+  have hK : blockK B = (1 - z) * (z + 3) ^ 3 := hZ H hH hc hinv l hJ e3 e2
   -- the complementary corner has the same `z`
   have hth' : blockTheta B' = z := by
     rw [hzdef]

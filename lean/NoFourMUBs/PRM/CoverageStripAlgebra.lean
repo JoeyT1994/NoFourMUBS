@@ -2,21 +2,14 @@ import NoFourMUBs.PRM.CoverageStripLambda
 import NoFourMUBs.PRM.CoverageStripScalar
 
 /-!
-# Critical strip classification (I4): reduction of the square-sum identities to pure algebra
+# Critical strip classification (I4): the moments of a critical half
 
-`stripSq_alg`: on three rows of a Hadamard matrix whose split `l | 19 − l` has nonsingular halves with real
-side signature and no moment pole, the whole-strip square sum is the explicit rational function
-
-  `S = momentPoly (M_A + M_B)`,  `M_A = (lamData s t r z_A g_A).mom`,  `M_B = (lamData (−s) (−t) (−r) z_B g_B).mom`
-
-of the Gram data `s, t, r` of the first half and the invariants `z, g` of the two halves
-(`CRITICAL_STRIP_CLASSIFICATION.md` §1: the moment expansion `stripSq_eq_momentPoly`, the halves'
-moments (`sum_tri_compl`), Newton's identities (`newton`) and the `λ`-substitution
-(`halfDataOf_eq_lamData`)).
-
-Consequently the zero-`J` square-sum identity follows from a statement about complex numbers `s, t, r` only
-(`ZeroJAlgebra`, the computer-algebra content of §2): `zeroJSquareSum_of_algebra`.  (`block_moment` is also
-used by the nonzero-`J` stratum, `CoverageSignedNonzero`.)
+`block_moment`: on three rows of a Hadamard matrix, the moments `Σ_{u ∈ tri l} x_u^i y_u^j` of a nonsingular
+half `l` with real side signature and no moment pole are the explicit rational functions
+`(lamData s t r z g).mom (i, j)` of its Gram data `s, t, r` and invariants `z, g`
+(`CRITICAL_STRIP_CLASSIFICATION.md` §1: Newton's identities `newton` and the `λ`-substitution
+`halfDataOf_eq_lamData`).  Used by both strata: return O's mixed sums (`CoverageZeroJProduct`) and
+return K's weighted signed sum (`CoverageSignedNonzero`).
 -/
 
 open Matrix Hadamard6 ComplexConjugate
@@ -26,47 +19,6 @@ noncomputable section
 namespace NoFourMUBs.PRM.Coverage
 
 open StripMoments Side
-
-/-- Pointwise agreement on the 36 moments gives the same `momentPoly`. -/
-theorem momentPoly_congr {M M' : ℤ × ℤ → ℂ} (h : ∀ p ∈ usedMoments, M p = M' p) :
-    momentPoly M = momentPoly M' := by
-  simp only [momentPoly]
-  rw [h (-4, 2) (by decide),
-    h (-3, 0) (by decide),
-    h (-3, 1) (by decide),
-    h (-3, 2) (by decide),
-    h (-3, 3) (by decide),
-    h (-2, -2) (by decide),
-    h (-2, -1) (by decide),
-    h (-2, 0) (by decide),
-    h (-2, 1) (by decide),
-    h (-2, 2) (by decide),
-    h (-2, 3) (by decide),
-    h (-2, 4) (by decide),
-    h (-1, -2) (by decide),
-    h (-1, -1) (by decide),
-    h (-1, 2) (by decide),
-    h (-1, 3) (by decide),
-    h (0, -3) (by decide),
-    h (0, -2) (by decide),
-    h (0, 2) (by decide),
-    h (0, 3) (by decide),
-    h (1, -3) (by decide),
-    h (1, -2) (by decide),
-    h (1, 1) (by decide),
-    h (1, 2) (by decide),
-    h (2, -4) (by decide),
-    h (2, -3) (by decide),
-    h (2, -2) (by decide),
-    h (2, -1) (by decide),
-    h (2, 0) (by decide),
-    h (2, 1) (by decide),
-    h (2, 2) (by decide),
-    h (3, -3) (by decide),
-    h (3, -2) (by decide),
-    h (3, -1) (by decide),
-    h (3, 0) (by decide),
-    h (4, -2) (by decide)]
 
 /-- The moments of one critical half. -/
 theorem half_moment {x y : Fin 3 → ℂ} (hx : ∀ j, Complex.normSq (x j) = 1)
@@ -108,23 +60,5 @@ theorem block_moment {H : Mat6} (hH : Hadamard6.IsHadamard H) (l : Fin 20)
         (blockR (triBlock H 0 l)) = blockG (triBlock H 0 l) from rfl, lamL_block]; exact hL j) hp
   rw [dephase_sS1, dephase_sS2, dephase_rS hB] at hm
   exact (Finset.sum_congr rfl fun k _ => by rw [ex, ey]).trans hm
-
-/-- **The whole-strip square sum as a rational function of the corner data.** -/
-theorem stripSq_alg {H : Mat6} (hH : Hadamard6.IsHadamard H) (l : Fin 20)
-    (hIm : (Step2.sideSignature (triBlock H 0 l)).im = 0)
-    (hIm' : (Step2.sideSignature (triBlock H 0 (19 - l))).im = 0)
-    (hd : (triBlock H 0 l).det ≠ 0) (hd' : (triBlock H 0 (19 - l)).det ≠ 0)
-    (hL : ∀ j, blockL (triBlock H 0 l) j ≠ 0) (hL' : ∀ j, blockL (triBlock H 0 (19 - l)) j ≠ 0) :
-    (stripSq H : ℂ) = momentPoly (fun p =>
-      (lamData (blockS (triBlock H 0 l)) (blockT (triBlock H 0 l)) (blockR (triBlock H 0 l))
-        (blockTheta (triBlock H 0 l)) (blockG (triBlock H 0 l))).mom p +
-      (lamData (-blockS (triBlock H 0 l)) (-blockT (triBlock H 0 l)) (-blockR (triBlock H 0 l))
-        (blockTheta (triBlock H 0 (19 - l))) (blockG (triBlock H 0 (19 - l)))).mom p) := by
-  rw [stripSq_eq_momentPoly hH]
-  apply momentPoly_congr
-  intro p hp
-  rw [← blockS_compl hH, ← blockT_compl hH, ← blockR_compl hH, ← block_moment hH l hIm hd hL hp,
-    ← block_moment hH (19 - l) hIm' hd' hL' hp, momentOf]
-  exact (sum_tri_compl l (fun u => xsH H u ^ p.1 * ysH H u ^ p.2)).symm
 
 end NoFourMUBs.PRM.Coverage
