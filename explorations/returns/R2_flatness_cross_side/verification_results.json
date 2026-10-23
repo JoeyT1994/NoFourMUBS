@@ -1,0 +1,84 @@
+{
+  "started_utc": "2026-10-23T02:41:22.176501+00:00",
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "assertions_enabled": true,
+  "checks": [
+    {
+      "script": "verification/verify_target_binding.py",
+      "return_code": 0,
+      "elapsed_seconds": 0.033585,
+      "status": "PASS",
+      "stdout": "{\"certificate_data_bytes\": 8481, \"nodes\": 542, \"status\": \"PASS\", \"step\": \"target_binding\"}\n",
+      "stderr": ""
+    },
+    {
+      "script": "verification/check_packed_circuit.py",
+      "return_code": 0,
+      "elapsed_seconds": 8.362164,
+      "status": "PASS",
+      "stdout": "{\"base_bits\": 47, \"coefficient_l1_bound\": \"94964510263680\", \"elapsed_seconds\": 1.175256, \"exponent_max\": [8, 8, 7, 7], \"exponent_min\": [-5, -6, -6, -7], \"identity\": \"linear_residual\", \"max_actual_bits\": 1997977, \"nodes\": 450, \"peak_rss_kib\": 15720, \"radices\": [14, 15, 14, 15], \"status\": \"PASS\", \"weights\": [1, 14, 210, 2940]}\n{\"base_bits\": 59, \"coefficient_l1_bound\": \"543610329879553920\", \"elapsed_seconds\": 7.153475, \"exponent_max\": [10, 10, 9, 9], \"exponent_min\": [-7, -8, -8, -9], \"identity\": \"constant_residual\", \"max_actual_bits\": 6708073, \"nodes\": 495, \"peak_rss_kib\": 28288, \"radices\": [18, 19, 18, 19], \"status\": \"PASS\", \"weights\": [1, 18, 342, 6156]}\n{\"base_bits\": 9, \"coefficient_l1_bound\": \"324\", \"elapsed_seconds\": 5.4e-05, \"exponent_max\": [1, 1, 1, 1], \"exponent_min\": [-1, -1, -1, -1], \"identity\": \"gram_g\", \"max_actual_bits\": 606, \"nodes\": 84, \"peak_rss_kib\": 28288, \"radices\": [3, 3, 3, 3], \"status\": \"PASS\", \"weights\": [1, 3, 9, 27]}\n{\"base_bits\": 8, \"coefficient_l1_bound\": \"180\", \"elapsed_seconds\": 4.7e-05, \"exponent_max\": [1, 1, 1, 1], \"exponent_min\": [-1, -1, -1, -1], \"identity\": \"gram_eta\", \"max_actual_bits\": 538, \"nodes\": 81, \"peak_rss_kib\": 28288, \"radices\": [3, 3, 3, 3], \"status\": \"PASS\", \"weights\": [1, 3, 9, 27]}\n{\"base_bits\": 14, \"coefficient_l1_bound\": \"9720\", \"elapsed_seconds\": 0.000252, \"exponent_max\": [2, 2, 2, 2], \"exponent_min\": [-2, -2, -2, -2], \"identity\": \"gram_chi\", \"max_actual_bits\": 7871, \"nodes\": 112, \"peak_rss_kib\": 28288, \"radices\": [5, 5, 5, 5], \"status\": \"PASS\", \"weights\": [1, 5, 25, 125]}\n",
+      "stderr": ""
+    },
+    {
+      "script": "verification/verify_coordinates.py",
+      "return_code": 0,
+      "elapsed_seconds": 0.837175,
+      "status": "PASS",
+      "stdout": "PASS: generic covariance coordinate change and determinant.\nPASS: exact W = J M_v C M_h^T J^T for arbitrary contraction.\nPASS: six matching-ideal multiplication rules.\nPASS: generic coefficient-transfer identity.\nPASS: generic affine covariance inverse numerator.\n{\"matched_flatness_proved_here\": false, \"scope\": \"coordinate transformation and matching-ideal arithmetic only\", \"status\": \"PASS\"}\n",
+      "stderr": ""
+    },
+    {
+      "script": "verification/check_covariance_norm.py",
+      "return_code": 0,
+      "elapsed_seconds": 0.074447,
+      "status": "PASS",
+      "stdout": "PASS: all generic lambda norm identities.\nPASS: det M = -g lambda1 lambda2/(3 lambda0) in generic quadratic algebra.\nPASS: det M(t) det M(h-t) = (g^2/9) P1 P2 barP0/(barP1 barP2 P0).\nAll calculations used six independent Gram variables and exact rational arithmetic.\n",
+      "stderr": ""
+    },
+    {
+      "script": "verification/verify_compact_rational.py",
+      "return_code": 0,
+      "elapsed_seconds": 0.507061,
+      "status": "PASS",
+      "stdout": "PASS: horizontal/vertical g, eta, chi agree; det(Gh)=det(Gv)=g.\nPASS: B0-C0 = 0 exactly in Q(a,b,c,d).\nPASS: A0+(chi/g)*C0+eta*D0 = 0 exactly in Q(a,b,c,d).\nThus W11 = B0*(z+w-chi/g) + D0*(z*w-eta).\n{\"coefficient_term_counts\": {\"A0\": {\"denominator\": 10557, \"numerator\": 17713}, \"B0\": {\"denominator\": 5377, \"numerator\": 5270}, \"C0\": {\"denominator\": 5377, \"numerator\": 5270}, \"D0\": {\"denominator\": 5377, \"numerator\": 2882}}, \"elapsed_seconds\": 0.375625, \"method\": \"existing rational seed expansion\"}\nREFERENCE METHOD PASS; structural Handoff R remains NOT ESTABLISHED.\nPASS two Laurent polynomial zeros 0.07839200899979915\n",
+      "stderr": ""
+    },
+    {
+      "script": "verification/verify_c11_rational.py",
+      "return_code": 0,
+      "elapsed_seconds": 2.11096,
+      "status": "PASS",
+      "stdout": "PASS: horizontal/vertical g, eta, chi agree; det(Gh)=det(Gv)=g.\nPASS: B0-C0 = 0 exactly in Q(a,b,c,d).\nPASS: A0+(chi/g)*C0+eta*D0 = 0 exactly in Q(a,b,c,d).\nThus W11 = B0*(z+w-chi/g) + D0*(z*w-eta).\n{\"coefficient_term_counts\": {\"A0\": {\"denominator\": 10557, \"numerator\": 17713}, \"B0\": {\"denominator\": 5377, \"numerator\": 5270}, \"C0\": {\"denominator\": 5377, \"numerator\": 5270}, \"D0\": {\"denominator\": 5377, \"numerator\": 2882}}, \"elapsed_seconds\": 0.381398, \"method\": \"existing rational seed expansion\"}\nREFERENCE METHOD PASS; structural Handoff R remains NOT ESTABLISHED.\nC11 PASS {'A': [36248, 40347], 'B': [14824, 25281], 'C': [14824, 25281], 'D': [20028, 40347]} seconds 1.6707794059984735\n",
+      "stderr": ""
+    }
+  ],
+  "status": "PASS",
+  "structural_cross_side_derivation": "NOT_ESTABLISHED",
+  "c11_ideal_membership": "CERTIFIED_EXACTLY",
+  "lean_build_performed": false,
+  "lean_files_modified": false,
+  "dependencies": {
+    "sympy": "1.14.0",
+    "python-flint": "0.9.0"
+  },
+  "elapsed_seconds": 11.925653,
+  "core_files": {
+    "certificate/packed_circuit.json": {
+      "bytes": 8481,
+      "sha256": "1392b3408956f989eb4703ccd4238f04aa723e438e4353a1af89269a195afb1e"
+    },
+    "certificate/build_circuit.py": {
+      "bytes": 7776,
+      "sha256": "b12662fe8c7a785c767dfe575fe59986d3f9388a4d9df93a2b87fba68a1d854a"
+    },
+    "verification/check_packed_circuit.py": {
+      "bytes": 5052,
+      "sha256": "b73bc25252d1cd913850a22336524d3a13219b4b7da78dd656ac6ffedc54acd1"
+    },
+    "verification/verify_target_binding.py": {
+      "bytes": 1456,
+      "sha256": "864492ceab5d49d41dd9ffc0b8474398a270d8a85637ac3708280287b9c19c8f"
+    }
+  },
+  "core_total_bytes": 22765
+}
