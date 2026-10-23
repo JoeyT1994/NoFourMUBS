@@ -8,7 +8,7 @@ The finite algebra of Step 1's sextic-free saddle proof. Its proof documents are
 | `verify_certificates.py` | Exact acceptance checker, standard library only: `python3 verify_certificates.py` (about 7 s; run by `verify.py`) |
 | `audit_checks.py` | Supplementary audit: 14 rejected mutations and 13 cross-file source comparisons |
 | `generation/` | The untrusted JSON-to-Lean generator; the Lean kernel checks its output |
-| `lean/Step1/` | Library `Step1`: the generated modules plus `Common`, `InteriorConsequences` and `FiniteOrbit` (216 theorems, standard axioms, no `sorry` or `native_decide`) |
+| `lean/Step1/` | Library `Step1`: the generated modules for the three certificates the proof uses (`boundary_core`, `boundary_edges`, `interior_core`) plus `Common` and `InteriorConsequences` (96 theorems, standard axioms, no `sorry` or `native_decide`). The other certificates are checked by `verify_certificates.py` only |
 
 The analytic assembly that turns this algebra into Step 1 (`Step1Geo.maximumCensus`) is in `../NoFourMUBs/Step1/`.
 
@@ -17,5 +17,4 @@ Regenerate with `python3 generation/generate_lean.py`, then run `lake build Step
 **Repairs made to the returned generator.** The return's author had no working Lean.
 - **Identity proofs** use `(try simp only [defs]) <;> ring`.
 - **Derivative proofs** use `congr_deriv` and `congr_of_eventuallyEq` in place of `convert`.
-- **`FiniteOrbit`** uses `norm_num` and `decide +kernel` where `decide` over ℚ does not reduce.
 - **Build layout:** the generator no longer writes a nested lakefile.

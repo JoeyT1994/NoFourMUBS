@@ -40,7 +40,7 @@ def audit(path):
 
 build()
 audit('NoFourMUBs/Axioms.lean')
-audit('Step1Gen/lean/Step1/Audit.lean')   # the 216 Step 1 certificate theorems
+audit('Step1Gen/lean/Step1/Audit.lean')   # the 96 Step 1 certificate theorems the proof uses
 if '--full' in sys.argv[1:]:
     build('NoFourMUBs.Complete')
     build('NoFourMUBs.Final', 'NoFourMUBs.FourierVanishing.Main')   # AxiomsComplete.lean imports both

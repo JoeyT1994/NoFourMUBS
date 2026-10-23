@@ -117,7 +117,7 @@ So both traces cannot be interior.
 - On that branch, the actual transverse curvature is 660(46y + 9) > 4125/32. Every physical root of 4y² + 6y + 1 lies in (−49/256, −3/16), by a secant identity.
 - On h = 1, four positive Bernstein expansions leave only (c, h) = (1/4, 1). Its lifts are exactly the 18-point orbit, with q = (1 + i√15)/4.
 
-**Certificates.** 651 exact claims, checked with integers and rationals only, in seconds (`lean/Step1Gen`, `verify_certificates.py`; proof documents in [`proof/coverage/returns/C_step1_saddle`](proof/coverage/returns/C_step1_saddle/)). All of Step 1 is proved in Lean, using only standard axioms: the 216 certificate theorems of library `Step1` and the analytic assembly in `lean/NoFourMUBs/Step1/`. Theorem 1 is `Step1Geo.maximumCensus`, with the explicit anchors `Step1Geo.anchors`. The earlier resultant/Sturm proofs A and B (`returns/A_deltoid`, `returns/B_exact_quotient`) remain as independent cross-checks. Proof B also shows why no interval box cover could work here: at the F3 seed, R, ∇R and Hess R all vanish, with strict seeds arbitrarily close.
+**Certificates.** 651 exact claims, checked with integers and rationals only, in seconds (`lean/Step1Gen`, `verify_certificates.py`; proof documents in [`proof/coverage/returns/C_step1_saddle`](proof/coverage/returns/C_step1_saddle/)). Theorem 1 is proved in Lean, using only standard axioms: the 96 certificate theorems of library `Step1` that it needs (interior, single boundary, double boundary) and the analytic assembly in `lean/NoFourMUBs/Step1/`. The remaining certificates (curvature, cusps, endpoints, orbit census) are checked exactly by `verify_certificates.py` but are not needed by the proof. Theorem 1 is `Step1Geo.maximumCensus`, with the explicit anchors `Step1Geo.anchors`. The earlier resultant/Sturm proofs A and B (`returns/A_deltoid`, `returns/B_exact_quotient`) remain as independent cross-checks. Proof B also shows why no interval box cover could work here: at the F3 seed, R, ∇R and Hess R all vanish, with strict seeds arbitrarily close.
 
 ## Step 2. Reconstruction, and X is connected
 
@@ -214,8 +214,12 @@ matrix, dephased at the corner, with horizontal signature ζ. Its vertical signa
    Fourier families. The Fourier families are matched at every corner (400 Laurent identities on paper; 200 are
    kernel-checked in Lean and the rest follow by conjugation). So M is Tao.
 
+The proof of no four MUBs needs only the weaker conclusion of step 5, *M is Tao or in a Fourier family*, since the
+Fourier families are covered directly (see the coverage note after Lemma 4.2).
+
 Independently audited with no errors found ([`proof/coverage/audits/AUDIT_2026-10-15.md`](proof/coverage/audits/AUDIT_2026-10-15.md)).
-*Lean:* `PRM.nonmatched_tao` (`lean/NoFourMUBs/PRM/Converse.lean` and its imports). ∎
+*Lean:* `PRM.nonmatched_tao_or_fourier` (`lean/NoFourMUBs/PRM/Converse.lean`), the weaker form used by the proof; the full
+statement is `PRM.nonmatched_tao` (`PRM/FourierMatch.lean`, used only by the Fourier-vanishing module). ∎
 
 > **Theorem 2.5 (strict-corner coverage).** Every Hadamard matrix not equivalent to F6 has a strict corner.
 
@@ -223,7 +227,8 @@ Independently audited with no errors found ([`proof/coverage/audits/AUDIT_2026-1
 with `PRM.md` §7.1). Suppose every corner of H is critical (R = 0) and H ≇ F6.
 1. **Routing.** A singular 3×3 minor, or three rows phased into (1; x; x̄), would put H in a Fourier family
    (elementary, `PRM.md` §7.1). An all-critical member of a Fourier family is equivalent to F6
-   (`FOURIER_CRITICAL_LOCUS.md`). So all minors are invertible, and no row triple is of that form.
+   (`FOURIER_CRITICAL_LOCUS.md`). So all minors are invertible, and no row triple is of that form. (The proof of no
+   four MUBs needs only "H is in a Fourier family" here, not the census of `FOURIER_CRITICAL_LOCUS.md`.)
 2. **Critical-strip classification.** On any three-row strip with all twenty blocks invertible and every corner
    critical, each corner has p ∈ {0, 5}, or one of two rational endpoints, or p = p* := 9 − 4/(1 + κ²), where
    κ > 0 solves 3κ³ + κ² + κ − 1 = 0.
@@ -246,7 +251,9 @@ with `PRM.md` §7.1). Suppose every corner of H is critical (R = 0) and H ≇ F6
    are even; 25n₅ + 35n₇ + 27n_e = 270 then leaves ten equicorrelated corners (Σ X² = 162/5 < 54) or two p = 7
    corners, whose two edges cannot balance every vertex. ∎
 
-*Lean:* `PRM.strictCornerCoverage` (`lean/NoFourMUBs/Final.lean`; modules `PRM/Coverage*.lean`). The count is
+*Lean:* `PRM.strictCornerCoverage` (`lean/NoFourMUBs/Final.lean`; modules `PRM/Coverage*.lean`), in the weaker form
+"every Hadamard matrix not in a Fourier family has a strict corner" used by the proof; the form stated above is
+`Coverage.strictCorner_of_not_F6` (`PRM/CoverageFourierLocus.lean`, outside the proof's import closure). The count is
 `CoverageTen.anchored_count` (`PRM/CoverageEndCount.lean`); instead of irrationality it uses p* ∈ (5.722, 5.723)
 (`CoverageTen.pStar_bounds`; the wider window (17/3, 29/5) would admit a corner value such as 143/25). The zero-J
 square-sum identity is re-checked by the kernel (`PRM/CoverageStripIdZero*.lean`); the nonzero-J stratum is
@@ -331,8 +338,13 @@ Since X is connected (Theorem 2), W ∩ X = X. ∎
 statement. `Final.no_four_mubs` uses the direct route `Step2.coverage_of_matched_density`: W pulled back to the
 strict seeds is open and closed in S. It is nonempty: the certificate puts F6 in the interior of a Record, so W is a
 neighbourhood of [F6]; the Fourier family K(t) tends to F6, so [K(t)] ∈ W for small t > 0; and K(t) is matched at a
-strict corner (return Q, `Step2.exists_matched_mem`). So by Lemma 1.1 it is all of S,
-W contains A and conj A, and X = A ∪ conj A ∪ {[F6]} by Corollary 2.6.
+strict corner (return Q, `Step2.exists_matched_mem`). So by Lemma 1.1 it is all of S, and W contains A and conj A.
+The Lean proof then uses a weaker classification than Corollary 2.6. The Fourier families and their transposes are
+continuous images of a torus, so their classes form connected sets containing [F6], hence lie in the open and closed
+set W (`Step2.fourierClasses_subset`). Every non-Tao class is then in W: a strict corner is matched or puts the matrix
+in a Fourier family or at Tao (`PRM.nonmatched_tao_or_fourier`), and a matrix with no strict corner is in a Fourier
+family (`PRM.strictCornerCoverage`). This needs neither the matching of the Fourier families at all 400 corners nor
+the all-critical Fourier census.
 
 **The computation** ([`proof/atlas/`](proof/atlas/README.md)):
 1. `atlas.py` grows ball Records breadth-first from a seed centre until every Record's boundary is transferred.
@@ -359,8 +371,8 @@ By Step 4 and Lemma 4.2, every class in X lies in some ball Record. By Step 3, n
 | Lemma 2.1 (side quadratic) | Step 2.1 | none | yes |
 | Theorem 2.2 (matched existence) | return J (sides), return E (flatness), return Q (the Fourier anchor) | identity (J); exact flatness identities; return Q's 62 exact checks | yes (kernel re-checks every identity) |
 | Theorem 2.3 (matched uniqueness) | Step 2.2 | none | yes |
-| Theorem 2.4 (nonmatched converse) | return G §§2–5 | exact: 81-case census, Laurent identities | yes |
-| Theorem 2.5 (strict-corner coverage) | `STRICT_CORNER_COVERAGE.md`; return K for nonzero J; return S for the count | exact identities | yes (kernel re-checks the zero-J square-sum identity and return K's signed corner expansion) |
+| Theorem 2.4 (nonmatched converse) | return G §§2–5 | exact: 81-case census (reduced to 4 cases in Lean), Laurent identities | yes; the proof uses the form "Tao or Fourier family" |
+| Theorem 2.5 (strict-corner coverage) | `STRICT_CORNER_COVERAGE.md`; return K for nonzero J; return S for the count | exact identities | yes, in the form "no strict corner ⇒ Fourier family" (kernel re-checks the zero-J square-sum identity and return K's signed corner expansion) |
 | Lemma 1.1 (S connected), Theorem 2 (connectedness) | Steps 1, 2.3 | exact path identities | Lemma 1.1 yes (`isConnected_strict`); Theorem 2 in the direct coverage route (`coverage_of_matched_density`), not as a standalone theorem |
 | Lemmas 3.1–3.2, Remark 3.3 | `STAGEC.md` | none | yes (as inequalities) |
 | The atlas (Step 4) | Lemmas 4.1–4.2 | Arb and margined float; two independent implementations | the topology yes; the numbers are checked outside Lean |
