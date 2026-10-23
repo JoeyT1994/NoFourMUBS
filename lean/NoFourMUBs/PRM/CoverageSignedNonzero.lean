@@ -34,27 +34,7 @@ namespace NoFourMUBs.PRM.Coverage
 
 open StripMoments StripId Side
 
-/-! ### The row swap `1 ↔ 2` -/
-
-/-- The swap of rows `1, 2` permutes `(X, Y, Z) ↦ (Y, X, Z)` and keeps `J`. -/
-theorem swap12_data (B : Mat3) :
-    blockX (B.submatrix (Equiv.swap 1 2) id) = blockY B ∧
-      blockY (B.submatrix (Equiv.swap 1 2) id) = blockX B ∧
-      blockZ (B.submatrix (Equiv.swap 1 2) id) = blockZ B ∧
-      blockJ (B.submatrix (Equiv.swap 1 2) id) = blockJ B := by
-  have e1 : blockS (B.submatrix (Equiv.swap 1 2) id) = blockT B := by
-    rw [blockS, gram3_submatrix]; rfl
-  have e2 : blockT (B.submatrix (Equiv.swap 1 2) id) = blockS B := by
-    rw [blockT, gram3_submatrix]; rfl
-  have e3 : blockR (B.submatrix (Equiv.swap 1 2) id) = conj (blockR B) := by
-    rw [blockR, gram3_submatrix, gram3_swap]; rfl
-  refine ⟨?_, ?_, ?_, ?_⟩
-  · rw [blockX, e1]; rfl
-  · rw [blockY, e2]; rfl
-  · rw [blockZ, e3, Complex.normSq_conj]; rfl
-  · rw [blockJ, jS, e1, e2, e3, blockJ, jS, Complex.conj_conj]
-    rw [show conj (blockT B) * blockR B * blockS B = conj (conj (blockS B) * conj (blockR B) * blockT B) by
-      simp only [map_mul, Complex.conj_conj]; ring, Complex.conj_re]
+/-! ### The row swap `1 ↔ 2` (`swap12_data` is in `CoverageStripZero`) -/
 
 theorem blockL_swap12 (B : Mat3) :
     blockL (B.submatrix (Equiv.swap 1 2) id) 0 = blockL B 0 ∧
@@ -566,11 +546,11 @@ theorem nonzeroJ_signed {H : Mat6} (hH : Hadamard6.IsHadamard H) (hc : AllCritic
     rwa [blockP_compl hH, equiEndpoint_compl hH, p7Endpoint_compl hH] at h
   · exact nonzeroJ_pos_signed hH hc hinv l hpos
 
-/-- **I4**, the critical strip classification: zero `J` by the zero-`J` square-sum identity, nonzero
+/-- **I4**, the critical strip classification: zero `J` by the zero-`J` product (return O), nonzero
 `J` by the two signed sums. -/
-theorem topStripClassification_signed (hZ : ZeroJAlgebra) : TopStripClassification := by
+theorem topStripClassification_signed (hZ : ZeroJProduct) : TopStripClassification := by
   intro H hH hc hinv l
-  exact ⟨fun hJ => zeroJ_classification (zeroJSquareSum_of_algebra hZ) hH hc hinv l hJ,
+  exact ⟨fun hJ => zeroJ_classification hZ hH hc hinv l hJ,
     fun hJ => nonzeroJ_signed hH hc hinv l hJ⟩
 
 end NoFourMUBs.PRM.Coverage

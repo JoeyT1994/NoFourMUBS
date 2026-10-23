@@ -11,8 +11,8 @@ family, whose classes are covered by connectedness: `Step2.fourierClasses_subset
 
 * routing, the block lemma and the ten-corner count, which also excludes the two rational endpoints
   (return S, `CoverageEndCount`; `CoverageMain`);
-* the critical strip classification I4 (`CoverageStripParts`): zero `J` by the zero-`J` square-sum
-  identity (`CoverageStripIdZero`), nonzero `J` by the two signed corner sums of return K
+* the critical strip classification I4 (`CoverageStripParts`): zero `J` by the two mixed-corner sums of
+  return O (`CoverageZeroJProduct`), nonzero `J` by the two signed corner sums of return K
   (`CoverageSignedNonzero`).
 -/
 

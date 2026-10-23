@@ -42,20 +42,20 @@ def halfDataOf (x y : Fin 3 → ℂ) : HalfData where
   VP := piS x y / uS y
 
 set_option maxHeartbeats 2000000 in
-/-- **Newton's identities** for the 36 moments. -/
+/-- **Newton's identities** for the moments `usedMoments`. -/
 theorem newton {x y : Fin 3 → ℂ} (hx : ∀ k, x k ≠ 0) (hy : ∀ k, y k ≠ 0) {p : ℤ × ℤ}
     (hp : p ∈ usedMoments) : ∑ k, x k ^ p.1 * y k ^ p.2 = (halfDataOf x y).mom p := by
   have a0 := hx 0; have a1 := hx 1; have a2 := hx 2
   have b0 := hy 0; have b1 := hy 1; have b2 := hy 2
   simp only [usedMoments, List.mem_cons, List.mem_nil_iff, or_false] at hp
-  rcases hp with rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl |
-    rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl |
-    rfl | rfl | rfl | rfl <;>
+  rcases hp with rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl |
+    rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl |
+    rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl <;>
   · simp (config := { decide := true }) only [HalfData.mom, newtonHalf, halfDom, ite_true, ite_false,
       List.mem_cons, List.mem_nil_iff, or_false, neg_neg, Int.reduceNeg, if_true, if_false]
     simp only [halfDataOf, Fin.sum_univ_three, sS, uS, piS, zpow_neg, zpow_ofNat, zpow_one, zpow_zero,
       one_mul, mul_one]
-    field_simp
-    ring
+    all_goals (try field_simp)
+    all_goals ring
 
 end NoFourMUBs.PRM.Coverage.StripMoments

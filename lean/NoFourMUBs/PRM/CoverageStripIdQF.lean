@@ -53,7 +53,12 @@ def newtonHalfQ (s S t T r Q u v w wb pi up vp : QF C) (p : ℤ × ℤ) : QF C :
   let m11 := s * t - pi
   let m2m1 := s * Q - up
   let mm12 := t * r - vp
-  if p = (2, 0) then s ^ 2 - 2 * u * S
+  if p = (0, 0) then 3
+  else if p = (1, 0) then s
+  else if p = (0, 1) then t
+  else if p = (-1, 1) then r
+  else if p = (1, -1) then Q
+  else if p = (2, 0) then s ^ 2 - 2 * u * S
   else if p = (0, 2) then t ^ 2 - 2 * v * T
   else if p = (2, -2) then Q ^ 2 - 2 * w * r
   else if p = (1, 1) then m11
@@ -104,9 +109,9 @@ set_option maxHeartbeats 2000000 in
 theorem HalfQ.val_mom (h : QF.Good C ρ ζ) (d : HalfQ C) {p : ℤ × ℤ} (hp : p ∈ usedMoments) :
     (d.mom p).val ρ ζ = (d.val ρ ζ).mom p := by
   simp only [usedMoments, List.mem_cons, List.mem_nil_iff, or_false] at hp
-  rcases hp with rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl |
-    rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl |
-    rfl | rfl | rfl | rfl <;>
+  rcases hp with rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl |
+    rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl |
+    rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl <;>
   · simp (config := { decide := true }) only [HalfQ.mom, HalfData.mom, newtonHalfQ, newtonHalf, halfDom,
       ite_true, ite_false, List.mem_cons, List.mem_nil_iff, or_false, neg_neg, Int.reduceNeg, if_true,
       if_false]

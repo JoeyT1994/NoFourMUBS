@@ -18,7 +18,7 @@ Run by `check_axioms.py --full` after building `NoFourMUBs.Complete`, `NoFourMUB
 #print axioms NoFourMUBs.PRM.nonmatched_tao
 #print axioms NoFourMUBs.PRM.densityReach
 #print axioms NoFourMUBs.no_four_mubs_of_coverage
-#print axioms NoFourMUBs.PRM.Coverage.zeroJAlgebra
+#print axioms NoFourMUBs.PRM.Coverage.zeroJProduct
 #print axioms NoFourMUBs.PRM.Coverage.noPole
 #print axioms NoFourMUBs.PRM.Coverage.nonzeroJ_signed
 #print axioms NoFourMUBs.PRM.Coverage.topStripClassification

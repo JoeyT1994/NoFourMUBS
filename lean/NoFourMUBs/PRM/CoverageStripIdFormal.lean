@@ -32,13 +32,13 @@ theorem fData_mom_scale (s S t T r R X Y Z L0 L1 L2 z a b : ℂ) (ha : a ≠ 0) 
     (fData (a * s) (S / a) (b * t) (T / b) (b / a * r) (a / b * R) X Y Z L0 L1 L2 z).mom p =
       a ^ p.1 * b ^ p.2 * (fData s S t T r R X Y Z L0 L1 L2 z).mom p := by
   simp only [usedMoments, List.mem_cons, List.mem_nil_iff, or_false] at hp
-  rcases hp with rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl |
-    rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl |
-    rfl | rfl | rfl | rfl <;>
+  rcases hp with rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl |
+    rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl |
+    rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl <;>
   · simp (config := { decide := true }) only [HalfData.mom, newtonHalf, ite_true, ite_false,
       List.mem_cons, List.mem_nil_iff, or_false, neg_neg, Int.reduceNeg, if_true, if_false]
     simp only [fData, zpow_neg, zpow_ofNat, zpow_one, zpow_zero, one_mul, mul_one]
-    field_simp
+    all_goals field_simp
 
 set_option maxHeartbeats 1000000 in
 /-- **`momentPoly` has weight zero.** -/

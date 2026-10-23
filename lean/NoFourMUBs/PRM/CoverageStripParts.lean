@@ -1,5 +1,5 @@
 import NoFourMUBs.PRM.CoverageSignedNonzero
-import NoFourMUBs.PRM.CoverageStripIdZero
+import NoFourMUBs.PRM.CoverageZeroJProduct
 
 /-!
 # Critical strip classification (I4): entry point
@@ -7,9 +7,15 @@ import NoFourMUBs.PRM.CoverageStripIdZero
 `topStripClassification : TopStripClassification` (`CoverageInputs`, I4 of
 `CRITICAL_STRIP_CLASSIFICATION.md`), standard axioms only:
 
-* zero `J` (paper §2): the zero-`J` square-sum identity `zeroJAlgebra` (`CoverageStripIdZero`, kernel
-  checks; status in `lean/generators/stripid/STATUS.md`), reduced to it by `zeroJSquareSum_of_algebra`
-  and read by `zeroJ_classification` (`CoverageStripZero`, `CoverageStripReduce`);
+* zero `J` (paper §2): return O (`proof/coverage/returns/O_zeroj_unsquared`), the product
+  `K = (1 − z)(z + 3)³` from two unsquared weighted sums over the nine mixed corners instead of the
+  twenty-corner square sum (`zeroJProduct : ZeroJProduct`, `CoverageZeroJProduct`), read by
+  `zeroJ_classification` (`CoverageStripZero`, with the geometric step of `CoverageStripGeom`):
+  - `CoverageMixedSums` (+ generated `CoverageMixedData`): the two sums as half-moment polynomials; they
+    vanish on an all-critical strip (`mixed_zero`);
+  - `CoverageMixedDefs`, `CoverageMixedCheckG`, `CoverageMixedCheckR`: identities (12) and (27a) in the gauge
+    `s = t = 1`, one kernel check each, with the cofactors of the return's two mixed certificates;
+  - `CoverageZeroJProduct`: the gauge, real and imaginary parts, and the scalar steps (§§5–7);
 * nonzero `J`: return K (`proof/coverage/returns/K_nonzero_J`), two sums of the unsquared corner
   signature instead of the twenty-corner square sum (`CoverageSignedNonzero`):
   - `CoverageSignedMoments` (+ generated `CoverageSignedData`): the signed sums (3), (4) as moment
@@ -30,6 +36,6 @@ namespace NoFourMUBs.PRM.Coverage
 
 /-- **I4, the critical strip classification.** -/
 theorem topStripClassification : TopStripClassification :=
-  topStripClassification_signed zeroJAlgebra
+  topStripClassification_signed zeroJProduct
 
 end NoFourMUBs.PRM.Coverage

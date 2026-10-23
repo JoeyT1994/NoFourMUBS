@@ -40,7 +40,12 @@ def newtonHalf (s S t T r Q u v w wb pi up vp : ℂ) (p : ℤ × ℤ) : ℂ :=
   let m11 := s * t - pi
   let m2m1 := s * Q - up
   let mm12 := t * r - vp
-  if p = (2, 0) then s ^ 2 - 2 * u * S
+  if p = (0, 0) then 3
+  else if p = (1, 0) then s
+  else if p = (0, 1) then t
+  else if p = (-1, 1) then r
+  else if p = (1, -1) then Q
+  else if p = (2, 0) then s ^ 2 - 2 * u * S
   else if p = (0, 2) then t ^ 2 - 2 * v * T
   else if p = (2, -2) then Q ^ 2 - 2 * w * r
   else if p = (1, 1) then m11
@@ -59,7 +64,7 @@ def newtonHalf (s S t T r Q u v w wb pi up vp : ℂ) (p : ℤ × ℤ) : ℂ :=
 
 /-- The exponents handled directly by `newtonHalf`. -/
 def halfDom : List (ℤ × ℤ) :=
-  [(2, 0), (0, 2), (2, -2), (1, 1), (2, -1), (-1, 2), (3, 0), (0, 3), (3, -3), (2, 1), (1, 2), (3, -1),
+  [(0, 0), (1, 0), (0, 1), (-1, 1), (1, -1), (2, 0), (0, 2), (2, -2), (1, 1), (2, -1), (-1, 2), (3, 0), (0, 3), (3, -3), (2, 1), (1, 2), (3, -1),
     (3, -2), (-1, 3), (-2, 3)]
 
 /-- **The Newton moment formulas** (`newton_moments`): `m` from `newtonHalf`, `m[−i, −j]` from the barred
@@ -76,9 +81,10 @@ def HalfData.mom (d : HalfData) (p : ℤ × ℤ) : ℂ :=
   else if p ∈ halfDom then m p
   else b (-p.1, -p.2)
 
-/-- The 36 moments occurring in `momentPoly`. -/
+/-- The 36 moments occurring in `momentPoly`, and the first-order moments `(±1, 0), (0, ±1), (1, −1),
+(−1, 1), (0, 0)` of the mixed sums of return O (which vanish on a whole strip, but not on a half). -/
 def usedMoments : List (ℤ × ℤ) :=
-  [(-4, 2), (-3, 0), (-3, 1), (-3, 2), (-3, 3), (-2, -2), (-2, -1), (-2, 0), (-2, 1), (-2, 2), (-2, 3),
+  [(0, 0), (1, 0), (0, 1), (-1, 0), (0, -1), (-1, 1), (1, -1), (-4, 2), (-3, 0), (-3, 1), (-3, 2), (-3, 3), (-2, -2), (-2, -1), (-2, 0), (-2, 1), (-2, 2), (-2, 3),
     (-2, 4), (-1, -2), (-1, -1), (-1, 2), (-1, 3), (0, -3), (0, -2), (0, 2), (0, 3), (1, -3), (1, -2),
     (1, 1), (1, 2), (2, -4), (2, -3), (2, -2), (2, -1), (2, 0), (2, 1), (2, 2), (3, -3), (3, -2), (3, -1),
     (3, 0), (4, -2)]
