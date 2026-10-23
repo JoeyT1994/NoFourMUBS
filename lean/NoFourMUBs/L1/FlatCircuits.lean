@@ -3,18 +3,21 @@ import NoFourMUBs.L1.FlatData
 /-!
 # Matched flatness: the identities as circuits in the seeds
 
-`FLATNESS.md` §4.  All quantities are Laurent expressions in the seeds `a, b, c, d` (`conj a = a⁻¹`),
-built with `Frac` over the table `a, b, c, d, g, P₀ʰ, P̄₁ʰ, P̄₂ʰ, P₀ᵛ, P̄₁ᵛ, P̄₂ᵛ, 2, 3, 5`, the table
-polynomials being the generated `gP, P0hP, …` (each a Laurent factor times a seed monomial, checked in
-`FlatCheckTable`).
+`FLATNESS.md` §4 and return R2 (`explorations/returns/R2_flatness_cross_side`,
+`proofs/COMPACT_W_CERTIFICATE.md`).  All quantities are Laurent expressions in the seeds `a, b, c, d`
+(`conj a = a⁻¹`), built with `Frac` over the table `a, b, c, d, g, P₀ʰ, P̄₁ʰ, P̄₂ʰ, P₀ᵛ, P̄₁ᵛ, P̄₂ᵛ, 2, 3, 5`,
+the table polynomials being the generated `gP, P0hP, …` (each a Laurent factor times a seed monomial,
+checked in `FlatCheckTable`).
 
-* `K`, `Kst`: the forced-block map `K = −E* G⁻¹` and its conjugate transpose `−G⁻¹ E`.
-* `Qh q i`, `Qv p i`: the third-moment matrices (4.3)/(4.4) of the horizontal and vertical sides, split
-  into their `z⁰` and `z¹` parts through the actual-side formulas of `SideFormulas`.
-* `mhUnred q i`: `K Qh K*`, and `mhData q i`: its reduced form from `FlatData`; `qvData p i`: the reduced
-  vertical third moments.
-* `F0 p q`, `F1 p q`: the coefficients of `1` and `z` in the weighted defect `W p q` (4.5)–(4.6), where the
-  vertical side is evaluated at `z̄ = h − z` and `z² = h z − η`.
+* `K`, `Kst`: the forced-block map `K = −E* G⁻¹` and its conjugate transpose `−G⁻¹ E`, with
+  `G⁻¹ = adj G / g`.
+* `Qm G iP0 iB1 i`: the third-moment matrix (4.3) of a side against its second row, split into its `z⁰`
+  and `z¹` parts through the actual-side formulas of `SideFormulas`.
+* Return R2's cleared form, with no table inverse: `Q⁽¹⁾ = (H₀ + g z H₁) / d_G` with `d_G = P₀ P̄₁`
+  (`dG`, `H0m`, `H1m`), `U = E* adj G = −g K` (`UE`, and `UEst = adj G E = −g K*`), the pairings
+  `J (V, M) = Σ V_{ac} (U M U*)_{ac}` (no conjugation, `Jp`) and the two coefficients `F0`, `F1` of the
+  weighted defect `d_h d_v g² W₁₁ = F₀ + g z F₁` on the matched sheet (`z + z̄ = h`, `z z̄ = η`).  They
+  are Laurent polynomials in the seeds, checked to vanish in `FlatCheckF`.
 -/
 
 namespace NoFourMUBs.L1.FlatCircuits
@@ -115,11 +118,14 @@ def Gh (i j : Fin 3) : Fr := (if i = j then 6 else 0) - (E i 0 * Ec j 0 + E i 1 
 /-- The other two indices of `i`, in order. -/
 def oth : Fin 3 → Fin 3 × Fin 3 := ![(1, 2), (0, 2), (0, 1)]
 
-/-- `G⁻¹ = adj G / g`. -/
-def Ginv (i j : Fin 3) : Fr :=
+
+/-- `adj G` for `G = 6 I − E E*`. -/
+def adjG (i j : Fin 3) : Fr :=
   let rs := oth j; let cs := oth i
-  (if (i.val + j.val) % 2 = 0 then 1 else -1) *
-    (Gh rs.1 cs.1 * Gh rs.2 cs.2 - Gh rs.1 cs.2 * Gh rs.2 cs.1) * ig
+  (if (i.val + j.val) % 2 = 0 then 1 else -1) * (Gh rs.1 cs.1 * Gh rs.2 cs.2 - Gh rs.1 cs.2 * Gh rs.2 cs.1)
+
+/-- `G⁻¹ = adj G / g`. -/
+def Ginv (i j : Fin 3) : Fr := adjG i j * ig
 
 /-- `K = −E* G⁻¹`. -/
 def K (a' b' : Fin 3) : Fr := -(Ec 0 a' * Ginv 0 b' + Ec 1 a' * Ginv 1 b' + Ec 2 a' * Ginv 2 b')
@@ -128,65 +134,64 @@ def Kst (c' d' : Fin 3) : Fr := -(Ginv c' 0 * E 0 d' + Ginv c' 1 * E 1 d' + Ginv
 
 /-! ### Third moments -/
 
-/-- The third-moment matrices of a side with Gram data `G`, against row `q + 1`, split into the
-coefficients of `z⁰` (`i = 0`) and `z¹` (`i = 1`).  `iP0, iB1, iB2` are `1/P₀, 1/P̄₁, 1/P̄₂` and the
-invariants are the horizontal ones (they agree with the vertical ones, `FlatCheckTable`). -/
-def Qm (G : Gram C0) (iP0 iB1 iB2 : Fr) (q i : ℕ) : Fin 3 → Fin 3 → Fr :=
+/-- The third-moment matrix of a side with Gram data `G` against its second row, split into the
+coefficients of `z⁰` (`i = 0`) and `z¹` (`i = 1`).  `iP0, iB1` are `1/P₀, 1/P̄₁` and the invariants are the
+horizontal ones (they agree with the vertical ones, `FlatCheckTable`). -/
+def Qm (G : Gram C0) (iP0 iB1 : Fr) (i : ℕ) : Fin 3 → Fin 3 → Fr :=
   let g := H.g; let η := H.eta; let χ := H.chi
   let U0 := (g * g + G.c1 * χ + G.c0 * G.c1 * η) * iP0 * iB1
   let U1 := g * (G.c0 - G.c1) * iP0 * iB1
-  let V0 := (g * g + G.c2 * χ + G.c0 * G.c2 * η) * iP0 * iB2
-  let V1 := g * (G.c0 - G.c2) * iP0 * iB2
   let Pi0 := (χ + G.c0 * η) * iP0
   let Pi1 := -g * iP0
   let zL10 := G.c1 * η * iB1
   let zL11 := g * iB1
-  let zL20 := G.c2 * η * iB2
-  let zL21 := g * iB2
-  match q, i with
-  | 0, 0 => ![![G.S, G.S * G.S - 2 * G.s * U0, G.S * G.T - Pi0], ![3, G.S, G.T],
+  match i with
+  | 0 => ![![G.S, G.S * G.S - 2 * G.s * U0, G.S * G.T - Pi0], ![3, G.S, G.T],
       ![G.r, G.S * G.r - zL10, G.S]]
-  | 0, _ => ![![0, -(2 * G.s * U1), -Pi1], ![0, 0, 0], ![0, -zL11, 0]]
-  | _, 0 => ![![G.T, G.S * G.T - Pi0, G.T * G.T - 2 * G.t * V0], ![G.Q, G.T, G.T * G.Q - zL20],
-      ![3, G.S, G.T]]
-  | _, _ => ![![0, -Pi1, -(2 * G.t * V1)], ![0, 0, -zL21], ![0, 0, 0]]
+  | _ => ![![0, -(2 * G.s * U1), -Pi1], ![0, 0, 0], ![0, -zL11, 0]]
 
-def Qh (q i : ℕ) := Qm H iP0h iB1h iB2h q i
-def Qv (p i : ℕ) := Qm Vg iP0v iB1v iB2v p i
+/-! ### Return R2: the cleared weighted defect -/
 
-/-- `K Q K*`, unreduced. -/
-def mhUnred (q i : ℕ) (a' c' : Fin 3) : Fr :=
-  let row (b' : Fin 3) := K a' b' * Qh q i b' 0 * Kst 0 c' + K a' b' * Qh q i b' 1 * Kst 1 c' +
-    K a' b' * Qh q i b' 2 * Kst 2 c'
-  row 0 + row 1 + row 2
+/-- `d_G = P₀ P̄₁`. -/
+def dG (G : Gram C0) : Fr := G.P0 * G.B1
 
-/-- `K Q K*`, reduced (generated). -/
-def mhData (q i : ℕ) (a' c' : Fin 3) : Fr :=
-  ⟨mhNum q i a'.val c'.val, fun k => (mhDen q i a'.val c'.val).getD k.val 0⟩
+/-- `d_G Qm G _ 0`: the `z⁰` part of the third moments, cleared (horizontal invariants). -/
+def H0m (G : Gram C0) : Fin 3 → Fin 3 → Fr :=
+  let g := H.g; let η := H.eta; let χ := H.chi; let d := dG G
+  ![![G.S * d, G.S * G.S * d - 2 * G.s * (g * g + G.c1 * χ + G.c0 * G.c1 * η),
+      G.S * G.T * d - (χ + G.c0 * η) * G.B1],
+    ![3 * d, G.S * d, G.T * d],
+    ![G.r * d, G.S * G.r * d - G.c1 * η * G.P0, G.S * d]]
 
-/-- The vertical third moments, reduced (generated). -/
-def qvData (p i : ℕ) (a' c' : Fin 3) : Fr :=
-  ⟨qvNum p i a'.val c'.val, fun k => (qvDen p i a'.val c'.val).getD k.val 0⟩
+/-- `d_G Qm G _ 1 / g`: the `z¹` part, cleared (the factor `g` is left out). -/
+def H1m (G : Gram C0) : Fin 3 → Fin 3 → Fr :=
+  ![![0, -(2 * G.s * (G.c0 - G.c1)), G.B1], ![0, 0, 0], ![0, -G.P0, 0]]
 
-/-! ### The weighted defects on the matched sheet -/
+/-- `U = E* adj G = −g K`. -/
+def UE (a' b' : Fin 3) : Fr := Ec 0 a' * adjG 0 b' + Ec 1 a' * adjG 1 b' + Ec 2 a' * adjG 2 b'
+/-- `U* = adj G E = −g K*`. -/
+def UEst (c' d' : Fin 3) : Fr := adjG c' 0 * E 0 d' + adjG c' 1 * E 1 d' + adjG c' 2 * E 2 d'
 
-/-- `h = χ/g`: on the matched sheet `z̄ = h − z` and `z² = h z − η`. -/
-def hF : Fr := H.chi * ig
+/-- `U M`. -/
+def UM (M : Fin 3 → Fin 3 → Fr) (a' b' : Fin 3) : Fr := UE a' 0 * M 0 b' + UE a' 1 * M 1 b' + UE a' 2 * M 2 b'
+/-- `U M U*`. -/
+def UMU (M : Fin 3 → Fin 3 → Fr) (a' c' : Fin 3) : Fr :=
+  UM M a' 0 * UEst 0 c' + UM M a' 1 * UEst 1 c' + UM M a' 2 * UEst 2 c'
 
 /-- A balanced sum over the nine entries. -/
 def sum9 (f : Fin 3 → Fin 3 → Fr) : Fr :=
   ((f 0 0 + f 0 1) + (f 0 2 + f 1 0)) + ((f 1 1 + f 1 2) + (f 2 0 + (f 2 1 + f 2 2)))
 
-/-- The `z¹` coefficient of `W p q` (4.6), from the reduced data. -/
-def F1 (p q : ℕ) : Fr := sum9 fun a' c' =>
-  qvData p 0 a' c' * mhData q 1 a' c' - qvData p 1 a' c' * mhData q 0 a' c'
+/-- The pairing `J (V, M) = Σ V_{ac} (U M U*)_{ac}` (no conjugation on `V`). -/
+def Jp (V' M : Fin 3 → Fin 3 → Fr) : Fr := sum9 fun a' c' => V' a' c' * UMU M a' c'
 
-/-- The `z⁰` coefficient of `W p q` (4.6), from the reduced data, with `h` and `η` factored out. -/
-def F0 (p q : ℕ) : Fr :=
-  (sum9 (fun a' c' => qvData p 0 a' c' * mhData q 0 a' c') +
-    hF * sum9 (fun a' c' => qvData p 1 a' c' * mhData q 0 a' c') +
-    H.eta * sum9 (fun a' c' => qvData p 1 a' c' * mhData q 1 a' c')) -
-  (if p = 0 then Vg.S else Vg.T) * (if q = 0 then H.S else H.T)
+/-- `F₁ = J₀₁ − J₁₀`, with `J_ij = Jp (V_i, H_j)`, `V_i = H_i(G_v)`, `H_j = H_j(G_h)`. -/
+def F1 : Fr := Jp (H0m Vg) (H1m H) - Jp (H1m Vg) (H0m H)
+
+/-- `F₀ = J₀₀ + χ J₁₀ + η g² J₁₁ − d_h d_v g² S_v S_h`. -/
+def F0 : Fr :=
+  Jp (H0m Vg) (H0m H) + H.chi * Jp (H1m Vg) (H0m H) + H.eta * H.g * H.g * Jp (H1m Vg) (H1m H) -
+    dG H * dG Vg * H.g * H.g * Vg.S * H.S
 
 end
 

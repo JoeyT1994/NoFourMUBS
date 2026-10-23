@@ -1,6 +1,4 @@
 import NoFourMUBs.L1.SideCover
-import NoFourMUBs.L1.FlatCheckMh
-import NoFourMUBs.L1.FlatCheckQv
 import NoFourMUBs.L1.FlatCheckF
 import NoFourMUBs.Step2.FourierAnchor
 
@@ -13,8 +11,8 @@ classification.  For the seed corner `E` with Gram data `(s, t, r)` and invarian
 
 * **Pointwise** (`matched_of_sides`): if the horizontal Gram is realised by a side with `Im T > 0` and the vertical
   Gram by one with `Im T < 0`, there are such sides with signatures `ζ` and `ζ̄` (`exists_side_of_sign`), and the
-  forced lower-right block is flat (`FlatBridge`, with the kernel checks `FlatCheck*` of the one weighted defect
-  `W₁₁`; the other three are `W₁₁` at relabelled seeds), so the completion is Hadamard (`flat_of_W`) and matched.
+  forced lower-right block is flat (`FlatBridge`, with the two kernel checks `FlatCheckF` of the one weighted
+  defect `W₁₁`, return R2; the other three are `W₁₁` at relabelled seeds), so the completion is Hadamard (`flat_of_W`) and matched.
 * **Sides** (`sides_all`): the strict seeds with such sides form an open and closed set (`SideCover`), which
   contains the corner of the Fourier family (return Q, `Step2.exists_matched`, `sides_of_matched`).  The strict
   seeds are connected (`Step2.isConnected_strict`), so it is every strict seed.  Conjugation gives the other signs
@@ -82,7 +80,7 @@ theorem matched_of_sides (sd : Step2.StrictSeed) (hh : Gh (seedVec sd.1) ∈ sid
   have hCdet : IsUnit C.det := Step2.det_ne_of_sig (by rw [sigC, Complex.conj_im]; exact neg_ne_zero.2 hζim)
   have hE : EntrywiseUnit (Em ρ) := by
     intro i j; fin_cases i <;> fin_cases j <;> simp [Em, Hadamard6.corner, hu]
-  have hW := W_zero h mh_valid qv_valid F_valid hx hy hx' hy'
+  have hW := W_zero h F_valid hx hy hx' hy'
     hs ht hr hs' ht' hr' hT hT' (by rw [hζc]; linear_combination -hζ2) (by rw [hζc]; ring) hBdet
   obtain ⟨-, hHad⟩ := flat_of_W (Em ρ) B C hE (horiz_cand h hx hy hs ht hr) (vert_cand h hx' hy' hs' ht' hr')
     hBdet hCdet hW
