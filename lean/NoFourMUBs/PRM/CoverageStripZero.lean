@@ -25,28 +25,6 @@ namespace NoFourMUBs.PRM.Coverage
 
 open Side
 
-/-- **The zero-`J` square-sum identity** (`CRITICAL_STRIP_CLASSIFICATION.md` §2, formula (4)).
-
-For three rows of a Hadamard matrix and a column split `l | 19 − l` whose two halves are nonsingular
-with real side signature, `J = 0`, `z = χ/(2g) ∉ {−3, −2}` and no moment pole (`L_j ≠ 0`; with `J = 0`
-both halves have the same `L_j`):
-`S · [3z(z + 3)⁴ + (3z + 8)K]³ = −3888 z (z + 2)² (z + 3)² [K + (z − 1)(z + 3)³] [z²(z + 3)⁴ + (z + 2)²K]²`,
-`K = XYZ`. -/
-def ZeroJSquareSum : Prop :=
-  ∀ H : Mat6, Hadamard6.IsHadamard H → ∀ l : Fin 20,
-    (Step2.sideSignature (triBlock H 0 l)).im = 0 →
-    (Step2.sideSignature (triBlock H 0 (19 - l))).im = 0 →
-    (triBlock H 0 l).det ≠ 0 → (triBlock H 0 (19 - l)).det ≠ 0 →
-    blockJ (triBlock H 0 l) = 0 → blockTheta (triBlock H 0 l) ≠ -3 →
-    blockTheta (triBlock H 0 l) ≠ -2 → (∀ j, blockL (triBlock H 0 l) j ≠ 0) →
-    stripSq H * (3 * blockTheta (triBlock H 0 l) * (blockTheta (triBlock H 0 l) + 3) ^ 4 +
-        (3 * blockTheta (triBlock H 0 l) + 8) * blockK (triBlock H 0 l)) ^ 3 =
-      -3888 * blockTheta (triBlock H 0 l) * (blockTheta (triBlock H 0 l) + 2) ^ 2 *
-        (blockTheta (triBlock H 0 l) + 3) ^ 2 *
-        (blockK (triBlock H 0 l) + (blockTheta (triBlock H 0 l) - 1) * (blockTheta (triBlock H 0 l) + 3) ^ 3) *
-        (blockTheta (triBlock H 0 l) ^ 2 * (blockTheta (triBlock H 0 l) + 3) ^ 4 +
-          (blockTheta (triBlock H 0 l) + 2) ^ 2 * blockK (triBlock H 0 l)) ^ 2
-
 /-- **The zero-`J` product** (return O, `proof/coverage/returns/O_zeroj_unsquared/REPORT.md` Z1): at a
 corner of the top strip of an all-critical Hadamard matrix with invertible minors, `J = 0` and
 `z = χ/(2g) ∉ {−3, −2}`, `K = (1 − z)(z + 3)³`.  Proved in `CoverageZeroJProduct` from two unsquared

@@ -16,8 +16,8 @@ the 48 Laurent terms of `D` (`cornerD_expand`) of products of two `A`-moments an
 (`sum_term2`), the exponents shifted by the weights (`termVal_shift`); `tx_regroup`, `tp_regroup` regroup
 them by `ring`.  No orthogonality is used: on a half the first-order moments do not vanish.
 
-`cornerD_all`: on a strip whose twenty top corners are critical, `D` vanishes on every ordered column triple
-(`D` is symmetric and vanishes on repeated columns), so both sums vanish (`mixed_zero`).
+On a strip whose twenty top corners are critical, `D` vanishes on every ordered column triple
+(`cornerD_all`, `CoverageSignedMoments`), so both sums vanish (`mixed_zero`).
 -/
 
 open Matrix Hadamard6 ComplexConjugate
@@ -113,53 +113,10 @@ theorem tp_regroup (A B : ℤ × ℤ → ℂ) :
   norm_num only
   ring
 
-/-! ### Every ordered triple of an all-critical strip -/
-
-theorem sorted_tri : ∀ a b c : Fin 6, a < b → b < c → ∃ l : Fin 20, tri l 0 = a ∧ tri l 1 = b ∧ tri l 2 = c := by
-  decide
-
-/-- A symmetric function of three columns vanishing on repeated columns and on the twenty sorted
-triples vanishes. -/
-theorem all_of_tri {R : Type*} [Zero R] (f : Fin 6 → Fin 6 → Fin 6 → R)
-    (s1 : ∀ a b c, f a b c = f b a c) (s2 : ∀ a b c, f a b c = f a c b)
-    (z1 : ∀ a c, f a a c = 0) (z2 : ∀ a b, f a b b = 0)
-    (ht : ∀ l : Fin 20, f (tri l 0) (tri l 1) (tri l 2) = 0) (a b c : Fin 6) : f a b c = 0 := by
-  have st : ∀ a b c : Fin 6, a < b → b < c → f a b c = 0 := by
-    intro a b c hab hbc
-    obtain ⟨l, h0, h1, h2⟩ := sorted_tri a b c hab hbc
-    rw [← h0, ← h1, ← h2]; exact ht l
-  rcases lt_trichotomy a b with hab | rfl | hab
-  · rcases lt_trichotomy b c with hbc | rfl | hbc
-    · exact st a b c hab hbc
-    · exact z2 _ _
-    · rcases lt_trichotomy a c with hac | rfl | hac
-      · rw [s2]; exact st a c b hac hbc
-      · rw [s2]; exact z1 _ _
-      · rw [s2, s1]; exact st c a b hac hab
-  · exact z1 _ _
-  · rcases lt_trichotomy a c with hac | rfl | hac
-    · rw [s1]; exact st b a c hab hac
-    · rw [s1]; exact z2 _ _
-    · rcases lt_trichotomy b c with hbc | rfl | hbc
-      · rw [s1, s2]; exact st b c a hbc hac
-      · exact z2 _ _
-      · rw [s1, s2, s1]; exact st c b a hbc hab
-
 section Strip
 
 variable {H : Mat6} (hH : Hadamard6.IsHadamard H)
 include hH
-
-/-- **Every ordered column triple of an all-critical strip has `D = 0`.** -/
-theorem cornerD_all (hcrit : ∀ m : Fin 20, (Step2.sideSignature (triBlock H 0 m)).im = 0) (a b c : Fin 6) :
-    cornerD ![xsH H a, xsH H b, xsH H c] ![ysH H a, ysH H b, ysH H c] = 0 := by
-  refine all_of_tri (fun a b c => cornerD ![xsH H a, xsH H b, xsH H c] ![ysH H a, ysH H b, ysH H c])
-    (fun a b c => ?_) (fun a b c => ?_) (fun a c => ?_) (fun a b => ?_) (fun l => ?_) a b c
-  · simp only [cornerD, TS_swap01]
-  · simp only [cornerD, TS_swap12]
-  · simp only [cornerD, TS_rep01, map_zero, sub_zero]
-  · simp only [cornerD, TS_rep12, map_zero, sub_zero]
-  · apply cornerD_eq_zero; rw [← sig_triBlock hH]; exact hcrit l
 
 /-- **The two mixed-corner sums vanish** on a strip whose top corners are all critical. -/
 theorem mixed_zero (hcrit : ∀ m : Fin 20, (Step2.sideSignature (triBlock H 0 m)).im = 0) (l : Fin 20) :
