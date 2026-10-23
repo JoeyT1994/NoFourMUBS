@@ -3,7 +3,7 @@
 Usage: python3 check_axioms.py          (run from lean/; needs elan; exits nonzero on any failure)
        python3 check_axioms.py --full   also build NoFourMUBs.Complete (L1's kernel checks) and NoFourMUBs.Final
                                         (strict-corner coverage), and audit NoFourMUBs/AxiomsComplete.lean; the full
-                                        build takes about 12 min with the Mathlib cache and needs up to ~11 GB of RAM
+                                        build takes about 12 min with the Mathlib cache and needs up to ~7 GB of RAM
 """
 import os, re, subprocess, sys
 from pathlib import Path
