@@ -47,7 +47,7 @@ def qV : Q := fr (-(64 * vk ^ 2 * (3 * vk ^ 2 + 1) ^ 2)) ![4, 0, 0, 0, 0, 0, 0, 
 
 set_option maxRecDepth 1000000 in
 set_option maxHeartbeats 0 in
-theorem valid : qvalidR (weightedPolyQ (gaugeSum qX qX qZ QF.z qR qzA qzB iA iB) - qV) 1 = true := by
+theorem valid : qvalidR (weightedPolyQ (gaugeSum qX qX qZ QF.z qR qzA qzB iA iB) - qV) 0 = true := by
   decide +kernel
 
 /-! ### Evaluation at the data -/
