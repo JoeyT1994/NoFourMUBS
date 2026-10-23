@@ -232,7 +232,9 @@ with `PRM.md` §7.1). Suppose every corner of H is critical (R = 0) and H ≇ F6
 2. **Critical-strip classification.** On any three-row strip with all twenty blocks invertible and every corner
    critical, each corner has p ∈ {0, 5}, or one of two rational endpoints, or p = p* := 9 − 4/(1 + κ²), where
    κ > 0 solves 3κ³ + κ² + κ − 1 = 0.
-   - *Zero J* (`CRITICAL_STRIP_CLASSIFICATION.md`): a whole-strip square-sum identity and exact moment algebra.
+   - *Zero J* (return O, [`proof/coverage/returns/O_zeroj_unsquared`](proof/coverage/returns/O_zeroj_unsquared/REPORT.md)):
+     two *unsquared* weighted sums over the nine mixed corners vanish on an all-critical strip; with exact scalar
+     algebra they force K = (1 − z)(z + 3)³, and the geometric step follows from λ₀ = 1 and Σ xⱼyⱼ = 3.
    - *Nonzero J* ([`proof/coverage/returns/K_nonzero_J/REPORT.md`](proof/coverage/returns/K_nonzero_J/REPORT.md)):
      two sums of the *unsquared* corner signature, Σ_C D_C = ā b c − a b̄ c̄ and its xy-weighted version, vanish on
      an all-critical strip. With the cleared λ-identities and a universal 24-term identity they force
@@ -256,8 +258,8 @@ with `PRM.md` §7.1). Suppose every corner of H is critical (R = 0) and H ≇ F6
 `Coverage.strictCorner_of_not_F6` (`PRM/CoverageFourierLocus.lean`, outside the proof's import closure). The count is
 `CoverageTen.anchored_count` (`PRM/CoverageEndCount.lean`); instead of irrationality it uses p* ∈ (5.722, 5.723)
 (`CoverageTen.pStar_bounds`; the wider window (17/3, 29/5) would admit a corner value such as 143/25). The zero-J
-square-sum identity is re-checked by the kernel (`PRM/CoverageStripIdZero*.lean`); the nonzero-J stratum is
-`PRM/CoverageSigned*.lean`.
+stratum is `PRM.Coverage.zeroJProduct` (`PRM/CoverageZeroJProduct.lean`, with the two mixed-sum identities re-checked
+by the kernel in `PRM/CoverageMixedCheck*.lean`); the nonzero-J stratum is `PRM/CoverageSigned*.lean`.
 
 > **Corollary 2.6 (exact reach).** Every class of X is [F6], or in A, or in conj A.
 
@@ -372,7 +374,7 @@ By Step 4 and Lemma 4.2, every class in X lies in some ball Record. By Step 3, n
 | Theorem 2.2 (matched existence) | return J (sides), return E (flatness), return Q (the Fourier anchor) | identity (J); exact flatness identities; return Q's 62 exact checks | yes (kernel re-checks every identity) |
 | Theorem 2.3 (matched uniqueness) | Step 2.2 | none | yes |
 | Theorem 2.4 (nonmatched converse) | return G §§2–5 | exact: 81-case census (reduced to 4 cases in Lean), Laurent identities | yes; the proof uses the form "Tao or Fourier family" |
-| Theorem 2.5 (strict-corner coverage) | `STRICT_CORNER_COVERAGE.md`; return K for nonzero J; return S for the count | exact identities | yes, in the form "no strict corner ⇒ Fourier family" (kernel re-checks the zero-J square-sum identity and return K's signed corner expansion) |
+| Theorem 2.5 (strict-corner coverage) | `STRICT_CORNER_COVERAGE.md`; return K for nonzero J; return S for the count | exact identities | yes, in the form "no strict corner ⇒ Fourier family" (kernel re-checks return O's two mixed-sum identities and return K's signed corner expansion) |
 | Lemma 1.1 (S connected), Theorem 2 (connectedness) | Steps 1, 2.3 | exact path identities | Lemma 1.1 yes (`isConnected_strict`); Theorem 2 in the direct coverage route (`coverage_of_matched_density`), not as a standalone theorem |
 | Lemmas 3.1–3.2, Remark 3.3 | `STAGEC.md` | none | yes (as inequalities) |
 | The atlas (Step 4) | Lemmas 4.1–4.2 | Arb and margined float; two independent implementations | the topology yes; the numbers are checked outside Lean |
@@ -409,7 +411,8 @@ Where to look hardest, and the full status, are in [`AUDIT.md`](AUDIT.md).
   guarded locus, its Theorem B, which is not on the critical path); MC1 by Theorem 2.5.
 - Matched existence first used return F's explicit radical side construction; it now uses identity (J) (return J).
   The nonzero-J critical strips first used a twenty-corner square sum with a Bernstein/Sturm certificate; they now
-  use return K's signed corner sums. The two rational endpoints were first excluded by two separate proofs
+  use return K's signed corner sums. The zero-J strips first used a whole-strip square-sum identity (216 KB of Lean
+  data); they now use return O's two unsquared mixed sums (removed 22 Oct 2026). The two rational endpoints were first excluded by two separate proofs
   (`CRITICAL_P7_EXCLUSION.md`, `CRITICAL_EQUI_CORRELATION_EXCLUSION.md`, removed 18 Oct 2026); return S's anchored
   count now excludes them.
 - The proof documents before this consolidation (the four-step PROOF.md with the [CT] route first, and the

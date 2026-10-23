@@ -14,7 +14,9 @@ sys.path.insert(0, str(ROOT / 'support'))
 def shipped_files():
     return sorted(p for p in ROOT.rglob('*') if p.is_file()
                   and '__pycache__' not in p.parts
-                  and p.name != 'SHA256SUMS')
+                  and p.name != 'SHA256SUMS'
+                  # our review and integration notes, added after the return was received
+                  and str(p.relative_to(ROOT)) not in ('REVIEW.md', 'INTEGRATED.md'))
 
 
 def check_hashes():

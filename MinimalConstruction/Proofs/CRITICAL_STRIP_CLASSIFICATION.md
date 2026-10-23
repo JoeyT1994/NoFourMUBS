@@ -1,5 +1,9 @@
 # Classification of the scalar data of an all-critical row strip
 
+> **Note (22 Oct 2026).** The current proof classifies the zero-J strips by return O's two unsquared mixed sums
+> (`proof/coverage/returns/O_zeroj_unsquared`), not by the whole-strip square sum below, and the nonzero-J strips by return K.
+> This document is kept as the original, independent proof; its verifiers still run in `verify_dossier.py`.
+
 Here a row strip means three complete rows of a phase Hadamard. A strip
 is **all-critical** when the reconstruction discriminants of all twenty
 three-column corners vanish. Since same-row complementation permutes

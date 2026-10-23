@@ -26,6 +26,7 @@ CHECKS = [
     ('step2_prm_exact_reach',   'proof/coverage/returns/G_prm/verify_all.py', []),
     ('mc_reconstruction_proofs', 'MinimalConstruction/Proofs/verify_dossier.py', []),
     ('mc1_nonzero_j_signed_sums', 'proof/coverage/returns/K_nonzero_J/verify.py', []),
+    ('mc1_zero_j_mixed_sums',   'proof/coverage/returns/O_zeroj_unsquared/verify.py', []),
     ('mc_reconstruction',       'MinimalConstruction/Implementation/verify.py', []),
     ('mc_single_radical',       'MinimalConstruction/Implementation/verify_single_radical.py', []),
     ('mc5_sheet_conjugation',   'MinimalConstruction/Sheets/verify.py', []),
