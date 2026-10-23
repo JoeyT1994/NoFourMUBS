@@ -177,14 +177,19 @@ A = {[H] : H matched at a strict seed}.
   so it is determined by the weighted defects W = C̄ᵀ Δ B̄ᵀ, whose first row and column vanish; the remaining entries
   are W₁₁, W₁₂, W₂₁, W₂₂ (zero-based indices), and W = 0 forces Δ = 0 since B and C are invertible. Exchanging rows 1, 2 of E and B (or columns
   1, 2 of E and C) leaves D unchanged, keeps the seed strict and the sides actual, and permutes the indices of W, so
-  every defect is W₁₁ at a relabelled seed. The two coefficients of W₁₁ vanish identically in ℚ(a, b, c, d)
-  ([`proof/coverage/returns/E_matched_flatness`](proof/coverage/returns/E_matched_flatness/FLATNESS.md); the
-  relabelling is handoff M, proved in [`ALGEBRAIC_PROOFS.md`](proof/coverage/audits/AUDIT_2026-10-17/ALGEBRAIC_PROOFS.md)).
+  every defect is W₁₁ at a relabelled seed. With horizontal label z and vertical label w,
+  W₁₁ = J₁₀/(d_h d_v g)·(z + w − χ/g) + J₁₁/(d_h d_v)·(zw − η), which vanishes for matched labels (z + w = χ/g,
+  zw = η by Lemma 2.1). Here the third moments are written Q⁽¹⁾(G, z) = (H₀ + g z H₁)/d_G with d_G = P₀P̄₁,
+  U = E*·adj(G_h) and J_ij = tr(V_iᵀ U H_j U*); the decomposition holds because two residuals F₀, F₁ vanish
+  identically in ℚ(a, b, c, d) (return R2, [`explorations/returns/R2_flatness_cross_side`](explorations/returns/R2_flatness_cross_side/REVIEW.md);
+  first proved with eight larger coefficient identities, return E,
+  [`proof/coverage/returns/E_matched_flatness`](proof/coverage/returns/E_matched_flatness/FLATNESS.md)). The
+  relabelling is handoff M, proved in [`ALGEBRAIC_PROOFS.md`](proof/coverage/audits/AUDIT_2026-10-17/ALGEBRAIC_PROOFS.md).
 
 *Lean:* `L1.matchedExistence`. Side existence is `L1.sides_all`, with `L1.exists_side_h` and `L1.exists_side_v`
 (`L1/SideJacobian`, `L1/SideCover`, `L1/Existence`); the pointwise step is `L1.matched_of_sides`, the Fourier
-anchor `Step2.matched_fourier` (`Step2/FourierAnchor`) and connectedness `Step2.isConnected_strict`; the two flatness identities of W₁₁ are re-checked by the kernel through a verified Kronecker
-polynomial-identity checker, and the relabelling is `L1.FlatCircuits.W_zero` (with `W_rowPerm`, `W_colPerm`). ∎
+anchor `Step2.matched_fourier` (`Step2/FourierAnchor`) and connectedness `Step2.isConnected_strict`; the two residual identities F₀ = F₁ = 0 are checked by the kernel through a verified Kronecker
+polynomial-identity checker (`L1/FlatCheckF`, about a second each), and the relabelling is `L1.FlatCircuits.W_zero` (with `W_rowPerm`, `W_colPerm`). ∎
 
 > **Theorem 2.3 (matched uniqueness).** Two matched completions of the same strict seed are equivalent.
 

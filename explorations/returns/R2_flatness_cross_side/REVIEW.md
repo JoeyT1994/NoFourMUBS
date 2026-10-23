@@ -25,4 +25,11 @@ definitions, with no JSON. A 60-line prototype (`review/R2Proto.lean`) checks bo
 (290 s at `validR 2`), against about 5 min and 11 GB for today's `FlatCheckW11` + `FlatCheckMh` + `FlatCheckQv`.
 A wrong target is rejected.
 
-**Status.** Accepted (computational fallback); being integrated in place of `FlatData`'s third-moment data.
+**Status.** Accepted (computational fallback) and integrated.
+
+**Integrated (23 Oct 2026).** `L1/FlatCircuits` defines d_G, H₀, H₁, adj(G_h), U, U* and the pairing J from the
+existing definitions (no JSON); `L1/FlatCheckF` checks F₀ = F₁ = 0 by `decide +kernel` (about a second each);
+`FlatBridge.W_zero11` clears d_h d_v g² and uses the matched relations. Removed: the 229 KB third-moment data
+(`FlatData` is now a 4 KB table), `FlatCheckMh`, `FlatCheckQv`, `FlatCheckW11` and their generator. The L1 route builds
+in 85 s at 6.5 GB peak (was 250 s, 11 GB). Return K's four curve checks were also lowered to `validR 0` (about 4×
+faster each). Full axiom check (31 + 96 + 18) and `verify.py` pass.
