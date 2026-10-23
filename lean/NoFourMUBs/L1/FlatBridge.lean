@@ -8,9 +8,10 @@ import NoFourMUBs.L1.FlatMatrix
 
 At a strict seed point `ρ`, every `Frac` of `FlatCircuits` evaluates to the quantity it names: the
 Gram data and invariants of the two sides, the inverses of the table factors, the forced-block map
-`K` and its adjoint.  With the actual-side formulas (`side_moments`), the third moments of the
-horizontal side are `Qh q 0 + z Qh q 1` and those of the vertical side `Qv p 0 + z̄ Qv p 1`.  The
-checked identities then give `W p q = F0 p q + z F1 p q = 0`.
+`K` and its adjoint.  With the actual-side formulas (`side_moments`), the third moments of a side
+against its second row are `Qm 0 + z Qm 1 = (H₀ + ζ H₁) / d` (`Qm_val`, `Qm_cleared`; `ζ = g z` is the
+signature), and `K = −U / g`.  Clearing `d_h d_v g²`, the two checked identities `F0`, `F1` (return R2)
+give `W₁₁ = 0` (`W_zero11`); the other three defects follow by relabelling (`W_zero`).
 -/
 
 open ComplexConjugate NoFourMUBs.Side NoFourMUBs.Kronecker Circ Matrix
@@ -312,7 +313,7 @@ theorem Ginv_val (h : Strict ρ) (i j : Fin 3) :
   rw [G_eq h] at hG
   have ig' := (inv_vals h).1
   fin_cases i <;> fin_cases j <;>
-    simp [Ginv, oth, Frac.val_mul, Frac.val_sub (c0_ne h), Frac.val_neg, hG, ig', fval_one] <;> ring
+    simp [Ginv, adjG, oth, Frac.val_mul, Frac.val_sub (c0_ne h), Frac.val_neg, hG, ig', fval_one] <;> ring
 
 theorem K_val (h : Strict ρ) (i j : Fin 3) : (K i j).val ρ = Kmap (Em ρ) i j := by
   have e := fun i j => (E_vals h i j).2
@@ -340,53 +341,46 @@ theorem gS_eq (s t r : ℂ) : gS s t r = gG s t r := by
   rw [this]
 
 /-- The third moments of a normalised phase side `(1; x; y)` whose Gram data `G` evaluates to
-`(s, t, r)`: `Q⁽q⁺¹⁾ = Qm q 0 + z Qm q 1` with `z = T / g` (`FLATNESS.md` (4.3), (4.4)). -/
-theorem Qm_val (h : Strict ρ) (G : Gram C0) {iP0 iB1 iB2 : Fr} {x y : Fin 3 → ℂ}
+`(s, t, r)`, against its second row: `Q⁽¹⁾ = Qm 0 + z Qm 1` with `z = T / g` (`FLATNESS.md` (4.3)). -/
+theorem Qm_val (h : Strict ρ) (G : Gram C0) {iP0 iB1 : Fr} {x y : Fin 3 → ℂ}
     (hx : ∀ j, Complex.normSq (x j) = 1) (hy : ∀ j, Complex.normSq (y j) = 1)
-    (hs : G.s.val ρ = sS x) (hS : G.S.val ρ = conj (sS x)) (ht : G.t.val ρ = sS y)
-    (hT : G.T.val ρ = conj (sS y)) (hr : G.r.val ρ = rS x y) (hQ : G.Q.val ρ = conj (rS x y))
-    (hc0 : G.c0.val ρ = (cR (rS x y) : ℂ)) (hc1 : G.c1.val ρ = (cR (sS y) : ℂ))
-    (hc2 : G.c2.val ρ = (cR (sS x) : ℂ)) {g η χ : ℝ}
-    (hg : H.g.val ρ = g) (he : H.eta.val ρ = η) (hc : H.chi.val ρ = χ)
+    (hs : G.s.val ρ = sS x) (hS : G.S.val ρ = conj (sS x)) (hT : G.T.val ρ = conj (sS y))
+    (hr : G.r.val ρ = rS x y) (hc0 : G.c0.val ρ = (cR (rS x y) : ℂ)) (hc1 : G.c1.val ρ = (cR (sS y) : ℂ))
+    {g η χ : ℝ} (hg : H.g.val ρ = g) (he : H.eta.val ρ = η) (hc : H.chi.val ρ = χ)
     (hgS : gS (sS x) (sS y) (rS x y) = g) (hg0 : 0 < g)
     (hzz : (TS x y / g) * conj (TS x y / g) = η) (hzs : (g : ℂ) * (TS x y / g + conj (TS x y / g)) = χ)
     (hP0 : P0 (sS x) (sS y) (rS x y) ≠ 0) (hP1 : P1 (sS x) (sS y) (rS x y) ≠ 0)
     (hP2 : P2 (sS x) (sS y) (rS x y) ≠ 0)
     (hi0 : iP0.val ρ = (P0 (sS x) (sS y) (rS x y))⁻¹) (hi1 : iB1.val ρ = (conj (P1 (sS x) (sS y) (rS x y)))⁻¹)
-    (hi2 : iB2.val ρ = (conj (P2 (sS x) (sS y) (rS x y)))⁻¹) (q : Fin 2) (a c : Fin 3) :
-    Q3 (sideMat x y) q.succ a c =
-      (Qm G iP0 iB1 iB2 q.val 0 a c).val ρ + TS x y / g * (Qm G iP0 iB1 iB2 q.val 1 a c).val ρ := by
-  obtain ⟨f1, f2, f3, f4, f5⟩ := side_moments hx hy hgS hg0 hzz hzs hP0 hP1 hP2
+    (a c : Fin 3) :
+    Q3 (sideMat x y) 1 a c = (Qm G iP0 iB1 0 a c).val ρ + TS x y / g * (Qm G iP0 iB1 1 a c).val ρ := by
+  obtain ⟨f1, -, f3, f4, -⟩ := side_moments hx hy hgS hg0 hzz hzs hP0 hP1 hP2
   have hC := c0_ne h
-  fin_cases q
-  · change Q3 (sideMat x y) 1 a c =
-      (Qm G iP0 iB1 iB2 0 0 a c).val ρ + TS x y / g * (Qm G iP0 iB1 iB2 0 1 a c).val ρ
-    rw [Q3_row1 x y hx hy]
-    fin_cases a <;> fin_cases c <;>
-      simp only [Qm, Fin.zero_eta, Fin.isValue, Fin.mk_one, Fin.reduceFinMk, Matrix.of_apply,
-        Matrix.cons_val', Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val_two, Matrix.empty_val',
-        Matrix.cons_val_fin_one, Matrix.head_cons, Matrix.tail_cons, Matrix.head_fin_const,
-        Frac.val_add hC, Frac.val_sub hC, Frac.val_mul, Frac.val_neg, fval_ofNat, fval_zero, hs, hS, hT, hr,
-        hc0, hc1, hg, he, hc, hi0, hi1] <;>
-      first
-        | ring1
-        | linear_combination (-2 * sS x) * f1
-        | linear_combination -f3
-        | linear_combination -f4
-  · change Q3 (sideMat x y) 2 a c =
-      (Qm G iP0 iB1 iB2 1 0 a c).val ρ + TS x y / g * (Qm G iP0 iB1 iB2 1 1 a c).val ρ
-    rw [Q3_row2 x y hx hy]
-    fin_cases a <;> fin_cases c <;>
-      simp only [Qm, Fin.zero_eta, Fin.isValue, Fin.mk_one, Fin.reduceFinMk, Matrix.of_apply,
-        Matrix.cons_val', Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val_two, Matrix.empty_val',
-        Matrix.cons_val_fin_one, Matrix.head_cons, Matrix.tail_cons, Matrix.head_fin_const,
-        Frac.val_add hC, Frac.val_sub hC, Frac.val_mul, Frac.val_neg, fval_ofNat, fval_zero, hS, ht, hT,
-        hQ, hc0, hc2, hg, he, hc, hi0, hi2] <;>
-      first
-        | ring1
-        | linear_combination (-2 * sS y) * f2
-        | linear_combination -f3
-        | linear_combination -f5
+  rw [Q3_row1 x y hx hy]
+  fin_cases a <;> fin_cases c <;>
+    simp only [Qm, Fin.zero_eta, Fin.isValue, Fin.mk_one, Fin.reduceFinMk, Matrix.of_apply,
+      Matrix.cons_val', Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val_two, Matrix.empty_val',
+      Matrix.cons_val_fin_one, Matrix.head_cons, Matrix.tail_cons, Matrix.head_fin_const,
+      Frac.val_add hC, Frac.val_sub hC, Frac.val_mul, Frac.val_neg, fval_ofNat, fval_zero, hs, hS, hT, hr,
+      hc0, hc1, hg, he, hc, hi0, hi1] <;>
+    first
+      | ring1
+      | linear_combination (-2 * sS x) * f1
+      | linear_combination -f3
+      | linear_combination -f4
+
+/-- Return R2's cleared third moments: `Qm 0 = H₀ / d_G` and `Qm 1 = g H₁ / d_G`, `d_G = P₀ P̄₁`. -/
+theorem Qm_cleared (h : Strict ρ) (G : Gram C0) {iP0 iB1 : Fr} (hP : G.P0.val ρ ≠ 0) (hB : G.B1.val ρ ≠ 0)
+    (hi0 : iP0.val ρ = (G.P0.val ρ)⁻¹) (hi1 : iB1.val ρ = (G.B1.val ρ)⁻¹) (a c : Fin 3) :
+    (Qm G iP0 iB1 0 a c).val ρ = (H0m G a c).val ρ / (dG G).val ρ ∧
+      (Qm G iP0 iB1 1 a c).val ρ = H.g.val ρ * (H1m G a c).val ρ / (dG G).val ρ := by
+  have hC := c0_ne h
+  fin_cases a <;> fin_cases c <;>
+    simp only [Qm, H0m, H1m, dG, Fin.zero_eta, Fin.isValue, Fin.mk_one, Fin.reduceFinMk,
+      Matrix.cons_val', Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val_two, Matrix.empty_val',
+      Matrix.cons_val_fin_one, Matrix.head_cons, Matrix.tail_cons, Matrix.head_fin_const,
+      Frac.val_add hC, Frac.val_sub hC, Frac.val_mul, Frac.val_neg, fval_ofNat, fval_zero, hi0, hi1] <;>
+    constructor <;> (try field_simp) <;> (try ring)
 
 /-! ### The two sides as candidates -/
 
@@ -443,25 +437,24 @@ theorem sum9_val (hC : ∀ k, (C0.f k).eval ρ ≠ 0) (f : Fin 3 → Fin 3 → F
     (sum9 f).val ρ = ∑ a, ∑ c, (f a c).val ρ := by
   simp only [sum9, Frac.val_add hC, Fin.sum_univ_three]; ring
 
-/-- The algebra of (4.6): on the matched sheet the weighted defect is `F₀ + z F₁`. -/
-theorem W_alg {v0 v1 m0 m1 : Fin 3 → Fin 3 → ℂ} {z zb hh η S : ℂ} (h1 : z + zb = hh) (h2 : z * zb = η)
-    (F0 : (∑ a, ∑ c, v0 a c * m0 a c) + hh * (∑ a, ∑ c, v1 a c * m0 a c) +
-      η * (∑ a, ∑ c, v1 a c * m1 a c) - S = 0)
-    (F1 : ∑ a, ∑ c, (v0 a c * m1 a c - v1 a c * m0 a c) = 0) :
-    ∑ a, ∑ c, (v0 a c + zb * v1 a c) * (m0 a c + z * m1 a c) - S = 0 := by
-  have e1 : ∑ a, ∑ c, (v0 a c + zb * v1 a c) * (m0 a c + z * m1 a c) =
-      (∑ a, ∑ c, v0 a c * m0 a c) + z * (∑ a, ∑ c, (v0 a c * m1 a c - v1 a c * m0 a c)) +
-        (z + zb) * (∑ a, ∑ c, v1 a c * m0 a c) + z * zb * (∑ a, ∑ c, v1 a c * m1 a c) := by
-    simp only [Fin.sum_univ_three]; ring
-  rw [e1, h1, h2, F1]
-  linear_combination F0
+/-- The algebra of return R2: with the third moments `(v₀ + ζ̄ v₁) / d_v` and `(m₀ + ζ m₁) / e`, on the
+matched sheet (`ζ + ζ̄ = χ`, `ζ ζ̄ = η'`) the cleared weighted defect is `F₀ + ζ F₁`. -/
+theorem W_alg {v0 v1 m0 m1 : Fin 3 → Fin 3 → ℂ} {ζ ζb χ η' e dv S : ℂ} (he : e ≠ 0) (hdv : dv ≠ 0)
+    (h1 : ζ + ζb = χ) (h2 : ζ * ζb = η')
+    (hF0 : (∑ a, ∑ c, v0 a c * m0 a c) + χ * (∑ a, ∑ c, v1 a c * m0 a c) +
+      η' * (∑ a, ∑ c, v1 a c * m1 a c) - e * dv * S = 0)
+    (hF1 : (∑ a, ∑ c, v0 a c * m1 a c) - ∑ a, ∑ c, v1 a c * m0 a c = 0) :
+    ∑ a, ∑ c, (v0 a c + ζb * v1 a c) / dv * ((m0 a c + ζ * m1 a c) / e) - S = 0 := by
+  have e1 : ∑ a, ∑ c, (v0 a c + ζb * v1 a c) / dv * ((m0 a c + ζ * m1 a c) / e) =
+      ((∑ a, ∑ c, v0 a c * m0 a c) + ζ * ((∑ a, ∑ c, v0 a c * m1 a c) - ∑ a, ∑ c, v1 a c * m0 a c) +
+        (ζ + ζb) * (∑ a, ∑ c, v1 a c * m0 a c) + ζ * ζb * (∑ a, ∑ c, v1 a c * m1 a c)) / (e * dv) := by
+    simp only [Fin.sum_univ_three]; field_simp; ring
+  rw [e1, h1, h2, hF1, sub_eq_zero, div_eq_iff (mul_ne_zero he hdv)]
+  linear_combination hF0
 
-/-- **The weighted defect `W₁₁` at a strict seed point**, from the kernel checks of the entry `(p, q) = (0, 0)`
-(zero-based, as in `FlatCircuits`): for actual sides on the two conjugate roots, `W₁₁ = F₀ + z F₁ = 0`. -/
-theorem W_zero11 (h : Strict ρ)
-    (hmh : ∀ i : Fin 2, ∀ a c : Fin 3, (mhUnred 0 i.val a c - mhData 0 i.val a c).num.validR 2 = true)
-    (hqv : ∀ i : Fin 2, ∀ a c : Fin 3, (Qv 0 i.val a c - qvData 0 i.val a c).num.validR 2 = true)
-    (hF : (F0 0 0).num.validR 2 = true ∧ (F1 0 0).num.validR 2 = true)
+/-- **The weighted defect `W₁₁` at a strict seed point**, from the two kernel checks `F0`, `F1` (return R2):
+for actual sides on the two conjugate roots, `d_h d_v g² W₁₁ = F₀ + ζ F₁ = 0`. -/
+theorem W_zero11 (h : Strict ρ) {ns : ℕ} (hF : F0.num.validR ns = true ∧ F1.num.validR ns = true)
     {x y x' y' : Fin 3 → ℂ} (hx : ∀ j, Complex.normSq (x j) = 1) (hy : ∀ j, Complex.normSq (y j) = 1)
     (hx' : ∀ j, Complex.normSq (x' j) = 1) (hy' : ∀ j, Complex.normSq (y' j) = 1)
     (hs : sS x = sh ρ) (ht : sS y = th ρ) (hr : rS x y = rh ρ)
@@ -473,9 +466,9 @@ theorem W_zero11 (h : Strict ρ)
     W (Em ρ) (sideMat x y) (sideMat x' y')ᵀ 1 1 = 0 := by
   obtain ⟨hg0, -, ⟨p0, p1, p2⟩, ⟨q0, q1, q2⟩⟩ := h.facts
   obtain ⟨eg, -, -⟩ := hv_eq h.unit
-  obtain ⟨Hg, He, Hc, Hc0, Hc1, Hc2, -, -, -, Hs, HS, Ht, HT, Hr, HQ⟩ := H_vals h
-  obtain ⟨-, -, -, Vc0, Vc1, Vc2, -, -, -, Vs, VS, Vt, VT, Vr, VQ⟩ := Vg_vals h
-  obtain ⟨ig', i0h, i1h, i2h, i0v, i1v, i2v⟩ := inv_vals h
+  obtain ⟨Hg, He, Hc, Hc0, Hc1, -, HP0, HB1, -, Hs, HS, -, HT, Hr, -⟩ := H_vals h
+  obtain ⟨-, -, -, Vc0, Vc1, -, VP0, VB1, -, Vs, VS, -, VT, Vr, -⟩ := Vg_vals h
+  obtain ⟨ig', i0h, i1h, -, i0v, i1v, -⟩ := inv_vals h
   have hC := c0_ne h
   set g := gG (sh ρ) (th ρ) (rh ρ)
   set η := gEta (sh ρ) (th ρ) (rh ρ)
@@ -490,56 +483,57 @@ theorem W_zero11 (h : Strict ρ)
     rw [cd, Complex.conj_conj]; field_simp; linear_combination hζ
   have hzs' : (g : ℂ) * (conj ζ / g + conj (conj ζ / g)) = χ := by
     rw [cd, Complex.conj_conj]; field_simp; linear_combination hζc
-  -- the third moments of the two sides against their second rows
-  have QH : ∀ a c, Q3 (sideMat x y) 1 a c = (Qh 0 0 a c).val ρ + ζ / g * (Qh 0 1 a c).val ρ := by
+  -- the cleared denominators `d_h = P₀ʰ P̄₁ʰ`, `d_v = P₀ᵛ P̄₁ᵛ`
+  have dh0 : (dG H).val ρ ≠ 0 := by
+    rw [dG, Frac.val_mul, HP0, HB1]; exact mul_ne_zero p0 ((map_ne_zero _).2 p1)
+  have dv0 : (dG Vg).val ρ ≠ 0 := by
+    rw [dG, Frac.val_mul, VP0, VB1]; exact mul_ne_zero q0 ((map_ne_zero _).2 q1)
+  -- the third moments of the two sides against their second rows, `(H₀ + ζ H₁) / d`
+  have QH : ∀ a c, Q3 (sideMat x y) 1 a c = ((H0m H a c).val ρ + ζ * (H1m H a c).val ρ) / (dG H).val ρ := by
     intro a c
-    have := Qm_val h H hx hy (Hs.trans hs.symm) (HS.trans (by rw [hs])) (Ht.trans ht.symm)
-      (HT.trans (by rw [ht])) (Hr.trans hr.symm) (HQ.trans (by rw [hr])) (Hc0.trans (by rw [hr]))
-      (Hc1.trans (by rw [ht])) (Hc2.trans (by rw [hs])) Hg He Hc (by rw [gS_eq, hs, ht, hr]) hg0
-      (by rw [hT]; exact hzz) (by rw [hT]; exact hzs) (by rw [hs, ht, hr]; exact p0)
-      (by rw [hs, ht, hr]; exact p1) (by rw [hs, ht, hr]; exact p2) (by rw [i0h, hs, ht, hr])
-      (by rw [i1h, hs, ht, hr]) (by rw [i2h, hs, ht, hr]) 0 a c
-    rw [hT] at this; exact this
+    have := Qm_val h H hx hy (Hs.trans hs.symm) (HS.trans (by rw [hs])) (HT.trans (by rw [ht]))
+      (Hr.trans hr.symm) (Hc0.trans (by rw [hr])) (Hc1.trans (by rw [ht])) Hg He Hc
+      (by rw [gS_eq, hs, ht, hr]) hg0 (by rw [hT]; exact hzz) (by rw [hT]; exact hzs)
+      (by rw [hs, ht, hr]; exact p0) (by rw [hs, ht, hr]; exact p1) (by rw [hs, ht, hr]; exact p2)
+      (by rw [i0h, hs, ht, hr]) (by rw [i1h, hs, ht, hr]) a c
+    obtain ⟨e0, e1⟩ := Qm_cleared h H (by rw [HP0]; exact p0) (by rw [HB1]; exact (map_ne_zero _).2 p1)
+      (by rw [i0h, HP0]) (by rw [i1h, HB1]) a c
+    rw [hT, e0, e1, Hg] at this
+    rw [this]; field_simp
   have QV : ∀ a c, Q3 (sideMat x' y') 1 a c =
-      (qvData 0 0 a c).val ρ + conj ζ / g * (qvData 0 1 a c).val ρ := by
+      ((H0m Vg a c).val ρ + conj ζ * (H1m Vg a c).val ρ) / (dG Vg).val ρ := by
     intro a c
-    have := Qm_val h Vg hx' hy' (Vs.trans hs'.symm) (VS.trans (by rw [hs'])) (Vt.trans ht'.symm)
-      (VT.trans (by rw [ht'])) (Vr.trans hr'.symm) (VQ.trans (by rw [hr'])) (Vc0.trans (by rw [hr']))
-      (Vc1.trans (by rw [ht'])) (Vc2.trans (by rw [hs'])) Hg He Hc (by rw [gS_eq, hs', ht', hr', eg]) hg0
-      (by rw [hT']; exact hzz') (by rw [hT']; exact hzs') (by rw [hs', ht', hr']; exact q0)
-      (by rw [hs', ht', hr']; exact q1) (by rw [hs', ht', hr']; exact q2) (by rw [i0v, hs', ht', hr'])
-      (by rw [i1v, hs', ht', hr']) (by rw [i2v, hs', ht', hr']) 0 a c
-    rw [hT'] at this
-    have e0 : (Qv 0 0 a c - qvData 0 0 a c).num.validR 2 = true := hqv 0 a c
-    have e1 : (Qv 0 1 a c - qvData 0 1 a c).num.validR 2 = true := hqv 1 a c
-    have v0 := Frac.val_eq_zero_of_validR e0 ρ
-    have v1 := Frac.val_eq_zero_of_validR e1 ρ
-    rw [Frac.val_sub hC, sub_eq_zero] at v0 v1
-    rw [← v0, ← v1]; exact this
+    have := Qm_val h Vg hx' hy' (Vs.trans hs'.symm) (VS.trans (by rw [hs'])) (VT.trans (by rw [ht']))
+      (Vr.trans hr'.symm) (Vc0.trans (by rw [hr'])) (Vc1.trans (by rw [ht'])) Hg He Hc
+      (by rw [gS_eq, hs', ht', hr', eg]) hg0 (by rw [hT']; exact hzz') (by rw [hT']; exact hzs')
+      (by rw [hs', ht', hr']; exact q0) (by rw [hs', ht', hr']; exact q1) (by rw [hs', ht', hr']; exact q2)
+      (by rw [i0v, hs', ht', hr']) (by rw [i1v, hs', ht', hr']) a c
+    obtain ⟨e0, e1⟩ := Qm_cleared h Vg (by rw [VP0]; exact q0) (by rw [VB1]; exact (map_ne_zero _).2 q1)
+      (by rw [i0v, VP0]) (by rw [i1v, VB1]) a c
+    rw [hT', e0, e1, Hg] at this
+    rw [this]; field_simp
+  -- `K = −U / g` and `K* = −U* / g`
+  have KU : ∀ a b, (K a b).val ρ = -(UE a b).val ρ * (g : ℂ)⁻¹ := by
+    intro a b; simp only [K, UE, Ginv, Frac.val_neg, Frac.val_add hC, Frac.val_mul, ig']; ring
+  have KUs : ∀ b c, (Kst b c).val ρ = -(UEst b c).val ρ * (g : ℂ)⁻¹ := by
+    intro b c; simp only [Kst, UEst, Ginv, Frac.val_neg, Frac.val_add hC, Frac.val_mul, ig']; ring
   have M : ∀ a c, (Kmap (Em ρ) * Q3 (sideMat x y) 1 * (Kmap (Em ρ))ᴴ) a c =
-      (mhData 0 0 a c).val ρ + ζ / g * (mhData 0 1 a c).val ρ := by
+      ((UMU (H0m H) a c).val ρ + ζ * (UMU (H1m H) a c).val ρ) / ((dG H).val ρ * g * g) := by
     intro a c
-    have e0 : (mhUnred 0 0 a c - mhData 0 0 a c).num.validR 2 = true := hmh 0 a c
-    have e1 : (mhUnred 0 1 a c - mhData 0 1 a c).num.validR 2 = true := hmh 1 a c
-    have v0 := Frac.val_eq_zero_of_validR e0 ρ
-    have v1 := Frac.val_eq_zero_of_validR e1 ρ
-    rw [Frac.val_sub hC, sub_eq_zero] at v0 v1
-    rw [← v0, ← v1]
-    simp only [mhUnred, Frac.val_add hC, Frac.val_mul, Matrix.mul_apply, Fin.sum_univ_three, ← K_val h,
-      ← Kst_val h, QH]
+    simp only [Matrix.mul_apply, Fin.sum_univ_three, ← K_val h, ← Kst_val h, KU, KUs, QH, UMU, UM,
+      Frac.val_add hC, Frac.val_mul]
+    field_simp
     ring
-  have hcons : (∑ i, conj ((sideMat x' y')ᵀ i 1)) * (∑ j, conj (sideMat x y 1 j)) =
-      (if (0 : ℕ) = 0 then Vg.S else Vg.T).val ρ * (if (0 : ℕ) = 0 then H.S else H.T).val ρ := by
+  have hcons : (∑ i, conj ((sideMat x' y')ᵀ i 1)) * (∑ j, conj (sideMat x y 1 j)) = Vg.S.val ρ * H.S.val ρ := by
     simp [sideMat, Fin.sum_univ_three, VS, HS, ← hs, ← hs', sS, map_add]
   rw [W_eq _ _ _ (horiz_cand h hx hy hs ht hr) (vert_cand h hx' hy' hs' ht' hr') hBdet,
     Matrix.transpose_transpose, hcons]
   simp only [QV, M]
   have f0 := Frac.val_eq_zero_of_validR hF.1 ρ
   have f1 := Frac.val_eq_zero_of_validR hF.2 ρ
-  simp only [F0, F1, FlatCircuits.hF, Frac.val_sub hC, Frac.val_add hC, Frac.val_mul, sum9_val hC, Hc, He, ig'] at f0 f1
-  refine W_alg (z := ζ / g) (zb := conj ζ / g) (hh := (χ : ℂ) * (g : ℂ)⁻¹)
-    (η := (η : ℂ)) ?_ (by rw [← cd]; exact hzz) f0 f1
-  rw [← hzs, cd]; field_simp
+  simp only [F0, F1, Jp, Frac.val_sub hC, Frac.val_add hC, Frac.val_mul, sum9_val hC, Hc, He, Hg] at f0 f1
+  refine W_alg (mul_ne_zero (mul_ne_zero dh0 gne) gne) dv0 hζc hζ ?_ f1
+  linear_combination f0
 
 /-! ### The other three weighted defects, by relabelling (handoff M)
 
@@ -619,9 +613,7 @@ theorem det_sideMat_swap (x y : Fin 3 → ℂ) : (sideMat y x).det = -(sideMat x
 
 /-- The weighted defects `W₁q` (`q ≠ 0`): `W₁₂` is `W₁₁` at the row-relabelled seed. -/
 theorem W_zero_row1 (h : Strict ρ)
-    (hmh : ∀ i : Fin 2, ∀ a c : Fin 3, (mhUnred 0 i.val a c - mhData 0 i.val a c).num.validR 2 = true)
-    (hqv : ∀ i : Fin 2, ∀ a c : Fin 3, (Qv 0 i.val a c - qvData 0 i.val a c).num.validR 2 = true)
-    (hF : (F0 0 0).num.validR 2 = true ∧ (F1 0 0).num.validR 2 = true)
+    {ns : ℕ} (hF : F0.num.validR ns = true ∧ F1.num.validR ns = true)
     {x y x' y' : Fin 3 → ℂ} (hx : ∀ j, Complex.normSq (x j) = 1) (hy : ∀ j, Complex.normSq (y j) = 1)
     (hx' : ∀ j, Complex.normSq (x' j) = 1) (hy' : ∀ j, Complex.normSq (y' j) = 1)
     (hs : sS x = sh ρ) (ht : sS y = th ρ) (hr : rS x y = rh ρ)
@@ -634,8 +626,8 @@ theorem W_zero_row1 (h : Strict ρ)
   obtain ⟨hG, hE, hC, -⟩ := gram_swap (sh ρ) (th ρ) (rh ρ)
   fin_cases q
   · exact absurd rfl hq
-  · exact W_zero11 h hmh hqv hF hx hy hx' hy' hs ht hr hs' ht' hr' hT hT' hζ hζc hBdet
-  · have e := W_zero11 h.rowSwap hmh hqv hF hy hx hx' hy' (by rw [sh_rowSwap]; exact ht)
+  · exact W_zero11 h hF hx hy hx' hy' hs ht hr hs' ht' hr' hT hT' hζ hζc hBdet
+  · have e := W_zero11 h.rowSwap hF hy hx hx' hy' (by rw [sh_rowSwap]; exact ht)
       (by rw [th_rowSwap]; exact hs) (by rw [rS_swap, rh_rowSwap, hr]) (by rw [sv_rowSwap]; exact hs')
       (by rw [tv_rowSwap]; exact ht') (by rw [rv_rowSwap]; exact hr') (by rw [TS_swap]; exact hT) hT'
       (by rw [sh_rowSwap, th_rowSwap, rh_rowSwap, hG, hE]; exact hζ)
@@ -647,9 +639,7 @@ theorem W_zero_row1 (h : Strict ρ)
 /-- **Matched flatness at a strict seed point**: for actual sides on the two conjugate roots, the four weighted
 defects vanish.  `W₁₁` is checked (`W_zero11`); the other three are `W₁₁` at relabelled seeds. -/
 theorem W_zero (h : Strict ρ)
-    (hmh : ∀ i : Fin 2, ∀ a c : Fin 3, (mhUnred 0 i.val a c - mhData 0 i.val a c).num.validR 2 = true)
-    (hqv : ∀ i : Fin 2, ∀ a c : Fin 3, (Qv 0 i.val a c - qvData 0 i.val a c).num.validR 2 = true)
-    (hF : (F0 0 0).num.validR 2 = true ∧ (F1 0 0).num.validR 2 = true)
+    {ns : ℕ} (hF : F0.num.validR ns = true ∧ F1.num.validR ns = true)
     {x y x' y' : Fin 3 → ℂ} (hx : ∀ j, Complex.normSq (x j) = 1) (hy : ∀ j, Complex.normSq (y j) = 1)
     (hx' : ∀ j, Complex.normSq (x' j) = 1) (hy' : ∀ j, Complex.normSq (y' j) = 1)
     (hs : sS x = sh ρ) (ht : sS y = th ρ) (hr : rS x y = rh ρ)
@@ -661,8 +651,8 @@ theorem W_zero (h : Strict ρ)
     W (Em ρ) (sideMat x y) (sideMat x' y')ᵀ p q = 0 := by
   fin_cases p
   · exact absurd rfl hp
-  · exact W_zero_row1 h hmh hqv hF hx hy hx' hy' hs ht hr hs' ht' hr' hT hT' hζ hζc hBdet q hq
-  · have e := W_zero_row1 h.colSwap hmh hqv hF hx hy hy' hx' (by rw [sh_colSwap]; exact hs)
+  · exact W_zero_row1 h hF hx hy hx' hy' hs ht hr hs' ht' hr' hT hT' hζ hζc hBdet q hq
+  · have e := W_zero_row1 h.colSwap hF hx hy hy' hx' (by rw [sh_colSwap]; exact hs)
       (by rw [th_colSwap]; exact ht) (by rw [rh_colSwap]; exact hr) (by rw [sv_colSwap]; exact ht')
       (by rw [tv_colSwap]; exact hs') (by rw [rS_swap, rv_colSwap, hr']) hT (by rw [TS_swap]; exact hT')
       (by rw [sh_colSwap, th_colSwap, rh_colSwap]; exact hζ) (by rw [sh_colSwap, th_colSwap, rh_colSwap]; exact hζc)

@@ -135,7 +135,7 @@ theorem nonmatched_tao_or_fourier (M : Mat6) (hM : Hadamard6.IsHadamard M) (hd :
     Step2.det_ne_of_sig (by rw [sigC0, Complex.conj_im]; exact neg_ne_zero.2 hIm)
   have hEu : EntrywiseUnit (Em ρ) := by
     intro i j; fin_cases i <;> fin_cases j <;> simp [Em, Hadamard6.corner, hu]
-  have hW := W_zero hst mh_valid qv_valid F_valid
+  have hW := W_zero hst F_valid
     hx hy hx' hy' hs ht hr hs' ht' hr' hζdef.symm hT' r1 r2 hBdet
   obtain ⟨-, hH0⟩ := flat_of_W (Em ρ) _ _ hEu (horiz_cand hst hx hy hs ht hr)
     (vert_cand hst hx' hy' hs' ht' hr') hBdet hCdet hW
