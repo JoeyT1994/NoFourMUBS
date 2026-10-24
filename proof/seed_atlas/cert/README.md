@@ -88,11 +88,15 @@ python3 proof/seed_atlas/cert/tests/run_tests.py
 with ‖Nb x‖ ≤ n0. On each η-box:
 1. **Predictor.** x̃(η) is a second-order Taylor model in η (float Gauss–Newton and finite differences, any choice).
    Y = (J Nb)⁺ is a fixed real 21×30 matrix, and F_η(x) = YΦ(Tb η + Nb x).
-2. **Mean value form.** For any zero x* with ‖x* − x̃(η)‖₂ ≤ r:
-   ‖x* − x̃‖₂ ≤ ‖F(x̃)‖₂ + q(r) r, with q(r) = ‖I − Y J(c) Nb‖_F + ‖Y‖₂ · 2√3 · ‖Nb‖₂ (s_u + ‖Nb‖₂ r).
-   - c is the constant of the predictor's δ Taylor model, and s_u bounds its variation over the box.
-   - The 2√3 is RIGOUR.md's bound ‖Φ″[w, w′]‖ ≤ 2√3‖w‖‖w′‖, so ‖J(δ) − J(δ′)‖₂ ≤ 2√3‖δ − δ′‖₂.
-   - ‖F(x̃)‖ is bounded over the box with Taylor models.
+2. **Mean value form.** For any zero x* with ‖x* − x̃(η)‖₂ ≤ r: ‖x* − x̃‖₂ ≤ bF + q(r) r. This is an exclusion
+   argument: it encloses the actual Hadamards and never needs existence. The certified conditions, labelled in
+   `nu_enclosure`:
+   - **(A1)** bF ≥ the supremum of ‖F(x̃)‖₂ over the whole η-box, from Taylor models.
+   - **(A2)** eps0 ≥ ‖I − Y J(c) Nb‖_F, computed in Arb with Y as stored. Y J(c) Nb = I is never assumed.
+   - **(A3)** q(r) = eps0 + ‖Y‖₂ · 2√3 · ‖Nb‖₂ (s_u + ‖Nb‖₂ r) bounds ‖I − Y J(δ) Nb‖₂ along every segment from x̃(η)
+     into the r-ball, for every η in the box. Here c is the constant of the predictor's δ Taylor model, and s_u bounds
+     its variation over the box. The 2√3 is RIGOUR.md's bound ‖Φ″[w, w′]‖ ≤ 2√3‖w‖‖w′‖, so
+     ‖J(δ) − J(δ′)‖₂ ≤ 2√3‖δ − δ′‖₂.
 3. **Iteration.** Start from r₀ = cN·n0 + sup‖x̃‖₂, a ball containing every ν ∈ N with ‖ν‖ ≤ n0. Iterate
    r ← ‖F(x̃)‖ + q(r) r while it shrinks. Every step is sound; no contraction condition is needed.
 4. **Phases.** P + Tb η + Nb x̃(η) is then a Taylor model with per-entry remainder ‖Nb[e,:]‖₂ r. The T1 test is run on

@@ -1067,39 +1067,49 @@ def jac_centre(rd, c):
 
 def nu_enclosure(rd, ec, h, ecf, iters=8):
     """For every eta in each box and every Hadamard of the record with that eta: nu = Nb x with
-    ||x - x~(eta)||_2 <= r (returned per box, a float upper bound).  The argument (2-norm parametric Krawczyk):
-      F_eta(x) = Y Phi(Tb eta + Nb x) with a fixed real 21 x 30 Y; the record's Hadamard has F_eta(x*) = 0 and
-      ||x*||_2 <= cN n0 (ballrecord.py's normal bound, cN >= 1/sigma_min(Nb)), so ||x* - x~(eta)||_2 <= r_0 =
-      cN n0 + sup ||x~||_2.  If ||x* - x~(eta)||_2 <= r, the mean value form x* - x~ = -F(x~) + (I - Jbar)(x* - x~)
-      (Jbar the mean of DF over the segment, which lies in the r-ball) gives
-          ||x* - x~||_2 <= ||F(x~)||_2 + q(r) r,
-          q(r) >= ||I - Y J(c) Nb||_2 + ||Y||_2 L ||Nb||_2 (s_u + ||Nb||_2 r),
-      where c is the constant of the predictor's delta Taylor model, s_u >= sup_eta ||delta~(eta) - c||_2 (its
-      variation), and ||J(delta) - J(delta')||_2 <= L ||delta - delta'||_2 with L = 2 sqrt3 (mean value theorem on
-      Phi'' and RIGOUR.md's bound ||Phi''[w, w']|| <= 2 sqrt3 ||w|| ||w'||, valid for all w, w').  Iterating
-      r <- min(r, ||F(x~)|| + q(r) r) is sound at every step; no contraction condition is needed."""
+    ||x - x~(eta)||_2 <= r (returned per box, a float upper bound).
+
+    This is an EXCLUSION argument (2-norm parametric Krawczyk without existence): it encloses the actual Hadamards and
+    never claims that a solution exists.  F_eta(x) = Y Phi(Tb eta + Nb x), Y a fixed real 21 x 30 matrix (any).  The
+    record's Hadamard has F_eta(x*) = 0 and ||Nb x*|| = ||nu|| <= n0 (ballrecord.py's normal bound), so
+    ||x*||_2 <= cN n0 (cN >= 1/sigma_min(Nb), certified) and, for every eta in the box, ||x* - x~(eta)||_2 <= r_0 :=
+    cN n0 + sup_box ||x~||_2.  Suppose ||x* - x~(eta)||_2 <= r for every eta in the box.  The mean value form
+        x* - x~ = -F(x~) + (I - Jbar)(x* - x~),   Jbar = int_0^1 DF(x~ + t (x* - x~)) dt,
+    gives ||x* - x~||_2 <= ||F(x~)||_2 + q r as soon as q >= ||I - DF(x)||_2 for every x on every segment from x~(eta)
+    to a point of the ball B(x~(eta), r), for every eta in the box.  The certified quantities:
+      (A1) bF >= sup over the WHOLE eta-box of ||F_eta(x~(eta))||_2, from the Taylor model of Phi along the predictor;
+      (A2) eps0 >= ||I - Y J(c) Nb||_F (>= the 2-norm), evaluated in Arb with Y as it is: Y J(c) Nb = I is NOT assumed,
+           so pseudo-inverse rounding, a poor Y or rank deficiency only make eps0 (hence q) larger;
+      (A3) q(r) = eps0 + ||Y||_2 L ||Nb||_2 (s_u + ||Nb||_2 r).  On such a segment delta = delta~(eta) + Nb t (x* - x~)
+           with ||delta - c||_2 <= ||delta~(eta) - c||_2 + ||Nb||_2 r <= s_u + ||Nb||_2 r, where c is the constant of
+           the predictor's delta Taylor model and s_u >= sup_box ||delta~ - c||_2 (its variation); and
+           ||I - Y J(delta) Nb||_2 <= ||I - Y J(c) Nb||_2 + ||Y||_2 ||J(delta) - J(c)||_2 ||Nb||_2 with
+           ||J(delta) - J(c)||_2 <= L ||delta - c||_2, L = 2 sqrt3 (mean value theorem on Phi'' and RIGOUR.md's bound
+           ||Phi''[w, w']|| <= 2 sqrt3 ||w|| ||w'||, valid for all w, w' in R^36).
+    Hence r' = bF + q(r) r is again valid for every eta in the box, and r <- min(r, r') is sound at every step: no
+    contraction condition is needed (if it does not shrink, r_0 stands)."""
     B = ec.shape[0]
     xc, g, q, Y, ok = nu_predictor(rd, ecf)
     need(ok.all(), "T1': record predictor (float Gauss-Newton) failed")
     xt = TM(oarb(xc), oarb(g), oarb(q), zeros((B, 21)), h)
     d0 = delta_tm(rd, ec, h, xt)
-    bvec = gram_tm(rd, d0).lmul(oarb(Y)).bound()                            # (B, 21): sup |F(x~(eta))|
-    bn = vmap(TMA.sqrt_up, (bvec * bvec).sum(-1))                            # ||F(x~)||_2 bound
+    bvec = gram_tm(rd, d0).lmul(oarb(Y)).bound()                            # (B, 21): sup over the box of |F(x~)|_i
+    bF = vmap(TMA.sqrt_up, (bvec * bvec).sum(-1))                            # (A1)
     var = d0.var()
-    su = vmap(TMA.sqrt_up, (var * var).sum(-1))                              # sup ||delta~ - c||_2
+    su = vmap(TMA.sqrt_up, (var * var).sum(-1))                              # s_u >= sup_box ||delta~ - c||_2
     nNb = opnorm_arb_up(rd.Nb)
     Nb = arb_mat(rd.Nb.tolist())
     I21 = arb_mat([[1 if i == j else 0 for j in range(21)] for i in range(21)])
-    r0 = arb(rd.cN) * arb(rd.n0) + TMA.norm_sup(xt)
+    r0 = arb(rd.cN) * arb(rd.n0) + TMA.norm_sup(xt)                          # B(x~, r0) holds every x* (all eta)
     rout = np.empty(B)
     for b in range(B):
         Yb = arb_mat(Y[b].tolist())
-        M = I21 - Yb * jac_centre(rd, d0.c[b]) * Nb
-        eps0 = TMA.sqrt_up(sum((M[i, j] ** 2 for i in range(21) for j in range(21)), arb(0)))
+        M = I21 - Yb * jac_centre(rd, d0.c[b]) * Nb                          # Y as stored, no identity assumed
+        eps0 = TMA.sqrt_up(sum((M[i, j] ** 2 for i in range(21) for j in range(21)), arb(0)))     # (A2)
         K = arb(opnorm_up(Y[b])) * L_PHI_ARB * nNb
         r = up(r0[b])
         for _ in range(iters):
-            new = up(bn[b] + (eps0 + K * (su[b] + nNb * arb(r))) * arb(r))
+            new = up(bF[b] + (eps0 + K * (su[b] + nNb * arb(r))) * arb(r))   # (A3): bF + q(r) r
             if new >= 0.95 * r:
                 r = min(r, new); break
             r = new
