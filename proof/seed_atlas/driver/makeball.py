@@ -6,7 +6,7 @@ sys.path.insert(0, os.path.join(HERE, '../../atlas'))
 import stagec as SC
 from c1 import Ball, c1_bound
 
-LADDER = (0.15, 0.125, 0.1, 0.08, 0.063, 0.05, 0.04, 0.03, 0.02, 0.015, 0.01)
+LADDER = (0.125, 0.1, 0.08, 0.063, 0.05, 0.04, 0.03, 0.02, 0.015, 0.01)
 LABELS = (0.03, 0.02)
 N_SAFETY = 1.02          # stored n = N_SAFETY x the driver's Taylor-model bound: piece A's Arb bound is up to 1.135x it (300 balls, 24 Oct)
 CLIQUE_CAP = 5_000_000   # driver screening cap (official: 5,000,000)
@@ -90,6 +90,7 @@ def make_ball(theta0, phih0, phiv0, rmax=LADDER[0], rmin=LADDER[-1], hint=None, 
 
     rungs = [r for r in LADDER if rmin - 1e-12 <= r <= rmax + 1e-12]
     plan = [(r, lab) for r in rungs for lab in LABELS]
+    hint = None                                   # always start at the top rung (coordinator, 24 Oct)
     if hint is not None and tuple(hint) in plan:
         i = plan.index(tuple(hint))
         if attempt(*hint):
