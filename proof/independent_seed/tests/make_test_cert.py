@@ -16,7 +16,7 @@ Contents, all around the atlas centre of record 2003 (H) and one ball at record 
            record 0.  (A seed ball is round in dephased phases, which here are up to ~3.7 times the horizontal
            distance, hence the small R.)
 Seeds 1-4 and record 0 have no boundary transfers: their C2 is expected to fail (the test atlas is not closed).
-Windings are stored as FORMAT.md §5 asks.  The float n of each seed is the prototype's Taylor-model bound x 1.05."""
+Tao's record (R = 0.08, label radius 0.03, as tao.py's default) is included.  Windings are stored as FORMAT.md §5 asks.  The float n of each seed is the prototype's Taylor-model bound x 1.05."""
 import gzip, itertools, json, os, sys
 import numpy as np
 import seedgen as G
@@ -165,6 +165,7 @@ def main(out):
     print('record 1 shell boxes:', len(shell))
     cert = {'format': 'seed-atlas-v1', 'max_level': 3, 'seeds': [A, B, C, D, E],
             'records': [record(rec0, 0.045, [], 0.05), rec1], 'fourier_record': -1,
+            'tao': {'R': hx(0.08), 'label_radius': hx(0.03)},
             'info': {'note': 'test certificate (proof/independent_seed/tests/make_test_cert.py); not an atlas'}}
     os.makedirs(os.path.dirname(out), exist_ok=True)
     with gzip.open(out, 'wt') as f:

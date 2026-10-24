@@ -8,6 +8,10 @@
 #   --limit K         only the first K seed balls (smoke tests; never a complete verdict)
 #   --only i,j,...    only these seed balls (0-based)
 #   --partial         exit 0 when every checked object passed its own checks, without claiming a complete atlas
+#   --shard k/m       only the seed balls i with i mod m = k; records are given Step 3 only (for T2 targets), and the
+#                     run ends after the seed balls (a shard is never a verdict; see --import)
+#   --import D1,D2,.. take the seed-ball receipts of shard runs D1, D2, ... (same certificate, checker and options
+#                     apart from --shard, checked through their BINDING.txt), then finish the whole run here
 #   --c1-depth D      extra halving levels allowed in the C1 box cover (default 3)
 #   --split-depth S   halving levels allowed for a transfer box that fails as a whole (default 2)
 #
@@ -80,7 +84,11 @@ function main(args)
     limit = parse(Int, getopt("--limit", string(typemax(Int))))
     only = getopt("--only", "")
     c1depth = parse(Int, getopt("--c1-depth", "3")); splitdepth = parse(Int, getopt("--split-depth", "2"))
-    opts = "fast=$fast limit=$(limit == typemax(Int) ? "none" : limit) only=$(isempty(only) ? "all" : only) c1depth=$c1depth splitdepth=$splitdepth"
+    shard = getopt("--shard", ""); imports = getopt("--import", "")
+    shard_k, shard_m = isempty(shard) ? (0, 1) : parse.(Int, split(shard, '/'))
+    (0 <= shard_k < shard_m) || error("--shard k/m needs 0 <= k < m")
+    base = "fast=$fast limit=$(limit == typemax(Int) ? "none" : limit) only=$(isempty(only) ? "all" : only) c1depth=$c1depth splitdepth=$splitdepth"
+    opts = base * " shard=$(isempty(shard) ? "none" : shard)"
     mkpath(outdir)
     bind = binding(cert, opts)
     fb = joinpath(outdir, "BINDING.txt")
@@ -104,6 +112,7 @@ function main(args)
     ns = length(C.seeds); nr = length(C.records)
     sel = isempty(only) ? collect(0:min(ns, limit)-1) : sort(parse.(Int, split(only, ',')))
     all(0 .<= sel .< ns) || error("--only: no such seed")
+    sel = [i for i in sel if i % shard_m == shard_k]
     @printf("%d seed balls (checking %d), %d records, F6 record %d; threads = %d; Stage C replay = %s\n",
             ns, length(sel), nr, C.fourier, Threads.nthreads(), !fast)
     flush(stdout)
@@ -151,6 +160,26 @@ function main(args)
     # ---------------- seed balls: C1, Stage C on the enclosure, C2 (sphere transfers)
     X = S.XferCtx(C)
     doneS = receipts!(fs, "#idx\tstatus\tr\to\tn_cert\tn_certified\tc1_boxes\tc1_splits\tc1_s\tstagec\tlabels\tmax_s\toverruled\tstagec_s\tn_frame\trcol\trF\tc2\tnboxes\tkinds\tchecks\tsplits\tworst_T0\tworst_T1\tworst_T2\tcover_nodes\tc2_s\tmsg")
+    if !isempty(imports)
+        mine = split(bind, '\n')
+        for d in split(imports, ',')
+            theirs = split(read(joinpath(d, "BINDING.txt"), String), '\n')
+            same = length(theirs) == length(mine) &&
+                   all(a == b || (startswith(a, "options\t") && startswith(b, "options\t") &&
+                                  replace(a, r" shard=\S+" => "") == replace(b, r" shard=\S+" => "")) for (a, b) in zip(mine, theirs))
+            same || error("--import: $d was made with a different certificate, checker, environment or options")
+            n_in = 0
+            for l in readlines(joinpath(d, "seeds.tsv"))
+                startswith(l, "#") && continue
+                i = parse(Int, split(l, '\t')[1])
+                (i in sel && !haskey(doneS, i)) || continue
+                p = split(l, '\t')
+                doneS[i] = (p[2] == "PASS", String(p[end])); n_in += 1
+                open(fs, "a") do io; println(io, l); end
+            end
+            println("  imported $n_in seed receipts from $d")
+        end
+    end
     todo = [i for i in sel if !haskey(doneS, i)]
     t0 = time(); ndone = Threads.Atomic{Int}(0)
     Threads.@threads :greedy for i in todo
@@ -170,6 +199,16 @@ function main(args)
         end
     end
     seed_ok(i) = get(doneS, i, (false, ""))[1]
+    if shard_m > 1
+        np = count(seed_ok, sel)
+        open(joinpath(outdir, "RESULT.txt"), "w") do io
+            println(io, "Shard $shard of the independent seed-atlas replay, certificate: ", cert)
+            println(io, @sprintf("SHARD: %d / %d seed balls PASS (seed balls i with i mod %d = %d). Not a verdict: finish with --import.",
+                                 np, length(sel), shard_m, shard_k))
+        end
+        print(read(joinpath(outdir, "RESULT.txt"), String))
+        return np == length(sel)
+    end
 
     # ---------------- records: C2 (shell boxes: rec and T1')
     doneB = receipts!(frb, "#idx\tstatus\tnboxes\tkinds\tchecks\tsplits\tworst_rec\tworst_T1p\tcover_nodes\tseconds\tmsg")
@@ -204,6 +243,18 @@ function main(args)
     end
     f6ok = any(x -> x[4], ne)
 
+    # ---------------- Tao's record
+    tao = nothing
+    if C.tao !== nothing
+        tao = try
+            S.check_tao(C.tao[1], C.tao[2]; replay=!fast)
+        catch err
+            S.TaoResult(false, "exception: " * clean(sprint(showerror, err))[1:min(end, 300)], NaN, NaN, NaN, nothing)
+        end
+        @printf("  Tao: %s (sigma >= %.6g, n <= %.3g)\n", tao.ok ? "PASS" : "FAIL: " * tao.msg, tao.sigma, tao.n)
+    end
+    taook = tao !== nothing && tao.ok
+
     # ---------------- report
     seedpass = count(seed_ok, sel)
     recpass = count(i -> rec_ok(i) && get(doneB, i, (false,))[1], 0:nr-1)
@@ -216,8 +267,8 @@ function main(args)
     for r in C.records, x in r.groups
         x.kind == :T1p ? push!(tseeds, x.target) : push!(trecs, x.target)
     end
-    passed = seedpass == length(sel) && recpass == nr
-    complete = passed && allchecked && f6ok
+    passed = seedpass == length(sel) && recpass == nr && (tao === nothing || taook)
+    complete = passed && allchecked && f6ok && taook
     stats = [x for x in (split(l, '\t') for l in readlines(fs) if !startswith(l, "#")) if length(x) >= 28 && x[9] != "" && x[14] != ""]
     open(joinpath(outdir, "RESULT.txt"), "w") do io
         println(io, "Independent seed-atlas replay (proof/independent_seed), certificate: ", cert)
@@ -243,7 +294,12 @@ function main(args)
             println(io, @sprintf("  record %d: ||h(A F6 + 2 pi N - P_t)|| <= %.9f vs R_t = %.6g  %s", x[1], x[2], x[3], x[4] ? "CERTIFIED" : "not certified"))
         end
         isempty(ne) && println(io, "  not certified (no fourier_record, or it did not pass Step 3, or F6 is not inside it)")
-        println(io, "Tao's record: not replayed here (unchanged from the current atlas; proof/atlas/tao.py).")
+        if tao === nothing
+            println(io, "Tao's record: none in the certificate.")
+        else
+            println(io, @sprintf("Tao's record (R = %.6g, label radius %.6g): %s  (sigma >= %.10g, e0 <= %.3g, n <= %.3g, isolation L R < sigma)",
+                                 C.tao[1], C.tao[2], tao.ok ? "PASS" : "FAIL: " * tao.msg, tao.sigma, tao.e0, tao.n))
+        end
         println(io)
         if !isempty(stats)
             c1s = [parse(Float64, x[9]) for x in stats]; scs = [parse(Float64, x[14]) for x in stats]; c2s = [parse(Float64, x[27]) for x in stats]
@@ -255,10 +311,11 @@ function main(args)
         println(io, "Targets named: $(length(tseeds)) seed balls, $(length(trecs)) records.",
                 allchecked ? "" : "  (Only $(length(sel)) of $ns seed balls checked; targets outside them are not checked here.)")
         println(io)
-        println(io, @sprintf("SUMMARY: %d / %d seed balls PASS.  %d / %d records PASS.  F6 nonemptiness: %s.",
-                             seedpass, length(sel), recpass, nr, f6ok ? "CERTIFIED" : "NOT certified"))
+        println(io, @sprintf("SUMMARY: %d / %d seed balls PASS.  %d / %d records PASS.  F6 nonemptiness: %s.  Tao: %s.",
+                             seedpass, length(sel), recpass, nr, f6ok ? "CERTIFIED" : "NOT certified",
+                             tao === nothing ? "absent" : tao.ok ? "PASS" : "FAIL"))
         if complete
-            println(io, "VERDICT: the certificate is complete and every check passed (C1, Stage C, C2 for every seed ball; Step 3 and C2 for every record; F6).")
+            println(io, "VERDICT: the certificate is complete and every check passed (C1, Stage C, C2 for every seed ball; Step 3 and C2 for every record; F6; Tao).")
         elseif partial && passed
             println(io, "VERDICT (partial): every checked object passed; this is not a complete-atlas certificate.")
         else

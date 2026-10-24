@@ -19,8 +19,8 @@ function with(x::T; kw...) where {T}
     vals = [haskey(kw, f) ? kw[f] : getfield(x, f) for f in fieldnames(T)]
     T(vals...)
 end
-setseed(C, i, s) = S.SeedCert([j == i ? s : C.seeds[j] for j in eachindex(C.seeds)], C.records, C.fourier)
-setrec(C, i, r) = S.SeedCert(C.seeds, [j == i ? r : C.records[j] for j in eachindex(C.records)], C.fourier)
+setseed(C, i, s) = S.SeedCert([j == i ? s : C.seeds[j] for j in eachindex(C.seeds)], C.records, C.fourier, C.tao)
+setrec(C, i, r) = S.SeedCert(C.seeds, [j == i ? r : C.records[j] for j in eachindex(C.records)], C.fourier, C.tao)
 
 const NB = Dict{Int,IA.NormalBound}()
 nbof(C, i) = IA.normal_bound(C.records[i+1].rec)
@@ -175,6 +175,11 @@ cases = Any[
     ("record 1: eta_scale x 0.9 (cube too small)", false, () -> runrec(setrec(C0, 2, S.SRecord(r1.rec, 0.9 * r1.eta_scale, r1.groups)), 1)),
     ("record 1: phi[2,3] + 0.3 (Step 3)", false, () -> runrec3(setrec(C0, 2, withPhi(r1, 2, 3, 0.3)), 1)),
     ("record 0: no shell boxes", false, () -> runrec(C0, 0)),
+    # Tao's record
+    ("control: Tao's record as in the certificate", true, () -> (t = S.check_tao(C0.tao...); (t.ok, t.msg))),
+    ("Tao: R = 1.0 (L R >= sigma: not isolated)", false, () -> (t = S.check_tao(1.0, C0.tao[2]); (t.ok, t.msg))),
+    ("control: Tao R = 0.60 (L R < sigma = 3/sqrt2)", true, () -> (t = S.check_tao(0.60, C0.tao[2]); (t.ok, t.msg))),
+    ("Tao: R = 0.65 (L R >= sigma = 3/sqrt2)", false, () -> (t = S.check_tao(0.65, C0.tao[2]); (t.ok, t.msg))),
 ]
 
 npass = 0; nbad = 0

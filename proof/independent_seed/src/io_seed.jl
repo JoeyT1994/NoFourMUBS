@@ -14,6 +14,7 @@
 #     RECORD <i> <R> <label_radius> <eta_scale> <ngroups>
 #     PHI <36>   TINT <144 ints>
 #     groups as above (kinds rec, T1prime)
+#   TAO <R> <label_radius>   or   TAO none
 #   END
 # A box (level m, i0..i3) is, in units of the object's scale (r for a seed ball, eta_scale for a record),
 #   u_a in [-1 + i_a 2^(1-m), -1 + (i_a + 1) 2^(1-m)].
@@ -54,6 +55,7 @@ struct SeedCert
     seeds::Vector{Seed}
     records::Vector{SRecord}
     fourier::Int                  # 0-based record index of F6's record, or -1
+    tao::Union{Nothing,NTuple{2,Float64}}   # Tao's record: (R, label_radius), or nothing
 end
 
 """The box (level m, i) in u units: (lo, hi), exact floats."""
@@ -140,6 +142,9 @@ function read_seed_certificate(path::AbstractString)
         all(g -> g.kind in (:rec, :T1p), gs) || error("record $idx: a shell group must be rec or T1prime")
         push!(recs, SRecord(IA.Rec(idx, true, R, lr, P, Tint, IA.Target[]), es, gs))
     end
+    t = nextline()
+    (t[1] == "TAO" && length(t) in (2, 3)) || error("expected TAO")
+    tao = length(t) == 2 ? (t[2] == "none" ? nothing : error("bad TAO line")) : (hx(t[2]), hx(t[3]))
     (pos <= length(lines) && strip(lines[pos]) == "END" && pos == length(lines)) || error("expected END as the last line")
     for (i, s) in enumerate(seeds)
         s.idx == i - 1 || error("seed indices must be 0, 1, 2, ...")
@@ -147,5 +152,5 @@ function read_seed_certificate(path::AbstractString)
     for (i, r) in enumerate(recs)
         r.rec.idx == i - 1 || error("record indices must be 0, 1, 2, ...")
     end
-    SeedCert(seeds, recs, fr)
+    SeedCert(seeds, recs, fr, tao)
 end

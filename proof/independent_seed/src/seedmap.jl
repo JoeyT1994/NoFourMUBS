@@ -208,12 +208,12 @@ function mul_adj(X, Y, D::Dom, T)
     R
 end
 
+cmat(::Type{T}, f) where {T} = (M = Matrix{Union{Nothing,TM{T}}}(undef, 3, 3); for j in 1:3, k in 1:3; M[j, k] = f(j, k); end; M)
+ctype(x::TM{T}) where {T} = Complex{T}
 E_models(th, D) = (e = [exp_i(th[k], D) for k in 1:4];
-                   Any[nothing nothing nothing; nothing e[1] e[2]; nothing e[3] e[4]])
-B_models(ph, D) = (e = [exp_i(ph[k], D) for k in 1:6];
-                   Any[nothing nothing nothing; e[1] e[2] e[3]; e[4] e[5] e[6]])
-C_models(pv, D) = (e = [exp_i(pv[k], D) for k in 1:6];
-                   Any[nothing e[1] e[4]; nothing e[2] e[5]; nothing e[3] e[6]])
+                   cmat(ctype(th[1]), (j, k) -> (j == 1 || k == 1) ? nothing : e[2(j-2)+k-1]))
+B_models(ph, D) = (e = [exp_i(ph[k], D) for k in 1:6]; cmat(ctype(ph[1]), (j, k) -> j == 1 ? nothing : e[3(j-2)+k]))
+C_models(pv, D) = (e = [exp_i(pv[k], D) for k in 1:6]; cmat(ctype(pv[1]), (j, k) -> k == 1 ? nothing : e[3(k-2)+j]))
 
 """Second-order predictor of D (float models): Newton for the linear equation X B* = -C E*,
 X <- X - (X B* + C E*) A0 with A0 = (B*_c)^{-1}, started from the centre value.  Each step gains one order."""
@@ -223,12 +223,12 @@ function D_predictor_f(Ef, Bf, Cf, D::Dom; steps=3)
     Cc = [x === nothing ? 1.0 + 0im : x.c for x in Cf]
     A0 = inv(Matrix(Bc'))
     X0 = -Cc * Ec' * A0
-    X = Any[tmconst(X0[j, k]) for j in 1:3, k in 1:3]
+    X = [tmconst(X0[j, k]) for j in 1:3, k in 1:3]
     CE = mul_adj(Cf, Ef, D, ComplexF64)
     for _ in 1:steps
         XB = mul_adj(X, Bf, D, ComplexF64)
         Rm = [XB[j, l] + CE[j, l] for j in 1:3, l in 1:3]
-        X = Any[X[j, k] - lincomb([A0[l, k] for l in 1:3], [Rm[j, l] for l in 1:3]) for j in 1:3, k in 1:3]
+        X = [X[j, k] - lincomb([A0[l, k] for l in 1:3], [Rm[j, l] for l in 1:3]) for j in 1:3, k in 1:3]
     end
     X
 end
@@ -238,7 +238,7 @@ bounded entrywise; |(B*)^{-1}| is bounded entrywise on the box by a Neumann seri
 with E = I - A0 B*(u), |E| <= |I - A0 B*_c| + |A0| var(B*), q = ||E||_inf < 1,
 |(B*)^{-1}| <= |A0| + q/(1 - q) ||A0||_inf (entrywise).  Then |D - X_p|_jk <= sum_l |R|_jl |(B*)^{-1}|_lk."""
 function D_models(Ei, Bi, Ci, Xp, D::Dom)
-    XpI = Any[toiv(Xp[j, k]) for j in 1:3, k in 1:3]
+    XpI = [toiv(Xp[j, k]) for j in 1:3, k in 1:3]
     CE = mul_adj(Ci, Ei, D, CI64)
     XB = mul_adj(XpI, Bi, D, CI64)
     Rb = [bound(CE[j, l] + XB[j, l], D) for j in 1:3, l in 1:3]

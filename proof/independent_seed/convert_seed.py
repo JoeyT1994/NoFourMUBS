@@ -108,6 +108,11 @@ def main(src, dst):
             for j, t in enumerate(gs):
                 txt, nb = group_lines(t, KINDS_REC, '%s group %d' % (w, j))
                 out.write(txt); nbox += nb
+        tao = d.get('tao')
+        if tao is None:
+            out.write('TAO none\n')
+        else:
+            out.write('TAO %s %s\n' % (fx(tao['R'], 'tao R'), fx(tao['label_radius'], 'tao label_radius')))
         out.write('END\n')
     print('converted %d seed balls, %d records, %d boundary boxes -> %s' % (len(seeds), len(recs), nbox, dst))
 
