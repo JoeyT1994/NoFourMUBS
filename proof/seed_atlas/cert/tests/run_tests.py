@@ -600,31 +600,24 @@ def test_edge():
 
 
 def test_graph():
-    """SPEC 10.1: (G) uniqueness of the normal part over the F6 frame's eta-ball, (D) sigma_D > 0 and the edge image
-    inside the (G) region; and corruptions of the graph data (eta_radius, n, boxes, R, phi, stored sigma_D)."""
+    """SPEC 10.1-10.2: (G) by the mean value theorem (sigma at F6 by BallRecord's Arb Cholesky, R_G L < sigma, the edge
+    image inside ||hor(Q - P_F)|| < R_G) and (D) sigma_D > 0; corruptions of the graph data and of sigma_D."""
     import edgecert as EC
     gd = EC.GraphData()
-    g = EC.check_graph(gd)
-    check('graph (G): contraction on the eta-ball (defaults: R_G 0.16)', g['q_max'] < 1,
-          'rho_G %.4f, n_G %.3e, %d box(es), q %.3f' % (gd.rho, gd.n, g['boxes'], g['q_max']))
+    check('graph (G): sigma 1.7 certified at F6, R_G 0.45 < sigma / 2 sqrt3', True, 'R_G %.2f, sigma %.2f' % (gd.R, gd.sigma))
     d = edge_record('0.1', (4, 4, 4, 8), 1.0)
     t = time.time(); o = EC.certify_edge_c1(EC.EdgeBall(d), graph=gd)
     gi = o.get('graph', {})
-    check('graph (D) at r = 0.1: sigma_D > 0, image inside the (G) region', o['ok'] or 'n_cert' in o['reason'] and '(D)' not in o['reason'],
-          'sigma_D %.4f, max ||delta|| %.4f < R_G, max ||eta|| %.4f < rho_G, %.0fs' % (gi.get('sigma_D_cert', -1), gi.get('image_delta_max', 9),
-                                                                                    gi.get('image_eta_max', 9), time.time() - t))
-    def gdata(**kw):
-        base = dict(R=F.hx(0.16))
-        base.update(kw); return base
-    rejects('negative (G): eta_radius < r_H', lambda: EC.GraphData(gdata(eta_radius=F.hx(0.1))))
-    rejects('negative (G): n < the normal bound', lambda: EC.GraphData(gdata(n=F.hx(0.01))))
-    rejects('negative (G): boxes do not cover the eta-ball', lambda: EC.check_graph(EC.GraphData(gdata(boxes=[[1, 0, 0, 0, 0]]))))
-    rejects('negative (G): n_G = 0.5 (no contraction)', lambda: EC.check_graph(EC.GraphData(gdata(n=F.hx(0.5)))))
+    check('graph (D) at r = 0.1: sigma_D > 0, image inside ||hor(Q - P_F)|| < R_G', '(D)' not in o['reason'] and '(G)' not in o['reason'] and gi,
+          'sigma_D %.4f, max ||delta|| %.4f, %.0fs' % (gi.get('sigma_D_cert', -1), gi.get('image_delta_max', 9), time.time() - t))
+    rejects('negative (G): sigma 1.8 (> sqrt3, not certifiable)', lambda: EC.GraphData(dict(R=F.hx(0.3), sigma=F.hx(1.8))))
+    rejects('negative (G): R_G 0.5 >= sigma / 2 sqrt3', lambda: EC.GraphData(dict(R=F.hx(0.5), sigma=F.hx(1.7))))
+    rejects('negative (G): R_G = 0', lambda: EC.GraphData(dict(R=F.hx(0.0))))
     bad = F6_phases(); bad[7] += 0.1
-    rejects('negative (G): the frame centre phi moved by 0.1', lambda: EC.check_graph(EC.GraphData(gdata(phi=[F.hx(x) for x in bad]))))
+    rejects('negative (G): P_F moved by 0.1', lambda: EC.GraphData(dict(phi=[F.hx(x) for x in bad])))
     d2 = edge_record('0.02', (3, 3, 3, 3), 1.0)
-    rejects('negative (D): R_G = 0.02 (the image leaves the (G) region)',
-            lambda: EC.certify_edge_c1(EC.EdgeBall(d2), graph=EC.GraphData(gdata(R=F.hx(0.02)))))
+    rejects('negative (G): R_G = 0.02 (the image leaves the (G) region)',
+            lambda: EC.certify_edge_c1(EC.EdgeBall(d2), graph=EC.GraphData(dict(R=F.hx(0.02)))))
     rejects('negative (D): stored sigma_D = 10', lambda: EC.certify_edge_c1(EC.EdgeBall(d2), graph=gd, sigma_D=10.0))
 
 

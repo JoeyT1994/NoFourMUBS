@@ -146,21 +146,18 @@ This relies on the vertical side solving the −y_K system. That holds if the co
 nonmatched corner would make K Tao (SPEC §10). The certifier does not check this; it is the same fact the SPEC's
 openness argument uses.
 
-**SPEC §10.1 (G) and (D)** (`GraphData`, `check_graph`, `dQ_derivative`). These use the entry's `"graph"`
-(phi, Tint, R, eta_radius, n, boxes) and `"sigma_D"`. When absent, the defaults are F6's phases, the certifier's own
-frame, R_G = 0.16, ρ_G = r_H(R_G), n_G = n0(R_G), and σ_D > 0.
-- **(G).** The F6 frame's record checks give σ, and normal_bound(R_G) gives (r_H, n0), with ρ_G ≥ r_H and n_G ≥ n0.
-  Each η-box covering the η-ball must show contraction:
-  q = ‖I − Y J(T η_c) Nb‖_F + ‖Y‖₂ · 2√3 · ‖Nb‖₂ (‖T‖₂ hd + n_G) < 1.
-  Then for each η there is at most one ν with ‖ν‖ ≤ n_G, since two zeros of YΦ would satisfy x₁ − x₂ = (I − J̄)(x₁ − x₂).
+**SPEC §10.1–10.2 (G) and (D)** (`GraphData`, `dQ_derivative`). These use the entry's `"graph"` {R, sigma}
+(defaults 0.45 and 1.7) and `"sigma_D"` (default: only σ_D > 0 is required).
+- **(G).** σ ≤ σ_min(J(0)|_N) at F6 is certified by BallRecord's Arb Cholesky, using F6's phases and the Record's own
+  frame. Then R_G · 2√3 < σ is checked, and the edge image must satisfy sup ‖hor(Q − P_F + 2πN)‖ < R_G over the C1e
+  Taylor models. Uniqueness of ν then follows from the mean value theorem (SPEC §10.2); no box computation is needed.
 - **(D).** A Taylor model of dQ/dw is computed on every C1e box:
   - dx/dw by the implicit function theorem, with a Neumann series in X = I − Y F_x and a third-order tail;
   - dD = −(dC E* + C dE* + D dB*)(B*)⁻¹, with (B*)⁻¹ also by Neumann;
   - d arg D = Im(dD conj D).
 
   σ_min(T_F⁺ dQ(u)) is then at least σ_min(centre) minus the box variation: the 16-vertex maximum of the linear part,
-  plus the quadratic part and the remainder (Weyl). Boxes are bisected if needed. The image check requires
-  sup ‖hor(Q − P_F)‖ < R_G and sup ‖T_F⁺(Q − P_F)‖ < ρ_G.
+  plus the quadratic part and the remainder (Weyl). Boxes are bisected if needed.
 
 **Edge transfers.** Kind T1 only, into seed balls: the C1e Taylor models over each box, then the T1 test with both Ψ
 signs. Boxes meeting y = 0 cannot pass that test.
@@ -186,7 +183,7 @@ workers, for T3. With edge balls and no `fourier_record`, the F6 check is `f6_in
 | record certification | about 0.5 s |
 | edge ball C1e, r = 0.1, k = (4,4,4,8) | 11.5 s (432 boxes; n_cert 1.16e-2, 3.1× the sampled remainder) |
 | edge ball C1e, r = 0.125, k = (5,5,5,12) / (6,6,6,16) / (8,8,8,16) | 32 / 68 / 137 s (n_cert 1.55e-2 / 1.40e-2 / 1.12e-2) |
-| the same with (G) and (D), k = (5,5,5,12) / (6,6,6,16) | 64 / 138 s; σ_D 0.288 / 0.314; (G) one box, q = 0.694; image max ‖δ‖ 0.144 / 0.134 < R_G = 0.16 |
+| the same with (G) and (D), k = (5,5,5,12) / (6,6,6,16) | 64 / 138 s; σ_D 0.288 / 0.314; image max ‖δ‖ 0.144 / 0.134 < R_G = 0.45 |
 | T3 | about 10 ms per box |
 
 For comparison, the float prototype takes 2.5 to 13 s per ball for C1 alone, mostly in per-box continuation.

@@ -600,9 +600,9 @@ def edge_representative(eb, Q, wcf):
 
 
 def certify_edge_c1(eb, chunk=64, keep_tubes=True, graph=None, sigma_D=None):
-    """C1e for one edge ball, and with `graph` (GraphData) also SPEC section 10.1: (G) on its eta-boxes, the image
-    inside the (G) region (||delta|| < R_G, ||eta|| < rho_G) and (D) sigma_D_cert = min over the C1e boxes of a lower
-    bound of sigma_min(T_F^+ dQ/dw) > 0 (>= the stored sigma_D if given).
+    """C1e for one edge ball, and with `graph` (GraphData, SPEC sections 10.1-10.2) also: the edge image inside the (G)
+    region ||hor(Q - P_F + 2 pi N)|| < R_G, and (D) sigma_D_cert = min over the C1e boxes of a lower bound of
+    sigma_min(T_F^+ dQ/dw) > 0 (>= the stored sigma_D if given).
     Returns dict(ok, n_cert, reason, boxes, seconds, tubes, graph info)."""
     ctx.prec = S.PREC
     t0 = time.time()
@@ -632,11 +632,8 @@ def certify_edge_c1(eb, chunk=64, keep_tubes=True, graph=None, sigma_D=None):
         reasons = []
         if worst > eb.n: reasons.append('C1e: n_cert %.6e > n %.6e' % (worst, eb.n))
         if graph is not None:
-            g = check_graph(graph)
-            out['graph'] = dict(rho_G=graph.rho, R_G=graph.R, n_G=graph.n, rH=graph.rd.rH, n0=graph.rd.n0, image_delta_max=dmax,
-                                image_eta_max=emax, sigma_D_cert=smin, **g)
-            if not dmax < graph.R: reasons.append('(D): edge image not inside ||delta|| < R_G (%.4e >= %.4e)' % (dmax, graph.R))
-            if not emax < graph.rho: reasons.append('(D): edge image not inside ||eta|| < rho_G (%.4e >= %.4e)' % (emax, graph.rho))
+            out['graph'] = dict(R_G=graph.R, sigma=graph.sigma, image_delta_max=dmax, image_eta_max=emax, sigma_D_cert=smin)
+            if not dmax < graph.R: reasons.append('(G): edge image not inside ||hor(Q - P_F)|| < R_G (%.4e >= %.4e)' % (dmax, graph.R))
             if not smin > 0: reasons.append('(D): sigma_D not certified positive')
             if sigma_D is not None and not smin >= sigma_D: reasons.append('(D): sigma_D_cert %.4e < stored sigma_D %.4e' % (smin, sigma_D))
         out['ok'] = not reasons; out['reason'] = '; '.join(reasons)
@@ -819,10 +816,12 @@ F6_PHI = np.array([[2 * math.pi * ((a * b) % 6) / 6 for b in range(6)] for a in 
 
 
 class GraphData:
-    """The F6 record frame of (G) (SPEC section 10.1): phi = P_F (default: F6's phases 2 pi ab/6 as floats), Tint
-    (default: the certifier's own rational frame), R = R_G (default 0.16), eta_radius = rho_G and n = n_G (defaults:
-    the record's own r_H and normal bound n0 at R_G).  The record checks of ballrecord.py (sigma, normal bound) run
-    here (no Stage C: (G) is a uniqueness statement)."""
+    """SPEC section 10.2: the graph property (G) at F6 by the mean value theorem.  Fields "graph": {"R": R_G,
+    "sigma": sigma} (defaults 0.45 and 1.7), with P_F = F6's phases (or an optional "phi") and the frame of
+    ballrecord.Record (an optional "Tint").  Certified here: sigma <= sigma_min(J(0)|_N) by BallRecord's Arb Cholesky of
+    N_b^T (J^T J - sigma^2) N_b at P_F, and R_G L < sigma with L = 2 sqrt3 (so two Hadamards T eta + nu_1, T eta + nu_2
+    of norm <= R_G have nu_1 = nu_2: the averaged Jacobian on the segment is bounded below by sigma - L R_G > 0 on N).
+    The exact frame T_F (for (D)'s eta = T_F^+ hor(.)) is the same Record's."""
 
     def __init__(self, g=None):
         g = g or {}
@@ -830,63 +829,23 @@ class GraphData:
         phi = np.array([hx(x) for x in g['phi']]) if 'phi' in g else F6_PHI.copy()
         need(phi.shape == (36,) and np.all(np.isfinite(phi)), 'graph: malformed phi')
         Tint = np.array(g['Tint'], dtype=np.int64).reshape(36, 4) if g.get('Tint') is not None else None
-        self.R = hx(g['R']) if 'R' in g else 0.16
-        need(0 < self.R < 1, 'graph: R out of range')
-        self.rd = S.RecordData(phi.reshape(6, 6), self.R, 0.03, Tint, stage_c=False)
-        self.rho = hx(g['eta_radius']) if 'eta_radius' in g else up(arb(self.rd.rH) * (1 + 1e-9))
-        self.n = hx(g['n']) if 'n' in g else up(arb(self.rd.n0) * (1 + 1e-9))
-        need(self.rho >= self.rd.rH, 'graph: eta_radius %.6e < r_H %.6e of the frame at R_G' % (self.rho, self.rd.rH))
-        need(self.n >= self.rd.n0, 'graph: n %.6e < the normal bound %.6e at R_G' % (self.n, self.rd.n0))
-        self.boxes = g.get('boxes')
-        Tb = arb_mat(self.rd.Tb.tolist())
+        self.R = hx(g['R']) if 'R' in g else 0.45
+        self.sigma = hx(g['sigma']) if 'sigma' in g else 1.7
+        need(self.R > 0 and self.sigma > 0, 'graph: R and sigma must be positive')
+        from ballrecord import BallRecord
+        ctx.prec = 120
+        try:
+            B = BallRecord(phi, sigma_try=(self.sigma,), Tint=Tint)
+        except AssertionError as e:
+            raise CertError('graph (G): %s (sigma %.6g at F6)' % (e, self.sigma))
+        finally:
+            ctx.prec = S.PREC
+        need(B.sigma == self.sigma, 'graph (G): sigma not certified')
+        need(arb(self.R) * S.L_PHI_ARB < arb(self.sigma), 'graph (G): R_G L >= sigma (R %.6g, sigma %.6g)' % (self.R, self.sigma))
+        self.P = np.asarray(phi, float)
+        Tb = B.rec.Tb
         Tp = (Tb.transpose() * Tb).inv() * Tb.transpose()                       # T_F^+ (exact frame)
         self.Tplus = np.array([[Tp[i, j] for j in range(36)] for i in range(4)], dtype=object)
-        self.nNb = opnorm_arb_up_(self.rd.Nb)
-
-
-def opnorm_arb_up_(M):
-    return S.opnorm_arb_up(M)
-
-
-def graph_box_q(gd, box):
-    """q >= sup ||I - Y J(Tb eta + Nb x) Nb||_2 over eta in the box and ||Nb x|| <= n_G, with Y = (J(c) Nb)^+ at the
-    box centre c = Tb eta_c: q = ||I - Y J(c) Nb||_F + ||Y||_2 L ||Nb||_2 (||Tb||_2 hd + n_G) (hd the half-diagonal;
-    ||J(d) - J(d')|| <= L ||d - d'||, L = 2 sqrt3).  q < 1 gives at most one such x for each eta (contraction on a
-    convex set: two zeros x1, x2 of F = Y Phi satisfy x1 - x2 = (I - Jbar)(x1 - x2))."""
-    rd = gd.rd
-    xc, h, xcf = S.box_geometry([box], gd.rho)
-    c = rd.Tb.dot(xc[0])
-    Jc = S.jac_centre(rd, c)
-    _, _, Jf = S._solve_x(rd, xcf, it=0)
-    Y = np.linalg.pinv(Jf[0] @ rd.Nf)
-    Nb = arb_mat(rd.Nb.tolist())
-    M = arb_mat([[1 if i == j else 0 for j in range(21)] for i in range(21)]) - arb_mat(Y.tolist()) * Jc * Nb
-    eps0 = TMA.sqrt_up(sum((M[i, j] ** 2 for i in range(21) for j in range(21)), arb(0)))
-    hd = arb(gd.rho) * arb(2) ** (-box[0]) * 2
-    return eps0 + arb(S.opnorm_up(Y)) * S.L_PHI_ARB * gd.nNb * (arb(rd.nT) * hd + arb(gd.n))
-
-
-def misses_unit_ball(box):
-    """Exact: min ||u||^2 over the box > 1."""
-    m, lo = S._box_int(box)
-    return sum(0 if l <= 0 <= l + 2 else min(l * l, (l + 2) ** 2) for l in lo) > (1 << (2 * m))
-
-
-def check_graph(gd, max_level=12):
-    """(G): uniqueness (q < 1) on every listed eta-box, and the boxes cover the eta-ball ||eta|| <= rho_G (units of
-    rho_G; boxes missing the unit ball are discarded).  Without stored boxes, levels 0, 1, ... are tried."""
-    if gd.boxes is not None:
-        boxes = S.dyadic_boxes(gd.boxes, max_level)
-        qs = [graph_box_q(gd, b) for b in boxes]
-        need(all(q < 1 for q in qs), 'graph (G): contraction q < 1 not certified on some eta-box')
-        ok, info = S.covered(set(boxes), max_level, misses_unit_ball)
-        need(ok, 'graph (G): eta-ball not covered (box %r)' % (info,))
-        return dict(boxes=len(boxes), q_max=max(up(q) for q in qs))
-    for m in range(0, 4):
-        boxes = [(m,) + i for i in itertools.product(range(1 << m), repeat=4) if not misses_unit_ball((m,) + i)]
-        qs = [graph_box_q(gd, b) for b in boxes]
-        if all(q < 1 for q in qs): return dict(boxes=len(boxes), level=m, q_max=max(up(q) for q in qs))
-    raise CertError('graph (G): contraction not certified up to level 3')
 
 
 def sigma_lower(M):
@@ -902,10 +861,9 @@ def sigma_lower(M):
 
 
 def graph_image_and_sigma(eb, gd, Q, dQ, wcf):
-    """Per box: sup ||hor(Q - P_F + 2 pi N)|| (must be < R_G), sup ||T_F^+ (Q - P_F + 2 pi N)|| (must be < rho_G),
-    and a lower bound of sigma_min(T_F^+ dQ/dw) over the box (D): M(u) = T_F^+ dQ(u) is a TM (B, 4, 4), and
-    sigma_min(M(u)) >= sigma_min(M_c) - ||M(u) - M_c||_2 >= sigma_min(M_c) - ||var(M)||_F (Weyl)."""
-    PF = gd.rd.P
+    """Per box: sup ||hor(Q - P_F + 2 pi N)|| (must be < R_G), sup ||T_F^+ (Q - P_F + 2 pi N)|| (reported), and a lower
+    bound of sigma_min(T_F^+ dQ/dw) over the box (D): M(u) = T_F^+ dQ(u) is a TM (B, 4, 4) (sigma_tm_box)."""
+    PF = gd.P
     d = S.wind_to(Q, PF[None] + wcf @ eb.U.T) - oarb(PF)[None, :]
     dn = TMA.norm_sup(d.lmul(S.hor()))
     en = TMA.norm_sup(d.lmul(gd.Tplus))

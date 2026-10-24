@@ -8,8 +8,8 @@ Per record s: the existing record certification (the calls of proof/atlas/certif
 Stage C at the stored R and label radius), then its boundary groups (rec, T1prime with the Krawczyk enclosure of nu)
 and the coverage of its shell.
 Per edge ball e (edgecert.py, SPEC section 10): C1e (augmented 7-unknown Krawczyk tubes, t' = t, g > 0, the remainder),
-SPEC 10.1's (G) (uniqueness of the normal part over the F6 frame's eta-ball) and (D) (sigma_D > 0, the image inside the
-(G) region), Stage C, its T1 transfers into seed balls and its sphere coverage; seed balls may transfer into it by T3.
+SPEC 10.1-10.2's (G) (sigma at F6 by BallRecord, R_G L < sigma, the image inside ||hor(Q - P_F)|| < R_G) and (D)
+(sigma_D > 0), Stage C, its T1 transfers into seed balls and its sphere coverage; seed balls may transfer into it by T3.
 Globally: F6 lies in the image (F6 = H(0) of edge ball 0, or the interior of record `fourier_record` by
 proof/atlas/nonempty.py's test), and Tao's record passes (proof/atlas/tao.py: exact spectrum, isolation, Stage C).
 
@@ -162,9 +162,8 @@ def check_edge(C, e, groups=None):
 
 
 def run_edge_c1(core):
-    """C1e of every edge ball, in this process, with SPEC section 10.1's (G) and (D) (the entry's "graph" and
-    "sigma_D", defaults when absent: F6's phases, the certifier's own frame, R_G = 0.16, rho_G = r_H, n_G = n0,
-    sigma_D only required > 0).  The results (verdicts, n_cert, the (G)/(D) values, the certified tube data for T3)
+    """C1e of every edge ball, in this process, with SPEC sections 10.1-10.2's (G) and (D) (the entry's "graph"
+    {"R", "sigma"} and "sigma_D"; defaults when absent: R_G = 0.45, sigma = 1.7, sigma_D only required > 0).  The results (verdicts, n_cert, the (G)/(D) values, the certified tube data for T3)
     go into the core that the workers receive."""
     import edgecert as EC, seedcert as S
     res = {}
