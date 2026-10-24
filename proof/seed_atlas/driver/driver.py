@@ -274,6 +274,7 @@ def main():
         for j, s in enumerate(A.status):
             if s in ('covering', 'waiting', 'queued', 'stalled'): A.status[j] = 'open'
             if s == 'failed': A.status[j] = 'open'; A.ncover[j] = 0; A.log_fail.pop(j, None)
+            if A.status[j] != 'closed' and A.ncover[j] >= MAX_COVERS // 2: A.ncover[j] = 0      # fresh budget after a restart
         log('resumed', len(A.balls), 'balls,', sum(s == 'closed' for s in A.status), 'closed')
     else:
         import driver as DRV                     # pickle as driver.Atlas, not __main__.Atlas
