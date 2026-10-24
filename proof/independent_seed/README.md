@@ -59,6 +59,7 @@ mkdir -p out && sbatch run_rusty.sh                                             
 | `src/seedmap.jl` | the matched completion H_o(θ) on a box: sides (parametric Krawczyk), Ψ, D, arg D, giving 36 phase models |
 | `src/c1.jl` | claim C1: the box cover of the ball and the per-box bound |
 | `src/stagec_seed.jl` | Stage C on P + U w + ν, through the existing `IndepAtlas.stage_c` |
+| `src/normal_tube.jl` | the normal component ν of a record's Hadamards over an η-box (Krawczyk in N), for T1′ |
 | `src/transfers.jl` | T0, T1, T2, rec, T1′; dyadic coverage of spheres and shells |
 | `src/tao.jl` | Tao's record: S6 in the ball, σ, isolation L R < σ, the normal bound, Stage C |
 | `check_seed.jl` | the driver (threads, shards, receipts, verdict) |
@@ -163,9 +164,49 @@ is valid for any integer winding.
   ‖r‖₂, since ‖hor e‖ ≤ ‖e‖. The target record must pass Step 3.
 - **rec.** ‖hor(π(g·(P_s + Tη)) + 2πN − P_t)‖ + n_s < R_t, at the 16 vertices. The map is affine in η, so this is
   exact.
-- **T1′.**
-  - The phase models of P + Tη carry the per-entry remainder |ν_e| ≤ n, used for Ψ.
-  - The landing adds ‖Mth_t⁻¹ L g‖₂·n for the ν part of θ′, computed in intervals. Only ‖ν‖ ≤ n is used.
+- **T1′.** The normal component ν of the record's Hadamards is enclosed over the η-box by the normal tube (below).
+  The phase models P + Tη + M x_p(η) carry the per-entry remainder ‖M_e,:‖ρ, used for Ψ. The landing adds
+  ‖Mth_t⁻¹ L g M‖₂·ρ for the rest of θ′. If the tube's Krawczyk test fails, the crude form is used instead:
+  |ν_e| ≤ n per entry, and ‖Mth_t⁻¹ L g‖₂·n in the landing. Both are valid.
+
+### The normal tube for T1′ (`src/normal_tube.jl`; coordinator's update of 24 Oct)
+
+This is my own design; it differs from the componentwise test proposed in FORMAT.md §6.
+
+- **Coordinates on N.** N is the horizontal space minus span T (21-dimensional), with the exact projector
+  Π = h − TG⁻¹Tᵀ. N_b is a float approximate orthonormal basis of N. M = Π N_b is enclosed in intervals from the
+  exact Π, so the exact M has its columns in N. A Gershgorin bound λ_min(MᵀM) ≥ λ > 0 makes x ↦ Mx a bijection onto N,
+  with ‖x‖ ≤ ‖Mx‖/√λ. So every Hadamard of the record has ν = Mx with ‖x‖ ≤ n_x = n/√λ.
+- **The second derivative.** Φ_ij(δ) = Σ_c e^{i(P_ic − P_jc + δ_ic − δ_jc)} gives |Φ″_ij[w, v]| ≤ Σ_c |w_ic − w_jc||v_ic − v_jc|.
+  With ‖w_i − w_j‖² ≤ 2‖w‖², and Σ_{i<j} ‖v_i − v_j‖² = 6‖v‖² for horizontal v (Lagrange's identity), this gives
+  ‖Φ″[w, v]‖ ≤ 2√3‖w‖‖v‖. Hence ‖(J(d₁) − J(d₂))v‖ ≤ L‖d₁ − d₂‖‖v‖ for horizontal v, with L = 2√3.
+- **The Krawczyk test, in the 2-norm.** F(u, x) = Y Φ(T(z_c + u) + Mx).
+  - Y is a float 21×30 pseudo-inverse of J M at the box centre. The predictor x_p(u) is a second-order float model,
+    from Newton in model space.
+  - For each u, the ball X(u) = B(x_p(u), ρ_X) with ρ_X ≥ n_x + sup‖x_p‖ contains every record Hadamard's x.
+  - By the integral mean value theorem along segments, ‖K(x) − x_p(u)‖ ≤ β + α(ρ_X)ρ_X on X(u), where:
+    - β ≥ sup_u ‖Y Φ(δ_c(u))‖ along the predictor δ_c(u) = T(z_c + u) + M x_p(u);
+    - α(ρ) = ‖I − Y J(δ_c(0)) M‖ + ‖Y‖ L ‖M‖ (D + ‖M‖ρ), with D ≥ sup_u ‖δ_c(u) − δ_c(0)‖.
+  - If β + α(ρ_X)ρ_X < ρ_X, the ball maps into itself (so a zero exists, by Brouwer), and every mean-value matrix
+    satisfies ‖I − Y J̄ M‖ < 1 (so the zero is unique in X(u)). Every record Hadamard is that zero.
+- **Contraction steps.** The zero lies in K(B_k) for every ball B_k that contains it, so ρ_{k+1} = β + α(ρ_k)ρ_k is
+  again a valid radius. A few steps bring ρ down to about β.
+- **β to third order.** β is a third-order quantity. Second-order models would push each exponential's cubic terms
+  into its own remainder, where they cannot cancel in the sums of Φ. So Φ along the predictor is expanded to third
+  order with exact interval coefficients (35 monomials):
+  e^{iy} = e^{ic}[1 + iℓ + (iq − ℓ²/2) + (−ℓq − iℓ³/6)] + e^{ic}R, |R| ≤ L₂²/2 + L₁²L₂/2 + L₁L₂²/2 + L₂³/6 + (L₁ + L₂)⁴/24.
+  This is about 15× tighter than the second-order bound.
+- **Measured.**
+
+  | record | box half-width | ρ | contraction α(ρ_X) | n |
+  |---|---|---|---|---|
+  | F6's record (atlas 877), R = 0.125 | 0.016 (level 3) | ≤ 9·10⁻⁶ | ≤ 0.14 | 0.0159 |
+  | same | 0.008 (level 4) | ≤ 1.0·10⁻⁶ | ≤ 0.10 | 0.0159 |
+  | F6's record, R = 0.08 | level 3 | ≤ 2.2·10⁻⁶ | | 0.0064 |
+  | same | level 4 | ≤ 2.5·10⁻⁷ | | 0.0064 |
+
+  This is about 5 ms per box, and record boxes are checked on all threads. In the BigFloat sampling test, the true
+  normal coordinates lie within 0.11–0.15·ρ of the predictor.
 
 **Splitting.** A box that fails as a whole is split into its 16 halves with the same target, down to S = 2 levels.
 T0 and corner-T1 are vertex tests, so they are not split.
@@ -219,7 +260,9 @@ reason.
    - 18,000 point checks of model products, e^{ix} and sums.
    - On random boxes of every seed ball, the BigFloat completion has every phase inside its model, and the residual
      is below the box bound.
-4. **Negative tests (`negative.jl`, 66 cases, all as expected).**
+   - The normal tube, on the test record and on F6's record at R = 0.125 (`tests/data/f6_record_shell.json.gz`): at
+     random η the BigFloat Hadamard has normal coordinates within ρ of the predictor, and the sampled ‖YΦ‖ is ≤ β.
+4. **Negative tests (`negative.jl`, 69 cases, all as expected).**
    - *Rejected, in C1:* n below a sampled true residual; n just below the certified bound without refinement;
      r × 3; P (entries of B, D and the gauge) + 0.01; U + 0.1; θ0 + 10⁻³; o flipped; Mth column × 1.1.
    - *Rejected, in Stage C:* label radius 0.2.
@@ -234,6 +277,8 @@ reason.
      - rec into itself, with g = conj or with a wrong winding;
      - a removed box, R × 2, R × 2 with eta_scale × 2, eta_scale × 0.9, a φ entry + 0.3, no boxes.
    - *Rejected, Tao:* R = 1 and R = 0.65 (L R ≥ σ = 3/√2: not isolated); R = 10⁻²⁰ (the ball misses S6).
+   - *T1′, tube against crude:* with target radius 0.0555, the normal tube certifies record 1's T1′ boxes (landing
+     ≤ 0.0547), and the crude bound alone is rejected (landing 0.0564).
    - *Accepted (controls):* P + 2π; k = 1; n equal to the certified bound; r × 1.5 (n is loose); r × 1.1 with C2; no
      stored T2 winding; Tao as given and at R = 0.60.
 5. **End to end.** n × 0.2 in the JSON (below the sampled true residual) is rejected, and a malformed certificate
@@ -259,8 +304,8 @@ reason.
 1. **‖Lν‖ ≤ 2n (SPEC §4, T1′) is false in the 2-norm.**
    - ‖L‖₂ = 3, since L = L_r ⊗ L_c with ‖L_r‖ = √3. For example, ν = x yᵀ with x = y = (−2, 1, 1, 0, 0, 0) is
      horizontal and has ‖Lν‖ = 3‖ν‖.
-   - Per component, |(Lν)_k| ≤ 2n is true.
-   - I use ‖Mth_t⁻¹ L g‖₂·n, in intervals. Piece B reached the same conclusion (FORMAT.md §6, pending).
+   - Per component, |(Lν)_k| ≤ 2n is true. The coordinator confirmed this on 24 Oct.
+   - The crude fallback uses ‖Mth_t⁻¹ L g‖₂·n in intervals. The normal tube uses ‖Mth_t⁻¹ L g M‖₂·ρ.
 2. **The record shell.** I use SPEC §4's R² − n² ≤ ‖Tη‖² ≤ R² (valid since ν ∈ N ⊥ T). FORMAT.md first said
    R ± n, and from commit 2f77a3c0 it states this shell too.
 3. **U_(·,i) in rcol.** I read it as the 6×4 block of rows 6j + i (column i of the matrix), as in the existing
@@ -284,5 +329,7 @@ reason.
     - the normal bound with b = e0;
     - Stage C with a zero frame.
 
-**Open.** FORMAT.md §6 says the final T1′ test is pending: a parametric Krawczyk enclosure of ν may replace ‖ν‖ ≤ n.
-The T1′ here uses only ‖ν‖ ≤ n, and will need updating if that changes.
+11. **T1′ (the coordinator's update).** ν is enclosed by a 2-norm Krawczyk test in N, with the Lipschitz constant
+    L = 2√3 for the Jacobian, rather than FORMAT.md §6's componentwise boxes. The inclusion ball contains every
+    x with ‖Mx‖ ≤ n. The contraction steps and the third-order β are my own choices. The crude ‖ν‖ ≤ n form remains as
+    a fallback.

@@ -300,6 +300,7 @@ function check_c2_seed(s::Seed, X::XferCtx, rec_ok::Function; split_depth::Int=2
             ok, msg, val = check_with_split(f, ubox(b)..., 0, g.kind == :T0 ? 0 : split_depth, st)
             ok || return res(false, "group $(gi-1) ($(g.kind) -> $(g.target)), box $b: " * msg, st, cn)
             counts[g.kind] += 1; worst[g.kind] = max(worst[g.kind], val)
+            msg == "ok (crude)" && (counts[:T1p_crude] += 1)
         end
     end
     res(true, "ok", st, cn)
@@ -333,13 +334,14 @@ struct RecCtx
     Ti::Matrix{I64}      # the exact frame, enclosed
     n::Float64           # normal bound (radians)
     rHt::Float64         # rigorous upper bound of max ||eta|| on {||T eta|| <= R}
+    nc::Union{Nothing,NormalCtx}   # coordinates on the normal space N (normal_tube.jl)
 end
 
-function RecCtx(sr::SRecord, nb::IA.NormalBound)
+function RecCtx(sr::SRecord, nb::IA.NormalBound; tube::Bool=true)
     G = IA.gram_exact(nb.T36)
     lam = lambda_min_lower(G)
     rHt = lam > 0 ? sup(iv(sr.rec.R) / sqrt(IA.ivq(lam))) : Inf
-    RecCtx(IA.frame_interval(nb.T36), nb.n, rHt)
+    RecCtx(IA.frame_interval(nb.T36), nb.n, rHt, tube ? normal_ctx(nb.T36, nb.n) : nothing)
 end
 
 """The corner map L (4 x 36, entries 0, +-1) of the ordered corner (I, J): theta' = L vec(X), row-major."""
@@ -365,23 +367,35 @@ rec_phase_models(P::Matrix{Float64}, Ti::Matrix{I64}, zc, rem::Float64) =
     [TM{I64}(iv(P[a, b]) + sum(Ti[6(a-1)+b, j] * zc[j] for j in 1:4), ntuple(j -> Ti[6(a-1)+b, j], 4),
              ntuple(_ -> iv(0.0), 10), rem) for a in 1:6 for b in 1:6]
 
-"""T1': for every K = e^{i(P + T eta + nu)}, eta in the box, ||nu|| <= n: the corner seed of g . K at (I, J) lands in
-int E_t, and the sides of g . K there have orientation o_t and are matched.  The models carry the per-entry remainder
-|nu_e| <= n (for Psi); the landing adds ||Minv_t L g||_2 n for the nu part of theta' (only ||nu|| <= n is used)."""
+"""T1': for every Hadamard K = e^{i(P + T eta + nu)} of the record with eta in the box: the corner seed of g . K at
+(I, J) lands in int E_t, and the sides of g . K there have orientation o_t and are matched.
+The normal part nu is enclosed by the normal tube (normal_tube.jl): nu = M (x_p(u) + e), ||e|| <= rho, so the phases
+are models P + T eta + M x_p with per-entry remainder ||M_e,:|| rho (for Psi), and the landing adds
+||Minv_t L g M||_2 rho for the e part of theta'.  If the tube's Krawczyk test fails, the crude form is used instead:
+per-entry remainder n (|nu_e| <= ||nu|| <= n) and the landing term ||Minv_t L g||_2 n.  Both are valid."""
 function check_T1p(sr::SRecord, rc::RecCtx, lo, hi, g::Group, t::Seed, Minv::Matrix{I64})
     zc, h = scaled_dom(lo, hi, sr.eta_scale)
     D = Dom(h)
-    K = gact(mat6(rec_phase_models(sr.rec.P, rc.Ti, zc, rc.n)), g.g)
+    LG = iv.(corner_L(g.rows, g.cols) * g_matrix(g.g))
+    tb = rc.nc === nothing ? TubeFail("no normal coordinates") : normal_tube(sr.rec.P, rc.Ti, rc.nc, zc, h)
+    if tb.ok
+        Q = tube_phase_models(sr.rec.P, rc.Ti, rc.nc, zc, tb)
+        nuterm = iv(IA.opnorm_upper(Minv * LG * rc.nc.Mi)) * iv(tb.rho)
+        how = @sprintf("tube rho %.2g", tb.rho)
+    else
+        Q = rec_phase_models(sr.rec.P, rc.Ti, zc, rc.n)
+        nuterm = iv(IA.opnorm_upper(Minv * LG)) * iv(rc.n)
+        how = "crude (" * tb.why * ")"
+    end
+    K = gact(mat6(Q), g.g)
     thp = corner_seed(map(polypart, K), g.rows, g.cols)
     N = landing_wind(g, [mid(x.c) for x in thp], t)
-    land0 = seed_landing(thp, N, t, Minv, D)
-    ML = Minv * iv.(corner_L(g.rows, g.cols) * g_matrix(g.g))
-    land = sup(iv(land0) + iv(IA.opnorm_upper(ML)) * iv(rc.n))
-    land < t.r || return false, @sprintf("T1': landing %.6g >= r_t = %.6g", land, t.r), land
+    land = sup(iv(seed_landing(thp, N, t, Minv, D)) + nuterm)
+    land < t.r || return false, @sprintf("T1': landing %.6g >= r_t = %.6g [%s]", land, t.r, how), land
     Bh, Bv = corner_blocks(K, g.rows, g.cols)
-    imsign(psi_model(Bh, D), D) == t.o || return false, "T1': orientation of K's horizontal side != o_t", land
-    imsign(psi_model(Bv, D), D) == -t.o || return false, "T1': K's vertical side not matched", land
-    true, "ok", land
+    imsign(psi_model(Bh, D), D) == t.o || return false, "T1': orientation of K's horizontal side != o_t [$how]", land
+    imsign(psi_model(Bv, D), D) == -t.o || return false, "T1': K's vertical side not matched [$how]", land
+    true, tb.ok ? "ok (tube)" : "ok (crude)", land
 end
 
 """rec: sup over eta in the box of ||hor(pi(g . (P_s + T eta)) + 2 pi N - P_t)|| + n_s < R_t (COVERAGE.md lemma).
@@ -399,33 +413,50 @@ function check_rec(sr::SRecord, rc::RecCtx, lo, hi, g::Group, dst::IA.Rec)
     val < dst.R ? (true, "ok", val) : (false, @sprintf("rec: %.6g >= R_t = %.6g", val, dst.R), val)
 end
 
-function check_c2_record(sr::SRecord, nb::IA.NormalBound, X::XferCtx, rec_ok::Function; split_depth::Int=2)
+function check_c2_record(sr::SRecord, nb::IA.NormalBound, X::XferCtx, rec_ok::Function; split_depth::Int=2, tube::Bool=true)
     t0 = time()
-    counts = Dict(:rec => 0, :T1p => 0); worst = Dict(:rec => 0.0, :T1p => 0.0)
+    counts = Dict(:rec => 0, :T1p => 0, :T1p_crude => 0); worst = Dict(:rec => 0.0, :T1p => 0.0)
     nbx = sum(length(g.boxes) for g in sr.groups; init=0)
     res(ok, msg, st=[0, 0], cn=0) = C2Result(ok, msg, nbx, counts, st[1], st[2], worst, cn, time() - t0)
-    rc = RecCtx(sr, nb)
+    rc = RecCtx(sr, nb; tube=tube)
     sr.eta_scale >= rc.rHt || return res(false, @sprintf("eta_scale %.6g < r_H %.6g: the cube may not contain the shell", sr.eta_scale, rc.rHt))
     listed = Set{NTuple{5,Int}}(b for g in sr.groups for b in g.boxes)
     cov, cn = dyadic_covered(listed, (lo, hi) -> misses_shell(lo, hi, sr.eta_scale, rc.Ti, sr.rec.R, rc.n, rc.rHt))
     cov || return res(false, "the boxes do not cover the shell", [0, 0], cn)
-    st = [0, 0]
+    fs = Vector{Function}(undef, length(sr.groups))
     for (gi, g) in enumerate(sr.groups)
         if g.kind == :rec
-            (0 <= g.target < length(X.records)) || return res(false, "group $(gi-1): no such record", st, cn)
-            rec_ok(g.target) || return res(false, "group $(gi-1): target record $(g.target) did not pass Step 3", st, cn)
-            f = (lo, hi) -> check_rec(sr, rc, lo, hi, g, X.records[g.target+1].rec)
+            (0 <= g.target < length(X.records)) || return res(false, "group $(gi-1): no such record", [0, 0], cn)
+            rec_ok(g.target) || return res(false, "group $(gi-1): target record $(g.target) did not pass Step 3", [0, 0], cn)
+            fs[gi] = (lo, hi) -> check_rec(sr, rc, lo, hi, g, X.records[g.target+1].rec)
         else
-            (0 <= g.target < length(X.seeds)) || return res(false, "group $(gi-1): no such seed", st, cn)
+            (0 <= g.target < length(X.seeds)) || return res(false, "group $(gi-1): no such seed", [0, 0], cn)
             Mi = X.minv[g.target+1]
-            Mi === nothing && return res(false, "group $(gi-1): target Mth not invertible", st, cn)
-            f = (lo, hi) -> check_T1p(sr, rc, lo, hi, g, X.seeds[g.target+1], Mi)
+            Mi === nothing && return res(false, "group $(gi-1): target Mth not invertible", [0, 0], cn)
+            fs[gi] = (lo, hi) -> check_T1p(sr, rc, lo, hi, g, X.seeds[g.target+1], Mi)
         end
-        for b in g.boxes
-            ok, msg, val = check_with_split(f, ubox(b)..., 0, split_depth, st)
-            ok || return res(false, "group $(gi-1) ($(g.kind) -> $(g.target)), box $b: " * msg, st, cn)
-            counts[g.kind] += 1; worst[g.kind] = max(worst[g.kind], val)
+    end
+    # the boxes are independent: check them on all threads (a record such as F6's may have many), then report the
+    # first failure in certificate order
+    items = [(gi, b) for (gi, g) in enumerate(sr.groups) for b in g.boxes]
+    out = Vector{Tuple{Bool,String,Float64,Int,Int}}(undef, length(items))
+    Threads.@threads :greedy for k in eachindex(items)
+        gi, b = items[k]
+        stk = [0, 0]
+        ok, msg, val = try
+            check_with_split(fs[gi], ubox(b)..., 0, split_depth, stk)
+        catch err
+            (false, "exception: " * sprint(showerror, err)[1:min(end, 200)], Inf)
         end
+        out[k] = (ok, msg, val, stk[1], stk[2])
+    end
+    st = [sum(x[4] for x in out; init=0), sum(x[5] for x in out; init=0)]
+    for (k, (gi, b)) in enumerate(items)
+        ok, msg, val = out[k]
+        g = sr.groups[gi]
+        ok || return res(false, "group $(gi-1) ($(g.kind) -> $(g.target)), box $b: " * msg, st, cn)
+        counts[g.kind] += 1; worst[g.kind] = max(worst[g.kind], val)
+        msg == "ok (crude)" && (counts[:T1p_crude] += 1)
     end
     res(true, "ok", st, cn)
 end

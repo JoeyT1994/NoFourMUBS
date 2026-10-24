@@ -1,6 +1,6 @@
 """Write the small test certificate tests/data/seed_test_certificate.json.gz in the layout of
 proof/seed_atlas/FORMAT.md, built with the float prototype (untrusted; it only makes test inputs).
-Usage: .venv/bin/python make_test_cert.py [out.json.gz]
+Usage: .venv/bin/python make_test_cert.py [out.json.gz]   (or: make_test_cert.py f6, for tests/data/f6_record_shell.json.gz)
 
 Contents, all around the atlas centre of record 2003 (H) and one ball at record 2781:
   seed 0  A: H at its best corner (I, J), r = 0.03.  Its sphere is covered by the 256 level-2 boxes, in four groups:
@@ -173,5 +173,35 @@ def main(out):
     print('wrote', out)
 
 
+def f6_shell(out, R=0.125, per_level=12):
+    """tests/data/f6_record_shell.json.gz: the atlas record at F6 (877) with radius R and shell boxes at levels 3 and 4
+    (T1prime groups into the test seed 0; only the normal tube is tested on them, by enclosure.jl (c))."""
+    recs = G.atlas_records()
+    r = recs[877]
+    T = frame(r)
+    es = 1.01 * R / np.sqrt(np.linalg.eigvalsh(T.T @ T).min())
+    groups = []
+    for lev in (3, 4):
+        def meets(lo, hi):
+            lo = es * lo; hi = es * hi
+            up = max(np.linalg.norm(T @ np.where(np.array(v) == 1, hi, lo)) for v in itertools.product((0, 1), repeat=4))
+            zc = (lo + hi) / 2; h = (hi - lo) / 2
+            low = np.linalg.norm(np.maximum(0, np.abs(T @ zc) - np.abs(T) @ h))
+            return low <= R and up >= 0.98 * R
+        bs = level_boxes(lev, meets)
+        groups.append(dict(kind='T1prime', target=0, g='id', rows=[0, 1, 2], cols=[0, 1, 2], wind=[0, 0, 0, 0],
+                           boxes=bs[::max(1, len(bs) // per_level)][:per_level]))
+    d = json.load(gzip.open(os.path.join(HERE, 'data', 'seed_test_certificate.json.gz')))
+    seed = d['seeds'][0]; seed['transfers'] = []
+    cert = {'format': 'seed-atlas-v1', 'max_level': 4, 'seeds': [seed], 'records': [record(r, R, groups, es)],
+            'fourier_record': 0, 'info': {'note': "F6's record with shell boxes, for the normal-tube test"}}
+    with gzip.open(out, 'wt') as f:
+        json.dump(cert, f)
+    print('wrote', out)
+
+
 if __name__ == '__main__':
-    main(sys.argv[1] if len(sys.argv) > 1 else os.path.join(HERE, 'data', 'seed_test_certificate.json.gz'))
+    if len(sys.argv) > 1 and sys.argv[1] == 'f6':
+        f6_shell(os.path.join(HERE, 'data', 'f6_record_shell.json.gz'))
+    else:
+        main(sys.argv[1] if len(sys.argv) > 1 else os.path.join(HERE, 'data', 'seed_test_certificate.json.gz'))

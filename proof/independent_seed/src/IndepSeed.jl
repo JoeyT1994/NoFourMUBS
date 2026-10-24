@@ -11,6 +11,7 @@ include("seedmap.jl")
 include("io_seed.jl")
 include("c1.jl")
 include("stagec_seed.jl")
+include("normal_tube.jl")
 include("transfers.jl")
 include("tao.jl")
 end

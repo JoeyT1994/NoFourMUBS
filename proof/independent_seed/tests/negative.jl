@@ -38,11 +38,11 @@ function runc2(C)
     r = S.check_c2_seed(C.seeds[1], S.XferCtx(C), rec_ok_all)
     (r.ok, r.msg)
 end
-function runrec(C, i)
+function runrec(C, i; tube=true, split_depth=2)
     nb = nbof(C, i)
     nb.ok || return (false, "normal bound: " * nb.msg)
-    r = S.check_c2_record(C.records[i+1], nb, S.XferCtx(C), rec_ok_all)
-    (r.ok, r.msg)
+    r = S.check_c2_record(C.records[i+1], nb, S.XferCtx(C), rec_ok_all; tube=tube, split_depth=split_depth)
+    (r.ok, r.msg * (r.ok ? " (crude T1' boxes: $(r.counts[:T1p_crude]))" : ""))
 end
 function runrec3(C, i)
     nb = nbof(C, i)
@@ -160,6 +160,9 @@ cases = Any[
     ("control: r x 1.1 (boxes are in units of r; transfers still land)", true, () -> runc2(setseed(C0, 1, with(s0; r=1.1 * s0.r)))),
     ("r x 2.5 (the transfers no longer land)", false, () -> runc2(setseed(C0, 1, with(s0; r=2.5 * s0.r)))),
     # records
+    ("control: record 1 with the crude T1' bound only (r_t = 0.07)", true, () -> runrec(C0, 1; tube=false)),
+    ("control: record 1, T1' target r = 0.0555 (the normal tube certifies it)", true, () -> runrec(setseed(C0, 2, with(C0.seeds[2]; r=0.0555)), 1; split_depth=0)),
+    ("record 1, T1' target r = 0.0555 with the crude bound only", false, () -> runrec(setseed(C0, 2, with(C0.seeds[2]; r=0.0555)), 1; tube=false, split_depth=0)),
     ("record 1: T1' target -> seed 3", false, () -> runrec(rmod(rT1p; target=3), 1)),
     ("record 1: T1' target -> seed 2 (other corner)", false, () -> runrec(rmod(rT1p; target=2), 1)),
     ("record 1: T1' corner rows swapped", false, () -> runrec(rmod(rT1p; rows=swaprows(rgs[rT1p].rows)), 1)),

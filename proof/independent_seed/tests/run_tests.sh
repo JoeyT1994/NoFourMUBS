@@ -4,7 +4,8 @@
 # 1. check_seed.jl on the test certificate (FORMAT.md layout; not a closed atlas): the expected PASS / FAIL per object;
 #    a second run resumes from the receipts and makes the same decisions.
 # 2. Shards: two --shard runs and an --import run give the same receipts.
-# 3. enclosure.jl: Taylor-model operations and box_map against BigFloat completions at sampled points.
+# 3. enclosure.jl: Taylor-model operations and box_map against BigFloat completions at sampled points; the normal
+#    tube of records (T1') against BigFloat Hadamard points, on the test record and on F6's record (R = 0.125).
 # 4. negative.jl: corrupted n, r, P, U, theta0, o, Mth, label radius, targets, corners, g, windings and boxes are
 #    rejected; harmless changes are accepted.
 # 5. End to end through the JSON: n of seed 0 times 0.2 (below its sampled true residual) is rejected; a malformed
@@ -46,7 +47,11 @@ cmp <(grep -v '^#' "$OUT/run/seeds.tsv" | cut -f1-8,10-13,15-26,28 | sort) \
     <(grep -v '^#' "$OUT/merged/seeds.tsv" | cut -f1-8,10-13,15-26,28 | sort) || fail "shard receipts differ"
 
 echo "=== 3. enclosure sampling"
-JL tests/enclosure.jl "$OUT/run/certificate.txt" 2>&1 | grep -v "Warning\|└\|┌" | tail -8
+JL tests/enclosure.jl "$OUT/run/certificate.txt" 2>&1 | grep -v "Warning\|└\|┌" | tail -9
+python3 convert_seed.py tests/data/f6_record_shell.json.gz "$OUT/f6.txt" > /dev/null
+JL tests/enclosure.jl "$OUT/f6.txt" 0 > "$OUT/f6.log" 2>&1 || true
+grep -E "^\(c\)|CHECKS" "$OUT/f6.log"
+grep -q "ENCLOSURE CHECKS PASS" "$OUT/f6.log" || fail "normal tube next to F6"
 
 echo "=== 4. negative tests"
 JL -t "$NT" tests/negative.jl "$OUT/run/certificate.txt" 2>&1 | grep -v "Warning\|└\|┌"

@@ -118,5 +118,51 @@ for s in C.seeds[1:min(end, nseeds)]
     end
     @printf("(b) seed %d: %d points inside their models; max residual / box bound = %.3f\n", s.idx, npts, worst_ratio)
 end
+# ---------------------------------------------------------------- (c)
+for sr in C.records
+    any(g -> g.kind == :T1p, sr.groups) || continue
+    nb = S.IA.normal_bound(sr.rec)
+    nb.ok || continue
+    rc = S.RecCtx(sr, nb)
+    rc.nc === nothing && (check(false, "record $(sr.rec.idx): no normal coordinates"); continue)
+    Mf = rc.nc.Mf; Tf = mid.(rc.Ti)
+    Pv = [sr.rec.P[a, b] for a in 1:6 for b in 1:6]
+    boxes = [b for g in sr.groups if g.kind == :T1p for b in g.boxes]
+    npts = 0; worst = 0.0; worstb = 0.0
+    for b in boxes[1:max(1, length(boxes) ÷ 6):end][1:min(end, 6)]
+        lo, hi = S.ubox(b)
+        zc, h = S.scaled_dom(lo, hi, sr.eta_scale)
+        tb = S.normal_tube(sr.rec.P, rc.Ti, rc.nc, zc, h)
+        check(tb.ok, "record $(sr.rec.idx) box $b: " * tb.why)
+        tb.ok || continue
+        zcm = [mid(z) for z in zc]
+        for _ in 1:5
+            u = ntuple(j -> h[j] * (2rand(rng) - 1), 4)
+            xp = [Float64(mid(S.peval(t, [interval(x) for x in u]))) for t in tb.x]
+            # true point: Gauss-Newton in BigFloat on Phi(P + T eta + M x) = 0, from the predictor
+            eta = big.(zcm .+ collect(u))
+            x = big.(xp)
+            for _ in 1:40
+                Q = big.(Pv) .+ big.(Tf) * eta .+ big.(Mf) * x
+                F = S.Phi_f(Q)
+                maximum(abs, F) < big(10)^-40 && break
+                x = x - pinv(Float64.(S.J_phases(Q) * big.(Mf))) * F
+            end
+            Q = big.(Pv) .+ big.(Tf) * eta .+ big.(Mf) * x
+            check(maximum(abs, S.Phi_f(Q)) < 1e-30, "record $(sr.rec.idx): Gauss-Newton did not converge")
+            d = Float64(sqrt(sum((x .- big.(xp)) .^ 2)))
+            check(d <= tb.rho, @sprintf("record %d box %s: true normal coordinates %.3g from the predictor > rho %.3g", sr.rec.idx, b, d, tb.rho))
+            worst = max(worst, d / tb.rho)
+            # ||Y Phi|| along the predictor at u (floats) against beta
+            Yf = pinv(S.J_phases(Pv .+ Tf * zcm .+ Mf * [Float64(mid(t.c)) for t in tb.x]) * Mf)
+            bv = norm(Yf * S.Phi_f(Pv .+ Tf * Float64.(eta) .+ Mf * xp))
+            worstb = max(worstb, bv / tb.beta)
+            npts += 1
+        end
+    end
+    @printf("(c) record %d: %d points; max distance to the predictor / rho = %.3f, max sampled ||Y Phi|| / beta = %.3f\n",
+            sr.rec.idx, npts, worst, worstb)
+end
+
 println(nfail == 0 ? "ENCLOSURE CHECKS PASS" : "ENCLOSURE CHECKS: $nfail FAILURES")
 exit(nfail == 0 ? 0 : 1)
