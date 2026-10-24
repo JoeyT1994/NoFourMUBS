@@ -297,3 +297,125 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+
+# ------------------------------------------------------------------------------------------- Shift.lean mirror
+def zsc(k, z): return (k * z[0], k * z[1])
+
+
+def zsum(l):
+    acc = (0, 0)
+    for z in reversed(l): acc = S.zadd(z, acc)
+    return acc
+
+
+def k0S(c, T):
+    g = lambda l: gi(c, l); cg = T.cg; P = SC
+    return zsum([zsc(P * P, cg(0)), zsc(P * g(0), cg(1)), zsc(P * g(1), cg(2)), zsc(P * g(2), cg(3)), zsc(P * g(3), cg(4)),
+                 zsc(g(0) * g(0), cg(5)), zsc(g(0) * g(1), cg(6)), zsc(g(0) * g(2), cg(7)), zsc(g(0) * g(3), cg(8)),
+                 zsc(g(1) * g(1), cg(9)), zsc(g(1) * g(2), cg(10)), zsc(g(1) * g(3), cg(11)), zsc(g(2) * g(2), cg(12)),
+                 zsc(g(2) * g(3), cg(13)), zsc(g(3) * g(3), cg(14))])
+
+
+def klS(c, T, l):
+    g = lambda l: gi(c, l); cg = T.cg; P = SC
+    if l == 0: return zsum([zsc(P, cg(1)), zsc(2 * g(0), cg(5)), zsc(g(1), cg(6)), zsc(g(2), cg(7)), zsc(g(3), cg(8))])
+    if l == 1: return zsum([zsc(P, cg(2)), zsc(g(0), cg(6)), zsc(2 * g(1), cg(9)), zsc(g(2), cg(10)), zsc(g(3), cg(11))])
+    if l == 2: return zsum([zsc(P, cg(3)), zsc(g(0), cg(7)), zsc(g(1), cg(10)), zsc(2 * g(2), cg(12)), zsc(g(3), cg(13))])
+    return zsum([zsc(P, cg(4)), zsc(g(0), cg(8)), zsc(g(1), cg(11)), zsc(g(2), cg(13)), zsc(2 * g(3), cg(14))])
+
+
+def shiftT(c, h2, T):
+    return CT([S.rndk(2 * PP, k0S(c, T))] + [S.rndk(PP, klS(c, T, l)) for l in range(4)] + [T.cg(m) for m in range(5, 15)],
+              T.rho + S.rerr(h2))
+
+
+def shiftL(c, h2, L): return [shiftT(c, h2, T) for T in L]
+
+
+def boxIn(h, c, h2): return all(abs(gi(c, l)) + h2[l] <= h[l] for l in range(4))
+
+
+def subOK(D, qm, km, s):
+    if not boxIn(D['hb'], s['c'], s['h']): return False
+    q2 = shiftL(s['c'], s['h'], qm)
+    if s['kind'] == 1:
+        return t1OK(s['h'], q2, shiftL(s['c'], s['h'], km), s['t1'], s['bl'], s['rl'])
+    return t2OK(s['h'], q2, s['t2'])
+
+
+def lean_sub(s):
+    T1 = s.get('t1') or dict(g=0, rows=[], cols=[], N=[], G=[], qg=0, m=0)
+    T2 = s.get('t2') or dict(rows=[], cols=[], tr=False, cj=False, N=[], Pt=[], nb=0)
+    bl = s.get('bl') or dict(th0=[], Mth=[], P=[], U=[], n=0, o=0)
+    t1 = '⟨%d, %s, %s, %s, %s, %d, %d⟩' % (T1['g'], L.lean_nat_list(T1['rows']), L.lean_nat_list(T1['cols']),
+                                         L.lean_int_list(T1['N']), L.lean_int_list(T1['G']), T1['qg'], T1['m'])
+    t2 = '⟨%s, %s, %s, %s, %s, %s, %d⟩' % (L.lean_nat_list(T2['rows']), L.lean_nat_list(T2['cols']),
+                                         'true' if T2['tr'] else 'false', 'true' if T2['cj'] else 'false',
+                                         L.lean_int_list(T2['N']), L.lean_int_list(T2['Pt']), T2['nb'])
+    b = '⟨%s, %s, [], [], 0, %d⟩' % (L.lean_int_list(bl['th0']), L.lean_int_list(bl['Mth']), bl['o'])
+    return '⟨%s, %s, %d, %s, %s, %d, %s⟩' % (L.lean_int_list(s['c']), L.lean_nat_list(s['h']), s['kind'], t1, b,
+                                            s.get('rl', 0), t2)
+
+
+def full_demo(ball, level_c1, idx_c1, level_sub, nsub, emit):
+    """A C1 box at a dyadic level and `nsub` transfer sub-boxes of it meeting the sphere (synthetic targets)."""
+    import itertools
+    r = ball.r
+    hw = 2.0 ** (-level_c1)
+    lo = np.array([-1 + i * 2.0 ** (1 - level_c1) for i in idx_c1])
+    wc = r * (lo + hw); h = np.full(4, r * hw)
+    D = S.prepare(ball, wc, h)
+    B = ball.ball_dict(0)
+    ok, qm, km, why = core(B, D)
+    assert ok, why
+    okc, (nb_c1, _) = S.c1Box(B, D)
+    B = ball.ball_dict(nb_c1)
+    # sub-boxes (exact grid: the C1 box half-width is divisible by the sub half-width)
+    k = 2 ** (level_sub - level_c1)
+    subs = []
+    hs = D['hb'][0] // k
+    assert all(x == D['hb'][0] for x in D['hb']) and hs * k == D['hb'][0]
+    cands = []
+    for jj in itertools.product(range(k), repeat=4):
+        c = [(-k + 2 * j + 1) * hs for j in jj]                       # offset from the C1 box centre (grid)
+        cw = [(D['wc'][l] + c[l]) / SC / r for l in range(4)]           # centre in u = w / r
+        hu = hs / SC / r
+        mn = sum(max(abs(x) - hu, 0) ** 2 for x in cw); mx = sum((abs(x) + hu) ** 2 for x in cw)
+        if mn <= 1 <= mx: cands.append(c)
+    print('C1 box level %d %s: n_box %.4g; %d of %d sub-boxes at level %d meet the sphere' % (
+        level_c1, idx_c1, nb_c1 / SC, len(cands), k ** 4, level_sub))
+    T2 = synth_t2(ball, D, D['wc'])
+    T1, Bl = synth_t1(ball, D['wc'])
+    t0 = time.time(); ms = []
+    for i, c in enumerate(cands[:nsub]):
+        hsub = [hs] * 4
+        q2 = shiftL(c, hsub, qm)
+        if i % 2 == 0:
+            T = dict(T1); T['m'] = least_bound(hsub, vT(hsub, q2, T, Bl)); ms.append(T['m'])
+            subs.append(dict(c=c, h=hsub, kind=1, t1=T, bl=Bl))
+        else:
+            T = dict(T2); T['nb'] = -((-least_bound(hsub, t2res(hsub, q2, T))) // 36)
+            subs.append(dict(c=c, h=hsub, kind=2, t2=T))
+    rl = -((-(max(ms) * SC * 3 // 2)) // (SC - T1['qg'])) if ms else 0
+    for s in subs:
+        if s['kind'] == 1: s['rl'] = rl
+    oks = [subOK(D, qm, km, s) for s in subs]
+    print('subs: %d, mirror ok %s, %.1f s (python)' % (len(subs), all(oks), time.time() - t0))
+    if emit:
+        os.makedirs(emit, exist_ok=True)
+        with open(os.path.join(emit, 'Data.lean'), 'w') as f:
+            f.write('import KernelAtlas.Seed.Full\n\nnamespace NoFourMUBs.KernelAtlas.Seed.TestF\n\n'
+                    'open NoFourMUBs.KernelAtlas.Seed\n\n')
+            f.write(L.lean_ball('ball', B) + '\n' + L.lean_box('box', D) + '\n')
+            for n in (0, 1, 2, 4, 8, len(subs)):
+                f.write('noncomputable def subs%d : List SubD := [%s]\n\n' % (n, ',\n  '.join(lean_sub(s) for s in subs[:n])))
+            f.write('end NoFourMUBs.KernelAtlas.Seed.TestF\n')
+        for n in (0, 1, 2, 4, 8, len(subs)):
+            with open(os.path.join(emit, 'Check%d.lean' % n), 'w') as f:
+                f.write('import KernelAtlas.Seed.TestF.Data\n\nnamespace NoFourMUBs.KernelAtlas.Seed.TestF\n\n'
+                        'open NoFourMUBs.KernelAtlas.Seed\n\n')
+                f.write('theorem ok%d : fullBox ball box subs%d = true := by decide +kernel\n\n'
+                        'end NoFourMUBs.KernelAtlas.Seed.TestF\n' % (n, n))
+        print('emitted to', emit)
+
