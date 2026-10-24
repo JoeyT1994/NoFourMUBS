@@ -298,7 +298,9 @@ C1e takes seconds. A `--shard` run computes only their C1e leaves, and the final
 | r = 0.125 | 8 | 0.0122 | ≈ 0.009 | 2.4 s (2,560 boxes) |
 
 - **Cost.** About 3 ms per C1e box after compilation, and about 5 ms per T3 box (seed box map plus T3).
-- **Stage C** on the r = 0.05 edge ball takes about 4 s (50 labels).
+- **Stage C** on the r = 0.05 edge ball takes about 4 s (50 labels). On the r = 0.125 ball with n = 0.0125 (above the
+  k = 8 certified bound) and label radius 0.03, it passes with 201 labels in 10.6 s. So the full-size edge ball
+  certifies end to end here.
 
 ## Tests (`tests/run_tests.sh`, about 5 min on 4 threads)
 
