@@ -82,6 +82,81 @@ As `KERNEL_ASSEMBLY.md` §8–9: per-ball jobs (C1, frame, Stage C, boundary), p
 chunks of 100 balls, one `Final` module importing the chunks with the `nommap` shim, data packed (`kpack.py`), job
 outputs as tarballs on ceph.
 
-## 8. Status
+## 8. Status (24 Oct 2026)
 
-See the end of this file (updated as the pieces land).
+### Implemented (Lean, all with `propext`, `Classical.choice`, `Quot.sound` only; generators with exact mirrors)
+
+| piece | Lean (`kernel_atlas/lean/KernelAtlas/Seed/`) | generator | soundness theorem |
+|---|---|---|---|
+| Taylor models | `Poly` (15-monomial models on the grid, `+ − · conj re im e^{i·} arg lin`) | `seed_c1.py` mirror | `has_*` |
+| C1 per box | `C1`, `C1Lemmas`, `C1SideSound`, `C1Forced`, `C1Bound`, `C1Box` | `seed_c1.py` | `c1Box_sound` |
+| reusable core, re-centring | `Core`, `Shift` | `seed_transfer.py` | `core_sound`, `has_shift` |
+| T2, T1 (general corner) | `T2`, `T1`, `T1Sound` | `seed_transfer.py` | `t2OK_sound`, `t1OK_sound` |
+| C1 box + its transfer boxes; finer transfer-only cores | `Full` | `seed_kball.py` | `fullBox_sound`, `coreFull_sound` |
+| frame bounds (`hMth`, `hcol`, `hfrob`) | `Frame` (kernel LDLᵀ, exact adjugate) | `seed_exact.py` | `frame_sound` |
+| T0, T1 by corner symmetry | `T0`, `T1Sym` | `seed_exact.py` | `t0_sound`, `t1sym_holds` |
+| coverage (C1 ball, seed sphere, record shell) | `Cover` (exact preorder traversals) | `seed_exact.py` | `ball_cover(_boxes)`, `sphere_cover`, `shell_cover'` |
+| Stage C | `StageC` (StageCK2B path, exact P/U bridges) | `seed_stagec.py` | `stageCSeed` |
+| ball certificate, boundary cover | `BallCert`, `Boundary`, `Assemble`, `Links` | `seed_kball.py`, `seed_table.py` | `ballCert`, `seedBoundary_of`, `seed_kernel_of` |
+| assembly (chunks, Final) | generated `SeedA/Chunk<k>`, `SeedA/Final` | `seed_assembly.py` | `no_four_mubs_seed_kernel` |
+| T1′ analytic lemmas | `lean/NoFourMUBs/SeedAtlas/Method/NormalTube.lean` | — | `outNorm_jac_sub_le` (2√3), `normal_tube` |
+
+The final module type-checks against stub balls and stub records (`sorryAx` from the stubs only).  Rusty job scripts:
+`run_seed_{setup,balls,chunks,final}.sh` with the node driver `seed_run.py` (not launched).
+
+### Design changes from §§3–6 (decided while building)
+
+* **One core per C1 box, re-centred on the transfer boxes** (`Shift`, `Full`).  A general-T1 box with its own core
+  costs ≈ 17 s of kernel time; re-centring the C1 box's models costs ≈ 1.8 s per transfer box.  Where the C1 box's
+  remainders are too large for the target's margin (≈ 2·10⁻³ in `θ′`, amplified ≈ 10× by `M_l⁻¹`), the generator
+  falls back to a finer core box (level 3, 4, …: `coreFull`) and, at a box's own level, splits the box (16 children).
+* **Windings in the kernel's gauge.** The kernel's phases (`θ₀` reduced to (−π, π], side phases continued, `arg D` on
+  the generator's branch) differ from FORMAT's representative by multiples of 2π, so every winding (T0, T1, T2) is
+  recomputed by the generator at the box centre; the kernel checks whatever winding it is given.
+* **The kernel radius** is the certificate's `r` rounded down to a multiple of 2²⁰ grid units (so every dyadic box is
+  exact on the grid); FORMAT's boxes are read in units of this radius.
+
+### Measurements (MacBook, kernel CPU above the ≈ 3 s import baseline)
+
+| check | time | peak RAM |
+|---|---|---|
+| C1 box (`c1Box`) | 10.2 s (the two Krawczyk side checks ≈ 5.4 s) | 8.5 GB |
+| core + T2 / + T1 on the same box | 12.4 s / 17.3 s | 8.5 GB |
+| transfer box re-centred on a core (`fullBox`, marginal) | 1.84 s | +0.45 GB per box in one theorem |
+| module of 8 C1 boxes (`Core<k>`, real ball 721) | 100–112 s | 8–13 GB |
+| frame bounds | 0.6 s per ball | |
+| T0 box / T1 corner-symmetry box | 4 ms / 4–5 ms | |
+| traversals: C1 ball / seed sphere / record shell | 0.25 / 0.42 / 2.4 ms per node | |
+| Stage C (4 test balls, r ≤ 0.08) | 11–47 CPU-min per ball | 8–20 GB |
+| T1′ η-box (estimate, `KERNEL_T1PRIME.md`) | 1.5–3 s | |
+
+**A real ball** (driver ball 721, r = 0.08; from the driver's state on rusty, 24 Oct): 256 C1 boxes (C1 needs
+n = 0.0093 of the certificate's 0.0112), 1,723 T0 boxes, 826 general-T1 boxes (one split into 16), 569 cores
+(256 C1 + 313 finer, most finer cores serving one transfer box), sphere traversal 5,361 nodes; Python generation
+9.5 min (one thread).
+
+### Cost projection
+
+Per ball (laptop): C1 and T1 cores ≈ 569 × 12.5 s + 841 × 1.8 s ≈ 8,600 s; Stage C ≈ 1,500–2,800 s; the rest
+(T0, traversal, frame, module overheads) ≈ 300 s: **≈ 3 CPU-hours per ball on the laptop, ≈ 7–9 core-hours on rusty**
+with the old pipeline's laptop-to-rusty factor (2.7, measured on Stage C; to be re-measured by a one-node pilot).
+The driver's state on 24 Oct: 10,008 balls (6,859 closed: 15.5M T0, 5.7M general-T1, 0.8M corner-symmetry boxes; no
+T2), still growing.  For 12–15k balls: **≈ 85k–135k core-hours for the seed balls**, dominated by the general-T1
+cores (≈ 55%), C1 (≈ 30%) and Stage C (≈ 15%).  Records: F6's record ≈ 1–2 core-hours each.  The record boundary is
+not built yet; at the driver's estimate of 30–50M boxes and 4–8 s per T1′ box on rusty it would cost 30k–110k
+core-hours unless the ν-tube is shared across sibling boxes (as the seed cores are).
+
+Levers, in order of effect: cheaper side checks (a Jacobian bound from the centre plus the 2√3 Lipschitz bound instead
+of 36 Taylor-model entries: ≈ −40% per core); sharper models so that fewer transfer boxes need their own core (a
+third-order `Poly`, or smaller remainders); fewer general-T1 boxes from the driver (T0 and corner-symmetry targets
+cost milliseconds); sharing in T1′.
+
+### Not yet done
+
+* **T1′ in the kernel** (record boundary → seed ball): the analytic lemmas are proved (`Method.NormalTube`); the kernel
+  check and its generator are in progress.  Until it exists, `recBoundary` (and so `no_four_mubs_seed_kernel`) is not
+  hypothesis-free.
+* **The record side**: F6's record (`RecordCert` through the old pipeline), the `rec` boundary boxes, the record
+  boundary cover, Tao and the Fourier anchor for the new records — in progress.
+* The production table and per-ball generation at scale, the rusty pilot, and the run itself (after the atlas is
+  built and certified).
