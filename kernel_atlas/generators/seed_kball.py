@@ -296,7 +296,7 @@ def write_ball(G, stagec=True):
     put(os.path.join(d, 'C1.lean'), Lb)
     # frame
     put(os.path.join(d, 'Frame.lean'), head('%s.Ball' % mod) + [
-        'theorem hframe : frameOK seed i%d = true := by decide +kernel' % j, '', 'end %s' % base])
+        'theorem hframeK : frameOK seed i%d = true := by decide +kernel' % j, '', 'end %s' % base])
     # boundary
     E = []
     for (b, kind, dat) in G['entries']:
@@ -333,7 +333,7 @@ def write_ball(G, stagec=True):
     put(os.path.join(d, 'Cert.lean'), head('%s.C1' % mod, '%s.Frame' % mod, '%s.SeedC' % mod) + [
         '/-- **Seed ball %d**, every field checked by the kernel. -/' % j,
         'noncomputable def cert : NoFourMUBs.SeedAtlas.SeedBallCert :=',
-        '  ballCert seed %s (frame_sound hframe).hMth (frame_sound hframe).hcol (frame_sound hframe).hfrob' % o,
+        '  ballCert seed %s (frame_sound hframeK).hMth (frame_sound hframeK).hcol (frame_sound hframeK).hfrob' % o,
         '    (hC1_of_boxes (o := %s) rfl c1all (ball_cover_boxes c1cover (hmatch_of_any c1match))) stageC' % o, '',
         'end %s' % base])
     for f in os.listdir(d):

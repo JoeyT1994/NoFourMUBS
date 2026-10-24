@@ -130,21 +130,25 @@ The final module type-checks against stub balls and stub records (`sorryAx` from
 | Stage C (4 test balls, r ≤ 0.08) | 11–47 CPU-min per ball | 8–20 GB |
 | T1′ η-box (estimate, `KERNEL_T1PRIME.md`) | 1.5–3 s | |
 
-**A real ball** (driver ball 721, r = 0.08; from the driver's state on rusty, 24 Oct): 256 C1 boxes (C1 needs
-n = 0.0093 of the certificate's 0.0112), 1,723 T0 boxes, 826 general-T1 boxes (one split into 16), 569 cores
+**A real ball, end to end** (driver ball 721, r = 0.08; from the driver's state on rusty, 24 Oct): 256 C1 boxes
+(C1 needs n = 0.0093 of the certificate's 0.0112), 1,723 T0 boxes, 826 general-T1 boxes (one split into 16), 569 cores
 (256 C1 + 313 finer, most finer cores serving one transfer box), sphere traversal 5,361 nodes; Python generation
-9.5 min (one thread).
+9.5 min + 4 min (Stage C), one thread.  All 110 modules compile; `B721.cert : SeedBallCert` and `B721.bnd` (its
+boundary cover) depend on `propext`, `Classical.choice`, `Quot.sound` only.  **Kernel CPU 3.8 h on the laptop**
+(cores 2.4 h, Stage C 1.4 h: 219k label hints), peak 20.4 GB (one Stage C module).  Three more real balls generate
+cleanly: 4194 (788 general-T1 boxes, all on the C1 boxes' own cores: 256 cores), 1798 (1,212 → 829 cores),
+6848 (r = 0.1: 2,787 general-T1 and 439 corner-symmetry boxes → 1,014 cores).  The core count, and so the cost, varies
+by a factor ≈ 4 between balls.
 
 ### Cost projection
 
-Per ball (laptop): C1 and T1 cores ≈ 569 × 12.5 s + 841 × 1.8 s ≈ 8,600 s; Stage C ≈ 1,500–2,800 s; the rest
-(T0, traversal, frame, module overheads) ≈ 300 s: **≈ 3 CPU-hours per ball on the laptop, ≈ 7–9 core-hours on rusty**
-with the old pipeline's laptop-to-rusty factor (2.7, measured on Stage C; to be re-measured by a one-node pilot).
-The driver's state on 24 Oct: 10,008 balls (6,859 closed: 15.5M T0, 5.7M general-T1, 0.8M corner-symmetry boxes; no
-T2), still growing.  For 12–15k balls: **≈ 85k–135k core-hours for the seed balls**, dominated by the general-T1
-cores (≈ 55%), C1 (≈ 30%) and Stage C (≈ 15%).  Records: F6's record ≈ 1–2 core-hours each.  The record boundary is
-not built yet; at the driver's estimate of 30–50M boxes and 4–8 s per T1′ box on rusty it would cost 30k–110k
-core-hours unless the ν-tube is shared across sibling boxes (as the seed cores are).
+Per ball (laptop, measured on ball 721): 3.8 CPU-hours; by core count the four real balls range ≈ 2.5–6 CPU-hours,
+mean ≈ 4.  With the old pipeline's laptop-to-rusty factor (2.7, measured on Stage C; to be re-measured by a one-node
+pilot): **≈ 11 core-hours per ball on rusty**.  The driver's state on 24 Oct: 10,008 balls (6,859 closed: 15.5M T0,
+5.7M general-T1, 0.8M corner-symmetry boxes; no T2), still growing.  For 12–15k balls: **≈ 130k–170k core-hours for
+the seed balls**, dominated by the cores (C1 ≈ 25%, transfer-only ≈ 35%) and Stage C (≈ 35%).  Records: ≈ 1–2 core-hours each.  T1′ (built, `T1P*.lean`): ≈ 0.2 s per final box plus ≈ 10 s per tube box shared by
+its sub-boxes (laptop), so 30–50M record-boundary boxes would cost ≈ 6k–13k core-hours on rusty; with SPEC §10's edge
+balls replacing F6's record, this path is no longer needed except for records other than Tao's.
 
 Levers, in order of effect: cheaper side checks (a Jacobian bound from the centre plus the 2√3 Lipschitz bound instead
 of 36 Taylor-model entries: ≈ −40% per core); sharper models so that fewer transfer boxes need their own core (a
@@ -153,10 +157,11 @@ cost milliseconds); sharing in T1′.
 
 ### Not yet done
 
-* **T1′ in the kernel** (record boundary → seed ball): the analytic lemmas are proved (`Method.NormalTube`); the kernel
-  check and its generator are in progress.  Until it exists, `recBoundary` (and so `no_four_mubs_seed_kernel`) is not
-  hypothesis-free.
-* **The record side**: F6's record (`RecordCert` through the old pipeline), the `rec` boundary boxes, the record
-  boundary cover, Tao and the Fourier anchor for the new records — in progress.
+* **T1′ in the kernel**: done (`T1P`, `T1PRec`, `T1PLin`, `T1PTube`, `T1PSound`: `t1p_holds`, standard axioms).
+* **The record side**: the `rec` boxes and the record boundary cover are written (`RecBox`, `RecCover`,
+  `RecFields`); F6's record through the old pipeline was generated but not finished (the helper stopped).  SPEC §10
+  (24 Oct) replaces F6's record by an edge ball, so the record side reduces to Tao's record (`RecTao`, existing) and
+  the Fourier anchor moves to the edge ball: **the remaining blocker for a hypothesis-free statement is the edge ball**
+  (semantic `EdgeBallCert`, its openness, T3, and its kernel C1e), which is the next task.
 * The production table and per-ball generation at scale, the rusty pilot, and the run itself (after the atlas is
   built and certified).
