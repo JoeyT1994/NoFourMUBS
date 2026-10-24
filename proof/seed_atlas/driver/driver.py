@@ -344,9 +344,9 @@ def main():
         A.record_rounds += 1
         rphase.update(state='discover', parts=[], pending=0)
         sn = snap()
-        for k in range(8):
-            futs[ex.submit(task_rdiscover, sn, 400, 1000 * A.record_rounds + k)] = ('rdiscover', k)
-        rphase['pending'] = 8; rphase['found'] = {}
+        for k in range(32):
+            futs[ex.submit(task_rdiscover, sn, 1000, 1000 * A.record_rounds + k)] = ('rdiscover', k)
+        rphase['pending'] = 32; rphase['found'] = {}
         log('RECORD phase round', A.record_rounds, 'with', len(A.balls), 'balls')
 
     def record_cover_start():

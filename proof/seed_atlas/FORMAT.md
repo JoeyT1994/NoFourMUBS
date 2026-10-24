@@ -171,30 +171,22 @@ For record s and every box of a group:
 - **rec** (target `t` is a record index). The current transfer test, with the alignment written as (g, rows, cols):
   sup over η in the box of ‖hor(π(g·(P_s + Tη)) + 2πN − P_t)‖ + n_s < R_t. Here π(X)_ab = X_{rows[a], cols[b]}, g acts
   on phases as in §4, and N = `wind`.
-- **T1prime** (target `l` is a seed index). For every η in the box and every ν with ‖ν‖ ≤ n_s (ν in the complement N
-  of the frame), K = g·e^{i(P_s + Tη + ν)} satisfies the T1 test of §4 at corner (`rows`, `cols`) with N = `wind`:
-  θ′ ∈ int E_l, orientation o_l, matched.
+- **T1prime** (target `l` is a seed index). For every η in the box and every ν ∈ N with ‖ν‖ ≤ n_s such that
+  K₀ = e^{i(P_s + Tη + ν)} is Hadamard (and ‖Tη + ν‖ = R_s), K = g·K₀ satisfies the T1 test of §4 at corner
+  (`rows`, `cols`) with N = `wind`: θ′ ∈ int E_l, orientation o_l, matched.
 
-**Pending (sent to the coordinator, 24 Oct).** With only ‖ν‖ ≤ n_s, T1prime fails at every scale near F6:
-- ‖Mth_l⁻¹ L‖ ≈ 60, 25 and 12 at distances 0.125, 0.3 and 0.6 from F6, against n_s ≈ 2R² (0.0162 at R = 0.125).
-- SPEC §4's ‖Lν‖ ≤ 2n should read ‖Lν‖₂ ≤ 3n; per component, |(Lν)_k| ≤ 2n.
-
-**Proposed refinement (needs the coordinator's approval before A, C or D implement it).** Enclose ν over the η-box by a
-parametric Krawczyk, in the same way C1 encloses the sides:
-1. **The system.** Write ν = N_b x, with N_b a basis of N (21 columns). Take
-   F(η, x) = Y·Φ(P_s + Tη + N_b x) ∈ ℝ²¹. Here Φ is the record's 30 off-diagonal Gram coordinates and Y is any real
-   21×30 matrix (≈ a left inverse of ∂Φ/∂x at the box centre).
-2. **The test.** Take a predictor x_p(η) (any quadratic Taylor model) and an inclusion set X = x_p(η) + [−ρ, ρ]²¹.
-   ρ must be large enough that X contains every x with ‖N_b x‖ ≤ n_s. Check componentwise:
-   sup_β |F(η, x_p(η))| + q ρ < ρ, with q the row sums of sup |I − Y ∂F/∂x| over X.
-3. **What it gives.** Every Hadamard of record s with η ∈ β is a zero of F in X, and that zero is unique. So its
-   ν = N_b x has x ∈ X₁ = K(X) ∩ X, of radius ρ₁ = sup|F(η, x_p)| + q ρ.
-   - **Tighten.** One Krawczyk step leaves ρ₁ ≈ q n_s. Iterating X_{k+1} = K(X_k) ∩ X_k (q shrinks with X_k) brings
-     the radius down to about sup|F(η, x_p)|.
-   - **Measured** (float, record F6 at R = 0.125, 24 Oct): q_∞ ≈ 0.02 over the whole ‖ν‖ ≤ n_s ball. The
-     quadratic-predictor residual of ν is 8e-7, 1e-7 and 1.3e-8 on boxes of half-width 0.016, 0.008 and 0.004 (levels
-     3, 4, 5). Two steps therefore give ρ ≈ 1e-7, against the ≈ 1e-3 the target seed balls can absorb.
-4. **Then.** Q(η) = P_s + Tη + N_b x is a Taylor model in η. Apply the T1 test of §4 to it.
+**How T1prime is certified (adopted 24 Oct; pieces A and C implement it).** The crude bound ‖ν‖ ≤ n_s cannot work near
+F6: ‖Mth_l⁻¹ L‖ ≈ 60 at the F6 record's boundary, against n_s = 0.0162. Instead, ν is enclosed over each η-box by a
+normal-tube Krawczyk:
+- **The system.** ν = N_b x, F(η, x) = Y·Φ(P_s + Tη + N_b x), Y ≈ (J N_b)⁺.
+- **The start.** A ball (2-norm) or box containing every x with ‖N_b x‖ ≤ n_s, around a quadratic predictor x̃(η).
+- **The iteration.** ρ ← sup‖F(η, x̃)‖ + q(ρ)·ρ, which encloses every Hadamard ν. This is an exclusion argument; no
+  existence is needed.
+- **The result.** The enclosure radius is about 10⁻⁶ on level-4 boxes.
+- **References.** `proof/seed_atlas/cert/seedcert.nu_enclosure` (piece A) and `proof/independent_seed/src/normal_tube.jl`
+  (piece C) give the exact conditions.
+- **Optional field.** A record may carry `Nint` (36×21 integers in units 2⁻³⁰, a basis of N before exact projection);
+  without it the certifier picks its own. ‖Lν‖₂ ≤ 3‖ν‖ (SPEC §4's 2n is the per-component bound).
 
 The driver float-checks T1prime at the actual Hadamard points: ν(η) by Gauss–Newton in N, on a 3⁴ grid of each box,
 with a 3% margin. It does not use ‖ν‖ ≤ n_s.
