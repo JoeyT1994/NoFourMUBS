@@ -2,7 +2,7 @@
 
   python3 proof/seed_atlas/cert/tests/run_tests.py            all tests (about a minute; Stage C is the slow one)
   python3 proof/seed_atlas/cert/tests/run_tests.py tm c1      a subset: tm, c1, sampling, stagec, transfers, record,
-                                                              negative, global_, certificate
+                                                              negative, t1prime_f6, global_, certificate
 
 Positive tests compare with the float prototype (explorations/seed_balls): the certified n must be >= the sampled
 true remainder and within 1.5x of the prototype's Taylor-model bound on the same boxes.  Negative tests corrupt one
@@ -403,8 +403,67 @@ def test_global():
     o = CS.check_tao(ctx_for(phi)); check('global: Tao record passes', o['ok'], str(o))
 
 
+F6FIX = json.load(open(os.path.join(HERE, 'data/f6fixture.json')))
+
+
+def f6_setup():
+    fx = F6FIX
+    rd = S.RecordData(np.array([F.fh(x) for x in fx['phi']]).reshape(6, 6), fx['R'], fx['label_radius'],
+                      np.array(fx['Tint'], dtype=np.int64).reshape(36, 4))
+    eta = np.array(fx['eta']); I, J = fx['rows'], fx['cols']
+    ball = S.Ball(F.scaled(fx['ball'], 0.1))
+    w = [int(x) for x in np.rint((ball.theta0 - S.corner_L(I, J) @ (rd.P + rd.Tf @ eta)) / (2 * math.pi))]
+    m = 5
+    idx = [int(v) for v in np.floor((eta / rd.rH + 1) / 2 ** (1 - m))]
+    box = (m,) + tuple(idx)
+    return rd, ball, I, J, w, box, eta
+
+
+def test_t1prime_f6():
+    """T1' next to F6 (atlas record 877, a boundary point's matched corner, amplification ||Mth^-1 L|| ~ 72): the crude
+    test (||nu|| <= n0 only) fails, the Krawczyk-refined one passes; the nu enclosure and the transfer are checked
+    against the actual Hadamards at sampled eta (Gauss-Newton, floats); corruptions are rejected."""
+    rd, ball, I, J, w, box, eta = f6_setup()
+    xc, h, xcf = S.box_geometry([box], rd.rH)
+    check("T1' near F6: amplification of the corner", F6FIX['amp'] > 30, 'amp %.1f, edge %.3f, n0 %.2e' % (F6FIX['amp'], F6FIX['edge'], rd.n0))
+    rejects("T1' near F6: crude test (||nu|| <= n0) fails", lambda: S.check_T1prime_crude(rd, ball, 'id', I, J, w, xc, h))
+    t = time.time()
+    try:
+        S.check_T1prime_group(rd, ball, 'id', I, J, w, xc, h, xcf); check("T1' near F6: refined test passes", True, '%.2fs' % (time.time() - t))
+    except S.CertError as e:
+        check("T1' near F6: refined test passes", False, str(e))
+    # the enclosure against actual Hadamards: ||x*(eta) - x~(eta)|| <= r, and the corner seed inside the ellipsoid
+    xt, r = S.nu_enclosure(rd, xc, h, xcf)
+    rng = np.random.default_rng(1)
+    hw = float(h[0, 0].mid()); worst = 0.0; worst_x = 0.0
+    Mi = np.linalg.inv(ball.Mth); L = S.corner_L(I, J)
+    for k in range(40):
+        u = rng.uniform(-hw, hw, 4) if k % 4 else hw * np.sign(rng.normal(size=4))
+        x, ok, _ = S._solve_x(rd, (xcf[0] + u)[None])
+        pred = poly(xt, 0, u).real
+        worst = max(worst, np.linalg.norm(x[0] - pred) / r[0])
+        th = L @ (rd.P + rd.Tf @ (xcf[0] + u) + rd.Nf @ x[0])
+        worst_x = max(worst_x, np.linalg.norm(Mi @ (th + 2 * np.pi * np.array(w) - ball.theta0)) / ball.r)
+    check("T1' near F6: sampled ||x* - x~|| <= enclosure radius", worst <= 1, 'max ratio %.3f (r = %.2e vs n0 %.2e)' % (worst, r[0], rd.n0))
+    check("T1' near F6: sampled corner seeds inside the target ellipsoid", worst_x < 1, 'max ||w||/r %.3f' % worst_x)
+    rejects("T1' near F6: target radius 0.002 rejected", lambda: S.check_T1prime_group(rd, S.Ball(F.scaled(F6FIX['ball'], 0.002)), 'id', I, J, w, xc, h, xcf))
+    w2 = list(w); w2[2] += 1
+    rejects("T1' near F6: winding +1 rejected", lambda: S.check_T1prime_group(rd, ball, 'id', I, J, w2, xc, h, xcf))
+    flip = S.Ball(dict(F.scaled(F6FIX['ball'], 0.1), o=-F6FIX['ball']['o']))
+    rejects("T1' near F6: target orientation flipped rejected", lambda: S.check_T1prime_group(rd, flip, 'id', I, J, w, xc, h, xcf))
+    rejects("T1' near F6: g = conj rejected", lambda: S.check_T1prime_group(rd, ball, 'conj', I, J, w, xc, h, xcf))
+    rejects("T1' near F6: corner rows reordered rejected", lambda: S.check_T1prime_group(rd, ball, 'id', [I[0], I[2], I[1]], J, w, xc, h, xcf))
+    far = (box[0],) + tuple((1 << box[0]) - 1 - i for i in box[1:])            # the antipodal box (-eta)
+    xf, hf_, xff = S.box_geometry([far], rd.rH)
+    x, ok, _ = S._solve_x(rd, xff)
+    th = L @ (rd.P + rd.Tf @ xff[0] + rd.Nf @ x[0])
+    out = np.linalg.norm(Mi @ (th + 2 * np.pi * np.array(w) - ball.theta0)) / ball.r
+    check("T1' near F6: the antipodal box's centre is outside the target (float)", out > 1, '||w||/r %.2f' % out)
+    rejects("T1' near F6: the antipodal box rejected", lambda: S.check_T1prime_group(rd, ball, 'id', I, J, w, xf, hf_, xff))
+
+
 TESTS = dict(tm=test_tm, c1=test_c1, sampling=test_sampling, stagec=test_stagec, transfers=test_transfers,
-             record=test_record, negative=test_negative, global_=test_global, certificate=test_certificate)
+             record=test_record, negative=test_negative, t1prime_f6=test_t1prime_f6, global_=test_global, certificate=test_certificate)
 
 if __name__ == '__main__':
     names = sys.argv[1:] or list(TESTS)

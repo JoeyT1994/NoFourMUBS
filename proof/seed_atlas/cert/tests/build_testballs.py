@@ -6,6 +6,8 @@ U = T Mth, o = sign Im Psi(B(theta0)).  Stored alongside (for the tests only, un
   n_sample  the sampled true remainder max ||Q - P - U w|| (no 1.5 factor), over ||w|| = r and r/2.
 The record's own n is 1.25 n_tm, as a driver would choose.
 Usage: python build_testballs.py out.json [record:r:k ...]
+       FIXTURES=data/fixtures.json python build_testballs.py data/testballs.json     (transfer fixtures)
+       F6FIX=data/f6fixture.json python build_testballs.py                           (T1' fixture next to F6)
 """
 import gzip, json, os, sys, time, warnings
 import numpy as np
@@ -54,7 +56,9 @@ def build(k_rec, r, k):
                 label_radius=hx(0.03), transfers=[], n_tm=n_tm, n_sample=worst, t_proto=t_tm, edge_R=float(R))
 
 
-if __name__ == '__main__' and not os.environ.get('FIXTURES'):
+MODE = 'fixtures' if os.environ.get('FIXTURES') else ('f6' if os.environ.get('F6FIX') else 'balls')
+
+if __name__ == '__main__' and MODE == 'balls':
     out = sys.argv[1]; specs = sys.argv[2:] or DEFAULT
     balls = []
     for sp in specs:
@@ -130,9 +134,55 @@ def build_fixtures(balls):
                             Tint=recs[2003]['Tint'], rows=rIr, cols=rJr, big=big))
 
 
-if __name__ == '__main__' and os.environ.get('FIXTURES'):
+if __name__ == '__main__' and MODE == 'fixtures':
     balls = json.load(open(sys.argv[1]))['seeds']
     fx = build_fixtures(balls)
     json.dump(fx, open(os.environ['FIXTURES'], 'w'), indent=1)
     print('corner', fx['corner']['rows'], fx['corner']['cols'], 'o', fx['corner']['ball']['o'], 'edge', fx['corner']['ball']['edge'])
     print('record rows', fx['record']['rows'], 'cols', fx['record']['cols'], 'big o', fx['record']['big']['o'])
+
+
+# ---------------------------------------------------------------------------------------- T1' fixture next to F6
+def build_f6_fixture(seed=3, r_ball=0.05):
+    """Atlas record 877 (it contains F6), a boundary Hadamard K* of it (direction from `seed`), the matched corner of K*
+    furthest from the edge of Omega, and a prototype seed ball of radius r_ball at that corner.  Returns the record,
+    the seed ball, the corner, eta* and the float amplification ||Mth^-1 L|| (for the test's expectations)."""
+    import itertools as it
+    sys.path.insert(0, os.path.join(ROOT, 'proof/seed_atlas/cert'))
+    import seedcert as S
+    recs = json.load(gzip.open(os.path.join(ROOT, 'proof/atlas/results/atlas_certificate.json.gz')))['records']
+    r = recs[877]
+    phi = np.array([float.fromhex(x) for x in r['phi']]).reshape(6, 6)
+    rd = S.RecordData(phi, float(r['R']), float(r['label_radius']), np.array(r['Tint'], dtype=np.int64).reshape(36, 4), stage_c=False)
+    rng = np.random.default_rng(seed)
+    d = rng.normal(size=4)
+    for _ in range(30):                                        # boundary: ||Tf eta + Nf x(eta)|| = R
+        eta = d * (rd.R / np.linalg.norm(rd.Tf @ d))
+        x, ok, _ = S._solve_x(rd, eta[None])
+        nrm = np.linalg.norm(rd.Tf @ eta + rd.Nf @ x[0]); d = d * (rd.R / nrm)
+    eta = d * (rd.R / np.linalg.norm(rd.Tf @ d)); x, ok, _ = S._solve_x(rd, eta[None])
+    Q = (rd.P + rd.Tf @ eta + rd.Nf @ x[0]).reshape(6, 6)
+    H = np.exp(1j * Q)
+    best = None
+    for I in it.combinations(range(6), 3):
+        for J in it.combinations(range(6), 3):
+            Ic = [k for k in range(6) if k not in I]; Jc = [k for k in range(6) if k not in J]
+            M = H[np.ix_(list(I) + Ic, list(J) + Jc)]; M = M / M[:, :1]; M = M / M[:1, :]
+            th = np.angle([M[1, 1], M[1, 2], M[2, 1], M[2, 2]])
+            o = np.sign(psi(M[:3, 3:]).imag)
+            if np.sign(psi(M[3:, :3].T).imag) != -o: continue
+            e = dist_edge(th)
+            if best is None or e > best[0]: best = (e, list(I) + Ic, list(J) + Jc)
+    e, rI, rJ = best
+    ball = ball_from_corner(H, rI, rJ, r_ball)
+    Mth = np.array([float.fromhex(v) for v in ball['Mth']]).reshape(4, 4)
+    L = S.corner_L(rI[:3], rJ[:3])
+    amp = np.linalg.norm(np.linalg.inv(Mth) @ L, 2)
+    return dict(record=877, phi=r['phi'], R=float(r['R']), label_radius=float(r['label_radius']), Tint=r['Tint'],
+                eta=[float(v) for v in eta], rows=rI[:3], cols=rJ[:3], ball=ball, edge=float(e), amp=float(amp))
+
+
+if __name__ == '__main__' and MODE == 'f6':
+    fx = build_f6_fixture()
+    json.dump(fx, open(os.environ['F6FIX'], 'w'), indent=1)
+    print('corner', fx['rows'], fx['cols'], 'edge %.3f' % fx['edge'], 'amp %.1f' % fx['amp'], 'o', fx['ball']['o'])

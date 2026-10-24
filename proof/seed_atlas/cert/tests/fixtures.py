@@ -54,11 +54,7 @@ def wind_T2(Psrc, g, rows, cols, Pt):
 
 
 def record_data(rec):
-    """Certify the fixture record with the existing checker; returns (RecordData, rH, n)."""
-    import certify as CF
+    """Certify the fixture record (the existing record checks, inside seedcert.RecordData); returns (rd, rH, n0)."""
     phi = np.array([fh(x) for x in rec['phi']]).reshape(6, 6)
-    rr = dict(phi=phi, R=rec['R'], label_radius=rec['label_radius'], Tint=np.array(rec['Tint'], dtype=np.int64).reshape(36, 4))
-    S.ctx.prec = 120
-    rH, n = CF.certify_record(rr)
-    S.ctx.prec = S.PREC
-    return S.RecordData(phi, rr['Tcert'], rec['R'], rH, n), rH, n
+    rd = S.RecordData(phi, fh(rec['R']), fh(rec['label_radius']), np.array(rec['Tint'], dtype=np.int64).reshape(36, 4))
+    return rd, rd.rH, rd.n0

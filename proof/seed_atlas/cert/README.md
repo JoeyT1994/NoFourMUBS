@@ -70,13 +70,40 @@ python3 proof/seed_atlas/cert/tests/run_tests.py
 
 ### Record s
 
-- `proof/atlas/certify.certify_record`, unchanged: σ, the normal bound n (including dT·r_H), and Stage C.
-- Then `check_record_boundary`:
-  - eta_scale ≥ r_H;
-  - **`rec`:** the 16-vertex maximum of ‖hor(π g(P + Tη) + 2πN − P_t)‖ is below R_t − n;
-  - **`T1prime`:** the corner seed is affine in η plus Mth_l⁻¹ L g ν, with ‖Mth_l⁻¹ L g‖₂ bounded in Arb. The signs
-    of Ψ are checked over Taylor models in η, with |dephased ν| ≤ 2‖ν‖;
-  - **shell coverage:** boxes are discarded by `atlas.offshell`'s test, in Arb.
+- **The existing record checks.** `seedcert.RecordData` makes the calls of `proof/atlas/certify.certify_record`:
+  - `BallRecord(phi, Tint)`, with σ from an Arb Cholesky factorisation;
+  - `normal_bound(R)`, giving (r_H, n0);
+  - Stage C at the stored R and label radius.
+- **Exact data for the boundary.** It keeps the exact frame Tb and an exact basis Nb of N. Nb is P_N times a rational
+  matrix: `Nint` if the certificate has it, else the certifier's own. A bound cN ≥ 1/σ_min(Nb) is certified by
+  Cholesky.
+- **Then `check_record_boundary`:**
+  - eta_scale ≥ r_H.
+  - **`rec`:** the 16-vertex maximum of ‖hor(π g(P + Tb η) + 2πN − P_t)‖ is below R_t − n0.
+  - **`T1prime`** (refined, `nu_enclosure`): see below.
+  - **Shell coverage:** FORMAT §6's shell {‖η‖ ≤ r_H, R² − n0² ≤ ‖Tb η‖² ≤ R²}. A box is discarded if certified off it
+    in Arb: max of ‖Tb η‖² by the 16 vertices, min by the centre minus ‖Tb‖·(half-diagonal).
+
+**T1′, refined** (`nu_enclosure`, `check_T1prime_group`). Every Hadamard of the record is e^{i(P + Tb η + Nb x)},
+with ‖Nb x‖ ≤ n0. On each η-box:
+1. **Predictor.** x̃(η) is a second-order Taylor model in η (float Gauss–Newton and finite differences, any choice).
+   Y = (J Nb)⁺ is a fixed real 21×30 matrix, and F_η(x) = YΦ(Tb η + Nb x).
+2. **Mean value form.** For any zero x* with ‖x* − x̃(η)‖₂ ≤ r:
+   ‖x* − x̃‖₂ ≤ ‖F(x̃)‖₂ + q(r) r, with q(r) = ‖I − Y J(c) Nb‖_F + ‖Y‖₂ · 2√3 · ‖Nb‖₂ (s_u + ‖Nb‖₂ r).
+   - c is the constant of the predictor's δ Taylor model, and s_u bounds its variation over the box.
+   - The 2√3 is RIGOUR.md's bound ‖Φ″[w, w′]‖ ≤ 2√3‖w‖‖w′‖, so ‖J(δ) − J(δ′)‖₂ ≤ 2√3‖δ − δ′‖₂.
+   - ‖F(x̃)‖ is bounded over the box with Taylor models.
+3. **Iteration.** Start from r₀ = cN·n0 + sup‖x̃‖₂, a ball containing every ν ∈ N with ‖ν‖ ≤ n0. Iterate
+   r ← ‖F(x̃)‖ + q(r) r while it shrinks. Every step is sound; no contraction condition is needed.
+4. **Phases.** P + Tb η + Nb x̃(η) is then a Taylor model with per-entry remainder ‖Nb[e,:]‖₂ r. The T1 test is run on
+   it: the corner seed inside int E_l, sign Im Ψ(K[I, Jᶜ]) = o_l, and sign Im Ψ(K[Iᶜ, J]ᵀ) = −o_l.
+
+Next to F6 (atlas record 877, a corner with ‖Mth⁻¹L‖ ≈ 72):
+- the enclosure radius is about 5·10⁻⁷ on level-5 η-boxes and about 3·10⁻⁵ on level-3 boxes, against n0 = 6.6·10⁻³;
+- the crude ‖ν‖ ≤ n0 test (`check_T1prime_crude`, kept for comparison) fails there, and the refined one passes.
+
+An entrywise ∞-box Krawczyk version (inclusion box [−cN n0, cN n0]²¹) does not contract on practical boxes: the
+row sums of |I − YJ| are 1.1–2.3 on level-2 to level-4 boxes. Hence the 2-norm ball.
 
 ### Global
 
@@ -92,7 +119,7 @@ python3 proof/seed_atlas/cert/tests/run_tests.py
 | Stage C on the test balls (r = 0.02 to 0.08) | 0.1 to 0.3 s |
 | T0 and corner-symmetry T1 | about 40 µs per box |
 | general T1 and T2 | about 5 ms per box (one C1 box each) |
-| `T1prime` | about 0.7 ms per box |
+| `T1prime`, refined | about 12 ms per box (level-3 boxes, record 2003) |
 | record certification | about 0.5 s |
 
 For comparison, the float prototype takes 2.5 to 13 s per ball for C1 alone, mostly in per-box continuation.

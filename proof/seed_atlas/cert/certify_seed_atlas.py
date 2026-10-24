@@ -4,8 +4,9 @@ Per seed ball j (seedcert.py, all in Arb):
   (C1)  Mth_j certified invertible; the certified remainder n_cert <= n_j over the k^4 boxes meeting the ball;
   (SC)  stagec.stage_c on P_j + U_j w + nu, ||w|| <= r_j, ||nu|| <= n_j, with rigorous rcol, rF (seedcert.stage_c_args);
   (C2)  every transfer group (T0, T1, T2) passes on every listed box, and the listed boxes cover the sphere ||w|| = r_j.
-Per record s: the existing record certification (proof/atlas/certify.certify_record: sigma, normal bound, Stage C at the
-stored R and label radius), then its boundary groups (rec, T1prime) and the coverage of its shell.
+Per record s: the existing record certification (the calls of proof/atlas/certify.certify_record: sigma, normal bound,
+Stage C at the stored R and label radius), then its boundary groups (rec, T1prime with the Krawczyk enclosure of nu)
+and the coverage of its shell.
 Globally: F6 lies in the interior of record `fourier_record` (proof/atlas/nonempty.py's test), and Tao's record passes
 (proof/atlas/tao.py: exact spectrum, isolation, Stage C).
 
@@ -23,7 +24,8 @@ import numpy as np
 def read_certificate(path):
     """FORMAT.md -> plain dict.  Everything format-specific is here; the checks below see only this structure:
     seeds: raw seed dicts (seedcert.Ball reads theta0, Mth, r, o, k, P, U, n, label_radius; 'transfers' = groups);
-    records: dicts phi (6x6 floats), R, label_radius, Tint (36x4 ints), eta_scale, boundary (groups);
+    records: dicts phi (6x6 floats), R, label_radius, Tint (36x4 ints), eta_scale, boundary (groups), and
+    optionally Nint (36x21 ints, units 2^-30: the basis of N for T1'; the certifier builds its own if absent);
     fourier_record, tao {R, label_radius}, max_level."""
     op = gzip.open if path.endswith('.gz') else open
     with op(path, 'rt') as f: d = json.load(f)
@@ -33,7 +35,8 @@ def read_certificate(path):
     for r in d.get('records', []):
         recs.append(dict(phi=np.array([hx(x) for x in r['phi']]).reshape(6, 6), R=hx(r['R']), label_radius=hx(r['label_radius']),
                          Tint=np.array(r['Tint'], dtype=np.int64).reshape(36, 4) if r.get('Tint') is not None else None,
-                         eta_scale=hx(r['eta_scale']) if 'eta_scale' in r else None, boundary=r.get('boundary', [])))
+                         eta_scale=hx(r['eta_scale']) if 'eta_scale' in r else None, boundary=r.get('boundary', []),
+                         Nint=np.array(r['Nint'], dtype=np.int64).reshape(36, 21) if r.get('Nint') is not None else None))
     tao = d.get('tao') or {}
     return dict(seeds=d['seeds'], records=recs, fourier_record=d.get('fourier_record'), max_level=int(d.get('max_level', 12)),
                 tao=dict(R=hx(tao.get('R', 0.08)), label_radius=hx(tao.get('label_radius', 0.03))))
@@ -95,27 +98,20 @@ def check_seed(C, j, groups=None):
 
 
 def check_record(C, s, groups=None):
+    """The existing record certification (the calls of certify.certify_record, inside seedcert.RecordData), then the
+    record's boundary groups and the coverage of its shell."""
     import seedcert as S
-    import certify as CF
     t0 = time.time(); out = dict(item='record', index=s)
     try:
         r = C.cert['records'][s]
-        rec = dict(phi=r['phi'], R=r['R'], label_radius=r['label_radius'], Tint=r['Tint'])
-        S.ctx.prec = 120
-        try:
-            rH, n = CF.certify_record(rec)
-        except AssertionError as e:
-            raise S.CertError('record certification: %s' % e)
-        S.ctx.prec = S.PREC
-        out.update(R=r['R'], rH=rH, n=n, record_s=round(time.time() - t0, 3))
+        rd = S.RecordData(r['phi'], r['R'], r['label_radius'], r['Tint'], r.get('Nint'))
+        out.update(R=r['R'], rH=rd.rH, n0=rd.n0, bins=rd.stagec.get('bins'), labels=rd.stagec.get('labels'),
+                   record_s=round(time.time() - t0, 3))
         if groups is None: groups = r.get('boundary', [])
-        if groups:
-            if r['eta_scale'] is None: raise S.CertError('record with a boundary but no eta_scale')
-            rd = S.RecordData(r['phi'], rec['Tcert'], r['R'], rH, n)
-            cnt = S.check_record_boundary(rd, r['eta_scale'], C.balls, C.rec_targets, groups, C.cert['max_level'])
-            out.update(boundary=cnt)
-        else:
-            raise S.CertError('record has no boundary groups')
+        if not groups: raise S.CertError('record has no boundary groups')
+        if r['eta_scale'] is None: raise S.CertError('record with a boundary but no eta_scale')
+        cnt = S.check_record_boundary(rd, r['eta_scale'], C.balls, C.rec_targets, groups, C.cert['max_level'])
+        out.update(boundary=cnt)
         out['ok'] = True
     except S.CertError as e:
         out.update(ok=False, reason=str(e))

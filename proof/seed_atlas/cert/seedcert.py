@@ -3,7 +3,8 @@
   * certify_c1(ball):        claim C1 for one seed ball: a rigorous n_cert with ||Q - P - U w - 2 pi N|| <= n_cert for
                              every ||w|| <= r, and the verdict n_cert <= n.
   * stage_c_args(ball):      rigorous rcol, rF (and the cycle-unit arguments) for the Stage C call.
-  * T0, T1, T2 (seed boundary boxes), T1' (record boundary boxes), sphere coverage: see the functions below.
+  * T0, T1, T2 (seed boundary boxes), rec and T1' (record boundary boxes; T1' with the 2-norm Krawczyk enclosure of
+    nu, nu_enclosure), and the sphere / shell coverage traversals: see the functions below.
 
 Floats enter only as PREDICTORS (side solutions, their derivatives, the forced block and its derivatives, the
 Krawczyk preconditioner Y, the inverse A0) or as exact certificate data (binary64 values are exact rationals).  Every
@@ -566,6 +567,18 @@ def g_index(g):
     return (-1 if g in ('conj', 'conjT') else 1), g in ('T', 'conjT')
 
 
+def g_perm(g):
+    """(sign, index array): (g Q)_k = sign * Q[index[k]] on row-major phases."""
+    sgn, tr = g_index(g)
+    return sgn, np.array([6 * (k % 6) + k // 6 if tr else k for k in range(36)])
+
+
+def apply_signed_perm(Q, sgn, idx):
+    """sign * Q[idx] for a real TM Q (B, 36): exact (an index map and a sign)."""
+    t = Q[idx]
+    return t if sgn == 1 else -t
+
+
 def g_matrix(g):
     """36 x 36 signed permutation matrix (ints) of g on row-major phases."""
     sgn, tr = g_index(g)
@@ -743,8 +756,7 @@ def check_T1_general(tgt, g, rows, cols, wind, Q):
     """T1 on boxes with Q TMs (representative already chosen): theta' = L g Q, ||Mth_l^-1 (theta' + 2pi N - theta0_l)||
     < r_l over the box, sign Im Psi(K[I, J^c]) = o_l, sign Im Psi(K[I^c, J]^T) = -o_l."""
     N = ints(wind, 4, 'T1 winding')
-    Gm = g_matrix(g)
-    Qp = Q.lmul(oarb(Gm.astype(float)))
+    Qp = apply_signed_perm(Q, *g_perm(g))
     th = Qp.lmul(oarb(corner_L(rows, cols).astype(float)))
     Mi = tgt.Minv()
     x = (th + (oarb(N.astype(float)) * TWO_PI_ARB - tgt.theta0_a)[None, :]).lmul(Mi)
@@ -766,8 +778,10 @@ def transpose_phases(Qp):
 def check_T2(rec_P, rec_R, g, rows, cols, wind, Q):
     """||hor(pi(g Q) + 2 pi N - P_t)|| < R_t over the box."""
     N = ints(wind, 36, 'T2 winding')
-    M = perm_matrix(rows, cols) @ g_matrix(g)
-    X = Q.lmul(oarb(M.astype(float))) + (oarb(N.astype(float)) * TWO_PI_ARB - oarb(rec_P))[None, :]
+    perm_matrix(rows, cols)
+    sgn, gi = g_perm(g)
+    pi = np.array([6 * rows[a] + cols[b] for a in range(6) for b in range(6)])
+    X = apply_signed_perm(Q, sgn, gi[pi]) + (oarb(N.astype(float)) * TWO_PI_ARB - oarb(rec_P))[None, :]
     Y = X.lmul(hor())
     sup = TMA.norm_sup(Y)
     need(all(s < arb(rec_R) for s in sup), 'T2: not certified inside the target record')
@@ -858,78 +872,274 @@ def check_seed_transfers(ball, seeds, records, groups, max_level, chunk=64):
     return cnt
 
 
-# ======================================================================================== records: boundary (rec, T1')
-def opnorm_arb_up(M):
-    """Upper bound (arb) of the spectral norm of an arb object matrix M (p x q): sqrt of the Gershgorin bound of M M^T."""
-    S = M.dot(M.T)
-    g = max((sum((abs(x) for x in row), arb(0)) for row in S), key=up)
-    return arb(up(g)).sqrt()
+# ======================================================================================== records: certification data
+PAIRS15 = list(itertools.combinations(range(6), 2))
+
+
+def _arb_rows(M, nr, nc):
+    A = np.empty((nr, nc), dtype=object)
+    for i in range(nr):
+        for j in range(nc): A[i, j] = M[i, j]
+    return A
 
 
 class RecordData:
-    """A full-matrix record after its own certification: P (36), T = Tcert (36 x 4 floats), R, rH, n (recomputed)."""
+    """A full-matrix record after its own certification, with the exact data its boundary checks use.
 
-    def __init__(self, P, T, R, rH, n):
-        self.P = np.asarray(P, float).reshape(36); self.T = np.asarray(T, float).reshape(36, 4)
-        self.R, self.rH, self.n = R, rH, n
-        self.P_a = oarb(self.P); self.T_a = oarb(self.T)
-        self.nT = opnorm_up(self.T)
+    certify(): proof/atlas's record check, the calls of certify.certify_record: BallRecord(phi, Tint) (sigma by an Arb
+    Cholesky factorisation), normal_bound(R) -> (r_H, n0), and Stage C at (R, label_radius) (BallRecord.stage_c, with
+    the float frame and n0 + dT r_H, unchanged).  Every Hadamard e^{i(P + delta)} of the record (delta horizontal,
+    ||delta|| <= R) has delta = Tb eta + nu with Tb the EXACT rational frame, eta = G^-1 Tb^T delta, ||eta|| <= r_H,
+    nu = P_N delta in N (the horizontal complement of span Tb), ||nu|| <= n0 (ballrecord.py's lemma).
+    Nb: an exact basis of N (P_N times a rational matrix; Nint, 36 x 21 integers in units 2^-30, if the certificate
+    stores one, else the certifier's own), with cN >= 1/sigma_min(Nb) certified, so nu = Nb x has ||x||_2 <= cN n0."""
+
+    def __init__(self, phi, R, label_radius, Tint, Nint=None, stage_c=True):
+        from ballrecord import BallRecord
+        ctx.prec = 120                                                       # as in certify.py
+        try:
+            B = BallRecord(np.asarray(phi, float).reshape(36), Tint=Tint)
+        except AssertionError as e:
+            raise CertError('record: %s' % e)
+        nb = B.normal_bound(R)
+        need(nb is not None, 'record: normal bound failed (R >= sigma/L)')
+        self.rH, self.n0 = nb
+        self.stagec = None
+        if stage_c:
+            o = B.stage_c(R, radius=label_radius)
+            self.stagec = o
+            need(o.get('ok'), 'record: Stage C failed: %s' % o.get('reason', 'quartet edge not excluded'))
+        ctx.prec = PREC
+        self.P = np.asarray(phi, float).reshape(36); self.R = R
+        self.P_a = oarb(self.P)
+        self.Tb = _arb_rows(B.rec.Tb, 36, 4); self.Tf = np.array(B.rec.Tbn, float)
+        self.nT = up(opnorm_arb_up(self.Tb))
+        PNn = np.array(B.rec.PNn, float)
+        if Nint is None:
+            u, sv, vt = np.linalg.svd(PNn)
+            Nf = u[:, sv > 0.5]
+            need(Nf.shape[1] == 21, 'record: N is not 21-dimensional')
+            Nint = np.rint(Nf * 2 ** 30).astype(np.int64)
+        Nint = np.asarray(Nint, dtype=np.int64).reshape(36, 21)
+        from flint import arb_mat as AM
+        Nb = B.rec.PN * AM([[arb(int(v)) / 2 ** 30 for v in row] for row in Nint.tolist()])   # exactly in N
+        self.Nb = _arb_rows(Nb, 36, 21)
+        self.Nf = np.array([[float(x.mid()) for x in row] for row in self.Nb])
+        # sigma_min(Nb) >= mu: Nb^T Nb - mu^2 I certified positive definite
+        G = Nb.transpose() * Nb
+        smin = float(np.linalg.svd(self.Nf, compute_uv=False).min())
+        need(smin > 0.1, 'record: basis of N is degenerate')
+        mu = smin * (1 - 1e-6)
+        need(_cholesky_pd(arb_mat([[G[i, j] - (arb(mu) ** 2 if i == j else 0) for j in range(21)] for i in range(21)])),
+             'record: sigma_min(Nb) not certified')
+        self.cN = up(1 / arb(mu))
+        self.Nrow2 = np.array([arb(up(sum((x * x for x in row), arb(0)))).sqrt() for row in self.Nb], dtype=object)   # ||Nb[e,:]||_2
+        self.Nabs = np.abs(self.Nb)
+        # the constant parts of the Gram map: w_pc = e^{i(P_ac - P_bc)}
+        w = []
+        for p, (a, b) in enumerate(PAIRS15):
+            for c in range(6):
+                w.append(acb(0, self.P_a[6 * a + c] - self.P_a[6 * b + c]).exp())
+        self.w = np.array(w, dtype=object)
 
 
 def offshell_arb(rd, box, scale):
-    """True if the box is certified to miss the shell {||eta|| <= rH, R - n <= ||T eta|| <= R + n} (the test of
-    atlas.offshell, in Arb): ||T eta_c|| -+ ||T||_2 hd lies outside [R - n, R + n] (hd = 2 hw, the half-diagonal of a
-    4-cube of half-width hw), or min ||eta||^2 over the box > rH^2."""
+    """True if the box is certified to miss the shell of FORMAT.md section 6, {||eta|| <= rH, R^2 - n0^2 <= ||Tb eta||^2
+    <= R^2} (on the boundary ||delta|| = R, delta = Tb eta + nu with nu orthogonal to span Tb, so ||Tb eta||^2 =
+    R^2 - ||nu||^2): max over the box of ||Tb eta||^2 (16 vertices, convex) < R^2 - n0^2, or its min (centre minus
+    ||Tb||_2 hd, hd = 2 hw the half-diagonal) > R^2, or min ||eta||^2 > rH^2."""
     xc, h, _ = box_geometry([box], scale)
-    v = rd.T_a.dot(xc[0]); s = (v * v).sum()
-    s_lo = TMA.lo(s)
-    rc_lo = arb(s_lo).sqrt() if s_lo > 0 else arb(0)                         # <= ||T eta_c||
-    rc_hi = arb(up(s)).sqrt()                                               # >= ||T eta_c||
-    slack = arb(rd.nT) * 2 * h[0, 0]
+    c = rd.Tb.dot(xc[0])
+    smax = affine_sup_sq(c[None, :], rd.Tb, h)[0]
+    s = (c * c).sum(); s_lo = TMA.lo(s)
+    rc_lo = arb(s_lo).sqrt() if s_lo > 0 else arb(0)
+    lo_norm = rc_lo - arb(rd.nT) * 2 * h[0, 0]
+    R2 = arb(rd.R) ** 2
     emin2 = sum((d if d > 0 else arb(0)) ** 2 for d in (abs(xc[0, a]) - h[0, a] for a in range(4)))
-    return bool((rc_lo - slack > arb(rd.R) + arb(rd.n)) or (rc_hi + slack < arb(rd.R) - arb(rd.n))
-                or (emin2 > arb(rd.rH) ** 2))
+    return bool((smax < R2 - arb(rd.n0) ** 2) or (lo_norm > 0 and lo_norm * lo_norm > R2) or (emin2 > arb(rd.rH) ** 2))
 
 
 def check_rec_group(rd, tgt_P, tgt_R, g, rows, cols, wind, xc, h):
-    """sup over the box of ||hor(pi(g (P_s + T eta)) + 2 pi N - P_t)|| + n_s < R_t (FORMAT.md section 6)."""
+    """sup over the box of ||hor(pi(g (P_s + Tb eta)) + 2 pi N - P_t)|| + n0_s < R_t (FORMAT.md section 6;
+    ||hor(pi g nu)|| <= ||nu|| <= n0)."""
     N = ints(wind, 36, 'rec winding')
     M = oarb((perm_matrix(rows, cols) @ g_matrix(g)).astype(float))
     Hm = hor()
     c0 = Hm.dot(M.dot(rd.P_a) + oarb(N.astype(float)) * TWO_PI_ARB - oarb(tgt_P))
-    A = Hm.dot(M.dot(rd.T_a))                                               # (36, 4)
+    A = Hm.dot(M.dot(rd.Tb))                                                # (36, 4)
     c = c0[None, :] + np.einsum('ev,bv->be', A, xc)
-    lim = arb(tgt_R) - arb(rd.n)
+    lim = arb(tgt_R) - arb(rd.n0)
     need(lim > 0, 'rec: R_t <= n_s')
     sq = affine_sup_sq(c, A, h)
     need(all(x < lim * lim for x in sq), 'rec: not certified inside the target record')
 
 
-def check_T1prime_group(rd, tgt, g, rows, cols, wind, xc, h):
-    """Every K = g e^{i(P_s + T eta + nu)}, eta in the box, ||nu|| <= n_s: corner seed theta' = L g (P_s + T eta + nu)
-    in int E_l (affine part by the 16 vertices, plus ||Mth_l^-1 L g||_2 n_s), orientation o_l and matched (Psi over
-    Taylor models of the dephased phases in eta, with |nu_ab - nu_a0 - nu_0b + nu_00| <= 2 ||nu|| as remainder)."""
+def opnorm_arb_up(M):
+    """Upper bound (arb) of the spectral norm of an arb object matrix M (p x q): sqrt of the Gershgorin bound of the
+    smaller of M M^T, M^T M."""
+    S = M.dot(M.T) if M.shape[0] <= M.shape[1] else M.T.dot(M)
+    g = max((sum((abs(x) for x in row), arb(0)) for row in S), key=up)
+    return arb(up(g)).sqrt()
+
+
+# ======================================================================================== records: the nu enclosure
+def _phi_f(Q):
+    """Float Gram residuals (B, 30) and Jacobians (B, 30, 36) of e^{iQ} (predictors only)."""
+    H = np.exp(1j * np.asarray(Q).reshape(-1, 6, 6)); B = len(H)
+    r = np.zeros((B, 30)); J = np.zeros((B, 30, 36))
+    for p, (a, b) in enumerate(PAIRS15):
+        z = H[:, a] * np.conj(H[:, b]); s = z.sum(1)
+        r[:, p] = s.real; r[:, 15 + p] = s.imag
+        d = 1j * z
+        J[:, p, 6 * a:6 * a + 6] += d.real; J[:, p, 6 * b:6 * b + 6] -= d.real
+        J[:, 15 + p, 6 * a:6 * a + 6] += d.imag; J[:, 15 + p, 6 * b:6 * b + 6] -= d.imag
+    return r, J
+
+
+def _solve_x(rd, etas, x0=None, it=12):
+    """Gauss-Newton in N: x with Phi(Tf eta + Nf x) ~ 0 (floats; predictors only)."""
+    q0 = rd.P[None] + etas @ rd.Tf.T
+    x = np.zeros((len(etas), 21)) if x0 is None else np.array(x0, float)
+    for _ in range(it):
+        r, J = _phi_f(q0 + x @ rd.Nf.T)
+        if np.abs(r).max(initial=0) < 1e-14: break
+        A = J @ rd.Nf
+        x -= np.linalg.solve(np.swapaxes(A, 1, 2) @ A, np.einsum('bij,bi->bj', A, r)[..., None])[..., 0]
+    r, J = _phi_f(q0 + x @ rd.Nf.T)
+    return x, np.all(np.abs(r) < 1e-10, axis=1) & np.all(np.isfinite(x), axis=1), J
+
+
+def nu_predictor(rd, ecf, eps=1e-4):
+    """Second-order predictor x~(eta_c + u) in the eta-box variables u, and the preconditioner Y = (J Nb)^+ (21 x 30)."""
+    B = len(ecf)
+    xc, ok, J = _solve_x(rd, ecf)
+    def d1(x, J):                                                            # dx/deta = -(J Nb)^+ J T
+        A = J @ rd.Nf
+        return -np.linalg.pinv(A) @ (J @ rd.Tf)
+    g = d1(xc, J)                                                            # (B, 21, 4)
+    Hm = np.zeros((B, 21, 4, 4))
+    for l in range(4):
+        e = np.zeros(4); e[l] = eps
+        xp, okp, Jp = _solve_x(rd, ecf + e, xc); xm, okm, Jm = _solve_x(rd, ecf - e, xc)
+        ok &= okp & okm
+        Hm[:, :, :, l] = (d1(xp, Jp) - d1(xm, Jm)) / (2 * eps)
+    Hm = 0.5 * (Hm + np.swapaxes(Hm, -1, -2))
+    q = np.stack([0.5 * Hm[..., j, j] if j == l else Hm[..., j, l] for j, l in TMA.MONO], -1)
+    Y = np.linalg.pinv(J @ rd.Nf)
+    ok &= np.all(np.isfinite(g.reshape(B, -1)), axis=1) & np.all(np.isfinite(q.reshape(B, -1)), axis=1) & np.all(np.isfinite(Y.reshape(B, -1)), axis=1)
+    return xc, g, q, Y, ok
+
+
+def delta_tm(rd, ec, h, xt, extra=None):
+    """delta(u) = Tb (eta_c + u) + Nb x~(u) (+ per-entry remainder extra (B, 36)) as a real TM (B, 36)."""
+    B = ec.shape[0]
+    lin = TM(np.einsum('ev,bv->be', rd.Tb, ec), np.broadcast_to(rd.Tb, (B, 36, 4)).copy(), zeros((B, 36, 10)), zeros((B, 36)), h)
+    d = lin + xt.lmul(rd.Nb)
+    return d.add_rho(extra) if extra is not None else d
+
+
+GA = np.array([6 * a + c for a, b in PAIRS15 for c in range(6)]); GB = np.array([6 * b + c for a, b in PAIRS15 for c in range(6)])
+
+
+def gram_tm(rd, d):
+    """Phi(delta) (B, 30): Re, Im of sum_c w_pc e^{i (delta_ac - delta_bc)} for the 15 pairs (a, b), a TM."""
+    y = d[GA] - d[GB]                                                        # (B, 90)
+    z = exp_i(y).scale(rd.w)                                                 # (B, 90) complex
+    B = z.c.shape[0]
+    s = TM(z.c.reshape(B, 15, 6).sum(-1), z.g.reshape(B, 15, 6, 4).sum(2), z.q.reshape(B, 15, 6, 10).sum(2),
+           z.rho.reshape(B, 15, 6).sum(-1), z.h)                             # (B, 15)
+    return stack([s[p].re() for p in range(15)] + [s[p].im() for p in range(15)], (30,), d.h, False)
+
+
+L_PHI_ARB = arb(12).sqrt()          # ||Phi''[w, w']|| <= 2 sqrt3 ||w|| ||w'|| for all w, w' in R^36 (RIGOUR.md section 1)
+
+
+def jac_centre(rd, c):
+    """J_Phi = dPhi/ddelta (30 x 36 arb_mat) at the (ball) point c (36 arbs)."""
+    J = [[arb(0)] * 36 for _ in range(30)]
+    for p, (a1, a2) in enumerate(PAIRS15):
+        for k in range(6):
+            dz = acb(0, 1) * rd.w[6 * p + k] * acb(0, c[6 * a1 + k] - c[6 * a2 + k]).exp()
+            for col, sg in ((6 * a1 + k, 1), (6 * a2 + k, -1)):
+                J[p][col] += sg * dz.real; J[15 + p][col] += sg * dz.imag
+    return arb_mat(J)
+
+
+def nu_enclosure(rd, ec, h, ecf, iters=8):
+    """For every eta in each box and every Hadamard of the record with that eta: nu = Nb x with
+    ||x - x~(eta)||_2 <= r (returned per box, a float upper bound).  The argument (2-norm parametric Krawczyk):
+      F_eta(x) = Y Phi(Tb eta + Nb x) with a fixed real 21 x 30 Y; the record's Hadamard has F_eta(x*) = 0 and
+      ||x*||_2 <= cN n0 (ballrecord.py's normal bound, cN >= 1/sigma_min(Nb)), so ||x* - x~(eta)||_2 <= r_0 =
+      cN n0 + sup ||x~||_2.  If ||x* - x~(eta)||_2 <= r, the mean value form x* - x~ = -F(x~) + (I - Jbar)(x* - x~)
+      (Jbar the mean of DF over the segment, which lies in the r-ball) gives
+          ||x* - x~||_2 <= ||F(x~)||_2 + q(r) r,
+          q(r) >= ||I - Y J(c) Nb||_2 + ||Y||_2 L ||Nb||_2 (s_u + ||Nb||_2 r),
+      where c is the constant of the predictor's delta Taylor model, s_u >= sup_eta ||delta~(eta) - c||_2 (its
+      variation), and ||J(delta) - J(delta')||_2 <= L ||delta - delta'||_2 with L = 2 sqrt3 (mean value theorem on
+      Phi'' and RIGOUR.md's bound ||Phi''[w, w']|| <= 2 sqrt3 ||w|| ||w'||, valid for all w, w').  Iterating
+      r <- min(r, ||F(x~)|| + q(r) r) is sound at every step; no contraction condition is needed."""
+    B = ec.shape[0]
+    xc, g, q, Y, ok = nu_predictor(rd, ecf)
+    need(ok.all(), "T1': record predictor (float Gauss-Newton) failed")
+    xt = TM(oarb(xc), oarb(g), oarb(q), zeros((B, 21)), h)
+    d0 = delta_tm(rd, ec, h, xt)
+    bvec = gram_tm(rd, d0).lmul(oarb(Y)).bound()                            # (B, 21): sup |F(x~(eta))|
+    bn = vmap(TMA.sqrt_up, (bvec * bvec).sum(-1))                            # ||F(x~)||_2 bound
+    var = d0.var()
+    su = vmap(TMA.sqrt_up, (var * var).sum(-1))                              # sup ||delta~ - c||_2
+    nNb = opnorm_arb_up(rd.Nb)
+    Nb = arb_mat(rd.Nb.tolist())
+    I21 = arb_mat([[1 if i == j else 0 for j in range(21)] for i in range(21)])
+    r0 = arb(rd.cN) * arb(rd.n0) + TMA.norm_sup(xt)
+    rout = np.empty(B)
+    for b in range(B):
+        Yb = arb_mat(Y[b].tolist())
+        M = I21 - Yb * jac_centre(rd, d0.c[b]) * Nb
+        eps0 = TMA.sqrt_up(sum((M[i, j] ** 2 for i in range(21) for j in range(21)), arb(0)))
+        K = arb(opnorm_up(Y[b])) * L_PHI_ARB * nNb
+        r = up(r0[b])
+        for _ in range(iters):
+            new = up(bn[b] + (eps0 + K * (su[b] + nNb * arb(r))) * arb(r))
+            if new >= 0.95 * r:
+                r = min(r, new); break
+            r = new
+        rout[b] = r
+    return xt, rout
+
+
+def record_phase_tm(rd, ec, h, ecf):
+    """Phases P + Tb eta + nu of the record's Hadamards over each eta-box as a TM (B, 36): P + Tb(eta_c + u) + Nb x~(u)
+    with per-entry remainder ||Nb[e,:]||_2 r (nu_enclosure)."""
+    xt, r = nu_enclosure(rd, ec, h, ecf)
+    d = delta_tm(rd, ec, h, xt, extra=rd.Nrow2[None, :] * oarb(r)[:, None])   # |(Nb e)_e| <= ||Nb[e,:]|| ||e||
+    return d + rd.P_a[None, :], r
+
+
+def check_T1prime_group(rd, tgt, g, rows, cols, wind, xc, h, xcf, chunk=64):
+    """T1' with the nu enclosure: the T1 test of FORMAT.md section 4 (corner seed in int E_l, orientation o_l,
+    matched) on the Taylor models of the record's Hadamard phases over each eta-box."""
+    for s in range(0, len(xc), chunk):
+        sl = slice(s, s + chunk)
+        Q, _ = record_phase_tm(rd, xc[sl], h[sl], xcf[sl])
+        try:
+            check_T1_general(tgt, g, rows, cols, wind, Q)
+        except CertError as e:
+            raise CertError("T1': " + str(e))
+
+
+def check_T1prime_crude(rd, tgt, g, rows, cols, wind, xc, h):
+    """T1' with only ||nu|| <= n0 (SPEC section 4 as first written): kept for comparison in the tests."""
     N = ints(wind, 4, 'T1prime winding')
     G = oarb(g_matrix(g).astype(float)); L = oarb(corner_L(rows, cols).astype(float))
     Mi = tgt.Minv()
-    MLG = Mi.dot(L.dot(G))                                                  # (4, 36)
+    MLG = Mi.dot(L.dot(G))
     c0 = MLG.dot(rd.P_a) + Mi.dot(oarb(N.astype(float)) * TWO_PI_ARB - tgt.theta0_a)
-    A = MLG.dot(rd.T_a)
+    A = MLG.dot(rd.Tb)
     c = c0[None, :] + np.einsum('iv,bv->bi', A, xc)
-    lim = tgt.r_a - opnorm_arb_up(MLG) * arb(rd.n)
-    need(lim > 0, "T1': ||Mth_l^-1 L|| n_s >= r_l")
+    lim = tgt.r_a - opnorm_arb_up(MLG) * arb(rd.n0)
+    need(lim > 0, "T1' (crude): ||Mth_l^-1 L|| n0 >= r_l")
     sq = affine_sup_sq(c, A, h)
-    need(all(x < lim * lim for x in sq), "T1': corner seed not certified inside the target ellipsoid")
-    B = len(xc)
-    GP = G.dot(rd.P_a); GT = G.dot(rd.T_a)
-    Qp = TM(GP[None, :] + np.einsum('ev,bv->be', GT, xc), np.broadcast_to(GT, (B, 36, 4)).copy(),
-            zeros((B, 36, 10)), zeros((B, 36)), h)
-    nu2 = 2 * arb(rd.n)
-    Ic = [i for i in range(6) if i not in rows]; Jc = [j for j in range(6) if j not in cols]
-    sB = block_psi_sign(Qp, list(rows), Jc, extra=nu2)
-    need(np.all(sB == tgt.o), "T1': orientation not certified")
-    sC = block_psi_sign(transpose_phases(Qp), list(cols), Ic, extra=nu2)
-    need(np.all(sC == -tgt.o), "T1': matching not certified")
+    need(all(x < lim * lim for x in sq), "T1' (crude): corner seed not certified inside the target ellipsoid")
 
 
 def check_record_boundary(rd, eta_scale, seeds, records, groups, max_level):
@@ -944,7 +1154,7 @@ def check_record_boundary(rd, eta_scale, seeds, records, groups, max_level):
         boxes = dyadic_boxes(grp.get('boxes', []), max_level)
         if not boxes: continue
         listed.update(boxes)
-        xc, h, _ = box_geometry(boxes, eta_scale)
+        xc, h, xcf = box_geometry(boxes, eta_scale)
         g = grp.get('g', 'id'); g_index(g)
         if kind == 'rec':
             need(0 <= t < len(records), 'rec: target out of range')
@@ -954,8 +1164,8 @@ def check_record_boundary(rd, eta_scale, seeds, records, groups, max_level):
         elif kind == 'T1prime':
             need(0 <= t < len(seeds), "T1': target out of range")
             rows = [int(x) for x in ints(grp.get('rows'), 3, 'rows')]; cols = [int(x) for x in ints(grp.get('cols'), 3, 'cols')]
-            corner_L(rows, cols)
-            check_T1prime_group(rd, seeds[t], g, rows, cols, grp.get('wind'), xc, h)
+            corner_L(rows, cols); ints(grp.get('wind'), 4, 'T1prime winding')
+            check_T1prime_group(rd, seeds[t], g, rows, cols, grp.get('wind'), xc, h, xcf)
         else:
             raise CertError('unknown record boundary kind %r' % (kind,))
         cnt[kind] += len(boxes)
