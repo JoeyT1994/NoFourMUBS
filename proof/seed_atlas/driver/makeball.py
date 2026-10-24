@@ -21,11 +21,11 @@ K_MORE = (6, 8)          # finer C1 partitions, tried when the tube fails (near 
 
 
 def stage_c_args(ball, r, n):
-    U = ball.U
+    U = ball.Uh                                   # horizontal gauge (SPEC §2.1)
     tcol = max(np.linalg.norm(U.reshape(6, 6, 4)[:, i, :], 2) for i in range(6))
     rcol = tcol * r + n
     rF = np.linalg.norm(U, 2) * r + n
-    return ball.P.reshape(6, 6) / SC.TWO_PI, rcol / SC.TWO_PI, (U, r / SC.TWO_PI, n / SC.TWO_PI), rF / SC.TWO_PI
+    return ball.Ph.reshape(6, 6) / SC.TWO_PI, rcol / SC.TWO_PI, (U, r / SC.TWO_PI, n / SC.TWO_PI), rF / SC.TWO_PI
 
 
 def run_stage_c(ball, r, n, label):

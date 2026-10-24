@@ -14,6 +14,18 @@ import seedgeom as SG
 E_IDX = [7, 8, 13, 14]                    # flattened positions of theta_1..4 in Q
 
 
+def hor36(X):
+    """Horizontal projection along a trailing-or-leading 36 axis: X (..., 36, *rest) with the 36 axis at position -1
+    if `axis` is None.  Subtracts row and column means and adds the grand mean of the 6 x 6 matrix."""
+    X = np.asarray(X)
+    Y = X.reshape(X.shape[:-1] + (6, 6))
+    return (Y - Y.mean(-1, keepdims=True) - Y.mean(-2, keepdims=True) + Y.mean((-1, -2), keepdims=True)).reshape(X.shape)
+
+
+def hor_axis(X, axis):
+    return np.moveaxis(hor36(np.moveaxis(X, axis, -1)), -1, axis)
+
+
 class Ball:
     """A seed ball's centre data (float).  theta0 is wrapped to (-pi, pi]; P = Q(theta0) with every phase in
     (-pi, pi] and P_E = theta0 exactly; T = DQ(theta0) (E rows exact); Mth = V S^-1, U = T Mth."""
@@ -27,12 +39,15 @@ class Ball:
         self.phih0 = np.concatenate([Q[1, 3:], Q[2, 3:]]); self.phiv0 = np.concatenate([Q[3:, 1], Q[3:, 2]])
         self.P = Q.reshape(36).copy()
         self.T = self._dQ()
-        U, S, Vt = np.linalg.svd(self.T, full_matrices=False)
+        Th = hor_axis(self.T, 0)                                   # horizontal part: what class space sees
+        U, S, Vt = np.linalg.svd(Th, full_matrices=False)
         self.S = S
-        self.Mth = Vt.T / S[None, :]
+        self.Mth = Vt.T / S[None, :]                               # the image is a round 4-disc in HORIZONTAL phases
         self.Minv = np.linalg.inv(self.Mth)
-        self.U = self.T @ self.Mth
+        self.U = self.T @ self.Mth                                  # gauge frame (references, branch choice)
         self.U[E_IDX] = self.Mth
+        self.Ph = hor36(self.P)                                     # Stage C / certificate centre and frame
+        self.Uh = Th @ self.Mth
         self.edge = float(SG.edge_dist(th)); self.R = float(SG.R_seed(th))
         self.r = self.n = self.k = self.label = None
         self.info = {}
@@ -218,14 +233,22 @@ def box_Q(ball, wc, hw):
 
 
 def c1_boxes(r, k):
-    """Centres (B, 4) and half-widths of the k^4 boxes partitioning [-r, r]^4 that meet the ball ||w|| <= r."""
-    hwid = r / k
-    g1 = -r + (2 * np.arange(k) + 1) * hwid
-    W = np.array(list(itertools.product(g1, repeat=4)))
-    near_ = np.maximum(np.abs(W) - hwid, 0)
+    """Centres (B, 4) and half-widths (B, 4) of the k_0 x k_1 x k_2 x k_3 boxes partitioning [-r, r]^4 that meet the
+    ball ||w|| <= r.  k is an int (all axes) or a sequence of 4 ints (per axis)."""
+    ks = [int(k)] * 4 if np.ndim(k) == 0 else [int(x) for x in k]
+    hw = np.array([r / kk for kk in ks])
+    axes = [-r + (2 * np.arange(kk) + 1) * (r / kk) for kk in ks]
+    W = np.array(list(itertools.product(*axes)))
+    near_ = np.maximum(np.abs(W) - hw[None, :], 0)
     keep = (near_ ** 2).sum(1) < r * r * (1 - 1e-12)          # meets the open ball (as the Arb certifier, 5f6ff02b)
     W = W[keep]
-    return W, np.full(W.shape, hwid)
+    return W, np.broadcast_to(hw, W.shape).copy()
+
+
+def k_axes(ball, k0):
+    """Per-axis box counts proportional to the seed extent of each w axis (the column norms of Mth)."""
+    e = np.linalg.norm(ball.Mth, axis=0)
+    return [max(2, int(np.ceil(k0 * x / e.max()))) for x in e]
 
 
 def c1_bound(ball, r, k, chunk=96):
@@ -236,9 +259,9 @@ def c1_bound(ball, r, k, chunk=96):
         wc, hw = W[s:s + chunk], H[s:s + chunk]
         Q, ok, why = box_Q(ball, wc, hw)
         if not ok.all(): return None, why
-        a = Q.C.real - ball.P[None, :] - wc @ ball.U.T
-        b = Q.G.real - ball.U[None]
-        val = M.sup_norm(a, b, Q.Hq.real, Q.Rho, hw)
+        a = hor_axis(Q.C.real - ball.P[None, :] - wc @ ball.U.T, 1)          # residual of the horizontal representative
+        b = hor_axis(Q.G.real - ball.U[None], 1)
+        val = M.sup_norm(a, b, hor_axis(Q.Hq.real, 1), Q.Rho, hw)      # ||hor e|| <= ||e||: Rho unchanged
         worst = max(worst, float(val.max()))
     return worst * (1 + 1e-9), None
 
@@ -251,4 +274,4 @@ def sampled_n(ball, r, nsamp=48, seed=0):
     ws = np.vstack([r * d, 0.5 * r * d])
     Q, _, _, ok = ball.Q_at(ws)
     if not ok.all(): return None
-    return float(np.linalg.norm(Q - ball.P[None] - ws @ ball.U.T, axis=1).max())
+    return float(np.linalg.norm(hor36(Q - ball.P[None] - ws @ ball.U.T), axis=1).max())

@@ -23,7 +23,7 @@ def group_json(gr):
 
 
 def seed_json(b, groups):
-    return dict(theta0=hxl(b.theta0), Mth=hxl(b.Mth), r=hx(b.r), o=int(b.o), k=int(b.k), P=hxl(b.P), U=hxl(b.U),
+    return dict(theta0=hxl(b.theta0), Mth=hxl(b.Mth), r=hx(b.r), o=int(b.o), k=int(b.k), P=hxl(b.Ph), U=hxl(b.Uh), gauge='hor',
                 n=hx(b.n), label_radius=hx(b.label), transfers=[group_json(g) for g in (groups or [])],
                 info=dict(edge=b.edge, R=b.R, S=[float(x) for x in b.S], **{k: v for k, v in b.info.items() if k in ('stagec', 't')}))
 
@@ -52,6 +52,11 @@ class SeedData:
         self.theta0 = np.array([fh(x) for x in s['theta0']]); self.Mth = np.array([fh(x) for x in s['Mth']]).reshape(4, 4)
         self.r = fh(s['r']); self.o = int(s['o']); self.k = int(s['k']); self.P = np.array([fh(x) for x in s['P']])
         self.U = np.array([fh(x) for x in s['U']]).reshape(36, 4); self.n = fh(s['n']); self.label = fh(s['label_radius'])
+        self.Ph, self.Uh = self.P.copy(), self.U.copy()
+        if s.get('gauge') == 'hor':                   # stored horizontal; the dephased gauge is recovered exactly by
+            def gauge(X):                             # cross ratios: X_ab - X_a0 - X_0b + X_00
+                Y = X.reshape(6, 6, -1); return (Y - Y[:, :1] - Y[:1, :] + Y[:1, :1]).reshape(X.shape)
+            self.P = gauge(self.P); self.U = gauge(self.U)
         self.Minv = np.linalg.inv(self.Mth)
         Q = self.P.reshape(6, 6)
         self.phih0 = np.concatenate([Q[1, 3:], Q[2, 3:]]); self.phiv0 = np.concatenate([Q[3:, 1], Q[3:, 2]])
