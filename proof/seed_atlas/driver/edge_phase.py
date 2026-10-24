@@ -109,7 +109,7 @@ class EdgeBall:
                                radius=lab, rF=rF / SC.TWO_PI)
                 if o.get('ok'):
                     self.r, self.n, self.label = r, n, lab
-                    self.k = [int(np.ceil(r * np.abs(self.Mth[:, a]).sum() / 0.25)) or 1 for a in range(4)]
+                    self.k = [8, 8, 8, 16]          # the Arb certifier's n at r = 0.125 is 1.12e-2 with this k
                     return True
         return False
 

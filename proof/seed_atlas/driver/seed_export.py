@@ -18,6 +18,9 @@ def group_json(gr):
     d = dict(kind=kind, target=int(t))
     if kind != 'T0': d.update(g=g, rows=[int(x) for x in rows], cols=[int(x) for x in cols])
     d['wind'] = [int(x) for x in gr['wind']]
+    if kind == 'T3':
+        d.update(hcols=[int(x) for x in gr['hcols']], vrows=[int(x) for x in gr['vrows']],
+                 wind_h=[int(x) for x in gr['wind_h']], wind_v=[int(x) for x in gr['wind_v']])
     d['boxes'] = np.asarray(gr['boxes']).astype(int).tolist()
     return d
 
@@ -93,5 +96,39 @@ def main(state_path, out, allow_open=False):
           'closed' if A.record else 'OPEN', info['record_boxes']))
 
 
+def merge_groups(gl):
+    """One group per (desc, windings): concatenate their boxes."""
+    out = {}
+    for g in gl:
+        key = (g['desc'], tuple(g['wind']), tuple(g.get('hcols', ())), tuple(g.get('vrows', ())),
+               tuple(g.get('wind_h', ())), tuple(g.get('wind_v', ())))
+        if key in out: out[key]['boxes'] = list(out[key]['boxes']) + list(np.asarray(g['boxes']).tolist())
+        else: out[key] = dict(g, boxes=list(np.asarray(g['boxes']).tolist()))
+    return list(out.values())
+
+
+def main_edge(state_path, out, allow_open=False):
+    """Format v2 (FORMAT §8): edge ball instead of the F6 record."""
+    import pickle, time
+    import cover as CV
+    A = pickle.load(open(state_path, 'rb'))
+    eb = A.edge['ball']
+    keep = [j for j, s in enumerate(A.status) if s == 'closed']
+    assert allow_open or len(keep) == len(A.balls), 'atlas not closed'
+    assert allow_open or not A.edge['failed'], 'edge sphere has %d uncovered boxes' % len(A.edge['failed'])
+    edge = dict(chart='F6-012', Mth=hxl(eb.Mth), r=hx(eb.r), k=[int(x) for x in eb.k], P=hxl(eb.P), U=hxl(eb.U),
+                n=hx(eb.n), label_radius=hx(eb.label), graph=dict(R=hx(0.45), sigma=hx(1.7)),
+                transfers=[group_json(g) for g in merge_groups(A.edge['groups'])], info=dict(S=[float(x) for x in eb.S]))
+    seeds = [seed_json(A.balls[j], merge_groups(A.groups.get(j) or [])) for j in range(len(A.balls))]
+    nb = sum(len(g['boxes']) for s_ in seeds for g in s_['transfers'])
+    info = dict(driver='proof/seed_atlas/driver (coordinator)', built=time.strftime('%Y-%m-%d'), seeds=len(A.balls),
+                seed_boxes=int(nb), edge_boxes=int(sum(len(g['boxes']) for g in edge['transfers'])), stats=A.stats)
+    d = {'format': 'seed-atlas-v1', 'max_level': int(max(CV.MAX_LEVEL, 9)), 'seeds': seeds, 'records': [],
+         'edge': [edge], 'tao': dict(R=hx(0.08), label_radius=hx(0.03)), 'info': info}
+    with gzip.open(out, 'wt') as f: json.dump(d, f, separators=(',', ':'))
+    print('wrote %s: %d seeds, %d seed boxes, edge ball r %.3f with %d boxes' % (out, len(seeds), nb, eb.r, info['edge_boxes']))
+
+
 if __name__ == '__main__':
-    main(sys.argv[1], sys.argv[2], allow_open='--allow-open' in sys.argv)
+    if '--edge' in sys.argv: main_edge(sys.argv[1], sys.argv[2], allow_open='--allow-open' in sys.argv)
+    else: main(sys.argv[1], sys.argv[2], allow_open='--allow-open' in sys.argv)
