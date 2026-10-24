@@ -1,34 +1,33 @@
 # Reading the plain-text form of a seed-atlas certificate written by convert_seed.py.  This file and convert_seed.py
-# are the only places that know the certificate's layout; everything else works on the structs below.
+# are the only places that know the certificate's layout (proof/seed_atlas/FORMAT.md); everything else works on the
+# structs below.
 #
-# Text format (one item per line, whitespace separated; floats are float.hex strings, indices 0-based):
-#   FORMAT seed-atlas-text-v1
+# Text format (one item per line, whitespace separated; floats are float.hex strings; indices 0-based):
+#   FORMAT seed-atlas-text-v2
 #   COUNTS <nseeds> <nrecords> <fourier_record or -1>
 #   per seed:
-#     SEED <i> <o> <k> <ntransfers>
+#     SEED <i> <o> <k> <ngroups>
 #     THETA0 <4>   MTH <16, row-major>   R <1>   N <1>   LR <1>   P <36>   U <144, row-major 36 x 4>
-#     XFER <kind> <target> <g> LO <4> HI <4> ROWS <3> COLS <3> SIGN <s> TR <0/1> RP <6> CP <6> WIND <m> <m ints>
+#     per group:  GROUP <kind> <target> <g> ROWS <m> <m ints> COLS <m> <m ints> WIND <m> <m ints> NBOX <nb>
+#                 BOXES <5 nb ints: level i0 i1 i2 i3, ...>
 #   per record:
-#     RECORD <i> <closed 0/1> <R> <label_radius> <ntargets> <nboxes>
+#     RECORD <i> <R> <label_radius> <eta_scale> <ngroups>
 #     PHI <36>   TINT <144 ints>
-#     TARGET <t> <sign> <tr 0/1> <rowperm 6> <colperm 6>          (ntargets lines; the current atlas list)
-#     XFER ...                                                      (nboxes lines; kind rec or T1prime)
-# In an XFER line every field is present; fields a kind does not use are written as 0 / identity, and WIND 0 means
-# "no winding given" (the checker then chooses one; any integer winding is valid).
+#     groups as above (kinds rec, T1prime)
+#   END
+# A box (level m, i0..i3) is, in units of the object's scale (r for a seed ball, eta_scale for a record),
+#   u_a in [-1 + i_a 2^(1-m), -1 + (i_a + 1) 2^(1-m)].
 
-struct Xfer
+const MAXLEVEL = 50          # u endpoints are exact binary64 numbers up to this level
+
+struct Group
     kind::Symbol                  # :T0, :T1, :T2 (seed sphere) or :rec, :T1p (record shell)
     target::Int                   # 0-based: a seed (T0, T1, T1p) or a record (T2, rec)
-    g::Symbol                     # :id, :conj, :T, :conjT (T1, T1p; for T2 / rec it is folded into sign, tr)
-    lo::NTuple{4,Float64}
-    hi::NTuple{4,Float64}
-    rows::NTuple{3,Int}           # 1-based corner rows I = (i0, i1, i2) (T1, T1p)
-    cols::NTuple{3,Int}           # 1-based corner columns J
-    sign::Int                     # T2 / rec: A(X) = sign * (tr ? X^T : X)[rp, cp]
-    tr::Bool
-    rp::Vector{Int}               # 1-based
-    cp::Vector{Int}
-    wind::Vector{Int}             # empty: not given
+    g::Symbol                     # :id, :conj, :T, :conjT
+    rows::Vector{Int}             # 1-based; ordered corner rows (T1, T1p, 3) or a permutation (T2, rec, 6)
+    cols::Vector{Int}
+    wind::Vector{Int}             # 4 (T0, T1, T1p) or 36 (T2, rec, row-major); empty: not given
+    boxes::Vector{NTuple{5,Int}}  # (level, i0, i1, i2, i3)
 end
 
 struct Seed
@@ -42,12 +41,13 @@ struct Seed
     lr::Float64
     P::Vector{Float64}            # 36, row-major, radians
     U::Matrix{Float64}            # 36 x 4
-    xfers::Vector{Xfer}
+    groups::Vector{Group}
 end
 
 struct SRecord
-    rec::IA.Rec                   # the existing record struct (P, Tint, R, label radius, current target list)
-    xfers::Vector{Xfer}
+    rec::IA.Rec                   # the existing record struct (P, Tint, R, label radius)
+    eta_scale::Float64
+    groups::Vector{Group}
 end
 
 struct SeedCert
@@ -56,49 +56,65 @@ struct SeedCert
     fourier::Int                  # 0-based record index of F6's record, or -1
 end
 
+"""The box (level m, i) in u units: (lo, hi), exact floats."""
+function ubox(b::NTuple{5,Int})
+    m = b[1]; s = ldexp(1.0, 1 - m)
+    (ntuple(a -> -1.0 + b[a+1] * s, 4), ntuple(a -> -1.0 + (b[a+1] + 1) * s, 4))
+end
+
 hx(s::AbstractString) = (x = parse(Float64, s); isfinite(x) || error("non-finite float $s"); x)
 
+"""(sign, transpose) of g acting on phases: conj negates, T transposes."""
+gsign(g::Symbol) = g in (:conj, :conjT) ? -1 : 1
+gtr(g::Symbol) = g in (:T, :conjT)
+
 function read_seed_certificate(path::AbstractString)
-    toks = String[]
     lines = readlines(path)
     pos = 1
     nextline() = (l = split(lines[pos]); pos += 1; l)
     function expect(l, key, n)
-        (length(l) == n + 1 && l[1] == key) || error("line $(pos - 1): expected $key with $n values, got $(l[1:min(end, 3)])")
+        (length(l) == n + 1 && l[1] == key) || error("line $(pos - 1): expected $key with $n values")
         l[2:end]
     end
-    h = nextline(); (h[1] == "FORMAT" && h[2] == "seed-atlas-text-v1") || error("bad FORMAT line")
-    c = expect(nextline(), "COUNTS", 3)
-    ns, nr, fr = parse.(Int, c)
-    function read_xfer()
-        l = nextline(); l[1] == "XFER" || error("line $(pos - 1): expected XFER")
+    h = nextline(); (length(h) == 2 && h[1] == "FORMAT" && h[2] == "seed-atlas-text-v2") || error("bad FORMAT line")
+    ns, nr, fr = parse.(Int, expect(nextline(), "COUNTS", 3))
+    function read_group()
+        l = nextline(); l[1] == "GROUP" || error("line $(pos - 1): expected GROUP")
         kind = Symbol(l[2]); tgt = parse(Int, l[3]); g = Symbol(l[4])
-        kind in (:T0, :T1, :T2, :rec, :T1prime) || error("unknown transfer kind $kind")
         kind == :T1prime && (kind = :T1p)
+        kind in (:T0, :T1, :T2, :rec, :T1p) || error("unknown transfer kind $kind")
         g in (:id, :conj, :T, :conjT) || error("unknown g $g")
         i = 5
-        take(key, n) = (l[i] == key || error("XFER: expected $key at field $i"); v = l[i+1:i+n]; i += n + 1; v)
-        lo = Tuple(hx.(take("LO", 4))); hi = Tuple(hx.(take("HI", 4)))
-        all(lo[j] <= hi[j] for j in 1:4) || error("XFER: box with lo > hi")
-        rows = Tuple(parse.(Int, take("ROWS", 3)) .+ 1); cols = Tuple(parse.(Int, take("COLS", 3)) .+ 1)
-        sg = parse(Int, take("SIGN", 1)[1]); tr = take("TR", 1)[1] == "1"
-        rp = parse.(Int, take("RP", 6)) .+ 1; cp = parse.(Int, take("CP", 6)) .+ 1
-        l[i] == "WIND" || error("XFER: expected WIND"); m = parse(Int, l[i+1])
-        wind = parse.(Int, l[i+2:i+1+m]); i += 2 + m
-        i == length(l) + 1 || error("XFER: trailing fields")
-        sg in (1, -1) || error("XFER: sign must be +-1")
-        (sort(rp) == 1:6 && sort(cp) == 1:6) || error("XFER: bad permutation")
-        if kind in (:T1, :T1p)
-            (length(unique(rows)) == 3 && length(unique(cols)) == 3 && all(1 .<= rows .<= 6) && all(1 .<= cols .<= 6)) ||
-                error("XFER: bad corner")
+        function take(key)
+            l[i] == key || error("GROUP: expected $key")
+            m = parse(Int, l[i+1]); v = parse.(Int, l[i+2:i+1+m]); i += m + 2
+            v
         end
-        m in (0, 4, 36) || error("XFER: winding of length $m")
-        Xfer(kind, tgt, g, lo, hi, rows, cols, sg, tr, rp, cp, wind)
+        rows = take("ROWS") .+ 1; cols = take("COLS") .+ 1; wind = take("WIND")
+        (l[i] == "NBOX" && length(l) == i + 1) || error("GROUP: expected NBOX")
+        nb = parse(Int, l[i+1])
+        bl = nextline()
+        (bl[1] == "BOXES" && length(bl) == 5nb + 1) || error("line $(pos - 1): expected BOXES with $nb boxes")
+        v = parse.(Int, bl[2:end])
+        boxes = [(v[5j-4], v[5j-3], v[5j-2], v[5j-1], v[5j]) for j in 1:nb]
+        for b in boxes
+            (0 <= b[1] <= MAXLEVEL && all(0 <= b[a] < (1 << b[1]) for a in 2:5)) || error("GROUP: bad box $b")
+        end
+        if kind in (:T1, :T1p)
+            (length(rows) == 3 && length(cols) == 3 && allunique(rows) && allunique(cols) && all(1 .<= rows .<= 6) &&
+             all(1 .<= cols .<= 6)) || error("GROUP: bad corner")
+            length(wind) in (0, 4) || error("GROUP: winding of length $(length(wind))")
+        elseif kind in (:T2, :rec)
+            (sort(rows) == 1:6 && sort(cols) == 1:6) || error("GROUP: bad permutation")
+            length(wind) in (0, 36) || error("GROUP: winding of length $(length(wind))")
+        else
+            length(wind) in (0, 4) || error("GROUP: winding of length $(length(wind))")
+        end
+        Group(kind, tgt, g, rows, cols, wind, boxes)
     end
     seeds = Seed[]
     for _ in 1:ns
-        l = expect(nextline(), "SEED", 4)
-        idx, o, k, nx = parse.(Int, l)
+        idx, o, k, ng = parse.(Int, expect(nextline(), "SEED", 4))
         o in (1, -1) || error("seed $idx: o must be +-1")
         k >= 1 || error("seed $idx: k must be >= 1")
         th = Tuple(hx.(expect(nextline(), "THETA0", 4)))
@@ -107,31 +123,24 @@ function read_seed_certificate(path::AbstractString)
         (r > 0 && n >= 0 && lr > 0) || error("seed $idx: r, n, label_radius must be positive")
         P = hx.(expect(nextline(), "P", 36))
         Uv = hx.(expect(nextline(), "U", 144)); U = [Uv[4(e-1)+j] for e in 1:36, j in 1:4]
-        xs = [read_xfer() for _ in 1:nx]
-        all(x -> x.kind in (:T0, :T1, :T2), xs) || error("seed $idx: a sphere transfer must be T0, T1 or T2")
-        push!(seeds, Seed(idx, o, k, th, Mth, r, n, lr, P, U, xs))
+        gs = [read_group() for _ in 1:ng]
+        all(g -> g.kind in (:T0, :T1, :T2), gs) || error("seed $idx: a sphere transfer must be T0, T1 or T2")
+        push!(seeds, Seed(idx, o, k, th, Mth, r, n, lr, P, U, gs))
     end
     recs = SRecord[]
     for _ in 1:nr
-        l = expect(nextline(), "RECORD", 6)
-        idx = parse(Int, l[1]); closed = l[2] == "1"; R = hx(l[3]); lr = hx(l[4]); nt = parse(Int, l[5]); nb = parse(Int, l[6])
+        l = expect(nextline(), "RECORD", 5)
+        idx = parse(Int, l[1]); R = hx(l[2]); lr = hx(l[3]); es = hx(l[4]); ng = parse(Int, l[5])
+        (R > 0 && lr > 0 && es > 0) || error("record $idx: R, label_radius, eta_scale must be positive")
         phi = hx.(expect(nextline(), "PHI", 36))
         P = [phi[6(j-1)+c] for j in 1:6, c in 1:6]
         ti = parse.(Int64, expect(nextline(), "TINT", 144))
         Tint = [ti[4(e-1)+k] for e in 1:36, k in 1:4]
-        tg = IA.Target[]
-        for _ in 1:nt
-            s = expect(nextline(), "TARGET", 15)
-            v = parse.(Int, s)
-            rp = v[4:9] .+ 1; cp = v[10:15] .+ 1
-            (sort(rp) == 1:6 && sort(cp) == 1:6) || error("record $idx: bad permutation")
-            push!(tg, IA.Target(v[1], v[2], v[3] == 1, rp, cp))
-        end
-        xs = [read_xfer() for _ in 1:nb]
-        all(x -> x.kind in (:rec, :T1p), xs) || error("record $idx: a shell box must be rec or T1prime")
-        push!(recs, SRecord(IA.Rec(idx, closed, R, lr, P, Tint, tg), xs))
+        gs = [read_group() for _ in 1:ng]
+        all(g -> g.kind in (:rec, :T1p), gs) || error("record $idx: a shell group must be rec or T1prime")
+        push!(recs, SRecord(IA.Rec(idx, true, R, lr, P, Tint, IA.Target[]), es, gs))
     end
-    pos == length(lines) + 1 || (strip(lines[pos]) == "END" || error("trailing lines in the certificate"))
+    (pos <= length(lines) && strip(lines[pos]) == "END" && pos == length(lines)) || error("expected END as the last line")
     for (i, s) in enumerate(seeds)
         s.idx == i - 1 || error("seed indices must be 0, 1, 2, ...")
     end

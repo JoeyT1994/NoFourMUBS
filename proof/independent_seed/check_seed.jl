@@ -51,6 +51,25 @@ function receipts!(f, header)
     Dict{Int,Tuple{Bool,String}}()
 end
 
+"""C1, Stage C on the enclosure and C2 for one seed ball: (ok, msg, receipt line)."""
+function seed_line(s, X, rec_ok, fast, c1depth, splitdepth)
+    i = s.idx
+    c1 = S.check_c1(s; maxdepth=c1depth)
+    t1 = time()
+    sc, si = S.seed_stage_c(s; replay=!fast)
+    tsc = time() - t1
+    c2 = S.check_c2_seed(s, X, rec_ok; split_depth=splitdepth)
+    ok = c1.ok && sc.ok && c2.ok
+    msg = ok ? "ok" : join(filter(!isempty, [c1.ok ? "" : "C1: " * c1.msg, sc.ok ? "" : "Stage C: " * sc.msg,
+                                             c2.ok ? "" : "C2: " * c2.msg]), "; ")
+    line = @sprintf("%d\t%s\t%.6g\t%d\t%.10g\t%.10g\t%d\t%d\t%.2f\t%s\t%d\t%.6g\t%d\t%.2f\t%.10g\t%.10g\t%.10g\t%s\t%d\t%s\t%d\t%d\t%.6g\t%.6g\t%.6g\t%d\t%.2f\t%s",
+                    i, ok ? "PASS" : "FAIL", s.r, s.o, s.n, c1.bound, c1.nleaf, c1.nsplit, c1.seconds,
+                    sc.ok ? "PASS" : "FAIL", sc.nlabels, sc.maxs, sc.bins.overruled + sc.overruled_edges, tsc,
+                    si.nprime, si.rcol, si.rF, c2.ok ? "PASS" : "FAIL", c2.nbox, kindstr(c2.counts), c2.nchecks,
+                    c2.nsplit, c2.worst[:T0], c2.worst[:T1], c2.worst[:T2], c2.cover_nodes, c2.seconds, clean(msg))
+    ok, msg, line
+end
+
 kindstr(d) = join(["$(k)=$(d[k])" for k in sort(collect(keys(d)))], ",")
 clean(s) = replace(s, '\t' => ' ', '\n' => ' ')
 
@@ -96,19 +115,29 @@ function main(args)
     t0 = time()
     Threads.@threads :greedy for i in 0:nr-1
         rec = C.records[i+1].rec
-        nb = IA.normal_bound(rec)
+        nb = try
+            IA.normal_bound(rec)
+        catch err
+            IA.NormalBound(false, "exception: " * clean(sprint(showerror, err))[1:min(end, 300)], NaN, NaN, NaN, NaN, NaN,
+                           NaN, NaN, NaN, NaN, NaN, NaN, zeros(Int64, 36, 4))
+        end
         lock(lk) do; nbs[i] = nb; end
         haskey(done3, i) && continue
         t1 = time()
-        if !nb.ok
-            ok = false; msg = "normal bound: " * nb.msg
-            line = @sprintf("%d\tFAIL\t%.6g\t\t\t\t\t\t\t\t%.2f\t%s", i, rec.R, time() - t1, clean(msg))
-        else
-            sc = IA.stage_c(rec, nb; replay=!fast)
-            ok = sc.ok; msg = ok ? "ok" : "Stage C: " * sc.msg
-            line = @sprintf("%d\t%s\t%.6g\t%.10g\t%.10g\t%.10g\t%.10g\t%d\t%.6g\t%d\t%.2f\t%s", i, ok ? "PASS" : "FAIL",
-                            rec.R, nb.sigma, nb.n, nb.rcol, nb.rF, sc.nlabels, sc.maxs, sc.bins.overruled + sc.overruled_edges,
-                            time() - t1, clean(msg))
+        ok, msg, line = try
+            if !nb.ok
+                m = "normal bound: " * nb.msg
+                (false, m, @sprintf("%d\tFAIL\t%.6g\t\t\t\t\t\t\t\t%.2f\t%s", i, rec.R, time() - t1, clean(m)))
+            else
+                sc = IA.stage_c(rec, nb; replay=!fast)
+                m = sc.ok ? "ok" : "Stage C: " * sc.msg
+                (sc.ok, m, @sprintf("%d\t%s\t%.6g\t%.10g\t%.10g\t%.10g\t%.10g\t%d\t%.6g\t%d\t%.2f\t%s", i, sc.ok ? "PASS" : "FAIL",
+                                    rec.R, nb.sigma, nb.n, nb.rcol, nb.rF, sc.nlabels, sc.maxs, sc.bins.overruled + sc.overruled_edges,
+                                    time() - t1, clean(m)))
+            end
+        catch err
+            m = "exception: " * clean(sprint(showerror, err))[1:min(end, 300)]
+            (false, m, @sprintf("%d\tFAIL\t%.6g\t\t\t\t\t\t\t\t%.2f\t%s", i, rec.R, time() - t1, m))
         end
         lock(lk) do
             done3[i] = (ok, msg)
@@ -121,24 +150,16 @@ function main(args)
 
     # ---------------- seed balls: C1, Stage C on the enclosure, C2 (sphere transfers)
     X = S.XferCtx(C)
-    doneS = receipts!(fs, "#idx\tstatus\tr\to\tn_cert\tn_certified\tc1_boxes\tc1_splits\tc1_s\tstagec\tlabels\tmax_s\toverruled\tstagec_s\tn_frame\trcol\trF\tc2\tnxfer\tkinds\tchecks\tsplits\tworst_T0\tworst_T1\tworst_T2\tcover_nodes\tc2_s\tmsg")
+    doneS = receipts!(fs, "#idx\tstatus\tr\to\tn_cert\tn_certified\tc1_boxes\tc1_splits\tc1_s\tstagec\tlabels\tmax_s\toverruled\tstagec_s\tn_frame\trcol\trF\tc2\tnboxes\tkinds\tchecks\tsplits\tworst_T0\tworst_T1\tworst_T2\tcover_nodes\tc2_s\tmsg")
     todo = [i for i in sel if !haskey(doneS, i)]
     t0 = time(); ndone = Threads.Atomic{Int}(0)
     Threads.@threads :greedy for i in todo
-        s = C.seeds[i+1]
-        c1 = S.check_c1(s; maxdepth=c1depth)
-        t1 = time()
-        sc, si = S.seed_stage_c(s; replay=!fast)
-        tsc = time() - t1
-        c2 = S.check_c2_seed(s, X, rec_ok; split_depth=splitdepth)
-        ok = c1.ok && sc.ok && c2.ok
-        msg = ok ? "ok" : join(filter(!isempty, [c1.ok ? "" : "C1: " * c1.msg, sc.ok ? "" : "Stage C: " * sc.msg,
-                                                 c2.ok ? "" : "C2: " * c2.msg]), "; ")
-        line = @sprintf("%d\t%s\t%.6g\t%d\t%.10g\t%.10g\t%d\t%d\t%.2f\t%s\t%d\t%.6g\t%d\t%.2f\t%.10g\t%.10g\t%.10g\t%s\t%d\t%s\t%d\t%d\t%.6g\t%.6g\t%.6g\t%d\t%.2f\t%s",
-                        i, ok ? "PASS" : "FAIL", s.r, s.o, s.n, c1.bound, c1.nleaf, c1.nsplit, c1.seconds,
-                        sc.ok ? "PASS" : "FAIL", sc.nlabels, sc.maxs, sc.bins.overruled + sc.overruled_edges, tsc,
-                        si.nprime, si.rcol, si.rF, c2.ok ? "PASS" : "FAIL", c2.nxfer, kindstr(c2.counts), c2.nchecks,
-                        c2.nsplit, c2.worst[:T0], c2.worst[:T1], c2.worst[:T2], c2.cover_nodes, c2.seconds, clean(msg))
+        ok, msg, line = try
+            seed_line(C.seeds[i+1], X, rec_ok, fast, c1depth, splitdepth)
+        catch err
+            m = "exception: " * clean(sprint(showerror, err))[1:min(end, 300)]
+            (false, m, @sprintf("%d\tFAIL%s\t%s", i, repeat("\t", 26), m))
+        end
         lock(lk) do
             doneS[i] = (ok, msg)
             open(fs, "a") do io; println(io, line); end
@@ -155,15 +176,19 @@ function main(args)
     t0 = time()
     Threads.@threads :greedy for i in 0:nr-1
         haskey(doneB, i) && continue
-        nb = nbs[i]
-        if !nb.ok
-            ok = false; msg = "no normal bound"; line = @sprintf("%d\tFAIL\t\t\t\t\t\t\t\t\t%s", i, msg)
-        else
-            c2 = S.check_c2_record(C.records[i+1], nb, X, rec_ok; split_depth=splitdepth)
-            ok = c2.ok; msg = c2.msg
-            line = @sprintf("%d\t%s\t%d\t%s\t%d\t%d\t%.6g\t%.6g\t%d\t%.2f\t%s", i, ok ? "PASS" : "FAIL", c2.nxfer,
-                            kindstr(c2.counts), c2.nchecks, c2.nsplit, c2.worst[:rec], c2.worst[:T1p], c2.cover_nodes,
-                            c2.seconds, clean(msg))
+        ok, msg, line = try
+            nb = nbs[i]
+            if !nb.ok
+                (false, "no normal bound", @sprintf("%d\tFAIL\t\t\t\t\t\t\t\t\t%s", i, "no normal bound"))
+            else
+                c2 = S.check_c2_record(C.records[i+1], nb, X, rec_ok; split_depth=splitdepth)
+                (c2.ok, c2.msg, @sprintf("%d\t%s\t%d\t%s\t%d\t%d\t%.6g\t%.6g\t%d\t%.2f\t%s", i, c2.ok ? "PASS" : "FAIL", c2.nbox,
+                                       kindstr(c2.counts), c2.nchecks, c2.nsplit, c2.worst[:rec], c2.worst[:T1p], c2.cover_nodes,
+                                       c2.seconds, clean(c2.msg)))
+            end
+        catch err
+            m = "exception: " * clean(sprint(showerror, err))[1:min(end, 300)]
+            (false, m, @sprintf("%d\tFAIL\t\t\t\t\t\t\t\t\t%s", i, m))
         end
         lock(lk) do
             doneB[i] = (ok, msg)
@@ -185,15 +210,15 @@ function main(args)
     allchecked = length(sel) == ns
     # targets named by the checked seeds and records
     tseeds = Set{Int}(); trecs = Set{Int}()
-    for i in sel, x in C.seeds[i+1].xfers
+    for i in sel, x in C.seeds[i+1].groups
         x.kind in (:T0, :T1) ? push!(tseeds, x.target) : push!(trecs, x.target)
     end
-    for r in C.records, x in r.xfers
+    for r in C.records, x in r.groups
         x.kind == :T1p ? push!(tseeds, x.target) : push!(trecs, x.target)
     end
     passed = seedpass == length(sel) && recpass == nr
     complete = passed && allchecked && f6ok
-    stats = [split(l, '\t') for l in readlines(fs) if !startswith(l, "#")]
+    stats = [x for x in (split(l, '\t') for l in readlines(fs) if !startswith(l, "#")) if length(x) >= 28 && x[9] != "" && x[14] != ""]
     open(joinpath(outdir, "RESULT.txt"), "w") do io
         println(io, "Independent seed-atlas replay (proof/independent_seed), certificate: ", cert)
         println(io, "Bound inputs (BINDING.txt): certificate sha256 ", split(split(bind, '\n')[2], '\t')[2])

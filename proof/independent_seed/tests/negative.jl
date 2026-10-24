@@ -54,20 +54,26 @@ end
 s0 = C0.seeds[1]
 c1 = S.check_c1(s0)
 nc = c1.bound
-x0 = s0.xfers
-iT0 = findfirst(x -> x.kind == :T0, x0); iT1 = findfirst(x -> x.kind == :T1, x0); iT2 = findfirst(x -> x.kind == :T2, x0)
-setx(s, i, x) = with(s; xfers=[j == i ? x : s.xfers[j] for j in eachindex(s.xfers)])
-dropx(s, i) = with(s; xfers=[s.xfers[j] for j in eachindex(s.xfers) if j != i])
+gs0 = s0.groups
+gi(kind; corner=false) = findfirst(g -> g.kind == kind && (kind != :T1 || (Set(g.rows) == Set(1:3)) == corner), gs0)
+iT0 = gi(:T0); iT1 = gi(:T1); iT1c = gi(:T1; corner=true); iT2 = gi(:T2)
+setg(s, i, g) = with(s; groups=[j == i ? g : s.groups[j] for j in eachindex(s.groups)])
+gmod(i; kw...) = setseed(C0, 1, setg(s0, i, with(gs0[i]; kw...)))
+dropbox(g, k) = with(g; boxes=[g.boxes[j] for j in eachindex(g.boxes) if j != k])
+child(b) = (b[1] + 1, 2b[2], 2b[3], 2b[4], 2b[5])
 bumpP(s, e, d) = with(s; P=[k == e ? s.P[k] + d : s.P[k] for k in 1:36])
 bumpU(s, e, j, d) = with(s; U=[(a, b) == (e, j) ? s.U[a, b] + d : s.U[a, b] for a in 1:36, b in 1:4])
+plus1(w, k) = [j == k ? w[j] + 1 : w[j] for j in eachindex(w)]
 r1 = C0.records[2]
-setbx(r, i, x) = S.SRecord(r.rec, [j == i ? x : r.xfers[j] for j in eachindex(r.xfers)])
-withR(r, R) = S.SRecord(IA.Rec(r.rec.idx, r.rec.closed, R, r.rec.lr, r.rec.P, r.rec.Tint, r.rec.targets), r.xfers)
+rgs = r1.groups
+rT1p = findfirst(g -> g.kind == :T1p, rgs); rrec = findfirst(g -> g.kind == :rec, rgs)
+setrg(r, i, g) = S.SRecord(r.rec, r.eta_scale, [j == i ? g : r.groups[j] for j in eachindex(r.groups)])
+rmod(i; kw...) = setrec(C0, 2, setrg(r1, i, with(rgs[i]; kw...)))
+withR(r, R) = S.SRecord(IA.Rec(r.rec.idx, r.rec.closed, R, r.rec.lr, r.rec.P, r.rec.Tint, r.rec.targets), r.eta_scale, r.groups)
 withPhi(r, a, b, d) = S.SRecord(IA.Rec(r.rec.idx, r.rec.closed, r.rec.R, r.rec.lr,
                                        [(i, j) == (a, b) ? r.rec.P[i, j] + d : r.rec.P[i, j] for i in 1:6, j in 1:6],
-                                       r.rec.Tint, r.rec.targets), r.xfers)
-swaprows(x::S.Xfer) = with(x; rows=(x.rows[1], x.rows[3], x.rows[2]))
-swaprp(x::S.Xfer) = with(x; rp=[x.rp[2], x.rp[1], x.rp[3:6]...])
+                                       r.rec.Tint, r.rec.targets), r.eta_scale, r.groups)
+swaprows(rows) = [rows[1], rows[3], rows[2], rows[4:end]...]
 seed1_flipped = with(C0.seeds[2]; o=-C0.seeds[2].o)
 
 """Float residual ||Q(theta(w)) - P - U w|| (best winding) at a point w: sides by Newton from the root predictor,
@@ -101,15 +107,6 @@ sampled3 = sampled_residual(s0, root0, 3 * s0.r)
         nc, s0.n, sampled, sampled3)
 sampled3 > s0.n || error("test premise: the residual at 3r should exceed n")
 
-# the T2 transfer's own winding (as check_T2 chooses it), and a wrong one
-function t2_winding(s, x)
-    wc, h = S.box_dom(x.lo, x.hi)
-    bm = S.box_map(s.theta0, s.Mth, s.o, s.P, wc, h, S.guess_at(root0, ntuple(j -> mid(wc[j]), 4))...)
-    A = S.align_models(S.mat6(bm.Q), x.sign, x.tr, x.rp, x.cp)
-    N, _ = IA.choose_winding([mid(A[a, b].c) - C0.records[x.target+1].rec.P[a, b] for a in 1:6, b in 1:6])
-    [Int(N[a, b]) for a in 1:6 for b in 1:6]
-end
-
 # (name, expect_pass, thunk)
 cases = Any[
     # positive controls
@@ -135,33 +132,47 @@ cases = Any[
     ("Mth column 1 x 1.1", false, () -> runc1(setseed(C0, 1, with(s0; Mth=s0.Mth .* [1.1 1 1 1])))),
     # Stage C
     ("label_radius = 0.2", false, () -> runsc(setseed(C0, 1, with(s0; lr=0.2)))),
-    # C2 of seed 0: targets and boxes
-    ("T0 target -> seed 3 (another matrix)", false, () -> runc2(setseed(C0, 1, setx(s0, iT0, with(x0[iT0]; target=3))))),
-    ("T0 target -> seed 99 (no such seed)", false, () -> runc2(setseed(C0, 1, setx(s0, iT0, with(x0[iT0]; target=99))))),
-    ("T0 target with the other orientation", false, () -> runc2(setseed(setseed(C0, 1, s0), 2, seed1_flipped))),
-    ("T0 target -> seed 0 itself (its own sphere)", false, () -> runc2(setseed(C0, 1, setx(s0, iT0, with(x0[iT0]; target=0))))),
-    ("T1 corner rows i1, i2 swapped", false, () -> runc2(setseed(C0, 1, setx(s0, iT1, swaprows(x0[iT1]))))),
-    ("T1 with g = conj", false, () -> runc2(setseed(C0, 1, setx(s0, iT1, with(x0[iT1]; g=:conj))))),
-    ("T1 with g = T", false, () -> runc2(setseed(C0, 1, setx(s0, iT1, with(x0[iT1]; g=:T))))),
-    ("T1 target -> seed 1 (wrong corner)", false, () -> runc2(setseed(C0, 1, setx(s0, iT1, with(x0[iT1]; target=1))))),
-    ("T2 rows 1, 2 of the permutation swapped", false, () -> runc2(setseed(C0, 1, setx(s0, iT2, swaprp(x0[iT2]))))),
-    ("T2 with sign -1 (conj)", false, () -> runc2(setseed(C0, 1, setx(s0, iT2, with(x0[iT2]; sign=-1))))),
-    ("T2 target -> record 1 (R = 0.015)", false, () -> runc2(setseed(C0, 1, setx(s0, iT2, with(x0[iT2]; target=1))))),
-    ("T2 target -> record 5 (no such record)", false, () -> runc2(setseed(C0, 1, setx(s0, iT2, with(x0[iT2]; target=5))))),
-    ("control: T2 winding given (the checker's own choice)", true, () -> runc2(setseed(C0, 1, setx(s0, iT2, with(x0[iT2]; wind=t2_winding(s0, x0[iT2])))))),
-    ("T2 winding given and wrong (one entry + 1)", false, () -> runc2(setseed(C0, 1, setx(s0, iT2, with(x0[iT2]; wind=t2_winding(s0, x0[iT2]) .+ [e == 8 ? 1 : 0 for e in 1:36]))))),
-    ("one sphere box removed", false, () -> runc2(setseed(C0, 1, dropx(s0, 100)))),
-    ("one sphere box shrunk to half", false, () -> runc2(setseed(C0, 1, setx(s0, 7, with(x0[7]; hi=ntuple(j -> (x0[7].lo[j] + x0[7].hi[j]) / 2, 4)))))),
-    ("all sphere boxes shrunk by r/1000 (gaps between them)", false, () -> runc2(setseed(C0, 1, with(s0; xfers=[with(x; lo=x.lo .+ s0.r / 1000) for x in x0])))),
-    ("sphere transfers of a larger r (r x 1.1)", false, () -> runc2(setseed(C0, 1, with(s0; r=1.1 * s0.r)))),
+    # C2 of seed 0: targets, windings, boxes
+    ("control: T2 winding not stored (the checker chooses)", true, () -> runc2(gmod(iT2; wind=Int[]))),
+    ("T0 target -> seed 3 (another matrix)", false, () -> runc2(gmod(iT0; target=3))),
+    ("T0 target -> seed 99 (no such seed)", false, () -> runc2(gmod(iT0; target=99))),
+    ("T0 target with the other orientation", false, () -> runc2(setseed(C0, 2, seed1_flipped))),
+    ("T0 target -> seed 0 itself (its own sphere)", false, () -> runc2(gmod(iT0; target=0))),
+    ("T0 winding + 1 in theta_2", false, () -> runc2(gmod(iT0; wind=plus1(gs0[iT0].wind, 2)))),
+    ("T1 corner rows i1, i2 swapped", false, () -> runc2(gmod(iT1; rows=swaprows(gs0[iT1].rows)))),
+    ("T1 with g = conj", false, () -> runc2(gmod(iT1; g=:conj))),
+    ("T1 with g = T", false, () -> runc2(gmod(iT1; g=:T))),
+    ("T1 target -> seed 1 (wrong corner)", false, () -> runc2(gmod(iT1; target=1))),
+    ("T1 winding + 1 in theta_4", false, () -> runc2(gmod(iT1; wind=plus1(gs0[iT1].wind, 4)))),
+    ("T1 (corner symmetry, g = T) with g = id", false, () -> runc2(gmod(iT1c; g=:id))),
+    ("T1 (corner symmetry) with g = conjT", false, () -> runc2(gmod(iT1c; g=:conjT))),
+    ("T1 (corner symmetry) rows (0, 2, 1)", false, () -> runc2(gmod(iT1c; rows=swaprows(gs0[iT1c].rows)))),
+    ("T1 (corner symmetry) target -> seed 1", false, () -> runc2(gmod(iT1c; target=1))),
+    ("T1 (corner symmetry) winding + 1 in theta_1", false, () -> runc2(gmod(iT1c; wind=plus1(gs0[iT1c].wind, 1)))),
+    ("T2 rows 1, 2 of the permutation swapped", false, () -> runc2(gmod(iT2; rows=[gs0[iT2].rows[2], gs0[iT2].rows[1], gs0[iT2].rows[3:6]...]))),
+    ("T2 with g = conj", false, () -> runc2(gmod(iT2; g=:conj))),
+    ("T2 target -> record 1 (R = 0.015)", false, () -> runc2(gmod(iT2; target=1))),
+    ("T2 target -> record 5 (no such record)", false, () -> runc2(gmod(iT2; target=5))),
+    ("T2 winding + 1 at entry (1, 1)", false, () -> runc2(gmod(iT2; wind=plus1(gs0[iT2].wind, 8)))),
+    ("one sphere box removed", false, () -> runc2(setseed(C0, 1, setg(s0, iT0, dropbox(gs0[iT0], 5))))),
+    ("one sphere box replaced by a child (a gap)", false, () -> runc2(gmod(iT2; boxes=[k == 3 ? child(b) : b for (k, b) in enumerate(gs0[iT2].boxes)]))),
+    ("one sphere box moved (a gap)", false, () -> runc2(gmod(iT1c; boxes=[k == 1 ? (b[1], b[2], b[3], b[4], (b[5] + 1) % 4) : b for (k, b) in enumerate(gs0[iT1c].boxes)] ))),
+    ("control: r x 1.1 (boxes are in units of r; transfers still land)", true, () -> runc2(setseed(C0, 1, with(s0; r=1.1 * s0.r)))),
+    ("r x 2.5 (the transfers no longer land)", false, () -> runc2(setseed(C0, 1, with(s0; r=2.5 * s0.r)))),
     # records
-    ("record 1: T1' target -> seed 3", false, () -> runrec(setrec(C0, 2, setbx(r1, 5, with(r1.xfers[5]; target=3))), 1)),
-    ("record 1: T1' target -> seed 2 (other corner)", false, () -> runrec(setrec(C0, 2, setbx(r1, 5, with(r1.xfers[5]; target=2))), 1)),
-    ("record 1: T1' corner rows swapped", false, () -> runrec(setrec(C0, 2, setbx(r1, 5, swaprows(r1.xfers[5]))), 1)),
-    ("record 1: T1' with g = conj", false, () -> runrec(setrec(C0, 2, setbx(r1, 5, with(r1.xfers[5]; g=:conj))), 1)),
+    ("record 1: T1' target -> seed 3", false, () -> runrec(rmod(rT1p; target=3), 1)),
+    ("record 1: T1' target -> seed 2 (other corner)", false, () -> runrec(rmod(rT1p; target=2), 1)),
+    ("record 1: T1' corner rows swapped", false, () -> runrec(rmod(rT1p; rows=swaprows(rgs[rT1p].rows)), 1)),
+    ("record 1: T1' with g = conj", false, () -> runrec(rmod(rT1p; g=:conj), 1)),
+    ("record 1: T1' winding + 1 in theta_3", false, () -> runrec(rmod(rT1p; wind=plus1(rgs[rT1p].wind, 3)), 1)),
     ("record 1: T1' target with the other orientation", false, () -> runrec(setseed(C0, 2, seed1_flipped), 1)),
-    ("record 1: one shell box removed", false, () -> runrec(setrec(C0, 2, S.SRecord(r1.rec, r1.xfers[[1:299; 301:end]])), 1)),
+    ("record 1: rec target -> record 1 itself", false, () -> runrec(rmod(rrec; target=1), 1)),
+    ("record 1: rec with g = conj", false, () -> runrec(rmod(rrec; g=:conj), 1)),
+    ("record 1: rec winding + 1 at entry (2, 3)", false, () -> runrec(rmod(rrec; wind=plus1(rgs[rrec].wind, 9)), 1)),
+    ("record 1: one shell box removed", false, () -> runrec(setrec(C0, 2, setrg(r1, rT1p, dropbox(rgs[rT1p], 300))), 1)),
     ("record 1: R x 2 (shell not covered)", false, () -> runrec(setrec(C0, 2, withR(r1, 2 * r1.rec.R)), 1)),
+    ("record 1: R x 2 and eta_scale x 2 (T1' no longer lands)", false, () -> runrec(setrec(C0, 2, S.SRecord(withR(r1, 2 * r1.rec.R).rec, 2 * r1.eta_scale, r1.groups)), 1)),
+    ("record 1: eta_scale x 0.9 (cube too small)", false, () -> runrec(setrec(C0, 2, S.SRecord(r1.rec, 0.9 * r1.eta_scale, r1.groups)), 1)),
     ("record 1: phi[2,3] + 0.3 (Step 3)", false, () -> runrec3(setrec(C0, 2, withPhi(r1, 2, 3, 0.3)), 1)),
     ("record 0: no shell boxes", false, () -> runrec(C0, 0)),
 ]
