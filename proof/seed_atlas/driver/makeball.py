@@ -6,12 +6,12 @@ sys.path.insert(0, os.path.join(HERE, '../../atlas'))
 import stagec as SC
 from c1 import Ball, c1_bound
 
-LADDER = (0.125, 0.1, 0.08, 0.063, 0.05, 0.04, 0.03, 0.02, 0.015, 0.01)
+LADDER = (0.15, 0.125, 0.1, 0.08, 0.063, 0.05, 0.04, 0.03, 0.02, 0.015, 0.01)
 LABELS = (0.03, 0.02)
-N_SAFETY = 1.25          # stored n = N_SAFETY x the driver's Taylor-model bound: piece A's Arb bound is up to 1.135x it (300 balls, 24 Oct)
-CLIQUE_CAP = 2_000_000   # driver screening cap (official: 5,000,000)
-MAX_LABELS = 1200
-TRY_UP_MAX = 0.1         # one rung up from the hint only below this (0.125 passes for under 1% of balls)
+N_SAFETY = 1.02          # stored n = N_SAFETY x the driver's Taylor-model bound: piece A's Arb bound is up to 1.135x it (300 balls, 24 Oct)
+CLIQUE_CAP = 5_000_000   # driver screening cap (official: 5,000,000)
+MAX_LABELS = 2500
+TRY_UP_MAX = 0.15         # one rung up from the hint only below this (0.125 passes for under 1% of balls)
 
 
 def k_for(r): return 3 if r <= 0.05 else 4

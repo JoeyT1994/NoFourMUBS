@@ -268,6 +268,8 @@ def main():
     ap.add_argument('out'); ap.add_argument('--workers', type=int, default=os.cpu_count())
     ap.add_argument('--start', default='record:2003'); ap.add_argument('--hours', type=float, default=1e9)
     ap.add_argument('--max-balls', type=int, default=10 ** 9)
+    ap.add_argument('--dist-port', type=int, default=0, help='serve tasks to distworker.py processes on other nodes')
+    ap.add_argument('--dist-key', default='seedatlas')
     a = ap.parse_args()
     os.makedirs(a.out, exist_ok=True)
     state = os.path.join(a.out, 'atlas_state.pkl'); logf = open(os.path.join(a.out, 'driver.log'), 'a')
@@ -296,7 +298,12 @@ def main():
     master_pid = os.getpid()
     signal.signal(signal.SIGTERM, on_term)
     ctx = mp.get_context('fork' if sys.platform.startswith('linux') else 'spawn')
-    ex = cf.ProcessPoolExecutor(a.workers, mp_context=ctx, initializer=_init)
+    if a.dist_port:
+        from distexec import DistExecutor
+        ex = DistExecutor(a.dist_port, a.dist_key.encode(), os.path.join(a.out, 'snaps'))
+        log('distributed executor on port %d for %d workers' % (a.dist_port, a.workers))
+    else:
+        ex = cf.ProcessPoolExecutor(a.workers, mp_context=ctx, initializer=_init)
     futs = {}
     pending = {}                     # pid -> proposal (submitted make)
     waiting = {}                     # j -> set of pids it waits for

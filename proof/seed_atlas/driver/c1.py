@@ -223,7 +223,7 @@ def c1_boxes(r, k):
     g1 = -r + (2 * np.arange(k) + 1) * hwid
     W = np.array(list(itertools.product(g1, repeat=4)))
     near_ = np.maximum(np.abs(W) - hwid, 0)
-    keep = (near_ ** 2).sum(1) <= r * r
+    keep = (near_ ** 2).sum(1) < r * r * (1 - 1e-12)          # meets the open ball (as the Arb certifier, 5f6ff02b)
     W = W[keep]
     return W, np.full(W.shape, hwid)
 
