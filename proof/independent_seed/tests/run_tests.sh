@@ -8,6 +8,9 @@
 #    tube of records (T1') against BigFloat Hadamard points, on the test record and on F6's record (R = 0.125).
 # 4. negative.jl: corrupted n, r, P, U, theta0, o, Mth, label radius, targets, corners, g, windings and boxes are
 #    rejected; harmless changes are accepted.
+# 6. Edge balls: check_seed.jl on tests/data/edge_test_certificate.json.gz (an edge ball at F6, a seed ball inside it with
+#    its whole sphere T3 into the edge ball, a seed ball on its sphere, Tao as a frameless record), then edge_tests.jl:
+#    BigFloat sampling of the augmented systems and 25 negative / control cases.
 # 5. End to end through the JSON: n of seed 0 times 0.2 (below its sampled true residual) is rejected; a malformed
 #    certificate stops the run.
 set -euo pipefail
@@ -69,4 +72,16 @@ JL -t "$NT" check_seed.jl "$OUT/bad_n.json.gz" "$OUT/bad_n" --partial --only 0 >
 expect "$OUT/bad_n/seeds.tsv" 0 FAIL "C1:"
 JL check_seed.jl "$OUT/bad_fmt.json.gz" "$OUT/bad_fmt" > "$OUT/bad_fmt.log" 2>&1 && fail "malformed certificate accepted"
 grep -q "expected 36 floats" "$OUT/bad_fmt.log" || fail "malformed certificate: no message"
+echo "=== 6. edge balls (SPEC §10)"
+JL -t "$NT" check_seed.jl tests/data/edge_test_certificate.json.gz "$OUT/edge" --partial > "$OUT/edge.log" 2>&1 || true
+grep -E "^(seed|edge) |F6 at|SUMMARY" "$OUT/edge.log"
+expect "$OUT/edge/seeds.tsv" 0 PASS
+expect "$OUT/edge/seeds.tsv" 1 FAIL "do not cover the sphere"
+expect "$OUT/edge/edges.tsv" 0 FAIL "C2: the boxes do not cover the sphere"
+awk -F'\t' '$1 == 0 && $10 != "PASS" {exit 1}' "$OUT/edge/edges.tsv" || fail "Stage C of the edge ball"
+grep -q "F6 at the centre of edge ball 0: CERTIFIED" "$OUT/edge/RESULT.txt" || fail "F6 at the edge ball's centre"
+grep -q "Tao: PASS" "$OUT/edge/RESULT.txt" || fail "Tao's record given as a frameless record"
+JL -t "$NT" tests/edge_tests.jl "$OUT/edge/certificate.txt" > "$OUT/edge_tests.log" 2>&1 || true
+grep -E "^\(a\)|UNEXPECTED|EDGE TESTS" "$OUT/edge_tests.log"
+grep -q "EDGE TESTS PASS" "$OUT/edge_tests.log" || fail "edge tests"
 echo "ALL TESTS PASS"

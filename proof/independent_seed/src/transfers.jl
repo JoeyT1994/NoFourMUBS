@@ -88,8 +88,13 @@ struct XferCtx
     seeds::Vector{Seed}
     records::Vector{SRecord}
     minv::Vector{Union{Nothing,Matrix{I64}}}       # enclosures of Mth^{-1}, per seed
+    edges::Vector{EdgeBall}
+    edge_minv::Vector{Union{Nothing,Matrix{I64}}}
+    edge_leaves::Vector{Union{Nothing,Vector{EdgeLeaf}}}   # the C1e leaves of each edge ball (nothing: C1e not passed)
 end
-XferCtx(C::SeedCert) = XferCtx(C.seeds, C.records, Union{Nothing,Matrix{I64}}[inv_enclosure(s.Mth) for s in C.seeds])
+XferCtx(C::SeedCert) = XferCtx(C.seeds, C.records, Union{Nothing,Matrix{I64}}[inv_enclosure(s.Mth) for s in C.seeds],
+                               C.edges, Union{Nothing,Matrix{I64}}[inv_enclosure(e.Mth) for e in C.edges],
+                               Union{Nothing,Vector{EdgeLeaf}}[nothing for _ in C.edges])
 
 """T0: o_t = o_s, and all 16 vertices v of the box satisfy ||Mth_t^{-1}(theta0_s + Mth_s v + 2 pi N - theta0_t)|| < r_t.
 E_t is convex, so the whole parallelotope theta_s(box) then lies in int E_t."""
@@ -190,6 +195,10 @@ function check_seed_box(s::Seed, root::BoxMap, g::Group, lo, hi, X::XferCtx, rec
     elseif g.kind == :T2
         (0 <= g.target < length(X.records)) || return false, "T2: no such record", Inf
         rec_ok(g.target) || return false, "T2: target record did not pass Step 3", Inf
+    elseif g.kind == :T3
+        (0 <= g.target < length(X.edges)) || return false, "T3: no such edge ball", Inf
+        X.edge_leaves[g.target+1] === nothing && return false, "T3: the edge ball did not pass C1e", Inf
+        X.edge_minv[g.target+1] === nothing && return false, "T3: edge Mth not invertible", Inf
     end
     wc, h = scaled_dom(lo, hi, s.r)
     wcm = ntuple(j -> mid(wc[j]), 4)
@@ -197,7 +206,9 @@ function check_seed_box(s::Seed, root::BoxMap, g::Group, lo, hi, X::XferCtx, rec
     bm.ok || return false, string(g.kind) * ": " * bm.why, Inf
     Q = representative(bm.Q, s.P, s.U, wc)
     D = Dom(h)
-    g.kind == :T1 ? check_T1(Q, D, g, X.seeds[g.target+1], X.minv[g.target+1]) : check_T2(Q, D, g, X.records[g.target+1].rec)
+    g.kind == :T1 && return check_T1(Q, D, g, X.seeds[g.target+1], X.minv[g.target+1])
+    g.kind == :T3 && return check_T3(Q, D, g, X.edges[g.target+1], X.edge_leaves[g.target+1], X.edge_minv[g.target+1])
+    check_T2(Q, D, g, X.records[g.target+1].rec)
 end
 
 """Check a box, splitting it into halves (same target) where the whole box fails."""
@@ -285,7 +296,7 @@ end
 
 function check_c2_seed(s::Seed, X::XferCtx, rec_ok::Function; split_depth::Int=2)
     t0 = time()
-    counts = Dict(:T0 => 0, :T1 => 0, :T2 => 0); worst = Dict(:T0 => 0.0, :T1 => 0.0, :T2 => 0.0)
+    counts = Dict(:T0 => 0, :T1 => 0, :T2 => 0, :T3 => 0); worst = Dict(:T0 => 0.0, :T1 => 0.0, :T2 => 0.0, :T3 => 0.0)
     nb = sum(length(g.boxes) for g in s.groups; init=0)
     res(ok, msg, st=[0, 0], cn=0) = C2Result(ok, msg, nb, counts, st[1], st[2], worst, cn, time() - t0)
     listed = Set{NTuple{5,Int}}(b for g in s.groups for b in g.boxes)

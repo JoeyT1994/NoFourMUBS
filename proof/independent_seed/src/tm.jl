@@ -138,7 +138,7 @@ end
 # ---------------------------------------------------------------- e^{i x} for a real model x
 
 ecis(c::I64) = Complex(cos(c), sin(c))
-ecis(c::Float64) = cis(c)
+ecis(c::AbstractFloat) = cis(c)
 
 """e^{i x}.  With x = c + l + s, l = g.u, s = q(u) + e:
 e^{ix} = e^{ic} (1 + i l + i q - l^2/2) + e^{ic} R,

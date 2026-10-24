@@ -6,7 +6,9 @@ Julia with IntervalArithmetic.jl. It re-implements from the specification:
 - Stage C on that enclosure,
 - claim C2: the boundary transfers T0, T1, T2 of seed balls and rec, T1′ of records, with the coverage of every
   boundary,
-- Tao's zero-dimensional record.
+- Tao's zero-dimensional record;
+- the edge balls of SPEC §10 (the four-dimensional chart through F6 that replaces F6's record): C1e, Stage C on their
+  enclosure, T3 transfers into them, and their sphere covers by T1.
 
 The 25-dimensional records (normal bound, Stage C, F6) reuse `proof/independent/src` unchanged: it is loaded as the
 submodule `IndepAtlas` and nothing in it is edited.
@@ -62,6 +64,8 @@ mkdir -p out && sbatch run_rusty.sh                                             
 | `src/normal_tube.jl` | the normal component ν of a record's Hadamards over an η-box (Krawczyk in N), for T1′ |
 | `src/transfers.jl` | T0, T1, T2, rec, T1′; dyadic coverage of spheres and shells |
 | `src/tao.jl` | Tao's record: S6 in the ball, σ, isolation L R < σ, the normal bound, Stage C |
+| `src/edge.jl` | edge balls: the two augmented 7-unknown systems, their Krawczyk tubes, ∂₄R > 0 and g > 0, C1e |
+| `src/edge_transfers.jl` | T3 (seed sphere into an edge ball), the edge sphere cover by T1, F6 = H(0) |
 | `check_seed.jl` | the driver (threads, shards, receipts, verdict) |
 | `run_rusty.sh` | one rusty node |
 | `tests/` | `run_tests.sh`, `enclosure.jl`, `negative.jl`, the test certificate and its generator |
@@ -235,6 +239,64 @@ T0 and corner-T1 are vertex tests, so they are not split.
   completeness. It also flagged two float roundings, in the Neumann bound and the shell test; they are now interval
   bounds.
 
+### Edge balls (`src/edge.jl`, `src/edge_transfers.jl`; SPEC §10, return U §3–6)
+
+The chart is centred at F6's corner (rows and columns 0, 1, 2). Its parameters are p = (u₁, u₂, u₃, y) = Mth w,
+‖w‖ ≤ r. θ⁰ = (1,2,2,4)π/3 and φ⁰ = (3,4,5,0,2,4)π/3 are used exactly, as interval enclosures of kπ/3.
+
+**The systems.** Each side solves its own 7-unknown augmented system for x = (t, ϕ):
+γ(φ⁰ + ϕ) = Γ(θ⁰ + (u₁, u₂, u₃, t)) and S/24 ± y/48 = 0.
+- The horizontal side uses G_h and +y.
+- The vertical side is the system for Eᵀ at (u₁, u₃, u₂, −y). Written in the original θ, it uses G_v and −y, and it
+  has its own t′.
+
+**C1e on each w-box.** The boxes have exact dyadic centres: h₀ ≥ r/k is a dyadic number, so all centres and halvings
+are exact floats. On each box:
+- **Tubes.** Both systems get a second-order Taylor-model predictor (Newton in model space, from the float solution
+  at the centre), and a componentwise parametric Krawczyk test with an analytic Jacobian. ∂ Im Ψ/∂φ_k is computed as
+  i e^{−iΣφ}(P_k det² + 2 perm det D_k) − iΨ.
+  - The tight test gives the enclosure (the `need` radius).
+  - A second test certifies uniqueness on a wide tube: the largest of 10⁻², 3·10⁻³, 10⁻³, ... that passes. The test
+    edge balls get 3·10⁻³. This wide tube is what T3 uses.
+- **t′ = t.** θ₄ ranges over the segment between the two enclosed fourth phases (one model, with a remainder covering
+  both enclosures). ∂R/∂θ₄ > 0 and g > 0 are certified there by Taylor-model evaluation of R's formula:
+  - R = 4g²η − χ², with g = 27 − 3p + J, η = 9 − p + J, χ = W − (p−9)(p−18) + (p−15)J;
+  - dt = −ie^{iθ₄} and dr = −ie^{i(θ₄−θ₂)}.
+
+  Both solutions satisfy R(θ) = y² (since R∘γ = 4S²), so monotonicity gives t = t′.
+- **The rest.** D comes from the residual correction, arg D from the expansion near P, and the per-box bound is
+  exactly as in C1.
+- **Leaves.** Each accepted box keeps its two tubes (predictor and uniqueness radius) for T3.
+
+**F6 = H(0).** At p = 0, x = 0 solves both systems exactly. That is return U §4.1; here it is also checked in
+intervals. x = 0 lies strictly inside the uniqueness tubes of the leaf containing w = 0. So F6 is the centre of the
+edge ball's image, and F6 nonemptiness is certified by the edge ball (no F6 record is needed).
+
+**T3 (seed sphere box → edge ball; data g, rows, cols).**
+- K = g·H_{o_s}(θ) uses the representative phase models of the source box.
+- The corner seed θ_K and y_K = −2 Im Ψ(K[I, Jᶜ]) give p_K. Then ‖Mth⁻¹p_K‖ < r is checked, with Mth⁻¹ enclosed.
+- K's dephased side angles, with θ_K,4 − θ⁰_4, must lie strictly inside the uniqueness tube of every C1e leaf whose
+  box meets the range of w_K. Each leaf's predictor is composed with w_K − wc, over the whole source box.
+  - Every source point lies in some such leaf, since the leaves cover the ball and w_K ∈ int E.
+  - So K's sides are that leaf's unique solutions, and K ≅ H(p_K).
+- The vertical side uses the spec's argument that a nonmatched strict K would be Tao.
+
+**Edge sphere.** It must be covered (the same dyadic traversal as for seeds) by T1 transfers into seed balls. They are
+checked as for seeds, with the edge box map on each box (interval centre).
+
+**Stage C.** It runs on P + U w + ν exactly as for a seed ball.
+
+**Measured** (8 threads, laptop):
+
+| edge ball | k | certified C1e bound | sampled true residual | C1e time |
+|---|---|---|---|---|
+| r = 0.05 | 4 | 0.00301 | 0.00094 | 0.2–0.4 s (240 boxes) |
+| r = 0.125 | 6 | 0.0168 | ≈ 0.009 | 2.9 s (864 boxes) |
+| r = 0.125 | 8 | 0.0122 | ≈ 0.009 | 2.4 s (2,560 boxes) |
+
+- **Cost.** About 3 ms per C1e box after compilation, and about 5 ms per T3 box (seed box map plus T3).
+- **Stage C** on the r = 0.05 edge ball takes about 4 s (50 labels).
+
 ## Tests (`tests/run_tests.sh`, about 5 min on 4 threads)
 
 **The test certificate** (`tests/data/seed_test_certificate.json.gz`, from `make_test_cert.py` with the prototype)
@@ -283,6 +345,16 @@ reason.
      stored T2 winding; Tao as given and at R = 0.60.
 5. **End to end.** n × 0.2 in the JSON (below the sampled true residual) is rejected, and a malformed certificate
    stops the run.
+6. **Edge balls (`edge_tests.jl`, on `tests/data/edge_test_certificate.json.gz`).**
+   - **Sampling.** On random C1e leaves, the augmented systems solved in BigFloat lie within the tubes, t = t′, H(p) is
+     Hadamard, and the phases lie inside their models.
+   - **25 cases, all as expected.**
+     - *Rejected, C1e:* n below the sampled residual; r × 3; P entries of B and D + 0.01; U + 0.1; Mth's y row × 1.1.
+     - *Rejected, Stage C:* at r = 0.2, n = 0.03 (the clique search hits its step cap).
+     - *Rejected, T3:* the wrong target; an edge ball failing C1e; g = conj or T; swapped corner rows; swapped
+       complement rows or columns; a removed sphere box.
+     - *Rejected, edge T1:* the wrong target, swapped rows, g = conj, a wrong winding, and an uncovered sphere.
+     - *Accepted (controls):* C1e, the T3 cover, the T1 boxes, Stage C, and the 3-index T3 form.
 
 ### Measured (M-series laptop, one thread unless stated)
 
@@ -333,3 +405,13 @@ reason.
     L = 2√3 for the Jacobian, rather than FORMAT.md §6's componentwise boxes. The inclusion ball contains every
     x with ‖Mx‖ ≤ n. The contraction steps and the third-order β are my own choices. The crude ‖ν‖ ≤ n form remains as
     a fallback.
+12. **Edge balls (coordinator's encoding of 24 Oct).**
+    - **The data layout.** `"edge"` balls carry Mth, r, P, U, n, label_radius, k and transfers (kind T1). Seed
+      transfers of kind T3 carry target, g, rows and cols.
+    - **T3 rows and cols.** They may be ordered triples, with the complements taken in increasing order, or full
+      6-orderings (the corner, then the complement's order). The complement's order fixes the column order of the
+      sides, so it matters: the negative tests swap it and are rejected.
+    - **Tao.** A record without a frame is read as Tao's record; a top-level `"tao"` object is also accepted.
+    - **C1e boxes.** Their centres are exact dyadics, the uniqueness tube is a widened Krawczyk box, and T3 checks
+      every leaf the w_K range meets.
+    - **F6.** It is certified as H(0) of a passing edge ball.

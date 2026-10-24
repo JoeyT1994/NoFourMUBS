@@ -160,8 +160,45 @@ function main(args)
     flush(stdout)
     rec_ok(t) = get(done3, t, (false, ""))[1]
 
-    # ---------------- seed balls: C1, Stage C on the enclosure, C2 (sphere transfers)
+    # ---------------- edge balls (SPEC §10): C1e, Stage C on the enclosure, C2 (sphere cover by T1); not resumable (their
+    # C1e leaves are needed by the seeds' T3 transfers, and recomputing them takes seconds)
     X = S.XferCtx(C)
+    fe = joinpath(outdir, "edges.tsv")
+    doneE = Dict{Int,Tuple{Bool,String}}()
+    f6edge = Tuple{Int,Bool,String}[]
+    open(fe, "w") do io
+        println(io, "#idx\tstatus\tr\tk\tn_cert\tn_certified\tc1e_boxes\tc1e_splits\tc1e_s\tstagec\tlabels\tmax_s\tstagec_s\tc2\tnboxes\tc2_s\tmsg")
+    end
+    for (i, eb) in enumerate(C.edges)
+        t1 = time()
+        ok, msg, line = try
+            c1 = S.check_c1e(eb; maxdepth=c1depth)
+            c1.ok && (X.edge_leaves[i] = c1.leaves)
+            c1.ok && push!(f6edge, (i - 1, S.edge_f6(c1.leaves)...))
+            ts = time()
+            sc, si = S.seed_stage_c(eb; replay=!fast)
+            ts = time() - ts
+            root = S.edge_root(eb)
+            c2 = (c1.ok && root !== nothing) ? S.check_c2_edge(eb, X, root; split_depth=splitdepth) :
+                 S.C2Result(false, "not run (C1e failed)", 0, Dict{Symbol,Int}(), 0, 0, Dict{Symbol,Float64}(), 0, 0.0)
+            ok = c1.ok && sc.ok && c2.ok
+            m = ok ? "ok" : join(filter(!isempty, [c1.ok ? "" : "C1e: " * c1.msg, sc.ok ? "" : "Stage C: " * sc.msg,
+                                                   c2.ok ? "" : "C2: " * c2.msg]), "; ")
+            (ok, m, @sprintf("%d\t%s\t%.6g\t%d\t%.10g\t%.10g\t%d\t%d\t%.2f\t%s\t%d\t%.6g\t%.2f\t%s\t%d\t%.2f\t%s", i - 1,
+                             ok ? "PASS" : "FAIL", eb.r, eb.k, eb.n, c1.bound, length(c1.leaves), c1.nsplit, c1.seconds,
+                             sc.ok ? "PASS" : "FAIL", sc.nlabels, sc.maxs, ts, c2.ok ? "PASS" : "FAIL", c2.nbox, c2.seconds, clean(m)))
+        catch err
+            m = "exception: " * clean(sprint(showerror, err))[1:min(end, 300)]
+            (false, m, @sprintf("%d\tFAIL%s\t%s", i - 1, repeat("\t", 15), m))
+        end
+        doneE[i-1] = (ok, msg)
+        open(fe, "a") do io; println(io, line); end
+        @printf("  edge ball %d: %s (%.0f s)%s\n", i - 1, ok ? "PASS" : "FAIL", time() - t1, ok ? "" : "  " * first(msg, 200))
+        flush(stdout)
+    end
+    edge_ok(i) = get(doneE, i, (false, ""))[1]
+
+    # ---------------- seed balls: C1, Stage C on the enclosure, C2 (sphere transfers)
     doneS = receipts!(fs, "#idx\tstatus\tr\to\tn_cert\tn_certified\tc1_boxes\tc1_splits\tc1_s\tstagec\tlabels\tmax_s\toverruled\tstagec_s\tn_frame\trcol\trF\tc2\tnboxes\tkinds\tchecks\tsplits\tworst_T0\tworst_T1\tworst_T2\tcover_nodes\tc2_s\tmsg")
     if !isempty(imports)
         mine = split(bind, '\n')
@@ -244,7 +281,7 @@ function main(args)
     if 0 <= C.fourier < nr && rec_ok(C.fourier)
         ne = IA.nonempty_F6([r.rec for r in C.records], [C.fourier + 1])
     end
-    f6ok = any(x -> x[4], ne)
+    f6ok = any(x -> x[4], ne) || any(x -> x[2] && edge_ok(x[1]), f6edge)
 
     # ---------------- Tao's record
     tao = nothing
@@ -270,7 +307,8 @@ function main(args)
     for r in C.records, x in r.groups
         x.kind == :T1p ? push!(tseeds, x.target) : push!(trecs, x.target)
     end
-    passed = seedpass == length(sel) && recpass == nr && (tao === nothing || taook)
+    edgepass = count(edge_ok, 0:length(C.edges)-1)
+    passed = seedpass == length(sel) && recpass == nr && edgepass == length(C.edges) && (tao === nothing || taook)
     complete = passed && allchecked && f6ok && taook && !fast
     stats = [x for x in (split(l, '\t') for l in readlines(fs) if !startswith(l, "#")) if length(x) >= 28 && x[9] != "" && x[14] != ""]
     open(joinpath(outdir, "RESULT.txt"), "w") do io
@@ -292,6 +330,17 @@ function main(args)
                                  a[1] ? (b[1] ? "" : "C2: " * b[2]) : "Step 3: " * a[2]))
         end
         println(io)
+        if !isempty(C.edges)
+            println(io, "Edge balls (PASS = C1e bound <= n with both augmented tubes, t' = t (dR/dtheta4 > 0) and g > 0; Stage C; C2: sphere covered by T1):")
+            for i in 0:length(C.edges)-1
+                st = get(doneE, i, (false, "not run"))
+                println(io, @sprintf("edge %6d  %s  %s", i, st[1] ? "PASS" : "FAIL", st[1] ? "" : st[2]))
+            end
+            for (i, ok, m) in f6edge
+                println(io, "  F6 at the centre of edge ball $i: ", ok ? "CERTIFIED ($m)" : "not certified: " * m)
+            end
+            println(io)
+        end
         println(io, "Nonemptiness (F6 in the record fourier_record = $(C.fourier)):")
         for x in ne
             println(io, @sprintf("  record %d: ||h(A F6 + 2 pi N - P_t)|| <= %.9f vs R_t = %.6g  %s", x[1], x[2], x[3], x[4] ? "CERTIFIED" : "not certified"))
@@ -314,11 +363,11 @@ function main(args)
         println(io, "Targets named: $(length(tseeds)) seed balls, $(length(trecs)) records.",
                 allchecked ? "" : "  (Only $(length(sel)) of $ns seed balls checked; targets outside them are not checked here.)")
         println(io)
-        println(io, @sprintf("SUMMARY: %d / %d seed balls PASS.  %d / %d records PASS.  F6 nonemptiness: %s.  Tao: %s.",
-                             seedpass, length(sel), recpass, nr, f6ok ? "CERTIFIED" : "NOT certified",
+        println(io, @sprintf("SUMMARY: %d / %d seed balls PASS.  %d / %d edge balls PASS.  %d / %d records PASS.  F6: %s.  Tao: %s.",
+                             seedpass, length(sel), edgepass, length(C.edges), recpass, nr, f6ok ? "CERTIFIED" : "NOT certified",
                              tao === nothing ? "absent" : tao.ok ? "PASS" : "FAIL"))
         if complete
-            println(io, "VERDICT: the certificate is complete and every check passed (C1, Stage C, C2 for every seed ball; Step 3 and C2 for every record; F6; Tao).")
+            println(io, "VERDICT: the certificate is complete and every check passed (C1, Stage C, C2 for every seed ball; C1e, Stage C, C2 for every edge ball; Step 3 and C2 for every record; F6; Tao).")
         elseif fast && passed && allchecked && f6ok && taook
             println(io, "VERDICT (--fast): every check passed, but Stage C rejections were float decisions with margins, not interval",
                     " decisions. This is not a rigorous verdict; rerun without --fast.")

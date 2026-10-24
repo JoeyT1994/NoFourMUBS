@@ -4,13 +4,20 @@ src/io_seed.jl.  Standard library only.  Every float goes through float.fromhex 
 exact; integers are checked to be integers.  Fields named `info`, and any field not used here, are ignored.
 
 This file and src/io_seed.jl are the only places that know the certificate's layout.
+Edge balls (SPEC §10; coordinator's encoding of 24 Oct): top-level "edge": [{"Mth", "r", "P", "U", "n",
+"label_radius", "k", "transfers"}], with sphere transfers of kind T1; seed transfers of kind "T3" carry
+{"target" (an edge ball), "g", "rows", "cols"}: rows and cols are the ordered corner (3 indices; the complements are
+then taken in increasing order) or full orderings (6 indices: the corner, then the complement's order).  A record
+without a frame ("Tint" absent or all zero) is read as Tao's record (its R and label_radius); a top-level "tao" object
+is also accepted.
 Usage: python3 convert_seed.py certificate.json.gz out.txt
 """
 import gzip
 import json
 import sys
 
-KINDS_SEED = ('T0', 'T1', 'T2')
+KINDS_SEED = ('T0', 'T1', 'T2', 'T3')
+KINDS_EDGE = ('T1',)
 KINDS_REC = ('rec', 'T1prime')
 GS = ('id', 'conj', 'T', 'conjT')
 
@@ -73,15 +80,25 @@ def main(src, dst):
         d = json.load(f)
     if d.get('format') != 'seed-atlas-v1':
         raise SystemExit('unexpected format %r' % d.get('format'))
-    seeds = d.get('seeds', []); recs = d.get('records', [])
+    seeds = d.get('seeds', []); edges = d.get('edge', []) or []
+    tao = d.get('tao')
+    recs = []
+    for r in d.get('records', []) or []:
+        tint = r.get('Tint')
+        if not tint or all(v == 0 for v in tint):
+            if tao is not None:
+                raise SystemExit('two Tao records')
+            tao = {'R': r['R'], 'label_radius': r['label_radius']}
+        else:
+            recs.append(r)
     fr = d.get('fourier_record', -1)
     fr = -1 if fr is None else fr
     if not isint(fr):
         raise SystemExit('fourier_record must be an integer')
     nbox = 0
     with open(dst, 'w') as out:
-        out.write('FORMAT seed-atlas-text-v2\n')
-        out.write('COUNTS %d %d %d\n' % (len(seeds), len(recs), fr))
+        out.write('FORMAT seed-atlas-text-v3\n')
+        out.write('COUNTS %d %d %d %d\n' % (len(seeds), len(recs), fr, len(edges)))
         for i, s in enumerate(seeds):
             w = 'seed %d' % i
             o, k = s.get('o'), s.get('k')
@@ -108,13 +125,26 @@ def main(src, dst):
             for j, t in enumerate(gs):
                 txt, nb = group_lines(t, KINDS_REC, '%s group %d' % (w, j))
                 out.write(txt); nbox += nb
-        tao = d.get('tao')
+        for i, e in enumerate(edges):
+            w = 'edge ball %d' % i
+            k = e.get('k')
+            if not isint(k):
+                raise SystemExit('%s: k must be an integer' % w)
+            gs = e.get('transfers', [])
+            out.write('EDGE %d %d %d\n' % (i, k, len(gs)))
+            out.write('MTH %s\n' % fxs(e['Mth'], 16, w + ' Mth'))
+            out.write('R %s\nN %s\nLR %s\n' % (fx(e['r'], w + ' r'), fx(e['n'], w + ' n'), fx(e['label_radius'], w + ' lr')))
+            out.write('P %s\n' % fxs(e['P'], 36, w + ' P'))
+            out.write('U %s\n' % fxs(e['U'], 144, w + ' U'))
+            for j, t in enumerate(gs):
+                txt, nb = group_lines(t, KINDS_EDGE, '%s group %d' % (w, j))
+                out.write(txt); nbox += nb
         if tao is None:
             out.write('TAO none\n')
         else:
             out.write('TAO %s %s\n' % (fx(tao['R'], 'tao R'), fx(tao['label_radius'], 'tao label_radius')))
         out.write('END\n')
-    print('converted %d seed balls, %d records, %d boundary boxes -> %s' % (len(seeds), len(recs), nbox, dst))
+    print('converted %d seed balls, %d records, %d edge balls, %d boundary boxes -> %s' % (len(seeds), len(recs), len(edges), nbox, dst))
 
 
 if __name__ == '__main__':

@@ -17,7 +17,7 @@ struct SeedStageInputs
     frame_err::Float64     # upper bound of ||U - T||_F
 end
 
-function seed_stage_inputs(s::Seed)
+function seed_stage_inputs(s)          # a Seed or an EdgeBall
     T36 = round.(Int64, s.U .* Float64(IA.FRAME_DEN))
     Ti = IA.frame_interval(T36)                       # encloses T36 / (36 2^30) exactly
     Ui = iv.(s.U)
@@ -31,7 +31,7 @@ end
 
 """Run the existing Stage C on the seed ball's enclosure.  replay = true re-decides every float rejection in
 interval arithmetic (the default of the existing checker)."""
-function seed_stage_c(s::Seed; replay::Bool=true)
+function seed_stage_c(s; replay::Bool=true)   # a Seed or an EdgeBall
     si = seed_stage_inputs(s)
     P6 = [s.P[6(j-1)+c] for j in 1:6, c in 1:6]
     rec = IA.Rec(s.idx, true, NaN, s.lr, P6, zeros(Int64, 36, 4), IA.Target[])
