@@ -16,7 +16,7 @@ Vertical side V = C^T: same shape, V V^* = G_v = 6I - E^T conj(E).  H = [[E, B],
 Q (36, row-major): Q_{1+a,1+b} = theta, Q_{j,3+k} = phi_h[3(j-1)+k] (j = 1, 2), Q_{3+k,j} = phi_v[3(j-1)+k],
 Q_{3+j,3+k} = arg D_jk, first row and column 0.
 """
-import itertools, math, time
+import itertools, math, os, sys, time
 from fractions import Fraction as Fr
 import numpy as np
 from flint import arb, acb, arb_mat, ctx
@@ -24,6 +24,8 @@ from flint import arb, acb, arb_mat, ctx
 import tmarb as TMA
 from tmarb import TM, oarb, oacb, up, vup, vmap, stack, exp_i, zeros
 
+ATLAS = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '../../atlas'))   # stagec.py etc.
+if ATLAS not in sys.path: sys.path.append(ATLAS)
 PREC = 120
 ctx.prec = PREC
 PI = arb.pi()
