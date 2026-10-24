@@ -97,4 +97,50 @@ theorem fullBox_sound {B : BallD} {D : BoxD} {subs : List SubD} (hok : fullBox B
   · rw [if_neg hk2] at htest
     exact t2OK_sound hv hQs htest hσ hτ
 
+/-- **A transfer-only core box** (finer than the C1 boxes, where the transfer tests need sharper models): the core and
+the transfer boxes inside it, without the C1 bound. -/
+def coreFull (B : BallD) (D : BoxD) (subs : List SubD) : Bool :=
+  coreOK B D && subs.all (subOK D (qModels B D) (kModels B D))
+
+lemma fullBox_coreFull {B : BallD} {D : BoxD} {subs : List SubD} (h : fullBox B D subs = true) :
+    coreFull B D subs = true := by
+  unfold fullBox at h; unfold coreFull
+  rw [Bool.and_eq_true] at h ⊢
+  exact ⟨by rw [c1Box_eq, Bool.and_eq_true] at h; exact h.1.1, h.2⟩
+
+/-- **Soundness of a core box**: the transfer claims on every transfer box inside it. -/
+theorem coreFull_sound {B : BallD} {D : BoxD} {subs : List SubD} (hok : coreFull B D subs = true) {o : ℤˣ}
+    (ho : B.o = (o : ℤ)) :
+    ∀ s ∈ subs, ∀ v : Fin 4 → ℝ, InBox s.h v →
+      ∃ Q : RMat6, Hadamard6.IsHadamard (phaseMat Q) ∧
+        MatchedO o (seedOf (th0R B + MthR B *ᵥ subW D s v)) (phaseMat Q) ∧
+        (s.kind = 1 → ∀ {σ τ : Equiv.Perm I6}, (∀ i, σ i = permFun s.t1.rows i) → (∀ j, τ j = permFun s.t1.cols j) →
+          ∀ {kk : Fin 4}, (kk : ℕ) = s.t1.g → ∀ {ol : ℤˣ}, s.bl.o = (ol : ℤ) → IsUnit (MthR s.bl).det →
+          (∃ w', wnorm w' < rn s.rl ∧
+            leadingBlock (cornerMat kk σ τ (phaseMat Q)) = seedCorner (seedOf (th0R s.bl + MthR s.bl *ᵥ w'))) ∧
+          0 < osgn ol * (psi (rightBlock (cornerMat kk σ τ (phaseMat Q)))).im ∧
+          0 < -osgn ol * (psi (lowerBlock (cornerMat kk σ τ (phaseMat Q)))).im) ∧
+        (s.kind ≠ 1 → ∀ {σ τ : Equiv.Perm I6}, (∀ i, σ i = permFun s.t2.rows i) →
+          (∀ j, τ j = permFun s.t2.cols j) →
+          frob (hor ((SignedPerm.mk σ τ s.t2.tr s.t2.cj).act Q + wind (Nmat s.t2.N) - Pg s.t2.Pt)) ≤ rn s.t2.nb) := by
+  unfold coreFull at hok
+  rw [Bool.and_eq_true, List.all_eq_true] at hok
+  obtain ⟨hcore, hsubs⟩ := hok
+  intro s hs v hv
+  have hsub := hsubs s hs
+  unfold subOK at hsub
+  rw [Bool.and_eq_true] at hsub
+  obtain ⟨hin, htest⟩ := hsub
+  have hu := boxIn_spec hin hv
+  obtain ⟨-, Q, hH, hM, hQ, hK⟩ := core_sound hcore ho hu
+  have hQs : ∀ i j, (gT (shiftL s.c s.h (qModels B D)) (ix i j)).Has v (Q i j : ℂ) := fun i j => by
+    rw [gT_shiftL (by rw [qModels_length]; exact ix_lt i j)]; exact has_shift hv (hQ i j)
+  have hKs : ∀ i j, (gT (shiftL s.c s.h (kModels B D)) (ix i j)).Has v (phaseMat Q i j) := fun i j => by
+    rw [gT_shiftL (by rw [kModels_length]; exact ix_lt i j)]; exact has_shift hv (hK i j)
+  refine ⟨Q, hH, hM, fun hk1 σ τ hσ hτ kk hkk ol hol hMl => ?_, fun hk2 σ τ hσ hτ => ?_⟩
+  · rw [if_pos hk1] at htest
+    exact t1OK_sound hv hH hQs hKs htest hσ hτ hkk hol hMl
+  · rw [if_neg hk2] at htest
+    exact t2OK_sound hv hQs htest hσ hτ
+
 end NoFourMUBs.KernelAtlas.Seed

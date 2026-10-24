@@ -7,7 +7,7 @@ import NoFourMUBs.SeedAtlas.Atlas
 * `hC1_of_boxes`: the C1 boxes of a ball (each `c1Box = true`) covering `{‖w‖ ≤ r}` give the field `hC1`;
 * `ballCert`: the `SeedBallCert` of a kernel ball `D : SeedD` from `hMth`, `hcol`, `hfrob`, `hC1` and Stage C
   (`Seed/Frame.lean`, `Seed/StageC.lean`);
-* `t1_holds`, `t2_holds`: a transfer box of a C1 box (`fullBox_sound`) gives the semantic claim of `Transfer.lean` for
+* `t1_holds`, `t2_holds`: a transfer box of a core box (`coreFull_sound`; a C1 box via `fullBox_coreFull`) gives the semantic claim of `Transfer.lean` for
   any atlas family whose balls and records carry the kernel data (the links are the assembly's business, by `rfl`
   through the shared table).
 -/
@@ -73,14 +73,13 @@ variable {σs ιr : Type} {S : σs → SeedBallCert} {A : ιr → RecordCert}
 /-- **T1 on a transfer box** of a C1 box of ball `j`, into ball `l`. -/
 theorem t1_holds {j l : σs} {B : BallD} {o : ℤˣ} (ho : B.o = (o : ℤ))
     (hj : (S j).theta0 = th0R B ∧ (S j).Mth = MthR B ∧ (S j).o = o)
-    {D : BoxD} {subs : List SubD} (hfb : fullBox B D subs = true) {s : SubD} (hs : s ∈ subs) (hk : s.kind = 1)
+    {D : BoxD} {subs : List SubD} (hfb : coreFull B D subs = true) {s : SubD} (hs : s ∈ subs) (hk : s.kind = 1)
     {ol : ℤˣ} (hl : (S l).theta0 = th0R s.bl ∧ (S l).Mth = MthR s.bl ∧ (S l).r = rn s.rl ∧ (S l).o = ol)
     (hol : s.bl.o = (ol : ℤ)) {σ τ : Equiv.Perm I6} (hσ : ∀ i, σ i = permFun s.t1.rows i)
     (hτ : ∀ j, τ j = permFun s.t1.cols j) {kk : Fin 4} (hkk : (kk : ℕ) = s.t1.g)
     {v : Fin 4 → ℝ} (hv : InBox s.h v) :
     SeedTargetHolds S A j (.t1 l kk σ τ) (subW D s v) := by
-  obtain ⟨-, hsub⟩ := fullBox_sound hfb ho
-  obtain ⟨Q, hH, hM, h1, -⟩ := hsub s hs v hv
+  obtain ⟨Q, hH, hM, h1, -⟩ := coreFull_sound hfb ho s hs v hv
   have hMl : IsUnit (MthR s.bl).det := by rw [← hl.2.1]; exact (S l).hMth
   obtain ⟨⟨w', hw', hE⟩, hB, hC⟩ := h1 hk hσ hτ hkk hol hMl
   refine ⟨phaseMat Q, hH, ?_, ⟨w', ?_, ?_⟩, ?_, ?_⟩
@@ -94,13 +93,12 @@ theorem t1_holds {j l : σs} {B : BallD} {o : ℤˣ} (ho : B.o = (o : ℤ))
 record's centre stays under the record's radius. -/
 theorem t2_holds {j : σs} {t : ιr} {B : BallD} {o : ℤˣ} (ho : B.o = (o : ℤ))
     (hj : (S j).theta0 = th0R B ∧ (S j).Mth = MthR B ∧ (S j).o = o)
-    {D : BoxD} {subs : List SubD} (hfb : fullBox B D subs = true) {s : SubD} (hs : s ∈ subs) (hk : s.kind ≠ 1)
+    {D : BoxD} {subs : List SubD} (hfb : coreFull B D subs = true) {s : SubD} (hs : s ∈ subs) (hk : s.kind ≠ 1)
     {σ τ : Equiv.Perm I6} (hσ : ∀ i, σ i = permFun s.t2.rows i) (hτ : ∀ j, τ j = permFun s.t2.cols j)
     (hR : rn s.t2.nb + frob (Pg s.t2.Pt - (A t).P) < (A t).R)
     {v : Fin 4 → ℝ} (hv : InBox s.h v) :
     SeedTargetHolds S A j (.t2 t (SignedPerm.mk σ τ s.t2.tr s.t2.cj) (Nmat s.t2.N)) (subW D s v) := by
-  obtain ⟨-, hsub⟩ := fullBox_sound hfb ho
-  obtain ⟨Q, hH, hM, -, h2⟩ := hsub s hs v hv
+  obtain ⟨Q, hH, hM, -, h2⟩ := coreFull_sound hfb ho s hs v hv
   have hb := h2 hk hσ hτ
   refine ⟨Q, hH, ?_, ?_⟩
   · simp only [SeedBallCert.θ, hj.1, hj.2.1, hj.2.2]; exact hM
