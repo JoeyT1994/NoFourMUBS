@@ -17,6 +17,7 @@ export TMPDIR=/tmp
 export PATH=$ELAN_HOME/bin:$PATH
 VENV=${VENV:-/mnt/ceph/users/$USER/venvs/nofourmubs}
 ARCH=${ARCH:-/mnt/ceph/users/$USER/nofour_seedk}
+export REPO=${REPO:-/mnt/ceph/users/$USER/seedk_repo}   # this branch, rsynced (not the shared copy)
 source kernel_atlas/generators/rusty_stage.sh
 export STAGE_TAR=${SEED_STAGE_TAR:-/mnt/ceph/users/$USER/nofour_seed_stage.tar}
 : "${NB:?set NB, the number of balls}"
