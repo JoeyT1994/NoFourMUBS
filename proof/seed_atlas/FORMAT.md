@@ -200,3 +200,45 @@ Before writing the file, the driver re-checks in binary64, with margins:
 - the coverage traversal of every sphere and shell.
 
 The certifier (piece A) redoes all of this in Arb.
+
+## 8. Edge balls (format v2, 24 Oct: replaces F6's record; SPEC §10)
+
+Top level gains `"edge": [ <edge>, ... ]`. With edge balls present, `"records"` holds no F6 record and
+`"fourier_record"` is omitted: F6 is H(0) of edge ball 0.
+
+```json
+{ "chart": "F6-012", "Mth": [16 hex], "r": hex, "k": [4 ints], "P": [36 hex], "U": [144 hex], "n": hex,
+  "label_radius": hex, "transfers": [ <group>, ... ], "info": { ... } }
+```
+
+| field | meaning |
+|---|---|
+| `chart` | `"F6-012"`: F6 = (e^{iπab/3}) at rows and columns (0,1,2); θ⁰ = (1,2,2,4)π/3 and φ⁰ = (3,4,5,0,2,4)π/3 for both sides, exact |
+| `Mth` | p = Mth w, with p = (u₁, u₂, u₃, y) the chart parameters of SPEC §10 |
+| `r` | the ball is ‖w‖₂ ≤ r |
+| `k` | C1e is certified on k₀×k₁×k₂×k₃ boxes of [−r, r]⁴ in w, keeping those that meet the open ball |
+| `P`, `U`, `n`, `label_radius` | the Stage C enclosure and call, exactly as for seed balls (§3) |
+| `transfers` | groups of kind `T1` only, boxes as in §4 in units u = w/r; the source matrix is H(Mth w) in the gauge of SPEC §10 (first row and column ones), taking the representative nearest P + U w |
+
+**Seed transfers into an edge ball (kind T3).**
+
+```json
+{ "kind": "T3", "target": e, "g": "id", "rows": [i0,i1,i2], "cols": [j0,j1,j2],
+  "hcols": [3 ints], "vrows": [3 ints], "wind": [4 ints], "wind_h": [6 ints], "wind_v": [6 ints], "boxes": [...] }
+```
+
+For seed ball j and every box β, let K = g·H_{o_j}(θ) for θ ∈ θ_j(β), with phases Q′ (as in T1).
+- **Corner seed** θ′ at the ordered corner (`rows`, `cols`), as in T1, plus 2π·`wind`.
+- **Horizontal side angles** with columns `hcols` (an order of Jᶜ): for a = 1, 2 (rows i_a) and b = 0, 1, 2 (columns
+  c_b = hcols[b]), φ′_h[3(a−1)+b] = Q′_{i_a c_b} − Q′_{i_a j0} − Q′_{i0 c_b} + Q′_{i0 j0}, plus 2π·`wind_h`.
+- **Vertical side angles** with rows `vrows` (an order of Iᶜ): for b = 1, 2 (columns j_b) and a = 0, 1, 2 (rows
+  r_a = vrows[a]), φ′_v[3(b−1)+a] = Q′_{r_a j_b} − Q′_{r_a j0} − Q′_{i0 j_b} + Q′_{i0 j0}, plus 2π·`wind_v`.
+- **y′** = −2 Im Ψ(K[I, Jᶜ]).
+- **The test.** p′ = (θ′₁ − π/3, θ′₂ − 2π/3, θ′₃ − 2π/3, y′) must satisfy ‖Mth_e⁻¹ p′‖₂ < r_e. The horizontal
+  unknowns (θ′₄ − 4π/3, φ′_h − φ⁰) must lie in the certifier's unique-solution tube of the augmented system at p′.
+  The vertical unknowns (θ′₄ − 4π/3, φ′_v − φ⁰) must lie in the tube of the transposed system at (p′₁, p′₃, p′₂, −p′₄).
+  The certifier establishes both tubes by its own Krawczyk over the enclosure of p′ on the box.
+- **Then** K ≅ H(p′) by uniqueness, so K's class is in the edge ball's image.
+
+The driver float-checks T3 on a 3⁴ grid of each box, with the same values, and with tube membership approximated by
+solving the augmented systems at p′ and comparing.
