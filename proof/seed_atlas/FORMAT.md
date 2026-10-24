@@ -176,11 +176,23 @@ For record s and every box of a group:
   θ′ ∈ int E_l, orientation o_l, matched.
 
 **Pending (sent to the coordinator, 24 Oct).** With only ‖ν‖ ≤ n_s, T1prime fails at every scale near F6:
-- ‖Mth_l⁻¹ L‖ ≈ 60, 25 and 12 at distances 0.125, 0.3 and 0.6 from F6, against n_s ≈ 2R².
+- ‖Mth_l⁻¹ L‖ ≈ 60, 25 and 12 at distances 0.125, 0.3 and 0.6 from F6, against n_s ≈ 2R² (0.0162 at R = 0.125).
 - SPEC §4's ‖Lν‖ ≤ 2n should read ‖Lν‖₂ ≤ 3n; per component, |(Lν)_k| ≤ 2n.
 
-The proposed refinement is a parametric Krawczyk enclosure of ν over the η-box. The final T1prime test will be stated
-here once decided.
+**Proposed refinement (needs the coordinator's approval before A, C or D implement it).** Enclose ν over the η-box by a
+parametric Krawczyk, in the same way C1 encloses the sides:
+1. **The system.** Write ν = N_b x, with N_b a basis of N (21 columns). Take
+   F(η, x) = Y·Φ(P_s + Tη + N_b x) ∈ ℝ²¹. Here Φ is the record's 30 off-diagonal Gram coordinates and Y is any real
+   21×30 matrix (≈ a left inverse of ∂Φ/∂x at the box centre).
+2. **The test.** Take a predictor x_p(η) (any quadratic Taylor model) and an inclusion set X = x_p(η) + [−ρ, ρ]²¹.
+   ρ must be large enough that X contains every x with ‖N_b x‖ ≤ n_s. Check componentwise:
+   sup_β |F(η, x_p(η))| + q ρ < ρ, with q the row sums of sup |I − Y ∂F/∂x| over X.
+3. **What it gives.** Every Hadamard of record s with η ∈ β has ν = N_b x with x ∈ x_p(η) + [−ρ₁, ρ₁],
+   ρ₁ = sup|F(η, x_p)| + q ρ ≪ n_s. The reason: it is a zero of F in X, and that zero is unique.
+4. **Then.** Q(η) = P_s + Tη + N_b x is a Taylor model in η. Apply the T1 test of §4 to it.
+
+The driver float-checks T1prime at the actual Hadamard points: ν(η) by Gauss–Newton in N, on a 3⁴ grid of each box,
+with a 3% margin. It does not use ‖ν‖ ≤ n_s.
 
 ## 7. What the driver guarantees (float self-check, not a proof)
 

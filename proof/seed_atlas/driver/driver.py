@@ -23,11 +23,11 @@ from c1 import Ball
 from makeball import make_ball, LADDER
 
 CHART_KEEP = 0.6          # stay in the parent's corner chart if its edge distance >= CHART_KEEP x the best corner's
-SPAWN_F = (1.3, 1.15, 1.0)
-MAX_SPAWN = 6             # proposals per cover result
-SPAWN_SEP = 0.7           # min angle (rad) between proposals of one cover
-DUP_V = 0.85              # a proposal point inside an existing/pending ellipsoid at this depth is not spawned
-PENDING_R = 0.08          # radius assumed for pending (not yet made) balls
+SPAWN_F = (1.0, 1.15, 1.3, 1.45)
+MAX_SPAWN = 4             # proposals per cover result
+SPAWN_SEP = 1.0           # min angle (rad) between proposals of one cover
+DUP_V = 0.9               # a proposal point inside an existing/pending ellipsoid at this depth is not spawned
+PENDING_R = 0.1           # radius assumed for pending (not yet made) balls
 MAX_COVERS = 40
 
 F6PHI = np.array([[2 * math.pi * ((j * k) % 6) / 6 for k in range(6)] for j in range(6)])
@@ -72,8 +72,10 @@ def choose_chart(Qpt, parent_same=True):
     return (SG.G4[c['g'][ib]], tuple(int(x) for x in c['rows'][ib]), tuple(int(x) for x in c['cols'][ib]), float(c['edge'][ib]))
 
 
-def proposals(ball, j, failed, tries, idx=None):
-    """Spawn proposals for the uncovered boxes: well-separated directions, the worst first."""
+def proposals(ball, j, failed, tries, idx=None, snap=None):
+    """Spawn proposals for the uncovered boxes: well-separated directions, the worst first.  Along each direction d the
+    centre is put at f r d, f in SPAWN_F, choosing the f that keeps it furthest from the existing centres of this
+    chart (in ball j's w units), with the uncovered sphere point at most (f - 1) r <= 0.6 r from it."""
     if not failed: return []
     lo, hi = CV.box_lohi(np.array([f[0] for f in failed]), np.array([f[1] for f in failed]))
     d = (lo + hi) / 2; d /= np.linalg.norm(d, axis=1)[:, None]
@@ -82,27 +84,34 @@ def proposals(ball, j, failed, tries, idx=None):
     for i in order:
         if all(np.arccos(np.clip(d[i] @ d[k], -1, 1)) > SPAWN_SEP for k in chosen): chosen.append(i)
         if len(chosen) >= MAX_SPAWN: break
+    Wc = None
+    if snap is not None and len(snap['r']):
+        Wc = SG.wrap(snap['theta0'] - ball.theta0) @ ball.Minv.T                  # other centres in j's w units
+        Wc = Wc[np.linalg.norm(Wc, axis=1) < 4 * ball.r]
     out = []
     for i in chosen:
         key = tuple(np.round(d[i], 1))
         k0 = tries.get(key, 0)
-        for f in SPAWN_F[min(k0, len(SPAWN_F) - 1):]:
-            w = f * ball.r * d[i]
-            Q, ph, pv, ok = ball.Q_at(w[None])
-            if not ok[0]: continue
-            if idx is not None and f > SPAWN_F[-1] and len(idx.query(SG.census(Q[0].reshape(6, 6))['seed'], 0.9)[0]):
-                continue                                    # already inside a ball: spawn nearer the sphere
-            ch = choose_chart(Q[0], parent_same=(k0 < 2))
-            if ch is None: continue
-            g, rows, cols, edge = ch
-            th, phh, phv = SG.corner_split(Q[0].reshape(6, 6), g, rows, cols)
-            try:
-                nb = Ball(th, phh, phv)
-            except Exception:
-                continue
-            out.append(dict(Q=Q[0], theta=th, phih=phh, phiv=phv, Minv=nb.Minv, chart=(g, rows, cols), edge=edge,
-                            parent=j, f=f, key=key, rmax=LADDER[0], hint=(ball.r, ball.label)))
-            break
+        fs = SPAWN_F if k0 == 0 else (1.0,)
+        ws = np.array([f * ball.r * d[i] for f in fs])
+        Q, ph, pv, ok = ball.Q_at(ws)
+        best = None
+        for t, f in enumerate(fs):
+            if not ok[t]: continue
+            score = np.linalg.norm(Wc - ws[t], axis=1).min() if Wc is not None and len(Wc) else 9.0
+            if best is None or score > best[0] + 1e-12: best = (score, t, f)
+        if best is None: continue
+        _, t, f = best
+        ch = choose_chart(Q[t], parent_same=(k0 < 2))
+        if ch is None: continue
+        g, rows, cols, edge = ch
+        th, phh, phv = SG.corner_split(Q[t].reshape(6, 6), g, rows, cols)
+        try:
+            nb = Ball(th, phh, phv)
+        except Exception:
+            continue
+        out.append(dict(Q=Q[t], theta=th, phih=phh, phiv=phv, Minv=nb.Minv, chart=(g, rows, cols), edge=edge,
+                        parent=j, f=f, key=key, rmax=LADDER[0], hint=(ball.r, ball.label)))
     return out
 
 
@@ -136,7 +145,7 @@ def task_cover(j, ball, snap):
             if new:
                 found.update(new); cands = build(found)
                 leaves, failed = CV.cover(ball, cands)
-        props = proposals(ball, j, failed, snap.get('tries', {}).get(j, {}), idx) if failed else []
+        props = proposals(ball, j, failed, snap.get('tries', {}).get(j, {}), idx, snap) if failed else []
         groups = {}
         for (m, I, ci, N) in leaves:
             groups.setdefault((ci, N), []).append([m] + [int(x) for x in I])
@@ -274,8 +283,8 @@ def main():
     t_start = time.time(); last_save = time.time(); last_stat = time.time()
     _init()
 
-    from collections import deque
-    qcover, qmake = deque(), deque()
+    import heapq
+    qcover, qmake = [], []                 # heaps: covers by ball id, makes by parent id (older balls close first)
     snapc = {}
 
     def snap():
@@ -285,19 +294,27 @@ def main():
         d = dict(snapc['d']); d['tries'] = A.tries
         return d
 
-    def submit_make(spec):
-        qmake.append(spec)
+    prio = {}                              # pid -> best priority pushed (lazy heap: stale entries are skipped)
+    dispatched = set()
+
+    def submit_make(spec, pr=None):
+        pr = spec.get('parent', -1) if pr is None else pr
+        if spec['pid'] in dispatched or prio.get(spec['pid'], 10 ** 9) <= pr: return
+        prio[spec['pid']] = pr
+        heapq.heappush(qmake, (pr, spec['pid'], spec))
 
     def submit_cover(j):
-        A.status[j] = 'queued'; qcover.append(j)
+        A.status[j] = 'queued'; heapq.heappush(qcover, j)
 
     def dispatch():
         while len(futs) < a.workers + 2 and (qcover or qmake):
             if qcover:
-                j = qcover.popleft(); A.status[j] = 'covering'; A.ncover[j] += 1
+                j = heapq.heappop(qcover); A.status[j] = 'covering'; A.ncover[j] += 1
                 futs[ex.submit(task_cover, j, A.balls[j], snap())] = ('cover', j)
             else:
-                spec = qmake.popleft()
+                pr, pid, spec = heapq.heappop(qmake)
+                if pid in dispatched or prio.get(pid) != pr: continue
+                dispatched.add(pid)
                 futs[ex.submit(task_make, spec)] = ('make', spec['pid'])
 
     if not A.balls:
@@ -427,7 +444,9 @@ def main():
                     if pidx is not None:
                         qi, bl, _, _ = pidx.query(seeds, DUP_V)
                         if len(bl):
-                            deps.update(plist[k]['pid'] for k in set(bl.tolist())); continue
+                            for k in set(bl.tolist()):
+                                deps.add(plist[k]['pid']); submit_make(plist[k], pr=j)      # inherit j's priority
+                            continue
                     p['pid'] = next_pid[0]; next_pid[0] += 1
                     pending[p['pid']] = p; submit_make(p); deps.add(p['pid']); spawned += 1
                     pidx, plist = pending_index()

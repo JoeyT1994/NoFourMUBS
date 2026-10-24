@@ -10,7 +10,7 @@ Records: the F6 record contains F6, and Stage C passes at R (with --stagec); its
 record_boundary.py.
 Usage: selfcheck.py CERT.json.gz [-j N] [--stagec] [--lo L --hi H]
 """
-import argparse, os, sys, time, warnings
+import argparse, itertools, os, sys, time, warnings
 import numpy as np
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
@@ -80,6 +80,42 @@ def check_seed(j, stagec=False):
     return out
 
 
+def check_record(d, k=3):
+    """F6 record: centre is F6 (to rounding), F6 inside, boundary shell covered, every T1prime box passes the float
+    test at a k^4 grid of the actual Hadamard points with the stored winding."""
+    import record_boundary as RB
+    errs = []
+    r0 = d['records'][d['fourier_record']]
+    rec = RB.F6Record(fh(r0['R']), fh(r0['label_radius']))
+    phi = np.array([fh(x) for x in r0['phi']]).reshape(6, 6)
+    if np.abs(SG.wrap(phi - RB.F6PHI)).max() > 1e-12: errs.append('record centre is not F6')
+    if fh(r0['eta_scale']) < rec.rH: errs.append('eta_scale < r_H')
+    rec.eta_scale = fh(r0['eta_scale'])
+    S = _C['seeds']
+    leaves = []; nbox = 0
+    for gr in r0['boundary']:
+        if gr['kind'] != 'T1prime': errs.append('record target kind %s' % gr['kind']); continue
+        t = gr['target']
+        cand = RB.RecCand(('T1prime', t, gr['g'], tuple(gr['rows']), tuple(gr['cols'])), dict(theta0=S[t].theta0, Minv=S[t].Minv, r=S[t].r))
+        boxes = np.array(gr['boxes'], int).reshape(-1, 5); nbox += len(boxes)
+        leaves += [(int(x[0]), x[1:]) for x in boxes]
+        for mm in np.unique(boxes[:, 0]):
+            sel = boxes[:, 0] == mm
+            N = np.broadcast_to(np.array(gr['wind'], float), (sel.sum(), 4))
+            ok, _, _ = RB.rec_test(rec, cand, int(mm), boxes[sel, 1:], k=k, N=N)
+            if not ok.all(): errs.append('T1prime box fails (target %d)' % t)
+    # coverage of the shell (float shell test, exact dyadic traversal)
+    Sset = set((m,) + tuple(int(x) for x in I) for (m, I) in leaves)
+    stack = [(0, (0, 0, 0, 0))]
+    while stack:
+        m, I = stack.pop()
+        if (m,) + I in Sset or not RB.shell_meets(rec, m, np.array([I]))[0]: continue
+        if m >= d['max_level']: errs.append('shell not covered near %s' % ((m, I),)); break
+        for off in itertools.product((0, 1), repeat=4):
+            stack.append((m + 1, tuple(2 * i + o for i, o in zip(I, off))))
+    return errs, nbox
+
+
 def _work(args):
     return check_seed(*args)
 
@@ -107,4 +143,8 @@ if __name__ == '__main__':
         if r['errors']:
             bad += 1; print('SEED %d FAIL: %s' % (r['j'], '; '.join(r['errors'][:5])), flush=True)
     print('seeds %d, failures %d, boxes %s, max n_check / n = %.3f, %.0f s' % (len(res), bad, tot, worst, time.time() - t0))
+    if a.lo == 0 and a.hi is None:
+        errs, nb = check_record(load(a.cert))
+        print('F6 record: %d boundary boxes, %s' % (nb, 'PASS' if not errs else 'FAIL: ' + '; '.join(errs[:5])))
+        bad += bool(errs)
     sys.exit(1 if bad else 0)
