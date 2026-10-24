@@ -37,7 +37,10 @@ python3 proof/seed_atlas/cert/tests/run_tests.py
 
 **C1** (`certify_c1`):
 - Mth is certified invertible (Arb inverse).
-- The k⁴ boxes of [−r, r]⁴ are taken, dropping a box only if it is exactly certified to miss the ball.
+- Of the k⁴ boxes of [−r, r]⁴, those meeting the open ball are kept (exact rational test). They cover the closed
+  ball, since every point of it is a limit of interior points and the finitely many boxes are closed. For k = 4 this
+  drops the 16 corner boxes that touch the ball at one vertex; they lie furthest out, and keeping them cost about 7%
+  on n_cert.
 - On each kept box:
   - **θ, E, G_h, G_v** as Taylor models.
   - **Side tubes.** For each side, a parametric Krawczyk test with scalar ρ, as in the SPEC: b + qρ < ρ, certified.
@@ -119,7 +122,7 @@ row sums of |I − YJ| are 1.1–2.3 on level-2 to level-4 boxes. Hence the 2-no
 | check | cost |
 |---|---|
 | C1, k = 3 | about 0.25 s per ball (81 boxes) |
-| C1, k = 4 | about 0.85 s per ball (256 boxes, 3.3 ms per box) |
+| C1, k = 4 | about 0.85–1.3 s per ball (240 boxes, 3.5–5.5 ms per box) |
 | Stage C on the test balls (r = 0.02 to 0.08) | 0.1 to 0.3 s |
 | T0 and corner-symmetry T1 | about 40 µs per box |
 | general T1 and T2 | about 5 ms per box (one C1 box each) |

@@ -463,14 +463,17 @@ def representative(ball, Q, wcf):
 
 # ======================================================================================== claim C1
 def ball_boxes(r, k):
-    """The boxes of [-r, r]^4 (k per axis) that may meet the ball ||w|| <= r: exact rational test (a box is dropped
-    only if min ||w||^2 over it is > r^2).  Returns (index tuples, wc arb (B, 4), h arb (B, 4), wc float)."""
+    """The closed boxes of [-r, r]^4 (k per axis) that meet the OPEN ball ||w|| < r: min ||w||^2 over the box < r^2,
+    decided in exact rationals.  Their union contains the closed ball: for ||w|| <= r, the points (1 - 1/m) w lie in
+    the open ball, hence each in some kept box; one of the finitely many kept boxes contains infinitely many of them,
+    and it is closed, so it contains w.  (Boxes meeting the ball in boundary points only, e.g. the 16 corner boxes for
+    k = 4 that touch it at one vertex, are not needed.)  Returns (index tuples, wc arb (B, 4), h arb (B, 4), wc float)."""
     rq = Fr(r); hq = rq / k
     keep = []
     for idx in itertools.product(range(k), repeat=4):
         cq = [-rq + (2 * i + 1) * hq for i in idx]
         dmin = sum(max(abs(c) - hq, Fr(0)) ** 2 for c in cq)
-        if dmin <= rq * rq: keep.append(idx)
+        if dmin < rq * rq: keep.append(idx)
     ra = arb(r)
     wc = np.array([[ra * (2 * i + 1 - k) / k for i in idx] for idx in keep], dtype=object).reshape(len(keep), 4)
     h = np.full((len(keep), 4), ra / k, dtype=object)

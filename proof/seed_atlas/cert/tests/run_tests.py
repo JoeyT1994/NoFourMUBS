@@ -1,7 +1,7 @@
 """Tests of the seed-atlas certifier (proof/seed_atlas/cert).  Exits nonzero on any failure.
 
   python3 proof/seed_atlas/cert/tests/run_tests.py            all tests (about a minute; Stage C is the slow one)
-  python3 proof/seed_atlas/cert/tests/run_tests.py tm c1      a subset: tm, c1, sampling, stagec, transfers, record,
+  python3 proof/seed_atlas/cert/tests/run_tests.py tm c1      a subset: tm, boxes, c1, sampling, stagec, transfers, record,
                                                               negative, t1prime_f6, global_, certificate
 
 Positive tests compare with the float prototype (explorations/seed_balls): the certified n must be >= the sampled
@@ -9,7 +9,7 @@ true remainder and within 1.5x of the prototype's Taylor-model bound on the same
 datum at a time (n, r, P, U, theta0, Mth, orientation, transfer target, winding, corner, group element, boxes) and
 require a rejection.
 """
-import copy, gzip, json, math, os, random, sys, tempfile, time, warnings
+import copy, gzip, itertools, json, math, os, random, sys, tempfile, time, warnings
 warnings.simplefilter('ignore')
 import numpy as np
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -131,6 +131,25 @@ def test_c1():
         check('c1 ball %d passes' % i, out['ok'], info)
         check('c1 ball %d: n_cert >= sampled remainder' % i, out['n_cert'] >= b['n_sample'])
         check('c1 ball %d: n_cert <= 1.5 x prototype TM bound' % i, out['n_cert'] <= 1.5 * b['n_tm'])
+
+
+def test_boxes():
+    """C1 keeps the closed boxes meeting the open ball; they still cover the closed ball (sphere points and the vertices
+    where the dropped corner boxes touch it, in exact rationals)."""
+    from fractions import Fraction as Fr
+    rng = np.random.default_rng(3)
+    for k in (3, 4, 5, 6):
+        r = 0.08
+        keep, wc, h, wcf = S.ball_boxes(r, k)
+        rq = Fr(r); hq = rq / k
+        boxes = [[(-rq + 2 * i * hq, -rq + 2 * (i + 1) * hq) for i in idx] for idx in keep]
+        pts = [[Fr(float(x)) for x in rq * 0 + np.array([0.0, 0, 0, 0])]]
+        pts += [[s * rq / 2 for s in sg] for sg in itertools.product((1, -1), repeat=4)]          # touching vertices (k = 4)
+        for _ in range(300):
+            d = rng.normal(size=4); d = d / np.linalg.norm(d) * r * (1 - 1e-12)
+            pts.append([Fr(float(x)) for x in d])
+        ok = all(any(all(lo <= x <= hi for x, (lo, hi) in zip(p_, bx)) for bx in boxes) for p_ in pts if sum(x * x for x in p_) <= rq * rq)
+        check('boxes: k = %d keeps %d of %d and covers the ball' % (k, len(keep), k ** 4), ok)
 
 
 def test_sampling():
@@ -462,7 +481,7 @@ def test_t1prime_f6():
     rejects("T1' near F6: the antipodal box rejected", lambda: S.check_T1prime_group(rd, ball, 'id', I, J, w, xf, hf_, xff))
 
 
-TESTS = dict(tm=test_tm, c1=test_c1, sampling=test_sampling, stagec=test_stagec, transfers=test_transfers,
+TESTS = dict(tm=test_tm, boxes=test_boxes, c1=test_c1, sampling=test_sampling, stagec=test_stagec, transfers=test_transfers,
              record=test_record, negative=test_negative, t1prime_f6=test_t1prime_f6, global_=test_global, certificate=test_certificate)
 
 if __name__ == '__main__':
