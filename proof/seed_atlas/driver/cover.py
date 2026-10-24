@@ -115,6 +115,17 @@ def children(I):
 SG_VERT = np.array(list(itertools.product((0, 1), repeat=4)), float)     # 16 x 4 selector of lo/hi
 
 
+def sphere_point(lo, hi):
+    """A point of the box near the unit sphere: the radial projection of the centre, clipped into the box, then
+    pushed along its own ray to the sphere when that stays in the box.  Used to judge whether an uncovered box is a
+    gap (its sphere part lies in no target) or only needs subdividing."""
+    c = (lo + hi) / 2
+    p = np.clip(c / np.linalg.norm(c, axis=1)[:, None], lo, hi)
+    q = p / np.linalg.norm(p, axis=1)[:, None]
+    inside = np.all((q >= lo - 1e-12) & (q <= hi + 1e-12), axis=1)
+    return np.where(inside[:, None], q, p)
+
+
 # ------------------------------------------------------------------ candidates
 def discover(ball, j, index, rec_targets=(), nrand=96, seed=0, vmax=1.0, extra_dirs=None, level_dirs=True):
     """Targets containing some sampled sphere point.  Returns dict desc -> best value, desc = (kind, target, g, rows, cols)
@@ -199,8 +210,9 @@ def lin_test(ball, cand, m, I, N=None):
     if N is None: N = np.round((cand.th0 - thc) / TWO_PI)
     x = (thp + TWO_PI * N[:, None, :] - cand.th0) @ cand.Minv.T
     vmax = np.linalg.norm(x, axis=2).max(1)
-    vc = np.linalg.norm((thc + TWO_PI * N - cand.th0) @ cand.Minv.T, axis=1)
-    return vmax < cand.r * (1 - LIN_MARGIN), vc / cand.r, N
+    ths = (ball.theta0 + (ball.r * sphere_point(lo, hi)) @ ball.Mth.T) @ cand.A.T
+    vs = np.linalg.norm((ths + TWO_PI * N - cand.th0) @ cand.Minv.T, axis=1)
+    return vmax < cand.r * (1 - LIN_MARGIN), vs / cand.r, N
 
 
 def orient_ok(Qc, g, rows, cols):
@@ -211,9 +223,11 @@ def orient_ok(Qc, g, rows, cols):
     return (np.sign(SG.psi(Bs).imag) > 0) & (np.sign(SG.psi(Vs).imag) < 0)
 
 
-def nl_test(Q, hw, cand, N=None):
-    """(pass mask, centre value, N) for a general T1 or T2 candidate, from the box TMs Q (B, 36)."""
+def nl_test(Q, hw, cand, N=None, du=None):
+    """(pass mask, value at the sphere point, N) for a general T1 or T2 candidate, from the box TMs Q (B, 36).
+    du (B, 4): the sphere point minus the box centre, in w (default 0: the centre)."""
     C = Q.C.real; G = Q.G.real; Hq = Q.Hq.real; rho = Q.Rho
+    if du is None: du = np.zeros((len(C), 4))
     if cand.kind == 'T1':
         L = cand.Lg
         tc = C @ L.T
@@ -224,7 +238,7 @@ def nl_test(Q, hw, cand, N=None):
         rr = rho @ (np.abs(cand.Minv) @ np.abs(L)).T
         sup = M.sup_norm(a, b, H, rr, hw)
         ok = (sup * NL_SLACK < cand.r) & orient_ok(C, cand.g, cand.rows, cand.cols)
-        return ok, np.linalg.norm(a, axis=1) / cand.r, N
+        return ok, np.linalg.norm(a + np.einsum('bkj,bj->bk', b, du), axis=1) / cand.r, N
     W = C @ cand.PG.T - cand.Pt
     W6 = W.reshape(-1, 6, 6)
     dep = W6 - W6[:, :1, :] - W6[:, :, :1] + W6[:, :1, :1]
@@ -234,7 +248,7 @@ def nl_test(Q, hw, cand, N=None):
     b = np.einsum('kn,bnj->bkj', Mi, G); H = np.einsum('kn,bnjl->bkjl', Mi, Hq)
     rr = rho @ np.abs(cand.PG).T
     sup = M.sup_norm(a, b, H, rr, hw)
-    return sup * NL_SLACK < cand.R, np.linalg.norm(a, axis=1) / cand.R, N
+    return sup * NL_SLACK < cand.R, np.linalg.norm(a + np.einsum('bkj,bj->bk', b, du), axis=1) / cand.R, N
 
 
 def cover(ball, cands, max_level=MAX_LEVEL, chunk=128):
@@ -256,11 +270,12 @@ def cover(ball, cands, max_level=MAX_LEVEL, chunk=128):
         if len(rest) and nl:
             lo, hi = box_lohi(np.full(len(rest), m), I[rest])
             wc = ball.r * (lo + hi) / 2; hw = ball.r * (hi - lo) / 2
+            du = ball.r * sphere_point(lo, hi) - wc
             for s in range(0, len(rest), chunk):
                 sl = rest[s:s + chunk]
                 Q, okq, _ = box_Q(ball, wc[s:s + chunk], hw[s:s + chunk])
                 for ci in nl:
-                    ok, vc, N = nl_test(Q, hw[s:s + chunk], cands[ci])
+                    ok, vc, N = nl_test(Q, hw[s:s + chunk], cands[ci], du=du[s:s + chunk])
                     ok &= okq
                     best[sl] = np.minimum(best[sl], np.where(np.isfinite(vc), vc, 9.0))
                     new = ok & (who[sl] < 0)

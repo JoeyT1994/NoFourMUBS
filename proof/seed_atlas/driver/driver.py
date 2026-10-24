@@ -78,7 +78,7 @@ def proposals(ball, j, failed, tries, idx=None, snap=None):
     chart (in ball j's w units), with the uncovered sphere point at most (f - 1) r <= 0.6 r from it."""
     if not failed: return []
     lo, hi = CV.box_lohi(np.array([f[0] for f in failed]), np.array([f[1] for f in failed]))
-    d = (lo + hi) / 2; d /= np.linalg.norm(d, axis=1)[:, None]
+    d = CV.sphere_point(lo, hi); d /= np.linalg.norm(d, axis=1)[:, None]
     order = np.argsort([-f[2] for f in failed])
     chosen = []
     for i in order:
@@ -98,6 +98,7 @@ def proposals(ball, j, failed, tries, idx=None, snap=None):
         best = None
         for t, f in enumerate(fs):
             if not ok[t]: continue
+            if idx is not None and len(idx.query(SG.census(Q[t].reshape(6, 6))['seed'], DUP_V)[0]): continue
             score = np.linalg.norm(Wc - ws[t], axis=1).min() if Wc is not None and len(Wc) else 9.0
             if best is None or score > best[0] + 1e-12: best = (score, t, f)
         if best is None: continue
@@ -138,7 +139,7 @@ def task_cover(j, ball, snap):
         if failed:
             # loop closure: look for targets at the uncovered boxes themselves, then retry once
             lo, hi = CV.box_lohi(np.array([f[0] for f in failed]), np.array([f[1] for f in failed]))
-            dirs = (lo + hi) / 2
+            dirs = CV.sphere_point(lo, hi)
             if len(dirs) > 256: dirs = dirs[np.random.default_rng(j).choice(len(dirs), 256, replace=False)]
             more = CV.discover(ball, j, idx, rec_targets=[(0, recs[0])], seed=j + 7, nrand=0, extra_dirs=dirs, level_dirs=False)
             new = {d: v for d, v in more.items() if d not in found}
@@ -271,7 +272,8 @@ def main():
         m = min(len(A.balls), len(A.status), len(A.ncover), len(A.parent))       # a save may interrupt add()
         A.balls, A.status, A.ncover, A.parent = A.balls[:m], A.status[:m], A.ncover[:m], A.parent[:m]
         for j, s in enumerate(A.status):
-            if s in ('covering', 'waiting', 'queued'): A.status[j] = 'open'
+            if s in ('covering', 'waiting', 'queued', 'stalled'): A.status[j] = 'open'
+            if s == 'failed': A.status[j] = 'open'; A.ncover[j] = 0; A.log_fail.pop(j, None)
         log('resumed', len(A.balls), 'balls,', sum(s == 'closed' for s in A.status), 'closed')
     else:
         import driver as DRV                     # pickle as driver.Atlas, not __main__.Atlas
@@ -364,8 +366,16 @@ def main():
         log('RECORD cover: %d candidates, %d shell boxes in %d chunks' % (len(descs), len(I), len(chunks)))
 
     dispatch()
+    stall_rounds = [0]
     while futs or qcover or qmake or rphase['state'] == 'idle':
         if not futs and not qcover and not qmake:
+            stalled = [j for j, s in enumerate(A.status) if s == 'stalled']
+            if stalled and stall_rounds[0] < 3:
+                stall_rounds[0] += 1; log('retrying %d stalled balls' % len(stalled))
+                for j in stalled: submit_cover(j)
+                dispatch(); continue
+            for j in stalled:
+                A.status[j] = 'failed'; A.log_fail[j] = 'stalled'; log('FAILED', j, 'stalled')
             if rphase['state'] == 'idle' and A.record is None and not any(s in ('open', 'queued', 'covering', 'waiting') for s in A.status):
                 if A.record_rounds >= 12: log('RECORD: giving up after 12 rounds'); break
                 record_phase_start()
@@ -459,9 +469,11 @@ def main():
                     p['pid'] = next_pid[0]; next_pid[0] += 1
                     pending[p['pid']] = p; submit_make(p); deps.add(p['pid']); spawned += 1
                     pidx, plist = pending_index()
-                if A.ncover[j] >= MAX_COVERS or not res['props']:
+                if A.ncover[j] >= MAX_COVERS:
                     A.status[j] = 'failed'; A.log_fail[j] = 'covers %d props %d failed boxes %d' % (A.ncover[j], len(res['props']), len(res['failed']))
                     log('FAILED', j, A.log_fail[j]); continue
+                if not res['props'] and not nnew:
+                    A.status[j] = 'stalled'; log('stalled', j, 'failed boxes', len(res['failed'])); continue
                 log('cover', j, 'failed boxes', len(res['failed']), 'props', len(res['props']), 'spawned', spawned,
                     'deps', len(deps), 'new since snap', nnew, '%.0fs' % res['s'])
                 real = set(d for d in deps if d is not None)
@@ -478,6 +490,8 @@ def main():
             last_stat = now
         if now - last_save > 600:
             save(A, state); last_save = now
+        if os.path.exists(os.path.join(a.out, 'STOP')):
+            os.remove(os.path.join(a.out, 'STOP')); log('STOP file: saving and leaving'); break
         if (now - t_start) / 3600 > a.hours:
             log('time limit reached'); break
     save(A, state)
