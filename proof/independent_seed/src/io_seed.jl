@@ -17,8 +17,7 @@
 #   per edge ball (SPEC §10):
 #     EDGE <i> <k0> <k1> <k2> <k3> <ngroups>
 #     MTH <16>   R <1>   N <1>   LR <1>   P <36>   U <144>
-#     GRAPH <eta_radius|-> <R|-> <n|-> <sigma_D|-> <has phi 0/1> <has Tint 0/1> <nbox>   [PHI <36>]   [TINT <144>]
-#     BOXES <5 nbox ints>
+#     GRAPH <R|-> <sigma|-> <sigma_D|-> <has phi 0/1> <has Tint 0/1>   [PHI <36>]   [TINT <144>]
 #     groups as above (kind T1)
 #   TAO <R> <label_radius>   or   TAO none
 #   END
@@ -58,13 +57,14 @@ struct SRecord
     groups::Vector{Group}
 end
 
-struct GraphData
-    eta::Float64; R::Float64; n::Float64; sigmaD::Float64        # NaN: absent
+struct GraphData                  # SPEC §10.2 "graph" {R, sigma} and the edge's sigma_D (NaN: absent); phi / Tint optional
+    R::Float64
+    sigma::Float64
+    sigmaD::Float64
     phi::Union{Nothing,Vector{Float64}}
     Tint::Union{Nothing,Matrix{Int64}}
-    boxes::Vector{NTuple{5,Int}}
 end
-GraphData() = GraphData(NaN, NaN, NaN, NaN, nothing, nothing, NTuple{5,Int}[])
+GraphData() = GraphData(NaN, NaN, NaN, nothing, nothing)
 
 struct EdgeBall
     idx::Int
@@ -188,22 +188,15 @@ function read_seed_certificate(path::AbstractString)
         (r > 0 && n >= 0 && lr > 0) || error("edge ball $idx: r, n, label_radius must be positive")
         P = hx.(expect(nextline(), "P", 36))
         Uv = hx.(expect(nextline(), "U", 144)); U = [Uv[4(e-1)+j] for e in 1:36, j in 1:4]
-        gl = expect(nextline(), "GRAPH", 7)
+        gl = expect(nextline(), "GRAPH", 5)
         opt(x) = x == "-" ? NaN : hx(x)
-        geta, gR, gn, gs_ = opt.(gl[1:4])
-        all(x -> isnan(x) || x > 0, (geta, gR, gn, gs_)) || error("edge ball $idx: graph radii and sigma_D must be positive")
-        gphi = gl[5] == "1" ? hx.(expect(nextline(), "PHI", 36)) : nothing
-        gti = gl[6] == "1" ? (t = parse.(Int64, expect(nextline(), "TINT", 144)); [t[4(e-1)+k] for e in 1:36, k in 1:4]) : nothing
-        nbg = parse(Int, gl[7])
-        bl = nextline(); (bl[1] == "BOXES" && length(bl) == 5nbg + 1) || error("edge ball $idx: graph boxes")
-        bv = parse.(Int, bl[2:end])
-        gboxes = [(bv[5j-4], bv[5j-3], bv[5j-2], bv[5j-1], bv[5j]) for j in 1:nbg]
-        for b in gboxes
-            (0 <= b[1] <= MAXLEVEL && all(0 <= b[a] < (1 << b[1]) for a in 2:5)) || error("edge ball $idx: bad graph box $b")
-        end
+        gR, gsig, gsD = opt.(gl[1:3])
+        all(x -> isnan(x) || x > 0, (gR, gsig, gsD)) || error("edge ball $idx: graph R, sigma and sigma_D must be positive")
+        gphi = gl[4] == "1" ? hx.(expect(nextline(), "PHI", 36)) : nothing
+        gti = gl[5] == "1" ? (t = parse.(Int64, expect(nextline(), "TINT", 144)); [t[4(e-1)+k] for e in 1:36, k in 1:4]) : nothing
         gs = [read_group() for _ in 1:ng]
         all(g -> g.kind == :T1, gs) || error("edge ball $idx: a sphere transfer must be T1")
-        push!(edges, EdgeBall(idx, k, Mth, r, n, lr, P, U, gs, GraphData(geta, gR, gn, gs_, gphi, gti, gboxes)))
+        push!(edges, EdgeBall(idx, k, Mth, r, n, lr, P, U, gs, GraphData(gR, gsig, gsD, gphi, gti)))
     end
     t = nextline()
     (t[1] == "TAO" && length(t) in (2, 3)) || error("expected TAO")

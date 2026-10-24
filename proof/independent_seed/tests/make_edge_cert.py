@@ -10,8 +10,8 @@ float prototypes (untrusted; they only make test inputs).  Usage: .venv/bin/pyth
              FORMAT.md §8.
   seed 1  B: H(p_B), ||w_B|| = r (on the edge ball's sphere), at its best corner, r = 0.02 (T1 target; no transfers).
   records: none; Tao's record as the top-level "tao" (R = 0.08, label radius 0.03).
-  graph (SPEC §10.1): the F6 record of the current atlas (877: phi, Tint), R = 0.1, n = 0.03 (above the record's normal
-  bound at R = 0.1), eta_radius = 0.2, its eta-ball covered by the level-2 boxes that meet it; sigma_D = 0.1."""
+  graph (SPEC §10.2): R = 0.45, sigma = 1.7 (sigma_min(J(0)|_N) = sqrt 3 at F6); sigma_D = 0.15 (SPEC §10.1; eta in
+  the basis of return U eq. (13))."""
 import gzip, itertools, json, os, subprocess, sys, tempfile
 import numpy as np
 import seedgen as G
@@ -91,11 +91,8 @@ def main(out):
     eb['transfers'] = [dict(kind='T1', target=1, g='id', rows=list(Ib), cols=list(Jb),
                             wind=wind4(corner(Qc, list(Ib), list(Jb)), B).tolist(), boxes=near)]
     print('edge ball: %d sphere boxes into seed B' % len(near))
-    r877 = G.atlas_records()[877]
-    ball = lambda lo, hi: np.sum(np.maximum(0, np.maximum(lo, -hi)) ** 2) <= 1
-    eb['graph'] = dict(eta_radius=hx(0.2), R=hx(0.1), n=hx(0.03), phi=r877['phi'], Tint=r877['Tint'],
-                       boxes=level_boxes(2, ball))
-    eb['sigma_D'] = hx(0.1)
+    eb['graph'] = dict(R=hx(0.45), sigma=hx(1.7))
+    eb['sigma_D'] = hx(0.15)
     cert = {'format': 'seed-atlas-v1', 'max_level': 3, 'seeds': [A, B], 'edge': [eb], 'records': [],
             'tao': {'R': hx(0.08), 'label_radius': hx(0.03)},
             'info': {'note': 'edge-ball test certificate (proof/independent_seed/tests/make_edge_cert.py); not an atlas'}}

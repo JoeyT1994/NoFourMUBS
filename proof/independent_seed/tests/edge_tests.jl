@@ -8,7 +8,8 @@
 #     solutions within the enclosure, t = t', a Hadamard matrix (H H* = 6 I), and phases inside the 36 models.
 # (a2) The chart derivative of SPEC §10.1 (D): finite differences of eta(H(p(w))) at random points of random C1e boxes lie
 #      inside the certified enclosure of d eta/dw.
-# (b) Negative tests: corrupted edge-ball data, T3 and T1 data, and (G)/(D) data must be rejected; controls must pass.
+# (b) Negative tests: corrupted edge-ball data, T3 and T1 data, and (G)/(D) data (SPEC §10.1-10.2) must be rejected;
+#     controls must pass.
 using IntervalArithmetic, LinearAlgebra, Printf, Random
 include(joinpath(@__DIR__, "..", "src", "IndepSeed.jl"))
 using .IndepSeed
@@ -94,7 +95,7 @@ function Qfloat(eb, root, w)
 end
 let gc = S.graph_ctx(eb0, eb0.graph), root = S.edge_root(eb0), npts = 0, worst = 0.0
     Tp = mid.(gc.Tplus)
-    eta(w) = (X = S.galign(Qfloat(eb0, root, w), gc); X = X .- gc.PF; X .-= 2π .* round.(X ./ (2π));
+    eta(w) = (X = S.galign(Qfloat(eb0, root, w), gc); X = X .- mid.(gc.PF); X .-= 2π .* round.(X ./ (2π));
               Tp * vec(permutedims(S.IA.hproj(X))))
     for lf in LEAVES[randperm(rng, length(LEAVES))[1:5]]
         em = S.edge_box_map(eb0, lf.wc, lf.h, S.edge_guess(root, lf.wc)...)
@@ -162,7 +163,12 @@ end
 gd0 = eb0.graph
 function graphcase(gd)
     r = S.check_graph(eb0, LEAVES, gd)
-    (r.ok, r.ok ? @sprintf("sigma >= %.4g, image ||eta|| <= %.4g, ||delta|| <= %.4g, %d (G) boxes, alpha <= %.3g", r.sigma, r.eta_sup, r.delta_sup, r.nboxes, r.alpha_max) : r.msg)
+    (r.ok, r.ok ? @sprintf("sigma(F6) >= %.5g, R_G = %.3g, sigma_D >= %.4g, image ||delta|| <= %.4g", r.sigma, r.RG, r.sigmaD, r.delta_sup) : r.msg)
+end
+# the atlas's F6 record (877), as written by tests/make_edge_cert.py into tests/data/f6_record_877.txt
+R877 = let l = readlines(joinpath(@__DIR__, "data", "f6_record_877.txt"))
+    phi = parse.(Float64, split(l[1])[2:end]); t = parse.(Int64, split(l[2])[2:end])
+    (phi=phi, Tint=[t[4(e-1)+k] for e in 1:36, k in 1:4])
 end
 gwith(; kw...) = with(gd0; kw...)
 g3 = C0.seeds[1].groups[1]
@@ -201,14 +207,15 @@ cases = Any[
     ("edge T1 rows swapped", false, () -> t1e(setedge(C0, with(eb0; groups=[with(gT1; rows=swap(gT1.rows, 2, 3))])))),
     ("edge T1 with g = conj", false, () -> t1e(setedge(C0, with(eb0; groups=[with(gT1; g=:conj)])))),
     ("edge T1 winding + 1", false, () -> t1e(setedge(C0, with(eb0; groups=[with(gT1; wind=gT1.wind .+ [1, 0, 0, 0])])))),
-    ("control: (G) and (D) with the F6 record's data (877), sigma_D = 0.1", true, () -> graphcase(gd0)),
+    ("control: (G) and (D) as given (R_G = 0.45, sigma = 1.7, sigma_D = 0.15)", true, () -> graphcase(gd0)),
     ("control: (G) and (D) with the defaults", true, () -> graphcase(S.GraphData())),
-    ("(D) sigma_D = 0.9", false, () -> graphcase(gwith(sigmaD=0.9))),
-    ("(D) eta_radius = 0.05 (the image is not inside)", false, () -> graphcase(gwith(eta=0.05))),
-    ("(D) R_G = 0.05 (the image is not inside)", false, () -> graphcase(gwith(R=0.05))),
-    ("(G) n_G = 1e-4 (below the normal bound at R_G)", false, () -> graphcase(gwith(n=1e-4))),
-    ("(G) one eta-box removed", false, () -> graphcase(gwith(boxes=gd0.boxes[2:end]))),
-    ("(G)/(D) phi[2,3] + 0.3", false, () -> graphcase(gwith(phi=[e == 9 ? gd0.phi[e] + 0.3 : gd0.phi[e] for e in 1:36]))),
+    ("control: (G) and (D) at the atlas's F6 record (877: phi, Tint)", true, () -> graphcase(S.GraphData(0.45, NaN, NaN, R877.phi, R877.Tint))),
+    ("(G) sigma = 1.8 (above sqrt 3)", false, () -> graphcase(gwith(sigma=1.8))),
+    ("(G) R_G = 0.5 (L R_G >= sigma = 1.7)", false, () -> graphcase(gwith(R=0.5))),
+    ("(G) R_G = 0.05 (the image is not inside)", false, () -> graphcase(gwith(R=0.05))),
+    ("(D) sigma_D = 0.5", false, () -> graphcase(gwith(sigmaD=0.5))),
+    ("control: centre 877 with phi[2,3] + 0.3 (the argument needs no Hadamard centre)", true, () -> graphcase(S.GraphData(0.45, NaN, NaN, [e == 9 ? R877.phi[e] + 0.3 : R877.phi[e] for e in 1:36], R877.Tint))),
+    ("(G) that centre with R_G = 0.2 (the image reaches 0.27)", false, () -> graphcase(S.GraphData(0.2, NaN, NaN, [e == 9 ? R877.phi[e] + 0.3 : R877.phi[e] for e in 1:36], R877.Tint))),
     ("edge sphere not covered (the test ball's boxes)", false, () -> (r = S.check_c2_edge(eb0, ctx(C0), S.edge_root(eb0)); (r.ok, r.msg))),
 ]
 nbad = 0

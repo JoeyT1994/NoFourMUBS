@@ -1,66 +1,94 @@
-# Openness at y = 0 (SPEC §10.1): the graph property (G) near F6 and the chart derivative (D) of an edge ball.
+# Openness at y = 0 (SPEC §10.1, §10.2): the graph property (G) near F6 and the chart derivative (D) of an edge ball.
 #
-# Data (an edge entry's "graph" and "sigma_D"; defaults when absent): the F6 record's centre P_F (phi) and exact frame
-# T_F (Tint), the eta-radius rho_G, the radius R_G and the normal radius n_G, the eta-boxes of (G), sigma_D.
-#   Defaults: P_F = the edge ball's P (F6 in the chart's gauge); Tint = round(2^30 hor(U)), the horizontal part of the
-#   edge ball's frame; R_G = n_G = 1.05 x the certified sup of ||delta|| over the edge image; rho_G = 1.05 x the
-#   certified sup of ||eta||; sigma_D = the certified minimum over the edge ball; the boxes = the checker's own cover.
-# Alignment: the chart's F6 = (e^{i pi ab/3}) is matched to P_F by the existing F6 search (IndepAtlas.nonempty_F6):
-#   delta(K) = hor(A(phases of K) + 2 pi N - P_F), A(X) = sign (tr ? X^T : X)[rp, cp], N an integer winding (chosen
-#   per C1e box from its phase models; any integer matrix is valid);
-#   eta(K) = T_F^+ delta(K), T_F^+ = G^{-1} T_F^T (exact, enclosed).
+# (G), by the mean value theorem (SPEC §10.2).  Let P_F be F6 (exactly: the chart's F6 = (e^{i pi ab/3}), enclosed in
+# intervals, unless the certificate gives phi), T_F a frame of the Hadamard tangent at F6 (default: the exact kernel of
+# return U eq. (13), f = (0, alpha, beta), g = (0, gamma, delta), as four integer matrices; or the certificate's Tint),
+# N = horizontal minus span T_F, J = Phi'.  If delta_1 = T eta + nu_1 and delta_2 = T eta + nu_2 (nu_i in N) are both
+# Hadamard with ||delta_i|| <= R_G, then 0 = (int_0^1 J(delta_2 + s(nu_1 - nu_2)) ds)(nu_1 - nu_2); every point of the
+# segment has norm <= R_G (the decomposition is orthogonal and the nu part is convex), and
+# ||(J(d) - J(0)) v|| <= L ||d|| ||v|| for horizontal v (L = 2 sqrt 3; derivation in normal_tube.jl), so
+# ||J-bar v|| >= (sigma - L R_G) ||v|| with sigma = sigma_min(J(0)|_N).  Hence for R_G < sigma / L, nu_1 = nu_2.
+# Checked here: sigma by an interval Cholesky at F6 (the certificate's "sigma" is verified, or the checker's own value is
+# used), L R_G < sigma, and the edge image strictly inside ||delta|| < R_G (delta = hor(A(Q) + 2 pi N - P_F)).
 #
-# (G) For every eta with ||eta|| <= rho_G, at most one nu in N_F with ||nu|| <= n_G makes e^{i(P_F + T_F eta + nu)}
-#     Hadamard.  Certified on eta-boxes covering the ball by the normal tube (normal_tube.jl) with the inclusion ball
-#     sized for ||nu|| <= n_G: its contraction gives uniqueness of the zero of Y Phi in the ball, and every such
-#     Hadamard nu is a zero there.  Also checked: every Hadamard e^{i(P_F + delta)}, delta horizontal, ||delta|| <= R_G,
-#     has ||nu|| <= n_G (trivial if n_G >= R_G, since ||nu|| <= ||delta||; otherwise by the record lemma at R_G).
-# (D) On every C1e leaf box, sigma_min(d eta(H(p(w)))/dw) >= sigma_D > 0, and the image lies strictly inside
-#     ||eta|| < rho_G, ||delta|| < R_G.  The derivative is enclosed by implicit differentiation in intervals over the
-#     box: dx/dp = -(dH/dx)^{-1} dH/dp on the tube's ranges (both augmented systems), then the phases of E, B, C, and
-#     d arg D = Im(dD/D) with dD = -(dC E* + C dE* + D dB*)(B*)^{-1}; sigma_min by an interval Cholesky of
-#     A^T A - sigma^2 I.  (The Taylor models' polynomial parts alone would not bound a derivative: their remainder
-#     need not be differentiable-small.)
+# (D) On every C1e leaf box, sigma_min(d eta(H(p(w)))/dw) >= sigma_D > 0 (eta = T_F^+ delta).  The derivative is
+#     enclosed by implicit differentiation in Taylor models (both augmented systems; then E, B, C, and d arg D by
+#     residual correction), aligned, projected and mapped by T_F^+ and Mth; sigma_min by Weyl's inequality.
+#
+# Defaults: R_G = 0.45 (SPEC §10.2), or 0.99 sigma / L if that is smaller; sigma = the certified value; sigma_D = the
+# certified minimum over the edge ball.  With phi given, the chart's F6 is aligned to it by the existing F6 search.
 
+const F6K = [mod(a * b, 6) for a in 0:5, b in 0:5]
+const L_LIP = 2 * sqrt(iv(3.0))
+
+"""The four integer matrices of return U eq. (13) (the tangent of the Hadamard set at F6, in the chart's arrangement):
+V_ij = 1_{i odd} f(j mod 3) + 1_{j odd} g(i mod 3), f = (0, alpha, beta), g = (0, gamma, delta)."""
+function f6_tangent_int()
+    V(f, g) = [(isodd(i) ? f[mod(j, 3)+1] : 0) + (isodd(j) ? g[mod(i, 3)+1] : 0) for i in 0:5, j in 0:5]
+    [V([0, 1, 0], [0, 0, 0]), V([0, 0, 1], [0, 0, 0]), V([0, 0, 0], [0, 1, 0]), V([0, 0, 0], [0, 0, 1])]
+end
 
 struct GraphCtx
-    PF::Matrix{Float64}
-    Tint::Matrix{Int64}
+    PF::Matrix{I64}              # F6 (the record centre), enclosed
     T36::Matrix{Int64}
     Ti::Matrix{I64}
     Tplus::Matrix{I64}           # 4 x 36, encloses G^{-1} T^T
     Tpn::Float64                 # >= ||T^+||_2
     sign::Int; tr::Bool; rp::Vector{Int}; cp::Vector{Int}
-    N::Matrix{Float64}
 end
 
-const F6K = [mod(a * b, 6) for a in 0:5, b in 0:5]
-
 function graph_ctx(eb::EdgeBall, gd::GraphData)
-    PF = gd.phi === nothing ? [eb.P[6(a-1)+b] for a in 1:6, b in 1:6] : [gd.phi[6(a-1)+b] for a in 1:6, b in 1:6]
+    if gd.phi === nothing
+        PF = [pi3(F6K[a, b]) for a in 1:6, b in 1:6]
+        sg, tr, rp, cp = 1, false, collect(1:6), collect(1:6)
+    else
+        Pf = [gd.phi[6(a-1)+b] for a in 1:6, b in 1:6]
+        PF = iv.(Pf)
+        ne = IA.nonempty_F6([IA.Rec(0, true, 10.0, 0.03, Pf, zeros(Int64, 36, 4), IA.Target[])], [1])
+        isempty(ne) && return nothing
+        _, _, _, _, sg, tr, rp0, cp0 = ne[1]
+        rp = rp0 .+ 1; cp = cp0 .+ 1
+    end
     if gd.Tint === nothing
-        Th = zeros(36, 4)
+        Vs = f6_tangent_int()
+        Tint = zeros(Int64, 36, 4)
         for k in 1:4
-            Th[:, k] = vec(permutedims(IA.hproj([eb.U[6(a-1)+b, k] for a in 1:6, b in 1:6])))
+            Y = tr ? permutedims(Vs[k]) : Vs[k]
+            Tint[:, k] = [sg * Y[rp[i], cp[j]] * 2^30 for i in 1:6 for j in 1:6]     # Tint is in units of 2^-30: T = hor(V)
         end
-        Tint = round.(Int64, Th .* 2.0^30)
     else
         Tint = gd.Tint
     end
     T36 = IA.frame_exact(Tint)
-    Ti = IA.frame_interval(T36)
     G = IA.gram_exact(T36)
     det(Float64.(G)) > 0 || return nothing
-    Gi = [IA.ivq(x) for x in inv(G)]
-    Tplus = Gi * transpose(Ti)
-    # alignment of the chart's F6 with P_F: the existing exhaustive F6 search (any alignment that fits is valid)
-    ne = IA.nonempty_F6([IA.Rec(0, true, 10.0, 0.03, PF, Tint, IA.Target[])], [1])
-    isempty(ne) && return nothing
-    _, _, _, _, sg, tr, rp0, cp0 = ne[1]
-    rp = rp0 .+ 1; cp = cp0 .+ 1
-    A0 = IA.align([pi3(F6K[a, b]) for a in 1:6, b in 1:6], sg, tr, rp, cp)
-    N, _ = IA.choose_winding(mid.(A0) .- PF)
-    GraphCtx(PF, Tint, T36, Ti, Tplus, IA.opnorm_upper(Tplus), sg, tr, rp, cp, N)
+    Ti = IA.frame_interval(T36)
+    Tplus = [IA.ivq(x) for x in inv(G)] * transpose(Ti)
+    GraphCtx(PF, T36, Ti, Tplus, IA.opnorm_upper(Tplus), sg, tr, rp, cp)
+end
+
+"""sigma_min(J(0)|_N) at P_F, certified: an interval Cholesky of Pi J^T J Pi + mu (I - Pi) - s^2 I (Pi the exact
+projector onto N, enclosed), as in the existing normal bound; for nu in N the quadratic form is ||J nu||^2 - s^2 ||nu||^2.
+With target > 0, s = target is tried (returns target or 0); otherwise s^2 from the float estimate, backed off."""
+function sigma_F6(gc::GraphCtx; target::Float64=NaN)
+    J = J_phases(vec(permutedims(gc.PF)))
+    Ginv = inv(IA.gram_exact(gc.T36))
+    Pi = IA.HMAT - gc.Ti * [IA.ivq(x) for x in Ginv] * transpose(gc.Ti)
+    A = Pi * (transpose(J) * J) * Pi
+    Jf = mid.(J); Pif = mid.(Pi)
+    mu = opnorm(Jf)^2 + 1.0
+    tryit(s2) = IA.interval_cholesky_pd(Matrix{I64}(A + iv(mu) * (I - Pi) - s2 * I))
+    if !isnan(target)
+        return tryit(iv(target)^2) ? target : 0.0
+    end
+    lmin = eigmin(Symmetric(Pif * (Jf' * Jf) * Pif + mu * (I - Pif)))
+    lmin > 0 || return 0.0
+    s2 = lmin * (1 - 1e-6)
+    for _ in 1:12
+        tryit(iv(s2)) && return inf(sqrt(iv(s2)))
+        s2 *= 0.999
+    end
+    0.0
 end
 
 """A(X) = sign (tr ? X^T : X)[rp, cp] for a 6 x 6 matrix of anything."""
@@ -246,8 +274,8 @@ end
 function edge_image(em::EdgeMap, h::NTuple{4,Float64}, gc::GraphCtx)
     D = Dom(h)
     A = galign(mat6(em.Q), gc)
-    N, _ = IA.choose_winding([mid(A[a, b].c) for a in 1:6, b in 1:6] .- gc.PF)     # any integer winding is valid
-    Z = [addc(polypart(A[a, b]), TWOPI_I * iv(N[a, b]) - iv(gc.PF[a, b])) for a in 1:6, b in 1:6]
+    N, _ = IA.choose_winding([mid(A[a, b].c) for a in 1:6, b in 1:6] .- mid.(gc.PF))     # any integer winding is valid
+    Z = [addc(polypart(A[a, b]), TWOPI_I * iv(N[a, b]) - gc.PF[a, b]) for a in 1:6, b in 1:6]
     rem = sup(sqrt(sum(iv(A[a, b].r)^2 for a in 1:6, b in 1:6)))
     dl = vec(permutedims(hproj_models(Z)))
     dsup = sup(iv(vecnorm_sup(dl, D)) + iv(rem))
@@ -256,34 +284,31 @@ function edge_image(em::EdgeMap, h::NTuple{4,Float64}, gc::GraphCtx)
     dsup, esup
 end
 
-# ---------------------------------------------------------------- (G): the eta-ball
-
-misses_unit_ball(lo, hi) = inf(sum((lo[j] > 0 ? iv(lo[j])^2 : hi[j] < 0 ? iv(hi[j])^2 : iv(0.0)) for j in 1:4)) > 1
-
-"""(G) on one eta-box (u-box in units of rho_G): the normal tube with the inclusion ball for ||nu|| <= n_G."""
-function graph_box(gc::GraphCtx, nc::NormalCtx, rhoG::Float64, lo, hi)
-    zc, h = scaled_dom(lo, hi, rhoG)
-    normal_tube(gc.PF, gc.Ti, nc, zc, h)
-end
+# ---------------------------------------------------------------- the check
 
 struct GraphResult
     ok::Bool
     msg::String
-    rhoG::Float64; RG::Float64; nG::Float64
-    sigma::Float64               # certified min sigma over the edge ball (or sigma_D when given and verified)
-    eta_sup::Float64; delta_sup::Float64
-    nboxes::Int                  # (G) boxes
-    alpha_max::Float64           # max contraction alpha(rho_X) over the (G) boxes
+    RG::Float64
+    sigma::Float64               # sigma_min(J(0)|_N) at F6: the certificate's value verified, or the certified value
+    sigmaD::Float64              # certified min sigma of d eta/dw over the edge ball (or sigma_D when given and verified)
+    delta_sup::Float64; eta_sup::Float64
     seconds::Float64
 end
 
-function check_graph(eb::EdgeBall, leaves::Vector{EdgeLeaf}, gd::GraphData; maxsplit::Int=6)
+function check_graph(eb::EdgeBall, leaves::Vector{EdgeLeaf}, gd::GraphData)
     t0 = time()
     fail(msg, a...) = GraphResult(false, msg, a..., time() - t0)
     gc = graph_ctx(eb, gd)
-    gc === nothing && return fail("graph data: no frame or no alignment of F6 with phi", NaN, NaN, NaN, NaN, NaN, NaN, 0, NaN)
-    root = edge_root(eb)
+    gc === nothing && return fail("graph data: no frame, or no alignment of F6 with phi", NaN, NaN, NaN, NaN, NaN)
+    # (G): sigma at F6 and R_G < sigma / L
+    sig = sigma_F6(gc; target=gd.sigma)
+    sig > 0 || return fail(isnan(gd.sigma) ? "(G): sigma at F6 not certified" :
+                           @sprintf("(G): sigma = %.6g not certified at F6 (interval Cholesky)", gd.sigma), NaN, NaN, NaN, NaN, NaN)
+    RG = isnan(gd.R) ? min(0.45, sup(iv(0.99) * iv(sig) / L_LIP)) : gd.R
+    sup(L_LIP * iv(RG)) < sig || return fail(@sprintf("(G): L R_G = %.6g >= sigma = %.6g", sup(L_LIP * iv(RG)), sig), RG, sig, NaN, NaN, NaN)
     # (D) and the image, on every C1e leaf
+    root = edge_root(eb)
     out = Vector{Any}(undef, length(leaves))
     Threads.@threads :greedy for i in eachindex(leaves)
         lf = leaves[i]
@@ -296,9 +321,9 @@ function check_graph(eb::EdgeBall, leaves::Vector{EdgeLeaf}, gd::GraphData; maxs
                 if A === nothing
                     (false, "(D): derivative enclosure failed on the box at " * string(round.(lf.wc, sigdigits=4)))
                 else
-                    s = sigma_lower(A; target=isnan(gd.sigmaD) ? NaN : gd.sigmaD)
+                    sD = sigma_lower(A; target=isnan(gd.sigmaD) ? NaN : gd.sigmaD)
                     d, e = edge_image(em, lf.h, gc)
-                    s > 0 ? (true, s, d, e) :
+                    sD > 0 ? (true, sD, d, e) :
                         (false, @sprintf("(D): sigma_min not certified >= %s on the box at %s",
                                          isnan(gd.sigmaD) ? "0" : string(gd.sigmaD), string(round.(lf.wc, sigdigits=4))))
                 end
@@ -309,64 +334,9 @@ function check_graph(eb::EdgeBall, leaves::Vector{EdgeLeaf}, gd::GraphData; maxs
     end
     smin = Inf; esup = 0.0; dsup = 0.0
     for o in out
-        o[1] || return fail(o[2], NaN, NaN, NaN, NaN, NaN, NaN, 0, NaN)
+        o[1] || return fail(o[2], RG, sig, NaN, NaN, NaN)
         smin = min(smin, o[2]); dsup = max(dsup, o[3]); esup = max(esup, o[4])
     end
-    RG = isnan(gd.R) ? sup(iv(1.05) * iv(dsup)) : gd.R
-    nG = isnan(gd.n) ? RG : gd.n
-    rhoG = isnan(gd.eta) ? sup(iv(1.05) * iv(esup)) : gd.eta
-    res(ok, msg, nb=0, am=NaN) = GraphResult(ok, msg, rhoG, RG, nG, smin, esup, dsup, nb, am, time() - t0)
-    esup < rhoG || return res(false, @sprintf("(D): the edge image reaches ||eta|| <= %.6g, not < rho_G = %.6g", esup, rhoG))
-    dsup < RG || return res(false, @sprintf("(D): the edge image reaches ||delta|| <= %.6g, not < R_G = %.6g", dsup, RG))
-    # every Hadamard with ||delta|| <= R_G has ||nu|| <= n_G
-    if nG < RG
-        nb = IA.normal_bound(IA.Rec(0, true, RG, 0.03, gc.PF, gc.Tint, IA.Target[]))
-        (nb.ok && nb.n <= nG) || return res(false, @sprintf("(G): n_G = %.6g below the record's normal bound at R_G (%s)", nG, nb.ok ? string(nb.n) : nb.msg))
-    end
-    # (G) on eta-boxes covering ||eta|| <= rho_G
-    nc = normal_ctx(gc.T36, nG)
-    nc === nothing && return res(false, "(G): no certified coordinates on N_F")
-    amax = 0.0; nbx = 0
-    if !isempty(gd.boxes)
-        listed = Set(gd.boxes)
-        cov, _ = dyadic_covered(listed, misses_unit_ball)
-        cov || return res(false, "(G): the eta-boxes do not cover the ball ||eta|| <= rho_G")
-        # a listed box whose contraction fails as a whole is split into its halves (the claim is universal over it)
-        for b in gd.boxes
-            stack = [(ubox(b)..., 0)]
-            while !isempty(stack)
-                lo, hi, dpt = pop!(stack)
-                misses_unit_ball(lo, hi) && continue
-                tb = graph_box(gc, nc, rhoG, lo, hi)
-                if tb.ok
-                    amax = max(amax, tb.alpha); nbx += 1
-                elseif dpt < 2
-                    for (lo2, hi2) in split_box(lo, hi)
-                        push!(stack, (lo2, hi2, dpt + 1))
-                    end
-                else
-                    return res(false, "(G): box $b: " * tb.why, nbx, amax)
-                end
-            end
-        end
-    else
-        stack = [(0, 0, 0, 0, 0)]
-        while !isempty(stack)
-            b = pop!(stack)
-            lo, hi = ubox(b)
-            misses_unit_ball(lo, hi) && continue
-            tb = graph_box(gc, nc, rhoG, lo, hi)
-            if tb.ok
-                amax = max(amax, tb.alpha); nbx += 1
-            elseif b[1] < maxsplit
-                m = b[1] + 1
-                for ch in 0:15
-                    push!(stack, (m, ntuple(a -> 2b[a+1] + ((ch >> (a - 1)) & 1), 4)...))
-                end
-            else
-                return res(false, "(G): box $b: " * tb.why, nbx, amax)
-            end
-        end
-    end
-    res(true, "ok", nbx, amax)
+    dsup < RG || return fail(@sprintf("(G): the edge image reaches ||delta|| <= %.6g, not < R_G = %.6g", dsup, RG), RG, sig, smin, dsup, esup)
+    GraphResult(true, "ok", RG, sig, smin, dsup, esup, time() - t0)
 end

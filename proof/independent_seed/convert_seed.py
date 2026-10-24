@@ -11,8 +11,8 @@ rows + vrows and cols = cols + hcols (6 each: the corner, then the order of the 
 resp. horizontal, side) and WIND = wind + wind_h + wind_v (16).  Without hcols / vrows, the complements are taken in
 increasing order.  A record without a frame ("Tint" absent or all zero) is read as Tao's record (its R and
 label_radius); the top-level "tao" object is the usual form.
-An edge ball may carry "graph": {"eta_radius", "R", "n", "phi", "Tint", "boxes"} and "sigma_D" (SPEC §10.1); every
-field is optional (the checker's defaults are documented in src/graph.jl).
+An edge ball may carry "graph": {"R", "sigma"} (SPEC §10.2; optionally also "phi" and "Tint") and "sigma_D" (SPEC §10.1);
+every field is optional (the checker's defaults are documented in src/graph.jl).
 Usage: python3 convert_seed.py certificate.json.gz out.txt
 """
 import gzip
@@ -148,17 +148,13 @@ def main(src, dst):
             out.write('U %s\n' % fxs(e['U'], 144, w + ' U'))
             gr = e.get('graph') or {}
             opt = lambda key, v: fx(v, '%s %s' % (w, key)) if v is not None else '-'
-            phi = gr.get('phi'); tint = gr.get('Tint'); gb = gr.get('boxes') or []
-            out.write('GRAPH %s %s %s %s %d %d %d\n' % (opt('graph eta_radius', gr.get('eta_radius')), opt('graph R', gr.get('R')),
-                                                     opt('graph n', gr.get('n')), opt('sigma_D', e.get('sigma_D')),
-                                                     phi is not None, tint is not None, len(gb)))
+            phi = gr.get('phi'); tint = gr.get('Tint')
+            out.write('GRAPH %s %s %s %d %d\n' % (opt('graph R', gr.get('R')), opt('graph sigma', gr.get('sigma')),
+                                                 opt('sigma_D', e.get('sigma_D')), phi is not None, tint is not None))
             if phi is not None:
                 out.write('PHI %s\n' % fxs(phi, 36, w + ' graph phi'))
             if tint is not None:
                 out.write('TINT %s\n' % ' '.join(str(v) for v in ints(tint, w + ' graph Tint', 144)))
-            for b in gb:
-                ints(b, w + ' graph box', 5)
-            out.write('BOXES' + ''.join(' %d' % x for b in gb for x in b) + '\n')
             for j, t in enumerate(gs):
                 txt, nb = group_lines(t, KINDS_EDGE, '%s group %d' % (w, j))
                 out.write(txt); nbox += nb
