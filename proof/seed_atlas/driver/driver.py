@@ -268,12 +268,21 @@ def main():
 
     if os.path.exists(state):
         A = pickle.load(open(state, 'rb'))
+        m = min(len(A.balls), len(A.status), len(A.ncover), len(A.parent))       # a save may interrupt add()
+        A.balls, A.status, A.ncover, A.parent = A.balls[:m], A.status[:m], A.ncover[:m], A.parent[:m]
         for j, s in enumerate(A.status):
             if s in ('covering', 'waiting', 'queued'): A.status[j] = 'open'
         log('resumed', len(A.balls), 'balls,', sum(s == 'closed' for s in A.status), 'closed')
     else:
         import driver as DRV                     # pickle as driver.Atlas, not __main__.Atlas
         A = DRV.Atlas()
+    import signal
+
+    def on_term(signum, frame):                  # scancel: save the state and leave (resume reruns open covers)
+        if os.getpid() != master_pid: os._exit(0)
+        save(A, state); log('SIGTERM: state saved (%d balls)' % len(A.balls)); os._exit(0)
+    master_pid = os.getpid()
+    signal.signal(signal.SIGTERM, on_term)
     ctx = mp.get_context('fork' if sys.platform.startswith('linux') else 'spawn')
     ex = cf.ProcessPoolExecutor(a.workers, mp_context=ctx, initializer=_init)
     futs = {}

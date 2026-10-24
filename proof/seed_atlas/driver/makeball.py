@@ -16,6 +16,9 @@ MAX_LABELS = 1200
 def k_for(r): return 3 if r <= 0.05 else 4
 
 
+K_MORE = (6, 8)          # finer C1 partitions, tried when the tube fails (near the edge of Omega, i.e. near F6)
+
+
 def stage_c_args(ball, r, n):
     U = ball.U
     tcol = max(np.linalg.norm(U.reshape(6, 6, 4)[:, i, :], 2) for i in range(6))
@@ -67,8 +70,10 @@ def make_ball(theta0, phih0, phiv0, rmax=LADDER[0], rmin=LADDER[-1], hint=None, 
 
     def attempt(r, lab):
         if r not in cache:
-            k = k_for(r)
-            n, why = c1_bound(b, r, k)
+            for k in sorted(set((k_for(r),) + K_MORE)):
+                if k < k_for(r): continue
+                n, why = c1_bound(b, r, k)
+                if n is not None or why not in ('tube', 'forced block', 'arg'): break
             cache[r] = (k, None if n is None else n * N_SAFETY, why)
         k, n, why = cache[r]
         if n is None:
