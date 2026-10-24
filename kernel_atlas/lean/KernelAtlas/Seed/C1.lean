@@ -138,9 +138,9 @@ structure SideOut where
   e : List ℕ
 
 def sideK (h : List ℕ) (G : List CT) (φ : List CT) (Y : List ℤ) (ρt : ℕ) : SideOut :=
-  let φr := φ.map re
+  let φr := l6 fun j => re (gT φ j)
   let b := (matT h Y (FT h G (rowsT h φr))).map (bnd h)
-  let q := qRows h Y (JT h (rowsT h (φr.map fun A => addRho A ρt)))
+  let q := qRows h Y (JT h (rowsT h (l6 fun j => addRho (gT φr j) ρt)))
   let num := l6 fun i => gn b i * 2 ^ pp + gn q i * ρt
   ⟨(l6 fun i => decide (gn num i < ρt * 2 ^ pp)).all id && (l6 fun i => expOK (gT φr i) nT).all id,
     num.map fun x => cdivN x pp⟩
