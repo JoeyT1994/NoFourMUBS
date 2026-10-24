@@ -40,16 +40,17 @@ structure SeedBoundaryCover {σs ιr : Type} (S : σs → SeedBallCert) (A : ιr
   hcover : ∀ w, wnorm w = (S j).r → ∃ b, w ∈ box b
   htransfer : ∀ b, ∀ w ∈ box b, wnorm w = (S j).r → SeedTargetHolds S A j (tgt b) w
 
-/-- **C2 for a record** (SPEC §4): the current boundary-cover format, with targets that may also be seed balls
-(T1′). -/
+/-- **C2 for a record** (SPEC §4, FORMAT §6): `η`-boxes covering the shell
+`{‖η‖ ≤ r_H, R² − n² ≤ ‖Tη‖² ≤ R²}`, with targets that may also be seed balls (T1′). -/
 structure RecBoundaryCover {σs ιr : Type} (S : σs → SeedBallCert) (A : ιr → RecordCert) (l : ιr) where
   β : Type
   box : β → Set (Fin 4 → ℝ)
   tgt : β → RecTarget σs ιr
   hcover : ∀ η : Fin 4 → ℝ, Real.sqrt (∑ k, η k ^ 2) ≤ (A l).rH →
-    (A l).R ^ 2 - (A l).n ^ 2 ≤ sumsq (tang (A l).T η) → ∃ b, η ∈ box b
+    (A l).R ^ 2 - (A l).n ^ 2 ≤ sumsq (tang (A l).T η) → sumsq (tang (A l).T η) ≤ (A l).R ^ 2 → ∃ b, η ∈ box b
   htransfer : ∀ b, ∀ η ∈ box b, Real.sqrt (∑ k, η k ^ 2) ≤ (A l).rH →
-    (A l).R ^ 2 - (A l).n ^ 2 ≤ sumsq (tang (A l).T η) → RecTargetHolds S A l (tgt b) η
+    (A l).R ^ 2 - (A l).n ^ 2 ≤ sumsq (tang (A l).T η) → sumsq (tang (A l).T η) ≤ (A l).R ^ 2 →
+    RecTargetHolds S A l (tgt b) η
 
 /-- A boundary cover of the current atlas (record targets only) is a record boundary cover. -/
 def RecBoundaryCover.ofBoundaryCover {σs ιr : Type} {S : σs → SeedBallCert} {A : ιr → RecordCert} {l : ιr}
@@ -57,8 +58,8 @@ def RecBoundaryCover.ofBoundaryCover {σs ιr : Type} {S : σs → SeedBallCert}
   β := B.β
   box := B.box
   tgt b := .record (B.tgt b) (B.perm b) (B.wind b)
-  hcover := B.hcover
-  htransfer b η hη _ _ := B.htransfer b η hη
+  hcover η h1 h2 _ := B.hcover η h1 h2
+  htransfer b η hη _ _ _ := B.htransfer b η hη
 
 /-! ### The certificate -/
 
@@ -184,20 +185,20 @@ theorem covered_iff_interiorTarget (hs : ∀ j, Nonempty (SeedBoundaryCover S A 
         exact (B.htransfer b w hb heq).interior hw hKH hm
     · rcases hR.lt_or_eq with hlt | heq
       · exact ⟨0, Or.inr ⟨l, δ, hδ, hlt, equivalent_refl _⟩⟩
-      · obtain ⟨η, ν, hδe, hη, hν, hsplit⟩ := (A l).decomp hδ hR hKH
-        have hν' : frob ν ≤ (A l).n := hν
+      · obtain ⟨η, ν, hδe, hνh, hνT, hη, hν', hsplit⟩ := RecordCert.decompN (A l) hδ hR hKH
+        have h1 : sumsq δ = (A l).R ^ 2 := by rw [← heq, frob_eq_sqrt, Real.sq_sqrt (sumsq_nonneg δ)]
         have hshell : (A l).R ^ 2 - (A l).n ^ 2 ≤ sumsq (tang (A l).T η) := by
-          have h1 : sumsq δ = (A l).R ^ 2 := by rw [← heq, frob_eq_sqrt, Real.sq_sqrt (sumsq_nonneg δ)]
           have h2 : sumsq ν ≤ (A l).n ^ 2 := by
             have := pow_le_pow_left₀ (frob_nonneg ν) hν' 2
             rwa [frob_eq_sqrt, Real.sq_sqrt (sumsq_nonneg ν)] at this
-          have : sumsq δ = sumsq (tang (A l).T η) + sumsq ν := hsplit
           linarith
+        have hshell' : sumsq (tang (A l).T η) ≤ (A l).R ^ 2 := by linarith [sumsq_nonneg ν]
+        have hRb : frob (tang (A l).T η + ν) = (A l).R := by rw [← hδe]; exact heq
         obtain ⟨B⟩ := hr l
-        obtain ⟨b, hb⟩ := B.hcover η hη hshell
-        have e : (A l).P + δ = (A l).P + tang (A l).T η + ν := by rw [hδe, ← add_assoc]; rfl
+        obtain ⟨b, hb⟩ := B.hcover η hη hshell hshell'
+        have e : (A l).P + δ = (A l).P + tang (A l).T η + ν := by rw [hδe, ← add_assoc]
         rw [e] at hKH ⊢
-        exact (B.htransfer b η hb hη hshell).interior hν' hKH
+        exact (B.htransfer b η hb hη hshell hshell').interior hνh hνT hν' hRb hKH
   · rintro ⟨k, ⟨l, hl⟩ | ⟨l, δ, hδ, hlt, he⟩⟩
     · obtain ⟨K, hK, hMK⟩ := hl.ball
       exact ⟨gfun k M, K, inGamma_iff.mpr ⟨k, rfl⟩, Or.inl ⟨l, hK⟩, hMK⟩

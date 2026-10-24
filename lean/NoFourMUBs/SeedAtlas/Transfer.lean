@@ -23,8 +23,10 @@ The four transfers:
   converse is not needed.
 * **(T2)** `transfer_t2`: into a record, `‖h(A Q + 2πN − P_l)‖ < R_l` for the representative's phases `Q` (Lemma 4.1
   with no tangent part, `NoFourMUBs.transfer`).
-* **(T1′)** `transfer_t1'`: from a record's boundary into a seed ball, the corner condition for every
-  `K = e^{i(P + Tη + ν)}`, `‖ν‖ ≤ n`.
+* **(T1′)** `transfer_t1'`: from a record's boundary into a seed ball, the corner condition for every boundary point
+  `K = e^{i(P + Tη + ν)}` of the record: `ν` in the complement `N` of the frame, `‖ν‖ ≤ n`, `‖Tη + ν‖ = R`, `K`
+  Hadamard (`RecordCert.decompN`).  How the certifier encloses these `ν` (FORMAT: a Krawczyk refinement over the
+  `η`-box) is its business.
 
 The record-to-record target is the existing Lemma 4.1 (`NoFourMUBs.transfer`).
 -/
@@ -186,6 +188,74 @@ theorem SeedTargetHolds.interior {σs ιr : Type} {S : σs → SeedBallCert} {A 
     obtain ⟨k, hk⟩ := transfer_t2 hw h hK hm
     exact ⟨k, Or.inr ⟨l, hk⟩⟩
 
+/-! ### The record decomposition with the normal component -/
+
+/-- Lemma 3.1 inside a certified Record (`RecordCert.decomp`), also recording that the normal component `ν` lies in
+the complement `N` of the frame: horizontal and orthogonal to every `T_k`. -/
+theorem RecordCert.decompN (C : RecordCert) {δ : RMat6} (hδh : IsHorizontal δ) (hR : frob δ ≤ C.R)
+    (hH : Hadamard6.IsHadamard (phaseMat (C.P + δ))) :
+    ∃ η : Fin 4 → ℝ, ∃ ν : RMat6, δ = tang C.T η + ν ∧ IsHorizontal ν ∧
+      (∀ k, ∑ a, ∑ c, C.T k a c * ν a c = 0) ∧ Real.sqrt (∑ k, η k ^ 2) ≤ C.rH ∧ frob ν ≤ C.n ∧
+      sumsq δ = sumsq (tang C.T η) + sumsq ν := by
+  obtain ⟨η, ν, hδ, hνh, horthk, hηb⟩ := C.hproj δ hδh
+  set u := ∑ k, η k • C.T k
+  set s := Real.sqrt (∑ k, η k ^ 2)
+  set rH := C.g * C.R
+  have hs0 : 0 ≤ s := Real.sqrt_nonneg _
+  have hsr : s ≤ rH := hηb.trans (mul_le_mul_of_nonneg_left hR C.hg0)
+  have horth : ∑ a, ∑ c, u a c * ν a c = 0 := by
+    have : ∑ a, ∑ c, u a c * ν a c = ∑ k, η k * ∑ a, ∑ c, C.T k a c * ν a c := by
+      simp only [u, Matrix.sum_apply, Matrix.smul_apply, smul_eq_mul, Finset.sum_mul, Finset.mul_sum]
+      symm; rw [Finset.sum_comm]
+      refine Finset.sum_congr rfl fun a _ => ?_
+      rw [Finset.sum_comm]
+      exact Finset.sum_congr rfl fun c _ => Finset.sum_congr rfl fun k _ => by ring
+    rw [this]; simp only [horthk, mul_zero, Finset.sum_const_zero]
+  have hsplit : sumsq δ = sumsq u + sumsq ν := by rw [hδ]; exact sumsq_add_of_orth horth
+  have hνδ : frob ν ≤ frob δ := frob_le_of_sumsq_le (by rw [hsplit]; linarith [sumsq_nonneg u])
+  have hH' : Hadamard6.IsHadamard (phaseMat (C.P + (u + ν))) := by rwa [← hδ]
+  have hn0 := normal_bound_root (j1 := C.j1) (s := s) (lam := C.lam) (R := C.R) hH' horth (C.hσ ν hνh horthk) C.he
+    (C.hj η) (C.hlam η) (hνδ.trans hR) C.hLR
+  refine ⟨η, ν, hδ, hνh, horthk, hsr, hn0.trans (nroot_mono ?_), hsplit⟩
+  have h1 : C.j1 * s ≤ C.j1 * rH := mul_le_mul_of_nonneg_left hsr C.hj0
+  have h2 : s ^ 2 ≤ rH ^ 2 := pow_le_pow_left₀ hs0 hsr 2
+  have h3 : Real.sqrt 3 * C.lam * s ^ 2 ≤ Real.sqrt 3 * C.lam * rH ^ 2 :=
+    mul_le_mul_of_nonneg_left h2 (by have := C.hlam0; positivity)
+  linarith
+
+/-! ### `Ψ` of a corner's sides, read off `g · K` directly -/
+
+lemma psi_scale (B : Mat3) (r c : Fin 3 → ℂ) (hr : ∀ i, Complex.normSq (r i) = 1)
+    (hc : ∀ j, Complex.normSq (c j) = 1) : psi (Matrix.of fun i j => r i * B i j * c j) = psi B := by
+  rw [psi_eq, psi_eq, sideSignature_scale]
+  · intro i; rw [Complex.mul_conj, hr i, Complex.ofReal_one]
+  · intro j; rw [Complex.mul_conj, hc j, Complex.ofReal_one]
+
+/-- `Ψ(B)` of the corner is `Ψ(K[I, Jᶜ])` for `K = g · K₀`, `I = σ(0,1,2)`, `Jᶜ = τ(3,4,5)` (FORMAT §4: the
+dephasing does not change `Ψ`). -/
+theorem psi_rightBlock_cornerMat (k : Fin 4) (σ τ : Equiv.Perm I6) {K : Mat6} (hK : Hadamard6.IsHadamard K) :
+    psi (rightBlock (cornerMat k σ τ K)) = psi (Matrix.of fun i j => gfun k K (σ (.inl i)) (τ (.inr j))) := by
+  set M := (gfun k K).submatrix σ τ
+  have hM : EntrywiseUnit M := fun i j => (isHadamard_gfun hK k).1 _ _
+  have e : rightBlock (cornerMat k σ τ K) = Matrix.of fun i j =>
+      dephaseRowFactor M (.inl i) * (Matrix.of fun i j => gfun k K (σ (.inl i)) (τ (.inr j))) i j *
+        dephaseColumnFactor M (.inr j) := rfl
+  rw [e, psi_scale]
+  · exact fun i => dephaseRowFactor_unit hM _
+  · exact fun j => dephaseColumnFactor_unit hM _
+
+/-- `Ψ(C)` of the corner is `Ψ(K[Iᶜ, J])` (`= Ψ(K[Iᶜ, J]ᵀ)`). -/
+theorem psi_lowerBlock_cornerMat (k : Fin 4) (σ τ : Equiv.Perm I6) {K : Mat6} (hK : Hadamard6.IsHadamard K) :
+    psi (lowerBlock (cornerMat k σ τ K)) = psi (Matrix.of fun i j => gfun k K (σ (.inr i)) (τ (.inl j))) := by
+  set M := (gfun k K).submatrix σ τ
+  have hM : EntrywiseUnit M := fun i j => (isHadamard_gfun hK k).1 _ _
+  have e : lowerBlock (cornerMat k σ τ K) = Matrix.of fun i j =>
+      dephaseRowFactor M (.inr i) * (Matrix.of fun i j => gfun k K (σ (.inr i)) (τ (.inl j))) i j *
+        dephaseColumnFactor M (.inl j) := rfl
+  rw [e, psi_scale]
+  · exact fun i => dephaseRowFactor_unit hM _
+  · exact fun j => dephaseColumnFactor_unit hM _
+
 /-! ### Record targets -/
 
 /-- A boundary target of a full-matrix record: another record (Lemma 4.1, the current format) or a seed ball (T1′). -/
@@ -198,21 +268,28 @@ def RecTargetHolds {σs ιr : Type} (S : σs → SeedBallCert) (A : ιr → Reco
     RecTarget σs ιr → (Fin 4 → ℝ) → Prop
   | .record l' B N, η => frob (hor (B.act (A l).P + wind N - (A l').P) + hor (B.act (tang (A l).T η))) + (A l).n <
       (A l').R
-  | .t1' j k σ τ, η => ∀ ν : RMat6, frob ν ≤ (A l).n →
+  | .t1' j k σ τ, η => ∀ ν : RMat6, IsHorizontal ν → (∀ k', ∑ a, ∑ c, (A l).T k' a c * ν a c = 0) →
+      frob ν ≤ (A l).n → frob (tang (A l).T η + ν) = (A l).R →
       Hadamard6.IsHadamard (phaseMat ((A l).P + tang (A l).T η + ν)) →
       CornerIn (S j) k σ τ (phaseMat ((A l).P + tang (A l).T η + ν))
 
-/-- **(T1′)** From a record's boundary into a seed ball. -/
+/-- **(T1′)** From a record's boundary into a seed ball: the claim is needed only for the record's actual boundary
+points, `ν` in the complement `N` of the frame (horizontal, orthogonal to every `T_k`), `‖ν‖ ≤ n`,
+`‖Tη + ν‖ = R`, `e^{i(P + Tη + ν)}` Hadamard. -/
 theorem transfer_t1' {Al : RecordCert} {S : SeedBallCert} {k : Fin 4} {σ τ : Equiv.Perm I6} {η : Fin 4 → ℝ}
-    (h : ∀ ν : RMat6, frob ν ≤ Al.n → Hadamard6.IsHadamard (phaseMat (Al.P + tang Al.T η + ν)) →
+    (h : ∀ ν : RMat6, IsHorizontal ν → (∀ k', ∑ a, ∑ c, Al.T k' a c * ν a c = 0) → frob ν ≤ Al.n →
+      frob (tang Al.T η + ν) = Al.R → Hadamard6.IsHadamard (phaseMat (Al.P + tang Al.T η + ν)) →
       CornerIn S k σ τ (phaseMat (Al.P + tang Al.T η + ν)))
-    {ν : RMat6} (hν : frob ν ≤ Al.n) (hH : Hadamard6.IsHadamard (phaseMat (Al.P + tang Al.T η + ν))) :
+    {ν : RMat6} (hνh : IsHorizontal ν) (hνT : ∀ k', ∑ a, ∑ c, Al.T k' a c * ν a c = 0) (hν : frob ν ≤ Al.n)
+    (hRb : frob (tang Al.T η + ν) = Al.R) (hH : Hadamard6.IsHadamard (phaseMat (Al.P + tang Al.T η + ν))) :
     SeedInterior S (gfun k (phaseMat (Al.P + tang Al.T η + ν))) :=
-  seedInterior_of_cornerIn hH (h ν hν hH)
+  seedInterior_of_cornerIn hH (h ν hνh hνT hν hRb hH)
 
 /-- A record's boundary target puts the boundary point in an interior. -/
 theorem RecTargetHolds.interior {σs ιr : Type} {S : σs → SeedBallCert} {A : ιr → RecordCert} {l : ιr}
-    {tg : RecTarget σs ιr} {η : Fin 4 → ℝ} (h : RecTargetHolds S A l tg η) {ν : RMat6} (hν : frob ν ≤ (A l).n)
+    {tg : RecTarget σs ιr} {η : Fin 4 → ℝ} (h : RecTargetHolds S A l tg η) {ν : RMat6} (hνh : IsHorizontal ν)
+    (hνT : ∀ k', ∑ a, ∑ c, (A l).T k' a c * ν a c = 0) (hν : frob ν ≤ (A l).n)
+    (hRb : frob (tang (A l).T η + ν) = (A l).R)
     (hH : Hadamard6.IsHadamard (phaseMat ((A l).P + tang (A l).T η + ν))) :
     InteriorTarget S A (phaseMat ((A l).P + tang (A l).T η + ν)) := by
   cases tg with
@@ -221,6 +298,6 @@ theorem RecTargetHolds.interior {σs ιr : Type} {S : σs → SeedBallCert} {A :
     obtain ⟨k, rfl⟩ := inGamma_iff.mp hG
     exact ⟨k, Or.inr ⟨l', hGR⟩⟩
   | t1' j k σ τ =>
-    exact InteriorTarget.of_gfun (k := k) ⟨0, Or.inl ⟨j, transfer_t1' h hν hH⟩⟩
+    exact InteriorTarget.of_gfun (k := k) ⟨0, Or.inl ⟨j, transfer_t1' h hνh hνT hν hRb hH⟩⟩
 
 end NoFourMUBs.SeedAtlas

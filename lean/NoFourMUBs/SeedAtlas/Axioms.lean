@@ -23,6 +23,9 @@ import NoFourMUBs.SeedAtlas.Method.Box
 #print axioms NoFourMUBs.SeedAtlas.transfer_t1'
 #print axioms NoFourMUBs.SeedAtlas.covered_iff_interiorTarget
 #print axioms NoFourMUBs.SeedAtlas.isCompact_seedBall
+#print axioms NoFourMUBs.SeedAtlas.RecordCert.decompN
+#print axioms NoFourMUBs.SeedAtlas.psi_rightBlock_cornerMat
+#print axioms NoFourMUBs.SeedAtlas.psi_lowerBlock_cornerMat
 -- the C1 method (stretch): not used by `no_four_mubs_seed`, which takes C1 as a hypothesis
 #print axioms NoFourMUBs.SeedAtlas.Method.norm_exp_I_taylor2_le
 #print axioms NoFourMUBs.SeedAtlas.Method.exists_arg_one_add

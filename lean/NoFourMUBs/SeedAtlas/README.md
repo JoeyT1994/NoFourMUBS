@@ -19,7 +19,7 @@ Only `propext`, `Classical.choice` and `Quot.sound` (audited by `SeedAtlas/Axiom
 | `Transfer` | Targets `SeedTarget` (T0, T1, T2) and `RecTarget` (record, T1′), their semantic claims `SeedTargetHolds`, `RecTargetHolds`, `CornerIn`, and the transfer lemmas `transfer_t0`, `transfer_t1`, `transfer_t2`, `transfer_t1'` |
 | `Atlas` | `SeedBoundaryCover`, `RecBoundaryCover` (C2), `SeedAtlasCertificate`, compactness (`isCompact_seedBall`), `covered_iff_interiorTarget`, `isOpen_interiorTarget`, **`SeedAtlasCertificate.clopen`** |
 | `../FinalSeed` | `FinalSeed.no_four_mubs_seed` |
-| `Axioms` | the axiom audit (28 theorems) |
+| `Axioms` | the axiom audit (31 theorems) |
 | `Method/` | **Soundness of the C1 method** (not imported by `FinalSeed`; see below) |
 
 No existing module is changed.
@@ -46,6 +46,8 @@ No existing module is changed.
   `I = (σ (inl 0), σ (inl 1), σ (inl 2))`, `J = (τ (inl 0), τ (inl 1), τ (inl 2))` (the rest of `σ`, `τ` is
   irrelevant). `cornerMat k σ τ K = dephase ((gfun k K).submatrix σ τ)`; its corner seed is
   `cornerTheta (gphase k Q) σ τ`, `θ'₁ = Q'_{i₁j₁} − Q'_{i₁j₀} − Q'_{i₀j₁} + Q'_{i₀j₀}` etc.
+  (`leadingBlock_cornerMat_phaseMat`), and its two `Ψ` are those of `K[I, Jᶜ]` and `K[Iᶜ, J]` for `K = g · K₀`
+  (`psi_rightBlock_cornerMat`, `psi_lowerBlock_cornerMat`), as FORMAT §4 computes them.
 
 ## What each hypothesis says (the certifier establishes these)
 
@@ -71,11 +73,15 @@ for `wnorm w = r_j`, the target's claim `SeedTargetHolds`:
 * **T2** `t2 l B N`: `∃ Q`, `phaseMat Q` Hadamard and `MatchedO o_j (seedOf (θ_j w))`, with
   `frob (hor (B.act Q + wind N − P_l)) < R_l` (`B : SignedPerm`, as in the current `BoundaryCover`).
 
-`RecBoundaryCover S A l` (C2 for a record): the current boundary-cover format (`η`-boxes covering the shell), each
-box with a target whose claim (`RecTargetHolds`) holds for `η` in the box, `‖η‖ ≤ r_H`, in the shell:
+`RecBoundaryCover S A l` (C2 for a record, FORMAT §6): `η`-boxes covering the shell
+`{‖η‖ ≤ r_H, R² − n² ≤ ‖Tη‖² ≤ R²}`, each box with a target whose claim (`RecTargetHolds`) holds for `η` in the box
+and in that shell:
 * `record l' B N`: Lemma 4.1's inequality, as now;
-* **T1′** `t1' j k σ τ`: for every `ν` with `frob ν ≤ n` and `phaseMat (P + Tη + ν)` Hadamard,
-  `CornerIn (S j) k σ τ (phaseMat (P + Tη + ν))`.
+* **T1′** `t1' j k σ τ`: for every `ν` in the complement `N` of the frame (`IsHorizontal ν`, `⟨T_k, ν⟩ = 0` for all
+  `k`) with `frob ν ≤ n`, `frob (Tη + ν) = R` and `phaseMat (P + Tη + ν)` Hadamard,
+  `CornerIn (S j) k σ τ (phaseMat (P + Tη + ν))`. These are exactly the record's boundary points
+  (`RecordCert.decompN`), so a certifier may enclose their `ν` more tightly than `‖ν‖ ≤ n` (e.g. FORMAT's proposed
+  Krawczyk refinement over the `η`-box) as long as it covers every such Hadamard point.
 `RecBoundaryCover.ofBoundaryCover` converts a current `BoundaryCover`.
 
 `SeedAtlasCertificate`: `σs` (finite) seed balls `S`, `ιr` (finite) records `A`, the two boundary covers,
