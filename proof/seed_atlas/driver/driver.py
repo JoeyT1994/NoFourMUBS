@@ -411,6 +411,7 @@ def main():
             for j in stalled:
                 A.status[j] = 'failed'; A.log_fail[j] = 'stalled'; log('FAILED', j, 'stalled')
             if rphase['state'] == 'idle' and A.record is None and not any(s in ('open', 'queued', 'covering', 'waiting') for s in A.status):
+                if os.environ.get('SEED_NO_RECORD'): log('DONE growth; record phase skipped (edge ball replaces it)'); break
                 if A.record_rounds >= 12: log('RECORD: giving up after 12 rounds'); break
                 record_phase_start()
             elif rphase['state'] == 'idle':
