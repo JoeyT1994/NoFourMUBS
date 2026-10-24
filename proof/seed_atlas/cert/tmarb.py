@@ -224,6 +224,7 @@ def exp_i(phi):
     """e^{i phi} for a REAL TM phi = c + x, x = x1 + x2 + e (x1 linear, x2 quadratic, |e| <= rho):
        e^{ic} (1 + i(x1 + x2) - x1^2/2) + e^{ic} R,  |R| <= rho + L1 (L2 + rho) + (L2 + rho)^2/2 + (L1 + L2 + rho)^3/6
     (|e^{ix} - 1 - ix + x^2/2| <= |x|^3/6 for real x, and |e^{ic}| = 1)."""
+    assert all(isinstance(x, arb) for x in phi.c.flat[:1]) and all(isinstance(x, arb) for x in phi.g.flat[:1]), 'exp_i needs a real TM'
     e = vmap(lambda x: acb(0, x).exp(), phi.c)
     g = (e[..., None] * I_) * phi.g
     q = e[..., None] * (I_ * phi.q - outer_fold(phi.g, phi.g) * arb(0.5))

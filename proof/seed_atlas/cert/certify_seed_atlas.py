@@ -40,8 +40,19 @@ def read_certificate(path):
 
 
 # ------------------------------------------------------------------------------------------------ work items
+def split(cert):
+    """(core, groups): the certificate without the per-item box lists (sent once to each worker), and each seed's
+    transfer groups / each record's boundary groups (sent with that item's task)."""
+    core = dict(cert)
+    core['seeds'] = [{k: v for k, v in s.items() if k != 'transfers'} for s in cert['seeds']]
+    core['records'] = [{k: v for k, v in r.items() if k != 'boundary'} for r in cert['records']]
+    groups = {('seed', j): s.get('transfers', []) for j, s in enumerate(cert['seeds'])}
+    groups.update({('record', i): r.get('boundary', []) for i, r in enumerate(cert['records'])})
+    return core, groups
+
+
 class Ctx:
-    """The certificate, parsed once per process."""
+    """The certificate core (no box lists), parsed once per process."""
 
     def __init__(self, cert):
         import seedcert as S
@@ -55,7 +66,7 @@ class Ctx:
         self.rec_targets = [(r['phi'].reshape(36), r['R']) for r in cert['records']]
 
 
-def check_seed(C, j):
+def check_seed(C, j, groups=None):
     import seedcert as S
     t0 = time.time(); out = dict(item='seed', index=j)
     try:
@@ -71,7 +82,8 @@ def check_seed(C, j):
                    stagec_s=round(time.time() - t1, 3), rcol=sc['rcol'], rF=sc['rF'])
         if not sc.get('ok'): raise S.CertError('Stage C failed: %s' % sc.get('reason', 'quartet edge not excluded'))
         t2 = time.time()
-        cnt = S.check_seed_transfers(ball, C.balls, C.rec_targets, C.cert['seeds'][j].get('transfers', []), C.cert['max_level'])
+        if groups is None: groups = C.cert['seeds'][j].get('transfers', [])
+        cnt = S.check_seed_transfers(ball, C.balls, C.rec_targets, groups, C.cert['max_level'])
         out.update(transfers=cnt, c2_s=round(time.time() - t2, 3))
         out['ok'] = True
     except S.CertError as e:
@@ -82,7 +94,7 @@ def check_seed(C, j):
     return out
 
 
-def check_record(C, s):
+def check_record(C, s, groups=None):
     import seedcert as S
     import certify as CF
     t0 = time.time(); out = dict(item='record', index=s)
@@ -96,10 +108,11 @@ def check_record(C, s):
             raise S.CertError('record certification: %s' % e)
         S.ctx.prec = S.PREC
         out.update(R=r['R'], rH=rH, n=n, record_s=round(time.time() - t0, 3))
-        if r['boundary']:
+        if groups is None: groups = r.get('boundary', [])
+        if groups:
             if r['eta_scale'] is None: raise S.CertError('record with a boundary but no eta_scale')
             rd = S.RecordData(r['phi'], rec['Tcert'], r['R'], rH, n)
-            cnt = S.check_record_boundary(rd, r['eta_scale'], C.balls, C.rec_targets, r['boundary'], C.cert['max_level'])
+            cnt = S.check_record_boundary(rd, r['eta_scale'], C.balls, C.rec_targets, groups, C.cert['max_level'])
             out.update(boundary=cnt)
         else:
             raise S.CertError('record has no boundary groups')
@@ -150,17 +163,17 @@ def check_tao(C):
 _C = None
 
 
-def _init(path):
+def _init(core):
     global _C
     import warnings; warnings.simplefilter('ignore')
     os.environ.setdefault('OMP_NUM_THREADS', '1')
-    _C = Ctx(read_certificate(path))
+    _C = Ctx(core)
 
 
-def _run(item):
+def _run(item, groups=None):
     kind, idx = item
-    if kind == 'seed': return check_seed(_C, idx)
-    if kind == 'record': return check_record(_C, idx)
+    if kind == 'seed': return check_seed(_C, idx, groups)
+    if kind == 'record': return check_record(_C, idx, groups)
     if kind == 'fourier': return check_fourier(_C)
     return check_tao(_C)
 
@@ -192,21 +205,24 @@ def main(argv=None):
     cert = read_certificate(a.certificate)
     ns, nr = len(cert['seeds']), len(cert['records'])
     items = parse_only(a.only, ns, nr)
+    core, groups = split(cert)
+    del cert
     results = []
     if a.jobs > 1:
         import multiprocessing as mp
         from concurrent.futures import ProcessPoolExecutor, as_completed
-        # costliest first (seeds with many boxes are slower; order affects scheduling only)
-        with ProcessPoolExecutor(a.jobs, mp_context=mp.get_context('spawn'), initializer=_init, initargs=(a.certificate,)) as pool:
-            futs = [pool.submit(_run, it) for it in items]
+        # most boxes first (scheduling only; never a verdict)
+        items.sort(key=lambda it: -sum(len(g.get('boxes', [])) for g in groups.get(it, []) if isinstance(g, dict)))
+        with ProcessPoolExecutor(a.jobs, mp_context=mp.get_context('spawn'), initializer=_init, initargs=(core,)) as pool:
+            futs = [pool.submit(_run, it, groups.get(it)) for it in items]
             for k, f in enumerate(as_completed(futs)):
                 res = f.result(); results.append(res)
                 if not res['ok']: print('FAIL', res['item'], res.get('index', ''), res.get('reason'), flush=True)
                 if (k + 1) % 100 == 0: print('%d / %d done  %.0fs' % (k + 1, len(items), time.time() - t0), flush=True)
     else:
-        _init(a.certificate)
+        _init(core)
         for it in items:
-            res = _run(it); results.append(res)
+            res = _run(it, groups.get(it)); results.append(res)
             print('%s %s %s %s  %.1fs' % ('PASS' if res['ok'] else 'FAIL', res['item'], res.get('index', ''),
                                           res.get('reason', ''), res['seconds']), flush=True)
     bad = [r for r in results if not r['ok']]

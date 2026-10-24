@@ -2,7 +2,7 @@
 
   python3 proof/seed_atlas/cert/tests/run_tests.py            all tests (about a minute; Stage C is the slow one)
   python3 proof/seed_atlas/cert/tests/run_tests.py tm c1      a subset: tm, c1, sampling, stagec, transfers, record,
-                                                              negative, certificate
+                                                              negative, global_, certificate
 
 Positive tests compare with the float prototype (explorations/seed_balls): the certified n must be >= the sampled
 true remainder and within 1.5x of the prototype's Taylor-model bound on the same boxes.  Negative tests corrupt one
@@ -59,27 +59,28 @@ def poly(t, b, u):
 
 
 def test_tm():
+    """Each TM stands for f = poly + e(u) with a fixed function |e(u)| <= rho; the result of an operation must enclose
+    the exact result at sampled u.  Reported: max |exact - poly| / rho (must be <= 1; well above 0 shows the test
+    exercises the remainder)."""
     rng = np.random.default_rng(5)
     B = 3
     hf = np.array([[0.05, 0.03, 0.04, 0.02]] * B)
     h = TMA.oarb(hf)
-    # each TM represents f = poly + e(u) with a fixed function e (|e| <= rho): e(u) = rho * sin(7 u.v) (unit-ish)
     def realise(t, b, u, seed, cplx):
-        rr = float(t.rho[b].flat[0].upper()) if t.rho[b].ndim else float(t.rho[b].upper())
+        rr = np.array([float(x.upper()) for x in t.rho[b].flat]).reshape(t.rho[b].shape)
         s = np.sin(7 * u.sum() + seed) * rr
         return poly(t, b, u) + (s * np.exp(1j * seed) if cplx else s)
+    def ratio(err, rho_arr):
+        r = np.array([float(x.upper()) for x in np.asarray(rho_arr).flat]).reshape(np.shape(rho_arr))
+        return (np.abs(err) / r).max()
     worst = 0.0
-    # exp_i of a real TM
     a = rand_tm(rng, B, (5,), False, 1e-3, h)
     e = TMA.exp_i(a)
     for b in range(B):
         for _ in range(200):
             u = rng.uniform(-1, 1, 4) * hf[b]
-            fa = realise(a, b, u, 0.3, False)
-            err = np.abs(np.exp(1j * fa) - poly(e, b, u)) - np.array([float(x.upper()) for x in e.rho[b]])
-            worst = max(worst, err.max())
-    check('tm: exp_i encloses e^{i f}', worst <= 1e-12, 'max excess %.2e' % worst)
-    # entrywise product and matrix product of complex TMs with remainders
+            worst = max(worst, ratio(np.exp(1j * realise(a, b, u, 0.3, False)) - poly(e, b, u), e.rho[b]))
+    check('tm: exp_i encloses e^{i f}', worst <= 1, 'max |err|/rho %.3f' % worst)
     a = rand_tm(rng, B, (3, 3), True, 2e-3, h); bt = rand_tm(rng, B, (3, 3), True, 1e-3, h)
     p = a * bt; m = a @ bt
     worst_p = worst_m = 0.0
@@ -87,37 +88,29 @@ def test_tm():
         for _ in range(200):
             u = rng.uniform(-1, 1, 4) * hf[b]
             fa = realise(a, b, u, 0.1, True).reshape(3, 3); fb = realise(bt, b, u, 0.7, True).reshape(3, 3)
-            rp = np.array([[float(x.upper()) for x in row] for row in p.rho[b]])
-            rm = np.array([[float(x.upper()) for x in row] for row in m.rho[b]])
-            worst_p = max(worst_p, (np.abs(fa * fb - poly(p, b, u).reshape(3, 3)) - rp).max())
-            worst_m = max(worst_m, (np.abs(fa @ fb - poly(m, b, u).reshape(3, 3)) - rm).max())
-    check('tm: entrywise product encloses', worst_p <= 1e-12, 'max excess %.2e' % worst_p)
-    check('tm: matrix product encloses', worst_m <= 1e-12, 'max excess %.2e' % worst_m)
-    # arg near a unimodular centre
+            worst_p = max(worst_p, ratio(fa * fb - poly(p, b, u).reshape(3, 3), p.rho[b]))
+            worst_m = max(worst_m, ratio(fa @ fb - poly(m, b, u).reshape(3, 3), m.rho[b]))
+    check('tm: entrywise product encloses', worst_p <= 1, 'max |err|/rho %.3f' % worst_p)
+    check('tm: matrix product encloses', worst_m <= 1, 'max |err|/rho %.3f' % worst_m)
     D = rand_tm(rng, B, (3, 3), True, 1e-3, h)
     c0 = np.exp(1j * rng.uniform(-3, 3, (B, 3, 3)))
     D = TMA.TM(TMA.oacb(c0), D.g * arb(0.1), D.q * arb(0.1), D.rho, h)
-    Pref = np.angle(c0[0]) + 2 * np.pi
-    A = S.arg_tm(D, Pref)
+    A = S.arg_tm(D, np.angle(c0[0]) + 2 * np.pi)
     worst = 0.0
     for b in range(B):
         for _ in range(200):
             u = rng.uniform(-1, 1, 4) * hf[b]
-            fD = realise(D, b, u, 0.4, True).reshape(3, 3)
-            ra = np.array([[float(x.upper()) for x in row] for row in A.rho[b]])
-            d = np.angle(fD) - poly(A, b, u).real.reshape(3, 3)
-            d = np.abs(d - 2 * np.pi * np.rint(d / (2 * np.pi)))
-            worst = max(worst, (d - ra).max())
-    check('tm: arg encloses arg D (mod 2 pi)', worst <= 1e-12, 'max excess %.2e' % worst)
-    # norm_sup bounds sup ||f|| over the box
+            d = np.angle(realise(D, b, u, 0.4, True).reshape(3, 3)) - poly(A, b, u).real.reshape(3, 3)
+            worst = max(worst, ratio(d - 2 * np.pi * np.rint(d / (2 * np.pi)), A.rho[b]))
+    check('tm: arg encloses arg D (mod 2 pi)', worst <= 1, 'max |err|/rho %.3f' % worst)
     a = rand_tm(rng, B, (7,), False, 1e-3, h)
     ns = TMA.norm_sup(a)
     worst = 0.0
     for b in range(B):
         for _ in range(300):
             u = np.sign(rng.normal(size=4)) * hf[b] if _ % 3 == 0 else rng.uniform(-1, 1, 4) * hf[b]
-            worst = max(worst, np.linalg.norm(realise(a, b, u, 0.2, False).real) - float(ns[b].upper()))
-    check('tm: norm_sup >= sampled sup', worst <= 1e-12, 'max excess %.2e' % worst)
+            worst = max(worst, np.linalg.norm(realise(a, b, u, 0.2, False).real) / float(ns[b].upper()))
+    check('tm: norm_sup >= sampled sup', worst <= 1, 'max ||f|| / bound %.3f' % worst)
 
 
 # ============================================================================================== C1
@@ -394,8 +387,24 @@ def test_certificate():
         check('certificate: corrupted n rejected end to end', not r0['ok'], r0.get('reason', ''))
 
 
+def test_global():
+    """F6 in atlas record 877 (accepted), and not after moving one of its phases by 0.2 (rejected); Tao passes."""
+    import certify_seed_atlas as CS
+    recs = json.load(gzip.open(os.path.join(F.ROOT, 'proof/atlas/results/atlas_certificate.json.gz')))['records']
+    r = recs[877]
+    phi = np.array([F.fh(x) for x in r['phi']]).reshape(6, 6)
+    def ctx_for(phi):
+        return CS.Ctx(dict(seeds=[], records=[dict(phi=phi, R=float(r['R']), label_radius=float(r['label_radius']),
+                                                     Tint=None, eta_scale=None, boundary=[])],
+                           fourier_record=0, max_level=9, tao=dict(R=0.08, label_radius=0.03)))
+    o = CS.check_fourier(ctx_for(phi)); check('global: F6 in record 877', o['ok'], '%.1fs' % o['seconds'])
+    phi2 = phi.copy(); phi2[2, 3] += 0.2
+    o = CS.check_fourier(ctx_for(phi2)); check('global: F6 not in record 877 with a phase moved by 0.2 (rejected)', not o['ok'])
+    o = CS.check_tao(ctx_for(phi)); check('global: Tao record passes', o['ok'], str(o))
+
+
 TESTS = dict(tm=test_tm, c1=test_c1, sampling=test_sampling, stagec=test_stagec, transfers=test_transfers,
-             record=test_record, negative=test_negative, certificate=test_certificate)
+             record=test_record, negative=test_negative, global_=test_global, certificate=test_certificate)
 
 if __name__ == '__main__':
     names = sys.argv[1:] or list(TESTS)

@@ -2,7 +2,7 @@
 
   * certify_c1(ball):        claim C1 for one seed ball: a rigorous n_cert with ||Q - P - U w - 2 pi N|| <= n_cert for
                              every ||w|| <= r, and the verdict n_cert <= n.
-  * stage_c_bounds(ball):    rigorous rcol, rF (and the cycle-unit arguments) for the Stage C call.
+  * stage_c_args(ball):      rigorous rcol, rF (and the cycle-unit arguments) for the Stage C call.
   * T0, T1, T2 (seed boundary boxes), T1' (record boundary boxes), sphere coverage: see the functions below.
 
 Floats enter only as PREDICTORS (side solutions, their derivatives, the forced block and its derivatives, the
@@ -60,7 +60,7 @@ class Ball:
         need(self.theta0.shape == (4,) and self.Mth.shape == (16,) and self.P.shape == (36,) and self.U.shape == (144,),
              'seed ball: wrong array sizes')
         self.Mth = self.Mth.reshape(4, 4); self.U = self.U.reshape(36, 4)
-        need(self.o in (1, -1) and not isinstance(self.o, bool), 'seed ball: orientation must be +1 or -1')
+        need(isinstance(self.o, int) and not isinstance(self.o, bool) and self.o in (1, -1), 'seed ball: orientation must be +1 or -1')
         need(isinstance(self.k, int) and not isinstance(self.k, bool) and 1 <= self.k <= 64, 'seed ball: k must be an integer in [1, 64]')
         allf = np.concatenate([self.theta0, self.Mth.ravel(), self.P, self.U.ravel(), [self.r, self.n, self.label_radius]])
         need(np.all(np.isfinite(allf)), 'seed ball: non-finite data')
@@ -410,7 +410,7 @@ def real_tm(c, g, q, h):
 def box_Q(ball, wc, h, wcf):
     """Taylor models (B, 36) of the phases Q of the matched completion H_o(theta), theta = theta0 + Mth (wc + u),
     u in prod [-h, h], for B boxes.  wc, h: (B, 4) arb (exact box centres / half-widths enclosed), wcf: float centres
-    (predictors only).  Raises CertError if any box fails.  Also returns the tube TMs (for orientation reuse)."""
+    (predictors only).  Raises CertError if any box fails."""
     B = wc.shape[0]
     th = theta_tm(ball, wc, h)
     thcf = ball.theta0[None] + wcf @ ball.Mth.T
