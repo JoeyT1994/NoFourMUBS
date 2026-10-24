@@ -489,7 +489,7 @@ EDGE_CACHE = {}
 
 
 def edge_record(r='0.1', k=(4, 4, 4, 8), n=None):
-    d = copy.deepcopy(EDGEFX[r]); d['k'] = list(k)
+    d = copy.deepcopy(EDGEFX[r]); d['k'] = list(k); d['chart'] = 'F6-012'
     for key in ('n_sample', 'sv'): d.pop(key, None)
     if n is not None: d['n'] = F.hx(n)
     return d
@@ -511,8 +511,7 @@ def t3_setup(name):
     d, o = edge_c1()
     sd = copy.deepcopy(EDGESEEDS[name])
     b = S.Ball(sd)
-    bx = F.sphere_boxes(2)
-    grp = dict(kind='T3', target=0, g='id', rows=sd['t3rows'], cols=sd['t3cols'], boxes=bx)
+    grp = F.t3_group(sd, F.sphere_boxes(2))
     return EC.EdgeBall(d), o['tubes'], b, grp
 
 
@@ -572,7 +571,9 @@ def test_edge():
     rejects('negative edge C1e: the y direction reversed (row 4 of Mth negated)',
             lambda: c1e(corrupt('Mth', lambda v: v.__setitem__(slice(12, 16), [-x for x in v[12:16]]))))
     rejects('negative edge C1e: P entry + 0.01', lambda: c1e(corrupt('P', lambda v: v.__setitem__(22, v[22] + 0.01))))
-    rejects('negative edge: k = 0', lambda: EC.EdgeBall(dict(base, k=0)))
+    rejects('negative edge: k = 0', lambda: EC.EdgeBall(dict(base, k=[0, 3, 3, 3])))
+    rejects('negative edge: k a single integer', lambda: EC.EdgeBall(dict(base, k=3)))
+    rejects('negative edge: unknown chart', lambda: EC.EdgeBall(dict(base, chart='F6-345')))
     # T3 corruptions
     eb_, tubes, b, grp = t3_setup('pos')
     def t3(mut, edges=None):
@@ -581,6 +582,14 @@ def test_edge():
     rejects('negative T3: g = T (swaps the sides: the sign of y)', t3(lambda g: g.__setitem__('g', 'T')))
     rejects('negative T3: g = conj', t3(lambda g: g.__setitem__('g', 'conj')))
     rejects('negative T3: rows 1, 2 swapped', t3(lambda g: g['rows'].__setitem__(slice(1, 3), [g['rows'][2], g['rows'][1]])))
+    rejects('negative T3: hcols reordered', t3(lambda g: g['hcols'].__setitem__(slice(0, 2), [g['hcols'][1], g['hcols'][0]])))
+    rejects('negative T3: vrows reordered', t3(lambda g: g['vrows'].__setitem__(slice(0, 2), [g['vrows'][1], g['vrows'][0]])))
+    rejects('negative T3: hcols not the column complement', t3(lambda g: g.__setitem__('hcols', [g['cols'][0]] + g['hcols'][1:])))
+    rejects('negative T3: wind[3] + 1 (theta_4)', t3(lambda g: g['wind'].__setitem__(3, g['wind'][3] + 1)))
+    rejects('negative T3: wind[0] + 1', t3(lambda g: g['wind'].__setitem__(0, g['wind'][0] + 1)))
+    rejects('negative T3: wind_h[4] + 1', t3(lambda g: g['wind_h'].__setitem__(4, g['wind_h'][4] + 1)))
+    rejects('negative T3: wind_v[1] - 1', t3(lambda g: g['wind_v'].__setitem__(1, g['wind_v'][1] - 1)))
+    rejects('negative T3: wind_v missing', t3(lambda g: g.pop('wind_v')))
     rejects('negative T3: target out of range', t3(lambda g: g.__setitem__('target', 1)))
     rejects('negative T3: malformed rows', t3(lambda g: g.__setitem__('rows', [0, 0, 1])))
     rejects('negative T3: edge ball not certified', t3(lambda g: None, edges=[(eb_, None)]))
@@ -600,7 +609,7 @@ def test_edge_certificate():
     for name in ('pos', 'neg'):
         sd = copy.deepcopy(EDGESEEDS[name])
         c1 = S.certify_c1(S.Ball(sd)); sd['n'] = F.hx(c1['n_cert'] * 1.05)
-        sd['transfers'] = [dict(kind='T3', target=0, g='id', rows=sd['t3rows'], cols=sd['t3cols'], boxes=F.sphere_boxes(2))]
+        sd['transfers'] = [F.t3_group(sd, F.sphere_boxes(2))]
         for k in ('pstar', 't3rows', 't3cols', 'matched', 'edge', 'wstar'): sd.pop(k, None)
         seeds.append(sd)
     cert = dict(format='seed-atlas-v1', max_level=9, seeds=seeds, records=[], edge=[dict(d, transfers=[])],

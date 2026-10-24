@@ -58,3 +58,17 @@ def record_data(rec):
     phi = np.array([fh(x) for x in rec['phi']]).reshape(6, 6)
     rd = S.RecordData(phi, fh(rec['R']), fh(rec['label_radius']), np.array(rec['Tint'], dtype=np.int64).reshape(36, 4))
     return rd, rd.rH, rd.n0
+
+
+def t3_group(seed_raw, boxes, target=0, g='id'):
+    """A T3 group (FORMAT.md section 8) for a test seed ball built inside the edge chart: the chart's row a is the
+    seed's row t3rows[a] (likewise columns); windings from the seed's centre phases P (the representative there)."""
+    import edgecert as EC
+    R, C = seed_raw['t3rows'], seed_raw['t3cols']
+    Q = np.array([fh(x) for x in seed_raw['P']])
+    sgn, gi = S.g_perm(g); Qp = (sgn * Q[gi]).reshape(6, 6)
+    K = np.array([[Qp[R[a], C[b]] - Qp[R[a], C[0]] - Qp[R[0], C[b]] + Qp[R[0], C[0]] for b in range(6)] for a in range(6)]).reshape(36)
+    th, ph, pv = K[EC.IDX_TH], K[EC.IDX_PH], K[EC.IDX_PV]
+    w = lambda x, ref: [int(v) for v in np.rint((ref - x) / (2 * math.pi))]
+    return dict(kind='T3', target=target, g=g, rows=list(R[:3]), cols=list(C[:3]), hcols=list(C[3:]), vrows=list(R[3:]),
+                wind=w(th, EC.TH0f), wind_h=w(ph, EC.PH0f), wind_v=w(pv, EC.PH0f), boxes=boxes)

@@ -176,11 +176,12 @@ def system():
 
 # ======================================================================================== the edge ball
 class EdgeBall:
-    """One edge-ball record (FORMAT: "edge" entries): Mth (16), r, P (36, F6's phases), U (144), n, label_radius, k
-    (int, or 4 ints per w-axis)."""
+    """One edge-ball record (FORMAT.md section 8): chart "F6-012", Mth (16), r, P (36), U (144), n, label_radius,
+    k (4 ints, boxes per w-axis), transfers."""
 
     def __init__(self, d):
         hx = S._hexf
+        need(d.get('chart') == 'F6-012', 'edge ball: unknown chart %r' % (d.get('chart'),))
         self.Mth = np.array([hx(x) for x in d['Mth']], float)
         self.P = np.array([hx(x) for x in d['P']], float)
         self.U = np.array([hx(x) for x in d['U']], float)
@@ -188,9 +189,8 @@ class EdgeBall:
         need(self.Mth.shape == (16,) and self.P.shape == (36,) and self.U.shape == (144,), 'edge ball: wrong array sizes')
         self.Mth = self.Mth.reshape(4, 4); self.U = self.U.reshape(36, 4)
         k = d['k']
-        k = [k] * 4 if isinstance(k, int) and not isinstance(k, bool) else k
         need(isinstance(k, list) and len(k) == 4 and all(isinstance(v, int) and not isinstance(v, bool) and 1 <= v <= 64 for v in k),
-             'edge ball: k must be an integer or 4 integers in [1, 64]')
+             'edge ball: k must be 4 integers in [1, 64]')
         self.k = k
         allf = np.concatenate([self.Mth.ravel(), self.P, self.U.ravel(), [self.r, self.n, self.label_radius]])
         need(np.all(np.isfinite(allf)), 'edge ball: non-finite data')
@@ -540,14 +540,17 @@ def tm_recentre(t, delta, hnew):
     return TM(c, g, t.q.copy(), t.rho, hnew)
 
 
-def _rows_cols(v, what):
-    """An ordered triple (its complement then in increasing order) or a full permutation of 0..5."""
-    need(isinstance(v, (list, tuple)) and len(v) in (3, 6) and all(isinstance(x, int) and not isinstance(x, bool) for x in v),
-         'T3: malformed %s' % what)
-    v = list(v)
-    if len(v) == 3: v = v + [i for i in range(6) if i not in v]
-    need(sorted(v) == list(range(6)), 'T3: malformed %s' % what)
-    return v
+def t3_orders(grp):
+    """FORMAT.md section 8: rows = (i0, i1, i2), cols = (j0, j1, j2) the ordered corner, hcols an order of J^c, vrows an
+    order of I^c.  Returns the full orders (chart row a = K's row R[a], chart column b = K's column C[b])."""
+    def tri(v, what):
+        need(isinstance(v, (list, tuple)) and len(v) == 3 and all(isinstance(x, int) and not isinstance(x, bool) and 0 <= x < 6 for x in v),
+             'T3: malformed %s' % what)
+        return [int(x) for x in v]
+    I, J, hc, vr = tri(grp.get('rows'), 'rows'), tri(grp.get('cols'), 'cols'), tri(grp.get('hcols'), 'hcols'), tri(grp.get('vrows'), 'vrows')
+    R, C = I + vr, J + hc
+    need(sorted(R) == list(range(6)) and sorted(C) == list(range(6)), 'T3: rows + vrows and cols + hcols must be permutations')
+    return R, C
 
 
 IDX_TH = [7, 8, 13, 14]; IDX_PH = [9, 10, 11, 15, 16, 17]; IDX_PV = [19, 25, 31, 20, 26, 32]
@@ -567,11 +570,6 @@ def corner_data(Q, g, rows, cols):
     return Kd[np.array(IDX_TH)], Kd[np.array(IDX_PH)], Kd[np.array(IDX_PV)]
 
 
-def _wind(t, ref):
-    """Shift entries of the TM t by 2 pi N towards ref (floats), N chosen at the box centre."""
-    return S.wind_to(t, np.broadcast_to(ref, t.c.shape))
-
-
 def pred_compose(c, g, q2, v):
     """c + g v + sum_m q_m v_j v_l at the TM v (B, 4), for per-row predictor coefficients c (B, 7), g (B, 7, 4),
     q2 (B, 7, 10) (floats, exact) or a single box's (7,), (7, 4), (7, 10)."""
@@ -588,23 +586,30 @@ def pred_compose(c, g, q2, v):
     return out
 
 
-def check_T3(Q, eb, tubes, g, rows, cols, max_depth=8):
-    """T3 (into the edge ball) on boxes with source phase TMs Q (B, 36): for K = g . H_source reordered to (rows,
-    cols) and dephased, p_K = (theta_K,1..3 - TH0_1..3, y_K), y_K = -2 Im Psi(K's horizontal side), must lie in
-    int E (||Mth^-1 p_K|| < r), and (theta_K,4 - TH0_4, side angles - PH0) must lie in the Krawczyk inclusion box of
-    the edge box containing Mth^-1 p_K, for both sides (vertical: (u1, u3, u2, -y_K)).  Uniqueness in those boxes then
-    gives K = H(p_K) (the vertical side solves the system at -y_K when the corner is matched, or y_K = 0; a strict
-    nonmatched corner would make K Tao, SPEC section 10).  Boxes whose image straddles edge boxes are bisected."""
+def check_T3(Q, eb, tubes, grp, max_depth=8):
+    """T3 (FORMAT.md section 8) on boxes with source phase TMs Q (B, 36): K = g . H_source (phases Q'); the corner seed
+    th' at (rows, cols), the side angles phi'_h (columns hcols) and phi'_v (rows vrows), each dephased at (i0, j0) and
+    shifted by 2 pi wind, wind_h, wind_v; y' = -2 Im Psi(K[I, J^c]); p' = (th'_1..3 - TH0_1..3, y').
+    Certified: ||Mth^-1 p'|| < r, and (th'_4 - TH0_4, phi'_h - PH0) resp. (th'_4 - TH0_4, phi'_v - PH0) within the
+    uniqueness radius of the C1e tube of EVERY edge box the image of Mth^-1 p' may meet, over the whole source box (the
+    C1e tubes define H, and are consistent across faces).  Uniqueness then gives K = H(p') (the vertical side solves
+    the system at -y' when the corner is matched, or y' = 0; a strict nonmatched corner would make K Tao, SPEC
+    section 10).  Source boxes are bisected when no candidate edge box certifies."""
     need(tubes is not None and len(tubes.rho['h']), 'T3: edge ball not certified')
-    rows = _rows_cols(rows, 'rows'); cols = _rows_cols(cols, 'cols')
-    th, phh, phv = corner_data(Q, g, rows, cols)
+    R, C = t3_orders(grp)
+    N4 = S.ints(grp.get('wind'), 4, 'T3 wind'); Nh = S.ints(grp.get('wind_h'), 6, 'T3 wind_h'); Nv = S.ints(grp.get('wind_v'), 6, 'T3 wind_v')
+    th, phh, phv = corner_data(Q, grp['g'], R, C)
+    tp = S.TWO_PI_ARB
     th0 = np.array([arb.pi() * k / 3 for k in K_TH0], dtype=object); ph0 = np.array([arb.pi() * k / 3 for k in K_PH0], dtype=object)
-    th = _wind(th - th0[None, :], np.zeros(4)); phh = _wind(phh - ph0[None, :], np.zeros(6)); phv = _wind(phv - ph0[None, :], np.zeros(6))
-    y = S.psi_tm(S.side_tm(phh + ph0[None, :])).im().scale(arb(-2))
+    th = th + oarb(N4.astype(float))[None, :] * tp - th0[None, :]
+    phh = phh + oarb(Nh.astype(float))[None, :] * tp
+    phv = phv + oarb(Nv.astype(float))[None, :] * tp
+    y = S.psi_tm(S.side_tm(phh)).im().scale(arb(-2))                       # Psi is invariant under the 2 pi shifts
     p = stack([th[0], th[1], th[2], y], (4,), Q.h, False)
     w = p.lmul(eb.Minv())
     sup = TMA.norm_sup(w)
     need(all(x < eb.r_a for x in sup), 'T3: p_K not certified inside the edge ball')
+    phh = phh - ph0[None, :]; phv = phv - ph0[None, :]
     xh = stack([th[3]] + [phh[k] for k in range(6)], (7,), Q.h, False)
     xv = stack([th[3]] + [phv[k] for k in range(6)], (7,), Q.h, False)
     ra = arb(tubes.r)

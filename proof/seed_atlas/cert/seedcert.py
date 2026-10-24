@@ -859,9 +859,10 @@ def check_seed_transfers(ball, seeds, records, groups, max_level, chunk=64, edge
             perm_matrix(rows, cols); g_index(grp.get('g'))
             jobs.append(('T2', grp, rows, cols, xc, h, xcf))
         elif kind == 'T3':
+            import edgecert
             need(0 <= t < len(edges), 'T3: target out of range')
-            g_index(grp.get('g'))
-            jobs.append(('T3', grp, grp.get('rows'), grp.get('cols'), xc, h, xcf))
+            g_index(grp.get('g')); edgecert.t3_orders(grp)
+            jobs.append(('T3', grp, None, None, xc, h, xcf))
         else:
             raise CertError('unknown transfer kind %r' % (kind,))
     for kind, grp, rows, cols, xc, h, xcf in jobs:
@@ -873,7 +874,7 @@ def check_seed_transfers(ball, seeds, records, groups, max_level, chunk=64, edge
             elif kind == 'T3':
                 import edgecert
                 eb, tubes = edges[grp['target']]
-                edgecert.check_T3(Q, eb, tubes, grp['g'], rows, cols)
+                edgecert.check_T3(Q, eb, tubes, grp)
             else:
                 P, R = records[grp['target']]
                 check_T2(P, R, grp['g'], rows, cols, grp.get('wind'), Q)

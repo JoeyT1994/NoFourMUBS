@@ -130,14 +130,17 @@ row sums of |I − YJ| are 1.1–2.3 on level-2 to level-4 boxes. Hence the 2-no
   box, so that H(p) is one map. The check uses exact polynomial shifts.
 - `f6_in_edge` checks F6 = H(0): x = 0 lies in the uniqueness box at w = 0.
 
-**T3** (`check_T3`, seed transfer kind `"T3"`, data target, g, rows, cols). rows and cols are ordered triples, with
-the complement in increasing order, or full permutations of 0..5. K = g·(source) is reordered and dephased, linearly
-in Q. Then:
-- y_K = −2 Im Ψ(K's horizontal side), and p_K = (θ_K,1..3 − θ⁰_1..3, y_K) must satisfy ‖Mth⁻¹p_K‖ < r.
-- For every edge box the image of Mth⁻¹p_K may meet, |x_K − pred_e(w_K − w_e)| < ρ_e must hold over the whole source
-  box, for both sides. Here x_K = (θ_K,4 − θ⁰_4, side angles − φ⁰). Source boxes are bisected (depth ≤ 8) when one
-  edge box fails.
-- Windings are chosen at the box centre.
+**T3** (`check_T3`, FORMAT §8: kind `"T3"` with target, g, rows, cols, hcols, vrows, wind, wind_h, wind_v).
+K = g·(source) gives:
+- the corner seed θ′ at (rows, cols);
+- the horizontal angles φ′_h, over columns hcols, and the vertical angles φ′_v, over rows vrows, both dephased at
+  (i0, j0). Each is shifted by its stored winding.
+
+All of these are linear in Q. Then:
+- y′ = −2 Im Ψ(K[I, Jᶜ]), and p′ = (θ′₁..₃ − θ⁰₁..₃, y′) must satisfy ‖Mth⁻¹p′‖ < r.
+- For every edge box the image of Mth⁻¹p′ may meet, |x′ − pred_e(w′ − w_e)| < ρ_e must hold over the whole source
+  box, for both sides. Here x′ = (θ′₄ − θ⁰₄, φ′ − φ⁰). Source boxes are bisected (depth ≤ 8) when one edge box fails.
+- The edge entries must have `"chart": "F6-012"` and k as 4 ints.
 
 This relies on the vertical side solving the −y_K system. That holds if the corner is matched or y_K = 0; a strict
 nonmatched corner would make K Tao (SPEC §10). The certifier does not check this; it is the same fact the SPEC's
