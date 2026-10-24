@@ -249,9 +249,16 @@ function misses_unit_sphere(lo, hi)
     inf(lo2) > 1 || sup(hi2) < 1
 end
 
-"""Does the box eta in s [lo, hi] certainly miss the shell {R^2 - n^2 <= ||T eta||^2 <= R^2}?"""
-function misses_shell(lo, hi, s::Float64, Ti::Matrix{I64}, R::Float64, n::Float64)
+"""Does the box eta in s [lo, hi] certainly miss the shell {R^2 - n^2 <= ||T eta||^2 <= R^2} (FORMAT.md §6)?  Off if
+max ||T eta||^2 < R^2 - n^2, or min ||T eta|| > R, or min ||eta|| > rHt (rHt >= max ||eta|| on ||T eta|| <= R)."""
+function misses_shell(lo, hi, s::Float64, Ti::Matrix{I64}, R::Float64, n::Float64, rHt::Float64)
     zc, h = scaled_dom(lo, hi, s)
+    eta2 = iv(0.0)
+    for j in 1:4
+        a = iv(s) * iv(lo[j]); b = iv(s) * iv(hi[j])
+        eta2 += lo[j] > 0 ? a^2 : hi[j] < 0 ? b^2 : iv(0.0)
+    end
+    inf(eta2) > sup(iv(rHt)^2) && return true
     up = maximum(sup(sqrt(sum((sum(Ti[e, j] * v[j] for j in 1:4))^2 for e in 1:36))) for v in scaled_vertices(lo, hi, s))
     lo2 = iv(0.0)
     for e in 1:36
@@ -400,7 +407,7 @@ function check_c2_record(sr::SRecord, nb::IA.NormalBound, X::XferCtx, rec_ok::Fu
     rc = RecCtx(sr, nb)
     sr.eta_scale >= rc.rHt || return res(false, @sprintf("eta_scale %.6g < r_H %.6g: the cube may not contain the shell", sr.eta_scale, rc.rHt))
     listed = Set{NTuple{5,Int}}(b for g in sr.groups for b in g.boxes)
-    cov, cn = dyadic_covered(listed, (lo, hi) -> misses_shell(lo, hi, sr.eta_scale, rc.Ti, sr.rec.R, rc.n))
+    cov, cn = dyadic_covered(listed, (lo, hi) -> misses_shell(lo, hi, sr.eta_scale, rc.Ti, sr.rec.R, rc.n, rc.rHt))
     cov || return res(false, "the boxes do not cover the shell", [0, 0], cn)
     st = [0, 0]
     for (gi, g) in enumerate(sr.groups)

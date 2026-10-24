@@ -11,10 +11,10 @@ Julia with IntervalArithmetic.jl. It re-implements from the specification:
 The 25-dimensional records (normal bound, Stage C, F6) reuse `proof/independent/src` unchanged: it is loaded as the
 submodule `IndepAtlas` and nothing in it is edited.
 
-**Sources used:** `SPEC.md`; `FORMAT.md` (piece B's branch, commit 37c52092); `proof/independent` (README and `src`);
-`proof/atlas/COVERAGE.md`; the module docstrings of `proof/atlas/ballrecord.py` and `proof/atlas/tao.py`. I also read
-`explorations/seed_balls/README.md` and the prototype (`seedball.py`, `tm2.py`, `tmball.py`, `tmball2.py`), but only
-for the mathematics: the design below differs from it, as listed under "Design".
+**Sources used:** `SPEC.md`; `FORMAT.md` (piece B's branch, commits 37c52092 and 2f77a3c0); `proof/independent`
+(README and `src`); `proof/atlas/COVERAGE.md`; the module docstrings of `proof/atlas/ballrecord.py` and
+`proof/atlas/tao.py`. I also read `explorations/seed_balls/README.md` and the prototype (`seedball.py`, `tm2.py`,
+`tmball.py`, `tmball2.py`), but only for the mathematics: the design below differs from it, as listed under "Design".
 
 **Not opened:** piece A's code (`proof/seed_atlas/cert/`), the driver's code (`proof/seed_atlas/driver/`) and
 `proof/atlas/stagec.py`.
@@ -175,7 +175,8 @@ T0 and corner-T1 are vertex tests, so they are not split.
 - the traversal stops at the deepest listed level;
 - for a seed ball, the region is the unit sphere ‖u‖ = 1;
 - for a record, it is the shell R² − n² ≤ ‖Tη‖² ≤ R². This is valid because ν ⊥ span T in Lemma 3.1
-  (η = G⁻¹Tᵀδ), and it is contained in FORMAT.md's R − n ≤ ‖Tη‖ ≤ R + n;
+  (η = G⁻¹Tᵀδ); it is FORMAT.md §6's shell. A box is off it if max ‖Tη‖² < R² − n², min ‖Tη‖ > R or
+  min ‖η‖ > r_H;
 - eta_scale must be ≥ R/√λ_min(G). λ_min is bounded below by an exact rational LDLᵀ of G − λI.
 
 ### Rigour
@@ -254,8 +255,8 @@ reason.
      horizontal and has ‖Lν‖ = 3‖ν‖.
    - Per component, |(Lν)_k| ≤ 2n is true.
    - I use ‖Mth_t⁻¹ L g‖₂·n, in intervals. Piece B reached the same conclusion (FORMAT.md §6, pending).
-2. **The record shell.** I check coverage of the tight shell R² − n² ≤ ‖Tη‖² ≤ R² (SPEC §4; valid since ν ∈ N ⊥ T).
-   A cover of FORMAT.md's wider shell R ± n passes.
+2. **The record shell.** I use SPEC §4's R² − n² ≤ ‖Tη‖² ≤ R² (valid since ν ∈ N ⊥ T). FORMAT.md first said
+   R ± n, and from commit 2f77a3c0 it states this shell too.
 3. **U_(·,i) in rcol.** I read it as the 6×4 block of rows 6j + i (column i of the matrix), as in the existing
    normal bound.
 4. **k.** I read k as the starting partition only. Adaptive splitting may certify an n that the k⁴ boxes alone do not.
