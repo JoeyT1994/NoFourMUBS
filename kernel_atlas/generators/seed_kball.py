@@ -285,13 +285,13 @@ def write_ball(G, stagec=True):
         'noncomputable def c1Ls : List Bx := [%s]' % ', '.join(bx(b) for b in G['c1']), '',
         'noncomputable def c1Boxes : List BoxD := [%s]' % ', '.join('box%d' % i for i in c1map), '',
         'theorem c1cover : ballOK seed.r %d c1Ls = true := by decide +kernel' % C1_LEVEL, '',
-        'theorem c1match : ((c1Ls.zip c1Boxes).all fun p => decide (seed.r %% 2 ^ p.1.m = 0) &&',
-        '    decide (p.2.wc = p.1.wcZ seed.r) && decide (p.2.hb = p.1.hbN seed.r)) = true ∧',
-        '    c1Ls.length = c1Boxes.length := by decide +kernel', '',
-        'theorem c1all : ∀ D ∈ c1Boxes, c1Box seed.B D = true := by',
-        '  intro D hD', '  simp only [c1Boxes, List.mem_cons, List.not_mem_nil, or_false] at hD',
-        '  rcases hD with %s' % ' | '.join('rfl' for _ in c1map),
-        *['  · exact (fullBox_sound ok%d (o := %s) rfl).1' % (i, '1' if G['Dj']['o'] == 1 else '-1') for i in c1map],
+        'theorem c1match : (c1Ls.all fun b => decide (seed.r % 2 ^ b.m = 0) &&',
+        '    c1Boxes.any fun D => decide (D.wc = b.wcZ seed.r) && decide (D.hb = b.hbN seed.r)) = true := by',
+        '  decide +kernel', '',
+        'set_option maxRecDepth 100000 in',
+        'theorem c1all : ∀ D ∈ c1Boxes, c1Box seed.B D = true :=',
+        '  ' + ''.join('List.forall_mem_cons.2 ⟨(fullBox_sound ok%d (o := %s) rfl).1, ' % (i, '1' if G['Dj']['o'] == 1 else '-1')
+                       for i in c1map) + 'List.forall_mem_nil _' + '⟩' * len(c1map),
         '', 'end %s' % base]
     put(os.path.join(d, 'C1.lean'), Lb)
     # frame
@@ -310,10 +310,10 @@ def write_ball(G, stagec=True):
         '',
         'theorem hsph : sphereOK seed.r %d (ents.map SEntry.box) = true := by decide +kernel' % MAX_LEVEL, '',
         'theorem hent : ents.all (entryOK seed cores Dt It) = true := by decide +kernel', '',
-        'theorem hcores : ∀ C ∈ cores, coreFull seed.B C.D C.subs = true := by',
-        '  intro C hC', '  simp only [cores, List.mem_cons, List.not_mem_nil, or_false] at hC',
-        '  rcases hC with %s' % ' | '.join('rfl' for _ in clist),
-        *[('  · exact fullBox_coreFull ok%d' % i) if v['c1'] else ('  · exact ok%d' % i) for i, (k, v) in enumerate(clist)],
+        'set_option maxRecDepth 100000 in',
+        'theorem hcores : ∀ C ∈ cores, coreFull seed.B C.D C.subs = true :=',
+        '  ' + ''.join('List.forall_mem_cons.2 ⟨%s, ' % (('fullBox_coreFull ok%d' % i) if v['c1'] else ('ok%d' % i))
+                       for i, (k, v) in enumerate(clist)) + 'List.forall_mem_nil _' + '⟩' * len(clist),
         '', 'theorem hallT1 : allT1 cores ents = true := by decide +kernel', '',
         '/-- **The boundary cover of ball %d**, for any atlas family carrying the table\'s data. -/' % j,
         'theorem bnd {σs ιr : Type} (S : σs → NoFourMUBs.SeedAtlas.SeedBallCert) (A : ιr → NoFourMUBs.RecordCert)',
@@ -334,7 +334,7 @@ def write_ball(G, stagec=True):
         '/-- **Seed ball %d**, every field checked by the kernel. -/' % j,
         'noncomputable def cert : NoFourMUBs.SeedAtlas.SeedBallCert :=',
         '  ballCert seed %s (frame_sound hframe).hMth (frame_sound hframe).hcol (frame_sound hframe).hfrob' % o,
-        '    (hC1_of_boxes (o := %s) rfl c1all (ball_cover_boxes c1cover (hmatch_of_zip c1match))) stageC' % o, '',
+        '    (hC1_of_boxes (o := %s) rfl c1all (ball_cover_boxes c1cover (hmatch_of_any c1match))) stageC' % o, '',
         'end %s' % base])
     for f in os.listdir(d):
         if f.endswith('.lean'): kpack.seal(os.path.join(d, f)) if False else None

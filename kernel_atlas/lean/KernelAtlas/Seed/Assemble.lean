@@ -24,4 +24,15 @@ lemma hmatch_of_zip {r : ℕ} {Ls : List Bx} {boxes : List BoxD}
   simp only [Bool.and_eq_true, decide_eq_true_eq] at this
   exact ⟨this.1.1, boxes[i], List.getElem_mem _, this.1.2, this.2⟩
 
+/-- The same, with each listed box matched to some C1 box (any order). -/
+lemma hmatch_of_any {r : ℕ} {Ls : List Bx} {boxes : List BoxD}
+    (h : (Ls.all fun b => decide (r % 2 ^ b.m = 0) &&
+      boxes.any fun D => decide (D.wc = b.wcZ r) && decide (D.hb = b.hbN r)) = true) :
+    ∀ b ∈ Ls, r % 2 ^ b.m = 0 ∧ ∃ D ∈ boxes, D.wc = b.wcZ r ∧ D.hb = b.hbN r := by
+  intro b hb
+  have := List.all_eq_true.1 h b hb
+  simp only [Bool.and_eq_true, decide_eq_true_eq, List.any_eq_true] at this
+  obtain ⟨hm, D, hD, h1, h2⟩ := this
+  exact ⟨hm, D, hD, h1, h2⟩
+
 end NoFourMUBs.KernelAtlas.Seed
