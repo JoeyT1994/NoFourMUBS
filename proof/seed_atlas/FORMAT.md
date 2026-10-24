@@ -187,8 +187,13 @@ parametric Krawczyk, in the same way C1 encloses the sides:
 2. **The test.** Take a predictor x_p(η) (any quadratic Taylor model) and an inclusion set X = x_p(η) + [−ρ, ρ]²¹.
    ρ must be large enough that X contains every x with ‖N_b x‖ ≤ n_s. Check componentwise:
    sup_β |F(η, x_p(η))| + q ρ < ρ, with q the row sums of sup |I − Y ∂F/∂x| over X.
-3. **What it gives.** Every Hadamard of record s with η ∈ β has ν = N_b x with x ∈ x_p(η) + [−ρ₁, ρ₁],
-   ρ₁ = sup|F(η, x_p)| + q ρ ≪ n_s. The reason: it is a zero of F in X, and that zero is unique.
+3. **What it gives.** Every Hadamard of record s with η ∈ β is a zero of F in X, and that zero is unique. So its
+   ν = N_b x has x ∈ X₁ = K(X) ∩ X, of radius ρ₁ = sup|F(η, x_p)| + q ρ.
+   - **Tighten.** One Krawczyk step leaves ρ₁ ≈ q n_s. Iterating X_{k+1} = K(X_k) ∩ X_k (q shrinks with X_k) brings
+     the radius down to about sup|F(η, x_p)|.
+   - **Measured** (float, record F6 at R = 0.125, 24 Oct): q_∞ ≈ 0.02 over the whole ‖ν‖ ≤ n_s ball. The
+     quadratic-predictor residual of ν is 8e-7, 1e-7 and 1.3e-8 on boxes of half-width 0.016, 0.008 and 0.004 (levels
+     3, 4, 5). Two steps therefore give ρ ≈ 1e-7, against the ≈ 1e-3 the target seed balls can absorb.
 4. **Then.** Q(η) = P_s + Tη + N_b x is a Taylor model in η. Apply the T1 test of §4 to it.
 
 The driver float-checks T1prime at the actual Hadamard points: ν(η) by Gauss–Newton in N, on a 3⁴ grid of each box,
