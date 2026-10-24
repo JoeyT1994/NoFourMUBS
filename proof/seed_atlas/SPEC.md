@@ -301,3 +301,19 @@ needs neither labels nor the converse.
 
 Pieces A and C certify (G) and (D); piece D states them semantically and proves openness by Mathlib's inverse
 function theorem (HasStrictFDerivAt.toPartialHomeomorph).
+
+### 10.2 (G) needs no box computation (24 Oct)
+
+(G) follows from the mean value theorem, using the F6 record's own constants.
+- **Setting.** Let Φ be the 30 real off-diagonal orthogonality entries, J = Φ′, and N = N_F.
+- **Constants.** At F6, σ_min(J(0)|_N) = √3: return V certifies the squared singular values {3, 9, 12} exactly, and
+  BallRecord certifies σ ≥ 1.7 by Arb Cholesky. And ‖J(x) − J(0)‖ ≤ L‖x‖ with L = 2√3 (RIGOUR.md, as in Record.lean).
+- **The argument.** Suppose δ₁ = Tη + ν₁ and δ₂ = Tη + ν₂ are both Hadamard, with ‖δ_i‖ ≤ R_G. Then
+  0 = Φ(δ₁) − Φ(δ₂) = (∫₀¹ J(δ₂ + s(ν₁ − ν₂)) ds)(ν₁ − ν₂). Every point of that segment has norm ≤ R_G, so the averaged
+  Jacobian satisfies ‖· v‖ ≥ (σ − L R_G)‖v‖ on N.
+- **Conclusion.** For R_G < σ/L (≥ 1.7/(2√3) ≈ 0.49), ν₁ = ν₂.
+
+So (G) holds with R_G = 0.45, say, and the certificate only has to show that the edge ball's image lies in
+‖hor(Q − P_F)‖ < R_G: it does, since ‖U‖ r + n ≈ 0.14. The `"graph"` field reduces to `{"R": hex, "sigma": hex}`;
+the checker verifies σ by BallRecord's Cholesky at F6 and R < σ/L. Lean has this lemma's ingredients in
+Record.lean / NormalBound.lean.
