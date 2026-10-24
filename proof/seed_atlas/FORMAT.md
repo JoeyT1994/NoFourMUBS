@@ -153,10 +153,12 @@ seed is unambiguous; for T2 and `rec` they are full permutations of 0..5.
 | `phi`, `R`, `label_radius`, `Tint` | as in the current atlas certificate: `proof/atlas/export.py`, `certify.certify_record`. The frame is `Tint` (36×4 row-major integers, units 2⁻³⁰, projected exactly onto the horizontal space); σ, r_H and the normal bound n (including the frame-rounding term dT·r_H) are recomputed by the certifier with `ballrecord.BallRecord`. In SPEC §8, `R` and `label_radius` were plain floats; here they are hex |
 | `eta_scale` | boxes live in η = eta_scale·u, u ∈ [−1, 1]⁴. The certifier checks eta_scale ≥ its own r_H |
 
-**Coverage condition.** The boxes, read as in §4 but in units of `eta_scale`, must cover the record's shell
-{η : ‖η‖ ≤ r_H, R − n ≤ ‖Tη‖ ≤ R + n}. This contains the boundary set used by the Lean lemma
-(R² − n² ≤ ‖Tη‖² ≤ R²), so covering it suffices for both. The traversal is the same as in §4, except that a box is
-discarded if it is certified off the shell. Use the test of `atlas.offshell`, in Arb.
+**Coverage condition.** The boxes, read as in §4 but in units of `eta_scale`, must cover the record's boundary shell
+as in SPEC §4: {η : ‖η‖ ≤ r_H, R² − n² ≤ ‖Tη‖² ≤ R²}. This holds because, on the boundary ‖δ‖ = R, δ = Tη + ν with ν
+in N exactly orthogonal to span T, so ‖Tη‖² = R² − ‖ν‖². Here T is the certifier's exact frame and n its normal bound for
+that frame. This shell is thinner than the [R − n, R + n] shell of `atlas.offshell` (24 Oct: changed from that shell,
+before any certifier used it). The traversal is the same as in §4, except that a box is discarded if it is certified to
+miss the shell: max over the box of ‖Tη‖² < R² − n², or min > R², or min ‖η‖ > r_H.
 
 **Boundary groups.**
 
