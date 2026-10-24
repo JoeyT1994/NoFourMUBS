@@ -8,6 +8,8 @@ The record's own n is 1.25 n_tm, as a driver would choose.
 Usage: python build_testballs.py out.json [record:r:k ...]
        FIXTURES=data/fixtures.json python build_testballs.py data/testballs.json     (transfer fixtures)
        F6FIX=data/f6fixture.json python build_testballs.py                           (T1' fixture next to F6)
+       EDGEFIX=data/edgeballs.json python build_testballs.py                         (edge balls at F6)
+       EDGESEED=data/edgeballs.json python build_testballs.py                        (seed balls inside the edge chart)
 """
 import gzip, json, os, sys, time, warnings
 import numpy as np
@@ -56,7 +58,7 @@ def build(k_rec, r, k):
                 label_radius=hx(0.03), transfers=[], n_tm=n_tm, n_sample=worst, t_proto=t_tm, edge_R=float(R))
 
 
-MODE = 'fixtures' if os.environ.get('FIXTURES') else ('f6' if os.environ.get('F6FIX') else 'balls')
+MODE = 'fixtures' if os.environ.get('FIXTURES') else ('f6' if os.environ.get('F6FIX') else ('edge' if os.environ.get('EDGEFIX') else ('edgeseed' if os.environ.get('EDGESEED') else 'balls')))
 
 if __name__ == '__main__' and MODE == 'balls':
     out = sys.argv[1]; specs = sys.argv[2:] or DEFAULT
@@ -186,3 +188,74 @@ if __name__ == '__main__' and MODE == 'f6':
     fx = build_f6_fixture()
     json.dump(fx, open(os.environ['F6FIX'], 'w'), indent=1)
     print('corner', fx['rows'], fx['cols'], 'edge %.3f' % fx['edge'], 'amp %.1f' % fx['amp'], 'o', fx['ball']['o'])
+
+
+# ---------------------------------------------------------------------------------------- edge balls at F6
+def build_edge(r, k, label=0.03, nsamp=200):
+    """An edge-ball record at F6 (explorations/seed_balls/edgeball.py): P = phases of the completion at p = 0 (F6's
+    corner (0,1,2)), T = dQ/dp by central differences, Mth = V S^-1, U = T Mth; n = 1.25 x the sampled remainder
+    (a placeholder; the tests set n from the certifier).  Also returns the sampled remainder."""
+    import edgeball as EB
+    H0, ok, xh0, xv0 = EB.complete(np.zeros(4)); P = np.angle(H0)
+    def Q(p):
+        H, ok, _, _ = EB.complete(np.asarray(p, float), steps=max(1, int(np.ceil(np.linalg.norm(p) / 0.05))))
+        return None if not ok else (P + np.angle(H * np.exp(-1j * P))).reshape(36)
+    hh = 1e-5
+    T = np.array([(Q(hh * e) - Q(-hh * e)) / (2 * hh) for e in np.eye(4)]).T
+    U, Sv, Vt = np.linalg.svd(T, full_matrices=False); M = Vt.T / Sv[None, :]
+    U = T @ M
+    rng = np.random.default_rng(0); worst = 0.0
+    for s in (r, r / 2):
+        for _ in range(nsamp):
+            w = rng.normal(size=4); w *= s / np.linalg.norm(w)
+            q = Q(M @ w); worst = max(worst, np.linalg.norm(q - P.reshape(36) - U @ w))
+    return dict(Mth=[hx(x) for x in M.reshape(16)], r=hx(r), P=[hx(x) for x in P.reshape(36)], U=[hx(x) for x in U.reshape(144)],
+                n=hx(1.25 * worst), label_radius=hx(label), k=k, transfers=[], n_sample=worst, sv=[float(x) for x in Sv])
+
+
+if __name__ == '__main__' and os.environ.get('EDGEFIX'):
+    out = {}
+    for r in (0.02, 0.1, 0.125):
+        e = build_edge(r, [3, 3, 3, 3])
+        out[str(r)] = e
+        print('edge r %.3f: sampled n %.3e  sv %s' % (r, e['n_sample'], np.round(e['sv'], 4)), flush=True)
+    json.dump(out, open(os.environ['EDGEFIX'], 'w'), indent=1)
+
+
+def build_edge_seed(edge, wstar, r=0.02, k=3):
+    """A prototype seed ball at the best matched corner (largest edge distance) of K* = H(p*), p* = Mth w* in the
+    edge chart, and the T3 data back to F6's corner: rows[a] / cols[b] = position in the seed's order of K*'s row a /
+    column b (full permutations), g = id."""
+    import edgeball as EB
+    import itertools as it
+    M = np.array([float.fromhex(x) for x in edge['Mth']]).reshape(4, 4)
+    p = M @ np.asarray(wstar, float)
+    H, ok, _, _ = EB.complete(p, steps=max(1, int(np.ceil(np.linalg.norm(p) / 0.05))))
+    assert ok
+    best = None
+    for I in it.combinations(range(6), 3):
+        for J in it.combinations(range(6), 3):
+            Ic = [x for x in range(6) if x not in I]; Jc = [x for x in range(6) if x not in J]
+            Mm = H[np.ix_(list(I) + Ic, list(J) + Jc)]; Mm = Mm / Mm[:, :1]; Mm = Mm / Mm[:1, :]
+            th = np.angle([Mm[1, 1], Mm[1, 2], Mm[2, 1], Mm[2, 2]])
+            o = np.sign(psi(Mm[:3, 3:]).imag)
+            if np.sign(psi(Mm[3:, :3].T).imag) != -o: continue
+            e = dist_edge(th)
+            if best is None or e > best[0]: best = (e, list(I) + Ic, list(J) + Jc)
+    e, rI, rJ = best
+    d = ball_from_corner(H, rI, rJ, r, k=k)
+    d['pstar'] = [float(x) for x in p]
+    d['t3rows'] = [rI.index(a) for a in range(6)]; d['t3cols'] = [rJ.index(b) for b in range(6)]
+    return d
+
+
+if __name__ == '__main__' and os.environ.get('EDGESEED'):
+    ed = json.load(open(os.environ['EDGESEED']))
+    out = {}
+    for name, w, r in (('pos', [0.0, 0.0, 0.0, 0.05], 0.005), ('neg', [0.01, -0.01, 0.0, -0.05], 0.005),
+                       ('sphere', [0.0, 0.0, 0.0, 0.1], 0.01)):
+        d = build_edge_seed(ed['0.1'], w, r=r)
+        d['wstar'] = w
+        out[name] = d
+        print(name, 'p*', np.round(d['pstar'], 3), 'o', d['o'], 'matched', d['matched'], 'edge %.3f' % d['edge'], 'rows', d['t3rows'], 'cols', d['t3cols'])
+    json.dump(out, open('data/edgeseeds.json', 'w'), indent=1)

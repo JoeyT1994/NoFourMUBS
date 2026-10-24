@@ -28,6 +28,7 @@ python3 proof/seed_atlas/cert/tests/run_tests.py
 |---|---|
 | `tmarb.py` | second-order Taylor models in 4 variables, batched over boxes, as numpy object arrays of `arb`/`acb` (+, −, ·, @, e^{i·}, sup norms) |
 | `seedcert.py` | C1, the Stage C arguments, T0 / T1 / T2, the record-boundary kinds `rec` and `T1prime`, and the coverage traversals |
+| `edgecert.py` | edge balls (SPEC §10): C1e, T3 into edge balls, and the edge ball's own T1 transfers and sphere cover |
 | `certify_seed_atlas.py` | the whole certificate: one format adapter (`read_certificate`), multiprocessing, receipt |
 | `tests/` | the prototype-built test balls (`data/`), fixtures, and `run_tests.py` (positive, sampling and negative tests) |
 
@@ -112,6 +113,42 @@ Next to F6 (atlas record 877, a corner with ‖Mth⁻¹L‖ ≈ 72):
 An entrywise ∞-box Krawczyk version (inclusion box [−cN n0, cN n0]²¹) does not contract on practical boxes: the
 row sums of |I − YJ| are 1.1–2.3 on level-2 to level-4 boxes. Hence the 2-norm ball.
 
+### Edge ball e (SPEC §10, `edgecert.py`)
+
+**Exact data.** The augmented systems (return U, eq. 20) are written exactly as trigonometric polynomials. There are
+70 monomials e^{i(n·z + κ)}, with Ψ expanded as a Laurent polynomial; κ is an integer multiple of π/3, from
+θ⁰ = (1,2,2,4)π/3 and φ⁰ = (3,4,5,0,2,4)π/3 in Arb. So F and dF/dx are exact combinations of these monomials.
+
+**C1e** (`certify_edge_c1`) on each box of the k-grid (k is per w-axis, e.g. (4,4,4,8)), with p = Mth(w_c + u):
+- **Tubes.** A parametric Krawczyk tube for each 7-unknown system: horizontal at p, vertical at (u₁, u₃, u₂, −y).
+  - The tube from the smallest working radius gives the C1e enclosure.
+  - The largest radius that still passes, out of 0.03, 0.01, …, is kept as the box's uniqueness radius for T3.
+- **t′ = t.** dR/dθ₄ > 0 and g > 0 are checked as Taylor models at θ = θ⁰ + (q₁, q₂, q₃, s), with s on the
+  segment between t and t′ (t's Taylor model, its remainder enlarged by sup |t′ − t|).
+- **Then, as for seed balls:** D by residual correction, arg D, and the per-box bound against P + Uw.
+- **Consistency.** On adjacent boxes (all 80 neighbours), each box's enclosure must lie in the neighbour's uniqueness
+  box, so that H(p) is one map. The check uses exact polynomial shifts.
+- `f6_in_edge` checks F6 = H(0): x = 0 lies in the uniqueness box at w = 0.
+
+**T3** (`check_T3`, seed transfer kind `"T3"`, data target, g, rows, cols). rows and cols are ordered triples, with
+the complement in increasing order, or full permutations of 0..5. K = g·(source) is reordered and dephased, linearly
+in Q. Then:
+- y_K = −2 Im Ψ(K's horizontal side), and p_K = (θ_K,1..3 − θ⁰_1..3, y_K) must satisfy ‖Mth⁻¹p_K‖ < r.
+- For every edge box the image of Mth⁻¹p_K may meet, |x_K − pred_e(w_K − w_e)| < ρ_e must hold over the whole source
+  box, for both sides. Here x_K = (θ_K,4 − θ⁰_4, side angles − φ⁰). Source boxes are bisected (depth ≤ 8) when one
+  edge box fails.
+- Windings are chosen at the box centre.
+
+This relies on the vertical side solving the −y_K system. That holds if the corner is matched or y_K = 0; a strict
+nonmatched corner would make K Tao (SPEC §10). The certifier does not check this; it is the same fact the SPEC's
+openness argument uses.
+
+**Edge transfers.** Kind T1 only, into seed balls: the C1e Taylor models over each box, then the T1 test with both Ψ
+signs. Boxes meeting y = 0 cannot pass that test.
+
+**Driver.** `certify_seed_atlas.py` runs C1e once in the main process and gives the certified tube data to the
+workers, for T3. With edge balls and no `fourier_record`, the F6 check is `f6_in_edge`.
+
 ### Global
 
 - F6 lies in record `fourier_record`, by `nonempty.check` on that record.
@@ -128,5 +165,8 @@ row sums of |I − YJ| are 1.1–2.3 on level-2 to level-4 boxes. Hence the 2-no
 | general T1 and T2 | about 5 ms per box (one C1 box each) |
 | `T1prime`, refined | about 12 ms per box (level-3 boxes, record 2003) |
 | record certification | about 0.5 s |
+| edge ball C1e, r = 0.1, k = (4,4,4,8) | 11.5 s (432 boxes; n_cert 1.16e-2, 3.1× the sampled remainder) |
+| edge ball C1e, r = 0.125, k = (5,5,5,12) / (6,6,6,16) / (8,8,8,16) | 32 / 68 / 137 s (n_cert 1.55e-2 / 1.40e-2 / 1.12e-2) |
+| T3 | about 10 ms per box |
 
 For comparison, the float prototype takes 2.5 to 13 s per ball for C1 alone, mostly in per-box continuation.

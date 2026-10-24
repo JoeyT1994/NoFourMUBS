@@ -826,11 +826,12 @@ def misses_unit_sphere(box):
 
 
 # ======================================================================================== one seed ball: C2
-def check_seed_transfers(ball, seeds, records, groups, max_level, chunk=64):
-    """All transfer groups of one seed ball (FORMAT.md section 4) and the coverage of its sphere.  seeds: list of
-    Ball; records: list of (P (36 floats), R float).  Raises CertError on the first failure; returns counts."""
+def check_seed_transfers(ball, seeds, records, groups, max_level, chunk=64, edges=()):
+    """All transfer groups of one seed ball (FORMAT.md section 4; T3 into edge balls, SPEC section 10) and the
+    coverage of its sphere.  seeds: list of Ball; records: list of (P (36 floats), R float); edges: list of
+    (EdgeBall, EdgeTubes from its C1e).  Raises CertError on the first failure; returns counts."""
     ctx.prec = PREC
-    listed = set(); cnt = dict(T0=0, T1=0, T1sym=0, T2=0)
+    listed = set(); cnt = dict(T0=0, T1=0, T1sym=0, T2=0, T3=0)
     jobs = []
     for grp in groups:
         need(isinstance(grp, dict), 'malformed transfer group')
@@ -857,6 +858,10 @@ def check_seed_transfers(ball, seeds, records, groups, max_level, chunk=64):
             rows = [int(x) for x in ints(grp.get('rows'), 6, 'rows')]; cols = [int(x) for x in ints(grp.get('cols'), 6, 'cols')]
             perm_matrix(rows, cols); g_index(grp.get('g'))
             jobs.append(('T2', grp, rows, cols, xc, h, xcf))
+        elif kind == 'T3':
+            need(0 <= t < len(edges), 'T3: target out of range')
+            g_index(grp.get('g'))
+            jobs.append(('T3', grp, grp.get('rows'), grp.get('cols'), xc, h, xcf))
         else:
             raise CertError('unknown transfer kind %r' % (kind,))
     for kind, grp, rows, cols, xc, h, xcf in jobs:
@@ -865,6 +870,10 @@ def check_seed_transfers(ball, seeds, records, groups, max_level, chunk=64):
             Q = representative(ball, box_Q(ball, xc[sl], h[sl], xcf[sl]), xcf[sl])
             if kind == 'T1':
                 check_T1_general(seeds[grp['target']], grp['g'], rows, cols, grp.get('wind'), Q)
+            elif kind == 'T3':
+                import edgecert
+                eb, tubes = edges[grp['target']]
+                edgecert.check_T3(Q, eb, tubes, grp['g'], rows, cols)
             else:
                 P, R = records[grp['target']]
                 check_T2(P, R, grp['g'], rows, cols, grp.get('wind'), Q)

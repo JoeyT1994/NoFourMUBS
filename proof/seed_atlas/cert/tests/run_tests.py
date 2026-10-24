@@ -2,7 +2,8 @@
 
   python3 proof/seed_atlas/cert/tests/run_tests.py            all tests (about a minute; Stage C is the slow one)
   python3 proof/seed_atlas/cert/tests/run_tests.py tm c1      a subset: tm, boxes, c1, sampling, stagec, transfers, record,
-                                                              negative, t1prime_f6, global_, certificate
+                                                              negative, t1prime_f6, edge, edge_certificate,
+                                                              global_, certificate
 
 Positive tests compare with the float prototype (explorations/seed_balls): the certified n must be >= the sampled
 true remainder and within 1.5x of the prototype's Taylor-model bound on the same boxes.  Negative tests corrupt one
@@ -481,8 +482,146 @@ def test_t1prime_f6():
     rejects("T1' near F6: the antipodal box rejected", lambda: S.check_T1prime_group(rd, ball, 'id', I, J, w, xf, hf_, xff))
 
 
+# ============================================================================================== edge balls (SPEC section 10)
+EDGEFX = json.load(open(os.path.join(HERE, 'data/edgeballs.json')))
+EDGESEEDS = json.load(open(os.path.join(HERE, 'data/edgeseeds.json')))
+EDGE_CACHE = {}
+
+
+def edge_record(r='0.1', k=(4, 4, 4, 8), n=None):
+    d = copy.deepcopy(EDGEFX[r]); d['k'] = list(k)
+    for key in ('n_sample', 'sv'): d.pop(key, None)
+    if n is not None: d['n'] = F.hx(n)
+    return d
+
+
+def edge_c1(r='0.1', k=(4, 4, 4, 8)):
+    import edgecert as EC
+    key = (r, tuple(k))
+    if key not in EDGE_CACHE:
+        d = edge_record(r, k, 1.0)
+        o = EC.certify_edge_c1(EC.EdgeBall(d))
+        d['n'] = F.hx(o['n_cert'] * 1.05)
+        EDGE_CACHE[key] = (d, o)
+    return EDGE_CACHE[key]
+
+
+def t3_setup(name):
+    import edgecert as EC
+    d, o = edge_c1()
+    sd = copy.deepcopy(EDGESEEDS[name])
+    b = S.Ball(sd)
+    bx = F.sphere_boxes(2)
+    grp = dict(kind='T3', target=0, g='id', rows=sd['t3rows'], cols=sd['t3cols'], boxes=bx)
+    return EC.EdgeBall(d), o['tubes'], b, grp
+
+
+def test_edge():
+    """Edge balls: C1e against sampling (r = 0.02) and at r = 0.1 (k = 4,4,4,8), F6 = H(0), T3 from seed balls inside
+    the chart (their whole sphere), the edge ball's T1 into a seed ball, and corruptions (n, r, Mth, the y direction,
+    T3 targets and corners, the y sign through g = T)."""
+    import edgecert as EC
+    d = edge_record('0.02', (3, 3, 3, 3), 1.0)
+    o = EC.certify_edge_c1(EC.EdgeBall(d))
+    smp = EDGEFX['0.02']['n_sample']
+    check('edge C1e r = 0.02: passes, n_cert >= sampled remainder', o['n_cert'] < 1 and o['n_cert'] >= smp,
+          'n_cert %.3e, sampled %.3e (x%.2f), %d boxes, %.1fs' % (o['n_cert'], smp, o['n_cert'] / smp, o['boxes'], o['seconds']))
+    d, o = edge_c1()
+    check('edge C1e r = 0.1, k = (4,4,4,8): passes', o['ok'], 'n_cert %.4e (sampled %.4e), %d boxes, %.1fs' % (
+        o['n_cert'], EDGEFX['0.1']['n_sample'], o['boxes'], o['seconds']))
+    check('edge: F6 = H(0) (x = 0 in the uniqueness box at w = 0)', EC.f6_in_edge(o['tubes']))
+    eb = EC.EdgeBall(d)
+    t = time.time(); sc = S.run_stage_c(eb)
+    check('edge: Stage C at r = 0.1', sc.get('ok'), 'labels %s, %.1fs' % (sc.get('labels'), time.time() - t))
+    for name in ('pos', 'neg'):
+        eb_, tubes, b, grp = t3_setup(name)
+        t = time.time()
+        try:
+            cnt = S.check_seed_transfers(b, [b], [], [grp], 9, edges=[(eb_, tubes)])
+            check('T3 (%s): a seed ball inside the chart transfers its whole sphere' % name, cnt['T3'] == 256, '%.1fs' % (time.time() - t))
+        except S.CertError as e:
+            check('T3 (%s)' % name, False, str(e))
+    # the edge ball's own T1 into a seed ball at the best corner of H(p*), p* on the edge sphere
+    sd = EDGESEEDS['sphere']; b = S.Ball(sd)
+    rI = sorted(range(6), key=lambda a: sd['t3rows'][a]); rJ = sorted(range(6), key=lambda c: sd['t3cols'][c])
+    ws = np.array(sd['wstar']) / eb.r; m = 6
+    box = (m,) + tuple(min(int(np.floor((u + 1) / 2 ** (1 - m))), 2 ** m - 1) for u in ws)
+    xc, h, xcf = S.box_geometry([box], eb.r)
+    Q = EC.edge_representative(eb, EC.edge_box_Q(eb, xc, h, xcf), xcf)
+    wind = [int(x) for x in np.rint((b.theta0 - S.corner_L(rI[:3], rJ[:3]) @ np.array([float(x.mid()) for x in Q.c[0]])) / (2 * math.pi))]
+    try:
+        S.check_T1_general(b, 'id', rI[:3], rJ[:3], wind, Q); check('edge T1 into a seed ball (level-6 sphere box)', True)
+    except S.CertError as e:
+        check('edge T1 into a seed ball (level-6 sphere box)', False, str(e))
+    rejects('negative edge T1: winding +1', lambda: S.check_T1_general(b, 'id', rI[:3], rJ[:3], [wind[0] + 1] + wind[1:], Q))
+    rejects('negative edge: sphere not covered', lambda: EC.check_edge_transfers(eb, [b], [dict(kind='T1', target=0, g='id', rows=rI[:3],
+                                                                                               cols=rJ[:3], wind=wind, boxes=[list(box)])], 9))
+    # corruptions of the edge record (C1e at r = 0.02 for speed where the corruption does not need the full ball)
+    base = edge_record('0.02', (3, 3, 3, 3), 1.0)
+    on = EC.certify_edge_c1(EC.EdgeBall(base))['n_cert']
+    def c1e(dd): return EC.certify_edge_c1(EC.EdgeBall(dd))
+    def corrupt(field, fn):
+        dd = copy.deepcopy(base); dd['n'] = F.hx(on * 1.05)
+        v = dd[field]
+        if isinstance(v, list): vals = [F.fh(x) for x in v]; fn(vals); dd[field] = [F.hx(x) for x in vals]
+        else: dd[field] = fn(v)
+        return dd
+    rejects('negative edge C1e: n just below n_cert', lambda: c1e(corrupt('n', lambda v: F.hx(on * 0.999))))
+    rejects('negative edge C1e: r x 1.5', lambda: c1e(corrupt('r', lambda v: F.hx(F.fh(v) * 1.5))))
+    rejects('negative edge C1e: Mth entry x 1.2', lambda: c1e(corrupt('Mth', lambda v: v.__setitem__(5, v[5] * 1.2))))
+    rejects('negative edge C1e: the y direction reversed (row 4 of Mth negated)',
+            lambda: c1e(corrupt('Mth', lambda v: v.__setitem__(slice(12, 16), [-x for x in v[12:16]]))))
+    rejects('negative edge C1e: P entry + 0.01', lambda: c1e(corrupt('P', lambda v: v.__setitem__(22, v[22] + 0.01))))
+    rejects('negative edge: k = 0', lambda: EC.EdgeBall(dict(base, k=0)))
+    # T3 corruptions
+    eb_, tubes, b, grp = t3_setup('pos')
+    def t3(mut, edges=None):
+        g = copy.deepcopy(grp); mut(g)
+        return lambda: S.check_seed_transfers(b, [b], [], [g], 9, edges=edges or [(eb_, tubes)])
+    rejects('negative T3: g = T (swaps the sides: the sign of y)', t3(lambda g: g.__setitem__('g', 'T')))
+    rejects('negative T3: g = conj', t3(lambda g: g.__setitem__('g', 'conj')))
+    rejects('negative T3: rows 1, 2 swapped', t3(lambda g: g['rows'].__setitem__(slice(1, 3), [g['rows'][2], g['rows'][1]])))
+    rejects('negative T3: target out of range', t3(lambda g: g.__setitem__('target', 1)))
+    rejects('negative T3: malformed rows', t3(lambda g: g.__setitem__('rows', [0, 0, 1])))
+    rejects('negative T3: edge ball not certified', t3(lambda g: None, edges=[(eb_, None)]))
+    small = EC.EdgeBall(dict(edge_c1()[0], r=F.hx(0.03)))
+    rejects('negative T3: target edge ball shrunk to r = 0.03', t3(lambda g: None, edges=[(small, tubes)]))
+    tb2 = copy.deepcopy(tubes); tb2.rho['h'] = tb2.rho['h'] * 0 + 1e-9
+    rejects('negative T3: uniqueness radii shrunk to 1e-9', t3(lambda g: None, edges=[(eb_, tb2)]))
+
+
+def test_edge_certificate():
+    """Whole-certificate run with an edge ball: seeds 0, 1 (inside the chart) send their whole spheres into it by T3
+    and must pass (C1, Stage C, T3, coverage); the edge ball has no transfers, so it must fail on its sphere coverage;
+    F6 = H(0) and Tao pass; no 25-dim records."""
+    import certify_seed_atlas as CS
+    d, o = edge_c1()
+    seeds = []
+    for name in ('pos', 'neg'):
+        sd = copy.deepcopy(EDGESEEDS[name])
+        c1 = S.certify_c1(S.Ball(sd)); sd['n'] = F.hx(c1['n_cert'] * 1.05)
+        sd['transfers'] = [dict(kind='T3', target=0, g='id', rows=sd['t3rows'], cols=sd['t3cols'], boxes=F.sphere_boxes(2))]
+        for k in ('pstar', 't3rows', 't3cols', 'matched', 'edge', 'wstar'): sd.pop(k, None)
+        seeds.append(sd)
+    cert = dict(format='seed-atlas-v1', max_level=9, seeds=seeds, records=[], edge=[dict(d, transfers=[])],
+                tao=dict(R=F.hx(0.08), label_radius=F.hx(0.03)))
+    with tempfile.TemporaryDirectory() as td:
+        p = os.path.join(td, 'edge.json.gz'); rc = os.path.join(td, 'receipt.json')
+        with gzip.open(p, 'wt') as f: json.dump(cert, f)
+        t = time.time(); code = CS.main([p, '-j', '2', '--receipt', rc])
+        res = {(r['item'], r.get('index')): r for r in json.load(open(rc))['results']}
+        for j in (0, 1):
+            r = res[('seed', j)]
+            check('edge certificate: seed %d passes (C1, Stage C, T3 x %s, coverage)' % (j, r.get('transfers', {}).get('T3')), r['ok'], r.get('reason', ''))
+        r = res[('edge', 0)]
+        check('edge certificate: edge ball C1e + Stage C pass, sphere coverage fails', not r['ok'] and 'coverage' in r.get('reason', '')
+              and r.get('stagec_ok'), r.get('reason', ''))
+        check('edge certificate: F6 = H(0) and Tao pass', res[('fourier', None)]['ok'] and res[('tao', None)]['ok'])
+        check('edge certificate: overall FAIL (the edge sphere is open)', code != 0, '%.0fs' % (time.time() - t))
+
+
 TESTS = dict(tm=test_tm, boxes=test_boxes, c1=test_c1, sampling=test_sampling, stagec=test_stagec, transfers=test_transfers,
-             record=test_record, negative=test_negative, t1prime_f6=test_t1prime_f6, global_=test_global, certificate=test_certificate)
+             record=test_record, negative=test_negative, t1prime_f6=test_t1prime_f6, edge=test_edge, edge_certificate=test_edge_certificate, global_=test_global, certificate=test_certificate)
 
 if __name__ == '__main__':
     names = sys.argv[1:] or list(TESTS)
