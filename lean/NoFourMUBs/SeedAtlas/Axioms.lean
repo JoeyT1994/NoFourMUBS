@@ -1,4 +1,8 @@
 import NoFourMUBs.FinalSeed
+import NoFourMUBs.SeedAtlas.Method.Completion
+import NoFourMUBs.SeedAtlas.Method.Krawczyk
+import NoFourMUBs.SeedAtlas.Method.Neumann
+import NoFourMUBs.SeedAtlas.Method.Box
 
 /-! Axiom audit of the seed atlas route: each theorem should depend only on `propext`, `Classical.choice` and
 `Quot.sound`. -/
@@ -19,3 +23,16 @@ import NoFourMUBs.FinalSeed
 #print axioms NoFourMUBs.SeedAtlas.transfer_t1'
 #print axioms NoFourMUBs.SeedAtlas.covered_iff_interiorTarget
 #print axioms NoFourMUBs.SeedAtlas.isCompact_seedBall
+-- the C1 method (stretch): not used by `no_four_mubs_seed`, which takes C1 as a hypothesis
+#print axioms NoFourMUBs.SeedAtlas.Method.norm_exp_I_taylor2_le
+#print axioms NoFourMUBs.SeedAtlas.Method.exists_arg_one_add
+#print axioms NoFourMUBs.SeedAtlas.Method.TM.Encl.mul
+#print axioms NoFourMUBs.SeedAtlas.Method.TM.Encl.expI
+#print axioms NoFourMUBs.SeedAtlas.Method.TM.Encl.arg
+#print axioms NoFourMUBs.SeedAtlas.Method.TM.Encl.perturb
+#print axioms NoFourMUBs.SeedAtlas.Method.krawczyk
+#print axioms NoFourMUBs.SeedAtlas.Method.krawczyk_param
+#print axioms NoFourMUBs.SeedAtlas.Method.neumann
+#print axioms NoFourMUBs.SeedAtlas.Method.norm_correction_le
+#print axioms NoFourMUBs.SeedAtlas.Method.box_bound
+#print axioms NoFourMUBs.SeedAtlas.Method.matchedO_of_certified_sides

@@ -19,7 +19,8 @@ Only `propext`, `Classical.choice` and `Quot.sound` (audited by `SeedAtlas/Axiom
 | `Transfer` | Targets `SeedTarget` (T0, T1, T2) and `RecTarget` (record, T1′), their semantic claims `SeedTargetHolds`, `RecTargetHolds`, `CornerIn`, and the transfer lemmas `transfer_t0`, `transfer_t1`, `transfer_t2`, `transfer_t1'` |
 | `Atlas` | `SeedBoundaryCover`, `RecBoundaryCover` (C2), `SeedAtlasCertificate`, compactness (`isCompact_seedBall`), `covered_iff_interiorTarget`, `isOpen_interiorTarget`, **`SeedAtlasCertificate.clopen`** |
 | `../FinalSeed` | `FinalSeed.no_four_mubs_seed` |
-| `Axioms` | the axiom audit |
+| `Axioms` | the axiom audit (28 theorems) |
+| `Method/` | **Soundness of the C1 method** (not imported by `FinalSeed`; see below) |
 
 No existing module is changed.
 
@@ -80,11 +81,29 @@ box with a target whose claim (`RecTargetHolds`) holds for `η` in the box, `‖
 `SeedAtlasCertificate`: `σs` (finite) seed balls `S`, `ιr` (finite) records `A`, the two boundary covers,
 `tao` and `fourier` exactly as in `AtlasCertificate` (Tao's and F6's records).
 
+## The C1 method (`Method/`, the stretch goal)
+
+Lemmas that make each step of SPEC §2's certification of C1 sound, so that `hC1` can later be replaced by finite
+inequalities:
+
+| Module | Content |
+|---|---|
+| `Method/Bounds` | `\|e^{ix} − 1 − ix + x²/2\| ≤ \|x\|³/6` (`norm_exp_I_taylor2_le`); `1 + u = \|1 + u\| e^{i(Im(u − u²/2) + R)}`, `\|R\| ≤ \|u\|³/(3(1 − \|u\|))` (`exists_arg_one_add`) |
+| `Method/TaylorModel` | second-order Taylor models `TM`, `RTM` on a box and `Encl`: `add`, `smul`, `neg`, `sub`, `const`, `conj`, `re`, `im`, `mul` (the prototype's remainder exactly), `expI` (the SPEC's `ρ_new`), `arg` (step 4), `perturb` (ball coefficients), `congr_quad` (symmetrisation), `mono` |
+| `Method/Krawczyk` | `krawczyk`: if `bᵢ + qᵢρ < ρ` (`b ≥ \|Y F(φ_p)\|`, `qᵢ ≥` row sums of `sup \|I − Y J\|` over the tube) then exactly one zero of `F` in `φ_p + [−ρ, ρ]ᵐ`, within `b + qρ`; `Y` invertible is a consequence; `krawczyk_param` over a box of parameters |
+| `Method/Neumann` | `forced_mul` (`D B* = −C E*`), `residual_correction` (`D − X = −(C E* + X B*)(B*)⁻¹`), `neumann` (`‖I − A₀M‖_∞ ≤ q < 1 ⇒ \|(M⁻¹)ᵢⱼ\| ≤ \|(A₀)ᵢⱼ\| + q aⱼ/(1 − q)`), `norm_correction_le` |
+| `Method/Box` | `le_of_vertices` (convex ⇒ max at the `2ᵈ` vertices), `box_bound` (step 5: vertex max of the affine part + `Σ ‖H_jl‖ hⱼh_l` + `ρ`) |
+| `Method/Completion` | `matchedO_of_certified_sides`: sides solving the two Gram equations with `sign Im Ψ(B) = o`, `sign Im Ψ(V) = −o` give a Hadamard matrix `[[E, B], [Vᵀ, D]]` that is `MatchedO o` (L1's flatness with either root, then `matchedO_of_signs`) — so the matrix the method encloses is a representative of `f_o(θ)`, pointwise |
+
+Not done: the side Gram residual `F(φ; G)` and its Jacobian as Lean functions (the `hF` input of `krawczyk`), and the
+assembly of a per-box certificate format into a theorem `finite inequalities ⇒ hC1`.
+
 ## Build
 
-From a built `NoFourMUBs.Final`, `lake build NoFourMUBs.FinalSeed NoFourMUBs.SeedAtlas.Axioms` takes about 2 min 20 s
-(serial chain `Seed` 34 s, `Cert` 16 s, `OpenMap` 17 s, `Transfer` 14 s, `Atlas` 21 s, `FinalSeed` 14 s, `Axioms` 14 s),
-peak 5.9 GB (24 Oct 2026, 18-core Apple laptop, shared).
+From a built `NoFourMUBs.Final`, `lake build NoFourMUBs.FinalSeed` takes about 2 min (serial chain `Seed` 34 s,
+`Cert` 16 s, `OpenMap` 17 s, `Transfer` 14 s, `Atlas` 21 s, `FinalSeed` 14 s), peak 5.9 GB; the `Method/` modules add
+about 1 min (`Completion` 29 s, the others 13–15 s each, in parallel with the main chain) (24 Oct 2026, 18-core Apple
+laptop, shared).
 
 To audit with `check_axioms.py --full`, add after the `Final` build:
 `build('NoFourMUBs.FinalSeed'); audit('NoFourMUBs/SeedAtlas/Axioms.lean')`.
