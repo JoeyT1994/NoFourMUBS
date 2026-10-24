@@ -259,14 +259,14 @@ function D_models(Ei, Bi, Ci, Xp, D::Dom)
         s = iv(0.0)
         for k in 1:3
             e = (i == k ? Complex(iv(1.0), iv(0.0)) : Complex(iv(0.0), iv(0.0))) - sum(A0i[i, l] * Bsc[l, k] for l in 1:3)
-            s += iv(absup(e)) + sum(iv(abs(A0[i, l])) * iv(Bsv[l, k]) for l in 1:3)
+            s += iv(absup(e)) + sum(iv(absup(A0i[i, l])) * iv(Bsv[l, k]) for l in 1:3)
         end
         q = max(q, sup(s))
     end
     q < 1 || return nothing
-    nA0 = maximum(sup(sum(iv(abs(A0[i, l])) for l in 1:3)) for i in 1:3)
+    nA0 = maximum(sup(sum(iv(absup(A0i[i, l])) for l in 1:3)) for i in 1:3)
     tailb = sup(iv(q) / (iv(1.0) - iv(q)) * iv(nA0))
-    Mb = [sup(iv(abs(A0[l, k])) + iv(tailb)) for l in 1:3, k in 1:3]
+    Mb = [sup(iv(absup(A0i[l, k])) + iv(tailb)) for l in 1:3, k in 1:3]
     [withrem(XpI[j, k], sup(sum(iv(Rb[j, l]) * iv(Mb[l, k]) for l in 1:3))) for j in 1:3, k in 1:3]
 end
 

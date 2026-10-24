@@ -60,7 +60,7 @@ mkdir -p out && sbatch run_rusty.sh                                             
 | `src/c1.jl` | claim C1: the box cover of the ball and the per-box bound |
 | `src/stagec_seed.jl` | Stage C on P + U w + ν, through the existing `IndepAtlas.stage_c` |
 | `src/transfers.jl` | T0, T1, T2, rec, T1′; dyadic coverage of spheres and shells |
-| `src/tao.jl` | Tao's record: σ, isolation L R < σ, the normal bound, Stage C |
+| `src/tao.jl` | Tao's record: S6 in the ball, σ, isolation L R < σ, the normal bound, Stage C |
 | `check_seed.jl` | the driver (threads, shards, receipts, verdict) |
 | `run_rusty.sh` | one rusty node |
 | `tests/` | `run_tests.sh`, `enclosure.jl`, `negative.jl`, the test certificate and its generator |
@@ -187,6 +187,12 @@ T0 and corner-T1 are vertex tests, so they are not split.
 - **Non-finite values.** A non-finite or not-an-interval value makes every comparison false, so the check fails.
   The input converter rejects non-finite floats.
 - **Exceptions.** An exception in one object is recorded as that object's FAIL.
+- **The verdict.** "Complete" needs every seed ball index checked (duplicates in `--only` do not count twice), every
+  record, F6 and Tao, and no `--fast`. A `--fast` run says that its verdict is not rigorous.
+- **Review.** An independent soundness review of this code (24 Oct) found no unsound step in C1, Stage C or C2. It
+  found two gaps, both now fixed: Tao's ball was not checked to contain S6, and duplicate `--only` indices could fake
+  completeness. It also flagged two float roundings, in the Neumann bound and the shell test; they are now interval
+  bounds.
 
 ## Tests (`tests/run_tests.sh`, about 5 min on 4 threads)
 
@@ -213,7 +219,7 @@ reason.
    - 18,000 point checks of model products, e^{ix} and sums.
    - On random boxes of every seed ball, the BigFloat completion has every phase inside its model, and the residual
      is below the box bound.
-4. **Negative tests (`negative.jl`, 65 cases, all as expected).**
+4. **Negative tests (`negative.jl`, 66 cases, all as expected).**
    - *Rejected, in C1:* n below a sampled true residual; n just below the certified bound without refinement;
      r × 3; P (entries of B, D and the gauge) + 0.01; U + 0.1; θ0 + 10⁻³; o flipped; Mth column × 1.1.
    - *Rejected, in Stage C:* label radius 0.2.
@@ -227,7 +233,7 @@ reason.
      - T1′ with the wrong target, swapped rows, g = conj, a wrong winding or the other orientation;
      - rec into itself, with g = conj or with a wrong winding;
      - a removed box, R × 2, R × 2 with eta_scale × 2, eta_scale × 0.9, a φ entry + 0.3, no boxes.
-   - *Rejected, Tao:* R = 1 and R = 0.65 (L R ≥ σ = 3/√2: not isolated).
+   - *Rejected, Tao:* R = 1 and R = 0.65 (L R ≥ σ = 3/√2: not isolated); R = 10⁻²⁰ (the ball misses S6).
    - *Accepted (controls):* P + 2π; k = 1; n equal to the certified bound; r × 1.5 (n is loose); r × 1.1 with C2; no
      stored T2 winding; Tao as given and at R = 0.60.
 5. **End to end.** n × 0.2 in the JSON (below the sampled true residual) is rejected, and a malformed certificate
@@ -272,7 +278,7 @@ reason.
    rejected spuriously.
 9. **Splitting a failed transfer box (same target) is allowed,** since every claim is universal over the box.
 10. **Tao's record is replayed here,** although `proof/independent` does not replay it:
-    - P = (2π)K/3 in binary64, as `tao.py` computes it;
+    - P = (2π)K/3 in binary64, as `tao.py` computes it, and R > ‖2πK/3 − P‖ (S6 lies in the ball);
     - σ on the horizontal space by interval Cholesky;
     - L R < σ;
     - the normal bound with b = e0;

@@ -180,6 +180,7 @@ cases = Any[
     ("Tao: R = 1.0 (L R >= sigma: not isolated)", false, () -> (t = S.check_tao(1.0, C0.tao[2]); (t.ok, t.msg))),
     ("control: Tao R = 0.60 (L R < sigma = 3/sqrt2)", true, () -> (t = S.check_tao(0.60, C0.tao[2]); (t.ok, t.msg))),
     ("Tao: R = 0.65 (L R >= sigma = 3/sqrt2)", false, () -> (t = S.check_tao(0.65, C0.tao[2]); (t.ok, t.msg))),
+    ("Tao: R = 1e-20 (the ball misses S6)", false, () -> (t = S.check_tao(1e-20, C0.tao[2]); (t.ok, t.msg))),
 ]
 
 npass = 0; nbad = 0

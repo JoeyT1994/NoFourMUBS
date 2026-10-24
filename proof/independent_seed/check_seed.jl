@@ -110,7 +110,7 @@ function main(args)
     end
     C = S.read_seed_certificate(txt)
     ns = length(C.seeds); nr = length(C.records)
-    sel = isempty(only) ? collect(0:min(ns, limit)-1) : sort(parse.(Int, split(only, ',')))
+    sel = isempty(only) ? collect(0:min(ns, limit)-1) : sort(unique(parse.(Int, split(only, ','))))
     all(0 .<= sel .< ns) || error("--only: no such seed")
     sel = [i for i in sel if i % shard_m == shard_k]
     @printf("%d seed balls (checking %d), %d records, F6 record %d; threads = %d; Stage C replay = %s\n",
@@ -123,15 +123,18 @@ function main(args)
     nbs = Dict{Int,IA.NormalBound}()
     t0 = time()
     Threads.@threads :greedy for i in 0:nr-1
-        rec = C.records[i+1].rec
         nb = try
-            IA.normal_bound(rec)
+            IA.normal_bound(C.records[i+1].rec)
         catch err
             IA.NormalBound(false, "exception: " * clean(sprint(showerror, err))[1:min(end, 300)], NaN, NaN, NaN, NaN, NaN,
                            NaN, NaN, NaN, NaN, NaN, NaN, zeros(Int64, 36, 4))
         end
         lock(lk) do; nbs[i] = nb; end
-        haskey(done3, i) && continue
+    end
+    todo3 = [i for i in 0:nr-1 if !haskey(done3, i)]
+    Threads.@threads :greedy for i in todo3
+        rec = C.records[i+1].rec
+        nb = nbs[i]
         t1 = time()
         ok, msg, line = try
             if !nb.ok
@@ -213,8 +216,8 @@ function main(args)
     # ---------------- records: C2 (shell boxes: rec and T1')
     doneB = receipts!(frb, "#idx\tstatus\tnboxes\tkinds\tchecks\tsplits\tworst_rec\tworst_T1p\tcover_nodes\tseconds\tmsg")
     t0 = time()
-    Threads.@threads :greedy for i in 0:nr-1
-        haskey(doneB, i) && continue
+    todoB = [i for i in 0:nr-1 if !haskey(doneB, i)]
+    Threads.@threads :greedy for i in todoB
         ok, msg, line = try
             nb = nbs[i]
             if !nb.ok
@@ -258,7 +261,7 @@ function main(args)
     # ---------------- report
     seedpass = count(seed_ok, sel)
     recpass = count(i -> rec_ok(i) && get(doneB, i, (false,))[1], 0:nr-1)
-    allchecked = length(sel) == ns
+    allchecked = Set(sel) == Set(0:ns-1)
     # targets named by the checked seeds and records
     tseeds = Set{Int}(); trecs = Set{Int}()
     for i in sel, x in C.seeds[i+1].groups
@@ -268,7 +271,7 @@ function main(args)
         x.kind == :T1p ? push!(tseeds, x.target) : push!(trecs, x.target)
     end
     passed = seedpass == length(sel) && recpass == nr && (tao === nothing || taook)
-    complete = passed && allchecked && f6ok && taook
+    complete = passed && allchecked && f6ok && taook && !fast
     stats = [x for x in (split(l, '\t') for l in readlines(fs) if !startswith(l, "#")) if length(x) >= 28 && x[9] != "" && x[14] != ""]
     open(joinpath(outdir, "RESULT.txt"), "w") do io
         println(io, "Independent seed-atlas replay (proof/independent_seed), certificate: ", cert)
@@ -316,6 +319,9 @@ function main(args)
                              tao === nothing ? "absent" : tao.ok ? "PASS" : "FAIL"))
         if complete
             println(io, "VERDICT: the certificate is complete and every check passed (C1, Stage C, C2 for every seed ball; Step 3 and C2 for every record; F6; Tao).")
+        elseif fast && passed && allchecked && f6ok && taook
+            println(io, "VERDICT (--fast): every check passed, but Stage C rejections were float decisions with margins, not interval",
+                    " decisions. This is not a rigorous verdict; rerun without --fast.")
         elseif partial && passed
             println(io, "VERDICT (partial): every checked object passed; this is not a complete-atlas certificate.")
         else

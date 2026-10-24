@@ -266,7 +266,7 @@ function misses_shell(lo, hi, s::Float64, Ti::Matrix{I64}, R::Float64, n::Float6
         lo2 += max(iv(0.0), iv(mig(x)) - sum(iv(mag(Ti[e, j])) * iv(h[j]) for j in 1:4))^2
     end
     inner = iv(R)^2 - iv(n)^2
-    inf(sqrt(lo2)) > R || (inf(inner) > 0 && up^2 < inf(inner))
+    inf(sqrt(lo2)) > R || (inf(inner) > 0 && sup(iv(up)^2) < inf(inner))
 end
 
 # ---------------------------------------------------------------- C2 for a seed ball

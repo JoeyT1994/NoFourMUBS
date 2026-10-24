@@ -2,6 +2,7 @@
 # the ball B = {e^{i(P + delta)} : delta horizontal, ||delta|| <= R} around P, the binary64 value of 2 pi K / 3
 # computed as (2 pi) K / 3 with 2 pi = 2 Float64(pi), K the integer matrix of S6.  With no tangent directions every
 # delta of a Hadamard in B is "normal", so the record lemma reads: sigma ||delta|| - (L/2) ||delta||^2 <= e0.
+#   * containment: R > ||2 pi K/3 - P|| (in intervals), so S6 itself, as e^{i(P + h(2 pi K/3 - P))}, lies in B.
 #   * sigma: ||J nu|| >= sigma ||nu|| on the whole horizontal space, by the interval Cholesky factorisation of
 #     h J^T J h + mu (I - h) - sigma^2 I (as in the existing normal bound, with the projector h in place of Pi).
 #   * isolation: L R < sigma, so B holds no Hadamard other than the one at ||delta|| <= n; in particular its boundary
@@ -23,6 +24,8 @@ end
 function check_tao(R::Float64, lr::Float64; replay::Bool=true)
     P = [2 * Float64(π) * TAO_K[a, b] / 3 for a in 1:6, b in 1:6]
     bad(msg, s=NaN, e=NaN) = TaoResult(false, msg, s, e, NaN, nothing)
+    d0 = sup(sqrt(sum((TWOPI_I * iv(Float64(TAO_K[a, b])) / iv(3.0) - iv(P[a, b]))^2 for a in 1:6, b in 1:6)))
+    d0 < R || return bad(@sprintf("the ball does not contain S6: R = %.3g <= ||2 pi K/3 - P|| <= %.3g", R, d0))
     J, Phi0 = IA.jacobian_interval(P)
     Hm = IA.HMAT
     A = Hm * (transpose(J) * J) * Hm
