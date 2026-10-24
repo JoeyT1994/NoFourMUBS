@@ -266,3 +266,38 @@ records except Tao's. Openness at edge-ball points:
 
 F6 ∈ int(edge-ball image) trivially (p = 0). §6 still holds: F6 needs a chart that is not a seed ball; the edge
 ball is that chart, and it is four-dimensional.
+
+### 10.1 Openness at y = 0, corrected (24 Oct, after piece D's review)
+
+The argument above ("equal nonzero labels ⇒ nonmatched strict ⇒ Tao") is **wrong as stated**: Lean's converse gives
+"Tao or a Fourier family", and the Fourier families pass through F6. Openness of the edge-ball image at every point,
+y = 0 included, is instead proved from two certified facts plus the inverse function theorem. No nonmatched converse
+is used.
+
+**(G) Graph property near F6** (piece A's normal tube, extended from the record shell to the whole ball). Let P_F,
+T_F, N_F be the F6 record's centre, exact frame and normal complement (as in Record.lean). There is ρ_G > 0 such that,
+for every η with ‖η‖ ≤ ρ_G, at most one ν ∈ N_F with ‖ν‖ ≤ n_G makes e^{i(P_F + T_F η + ν)} Hadamard.
+- **How it is certified:** the normal-tube Krawczyk/exclusion step over η-boxes covering the whole η-ball (not only
+  the shell). This gives uniqueness, since the contraction is certified, together with an enclosure.
+- **Consequence:** every Hadamard K whose horizontal phase displacement δ from P_F (after the alignment, with
+  ‖δ‖ ≤ R_G) has the form T_F η + ν is determined by η(K) = T_F⁺ δ.
+
+**(D) Chart derivative.** On the edge ball, the map p ↦ η(H(p)) = T_F⁺ hor(Q(p) − P_F) has an invertible derivative.
+It is certified by an enclosure of DQ over each C1e box (the Taylor models' linear and quadratic parts give it) with
+σ_min(T_F⁺ hor DQ Mth) ≥ σ_D > 0. The edge ball's image must also lie inside the region of (G): ‖η‖ < ρ_G and
+‖δ‖ ≤ R_G.
+
+**Openness.** Let K be Hadamard near H(p). Then η(K) is near η(H(p)).
+1. By (D) and the inverse function theorem, η(K) = η(H(p′)) for some p′ near p.
+2. By (G), K = H(p′) as phase matrices, up to the fixed alignment.
+
+So a neighbourhood of [H(p)] lies in the edge-ball image. This holds for every p in the open ball, y = 0 included, and
+needs neither labels nor the converse.
+
+**Certificate fields** added to an edge entry:
+- `"graph": { "eta_radius": hex, "R": hex, "n": hex, "boxes": [...] }`: the η-boxes of (G), with the record's frame
+  (`phi`, `Tint`) given inline as for a record;
+- `"sigma_D": hex`.
+
+Pieces A and C certify (G) and (D); piece D states them semantically and proves openness by Mathlib's inverse
+function theorem (HasStrictFDerivAt.toPartialHomeomorph).
