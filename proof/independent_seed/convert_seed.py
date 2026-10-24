@@ -4,12 +4,13 @@ src/io_seed.jl.  Standard library only.  Every float goes through float.fromhex 
 exact; integers are checked to be integers.  Fields named `info`, and any field not used here, are ignored.
 
 This file and src/io_seed.jl are the only places that know the certificate's layout.
-Edge balls (SPEC §10; coordinator's encoding of 24 Oct): top-level "edge": [{"Mth", "r", "P", "U", "n",
-"label_radius", "k", "transfers"}], with sphere transfers of kind T1; seed transfers of kind "T3" carry
-{"target" (an edge ball), "g", "rows", "cols"}: rows and cols are the ordered corner (3 indices; the complements are
-then taken in increasing order) or full orderings (6 indices: the corner, then the complement's order).  A record
-without a frame ("Tint" absent or all zero) is read as Tao's record (its R and label_radius); a top-level "tao" object
-is also accepted.
+Edge balls (FORMAT.md §8, format v2): top-level "edge": [{"chart": "F6-012", "Mth", "r", "k": [4 ints], "P", "U", "n",
+"label_radius", "transfers"}], with sphere transfers of kind T1.  Seed transfers of kind "T3" carry {"target" (an edge
+ball), "g", "rows", "cols", "hcols", "vrows", "wind" (4), "wind_h" (6), "wind_v" (6)}; they are written with rows =
+rows + vrows and cols = cols + hcols (6 each: the corner, then the order of the complement used by the vertical,
+resp. horizontal, side) and WIND = wind + wind_h + wind_v (16).  Without hcols / vrows, the complements are taken in
+increasing order.  A record without a frame ("Tint" absent or all zero) is read as Tao's record (its R and
+label_radius); the top-level "tao" object is the usual form.
 Usage: python3 convert_seed.py certificate.json.gz out.txt
 """
 import gzip
@@ -62,6 +63,12 @@ def group_lines(t, kinds, what):
     if wind and isinstance(wind[0], list):
         wind = [x for row in wind for x in row]
     wind = ints(wind, what + ' wind')
+    if kind == 'T3':
+        if 'vrows' in t or 'hcols' in t:
+            rows = rows + ints(t['vrows'], what + ' vrows', 3)
+            cols = cols + ints(t['hcols'], what + ' hcols', 3)
+        if wind or 'wind_h' in t or 'wind_v' in t:
+            wind = ints(wind, what + ' wind', 4) + ints(t['wind_h'], what + ' wind_h', 6) + ints(t['wind_v'], what + ' wind_v', 6)
     boxes = t.get('boxes')
     if not isinstance(boxes, list):
         raise SystemExit('%s: boxes must be a list' % what)
@@ -127,11 +134,12 @@ def main(src, dst):
                 out.write(txt); nbox += nb
         for i, e in enumerate(edges):
             w = 'edge ball %d' % i
+            if e.get('chart', 'F6-012') != 'F6-012':
+                raise SystemExit('%s: unknown chart %r (only F6-012 is implemented)' % (w, e.get('chart')))
             k = e.get('k')
-            if not isint(k):
-                raise SystemExit('%s: k must be an integer' % w)
+            k = [k] * 4 if isint(k) else ints(k, w + ' k', 4)
             gs = e.get('transfers', [])
-            out.write('EDGE %d %d %d\n' % (i, k, len(gs)))
+            out.write('EDGE %d %s %d\n' % (i, ' '.join(map(str, k)), len(gs)))
             out.write('MTH %s\n' % fxs(e['Mth'], 16, w + ' Mth'))
             out.write('R %s\nN %s\nLR %s\n' % (fx(e['r'], w + ' r'), fx(e['n'], w + ' n'), fx(e['label_radius'], w + ' lr')))
             out.write('P %s\n' % fxs(e['P'], 36, w + ' P'))

@@ -13,7 +13,8 @@ Julia with IntervalArithmetic.jl. It re-implements from the specification:
 The 25-dimensional records (normal bound, Stage C, F6) reuse `proof/independent/src` unchanged: it is loaded as the
 submodule `IndepAtlas` and nothing in it is edited.
 
-**Sources used:** `SPEC.md`; `FORMAT.md` (piece B's branch, commits 37c52092 and 2f77a3c0); `proof/independent`
+**Sources used:** `SPEC.md`; `FORMAT.md` (piece B's branch, commits 37c52092 and 2f77a3c0; §8 on seed-driver-coord,
+13200fac); `proof/independent`
 (README and `src`); `proof/atlas/COVERAGE.md`; the module docstrings of `proof/atlas/ballrecord.py` and
 `proof/atlas/tao.py`. I also read `explorations/seed_balls/README.md` and the prototype (`seedball.py`, `tm2.py`,
 `tmball.py`, `tmball2.py`), but only for the mathematics: the design below differs from it, as listed under "Design".
@@ -250,8 +251,8 @@ The chart is centred at F6's corner (rows and columns 0, 1, 2). Its parameters a
 - The vertical side is the system for Eᵀ at (u₁, u₃, u₂, −y). Written in the original θ, it uses G_v and −y, and it
   has its own t′.
 
-**C1e on each w-box.** The boxes have exact dyadic centres: h₀ ≥ r/k is a dyadic number, so all centres and halvings
-are exact floats. On each box:
+**C1e on each w-box.** The first level is FORMAT.md §8's k₀×k₁×k₂×k₃ partition. The boxes have exact dyadic centres:
+each h_j ≥ r/k_j is a dyadic number, so all centres and halvings are exact floats. On each box:
 - **Tubes.** Both systems get a second-order Taylor-model predictor (Newton in model space, from the float solution
   at the centre), and a componentwise parametric Krawczyk test with an analytic Jacobian. ∂ Im Ψ/∂φ_k is computed as
   i e^{−iΣφ}(P_k det² + 2 perm det D_k) − iΨ.
@@ -272,8 +273,10 @@ are exact floats. On each box:
 intervals. x = 0 lies strictly inside the uniqueness tubes of the leaf containing w = 0. So F6 is the centre of the
 edge ball's image, and F6 nonemptiness is certified by the edge ball (no F6 record is needed).
 
-**T3 (seed sphere box → edge ball; data g, rows, cols).**
+**T3 (seed sphere box → edge ball; FORMAT.md §8: g, rows, cols, hcols, vrows, wind, wind_h, wind_v).**
 - K = g·H_{o_s}(θ) uses the representative phase models of the source box.
+- The horizontal side's columns are taken in the order hcols and the vertical side's rows in the order vrows. The
+  stored windings are the ones checked; the checker chooses its own only when none are stored.
 - The corner seed θ_K and y_K = −2 Im Ψ(K[I, Jᶜ]) give p_K. Then ‖Mth⁻¹p_K‖ < r is checked, with Mth⁻¹ enclosed.
 - K's dephased side angles, with θ_K,4 − θ⁰_4, must lie strictly inside the uniqueness tube of every C1e leaf whose
   box meets the range of w_K. Each leaf's predictor is composed with w_K − wc, over the whole source box.
@@ -294,6 +297,7 @@ C1e takes seconds. A `--shard` run computes only their C1e leaves, and the final
 | edge ball | k | certified C1e bound | sampled true residual | C1e time |
 |---|---|---|---|---|
 | r = 0.05 | 4 | 0.00301 | 0.00094 | 0.2–0.4 s (240 boxes) |
+| r = 0.05 | 4×4×4×6 | 0.00285 | 0.00094 | 1.2 s (368 boxes) |
 | r = 0.125 | 6 | 0.0168 | ≈ 0.009 | 2.9 s (864 boxes) |
 | r = 0.125 | 8 | 0.0122 | ≈ 0.009 | 2.4 s (2,560 boxes) |
 
@@ -353,13 +357,14 @@ reason.
 6. **Edge balls (`edge_tests.jl`, on `tests/data/edge_test_certificate.json.gz`).**
    - **Sampling.** On random C1e leaves, the augmented systems solved in BigFloat lie within the tubes, t = t′, H(p) is
      Hadamard, and the phases lie inside their models.
-   - **25 cases, all as expected.**
+   - **29 cases, all as expected.**
      - *Rejected, C1e:* n below the sampled residual; r × 3; P entries of B and D + 0.01; U + 0.1; Mth's y row × 1.1.
      - *Rejected, Stage C:* at r = 0.2, n = 0.03 (the clique search hits its step cap).
      - *Rejected, T3:* the wrong target; an edge ball failing C1e; g = conj or T; swapped corner rows; swapped
-       complement rows or columns; a removed sphere box.
+       complement rows or columns (vrows, hcols); a wrong wind, wind_h or wind_v; a removed sphere box.
      - *Rejected, edge T1:* the wrong target, swapped rows, g = conj, a wrong winding, and an uncovered sphere.
-     - *Accepted (controls):* C1e, the T3 cover, the T1 boxes, Stage C, and the 3-index T3 form.
+     - *Accepted (controls):* C1e, the T3 cover, the T1 boxes, Stage C, sorted complements (they are increasing in
+       this data), and T3 without stored windings.
 
 ### Measured (M-series laptop, one thread unless stated)
 
@@ -410,13 +415,16 @@ reason.
     L = 2√3 for the Jacobian, rather than FORMAT.md §6's componentwise boxes. The inclusion ball contains every
     x with ‖Mx‖ ≤ n. The contraction steps and the third-order β are my own choices. The crude ‖ν‖ ≤ n form remains as
     a fallback.
-12. **Edge balls (coordinator's encoding of 24 Oct).**
-    - **The data layout.** `"edge"` balls carry Mth, r, P, U, n, label_radius, k and transfers (kind T1). Seed
-      transfers of kind T3 carry target, g, rows and cols.
-    - **T3 rows and cols.** They may be ordered triples, with the complements taken in increasing order, or full
-      6-orderings (the corner, then the complement's order). The complement's order fixes the column order of the
-      sides, so it matters: the negative tests swap it and are rejected.
-    - **Tao.** A record without a frame is read as Tao's record; a top-level `"tao"` object is also accepted.
-    - **C1e boxes.** Their centres are exact dyadics, the uniqueness tube is a widened Krawczyk box, and T3 checks
-      every leaf the w_K range meets.
+12. **Edge balls (FORMAT.md §8, format v2).**
+    - **Data layout.** `"edge"` balls carry chart `"F6-012"` (the only chart implemented; any other is refused), Mth,
+      r, k (four integers, one per axis), P, U, n, label_radius and transfers (kind T1).
+    - **T3 fields.** T3 carries target, g, rows, cols, hcols, vrows, wind, wind_h and wind_v. The parser writes them as
+      6-orderings (rows + vrows, cols + hcols) and one 16-integer winding.
+    - **Tao.** It is the top-level `"tao"`. A record without a frame is also read as Tao's record.
     - **F6.** It is certified as H(0) of a passing edge ball.
+    - **C1e and T3 tubes.**
+      - C1e boxes have exact dyadic centres, and the uniqueness tube is a widened Krawczyk box.
+      - FORMAT.md §8 suggests a fresh Krawczyk over p′'s enclosure for T3. Instead, T3 uses the tubes C1e certified:
+        the source box is checked against every leaf that the w_K range meets.
+      - So the H(p′) reached is, by construction, the edge ball's own completion. It needs no separate consistency
+        argument between an on-demand tube and the C1e tubes.

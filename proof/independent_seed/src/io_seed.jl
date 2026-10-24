@@ -15,7 +15,7 @@
 #     PHI <36>   TINT <144 ints>
 #     groups as above (kinds rec, T1prime)
 #   per edge ball (SPEC §10):
-#     EDGE <i> <k> <ngroups>
+#     EDGE <i> <k0> <k1> <k2> <k3> <ngroups>
 #     MTH <16>   R <1>   N <1>   LR <1>   P <36>   U <144>
 #     groups as above (kind T1)
 #   TAO <R> <label_radius>   or   TAO none
@@ -32,7 +32,7 @@ struct Group
     rows::Vector{Int}             # 1-based; ordered corner rows (T1, T1p, 3), a permutation (T2, rec, 6), or for T3 the
                                   # corner followed by the complement's order (6; from 3 the complement is increasing)
     cols::Vector{Int}
-    wind::Vector{Int}             # 4 (T0, T1, T1p) or 36 (T2, rec, row-major); empty: not given
+    wind::Vector{Int}             # 4 (T0, T1, T1p), 36 (T2, rec, row-major), 16 (T3: wind, wind_h, wind_v); empty: none
     boxes::Vector{NTuple{5,Int}}  # (level, i0, i1, i2, i3)
 end
 
@@ -58,7 +58,7 @@ end
 
 struct EdgeBall
     idx::Int
-    k::Int
+    k::NTuple{4,Int}              # boxes per axis for C1e
     Mth::Matrix{Float64}          # p = (u1, u2, u3, y) = Mth w
     r::Float64
     n::Float64
@@ -129,7 +129,7 @@ function read_seed_certificate(path::AbstractString)
             length(rows) == 3 && (rows = [rows; [k for k in 1:6 if !(k in rows)]])
             length(cols) == 3 && (cols = [cols; [k for k in 1:6 if !(k in cols)]])
             (sort(rows) == 1:6 && sort(cols) == 1:6) || error("GROUP: bad T3 corner")
-            isempty(wind) || error("GROUP: T3 carries no winding")
+            length(wind) in (0, 16) || error("GROUP: T3 winding of length $(length(wind))")
         elseif kind in (:T2, :rec)
             (sort(rows) == 1:6 && sort(cols) == 1:6) || error("GROUP: bad permutation")
             length(wind) in (0, 36) || error("GROUP: winding of length $(length(wind))")
@@ -168,8 +168,9 @@ function read_seed_certificate(path::AbstractString)
     end
     edges = EdgeBall[]
     for _ in 1:ne
-        idx, k, ng = parse.(Int, expect(nextline(), "EDGE", 3))
-        k >= 1 || error("edge ball $idx: k must be >= 1")
+        v = parse.(Int, expect(nextline(), "EDGE", 6))
+        idx = v[1]; k = Tuple(v[2:5]); ng = v[6]
+        all(>=(1), k) || error("edge ball $idx: k must be >= 1")
         M = hx.(expect(nextline(), "MTH", 16)); Mth = [M[4(a-1)+b] for a in 1:4, b in 1:4]
         r = hx(expect(nextline(), "R", 1)[1]); n = hx(expect(nextline(), "N", 1)[1]); lr = hx(expect(nextline(), "LR", 1)[1])
         (r > 0 && n >= 0 && lr > 0) || error("edge ball $idx: r, n, label_radius must be positive")

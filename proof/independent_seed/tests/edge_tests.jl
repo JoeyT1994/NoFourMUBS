@@ -39,10 +39,10 @@ let c1 = S.check_c1e(eb0)
     npts = 0; worst = 0.0
     for lf in c1.leaves[randperm(rng, length(c1.leaves))[1:6]]
         h = lf.h
-        em = S.edge_box_map(eb0, lf.wc, (h, h, h, h), S.edge_guess(S.edge_root(eb0), lf.wc)...)
+        em = S.edge_box_map(eb0, lf.wc, h, S.edge_guess(S.edge_root(eb0), lf.wc)...)
         check(em.ok, "edge box map")
         for _ in 1:4
-            u = ntuple(_ -> h * (2rand(rng) - 1), 4)
+            u = ntuple(j -> h[j] * (2rand(rng) - 1), 4)
             w = lf.wc .+ u
             p = eb0.Mth * collect(w)
             xh0 = [mid(S.peval(t, [interval(x) for x in u])) for t in lf.xh]
@@ -145,7 +145,11 @@ cases = Any[
     ("T3 corner rows i1, i2 swapped", false, () -> t3(setseed(C0, 1, with(C0.seeds[1]; groups=[with(g3; rows=swap(g3.rows, 2, 3))])))),
     ("T3 complement rows 1, 2 swapped (vertical side order)", false, () -> t3(setseed(C0, 1, with(C0.seeds[1]; groups=[with(g3; rows=swap(g3.rows, 4, 5))])))),
     ("T3 complement columns 2, 3 swapped (horizontal side order)", false, () -> t3(setseed(C0, 1, with(C0.seeds[1]; groups=[with(g3; cols=swap(g3.cols, 5, 6))])))),
-    ("control: T3 in the 3-index form (the complements are increasing here)", true, () -> t3(setseed(C0, 1, with(C0.seeds[1]; groups=[with(g3; rows=[g3.rows[1:3]; sort(g3.rows[4:6])], cols=[g3.cols[1:3]; sort(g3.cols[4:6])])])))),
+    ("control: T3 complements sorted (they are increasing here)", true, () -> t3(setseed(C0, 1, with(C0.seeds[1]; groups=[with(g3; rows=[g3.rows[1:3]; sort(g3.rows[4:6])], cols=[g3.cols[1:3]; sort(g3.cols[4:6])])])))),
+    ("T3 wind + 1 in theta'_2", false, () -> t3(setseed(C0, 1, with(C0.seeds[1]; groups=[with(g3; wind=[k == 2 ? w + 1 : w for (k, w) in enumerate(g3.wind)])])))),
+    ("T3 wind_h + 1 in its 5th angle", false, () -> t3(setseed(C0, 1, with(C0.seeds[1]; groups=[with(g3; wind=[k == 4 + 5 ? w + 1 : w for (k, w) in enumerate(g3.wind)])])))),
+    ("T3 wind_v - 1 in its 2nd angle", false, () -> t3(setseed(C0, 1, with(C0.seeds[1]; groups=[with(g3; wind=[k == 10 + 2 ? w - 1 : w for (k, w) in enumerate(g3.wind)])])))),
+    ("control: T3 windings not stored (the checker chooses)", true, () -> t3(setseed(C0, 1, with(C0.seeds[1]; groups=[with(g3; wind=Int[])])))),
     ("T3 sphere box removed", false, () -> t3(setseed(C0, 1, with(C0.seeds[1]; groups=[with(g3; boxes=g3.boxes[2:end])])))),
     ("edge T1 target -> seed 0", false, () -> t1e(setedge(C0, with(eb0; groups=[with(gT1; target=0)])))),
     ("edge T1 rows swapped", false, () -> t1e(setedge(C0, with(eb0; groups=[with(gT1; rows=swap(gT1.rows, 2, 3))])))),

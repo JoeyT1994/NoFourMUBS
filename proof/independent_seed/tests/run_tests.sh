@@ -80,7 +80,7 @@ expect "$OUT/edge/seeds.tsv" 1 FAIL "do not cover the sphere"
 expect "$OUT/edge/edges.tsv" 0 FAIL "C2: the boxes do not cover the sphere"
 awk -F'\t' '$1 == 0 && $10 != "PASS" {exit 1}' "$OUT/edge/edges.tsv" || fail "Stage C of the edge ball"
 grep -q "F6 at the centre of edge ball 0: CERTIFIED" "$OUT/edge/RESULT.txt" || fail "F6 at the edge ball's centre"
-grep -q "Tao: PASS" "$OUT/edge/RESULT.txt" || fail "Tao's record given as a frameless record"
+grep -q "Tao: PASS" "$OUT/edge/RESULT.txt" || fail "Tao's record"
 JL -t "$NT" tests/edge_tests.jl "$OUT/edge/certificate.txt" > "$OUT/edge_tests.log" 2>&1 || true
 grep -E "^\(a\)|UNEXPECTED|EDGE TESTS" "$OUT/edge_tests.log"
 grep -q "EDGE TESTS PASS" "$OUT/edge_tests.log" || fail "edge tests"

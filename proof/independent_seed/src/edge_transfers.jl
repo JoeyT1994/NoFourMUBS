@@ -19,7 +19,9 @@ near(t::TM{I64}, c0::Float64) = (k = round((c0 - mid(t.c)) / (2π)); k == 0 ? t 
 """T3: for K = g . H_{o_s}(theta), theta over the box (phase models Q of the representative): the corner seed theta_K
 at the ordered corner (I, J) and y_K = -2 Im Psi(K[I, J^c]) give p_K = (theta_K,1..3 - theta0_1..3, y_K) in int E,
 and K's dephased side angles (with theta_K,4 - theta0_4) lie strictly inside the certified horizontal tube at p_K;
-likewise the vertical side (K[I^c, J], transposed) in the vertical tube.  The tubes are those of the C1e leaves: the
+likewise the vertical side (K[I^c, J], transposed) in the vertical tube.  The side angles follow FORMAT.md §8: the
+horizontal side's columns in the order hcols (= cols[4:6]), the vertical side's rows in the order vrows (= rows[4:6]);
+the stored windings wind, wind_h, wind_v are the ones used (the checker's own nearest choice only when none is stored).  The tubes are those of the C1e leaves: the
 containment is checked, over the whole source box, against every leaf whose box meets the range of w_K = Mth^-1 p_K
 (its predictor composed with w_K - wc).  Each source point has w_K in int E, hence in some leaf (the leaves cover the
 ball), and that leaf is among those checked; there K's sides are the unique solutions, so K ~ H(p_K).  (For the vertical side this uses that K is matched at that corner; SPEC §10's global
@@ -28,7 +30,9 @@ function check_T3(Q::Vector{TM{I64}}, D::Dom, g::Group, eb::EdgeBall, leaves::Ve
     K = gact(mat6(Q), g.g)
     I = g.rows[1:3]; Ic = g.rows[4:6]; J = g.cols[1:3]; Jc = g.cols[4:6]
     t0 = th0c(I64); f0 = ph0c(I64)
-    thK = [near(x, mid(t0[k])) for (k, x) in enumerate(corner_seed(K, I, J))]
+    sw = length(g.wind) == 16          # stored windings (FORMAT.md §8): wind, wind_h, wind_v
+    wfix(x, c0, k) = sw ? addc(x, TWOPI_I * iv(Float64(g.wind[k]))) : near(x, c0)
+    thK = [wfix(x, mid(t0[k]), k) for (k, x) in enumerate(corner_seed(K, I, J))]
     yK = scale(imp(psi_model(K[I, Jc], D)), iv(-2.0))
     pK = [addc(thK[1], -t0[1]), addc(thK[2], -t0[2]), addc(thK[3], -t0[3]), yK]
     wK = [lincomb(Minv[i, :], pK) for i in 1:4]
@@ -36,10 +40,10 @@ function check_T3(Q::Vector{TM{I64}}, D::Dom, g::Group, eb::EdgeBall, leaves::Ve
     land < eb.r || return false, @sprintf("T3: ||w_K|| <= %.6g >= r = %.6g", land, eb.r), land
     dep(a, b) = K[a, b] - K[a, J[1]] - K[I[1], b] + K[I[1], J[1]]
     tK = addc(thK[4], -t0[4])
-    xh = [tK; [addc(near(dep(I[2+(k-1)÷3], Jc[(k-1)%3+1]), mid(f0[k])), -f0[k]) for k in 1:6]]
-    xv = [tK; [addc(near(dep(Ic[(k-1)%3+1], J[2+(k-1)÷3]), mid(f0[k])), -f0[k]) for k in 1:6]]
+    xh = [tK; [addc(wfix(dep(I[2+(k-1)÷3], Jc[(k-1)%3+1]), mid(f0[k]), 4 + k), -f0[k]) for k in 1:6]]
+    xv = [tK; [addc(wfix(dep(Ic[(k-1)%3+1], J[2+(k-1)÷3]), mid(f0[k]), 10 + k), -f0[k]) for k in 1:6]]
     wr = [tmrange(x, D) for x in wK]
-    hits = [l for l in leaves if all(l.wc[j] - l.h <= wr[j][2] && wr[j][1] <= l.wc[j] + l.h for j in 1:4)]
+    hits = [l for l in leaves if all(l.wc[j] - l.h[j] <= wr[j][2] && wr[j][1] <= l.wc[j] + l.h[j] for j in 1:4)]
     isempty(hits) && return false, "T3: w_K meets no C1e box", land
     for lf in hits
         u = [addc(wK[j], iv(-lf.wc[j])) for j in 1:4]
@@ -90,10 +94,9 @@ sides; return U §4.1), and x = 0 lies strictly inside the certified tubes of th
 solution is unique; so H(0) = F6.  The identity H(0, 0) = 0 is also checked here in intervals (each component's
 enclosure contains 0)."""
 function edge_f6(leaves::Vector{EdgeLeaf})
-    li = findfirst(l -> all(abs(l.wc[j]) <= l.h for j in 1:4), leaves)
+    li = findfirst(l -> all(abs(l.wc[j]) <= l.h[j] for j in 1:4), leaves)
     li === nothing && return false, "no C1e box contains w = 0"
     lf = leaves[li]
-    D = Dom((lf.h, lf.h, lf.h, lf.h))
     u0 = [-lf.wc[j] for j in 1:4]
     for (side, xp, rho) in (("horizontal", lf.xh, lf.rho_h), ("vertical", lf.xv, lf.rho_v))
         for i in 1:7

@@ -9,7 +9,8 @@
 # in the original theta this is Gamma = the same entries of G_v = 6I - E^T conj(E), sgn = -1, and its own fourth phase
 # t'.  theta0 = (1,2,2,4) pi/3 and phi0 = (3,4,5,0,2,4) pi/3 are used exactly (interval enclosures of k pi/3).
 #
-# C1e on a w-box (exact float centre wc, half-widths h; second-order models in u = w - wc):
+# C1e on a w-box (exact float centre wc, half-widths h_j; second-order models in u = w - wc); the first level is the
+# k0 x k1 x k2 x k3 partition of [-r, r]^4 (FORMAT.md §8), with dyadic half-widths h_j >= r/k_j:
 #   * each side: a parametric Krawczyk test (componentwise, as for the seed sides) with a second-order predictor from
 #     Newton in model space; this certifies a unique solution in x_pred(u) + [-rho, rho]^7 and encloses it within
 #     `need` = b + A rho;
@@ -292,7 +293,7 @@ end
 
 struct EdgeLeaf
     wc::NTuple{4,Float64}
-    h::Float64
+    h::NTuple{4,Float64}
     xh::Vector{TM{I64}}; rho_h::Vector{Float64}
     xv::Vector{TM{I64}}; rho_v::Vector{Float64}
 end
@@ -315,7 +316,7 @@ function edge_h0(r::Float64, k::Int)
     h0
 end
 
-edge_misses_ball(wc, h, r) = inf(sum(max(iv(0.0), abs(iv(wc[j])) - iv(h))^2 for j in 1:4)) > sup(iv(r)^2)
+edge_misses_ball(wc, h::NTuple{4,Float64}, r) = inf(sum(max(iv(0.0), abs(iv(wc[j])) - iv(h[j]))^2 for j in 1:4)) > sup(iv(r)^2)
 
 """The float root predictor at p = 0 (where x = 0 exactly) over the cube [-r, r]^4."""
 function edge_root(eb::EdgeBall)
@@ -329,7 +330,7 @@ function edge_root(eb::EdgeBall)
 end
 
 """C1e on one first-level box and its halvings: (leaves, worst bound, visited, splits, depth, failure message)."""
-function c1e_subtree(eb::EdgeBall, wc0::NTuple{4,Float64}, h0::Float64, root::EdgeMap, maxdepth::Int)
+function c1e_subtree(eb::EdgeBall, wc0::NTuple{4,Float64}, h0::NTuple{4,Float64}, root::EdgeMap, maxdepth::Int)
     lvs = EdgeLeaf[]; worst = 0.0; nv = 0; ns = 0; md = 0
     stack = [(wc0, h0, 0, root)]
     while !isempty(stack)
@@ -337,13 +338,13 @@ function c1e_subtree(eb::EdgeBall, wc0::NTuple{4,Float64}, h0::Float64, root::Ed
         edge_misses_ball(wc, h, eb.r) && continue
         nv += 1; md = max(md, depth)
         em = try
-            edge_box_map(eb, wc, (h, h, h, h), edge_guess(parent, wc)...)
+            edge_box_map(eb, wc, h, edge_guess(parent, wc)...)
         catch err
             EdgeFail("exception: " * sprint(showerror, err)[1:min(end, 200)])
         end
         why = em.why
         if em.ok
-            b = vecnorm_sup(residual_models(em.Q, eb.P, eb.U, ntuple(j -> iv(wc[j]), 4)), Dom((h, h, h, h)))
+            b = vecnorm_sup(residual_models(em.Q, eb.P, eb.U, ntuple(j -> iv(wc[j]), 4)), Dom(h))
             if b <= eb.n
                 worst = max(worst, b)
                 push!(lvs, EdgeLeaf(wc, h, em.xh, em.rho_h, em.xv, em.rho_v))
@@ -354,10 +355,10 @@ function c1e_subtree(eb::EdgeBall, wc0::NTuple{4,Float64}, h0::Float64, root::Ed
         if depth < maxdepth
             ns += 1
             for ch in 0:15
-                push!(stack, (ntuple(j -> wc[j] + ((ch >> (j - 1)) & 1 == 1 ? h / 2 : -h / 2), 4), h / 2, depth + 1, em.ok ? em : parent))
+                push!(stack, (ntuple(j -> wc[j] + ((ch >> (j - 1)) & 1 == 1 ? h[j] / 2 : -h[j] / 2), 4), h ./ 2, depth + 1, em.ok ? em : parent))
             end
         else
-            return lvs, worst, nv, ns, md, @sprintf("box at depth %d, centre %s, half-width %.4g: %s", depth, string(round.(wc, sigdigits=6)), h, why)
+            return lvs, worst, nv, ns, md, @sprintf("box at depth %d, centre %s, half-widths %s: %s", depth, string(round.(wc, sigdigits=6)), string(round.(h, sigdigits=4)), why)
         end
     end
     lvs, worst, nv, ns, md, ""
@@ -367,8 +368,9 @@ function check_c1e(eb::EdgeBall; maxdepth::Int=3)
     t0 = time()
     root = edge_root(eb)
     root === nothing && return C1eResult(false, "no float solution at p = 0", Inf, EdgeLeaf[], 0, 0, 0, time() - t0)
-    h0 = edge_h0(eb.r, eb.k)
-    firsts = [ntuple(j -> (2 * (idx[j] - 1) - eb.k + 1) * h0, 4) for idx in Iterators.product(1:eb.k, 1:eb.k, 1:eb.k, 1:eb.k)]
+    h0 = ntuple(j -> edge_h0(eb.r, eb.k[j]), 4)
+    firsts = [ntuple(j -> (2 * (idx[j] - 1) - eb.k[j] + 1) * h0[j], 4)
+              for idx in Iterators.product(1:eb.k[1], 1:eb.k[2], 1:eb.k[3], 1:eb.k[4])]
     firsts = vec(firsts)
     results = Vector{Any}(undef, length(firsts))
     Threads.@threads :greedy for fi in eachindex(firsts)
