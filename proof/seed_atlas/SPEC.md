@@ -206,3 +206,63 @@ Required: Lean's three standard axioms only; no sorry.
 Second, if time allows: the soundness of the C1 certification method itself, so that the hypothesis field can be
 replaced by finite inequalities. That means the parametric Krawczyk lemma and Taylor-model operation lemmas
 (add, mul, e^{i·}, the residual correction, arg).
+
+## 10. Edge balls: the four-dimensional chart through F6 (replaces F6's 25-dim record)
+
+Source: return U (`explorations/returns/U_fold_at_edge/`, replayed): fold theorem, analytic completion across R = 0, and
+the chart at F6. Prototype: `explorations/seed_balls/edgeball.py`, `edge_stagec.py`. In binary64, an edge ball at F6
+passes Stage C at r = 0.125 (label radius 0.03, sampled n ≈ 9e-3, 223 labels) and fails at 0.15.
+
+**Chart.**
+- Centre: F6, at its corner with rows and columns (0,1,2).
+  - θ⁰ = (1,2,2,4)π/3.
+  - φ⁰ = (3,4,5,0,2,4)π/3 for both the horizontal side and the vertical side V = Cᵀ (C₀ = B₀ᵀ).
+  - These are exact multiples of π/3. The certifiers use them exactly (Arb π), not as stored floats.
+- Parameters: p = (u₁, u₂, u₃, y).
+- Horizontal unknowns: x_h = (t, ϕ_h) ∈ ℝ⁷, solving the augmented system (U eq. 20):
+  - γ(φ⁰ + ϕ_h) = Γ_h(θ), with θ = θ⁰ + (u₁, u₂, u₃, t);
+  - Im Ψ(X(φ⁰ + ϕ_h))/24 + y/48 = 0.
+
+  Here γ = (Re s, Im s, Re t, Im t, Re r, Im r), with s = Σx_j, t = Σy_j, r = Σx̄_j y_j over the side's rows 1, 2;
+  Γ_h(θ) is the same three entries of G_h = 6I − EE*, namely (1,0), (2,0) and (2,1).
+- Vertical unknowns: x_v = (t′, ϕ_v), solving the same system for Eᵀ at parameters (u₁, u₃, u₂, −y).
+  **Require t′ = t:** U certifies ∂_{θ₄}R > 1158 on its box, and the certifier must prove ∂₄R > 0 on the whole ball's
+  seed range, so that both solves complete the same corner.
+- H(p) = [[E(θ), B], [C, D]], with B = X(φ⁰ + ϕ_h), C = X(φ⁰ + ϕ_v)ᵀ and D = −C E* (B*)⁻¹ (residual correction, as in
+  §2). Its labels are z = (χ + iy)/(2g) and z̄. H(p) is Hadamard:
+  - for y ≠ 0, by matched flatness;
+  - for y = 0, by U §3.1–3.2, provided g > 0 and the edge is regular (∂₄R ≠ 0), which also gives d_h d_v ≠ 0.
+
+**The edge-ball record.** Fields: Mth (4×4), r, P (36: F6's phases, stored float), U (36×4), n, label_radius, k, and
+transfers. The ball is E = {p = Mth w : ‖w‖ ≤ r}.
+
+**C1e.** For every w with ‖w‖ ≤ r:
+1. the two augmented systems have solutions x_h, x_v in the certified tubes, unique there, with t′ = t;
+2. g > 0 and ∂₄R > 0 along the segment between the two seed phases;
+3. the resulting H(p) has phases Q with ‖Q − P − U w − 2πN‖ ≤ n.
+
+Certify it like C1: k⁴ w-boxes, second-order Taylor models in w, a parametric Krawczyk tube for each 7-unknown system
+(predictor from p = 0 by numerical derivatives; U's exact first-order predictor (21) is available), D by residual
+correction, then arg and the per-box bound. Stage C then runs exactly as for a seed ball. The y-extent is large
+(|y| ≲ 2 at r = 0.125, since y's singular value in DQ is 0.063), so expect k ≥ 6 along that axis.
+
+**Transfers.**
+- *Out of the edge ball:* T1 (corner change: the corner seed is linear in Q, plus Ψ signs) into seed balls, as for seed
+  balls.
+- *Into the edge ball, kind T3:* data (g ∈ G4, ordered corner (I, J)). For K = g·(source matrix) over the box:
+  - corner seed θ_K (linear in K's phases) and y_K = −2 Im Ψ(K[I, Jᶜ]);
+  - p_K = (θ_K,1..3 − θ⁰_1..3, y_K) must lie in int E;
+  - K's dephased side angles and θ_K,4 − θ⁰_4 must lie inside the certified horizontal tube at p_K, and likewise for
+    the vertical side at (u₁, u₃, u₂, −y_K).
+
+  Uniqueness then gives K ≅ H(p_K).
+
+**Global argument.** W = seed-ball images ∪ edge-ball image ∪ Tao's record (all with G4). There are no 25-dim
+records except Tao's. Openness at edge-ball points:
+- y ≠ 0: the open-map lemma (§5);
+- y = 0 (regular edge points): uniqueness in the augmented tubes gives the same argument. A Hadamard K close to H(p)
+  has a corner seed and y close to p, and its sides lie in the tubes, so K ≅ H(p′). A K near H(p) whose two sides
+  carry equal nonzero labels would be nonmatched strict, hence Tao, which is far away.
+
+F6 ∈ int(edge-ball image) trivially (p = 0). §6 still holds: F6 needs a chart that is not a seed ball; the edge
+ball is that chart, and it is four-dimensional.
