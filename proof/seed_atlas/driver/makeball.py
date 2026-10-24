@@ -8,7 +8,7 @@ from c1 import Ball, c1_bound
 
 LADDER = (0.125, 0.1, 0.08, 0.063, 0.05, 0.04, 0.03, 0.02, 0.015, 0.01)
 LABELS = (0.03, 0.02)
-N_SAFETY = 1.10          # stored n = N_SAFETY x the driver's Taylor-model bound (slack for the certifier's own TMs)
+N_SAFETY = 1.25          # stored n = N_SAFETY x the driver's Taylor-model bound: piece A's Arb bound is up to 1.135x it (300 balls, 24 Oct)
 CLIQUE_CAP = 2_000_000   # driver screening cap (official: 5,000,000)
 MAX_LABELS = 1200
 TRY_UP_MAX = 0.1         # one rung up from the hint only below this (0.125 passes for under 1% of balls)
@@ -83,7 +83,7 @@ def make_ball(theta0, phih0, phiv0, rmax=LADDER[0], rmin=LADDER[-1], hint=None, 
         o = stage_c_capped(b, r, n, lab)
         tries.append((r, lab, 'ok' if o.get('ok') else (o.get('reason') or 'graph'), round(time.time() - t, 1)))
         if o.get('ok'):
-            b.r, b.n, b.k, b.label = r, n, k, lab
+            b.r, b.n, b.k, b.label = r, n, k, lab; b.nsafe = N_SAFETY
             b.info = dict(edge=b.edge, R=b.R, S=[float(x) for x in b.S], stagec=dict(bins=o.get('bins'),
                           labels=o.get('labels'), steps=o.get('steps')), tries=tries)
         return o.get('ok')
@@ -110,3 +110,16 @@ def make_ball(theta0, phih0, phiv0, rmax=LADDER[0], rmin=LADDER[-1], hint=None, 
             return b
     if log is not None: log.append('ladder failed: %s' % tries)
     return None
+
+
+def restage(b, old_safe):
+    """Raise a ball's n from old_safe to N_SAFETY times its Taylor-model bound and re-run (screened) Stage C, trying the
+    other label radius if needed.  Returns ('same', n, label) or ('shrink', Ball) or ('fail', None)."""
+    n2 = b.n / old_safe * N_SAFETY
+    labs = [b.label] + [l for l in LABELS if l != b.label]
+    for lab in labs:
+        if stage_c_capped(b, b.r, n2, lab).get('ok'): return ('same', n2, lab)
+    smaller = [r for r in LADDER if r < b.r - 1e-12]
+    if not smaller: return ('fail', None)
+    nb = make_ball(b.theta0, b.phih0, b.phiv0, rmax=smaller[0])
+    return ('shrink', nb) if nb is not None else ('fail', None)

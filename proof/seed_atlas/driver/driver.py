@@ -20,7 +20,7 @@ warnings.filterwarnings('ignore')
 import seedgeom as SG
 import cover as CV
 from c1 import Ball
-from makeball import make_ball, LADDER
+from makeball import make_ball, LADDER, N_SAFETY, restage
 
 CHART_KEEP = 0.6          # stay in the parent's corner chart if its edge distance >= CHART_KEEP x the best corner's
 SPAWN_F = (1.0, 1.15, 1.3, 1.45)
@@ -217,6 +217,15 @@ def task_rcover(I, descs, snap):
         return dict(kind='rcover', error=traceback.format_exc()[-1500:], s=time.time() - t0)
 
 
+def task_restage(j, ball):
+    t0 = time.time()
+    try:
+        out = restage(ball, getattr(ball, 'nsafe', 1.10))
+        return dict(kind='restage', j=j, out=out, s=time.time() - t0)
+    except Exception:
+        return dict(kind='restage', j=j, error=traceback.format_exc()[-1500:], s=time.time() - t0)
+
+
 # ------------------------------------------------------------------ master
 class Atlas:
     def __init__(self):
@@ -318,20 +327,37 @@ def main():
     def submit_cover(j):
         A.status[j] = 'queued'; heapq.heappush(qcover, j)
 
+    qrestage = [j for j, b in enumerate(A.balls) if getattr(b, 'nsafe', 1.10) < N_SAFETY - 1e-12]
+    restaging = set()
+    if qrestage: log('restage: %d balls to raise n to %.2f x the TM bound' % (len(qrestage), N_SAFETY))
+
+    def sources_of():
+        src = {}
+        for jj, gl in A.groups.items():
+            for g in gl:
+                if g['desc'][0] in ('T0', 'T1'): src.setdefault(g['desc'][1], set()).add(jj)
+        return src
+
     def dispatch():
+        while len(futs) < a.workers + 2 and qrestage:
+            j = qrestage.pop(); restaging.add(j)
+            futs[ex.submit(task_restage, j, A.balls[j])] = ('restage', j)
         while len(futs) < a.workers + 2 and (qcover or qmake):
-            if qcover:
+            if qcover and not (restaging or qrestage):
                 j = heapq.heappop(qcover); A.status[j] = 'covering'; A.ncover[j] += 1
                 futs[ex.submit(task_cover, j, A.balls[j], snap())] = ('cover', j)
-            else:
+            elif qmake:
                 pr, pid, spec = heapq.heappop(qmake)
                 if pid in dispatched or prio.get(pid) != pr: continue
                 dispatched.add(pid)
                 futs[ex.submit(task_make, spec)] = ('make', spec['pid'])
+            else:
+                break
 
+    shrunk = set()
     if not A.balls:
         spec = start_spec(a.start); pending[0] = spec; submit_make(spec)
-    else:
+    elif not qrestage:
         for j, s in enumerate(A.status):
             if s == 'open': submit_cover(j)
 
@@ -368,8 +394,8 @@ def main():
 
     dispatch()
     stall_rounds = [0]
-    while futs or qcover or qmake or rphase['state'] == 'idle':
-        if not futs and not qcover and not qmake:
+    while futs or qcover or qmake or qrestage or rphase['state'] == 'idle':
+        if not futs and not qcover and not qmake and not qrestage:
             stalled = [j for j, s in enumerate(A.status) if s == 'stalled']
             if stalled and stall_rounds[0] < 3:
                 stall_rounds[0] += 1; log('retrying %d stalled balls' % len(stalled))
@@ -389,6 +415,34 @@ def main():
                 res = fu.result()
             except Exception:
                 log('task crashed', kind, key, traceback.format_exc()[-600:]); res = None
+            if kind == 'restage':
+                j = key; restaging.discard(j)
+                if res is None or 'error' in res:
+                    log('restage error', j, (res or {}).get('error')); A.status[j] = 'failed'; A.log_fail[j] = 'restage error'
+                else:
+                    o = res['out']
+                    if o[0] == 'same':
+                        A.balls[j].n, A.balls[j].label = o[1], o[2]; A.balls[j].nsafe = N_SAFETY; A.stats['restage_same'] = A.stats.get('restage_same', 0) + 1
+                    elif o[0] == 'shrink':
+                        old = A.balls[j]; nb = o[1]
+                        log('restage: ball %d shrinks %.3f -> %.3f' % (j, old.r, nb.r))
+                        A.balls[j] = nb; A.groups.pop(j, None); A.stats['restage_shrink'] = A.stats.get('restage_shrink', 0) + 1
+                        snapc.clear()
+                        if A.status[j] != 'queued': A.status[j] = 'open'
+                        shrunk.add(j)
+                    else:
+                        log('restage: ball %d cannot be restaged' % j); A.status[j] = 'failed'; A.log_fail[j] = 'restage'
+                if not qrestage and not restaging:
+                    src = sources_of(); reopen = set()
+                    for j2 in shrunk: reopen |= src.get(j2, set())
+                    reopen |= shrunk
+                    for j2 in reopen:
+                        if A.status[j2] in ('closed', 'open'): A.groups.pop(j2, None); submit_cover(j2)
+                    for j2, st in enumerate(A.status):
+                        if st == 'open': submit_cover(j2)
+                    log('restage done: %d kept, %d shrunk, %d re-covered' % (A.stats.get('restage_same', 0), len(shrunk), len(reopen)))
+                    save(A, state)
+                continue
             if kind == 'rdiscover':
                 if res is None or 'error' in res: log('rdiscover error', (res or {}).get('error'))
                 else:
