@@ -2,7 +2,7 @@
 
   python3 proof/seed_atlas/cert/tests/run_tests.py            all tests (about a minute; Stage C is the slow one)
   python3 proof/seed_atlas/cert/tests/run_tests.py tm c1      a subset: tm, boxes, c1, sampling, stagec, transfers, record,
-                                                              negative, t1prime_f6, edge, edge_certificate,
+                                                              negative, t1prime_f6, edge, graph, edge_certificate,
                                                               global_, certificate
 
 Positive tests compare with the float prototype (explorations/seed_balls): the certified n must be >= the sampled
@@ -599,6 +599,39 @@ def test_edge():
     rejects('negative T3: uniqueness radii shrunk to 1e-9', t3(lambda g: None, edges=[(eb_, tb2)]))
 
 
+def test_graph():
+    """SPEC 10.1: (G) uniqueness of the normal part over the F6 frame's eta-ball, (D) sigma_D > 0 and the edge image
+    inside the (G) region; and corruptions of the graph data (eta_radius, n, boxes, R, phi, stored sigma_D)."""
+    import edgecert as EC
+    gd = EC.GraphData()
+    g = EC.check_graph(gd)
+    check('graph (G): contraction on the eta-ball (defaults: R_G 0.16)', g['q_max'] < 1,
+          'rho_G %.4f, n_G %.3e, %d box(es), q %.3f' % (gd.rho, gd.n, g['boxes'], g['q_max']))
+    d = edge_record('0.1', (4, 4, 4, 8), 1.0)
+    t = time.time(); o = EC.certify_edge_c1(EC.EdgeBall(d), graph=gd)
+    gi = o.get('graph', {})
+    check('graph (D) at r = 0.1: sigma_D > 0, image inside the (G) region', o['ok'] or 'n_cert' in o['reason'] and '(D)' not in o['reason'],
+          'sigma_D %.4f, max ||delta|| %.4f < R_G, max ||eta|| %.4f < rho_G, %.0fs' % (gi.get('sigma_D_cert', -1), gi.get('image_delta_max', 9),
+                                                                                    gi.get('image_eta_max', 9), time.time() - t))
+    def gdata(**kw):
+        base = dict(R=F.hx(0.16))
+        base.update(kw); return base
+    rejects('negative (G): eta_radius < r_H', lambda: EC.GraphData(gdata(eta_radius=F.hx(0.1))))
+    rejects('negative (G): n < the normal bound', lambda: EC.GraphData(gdata(n=F.hx(0.01))))
+    rejects('negative (G): boxes do not cover the eta-ball', lambda: EC.check_graph(EC.GraphData(gdata(boxes=[[1, 0, 0, 0, 0]]))))
+    rejects('negative (G): n_G = 0.5 (no contraction)', lambda: EC.check_graph(EC.GraphData(gdata(n=F.hx(0.5)))))
+    bad = F6_phases(); bad[7] += 0.1
+    rejects('negative (G): the frame centre phi moved by 0.1', lambda: EC.check_graph(EC.GraphData(gdata(phi=[F.hx(x) for x in bad]))))
+    d2 = edge_record('0.02', (3, 3, 3, 3), 1.0)
+    rejects('negative (D): R_G = 0.02 (the image leaves the (G) region)',
+            lambda: EC.certify_edge_c1(EC.EdgeBall(d2), graph=EC.GraphData(gdata(R=F.hx(0.02)))))
+    rejects('negative (D): stored sigma_D = 10', lambda: EC.certify_edge_c1(EC.EdgeBall(d2), graph=gd, sigma_D=10.0))
+
+
+def F6_phases():
+    return [2 * math.pi * ((a * b) % 6) / 6 for a in range(6) for b in range(6)]
+
+
 def test_edge_certificate():
     """Whole-certificate run with an edge ball: seeds 0, 1 (inside the chart) send their whole spheres into it by T3
     and must pass (C1, Stage C, T3, coverage); the edge ball has no transfers, so it must fail on its sphere coverage;
@@ -630,7 +663,7 @@ def test_edge_certificate():
 
 
 TESTS = dict(tm=test_tm, boxes=test_boxes, c1=test_c1, sampling=test_sampling, stagec=test_stagec, transfers=test_transfers,
-             record=test_record, negative=test_negative, t1prime_f6=test_t1prime_f6, edge=test_edge, edge_certificate=test_edge_certificate, global_=test_global, certificate=test_certificate)
+             record=test_record, negative=test_negative, t1prime_f6=test_t1prime_f6, edge=test_edge, graph=test_graph, edge_certificate=test_edge_certificate, global_=test_global, certificate=test_certificate)
 
 if __name__ == '__main__':
     names = sys.argv[1:] or list(TESTS)

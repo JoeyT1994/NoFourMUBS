@@ -8,7 +8,8 @@ Per record s: the existing record certification (the calls of proof/atlas/certif
 Stage C at the stored R and label radius), then its boundary groups (rec, T1prime with the Krawczyk enclosure of nu)
 and the coverage of its shell.
 Per edge ball e (edgecert.py, SPEC section 10): C1e (augmented 7-unknown Krawczyk tubes, t' = t, g > 0, the remainder),
-Stage C, its T1 transfers into seed balls and its sphere coverage; seed balls may transfer into it by T3.
+SPEC 10.1's (G) (uniqueness of the normal part over the F6 frame's eta-ball) and (D) (sigma_D > 0, the image inside the
+(G) region), Stage C, its T1 transfers into seed balls and its sphere coverage; seed balls may transfer into it by T3.
 Globally: F6 lies in the image (F6 = H(0) of edge ball 0, or the interior of record `fourier_record` by
 proof/atlas/nonempty.py's test), and Tao's record passes (proof/atlas/tao.py: exact spectrum, isolation, Stage C).
 
@@ -142,7 +143,7 @@ def check_edge(C, e, groups=None):
         if eb is None: raise S.CertError('edge ball %d malformed' % e)
         c1 = (C.cert.get('edge_c1') or {}).get(e)
         if c1 is None: raise S.CertError('edge ball %d: C1e not run' % e)
-        out.update(n=eb.n, n_cert=c1['n_cert'], r=eb.r, k=eb.k, c1_boxes=c1['boxes'], c1_s=round(c1['seconds'], 3))
+        out.update(n=eb.n, n_cert=c1['n_cert'], r=eb.r, k=eb.k, c1_boxes=c1['boxes'], c1_s=round(c1['seconds'], 3), graph=c1.get('graph'))
         if not c1['ok']: raise S.CertError(c1['reason'])
         t1 = time.time()
         sc = S.run_stage_c(eb)
@@ -161,18 +162,22 @@ def check_edge(C, e, groups=None):
 
 
 def run_edge_c1(core):
-    """C1e of every edge ball, in this process; the results (verdict, n_cert, the certified tube data for T3) go into
-    the core that the workers receive."""
+    """C1e of every edge ball, in this process, with SPEC section 10.1's (G) and (D) (the entry's "graph" and
+    "sigma_D", defaults when absent: F6's phases, the certifier's own frame, R_G = 0.16, rho_G = r_H, n_G = n0,
+    sigma_D only required > 0).  The results (verdicts, n_cert, the (G)/(D) values, the certified tube data for T3)
+    go into the core that the workers receive."""
     import edgecert as EC, seedcert as S
     res = {}
     for e, ed in enumerate(core.get('edge', [])):
         try:
-            res[e] = EC.certify_edge_c1(EC.EdgeBall(ed))
+            gd = EC.GraphData(ed.get('graph'))
+            sD = S._hexf(ed['sigma_D']) if 'sigma_D' in ed else None
+            res[e] = EC.certify_edge_c1(EC.EdgeBall(ed), graph=gd, sigma_D=sD)
         except S.CertError as ex:
             res[e] = dict(ok=False, n_cert=math.inf, reason='C1e: %s' % ex, boxes=None, seconds=0.0, tubes=None)
         if not res[e]['ok']: res[e]['tubes'] = None
-        print('edge ball %d: C1e %s n_cert %.4e (%s boxes, %.1fs) %s' % (e, 'ok' if res[e]['ok'] else 'FAIL', res[e]['n_cert'],
-                                                                       res[e]['boxes'], res[e]['seconds'], res[e]['reason']), flush=True)
+        print('edge ball %d: C1e %s n_cert %.4e (%s boxes, %.1fs) %s %s' % (e, 'ok' if res[e]['ok'] else 'FAIL', res[e]['n_cert'],
+              res[e]['boxes'], res[e]['seconds'], res[e].get('graph', ''), res[e]['reason']), flush=True)
     core['edge_c1'] = res
 
 
@@ -296,7 +301,7 @@ def main(argv=None):
         certificate=os.path.abspath(a.certificate), complete_run=full, items=len(results), failures=len(bad),
         seeds=len(seeds), records=sum(1 for r in results if r['item'] == 'record'),
         edge=[dict(index=r.get('index'), ok=r['ok'], n=r.get('n'), n_cert=r.get('n_cert'), c1_s=r.get('c1_s'), stagec_s=r.get('stagec_s'),
-                   c2_s=r.get('c2_s'), labels=r.get('labels')) for r in results if r['item'] == 'edge'],
+                   c2_s=r.get('c2_s'), labels=r.get('labels'), graph=r.get('graph')) for r in results if r['item'] == 'edge'],
         max_n_cert=max((r['n_cert'] for r in ok_seeds), default=None),
         max_n_ratio=max((r['n_cert'] / r['n'] for r in ok_seeds if r['n'] > 0), default=None),
         transfer_boxes={k: sum(r.get('transfers', {}).get(k, 0) for r in ok_seeds) for k in ('T0', 'T1', 'T1sym', 'T2', 'T3')},

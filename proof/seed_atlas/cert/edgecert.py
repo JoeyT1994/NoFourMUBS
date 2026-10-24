@@ -165,6 +165,26 @@ class EdgeSystem:
         return stack(ent, (7, 7), xt.h, False)
 
 
+def _Jq_tm(self, qt, xt):
+    """dF/dq (B, 7, 4) over the Taylor models (q4 = y enters only F_6, with coefficient 1/48)."""
+    E = self._E(qt, xt)
+    zero = TMA.ZERO
+    rows = {}
+    for c in range(4):
+        for k in range(3):
+            coef = [acb(0, int(self.N[m, k]) * int(self.C[c, m])) for m in range(self.M)]
+            if any(int(self.N[m, k]) * int(self.C[c, m]) for m in range(self.M)): rows[(c, k)] = self._combo(E, coef)
+    ent = []
+    for c, part in ((0, 're'), (0, 'im'), (1, 're'), (1, 'im'), (2, 're'), (2, 'im'), (3, 'im')):
+        for k in range(4):
+            if k == 3: ent.append(arb(1) / 48 if c == 3 else zero); continue
+            if (c, k) not in rows: ent.append(zero); continue
+            t = getattr(rows[(c, k)], part)()
+            ent.append(t.scale(arb(1) / 24) if c == 3 else t)
+    return stack(ent, (7, 4), xt.h, False)
+
+
+EdgeSystem.Jq_tm = _Jq_tm
 SYS = None
 
 
@@ -410,9 +430,20 @@ class EdgeTubes:
         return self
 
 
-def edge_box_Q(eb, wc, h, wcf, tubes=None):
+def ival(t):
+    """Entrywise balls containing the range of the TM t over its box (c +- var), arb or acb."""
+    v = t.var()
+    out = np.empty(t.c.shape, dtype=object)
+    for i, (c, w) in enumerate(zip(t.c.flat, v.flat)):
+        rad = arb(0, up(w))
+        out.flat[i] = acb(c.real + rad, c.imag + rad) if isinstance(c, acb) else c + rad
+    return out
+
+
+def edge_box_Q(eb, wc, h, wcf, tubes=None, deriv=False):
     """Taylor models (B, 36) of the phases of H(p), p = Mth (wc + u), over B w-boxes, with every C1e check.
-    Optionally records the tube data in `tubes` (EdgeTubes)."""
+    Optionally records the tube data in `tubes` (EdgeTubes).  With deriv=True also returns, per box, a ball enclosure
+    (B, 36, 4) of dQ/dw over the box (dQ_derivative)."""
     sysm = system()
     B = wc.shape[0]
     Mh = eb.Mth; Mv = QSIGN_V[:, None] * eb.Mth[QPERM_V]
@@ -423,7 +454,7 @@ def edge_box_Q(eb, wc, h, wcf, tubes=None):
         need(ok.all(), 'edge: predictor (float continuation) failed')
         pred = TM(oarb(xc), oarb(g), oarb(q2), zeros((B, 7)), h)
         tube, rin = kraw_tube(sysm, qt, pred, Y)
-        xs[side] = (tube, xc)
+        xs[side] = (tube, xc, Y)
         if tubes is not None:
             tubes.pred[side].append((xc, g, q2)); tubes.rho[side].append(rin)
             tubes.need[side].append(vup(tube.rho))
@@ -442,6 +473,7 @@ def edge_box_Q(eb, wc, h, wcf, tubes=None):
     Xp = TM(oacb(D0), oacb(gD), oacb(qD), zeros((B, 3, 3)), h)
     D = S.forced_block(Xp, E, Bs, C)
     aD = S.arg_tm(D, eb.P.reshape(6, 6)[3:, 3:])
+    dQ = dQ_derivative(sysm, eb, qh, qv, xs, E, Bs, C, D) if deriv else None
     ent = []
     for j in range(6):
         for k in range(6):
@@ -450,7 +482,74 @@ def edge_box_Q(eb, wc, h, wcf, tubes=None):
             elif j < 3: ent.append(phh[3 * (j - 1) + (k - 3)])
             elif k < 3: ent.append(phv[3 * (k - 1) + (j - 3)])
             else: ent.append(aD[j - 3, k - 3])
-    return stack(ent, (36,), h, False)
+    Q = stack(ent, (36,), h, False)
+    return (Q, dQ) if deriv else Q
+
+
+def _rowmax(A):
+    """Per box, max over rows of the row sums of a nonnegative ball array (B, m, n) -> arb (B,)."""
+    return np.array([max(row.sum(-1), key=up) for row in A], dtype=object)
+
+
+def dQ_derivative(sysm, eb, qh, qv, xs, E, Bs, C, D):
+    """Taylor models (B, 36, 4) of dQ/dw over each box (TM of the derivative, so its variation over the box is
+    first order and not inflated by interval dependency):
+      dx/dw = sum_k X^k z0 with z0 = -Y F_q Mq, X = I - Y F_x (TMs over the tube, Y the box's preconditioner):
+        z0 + X z0 + X^2 z0 kept, the tail sum_{k>=3} bounded entrywise by q^3/(1-q) max_i |z0_ij|, q = sup ||X||_inf;
+      dtheta = (Mh rows 1..3, dt); dE = i E dtheta, dB = i B dphi_h, dC = i C dphi_v (entrywise);
+      (B^*)^-1 = A0 (I - X_B)^-1, X_B = I - B^* A0: A0 (I + X_B + X_B^2) kept, tail ||A0||_inf q_B^3/(1-q_B);
+      dD = -(dC E^* + C dE^* + D dB^*) (B^*)^-1 (from D B^* = -C E^*);
+      d arg D = Im(dD conj(D)) (the entries of the Hadamard H(p) are unimodular)."""
+    B = qh.c.shape[0]
+    Mh = eb.Mth; Mv = QSIGN_V[:, None] * eb.Mth[QPERM_V]
+    I7 = np.full((7, 7), TMA.ZERO, dtype=object)
+    for i in range(7): I7[i, i] = arb(1)
+    z = {}
+    for side, Mq, qt in (('h', Mh, qh), ('v', Mv, qv)):
+        tube, _, Y = xs[side]
+        Ya = oarb(Y)
+        X = S.cmatmul(Ya, sysm.J_tm(qt, tube)).scale(arb(-1)) + I7
+        z0 = (S.cmatmul(Ya, sysm.Jq_tm(qt, tube)) @ oarb(Mq)).scale(arb(-1))
+        q = _rowmax(X.bound())
+        need(all(x < 1 for x in q), 'edge derivative: ||I - Y F_x|| >= 1')
+        zb = z0.bound()                                                      # (B, 7, 4)
+        col = np.array([[max(zb[b_, :, j], key=up) for j in range(4)] for b_ in range(B)], dtype=object)   # (B, 4)
+        tail = (q * q * q / (1 - q))[:, None] * col                          # (B, 4)
+        Xz = X @ z0
+        z[side] = (z0 + Xz + X @ Xz).add_rho(np.broadcast_to(tail[:, None, :], (B, 7, 4)))
+    Bh = Bs.H()
+    Bmid = np.array([[[complex(float(v.real.mid()), float(v.imag.mid())) for v in row] for row in M] for M in Bh.c])
+    A0 = oacb(np.linalg.inv(Bmid))
+    I3 = np.full((3, 3), TMA.CZERO, dtype=object)
+    for i in range(3): I3[i, i] = acb(1)
+    XB = (Bh @ A0).scale(acb(-1)) + I3
+    qB = _rowmax(XB.bound())
+    need(all(x < 1 for x in qB), 'edge derivative: Neumann for (B^*)^-1 failed')
+    nA0 = _rowmax(np.abs(A0))
+    Binv = S.cmatmul(A0, XB + I3 + XB @ XB).add_rho(np.broadcast_to((nA0 * qB * qB * qB / (1 - qB))[:, None, None], (B, 3, 3)))
+    I_ = acb(0, 1)
+    EH, Dc = E.H(), D.conj()
+    ent = [[TMA.ZERO] * 4 for _ in range(36)]
+    for j in range(4):
+        dth = [TM(np.full(B, arb(float(Mh[m, j])), dtype=object), zeros((B, 4)), zeros((B, 10)), zeros(B), qh.h) for m in range(3)]
+        dth.append(z['h'][0, j])
+        dE = [[TMA.CZERO] * 3 for _ in range(3)]; dBm = [[TMA.CZERO] * 3 for _ in range(3)]; dCm = [[TMA.CZERO] * 3 for _ in range(3)]
+        for m, (r, c) in enumerate(S.POS): dE[r][c] = (E[r, c] * dth[m]).scale(I_)
+        for k in range(6):
+            a1, c1 = 1 + k // 3, k % 3
+            dBm[a1][c1] = (Bs[a1, c1] * z['h'][1 + k, j]).scale(I_)
+            dCm[c1][a1] = (C[c1, a1] * z['v'][1 + k, j]).scale(I_)
+        dE = stack(sum(dE, []), (3, 3), qh.h, True); dBm = stack(sum(dBm, []), (3, 3), qh.h, True); dCm = stack(sum(dCm, []), (3, 3), qh.h, True)
+        dD = ((dCm @ EH) + (C @ dE.H()) + (D @ dBm.H())).__matmul__(Binv).scale(acb(-1))
+        dargD = (dD * Dc).im()
+        for m, (r, c) in enumerate(S.POS): ent[6 * r + c][j] = dth[m]
+        for k in range(6):
+            a1, c1 = 1 + k // 3, k % 3
+            ent[6 * a1 + 3 + c1][j] = z['h'][1 + k, j]
+            ent[6 * (3 + c1) + a1][j] = z['v'][1 + k, j]
+        for r in range(3):
+            for c in range(3): ent[6 * (3 + r) + 3 + c][j] = dargD[r, c]
+    return stack(sum(ent, []), (36, 4), qh.h, False)
 
 
 def box_exact(tubes, e):
@@ -500,29 +599,51 @@ def edge_representative(eb, Q, wcf):
     return S.wind_to(Q, eb.P[None] + wcf @ eb.U.T)
 
 
-def certify_edge_c1(eb, chunk=64, keep_tubes=True):
-    """C1e for one edge ball.  Returns dict(ok, n_cert, reason, boxes, seconds, tubes)."""
+def certify_edge_c1(eb, chunk=64, keep_tubes=True, graph=None, sigma_D=None):
+    """C1e for one edge ball, and with `graph` (GraphData) also SPEC section 10.1: (G) on its eta-boxes, the image
+    inside the (G) region (||delta|| < R_G, ||eta|| < rho_G) and (D) sigma_D_cert = min over the C1e boxes of a lower
+    bound of sigma_min(T_F^+ dQ/dw) > 0 (>= the stored sigma_D if given).
+    Returns dict(ok, n_cert, reason, boxes, seconds, tubes, graph info)."""
     ctx.prec = S.PREC
     t0 = time.time()
     tubes = EdgeTubes(eb.r, eb.k) if keep_tubes else None
+    out = dict(ok=False, n_cert=math.inf, reason='', boxes=None, tubes=None)
     try:
         eb.Minv()
         keep, wc, h, wcf = edge_boxes(eb.r, eb.k)
         if tubes is not None: tubes.idx = list(keep)
-        worst = 0.0
+        worst = 0.0; dmax = 0.0; emax = 0.0; smin = math.inf
         for s in range(0, len(keep), chunk):
             sl = slice(s, s + chunk)
-            Q = edge_representative(eb, edge_box_Q(eb, wc[sl], h[sl], wcf[sl], tubes), wcf[sl])
+            if graph is not None:
+                Q, dQ = edge_box_Q(eb, wc[sl], h[sl], wcf[sl], tubes, deriv=True)
+            else:
+                Q = edge_box_Q(eb, wc[sl], h[sl], wcf[sl], tubes)
+            Q = edge_representative(eb, Q, wcf[sl])
             res = TM(Q.c - eb.P_a[None] - np.einsum('ej,bj->be', eb.U_a, wc[sl]), Q.g - eb.U_a[None], Q.q, Q.rho, Q.h)
             worst = max(worst, max(up(x) for x in TMA.norm_sup(res)))
+            if graph is not None:
+                dn, en, sig = graph_image_and_sigma(eb, graph, Q, dQ, wcf[sl])
+                dmax = max(dmax, max(up(x) for x in dn)); emax = max(emax, max(up(x) for x in en)); smin = min(smin, min(sig))
         if tubes is not None:
             tubes.finish()
             check_tube_consistency(tubes)
-        ok = worst <= eb.n
-        return dict(ok=ok, n_cert=worst, reason='' if ok else 'C1e: n_cert %.6e > n %.6e' % (worst, eb.n),
-                    boxes=len(keep), seconds=time.time() - t0, tubes=tubes)
+        out.update(n_cert=worst, boxes=len(keep), tubes=tubes)
+        reasons = []
+        if worst > eb.n: reasons.append('C1e: n_cert %.6e > n %.6e' % (worst, eb.n))
+        if graph is not None:
+            g = check_graph(graph)
+            out['graph'] = dict(rho_G=graph.rho, R_G=graph.R, n_G=graph.n, rH=graph.rd.rH, n0=graph.rd.n0, image_delta_max=dmax,
+                                image_eta_max=emax, sigma_D_cert=smin, **g)
+            if not dmax < graph.R: reasons.append('(D): edge image not inside ||delta|| < R_G (%.4e >= %.4e)' % (dmax, graph.R))
+            if not emax < graph.rho: reasons.append('(D): edge image not inside ||eta|| < rho_G (%.4e >= %.4e)' % (emax, graph.rho))
+            if not smin > 0: reasons.append('(D): sigma_D not certified positive')
+            if sigma_D is not None and not smin >= sigma_D: reasons.append('(D): sigma_D_cert %.4e < stored sigma_D %.4e' % (smin, sigma_D))
+        out['ok'] = not reasons; out['reason'] = '; '.join(reasons)
     except CertError as e:
-        return dict(ok=False, n_cert=math.inf, reason='C1e: ' + str(e), boxes=None, seconds=time.time() - t0, tubes=None)
+        out.update(ok=False, reason='C1e: ' + str(e), tubes=None)
+    out['seconds'] = time.time() - t0
+    return out
 
 
 # ======================================================================================== transfers
@@ -691,3 +812,130 @@ def f6_in_edge(tubes):
             ok &= all(abs(x) < arb(tubes.rho[side][e]) for x in val)
         if ok: return True
     return False
+
+
+# ======================================================================================== SPEC 10.1: (G) and (D)
+F6_PHI = np.array([[2 * math.pi * ((a * b) % 6) / 6 for b in range(6)] for a in range(6)]).reshape(36)
+
+
+class GraphData:
+    """The F6 record frame of (G) (SPEC section 10.1): phi = P_F (default: F6's phases 2 pi ab/6 as floats), Tint
+    (default: the certifier's own rational frame), R = R_G (default 0.16), eta_radius = rho_G and n = n_G (defaults:
+    the record's own r_H and normal bound n0 at R_G).  The record checks of ballrecord.py (sigma, normal bound) run
+    here (no Stage C: (G) is a uniqueness statement)."""
+
+    def __init__(self, g=None):
+        g = g or {}
+        hx = S._hexf
+        phi = np.array([hx(x) for x in g['phi']]) if 'phi' in g else F6_PHI.copy()
+        need(phi.shape == (36,) and np.all(np.isfinite(phi)), 'graph: malformed phi')
+        Tint = np.array(g['Tint'], dtype=np.int64).reshape(36, 4) if g.get('Tint') is not None else None
+        self.R = hx(g['R']) if 'R' in g else 0.16
+        need(0 < self.R < 1, 'graph: R out of range')
+        self.rd = S.RecordData(phi.reshape(6, 6), self.R, 0.03, Tint, stage_c=False)
+        self.rho = hx(g['eta_radius']) if 'eta_radius' in g else up(arb(self.rd.rH) * (1 + 1e-9))
+        self.n = hx(g['n']) if 'n' in g else up(arb(self.rd.n0) * (1 + 1e-9))
+        need(self.rho >= self.rd.rH, 'graph: eta_radius %.6e < r_H %.6e of the frame at R_G' % (self.rho, self.rd.rH))
+        need(self.n >= self.rd.n0, 'graph: n %.6e < the normal bound %.6e at R_G' % (self.n, self.rd.n0))
+        self.boxes = g.get('boxes')
+        Tb = arb_mat(self.rd.Tb.tolist())
+        Tp = (Tb.transpose() * Tb).inv() * Tb.transpose()                       # T_F^+ (exact frame)
+        self.Tplus = np.array([[Tp[i, j] for j in range(36)] for i in range(4)], dtype=object)
+        self.nNb = opnorm_arb_up_(self.rd.Nb)
+
+
+def opnorm_arb_up_(M):
+    return S.opnorm_arb_up(M)
+
+
+def graph_box_q(gd, box):
+    """q >= sup ||I - Y J(Tb eta + Nb x) Nb||_2 over eta in the box and ||Nb x|| <= n_G, with Y = (J(c) Nb)^+ at the
+    box centre c = Tb eta_c: q = ||I - Y J(c) Nb||_F + ||Y||_2 L ||Nb||_2 (||Tb||_2 hd + n_G) (hd the half-diagonal;
+    ||J(d) - J(d')|| <= L ||d - d'||, L = 2 sqrt3).  q < 1 gives at most one such x for each eta (contraction on a
+    convex set: two zeros x1, x2 of F = Y Phi satisfy x1 - x2 = (I - Jbar)(x1 - x2))."""
+    rd = gd.rd
+    xc, h, xcf = S.box_geometry([box], gd.rho)
+    c = rd.Tb.dot(xc[0])
+    Jc = S.jac_centre(rd, c)
+    _, _, Jf = S._solve_x(rd, xcf, it=0)
+    Y = np.linalg.pinv(Jf[0] @ rd.Nf)
+    Nb = arb_mat(rd.Nb.tolist())
+    M = arb_mat([[1 if i == j else 0 for j in range(21)] for i in range(21)]) - arb_mat(Y.tolist()) * Jc * Nb
+    eps0 = TMA.sqrt_up(sum((M[i, j] ** 2 for i in range(21) for j in range(21)), arb(0)))
+    hd = arb(gd.rho) * arb(2) ** (-box[0]) * 2
+    return eps0 + arb(S.opnorm_up(Y)) * S.L_PHI_ARB * gd.nNb * (arb(rd.nT) * hd + arb(gd.n))
+
+
+def misses_unit_ball(box):
+    """Exact: min ||u||^2 over the box > 1."""
+    m, lo = S._box_int(box)
+    return sum(0 if l <= 0 <= l + 2 else min(l * l, (l + 2) ** 2) for l in lo) > (1 << (2 * m))
+
+
+def check_graph(gd, max_level=12):
+    """(G): uniqueness (q < 1) on every listed eta-box, and the boxes cover the eta-ball ||eta|| <= rho_G (units of
+    rho_G; boxes missing the unit ball are discarded).  Without stored boxes, levels 0, 1, ... are tried."""
+    if gd.boxes is not None:
+        boxes = S.dyadic_boxes(gd.boxes, max_level)
+        qs = [graph_box_q(gd, b) for b in boxes]
+        need(all(q < 1 for q in qs), 'graph (G): contraction q < 1 not certified on some eta-box')
+        ok, info = S.covered(set(boxes), max_level, misses_unit_ball)
+        need(ok, 'graph (G): eta-ball not covered (box %r)' % (info,))
+        return dict(boxes=len(boxes), q_max=max(up(q) for q in qs))
+    for m in range(0, 4):
+        boxes = [(m,) + i for i in itertools.product(range(1 << m), repeat=4) if not misses_unit_ball((m,) + i)]
+        qs = [graph_box_q(gd, b) for b in boxes]
+        if all(q < 1 for q in qs): return dict(boxes=len(boxes), level=m, q_max=max(up(q) for q in qs))
+    raise CertError('graph (G): contraction not certified up to level 3')
+
+
+def sigma_lower(M):
+    """A rigorous lower bound (float) of sigma_min of the 4x4 ball matrix M: sigma_min(mid) by an Arb Cholesky of
+    mid^T mid - s^2 I, minus ||M - mid||_F (Weyl)."""
+    Mc = np.array([[float(x.mid()) for x in row] for row in M])
+    s = float(np.linalg.svd(Mc, compute_uv=False).min()) * (1 - 1e-6)
+    if s <= 0: return 0.0
+    A = arb_mat(Mc.tolist()); G = A.transpose() * A
+    if not S._cholesky_pd(arb_mat([[G[i, j] - (arb(s) ** 2 if i == j else 0) for j in range(4)] for i in range(4)])): return 0.0
+    rad = TMA.sqrt_up(sum((arb(up(abs(x - arb(float(x.mid()))))) ** 2 for x in M.flat), arb(0)))
+    return TMA.lo(arb(s) - rad)
+
+
+def graph_image_and_sigma(eb, gd, Q, dQ, wcf):
+    """Per box: sup ||hor(Q - P_F + 2 pi N)|| (must be < R_G), sup ||T_F^+ (Q - P_F + 2 pi N)|| (must be < rho_G),
+    and a lower bound of sigma_min(T_F^+ dQ/dw) over the box (D): M(u) = T_F^+ dQ(u) is a TM (B, 4, 4), and
+    sigma_min(M(u)) >= sigma_min(M_c) - ||M(u) - M_c||_2 >= sigma_min(M_c) - ||var(M)||_F (Weyl)."""
+    PF = gd.rd.P
+    d = S.wind_to(Q, PF[None] + wcf @ eb.U.T) - oarb(PF)[None, :]
+    dn = TMA.norm_sup(d.lmul(S.hor()))
+    en = TMA.norm_sup(d.lmul(gd.Tplus))
+    cols = [dQ[slice(None), j].lmul(gd.Tplus) for j in range(4)]                # each (B, 4): column j of M
+    M = stack([cols[j][i] for i in range(4) for j in range(4)], (4, 4), dQ.h, False)
+    sig = [sigma_tm_box(M.select([b])) for b in range(M.c.shape[0])]
+    return dn, en, sig
+
+
+VERT16 = np.array([[1 if (v >> j) & 1 else -1 for j in range(4)] for v in range(16)])
+
+
+def sigma_tm_box(M, depth=0, max_depth=6):
+    """A lower bound (float) of sigma_min(M(u)) over the box of the 4x4 TM M (one box):
+    sigma_min(M_c) - [max over the 16 vertices of ||sum_v G_v u_v||_F + ||sum_m |Q_m| h_j h_l||_F + ||rho||_F] (Weyl;
+    the linear part's 2-norm is convex in u).  If that is not positive, the box is bisected along the axis with the
+    largest linear contribution and the same TM, re-centred exactly on the halves (its remainder bound stays valid on
+    sub-boxes), is bounded on each; the minimum is returned."""
+    h = M.h[0]
+    lin = max(up(sum((x * x for x in (M.g[0] * (h * VERT16[t])).sum(-1).flat), arb(0))) for t in range(16))
+    hh = np.abs(h[TMA.MJ] * h[TMA.ML])
+    quad = (np.abs(M.q[0]) * hh).sum(-1)
+    dev = arb(lin).sqrt() + TMA.sqrt_up(sum((x * x for x in quad.flat), arb(0))) + TMA.sqrt_up(sum((x * x for x in M.rho[0].flat), arb(0)))
+    s0 = sigma_lower(M.c[0])
+    val = TMA.lo(arb(s0) - dev)
+    if val > 0.1 * s0 or depth >= max_depth: return val
+    axis = int(np.argmax([up(sum((x * x for x in (M.g[0][..., v] * h[v]).flat), arb(0))) for v in range(4)]))
+    hnew = h.copy(); hnew[axis] = h[axis] / 2
+    out = math.inf
+    for sgn in (-1, 1):
+        delta = np.array([[hnew[v] * sgn if v == axis else TMA.ZERO for v in range(4)]], dtype=object)
+        out = min(out, sigma_tm_box(tm_recentre(M, delta, hnew[None, :]), depth + 1, max_depth))
+    return out
