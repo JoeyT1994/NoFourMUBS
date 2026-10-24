@@ -113,3 +113,41 @@ laptop, shared).
 
 To audit with `check_axioms.py --full`, add after the `Final` build:
 `build('NoFourMUBs.FinalSeed'); audit('NoFourMUBs/SeedAtlas/Axioms.lean')`.
+
+## Edge balls (SPEC §10–10.2): `F6`'s 25-dim record replaced
+
+```lean
+theorem NoFourMUBs.EdgeFinal.no_four_mubs_seed (C : SeedAtlas.EdgeAtlasCertificate) : ¬ FourMUBs
+```
+
+Only `propext`, `Classical.choice` and `Quot.sound` (`SeedAtlas/EdgeAxioms.lean`). New modules:
+
+| Module | Content |
+|---|---|
+| `EdgeGraph` | **(G)** `graph_unique`: two Hadamards `e^{i(P + δᵢ)}`, `‖δᵢ‖ ≤ R`, `2√3 R < σ`, `δ₁ − δ₂` in the frame's normal complement ⇒ `δ₁ = δ₂` (the mean value theorem along the segment, calculus-free) |
+| `Edge` | `EdgeBallCert`, `excludes` (Stage C), `isCompact_ball`, `equivalent_of_eta` (the chart is unique near `F6`), **`isOpen_edgeInterior`** (openness at every interior point, `y = 0` included), `hopen_of_strictDeriv` (SPEC §10.1's IFT form of (D)) |
+| `EdgeAtlas` | T3 (`EdgeInQ`, `edgeInterior_of_edgeInQ`), targets `SeedTargetE` (T0–T3), `RecTargetE` (Lemma 4.1, T1′, T3), `EdgeTarget` (T1, T2, T3), covers, `EdgeAtlasCertificate`, **`EdgeAtlasCertificate.clopen`** |
+| `EdgeFinal` | `EdgeFinal.no_four_mubs_seed` |
+
+`EdgeBallCert` (the certifier establishes these): data `r, Q, P, U, n, t, lamF, PF, TF, σF, RG, eta` and
+* `hcol`, `hfrob`, `stageC`: as for a seed ball;
+* **`hC1e`** (C1e): `∀ w, wnorm w ≤ r → IsHadamard (phaseMat (Q w)) ∧ ∃ N, frob (Q w − P − tang U w − wind N) ≤ n`;
+  `Q w` is the phase matrix of `H(p)`, `p = M w`, in the gauge of `F6`'s record (its corner `(0,1,2)`);
+* `hcont : ContinuousOn Q {w | wnorm w ≤ r}`;
+* **(G)** `hσF : ∀ ν` horizontal with `⟨TF k, ν⟩ = 0`, `σF * frob ν ≤ outNorm (Jac PF ν)` (a record's `hσ`: the F6
+  record supplies `P, T, σ, hσ`); `hRG : 2√3 · RG < σF`; `hG : ∀ w, wnorm w ≤ r → frob (hor (Q w − PF)) < RG`;
+* `eta : RMat6 →L[ℝ] ℝ⁴` with `heta`: for horizontal `δ`, `δ − tang TF (eta δ)` is horizontal and orthogonal to every
+  `TF k` (e.g. `eta = (TFᵀ TF)⁻¹ TFᵀ`, exact);
+* **(D)** `hopen : ∀ w₀, wnorm w₀ < r → f '' {‖w‖ < r} ∈ 𝓝 (f w₀)`, `f w = eta (hor (Q w − PF))`.
+  `hopen_of_strictDeriv` derives it from SPEC §10.1's hypothesis (an invertible strict derivative at each interior
+  point); a slope Krawczyk solve of `f(w) = η` also gives it.
+
+T3 (`EdgeInQ E B N Y`, on phases `Y` of the source point): `frob (hor (B.act Y + wind N − PF)) < RG` and
+`eta (hor (B.act Y + wind N − PF)) ∈ f '' {‖w‖ < r}`; then `g · e^{iY} ≅ e^{iQ(w')}` by (G). From a seed ball the
+claim is on a matched representative (as T2), from a record for every boundary `ν` (as T1′), from an edge ball on
+`Q(w)`. The `F6` anchor: `fourier : ∃ e, CoveredMatrix (E e).Ball F6` (`fourier_of_edge` from `F6 ≅ e^{iQ(w)}`).
+
+**Two departures from SPEC §10.** (i) T3 does not use positional tubes of the augmented systems: near `y = 0` a
+source whose vertical side is on the nonmatched branch (`Ψ(C) = Ψ(B)`) sits inside the vertical tube, and only the
+converse excludes it, so tube uniqueness does not give `K ≅ H(p_K)`. T3 goes through (G) instead, as the openness
+does. (ii) (G) needs `2√3 R_G < σ`, the SPEC's `R_G < σ/L`; the edge image needs `‖h(Q − P_F)‖ < R_G`.
