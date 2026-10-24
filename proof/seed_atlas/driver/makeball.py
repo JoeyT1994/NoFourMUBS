@@ -11,6 +11,7 @@ LABELS = (0.03, 0.02)
 N_SAFETY = 1.10          # stored n = N_SAFETY x the driver's Taylor-model bound (slack for the certifier's own TMs)
 CLIQUE_CAP = 2_000_000   # driver screening cap (official: 5,000,000)
 MAX_LABELS = 1200
+TRY_UP_MAX = 0.1         # one rung up from the hint only below this (0.125 passes for under 1% of balls)
 
 
 def k_for(r): return 3 if r <= 0.05 else 4
@@ -93,7 +94,7 @@ def make_ball(theta0, phih0, phiv0, rmax=LADDER[0], rmin=LADDER[-1], hint=None, 
         i = plan.index(tuple(hint))
         if attempt(*hint):
             ri = rungs.index(hint[0])
-            if ri > 0:
+            if ri > 0 and rungs[ri - 1] <= TRY_UP_MAX:
                 saved = (b.r, b.n, b.k, b.label, dict(b.info))
                 for lab in LABELS:
                     if attempt(rungs[ri - 1], lab): break
