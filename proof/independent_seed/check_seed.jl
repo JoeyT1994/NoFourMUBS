@@ -171,6 +171,13 @@ function main(args)
     end
     for (i, eb) in enumerate(C.edges)
         t1 = time()
+        if shard_m > 1
+            # a shard needs only the C1e leaves (for its seeds' T3 transfers); the edge ball is checked in the final run
+            c1 = S.check_c1e(eb; maxdepth=c1depth)
+            c1.ok && (X.edge_leaves[i] = c1.leaves)
+            @printf("  edge ball %d: C1e %s (leaves for T3 only; %.0f s)\n", i - 1, c1.ok ? "ok" : "FAIL", time() - t1)
+            continue
+        end
         ok, msg, line = try
             c1 = S.check_c1e(eb; maxdepth=c1depth)
             c1.ok && (X.edge_leaves[i] = c1.leaves)

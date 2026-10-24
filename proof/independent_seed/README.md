@@ -286,6 +286,9 @@ checked as for seeds, with the edge box map on each box (interval centre).
 
 **Stage C.** It runs on P + U w + ν exactly as for a seed ball.
 
+**In the driver.** Edge balls are checked first, since their C1e leaves feed the seeds' T3. They are not resumable: the
+C1e takes seconds. A `--shard` run computes only their C1e leaves, and the final `--import` run checks them in full.
+
 **Measured** (8 threads, laptop):
 
 | edge ball | k | certified C1e bound | sampled true residual | C1e time |
