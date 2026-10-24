@@ -1,0 +1,15 @@
+PASS canonical F6: rank(Dgamma)=5; kernel=(-1,1,-1,0,0,0)
+PASS d(ImPsi)(kernel)=24; determinant augmented by ImPsi=18 sqrt(3)
+side Jacobian rows: [[0, (0+1/2*sqrt(3)), (0+1/2*sqrt(3)), 0, 0, 0], [-1, -1/2, 1/2, 0, 0, 0], [0, 0, 0, 0, (0+-1/2*sqrt(3)), (0+1/2*sqrt(3))], [0, 0, 0, 1, -1/2, -1/2], [0, (0+-1/2*sqrt(3)), (0+-1/2*sqrt(3)), 0, (0+1/2*sqrt(3)), (0+1/2*sqrt(3))], [1, 1/2, -1/2, -1, -1/2, 1/2]]
+d(ImPsi)= [-6, 12, -6, 3, -6, 3]
+ambient gradient R= [576, (0+576*sqrt(3)), -576, (0+576*sqrt(3)), 576, (0+576*sqrt(3))] ; seed gradient R= [0, 0, 0, (0+1152*sqrt(3))]
+PASS sign convention det(Dgamma)=ImPsi/4 at exact nonsingular witness
+PASS all 400 corners: R=0 exactly
+census (g, squared seed-gradient norm, count):
+(Fraction(0, 1), Fraction(0, 1)) (Fraction(0, 1), Fraction(0, 1)) 48
+(Fraction(3, 1), Fraction(0, 1)) (Fraction(3981312, 1), Fraction(0, 1)) 25
+(Fraction(3, 1), Fraction(0, 1)) (Fraction(7962624, 1), Fraction(0, 1)) 10
+(Fraction(3, 1), Fraction(0, 1)) (Fraction(15925248, 1), Fraction(0, 1)) 1
+(Fraction(12, 1), Fraction(0, 1)) (Fraction(0, 1), Fraction(0, 1)) 288
+(Fraction(27, 1), Fraction(0, 1)) (Fraction(0, 1), Fraction(0, 1)) 28
+PASS exactly 36 regular seed corners; every one has a Whitney fold side

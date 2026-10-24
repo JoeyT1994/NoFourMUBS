@@ -1,0 +1,25 @@
+{
+  "status": "PASS",
+  "arithmetic": "exact integers in Z[a^+-1,b^+-1,c^+-1,d^+-1]",
+  "checks": [
+    {
+      "identity": "g = |det B|^2",
+      "residual_terms": 0
+    },
+    {
+      "identity": "eta = |perm B|^2",
+      "residual_terms": 0
+    },
+    {
+      "identity": "chi = -(Psi + conjugate(Psi))",
+      "residual_terms": 0
+    },
+    {
+      "identity": "R = -(Psi-conjugate(Psi))^2 = 4(Im Psi)^2",
+      "residual_terms": 0
+    }
+  ],
+  "psi_terms": 55,
+  "psi_coefficient_l1": 108,
+  "R_terms": 817
+}

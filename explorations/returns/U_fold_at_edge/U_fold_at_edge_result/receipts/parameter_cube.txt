@@ -1,0 +1,26 @@
+row 0 residual bound 45287896525169/152882380800000 Jacobian variation bound 108240434242567/331776000000000 parameter derivative bound 4185983600166901/4777574400000000
+row 1 residual bound 314262599519317/1630745395200000 Jacobian variation bound 316754739745259/1769472000000000 parameter derivative bound 2998936982119759/5662310400000000
+row 2 residual bound 147575084855687/978447237120000 Jacobian variation bound 172577935208819/1061683200000000 parameter derivative bound 22025545467202189/50960793600000000
+row 3 residual bound 117492969472231/978447237120000 Jacobian variation bound 2907088214659733/15925248000000000 parameter derivative bound 59729444888843399/152882380800000000
+row 4 residual bound 57063160172999/152882380800000 Jacobian variation bound 106259994595333/331776000000000 parameter derivative bound 4851059551691449/4777574400000000
+row 5 residual bound 57063160172999/152882380800000 Jacobian variation bound 127463591395333/331776000000000 parameter derivative bound 5153927908811449/4777574400000000
+row 6 residual bound 38362199857487/152882380800000 Jacobian variation bound 93382261242067/331776000000000 parameter derivative bound 3554855565624241/4777574400000000
+PASS parameter cube ||p||inf<=1/20 and correction cube ||v||inf<=1/100
+PASS residual max < 2/5, contraction max < 2/5, self-map margin > 1/5
+PASS A0 inverse norm <= 40597/16000
+PASS normalized residual derivative in the normalized parameters <11/10
+Joint raw Hessian bound 46063/1000
+PASS ||J_x||inf <= 3533/400 <9
+Predictor L rows:
+[0, 0, 0, 0]
+[1/2, -1/4, 1/4, 1/48]
+[1/2, 1/4, -1/4, -1/48]
+[1/2, 3/4, 1/4, 1/48]
+[0, 0, 1, 0]
+[0, 0, 0, 0]
+[0, 0, 1, 0]
+CONSEQUENCE unique smooth coupled solution, ||J_x^-1||inf <17/4
+CONSEQUENCE ||D_p x||inf <151/80<2
+CONSEQUENCE ||D_p^2 x||inf <= 783071/1000 <784
+CONSEQUENCE side smallest singular value > 19507/96000 >1/5; ||B^-1||2<5
+Horizontal/vertical seed agreement additionally uses verify_R_monotone_box.py
