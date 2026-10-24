@@ -6,6 +6,8 @@ computation, replayable), **NUMERICAL** (evidence only), **CONJECTURE**.
 
 | Brief | Statement | What it would remove | Difficulty |
 |---|---|---|---|
+| [`U_fold_at_edge`](U_fold_at_edge/BRIEF.md) | The matched completion extends smoothly across R = 0 on the double {y² = R}, and is a chart of the class space there, in particular at F6 (36 of its corners are regular edge points) | The 25-dim F6 record, the normal-tube transfer (T1′), and small seed balls near the edge of Ω in the seed atlas | Medium |
+| [`V_quantitative_coverage`](V_quantitative_coverage/BRIEF.md) | Explicit ε(ρ): every non-Tao class at distance ≥ ρ from F6 has a corner with R ≥ ε (expected ε ≈ c ρ² near F6; 576 t² along the Fourier family) | Corner-change transfers, boundary covers and the clopen argument in the seed atlas: it becomes a finite cover of the compact set {R ≥ ε} | High |
 | [`T_triple_component_maximum`](T_triple_component_maximum/BRIEF.md) | F (every triple has a Fourier-type transition) via a classified maximum on triple space: F ⇔ Π has no positive local maximum on V; work over seed coordinates, as Lemma 1.1 did for Hadamard space | The atlas (with E and Tao, F gives N(6) = 3) | Very high |
 | [`P_atlas_free`](P_atlas_free/BRIEF.md) | Replace the atlas by algebra: prove F (every MUB triple has a Fourier-type transition) via (A) triples with a Fourier edge, (B) local completeness along them, (C) no compact Fourier-free component of triple space | Steps 3–4 (the atlas, Stage C, boundary transfers) and the kernel atlas | Very high (C is the core of the MMVW triple conjecture). **Partly returned** ([`../returns/P_atlas_free`](../returns/P_atlas_free/REVIEW.md)): B done, A local; A + C open |
 
