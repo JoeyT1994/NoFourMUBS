@@ -909,4 +909,244 @@ theorem has_expI {h : List ℕ} {u : Fin 4 → ℝ} (hu : InBox h u) {nT : ℕ} 
     field_simp
   nlinarith [rn_nonneg ε, rn_nonneg L1, rn_nonneg L2, rn_nonneg A.ρ]
 
+/-! ### `arg` -/
+
+/-- `e^{−ia}` on the grid, `a` a grid value. -/
+def argZ (a : ℤ) (nT : ℕ) : ℤ × ℤ := cisRound (-(a : ℚ) / 2 ^ pp) nT pp
+
+/-- Its error, on the grid. -/
+def argEps (a : ℤ) (nT : ℕ) : ℕ := ratCeilN ((cisRem (-(a : ℚ) / 2 ^ pp) nT + 1 / 2 ^ pp) * 2 ^ pp)
+
+/-- `1` on the grid. -/
+def oneZ : ℤ × ℤ := (2 ^ pp, 0)
+
+lemma cz_one : cz oneZ = 1 := by rw [cz_eq]; simp [oneZ]
+
+/-- `v = e^{−ia} D − 1`. -/
+def argV (h : List ℕ) (nT : ℕ) (a : ℤ) (D : CT) : CT := sub (smul h (argZ a nT) D) (const oneZ)
+
+/-- `⌈x/d⌉` for naturals. -/
+def cdivD (x d : ℕ) : ℕ := (x + (d - 1)) / d
+
+lemma le_cdivD (x d : ℕ) (hd : 0 < d) : (x : ℝ) / d ≤ cdivD x d := by
+  rw [div_le_iff₀ (by exact_mod_cast hd)]
+  have := ceilDiv_spec x d hd
+  exact_mod_cast this
+
+/-- The `arg` model: `a + Im(v − v²/2)`, remainder `ρ_v + ρ_{v²}/2 + u_b³/(3(1 − u_b)) + ε/(1 − ε)` and rounding. -/
+def argT (h : List ℕ) (nT : ℕ) (a : ℤ) (D : CT) : CT :=
+  let v := argV h nT a D
+  let v2 := mul h v v
+  let ub := bnd h v
+  let ez := argEps a nT
+  mk (fun k => ((v.cg k).2 - fdivZ (v2.cg k).2 1 + (if k = 0 then a else 0), 0))
+    (v.ρ + cdivN v2.ρ 1 + rerr h + cdivD (ub ^ 3) (3 * 2 ^ pp * (2 ^ pp - ub)) +
+      cdivD (ez * 2 ^ pp) (2 ^ pp - ez))
+
+lemma argT_rho (h : List ℕ) (nT : ℕ) (a : ℤ) (D : CT) : (argT h nT a D).ρ =
+    (argV h nT a D).ρ + cdivN (mul h (argV h nT a D) (argV h nT a D)).ρ 1 + rerr h +
+      cdivD (bnd h (argV h nT a D) ^ 3) (3 * 2 ^ pp * (2 ^ pp - bnd h (argV h nT a D))) +
+      cdivD (argEps a nT * 2 ^ pp) (2 ^ pp - argEps a nT) := rfl
+
+/-- The side conditions: `|v| < 1/2`, `ε < 1/2`, and `cisRound`'s range. -/
+def argOK (h : List ℕ) (nT : ℕ) (a : ℤ) (D : CT) : Bool :=
+  decide (2 * bnd h (argV h nT a D) < 2 ^ pp) && decide (2 * argEps a nT < 2 ^ pp) &&
+    decide (|(-(a : ℚ) / 2 ^ pp)| / ((nT : ℚ) + 1) ≤ 1 / 2)
+
+/-- `|Im log(1 + η)| ≤ ‖η‖/(1 − ‖η‖)` and `1 + η = ‖1 + η‖ e^{i Im log(1 + η)}`. -/
+lemma log_one_add_bound {η : ℂ} (hη : ‖η‖ < 1) :
+    |(Complex.log (1 + η)).im| ≤ ‖η‖ / (1 - ‖η‖) ∧
+      1 + η = (‖1 + η‖ : ℂ) * Complex.exp (((Complex.log (1 + η)).im : ℝ) * I) := by
+  have h := Complex.norm_log_sub_logTaylor_le 0 hη
+  have hT : Complex.logTaylor (0 + 1) η = 0 := by simp [Complex.logTaylor]
+  rw [hT, sub_zero] at h
+  refine ⟨(Complex.abs_im_le_norm _).trans (h.trans (le_of_eq ?_)), ?_⟩
+  · simp; ring
+  · rw [Complex.log_im]; exact (Complex.norm_mul_exp_arg_mul_I (1 + η)).symm
+
+/-- **The `arg` step.** -/
+theorem has_argT {h : List ℕ} {u : Fin 4 → ℝ} (hu : InBox h u) {nT : ℕ} {a : ℤ} {D : CT}
+    (hok : argOK h nT a D = true) {d : ℂ} (hd : D.Has u d) :
+    ∃ Φ : ℝ, d = (‖d‖ : ℂ) * Complex.exp (Φ * I) ∧ (argT h nT a D).Has u (Φ : ℂ) := by
+  simp only [argOK, Bool.and_eq_true, decide_eq_true_eq] at hok
+  obtain ⟨⟨hub, hez⟩, hrange⟩ := hok
+  set v := argV h nT a D
+  set v2 := mul h v v
+  set ub := bnd h v
+  set ez := argEps a nT
+  set ζ := cz (argZ a nT)
+  set a' : ℝ := (a : ℝ) / 2 ^ pp
+  have hp : (0 : ℝ) < 2 ^ pp := two_pow_pos pp
+  -- `‖e^{−ia'} − ζ‖ ≤ ε`
+  have hζ : ‖Complex.exp ((-a' : ℝ) * I) - ζ‖ ≤ rn ez := by
+    have hr : |((-(a : ℚ) / 2 ^ pp : ℚ) : ℝ)| / (nT + 1) ≤ 1 / 2 := by
+      have h2 : ((|(-(a : ℚ) / 2 ^ pp)| / ((nT : ℚ) + 1) : ℚ) : ℝ) ≤ ((1 / 2 : ℚ) : ℝ) := by exact_mod_cast hrange
+      push_cast at h2 ⊢; exact h2
+    have := cisRound_spec (-(a : ℚ) / 2 ^ pp) nT pp hr
+    have e1 : (((-(a : ℚ) / 2 ^ pp : ℚ) : ℝ) : ℂ) = ((-a' : ℝ) : ℂ) := by simp only [a']; push_cast; ring
+    rw [e1] at this
+    refine this.trans ?_
+    have h3 := le_ratCeilN ((cisRem (-(a : ℚ) / 2 ^ pp) nT + 1 / 2 ^ pp) * 2 ^ pp)
+    unfold rn; rw [le_div_iff₀ hp]; push_cast at h3 ⊢; exact h3
+  have hez' : rn ez < 1 / 2 := by
+    unfold rn; rw [div_lt_iff₀ hp]
+    have : ((2 * ez : ℕ) : ℝ) < ((2 ^ pp : ℕ) : ℝ) := by exact_mod_cast hez
+    push_cast at this; linarith
+  -- `w = ζ d − 1`
+  set w := ζ * d - 1
+  have hw : v.Has u w := by
+    have := has_sub (has_smul hu (argZ a nT) hd) (has_const oneZ u)
+    rwa [cz_one] at this
+  have hwn : ‖w‖ ≤ rn ub := norm_le_bnd hu hw
+  have hub' : rn ub < 1 / 2 := by
+    unfold rn; rw [div_lt_iff₀ hp]
+    have : ((2 * ub : ℕ) : ℝ) < ((2 ^ pp : ℕ) : ℝ) := by exact_mod_cast hub
+    push_cast at this; linarith
+  have hw1 : ‖w‖ < 1 := by linarith
+  -- `η = ζ e^{ia'} − 1`
+  set η := ζ * Complex.exp (a' * I) - 1
+  have hη : ‖η‖ ≤ rn ez := by
+    have e : η = -((Complex.exp ((-a' : ℝ) * I) - ζ) * Complex.exp (a' * I)) := by
+      simp only [η, sub_mul]
+      rw [← Complex.exp_add, show ((-a' : ℝ) : ℂ) * I + a' * I = 0 by push_cast; ring, Complex.exp_zero]
+      ring
+    rw [e, norm_neg, norm_mul, Complex.norm_exp_ofReal_mul_I, mul_one]; exact hζ
+  have hη1 : ‖η‖ < 1 := by linarith
+  obtain ⟨hβ, h1η⟩ := log_one_add_bound hη1
+  set β := (Complex.log (1 + η)).im
+  obtain ⟨R, hR, h1w⟩ := NoFourMUBs.SeedAtlas.Method.exists_arg_one_add hw1
+  set ψ := (w - w ^ 2 / 2).im + R
+  -- the phase
+  have hζ0 : ζ = Complex.exp ((-a' : ℝ) * I) * (1 + η) := by
+    have h1 : 1 + η = ζ * Complex.exp (a' * I) := by simp only [η]; ring
+    rw [h1, mul_left_comm, ← Complex.exp_add,
+      show ((-a' : ℝ) : ℂ) * I + a' * I = 0 by push_cast; ring, Complex.exp_zero, mul_one]
+  have hne : ‖1 + η‖ ≠ 0 := by
+    have : (1 : ℝ) - ‖η‖ ≤ ‖1 + η‖ := by
+      have := norm_sub_norm_le (1 : ℂ) (-η); simp at this; linarith
+    linarith
+  have hζne : ζ ≠ 0 := by
+    rw [hζ0]; refine mul_ne_zero (Complex.exp_ne_zero _) ?_
+    intro h0; rw [h0, norm_zero] at hne; exact hne rfl
+  have hd' : d = ζ⁻¹ * (1 + w) := by simp only [w]; field_simp; ring
+  refine ⟨a' - β + ψ, ?_, ?_⟩
+  · have hdform : d = ((‖1 + w‖ / ‖1 + η‖ : ℝ) : ℂ) * Complex.exp (((a' - β + ψ : ℝ) : ℂ) * I) := by
+      rw [hd']
+      conv_lhs => rw [hζ0, h1η, h1w]
+      have ee : Complex.exp (((a' - β + ψ : ℝ) : ℂ) * I) =
+          (Complex.exp (((-a' : ℝ) : ℂ) * I))⁻¹ * (Complex.exp ((β : ℂ) * I))⁻¹ * Complex.exp ((ψ : ℂ) * I) := by
+        rw [← Complex.exp_neg, ← Complex.exp_neg, ← Complex.exp_add, ← Complex.exp_add]; congr 1; push_cast; ring
+      rw [ee]
+      have hn0 : ((‖1 + η‖ : ℝ) : ℂ) ≠ 0 := by exact_mod_cast hne
+      have he1 := Complex.exp_ne_zero (((-a' : ℝ) : ℂ) * I)
+      have he2 := Complex.exp_ne_zero ((β : ℂ) * I)
+      push_cast
+      field_simp
+    have hnd : ‖d‖ = ‖1 + w‖ / ‖1 + η‖ := by
+      rw [hdform, norm_mul, Complex.norm_exp_ofReal_mul_I, mul_one, Complex.norm_real, Real.norm_eq_abs,
+        abs_of_nonneg (by positivity)]
+    rw [hnd]; exact hdform
+  · -- the enclosure
+    have hv2 : v2.Has u (w * w) := has_mul hu hw hw
+    set ideal : ℕ → ℝ := fun k => ((v.cg k).2 : ℝ) / 2 ^ pp - ((v2.cg k).2 : ℝ) / 2 / 2 ^ pp +
+      (if k = 0 then a' else 0)
+    have hA : ∑ k ∈ Finset.range 15, (ideal k : ℂ) * (mono k u : ℂ) =
+        ((a' + (v.eval u).im - (v2.eval u).im / 2 : ℝ) : ℂ) := by
+      have e1 : (v.eval u).im = ∑ k ∈ Finset.range 15, ((v.cg k).2 : ℝ) / 2 ^ pp * mono k u := by
+        rw [CT.eval, Complex.im_sum]
+        refine Finset.sum_congr rfl fun k _ => ?_
+        rw [Complex.im_mul_ofReal, cz_eq]
+        simp only [Complex.add_im, Complex.ofReal_im, Complex.mul_im, Complex.ofReal_re, Complex.I_re, Complex.I_im]
+        ring
+      have e2 : (v2.eval u).im = ∑ k ∈ Finset.range 15, ((v2.cg k).2 : ℝ) / 2 ^ pp * mono k u := by
+        rw [CT.eval, Complex.im_sum]
+        refine Finset.sum_congr rfl fun k _ => ?_
+        rw [Complex.im_mul_ofReal, cz_eq]
+        simp only [Complex.add_im, Complex.ofReal_im, Complex.mul_im, Complex.ofReal_re, Complex.I_re, Complex.I_im]
+        ring
+      rw [e1, e2]
+      simp only [ideal, Finset.sum_range_succ, Finset.sum_range_zero, zero_add]
+      simp [mono]
+      push_cast; ring
+    have hB : ∀ k < 15, ‖((ideal k : ℝ) : ℂ) - cz ((v.cg k).2 - fdivZ (v2.cg k).2 1 + (if k = 0 then a else 0), 0)‖ ≤
+        rn 2 := by
+      intro k _
+      rw [cz_real, ← Complex.ofReal_sub, Complex.norm_real, Real.norm_eq_abs]
+      have hf := fdivZ_spec (v2.cg k).2 1
+      have e : ideal k - (((v.cg k).2 - fdivZ (v2.cg k).2 1 + (if k = 0 then a else 0) : ℤ) : ℝ) / 2 ^ pp =
+          -((((v2.cg k).2 : ℝ) / 2 ^ 1 - fdivZ (v2.cg k).2 1) / 2 ^ pp) := by
+        simp only [ideal, a']; split_ifs <;> push_cast <;> ring
+      rw [e, abs_neg, abs_div, abs_of_pos hp]
+      unfold rn
+      exact div_le_div_of_nonneg_right (hf.trans (by norm_num)) hp.le
+    have hround : ‖((a' + (v.eval u).im - (v2.eval u).im / 2 : ℝ) : ℂ) - (argT h nT a D).eval u‖ ≤
+        rn (rerr h) := by
+      rw [← hA, show (argT h nT a D).eval u = ∑ k ∈ Finset.range 15,
+          cz ((v.cg k).2 - fdivZ (v2.cg k).2 1 + (if k = 0 then a else 0), 0) * (mono k u : ℂ) by
+        rw [argT, eval_mk], ← Finset.sum_sub_distrib]
+      simp only [← sub_mul]
+      exact norm_err_le hu _ hB
+    -- the analytic part
+    have hphi : (a' - β + ψ) - (a' + (v.eval u).im - (v2.eval u).im / 2) =
+        -β + (w - v.eval u).im - (w * w - v2.eval u).im / 2 + R := by
+      simp only [ψ, Complex.sub_im, Complex.div_ofNat_im, pow_two]; ring
+    have b1 : |(w - v.eval u).im| ≤ rn v.ρ := (Complex.abs_im_le_norm _).trans hw
+    have b2 : |(w * w - v2.eval u).im| ≤ rn v2.ρ := (Complex.abs_im_le_norm _).trans hv2
+    have hη2 : ‖η‖ / (1 - ‖η‖) ≤ rn ez / (1 - rn ez) := by
+      exact div_le_div₀ (rn_nonneg _) hη (by linarith) (by linarith)
+    have hR2 : ‖w‖ ^ 3 / (3 * (1 - ‖w‖)) ≤ rn ub ^ 3 / (3 * (1 - rn ub)) := by
+      exact div_le_div₀ (pow_nonneg (rn_nonneg _) 3) (pow_le_pow_left₀ (norm_nonneg _) hwn 3) (by linarith)
+        (by linarith)
+    -- grid bounds
+    have hub0 : ub < 2 ^ pp := by omega
+    have hez0 : ez < 2 ^ pp := by omega
+    have gtail : rn ub ^ 3 / (3 * (1 - rn ub)) ≤ rn (cdivD (ub ^ 3) (3 * 2 ^ pp * (2 ^ pp - ub))) := by
+      have hd : 0 < 3 * 2 ^ pp * (2 ^ pp - ub) :=
+        Nat.mul_pos (Nat.mul_pos (by norm_num) (pow_pos (by norm_num) _)) (Nat.sub_pos_of_lt hub0)
+      have := le_cdivD (ub ^ 3) _ hd
+      unfold rn
+      rw [le_div_iff₀ hp]
+      refine le_trans (le_of_eq ?_) this
+      have hsub : (((2 ^ pp - ub : ℕ)) : ℝ) = 2 ^ pp - ub := by
+        rw [Nat.cast_sub hub0.le]; push_cast; ring
+      push_cast [hsub]
+      have : (2 : ℝ) ^ pp - ub ≠ 0 := by
+        have : (ub : ℝ) < 2 ^ pp := by exact_mod_cast hub0
+        linarith
+      field_simp
+    have gbeta : rn ez / (1 - rn ez) ≤ rn (cdivD (ez * 2 ^ pp) (2 ^ pp - ez)) := by
+      have hd : 0 < 2 ^ pp - ez := Nat.sub_pos_of_lt hez0
+      have := le_cdivD (ez * 2 ^ pp) _ hd
+      unfold rn
+      rw [le_div_iff₀ hp]
+      refine le_trans (le_of_eq ?_) this
+      have hsub : (((2 ^ pp - ez : ℕ)) : ℝ) = 2 ^ pp - ez := by
+        rw [Nat.cast_sub hez0.le]; push_cast; ring
+      push_cast [hsub]
+      have : (2 : ℝ) ^ pp - ez ≠ 0 := by
+        have : (ez : ℝ) < 2 ^ pp := by exact_mod_cast hez0
+        linarith
+      field_simp
+    have ghalf : rn v2.ρ / 2 ≤ rn (cdivN v2.ρ 1) := by
+      apply rn_cdiv_ge; apply le_of_eq; unfold rn; field_simp
+    -- assemble
+    unfold CT.Has
+    have hsplit : ((a' - β + ψ : ℝ) : ℂ) - (argT h nT a D).eval u =
+        ((((a' - β + ψ) - (a' + (v.eval u).im - (v2.eval u).im / 2)) : ℝ) : ℂ) +
+          (((a' + (v.eval u).im - (v2.eval u).im / 2 : ℝ) : ℂ) - (argT h nT a D).eval u) := by push_cast; ring
+    rw [hsplit]
+    refine (norm_add_le _ _).trans ?_
+    rw [Complex.norm_real, Real.norm_eq_abs, hphi]
+    rw [argT_rho]
+    simp only [rn_add]
+    have hab : |-β + (w - v.eval u).im - (w * w - v2.eval u).im / 2 + R| ≤
+        |β| + |(w - v.eval u).im| + |(w * w - v2.eval u).im| / 2 + |R| := by
+      have := abs_add_le (-β + (w - v.eval u).im - (w * w - v2.eval u).im / 2) R
+      have := abs_sub (-β + (w - v.eval u).im) ((w * w - v2.eval u).im / 2)
+      have := abs_add_le (-β) (w - v.eval u).im
+      rw [abs_neg] at this
+      rw [abs_div, abs_two] at *
+      linarith
+    linarith
+
 end NoFourMUBs.KernelAtlas.Seed
