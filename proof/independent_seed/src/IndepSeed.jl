@@ -15,5 +15,6 @@ include("normal_tube.jl")
 include("edge.jl")
 include("transfers.jl")
 include("edge_transfers.jl")
+include("graph.jl")
 include("tao.jl")
 end

@@ -67,6 +67,7 @@ mkdir -p out && sbatch run_rusty.sh                                             
 | `src/tao.jl` | Tao's record: S6 in the ball, σ, isolation L R < σ, the normal bound, Stage C |
 | `src/edge.jl` | edge balls: the two augmented 7-unknown systems, their Krawczyk tubes, ∂₄R > 0 and g > 0, C1e |
 | `src/edge_transfers.jl` | T3 (seed sphere into an edge ball), the edge sphere cover by T1, F6 = H(0) |
+| `src/graph.jl` | SPEC §10.1: (G) the graph property near F6, (D) the chart derivative and the image of the edge ball |
 | `check_seed.jl` | the driver (threads, shards, receipts, verdict) |
 | `run_rusty.sh` | one rusty node |
 | `tests/` | `run_tests.sh`, `enclosure.jl`, `negative.jl`, the test certificate and its generator |
@@ -289,6 +290,44 @@ checked as for seeds, with the edge box map on each box (interval centre).
 
 **Stage C.** It runs on P + U w + ν exactly as for a seed ball.
 
+**Openness at y = 0 (SPEC §10.1): (G) and (D), in `src/graph.jl`.**
+
+The edge entry may carry `"graph"` (eta_radius ρ_G, R_G, n_G, phi, Tint, η-boxes) and `"sigma_D"`.
+
+*Defaults when absent.*
+- phi is the edge ball's P, and the frame is round(2³⁰·hor(U)).
+- R_G = n_G = 1.05× the certified sup of ‖δ‖ over the edge image, and ρ_G = 1.05× the sup of ‖η‖.
+- σ_D is the certified minimum, and the η-boxes are the checker's own adaptive cover.
+
+*Alignment.* The chart's F6 is aligned to phi by the existing exhaustive F6 search. Then
+δ = hor(A(Q) + 2πN − P_F) and η = T_F⁺δ (exact G⁻¹Tᵀ, enclosed). The winding N is chosen per box; any integer N is
+valid.
+
+**(G).** η-boxes cover the ball ‖η‖ ≤ ρ_G (dyadic, units of ρ_G). A box whose test fails is split, up to 2 levels for
+listed boxes and 6 for the checker's own. On each box the normal tube (`normal_tube.jl`) runs with the inclusion ball
+sized for ‖ν‖ ≤ n_G. Its certified contraction makes the zero of YΦ unique in that ball, and every such Hadamard ν is a
+zero there, so there is at most one Hadamard ν for each η. Also checked: every Hadamard with ‖δ‖ ≤ R_G has
+‖ν‖ ≤ n_G, trivially when n_G ≥ R_G and otherwise by the record lemma at R_G.
+
+**(D).** On every C1e box:
+- *The derivative.* d η/dw is enclosed by implicit differentiation in Taylor models.
+  - For each side, dx/dp = −J_x⁻¹J_p. The polynomial Z_p comes from two Newton steps in model space; then
+    |Z − Z_p| ≤ ‖Y‖/(1 − q)·‖J_x Z_p + J_p‖∞.
+  - E, B, C follow, and d arg D = Im(dD conj D)/|D|². dD solves dD B* = −(dC E* + C dE* + D dB*), by two Newton steps
+    in model space plus a Neumann-bounded correction.
+  - Then the alignment, hor, T_F⁺ and Mth.
+  - The polynomial parts of C1e's models alone would not bound a derivative.
+- *σ.* σ_min ≥ σ_D is certified by Weyl's inequality: σ_min ≥ σ_min(A_mid) − ‖A_rad‖₂, with σ_min(A_mid) certified
+  by an interval Cholesky.
+- *The image.* It lies strictly inside ‖η‖ < ρ_G and ‖δ‖ < R_G.
+
+*Measured* (edge test ball, r = 0.05, 368 boxes, 8 threads):
+- **With defaults:** σ_D ≥ 0.561, ρ_G = 0.0995, R_G = n_G = 0.0669. A single η-box covers the whole ball, with
+  contraction α ≤ 0.49. This takes 4.8 s.
+- **With the F6 record of the current atlas** (877: phi and Tint, R_G = 0.1, n_G = 0.03, ρ_G = 0.2): σ_D = 0.1 is
+  verified (0.135 is certified), the image reaches ‖η‖, ‖δ‖ ≤ 0.0815, and all 256 η-boxes contract with α ≤ 0.49.
+  This takes 6.3 s.
+
 **In the driver.** Edge balls are checked first, since their C1e leaves feed the seeds' T3. They are not resumable: the
 C1e takes seconds. A `--shard` run computes only their C1e leaves, and the final `--import` run checks them in full.
 
@@ -357,14 +396,18 @@ reason.
 6. **Edge balls (`edge_tests.jl`, on `tests/data/edge_test_certificate.json.gz`).**
    - **Sampling.** On random C1e leaves, the augmented systems solved in BigFloat lie within the tubes, t = t′, H(p) is
      Hadamard, and the phases lie inside their models.
-   - **29 cases, all as expected.**
+   - **Chart derivative.** Finite differences of η(H(p(w))) at random points of random C1e boxes lie inside the
+     certified enclosures of dη/dw.
+   - **37 cases, all as expected.**
      - *Rejected, C1e:* n below the sampled residual; r × 3; P entries of B and D + 0.01; U + 0.1; Mth's y row × 1.1.
      - *Rejected, Stage C:* at r = 0.2, n = 0.03 (the clique search hits its step cap).
      - *Rejected, T3:* the wrong target; an edge ball failing C1e; g = conj or T; swapped corner rows; swapped
        complement rows or columns (vrows, hcols); a wrong wind, wind_h or wind_v; a removed sphere box.
      - *Rejected, edge T1:* the wrong target, swapped rows, g = conj, a wrong winding, and an uncovered sphere.
+     - *Rejected, (G)/(D):* σ_D = 0.9; ρ_G = 0.05 or R_G = 0.05 (the image is not inside); n_G = 10⁻⁴ (below the
+       normal bound at R_G); an η-box removed; a φ entry of the F6 record + 0.3.
      - *Accepted (controls):* C1e, the T3 cover, the T1 boxes, Stage C, sorted complements (they are increasing in
-       this data), and T3 without stored windings.
+       this data), T3 without stored windings, and (G)/(D) with the F6 record's data and with the defaults.
 
 ### Measured (M-series laptop, one thread unless stated)
 
@@ -422,6 +465,13 @@ reason.
       6-orderings (rows + vrows, cols + hcols) and one 16-integer winding.
     - **Tao.** It is the top-level `"tao"`. A record without a frame is also read as Tao's record.
     - **F6.** It is certified as H(0) of a passing edge ball.
+13. **SPEC §10.1 (G), (D).** The `"graph"` fields are optional, with the defaults above. Choices made here:
+    - Alignment with phi comes from the F6 search.
+    - The winding is chosen per box.
+    - n_G ≥ R_G, or else the record lemma at R_G, makes every Hadamard with ‖δ‖ ≤ R_G satisfy ‖ν‖ ≤ n_G.
+    - The derivative is enclosed by implicit differentiation, not from C1e's polynomials.
+    - σ is bounded by Weyl's inequality.
+    - The image must lie strictly inside the (G) region.
     - **C1e and T3 tubes.**
       - C1e boxes have exact dyadic centres, and the uniqueness tube is a widened Krawczyk box.
       - FORMAT.md §8 suggests a fresh Krawczyk over p′'s enclosure for T3. Instead, T3 uses the tubes C1e certified:

@@ -6,7 +6,9 @@
 # its whole sphere T3 into the edge ball); seed 1 (on its sphere; the target of the edge ball's few T1 boxes).
 # (a) Sampling: on random C1e leaves, the augmented systems solved in BigFloat (Newton from the leaf's predictor) give
 #     solutions within the enclosure, t = t', a Hadamard matrix (H H* = 6 I), and phases inside the 36 models.
-# (b) Negative tests: corrupted edge-ball data, T3 and T1 data must be rejected; a few controls must pass.
+# (a2) The chart derivative of SPEC §10.1 (D): finite differences of eta(H(p(w))) at random points of random C1e boxes lie
+#      inside the certified enclosure of d eta/dw.
+# (b) Negative tests: corrupted edge-ball data, T3 and T1 data, and (G)/(D) data must be rejected; controls must pass.
 using IntervalArithmetic, LinearAlgebra, Printf, Random
 include(joinpath(@__DIR__, "..", "src", "IndepSeed.jl"))
 using .IndepSeed
@@ -75,6 +77,44 @@ let c1 = S.check_c1e(eb0)
     @printf("(a) edge ball: %d points; solutions within the tubes (max distance to the predictor %.2g), t = t', Hadamard, phases in their models\n", npts, worst)
 end
 
+LEAVES = S.check_c1e(eb0).leaves
+# ---------------------------------------------------------------- (a2) the chart derivative of (D) against finite differences
+function Qfloat(eb, root, w)
+    p = eb.Mth * collect(w)
+    gh, gv = S.edge_guess(root, w)
+    xh, _ = S.aug_newton_f(p, gh, false); xv, _ = S.aug_newton_f(p, gv, true)
+    th = [k * π / 3 for k in S.TH0K] .+ [p[1], p[2], p[3], xh[1]]
+    ph = [k * π / 3 for k in S.PH0K] .+ xh[2:7]; pv = [k * π / 3 for k in S.PH0K] .+ xv[2:7]
+    a, b, c, d = cis.(th)
+    E = ComplexF64[1 1 1; 1 a b; 1 c d]
+    B = ComplexF64[1 1 1; cis(ph[1]) cis(ph[2]) cis(ph[3]); cis(ph[4]) cis(ph[5]) cis(ph[6])]
+    Cm = ComplexF64[1 cis(pv[1]) cis(pv[4]); 1 cis(pv[2]) cis(pv[5]); 1 cis(pv[3]) cis(pv[6])]
+    Hm = [E B; Cm (-Cm * E' * inv(Matrix(B')))]
+    [angle(Hm[i, j]) for i in 1:6, j in 1:6]
+end
+let gc = S.graph_ctx(eb0, eb0.graph), root = S.edge_root(eb0), npts = 0, worst = 0.0
+    Tp = mid.(gc.Tplus)
+    eta(w) = (X = S.galign(Qfloat(eb0, root, w), gc); X = X .- gc.PF; X .-= 2π .* round.(X ./ (2π));
+              Tp * vec(permutedims(S.IA.hproj(X))))
+    for lf in LEAVES[randperm(rng, length(LEAVES))[1:5]]
+        em = S.edge_box_map(eb0, lf.wc, lf.h, S.edge_guess(root, lf.wc)...)
+        A = S.edge_deta(eb0, em, lf.h, gc)
+        for _ in 1:3
+            w = lf.wc .+ ntuple(j -> lf.h[j] * (2rand(rng) - 1), 4)
+            fd = zeros(4, 4)
+            for j in 1:4
+                e = ntuple(k -> k == j ? 1e-6 : 0.0, 4)
+                fd[:, j] = (eta(w .+ e) .- eta(w .- e)) ./ 2e-6
+            end
+            ok = all(inf(A[i, j]) - 1e-6 <= fd[i, j] <= sup(A[i, j]) + 1e-6 for i in 1:4, j in 1:4)
+            check(ok, "(D): finite-difference derivative outside the enclosure")
+            worst = max(worst, maximum(abs.(fd .- mid.(A)) ./ max.(radius.(A), 1e-12)))
+            npts += 1
+        end
+    end
+    @printf("(a2) chart derivative: %d points inside the certified enclosures of d eta/dw (max |fd - mid| / radius = %.3f)\n", npts, worst)
+end
+
 # ---------------------------------------------------------------- (b) negative tests
 function with(x::T; kw...) where {T}
     T([haskey(kw, f) ? kw[f] : getfield(x, f) for f in fieldnames(T)]...)
@@ -119,6 +159,12 @@ sampled = let m = 0.0
     m
 end
 @printf("edge ball: certificate n %.6g; sampled true residual on its sphere %.6g\n", eb0.n, sampled)
+gd0 = eb0.graph
+function graphcase(gd)
+    r = S.check_graph(eb0, LEAVES, gd)
+    (r.ok, r.ok ? @sprintf("sigma >= %.4g, image ||eta|| <= %.4g, ||delta|| <= %.4g, %d (G) boxes, alpha <= %.3g", r.sigma, r.eta_sup, r.delta_sup, r.nboxes, r.alpha_max) : r.msg)
+end
+gwith(; kw...) = with(gd0; kw...)
 g3 = C0.seeds[1].groups[1]
 gT1 = eb0.groups[1]
 function swap(v, i, j)
@@ -155,6 +201,14 @@ cases = Any[
     ("edge T1 rows swapped", false, () -> t1e(setedge(C0, with(eb0; groups=[with(gT1; rows=swap(gT1.rows, 2, 3))])))),
     ("edge T1 with g = conj", false, () -> t1e(setedge(C0, with(eb0; groups=[with(gT1; g=:conj)])))),
     ("edge T1 winding + 1", false, () -> t1e(setedge(C0, with(eb0; groups=[with(gT1; wind=gT1.wind .+ [1, 0, 0, 0])])))),
+    ("control: (G) and (D) with the F6 record's data (877), sigma_D = 0.1", true, () -> graphcase(gd0)),
+    ("control: (G) and (D) with the defaults", true, () -> graphcase(S.GraphData())),
+    ("(D) sigma_D = 0.9", false, () -> graphcase(gwith(sigmaD=0.9))),
+    ("(D) eta_radius = 0.05 (the image is not inside)", false, () -> graphcase(gwith(eta=0.05))),
+    ("(D) R_G = 0.05 (the image is not inside)", false, () -> graphcase(gwith(R=0.05))),
+    ("(G) n_G = 1e-4 (below the normal bound at R_G)", false, () -> graphcase(gwith(n=1e-4))),
+    ("(G) one eta-box removed", false, () -> graphcase(gwith(boxes=gd0.boxes[2:end]))),
+    ("(G)/(D) phi[2,3] + 0.3", false, () -> graphcase(gwith(phi=[e == 9 ? gd0.phi[e] + 0.3 : gd0.phi[e] for e in 1:36]))),
     ("edge sphere not covered (the test ball's boxes)", false, () -> (r = S.check_c2_edge(eb0, ctx(C0), S.edge_root(eb0)); (r.ok, r.msg))),
 ]
 nbad = 0

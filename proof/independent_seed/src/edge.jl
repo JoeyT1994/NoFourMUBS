@@ -228,7 +228,12 @@ struct EdgeMap
     xv::Vector{TM{I64}}; rho_v::Vector{Float64}
     xhf::Vector{TM{Float64}}; xvf::Vector{TM{Float64}}  # float predictors (guesses for nearby boxes)
     wc::NTuple{4,Float64}
+    xhE::Vector{TM{I64}}; xvE::Vector{TM{I64}}         # the enclosures of the solutions (predictor + need)
+    p::Vector{TM{I64}}                                  # the parameter models
+    Dm::Matrix{TM{CI64}}                                # the forced block (models)
 end
+EdgeMap(ok, why, Q, xh, rho_h, xv, rho_v, xhf, xvf, wc) =
+    EdgeMap(ok, why, Q, xh, rho_h, xv, rho_v, xhf, xvf, wc, TM{I64}[], TM{I64}[], TM{I64}[], Matrix{TM{CI64}}(undef, 0, 0))
 EdgeFail(why) = EdgeMap(false, why, TM{I64}[], TM{I64}[], Float64[], TM{I64}[], Float64[], TM{Float64}[], TM{Float64}[], (0.0, 0.0, 0.0, 0.0))
 
 """Float guesses for both sides at the float point w from a float predictor."""
@@ -286,7 +291,7 @@ function edge_box_map(eb::EdgeBall, wc::NTuple{4,Float64}, h::NTuple{4,Float64},
         a === nothing && return EdgeFail("arg of D")
         Q[at(3 + j, 3 + k)] = a
     end
-    EdgeMap(true, "ok", Q, map(polypart, xhp), rho_h, map(polypart, xvp), rho_v, xhf, xvf, wc)
+    EdgeMap(true, "ok", Q, map(polypart, xhp), rho_h, map(polypart, xvp), rho_v, xhf, xvf, wc, xh, xv, p, Matrix{TM{CI64}}(Dm))
 end
 
 # ---------------------------------------------------------------- C1e: the cover, with leaves kept for T3

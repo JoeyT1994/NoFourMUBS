@@ -167,7 +167,7 @@ function main(args)
     doneE = Dict{Int,Tuple{Bool,String}}()
     f6edge = Tuple{Int,Bool,String}[]
     open(fe, "w") do io
-        println(io, "#idx\tstatus\tr\tk\tn_cert\tn_certified\tc1e_boxes\tc1e_splits\tc1e_s\tstagec\tlabels\tmax_s\tstagec_s\tc2\tnboxes\tc2_s\tmsg")
+        println(io, "#idx\tstatus\tr\tk\tn_cert\tn_certified\tc1e_boxes\tc1e_splits\tc1e_s\tstagec\tlabels\tmax_s\tstagec_s\tc2\tnboxes\tc2_s\tgraph\tsigma_D\trho_G\tR_G\tn_G\teta_sup\tdelta_sup\tG_boxes\talpha_max\tgraph_s\tmsg")
     end
     for (i, eb) in enumerate(C.edges)
         t1 = time()
@@ -188,15 +188,19 @@ function main(args)
             root = S.edge_root(eb)
             c2 = (c1.ok && root !== nothing) ? S.check_c2_edge(eb, X, root; split_depth=splitdepth) :
                  S.C2Result(false, "not run (C1e failed)", 0, Dict{Symbol,Int}(), 0, 0, Dict{Symbol,Float64}(), 0, 0.0)
-            ok = c1.ok && sc.ok && c2.ok
+            gr = c1.ok ? S.check_graph(eb, c1.leaves, eb.graph) :
+                 S.GraphResult(false, "not run (C1e failed)", NaN, NaN, NaN, NaN, NaN, NaN, 0, NaN, 0.0)
+            ok = c1.ok && sc.ok && c2.ok && gr.ok
             m = ok ? "ok" : join(filter(!isempty, [c1.ok ? "" : "C1e: " * c1.msg, sc.ok ? "" : "Stage C: " * sc.msg,
-                                                   c2.ok ? "" : "C2: " * c2.msg]), "; ")
-            (ok, m, @sprintf("%d\t%s\t%.6g\t%s\t%.10g\t%.10g\t%d\t%d\t%.2f\t%s\t%d\t%.6g\t%.2f\t%s\t%d\t%.2f\t%s", i - 1,
+                                                   c2.ok ? "" : "C2: " * c2.msg, gr.ok ? "" : "graph/derivative: " * gr.msg]), "; ")
+            (ok, m, @sprintf("%d\t%s\t%.6g\t%s\t%.10g\t%.10g\t%d\t%d\t%.2f\t%s\t%d\t%.6g\t%.2f\t%s\t%d\t%.2f\t%s\t%.6g\t%.6g\t%.6g\t%.6g\t%.6g\t%.6g\t%d\t%.4g\t%.2f\t%s", i - 1,
                              ok ? "PASS" : "FAIL", eb.r, join(eb.k, "x"), eb.n, c1.bound, length(c1.leaves), c1.nsplit, c1.seconds,
-                             sc.ok ? "PASS" : "FAIL", sc.nlabels, sc.maxs, ts, c2.ok ? "PASS" : "FAIL", c2.nbox, c2.seconds, clean(m)))
+                             sc.ok ? "PASS" : "FAIL", sc.nlabels, sc.maxs, ts, c2.ok ? "PASS" : "FAIL", c2.nbox, c2.seconds,
+                             gr.ok ? "PASS" : "FAIL", gr.sigma, gr.rhoG, gr.RG, gr.nG, gr.eta_sup, gr.delta_sup, gr.nboxes, gr.alpha_max,
+                             gr.seconds, clean(m)))
         catch err
             m = "exception: " * clean(sprint(showerror, err))[1:min(end, 300)]
-            (false, m, @sprintf("%d\tFAIL%s\t%s", i - 1, repeat("\t", 15), m))
+            (false, m, @sprintf("%d\tFAIL%s\t%s", i - 1, repeat("\t", 25), m))
         end
         doneE[i-1] = (ok, msg)
         open(fe, "a") do io; println(io, line); end
@@ -338,7 +342,8 @@ function main(args)
         end
         println(io)
         if !isempty(C.edges)
-            println(io, "Edge balls (PASS = C1e bound <= n with both augmented tubes, t' = t (dR/dtheta4 > 0) and g > 0; Stage C; C2: sphere covered by T1):")
+            println(io, "Edge balls (PASS = C1e bound <= n with both augmented tubes, t' = t (dR/dtheta4 > 0) and g > 0; Stage C; C2: sphere covered by T1;")
+            println(io, "            (G) the graph property near F6 and (D) sigma_min of d eta/dw >= sigma_D with the image inside the (G) region, SPEC §10.1):")
             for i in 0:length(C.edges)-1
                 st = get(doneE, i, (false, "not run"))
                 println(io, @sprintf("edge %6d  %s  %s", i, st[1] ? "PASS" : "FAIL", st[1] ? "" : st[2]))
