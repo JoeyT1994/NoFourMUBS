@@ -163,11 +163,28 @@ lemma abs_mono_le {h : List ℕ} {u : Fin 4 → ℝ} (hu : InBox h u) (m : ℕ) 
 
 /-- A Taylor model: 15 grid coefficients and a grid remainder. -/
 structure CT where
-  c : List (ℤ × ℤ)
+  c0 : ℤ × ℤ
+  c1 : ℤ × ℤ
+  c2 : ℤ × ℤ
+  c3 : ℤ × ℤ
+  c4 : ℤ × ℤ
+  c5 : ℤ × ℤ
+  c6 : ℤ × ℤ
+  c7 : ℤ × ℤ
+  c8 : ℤ × ℤ
+  c9 : ℤ × ℤ
+  c10 : ℤ × ℤ
+  c11 : ℤ × ℤ
+  c12 : ℤ × ℤ
+  c13 : ℤ × ℤ
+  c14 : ℤ × ℤ
   ρ : ℕ
 
 /-- The `m`-th coefficient. -/
-def CT.cg (T : CT) (m : ℕ) : ℤ × ℤ := T.c.getD m (0, 0)
+def CT.cg (T : CT) (m : ℕ) : ℤ × ℤ :=
+  match m with
+  | 0 => T.c0 | 1 => T.c1 | 2 => T.c2 | 3 => T.c3 | 4 => T.c4 | 5 => T.c5 | 6 => T.c6 | 7 => T.c7
+  | 8 => T.c8 | 9 => T.c9 | 10 => T.c10 | 11 => T.c11 | 12 => T.c12 | 13 => T.c13 | 14 => T.c14 | _ => (0, 0)
 
 /-- The model's polynomial at `u`. -/
 def CT.eval (T : CT) (u : Fin 4 → ℝ) : ℂ := ∑ m ∈ Finset.range 15, cz (T.cg m) * (mono m u : ℂ)
@@ -176,10 +193,11 @@ def CT.eval (T : CT) (u : Fin 4 → ℝ) : ℂ := ∑ m ∈ Finset.range 15, cz 
 def CT.Has (T : CT) (u : Fin 4 → ℝ) (x : ℂ) : Prop := ‖x - T.eval u‖ ≤ rn T.ρ
 
 /-- A model from a coefficient function. -/
-def mk (f : ℕ → ℤ × ℤ) (ρ : ℕ) : CT := ⟨(List.range 15).map f, ρ⟩
+def mk (f : ℕ → ℤ × ℤ) (ρ : ℕ) : CT :=
+  ⟨f 0, f 1, f 2, f 3, f 4, f 5, f 6, f 7, f 8, f 9, f 10, f 11, f 12, f 13, f 14, ρ⟩
 
 lemma cg_mk (f : ℕ → ℤ × ℤ) (ρ : ℕ) {m : ℕ} (hm : m < 15) : (mk f ρ).cg m = f m := by
-  simp [mk, CT.cg, List.getD_eq_getElem?_getD, hm]
+  interval_cases m <;> rfl
 
 lemma eval_mk (f : ℕ → ℤ × ℤ) (ρ : ℕ) (u : Fin 4 → ℝ) :
     (mk f ρ).eval u = ∑ m ∈ Finset.range 15, cz (f m) * (mono m u : ℂ) :=
@@ -202,10 +220,6 @@ lemma termB_spec {h : List ℕ} {u : Fin 4 → ℝ} (hu : InBox h u) (z : ℤ ×
         unfold rn termB
         exact div_le_div_of_nonneg_right (cdivN_spec _ _) (by positivity)
 
-/-- `Σ_{m ≥ 1} |c_m| sup|mono_m|` on the grid. -/
-def Lsum (h : List ℕ) (T : CT) : ℕ :=
-  ((List.range 14).map fun m => termB h (mb (T.cg (m + 1))) (m + 1)).sum
-
 lemma list_sum_map_range (n : ℕ) (f : ℕ → ℕ) :
     (((List.range n).map f).sum : ℝ) = ∑ m ∈ Finset.range n, (f m : ℝ) := by
   induction n with
@@ -213,18 +227,40 @@ lemma list_sum_map_range (n : ℕ) (f : ℕ → ℕ) :
   | succ n ih =>
     rw [List.range_succ, List.map_append, List.sum_append, Nat.cast_add, ih, Finset.sum_range_succ]; simp
 
+/-- The linear and quadratic parts of a model's polynomial. -/
+def linP (T : CT) (u : Fin 4 → ℝ) : ℂ := ∑ j ∈ Finset.range 4, cz (T.cg (j + 1)) * (mono (j + 1) u : ℂ)
+def quadP (T : CT) (u : Fin 4 → ℝ) : ℂ := ∑ k ∈ Finset.range 10, cz (T.cg (k + 5)) * (mono (k + 5) u : ℂ)
+
+lemma eval_split (T : CT) (u : Fin 4 → ℝ) : T.eval u = cz (T.cg 0) + linP T u + quadP T u := by
+  simp only [CT.eval, linP, quadP, Finset.sum_range_succ, Finset.sum_range_zero, zero_add]
+  simp [mono]
+  ring
+
+/-- `Σⱼ |gⱼ| hⱼ` and `Σ |H_m| sup|mono_m|` on the grid. -/
+def L1T (h : List ℕ) (T : CT) : ℕ := ((List.range 4).map fun j => termB h (mb (T.cg (j + 1))) (j + 1)).sum
+def L2T (h : List ℕ) (T : CT) : ℕ := ((List.range 10).map fun k => termB h (mb (T.cg (k + 5))) (k + 5)).sum
+
+lemma norm_linP_le {h : List ℕ} {u : Fin 4 → ℝ} (hu : InBox h u) (T : CT) : ‖linP T u‖ ≤ rn (L1T h T) := by
+  refine (norm_sum_le _ _).trans ?_
+  have : rn (L1T h T) = ∑ j ∈ Finset.range 4, rn (termB h (mb (T.cg (j + 1))) (j + 1)) := by
+    unfold L1T rn; rw [list_sum_map_range, Finset.sum_div]
+  rw [this]
+  exact Finset.sum_le_sum fun j _ => termB_spec hu _ _
+
+lemma norm_quadP_le {h : List ℕ} {u : Fin 4 → ℝ} (hu : InBox h u) (T : CT) : ‖quadP T u‖ ≤ rn (L2T h T) := by
+  refine (norm_sum_le _ _).trans ?_
+  have : rn (L2T h T) = ∑ k ∈ Finset.range 10, rn (termB h (mb (T.cg (k + 5))) (k + 5)) := by
+    unfold L2T rn; rw [list_sum_map_range, Finset.sum_div]
+  rw [this]
+  exact Finset.sum_le_sum fun k _ => termB_spec hu _ _
+
+/-- `Σ_{m ≥ 1} |c_m| sup|mono_m|` on the grid. -/
+def Lsum (h : List ℕ) (T : CT) : ℕ := L1T h T + L2T h T
+
 lemma norm_eval_sub_c_le {h : List ℕ} {u : Fin 4 → ℝ} (hu : InBox h u) (T : CT) :
     ‖T.eval u - cz (T.cg 0)‖ ≤ rn (Lsum h T) := by
-  have e : T.eval u - cz (T.cg 0) = ∑ m ∈ Finset.range 14, cz (T.cg (m + 1)) * (mono (m + 1) u : ℂ) := by
-    rw [CT.eval, Finset.sum_range_succ']
-    simp [mono]
-  rw [e]
-  refine (norm_sum_le _ _).trans ?_
-  have : rn (Lsum h T) = ∑ m ∈ Finset.range 14, rn (termB h (mb (T.cg (m + 1))) (m + 1)) := by
-    unfold Lsum rn
-    rw [list_sum_map_range, Finset.sum_div]
-  rw [this]
-  exact Finset.sum_le_sum fun m _ => termB_spec hu _ _
+  rw [eval_split, show cz (T.cg 0) + linP T u + quadP T u - cz (T.cg 0) = linP T u + quadP T u by ring, Lsum, rn_add]
+  exact (norm_add_le _ _).trans (add_le_add (norm_linP_le hu T) (norm_quadP_le hu T))
 
 /-- The sup bound `|c₀| + L + ρ`. -/
 def bnd (h : List ℕ) (T : CT) : ℕ := mb (T.cg 0) + Lsum h T + T.ρ
@@ -339,7 +375,7 @@ theorem has_const (z : ℤ × ℤ) (u : Fin 4 → ℝ) : (const z).Has u (cz z) 
   unfold CT.Has; rw [eval_const, sub_self, norm_zero]; exact rn_nonneg _
 
 /-- Enlarging the remainder. -/
-def addRho (A : CT) (e : ℕ) : CT := ⟨A.c, A.ρ + e⟩
+def addRho (A : CT) (e : ℕ) : CT := { A with ρ := A.ρ + e }
 
 theorem has_addRho {A : CT} {u : Fin 4 → ℝ} {x y : ℂ} {e : ℕ} (hx : A.Has u x) (hxy : ‖y - x‖ ≤ rn e) :
     (addRho A e).Has u y := by
@@ -451,10 +487,6 @@ def plistT (k : ℕ) : List (ℕ × ℕ) :=
   | 13 => [(0, 13), (3, 4), (4, 3), (13, 0)]
   | _ => [(0, 14), (4, 4), (14, 0)]
 
-/-- The pairs of total degree `≥ 3` (generated). -/
-def phighT : List (ℕ × ℕ) := [(1, 5), (1, 6), (1, 7), (1, 8), (1, 9), (1, 10), (1, 11), (1, 12), (1, 13), (1, 14), (2, 5), (2, 6), (2, 7), (2, 8), (2, 9), (2, 10), (2, 11), (2, 12), (2, 13), (2, 14), (3, 5), (3, 6), (3, 7), (3, 8), (3, 9), (3, 10), (3, 11), (3, 12), (3, 13), (3, 14), (4, 5), (4, 6), (4, 7), (4, 8), (4, 9), (4, 10), (4, 11), (4, 12), (4, 13), (4, 14), (5, 1), (5, 2), (5, 3), (5, 4), (5, 5), (5, 6), (5, 7), (5, 8), (5, 9), (5, 10), (5, 11), (5, 12), (5, 13), (5, 14), (6, 1), (6, 2), (6, 3), (6, 4), (6, 5), (6, 6), (6, 7), (6, 8), (6, 9), (6, 10), (6, 11), (6, 12), (6, 13), (6, 14), (7, 1), (7, 2), (7, 3), (7, 4), (7, 5), (7, 6), (7, 7), (7, 8), (7, 9), (7, 10), (7, 11), (7, 12), (7, 13), (7, 14), (8, 1), (8, 2), (8, 3), (8, 4), (8, 5), (8, 6), (8, 7), (8, 8), (8, 9), (8, 10), (8, 11), (8, 12), (8, 13), (8, 14), (9, 1), (9, 2), (9, 3), (9, 4), (9, 5), (9, 6), (9, 7), (9, 8), (9, 9), (9, 10), (9, 11), (9, 12), (9, 13), (9, 14), (10, 1), (10, 2), (10, 3), (10, 4), (10, 5), (10, 6), (10, 7), (10, 8), (10, 9), (10, 10), (10, 11), (10, 12), (10, 13), (10, 14), (11, 1), (11, 2), (11, 3), (11, 4), (11, 5), (11, 6), (11, 7), (11, 8), (11, 9), (11, 10), (11, 11), (11, 12), (11, 13), (11, 14), (12, 1), (12, 2), (12, 3), (12, 4), (12, 5), (12, 6), (12, 7), (12, 8), (12, 9), (12, 10), (12, 11), (12, 12), (12, 13), (12, 14), (13, 1), (13, 2), (13, 3), (13, 4), (13, 5), (13, 6), (13, 7), (13, 8), (13, 9), (13, 10), (13, 11), (13, 12), (13, 13), (13, 14), (14, 1), (14, 2), (14, 3), (14, 4), (14, 5), (14, 6), (14, 7), (14, 8), (14, 9), (14, 10), (14, 11), (14, 12), (14, 13), (14, 14)]
-
-
 /-- The monomials as explicit products. -/
 def monoE (m : ℕ) (u : Fin 4 → ℝ) : ℝ :=
   match m with
@@ -467,19 +499,26 @@ lemma mono_eq (m : ℕ) (hm : m < 15) (u : Fin 4 → ℝ) : mono m u = monoE m u
 
 set_option maxRecDepth 20000 in
 set_option maxHeartbeats 4000000 in
-/-- The product of two models' polynomials, regrouped: degree `≤ 2` by `plistT`, the rest `phighT`. -/
+/-- The product of two models' polynomials, regrouped: degree `≤ 2` by `plistT`; the rest is
+`lin·quad + quad·lin + quad·quad`. -/
 lemma prod_expand (a b : ℕ → ℂ) (u : Fin 4 → ℝ) :
     (∑ m ∈ Finset.range 15, a m * (mono m u : ℂ)) * (∑ n ∈ Finset.range 15, b n * (mono n u : ℂ)) =
       ∑ k ∈ Finset.range 15, ((plistT k).map fun p => a p.1 * b p.2).sum * (mono k u : ℂ) +
-        (phighT.map fun p => a p.1 * b p.2 * ((mono p.1 u : ℂ) * (mono p.2 u : ℂ))).sum := by
+        ((∑ j ∈ Finset.range 4, a (j + 1) * (mono (j + 1) u : ℂ)) *
+            (∑ k ∈ Finset.range 10, b (k + 5) * (mono (k + 5) u : ℂ)) +
+          (∑ k ∈ Finset.range 10, a (k + 5) * (mono (k + 5) u : ℂ)) *
+            (∑ j ∈ Finset.range 4, b (j + 1) * (mono (j + 1) u : ℂ)) +
+          (∑ k ∈ Finset.range 10, a (k + 5) * (mono (k + 5) u : ℂ)) *
+            (∑ k ∈ Finset.range 10, b (k + 5) * (mono (k + 5) u : ℂ))) := by
   have hm : ∀ m < 15, (mono m u : ℂ) = (monoE m u : ℂ) := fun m h => by rw [mono_eq m h]
   simp only [Finset.sum_range_succ, Finset.sum_range_zero, zero_add]
-  simp only [plistT, phighT, List.map_cons, List.map_nil, List.sum_cons, List.sum_nil]
+  simp only [plistT, List.map_cons, List.map_nil, List.sum_cons, List.sum_nil]
   simp only [hm _ (by norm_num : (0:ℕ) < 15), hm _ (by norm_num : (1:ℕ) < 15), hm _ (by norm_num : (2:ℕ) < 15),
     hm _ (by norm_num : (3:ℕ) < 15), hm _ (by norm_num : (4:ℕ) < 15), hm _ (by norm_num : (5:ℕ) < 15),
     hm _ (by norm_num : (6:ℕ) < 15), hm _ (by norm_num : (7:ℕ) < 15), hm _ (by norm_num : (8:ℕ) < 15),
     hm _ (by norm_num : (9:ℕ) < 15), hm _ (by norm_num : (10:ℕ) < 15), hm _ (by norm_num : (11:ℕ) < 15),
     hm _ (by norm_num : (12:ℕ) < 15), hm _ (by norm_num : (13:ℕ) < 15), hm _ (by norm_num : (14:ℕ) < 15)]
+  norm_num
   simp only [monoE]
   push_cast
   ring
@@ -497,36 +536,27 @@ lemma cz2_lowC (A B : CT) (k : ℕ) :
   | nil => simp [cz2]
   | cons p l ih => simp only [List.map_cons, List.foldr_cons, List.sum_cons, cz2_zadd, ih, cz_mul]
 
-/-- The bound of the dropped products of degree `≥ 3`. -/
+/-- The bound of the dropped products of degree `≥ 3`: `L₁L₂' + L₂L₁' + L₂L₂'`. -/
 def hiB (h : List ℕ) (A B : CT) : ℕ :=
-  (phighT.map fun p => cdivN (mb (A.cg p.1) * mb (B.cg p.2) * monoW h p.1 * monoW h p.2)
-    (pp * (1 + deg p.1 + deg p.2))).sum
+  cdivN (L1T h A * L2T h B + L2T h A * L1T h B + L2T h A * L2T h B) pp
 
 lemma norm_hi_le {h : List ℕ} {u : Fin 4 → ℝ} (hu : InBox h u) (A B : CT) :
-    ‖(phighT.map fun p => cz (A.cg p.1) * cz (B.cg p.2) * ((mono p.1 u : ℂ) * (mono p.2 u : ℂ))).sum‖ ≤
-      rn (hiB h A B) := by
-  unfold hiB
-  induction phighT with
-  | nil => simp [rn]
-  | cons p l ih =>
-    simp only [List.map_cons, List.sum_cons, rn_add]
-    refine (norm_add_le _ _).trans (add_le_add ?_ ih)
-    rw [norm_mul, norm_mul, norm_mul, Complex.norm_real, Complex.norm_real, Real.norm_eq_abs, Real.norm_eq_abs]
-    have a1 := norm_cz_le (A.cg p.1)
-    have a2 := norm_cz_le (B.cg p.2)
-    have m1 := abs_mono_le hu p.1
-    have m2 := abs_mono_le hu p.2
-    calc ‖cz (A.cg p.1)‖ * ‖cz (B.cg p.2)‖ * (|mono p.1 u| * |mono p.2 u|)
-        ≤ rn (mb (A.cg p.1)) * rn (mb (B.cg p.2)) * (((monoW h p.1 : ℝ) / 2 ^ (pp * deg p.1)) *
-            ((monoW h p.2 : ℝ) / 2 ^ (pp * deg p.2))) := by
-          gcongr
-          all_goals first | exact rn_nonneg _ | exact mul_nonneg (rn_nonneg _) (rn_nonneg _)
-      _ = ((mb (A.cg p.1) * mb (B.cg p.2) * monoW h p.1 * monoW h p.2 : ℕ) : ℝ) /
-            2 ^ (pp * (1 + deg p.1 + deg p.2)) / 2 ^ pp := by
-          unfold rn; push_cast
-          rw [show pp * (1 + deg p.1 + deg p.2) = pp + pp * deg p.1 + pp * deg p.2 by ring, pow_add, pow_add]
-          field_simp
-      _ ≤ _ := by unfold rn; exact div_le_div_of_nonneg_right (cdivN_spec _ _) (by positivity)
+    ‖linP A u * quadP B u + quadP A u * linP B u + quadP A u * quadP B u‖ ≤ rn (hiB h A B) := by
+  have a1 := norm_linP_le hu A
+  have a2 := norm_quadP_le hu A
+  have b1 := norm_linP_le hu B
+  have b2 := norm_quadP_le hu B
+  refine (norm_add₃_le).trans ?_
+  rw [norm_mul, norm_mul, norm_mul]
+  calc ‖linP A u‖ * ‖quadP B u‖ + ‖quadP A u‖ * ‖linP B u‖ + ‖quadP A u‖ * ‖quadP B u‖
+      ≤ rn (L1T h A) * rn (L2T h B) + rn (L2T h A) * rn (L1T h B) + rn (L2T h A) * rn (L2T h B) := by
+        have e1 := mul_le_mul a1 b2 (norm_nonneg _) (rn_nonneg _)
+        have e2 := mul_le_mul a2 b1 (norm_nonneg _) (rn_nonneg _)
+        have e3 := mul_le_mul a2 b2 (norm_nonneg _) (rn_nonneg _)
+        linarith
+    _ = ((L1T h A * L2T h B + L2T h A * L1T h B + L2T h A * L2T h B : ℕ) : ℝ) / 2 ^ pp / 2 ^ pp := by
+        unfold rn; push_cast; ring
+    _ ≤ _ := by unfold rn hiB; exact div_le_div_of_nonneg_right (cdivN_spec _ _) (by positivity)
 
 /-- The sup bound of a model's polynomial. -/
 def sB (h : List ℕ) (A : CT) : ℕ := mb (A.cg 0) + Lsum h A
@@ -546,7 +576,7 @@ theorem has_mul {h : List ℕ} {u : Fin 4 → ℝ} (hu : InBox h u) {A B : CT} {
   unfold CT.Has at *
   have hpe := prod_expand (fun m => cz (A.cg m)) (fun n => cz (B.cg n)) u
   have hAB : A.eval u * B.eval u = ∑ k ∈ Finset.range 15, cz2 (lowC A B k) * (mono k u : ℂ) +
-      (phighT.map fun p => cz (A.cg p.1) * cz (B.cg p.2) * ((mono p.1 u : ℂ) * (mono p.2 u : ℂ))).sum := by
+      (linP A u * quadP B u + quadP A u * linP B u + quadP A u * quadP B u) := by
     rw [CT.eval, CT.eval, hpe]
     congr 1
     exact Finset.sum_congr rfl fun k _ => by rw [cz2_lowC]
@@ -554,15 +584,15 @@ theorem has_mul {h : List ℕ} {u : Fin 4 → ℝ} (hu : InBox h u) {A B : CT} {
     rw [mul, eval_mk]
   have e : x * y - (mul h A B).eval u =
       (∑ k ∈ Finset.range 15, (cz2 (lowC A B k) - cz (rnd2 (lowC A B k))) * (mono k u : ℂ) +
-        (phighT.map fun p => cz (A.cg p.1) * cz (B.cg p.2) * ((mono p.1 u : ℂ) * (mono p.2 u : ℂ))).sum) +
+        (linP A u * quadP B u + quadP A u * linP B u + quadP A u * quadP B u)) +
       (A.eval u * (y - B.eval u) + (x - A.eval u) * B.eval u + (x - A.eval u) * (y - B.eval u)) := by
     rw [hmul]
     simp only [sub_mul, Finset.sum_sub_distrib]
     linear_combination hAB
   rw [e]
   refine (norm_add_le _ _).trans ?_
-  show _ ≤ rn (hiB h A B + rerr h + cdivN (sB h A * B.ρ + A.ρ * sB h B + A.ρ * B.ρ) pp)
-  rw [rn_add, rn_add]
+  rw [show (mul h A B).ρ = hiB h A B + rerr h + cdivN (sB h A * B.ρ + A.ρ * sB h B + A.ρ * B.ρ) pp from rfl,
+    rn_add, rn_add]
   have hA := norm_eval_le hu A
   have hB := norm_eval_le hu B
   have t1 := (norm_add_le _ _).trans (add_le_add (norm_round_le hu (lowC A B)) (norm_hi_le hu A B))
@@ -570,7 +600,6 @@ theorem has_mul {h : List ℕ} {u : Fin 4 → ℝ} (hu : InBox h u) {A B : CT} {
       rn (cdivN (sB h A * B.ρ + A.ρ * sB h B + A.ρ * B.ρ) pp) := by
     refine (norm_add₃_le).trans ?_
     rw [norm_mul, norm_mul, norm_mul]
-    have r1 := rn_nonneg A.ρ
     calc ‖A.eval u‖ * ‖y - B.eval u‖ + ‖x - A.eval u‖ * ‖B.eval u‖ + ‖x - A.eval u‖ * ‖y - B.eval u‖
         ≤ rn (sB h A) * rn B.ρ + rn A.ρ * rn (sB h B) + rn A.ρ * rn B.ρ := by
           have e1 := mul_le_mul hA hy (norm_nonneg _) (rn_nonneg _)
@@ -580,6 +609,88 @@ theorem has_mul {h : List ℕ} {u : Fin 4 → ℝ} (hu : InBox h u) {A B : CT} {
       _ = ((sB h A * B.ρ + A.ρ * sB h B + A.ρ * B.ρ : ℕ) : ℝ) / 2 ^ pp / 2 ^ pp := by unfold rn; push_cast; ring
       _ ≤ _ := by unfold rn; exact div_le_div_of_nonneg_right (cdivN_spec _ _) (by positivity)
   linarith
+
+/-! ### Multiplication by `i`, and linear combinations -/
+
+/-- `i · A` (exact). -/
+def mulI (A : CT) : CT := mk (fun m => (-(A.cg m).2, (A.cg m).1)) A.ρ
+
+lemma cz_mulI (a : ℤ × ℤ) : cz (-a.2, a.1) = I * cz a := by
+  unfold cz; push_cast; ring_nf; rw [Complex.I_sq]; ring
+
+theorem has_mulI {A : CT} {u : Fin 4 → ℝ} {x : ℂ} (hx : A.Has u x) : (mulI A).Has u (I * x) := by
+  unfold CT.Has at *
+  have : (mulI A).eval u = I * A.eval u := by
+    rw [mulI, eval_mk, CT.eval, Finset.mul_sum]
+    exact Finset.sum_congr rfl fun m _ => by rw [cz_mulI]; ring
+  rw [this, ← mul_sub, norm_mul, Complex.norm_I, one_mul]
+  exact hx
+
+/-- The exact coefficient `m` of `Σ_k w_k T_k`, on the grid `2^{-2pp}`. -/
+def lowS (l : List ((ℤ × ℤ) × CT)) (m : ℕ) : ℤ × ℤ := l.foldr (fun p acc => zadd (zmul p.1 (p.2.cg m)) acc) (0, 0)
+
+/-- `Σ_k |w_k| ρ_k` on the grid `2^{-2pp}`. -/
+def rhoS (l : List ((ℤ × ℤ) × CT)) : ℕ := l.foldr (fun p acc => mb p.1 * p.2.ρ + acc) 0
+
+/-- **A linear combination** `Σ_k w_k T_k` with grid weights, rounded once. -/
+def lin (h : List ℕ) (l : List ((ℤ × ℤ) × CT)) : CT := mk (fun m => rnd2 (lowS l m)) (cdivN (rhoS l) pp + rerr h)
+
+/-- The value of the combination. -/
+def valS : List ((ℤ × ℤ) × CT) → List ℂ → ℂ
+  | p :: l, x :: xs => cz p.1 * x + valS l xs
+  | _, _ => 0
+
+/-- Every model encloses its value. -/
+def HasAll (u : Fin 4 → ℝ) : List ((ℤ × ℤ) × CT) → List ℂ → Prop
+  | p :: l, x :: xs => p.2.Has u x ∧ HasAll u l xs
+  | [], [] => True
+  | _, _ => False
+
+lemma lin_ideal (u : Fin 4 → ℝ) (l : List ((ℤ × ℤ) × CT)) :
+    ∑ m ∈ Finset.range 15, cz2 (lowS l m) * (mono m u : ℂ) = (l.map fun p => cz p.1 * p.2.eval u).sum := by
+  induction l with
+  | nil => simp [lowS, cz2]
+  | cons p l ih =>
+    simp only [lowS, List.foldr_cons, List.map_cons, List.sum_cons] at ih ⊢
+    simp only [cz2_zadd, add_mul, Finset.sum_add_distrib, ← cz_mul, ih, CT.eval, Finset.mul_sum, mul_assoc]
+
+lemma lin_err {u : Fin 4 → ℝ} : ∀ (l : List ((ℤ × ℤ) × CT)) (xs : List ℂ), HasAll u l xs →
+    ‖valS l xs - (l.map fun p => cz p.1 * p.2.eval u).sum‖ ≤ ((rhoS l : ℕ) : ℝ) / 2 ^ pp / 2 ^ pp
+  | [], [], _ => by simp [valS, rhoS]
+  | p :: l, x :: xs, ⟨hp, hl⟩ => by
+    have ih := lin_err l xs hl
+    simp only [valS, List.map_cons, List.sum_cons, rhoS, List.foldr_cons] at ih ⊢
+    have e : cz p.1 * x + valS l xs - (cz p.1 * p.2.eval u + (l.map fun p => cz p.1 * p.2.eval u).sum) =
+        cz p.1 * (x - p.2.eval u) + (valS l xs - (l.map fun p => cz p.1 * p.2.eval u).sum) := by ring
+    rw [e]
+    refine (norm_add_le _ _).trans ?_
+    have h1 : ‖cz p.1 * (x - p.2.eval u)‖ ≤ ((mb p.1 * p.2.ρ : ℕ) : ℝ) / 2 ^ pp / 2 ^ pp := by
+      rw [norm_mul]
+      calc ‖cz p.1‖ * ‖x - p.2.eval u‖ ≤ rn (mb p.1) * rn p.2.ρ :=
+            mul_le_mul (norm_cz_le _) hp (norm_nonneg _) (rn_nonneg _)
+        _ = _ := by unfold rn; push_cast; ring
+    have e2 : (((mb p.1 * p.2.ρ + l.foldr (fun p acc => mb p.1 * p.2.ρ + acc) 0 : ℕ)) : ℝ) / 2 ^ pp / 2 ^ pp =
+        ((mb p.1 * p.2.ρ : ℕ) : ℝ) / 2 ^ pp / 2 ^ pp +
+          ((l.foldr (fun p acc => mb p.1 * p.2.ρ + acc) 0 : ℕ) : ℝ) / 2 ^ pp / 2 ^ pp := by push_cast; ring
+    rw [e2]
+    exact add_le_add h1 ih
+  | [], _ :: _, h => absurd h (by simp [HasAll])
+  | _ :: _, [], h => absurd h (by simp [HasAll])
+
+theorem has_lin {h : List ℕ} {u : Fin 4 → ℝ} (hu : InBox h u) {l : List ((ℤ × ℤ) × CT)} {xs : List ℂ}
+    (hl : HasAll u l xs) : (lin h l).Has u (valS l xs) := by
+  unfold CT.Has
+  have hev : (lin h l).eval u = ∑ m ∈ Finset.range 15, cz (rnd2 (lowS l m)) * (mono m u : ℂ) := by
+    rw [lin, eval_mk]
+  have e : valS l xs - (lin h l).eval u = (valS l xs - (l.map fun p => cz p.1 * p.2.eval u).sum) +
+      ∑ m ∈ Finset.range 15, (cz2 (lowS l m) - cz (rnd2 (lowS l m))) * (mono m u : ℂ) := by
+    rw [hev, ← lin_ideal u l]
+    simp only [sub_mul, Finset.sum_sub_distrib]; ring
+  rw [e]
+  refine (norm_add_le _ _).trans ?_
+  rw [show (lin h l).ρ = cdivN (rhoS l) pp + rerr h from rfl, rn_add]
+  refine add_le_add ((lin_err l xs hl).trans ?_) (norm_round_le hu _)
+  unfold rn; exact div_le_div_of_nonneg_right (cdivN_spec _ _) (by positivity)
 
 /-! ### Rounding from a finer grid -/
 
@@ -828,11 +939,12 @@ theorem has_expI {h : List ℕ} {u : Fin 4 → ℝ} (hu : InBox h u) {nT : ℕ} 
       rw [this, Complex.norm_real, Real.norm_eq_abs]
       refine (abs_add_le _ _).trans ?_
       rw [abs_mul, abs_div, abs_pow, abs_two]
-      have := rn_nonneg L2
-      have := rn_nonneg A.ρ
-      have := rn_nonneg L1
-      gcongr
-    have n5 : |t| ^ 3 / 6 ≤ (rn L1 + rn L2 + rn A.ρ) ^ 3 / 6 := by gcongr
+      have m1 := mul_le_mul ha hb (abs_nonneg _) (rn_nonneg _)
+      have m2 := pow_le_pow_left₀ (abs_nonneg (q + e)) hb 2
+      linarith
+    have n5 : |t| ^ 3 / 6 ≤ (rn L1 + rn L2 + rn A.ρ) ^ 3 / 6 := by
+      have := pow_le_pow_left₀ (abs_nonneg t) htb 3
+      linarith
     linarith
   -- `‖P‖ ≤ 1 + L1 + L2 + L1²/2`
   have hP : ‖P‖ ≤ 1 + rn L1 + rn L2 + rn L1 ^ 2 / 2 := by
@@ -840,8 +952,8 @@ theorem has_expI {h : List ℕ} {u : Fin 4 → ℝ} (hu : InBox h u) {nT : ℕ} 
     have n2 : ‖I * (q : ℂ)‖ ≤ rn L2 := by rw [norm_mul, Complex.norm_I, one_mul, Complex.norm_real]; exact hq
     have n3 : ‖(a : ℂ) ^ 2 / 2‖ ≤ rn L1 ^ 2 / 2 := by
       rw [norm_div, norm_pow, Complex.norm_real, Complex.norm_two, Real.norm_eq_abs]
-      have := abs_nonneg a
-      gcongr
+      have := pow_le_pow_left₀ (abs_nonneg a) ha 2
+      linarith
     have := norm_sub_le (1 + I * (a : ℂ) + I * q) ((a : ℂ) ^ 2 / 2)
     have := norm_add₃_le (a := (1 : ℂ)) (b := I * (a : ℂ)) (c := I * (q : ℂ))
     simp only [norm_one] at *
