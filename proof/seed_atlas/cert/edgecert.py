@@ -471,7 +471,7 @@ def edge_box_Q(eb, wc, h, wcf, tubes=None, deriv=False):
     D0, gD, qD, okD = D_predictor(sysm, Mh, Mv, wcf, xs['h'][1], xs['v'][1])
     need(okD.all(), 'edge: D predictor failed')
     Xp = TM(oacb(D0), oacb(gD), oacb(qD), zeros((B, 3, 3)), h)
-    D = S.forced_block(Xp, E, Bs, C)
+    D = S.forced_block(Xp, E, Bs, C, third=(S.E_tm3(th), S.side_tm3(phh), S.side_tm3(phv).T()))
     aD = S.arg_tm(D, eb.P.reshape(6, 6)[3:, 3:])
     dQ = dQ_derivative(sysm, eb, qh, qv, xs, E, Bs, C, D) if deriv else None
     ent = []

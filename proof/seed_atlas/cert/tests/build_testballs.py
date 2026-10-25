@@ -10,6 +10,7 @@ Usage: python build_testballs.py out.json [record:r:k ...]
        F6FIX=data/f6fixture.json python build_testballs.py                           (T1' fixture next to F6)
        EDGEFIX=data/edgeballs.json python build_testballs.py                         (edge balls at F6)
        EDGESEED=data/edgeballs.json python build_testballs.py                        (seed balls inside the edge chart)
+       HORFIX=data/horballs.json python build_testballs.py                           (horizontal-gauge seed balls, SPEC 11)
 """
 import gzip, json, os, sys, time, warnings
 import numpy as np
@@ -58,7 +59,7 @@ def build(k_rec, r, k):
                 label_radius=hx(0.03), transfers=[], n_tm=n_tm, n_sample=worst, t_proto=t_tm, edge_R=float(R))
 
 
-MODE = 'fixtures' if os.environ.get('FIXTURES') else ('f6' if os.environ.get('F6FIX') else ('edge' if os.environ.get('EDGEFIX') else ('edgeseed' if os.environ.get('EDGESEED') else 'balls')))
+MODE = 'fixtures' if os.environ.get('FIXTURES') else ('f6' if os.environ.get('F6FIX') else ('edge' if os.environ.get('EDGEFIX') else ('edgeseed' if os.environ.get('EDGESEED') else ('hor' if os.environ.get('HORFIX') else 'balls'))))
 
 if __name__ == '__main__' and MODE == 'balls':
     out = sys.argv[1]; specs = sys.argv[2:] or DEFAULT
@@ -259,3 +260,43 @@ if __name__ == '__main__' and os.environ.get('EDGESEED'):
         out[name] = d
         print(name, 'p*', np.round(d['pstar'], 3), 'o', d['o'], 'matched', d['matched'], 'edge %.3f' % d['edge'], 'rows', d['t3rows'], 'cols', d['t3cols'])
     json.dump(out, open('data/edgeseeds.json', 'w'), indent=1)
+
+
+# ---------------------------------------------------------------------------------------- horizontal gauge (SPEC 11)
+def horp(X):
+    X = np.asarray(X, float).reshape(6, 6)
+    return (X - X.mean(1, keepdims=True) - X.mean(0, keepdims=True) + X.mean()).reshape(36)
+
+
+def build_hor(k_rec, r, k, fac=1.3):
+    """A seed ball in the horizontal gauge: Mth = V S^-1 from the SVD of hor(T), U = hor(T) Mth, P = hor(P_g); n = fac x
+    the sampled max ||hor(Q_g) - P - U w|| (Q_g the dephased phases nearest P_g + U_g w)."""
+    from seedball import best_corner_split, SeedBall, complete
+    recs = json.load(gzip.open(os.path.join(ROOT, 'proof/atlas/results/atlas_certificate.json.gz')))['records']
+    phi = np.array([float.fromhex(x) for x in recs[k_rec]['phi']])
+    th, ph, pv, R, _ = best_corner_split(np.exp(1j * phi.reshape(6, 6)))
+    sb = SeedBall(th, ph, pv)
+    hT = np.array([horp(sb.T[:, j]) for j in range(4)]).T
+    Us, S, Vt = np.linalg.svd(hT, full_matrices=False)
+    Mth = Vt.T / S[None, :]; U = hT @ Mth
+    Pg = sb.P.reshape(36); P = horp(Pg)
+    H0, _, _ = complete(sb.theta0, sb.phih, sb.phiv)
+    o = int(np.sign(psi(H0[:3, 3:]).imag))
+    rng = np.random.default_rng(1)
+    dirs = rng.normal(size=(300, 4)); dirs /= np.linalg.norm(dirs, axis=1)[:, None]
+    worst = 0.0
+    for s in (r, r / 2):
+        for w in dirs:
+            q, _ = sb.Q(sb.theta0 + Mth @ (s * w))
+            worst = max(worst, np.linalg.norm(horp(q) - P - U @ (s * w)))
+    return dict(atlas_record=k_rec, gauge='hor', theta0=[hx(x) for x in sb.theta0], Mth=[hx(x) for x in Mth.reshape(16)], r=hx(r),
+                o=o, k=k, P=[hx(x) for x in P], U=[hx(x) for x in U.reshape(144)], n=hx(fac * worst), label_radius=hx(0.03),
+                transfers=[], n_sample=worst, sv_hor=[float(x) for x in S])
+
+
+if __name__ == '__main__' and os.environ.get('HORFIX'):
+    out = []
+    for a, rr, kk in ((2003, 0.125, 4), (2781, 0.1, 4), (5305, 0.125, 4)):
+        t = time.time(); d = build_hor(a, rr, kk); out.append(d)
+        print('hor record %d r %.3f: sampled %.3e  sv(hor T) %s  %.1fs' % (a, rr, d['n_sample'], np.round(d['sv_hor'], 3), time.time() - t), flush=True)
+    json.dump(dict(seeds=out), open(os.environ['HORFIX'], 'w'), indent=1)

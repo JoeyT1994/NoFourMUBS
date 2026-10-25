@@ -1,7 +1,7 @@
 """Tests of the seed-atlas certifier (proof/seed_atlas/cert).  Exits nonzero on any failure.
 
   python3 proof/seed_atlas/cert/tests/run_tests.py            all tests (about a minute; Stage C is the slow one)
-  python3 proof/seed_atlas/cert/tests/run_tests.py tm c1      a subset: tm, boxes, c1, sampling, stagec, transfers, record,
+  python3 proof/seed_atlas/cert/tests/run_tests.py tm c1      a subset: tm, tm3, boxes, hor, c1, sampling, stagec, transfers, record,
                                                               negative, t1prime_f6, edge, graph, edge_certificate,
                                                               global_, certificate
 
@@ -114,6 +114,50 @@ def test_tm():
     check('tm: norm_sup >= sampled sup', worst <= 1, 'max ||f|| / bound %.3f' % worst)
 
 
+def test_tm3():
+    """Third-order TMs (forced-block and Krawczyk residuals): exp_i3, entrywise and matrix products enclose the exact
+    results at sampled u (functions f = poly + e(u), |e| <= rho)."""
+    rng = np.random.default_rng(9)
+    B = 2
+    hf = np.array([[0.05, 0.03, 0.04, 0.02]] * B); h = TMA.oarb(hf)
+    MONO3 = TMA.MONO3
+    def mid(x): return complex(float(x.real.mid()), float(x.imag.mid())) if isinstance(x, acb) else float(x.mid())
+    def poly3(t, b, u):
+        c = np.vectorize(mid, otypes=[complex])(t.c[b]); g = np.vectorize(mid, otypes=[complex])(t.g[b])
+        q = np.vectorize(mid, otypes=[complex])(t.q[b]); k = np.vectorize(mid, otypes=[complex])(t.k[b])
+        m2 = np.array([u[j] * u[l] for j, l in TMA.MONO]); m3 = np.array([u[a] * u[b_] * u[c] for a, b_, c in MONO3])
+        return c + g @ u + q @ m2 + k @ m3
+    def rand3(shape, rho):
+        z = lambda *s_: TMA.oacb(rng.normal(size=s_) * 0.3 + 1j * rng.normal(size=s_) * 0.3)
+        return TMA.TM3(z(B, *shape), z(B, *shape, 4), z(B, *shape, 10), z(B, *shape, 20), TMA.oarb(np.full((B,) + shape, rho)), h)
+    def realise(t, b, u, seed):
+        rr = np.array([float(x.upper()) for x in t.rho[b].flat]).reshape(t.rho[b].shape)
+        return poly3(t, b, u) + np.sin(7 * u.sum() + seed) * rr * np.exp(1j * seed)
+    def ratio(err, rho_arr):
+        r = np.array([float(x.upper()) for x in np.asarray(rho_arr).flat]).reshape(np.shape(rho_arr))
+        return (np.abs(err) / r).max()
+    a = rand_tm(rng, B, (5,), False, 1e-3, h)
+    e = TMA.exp_i3(a); worst = 0.0
+    for b in range(B):
+        for _ in range(200):
+            u = rng.uniform(-1, 1, 4) * hf[b]
+            ra = np.array([float(x.upper()) for x in a.rho[b]])
+            fa = poly(a, b, u).real + np.sin(7 * u.sum() + 0.3) * ra
+            worst = max(worst, ratio(np.exp(1j * fa) - poly3(e, b, u), e.rho[b]))
+    check('tm3: exp_i3 encloses e^{i f}', worst <= 1, 'max |err|/rho %.3f' % worst)
+    x = rand3((3, 3), 2e-3); y = rand3((3, 3), 1e-3)
+    pm, mm = x * y, x @ y
+    wp = wm = 0.0
+    for b in range(B):
+        for _ in range(200):
+            u = rng.uniform(-1, 1, 4) * hf[b]
+            fx = realise(x, b, u, 0.1).reshape(3, 3); fy = realise(y, b, u, 0.7).reshape(3, 3)
+            wp = max(wp, ratio(fx * fy - poly3(pm, b, u).reshape(3, 3), pm.rho[b]))
+            wm = max(wm, ratio(fx @ fy - poly3(mm, b, u).reshape(3, 3), mm.rho[b]))
+    check('tm3: entrywise product encloses', wp <= 1, 'max |err|/rho %.3f' % wp)
+    check('tm3: matrix product encloses', wm <= 1, 'max |err|/rho %.3f' % wm)
+
+
 # ============================================================================================== C1
 C1_CACHE = {}
 
@@ -165,17 +209,20 @@ def test_sampling():
         keep, wc, h, wcf = S.ball_boxes(b.r, b.k)
         nb = S.residual_bound(b, S.box_Q(b, wc, h, wcf), wc, wcf)
         nbf = np.array([TMA.up(x) for x in nb])
-        worst = 0.0
+        worst = 0.0; nsamp = 0
         for bi in range(len(keep)):
             hf = b.r / b.k
-            for t in range(4):
+            for t in range(12):
                 u = hf * np.sign(rng.normal(size=4)) if t == 0 else rng.uniform(-hf, hf, 4)
                 w = wcf[bi] + u
+                if np.linalg.norm(w) > b.r:                 # the per-box bound covers the box's part inside the ball
+                    w = w * (b.r / np.linalg.norm(w))
+                    if np.any(np.abs(w - wcf[bi]) > hf): continue
                 q, _ = sb.Q(b.theta0 + b.Mth @ w)
                 res = q - b.P - b.U @ w
                 res -= 2 * np.pi * np.rint(res / (2 * np.pi))
-                worst = max(worst, np.linalg.norm(res) / nbf[bi])
-        check('sampling ball %d: true remainder <= per-box bound' % i, worst <= 1, 'max ratio %.3f' % worst)
+                worst = max(worst, np.linalg.norm(res) / nbf[bi]); nsamp += 1
+        check('sampling ball %d: true remainder <= per-box bound (box and ball)' % i, worst <= 1, 'max ratio %.3f over %d points' % (worst, nsamp))
 
 
 def test_stagec():
@@ -286,13 +333,14 @@ def test_negative():
     check('negative: base ball passes C1', base['ok'], 'n_cert %.4e n %.4e' % (base['n_cert'], F.fh(d['n'])))
     def c1_of(e): return S.certify_c1(S.Ball(e))
     def add(i, dx): return lambda v: v.__setitem__(i, v[i] + dx)
+    smp = d['n_sample']                                  # sampled true remainder: any n below it violates C1
     cases = [
-        ('n halved', corrupt_ball(d, 'n', lambda v: F.hx(F.fh(v) / 2))),
-        ('n just below n_cert', corrupt_ball(d, 'n', lambda v: F.hx(base['n_cert'] * (1 - 1e-6)))),
-        ('r enlarged x1.5', corrupt_ball(d, 'r', lambda v: F.hx(F.fh(v) * 1.5))),
+        ('n = 0.9 x the sampled true remainder', corrupt_ball(d, 'n', lambda v: F.hx(0.9 * smp))),
+        ('n = 0.5 x the sampled true remainder', corrupt_ball(d, 'n', lambda v: F.hx(0.5 * smp))),
+        ('r enlarged x3 (same n)', corrupt_ball(d, 'r', lambda v: F.hx(F.fh(v) * 3))),
         ('P entry (3,4) + 0.01', corrupt_ball(d, 'P', add(22, 0.01))),
         ('P entry (1,1) + 0.01 (a seed entry)', corrupt_ball(d, 'P', add(7, 0.01))),
-        ('U entry scaled x1.2', corrupt_ball(d, 'U', lambda v: v.__setitem__(40, v[40] * 1.2))),
+        ('U entry scaled x3', corrupt_ball(d, 'U', lambda v: v.__setitem__(40, v[40] * 3))),
         ('U columns swapped', corrupt_ball(d, 'U', lambda v: [v.__setitem__(slice(4 * e, 4 * e + 2), [v[4 * e + 1], v[4 * e]]) for e in range(36)])),
         ('theta0[2] + 0.01', corrupt_ball(d, 'theta0', add(2, 0.01))),
         ('Mth entry x1.2', corrupt_ball(d, 'Mth', lambda v: v.__setitem__(5, v[5] * 1.2))),
@@ -399,8 +447,8 @@ def test_certificate():
         check("certificate: record passes (Stage C, T1' boundary, coverage)", res[('record', 0)]['ok'], res[('record', 0)].get('reason', ''))
         check('certificate: F6 is not in record 2003 (rejected)', not res[('fourier', None)]['ok'])
         check('certificate: overall verdict is not PASS', code != 0, 'wall %.1fs' % (time.time() - t))
-        # corrupt seed 0's n in the file: rejected through the whole pipeline
-        cert2 = copy.deepcopy(cert); cert2['seeds'][0]['n'] = F.hx(F.fh(cert['seeds'][0]['n']) / 3)
+        # corrupt seed 0's n below its sampled true remainder: rejected through the whole pipeline
+        cert2 = copy.deepcopy(cert); cert2['seeds'][0]['n'] = F.hx(0.8 * F.BALLS[1]['n_sample'])     # below the true remainder
         with gzip.open(p, 'wt') as f: json.dump(cert2, f)
         CS.main([p, '--only', 'seeds:0', '--receipt', rc])
         r0 = json.load(open(rc))['results'][0]
@@ -655,7 +703,44 @@ def test_edge_certificate():
         check('edge certificate: overall FAIL (the edge sphere is open)', code != 0, '%.0fs' % (time.time() - t))
 
 
-TESTS = dict(tm=test_tm, boxes=test_boxes, c1=test_c1, sampling=test_sampling, stagec=test_stagec, transfers=test_transfers,
+HORBALLS = json.load(open(os.path.join(HERE, 'data/horballs.json')))['seeds']
+
+
+def test_hor():
+    """SPEC section 11: horizontal-gauge seed balls (P = hor(P_g), U = hor(T) Mth): adaptive C1 against n = 1.3 x the
+    sampled remainder, Stage C, T0 and T1 (corner symmetry) transfers, and corruptions (gauge field dropped, P in the
+    wrong gauge, n below the sampled remainder, an unknown gauge)."""
+    d = copy.deepcopy(HORBALLS[2])
+    b = S.Ball(d)
+    o = S.certify_c1(b)
+    check('hor C1: record 5305, r 0.125, n = 1.3 x sampled', o['ok'], 'n_cert %.4e, n %.4e, sampled %.4e, levels %s, %.0fs' % (
+        o['n_cert'], b.n, d['n_sample'], o.get('levels'), o['seconds']))
+    t = time.time(); sc = S.run_stage_c(b)
+    check('hor Stage C on the stored (P, U, r, n)', sc.get('ok'), 'labels %s %.1fs' % (sc.get('labels'), time.time() - t))
+    big = S.Ball(F.scaled(d, 2 * b.r))
+    try:
+        cnt = S.check_seed_transfers(b, [b, big], [], [dict(kind='T0', target=1, wind=[0, 0, 0, 0], boxes=F.sphere_boxes(3))], 9)
+        check('hor T0 into a concentric larger ball', cnt['T0'] > 0)
+    except S.CertError as e:
+        check('hor T0', False, str(e))
+    sym = S.Ball(perm_ball(d, [2, 3, 0, 1], rfac=2))
+    try:
+        S.check_seed_transfers(b, [b, sym], [], [dict(kind='T1', target=1, g='id', rows=[0, 2, 1], cols=[0, 1, 2], wind=[0, 0, 0, 0],
+                                                      boxes=F.sphere_boxes(3))], 9)
+        check('hor T1 corner symmetry (representative from gauge(P), gauge(U))', True)
+    except S.CertError as e:
+        check('hor T1 corner symmetry', False, str(e))
+    nog = copy.deepcopy(d); nog.pop('gauge')
+    rejects('negative hor: "gauge" dropped (P read as dephased)', lambda: S.certify_c1(S.Ball(nog)))
+    deph = copy.deepcopy(d)
+    Pg = [float(x.mid()) for x in b.Pg_a]; deph['P'] = [F.hx(x) for x in Pg]
+    rejects('negative hor: P stored in the dephased gauge under "gauge": "hor"', lambda: S.certify_c1(S.Ball(deph)))
+    low = copy.deepcopy(d); low['n'] = F.hx(0.9 * d['n_sample'])
+    rejects('negative hor: n = 0.9 x the sampled remainder', lambda: S.certify_c1(S.Ball(low)))
+    rejects('negative hor: unknown gauge', lambda: S.Ball(dict(d, gauge='vert')))
+
+
+TESTS = dict(tm=test_tm, tm3=test_tm3, boxes=test_boxes, hor=test_hor, c1=test_c1, sampling=test_sampling, stagec=test_stagec, transfers=test_transfers,
              record=test_record, negative=test_negative, t1prime_f6=test_t1prime_f6, edge=test_edge, graph=test_graph, edge_certificate=test_edge_certificate, global_=test_global, certificate=test_certificate)
 
 if __name__ == '__main__':

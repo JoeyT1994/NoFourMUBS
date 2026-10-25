@@ -29,6 +29,7 @@ ATLAS = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)),
 if ATLAS not in sys.path: sys.path.append(ATLAS)
 PREC = 120
 ctx.prec = PREC
+ZERO_ARB = arb(0)
 PI = arb.pi()
 TWO_PI_ARB = 2 * PI
 POS = [(1, 1), (1, 2), (2, 1), (2, 2)]
@@ -37,6 +38,10 @@ PAIRS = [(0, 1), (0, 2), (1, 2)]
 
 class CertError(Exception):
     """A check failed (the certificate is rejected)."""
+
+
+class CertFatal(CertError):
+    """A failure that refining the box cannot repair (e.g. a certified wrong orientation): C1 stops at once."""
 
 
 def need(cond, msg):
@@ -71,6 +76,17 @@ class Ball:
         self.theta0_a = oarb(self.theta0); self.Mth_a = oarb(self.Mth); self.P_a = oarb(self.P); self.U_a = oarb(self.U)
         self.r_a = arb(self.r)
         self._Minv = None
+        # SPEC section 11: "gauge": "hor" stores P = hor(P_g), U = hor(T) Mth; the dephased-gauge centre and frame are
+        # the exact cross ratios P_g = gauge(P), U_g = gauge(U) (gauge(X)_ab = X_ab - X_a0 - X_0b + X_00).  Without the
+        # field, P and U are already in the dephased gauge.
+        self.gauge = d.get('gauge')
+        need(self.gauge in (None, 'hor'), 'seed ball: unknown gauge %r' % (self.gauge,))
+        if self.gauge == 'hor':
+            G = gauge_matrix()
+            self.Pg_a = G.dot(self.P_a); self.Ug_a = G.dot(self.U_a)
+            self.Pg = np.array([float(x.mid()) for x in self.Pg_a]); self.Ug = np.array([[float(x.mid()) for x in row] for row in self.Ug_a])
+        else:
+            self.Pg_a, self.Ug_a, self.Pg, self.Ug = self.P_a, self.U_a, self.P, self.U
 
     def Minv(self):
         """Rigorous enclosure of Mth^-1 (raises if Mth is not certified invertible)."""
@@ -87,6 +103,15 @@ class Ball:
             need(all(x.is_finite() for x in A.flat), 'Mth not certified invertible')
             self._Minv = A
         return self._Minv
+
+
+def gauge_matrix():
+    """36 x 36 integer matrix (as exact arbs) of gauge(X)_ab = X_ab - X_a0 - X_0b + X_00 (row-major)."""
+    M = np.zeros((36, 36), int)
+    for a in range(6):
+        for b in range(6):
+            M[6 * a + b, 6 * a + b] += 1; M[6 * a + b, 6 * a] -= 1; M[6 * a + b, b] -= 1; M[6 * a + b, 0] += 1
+    return oarb(M.astype(float))
 
 
 # ======================================================================================== float predictors
@@ -155,8 +180,8 @@ def D_f(th, phh, phv):
 
 
 def centre_sides(ball):
-    """Float sides at theta0, from the phases in P (Newton-polished).  Any choice is only a predictor."""
-    P = ball.P.reshape(6, 6)
+    """Float sides at theta0, from the dephased-gauge phases P_g (Newton-polished).  Any choice is only a predictor."""
+    P = ball.Pg.reshape(6, 6)
     phh = np.array([P[1, 3], P[1, 4], P[1, 5], P[2, 3], P[2, 4], P[2, 5]])
     phv = np.array([P[3, 1], P[4, 1], P[5, 1], P[3, 2], P[4, 2], P[5, 2]])
     Gh, Gv = grams_f(seedE_f(ball.theta0))
@@ -247,6 +272,40 @@ def side_tm(phi):
     return stack([one, one, one] + [e[k] for k in range(6)], (3, 3), phi.h, True)
 
 
+def E_tm3(th):
+    """E as a third-order TM (B, 3, 3) from the seed TM th (B, 4)."""
+    e = TMA.exp_i3(th)
+    one = acb(1)
+    return TMA.stack3([one, one, one, one, TMA.entry3(e, 0), TMA.entry3(e, 1), one, TMA.entry3(e, 2), TMA.entry3(e, 3)], (3, 3), th.h)
+
+
+def side_tm3(phi):
+    """The side matrix as a third-order TM (B, 3, 3) from the real TM phi (B, 6)."""
+    e = TMA.exp_i3(phi)
+    one = acb(1)
+    return TMA.stack3([one, one, one] + [TMA.entry3(e, k) for k in range(6)], (3, 3), phi.h)
+
+
+def F_tm3(phi, G3):
+    """The Gram residual F(phi; G) (B, 6) as a third-order TM, phi a real (second-order) TM without remainder and
+    G3 = 6I - E E^* a third-order TM (B, 3, 3)."""
+    e = TMA.exp_i3(phi)
+    b1 = TMA.stack3([TMA.entry3(e, k) for k in range(3)], (3,), phi.h)
+    b2 = TMA.stack3([TMA.entry3(e, k) for k in range(3, 6)], (3,), phi.h)
+    cb1, cb2 = b1.conj(), b2.conj()
+    m01 = cb1.sum1(); m02 = cb2.sum1(); m12 = (b1 * cb2).sum1()
+    v = [m01 - G3[0, 1], m02 - G3[0, 2], m12 - G3[1, 2]]
+    return TMA.stack3([x.re() for x in v] + [x.im() for x in v], (6,), phi.h, cplx=False)
+
+
+def gram_tms3(E3):
+    six = np.full((3, 3), TMA.CZERO, dtype=object)
+    for i in range(3): six[i, i] = TMA.acb(6)
+    M = E3 @ E3.H(); Mt = E3.T() @ E3.conj()
+    neg = lambda t: TMA.TM3(-t.c, -t.g, -t.q, -t.k, t.rho, t.h)
+    return neg(M) + six, neg(Mt) + six
+
+
 def gram_tms(E):
     six = np.full((3, 3), TMA.CZERO, dtype=object)
     for i in range(3): six[i, i] = TMA.acb(6)
@@ -327,14 +386,17 @@ def sign_certified(t):
     return out
 
 
-def side_tube(pred, G, Y, tries=8, rho_max=0.3):
+def side_tube(pred, G, Y, tries=8, rho_max=0.3, G3=None):
     """Parametric Krawczyk on F(phi; G(u)) = 0 over the box.  pred: real TM (B, 6) with zero remainder (the
     predictor), Y: (B, 6, 6) exact constants.  For each box, with the tube X(u) = pred(u) + [-rho, rho]^6,
         b = sup_u |Y F(pred(u); G(u))|,  q_i = sum_k sup_{u, phi in X(u)} |I - Y J(phi)|_ik,
     b_i + q_i rho < rho for all i (certified in Arb) implies: for every u exactly one zero of F(.; G(u)) in X(u), and it
     lies in pred(u) + [-(b + q rho), b + q rho].  Returns the tube TM (pred with remainder b + q rho) or raises."""
     B = pred.c.shape[0]
-    b = F_tm(pred, G).lmul(Y).bound()                                       # (B, 6) arb
+    if G3 is not None:                                                       # b from third-order TMs (cubic terms exact)
+        b = F_tm3(pred, G3).lmul(Y).bound()
+    else:
+        b = F_tm(pred, G).lmul(Y).bound()                                   # (B, 6) arb
     bf = vup(b)
     rho = np.maximum(1.5 * bf.max(1), 1e-300)
     I6 = np.full((6, 6), TMA.ZERO, dtype=object)
@@ -360,13 +422,20 @@ def side_tube(pred, G, Y, tries=8, rho_max=0.3):
     raise CertError('Krawczyk: no contraction after %d tries' % tries)
 
 
-def forced_block(Xp, E, Bs, C):
+def forced_block(Xp, E, Bs, C, third=None):
     """D = -C E^* (B^*)^-1 enclosed as the predictor Xp plus a remainder (never through an inverse product):
-    D - Xp = -(C E^* + Xp B^*) (B^*)^-1, so |D - Xp| <= |Rs| Minv entrywise, with |Rs| <= sup|C E^* + Xp B^*| and
+    D - Xp = -(C E^* + Xp B^*) (B^*)^-1, so |D - Xp| <= |Rs| Minv entrywise, with |Rs| <= sup|C E^* + Xp B^*| (from
+    third-order TMs of E, B, C when given) and
     Minv >= |(B^*)^-1|: for any A0, X = I - A0 B^*, q = sup ||X||_inf < 1 gives (B^*)^-1 = sum_k X^k A0 and
     |(B^*)^-1| <= |A0| + q/(1-q) ||A0||_inf (entrywise)."""
     Bh = Bs.H()
-    Rs = (C @ E.H()) + (Xp @ Bh)
+    if third is not None:
+        # the residual in third-order TMs (third = (E3, B3, C3)): its cubic terms are exact, so the true cancellation
+        # in C E^* + Xp B^* (= (Xp - D) B^*, small to all orders) is kept and only quartic terms are bounded
+        E3, B3, C3 = third
+        Rs = (C3 @ E3.H()) + (TMA.TM3.from2(Xp) @ B3.H())
+    else:
+        Rs = (C @ E.H()) + (Xp @ Bh)
     Rb = Rs.bound()                                                          # (B, 3, 3)
     Bmid = np.array([[[complex(float(z.real.mid()), float(z.imag.mid())) for z in row] for row in M] for M in Bh.c])
     A0f = np.linalg.inv(Bmid)
@@ -421,19 +490,23 @@ def box_Q(ball, wc, h, wcf):
     need(pr['ok'].all(), 'predictor (float continuation) failed')
     E = E_tm(th)
     Gh, Gv = gram_tms(E)
+    E3 = E_tm3(th)
+    Gh3, Gv3 = gram_tms3(E3)
     tubes = {}
-    for which, G in (('h', Gh), ('v', Gv)):
+    for which, G, G3 in (('h', Gh, Gh3), ('v', Gv, Gv3)):
         ph0, g, q = pr[which]
         pred = real_tm(ph0, g, q, h)
-        tubes[which] = side_tube(pred, G, oarb(pr['Y' + which]))
+        tubes[which] = side_tube(pred, G, oarb(pr['Y' + which]), G3=G3)
     Bs = side_tm(tubes['h']); V = side_tm(tubes['v']); C = V.T()
     sB = sign_certified(psi_tm(Bs).im()); sV = sign_certified(psi_tm(V).im())
+    if np.any(sB == -ball.o) or np.any(sV == ball.o):
+        raise CertFatal('orientation: the side continued from P has the opposite certified sign of Im Psi')
     need(np.all(sB == ball.o), 'orientation: sign Im Psi(B) not certified = o')
     need(np.all(sV == -ball.o), 'matching: sign Im Psi(C^T) not certified = -o')
     D0, gD, qD = pr['D']
     Xp = TM(oacb(D0), oacb(gD), oacb(qD), zeros((B, 3, 3)), h)
-    D = forced_block(Xp, E, Bs, C)
-    Pm = ball.P.reshape(6, 6)
+    D = forced_block(Xp, E, Bs, C, third=(E3, side_tm3(tubes['h']), side_tm3(tubes['v']).T()))
+    Pm = ball.Pg.reshape(6, 6)
     aD = arg_tm(D, Pm[3:, 3:])
     ent = []
     for j in range(6):
@@ -457,53 +530,143 @@ def wind_to(Q, Pref):
 
 
 def representative(ball, Q, wcf):
-    """The representative of FORMAT.md section 3: entrywise nearest P + U w (decided at the box centre wcf)."""
-    return wind_to(Q, ball.P[None] + wcf @ ball.U.T)
+    """The representative of FORMAT.md section 3: entrywise nearest P_g + U_g w (decided at the box centre wcf), in the
+    dephased gauge (P_g = P, U_g = U unless "gauge": "hor")."""
+    return wind_to(Q, ball.Pg[None] + wcf @ ball.Ug.T)
 
 
 # ======================================================================================== claim C1
+def residual_bound(ball, Q, wc, wcf):
+    """Per box: an upper bound (arb) of sup_u ||Q(u) - P - 2 pi N - U (wc + u)|| (dephased gauge), or of
+    sup_u ||hor(Q(u) + 2 pi N) - P - U (wc + u)|| for "gauge": "hor" (SPEC section 11), Q the dephased-gauge
+    representative nearest P_g + U_g w."""
+    Qw = hor_for_norm(ball, representative(ball, Q, wcf))
+    res = TM(Qw.c - ball.P_a[None] - np.einsum('ej,bj->be', ball.U_a, wc), Qw.g - ball.U_a[None], Qw.q, Qw.rho, Q.h)
+    return TMA.norm_sup(res, wc, ball.r, wcf)
+
+
+def hor_for_norm(ball, Qw):
+    """For "gauge": "hor": hor applied exactly to the polynomial coefficients, with the remainder bounds left as they
+    are.  This is NOT an entrywise Taylor model of hor(Q) (hor(e)_k is not bounded by rho_k); it is only used through
+    ||rho||_2, and ||hor(e)||_2 <= ||e||_2 <= ||rho||_2 since hor is an orthogonal projector (norm_sup and the centre
+    lower bound use exactly that).  Dephased gauge: unchanged."""
+    if ball.gauge != 'hor': return Qw
+    H = hor()
+    E = np.einsum
+    return TM(E('pm,bm->bp', H, Qw.c), E('pm,bmv->bpv', H, Qw.g), E('pm,bmv->bpv', H, Qw.q), Qw.rho, Qw.h)
+
+
+def residual_at_centre_lower(ball, Q, wc, wcf):
+    """Per box: a lower bound (float) of the residual's norm at the box centre (||c|| - ||rho||): if it exceeds n at a
+    centre inside the ball, C1 is false there for this representative, and for every other one (a 2 pi shift of an
+    entry only increases |Q_e - (P + U w)_e| beyond pi > n, or changes nothing after hor in the horizontal gauge)."""
+    Qw = hor_for_norm(ball, representative(ball, Q, wcf))
+    c = Qw.c - ball.P_a[None] - np.einsum('ej,bj->be', ball.U_a, wc)
+    out = []
+    for b in range(c.shape[0]):
+        s2l = TMA.lo((c[b] * c[b]).sum())
+        cn = arb(s2l).sqrt() if s2l > 0 else arb(0)
+        rr = TMA.sqrt_up((Qw.rho[b] * Qw.rho[b]).sum())
+        out.append(TMA.lo(cn - rr))
+    return np.array(out)
+
+
 def ball_boxes(r, k):
-    """The closed boxes of [-r, r]^4 (k per axis) that meet the OPEN ball ||w|| < r: min ||w||^2 over the box < r^2,
-    decided in exact rationals.  Their union contains the closed ball: for ||w|| <= r, the points (1 - 1/m) w lie in
-    the open ball, hence each in some kept box; one of the finitely many kept boxes contains infinitely many of them,
-    and it is closed, so it contains w.  (Boxes meeting the ball in boundary points only, e.g. the 16 corner boxes for
-    k = 4 that touch it at one vertex, are not needed.)  Returns (index tuples, wc arb (B, 4), h arb (B, 4), wc float)."""
-    rq = Fr(r); hq = rq / k
-    keep = []
-    for idx in itertools.product(range(k), repeat=4):
-        cq = [-rq + (2 * i + 1) * hq for i in idx]
-        dmin = sum(max(abs(c) - hq, Fr(0)) ** 2 for c in cq)
-        if dmin < rq * rq: keep.append(idx)
-    ra = arb(r)
-    wc = np.array([[ra * (2 * i + 1 - k) / k for i in idx] for idx in keep], dtype=object).reshape(len(keep), 4)
-    h = np.full((len(keep), 4), ra / k, dtype=object)
-    wcf = np.array([[r * (2 * i + 1 - k) / k for i in idx] for idx in keep], float).reshape(len(keep), 4)
+    """The boxes of [-r, r]^4 (k per axis) that meet the OPEN ball (see grid_boxes)."""
+    keep = [idx for idx in itertools.product(range(k), repeat=4) if meets_open_ball(r, k, idx)]
+    wc, h, wcf = grid_geometry(r, k, keep)
     return keep, wc, h, wcf
 
 
-def residual_bound(ball, Q, wc, wcf):
-    """Per box: an upper bound (arb) of sup_u ||Q(u) - P - 2 pi N - U (wc + u)||."""
-    Qw = representative(ball, Q, wcf)
-    res = TM(Qw.c - ball.P_a[None] - np.einsum('ej,bj->be', ball.U_a, wc), Qw.g - ball.U_a[None], Qw.q, Qw.rho, Q.h)
-    return TMA.norm_sup(res)
+def meets_open_ball(r, K, idx):
+    """Exact: the closed box idx of the K-grid of [-r, r]^4 meets {||w|| < r} (min ||w||^2 < r^2).  The closed boxes
+    meeting the open ball cover the closed ball: for ||w|| <= r, the points (1 - 1/m) w lie in the open ball, hence each
+    in some kept box; one of the finitely many kept boxes contains infinitely many of them, and it is closed."""
+    rq = Fr(r); hq = rq / K
+    return sum(max(abs(-rq + (2 * i + 1) * hq) - hq, Fr(0)) ** 2 for i in idx) < rq * rq
 
 
-def certify_c1(ball, chunk=64):
-    """Claim C1 for one seed ball.  Returns dict(ok, n_cert, reason, boxes, seconds)."""
+def grid_geometry(r, K, idxs):
+    """Exact centres (arb), half-widths (arb) and float centres of boxes idx of the K-grid of [-r, r]^4."""
+    ra = arb(r)
+    wc = np.array([[ra * (2 * i + 1 - K) / K for i in idx] for idx in idxs], dtype=object).reshape(len(idxs), 4)
+    h = np.full((len(idxs), 4), ra / K, dtype=object)
+    wcf = np.array([[r * (2 * i + 1 - K) / K for i in idx] for idx in idxs], float).reshape(len(idxs), 4)
+    return wc, h, wcf
+
+
+def _box_bounds(ball, wc, h, wcf):
+    """Per-box residual bounds and centre lower bounds (floats; inf / -inf where the box's Taylor models fail),
+    batched; a failing batch is redone box by box so that only the failing boxes are marked."""
+    try:
+        Q = box_Q(ball, wc, h, wcf)
+        return (np.array([up(x) for x in residual_bound(ball, Q, wc, wcf)]), residual_at_centre_lower(ball, Q, wc, wcf),
+                [''] * len(wc))
+    except CertFatal:
+        raise
+    except CertError as e:
+        if len(wc) == 1: return np.array([math.inf]), np.array([-math.inf]), [str(e)]
+        out, low, why = [], [], []
+        for b in range(len(wc)):
+            v, l, w = _box_bounds(ball, wc[b:b + 1], h[b:b + 1], wcf[b:b + 1])
+            out.append(v[0]); low.append(l[0]); why.append(w[0])
+        return np.array(out), np.array(low), why
+
+
+def centre_in_ball(r, K, idx):
+    rq = Fr(r)
+    return sum((-rq + (2 * i + 1) * rq / K) ** 2 for i in idx) <= rq * rq
+
+
+def certify_c1(ball, chunk=128, max_depth=4, max_boxes=100000):
+    """Claim C1 for one seed ball, on an adaptive partition (SPEC section 11): the k-grid boxes meeting the open ball;
+    a box whose bound exceeds n, or whose Taylor models fail, is replaced by its 16 children (the 2k-grid boxes inside
+    it) that meet the open ball, up to max_depth levels.  Every accepted box has bound <= n; their union contains the
+    ball (each refinement keeps all children meeting the open ball).  Stops early, with a certified violation, if a
+    box centre inside the ball has residual > n; when two consecutive levels accept no box; and when the number of
+    boxes would exceed max_boxes (each of these is a rejection, never an acceptance).  Returns
+    dict(ok, n_cert, reason, boxes, levels, seconds), n_cert the maximum bound over the accepted boxes (or over the
+    final failing ones)."""
     ctx.prec = PREC
     t0 = time.time()
     try:
         ball.Minv()                                                          # E is a genuine 4-dim ellipsoid
-        keep, wc, h, wcf = ball_boxes(ball.r, ball.k)
-        worst = 0.0
-        for s in range(0, len(keep), chunk):
-            sl = slice(s, s + chunk)
-            Q = box_Q(ball, wc[sl], h[sl], wcf[sl])
-            nb = residual_bound(ball, Q, wc[sl], wcf[sl])
-            worst = max(worst, max(up(x) for x in nb))
-        ok = worst <= ball.n
-        return dict(ok=ok, n_cert=worst, reason='' if ok else 'C1: n_cert %.6e > n %.6e' % (worst, ball.n),
-                    boxes=len(keep), seconds=time.time() - t0)
+        level = 0; K = ball.k
+        pending = [idx for idx in itertools.product(range(K), repeat=4) if meets_open_ball(ball.r, K, idx)]
+        worst = 0.0; nboxes = 0; levels = {}; total = 0
+        while pending:
+            total += len(pending)
+            if total > max_boxes:
+                return dict(ok=False, n_cert=math.inf, reason='C1: refinement budget (%d boxes) exceeded' % max_boxes,
+                            boxes=nboxes, levels=levels, seconds=time.time() - t0)
+            wc, h, wcf = grid_geometry(ball.r, K, pending)
+            vals = np.empty(len(pending)); lows = np.empty(len(pending)); whys = [''] * len(pending)
+            for s in range(0, len(pending), chunk):
+                v, l, w = _box_bounds(ball, wc[s:s + chunk], h[s:s + chunk], wcf[s:s + chunk])
+                vals[s:s + chunk] = v; lows[s:s + chunk] = l; whys[s:s + chunk] = w
+            for i, idx in enumerate(pending):
+                if lows[i] > ball.n and centre_in_ball(ball.r, K, idx):
+                    return dict(ok=False, n_cert=float(vals.max()), reason='C1: violated at a box centre in the ball '
+                                '(residual >= %.6e > n %.6e)' % (lows[i], ball.n), boxes=nboxes, levels=levels, seconds=time.time() - t0)
+            good = vals <= ball.n
+            if good.any(): worst = max(worst, float(vals[good].max()))
+            nboxes += int(good.sum()); levels[level] = int(good.sum())
+            bad = [p for p, g in zip(pending, good) if not g]
+            if not bad: break
+            if level >= 1 and levels[level] == 0 and levels[level - 1] == 0:
+                i = int(np.argmax(vals)); reason = whys[i] or 'n_cert %.6e > n %.6e' % (float(vals.max()), ball.n)
+                return dict(ok=False, n_cert=float(vals.max()), reason='C1: no box accepted on two levels (%s)' % reason,
+                            boxes=nboxes, levels=levels, seconds=time.time() - t0)
+            if level >= max_depth:
+                i = int(np.argmax(np.where(good, -1, vals)))
+                bound = float(vals[~good].max())
+                reason = whys[i] or 'n_cert %.6e > n %.6e' % (bound, ball.n)
+                return dict(ok=False, n_cert=bound, reason='C1: ' + reason, boxes=nboxes, levels=levels, seconds=time.time() - t0)
+            K2 = 2 * K
+            pending = [tuple(2 * i + b for i, b in zip(idx, bits)) for idx in bad for bits in itertools.product((0, 1), repeat=4)]
+            pending = [idx for idx in pending if meets_open_ball(ball.r, K2, idx)]
+            K = K2; level += 1
+        return dict(ok=True, n_cert=worst, reason='', boxes=nboxes, levels=levels, seconds=time.time() - t0)
     except CertError as e:
         return dict(ok=False, n_cert=math.inf, reason='C1: ' + str(e), boxes=None, seconds=time.time() - t0)
 
@@ -723,7 +886,7 @@ def check_T1_symmetry(ball, tgt, g, rows, cols, wind, xc, h, xcf):
         e = CORNER9.index(6 * i + j)
         V0[e] = ball.theta0_a[m]; V1[e] = ball.Mth_a[m]
     vcf = np.zeros((B, 9)); vcf[:, [CORNER9.index(6 * i + j) for i, j in POS]] = ball.theta0[None] + xcf @ ball.Mth.T
-    pref = ball.P[CORNER9][None] + xcf @ ball.U[CORNER9].T
+    pref = ball.Pg[CORNER9][None] + xcf @ ball.Ug[CORNER9].T
     K = np.rint((pref - vcf) / (2 * math.pi))                                  # representative: block + 2 pi K
     Mi = tgt.Minv()
     ML = Mi.dot(oarb(L9.astype(float)))                                      # (4, 9)
