@@ -31,7 +31,8 @@ PP = C1.PP
 ROOT = os.path.abspath(os.path.join(HERE, '..', '..'))
 OUT = os.path.join(ROOT, 'kernel_atlas', 'lean', 'KernelAtlas', 'SeedA')
 NS = 'NoFourMUBs.KernelAtlas.SeedA'
-C1_LEVEL = 2
+C1_LEVEL = 2                    # the starting grid of the C1 boxes
+C1_MAX = 5                      # adaptive C1 (SPEC §11): a box that fails is split into its children, down to this level
 MAX_LEVEL = 9
 CHUNK = 8                       # core boxes per module
 TABLE_MOD = os.environ.get('SEED_TABLE_MOD', 'KernelAtlas.SeedA.Tab')   # the production table: KernelAtlas.SeedA.TabAll
@@ -100,13 +101,12 @@ def generate(cert, j, stagec=True, log=print):
         return tab[l]
 
     rk = Dj['r']
-    B = dict(th0=Dj['th0'], Mth=Dj['Mth'], P=Dj['P'], U=Dj['U'], n=Dj['n'], o=Dj['o'])
+    B = dict(th0=Dj['th0'], Mth=Dj['Mth'], P=Dj['P'], U=Dj['U'], n=Dj['n'], o=Dj['o'], hor=ball.hor)
     assert EX.frameOK(Dj, Ij), 'frame'
     # ---- C1 boxes (level 2) and their models
     import itertools
     c1 = [(C1_LEVEL,) + idx for idx in itertools.product(range(1 << C1_LEVEL), repeat=4)]
     c1 = sorted([b for b in c1 if not EX.ballMiss(b)], key=EX.preorder_key)
-    assert EX.walk(EX.ballMiss, C1_LEVEL, c1)[0]
     cores = {}                                      # (level, idx) -> dict(D, qm, km, subs, c1)
 
     def core(level, idx):
@@ -114,20 +114,32 @@ def generate(cert, j, stagec=True, log=print):
         if key not in cores:
             hb = rk >> level
             wc = [(2 * i + 1 - (1 << level)) * hb for i in idx]
-            D = C1.prepare(ball, np.array(wc, float) / SC, np.array([hb] * 4, float) / SC)
+            try:
+                D = C1.prepare(ball, np.array(wc, float) / SC, np.array([hb] * 4, float) / SC)
+            except (RuntimeError, AssertionError) as ex:
+                cores[key] = dict(D=None, ok=False, qm=None, km=None, subs=[], c1=False, why=str(ex))
+                return cores[key]
             D['wc'] = wc; D['hb'] = [hb] * 4
             ok, qm, km, why = ST.core(B, D)
             cores[key] = dict(D=D, ok=ok, qm=qm, km=km, subs=[], c1=False, why=why)
         return cores[key]
 
     nworst = 0
-    for b in c1:
+    stack, c1 = list(c1), []
+    while stack:                                   # adaptive C1: split a failing box into its children in the ball
+        b = stack.pop()
         c = core(b[0], b[1:])
-        c['c1'] = True
-        ok, info = C1.c1Box(B, c['D'])
-        assert ok, ('C1 box', b, info)
-        nworst = max(nworst, info[0])
-    assert nworst <= Dj['n'], 'C1 needs n = %.4g > %.4g' % (nworst / SC, Dj['n'] / SC)
+        ok, info = C1.c1Box(B, c['D']) if c['D'] is not None else (False, c['why'])
+        if ok and info[0] <= Dj['n']:
+            c['c1'] = True
+            if ball.hor: c['sh'] = info[1].pop('sh')
+            nworst = max(nworst, info[0])
+            c1.append(b)
+        else:
+            assert b[0] < C1_MAX, ('C1 box', b, info if not ok else 'n %.4g > %.4g' % (info[0] / SC, Dj['n'] / SC))
+            stack += [ch for ch in children(b) if not EX.ballMiss(ch)]
+    c1.sort(key=EX.preorder_key)
+    assert EX.walk(EX.ballMiss, C1_MAX, c1)[0]
     log('ball %s: r %.4g, %d C1 boxes, n needed %.4g of %.4g (%.0f s)' % (j, rk / SC, len(c1), nworst / SC,
                                                                          Dj['n'] / SC, time.time() - t0))
     # ---- boundary entries
@@ -259,15 +271,20 @@ def write_ball(G, stagec=True):
         'end %s' % base])
     # cores, in chunks
     clist = G['clist']
+    hor = G['ball'].hor             # SPEC §11: C1 boxes with row and column shifts (`Seed/C1Hor.lean`)
     names = []
     for k0 in range(0, len(clist), CHUNK):
         chunk = clist[k0:k0 + CHUNK]
-        Lc = head('%s.Ball' % mod, 'KernelAtlas.Seed.Full')
+        Lc = head('%s.Ball' % mod, 'KernelAtlas.Seed.C1Hor' if hor else 'KernelAtlas.Seed.Full')
         for i, (key, v) in enumerate(chunk):
             ci = k0 + i
             Lc += [L.lean_box('box%d' % ci, v['D']).replace('noncomputable def', 'noncomputable def'), '']
             Lc += ['noncomputable def subs%d : List SubD := [%s]' % (ci, ',\n    '.join(sub_lean(s) for s in v['subs'])), '']
-            if v['c1']:
+            if v['c1'] and hor:
+                Lc += ['def sh%d : List ℤ := %s' % (ci, lst(v['sh'])), '',
+                       'theorem ok%d : fullBox (shiftB seed.B sh%d) box%d subs%d = true := by decide +kernel'
+                       % (ci, ci, ci, ci), '']
+            elif v['c1']:
                 Lc += ['theorem ok%d : fullBox seed.B box%d subs%d = true := by decide +kernel' % (ci, ci, ci), '']
             else:
                 Lc += ['theorem ok%d : coreFull seed.B box%d subs%d = true := by decide +kernel' % (ci, ci, ci), '']
@@ -283,13 +300,17 @@ def write_ball(G, stagec=True):
     c1map = [key2i[tuple(b)] for b in G['c1']]
     Lb = head(*core_imps, 'KernelAtlas.Seed.Assemble') + [
         'noncomputable def c1Ls : List Bx := [%s]' % ', '.join(bx(b) for b in G['c1']), '',
-        'noncomputable def c1Boxes : List BoxD := [%s]' % ', '.join('box%d' % i for i in c1map), '',
-        'theorem c1cover : ballOK seed.r %d c1Ls = true := by decide +kernel' % C1_LEVEL, '',
+        *(['noncomputable def c1BoxesH : List (BoxD × List ℤ) := [%s]' % ', '.join('(box%d, sh%d)' % (i, i)
+                                                                               for i in c1map), '',
+            'noncomputable def c1Boxes : List BoxD := c1BoxesH.map Prod.fst', ''] if hor else
+          ['noncomputable def c1Boxes : List BoxD := [%s]' % ', '.join('box%d' % i for i in c1map), '']),
+        'theorem c1cover : ballOK seed.r %d c1Ls = true := by decide +kernel' % C1_MAX, '',
         'theorem c1match : (c1Ls.all fun b => decide (seed.r % 2 ^ b.m = 0) &&',
         '    c1Boxes.any fun D => decide (D.wc = b.wcZ seed.r) && decide (D.hb = b.hbN seed.r)) = true := by',
         '  decide +kernel', '',
         'set_option maxRecDepth 100000 in',
-        'theorem c1all : ∀ D ∈ c1Boxes, c1Box seed.B D = true :=',
+        ('theorem c1all : ∀ x ∈ c1BoxesH, c1Box (shiftB seed.B x.2) x.1 = true :=' if hor else
+         'theorem c1all : ∀ D ∈ c1Boxes, c1Box seed.B D = true :='),
         '  ' + ''.join('List.forall_mem_cons.2 ⟨(fullBox_sound ok%d (o := %s) rfl).1, ' % (i, '1' if G['Dj']['o'] == 1 else '-1')
                        for i in c1map) + 'List.forall_mem_nil _' + '⟩' * len(c1map),
         '', 'end %s' % base]
@@ -312,7 +333,9 @@ def write_ball(G, stagec=True):
         'theorem hent : ents.all (entryOK seed cores Dt It) = true := by decide +kernel', '',
         'set_option maxRecDepth 100000 in',
         'theorem hcores : ∀ C ∈ cores, coreFull seed.B C.D C.subs = true :=',
-        '  ' + ''.join('List.forall_mem_cons.2 ⟨%s, ' % (('fullBox_coreFull ok%d' % i) if v['c1'] else ('ok%d' % i))
+        '  ' + ''.join('List.forall_mem_cons.2 ⟨%s, ' % (
+            ('((coreFull_shiftB seed.B sh%d box%d subs%d).symm.trans (fullBox_coreFull ok%d))' % (i, i, i, i)) if v['c1'] and hor else
+            ('fullBox_coreFull ok%d' % i) if v['c1'] else ('ok%d' % i))
                        for i, (k, v) in enumerate(clist)) + 'List.forall_mem_nil _' + '⟩' * len(clist),
         '', 'theorem hallT1 : allT1 cores ents = true := by decide +kernel', '',
         '/-- **The boundary cover of ball %d**, for any atlas family carrying the table\'s data. -/' % j,
@@ -333,8 +356,11 @@ def write_ball(G, stagec=True):
     put(os.path.join(d, 'Cert.lean'), head('%s.C1' % mod, '%s.Frame' % mod, '%s.SeedC' % mod) + [
         '/-- **Seed ball %d**, every field checked by the kernel. -/' % j,
         'noncomputable def cert : NoFourMUBs.SeedAtlas.SeedBallCert :=',
-        '  ballCert seed %s (frame_sound hframeK).hMth (frame_sound hframeK).hcol (frame_sound hframeK).hfrob' % o,
-        '    (hC1_of_boxes (o := %s) rfl c1all (ball_cover_boxes c1cover (hmatch_of_any c1match))) stageC' % o, '',
+        *(['  ballCertH seed %s (frame_sound hframeK).hMth (frame_sound hframeK).hcol (frame_sound hframeK).hfrob' % o,
+           '    (hC1H_of_cover (o := %s) rfl c1BoxesH c1all (ball_cover_boxes c1cover (hmatch_of_any c1match)))'
+           ' stageC' % o] if hor else
+          ['  ballCert seed %s (frame_sound hframeK).hMth (frame_sound hframeK).hcol (frame_sound hframeK).hfrob' % o,
+           '    (hC1_of_boxes (o := %s) rfl c1all (ball_cover_boxes c1cover (hmatch_of_any c1match))) stageC' % o]), '',
         'end %s' % base])
     for f in os.listdir(d):
         if f.endswith('.lean'): kpack.seal(os.path.join(d, f)) if False else None

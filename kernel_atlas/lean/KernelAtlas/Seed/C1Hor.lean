@@ -1,4 +1,5 @@
 import KernelAtlas.Seed.BallCert
+import KernelAtlas.Seed.Full
 
 /-!
 # C1 in the horizontal gauge (`proof/seed_atlas/SPEC.md` §11)
@@ -116,6 +117,23 @@ theorem hC1H_of_boxes {B : BallD} {o : ℤˣ} (ho : B.o = (o : ℤ)) {r : ℝ} {
   have e : wOf x.1 (fun l => w l - rq (gi x.1.wc l)) = w := by funext l; simp [wOf]
   have := c1BoxH_sound (hall x hx) ho hu
   rwa [e] at this
+
+/-- The transfer checks read neither `P` nor `U`: a shifted C1 box is the same core. -/
+theorem coreFull_shiftB (B : BallD) (sh : List ℤ) (D : BoxD) (subs : List SubD) :
+    coreFull (shiftB B sh) D subs = coreFull B D subs := rfl
+
+/-- `hC1H_of_boxes` with the cover stated on the boxes alone (as `ball_cover_boxes` gives it). -/
+theorem hC1H_of_cover {B : BallD} {o : ℤˣ} (ho : B.o = (o : ℤ)) {r : ℝ} (boxes : List (BoxD × List ℤ))
+    (hall : ∀ x ∈ boxes, c1Box (shiftB B x.2) x.1 = true)
+    (hcov : ∀ w, wnorm w ≤ r → ∃ D ∈ boxes.map Prod.fst, InBox D.hb (fun l => w l - rq (gi D.wc l))) :
+    ∀ w : Fin 4 → ℝ, wnorm w ≤ r →
+      0 < seedR (seedOf (th0R B + MthR B *ᵥ w)) ∧
+      ∃ Q : RMat6, ∃ N : Matrix I6 I6 ℤ, RepO o (seedOf (th0R B + MthR B *ᵥ w)) (phaseMat Q) ∧
+        frob (Q - Pm B - tang (Um B) w - wind N) ≤ rn B.n := by
+  refine hC1H_of_boxes ho hall fun w hw => ?_
+  obtain ⟨D, hD, hu⟩ := hcov w hw
+  obtain ⟨x, hx, rfl⟩ := List.mem_map.mp hD
+  exact ⟨x, hx, hu⟩
 
 /-- **The kernel seed ball, horizontal gauge**: `ballCert` with C1 in `RepO` form. -/
 def ballCertH (D : SeedD) (o : ℤˣ) (hMth : IsUnit (MthR D.B).det)
