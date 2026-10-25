@@ -287,6 +287,7 @@ def main():
     ap.add_argument('--dist-key', default='seedatlas')
     ap.add_argument('--edge', action='store_true', help='T3 into the edge ball (built once, edge_ball.pkl) instead of T2')
     ap.add_argument('--reopen-t2', action='store_true', help='re-cover every closed ball that has T2 groups')
+    ap.add_argument('--gaps', help="pickle of phase matrices (36,) to seed balls at (edge_phase.py's edge_gaps.pkl)")
     a = ap.parse_args()
     if a.edge:
         ebp = os.path.join(a.out, 'edge_ball.pkl')
@@ -389,6 +390,15 @@ def main():
                 break
 
     shrunk = set()
+    if a.gaps:                             # seed balls at the edge sphere's uncovered points (edge_phase.py)
+        for Q in pickle.load(open(a.gaps, 'rb')):
+            ch = choose_chart(np.asarray(Q), parent_same=False)
+            if ch is None: continue
+            g, rows, cols, edge = ch
+            th, phh, phv = SG.corner_split(np.asarray(Q).reshape(6, 6), g, rows, cols)
+            spec = dict(theta=th, phih=phh, phiv=phv, pid=next_pid[0], parent=-1, chart=(g, rows, cols), key=None)
+            next_pid[0] += 1; pending[spec['pid']] = spec; submit_make(spec)
+        log('gaps: %d seed proposals from %s' % (len(pending), a.gaps))
     if not A.balls:
         spec = start_spec(a.start); pending[0] = spec; submit_make(spec)
     elif not qrestage:

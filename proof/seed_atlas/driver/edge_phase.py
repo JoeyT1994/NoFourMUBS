@@ -217,11 +217,13 @@ def edge_cover_box(args):
         pts = box_points(lo[0], hi[0]) * eb.r
         Qs = [eb.Qw(w) for w in pts]
         done = False
+        gap = None
         if all(q is not None for q in Qs):
             common = None
             for q in Qs:
                 c = SG.census(q.reshape(6, 6))
                 qi, bl, N, v = idx.query(c['seed'], VMAX)
+                if not len(qi): gap = q; break                # no seed ball reaches this point: a genuine gap
                 keys = set((SG.G4[c['g'][a]], tuple(c['rows'][a]), tuple(c['cols'][a]), int(l), tuple(int(x) for x in n))
                            for a, l, n in zip(qi, bl, N))
                 common = keys if common is None else common & keys
@@ -231,7 +233,8 @@ def edge_cover_box(args):
                 out.append(dict(desc=('T1', l, g, rows, cols), wind=list(n), boxes=[[m] + I]))
                 done = True
         if not done:
-            if m >= MAXLEV: failed.append([m] + I); continue
+            if gap is not None or m >= MAXLEV:
+                failed.append(([m] + I, gap if gap is not None else Qs[-1])); continue
             for c in CV.children(np.array([I])):
                 l2, h2 = CV.box_lohi(np.array([m + 1]), c[None])
                 if CV.meets_sphere(l2, h2)[0]: todo.append((m + 1, [int(x) for x in c]))
@@ -271,6 +274,15 @@ def main():
         for out, failed in pool.imap_unordered(edge_cover_box, ejobs):
             eg += out; ef += failed
     print('edge sphere: %d boxes, %d failed (%.0fs)' % (len(eg), len(ef), time.time() - t0), flush=True)
+    if ef:                                 # seed proposals at the gaps (driver.py --gaps), well separated
+        qs = []
+        for _, q in ef:
+            if all(np.linalg.norm(SG.wrap(q - p)) > 0.15 for p in qs): qs.append(q)
+        with open(os.path.join(a.run, 'edge_gaps.pkl'), 'wb') as f: pickle.dump(qs, f)
+        print('edge sphere gaps: %d proposals -> %s; rerun driver.py --edge --gaps, then this' % (
+            len(qs), os.path.join(a.run, 'edge_gaps.pkl')), flush=True)
+        sys.exit(3)
+    ef = []
     A.edge = dict(ball=eb, groups=eg, failed=ef)
     A.record = None
     with open(os.path.join(a.run, 'atlas_state_edge.pkl'), 'wb') as f: pickle.dump(A, f, protocol=4)
