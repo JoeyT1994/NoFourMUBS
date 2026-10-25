@@ -153,7 +153,7 @@ def discover(ball, j, index, rec_targets=(), nrand=96, seed=0, vmax=1.0, extra_d
                 if l == j: continue
                 desc = ('T0',) + desc[1:]
             if val < found.get(desc, 9.0): found[desc] = float(val)
-        if (rec_targets or eb is not None) and c['edge'].max() < 0.3: near_f6.append(s)
+        if (rec_targets or eb is not None) and c['edge'].max() < (getattr(eb, 'gate', 0.3) if eb is not None else 0.3): near_f6.append(s)
     if eb is not None:                       # T3: the edge ball (SPEC §10), in place of F6's record
         import edge_phase as EP
         for s in near_f6:

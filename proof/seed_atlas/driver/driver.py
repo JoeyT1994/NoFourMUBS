@@ -286,6 +286,7 @@ def main():
     ap.add_argument('--dist-port', type=int, default=0, help='serve tasks to distworker.py processes on other nodes')
     ap.add_argument('--dist-key', default='seedatlas')
     ap.add_argument('--edge', action='store_true', help='T3 into the edge ball (built once, edge_ball.pkl) instead of T2')
+    ap.add_argument('--xball', type=float, default=0.0, help='with --edge: the edge ball is the X-ball of this tangent radius')
     ap.add_argument('--reopen-t2', action='store_true', help='re-cover every closed ball that has T2 groups')
     ap.add_argument('--gaps', help="pickle of phase matrices (36,) to seed balls at (edge_phase.py's edge_gaps.pkl)")
     a = ap.parse_args()
@@ -293,7 +294,10 @@ def main():
         ebp = os.path.join(a.out, 'edge_ball.pkl')
         if not os.path.exists(ebp):
             import edge_phase as EP
-            eb = EP.EdgeBall(); assert eb.make(), 'edge ball: Stage C failed'
+            if a.xball:
+                eb = EP.EdgeBall.xball(a.xball); eb.gate = 3.0          # T3 candidates wherever the corner census allows
+            else:
+                eb = EP.EdgeBall(); assert eb.make(), 'edge ball: Stage C failed'
             with open(ebp, 'wb') as f: pickle.dump(eb, f)
         os.environ['SEED_EDGE_BALL'] = os.path.abspath(ebp)
     os.makedirs(a.out, exist_ok=True)
