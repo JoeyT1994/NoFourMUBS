@@ -39,3 +39,7 @@ import NoFourMUBs.SeedAtlas.Method.Box
 #print axioms NoFourMUBs.SeedAtlas.Method.norm_correction_le
 #print axioms NoFourMUBs.SeedAtlas.Method.box_bound
 #print axioms NoFourMUBs.SeedAtlas.Method.matchedO_of_certified_sides
+-- the horizontal gauge (SPEC §11)
+#print axioms NoFourMUBs.SeedAtlas.RepO.equivalent_of_matched
+#print axioms NoFourMUBs.SeedAtlas.RepO.hor
+#print axioms NoFourMUBs.SeedAtlas.SeedBallCert.enclosure

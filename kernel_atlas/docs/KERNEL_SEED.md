@@ -165,3 +165,10 @@ cost milliseconds); sharing in T1′.
   (semantic `EdgeBallCert`, its openness, T3, and its kernel C1e), which is the next task.
 * The production table and per-ball generation at scale, the rusty pilot, and the run itself (after the atlas is
   built and certified).
+* **Horizontal gauge (SPEC §11).** `SeedBallCert.hC1` now asks for a representative up to row and column phases
+  (`RepO`), so both gauges are statements of the same field. The kernel's C1 still proves the dephased form and
+  `ballCert` wraps it (`RepO.of_matched`); the generated ball modules are unchanged. For `"gauge": "hor"` data
+  (`P = h(P_g)`, `U = h(T) M_θ`) the C1 box takes `Q = h(Q_g)` with `N = 0` (`RepO.hor`) and bounds
+  `‖h(Q_g − P_g − U_g w)‖` at the vertices instead of `‖Q_g − P_g − U_g w − 2πN‖` (`h` is linear, `‖h X‖ ≤ ‖X‖`):
+  a change in `c1Box`'s bound step and in the generator, not yet made. Corner seeds and `Ψ` signs (T1, T1sym, T0)
+  are cross ratios and need nothing.

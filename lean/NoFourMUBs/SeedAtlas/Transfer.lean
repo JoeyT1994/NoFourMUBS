@@ -16,6 +16,9 @@ a full-matrix record lies in an `η`-box with one target.  Each target's certifi
 The four transfers:
 * **(T0)** `transfer_t0`: same corner, `θ_j(w) + 2πN = θ_l(w')` with `‖w'‖ < r_l` and `o_l = o_j`: the class is
   `f_{o_l}(θ_l(w'))` (`seedOf_add_winding`).  Pure seed-space geometry.
+Claims about "the representative" at `θ_j(w)` are about any `D_r H D_c` with `H` matched there (`RepO`, SPEC §11's
+horizontal gauge); the corner seeds and `Ψ` signs of T1 are invariant under row and column phases, so nothing changes.
+
 * **(T1)** `transfer_t1`: change of corner.  For the representative `K` at `θ_j(w)`, `g · K` dephased at the ordered
   corner `(σ(0,1,2), τ(0,1,2))` (`cornerMat`) has seed `θ_l(w')`, `‖w'‖ < r_l` (`CornerIn`), with
   `sign Im Ψ(B) = o_l` and `sign Im Ψ(C) = −o_l`; then `g · [K] ∈ f_{o_l}(int E_l)` (`matchedO_of_corner` and
@@ -110,9 +113,8 @@ def SeedTargetHolds {σs ιr : Type} (S : σs → SeedBallCert) (A : ιr → Rec
     SeedTarget σs ιr → (Fin 4 → ℝ) → Prop
   | .t0 l N, w => (S l).o = (S j).o ∧
       ∃ w', wnorm w' < (S l).r ∧ (S l).θ w' = (S j).θ w + (2 * Real.pi) • fun i => (N i : ℝ)
-  | .t1 l k σ τ, w => ∃ K, Hadamard6.IsHadamard K ∧ MatchedO (S j).o (seedOf ((S j).θ w)) K ∧
-      CornerIn (S l) k σ τ K
-  | .t2 l B N, w => ∃ Q, Hadamard6.IsHadamard (phaseMat Q) ∧ MatchedO (S j).o (seedOf ((S j).θ w)) (phaseMat Q) ∧
+  | .t1 l k σ τ, w => ∃ K, RepO (S j).o (seedOf ((S j).θ w)) K ∧ CornerIn (S l) k σ τ K
+  | .t2 l B N, w => ∃ Q, RepO (S j).o (seedOf ((S j).θ w)) (phaseMat Q) ∧
       frob (hor (B.act Q + wind N - (A l).P)) < (A l).R
 
 lemma SignedPerm.act_zero (B : SignedPerm) : B.act 0 = 0 := by
@@ -150,22 +152,21 @@ theorem transfer_t0 {S Sl : SeedBallCert} {N : Fin 4 → ℤ} {w : Fin 4 → ℝ
 
 /-- **(T1)** Change of corner. -/
 theorem transfer_t1 {S Sl : SeedBallCert} {k : Fin 4} {σ τ : Equiv.Perm I6} {w : Fin 4 → ℝ} (hw : wnorm w ≤ S.r)
-    (h : ∃ K₁, Hadamard6.IsHadamard K₁ ∧ MatchedO S.o (seedOf (S.θ w)) K₁ ∧ CornerIn Sl k σ τ K₁)
+    (h : ∃ K₁, RepO S.o (seedOf (S.θ w)) K₁ ∧ CornerIn Sl k σ τ K₁)
     {K : Mat6} (hK : Hadamard6.IsHadamard K) (hm : MatchedO S.o (seedOf (S.θ w)) K) :
     SeedInterior Sl (gfun k K) := by
-  obtain ⟨K₁, hK₁, hm₁, hc⟩ := h
-  have he : Equivalent K K₁ := matchedO_unique (S.strict hw) hK hK₁ hm hm₁
-  exact (seedInterior_of_cornerIn hK₁ hc).of_equivalent (equivalent_gfun he k)
+  obtain ⟨K₁, h₁, hc⟩ := h
+  have he : Equivalent K K₁ := h₁.equivalent_of_matched (S.strict hw) hK hm
+  exact (seedInterior_of_cornerIn h₁.isHadamard hc).of_equivalent (equivalent_gfun he k)
 
 /-- **(T2)** Into a record. -/
 theorem transfer_t2 {S : SeedBallCert} {Al : RecordCert} {B : SignedPerm} {N : Matrix I6 I6 ℤ}
     {w : Fin 4 → ℝ} (hw : wnorm w ≤ S.r)
-    (h : ∃ Q, Hadamard6.IsHadamard (phaseMat Q) ∧ MatchedO S.o (seedOf (S.θ w)) (phaseMat Q) ∧
-      frob (hor (B.act Q + wind N - Al.P)) < Al.R)
+    (h : ∃ Q, RepO S.o (seedOf (S.θ w)) (phaseMat Q) ∧ frob (hor (B.act Q + wind N - Al.P)) < Al.R)
     {K : Mat6} (hK : Hadamard6.IsHadamard K) (hm : MatchedO S.o (seedOf (S.θ w)) K) :
     ∃ k, InRecord Al.P Al.R (gfun k K) := by
-  obtain ⟨Q, hQH, hQm, hlt⟩ := h
-  have he : Equivalent K (phaseMat Q) := matchedO_unique (S.strict hw) hK hQH hm hQm
+  obtain ⟨Q, hQ, hlt⟩ := h
+  have he : Equivalent K (phaseMat Q) := hQ.equivalent_of_matched (S.strict hw) hK hm
   have h' : frob (hor (B.act Q + (2 * Real.pi) • N.map (Int.cast : ℤ → ℝ) - Al.P) + hor (B.act 0)) + 0 < Al.R := by
     rw [SignedPerm.act_zero, hor_zero, add_zero, add_zero]; exact hlt
   obtain ⟨G, hG, hGR⟩ := NoFourMUBs.transfer B N (u := 0) (ν := 0) (by simp [frob_eq_sqrt, sumsq]) h'

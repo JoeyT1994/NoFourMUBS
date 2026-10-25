@@ -187,7 +187,7 @@ theorem seedBoundary_of {j : σs} {D : SeedD} {o : ℤˣ} (ho : D.B.o = (o : ℤ
       obtain ⟨⟨⟨⟨hk, hI⟩, hJ⟩, hinv⟩, ht⟩ := hok
       obtain ⟨hl0, hlM, hlr, hlo⟩ := hl l
       have hk' : (⟨k % 4, Nat.mod_lt _ (by norm_num)⟩ : Fin 4) = ⟨k, hk⟩ := Fin.ext (Nat.mod_eq_of_lt hk)
-      show ∃ K, Hadamard6.IsHadamard K ∧ MatchedO (S j).o (seedOf ((S j).θ w)) K ∧
+      show ∃ K, RepO (S j).o (seedOf ((S j).θ w)) K ∧
         CornerIn (S (ofS l)) ⟨k % 4, _⟩ (symPerm (perm3Of I)) (symPerm (perm3Of J)) K
       rw [hk']
       have hD : D.B.o = (S j).o := by rw [hSjo, ho]

@@ -61,7 +61,9 @@ def ballCert (D : SeedD) (o : ℤˣ) (hMth : IsUnit (MthR D.B).det)
   hF0 := rn_nonneg _
   hcol := hcol
   hfrob := hfrob
-  hC1 := hC1
+  hC1 := fun w hw => by
+    obtain ⟨hR, Q, N, hH, hM, hn⟩ := hC1 w hw
+    exact ⟨hR, Q, N, RepO.of_matched hH hM, hn⟩
   stageC := stageC
 
 /-! ### Transfer boxes -/
@@ -82,7 +84,7 @@ theorem t1_holds {j l : σs} {B : BallD} {o : ℤˣ} (ho : B.o = (o : ℤ))
   obtain ⟨Q, hH, hM, h1, -⟩ := coreFull_sound hfb ho s hs v hv
   have hMl : IsUnit (MthR s.bl).det := by rw [← hl.2.1]; exact (S l).hMth
   obtain ⟨⟨w', hw', hE⟩, hB, hC⟩ := h1 hk hσ hτ hkk hol hMl
-  refine ⟨phaseMat Q, hH, ?_, ⟨w', ?_, ?_⟩, ?_, ?_⟩
+  refine ⟨phaseMat Q, RepO.of_matched hH ?_, ⟨w', ?_, ?_⟩, ?_, ?_⟩
   · simp only [SeedBallCert.θ, hj.1, hj.2.1, hj.2.2]; exact hM
   · rw [hl.2.2.1]; exact hw'
   · simp only [SeedBallCert.θ, hl.1, hl.2.1]; exact hE
@@ -100,7 +102,7 @@ theorem t2_holds {j : σs} {t : ιr} {B : BallD} {o : ℤˣ} (ho : B.o = (o : �
     SeedTargetHolds S A j (.t2 t (SignedPerm.mk σ τ s.t2.tr s.t2.cj) (Nmat s.t2.N)) (subW D s v) := by
   obtain ⟨Q, hH, hM, -, h2⟩ := coreFull_sound hfb ho s hs v hv
   have hb := h2 hk hσ hτ
-  refine ⟨Q, hH, ?_, ?_⟩
+  refine ⟨Q, RepO.of_matched hH ?_, ?_⟩
   · simp only [SeedBallCert.θ, hj.1, hj.2.1, hj.2.2]; exact hM
   · set X := (SignedPerm.mk σ τ s.t2.tr s.t2.cj).act Q + wind (Nmat s.t2.N)
     have e : X - (A t).P = (X - Pg s.t2.Pt) + (Pg s.t2.Pt - (A t).P) := by abel

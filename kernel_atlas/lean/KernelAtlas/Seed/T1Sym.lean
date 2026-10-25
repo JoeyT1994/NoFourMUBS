@@ -274,7 +274,7 @@ theorem t1sym_cornerIn {k : Fin 4} {p q : Equiv.Perm I3} {I J : List ℕ}
   rw [he, SeedBallCert.θ, hS0, hSM]
 
 /-- **The semantic claim `SeedTargetHolds .t1`** at a boundary point `w` of the box, with the source's C1 providing
-the matched completion. -/
+the matched completion (`RepO`'s `H`). -/
 theorem t1sym_holds {k : Fin 4} {p q : Equiv.Perm I3} {I J : List ℕ}
     (hI : ∀ a : I3, gn I a = p a) (hJ : ∀ b : I3, gn J b = q b)
     {Dj Dl : SeedD} {Il : InvD} {N : List ℤ} {b : Bx} (hinv : invOK Dl.B Il = true)
@@ -282,12 +282,12 @@ theorem t1sym_holds {k : Fin 4} {p q : Equiv.Perm I3} {I J : List ℕ}
     (hj0 : Sj.theta0 = th0R Dj.B) (hjM : Sj.Mth = MthR Dj.B) (hjo : Dj.B.o = Sj.o)
     (hl0 : Sl.theta0 = th0R Dl.B) (hlM : Sl.Mth = MthR Dl.B) (hlr : Sl.r = rn Dl.r) (hlo : Dl.B.o = Sl.o)
     {w : Fin 4 → ℝ} (hw : b.Mem (rn Dj.r) w) (hwr : wnorm w ≤ Sj.r) :
-    ∃ K, Hadamard6.IsHadamard K ∧ MatchedO Sj.o (seedOf (Sj.θ w)) K ∧ CornerIn Sl k (symPerm p) (symPerm q) K := by
-  obtain ⟨hR, Q, -, hQH, hQm, -⟩ := Sj.hC1 w hwr
+    ∃ K, RepO Sj.o (seedOf (Sj.θ w)) K ∧ CornerIn Sl k (symPerm p) (symPerm q) K := by
+  obtain ⟨hR, -, -, ⟨H, hQH, hQm, -⟩, -⟩ := Sj.hC1 w hwr
   have eθ : Sj.θ w = th0R Dj.B + MthR Dj.B *ᵥ w := by rw [SeedBallCert.θ, hj0, hjM]
   have eθ' : Sj.theta0 + Sj.Mth *ᵥ w = th0R Dj.B + MthR Dj.B *ᵥ w := by rw [hj0, hjM]
   rw [eθ'] at hR hQm
-  refine ⟨phaseMat Q, hQH, by rw [eθ]; exact hQm, ?_⟩
+  refine ⟨H, RepO.of_matched hQH (by rw [eθ]; exact hQm), ?_⟩
   exact t1sym_cornerIn hI hJ hinv h hjo Sl hl0 hlM hlr hlo hw hQH hQm hR
 
 end NoFourMUBs.KernelAtlas.Seed

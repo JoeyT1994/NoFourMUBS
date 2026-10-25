@@ -78,8 +78,7 @@ inductive SeedTargetE (σs ιr ιe : Type)
 def SeedTargetEHolds {σs ιr ιe : Type} (S : σs → SeedBallCert) (A : ιr → RecordCert) (E : ιe → EdgeBallCert)
     (j : σs) : SeedTargetE σs ιr ιe → (Fin 4 → ℝ) → Prop
   | .seed tg, w => SeedTargetHolds S A j tg w
-  | .t3 e B N, w => ∃ Q, Hadamard6.IsHadamard (phaseMat Q) ∧ MatchedO (S j).o (seedOf ((S j).θ w)) (phaseMat Q) ∧
-      EdgeInQ (E e) B N Q
+  | .t3 e B N, w => ∃ Q, RepO (S j).o (seedOf ((S j).θ w)) (phaseMat Q) ∧ EdgeInQ (E e) B N Q
 
 /-- A boundary target of a full-matrix record: one of the seed atlas (Lemma 4.1, T1′) or an edge ball (T3). -/
 inductive RecTargetE (σs ιr ιe : Type)
@@ -148,9 +147,9 @@ theorem SeedTargetEHolds.interior {j : σs} {tg : SeedTargetE σs ιr ιe} {w : 
   cases tg with
   | seed tg => exact InteriorTargetE.of_interiorTarget (SeedTargetHolds.interior hw h hK hm)
   | t3 e B N =>
-    obtain ⟨Q, hQH, hQm, hin⟩ := h
-    have he : Equivalent K (phaseMat Q) := matchedO_unique ((S j).strict hw) hK hQH hm hQm
-    obtain ⟨k, hk⟩ := edgeInterior_of_edgeInQ hQH hin
+    obtain ⟨Q, hQ, hin⟩ := h
+    have he : Equivalent K (phaseMat Q) := hQ.equivalent_of_matched ((S j).strict hw) hK hm
+    obtain ⟨k, hk⟩ := edgeInterior_of_edgeInQ hQ.isHadamard hin
     exact InteriorTargetE.of_gfun (k := k) (InteriorTargetE.of_edge (hk.of_equivalent (equivalent_gfun he k)))
 
 /-- A record's boundary target puts the boundary point in an interior. -/

@@ -55,22 +55,25 @@ No existing module is changed.
 * `hMth : IsUnit Mth.det`; `ht0 : 0 ≤ t`; `hF0 : 0 ≤ lamF`;
 * `hcol : ∀ w i, colnorm (tang U w) i ≤ t * wnorm w` (`t ≥ maxᵢ ‖U_(i)‖₂`, `U_(i)` the `6 × 4` block of column `i`);
 * `hfrob : ∀ w, frob (tang U w) ≤ lamF * wnorm w` (`lamF ≥ ‖U‖₂`);
-* **`hC1`** (C1):
+* **`hC1`** (C1, either gauge; SPEC §11):
   ```lean
   ∀ w, wnorm w ≤ r → 0 < seedR (seedOf (theta0 + Mth *ᵥ w)) ∧
-    ∃ Q N, IsHadamard (phaseMat Q) ∧ MatchedO o (seedOf (theta0 + Mth *ᵥ w)) (phaseMat Q) ∧
-      frob (Q - P - tang U w - wind N) ≤ n
+    ∃ Q N, RepO o (seedOf (theta0 + Mth *ᵥ w)) (phaseMat Q) ∧ frob (Q - P - tang U w - wind N) ≤ n
   ```
+  `RepO o p K`: `K = D_r H D_c` (`RowColEquiv H K`, unit diagonal phases) for a Hadamard `H` with `MatchedO o p H`.
+  Dephased gauge: `H = e^{iQ}`, `D_r = D_c = 1` (`RepO.of_matched`). Horizontal gauge (`"gauge": "hor"`):
+  `Q = h(Q_g)`, `e^{iQ} = D_r e^{iQ_g} D_c`, with `P = h(P_g)` and `U = h(T) M_θ` stored horizontal.
 * `stageC : StageCCert ((1/2π) • P) U (r/2π) (n/2π) ((t r + n)/2π) ((lamF r + n)/2π)`
   (`stagec.stage_c(P/2π, rcol/2π, tang=(U, r/2π, n/2π), radius=label_radius, rF=rF/2π)`).
 
 `SeedBoundaryCover S A j` (C2 for a seed ball): boxes `box b ⊆ ℝ⁴` covering `{wnorm w = r_j}`, and on each box,
 for `wnorm w = r_j`, the target's claim `SeedTargetHolds`:
 * **T0** `t0 l N`: `o_l = o_j` and `∃ w', wnorm w' < r_l ∧ θ_l(w') = θ_j(w) + 2πN`;
-* **T1** `t1 l k σ τ`: `∃ K` Hadamard, `MatchedO o_j (seedOf (θ_j w)) K`, and `CornerIn (S l) k σ τ K`:
+* **T1** `t1 l k σ τ`: `∃ K`, `RepO o_j (seedOf (θ_j w)) K`, and `CornerIn (S l) k σ τ K` (corner seeds and `Ψ`
+  signs are invariant under row and column phases, so either gauge's `e^{iQ}` will do):
   `∃ w', wnorm w' < r_l ∧ leadingBlock (cornerMat k σ τ K) = seedCorner (seedOf (θ_l w'))`,
   `0 < o_l · Im Ψ(B)` and `0 < −o_l · Im Ψ(C)` for the blocks of `cornerMat k σ τ K`;
-* **T2** `t2 l B N`: `∃ Q`, `phaseMat Q` Hadamard and `MatchedO o_j (seedOf (θ_j w))`, with
+* **T2** `t2 l B N`: `∃ Q`, `RepO o_j (seedOf (θ_j w)) (phaseMat Q)`, with
   `frob (hor (B.act Q + wind N − P_l)) < R_l` (`B : SignedPerm`, as in the current `BoundaryCover`).
 
 `RecBoundaryCover S A l` (C2 for a record, FORMAT §6): `η`-boxes covering the shell
@@ -132,7 +135,8 @@ Only `propext`, `Classical.choice` and `Quot.sound` (`SeedAtlas/EdgeAxioms.lean`
 `EdgeBallCert` (the certifier establishes these): data `r, Q, P, U, n, t, lamF, PF, TF, σF, RG, eta` and
 * `hcol`, `hfrob`, `stageC`: as for a seed ball;
 * **`hC1e`** (C1e): `∀ w, wnorm w ≤ r → IsHadamard (phaseMat (Q w)) ∧ ∃ N, frob (Q w − P − tang U w − wind N) ≤ n`;
-  `Q w` is the phase matrix of `H(p)`, `p = M w`, in the gauge of `F6`'s record (its corner `(0,1,2)`);
+  `Q w` is the phase matrix of `H(p)`, `p = M w`, in the gauge of `F6`'s record (its corner `(0,1,2)`); edge balls
+  stay in the dephased gauge (SPEC §11);
 * `hcont : ContinuousOn Q {w | wnorm w ≤ r}`;
 * **(G)** `hσF : ∀ ν` horizontal with `⟨TF k, ν⟩ = 0`, `σF * frob ν ≤ outNorm (Jac PF ν)` (a record's `hσ`: the F6
   record supplies `P, T, σ, hσ`); `hRG : 2√3 · RG < σF`; `hG : ∀ w, wnorm w ≤ r → frob (hor (Q w − PF)) < RG`;
@@ -144,7 +148,7 @@ Only `propext`, `Classical.choice` and `Quot.sound` (`SeedAtlas/EdgeAxioms.lean`
 
 T3 (`EdgeInQ E B N Y`, on phases `Y` of the source point): `frob (hor (B.act Y + wind N − PF)) < RG` and
 `eta (hor (B.act Y + wind N − PF)) ∈ f '' {‖w‖ < r}`; then `g · e^{iY} ≅ e^{iQ(w')}` by (G). From a seed ball the
-claim is on a matched representative (as T2), from a record for every boundary `ν` (as T1′), from an edge ball on
+claim is on a representative `RepO` (as T2), from a record for every boundary `ν` (as T1′), from an edge ball on
 `Q(w)`. The `F6` anchor: `fourier : ∃ e, CoveredMatrix (E e).Ball F6` (`fourier_of_edge` from `F6 ≅ e^{iQ(w)}`).
 
 **Two departures from SPEC §10.** (i) T3 does not use positional tubes of the augmented systems: near `y = 0` a
