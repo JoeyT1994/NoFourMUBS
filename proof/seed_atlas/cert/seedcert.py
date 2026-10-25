@@ -619,6 +619,25 @@ def centre_in_ball(r, K, idx):
 
 
 def certify_c1(ball, chunk=128, max_depth=4, max_boxes=100000):
+    """Claim C1: first the whole-ball certificate of return Z (wholeball.py; no subdivision), accepted when its bound
+    against the stored P, U is <= n; otherwise the adaptive partition (certify_c1_boxes)."""
+    t0 = time.time()
+    try:
+        import wholeball as WB
+        phh, phv, ok = centre_sides(ball)
+        if ok:
+            o = WB.wholeball_c1(ball.theta0, ball.Mth, ball.r, ball.o, ball.P, ball.U, phh, phv)
+            if o['ok'] and o['n_record'] <= ball.n:
+                return dict(ok=True, n_cert=o['n_record'], reason='', boxes=0, levels={'wholeball': 1},
+                            method='wholeball', seconds=time.time() - t0)
+    except Exception:
+        pass                                                         # any failure: the box method decides
+    out = certify_c1_boxes(ball, chunk=chunk, max_depth=max_depth, max_boxes=max_boxes)
+    out['method'] = 'boxes'
+    return out
+
+
+def certify_c1_boxes(ball, chunk=128, max_depth=4, max_boxes=100000):
     """Claim C1 for one seed ball, on an adaptive partition (SPEC section 11): the k-grid boxes meeting the open ball;
     a box whose bound exceeds n, or whose Taylor models fail, is replaced by its 16 children (the 2k-grid boxes inside
     it) that meet the open ball, up to max_depth levels.  Every accepted box has bound <= n; their union contains the
