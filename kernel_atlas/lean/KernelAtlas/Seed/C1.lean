@@ -186,6 +186,28 @@ def signOK (h : List ℕ) (o : ℤ) (T : CT) : Bool :=
   let t := im T
   decide (((Lsum h t + t.ρ : ℕ) : ℤ) < o * (t.cg 0).1)
 
+/-! The signs are tried first on intervals (`psiI`: the rows collapsed to `(c₀, L + ρ)`, `Ψ` in interval
+arithmetic), which is much cheaper and usually enough on small boxes; the Taylor-model test is the fallback. -/
+
+def ivAdd (a b : IvC) : IvC := (zadd a.1 b.1, a.2 + b.2)
+
+def ivSum (l : List IvC) : IvC := l.foldr ivAdd ivZ
+
+/-- `Ψ` of the side `(1; x; y)` on intervals (the same formula as `psiT`). -/
+def psiI (g : ℕ → IvC) : IvC :=
+  let pr := fun a b => ivm (g a) (g (b + 3))
+  let perm := ivSum [pr 0 1, pr 0 2, pr 1 0, pr 1 2, pr 2 0, pr 2 1]
+  let det := ivSum [pr 1 2, ivNeg (pr 2 1), ivNeg (pr 0 2), pr 2 0, pr 0 1, ivNeg (pr 1 0)]
+  let p3 := ivm (ivm (ivm (g 0) (g 3)) (ivm (g 1) (g 4))) (ivm (g 2) (g 5))
+  ivm (ivm perm (ivm det det)) (ivConj p3)
+
+/-- `o · Im Ψ > 0` on the interval: `o · Im c > r`. -/
+def signIv (o : ℤ) (a : IvC) : Bool := decide ((a.2 : ℤ) < o * a.1.2)
+
+/-- The sign test: intervals, else Taylor models. -/
+def signAny (h : List ℕ) (o : ℤ) (xy : List CT) : Bool :=
+  signIv o (psiI fun j => ivc h (gT xy j)) || signOK h o (psiT h xy)
+
 /-! ### The forced block -/
 
 /-- The corner `E` as a `3 × 3` list (row-major). -/
@@ -302,7 +324,7 @@ def c1Box (B : BallD) (D : BoxD) : Bool :=
   let argD := l9 fun q => argT h nT (gi D.argA q) (gT Dk.D q)
   let res := resQ h B D (QT h th sH sV argD)
   th.all (fun t => expOK t nT) && kH.ok && kV.ok &&
-    signOK h B.o (psiT h xyH) && signOK h (-B.o) (psiT h xyV) && Dk.ok &&
+    signAny h B.o xyH && signAny h (-B.o) xyV && Dk.ok &&
     (l9 fun q => argOK h nT (gi D.argA q) (gT Dk.D q)).all id &&
     boundOK h B.n res
 

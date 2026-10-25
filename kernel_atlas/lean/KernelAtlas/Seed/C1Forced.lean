@@ -80,6 +80,67 @@ theorem signOK_sound {h : List ℕ} {u : Fin 4 → ℝ} (hu : InBox h u) {T : CT
   rw [decide_eq_true_eq] at hok
   exact sign_of_model hu (has_im hT) rfl ho hok
 
+/-! ### The interval sign test -/
+
+lemma ivH_add {a b : IvC} {x y : ℂ} (hx : IvH a x) (hy : IvH b y) : IvH (ivAdd a b) (x + y) := by
+  unfold IvH ivAdd at *
+  rw [cz_add, show x + y - (cz a.1 + cz b.1) = (x - cz a.1) + (y - cz b.1) by ring, rn_add]
+  exact (norm_add_le _ _).trans (add_le_add hx hy)
+
+lemma ivH_sum_nil : IvH (ivSum []) 0 := ivH_zero
+
+lemma ivH_sum_cons {a : IvC} {l : List IvC} {x s : ℂ} (ha : IvH a x) (hl : IvH (ivSum l) s) :
+    IvH (ivSum (a :: l)) (x + s) := ivH_add ha hl
+
+theorem ivH_psiI {g : ℕ → IvC} {x y : Fin 3 → ℂ} (hx : ∀ j : Fin 3, IvH (g j) (x j))
+    (hy : ∀ j : Fin 3, IvH (g (j + 3)) (y j)) : IvH (psiI g) (psi (L1.sideMat x y)) := by
+  have x0 : IvH (g 0) (x 0) := hx 0
+  have x1 : IvH (g 1) (x 1) := hx 1
+  have x2 : IvH (g 2) (x 2) := hx 2
+  have y0 : IvH (g (0 + 3)) (y 0) := hy 0
+  have y1 : IvH (g (1 + 3)) (y 1) := hy 1
+  have y2 : IvH (g (2 + 3)) (y 2) := hy 2
+  have hperm := ivH_sum_cons (ivH_mul x0 y1) (ivH_sum_cons (ivH_mul x0 y2) (ivH_sum_cons (ivH_mul x1 y0)
+    (ivH_sum_cons (ivH_mul x1 y2) (ivH_sum_cons (ivH_mul x2 y0) (ivH_sum_cons (ivH_mul x2 y1) ivH_sum_nil)))))
+  have hdet := ivH_sum_cons (ivH_mul x1 y2) (ivH_sum_cons (ivH_neg (ivH_mul x2 y1))
+    (ivH_sum_cons (ivH_neg (ivH_mul x0 y2)) (ivH_sum_cons (ivH_mul x2 y0)
+      (ivH_sum_cons (ivH_mul x0 y1) (ivH_sum_cons (ivH_neg (ivH_mul x1 y0)) ivH_sum_nil)))))
+  have hp3 := ivH_mul (ivH_mul (ivH_mul x0 y0) (ivH_mul x1 y1)) (ivH_mul x2 y2)
+  have H := ivH_mul (ivH_mul hperm (ivH_mul hdet hdet)) (ivH_conj hp3)
+  rw [psi_sideMat]
+  convert H using 1
+  all_goals first | rfl | (simp only [piS, hS]; ring)
+
+lemma signIv_sound {a : IvC} {z : ℂ} (hz : IvH a z) {o : ℤ} (ho : o = 1 ∨ o = -1) (hok : signIv o a = true) :
+    0 < (o : ℝ) * z.im := by
+  unfold signIv at hok; rw [decide_eq_true_eq] at hok
+  unfold IvH at hz
+  have him : |z.im - (a.1.2 : ℝ) / 2 ^ pp| ≤ rn a.2 := by
+    refine le_trans ?_ hz
+    have e : z.im - (a.1.2 : ℝ) / 2 ^ pp = (z - cz a.1).im := by
+      rw [Complex.sub_im, cz_eq, Complex.add_im, Complex.ofReal_im, Complex.mul_im, Complex.ofReal_re,
+        Complex.ofReal_im, Complex.I_re, Complex.I_im]; simp
+    rw [e]; exact Complex.abs_im_le_norm _
+  have hk : ((a.2 : ℤ) : ℝ) < (o : ℝ) * (a.1.2 : ℝ) := by exact_mod_cast hok
+  have hT := two_pow_pos pp
+  have key : rn a.2 < (o : ℝ) * ((a.1.2 : ℝ) / 2 ^ pp) := by
+    unfold rn; rw [mul_div_assoc']; push_cast at hk; exact div_lt_div_of_pos_right hk hT
+  have habs : |(o : ℝ) * (z.im - (a.1.2 : ℝ) / 2 ^ pp)| = |z.im - (a.1.2 : ℝ) / 2 ^ pp| := by
+    rcases ho with rfl | rfl <;> simp [abs_sub_comm]
+  have := neg_abs_le ((o : ℝ) * (z.im - (a.1.2 : ℝ) / 2 ^ pp))
+  rw [habs] at this
+  nlinarith
+
+theorem signAny_sound {h : List ℕ} {u : Fin 4 → ℝ} (hu : InBox h u) {xy : List CT} {x y : Fin 3 → ℂ}
+    (hx : ∀ j : Fin 3, (gT xy j).Has u (x j)) (hy : ∀ j : Fin 3, (gT xy (j + 3)).Has u (y j)) {o : ℤ}
+    (ho : o = 1 ∨ o = -1) (hok : signAny h o xy = true) : 0 < (o : ℝ) * (psi (L1.sideMat x y)).im := by
+  unfold signAny at hok
+  rcases Bool.or_eq_true_iff.1 hok with h1 | h1
+  · have gx : ∀ j : Fin 3, IvH ((fun j => ivc h (gT xy j)) j) (x j) := fun j => ivH_ivc hu (hx j)
+    have gy : ∀ j : Fin 3, IvH ((fun j => ivc h (gT xy j)) (j + 3)) (y j) := fun j => ivH_ivc hu (hy j)
+    exact signIv_sound (ivH_psiI (g := fun j => ivc h (gT xy j)) gx gy) ho h1
+  · exact signOK_sound hu (has_psiT hu hx hy) ho h1
+
 /-! ### Matched completion from the sides -/
 
 lemma normSq_sx (φ : Fin 6 → ℝ) (j : Fin 3) : Complex.normSq (sx φ j) = 1 := by

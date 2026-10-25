@@ -33,7 +33,7 @@ def coreOK (B : BallD) (D : BoxD) : Bool :=
   let C := CT3 xyV
   let Dk := forcedT h D.Xp D.A0 (ET e) Bm C
   th.all (fun t => expOK t nT) && kH.ok && kV.ok &&
-    signOK h B.o (psiT h xyH) && signOK h (-B.o) (psiT h xyV) && Dk.ok &&
+    signAny h B.o xyH && signAny h (-B.o) xyV && Dk.ok &&
     (l9 fun q => argOK h nT (gi D.argA q) (gT Dk.D q)).all id
 
 /-- The 36 phase models. -/
@@ -122,8 +122,8 @@ theorem core_sound {B : BallD} {D : BoxD} (hok : coreOK B D = true) {o : ℤˣ} 
   set C := CT3 xyV with hC
   set Dk := forcedT h D.Xp D.A0 (ET e) Bm C with hDk
   set argD := l9 fun q => argT h nT (gi D.argA q) (gT Dk.D q) with hargD
-  have hK : coreOK B D = (th.all (fun t => expOK t nT) && kH.ok && kV.ok && signOK h B.o (psiT h xyH) &&
-      signOK h (-B.o) (psiT h xyV) && Dk.ok && (l9 fun q => argOK h nT (gi D.argA q) (gT Dk.D q)).all id) := rfl
+  have hK : coreOK B D = (th.all (fun t => expOK t nT) && kH.ok && kV.ok && signAny h B.o xyH &&
+      signAny h (-B.o) xyV && Dk.ok && (l9 fun q => argOK h nT (gi D.argA q) (gT Dk.D q)).all id) := rfl
   have hQ : qModels B D = QT h th sH sV argD := rfl
   have hKm : kModels B D = blocksT (ET e) Bm C Dk.D := rfl
   rw [hK] at hok
@@ -135,8 +135,8 @@ theorem core_sound {B : BallD} {D : BoxD} (hok : coreOK B D = true) {o : ℤˣ} 
   obtain ⟨φV, hs', ht', hr', hphV, hxV, hyV⟩ := side_sound hu hGVh hokV
   have ho' : B.o = 1 ∨ B.o = -1 := by rcases Int.units_eq_one_or o with h1 | h1 <;> simp [ho, h1]
   have ho'' : -B.o = 1 ∨ -B.o = -1 := by rcases ho' with h1 | h1 <;> simp [h1]
-  have hsB := signOK_sound hu (has_psiT hu hxH hyH) ho' hsgH
-  have hsC := signOK_sound hu (has_psiT hu hxV hyV) ho'' hsgV
+  have hsB := signAny_sound hu hxH hyH ho' hsgH
+  have hsC := signAny_sound hu hxV hyV ho'' hsgV
   have hos : osgn o = (B.o : ℝ) := by simp [osgn, ho]
   set p := seedOf fun k : Fin 4 => thR B (wOf D u) k with hp
   obtain ⟨hR, hHad, hM⟩ := matched_of_sides (o := o) (p := p) hs ht hr hs' ht' hr'

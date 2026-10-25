@@ -290,6 +290,30 @@ def psiT(h, xy):
     return mul(h, mul(h, perm, mul(h, det, det)), conj(p3))
 
 
+def ivAdd(a, b): return ((a[0][0] + b[0][0], a[0][1] + b[0][1]), a[1] + b[1])
+
+
+def ivSum(l):
+    acc = IVZ
+    for x in reversed(l): acc = ivAdd(x, acc)
+    return acc
+
+
+def psiI(g):
+    pr = lambda a, b: ivm(g[a], g[b + 3])
+    perm = ivSum([pr(0, 1), pr(0, 2), pr(1, 0), pr(1, 2), pr(2, 0), pr(2, 1)])
+    det = ivSum([pr(1, 2), ivNeg(pr(2, 1)), ivNeg(pr(0, 2)), pr(2, 0), pr(0, 1), ivNeg(pr(1, 0))])
+    p3 = ivm(ivm(ivm(g[0], g[3]), ivm(g[1], g[4])), ivm(g[2], g[5]))
+    return ivm(ivm(perm, ivm(det, det)), ivConj(p3))
+
+
+def signIv(o, a): return a[1] < o * a[0][1]
+
+
+def signAny(h, o, xy):
+    return signIv(o, psiI([ivc(h, T) for T in xy])) or signOK(h, o, psiT(h, xy))
+
+
 def signOK(h, o, T):
     t = im(T)
     return Lsum(h, t) + t.rho < o * t.cg(0)[0]
@@ -438,9 +462,8 @@ def c1Box(B, D, n=None, verbose=False):
     if not (okH and okV): return False, ('kraw', info)
     sH, sV = tubeT(D['phH'], eH), tubeT(D['phV'], eV)
     xyH, xyV = tubeRows(h, D['phH'], eH), tubeRows(h, D['phV'], eV)
-    pH, pV = psiT(h, xyH), psiT(h, xyV)
-    if not signOK(h, B['o'], pH): return False, ('signB', info)
-    if not signOK(h, -B['o'], pV): return False, ('signV', info)
+    if not signAny(h, B['o'], xyH): return False, ('signB', info)
+    if not signAny(h, -B['o'], xyV): return False, ('signV', info)
     Bm, C = BT(xyH), CT3(xyV)
     okD, Dm = forcedT(h, D['Xp'], D['A0'], ET(e), Bm, C)
     if not okD: return False, ('neumann', info)

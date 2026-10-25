@@ -26,8 +26,8 @@ def core(B, D):
     if not (okH and okV): return False, None, None, 'kraw'
     sH, sV = S.tubeT(D['phH'], eH), S.tubeT(D['phV'], eV)
     xyH, xyV = S.tubeRows(h, D['phH'], eH), S.tubeRows(h, D['phV'], eV)
-    if not signOK(h, B['o'], S.psiT(h, xyH)): return False, None, None, 'signB'
-    if not signOK(h, -B['o'], S.psiT(h, xyV)): return False, None, None, 'signV'
+    if not S.signAny(h, B['o'], xyH): return False, None, None, 'signB'
+    if not S.signAny(h, -B['o'], xyV): return False, None, None, 'signV'
     Bm, C = S.BT(xyH), S.CT3(xyV)
     okD, Dm = S.forcedT(h, D['Xp'], D['A0'], S.ET(e), Bm, C)
     if not okD: return False, None, None, 'neumann'
