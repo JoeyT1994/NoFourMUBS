@@ -270,7 +270,7 @@ def qRowsI(Y, J):
 def sideK(h, G, phi, Y, rt):
     phr = [re(A) for A in phi]
     b = [bnd(h, T) for T in matT(h, Y, FT(h, G, rowsT(h, phr)))]
-    g = [ivc(h, T) for T in rowsT(h, [addRho(A, rt) for A in phr])]
+    g = [ivc(h, addRho(T, rt)) for T in rowsT(h, phr)]
     q = qRowsI(Y, [[jI(g, l, m) for m in range(6)] for l in range(6)])
     num = [b[i] * SC + q[i] * rt for i in range(6)]
     ok = all(num[i] < rt * SC for i in range(6)) and all(expOK(phr[i]) for i in range(6))
@@ -278,6 +278,7 @@ def sideK(h, G, phi, Y, rt):
 
 
 def tubeT(phi, e): return [addRho(re(phi[j]), e[j]) for j in range(6)]
+def tubeRows(h, phi, e): return [addRho(T, e[j]) for j, T in enumerate(rowsT(h, [re(A) for A in phi]))]
 
 
 def psiT(h, xy):
@@ -436,7 +437,7 @@ def c1Box(B, D, n=None, verbose=False):
     info.update(bH=max(bH) / SC, qH=max(qH) / SC, bV=max(bV) / SC, qV=max(qV) / SC)
     if not (okH and okV): return False, ('kraw', info)
     sH, sV = tubeT(D['phH'], eH), tubeT(D['phV'], eV)
-    xyH, xyV = rowsT(h, sH), rowsT(h, sV)
+    xyH, xyV = tubeRows(h, D['phH'], eH), tubeRows(h, D['phV'], eV)
     pH, pV = psiT(h, xyH), psiT(h, xyV)
     if not signOK(h, B['o'], pH): return False, ('signB', info)
     if not signOK(h, -B['o'], pV): return False, ('signV', info)

@@ -25,7 +25,7 @@ def core(B, D):
     okV, eV, _, _ = S.sideK(h, GV, D['phV'], D['YV'], D['tubeV'])
     if not (okH and okV): return False, None, None, 'kraw'
     sH, sV = S.tubeT(D['phH'], eH), S.tubeT(D['phV'], eV)
-    xyH, xyV = S.rowsT(h, sH), S.rowsT(h, sV)
+    xyH, xyV = S.tubeRows(h, D['phH'], eH), S.tubeRows(h, D['phV'], eV)
     if not signOK(h, B['o'], S.psiT(h, xyH)): return False, None, None, 'signB'
     if not signOK(h, -B['o'], S.psiT(h, xyV)): return False, None, None, 'signV'
     Bm, C = S.BT(xyH), S.CT3(xyV)

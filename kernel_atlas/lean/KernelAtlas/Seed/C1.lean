@@ -155,7 +155,7 @@ structure SideOut where
 def sideK (h : List ℕ) (G : List CT) (φ : List CT) (Y : List ℤ) (ρt : ℕ) : SideOut :=
   let φr := l6 fun j => re (gT φ j)
   let b := (matT h Y (FT h G (rowsT h φr))).map (bnd h)
-  let xr := rowsT h (l6 fun j => addRho (gT φr j) ρt)
+  let xr := l6 fun j => addRho (gT (rowsT h φr) j) ρt
   let q := qRowsI Y (jI fun j => ivc h (gT xr j))
   let num := l6 fun i => gn b i * 2 ^ pp + gn q i * ρt
   ⟨(l6 fun i => decide (gn num i < ρt * 2 ^ pp)).all id && (l6 fun i => expOK (gT φr i) nT).all id,
@@ -163,6 +163,11 @@ def sideK (h : List ℕ) (G : List CT) (φ : List CT) (Y : List ℤ) (ρt : ℕ)
 
 /-- The side phase models `φ_pred ± e`. -/
 def tubeT (φ : List CT) (e : List ℕ) : List CT := l6 fun j => addRho (re (gT φ j)) (gn e j)
+
+/-- The side rows on the tube: the predictor's rows `e^{iφ_pred}` (computed by `sideK`) widened by `e`
+(`|e^{ia} − e^{ib}| ≤ |a − b|`). -/
+def tubeRows (h : List ℕ) (φ : List CT) (e : List ℕ) : List CT :=
+  l6 fun j => addRho (gT (rowsT h (l6 fun j => re (gT φ j))) j) (gn e j)
 
 /-! ### `Ψ` and the signs -/
 
@@ -289,8 +294,8 @@ def c1Box (B : BallD) (D : BoxD) : Bool :=
   let kV := sideK h GV D.phV D.YV D.tubeV
   let sH := tubeT D.phH kH.e
   let sV := tubeT D.phV kV.e
-  let xyH := rowsT h sH
-  let xyV := rowsT h sV
+  let xyH := tubeRows h D.phH kH.e
+  let xyV := tubeRows h D.phV kV.e
   let Bm := BT xyH
   let C := CT3 xyV
   let Dk := forcedT h D.Xp D.A0 (ET e) Bm C

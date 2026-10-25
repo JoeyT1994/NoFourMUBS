@@ -102,6 +102,21 @@ lemma hy_of {u : Fin 4 → ℝ} {xy : List CT} {ξ : Fin 6 → ℝ}
   have := hy ⟨m - 3, by omega⟩
   rwa [show ((⟨m - 3, by omega⟩ : Fin 3) : ℕ) + 3 = m by simp; omega] at this
 
+/-! ### Rows on the tube -/
+
+lemma norm_cexp_sub (a b : ℝ) : ‖Complex.exp ((a : ℂ) * I) - Complex.exp ((b : ℂ) * I)‖ ≤ |a - b| := by
+  have e : Complex.exp ((a : ℂ) * I) - Complex.exp ((b : ℂ) * I) =
+      Complex.exp ((b : ℂ) * I) * (Complex.exp (I * ((a - b : ℝ) : ℂ)) - 1) := by
+    rw [mul_sub, mul_one, ← Complex.exp_add]; congr 2; push_cast; ring
+  rw [e, norm_mul, Complex.norm_exp_ofReal_mul_I, one_mul]
+  have := Real.norm_exp_I_mul_ofReal_sub_one_le (x := a - b)
+  rwa [Real.norm_eq_abs] at this
+
+/-- A row model of `e^{ib}` widened by `e ≥ |a − b|` encloses `e^{ia}`. -/
+lemma has_row_shift {T : CT} {u : Fin 4 → ℝ} {a b : ℝ} {e : ℕ} (hT : T.Has u (Complex.exp ((b : ℂ) * I)))
+    (hab : |a - b| ≤ rn e) : (addRho T e).Has u (Complex.exp ((a : ℂ) * I)) :=
+  has_addRho hT ((norm_cexp_sub a b).trans hab)
+
 /-! ### The Jacobian by intervals -/
 
 /-- `x` lies in the complex interval `a`. -/
@@ -280,11 +295,11 @@ theorem side_sound {h : List ℕ} {u : Fin 4 → ℝ} (hu : InBox h u) {G : List
     (hok : (sideK h G φ Y ρt).ok = true) :
     ∃ φs : Fin 6 → ℝ, sS (sx φs) = s ∧ sS (sy φs) = t ∧ rS (sx φs) (sy φs) = r ∧
       (∀ j : Fin 6, (gT (tubeT φ (sideK h G φ Y ρt).e) j).Has u (φs j : ℂ)) ∧
-      (∀ j : Fin 3, (gT (rowsT h (tubeT φ (sideK h G φ Y ρt).e)) j).Has u (sx φs j)) ∧
-      ∀ j : Fin 3, (gT (rowsT h (tubeT φ (sideK h G φ Y ρt).e)) (j + 3)).Has u (sy φs j) := by
+      (∀ j : Fin 3, (gT (tubeRows h φ (sideK h G φ Y ρt).e) j).Has u (sx φs j)) ∧
+      ∀ j : Fin 3, (gT (tubeRows h φ (sideK h G φ Y ρt).e) (j + 3)).Has u (sy φs j) := by
   set φr := l6 fun j => re (gT φ j) with hφr
   set bL := (matT h Y (FT h G (rowsT h φr))).map (bnd h) with hbL
-  set xr := rowsT h (l6 fun j => addRho (gT φr j) ρt) with hxr
+  set xr := l6 fun j => addRho (gT (rowsT h φr) j) ρt with hxr
   set qL := qRowsI Y (jI fun j => ivc h (gT xr j)) with hqL
   set numL := l6 fun i => gn bL i * 2 ^ pp + gn qL i * ρt with hnumL
   have hK : sideK h G φ Y ρt = ⟨(l6 fun i => decide (gn numL i < ρt * 2 ^ pp)).all id &&
@@ -301,28 +316,27 @@ theorem side_sound {h : List ℕ} {u : Fin 4 → ℝ} (hu : InBox h u) {G : List
   have hgr : ∀ j : Fin 6, gT φr j = re (gT φ j) := fun j => gT_l6 _ j.2
   have hpred : ∀ j : Fin 6, (gT φr j).Has u (φp j : ℂ) := fun j => by
     rw [hgr j]; unfold CT.Has; rw [eval_re, sub_self, norm_zero]; exact rn_nonneg _
-  -- the tube
-  have htube : ∀ ξ ∈ closedBall φp (rn ρt), ∀ j : Fin 6,
-      (gT (l6 fun j => addRho (gT φr j) ρt) j).Has u (ξ j : ℂ) := fun ξ hξ j => by
-    rw [gT_l6 _ j.2]
-    refine has_addRho (hpred j) ?_
-    rw [← Complex.ofReal_sub, Complex.norm_real, Real.norm_eq_abs, ← Real.dist_eq]
-    exact (dist_le_pi_dist ξ φp j).trans (mem_closedBall.1 hξ)
-  have htexp : ∀ j : Fin 6, expOK (gT (l6 fun j => addRho (gT φr j) ρt) j) nT = true := fun j => by
-    rw [gT_l6 _ j.2, expI_addRho_ok]; exact hexp j
+  -- the predictor's rows, widened to the tube
+  obtain ⟨hx0, hy0⟩ := has_rowsT hu hexp hpred
   -- Krawczyk
   have hb : ∀ i : Fin 6, |(Ymat Y).mulVec (sideF s t r φp) i| ≤ rn (gn bL i) := fun i => by
-    obtain ⟨hx, hy⟩ := has_rowsT hu hexp hpred
-    have h1 := norm_le_bnd hu (has_matT (Y := Y) hu (has_FT hu hG hx hy) i)
+    have h1 := norm_le_bnd hu (has_matT (Y := Y) hu (has_FT hu hG hx0 hy0) i)
     rw [Complex.norm_real, Real.norm_eq_abs] at h1
     have e : gn bL i = bnd h (gT (matT h Y (FT h G (rowsT h φr))) i) := by
       rw [hbL, matT, gn_map_l6 _ _ i.2, gT_l6 _ i.2]
     rw [e]; exact h1
   have hq : ∀ ξ ∈ closedBall φp (rn ρt), ∀ i : Fin 6, ∑ j, |(1 - Ymat Y * sideJ ξ) i j| ≤ rn (gn qL i) :=
     fun ξ hξ i => by
-      obtain ⟨hx, hy⟩ := has_rowsT hu htexp (htube ξ hξ)
-      have gx : ∀ j : Fin 3, IvH ((fun j => ivc h (gT xr j)) j) (sx ξ j) := fun j => ivH_ivc hu (hx j)
-      have gy : ∀ j : Fin 3, IvH ((fun j => ivc h (gT xr j)) (j + 3)) (sy ξ j) := fun j => ivH_ivc hu (hy j)
+      have hd : ∀ j : Fin 6, |ξ j - φp j| ≤ rn ρt := fun j => by
+        rw [← Real.dist_eq]; exact (dist_le_pi_dist ξ φp j).trans (mem_closedBall.1 hξ)
+      have gx : ∀ j : Fin 3, IvH ((fun j => ivc h (gT xr j)) j) (sx ξ j) := fun j => by
+        refine ivH_ivc hu ?_
+        rw [hxr, gT_l6 _ (by omega)]
+        exact has_row_shift (hx0 j) (hd ⟨j, by omega⟩)
+      have gy : ∀ j : Fin 3, IvH ((fun j => ivc h (gT xr j)) (j + 3)) (sy ξ j) := fun j => by
+        refine ivH_ivc hu ?_
+        rw [hxr, gT_l6 _ (by omega)]
+        exact has_row_shift (hy0 j) (hd ⟨j + 3, by omega⟩)
       have hJ := jI_sound (g := fun j => ivc h (gT xr j)) (ξ := ξ) gx gy
       have hQ := qRowsI_sound (Y := Y) (J := jI fun j => ivc h (gT xr j)) (A := sideJ ξ) hJ i
       exact hQ
@@ -337,9 +351,16 @@ theorem side_sound {h : List ℕ} {u : Fin 4 → ℝ} (hu : InBox h u) {G : List
     refine has_addRho (hgr j ▸ hpred j) ?_
     rw [← Complex.ofReal_sub, Complex.norm_real, Real.norm_eq_abs]
     exact tube_le (hdist j)
-  have hrexp : ∀ j : Fin 6, expOK (gT (tubeT φ (numL.map fun x => cdivN x pp)) j) nT = true := fun j => by
-    rw [tubeT, gT_l6 _ j.2, expI_addRho_ok, ← hgr j]; exact hexp j
-  obtain ⟨hx, hy⟩ := has_rowsT hu hrexp hphase
+  have hdist' : ∀ j : Fin 6, |φs j - φp j| ≤ rn (gn (numL.map fun x => cdivN x pp) j) := fun j => by
+    rw [show gn (numL.map fun x => cdivN x pp) j = cdivN (gn bL j * 2 ^ pp + gn qL j * ρt) pp
+      from by rw [hnumL]; exact gn_map_l6 _ _ j.2]
+    exact tube_le (hdist j)
+  have hx : ∀ j : Fin 3, (gT (tubeRows h φ (numL.map fun x => cdivN x pp)) j).Has u (sx φs j) := fun j => by
+    rw [tubeRows, gT_l6 _ (by omega)]
+    exact has_row_shift (hx0 j) (hdist' ⟨j, by omega⟩)
+  have hy : ∀ j : Fin 3, (gT (tubeRows h φ (numL.map fun x => cdivN x pp)) (j + 3)).Has u (sy φs j) := fun j => by
+    rw [tubeRows, gT_l6 _ (by omega)]
+    exact has_row_shift (hy0 j) (hdist' ⟨j + 3, by omega⟩)
   exact ⟨φs, hs, ht, hr, hphase, hx, hy⟩
 
 end NoFourMUBs.KernelAtlas.Seed

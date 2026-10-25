@@ -27,8 +27,8 @@ def coreOK (B : BallD) (D : BoxD) : Bool :=
   let kV := sideK h GV D.phV D.YV D.tubeV
   let sH := tubeT D.phH kH.e
   let sV := tubeT D.phV kV.e
-  let xyH := rowsT h sH
-  let xyV := rowsT h sV
+  let xyH := tubeRows h D.phH kH.e
+  let xyV := tubeRows h D.phV kV.e
   let Bm := BT xyH
   let C := CT3 xyV
   let Dk := forcedT h D.Xp D.A0 (ET e) Bm C
@@ -45,7 +45,7 @@ def qModels (B : BallD) (D : BoxD) : List CT :=
   let kV := sideK h (gramV h e) D.phV D.YV D.tubeV
   let sH := tubeT D.phH kH.e
   let sV := tubeT D.phV kV.e
-  let Dk := forcedT h D.Xp D.A0 (ET e) (BT (rowsT h sH)) (CT3 (rowsT h sV))
+  let Dk := forcedT h D.Xp D.A0 (ET e) (BT (tubeRows h D.phH kH.e)) (CT3 (tubeRows h D.phV kV.e))
   QT h th sH sV (l9 fun q => argT h nT (gi D.argA q) (gT Dk.D q))
 
 /-- The 36 entry models of the completion `[[E, B], [C, D]]` (row-major). -/
@@ -63,8 +63,8 @@ def kModels (B : BallD) (D : BoxD) : List CT :=
   let e := (l4 (thetaT B D)).map (expI h nT)
   let kH := sideK h (gramH h e) D.phH D.YH D.tubeH
   let kV := sideK h (gramV h e) D.phV D.YV D.tubeV
-  let Bm := BT (rowsT h (tubeT D.phH kH.e))
-  let C := CT3 (rowsT h (tubeT D.phV kV.e))
+  let Bm := BT (tubeRows h D.phH kH.e)
+  let C := CT3 (tubeRows h D.phV kV.e)
   blocksT (ET e) Bm C (forcedT h D.Xp D.A0 (ET e) Bm C).D
 
 lemma c1Box_eq (B : BallD) (D : BoxD) :
@@ -116,8 +116,8 @@ theorem core_sound {B : BallD} {D : BoxD} (hok : coreOK B D = true) {o : ℤˣ} 
   set kV := sideK h GV D.phV D.YV D.tubeV with hkV
   set sH := tubeT D.phH kH.e with hsH
   set sV := tubeT D.phV kV.e with hsV
-  set xyH := rowsT h sH with hxyH
-  set xyV := rowsT h sV with hxyV
+  set xyH := tubeRows h D.phH kH.e with hxyH
+  set xyV := tubeRows h D.phV kV.e with hxyV
   set Bm := BT xyH with hBm
   set C := CT3 xyV with hC
   set Dk := forcedT h D.Xp D.A0 (ET e) Bm C with hDk
