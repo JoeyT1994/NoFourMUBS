@@ -1,0 +1,39 @@
+{
+  "status": "PROVED_WITH_CERTIFIED_FINITE_STEPS",
+  "metric": "Unnormalized Frobenius norm of horizontal phase increments, radians",
+  "closed_ball": true,
+  "conclusion": "No quartet edge: every pair of additional orthonormal bases unbiased to I,H has a deficient cross probability.",
+  "main_theorem": {
+    "rho": "9/20",
+    "probability_deficit": "1/20000",
+    "minimum_cross_probability_upper": "9997/60000",
+    "total_nodes_checked": 5408512,
+    "unresolved_leaves": 0,
+    "quantized_gaussian_radius": "669/1000",
+    "quantized_bjork_radius": "58/125",
+    "exact_gaussian_radius": "67/100",
+    "exact_bjork_radius": "93/200",
+    "cover_directory": "cover"
+  },
+  "additional_stronger_gap_theorem": {
+    "rho": "3/10",
+    "probability_deficit": "1/1000",
+    "minimum_cross_probability_upper": "497/3000",
+    "total_nodes_checked": 2119936,
+    "unresolved_leaves": 0,
+    "quantized_gaussian_radius": "277/500",
+    "quantized_bjork_radius": "63/125",
+    "exact_gaussian_radius": "111/200",
+    "exact_bjork_radius": "101/200",
+    "cover_directory": "cover_030"
+  },
+  "graph_possible_label_sets": 52,
+  "graph_ordered_label_set_pairs_checked": 2704,
+  "interface_checks": "PASS",
+  "run_mode": "Recorded completed replays plus exact hash/interface checks; no fresh cover inequality replay",
+  "radius_030_freshly_replayed_this_run": false,
+  "radius_050": "NOT_ESTABLISHED",
+  "optimality": "NOT_ESTABLISHED",
+  "lean_formalization": "NOT_SUPPLIED",
+  "elapsed_seconds_informational": 0.14123980499971367
+}
