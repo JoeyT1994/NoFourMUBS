@@ -141,7 +141,9 @@ class EdgeBall:
             for _ in range(nsamp):
                 w = rng.normal(size=4); w *= s_ / np.linalg.norm(w)
                 q = eb.Qw(w); worst = max(worst, np.linalg.norm(q - eb.P - eb.U @ w))
-        eb.r, eb.n, eb.label, eb.k, eb.exclusion = t, 2.0 * worst, 0.03, [8, 8, 8, 8], 'X'
+        # n plays no part in the exclusion (X does): generous, so C1e's certified remainder stays below it.  16 boxes
+        # per axis keep the certified image within phase distance 3/20 (boundary boxes overhang the sphere by ~2 h)
+        eb.r, eb.n, eb.label, eb.k, eb.exclusion = t, max(4.0 * worst, 0.06), 0.03, [16, 16, 16, 16], 'X'
         return eb
 
     def wvalue(self, p):
