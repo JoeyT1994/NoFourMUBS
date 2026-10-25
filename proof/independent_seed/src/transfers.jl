@@ -124,7 +124,8 @@ function check_T1_corner(s::Seed, lo, hi, g::Group, t::Seed, Minv::Matrix{I64})
     wm = ntuple(j -> s.r * (lo[j] + hi[j]) / 2, 4)
     thc = theta_f(s.theta0, s.Mth, wm)
     pos = ((2, 2), (2, 3), (3, 2), (3, 3))
-    kq = [round((s.P[6(a-1)+b] + sum(s.U[6(a-1)+b, j] * wm[j] for j in 1:4) - thc[m]) / (2π)) for (m, (a, b)) in enumerate(pos)]
+    Pg = pg(s); Ug = ug(s)
+    kq = [round((Pg[6(a-1)+b] + sum(Ug[6(a-1)+b, j] * wm[j] for j in 1:4) - thc[m]) / (2π)) for (m, (a, b)) in enumerate(pos)]
     function phases(v)          # the 6 x 6 phase matrix (only the corner block is used), interval entries
         X = fill(iv(0.0), 6, 6)
         for (m, (a, b)) in enumerate(pos)
@@ -202,9 +203,9 @@ function check_seed_box(s::Seed, root::BoxMap, g::Group, lo, hi, X::XferCtx, rec
     end
     wc, h = scaled_dom(lo, hi, s.r)
     wcm = ntuple(j -> mid(wc[j]), 4)
-    bm = box_map(s.theta0, s.Mth, s.o, s.P, wc, h, guess_at(root, wcm)...)
+    bm = box_map(s.theta0, s.Mth, s.o, pg(s), wc, h, guess_at(root, wcm)...)
     bm.ok || return false, string(g.kind) * ": " * bm.why, Inf
-    Q = representative(bm.Q, s.P, s.U, wc)
+    Q = representative(bm.Q, pg(s), ug(s), wc)       # the dephased representative nearest P_g + U_g w (FORMAT §3, SPEC §11)
     D = Dom(h)
     g.kind == :T1 && return check_T1(Q, D, g, X.seeds[g.target+1], X.minv[g.target+1])
     g.kind == :T3 && return check_T3(Q, D, g, X.edges[g.target+1], X.edge_leaves[g.target+1], X.edge_minv[g.target+1])

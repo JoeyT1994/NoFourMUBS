@@ -8,7 +8,8 @@ Julia with IntervalArithmetic.jl. It re-implements from the specification:
   boundary,
 - Tao's zero-dimensional record;
 - the edge balls of SPEC §10 (the four-dimensional chart through F6 that replaces F6's record): C1e, Stage C on their
-  enclosure, T3 transfers into them, and their sphere covers by T1.
+  enclosure, T3 transfers into them, and their sphere covers by T1;
+- seed balls in either gauge (SPEC §11): dephased, or horizontal (`"gauge": "hor"`).
 
 The 25-dimensional records (normal bound, Stage C, F6) reuse `proof/independent/src` unchanged: it is loaded as the
 submodule `IndepAtlas` and nothing in it is edited.
@@ -27,7 +28,7 @@ submodule `IndepAtlas` and nothing in it is edited.
 ```bash
 cd proof/independent_seed
 julia --startup-file=no -t 8 --project=../independent/jlenv check_seed.jl CERT.json.gz OUTDIR   # whole certificate
-tests/run_tests.sh 4                                                                          # all tests, ~5 min
+tests/run_tests.sh 8                                                                          # all tests, ~12 min
 mkdir -p out && sbatch run_rusty.sh                                                           # one rusty node
 ```
 
@@ -38,7 +39,7 @@ mkdir -p out && sbatch run_rusty.sh                                             
   - `--fast`: Stage C float decisions with margins only.
   - `--limit K`, `--only i,j`: subsets of seed balls.
   - `--partial`: exit 0 when every checked object passed.
-  - `--c1-depth D` (default 3) and `--split-depth S` (default 2): see "Design".
+  - `--c1-depth D` (default 4) and `--split-depth S` (default 2): see "Design".
   - `--shard k/m` and `--import D1,...`: split the seed balls over processes.
 - **Rusty.** `run_rusty.sh` starts 8 shard processes of 16 threads each. One garbage collector per process scales
   better than 128 threads in one process (see `proof/independent/README.md`, "Performance"). A final run then imports
@@ -70,7 +71,7 @@ mkdir -p out && sbatch run_rusty.sh                                             
 | `src/graph.jl` | SPEC §10.1: (G) the graph property near F6, (D) the chart derivative and the image of the edge ball |
 | `check_seed.jl` | the driver (threads, shards, receipts, verdict) |
 | `run_rusty.sh` | one rusty node |
-| `tests/` | `run_tests.sh`, `enclosure.jl`, `negative.jl`, the test certificate and its generator |
+| `tests/` | `run_tests.sh`, `enclosure.jl`, `negative.jl`, `edge_tests.jl`, `hor_tests.jl`, the test certificates and their generators |
 
 ## Design
 
@@ -95,8 +96,8 @@ whose coefficients lie in the stored intervals, together with the claim |f(u) �
   −r + (2i+1)r/k, and the half-width is h ≥ r/k.
 - A model computed with an interval centre holds for every point of it, so the boxes cover the ball exactly.
 - A box is dropped only if it certainly misses the ball.
-- A box whose bound exceeds n, or whose certification fails, is split into its 16 halves, down to D = 3 extra
-  levels. **The certified bound is the maximum over accepted boxes, and C1 passes iff it is ≤ n.** So k only sets
+- A box whose bound exceeds n, or whose certification fails, is split into its 16 halves, down to D = 4 extra
+  levels (SPEC §11 allows any partition covering the ball). **The certified bound is the maximum over accepted boxes, and C1 passes iff it is ≤ n.** So k only sets
   the starting partition.
 
 **On each box** (θ = θ_c + Mth u), the steps below are each decided in intervals.
@@ -133,6 +134,28 @@ whose coefficients lie in the stored intervals, together with the claim |f(u) �
 - The Gram data and Ψ use exponentials of sums, not products.
 - The arg is rotated by e^{−iP} first.
 - The diagonal of the quadratic part is recentred, and the tail is combined per entry.
+
+### The horizontal gauge (SPEC §11; `src/io_seed.jl`, `src/c1.jl`)
+
+A seed entry with `"gauge": "hor"` stores P and U horizontal (row and column means zero). Without the field the
+dephased gauge is meant; any other value stops the run (`convert_seed.py` and the reader both refuse it).
+- **Branches and representatives.** These are chosen in the dephased gauge, at P_g = gauge(P) and U_g = gauge(U), with
+  gauge(X)_ab = X_ab − X_a0 − X_0b + X_00 in floats. The box map, its arg branches and the representative Q_g nearest
+  P_g + U_g w are the same code as for a dephased ball. These floats only steer choices, so their rounding cannot make a
+  claim wrong.
+- **The bound.** On each box the integer winding N is chosen entrywise at the centre. The polynomial parts of
+  Q_g + 2πN are projected by hor in models (interval coefficients 1/6 and 1/36), and ‖hor(Q_g + 2πN) − P − U w‖ is
+  bounded by vecnorm_sup. The remainders enter as ‖(r_e)‖₂, since hor is an orthogonal projection.
+- **Why any N will do.** e^{i(Q_g + 2πN)} = e^{iQ_g}, and hor changes a phase matrix only by row and column phases,
+  so e^{i hor(Q_g + 2πN)} is equivalent to H. So the windings of this gauge form the lattice hor(2πZ³⁶): P + 2π hor(e_ab)
+  describes the same ball, while P + 2π e_ab does not (both are tests).
+- **Not checked: that P and U are horizontal.** Soundness does not need it. The claim is about hor(Q_g), and Stage C
+  reads the stored P, U and n. A non-horizontal part of P simply enters the residual, as a test shows.
+- **Stage C** uses the stored P and U, through the same code as a dephased ball.
+- **Transfers are unchanged.** They read θ and the representative Q_g, never P. So T0 and T1 may go from either gauge
+  into either gauge, and the test certificate has a horizontal ball with T1 into a dephased one.
+- **Cost.** The horizontal residual is about 3× smaller than the dephased one for the same r. So at the same relative
+  margin n / sup the second-order models need smaller boxes. See "Measured".
 
 ### Stage C on the enclosure (`src/stagec_seed.jl`)
 
@@ -347,7 +370,7 @@ C1e takes seconds. A `--shard` run computes only their C1e leaves, and the final
   k = 8 certified bound) and label radius 0.03, it passes with 201 labels in 10.6 s. So the full-size edge ball
   certifies end to end here.
 
-## Tests (`tests/run_tests.sh`, about 5 min on 4 threads)
+## Tests (`tests/run_tests.sh`, about 12 min on 8 threads)
 
 **The test certificate** (`tests/data/seed_test_certificate.json.gz`, from `make_test_cert.py` with the prototype)
 contains:
@@ -411,6 +434,21 @@ reason.
      - *Accepted (controls):* C1e, the T3 cover, the T1 boxes, Stage C, sorted complements (they are increasing in
        this data), T3 without stored windings, and (G)/(D) as given, with the defaults, at the atlas's F6 record, and at
        a perturbed centre. The argument needs no Hadamard centre, only σ and the image.
+7. **Horizontal gauge (`hor_tests.jl`, on `tests/data/hor_test_certificate.json.gz` from `make_hor_cert.py`).**
+   - **The certificate.** Seed 0 is record 2003's centre in the horizontal gauge (r = 0.02, n = 1.25 × the
+     prototype's sampled residual). Its 256 sphere boxes go by T0 into seed 1 (horizontal, r = 0.05), by T1 into seed 2
+     (another corner, dephased gauge, r = 0.08) and by T2 into record 2003. Seed 0 must pass C1, Stage C and C2; seeds
+     1 and 2 pass C1 and Stage C and fail C2 for want of boxes.
+   - **Sampling.** `enclosure.jl` (b) on the same certificate: BigFloat completions lie inside the models, and
+     ‖hor(Q_g) − P − U w‖ is below the box bound (worst ratio about 0.5).
+   - **19 cases, all as expected.**
+     - *Rejected:* n = 0.99 × the sampled ‖hor(Q_g) − P − U w‖; the gauge flag dropped (horizontal P and U read as
+       dephased); the flag added to the dephased seed 2; P + 2π e_34 (not in the horizontal lattice); P + 0.01 on a row
+       (gauge(P), and so every branch, unchanged); P + 3n along hor(e_35); U column × 1.1, + 0.1 on a row, + 0.1
+       hor(e_35); θ0 + 0.01; the T0 target's r halved; the T0 group dropped.
+     - *Accepted (controls):* seed 0 as given (C1, Stage C, C2); P + 2π hor(e_34); n equal to the certified bound;
+       seed 2 (dephased) C1; seed 0's C2 with its T1 target flagged horizontal (transfers do not read the gauge).
+   - **End to end.** An unknown gauge in the JSON stops the run.
 
 ### Measured (M-series laptop, one thread unless stated)
 
@@ -424,6 +462,30 @@ reason.
 | test seed 0, r = 0.03 | 3 | 0.00113 (sampled true sup 0.00032) | 0.00126 | 0.2 s |
 
 - **Stage C.** 1–3 s per ball, with the interval replay.
+
+**Both gauges (SPEC §11)** with adaptive C1, one thread. Each ball is at an atlas centre's best corner with k = 4. n is
+f × 1.25 × the prototype's sampled residual on the spheres of radius r and r/2, measured in the ball's own gauge. The
+"leaves" are the accepted boxes, and the time is the C1 time.
+
+| record, r | gauge | n (f = 1) | f = 1 | f = 1.2 | f = 1.6 |
+|---|---|---|---|---|---|
+| 2003, 0.125 | hor | 0.0104 | 15,060 leaves, 27 s | 6,135, 12 s | 2,774, 5.2 s |
+| 2003, 0.125 | dephased | 0.0066 | 8,219, 23 s | 3,223, 8.7 s | 1,475, 3.8 s |
+| 2781, 0.1 | hor | 0.0056 | 22,065, 45 s | 9,938, 22 s | 2,826, 5.9 s |
+| 2781, 0.1 | dephased | 0.0039 | 6,421, 18 s | 2,878, 8.1 s | 1,284, 3.6 s |
+| 7000, 0.125 | hor | 0.0058 | 31,113, 63 s | 14,224, 29 s | 3,530, 7.5 s |
+| 7000, 0.125 | dephased | 0.0057 | 4,927, 12 s | 1,858, 4.8 s | 582, 1.6 s |
+| 1000, 0.125 | hor | 0.0132 | 13,690, 28 s | 6,028, 12 s | 2,759, 5.3 s |
+| 1000, 0.125 | dephased | 0.0096 | 4,408, 11 s | 2,255, 4.0 s | 852, 1.5 s |
+
+- **What sets the cost.** Each box costs about 2 ms. The box count is set by the margin n / sup: the polynomial bound
+  overestimates by O(h²) and the remainder is O(h³), so a margin of 25% needs about 4 levels.
+- **Why the horizontal gauge costs more.** It has a larger Mth for the same r, because hor(T) has smaller singular
+  values than T. So a ball covers more of θ.
+- **Stage C** on these four horizontal-gauge balls (label radius 0.03) takes 5–11 s. Two of them pass; the other two
+  fail with a two-clique, which is expected at this test label radius.
+- **Earlier dephased tables.** Those runs used n from the prototype's own certified bound, which leaves a large margin.
+  That is why they needed no splits.
 - **C2.** About 3 ms per box for T1 at a general corner and for T2, and well under 1 ms for T0 and corner-T1.
 - **C1.** About 3 ms and 0.5 MB of allocation per box.
 
@@ -476,4 +538,11 @@ reason.
       inequality.
     - **σ_D's normalization.** σ_D is measured with η in the basis of eq. (13), and that choice is mine.
     - **Superseded.** The box-wise (G) of the earlier §10.1 version (normal tubes over η-boxes) was replaced, as SPEC
-      §10.2 allows.
+      §10.2 allows.14. **SPEC §11 (the horizontal gauge).**
+    - **Windings.** N is chosen entrywise at each box's centre, nearest P_g + U_g w_c. Any integer N is valid before
+      hor, so this choice affects only the size of the bound.
+    - **Branches.** The box map and the representative use P_g = gauge(P) and U_g = gauge(U), computed in floats. Edge
+      balls keep the dephased gauge, and a `"gauge"` field on an edge entry is not read.
+    - **Horizontality.** It is not checked: soundness does not need it (see "The horizontal gauge").
+    - **The partition.** k is only the starting partition, and boxes above n or with a failed tube are split, down to 4
+      extra levels (`--c1-depth`, raised from 3 for this gauge). A ball needing more fails with the box named.

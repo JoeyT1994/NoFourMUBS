@@ -60,3 +60,46 @@ def ball(H, I=None, J=None, r=0.04, k=3, nfac=1.05, label_radius=0.03, n=None):
              P=[hx(x) for x in sb.P.reshape(36)], U=[hx(x) for x in Uf.reshape(144)], n=hx(n),
              label_radius=hx(label_radius), transfers=[])
     return d, sb
+
+
+def hor(X):
+    """Horizontal projection of a row-major 36-vector (or of each column of a 36 x m matrix)."""
+    X = np.asarray(X, float)
+    if X.ndim == 2:
+        return np.column_stack([hor(X[:, k]) for k in range(X.shape[1])])
+    M = X.reshape(6, 6)
+    return (M - M.mean(1, keepdims=True) - M.mean(0, keepdims=True) + M.mean()).reshape(36)
+
+
+def ball_hor(H, I=None, J=None, r=0.125, k=4, nfac=1.25, label_radius=0.03, nsamp=300, seed=0, n=None):
+    """A seed ball in the horizontal gauge (SPEC §11): Mth from the SVD of hor(T), U = hor(T) Mth (orthonormal),
+    P = hor(P_g); n = nfac x the sampled max of ||hor(Q_g) - P - U w|| over the sphere and the half sphere."""
+    if I is None:
+        th, ph, pv, _, _ = best_corner_split(H)
+    else:
+        th, ph, pv = corner_split(H, I, J)
+    sb = SeedBall(th, ph, pv)
+    hT = hor(sb.T)
+    U, S, Vt = np.linalg.svd(hT, full_matrices=False)
+    Mth = Vt.T / S[None, :]
+    Uh = hT @ Mth
+    Pg = sb.P.reshape(36)
+    P = hor(Pg)
+    B = np.vstack([np.ones(3), np.exp(1j * sb.phih[:3]), np.exp(1j * sb.phih[3:])])
+    o = int(np.sign(psi(B).imag))
+    if n is None:
+        rng = np.random.default_rng(seed)
+        worst = 0.0
+        for s in (r, r / 2):
+            for v in rng.normal(size=(nsamp, 4)):
+                w = s * v / np.linalg.norm(v)
+                out = sb.Q(sb.theta0 + Mth @ w)
+                if out is None:
+                    raise RuntimeError('continuation failed')
+                Qg = out[0]
+                Ug = hT @ Mth   # (U_g only fixes the representative; the prototype's Q is already near P_g)
+                worst = max(worst, np.linalg.norm(hor(Qg) - P - Uh @ w))
+        n = nfac * worst
+    d = dict(gauge='hor', theta0=[hx(x) for x in sb.theta0], Mth=[hx(x) for x in Mth.reshape(16)], r=hx(r), o=o, k=k,
+             P=[hx(x) for x in P], U=[hx(x) for x in Uh.reshape(144)], n=hx(n), label_radius=hx(label_radius), transfers=[])
+    return d, sb

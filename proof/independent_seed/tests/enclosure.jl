@@ -6,7 +6,8 @@
 #     true values of x y, e^{ix}, x + y at random points u lie inside the result's polynomial part +- remainder.
 # (b) box_map: on random boxes of each seed ball, the matched completion at random points (computed independently in
 #     BigFloat: Newton on the side equations from the box's own float predictor, D = -C E* (B*)^-1) has phases inside
-#     the 36 models (mod 2 pi), and the residual against P + U w is below the box's certified bound.
+#     the 36 models (mod 2 pi), and the residual against P + U w is below the box's certified bound (in the seed's
+#     gauge: ||hor(Q_g) - P - U w|| for "gauge": "hor", SPEC §11).
 using IntervalArithmetic, LinearAlgebra, Printf, Random
 include(joinpath(@__DIR__, "..", "src", "IndepSeed.jl"))
 using .IndepSeed
@@ -84,11 +85,10 @@ for s in C.seeds[1:min(end, nseeds)]
         wcm = ntuple(_ -> (s.r - h) * (2rand(rng) - 1) * 0.6, 4)
         wc = ntuple(j -> interval(wcm[j]), 4)
         gh, gv = S.guess_at(root, wcm)
-        bm = S.box_map(s.theta0, s.Mth, s.o, s.P, wc, (h, h, h, h), gh, gv)
+        bm = S.box_map(s.theta0, s.Mth, s.o, S.pg(s), wc, (h, h, h, h), gh, gv)
         bm.ok || (println("  seed $(s.idx) box $trial: $(bm.why) (skipped)"); continue)
         D = S.Dom((h, h, h, h))
-        res = S.residual_models(bm.Q, s.P, s.U, wc)
-        bnd = S.vecnorm_sup(res, D)
+        bnd = S.c1_box_bound(bm.Q, s, wc, D)
         for _ in 1:6
             u = ntuple(_ -> h * (2rand(rng) - 1), 4)
             w = wcm .+ u
@@ -105,11 +105,20 @@ for s in C.seeds[1:min(end, nseeds)]
                 ok = inf(p) - bm.Q[e].r - 1e-13 <= v <= sup(p) + bm.Q[e].r + 1e-13
                 check(ok, @sprintf("seed %d box %d entry %d: true phase outside its model", s.idx, trial, e))
             end
-            # residual against P + U w (any winding)
+            # residual against P + U w (any winding; in the hor gauge, ||hor(Q_g) - P - U w|| with Q_g nearest P_g + U_g w)
             r2 = 0.0
-            for e in 1:36
-                x = Float64(Q[e]) - s.P[e] - sum(s.U[e, j] * w[j] for j in 1:4)
-                x -= 2π * round(x / (2π)); r2 += x^2
+            if s.gauge == :hor
+                ref = S.pg(s) .+ S.ug(s) * collect(w)
+                q = [Float64(Q[e]) for e in 1:36]
+                q .+= 2π .* round.((ref .- q) ./ (2π))
+                X = permutedims(reshape(q, 6, 6))
+                Xh = vec(permutedims(X .- sum(X; dims=2) ./ 6 .- sum(X; dims=1) ./ 6 .+ sum(X) / 36))
+                r2 = sum(abs2, Xh .- s.P .- s.U * collect(w))
+            else
+                for e in 1:36
+                    x = Float64(Q[e]) - s.P[e] - sum(s.U[e, j] * w[j] for j in 1:4)
+                    x -= 2π * round(x / (2π)); r2 += x^2
+                end
             end
             check(sqrt(r2) <= bnd, "seed $(s.idx) box $trial: residual above the box bound")
             worst_ratio = max(worst_ratio, sqrt(r2) / bnd)

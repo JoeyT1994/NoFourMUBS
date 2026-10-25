@@ -13,6 +13,7 @@ increasing order.  A record without a frame ("Tint" absent or all zero) is read 
 label_radius); the top-level "tao" object is the usual form.
 An edge ball may carry "graph": {"R", "sigma"} (SPEC §10.2; optionally also "phi" and "Tint") and "sigma_D" (SPEC §10.1);
 every field is optional (the checker's defaults are documented in src/graph.jl).
+A seed entry may carry "gauge": "hor" (SPEC §11: P and U stored horizontal); without it the dephased gauge is meant.
 Usage: python3 convert_seed.py certificate.json.gz out.txt
 """
 import gzip
@@ -114,7 +115,10 @@ def main(src, dst):
             if o not in (1, -1) or not isint(k):
                 raise SystemExit('%s: o must be +-1 and k an integer' % w)
             gs = s.get('transfers', [])
-            out.write('SEED %d %d %d %d\n' % (i, o, k, len(gs)))
+            gauge = s.get('gauge', 'dephased')
+            if gauge not in ('dephased', 'hor'):
+                raise SystemExit('%s: unknown gauge %r' % (w, gauge))
+            out.write('SEED %d %d %d %d %s\n' % (i, o, k, len(gs), gauge))
             out.write('THETA0 %s\n' % fxs(s['theta0'], 4, w + ' theta0'))
             out.write('MTH %s\n' % fxs(s['Mth'], 16, w + ' Mth'))
             out.write('R %s\nN %s\nLR %s\n' % (fx(s['r'], w + ' r'), fx(s['n'], w + ' n'), fx(s['label_radius'], w + ' lr')))

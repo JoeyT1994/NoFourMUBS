@@ -12,7 +12,7 @@
 #                     run ends after the seed balls (a shard is never a verdict; see --import)
 #   --import D1,D2,.. take the seed-ball receipts of shard runs D1, D2, ... (same certificate, checker and options
 #                     apart from --shard, checked through their BINDING.txt), then finish the whole run here
-#   --c1-depth D      extra halving levels allowed in the C1 box cover (default 3)
+#   --c1-depth D      extra halving levels allowed in the adaptive C1 box cover (default 4)
 #   --split-depth S   halving levels allowed for a transfer box that fails as a whole (default 2)
 #
 # Exit status 0 only for a complete certificate in which every check passed (or, with --partial, every checked object
@@ -83,7 +83,7 @@ function main(args)
     getopt(name, default) = (i = findfirst(==(name), args); i === nothing ? default : args[i+1])
     limit = parse(Int, getopt("--limit", string(typemax(Int))))
     only = getopt("--only", "")
-    c1depth = parse(Int, getopt("--c1-depth", "3")); splitdepth = parse(Int, getopt("--split-depth", "2"))
+    c1depth = parse(Int, getopt("--c1-depth", "4")); splitdepth = parse(Int, getopt("--split-depth", "2"))
     shard = getopt("--shard", ""); imports = getopt("--import", "")
     shard_k, shard_m = isempty(shard) ? (0, 1) : parse.(Int, split(shard, '/'))
     (0 <= shard_k < shard_m) || error("--shard k/m needs 0 <= k < m")

@@ -8,11 +8,15 @@
 #    tube of records (T1') against BigFloat Hadamard points, on the test record and on F6's record (R = 0.125).
 # 4. negative.jl: corrupted n, r, P, U, theta0, o, Mth, label radius, targets, corners, g, windings and boxes are
 #    rejected; harmless changes are accepted.
+# 5. End to end through the JSON: n of seed 0 times 0.2 (below its sampled true residual) is rejected; a malformed
+#    certificate stops the run.
 # 6. Edge balls: check_seed.jl on tests/data/edge_test_certificate.json.gz (an edge ball at F6, a seed ball inside it with
 #    its whole sphere T3 into the edge ball, a seed ball on its sphere, Tao as a frameless record), then edge_tests.jl:
 #    BigFloat sampling of the augmented systems and 25 negative / control cases.
-# 5. End to end through the JSON: n of seed 0 times 0.2 (below its sampled true residual) is rejected; a malformed
-#    certificate stops the run.
+# 7. Horizontal gauge (SPEC §11): check_seed.jl on tests/data/hor_test_certificate.json.gz (seed 0 in the hor gauge, its
+#    sphere by T0 into a hor seed, T1 into a dephased seed and T2), enclosure.jl (b) on it (the hor box bound against
+#    BigFloat completions), hor_tests.jl (19 negative / control cases), and
+#    an unknown gauge in the JSON stops the run.
 set -euo pipefail
 cd "$(dirname "$0")/.."
 NT=${1:-4}
@@ -84,4 +88,24 @@ grep -q "Tao: PASS" "$OUT/edge/RESULT.txt" || fail "Tao's record"
 JL -t "$NT" tests/edge_tests.jl "$OUT/edge/certificate.txt" > "$OUT/edge_tests.log" 2>&1 || true
 grep -E "^\(a\)|UNEXPECTED|EDGE TESTS" "$OUT/edge_tests.log"
 grep -q "EDGE TESTS PASS" "$OUT/edge_tests.log" || fail "edge tests"
+echo "=== 7. horizontal gauge (SPEC §11)"
+JL -t "$NT" check_seed.jl tests/data/hor_test_certificate.json.gz "$OUT/hor" --partial > "$OUT/hor.log" 2>&1 || true
+grep -E "^(seed|record) |SUMMARY" "$OUT/hor.log"
+expect "$OUT/hor/seeds.tsv" 0 PASS
+for i in 1 2; do expect "$OUT/hor/seeds.tsv" $i FAIL "do not cover the sphere"; done
+for i in 0 1 2; do awk -F'\t' -v i=$i '$1 == i && $10 != "PASS" {exit 1}' "$OUT/hor/seeds.tsv" || fail "Stage C of hor seed $i"; done
+JL tests/enclosure.jl "$OUT/hor/certificate.txt" > "$OUT/hor_encl.log" 2>&1 || true
+grep -E "^\(b\)|CHECKS" "$OUT/hor_encl.log"
+grep -q "ENCLOSURE CHECKS PASS" "$OUT/hor_encl.log" || fail "enclosure sampling in the hor gauge"
+JL -t "$NT" tests/hor_tests.jl "$OUT/hor/certificate.txt" > "$OUT/hor_tests.log" 2>&1 || true
+grep -E "^seed 0|UNEXPECTED|HOR TESTS" "$OUT/hor_tests.log"
+grep -q "HOR TESTS PASS" "$OUT/hor_tests.log" || fail "horizontal-gauge tests"
+python3 - tests/data/hor_test_certificate.json.gz "$OUT/bad_gauge.json.gz" <<'EOF'
+import gzip, json, sys
+d = json.load(gzip.open(sys.argv[1]))
+d['seeds'][0]['gauge'] = 'horizontal'
+json.dump(d, gzip.open(sys.argv[2], 'wt'))
+EOF
+JL check_seed.jl "$OUT/bad_gauge.json.gz" "$OUT/bad_gauge" > "$OUT/bad_gauge.log" 2>&1 && fail "unknown gauge accepted"
+grep -q "unknown gauge" "$OUT/bad_gauge.log" || fail "unknown gauge: no message"
 echo "ALL TESTS PASS"

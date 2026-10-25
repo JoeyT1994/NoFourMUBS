@@ -6,7 +6,7 @@
 #   FORMAT seed-atlas-text-v3
 #   COUNTS <nseeds> <nrecords> <fourier_record or -1> <nedge>
 #   per seed:
-#     SEED <i> <o> <k> <ngroups>
+#     SEED <i> <o> <k> <ngroups> [<gauge: dephased | hor>]
 #     THETA0 <4>   MTH <16, row-major>   R <1>   N <1>   LR <1>   P <36>   U <144, row-major 36 x 4>
 #     per group:  GROUP <kind> <target> <g> ROWS <m> <m ints> COLS <m> <m ints> WIND <m> <m ints> NBOX <nb>
 #                 BOXES <5 nb ints: level i0 i1 i2 i3, ...>
@@ -49,7 +49,15 @@ struct Seed
     P::Vector{Float64}            # 36, row-major, radians
     U::Matrix{Float64}            # 36 x 4
     groups::Vector{Group}
+    gauge::Symbol                 # :dephased (P, U in the dephased gauge) or :hor (SPEC §11: P, U horizontal)
 end
+Seed(idx, o, k, theta0, Mth, r, n, lr, P, U, groups) = Seed(idx, o, k, theta0, Mth, r, n, lr, P, U, groups, :dephased)
+
+"""gauge(X)_ab = X_ab - X_a0 - X_0b + X_00 (SPEC §11): the dephased-gauge matrix with the same cross ratios."""
+gauge_f(X::AbstractVector) = [X[6(a-1)+b] - X[6(a-1)+1] - X[b] + X[1] for a in 1:6 for b in 1:6]
+"""The dephased-gauge centre P_g and frame U_g of a seed ball (floats; used only to choose branches and windings)."""
+pg(s::Seed) = s.gauge == :hor ? gauge_f(s.P) : s.P
+ug(s::Seed) = s.gauge == :hor ? reduce(hcat, [gauge_f(s.U[:, k]) for k in 1:4]) : s.U
 
 struct SRecord
     rec::IA.Rec                   # the existing record struct (P, Tint, R, label radius)
@@ -152,7 +160,11 @@ function read_seed_certificate(path::AbstractString)
     end
     seeds = Seed[]
     for _ in 1:ns
-        idx, o, k, ng = parse.(Int, expect(nextline(), "SEED", 4))
+        sl = nextline()
+        (sl[1] == "SEED" && length(sl) in (5, 6)) || error("line $(pos - 1): expected SEED")
+        idx, o, k, ng = parse.(Int, sl[2:5])
+        gauge = length(sl) == 6 ? Symbol(sl[6]) : :dephased
+        gauge in (:dephased, :hor) || error("seed $idx: unknown gauge $gauge")
         o in (1, -1) || error("seed $idx: o must be +-1")
         k >= 1 || error("seed $idx: k must be >= 1")
         th = Tuple(hx.(expect(nextline(), "THETA0", 4)))
@@ -163,7 +175,7 @@ function read_seed_certificate(path::AbstractString)
         Uv = hx.(expect(nextline(), "U", 144)); U = [Uv[4(e-1)+j] for e in 1:36, j in 1:4]
         gs = [read_group() for _ in 1:ng]
         all(g -> g.kind in (:T0, :T1, :T2, :T3), gs) || error("seed $idx: a sphere transfer must be T0, T1, T2 or T3")
-        push!(seeds, Seed(idx, o, k, th, Mth, r, n, lr, P, U, gs))
+        push!(seeds, Seed(idx, o, k, th, Mth, r, n, lr, P, U, gs, gauge))
     end
     recs = SRecord[]
     for _ in 1:nr
