@@ -317,3 +317,30 @@ So (G) holds with R_G = 0.45, say, and the certificate only has to show that the
 ‖hor(Q − P_F)‖ < R_G: it does, since ‖U‖ r + n ≈ 0.14. The `"graph"` field reduces to `{"R": hex, "sigma": hex}`;
 the checker verifies σ by BallRecord's Cholesky at F6 and R < σ/L. Lean has this lemma's ingredients in
 Record.lean / NormalBound.lean.
+
+## 11. Horizontal gauge and adaptive C1 boxes (24 Oct, format field `"gauge": "hor"`)
+
+**Why.** In the dephased gauge (first row and column ones), a seed ball of radius r covers much less class space than r
+suggests. The horizontal part of its frame has singular values 0.36–0.7, so it covers about 8% of the class volume of
+a horizontal r-ball. The first full build needed 27,636 balls for that reason.
+
+**The change.**
+- Mth is taken from the SVD of hor(T), not of T, so the ball's image is round in *horizontal* phases.
+- C1 and Stage C use the horizontal representative.
+- A seed entry with `"gauge": "hor"` stores P = hor(P_g) and U = hor(T) Mth (orthonormal).
+- The dephased-gauge centre and frame are recovered exactly by cross ratios:
+  P_g = gauge(P), U_g = gauge(U), with gauge(X)_ab = X_ab − X_a0 − X_0b + X_00.
+
+**C1 (hor).** For every w with ‖w‖ ≤ r, let Q_g be the matched completion's phases in the dephased gauge, on the branch
+nearest P_g + U_g w (FORMAT §3). Then ‖hor(Q_g) − P − U w‖ ≤ n.
+- e^{i hor(Q_g)} = D_r e^{iQ_g} D_c is equivalent to H_o(θ), so Stage C on (P, U, r, n) excludes the class.
+- Corner seeds, and every transfer, are unchanged: they are cross ratios, invariant under hor.
+
+**Adaptive boxes.** C1 may be certified on any finite set of boxes whose union contains the ball. The driver splits
+every box whose bound exceeds 1.25× the sampled remainder, or whose side tube fails, into its 16 children that meet
+the open ball, up to depth 4. The certifiers may refine the same way, with their own targets; `k` is only the starting
+grid.
+
+**Result** (floats, 128 sample centres): horizontal radii 0.125 for 59%, 0.1 for 37% and 0.08 for 5%. Each ball covers
+about 13× the class volume of a first-build ball, so the expected atlas is about 2–4 thousand balls. Edge balls keep
+the dephased gauge (no `"gauge"` field).
