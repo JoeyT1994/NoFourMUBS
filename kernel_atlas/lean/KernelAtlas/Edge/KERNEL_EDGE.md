@@ -34,6 +34,17 @@ common interval identifies those angles away from the fold. The fixed-point prec
   Fourier centre, transported to 17/10 at exact F6 using the proved Jacobian Lipschitz bound.
   `Graph` turns the checked X-image bound into the required strict graph-radius bound.
 - `Transfer`: sound T1 transfers on shifted edge models, reusing the seed transfer kernel.
+- `Smooth`, `SideJacobian`, `RootDerivative`, `ParameterDerivative`: the checked augmented
+  Jacobian is invertible throughout its tube, and the selected root is strictly differentiable
+  at interior box points with its actual implicit differential.
+- `JacobianModels`, `ParameterModels`, `LinearResidual`, `SolveModels`, `RootModels`: exact
+  Jacobian models and a residual-based Boolean check enclosing all four columns of that
+  differential. `BlockDerivative`, `MatrixDerivative`, `ForcedDerivative`, `PhaseDerivative`,
+  `CompletionModels` supply the entry calculus, differentiated forced-block equation, and
+  model operations needed for phase derivatives.
+- `Slope`: a Boolean row-contraction check and a soundness theorem applying `SlopeOpen` to
+  maps whose actual differentials have the checked models. Connecting every phase model
+  to the assembled chart differential is still required for the chart's `hopen` field.
 - `SeedAtlas/EdgeX`, `EdgeXAtlas`, `EdgeXFinal`: the statement variant using `XExclusion` and the
   conditional atlas conclusion. The legacy Stage C route is preserved.
 
@@ -54,7 +65,11 @@ passes with image bound about 0.145 and derivative centre/error 1958.903 / 11.47
 2.3 seconds to construct and check this box in Python. Emission stops on any failed mirror check.
 
 Additional reproducible generators are `edge_enclosure.py`, `edge_overlap.py`, and
-`edge_normal.py`. The baseline affine residual is bounded by 0.013377178741; the adjacent
+`edge_normal.py`. `edge_derivative.py` emits the baseline root differential checks. Their
+horizontal/vertical contraction bounds are 0.058104 and 0.057686, with coordinate radii
+between 0.00154 and 0.00282. Both generated checks pass `decide +kernel` (26 seconds
+for their combined Lake module, excluding cached dependencies). The baseline affine residual
+is bounded by 0.013377178741; the adjacent
 boxes `(0,4,5,6)` and `(0,4,5,7)` pass the overlap check. These checks and the second chart
 are kernel-verified. The Fourier frame has Gram error at most 5.45e-9; the normal certificate's
 positive-semidefinite residual has smallest diagonal about 0.001. The kernel checks the
@@ -91,7 +106,8 @@ coverage and assembly checks are additional. No Rusty jobs were run; remote core
 The components above do not yet constitute a complete edge-ball certificate. Local chart
 soundness at the fold, affine enclosure, overlap identification, finite-cover gluing, and the
 numerical F6 normal bound are proved. A complete set of generated cover and overlap checks,
-derivative/slope enclosures proving openness, all sphere transfers, and a certificate-format
+the connection of the complete phase differential to the slope check proving openness,
+all sphere transfers, and a certificate-format
 emitter assembling every field remain separate obligations. The X exclusion
 itself is supplied by the independent X theorem. No hypothesis-free final theorem is claimed here.
 

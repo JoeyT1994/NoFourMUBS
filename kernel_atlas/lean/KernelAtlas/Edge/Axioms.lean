@@ -14,6 +14,9 @@ import KernelAtlas.Edge.GlobalChart
 import KernelAtlas.Edge.Graph
 import KernelAtlas.Edge.Fourier.Sound
 import KernelAtlas.Edge.Implicit
+import KernelAtlas.Edge.CompletionModels
+import KernelAtlas.Edge.Slope
+import KernelAtlas.Edge.RationalModels
 
 /-!
 # Axiom audit for the edge kernel checks
@@ -73,3 +76,18 @@ Run with `LEAN_NUM_THREADS=8 lake build KernelAtlas.Edge.Axioms` from `lean/`.
 #print axioms NoFourMUBs.KernelAtlas.Edge.Fourier.normal_checked
 
 #print axioms NoFourMUBs.KernelAtlas.Edge.hasStrictFDerivAt_selected_root
+#print axioms NoFourMUBs.KernelAtlas.Edge.sideE_jacobian_invertible
+#print axioms NoFourMUBs.KernelAtlas.Edge.CheckedSide.hasStrictFDerivAt_rootDifferential
+#print axioms NoFourMUBs.KernelAtlas.Edge.edgeParam_partial_parameter
+#print axioms NoFourMUBs.KernelAtlas.Edge.has_edgeJT
+#print axioms NoFourMUBs.KernelAtlas.Edge.has_parameterJT
+#print axioms NoFourMUBs.KernelAtlas.Edge.linear_residual_error
+#print axioms NoFourMUBs.KernelAtlas.Edge.solveOK_sound
+#print axioms NoFourMUBs.KernelAtlas.Edge.rootDiffOK_sound
+#print axioms NoFourMUBs.KernelAtlas.Edge.forced_derivative_equation
+#print axioms NoFourMUBs.KernelAtlas.Edge.hasDerivAt_phase_lift
+#print axioms NoFourMUBs.KernelAtlas.Edge.forcedDerivativeT_sound
+#print axioms NoFourMUBs.KernelAtlas.Edge.has_phaseDerivativeT
+#print axioms NoFourMUBs.KernelAtlas.Edge.slopeOK_open
+#print axioms NoFourMUBs.KernelAtlas.Edge.differentiableAt_phase_lift
+#print axioms NoFourMUBs.KernelAtlas.Edge.has_rationalT
