@@ -87,18 +87,10 @@ def emit_source(destination, module, ns, index, parent_index, D, s, b, target_in
     (destination/f'SourceCheck{index}.lean').write_text(check)
 
 
-def generate_transfers(certificate, source, destination, context, max_level=9):
-    destination = Path(destination)
-    B, xb, ds, cells, module, ns = context
-    level = cells[0][0]
-    if not isinstance(max_level, int) or not level <= max_level <= 20+level:
-        raise ValueError('transfer depth must respect the core level and the exact radius grid')
+def transfer_groups(source, xb):
+    """Translate FORMAT corner indices to the kernel chart's fixed ordering."""
     rr, cc = gauge_maps(source, xb)
-    parents = {tuple(b): i for i,b in enumerate(cells)}
-    seeds = certificate['seeds']
-    targets = {}
-    todo = []
-    for group in source.get('transfers', []):
+    for group in source['transfers']:
         if group['kind'] != 'T1':
             raise ValueError('only T1 edge sphere groups are supported')
         g = dict(group)
@@ -106,51 +98,95 @@ def generate_transfers(certificate, source, destination, context, max_level=9):
         rmap, cmap = (cc, rr) if transposed else (rr, cc)
         g['rows'] = [rmap[i] for i in group['rows']]
         g['cols'] = [cmap[i] for i in group['cols']]
-        for b in group['boxes']:
-            todo.append((g, tuple(b)))
-    if not todo:
-        return dict(sources=0, sphere_checked=False)
+        yield g
+
+
+def sphere_geometry(certificate, source, max_level=None):
+    """Check the full input sphere before spending time on its analytic witnesses."""
+    boxes = [tuple(b) for g in source['transfers'] for b in g['boxes']]
+    if not boxes:
+        raise ValueError('edge sphere transfers are empty')
+    if any(len(b) != 5 or any(type(x) is not int or x < 0 for x in b) or
+           any(i >= 1 << b[0] for i in b[1:]) for b in boxes):
+        raise ValueError('malformed dyadic sphere cell')
+    depth = max(b[0] for b in boxes)
+    if max_level is None:
+        max_level = max(depth, certificate.get('max_level', depth))
+    if type(max_level) is not int or max_level < depth:
+        raise ValueError('transfer depth is less than the input sphere depth')
+    boxes.sort(key=X.preorder_key)
+    ok, nodes = X.walk(X.sphMiss, depth, boxes)
+    if not ok:
+        raise RuntimeError('input edge sphere groups do not cover the complete sphere')
+    return dict(groups=len(source['transfers']), cells=len(boxes), input_depth=depth,
+                max_level=max_level, traversal_nodes=nodes)
+
+
+def parent_index(parents, b):
+    """Find the containing leaf of a possibly adaptively refined ball cover."""
+    for level in range(b[0], -1, -1):
+        ancestor = (level, *(i >> (b[0]-level) for i in b[1:]))
+        if ancestor in parents:
+            return parents[ancestor]
+    return None
+
+
+def generate_transfers(certificate, source, destination, context, max_level=None):
+    destination = Path(destination)
+    B, xb, ds, cells, module, ns = context
+    geometry = sphere_geometry(certificate, source, max_level)
+    max_level = geometry['max_level']
+    grid_depth = (xb.rz & -xb.rz).bit_length()-1
+    if max_level > grid_depth-4:
+        raise ValueError('transfer depth must preserve a positive interior grid margin')
+    parents = {tuple(b): i for i,b in enumerate(cells)}
+    seeds = certificate['seeds']
+    targets = {}
+    todo = [(g, tuple(b)) for g in transfer_groups(source, xb) for b in g['boxes']]
     entries = {}
     while todo:
         group, b = todo.pop()
         if X.sphMiss(b) or b in entries:
             continue
-        if b[0] < level:
+        pi = parent_index(parents, b)
+        if pi is None:
+            if b[0] >= max_level:
+                raise RuntimeError(f'sphere cell has no containing chart at maximum depth: {b}')
             todo.extend((group, ch) for ch in K.children(b))
             continue
-        parent_cell = (level, *(i >> (b[0]-level) for i in b[1:]))
-        if parent_cell not in parents:
-            raise RuntimeError(f'sphere cell has no closed-ball parent: {b}')
-        pi = parents[parent_cell]
         target_id = group['target']
         if target_id not in targets:
             raw = seeds[str(target_id)] if isinstance(seeds, dict) else seeds[target_id]
             targets[target_id] = K.kseed(raw)[0]
         try:
-            D, s = prepare_source(B, xb, ds[pi], group, targets[target_id], b)
-        except (RuntimeError, AssertionError) as exc:
+            D, tr = prepare_source(B, xb, ds[pi], group, targets[target_id], b)
+        except (RuntimeError, AssertionError, np.linalg.LinAlgError) as exc:
             if b[0] >= max_level:
                 raise RuntimeError(f'cannot certify edge source {b}: {exc}') from exc
             todo.extend((group, ch) for ch in K.children(b))
             continue
-        entries[b] = (pi, D, s, target_id)
+        index = len(entries)
+        emit_source(destination, module, ns, index, (pi,len(ds)), D, tr, b, target_id)
+        # Keep only the emitted source index, not a million large predictor/model dictionaries.
+        entries[b] = index
+        if (index+1) % 1000 == 0:
+            print(f'transfer sources: {index+1}', flush=True)
     ordered = sorted(entries, key=X.preorder_key)
     if not X.walk(X.sphMiss, max_level, ordered)[0]:
-        raise RuntimeError('edge sphere groups do not cover the complete sphere')
-    for i,b in enumerate(ordered):
-        pi,D,s,tid = entries[b]
-        emit_source(destination, module, ns, i, (pi,len(ds)), D, s, b, tid)
+        raise RuntimeError('refined edge sources do not cover the complete sphere')
     count = len(ordered)
-    emit_boundary(destination, module, ns, len(ds), count, max_level)
+    emit_boundary(destination, module, ns, len(ds), count, max_level, [entries[b] for b in ordered])
     emit_final(destination, module, ns)
     return dict(sources=count, sphere_checked=True)
 
 
-def emit_boundary(destination, module, ns, box_count, count, max_level):
+def emit_boundary(destination, module, ns, box_count, count, max_level, order=None):
+    if order is None:
+        order = range(count)
     text = f'import {module}.Cert\nimport KernelAtlas.Edge.Source\n'+''.join(f'import {module}.SourceCheck{i}\n' for i in range(count))+'\n'
     text += f'noncomputable section\n\nnamespace {ns}\n\nopen NoFourMUBs.KernelAtlas.Edge NoFourMUBs.KernelAtlas.Seed NoFourMUBs.SeedAtlas\n\n'
     text += f'def sourceTable : List {{s : SourceD {box_count} // sourceOK ball radius Ds s = true}} := [\n'
-    text += ',\n'.join(f'  ⟨S{i}.source, S{i}.checked⟩' for i in range(count))+'\n]\n'
+    text += ',\n'.join(f'  ⟨S{i}.source, S{i}.checked⟩' for i in order)+'\n]\n'
     text += f'theorem source_length : sourceTable.length = {count} := by decide +kernel\n'
     text += f'def checkedSource (i : Fin {count}) := sourceTable.get ⟨i, by rw [source_length]; exact i.2⟩\n'
     text += f'def sources (i : Fin {count}) := (checkedSource i).1\n'

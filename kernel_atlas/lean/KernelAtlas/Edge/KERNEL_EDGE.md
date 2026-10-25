@@ -72,13 +72,13 @@ All audited theorems depend only on `propext`, `Classical.choice`, and `Quot.sou
 `edge_kball.py` reads one edge entry from a FORMAT JSON or gzipped JSON certificate. It checks
 exact mirrors before writing separate data/check modules, a checked cover and overlap table,
 and `Cert.lean`. For T1 sphere groups, `edge_ktransfers.py` refines failing sources up to the
-requested depth, checks their links to the parent charts, verifies the entire sphere traversal,
-and emits `Boundary.lean` and `Final.lean`. Missing coverage or a failed check is an error.
+requested depth, checks their links to the containing (possibly refined) parent charts,
+verifies the entire sphere traversal, and emits `Boundary.lean` and `Final.lean`. Missing coverage or a failed check is an error.
 `Final.lean` uses actual seed certificates through explicit `TargetLink` hypotheses; it does
 not invent seed certificates from target numbers.
 
 ```sh
-PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 .venv/bin/python kernel_atlas/generators/edge_kball.py CERTIFICATE.json.gz 0 --emit kernel_atlas/lean/KernelAtlas/Edge/Production --max-transfer-level 9
+PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 .venv/bin/python kernel_atlas/generators/edge_kball.py CERTIFICATE.json.gz 0 --emit kernel_atlas/lean/KernelAtlas/Edge/Production
 PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 .venv/bin/python kernel_atlas/generators/edge_kball.py --demo --emit kernel_atlas/lean/KernelAtlas/Edge/SmallBall
 PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 .venv/bin/python kernel_atlas/generators/edge_ktransfers.py
 ```
@@ -89,8 +89,12 @@ check validates those predicted gauge and winding choices. `Mth` is rounded to t
 scale, and the radius is rounded down to a dyadic grid multiple. Consumers must use the emitted
 radius and frame, including when supplying target links and transfers back into this ball.
 The generator defaults to a uniform dyadic level at least as fine as `max(k)`; `--level` overrides
-it. A failed analytic box requires a finer level or improved witnesses; automatic refinement is
-currently implemented only for sphere sources.
+it. Failed analytic cells are refined adaptively, by at most two additional levels by default
+(`--max-box-level` overrides the cap). The X radius is required and never replaced with a
+fallback. Sphere refinement defaults to the certificate's `max_level` or the deepest input cell,
+whichever is greater; `--max-transfer-level` overrides it. Source witnesses are emitted as they
+pass, keeping only their cell/index table in memory. Seed-side T3 groups do not change this
+edge emitter's T1 processing; their semantic boundary obligations remain with the seed atlas.
 
 `SmallBall/Cert.lean` is a generated, fully kernel-checked radius-0.001 example with one enlarged
 local box. Its sole mathematical input is `XExclusion (1/4)`; its frame, normal, cover,
@@ -102,7 +106,7 @@ radius-0.1 fixture, including the source/parent and coordinate links; its T1 bou
 sphere cover. Regeneration preserves the small-ball modules exactly. Mutating transfer coordinates, target
 orientation, row permutations or parent containment is rejected by the mirrors. The
 boundary/final emitter templates were also type-checked with the sphere check
-as an explicit parameter; a complete production sphere dataset has not been supplied.
+as an explicit parameter; the complete production analytic dataset has not been kernel-checked.
 
 From the repository root, use the repository virtualenv, with bytecode writes disabled:
 
@@ -167,18 +171,49 @@ benchmarked at 29,808 boxes. The full numerical local check can use about 20 GB;
 `LEAN_NUM_THREADS=8` and at most one or two such checks running together on the shared machine.
 No Rusty jobs were run; remote core-hours: **0**.
 
+## Supplied development certificate
+
+`proof/seed_atlas/results/dev_certificate_xball0115.json.gz` contains 2,328 seeds, one edge
+ball with `r = 0.115`, **`x_radius = 3/20`**, and `k = [16,16,16,16]`. Its 1,440 T1 groups
+contain 1,171,965 cells at levels 5–7. The complete exact Python sphere traversal passes
+(2,688,737 traversal nodes). The input file remains outside Git.
+
+```sh
+PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 .venv/bin/python kernel_atlas/generators/edge_preflight.py proof/seed_atlas/results/dev_certificate_xball0115.json.gz --emit kernel_atlas/lean/KernelAtlas/Edge/ProductionSample
+```
+
+The preflight checks all sphere geometry and samples analytic/transfer witnesses using the
+same functions as the full generator. `ProductionSample/Report.json` records the input SHA256,
+actual radii, grid, cells, and bounds. Three analytic and three T1 samples pass their exact
+mirrors and `decide +kernel`. The analytic check modules take 65, 62 and 61 seconds;
+the T1/source modules take 19, 17 and 18 seconds, excluding cached imports. These are
+module build times, not isolated CPU benchmarks. The sample modules contain no full ball
+or boundary certificate and do not assert that the unexamined cells or transfers pass.
+
+At the development certificate's tighter X radius, the enlarged initial cell `(4,3,3,3,3)`
+has an image bound 0.1536108 and fails the required 0.15. Its only retained child,
+`(5,7,7,7,7)`, passes with bound 0.1332643 and slope 0.0908208. The symmetric last cell
+also needs refinement. Four adjacent mixed-level chart pairs pass root identification in
+both directions. Therefore the earlier 29,808-box CPU estimate is a base-grid estimate;
+the full adaptive count and its additional cost have not been measured.
+
+Parameter regression checks also read `r = 0.13`, `x_radius = 7/40`, and a changed `k` from
+input data, without substituting baseline constants. This checks parameter handling only:
+the pending final certificate at `proof/seed_atlas/results/seed_atlas_certificate.json.gz`
+has not been generated or certified by this return.
+
 ## Remaining integration obligations
 
-The generic kernel route now constructs all fields of the edge ball, and the generated small
-ball verifies that assembly end to end. The complete baseline geometry and a real full local
-box are checked; they do not assert that all 29,808 analytic boxes have been checked. Likewise,
-one real transfer fixture is checked, not a complete production sphere.
+The generic kernel route constructs all fields of the edge ball, and the generated small
+ball verifies that assembly end to end. The complete baseline geometry, real local boxes,
+and transfer samples are checked. Production emission still requires running the analytic
+checks, all overlap checks, and all T1 checks across the supplied dataset, followed by Lean
+kernel verification; the full sphere geometry result above is an exact Python mirror result.
 
-A full FORMAT certificate with all edge sphere groups is still needed for production emission
-and validation. The independent X exclusion theorem and the surrounding seed/record atlas
-(including target links, its boundaries, Tao coverage and the Fourier anchor) must then be
-instantiated in the generated final theorem. No hypothesis-free full-atlas theorem is claimed
-by this return. The final audit remains standard axioms only.
+The independent X exclusion theorem and the surrounding seed/record atlas (including target
+links, its boundaries, Tao coverage and the Fourier anchor) must be instantiated in the
+generated final theorem. No hypothesis-free full-atlas theorem is claimed by this return.
+The axiom audit remains standard axioms only.
 
 This note lives under `Edge/` because the task's explicit writable-path restriction excludes
 `kernel_atlas/docs/KERNEL_EDGE.md`.

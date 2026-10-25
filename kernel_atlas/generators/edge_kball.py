@@ -49,22 +49,23 @@ def lean_enclosure(name, R):
             f'  U := {E.lean_int_list(R["U"])}\n  wind := {E.lean_int_list(R["wind"])}\n  n := {R["n"]}\n')
 
 
-def generate_ball(source, destination, level=None):
-    destination = Path(destination).resolve()
-    if not destination.is_relative_to(EDGE_ROOT):
-        raise ValueError('output must stay under KernelAtlas/Edge')
+def prepare_ball(source, level=None):
+    """Quantize the certificate fields once; no radius or exclusion value is implicit."""
     if source.get('chart') != 'F6-012' or source.get('exclusion') != 'X':
         raise ValueError('expected an X-excluded F6-012 edge ball')
     q0 = [fh(x) for x in source.get('q0', [0]*4)]
     if len(q0) != 4 or any(x != 0 for x in q0):
         raise ValueError('this kernel route requires the edge ball centred at F6 (q0 = 0)')
-    rho_float = fh(source.get('x_radius', 0.25))
+    rho_float = fh(source['x_radius'])
     rho = min(Fr(str(rho_float)), Fr(9, 20))
     if not 0 < rho_float <= 0.45:
         raise ValueError('X radius must be positive and at most 9/20')
+    grid = source['k']
+    if len(grid) != 4 or any(type(k) is not int or k <= 0 for k in grid):
+        raise ValueError('k must contain four positive integers')
     if level is None:
-        level = math.ceil(math.log2(max(source['k'])))
-    if not isinstance(level, int) or not 0 <= level <= 12:
+        level = (max(grid)-1).bit_length()
+    if type(level) is not int or not 0 <= level <= 12:
         raise ValueError('level must be an integer from 0 through 12')
     xb = E.XBall(fh(source['r']), k=1 << level, rho=rho)
     xb.Mz = [E.gz(fh(x)) for x in source['Mth']]
@@ -91,11 +92,69 @@ def generate_ball(source, destination, level=None):
     ints, den = N.predict_frame()
     fc = K.frame_consts(ints, den)
     boxes = C.grid_cover(level)
+    return dict(B=B, xb=xb, R=R, t=t, lam=lam, fc=fc, boxes=boxes, rho=rho, level=level)
+
+
+def box_at(xb, b):
+    """Predict an enlarged cell at any refinement level on this ball's fixed grid."""
+    level, *idx = b
+    if xb.rz % (1 << level):
+        raise ValueError('cell level exceeds the exact radius grid')
+    h = xb.rz >> level
+    wc = [(2*i+1-(1 << level))*h for i in idx]
+    return E.box_data_at(xb, wc, [int(h*(1+xb.margin))]*4)
+
+
+def check_box(prepared, b):
+    B, xb, R, fc = (prepared[k] for k in ('B', 'xb', 'R', 'fc'))
+    d = E.tune(B, box_at(xb, b))
+    chart, details = E.chartOK(B, d)
+    if not chart:
+        raise RuntimeError(f'chart/image check failed: {details}')
+    if not C.coverMatch(xb.rz, b, d, interior=True):
+        raise RuntimeError('strict cover match failed')
+    ok, qm, _, _ = E.core(B, d)
+    if not ok or not S.boundOK(d['hb'], R['n'], S.resQ(d['hb'], R, dict(d, wind=R['wind']), qm)):
+        raise RuntimeError('affine enclosure failed')
+    h, v = Df.root_diff_data(B, d, False), Df.root_diff_data(B, d, True)
+    return d, h, v, Sl.slope_data(B, d, h, v, fc)
+
+
+def refined_boxes(prepared, boxes, max_level=None):
+    """Refine failed analytic cells without changing the ball or its X radius."""
+    level = prepared['level']
+    if max_level is None:
+        max_level = level+2
+    if type(max_level) is not int or not level <= max_level <= level+16:
+        raise ValueError('max box level must preserve a positive interior grid margin')
+    todo = list(reversed(boxes))
+    while todo:
+        b = todo.pop()
+        if X.ballMiss(b):
+            continue
+        try:
+            checked = check_box(prepared, b)
+        except (RuntimeError, AssertionError, np.linalg.LinAlgError) as exc:
+            if b[0] >= max_level:
+                raise RuntimeError(f'cannot certify edge cell {b}: {exc}') from exc
+            todo.extend(reversed([X.child(b, i) for i in range(16)]))
+            continue
+        yield b, checked
+
+
+def output_names(destination):
+    destination = Path(destination).resolve()
+    if not destination.is_relative_to(EDGE_ROOT):
+        raise ValueError('output must stay under KernelAtlas/Edge')
+    destination.mkdir(parents=True, exist_ok=True)
     module = '.'.join(destination.relative_to(ROOT/'kernel_atlas/lean').parts)
     ns = 'NoFourMUBs.'+module
     prefix = f'namespace {ns}\n\nopen NoFourMUBs.KernelAtlas NoFourMUBs.KernelAtlas.Edge NoFourMUBs.KernelAtlas.Seed\n\n'
-    suffix = f'\nend {ns}\n'
-    destination.mkdir(parents=True, exist_ok=True)
+    return destination, module, ns, prefix, f'\nend {ns}\n'
+
+
+def emit_shared(destination, prefix, suffix, prepared):
+    B, xb, R, t, lam, rho = (prepared[k] for k in ('B', 'xb', 'R', 't', 'lam', 'rho'))
     shared = 'import KernelAtlas.Edge.Assembly\nimport KernelAtlas.Edge.CoverTable\n\n'+prefix
     shared += E.lean_eball('ball', B)+'\n'+lean_enclosure('enclosure', R)
     shared += f'\ndef radius : ℕ := {xb.rz}\ndef frameT : ℕ := {t}\ndef frameLam : ℕ := {lam}\n'
@@ -106,33 +165,39 @@ theorem graph_checked : graphImageOK ball = true := by decide +kernel
 theorem x_radius_checked : rn ball.nX/36 ≤ (xRadius : ℝ) := by norm_num [rn, ball, xRadius, pp]
 '''
     (destination/'Shared.lean').write_text(shared+suffix)
-    ds = []
-    for index, b in enumerate(boxes):
-        d = E.tune(B, E.box_data(xb, b[1:]))
-        if not E.chartOK(B, d)[0]:
-            raise RuntimeError(f'chart check failed at {b}')
-        if not C.coverMatch(xb.rz, b, d, interior=True):
-            raise RuntimeError(f'strict cover match failed at {b}')
-        ok, qm, _, _ = E.core(B, d)
-        if not ok or not S.boundOK(d['hb'], R['n'], S.resQ(d['hb'], R, dict(d, wind=R['wind']), qm)):
-            raise RuntimeError(f'affine enclosure failed at {b}')
-        h, v = Df.root_diff_data(B, d, False), Df.root_diff_data(B, d, True)
-        slope = Sl.slope_data(B, d, h, v, fc)
-        data = f'import {module}.Shared\n\n'+prefix
-        data += E.lean_ebox('box', d)+'\n'+Df.lean_root_diff('diffH', h)+'\n'+Df.lean_root_diff('diffV', v)
-        data += '\ndef derivativeP : List Seed.CT := '+E.lean_ct_list(slope['P'])+'\n'
-        data += f"def full : FullBoxD := ⟨box, diffH, diffV, derivativeP, {E.lean_int_list(slope['Y'])}, {slope['q']}⟩\n"
-        # Each box gets its own namespace, avoiding collisions in the aggregate import.
-        data = data.replace(f'namespace {ns}\n', f'namespace {ns}.B{index}\n')
-        data += f'\nend {ns}.B{index}\n'
-        (destination/f'Data{index}.lean').write_text(data)
-        check = f'import {module}.Data{index}\n\nnamespace {ns}.B{index}\n\n'
-        check += 'open NoFourMUBs.KernelAtlas.Edge\n\nset_option maxRecDepth 100000 in\nset_option maxHeartbeats 0 in\n'
-        check += 'theorem checked : fullBox ball enclosure Fourier.frame Fourier.fq full = true := by decide +kernel\n'
-        check += f'\nend {ns}.B{index}\n'
-        (destination/f'Check{index}.lean').write_text(check)
-        ds.append(d)
-        print(f'box {index+1}/{len(boxes)}: slope {slope["q"]/E.SC:.6f}', flush=True)
+
+
+def emit_box(destination, module, ns, prefix, index, checked):
+    d, h, v, slope = checked
+    data = f'import {module}.Shared\n\n'+prefix
+    data += E.lean_ebox('box', d)+'\n'+Df.lean_root_diff('diffH', h)+'\n'+Df.lean_root_diff('diffV', v)
+    data += '\ndef derivativeP : List Seed.CT := '+E.lean_ct_list(slope['P'])+'\n'
+    data += f"def full : FullBoxD := ⟨box, diffH, diffV, derivativeP, {E.lean_int_list(slope['Y'])}, {slope['q']}⟩\n"
+    # Each box gets its own namespace, avoiding collisions in the aggregate import.
+    data = data.replace(f'namespace {ns}\n', f'namespace {ns}.B{index}\n')
+    data += f'\nend {ns}.B{index}\n'
+    (destination/f'Data{index}.lean').write_text(data)
+    check = f'import {module}.Data{index}\n\nnamespace {ns}.B{index}\n\n'
+    check += 'open NoFourMUBs.KernelAtlas.Edge\n\nset_option maxRecDepth 100000 in\nset_option maxHeartbeats 0 in\n'
+    check += 'theorem checked : fullBox ball enclosure Fourier.frame Fourier.fq full = true := by decide +kernel\n'
+    check += f'\nend {ns}.B{index}\n'
+    (destination/f'Check{index}.lean').write_text(check)
+
+
+def generate_ball(source, destination, level=None, max_box_level=None):
+    prepared = prepare_ball(source, level)
+    B, xb, boxes = (prepared[k] for k in ('B', 'xb', 'boxes'))
+    destination, module, ns, prefix, suffix = output_names(destination)
+    emit_shared(destination, prefix, suffix, prepared)
+    ds, cells = [], []
+    for index, (b, checked) in enumerate(refined_boxes(prepared, boxes, max_box_level)):
+        emit_box(destination, module, ns, prefix, index, checked)
+        ds.append(checked[0]); cells.append(b)
+        print(f'box {index+1}: cell {b}, slope {checked[3]["q"]/E.SC:.6f}', flush=True)
+    boxes = cells
+    level = max(b[0] for b in cells)
+    if not X.walk(X.ballMiss, level, cells)[0]:
+        raise RuntimeError('refined cells do not cover the closed ball')
     # Python prunes disjoint pairs before the expensive predictor comparison.
     for i, d in enumerate(ds):
         for j, e in enumerate(ds):
@@ -176,7 +241,9 @@ theorem cert_Q (hX : NoFourMUBs.SeedAtlas.XExclusion (xRadius : ℝ)) :
     (cert hX).Q = globalChart.Q := rfl
 """
     (destination/'Cert.lean').write_text(table+suffix)
-    return dict(module=module, boxes=count, radius=xb.rz/E.SC, transfers=len(source.get('transfers', [])), _context=(B, xb, ds, boxes, module, ns))
+    return dict(module=module, boxes=count, radius=xb.rz/E.SC, x_radius=str(prepared['rho']),
+                initial_grid=source['k'], cover_depth=level, transfers=len(source.get('transfers', [])),
+                _context=(B, xb, ds, boxes, module, ns))
 
 
 def demo():
@@ -193,7 +260,8 @@ def main():
     parser.add_argument('index', nargs='?', type=int, default=0)
     parser.add_argument('--demo', action='store_true')
     parser.add_argument('--level', type=int)
-    parser.add_argument('--max-transfer-level', type=int, default=9)
+    parser.add_argument('--max-box-level', type=int)
+    parser.add_argument('--max-transfer-level', type=int)
     parser.add_argument('--emit', type=Path, required=True)
     args = parser.parse_args()
     if args.demo:
@@ -205,7 +273,7 @@ def main():
         with opener(args.certificate, 'rt') as f:
             certificate = json.load(f)
         source = certificate['edge'][args.index]
-    result = generate_ball(source, args.emit, args.level)
+    result = generate_ball(source, args.emit, args.level, args.max_box_level)
     context = result.pop('_context')
     if source.get('transfers'):
         from edge_ktransfers import generate_transfers

@@ -1,3 +1,9 @@
+import KernelAtlas.Edge.ProductionSample.Check0
+import KernelAtlas.Edge.ProductionSample.Transfer0.SourceCheck0
+import KernelAtlas.Edge.ProductionSample.Check1
+import KernelAtlas.Edge.ProductionSample.Transfer1.SourceCheck0
+import KernelAtlas.Edge.ProductionSample.Check2
+import KernelAtlas.Edge.ProductionSample.Transfer2.SourceCheck0
 import KernelAtlas.Edge.Image
 import KernelAtlas.Edge.Continuity
 import KernelAtlas.Edge.Regular
@@ -132,3 +138,10 @@ Run with `LEAN_NUM_THREADS=8 lake build KernelAtlas.Edge.Axioms` from `lean/`.
 
 #print axioms NoFourMUBs.KernelAtlas.Edge.singleEdgeAtlas
 #print axioms NoFourMUBs.KernelAtlas.Edge.no_four_mubs_of_edge
+
+#print axioms NoFourMUBs.KernelAtlas.Edge.ProductionSample.B0.checked
+#print axioms NoFourMUBs.KernelAtlas.Edge.ProductionSample.Transfer0.S0.checked
+#print axioms NoFourMUBs.KernelAtlas.Edge.ProductionSample.B1.checked
+#print axioms NoFourMUBs.KernelAtlas.Edge.ProductionSample.Transfer1.S0.checked
+#print axioms NoFourMUBs.KernelAtlas.Edge.ProductionSample.B2.checked
+#print axioms NoFourMUBs.KernelAtlas.Edge.ProductionSample.Transfer2.S0.checked
