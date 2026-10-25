@@ -241,6 +241,55 @@ def edge_cover_box(args):
     return out, failed
 
 
+def edge_cover_box2(args):
+    """The edge sphere's cover from one start box: per box one chart solve at the centre and four for the derivative,
+    the affine model checked at the 16 vertices (exact max of a convex function) with a curvature margin, one corner
+    census per box.  A box whose centre reaches no seed ball is a gap at once; others split down to EDGE_MAXLEV."""
+    m, I, eb, snap = args
+    idx = CV.Index(snap['theta0'], snap['Minv'], snap['Mth'], snap['r'])
+    out, failed, todo = [], [], [(m, list(I))]
+    curv = 4.0 * eb.n / eb.r ** 2                     # |Q - affine| <~ curv h^2 (the ball's own remainder scale)
+    while todo:
+        m, I = todo.pop()
+        lo, hi = CV.box_lohi(np.array([m]), np.array([I]))
+        wc = (lo[0] + hi[0]) / 2 * eb.r; hw = (hi[0] - lo[0]) / 2 * eb.r
+        Qc = eb.Qw(wc)
+        if Qc is None:
+            failed.append(([m] + I, None)); continue
+        d = 1e-4
+        Js = [eb.Qw(wc + d * e) for e in np.eye(4)]
+        if any(q is None for q in Js):
+            failed.append(([m] + I, Qc)); continue
+        J = np.stack([SG.wrap(q - Qc) / d for q in Js], 1)                 # (36, 4)
+        V = CV.SG_VERT * 2 - 1                                              # signs (16, 4)
+        Qv = Qc[None] + (V * hw[None]) @ J.T                                # (16, 36)
+        err = curv * float((hw ** 2).sum())
+        c = SG.census(Qc.reshape(6, 6))
+        qi, bl, N, v = idx.query(c['seed'], 1.0)
+        if not len(qi):
+            failed.append(([m] + I, Qc)); continue                         # a genuine gap: seed a ball here
+        done = False
+        for k in np.argsort(v):
+            a, l, n = qi[k], bl[k], N[k]
+            g, rows, cols = SG.G4[c['g'][a]], tuple(c['rows'][a]), tuple(c['cols'][a])
+            Lg = SG.corner_seed_matrix(rows, cols) @ SG.g_matrix(g)
+            Mi = idx.Minv[l]
+            x = (Qv @ Lg.T + TWO_PI * n - idx.th0[l]) @ Mi.T
+            val = np.linalg.norm(x, axis=1).max() + np.linalg.norm(Mi @ Lg, 2) * err
+            if val < VMAX * snap['r'][l] and CV.orient_ok(Qc[None], g, rows, cols)[0]:
+                out.append(dict(desc=('T1', int(l), g, rows, cols), wind=[int(x) for x in n], boxes=[[m] + I]))
+                done = True; break
+        if not done:
+            if m >= EDGE_MAXLEV: failed.append(([m] + I, Qc)); continue
+            for ch in CV.children(np.array([I])):
+                l2, h2 = CV.box_lohi(np.array([m + 1]), ch[None])
+                if CV.meets_sphere(l2, h2)[0]: todo.append((m + 1, [int(x) for x in ch]))
+    return out, failed
+
+
+EDGE_MAXLEV = 8
+
+
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument('run'); ap.add_argument('--workers', type=int, default=os.cpu_count())
     ap.add_argument('--start-level', type=int, default=3)
@@ -271,12 +320,13 @@ def main():
         I0 = CV.level_boxes(a.start_level)
         ejobs = [(a.start_level, list(map(int, I)), eb, snap) for I in I0]
         eg, ef = [], []
-        for out, failed in pool.imap_unordered(edge_cover_box, ejobs):
+        for out, failed in pool.imap_unordered(edge_cover_box2, ejobs):
             eg += out; ef += failed
     print('edge sphere: %d boxes, %d failed (%.0fs)' % (len(eg), len(ef), time.time() - t0), flush=True)
     if ef:                                 # seed proposals at the gaps (driver.py --gaps), well separated
         qs = []
         for _, q in ef:
+            if q is None: continue
             if all(np.linalg.norm(SG.wrap(q - p)) > 0.15 for p in qs): qs.append(q)
         with open(os.path.join(a.run, 'edge_gaps.pkl'), 'wb') as f: pickle.dump(qs, f)
         print('edge sphere gaps: %d proposals -> %s; rerun driver.py --edge --gaps, then this' % (
