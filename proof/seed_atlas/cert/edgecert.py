@@ -216,6 +216,9 @@ class EdgeBall:
         # 3/20 of F6), which needs the image certified inside that distance (certify_edge_c1)
         self.exclusion = d.get('exclusion', 'stagec')
         need(self.exclusion in ('stagec', 'X'), 'edge ball: unknown exclusion %r' % (self.exclusion,))
+        # return X holds up to phase distance 9/20 (explorations/returns/X_radius_045); float(0.45) < 9/20
+        self.x_radius = hx(d.get('x_radius', (0.15).hex())) if self.exclusion == 'X' else None
+        need(self.x_radius is None or 0 < self.x_radius <= 0.45, 'edge ball: x_radius must lie in (0, 9/20]')
         k = d['k']
         need(isinstance(k, list) and len(k) == 4 and all(isinstance(v, int) and not isinstance(v, bool) and 1 <= v <= 64 for v in k),
              'edge ball: k must be 4 integers in [1, 64]')
@@ -642,9 +645,9 @@ def certify_edge_c1(eb, chunk=64, keep_tubes=True, graph=None, sigma_D=None):
         reasons = []
         if worst > eb.n: reasons.append('C1e: n_cert %.6e > n %.6e' % (worst, eb.n))
         if eb.exclusion == 'X':
-            # d_ph([H(w)], [F6]) <= ||hor(Q - P_F + 2 pi N)||, rounded up; float(0.15) < 3/20
+            # d_ph([H(w)], [F6]) <= ||hor(Q - P_F + 2 pi N)||, rounded up, below x_radius <= 9/20
             if graph is None: reasons.append('X: the image bound needs the graph data')
-            elif not dmax < 0.15: reasons.append('X: edge image not certified within phase distance 3/20 of F6 (%.6e)' % dmax)
+            elif not dmax < eb.x_radius: reasons.append('X: edge image not certified within phase distance %g of F6 (%.6e)' % (eb.x_radius, dmax))
         if graph is not None:
             out['graph'] = dict(R_G=graph.R, sigma=graph.sigma, image_delta_max=dmax, image_eta_max=emax, sigma_D_cert=smin)
             if not dmax < graph.R: reasons.append('(G): edge image not inside ||hor(Q - P_F)|| < R_G (%.4e >= %.4e)' % (dmax, graph.R))

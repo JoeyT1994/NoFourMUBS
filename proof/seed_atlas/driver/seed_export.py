@@ -123,7 +123,7 @@ def main_edge(state_path, out, allow_open=False):
         edges.append(dict(chart='F6-012', q0=hxl(getattr(eb, 'p0', np.zeros(4))), Mth=hxl(eb.Mth), r=hx(eb.r),
                           k=[int(v) for v in eb.k], P=hxl(eb.P), U=hxl(eb.U), n=hx(eb.n), label_radius=hx(eb.label),
                           graph=dict(R=hx(0.45), sigma=hx(1.7)),
-                          **({'exclusion': 'X', 'x_radius': hx(0.15)} if getattr(eb, 'exclusion', 'stagec') == 'X' else {}),
+                          **({'exclusion': 'X', 'x_radius': hx(0.45)} if getattr(eb, 'exclusion', 'stagec') == 'X' else {}),
                           transfers=[group_json(g) for g in merge_groups(x['groups'])], info=dict(S=[float(v) for v in eb.S])))
     edge = edges[0]
     seeds = [seed_json(A.balls[j], merge_groups(A.groups.get(j) or [])) for j in range(len(A.balls))]
