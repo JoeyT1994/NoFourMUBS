@@ -140,6 +140,27 @@ cleanly: 4194 (788 general-T1 boxes, all on the C1 boxes' own cores: 256 cores),
 6848 (r = 0.1: 2,787 general-T1 and 439 corner-symmetry boxes → 1,014 cores).  The core count, and so the cost, varies
 by a factor ≈ 4 between balls.
 
+### Per-box cost reductions (25 Oct 2026)
+
+Measured on one real box (laptop, `decide +kernel`, stage by stage). The checks are unchanged in what they prove:
+
+| change | Lean | C1 box |
+|---|---|---|
+| (start) | | 10.4 s |
+| side Jacobian by complex intervals: `q` only needs `sup |I − YJ|` (`q` 0.03 → 0.12, box remainder +2.5%) | `ivH_mul`, `jI_sound`, `qRowsI_sound` | 5.8 s |
+| tube rows = the predictor's rows widened by the tube (`|e^{ia} − e^{ib}| ≤ |a − b|`): 24 fewer `e^{i·}` | `tubeRows`, `has_row_shift` | 4.9 s |
+| `Ψ` signs on intervals first, Taylor models as fallback (also T1, T1′) | `signAny_sound`, `sign3Any_sound` | 4.5 s |
+| forced block: exact unit factors skipped (dephased rows/columns of `E`, `B`, `C`) | `has_mulF` | **3.6 s** |
+
+What remains per box: sides 1.3 s, the forced residual `R = C E* + X_p B*` (needs full models for its cancellation)
+≈ 1.4 s, Neumann 0.3 s, signs 0.15 s, bound 0.35 s.
+
+**Box counts** (float screen, horizontal gauge, 96 balls of the 2,325-ball atlas): with second-order models the
+remainder `ρ` scales as `h³` and dominates at `h = r/4` (`ρ` ≈ 5–9× the sampled `n`), so the floor is the
+`8⁴`-grid's 2,560 boxes. At each ball's loosest kernel `n` that float Stage C accepts (`kernel_n.py`; factor 1.25–6
+of the sampled `n`, median 3) the count is median 2,560, mean ≈ 5,100 (at the certificate's own `n`, 1.25×: 44–62k).
+Clipping the linear part to `box ∩ {d·w ≤ r}` would lower the mean to ≈ 4,000 (not built).
+
 ### Cost projection
 
 Per ball (laptop, measured on ball 721): 3.8 CPU-hours; by core count the four real balls range ≈ 2.5–6 CPU-hours,
