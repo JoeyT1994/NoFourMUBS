@@ -74,11 +74,18 @@ def chart(p, step=0.05, x0=None):
 
 
 class EdgeBall:
-    def __init__(self):
-        H0, _, _, ok = chart(np.zeros(4)); assert ok
-        self.P = np.angle(H0).reshape(36)
+    def __init__(self, p0=None):
+        """The edge ball p = p0 + Mth w, |w| <= r, in the chart F6-012 (p0 = 0: centred at F6; return W certifies the
+        chart on the whole ellipsoid of its §2)."""
+        self.p0 = np.zeros(4) if p0 is None else np.asarray(p0, float)
+        H00, _, _, ok = chart(np.zeros(4)); assert ok
+        PF = np.angle(H00).reshape(36)
+        H0, xh, xv, ok = chart(self.p0); assert ok, 'edge ball: chart failed at its centre'
+        self.xc = (xh, xv, self.p0.copy())
+        self.P = PF + np.angle(H0.reshape(36) * np.exp(-1j * PF))           # the branch continued from F6
         h = 1e-5
-        T = np.array([(self.Qp(h * e) - self.Qp(-h * e)) / (2 * h) for e in np.eye(4)]).T
+        T = np.array([(self.Qp(self.p0 + h * e, x0=self.xc) - self.Qp(self.p0 - h * e, x0=self.xc)) / (2 * h)
+                      for e in np.eye(4)]).T
         U, S, Vt = np.linalg.svd(T, full_matrices=False)
         self.S = S; self.Mth = Vt.T / S[None, :]; self.Minv = np.linalg.inv(self.Mth); self.U = T @ self.Mth
         self.r = self.n = self.label = None; self.k = None; self.chart_name = 'F6-012'
@@ -92,7 +99,7 @@ class EdgeBall:
 
     def Qw(self, w, x0=None, want_x=False):
         w = np.asarray(w, float)
-        return self.Qp(self.Mth @ w, self.P + self.U @ w, x0=x0, want_x=want_x)
+        return self.Qp(self.p0 + self.Mth @ w, self.P + self.U @ w, x0=self.xc if x0 is None else x0, want_x=want_x)
 
     def make(self, ladder=(0.125, 0.1, 0.08), labels=(0.03, 0.02), nsamp=200, seed=0):
         import stagec as SC
@@ -119,7 +126,7 @@ class EdgeBall:
         return False
 
     def wvalue(self, p):
-        return np.linalg.norm(self.Minv @ p) / self.r
+        return np.linalg.norm(self.Minv @ (p - getattr(self, 'p0', np.zeros(4)))) / self.r
 
 
 # ------------------------------------------------------------------ corners of a matrix, into the edge chart
@@ -142,7 +149,7 @@ def edge_candidates(Q, eb):
         y = yv[ri[:, None], ci[None, :]]
         d = th[..., :3] - TH0[:3]; N3 = np.round(-d / TWO_PI); d = d + TWO_PI * N3
         p = np.concatenate([d, y[..., None]], -1)
-        v = np.linalg.norm(p @ eb.Minv.T, axis=-1) / eb.r
+        v = np.linalg.norm((p - getattr(eb, 'p0', np.zeros(4))) @ eb.Minv.T, axis=-1) / eb.r
         for a, b in zip(*np.where(v < 1.0)):
             N4 = np.round((TH0[3] - th[a, b, 3]) / TWO_PI)
             out.append((float(v[a, b]), g, tuple(int(x) for x in ORD[a]), tuple(int(x) for x in ORD[b]),

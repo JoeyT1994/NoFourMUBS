@@ -151,7 +151,7 @@ def check_edge(C, e, groups=None):
         if not sc.get('ok'): raise S.CertError('Stage C failed: %s' % sc.get('reason', 'quartet edge not excluded'))
         t2 = time.time()
         if groups is None: groups = C.cert['edge'][e].get('transfers', [])
-        out.update(transfers=EC.check_edge_transfers(eb, C.balls, groups, C.cert['max_level']), c2_s=round(time.time() - t2, 3))
+        out.update(transfers=EC.check_edge_transfers(eb, C.balls, groups, C.cert['max_level'], edges=C.edges), c2_s=round(time.time() - t2, 3))
         out['ok'] = True
     except S.CertError as ex:
         out.update(ok=False, reason=str(ex))
@@ -188,7 +188,8 @@ def check_fourier(C):
     if C.cert.get('edge') and C.cert.get('fourier_record') is None:
         import edgecert as EC
         tubes = C.edges[0][1] if C.edges else None
-        out['ok'] = bool(tubes is not None and EC.f6_in_edge(tubes)); out['edge'] = 0
+        eb0 = C.edges[0][0] if C.edges else None
+        out['ok'] = bool(tubes is not None and eb0 is not None and not eb0.q0.any() and EC.f6_in_edge(tubes)); out['edge'] = 0
         if not out['ok']: out['reason'] = 'F6 = H(0) not certified in edge ball 0'
         out['seconds'] = round(time.time() - t0, 3)
         return out

@@ -208,6 +208,10 @@ class EdgeBall:
         self.r = hx(d['r']); self.n = hx(d['n']); self.label_radius = hx(d['label_radius'])
         need(self.Mth.shape == (16,) and self.P.shape == (36,) and self.U.shape == (144,), 'edge ball: wrong array sizes')
         self.Mth = self.Mth.reshape(4, 4); self.U = self.U.reshape(36, 4)
+        # the chart centre: p = q0 + Mth w (FORMAT.md section 8; default 0, the ball centred at F6)
+        self.q0 = np.array([hx(x) for x in d.get('q0', [0.0] * 4)], float)
+        need(self.q0.shape == (4,) and np.all(np.isfinite(self.q0)), 'edge ball: malformed q0')
+        self.q0_a = oarb(self.q0)
         k = d['k']
         need(isinstance(k, list) and len(k) == 4 and all(isinstance(v, int) and not isinstance(v, bool) and 1 <= v <= 64 for v in k),
              'edge ball: k must be 4 integers in [1, 64]')
@@ -257,10 +261,10 @@ def continue_x(sysm, q, step=0.05):
     return x, ok
 
 
-def side_predictor(sysm, Mq, wcf, eps=1e-5):
+def side_predictor(sysm, Mq, wcf, q0, eps=1e-5):
     """Quadratic predictor of x(q(w)) in the box variable u, q = Mq (wc + u): value, gradient (B, 7, 4), monomial
     coefficients (B, 7, 10), and Y = (dF/dx)^-1 at the centre."""
-    qc = wcf @ Mq.T
+    qc = wcf @ Mq.T + q0[None, :]
     xc, ok = continue_x(sysm, qc)
     def d1(q, x):
         Jx, Jq = sysm.J_float(q, x)
@@ -269,7 +273,7 @@ def side_predictor(sysm, Mq, wcf, eps=1e-5):
     B = len(qc); Hm = np.zeros((B, 7, 4, 4))
     for l in range(4):
         e = np.zeros(4); e[l] = eps
-        qp, qm = (wcf + e) @ Mq.T, (wcf - e) @ Mq.T
+        qp, qm = (wcf + e) @ Mq.T + q0[None, :], (wcf - e) @ Mq.T + q0[None, :]
         xp, okp = sysm.newton(qp, xc); xm, okm = sysm.newton(qm, xc)
         ok &= okp & okm
         Hm[:, :, :, l] = (d1(qp, xp) - d1(qm, xm)) / (2 * eps)
@@ -282,11 +286,11 @@ def side_predictor(sysm, Mq, wcf, eps=1e-5):
 
 
 # ---------------------------------------------------------------- Arb pieces
-def param_tm(Mq, wc, h):
-    """q(u) = Mq (wc + u) as a real TM (B, 4) with exact linear part Mq."""
+def param_tm(Mq, wc, h, q0a):
+    """q(u) = q0 + Mq (wc + u) as a real TM (B, 4) with exact linear part Mq."""
     B = wc.shape[0]
     Ma = oarb(Mq)
-    return TM(np.einsum('ij,bj->bi', Ma, wc), np.broadcast_to(Ma, (B, 4, 4)).copy(), zeros((B, 4, 10)), zeros((B, 4)), h)
+    return TM(np.einsum('ij,bj->bi', Ma, wc) + q0a[None, :], np.broadcast_to(Ma, (B, 4, 4)).copy(), zeros((B, 4, 10)), zeros((B, 4)), h)
 
 
 UNIQ_TRY = (0.03, 0.01, 0.003, 0.001, 3e-4)
@@ -383,7 +387,7 @@ def forced_D_float(qh, xh, xv):
     return -(C @ np.conj(np.swapaxes(E, -1, -2))) @ np.linalg.inv(np.conj(np.swapaxes(Bm, -1, -2)))
 
 
-def D_predictor(sysm, Mh, Mv, wcf, xh, xv, eps=1e-4):
+def D_predictor(sysm, Mh, Mv, wcf, xh, xv, q0h, q0v, eps=1e-4):
     """Quadratic predictor of D(w) on each box (finite differences of the float completion)."""
     B = len(wcf)
     offs = [np.zeros(4)]
@@ -397,7 +401,7 @@ def D_predictor(sysm, Mh, Mv, wcf, xh, xv, eps=1e-4):
     Dn = []
     ok = np.ones(B, bool)
     for o in offs:
-        qh = (wcf + o) @ Mh.T; qv = (wcf + o) @ Mv.T
+        qh = (wcf + o) @ Mh.T + q0h[None, :]; qv = (wcf + o) @ Mv.T + q0v[None, :]
         a, oka = sysm.newton(qh, xh); b, okb = sysm.newton(qv, xv); ok &= oka & okb
         Dn.append(forced_D_float(qh, a, b))
     D0 = Dn[0]
@@ -447,10 +451,12 @@ def edge_box_Q(eb, wc, h, wcf, tubes=None, deriv=False):
     sysm = system()
     B = wc.shape[0]
     Mh = eb.Mth; Mv = QSIGN_V[:, None] * eb.Mth[QPERM_V]
-    qh = param_tm(Mh, wc, h); qv = param_tm(Mv, wc, h)
+    q0h = eb.q0; q0v = QSIGN_V * eb.q0[QPERM_V]
+    q0ha = eb.q0_a; q0va = np.array([arb(int(QSIGN_V[i])) * eb.q0_a[QPERM_V[i]] for i in range(4)], dtype=object)
+    qh = param_tm(Mh, wc, h, q0ha); qv = param_tm(Mv, wc, h, q0va)
     xs = {}
-    for side, Mq, qt in (('h', Mh, qh), ('v', Mv, qv)):
-        xc, g, q2, Y, ok = side_predictor(sysm, Mq, wcf)
+    for side, Mq, qt, q0 in (('h', Mh, qh, q0h), ('v', Mv, qv, q0v)):
+        xc, g, q2, Y, ok = side_predictor(sysm, Mq, wcf, q0)
         need(ok.all(), 'edge: predictor (float continuation) failed')
         pred = TM(oarb(xc), oarb(g), oarb(q2), zeros((B, 7)), h)
         tube, rin = kraw_tube(sysm, qt, pred, Y)
@@ -468,7 +474,7 @@ def edge_box_Q(eb, wc, h, wcf, tubes=None, deriv=False):
     ph0 = np.array([arb.pi() * k / 3 for k in K_PH0], dtype=object)
     phh = xh[slice(1, 7)] + ph0[None, :]; phv = xv[slice(1, 7)] + ph0[None, :]
     Bs = S.side_tm(phh); C = S.side_tm(phv).T()
-    D0, gD, qD, okD = D_predictor(sysm, Mh, Mv, wcf, xs['h'][1], xs['v'][1])
+    D0, gD, qD, okD = D_predictor(sysm, Mh, Mv, wcf, xs['h'][1], xs['v'][1], q0h, q0v)
     need(okD.all(), 'edge: D predictor failed')
     Xp = TM(oacb(D0), oacb(gD), oacb(qD), zeros((B, 3, 3)), h)
     D = S.forced_block(Xp, E, Bs, C, third=(S.E_tm3(th), S.side_tm3(phh), S.side_tm3(phv).T()))
@@ -724,6 +730,7 @@ def check_T3(Q, eb, tubes, grp, max_depth=8):
     phv = phv + oarb(Nv.astype(float))[None, :] * tp
     y = S.psi_tm(S.side_tm(phh)).im().scale(arb(-2))                       # Psi is invariant under the 2 pi shifts
     p = stack([th[0], th[1], th[2], y], (4,), Q.h, False)
+    p = p - eb.q0_a[None, :]
     w = p.lmul(eb.Minv())
     sup = TMA.norm_sup(w)
     need(all(x < eb.r_a for x in sup), 'T3: p_K not certified inside the edge ball')
@@ -765,7 +772,7 @@ def _t3_try(w, xh, xv, tubes, e):
     return True
 
 
-def check_edge_transfers(eb, seeds, groups, max_level, chunk=64):
+def check_edge_transfers(eb, seeds, groups, max_level, chunk=64, edges=()):
     """The edge ball's own boundary: T1 groups into seed balls (C1e Taylor models over each box, the T1 test with
     both Psi signs checked) and the coverage of its sphere (as for seed balls)."""
     ctx.prec = S.PREC
@@ -777,7 +784,18 @@ def check_edge_transfers(eb, seeds, groups, max_level, chunk=64):
         boxes = S.dyadic_boxes(grp.get('boxes', []), max_level)
         if not boxes: continue
         listed.update(boxes)
-        need(kind == 'T1', 'edge ball: transfer kind %r not allowed (T1 only)' % (kind,))
+        need(kind in ('T1', 'T3'), 'edge ball: transfer kind %r not allowed (T1, T3 only)' % (kind,))
+        if kind == 'T3':                              # into another edge ball of the same chart (EdgeInQ)
+            need(0 <= t < len(edges), 'T3: target out of range')
+            teb, ttubes = edges[t]
+            need(teb is not None, 'T3: target edge ball malformed')
+            xc, h, xcf = S.box_geometry(boxes, eb.r)
+            for s0 in range(0, len(boxes), chunk):
+                sl = slice(s0, s0 + chunk)
+                Q = edge_representative(eb, edge_box_Q(eb, xc[sl], h[sl], xcf[sl]), xcf[sl])
+                check_T3(Q, teb, ttubes, grp)
+            cnt['T3'] = cnt.get('T3', 0) + len(boxes)
+            continue
         need(0 <= t < len(seeds), 'T1: target out of range')
         rows = [int(x) for x in S.ints(grp.get('rows'), 3, 'rows')]; cols = [int(x) for x in S.ints(grp.get('cols'), 3, 'cols')]
         S.corner_L(rows, cols); S.g_index(grp.get('g'))

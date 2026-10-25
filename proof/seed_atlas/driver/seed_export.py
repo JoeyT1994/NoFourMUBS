@@ -112,21 +112,28 @@ def main_edge(state_path, out, allow_open=False):
     import pickle, time
     import cover as CV
     A = pickle.load(open(state_path, 'rb'))
-    eb = A.edge['ball']
+    E = A.edges if getattr(A, 'edges', None) else [A.edge]
     keep = [j for j, s in enumerate(A.status) if s == 'closed']
     assert allow_open or len(keep) == len(A.balls), 'atlas not closed'
-    assert allow_open or not A.edge['failed'], 'edge sphere has %d uncovered boxes' % len(A.edge['failed'])
-    edge = dict(chart='F6-012', Mth=hxl(eb.Mth), r=hx(eb.r), k=[int(x) for x in eb.k], P=hxl(eb.P), U=hxl(eb.U),
-                n=hx(eb.n), label_radius=hx(eb.label), graph=dict(R=hx(0.45), sigma=hx(1.7)),
-                transfers=[group_json(g) for g in merge_groups(A.edge['groups'])], info=dict(S=[float(x) for x in eb.S]))
+    assert allow_open or not any(x['failed'] for x in E), 'edge spheres have uncovered boxes'
+    assert not np.any(E[0]['ball'].p0 if hasattr(E[0]['ball'], 'p0') else 0), 'edge ball 0 must be centred at F6'
+    edges = []
+    for x in E:
+        eb = x['ball']
+        edges.append(dict(chart='F6-012', q0=hxl(getattr(eb, 'p0', np.zeros(4))), Mth=hxl(eb.Mth), r=hx(eb.r),
+                          k=[int(v) for v in eb.k], P=hxl(eb.P), U=hxl(eb.U), n=hx(eb.n), label_radius=hx(eb.label),
+                          graph=dict(R=hx(0.45), sigma=hx(1.7)),
+                          transfers=[group_json(g) for g in merge_groups(x['groups'])], info=dict(S=[float(v) for v in eb.S])))
+    edge = edges[0]
     seeds = [seed_json(A.balls[j], merge_groups(A.groups.get(j) or [])) for j in range(len(A.balls))]
     nb = sum(len(g['boxes']) for s_ in seeds for g in s_['transfers'])
     info = dict(driver='proof/seed_atlas/driver (coordinator)', built=time.strftime('%Y-%m-%d'), seeds=len(A.balls),
-                seed_boxes=int(nb), edge_boxes=int(sum(len(g['boxes']) for g in edge['transfers'])), stats=A.stats)
+                seed_boxes=int(nb), edge_balls=len(edges),
+                edge_boxes=int(sum(len(g['boxes']) for e_ in edges for g in e_['transfers'])), stats=A.stats)
     d = {'format': 'seed-atlas-v1', 'max_level': int(max(CV.MAX_LEVEL, 9)), 'seeds': seeds, 'records': [],
-         'edge': [edge], 'tao': dict(R=hx(0.08), label_radius=hx(0.03)), 'info': info}
+         'edge': edges, 'tao': dict(R=hx(0.08), label_radius=hx(0.03)), 'info': info}
     with gzip.open(out, 'wt') as f: json.dump(d, f, separators=(',', ':'))
-    print('wrote %s: %d seeds, %d seed boxes, edge ball r %.3f with %d boxes' % (out, len(seeds), nb, eb.r, info['edge_boxes']))
+    print('wrote %s: %d seeds, %d seed boxes, %d edge balls with %d boxes' % (out, len(seeds), nb, len(edges), info['edge_boxes']))
 
 
 if __name__ == '__main__':
