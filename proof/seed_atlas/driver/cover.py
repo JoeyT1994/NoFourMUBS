@@ -261,6 +261,9 @@ def nl_test(Q, hw, cand, N=None, du=None):
     return sup * NL_SLACK < cand.R, np.linalg.norm(a + np.einsum('bkj,bj->bk', b, du), axis=1) / cand.R, N
 
 
+T3_VMAX = 0.90         # T3 screen: sampled points within 0.90 r of the edge ball (Arb encloses the whole box)
+
+
 def t3_points(ball, lo, hi):
     """Q at the 17 sample points (16 vertices, centre) of each box: (B, 17, 36) and the ok mask (B,)."""
     pts = lo[:, None, :] + SG_VERT[None] * (hi - lo)[:, None, :]
@@ -282,7 +285,7 @@ def t3_test(cand, QP, okp):
     p = np.concatenate([th[:, :3] + 2 * np.pi * np.array(cand.wind[:3]) - EP.TH0[:3], y[:, None]], 1)
     v = (np.linalg.norm(p @ cand.eb.Minv.T, axis=1) / cand.eb.r).reshape(len(QP), 17)
     v = np.where(np.isfinite(v), v, 9.0)
-    ok = okp & (v.max(1) < EP.VMAX)
+    ok = okp & (v.max(1) < T3_VMAX)
     vc = np.where(okp, v[:, -1], 9.0)
     Ns = [None] * len(QP)
     for b in np.where(ok)[0]:
