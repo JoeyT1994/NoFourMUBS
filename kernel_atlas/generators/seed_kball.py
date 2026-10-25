@@ -371,9 +371,16 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('cert'); ap.add_argument('j', type=int)
     ap.add_argument('--no-stagec', dest='stagec', action='store_false')
+    ap.add_argument('--kernel-n', help="kernel_n.json (proof/seed_atlas/driver/kernel_n.py): per-ball kernel n and "
+                    "label radius, used in place of the certificate's (the kernel certifies its own copy)")
     a = ap.parse_args()
     op = gzip.open if a.cert.endswith('.gz') else open
     cert = json.load(op(a.cert, 'rt'))
+    if a.kernel_n:
+        for o in json.load(open(a.kernel_n)):
+            if o.get('f'):
+                cert['seeds'][o['j']]['n'] = float(o['n']).hex()
+                cert['seeds'][o['j']]['label_radius'] = float(o['label_k']).hex()
     G = generate(cert, a.j)
     write_table(G['tab'])
     d = write_ball(G, a.stagec)
