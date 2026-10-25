@@ -328,8 +328,17 @@ def CT3(xyV):
     return [V[3 * (q % 3) + q // 3] for q in range(9)]
 
 
+def isOne(T): return T.rho == 0 and all(T.cg(m) == (ONE if m == 0 else (0, 0)) for m in range(15))
+
+
+def mulF(h, A, B):
+    if isOne(A): return B
+    if isOne(B): return A
+    return mul(h, A, B)
+
+
 def mulH(h, X, Y):
-    return [sumT([mul(h, X[3 * (q // 3) + k], conj(Y[3 * (q % 3) + k])) for k in range(3)]) for q in range(9)]
+    return [sumT([mulF(h, X[3 * (q // 3) + k], conj(Y[3 * (q % 3) + k])) for k in range(3)]) for q in range(9)]
 
 
 def neuT(h, A0, Bm):

@@ -207,6 +207,26 @@ lemma has3_CT3 {u : Fin 4 → ℝ} {xy : List CT} {x y : Fin 3 → ℂ}
 
 lemma idx3 (a b : Fin 3) : (3 * (a : ℕ) + b) / 3 = a ∧ (3 * (a : ℕ) + b) % 3 = b := by omega
 
+lemma has_one_eq {u : Fin 4 → ℝ} {x : ℂ} (hx : (const oneZ).Has u x) : x = 1 := by
+  have := has_const oneZ u
+  unfold CT.Has at hx this
+  rw [cz_one] at this
+  have e : (const oneZ).ρ = 0 := rfl
+  rw [e] at hx this
+  have h1 : (const oneZ).eval u = 1 := by
+    have := norm_le_zero_iff.1 (le_of_le_of_eq this (by simp [rn]))
+    exact (sub_eq_zero.1 this).symm
+  have h2 := norm_le_zero_iff.1 (le_of_le_of_eq hx (by simp [rn]))
+  rw [h1] at h2; exact sub_eq_zero.1 h2
+
+lemma has_mulF {h : List ℕ} {u : Fin 4 → ℝ} (hu : InBox h u) {A B : CT} {x y : ℂ} (hx : A.Has u x)
+    (hy : B.Has u y) : (mulF h A B).Has u (x * y) := by
+  unfold mulF
+  split_ifs with h1 h2
+  · subst h1; rw [has_one_eq hx, one_mul]; exact hy
+  · subst h2; rw [has_one_eq hy, mul_one]; exact hx
+  · exact has_mul hu hx hy
+
 lemma has3_mulH {h : List ℕ} {u : Fin 4 → ℝ} (hu : InBox h u) {X Y : List CT} {M N : Matrix (Fin 3) (Fin 3) ℂ}
     (hX : Has3 u X M) (hY : Has3 u Y N) : Has3 u (mulH h X Y) (M * Nᴴ) := by
   intro a b
@@ -218,7 +238,7 @@ lemma has3_mulH {h : List ℕ} {u : Fin 4 → ℝ} (hu : InBox h u) {X Y : List 
   have y0 : (gT Y (3 * b + 0)).Has u (N b 0) := hY b 0
   have y1 : (gT Y (3 * b + 1)).Has u (N b 1) := hY b 1
   have y2 : (gT Y (3 * b + 2)).Has u (N b 2) := hY b 2
-  have H := has_sumT3 (has_mul hu x0 (has_conj y0)) (has_mul hu x1 (has_conj y1)) (has_mul hu x2 (has_conj y2))
+  have H := has_sumT3 (has_mulF hu x0 (has_conj y0)) (has_mulF hu x1 (has_conj y1)) (has_mulF hu x2 (has_conj y2))
   convert H using 1
   rw [Matrix.mul_apply, Fin.sum_univ_three]; rfl
 

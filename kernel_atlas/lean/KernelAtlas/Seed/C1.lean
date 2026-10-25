@@ -222,10 +222,14 @@ def CT3 (xyV : List CT) : List CT :=
   let V := BT xyV
   l9 fun q => gT V (3 * (q % 3) + q / 3)
 
+/-- The product, skipping an exact factor `1` (the dephased rows and columns of `E`, `B`, `C`). -/
+def mulF (h : List ℕ) (A B : CT) : CT :=
+  if A = const oneZ then B else if B = const oneZ then A else mul h A B
+
 /-- `(X Y*)_ij = Σ_k X_ik conj(Y_jk)`. -/
 def mulH (h : List ℕ) (X Y : List CT) : List CT :=
   l9 fun q =>
-    sumT (l3 fun k => mul h (gT X (3 * (q / 3) + k)) (conj (gT Y (3 * (q % 3) + k))))
+    sumT (l3 fun k => mulF h (gT X (3 * (q / 3) + k)) (conj (gT Y (3 * (q % 3) + k))))
 
 /-- `I − A₀ B*`: entry `(i, l)` is `δ_il − Σ_k A₀_ik conj(B_lk)`. -/
 def neuT (h : List ℕ) (A0 : List (ℤ × ℤ)) (Bm : List CT) : List CT :=

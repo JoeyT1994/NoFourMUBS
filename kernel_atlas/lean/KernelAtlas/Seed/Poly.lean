@@ -179,6 +179,7 @@ structure CT where
   c13 : ℤ × ℤ
   c14 : ℤ × ℤ
   ρ : ℕ
+  deriving DecidableEq
 
 /-- The `m`-th coefficient. -/
 def CT.cg (T : CT) (m : ℕ) : ℤ × ℤ :=
