@@ -110,7 +110,7 @@ def write_xc(outdir, base, title, xd, rho):
         '/-- **Return X at radius `ρ`** (`x_core`). -/',
         'theorem core : ∀ δ : RMat6, IsHorizontal δ → frob δ ≤ (rhoq : ℝ) → Hadamard6.IsHadamard (phaseMat (PF + δ)) →',
         '    ¬ QuartetEdge (phaseMat (PF + δ)) :=',
-        '  x_core hx rfl sigmaOK_ e0OK_ j1OK_ fun hK0 hK hKb hr hrF hrH hn => stageC2 hK0 hK hKb hr hrF hrH hn',
+        '  x_core (tbN := tabN) hx rfl sigmaOK_ e0OK_ j1OK_ fun hK0 hK hKb hr hrF hrH hn => stageC2 hK0 hK hKb hr hrF hrH hn',
         '', 'end %s' % base]
     SS.put(outdir, 'XC', L)
 
