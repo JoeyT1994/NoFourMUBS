@@ -296,6 +296,16 @@ def edge_cover_box2(args):
 EDGE_MAXLEV = 8
 
 
+def gap_proposals(Qs, sep=0.15, cap=20000, seed=0):
+    """Well-separated proposal points among the gap phase matrices: greedy over at most `cap` random gaps."""
+    Qs = np.asarray(Qs)
+    if len(Qs) > cap: Qs = Qs[np.random.default_rng(seed).choice(len(Qs), cap, replace=False)]
+    out = np.zeros((0, Qs.shape[1]))
+    for q in Qs:
+        if not len(out) or np.linalg.norm(SG.wrap(out - q[None]), axis=1).min() > sep: out = np.vstack([out, q])
+    return list(out)
+
+
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument('run'); ap.add_argument('--workers', type=int, default=os.cpu_count())
     ap.add_argument('--start-level', type=int, default=3)
@@ -333,10 +343,7 @@ def main():
                     k + 1, len(ejobs), len(eg), len(ef), time.time() - t0), flush=True)
     print('edge sphere: %d boxes, %d failed (%.0fs)' % (len(eg), len(ef), time.time() - t0), flush=True)
     if ef:                                 # seed proposals at the gaps (driver.py --gaps), well separated
-        qs = []
-        for _, q in ef:
-            if q is None: continue
-            if all(np.linalg.norm(SG.wrap(q - p)) > 0.15 for p in qs): qs.append(q)
+        qs = gap_proposals([q for _, q in ef if q is not None])
         with open(os.path.join(a.run, 'edge_gaps.pkl'), 'wb') as f: pickle.dump(qs, f)
         print('edge sphere gaps: %d proposals -> %s; rerun driver.py --edge --gaps, then this' % (
             len(qs), os.path.join(a.run, 'edge_gaps.pkl')), flush=True)
