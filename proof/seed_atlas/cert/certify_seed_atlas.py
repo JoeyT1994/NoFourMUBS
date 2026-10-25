@@ -196,22 +196,28 @@ def check_edge_t(C, e, c, groups):
     return out
 
 
-def run_edge_c1(core):
+def run_edge_c1(core, jobs=1):
     """C1e of every edge ball, in this process, with SPEC sections 10.1-10.2's (G) and (D) (the entry's "graph"
     {"R", "sigma"} and "sigma_D"; defaults when absent: R_G = 0.45, sigma = 1.7, sigma_D only required > 0).  The results (verdicts, n_cert, the (G)/(D) values, the certified tube data for T3)
     go into the core that the workers receive."""
     import edgecert as EC, seedcert as S
     res = {}
+    pool = None
+    if jobs > 1 and core.get('edge'):
+        import multiprocessing as mp
+        from concurrent.futures import ProcessPoolExecutor
+        pool = ProcessPoolExecutor(jobs, mp_context=mp.get_context('spawn'))
     for e, ed in enumerate(core.get('edge', [])):
         try:
             gd = EC.GraphData(ed.get('graph'))
             sD = S._hexf(ed['sigma_D']) if 'sigma_D' in ed else None
-            res[e] = EC.certify_edge_c1(EC.EdgeBall(ed), graph=gd, sigma_D=sD)
+            res[e] = EC.certify_edge_c1(EC.EdgeBall(ed), graph=gd, sigma_D=sD, pool=pool, ed=ed, gspec=ed.get('graph'))
         except S.CertError as ex:
             res[e] = dict(ok=False, n_cert=math.inf, reason='C1e: %s' % ex, boxes=None, seconds=0.0, tubes=None)
         if not res[e]['ok']: res[e]['tubes'] = None
         print('edge ball %d: C1e %s n_cert %.4e (%s boxes, %.1fs) %s %s' % (e, 'ok' if res[e]['ok'] else 'FAIL', res[e]['n_cert'],
               res[e]['boxes'], res[e]['seconds'], res[e].get('graph', ''), res[e]['reason']), flush=True)
+    if pool is not None: pool.shutdown()
     core['edge_c1'] = res
 
 
@@ -312,7 +318,7 @@ def main(argv=None):
     del cert
     sel = {i for k, i in items if k == 'edge'}
     items += [k for k in groups if k[0] == 'edgeT' and k[1][0] in sel]
-    if ne and any(k in ('seed', 'edge', 'fourier') for k, _ in items): run_edge_c1(core)
+    if ne and any(k in ('seed', 'edge', 'fourier') for k, _ in items): run_edge_c1(core, a.jobs)
     results = []
     if a.jobs > 1:
         import multiprocessing as mp

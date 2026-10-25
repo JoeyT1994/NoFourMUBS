@@ -612,7 +612,33 @@ def edge_representative(eb, Q, wcf):
     return S.wind_to(Q, eb.P[None] + wcf @ eb.U.T)
 
 
-def certify_edge_c1(eb, chunk=64, keep_tubes=True, graph=None, sigma_D=None):
+def _c1e_chunk(args):
+    """One chunk of C1e boxes in a worker (certify_edge_c1 with a pool): the bounds and the float tube data."""
+    ed, gspec, s0, s1 = args
+    ctx.prec = S.PREC
+    try:
+        eb = EdgeBall(ed); eb.Minv()
+        graph = GraphData(gspec) if gspec is not None else None
+        keep, wc, h, wcf = edge_boxes(eb.r, eb.k)
+        sl = slice(s0, s1)
+        tubes = EdgeTubes(eb.r, eb.k)
+        if graph is not None:
+            Q, dQ = edge_box_Q(eb, wc[sl], h[sl], wcf[sl], tubes, deriv=True)
+        else:
+            Q = edge_box_Q(eb, wc[sl], h[sl], wcf[sl], tubes)
+        Q = edge_representative(eb, Q, wcf[sl])
+        res = TM(Q.c - eb.P_a[None] - np.einsum('ej,bj->be', eb.U_a, wc[sl]), Q.g - eb.U_a[None], Q.q, Q.rho, Q.h)
+        out = dict(ok=True, worst=max(up(x) for x in TMA.norm_sup(res)), dmax=0.0, emax=0.0, smin=math.inf,
+                   wcf=tubes.wcf, hf=tubes.hf, pred=tubes.pred, rho=tubes.rho, need=tubes.need)
+        if graph is not None:
+            dn, en, sig = graph_image_and_sigma(eb, graph, Q, dQ, wcf[sl])
+            out.update(dmax=max(up(x) for x in dn), emax=max(up(x) for x in en), smin=min(sig))
+        return out
+    except CertError as e:
+        return dict(ok=False, reason=str(e))
+
+
+def certify_edge_c1(eb, chunk=64, keep_tubes=True, graph=None, sigma_D=None, pool=None, ed=None, gspec=None):
     """C1e for one edge ball, and with `graph` (GraphData, SPEC sections 10.1-10.2) also: the edge image inside the (G)
     region ||hor(Q - P_F + 2 pi N)|| < R_G, and (D) sigma_D_cert = min over the C1e boxes of a lower bound of
     sigma_min(T_F^+ dQ/dw) > 0 (>= the stored sigma_D if given).
@@ -626,7 +652,16 @@ def certify_edge_c1(eb, chunk=64, keep_tubes=True, graph=None, sigma_D=None):
         keep, wc, h, wcf = edge_boxes(eb.r, eb.k)
         if tubes is not None: tubes.idx = list(keep)
         worst = 0.0; dmax = 0.0; emax = 0.0; smin = math.inf
-        for s in range(0, len(keep), chunk):
+        if pool is not None:                          # the chunks in parallel; tube data merged in box order
+            jobs = [(ed, gspec if graph is not None else None, s, min(s + chunk, len(keep))) for s in range(0, len(keep), chunk)]
+            for r in pool.map(_c1e_chunk, jobs):
+                if not r['ok']: raise CertError(r['reason'])
+                worst = max(worst, r['worst']); dmax = max(dmax, r['dmax']); emax = max(emax, r['emax']); smin = min(smin, r['smin'])
+                if tubes is not None:
+                    tubes.wcf += r['wcf']; tubes.hf += r['hf']
+                    for sd in 'hv':
+                        tubes.pred[sd] += r['pred'][sd]; tubes.rho[sd] += r['rho'][sd]; tubes.need[sd] += r['need'][sd]
+        for s in (range(0, len(keep), chunk) if pool is None else ()):
             sl = slice(s, s + chunk)
             if graph is not None:
                 Q, dQ = edge_box_Q(eb, wc[sl], h[sl], wcf[sl], tubes, deriv=True)
