@@ -780,7 +780,7 @@ def _t3_try(w, xh, xv, tubes, e):
     return True
 
 
-def check_edge_transfers(eb, seeds, groups, max_level, chunk=64, edges=()):
+def check_edge_transfers(eb, seeds, groups, max_level, chunk=64, edges=(), check=True, cover=True):
     """The edge ball's own boundary: T1 groups into seed balls (C1e Taylor models over each box, the T1 test with
     both Psi signs checked) and the coverage of its sphere (as for seed balls)."""
     ctx.prec = S.PREC
@@ -793,6 +793,7 @@ def check_edge_transfers(eb, seeds, groups, max_level, chunk=64, edges=()):
         if not boxes: continue
         listed.update(boxes)
         need(kind in ('T1', 'T3'), 'edge ball: transfer kind %r not allowed (T1, T3 only)' % (kind,))
+        if not check: continue                         # coverage only (the boxes are checked by other work items)
         if kind == 'T3':                              # into another edge ball of the same chart (EdgeInQ)
             need(0 <= t < len(edges), 'T3: target out of range')
             teb, ttubes = edges[t]
@@ -813,6 +814,7 @@ def check_edge_transfers(eb, seeds, groups, max_level, chunk=64, edges=()):
             Q = edge_representative(eb, edge_box_Q(eb, xc[sl], h[sl], xcf[sl]), xcf[sl])
             S.check_T1_general(seeds[t], grp['g'], rows, cols, grp.get('wind'), Q)
         cnt['T1'] += len(boxes)
+    if not cover: return cnt
     ok, info = S.covered(listed, max_level, S.misses_unit_sphere)
     need(ok, 'edge sphere coverage: box %r neither listed, off the sphere, nor refinable' % (info,))
     cnt['coverage_nodes'] = info

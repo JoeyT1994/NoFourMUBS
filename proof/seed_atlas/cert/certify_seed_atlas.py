@@ -56,6 +56,17 @@ def split(cert):
     core['edge'] = [{k: v for k, v in e.items() if k != 'transfers'} for e in cert.get('edge', [])]
     groups = {('seed', j): s.get('transfers', []) for j, s in enumerate(cert['seeds'])}
     groups.update({('edge', e): ed.get('transfers', []) for e, ed in enumerate(cert.get('edge', []))})
+    # an edge sphere's boxes are checked in chunks (each needs an Arb chart enclosure); the ('edge', e) item keeps the
+    # sphere coverage, Stage C or X, and checks no box itself
+    for e, ed in enumerate(cert.get('edge', [])):
+        chunks, cur, n = [], [], 0
+        for g in ed.get('transfers', []):
+            bx = g.get('boxes', []) if isinstance(g, dict) else []
+            for s0 in range(0, max(len(bx), 1), EDGE_CHUNK):
+                cur.append(dict(g, boxes=bx[s0:s0 + EDGE_CHUNK])); n += len(bx[s0:s0 + EDGE_CHUNK])
+                if n >= EDGE_CHUNK: chunks.append(cur); cur, n = [], 0
+        if cur: chunks.append(cur)
+        groups.update({('edgeT', (e, c)): ch for c, ch in enumerate(chunks)})
     groups.update({('record', i): r.get('boundary', []) for i, r in enumerate(cert['records'])})
     return core, groups
 
@@ -154,7 +165,28 @@ def check_edge(C, e, groups=None):
             if not sc.get('ok'): raise S.CertError('Stage C failed: %s' % sc.get('reason', 'quartet edge not excluded'))
         t2 = time.time()
         if groups is None: groups = C.cert['edge'][e].get('transfers', [])
-        out.update(transfers=EC.check_edge_transfers(eb, C.balls, groups, C.cert['max_level'], edges=C.edges), c2_s=round(time.time() - t2, 3))
+        out.update(transfers=EC.check_edge_transfers(eb, C.balls, groups, C.cert['max_level'], edges=C.edges, check=False),
+                   c2_s=round(time.time() - t2, 3))
+        out['ok'] = True
+    except S.CertError as ex:
+        out.update(ok=False, reason=str(ex))
+    except Exception as ex:
+        out.update(ok=False, reason='exception: %r' % (ex,), tb=traceback.format_exc(limit=3))
+    out['seconds'] = round(time.time() - t0, 3)
+    return out
+
+
+EDGE_CHUNK = 2000
+
+
+def check_edge_t(C, e, c, groups):
+    """One chunk of edge ball e's sphere boxes: every listed transfer checked (coverage is the ('edge', e) item's)."""
+    import seedcert as S, edgecert as EC
+    t0 = time.time(); out = dict(item='edgeT', index=[e, c])
+    try:
+        eb, tubes = C.edges[e]
+        if eb is None or tubes is None: raise S.CertError('edge ball %d did not pass C1e' % e)
+        out.update(transfers=EC.check_edge_transfers(eb, C.balls, groups, C.cert['max_level'], edges=C.edges, cover=False))
         out['ok'] = True
     except S.CertError as ex:
         out.update(ok=False, reason=str(ex))
@@ -242,6 +274,7 @@ def _run(item, groups=None):
     if kind == 'seed': return check_seed(_C, idx, groups)
     if kind == 'record': return check_record(_C, idx, groups)
     if kind == 'edge': return check_edge(_C, idx, groups)
+    if kind == 'edgeT': return check_edge_t(_C, idx[0], idx[1], groups)
     if kind == 'fourier': return check_fourier(_C)
     return check_tao(_C)
 
@@ -277,6 +310,8 @@ def main(argv=None):
     items = parse_only(a.only, ns, nr, ne)
     core, groups = split(cert)
     del cert
+    sel = {i for k, i in items if k == 'edge'}
+    items += [k for k in groups if k[0] == 'edgeT' and k[1][0] in sel]
     if ne and any(k in ('seed', 'edge', 'fourier') for k, _ in items): run_edge_c1(core)
     results = []
     if a.jobs > 1:
