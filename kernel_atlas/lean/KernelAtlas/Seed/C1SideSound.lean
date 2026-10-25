@@ -102,61 +102,158 @@ lemma hy_of {u : Fin 4 → ℝ} {xy : List CT} {ξ : Fin 6 → ℝ}
   have := hy ⟨m - 3, by omega⟩
   rwa [show ((⟨m - 3, by omega⟩ : Fin 3) : ℕ) + 3 = m by simp; omega] at this
 
-theorem has_jcT {h : List ℕ} {u : Fin 4 → ℝ} (hu : InBox h u) {xy : List CT} {ξ : Fin 6 → ℝ}
-    (hx : ∀ j : Fin 3, (gT xy j).Has u (sx ξ j)) (hy : ∀ j : Fin 3, (gT xy (j + 3)).Has u (sy ξ j))
-    (k : Fin 3) (m : Fin 6) : (jcT h xy k m).Has u (sideJc ξ k m) := by
-  have z := has_zero u
+/-! ### The Jacobian by intervals -/
+
+/-- `x` lies in the complex interval `a`. -/
+def IvH (a : IvC) (x : ℂ) : Prop := ‖x - cz a.1‖ ≤ rn a.2
+
+lemma ivH_ivc {h : List ℕ} {u : Fin 4 → ℝ} (hu : InBox h u) {T : CT} {x : ℂ} (hx : T.Has u x) :
+    IvH (ivc h T) x := norm_sub_c_le hu hx
+
+lemma ivH_zero : IvH ivZ 0 := by
+  unfold IvH ivZ; rw [show cz (0, 0) = 0 by simp [cz], sub_zero, norm_zero]; exact rn_nonneg _
+
+lemma ivH_I {a : IvC} {x : ℂ} (hx : IvH a x) : IvH (ivI a) (I * x) := by
+  unfold IvH ivI at *
+  rw [cz_mulI, ← mul_sub, norm_mul, Complex.norm_I, one_mul]; exact hx
+
+lemma ivH_neg {a : IvC} {x : ℂ} (hx : IvH a x) : IvH (ivNeg a) (-x) := by
+  unfold IvH ivNeg at *
+  rw [cz_neg, show -x - -cz a.1 = -(x - cz a.1) by ring, norm_neg]; exact hx
+
+lemma ivH_conj {a : IvC} {x : ℂ} (hx : IvH a x) : IvH (ivConj a) ((starRingEnd ℂ) x) := by
+  unfold IvH ivConj at *
+  rw [cz_conj, ← map_sub, Complex.norm_conj]; exact hx
+
+lemma ivH_mul {a b : IvC} {x y : ℂ} (hx : IvH a x) (hy : IvH b y) : IvH (ivm a b) (x * y) := by
+  unfold IvH ivm at *
+  have ha := norm_cz_le a.1
+  have hb := norm_cz_le b.1
+  have e : x * y - cz (rnd2 (zmul a.1 b.1)) = ((x - cz a.1) * (y - cz b.1) + (x - cz a.1) * cz b.1 +
+      cz a.1 * (y - cz b.1)) + (cz2 (zmul a.1 b.1) - cz (rnd2 (zmul a.1 b.1))) := by
+    rw [← cz_mul]; ring
+  rw [e, rn_add]
+  refine (norm_add_le _ _).trans (add_le_add ?_ (norm_cz2_sub_rnd2 _))
+  refine (norm_add₃_le).trans ?_
+  rw [norm_mul, norm_mul, norm_mul]
+  have h1 : ‖x - cz a.1‖ * ‖y - cz b.1‖ + ‖x - cz a.1‖ * ‖cz b.1‖ + ‖cz a.1‖ * ‖y - cz b.1‖ ≤
+      rn a.2 * rn b.2 + rn a.2 * rn (mb b.1) + rn (mb a.1) * rn b.2 := by
+    gcongr <;> first | exact hx | exact hy | exact ha | exact hb | exact (norm_nonneg _).trans hx |
+      exact rn_nonneg _
+  refine h1.trans (rn_cdiv_ge ?_)
+  have hT := two_pow_pos pp
+  unfold rn; push_cast
+  rw [le_div_iff₀ hT]
+  field_simp
+  ring_nf
+  exact le_refl _
+
+theorem ivH_jcI {g : ℕ → IvC} {ξ : Fin 6 → ℝ}
+    (hx : ∀ j : Fin 3, IvH (g j) (sx ξ j)) (hy : ∀ j : Fin 3, IvH (g (j + 3)) (sy ξ j))
+    (k : Fin 3) (m : Fin 6) : IvH (jcI g k m) (sideJc ξ k m) := by
+  have hy' : ∀ (m : ℕ) (h3 : ¬ m < 3) (h6 : m < 6), IvH (g m) (sy ξ ⟨m - 3, by omega⟩) := fun m h3 h6 => by
+    have := hy ⟨m - 3, by omega⟩
+    rwa [show ((⟨m - 3, by omega⟩ : Fin 3) : ℕ) + 3 = m by simp; omega] at this
   fin_cases k
-  · show (jcT h xy 0 m).Has u (sideJc ξ 0 m)
-    simp only [jcT, sideJc, if_true]
+  · show IvH (jcI g 0 m) (sideJc ξ 0 m)
+    simp only [jcI, sideJc, if_true]
     by_cases hm : (m : ℕ) < 3
-    · rw [if_pos hm, dif_pos hm]; exact has_mulI (hx ⟨m, hm⟩)
-    · rw [if_neg hm, dif_neg hm]; exact z
-  · show (jcT h xy 1 m).Has u (sideJc ξ 1 m)
-    simp only [jcT, sideJc, one_ne_zero, if_false, if_true]
+    · rw [if_pos hm, dif_pos hm]; exact ivH_I (hx ⟨m, hm⟩)
+    · rw [if_neg hm, dif_neg hm]; exact ivH_zero
+  · show IvH (jcI g 1 m) (sideJc ξ 1 m)
+    simp only [jcI, sideJc, one_ne_zero, if_false, if_true]
     by_cases hm : (m : ℕ) < 3
-    · rw [if_pos hm, dif_pos hm]; exact z
-    · rw [if_neg hm, dif_neg hm]; exact has_mulI (hy_of hy m hm m.2)
-  · show (jcT h xy 2 m).Has u (sideJc ξ 2 m)
-    simp only [jcT, sideJc, show (2 : ℕ) ≠ 0 by norm_num, show (2 : ℕ) ≠ 1 by norm_num, if_false]
+    · rw [if_pos hm, dif_pos hm]; exact ivH_zero
+    · rw [if_neg hm, dif_neg hm]; exact ivH_I (hy' m hm m.2)
+  · show IvH (jcI g 2 m) (sideJc ξ 2 m)
+    simp only [jcI, sideJc, show (2 : ℕ) ≠ 0 by norm_num, show (2 : ℕ) ≠ 1 by norm_num, if_false]
     by_cases hm : (m : ℕ) < 3
     · rw [if_pos hm, dif_pos hm]
-      have := has_neg (has_mulI (has_mul hu (hy ⟨m, hm⟩) (has_conj (hx ⟨m, hm⟩))))
+      have := ivH_neg (ivH_I (ivH_mul (hy ⟨m, hm⟩) (ivH_conj (hx ⟨m, hm⟩))))
       rw [← mul_assoc] at this; exact this
     · rw [if_neg hm, dif_neg hm]
-      have := has_mulI (has_mul hu (hy_of hy m hm m.2) (has_conj (hx ⟨m - 3, by omega⟩)))
+      have := ivH_I (ivH_mul (hy' m hm m.2) (ivH_conj (hx ⟨m - 3, by omega⟩)))
       rw [← mul_assoc] at this; exact this
 
-theorem has_JT {h : List ℕ} {u : Fin 4 → ℝ} (hu : InBox h u) {xy : List CT} {ξ : Fin 6 → ℝ}
-    (hx : ∀ j : Fin 3, (gT xy j).Has u (sx ξ j)) (hy : ∀ j : Fin 3, (gT xy (j + 3)).Has u (sy ξ j))
-    (i m : Fin 6) : (gT (JT h xy) (6 * i + m)).Has u (sideJ ξ i m : ℂ) := by
-  rw [JT, gT_l36 _ (by omega)]
-  have e1 : (6 * (i : ℕ) + m) / 6 = i := by omega
-  have e2 : (6 * (i : ℕ) + m) % 6 = m := by omega
-  simp only [e1, e2]
+/-- Each real Jacobian entry lies in its real interval. -/
+theorem jI_sound {g : ℕ → IvC} {ξ : Fin 6 → ℝ}
+    (hx : ∀ j : Fin 3, IvH (g j) (sx ξ j)) (hy : ∀ j : Fin 3, IvH (g (j + 3)) (sy ξ j)) (i m : Fin 6) :
+    |sideJ ξ i m - rq (jI g i m).1| ≤ rn (jI g i m).2 := by
   by_cases hi : (i : ℕ) < 3
-  · rw [if_pos hi]; simp only [sideJ, dif_pos hi]; exact has_re (has_jcT hu hx hy ⟨i, hi⟩ m)
-  · rw [if_neg hi]; simp only [sideJ, dif_neg hi]; exact has_im (has_jcT hu hx hy ⟨i - 3, by omega⟩ m)
+  · have h := ivH_jcI hx hy ⟨i, hi⟩ m
+    simp only [jI, if_pos hi, sideJ, dif_pos hi]
+    unfold IvH at h
+    refine le_trans ?_ h
+    have e : (sideJc ξ ⟨i, hi⟩ m).re - rq (jcI g i m).1.1 = (sideJc ξ ⟨i, hi⟩ m - cz (jcI g i m).1).re := by
+      rw [Complex.sub_re, cz_eq, Complex.add_re, Complex.ofReal_re, Complex.mul_re, Complex.ofReal_re,
+        Complex.ofReal_im, Complex.I_re, Complex.I_im]; simp [rq]
+    rw [e]; exact Complex.abs_re_le_norm _
+  · have h := ivH_jcI hx hy ⟨i - 3, by omega⟩ m
+    simp only [jI, if_neg hi, sideJ, dif_neg hi]
+    unfold IvH at h
+    refine le_trans ?_ h
+    have e : (sideJc ξ ⟨i - 3, by omega⟩ m).im - rq (jcI g (i - 3) m).1.2 =
+        (sideJc ξ ⟨i - 3, by omega⟩ m - cz (jcI g (i - 3) m).1).im := by
+      rw [Complex.sub_im, cz_eq, Complex.add_im, Complex.ofReal_im, Complex.mul_im, Complex.ofReal_re,
+        Complex.ofReal_im, Complex.I_re, Complex.I_im]; simp [rq]
+    rw [e]; exact Complex.abs_im_le_norm _
 
-theorem qRows_sound {h : List ℕ} {u : Fin 4 → ℝ} (hu : InBox h u) {Y : List ℤ} {J : List CT}
-    {A : Matrix (Fin 6) (Fin 6) ℝ} (hJ : ∀ l m : Fin 6, (gT J (6 * l + m)).Has u (A l m : ℂ)) (i : Fin 6) :
-    ∑ m, |(1 - Ymat Y * A) i m| ≤ rn (gn (qRows h Y J) i) := by
-  rw [qRows, gn_l6 _ i.2, rn_sum_l6]
+lemma ivsum_l6Z (f : ℕ → ℤ) : ((l6 f).sum : ℤ) = ∑ l : Fin 6, f l := by
+  simp only [l6, List.sum_cons, List.sum_nil, Fin.sum_univ_six]; simp; ring
+
+lemma ivsum_l6N (f : ℕ → ℕ) : ((l6 f).sum : ℕ) = ∑ l : Fin 6, f l := by
+  simp only [l6, List.sum_cons, List.sum_nil, Fin.sum_univ_six]; simp; ring
+
+theorem qRowsI_sound {Y : List ℤ} {J : ℕ → ℕ → ℤ × ℕ} {A : Matrix (Fin 6) (Fin 6) ℝ}
+    (hJ : ∀ l m : Fin 6, |A l m - rq (J l m).1| ≤ rn (J l m).2) (i : Fin 6) :
+    ∑ m, |(1 - Ymat Y * A) i m| ≤ rn (gn (qRowsI Y J) i) := by
+  rw [qRowsI, gn_l6 _ i.2, rn_sum_l6]
   refine Finset.sum_le_sum fun m _ => ?_
-  have hlin := has_lin hu (hasAll_l6 (g := fun l => (rz (gi Y (6 * i + l)), gT J (6 * l + m)))
-    (x := ext6 fun l => A l m) (fun k hk => by simp only [ext6, dif_pos hk]; exact hJ ⟨k, hk⟩ m))
-  have hc := has_sub (has_const (if (i : ℕ) = m then oneZ else (0, 0)) u) hlin
-  have hb := norm_le_bnd hu hc
-  refine le_of_eq_of_le ?_ hb
-  rw [← Real.norm_eq_abs, ← Complex.norm_real]
-  congr 1
-  rw [valS_l6]
-  by_cases him : i = m
-  · subst him
-    simp [Matrix.sub_apply, Matrix.mul_apply, Fin.sum_univ_six, Ymat, cz_rz, ext6, cz_one]
-  · have him' : (i : ℕ) ≠ m := fun e => him (Fin.ext e)
-    rw [if_neg him', show cz (0, 0) = 0 by simp [cz]]
-    simp [Matrix.sub_apply, him, Matrix.mul_apply, Fin.sum_univ_six, Ymat, cz_rz, ext6]
+  set cI : ℤ := (if (i : ℕ) = m then (2 : ℤ) ^ (2 * pp) else 0) - (l6 fun l => gi Y (6 * i + l) * (J l m).1).sum
+  set rI : ℕ := (l6 fun l => (gi Y (6 * i + l)).natAbs * (J l m).2).sum
+  refine rn_cdiv_ge ?_
+  have hT := two_pow_pos pp
+  have h2 : (2 : ℝ) ^ (2 * pp) = 2 ^ pp * 2 ^ pp := by rw [two_mul, pow_add]
+  -- the entry: (δ 2^{2p} − Σ Y c)/2^{2p} − Σ (Y/2^p)(A − c/2^p)
+  have hc : (cI : ℝ) / 2 ^ (2 * pp) = (if i = m then 1 else 0) -
+      ∑ l : Fin 6, rq (gi Y (6 * i + l)) * rq (J l m).1 := by
+    have e1 : ((l6 fun l => gi Y (6 * i + l) * (J l m).1).sum : ℝ) =
+        ∑ l : Fin 6, (gi Y (6 * i + l) : ℝ) * ((J l m).1 : ℝ) := by
+      rw [ivsum_l6Z, Int.cast_sum]; push_cast; rfl
+    simp only [cI, Int.cast_sub, e1, sub_div, Finset.sum_div]
+    congr 1
+    · by_cases him : i = m
+      · subst him; simp [h2]
+      · have him' : (i : ℕ) ≠ m := fun e => him (Fin.ext e)
+        simp [him, him']
+    · refine Finset.sum_congr rfl fun l _ => ?_
+      unfold rq; rw [h2]; field_simp
+  have hval : (1 - Ymat Y * A) i m = (cI : ℝ) / 2 ^ (2 * pp) -
+      ∑ l : Fin 6, rq (gi Y (6 * i + l)) * (A l m - rq (J l m).1) := by
+    rw [hc]
+    simp only [Matrix.sub_apply, Matrix.mul_apply, Ymat, Matrix.one_apply, mul_sub, Finset.sum_sub_distrib]
+    ring
+  have hsum : |∑ l : Fin 6, rq (gi Y (6 * i + l)) * (A l m - rq (J l m).1)| ≤
+      ∑ l : Fin 6, ((gi Y (6 * i + l)).natAbs : ℝ) / 2 ^ pp * rn (J l m).2 := by
+    refine (Finset.abs_sum_le_sum_abs _ _).trans (Finset.sum_le_sum fun l _ => ?_)
+    rw [abs_mul]
+    refine mul_le_mul ?_ (hJ l m) (abs_nonneg _) (by positivity)
+    unfold rq; rw [abs_div, abs_of_pos hT, Nat.cast_natAbs, Int.cast_abs]
+  have hr : ∑ l : Fin 6, ((gi Y (6 * i + l)).natAbs : ℝ) / 2 ^ pp * rn (J l m).2 = (rI : ℝ) / 2 ^ (2 * pp) := by
+    simp only [rI, ivsum_l6N, Nat.cast_sum, Nat.cast_mul, rn]
+    rw [Finset.sum_div]; refine Finset.sum_congr rfl fun l _ => ?_
+    rw [h2]; field_simp
+  have habs : |(1 - Ymat Y * A) i m| ≤ ((cI.natAbs + rI : ℕ) : ℝ) / 2 ^ (2 * pp) := by
+    calc |(1 - Ymat Y * A) i m|
+        = |(cI : ℝ) / 2 ^ (2 * pp) - ∑ l : Fin 6, rq (gi Y (6 * i + l)) * (A l m - rq (J l m).1)| := by rw [hval]
+      _ ≤ |(cI : ℝ) / 2 ^ (2 * pp)| + |∑ l : Fin 6, rq (gi Y (6 * i + l)) * (A l m - rq (J l m).1)| := abs_sub _ _
+      _ ≤ |(cI : ℝ)| / 2 ^ (2 * pp) + (rI : ℝ) / 2 ^ (2 * pp) := by
+          rw [abs_div, abs_of_pos (by positivity : (0 : ℝ) < 2 ^ (2 * pp))]
+          exact add_le_add le_rfl (hsum.trans hr.le)
+      _ = ((cI.natAbs + rI : ℕ) : ℝ) / 2 ^ (2 * pp) := by
+          rw [← add_div]; push_cast; rw [Nat.cast_natAbs, Int.cast_abs]
+  calc |(1 - Ymat Y * A) i m| * 2 ^ pp ≤ ((cI.natAbs + rI : ℕ) : ℝ) / 2 ^ (2 * pp) * 2 ^ pp := by gcongr
+    _ = ((cI.natAbs + rI : ℕ) : ℝ) / 2 ^ pp := by rw [h2]; field_simp
 
 /-! ### The side -/
 
@@ -187,7 +284,8 @@ theorem side_sound {h : List ℕ} {u : Fin 4 → ℝ} (hu : InBox h u) {G : List
       ∀ j : Fin 3, (gT (rowsT h (tubeT φ (sideK h G φ Y ρt).e)) (j + 3)).Has u (sy φs j) := by
   set φr := l6 fun j => re (gT φ j) with hφr
   set bL := (matT h Y (FT h G (rowsT h φr))).map (bnd h) with hbL
-  set qL := qRows h Y (JT h (rowsT h (l6 fun j => addRho (gT φr j) ρt))) with hqL
+  set xr := rowsT h (l6 fun j => addRho (gT φr j) ρt) with hxr
+  set qL := qRowsI Y (jI fun j => ivc h (gT xr j)) with hqL
   set numL := l6 fun i => gn bL i * 2 ^ pp + gn qL i * ρt with hnumL
   have hK : sideK h G φ Y ρt = ⟨(l6 fun i => decide (gn numL i < ρt * 2 ^ pp)).all id &&
       (l6 fun i => expOK (gT φr i) nT).all id, numL.map fun x => cdivN x pp⟩ := rfl
@@ -223,7 +321,11 @@ theorem side_sound {h : List ℕ} {u : Fin 4 → ℝ} (hu : InBox h u) {G : List
   have hq : ∀ ξ ∈ closedBall φp (rn ρt), ∀ i : Fin 6, ∑ j, |(1 - Ymat Y * sideJ ξ) i j| ≤ rn (gn qL i) :=
     fun ξ hξ i => by
       obtain ⟨hx, hy⟩ := has_rowsT hu htexp (htube ξ hξ)
-      exact qRows_sound hu (has_JT hu hx hy) i
+      have gx : ∀ j : Fin 3, IvH ((fun j => ivc h (gT xr j)) j) (sx ξ j) := fun j => ivH_ivc hu (hx j)
+      have gy : ∀ j : Fin 3, IvH ((fun j => ivc h (gT xr j)) (j + 3)) (sy ξ j) := fun j => ivH_ivc hu (hy j)
+      have hJ := jI_sound (g := fun j => ivc h (gT xr j)) (ξ := ξ) gx gy
+      have hQ := qRowsI_sound (Y := Y) (J := jI fun j => ivc h (gT xr j)) (A := sideJ ξ) hJ i
+      exact hQ
   have hcr : ∀ i : Fin 6, rn (gn bL i) + rn (gn qL i) * rn ρt < rn ρt := fun i => hc_of (hc i)
   obtain ⟨⟨φs, -, hF0, hdist⟩, -⟩ := Method.krawczyk (sideF s t r) sideJ φp (rn ρt) (Ymat Y)
     (fun i => rn (gn bL i)) (fun i => rn (gn qL i)) (fun ξ _ v => hasDerivAt_sideF s t r ξ v) hb hq hcr

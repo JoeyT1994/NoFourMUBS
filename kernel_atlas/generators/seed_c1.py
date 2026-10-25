@@ -235,30 +235,43 @@ def matT(h, Y, v):
     return [lin(h, [(rz(Y[6 * i + k]), v[k]) for k in range(6)]) for i in range(6)]
 
 
-def jcT(h, xy, k, m):
-    if k == 0: return mulI(xy[m]) if m < 3 else const(ZERO)
-    if k == 1: return const(ZERO) if m < 3 else mulI(xy[m])
-    if m < 3: return neg(mulI(mul(h, xy[m + 3], conj(xy[m]))))
-    return mulI(mul(h, xy[m], conj(xy[m - 3])))
+def ivc(h, T): return (T.cg(0), Lsum(h, T) + T.rho)
+def ivm(a, b): return (rnd2(zmul(a[0], b[0])), cdivN(mb(a[0]) * b[1] + a[1] * mb(b[0]) + a[1] * b[1], PP) + 2)
+def ivI(a): return ((-a[0][1], a[0][0]), a[1])
+def ivNeg(a): return ((-a[0][0], -a[0][1]), a[1])
+def ivConj(a): return ((a[0][0], -a[0][1]), a[1])
+IVZ = ((0, 0), 0)
 
 
-def JT(h, xy):
+def jcI(g, k, m):
+    if k == 0: return ivI(g[m]) if m < 3 else IVZ
+    if k == 1: return IVZ if m < 3 else ivI(g[m])
+    if m < 3: return ivNeg(ivI(ivm(g[m + 3], ivConj(g[m]))))
+    return ivI(ivm(g[m], ivConj(g[m - 3])))
+
+
+def jI(g, i, m):
+    c = jcI(g, i, m) if i < 3 else jcI(g, i - 3, m)
+    return (c[0][0] if i < 3 else c[0][1], c[1])
+
+
+def qRowsI(Y, J):
     out = []
-    for q in range(36):
-        i, m = divmod(q, 6)
-        out.append(re(jcT(h, xy, i, m)) if i < 3 else im(jcT(h, xy, i - 3, m)))
+    for i in range(6):
+        tot = 0
+        for m in range(6):
+            c = (SC * SC if i == m else 0) - sum(Y[6 * i + l] * J[l][m][0] for l in range(6))
+            r = sum(abs(Y[6 * i + l]) * J[l][m][1] for l in range(6))
+            tot += cdivN(abs(c) + r, PP)
+        out.append(tot)
     return out
-
-
-def qRows(h, Y, J):
-    return [sum(bnd(h, sub(const(ONE if i == m else ZERO), lin(h, [(rz(Y[6 * i + l]), J[6 * l + m]) for l in range(6)])))
-                for m in range(6)) for i in range(6)]
 
 
 def sideK(h, G, phi, Y, rt):
     phr = [re(A) for A in phi]
     b = [bnd(h, T) for T in matT(h, Y, FT(h, G, rowsT(h, phr)))]
-    q = qRows(h, Y, JT(h, rowsT(h, [addRho(A, rt) for A in phr])))
+    g = [ivc(h, T) for T in rowsT(h, [addRho(A, rt) for A in phr])]
+    q = qRowsI(Y, [[jI(g, l, m) for m in range(6)] for l in range(6)])
     num = [b[i] * SC + q[i] * rt for i in range(6)]
     ok = all(num[i] < rt * SC for i in range(6)) and all(expOK(phr[i]) for i in range(6))
     return ok, [cdivN(x, PP) for x in num], b, q

@@ -113,24 +113,39 @@ def FT (h : List ℕ) (G : List CT) (xy : List CT) : List CT :=
 def matT (h : List ℕ) (Y : List ℤ) (v : List CT) : List CT :=
   l6 fun i => lin h (l6 fun k => (rz (gi Y (6 * i + k)), gT v k))
 
-/-- The complex Jacobian rows (`sideJc`), as models on the tube. -/
-def jcT (h : List ℕ) (xy : List CT) (k m : ℕ) : CT :=
-  if k = 0 then (if m < 3 then mulI (gT xy m) else const (0, 0))
-  else if k = 1 then (if m < 3 then const (0, 0) else mulI (gT xy m))
-  else if m < 3 then neg (mulI (mul h (gT xy (m + 3)) (conj (gT xy m))))
-  else mulI (mul h (gT xy m) (conj (gT xy (m - 3))))
+/-! The Jacobian enters only through `q ≥ Σ sup |I − Y J|`, so it is bounded by plain complex intervals
+(centre on the grid, radius): the row models are collapsed to `(c₀, L + ρ)` and multiplied as intervals. -/
 
-/-- The real Jacobian (`sideJ`): entry `(i, m)` at index `6 i + m`. -/
-def JT (h : List ℕ) (xy : List CT) : List CT :=
-  l36 fun q =>
-    let i := q / 6
-    let m := q % 6
-    if i < 3 then re (jcT h xy i m) else im (jcT h xy (i - 3) m)
+/-- A complex interval: centre on the grid and radius. -/
+abbrev IvC := (ℤ × ℤ) × ℕ
 
-/-- Row sums of `sup |I − Y J|`. -/
-def qRows (h : List ℕ) (Y : List ℤ) (J : List CT) : List ℕ :=
+/-- The interval of a model on the box: `(c₀, L + ρ)`. -/
+def ivc (h : List ℕ) (T : CT) : IvC := (T.cg 0, Lsum h T + T.ρ)
+
+/-- The interval product: `|c_a| r_b + r_a |c_b| + r_a r_b`, and the rounding of the centre. -/
+def ivm (a b : IvC) : IvC := (rnd2 (zmul a.1 b.1), cdivN (mb a.1 * b.2 + a.2 * mb b.1 + a.2 * b.2) pp + 2)
+
+def ivI (a : IvC) : IvC := ((-a.1.2, a.1.1), a.2)
+def ivNeg (a : IvC) : IvC := (zneg a.1, a.2)
+def ivConj (a : IvC) : IvC := (zconj a.1, a.2)
+def ivZ : IvC := ((0, 0), 0)
+
+/-- The complex Jacobian rows (`sideJc`) as intervals, from the row intervals `g`. -/
+def jcI (g : ℕ → IvC) (k m : ℕ) : IvC :=
+  if k = 0 then (if m < 3 then ivI (g m) else ivZ)
+  else if k = 1 then (if m < 3 then ivZ else ivI (g m))
+  else if m < 3 then ivNeg (ivI (ivm (g (m + 3)) (ivConj (g m))))
+  else ivI (ivm (g m) (ivConj (g (m - 3))))
+
+/-- The real Jacobian (`sideJ`) entry `(i, m)` as a real interval (centre, radius). -/
+def jI (g : ℕ → IvC) (i m : ℕ) : ℤ × ℕ :=
+  if i < 3 then ((jcI g i m).1.1, (jcI g i m).2) else ((jcI g (i - 3) m).1.2, (jcI g (i - 3) m).2)
+
+/-- Row sums of `sup |I − Y J|`: `|δ 2^{2p} − Σ Y c| + Σ |Y| r`, on the grid. -/
+def qRowsI (Y : List ℤ) (J : ℕ → ℕ → ℤ × ℕ) : List ℕ :=
   l6 fun i => (l6 fun m =>
-    bnd h (sub (const (if i = m then oneZ else (0, 0))) (lin h (l6 fun l => (rz (gi Y (6 * i + l)), gT J (6 * l + m)))))).sum
+    cdivN (((if i = m then (2 : ℤ) ^ (2 * pp) else 0) - (l6 fun l => gi Y (6 * i + l) * (J l m).1).sum).natAbs +
+      (l6 fun l => (gi Y (6 * i + l)).natAbs * (J l m).2).sum) pp).sum
 
 /-- The side check: Krawczyk `b + qρ < ρ`, and the tube radii `b + qρ`. -/
 structure SideOut where
@@ -140,7 +155,8 @@ structure SideOut where
 def sideK (h : List ℕ) (G : List CT) (φ : List CT) (Y : List ℤ) (ρt : ℕ) : SideOut :=
   let φr := l6 fun j => re (gT φ j)
   let b := (matT h Y (FT h G (rowsT h φr))).map (bnd h)
-  let q := qRows h Y (JT h (rowsT h (l6 fun j => addRho (gT φr j) ρt)))
+  let xr := rowsT h (l6 fun j => addRho (gT φr j) ρt)
+  let q := qRowsI Y (jI fun j => ivc h (gT xr j))
   let num := l6 fun i => gn b i * 2 ^ pp + gn q i * ρt
   ⟨(l6 fun i => decide (gn num i < ρt * 2 ^ pp)).all id && (l6 fun i => expOK (gT φr i) nT).all id,
     num.map fun x => cdivN x pp⟩
