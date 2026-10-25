@@ -53,6 +53,27 @@ python3 proof/seed_atlas/cert/tests/run_tests.py
   ‖ρ‖.
 - n_cert is the maximum over the boxes, rounded up. The ball passes iff n_cert ≤ n.
 
+**Horizontal gauge (SPEC §11, `"gauge": "hor"`).**
+- The stored P and U are horizontal. P_g = gauge(P) and U_g = gauge(U) are recovered by exact cross ratios in Arb,
+  where gauge(X)_ab = X_ab − X_a0 − X_0b + X_00.
+- The predictors and the representative use the dephased gauge (nearest P_g + U_g w).
+- The residual is hor(Q_g) − P − Uw. hor is applied to the polynomial part only, and ‖ρ‖₂ is kept, because hor is an
+  orthogonal projector.
+- Without the field, everything is as before.
+
+**Adaptive boxes (SPEC §11).**
+- **Refinement.** Start from the k-grid boxes meeting the open ball. A box whose bound exceeds the stored n, or whose
+  Taylor models fail, is replaced by its 16 children meeting the open ball, up to depth 4.
+- **Rejection.** The check stops with a certified rejection when a box centre inside the ball has residual > n. It
+  also stops when two consecutive levels accept no box, or past a budget of 100,000 boxes.
+- **The linear part of the per-box bound** is maximised only over the box's part inside the ball: the box is cut by
+  the half-space tangent to the ball at the box's direction, and the maximum is taken over the cut polytope's
+  vertices.
+
+**Third-order residuals.** The Krawczyk residual F(predictor) and the forced-block residual C E* + X_p B* are computed
+in third-order Taylor models (`tmarb.TM3`). Their cubic terms cancel in reality, and second-order truncation bounds
+lost that cancellation. This cuts the D remainder about 10×.
+
 **Stage C** (`run_stage_c`) is `stagec.stage_c` with the following arguments:
 - **P.** P_c = fl(P/2π); the rounding d = ‖P − 2πP_c‖ is added to n.
 - **rcol.** rcol = (maxᵢ ‖U_(block i)‖₂ r + n + d)/2π.
