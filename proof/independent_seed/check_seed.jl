@@ -188,16 +188,19 @@ function main(args)
             c1.ok && (X.edge_leaves[i] = c1.leaves)
             c1.ok && iszero(eb.q0) && push!(f6edge, (i - 1, S.edge_f6(c1.leaves)...))
             ts = time()
-            sc, si = S.seed_stage_c(eb; replay=!fast)
+            # return X replaces Stage C for an X-ball: its image must lie within phase distance 3/20 of F6 (below)
+            sc, si = eb.exclusion == :X ? ((ok=true, nlabels=0, maxs=0.0, msg="X"), nothing) : S.seed_stage_c(eb; replay=!fast)
             ts = time() - ts
             root = S.edge_root(eb)
             c2 = (c1.ok && root !== nothing) ? S.check_c2_edge(eb, X, root; split_depth=splitdepth) :
                  S.C2Result(false, "not run (C1e failed)", 0, Dict{Symbol,Int}(), 0, 0, Dict{Symbol,Float64}(), 0, 0.0)
             gr = c1.ok ? S.check_graph(eb, c1.leaves, eb.graph) :
                  S.GraphResult(false, "not run (C1e failed)", NaN, NaN, NaN, NaN, NaN, 0.0)
-            ok = c1.ok && sc.ok && c2.ok && gr.ok
+            xok = eb.exclusion != :X || (gr.ok && gr.delta_sup < 0.15)     # float(0.15) < 3/20; delta_sup is rounded up
+            ok = c1.ok && sc.ok && c2.ok && gr.ok && xok
             m = ok ? "ok" : join(filter(!isempty, [c1.ok ? "" : "C1e: " * c1.msg, sc.ok ? "" : "Stage C: " * sc.msg,
-                                                   c2.ok ? "" : "C2: " * c2.msg, gr.ok ? "" : "graph/derivative: " * gr.msg]), "; ")
+                                                   c2.ok ? "" : "C2: " * c2.msg, gr.ok ? "" : "graph/derivative: " * gr.msg,
+                                                   xok ? "" : @sprintf("X: image not within phase distance 3/20 (%.6g)", gr.delta_sup)]), "; ")
             (ok, m, @sprintf("%d\t%s\t%.6g\t%s\t%.10g\t%.10g\t%d\t%d\t%.2f\t%s\t%d\t%.6g\t%.2f\t%s\t%d\t%.2f\t%s\t%.6g\t%.6g\t%.6g\t%.6g\t%.6g\t%.2f\t%s", i - 1,
                              ok ? "PASS" : "FAIL", eb.r, join(eb.k, "x"), eb.n, c1.bound, length(c1.leaves), c1.nsplit, c1.seconds,
                              sc.ok ? "PASS" : "FAIL", sc.nlabels, sc.maxs, ts, c2.ok ? "PASS" : "FAIL", c2.nbox, c2.seconds,

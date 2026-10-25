@@ -212,6 +212,10 @@ class EdgeBall:
         self.q0 = np.array([hx(x) for x in d.get('q0', [0.0] * 4)], float)
         need(self.q0.shape == (4,) and np.all(np.isfinite(self.q0)), 'edge ball: malformed q0')
         self.q0_a = oarb(self.q0)
+        # quartet exclusion: Stage C on the enclosure (default), or return X (no quartet edge within phase distance
+        # 3/20 of F6), which needs the image certified inside that distance (certify_edge_c1)
+        self.exclusion = d.get('exclusion', 'stagec')
+        need(self.exclusion in ('stagec', 'X'), 'edge ball: unknown exclusion %r' % (self.exclusion,))
         k = d['k']
         need(isinstance(k, list) and len(k) == 4 and all(isinstance(v, int) and not isinstance(v, bool) and 1 <= v <= 64 for v in k),
              'edge ball: k must be 4 integers in [1, 64]')
@@ -637,6 +641,10 @@ def certify_edge_c1(eb, chunk=64, keep_tubes=True, graph=None, sigma_D=None):
         out.update(n_cert=worst, boxes=len(keep), tubes=tubes)
         reasons = []
         if worst > eb.n: reasons.append('C1e: n_cert %.6e > n %.6e' % (worst, eb.n))
+        if eb.exclusion == 'X':
+            # d_ph([H(w)], [F6]) <= ||hor(Q - P_F + 2 pi N)||, rounded up; float(0.15) < 3/20
+            if graph is None: reasons.append('X: the image bound needs the graph data')
+            elif not dmax < 0.15: reasons.append('X: edge image not certified within phase distance 3/20 of F6 (%.6e)' % dmax)
         if graph is not None:
             out['graph'] = dict(R_G=graph.R, sigma=graph.sigma, image_delta_max=dmax, image_eta_max=emax, sigma_D_cert=smin)
             if not dmax < graph.R: reasons.append('(G): edge image not inside ||hor(Q - P_F)|| < R_G (%.4e >= %.4e)' % (dmax, graph.R))

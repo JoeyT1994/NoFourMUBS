@@ -146,9 +146,12 @@ def check_edge(C, e, groups=None):
         out.update(n=eb.n, n_cert=c1['n_cert'], r=eb.r, k=eb.k, c1_boxes=c1['boxes'], c1_s=round(c1['seconds'], 3), graph=c1.get('graph'))
         if not c1['ok']: raise S.CertError(c1['reason'])
         t1 = time.time()
-        sc = S.run_stage_c(eb)
-        out.update(stagec_ok=bool(sc.get('ok')), bins=sc.get('bins'), labels=sc.get('labels'), stagec_s=round(time.time() - t1, 3))
-        if not sc.get('ok'): raise S.CertError('Stage C failed: %s' % sc.get('reason', 'quartet edge not excluded'))
+        if eb.exclusion == 'X':                       # return X; the image bound was certified with C1e
+            out.update(exclusion='X', image_delta_max=(c1.get('graph') or {}).get('image_delta_max'))
+        else:
+            sc = S.run_stage_c(eb)
+            out.update(stagec_ok=bool(sc.get('ok')), bins=sc.get('bins'), labels=sc.get('labels'), stagec_s=round(time.time() - t1, 3))
+            if not sc.get('ok'): raise S.CertError('Stage C failed: %s' % sc.get('reason', 'quartet edge not excluded'))
         t2 = time.time()
         if groups is None: groups = C.cert['edge'][e].get('transfers', [])
         out.update(transfers=EC.check_edge_transfers(eb, C.balls, groups, C.cert['max_level'], edges=C.edges), c2_s=round(time.time() - t2, 3))
