@@ -1,0 +1,227 @@
+# Reading the plain-text form of a seed-atlas certificate written by convert_seed.py.  This file and convert_seed.py
+# are the only places that know the certificate's layout (proof/seed_atlas/FORMAT.md); everything else works on the
+# structs below.
+#
+# Text format (one item per line, whitespace separated; floats are float.hex strings; indices 0-based):
+#   FORMAT seed-atlas-text-v3
+#   COUNTS <nseeds> <nrecords> <fourier_record or -1> <nedge>
+#   per seed:
+#     SEED <i> <o> <k> <ngroups> [<gauge: dephased | hor>]
+#     THETA0 <4>   MTH <16, row-major>   R <1>   N <1>   LR <1>   P <36>   U <144, row-major 36 x 4>
+#     per group:  GROUP <kind> <target> <g> ROWS <m> <m ints> COLS <m> <m ints> WIND <m> <m ints> NBOX <nb>
+#                 BOXES <5 nb ints: level i0 i1 i2 i3, ...>
+#   per record:
+#     RECORD <i> <R> <label_radius> <eta_scale> <ngroups>
+#     PHI <36>   TINT <144 ints>
+#     groups as above (kinds rec, T1prime)
+#   per edge ball (SPEC §10):
+#     EDGE <i> <k0> <k1> <k2> <k3> <ngroups>
+#     MTH <16>   R <1>   N <1>   LR <1>   P <36>   U <144>
+#     GRAPH <R|-> <sigma|-> <sigma_D|-> <has phi 0/1> <has Tint 0/1>   [PHI <36>]   [TINT <144>]
+#     groups as above (kind T1)
+#   TAO <R> <label_radius>   or   TAO none
+#   END
+# A box (level m, i0..i3) is, in units of the object's scale (r for a seed ball, eta_scale for a record),
+#   u_a in [-1 + i_a 2^(1-m), -1 + (i_a + 1) 2^(1-m)].
+
+const MAXLEVEL = 50          # u endpoints are exact binary64 numbers up to this level
+
+struct Group
+    kind::Symbol                  # :T0, :T1, :T2, :T3 (seed sphere), :rec, :T1p (record shell), :T1 (edge sphere)
+    target::Int                   # 0-based: a seed (T0, T1, T1p), a record (T2, rec) or an edge ball (T3)
+    g::Symbol                     # :id, :conj, :T, :conjT
+    rows::Vector{Int}             # 1-based; ordered corner rows (T1, T1p, 3), a permutation (T2, rec, 6), or for T3 the
+                                  # corner followed by the complement's order (6; from 3 the complement is increasing)
+    cols::Vector{Int}
+    wind::Vector{Int}             # 4 (T0, T1, T1p), 36 (T2, rec, row-major), 16 (T3: wind, wind_h, wind_v); empty: none
+    boxes::Vector{NTuple{5,Int}}  # (level, i0, i1, i2, i3)
+end
+
+struct Seed
+    idx::Int
+    o::Int
+    k::Int
+    theta0::NTuple{4,Float64}
+    Mth::Matrix{Float64}          # 4 x 4
+    r::Float64
+    n::Float64
+    lr::Float64
+    P::Vector{Float64}            # 36, row-major, radians
+    U::Matrix{Float64}            # 36 x 4
+    groups::Vector{Group}
+    gauge::Symbol                 # :dephased (P, U in the dephased gauge) or :hor (SPEC §11: P, U horizontal)
+end
+Seed(idx, o, k, theta0, Mth, r, n, lr, P, U, groups) = Seed(idx, o, k, theta0, Mth, r, n, lr, P, U, groups, :dephased)
+
+"""gauge(X)_ab = X_ab - X_a0 - X_0b + X_00 (SPEC §11): the dephased-gauge matrix with the same cross ratios."""
+gauge_f(X::AbstractVector) = [X[6(a-1)+b] - X[6(a-1)+1] - X[b] + X[1] for a in 1:6 for b in 1:6]
+"""The dephased-gauge centre P_g and frame U_g of a seed ball (floats; used only to choose branches and windings)."""
+pg(s::Seed) = s.gauge == :hor ? gauge_f(s.P) : s.P
+ug(s::Seed) = s.gauge == :hor ? reduce(hcat, [gauge_f(s.U[:, k]) for k in 1:4]) : s.U
+
+struct SRecord
+    rec::IA.Rec                   # the existing record struct (P, Tint, R, label radius)
+    eta_scale::Float64
+    groups::Vector{Group}
+end
+
+struct GraphData                  # SPEC §10.2 "graph" {R, sigma} and the edge's sigma_D (NaN: absent); phi / Tint optional
+    R::Float64
+    sigma::Float64
+    sigmaD::Float64
+    phi::Union{Nothing,Vector{Float64}}
+    Tint::Union{Nothing,Matrix{Int64}}
+end
+GraphData() = GraphData(NaN, NaN, NaN, nothing, nothing)
+
+struct EdgeBall
+    idx::Int
+    k::NTuple{4,Int}              # boxes per axis for C1e
+    Mth::Matrix{Float64}          # p = (u1, u2, u3, y) = Mth w
+    r::Float64
+    n::Float64
+    lr::Float64
+    P::Vector{Float64}            # 36, F6's phases as stored floats
+    U::Matrix{Float64}            # 36 x 4
+    groups::Vector{Group}         # sphere transfers (T1)
+    graph::GraphData              # (G) and (D) data of SPEC §10.1 (fields NaN / nothing / empty when absent)
+end
+EdgeBall(idx, k, Mth, r, n, lr, P, U, groups) = EdgeBall(idx, k, Mth, r, n, lr, P, U, groups, GraphData())
+
+struct SeedCert
+    seeds::Vector{Seed}
+    records::Vector{SRecord}
+    fourier::Int                  # 0-based record index of F6's record, or -1
+    tao::Union{Nothing,NTuple{2,Float64}}   # Tao's record: (R, label_radius), or nothing
+    edges::Vector{EdgeBall}
+end
+SeedCert(seeds, records, fourier, tao) = SeedCert(seeds, records, fourier, tao, EdgeBall[])
+
+"""The box (level m, i) in u units: (lo, hi), exact floats."""
+function ubox(b::NTuple{5,Int})
+    m = b[1]; s = ldexp(1.0, 1 - m)
+    (ntuple(a -> -1.0 + b[a+1] * s, 4), ntuple(a -> -1.0 + (b[a+1] + 1) * s, 4))
+end
+
+hx(s::AbstractString) = (x = parse(Float64, s); isfinite(x) || error("non-finite float $s"); x)
+
+"""(sign, transpose) of g acting on phases: conj negates, T transposes."""
+gsign(g::Symbol) = g in (:conj, :conjT) ? -1 : 1
+gtr(g::Symbol) = g in (:T, :conjT)
+
+function read_seed_certificate(path::AbstractString)
+    lines = readlines(path)
+    pos = 1
+    nextline() = (l = split(lines[pos]); pos += 1; l)
+    function expect(l, key, n)
+        (length(l) == n + 1 && l[1] == key) || error("line $(pos - 1): expected $key with $n values")
+        l[2:end]
+    end
+    h = nextline(); (length(h) == 2 && h[1] == "FORMAT" && h[2] == "seed-atlas-text-v3") || error("bad FORMAT line")
+    ns, nr, fr, ne = parse.(Int, expect(nextline(), "COUNTS", 4))
+    function read_group()
+        l = nextline(); l[1] == "GROUP" || error("line $(pos - 1): expected GROUP")
+        kind = Symbol(l[2]); tgt = parse(Int, l[3]); g = Symbol(l[4])
+        kind == :T1prime && (kind = :T1p)
+        kind in (:T0, :T1, :T2, :T3, :rec, :T1p) || error("unknown transfer kind $kind")
+        g in (:id, :conj, :T, :conjT) || error("unknown g $g")
+        i = 5
+        function take(key)
+            l[i] == key || error("GROUP: expected $key")
+            m = parse(Int, l[i+1]); v = parse.(Int, l[i+2:i+1+m]); i += m + 2
+            v
+        end
+        rows = take("ROWS") .+ 1; cols = take("COLS") .+ 1; wind = take("WIND")
+        (l[i] == "NBOX" && length(l) == i + 1) || error("GROUP: expected NBOX")
+        nb = parse(Int, l[i+1])
+        bl = nextline()
+        (bl[1] == "BOXES" && length(bl) == 5nb + 1) || error("line $(pos - 1): expected BOXES with $nb boxes")
+        v = parse.(Int, bl[2:end])
+        boxes = [(v[5j-4], v[5j-3], v[5j-2], v[5j-1], v[5j]) for j in 1:nb]
+        for b in boxes
+            (0 <= b[1] <= MAXLEVEL && all(0 <= b[a] < (1 << b[1]) for a in 2:5)) || error("GROUP: bad box $b")
+        end
+        if kind in (:T1, :T1p)
+            (length(rows) == 3 && length(cols) == 3 && allunique(rows) && allunique(cols) && all(1 .<= rows .<= 6) &&
+             all(1 .<= cols .<= 6)) || error("GROUP: bad corner")
+            length(wind) in (0, 4) || error("GROUP: winding of length $(length(wind))")
+        elseif kind == :T3
+            length(rows) == 3 && (rows = [rows; [k for k in 1:6 if !(k in rows)]])
+            length(cols) == 3 && (cols = [cols; [k for k in 1:6 if !(k in cols)]])
+            (sort(rows) == 1:6 && sort(cols) == 1:6) || error("GROUP: bad T3 corner")
+            length(wind) in (0, 16) || error("GROUP: T3 winding of length $(length(wind))")
+        elseif kind in (:T2, :rec)
+            (sort(rows) == 1:6 && sort(cols) == 1:6) || error("GROUP: bad permutation")
+            length(wind) in (0, 36) || error("GROUP: winding of length $(length(wind))")
+        else
+            length(wind) in (0, 4) || error("GROUP: winding of length $(length(wind))")
+        end
+        Group(kind, tgt, g, rows, cols, wind, boxes)
+    end
+    seeds = Seed[]
+    for _ in 1:ns
+        sl = nextline()
+        (sl[1] == "SEED" && length(sl) in (5, 6)) || error("line $(pos - 1): expected SEED")
+        idx, o, k, ng = parse.(Int, sl[2:5])
+        gauge = length(sl) == 6 ? Symbol(sl[6]) : :dephased
+        gauge in (:dephased, :hor) || error("seed $idx: unknown gauge $gauge")
+        o in (1, -1) || error("seed $idx: o must be +-1")
+        k >= 1 || error("seed $idx: k must be >= 1")
+        th = Tuple(hx.(expect(nextline(), "THETA0", 4)))
+        M = hx.(expect(nextline(), "MTH", 16)); Mth = [M[4(a-1)+b] for a in 1:4, b in 1:4]
+        r = hx(expect(nextline(), "R", 1)[1]); n = hx(expect(nextline(), "N", 1)[1]); lr = hx(expect(nextline(), "LR", 1)[1])
+        (r > 0 && n >= 0 && lr > 0) || error("seed $idx: r, n, label_radius must be positive")
+        P = hx.(expect(nextline(), "P", 36))
+        Uv = hx.(expect(nextline(), "U", 144)); U = [Uv[4(e-1)+j] for e in 1:36, j in 1:4]
+        gs = [read_group() for _ in 1:ng]
+        all(g -> g.kind in (:T0, :T1, :T2, :T3), gs) || error("seed $idx: a sphere transfer must be T0, T1, T2 or T3")
+        push!(seeds, Seed(idx, o, k, th, Mth, r, n, lr, P, U, gs, gauge))
+    end
+    recs = SRecord[]
+    for _ in 1:nr
+        l = expect(nextline(), "RECORD", 5)
+        idx = parse(Int, l[1]); R = hx(l[2]); lr = hx(l[3]); es = hx(l[4]); ng = parse(Int, l[5])
+        (R > 0 && lr > 0 && es > 0) || error("record $idx: R, label_radius, eta_scale must be positive")
+        phi = hx.(expect(nextline(), "PHI", 36))
+        P = [phi[6(j-1)+c] for j in 1:6, c in 1:6]
+        ti = parse.(Int64, expect(nextline(), "TINT", 144))
+        Tint = [ti[4(e-1)+k] for e in 1:36, k in 1:4]
+        gs = [read_group() for _ in 1:ng]
+        all(g -> g.kind in (:rec, :T1p), gs) || error("record $idx: a shell group must be rec or T1prime")
+        push!(recs, SRecord(IA.Rec(idx, true, R, lr, P, Tint, IA.Target[]), es, gs))
+    end
+    edges = EdgeBall[]
+    for _ in 1:ne
+        v = parse.(Int, expect(nextline(), "EDGE", 6))
+        idx = v[1]; k = Tuple(v[2:5]); ng = v[6]
+        all(>=(1), k) || error("edge ball $idx: k must be >= 1")
+        M = hx.(expect(nextline(), "MTH", 16)); Mth = [M[4(a-1)+b] for a in 1:4, b in 1:4]
+        r = hx(expect(nextline(), "R", 1)[1]); n = hx(expect(nextline(), "N", 1)[1]); lr = hx(expect(nextline(), "LR", 1)[1])
+        (r > 0 && n >= 0 && lr > 0) || error("edge ball $idx: r, n, label_radius must be positive")
+        P = hx.(expect(nextline(), "P", 36))
+        Uv = hx.(expect(nextline(), "U", 144)); U = [Uv[4(e-1)+j] for e in 1:36, j in 1:4]
+        gl = expect(nextline(), "GRAPH", 5)
+        opt(x) = x == "-" ? NaN : hx(x)
+        gR, gsig, gsD = opt.(gl[1:3])
+        all(x -> isnan(x) || x > 0, (gR, gsig, gsD)) || error("edge ball $idx: graph R, sigma and sigma_D must be positive")
+        gphi = gl[4] == "1" ? hx.(expect(nextline(), "PHI", 36)) : nothing
+        gti = gl[5] == "1" ? (t = parse.(Int64, expect(nextline(), "TINT", 144)); [t[4(e-1)+k] for e in 1:36, k in 1:4]) : nothing
+        gs = [read_group() for _ in 1:ng]
+        all(g -> g.kind == :T1, gs) || error("edge ball $idx: a sphere transfer must be T1")
+        push!(edges, EdgeBall(idx, k, Mth, r, n, lr, P, U, gs, GraphData(gR, gsig, gsD, gphi, gti)))
+    end
+    t = nextline()
+    (t[1] == "TAO" && length(t) in (2, 3)) || error("expected TAO")
+    tao = length(t) == 2 ? (t[2] == "none" ? nothing : error("bad TAO line")) : (hx(t[2]), hx(t[3]))
+    (pos <= length(lines) && strip(lines[pos]) == "END" && pos == length(lines)) || error("expected END as the last line")
+    for (i, s) in enumerate(seeds)
+        s.idx == i - 1 || error("seed indices must be 0, 1, 2, ...")
+    end
+    for (i, r) in enumerate(recs)
+        r.rec.idx == i - 1 || error("record indices must be 0, 1, 2, ...")
+    end
+    for (i, e) in enumerate(edges)
+        e.idx == i - 1 || error("edge ball indices must be 0, 1, 2, ...")
+    end
+    SeedCert(seeds, recs, fr, tao, edges)
+end
