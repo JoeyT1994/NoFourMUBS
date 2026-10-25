@@ -7,10 +7,11 @@ vertical side (theta4', phi'_0..5) those of G_v(theta) and Im Psi - y/2 = 0 (E's
 only a predictor; the mirror decides with the kernel's integers whether a box passes.
 
 Usage (from the repository root):
-  python3 kernel_atlas/generators/edge_c1e.py [--r 0.30] [--k 16] [--boxes i,j,..] [--emit DIR]
+  python3 kernel_atlas/generators/edge_c1e.py [--r 0.115] [--rho 1/4] [--k 16] [--boxes i,j,..] [--emit DIR]
 """
 import argparse, itertools, math, os, sys, time
 from fractions import Fraction as Fr
+from pathlib import Path
 import numpy as np
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -25,8 +26,7 @@ PI50 = Fr('3.14159265358979323846264338327950288419716939937510')
 PI3Z = 1207336576346187140                       # round(pi/3 2^60) (C1e.lean `pi3Z`)
 assert abs(PI50 / 3 * SC - PI3Z) < Fr(1, 2)
 CTH = [1, 2, 2]
-RX = Fr(9, 20)
-NX = math.floor(36 * RX * SC)                   # nX: ||36 h(Q - Phi_F6)|| <= nX
+RX = Fr(1, 4)
 
 
 def f6k(e): return ((e // 6) * (e % 6)) % 6
@@ -175,37 +175,54 @@ def hor36(Y):
 def argWin(h, a, T): return abs(T.cg(0)[0] - a) + Lsum(h, T) + T.rho + 4 < 3 * PI3Z
 
 
-def c1eBox(B, D, verbose=False):
-    """Mirror of c1eBox.  Returns (ok, info)."""
+def core(B, D):
+    """Mirror of Edge.coreOK, qModels and kModels; returns (ok, qm, km, info)."""
     h = D['hb']
     a = [aT(B, D, k) for k in range(3)]
-    if not all(expOK(t) for t in a): return False, 'expOK a'
+    if not all(expOK(t) for t in a): return False, None, None, 'expOK a'
     e012 = [expI(h, t) for t in a]
     y = yT(B, D)
     okH, eH, bH, qH = sideE(h, False, e012, y, D['phH'], D['YH'], D['rhoH'], D['eH'])
     okV, eV, bV, qV = sideE(h, True, e012, y, D['phV'], D['YV'], D['rhoV'], D['eV'])
     info = dict(bH=max(bH) / SC, qH=max(qH) / SC, bV=max(bV) / SC, qV=max(qV) / SC, eH=max(eH) / SC, eV=max(eV) / SC)
-    if not (okH and okV): return False, ('kraw', info)
+    if not (okH and okV): return False, None, None, ('kraw', info)
     xH, xV = tubeE(D['phH'], D['eH']), tubeE(D['phV'], D['eV'])
     e3 = addRho(expI(h, re(D['phH'][0])), D['eH'][0])
     xyH, xyV = rowsE(h, D['phH'], D['eH']), rowsE(h, D['phV'], D['eV'])
     S = addRho(xH[0], bnd(h, sub(xH[0], xV[0])))
-    if not expOK(S): return False, ('expOK S', info)
+    if not expOK(S): return False, None, None, ('expOK S', info)
     dR = dRT(h, e012[0], e012[1], e012[2], expI(h, S))
     info['dR'] = (re(dR).cg(0)[0] / SC, (Lsum(h, re(dR)) + dR.rho) / SC)
-    if not posOK(h, dR): return False, ('dR4', info)
+    if not posOK(h, dR): return False, None, None, ('dR4', info)
     e = e012 + [e3]
     okD, Dm = forcedT(h, D['Xp'], D['A0'], ET(e), BT(xyH), CT3(xyV))
-    if not okD: return False, ('neumann', info)
-    if not all(argOK(h, B['Pa'][q], Dm[q]) for q in range(9)): return False, ('arg', info)
+    if not okD: return False, None, None, ('neumann', info)
+    if not all(argOK(h, B['Pa'][q], Dm[q]) for q in range(9)): return False, None, None, ('arg', info)
     argD = [argT(h, B['Pa'][q], Dm[q]) for q in range(9)]
-    if not all(argWin(h, B['Pa'][q], argD[q]) for q in range(9)): return False, ('argWin', info)
+    if not all(argWin(h, B['Pa'][q], argD[q]) for q in range(9)): return False, None, None, ('argWin', info)
     th = a + [xH[0]]
     Q = QT(h, th, [xH[j + 1] for j in range(6)], [xV[j + 1] for j in range(6)], argD)
+    E, Bm, C = ET(e), BT(xyH), CT3(xyV)
+    km = []
+    for q in range(36):
+        j, k = divmod(q, 6)
+        if j < 3 and k < 3: km.append(E[3 * j + k])
+        elif j < 3: km.append(Bm[3 * j + k - 3])
+        elif k < 3: km.append(C[3 * (j - 3) + k])
+        else: km.append(Dm[3 * (j - 3) + k - 3])
+    info.update(rhoD=max(T.rho for T in Dm) / SC, rhoArg=max(T.rho for T in argD) / SC,
+                rhoSide=max(T.rho for T in xH + xV) / SC)
+    return True, Q, km, info
+
+
+def c1eBox(B, D, verbose=False):
+    """Mirror of c1eBox. Returns (ok, info)."""
+    ok, Q, _, info = core(B, D)
+    if not ok: return False, info
+    h = D['hb']
     res = hor36([difF6(Q, e) for e in range(36)])
     nb, parts = boundN(h, res)
-    info.update(nX_box=nb / SC / 36, rhoD=max(T.rho for T in Dm) / SC, rhoArg=max(T.rho for T in argD) / SC,
-                rhoSide=max(T.rho for T in xH + xV) / SC, **{k: v / SC / 36 for k, v in parts.items()})
+    info.update(nX_box=nb / SC / 36, **{k: v / SC / 36 for k, v in parts.items()})
     return boundOK(h, B['nX'], res), (nb, info)
 
 
@@ -257,21 +274,31 @@ def newton7(v, aa, y, xi, it=40):
 class XBall:
     """The X-ball: M = diag(1, 1, 1, 24) W^{-1/2} (return W's tangent metric), radius r, k boxes per axis."""
 
-    def __init__(self, r=0.30, k=16, margin=Fr(1, 16)):
+    def __init__(self, r=0.115, k=16, margin=Fr(1, 16), rho=RX):
+        if not math.isfinite(r) or r <= 0:
+            raise ValueError("the tangent radius must be finite and positive")
+        rho = Fr(rho)
+        if rho <= 0 or margin < 0:
+            raise ValueError("rho must be positive and margin nonnegative")
+        self.nX = math.floor(36 * rho * SC)
         Wm = np.array([[1, -.5, -.5, 0], [-.5, 1.75, .25, 0], [-.5, .25, 1.75, 0], [0, 0, 0, 1.]])
         ev, V = np.linalg.eigh(Wm)
         M = np.diag([1, 1, 1, 24.]) @ (V @ np.diag(ev ** -0.5) @ V.T)
         self.Mz = [gz(x) for x in M.reshape(16)]
         self.Mq = np.array(self.Mz, float).reshape(4, 4) / SC
         self.k = [k] * 4 if isinstance(k, int) else list(k); self.margin = margin
+        if len(self.k) != 4 or any(not isinstance(ka, int) or ka <= 0 for ka in self.k):
+            raise ValueError("k must contain four positive integers")
         # the kernel radius: a multiple of 2^20 grid units per box
         unit = (1 << 20) * math.lcm(*self.k)
         self.rz = (gz(r) // unit) * unit
+        if self.rz <= 0:
+            raise ValueError("the tangent radius rounds to zero on the kernel grid")
         self.r = self.rz / SC
         self.xi0 = np.concatenate([[TH0[3]], PH0])
 
     def ball_dict(self):
-        return dict(Mth=self.Mz, Pa=PA, nX=NX)
+        return dict(Mth=self.Mz, Pa=PA, nX=self.nX)
 
     def p_of(self, w): return self.Mq @ w
 
@@ -315,7 +342,14 @@ def Dfun(aa, t, xh, xv):
 
 
 def box_data(xb, idx):
-    wcz, hb, hz = xb.box_geom(idx)
+    wcz, hb, _ = xb.box_geom(idx)
+    return box_data_at(xb, wcz, hb)
+
+
+def box_data_at(xb, wcz, hb):
+    """Predictors on a specified exact grid box, including transfer-only boxes."""
+    if len(wcz) != 4 or len(hb) != 4 or any(h <= 0 for h in hb):
+        raise ValueError("a box needs four coordinates and four positive half-widths")
     wcq = np.array(wcz, float) / SC
     xh0, xv0 = xb.solve_at(wcq)
 
@@ -383,19 +417,23 @@ def lean_ebox(name, D):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument('--r', type=float, default=0.30)
+    ap.add_argument('--r', type=float, default=0.115)
+    ap.add_argument('--rho', type=Fr, default=RX, help='X image radius as an exact fraction (default 1/4)')
     ap.add_argument('--k', default='16', help='boxes per axis: one int or four, comma separated')
     ap.add_argument('--boxes', default='')
     ap.add_argument('--sample', type=int, default=0, help='check this many random boxes')
     ap.add_argument('--emit', default='')
     a = ap.parse_args()
     kk = [int(x) for x in a.k.split(',')]
-    xb = XBall(a.r, kk[0] if len(kk) == 1 else kk)
+    xb = XBall(a.r, kk[0] if len(kk) == 1 else kk, rho=a.rho)
     keep = xb.boxes()
     print('X-ball: r = %.6f (kernel), k = %s, %d boxes' % (xb.r, xb.k, len(keep)))
     if a.boxes: sel = [int(x) for x in a.boxes.split(',')]
     elif a.sample: sel = sorted(np.random.default_rng(0).choice(len(keep), a.sample, replace=False).tolist())
     else: sel = range(len(keep))
+    sel = list(sel)
+    if not sel or len(set(sel)) != len(sel) or any(i < 0 or i >= len(keep) for i in sel):
+        ap.error("select distinct valid box indices")
     B = xb.ball_dict()
     out = []
     t0 = time.time()
@@ -404,22 +442,31 @@ def main():
         ok, info = c1eBox(B, D)
         print('box %d %s: ok=%s %s' % (bi, keep[bi], ok, info if not ok else {kk: ('%.3g' % v if isinstance(v, float) else v)
                                                                           for kk, v in info[1].items()}))
+        if not ok:
+            raise RuntimeError("box %d failed the exact mirror: %s" % (bi, info))
         out.append((bi, D, ok))
     print('%.1f s' % (time.time() - t0))
     if a.emit:
-        os.makedirs(a.emit, exist_ok=True)
+        destination = Path(a.emit).resolve()
+        lean_root = Path(HERE).parent / 'lean'
+        edge_root = lean_root / 'KernelAtlas' / 'Edge'
+        if not destination.is_relative_to(edge_root):
+            ap.error("the output directory must be under kernel_atlas/lean/KernelAtlas/Edge")
+        module = '.'.join(destination.relative_to(lean_root).parts)
+        namespace = 'NoFourMUBs.' + module
+        os.makedirs(destination, exist_ok=True)
         with open(os.path.join(a.emit, 'C1eData.lean'), 'w') as f:
-            f.write('import KernelAtlas.Edge.C1e\n\nnamespace NoFourMUBs.KernelAtlas.Edge.Test\n\n'
+            f.write('import KernelAtlas.Edge.C1e\n\nnamespace ' + namespace + '\n\n'
                     'open NoFourMUBs.KernelAtlas.Seed NoFourMUBs.KernelAtlas.Edge\n\n')
             f.write(lean_eball('ball', B) + '\n')
             for bi, D, ok in out: f.write(lean_ebox('box%d' % bi, D) + '\n')
-            f.write('end NoFourMUBs.KernelAtlas.Edge.Test\n')
+            f.write('end ' + namespace + '\n')
         with open(os.path.join(a.emit, 'C1eCheck.lean'), 'w') as f:
-            f.write('import KernelAtlas.Edge.Test.C1eData\n\nnamespace NoFourMUBs.KernelAtlas.Edge.Test\n\n'
+            f.write('import ' + module + '.C1eData\n\nnamespace ' + namespace + '\n\n'
                     'open NoFourMUBs.KernelAtlas.Seed NoFourMUBs.KernelAtlas.Edge\n\n')
             for bi, D, ok in out:
                 if ok: f.write('theorem box%d_ok : c1eBox ball box%d = true := by decide +kernel\n\n' % (bi, bi))
-            f.write('end NoFourMUBs.KernelAtlas.Edge.Test\n')
+            f.write('end ' + namespace + '\n')
 
 
 if __name__ == '__main__':

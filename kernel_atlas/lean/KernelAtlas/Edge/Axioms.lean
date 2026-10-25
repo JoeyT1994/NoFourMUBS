@@ -1,6 +1,14 @@
 import KernelAtlas.Edge.Image
 import KernelAtlas.Edge.Continuity
 import KernelAtlas.Edge.Regular
+import KernelAtlas.Edge.CoreRegular
+import KernelAtlas.Edge.SideContinuity
+import KernelAtlas.Edge.Forced
+import KernelAtlas.Edge.Transfer
+import KernelAtlas.Edge.Glue
+import KernelAtlas.Edge.Frame
+import KernelAtlas.Edge.Fold
+import KernelAtlas.Edge.Angle
 
 /-!
 # Axiom audit for the edge kernel checks
@@ -24,3 +32,22 @@ Run with `LEAN_NUM_THREADS=8 lake build KernelAtlas.Edge.Axioms` from `lean/`.
 #print axioms NoFourMUBs.KernelAtlas.Edge.edgeF_discriminant
 #print axioms NoFourMUBs.KernelAtlas.Edge.equal_fourth
 #print axioms NoFourMUBs.KernelAtlas.Edge.regular_completion
+#print axioms NoFourMUBs.KernelAtlas.Edge.has_dRT
+#print axioms NoFourMUBs.KernelAtlas.Edge.hasDerivAt_r4C
+#print axioms NoFourMUBs.KernelAtlas.Edge.hasDerivAt_edgeR
+#print axioms NoFourMUBs.KernelAtlas.Edge.strictMonoOn_edgeR
+#print axioms NoFourMUBs.KernelAtlas.Edge.core_regular_sound
+#print axioms NoFourMUBs.KernelAtlas.Edge.c1eBox_regular_sound
+#print axioms NoFourMUBs.KernelAtlas.Edge.continuous_checked_side
+#print axioms NoFourMUBs.KernelAtlas.Edge.forced_invertible
+#print axioms NoFourMUBs.KernelAtlas.Edge.continuous_forcedD
+#print axioms NoFourMUBs.KernelAtlas.Edge.predNear_sound
+#print axioms NoFourMUBs.KernelAtlas.Edge.roots_agree
+#print axioms NoFourMUBs.KernelAtlas.Edge.transferOK_sound
+#print axioms NoFourMUBs.KernelAtlas.Edge.frameEta_normal
+#print axioms NoFourMUBs.KernelAtlas.Edge.graph_radius
+#print axioms NoFourMUBs.KernelAtlas.Edge.glue_finite
+#print axioms NoFourMUBs.KernelAtlas.Edge.affine_regular_dense
+#print axioms NoFourMUBs.KernelAtlas.Edge.rootCompletion_hadamard_of_dense
+#print axioms NoFourMUBs.KernelAtlas.Edge.argRadius_lt_pi
+#print axioms NoFourMUBs.KernelAtlas.Edge.continuous_phase_lift
