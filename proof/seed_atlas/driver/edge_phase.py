@@ -179,21 +179,36 @@ def edge_candidates(Q, eb):
     return out
 
 
-def side_orders(Kq, rows, cols):
-    """hcols, vrows and windings so that the corner's side angles are near phi0."""
+def side_orders(Kq, rows, cols, ref_h=None, ref_v=None):
+    """hcols, vrows and windings so that the corner's side angles are nearest the references: by default F6's phi0;
+    away from F6, pass the chart's own side angles at the point (t3_side_refs), as the T3 check compares with those."""
+    PHh = PH0 if ref_h is None else np.asarray(ref_h); PHv = PH0 if ref_v is None else np.asarray(ref_v)
     Jc = [c for c in range(6) if c not in cols]; Ic = [r for r in range(6) if r not in rows]
     i0, j0 = rows[0], cols[0]
     best_h = None
     for hc in itertools.permutations(Jc):
         ph = np.array([Kq[rows[a], hc[b]] - Kq[rows[a], j0] - Kq[i0, hc[b]] + Kq[i0, j0] for a in (1, 2) for b in range(3)])
-        N = np.round((PH0 - ph) / TWO_PI); dev = np.abs(ph + TWO_PI * N - PH0).max()
+        N = np.round((PHh - ph) / TWO_PI); dev = np.abs(ph + TWO_PI * N - PHh).max()
         if best_h is None or dev < best_h[0]: best_h = (dev, list(hc), [int(x) for x in N])
     best_v = None
     for vr in itertools.permutations(Ic):
         pv = np.array([Kq[vr[a], cols[b]] - Kq[vr[a], j0] - Kq[i0, cols[b]] + Kq[i0, j0] for b in (1, 2) for a in range(3)])
-        N = np.round((PH0 - pv) / TWO_PI); dev = np.abs(pv + TWO_PI * N - PH0).max()
+        N = np.round((PHv - pv) / TWO_PI); dev = np.abs(pv + TWO_PI * N - PHv).max()
         if best_v is None or dev < best_v[0]: best_v = (dev, list(vr), [int(x) for x in N])
     return best_h, best_v
+
+
+def t3_side_refs(Q, g, rows, cols, wind, x0=None):
+    """The chart's side angles at the point p_K of the matrix with phases Q (36) at the corner (g, rows, cols): the
+    references for side_orders.  Returns (ref_h, ref_v, x) or None."""
+    Kq = SG.gphase(g, Q.reshape(6, 6)); K = np.exp(1j * Kq)
+    th = np.array([Kq[rows[a], cols[b]] - Kq[rows[a], cols[0]] - Kq[rows[0], cols[b]] + Kq[rows[0], cols[0]] for (a, b) in SG.POS])
+    Jc = [c for c in range(6) if c not in cols]
+    y = -2 * SG.psi(K[np.ix_(list(rows), Jc)]).imag
+    p = np.concatenate([th[:3] + TWO_PI * np.array(wind[:3]) - TH0[:3], [y]])
+    H, xh, xv, ok = chart(p, x0=x0)
+    if not ok: return None
+    return PH0 + xh[1:], PH0 + xv[1:], (xh, xv, p)
 
 
 def t3_value(Q, eb, g, rows, cols, wind):

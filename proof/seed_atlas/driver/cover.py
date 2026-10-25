@@ -286,7 +286,9 @@ def t3_test(cand, QP, okp):
     vc = np.where(okp, v[:, -1], 9.0)
     Ns = [None] * len(QP)
     for b in np.where(ok)[0]:
-        (_, hc, wh), (_, vr, wv) = EP.side_orders(SG.gphase(cand.g, QP[b, -1].reshape(6, 6)), cand.rows, cand.cols)
+        refs = EP.t3_side_refs(QP[b, -1], cand.g, cand.rows, cand.cols, cand.wind)
+        rh, rv = (refs[0], refs[1]) if refs else (None, None)
+        (_, hc, wh), (_, vr, wv) = EP.side_orders(SG.gphase(cand.g, QP[b, -1].reshape(6, 6)), cand.rows, cand.cols, rh, rv)
         Ns[b] = tuple(hc) + tuple(vr) + tuple(wh) + tuple(wv)
     return ok, vc, Ns
 
