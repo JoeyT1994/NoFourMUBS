@@ -288,6 +288,7 @@ def main():
     ap.add_argument('--edge', action='store_true', help='T3 into the edge ball (built once, edge_ball.pkl) instead of T2')
     ap.add_argument('--xball', type=float, default=0.0, help='with --edge: the edge ball is the X-ball of this tangent radius')
     ap.add_argument('--reopen-t2', action='store_true', help='re-cover every closed ball that has T2 groups')
+    ap.add_argument('--reopen-t3', action='store_true', help='re-cover every closed ball that has T3 groups (the edge ball changed)')
     ap.add_argument('--gaps', help="pickle of phase matrices (36,) to seed balls at (edge_phase.py's edge_gaps.pkl)")
     a = ap.parse_args()
     if a.edge:
@@ -316,8 +317,9 @@ def main():
             if s == 'failed': A.status[j] = 'open'; A.ncover[j] = 0; A.log_fail.pop(j, None)
             if A.status[j] != 'closed' and A.ncover[j] >= MAX_COVERS // 2: A.ncover[j] = 0      # fresh budget after a restart
         log('resumed', len(A.balls), 'balls,', sum(s == 'closed' for s in A.status), 'closed')
-        if a.reopen_t2:
-            for j in [j for j, gl in A.groups.items() if any(g['desc'][0] == 'T2' for g in gl)]:
+        if a.reopen_t2 or a.reopen_t3:
+            kinds = ({'T2'} if a.reopen_t2 else set()) | ({'T3'} if a.reopen_t3 else set())
+            for j in [j for j, gl in A.groups.items() if any(g['desc'][0] in kinds for g in gl)]:
                 A.groups.pop(j); A.status[j] = 'open'; A.ncover[j] = 0; A.log_fail.pop(j, None); log('reopen', j)
     else:
         import driver as DRV                     # pickle as driver.Atlas, not __main__.Atlas
