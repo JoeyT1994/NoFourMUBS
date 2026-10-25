@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "mathematical_audit": "PASS",
+  "radius": "3/20",
+  "probability_upper_bound": "8/75",
+  "unbiasedness_deficit": "3/50",
+  "geometry_status": "PASS",
+  "cover_status": "PASS",
+  "cover_nodes": 1232256,
+  "unfinished_leaves": 0,
+  "graph_status": "CERTIFIED",
+  "graph_edges": 390,
+  "six_cliques": 16,
+  "exact_zero_witnesses": 768,
+  "center_hashes_identical": true,
+  "independent_cover_seconds": 126.72743129730225,
+  "checksums": {
+    "work/x_stagec/verify_geometry.py": "374775b4be78534d7250e90422fd69a29f962667a216c52bed526c6e748c0a06",
+    "work/x_stagec/verify_cover.py": "575ac90783b1ee12ea99addd873622802461585c4cd8338625ab5a4245a7153a",
+    "work/x_analytic/verify_48_graph.py": "e41c2ee3ceaa740ec9519b402cd6ab62a9a370481cb0602feeabae2bba311aa7",
+    "work/x_stagec/cover_data/codes_12.z": "3ec838645facf29362899afb80f97105e6803e93b0c825f16a0a87e09daa8c0e",
+    "work/x_stagec/cover_data/codes_24.z": "db5977bd843c47fc8f50c4aefd9f96dd3461ab559ff338242bc411eb09383304",
+    "work/x_stagec/cover_data/codes_48.z": "d353e001b33bb099cc95b4c440c81198ffc53fc98a12fe4856e889c8316a5bc6",
+    "work/x_stagec/cover_data/codes_96.z": "641de7aa6ed5d5b7fcab7f296c52c809ef370a064adfd03a0afac16d3055eb74",
+    "work/x_stagec/cover_data/manifest.json": "319d5d73ec4233ef09c32c9997559d3bf7c68c2e63c1455e2a4763091b598c73",
+    "work/x_stagec/cover_data/quantized48.json": "290f650c32281be105cea9b1a6f0680c604a68473f54171da7a5cc5523077eba",
+    "work/x_stagec/cover_data/witness_12.z": "c74ee20e7016aed70959ee254c4c0926d5b8d1207b1efc4eecc1928e43542c93",
+    "work/x_stagec/cover_data/witness_24.z": "d2dfbf55ddafd207f1a0761cc3faec6c8c4f10cc0e77955111ab2d281628cbbd",
+    "work/x_stagec/cover_data/witness_48.z": "ddd589175ab7bd15a5f40f8f7a605bd75243ea98b17bfb925780d08cfa927f9b",
+    "work/x_stagec/cover_data/witness_96.z": "c76906280676660556f6caf886e6d5695c8e7b3a61bcd323517c5bd1bd057835"
+  },
+  "dependency_scope": "Fresh geometry, complete phase-torus cover, and exact algebraic graph; no U/W germ or prior MUB atlas."
+}

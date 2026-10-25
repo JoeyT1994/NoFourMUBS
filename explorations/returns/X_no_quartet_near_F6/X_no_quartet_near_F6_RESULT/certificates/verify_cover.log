@@ -1,0 +1,27 @@
+M 12 checked 50000 of 248832 elapsed 2.0
+M 12 checked 100000 of 248832 elapsed 4.0
+M 12 checked 150000 of 248832 elapsed 6.3
+M 12 checked 200000 of 248832 elapsed 8.4
+PASS LEVEL {'M': 12, 'nodes': 248832, 'covered': 0, 'rejected': 238680, 'refined': 10152} seconds 10.47
+M 24 checked 50000 of 324864 elapsed 2.6
+M 24 checked 100000 of 324864 elapsed 5.3
+M 24 checked 150000 of 324864 elapsed 8.3
+M 24 checked 200000 of 324864 elapsed 11.2
+M 24 checked 250000 of 324864 elapsed 14.1
+M 24 checked 300000 of 324864 elapsed 17.2
+PASS LEVEL {'M': 24, 'nodes': 324864, 'covered': 0, 'rejected': 316620, 'refined': 8244} seconds 18.86
+M 48 checked 50000 of 263808 elapsed 9.9
+M 48 checked 100000 of 263808 elapsed 18.9
+M 48 checked 150000 of 263808 elapsed 28.1
+M 48 checked 200000 of 263808 elapsed 37.4
+M 48 checked 250000 of 263808 elapsed 46.7
+PASS LEVEL {'M': 48, 'nodes': 263808, 'covered': 4848, 'rejected': 246624, 'refined': 12336} seconds 49.18
+M 96 checked 50000 of 394752 elapsed 6.4
+M 96 checked 100000 of 394752 elapsed 13.4
+M 96 checked 150000 of 394752 elapsed 19.9
+M 96 checked 200000 of 394752 elapsed 26.4
+M 96 checked 250000 of 394752 elapsed 33.1
+M 96 checked 300000 of 394752 elapsed 39.6
+M 96 checked 350000 of 394752 elapsed 46.4
+PASS LEVEL {'M': 96, 'nodes': 394752, 'covered': 197484, 'rejected': 197268, 'refined': 0} seconds 52.47
+ALL PASS {'status': 'PASS', 'rho': '3/20', 'total_nodes_checked': 1232256, 'levels': [{'M': 12, 'nodes': 248832, 'covered': 0, 'rejected': 238680, 'refined': 10152}, {'M': 24, 'nodes': 324864, 'covered': 0, 'rejected': 316620, 'refined': 8244}, {'M': 48, 'nodes': 263808, 'covered': 4848, 'rejected': 246624, 'refined': 12336}, {'M': 96, 'nodes': 394752, 'covered': 197484, 'rejected': 197268, 'refined': 0}], 'interval_scale': 281474976710656, 'all_decisions': 'exact directed integer intervals; no floating-point acceptance', 'quantized_centers_sha256': '290f650c32281be105cea9b1a6f0680c604a68473f54171da7a5cc5523077eba', 'elapsed_seconds_informational': 131.66409611701965}
