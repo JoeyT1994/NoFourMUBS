@@ -252,13 +252,17 @@ def main():
     jobs = []
     for j, gl in A.groups.items():
         bx = [b for gr in gl if gr['desc'][0] == 'T2' for b in np.asarray(gr['boxes']).tolist()]
-        if bx: jobs.append((j, A.balls[j], bx, eb))
-    print('seed balls with T2 groups: %d, boxes %d' % (len(jobs), sum(len(x[2]) for x in jobs)), flush=True)
-    nfail = 0
+        for c in range(0, len(bx), 40):                     # chunks, so a few large balls still fill the pool
+            jobs.append((j, A.balls[j], bx[c:c + 40], eb))
+    print('seed balls with T2 groups: %d, boxes %d, chunks %d' % (
+        len({x[0] for x in jobs}), sum(len(x[2]) for x in jobs), len(jobs)), flush=True)
+    nfail = 0; outs, fails = {}, {}
     with Pool(a.workers) as pool:
         for j, out, failed in pool.imap_unordered(retarget_ball, jobs):
-            A.groups[j] = [gr for gr in A.groups[j] if gr['desc'][0] != 'T2'] + out
-            if failed: nfail += len(failed); A.log_fail[j] = ('T3 failed boxes', failed)
+            outs.setdefault(j, []).extend(out); fails.setdefault(j, []).extend(failed)
+        for j in outs:
+            A.groups[j] = [gr for gr in A.groups[j] if gr['desc'][0] != 'T2'] + outs[j]
+            if fails[j]: nfail += len(fails[j]); A.log_fail[j] = ('T3 failed boxes', fails[j])
         print('T2 -> T3 done: %d failed boxes (%.0fs)' % (nfail, time.time() - t0), flush=True)
         snap = A.snap(); snap.pop('tries', None)
         I0 = CV.level_boxes(a.start_level)
