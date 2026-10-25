@@ -94,4 +94,26 @@ theorem slopeOK_open {h : List ℕ} {Y : List ℤ} {J : List CT} {q : ℕ}
   intro u hu u' hu'
   exact slopeOK_slope hok f A hd hm (hball hu) (hball hu')
 
+/-- Interior derivatives suffice: the mean-value argument is restricted to a smaller closed ball. -/
+theorem slopeOK_open_interior {h : List ℕ} {Y : List ℤ} {J : List CT} {q : ℕ}
+    (hok : slopeOK h Y J q = true)
+    (f : (Fin 4 → ℝ) → (Fin 4 → ℝ)) (A : (Fin 4 → ℝ) → Matrix (Fin 4) (Fin 4) ℝ)
+    (hd : ∀ u ∈ interior {u | InBox h u}, ∀ v,
+      HasDerivAt (fun t : ℝ => f (u + t • v)) ((A u).mulVec v) 0)
+    (hm : ∀ u ∈ interior {u | InBox h u}, ∀ (i j : Fin 4),
+      (gT J (4 * i + j)).Has u (A u i j : ℂ))
+    {w : Fin 4 → ℝ} {ρ : ℝ} (hρ : 0 < ρ)
+    (hball : closedBall w ρ ⊆ interior {u | InBox h u}) :
+    f '' closedBall w ρ ∈ 𝓝 (f w) := by
+  have hw := hball (mem_closedBall_self hρ.le)
+  have hr := slopeOK_rows (interior_subset hw) hok (hm w hw)
+  have hY := Method.isUnit_det_of_rowsum (slopeMatrix Y) (A w) hr.1
+    (fun _ => le_rfl) hr.2
+  apply Method.image_closedBall_mem_nhds_of_slope f w hρ (slopeMatrix Y) hY
+    (fun _ => rn q) (fun _ => rn_nonneg q) (fun _ => hr.1)
+  intro u hu u' hu'
+  exact Method.mv_coord f A (slopeMatrix Y) (closedBall w ρ) (convex_closedBall w ρ)
+    (fun u hu => hd u (hball hu))
+    (fun u hu => (slopeOK_rows (interior_subset (hball hu)) hok (hm u (hball hu))).2) hu hu'
+
 end NoFourMUBs.KernelAtlas.Edge

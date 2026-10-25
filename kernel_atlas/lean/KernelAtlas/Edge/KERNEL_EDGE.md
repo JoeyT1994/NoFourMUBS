@@ -43,8 +43,15 @@ common interval identifies those angles away from the fold. The fixed-point prec
   `CompletionModels` supply the entry calculus, differentiated forced-block equation, and
   model operations needed for phase derivatives.
 - `Slope`: a Boolean row-contraction check and a soundness theorem applying `SlopeOpen` to
-  maps whose actual differentials have the checked models. Connecting every phase model
-  to the assembled chart differential is still required for the chart's `hopen` field.
+  maps whose actual differentials have the checked models. `ChartDerivative`, `ColumnModels`,
+  `ColumnSound`, `ChartColumn`, `EtaModels`, `EtaJacModels`, and `ChartSlope` connect the
+  implicit root and forced-block differentials to the actual continuous phase chart. The
+  proof uses interior derivatives and a smaller closed ball, avoiding any differentiability
+  claim at a box boundary. `GlobalOpen` transports this local openness to a compatible chart.
+- `CoverChecks`: finite overlap tables discard disjoint box pairs and certify the remaining
+  root identifications; a strict integer cover margin gives interior box neighbourhoods.
+- `FullBox`: the complete local Boolean bundles chart, affine enclosure, both root
+  differential checks, and the frame-coordinate slope check.
 - `SeedAtlas/EdgeX`, `EdgeXAtlas`, `EdgeXFinal`: the statement variant using `XExclusion` and the
   conditional atlas conclusion. The legacy Stage C route is preserved.
 
@@ -65,10 +72,18 @@ passes with image bound about 0.145 and derivative centre/error 1958.903 / 11.47
 2.3 seconds to construct and check this box in Python. Emission stops on any failed mirror check.
 
 Additional reproducible generators are `edge_enclosure.py`, `edge_overlap.py`, and
-`edge_normal.py`. `edge_derivative.py` emits the baseline root differential checks. Their
+`edge_normal.py`. `edge_cover.py` emits the entire baseline closed-ball geometry traversal:
+29,808 dyadic cells, including the 16 cells touching only the sphere omitted by the old
+open-ball list. The geometry check passes `decide +kernel` in 32 seconds (54 seconds for
+elaborating its data module). This verifies geometry; the associated complete set of
+local analytic checks is a separate obligation. `edge_derivative.py` emits the baseline root differential checks. Their
 horizontal/vertical contraction bounds are 0.058104 and 0.057686, with coordinate radii
 between 0.00154 and 0.00282. Both generated checks pass `decide +kernel` (26 seconds
-for their combined Lake module, excluding cached dependencies). The baseline affine residual
+for their combined Lake module, excluding cached dependencies). `edge_slope.py` emits the
+assembled differential check. Its four row bounds are 0.365759, 0.399803, 0.398998, and
+0.290960, and the generated check passes `decide +kernel` in 37 seconds. `Baseline/FullCheck`
+combines the local checks and applies them to the actual matched chart's neighbourhood
+image theorem. The baseline affine residual
 is bounded by 0.013377178741; the adjacent
 boxes `(0,4,5,6)` and `(0,4,5,7)` pass the overlap check. These checks and the second chart
 are kernel-verified. The Fourier frame has Gram error at most 5.45e-9; the normal certificate's
@@ -105,10 +120,10 @@ coverage and assembly checks are additional. No Rusty jobs were run; remote core
 
 The components above do not yet constitute a complete edge-ball certificate. Local chart
 soundness at the fold, affine enclosure, overlap identification, finite-cover gluing, and the
-numerical F6 normal bound are proved. A complete set of generated cover and overlap checks,
-the connection of the complete phase differential to the slope check proving openness,
-all sphere transfers, and a certificate-format
-emitter assembling every field remain separate obligations. The X exclusion
+numerical F6 normal bound are proved. The full baseline geometry traversal and the complete local differential-to-openness
+route are also checked. A complete set of analytic box and overlap checks tied to that
+cover, all sphere transfers, and a certificate-format emitter assembling every field
+remain separate obligations. The X exclusion
 itself is supplied by the independent X theorem. No hypothesis-free final theorem is claimed here.
 
 This note lives under `Edge/` because the task's explicit writable-path restriction excludes

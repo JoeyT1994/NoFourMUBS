@@ -17,6 +17,10 @@ import KernelAtlas.Edge.Implicit
 import KernelAtlas.Edge.CompletionModels
 import KernelAtlas.Edge.Slope
 import KernelAtlas.Edge.RationalModels
+import KernelAtlas.Edge.GlobalOpen
+import KernelAtlas.Edge.CoverChecks
+import KernelAtlas.Edge.Baseline.FullCheck
+import KernelAtlas.Edge.Baseline.CoverCheck
 
 /-!
 # Axiom audit for the edge kernel checks
@@ -91,3 +95,20 @@ Run with `LEAN_NUM_THREADS=8 lake build KernelAtlas.Edge.Axioms` from `lean/`.
 #print axioms NoFourMUBs.KernelAtlas.Edge.slopeOK_open
 #print axioms NoFourMUBs.KernelAtlas.Edge.differentiableAt_phase_lift
 #print axioms NoFourMUBs.KernelAtlas.Edge.has_rationalT
+
+#print axioms NoFourMUBs.KernelAtlas.Edge.BoxChart.differentiableAt_Q
+#print axioms NoFourMUBs.KernelAtlas.Edge.columnQT_sound
+#print axioms NoFourMUBs.KernelAtlas.Edge.BoxChart.jacQ_models
+#print axioms NoFourMUBs.KernelAtlas.Edge.has_etaT
+#print axioms NoFourMUBs.KernelAtlas.Edge.frameEta_hor
+#print axioms NoFourMUBs.KernelAtlas.Edge.BoxChart.etaChart_hasDerivAt
+#print axioms NoFourMUBs.KernelAtlas.Edge.BoxChart.etaJac_models
+#print axioms NoFourMUBs.KernelAtlas.Edge.BoxChart.etaChart_open
+#print axioms NoFourMUBs.KernelAtlas.Edge.open_of_local_chart
+#print axioms NoFourMUBs.KernelAtlas.Edge.overlapsOK_sound
+#print axioms NoFourMUBs.KernelAtlas.Edge.interiorMatch_sound
+#print axioms NoFourMUBs.KernelAtlas.Edge.fullBox_sound
+#print axioms NoFourMUBs.KernelAtlas.Edge.Baseline.box0_slope
+#print axioms NoFourMUBs.KernelAtlas.Edge.Baseline.full0_checked
+#print axioms NoFourMUBs.KernelAtlas.Edge.Baseline.box0_open
+#print axioms NoFourMUBs.KernelAtlas.Edge.Baseline.closed_ball_covered
