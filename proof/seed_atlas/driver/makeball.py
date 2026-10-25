@@ -4,11 +4,11 @@ import numpy as np
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(HERE, '../../atlas'))
 import stagec as SC
-from c1 import Ball, c1_bound
+from c1 import Ball, c1_bound, c1_bound_adaptive, sampled_n
 
 LADDER = (0.125, 0.1, 0.08, 0.063, 0.05, 0.04, 0.03, 0.02, 0.015, 0.01)
 LABELS = (0.03, 0.02)
-N_SAFETY = 1.02          # stored n = N_SAFETY x the driver's Taylor-model bound: piece A's Arb bound is up to 1.135x it (300 balls, 24 Oct)
+N_SAFETY = 1.05          # stored n = N_SAFETY x the driver's Taylor-model bound: piece A's Arb bound is up to 1.135x it (300 balls, 24 Oct)
 CLIQUE_CAP = 5_000_000   # driver screening cap (official: 5,000,000)
 MAX_LABELS = 2500
 TRY_UP_MAX = 0.15         # one rung up from the hint only below this (0.125 passes for under 1% of balls)
@@ -71,11 +71,10 @@ def make_ball(theta0, phih0, phiv0, rmax=LADDER[0], rmin=LADDER[-1], hint=None, 
 
     def attempt(r, lab):
         if r not in cache:
-            for k in sorted(set((k_for(r),) + K_MORE)):
-                if k < k_for(r): continue
-                n, why = c1_bound(b, r, k)
-                if n is not None or why not in ('tube', 'forced block', 'arg'): break
-            cache[r] = (k, None if n is None else n * N_SAFETY, why)
+            sn = sampled_n(b, r)
+            if sn is None: n, why = None, 'continuation'
+            else: n, why = c1_bound_adaptive(b, r, 1.25 * sn)          # adaptive boxes (horizontal gauge)
+            cache[r] = (4, None if n is None else n * N_SAFETY, why)
         k, n, why = cache[r]
         if n is None:
             tries.append((r, why)); return False

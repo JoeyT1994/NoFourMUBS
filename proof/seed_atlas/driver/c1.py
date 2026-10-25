@@ -245,15 +245,37 @@ def c1_boxes(r, k):
     return W, np.broadcast_to(hw, W.shape).copy()
 
 
+def c1_boxes_refined(r, k, depth):
+    """The k-grid boxes meeting the open ball; every box that is not inside the closed ball is bisected (16 children,
+    keeping those meeting the open ball) up to `depth` times.  The union still contains the closed ball."""
+    W, H = c1_boxes(r, k)
+    outW, outH = [], []
+    for d in range(depth + 1):
+        far = np.linalg.norm(np.abs(W) + H, axis=1)
+        inside = far <= r
+        if d == depth:
+            outW.append(W); outH.append(H); break
+        outW.append(W[inside]); outH.append(H[inside])
+        Wb, Hb = W[~inside], H[~inside] / 2
+        if not len(Wb): break
+        sg = np.array(list(itertools.product((-1.0, 1.0), repeat=4)))
+        W = (Wb[:, None, :] + sg[None] * Hb[:, None, :]).reshape(-1, 4); H = np.repeat(Hb, 16, axis=0)
+        near_ = np.maximum(np.abs(W) - H, 0)
+        keep = (near_ ** 2).sum(1) < r * r * (1 - 1e-12)
+        W, H = W[keep], H[keep]
+    return np.vstack(outW), np.vstack(outH)
+
+
 def k_axes(ball, k0):
     """Per-axis box counts proportional to the seed extent of each w axis (the column norms of Mth)."""
     e = np.linalg.norm(ball.Mth, axis=0)
     return [max(2, int(np.ceil(k0 * x / e.max()))) for x in e]
 
 
-def c1_bound(ball, r, k, chunk=96):
-    """n >= sup ||Q - P - U w|| over the ball (float estimate of the certified bound), or (None, reason)."""
-    W, H = c1_boxes(r, k)
+def c1_bound(ball, r, k, chunk=96, depth=0):
+    """n >= sup ||Q - P - U w|| over the ball (float estimate of the certified bound), or (None, reason).
+    depth > 0 refines the boxes that cross the sphere (c1_boxes_refined)."""
+    W, H = c1_boxes_refined(r, k, depth) if depth else c1_boxes(r, k)
     worst = 0.0
     for s in range(0, len(W), chunk):
         wc, hw = W[s:s + chunk], H[s:s + chunk]
@@ -264,6 +286,40 @@ def c1_bound(ball, r, k, chunk=96):
         val = M.sup_norm(a, b, hor_axis(Q.Hq.real, 1), Q.Rho, hw)      # ||hor e|| <= ||e||: Rho unchanged
         worst = max(worst, float(val.max()))
     return worst * (1 + 1e-9), None
+
+
+def _box_vals(ball, W, H, chunk=256):
+    vals = np.empty(len(W))
+    for s in range(0, len(W), chunk):
+        wc, hw = W[s:s + chunk], H[s:s + chunk]
+        Q, ok, why = box_Q(ball, wc, hw)
+        a = hor_axis(Q.C.real - ball.P[None, :] - wc @ ball.U.T, 1)
+        b = hor_axis(Q.G.real - ball.U[None], 1)
+        v = M.sup_norm(a, b, hor_axis(Q.Hq.real, 1), Q.Rho, hw)
+        vals[s:s + chunk] = np.where(ok & np.isfinite(v), v, np.inf)       # a failed tube: split the box
+    return vals, None
+
+
+def c1_bound_adaptive(ball, r, target, k0=4, max_depth=4, max_boxes=200_000):
+    """Adaptive version of c1_bound: start from the k0 grid; split (16 children meeting the open ball) every box whose
+    bound exceeds `target`, up to max_depth levels.  Returns (n, None) with n = the max over the final boxes (a valid
+    float bound for any partition covering the ball), or (None, reason).  n <= target means the target was reached."""
+    W, H = c1_boxes(r, k0)
+    sg = np.array(list(itertools.product((-1.0, 1.0), repeat=4)))
+    worst, nbox = 0.0, 0
+    for d in range(max_depth + 1):
+        vals, why = _box_vals(ball, W, H)
+        if vals is None: return None, why
+        nbox += len(W)
+        big = vals > target
+        if d == max_depth or not big.any() or nbox + 16 * big.sum() > max_boxes:
+            m = max(worst, float(vals.max()))
+            return (m * (1 + 1e-9), None) if np.isfinite(m) else (None, 'tube')
+        worst = max(worst, float(vals[~big].max()) if (~big).any() else 0.0)
+        Wb, Hb = W[big], H[big] / 2
+        W = (Wb[:, None, :] + sg[None] * Hb[:, None, :]).reshape(-1, 4); H = np.repeat(Hb, 16, axis=0)
+        keep = ((np.maximum(np.abs(W) - H, 0)) ** 2).sum(1) < r * r * (1 - 1e-12)
+        W, H = W[keep], H[keep]
 
 
 def sampled_n(ball, r, nsamp=48, seed=0):
