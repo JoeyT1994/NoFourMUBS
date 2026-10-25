@@ -21,6 +21,10 @@ import KernelAtlas.Edge.GlobalOpen
 import KernelAtlas.Edge.CoverChecks
 import KernelAtlas.Edge.Baseline.FullCheck
 import KernelAtlas.Edge.Baseline.CoverCheck
+import KernelAtlas.Edge.Source
+import KernelAtlas.Edge.Final
+import KernelAtlas.Edge.SmallBall.Cert
+import KernelAtlas.Edge.SourceFixture.SourceCheck0
 
 /-!
 # Axiom audit for the edge kernel checks
@@ -112,3 +116,19 @@ Run with `LEAN_NUM_THREADS=8 lake build KernelAtlas.Edge.Axioms` from `lean/`.
 #print axioms NoFourMUBs.KernelAtlas.Edge.Baseline.full0_checked
 #print axioms NoFourMUBs.KernelAtlas.Edge.Baseline.box0_open
 #print axioms NoFourMUBs.KernelAtlas.Edge.Baseline.closed_ball_covered
+
+#print axioms NoFourMUBs.KernelAtlas.Edge.enclosureFrame_sound
+#print axioms NoFourMUBs.KernelAtlas.Edge.exists_ballChart
+#print axioms NoFourMUBs.KernelAtlas.Edge.assemble
+#print axioms NoFourMUBs.KernelAtlas.Edge.assemble_Q
+#print axioms NoFourMUBs.KernelAtlas.Edge.coverTable_sound
+#print axioms NoFourMUBs.KernelAtlas.Edge.transfer_corner
+#print axioms NoFourMUBs.KernelAtlas.Edge.edgeBoundary_of
+#print axioms NoFourMUBs.KernelAtlas.Edge.sourceLinkOK_eq
+#print axioms NoFourMUBs.KernelAtlas.Edge.source_models
+#print axioms NoFourMUBs.KernelAtlas.Edge.sourceBoundary_of
+#print axioms NoFourMUBs.KernelAtlas.Edge.SmallBall.cert
+#print axioms NoFourMUBs.KernelAtlas.Edge.SourceFixture.S0.checked
+
+#print axioms NoFourMUBs.KernelAtlas.Edge.singleEdgeAtlas
+#print axioms NoFourMUBs.KernelAtlas.Edge.no_four_mubs_of_edge

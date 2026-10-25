@@ -52,6 +52,15 @@ common interval identifies those angles away from the fold. The fixed-point prec
   root identifications; a strict integer cover margin gives interior box neighbourhoods.
 - `FullBox`: the complete local Boolean bundles chart, affine enclosure, both root
   differential checks, and the frame-coordinate slope check.
+- `Assembly`: builds every field of `EdgeX.EdgeBallCert` from a finite checked cover. Its
+  public `BallChart` retains equality to each local chart, including on the sphere.
+- `CoverTable`: connects indexed cover cells to the checked boxes and their strict margins.
+- `Boundary`, `ChartLink`, `Source`: check dyadic transfer coordinates, containment in a parent
+  chart, root/phase identification, T1 bounds, row/column permutations, and sphere coverage.
+  Target links identify the checked target data with actual `SeedBallCert` values.
+- `Final`: combines one edge certificate and its boundary with the existing seed/record atlas;
+  the independent X theorem, seed and record boundaries, Tao coverage, and Fourier anchor
+  remain explicit inputs. No analytic edge fields are left as separate hypotheses.
 - `SeedAtlas/EdgeX`, `EdgeXAtlas`, `EdgeXFinal`: the statement variant using `XExclusion` and the
   conditional atlas conclusion. The legacy Stage C route is preserved.
 
@@ -59,6 +68,41 @@ common interval identifies those angles away from the fold. The fixed-point prec
 All audited theorems depend only on `propext`, `Classical.choice`, and `Quot.sound`.
 
 ## Generator and benchmarks
+
+`edge_kball.py` reads one edge entry from a FORMAT JSON or gzipped JSON certificate. It checks
+exact mirrors before writing separate data/check modules, a checked cover and overlap table,
+and `Cert.lean`. For T1 sphere groups, `edge_ktransfers.py` refines failing sources up to the
+requested depth, checks their links to the parent charts, verifies the entire sphere traversal,
+and emits `Boundary.lean` and `Final.lean`. Missing coverage or a failed check is an error.
+`Final.lean` uses actual seed certificates through explicit `TargetLink` hypotheses; it does
+not invent seed certificates from target numbers.
+
+```sh
+PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 .venv/bin/python kernel_atlas/generators/edge_kball.py CERTIFICATE.json.gz 0 --emit kernel_atlas/lean/KernelAtlas/Edge/Production --max-transfer-level 9
+PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 .venv/bin/python kernel_atlas/generators/edge_kball.py --demo --emit kernel_atlas/lean/KernelAtlas/Edge/SmallBall
+PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 .venv/bin/python kernel_atlas/generators/edge_ktransfers.py
+```
+
+The route requires the F6-centred chart: FORMAT `q0` is four zero parameter offsets. `P` and `U`
+are reordered from the supplied chart gauge and used as the affine enclosure; the exact residual
+check validates those predicted gauge and winding choices. `Mth` is rounded to the fixed-point
+scale, and the radius is rounded down to a dyadic grid multiple. Consumers must use the emitted
+radius and frame, including when supplying target links and transfers back into this ball.
+The generator defaults to a uniform dyadic level at least as fine as `max(k)`; `--level` overrides
+it. A failed analytic box requires a finer level or improved witnesses; automatic refinement is
+currently implemented only for sphere sources.
+
+`SmallBall/Cert.lean` is a generated, fully kernel-checked radius-0.001 example with one enlarged
+local box. Its sole mathematical input is `XExclusion (1/4)`; its frame, normal, cover,
+compatibility, enclosure, continuity, Hadamard and openness fields are assembled. Its numerical
+module takes about 72 seconds and the final assembly about 10 seconds with cached imports.
+`SourceFixture/SourceCheck0.lean` checks a real dyadic T1 source at level 9 against the existing
+radius-0.1 fixture, including the source/parent and coordinate links; its T1 bound is
+0.000899115705 and its generated module takes about 20 seconds. This single source is not a
+sphere cover. Regeneration preserves the small-ball modules exactly. Mutating transfer coordinates, target
+orientation, row permutations or parent containment is rejected by the mirrors. The
+boundary/final emitter templates were also type-checked with the sphere check
+as an explicit parameter; a complete production sphere dataset has not been supplied.
 
 From the repository root, use the repository virtualenv, with bytecode writes disabled:
 
@@ -97,11 +141,12 @@ fixture, so the matching corner is selected and checked. The T1 bound is 0.00093
 residual about 1.14e-14. The mirror includes the rounding remainders introduced by `shiftL`, even
 for a zero shift. This benchmark does not assert that the target fixture has a complete SeedBallCert.
 
-Measured locally on 2026-10-25, with `LEAN_NUM_THREADS=8`, cached imports, and `/usr/bin/time -l
-lake env lean <check-file>`:
+Measured locally on 2026-10-25, with `LEAN_NUM_THREADS=8`, cached imports, and
+`/usr/bin/time -l lake env lean <check-file>`:
 
 | Check | Wall seconds | User + system CPU seconds | Maximum RSS |
 | --- | ---: | ---: | ---: |
+| Full baseline local box (chart, enclosure, derivatives, slope) | 75.34 | 69.44 | 19.65 GB |
 | Baseline C1e box | 33.86 | 15.99 | 8.40 GB |
 | Transfer core and T1 in one module | 39.52 | 16.64 | 8.06 GB |
 | T1 alone, including evaluation of its edge models | 24.69 | 7.25 | 6.44 GB |
@@ -110,21 +155,30 @@ The wall times include Lake environment startup and contention with a small numb
 builds. They are not isolated throughput measurements. CPU times include import and startup costs;
 batching and sharing core models may reduce the amortized cost substantially.
 
-A direct multiplication gives about 132 core-hours for 29,792 C1e boxes, and 806–2,417 core-hours
+The complete local-box benchmark is `Baseline/FullKernelCheck.lean`. A direct multiplication
+gives about **575 core-hours for 29,808 full local checks**. The older C1e-only benchmark gives
+about 132 core-hours for 29,792 C1e boxes, and 806–2,417 core-hours
 for 0.4–1.2 million standalone T1 checks. If every transfer also needs an independently checked
 edge core, the combined measurement gives 1,849–5,547 core-hours for that portion. These are
-planning estimates from one box each, not full-atlas measurements. Overlap, derivative, graph,
-coverage and assembly checks are additional. No Rusty jobs were run; remote core-hours: 0.
+planning estimates from one box each, not full-atlas measurements. Source-to-parent links,
+overlap tables, coverage and final assembly are additional. The current ball overlap table
+checks every ordered box pair (pruning disjoint pairs), so its quadratic scaling has not yet been
+benchmarked at 29,808 boxes. The full numerical local check can use about 20 GB; keep
+`LEAN_NUM_THREADS=8` and at most one or two such checks running together on the shared machine.
+No Rusty jobs were run; remote core-hours: **0**.
 
 ## Remaining integration obligations
 
-The components above do not yet constitute a complete edge-ball certificate. Local chart
-soundness at the fold, affine enclosure, overlap identification, finite-cover gluing, and the
-numerical F6 normal bound are proved. The full baseline geometry traversal and the complete local differential-to-openness
-route are also checked. A complete set of analytic box and overlap checks tied to that
-cover, all sphere transfers, and a certificate-format emitter assembling every field
-remain separate obligations. The X exclusion
-itself is supplied by the independent X theorem. No hypothesis-free final theorem is claimed here.
+The generic kernel route now constructs all fields of the edge ball, and the generated small
+ball verifies that assembly end to end. The complete baseline geometry and a real full local
+box are checked; they do not assert that all 29,808 analytic boxes have been checked. Likewise,
+one real transfer fixture is checked, not a complete production sphere.
+
+A full FORMAT certificate with all edge sphere groups is still needed for production emission
+and validation. The independent X exclusion theorem and the surrounding seed/record atlas
+(including target links, its boundaries, Tao coverage and the Fourier anchor) must then be
+instantiated in the generated final theorem. No hypothesis-free full-atlas theorem is claimed
+by this return. The final audit remains standard axioms only.
 
 This note lives under `Edge/` because the task's explicit writable-path restriction excludes
 `kernel_atlas/docs/KERNEL_EDGE.md`.
