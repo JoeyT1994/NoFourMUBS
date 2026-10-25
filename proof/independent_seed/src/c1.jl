@@ -94,6 +94,11 @@ children(wc::NTuple{4,I64}, h::Float64) =
 
 function check_c1(s::Seed; maxdepth::Int=4)
     t0 = time()
+    # first the whole ball without subdivision (return Z, wholeball.jl); the boxes decide otherwise
+    if s.gauge == :hor
+        wb = wholeball_c1(s)
+        wb.ok && wb.n_record <= s.n && return C1Result(true, "ok (whole ball)", wb.n_record, 1, 1, 0, 0, time() - t0)
+    end
     root = root_predictor(s)
     root === nothing && return C1Result(false, "no float side solution at theta0", Inf, 0, 0, 0, 0, time() - t0)
     stack = [(wc, h, 0, root) for (wc, h) in first_level(s.r, s.k)]

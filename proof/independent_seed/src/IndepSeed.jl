@@ -4,12 +4,13 @@
 module IndepSeed
 using IntervalArithmetic, LinearAlgebra, Printf
 include(joinpath(@__DIR__, "..", "..", "independent", "src", "IndepAtlas.jl"))
-using .IndepAtlas: I64, iv, TWOPI_I, PI_I
+using .IndepAtlas: I64, iv, ivq, hproj, TWOPI_I, PI_I
 const IA = IndepAtlas
 include("tm.jl")
 include("seedmap.jl")
 include("io_seed.jl")
 include("c1.jl")
+include("wholeball.jl")
 include("stagec_seed.jl")
 include("normal_tube.jl")
 include("edge.jl")
