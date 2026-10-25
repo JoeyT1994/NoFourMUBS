@@ -9,8 +9,8 @@ Stage C (`proof/atlas/stagec.py`, Lean `StageC/`) is reused unchanged. What chan
 P + U w + ν is certified, and how openness is proved.
 
 The prototype is in `explorations/seed_balls/`; read its `README.md`. Numbers there are binary64 and **not** a proof;
-this spec is what the certified versions implement. The feasibility run over all 12,021 old centres is in
-`explorations/seed_balls/run/` (`analyze.py run`).
+this spec is what the certified versions implement. The driver is `proof/seed_atlas/driver/` (branch `seed-hor`), with
+the horizontal gauge and adaptive boxes of §11.
 
 ## 1. Objects and conventions
 
