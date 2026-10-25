@@ -53,12 +53,16 @@ def _solve(p, x, tol=1e-13):
     return x, np.abs(Hsys(p, x)).max() < 1e-10
 
 
-def chart(p, step=0.05):
-    """H(p) by continuation from 0: (H, xh, xv, ok)."""
-    p = np.asarray(p, float); m = max(1, int(np.ceil(np.abs(p).max() / step)))
-    xh = np.zeros(7); xv = np.zeros(7)
+def chart(p, step=0.05, x0=None):
+    """H(p) by continuation from 0, or by Newton from a nearby solution x0 = (xh, xv, p0): (H, xh, xv, ok)."""
+    p = np.asarray(p, float)
+    if x0 is not None:
+        xh, xv, p0 = x0; base = np.asarray(p0, float)
+    else:
+        xh = np.zeros(7); xv = np.zeros(7); base = np.zeros(4)
+    m = max(1, int(np.ceil(np.abs(p - base).max() / step)))
     for k in range(1, m + 1):
-        q = p * k / m
+        q = base + (p - base) * k / m
         xh, a = _solve(q, xh); xv, b = _solve(np.array([q[0], q[2], q[1], -q[3]]), xv)
         if not (a and b): return None, xh, xv, False
     th = TH0 + np.array([p[0], p[1], p[2], xh[0]])
@@ -79,15 +83,16 @@ class EdgeBall:
         self.S = S; self.Mth = Vt.T / S[None, :]; self.Minv = np.linalg.inv(self.Mth); self.U = T @ self.Mth
         self.r = self.n = self.label = None; self.k = None; self.chart_name = 'F6-012'
 
-    def Qp(self, p, ref=None):
-        H, _, _, ok = chart(p)
-        if not ok: return None
+    def Qp(self, p, ref=None, x0=None, want_x=False):
+        H, xh, xv, ok = chart(p, x0=x0)
+        if not ok: return (None, None) if want_x else None
         ref = self.P if ref is None else ref
-        return ref + np.angle(H.reshape(36) * np.exp(-1j * ref))
+        Q = ref + np.angle(H.reshape(36) * np.exp(-1j * ref))
+        return (Q, (xh, xv, np.asarray(p, float))) if want_x else Q
 
-    def Qw(self, w):
+    def Qw(self, w, x0=None, want_x=False):
         w = np.asarray(w, float)
-        return self.Qp(self.Mth @ w, self.P + self.U @ w)
+        return self.Qp(self.Mth @ w, self.P + self.U @ w, x0=x0, want_x=want_x)
 
     def make(self, ladder=(0.125, 0.1, 0.08), labels=(0.03, 0.02), nsamp=200, seed=0):
         import stagec as SC
@@ -247,17 +252,18 @@ def edge_cover_box2(args):
     census per box.  A box whose centre reaches no seed ball is a gap at once; others split down to EDGE_MAXLEV."""
     m, I, eb, snap = args
     idx = CV.Index(snap['theta0'], snap['Minv'], snap['Mth'], snap['r'])
-    out, failed, todo = [], [], [(m, list(I))]
+    out, failed, todo = [], [], [(m, list(I), None)]
     curv = 4.0 * eb.n / eb.r ** 2                     # |Q - affine| <~ curv h^2 (the ball's own remainder scale)
     while todo:
-        m, I = todo.pop()
+        m, I, x0 = todo.pop()
         lo, hi = CV.box_lohi(np.array([m]), np.array([I]))
         wc = (lo[0] + hi[0]) / 2 * eb.r; hw = (hi[0] - lo[0]) / 2 * eb.r
-        Qc = eb.Qw(wc)
+        Qc, xc = eb.Qw(wc, x0=x0, want_x=True)
+        if Qc is None and x0 is not None: Qc, xc = eb.Qw(wc, want_x=True)
         if Qc is None:
             failed.append(([m] + I, None)); continue
         d = 1e-4
-        Js = [eb.Qw(wc + d * e) for e in np.eye(4)]
+        Js = [eb.Qw(wc + d * e, x0=xc) for e in np.eye(4)]
         if any(q is None for q in Js):
             failed.append(([m] + I, Qc)); continue
         J = np.stack([SG.wrap(q - Qc) / d for q in Js], 1)                 # (36, 4)
@@ -283,7 +289,7 @@ def edge_cover_box2(args):
             if m >= EDGE_MAXLEV: failed.append(([m] + I, Qc)); continue
             for ch in CV.children(np.array([I])):
                 l2, h2 = CV.box_lohi(np.array([m + 1]), ch[None])
-                if CV.meets_sphere(l2, h2)[0]: todo.append((m + 1, [int(x) for x in ch]))
+                if CV.meets_sphere(l2, h2)[0]: todo.append((m + 1, [int(x) for x in ch], xc))
     return out, failed
 
 
@@ -320,8 +326,11 @@ def main():
         I0 = CV.level_boxes(a.start_level)
         ejobs = [(a.start_level, list(map(int, I)), eb, snap) for I in I0]
         eg, ef = [], []
-        for out, failed in pool.imap_unordered(edge_cover_box2, ejobs):
+        for k, (out, failed) in enumerate(pool.imap_unordered(edge_cover_box2, ejobs)):
             eg += out; ef += failed
+            if (k + 1) % 100 == 0:
+                print('  edge sphere: %d / %d start boxes, %d leaves, %d gaps (%.0fs)' % (
+                    k + 1, len(ejobs), len(eg), len(ef), time.time() - t0), flush=True)
     print('edge sphere: %d boxes, %d failed (%.0fs)' % (len(eg), len(ef), time.time() - t0), flush=True)
     if ef:                                 # seed proposals at the gaps (driver.py --gaps), well separated
         qs = []
