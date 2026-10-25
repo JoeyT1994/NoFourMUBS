@@ -1,4 +1,5 @@
 import NoFourMUBs.SeedAtlas.EdgeFinal
+import NoFourMUBs.SeedAtlas.Method.SlopeOpen
 
 /-! Axiom audit of the edge-ball route: each theorem should depend only on `propext`, `Classical.choice` and
 `Quot.sound`. -/
@@ -13,3 +14,4 @@ import NoFourMUBs.SeedAtlas.EdgeFinal
 #print axioms NoFourMUBs.SeedAtlas.EdgeAtlasCertificate.clopen
 #print axioms NoFourMUBs.SeedAtlas.covered_iff_interiorTargetE
 #print axioms NoFourMUBs.SeedAtlas.hopen_of_strictDeriv
+#print axioms NoFourMUBs.SeedAtlas.Method.image_closedBall_mem_nhds_of_slope
