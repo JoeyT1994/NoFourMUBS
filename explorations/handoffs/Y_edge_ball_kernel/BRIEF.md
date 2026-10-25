@@ -7,14 +7,15 @@ something seems to need it, stop and report.
 
 ## 1. Where the code is
 
-Work in the existing git worktree
-`/Users/jtindall/Projects/NoFourMUBS/.claude/worktrees/seed-arb-c5eebb` (branch `claude/edge-kernel-3c7298`). It is
-the project at current `main` plus the earlier edge-kernel work. Its Lean build cache is already populated.
+Work in the project checkout `/Users/jtindall/Projects/NoFourMUBS` on `main`, in the folders of §2 only. The
+coordinator works in the same checkout on other folders (`proof/seed_atlas/`, rusty jobs). So:
+- stage and commit only your own files (`git add <paths>`, never `git add -A` or `commit -a`);
+- don't switch branches, rebase or reset;
+- don't touch files outside §2's folders.
 
-- Commits on the branch: `Edge/Sys.lean`, `Edge/C1e.lean`, `generators/edge_c1e.py` and `SeedAtlas/XShape.lean`.
-- Uncommitted: `kernel_atlas/lean/KernelAtlas/Edge/C1eSide.lean`. It builds in about 10 s with no `sorry`; review it
-  and commit it with your work. `Edge/Test/` is scratch: leave it untracked.
-- Do not work in `/Users/jtindall/Projects/NoFourMUBS` itself; the coordinator uses that checkout.
+Earlier edge-kernel work is on `main`: `Edge/Sys.lean`, `Edge/C1e.lean`, `generators/edge_c1e.py` and
+`SeedAtlas/XShape.lean`. `kernel_atlas/lean/KernelAtlas/Edge/C1eSide.lean` is uncommitted. It builds in about 10 s with
+no `sorry`; review it and commit it with your work. The Lean build cache in `lean/.lake` is populated.
 
 Lean: `lean/` is the Lake project (Lean 4 + Mathlib). The kernel library `KernelAtlas` lives in `kernel_atlas/lean` and
 is built from `lean/` (`srcDir = "../kernel_atlas/lean"`). Example: `cd lean && LEAN_NUM_THREADS=8 lake build
@@ -77,7 +78,7 @@ the generator uses. Kernel checks are `decide +kernel` on generated data. That i
 2. The generator, and the kernel timing of one real edge-ball box and one transfer box.
 3. A cost estimate for the full edge ball (about 30k C1e boxes at 16 per axis, plus 0.4–1.2M sphere boxes).
 4. `KERNEL_EDGE.md` updated.
-5. Commits on that branch; the coordinator merges them into `main`. Don't push.
+5. Commits on `main`, your files only. Don't push.
 
 **Constraints.**
 - Keep files clean and forward-facing, with no exploratory leftovers.
