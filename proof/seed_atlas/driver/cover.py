@@ -127,7 +127,7 @@ def sphere_point(lo, hi):
 
 
 # ------------------------------------------------------------------ candidates
-def discover(ball, j, index, rec_targets=(), nrand=96, seed=0, vmax=1.0, extra_dirs=None, level_dirs=True):
+def discover(ball, j, index, rec_targets=(), nrand=96, seed=0, vmax=1.0, extra_dirs=None, level_dirs=True, eb=None):
     """Targets containing some sampled sphere point.  Returns dict desc -> best value, desc = (kind, target, g, rows, cols)
     (T2: rows, cols of length 6)."""
     parts = []
@@ -153,7 +153,15 @@ def discover(ball, j, index, rec_targets=(), nrand=96, seed=0, vmax=1.0, extra_d
                 if l == j: continue
                 desc = ('T0',) + desc[1:]
             if val < found.get(desc, 9.0): found[desc] = float(val)
-        if rec_targets and c['edge'].max() < 0.3: near_f6.append(s)
+        if (rec_targets or eb is not None) and c['edge'].max() < 0.3: near_f6.append(s)
+    if eb is not None:                       # T3: the edge ball (SPEC §10), in place of F6's record
+        import edge_phase as EP
+        for s in near_f6:
+            for (v, g, rows, cols, wind) in EP.edge_candidates(Q[s], eb)[:6]:
+                desc = ('T3', 0, g, tuple(rows), tuple(cols), tuple(wind))
+                if v < found.get(desc, 9.0): found[desc] = float(v)
+        t3 = sorted((v, d) for d, v in found.items() if d[0] == 'T3')
+        for v, d in t3[8:]: found.pop(d)             # the best 8 edge-ball corners suffice
     for (t, rec) in rec_targets:
         for s in near_f6[:: max(1, len(near_f6) // 8)][:8]:
             for (g, rows, cols, dist) in align_record(Q[s].reshape(6, 6), rec):
@@ -182,9 +190,11 @@ class Cand:
     """A transfer candidate with its precomputed linear maps."""
 
     def __init__(self, desc, tgt, recs):
-        self.desc = desc; kind, t, g, rows, cols = desc
+        self.desc = desc; kind, t, g, rows, cols = desc[:5]
         self.kind = kind; self.t = t
-        if kind in ('T0', 'T1'):
+        if kind == 'T3':
+            self.linear = False; self.eb = recs; self.wind = desc[5]
+        elif kind in ('T0', 'T1'):
             self.th0, self.Minv, self.r = tgt['theta0'], tgt['Minv'], tgt['r']
             self.linear = is_linear(g, rows, cols) and g in ('id', 'conjT')
             if self.linear: self.A = lin_matrix(g, rows, cols)
@@ -251,6 +261,36 @@ def nl_test(Q, hw, cand, N=None, du=None):
     return sup * NL_SLACK < cand.R, np.linalg.norm(a + np.einsum('bkj,bj->bk', b, du), axis=1) / cand.R, N
 
 
+def t3_points(ball, lo, hi):
+    """Q at the 17 sample points (16 vertices, centre) of each box: (B, 17, 36) and the ok mask (B,)."""
+    pts = lo[:, None, :] + SG_VERT[None] * (hi - lo)[:, None, :]
+    pts = np.concatenate([pts, ((lo + hi) / 2)[:, None, :]], 1)
+    Q, _, _, ok = ball.Q_at(pts.reshape(-1, 4) * ball.r)
+    return Q.reshape(len(lo), 17, 36), ok.reshape(len(lo), 17).all(1)
+
+
+def t3_test(cand, QP, okp):
+    """(pass mask, centre value, N) for a T3 candidate on boxes with sample-point phases QP (B, 17, 36): every sampled
+    point at most VMAX inside the edge ball (the certifiers check it); N carries the side orders and windings."""
+    import edge_phase as EP
+    rows, cols = list(cand.rows), list(cand.cols)
+    Kq = SG.gphase(cand.g, QP.reshape(-1, 6, 6))
+    th = np.stack([Kq[:, rows[a], cols[b]] - Kq[:, rows[a], cols[0]] - Kq[:, rows[0], cols[b]] + Kq[:, rows[0], cols[0]]
+                   for (a, b) in SG.POS], -1)
+    Jc = [c for c in range(6) if c not in cols]
+    y = -2 * SG.psi(np.exp(1j * Kq[:, rows][:, :, Jc])).imag
+    p = np.concatenate([th[:, :3] + 2 * np.pi * np.array(cand.wind[:3]) - EP.TH0[:3], y[:, None]], 1)
+    v = (np.linalg.norm(p @ cand.eb.Minv.T, axis=1) / cand.eb.r).reshape(len(QP), 17)
+    v = np.where(np.isfinite(v), v, 9.0)
+    ok = okp & (v.max(1) < EP.VMAX)
+    vc = np.where(okp, v[:, -1], 9.0)
+    Ns = [None] * len(QP)
+    for b in np.where(ok)[0]:
+        (_, hc, wh), (_, vr, wv) = EP.side_orders(SG.gphase(cand.g, QP[b, -1].reshape(6, 6)), cand.rows, cand.cols)
+        Ns[b] = tuple(hc) + tuple(vr) + tuple(wh) + tuple(wv)
+    return ok, vc, Ns
+
+
 def cover(ball, cands, max_level=MAX_LEVEL, chunk=128):
     """Adaptive dyadic cover of the sphere.  cands: list of Cand, in priority order.
     Returns (leaves, failed): leaves = list of (m, I (4,), cand index, N tuple); failed = list of (m, I, best centre value)."""
@@ -274,7 +314,17 @@ def cover(ball, cands, max_level=MAX_LEVEL, chunk=128):
             for s in range(0, len(rest), chunk):
                 sl = rest[s:s + chunk]
                 Q, okq, _ = box_Q(ball, wc[s:s + chunk], hw[s:s + chunk])
+                QP = None
                 for ci in nl:
+                    if cands[ci].kind == 'T3':
+                        if not (who[sl] < 0).any(): continue
+                        if QP is None: QP, okp = t3_points(ball, lo[s:s + chunk], hi[s:s + chunk])
+                        ok, vc, N3 = t3_test(cands[ci], QP, okp)
+                        best[sl] = np.minimum(best[sl], vc)
+                        new = ok & (who[sl] < 0)
+                        for b in np.where(new)[0]: Ns[sl[b]] = N3[b]
+                        who[sl[new]] = ci
+                        continue
                     ok, vc, N = nl_test(Q, hw[s:s + chunk], cands[ci], du=du[s:s + chunk])
                     ok &= okq
                     best[sl] = np.minimum(best[sl], np.where(np.isfinite(vc), vc, 9.0))

@@ -46,6 +46,13 @@ _W = {}
 def _init():
     warnings.filterwarnings('ignore')
     _W['recs'] = [f6_record()]
+    if os.environ.get('SEED_EDGE_BALL'):        # T3 into the edge ball instead of T2 into F6's record
+        _W['eb'] = pickle.load(open(os.environ['SEED_EDGE_BALL'], 'rb'))
+
+
+def _targets():
+    eb = _W.get('eb')
+    return ([], eb) if eb is not None else ([(0, _W['recs'][0])], None)
 
 
 def snapshot_index(snap):
@@ -121,18 +128,19 @@ def task_cover(j, ball, snap):
     try:
         idx = snapshot_index(snap)
         recs = _W['recs']
-        found = CV.discover(ball, j, idx, rec_targets=[(0, recs[0])], seed=j)
-        order = {'T0': 0, 'T1': 1, 'T2': 2}
+        rt, eb = _targets()
+        found = CV.discover(ball, j, idx, rec_targets=rt, seed=j, eb=eb)
+        order = {'T0': 0, 'T1': 1, 'T2': 2, 'T3': 2}
 
         def build(found):
-            descs = sorted(found, key=lambda d: (order[d[0]], not CV.is_linear(d[2], d[3], d[4]) if d[0] != 'T2' else 1, found[d]))
+            descs = sorted(found, key=lambda d: (order[d[0]], not CV.is_linear(d[2], d[3], d[4]) if d[0] in ('T0', 'T1') else 1, found[d]))
             cands = []
             for d in descs:
                 tgt = None
-                if d[0] != 'T2':
+                if d[0] in ('T0', 'T1'):
                     l = d[1]
                     tgt = dict(theta0=snap['theta0'][l], Minv=snap['Minv'][l], r=snap['r'][l])
-                cands.append(CV.Cand(d, tgt, recs))
+                cands.append(CV.Cand(d, tgt, eb if d[0] == 'T3' else recs))
             return cands
         cands = build(found)
         leaves, failed = CV.cover(ball, cands)
@@ -141,7 +149,7 @@ def task_cover(j, ball, snap):
             lo, hi = CV.box_lohi(np.array([f[0] for f in failed]), np.array([f[1] for f in failed]))
             dirs = CV.sphere_point(lo, hi)
             if len(dirs) > 256: dirs = dirs[np.random.default_rng(j).choice(len(dirs), 256, replace=False)]
-            more = CV.discover(ball, j, idx, rec_targets=[(0, recs[0])], seed=j + 7, nrand=0, extra_dirs=dirs, level_dirs=False)
+            more = CV.discover(ball, j, idx, rec_targets=rt, seed=j + 7, nrand=0, extra_dirs=dirs, level_dirs=False, eb=eb)
             new = {d: v for d, v in more.items() if d not in found}
             if new:
                 found.update(new); cands = build(found)
@@ -150,7 +158,14 @@ def task_cover(j, ball, snap):
         groups = {}
         for (m, I, ci, N) in leaves:
             groups.setdefault((ci, N), []).append([m] + [int(x) for x in I])
-        gl = [dict(desc=cands[ci].desc, wind=list(N), boxes=np.array(bx, np.int16)) for (ci, N), bx in groups.items()]
+        gl = []
+        for (ci, N), bx in groups.items():
+            d = cands[ci].desc
+            if d[0] == 'T3':                  # the edge phase's T3 group format (FORMAT §8)
+                gl.append(dict(desc=d[:5], wind=list(d[5]), hcols=list(N[0:3]), vrows=list(N[3:6]), wind_h=list(N[6:12]),
+                               wind_v=list(N[12:18]), boxes=np.array(bx, np.int16)))
+            else:
+                gl.append(dict(desc=d, wind=list(N), boxes=np.array(bx, np.int16)))
         return dict(kind='cover', j=j, nsnap=len(snap['r']), groups=gl, nleaves=len(leaves),
                     failed=[(int(m), [int(x) for x in I], v) for (m, I, v) in failed], props=props,
                     ncand=len(cands), s=time.time() - t0)
@@ -270,7 +285,16 @@ def main():
     ap.add_argument('--max-balls', type=int, default=10 ** 9)
     ap.add_argument('--dist-port', type=int, default=0, help='serve tasks to distworker.py processes on other nodes')
     ap.add_argument('--dist-key', default='seedatlas')
+    ap.add_argument('--edge', action='store_true', help='T3 into the edge ball (built once, edge_ball.pkl) instead of T2')
+    ap.add_argument('--reopen-t2', action='store_true', help='re-cover every closed ball that has T2 groups')
     a = ap.parse_args()
+    if a.edge:
+        ebp = os.path.join(a.out, 'edge_ball.pkl')
+        if not os.path.exists(ebp):
+            import edge_phase as EP
+            eb = EP.EdgeBall(); assert eb.make(), 'edge ball: Stage C failed'
+            with open(ebp, 'wb') as f: pickle.dump(eb, f)
+        os.environ['SEED_EDGE_BALL'] = os.path.abspath(ebp)
     os.makedirs(a.out, exist_ok=True)
     state = os.path.join(a.out, 'atlas_state.pkl'); logf = open(os.path.join(a.out, 'driver.log'), 'a')
 
@@ -287,6 +311,9 @@ def main():
             if s == 'failed': A.status[j] = 'open'; A.ncover[j] = 0; A.log_fail.pop(j, None)
             if A.status[j] != 'closed' and A.ncover[j] >= MAX_COVERS // 2: A.ncover[j] = 0      # fresh budget after a restart
         log('resumed', len(A.balls), 'balls,', sum(s == 'closed' for s in A.status), 'closed')
+        if a.reopen_t2:
+            for j in [j for j, gl in A.groups.items() if any(g['desc'][0] == 'T2' for g in gl)]:
+                A.groups.pop(j); A.status[j] = 'open'; A.ncover[j] = 0; A.log_fail.pop(j, None); log('reopen', j)
     else:
         import driver as DRV                     # pickle as driver.Atlas, not __main__.Atlas
         A = DRV.Atlas()
