@@ -88,12 +88,17 @@ def main():
     ap = argparse.ArgumentParser(); ap.add_argument('run')
     ap.add_argument('--workers', type=int, default=os.cpu_count()); ap.add_argument('--rounds', type=int, default=8)
     ap.add_argument('--start-level', type=int, default=3)
+    ap.add_argument('--xball', type=float, default=0.0, help='edge ball 0 = the X-ball of this tangent radius (no Stage C)')
+    ap.add_argument('--no-grow', action='store_true', help='report gaps instead of growing edge balls')
     a = ap.parse_args()
     t0 = time.time()
     A = pickle.load(open(os.path.join(a.run, 'atlas_state.pkl'), 'rb'))
     snap = A.snap(); snap.pop('tries', None)
     ebp = os.path.join(a.run, 'edge_balls.pkl')
     if os.path.exists(ebp): ebs = pickle.load(open(ebp, 'rb'))
+    elif a.xball:
+        ebs = [EP.EdgeBall.xball(a.xball)]
+        print('X-ball: t %.3f, sampled n %.3e' % (ebs[0].r, ebs[0].n), flush=True)
     else:
         eb0 = EP.EdgeBall(); assert eb0.make(), 'edge ball 0: Stage C failed'
         ebs = [eb0]
@@ -112,6 +117,10 @@ def main():
         print('round %d: covered %s; gaps per ball %s (%.0fs)' % (rnd, todo, ng, time.time() - t0), flush=True)
         open_ = [e for e in todo if ng[e]]
         if not open_: break
+        if a.no_grow:
+            gp = [q for e in open_ for _, q in gaps[e] if q is not None]
+            with open(os.path.join(a.run, 'edge_gaps.pkl'), 'wb') as f: pickle.dump(EP.gap_proposals(gp), f)
+            print('gaps left (no growing): seed proposals in edge_gaps.pkl', flush=True); break
         # proposals: centres just outside each gap, well separated in ball 0's w units
         props = []
         M0inv = ebs[0].Minv; sep = 0.6 * ebs[0].r

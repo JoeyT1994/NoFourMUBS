@@ -87,8 +87,9 @@ class EdgeBall:
         T = np.array([(self.Qp(self.p0 + h * e, x0=self.xc) - self.Qp(self.p0 - h * e, x0=self.xc)) / (2 * h)
                       for e in np.eye(4)]).T
         U, S, Vt = np.linalg.svd(T, full_matrices=False)
+        self.T = T
         self.S = S; self.Mth = Vt.T / S[None, :]; self.Minv = np.linalg.inv(self.Mth); self.U = T @ self.Mth
-        self.r = self.n = self.label = None; self.k = None; self.chart_name = 'F6-012'
+        self.r = self.n = self.label = None; self.k = None; self.chart_name = 'F6-012'; self.exclusion = 'stagec'
 
     def Qp(self, p, ref=None, x0=None, want_x=False):
         H, xh, xv, ok = chart(p, x0=x0)
@@ -124,6 +125,24 @@ class EdgeBall:
                     self.k = [8, 8, 8, 16]          # the Arb certifier's n at r = 0.125 is 1.12e-2 with this k
                     return True
         return False
+
+    @classmethod
+    def xball(cls, t=0.13, nsamp=400, seed=0):
+        """The X-ball (returns W and X): centred at F6, frame from W's tangent metric q^T W q (q = (u1, u2, u3, y/24)),
+        so that ||w|| = t is (numerically) the sphere at phase distance t from F6.  Quartet-free by X once its image is
+        certified within distance 3/20; no Stage C."""
+        eb = cls()
+        Wm = np.array([[1, -.5, -.5, 0], [-.5, 1.75, .25, 0], [-.5, .25, 1.75, 0], [0, 0, 0, 1.]])
+        ev, V = np.linalg.eigh(Wm)
+        eb.Mth = np.diag([1, 1, 1, 24.]) @ (V @ np.diag(ev ** -0.5) @ V.T)
+        eb.Minv = np.linalg.inv(eb.Mth); eb.U = eb.T @ eb.Mth; eb.S = np.linalg.svd(eb.U, compute_uv=False)
+        rng = np.random.default_rng(seed); worst = 0.0
+        for s_ in (t, t / 2):
+            for _ in range(nsamp):
+                w = rng.normal(size=4); w *= s_ / np.linalg.norm(w)
+                q = eb.Qw(w); worst = max(worst, np.linalg.norm(q - eb.P - eb.U @ w))
+        eb.r, eb.n, eb.label, eb.k, eb.exclusion = t, 2.0 * worst, 0.03, [8, 8, 8, 8], 'X'
+        return eb
 
     def wvalue(self, p):
         return np.linalg.norm(self.Minv @ (p - getattr(self, 'p0', np.zeros(4)))) / self.r
