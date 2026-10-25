@@ -169,19 +169,24 @@ function main(args)
     open(fe, "w") do io
         println(io, "#idx\tstatus\tr\tk\tn_cert\tn_certified\tc1e_boxes\tc1e_splits\tc1e_s\tstagec\tlabels\tmax_s\tstagec_s\tc2\tnboxes\tc2_s\tgraph\tsigma_F6\tR_G\tsigma_D\tdelta_sup\teta_sup\tgraph_s\tmsg")
     end
+    # C1e of every edge ball first: edge spheres may transfer (T3) into any edge ball
+    c1s = Any[nothing for _ in C.edges]
+    for (i, eb) in enumerate(C.edges)
+        t1 = time()
+        c1s[i] = try S.check_c1e(eb; maxdepth=c1depth) catch err; nothing end
+        c1s[i] !== nothing && c1s[i].ok && (X.edge_leaves[i] = c1s[i].leaves)
+        @printf("  edge ball %d: C1e %s (%.0f s)\n", i - 1, (c1s[i] !== nothing && c1s[i].ok) ? "ok" : "FAIL", time() - t1)
+    end
     for (i, eb) in enumerate(C.edges)
         t1 = time()
         if shard_m > 1
             # a shard needs only the C1e leaves (for its seeds' T3 transfers); the edge ball is checked in the final run
-            c1 = S.check_c1e(eb; maxdepth=c1depth)
-            c1.ok && (X.edge_leaves[i] = c1.leaves)
-            @printf("  edge ball %d: C1e %s (leaves for T3 only; %.0f s)\n", i - 1, c1.ok ? "ok" : "FAIL", time() - t1)
-            continue
+            continue                         # the leaves (for the seeds' T3 transfers) are set above
         end
         ok, msg, line = try
-            c1 = S.check_c1e(eb; maxdepth=c1depth)
+            c1 = c1s[i] === nothing ? S.check_c1e(eb; maxdepth=c1depth) : c1s[i]
             c1.ok && (X.edge_leaves[i] = c1.leaves)
-            c1.ok && push!(f6edge, (i - 1, S.edge_f6(c1.leaves)...))
+            c1.ok && iszero(eb.q0) && push!(f6edge, (i - 1, S.edge_f6(c1.leaves)...))
             ts = time()
             sc, si = S.seed_stage_c(eb; replay=!fast)
             ts = time() - ts

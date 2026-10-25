@@ -21,7 +21,7 @@ import json
 import sys
 
 KINDS_SEED = ('T0', 'T1', 'T2', 'T3')
-KINDS_EDGE = ('T1',)
+KINDS_EDGE = ('T1', 'T3')
 KINDS_REC = ('rec', 'T1prime')
 GS = ('id', 'conj', 'T', 'conjT')
 
@@ -147,6 +147,7 @@ def main(src, dst):
             gs = e.get('transfers', [])
             out.write('EDGE %d %s %d\n' % (i, ' '.join(map(str, k)), len(gs)))
             out.write('MTH %s\n' % fxs(e['Mth'], 16, w + ' Mth'))
+            out.write('Q0 %s\n' % fxs(e.get('q0', [0.0] * 4), 4, w + ' q0'))
             out.write('R %s\nN %s\nLR %s\n' % (fx(e['r'], w + ' r'), fx(e['n'], w + ' n'), fx(e['label_radius'], w + ' lr')))
             out.write('P %s\n' % fxs(e['P'], 36, w + ' P'))
             out.write('U %s\n' % fxs(e['U'], 144, w + ' U'))

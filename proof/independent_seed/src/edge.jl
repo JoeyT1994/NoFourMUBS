@@ -100,9 +100,9 @@ function aug_system(x::Vector{TM{T}}, p::Vector{TM{T}}, vert::Bool, D::Dom) wher
     H, J, th, phi
 end
 
-"""Parameter models p(u) = Mth (wc + u) on the box (exact float centre)."""
-param_models(::Type{T}, Mth, wc) where {T} =
-    [TM{T}(T === I64 ? sum(iv(Mth[i, j]) * iv(wc[j]) for j in 1:4) : sum(Mth[i, j] * wc[j] for j in 1:4),
+"""Parameter models p(u) = q0 + Mth (wc + u) on the box (exact float centre)."""
+param_models(::Type{T}, Mth, wc, q0=zeros(4)) where {T} =
+    [TM{T}(T === I64 ? iv(q0[i]) + sum(iv(Mth[i, j]) * iv(wc[j]) for j in 1:4) : q0[i] + sum(Mth[i, j] * wc[j] for j in 1:4),
            ntuple(j -> T === I64 ? iv(Mth[i, j]) : Mth[i, j], 4), ntuple(_ -> zero(T), 10), 0.0) for i in 1:4]
 
 """Float Newton for one side at the parameter point pc (floats), from x0."""
@@ -246,15 +246,15 @@ end
 (7 each) at the centre."""
 function edge_box_map(eb::EdgeBall, wc::NTuple{4,Float64}, h::NTuple{4,Float64}, gh0, gv0; wcI=nothing)
     D = Dom(h)
-    pc = eb.Mth * collect(wc)
+    pc = eb.q0 .+ eb.Mth * collect(wc)
     xhc, Jh = aug_newton_f(pc, gh0, false); xvc, Jv = aug_newton_f(pc, gv0, true)
     (xhc === nothing || xvc === nothing) && return EdgeFail("float Newton at the centre")
     abs(xhc[1] - xvc[1]) < 1e-8 || return EdgeFail("float centre: t != t'")
     Yh = inv(Jh); Yv = inv(Jv)
-    pf = param_models(Float64, eb.Mth, wc)
+    pf = param_models(Float64, eb.Mth, wc, eb.q0)
     xhf = aug_predictor_f(xhc, pf, false, Yh, D); xvf = aug_predictor_f(xvc, pf, true, Yv, D)
-    p = wcI === nothing ? param_models(I64, eb.Mth, wc) :
-        [TM{I64}(sum(iv(eb.Mth[i, j]) * wcI[j] for j in 1:4), ntuple(j -> iv(eb.Mth[i, j]), 4), ntuple(_ -> iv(0.0), 10), 0.0) for i in 1:4]
+    p = wcI === nothing ? param_models(I64, eb.Mth, wc, eb.q0) :
+        [TM{I64}(iv(eb.q0[i]) + sum(iv(eb.Mth[i, j]) * wcI[j] for j in 1:4), ntuple(j -> iv(eb.Mth[i, j]), 4), ntuple(_ -> iv(0.0), 10), 0.0) for i in 1:4]
     xhp = map(toiv, xhf); xvp = map(toiv, xvf)
     th_ = aug_tube(xhp, p, false, Yh, D)
     th_ === nothing && return EdgeFail("Krawczyk (horizontal augmented system)")
@@ -323,13 +323,21 @@ end
 
 edge_misses_ball(wc, h::NTuple{4,Float64}, r) = inf(sum(max(iv(0.0), abs(iv(wc[j])) - iv(h[j]))^2 for j in 1:4)) > sup(iv(r)^2)
 
-"""The float root predictor at p = 0 (where x = 0 exactly) over the cube [-r, r]^4."""
+"""The float root predictor at the centre p = q0 (by continuation from p = 0, where x = 0 exactly) over [-r, r]^4."""
 function edge_root(eb::EdgeBall)
-    z = zeros(7)
-    xh, Jh = aug_newton_f(zeros(4), z, false); xv, Jv = aug_newton_f(zeros(4), z, true)
-    (xh === nothing || xv === nothing) && return nothing
+    xh = zeros(7); xv = zeros(7); Jh = nothing; Jv = nothing
+    m = max(1, ceil(Int, maximum(abs, eb.q0) / 0.05))
+    for s in 1:m
+        q = eb.q0 .* (s / m)
+        xh, Jh = aug_newton_f(q, xh, false); xv, Jv = aug_newton_f(q, xv, true)
+        (xh === nothing || xv === nothing) && return nothing
+    end
+    if m == 0 || Jh === nothing
+        xh, Jh = aug_newton_f(eb.q0, zeros(7), false); xv, Jv = aug_newton_f(eb.q0, zeros(7), true)
+        (xh === nothing || xv === nothing) && return nothing
+    end
     D = Dom((eb.r, eb.r, eb.r, eb.r))
-    pf = param_models(Float64, eb.Mth, (0.0, 0.0, 0.0, 0.0))
+    pf = param_models(Float64, eb.Mth, (0.0, 0.0, 0.0, 0.0), eb.q0)
     EdgeMap(true, "root", TM{I64}[], TM{I64}[], Float64[], TM{I64}[], Float64[],
             aug_predictor_f(xh, pf, false, inv(Jh), D), aug_predictor_f(xv, pf, true, inv(Jv), D), (0.0, 0.0, 0.0, 0.0))
 end

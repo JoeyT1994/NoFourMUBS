@@ -34,7 +34,9 @@ function check_T3(Q::Vector{TM{I64}}, D::Dom, g::Group, eb::EdgeBall, leaves::Ve
     wfix(x, c0, k) = sw ? addc(x, TWOPI_I * iv(Float64(g.wind[k]))) : near(x, c0)
     thK = [wfix(x, mid(t0[k]), k) for (k, x) in enumerate(corner_seed(K, I, J))]
     yK = scale(imp(psi_model(K[I, Jc], D)), iv(-2.0))
-    pK = [addc(thK[1], -t0[1]), addc(thK[2], -t0[2]), addc(thK[3], -t0[3]), yK]
+    q0 = eb.q0
+    pK = [addc(addc(thK[1], -t0[1]), iv(-q0[1])), addc(addc(thK[2], -t0[2]), iv(-q0[2])),
+          addc(addc(thK[3], -t0[3]), iv(-q0[3])), addc(yK, iv(-q0[4]))]
     wK = [lincomb(Minv[i, :], pK) for i in 1:4]
     land = vecnorm_sup(wK, D)
     land < eb.r || return false, @sprintf("T3: ||w_K|| <= %.6g >= r = %.6g", land, eb.r), land
@@ -61,7 +63,7 @@ end
 T1 transfer into a seed ball (corner seed of g . H(p) lands in int E_t, orientation o_t, matched)."""
 function check_c2_edge(eb::EdgeBall, X, root::EdgeMap; split_depth::Int=2, cover::Bool=true)
     t0 = time()
-    counts = Dict(:T1 => 0); worst = Dict(:T1 => 0.0)
+    counts = Dict(:T1 => 0, :T3 => 0); worst = Dict(:T1 => 0.0, :T3 => 0.0)
     nb = sum(length(g.boxes) for g in eb.groups; init=0)
     res(ok, msg, st=[0, 0], cn=0) = C2Result(ok, msg, nb, counts, st[1], st[2], worst, cn, time() - t0)
     listed = Set{NTuple{5,Int}}(b for g in eb.groups for b in g.boxes)
@@ -69,6 +71,24 @@ function check_c2_edge(eb::EdgeBall, X, root::EdgeMap; split_depth::Int=2, cover
     cov || return res(false, "the boxes do not cover the sphere ||w|| = r", [0, 0], cn)
     st = [0, 0]
     for (gi, g) in enumerate(eb.groups)
+        if g.kind == :T3                     # into another edge ball of the same chart (EdgeInQ)
+            (0 <= g.target < length(X.edges)) || return res(false, "group $(gi-1): no such edge ball", st, cn)
+            X.edge_leaves[g.target+1] === nothing && return res(false, "group $(gi-1): target edge ball did not pass C1e", st, cn)
+            X.edge_minv[g.target+1] === nothing && return res(false, "group $(gi-1): target edge Mth not invertible", st, cn)
+            f3 = function (lo, hi)
+                wc, h = scaled_dom(lo, hi, eb.r)
+                wcm = ntuple(j -> mid(wc[j]), 4)
+                em = edge_box_map(eb, wcm, h, edge_guess(root, wcm)...; wcI=wc)
+                em.ok || return false, "T3: " * em.why, Inf
+                check_T3(representative(em.Q, eb.P, eb.U, wc), Dom(h), g, X.edges[g.target+1], X.edge_leaves[g.target+1], X.edge_minv[g.target+1])
+            end
+            for b in g.boxes
+                ok, msg, val = check_with_split(f3, ubox(b)..., 0, split_depth, st)
+                ok || return res(false, "group $(gi-1) (T3 -> edge $(g.target)), box $b: " * msg, st, cn)
+                counts[:T3] += 1; worst[:T3] = max(worst[:T3], val)
+            end
+            continue
+        end
         (0 <= g.target < length(X.seeds)) || return res(false, "group $(gi-1): no such seed", st, cn)
         Mi = X.minv[g.target+1]
         Mi === nothing && return res(false, "group $(gi-1): target Mth not invertible", st, cn)

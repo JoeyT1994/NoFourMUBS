@@ -83,10 +83,12 @@ struct EdgeBall
     lr::Float64
     P::Vector{Float64}            # 36, F6's phases as stored floats
     U::Matrix{Float64}            # 36 x 4
-    groups::Vector{Group}         # sphere transfers (T1)
+    groups::Vector{Group}         # sphere transfers (T1 into seed balls, T3 into other edge balls)
     graph::GraphData              # (G) and (D) data of SPEC §10.1 (fields NaN / nothing / empty when absent)
+    q0::Vector{Float64}           # the chart centre: p = q0 + Mth w (0: centred at F6)
 end
-EdgeBall(idx, k, Mth, r, n, lr, P, U, groups) = EdgeBall(idx, k, Mth, r, n, lr, P, U, groups, GraphData())
+EdgeBall(idx, k, Mth, r, n, lr, P, U, groups) = EdgeBall(idx, k, Mth, r, n, lr, P, U, groups, GraphData(), zeros(4))
+EdgeBall(idx, k, Mth, r, n, lr, P, U, groups, graph::GraphData) = EdgeBall(idx, k, Mth, r, n, lr, P, U, groups, graph, zeros(4))
 
 struct SeedCert
     seeds::Vector{Seed}
@@ -196,6 +198,8 @@ function read_seed_certificate(path::AbstractString)
         idx = v[1]; k = Tuple(v[2:5]); ng = v[6]
         all(>=(1), k) || error("edge ball $idx: k must be >= 1")
         M = hx.(expect(nextline(), "MTH", 16)); Mth = [M[4(a-1)+b] for a in 1:4, b in 1:4]
+        q0 = hx.(expect(nextline(), "Q0", 4))
+        all(isfinite, q0) || error("edge ball $idx: q0 must be finite")
         r = hx(expect(nextline(), "R", 1)[1]); n = hx(expect(nextline(), "N", 1)[1]); lr = hx(expect(nextline(), "LR", 1)[1])
         (r > 0 && n >= 0 && lr > 0) || error("edge ball $idx: r, n, label_radius must be positive")
         P = hx.(expect(nextline(), "P", 36))
@@ -207,8 +211,8 @@ function read_seed_certificate(path::AbstractString)
         gphi = gl[4] == "1" ? hx.(expect(nextline(), "PHI", 36)) : nothing
         gti = gl[5] == "1" ? (t = parse.(Int64, expect(nextline(), "TINT", 144)); [t[4(e-1)+k] for e in 1:36, k in 1:4]) : nothing
         gs = [read_group() for _ in 1:ng]
-        all(g -> g.kind == :T1, gs) || error("edge ball $idx: a sphere transfer must be T1")
-        push!(edges, EdgeBall(idx, k, Mth, r, n, lr, P, U, gs, GraphData(gR, gsig, gsD, gphi, gti)))
+        all(g -> g.kind in (:T1, :T3), gs) || error("edge ball $idx: a sphere transfer must be T1 or T3")
+        push!(edges, EdgeBall(idx, k, Mth, r, n, lr, P, U, gs, GraphData(gR, gsig, gsD, gphi, gti), q0))
     end
     t = nextline()
     (t[1] == "TAO" && length(t) in (2, 3)) || error("expected TAO")
