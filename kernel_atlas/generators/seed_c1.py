@@ -4,8 +4,12 @@
 The predictors (side angles and their derivatives, Y, the forced block X_p, A0, the arg branches, the windings) are
 floats; the mirror decides with the same integers as the kernel whether a box passes.  Nothing here is trusted.
 
+Horizontal gauge (SPEC §11, `"gauge": "hor"`): the ball stores `P = h(P_g)`, `U = h(T) M_θ`; the predictors use the
+dephased `P_g = gauge(P)`, `U_g = gauge(U)`, and each box gets a row and column shift `sh` (`Seed/C1Hor.lean`): the
+kernel checks `c1Box (shiftB B sh) D`, `sh` the grid rounding of minus the pattern part of the residual's affine model.
+
 Usage (from the repository root):
-  python3 kernel_atlas/generators/seed_c1.py BALLS.json IDX [--m 2] [--emit DIR] [--boxes 0,5,..]
+  python3 kernel_atlas/generators/seed_c1.py BALLS.json[.gz] IDX [--m 2] [--emit DIR] [--boxes 0,5,..]
 """
 import argparse, itertools, json, math, os, sys, time
 from fractions import Fraction as Fr
@@ -372,6 +376,40 @@ def boundOK(h, n, res):
     return True
 
 
+def shA(sh, e, m):
+    g = lambda i: sh[i] if i < len(sh) else 0
+    return g(5 * (e // 6) + m) + g(30 + 5 * (e % 6) + m)
+
+
+def shiftB(B, sh):
+    """Mirror of `shiftB`: the ball with `P - S_0` and `U - S_l`."""
+    B2 = dict(B)
+    B2['P'] = [B['P'][e] - shA(sh, e, 0) for e in range(36)]
+    B2['U'] = [B['U'][q] - shA(sh, q // 4, q % 4 + 1) for q in range(144)]
+    return B2
+
+
+def pattern_ab(C):
+    """Row and column parts (a_i, b_j) of C - h(C): rowmean_i - allmean and colmean_j (floats)."""
+    M = np.array(C, float).reshape(6, 6)
+    allm = M.mean()
+    return M.mean(axis=1) - allm, M.mean(axis=0)
+
+
+def horShift(res0, D):
+    """The shift `sh` (60 integers) cancelling the pattern part of the residual's affine model."""
+    alpha = np.zeros((6, 5)); beta = np.zeros((6, 5))
+    for m in range(1, 5):
+        a, b = pattern_ab([res0[e].cg(m)[0] for e in range(36)])
+        alpha[:, m] = -np.round(a); beta[:, m] = -np.round(b)
+    a, b = pattern_ab([res0[e].cg(0)[0] for e in range(36)])
+    wc = np.array(D['wc'], float) / SC
+    alpha[:, 0] = -a - alpha[:, 1:] @ wc
+    beta[:, 0] = -b - beta[:, 1:] @ wc
+    sh = [int(round(x)) for x in alpha.reshape(30)] + [int(round(x)) for x in beta.reshape(30)]
+    return sh
+
+
 def c1Box(B, D, n=None, verbose=False):
     """Mirror of c1Box.  Returns (ok, info)."""
     h = D['hb']
@@ -394,9 +432,14 @@ def c1Box(B, D, n=None, verbose=False):
     if not okD: return False, ('neumann', info)
     if not all(argOK(h, D['argA'][q], Dm[q]) for q in range(9)): return False, ('arg', info)
     argD = [argT(h, D['argA'][q], Dm[q]) for q in range(9)]
-    res = resQ(h, B, D, QT(h, th, sH, sV, argD))
+    Qm = QT(h, th, sH, sV, argD)
+    if B.get('hor'):
+        sh = horShift(resQ(h, B, D, Qm), D)
+        B = shiftB(B, sh)
+        info['sh'] = sh
+    res = resQ(h, B, D, Qm)
     nb, parts = boundN(h, res)
-    info.update(n_box=nb / SC, **{k: v / SC for k, v in parts.items()},
+    info.update(n_box=nb / SC, **{k: v / SC for k, v in parts.items() if k != 'sh'},
                 rhoD=max(T.rho for T in Dm) / SC, rhoArg=max(T.rho for T in argD) / SC,
                 rhoSide=max(T.rho for T in sH + sV) / SC)
     if n is None: return True, (nb, info)
@@ -480,13 +523,18 @@ class Ball:
         self.r = fh(d['r']); self.o = int(d['o'])
         self.P = np.array([fh(x) for x in d['P']]); self.U = np.array([fh(x) for x in d['U']]).reshape(36, 4)
         self.n_cert = fh(d['n'])
+        self.hor = d.get('gauge') == 'hor'
+        # the dephased centre and frame (predictors, windings): cross ratios, exact for either gauge
+        gauge = lambda X: (X - X[:, :1] - X[:1, :] + X[:1, :1])
+        self.Pg = gauge(self.P.reshape(6, 6)).reshape(36)
+        self.Ug = np.stack([gauge(self.U[:, l].reshape(6, 6)).reshape(36) for l in range(4)], axis=1)
         # grid data
         red = lambda x: x - 2 * math.pi * round(x / (2 * math.pi))
         self.th0z = [gz(red(x)) for x in self.theta0]; self.Mz = [gz(x) for x in self.Mth.reshape(16)]
         self.Pz = [gz(x) for x in self.P]; self.Uz = [gz(x) for x in self.U.reshape(144)]
         # the matrices exactly as the kernel sees them
         self.thq = np.array([z / SC for z in self.th0z]); self.Mq = np.array(self.Mz, float).reshape(4, 4) / SC
-        Pm = self.P.reshape(6, 6)
+        Pm = self.Pg.reshape(6, 6)
         phh = np.array([Pm[1, 3], Pm[1, 4], Pm[1, 5], Pm[2, 3], Pm[2, 4], Pm[2, 5]])
         phv = np.array([Pm[3, 1], Pm[4, 1], Pm[5, 1], Pm[3, 2], Pm[4, 2], Pm[5, 2]])
         Gh, Gv = grams(self.thq)
@@ -505,7 +553,7 @@ class Ball:
         return phh, phv
 
     def ball_dict(self, n):
-        return dict(th0=self.th0z, Mth=self.Mz, P=self.Pz, U=self.Uz, n=n, o=self.o)
+        return dict(th0=self.th0z, Mth=self.Mz, P=self.Pz, U=self.Uz, n=n, o=self.o, hor=self.hor)
 
 
 def quad_coefs(fval, eps):
@@ -566,7 +614,6 @@ def box_data(ball, wc, h, wind_ref=True):
     Xp = [ct_cplx(D0[q], Dg[:, q], Dq[:, q]) for q in range(9)]
     _, Bm, _, _ = Df(thc, h0, v0)
     A0 = np.linalg.inv(np.conj(Bm).T).reshape(9)
-    Pm = ball.P.reshape(6, 6)
     argA = []
     for q in range(9):
         argA.append(gz(np.angle(D0[q])))
@@ -579,7 +626,7 @@ def box_data(ball, wc, h, wind_ref=True):
         elif j < 3: Qc[qq] = h0[3 * (j - 1) + (k - 3)]
         elif k < 3: Qc[qq] = v0[3 * (k - 1) + (j - 3)]
         else: Qc[qq] = argA[3 * (j - 3) + (k - 3)] / SC
-    ref = ball.P + ball.U @ wcq
+    ref = ball.Pg + ball.Ug @ wcq
     wind = [int(round((Qc[qq] - ref[qq]) / (2 * math.pi))) for qq in range(36)]
     D = dict(wc=wcz, hb=hz, phH=phH, phV=phV, YH=[gz(x) for x in YH.reshape(36)], YV=[gz(x) for x in YV.reshape(36)],
              tubeH=0, tubeV=0, Xp=Xp, A0=[(gz(z.real), gz(z.imag)) for z in A0], argA=argA, wind=wind)
@@ -659,7 +706,8 @@ def main():
     ap.add_argument('--emit', default='')
     ap.add_argument('--n', type=float, default=0)
     a = ap.parse_args()
-    d = json.load(open(a.balls))['seeds'][a.idx]
+    op = __import__('gzip').open if a.balls.endswith('.gz') else open
+    d = json.load(op(a.balls, 'rt'))['seeds'][a.idx]
     ball = Ball(d)
     keep = ball_boxes(ball.r, a.m)
     k = 1 << a.m
@@ -673,6 +721,7 @@ def main():
         h = np.full(4, ball.r / k)
         D = prepare(ball, wc, h)
         ok, info = c1Box(ball.ball_dict(0), D)
+        if ok and ball.hor: D['_sh'] = info[1].pop('sh')
         print('box %d %s: ok=%s %s' % (bi, idx, ok, info if not ok else {kk: '%.3g' % v for kk, v in info[1].items()}))
         if ok: worst = max(worst, info[0])
         Ds.append((bi, D))
@@ -686,11 +735,18 @@ def main():
             f.write(lean_ball('ball', B) + '\n')
             for bi, D in Ds:
                 f.write(lean_box('box%d' % bi, D) + '\n')
+                if ball.hor:
+                    f.write('def sh%d : List ℤ := %s\n\n' % (bi, lean_int_list(D['_sh'])))
             f.write('end NoFourMUBs.KernelAtlas.Seed.Test\n')
         with open(os.path.join(a.emit, 'C1Check.lean'), 'w') as f:
-            f.write('import KernelAtlas.Seed.Test.C1Data\n\nnamespace NoFourMUBs.KernelAtlas.Seed.Test\n\nopen NoFourMUBs.KernelAtlas.Seed\n\n')
+            f.write('import KernelAtlas.Seed.Test.C1Data\nimport KernelAtlas.Seed.C1Hor\n\n'
+                    'namespace NoFourMUBs.KernelAtlas.Seed.Test\n\nopen NoFourMUBs.KernelAtlas.Seed\n\n')
             for bi, D in Ds:
-                f.write('theorem box%d_ok : c1Box ball box%d = true := by decide +kernel\n\n' % (bi, bi))
+                if ball.hor:
+                    f.write('theorem box%d_ok : c1Box (shiftB ball sh%d) box%d = true := by decide +kernel\n\n'
+                            % (bi, bi, bi))
+                else:
+                    f.write('theorem box%d_ok : c1Box ball box%d = true := by decide +kernel\n\n' % (bi, bi))
             f.write('end NoFourMUBs.KernelAtlas.Seed.Test\n')
         for bi, D in Ds:
             print('mirror at n:', bi, c1Box(B, D, n)[0])

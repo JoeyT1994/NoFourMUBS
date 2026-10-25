@@ -168,7 +168,12 @@ cost milliseconds); sharing in T1′.
 * **Horizontal gauge (SPEC §11).** `SeedBallCert.hC1` now asks for a representative up to row and column phases
   (`RepO`), so both gauges are statements of the same field. The kernel's C1 still proves the dephased form and
   `ballCert` wraps it (`RepO.of_matched`); the generated ball modules are unchanged. For `"gauge": "hor"` data
-  (`P = h(P_g)`, `U = h(T) M_θ`) the C1 box takes `Q = h(Q_g)` with `N = 0` (`RepO.hor`) and bounds
-  `‖h(Q_g − P_g − U_g w)‖` at the vertices instead of `‖Q_g − P_g − U_g w − 2πN‖` (`h` is linear, `‖h X‖ ≤ ‖X‖`):
-  a change in `c1Box`'s bound step and in the generator, not yet made. Corner seeds and `Ψ` signs (T1, T1sym, T0)
-  are cross ratios and need nothing.
+  (`P = h(P_g)`, `U = h(T) M_θ`) each C1 box carries a row and column shift `S(w)_ij = α_i(w) + β_j(w)`, affine in
+  `w` on the grid (`Seed/C1Hor.lean`): the kernel runs the unchanged `c1Box` on `shiftB B sh` (`P − S₀`, `U − S_l`),
+  which bounds `‖Q_g + S(w) − P − U w − 2πN‖`, and `e^{i(Q_g + S)} = D_r e^{iQ_g} D_c` is a `RepO`
+  (`c1BoxH_sound`, `hC1H_of_boxes`, `ballCertH`). `seed_c1.py` picks `sh` as minus the pattern part of the residual's
+  affine model (any `sh` is sound) and uses the dephased `P_g = gauge(P)`, `U_g = gauge(U)` for its predictors.
+  On the seed-julia test certificate (`"gauge": "hor"`, r = 0.02) the shift leaves only the horizontal residual
+  (interior box: vertex term 1.9e-4, n = 2.4e-4). `coreFull` (T1, T2) reads neither `P` nor `U`. Still to do:
+  `seed_kball.py` emitting the shifts and `ballCertH` for `"gauge": "hor"` balls. Corner seeds and `Ψ` signs
+  (T1, T1sym, T0) are cross ratios and need nothing.
