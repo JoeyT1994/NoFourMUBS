@@ -119,6 +119,69 @@ theorem has_psi3T {h : List ℕ} {u : Fin 4 → ℝ} (hu : InBox h u) {L : List 
   rw [e]
   exact H
 
+/-- `Ψ` of a `3 × 3` block on intervals (the same formula as `psi3T`). -/
+def psi3I (g : ℕ → IvC) : IvC :=
+  let M := fun a b => g (3 * a + b)
+  let m3 := fun a b c => ivm (ivm a b) c
+  let t1 := m3 (M 0 0) (M 1 1) (M 2 2)
+  let t2 := m3 (M 0 0) (M 1 2) (M 2 1)
+  let t3 := m3 (M 0 1) (M 1 0) (M 2 2)
+  let t4 := m3 (M 0 1) (M 1 2) (M 2 0)
+  let t5 := m3 (M 0 2) (M 1 0) (M 2 1)
+  let t6 := m3 (M 0 2) (M 1 1) (M 2 0)
+  let perm := ivSum [t1, t2, t3, t4, t5, t6]
+  let det := ivSum [t1, ivNeg t2, ivNeg t3, t4, t5, ivNeg t6]
+  let pr := ivm (ivm (m3 (M 0 0) (M 0 1) (M 0 2)) (m3 (M 1 0) (M 1 1) (M 1 2))) (m3 (M 2 0) (M 2 1) (M 2 2))
+  ivm (ivm perm (ivm det det)) (ivConj pr)
+
+theorem ivH_psi3I {g : ℕ → IvC} {M : Mat3} (hM : ∀ a b : Fin 3, IvH (g (3 * a + b)) (M a b)) :
+    IvH (psi3I g) (psi M) := by
+  have m00 : IvH (g (3 * 0 + 0)) (M 0 0) := hM 0 0
+  have m01 : IvH (g (3 * 0 + 1)) (M 0 1) := hM 0 1
+  have m02 : IvH (g (3 * 0 + 2)) (M 0 2) := hM 0 2
+  have m10 : IvH (g (3 * 1 + 0)) (M 1 0) := hM 1 0
+  have m11 : IvH (g (3 * 1 + 1)) (M 1 1) := hM 1 1
+  have m12 : IvH (g (3 * 1 + 2)) (M 1 2) := hM 1 2
+  have m20 : IvH (g (3 * 2 + 0)) (M 2 0) := hM 2 0
+  have m21 : IvH (g (3 * 2 + 1)) (M 2 1) := hM 2 1
+  have m22 : IvH (g (3 * 2 + 2)) (M 2 2) := hM 2 2
+  have t1 := ivH_mul (ivH_mul m00 m11) m22
+  have t2 := ivH_mul (ivH_mul m00 m12) m21
+  have t3 := ivH_mul (ivH_mul m01 m10) m22
+  have t4 := ivH_mul (ivH_mul m01 m12) m20
+  have t5 := ivH_mul (ivH_mul m02 m10) m21
+  have t6 := ivH_mul (ivH_mul m02 m11) m20
+  have hperm := ivH_sum_cons t1 (ivH_sum_cons t2 (ivH_sum_cons t3 (ivH_sum_cons t4 (ivH_sum_cons t5
+    (ivH_sum_cons t6 ivH_sum_nil)))))
+  have hdet := ivH_sum_cons t1 (ivH_sum_cons (ivH_neg t2) (ivH_sum_cons (ivH_neg t3) (ivH_sum_cons t4
+    (ivH_sum_cons t5 (ivH_sum_cons (ivH_neg t6) ivH_sum_nil)))))
+  have hpr := ivH_mul (ivH_mul (ivH_mul (ivH_mul m00 m01) m02) (ivH_mul (ivH_mul m10 m11) m12))
+    (ivH_mul (ivH_mul m20 m21) m22)
+  have H := ivH_mul (ivH_mul hperm (ivH_mul hdet hdet)) (ivH_conj hpr)
+  have e : psi M = (M 0 0 * M 1 1 * M 2 2 + (M 0 0 * M 1 2 * M 2 1 + (M 0 1 * M 1 0 * M 2 2 +
+      (M 0 1 * M 1 2 * M 2 0 + (M 0 2 * M 1 0 * M 2 1 + (M 0 2 * M 1 1 * M 2 0 + 0)))))) *
+      ((M 0 0 * M 1 1 * M 2 2 + (-(M 0 0 * M 1 2 * M 2 1) + (-(M 0 1 * M 1 0 * M 2 2) +
+        (M 0 1 * M 1 2 * M 2 0 + (M 0 2 * M 1 0 * M 2 1 + (-(M 0 2 * M 1 1 * M 2 0) + 0)))))) *
+       (M 0 0 * M 1 1 * M 2 2 + (-(M 0 0 * M 1 2 * M 2 1) + (-(M 0 1 * M 1 0 * M 2 2) +
+        (M 0 1 * M 1 2 * M 2 0 + (M 0 2 * M 1 0 * M 2 1 + (-(M 0 2 * M 1 1 * M 2 0) + 0))))))) *
+      (starRingEnd ℂ) (M 0 0 * M 0 1 * M 0 2 * (M 1 0 * M 1 1 * M 1 2) * (M 2 0 * M 2 1 * M 2 2)) := by
+    rw [psi, permanent3_expand, Matrix.det_fin_three]
+    simp only [Fin.prod_univ_three, map_mul, Complex.star_def]
+    ring
+  rw [e]
+  exact H
+
+/-- The block sign test: intervals, else Taylor models. -/
+def sign3Any (h : List ℕ) (o : ℤ) (L : List CT) : Bool :=
+  signIv o (psi3I fun q => ivc h (gT L q)) || signOK h o (psi3T h L)
+
+theorem sign3Any_sound {h : List ℕ} {u : Fin 4 → ℝ} (hu : InBox h u) {L : List CT} {M : Mat3} (hM : Has3 u L M)
+    {o : ℤ} (ho : o = 1 ∨ o = -1) (hok : sign3Any h o L = true) : 0 < (o : ℝ) * (psi M).im := by
+  unfold sign3Any at hok
+  rcases Bool.or_eq_true_iff.1 hok with h1 | h1
+  · exact signIv_sound (ivH_psi3I (g := fun q => ivc h (gT L q)) fun a b => ivH_ivc hu (hM a b)) ho h1
+  · exact signOK_sound hu (has_psi3T hu hM) ho h1
+
 /-! ### Blocks and corner phases of `g · K` -/
 
 /-- Entry `(x, y)` of `g · K` from the entry models (`g = 0, 1, 2, 3`: `id, conj, T, conjT`). -/
@@ -199,7 +262,7 @@ def qOK (G M : List ℤ) (qg : ℕ) : Bool :=
 def t1OK (h : List ℕ) (qm km : List CT) (T : T1D) (Bl : BallD) (rl : ℕ) : Bool :=
   decide (T.g < 4) && decide (T.qg < 2 ^ pp) && qOK T.G Bl.Mth T.qg &&
     decide (T.m * 2 ^ pp < (2 ^ pp - T.qg) * rl) && boundOK h T.m (vT h qm T Bl) &&
-    signOK h Bl.o (psi3T h (blockT km T.g T.rows T.cols 0 3)) &&
-    signOK h (-Bl.o) (psi3T h (blockT km T.g T.rows T.cols 3 0))
+    sign3Any h Bl.o (blockT km T.g T.rows T.cols 0 3) &&
+    sign3Any h (-Bl.o) (blockT km T.g T.rows T.cols 3 0)
 
 end NoFourMUBs.KernelAtlas.Seed

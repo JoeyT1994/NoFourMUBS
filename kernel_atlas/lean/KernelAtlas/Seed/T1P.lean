@@ -271,8 +271,8 @@ structure SgnD where
   o : ℤ
 
 def sgnOK (h : List ℕ) (km : List CT) (S : SgnD) : Bool :=
-  signOK h S.o (psi3T h (blockT km S.g S.rows S.cols 0 3)) &&
-    signOK h (-S.o) (psi3T h (blockT km S.g S.rows S.cols 3 0))
+  sign3Any h S.o (blockT km S.g S.rows S.cols 0 3) &&
+    sign3Any h (-S.o) (blockT km S.g S.rows S.cols 3 0)
 
 def gS (l : List SgnD) (i : ℕ) : SgnD := l.getD i ⟨0, [], [], 0⟩
 

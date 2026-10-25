@@ -228,11 +228,11 @@ theorem t1OK_sound {h : List ℕ} {u : Fin 4 → ℝ} (hu : InBox h u) {qm km : 
   · rw [psi_rightBlock_cornerMat kk σ τ hH, hos]
     have hb := has3_blockR hK kk hσ hτ
     rw [hk] at hb
-    exact signOK_sound hu (has_psi3T hu hb) ho' hsB
+    exact sign3Any_sound hu hb ho' hsB
   · rw [psi_lowerBlock_cornerMat kk σ τ hH, hos]
     have hb := has3_blockC hK kk hσ hτ
     rw [hk] at hb
-    have := signOK_sound hu (has_psi3T hu hb) ho'' hsC
+    have := sign3Any_sound hu hb ho'' hsC
     push_cast at this; linarith
 
 /-- **T1 on a box**: the core plus the T1 check give the target claim. -/

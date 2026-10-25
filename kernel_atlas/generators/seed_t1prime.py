@@ -278,8 +278,8 @@ def kmT(R, D, dl):
 
 
 def sgnOK(h, km, sg):
-    return signOK(h, sg['o'], X.psi3T(h, X.blockT(km, sg['g'], sg['rows'], sg['cols'], 0, 3))) and \
-        signOK(h, -sg['o'], X.psi3T(h, X.blockT(km, sg['g'], sg['rows'], sg['cols'], 3, 0)))
+    return X.sign3Any(h, sg['o'], X.blockT(km, sg['g'], sg['rows'], sg['cols'], 0, 3)) and \
+        X.sign3Any(h, -sg['o'], X.blockT(km, sg['g'], sg['rows'], sg['cols'], 3, 0))
 
 
 def gS(l, i): return l[i] if 0 <= i < len(l) else dict(g=0, rows=[], cols=[], o=0)

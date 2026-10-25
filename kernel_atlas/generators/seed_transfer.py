@@ -102,6 +102,21 @@ def psi3T(h, L):
     return mul(h, mul(h, perm, mul(h, det, det)), conj(pr))
 
 
+def psi3I(g):
+    M = lambda a, b: g[3 * a + b]
+    m3 = lambda a, b, c: S.ivm(S.ivm(a, b), c)
+    t1 = m3(M(0, 0), M(1, 1), M(2, 2)); t2 = m3(M(0, 0), M(1, 2), M(2, 1)); t3 = m3(M(0, 1), M(1, 0), M(2, 2))
+    t4 = m3(M(0, 1), M(1, 2), M(2, 0)); t5 = m3(M(0, 2), M(1, 0), M(2, 1)); t6 = m3(M(0, 2), M(1, 1), M(2, 0))
+    perm = S.ivSum([t1, t2, t3, t4, t5, t6])
+    det = S.ivSum([t1, S.ivNeg(t2), S.ivNeg(t3), t4, t5, S.ivNeg(t6)])
+    pr = S.ivm(S.ivm(m3(M(0, 0), M(0, 1), M(0, 2)), m3(M(1, 0), M(1, 1), M(1, 2))), m3(M(2, 0), M(2, 1), M(2, 2)))
+    return S.ivm(S.ivm(perm, S.ivm(det, det)), S.ivConj(pr))
+
+
+def sign3Any(h, o, L):
+    return S.signIv(o, psi3I([S.ivc(h, gT(L, q)) for q in range(9)])) or signOK(h, o, psi3T(h, L))
+
+
 def qpT(qm, g, rows, cols, a, b):
     return gT(qm, 6 * pidx(cols, b) + pidx(rows, a) if 2 <= g else 6 * pidx(rows, a) + pidx(cols, b))
 
@@ -146,9 +161,9 @@ def t1OK(h, qm, km, T, Bl, rl, why=False):
     for k, v in checks:
         if not v: return (False, k) if why else False
     if not boundOK(h, T['m'], vT(h, qm, T, Bl)): return (False, 'bound') if why else False
-    if not signOK(h, Bl['o'], psi3T(h, blockT(km, T['g'], T['rows'], T['cols'], 0, 3))):
+    if not sign3Any(h, Bl['o'], blockT(km, T['g'], T['rows'], T['cols'], 0, 3)):
         return (False, 'signB') if why else False
-    if not signOK(h, -Bl['o'], psi3T(h, blockT(km, T['g'], T['rows'], T['cols'], 3, 0))):
+    if not sign3Any(h, -Bl['o'], blockT(km, T['g'], T['rows'], T['cols'], 3, 0)):
         return (False, 'signC') if why else False
     return (True, None) if why else True
 
