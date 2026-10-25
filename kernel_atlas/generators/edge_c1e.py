@@ -415,6 +415,18 @@ def lean_ebox(name, D):
         lean_nat_list(D['eV']), lean_ct_list(D['Xp']), '[' + ', '.join(lean_z2(z) for z in D['A0']) + ']')
 
 
+def labelOK(B, D):
+    """Exact mirror of Label.labelOK: the affine label varies in a nondegenerate direction."""
+    return any(D['hb'][j] > 0 and B['Mth'][12 + j] != 0 for j in range(4))
+
+
+def chartOK(B, D):
+    ok, info = c1eBox(B, D)
+    if not labelOK(B, D):
+        return False, ('label', 'the regular part is not certified dense')
+    return ok, info
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--r', type=float, default=0.115)
@@ -439,7 +451,7 @@ def main():
     t0 = time.time()
     for bi in sel:
         D = tune(B, box_data(xb, keep[bi]))
-        ok, info = c1eBox(B, D)
+        ok, info = chartOK(B, D)
         print('box %d %s: ok=%s %s' % (bi, keep[bi], ok, info if not ok else {kk: ('%.3g' % v if isinstance(v, float) else v)
                                                                           for kk, v in info[1].items()}))
         if not ok:
@@ -467,6 +479,17 @@ def main():
             for bi, D, ok in out:
                 if ok: f.write('theorem box%d_ok : c1eBox ball box%d = true := by decide +kernel\n\n' % (bi, bi))
             f.write('end ' + namespace + '\n')
+        with open(destination / 'ChartCheck.lean', 'w') as f:
+            f.write('import ' + module + '.C1eCheck\nimport KernelAtlas.Edge.Chart\n\n'
+                    'namespace ' + namespace + '\n\nopen NoFourMUBs.KernelAtlas.Edge\n\n')
+            for bi, _, _ in out:
+                f.write('theorem box%d_label : labelOK ball box%d = true := by decide +kernel\n\n' % (bi, bi))
+                f.write('theorem box%d_chart : chartOK ball box%d = true :=\n'
+                        '  by simp only [chartOK, box%d_ok, box%d_label, Bool.and_self]\n\n' % (bi, bi, bi, bi))
+                f.write('noncomputable def box%d_chartData : BoxChart ball box%d :=\n'
+                        '  boxChart (by have h := box%d_ok; rw [c1eBox_eq, Bool.and_eq_true] at h; exact h.1) box%d_label\n\n' % (bi, bi, bi, bi))
+            f.write('end ' + namespace + '\n')
+
 
 
 if __name__ == '__main__':

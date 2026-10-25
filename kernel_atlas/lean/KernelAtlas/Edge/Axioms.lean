@@ -9,6 +9,11 @@ import KernelAtlas.Edge.Glue
 import KernelAtlas.Edge.Frame
 import KernelAtlas.Edge.Fold
 import KernelAtlas.Edge.Angle
+import KernelAtlas.Edge.Enclosure
+import KernelAtlas.Edge.GlobalChart
+import KernelAtlas.Edge.Graph
+import KernelAtlas.Edge.Fourier.Sound
+import KernelAtlas.Edge.Implicit
 
 /-!
 # Axiom audit for the edge kernel checks
@@ -51,3 +56,20 @@ Run with `LEAN_NUM_THREADS=8 lake build KernelAtlas.Edge.Axioms` from `lean/`.
 #print axioms NoFourMUBs.KernelAtlas.Edge.rootCompletion_hadamard_of_dense
 #print axioms NoFourMUBs.KernelAtlas.Edge.argRadius_lt_pi
 #print axioms NoFourMUBs.KernelAtlas.Edge.continuous_phase_lift
+
+#print axioms NoFourMUBs.KernelAtlas.Edge.labelOK_dense
+#print axioms NoFourMUBs.KernelAtlas.Edge.BoxRoots.hadamard
+#print axioms NoFourMUBs.KernelAtlas.Edge.BoxRoots.phase_models
+#print axioms NoFourMUBs.KernelAtlas.Edge.BoxRoots.phase_continuous
+#print axioms NoFourMUBs.KernelAtlas.Edge.chartOK_sound
+#print axioms NoFourMUBs.KernelAtlas.Edge.chart_enclosure_sound
+#print axioms NoFourMUBs.KernelAtlas.Edge.BoxChart.overlap
+#print axioms NoFourMUBs.KernelAtlas.Edge.glue_boxCharts
+#print axioms NoFourMUBs.KernelAtlas.Edge.edge_ball_cover
+#print axioms NoFourMUBs.KernelAtlas.Edge.edge_sphere_cover
+#print axioms NoFourMUBs.KernelAtlas.Edge.graphImageOK_sound
+#print axioms NoFourMUBs.KernelAtlas.Edge.Fourier.normal_bound
+#print axioms NoFourMUBs.KernelAtlas.Edge.Fourier.frame_checked
+#print axioms NoFourMUBs.KernelAtlas.Edge.Fourier.normal_checked
+
+#print axioms NoFourMUBs.KernelAtlas.Edge.hasStrictFDerivAt_selected_root

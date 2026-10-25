@@ -12,18 +12,27 @@ common interval identifies those angles away from the fold. The fixed-point prec
 - `SideModels`: root-coordinate and side-row enclosures and the common fourth-angle interval.
 - `CoreRegular`: a passing core box at nonzero label gives a Hadamard completion, phase models and
   entry models. A passing C1e box additionally bounds the horizontal phase distance to F6.
-- `SideContinuity`: the selected augmented root is continuous on a checked closed box.
+- `SideContinuity`, `BoxRoots`: continuous selected augmented roots on a checked closed box.
+- `Label`: a finite integer check proves density of the nonzero-label part of the actual box.
+- `PhaseModels`, `Chart`: full local phase-chart soundness, including Hadamard at the fold,
+  continuity of the selected real argument lifts, and both phase and entry model enclosures.
+- `Enclosure`: the affine residual `Q - P - U w - 2 pi N` uses the existing seed vertex bound.
 - `Forced`: the forced-block Boolean proves invertibility even at the fold; the forced completion
   is continuous wherever the side block is invertible.
 - `Fold`: affine-label density on convex domains and Hadamard extension of continuous root
   completions across the fold.
 - `Angle`: the integer argument-window check provides a compact window of radius strictly less
   than pi, and a phase lift in this window is unique and continuous.
-- `Glue`: the shifted predictor overlap check puts a root in a neighbouring uniqueness tube;
-  compatible continuous functions glue over a finite closed cover.
+- `Glue`, `Overlap`: shifted predictor checks identify the selected augmented roots. The shared
+  argument anchors identify the real phases as well, so the charts agree on overlaps.
+- `GlobalChart`: compatible checked charts glue over a finite closed cover. `coverMatch` connects
+  enlarged edge boxes to the existing exact ball and sphere coverage traversals.
 - `Image`: soundness of the exact integer horizontal projection and the X image bound.
 - `Frame`: inverse-Gram frame coordinates, the normal-space identity, and the strict graph-radius
-  inequality for sigma = 17/10 and R_G = 9/20. The numerical normal bound is a separate obligation.
+  inequality for sigma = 17/10 and R_G = 9/20.
+- `Normal`, `Fourier`: a kernel-checked rational frame and normal bound 171/100 at the rounded
+  Fourier centre, transported to 17/10 at exact F6 using the proved Jacobian Lipschitz bound.
+  `Graph` turns the checked X-image bound into the required strict graph-radius bound.
 - `Transfer`: sound T1 transfers on shifted edge models, reusing the seed transfer kernel.
 - `SeedAtlas/EdgeX`, `EdgeXAtlas`, `EdgeXFinal`: the statement variant using `XExclusion` and the
   conditional atlas conclusion. The legacy Stage C route is preserved.
@@ -43,6 +52,13 @@ PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 .venv/bin/python kernel_atlas/g
 The first command selects grid index `(0,4,5,6)` among 29,792 retained C1e boxes. The exact mirror
 passes with image bound about 0.145 and derivative centre/error 1958.903 / 11.472. It takes about
 2.3 seconds to construct and check this box in Python. Emission stops on any failed mirror check.
+
+Additional reproducible generators are `edge_enclosure.py`, `edge_overlap.py`, and
+`edge_normal.py`. The baseline affine residual is bounded by 0.013377178741; the adjacent
+boxes `(0,4,5,6)` and `(0,4,5,7)` pass the overlap check. These checks and the second chart
+are kernel-verified. The Fourier frame has Gram error at most 5.45e-9; the normal certificate's
+positive-semidefinite residual has smallest diagonal about 0.001. The kernel checks the
+actual integers and rationals, independently of these displayed floating summaries.
 
 The transfer uses the existing radius-0.1 edge fixture and its radius-0.01 sphere seed fixture.
 Its source centre is `(0,0,0,0.1)` and its half-width is 0.0004. The target radius, frame and
@@ -72,11 +88,11 @@ coverage and assembly checks are additional. No Rusty jobs were run; remote core
 
 ## Remaining integration obligations
 
-The components above do not yet constitute a complete edge-ball certificate. The selected box
-roots and phase lifts must be assembled into a chart with full model soundness at the fold; the
-finite cover and overlap checks must be generated and connected to that chart. The numerical F6
-normal bound, derivative/slope enclosures proving openness, complete sphere coverage, and a
-certificate-format emitter assembling every field remain separate obligations. The X exclusion
+The components above do not yet constitute a complete edge-ball certificate. Local chart
+soundness at the fold, affine enclosure, overlap identification, finite-cover gluing, and the
+numerical F6 normal bound are proved. A complete set of generated cover and overlap checks,
+derivative/slope enclosures proving openness, all sphere transfers, and a certificate-format
+emitter assembling every field remain separate obligations. The X exclusion
 itself is supplied by the independent X theorem. No hypothesis-free final theorem is claimed here.
 
 This note lives under `Edge/` because the task's explicit writable-path restriction excludes
