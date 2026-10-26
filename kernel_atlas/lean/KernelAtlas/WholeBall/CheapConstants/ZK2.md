@@ -1,10 +1,12 @@
 # ZK2: all-ball cheap C1
 
-**Work in progress.** All 577 original-radius fine budgets are confirmed.
-Run6 growth and the remaining smaller-radius budget checks are running on
-rusty. Edge re-cover and final audits follow. A closed all-cheap run6 atlas
-is **NOT ESTABLISHED** yet. This report will be updated with the final counts,
-receipts and accounting when those jobs finish.
+**Work in progress.** All 577 original-radius fine budgets and all 432
+preliminary smaller-radius budgets are confirmed (five of the latter were
+subsequently restored to their original radii). Run6's seed cover is
+**NUMERICALLY closed** with 2,729 cheap balls, including 379 new balls.
+The edge re-cover is running on rusty; fresh final audits follow. A closed
+all-cheap run6 atlas, including its edge boundary, is **NOT ESTABLISHED** yet.
+Final receipts and accounting will be added when those jobs finish.
 
 The input is the 2,350-ball ZK archive. A read-only comparison established that
 all original centres, frames, horizontal phase data and radii match run5. The
@@ -68,6 +70,14 @@ existing edge builder using `--edge --xball 0.13`, feeding edge gaps back into
 seed growth. Driver closure remains **NUMERICAL** until the user's independent
 export and Arb/Julia transfer certification.
 
+The original edge boundary has 1,183,840 leaves, all targeting five shrunk
+seed balls. Its re-cover uses `budget_edge.py` to partition the unchanged
+`edge_multi.cover_box` routine's 2,080 start boxes across four nodes. Each
+result is checkpointed atomically; collection requires every start box
+exactly once, with common input/source hashes. A real old boundary leaf
+passed the new runner's preflight in 0.394 s. The earlier single-node edge
+pass was cancelled; its allocation is included in the accounting.
+
 The final `budget_state.py` audit requires a closed seed and edge state,
 unchanged original centres/frames, fresh cheap C1, certifier Stage C, and fine
 budgets for changed/new balls. Its input is an immutable closed snapshot.
@@ -75,6 +85,12 @@ budgets for changed/new balls. Its input is an immutable closed snapshot.
 `ZK2_jobs.jsonl` records this task's jobs, including cancelled searches whose
 completed trial checks were reused. `ZK2_sources.tar.gz` preserves the exact
 source snapshots; `ZK2_source_manifest.json` records all source/input hashes.
+Two growth refreshes restarted open covers against newly added targets. The
+second used the driver's STOP checkpoint, preserving all completed work;
+the first resumed its last periodic checkpoint and recomputed one ball and
+one cover. The final receipt collector checks shard completeness, common
+state/source hashes, exact scalar inequalities and Stage C bindings, and
+counts Slurm allocations without double-counting their job steps.
 The cluster uses Python 3.12.9, NumPy 2.2.6 and python-flint 0.9.0, with BLAS
 threads limited to one and normally 80 worker processes per 128-CPU node.
 No Lean process has been run for ZK2.
