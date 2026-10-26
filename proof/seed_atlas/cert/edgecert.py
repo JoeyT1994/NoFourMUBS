@@ -710,19 +710,6 @@ def tm_recentre(t, delta, hnew):
     return TM(c, g, t.q.copy(), t.rho, hnew)
 
 
-def t3_orders(grp):
-    """FORMAT.md section 8: rows = (i0, i1, i2), cols = (j0, j1, j2) the ordered corner, hcols an order of J^c, vrows an
-    order of I^c.  Returns the full orders (chart row a = K's row R[a], chart column b = K's column C[b])."""
-    def tri(v, what):
-        need(isinstance(v, (list, tuple)) and len(v) == 3 and all(isinstance(x, int) and not isinstance(x, bool) and 0 <= x < 6 for x in v),
-             'T3: malformed %s' % what)
-        return [int(x) for x in v]
-    I, J, hc, vr = tri(grp.get('rows'), 'rows'), tri(grp.get('cols'), 'cols'), tri(grp.get('hcols'), 'hcols'), tri(grp.get('vrows'), 'vrows')
-    R, C = I + vr, J + hc
-    need(sorted(R) == list(range(6)) and sorted(C) == list(range(6)), 'T3: rows + vrows and cols + hcols must be permutations')
-    return R, C
-
-
 IDX_TH = [7, 8, 13, 14]; IDX_PH = [9, 10, 11, 15, 16, 17]; IDX_PV = [19, 25, 31, 20, 26, 32]
 
 
@@ -756,66 +743,124 @@ def pred_compose(c, g, q2, v):
     return out
 
 
-def check_T3(Q, eb, tubes, grp, max_depth=8):
-    """T3 (FORMAT.md section 8) on boxes with source phase TMs Q (B, 36): K = g . H_source (phases Q'); the corner seed
-    th' at (rows, cols), the side angles phi'_h (columns hcols) and phi'_v (rows vrows), each dephased at (i0, j0) and
-    shifted by 2 pi wind, wind_h, wind_v; y' = -2 Im Psi(K[I, J^c]); p' = (th'_1..3 - TH0_1..3, y').
-    Certified: ||Mth^-1 p'|| < r, and (th'_4 - TH0_4, phi'_h - PH0) resp. (th'_4 - TH0_4, phi'_v - PH0) within the
-    uniqueness radius of the C1e tube of EVERY edge box the image of Mth^-1 p' may meet, over the whole source box (the
-    C1e tubes define H, and are consistent across faces).  Uniqueness then gives K = H(p') (the vertical side solves
-    the system at -y' when the corner is matched, or y' = 0; a strict nonmatched corner would make K Tao, SPEC
-    section 10).  Source boxes are bisected when no candidate edge box certifies."""
-    need(tubes is not None and len(tubes.rho['h']), 'T3: edge ball not certified')
-    R, C = t3_orders(grp)
-    N4 = S.ints(grp.get('wind'), 4, 'T3 wind'); Nh = S.ints(grp.get('wind_h'), 6, 'T3 wind_h'); Nv = S.ints(grp.get('wind_v'), 6, 'T3 wind_v')
-    th, phh, phv = corner_data(Q, grp['g'], R, C)
+X_DIST = (3, 20)                     # return XS, (XS1): the coarse distance to F6 under which p'(K) determines K
+W_TANGENT = ((1, -0.5, -0.5, 0), (-0.5, 1.75, 0.25, 0), (-0.5, 0.25, 1.75, 0), (0, 0, 0, 1))   # W's form, XS (1)
+W_RADIUS = (1, 5)                    # W's chart and normal graph hold on E_{1/5}
+
+
+def t3_corner(grp):
+    """The ordered corner of a T3 group, completed by the complementary rows and columns in increasing order (their
+    order is immaterial: Psi is invariant under it, and XS needs no side data)."""
+    def tri(v, what):
+        need(isinstance(v, (list, tuple)) and len(v) == 3 and all(isinstance(x, int) and not isinstance(x, bool) and 0 <= x < 6 for x in v)
+             and len(set(v)) == 3, 'T3: malformed %s' % what)
+        return [int(x) for x in v]
+    I, J = tri(grp.get('rows'), 'rows'), tri(grp.get('cols'), 'cols')
+    return I + [r for r in range(6) if r not in I], J + [c for c in range(6) if c not in J]
+
+
+def edge_in_W(eb):
+    """Certify once per edge ball that its parameter ellipsoid {p = Mth w : ||w|| <= r} lies inside W's E_{1/5}
+    = {p : q^T W q <= 1/25}, q = (p1, p2, p3, p4/24): (1/(25 r^2)) I - S^T W S positive definite (exact LDL in Arb),
+    S = diag(1, 1, 1, 1/24) Mth.  XS (1)-(XS1) need the target inside E_{1/5}; a shifted target (q0 != 0) is not
+    covered here."""
+    if getattr(eb, '_in_W', None) is not None: return eb._in_W
+    need(not eb.q0.any(), 'T3: the X-ball must be centred at F6 (q0 = 0) for the XS transfer')
+    Sm = [[arb(eb.Mth[i, j]) / (24 if i == 3 else 1) for j in range(4)] for i in range(4)]
+    W = [[arb(x) for x in row] for row in W_TANGENT]
+    M = [[sum((Sm[a][i] * W[a][b2] * Sm[b2][j] for a in range(4) for b2 in range(4)), arb(0)) for j in range(4)] for i in range(4)]
+    c = arb(W_RADIUS[0]) ** 2 / (arb(W_RADIUS[1]) ** 2 * arb(eb.r) ** 2)
+    A = [[(c if i == j else arb(0)) - M[i][j] for j in range(4)] for i in range(4)]
+    L = [[arb(0)] * 4 for _ in range(4)]; d = [arb(0)] * 4
+    for k in range(4):
+        d[k] = A[k][k] - sum((L[k][j] ** 2 * d[j] for j in range(k)), arb(0))
+        need(d[k] > 0, 'T3: the X-ball\'s ellipsoid is not certified inside W\'s E_1/5')
+        for i in range(k + 1, 4):
+            L[i][k] = (A[i][k] - sum((L[i][j] * L[k][j] * d[j] for j in range(k)), arb(0))) / d[k]
+    eb._in_W = True
+    return True
+
+
+_H36 = None
+
+
+def _hor():
+    """The exact horizontal projection h(Z) = P6 Z P6 on row-major 6 x 6 phases (36 x 36, entries in Z/36, Arb).  It
+    removes row and column constants, so a dephasing before it changes nothing."""
+    global _H36
+    if _H36 is None:
+        P6 = 6 * np.eye(6) - np.ones((6, 6))                                 # 6 P6, integers
+        Hk = np.kron(P6, P6).astype(int)                                     # 36 h, integers
+        _H36 = np.array([[arb(int(Hk[i, j])) / 36 for j in range(36)] for i in range(36)], dtype=object)
+    return _H36
+
+
+def t3_distance(Qp, I, J):
+    """Certified upper bound, per box, of the phase distance d([K], [F6]) for K with phases Qp (B, 36) over the box:
+    K's rows (I, then I^c in some order) and columns (J, then J^c in some order) are aligned with F6's Fourier rows
+    and columns 0..5, dephased at (I[0], J[0]), shifted by an integer winding N, and projected horizontally; the
+    sup of ||h(.)|| over the box bounds the distance (any alignment and winding do, XS section 5.1).  The order of
+    the complements and N are chosen in floats (untrusted) and then bounded in Arb."""
+    B = Qp.c.shape[0]
+    Hd = _hor(); Hdf = np.array([[float(x.mid()) for x in row] for row in Hd])
     tp = S.TWO_PI_ARB
-    th0 = np.array([arb.pi() * k / 3 for k in K_TH0], dtype=object); ph0 = np.array([arb.pi() * k / 3 for k in K_PH0], dtype=object)
-    th = th + oarb(N4.astype(float))[None, :] * tp - th0[None, :]
-    phh = phh + oarb(Nh.astype(float))[None, :] * tp
-    phv = phv + oarb(Nv.astype(float))[None, :] * tp
-    y = S.psi_tm(S.side_tm(phh)).im().scale(arb(-2))                       # Psi is invariant under the 2 pi shifts
-    p = stack([th[0], th[1], th[2], y], (4,), Q.h, False)
-    p = p - eb.q0_a[None, :]
+    PFf = np.array([2 * math.pi * ((a * b) % 6) / 6 for a in range(6) for b in range(6)])
+    Ic = [r for r in range(6) if r not in I]; Jc = [c for c in range(6) if c not in J]
+    out = []
+    for bx in range(B):
+        Qc = np.array([float(x.mid()) for x in Qp.c[bx]])
+        best = None
+        for rc in itertools.permutations(Ic):
+            for cc in itertools.permutations(Jc):
+                R, C = I + list(rc), J + list(cc)
+                idx = np.array([6 * R[a] + C[b] for a in range(6) for b in range(6)])
+                D = Qc[idx] - PFf
+                Dd = (D.reshape(6, 6) - D.reshape(6, 6)[:, :1] - D.reshape(6, 6)[:1, :] + D[0]).reshape(36)
+                N = np.round(Dd / (2 * math.pi))                         # windings of the dephased difference
+                z = Hdf @ (Dd - 2 * math.pi * N)
+                v = float(np.linalg.norm(z))
+                if best is None or v < best[0]: best = (v, idx, N)
+        _, idx, N = best
+        Kb = Qp.select([bx])[idx]
+        PFd = [(a * b) % 6 for a in range(6) for b in range(6)]                 # F6's phases are already dephased
+        shift = np.array([[tp * PFd[k] / 6 + tp * int(N[k]) for k in range(36)]], dtype=object)
+        Ld = np.zeros((36, 36), int)                                       # dephase at (0, 0) before the winding
+        for a in range(6):
+            for b in range(6):
+                Ld[6 * a + b, 6 * a + b] += 1; Ld[6 * a + b, 6 * a] -= 1; Ld[6 * a + b, b] -= 1; Ld[6 * a + b, 0] += 1
+        z = (Kb.lmul(oarb(Ld.astype(float))) - shift).lmul(Hd)
+        out.append(TMA.norm_sup(z)[0])
+    return out
+
+
+def check_T3(Q, eb, tubes, grp, max_depth=8):
+    """T3 (FORMAT.md section 8) on boxes with source phase TMs Q (B, 36), by return XS's transfer theorem (XS1): for
+    K = g . H_source, if its corner parameter p'(K) = (th'_1..3 - TH0_1..3, -2 Im Psi(K[I, J^c])) lies in a target
+    inside W's E_{1/5} and d([K], [F6]) <= 3/20, then K ~ H(p'(K)).  Certified here, over the whole source box:
+      - the X-ball's ellipsoid lies inside E_{1/5} (once per edge ball);
+      - ||Mth^-1 p'|| < r, so p'(K) is in the X-ball's open parameter ellipsoid;
+      - the phase distance of K to F6 is below 3/20.
+    No side orders, side windings, orientation signs or tubes are needed (XS sections 3, 6).  wind: 2 pi windings of
+    the first three corner phases (a fourth entry is ignored)."""
+    need(tubes is not None and len(tubes.rho['h']), 'T3: edge ball not certified')
+    edge_in_W(eb)
+    R, C = t3_corner(grp)
+    wv = grp.get('wind')
+    need(isinstance(wv, (list, tuple)) and len(wv) in (3, 4), 'T3: wind must have 3 (or 4) entries')
+    N3 = S.ints(list(wv)[:3], 3, 'T3 wind')
+    th, phh, _ = corner_data(Q, grp['g'], R, C)
+    tp = S.TWO_PI_ARB
+    th0 = np.array([arb.pi() * k / 3 for k in K_TH0[:3]], dtype=object)
+    y = S.psi_tm(S.side_tm(phh)).im().scale(arb(-2))                       # Psi(K[I, J^c]): any order, any 2 pi shift
+    p = stack([th[0] + tp * int(N3[0]) - th0[0], th[1] + tp * int(N3[1]) - th0[1], th[2] + tp * int(N3[2]) - th0[2], y],
+              (4,), Q.h, False)
     w = p.lmul(eb.Minv())
     sup = TMA.norm_sup(w)
     need(all(x < eb.r_a for x in sup), 'T3: p_K not certified inside the edge ball')
-    phh = phh - ph0[None, :]; phv = phv - ph0[None, :]
-    xh = stack([th[3]] + [phh[k] for k in range(6)], (7,), Q.h, False)
-    xv = stack([th[3]] + [phv[k] for k in range(6)], (7,), Q.h, False)
-    ra = arb(tubes.r)
-    for b in range(Q.c.shape[0]):
-        _t3_box(w.select([b]), xh.select([b]), xv.select([b]), tubes, ra, 0, max_depth)
-
-
-def _t3_box(w, xh, xv, tubes, ra, depth, max_depth):
-    """Every edge box whose closed box may meet the image of w (outward-rounded bounding box, generous float
-    tolerance; extra boxes only make the test stronger) must certify the T3 condition over the whole source box.
-    Each image point lies in one of them (the kept boxes cover the ball, and ||w|| < r is certified), and the
-    condition for that box at that point is all T3 needs.  If some box fails, the source box is bisected."""
-    var = w.var()
-    lo = np.array([TMA.lo(w.c[0, j] - var[0, j]) for j in range(4)]); hi = np.array([up(w.c[0, j] + var[0, j]) for j in range(4)])
-    meet = np.all((tubes.wcf - tubes.hf <= hi[None] + 1e-12) & (lo[None] <= tubes.wcf + tubes.hf + 1e-12), axis=1)
-    cand = np.where(meet)[0]
-    if len(cand) and all(_t3_try(w, xh, xv, tubes, e) for e in cand): return
-    if depth >= max_depth:
-        raise CertError('T3: the image is not certified inside the edge tubes (depth %d)' % depth)
-    hnew = w.h / 2
-    for sg in itertools.product((-1, 1), repeat=4):
-        delta = np.array([[hnew[0, j] * sg[j] for j in range(4)]], dtype=object)
-        _t3_box(tm_recentre(w, delta, hnew), tm_recentre(xh, delta, hnew), tm_recentre(xv, delta, hnew), tubes, ra, depth + 1, max_depth)
-
-
-def _t3_try(w, xh, xv, tubes, e):
-    """|x_K - pred_e(w_K - w_e)| < rho_e (uniqueness radius of box e) over the whole source box, both sides."""
-    we, he = box_exact(tubes, e)
-    v = w - we[None, :]
-    for side, x in (('h', xh), ('v', xv)):
-        c, g, q2 = (tubes.pred[side][i][e] for i in range(3))
-        D = (x - pred_compose(c, g, q2, v)).bound()
-        rho = arb(tubes.rho[side][e])
-        if not all(D[0, i] < rho for i in range(7)): return False
-    return True
+    sgn, gi = S.g_perm(grp['g'])
+    dist = t3_distance(S.apply_signed_perm(Q, sgn, gi), R[:3], C[:3])
+    lim = arb(X_DIST[0]) / X_DIST[1]
+    need(all(x < lim for x in dist), 'T3: the source is not certified within phase distance 3/20 of F6')
 
 
 def check_edge_transfers(eb, seeds, groups, max_level, chunk=64, edges=(), check=True, cover=True):

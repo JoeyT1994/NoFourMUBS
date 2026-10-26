@@ -161,9 +161,8 @@ def task_cover(j, ball, snap):
         gl = []
         for (ci, N), bx in groups.items():
             d = cands[ci].desc
-            if d[0] == 'T3':                  # the edge phase's T3 group format (FORMAT §8)
-                gl.append(dict(desc=d[:5], wind=list(d[5]), hcols=list(N[0:3]), vrows=list(N[3:6]), wind_h=list(N[6:12]),
-                               wind_v=list(N[12:18]), boxes=np.array(bx, np.int16)))
+            if d[0] == 'T3':                  # FORMAT §8 (return XS): the corner and its three windings only
+                gl.append(dict(desc=d[:5], wind=list(d[5])[:3], boxes=np.array(bx, np.int16)))
             else:
                 gl.append(dict(desc=d, wind=list(N), boxes=np.array(bx, np.int16)))
         return dict(kind='cover', j=j, nsnap=len(snap['r']), groups=gl, nleaves=len(leaves),

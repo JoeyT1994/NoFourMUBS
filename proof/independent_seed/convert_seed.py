@@ -70,8 +70,10 @@ def group_lines(t, kinds, what):
         if 'vrows' in t or 'hcols' in t:
             rows = rows + ints(t['vrows'], what + ' vrows', 3)
             cols = cols + ints(t['hcols'], what + ' hcols', 3)
-        if wind or 'wind_h' in t or 'wind_v' in t:
+        if 'wind_h' in t or 'wind_v' in t:                     # format v2 side data (ignored by the XS check)
             wind = ints(wind, what + ' wind', 4) + ints(t['wind_h'], what + ' wind_h', 6) + ints(t['wind_v'], what + ' wind_v', 6)
+        elif wind:
+            wind = ints(wind[:3], what + ' wind', 3)
     boxes = t.get('boxes')
     if not isinstance(boxes, list):
         raise SystemExit('%s: boxes must be a list' % what)

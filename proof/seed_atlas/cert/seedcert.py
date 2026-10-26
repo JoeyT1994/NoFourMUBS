@@ -1043,7 +1043,7 @@ def check_seed_transfers(ball, seeds, records, groups, max_level, chunk=64, edge
         elif kind == 'T3':
             import edgecert
             need(0 <= t < len(edges), 'T3: target out of range')
-            g_index(grp.get('g')); edgecert.t3_orders(grp)
+            g_index(grp.get('g')); edgecert.t3_corner(grp)
             jobs.append(('T3', grp, None, None, xc, h, xcf))
         else:
             raise CertError('unknown transfer kind %r' % (kind,))
