@@ -43,7 +43,8 @@ def affected(A, plans, edges=()):
         if not 0 <= j < len(A.balls):
             raise ValueError(f"invalid ball index {j}")
         b = A.balls[j]
-        if plan.get("status") != "CERTIFIED" or not plan.get("stagec", {}).get("ok"):
+        if (plan.get("status") != "CERTIFIED" or not plan.get("stagec", {}).get("ok") or
+                plan["stagec"].get("check") != "certifier"):
             raise ValueError(f"ball {j}: a C1 and Stage C certificate is required")
         if plan["geometry_sha256"] != geometry_hash(seed_json(b, [])):
             raise ValueError(f"ball {j}: source geometry mismatch")
@@ -52,7 +53,8 @@ def affected(A, plans, edges=()):
             raise ValueError(f"ball {j}: invalid radius or remainder")
         if plan["c1"]["status"] != "CERTIFIED" or plan["rank"] not in [0, 4]:
             raise ValueError(f"ball {j}: unsupported C1 witness")
-        if plan["stagec"]["n"] != plan["n"] or plan["stagec"]["label"] != plan["label"]:
+        if (plan["stagec"]["n"] != plan["n"] or plan["stagec"]["label"] != plan["label"] or
+                plan["stagec"]["r"] != plan["r"]):
             raise ValueError(f"ball {j}: Stage C witness does not match stored data")
         if plan["r"] < b.r:
             shrunk.add(j)
@@ -83,7 +85,8 @@ def mutate(A, plans, impact):
         A.ncover[j] = 0
         A.log_fail.pop(j, None)
     reopening = set(impact["reopen"])
-    A.tries = {k: v for k, v in A.tries.items() if not (isinstance(k, tuple) and k and k[0] in reopening)}
+    A.tries = {k: v for k, v in A.tries.items()
+               if k not in reopening and not (isinstance(k, tuple) and k and k[0] in reopening)}
     if impact["dirty_record"]:
         A.record = None
         A.record_rounds = 0

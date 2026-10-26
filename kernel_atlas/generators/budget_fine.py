@@ -52,7 +52,8 @@ def labels(seed):
 
 
 def stage(seed, n, label, certified=False):
-    cache_key = (G.get("current_j"), float(n).hex(), float(label).hex(), certified)
+    radius = float.fromhex(seed["r"])
+    cache_key = (G.get("current_j"), radius.hex(), float(n).hex(), float(label).hex(), certified)
     if cache_key in G.get("trial_cache", {}):
         saved = G["trial_cache"][cache_key]
         return dict(saved, cached=True, cached_seconds=saved["seconds"], seconds=0.)
@@ -69,16 +70,26 @@ def stage(seed, n, label, certified=False):
         result["ok"] = bool(result.get("ok", False))
     except Exception as e:
         result = dict(ok=False, error=repr(e))
-    row = dict(result, n=n, label=label, check="certifier" if certified else "screen",
+    row = dict(result, n=n, r=radius, label=label, check="certifier" if certified else "screen",
                seconds=time.perf_counter()-started)
     if os.environ.get("ZK2_TRACE"):
         print(json.dumps(dict(event="trial", j=G.get("current_j"), **row), default=json_default), flush=True)
     return row
 
 
-def fine_budget(seed, sn, initial_factor=None, tolerance=.02, cap=8.):
+def fine_budget(seed, sn, initial_factor=None, tolerance=.02, cap=8., known=None):
     unit = sn*1.05
     history, cache = [], {}
+    if known is not None:
+        if not known["ok"] or known["check"] != "certifier" or known["r"] != float.fromhex(seed["r"]):
+            raise ValueError("known lower budget needs a matching certifier receipt")
+        initial_factor = known["n"]/unit
+        # The same accepted n is a valid lower endpoint even if a floating
+        # screen's clustering differs. Never discard an already certified n.
+        for certified in [False, True]:
+            cache[(float(initial_factor).hex(), certified)] = known
+        history.append(dict(known, factor=initial_factor, preconfirmed=True))
+        cap = max(cap, initial_factor)
     def test(f, certified=False):
         key = (float(f).hex(), certified)
         if key in cache:
@@ -123,7 +134,7 @@ def fine_budget(seed, sn, initial_factor=None, tolerance=.02, cap=8.):
         if confirmation is not None:
             break
         hi = lo
-        lo *= .99
+        lo = max(lo*.99, initial_factor) if known is not None else lo*.99
         confirmation = test(lo, True)
     if confirmation is None:
         return dict(status="NOT ESTABLISHED", reason="certifier did not confirm a budget", history=history)
@@ -145,7 +156,8 @@ def init(archive, rank0, rank4, tolerance, cap, resume_trials=()):
                     continue
                 if row.get("event") != "trial" or row.get("j") is None:
                     continue
-                key = (row["j"], float(row["n"]).hex(), float(row["label"]).hex(), row["check"] == "certifier")
+                radius = row.get("r", float.fromhex(seeds[row["j"]]["r"]))
+                key = (row["j"], float(radius).hex(), float(row["n"]).hex(), float(row["label"]).hex(), row["check"] == "certifier")
                 G["trial_cache"][key] = {k: v for k, v in row.items() if k not in ["event", "j"]}
 
 
