@@ -6,7 +6,7 @@ side windings, and every box needs two Krawczyk tubes of a 7-unknown system. A s
 these, from the certificate format, the Arb and Julia certifiers, and the Lean kernel alike.
 
 Label every claim **PROVED**, **CERTIFIED** (exact or interval computation, replayable), **NUMERICAL** or
-**NOT ESTABLISHED**. Context files are in `context/`. The Python files there are reference implementations (numpy, python-flint; they import each other) for reading the definitions, not something you need to run. `sample_certificate.json.gz` holds real data: every seed ball's centre data, the full transfer boxes of 200 seed balls (including the 4 with T3 transfers), and the edge ball. `seedcert.Ball(seed)` reads one seed entry.
+**NOT ESTABLISHED**. Context files are in `context/`. The Python files there are reference implementations (numpy, python-flint; they import each other) for reading the definitions, not something you need to run. `sample_certificate.json.gz` holds real data: every seed ball's centre data, the full transfer boxes of the 4 seed balls with T3 transfers, and the edge ball (without its sphere transfers). `seedcert.Ball(seed)` reads one seed entry.
 
 ---
 
