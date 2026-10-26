@@ -43,8 +43,12 @@ It also checks Tao's record. A run over a subset (`--only`) never reports PASS.
 
 | Check | Result |
 |---|---|
-| Arb (`results/arb_receipt.json`) | **PASS**, 0 failures in 2,814 items; 1 h 23 min on one 128-core node; seed-ball work 101 core-hours (C1 12, Stage C 20, transfers 69) |
-| Julia (`results/julia/`: `RESULT.txt`, `BINDING.txt` with the certificate's SHA-256, per-ball `seeds.tsv.gz`) | **PASS**, every check; 1 h 19 min on one 128-core node, with Stage C's clique-search budget `SEED_CLIQUE_CAP` = 2·10¹⁰ steps |
+| Arb (`results/arb_receipt.json`) | **PASS**, 0 failures in 2,814 items; 52 min on one 128-core node; seed-ball work 52 core-hours (C1 12, Stage C 20, transfers 21) |
+| Julia (`results/julia/`: `RESULT.txt`, `BINDING.txt` with the certificate's SHA-256, per-ball `seeds.tsv.gz`) | **PASS**, every check; 47 min on one 128-core node, with Stage C's clique-search budget `SEED_CLIQUE_CAP` = 2·10¹⁰ steps |
 
 T3 is checked by return XS (FORMAT.md section 8): the certificate's T3 groups carry the corner and three windings
-only. The same atlas with the earlier side-tube data (SHA-256 `5daa58b3…`) passed both certifiers too.
+only. Transfers are checked by return ZT first (explorations/returns/ZT_wholeball_transfers): each box is tested against
+the ball's whole-ball quadratic model, with the box Taylor models as fallback; the X-ball's C1 is the edge whole-ball
+model (image within 0.1411 of F6). Before ZT the same certificate took 1 h 23 min (Arb, transfers 69 core-hours) and
+1 h 19 min (Julia). Both certifiers also verify return ZC's spherical caps when a seed ball carries them (Julia in
+256-bit intervals); the present certificate has none. The same atlas with the earlier side-tube data (SHA-256 `5daa58b3…`) passed both certifiers too.
