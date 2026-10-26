@@ -1,0 +1,82 @@
+{
+  "seed": 2270,
+  "status": "NOT ESTABLISHED",
+  "original_count": 7975,
+  "proposed_count": 2611,
+  "groups_sha256": "2bcc2b0c24d3c73331928faf175da2c3a97eb15cb4d98eefed882df9a44a5ae6",
+  "certificate_sha256": "8270748a969e087c1ac6f211f3c6812d12fe70f38c3a21eb58a8731de79c1279",
+  "verifier_sha256": "f5a9623d2fc20e325ad6b4915e863d07e193bc0a1c1e1d1ffaa908da5e9b9eaf",
+  "weighted_replay_sha256": "533491826118978e2e3e2f1b6ad741a3a11841d9c45eadc4d253de681b3f3ab4",
+  "seed_weighted_sha256": "d8c03fd0d6c2d1890552a2c1c4ce32c989ab1c338af6b3647637c1c29ac83a3d",
+  "centre": {
+    "r": 0.10000000000000002,
+    "tau": 0.010128756133333954,
+    "q": 0.6583314002188939,
+    "Z1": 0.5070551642738701,
+    "Z2": 36.78388522972105,
+    "beta": 3.4783276723502197,
+    "u": 1.0000000009104058,
+    "x": 1.0000000005000007,
+    "wn": 3.498434813504912,
+    "base": 0.11739163845279167,
+    "t3": 19.99964676544521,
+    "t4": 19.189652739123346,
+    "L5": 544.7283113487325,
+    "c": 4.6958542558653065,
+    "d": 8.910118689192,
+    "a2": 11.106499526406617,
+    "L3a": 130.24432924127328,
+    "status": "CERTIFIED",
+    "seconds": 0.43897465500049293,
+    "strict_R_lower": 18.484584372793044,
+    "dephased_lift_gap_upper": 0.06940068217097
+  },
+  "failed_patches": [
+    {
+      "group": {
+        "kind": "T1",
+        "target": 2129,
+        "g": "T",
+        "rows": [
+          0,
+          1,
+          2
+        ],
+        "cols": [
+          0,
+          1,
+          3
+        ],
+        "wind": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "ok": false,
+      "box": [
+        4,
+        8,
+        2,
+        6,
+        1
+      ],
+      "mode": "local",
+      "target_margin_lower": -0.0007183212806827718,
+      "target_bound_upper": 0.1007183212806828,
+      "error_upper": 0.008415434704678116,
+      "weighted_hessian_upper": 43.030408606108615,
+      "centre_root_error_upper": 1.307302719434618e-20,
+      "reason": "target",
+      "weighting": "projected residual"
+    }
+  ],
+  "failure_count": 1,
+  "failure": "one or more hybrid patches did not certify",
+  "passed_before_failure": 2610,
+  "seconds": 8.672580010003003,
+  "global_passes": 2531,
+  "local_passes": 79,
+  "local_attempts": 80
+}

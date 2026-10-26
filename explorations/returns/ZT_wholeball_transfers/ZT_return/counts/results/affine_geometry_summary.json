@@ -1,0 +1,50 @@
+{
+  "status": "NUMERICAL affine benchmarks; CERTIFIED exact sphere combinatorics",
+  "input_sha256": "8270748a969e087c1ac6f211f3c6812d12fe70f38c3a21eb58a8731de79c1279",
+  "seed_count": 200,
+  "seconds": 102.81390230500256,
+  "statistics": {
+    "original": {
+      "total": 1167746,
+      "minimum": 887.0,
+      "median": 4381.0,
+      "p90": 8353.3,
+      "maximum": 109623.0
+    },
+    "same_label_sphere_coarsening": {
+      "total": 914802,
+      "minimum": 856.0,
+      "median": 3877.5,
+      "p90": 6279.299999999998,
+      "maximum": 50708.0
+    },
+    "affine_box_total": {
+      "total": 412023,
+      "minimum": 397.0,
+      "median": 2009.5,
+      "p90": 2729.1,
+      "maximum": 4313.0
+    },
+    "affine_box_original_fallback": {
+      "total": 1704,
+      "minimum": 0.0,
+      "median": 0.0,
+      "p90": 3.0,
+      "maximum": 740.0
+    },
+    "affine_sphere_total": {
+      "total": 269162,
+      "minimum": 374.0,
+      "median": 1317.5,
+      "p90": 1867.1,
+      "maximum": 3369.0
+    },
+    "affine_sphere_original_fallback": {
+      "total": 570,
+      "minimum": 0.0,
+      "median": 0.0,
+      "p90": 1.0,
+      "maximum": 269.0
+    }
+  }
+}

@@ -1,0 +1,355 @@
+{
+  "seed": 2124,
+  "status": "NOT ESTABLISHED",
+  "original_count": 7425,
+  "proposed_count": 4129,
+  "groups_sha256": "6537bd3fe16e534cb21fe71118a208085e4e29a8bbc4480cee412044ebee7d79",
+  "certificate_sha256": "8270748a969e087c1ac6f211f3c6812d12fe70f38c3a21eb58a8731de79c1279",
+  "verifier_sha256": "f5a9623d2fc20e325ad6b4915e863d07e193bc0a1c1e1d1ffaa908da5e9b9eaf",
+  "weighted_replay_sha256": "533491826118978e2e3e2f1b6ad741a3a11841d9c45eadc4d253de681b3f3ab4",
+  "seed_weighted_sha256": "d8c03fd0d6c2d1890552a2c1c4ce32c989ab1c338af6b3647637c1c29ac83a3d",
+  "centre": {
+    "r": 0.10000000000000002,
+    "tau": 0.01165744782195708,
+    "q": 0.6896194382429846,
+    "Z1": 0.6143826635892725,
+    "Z2": 51.24152231768447,
+    "beta": 3.5363662355886016,
+    "u": 1.0000000008670578,
+    "x": 1.0000000005000007,
+    "wn": 3.526721289935114,
+    "base": 0.11768183126464878,
+    "t3": 20.873677486209633,
+    "t4": 21.469798570306523,
+    "L5": 582.629838568091,
+    "c": 4.783652842870022,
+    "d": 9.087820796235548,
+    "a2": 11.59095160688389,
+    "L3a": 134.89430047479996,
+    "status": "CERTIFIED",
+    "seconds": 0.40235119099816075,
+    "strict_R_lower": 15.746668808648677,
+    "dephased_lift_gap_upper": 0.07674424562975217
+  },
+  "failed_patches": [
+    {
+      "group": {
+        "kind": "T1",
+        "target": 2124,
+        "g": "conj",
+        "rows": [
+          1,
+          0,
+          3
+        ],
+        "cols": [
+          0,
+          1,
+          2
+        ],
+        "wind": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "ok": false,
+      "box": [
+        4,
+        8,
+        7,
+        15,
+        11
+      ],
+      "mode": "local",
+      "target_margin_lower": -0.00035367715198134943,
+      "target_bound_upper": 0.10035367715198137,
+      "error_upper": 0.006700903570062287,
+      "weighted_hessian_upper": 55.80539261400368,
+      "centre_root_error_upper": 1.4095784570157885e-20,
+      "reason": "target",
+      "weighting": "projected residual"
+    },
+    {
+      "group": {
+        "kind": "T1",
+        "target": 2124,
+        "g": "conj",
+        "rows": [
+          1,
+          0,
+          3
+        ],
+        "cols": [
+          0,
+          1,
+          2
+        ],
+        "wind": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "ok": false,
+      "box": [
+        4,
+        9,
+        7,
+        14,
+        11
+      ],
+      "mode": "local",
+      "target_margin_lower": -0.00013887294893091172,
+      "target_bound_upper": 0.10013887294893094,
+      "error_upper": 0.004359796297969039,
+      "weighted_hessian_upper": 55.80539261400368,
+      "centre_root_error_upper": 1.4166715144242074e-20,
+      "reason": "target",
+      "weighting": "projected residual"
+    },
+    {
+      "group": {
+        "kind": "T1",
+        "target": 2124,
+        "g": "conj",
+        "rows": [
+          1,
+          0,
+          3
+        ],
+        "cols": [
+          0,
+          1,
+          2
+        ],
+        "wind": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "ok": false,
+      "box": [
+        4,
+        9,
+        7,
+        15,
+        11
+      ],
+      "mode": "local",
+      "target_margin_lower": -0.0002729907946938341,
+      "target_bound_upper": 0.10027299079469386,
+      "error_upper": 0.008017989690888036,
+      "weighted_hessian_upper": 55.80539261400368,
+      "centre_root_error_upper": 1.4697328358714667e-20,
+      "reason": "target",
+      "weighting": "projected residual"
+    },
+    {
+      "group": {
+        "kind": "T1",
+        "target": 2275,
+        "g": "conj",
+        "rows": [
+          1,
+          0,
+          3
+        ],
+        "cols": [
+          0,
+          1,
+          2
+        ],
+        "wind": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "ok": false,
+      "box": [
+        4,
+        8,
+        13,
+        6,
+        12
+      ],
+      "mode": "local",
+      "target_margin_lower": -0.0007816492258357655,
+      "target_bound_upper": 0.10078164922583578,
+      "error_upper": 0.004508980259535331,
+      "weighted_hessian_upper": 57.71494732205221,
+      "centre_root_error_upper": 1.417092910613577e-20,
+      "reason": "target",
+      "weighting": "projected residual"
+    },
+    {
+      "group": {
+        "kind": "T1",
+        "target": 2288,
+        "g": "T",
+        "rows": [
+          0,
+          1,
+          2
+        ],
+        "cols": [
+          0,
+          1,
+          3
+        ],
+        "wind": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "ok": false,
+      "box": [
+        5,
+        11,
+        27,
+        26,
+        11
+      ],
+      "mode": "local",
+      "target_margin_lower": -0.0005337860083126254,
+      "target_bound_upper": 0.10053378600831264,
+      "error_upper": 0.003917506027116675,
+      "weighted_hessian_upper": 62.82661034545696,
+      "centre_root_error_upper": 1.5435472857817513e-20,
+      "reason": "target",
+      "weighting": "projected residual"
+    },
+    {
+      "group": {
+        "kind": "T1",
+        "target": 1843,
+        "g": "conj",
+        "rows": [
+          1,
+          3,
+          0
+        ],
+        "cols": [
+          2,
+          0,
+          1
+        ],
+        "wind": [
+          0,
+          1,
+          0,
+          0
+        ]
+      },
+      "ok": false,
+      "box": [
+        4,
+        8,
+        1,
+        11,
+        4
+      ],
+      "mode": "local",
+      "target_margin_lower": -0.0009977583714689767,
+      "target_bound_upper": 0.100997758371469,
+      "error_upper": 0.0053429046554963186,
+      "weighted_hessian_upper": 50.60699934079606,
+      "centre_root_error_upper": 1.5935058822919148e-20,
+      "reason": "target",
+      "weighting": "projected residual"
+    },
+    {
+      "group": {
+        "kind": "T1",
+        "target": 1843,
+        "g": "conj",
+        "rows": [
+          1,
+          3,
+          0
+        ],
+        "cols": [
+          2,
+          0,
+          1
+        ],
+        "wind": [
+          0,
+          1,
+          0,
+          0
+        ]
+      },
+      "ok": false,
+      "box": [
+        4,
+        8,
+        1,
+        11,
+        5
+      ],
+      "mode": "local",
+      "target_margin_lower": -0.00027072085199631905,
+      "target_bound_upper": 0.10027072085199634,
+      "error_upper": 0.0039536718234996935,
+      "weighted_hessian_upper": 50.60699934079606,
+      "centre_root_error_upper": 1.361435276994641e-20,
+      "reason": "target",
+      "weighting": "projected residual"
+    },
+    {
+      "group": {
+        "kind": "T1",
+        "target": 1937,
+        "g": "conj",
+        "rows": [
+          1,
+          0,
+          3
+        ],
+        "cols": [
+          0,
+          1,
+          2
+        ],
+        "wind": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "ok": false,
+      "box": [
+        4,
+        15,
+        5,
+        8,
+        10
+      ],
+      "mode": "local",
+      "target_margin_lower": -0.0013234106356647558,
+      "target_bound_upper": 0.10132341063566477,
+      "error_upper": 0.005860328221557393,
+      "weighted_hessian_upper": 47.660399635298326,
+      "centre_root_error_upper": 8.338098418906847e-21,
+      "reason": "target",
+      "weighting": "projected residual"
+    }
+  ],
+  "failure_count": 8,
+  "failure": "one or more hybrid patches did not certify",
+  "passed_before_failure": 4121,
+  "seconds": 15.748070017005375,
+  "global_passes": 3559,
+  "local_passes": 562,
+  "local_attempts": 570
+}

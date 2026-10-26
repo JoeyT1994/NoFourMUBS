@@ -1,0 +1,86 @@
+{
+  "status": "CERTIFIED new algebra and comparisons, conditional on the supplied W chart/tube theorem",
+  "external_input": "W_REPORT equations (9)--(10), chart on t<=1/5 and uniform side-predictor error <153/10000",
+  "replays_W_certificate": false,
+  "augmented_Jacobian_determinant": {
+    "rational": "0",
+    "sqrt3_coefficient": "3/2"
+  },
+  "D_h_raw_p": [
+    [
+      "0",
+      "0",
+      "0",
+      "0"
+    ],
+    [
+      "1/2",
+      "-1/4",
+      "1/4",
+      "1/48"
+    ],
+    [
+      "1/2",
+      "1/4",
+      "-1/4",
+      "-1/48"
+    ],
+    [
+      "1/2",
+      "3/4",
+      "1/4",
+      "1/48"
+    ],
+    [
+      "0",
+      "0",
+      "1",
+      "0"
+    ],
+    [
+      "0",
+      "0",
+      "0",
+      "0"
+    ],
+    [
+      "0",
+      "0",
+      "1",
+      "0"
+    ]
+  ],
+  "linear_squared_dual_norms_including_theta4": [
+    "0",
+    "2/3",
+    "2/3",
+    "4/3",
+    "2/3",
+    "0",
+    "2/3"
+  ],
+  "largest_t_in_this_proof": "1/5",
+  "table": [
+    {
+      "t": "23/200",
+      "side_sup_strict_upper_expression": "2*t/sqrt(3)+153/10000",
+      "bound_arb": "[0.148090561913613925837104219515450214798948402792129181484 +/- 3.85e-58]",
+      "margin_to_pi_over_6_arb": "[0.375508213684684947240003011031133599233913163770388455345 +/- 6.14e-58]"
+    },
+    {
+      "t": "13/100",
+      "side_sup_strict_upper_expression": "2*t/sqrt(3)+153/10000",
+      "bound_arb": "[0.165411069989302698772378682930508938468376455330232987765 +/- 3.77e-58]",
+      "margin_to_pi_over_6_arb": "[0.358187705608996174304728547616074875564485111232284649064 +/- 6.93e-58]"
+    },
+    {
+      "t": "1/5",
+      "side_sup_strict_upper_expression": "2*t/sqrt(3)+153/10000",
+      "bound_arb": "[0.246240107675850305803659512200782982259040700508050750407 +/- 5.65e-58]",
+      "margin_to_pi_over_6_arb": "[0.277358667922448567273447718345800831773820866054466886422 +/- 7.93e-58]"
+    }
+  ],
+  "fixed_reference_column_separation": "2*pi/3",
+  "nearest_order_sufficient_condition": "correctly aligned side error <pi/3",
+  "scope_warning": "The bound concerns the chart sides. It does not place another completion with the same extracted p in a chart tube, or determine raw phase windings without a chosen lift."
+}
