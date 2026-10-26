@@ -1,0 +1,96 @@
+{
+  "status": "CERTIFIED interval counts; supplied budgets and original Z receipts are external inputs",
+  "exact_rational_scalar_audits": 3978,
+  "balls": 2350,
+  "budget_status": {
+    "provided": 2238,
+    "no_passing_factor": 109,
+    "missing": 3
+  },
+  "budget_to_reference_ratio": {
+    "p10": 1.0636111218221636,
+    "p50": 2.033732723916147,
+    "p90": 4.219368736259408,
+    "max": 4.985002897785505
+  },
+  "reference_ratio_ge_2": 1134,
+  "reference_ratio_ge_3": 481,
+  "baseline_x_tau_share_NUMERICAL": {
+    "p10": 0.0641956076843537,
+    "p50": 0.09550706417139473,
+    "p90": 0.15114276617037667,
+    "max": 0.44394696659221156
+  },
+  "recommended_choices": {
+    "cheap_rank0": 1287,
+    "cheap_rank4": 486,
+    "no_verified_fit": 329,
+    "original_Z": 248
+  },
+  "methods": {
+    "rank0": {
+      "certified": 1820,
+      "budget_fits": 1287,
+      "fit_share_all": 0.5476595744680851,
+      "fit_share_provided": 0.5750670241286864,
+      "n_to_reference_ratio": {
+        "p10": 1.269782106788406,
+        "p50": 1.4948892829081255,
+        "p90": 1.775546903717032,
+        "max": 2.8029995798932292
+      },
+      "arb_numerical_relative_difference_max": 5.840959915737187e-08,
+      "seconds": 86.15442825001082,
+      "per_ball_seconds": {
+        "p10": 0.03494341250770958,
+        "p50": 0.0363474164987565,
+        "p90": 0.0373855913960142,
+        "max": 0.06720800000766758
+      },
+      "centre_seconds_mean": 0.0045666823563341825,
+      "constants_seconds_mean": 0.030803256599632577,
+      "failures": {
+        "cheap contraction inequalities did not certify": 530
+      }
+    },
+    "rank4": {
+      "certified": 2158,
+      "budget_fits": 1773,
+      "fit_share_all": 0.754468085106383,
+      "fit_share_provided": 0.792225201072386,
+      "n_to_reference_ratio": {
+        "p10": 1.092930414360462,
+        "p50": 1.163969553191051,
+        "p90": 1.243304708456655,
+        "max": 1.5093477355112
+      },
+      "arb_numerical_relative_difference_max": 3.1858458315880966e-08,
+      "seconds": 104.35562091699103,
+      "per_ball_seconds": {
+        "p10": 0.04298982529871864,
+        "p50": 0.04383877100190148,
+        "p90": 0.04507769610208925,
+        "max": 0.0796647090028273
+      },
+      "centre_seconds_mean": 0.004561060971792223,
+      "constants_seconds_mean": 0.03826689927073374,
+      "failures": {
+        "cheap contraction inequalities did not certify": 192
+      }
+    }
+  },
+  "ball2299": {
+    "n_record": 0.008343805643414129,
+    "reference_n": 0.007641113958582033,
+    "budget": 0.01548086540654018,
+    "q": 0.48722253622989664,
+    "tau": 0.001325848144117145,
+    "contraction_margin": 3.246871767849047e-07,
+    "strict_R_lower": 34.01098091084878,
+    "seconds": {
+      "centre": 0.004496792011195794,
+      "constants": 0.03780562499014195,
+      "total": 0.04367870900023263
+    }
+  }
+}

@@ -1,0 +1,462 @@
+WARN `--no-project` was provided, but no project was found
+NUMERICAL 100/2350 in 0.4s
+NUMERICAL 200/2350 in 0.7s
+NUMERICAL 300/2350 in 1.1s
+NUMERICAL 400/2350 in 1.4s
+NUMERICAL 500/2350 in 1.8s
+NUMERICAL 600/2350 in 2.2s
+NUMERICAL 700/2350 in 2.5s
+NUMERICAL 800/2350 in 2.9s
+NUMERICAL 900/2350 in 3.2s
+NUMERICAL 1000/2350 in 3.6s
+NUMERICAL 1100/2350 in 3.9s
+NUMERICAL 1200/2350 in 4.3s
+NUMERICAL 1300/2350 in 4.6s
+NUMERICAL 1400/2350 in 5.0s
+NUMERICAL 1500/2350 in 5.4s
+NUMERICAL 1600/2350 in 5.7s
+NUMERICAL 1700/2350 in 6.1s
+NUMERICAL 1800/2350 in 6.4s
+NUMERICAL 1900/2350 in 6.8s
+NUMERICAL 2000/2350 in 7.1s
+NUMERICAL 2100/2350 in 7.5s
+NUMERICAL 2200/2350 in 7.8s
+NUMERICAL 2300/2350 in 8.2s
+{
+  "status": "NUMERICAL",
+  "balls": 2350,
+  "budget_count": 2238,
+  "cases": {
+    "baseline": {
+      "contractions": 2290,
+      "budget_fits": 2021,
+      "ratio_percentiles": {
+        "p10": 1.0,
+        "p50": 1.0,
+        "p90": 1.0,
+        "max": 1.0
+      }
+    },
+    "triangle.t3": {
+      "contractions": 2114,
+      "budget_fits": 1014,
+      "ratio_percentiles": {
+        "p10": 1.8565140472211807,
+        "p50": 2.1947905791013436,
+        "p90": 2.433475438265914,
+        "max": 3.3488598480101515
+      }
+    },
+    "triangle.t4": {
+      "contractions": 2281,
+      "budget_fits": 1957,
+      "ratio_percentiles": {
+        "p10": 1.0291681571510896,
+        "p50": 1.0519004543968191,
+        "p90": 1.0621692461744383,
+        "max": 1.2701162439954574
+      }
+    },
+    "triangle.a2": {
+      "contractions": 2160,
+      "budget_fits": 1885,
+      "ratio_percentiles": {
+        "p10": 1.010451607060883,
+        "p50": 1.0323736503634193,
+        "p90": 1.075479772204937,
+        "max": 1.4749030043026643
+      }
+    },
+    "triangle.c": {
+      "contractions": 0,
+      "budget_fits": 0,
+      "ratio_percentiles": {}
+    },
+    "triangle.d": {
+      "contractions": 2067,
+      "budget_fits": 1843,
+      "ratio_percentiles": {
+        "p10": 1.001148199751696,
+        "p50": 1.0051666975408318,
+        "p90": 1.018915490286189,
+        "max": 1.132355614575336
+      }
+    },
+    "triangle.all": {
+      "contractions": 0,
+      "budget_fits": 0,
+      "ratio_percentiles": {}
+    },
+    "frobenius.t3": {
+      "contractions": 2288,
+      "budget_fits": 1972,
+      "ratio_percentiles": {
+        "p10": 1.0276961760713001,
+        "p50": 1.049942834935,
+        "p90": 1.0671640142964767,
+        "max": 1.214646519210443
+      }
+    },
+    "frobenius.t4": {
+      "contractions": 2290,
+      "budget_fits": 2018,
+      "ratio_percentiles": {
+        "p10": 1.0009294060694303,
+        "p50": 1.0016047406036541,
+        "p90": 1.0023040094068523,
+        "max": 1.0114924594817902
+      }
+    },
+    "frobenius.a2": {
+      "contractions": 2289,
+      "budget_fits": 2020,
+      "ratio_percentiles": {
+        "p10": 1.0004726146034695,
+        "p50": 1.0011010782279794,
+        "p90": 1.0018863695033897,
+        "max": 1.0255441404965917
+      }
+    },
+    "frobenius.c": {
+      "contractions": 2279,
+      "budget_fits": 1992,
+      "ratio_percentiles": {
+        "p10": 1.0102384889396248,
+        "p50": 1.0199064318912214,
+        "p90": 1.0301986364789635,
+        "max": 1.2073486584143127
+      }
+    },
+    "frobenius.d": {
+      "contractions": 2287,
+      "budget_fits": 2020,
+      "ratio_percentiles": {
+        "p10": 1.0000522929019058,
+        "p50": 1.0001900529966963,
+        "p90": 1.0008811477056103,
+        "max": 1.118662551507887
+      }
+    },
+    "frobenius.all": {
+      "contractions": 2253,
+      "budget_fits": 1916,
+      "ratio_percentiles": {
+        "p10": 1.0508850689964258,
+        "p50": 1.082724521853572,
+        "p90": 1.1160051813217147,
+        "max": 1.4511381124135578
+      }
+    },
+    "uniform.t3": {
+      "contractions": 2061,
+      "budget_fits": 1192,
+      "ratio_percentiles": {
+        "p10": 1.5825486754028626,
+        "p50": 1.7745881321185826,
+        "p90": 2.0046548558699175,
+        "max": 3.57664215877587
+      }
+    },
+    "uniform.t4": {
+      "contractions": 2235,
+      "budget_fits": 1873,
+      "ratio_percentiles": {
+        "p10": 1.0455692480714291,
+        "p50": 1.0758573662444582,
+        "p90": 1.1364008284373623,
+        "max": 1.944276038463001
+      }
+    },
+    "uniform.a2": {
+      "contractions": 2199,
+      "budget_fits": 1934,
+      "ratio_percentiles": {
+        "p10": 1.0028625104540547,
+        "p50": 1.0080524794933545,
+        "p90": 1.026385952681528,
+        "max": 1.3885540467020159
+      }
+    },
+    "uniform.c": {
+      "contractions": 2009,
+      "budget_fits": 1743,
+      "ratio_percentiles": {
+        "p10": 1.0273559454837184,
+        "p50": 1.067040082583821,
+        "p90": 1.1425729453014488,
+        "max": 1.8953334767114318
+      }
+    },
+    "uniform.d": {
+      "contractions": 2280,
+      "budget_fits": 2014,
+      "ratio_percentiles": {
+        "p10": 1.0000243735010426,
+        "p50": 1.0000969155721369,
+        "p90": 1.0010920399651984,
+        "max": 1.056885617829416
+      }
+    },
+    "uniform.all": {
+      "contractions": 1373,
+      "budget_fits": 565,
+      "ratio_percentiles": {
+        "p10": 2.0140483409040657,
+        "p50": 2.678822676459474,
+        "p90": 3.618622706984712,
+        "max": 5.076595494550299
+      }
+    },
+    "pair.t3": {
+      "contractions": 2211,
+      "budget_fits": 1762,
+      "ratio_percentiles": {
+        "p10": 1.1526245402545765,
+        "p50": 1.2003758279385894,
+        "p90": 1.2533587797255756,
+        "max": 2.095758197139865
+      }
+    },
+    "pair.t4": {
+      "contractions": 2289,
+      "budget_fits": 2009,
+      "ratio_percentiles": {
+        "p10": 1.0049513437133777,
+        "p50": 1.0088796541205836,
+        "p90": 1.0139429983194868,
+        "max": 1.1716220685934373
+      }
+    },
+    "pair.a2": {
+      "contractions": 2261,
+      "budget_fits": 1979,
+      "ratio_percentiles": {
+        "p10": 1.0020904276942322,
+        "p50": 1.006238531202011,
+        "p90": 1.02127941560613,
+        "max": 1.3658416212142486
+      }
+    },
+    "pair.c": {
+      "contractions": 2009,
+      "budget_fits": 1743,
+      "ratio_percentiles": {
+        "p10": 1.0273559454837184,
+        "p50": 1.067040082583821,
+        "p90": 1.1425729453014488,
+        "max": 1.8953334767114318
+      }
+    },
+    "pair.d": {
+      "contractions": 2280,
+      "budget_fits": 2014,
+      "ratio_percentiles": {
+        "p10": 1.0000243735010426,
+        "p50": 1.0000969155721369,
+        "p90": 1.0010920399651984,
+        "max": 1.056885617829416
+      }
+    },
+    "pair.all": {
+      "contractions": 1820,
+      "budget_fits": 1287,
+      "ratio_percentiles": {
+        "p10": 1.269782106305928,
+        "p50": 1.494889281168207,
+        "p90": 1.7755468991621288,
+        "max": 2.8029994177634148
+      }
+    },
+    "rank1.t3": {
+      "contractions": 2273,
+      "budget_fits": 1897,
+      "ratio_percentiles": {
+        "p10": 1.0892068705581168,
+        "p50": 1.1478198346710127,
+        "p90": 1.1995112706401194,
+        "max": 1.5356252677487539
+      }
+    },
+    "rank1.t4": {
+      "contractions": 2289,
+      "budget_fits": 2009,
+      "ratio_percentiles": {
+        "p10": 1.0049513437133777,
+        "p50": 1.0088796541205836,
+        "p90": 1.0139429983194868,
+        "max": 1.1716220685934373
+      }
+    },
+    "rank1.a2": {
+      "contractions": 2261,
+      "budget_fits": 1979,
+      "ratio_percentiles": {
+        "p10": 1.0020904276942322,
+        "p50": 1.006238531202011,
+        "p90": 1.02127941560613,
+        "max": 1.3658416212142486
+      }
+    },
+    "rank1.c": {
+      "contractions": 2044,
+      "budget_fits": 1763,
+      "ratio_percentiles": {
+        "p10": 1.0276341381226302,
+        "p50": 1.067638592477373,
+        "p90": 1.1477922972870587,
+        "max": 1.8794420875625704
+      }
+    },
+    "rank1.d": {
+      "contractions": 2280,
+      "budget_fits": 2014,
+      "ratio_percentiles": {
+        "p10": 1.0000243735010426,
+        "p50": 1.0000969155721369,
+        "p90": 1.0010920399651984,
+        "max": 1.056885617829416
+      }
+    },
+    "rank1.all": {
+      "contractions": 1901,
+      "budget_fits": 1417,
+      "ratio_percentiles": {
+        "p10": 1.250931775891974,
+        "p50": 1.4347909284102627,
+        "p90": 1.6001211508407045,
+        "max": 2.563002556069036
+      }
+    },
+    "rank2.t3": {
+      "contractions": 2284,
+      "budget_fits": 1927,
+      "ratio_percentiles": {
+        "p10": 1.057676407681662,
+        "p50": 1.1173477836766383,
+        "p90": 1.1551314349249258,
+        "max": 1.2323820166981272
+      }
+    },
+    "rank2.t4": {
+      "contractions": 2289,
+      "budget_fits": 2009,
+      "ratio_percentiles": {
+        "p10": 1.0049513437133777,
+        "p50": 1.0088796541205836,
+        "p90": 1.0139429983194868,
+        "max": 1.1716220685934373
+      }
+    },
+    "rank2.a2": {
+      "contractions": 2261,
+      "budget_fits": 1979,
+      "ratio_percentiles": {
+        "p10": 1.0020904276942322,
+        "p50": 1.006238531202011,
+        "p90": 1.02127941560613,
+        "max": 1.3658416212142486
+      }
+    },
+    "rank2.c": {
+      "contractions": 2177,
+      "budget_fits": 1863,
+      "ratio_percentiles": {
+        "p10": 1.0278736298493574,
+        "p50": 1.0682587003541353,
+        "p90": 1.1319029946156252,
+        "max": 1.7136491217322851
+      }
+    },
+    "rank2.d": {
+      "contractions": 2280,
+      "budget_fits": 2014,
+      "ratio_percentiles": {
+        "p10": 1.0000243735010426,
+        "p50": 1.0000969155721369,
+        "p90": 1.0010920399651984,
+        "max": 1.056885617829416
+      }
+    },
+    "rank2.all": {
+      "contractions": 2025,
+      "budget_fits": 1542,
+      "ratio_percentiles": {
+        "p10": 1.1920426164144189,
+        "p50": 1.334100031073806,
+        "p90": 1.5099226167155109,
+        "max": 2.1691737731366327
+      }
+    },
+    "rank4.t3": {
+      "contractions": 2286,
+      "budget_fits": 1963,
+      "ratio_percentiles": {
+        "p10": 1.0331207970142677,
+        "p50": 1.0603594616942345,
+        "p90": 1.0800571118877202,
+        "max": 1.2016963263007554
+      }
+    },
+    "rank4.t4": {
+      "contractions": 2289,
+      "budget_fits": 2009,
+      "ratio_percentiles": {
+        "p10": 1.0049513437133777,
+        "p50": 1.0088796541205836,
+        "p90": 1.0139429983194868,
+        "max": 1.1716220685934373
+      }
+    },
+    "rank4.a2": {
+      "contractions": 2261,
+      "budget_fits": 1979,
+      "ratio_percentiles": {
+        "p10": 1.0020904276942322,
+        "p50": 1.006238531202011,
+        "p90": 1.02127941560613,
+        "max": 1.3658416212142486
+      }
+    },
+    "rank4.c": {
+      "contractions": 2248,
+      "budget_fits": 1946,
+      "ratio_percentiles": {
+        "p10": 1.018984722215684,
+        "p50": 1.0421657065880099,
+        "p90": 1.0694203148946635,
+        "max": 1.3471059741982168
+      }
+    },
+    "rank4.d": {
+      "contractions": 2280,
+      "budget_fits": 2014,
+      "ratio_percentiles": {
+        "p10": 1.0000243735010426,
+        "p50": 1.0000969155721369,
+        "p90": 1.0010920399651984,
+        "max": 1.056885617829416
+      }
+    },
+    "rank4.all": {
+      "contractions": 2158,
+      "budget_fits": 1773,
+      "ratio_percentiles": {
+        "p10": 1.0929304138271725,
+        "p50": 1.1639695522370446,
+        "p90": 1.2433047064582319,
+        "max": 1.5093477048596475
+      }
+    }
+  },
+  "baseline_reference_relative_error_max": 5.448445805633639e-09,
+  "input_sha256": {
+    "seed_balls.json.gz": "060214d0f1d968f5d9c6961cd851df04bd4aadd0b86d21fff24692a2b7bf9d0c",
+    "wholeball_basis.json": "a201d41d0579d79b6f67077b8b2222878a3f54cc781395feb29b7449e7c29cd3",
+    "wholeball_n.jsonl": "cd79881918c95001471ae39d069f674844dc69ea16ff2f3cacf8719049afab37",
+    "stagec_n_budget.jsonl": "9ca2d18f33cf65c3fa460e142e4713140eeacecc8771e9be1c2af8720387ee56"
+  },
+  "seconds": 8.42312612500973,
+  "numpy_version": "2.5.4",
+  "source_sha256": "bc6883b3d7fe8022fc0005d3c3b77eac26395e60b03a298e32a863446d336b09",
+  "results_sha256": "42595bd8650948f612a27225335587bf3728d9bcc058838f3a5bcb342e80961f"
+}
