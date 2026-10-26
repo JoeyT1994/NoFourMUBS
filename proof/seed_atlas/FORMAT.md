@@ -131,6 +131,31 @@ For seed ball j and every box β of a group, the certifier checks the following.
 Explicit hex boxes would make the file a few GB; integer boxes grouped by target need about 15 bytes each. Dyadic
 boxes in units of r also make the sphere-coverage check exact. Neither change alters what is certified.
 
+## 4a. Spherical caps (optional)
+
+A seed ball may instead cover its sphere by caps (theorem ZC, `proof/theorems/ZC_cap_transfers/`; the cap record is
+ZC's `CAP_FORMAT.md`):
+
+```json
+"caps": { "caps": [ { "group_index": 3, "v": [4 ints], "h": hex, "mode": "polynomial",
+                      "lambda": hex, "mu": hex, "s": hex, "multiplier_vec": [4 hex], "weighted_target": false }, ... ],
+          "coverage": { "schema": "rational-s3-cap-cover-v1", "dimension": 4, "cap_count": N,
+                        "facets": [ { "vertices": [4 cap indices], "numerator": [4 ints], "denominator": int }, ... ] } }
+```
+
+| field | meaning |
+|---|---|
+| `group_index` | the transfer group (section 4) whose descriptor the cap uses: kind T0 or T1, target, g, corner, winding |
+| `v`, `h` | the closed cap ‖x‖ = 1, v·x ≥ h in x = w / r; `v` exact integers, `h` an exact binary64 rational, 0 < h < ‖v‖ |
+| `mode` | `polynomial` (anchor r h v / v·v), `local` (same anchor, centre jet) or `local_sphere` (anchor r v/‖v‖, Δ² = 2 r²(1 − t)) |
+| `lambda` (or `lambda_`), `mu`, `s`, `multiplier_vec` | the 5 × 5 positive-definite witness bounding the normalised target output by s on the cap; `multiplier_vec` defaults to 0 |
+| `weighted_target` | use the output-weighted normal bounds (T0 in polynomial mode, T2 in the local modes) |
+| `coverage` | the exact certificate that the caps cover S³: every facet of the polar hull of {v_i / h_i}, its dual vertex numerator / denominator, strict support, every ridge shared by exactly two facets, every dual vertex in the closed unit ball |
+
+With `caps`, the checkers verify the ball's sphere by the caps and their coverage alone; the groups' `boxes` are then
+not used and are written empty. `driver/caps_build.sh` builds caps for every ball whose transfers are all T0/T1 and
+writes such a certificate (`driver/caps_merge.py`).
+
 ## 5. Windings and corner orders
 
 SPEC §8 leaves the windings to the certifier (`"wind": [...]` "as in the current atlas format", where the current
