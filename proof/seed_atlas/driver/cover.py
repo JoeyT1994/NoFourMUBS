@@ -262,6 +262,8 @@ def nl_test(Q, hw, cand, N=None, du=None):
 
 
 T3_VMAX = 0.90         # T3 screen: sampled points within 0.90 r of the edge ball (Arb encloses the whole box)
+T3_CHART_TOL = 0.1    # T3 screen: K's fourth corner phase and side angles within 0.1 rad of the chart's at p_K
+T3_MIN_LEVEL = 4      # T3 only on boxes of level >= 4: the sides must stay inside the certifiers' unique-solution tubes
 
 
 def t3_points(ball, lo, hi):
@@ -288,13 +290,16 @@ def t3_test(cand, QP, okp):
     ok = okp & (v.max(1) < T3_VMAX)
     vc = np.where(okp, v[:, -1], 9.0)
     Ns = [None] * len(QP)
-    x0 = None
     for b in np.where(ok)[0]:
-        refs = EP.t3_side_refs(QP[b, -1], cand.g, cand.rows, cand.cols, cand.wind, x0)     # warm-started chart solve
-        if refs is None and x0 is not None: refs = EP.t3_side_refs(QP[b, -1], cand.g, cand.rows, cand.cols, cand.wind)
-        if refs is not None: x0 = refs[2]
-        rh, rv = (refs[0], refs[1]) if refs else (None, None)
-        (_, hc, wh), (_, vr, wv) = EP.side_orders(SG.gphase(cand.g, QP[b, -1].reshape(6, 6)), cand.rows, cand.cols, rh, rv)
+        # p_K in the edge ball is not enough: K must be the chart's matrix H(p_K), i.e. its fourth corner phase and its
+        # side angles must be those of the chart at p_K (the certifiers' unique-solution tubes), not another solution
+        # of the same augmented system.  The chart's linear model is accurate to about 0.005 rad on the X-ball.
+        rh, rv, (xh, xv, _) = EP.t3_side_refs(QP[b, -1], cand.g, cand.rows, cand.cols, cand.wind)
+        (dh, hc, wh), (dv, vr, wv) = EP.side_orders(SG.gphase(cand.g, QP[b, -1].reshape(6, 6)), cand.rows, cand.cols, rh, rv)
+        d4 = th[b * 17 + 16, 3] + 2 * np.pi * cand.wind[3] - EP.TH0[3] - xh[0]
+        d4 = abs((d4 + np.pi) % (2 * np.pi) - np.pi)
+        if max(dh, dv, d4) > T3_CHART_TOL:
+            ok[b] = False; vc[b] = 9.0; continue
         Ns[b] = tuple(hc) + tuple(vr) + tuple(wh) + tuple(wv)
     return ok, vc, Ns
 
@@ -327,6 +332,8 @@ def cover(ball, cands, max_level=MAX_LEVEL, chunk=128):
                     op = np.where(who[sl] < 0)[0]             # each candidate is tested on the open boxes only
                     if not len(op): break
                     if cands[ci].kind == 'T3':
+                        if m < T3_MIN_LEVEL:                 # subdivide, so T3 can be tried at a finer level
+                            best[sl[op]] = np.minimum(best[sl[op]], 0.99); continue
                         need = [b for b in op if b not in QPi]
                         if need:
                             qp, okp_ = t3_points(ball, lo[s:s + chunk][need], hi[s:s + chunk][need])
