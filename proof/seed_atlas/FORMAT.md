@@ -220,25 +220,31 @@ Top level gains `"edge": [ <edge>, ... ]`. With edge balls present, `"records"` 
 | `P`, `U`, `n`, `label_radius` | the Stage C enclosure and call, exactly as for seed balls (§3) |
 | `transfers` | groups of kind `T1` only, boxes as in §4 in units u = w/r; the source matrix is H(Mth w) in the gauge of SPEC §10 (first row and column ones), taking the representative nearest P + U w |
 
-**Seed transfers into an edge ball (kind T3).**
+**Seed transfers into an edge ball (kind T3), by return XS.**
 
 ```json
-{ "kind": "T3", "target": e, "g": "id", "rows": [i0,i1,i2], "cols": [j0,j1,j2],
-  "hcols": [3 ints], "vrows": [3 ints], "wind": [4 ints], "wind_h": [6 ints], "wind_v": [6 ints], "boxes": [...] }
+{ "kind": "T3", "target": e, "g": "id", "rows": [i0,i1,i2], "cols": [j0,j1,j2], "wind": [3 ints], "boxes": [...] }
 ```
 
-For seed ball j and every box β, let K = g·H_{o_j}(θ) for θ ∈ θ_j(β), with phases Q′ (as in T1).
-- **Corner seed** θ′ at the ordered corner (`rows`, `cols`), as in T1, plus 2π·`wind`.
-- **Horizontal side angles** with columns `hcols` (an order of Jᶜ): for a = 1, 2 (rows i_a) and b = 0, 1, 2 (columns
-  c_b = hcols[b]), φ′_h[3(a−1)+b] = Q′_{i_a c_b} − Q′_{i_a j0} − Q′_{i0 c_b} + Q′_{i0 j0}, plus 2π·`wind_h`.
-- **Vertical side angles** with rows `vrows` (an order of Iᶜ): for b = 1, 2 (columns j_b) and a = 0, 1, 2 (rows
-  r_a = vrows[a]), φ′_v[3(b−1)+a] = Q′_{r_a j_b} − Q′_{r_a j0} − Q′_{i0 j_b} + Q′_{i0 j0}, plus 2π·`wind_v`.
-- **y′** = −2 Im Ψ(K[I, Jᶜ]).
-- **The test.** p′ = (θ′₁ − π/3, θ′₂ − 2π/3, θ′₃ − 2π/3, y′) must satisfy ‖Mth_e⁻¹ p′‖₂ < r_e. The horizontal
-  unknowns (θ′₄ − 4π/3, φ′_h − φ⁰) must lie in the certifier's unique-solution tube of the augmented system at p′.
-  The vertical unknowns (θ′₄ − 4π/3, φ′_v − φ⁰) must lie in the tube of the transposed system at (p′₁, p′₃, p′₂, −p′₄).
-  The certifier establishes both tubes by its own Krawczyk over the enclosure of p′ on the box.
-- **Then** K ≅ H(p′) by uniqueness, so K's class is in the edge ball's image.
+Earlier certificates also carried `hcols`, `vrows`, `wind_h`, `wind_v` and a fourth `wind` entry. Checkers ignore
+them.
 
-The driver float-checks T3 on a 3⁴ grid of each box, with the same values, and with tube membership approximated by
-solving the augmented systems at p′ and comparing.
+For seed ball j and every box β, let K = g·H_{o_j}(θ) for θ ∈ θ_j(β), with phases Q′ (as in T1). The checker
+establishes, over the whole box:
+- **The target lies in W's chart.** The edge ball is centred at F6 (`q0` = 0), and its parameter ellipsoid
+  {Mth_e w : ‖w‖ ≤ r_e} lies inside W's E_{1/5} = {p : qᵀ W q ≤ 1/25}, with q = (p₁, p₂, p₃, p₄/24) and W as in
+  return XS (1). This is checked once per edge ball.
+- **The corner parameter is inside the edge ball.**
+  - θ′₁..θ′₃ are the corner seed's first three phases at (`rows`, `cols`), as in T1, plus 2π·`wind`.
+  - y′ = −2 Im Ψ(K[I, Jᶜ]), in any order of Jᶜ.
+  - With p′ = (θ′₁ − π/3, θ′₂ − 2π/3, θ′₃ − 2π/3, y′), it requires ‖Mth_e⁻¹ p′‖₂ < r_e.
+- **K is within phase distance 3/20 of F6.**
+  - Align K's rows (I, then Iᶜ in some order) and columns (J, then Jᶜ in some order) with F6's rows and columns 0..5.
+  - Bound sup ‖h(π(Q′) + 2πN − P_F6)‖ over the box, as in T2.
+  - The complement orders and N are the checker's own choice: any choice gives an upper bound.
+
+**Then** K ≅ H(p′) by return XS (XS1), so K's class is in the edge ball's image. No side orders, side windings,
+orientation signs or tubes are needed.
+
+The driver screens T3 at 17 points of each box: p′ within 0.9 r_e, and the sampled distance to F6 plus the ball's n
+below 0.13.

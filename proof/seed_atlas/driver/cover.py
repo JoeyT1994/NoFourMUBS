@@ -262,7 +262,6 @@ def nl_test(Q, hw, cand, N=None, du=None):
 
 
 T3_VMAX = 0.90         # T3 screen: sampled points within 0.90 r of the edge ball (Arb encloses the whole box)
-T3_CHART_TOL = 0.1    # T3 screen: K's fourth corner phase and side angles within 0.1 rad of the chart's at p_K
 T3_MIN_LEVEL = 4      # T3 only on boxes of level >= 4: the sides must stay inside the certifiers' unique-solution tubes
 
 
@@ -274,9 +273,31 @@ def t3_points(ball, lo, hi):
     return Q.reshape(len(lo), 17, 36), ok.reshape(len(lo), 17).all(1)
 
 
-def t3_test(cand, QP, okp):
-    """(pass mask, centre value, N) for a T3 candidate on boxes with sample-point phases QP (B, 17, 36): every sampled
-    point at most VMAX inside the edge ball (the certifiers check it); N carries the side orders and windings."""
+T3_DIST = 0.13         # T3 screen: sampled distance to F6 plus the ball's n below 0.13 (the certifiers need < 3/20)
+PERM3 = list(itertools.permutations(range(3)))
+_HPROJ = np.kron(np.eye(6) - 1 / 6, np.eye(6) - 1 / 6)
+_PF = np.array([2 * np.pi * ((a * b) % 6) / 6 for a in range(6) for b in range(6)])
+
+
+def f6_distance(Kq, I, J):
+    """Float phase distance of K (phases Kq (36,)) to F6, aligning K's ordered corner (I, J) with F6's rows and columns
+    0, 1, 2 and the complements in the best of 36 orders (return XS section 3.2): min ||h(pi(K) + 2 pi N - P_F6)||."""
+    Ic = [r for r in range(6) if r not in I]; Jc = [c for c in range(6) if c not in J]
+    best = np.inf
+    for pr in PERM3:
+        for pc in PERM3:
+            R = list(I) + [Ic[k] for k in pr]; C = list(J) + [Jc[k] for k in pc]
+            D = Kq.reshape(6, 6)[np.ix_(R, C)] - _PF.reshape(6, 6)
+            Dd = D - D[:, :1] - D[:1, :] + D[0, 0]
+            z = _HPROJ @ (Dd - 2 * np.pi * np.round(Dd / (2 * np.pi))).reshape(36)
+            best = min(best, float(np.linalg.norm(z)))
+    return best
+
+
+def t3_test(cand, QP, okp, n=0.0):
+    """(pass mask, centre value, N) for a T3 candidate on boxes with sample-point phases QP (B, 17, 36), by return XS:
+    every sampled point at most VMAX inside the edge ball, and K = g . H within phase distance T3_DIST of F6 (sampled
+    distance + the ball's n).  Then K ~ H(p_K): no side data is needed.  N is () (the corner's windings are in desc)."""
     import edge_phase as EP
     rows, cols = list(cand.rows), list(cand.cols)
     Kq = SG.gphase(cand.g, QP.reshape(-1, 6, 6))
@@ -289,19 +310,11 @@ def t3_test(cand, QP, okp):
     v = np.where(np.isfinite(v), v, 9.0)
     ok = okp & (v.max(1) < T3_VMAX)
     vc = np.where(okp, v[:, -1], 9.0)
-    Ns = [None] * len(QP)
+    Kq = Kq.reshape(len(QP), 17, 36)
     for b in np.where(ok)[0]:
-        # p_K in the edge ball is not enough: K must be the chart's matrix H(p_K), i.e. its fourth corner phase and its
-        # side angles must be those of the chart at p_K (the certifiers' unique-solution tubes), not another solution
-        # of the same augmented system.  The chart's linear model is accurate to about 0.005 rad on the X-ball.
-        rh, rv, (xh, xv, _) = EP.t3_side_refs(QP[b, -1], cand.g, cand.rows, cand.cols, cand.wind)
-        (dh, hc, wh), (dv, vr, wv) = EP.side_orders(SG.gphase(cand.g, QP[b, -1].reshape(6, 6)), cand.rows, cand.cols, rh, rv)
-        d4 = th[b * 17 + 16, 3] + 2 * np.pi * cand.wind[3] - EP.TH0[3] - xh[0]
-        d4 = abs((d4 + np.pi) % (2 * np.pi) - np.pi)
-        if max(dh, dv, d4) > T3_CHART_TOL:
-            ok[b] = False; vc[b] = 9.0; continue
-        Ns[b] = tuple(hc) + tuple(vr) + tuple(wh) + tuple(wv)
-    return ok, vc, Ns
+        d = max(f6_distance(Kq[b, k], rows, cols) for k in range(17))
+        if d + n >= T3_DIST: ok[b] = False; vc[b] = 9.0
+    return ok, vc, [() for _ in range(len(QP))]
 
 
 def cover(ball, cands, max_level=MAX_LEVEL, chunk=128):
@@ -339,7 +352,7 @@ def cover(ball, cands, max_level=MAX_LEVEL, chunk=128):
                             qp, okp_ = t3_points(ball, lo[s:s + chunk][need], hi[s:s + chunk][need])
                             for k, b in enumerate(need): QPi[b] = (qp[k], okp_[k])
                         QP = np.stack([QPi[b][0] for b in op]); okp = np.array([QPi[b][1] for b in op])
-                        ok, vc, N3 = t3_test(cands[ci], QP, okp)
+                        ok, vc, N3 = t3_test(cands[ci], QP, okp, ball.n)
                         best[sl[op]] = np.minimum(best[sl[op]], vc)
                         for k in np.where(ok)[0]: Ns[sl[op[k]]] = N3[k]
                         who[sl[op[ok]]] = ci

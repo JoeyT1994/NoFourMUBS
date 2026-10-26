@@ -627,24 +627,34 @@ def test_edge():
     def t3(mut, edges=None):
         g = copy.deepcopy(grp); mut(g)
         return lambda: S.check_seed_transfers(b, [b], [], [g], 9, edges=edges or [(eb_, tubes)])
-    rejects('negative T3: g = T (swaps the sides: the sign of y)', t3(lambda g: g.__setitem__('g', 'T')))
-    rejects('negative T3: g = conj', t3(lambda g: g.__setitem__('g', 'conj')))
+    # return XS: T3 reads the corner, its three windings and the distance to F6; side orders, side windings and tubes
+    # are not used, so corrupting them must not matter
     rejects('negative T3: rows 1, 2 swapped', t3(lambda g: g['rows'].__setitem__(slice(1, 3), [g['rows'][2], g['rows'][1]])))
-    rejects('negative T3: hcols reordered', t3(lambda g: g['hcols'].__setitem__(slice(0, 2), [g['hcols'][1], g['hcols'][0]])))
-    rejects('negative T3: vrows reordered', t3(lambda g: g['vrows'].__setitem__(slice(0, 2), [g['vrows'][1], g['vrows'][0]])))
-    rejects('negative T3: hcols not the column complement', t3(lambda g: g.__setitem__('hcols', [g['cols'][0]] + g['hcols'][1:])))
-    rejects('negative T3: wind[3] + 1 (theta_4)', t3(lambda g: g['wind'].__setitem__(3, g['wind'][3] + 1)))
     rejects('negative T3: wind[0] + 1', t3(lambda g: g['wind'].__setitem__(0, g['wind'][0] + 1)))
-    rejects('negative T3: wind_h[4] + 1', t3(lambda g: g['wind_h'].__setitem__(4, g['wind_h'][4] + 1)))
-    rejects('negative T3: wind_v[1] - 1', t3(lambda g: g['wind_v'].__setitem__(1, g['wind_v'][1] - 1)))
-    rejects('negative T3: wind_v missing', t3(lambda g: g.pop('wind_v')))
+    rejects('negative T3: wind[2] - 1', t3(lambda g: g['wind'].__setitem__(2, g['wind'][2] - 1)))
+    rejects('negative T3: wind of length 2', t3(lambda g: g.__setitem__('wind', g['wind'][:2])))
     rejects('negative T3: target out of range', t3(lambda g: g.__setitem__('target', 1)))
     rejects('negative T3: malformed rows', t3(lambda g: g.__setitem__('rows', [0, 0, 1])))
     rejects('negative T3: edge ball not certified', t3(lambda g: None, edges=[(eb_, None)]))
     small = EC.EdgeBall(dict(edge_c1()[0], r=F.hx(0.03)))
     rejects('negative T3: target edge ball shrunk to r = 0.03', t3(lambda g: None, edges=[(small, tubes)]))
-    tb2 = copy.deepcopy(tubes); tb2.rho['h'] = tb2.rho['h'] * 0 + 1e-9
-    rejects('negative T3: uniqueness radii shrunk to 1e-9', t3(lambda g: None, edges=[(eb_, tb2)]))
+    big = EC.EdgeBall(dict(edge_c1()[0], r=F.hx(0.3)))
+    rejects('negative T3: target edge ball r = 0.3, not inside W\'s E_1/5', t3(lambda g: None, edges=[(big, tubes)]))
+    shifted = EC.EdgeBall(dict(edge_c1()[0], q0=[F.hx(0.001), F.hx(0.0), F.hx(0.0), F.hx(0.0)]))
+    rejects('negative T3: target edge ball not centred at F6', t3(lambda g: None, edges=[(shifted, tubes)]))
+    old = EC.X_DIST
+    try:
+        EC.X_DIST = (1, 10 ** 6)
+        rejects('negative T3: distance gate 1e-6 (the source is not that close to F6)', t3(lambda g: None))
+    finally:
+        EC.X_DIST = old
+    for name, mut in (('hcols reordered', lambda g: g.__setitem__('hcols', [2, 1, 0])),
+                      ('wind_h, wind_v present', lambda g: g.update(wind_h=[5] * 6, wind_v=[-5] * 6)),
+                      ('a fourth winding', lambda g: g.__setitem__('wind', list(g['wind'][:3]) + [7]))):
+        try:
+            t3(mut)(); check('T3 ignores side data (%s)' % name, True)
+        except S.CertError as e:
+            check('T3 ignores side data (%s)' % name, False, str(e))
 
 
 def test_graph():

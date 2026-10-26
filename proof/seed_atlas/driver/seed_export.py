@@ -21,9 +21,7 @@ def group_json(gr):
     d = dict(kind=kind, target=int(t))
     if kind != 'T0': d.update(g=g, rows=[int(x) for x in rows], cols=[int(x) for x in cols])
     d['wind'] = [int(x) for x in gr['wind']]
-    if kind == 'T3':
-        d.update(hcols=[int(x) for x in gr['hcols']], vrows=[int(x) for x in gr['vrows']],
-                 wind_h=[int(x) for x in gr['wind_h']], wind_v=[int(x) for x in gr['wind_v']])
+    if kind == 'T3': d['wind'] = d['wind'][:3]      # return XS: no side orders or side windings (FORMAT.md section 8)
     d['boxes'] = np.asarray(gr['boxes']).astype(int).tolist()
     return d
 
@@ -103,8 +101,7 @@ def merge_groups(gl):
     """One group per (desc, windings): concatenate their boxes."""
     out = {}
     for g in gl:
-        key = (g['desc'], tuple(g['wind']), tuple(g.get('hcols', ())), tuple(g.get('vrows', ())),
-               tuple(g.get('wind_h', ())), tuple(g.get('wind_v', ())))
+        key = (g['desc'], tuple(g['wind'][:3]) if g['desc'][0] == 'T3' else tuple(g['wind']))
         if key in out: out[key]['boxes'] = list(out[key]['boxes']) + list(np.asarray(g['boxes']).tolist())
         else: out[key] = dict(g, boxes=list(np.asarray(g['boxes']).tolist()))
     return list(out.values())

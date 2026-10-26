@@ -16,46 +16,71 @@ end
 """Shift a model by 2 pi N so that its constant is nearest the float c0 (any integer N is valid here)."""
 near(t::TM{I64}, c0::Float64) = (k = round((c0 - mid(t.c)) / (2π)); k == 0 ? t : addc(t, TWOPI_I * iv(k)))
 
-"""T3: for K = g . H_{o_s}(theta), theta over the box (phase models Q of the representative): the corner seed theta_K
-at the ordered corner (I, J) and y_K = -2 Im Psi(K[I, J^c]) give p_K = (theta_K,1..3 - theta0_1..3, y_K) in int E,
-and K's dephased side angles (with theta_K,4 - theta0_4) lie strictly inside the certified horizontal tube at p_K;
-likewise the vertical side (K[I^c, J], transposed) in the vertical tube.  The side angles follow FORMAT.md §8: the
-horizontal side's columns in the order hcols (= cols[4:6]), the vertical side's rows in the order vrows (= rows[4:6]);
-the stored windings wind, wind_h, wind_v are the ones used (the checker's own nearest choice only when none is stored).  The tubes are those of the C1e leaves: the
-containment is checked, over the whole source box, against every leaf whose box meets the range of w_K = Mth^-1 p_K
-(its predictor composed with w_K - wc).  Each source point has w_K in int E, hence in some leaf (the leaves cover the
-ball), and that leaf is among those checked; there K's sides are the unique solutions, so K ~ H(p_K).  (For the vertical side this uses that K is matched at that corner; SPEC §10's global
-argument: a nonmatched strict K would be Tao, which is far from F6.)"""
+const X_DIST = 0.15                  # return XS, (XS1): 3/20 (the binary64 0.15 is below 3/20, so val < 0.15 suffices)
+const W_TANGENT = [1.0 -0.5 -0.5 0.0; -0.5 1.75 0.25 0.0; -0.5 0.25 1.75 0.0; 0.0 0.0 0.0 1.0]   # W's form, XS (1)
+const PERM3 = ((1, 2, 3), (1, 3, 2), (2, 1, 3), (2, 3, 1), (3, 1, 2), (3, 2, 1))
+const IN_W = Dict{UInt,Bool}()
+const IN_W_LOCK = ReentrantLock()
+
+"""The edge ball's parameter ellipsoid {p = Mth w : ||w|| <= r} lies inside W's E_{1/5} = {q^T W q <= 1/25},
+q = (p1, p2, p3, p4/24): (1/(25 r^2)) I - S^T W S is positive definite (interval Cholesky), S = diag(1, 1, 1, 1/24) Mth.
+Cached per edge ball.  A shifted ball (q0 != 0) is not covered."""
+function edge_in_W(eb::EdgeBall)
+    key = objectid(eb)
+    lock(IN_W_LOCK) do
+        haskey(IN_W, key) && return IN_W[key]
+        ok = all(iszero, eb.q0) && begin
+            Sm = [iv(eb.Mth[i, j]) / (i == 4 ? iv(24.0) : iv(1.0)) for i in 1:4, j in 1:4]
+            M = transpose(Sm) * iv.(W_TANGENT) * Sm
+            c = iv(1.0) / (iv(25.0) * iv(eb.r)^2)
+            IA.interval_cholesky_pd(Matrix{I64}([(i == j ? c : iv(0.0)) - M[i, j] for i in 1:4, j in 1:4]))
+        end
+        IN_W[key] = ok
+    end
+end
+
+"""T3 by return XS's transfer theorem (XS1): for K = g . H_{o_s}(theta), theta over the box (phase models Q of the
+representative), if the corner parameter p_K = (theta_K,1..3 - theta0_1..3, -2 Im Psi(K[I, J^c])) lies in a target
+inside W's E_{1/5} and d([K], [F6]) <= 3/20, then K ~ H(p_K).  Checked over the whole box:
+  - the target edge ball's ellipsoid lies inside E_{1/5} (edge_in_W);
+  - ||Mth^-1 p_K|| < r;
+  - the phase distance of K to F6 is below 3/20: K's rows (I, then I^c in some order) and columns (J, then J^c) are
+    aligned with F6's rows and columns 0..5, and sup ||hor(pi(K) + 2 pi N - P_F6)|| is bounded as in T2 (the order of
+    the complements and N are chosen in floats; any choice gives a valid bound).
+No side orders, side windings, orientation signs or tubes are used.  The order of J^c is immaterial for Psi.  The 2 pi
+windings of the first three corner phases are the stored ones (wind[1:3]) when present, else the nearest."""
 function check_T3(Q::Vector{TM{I64}}, D::Dom, g::Group, eb::EdgeBall, leaves::Vector{EdgeLeaf}, Minv::Matrix{I64})
+    edge_in_W(eb) || return false, "T3: the edge ball's ellipsoid is not certified inside W's E_1/5", Inf
     K = gact(mat6(Q), g.g)
-    I = g.rows[1:3]; Ic = g.rows[4:6]; J = g.cols[1:3]; Jc = g.cols[4:6]
-    t0 = th0c(I64); f0 = ph0c(I64)
-    sw = length(g.wind) == 16          # stored windings (FORMAT.md §8): wind, wind_h, wind_v
-    wfix(x, c0, k) = sw ? addc(x, TWOPI_I * iv(Float64(g.wind[k]))) : near(x, c0)
-    thK = [wfix(x, mid(t0[k]), k) for (k, x) in enumerate(corner_seed(K, I, J))]
+    I = g.rows[1:3]; J = g.cols[1:3]
+    Ic = [k for k in 1:6 if !(k in I)]; Jc = [k for k in 1:6 if !(k in J)]
+    t0 = th0c(I64)
+    sw = length(g.wind) >= 3
+    thK = corner_seed(K, I, J)
+    thK = [sw ? addc(thK[k], TWOPI_I * iv(Float64(g.wind[k]))) : near(thK[k], mid(t0[k])) for k in 1:3]
     yK = scale(imp(psi_model(K[I, Jc], D)), iv(-2.0))
-    q0 = eb.q0
-    pK = [addc(addc(thK[1], -t0[1]), iv(-q0[1])), addc(addc(thK[2], -t0[2]), iv(-q0[2])),
-          addc(addc(thK[3], -t0[3]), iv(-q0[3])), addc(yK, iv(-q0[4]))]
+    pK = [addc(thK[1], -t0[1]), addc(thK[2], -t0[2]), addc(thK[3], -t0[3]), yK]
     wK = [lincomb(Minv[i, :], pK) for i in 1:4]
     land = vecnorm_sup(wK, D)
     land < eb.r || return false, @sprintf("T3: ||w_K|| <= %.6g >= r = %.6g", land, eb.r), land
-    dep(a, b) = K[a, b] - K[a, J[1]] - K[I[1], b] + K[I[1], J[1]]
-    tK = addc(thK[4], -t0[4])
-    xh = [tK; [addc(wfix(dep(I[2+(k-1)÷3], Jc[(k-1)%3+1]), mid(f0[k]), 4 + k), -f0[k]) for k in 1:6]]
-    xv = [tK; [addc(wfix(dep(Ic[(k-1)%3+1], J[2+(k-1)÷3]), mid(f0[k]), 10 + k), -f0[k]) for k in 1:6]]
-    wr = [tmrange(x, D) for x in wK]
-    hits = [l for l in leaves if all(l.wc[j] - l.h[j] <= wr[j][2] && wr[j][1] <= l.wc[j] + l.h[j] for j in 1:4)]
-    isempty(hits) && return false, "T3: w_K meets no C1e box", land
-    for lf in hits
-        u = [addc(wK[j], iv(-lf.wc[j])) for j in 1:4]
-        for (side, x, xp, rho) in (("horizontal", xh, lf.xh, lf.rho_h), ("vertical", xv, lf.xv, lf.rho_v))
-            for i in 1:7
-                d = bound(x[i] - compose(xp[i], u, D), D)
-                d < rho[i] || return false, @sprintf("T3: %s side, unknown %d: %.3g from the tube's predictor >= rho %.3g", side, i, d, rho[i]), land
-            end
-        end
+    # the distance to F6
+    PF = [Float64(mod((a - 1) * (b - 1), 6)) for a in 1:6, b in 1:6]          # units of 2 pi / 6
+    best = (Inf, Int[], Int[], zeros(6, 6))
+    for pr in PERM3, pc in PERM3
+        R = [I; Ic[collect(pr)]]; C = [J; Jc[collect(pc)]]
+        A = permute6(K, R, C)
+        D6 = [mid(A[a, b].c) - 2π * PF[a, b] / 6 for a in 1:6, b in 1:6]
+        N = IA.choose_winding(D6)[1]
+        z = hproj(D6 .+ 2π .* N)
+        v = sqrt(sum(abs2, z))
+        v < best[1] && (best = (v, R, C, N))
     end
+    _, R, C, N = best
+    A = permute6(K, R, C)
+    Z = [addc(polypart(A[a, b]), TWOPI_I * iv(N[a, b]) - TWOPI_I * iv(PF[a, b]) / iv(6.0)) for a in 1:6, b in 1:6]
+    rem = sup(sqrt(sum(iv(A[a, b].r)^2 for a in 1:6, b in 1:6)))
+    dist = sup(iv(vecnorm_sup(vec(permutedims(hproj_models(Z))), D)) + iv(rem))
+    dist < X_DIST || return false, @sprintf("T3: phase distance to F6 <= %.6g, not < 3/20", dist), land
     true, "ok", land
 end
 
