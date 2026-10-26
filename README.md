@@ -11,7 +11,7 @@ order-6 Hadamard matrices is used.
 **Read:** [`PROOF.md`](PROOF.md) (the proof), then [`AUDIT.md`](AUDIT.md) (status and where to look hardest), then
 [`lean/README.md`](lean/README.md) (the formalisation).
 
-**Status (26 Oct 2026).** The seed-atlas certificate (2,350 seed balls and the ball at F6) passes the Arb certifier. The independent Julia certification is running; its verdict will be added shortly. See [`PROOF.md`](PROOF.md#step-5-the-atlas-covers-x).
+**Status (26 Oct 2026).** The seed-atlas certificate (2,350 seed balls and the ball at F6) passes both independent certifiers, Arb and Julia, with every check passing. See [`PROOF.md`](PROOF.md#step-5-the-atlas-covers-x).
 
 ## The proof in five steps
 

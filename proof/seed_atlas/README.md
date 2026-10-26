@@ -44,7 +44,7 @@ It also checks Tao's record. A run over a subset (`--only`) never reports PASS.
 | Check | Result |
 |---|---|
 | Arb (`results/arb_receipt.json`) | **PASS**, 0 failures in 2,814 items; 1 h 24 min on one 128-core node; seed-ball work 102 core-hours (C1 12, Stage C 20, transfers 70) |
-| Julia (`proof/independent_seed`) | running (26 Oct 2026) |
+| Julia (`results/julia/`: `RESULT.txt`, `BINDING.txt` with the certificate's SHA-256, per-ball `seeds.tsv.gz`) | **PASS**, every check; 1 h 17 min on one 128-core node, with Stage C's clique-search budget `SEED_CLIQUE_CAP` = 2·10¹⁰ steps |
 | Re-certification with T3 by return XS | running in Arb and Julia |
 
 The certificate's T3 groups still carry the side data of the earlier T3 check, which the checkers now ignore.

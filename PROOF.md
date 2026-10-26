@@ -410,10 +410,10 @@ corner or lies in a Fourier family (`PRM.nonmatched_tao_or_fourier`, `PRM.strict
 | boundary boxes | 11,706,691: T0 2,411,969; T1 7,431,652; corner-symmetry T1 1,832,906; T3 30,164 |
 | X-ball | tangent radius 0.13; image within phase distance 0.1636 < 7/40 of F6; 1,183,840 sphere boxes |
 | Arb certification | **PASS**, 0 failures in 2,814 items: 1 h 24 min on one 128-core node (102 core-hours of seed-ball work) |
-| Julia certification | running (26 Oct 2026); the verdict will be added here |
+| Julia certification | **PASS**, every check: 1 h 17 min on one 128-core node (`results/julia/`) |
 | certificate | `proof/seed_atlas/results/seed_atlas_certificate.json.gz` (41 MB, SHA-256 `5daa58b34a11fb2d7828ce9eaac1dfeb8452ca5be1f91bbf1cd10c6c8f7c3313`); Arb receipt `arb_receipt.json` |
 
-**Status (26 Oct 2026).** The Arb certifier passes the whole certificate. The independent Julia certification is running and its verdict will be added here. The certificate's T3 transfers were checked by the earlier side-tube method. The re-certification of the same atlas with T3 by Theorem 4.3 (no side data) is also running, in Arb and in Julia.
+**Status (26 Oct 2026).** Both certifiers pass the whole certificate. Its T3 transfers were checked by the earlier side-tube method. The re-certification of the same atlas with T3 by Theorem 4.3 (no side data) is running in both.
 
 ## Conclusion
 
