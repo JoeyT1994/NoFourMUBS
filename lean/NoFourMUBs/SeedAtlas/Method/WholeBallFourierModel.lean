@@ -99,6 +99,7 @@ lemma FourierModel.normalCoeff_apply (M : FourierModel ι E F) (i : ι) (c : ℂ
     ContinuousLinearMap.mul_apply', mul_comm I]
   rfl
 
+omit [Fintype ι] in
 theorem FourierModel.norm_normalCoeff (M : FourierModel ι E F) (i : ι) :
     ‖M.normalCoeff i‖ ≤ ‖M.coeff i‖ * ‖M.normal i‖ := by
   apply ContinuousLinearMap.opNorm_le_bound _ (mul_nonneg (norm_nonneg _) (norm_nonneg _))
