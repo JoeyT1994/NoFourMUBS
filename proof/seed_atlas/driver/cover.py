@@ -322,23 +322,26 @@ def cover(ball, cands, max_level=MAX_LEVEL, chunk=128):
             for s in range(0, len(rest), chunk):
                 sl = rest[s:s + chunk]
                 Q, okq, _ = box_Q(ball, wc[s:s + chunk], hw[s:s + chunk])
-                QP = None
+                QP = None; QPi = {}          # T3 sample points, computed once per box, only for boxes still open
                 for ci in nl:
+                    op = np.where(who[sl] < 0)[0]             # each candidate is tested on the open boxes only
+                    if not len(op): break
                     if cands[ci].kind == 'T3':
-                        if not (who[sl] < 0).any(): continue
-                        if QP is None: QP, okp = t3_points(ball, lo[s:s + chunk], hi[s:s + chunk])
+                        need = [b for b in op if b not in QPi]
+                        if need:
+                            qp, okp_ = t3_points(ball, lo[s:s + chunk][need], hi[s:s + chunk][need])
+                            for k, b in enumerate(need): QPi[b] = (qp[k], okp_[k])
+                        QP = np.stack([QPi[b][0] for b in op]); okp = np.array([QPi[b][1] for b in op])
                         ok, vc, N3 = t3_test(cands[ci], QP, okp)
-                        best[sl] = np.minimum(best[sl], vc)
-                        new = ok & (who[sl] < 0)
-                        for b in np.where(new)[0]: Ns[sl[b]] = N3[b]
-                        who[sl[new]] = ci
+                        best[sl[op]] = np.minimum(best[sl[op]], vc)
+                        for k in np.where(ok)[0]: Ns[sl[op[k]]] = N3[k]
+                        who[sl[op[ok]]] = ci
                         continue
-                    ok, vc, N = nl_test(Q, hw[s:s + chunk], cands[ci], du=du[s:s + chunk])
-                    ok &= okq
-                    best[sl] = np.minimum(best[sl], np.where(np.isfinite(vc), vc, 9.0))
-                    new = ok & (who[sl] < 0)
-                    for b in np.where(new)[0]: Ns[sl[b]] = tuple(int(x) for x in N[b])
-                    who[sl[new]] = ci
+                    ok, vc, N = nl_test(Q.take(op), hw[s:s + chunk][op], cands[ci], du=du[s:s + chunk][op])
+                    ok &= okq[op]
+                    best[sl[op]] = np.minimum(best[sl[op]], np.where(np.isfinite(vc), vc, 9.0))
+                    for k in np.where(ok)[0]: Ns[sl[op[k]]] = tuple(int(x) for x in N[k])
+                    who[sl[op[ok]]] = ci
         for b in np.where(who >= 0)[0]: leaves.append((m, I[b].copy(), int(who[b]), Ns[b]))
         open_ = who < 0
         near = open_ & (best < 1.0)
