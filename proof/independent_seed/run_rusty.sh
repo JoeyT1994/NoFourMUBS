@@ -7,7 +7,8 @@
 #SBATCH -o out/seed_indep_%j.log
 # Fresh, complete independent replay of the seed-atlas certificate on one node (see README "Running it").
 # Submit from proof/independent_seed of the rusty copy:   mkdir -p out && sbatch run_rusty.sh
-# Variables: CERT (default ../seed_atlas/results/seed_atlas_certificate.json.gz), OUT (default out/fresh),
+# Variables: CERT (default ../seed_atlas/results/seed_atlas_certificate.json.gz), OUT (default out/fresh), SEED_CLIQUE_CAP
+#            (Stage C's clique-search step budget, default 50,000,000),
 #            SHARDS (processes, default 8; threads per process = cores / SHARDS), JULIA, DEPOT.
 # The seed balls are split over SHARDS processes (one garbage collector per process scales better than one process
 # with 128 threads); a final run imports their receipts (checked against its own BINDING.txt), does the records, F6

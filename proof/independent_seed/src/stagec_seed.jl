@@ -30,12 +30,15 @@ function seed_stage_inputs(s)          # a Seed or an EdgeBall
 end
 
 """Run the existing Stage C on the seed ball's enclosure.  replay = true re-decides every float rejection in
-interval arithmetic (the default of the existing checker)."""
+interval arithmetic (the default of the existing checker).  The clique search's step budget is SEED_CLIQUE_CAP
+(default 50,000,000): a search that exhausts it fails, so a larger budget can only turn such failures into the
+search's own verdict."""
 function seed_stage_c(s; replay::Bool=true)   # a Seed or an EdgeBall
     si = seed_stage_inputs(s)
     P6 = [s.P[6(j-1)+c] for j in 1:6, c in 1:6]
     rec = IA.Rec(s.idx, true, NaN, s.lr, P6, zeros(Int64, 36, 4), IA.Target[])
     # NormalBound(ok, msg, sigma, e0, j1, lam_max, gH, rH, b, n, tcol, rcol, rF, T36): Stage C reads rH, n, rcol, rF, T36
     nb = IA.NormalBound(true, "seed ball", NaN, NaN, NaN, NaN, NaN, s.r, NaN, si.nprime, NaN, si.rcol, si.rF, si.T36)
-    IA.stage_c(rec, nb; replay=replay), si
+    cap = parse(Int, get(ENV, "SEED_CLIQUE_CAP", "50000000"))
+    IA.stage_c(rec, nb; replay=replay, cap=cap), si
 end
