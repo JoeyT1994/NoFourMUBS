@@ -10,9 +10,9 @@ import NoFourMUBs.PRM.CoverageCritical
 (`STRICT_CORNER_COVERAGE.md`; `PRM.md` §7.1–7.2) that are proved in other modules (all three are
 proved; `Final.strictCornerCoverage` assembles them):
 
-* `singular` — §7.1 singular-minor route (`FOURIER_ROUTING.md` §1), up to a `3 × 3` Hadamard block.
+* `singular` — §7.1 singular-minor route (`PRM.md` §7.1), up to a `3 × 3` Hadamard block.
   **Proved** in `CoverageSingular` (`singularMinorRoute`).
-* `geometric` — §7.1 geometric-row route (`FOURIER_ROUTING.md` §2), up to the block.
+* `geometric` — §7.1 geometric-row route (`PRM.md` §7.1), up to the block.
   **Proved** in `CoverageGeometric` (`geometricRowRoute`).
 * `classification` — I4, `CRITICAL_STRIP_CLASSIFICATION.md` (Theorem), on the top strip, window
   form.  **Proved** in `CoverageStripParts` (`topStripClassification`; its first step, the critical
@@ -40,7 +40,7 @@ open CoverageTen
 /-! ### Definitions used by the inputs -/
 
 /-- Rows `r 0, r 1, r 2` of `H` can be phased (rows and columns) into
-`(1, …, 1)`, `(x₁, …, x₆)`, `(x̄₁, …, x̄₆)` (the geometric-progression rows of `FOURIER_ROUTING.md`). -/
+`(1, …, 1)`, `(x₁, …, x₆)`, `(x̄₁, …, x̄₆)` (the geometric-progression rows of `PRM.md` §7.1). -/
 def GeometricRows (H : Mat6) (r : Fin 3 → I6) : Prop :=
   ∃ (a : Fin 3 → ℂ) (c x : I6 → ℂ), (∀ i, Complex.normSq (a i) = 1) ∧
     (∀ j, Complex.normSq (c j) = 1) ∧
@@ -61,7 +61,7 @@ def AllMinorsInvertible (H : Mat6) : Prop :=
 
 /-! ### The three inputs -/
 
-/-- **§7.1, singular-minor route** (`FOURIER_ROUTING.md` §1, `PRM.md` §7.1).  A Hadamard matrix with
+/-- **§7.1, singular-minor route** (`PRM.md` §7.1).  A Hadamard matrix with
 a singular `3 × 3` minor contains a `3 × 3` Hadamard submatrix (it, or its transpose in the column
 case).  Paper proof: a singular phase `3 × 3` matrix has two proportional rows or columns; in the row
 case the two complete rows phase to `(1,1,1; 1,1,1)` and `(1,1,1; −1,−1,−1)`; the other four rows have
@@ -72,7 +72,7 @@ def SingularMinorRoute : Prop :=
   ∀ H : Mat6, Hadamard6.IsHadamard H → ∀ σ τ : Equiv.Perm I6,
     (Step2.rightBlock (H.submatrix σ τ)).det = 0 → HasHadamardBlock H ∨ HasHadamardBlock Hᵀ
 
-/-- **§7.1, geometric-row route** (`FOURIER_ROUTING.md` §2, `PRM.md` §7.1).  If three rows phase into
+/-- **§7.1, geometric-row route** (`PRM.md` §7.1).  If three rows phase into
 `(1; x; x̄)`, then `Σ xⱼ = Σ xⱼ² = 0`, the `xⱼ` are two equilateral triples, and three columns carrying
 one triple give a `3 × 3` Hadamard block `[F]`. -/
 def GeometricRowRoute : Prop :=

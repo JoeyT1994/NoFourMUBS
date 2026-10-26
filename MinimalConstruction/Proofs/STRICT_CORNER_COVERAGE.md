@@ -5,16 +5,10 @@ has a dephased positional 3 by 3 corner with the reconstruction's R>0.
 Tao is included. Equivalently, the locus on which all 400 positional
 corner discriminants vanish is exactly the equivalence class of F6.
 
-This proves the statement used in ASSUMPTIONS.md without weakening its
-quantifiers. It does not assert that every corner is strict. The argument
-uses exact identities and the proved ClassificationPaper imports in
-FOURIER_ROUTING.md; no sampled evidence or historical global claim is
-an input.
-
-> **Note (18 Oct 2026).** The ClassificationPaper imports of `FOURIER_ROUTING.md` are no longer needed: `PRM.md` §7.1
-> (return G) proves the same routing directly, and the current proof (`PROOF.md` Theorem 2.5) uses that. The nonzero-J
-> strips are now proved by return K's signed corner sums, and the two rational endpoints are excluded by the ten-corner
-> count of return S (ENDPOINT_COUNTING.md) instead of the two former endpoint-exclusion proofs.
+This is `PROOF.md` Theorem 2.5. It does not assert that every corner is strict. The argument uses exact identities,
+the Fourier routing of return G (`proof/coverage/returns/G_prm/PRM.md` §7.1), the signed corner sums of return K for
+the nonzero-J strips and the ten-corner count of return S (ENDPOINT_COUNTING.md); no classification input and no
+sampled evidence.
 
 ## Proof
 
@@ -28,7 +22,7 @@ nonzero phase monomial it is a Laurent-polynomial identity. Thus it
 suffices to show that a carrier with all corner R=0 is equivalent to F6.
 
 Suppose H is all-critical and is not equivalent to F6. By
-FOURIER_ROUTING.md, a singular 3 by 3 minor would put H in the
+PRM.md §7.1, a singular 3 by 3 minor would put H in the
 Fourier family or its transpose. FOURIER_CRITICAL_LOCUS.md would then
 force equivalence to F6, a contradiction. Therefore all 400 minors
 are invertible. The same two results rule out a complete row triple

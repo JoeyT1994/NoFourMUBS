@@ -72,5 +72,5 @@ are being built.
 ## Inputs taken as given
 
 - No classification of order-6 Hadamard matrices. The reconstruction (`MinimalConstruction/`) supplies the matched
-  completion H_o(θ) and the critical-strip proofs; its earlier statements relative to [CT] (MC2–MC5) are not used.
+  completion H_o(θ) and the critical-strip proofs.
 - The Stage C method of [OAI], with every inequality reproved and formalised.

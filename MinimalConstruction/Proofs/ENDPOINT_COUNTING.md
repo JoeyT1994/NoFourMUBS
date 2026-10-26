@@ -1,9 +1,7 @@
 # Endpoints by counting
 
 From return S ([`proof/coverage/returns/S_endpoints_by_counting`](../../proof/coverage/returns/S_endpoints_by_counting/PROOF.md),
-§§2, 3 and 7; accepted 18 Oct 2026). It replaces the two endpoint exclusions (formerly
-`CRITICAL_P7_EXCLUSION.md` and `CRITICAL_EQUI_CORRELATION_EXCLUSION.md`, removed; they remain in git history and in
-return G's `imports/`). Lean: `lean/NoFourMUBs/PRM/CoverageEndCount.lean` (`CoverageTen.anchored_count`). Verifier:
+§§2, 3 and 7). Lean: `lean/NoFourMUBs/PRM/CoverageEndCount.lean` (`CoverageTen.anchored_count`). Verifier:
 `verify_endpoint_counting.py`.
 
 **Theorem.** Let `T` be three orthogonal unimodular rows of length six, and `c` a column. The ten corners `C ∋ c` cannot

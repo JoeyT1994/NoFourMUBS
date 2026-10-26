@@ -1,7 +1,7 @@
 import NoFourMUBs.PRM.CoverageInputs
 
 /-!
-# The geometric-row route (`PRM.md` §7.1, `FOURIER_ROUTING.md` §2)
+# The geometric-row route (`PRM.md` §7.1)
 
 **`geometricRowRoute : GeometricRowRoute`.**  If three rows of a Hadamard matrix phase into
 `(1, …, 1)`, `(x₁, …, x₆)`, `(x̄₁, …, x̄₆)`, then the matrix contains a `3 × 3` Hadamard submatrix.

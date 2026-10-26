@@ -1,8 +1,8 @@
 """Replay the proof (PROOF.md).  Exits nonzero if any check fails.
 
   python3 verify.py                 Step 1 certificates, Step 2 replays: matched existence (identity (J) for the sides,
-                                    flatness), the converse and exact reach, strict-corner coverage (with return K),
-                                    sheet lemmas; Step 3: S6 as a zero-dimensional record, a Stage C Arb sample; plus
+                                    flatness), the converse and exact reach, strict-corner coverage (with return K);
+                                    Step 3: S6 as a zero-dimensional record, a Stage C Arb sample; plus
                                     the earlier radical side construction (return F) as a cross-check
   python3 verify.py --atlas [-j N]  additionally certify the whole seed atlas in Arb (Steps 3-5: every seed ball's C1
                                     and Stage C, every transfer box, the ball at F6, Tao; N worker processes)
@@ -27,10 +27,6 @@ CHECKS = [
     ('mc_reconstruction_proofs', 'MinimalConstruction/Proofs/verify_dossier.py', []),
     ('mc1_nonzero_j_signed_sums', 'proof/coverage/returns/K_nonzero_J/verify.py', []),
     ('mc1_zero_j_mixed_sums',   'proof/coverage/returns/O_zeroj_unsquared/verify.py', []),
-    ('mc_reconstruction',       'MinimalConstruction/Implementation/verify.py', []),
-    ('mc_single_radical',       'MinimalConstruction/Implementation/verify_single_radical.py', []),
-    ('mc5_sheet_conjugation',   'MinimalConstruction/Sheets/verify.py', []),
-    ('mc3_side_branch_lemma',   'MinimalConstruction/Sheets/verify_branch_lemma.py', []),
     ('tao_zero_dim_record',     'proof/atlas/tao.py', ['0.08']),
     ('step3_stagec_arb_replay', 'proof/atlas/arb_replay.py', ['centre_fold52.json', '0.08', '100']),
 ]

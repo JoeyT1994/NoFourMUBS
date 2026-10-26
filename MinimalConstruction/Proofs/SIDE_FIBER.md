@@ -1,8 +1,9 @@
 # The normalized side fiber on the entire strict domain
 
-Status: proved. This establishes MC2 (the side-orbit and finite-enumeration
-assertions) and MC3. It does **not** establish that matched pairings are
-flat, classify exceptional pairings, or prove global strict-corner existence.
+Proved here: at every strict seed the normalized side fibre has exactly two orbits under column permutations, the
+side formulas of RECONSTRUCTION.md are well defined, and finitely many pairings recover every framed completion (§1
+gives Lemma 2.1 of `PROOF.md`). Flatness of the matched pairings is Theorem 2.2 of `PROOF.md`, and strict-corner
+existence is Theorem 2.5 (STRICT_CORNER_COVERAGE.md).
 
 Dependencies: the elementary invariant identities in STRICT_DOMAIN.md and
 OPPOSITE_CORNER.md, checked by verify_invariants.py; the Laurent identities
@@ -254,8 +255,8 @@ For example the off-diagonal block vanishes, and the lower block is
 All entries outside D already have modulus one. Thus H is Hadamard
 if and only if every entry of D has modulus one. Four pairings and
 this exact flatness test recover every framed completion. This proves
-exhaustion, but does not decide which pairings pass; those assertions
-are the separate MC4 obligation.
+exhaustion, but does not decide which pairings pass; that is Theorem 2.2
+of `PROOF.md`.
 
 Replay the algebra with
 `python3 MinimalConstruction/Proofs/verify_side_fiber.py` and

@@ -1,39 +1,12 @@
 # Four-phase reconstruction of order-six complex Hadamard matrices
 
-## Scope and external theorem inputs
+## Scope
 
-**Working map:** the positive-sheet surjection in Section 3, with four phase
-seeds and `R>0`, covers all non-F6, non-Tao classes up to equivalence. Section 4
-is optional fixed-corner enumeration and is not needed to run this map.
-
-This document gives a self-contained reconstruction specification. The global
-strict-corner theorem and strict completion-exhaustion theorem are taken as
-proved elsewhere by our collaborator, as reported in Sections 4, 5 and 9 of
-`COMPREHENSIVE_HANDOFF.md` (21 September 2026). They are accepted external
-inputs here; this document neither supplies nor independently certifies their
-proofs. The opposite-corner sheet reversal is also taken as proved elsewhere, in
-Section 6 of `Hadamard6_Single_Sheet_Conjugate_Fourier_Form.md`.
-The quadratic side formulas are from
-`Hadamard6_Unitary_Core_Phase_Gate_Form.md` with the corrected new guards.
-
-The [accepted input register](ASSUMPTIONS.md) separates these assumptions from
-the classification paper's included proof package. Historical source filenames
-above are provenance references, not files needed to evaluate the formulas.
-The external conclusions used for optional enumeration are:
-
-1. Every order-six complex Hadamard matrix not equivalent to the Fourier
-   matrix F6 has a positional 3-by-3 corner with the strict invariant R>0
-   defined below.
-2. At a strict corner each normalized side fiber has exactly two orbits under
-   permutations of its three columns. The formulas below recover both.
-3. Normally two of the four side pairings give flat completions. At two
-   exceptional Tao corner classes a third pairing also gives a flat
-   completion; the fourth is nonflat. Retaining all four pairings and testing
-   flatness includes these exceptions without an additional parametrization.
-
-Thus four phase seeds, one strict inequality and explicitly computable finite
-choices cover every class except F6. F6 can be included separately as the
-explicit matrix (F6)_{jk}=exp(2 pi i j k/6), 0<=j,k<6.
+This document fixes the definitions of Step 2 of [`PROOF.md`](../PROOF.md): the corner seed and its domain (§1), the
+explicit side constructor (§2) and the matched completion H₊ built from them (§3). The theorems about this
+construction (matched existence, uniqueness, the nonmatched converse and strict-corner coverage, Theorems 2.2–2.5)
+are proved in `PROOF.md`, in [`../proof/coverage/`](../proof/coverage/README.md) and in [`Proofs/`](Proofs/README.md),
+without classification input.
 
 ## 1. Convention, seeds and domain
 
@@ -137,204 +110,21 @@ The entries of S have modulus one, its first row is (1,1,1), and SS†=G.
 The three cube-root choices simply cycle its columns. The orientation
 choice at dF=0 is likewise a presentation choice modulo side permutations.
 
-## 3. The positive-sheet surjection: the working reconstruction
+## 3. The matched completion
 
-For global work, including the no-four-MUB problem, use only
+At a strict seed the matched completion is
 
     B = S(Gh,z_+),
     C = S(Gv,bar(z_+))^T,
     D = -C E† adj(Gh) B/g,
     H_+(a,b,c,d) = [[E,B],[C,D]].
 
-The accepted matched-completion theorem guarantees that H_+ is Hadamard
-throughout the domain Dstrict={(a,b,c,d) in T^4 : R>0}. No additional
-flatness filter or choice between matched pairings is needed for this map.
+By Theorem 2.2 of `PROOF.md` (matched existence), H_+ is Hadamard throughout
+the domain Dstrict={(a,b,c,d) in T^4 : R>0}; no flatness filter or choice
+between pairings is needed.
 Here `adj` is the classical adjugate and `g=det(Gh)>0`; only explicit cofactors
 and scalar division are required.
 
-The map
-
-    Dstrict -> Hadamard equivalence classes,
-    (a,b,c,d) -> [H_+(a,b,c,d)]
-
-contains every non-F6, non-Tao class in its image. This is the surjective
-covering used here; adjoining the explicit F6 and Tao classes covers all
-order-six Hadamard classes. It is not asserted to be injective. Different
-eligible corners of one matrix can yield different seeds representing the
-same class, even after root-induced permutations are removed.
-
-Why one sheet suffices: a non-F6, non-Tao matrix has a strict corner and
-is recovered by one of the two matched pairings. If it uses the negative
-pairing, exchanging the opposite blocks E and D, then dephasing, reverses
-the sheet and preserves R>0. The positive constructor at that new corner
-therefore recovers an equivalent matrix. This uses the external
-opposite-corner theorem; it does not equate the two completions at the
-same seeds.
-
-For precision, if H is dephased and D is its bottom-right 3-by-3 block
-indexed 0,1,2, the opposite seed is
-
-    a'=D00 D11/(D10 D01),  b'=D00 D12/(D10 D02),
-    c'=D00 D21/(D20 D01),  d'=D00 D22/(D20 D02).
-
-These entries are phases. The transformation uses the completed matrix;
-it need not be evaluated to run the positive-sheet covering.
-
-### Use for the no-four-MUB problem
-
-Two orthonormal bases are mutually unbiased when every cross inner product
-has modulus 1/sqrt(6). Fix the standard basis. It is sufficient to prove
-that no H_+(a,b,c,d)/sqrt(6), for any seed in Dstrict, extends with that
-standard basis to four mutually unbiased bases, and separately exclude
-the F6 and Tao cases. This statement is a reduction, not a proof of those
-exclusions. Repeated representations do not affect its validity.
-
-Hadamard equivalence preserves this extension question: row monomial
-unitaries act on the entire configuration and preserve the standard basis
-as a set of rays; column permutations and phases only relabel or rephase
-the carrier basis. Transport all additional bases in that same gauge.
-
-For a self-contained exceptional representative, with omega as above, Tao
-is the phase matrix
-
-    [[1,1,1,1,1,1],
-     [1,1,omega,omega,omega²,omega²],
-     [1,omega,1,omega²,omega²,omega],
-     [1,omega,omega²,1,omega,omega²],
-     [1,omega²,omega²,omega,1,omega],
-     [1,omega²,omega,omega²,omega,1]].
-
-## 4. Optional: all completions at a prescribed corner
-
-Compute two horizontal and two vertical candidates:
-
-    B_e = S(Gh,z_e),
-    C_f = S(Gv,bar(z_f))^T,       e,f in {+,-}.
-
-For each of the four pairs (e,f), form
-
-    D_ef = -C_f E† adj(Gh) B_e/g,
-    H_ef = [[E,B_e],[C_f,D_ef]].
-
-Every H_ef satisfies H_ef H_ef†=6I6. Its first three rows and first three
-columns already have phase entries. Consequently the complete and exact
-acceptance test is simply
-
-    |(D_ef)_jk|²=1 for all j,k=0,1,2.
-
-Keep every pair satisfying this test. The external exhaustion theorem says
-that this list recovers every completion at the fixed strict corner, modulo
-permutations of the last three rows and columns. It gives two surviving
-pairings normally and three at the exceptional Tao corners. These are
-framed completions of the same E, not a count of inequivalent classes.
-
-The two always-flat matched pairings use e=f. When enumerating every
-completion at a prescribed corner, retain the other pairings through the
-flatness test to include the exceptional Tao completion. This enumeration
-is not required for the positive-sheet global covering of Section 3.
-
-## 5. Parameter and operation counts
-
-The only continuous inputs are a,b,c,d. All auxiliary quantities above are
-explicit functions of those seeds and finite root choices. For a single
-candidate pairing, the radical stages use one shared real square root,
-one complex square root per side and one unit-phase cube root per side.
-Cube-root choices introduce no additional classes modulo the indicated
-row/column permutations. To enumerate the whole completion list, evaluate
-both side branches and test the four pairings.
-
-The working global description is the positive-sheet four-phase surjection
-of Section 3, with F6 and Tao handled separately. Section 4 is needed only
-when every completion at a prescribed corner is wanted.
-
-## 6. Related retained results
-
-The proved measurement identities and inequalities are indexed in
-[ProvenResults](../ProvenResults/README.md).
-
-The preferred measurement equations are
-[SingleRadicalMeasurements.md](Measurements/SingleRadicalMeasurements.md).
-They retain this reconstruction and its full R>0 domain; they do not replace
-its coverage assumptions or prove a seed-only restriction.
-
-## 7. Proof references and audit status added 30 September 2026
-
-Every preceding statement is preserved verbatim. The [proof dossier](Proofs/README.md)
-tracks the precise obligations without replacing them by generic or
-product-regular versions.
-
-For Section 1, [StrictDomain](Proofs/STRICT_DOMAIN.md) proves positive
-definiteness directly from unit seeds and R>0, including g>0 and n>0.
-For Section 2, the same proof establishes all P_j are nonzero, lambda_j
-are unit phases, and delta is nonzero; the remaining side-constructor
-identities and exhaustion still require proof.
-
-For Section 3, [OppositeCorner](Proofs/OPPOSITE_CORNER.md) gives the exact
-invariant identities and transport theorem with its matching and uniqueness
-hypotheses stated explicitly. It separates that result from the stronger
-fixed-seed representation needed by NumericalCampaign/REDUCTION.md.
-Section 4's complete two-orbit exhaustion and exceptional Tao pairings
-remain obligations MC2 and MC4. Global strict-corner existence remains MC1.
-
-The recovered derivations and their provenance are included in the dossier.
-A successful algebra check does not certify the remaining global claims.
-This appended section changes the file hash; only the original prefix is pinned (`Proofs/provenance/APPEND_ONLY_BASELINES.json`).
-
-### Further proof progress, 30 September 2026
-
-The earlier status statements are preserved verbatim. Section 2 and its
-exact two-orbit exhaustion are now proved in
-[Proofs/SIDE_FIBER.md](Proofs/SIDE_FIBER.md), with no extra guards.
-Both matched completions in Sections 3 and 4 are proved flat throughout
-R>0 in [Proofs/MATCHED_FLATNESS.md](Proofs/MATCHED_FLATNESS.md).
-The two exceptional strict Tao corner classes and all four of their
-pairings are proved in [Proofs/TAO_PAIRINGS.md](Proofs/TAO_PAIRINGS.md).
-[Proofs/OPPOSITE_CORNER.md](Proofs/OPPOSITE_CORNER.md) also supplies the
-fixed-seed conjugation relation used by the numerical campaign.
-
-The remaining global obligations are MC1 (strict-corner existence) and
-the converse part of MC4 (no other nonmatched flat completions). The
-positive-sheet surjection in Section 3 remains conditional on those
-obligations; none of the successful local verifiers claims otherwise.
-
-### Nonmatched converse completed, 30 September 2026
-
-[Proofs/NONMATCHED_EXCEPTIONS.md](Proofs/NONMATCHED_EXCEPTIONS.md) proves
-the exceptional converse in Section 4: every nonmatched strict
-completion is Tao, and the exact census accounts for its two strict
-corner classes and all four pairings. The proof identifies the necessary
-matching rule imported from ClassificationPaper separately from its
-generic flatness theorem; this distinction is essential.
-
-Consequently the remaining unproved input to Section 3's global
-surjection is strict-corner existence (MC1). The other side, flatness,
-matching, and sheet-transport inputs are now supplied locally relative
-to the explicitly listed ClassificationPaper results. Earlier text and
-status entries are preserved verbatim.
-
-### Global coverage completed, 1 October 2026
-
-All previous specification text and status entries are preserved verbatim.
-[Proofs/STRICT_CORNER_COVERAGE.md](Proofs/STRICT_CORNER_COVERAGE.md) supplies
-the remaining global input: every non-F6 class has a strict positional
-corner, with Tao included. Its proof handles the ramified cases through
-exact whole-strip identities, pole analysis, endpoint exclusions and
-Fourier-family routing.
-
-Thus Sections 1–4 now have complete proofs relative to the permitted
-ClassificationPaper inputs: [SIDE_FIBER.md](Proofs/SIDE_FIBER.md) proves
-the entire side recipe, all prescribed divisors, exactly two permutation
-orbits and exhaustive finite pairing; [MATCHED_FLATNESS.md](Proofs/MATCHED_FLATNESS.md)
-proves both matched pairings flat; [NONMATCHED_EXCEPTIONS.md](Proofs/NONMATCHED_EXCEPTIONS.md)
-and [TAO_PAIRINGS.md](Proofs/TAO_PAIRINGS.md) classify every exceptional
-pairing. [OPPOSITE_CORNER.md](Proofs/OPPOSITE_CORNER.md) then gives global
-positive-sheet coverage and the fixed-seed conjugation relation used by
-NumericalCampaign/REDUCTION.md, with maximality and sorted conditions preserved.
-
-Replay all local checks with `python3 MinimalConstruction/Proofs/verify_dossier.py`.
-See [COMPLETION_AUDIT.md](Proofs/provenance/COMPLETION_AUDIT.md) for the requirement
-audit and [CHANGE_REPORT.md](Proofs/provenance/CHANGE_REPORT.md) for all changed files
-and hashes. The dossier is replayed by the root `verify.py`.
-
-
-**Note.** The measurement identities and inequalities of §6 are in [`Measurements/`](Measurements/).
+By Theorems 2.2–2.5 of `PROOF.md`, every order-six Hadamard class other than F6 and Tao's class is the class of a
+matched completion H_o at a strict seed, for an orientation o = ±1. The map is not injective: different strict
+corners of one matrix give different seeds of the same class.

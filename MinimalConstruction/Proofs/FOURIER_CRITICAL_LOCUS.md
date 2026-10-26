@@ -75,7 +75,5 @@ records the hashes of the three files from which its routines were
 adapted. It makes no runtime imports from those modules and accepts
 none of their assertions as additional axioms.
 
-*(Written before MC1 was proved; it is now proved in `STRICT_CORNER_COVERAGE.md`.)* The remaining MC1 problem is to prove that every all-critical carrier
-belongs to these equivalence classes. The Fourier-family result does
-not establish that reduction for the rest of the Karlsson sector or
-for carriers outside it.
+The Fourier-family result does not by itself show that every all-critical carrier belongs to these equivalence
+classes; STRICT_CORNER_COVERAGE.md proves that, using this result as step 1.

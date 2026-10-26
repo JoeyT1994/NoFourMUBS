@@ -56,8 +56,7 @@ theorem rowStrip_phaseOrthogonal {H : Mat6} (hH : Hadamard6.IsHadamard H) {r : F
 (`Step2.InFourierFamily`) has a row triple whose ten corners containing its first column are of the
 classified types `CoverageTen.CornerType` (with `stripP`, `stripJ`, `stripX` the `p`, `J`, `X` of the corner).
 
-Paper source: `STRICT_CORNER_COVERAGE.md` and `PRM.md` §7.2: (i) the Fourier routing lemmas (§7.1,
-`FOURIER_ROUTING.md`), with the block lemma of §5 (`FourierBlock`), (ii) the critical strip scalar
+Paper source: `STRICT_CORNER_COVERAGE.md` and `PRM.md` §7.2: (i) the Fourier routing lemmas (§7.1), with the block lemma of §5 (`FourierBlock`), (ii) the critical strip scalar
 classification (`CRITICAL_STRIP_CLASSIFICATION.md`, built on
 `CRITICAL_CORNER_REDUCTION.md`); `p⋆ ∈ (5.722, 5.723)` is `CoverageTen.pStar_bounds`.  It is proved
 from the named inputs of `NoFourMUBs.PRM.CoverageInputs` (`stripConfinement_of_inputs`). -/

@@ -1,7 +1,7 @@
 import NoFourMUBs.PRM.CoverageGeometric
 
 /-!
-# The singular-minor route (`PRM.md` §7.1, `FOURIER_ROUTING.md` §1)
+# The singular-minor route (`PRM.md` §7.1)
 
 **`singularMinorRoute : SingularMinorRoute`.**  A Hadamard matrix with a singular `3 × 3` minor
 contains (it, or its transpose) a `3 × 3` Hadamard submatrix.
@@ -200,7 +200,7 @@ theorem isHadamard3_of_orth {M : Mat3} (hu : ∀ i j, Complex.normSq (M i j) = 1
 
 /-! ### Two proportional rows give a Hadamard block -/
 
-/-- **Proportional rows** (`FOURIER_ROUTING.md` §1, row case).  If rows `p ≠ q` of a Hadamard matrix
+/-- **Proportional rows** (`PRM.md` §7.1, row case).  If rows `p ≠ q` of a Hadamard matrix
 are proportional on three columns, the matrix contains a `3 × 3` Hadamard submatrix. -/
 theorem block_of_prop_rows {H : Mat6} (hH : Hadamard6.IsHadamard H) {p q : I6} (hpq : p ≠ q)
     {c : Fin 3 → I6} (hc : Function.Injective c) {l : ℂ}
