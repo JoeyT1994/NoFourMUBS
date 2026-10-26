@@ -1,0 +1,408 @@
+{
+  "status": "CERTIFIED per-ball C1 and Stage C; NUMERICAL atlas closure",
+  "balls": 2775,
+  "edges": 1,
+  "ranks": {
+    "0": 1296,
+    "4": 1479
+  },
+  "budget_kinds": {
+    "certifier-confirmed stored enclosure": 1773,
+    "fine": 1002
+  },
+  "changed": 852,
+  "minimum_stored_margin": 1.3359633958993922e-09,
+  "minimum_budget_margin": 1.3359633958993922e-09,
+  "minimum_relative_budget_margin": 9.536743119653579e-07,
+  "median_relative_budget_margin": 9.536743166282946e-07,
+  "fine_cap_reached": 371,
+  "driver_closed": true,
+  "original_frames_preserved": true,
+  "exact_rational_scalar_audits": 2775,
+  "input_sha256": {
+    "state": "c6cd4abcbe13b14f2ff7e1a689e19d080ba0c11424ead13f0beccd30dc16d67f",
+    "archive": {
+      "seed_balls.json.gz": "060214d0f1d968f5d9c6961cd851df04bd4aadd0b86d21fff24692a2b7bf9d0c",
+      "wholeball_basis.json": "a201d41d0579d79b6f67077b8b2222878a3f54cc781395feb29b7449e7c29cd3",
+      "wholeball_n.jsonl": "cd79881918c95001471ae39d069f674844dc69ea16ff2f3cacf8719049afab37",
+      "stagec_n_budget.jsonl": "9ca2d18f33cf65c3fa460e142e4713140eeacecc8771e9be1c2af8720387ee56"
+    },
+    "fine": {
+      "/mnt/ceph/users/jtindall/seed_atlas_build/hor/zk2_work/fine_budgets_0.jsonl": "02181dad8fe61585e64ff5e58e875a743ce69026be04b644d12ae272554268cb",
+      "/mnt/ceph/users/jtindall/seed_atlas_build/hor/zk2_work/fine_budgets_1.jsonl": "e0986e053a6ad32c57bfaa4b5f5e0d871454f5b424349b4a16017881e8ec6972",
+      "/mnt/ceph/users/jtindall/seed_atlas_build/hor/zk2_work/fine_budgets_2.jsonl": "a5edf8f2041eed78478577ed1d0dc3cbd9cf69e8c8ac46021cd0580d475225cc",
+      "/mnt/ceph/users/jtindall/seed_atlas_build/hor/zk2_work/fine_budgets_3.jsonl": "2093a2108fd1186885d0449ea634da7d8e72419f4c234d5c936627161c05177c",
+      "/mnt/ceph/users/jtindall/seed_atlas_build/hor/zk2_work/fine_budgets_4.jsonl": "0adb6e155fca84e4e40c9640015fe5e2a28051dce958f3dce357c9714bf802b5",
+      "/mnt/ceph/users/jtindall/seed_atlas_build/hor/zk2_work/radius_budgets_1.jsonl": "e47da58a2279f3b309216de2df1cddcf5f7414bc5374ac0f85ff168a5db16d79",
+      "/mnt/ceph/users/jtindall/seed_atlas_build/hor/zk2_work/radius_budgets_2.jsonl": "f6c993d7ec4df6e1405e9bcb408ca939bd36e7b8f5121a744b42ffd8f0d41438",
+      "/mnt/ceph/users/jtindall/seed_atlas_build/hor/zk2_work/radius_budgets_3.jsonl": "c02058328263dc2441dbab0067712be9b18c0b4a399226f736ba6b069d6f71df"
+    }
+  },
+  "source_sha256": {
+    "kernel_atlas/generators/budget_state.py": "0a0c974cf495d27d2ecd0c7cb8d511e0166418ca53abe122ec63423deff58adb",
+    "kernel_atlas/generators/budget_fine.py": "3a2237b4e2300e3a3ecac8b7d25aa3d82c71b1c38f3d5cd4816899ab4236755f",
+    "kernel_atlas/generators/wholeball_cheap_arb.py": "85505728e3589da0899717ebd8f1fce0a943a5eac3bf3fb557020bfd53eb4ede",
+    "kernel_atlas/generators/wholeball_cheap_report.py": "07fd5be6e0fbe753c2c25648418d92346d8f75b61934efbb7f07f727aca7599f",
+    "proof/seed_atlas/driver/shrink_balls.py": "fc16dfde917043f444fdf214059f44906c90e12dff1427581431897a0e33791b",
+    "proof/seed_atlas/cert/seedcert.py": "ea2bcd51b2943a59fc429a853425ffd5a1c3f40df26ae1d99bf39dc086c310e8",
+    "proof/atlas/stagec.py": "b3233a132762d601b2537a6f85693c84e2314cbed6b268c48ab4ac62d2e6edc5"
+  },
+  "audit_jobs": [
+    "7339333",
+    "7339212"
+  ],
+  "audit_wall_seconds": [
+    3307.481810820056,
+    3347.614129297028
+  ],
+  "audit_sha256": {
+    "kernel_atlas/lean/KernelAtlas/WholeBall/CheapConstants/ZK2_receipts/final_state_0.jsonl": "da49eb140a15f584a8bf914186b632371651e2c9ef50e8e8af57d27a8ac70a5d",
+    "kernel_atlas/lean/KernelAtlas/WholeBall/CheapConstants/ZK2_receipts/final_state_1.jsonl": "525a8e5cdcf9b89bf42e577d119ec173cf73d40f0ddf581f9b7a4b44f40e4204"
+  },
+  "closure": {
+    "status": "NUMERICAL; independent transfer certification remains separate",
+    "start_boxes": 2080,
+    "reused_start_boxes": 2064,
+    "raw_groups": 8031516,
+    "compact_groups": 16100,
+    "leaves": 8031516,
+    "failed": 0,
+    "raw_state_sha256": "0a39df3b6ffeea8712d95f8ecd8fe02d4dbc03095ef83de980d6e25ecbc815e1",
+    "compact_state_sha256": "c6cd4abcbe13b14f2ff7e1a689e19d080ba0c11424ead13f0beccd30dc16d67f",
+    "raw_bytes": 1945981519,
+    "compact_bytes": 257394585,
+    "compaction_seconds": 129.69153873901814,
+    "receipts_sha256": {
+      "kernel_atlas/lean/KernelAtlas/WholeBall/CheapConstants/ZK2_receipts/edge_repair2/collected.json": "df54e311ef847299a25a826c4bc9af408372828423f5b41b2474da28633f3ae6",
+      "kernel_atlas/lean/KernelAtlas/WholeBall/CheapConstants/ZK2_receipts/zk2_compaction.json": "0489dbb352a1130950e0475727e9b59c189db5a9af21127d4349d3a9ac4678a0"
+    }
+  },
+  "accounting": {
+    "allocated_core_hours": 1881.3866666666668,
+    "used_cpu_hours": 700.4128219444445,
+    "jobs": [
+      {
+        "job_id": "7336869",
+        "state": "CANCELLED by 2043",
+        "elapsed_seconds": 297,
+        "allocated_cpus": 128,
+        "allocated_cpu_seconds": 38016,
+        "used_cpu_seconds": 23409.0
+      },
+      {
+        "job_id": "7336911_0",
+        "state": "CANCELLED by 2043",
+        "elapsed_seconds": 2913,
+        "allocated_cpus": 128,
+        "allocated_cpu_seconds": 372864,
+        "used_cpu_seconds": 179896.0
+      },
+      {
+        "job_id": "7336911_1",
+        "state": "CANCELLED by 2043",
+        "elapsed_seconds": 2913,
+        "allocated_cpus": 128,
+        "allocated_cpu_seconds": 372864,
+        "used_cpu_seconds": 184895.0
+      },
+      {
+        "job_id": "7336911_2",
+        "state": "CANCELLED by 2043",
+        "elapsed_seconds": 2913,
+        "allocated_cpus": 128,
+        "allocated_cpu_seconds": 372864,
+        "used_cpu_seconds": 189417.0
+      },
+      {
+        "job_id": "7336911_3",
+        "state": "CANCELLED by 2043",
+        "elapsed_seconds": 2913,
+        "allocated_cpus": 128,
+        "allocated_cpu_seconds": 372864,
+        "used_cpu_seconds": 183523.0
+      },
+      {
+        "job_id": "7336985",
+        "state": "COMPLETED",
+        "elapsed_seconds": 701,
+        "allocated_cpus": 128,
+        "allocated_cpu_seconds": 89728,
+        "used_cpu_seconds": 45105.0
+      },
+      {
+        "job_id": "7337044",
+        "state": "COMPLETED",
+        "elapsed_seconds": 342,
+        "allocated_cpus": 128,
+        "allocated_cpu_seconds": 43776,
+        "used_cpu_seconds": 13428.0
+      },
+      {
+        "job_id": "7337087",
+        "state": "COMPLETED",
+        "elapsed_seconds": 2998,
+        "allocated_cpus": 128,
+        "allocated_cpu_seconds": 383744,
+        "used_cpu_seconds": 177622.0
+      },
+      {
+        "job_id": "7337091",
+        "state": "COMPLETED",
+        "elapsed_seconds": 227,
+        "allocated_cpus": 128,
+        "allocated_cpu_seconds": 29056,
+        "used_cpu_seconds": 4989.0
+      },
+      {
+        "job_id": "7337092",
+        "state": "COMPLETED",
+        "elapsed_seconds": 3308,
+        "allocated_cpus": 128,
+        "allocated_cpu_seconds": 423424,
+        "used_cpu_seconds": 97420.0
+      },
+      {
+        "job_id": "7337213",
+        "state": "COMPLETED",
+        "elapsed_seconds": 575,
+        "allocated_cpus": 128,
+        "allocated_cpu_seconds": 73600,
+        "used_cpu_seconds": 12210.0
+      },
+      {
+        "job_id": "7337214",
+        "state": "COMPLETED",
+        "elapsed_seconds": 4265,
+        "allocated_cpus": 128,
+        "allocated_cpu_seconds": 545920,
+        "used_cpu_seconds": 196176.0
+      },
+      {
+        "job_id": "7337219",
+        "state": "CANCELLED by 2043",
+        "elapsed_seconds": 0,
+        "allocated_cpus": 0,
+        "allocated_cpu_seconds": 0,
+        "used_cpu_seconds": 0.0
+      },
+      {
+        "job_id": "7337262",
+        "state": "COMPLETED",
+        "elapsed_seconds": 2941,
+        "allocated_cpus": 128,
+        "allocated_cpu_seconds": 376448,
+        "used_cpu_seconds": 72749.0
+      },
+      {
+        "job_id": "7337291_0",
+        "state": "CANCELLED by 2043",
+        "elapsed_seconds": 0,
+        "allocated_cpus": 0,
+        "allocated_cpu_seconds": 0,
+        "used_cpu_seconds": 0.0
+      },
+      {
+        "job_id": "7337291_1",
+        "state": "CANCELLED by 2043",
+        "elapsed_seconds": 0,
+        "allocated_cpus": 0,
+        "allocated_cpu_seconds": 0,
+        "used_cpu_seconds": 0.0
+      },
+      {
+        "job_id": "7337612",
+        "state": "CANCELLED by 2043",
+        "elapsed_seconds": 2357,
+        "allocated_cpus": 128,
+        "allocated_cpu_seconds": 301696,
+        "used_cpu_seconds": 142941.0
+      },
+      {
+        "job_id": "7337635_0",
+        "state": "CANCELLED by 2043",
+        "elapsed_seconds": 0,
+        "allocated_cpus": 0,
+        "allocated_cpu_seconds": 0,
+        "used_cpu_seconds": 0.0
+      },
+      {
+        "job_id": "7337635_1",
+        "state": "CANCELLED by 2043",
+        "elapsed_seconds": 0,
+        "allocated_cpus": 0,
+        "allocated_cpu_seconds": 0,
+        "used_cpu_seconds": 0.0
+      },
+      {
+        "job_id": "7337886",
+        "state": "CANCELLED by 2043",
+        "elapsed_seconds": 1318,
+        "allocated_cpus": 128,
+        "allocated_cpu_seconds": 168704,
+        "used_cpu_seconds": 30306.0
+      },
+      {
+        "job_id": "7337887_0",
+        "state": "CANCELLED by 2043",
+        "elapsed_seconds": 0,
+        "allocated_cpus": 0,
+        "allocated_cpu_seconds": 0,
+        "used_cpu_seconds": 0.0
+      },
+      {
+        "job_id": "7337887_1",
+        "state": "CANCELLED by 2043",
+        "elapsed_seconds": 0,
+        "allocated_cpus": 0,
+        "allocated_cpu_seconds": 0,
+        "used_cpu_seconds": 0.0
+      },
+      {
+        "job_id": "7338261",
+        "state": "CANCELLED by 2043",
+        "elapsed_seconds": 1209,
+        "allocated_cpus": 128,
+        "allocated_cpu_seconds": 154752,
+        "used_cpu_seconds": 70915.0
+      },
+      {
+        "job_id": "7338387",
+        "state": "FAILED",
+        "elapsed_seconds": 285,
+        "allocated_cpus": 128,
+        "allocated_cpu_seconds": 36480,
+        "used_cpu_seconds": 211.496
+      },
+      {
+        "job_id": "7338386_0",
+        "state": "COMPLETED",
+        "elapsed_seconds": 2707,
+        "allocated_cpus": 128,
+        "allocated_cpu_seconds": 346496,
+        "used_cpu_seconds": 165490.0
+      },
+      {
+        "job_id": "7338386_1",
+        "state": "COMPLETED",
+        "elapsed_seconds": 2438,
+        "allocated_cpus": 128,
+        "allocated_cpu_seconds": 312064,
+        "used_cpu_seconds": 143966.0
+      },
+      {
+        "job_id": "7338386_2",
+        "state": "COMPLETED",
+        "elapsed_seconds": 2187,
+        "allocated_cpus": 128,
+        "allocated_cpu_seconds": 279936,
+        "used_cpu_seconds": 142926.0
+      },
+      {
+        "job_id": "7338386_3",
+        "state": "COMPLETED",
+        "elapsed_seconds": 2549,
+        "allocated_cpus": 128,
+        "allocated_cpu_seconds": 326272,
+        "used_cpu_seconds": 162958.0
+      },
+      {
+        "job_id": "7338472",
+        "state": "COMPLETED",
+        "elapsed_seconds": 271,
+        "allocated_cpus": 128,
+        "allocated_cpu_seconds": 34688,
+        "used_cpu_seconds": 1776.196
+      },
+      {
+        "job_id": "7338474",
+        "state": "FAILED",
+        "elapsed_seconds": 268,
+        "allocated_cpus": 128,
+        "allocated_cpu_seconds": 34304,
+        "used_cpu_seconds": 207.921
+      },
+      {
+        "job_id": "7338473_0",
+        "state": "COMPLETED",
+        "elapsed_seconds": 676,
+        "allocated_cpus": 128,
+        "allocated_cpu_seconds": 86528,
+        "used_cpu_seconds": 13026.0
+      },
+      {
+        "job_id": "7338473_1",
+        "state": "COMPLETED",
+        "elapsed_seconds": 593,
+        "allocated_cpus": 128,
+        "allocated_cpu_seconds": 75904,
+        "used_cpu_seconds": 11013.0
+      },
+      {
+        "job_id": "7338473_2",
+        "state": "COMPLETED",
+        "elapsed_seconds": 686,
+        "allocated_cpus": 128,
+        "allocated_cpu_seconds": 87808,
+        "used_cpu_seconds": 12365.0
+      },
+      {
+        "job_id": "7338473_3",
+        "state": "COMPLETED",
+        "elapsed_seconds": 700,
+        "allocated_cpus": 128,
+        "allocated_cpu_seconds": 89600,
+        "used_cpu_seconds": 14153.0
+      },
+      {
+        "job_id": "7339211",
+        "state": "COMPLETED",
+        "elapsed_seconds": 132,
+        "allocated_cpus": 128,
+        "allocated_cpu_seconds": 16896,
+        "used_cpu_seconds": 446.79
+      },
+      {
+        "job_id": "7339212_0",
+        "state": "COMPLETED",
+        "elapsed_seconds": 3311,
+        "allocated_cpus": 128,
+        "allocated_cpu_seconds": 423808,
+        "used_cpu_seconds": 108761.0
+      },
+      {
+        "job_id": "7339212_1",
+        "state": "COMPLETED",
+        "elapsed_seconds": 3352,
+        "allocated_cpus": 128,
+        "allocated_cpu_seconds": 429056,
+        "used_cpu_seconds": 117430.0
+      },
+      {
+        "job_id": "7339246",
+        "state": "COMPLETED",
+        "elapsed_seconds": 210,
+        "allocated_cpus": 128,
+        "allocated_cpu_seconds": 26880,
+        "used_cpu_seconds": 1173.861
+      },
+      {
+        "job_id": "7339247",
+        "state": "COMPLETED",
+        "elapsed_seconds": 90,
+        "allocated_cpus": 128,
+        "allocated_cpu_seconds": 11520,
+        "used_cpu_seconds": 375.933
+      },
+      {
+        "job_id": "7339248",
+        "state": "COMPLETED",
+        "elapsed_seconds": 269,
+        "allocated_cpus": 128,
+        "allocated_cpu_seconds": 34432,
+        "used_cpu_seconds": 204.962
+      }
+    ],
+    "includes_cancelled": true,
+    "excludes_step_double_counting": true
+  }
+}

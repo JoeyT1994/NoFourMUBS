@@ -1,131 +1,107 @@
-# ZK2: all-ball cheap C1
+# ZK2: closed all-cheap run6
 
-**Final certification audit pending.** Run6's seed and edge covers are now
-**NUMERICALLY closed** with **2,775 cheap balls**, including **425 new balls**,
-and zero edge gaps. All 577 original-radius fine budgets and all 432
-preliminary smaller-radius budgets passed (five of the latter were restored
-to their original radii). Lossless compaction passed in 129.69 seconds, reducing 8,031,516
-single-box groups to 16,100 descriptions without changing any box. The
-fresh final per-ball audits are running; their receipts and accounting will
-be added on completion.
+Completed 2026-10-26. Run6 has **2,775 seed balls**, all with cheap C1 bounds,
+and a closed numerical seed/edge cover with **zero edge gaps**. All 2,350
+original centres and frames are preserved. Post-run SHA-256 checks confirm
+that both run5 state files are unchanged.
 
-The frozen compact snapshot on rusty is
-`/mnt/ceph/users/jtindall/seed_atlas_build/hor/run6/zk2_closed_compact_state.pkl`,
-SHA-256 `c6cd4abcbe13b14f2ff7e1a689e19d080ba0c11424ead13f0beccd30dc16d67f`.
-The normal `run6/atlas_state_edge.pkl` has the same bytes. The retained raw
-`run6/zk2_closed_state.pkl` has SHA-256
-`0a39df3b6ffeea8712d95f8ecd8fe02d4dbc03095ef83de980d6e25ecbc815e1`.
+- **PROVED:** the algebraic bound formulas derived in [REPORT.md](REPORT.md).
+- **CERTIFIED:** fresh 224-bit Arb C1, strict chart/orientation bounds, and the
+  certifier's own `seedcert.run_stage_c` for every final seed ball. All 2,775
+  scalar contraction witnesses also pass an exact rational replay.
+- **NUMERICAL:** driver closure of every seed cover and the radius-0.13 X-edge
+  boundary. Edge transfers use the existing boundary routines.
+- **NOT ESTABLISHED:** independent end-to-end atlas transfer certification or
+  a new Lean formalization of the cheap constants. Export and independent
+  Arb/Julia certification remain the user's next step. No Lean ran for ZK2.
 
-The input is the 2,350-ball ZK archive. A read-only comparison established that
-all original centres, frames, horizontal phase data and radii match run5. The
-run5 seed-state SHA-256 is
-`b6a1ed8fe271621655ce199625821e16aac383c536ab366c147decbb1d4108e4`;
-the edge-state SHA-256 is
-`01975b309c4f5d5b168e4cbebacafaaa4b8822a2bb25c9605532c3504a7b4fa1`.
-Run5 is never written.
+## Bounds, budgets and radii
 
-## Checks and interpretation
+| Final seed population | Count |
+| --- | ---: |
+| Original balls at unchanged radius | 1,923 |
+| Original balls shrunk | 427 |
+| New balls, all constructed with cheap rank 4 | 425 |
+| Selected rank 0 / rank 4 | 1,296 / 1,479 |
+| Fine budgets / certifier-confirmed stored budgets | 1,002 / 1,773 |
 
-**CERTIFIED:** all 1,773 existing cheap fits passed the certifier's own Stage C
-at an enclosure slightly larger than their cheap C1 bound. That run took
-697.30 seconds of measured Python wall time; its Slurm allocation was 701
-seconds on 128 CPUs, or 24.9244 allocated core-hours.
+Step 1 refined all 577 outstanding original-radius budgets and recovered 150
+additional cheap fits without shrinking. Its eligibility classes were 1,299
+rank 0, 624 rank 4 and 427 requiring shrink; 192 failed the original-radius
+rank-4 contraction itself. Three eligible rank-0 cases ultimately store a
+rank-4 enclosure after concrete Stage C checks.
 
-`budget_fine.py` searches the other 577 balls at their own label radius and
-then the alternative 0.02/0.03 label. It bisects passing/failed screening
-values to a relative bracket of at most 2%, up to factor 8, and confirms each
-accepted endpoint with `seedcert.run_stage_c`. A failed clustering or capped
-clique search is not a mathematical impossibility result. The reported
-brackets describe this search, **not a proved global maximum** of Stage C.
+The shrink grid needed factors below 0.8 for 75 balls, including three at
+0.4; the median factor among shrunk originals is 0.875. Five preliminary
+shrinks were restored using already certified original-radius endpoints when
+smaller remainders failed nonmonotone Stage C searches. All 432 preliminary
+smaller-radius budgets passed; 427 remain relevant to the final geometry.
+Preparation reopened 2,077 sources, including 2,076 with transfers into a
+shrunk target, and invalidated the edge boundary. Final radii span 0.015–0.125.
 
-Step 1 recovers **150** additional balls at unchanged radii: the resulting
-classes are **1,299 rank 0**, **624 rank 4**, and **427 requiring shrink**.
-`ZK2_step1_fit.jsonl.gz` records each decision and its absolute/relative margin.
-Three searches reach factor 8; the other brackets are at most 2% wide.
+The final 1,002 fine budgets cover the original 577 cases plus all 425 new
+balls. Of these, 371 reach factor 8; the largest non-capped relative bracket
+is 1.951%. Every accepted endpoint passes the certifier. Graph/clique caps
+and nonmonotone clustering mean these brackets describe the search, **not a
+proved global maximum**. The other 1,773 budgets are certified stored
+remainders. The minimum stored and budget slack is 1.3359633958993922e-9.
 
-`budget_plan.py` prefers rank 0, then rank 4, at the original radius. Remaining
-balls use a decreasing radius grid and fresh rank-4 Arb bounds. Every accepted
-plan also passes certifier Stage C at its proposed stored remainder. Separate
-searches refine the budget at the actual smaller radius. The brief's proposed
-0.8 lower bound on the radius factor is insufficient: 75 plans use smaller
-factors, including three at 0.4.
+[ZK2_final_fit.jsonl.gz](ZK2_final_fit.jsonl.gz) gives every radius, rank, C1
+bound, stored remainder, budget and margin. `label` belongs to the stored
+remainder; `budget_label` belongs to the budget endpoint. They differ in 61
+cases, and each point is checked separately.
 
-Five reruns failed at a smaller remainder even though their fine endpoints had
-passed. `budget_keep.py` retains their original radii and stores those already
-certified endpoints. Original plans remain intact as receipts. The planner
-now also reuses such an endpoint before considering any shrink. The corrected
-plans shrink exactly 427 balls, preserve 150 recovered balls, and reopen 2,077
-sources (2,076 have transfers into a shrunk ball). All 2,350 prepared scalar
-witnesses passed exact rational checks.
+## Closed state and repair
 
-**PROVED:** the algebraic bound formulas are those derived in `REPORT.md`.
-**CERTIFIED:** the saved scalar inequalities are replayed with exact Python
-rationals, and the centre, matrix bounds and orientation inequalities use Arb.
-Neither label asserts a new Lean formalization of the cheap constants.
+Seed re-cover added 379 balls. The first edge pass found 850 gaps; two cheap
+recovery passes added 36 and 10 balls, reducing the gaps to 16 and then zero.
+All 2,080 edge start boxes are accounted for exactly once. Reuse requires
+unchanged old target centres, inverse frames, frames and radii, unchanged
+edge data/routines, and matching checkpoint hashes.
 
-## Re-cover and reproducibility
+The final boundary has 8,031,516 boxes. Lossless compaction groups these into
+16,100 transfer descriptions, preserving duplicates and box order within
+identical metadata. Ordered box digests, seed payloads and edge-ball payloads
+match. The state shrank from 1,945,981,519 to 257,394,585 bytes.
 
-`shrink_balls.py` prepares a separate run, preserving original centres and
-frames. It reopens shrunk sources, all sources transferring into them, and
-sources whose increased remainder affects T3 screens. It clears their retry
-counters and invalidates edge/record boundary caches. Existing driver files
-are unchanged.
+The ready export input on **rusty** is:
 
-`budget_grow.py` supplies the existing driver with a constructor that accepts
-new balls only after cheap rank-4 C1 and certifier Stage C pass. No new ball
-uses full-tensor or box C1. `budget_run6.py` alternates seed growth with the
-existing edge builder using `--edge --xball 0.13`, feeding edge gaps back into
-seed growth. Driver closure remains **NUMERICAL** until the user's independent
-export and Arb/Julia transfer certification.
+`/mnt/ceph/users/jtindall/seed_atlas_build/hor/run6/atlas_state_edge.pkl`
 
-The original edge boundary has 1,183,840 leaves, all targeting five shrunk
-seed balls. Its re-cover uses `budget_edge.py` to partition the unchanged
-`edge_multi.cover_box` routine's 2,080 start boxes across four nodes. Each
-result is checkpointed atomically; collection requires every start box
-exactly once, with common input/source hashes. A real old boundary leaf
-passed the new runner's preflight in 0.394 s. The earlier single-node edge
-pass was cancelled; its allocation is included in the accounting.
+Its immutable audited copy is `run6/zk2_closed_compact_state.pkl`, under the
+same `hor` directory. Both have SHA-256:
 
-The first edge pass produced 8,385,902 groups and 850 numerical gaps.
-`budget_edge_grow.py` added 36 cheap balls at the resulting proposals and
-closed their seed covers in 264 seconds. The subsequent edge pass
-reuses only successful start boxes after checking that every old target's
-centre, inverse frame, frame and radius is unchanged and that the edge ball
-and boundary routines match. Boxes with gaps are recomputed. Regression
-checks accept appended targets and reject changed, reordered or removed
-targets. The first repair left 16 gaps. A second recovery added 10 cheap balls;
-recomputing 16 start boxes then closed the edge cover with 8,031,516 groups.
-Fresh final audits remain pending.
+`c6cd4abcbe13b14f2ff7e1a689e19d080ba0c11424ead13f0beccd30dc16d67f`
 
-Before the final audit, `budget_edge_compact.py` groups identical transfer
-descriptions and windings into shared box arrays. This preserves every box,
-including duplicates and their order within each metadata group. Per-group
-box digests, seed payloads and edge-ball payloads are checked; the raw closed
-snapshot is retained. Serial/parallel regression checks and a real 90-box
-sample pass. The compact snapshot prevents each audit worker from loading
-millions of separate Python dictionaries.
+The raw closed state remains at `run6/zk2_closed_state.pkl`. Its hash and the
+full closure chain are in [ZK2_final_summary.json](ZK2_final_summary.json).
+`run6/zk2_final_handoff.json` records post-run hashes and readiness;
+`edge_recover_required.json` is cleared with an explicit NUMERICAL qualifier.
 
-The final `budget_state.py` audit requires a closed seed and edge state,
-unchanged original centres/frames, fresh cheap C1, certifier Stage C, and fine
-budgets for changed/new balls. Its input is an immutable closed snapshot.
+## Timing and reproducibility
 
-`ZK2_jobs.jsonl` records this task's jobs, including cancelled searches whose
-completed trial checks were reused. `ZK2_sources.tar.gz` preserves the exact
-source snapshots; `ZK2_source_manifest.json` records all source/input hashes.
-Two growth refreshes restarted open covers against newly added targets. The
-second used the driver's STOP checkpoint, preserving all completed work;
-the first resumed its last periodic checkpoint and recomputed one ball and
-one cover. The final receipt collector checks shard completeness, common
-state/source hashes, exact scalar inequalities and Stage C bindings, and
-counts Slurm allocations without double-counting their job steps.
-The cluster uses Python 3.12.9, NumPy 2.2.6 and python-flint 0.9.0, with BLAS
-threads limited to one and normally 80 worker processes per 128-CPU node.
-No Lean process has been run for ZK2.
+The final two audits took **3,307.48 s and 3,347.61 s** (55.12 and 55.79 min),
+using 80 workers per 128-CPU node. Compaction took 129.69 s with eight workers.
+The initial 1,773-ball confirmation took 697.37 s.
 
-Regression checks cover search brackets, preservation of a known certified
-lower endpoint, source/radius binding, transfer/T3/edge invalidation, retry
-clearing, source preservation, and rejection of overwrites or destinations
-inside run5. A real radius-0.03 construction and state-audit smoke test passed
-cheap rank 4, certifier Stage C and budget refinement to factor 8 in 1.84 s.
+All **40 Slurm job records** total **1,881.3867 allocated core-hours** and
+**700.4128 CPU-hours used**. These totals include cancelled searches,
+restarts, and collectors that exited with numerical gaps; job steps are not
+double-counted. Raw accounting is in [ZK2_completed_jobs.sacct](ZK2_completed_jobs.sacct),
+with submissions in [ZK2_jobs.jsonl](ZK2_jobs.jsonl).
 
-Final ball counts, fit margins, run6 hashes and total core-hours are pending.
+[ZK2_final_audits.jsonl.gz](ZK2_final_audits.jsonl.gz) contains the full final
+receipts. `ZK2_receipts.tar.gz` preserves raw shards, manifests, earlier budget
+and repair receipts, and preservation checks; `ZK2_receipts.manifest.json`
+binds every member. `ZK2_sources.tar.gz` and `ZK2_source_manifest.json`
+preserve the exact frozen job/checker sources. The environment was Python
+3.12.9, NumPy 2.2.6 and python-flint 0.9.0, with BLAS threads limited to one.
+
+`budget_finish.py` replays scalar checks and verifies complete disjoint
+shards, state/source bindings, the closure/compaction chain and accounting.
+Extract the receipt archive into this directory to restore its inputs.
+Regression checks cover radius/transfer invalidation, source preservation,
+nonmonotone endpoint reuse, safe edge reuse, compaction and receipt binding.
+The current generator also retains certified endpoints below the search
+floor or beyond the old 200-step confirmation limit; recorded jobs retain
+their original hashed sources.
