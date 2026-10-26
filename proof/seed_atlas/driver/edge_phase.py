@@ -206,9 +206,25 @@ def t3_side_refs(Q, g, rows, cols, wind, x0=None):
     Jc = [c for c in range(6) if c not in cols]
     y = -2 * SG.psi(K[np.ix_(list(rows), Jc)]).imag
     p = np.concatenate([th[:3] + TWO_PI * np.array(wind[:3]) - TH0[:3], [y]])
-    H, xh, xv, ok = chart(p, x0=x0)
-    if not ok: return None
+    Dh, Dv = _side_jac()
+    xh = Dh @ p; xv = Dv @ p                      # the chart's sides to first order at F6 (x(0) = 0)
     return PH0 + xh[1:], PH0 + xv[1:], (xh, xv, p)
+
+
+_SJ = {}
+
+
+def _side_jac(h=1e-5):
+    """d x / d p at p = 0 for both sides (7 x 4 each), by central differences of the chart: a reference only (it picks
+    a discrete column/row order and 2 pi windings, which need the sides to well within pi/3)."""
+    if 'D' not in _SJ:
+        Dh = np.zeros((7, 4)); Dv = np.zeros((7, 4))
+        for k in range(4):
+            e = np.zeros(4); e[k] = h
+            _, xhp, xvp, _ = chart(e); _, xhm, xvm, _ = chart(-e)
+            Dh[:, k] = (xhp - xhm) / (2 * h); Dv[:, k] = (xvp - xvm) / (2 * h)
+        _SJ['D'] = (Dh, Dv)
+    return _SJ['D']
 
 
 def t3_value(Q, eb, g, rows, cols, wind):
