@@ -58,13 +58,18 @@ FREE=[(i,j) for i in range(1,6) for j in range(1,6) if (i,j) not in SEEDS]
 def mat(a): return arb_mat([[arb(float(x)) for x in row] for row in np.asarray(a)])
 def mid_np(a): return np.array([[float(a[i,j].mid()) for j in range(a.ncols())] for i in range(a.nrows())])
 def eye(n): return arb_mat([[int(i==j) for j in range(n)] for i in range(n)])
-def frob(a): return sum((x*x for x in a.entries()),arb(0)).sqrt()
+def frob(a):
+    # Only an upper bound is required at all call sites. Separate upper
+    # endpoints avoid taking sqrt of a rounding interval crossing zero.
+    return sum((abs(x).upper()*abs(x).upper() for x in a.entries()),arb(0)).sqrt()
 def upper(x):
     # This decimal/binary float is a PROVED strict upper bound, not just formatting.
+    if not x.is_finite(): raise ArithmeticError('nonfinite interval upper bound')
     y=math.nextafter(float(x.upper()),math.inf)
     while not arb(y)>x: y=math.nextafter(y,math.inf)
     return y
 def lower(x):
+    if not x.is_finite(): raise ArithmeticError('nonfinite interval lower bound')
     y=math.nextafter(float(x.lower()),-math.inf)
     while not arb(y)<x: y=math.nextafter(y,-math.inf)
     return y
@@ -85,7 +90,7 @@ def spectral(a):
         L=[[arb(0) for _ in range(n)] for _ in range(n)]
         ds=[]; good=True
         for i in range(n):
-            di=b[i,i]-sum((L[i][k]**2*ds[k] for k in range(i)),arb(0))
+            di=b[i,i]-sum((L[i][k]*L[i][k]*ds[k] for k in range(i)),arb(0))
             if not di>0: good=False; break
             ds.append(di)
             for j in range(i+1,n):
@@ -226,13 +231,13 @@ def predictor_residual(W,z,s,t,dx,r):
             a2i[a,col]=-sa[i]*sa[j]*dx[a,k]
         sn=sum((v*v for v in sa),arb(0)).sqrt()
         tn=spectral(arb_mat(ta))
-        ca=sum((kr[i,a]**2 for i in range(21)),arb(0))
+        ca=sum((kr[i,a]*kr[i,a] for i in range(21)),arb(0))
         cb=sum((kr[i,a]*ki[i,a] for i in range(21)),arb(0))
-        cc=sum((ki[i,a]**2 for i in range(21)),arb(0))
-        cn=((ca+cc+((ca-cc)**2+4*cb**2).sqrt())/2).sqrt()
+        cc=sum((ki[i,a]*ki[i,a] for i in range(21)),arb(0))
+        cn=((ca+cc+((ca-cc)*(ca-cc)+4*cb*cb).sqrt())/2).sqrt()
         an=sn+r*tn
         L5+=cn*(an**5+10*tn*an**3+15*tn**2*an)
-        dxn=sum((dx[a,k]**2 for k in range(21)),arb(0)).sqrt()
+        dxn=sum((dx[a,k]*dx[a,k] for k in range(21)),arb(0)).sqrt()
         L3a+=cn*dxn*(an**3+3*tn*an)
     R3=kr*p3r-ki*p3i;R4=kr*p4r-ki*p4i
     t3=spectral(R3);t4=spectral(R4)

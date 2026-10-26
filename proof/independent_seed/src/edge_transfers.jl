@@ -86,7 +86,7 @@ end
 
 """C2 for an edge ball: its sphere ||w|| = r is covered by the listed dyadic boxes (units of r), and every box carries a
 T1 transfer into a seed ball (corner seed of g . H(p) lands in int E_t, orientation o_t, matched)."""
-function check_c2_edge(eb::EdgeBall, X, root::EdgeMap; split_depth::Int=2, cover::Bool=true)
+function check_c2_edge(eb::EdgeBall, X, root::EdgeMap; split_depth::Int=2, cover::Bool=true, part::Tuple{Int,Int}=(0, 1))
     t0 = time()
     counts = Dict(:T1 => 0, :T3 => 0); worst = Dict(:T1 => 0.0, :T3 => 0.0)
     nb = sum(length(g.boxes) for g in eb.groups; init=0)
@@ -109,10 +109,32 @@ function check_c2_edge(eb::EdgeBall, X, root::EdgeMap; split_depth::Int=2, cover
         end
         append!(items, ((gi, k) for k in eachindex(g.boxes)))
     end
+    part[2] > 1 && (items = [it for (n, it) in enumerate(items) if (n - 1) % part[2] == part[1]])   # a shard's slice
     out = Vector{Tuple{Bool,String,Float64,Int,Int}}(undef, length(items))
+    # return ZT: the whole-ball model and, per T1 group, its output-weighted normal error tau_A (once)
+    wbm = PATCHES[] ? (try edge_wholeball_model(eb) catch; nothing end) : nothing
+    tauA = Dict{Int,Any}()
+    if wbm !== nothing
+        Threads.@threads :greedy for gi in eachindex(eb.groups)
+            g = eb.groups[gi]; g.kind == :T1 || continue
+            A = X.minv[g.target+1] * (lcorner(g.rows, g.cols) * gmat36(g.g))
+            v = try
+                patch_group(wbm, g, X.seeds[g.target+1], X.minv[g.target+1]; tauA=edge_weighted_tau(wbm, A))
+            catch
+                nothing
+            end
+            lock(PATCH_LOCK) do; tauA[gi] = v; end
+        end
+    end
     Threads.@threads :greedy for i in eachindex(items)
         gi, k = items[i]; g = eb.groups[gi]; b = g.boxes[k]
         sti = [0, 0]
+        if g.kind == :T1 && wbm !== nothing && get(tauA, gi, nothing) !== nothing
+            pr = try patch_box_test(tauA[gi], wbm, ubox(b)..., X.seeds[g.target+1].r) catch; (false, "", Inf) end
+            if pr[1]
+                out[i] = (true, pr[2], pr[3], 1, 0); continue
+            end
+        end
         f = if g.kind == :T3
             function (lo, hi)
                 wc, h = scaled_dom(lo, hi, eb.r)

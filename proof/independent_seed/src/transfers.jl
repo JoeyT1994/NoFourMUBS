@@ -193,6 +193,14 @@ function check_seed_box(s::Seed, root::BoxMap, g::Group, lo, hi, X::XferCtx, rec
         t = X.seeds[g.target+1]
         g.kind == :T0 && return check_T0(s, lo, hi, g, t, Mi)
         (Set(g.rows) == CORNER0 && Set(g.cols) == CORNER0) && return check_T1_corner(s, lo, hi, g, t, Mi)
+        if PATCHES[]                                  # return ZT: the whole-ball patch test first
+            m = patch_model(s)
+            if m !== nothing
+                pg = patch_group_cached(m, s, g, t, Mi)
+                ok, msg, val = pg === nothing ? (false, "", Inf) : (try patch_box_test(pg, m, lo, hi, t.r) catch; (false, "", Inf) end)
+                ok && return ok, msg, val
+            end
+        end
     elseif g.kind == :T2
         (0 <= g.target < length(X.records)) || return false, "T2: no such record", Inf
         rec_ok(g.target) || return false, "T2: target record did not pass Step 3", Inf
@@ -202,6 +210,20 @@ function check_seed_box(s::Seed, root::BoxMap, g::Group, lo, hi, X::XferCtx, rec
         X.edge_minv[g.target+1] === nothing && return false, "T3: edge Mth not invertible", Inf
     end
     wc, h = scaled_dom(lo, hi, s.r)
+    if PATCHES[] && g.kind in (:T1, :T3)            # return ZT: the box Taylor models from the whole-ball model
+        m = patch_model(s)
+        if m !== nothing
+            Qm = representative(model_box_tm(m, wc), pg(s), ug(s), wc)
+            Dm = Dom(h)
+            r = try
+                g.kind == :T1 ? check_T1(Qm, Dm, g, X.seeds[g.target+1], X.minv[g.target+1]) :
+                    check_T3(Qm, Dm, g, X.edges[g.target+1], X.edge_leaves[g.target+1], X.edge_minv[g.target+1])
+            catch
+                (false, "", Inf)
+            end
+            r[1] && return r
+        end
+    end
     wcm = ntuple(j -> mid(wc[j]), 4)
     bm = box_map(s.theta0, s.Mth, s.o, pg(s), wc, h, guess_at(root, wcm)...)
     bm.ok || return false, string(g.kind) * ": " * bm.why, Inf

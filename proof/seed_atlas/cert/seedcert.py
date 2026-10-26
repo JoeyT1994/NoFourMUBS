@@ -1008,6 +1008,9 @@ def misses_unit_sphere(box):
 
 
 # ======================================================================================== one seed ball: C2
+ZT_PATCHES = True                              # return ZT's patch test before the box Taylor models (T1)
+
+
 def check_seed_transfers(ball, seeds, records, groups, max_level, chunk=64, edges=()):
     """All transfer groups of one seed ball (FORMAT.md section 4; T3 into edge balls, SPEC section 10) and the
     coverage of its sphere.  seeds: list of Ball; records: list of (P (36 floats), R float); edges: list of
@@ -1047,9 +1050,38 @@ def check_seed_transfers(ball, seeds, records, groups, max_level, chunk=64, edge
             jobs.append(('T3', grp, None, None, xc, h, xcf))
         else:
             raise CertError('unknown transfer kind %r' % (kind,))
+    zt = None                                  # return ZT: the whole-ball model (patch tests, model Taylor models)
+    if ZT_PATCHES and jobs:
+        import patches as ZTP
+        zt = ZTP.model_for(ball) or False
     for kind, grp, rows, cols, xc, h, xcf in jobs:
+        if kind == 'T1' and ZT_PATCHES:
+            if zt:
+                bx = [list(b) for b in dyadic_boxes(grp.get('boxes', []), max_level)]
+                done = set(ZTP.certify_boxes(zt, seeds[grp['target']], grp, bx))
+                cnt['T1_patch'] = cnt.get('T1_patch', 0) + len(done)
+                keep = np.array([k for k in range(len(bx)) if k not in done], int)
+                cnt[kind] += len(done)
+                if not len(keep): continue
+                xc, h, xcf = xc[keep], h[keep], xcf[keep]
         for s in range(0, len(xc), chunk):
             sl = slice(s, s + chunk)
+            if zt:                                 # return ZT: the box Taylor models from the whole-ball model alone
+                try:
+                    Q = representative(ball, ZTP.model_box_tm(zt, xc[sl], h[sl]), xcf[sl])
+                    if kind == 'T1':
+                        check_T1_general(seeds[grp['target']], grp['g'], rows, cols, grp.get('wind'), Q)
+                    elif kind == 'T3':
+                        import edgecert
+                        eb, tubes = edges[grp['target']]
+                        edgecert.check_T3(Q, eb, tubes, grp)
+                    else:
+                        P, R = records[grp['target']]
+                        check_T2(P, R, grp['g'], rows, cols, grp.get('wind'), Q)
+                    cnt[kind + '_model'] = cnt.get(kind + '_model', 0) + len(xc[sl])
+                    continue
+                except (CertError, ArithmeticError, ZeroDivisionError):
+                    pass                               # this chunk by the full box method below
             Q = representative(ball, box_Q(ball, xc[sl], h[sl], xcf[sl]), xcf[sl])
             if kind == 'T1':
                 check_T1_general(seeds[grp['target']], grp['g'], rows, cols, grp.get('wind'), Q)
