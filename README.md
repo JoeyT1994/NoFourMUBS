@@ -1,4 +1,7 @@
-# No four MUBs in dimension six
+# A topological proof that only three complementary measurements exist in six dimensions
+
+The proof, its certificates and its Lean formalisation, for the paper of the same title by M. Cárdenes Wuttig and
+J. Tindall.
 
 **Theorem (computer-assisted).** ℂ⁶ does not admit four mutually unbiased bases.
 
