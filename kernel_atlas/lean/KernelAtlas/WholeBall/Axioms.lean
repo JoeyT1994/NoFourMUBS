@@ -1,3 +1,4 @@
+import KernelAtlas.WholeBall.MatrixRowNorms
 import NoFourMUBs.SeedAtlas.Method.WholeBallCentre
 import NoFourMUBs.SeedAtlas.Method.WholeBallFamily
 import NoFourMUBs.SeedAtlas.Method.WholeBallOrientation
@@ -19,6 +20,9 @@ import KernelAtlas.WholeBall.Centre2299
 import KernelAtlas.WholeBall.Gram2299
 import KernelAtlas.WholeBall.CheckedBall
 import KernelAtlas.WholeBall.MatrixBlocks
+import KernelAtlas.WholeBall.ShiftRegression
+import KernelAtlas.WholeBall.MatrixColumns
+import KernelAtlas.WholeBall.MatrixExpansion
 
 /-! Axiom audit of the complete semantic and centre-to-bound soundness chain.
 Only the standard axioms `propext`, `Classical.choice`, and `Quot.sound` are allowed. -/
@@ -174,3 +178,17 @@ open NoFourMUBs.KernelAtlas.WholeBall
 #print axioms wholeBallCheck_sound
 #print axioms MatrixBox.enclosesCheck_of_blocks
 #print axioms MatrixBox.eq_of_exact_rows
+
+#print axioms shiftedWholeBallCheck_sound
+#print axioms ShiftRegression.contained_at_equality
+#print axioms ShiftRegression.wrong_record_rejected
+#print axioms ShiftRegression.missing_radius_inflation_rejected
+#print axioms ShiftRegression.small_shift_norm_rejected
+#print axioms ShiftRegression.wrong_seed_rejected
+#print axioms ShiftRegression.zero_radius_rejected
+#print axioms MatrixBox.eq_of_exact_blocks
+#print axioms MatrixBox.sumProducts_encloses_of_columns
+#print axioms MatrixBox.negSumProducts_encloses_of_columns
+#print axioms MatrixBox.negSumProducts_encloses_of_expansion
+
+#print axioms MatrixBox.normCheck_of_square_rows
