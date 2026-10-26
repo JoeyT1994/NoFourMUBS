@@ -1,0 +1,215 @@
+"""Exact mirror of KernelAtlas.WholeBall.Scalar (Z §§4–6 scalar inequalities).
+
+This checks *supplied scalar bounds*, not their derivation from a seed centre.
+An emitted module proves real scalar inequalities, never SeedBallCert.hC1.
+
+Input JSON has bounds, horizontal and vertical records with the Lean field names.
+Numbers may be integers, rational strings ("1/10"), decimal strings, or binary64
+hex strings. JSON floating-point numbers are interpreted as exact binary64.
+
+Usage:
+  python3 wholeball_scalar.py WITNESS.json [--output PATH.lean]
+  python3 wholeball_scalar.py --self-test [--regression-module PATH.lean]
+"""
+
+import argparse
+import copy
+from fractions import Fraction as Q
+import json
+from pathlib import Path
+import re
+
+
+BOUND_FIELDS = (
+    "r tau x u beta c d L3 t3 t4 L5 a2 L3a epsP epsU n".split()
+)
+SIDE_FIELDS = "AU AH2 AX gU gH2 gX signedCentre".split()
+NONNEG_FIELDS = "x u beta c d L3 t3 t4 L5 a2 L3a epsP epsU".split()
+OUTPUT_ROOT = Path(__file__).resolve().parents[1] / "lean/KernelAtlas/WholeBall"
+
+
+def rational(value):
+    if isinstance(value, bool):
+        raise ValueError("a Boolean is not a rational witness")
+    if isinstance(value, str) and "0x" in value.lower():
+        return Q(float.fromhex(value))
+    return Q(value)
+
+
+def parse_record(record, fields, name):
+    if set(record) != set(fields):
+        raise ValueError(f"{name}: expected exactly {', '.join(fields)}")
+    return {key: rational(record[key]) for key in fields}
+
+
+def parse_data(data):
+    if set(data) != {"bounds", "horizontal", "vertical"}:
+        raise ValueError("expected bounds, horizontal and vertical")
+    return {
+        "bounds": parse_record(data["bounds"], BOUND_FIELDS, "bounds"),
+        "horizontal": parse_record(data["horizontal"], SIDE_FIELDS, "horizontal"),
+        "vertical": parse_record(data["vertical"], SIDE_FIELDS, "vertical"),
+    }
+
+
+def quantities(data):
+    b = data["bounds"]
+    r, tau = b["r"], b["tau"]
+    b0 = b["t3"] * r**3 / 6 + b["t4"] * r**4 / 24 + b["L5"] * r**5 / 120
+    b1 = b["t3"] * r**2 / 2 + b["t4"] * r**3 / 6 + b["L5"] * r**4 / 24
+    b2 = b["t3"] * r + b["t4"] * r**2 / 2 + b["L5"] * r**3 / 6
+    base = b["u"] * r + b["beta"] * r**2 / 2
+    qbase = b["c"] * r + b["a2"] * r**2 / 2 + b["L3a"] * r**3 / 6
+    q = qbase + (b["d"] + b["L3"] * b["x"]**2 * base) * tau + b["L3"] * b["x"]**3 * tau**2 / 2
+    ndirect = b["beta"] * r**2 / 2 + b["x"] * tau
+    nrecord = ndirect + b["epsP"] + r * b["epsU"]
+    result = dict(b0=b0, b1=b1, b2=b2, base=base, qbase=qbase, q=q,
+                  ndirect=ndirect, nrecord=nrecord, contraction_margin=tau - b0 - q * tau)
+    for name in ("horizontal", "vertical"):
+        s = data[name]
+        eps = s["AU"] * r + s["AH2"] * r**2 / 2 + s["AX"] * tau
+        variation = s["gU"] * r + s["gH2"] * r**2 / 2 + s["gX"] * tau + 36 * eps**2
+        result[name + "_margin"] = s["signedCentre"] - variation
+    return result
+
+
+def scalar_check(data):
+    b = data["bounds"]
+    values = quantities(data)
+    return (
+        all(b[k] >= 0 for k in NONNEG_FIELDS)
+        and all(data[side][k] >= 0 for side in ("horizontal", "vertical") for k in SIDE_FIELDS[:-1])
+        and b["r"] > 0 and b["tau"] > 0 and values["q"] < 1
+        and values["contraction_margin"] > 0
+        and values["horizontal_margin"] > 0 and values["vertical_margin"] > 0
+        and values["nrecord"] <= b["n"]
+    )
+
+
+def lean_rational(q):
+    q = Q(q)
+    return f"({q.numerator} / {q.denominator} : ℚ)"
+
+
+def lean_record(values, fields):
+    return "{ " + ", ".join(f"{key} := {lean_rational(values[key])}" for key in fields) + " }"
+
+
+def lean_data(data):
+    return ("{\n    bounds := " + lean_record(data["bounds"], BOUND_FIELDS) +
+            ",\n    horizontal := " + lean_record(data["horizontal"], SIDE_FIELDS) +
+            ",\n    vertical := " + lean_record(data["vertical"], SIDE_FIELDS) + " }")
+
+
+def write_module(path, source):
+    path = Path(path).resolve()
+    if OUTPUT_ROOT.resolve() not in path.parents or path.suffix != ".lean":
+        raise ValueError(f"output must be a .lean file inside {OUTPUT_ROOT}")
+    # A generator should not silently replace hand-written proofs.
+    if path.exists():
+        if path.read_text() == source:
+            return
+        raise FileExistsError(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(source)
+
+
+def emit_witness(data, path):
+    if not scalar_check(data):
+        raise ValueError("scalar inequalities fail; no accepted witness emitted")
+    relative = Path(path).resolve().relative_to(OUTPUT_ROOT.resolve()).with_suffix("")
+    if not all(re.fullmatch(r"[A-Za-z][A-Za-z0-9_]*", part) for part in relative.parts):
+        raise ValueError("output module components must be plain Lean identifiers")
+    namespace = "NoFourMUBs.KernelAtlas.WholeBall." + ".".join(relative.parts)
+    source = (
+        "import KernelAtlas.WholeBall.Scalar\n\n"
+        "-- Generated by wholeball_scalar.py. Scalar bounds only; not a C1 certificate.\n"
+        f"namespace {namespace}\n\n"
+        f"def data : ScalarData := {lean_data(data)}\n\n"
+        "theorem checked : scalarCheck data = true := by decide +kernel\n\n"
+        "theorem real_inequalities :\n"
+        "    (realBounds data.bounds).Accepts (realSide data.horizontal) (realSide data.vertical) :=\n"
+        "  scalarCheck_sound checked\n\n"
+        f"end {namespace}\n"
+    )
+    write_module(path, source)
+
+
+def regression_cases():
+    """Exact boundary cases: strict tests must reject equality; the n test permits it."""
+    b = {k: Q(0) for k in BOUND_FIELDS}
+    b.update(r=Q(1), tau=Q(1), x=Q(1), n=Q(1))
+    side = {k: Q(0) for k in SIDE_FIELDS}
+    side["signedCentre"] = Q(1)
+    d = dict(bounds=b, horizontal=side.copy(), vertical=side.copy())
+    cases = [("record_bound_equality", copy.deepcopy(d), True)]
+    for name, record, key, value in [
+        ("zero_radius", "bounds", "r", Q(0)),
+        ("zero_tube", "bounds", "tau", Q(0)),
+        ("contraction_factor_equality", "bounds", "c", Q(1)),
+        ("tube_equality", "bounds", "t3", Q(6)),
+        ("horizontal_zero_margin", "horizontal", "signedCentre", Q(0)),
+        ("vertical_zero_margin", "vertical", "signedCentre", Q(0)),
+        ("record_bound_too_small", "bounds", "n", Q(1) - Q(1, 2**60)),
+        ("negative_tensor_bound", "bounds", "L5", Q(-1)),
+        ("negative_side_bound", "horizontal", "gU", Q(-1)),
+        ("orientation_quadratic_equality", "horizontal", "AU", Q(1, 6)),
+    ]:
+        test = copy.deepcopy(d)
+        test[record][key] = value
+        cases.append((name, test, False))
+    # Exercise every term with nonzero rational coefficients.
+    dense = {"bounds": {k: Q(1, 10) for k in BOUND_FIELDS},
+             "horizontal": {k: Q(1, 10) for k in SIDE_FIELDS},
+             "vertical": {k: Q(1, 10) for k in SIDE_FIELDS}}
+    dense["bounds"]["n"] = Q(1, 5)
+    cases.append(("all_terms_nonzero", dense, True))
+    return cases
+
+
+def self_test(path=None):
+    cases = regression_cases()
+    for name, data, expected in cases:
+        actual = scalar_check(data)
+        if actual != expected:
+            raise AssertionError((name, actual, expected, quantities(data)))
+        encoded = json.loads(json.dumps(data, default=str))
+        if parse_data(encoded) != data:
+            raise AssertionError(f"rational JSON round-trip: {name}")
+    if path:
+        lines = ["import KernelAtlas.WholeBall.Scalar", "",
+                 "-- Generated by wholeball_scalar.py --self-test. Synthetic scalar regression cases.",
+                 "namespace NoFourMUBs.KernelAtlas.WholeBall.ScalarRegression", ""]
+        for name, data, expected in cases:
+            lines.extend([f"def {name} : ScalarData := {lean_data(data)}", "",
+                          f"theorem {name}_checked : scalarCheck {name} = {str(expected).lower()} := by decide +kernel", ""])
+        lines.append("end NoFourMUBs.KernelAtlas.WholeBall.ScalarRegression\n")
+        write_module(path, "\n".join(lines))
+    return len(cases)
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("witness", nargs="?")
+    parser.add_argument("--output")
+    parser.add_argument("--self-test", action="store_true")
+    parser.add_argument("--regression-module")
+    args = parser.parse_args()
+    if args.self_test:
+        if args.witness or args.output:
+            parser.error("--self-test cannot be combined with a witness or --output")
+        print(f"{self_test(args.regression_module)} exact scalar regression cases passed")
+        return
+    if not args.witness or args.regression_module:
+        parser.error("provide a scalar witness, or use --self-test")
+    data = parse_data(json.loads(Path(args.witness).read_text()))
+    accepted = scalar_check(data)
+    print(json.dumps(dict(scalar_check=accepted, quantities={k: str(v) for k, v in quantities(data).items()}), indent=2))
+    if args.output:
+        emit_witness(data, args.output)
+    if not accepted:
+        raise SystemExit(1)
+
+
+if __name__ == "__main__":
+    main()
