@@ -48,6 +48,7 @@ def check_row(row):
     assert row["stored_margin"] == row["n"]-c1["n_record"]
     return dict(j=row["j"], r=row["r"], n=row["n"], label=row["label"],
                 rank=row["rank"], bound=c1["n_record"], budget=row["budget"],
+                budget_label=fine["label"] if fine is not None else row["label"],
                 budget_kind=row["budget_kind"], margin=row["margin"],
                 relative_margin=row["budget"]/c1["n_record"]-1,
                 stored_margin=row["stored_margin"], changed=row["changed"],

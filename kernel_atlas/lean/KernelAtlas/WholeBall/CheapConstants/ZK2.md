@@ -1,12 +1,20 @@
 # ZK2: all-ball cheap C1
 
-**Work in progress.** All 577 original-radius fine budgets and all 432
-preliminary smaller-radius budgets are confirmed (five of the latter were
-subsequently restored to their original radii). Run6's seed cover is
-**NUMERICALLY closed** with 2,765 cheap balls, including 415 new balls.
-The edge repair is running on rusty; fresh final audits follow. A closed
-all-cheap run6 atlas, including its edge boundary, is **NOT ESTABLISHED** yet.
-Final receipts and accounting will be added when those jobs finish.
+**Final certification audit pending.** Run6's seed and edge covers are now
+**NUMERICALLY closed** with **2,775 cheap balls**, including **425 new balls**,
+and zero edge gaps. All 577 original-radius fine budgets and all 432
+preliminary smaller-radius budgets passed (five of the latter were restored
+to their original radii). Lossless compaction passed in 129.69 seconds, reducing 8,031,516
+single-box groups to 16,100 descriptions without changing any box. The
+fresh final per-ball audits are running; their receipts and accounting will
+be added on completion.
+
+The frozen compact snapshot on rusty is
+`/mnt/ceph/users/jtindall/seed_atlas_build/hor/run6/zk2_closed_compact_state.pkl`,
+SHA-256 `c6cd4abcbe13b14f2ff7e1a689e19d080ba0c11424ead13f0beccd30dc16d67f`.
+The normal `run6/atlas_state_edge.pkl` has the same bytes. The retained raw
+`run6/zk2_closed_state.pkl` has SHA-256
+`0a39df3b6ffeea8712d95f8ecd8fe02d4dbc03095ef83de980d6e25ecbc815e1`.
 
 The input is the 2,350-ball ZK archive. A read-only comparison established that
 all original centres, frames, horizontal phase data and radii match run5. The
@@ -85,7 +93,9 @@ reuses only successful start boxes after checking that every old target's
 centre, inverse frame, frame and radius is unchanged and that the edge ball
 and boundary routines match. Boxes with gaps are recomputed. Regression
 checks accept appended targets and reject changed, reordered or removed
-targets. Final seed/edge closure and fresh audits are still pending.
+targets. The first repair left 16 gaps. A second recovery added 10 cheap balls;
+recomputing 16 start boxes then closed the edge cover with 8,031,516 groups.
+Fresh final audits remain pending.
 
 Before the final audit, `budget_edge_compact.py` groups identical transfer
 descriptions and windings into shared box arrays. This preserves every box,
