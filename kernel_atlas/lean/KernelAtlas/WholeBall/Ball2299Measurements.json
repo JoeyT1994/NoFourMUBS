@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "input": "Ball2299Input.json",
+  "timings": "Ball2299Timings.json",
+  "machine": {
+    "chip": "Apple M5 Max",
+    "logical_cpus": 18,
+    "memory_bytes": 68719476736,
+    "os": "macOS-26.6-arm64-arm-64bit",
+    "lean": "4.33.0-rc2"
+  },
+  "lean_num_threads": 8,
+  "maximum_concurrent_heavy_lean_processes": 3,
+  "remote_lean_core_hours": 0,
+  "timing_notes": [
+    "Measured with /usr/bin/time -l. Each stage includes Lake startup, dependency checking, and kernel arithmetic that was rebuilt.",
+    "Stages were built incrementally, and some independent stages overlapped. Summed stage wall time is not an end-to-end elapsed measurement.",
+    "A cached build is not a measurement of fresh kernel arithmetic. Fresh results are retained on a successful cached resume when the source digest agrees.",
+    "Peak resident set size is the maximum process RSS reported by time, not the sum over concurrent workers; macOS compressed memory is not fully represented.",
+    "Stopped optimization attempts are excluded from successful stage measurements."
+  ],
+  "generator_validation": {
+    "exact_regressions_passed": true,
+    "byte_and_mtime_idempotent_lean_modules": 147,
+    "input_seed_count": 2328,
+    "translated_wrapper_byte_and_mtime_idempotent": true
+  },
+  "outcome": {
+    "kernel_checked": true,
+    "module": "KernelAtlas.WholeBall.Ball2299",
+    "theorem": "NoFourMUBs.KernelAtlas.WholeBall.Ball2299.hC1",
+    "positive_radius_theorem": "NoFourMUBs.KernelAtlas.WholeBall.Ball2299.radius_positive",
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "atlas_balls_kernel_checked": 1,
+    "atlas_seed_count": 2328
+  },
+  "remaining_stage_memory": {
+    "started_unix": 1793002867.830722,
+    "sample_interval_seconds": 5,
+    "scope": "Remaining second-derivative and final assembly Lean processes only; excludes Lake and earlier stages",
+    "peak_sampled_sum_physical_footprint_bytes": 10898075712,
+    "per_module_peak_physical_footprint_bytes": {
+      "Fourier2299SecondRow0": 3622845192,
+      "Fourier2299SecondRow2": 3637525184,
+      "Fourier2299SecondRow1": 3637705336,
+      "Fourier2299SecondRow5": 3638475504,
+      "Fourier2299SecondRow3": 3604265640,
+      "Fourier2299SecondRow4": 3637344936,
+      "Fourier2299SecondRow6": 3604052600,
+      "Fourier2299SecondRow8": 3589552736,
+      "Fourier2299SecondRow7": 3603986992,
+      "Fourier2299SecondRow11": 3604839080,
+      "Fourier2299SecondRow9": 3592288912,
+      "Fourier2299SecondRow10": 3603610136,
+      "Fourier2299SecondRow12": 3603790576,
+      "Fourier2299SecondRow14": 3589618416,
+      "Fourier2299SecondRow13": 3604216416,
+      "Fourier2299SecondRow17": 3638655776,
+      "Fourier2299SecondRow15": 3605052096,
+      "Fourier2299SecondRow16": 3604626088,
+      "Fourier2299SecondRow20": 3603856016,
+      "Fourier2299SecondRow18": 3603806936,
+      "Fourier2299SecondRow19": 3604544144,
+      "Fourier2299Second": 122547928,
+      "Fourier2299": 498760936,
+      "Ball2299": 4715833408,
+      "Ball2299Axioms": 261472664
+    }
+  },
+  "successful_stage_peak_rss_bytes": 47950774272,
+  "translated_subball_regression": {
+    "module": "KernelAtlas.WholeBall.Ball2299ShiftRegressionAxioms",
+    "kernel_checked": true,
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "wall_seconds": 26.53,
+    "user_seconds": 5.26,
+    "system_seconds": 7.66,
+    "peak_rss_bytes": 6153814016,
+    "source_sha256": "d2d2caf95bedd17ee1197efa0b3f8f9c4b7e13a85f424248c968826ba1e0fd1a"
+  }
+}
