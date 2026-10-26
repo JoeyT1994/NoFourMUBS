@@ -150,7 +150,7 @@ seed is unambiguous; for T2 and `rec` they are full permutations of 0..5.
 
 | field | meaning |
 |---|---|
-| `phi`, `R`, `label_radius`, `Tint` | as in the current atlas certificate: `proof/atlas/export.py`, `certify.certify_record`. The frame is `Tint` (36×4 row-major integers, units 2⁻³⁰, projected exactly onto the horizontal space); σ, r_H and the normal bound n (including the frame-rounding term dT·r_H) are recomputed by the certifier with `ballrecord.BallRecord`. In SPEC §8, `R` and `label_radius` were plain floats; here they are hex |
+| `phi`, `R`, `label_radius`, `Tint` | as in the 25-dimensional atlas certificate (`proof/atlas/export.py` and `certify.py` at the tag `v1-25dim-records`). The frame is `Tint` (36×4 row-major integers, units 2⁻³⁰, projected exactly onto the horizontal space); σ, r_H and the normal bound n (including the frame-rounding term dT·r_H) are recomputed by the certifier with `ballrecord.BallRecord`. In SPEC §8, `R` and `label_radius` were plain floats; here they are hex |
 | `eta_scale` | boxes live in η = eta_scale·u, u ∈ [−1, 1]⁴. The certifier checks eta_scale ≥ its own r_H |
 
 **Coverage condition.** The boxes, read as in §4 but in units of `eta_scale`, must cover the record's boundary shell
@@ -194,7 +194,7 @@ with a 3% margin. It does not use ‖ν‖ ≤ n_s.
 ## 7. What the driver guarantees (float self-check, not a proof)
 
 Before writing the file, the driver re-checks in binary64, with margins:
-- every C1 bound, by the prototype Taylor models of `explorations/seed_balls/tmball2.py`, adapted to general Mth;
+- every C1 bound, by the prototype Taylor models of `proof/seed_atlas/prototype/tmball2.py`, adapted to general Mth;
 - every Stage C call;
 - every transfer box, by its kind;
 - the coverage traversal of every sphere and shell.

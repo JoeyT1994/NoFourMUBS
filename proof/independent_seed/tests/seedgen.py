@@ -1,5 +1,5 @@
 """Test-input generator: seed balls in the SPEC §8 format, built with the float prototype in
-explorations/seed_balls (untrusted; it only produces inputs for the checker's tests).
+proof/seed_atlas/prototype (untrusted; it only produces inputs for the checker's tests).
 
 ball(H, I, J, r, k): the seed ball of the Hadamard H at its corner (I, J), radius r, k boxes per axis.  Mth = V S^-1
 and U = T Mth from T = DQ(theta0) = U S V^T (SPEC §2); P = the phases of the completion at theta0; o = sign Im Psi(B);
@@ -8,7 +8,7 @@ import gzip, json, os, sys
 import numpy as np
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, '..', '..', '..'))
-sys.path.insert(0, os.path.join(ROOT, 'explorations', 'seed_balls'))
+sys.path.insert(0, os.path.join(ROOT, 'proof', 'seed_atlas', 'prototype'))
 sys.path.insert(0, os.path.join(ROOT, 'proof', 'atlas'))
 from seedball import SeedBall, best_corner_split, R_of      # noqa: E402
 from tmball2 import tm2_n                                    # noqa: E402

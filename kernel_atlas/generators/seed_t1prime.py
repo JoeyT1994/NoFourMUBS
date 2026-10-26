@@ -553,7 +553,7 @@ def psi_f(X3):
 
 
 def best_corner(H):
-    sys.path.insert(0, os.path.join(ROOT, 'explorations/seed_balls'))
+    sys.path.insert(0, os.path.join(ROOT, 'proof/seed_atlas/prototype'))
     from seedball import dist_to_edge
     best = None
     for I in itertools.combinations(range(6), 3):
@@ -571,7 +571,7 @@ def best_corner(H):
 def synth_target(rec, eta_c):
     """A prototype seed ball (radius free) at the best matched corner of the record's Hadamard at eta_c, as piece A's
     F6 fixture: theta0 on the grid in (-pi, pi], Mth = V S^-1 of the seed ball's DQ."""
-    sys.path.insert(0, os.path.join(ROOT, 'explorations/seed_balls'))
+    sys.path.insert(0, os.path.join(ROOT, 'proof/seed_atlas/prototype'))
     from seedball import SeedBall
     Q = rec.hadamard(eta_c)
     H = np.exp(1j * Q)

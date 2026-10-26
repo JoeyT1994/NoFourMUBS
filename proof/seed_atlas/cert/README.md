@@ -98,7 +98,7 @@ lost that cancellation. This cuts the D remainder about 10×.
 
 ### Record s
 
-- **The existing record checks.** `seedcert.RecordData` makes the calls of `proof/atlas/certify.certify_record`:
+- **The existing record checks.** `seedcert.RecordData` makes the calls of the 25-dimensional checker `certify_record` (`proof/atlas/certify.py` at the tag `v1-25dim-records`):
   - `BallRecord(phi, Tint)`, with σ from an Arb Cholesky factorisation;
   - `normal_bound(R)`, giving (r_H, n0);
   - Stage C at the stored R and label radius.

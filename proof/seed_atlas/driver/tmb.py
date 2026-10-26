@@ -1,4 +1,4 @@
-"""Batched second-order Taylor models (untrusted binary64; after explorations/seed_balls/tm2.py).
+"""Batched second-order Taylor models (untrusted binary64; after proof/seed_atlas/prototype/tm2.py).
 
 A TM holds, for a batch of boxes b with variables u in prod_j [-h_bj, h_bj] (4 variables), an array of quantities
     x = C + G.u + u^T Hq u + e,   |e| <= Rho,   Hq symmetric.

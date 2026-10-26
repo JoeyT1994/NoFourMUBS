@@ -11,7 +11,7 @@ certified, and how openness is proved.
 - **C1.** C1 is first certified by return Z's whole-ball method (`cert/wholeball.py`), from one centre computation.
   The box method of §2 and §11 is the fallback.
 
-The prototype is in `explorations/seed_balls/`; read its `README.md`. Numbers there are binary64 and **not** a proof;
+The prototype is in `proof/seed_atlas/prototype/`; read its `README.md`. Numbers there are binary64 and **not** a proof;
 this spec is what the certified versions implement. The driver is `proof/seed_atlas/driver/`, with the horizontal gauge and
 adaptive boxes of §11.
 
@@ -60,7 +60,7 @@ rcol = maxᵢ ‖U_{(·,i)}‖₂ r + n and Frobenius bound rF = ‖U‖₂ r + 
 `stagec.stage_c(P/2π, rcol/2π, tang=(U, r/2π, n/2π), radius=label_radius, rF=rF/2π)` must return ok. The existing
 Stage C lemmas apply verbatim: they only use that every Hadamard of the ball is e^{i(P+δ)} with δ of this form.
 
-**How C1 is certified** (prototype: `explorations/seed_balls/tmball2.py`, `tm2.py`). Partition [−r, r]⁴ into k⁴
+**How C1 is certified** (prototype: `proof/seed_atlas/prototype/tmball2.py`, `tm2.py`). Partition [−r, r]⁴ into k⁴
 boxes of half-width h = r/k and keep the boxes that meet the ball. On a box with centre w_c and variable
 u ∈ [−h, h]⁴, set θ = θ_c + Mth u, and work in **second-order Taylor models** in u. Each quantity is
 c + g·u + uᵀ H u + e with |e| ≤ ρ. Products keep orders 0 to 2 exactly and push degree ≥ 3 into ρ. The steps:
@@ -213,7 +213,7 @@ replaced by finite inequalities. That means the parametric Krawczyk lemma and Ta
 ## 10. Edge balls: the four-dimensional chart through F6 (replaces F6's 25-dim record)
 
 Source: return U (`explorations/returns/U_fold_at_edge/`, replayed): fold theorem, analytic completion across R = 0, and
-the chart at F6. Prototype: `explorations/seed_balls/edgeball.py`, `edge_stagec.py`. In binary64, an edge ball at F6
+the chart at F6. Prototype: `proof/seed_atlas/prototype/edgeball.py`, `edge_stagec.py`. In binary64, an edge ball at F6
 passes Stage C at r = 0.125 (label radius 0.03, sampled n ≈ 9e-3, 223 labels) and fails at 0.15.
 
 **Chart.**

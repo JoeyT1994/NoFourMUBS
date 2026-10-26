@@ -5,7 +5,7 @@ import NoFourMUBs.SeedAtlas.Method.Bounds
 
 On the box `u ∈ ∏ⱼ [−hⱼ, hⱼ]` (`InBox h u`), a Taylor model `T = (c, g, H, ρ)` **encloses** `f` (`T.Encl h f`) if
 `|f(u) − (c + g·u + uᵀHu)| ≤ ρ` for every `u` in the box.  With `L₁ = Σ |gⱼ| hⱼ` and `L₂ = Σ |H_jl| hⱼ h_l`
-(`L1`, `L2`), the operation rules of the SPEC and of the prototype `explorations/seed_balls/tm2.py` are sound:
+(`L1`, `L2`), the operation rules of the SPEC and of the prototype `proof/seed_atlas/prototype/tm2.py` are sound:
 
 * `Encl.add`, `Encl.neg`, `Encl.sub`, `Encl.smul`, `Encl.const`, `Encl.conj`, `Encl.re`, `Encl.im`;
 * `Encl.mul` (orders `0` to `2` exact, degree `≥ 3` into the remainder):

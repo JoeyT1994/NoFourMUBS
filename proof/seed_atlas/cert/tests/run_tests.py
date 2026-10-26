@@ -5,7 +5,7 @@
                                                               negative, t1prime_f6, edge, graph, edge_certificate,
                                                               global_, certificate
 
-Positive tests compare with the float prototype (explorations/seed_balls): the certified n must be >= the sampled
+Positive tests compare with the float prototype (proof/seed_atlas/prototype): the certified n must be >= the sampled
 true remainder and within 1.5x of the prototype's Taylor-model bound on the same boxes.  Negative tests corrupt one
 datum at a time (n, r, P, U, theta0, Mth, orientation, transfer target, winding, corner, group element, boxes) and
 require a rejection.
@@ -199,7 +199,7 @@ def test_boxes():
 
 def test_sampling():
     """Per box: the true remainder (prototype continuation, float) never exceeds the certified per-box bound."""
-    sys.path.insert(0, os.path.join(F.ROOT, 'explorations/seed_balls'))
+    sys.path.insert(0, os.path.join(F.ROOT, 'proof/seed_atlas/prototype'))
     from seedball import SeedBall
     rng = np.random.default_rng(0)
     for i in (0, 2):

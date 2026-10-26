@@ -1,7 +1,7 @@
 """Write tests/data/edge_test_certificate.json.gz: an edge ball at F6 (SPEC §10) with T3 and T1 transfers, built with the
 float prototypes (untrusted; they only make test inputs).  Usage: .venv/bin/python make_edge_cert.py [out.json.gz]
 
-  edge ball 0: chart F6-012 (explorations/seed_balls/edgeball.py), r = 0.05, k = [4, 4, 4, 6]; its frame U and Mth from the
+  edge ball 0: chart F6-012 (proof/seed_atlas/prototype/edgeball.py), r = 0.05, k = [4, 4, 4, 6]; its frame U and Mth from the
                SVD of DQ at p = 0 (central differences); n = 4 x the sampled residual.  A few of its level-3 sphere
                boxes near w_B carry T1 transfers into seed 1 (not a cover: its C2 coverage fails by design).
   seed 0  A: the completion H(p_A), p_A = Mth w_A with ||w_A|| = 0.4 r and y != 0, at its best corner, r = 0.004; its
@@ -12,7 +12,7 @@ float prototypes (untrusted; they only make test inputs).  Usage: .venv/bin/pyth
   records: none; Tao's record as the top-level "tao" (R = 0.08, label radius 0.03).
   graph (SPEC §10.2): R = 0.45, sigma = 1.7 (sigma_min(J(0)|_N) = sqrt 3 at F6); sigma_D = 0.15 (SPEC §10.1; eta in
   the basis of return U eq. (13))."""
-import gzip, itertools, json, os, subprocess, sys, tempfile
+import gzip, itertools, json, os, sys
 import numpy as np
 import seedgen as G
 from make_test_cert import best_corner, order, ubox, level_boxes, meets_unit_sphere, corner, wind4
@@ -22,13 +22,7 @@ hx = lambda x: float(x).hex()
 
 
 def load_edgeball():
-    p = os.path.join(G.ROOT, 'explorations', 'seed_balls')
-    if not os.path.exists(os.path.join(p, 'edgeball.py')):
-        p = tempfile.mkdtemp()
-        src = subprocess.run(['git', '-C', G.ROOT, 'show', 'main:explorations/seed_balls/edgeball.py'], capture_output=True,
-                             text=True, check=True).stdout
-        open(os.path.join(p, 'edgeball.py'), 'w').write(src)
-    sys.path.insert(0, p)
+    sys.path.insert(0, os.path.join(G.ROOT, 'proof', 'seed_atlas', 'prototype'))
     import edgeball
     return edgeball
 

@@ -1,6 +1,6 @@
 """Seed balls and the C1 enclosure by second-order Taylor models, batched over boxes (untrusted binary64).
 
-Port of explorations/seed_balls/tmball2.py to a general parametrisation theta = theta0 + Mth w and w-boxes
+Port of proof/seed_atlas/prototype/tmball2.py to a general parametrisation theta = theta0 + Mth w and w-boxes
 (SPEC §2): on a box with centre wc and half-widths hw, theta = theta_c + Mth u, u in prod [-hw, hw];
   E, G_h, G_v as TMs; each side by a parametric Krawczyk tube around a quadratic predictor; D by residual correction
   of a quadratic predictor; arg D on the branch nearest P + U wc.

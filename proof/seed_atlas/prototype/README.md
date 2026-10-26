@@ -1,8 +1,8 @@
-# Seed-space balls: prototype (24 Oct 2026)
+# Seed-space balls: the float prototype
 
-These are float (untrusted) prototypes behind `proof/seed_atlas/SPEC.md`. The production code is
-`proof/seed_atlas/driver/`; the certified checkers are `proof/seed_atlas/cert/` (Arb) and `proof/independent_seed/`
-(Julia).
+The float (untrusted) prototype behind `../SPEC.md`. It is the reference both checkers' test suites compare against
+(`../cert/tests/`, `../../independent_seed/tests/`): certified bounds must lie above its sampled remainders. The
+production code is `../driver/`; the checkers are `../cert/` (Arb) and `../../independent_seed/` (Julia).
 
 | file | what |
 |---|---|

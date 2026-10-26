@@ -16,8 +16,8 @@ submodule `IndepAtlas` and nothing in it is edited.
 
 **Sources used:** `SPEC.md`; `FORMAT.md` (piece B's branch, commits 37c52092 and 2f77a3c0; §8 on seed-driver-coord,
 13200fac); `proof/independent`
-(README and `src`); `proof/atlas/COVERAGE.md`; the module docstrings of `proof/atlas/ballrecord.py` and
-`proof/atlas/tao.py`. I also read `explorations/seed_balls/README.md` and the prototype (`seedball.py`, `tm2.py`,
+(README and `src`); `proof/atlas/COVERAGE.md` (at the tag `v1-25dim-records`); the module docstrings of `proof/atlas/ballrecord.py` and
+`proof/atlas/tao.py`. I also read `proof/seed_atlas/prototype/README.md` and the prototype (`seedball.py`, `tm2.py`,
 `tmball.py`, `tmball2.py`), but only for the mathematics: the design below differs from it, as listed under "Design".
 
 **Not opened:** piece A's code (`proof/seed_atlas/cert/`), the driver's code (`proof/seed_atlas/driver/`) and

@@ -10,6 +10,7 @@ Steps 3–5).
 | [`FORMAT.md`](FORMAT.md) | The certificate file `seed-atlas-v1`: seed balls, transfer groups (T0, T1, T3), the X-ball, Tao; exact binary64 in hex; dyadic sphere boxes |
 | [`cert/`](cert/README.md) | **The Arb certifier** (trusted): checks a certificate from its data alone |
 | [`driver/`](driver/README.md) | The driver (untrusted): grows the atlas and writes the certificate |
+| [`prototype/`](prototype/README.md) | The float prototype: the reference the checkers' test suites compare against |
 | `results/` | The certificate `seed_atlas_certificate.json.gz` and the receipts of both certifications |
 
 The second, independent checker is [`../independent_seed/`](../independent_seed/README.md) (Julia, written from

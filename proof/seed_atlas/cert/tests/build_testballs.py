@@ -1,4 +1,4 @@
-"""Build test seed balls with the float prototype (explorations/seed_balls), in the SPEC section 8 record format.
+"""Build test seed balls with the float prototype (proof/seed_atlas/prototype), in the SPEC section 8 record format.
 
 For each (atlas record, r, k): best corner of the atlas centre, SeedBall, T = DQ(theta0) = U S V^T, Mth = V S^-1,
 U = T Mth, o = sign Im Psi(B(theta0)).  Stored alongside (for the tests only, untrusted):
@@ -17,7 +17,7 @@ import numpy as np
 warnings.filterwarnings('ignore')
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, '../../../..'))
-sys.path.insert(0, os.path.join(ROOT, 'explorations/seed_balls'))
+sys.path.insert(0, os.path.join(ROOT, 'proof/seed_atlas/prototype'))
 sys.path.insert(0, os.path.join(ROOT, 'proof/atlas'))
 
 DEFAULT = ('2003:0.05:3', '2781:0.04:3', '562:0.02:3', '2003:0.08:4')
@@ -193,7 +193,7 @@ if __name__ == '__main__' and MODE == 'f6':
 
 # ---------------------------------------------------------------------------------------- edge balls at F6
 def build_edge(r, k, label=0.03, nsamp=200):
-    """An edge-ball record at F6 (explorations/seed_balls/edgeball.py): P = phases of the completion at p = 0 (F6's
+    """An edge-ball record at F6 (proof/seed_atlas/prototype/edgeball.py): P = phases of the completion at p = 0 (F6's
     corner (0,1,2)), T = dQ/dp by central differences, Mth = V S^-1, U = T Mth; n = 1.25 x the sampled remainder
     (a placeholder; the tests set n from the certifier).  Also returns the sampled remainder."""
     import edgeball as EB
