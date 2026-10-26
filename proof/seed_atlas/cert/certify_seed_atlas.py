@@ -109,7 +109,8 @@ def check_seed(C, j, groups=None):
         if not sc.get('ok'): raise S.CertError('Stage C failed: %s' % sc.get('reason', 'quartet edge not excluded'))
         t2 = time.time()
         if groups is None: groups = C.cert['seeds'][j].get('transfers', [])
-        cnt = S.check_seed_transfers(ball, C.balls, C.rec_targets, groups, C.cert['max_level'], edges=C.edges)
+        cnt = S.check_seed_transfers(ball, C.balls, C.rec_targets, groups, C.cert['max_level'], edges=C.edges,
+                                     caps=C.cert['seeds'][j].get('caps'))
         out.update(transfers=cnt, c2_s=round(time.time() - t2, 3))
         out['ok'] = True
     except S.CertError as e:
