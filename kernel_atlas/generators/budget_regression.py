@@ -184,10 +184,65 @@ def compaction_checks():
             raise AssertionError("invalid box accepted during compaction")
 
 
+def final_receipt_checks():
+    import budget_finish as F
+    with tempfile.TemporaryDirectory() as directory:
+        root = Path(directory)
+        source = {"boundary.py": "source-hash"}
+        edge = dict(status="NUMERICAL", failed=0, balls=3, edges=1,
+                    state_edge_sha256="raw-state", groups=4, source_sha256=source,
+                    shards=2, total=4, state_sha256="seed-state", edges_sha256="edge-ball",
+                    jobs_sha256="partition", shard_jobs=["123_0", "123_1"],
+                    reused_start_boxes=0)
+        compact = dict(balls=3, edges=[dict(groups_before=4, groups_after=1, leaves=4)],
+                       input_sha256="raw-state", output_sha256="compact-state",
+                       source_sha256=source, input_bytes=1000, output_bytes=500, seconds=2)
+        summary = dict(balls=3, edges=1, input_sha256=dict(state="compact-state"))
+        ep, cp = root/"collected.json", root/"compaction.json"
+        ep.write_text(json.dumps(edge)); cp.write_text(json.dumps(compact))
+        for shard in range(2):
+            folder = root/f"shard_{shard}"; folder.mkdir()
+            m = {k: edge[k] for k in ["source_sha256", "shards", "total", "state_sha256",
+                                      "edges_sha256", "jobs_sha256", "balls"]}
+            m["selected"] = list(range(shard, 4, 2))
+            (folder/"inputs.json").write_text(json.dumps(m))
+            m.update(results_sha256={f"{j}.pkl": "result-hash" for j in m["selected"]},
+                     job_id=f"123_{shard}")
+            (folder/"manifest.json").write_text(json.dumps(m))
+        sources = {"snapshot": source}
+        result = F.closure_evidence(summary, ep, cp, sources)
+        assert result["leaves"] == 4 and result["compact_groups"] == 1
+        for field, value in [("failed", 1), ("state_edge_sha256", "different-state"),
+                             ("total", 5), ("groups", 5)]:
+            changed = dict(edge, **{field: value}); ep.write_text(json.dumps(changed))
+            try:
+                F.closure_evidence(summary, ep, cp, sources)
+            except AssertionError:
+                pass
+            else:
+                raise AssertionError(f"inconsistent closure receipt accepted: {field}")
+        ledger, usage = root/"jobs.jsonl", root/"jobs.sacct"
+        ledger.write_text(json.dumps(dict(job_id="123", array=[0, 1]))+"\n")
+        usage.write_text("123_0|COMPLETED|10|128|00:20|1280|\n"
+                         "123_0.batch|COMPLETED|10|128|00:19|1280|\n"
+                         "123_1|CANCELLED by 1|0|128|00:00|0|\n")
+        account = F.accounting(usage, ledger)
+        assert account["allocated_core_hours"] == 1280/3600
+        assert account["used_cpu_hours"] == 20/3600
+        usage.write_text("123_0|COMPLETED|10|128|00:20|1280|\n")
+        try:
+            F.accounting(usage, ledger)
+        except AssertionError:
+            pass
+        else:
+            raise AssertionError("missing cancelled array task accepted")
+
+
 if __name__ == "__main__":
     search_checks()
     state_checks()
     nonmonotone_plan_check()
     edge_reuse_checks()
     compaction_checks()
-    print("PASS: bracket/cap/certifier fallback searches and nonmonotone endpoint reuse; geometry, incoming, T3, edge and record invalidation; source preservation; overwrite rejection; safe appended-target edge reuse; lossless serial/parallel edge compaction")
+    final_receipt_checks()
+    print("PASS: bracket/cap/certifier fallback searches and nonmonotone endpoint reuse; geometry, incoming, T3, edge and record invalidation; source preservation; overwrite rejection; safe appended-target edge reuse; lossless serial/parallel edge compaction; final state/partition binding and accounting")

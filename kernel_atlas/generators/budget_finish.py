@@ -103,6 +103,50 @@ def cpu_seconds(value):
     return int(days)*86400 + sum(v*60**i for i, v in enumerate(reversed(parts)))
 
 
+def closure_evidence(summary, edge_path, compact_path, sources):
+    """Bind the per-ball audits to the complete numerical edge-cover receipts."""
+    edge = json.loads(edge_path.read_text())
+    compact = json.loads(compact_path.read_text())
+    assert edge["status"] == "NUMERICAL" and edge["failed"] == 0
+    assert edge["balls"] == compact["balls"] == summary["balls"]
+    assert edge["edges"] == len(compact["edges"]) == summary["edges"]
+    assert edge["state_edge_sha256"] == compact["input_sha256"]
+    assert compact["output_sha256"] == summary["input_sha256"]["state"]
+    assert sum(e["groups_before"] for e in compact["edges"]) == edge["groups"]
+    assert all(e["groups_after"] > 0 and e["leaves"] >= e["groups_after"]
+               for e in compact["edges"])
+    for evidence in [edge, compact]:
+        assert any(all(snapshot.get(k) == v for k, v in evidence["source_sha256"].items())
+                   for snapshot in sources.values()), "unarchived closure sources"
+    found = set()
+    for shard in range(edge["shards"]):
+        folder = edge_path.parent/f"shard_{shard}"
+        inputs = json.loads((folder/"inputs.json").read_text())
+        manifest = json.loads((folder/"manifest.json").read_text())
+        assert all(manifest[k] == v for k, v in inputs.items())
+        for field in ["state_sha256", "edges_sha256", "source_sha256", "jobs_sha256",
+                      "total", "balls", "shards", "reuse"]:
+            assert manifest.get(field) == edge.get(field)
+        selected = list(range(shard, edge["total"], edge["shards"]))
+        assert manifest["selected"] == selected
+        assert set(manifest["results_sha256"]) == {f"{j}.pkl" for j in selected}
+        assert not found.intersection(selected)
+        assert manifest["job_id"] == edge["shard_jobs"][shard]
+        found.update(selected)
+    assert found == set(range(edge["total"])), "incomplete edge start-box partition"
+    return dict(status="NUMERICAL; independent transfer certification remains separate",
+                start_boxes=edge["total"], reused_start_boxes=edge["reused_start_boxes"],
+                raw_groups=edge["groups"],
+                compact_groups=sum(e["groups_after"] for e in compact["edges"]),
+                leaves=sum(e["leaves"] for e in compact["edges"]), failed=0,
+                raw_state_sha256=compact["input_sha256"],
+                compact_state_sha256=compact["output_sha256"],
+                raw_bytes=compact["input_bytes"], compact_bytes=compact["output_bytes"],
+                compaction_seconds=compact["seconds"],
+                receipts_sha256={str(p): hashlib.sha256(p.read_bytes()).hexdigest()
+                                for p in [edge_path, compact_path]})
+
+
 def accounting(path, ledger):
     events = [json.loads(line) for line in ledger.read_text().splitlines() if line.strip()]
     ids = {str(e["job_id"]) for e in events}
@@ -134,9 +178,13 @@ def main():
     p.add_argument("--accounting", type=Path, required=True,
                    help="sacct --array -n -P fields JobID,State,ElapsedRaw,AllocCPUS,TotalCPU,CPUTimeRAW")
     p.add_argument("--jobs", type=Path, required=True)
+    p.add_argument("--edge", type=Path, required=True, help="final edge collected.json beside shard receipts")
+    p.add_argument("--compaction", type=Path, required=True, help="lossless closed-state compaction receipt")
     p.add_argument("--out", type=Path, required=True)
     args = p.parse_args()
-    data, fits, summary = collect(args.audits, json.loads(args.sources.read_text()))
+    sources = json.loads(args.sources.read_text())
+    data, fits, summary = collect(args.audits, sources)
+    summary["closure"] = closure_evidence(summary, args.edge, args.compaction, sources)
     summary["accounting"] = accounting(args.accounting, args.jobs)
     args.out.mkdir(parents=True, exist_ok=True)
     write_gzip(args.out/"ZK2_final_audits.jsonl.gz", data)
