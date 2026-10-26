@@ -155,9 +155,39 @@ def edge_reuse_checks():
             raise AssertionError("edge groups reused after reordering/removing targets")
 
 
+def compaction_checks():
+    import multiprocessing as mp
+    from collections import Counter
+    import budget_edge_compact as C
+    raw = [dict(desc=("T1", j % 2, "id", (0, 1, 2), (0, 1, 2)), wind=[0]*9,
+                boxes=[[3, j % 8, 0, 1, 2]]) for j in range(31)]
+    raw[6]["wind"][0] = 1
+    raw[11]["boxes"].append([4, 2, 3, 4, 5])
+    def entries(groups):
+        return Counter((C.key(g), tuple(map(int, b))) for g in groups for b in g["boxes"])
+    merged, stats = C.compact(raw)
+    assert entries(raw) == entries(merged) and len(merged) == 3 and stats["leaves"] == 32
+    C.GROUPS = raw
+    with mp.get_context("fork").Pool(2) as pool:
+        parts = pool.map(C.compact_slice, [(0, 15), (15, 31)])
+    C.GROUPS = None
+    parallel, pstats = C.compact([g for groups, _ in parts for g in groups])
+    assert entries(raw) == entries(parallel)
+    assert pstats["metadata_and_ordered_boxes_sha256"] == stats["metadata_and_ordered_boxes_sha256"]
+    for row in [[3, 8, 0, 1, 2], [3, .5, 0, 1, 2], [9, 1, 0, 1, 2]]:
+        bad = copy.deepcopy(raw[:1]); bad[0]["boxes"] = [row]
+        try:
+            C.compact(bad)
+        except AssertionError:
+            pass
+        else:
+            raise AssertionError("invalid box accepted during compaction")
+
+
 if __name__ == "__main__":
     search_checks()
     state_checks()
     nonmonotone_plan_check()
     edge_reuse_checks()
-    print("PASS: bracket/cap/certifier fallback searches and nonmonotone endpoint reuse; geometry, incoming, T3, edge and record invalidation; source preservation; overwrite rejection; safe appended-target edge reuse")
+    compaction_checks()
+    print("PASS: bracket/cap/certifier fallback searches and nonmonotone endpoint reuse; geometry, incoming, T3, edge and record invalidation; source preservation; overwrite rejection; safe appended-target edge reuse; lossless serial/parallel edge compaction")

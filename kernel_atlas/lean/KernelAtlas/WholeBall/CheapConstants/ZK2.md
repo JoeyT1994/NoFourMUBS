@@ -3,8 +3,8 @@
 **Work in progress.** All 577 original-radius fine budgets and all 432
 preliminary smaller-radius budgets are confirmed (five of the latter were
 subsequently restored to their original radii). Run6's seed cover is
-**NUMERICALLY closed** with 2,729 cheap balls, including 379 new balls.
-The edge re-cover is running on rusty; fresh final audits follow. A closed
+**NUMERICALLY closed** with 2,765 cheap balls, including 415 new balls.
+The edge repair is running on rusty; fresh final audits follow. A closed
 all-cheap run6 atlas, including its edge boundary, is **NOT ESTABLISHED** yet.
 Final receipts and accounting will be added when those jobs finish.
 
@@ -77,6 +77,23 @@ result is checkpointed atomically; collection requires every start box
 exactly once, with common input/source hashes. A real old boundary leaf
 passed the new runner's preflight in 0.394 s. The earlier single-node edge
 pass was cancelled; its allocation is included in the accounting.
+
+The first edge pass produced 8,385,902 groups and 850 numerical gaps.
+`budget_edge_grow.py` added 36 cheap balls at the resulting proposals and
+closed their seed covers in 264 seconds. The subsequent edge pass
+reuses only successful start boxes after checking that every old target's
+centre, inverse frame, frame and radius is unchanged and that the edge ball
+and boundary routines match. Boxes with gaps are recomputed. Regression
+checks accept appended targets and reject changed, reordered or removed
+targets. Final seed/edge closure and fresh audits are still pending.
+
+Before the final audit, `budget_edge_compact.py` groups identical transfer
+descriptions and windings into shared box arrays. This preserves every box,
+including duplicates and their order within each metadata group. Per-group
+box digests, seed payloads and edge-ball payloads are checked; the raw closed
+snapshot is retained. Serial/parallel regression checks and a real 90-box
+sample pass. The compact snapshot prevents each audit worker from loading
+millions of separate Python dictionaries.
 
 The final `budget_state.py` audit requires a closed seed and edge state,
 unchanged original centres/frames, fresh cheap C1, certifier Stage C, and fine
