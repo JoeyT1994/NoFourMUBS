@@ -70,41 +70,56 @@ function check_c2_edge(eb::EdgeBall, X, root::EdgeMap; split_depth::Int=2, cover
     cov, cn = cover ? dyadic_covered(listed, misses_unit_sphere) : (true, 0)     # cover = false: tests only
     cov || return res(false, "the boxes do not cover the sphere ||w|| = r", [0, 0], cn)
     st = [0, 0]
+    # every (group, box) is an independent test: run them on all threads, each with its own split counters, then
+    # report the first failure in group and box order, exactly as a serial loop would
+    items = Tuple{Int,Int}[]
     for (gi, g) in enumerate(eb.groups)
         if g.kind == :T3                     # into another edge ball of the same chart (EdgeInQ)
             (0 <= g.target < length(X.edges)) || return res(false, "group $(gi-1): no such edge ball", st, cn)
             X.edge_leaves[g.target+1] === nothing && return res(false, "group $(gi-1): target edge ball did not pass C1e", st, cn)
             X.edge_minv[g.target+1] === nothing && return res(false, "group $(gi-1): target edge Mth not invertible", st, cn)
-            f3 = function (lo, hi)
+        else
+            (0 <= g.target < length(X.seeds)) || return res(false, "group $(gi-1): no such seed", st, cn)
+            X.minv[g.target+1] === nothing && return res(false, "group $(gi-1): target Mth not invertible", st, cn)
+        end
+        append!(items, ((gi, k) for k in eachindex(g.boxes)))
+    end
+    out = Vector{Tuple{Bool,String,Float64,Int,Int}}(undef, length(items))
+    Threads.@threads :greedy for i in eachindex(items)
+        gi, k = items[i]; g = eb.groups[gi]; b = g.boxes[k]
+        sti = [0, 0]
+        f = if g.kind == :T3
+            function (lo, hi)
                 wc, h = scaled_dom(lo, hi, eb.r)
                 wcm = ntuple(j -> mid(wc[j]), 4)
                 em = edge_box_map(eb, wcm, h, edge_guess(root, wcm)...; wcI=wc)
                 em.ok || return false, "T3: " * em.why, Inf
                 check_T3(representative(em.Q, eb.P, eb.U, wc), Dom(h), g, X.edges[g.target+1], X.edge_leaves[g.target+1], X.edge_minv[g.target+1])
             end
-            for b in g.boxes
-                ok, msg, val = check_with_split(f3, ubox(b)..., 0, split_depth, st)
-                ok || return res(false, "group $(gi-1) (T3 -> edge $(g.target)), box $b: " * msg, st, cn)
-                counts[:T3] += 1; worst[:T3] = max(worst[:T3], val)
+        else
+            t = X.seeds[g.target+1]; Mi = X.minv[g.target+1]
+            function (lo, hi)
+                wc, h = scaled_dom(lo, hi, eb.r)
+                wcm = ntuple(j -> mid(wc[j]), 4)
+                em = edge_box_map(eb, wcm, h, edge_guess(root, wcm)...; wcI=wc)
+                em.ok || return false, "T1: " * em.why, Inf
+                check_T1(representative(em.Q, eb.P, eb.U, wc), Dom(h), g, t, Mi)
             end
-            continue
         end
-        (0 <= g.target < length(X.seeds)) || return res(false, "group $(gi-1): no such seed", st, cn)
-        Mi = X.minv[g.target+1]
-        Mi === nothing && return res(false, "group $(gi-1): target Mth not invertible", st, cn)
-        t = X.seeds[g.target+1]
-        f = function (lo, hi)
-            wc, h = scaled_dom(lo, hi, eb.r)
-            wcm = ntuple(j -> mid(wc[j]), 4)
-            em = edge_box_map(eb, wcm, h, edge_guess(root, wcm)...; wcI=wc)
-            em.ok || return false, "T1: " * em.why, Inf
-            check_T1(representative(em.Q, eb.P, eb.U, wc), Dom(h), g, t, Mi)
+        ok, msg, val = try
+            check_with_split(f, ubox(b)..., 0, split_depth, sti)
+        catch err
+            (false, "exception: " * sprint(showerror, err)[1:min(end, 200)], Inf)
         end
-        for b in g.boxes
-            ok, msg, val = check_with_split(f, ubox(b)..., 0, split_depth, st)
-            ok || return res(false, "group $(gi-1) (T1 -> $(g.target)), box $b: " * msg, st, cn)
-            counts[:T1] += 1; worst[:T1] = max(worst[:T1], val)
-        end
+        out[i] = (ok, msg, val, sti[1], sti[2])
+    end
+    for (i, (gi, k)) in enumerate(items)
+        ok, msg, val, a, b2 = out[i]; g = eb.groups[gi]
+        st[1] += a; st[2] += b2
+        tag = g.kind == :T3 ? "T3 -> edge $(g.target)" : "T1 -> $(g.target)"
+        ok || return res(false, "group $(gi-1) ($tag), box $(g.boxes[k]): " * msg, st, cn)
+        kk = g.kind == :T3 ? :T3 : :T1
+        counts[kk] += 1; worst[kk] = max(worst[kk], val)
     end
     res(true, "ok", st, cn)
 end
