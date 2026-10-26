@@ -288,8 +288,11 @@ def t3_test(cand, QP, okp):
     ok = okp & (v.max(1) < T3_VMAX)
     vc = np.where(okp, v[:, -1], 9.0)
     Ns = [None] * len(QP)
+    x0 = None
     for b in np.where(ok)[0]:
-        refs = EP.t3_side_refs(QP[b, -1], cand.g, cand.rows, cand.cols, cand.wind)
+        refs = EP.t3_side_refs(QP[b, -1], cand.g, cand.rows, cand.cols, cand.wind, x0)     # warm-started chart solve
+        if refs is None and x0 is not None: refs = EP.t3_side_refs(QP[b, -1], cand.g, cand.rows, cand.cols, cand.wind)
+        if refs is not None: x0 = refs[2]
         rh, rv = (refs[0], refs[1]) if refs else (None, None)
         (_, hc, wh), (_, vr, wv) = EP.side_orders(SG.gphase(cand.g, QP[b, -1].reshape(6, 6)), cand.rows, cand.cols, rh, rv)
         Ns[b] = tuple(hc) + tuple(vr) + tuple(wh) + tuple(wv)
