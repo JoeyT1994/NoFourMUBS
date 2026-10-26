@@ -36,4 +36,15 @@ It also checks Tao's record. A run over a subset (`--only`) never reports PASS.
 
 ## The certificate
 
-⟨filled from the final certificate: seed balls, boxes, sha256, Arb and Julia receipts with wall time and core-hours⟩
+`results/seed_atlas_certificate.json.gz`: 41 MB, SHA-256 `5daa58b34a11fb2d7828ce9eaac1dfeb8452ca5be1f91bbf1cd10c6c8f7c3313`.
+- 2,350 seed balls;
+- 11,706,691 boundary boxes (T0 2,411,969; T1 7,431,652; corner-symmetry T1 1,832,906; T3 30,164);
+- the X-ball (tangent radius 0.13, 1,183,840 sphere boxes; image within 0.1636 of F6).
+
+| Check | Result |
+|---|---|
+| Arb (`results/arb_receipt.json`) | **PASS**, 0 failures in 2,814 items; 1 h 24 min on one 128-core node; seed-ball work 102 core-hours (C1 12, Stage C 20, transfers 70) |
+| Julia (`proof/independent_seed`) | running (26 Oct 2026) |
+| Re-certification with T3 by return XS | running in Arb and Julia |
+
+The certificate's T3 groups still carry the side data of the earlier T3 check, which the checkers now ignore.
