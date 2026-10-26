@@ -133,6 +133,11 @@ def main():
     if args.require_closed and not closed:
         raise ValueError("state is not closed, including all edge boundaries")
     original, _, _, _, hashes = inputs(args.archive)
+    frames_preserved = len(atlas.balls) >= len(original) and all(
+        geometry_hash(dict(seed_json(atlas.balls[j], []), r=s["r"])) == geometry_hash(s)
+        for j, s in enumerate(original))
+    if args.require_closed and not frames_preserved:
+        raise ValueError("an original centre or frame changed")
     indices = args.indices if args.indices is not None else list(range(len(atlas.balls)))
     if args.changed_only:
         indices = [j for j in indices if j >= len(original) or geometry_hash(seed_json(atlas.balls[j], [])) != geometry_hash(original[j])]
@@ -174,7 +179,7 @@ def main():
                     seconds=time.perf_counter()-started, completed_utc=datetime.now(timezone.utc).isoformat(),
                     workers=args.workers, job_id=os.environ.get("SLURM_JOB_ID"), node=platform.node(),
                     balls=len(atlas.balls), statuses=statuses, edges=len(edges),
-                    driver_closed=closed, total=len(done),
+                    driver_closed=closed, original_frames_preserved=frames_preserved, total=len(done),
                     certified=sum(v["status"] == "CERTIFIED" for v in done.values()))
     args.out.with_suffix(".manifest.json").write_text(json.dumps(manifest, indent=2)+"\n")
     if manifest["certified"] != len(indices):

@@ -12,3 +12,4 @@
 {"job_id": "7336911", "event": "cancelled_own_array", "reason": "consolidate fewer than 92 remaining budgets and reuse all completed trials"}
 {"job_id": "7337262", "purpose": "consolidated remaining fine budgets with cached pilot and array trials", "allocated_cpus": 128, "workers": 80, "submitted_utc": "2026-10-26T16:30:13.619836+00:00", "code": "/mnt/ceph/users/jtindall/seed_atlas_build/hor/zk2_code"}
 {"job_id": "7337213", "event": "dependency_changed", "dependency": "afterok:7337262"}
+{"job_id": "7337291", "purpose": "final closed-state cheap C1/Stage C audit and fine budgets for new balls", "array": [0, 1], "allocated_cpus_per_task": 128, "workers_per_task": 80, "dependency": "afterok:7337219:7337087:7337092:7337214", "submitted_utc": "2026-10-26T16:36:23.497020+00:00", "code": "/mnt/ceph/users/jtindall/seed_atlas_build/hor/zk2_final_code"}
