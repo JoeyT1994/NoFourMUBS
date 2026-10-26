@@ -36,15 +36,15 @@ It also checks Tao's record. A run over a subset (`--only`) never reports PASS.
 
 ## The certificate
 
-`results/seed_atlas_certificate.json.gz`: 41 MB, SHA-256 `5daa58b34a11fb2d7828ce9eaac1dfeb8452ca5be1f91bbf1cd10c6c8f7c3313`.
+`results/seed_atlas_certificate.json.gz`: 41 MB, SHA-256 `72ec7013d0d253f7c1bbe181224733efa2826904d47da6ee896e6a09ca9610c4`.
 - 2,350 seed balls;
 - 11,706,691 boundary boxes (T0 2,411,969; T1 7,431,652; corner-symmetry T1 1,832,906; T3 30,164);
 - the X-ball (tangent radius 0.13, 1,183,840 sphere boxes; image within 0.1636 of F6).
 
 | Check | Result |
 |---|---|
-| Arb (`results/arb_receipt.json`) | **PASS**, 0 failures in 2,814 items; 1 h 24 min on one 128-core node; seed-ball work 102 core-hours (C1 12, Stage C 20, transfers 70) |
-| Julia (`results/julia/`: `RESULT.txt`, `BINDING.txt` with the certificate's SHA-256, per-ball `seeds.tsv.gz`) | **PASS**, every check; 1 h 17 min on one 128-core node, with Stage C's clique-search budget `SEED_CLIQUE_CAP` = 2·10¹⁰ steps |
-| Re-certification with T3 by return XS | running in Arb and Julia |
+| Arb (`results/arb_receipt.json`) | **PASS**, 0 failures in 2,814 items; 1 h 23 min on one 128-core node; seed-ball work 101 core-hours (C1 12, Stage C 20, transfers 69) |
+| Julia (`results/julia/`: `RESULT.txt`, `BINDING.txt` with the certificate's SHA-256, per-ball `seeds.tsv.gz`) | **PASS**, every check; 1 h 19 min on one 128-core node, with Stage C's clique-search budget `SEED_CLIQUE_CAP` = 2·10¹⁰ steps |
 
-The certificate's T3 groups still carry the side data of the earlier T3 check, which the checkers now ignore.
+T3 is checked by return XS (FORMAT.md section 8): the certificate's T3 groups carry the corner and three windings
+only. The same atlas with the earlier side-tube data (SHA-256 `5daa58b3…`) passed both certifiers too.
