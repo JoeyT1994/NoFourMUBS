@@ -5,7 +5,7 @@ thousands of small dyadic boxes, by a centre-based second-order bound in the sty
 transfers both cost O(1) computations per ball.
 
 Label every claim **PROVED**, **CERTIFIED** (exact or interval computation, replayable), **NUMERICAL** or
-**NOT ESTABLISHED**. Context files are in `context/`.
+**NOT ESTABLISHED**. Context files are in `context/`. The Python files there are reference implementations (numpy, python-flint; they import each other) for reading the definitions, not something you need to run. `sample_certificate.json.gz` holds real data: every seed ball's centre data, the full transfer boxes of 200 seed balls (including the 4 with T3 transfers), and the edge ball. `seedcert.Ball(seed)` reads one seed entry.
 
 ---
 
