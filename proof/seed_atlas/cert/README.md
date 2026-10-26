@@ -30,7 +30,8 @@ python3 proof/seed_atlas/cert/tests/run_tests.py
 | `tmarb.py` | second-order Taylor models in 4 variables, batched over boxes, as numpy object arrays of `arb`/`acb` (+, −, ·, @, e^{i·}, sup norms) |
 | `seedcert.py` | C1, the Stage C arguments, T0 / T1 / T2, the record-boundary kinds `rec` and `T1prime`, and the coverage traversals |
 | `edgecert.py` | edge balls (SPEC §10): C1e, T3 into edge balls, and the edge ball's own T1 transfers and sphere cover |
-| `certify_seed_atlas.py` | the whole certificate: one format adapter (`read_certificate`), multiprocessing, receipt |
+| `certify_seed_atlas.py` | the whole certificate: one format adapter (`read_certificate`), multiprocessing, receipt (with its code binding: the SHA-256 of the certificate and of every source here and in `proof/atlas/`) |
+| `check_binding.py` | checks a receipt's binding against this checkout and the certificate (`python3 check_binding.py`, default: the committed receipt) |
 | `tests/` | the prototype-built test balls (`data/`), fixtures, and `run_tests.py` (positive, sampling and negative tests) |
 
 ## What is checked

@@ -13,6 +13,9 @@ SPEC 10.1-10.2's (G) (sigma at F6 by BallRecord, R_G L < sigma, the image inside
 Globally: F6 lies in the image (F6 = H(0) of edge ball 0, or the interior of record `fourier_record` by
 proof/atlas/nonempty.py's test), and Tao's record passes (proof/atlas/tao.py: exact spectrum, isolation, Stage C).
 
+The receipt's `binding` records the certificate's SHA-256, the SHA-256 of every source of this checker
+(BINDING_DIRS) and the package versions; `check_binding.py` compares it with a checkout.
+
 Usage: python certify_seed_atlas.py CERT [-j JOBS] [--receipt receipt.json] [--only seeds:0-99,records:all]
 """
 import argparse, gzip, json, math, os, sys, time, traceback
@@ -21,6 +24,40 @@ ATLAS = os.path.abspath(os.path.join(HERE, '../../atlas'))
 for p in (HERE, ATLAS):
     if p not in sys.path: sys.path.insert(0, p)
 import numpy as np
+
+
+# ------------------------------------------------------------------------------------------------ the code binding
+ROOT = os.path.abspath(os.path.join(HERE, '../../..'))
+BINDING_DIRS = ('proof/seed_atlas/cert', 'proof/atlas')     # every .py and .json here (tests excluded) is bound
+
+
+def sha256_file(path):
+    import hashlib
+    h = hashlib.sha256()
+    with open(path, 'rb') as f:
+        for block in iter(lambda: f.read(1 << 20), b''): h.update(block)
+    return h.hexdigest()
+
+
+def bound_sources():
+    """{repo-relative path: SHA-256} of the checker's sources (check_binding.py recomputes the same set)."""
+    out = {}
+    for d in BINDING_DIRS:
+        for name in sorted(os.listdir(os.path.join(ROOT, d))):
+            if name.endswith(('.py', '.json')) and os.path.isfile(os.path.join(ROOT, d, name)):
+                out[d + '/' + name] = sha256_file(os.path.join(ROOT, d, name))
+    out['requirements.txt'] = sha256_file(os.path.join(ROOT, 'requirements.txt'))
+    return out
+
+
+def binding(cert_path, argv_options):
+    from importlib import metadata
+    def version(pkg):
+        try: return metadata.version(pkg)
+        except metadata.PackageNotFoundError: return None
+    return dict(format='nofour-arb-seed-binding-v1', certificate_sha256=sha256_file(cert_path), python=sys.version.split()[0],
+                packages={p: version(p) for p in ('python-flint', 'numpy', 'sympy', 'mpmath', 'scipy')},
+                options=argv_options, sources=bound_sources())
 
 
 # ------------------------------------------------------------------------------------------------ the one adapter
@@ -317,6 +354,7 @@ def main(argv=None):
     ap.add_argument('--only', help="subset, e.g. 'seeds:0-99,records:all,fourier,tao' (a partial run is never a PASS)")
     a = ap.parse_args(argv)
     t0 = time.time()
+    bind = binding(a.certificate, dict(only=a.only))
     cert = read_certificate(a.certificate)
     ns, nr = len(cert['seeds']), len(cert['records'])
     ne = len(cert.get('edge', []))
@@ -363,9 +401,12 @@ def main(argv=None):
         wall_seconds=round(time.time() - t0, 1), jobs=a.jobs,
         verdict='PASS' if (full and not bad) else ('FAIL' if bad else 'PARTIAL (no failures in the subset)'))
     summary['failed'] = [dict(item=r['item'], index=r.get('index'), reason=r.get('reason')) for r in bad[:200]]
+    if bound_sources() != bind['sources'] or sha256_file(a.certificate) != bind['certificate_sha256']:
+        summary['verdict'] = 'FAIL'                       # a source or the certificate changed during the run
+        summary['failed'].insert(0, dict(item='binding', index=None, reason='sources or certificate changed during the run'))
     if a.receipt:
         with open(a.receipt, 'w') as f:
-            json.dump(dict(summary=summary, results=sorted(results, key=lambda r: (r['item'], r.get('index', 0)))), f, indent=1, default=str)
+            json.dump(dict(binding=bind, summary=summary, results=sorted(results, key=lambda r: (r['item'], r.get('index', 0)))), f, indent=1, default=str)
     print(json.dumps({k: v for k, v in summary.items() if k != 'failed'}, default=str))
     print('SEED ATLAS %s' % summary['verdict'])
     return 0 if summary['verdict'] == 'PASS' else 1
