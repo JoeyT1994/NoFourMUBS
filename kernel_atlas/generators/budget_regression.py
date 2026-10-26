@@ -34,6 +34,14 @@ def search_checks():
         r = B.fine_budget(seed, 1., known=known)
         assert r["status"] == "CERTIFIED" and r["n"] == known["n"]
         assert r["relative_bracket"] <= .02
+        # Even if every screen above the known point passes spuriously, the
+        # certifier fallback must be able to reach that point from the cap.
+        B.stage = lambda seed, n, label, certified=False: dict(
+            ok=not certified, n=n, r=.1, label=label,
+            check="certifier" if certified else "screen", seconds=0.)
+        r = B.fine_budget(seed, 1., known=known)
+        assert r["status"] == "CERTIFIED" and r["n"] == known["n"]
+        assert r["relative_bracket"] <= .02
         try:
             B.fine_budget(seed, 1., known=dict(known, r=.2))
         except ValueError:

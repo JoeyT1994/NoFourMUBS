@@ -81,7 +81,8 @@ def fine_budget(seed, sn, initial_factor=None, tolerance=.02, cap=8., known=None
     unit = sn*1.05
     history, cache = [], {}
     if known is not None:
-        if not known["ok"] or known["check"] != "certifier" or known["r"] != float.fromhex(seed["r"]):
+        if (not known["ok"] or known["check"] != "certifier" or
+                known["r"] != float.fromhex(seed["r"]) or known["n"] <= 0):
             raise ValueError("known lower budget needs a matching certifier receipt")
         initial_factor = known["n"]/unit
         # The same accepted n is a valid lower endpoint even if a floating
@@ -130,7 +131,12 @@ def fine_budget(seed, sn, initial_factor=None, tolerance=.02, cap=8., known=None
     confirmation = test(lo, True)
     # Usually screening and certifier agree. If they do not, step down by 1%
     # and preserve an actual failed certifier trial above the accepted budget.
-    for _ in range(200):
+    # A fixed 200 steps can stop above an already certified lower endpoint.
+    # Allow enough steps to reach that endpoint, whose cached proof remains
+    # valid even if every intervening screen disagrees with the certifier.
+    confirmation_steps = 200 if known is None else max(
+        200, math.ceil((math.log(lo)-math.log(initial_factor)) / -math.log(.99))+2)
+    for _ in range(confirmation_steps):
         if confirmation is not None:
             break
         hi = lo
