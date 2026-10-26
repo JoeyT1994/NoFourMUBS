@@ -27,7 +27,7 @@ const IA = S.IA
 filehash(f) = bytes2hex(open(sha256, f))
 
 function binding(cert, opts)
-    files = [joinpath(@__DIR__, "check_seed.jl"); joinpath(@__DIR__, "convert_seed.py");
+    files = [joinpath(@__DIR__, "check_seed.jl"); joinpath(@__DIR__, "convert_seed.py"); joinpath(@__DIR__, "caps_to_txt.py");
              sort([joinpath(d, f) for (d, _, fs) in walkdir(joinpath(@__DIR__, "src")) for f in fs if endswith(f, ".jl")]);
              sort([joinpath(d, f) for (d, _, fs) in walkdir(joinpath(@__DIR__, "..", "independent", "src")) for f in fs if endswith(f, ".jl")])]
     proj = Base.active_project()

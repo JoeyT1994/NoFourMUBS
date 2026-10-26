@@ -3,7 +3,7 @@
 src/io_seed.jl.  Standard library only.  Every float goes through float.fromhex / float.hex, so the conversion is
 exact; integers are checked to be integers.  Fields named `info`, and any field not used here, are ignored.
 
-This file and src/io_seed.jl are the only places that know the certificate's layout.
+This file (with caps_to_txt.py) and src/io_seed.jl are the only places that know the certificate's layout.
 Edge balls (FORMAT.md §8, format v2): top-level "edge": [{"chart": "F6-012", "Mth", "r", "k": [4 ints], "P", "U", "n",
 "label_radius", "transfers"}], with sphere transfers of kind T1.  Seed transfers of kind "T3" carry {"target" (an edge
 ball), "g", "rows", "cols", "hcols", "vrows", "wind" (4), "wind_h" (6), "wind_v" (6)}; they are written with rows =
@@ -13,12 +13,15 @@ increasing order.  A record without a frame ("Tint" absent or all zero) is read 
 label_radius); the top-level "tao" object is the usual form.
 An edge ball may carry "graph": {"R", "sigma"} (SPEC §10.2; optionally also "phi" and "Tint") and "sigma_D" (SPEC §10.1);
 every field is optional (the checker's defaults are documented in src/graph.jl).
+A seed entry may carry "caps" (return ZC, CAP_FORMAT.md: the sphere by caps; written by caps_to_txt.py after its groups).
 A seed entry may carry "gauge": "hor" (SPEC §11: P and U stored horizontal); without it the dephased gauge is meant.
 Usage: python3 convert_seed.py certificate.json.gz out.txt
 """
 import gzip
 import json
 import sys
+
+import caps_to_txt
 
 KINDS_SEED = ('T0', 'T1', 'T2', 'T3')
 KINDS_EDGE = ('T1', 'T3')
@@ -129,6 +132,8 @@ def main(src, dst):
             for j, t in enumerate(gs):
                 txt, nb = group_lines(t, KINDS_SEED, '%s group %d' % (w, j))
                 out.write(txt); nbox += nb
+            if s.get('caps') is not None:
+                out.write('\n'.join(caps_to_txt.lines(s['caps'])) + '\n')
         for i, r in enumerate(recs):
             w = 'record %d' % i
             tint = ints(r.get('Tint') or [], w + ' Tint', 144)

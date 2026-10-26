@@ -20,4 +20,6 @@ include("edge_transfers.jl")
 include("graph.jl")
 include("edge_wholeball.jl")
 include("tao.jl")
+include("caps.jl")
+include("hp.jl")
 end

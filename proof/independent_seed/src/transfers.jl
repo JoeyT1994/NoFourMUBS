@@ -196,8 +196,8 @@ function check_seed_box(s::Seed, root::BoxMap, g::Group, lo, hi, X::XferCtx, rec
         if PATCHES[]                                  # return ZT: the whole-ball patch test first
             m = patch_model(s)
             if m !== nothing
-                pg = patch_group_cached(m, s, g, t, Mi)
-                ok, msg, val = pg === nothing ? (false, "", Inf) : (try patch_box_test(pg, m, lo, hi, t.r) catch; (false, "", Inf) end)
+                pgr = patch_group_cached(m, s, g, t, Mi)     # (not `pg`: that would shadow pg(s) below)
+                ok, msg, val = pgr === nothing ? (false, "", Inf) : (try patch_box_test(pgr, m, lo, hi, t.r) catch; (false, "", Inf) end)
                 ok && return ok, msg, val
             end
         end
@@ -322,6 +322,11 @@ function check_c2_seed(s::Seed, X::XferCtx, rec_ok::Function; split_depth::Int=2
     counts = Dict(:T0 => 0, :T1 => 0, :T2 => 0, :T3 => 0); worst = Dict(:T0 => 0.0, :T1 => 0.0, :T2 => 0.0, :T3 => 0.0)
     nb = sum(length(g.boxes) for g in s.groups; init=0)
     res(ok, msg, st=[0, 0], cn=0) = C2Result(ok, msg, nb, counts, st[1], st[2], worst, cn, time() - t0)
+    if s.caps !== nothing                       # return ZC: the sphere by certified caps (src/caps.jl, 256-bit: src/hp.jl)
+        ok, msg, n = HP.check_seed_caps(s, X, s.caps)
+        counts[:caps] = n
+        return res(ok, ok ? "ok" : msg)
+    end
     listed = Set{NTuple{5,Int}}(b for g in s.groups for b in g.boxes)
     cov, cn = dyadic_covered(listed, misses_unit_sphere)
     cov || return res(false, "the boxes do not cover the sphere ||w|| = r", [0, 0], cn)

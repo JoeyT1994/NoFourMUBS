@@ -50,8 +50,10 @@ struct Seed
     U::Matrix{Float64}            # 36 x 4
     groups::Vector{Group}
     gauge::Symbol                 # :dephased (P, U in the dephased gauge) or :hor (SPEC §11: P, U horizontal)
+    caps::Any                     # nothing, or a return-ZC cap certificate of the sphere (src/caps.jl, read_caps)
 end
-Seed(idx, o, k, theta0, Mth, r, n, lr, P, U, groups) = Seed(idx, o, k, theta0, Mth, r, n, lr, P, U, groups, :dephased)
+Seed(idx, o, k, theta0, Mth, r, n, lr, P, U, groups) = Seed(idx, o, k, theta0, Mth, r, n, lr, P, U, groups, :dephased, nothing)
+Seed(idx, o, k, theta0, Mth, r, n, lr, P, U, groups, gauge) = Seed(idx, o, k, theta0, Mth, r, n, lr, P, U, groups, gauge, nothing)
 
 """gauge(X)_ab = X_ab - X_a0 - X_0b + X_00 (SPEC §11): the dephased-gauge matrix with the same cross ratios."""
 gauge_f(X::AbstractVector) = [X[6(a-1)+b] - X[6(a-1)+1] - X[b] + X[1] for a in 1:6 for b in 1:6]
@@ -180,7 +182,12 @@ function read_seed_certificate(path::AbstractString)
         Uv = hx.(expect(nextline(), "U", 144)); U = [Uv[4(e-1)+j] for e in 1:36, j in 1:4]
         gs = [read_group() for _ in 1:ng]
         all(g -> g.kind in (:T0, :T1, :T2, :T3), gs) || error("seed $idx: a sphere transfer must be T0, T1, T2 or T3")
-        push!(seeds, Seed(idx, o, k, th, Mth, r, n, lr, P, U, gs, gauge))
+        caps = nothing
+        if pos <= length(lines) && startswith(lines[pos], "CAPS ")
+            hc = split(lines[pos]); nl = 1 + parse(Int, hc[2]) + parse(Int, hc[3])
+            caps = read_caps(lines[pos:pos+nl-1]); pos += nl
+        end
+        push!(seeds, Seed(idx, o, k, th, Mth, r, n, lr, P, U, gs, gauge, caps))
     end
     recs = SRecord[]
     for _ in 1:nr

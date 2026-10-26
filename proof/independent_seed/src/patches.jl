@@ -139,7 +139,7 @@ function patch_group(m, g::Group, t::Seed, Mi; tauA=nothing)
         for (k, e) in enumerate(inds); S[k, e] = iv(1.0); end
         S = S * Gg; R = P9 * S
         RH2 = R * m.H2; RX = R * m.X
-        push!(sides, (want = want, SQ0 = S * m.Q0, SU = S * m.U, SH2 = S * m.H2, RU = R * m.U, RH2 = RH2, RX = RX,
+        push!(sides, (want = want, S = S, R = R, SQ0 = S * m.Q0, SU = S * m.U, SH2 = S * m.H2, RU = R * m.U, RH2 = RH2, RX = RX,
                       nRH2 = nrm(RH2), nRXt = nrm(RX) * m.tau))
     end
     PatchGroup(A * m.Q0, A * m.U, A * m.H2, off, nrm(A * m.H2), ta, sides)

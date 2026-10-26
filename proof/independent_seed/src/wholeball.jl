@@ -33,7 +33,7 @@ function wb_spectral(A::Matrix{I64})
     n = size(B, 1)
     n == 1 && return sup(sqrt(sum(B[1, j]^2 for j in 1:size(B, 2))))
     G = B * transpose(B)
-    lam = opnorm(mid.(B))^2 * (1 + 1e-9) + 1e-30
+    lam = opnorm(Float64.(mid.(B)))^2 * (1 + 1e-9) + 1e-30
     for _ in 1:8
         M = iv(lam) * Matrix{I64}(I, n, n) - G
         L = zeros(I64, n, n); d = I64[]; good = true
@@ -90,12 +90,14 @@ function wb_side(phi::Vector{I64}, th::Vector{I64})
 end
 
 """Certified side root near a float guess: returns the 3 x 3 side matrix [1 1 1; e^{ix}; e^{iy}] (intervals) or nothing."""
+const WB_NEWTON = I64 == Interval{Float64} ? 8 : 14                          # (the 256-bit copy: src/hp.jl)
+const WB_SIDE_EPS = I64 == Interval{Float64} ? 2.0^-40 : big(2.0)^-200
 function wb_certified_side(th::Vector{I64}, guess::Vector{Float64})
     p = copy(guess)
-    for _ in 1:8
+    for _ in 1:WB_NEWTON
         F, J = wb_side(iv.(p), th); p = p - mid.(J) \ mid.(F)
     end
-    eps = 2.0^-40
+    eps = WB_SIDE_EPS
     tube = [interval(v - eps, v + eps) for v in p]
     F0, J0 = wb_side(iv.(p), th)
     Y = iv.(inv(mid.(J0)))
@@ -324,7 +326,15 @@ function wb_compute(s::Seed)
         Ugm = s.gauge == :hor ? Gd * iv.(s.U) : iv.(s.U)
         gap = sqrt(sum((pgx[e] - Pgv[e])^2 for e in 1:36)) + r * iv(wb_spectral(Gd * Ue - Ugm)) +
               iv(wb_spectral(Gd * H2)) * r^2 / 2 + iv(wb_spectral(Gd * X)) * tau
-        model = sup(gap) < inf(iv(π)) ? (Q0 = pex, U = Ue, H2 = H2, X = X, tau = tau, r = r, gap = sup(gap)) : nothing
+        # Z1, Z2 (THEOREM.md section 4, (9)) for the local and weighted bounds of caps
+        L2 = 2 * sqrt(iv(3.0)) * kn
+        q = qfun(tau); dlt = base + x * tau
+        m1 = c + a2 * r + L3a * r^2 / 2 + L3 * x^2 * (u + beta * r) * tau
+        m2 = L3 * x * (u + beta * r)^2 + L2 * x * beta; mzz = d + L3 * x^2 * dlt
+        Z1 = (b1 + m1 * tau) / (1 - q); Z2 = (b2 + m2 * tau + 2 * m1 * Z1 + mzz * Z1^2) / (1 - q)
+        model = sup(gap) < inf(iv(π)) ? (Q0 = pex, Qbase = pgx, U = Ue, H2 = H2, X = X, tau = tau, r = r, gap = sup(gap),
+                                         W = W, zz = z, sd = sd, td = td, dx = dx, q = q, Z1 = Z1, Z2 = Z2,
+                                         u = u, x = x, beta = beta, kn = kn) : nothing
         WBResult(true, "ok", sup(nrec), time() - t0), model
     catch err
         WBResult(false, "whole ball: " * sprint(showerror, err)[1:min(end, 200)], Inf, time() - t0), nothing
