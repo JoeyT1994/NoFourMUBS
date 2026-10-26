@@ -105,7 +105,8 @@ def fine_budget(seed, sn, initial_factor=None, tolerance=.02, cap=8., known=None
         return None
 
     lo = min(cap, initial_factor or float.fromhex(seed["n"])/unit)
-    lo = max(lo, .125)
+    # The exploratory floor must not replace a smaller certified endpoint.
+    lo = initial_factor if known is not None else max(lo, .125)
     while test(lo) is None and lo > .001:
         lo *= .5
     if test(lo) is None:
