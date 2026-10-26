@@ -32,7 +32,7 @@ def psi(S):
 def build(k_rec, r, k):
     from seedball import best_corner_split, SeedBall, complete
     from tmball2 import tm2_n
-    recs = json.load(gzip.open(os.path.join(ROOT, 'proof/atlas/results/atlas_certificate.json.gz')))['records']
+    recs = json.load(gzip.open(os.path.join(ROOT, 'proof/seed_atlas/cert/tests/data/atlas_records.json.gz')))['records']
     phi = np.array([float.fromhex(x) for x in recs[k_rec]['phi']])
     th, ph, pv, R, _ = best_corner_split(np.exp(1j * phi.reshape(6, 6)))
     sb = SeedBall(th, ph, pv)
@@ -119,7 +119,7 @@ def build_fixtures(balls):
     e, rI, rJ = best
     corner = ball_from_corner(H, rI, rJ, 0.1)
     # the record: atlas record 2003, and the best-corner permutation of its centre (the gauge of ball 0)
-    recs = json.load(gzip.open(os.path.join(ROOT, 'proof/atlas/results/atlas_certificate.json.gz')))['records']
+    recs = json.load(gzip.open(os.path.join(ROOT, 'proof/seed_atlas/cert/tests/data/atlas_records.json.gz')))['records']
     phi = np.array([float.fromhex(x) for x in recs[2003]['phi']]).reshape(6, 6)
     Hr = np.exp(1j * phi)
     bestr = None
@@ -153,7 +153,7 @@ def build_f6_fixture(seed=3, r_ball=0.05):
     import itertools as it
     sys.path.insert(0, os.path.join(ROOT, 'proof/seed_atlas/cert'))
     import seedcert as S
-    recs = json.load(gzip.open(os.path.join(ROOT, 'proof/atlas/results/atlas_certificate.json.gz')))['records']
+    recs = json.load(gzip.open(os.path.join(ROOT, 'proof/seed_atlas/cert/tests/data/atlas_records.json.gz')))['records']
     r = recs[877]
     phi = np.array([float.fromhex(x) for x in r['phi']]).reshape(6, 6)
     rd = S.RecordData(phi, float(r['R']), float(r['label_radius']), np.array(r['Tint'], dtype=np.int64).reshape(36, 4), stage_c=False)
@@ -272,7 +272,7 @@ def build_hor(k_rec, r, k, fac=1.3):
     """A seed ball in the horizontal gauge: Mth = V S^-1 from the SVD of hor(T), U = hor(T) Mth, P = hor(P_g); n = fac x
     the sampled max ||hor(Q_g) - P - U w|| (Q_g the dephased phases nearest P_g + U_g w)."""
     from seedball import best_corner_split, SeedBall, complete
-    recs = json.load(gzip.open(os.path.join(ROOT, 'proof/atlas/results/atlas_certificate.json.gz')))['records']
+    recs = json.load(gzip.open(os.path.join(ROOT, 'proof/seed_atlas/cert/tests/data/atlas_records.json.gz')))['records']
     phi = np.array([float.fromhex(x) for x in recs[k_rec]['phi']])
     th, ph, pv, R, _ = best_corner_split(np.exp(1j * phi.reshape(6, 6)))
     sb = SeedBall(th, ph, pv)

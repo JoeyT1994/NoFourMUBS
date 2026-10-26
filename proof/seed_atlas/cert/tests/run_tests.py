@@ -295,7 +295,7 @@ def test_record():
     except S.CertError as e:
         check("record T1' passes", False, str(e))
     # rec kind: record 2003 -> its old atlas targets, on the level-3 shell boxes the float centre test accepts
-    cert = json.load(gzip.open(os.path.join(F.ROOT, 'proof/atlas/results/atlas_certificate.json.gz')))['records']
+    cert = json.load(gzip.open(os.path.join(F.ROOT, 'proof/seed_atlas/cert/tests/data/atlas_records.json.gz')))['records']
     passed = 0
     for (t, sg, tr, rp, cp) in cert[2003]['targets'][:4]:
         g = {(1, 0): 'id', (-1, 0): 'conj', (1, 1): 'T', (-1, 1): 'conjT'}[(sg, tr)]
@@ -458,7 +458,7 @@ def test_certificate():
 def test_global():
     """F6 in atlas record 877 (accepted), and not after moving one of its phases by 0.2 (rejected); Tao passes."""
     import certify_seed_atlas as CS
-    recs = json.load(gzip.open(os.path.join(F.ROOT, 'proof/atlas/results/atlas_certificate.json.gz')))['records']
+    recs = json.load(gzip.open(os.path.join(F.ROOT, 'proof/seed_atlas/cert/tests/data/atlas_records.json.gz')))['records']
     r = recs[877]
     phi = np.array([F.fh(x) for x in r['phi']]).reshape(6, 6)
     def ctx_for(phi):

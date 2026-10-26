@@ -267,12 +267,7 @@ def save(A, path):
 
 
 def start_spec(arg):
-    if arg.startswith('record:'):
-        k = int(arg.split(':')[1])
-        d = json.load(gzip.open(os.path.join(HERE, '../../atlas/results/atlas_certificate.json.gz')))['records']
-        Q = np.array([float.fromhex(x) if isinstance(x, str) else float(x) for x in d[k]['phi']]).reshape(6, 6)
-    else:
-        Q = np.array(json.load(open(arg))['phi'], float).reshape(6, 6)
+    Q = np.array(json.load(open(arg))['phi'], float).reshape(6, 6)
     c = SG.census(Q, orderings=False); i = int(np.argmax(c['edge']))
     th, ph, pv = SG.corner_split(Q, c['g'][i], c['rows'][i], c['cols'][i])
     return dict(theta=th, phih=ph, phiv=pv, pid=0, parent=-1)
@@ -281,7 +276,7 @@ def start_spec(arg):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('out'); ap.add_argument('--workers', type=int, default=os.cpu_count())
-    ap.add_argument('--start', default='record:2003'); ap.add_argument('--hours', type=float, default=1e9)
+    ap.add_argument('--start', default=os.path.join(HERE, 'start_centre.json')); ap.add_argument('--hours', type=float, default=1e9)
     ap.add_argument('--max-balls', type=int, default=10 ** 9)
     ap.add_argument('--dist-port', type=int, default=0, help='serve tasks to distworker.py processes on other nodes')
     ap.add_argument('--dist-key', default='seedatlas')

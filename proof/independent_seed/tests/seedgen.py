@@ -17,7 +17,7 @@ hx = lambda x: float(x).hex()
 
 
 def atlas_records():
-    return json.load(gzip.open(os.path.join(ROOT, 'proof', 'atlas', 'results', 'atlas_certificate.json.gz')))['records']
+    return json.load(gzip.open(os.path.join(ROOT, 'proof', 'seed_atlas', 'cert', 'tests', 'data', 'atlas_records.json.gz')))['records']
 
 
 def record_H(rec):
