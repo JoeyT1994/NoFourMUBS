@@ -1,57 +1,30 @@
-# Steps 3 and 4: ball Records and the atlas
+# Stage C and Tao's record (Step 3)
+
+The exclusion step of the proof: Stage C (Lemma 3.2 of `PROOF.md`), applied to every seed ball's enclosure, and
+Tao's matrix S₆ as a zero-dimensional record (Remark 3.3). The seed-atlas certifier
+(`../seed_atlas/cert/`) imports this code.
 
 ## The mathematics
 
 | File | Content |
 |---|---|
 | `STAGEC.md` | Stage C stated and proved in our notation (Lemma 3.2) |
-| `COVERAGE.md` | The coverage corollary and the 4-dimensional boundary-transfer lemma (Lemma 4.1) |
 | `RIGOUR.md` | Error budget and status of every inequality |
 
-All three are also formalised in Lean (`lean/NoFourMUBs/StageC/`, `NormalBound.lean`, `Transfer.lean`, `Step4.lean`).
+Both are formalised in Lean (`lean/NoFourMUBs/StageC/`, `NormalBound.lean`).
 
-## The trusted checker
+## The code
 
 | File | Role |
 |---|---|
-| `certify.py` | Re-checks every Record from the certificate alone. It certifies σ, the normal bound and a Stage C rerun, and replays the boundary tree from the stored transfer targets with Arb constants. Exits nonzero on failure |
-| `ballrecord.py` | A ball Record around a rational phase centre: σ by an Arb Cholesky factorisation, Gram bounds, the normal bound n(R) (Lemma 3.1), the column bound, and `stage_c(R)` |
-| `record.py` | The exact data at a centre: the Jacobian in Arb, a rational horizontal tangent frame, its Gram matrix and the projector onto its complement |
 | `stagec.py` | Stage C after [OAI] §6: vector bins (12 → 96), labels, O/U edge tests with the joint test, and an exact two-clique search; exponentials from Arb tables |
-| `nonempty.py` | Places F6 inside a Record, checked in Arb |
-| `tao.py` | S₆ as a zero-dimensional ball Record: isolation and Stage C (Remark 3.3) |
-| `arb_replay.py` | Re-evaluates a random sample of float Stage C rejections in Arb with no margin |
+| `ballrecord.py` | A ball record around a phase centre: σ by an Arb Cholesky factorisation, Gram bounds, the normal bound and `stage_c(R)`; used for Tao's record |
+| `record.py` | The exact data at a centre: the Jacobian in Arb, a rational horizontal tangent frame, its Gram matrix |
+| `tao.py` | S₆ as a zero-dimensional record: isolation and Stage C (Remark 3.3) |
+| `arb_replay.py` | Re-evaluates a random sample of float Stage C rejections in Arb with no margin (`verify.py`) |
+| `geometry.py`, `atlas.py` | Float helpers: the corner census (all 400 corners of a matrix) and alignment by signed permutations, used by the seed-atlas driver's target discovery |
+| `nonempty.py` | Places a matrix inside a full-matrix record, in Arb (used by the certifier only for certificates that list records) |
+| `centre_fold52.json` | The Stage C sample centre of `verify.py` |
 
-## The untrusted driver and tools
-
-| File | Role |
-|---|---|
-| `atlas.py` | Breadth-first atlas growth: spawning, alignment by signed permutations through a link graph, loop closure by a signature-ranked global search |
-| `geometry.py` | Float helpers for the driver: the corner census and the Jacobian on horizontal phases |
-| `export.py` | Writes the compact certificate (exact float-hex centres, radii, integer frames, transfer targets) |
-| `repair.py`, `repair_one.py` | The two repairs that produced the current atlas: re-checking every Record after the Stage C correction, and shrinking named Records |
-| `centre_fold52.json` | The starting centre |
-| `cluster/run_atlas.sh` | Rebuild and certify on one cluster node |
-
-## The certified atlas
-
-[`results/RECEIPT.md`](results/RECEIPT.md) records the certificate (12,021 Records, all closed), its SHA-256, and two certifications that both pass every Record:
-- `certify.py`, via `verify.py --atlas`;
-- the independent Julia implementation, [`../independent/`](../independent/README.md).
-
-`results/receipts/` holds the per-check outputs, including `step4_certify.tsv.gz`, one line of intermediates per Record from `certify.py --tsv`. `results/build_logs/` holds the driver and repair logs.
-
-**Cost.** About 1.9 CPU-hours: `verify.py --atlas -j 8` takes 14 min on an Apple M5 Max (17 Oct 2026; 25 min with the code before that day's speed-ups, which leave every intermediate identical; see the receipt). `certify.py -j N` runs one pool of N workers, each loading the certificate once.
-
-**Parameters.**
-- **Radii.** R = 0.08 rad with label radius 0.03, falling back down a ladder to 0.01 where Stage C fails.
-- **Spawning.** New centres go at 1.3R, projected onto 𝓗 by a truncated Gauss–Newton step.
-- **Boundary boxes.** The tree starts from 256 boxes of side r_H/2 and refines down to side R/64.
-- **Margins.** Transfer margin 10⁻⁸; Stage C margin 10⁻⁷.
-
-```bash
-python3 atlas.py centre_fold52.json 1000000000 results/atlas.pkl      # build (resumable; the pickle is not tracked)
-python3 export.py results/atlas.pkl results/atlas_certificate.json.gz
-python3 certify.py results/atlas_certificate.json.gz [lo hi] [-j N] [--tsv=FILE]   # certify (a range of) Records
-python3 nonempty.py results/atlas_certificate.json.gz
-```
+The 25-dimensional atlas that this folder used to build (12,021 Records, its checker `certify.py` and its results)
+is preserved at the git tag `v1-25dim-records`.

@@ -14,9 +14,11 @@ The proof sees the space of Hadamard matrices in two ways.
   by an explicit reconstruction, the **matched completion**. Corners are parametrised by a 4-torus of seeds. The
   function R on seeds that controls the reconstruction has its maxima in a single orbit (Step 1). Together these make
   the space X of non-Tao classes **connected** (Step 2).
-- **Locally, through balls.** A ball of radius 0.08 around a Hadamard matrix can be certified to contain no quartet
-  edge by a finite interval computation (Step 3). Finitely many such balls, 12,021, whose boundaries map back inside
-  the family, cover a nonempty open-and-closed subset of X (Step 4).
+- **Locally, through seed balls.** Since the corner seed determines the matrix, the same four phases serve as local
+  coordinates. A small ellipsoid of seeds can be certified to contain no quartet edge by one centre computation and
+  Stage C (Step 3). Near F6, where the reconstruction degenerates, a separate theorem excludes every quartet edge
+  within distance 7/40 (Step 4). Finitely many seed balls and one ball at F6, whose boundaries map back inside the
+  family, cover a nonempty open-and-closed subset of X (Step 5).
 
 Since X is connected, that subset is all of X. So no non-Tao Hadamard is a quartet edge, and Tao's matrix is
 excluded separately. No classification of order-6 Hadamard matrices is used.
@@ -25,8 +27,9 @@ excluded separately. No classification of order-6 Hadamard matrices is used.
 |---|---|---|
 | 1 | The positive local maxima of R form one 18-point orbit | Exact algebra (651 claims); **in Lean** |
 | 2 | Reconstruction (matched completions: existence, uniqueness, converse, coverage) and connectedness of X | Paper proofs with exact certificates; **in Lean** (connectedness through the maximum principle, §2.3) |
-| 3 | A ball Record plus Stage C contains no quartet edge | Proved inequalities (**in Lean**), evaluated in interval arithmetic |
-| 4 | A finite atlas of 12,021 Records covers X | Certified computation, replicated by an independent implementation |
+| 3 | A seed ball plus Stage C contains no quartet edge | Proved inequalities (**in Lean**), one Arb computation per ball |
+| 4 | No quartet edge within 7/40 of F6 | Exact cover; **in Lean, hypothesis-free** |
+| 5 | A finite atlas of seed balls and one ball at F6 covers X | Certified computation, replicated by an independent implementation |
 
 **How the pieces fit.**
 
@@ -35,8 +38,9 @@ Theorem 1 (maxima of R) ──→ Lemma 1.1 (S is connected) ──────�
 Lemma 2.1 (side quadratic) ─→ 2.2 existence ─→ 2.3 uniqueness ─────────┤
                               2.2 ─→ 2.4 converse ──┐                  │
                               2.5 coverage ─────────┴→ 2.6 exact reach ┴→ Theorem 2 (X connected)
-Lemma 3.1 (normal bound) + Lemma 3.2 (Stage C) ─→ each Record excludes quartet edges
-Lemma 4.1 (boundary transfer) + Lemma 4.2 (coverage) + Theorem 2 ─→ the atlas covers X ─→ no four MUBs
+Lemma 3.1 (C1, return Z) + Lemma 3.2 (Stage C) ─→ each seed ball excludes quartet edges
+Theorem 4.1 (return X) + Theorem 4.2 (edge chart) ─→ the ball at F6 excludes quartet edges
+Lemma 5.1 (transfers) + Lemma 5.2 (coverage) + Theorem 2 ─→ the atlas covers X ─→ no four MUBs
 ```
 
 Step 2 is the minimal reconstruction ([`MinimalConstruction/`](MinimalConstruction/README.md)): a corner seed, its two
@@ -58,7 +62,7 @@ the set of them. Call H a **quartet edge** if I and H/√6 extend to four MUBs.
 - transposition H ↦ Hᵀ (apply the unitary H*/√6 to all four bases, then conjugate).
 
 **Tao's matrix.** S₆ = (e(k_ij/3)) is an isolated point of 𝓗/≅ and is not a quartet edge. Both facts come from our
-own machinery: S₆ is a *zero-dimensional* ball Record (Step 3, Remark 3.3). Let
+own machinery: S₆ is a *zero-dimensional* record (Step 3, Remark 3.3). Let
 
   X = (𝓗/≅) ∖ {[S₆]},
 
@@ -220,7 +224,7 @@ matrix, dephased at the corner, with horizontal signature ζ. Its vertical signa
    kernel-checked in Lean and the rest follow by conjugation). So M is Tao.
 
 The proof of no four MUBs needs only the weaker conclusion of step 5, *M is Tao or in a Fourier family*, since the
-Fourier families are covered directly (see the coverage note after Lemma 4.2).
+Fourier families are covered directly (see the coverage proof after Lemma 5.2).
 
 Independently audited with no errors found ([`proof/coverage/audits/AUDIT_2026-10-15.md`](proof/coverage/audits/AUDIT_2026-10-15.md)).
 *Lean:* `PRM.nonmatched_tao_or_fourier` (`lean/NoFourMUBs/PRM/Converse.lean`), the weaker form used by the proof; the full
@@ -288,87 +292,128 @@ matched. If the horizontal signature is ζ₋, conjugate the whole matrix. *Lean
 Details: [`proof/coverage/returns/A_deltoid/CONNECTEDNESS.md`](proof/coverage/returns/A_deltoid/CONNECTEDNESS.md) and
 `SHEETS_TOPOLOGY.md`, with return B as an independent check. *Lean:* `Step2.coverage_of_matched_density` and its inputs.
 
-## Step 3. Local exclusion: ball Records
+## Step 3. Local exclusion in seed coordinates
 
-A **ball Record** is a set B_r = {e^{i(P+δ)} : δ horizontal, ‖δ‖ ≤ R}, where P is a rational phase centre, together with:
-- a rational tangent frame T (36×4);
-- σ > 0, certified by an Arb Cholesky factorisation, with ‖Jν‖ ≥ σ‖ν‖ on the normal space N.
+By Step 2, every non-Tao class other than F6 is the matched completion H_o(θ) of a strict seed θ ∈ Ω = {R > 0}, with
+an orientation o ∈ {±1}. So the four phases of a corner are coordinates for the whole space X away from F6. A **seed
+ball** is an ellipsoid of seeds
 
-> **Lemma 3.1 (normal bound).** Every Hadamard in B_r has δ = Tη + ν with ‖η‖ ≤ r_H and ‖ν‖ ≤ n(R).
+  B = {θ₀ + M_θ w : ‖w‖ ≤ r} ⊂ Ω,  with an orientation o,
+
+and its image is the set of classes [H_o(θ)], θ ∈ B. Each ball carries a centre phase matrix P, a 36 × 4 frame U and
+a remainder n (all in the horizontal gauge: row and column sums zero).
+
+> **Lemma 3.1 (C1: the completion is enclosed).** For every θ ∈ B the matched completion exists, is Hadamard with
+> orientation o, and its phase matrix Q(θ) satisfies
 >
-> Here n(R) = (σ − √(σ² − 2Lb))/L, with b = e₀ + j₁ r_H + (L/2) λ_max(G) r_H² and L = 2√3.
+>   ‖Q(θ) − P − U w − 2πN‖ ≤ n
+>
+> for an integer winding N, up to row and column phases.
 
-*Proof.* Write Φ(δ) for the off-diagonal part of e^{i(P+δ)}e^{i(P+δ)}* and J = Φ′(0). Entry (a, b) of the remainder Φ(δ) − Φ(0) − Jδ is Σ_c Z_ac Z̄_bc (e^{iy_c} − 1 − iy_c) with y_c = δ_ac − δ_bc. Since |e^{iy} − 1 − iy| ≤ y²/2, its modulus is at most ½‖r_a − r_b‖², where r_a is row a of δ. Now ‖r_a − r_b‖² ≤ 2‖δ‖² and Σ_{a<b} ‖r_a − r_b‖² ≤ 6‖δ‖², so ‖Φ(δ) − Φ(0) − Jδ‖ ≤ √3‖δ‖² = (L/2)‖δ‖², for every δ and every centre. If e^{i(P+δ)} is Hadamard, then Φ(δ) = 0. Hence σ‖ν‖ ≤ ‖Jν‖ ≤ e₀ + j₁‖η‖ + √3(λ_max‖η‖² + ‖ν‖²), using Tη ⟂ ν. Since ‖ν‖ ≤ R < σ/L, ‖ν‖ lies below the smaller root of this quadratic. No Taylor theorem is needed. This is proved in Lean ([`lean/NoFourMUBs/NormalBound.lean`](lean/NoFourMUBs/NormalBound.lean): `outNorm_rem_le`, `normal_bound_root`). ∎
+*How it is certified (return Z).* One computation at the centre, with no subdivision of the ball. A frame-preserving
+contraction proves that the matched branch exists on the whole ellipsoid (rate τ < 1). Two orientation margins, from
+‖D²ψ‖ ≤ 72, fix both signs of Im Ψ throughout. The enclosure is then ‖hQ − P − U w‖ ≤ β r²/2 + ‖X‖τ, plus the
+distance of the stored P and U from the exact ones. On the atlas the certified n is 1.0–1.4 × the remainder an
+adaptive box partition gives, at about 300 × less cost. Theorem: `explorations/returns/Z_completion_hessian/`
+(`THEOREM.md`); code: [`proof/seed_atlas/cert/wholeball.py`](proof/seed_atlas/cert/wholeball.py). The box
+partition remains the fallback where the contraction does not close.
 
-> **Lemma 3.2 (Stage C, after [OAI] §6).** Suppose the vector-bin cover, the label clustering, the O/U edge tests (including the joint test 6.23) and the exact two-clique search succeed for (P, T, r_H, n, r_col, r_F), where r_col bounds the columns of δ and r_F its Frobenius norm. Then no Hadamard in B_r is a quartet edge.
+> **Lemma 3.2 (Stage C, after [OAI] §6).** Suppose the vector-bin cover, the label clustering, the O/U edge tests
+> (including the joint test 6.23) and the exact two-clique search succeed on the enclosure P + U w + ν (‖w‖ ≤ r,
+> ‖ν‖ ≤ n), with column radius r_col = t r + n and Frobenius radius r_F = ‖U‖₂ r + n. Then no Hadamard class in the
+> image of B is a quartet edge.
 
-**Proofs.** Every Stage C inequality, the label lemma and the correctness of the clique search are stated and proved in our notation in [`proof/atlas/STAGEC.md`](proof/atlas/STAGEC.md), and in Lean (`lean/NoFourMUBs/StageC/`).
+Stage C sees only a phase matrix and a radius, so it applies to a four-parameter family exactly as to a ball. Every
+Stage C inequality, the label lemma and the correctness of the clique search are proved in our notation in
+[`proof/atlas/STAGEC.md`](proof/atlas/STAGEC.md), and in Lean (`lean/NoFourMUBs/StageC/`). Code:
+[`proof/atlas/stagec.py`](proof/atlas/stagec.py). Rigour ([`RIGOUR.md`](proof/atlas/RIGOUR.md)): σ-type constants
+in Arb or exactly; exponentials from Arb tables; every other float comparison with a margin of 10⁻⁷ against an error
+budget below 10⁻¹⁰.
 
-**Code.** [`proof/atlas/ballrecord.py`](proof/atlas/ballrecord.py) and [`stagec.py`](proof/atlas/stagec.py).
-
-**Rigour** ([`RIGOUR.md`](proof/atlas/RIGOUR.md)):
-- σ, e₀, j₁ and the Gram bounds are computed in Arb or exactly.
-- Exponentials in Stage C come from Arb tables.
-- All other float comparisons carry a margin of 10⁻⁷, against a per-expression error budget below 10⁻¹⁰.
-- An Arb replay of sampled rejections confirms every one.
-
-> **Remark 3.3 (S₆ is a zero-dimensional Record).** At S₆ the horizontal spectrum of JᵀJ is exactly {9/2 (×16), 12 (×9)}. An exact rational check gives M(M − 9/2)(M − 12) = 0 and the traces, and shows that the 11-dimensional gauge space is the kernel. So J is injective on all 25 horizontal directions, with σ = 3/√2 exactly; T is empty and r_H = 0.
-> - *Isolation.* Φ(0) = 0 at S₆. So for any Hadamard e^{i(P+δ)} with δ horizontal, the remainder bound gives σ‖δ‖ ≤ √3‖δ‖². Hence δ = 0 or ‖δ‖ ≥ σ/√3 = √(3/2). So S₆ is isolated in 𝓗/≅ (Lean: `isolation`).
-> - *Exclusion.* Stage C passes on the ball of radius R = 0.08, so S₆ is not a quartet edge.
+> **Remark 3.3 (S₆ is a zero-dimensional record).** At S₆ the horizontal spectrum of JᵀJ is exactly {9/2 (×16),
+> 12 (×9)}, where J is the derivative of the off-diagonal Gram map. So J is injective on all 25 horizontal
+> directions, with σ = 3/√2 exactly.
+> - *Isolation.* For any Hadamard e^{i(P+δ)} with δ horizontal, ‖Φ(δ) − Φ(0) − Jδ‖ ≤ √3‖δ‖² (Lean:
+>   `outNorm_rem_le`) gives σ‖δ‖ ≤ √3‖δ‖², so δ = 0 or ‖δ‖ ≥ √(3/2). So S₆ is isolated in 𝓗/≅ (Lean: `isolation`).
+> - *Exclusion.* Stage C passes on the ball of radius 0.08 around S₆, so S₆ is not a quartet edge.
 >
 > This is [`proof/atlas/tao.py`](proof/atlas/tao.py).
 
-## Step 4. A finite atlas
+## Step 4. The neighbourhood of F6
 
-> **Lemma 4.1 (4-dimensional boundary transfer).** Let s and t be ball Records, A a signed permutation of the 36 entries (row and column permutations, transposition, conjugation) and N an integer winding. Put c = h(A P_s + 2πN − P_t) and M = h(A T_s). If
->
->   sup_{η ∈ box} ‖c + Mη‖ + n_s < R_t,
->
-> then every boundary Hadamard of s whose tangent coordinate lies in the box is equivalent to an interior point of t.
+The reconstruction degenerates only at F6, where R = 0 and the two orientations meet. There, no Stage C is needed.
 
-Because of the normal bound, the boundary of a Record needs only a 4-dimensional cover by η-boxes, not a 25-dimensional one. *Lean:* `Transfer.lean`.
+> **Theorem 4.1 (return X).** No complex Hadamard matrix within horizontal phase distance 7/40 of F6 is a quartet
+> edge.
 
-> **Lemma 4.2 (coverage).** Let 𝓡 be a finite family of closed Records (Step 3), and let 𝓡̂ be its closure under Γ = {id, conjugation, transposition, conjugate-transpose}. Γ maps a Record ball to a Record ball of the same radius and preserves quartet edges. Let W be the set of classes of Hadamards in ⋃𝓡̂. Suppose:
-> 1. W contains a non-Tao class;
-> 2. every Hadamard on the boundary of a Record in 𝓡 is equivalent, after some g ∈ Γ, to one in the interior of a Record in 𝓡.
->
-> Then W ⊇ X.
+Return X proves it at 3/20 and at 9/20 by an exact finite cover with a quantitative margin
+(`explorations/returns/X_no_quartet_near_F6/`, `X_radius_045/`). **In Lean, at 7/40 and with no hypotheses**:
+`NoFourMUBs.X.Radius0175.no_quartet_near_F6_r0175` ([`lean/NoFourMUBs/X/`](lean/NoFourMUBs/X/README.md)), where a
+normal-displacement bound reduces it to one Stage C certificate at F6, checked in the kernel.
 
-*Proof.* Applying g ∈ Γ, condition 2 holds for every Record in 𝓡̂, with targets in 𝓡̂. So every point of W has a representative in the interior of some Record in 𝓡̂.
-- W ∩ X is open: if H = e^{i(P + δ)} with ‖δ‖ < R and δ(H, K) < R − ‖δ‖, then K ≅ e^{i(P + δ + v)} with ‖δ + v‖ < R.
-- W ∩ X is closed: it is a finite union of compact images.
-- W ∩ X is nonempty.
+> **Theorem 4.2 (returns U, W: the edge chart).** Near F6 the corner on rows and columns 0, 1, 2 parametrises every
+> class by p = (θ₁, θ₂, θ₃, y), where y = −2 Im Ψ is the signed root of R. It is a chart on an explicit ellipsoid
+> around p = 0, covering every class within distance 0.15 of F6.
 
-Since X is connected (Theorem 2), W ∩ X = X. ∎
+The **X-ball** is the image of {p = M w : ‖w‖ ≤ r} in this chart, with M from W's tangent metric. It is certified like
+a seed ball (C1 by Krawczyk tubes of the chart's 7-unknown system). Its image lies within distance 7/40 of F6, so it
+is quartet-free by Theorem 4.1. F6 = H(0) is its centre. Openness at y = 0 comes from the graph property near F6
+(SPEC §10.1–10.2; Lean: `SeedAtlas.EdgeX.isOpen_edgeInterior`).
 
-*Lean:* `recordClopen_of_atlas` gives the open–closed step. Theorem 2 is not formalised as a standalone
-statement. `Final.no_four_mubs` uses the direct route `Step2.coverage_of_matched_density`: W pulled back to the
-strict seeds is open and closed in S. It is nonempty: the certificate puts F6 in the interior of a Record, so W is a
-neighbourhood of [F6]; the Fourier family K(t) tends to F6, so [K(t)] ∈ W for small t > 0; and K(t) is matched at a
-strict corner (return Q, `Step2.exists_matched_mem`). So by Lemma 1.1 it is all of S, and W contains A and conj A.
-The Lean proof then uses a weaker classification than Corollary 2.6. The Fourier families and their transposes are
-continuous images of a torus, so their classes form connected sets containing [F6], hence lie in the open and closed
-set W (`Step2.fourierClasses_subset`). Every non-Tao class is then in W: a strict corner is matched or puts the matrix
-in a Fourier family or at Tao (`PRM.nonmatched_tao_or_fourier`), and a matrix with no strict corner is in a Fourier
-family (`PRM.strictCornerCoverage`). This needs neither the matching of the Fourier families at all 400 corners nor
-the all-critical Fourier census.
+## Step 5. The atlas covers X
 
-**The computation** ([`proof/atlas/`](proof/atlas/README.md)):
-1. `atlas.py` grows ball Records breadth-first from a seed centre until every Record's boundary is transferred.
-2. `certify.py` re-checks every Record independently: σ, the normal bound, Stage C, and a replay of the boundary tree with Arb transfer constants. It trusts only the centre phases, radii, label radii, integer frames and target lists of the certificate.
-3. `nonempty.py` places F6 inside a Record.
+> **Lemma 5.1 (transfers).** Every point of every ball's boundary sphere is, after a symmetry g ∈ Γ (identity,
+> conjugation, transposition, conjugate-transpose), in the interior of another ball. It is shown on a dyadic cover of
+> the sphere ‖w‖ = r by boxes, each with a certified target:
+> - **T0:** the same corner: a linear test at the box's 16 vertices;
+> - **T1:** another ordered corner (I, J) of g · H, whose seed θ′ is linear in the phases: θ′ in the target's
+>   ellipsoid and both Ψ signs of the target's orientation, over the box;
+> - **T3:** into the X-ball: the corner seed p′ in the X-ball's chart ellipsoid, and K ≅ H(p′) by the chart's
+>   uniqueness.
 
-**Result** ([`proof/atlas/results/RECEIPT.md`](proof/atlas/results/RECEIPT.md)):
-- **The atlas.** 12,021 ball Records: 10,497 at R = 0.08, 1,029 at 0.063, 419 at 0.05 and 76 at 0.04. Every boundary is transferred, with on average 58 transfer targets per Record.
-- **Certification.** `certify.py` certifies all 12,021 (about 1.9 CPU-hours; 14 minutes with 8 workers on an Apple M5 Max). An independent Julia implementation written from this specification ([`proof/independent/`](proof/independent/README.md)) passes all 12,021 as well (24 minutes on one 128-core node).
-- **Nonemptiness.** F6 lies in the interior of Record 877, at distance 0.023 < 0.08. This one membership also anchors the reconstruction in Lean (return Q).
-- **Certificate.** `atlas_certificate.json.gz` (16 MB, with integer tangent frames).
+> **Lemma 5.2 (coverage).** Let W be the set of classes in the atlas. Then W ∩ X is open, closed and nonempty, so
+> W ⊇ X.
+
+*Proof.*
+- **Closed:** a finite union of compact images.
+- **Open:** at interior points of seed balls by the open-map lemma (`SeedAtlas.OpenMap`); at boundary points by
+  Lemma 5.1; at the X-ball by its chart.
+- **Nonempty:** F6 = H(0) lies in the X-ball.
+
+As in Step 2, W pulled back to the strict seeds is open and closed in S, and S is connected (Lemma 1.1), so W contains
+A and conj A. The Fourier families are connected sets through [F6] ⊂ W, and every non-Tao class is matched at a strict
+corner or lies in a Fourier family (`PRM.nonmatched_tao_or_fourier`, `PRM.strictCornerCoverage`). Hence W ⊇ X. ∎
+
+**The computation** ([`proof/seed_atlas/`](proof/seed_atlas/README.md)):
+1. The driver grows seed balls breadth-first, covers each sphere by transfer boxes, and covers the X-ball's sphere.
+2. [`cert/certify_seed_atlas.py`](proof/seed_atlas/cert/certify_seed_atlas.py) (Arb) re-checks every ball from the
+   certificate alone: C1 (Lemma 3.1), Stage C (Lemma 3.2), every transfer box (Lemma 5.1), the X-ball's C1, image
+   bound and transfers, and the coverage of every sphere.
+3. [`proof/independent_seed/`](proof/independent_seed/README.md) re-checks the same certificate in Julia, written
+   from the specification ([`FORMAT.md`](proof/seed_atlas/FORMAT.md)) only.
+
+**Result** ⟨filled from the final certificate⟩:
+
+| | |
+|---|---|
+| seed balls | ⟨…⟩ |
+| boundary boxes | ⟨…⟩ |
+| X-ball sphere boxes | ⟨…⟩ |
+| Arb certification | ⟨…⟩ |
+| Julia certification | ⟨…⟩ |
+| certificate | `proof/seed_atlas/results/seed_atlas_certificate.json.gz` ⟨size, sha256⟩ |
 
 ## Conclusion
 
-By Step 4 and Lemma 4.2, every class in X lies in some ball Record. By Step 3, no Hadamard in a Record is a quartet edge. S₆ is not a quartet edge, by Remark 3.3. Hence no order-6 Hadamard matrix is a quartet edge, and ℂ⁶ has no four MUBs. ∎
+By Lemma 5.2 every class in X lies in a seed ball or the X-ball. No seed ball contains a quartet edge (Lemma 3.2), nor
+does the X-ball (Theorem 4.1), nor S₆ (Remark 3.3). Hence no order-6 Hadamard matrix is a quartet edge, and ℂ⁶ has no
+four MUBs. ∎
 
-**In Lean** the whole argument is `NoFourMUBs.Final.no_four_mubs (C : AtlasCertificate) : ¬ FourMUBs` ([`lean/NoFourMUBs/Final.lean`](lean/NoFourMUBs/Final.lean)), using only `propext`, `Classical.choice` and `Quot.sound`. Its one input is the finite certificate of Step 4: Lean proves "if the 12,021 Records satisfy their inequalities, there are no four MUBs", and the inequalities themselves are checked by two independent interval implementations.
+**In Lean** the whole argument is
+`NoFourMUBs.EdgeXFinal.no_four_mubs_seed (C : SeedAtlas.EdgeX.EdgeAtlasCertificate) : ¬ FourMUBs`
+([`lean/NoFourMUBs/SeedAtlas/EdgeXFinal.lean`](lean/NoFourMUBs/SeedAtlas/EdgeXFinal.lean)), using only `propext`,
+`Classical.choice` and `Quot.sound`. Its one input is the certificate of Step 5; return X enters as the proved
+theorem at 7/40.
 
 ## What is checked, and how
 
@@ -379,33 +424,41 @@ By Step 4 and Lemma 4.2, every class in X lies in some ball Record. By Step 3, n
 | Theorem 2.2 (matched existence) | return J (sides), return E (flatness), return Q (the Fourier anchor) | identity (J); exact flatness identities; return Q's 62 exact checks | yes (kernel re-checks every identity) |
 | Theorem 2.3 (matched uniqueness) | Step 2.2 | none | yes |
 | Theorem 2.4 (nonmatched converse) | return G §§2–5 | exact: 81-case census (reduced to 4 cases in Lean), Laurent identities | yes; the proof uses the form "Tao or Fourier family" |
-| Theorem 2.5 (strict-corner coverage) | `STRICT_CORNER_COVERAGE.md`; return K for nonzero J; return S for the count | exact identities | yes, in the form "no strict corner ⇒ Fourier family" (kernel re-checks return O's two mixed-sum identities and return K's signed corner expansion) |
-| Lemma 1.1 (S connected), Theorem 2 (connectedness) | Steps 1, 2.3 | exact path identities | Lemma 1.1 yes (`isConnected_strict`); Theorem 2 in the direct coverage route (`coverage_of_matched_density`), not as a standalone theorem |
-| Lemmas 3.1–3.2, Remark 3.3 | `STAGEC.md` | none | yes (as inequalities) |
-| The atlas (Step 4) | Lemmas 4.1–4.2 | Arb and margined float; two independent implementations | the topology yes; the numbers are checked outside Lean |
+| Theorem 2.5 (strict-corner coverage) | `STRICT_CORNER_COVERAGE.md`; return K for nonzero J; return S for the count | exact identities | yes, in the form "no strict corner ⇒ Fourier family" |
+| Lemma 1.1 (S connected), Theorem 2 | Steps 1, 2.3 | exact path identities | Lemma 1.1 yes (`isConnected_strict`); Theorem 2 in the direct coverage route |
+| Lemma 3.1 (C1) | return Z | one Arb computation per ball | the method's lemmas (`SeedAtlas/Method/`); the per-ball check in the kernel is in progress |
+| Lemma 3.2, Remark 3.3 (Stage C, S₆) | `STAGEC.md` | Arb and margined float | yes (as inequalities) |
+| Theorem 4.1 (no quartet near F6) | return X | exact cover | **yes, at 7/40, hypothesis-free** |
+| Theorem 4.2 (edge chart), the X-ball | returns U, W | Krawczyk tubes | the chart's openness and uniqueness (`SeedAtlas/EdgeX*`) |
+| Lemmas 5.1–5.2 (the atlas) | Step 5 | Arb and Julia, two independent implementations | the topology yes; the numbers are checked outside Lean |
 
 **Inputs taken as given.** No classification of order-6 Hadamard matrices is used. The Stage C method follows
 [OAI] §6, with every inequality reproved (`STAGEC.md`) and formalised.
 
-**What remains outside Lean: the atlas numbers only.** An optional project has also checked them in the Lean kernel
-([`kernel_atlas/`](kernel_atlas/README.md)): `no_four_mubs_kernel : ¬ FourMUBs` holds with no hypotheses and only the
-standard axioms (one run on rusty, 19 Oct 2026, about 54,000 core-hours). It is not needed for this proof.
+**What remains outside Lean: the atlas numbers.** The seed-ball kernel check (C1 by return Z's centre computation,
+Stage C and the transfers, each decided by `decide +kernel`) is in progress in
+[`kernel_atlas/`](kernel_atlas/README.md); with it, the theorem holds with no hypotheses.
 
 ## Verifying
 
 ```bash
 pip install -r requirements.txt   # Python 3.10+: numpy, sympy, mpmath, python-flint
-python3 verify.py                 # exact replays of Steps 1–3 (about 1 minute)
-python3 verify.py --atlas -j 8    # also certify all 12,021 Records and F6 (about 1.9 CPU-hours; 14 min with 8 workers)
-python3 verify.py --lean          # also build the Lean formalisation and audit its axioms (about 8 min with the Mathlib cache)
-python3 verify.py --lean-full     # also build matched existence and NoFourMUBs.Final (about 12 min on an Apple M5 Max)
+python3 verify.py                 # exact replays of Steps 1–4 (about 1 minute)
+python3 verify.py --atlas -j 8    # also certify the seed atlas (Step 5) in Arb
+python3 verify.py --lean          # also build the Lean formalisation and audit its axioms
+python3 verify.py --lean-full     # also build the main theorems and audit them
 ```
 
-The independent Julia checker is run separately ([`proof/independent/README.md`](proof/independent/README.md)).
+The independent Julia checker is run separately ([`proof/independent_seed/README.md`](proof/independent_seed/README.md)).
 Where to look hardest, and the full status, are in [`AUDIT.md`](AUDIT.md).
 
 ## History
 
+- The previous version (to 25 Oct 2026) covered X by 12,021 ball Records in the 25-dimensional phase space, each with
+  a normal bound and Stage C, and F6 by its own Record; its atlas was also checked once in the Lean kernel
+  (`no_four_mubs_kernel`, about 54,000 core-hours). It is preserved, with its certificate and both checkers, at the
+  git tag `v1-25dim-records`. The seed-ball proof replaces it: the atlas lives in the four seed coordinates of
+  Step 2, and F6 is handled by return X.
 - The first complete proof used the corner chart directly: a maximal-corner domain, a branch layer and a 45.7M-row
   ledger, about 10⁵ core-hours. It is preserved, still replayable, at the git tag `archive-2026-10-11`
   (`archive/long_proof/`).

@@ -26,6 +26,7 @@ python3 proof/seed_atlas/cert/tests/run_tests.py
 
 | file | contents |
 |---|---|
+| `wholeball.py` | return Z's whole-ball C1: the matched branch, both orientations and the enclosure from one centre computation (`explorations/returns/Z_completion_hessian/`, `THEOREM.md`); `wholeball_basis.json` is its fixed normal basis |
 | `tmarb.py` | second-order Taylor models in 4 variables, batched over boxes, as numpy object arrays of `arb`/`acb` (+, −, ·, @, e^{i·}, sup norms) |
 | `seedcert.py` | C1, the Stage C arguments, T0 / T1 / T2, the record-boundary kinds `rec` and `T1prime`, and the coverage traversals |
 | `edgecert.py` | edge balls (SPEC §10): C1e, T3 into edge balls, and the edge ball's own T1 transfers and sphere cover |
@@ -36,7 +37,9 @@ python3 proof/seed_atlas/cert/tests/run_tests.py
 
 ### Seed ball j
 
-**C1** (`certify_c1`):
+**C1** (`certify_c1`): first return Z's whole-ball certificate (`wholeball.py`), accepted when its bound, plus the
+distance of the stored P and U from the exact ones, is at most the stored n. No subdivision; about 0.5 s per ball.
+Where it does not close, the box method below decides:
 - Mth is certified invertible (Arb inverse).
 - Of the k⁴ boxes of [−r, r]⁴, those meeting the open ball are kept (exact rational test). They cover the closed
   ball, since every point of it is a limit of interior points and the finitely many boxes are closed. For k = 4 this

@@ -1,6 +1,7 @@
-# Continuous integration: the quick exact replays, the Lean build with its axiom audit, the independent Julia checker
-# on a small sub-certificate, and negative tests (each checker must reject targeted corruptions).  The full atlas
-# certification (verify.py --atlas, ~2 CPU-hours; a 200-Record sample is compared with its receipt) and the --lean-full targets are not run here.
+# Continuous integration: the quick exact replays, the Lean build with its axiom audit, and the test suites of both
+# seed-atlas checkers (Arb and the independent Julia replay), which include negative tests: each checker must reject
+# targeted corruptions.  The full certification (verify.py --atlas, proof/independent_seed on a cluster node) and the
+# --lean-full targets are not run here.
 name: CI
 
 on:
@@ -14,7 +15,7 @@ concurrency:
 
 jobs:
   python:
-    name: Python (verify.py, negative tests)
+    name: Python (verify.py, certifier tests)
     runs-on: ubuntu-24.04
     timeout-minutes: 45
     steps:
@@ -28,14 +29,10 @@ jobs:
         run: python3 verify.py -j 4
       - name: Negative tests, Step 1 exact checker
         run: python3 tests/negative_exact.py
-      - name: Negative tests, certify.py and nonempty.py
-        run: python3 tests/negative_atlas.py -j 4
       - name: Stage C clique search against the reference enumeration
         run: python3 tests/clique_search.py
-      - name: certify.py on Records 4900-5099, every intermediate compared with the Mac receipt
-        run: |
-          (cd proof/atlas && python3 -W ignore certify.py results/atlas_certificate.json.gz 4900 5100 -j 4 --tsv="$RUNNER_TEMP/certify.tsv")
-          python3 tests/compare_certify_tsv.py proof/atlas/results/receipts/step4_certify.tsv.gz "$RUNNER_TEMP/certify.tsv" --subset --strict
+      - name: Seed-atlas Arb certifier tests (positive, negative, edge ball, horizontal gauge)
+        run: python3 proof/seed_atlas/cert/tests/run_tests.py
 
   lean:
     name: Lean (build and axiom audit)
@@ -90,7 +87,7 @@ jobs:
           key: ${{ steps.cache.outputs.cache-primary-key }}
 
   julia:
-    name: Julia (independent checker)
+    name: Julia (independent seed-atlas checker)
     runs-on: ubuntu-24.04
     timeout-minutes: 45
     env:
@@ -103,5 +100,5 @@ jobs:
       - uses: julia-actions/cache@v2
       - name: Instantiate proof/independent/jlenv
         run: julia --startup-file=no --project=proof/independent/jlenv -e 'using Pkg; Pkg.instantiate()'
-      - name: check.jl on a sub-certificate, sanity.jl, negative tests
-        run: bash proof/independent/tests/run_tests.sh "$RUNNER_TEMP/indep"
+      - name: Independent seed-atlas replay tests (test certificates, shards, enclosures, negative tests)
+        run: bash proof/independent_seed/tests/run_tests.sh 4

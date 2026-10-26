@@ -1,27 +1,26 @@
-# Kernel atlas: checking the atlas computations in the Lean kernel (experimental)
+# Kernel atlas: the certificate checked in the Lean kernel
 
-**Not part of the proof.** The proof (`PROOF.md`, `lean/NoFourMUBs/`) is `NoFourMUBs.Final.no_four_mubs
-(C : AtlasCertificate) : ¬ FourMUBs`, with the finite atlas certificate checked by `proof/atlas/certify.py` (Arb and
-margined binary64) and by the independent Julia checker (`proof/independent/`). This folder pursues a stronger
-form: the certificate's computations checked by the Lean kernel itself, which would make the theorem unconditional
-(`¬ FourMUBs` with no hypotheses). Nothing in the proof imports this folder, `verify.py` does not run it, and a
-reviewer does not need to: it is here to show that the kernel check exists and works.
+The main theorem (`PROOF.md`, `lean/NoFourMUBs/SeedAtlas/EdgeXFinal.lean`) is
+`EdgeXFinal.no_four_mubs_seed (C : EdgeAtlasCertificate) : ¬ FourMUBs`, with the certificate's inequalities checked
+by the Arb and Julia certifiers. This folder checks those inequalities in the Lean kernel itself (`decide +kernel`),
+which makes the theorem hold with no hypotheses. Nothing in `verify.py` runs it, and a reviewer does not need it.
 
-## Status (19 Oct 2026): the whole atlas is kernel-checked
+## Status
 
-`NoFourMUBs.KernelAtlas.Atlas.no_four_mubs_kernel : ¬ NoFourMUBs.FourMUBs` (`Atlas/Final.lean`, generated) applies
-`NoFourMUBs.Final.no_four_mubs` to an `AtlasCertificate` whose every field is kernel-checked: all **12,021** atlas
-Records and Tao's Record (`cert` and `boundary` for each), the `tao` and `fourier` fields, assembled in **121**
-chunks. On main (without the `anchor` field):
+| Piece | Lean (`lean/KernelAtlas/`) | Status |
+|---|---|---|
+| Return X at 7/40 (the X-ball's `exclusion`) | `X/`, `X/SC175/` | **done**: `X.Radius0175.no_quartet_near_F6_r0175`, hypothesis-free, standard axioms |
+| Stage C on a seed ball's enclosure | `StageCK2B` and the record pipeline below, reused | done (the pipeline of the earlier atlas) |
+| Seed-ball C1 by return Z (one centre computation per ball) | `WholeBall/`, `lean/NoFourMUBs/SeedAtlas/Method/WholeBall*.lean` | in progress |
+| Seed-ball C1 by boxes (fallback) | `Seed/` ([`docs/KERNEL_SEED.md`](docs/KERNEL_SEED.md)) | done; 3.6 s per box |
+| The X-ball: C1e, image bound, chart, T3 | `Edge/` ([`docs/KERNEL_EDGE.md`](docs/KERNEL_EDGE.md)) | in progress |
+| Transfers T0, T1 and sphere coverage | `Seed/` | design in `docs/KERNEL_SEED.md` §6 |
 
-```
-'NoFourMUBs.KernelAtlas.Atlas.no_four_mubs_kernel' depends on axioms: [propext, Classical.choice, Quot.sound]
-```
+## The record pipeline
 
-The run took **53,675 core-hours** on rusty (16–18 Oct, plus 236 for the rebuild on main). The generated Lean
-sources and oleans (≈ 87 GB) are not in git; [`results/full/`](results/full/RUN.md) has the manifest (per Record:
-status, axioms, cost, generator commit, SHA-256 of its sources and oleans), the chunk rows, the final reports and the
-commands. The design, the run and its problems: [`docs/KERNEL_ASSEMBLY.md`](docs/KERNEL_ASSEMBLY.md) §8–9.
+The earlier proof's atlas of 12,021 ball Records was kernel-checked once in full (`no_four_mubs_kernel`, 16–19 Oct
+2026, 53,675 core-hours; preserved with its manifest at the git tag `v1-25dim-records`). Its Stage C, normal-bound
+and boundary modules are what return X and the seed balls reuse. The rest of this file documents them.
 
 ### The pieces (17 Oct 2026)
 

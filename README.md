@@ -2,39 +2,41 @@
 
 **Theorem (computer-assisted).** ℂ⁶ does not admit four mutually unbiased bases.
 
-**In Lean:** `NoFourMUBs.Final.no_four_mubs (C : AtlasCertificate) : ¬ FourMUBs`
-([`lean/NoFourMUBs/Final.lean`](lean/NoFourMUBs/Final.lean)), using only the standard axioms (`propext`,
-`Classical.choice`, `Quot.sound`). **Its one input is the finite atlas certificate**: Lean proves that if the 12,021
-Records satisfy their inequalities there are no four MUBs, and those inequalities are checked by two independent
-interval-arithmetic implementations. No classification of order-6 Hadamard matrices is used.
+**In Lean:** `NoFourMUBs.EdgeXFinal.no_four_mubs_seed (C : SeedAtlas.EdgeX.EdgeAtlasCertificate) : ¬ FourMUBs`
+([`lean/NoFourMUBs/SeedAtlas/EdgeXFinal.lean`](lean/NoFourMUBs/SeedAtlas/EdgeXFinal.lean)), using only the standard
+axioms (`propext`, `Classical.choice`, `Quot.sound`). **Its one input is the finite seed-atlas certificate**, whose
+inequalities are checked by two independent interval-arithmetic implementations (Arb and Julia). No classification of
+order-6 Hadamard matrices is used.
 
 **Read:** [`PROOF.md`](PROOF.md) (the proof), then [`AUDIT.md`](AUDIT.md) (status and where to look hardest), then
 [`lean/README.md`](lean/README.md) (the formalisation).
 
-## The proof in four steps
+## The proof in five steps
+
+Every non-Tao Hadamard class other than F6 is the reconstruction of a 3×3 corner from four seed phases. The proof
+uses those four phases twice: globally, to show the space of classes is connected, and locally, as the coordinates
+of a finite atlas.
 
 | Step | Statement | How it is checked |
 |---|---|---|
 | 1 | The positive local maxima of the corner invariant R form one 18-point orbit, max R = 3¹³/2¹² | 651 exact claims; **proved in Lean** |
-| 2 | Every non-Tao class other than F6 is a matched completion of a strict corner seed, and the non-Tao quotient is connected | paper proofs with exact certificates; **proved in Lean** (connectedness in the direct form the coverage argument uses) |
-| 3 | A ball Record plus Stage C contains no quartet edge | inequalities proved in Lean; evaluated per Record in interval arithmetic |
-| 4 | A finite atlas of 12,021 ball Records, whose boundaries transfer into one another, covers the quotient | certified computation, confirmed by two independent checkers |
+| 2 | Every non-Tao class other than F6 is a matched completion of a strict corner seed, and the non-Tao quotient is connected | paper proofs with exact certificates; **proved in Lean** |
+| 3 | A seed ball (an ellipsoid of seeds) plus Stage C contains no quartet edge | inequalities proved in Lean; one Arb computation per ball (return Z) |
+| 4 | No quartet edge lies within distance 7/40 of F6 | exact cover; **proved in Lean, hypothesis-free** |
+| 5 | Finitely many seed balls and one ball at F6, whose boundaries transfer into one another, cover the quotient | certified computation, confirmed by two independent checkers |
 
 ## Check it
 
-| Command | What it checks | Time (Apple M5 Max) | Needs |
-|---|---|---|---|
-| `python3 verify.py` | exact replays of Steps 1–3: the Step 1 certificates, matched existence, the converse and exact reach, strict-corner coverage, Tao's Record, a Stage C sample | about 1 min | Python 3.10+, `pip install -r requirements.txt` |
-| `python3 verify.py --atlas -j 8` | also certifies every Record of the atlas (Step 4) and F6 | 14 min (about 1.9 CPU-hours) | as above, about 2 GB per worker |
-| `python3 verify.py --lean` | also builds the Lean formalisation and audits the axioms of 127 theorems | about 8 min with the Mathlib cache | elan; about 12 GB of disk |
-| `python3 verify.py --lean-full` | also builds matched existence and `NoFourMUBs.Final`, and audits them | about 12 min | as above; up to about 7 GB of RAM |
-| [`proof/independent/`](proof/independent/README.md) | the independent Julia checker of Steps 3–4 | full replay 24 min on 128 cores | Julia 1.12 |
+| Command | What it checks | Needs |
+|---|---|---|
+| `python3 verify.py` | exact replays of Steps 1–4: the Step 1 certificates, matched existence, the converse and exact reach, strict-corner coverage, Tao's record, a Stage C sample | Python 3.10+, `pip install -r requirements.txt`; about 1 min |
+| `python3 verify.py --atlas -j N` | also certifies the whole seed atlas in Arb (Step 5) | as above; ⟨time⟩ |
+| `python3 verify.py --lean` | also builds the Lean formalisation and audits its axioms | elan; about 12 GB of disk |
+| `python3 verify.py --lean-full` | also builds the main theorems and audits them | as above; up to about 7 GB of RAM |
+| [`proof/independent_seed/`](proof/independent_seed/README.md) | the independent Julia checker of Step 5 | Julia 1.12; ⟨time⟩ on one 128-core node |
 
-Continuous integration ([`.github/workflows/ci.yml`](.github/workflows/ci.yml)) runs `verify.py`, the Lean build with
-its axiom audit, the Julia checker on a sub-certificate, and **negative tests** ([`tests/`](tests/corruptions.py),
-[`proof/independent/tests/`](proof/independent/tests/)): targeted corruptions of the certificates (a moved centre, an
-enlarged radius, a dropped transfer target, altered rationals, …) that both checkers must reject, and harmless
-changes they must accept.
+Continuous integration ([`.github/workflows/ci.yml`](.github/workflows/ci.yml)) runs `verify.py` and the Lean build
+with its axiom audit.
 
 ## Layout
 
@@ -42,22 +44,25 @@ changes they must accept.
 |---|---|
 | [`PROOF.md`](PROOF.md), [`AUDIT.md`](AUDIT.md), [`verify.py`](verify.py) | The proof, its audit guide, and the replay driver |
 | [`proof/coverage/`](proof/coverage/README.md) | Steps 1–2: the returned proofs used by the proof, with their exact verifiers; cross-checks; audits |
-| [`proof/atlas/`](proof/atlas/README.md) | Steps 3–4: Records, Stage C, the atlas driver, the checker `certify.py`, the certificate and its receipts |
-| [`proof/independent/`](proof/independent/README.md) | An independent implementation of the Step 3–4 checks (Julia, interval arithmetic), written from the specification only |
+| [`proof/seed_atlas/`](proof/seed_atlas/README.md) | Steps 3 and 5: the seed-atlas format, the driver that builds it, the Arb certifier, the certificate |
+| [`proof/independent_seed/`](proof/independent_seed/README.md) | An independent implementation of the Step 3–5 checks (Julia, interval arithmetic), written from the specification only |
+| [`proof/atlas/`](proof/atlas/README.md) | Stage C (Lemma 3.2) and Tao's record: the shared code and its proofs (`STAGEC.md`, `RIGOUR.md`) |
+| [`proof/independent/`](proof/independent/README.md) | The independent Julia Stage C and normal bound, loaded by `proof/independent_seed` |
 | [`MinimalConstruction/`](MinimalConstruction/README.md) | The corner reconstruction and the critical-strip proofs behind strict-corner coverage (Theorem 2.5) |
 | [`lean/`](lean/README.md) | The Lean formalisation and the generators of its certificate modules |
 | [`tests/`](tests/) | Negative tests of the checkers |
 | [`proof/LITERATURE.md`](proof/LITERATURE.md) | Literature and credit, including what is taken from openai/math |
 | [`ClassificationPaper/`](ClassificationPaper/README.md) | The classification paper [CT]: context for the reconstruction, not used by the proof |
-| [`kernel_atlas/`](kernel_atlas/README.md) | Optional: the atlas certificate checked Record by Record in the Lean kernel. Done once (19 Oct 2026): `no_four_mubs_kernel : ¬ FourMUBs`, with no hypotheses and only the standard axioms, about 54,000 core-hours. Not needed to check the proof |
+| [`kernel_atlas/`](kernel_atlas/README.md) | The certificate checked in the Lean kernel (`decide +kernel`), so that the main theorem holds with no hypotheses: return X at 7/40 (done), the seed balls and the ball at F6 (in progress) |
 | [`explorations/`](explorations/README.md) | Research beyond the proof: open handoffs, results the proof does not use, the atlas-wide triple census |
 
 ## History
 
-Earlier versions are preserved at git tags: the first, corner-chart proof (`archive-2026-10-11`); exploratory material
-removed on 17 Oct 2026, including the second-route atlas (`archive-2026-10-17`); and the proof documents before their
-consolidation into `PROOF.md`, including the earlier route through the classification [CT] (`proof-docs-2026-10-17`).
-The typeset note in [`proof/note/`](proof/note/README.md) is the 11 Oct version of that earlier route.
+The previous proof (to 25 Oct 2026) covered the quotient by 12,021 ball Records in the 25-dimensional phase space, and
+was checked once in the Lean kernel (`no_four_mubs_kernel`, about 54,000 core-hours). It is preserved, with its
+certificate and both checkers, at the git tag `v1-25dim-records`. Earlier versions are at the tags
+`archive-2026-10-11` (the first, corner-chart proof), `archive-2026-10-17` (exploratory material, including the
+second-route atlas) and `proof-docs-2026-10-17` (the proof documents before their consolidation into `PROOF.md`).
 
 ## License and citation
 

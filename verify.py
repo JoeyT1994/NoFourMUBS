@@ -1,13 +1,13 @@
-"""Replay the minimal proof (PROOF.md).  Exits nonzero if any check fails.
+"""Replay the proof (PROOF.md).  Exits nonzero if any check fails.
 
   python3 verify.py                 Step 1 certificates, Step 2 replays: matched existence (identity (J) for the sides,
                                     flatness), the converse and exact reach, strict-corner coverage (with return K),
-                                    sheet lemmas, S6 as a zero-dimensional Record, a Stage C Arb sample; plus the
-                                    earlier radical side construction (return F) as a cross-check
-  python3 verify.py --atlas [-j N]  additionally certify every Record of the atlas (Step 4, one pool of N worker
-                                    processes) and F6
+                                    sheet lemmas; Step 3: S6 as a zero-dimensional record, a Stage C Arb sample; plus
+                                    the earlier radical side construction (return F) as a cross-check
+  python3 verify.py --atlas [-j N]  additionally certify the whole seed atlas in Arb (Steps 3-5: every seed ball's C1
+                                    and Stage C, every transfer box, the ball at F6, Tao; N worker processes)
   python3 verify.py --lean          additionally build the Lean formalisation and audit its axioms
-  python3 verify.py --lean-full     as --lean, and also build matched existence (L1) and NoFourMUBs.Final in Lean (about 12 min with the Mathlib cache)
+  python3 verify.py --lean-full     as --lean, and also build the main theorems and audit them
 """
 import argparse, os, subprocess, sys, time
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -36,7 +36,7 @@ CHECKS = [
 ]
 # Rough wall seconds of each check (M5 Max, Oct 2026): jobs are started longest first, so the short ones fill in
 # around the long ones.  Scheduling only; every check runs and must pass.
-COST = {'step4_certify': 1e6, 'lean_build_and_axioms': 1e5, 'step4_nonempty_F6': 95,
+COST = {'step5_certify_seed_atlas': 1e6, 'lean_build_and_axioms': 1e5,
         'l1_matched_flatness': 50, 'mc_reconstruction_proofs': 15, 'crosscheck_F_radical_sides': 10}
 
 
@@ -54,26 +54,26 @@ def run(name, rel, args, timeout=3600):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument('--atlas', action='store_true', help='certify the full atlas (Step 4)')
+    ap.add_argument('--atlas', action='store_true', help='certify the whole seed atlas in Arb (Steps 3-5)')
     ap.add_argument('--lean', action='store_true', help='build the Lean formalisation and audit axioms')
-    ap.add_argument('--lean-full', action='store_true', help='as --lean, including L1 and NoFourMUBs.Final (about 12 min with the Mathlib cache)')
+    ap.add_argument('--lean-full', action='store_true', help='as --lean, including the main theorems')
     ap.add_argument('-j', '--jobs', type=int, default=4)
     ap.add_argument('--log-dir', type=Path, default=None)
     a = ap.parse_args()
     if a.log_dir: a.log_dir.mkdir(parents=True, exist_ok=True)
     jobs = list(CHECKS)
     if a.atlas:
-        pkl = ROOT / 'proof/atlas/results/atlas_certificate.json.gz'
-        if not pkl.exists(): sys.exit('no atlas at %s' % pkl)
-        tsv = ['--tsv=%s' % (a.log_dir.resolve() / 'step4_certify.tsv')] if a.log_dir else []
-        jobs += [('step4_certify', 'proof/atlas/certify.py', ['results/atlas_certificate.json.gz', '-j', str(a.jobs)] + tsv)]
-        jobs += [('step4_nonempty_F6', 'proof/atlas/nonempty.py', ['results/atlas_certificate.json.gz'])]
+        cert = ROOT / 'proof/seed_atlas/results/seed_atlas_certificate.json.gz'
+        if not cert.exists(): sys.exit('no certificate at %s' % cert)
+        receipt = ['--receipt', str(a.log_dir.resolve() / 'seed_atlas_receipt.json')] if a.log_dir else []
+        jobs += [('step5_certify_seed_atlas', 'proof/seed_atlas/cert/certify_seed_atlas.py',
+                  ['../results/seed_atlas_certificate.json.gz', '-j', str(a.jobs)] + receipt)]
     if a.lean or a.lean_full:
         jobs += [('lean_build_and_axioms', 'lean/check_axioms.py', ['--full'] if a.lean_full else [])]
     jobs.sort(key=lambda c: -COST.get(c[0], 0))
     fails = 0; t0 = time.time()
     with ThreadPoolExecutor(a.jobs) as pool:
-        futures = [pool.submit(run, *c, timeout=6 * 3600 if c[0].startswith(('step4', 'lean')) else 3600) for c in jobs]
+        futures = [pool.submit(run, *c, timeout=48 * 3600 if c[0].startswith(('step5', 'lean')) else 3600) for c in jobs]
         for f in as_completed(futures):
             name, code, dt, out = f.result()
             print('%s: %s (%.0fs)' % ('PASS' if code == 0 else 'FAIL', name, dt), flush=True)

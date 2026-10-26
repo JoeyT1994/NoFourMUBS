@@ -6,10 +6,32 @@ This builds against Mathlib and a small part of the Lean classification of order
 lake exe cache get        # prebuilt Mathlib
 lake build
 python3 check_axioms.py   # build, then audit the axioms of every main theorem (also: verify.py --lean)
-python3 check_axioms.py --full   # also build and audit L1 and Final (about 12 min on an Apple M5 Max with the Mathlib cache)
+python3 check_axioms.py --full   # also build and audit the main theorem, L1 and Final (up to ~7 GB of RAM)
 ```
 
 ## The main theorem
+
+```lean
+theorem NoFourMUBs.EdgeXFinal.no_four_mubs_seed (C : SeedAtlas.EdgeX.EdgeAtlasCertificate) : ¬ FourMUBs
+```
+
+([`NoFourMUBs/SeedAtlas/EdgeXFinal.lean`](NoFourMUBs/SeedAtlas/EdgeXFinal.lean); `propext`, `Classical.choice`,
+`Quot.sound` only, audited by `SeedAtlas/EdgeXAxioms.lean`). `EdgeAtlasCertificate` bundles the finite data of
+`PROOF.md` Steps 3–5:
+- the seed balls (`SeedBallCert`: C1 as `hC1`, Stage C);
+- the X-ball (`EdgeBallCert`: its chart, the image bound within ρ = 7/40 of F6, and `exclusion : XExclusion ρ`,
+  discharged by return X in Lean, `X.Radius0175`);
+- the boundary covers;
+- Tao's record.
+
+What each field says, and which checker establishes it: [`NoFourMUBs/SeedAtlas/README.md`](NoFourMUBs/SeedAtlas/README.md).
+The route is the coverage argument below. The covered classes are clopen and contain F6, the X-ball's centre
+(`EdgeAtlasCertificate.clopen`), so `Step2.coverage_of_matched_density` covers every non-Tao class.
+
+Return X: [`NoFourMUBs/X/`](NoFourMUBs/X/README.md), `no_quartet_near_F6_r0175 : ∀ H, IsHadamard H → dph H ≤ 7/40 → ¬ QuartetEdge H`,
+hypothesis-free; its Stage C certificate at F6 is kernel-checked (`kernel_atlas/lean/KernelAtlas/X/`).
+
+## The coverage route (shared with the earlier atlas)
 
 [`NoFourMUBs/MainTheorem.lean`](NoFourMUBs/MainTheorem.lean) bundles every finite, checkable input into `AtlasCertificate`: the Records, their boundary covers, the Tao matrices and F6. It then proves:
 
@@ -40,7 +62,7 @@ All four use only `propext`, `Classical.choice` and `Quot.sound` (audited by `Ax
 
 | Hypothesis | Status |
 |---|---|
-| `AtlasCertificate` | Finite certificate, checked by `certify.py`, `nonempty.py` and the independent Julia checker (`proof/atlas/results/RECEIPT.md`) |
+| `AtlasCertificate` | The earlier proof's certificate of 12,021 Records (git tag `v1-25dim-records`); the theorems below are reused by the seed-atlas route |
 | `MatchedExistence` (L1) | **Proved in Lean** (`PROOF.md` Theorem 2.2): `L1.matchedExistence` (`L1/Existence.lean`): side existence by the Jacobian identity (J) and the inverse function theorem (`proof/coverage/returns/J_side_existence`), and flatness from the certificate `E_matched_flatness` in return R2's cleared form (two polynomial identities), re-checked by the kernel |
 | `MatchedDensityReach` (D) | Every non-Tao class is in the closure of the matched classes, their conjugates and the Fourier classes `Step2.FourierClasses` (the two-parameter Fourier family `Step2.fourierFamily` and its transpose; `coverage_of_matched_density` covers them because the covered classes are clopen and contain `F6`, `Step2.fourierClasses_subset`). **Proved in Lean from strict-corner coverage** (`PRM.densityReach`, via exact reach `PRM.exactReach`, `PROOF.md` Corollary 2.6, and Theorem A in the form `PRM.nonmatched_tao_or_fourier`, `PROOF.md` Theorem 2.4) |
 | `StrictCornerCoverage` (MC1) | Every Hadamard matrix outside the Fourier family (`Step2.InFourierFamily`) has a strict corner. **Proved in Lean** (`PROOF.md` Theorem 2.5): `PRM.strictCornerCoverage` (`Final.lean`), from the critical strip classification I4 (`PRM/CoverageStripParts`: zero `J` by return O's two unsquared mixed-corner sums `PRM/CoverageMixed*`, `PRM/CoverageZeroJProduct`, nonzero `J` by return K's two signed corner sums `PRM/CoverageSigned*`), the routing (`PRM/CoverageMain`) and return S's ten-corner count, which also excludes the two rational endpoints (`PRM/CoverageEndCount`) |

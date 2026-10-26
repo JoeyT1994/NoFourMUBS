@@ -155,3 +155,23 @@ claim is on a representative `RepO` (as T2), from a record for every boundary `�
 source whose vertical side is on the nonmatched branch (`Ψ(C) = Ψ(B)`) sits inside the vertical tube, and only the
 converse excludes it, so tube uniqueness does not give `K ≅ H(p_K)`. T3 goes through (G) instead, as the openness
 does. (ii) (G) needs `2√3 R_G < σ`, the SPEC's `R_G < σ/L`; the edge image needs `‖h(Q − P_F)‖ < R_G`.
+
+## The X-ball (the main theorem): `EdgeX*`
+
+```lean
+theorem NoFourMUBs.EdgeXFinal.no_four_mubs_seed (C : SeedAtlas.EdgeX.EdgeAtlasCertificate) : ¬ FourMUBs
+```
+
+The edge-ball route above, with Stage C on the edge ball replaced by return X (`EdgeAxioms` → `EdgeXAxioms`, standard
+axioms only). The four modules are `EdgeX`, `EdgeXAtlas`, `EdgeXFinal` and `XShape`.
+
+`EdgeX.EdgeBallCert` keeps every geometric field of `EdgeBallCert`: C1e, (G), (D), `hcol` and `hfrob`. In place of
+`stageC` it has three fields:
+- a radius `ρ`;
+- `exclusion : XExclusion ρ`, which no Hadamard matrix within horizontal phase distance ρ of F6 can violate (the
+  displacement form `core0175` of `NoFourMUBs.X.Radius0175` at ρ = 7/40);
+- `hX : ∀ w, wnorm w ≤ r → ∃ N, frob (hor (Q w + wind N − F6phase)) ≤ ρ`, the X-ball's image within ρ of F6. The
+  certifiers check it as `image_delta_max < x_radius`.
+
+`EdgeBallCert.excludes` derives "no quartet edge in the X-ball" from these. Transfers, openness and the anchor are as
+in `EdgeAtlas`.

@@ -12,6 +12,9 @@ hx = lambda x: float(x).hex()
 hxl = lambda a: [float(x).hex() for x in np.asarray(a, float).reshape(-1)]
 fh = lambda s: float.fromhex(s) if isinstance(s, str) else float(s)
 
+# The X-ball's exclusion radius: return X in Lean (NoFourMUBs.X.Radius0175, hypothesis-free) is proved at 7/40.
+X_RADIUS = 7 / 40
+
 
 def group_json(gr):
     kind, t, g, rows, cols = gr['desc']
@@ -123,7 +126,7 @@ def main_edge(state_path, out, allow_open=False):
         edges.append(dict(chart='F6-012', q0=hxl(getattr(eb, 'p0', np.zeros(4))), Mth=hxl(eb.Mth), r=hx(eb.r),
                           k=[int(v) for v in eb.k], P=hxl(eb.P), U=hxl(eb.U), n=hx(eb.n), label_radius=hx(eb.label),
                           graph=dict(R=hx(0.45), sigma=hx(1.7)),
-                          **({'exclusion': 'X', 'x_radius': hx(0.45)} if getattr(eb, 'exclusion', 'stagec') == 'X' else {}),
+                          **({'exclusion': 'X', 'x_radius': hx(X_RADIUS)} if getattr(eb, 'exclusion', 'stagec') == 'X' else {}),
                           transfers=[group_json(g) for g in merge_groups(x['groups'])], info=dict(S=[float(v) for v in eb.S])))
     edge = edges[0]
     seeds = [seed_json(A.balls[j], merge_groups(A.groups.get(j) or [])) for j in range(len(A.balls))]

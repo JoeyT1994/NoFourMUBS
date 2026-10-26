@@ -1,16 +1,19 @@
-# Seed atlas: specification (24 Oct 2026)
+# Seed atlas: specification
 
-The current atlas covers the non-Tao Hadamard classes with 12,021 balls in the 25 horizontal entry phases. This
-specification replaces them by balls in the **four seed phases** θ ∈ Ω = {R > 0} ⊂ T⁴. Every quartet exclusion runs on
-the matched completions H₊(θ). One full-matrix record is kept at F6, the one class the reconstruction reaches only as a
-limit (see §6 for why that is forced), and Tao keeps its record.
+The specification both certifiers implement (with `FORMAT.md` for the file layout): balls in the **four seed phases**
+θ ∈ Ω = {R > 0} ⊂ T⁴ (`PROOF.md` Steps 3–5). Every quartet exclusion runs on the matched completions H_o(θ). Stage C
+(`proof/atlas/stagec.py`, Lean `StageC/`) is reused unchanged; what is new is how each ball's enclosure P + U w + ν is
+certified, and how openness is proved.
 
-Stage C (`proof/atlas/stagec.py`, Lean `StageC/`) is reused unchanged. What changes is how each ball's enclosure
-P + U w + ν is certified, and how openness is proved.
+**Current form.** Two parts of this design were superseded as it was carried out, and are kept below for the record:
+- **F6.** F6 is the centre of the X-ball (§10, the edge chart), excluded by return X at 7/40 with no Stage C, instead of
+  a full-matrix record (§3, §6). Certificates list no records; Tao keeps its zero-dimensional one.
+- **C1.** C1 is first certified by return Z's whole-ball method (`cert/wholeball.py`), from one centre computation.
+  The box method of §2 and §11 is the fallback.
 
 The prototype is in `explorations/seed_balls/`; read its `README.md`. Numbers there are binary64 and **not** a proof;
-this spec is what the certified versions implement. The driver is `proof/seed_atlas/driver/` (branch `seed-hor`), with
-the horizontal gauge and adaptive boxes of §11.
+this spec is what the certified versions implement. The driver is `proof/seed_atlas/driver/`, with the horizontal gauge and
+adaptive boxes of §11.
 
 ## 1. Objects and conventions
 

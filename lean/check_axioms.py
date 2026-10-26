@@ -3,8 +3,9 @@
 Usage: python3 check_axioms.py          (run from lean/; needs elan; exits nonzero on any failure)
        python3 check_axioms.py --full   also build NoFourMUBs.Complete (L1's kernel checks) and NoFourMUBs.Final
                                         (strict-corner coverage), and audit NoFourMUBs/AxiomsComplete.lean and the seed-atlas route
-                                        (SeedAtlas/Axioms.lean, SeedAtlas/EdgeAxioms.lean); the full
-                                        build takes about 12 min with the Mathlib cache and needs up to ~7 GB of RAM
+                                        (SeedAtlas/Axioms.lean, EdgeAxioms.lean, and EdgeXAxioms.lean for the main theorem
+                                        EdgeXFinal.no_four_mubs_seed); needs up to ~7 GB of RAM.  Return X's kernel
+                                        certificate (X/Axioms.lean) is built separately (lean/NoFourMUBs/X/README.md)
 """
 import os, re, subprocess, sys
 from pathlib import Path
@@ -47,7 +48,8 @@ if '--full' in sys.argv[1:]:
     build('NoFourMUBs.Final', 'NoFourMUBs.FourierVanishing.Main')   # AxiomsComplete.lean imports both
     audit('NoFourMUBs/AxiomsComplete.lean')
     # the seed-atlas route (SeedAtlas/, FinalSeed): the semantic theorems and the edge-ball variant
-    build('NoFourMUBs.SeedAtlas.Axioms', 'NoFourMUBs.SeedAtlas.EdgeAxioms')
+    build('NoFourMUBs.SeedAtlas.Axioms', 'NoFourMUBs.SeedAtlas.EdgeAxioms', 'NoFourMUBs.SeedAtlas.EdgeXAxioms')
     audit('NoFourMUBs/SeedAtlas/Axioms.lean')
     audit('NoFourMUBs/SeedAtlas/EdgeAxioms.lean')
+    audit('NoFourMUBs/SeedAtlas/EdgeXAxioms.lean')
 print('LEAN PASS: build succeeded; every audited theorem uses only propext, Classical.choice, Quot.sound')
