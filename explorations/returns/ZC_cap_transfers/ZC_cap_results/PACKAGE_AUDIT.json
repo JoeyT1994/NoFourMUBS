@@ -1,0 +1,42 @@
+{
+  "status": "PASS",
+  "errors": [],
+  "certified_sources_checked": 191,
+  "partial_cap_sources_checked": 2,
+  "frozen_proposals_checked": 200,
+  "exact_gap_replay": [
+    {
+      "status": "CERTIFIED",
+      "claim": "a unit-sphere direction outside every listed cap",
+      "source_seed": 2124,
+      "cap_count": 199,
+      "normalized_support_upper": "992963832441/1000000000000",
+      "strict_support_gap_lower": "7036167559/1000000000000",
+      "geometry_sha256": "00f5db8bc4e468afb462952c0b3ade27e51c5162b8e14f98f82c25408994c3b7"
+    },
+    {
+      "status": "CERTIFIED",
+      "claim": "a unit-sphere direction outside every listed cap",
+      "source_seed": 2257,
+      "cap_count": 206,
+      "normalized_support_upper": "197507162777/200000000000",
+      "strict_support_gap_lower": "2492837223/200000000000",
+      "geometry_sha256": "b63d2526fab9ae754d7703e4ca59d45bf3818929fdc1202f8a80ae887af897ef"
+    }
+  ],
+  "proof_code_sha256": {
+    "cap_verify.py": "6843af98cc8f7c469246aa182865d2a1f83e3cc2d8e4e011fc18632d72e36560",
+    "coverage.py": "2e17019015658ed0a475fbb96a3296e895111e3bf927d2dce5c709243c0df82d",
+    "weighted.py": "b38d6cdfde5af2ab88b4ccc5170b93313353f0556c76bfabd94f615f5db86057",
+    "patches.py": "f9557aaf849223534d3d76ea4eb3fcb19d5e552fa03505e87c1fc620709f6db6",
+    "wholeball.py": "a842cc012f09870f7498fe812027f0ebe796e550068a1afd7247acbad8bb7a4d",
+    "seedcert.py": "ea2bcd51b2943a59fc429a853425ffd5a1c3f40df26ae1d99bf39dc086c310e8",
+    "tmarb.py": "f8d52e77ad8a90a9cfe3cb1d4192a4c531acb88cae19633eebe3aa79946e64f0",
+    "wholeball_basis.json": "a201d41d0579d79b6f67077b8b2222878a3f54cc781395feb29b7449e7c29cd3"
+  },
+  "current_recording_helper_sha256": "f0032ef10f9942feddc85dc328024ea0376a6ddc4fdaec5a966042746d34744f",
+  "recording_helper_note": "Run records retain the historical scheduler hash. Scheduling-only changes are not mathematical proof dependencies and are not grounds to repeat accepted checks.",
+  "input_archive_sha256": "87a7db0325095e2bf410648e563f9ee390b50937372d3cbdac03786e828d73dd",
+  "scope": "Package integrity and replay provenance; mathematical acceptance is in results/.",
+  "prepared": "2026-10-26"
+}

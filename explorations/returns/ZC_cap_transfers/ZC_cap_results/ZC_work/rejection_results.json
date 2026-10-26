@@ -1,0 +1,47 @@
+{
+  "status": "PASS",
+  "tests": [
+    {
+      "test": "untampered real cap accepts",
+      "passed": true
+    },
+    {
+      "test": "negative cap multiplier rejects",
+      "passed": true
+    },
+    {
+      "test": "false zero affine bound rejects",
+      "passed": true
+    },
+    {
+      "test": "changed phase winding rejects",
+      "passed": true
+    },
+    {
+      "test": "unsupported enlarged cap rejects",
+      "passed": true
+    },
+    {
+      "test": "zero cap normal rejects",
+      "passed": true
+    },
+    {
+      "test": "missing polar facet rejects",
+      "passed": true
+    },
+    {
+      "test": "changed dual vertex rejects",
+      "passed": true
+    },
+    {
+      "test": "invalid affine multiplier SOC rejects",
+      "passed": true
+    },
+    {
+      "test": "untrusted cap aliases cannot override v and h",
+      "passed": true
+    }
+  ],
+  "seconds": 4.206778075000329,
+  "checker_sha256": "6843af98cc8f7c469246aa182865d2a1f83e3cc2d8e4e011fc18632d72e36560"
+}
