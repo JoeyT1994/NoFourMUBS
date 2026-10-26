@@ -29,6 +29,7 @@ DTX = 6
 SS.DT = DTX                   # the integer frame T' - OT = VT = 6 V (Frame and write_t2data read SS.DT)
 
 BASE = 'NoFourMUBs.KernelAtlas.X.SC'
+PROBE = False
 
 
 def vt():
@@ -123,7 +124,9 @@ def generate(outdir, base, rho, rad, normal, col, sigma, tau, label_radius, sear
     xd = x_data(rad, normal, col)
     cd = SS.checker_data(xd)
     e0, j1, sst = write_sigma(outdir, base, 'return X (F6, rho = %s)' % rho, xd, sigma, tau)
-    assert scalar_ok(rho, sigma, e0, j1, xd['rads']), 'the scalar conditions of xB fail'
+    if not scalar_ok(rho, sigma, e0, j1, xd['rads']):
+        assert PROBE, 'the scalar conditions of xB fail'
+        log('PROBE: the scalar conditions of xB fail (radii not yet justified); mirror only')
     log('sigma %s: e0 = %.3e, j1 = %.3e, %s' % (sigma, e0, j1, sst))
     title = 'return X (F6, rho = %s)' % rho
     info = dict(rho=str(rho), rad=str(rad), n=str(normal), col=str(col), sigma=str(sigma), e0=float(e0), j1=float(j1), rbar=float(cd['par'].rbar),
@@ -180,14 +183,17 @@ def main():
     ap.add_argument('--label-radius', type=float, default=0.05)
     ap.add_argument('--no-search', dest='search', action='store_false')
     ap.add_argument('--module', default=BASE)
+    ap.add_argument('--probe', action='store_true', help='allow radii the scalar conditions do not justify (mirror only)')
     ap.add_argument('--compile', action='store_true')
     ap.add_argument('--jobs', type=int, default=2)
     ap.add_argument('--resume', action='store_true')
     a = ap.parse_args()
+    global PROBE
+    PROBE = a.probe
     if a.compile:
         res = SS.compile_ball(a.out, a.module, a.jobs, resume=a.resume)       # its axiom check names SeedC: redone here
         env, lean = SS.lean_env()
-        ax = os.path.join(a.out, '.logs', 'AxiomsX.lean')
+        ax = os.path.join(os.path.abspath(a.out), '.logs', 'AxiomsX.lean')
         with open(ax, 'w') as f:
             f.write('import %s.XC\n#print axioms %s.core\n' % (SS.mod(a.module), a.module))
         r = SS.subprocess.run([lean, ax], cwd=SS.LEAN, env=env, capture_output=True, text=True)
