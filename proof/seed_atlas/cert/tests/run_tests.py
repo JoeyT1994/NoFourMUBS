@@ -10,7 +10,7 @@ true remainder and within 1.5x of the prototype's Taylor-model bound on the same
 datum at a time (n, r, P, U, theta0, Mth, orientation, transfer target, winding, corner, group element, boxes) and
 require a rejection.
 """
-import copy, gzip, itertools, json, math, os, random, sys, tempfile, time, warnings
+import copy, gzip, itertools, json, math, os, sys, tempfile, time, warnings
 warnings.simplefilter('ignore')
 import numpy as np
 HERE = os.path.dirname(os.path.abspath(__file__))

@@ -12,7 +12,7 @@ float prototypes (untrusted; they only make test inputs).  Usage: .venv/bin/pyth
   records: none; Tao's record as the top-level "tao" (R = 0.08, label radius 0.03).
   graph (SPEC §10.2): R = 0.45, sigma = 1.7 (sigma_min(J(0)|_N) = sqrt 3 at F6); sigma_D = 0.15 (SPEC §10.1; eta in
   the basis of return U eq. (13))."""
-import gzip, itertools, json, os, sys
+import gzip, json, os, sys
 import numpy as np
 import seedgen as G
 from make_test_cert import best_corner, order, ubox, level_boxes, meets_unit_sphere, corner, wind4

@@ -249,8 +249,8 @@ when every completion at a prescribed corner is wanted.
 
 ## 6. Related retained results
 
-The proved measurement identities and inequalities are indexed in
-[ProvenResults](../ProvenResults/README.md).
+The proved measurement identities and inequalities are in [`Measurements/`](Measurements/) (the earlier
+`ProvenResults/` index was removed on 8 Oct 2026, in commit 2c314c2a).
 
 The preferred measurement equations are
 [SingleRadicalMeasurements.md](Measurements/SingleRadicalMeasurements.md).

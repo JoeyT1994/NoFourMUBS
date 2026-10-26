@@ -1,7 +1,7 @@
 """Fixtures for the certifier tests: the prototype-built seed balls (data/testballs.json), transfer targets
 (data/fixtures.json, built by build_testballs.py), dyadic boxes, and float windings.  Floats here only choose data;
 every verdict is the certifier's."""
-import copy, gzip, itertools, json, math, os, sys
+import copy, itertools, json, math, os, sys
 import numpy as np
 HERE = os.path.dirname(os.path.abspath(__file__))
 CERT = os.path.dirname(HERE)

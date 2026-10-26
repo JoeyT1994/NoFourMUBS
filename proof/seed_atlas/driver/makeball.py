@@ -4,7 +4,7 @@ import numpy as np
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(HERE, '../../atlas'))
 import stagec as SC
-from c1 import Ball, c1_bound, c1_bound_adaptive, sampled_n
+from c1 import Ball, c1_bound_adaptive, sampled_n
 
 LADDER = (0.125, 0.1, 0.08, 0.063, 0.05, 0.04, 0.03, 0.02, 0.015, 0.01)
 LABELS = (0.03, 0.02)

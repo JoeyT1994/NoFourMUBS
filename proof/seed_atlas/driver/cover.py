@@ -7,7 +7,7 @@ theta ("T0" for the identity, otherwise a linear T1); the others are general T1 
 Records (T2) are found by signed-permutation alignment (proof/atlas/atlas.align).
 Everything here is binary64 and untrusted.
 """
-import itertools, math, os, sys
+import itertools, os, sys
 import numpy as np
 import seedgeom as SG
 import tmb as M
