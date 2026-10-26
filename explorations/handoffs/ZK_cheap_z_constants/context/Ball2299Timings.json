@@ -1,0 +1,442 @@
+[
+  {
+    "module": "KernelAtlas.WholeBall.BasisNorm",
+    "wall_seconds": 21.82,
+    "user_seconds": 15.08,
+    "system_seconds": 3.12,
+    "peak_rss_bytes": 6623772672,
+    "exit_code": 0,
+    "fresh_build": true,
+    "source_sha256": "a6d60f0035123552b52a915faa6f24270a4899b3ca1f0f4c2fdb141efb8c2c9b"
+  },
+  {
+    "module": "KernelAtlas.WholeBall.BasisRegular",
+    "wall_seconds": 7.256286333009484,
+    "exit_code": 0,
+    "user_seconds": 0.84,
+    "system_seconds": 2.0,
+    "peak_rss_bytes": 758153216,
+    "fresh_build": false,
+    "source_sha256": "f428c1ebccc70acc430af6d26705d29dad01a70c8ffc5c1273be3d1e4e43a9e7"
+  },
+  {
+    "module": "KernelAtlas.WholeBall.BasisGeometry",
+    "wall_seconds": 13.22190491699439,
+    "exit_code": 0,
+    "user_seconds": 2.27,
+    "system_seconds": 4.38,
+    "peak_rss_bytes": 850132992,
+    "fresh_build": false,
+    "source_sha256": "1be553549caecf9f392b11de297d8f20bba5c3993ce5186c9e395f2544994cb6"
+  },
+  {
+    "module": "KernelAtlas.WholeBall.CheckedBall",
+    "wall_seconds": 11.787169000002905,
+    "exit_code": 0,
+    "user_seconds": 2.27,
+    "system_seconds": 4.21,
+    "peak_rss_bytes": 848199680,
+    "fresh_build": false,
+    "source_sha256": "bbdc8c5f66d4c3aed19a6116b38981ccce9e589f2e0f179aa1945301bf455bd8"
+  },
+  {
+    "module": "KernelAtlas.WholeBall.Centre2299",
+    "wall_seconds": 35.19,
+    "user_seconds": 8.12,
+    "system_seconds": 8.11,
+    "peak_rss_bytes": 6816006144,
+    "exit_code": 0,
+    "fresh_build": true,
+    "source_sha256": "c008e8e4363569b6c12504769798bb4f7d057a1ab2976a8663bf027f816308e0"
+  },
+  {
+    "module": "KernelAtlas.WholeBall.Gram2299",
+    "wall_seconds": 98.82,
+    "user_seconds": 82.3,
+    "system_seconds": 7.85,
+    "peak_rss_bytes": 25611796480,
+    "exit_code": 0,
+    "fresh_build": true,
+    "source_sha256": "a16712c837942a9ce85cb710663e70d70a0458c357c5843e22baad38c879f2bd"
+  },
+  {
+    "module": "KernelAtlas.WholeBall.Jets2299",
+    "wall_seconds": 1253.04,
+    "user_seconds": 264.3,
+    "system_seconds": 596.23,
+    "peak_rss_bytes": 47950774272,
+    "exit_code": 0,
+    "fresh_build": true,
+    "source_sha256": "1aca3ac960b4547097b871a1f26444a7bc0e56041bcbe6c85c46d3b21e214b4d",
+    "includes_modules": [
+      "KernelAtlas.WholeBall.Jets2299Norms"
+    ],
+    "note": "Both jet and norm modules rebuilt in this timed command; memory contention affected this run."
+  },
+  {
+    "module": "KernelAtlas.WholeBall.Jets2299Norms",
+    "wall_seconds": 11.31090712499281,
+    "exit_code": 0,
+    "user_seconds": 2.19,
+    "system_seconds": 3.96,
+    "peak_rss_bytes": 847642624,
+    "fresh_build": false,
+    "source_sha256": "3f289d5a9354d4ab11d1d85997e0a219c802cd267254d09ea155c0cc6e31f5ce",
+    "covered_by": "KernelAtlas.WholeBall.Jets2299"
+  },
+  {
+    "module": "KernelAtlas.WholeBall.Fourier2299Data",
+    "wall_seconds": 63.94,
+    "exit_code": 0,
+    "user_seconds": 71.36,
+    "system_seconds": 3.15,
+    "peak_rss_bytes": 7090765824,
+    "fresh_build": true,
+    "source_sha256": "624602bc5d43452a927c30c89d83a694f5fc01cd11394a8ec5115a93fe0396a8"
+  },
+  {
+    "module": "KernelAtlas.WholeBall.Ball2299Data",
+    "wall_seconds": 25.75,
+    "exit_code": 0,
+    "user_seconds": 12.14,
+    "system_seconds": 5.88,
+    "peak_rss_bytes": 6146867200,
+    "fresh_build": true,
+    "source_sha256": "8a22e339ab827a3b2d22756808cbce4f4debcaeb86346a9cdb1fcce0ca1d0dbd"
+  },
+  {
+    "module": "KernelAtlas.WholeBall.Ball2299Centre",
+    "wall_seconds": 365.79,
+    "exit_code": 0,
+    "fresh_build": true,
+    "source_sha256": "7cca7ec0a190dae9495786362e42ccefe26e9b6e7f76c243ce256b8a89fe987f",
+    "user_seconds": 345.36,
+    "system_seconds": 11.67,
+    "peak_rss_bytes": 29631365120
+  },
+  {
+    "module": "KernelAtlas.WholeBall.Ball2299Sides",
+    "wall_seconds": 65.19,
+    "exit_code": 0,
+    "fresh_build": true,
+    "source_sha256": "521c974f3605354cb97c47174429d597dcedca27e463efeffec0bb6a8eab573a",
+    "user_seconds": 49.28,
+    "system_seconds": 6.22,
+    "peak_rss_bytes": 12016074752
+  },
+  {
+    "module": "KernelAtlas.WholeBall.Ball2299Record",
+    "wall_seconds": 22.56,
+    "exit_code": 0,
+    "fresh_build": true,
+    "source_sha256": "20399c2452965f02c65e335c54a9f1d46ca4ecf6ff238f46b99663146dce87b0",
+    "user_seconds": 6.51,
+    "system_seconds": 6.39,
+    "peak_rss_bytes": 6891569152
+  },
+  {
+    "module": "KernelAtlas.WholeBall.Fourier2299CubicRealData",
+    "wall_seconds": 21.29,
+    "exit_code": 0,
+    "fresh_build": true,
+    "source_sha256": "a2c31ce20fefa97dce513fd87617cc6ea18933ade552a0cae5a9040523c8daf5",
+    "user_seconds": 13.62,
+    "system_seconds": 3.29,
+    "peak_rss_bytes": 3950919680
+  },
+  {
+    "module": "KernelAtlas.WholeBall.Fourier2299CubicImagData",
+    "wall_seconds": 20.5,
+    "exit_code": 0,
+    "fresh_build": true,
+    "source_sha256": "1e8109ddf23cf655a0d76b0e39f65e6d51af6fcb23a880355ff2ae490e83b5bf",
+    "user_seconds": 12.73,
+    "system_seconds": 3.08,
+    "peak_rss_bytes": 3942727680
+  },
+  {
+    "module": "KernelAtlas.WholeBall.Fourier2299CubicRealCheck",
+    "wall_seconds": 52.64,
+    "exit_code": 0,
+    "fresh_build": true,
+    "source_sha256": "5aa98a1b73e014e50051686fc43ad40b23a70b7df2d185a7f625d02552353b4a",
+    "user_seconds": 44.36,
+    "system_seconds": 6.28,
+    "peak_rss_bytes": 18750865408
+  },
+  {
+    "module": "KernelAtlas.WholeBall.Fourier2299CubicImagCheck",
+    "wall_seconds": 34.49,
+    "exit_code": 0,
+    "fresh_build": true,
+    "source_sha256": "7485fa19b14eaa997f4ca7ef431922cc550213591bf054b33861c569e28e79c0",
+    "user_seconds": 26.38,
+    "system_seconds": 6.0,
+    "peak_rss_bytes": 13871480832
+  },
+  {
+    "module": "KernelAtlas.WholeBall.Fourier2299Cubic",
+    "wall_seconds": 1669.42,
+    "exit_code": 0,
+    "fresh_build": true,
+    "source_sha256": "4c8957bc3e9c62594037e284584221709e1b773bb4ec48e13e7970c52841b2e1",
+    "user_seconds": 1589.06,
+    "system_seconds": 34.0,
+    "peak_rss_bytes": 6974865408
+  },
+  {
+    "module": "KernelAtlas.WholeBall.Fourier2299QuarticRealData",
+    "wall_seconds": 63.85,
+    "exit_code": 0,
+    "fresh_build": true,
+    "source_sha256": "d77e31502884b57f42842eaf75f0fd9fb886437785eb1dad51a1a3d725d96853",
+    "user_seconds": 57.15,
+    "system_seconds": 3.6,
+    "peak_rss_bytes": 5703892992
+  },
+  {
+    "module": "KernelAtlas.WholeBall.Fourier2299QuarticImagData",
+    "wall_seconds": 60.24,
+    "exit_code": 0,
+    "fresh_build": true,
+    "source_sha256": "3c942f839d77e058d673db3911f2cd8a671cff83bad1a60dd3becfc23f7e42c0",
+    "user_seconds": 53.71,
+    "system_seconds": 3.67,
+    "peak_rss_bytes": 5694980096
+  },
+  {
+    "module": "KernelAtlas.WholeBall.Fourier2299QuarticRealCheck",
+    "wall_seconds": 483.94,
+    "exit_code": 0,
+    "fresh_build": true,
+    "source_sha256": "c1312ebdefa8210e6cb02298017986380b9e66a0bfaf5bb7aa07b6f66cfdd83b",
+    "user_seconds": 473.78,
+    "system_seconds": 6.15,
+    "peak_rss_bytes": 3934896128
+  },
+  {
+    "module": "KernelAtlas.WholeBall.Fourier2299QuarticImagCheck",
+    "wall_seconds": 612.92,
+    "exit_code": 0,
+    "fresh_build": true,
+    "source_sha256": "494909c4434047d1384da69c7b5632b218a64db20fa5106875843f82eb215dc3",
+    "user_seconds": 602.29,
+    "system_seconds": 6.3,
+    "peak_rss_bytes": 3995860992
+  },
+  {
+    "module": "KernelAtlas.WholeBall.Fourier2299QuarticColumns",
+    "wall_seconds": 937.95,
+    "exit_code": 0,
+    "fresh_build": true,
+    "source_sha256": "750a7d4ee2bb789927aa8fd630e670eec79f7f209810a2d10ada02f8b59469ce",
+    "user_seconds": 926.75,
+    "system_seconds": 6.39,
+    "peak_rss_bytes": 5545443328
+  },
+  {
+    "module": "KernelAtlas.WholeBall.Fourier2299Quartic",
+    "wall_seconds": 1722.42,
+    "exit_code": 0,
+    "fresh_build": true,
+    "source_sha256": "74dac2c4f2987de7c943695304a062dcf8abbdee8bcf0e7d078c7db465b448e5",
+    "user_seconds": 1594.65,
+    "system_seconds": 70.66,
+    "peak_rss_bytes": 11603394560,
+    "driver_wall_seconds": 8868.849327707998,
+    "note": "Driver was paused after dispatch; wall_seconds is the child command real time from /usr/bin/time, excluding the subsequent driver pause."
+  },
+  {
+    "module": "KernelAtlas.WholeBall.Fourier2299Mixed",
+    "wall_seconds": 1144.28,
+    "user_seconds": 1065.06,
+    "system_seconds": 32.61,
+    "peak_rss_bytes": 5608849408,
+    "exit_code": 0,
+    "fresh_build": true,
+    "source_sha256": "f6b976927a44b3a487be637275617f1fe613a2af3d82036773523cb0d0157ca5"
+  },
+  {
+    "module": "KernelAtlas.WholeBall.Fourier2299SecondRealData",
+    "wall_seconds": 144.0,
+    "exit_code": 0,
+    "fresh_build": true,
+    "source_sha256": "67dce890274cb53c945b4fac1efe523a8fbb80b42c18bdca6daa0ee27366e83e",
+    "measurement": "Lake rounded elapsed time for this successful prerequisite. The encompassing command later failed on a missing compact-cache import; no per-module CPU or RSS measurement is available."
+  },
+  {
+    "module": "KernelAtlas.WholeBall.Fourier2299SecondImagData",
+    "wall_seconds": 150.0,
+    "exit_code": 0,
+    "fresh_build": true,
+    "source_sha256": "cb9348f78b0829213c0db10e157841d9bb29d028035f9e58c2722ac961fdca85",
+    "measurement": "Lake rounded elapsed time for this successful prerequisite. The encompassing command later failed on a missing compact-cache import; no per-module CPU or RSS measurement is available."
+  },
+  {
+    "module": "KernelAtlas.WholeBall.Fourier2299SecondRealCheck",
+    "wall_seconds": 429.0,
+    "exit_code": 0,
+    "fresh_build": true,
+    "source_sha256": "18e9a38c278a3fa561da0e10454d405f8c8b9e2f2ece1173f7069f3656d757ef",
+    "measurement": "Lake rounded elapsed time for this successful prerequisite. The encompassing command later failed on a missing compact-cache import; no per-module CPU or RSS measurement is available."
+  },
+  {
+    "module": "KernelAtlas.WholeBall.Fourier2299SecondImagCheck",
+    "wall_seconds": 468.0,
+    "exit_code": 0,
+    "fresh_build": true,
+    "source_sha256": "03dbc55dd06ebb88fc1aad2ba6879ac872ae60e91231c72c33184448d585bb87",
+    "measurement": "Lake rounded elapsed time for this successful prerequisite. The encompassing command later failed on a missing compact-cache import; no per-module CPU or RSS measurement is available."
+  },
+  {
+    "module": "KernelAtlas.WholeBall.Fourier2299SecondCompactData",
+    "wall_seconds": 133.77,
+    "user_seconds": 132.71,
+    "system_seconds": 6.5,
+    "peak_rss_bytes": 6497730560,
+    "exit_code": 0,
+    "fresh_build": true,
+    "source_sha256": "cd12634b88164fabca47111f2338e4e73c2f9c80cd606df07324ff6cbac5a2f8"
+  },
+  {
+    "module": "KernelAtlas.WholeBall.Fourier2299SecondColumns",
+    "wall_seconds": 1391.02,
+    "user_seconds": 1365.46,
+    "system_seconds": 18.57,
+    "peak_rss_bytes": 6685360128,
+    "exit_code": 0,
+    "fresh_build": true,
+    "source_sha256": "cc29ee957d9f82188298e56f5ad43b6616dd2c3d42a5547386dee119742cf618"
+  },
+  {
+    "module": "KernelAtlas.WholeBall.Fourier2299Second",
+    "wall_seconds": 2974.53,
+    "user_seconds": 8711.47,
+    "system_seconds": 125.49,
+    "peak_rss_bytes": 6420971520,
+    "exit_code": 0,
+    "fresh_build": true,
+    "source_sha256": "9cdb0918ab3f2805f6dfc0b4437b986301056b0c0152cdd0a4ff79e3a62b428f",
+    "note": "Three dependency chains checked 21 product rows concurrently, at most three Lean processes with eight threads each."
+  },
+  {
+    "module": "KernelAtlas.WholeBall.Fourier2299Normal",
+    "wall_seconds": 4891.3,
+    "user_seconds": 4797.72,
+    "system_seconds": 68.96,
+    "peak_rss_bytes": 9142370304,
+    "exit_code": 0,
+    "fresh_build": true,
+    "source_sha256": "d066036ef30e2b7b0e09e96f6f2b8ffefbe2019cf3565c24dc9ae2504854e36d"
+  },
+  {
+    "module": "KernelAtlas.WholeBall.Fourier2299TermNorms",
+    "wall_seconds": 45.14,
+    "user_seconds": 37.72,
+    "system_seconds": 3.13,
+    "peak_rss_bytes": 3555131392,
+    "exit_code": 0,
+    "fresh_build": true,
+    "source_sha256": "0328cb1f2a9b614ccd51b89d1f34aaf35baad890998367309393ac2af941cf6f"
+  },
+  {
+    "module": "KernelAtlas.WholeBall.Fourier2299CubicNorm",
+    "wall_seconds": 12.34,
+    "user_seconds": 4.96,
+    "system_seconds": 3.11,
+    "peak_rss_bytes": 3343581184,
+    "exit_code": 0,
+    "fresh_build": true,
+    "source_sha256": "68ee40d25c25e91f47d884c049eeefc1c0b860aebb2790f9da1d6ba581ae61ac"
+  },
+  {
+    "module": "KernelAtlas.WholeBall.Fourier2299QuarticNorm",
+    "wall_seconds": 56.66,
+    "exit_code": 0,
+    "fresh_build": true,
+    "source_sha256": "574c80914a161db2e3e8184530686fca82e5cfdf2f990e99071c7262b9d90e99",
+    "user_seconds": 49.19,
+    "system_seconds": 3.18,
+    "peak_rss_bytes": 4420091904
+  },
+  {
+    "module": "KernelAtlas.WholeBall.Fourier2299MixedNorm",
+    "wall_seconds": 14.41,
+    "exit_code": 0,
+    "fresh_build": true,
+    "source_sha256": "d584fcd08c4ac91f6f8a0600138f28c0411a7c066a87cbdeecbe3e34cc4a690c",
+    "user_seconds": 7.08,
+    "system_seconds": 3.0,
+    "peak_rss_bytes": 3412803584
+  },
+  {
+    "module": "KernelAtlas.WholeBall.Fourier2299SecondNorm",
+    "wall_seconds": 94.23,
+    "exit_code": 0,
+    "fresh_build": true,
+    "source_sha256": "4ec89222e68880b4eb20d359fc4e9ba4a91bab4291f7172b0cf0550bdcc8ea3a",
+    "user_seconds": 86.77,
+    "system_seconds": 3.2,
+    "peak_rss_bytes": 5261475840
+  },
+  {
+    "module": "KernelAtlas.WholeBall.Fourier2299NormalNorm",
+    "wall_seconds": 160.73,
+    "exit_code": 0,
+    "fresh_build": true,
+    "source_sha256": "865d933539873af192b78454d56720437080703f7a5f2bc96981e92ad81f22b1",
+    "user_seconds": 152.72,
+    "system_seconds": 3.49,
+    "peak_rss_bytes": 6670073856
+  },
+  {
+    "module": "KernelAtlas.WholeBall.Fourier2299Sums",
+    "wall_seconds": 9.85,
+    "exit_code": 0,
+    "fresh_build": true,
+    "source_sha256": "f842d1acf5e3a0cc2e05d4a3a39e875373617c06dee3686b948890d9c9622164",
+    "user_seconds": 2.52,
+    "system_seconds": 2.98,
+    "peak_rss_bytes": 3585146880
+  },
+  {
+    "module": "KernelAtlas.WholeBall.Fourier2299Norms",
+    "wall_seconds": 8.89,
+    "user_seconds": 1.71,
+    "system_seconds": 2.96,
+    "peak_rss_bytes": 3240001536,
+    "exit_code": 0,
+    "fresh_build": true,
+    "source_sha256": "8dcc96f1e42508caa441a88a372773bcb54456532d858265fc2a0bfbe6e5ffd6"
+  },
+  {
+    "module": "KernelAtlas.WholeBall.Fourier2299",
+    "wall_seconds": 9.63,
+    "exit_code": 0,
+    "fresh_build": true,
+    "source_sha256": "dbea5e0afbddddac37d61856d3e2074e219f98265c5ef0dec142764adfd3c62e",
+    "user_seconds": 1.79,
+    "system_seconds": 2.78,
+    "peak_rss_bytes": 3317465088
+  },
+  {
+    "module": "KernelAtlas.WholeBall.Ball2299",
+    "wall_seconds": 50.46,
+    "exit_code": 0,
+    "fresh_build": true,
+    "source_sha256": "ad8f33f1069375755d40e1d665d367bf5abd496633094715fa649c829c3f6dc1",
+    "user_seconds": 26.81,
+    "system_seconds": 7.98,
+    "peak_rss_bytes": 9784967168
+  },
+  {
+    "module": "KernelAtlas.WholeBall.Ball2299Axioms",
+    "wall_seconds": 19.69,
+    "exit_code": 0,
+    "fresh_build": true,
+    "source_sha256": "b35a69b3bfbe1d23a833fd15967e39b6b2d6030fb83acebfcf9b9cdf7eb014cf",
+    "user_seconds": 3.67,
+    "system_seconds": 5.96,
+    "peak_rss_bytes": 5894160384
+  }
+]
