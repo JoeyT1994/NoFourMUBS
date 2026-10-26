@@ -20,7 +20,9 @@ which makes the theorem hold with no hypotheses. Nothing in `verify.py` runs it,
 
 The earlier proof's atlas of 12,021 ball Records was kernel-checked once in full (`no_four_mubs_kernel`, 16–19 Oct
 2026, 53,675 core-hours; preserved with its manifest at the git tag `v1-25dim-records`). Its Stage C, normal-bound
-and boundary modules are what return X and the seed balls reuse. The rest of this file documents them.
+and boundary modules are what return X and the seed balls reuse. The rest of this file documents them; the generators
+that read that atlas's certificate (`export_record.py`, `export_table.py`, `kbound.py`, `kexact.py`, …) need it from
+the tag.
 
 ### The pieces (17 Oct 2026)
 

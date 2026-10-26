@@ -9,7 +9,7 @@ The master adds balls, de-duplicates proposals against balls added since the sna
 re-covers a ball once the balls it waits for exist.  A ball is closed when its whole sphere is covered.
 Usage: driver.py OUT_DIR [--workers N] [--start JSON|record:K] [--hours H] [--max-balls N]
 """
-import argparse, gzip, json, math, os, pickle, sys, time, traceback, warnings
+import argparse, json, math, os, pickle, sys, time, traceback, warnings
 import concurrent.futures as cf
 import multiprocessing as mp
 import numpy as np
