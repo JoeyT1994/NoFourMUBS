@@ -1,5 +1,6 @@
 """Write the seed atlas certificate (FORMAT.md) from the driver state, and read it back.
-Usage: seed_export.py RUN_DIR/atlas_state.pkl OUT.json.gz
+Usage: seed_export.py RUN_DIR/atlas_state.pkl OUT.json.gz [--edge [--allow-open]]
+  --edge  format v2 (FORMAT.md section 8): the X-ball instead of the F6 record; use it for every current atlas
 """
 import gzip, json, math, os, pickle, sys
 import numpy as np
