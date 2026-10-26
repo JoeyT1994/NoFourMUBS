@@ -2,8 +2,8 @@
 # Build the seed atlas on one rusty node (ccq, 128 cores), from an empty run directory or a resumable one:
 #   1. grow the seed balls (driver.py; the X-ball at F6 is the edge ball, so T3 transfers reach it);
 #   2. cover the X-ball's sphere (edge_multi.py), adding gap balls (driver.py --gaps) until it closes;
-#   3. export the certificate (seed_export.py), then screen and apply the per-ball kernel remainders
-#      (kernel_n.py, apply_kernel_n.py: a looser n where Stage C still passes, so C1 needs no subdivision).
+#   3. export the certificate (seed_export.py), then raise each ball's n to its whole-ball C1 bound where Stage C
+#      still passes (wholeball_n.py), so that the certifiers' C1 is one centre computation per ball.
 # Every step is resumable: rerun to continue.  RUN (default $BUILD/run), X (the X-ball's tangent radius, 0.13).
 #SBATCH -J seedatlas
 #SBATCH -p ccq
@@ -33,5 +33,4 @@ for round in 1 2 3 4 5; do
 done
 [ $rc -eq 0 ] || { echo "the X-ball sphere did not close"; exit 2; }
 $PY $D/seed_export.py $RUN/atlas_state_edge.pkl $RUN/certificate_raw.json.gz --edge || exit 1
-$PY $D/kernel_n.py $RUN/atlas_state.pkl $RUN/kernel_n.jsonl --workers $W || exit 1
-$PY $D/apply_kernel_n.py $RUN/certificate_raw.json.gz $RUN/kernel_n.jsonl $RUN/seed_atlas_certificate.json.gz
+$PY $D/wholeball_n.py $RUN/certificate_raw.json.gz $RUN/seed_atlas_certificate.json.gz --workers $W --log $RUN/wholeball_n.jsonl

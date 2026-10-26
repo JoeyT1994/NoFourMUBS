@@ -22,7 +22,8 @@ sbatch run_rusty.sh          # one rusty node: grow, cover the X-ball's sphere, 
 | `edge_multi.py` | Covers the X-ball's sphere by T1 boxes into seed balls; reports the gaps (exit 3) for `driver.py --gaps` |
 | `record_boundary.py` | Covers of full-matrix record shells (T1′); used only by certificates with records |
 | `seed_export.py` | Writes the certificate, with the X-ball's exclusion radius 7/40 (return X in Lean) |
-| `kernel_n.py`, `apply_kernel_n.py` | The per-ball remainder: the largest n = f × (sampled n) at which Stage C still passes, which keeps C1 cheap to certify; never tightens a stored n |
+| `wholeball_n.py` | The per-ball remainder: each ball's n raised to its whole-ball C1 bound (return Z) where Stage C still passes, so the certifiers' C1 is one centre computation; never tightens n |
+| `kernel_n.py`, `apply_kernel_n.py` | A looser n = f × (sampled n), f up to 6, for the kernel's box C1; not used for the certificate (larger n makes Stage C's graphs harder) |
 | `selfcheck.py` | Float re-check of every C1, every transfer box and every sphere cover |
 | `summary.py`, `build_log.py` | Build summaries from a driver state, and the build log from a certificate and the Slurm accounting |
 | `run_rusty.sh`, `run_rusty_multi.sh`, `run_selfcheck_rusty.sh` | Rusty jobs: the whole build on one node; growth over several nodes; the float self-check |
@@ -46,7 +47,9 @@ sbatch run_rusty.sh          # one rusty node: grow, cover the X-ball's sphere, 
   - **T0:** the same chart.
   - **Linear T1:** the 72 corner symmetries, where θ′ is linear in θ.
   - **General T1:** other corners, where charts meet.
-  - **T3:** into the X-ball. Its side orders and windings come from the chart's linear side model at F6.
+  - **T3:** into the X-ball, on boxes of level ≥ 4. The matrix must be the chart's H(p_K): its fourth corner phase
+    and side angles within 0.1 rad of the chart's linear side model at F6, which also gives the side orders and
+    windings.
 - **The X-ball.** The edge chart's ellipsoid of tangent radius 0.13, which lies within 7/40 of F6. It is excluded by
   return X, with no Stage C. Its own sphere is covered by T1 boxes into seed balls (`edge_multi.py`). Where a sphere
   point has no target, `driver.py --gaps` adds seed balls there.
