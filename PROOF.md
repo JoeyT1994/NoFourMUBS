@@ -40,6 +40,7 @@ Lemma 2.1 (side quadratic) ─→ 2.2 existence ─→ 2.3 uniqueness ───�
                               2.5 coverage ─────────┴→ 2.6 exact reach ┴→ Theorem 2 (X connected)
 Lemma 3.1 (C1, return Z) + Lemma 3.2 (Stage C) ─→ each seed ball excludes quartet edges
 Theorem 4.1 (return X) + Theorem 4.2 (edge chart) ─→ the ball at F6 excludes quartet edges
+Theorem 4.3 (return XS) ─→ transfers into the ball at F6 need no side data
 Lemma 5.1 (transfers) + Lemma 5.2 (coverage) + Theorem 2 ─→ the atlas covers X ─→ no four MUBs
 ```
 
@@ -360,6 +361,15 @@ a seed ball (C1 by Krawczyk tubes of the chart's 7-unknown system). Its image li
 is quartet-free by Theorem 4.1. F6 = H(0) is its centre. Openness at y = 0 comes from the graph property near F6
 (SPEC §10.1–10.2; Lean: `SeedAtlas.EdgeX.isOpen_edgeInterior`).
 
+> **Theorem 4.3 (return XS: transfers into the chart).** Let K be Hadamard with an ordered corner (I, J), and let
+> p′(K) = (θ′₁ − π/3, θ′₂ − 2π/3, θ′₃ − 2π/3, −2 Im Ψ(K[I, Jᶜ])). If p′(K) lies in a target contained in W's
+> ellipsoid E_{1/5} and d([K], [F6]) ≤ 3/20, then K ≅ H(p′(K)).
+
+The three corner phases pin the Fourier frame: only 72 of the 14,400 ordered corner pairs fit them, and each extends
+to an automorphism of F6. W's framed continuation then recovers the whole completion. The theorem uses no side orders,
+side windings, orientation signs or tubes, and it holds across the fold y = 0
+(`explorations/returns/XS_edge_side_orders/`, replayed).
+
 ## Step 5. The atlas covers X
 
 > **Lemma 5.1 (transfers).** Every point of every ball's boundary sphere is, after a symmetry g ∈ Γ (identity,
@@ -368,8 +378,8 @@ is quartet-free by Theorem 4.1. F6 = H(0) is its centre. Openness at y = 0 comes
 > - **T0:** the same corner: a linear test at the box's 16 vertices;
 > - **T1:** another ordered corner (I, J) of g · H, whose seed θ′ is linear in the phases: θ′ in the target's
 >   ellipsoid and both Ψ signs of the target's orientation, over the box;
-> - **T3:** into the X-ball: the corner seed p′ in the X-ball's chart ellipsoid, and K ≅ H(p′) by the chart's
->   uniqueness.
+> - **T3:** into the X-ball, by Theorem 4.3: the corner parameter p′ in the X-ball's ellipsoid, and K within phase
+>   distance 3/20 of F6, over the box. No side data is needed.
 
 > **Lemma 5.2 (coverage).** Let W be the set of classes in the atlas. Then W ∩ X is open, closed and nonempty, so
 > W ⊇ X.
@@ -430,6 +440,7 @@ theorem at 7/40.
 | Lemma 3.2, Remark 3.3 (Stage C, S₆) | `STAGEC.md` | Arb and margined float | yes (as inequalities) |
 | Theorem 4.1 (no quartet near F6) | return X | exact cover | **yes, at 7/40, hypothesis-free** |
 | Theorem 4.2 (edge chart), the X-ball | returns U, W | Krawczyk tubes | the chart's openness and uniqueness (`SeedAtlas/EdgeX*`) |
+| Theorem 4.3 (transfers into the chart) | return XS (relative to W, U) | exact constants and census; per box a distance bound and an ellipsoid test | as a hypothesis of the X-ball certificate |
 | Lemmas 5.1–5.2 (the atlas) | Step 5 | Arb and Julia, two independent implementations | the topology yes; the numbers are checked outside Lean |
 
 **Inputs taken as given.** No classification of order-6 Hadamard matrices is used. The Stage C method follows

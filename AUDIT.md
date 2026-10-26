@@ -55,8 +55,9 @@ are being built.
    and the record step n_record = bound + ‖P_exact − P‖ + r‖U_exact − U‖. The method rests on the local
    matched-completion germ (Step 2).
 8. **F6** (Step 4): return X's cover (`explorations/returns/X_no_quartet_near_F6/`) and its Lean form
-   (`lean/NoFourMUBs/X/`); the edge chart (returns U, W), the X-ball's image bound ‖h(Q − P_F)‖ ≤ 7/40, and T3, which
-   goes through the chart's uniqueness (G) rather than positional tubes (`SeedAtlas/README.md`, "Two departures").
+   (`lean/NoFourMUBs/X/`); the edge chart (returns U, W), the X-ball's image bound ‖h(Q − P_F)‖ ≤ 7/40, and T3 by return XS
+   (`explorations/returns/XS_edge_side_orders/`): that the three corner phases pin the Fourier frame (§3.2), W's framed
+   continuation (§3.1), and the certifiers' distance bound (an aligned horizontal norm over the box, below 3/20).
 9. **The transfers and coverage** (Lemmas 5.1–5.2; Lean `SeedAtlas/Atlas.lean`, `EdgeXAtlas.lean`, `OpenMap.lean`):
    the corner seed and Ψ signs of T1, the dyadic sphere covers and their exact coverage check.
 10. **Stage C** (`STAGEC.md` against `stagec.py`; inequalities in Lean, `StageC/`; replayed by the Julia checker): the
