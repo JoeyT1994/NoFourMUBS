@@ -31,8 +31,8 @@ OpenAI, *The maximum number of mutually unbiased bases in dimension six* (prepri
 | | openai/math | This proof |
 |---|---|---|
 | Coverage | 9-dimensional seed cover and a searched completion; no classification | Connectedness of (𝓗/≅) ∖ {S₆}, from exact algebra and the corner reconstruction; no classification |
-| Cover object | 22,379 Records from 249,878 seed balls | One 4-dimensional atlas of 12,021 ball Records with certified boundary transfers |
-| Arithmetic | binary64 with one-sided margins | Arb for every constant and transfer; binary64 with margins only inside Stage C; a second, independent interval implementation |
+| Cover object | 22,379 Records from 249,878 seed balls | One atlas of ⟨N⟩ seed balls in the four seed phases of a corner, and one ball at F6 excluded by return X, with certified boundary transfers |
+| Arithmetic | binary64 with one-sided margins | Arb for every enclosure and transfer; binary64 with margins only inside Stage C; a second, independent interval implementation |
 
 ## Sources
 
