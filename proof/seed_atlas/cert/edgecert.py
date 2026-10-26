@@ -695,6 +695,109 @@ def certify_edge_c1(eb, chunk=64, keep_tubes=True, graph=None, sigma_D=None, poo
     return out
 
 
+class EdgeWB:
+    """The X-ball's C1e by return ZT's whole-ball contraction (edge_wholeball.py), in place of the tubes of the box
+    method: no boxes; the model is recomputed (about a second) in each process that needs it."""
+    wb = True
+
+    def __init__(self, ed):
+        self.ed = ed; self._m = None
+
+    def model(self):
+        if self._m is None:
+            import edge_wholeball as EW
+            old = ctx.prec
+            try: self._m = EW.edge_model(self.ed)
+            finally: ctx.prec = old
+        return self._m
+
+    def __getstate__(self): return {'ed': self.ed, '_m': None}
+
+
+def _hor_arb():
+    P6 = 6 * np.eye(6, dtype=int) - np.ones((6, 6), dtype=int)
+    Hk = np.kron(P6, P6)
+    return arb_mat([[arb(int(Hk[i, j])) / 36 for j in range(36)] for i in range(36)])
+
+
+def _sigma_min_lower(A):
+    """A certified lower bound of sigma_min(A) (A real, m x 4, m >= 4): A^T A - s^2 I positive definite (exact
+    leading minors in Arb) for s = 0.999^k times the float sigma_min."""
+    import wholeball as W
+    sv = float(np.linalg.svd(W.mid_np(A), compute_uv=False)[-1])
+    G = A.transpose() * A
+    s = sv * 0.999
+    for _ in range(60):
+        B = arb_mat([[G[i, j] - (arb(s) ** 2 if i == j else arb(0)) for j in range(4)] for i in range(4)])
+        if all(arb_mat([[B[i, j] for j in range(k)] for i in range(k)]).det() > 0 for k in (1, 2, 3, 4)): return s
+        s *= 0.98
+    return 0.0
+
+
+def f6_wholeball(D):
+    """F6 = H(0): at w = 0 the predictor is the Fourier lift q0 and the augmented residual vanishes there (Phi(q0) = 0,
+    F6 being Hadamard, and psi_h(q0) = Im Psi(B0) = 0 = -p_4/2); z = 0 then solves G(0, z) = 0, and the contraction's
+    uniqueness in ||z|| <= tau gives z(0) = 0, so H(0) = e^{i q0}.  Certified: the residual at q0 contains 0."""
+    import edge_wholeball as EW
+    N, C, _ = EW.coefficients()
+    q0 = arb_mat([[arb.pi() * ((i * j) % 6) / 3] for i in range(6) for j in range(6)])
+    z = [acb(0, (N * q0)[k, 0]).exp() for k in range(N.nrows())]
+    res = [sum(((C[k][a] * z[k]).real for k in range(N.nrows())), arb(0)) for a in range(31)]
+    return all(x.contains(0) and abs(x) < arb(2) ** -100 for x in res)
+
+
+def certify_edge_wholeball(eb, ed, graph, sigma_D=None):
+    """C1e, (G), (D), the X image bound and F6 = H(0) for an X-ball centred at F6, from one whole-ball contraction
+    (return ZT, edge appendix): Q(w) = Q0 + U w + H2[w, w]/2 + X z(w), ||z|| <= tau, ||Dz|| <= Z1 on ||w|| <= r.
+      - C1e: sup ||G q(w) - P - U_stored w|| <= ZT's dephased lift gap (stored P, U; the stored windings' lift);
+      - the image: ||h(Q(w) - P_F + 2 pi N)|| <= ||h(Q0 - P_F + 2 pi N)|| + ||h U|| r + ||h H2|| r^2/2 + ||h X|| tau;
+      - (D): sigma_min(T_F^+ h DQ(w)) >= sigma_min(T_F^+ h U) - ||T_F^+ h|| (||H2|| r + ||X|| Z1).
+    Returns the dict of certify_edge_c1, with tubes = an EdgeWB handle."""
+    import wholeball as W, edge_wholeball as EW
+    t0 = time.time()
+    out = dict(ok=False, n_cert=math.inf, reason='', boxes=0, tubes=None, method='wholeball')
+    old = ctx.prec
+    try:
+        need(graph is not None, 'C1e (whole ball): the graph data is required')
+        need(not eb.q0.any(), 'C1e (whole ball): the X-ball must be centred at F6')
+        h = EdgeWB(ed)
+        try:
+            D = h.model()
+        except (ArithmeticError, ValueError, ZeroDivisionError) as e:
+            raise CertError('whole-ball contraction: %s' % e)
+        ctx.prec = 224
+        sp = EW.spectral_safe
+        r, U, H2, X, tau, Z1 = D['r'], D['U'], D['H2'], D['X'], D['tau'], D['Z1']
+        n_cert = D['summary']['dephased_lift_gap_upper']
+        Hm = _hor_arb()
+        PF = arb_mat([[arb(float(x))] for x in graph.P])
+        N0 = np.rint((W.mid_np(D['Q0'])[:, 0] - graph.P) / (2 * math.pi))
+        off = Hm * (D['Q0'] - PF - arb_mat([[2 * arb.pi() * int(k)] for k in N0]))
+        c0 = W.frob(off)
+        dmax = W.upper(c0 + sp(Hm * U) * r + sp(Hm * H2) * r * r / 2 + sp(Hm * X) * tau)
+        Tp = arb_mat([[x for x in row] for row in graph.Tplus])
+        emax = W.upper(sp(Tp) * c0 + sp(Tp * Hm * U) * r + sp(Tp * Hm * H2) * r * r / 2 + sp(Tp * Hm * X) * tau)
+        pert = W.upper(sp(Tp * Hm) * (sp(H2) * r + sp(X) * Z1))
+        smin = _sigma_min_lower(Tp * Hm * U) - pert
+        out.update(n_cert=n_cert, tubes=h, f6=f6_wholeball(D),
+                   graph=dict(R_G=graph.R, sigma=graph.sigma, image_delta_max=dmax, image_eta_max=emax, sigma_D_cert=smin,
+                              q=D['summary']['q'], tau=D['summary']['tau']))
+        reasons = []
+        if n_cert > eb.n: reasons.append('C1e: n_cert %.6e > n %.6e' % (n_cert, eb.n))
+        if eb.exclusion == 'X' and not dmax < eb.x_radius:
+            reasons.append('X: edge image not certified within phase distance %g of F6 (%.6e)' % (eb.x_radius, dmax))
+        if not dmax < graph.R: reasons.append('(G): edge image not inside ||hor(Q - P_F)|| < R_G (%.4e >= %.4e)' % (dmax, graph.R))
+        if not smin > 0: reasons.append('(D): sigma_D not certified positive')
+        if sigma_D is not None and not smin >= sigma_D: reasons.append('(D): sigma_D_cert %.4e < stored sigma_D %.4e' % (smin, sigma_D))
+        out['ok'] = not reasons; out['reason'] = '; '.join(reasons)
+    except CertError as e:
+        out.update(ok=False, reason='C1e: ' + str(e), tubes=None)
+    finally:
+        ctx.prec = old
+    out['seconds'] = time.time() - t0
+    return out
+
+
 # ======================================================================================== transfers
 def tm_recentre(t, delta, hnew):
     """The same Taylor model on a sub-box: u = delta + u', |u'_j| <= hnew_j (delta (B, 4) arb, hnew (B, 4) arb)."""
@@ -842,7 +945,7 @@ def check_T3(Q, eb, tubes, grp, max_depth=8):
       - the phase distance of K to F6 is below 3/20.
     No side orders, side windings, orientation signs or tubes are needed (XS sections 3, 6).  wind: 2 pi windings of
     the first three corner phases (a fourth entry is ignored)."""
-    need(tubes is not None and len(tubes.rho['h']), 'T3: edge ball not certified')
+    need(tubes is not None and (getattr(tubes, 'wb', False) or len(tubes.rho['h'])), 'T3: edge ball not certified')
     edge_in_W(eb)
     R, C = t3_corner(grp)
     wv = grp.get('wind')
@@ -891,6 +994,13 @@ def check_edge_transfers(eb, seeds, groups, max_level, chunk=64, edges=(), check
         need(0 <= t < len(seeds), 'T1: target out of range')
         rows = [int(x) for x in S.ints(grp.get('rows'), 3, 'rows')]; cols = [int(x) for x in S.ints(grp.get('cols'), 3, 'cols')]
         S.corner_L(rows, cols); S.g_index(grp.get('g'))
+        own = next((tb for (e2, tb) in edges if e2 is eb), None)
+        if getattr(own, 'wb', False):                 # return ZT: the patch test on box cap sphere from the whole-ball model
+            import edge_wholeball as EWB
+            done = set(EWB.certify_edge_boxes(own.model(), seeds[t], grp, [list(b) for b in boxes]))
+            cnt['T1_patch'] = cnt.get('T1_patch', 0) + len(done); cnt['T1'] += len(done)
+            boxes = [b for k, b in enumerate(boxes) if k not in done]
+            if not boxes: continue
         xc, h, xcf = S.box_geometry(boxes, eb.r)
         for s0 in range(0, len(boxes), chunk):
             sl = slice(s0, s0 + chunk)

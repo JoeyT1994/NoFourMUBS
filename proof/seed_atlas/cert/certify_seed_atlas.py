@@ -109,7 +109,8 @@ def check_seed(C, j, groups=None):
         if not sc.get('ok'): raise S.CertError('Stage C failed: %s' % sc.get('reason', 'quartet edge not excluded'))
         t2 = time.time()
         if groups is None: groups = C.cert['seeds'][j].get('transfers', [])
-        cnt = S.check_seed_transfers(ball, C.balls, C.rec_targets, groups, C.cert['max_level'], edges=C.edges)
+        cnt = S.check_seed_transfers(ball, C.balls, C.rec_targets, groups, C.cert['max_level'], edges=C.edges,
+                                     caps=C.cert['seeds'][j].get('caps'))
         out.update(transfers=cnt, c2_s=round(time.time() - t2, 3))
         out['ok'] = True
     except S.CertError as e:
@@ -211,7 +212,9 @@ def run_edge_c1(core, jobs=1):
         try:
             gd = EC.GraphData(ed.get('graph'))
             sD = S._hexf(ed['sigma_D']) if 'sigma_D' in ed else None
-            res[e] = EC.certify_edge_c1(EC.EdgeBall(ed), graph=gd, sigma_D=sD, pool=pool, ed=ed, gspec=ed.get('graph'))
+            res[e] = EC.certify_edge_wholeball(EC.EdgeBall(ed), ed, gd, sigma_D=sD)      # return ZT: one contraction
+            if not res[e]['ok']:
+                res[e] = EC.certify_edge_c1(EC.EdgeBall(ed), graph=gd, sigma_D=sD, pool=pool, ed=ed, gspec=ed.get('graph'))
         except S.CertError as ex:
             res[e] = dict(ok=False, n_cert=math.inf, reason='C1e: %s' % ex, boxes=None, seconds=0.0, tubes=None)
         if not res[e]['ok']: res[e]['tubes'] = None
@@ -230,7 +233,11 @@ def check_fourier(C):
         import edgecert as EC
         tubes = C.edges[0][1] if C.edges else None
         eb0 = C.edges[0][0] if C.edges else None
-        out['ok'] = bool(tubes is not None and eb0 is not None and not eb0.q0.any() and EC.f6_in_edge(tubes)); out['edge'] = 0
+        if getattr(tubes, 'wb', False):
+            f6 = bool(((C.cert.get('edge_c1') or {}).get(0) or {}).get('f6'))
+        else:
+            f6 = tubes is not None and EC.f6_in_edge(tubes)
+        out['ok'] = bool(f6 and eb0 is not None and not eb0.q0.any()); out['edge'] = 0
         if not out['ok']: out['reason'] = 'F6 = H(0) not certified in edge ball 0'
         out['seconds'] = round(time.time() - t0, 3)
         return out

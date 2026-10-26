@@ -1008,11 +1008,52 @@ def misses_unit_sphere(box):
 
 
 # ======================================================================================== one seed ball: C2
-def check_seed_transfers(ball, seeds, records, groups, max_level, chunk=64, edges=()):
+def check_seed_caps(ball, seeds, groups, caps):
+    """The sphere of a seed ball by certified caps (return ZC): every cap's transfer, for the T0/T1 descriptor it names
+    (group_index into the ball's transfer groups; their boxes are not used), by caps.check_cap on the whole-ball model,
+    and the coverage of S^3 by the caps' exact certificate (cap_coverage.verify_coverage).  Raises CertError."""
+    import patches as ZTP, caps as CAPS, cap_coverage as COV
+    need(isinstance(caps, dict) and isinstance(caps.get('caps'), list) and caps['caps'], 'caps: malformed')
+    model = ZTP.model_for(ball)
+    need(bool(model), 'caps: the whole-ball model does not certify for this ball')
+    old = ctx.prec; ctx.prec = 224
+    try:
+        trs = {}
+        for k, cap in enumerate(caps['caps']):
+            need(isinstance(cap, dict), 'caps: malformed cap')
+            gi = cap.get('group_index')
+            need(type(gi) is int and 0 <= gi < len(groups), 'caps: no such transfer group')
+            g = groups[gi]
+            need(g.get('kind') in ('T0', 'T1'), 'caps: only T0 and T1 transfers')
+            t = g.get('target')
+            need(type(t) is int and 0 <= t < len(seeds), 'caps: target out of range')
+            if gi not in trs:
+                try:
+                    trs[gi] = ZTP.Transfer(model, seeds[t], g)
+                except ValueError as e:
+                    raise CertError('caps: transfer %d: %s' % (gi, e))
+            try:
+                res = CAPS.check_cap(model, trs[gi], cap)
+            except (ArithmeticError, ValueError, ZeroDivisionError) as e:
+                raise CertError('caps: cap %d: %s' % (k, e))
+            need(res['ok'], 'caps: cap %d not certified (%s)' % (k, res.get('reason')))
+        cov = COV.verify_coverage([{'v': c['v'], 'h': c['h']} for c in caps['caps']], caps.get('coverage') or {})
+        need(cov.get('passed') and cov.get('covers'), 'caps: the caps are not certified to cover the sphere')
+    finally:
+        ctx.prec = old
+    return dict(caps=len(caps['caps']), cap_groups=len(trs), coverage_facets=len((caps.get('coverage') or {}).get('facets', [])))
+
+
+ZT_PATCHES = True                              # return ZT's patch test before the box Taylor models (T1)
+
+
+def check_seed_transfers(ball, seeds, records, groups, max_level, chunk=64, edges=(), caps=None):
     """All transfer groups of one seed ball (FORMAT.md section 4; T3 into edge balls, SPEC section 10) and the
     coverage of its sphere.  seeds: list of Ball; records: list of (P (36 floats), R float); edges: list of
     (EdgeBall, EdgeTubes from its C1e).  Raises CertError on the first failure; returns counts."""
     ctx.prec = PREC
+    if caps is not None:                       # return ZC: the sphere by certified caps, instead of boxes
+        return check_seed_caps(ball, seeds, groups, caps)
     listed = set(); cnt = dict(T0=0, T1=0, T1sym=0, T2=0, T3=0)
     jobs = []
     for grp in groups:
@@ -1047,9 +1088,38 @@ def check_seed_transfers(ball, seeds, records, groups, max_level, chunk=64, edge
             jobs.append(('T3', grp, None, None, xc, h, xcf))
         else:
             raise CertError('unknown transfer kind %r' % (kind,))
+    zt = None                                  # return ZT: the whole-ball model (patch tests, model Taylor models)
+    if ZT_PATCHES and jobs:
+        import patches as ZTP
+        zt = ZTP.model_for(ball) or False
     for kind, grp, rows, cols, xc, h, xcf in jobs:
+        if kind == 'T1' and ZT_PATCHES:
+            if zt:
+                bx = [list(b) for b in dyadic_boxes(grp.get('boxes', []), max_level)]
+                done = set(ZTP.certify_boxes(zt, seeds[grp['target']], grp, bx))
+                cnt['T1_patch'] = cnt.get('T1_patch', 0) + len(done)
+                keep = np.array([k for k in range(len(bx)) if k not in done], int)
+                cnt[kind] += len(done)
+                if not len(keep): continue
+                xc, h, xcf = xc[keep], h[keep], xcf[keep]
         for s in range(0, len(xc), chunk):
             sl = slice(s, s + chunk)
+            if zt:                                 # return ZT: the box Taylor models from the whole-ball model alone
+                try:
+                    Q = representative(ball, ZTP.model_box_tm(zt, xc[sl], h[sl]), xcf[sl])
+                    if kind == 'T1':
+                        check_T1_general(seeds[grp['target']], grp['g'], rows, cols, grp.get('wind'), Q)
+                    elif kind == 'T3':
+                        import edgecert
+                        eb, tubes = edges[grp['target']]
+                        edgecert.check_T3(Q, eb, tubes, grp)
+                    else:
+                        P, R = records[grp['target']]
+                        check_T2(P, R, grp['g'], rows, cols, grp.get('wind'), Q)
+                    cnt[kind + '_model'] = cnt.get(kind + '_model', 0) + len(xc[sl])
+                    continue
+                except (CertError, ArithmeticError, ZeroDivisionError):
+                    pass                               # this chunk by the full box method below
             Q = representative(ball, box_Q(ball, xc[sl], h[sl], xcf[sl]), xcf[sl])
             if kind == 'T1':
                 check_T1_general(seeds[grp['target']], grp['g'], rows, cols, grp.get('wind'), Q)

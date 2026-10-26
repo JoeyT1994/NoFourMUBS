@@ -33,7 +33,7 @@ function wb_spectral(A::Matrix{I64})
     n = size(B, 1)
     n == 1 && return sup(sqrt(sum(B[1, j]^2 for j in 1:size(B, 2))))
     G = B * transpose(B)
-    lam = opnorm(mid.(B))^2 * (1 + 1e-9) + 1e-30
+    lam = opnorm(Float64.(mid.(B)))^2 * (1 + 1e-9) + 1e-30
     for _ in 1:8
         M = iv(lam) * Matrix{I64}(I, n, n) - G
         L = zeros(I64, n, n); d = I64[]; good = true
@@ -90,12 +90,14 @@ function wb_side(phi::Vector{I64}, th::Vector{I64})
 end
 
 """Certified side root near a float guess: returns the 3 x 3 side matrix [1 1 1; e^{ix}; e^{iy}] (intervals) or nothing."""
+const WB_NEWTON = I64 == Interval{Float64} ? 8 : 14                          # (the 256-bit copy: src/hp.jl)
+const WB_SIDE_EPS = I64 == Interval{Float64} ? 2.0^-40 : big(2.0)^-200
 function wb_certified_side(th::Vector{I64}, guess::Vector{Float64})
     p = copy(guess)
-    for _ in 1:8
+    for _ in 1:WB_NEWTON
         F, J = wb_side(iv.(p), th); p = p - mid.(J) \ mid.(F)
     end
-    eps = 2.0^-40
+    eps = WB_SIDE_EPS
     tube = [interval(v - eps, v + eps) for v in p]
     F0, J0 = wb_side(iv.(p), th)
     Y = iv.(inv(mid.(J0)))
@@ -253,7 +255,12 @@ struct WBResult
 end
 
 """Whole-ball C1 for a seed ball (horizontal gauge, as stored), or a failure message (then the box method decides)."""
-function wholeball_c1(s::Seed)
+wholeball_c1(s::Seed) = wb_compute(s)[1]
+
+"""The whole-ball computation: (WBResult, model), the model being nothing on failure or a NamedTuple with the
+centre phases on the stored branch (horizontal) Q0, the frame U, H2, X, tau and the dephased-lift gap (return ZT
+section 2: below pi, the continuous lift is the stored windings' lift everywhere on the ball)."""
+function wb_compute(s::Seed)
     t0 = time()
     try
         V, X = wb_geometry()
@@ -262,21 +269,21 @@ function wholeball_c1(s::Seed)
         guessh = [Pgf[6*1+4], Pgf[6*1+5], Pgf[6*1+6], Pgf[6*2+4], Pgf[6*2+5], Pgf[6*2+6]]
         guessv = [Pgf[6*3+2], Pgf[6*4+2], Pgf[6*5+2], Pgf[6*3+3], Pgf[6*4+3], Pgf[6*5+3]]
         B = wb_certified_side(th, guessh); Vs = wb_certified_side(th[[1, 3, 2, 4]], guessv)
-        (B === nothing || Vs === nothing) && return WBResult(false, "centre sides not certified", Inf, time() - t0)
+        (B === nothing || Vs === nothing) && return WBResult(false, "centre sides not certified", Inf, time() - t0), nothing
         C = transpose(Vs)
         E = [Complex{I64}(iv(1.0)) Complex{I64}(iv(1.0)) Complex{I64}(iv(1.0));
              Complex{I64}(iv(1.0)) wb_cexp(th[1]) wb_cexp(th[2]); Complex{I64}(iv(1.0)) wb_cexp(th[3]) wb_cexp(th[4])]
         Bstar = conj.(transpose(B)); Bi = wb_inv_c(Bstar)
-        Bi === nothing && return WBResult(false, "B* not certified invertible", Inf, time() - t0)
+        Bi === nothing && return WBResult(false, "B* not certified invertible", Inf, time() - t0), nothing
         D = -(C * conj.(transpose(E)) * Bi)
         H = [E B; C D]
         sh = imag(wb_signature(B)); sv = imag(wb_signature(Vs))
-        (inf(s.o * sh) > 0 && inf(-s.o * sv) > 0) || return WBResult(false, "centre orientation not certified", Inf, time() - t0)
+        (inf(s.o * sh) > 0 && inf(-s.o * sv) > 0) || return WBResult(false, "centre orientation not certified", Inf, time() - t0), nothing
         z = [H[i+1, k+1] * conj(H[l+1, k+1]) for (i, l) in WB_PAIRS for k in 0:5]
         J = wb_realjac(z)
         A = J * X
         Gi = wb_inv(transpose(A) * A)
-        Gi === nothing && return WBResult(false, "Gram matrix not certified invertible", Inf, time() - t0)
+        Gi === nothing && return WBResult(false, "Gram matrix not certified invertible", Inf, time() - t0), nothing
         W = Gi * transpose(A)
         M = iv.(s.Mth)
         Ue = (V - X * W * J * V) * M
@@ -297,9 +304,9 @@ function wholeball_c1(s::Seed)
             if sup(b0 + q * tau) < inf(tau); valid = true; break; end
             tau = iv(sup(b0 / (1 - q)) * 1.001)
         end
-        valid || return WBResult(false, "whole-ball contraction not certified", Inf, time() - t0)
+        valid || return WBResult(false, "whole-ball contraction not certified", Inf, time() - t0), nothing
         okh, sgh = wb_orientation(H, Ue, H2, X, r, tau, :h); okv, sgv = wb_orientation(H, Ue, H2, X, r, tau, :v)
-        (okh && okv && sgh == s.o && sgv == -s.o) || return WBResult(false, "orientation over the ball not certified", Inf, time() - t0)
+        (okh && okv && sgh == s.o && sgv == -s.o) || return WBResult(false, "orientation over the ball not certified", Inf, time() - t0), nothing
         ndirect = beta * r^2 / 2 + x * tau
         # the centre phases on the stored branch: lift near the stored centre's dephased form, then h
         ref = Pgf
@@ -308,10 +315,29 @@ function wholeball_c1(s::Seed)
         ep = sqrt(sum((pex[e] - s.P[e])^2 for e in 1:36))
         eu = iv(wb_spectral(Ue - iv.(s.U)))
         nrec = ndirect + ep + r * eu
-        isfinite(sup(nrec)) || return WBResult(false, "whole ball: non-finite bound", Inf, time() - t0)
-        WBResult(true, "ok", sup(nrec), time() - t0)
+        isfinite(sup(nrec)) || return WBResult(false, "whole ball: non-finite bound", Inf, time() - t0), nothing
+        # the dephased lift: |q_g(w) - (P_g + U_g w)| < pi on the ball, so the stored windings refer to this branch
+        Gd = zeros(I64, 36, 36)
+        for i in 0:5, j in 0:5
+            k = 6i + j + 1
+            Gd[k, k] += 1; Gd[k, 6i+1] -= 1; Gd[k, j+1] -= 1; Gd[k, 1] += 1
+        end
+        Pgv = s.gauge == :hor ? Gd * iv.(s.P) : iv.(s.P)            # exact: the stored data's dephased form
+        Ugm = s.gauge == :hor ? Gd * iv.(s.U) : iv.(s.U)
+        gap = sqrt(sum((pgx[e] - Pgv[e])^2 for e in 1:36)) + r * iv(wb_spectral(Gd * Ue - Ugm)) +
+              iv(wb_spectral(Gd * H2)) * r^2 / 2 + iv(wb_spectral(Gd * X)) * tau
+        # Z1, Z2 (THEOREM.md section 4, (9)) for the local and weighted bounds of caps
+        L2 = 2 * sqrt(iv(3.0)) * kn
+        q = qfun(tau); dlt = base + x * tau
+        m1 = c + a2 * r + L3a * r^2 / 2 + L3 * x^2 * (u + beta * r) * tau
+        m2 = L3 * x * (u + beta * r)^2 + L2 * x * beta; mzz = d + L3 * x^2 * dlt
+        Z1 = (b1 + m1 * tau) / (1 - q); Z2 = (b2 + m2 * tau + 2 * m1 * Z1 + mzz * Z1^2) / (1 - q)
+        model = sup(gap) < inf(iv(π)) ? (Q0 = pex, Qbase = pgx, U = Ue, H2 = H2, X = X, tau = tau, r = r, gap = sup(gap),
+                                         W = W, zz = z, sd = sd, td = td, dx = dx, q = q, Z1 = Z1, Z2 = Z2,
+                                         u = u, x = x, beta = beta, kn = kn) : nothing
+        WBResult(true, "ok", sup(nrec), time() - t0), model
     catch err
-        WBResult(false, "whole ball: " * sprint(showerror, err)[1:min(end, 200)], Inf, time() - t0)
+        WBResult(false, "whole ball: " * sprint(showerror, err)[1:min(end, 200)], Inf, time() - t0), nothing
     end
 end
 

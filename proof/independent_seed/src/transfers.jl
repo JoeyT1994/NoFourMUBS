@@ -193,6 +193,14 @@ function check_seed_box(s::Seed, root::BoxMap, g::Group, lo, hi, X::XferCtx, rec
         t = X.seeds[g.target+1]
         g.kind == :T0 && return check_T0(s, lo, hi, g, t, Mi)
         (Set(g.rows) == CORNER0 && Set(g.cols) == CORNER0) && return check_T1_corner(s, lo, hi, g, t, Mi)
+        if PATCHES[]                                  # return ZT: the whole-ball patch test first
+            m = patch_model(s)
+            if m !== nothing
+                pgr = patch_group_cached(m, s, g, t, Mi)     # (not `pg`: that would shadow pg(s) below)
+                ok, msg, val = pgr === nothing ? (false, "", Inf) : (try patch_box_test(pgr, m, lo, hi, t.r) catch; (false, "", Inf) end)
+                ok && return ok, msg, val
+            end
+        end
     elseif g.kind == :T2
         (0 <= g.target < length(X.records)) || return false, "T2: no such record", Inf
         rec_ok(g.target) || return false, "T2: target record did not pass Step 3", Inf
@@ -202,6 +210,20 @@ function check_seed_box(s::Seed, root::BoxMap, g::Group, lo, hi, X::XferCtx, rec
         X.edge_minv[g.target+1] === nothing && return false, "T3: edge Mth not invertible", Inf
     end
     wc, h = scaled_dom(lo, hi, s.r)
+    if PATCHES[] && g.kind in (:T1, :T3)            # return ZT: the box Taylor models from the whole-ball model
+        m = patch_model(s)
+        if m !== nothing
+            Qm = representative(model_box_tm(m, wc), pg(s), ug(s), wc)
+            Dm = Dom(h)
+            r = try
+                g.kind == :T1 ? check_T1(Qm, Dm, g, X.seeds[g.target+1], X.minv[g.target+1]) :
+                    check_T3(Qm, Dm, g, X.edges[g.target+1], X.edge_leaves[g.target+1], X.edge_minv[g.target+1])
+            catch
+                (false, "", Inf)
+            end
+            r[1] && return r
+        end
+    end
     wcm = ntuple(j -> mid(wc[j]), 4)
     bm = box_map(s.theta0, s.Mth, s.o, pg(s), wc, h, guess_at(root, wcm)...)
     bm.ok || return false, string(g.kind) * ": " * bm.why, Inf
@@ -300,6 +322,11 @@ function check_c2_seed(s::Seed, X::XferCtx, rec_ok::Function; split_depth::Int=2
     counts = Dict(:T0 => 0, :T1 => 0, :T2 => 0, :T3 => 0); worst = Dict(:T0 => 0.0, :T1 => 0.0, :T2 => 0.0, :T3 => 0.0)
     nb = sum(length(g.boxes) for g in s.groups; init=0)
     res(ok, msg, st=[0, 0], cn=0) = C2Result(ok, msg, nb, counts, st[1], st[2], worst, cn, time() - t0)
+    if s.caps !== nothing                       # return ZC: the sphere by certified caps (src/caps.jl, 256-bit: src/hp.jl)
+        ok, msg, n = HP.check_seed_caps(s, X, s.caps)
+        counts[:caps] = n
+        return res(ok, ok ? "ok" : msg)
+    end
     listed = Set{NTuple{5,Int}}(b for g in s.groups for b in g.boxes)
     cov, cn = dyadic_covered(listed, misses_unit_sphere)
     cov || return res(false, "the boxes do not cover the sphere ||w|| = r", [0, 0], cn)

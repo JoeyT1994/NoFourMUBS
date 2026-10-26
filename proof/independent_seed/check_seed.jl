@@ -27,7 +27,7 @@ const IA = S.IA
 filehash(f) = bytes2hex(open(sha256, f))
 
 function binding(cert, opts)
-    files = [joinpath(@__DIR__, "check_seed.jl"); joinpath(@__DIR__, "convert_seed.py");
+    files = [joinpath(@__DIR__, "check_seed.jl"); joinpath(@__DIR__, "convert_seed.py"); joinpath(@__DIR__, "caps_to_txt.py");
              sort([joinpath(d, f) for (d, _, fs) in walkdir(joinpath(@__DIR__, "src")) for f in fs if endswith(f, ".jl")]);
              sort([joinpath(d, f) for (d, _, fs) in walkdir(joinpath(@__DIR__, "..", "independent", "src")) for f in fs if endswith(f, ".jl")])]
     proj = Base.active_project()
@@ -76,6 +76,39 @@ end
 
 kindstr(d) = join(["$(k)=$(d[k])" for k in sort(collect(keys(d)))], ",")
 clean(s) = replace(s, '\t' => ' ', '\n' => ' ')
+
+"""An imported directory must have been made with this certificate, checker, environment and options (up to the
+shard): error otherwise."""
+function check_import_binding(bind, d)
+    mine = split(bind, '\n')
+    theirs = split(read(joinpath(d, "BINDING.txt"), String), '\n')
+    same = length(theirs) == length(mine) &&
+           all(a == b || (startswith(a, "options\t") && startswith(b, "options\t") &&
+                          replace(a, r" shard=\S+" => "") == replace(b, r" shard=\S+" => "")) for (a, b) in zip(mine, theirs))
+    same || error("--import: $d was made with a different certificate, checker, environment or options")
+end
+
+"""The edge sphere's transfer check from the shards' receipts (edge_c2_<e>.txt in every imported directory): accepted
+only if all m slices are present, all passed, and together they account for every box; the coverage of the sphere is
+checked here.  Otherwise nothing (the final run checks the boxes itself)."""
+function edge_c2_from_shards(eb, i, imports, bind)
+    isempty(imports) && return nothing
+    foreach(d -> check_import_binding(bind, d), split(imports, ','))
+    t0 = time()
+    rows = [split(strip(read(f, String)), '\t') for f in (joinpath(d, "edge_c2_$(i - 1).txt") for d in split(imports, ','))
+            if isfile(f)]
+    isempty(rows) && return nothing
+    m = parse(Int, rows[1][3])
+    (length(rows) == m && all(r -> r[1] == "PASS" && parse(Int, r[3]) == m, rows) &&
+     sort([parse(Int, r[2]) for r in rows]) == collect(0:m-1)) || return nothing
+    nb = sum(length(g.boxes) for g in eb.groups; init=0)
+    sum(parse(Int, r[4]) for r in rows) == nb || return nothing
+    listed = Set{NTuple{5,Int}}(b for g in eb.groups for b in g.boxes)
+    cov, cn = S.dyadic_covered(listed, S.misses_unit_sphere)
+    cov || return S.C2Result(false, "the boxes do not cover the sphere ||w|| = r", nb, Dict{Symbol,Int}(), 0, 0, Dict{Symbol,Float64}(), cn, time() - t0)
+    S.C2Result(true, "ok ($(m) shard receipts)", nb, Dict(:T1 => nb), nb, sum(parse(Int, r[5]) for r in rows), Dict{Symbol,Float64}(), cn,
+               time() - t0 + sum(parse(Float64, r[6]) for r in rows))
+end
 
 function main(args)
     cert = args[1]; outdir = args[2]
@@ -180,8 +213,17 @@ function main(args)
     for (i, eb) in enumerate(C.edges)
         t1 = time()
         if shard_m > 1
-            # a shard needs only the C1e leaves (for its seeds' T3 transfers); the edge ball is checked in the final run
-            continue                         # the leaves (for the seeds' T3 transfers) are set above
+            # a shard checks its slice of the edge sphere's transfer boxes (item n with n mod m = k) and writes a
+            # receipt; the rest of the edge ball (C1e, the graph, the X bound, the coverage) is the final run's
+            root = S.edge_root(eb)
+            if root !== nothing && X.edge_leaves[i] !== nothing
+                c2s = S.check_c2_edge(eb, X, root; split_depth=splitdepth, cover=false, part=(shard_k, shard_m))
+                open(joinpath(outdir, "edge_c2_$(i - 1).txt"), "w") do io
+                    @printf(io, "%s\t%d\t%d\t%d\t%d\t%.2f\t%s\n", c2s.ok ? "PASS" : "FAIL", shard_k, shard_m,
+                            sum(values(c2s.counts); init=0), c2s.nsplit, c2s.seconds, clean(c2s.msg))
+                end
+            end
+            continue
         end
         ok, msg, line = try
             c1 = c1s[i] === nothing ? S.check_c1e(eb; maxdepth=c1depth) : c1s[i]
@@ -192,10 +234,13 @@ function main(args)
             sc, si = eb.exclusion == :X ? ((ok=true, nlabels=0, maxs=0.0, msg="X"), nothing) : S.seed_stage_c(eb; replay=!fast)
             ts = time() - ts
             root = S.edge_root(eb)
-            c2 = (c1.ok && root !== nothing) ? S.check_c2_edge(eb, X, root; split_depth=splitdepth) :
-                 S.C2Result(false, "not run (C1e failed)", 0, Dict{Symbol,Int}(), 0, 0, Dict{Symbol,Float64}(), 0, 0.0)
-            gr = c1.ok ? S.check_graph(eb, c1.leaves, eb.graph) :
-                 S.GraphResult(false, "not run (C1e failed)", NaN, NaN, NaN, NaN, NaN, 0.0)
+            c2 = (c1.ok && root !== nothing) ? edge_c2_from_shards(eb, i, imports, bind) : nothing
+            c2 === nothing && (c2 = (c1.ok && root !== nothing) ? S.check_c2_edge(eb, X, root; split_depth=splitdepth) :
+                 S.C2Result(false, "not run (C1e failed)", 0, Dict{Symbol,Int}(), 0, 0, Dict{Symbol,Float64}(), 0, 0.0))
+            wbm = S.PATCHES[] ? (try S.edge_wholeball_model(eb) catch; nothing end) : nothing   # return ZT: one contraction
+            gr = !c1.ok ? S.GraphResult(false, "not run (C1e failed)", NaN, NaN, NaN, NaN, NaN, 0.0) :
+                 (wbm !== nothing ? S.edge_wholeball_graph(eb, wbm, eb.graph) : S.check_graph(eb, c1.leaves, eb.graph))
+            (wbm !== nothing && !gr.ok) && (gr = S.check_graph(eb, c1.leaves, eb.graph))
             xok = eb.exclusion != :X || (gr.ok && gr.delta_sup < eb.x_radius)   # x_radius <= 9/20 (return X); delta_sup rounded up
             ok = c1.ok && sc.ok && c2.ok && gr.ok && xok
             m = ok ? "ok" : join(filter(!isempty, [c1.ok ? "" : "C1e: " * c1.msg, sc.ok ? "" : "Stage C: " * sc.msg,
@@ -221,11 +266,7 @@ function main(args)
     if !isempty(imports)
         mine = split(bind, '\n')
         for d in split(imports, ',')
-            theirs = split(read(joinpath(d, "BINDING.txt"), String), '\n')
-            same = length(theirs) == length(mine) &&
-                   all(a == b || (startswith(a, "options\t") && startswith(b, "options\t") &&
-                                  replace(a, r" shard=\S+" => "") == replace(b, r" shard=\S+" => "")) for (a, b) in zip(mine, theirs))
-            same || error("--import: $d was made with a different certificate, checker, environment or options")
+            check_import_binding(bind, d)
             n_in = 0
             for l in readlines(joinpath(d, "seeds.tsv"))
                 startswith(l, "#") && continue
