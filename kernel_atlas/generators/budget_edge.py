@@ -13,6 +13,7 @@ import multiprocessing as mp
 import os
 from pathlib import Path
 import pickle
+import shutil
 import sys
 import time
 
@@ -22,10 +23,19 @@ os.environ["PYTHONDONTWRITEBYTECODE"] = "1"
 ROOT = Path(__file__).resolve().parents[2]
 sys.path[:0] = [str(ROOT/"proof/seed_atlas/driver"), str(ROOT/"proof/atlas")]
 import edge_multi as E
+import numpy as np
 
 
 def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def unchanged_targets(old, atlas):
+    """Appending targets preserves old tests; changing any old target does not."""
+    assert len(old.balls) <= len(atlas.balls)
+    before, after = old.snap(), atlas.snap()
+    for field in ["theta0", "Minv", "Mth", "r"]:
+        assert np.array_equal(before[field], after[field][:len(old.balls)]), ("changed target", field)
 
 
 def load(args):
@@ -41,6 +51,28 @@ def load(args):
                     source_sha256={str(p.relative_to(ROOT)): sha(p) for p in sources},
                     jobs_sha256=hashlib.sha256(json.dumps(jobs).encode()).hexdigest(),
                     total=len(jobs), balls=len(atlas.balls), shards=args.shards)
+    if args.reuse is not None:
+        assert args.reuse_state is not None
+        old = pickle.loads(args.reuse_state.read_bytes())
+        # These are exactly the seed-target fields read by edge_multi.cover_box.
+        unchanged_targets(old, atlas)
+        old_manifests = []
+        for shard in range(args.shards):
+            path = args.reuse/f"shard_{shard}"/"manifest.json"
+            m = json.loads(path.read_text())
+            assert m["state_sha256"] == sha(args.reuse_state)
+            assert m["edges_sha256"] == metadata["edges_sha256"]
+            assert m["jobs_sha256"] == metadata["jobs_sha256"] and m["shards"] == args.shards
+            assert m["selected"] == list(range(shard, len(jobs), args.shards))
+            assert set(m["results_sha256"]) == {f"{j}.pkl" for j in m["selected"]}
+            for source, digest in metadata["source_sha256"].items():
+                if source != str(Path(__file__).relative_to(ROOT)):
+                    assert m["source_sha256"][source] == digest, "changed boundary routine"
+            old_manifests.append(sha(path))
+        metadata["reuse"] = dict(path=str(args.reuse.resolve()), state_sha256=sha(args.reuse_state),
+                                  manifest_sha256=old_manifests, unchanged_target_prefix=len(old.balls))
+    else:
+        assert args.reuse_state is None
     return atlas, edges, jobs, metadata
 
 
@@ -64,6 +96,24 @@ def run(args, atlas, edges, jobs, metadata):
         receipt.write_text(json.dumps(inputs, indent=2)+"\n")
     done = {int(p.stem) for p in out.glob("*.pkl")}
     assert done <= set(selected)
+    reused = []
+    if args.reuse is not None:
+        old_out = args.reuse/f"shard_{args.shard}"
+        old_manifest = json.loads((old_out/"manifest.json").read_text())
+        for j in selected:
+            source = old_out/f"{j}.pkl"
+            assert sha(source) == old_manifest["results_sha256"][source.name]
+            row = pickle.loads(source.read_bytes())
+            assert row["index"] == j and row["job"] == jobs[j] and row["result"][0] == jobs[j][2]
+            if not row["result"][2]:
+                target = out/source.name
+                if target.exists():
+                    assert sha(target) == sha(source)
+                else:
+                    temporary = target.with_suffix(".tmp")
+                    shutil.copyfile(source, temporary); temporary.replace(target)
+                done.add(j); reused.append(j)
+        print(json.dumps(dict(reused=len(reused), to_compute=len(selected)-len(done))), flush=True)
     snap = atlas.snap(); snap.pop("tries", None)
     with mp.get_context("fork").Pool(args.workers, initializer=E.init, initargs=(snap, edges)) as pool:
         for index, result in pool.imap_unordered(one, ((j, jobs[j]) for j in selected if j not in done), chunksize=1):
@@ -76,6 +126,7 @@ def run(args, atlas, edges, jobs, metadata):
                 print(json.dumps(dict(done=len(done), total=len(selected), seconds=time.perf_counter()-started)), flush=True)
     manifest = dict(inputs, job_id=os.environ.get("SLURM_JOB_ID"), seconds=time.perf_counter()-started,
                     completed_utc=datetime.now(timezone.utc).isoformat(), workers=args.workers,
+                    reused=reused,
                     results_sha256={p.name: sha(p) for p in sorted(out.glob("*.pkl"))})
     (out/"manifest.json").write_text(json.dumps(manifest, indent=2)+"\n")
 
@@ -112,6 +163,7 @@ def collect(args, atlas, edges, jobs, metadata):
                   groups=sum(len(v) for v in groups.values()), failed=failed,
                   state_edge_sha256=hashlib.sha256(raw).hexdigest(),
                   shard_jobs=[m["job_id"] for m in manifests],
+                  reused_start_boxes=sum(len(m.get("reused", [])) for m in manifests),
                   shard_wall_seconds=[m["seconds"] for m in manifests])
     if failed:
         proposals = [q for values in gaps.values() for _, q in values if q is not None]
@@ -136,6 +188,8 @@ def main():
     p.add_argument("--workers", type=int, default=80)
     p.add_argument("--collect", action="store_true")
     p.add_argument("--run", type=Path)
+    p.add_argument("--reuse", type=Path, help="completed previous edge shards; only gap-free start boxes are reused")
+    p.add_argument("--reuse-state", type=Path, help="previous immutable seed state, whose target prefix must be unchanged")
     args = p.parse_args()
     assert args.shards > 0
     atlas, edges, jobs, metadata = load(args)

@@ -127,8 +127,37 @@ def nonmonotone_plan_check():
         B.stage = saved_stage
 
 
+def edge_reuse_checks():
+    from budget_edge import unchanged_targets
+    data = dict(theta0=np.array([[.1, .2], [.3, .4]]),
+                Minv=np.array([np.eye(2), 2*np.eye(2)]),
+                Mth=np.array([np.eye(2), .5*np.eye(2)]), r=np.array([.1, .2]))
+    def atlas(d):
+        return Obj(balls=[None]*len(d["r"]), snap=lambda: d)
+    appended = {k: np.concatenate([v, v[-1:]]) for k, v in data.items()}
+    unchanged_targets(atlas(data), atlas(appended))
+    for field in data:
+        bad = copy.deepcopy(appended)
+        bad[field].flat[0] += .001
+        try:
+            unchanged_targets(atlas(data), atlas(bad))
+        except AssertionError:
+            pass
+        else:
+            raise AssertionError(f"edge groups reused after changing {field}")
+    for bad in [{k: v[::-1].copy() for k, v in data.items()},
+                {k: v[:1] for k, v in data.items()}]:
+        try:
+            unchanged_targets(atlas(data), atlas(bad))
+        except AssertionError:
+            pass
+        else:
+            raise AssertionError("edge groups reused after reordering/removing targets")
+
+
 if __name__ == "__main__":
     search_checks()
     state_checks()
     nonmonotone_plan_check()
-    print("PASS: bracket/cap/certifier fallback searches and nonmonotone endpoint reuse; geometry, incoming, T3, edge and record invalidation; source preservation; overwrite rejection")
+    edge_reuse_checks()
+    print("PASS: bracket/cap/certifier fallback searches and nonmonotone endpoint reuse; geometry, incoming, T3, edge and record invalidation; source preservation; overwrite rejection; safe appended-target edge reuse")
