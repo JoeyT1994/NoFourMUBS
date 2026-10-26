@@ -24,8 +24,13 @@ JOBS=${JOBS:-24}
 STAGE=/tmp/nofour-x-${SLURM_JOB_ID:-$$}
 mkdir -p "$OUT" "$STAGE/repo/lean"
 t0=$(date +%s)
-rsync -a "$ELAN_HOME/" "$STAGE/elan/"
-rsync -a "$SHARED/lean/.lake/" "$STAGE/repo/lean/.lake/"
+STAGE_TAR=${STAGE_TAR:-/mnt/ceph/users/$USER/nofour_x/stage.tar}   # elan + $SHARED/lean/.lake, one sequential read
+if [ -f "$STAGE_TAR" ]; then
+  tar xf "$STAGE_TAR" -C "$STAGE"
+else
+  rsync -a "$ELAN_HOME/" "$STAGE/elan/"
+  rsync -a "$SHARED/lean/.lake/" "$STAGE/repo/lean/.lake/"
+fi
 rsync -a --exclude .git --exclude lean/.lake --exclude kernel_atlas/results "$REPO/" "$STAGE/repo/"
 export ELAN_HOME="$STAGE/elan" PATH="$STAGE/elan/bin:$PATH"
 cd "$STAGE/repo"
