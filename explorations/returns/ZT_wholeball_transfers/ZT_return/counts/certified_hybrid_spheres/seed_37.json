@@ -1,0 +1,238 @@
+{
+  "seed": 37,
+  "status": "NOT ESTABLISHED",
+  "original_count": 10040,
+  "proposed_count": 4221,
+  "groups_sha256": "73a9fe53cde19a3920904b0961230e611be720160509adc6c87b8cca3a9c75e4",
+  "certificate_sha256": "8270748a969e087c1ac6f211f3c6812d12fe70f38c3a21eb58a8731de79c1279",
+  "verifier_sha256": "f5a9623d2fc20e325ad6b4915e863d07e193bc0a1c1e1d1ffaa908da5e9b9eaf",
+  "weighted_replay_sha256": "533491826118978e2e3e2f1b6ad741a3a11841d9c45eadc4d253de681b3f3ab4",
+  "seed_weighted_sha256": "d8c03fd0d6c2d1890552a2c1c4ce32c989ab1c338af6b3647637c1c29ac83a3d",
+  "centre": {
+    "r": 0.12500000000000003,
+    "tau": 0.0067001366967002094,
+    "q": 0.7094967344009415,
+    "Z1": 0.3070400516170186,
+    "Z2": 21.287922842359894,
+    "beta": 2.0074981060967025,
+    "u": 1.000000000811813,
+    "x": 1.0000000005000007,
+    "wn": 4.365667095534507,
+    "base": 0.1406835790553571,
+    "t3": 5.473956743680392,
+    "t4": 9.772625942083579,
+    "L5": 254.3611125960851,
+    "c": 4.369594245711314,
+    "d": 9.43252776241179,
+    "a2": 6.191991621608835,
+    "L3a": 95.48873016007776,
+    "status": "CERTIFIED",
+    "seconds": 0.338254128000699,
+    "strict_R_lower": 25.90029468521023,
+    "dephased_lift_gap_upper": 0.056562570154647246
+  },
+  "failed_patches": [
+    {
+      "group": {
+        "kind": "T1",
+        "target": 1066,
+        "g": "T",
+        "rows": [
+          0,
+          1,
+          2
+        ],
+        "cols": [
+          0,
+          1,
+          4
+        ],
+        "wind": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "ok": false,
+      "box": [
+        3,
+        2,
+        7,
+        3,
+        4
+      ],
+      "mode": "local",
+      "target_margin_lower": -0.0045053236361581985,
+      "target_bound_upper": 0.10450532363615822,
+      "error_upper": 0.01076977243193637,
+      "weighted_hessian_upper": 22.056493940605684,
+      "centre_root_error_upper": 1.3335414318427627e-20,
+      "reason": "target",
+      "weighting": "projected residual"
+    },
+    {
+      "group": {
+        "kind": "T1",
+        "target": 54,
+        "g": "conj",
+        "rows": [
+          0,
+          1,
+          3
+        ],
+        "cols": [
+          1,
+          2,
+          4
+        ],
+        "wind": [
+          0,
+          0,
+          1,
+          0
+        ]
+      },
+      "ok": false,
+      "box": [
+        4,
+        8,
+        6,
+        11,
+        0
+      ],
+      "mode": "local",
+      "target_margin_lower": -0.0016948236044428697,
+      "target_bound_upper": 0.1266948236044429,
+      "error_upper": 0.005780286016999022,
+      "weighted_hessian_upper": 25.74779109762728,
+      "centre_root_error_upper": 3.167591471277133e-20,
+      "reason": "target",
+      "weighting": "projected residual"
+    },
+    {
+      "group": {
+        "kind": "T1",
+        "target": 133,
+        "g": "conj",
+        "rows": [
+          0,
+          1,
+          3
+        ],
+        "cols": [
+          1,
+          2,
+          4
+        ],
+        "wind": [
+          0,
+          0,
+          1,
+          0
+        ]
+      },
+      "ok": false,
+      "box": [
+        4,
+        8,
+        7,
+        11,
+        0
+      ],
+      "mode": "local",
+      "target_margin_lower": -0.0008036329715781198,
+      "target_bound_upper": 0.12580363297157815,
+      "error_upper": 0.004811420842501847,
+      "weighted_hessian_upper": 25.644611186740725,
+      "centre_root_error_upper": 2.9628918871256315e-20,
+      "reason": "target",
+      "weighting": "projected residual"
+    },
+    {
+      "group": {
+        "kind": "T1",
+        "target": 133,
+        "g": "conj",
+        "rows": [
+          0,
+          1,
+          3
+        ],
+        "cols": [
+          1,
+          2,
+          4
+        ],
+        "wind": [
+          0,
+          0,
+          1,
+          0
+        ]
+      },
+      "ok": false,
+      "box": [
+        4,
+        9,
+        8,
+        11,
+        0
+      ],
+      "mode": "local",
+      "target_margin_lower": -0.0017268754662301724,
+      "target_bound_upper": 0.1267268754662302,
+      "error_upper": 0.005757122500025027,
+      "weighted_hessian_upper": 25.644611186740725,
+      "centre_root_error_upper": 3.108104669427307e-20,
+      "reason": "target",
+      "weighting": "projected residual"
+    },
+    {
+      "group": {
+        "kind": "T1",
+        "target": 659,
+        "g": "conjT",
+        "rows": [
+          2,
+          1,
+          3
+        ],
+        "cols": [
+          5,
+          2,
+          4
+        ],
+        "wind": [
+          1,
+          1,
+          0,
+          0
+        ]
+      },
+      "ok": false,
+      "box": [
+        4,
+        12,
+        5,
+        12,
+        13
+      ],
+      "mode": "local",
+      "target_margin_lower": -0.0029891704607496287,
+      "target_bound_upper": 0.12798917046074965,
+      "error_upper": 0.008918428019145776,
+      "weighted_hessian_upper": 23.552990971080977,
+      "centre_root_error_upper": 3.462388729243334e-20,
+      "reason": "target",
+      "weighting": "projected residual"
+    }
+  ],
+  "failure_count": 5,
+  "failure": "one or more hybrid patches did not certify",
+  "passed_before_failure": 4216,
+  "seconds": 16.29468579600507,
+  "global_passes": 3903,
+  "local_passes": 313,
+  "local_attempts": 318
+}

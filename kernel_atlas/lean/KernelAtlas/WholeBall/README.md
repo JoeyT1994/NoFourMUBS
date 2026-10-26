@@ -1,128 +1,146 @@
-# Whole-ball C1 components (return Z)
+# Whole-ball C1 from one matched centre
 
-**Status: partial implementation. There is no end-to-end whole-ball C1 checker
-or real seed-ball kernel certificate here yet.** In particular, `scalarCheck`
-checks supplied rational bounds; it does not compute or certify those bounds
-from a centre. Its soundness theorem cannot be used as `SeedBallCert.hC1`.
+The semantic and Boolean soundness chain is complete. `wholeBallCheck_sound`
+proves the exact `SeedBallCert.hC1` proposition, including strict seed validity,
+orientation, horizontal gauge, and the recorded centre/frame correction.
+The generated `Ball2299.hC1` has kernel-checked successfully, and
+`Ball2299.radius_positive` proves that its radius is positive. Both the generic
+soundness audit and the concrete instance audit use standard axioms only.
 
-The reference is
-`explorations/returns/Z_completion_hessian/Z_completion_hessian_return/THEOREM.md`.
-Both `proof/seed_atlas/cert/wholeball.py` and
-`proof/independent_seed/src/wholeball.jl` were read against it.
+Reference: `explorations/returns/Z_completion_hessian/Z_completion_hessian_return/THEOREM.md`.
+The Python and independent Julia implementations in `proof/seed_atlas/cert/wholeball.py`
+and `proof/independent_seed/src/wholeball.jl` supply the arithmetic conventions.
+No mathematical variant of Z is used.
 
-## Implemented and kernel checked
+## Theorem map
 
-The semantic files live in `lean/NoFourMUBs/SeedAtlas/Method/`; their namespace is
-`NoFourMUBs.SeedAtlas.Method.WholeBall`.
+Semantic `WholeBall*.lean` files are under `lean/NoFourMUBs/SeedAtlas/Method/`.
+The other files in this table are in this directory.
 
-| File / lemmas | Z section | What is proved |
+| Z section | Lean interface | Verified connection |
 |---|---|---|
-| `WholeBallCentre`: `gramLeftInverse_mul`, `centreProjection_identity` | §2 (0) | The specified Gram inverse satisfies `W J X = I`, given Gram nonsingularity. |
-| `WholeBallCentre`: `projected_tangent`, `seed_tangent` | §2 (1) | Exact `W J U = 0` and `L U = M`. |
-| `WholeBallCentre`: `seed_secondJet`, `projected_secondJet` | §2 (1) | Exact `L H₂ = 0` and cancellation of the projected quadratic jet. The derivative interpretation of the input tensor is still required. |
-| `WholeBallBounds`: `Bounds.b0/b1/b2/base/qbase/q/ndirect/nrecord`, `SideBounds.eps/variation/margin` | §§4–6 (7), (8), (12), (14), (15) | Shared rational/real definitions of the refined scalar formulas. |
-| `WholeBallGerm`: `local_phase_germ`, `local_normal_coordinates` | §1 / §4 | Analytic phase lift through the prescribed centre, horizontal increments, exact real seed coordinates, and a normal-coordinate lift given a linear retraction. |
-| `Germ.lean`: `sideResidual_partial_invertible`, `analytic_matched_germ`, `local_matched_phase_germ` | §1 | The concrete local matched phase germ follows from the two nonsingular side Jacobians, strict centre, and centre signs. It is no longer an assumed analytic family. |
-| `WholeBallTaylor`: `norm_sub_taylorJet_le`, `predictor_residual_bound`, `norm_sub_le_cubic` | §§3–4 | Integral Taylor estimates with the factorials 120, 24, 6, and 2 used by Z. |
-| `WholeBallFourier`, `WholeBallFourierBounds` | §3 (3)–(7) | Exact quadratic-phase derivatives through order five; summed centre jets and the finite sums for L₅ and L₃a imply the predictor and normal-base estimates. |
-| `WholeBallTensor`: `norm_tensorVector`, `tensor_power_bound` | §3 | Flattened Euclidean operator bounds imply bounds on tensor evaluations, preserving the summed-tensor cancellation. |
-| `WholeBallFourierModel`: `normalDerivative_eq`, `normal_parameter_ray`, `normal_tube_bound` | §§2–4 | The finite quadratic-phase model's actual Fréchet normal derivative, parameter rays, and normal-tube estimates. |
-| `WholeBallFiniteBounds`: `residual_bound`, `normal_bound` | §§3–4 | Explicit finite centre coefficient/jet bounds imply actual uniform b₀ and q estimates. The model still needs to be identified with WΦ and its tensors certified numerically. |
-| `WholeBallJetBounds`: `analytic_projected_family_of_jets` | §4 | The derivative-jet version of the Taylor-to-contraction bridge. |
-| `WholeBallContraction`: `projected_zero_of_contraction`, `contraction_difference_of_derivative`, `projected_zero` | §4 (8) | Banach existence and uniqueness in the normal tube, with a strictly interior zero; the derivative-to-difference bound. |
-| `WholeBallImplicit`: `invertible_of_near_id`, `analytic_implicit_root` | §4 | Neumann invertibility and a real-analytic local implicit root. Uses `ContDiff ℝ ω`, not just smoothness. |
-| `WholeBallFamily`: `analytic_projected_family` | §4 | A unique projected root at every parameter in the closed ball, analytic on its interior and continuous on its boundary. Requires actual residual and derivative bounds. |
-| `WholeBallContinuation`: `residual_zero_on_closedBall` | §4, final proof paragraph | The analytic identity theorem and continuity extend vanishing from a centre neighbourhood to the closed ball. |
-| `WholeBallFamily`: `full_residual_of_local_germ` | §4, final proof paragraph | Identifies the local full-residual germ with the projected root by uniqueness, then proves the full residual vanishes throughout the ball. The local germ is an explicit input, now supplied separately by `Germ.lean`. |
-| `WholeBallBounds`: `orientation_of_margin`, `strictness_of_margin` | §6 | Signed variation preserves orientation; the signature-square identity gives the strict lower bound. |
-| `WholeBallOrientation`: `rowColEquiv_trans`, `rowColEquiv_from_dephase` | §6 / gauge | Row/column phase equivalences compose; dephasing is reversible by such phases. |
-| `WholeBallOrientation`: `horizontal_rep_of_signs`, `horizontal_rep_of_margins` | §6 | A full Hadamard phase family with the seed and side signs gives `R > 0` and the horizontal `RepO` representative. |
-| `WholeBallRecord`: `direct_remainder`, `recorded_remainder`, `hC1_of_representatives` | §5 (12) | The quadratic-plus-normal remainder, the correction `εP + r εU`, and the final `hC1` form with winding zero for a continuous centre-based lift. |
-| `MatrixBounds.lean`: `psdCheck_sound`, `spectralCheck_sound`, `spectralCheck_transpose_sound` | §2 / numerical checks | Arbitrary-size exact rational LDLᵀ witnesses imply Euclidean operator bounds, including the smaller output-Gram check. |
-| `MatrixEnclosure.lean`: `MatrixBox.spectral_bound`, `inverse_enclosure` | §2 (0) | Midpoint spectral bounds plus Frobenius interval errors; nonsingularity and an error bound for the exact inverse from a Neumann residual. |
-| `MatrixArithmetic.lean`: `MatrixBox.Has.mul`, `inverseCheck_sound`, `gramProjection_enclosure` | §2 (0) | Exact rational interval matrix operations and a Boolean inverse check enclose the specified Gram projection (AᵀA)⁻¹Aᵀ. |
-| `Scalar.lean`: `scalarCheck_sound` | §§4–6 | Exact rational scalar acceptance implies the identical inequalities over the reals. **No centre-to-bound soundness is claimed.** |
+| §1, local matched branch | `CertifiedCentre.phase_germ`, `CertifiedCentre.normal_germ` | The same certified side roots supply the entry enclosures and analytic phase lift. The frozen normal basis has an exact retraction. No full-residual germ is assumed. |
+| §2 (0), Gram projection | `centreGramCheck_sound`, `centreProjection_identity` | Exact interval Jacobian and Gram calculations, Neumann-certified invertibility, and an enclosure of the specified `(AᵀA)⁻¹Aᵀ`. The proposed inverse is only a witness. |
+| §2 (1), predictors | `centreJetCheck_sound`, `BasisIdentities`, `centreFourier_cancel` | Exact tangent/second-jet formulas, horizontal gauge, seed coordinates, and exact zero/first/second-jet cancellations. |
+| §§2–3, actual residual | `centreFourier_equation`, `centreFourierCheck_sound` | The finite Fourier equation is the actual projected thirty-component row-Gram residual at the quadratic predictor. |
+| §3 (3)–(6), tensor constants | `TensorEnclosure`, `FiniteData.sound`, `MatrixBox.certifyNorm_sound` | Signed tensor sums precede norm bounds. Exact LDLᵀ spectral witnesses are used for U and H₂; Frobenius is a valid conservative fallback for higher tensors and side derivatives. |
+| §3–4 (7), Taylor bounds | `WholeBallTaylor`, `WholeBallFourierBounds`, `FiniteCentreBounds.residual_bound` | Actual finite exponential derivatives yield the fifth-order residual estimate with the prescribed factorials. |
+| §4 (8), normal derivative | `FourierModel.normalDerivative_eq`, `FiniteCentreBounds.normal_bound` | The derivative is identified analytically and bounded throughout the full predictor tube. |
+| §4, contraction and continuation | `WholeBallContraction`, `WholeBallImplicit`, `WholeBallContinuation`, `CertifiedCentre.full_family` | Banach uniqueness and an analytic implicit root continue the local full Hadamard germ to the entire closed ball. |
+| §5 (12), direct and record errors | `direct_remainder`, `recordErrorCheck_sound`, `CertifiedCentre.hC1` | The error is βr²/2 + xτ + εP + rεU. Exact stored rational P and U are retained, including bits below the centre arithmetic's 2⁻⁶⁰ grid. |
+| §6 (14)–(15), orientations | `WholeBallSignature`, `SideFiniteBounds.variation`, `sideCentreCheck_sound`, `sideNormCheck_sound` | The actual 24-frequency signature identity and frequency Gram bound 72 give the quadratic error 36ε². Both signed margins are checked. |
+| §§4–6, scalar acceptance | `scalarCheck_sound` | Strict contraction, both positive margins, and the non-strict recorded-radius inequality are checked over ℚ and transferred to ℝ. |
+| Off-grid input | `shiftedWholeBallCheck_sound`, `ShiftRegression` | An exact finite-dimensional identity and norm bound certify containment and the recorded-centre translation, using the same whole-ball theorem. |
+| Complete C1 | `wholeBallCheck_sound` | Every input above is discharged by the Boolean gate; its conclusion has the representative form consumed by `SeedBallCert.hC1` and `Seed.ballCertH`. |
 
-`ScalarRegression.lean` kernel-decides 12 synthetic boundary cases, including
-rejection at `q = 1`, `b₀ + q τ = τ`, and zero orientation margins, and acceptance
-at `n_record = n`. `ScalarExample.lean` exercises the scalar witness exporter
-and its real-inequality conclusion; it is also synthetic.
+`Axioms.lean` audits the complete soundness chain; `Ball2299Axioms.lean` audits
+the generated instance. The successful audit contains
+only `propext`, `Classical.choice`, and `Quot.sound`. There are no `sorry` terms,
+custom axioms, or native-evaluation certificates.
 
-`Axioms.lean` audits all public theorems above and the synthetic checks. The audit
-returns only `propext`, `Classical.choice`, and `Quot.sound`; no `sorryAx`, custom
-axioms, or native-evaluation axiom is used.
+## Generator and checks
 
-## Integration still required
-
-1. **Identify the finite model with the actual phase residual.** Connect the
-   frozen horizontal basis and its normal retraction, the exact Gram projection,
-   tangent and quadratic predictor, and the summed flattened tensors to
-   `FourierModel` and `FiniteCentreBounds`. The latter's low-jet equalities and
-   bounds are proved hypotheses, not trusted numerical values.
-2. **Connect the orientation formula.** The linear-phase Fourier variation
-   estimate is proved, including the factor one half in its Taylor remainder.
-   The 24-frequency identity for the actual signature and its Gram bound 72
-   still have to be connected to it.
-3. **Finish the numerical centre computation and its generator.** The side
-   Krawczyk results must feed the centre matrix enclosures, Gram/tensor checks,
-   continuous phase-lift error, and recorded-frame error. The scalar and matrix
-   utilities do not yet emit `hC1` or `ballCertH` for a certificate seed.
-4. **Kernel-check a real ball's C1.** No whole-ball C1 timing is available yet.
-   The supplied `dev_certificate_xball0115.json.gz` contains **2,328 seeds**.
-   No work was run on rusty (0 remote core-hours).
-
-No mathematical variant of Z has been shown necessary. `WholeBallFiniteBounds`
-uses conservative sufficient finite-term bounds for the normal-tube constant;
-these permit a larger `L3` in Z's unchanged scalar formula. A reference replay
-of seed 2299 with this larger constant still has `q = 0.06584693388404433` and
-`n_record = 0.0012356764988739792 < n = 0.00129210667715422`. This replay is a
-selection aid, **not a Lean C1 certificate**.
-
-## Measured kernel leaf
-
-`BasisNorm.lean` is generated from the exact dyadic frozen basis and proves
-`‖X‖ ≤ 1.000001` using `decide +kernel`. It certifies the embedded 36×21 matrix's
-norm; its identification with the semantic normal basis is part of the remaining
-integration. The command
+From the repository root, with NumPy available:
 
 ```sh
-cd lean
-/usr/bin/time -l env LEAN_NUM_THREADS=8 lake build KernelAtlas.WholeBall.BasisNorm
+PYTHONDONTWRITEBYTECODE=1 python3 -B kernel_atlas/generators/wholeball_regression.py
+PYTHONDONTWRITEBYTECODE=1 python3 -B kernel_atlas/generators/wholeball_kball.py \
+  proof/seed_atlas/results/dev_certificate_xball0115.json.gz 2299 --check
 ```
 
-reported 16 seconds for the module, 21.82 seconds wall time for the command,
-15.08 seconds user time, 3.12 seconds system time, and maximum resident set size
-**6,623,772,672 bytes**. These are leaf-check measurements, not ball-level C1
-measurements. `MatrixRegression.lean` additionally checks exact acceptance and
-rejection at inverse-error, Neumann, PSD-factor, and spectral-bound boundaries.
+The generator emits `Centre2299`, `Gram2299`, `Jets2299`, the `Fourier2299*`
+leaves, and `Ball2299*`. `Ball2299.hC1` is the final stored-data proposition.
+Off-grid inputs additionally emit a `Core` module and a translation wrapper.
+Other indices select other input balls. There are **2,328 seeds** in this input;
+this is not a claim that every seed has been generated or kernel checked.
+The three input centres below the 2⁻⁶⁰ grid use `ShiftedBall`: an exact seed-space
+translation embeds the requested ball in a slightly larger certified ball and
+translates the recorded centre by the stored frame. The final theorem retains
+the original angles and radius. All three translated centres pass exact replay;
+their radius increases are at most 1.74 × 10⁻¹⁸.
+`Ball2299ShiftRegression.hC1` kernel-checks the generated wrapper on a translated
+subball of the real certificate; its axiom audit is also standard-only.
 
-## Reproduce the completed checks
+All proposals are validated by rational interval arithmetic; floating-point
+Newton and inverse calculations only propose witnesses. Lean uses `decide +kernel`.
+The generator rejects insufficient bounds and never silently overwrites differing
+existing modules. A basis override must equal the frozen basis exactly.
+Side phase proposals preserve the lift near the stored phase record.
 
-From the repository root:
+`--check` runs `LEAN_NUM_THREADS=8 lake build <Module>` from `lean/` in dependency
+order. The arithmetic row modules form chains: the second normal derivative has
+three chains, and the other tensors each have one, so at most three row leaves run;
+`--check` also sequences the polynomial prerequisites. Small blocks bound
+kernel memory; exact equality certificates cache polynomial tensors so output
+rows reuse the same arithmetic. `MatrixColumns` checks proposed repeated columns
+and transfers their enclosures to the full tensor; for seed 2299 this reduces
+the quartic products from 256 columns to 35 and the second normal derivative
+from 336 to 210. Both midpoints and radii must agree. No symmetry assumption is
+trusted. Array-backed literals reduced the measured cost compared with nested
+Fin vectors; kernel evaluation still uses their logical list representation.
+The larger second-derivative cache uses balanced finite lookups instead; its
+full reconstruction is checked entry by entry before any product uses it.
+These are implementation choices, not trusted numerical shortcuts.
+Large polynomial checks elaborate their proofs sequentially to bound retained
+memory. Frobenius bounds use separately kernel-checked exact row-square sums
+(`MatrixRowNorms`), followed by a scalar sum check. Per-frequency norms are
+also separate proof declarations, keeping the entire norm calculation out of
+a single kernel reduction. Measurements used at most three independent groups,
+each with eight Lean threads. `--check` sequences groups, with the three
+second-derivative chains sharing a group. Per-stage wall/CPU times and peak RSS
+are saved in `Ball2299Timings.json`; generated logs identify rebuilt versus
+cached stages. Peak RSS is the maximum reported for a
+process, not the sum over concurrent workers; on macOS it also excludes some
+compressed memory. It must not be read as the total machine memory required.
+Cached build time must not be reported as fresh kernel arithmetic time.
 
-```sh
-python3 -B kernel_atlas/generators/wholeball_scalar.py --self-test
-python3 -B kernel_atlas/generators/wholeball_matrix.py --self-test
-cd lean
-LEAN_NUM_THREADS=8 lake build KernelAtlas.WholeBall.Axioms
-```
+The exact regressions independently compare the cubic/quartic tensors with an
+exponential power-series recurrence, exercise interval matrix products and
+spectral/inverse bounds, and reject boundary failures and corrupted witnesses.
 
-`wholeball_scalar.py WITNESS.json --output PATH.lean` exports an already-supplied
-scalar witness using `decide +kernel`. Output must be under this `WholeBall/`
-directory, and differing existing files are not overwritten. Its JSON schema is
-the `bounds`, `horizontal`, and `vertical` records of `ScalarData`, with rational
-strings or exact binary64 hex values. It is a scalar utility, **not** the requested
-seed-ball generator or a full exact mirror of `wholeball_c1`.
+## Measurements
 
-The frozen-basis norm module is reproducible with:
+One real input ball, seed **2299 of 2,328**, has been kernel checked. All runs
+were local; **0 remote Lean core-hours** were used. A read-only check of rusty
+found no configured Lean runtime. The machine was an Apple M5 Max (18 cores,
+64 GiB RAM), macOS 26.6, using Lean 4.33.0-rc2 and `LEAN_NUM_THREADS=8`.
 
-```sh
-python3 -B kernel_atlas/generators/wholeball_matrix.py \
-  --basis proof/seed_atlas/cert/wholeball_basis.json \
-  --bound 1000001/1000000 \
-  --output kernel_atlas/lean/KernelAtlas/WholeBall/BasisNorm.lean
-```
+The certified radius is approximately 0.063, n ≈ 0.00129210667715422, and
+n_record ≈ 0.0012781436681019334. Both orientation margins exceed 7.91.
+`Ball2299Input.json` records the exact input hash and radius.
 
-`wholeball_matrix.py` mirrors exact rational LDLᵀ, spectral, interval-matrix,
-and inverse checks. It independently reconstructs each proposed factorization
-before exporting it. Differing existing output is never overwritten.
+`Ball2299Timings.json` contains 44 stage records, with source hashes, fresh/cached
+status, wall/CPU time and peak RSS where measured. `Ball2299Measurements.json`
+records the machine, audit result, concurrency and memory-measurement scope.
+Selected successful fresh stages are below. Tensor-product stages use already
+checked polynomial inputs; their prerequisite times are separate JSON entries.
+
+| Stage | Command wall time | Peak process RSS |
+|---|---:|---:|
+| Frozen basis norm | 21.82 s | 6.17 GiB |
+| Matched regular centre | 35.19 s | 6.35 GiB |
+| Centre Gram/inverse | 98.82 s | 23.85 GiB |
+| Predictor jets and spectral norms | 1,253.04 s | 44.66 GiB |
+| Centre-to-Fourier links | 365.79 s | 27.60 GiB |
+| Cubic products | 1,669.42 s | 6.50 GiB |
+| Quartic products | 1,722.42 s | 10.81 GiB |
+| Mixed derivative products | 1,144.28 s | 5.22 GiB |
+| Second derivative reconstruction | 1,391.02 s | 6.23 GiB |
+| Second derivative products, three chains | 2,974.53 s | 5.98 GiB |
+| Normal tensor products | 4,891.30 s | 8.51 GiB |
+| Final C1 assembly after arithmetic leaves | 50.46 s | 9.11 GiB |
+| Concrete axiom audit | 19.69 s | 5.49 GiB |
+
+The eight norm/sum stages total 402.25 seconds of stage wall time. The largest
+measured process RSS was 44.66 GiB in the predictor stage, which experienced
+memory contention. A five-second sampler during the second-derivative products
+and final assembly observed a maximum combined Lean-process physical footprint
+of 10.15 GiB; this sample does not cover earlier stages or include Lake.
+
+These are incremental component measurements. Some independent stages overlapped,
+so their wall times must not be added and reported as a cold end-to-end elapsed
+benchmark. Four second-derivative polynomial prerequisite times come from Lake's
+rounded successful-module times, with no separate CPU/RSS measurement. Cached
+stages and stopped optimization attempts are explicitly excluded from fresh
+arithmetic measurements. The complete Boolean gate and final hC1 were checked;
+no claim is made that the other 2,327 input balls have been kernel checked.

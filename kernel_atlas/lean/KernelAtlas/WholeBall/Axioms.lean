@@ -1,3 +1,4 @@
+import KernelAtlas.WholeBall.MatrixRowNorms
 import NoFourMUBs.SeedAtlas.Method.WholeBallCentre
 import NoFourMUBs.SeedAtlas.Method.WholeBallFamily
 import NoFourMUBs.SeedAtlas.Method.WholeBallOrientation
@@ -9,9 +10,22 @@ import NoFourMUBs.SeedAtlas.Method.WholeBallJetBounds
 import NoFourMUBs.SeedAtlas.Method.WholeBallFiniteBounds
 import KernelAtlas.WholeBall.MatrixRegression
 import KernelAtlas.WholeBall.BasisNorm
+import NoFourMUBs.SeedAtlas.Method.WholeBallGeometry
+import NoFourMUBs.SeedAtlas.Method.WholeBallSignatureBounds
+import KernelAtlas.WholeBall.CentreRegular
+import KernelAtlas.WholeBall.CentreGram
+import KernelAtlas.WholeBall.RoundedLDL
+import KernelAtlas.WholeBall.BasisRegular
+import KernelAtlas.WholeBall.Centre2299
+import KernelAtlas.WholeBall.Gram2299
+import KernelAtlas.WholeBall.CheckedBall
+import KernelAtlas.WholeBall.MatrixBlocks
+import KernelAtlas.WholeBall.ShiftRegression
+import KernelAtlas.WholeBall.MatrixColumns
+import KernelAtlas.WholeBall.MatrixExpansion
 
-/-! Axiom audit of the implemented whole-ball components. This is not an audit
-of a completed whole-ball C1 checker: that checker has not been constructed. -/
+/-! Axiom audit of the complete semantic and centre-to-bound soundness chain.
+Only the standard axioms `propext`, `Classical.choice`, and `Quot.sound` are allowed. -/
 
 open NoFourMUBs.SeedAtlas.Method.WholeBall
 open NoFourMUBs.KernelAtlas.WholeBall
@@ -117,3 +131,64 @@ open NoFourMUBs.KernelAtlas.WholeBall
 #print axioms MatrixRegression.rectangular_bound_too_small
 #print axioms MatrixRegression.bad_factor_rejected
 #print axioms MatrixRegression.transpose_bound
+
+#print axioms FiniteCentreBounds.analytic_projected_family
+#print axioms FiniteCentreBounds.analytic_full_family
+#print axioms normal_basis_retraction
+#print axioms frozenNormal_retraction
+#print axioms frozenRetraction_normal
+#print axioms frozen_normal_germ
+#print axioms signature_odd_identity
+#print axioms signature_fourier
+#print axioms signature_gram
+#print axioms signature_frequency_bound
+#print axioms signature_variation
+#print axioms centreCheck_sound
+#print axioms sideRegularCheck_sound
+#print axioms regularCentreCheck_sound
+#print axioms RegularCentre.analytic_germ
+#print axioms jacobianBox_sound
+#print axioms centrePhaseBox_sound
+#print axioms centre_gram_enclosure
+#print axioms MatrixBox.Has.enlarge
+#print axioms centreGramCheck_sound
+#print axioms dominantCheck_sound
+#print axioms roundedPSDCheck_sound
+#print axioms roundedSpectralCheck_sound
+#print axioms BasisRegular.checked
+#print axioms BasisRegular.nonsingular
+#print axioms Centre2299.checked
+#print axioms Centre2299.regular_centre
+#print axioms Centre2299.centre_facts
+#print axioms Gram2299.checked
+
+#print axioms CertifiedCentre.phase_germ
+#print axioms CertifiedCentre.normal_germ
+#print axioms CertifiedCentre.full_family
+#print axioms CertifiedCentre.hC1
+#print axioms centreFourier_equation
+#print axioms centreFourier_cancel
+#print axioms FiniteData.sound
+#print axioms centreJetCheck_sound
+#print axioms centreFourierCheck_sound
+#print axioms SideFiniteBounds.variation
+#print axioms sideCentreCheck_sound
+#print axioms sideNormCheck_sound
+#print axioms recordErrorCheck_sound
+#print axioms wholeBallCheck_sound
+#print axioms MatrixBox.enclosesCheck_of_blocks
+#print axioms MatrixBox.eq_of_exact_rows
+
+#print axioms shiftedWholeBallCheck_sound
+#print axioms ShiftRegression.contained_at_equality
+#print axioms ShiftRegression.wrong_record_rejected
+#print axioms ShiftRegression.missing_radius_inflation_rejected
+#print axioms ShiftRegression.small_shift_norm_rejected
+#print axioms ShiftRegression.wrong_seed_rejected
+#print axioms ShiftRegression.zero_radius_rejected
+#print axioms MatrixBox.eq_of_exact_blocks
+#print axioms MatrixBox.sumProducts_encloses_of_columns
+#print axioms MatrixBox.negSumProducts_encloses_of_columns
+#print axioms MatrixBox.negSumProducts_encloses_of_expansion
+
+#print axioms MatrixBox.normCheck_of_square_rows

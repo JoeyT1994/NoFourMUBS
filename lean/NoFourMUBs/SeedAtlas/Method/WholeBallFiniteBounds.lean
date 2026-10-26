@@ -13,7 +13,7 @@ The two tube sums below are conservative sufficient bounds for Z's `L3`.
 They permit the same contraction formula with a larger certified `L3`.
 -/
 
-open Metric Set
+open Metric Set Filter Topology
 
 namespace NoFourMUBs.SeedAtlas.Method.WholeBall
 
@@ -126,6 +126,52 @@ theorem normal_bound (h : FiniteCentreBounds M B cn sn tn dn) (hn : B.Nonneg)
         ‖normalDerivative M.equation w 0 - normalDerivative M.equation 0 0‖ :=
       norm_sub_le_norm_sub_add_norm_sub _ _ _
     _ ≤ B.q := by unfold Bounds.q; linarith
+
+/-- All uniform hypotheses of the contraction theorem follow from the finite
+centre data; analyticity follows from the explicit Fourier model. -/
+theorem analytic_projected_family [CompleteSpace E]
+    (h : FiniteCentreBounds M B cn sn tn dn) (hn : B.Nonneg)
+    (hr : 0 < B.r) (hτ : 0 < B.tau) (hq : B.q < 1)
+    (hb : B.b0 + B.q * B.tau < B.tau) :
+    ∃ z : E → F,
+      (∀ w ∈ closedBall (0 : E) B.r, ‖z w‖ ≤ B.b0 + B.q * B.tau ∧ ‖z w‖ < B.tau ∧
+        M.equation (w, z w) = 0 ∧
+        ∀ z', ‖z'‖ ≤ B.tau → M.equation (w, z') = 0 → z' = z w) ∧
+      AnalyticOnNhd ℝ z (ball (0 : E) B.r) ∧ ContinuousOn z (closedBall (0 : E) B.r) := by
+  have hq0 : 0 ≤ B.q := by
+    obtain ⟨hx, hu, hβ, hc, hd, hL3, ht3, ht4, hL5, ha2, hL3a, heP, heU⟩ := hn
+    unfold Bounds.q Bounds.qbase Bounds.base
+    positivity
+  apply WholeBall.analytic_projected_family M.equation hτ.le hq0 hq
+  · intro w hw
+    exact h.residual_bound hn (by simpa [mem_closedBall, dist_zero_right] using hw)
+  · intro w _ z _
+    exact M.contDiff_equation.contDiffAt.analyticAt
+  · intro w hw z hz
+    exact h.normal_bound hn (by simpa [mem_closedBall, dist_zero_right] using hw)
+      (by simpa [mem_closedBall, dist_zero_right] using hz)
+  · exact hb
+
+/-- Z §4 with every uniform derivative premise replaced by finite centre
+bounds. The full-residual germ remains explicit, so projected roots are never
+identified with full roots without the analytic continuation argument. -/
+theorem analytic_full_family [CompleteSpace E]
+    {D : Type*} [NormedAddCommGroup D] [NormedSpace ℝ D]
+    (h : FiniteCentreBounds M B cn sn tn dn) (hn : B.Nonneg)
+    (hr : 0 < B.r) (hτ : 0 < B.tau) (hq : B.q < 1)
+    (hb : B.b0 + B.q * B.tau < B.tau)
+    (H : E × F → D) (ha : ∀ p, AnalyticAt ℝ H p)
+    (hproj : ∀ w z, H (w, z) = 0 → M.equation (w, z) = 0)
+    (zs : E → F) (hsa : AnalyticAt ℝ zs 0) (hs0 : zs 0 = 0)
+    (hs : ∀ᶠ w in 𝓝 (0 : E), H (w, zs w) = 0) :
+    ∃ z : E → F,
+      (∀ w ∈ closedBall (0 : E) B.r, ‖z w‖ < B.tau ∧ H (w, z w) = 0) ∧
+      AnalyticOnNhd ℝ z (ball (0 : E) B.r) ∧ ContinuousOn z (closedBall (0 : E) B.r) := by
+  obtain ⟨z, hz, hza, hzc⟩ := h.analytic_projected_family hn hr hτ hq hb
+  have hfull := full_residual_of_local_germ hr hτ (fun w hw => (hz w hw).2.1.le)
+    (fun w hw => (hz w hw).2.2.2) hza hzc (fun w _ z _ => ha (w, z))
+    hproj hsa hs0 hs
+  exact ⟨z, fun w hw => ⟨(hz w hw).2.1, hfull w hw⟩, hza, hzc⟩
 
 end FiniteCentreBounds
 

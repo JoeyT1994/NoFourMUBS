@@ -1,4 +1,6 @@
 import KernelAtlas.WholeBall.MatrixArithmetic
+import KernelAtlas.WholeBall.MatrixRefinement
+import KernelAtlas.WholeBall.RoundedLDL
 
 /-! Kernel checks of matrix witness acceptance and failure boundaries. -/
 
@@ -36,5 +38,19 @@ theorem bad_factor_rejected : spectralCheck rectangular 4 ⟨1, ![7, 1]⟩ = fal
 theorem transpose_bound : ‖eucMap (realMatrix rectangularᵀ)‖ ≤ (4 : ℝ) := by
   apply spectralCheck_transpose_sound (b := 4) (W := semidefiniteWitness)
   exact rectangular_bound_equality
+
+theorem rounded_residual_accept : roundedPSDCheck (!![(2 : ℚ), 1; 1, 2])
+    ⟨0, 0⟩ = true := by decide +kernel
+
+theorem rounded_residual_reject : roundedPSDCheck (!![(1 : ℚ), 2; 2, 1])
+    ⟨0, 0⟩ = false := by decide +kernel
+
+theorem outward_round_accept :
+    (⟨!![(1 / 3 : ℚ)], !![(1 / 1000 : ℚ)]⟩ : MatrixBox 1 1).enclosesCheck
+      ⟨!![(85 / 256 : ℚ)], !![(1 / 256 : ℚ)]⟩ = true := by decide +kernel
+
+theorem outward_round_reject :
+    (⟨!![(1 / 3 : ℚ)], !![(1 / 1000 : ℚ)]⟩ : MatrixBox 1 1).enclosesCheck
+      (MatrixBox.exact !![(1 / 3 : ℚ)]) = false := by decide +kernel
 
 end NoFourMUBs.KernelAtlas.WholeBall.MatrixRegression

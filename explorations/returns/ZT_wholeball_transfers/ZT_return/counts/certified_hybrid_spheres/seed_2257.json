@@ -1,0 +1,1915 @@
+{
+  "seed": 2257,
+  "status": "NOT ESTABLISHED",
+  "original_count": 10400,
+  "proposed_count": 5675,
+  "groups_sha256": "943f813d42c5e784c666f073aa92549954376bc778269e0d3cdc0db8ed24842f",
+  "certificate_sha256": "8270748a969e087c1ac6f211f3c6812d12fe70f38c3a21eb58a8731de79c1279",
+  "verifier_sha256": "f5a9623d2fc20e325ad6b4915e863d07e193bc0a1c1e1d1ffaa908da5e9b9eaf",
+  "weighted_replay_sha256": "533491826118978e2e3e2f1b6ad741a3a11841d9c45eadc4d253de681b3f3ab4",
+  "seed_weighted_sha256": "d8c03fd0d6c2d1890552a2c1c4ce32c989ab1c338af6b3647637c1c29ac83a3d",
+  "centre": {
+    "r": 0.10000000000000002,
+    "tau": 0.01120300911533197,
+    "q": 0.676184490682006,
+    "Z1": 0.5768716360936094,
+    "Z2": 45.234416257981906,
+    "beta": 3.4924286160291023,
+    "u": 1.0000000009544587,
+    "x": 1.0000000005000007,
+    "wn": 3.442663480791491,
+    "base": 0.11746214317559138,
+    "t3": 20.96752239398057,
+    "t4": 20.220119043930357,
+    "L5": 582.9587379271106,
+    "c": 4.73286149057908,
+    "d": 8.943406958758027,
+    "a2": 11.45823890393198,
+    "L3a": 132.97106622510753,
+    "status": "CERTIFIED",
+    "seconds": 0.2996986649959581,
+    "strict_R_lower": 17.150527095830714,
+    "dephased_lift_gap_upper": 0.07558663453345608
+  },
+  "failed_patches": [
+    {
+      "group": {
+        "kind": "T1",
+        "target": 2228,
+        "g": "T",
+        "rows": [
+          0,
+          3,
+          1
+        ],
+        "cols": [
+          1,
+          0,
+          2
+        ],
+        "wind": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "ok": false,
+      "box": [
+        3,
+        2,
+        5,
+        7,
+        3
+      ],
+      "mode": "local",
+      "target_margin_lower": -0.008337519062772077,
+      "target_bound_upper": 0.1083375190627721,
+      "error_upper": 0.018327750910135596,
+      "weighted_hessian_upper": 47.90952405871626,
+      "centre_root_error_upper": 5.981564325697049e-21,
+      "reason": "target",
+      "weighting": "projected residual"
+    },
+    {
+      "group": {
+        "kind": "T1",
+        "target": 2228,
+        "g": "T",
+        "rows": [
+          0,
+          3,
+          1
+        ],
+        "cols": [
+          1,
+          0,
+          2
+        ],
+        "wind": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "ok": false,
+      "box": [
+        3,
+        2,
+        4,
+        7,
+        4
+      ],
+      "mode": "local",
+      "target_margin_lower": -0.006828166683669343,
+      "target_bound_upper": 0.10682816668366936,
+      "error_upper": 0.014971726268348836,
+      "weighted_hessian_upper": 47.90952405871626,
+      "centre_root_error_upper": 4.9946022874137235e-21,
+      "reason": "target",
+      "weighting": "projected residual"
+    },
+    {
+      "group": {
+        "kind": "T1",
+        "target": 2228,
+        "g": "T",
+        "rows": [
+          0,
+          3,
+          1
+        ],
+        "cols": [
+          1,
+          0,
+          2
+        ],
+        "wind": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "ok": false,
+      "box": [
+        3,
+        5,
+        5,
+        6,
+        2
+      ],
+      "mode": "local",
+      "target_margin_lower": -0.004857264420208874,
+      "target_bound_upper": 0.10485726442020889,
+      "error_upper": 0.014971726268348836,
+      "weighted_hessian_upper": 47.90952405871626,
+      "centre_root_error_upper": 6.362168943583552e-21,
+      "reason": "target",
+      "weighting": "projected residual"
+    },
+    {
+      "group": {
+        "kind": "T1",
+        "target": 2228,
+        "g": "T",
+        "rows": [
+          0,
+          3,
+          1
+        ],
+        "cols": [
+          1,
+          0,
+          2
+        ],
+        "wind": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "ok": false,
+      "box": [
+        4,
+        4,
+        5,
+        10,
+        2
+      ],
+      "mode": "local",
+      "target_margin_lower": -0.0006441771939164329,
+      "target_bound_upper": 0.10064417719391645,
+      "error_upper": 0.003742931567087209,
+      "weighted_hessian_upper": 47.90952405871626,
+      "centre_root_error_upper": 6.341131082745547e-21,
+      "reason": "target",
+      "weighting": "projected residual"
+    },
+    {
+      "group": {
+        "kind": "T1",
+        "target": 2192,
+        "g": "T",
+        "rows": [
+          0,
+          3,
+          1
+        ],
+        "cols": [
+          1,
+          0,
+          2
+        ],
+        "wind": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "ok": false,
+      "box": [
+        3,
+        2,
+        2,
+        6,
+        4
+      ],
+      "mode": "local",
+      "target_margin_lower": -0.007244979077529576,
+      "target_bound_upper": 0.1072449790775296,
+      "error_upper": 0.015132265655310465,
+      "weighted_hessian_upper": 48.42325009699347,
+      "centre_root_error_upper": 4.546431052329495e-21,
+      "reason": "target",
+      "weighting": "projected residual"
+    },
+    {
+      "group": {
+        "kind": "T1",
+        "target": 2192,
+        "g": "T",
+        "rows": [
+          0,
+          3,
+          1
+        ],
+        "cols": [
+          1,
+          0,
+          2
+        ],
+        "wind": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "ok": false,
+      "box": [
+        3,
+        3,
+        2,
+        6,
+        5
+      ],
+      "mode": "local",
+      "target_margin_lower": -0.006574693575103891,
+      "target_bound_upper": 0.10657469357510391,
+      "error_upper": 0.015132265655310465,
+      "weighted_hessian_upper": 48.42325009699347,
+      "centre_root_error_upper": 5.5142868465392295e-21,
+      "reason": "target",
+      "weighting": "projected residual"
+    },
+    {
+      "group": {
+        "kind": "T1",
+        "target": 2192,
+        "g": "T",
+        "rows": [
+          0,
+          3,
+          1
+        ],
+        "cols": [
+          1,
+          0,
+          2
+        ],
+        "wind": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "ok": false,
+      "box": [
+        3,
+        4,
+        1,
+        6,
+        5
+      ],
+      "mode": "local",
+      "target_margin_lower": -0.004631743412981224,
+      "target_bound_upper": 0.10463174341298125,
+      "error_upper": 0.015132265655310465,
+      "weighted_hessian_upper": 48.42325009699347,
+      "centre_root_error_upper": 6.881083363096761e-21,
+      "reason": "target",
+      "weighting": "projected residual"
+    },
+    {
+      "group": {
+        "kind": "T1",
+        "target": 2192,
+        "g": "T",
+        "rows": [
+          0,
+          3,
+          1
+        ],
+        "cols": [
+          1,
+          0,
+          2
+        ],
+        "wind": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "ok": false,
+      "box": [
+        4,
+        2,
+        6,
+        7,
+        12
+      ],
+      "mode": "local",
+      "target_margin_lower": -0.00014467173677135342,
+      "target_bound_upper": 0.10014467173677137,
+      "error_upper": 0.003783066413827616,
+      "weighted_hessian_upper": 48.42325009699347,
+      "centre_root_error_upper": 3.9337591567700844e-21,
+      "reason": "target",
+      "weighting": "projected residual"
+    },
+    {
+      "group": {
+        "kind": "T1",
+        "target": 2111,
+        "g": "T",
+        "rows": [
+          3,
+          0,
+          4
+        ],
+        "cols": [
+          1,
+          0,
+          2
+        ],
+        "wind": [
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      "ok": false,
+      "box": [
+        3,
+        5,
+        5,
+        6,
+        3
+      ],
+      "mode": "local",
+      "target_margin_lower": -0.00612105281505992,
+      "target_bound_upper": 0.10612105281505994,
+      "error_upper": 0.015209341029453781,
+      "weighted_hessian_upper": 48.66989129425208,
+      "centre_root_error_upper": 4.536298724315515e-21,
+      "reason": "target",
+      "weighting": "projected residual"
+    },
+    {
+      "group": {
+        "kind": "T1",
+        "target": 2111,
+        "g": "conjT",
+        "rows": [
+          5,
+          1,
+          2
+        ],
+        "cols": [
+          3,
+          4,
+          5
+        ],
+        "wind": [
+          -1,
+          -1,
+          -1,
+          -1
+        ]
+      },
+      "ok": false,
+      "box": [
+        4,
+        4,
+        6,
+        14,
+        12
+      ],
+      "mode": "local",
+      "target_margin_lower": -0.002183947032166751,
+      "target_bound_upper": 0.10218394703216677,
+      "error_upper": 0.011706578403274121,
+      "weighted_hessian_upper": 49.72239423384514,
+      "centre_root_error_upper": 7.288148221147422e-21,
+      "reason": "target",
+      "weighting": "projected residual"
+    },
+    {
+      "group": {
+        "kind": "T1",
+        "target": 1396,
+        "g": "conjT",
+        "rows": [
+          0,
+          3,
+          2
+        ],
+        "cols": [
+          1,
+          0,
+          2
+        ],
+        "wind": [
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      "ok": false,
+      "box": [
+        3,
+        6,
+        2,
+        5,
+        4
+      ],
+      "mode": "local",
+      "target_margin_lower": -0.0030112239452865838,
+      "target_bound_upper": 0.1030112239452866,
+      "error_upper": 0.011312833327865581,
+      "weighted_hessian_upper": 36.201066649169846,
+      "centre_root_error_upper": 3.638137893662501e-21,
+      "reason": "target",
+      "weighting": "projected residual"
+    },
+    {
+      "group": {
+        "kind": "T1",
+        "target": 1719,
+        "g": "conjT",
+        "rows": [
+          3,
+          2,
+          0
+        ],
+        "cols": [
+          4,
+          2,
+          0
+        ],
+        "wind": [
+          1,
+          0,
+          0,
+          0
+        ]
+      },
+      "ok": false,
+      "box": [
+        4,
+        15,
+        5,
+        9,
+        6
+      ],
+      "mode": "local",
+      "target_margin_lower": -0.0004372059004199103,
+      "target_bound_upper": 0.10043720590041993,
+      "error_upper": 0.006466000902745884,
+      "weighted_hessian_upper": 62.28849914618206,
+      "centre_root_error_upper": 3.2594915890551875e-21,
+      "reason": "target",
+      "weighting": "projected residual"
+    },
+    {
+      "group": {
+        "kind": "T1",
+        "target": 1719,
+        "g": "conjT",
+        "rows": [
+          3,
+          2,
+          0
+        ],
+        "cols": [
+          4,
+          2,
+          0
+        ],
+        "wind": [
+          1,
+          0,
+          0,
+          0
+        ]
+      },
+      "ok": false,
+      "box": [
+        4,
+        14,
+        6,
+        10,
+        6
+      ],
+      "mode": "local",
+      "target_margin_lower": -0.0003177135542155621,
+      "target_bound_upper": 0.10031771355421558,
+      "error_upper": 0.0048662889957954755,
+      "weighted_hessian_upper": 62.28849914618206,
+      "centre_root_error_upper": 3.324195912812398e-21,
+      "reason": "target",
+      "weighting": "projected residual"
+    },
+    {
+      "group": {
+        "kind": "T1",
+        "target": 1719,
+        "g": "conjT",
+        "rows": [
+          1,
+          2,
+          5
+        ],
+        "cols": [
+          0,
+          5,
+          4
+        ],
+        "wind": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "ok": false,
+      "box": [
+        4,
+        14,
+        9,
+        12,
+        7
+      ],
+      "mode": "local",
+      "target_margin_lower": -0.0016041191605022593,
+      "target_bound_upper": 0.10160411916050228,
+      "error_upper": 0.005167897759510385,
+      "weighted_hessian_upper": 59.90335054772752,
+      "centre_root_error_upper": 3.9735481991082575e-21,
+      "reason": "target",
+      "weighting": "projected residual"
+    },
+    {
+      "group": {
+        "kind": "T1",
+        "target": 1890,
+        "g": "T",
+        "rows": [
+          1,
+          5,
+          2
+        ],
+        "cols": [
+          4,
+          0,
+          2
+        ],
+        "wind": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "ok": false,
+      "box": [
+        4,
+        0,
+        5,
+        7,
+        10
+      ],
+      "mode": "local",
+      "target_margin_lower": -0.002464432648670301,
+      "target_bound_upper": 0.10246443264867032,
+      "error_upper": 0.007596530184989289,
+      "weighted_hessian_upper": 61.78044143097156,
+      "centre_root_error_upper": 3.257903695339212e-21,
+      "reason": "target",
+      "weighting": "projected residual"
+    },
+    {
+      "group": {
+        "kind": "T1",
+        "target": 1890,
+        "g": "T",
+        "rows": [
+          1,
+          5,
+          2
+        ],
+        "cols": [
+          4,
+          0,
+          2
+        ],
+        "wind": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "ok": false,
+      "box": [
+        4,
+        0,
+        5,
+        7,
+        11
+      ],
+      "mode": "local",
+      "target_margin_lower": -0.004634754989742856,
+      "target_bound_upper": 0.10463475498974287,
+      "error_upper": 0.012082368904457144,
+      "weighted_hessian_upper": 61.78044143097156,
+      "centre_root_error_upper": 3.774232525517368e-21,
+      "reason": "target",
+      "weighting": "projected residual"
+    },
+    {
+      "group": {
+        "kind": "T1",
+        "target": 1890,
+        "g": "T",
+        "rows": [
+          1,
+          5,
+          2
+        ],
+        "cols": [
+          4,
+          0,
+          2
+        ],
+        "wind": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "ok": false,
+      "box": [
+        4,
+        2,
+        5,
+        6,
+        13
+      ],
+      "mode": "local",
+      "target_margin_lower": -0.0010527774270781508,
+      "target_bound_upper": 0.10105277742707817,
+      "error_upper": 0.00795286022647496,
+      "weighted_hessian_upper": 61.78044143097156,
+      "centre_root_error_upper": 5.905847910292266e-21,
+      "reason": "target",
+      "weighting": "projected residual"
+    },
+    {
+      "group": {
+        "kind": "T1",
+        "target": 2264,
+        "g": "id",
+        "rows": [
+          4,
+          3,
+          5
+        ],
+        "cols": [
+          0,
+          2,
+          1
+        ],
+        "wind": [
+          0,
+          -1,
+          0,
+          -1
+        ]
+      },
+      "ok": false,
+      "box": [
+        3,
+        0,
+        3,
+        1,
+        4
+      ],
+      "mode": "local",
+      "target_margin_lower": -0.022077945799338305,
+      "target_bound_upper": 0.12207794579933832,
+      "error_upper": 0.02821734570535394,
+      "weighted_hessian_upper": 52.954026452435265,
+      "centre_root_error_upper": 4.127147175860027e-21,
+      "reason": "target",
+      "weighting": "projected residual"
+    },
+    {
+      "group": {
+        "kind": "T1",
+        "target": 2264,
+        "g": "id",
+        "rows": [
+          4,
+          3,
+          5
+        ],
+        "cols": [
+          0,
+          2,
+          1
+        ],
+        "wind": [
+          0,
+          -1,
+          0,
+          -1
+        ]
+      },
+      "ok": false,
+      "box": [
+        3,
+        0,
+        3,
+        2,
+        5
+      ],
+      "mode": "local",
+      "target_margin_lower": -0.014146768186787027,
+      "target_bound_upper": 0.11414676818678704,
+      "error_upper": 0.020257521350442117,
+      "weighted_hessian_upper": 52.954026452435265,
+      "centre_root_error_upper": 4.650945121642117e-21,
+      "reason": "target",
+      "weighting": "projected residual"
+    },
+    {
+      "group": {
+        "kind": "T1",
+        "target": 2264,
+        "g": "id",
+        "rows": [
+          4,
+          3,
+          5
+        ],
+        "cols": [
+          0,
+          2,
+          1
+        ],
+        "wind": [
+          0,
+          -1,
+          0,
+          -1
+        ]
+      },
+      "ok": false,
+      "box": [
+        3,
+        0,
+        4,
+        2,
+        6
+      ],
+      "mode": "local",
+      "target_margin_lower": -0.031655373886925214,
+      "target_bound_upper": 0.13165537388692525,
+      "error_upper": 0.038994384506797215,
+      "weighted_hessian_upper": 52.954026452435265,
+      "centre_root_error_upper": 5.408275996960215e-21,
+      "reason": "target",
+      "weighting": "projected residual"
+    },
+    {
+      "group": {
+        "kind": "T1",
+        "target": 1810,
+        "g": "conjT",
+        "rows": [
+          1,
+          2,
+          0
+        ],
+        "cols": [
+          5,
+          4,
+          3
+        ],
+        "wind": [
+          1,
+          1,
+          1,
+          0
+        ]
+      },
+      "ok": false,
+      "box": [
+        3,
+        0,
+        2,
+        4,
+        3
+      ],
+      "mode": "local",
+      "target_margin_lower": -0.005900394407506707,
+      "target_bound_upper": 0.10590039440750673,
+      "error_upper": 0.011355764225194255,
+      "weighted_hessian_upper": 36.338445520621605,
+      "centre_root_error_upper": 2.7589355250121182e-21,
+      "reason": "target",
+      "weighting": "projected residual"
+    },
+    {
+      "group": {
+        "kind": "T1",
+        "target": 1810,
+        "g": "conjT",
+        "rows": [
+          1,
+          2,
+          0
+        ],
+        "cols": [
+          5,
+          4,
+          3
+        ],
+        "wind": [
+          1,
+          1,
+          1,
+          0
+        ]
+      },
+      "ok": false,
+      "box": [
+        3,
+        0,
+        2,
+        4,
+        5
+      ],
+      "mode": "local",
+      "target_margin_lower": -0.009856480356824694,
+      "target_bound_upper": 0.10985648035682472,
+      "error_upper": 0.01390124387683869,
+      "weighted_hessian_upper": 36.338445520621605,
+      "centre_root_error_upper": 4.1869867237672915e-21,
+      "reason": "target",
+      "weighting": "projected residual"
+    },
+    {
+      "group": {
+        "kind": "T1",
+        "target": 1810,
+        "g": "T",
+        "rows": [
+          0,
+          4,
+          1
+        ],
+        "cols": [
+          2,
+          0,
+          1
+        ],
+        "wind": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "ok": false,
+      "box": [
+        3,
+        0,
+        3,
+        5,
+        2
+      ],
+      "mode": "local",
+      "target_margin_lower": -0.007229321925914539,
+      "target_bound_upper": 0.10722932192591456,
+      "error_upper": 0.012205233827695838,
+      "weighted_hessian_upper": 31.905002778430116,
+      "centre_root_error_upper": 4.6393847917105885e-21,
+      "reason": "target",
+      "weighting": "projected residual"
+    },
+    {
+      "group": {
+        "kind": "T1",
+        "target": 1956,
+        "g": "T",
+        "rows": [
+          0,
+          3,
+          1
+        ],
+        "cols": [
+          1,
+          0,
+          2
+        ],
+        "wind": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "ok": false,
+      "box": [
+        3,
+        5,
+        0,
+        4,
+        2
+      ],
+      "mode": "local",
+      "target_margin_lower": -0.008950977542182879,
+      "target_bound_upper": 0.1089509775421829,
+      "error_upper": 0.018590657296055555,
+      "weighted_hessian_upper": 48.59677258600046,
+      "centre_root_error_upper": 5.121140577553475e-21,
+      "reason": "target",
+      "weighting": "projected residual"
+    },
+    {
+      "group": {
+        "kind": "T1",
+        "target": 1956,
+        "g": "T",
+        "rows": [
+          0,
+          3,
+          1
+        ],
+        "cols": [
+          1,
+          0,
+          2
+        ],
+        "wind": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "ok": false,
+      "box": [
+        3,
+        5,
+        1,
+        5,
+        2
+      ],
+      "mode": "local",
+      "target_margin_lower": -0.005245179983013488,
+      "target_bound_upper": 0.10524517998301351,
+      "error_upper": 0.015186491433125148,
+      "weighted_hessian_upper": 48.59677258600046,
+      "centre_root_error_upper": 5.88127849046585e-21,
+      "reason": "target",
+      "weighting": "projected residual"
+    },
+    {
+      "group": {
+        "kind": "T1",
+        "target": 1956,
+        "g": "T",
+        "rows": [
+          0,
+          3,
+          1
+        ],
+        "cols": [
+          1,
+          0,
+          2
+        ],
+        "wind": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "ok": false,
+      "box": [
+        4,
+        4,
+        4,
+        10,
+        1
+      ],
+      "mode": "local",
+      "target_margin_lower": -0.0019245364420264984,
+      "target_bound_upper": 0.10192453644202652,
+      "error_upper": 0.008787941308953095,
+      "weighted_hessian_upper": 48.59677258600046,
+      "centre_root_error_upper": 7.220939393314162e-21,
+      "reason": "target",
+      "weighting": "projected residual"
+    },
+    {
+      "group": {
+        "kind": "T1",
+        "target": 1886,
+        "g": "conj",
+        "rows": [
+          1,
+          0,
+          2
+        ],
+        "cols": [
+          4,
+          0,
+          3
+        ],
+        "wind": [
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      "ok": false,
+      "box": [
+        3,
+        1,
+        3,
+        5,
+        6
+      ],
+      "mode": "local",
+      "target_margin_lower": -0.0057139979545713865,
+      "target_bound_upper": 0.1057139979545714,
+      "error_upper": 0.015155712760467852,
+      "weighted_hessian_upper": 48.49828083349711,
+      "centre_root_error_upper": 5.958510057069892e-21,
+      "reason": "target",
+      "weighting": "projected residual"
+    },
+    {
+      "group": {
+        "kind": "T1",
+        "target": 1886,
+        "g": "conj",
+        "rows": [
+          1,
+          0,
+          2
+        ],
+        "cols": [
+          4,
+          0,
+          3
+        ],
+        "wind": [
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      "ok": false,
+      "box": [
+        3,
+        1,
+        3,
+        6,
+        6
+      ],
+      "mode": "local",
+      "target_margin_lower": -0.016743359179530175,
+      "target_bound_upper": 0.11674335917953019,
+      "error_upper": 0.027090911850138254,
+      "weighted_hessian_upper": 48.49828083349711,
+      "centre_root_error_upper": 6.804877858454934e-21,
+      "reason": "target",
+      "weighting": "projected residual"
+    },
+    {
+      "group": {
+        "kind": "T1",
+        "target": 2095,
+        "g": "T",
+        "rows": [
+          3,
+          0,
+          2
+        ],
+        "cols": [
+          0,
+          4,
+          5
+        ],
+        "wind": [
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      "ok": false,
+      "box": [
+        4,
+        10,
+        6,
+        0,
+        5
+      ],
+      "mode": "local",
+      "target_margin_lower": -0.0012424343243461066,
+      "target_bound_upper": 0.10124243432434613,
+      "error_upper": 0.010837309137942074,
+      "weighted_hessian_upper": 73.40916368672222,
+      "centre_root_error_upper": 6.3786988536288675e-21,
+      "reason": "target",
+      "weighting": "projected residual"
+    },
+    {
+      "group": {
+        "kind": "T1",
+        "target": 2264,
+        "g": "conjT",
+        "rows": [
+          1,
+          2,
+          5
+        ],
+        "cols": [
+          0,
+          5,
+          4
+        ],
+        "wind": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "ok": false,
+      "box": [
+        4,
+        2,
+        6,
+        6,
+        12
+      ],
+      "mode": "local",
+      "target_margin_lower": -0.0004337703145890043,
+      "target_bound_upper": 0.10043377031458903,
+      "error_upper": 0.004707783381672512,
+      "weighted_hessian_upper": 60.25962728540813,
+      "centre_root_error_upper": 4.729497274933236e-21,
+      "reason": "target",
+      "weighting": "projected residual"
+    },
+    {
+      "group": {
+        "kind": "T1",
+        "target": 2264,
+        "g": "conjT",
+        "rows": [
+          1,
+          2,
+          5
+        ],
+        "cols": [
+          0,
+          5,
+          4
+        ],
+        "wind": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "ok": false,
+      "box": [
+        4,
+        2,
+        7,
+        6,
+        13
+      ],
+      "mode": "local",
+      "target_margin_lower": -0.00030518883840164023,
+      "target_bound_upper": 0.10030518883840166,
+      "error_upper": 0.004707783381672512,
+      "weighted_hessian_upper": 60.25962728540813,
+      "centre_root_error_upper": 4.99672439888781e-21,
+      "reason": "target",
+      "weighting": "projected residual"
+    },
+    {
+      "group": {
+        "kind": "T1",
+        "target": 2192,
+        "g": "conj",
+        "rows": [
+          0,
+          2,
+          4
+        ],
+        "cols": [
+          3,
+          0,
+          4
+        ],
+        "wind": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "ok": false,
+      "box": [
+        4,
+        5,
+        10,
+        6,
+        15
+      ],
+      "mode": "local",
+      "target_margin_lower": -0.0005027788606663883,
+      "target_bound_upper": 0.10050277886066641,
+      "error_upper": 0.008189062620108746,
+      "weighted_hessian_upper": 55.470618275131685,
+      "centre_root_error_upper": 6.299764911351317e-21,
+      "reason": "target",
+      "weighting": "projected residual"
+    },
+    {
+      "group": {
+        "kind": "T1",
+        "target": 2192,
+        "g": "conj",
+        "rows": [
+          0,
+          2,
+          4
+        ],
+        "cols": [
+          3,
+          0,
+          4
+        ],
+        "wind": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "ok": false,
+      "box": [
+        4,
+        5,
+        11,
+        7,
+        15
+      ],
+      "mode": "local",
+      "target_margin_lower": -0.00240617611052431,
+      "target_bound_upper": 0.10240617611052433,
+      "error_upper": 0.010848360060801907,
+      "weighted_hessian_upper": 55.470618275131685,
+      "centre_root_error_upper": 5.8148470147620336e-21,
+      "reason": "target",
+      "weighting": "projected residual"
+    },
+    {
+      "group": {
+        "kind": "T1",
+        "target": 2192,
+        "g": "conj",
+        "rows": [
+          0,
+          2,
+          4
+        ],
+        "cols": [
+          3,
+          0,
+          4
+        ],
+        "wind": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "ok": false,
+      "box": [
+        4,
+        6,
+        11,
+        7,
+        15
+      ],
+      "mode": "local",
+      "target_margin_lower": -0.002350144400587289,
+      "target_bound_upper": 0.1023501444005873,
+      "error_upper": 0.007969890088464023,
+      "weighted_hessian_upper": 55.470618275131685,
+      "centre_root_error_upper": 5.6681861470737574e-21,
+      "reason": "target",
+      "weighting": "projected residual"
+    },
+    {
+      "group": {
+        "kind": "T1",
+        "target": 2192,
+        "g": "conj",
+        "rows": [
+          0,
+          2,
+          4
+        ],
+        "cols": [
+          3,
+          0,
+          4
+        ],
+        "wind": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "ok": false,
+      "box": [
+        4,
+        4,
+        12,
+        7,
+        14
+      ],
+      "mode": "local",
+      "target_margin_lower": -0.001866041972293422,
+      "target_bound_upper": 0.10186604197229344,
+      "error_upper": 0.011178755064388788,
+      "weighted_hessian_upper": 55.470618275131685,
+      "centre_root_error_upper": 5.9816441489659436e-21,
+      "reason": "target",
+      "weighting": "projected residual"
+    },
+    {
+      "group": {
+        "kind": "T1",
+        "target": 1956,
+        "g": "conjT",
+        "rows": [
+          1,
+          5,
+          0
+        ],
+        "cols": [
+          3,
+          4,
+          5
+        ],
+        "wind": [
+          1,
+          1,
+          1,
+          0
+        ]
+      },
+      "ok": false,
+      "box": [
+        4,
+        3,
+        6,
+        10,
+        1
+      ],
+      "mode": "local",
+      "target_margin_lower": -0.00159474482098755,
+      "target_bound_upper": 0.10159474482098757,
+      "error_upper": 0.007253175509714635,
+      "weighted_hessian_upper": 47.850484997200624,
+      "centre_root_error_upper": 6.473868558001172e-21,
+      "reason": "target",
+      "weighting": "projected residual"
+    },
+    {
+      "group": {
+        "kind": "T1",
+        "target": 1956,
+        "g": "conjT",
+        "rows": [
+          1,
+          5,
+          0
+        ],
+        "cols": [
+          3,
+          4,
+          5
+        ],
+        "wind": [
+          1,
+          1,
+          1,
+          0
+        ]
+      },
+      "ok": false,
+      "box": [
+        4,
+        4,
+        6,
+        10,
+        0
+      ],
+      "mode": "local",
+      "target_margin_lower": -0.0032206653268843574,
+      "target_bound_upper": 0.10322066532688437,
+      "error_upper": 0.010935707323747278,
+      "weighted_hessian_upper": 47.850484997200624,
+      "centre_root_error_upper": 6.4856089847832565e-21,
+      "reason": "target",
+      "weighting": "projected residual"
+    },
+    {
+      "group": {
+        "kind": "T1",
+        "target": 1886,
+        "g": "id",
+        "rows": [
+          3,
+          4,
+          5
+        ],
+        "cols": [
+          2,
+          1,
+          5
+        ],
+        "wind": [
+          0,
+          -1,
+          -1,
+          -1
+        ]
+      },
+      "ok": false,
+      "box": [
+        4,
+        6,
+        11,
+        8,
+        15
+      ],
+      "mode": "local",
+      "target_margin_lower": -0.0008912149203538852,
+      "target_bound_upper": 0.10089121492035391,
+      "error_upper": 0.007105916724901674,
+      "weighted_hessian_upper": 49.457343798559215,
+      "centre_root_error_upper": 5.665621309028623e-21,
+      "reason": "target",
+      "weighting": "projected residual"
+    },
+    {
+      "group": {
+        "kind": "T1",
+        "target": 2124,
+        "g": "T",
+        "rows": [
+          3,
+          0,
+          2
+        ],
+        "cols": [
+          2,
+          0,
+          3
+        ],
+        "wind": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "ok": false,
+      "box": [
+        4,
+        9,
+        11,
+        1,
+        3
+      ],
+      "mode": "local",
+      "target_margin_lower": -0.003589050884235909,
+      "target_bound_upper": 0.10358905088423592,
+      "error_upper": 0.012361522224200932,
+      "weighted_hessian_upper": 52.50419552055038,
+      "centre_root_error_upper": 7.754943594757907e-21,
+      "reason": "target",
+      "weighting": "projected residual"
+    },
+    {
+      "group": {
+        "kind": "T1",
+        "target": 2124,
+        "g": "T",
+        "rows": [
+          3,
+          0,
+          2
+        ],
+        "cols": [
+          2,
+          0,
+          3
+        ],
+        "wind": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "ok": false,
+      "box": [
+        4,
+        9,
+        12,
+        1,
+        4
+      ],
+      "mode": "local",
+      "target_margin_lower": -0.001853215785370499,
+      "target_bound_upper": 0.10185321578537052,
+      "error_upper": 0.012361522224200932,
+      "weighted_hessian_upper": 52.50419552055038,
+      "centre_root_error_upper": 7.503247082137582e-21,
+      "reason": "target",
+      "weighting": "projected residual"
+    },
+    {
+      "group": {
+        "kind": "T1",
+        "target": 2124,
+        "g": "conjT",
+        "rows": [
+          0,
+          3,
+          4
+        ],
+        "cols": [
+          2,
+          0,
+          3
+        ],
+        "wind": [
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      "ok": false,
+      "box": [
+        4,
+        8,
+        13,
+        3,
+        12
+      ],
+      "mode": "local",
+      "target_margin_lower": -0.0008740504433624114,
+      "target_bound_upper": 0.10087405044336244,
+      "error_upper": 0.008340278944180251,
+      "weighted_hessian_upper": 55.022299123527866,
+      "centre_root_error_upper": 7.37899332419577e-21,
+      "reason": "target",
+      "weighting": "projected residual"
+    },
+    {
+      "group": {
+        "kind": "T1",
+        "target": 1885,
+        "g": "T",
+        "rows": [
+          2,
+          1,
+          5
+        ],
+        "cols": [
+          5,
+          1,
+          2
+        ],
+        "wind": [
+          0,
+          1,
+          0,
+          1
+        ]
+      },
+      "ok": false,
+      "box": [
+        4,
+        8,
+        13,
+        6,
+        14
+      ],
+      "mode": "local",
+      "target_margin_lower": -0.0021479421604240936,
+      "target_bound_upper": 0.10214794216042411,
+      "error_upper": 0.010211262760838394,
+      "weighted_hessian_upper": 52.21296634135353,
+      "centre_root_error_upper": 6.214000460216728e-21,
+      "reason": "target",
+      "weighting": "projected residual"
+    },
+    {
+      "group": {
+        "kind": "T1",
+        "target": 2111,
+        "g": "conjT",
+        "rows": [
+          0,
+          3,
+          2
+        ],
+        "cols": [
+          1,
+          0,
+          2
+        ],
+        "wind": [
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      "ok": false,
+      "box": [
+        3,
+        6,
+        5,
+        5,
+        2
+      ],
+      "mode": "local",
+      "target_margin_lower": -0.006504188953823115,
+      "target_bound_upper": 0.10650418895382313,
+      "error_upper": 0.01118723851373509,
+      "weighted_hessian_upper": 35.79916324395228,
+      "centre_root_error_upper": 5.374095778127331e-21,
+      "reason": "target",
+      "weighting": "projected residual"
+    },
+    {
+      "group": {
+        "kind": "T1",
+        "target": 1368,
+        "g": "T",
+        "rows": [
+          0,
+          3,
+          1
+        ],
+        "cols": [
+          1,
+          0,
+          2
+        ],
+        "wind": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "ok": false,
+      "box": [
+        4,
+        4,
+        6,
+        14,
+        11
+      ],
+      "mode": "local",
+      "target_margin_lower": -0.003152156181918081,
+      "target_bound_upper": 0.1031521561819181,
+      "error_upper": 0.006092810683861154,
+      "weighted_hessian_upper": 47.33096306045925,
+      "centre_root_error_upper": 7.02071454063184e-21,
+      "reason": "target",
+      "weighting": "projected residual"
+    },
+    {
+      "group": {
+        "kind": "T1",
+        "target": 1572,
+        "g": "id",
+        "rows": [
+          3,
+          4,
+          5
+        ],
+        "cols": [
+          2,
+          1,
+          5
+        ],
+        "wind": [
+          0,
+          -1,
+          -1,
+          -1
+        ]
+      },
+      "ok": false,
+      "box": [
+        4,
+        6,
+        13,
+        7,
+        14
+      ],
+      "mode": "local",
+      "target_margin_lower": -0.003228379308780835,
+      "target_bound_upper": 0.10322837930878086,
+      "error_upper": 0.00968903686760558,
+      "weighted_hessian_upper": 49.54268318200512,
+      "centre_root_error_upper": 5.798206741141594e-21,
+      "reason": "target",
+      "weighting": "projected residual"
+    },
+    {
+      "group": {
+        "kind": "T1",
+        "target": 2192,
+        "g": "id",
+        "rows": [
+          4,
+          5,
+          0
+        ],
+        "cols": [
+          5,
+          1,
+          2
+        ],
+        "wind": [
+          0,
+          1,
+          0,
+          0
+        ]
+      },
+      "ok": false,
+      "box": [
+        4,
+        10,
+        6,
+        5,
+        15
+      ],
+      "mode": "local",
+      "target_margin_lower": -6.93779821783672e-06,
+      "target_bound_upper": 0.10000693779821786,
+      "error_upper": 0.008287667655939095,
+      "weighted_hessian_upper": 56.138543598980085,
+      "centre_root_error_upper": 6.5087089719318084e-21,
+      "reason": "target",
+      "weighting": "projected residual"
+    },
+    {
+      "group": {
+        "kind": "T1",
+        "target": 1572,
+        "g": "conj",
+        "rows": [
+          1,
+          0,
+          2
+        ],
+        "cols": [
+          4,
+          0,
+          3
+        ],
+        "wind": [
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      "ok": false,
+      "box": [
+        4,
+        8,
+        4,
+        8,
+        15
+      ],
+      "mode": "local",
+      "target_margin_lower": -0.002421036526233666,
+      "target_bound_upper": 0.10242103652623369,
+      "error_upper": 0.005817901258918597,
+      "weighted_hessian_upper": 48.45171409330408,
+      "centre_root_error_upper": 5.37535692328097e-21,
+      "reason": "target",
+      "weighting": "projected residual"
+    },
+    {
+      "group": {
+        "kind": "T1",
+        "target": 2264,
+        "g": "T",
+        "rows": [
+          0,
+          4,
+          3
+        ],
+        "cols": [
+          4,
+          2,
+          0
+        ],
+        "wind": [
+          1,
+          0,
+          0,
+          0
+        ]
+      },
+      "ok": false,
+      "box": [
+        4,
+        1,
+        8,
+        6,
+        13
+      ],
+      "mode": "local",
+      "target_margin_lower": -0.002498701773726145,
+      "target_bound_upper": 0.10249870177372616,
+      "error_upper": 0.011899085611392999,
+      "weighted_hessian_upper": 60.843264057729144,
+      "centre_root_error_upper": 4.7004655262465654e-21,
+      "reason": "target",
+      "weighting": "projected residual"
+    }
+  ],
+  "failure_count": 48,
+  "failure": "one or more hybrid patches did not certify",
+  "passed_before_failure": 5627,
+  "seconds": 25.730157784004405,
+  "global_passes": 4371,
+  "local_passes": 1256,
+  "local_attempts": 1304
+}

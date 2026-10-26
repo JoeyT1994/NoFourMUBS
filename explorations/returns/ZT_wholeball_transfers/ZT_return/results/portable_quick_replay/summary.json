@@ -1,0 +1,41 @@
+{
+  "status": "PASS",
+  "mode": "quick",
+  "checks": [
+    {
+      "check": "seed6",
+      "exit_code": 0,
+      "seconds": 3.602971874002833,
+      "status": "CERTIFIED full sphere transfers",
+      "ok": true
+    },
+    {
+      "check": "seed8",
+      "exit_code": 0,
+      "seconds": 5.158283703996858,
+      "status": "CERTIFIED full sphere transfers",
+      "ok": true
+    },
+    {
+      "check": "geometry",
+      "exit_code": 0,
+      "seconds": 2.027254439999524,
+      "status": "CERTIFIED finite-descriptor traversal lower bound",
+      "ok": true
+    },
+    {
+      "check": "negative_controls",
+      "exit_code": 0,
+      "seconds": 2.0135315810039174,
+      "status": "PASS",
+      "ok": true
+    },
+    {
+      "check": "edge",
+      "exit_code": 0,
+      "seconds": 2.9365191660035634,
+      "status": "CERTIFIED listed diagnostic patches only",
+      "ok": true
+    }
+  ]
+}

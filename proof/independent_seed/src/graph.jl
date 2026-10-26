@@ -296,6 +296,41 @@ struct GraphResult
     seconds::Float64
 end
 
+"""(D) and the image on the box wc ± h.  Where the derivative enclosure is too coarse to certify sigma_min, the box is
+split into its 16 half-size children (up to depth 3): they cover it (half-widths enlarged by 2^-40 relative to absorb
+the rounding of the child centres), so the minimum of sigma_min and the maxima of the image over them bound the box."""
+function graph_box(eb::EdgeBall, root, wc::NTuple{4,Float64}, h::NTuple{4,Float64}, gc, gd, depth::Int)
+    o = try
+        em = edge_box_map(eb, wc, h, edge_guess(root, wc)...)
+        if !em.ok
+            (false, "(D): edge box map failed on a C1e box: " * em.why)
+        else
+            A = edge_deta(eb, em, h, gc)
+            if A === nothing
+                (false, "(D): derivative enclosure failed on the box at " * string(round.(wc, sigdigits=4)))
+            else
+                sD = sigma_lower(A; target=isnan(gd.sigmaD) ? NaN : gd.sigmaD)
+                d, e = edge_image(em, h, gc)
+                sD > 0 ? (true, sD, d, e) :
+                    (false, @sprintf("(D): sigma_min not certified >= %s on the box at %s",
+                                     isnan(gd.sigmaD) ? "0" : string(gd.sigmaD), string(round.(wc, sigdigits=4))))
+            end
+        end
+    catch err
+        (false, "(D): exception: " * sprint(showerror, err)[1:min(end, 200)])
+    end
+    (o[1] || depth >= 3) && return o
+    h2 = ntuple(k -> h[k] / 2 * (1 + 2.0^-40), 4)
+    smin = Inf; dsup = 0.0; esup = 0.0
+    for s in Iterators.product((-1, 1), (-1, 1), (-1, 1), (-1, 1))
+        c = ntuple(k -> wc[k] + s[k] * h[k] / 2, 4)
+        oc = graph_box(eb, root, c, h2, gc, gd, depth + 1)
+        oc[1] || return oc
+        smin = min(smin, oc[2]); dsup = max(dsup, oc[3]); esup = max(esup, oc[4])
+    end
+    (true, smin, dsup, esup)
+end
+
 function check_graph(eb::EdgeBall, leaves::Vector{EdgeLeaf}, gd::GraphData)
     t0 = time()
     fail(msg, a...) = GraphResult(false, msg, a..., time() - t0)
@@ -312,25 +347,7 @@ function check_graph(eb::EdgeBall, leaves::Vector{EdgeLeaf}, gd::GraphData)
     out = Vector{Any}(undef, length(leaves))
     Threads.@threads :greedy for i in eachindex(leaves)
         lf = leaves[i]
-        out[i] = try
-            em = edge_box_map(eb, lf.wc, lf.h, edge_guess(root, lf.wc)...)
-            if !em.ok
-                (false, "(D): edge box map failed on a C1e box: " * em.why)
-            else
-                A = edge_deta(eb, em, lf.h, gc)
-                if A === nothing
-                    (false, "(D): derivative enclosure failed on the box at " * string(round.(lf.wc, sigdigits=4)))
-                else
-                    sD = sigma_lower(A; target=isnan(gd.sigmaD) ? NaN : gd.sigmaD)
-                    d, e = edge_image(em, lf.h, gc)
-                    sD > 0 ? (true, sD, d, e) :
-                        (false, @sprintf("(D): sigma_min not certified >= %s on the box at %s",
-                                         isnan(gd.sigmaD) ? "0" : string(gd.sigmaD), string(round.(lf.wc, sigdigits=4))))
-                end
-            end
-        catch err
-            (false, "(D): exception: " * sprint(showerror, err)[1:min(end, 200)])
-        end
+        out[i] = graph_box(eb, root, lf.wc, lf.h, gc, gd, 0)
     end
     smin = Inf; esup = 0.0; dsup = 0.0
     for o in out
