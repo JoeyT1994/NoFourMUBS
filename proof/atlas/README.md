@@ -24,7 +24,8 @@ Both are formalised in Lean (`lean/NoFourMUBs/StageC/`, `NormalBound.lean`).
 | `arb_replay.py` | Re-evaluates a random sample of float Stage C rejections in Arb with no margin (`verify.py`) |
 | `geometry.py`, `atlas.py` | Float helpers: the corner census (all 400 corners of a matrix) and alignment by signed permutations, used by the seed-atlas driver's target discovery |
 | `nonempty.py` | Places a matrix inside a full-matrix record, in Arb (used by the certifier only for certificates that list records) |
+| `certify.py`, `export.py` | The 25-dimensional atlas's checker and exporter; kept as libraries: `nonempty.py` uses their Arb helpers and record reader |
 | `centre_fold52.json` | The Stage C sample centre of `verify.py` |
 
-The 25-dimensional atlas that this folder used to build (12,021 Records, its checker `certify.py` and its results)
-is preserved at the git tag `v1-25dim-records`.
+The 25-dimensional atlas that this folder used to build (12,021 Records, its driver, repairs and results) is preserved
+at the git tag `v1-25dim-records`.
