@@ -1,4 +1,4 @@
-# Boundary transfers on spherical caps (return ZC, explorations/returns/ZC_cap_transfers: cap_theory.md, CAP_FORMAT.md).
+# Boundary transfers on spherical caps (return ZC, proof/theorems/ZC_cap_transfers: cap_theory.md, CAP_FORMAT.md).
 #
 # A cap is {x : ||x|| = 1, v.x >= h} in x = w / r (v four integers, 0 < h < ||v||).  For a T0/T1 transfer the target
 # quantity is a quadratic polynomial in w plus the normal term; on the cap it is enclosed by the affine model at the

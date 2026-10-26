@@ -50,16 +50,19 @@ are being built.
 6. **Connectedness** (`proof/coverage/returns/A_deltoid/CONNECTEDNESS.md`, `SHEETS_TOPOLOGY.md`): continuity of
    θ ↦ [H₊(θ)] across root cuts and sign switches; the sheet-parity formula; the frame symmetries giving one class at
    the maxima.
-7. **C1 by return Z** (`explorations/returns/Z_completion_hessian/`, `THEOREM.md`; `cert/wholeball.py` and
+7. **C1 by return Z** (`proof/theorems/Z_completion_hessian/`, `THEOREM.md`; `cert/wholeball.py` and
    `independent_seed/src/wholeball.jl`): the frame-preserving contraction, the orientation margins from ‖D²ψ‖ ≤ 72,
    and the record step n_record = bound + ‖P_exact − P‖ + r‖U_exact − U‖. The method rests on the local
    matched-completion germ (Step 2).
-8. **F6** (Step 4): return X's cover (`explorations/returns/X_no_quartet_near_F6/`) and its Lean form
+8. **F6** (Step 4): return X's cover (`proof/theorems/X_no_quartet_near_F6/`) and its Lean form
    (`lean/NoFourMUBs/X/`); the edge chart (returns U, W), the X-ball's image bound ‖h(Q − P_F)‖ ≤ 7/40, and T3 by return XS
-   (`explorations/returns/XS_edge_side_orders/`): that the three corner phases pin the Fourier frame (§3.2), W's framed
+   (`proof/theorems/XS_edge_side_orders/`): that the three corner phases pin the Fourier frame (§3.2), W's framed
    continuation (§3.1), and the certifiers' distance bound (an aligned horizontal norm over the box, below 3/20).
 9. **The transfers and coverage** (Lemmas 5.1–5.2; Lean `SeedAtlas/Atlas.lean`, `EdgeXAtlas.lean`, `OpenMap.lean`):
-   the corner seed and Ψ signs of T1, the dyadic sphere covers and their exact coverage check.
+   the corner seed and Ψ signs of T1, the dyadic sphere covers and their exact coverage check. The transfer test
+   (return ZT, `proof/theorems/ZT_wholeball_transfers/`; `cert/patches.py`, `independent_seed/src/patches.jl`): the
+   affine bound at the box vertices, the H₂ and output-weighted normal remainders, the Ψ signs from ‖D²ψ‖ ≤ 72, and
+   for the X-ball the weighted τ_A and centre jets (`cert/edge_wholeball.py`).
 10. **Stage C** (`STAGEC.md` against `stagec.py`; inequalities in Lean, `StageC/`; replayed by the Julia checker): the
    column bound r_col = t r + n, the joint test, the margins.
 11. **The certifiers.** `certify_seed_atlas.py` must trust nothing from the driver beyond the certificate's data.

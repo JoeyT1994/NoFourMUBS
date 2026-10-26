@@ -1,7 +1,6 @@
 # Review of return Q (18 Oct 2026)
 
-**Return:** `Q_fourier_anchor_result.zip` (SHA-256 `b673f72d…faed`), from handoff Q
-(`explorations/handoffs/Q_fourier_anchor/BRIEF.md`).
+**Return:** `Q_fourier_anchor_result.zip` (SHA-256 `b673f72d…faed`), from handoff Q.
 
 **Claim.** PROVED: for K(t) = [[F₃, F₃], [F₃D(t), −F₃D(t)]], D(t) = diag(1, e^{it}, 1), the corner on rows (1, 3, 5) and
 columns (0, 2, 4), dephased, is E = [[1,1,1],[1,ω,−ω²z],[1,ω²,−ωz]] with z = e^{it}, and

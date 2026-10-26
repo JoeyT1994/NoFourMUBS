@@ -249,8 +249,8 @@ when every completion at a prescribed corner is wanted.
 
 ## 6. Related retained results
 
-The proved measurement identities and inequalities are in [`Measurements/`](Measurements/) (the earlier
-`ProvenResults/` index was removed on 8 Oct 2026, in commit 2c314c2a).
+The proved measurement identities and inequalities are indexed in
+[ProvenResults](../ProvenResults/README.md).
 
 The preferred measurement equations are
 [SingleRadicalMeasurements.md](Measurements/SingleRadicalMeasurements.md).
@@ -335,3 +335,6 @@ Replay all local checks with `python3 MinimalConstruction/Proofs/verify_dossier.
 See [COMPLETION_AUDIT.md](Proofs/provenance/COMPLETION_AUDIT.md) for the requirement
 audit and [CHANGE_REPORT.md](Proofs/provenance/CHANGE_REPORT.md) for all changed files
 and hashes. The dossier is replayed by the root `verify.py`.
+
+
+**Note.** The measurement identities and inequalities of §6 are in [`Measurements/`](Measurements/).

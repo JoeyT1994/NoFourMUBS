@@ -216,7 +216,7 @@ class EdgeBall:
         # 3/20 of F6), which needs the image certified inside that distance (certify_edge_c1)
         self.exclusion = d.get('exclusion', 'stagec')
         need(self.exclusion in ('stagec', 'X'), 'edge ball: unknown exclusion %r' % (self.exclusion,))
-        # return X holds up to phase distance 9/20 (explorations/returns/X_radius_045); float(0.45) < 9/20
+        # return X holds up to phase distance 9/20 (proof/theorems/X_radius_045); float(0.45) < 9/20
         self.x_radius = hx(d.get('x_radius', (0.15).hex())) if self.exclusion == 'X' else None
         need(self.x_radius is None or 0 < self.x_radius <= 0.45, 'edge ball: x_radius must lie in (0, 9/20]')
         k = d['k']

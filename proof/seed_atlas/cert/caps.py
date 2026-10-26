@@ -1,4 +1,4 @@
-"""Boundary transfers on spherical caps (return ZC, explorations/returns/ZC_cap_transfers): one cap of the sphere
+"""Boundary transfers on spherical caps (return ZC, proof/theorems/ZC_cap_transfers): one cap of the sphere
 ||x|| = 1, v.x >= h (x = w / r) is certified for a T0/T1 transfer by a 5 x 5 PSD witness on the whole-ball model's
 quadratic predictor with ZT's error terms, and both Psi signs by the linear-cap minimum and the signature remainder;
 the caps cover S^3 by cap_coverage.verify_coverage (exact integer polar-facet certificate).  Code: return ZC's

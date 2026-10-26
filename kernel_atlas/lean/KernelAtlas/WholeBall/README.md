@@ -7,7 +7,7 @@ The generated `Ball2299.hC1` has kernel-checked successfully, and
 `Ball2299.radius_positive` proves that its radius is positive. Both the generic
 soundness audit and the concrete instance audit use standard axioms only.
 
-Reference: `explorations/returns/Z_completion_hessian/Z_completion_hessian_return/THEOREM.md`.
+Reference: `proof/theorems/Z_completion_hessian/Z_completion_hessian_return/THEOREM.md`.
 The Python and independent Julia implementations in `proof/seed_atlas/cert/wholeball.py`
 and `proof/independent_seed/src/wholeball.jl` supply the arithmetic conventions.
 No mathematical variant of Z is used.

@@ -2,7 +2,7 @@
 
 The F6-012 chart's phases on the whole ball, Q(w) = Q0 + U w + H2[w, w]/2 + X z(w), ||z|| <= tau, from a
 22-normal-coordinate augmented Z system: the row-orthogonality residual Phi and the signed side signature
-psi_h(Q) = -p_4/2, with the first three seed cross-ratios fixed (explorations/returns/ZT_wholeball_transfers/
+psi_h(Q) = -p_4/2, with the first three seed cross-ratios fixed (proof/theorems/ZT_wholeball_transfers/
 ZT_return/edge/EDGE_REPORT.md).  The code is ZT's edge_augmented.py, with its bound helpers local to this module
 instead of patched into wholeball.  Every verdict is an Arb inequality.
 """

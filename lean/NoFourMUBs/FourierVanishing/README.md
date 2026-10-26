@@ -1,7 +1,7 @@
 # Fourier vanishing (return H) in Lean
 
 This folder formalises the theorem of return H,
-[`explorations/returns/H_fourier_vanishing/REPORT.md`](../../../explorations/returns/H_fourier_vanishing/REPORT.md).
+[`proof/theorems/H_fourier_vanishing/REPORT.md`](../../../proof/theorems/H_fourier_vanishing/REPORT.md).
 The theorem is an input to the draft paper's Section II. The main proof does not use it.
 
 ```lean

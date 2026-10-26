@@ -11,7 +11,7 @@ order-6 Hadamard matrices is used.
 **Read:** [`PROOF.md`](PROOF.md) (the proof), then [`AUDIT.md`](AUDIT.md) (status and where to look hardest), then
 [`lean/README.md`](lean/README.md) (the formalisation).
 
-**Status (26 Oct 2026).** The seed-atlas certificate (2,350 seed balls and the ball at F6) passes both independent certifiers, Arb and Julia, with every check passing. See [`PROOF.md`](PROOF.md#step-5-the-atlas-covers-x).
+**Status (26 Oct 2026).** The seed-atlas certificate (2,350 seed balls and the ball at F6) passes both independent certifiers: Arb in 52 min and Julia in 47 min, each on one 128-core node. See [`PROOF.md`](PROOF.md#step-5-the-atlas-covers-x).
 
 ## The proof in five steps
 
@@ -32,10 +32,10 @@ of a finite atlas.
 | Command | What it checks | Needs |
 |---|---|---|
 | `python3 verify.py` | exact replays of Steps 1–4: the Step 1 certificates, matched existence, the converse and exact reach, strict-corner coverage, Tao's record, a Stage C sample | Python 3.10+, `pip install -r requirements.txt`; about 1 min |
-| `python3 verify.py --atlas -j N` | also certifies the whole seed atlas in Arb (Step 5) | as above; 1 h 24 min on one 128-core node |
+| `python3 verify.py --atlas -j N` | also certifies the whole seed atlas in Arb (Step 5) | as above; 52 min on one 128-core node |
 | `python3 verify.py --lean` | also builds the Lean formalisation and audits its axioms | elan; about 12 GB of disk |
 | `python3 verify.py --lean-full` | also builds the main theorems and audits them | as above; up to about 7 GB of RAM |
-| [`proof/independent_seed/`](proof/independent_seed/README.md) | the independent Julia checker of Step 5 | Julia 1.12; about an hour on one 128-core node |
+| [`proof/independent_seed/`](proof/independent_seed/README.md) | the independent Julia checker of Step 5 | Julia 1.12; 47 min on one 128-core node |
 
 Continuous integration ([`.github/workflows/ci.yml`](.github/workflows/ci.yml)) runs `verify.py` and the Lean build
 with its axiom audit.
@@ -48,6 +48,7 @@ with its axiom audit.
 | [`proof/coverage/`](proof/coverage/README.md) | Steps 1–2: the returned proofs used by the proof, with their exact verifiers; cross-checks; audits |
 | [`proof/seed_atlas/`](proof/seed_atlas/README.md) | Steps 3 and 5: the seed-atlas format, the driver that builds it, the Arb certifier, the certificate |
 | [`proof/independent_seed/`](proof/independent_seed/README.md) | An independent implementation of the Step 3–5 checks (Julia, interval arithmetic), written from the specification only |
+| [`proof/theorems/`](proof/theorems/README.md) | The theorems behind Steps 3–5 (C1, the transfers, F6 and the edge chart), each with its proof and exact or interval verifiers |
 | [`proof/atlas/`](proof/atlas/README.md) | Stage C (Lemma 3.2) and Tao's record: the shared code and its proofs (`STAGEC.md`, `RIGOUR.md`) |
 | [`proof/independent/`](proof/independent/README.md) | The independent Julia Stage C and normal bound, loaded by `proof/independent_seed` |
 | [`MinimalConstruction/`](MinimalConstruction/README.md) | The corner reconstruction and the critical-strip proofs behind strict-corner coverage (Theorem 2.5) |
@@ -56,15 +57,6 @@ with its axiom audit.
 | [`proof/LITERATURE.md`](proof/LITERATURE.md) | Literature and credit, including what is taken from openai/math |
 | [`ClassificationPaper/`](ClassificationPaper/README.md) | The classification paper [CT]: context for the reconstruction, not used by the proof |
 | [`kernel_atlas/`](kernel_atlas/README.md) | The certificate checked in the Lean kernel (`decide +kernel`), so that the main theorem holds with no hypotheses: return X at 7/40 (done), the seed balls and the ball at F6 (in progress) |
-| [`explorations/`](explorations/README.md) | Research beyond the proof: open handoffs, results the proof does not use, the atlas-wide triple census |
-
-## History
-
-The previous proof (to 25 Oct 2026) covered the quotient by 12,021 ball Records in the 25-dimensional phase space, and
-was checked once in the Lean kernel (`no_four_mubs_kernel`, about 54,000 core-hours). It is preserved, with its
-certificate and both checkers, at the git tag `v1-25dim-records`. Earlier versions are at the tags
-`archive-2026-10-11` (the first, corner-chart proof), `archive-2026-10-17` (exploratory material, including the
-second-route atlas) and `proof-docs-2026-10-17` (the proof documents before their consolidation into `PROOF.md`).
 
 ## License and citation
 

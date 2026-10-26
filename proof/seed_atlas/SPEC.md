@@ -212,7 +212,7 @@ replaced by finite inequalities. That means the parametric Krawczyk lemma and Ta
 
 ## 10. Edge balls: the four-dimensional chart through F6 (replaces F6's 25-dim record)
 
-Source: return U (`explorations/returns/U_fold_at_edge/`, replayed): fold theorem, analytic completion across R = 0, and
+Source: return U (`proof/theorems/U_fold_at_edge/`, replayed): fold theorem, analytic completion across R = 0, and
 the chart at F6. Prototype: `proof/seed_atlas/prototype/edgeball.py`, `edge_stagec.py`. In binary64, an edge ball at F6
 passes Stage C at r = 0.125 (label radius 0.03, sampled n ≈ 9e-3, 223 labels) and fails at 0.15.
 
