@@ -17,9 +17,8 @@ const PATCH_LOCK = ReentrantLock()
 
 """The ZT model of seed s (cached), or nothing when its whole-ball certificate or the lift identification fails."""
 function patch_model(s::Seed)
-    lock(PATCH_LOCK) do
-        haskey(PATCH_MODELS, s.idx) && return PATCH_MODELS[s.idx]
-    end
+    v = lock(PATCH_LOCK) do; get(PATCH_MODELS, s.idx, missing); end      # (a return inside `do` would only leave the closure)
+    v === missing || return v
     m = try wb_compute(s)[2] catch; nothing end
     lock(PATCH_LOCK) do
         PATCH_MODELS[s.idx] = m
