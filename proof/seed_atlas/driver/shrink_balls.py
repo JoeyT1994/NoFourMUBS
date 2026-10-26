@@ -99,7 +99,8 @@ def mutate(A, plans, impact):
 
 def apply(source, plans_path, destination, edge_source=None, check_only=False):
     source, destination = source.resolve(), destination.resolve()
-    if source.parent == destination or source == destination or destination in source.parents:
+    if (source.parent == destination or source.parent in destination.parents or
+            source == destination or destination in source.parents):
         raise ValueError("destination must be a separate run directory")
     if destination.exists() and not check_only:
         raise FileExistsError(f"refusing to replace existing run {destination}")

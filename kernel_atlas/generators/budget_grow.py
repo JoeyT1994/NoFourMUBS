@@ -8,6 +8,7 @@ import json
 import math
 import os
 from pathlib import Path
+import pickle
 import sys
 import time
 import zipfile
@@ -93,6 +94,12 @@ def main():
         raise ValueError("refusing to grow run5")
     if not (run/"zk2_preparation.json").exists():
         raise ValueError("run needs shrink_balls.py preparation")
+    with (run/"atlas_state.pkl").open("rb") as f:
+        atlas = pickle.load(f)
+    if any(b.info.get("zk2", {}).get("rank") not in [0, 4] or
+           getattr(b, "nsafe", 0) < M.N_SAFETY for b in atlas.balls):
+        raise ValueError("every input ball needs a cheap plan and must bypass legacy TM restaging")
+    del atlas
     D.make_ball = cheap_make_ball
     geometry()
     D.main()

@@ -83,6 +83,12 @@ def state_checks():
         ep = source/"atlas_state_edge.pkl"; ep.write_bytes(pickle.dumps(ea))
         pp = root/"plans.jsonl"; pp.write_text("".join(json.dumps(v)+"\n" for v in plans.values()))
         before = src.read_bytes()
+        try:
+            S.apply(src, pp, source/"nested-run", ep)
+        except ValueError:
+            pass
+        else:
+            raise AssertionError("destination inside source run accepted")
         S.apply(src, pp, root/"run6", ep)
         assert src.read_bytes() == before
         new = pickle.loads((root/"run6/atlas_state.pkl").read_bytes())
