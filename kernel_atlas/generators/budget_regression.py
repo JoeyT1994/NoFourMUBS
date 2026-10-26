@@ -105,7 +105,30 @@ def state_checks():
             raise AssertionError("existing run overwritten")
 
 
+def nonmonotone_plan_check():
+    import budget_plan as P
+    seed = inputs(DEFAULT_ZIP)[0][0]
+    radius = float.fromhex(seed["r"])
+    fine = dict(status="CERTIFIED", r=radius, n=.01, label=.03,
+                confirmation=dict(ok=True, check="certifier", n=.01, label=.03, r=radius))
+    bound = dict(status="CERTIFIED", n_record=.005)
+    saved_g, saved_stage = dict(P.G), B.stage
+    try:
+        P.G.clear()
+        P.G.update(seeds=[seed], fine={0: fine}, coarse={}, rank0={0: bound}, rank4={0: bound},
+                   shrink=True, refine=False)
+        B.stage = lambda seed, n, label, certified=False: dict(ok=False, check="certifier", n=n, r=radius, label=label)
+        result = P.one(0)
+        assert result["status"] == "CERTIFIED" and result["r"] == radius
+        assert result["n"] == fine["n"] and result["reused_fine_endpoint"]
+        assert result["stagec"] == fine["confirmation"]
+    finally:
+        P.G.clear(); P.G.update(saved_g)
+        B.stage = saved_stage
+
+
 if __name__ == "__main__":
     search_checks()
     state_checks()
-    print("PASS: bracket/cap/certifier fallback searches; geometry, incoming, T3, edge and record invalidation; source preservation; overwrite rejection")
+    nonmonotone_plan_check()
+    print("PASS: bracket/cap/certifier fallback searches and nonmonotone endpoint reuse; geometry, incoming, T3, edge and record invalidation; source preservation; overwrite rejection")

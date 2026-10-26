@@ -81,6 +81,22 @@ def one(j):
                             raise ArithmeticError("shrunk fine budget failed to retain the known passing bound")
                     result["seconds"] = time.perf_counter()-started
                     return result
+            if factor == 1 and candidates and fine and fine["status"] == "CERTIFIED":
+                # Clustering is not monotone in n: failure at the smaller C1
+                # enclosure cannot invalidate the already accepted endpoint.
+                rank, c1 = candidates[0]
+                if fine["confirmation"].get("r", radius) != radius:
+                    raise ValueError("fine Stage C receipt has a different radius")
+                confirmation = dict(fine["confirmation"], r=radius)
+                if (fine["r"] != radius or not confirmation["ok"] or
+                        confirmation["check"] != "certifier" or confirmation["n"] != fine["n"] or
+                        confirmation["label"] != fine["label"]):
+                    raise ValueError("fine endpoint does not match the original ball")
+                return dict(j=j, status="CERTIFIED", geometry_sha256=geometry_hash(seed),
+                            old_r=radius, r=radius, factor=1., n=fine["n"], label=fine["label"],
+                            rank=rank, c1=c1, stagec=confirmation, trials=trials,
+                            source_budget=target, source_fine_status="CERTIFIED", reused_fine_endpoint=True,
+                            seconds=time.perf_counter()-started)
         return dict(j=j, status="NOT ESTABLISHED", reason="no allowed radius passed cheap C1 and Stage C", trials=trials,
                     seconds=time.perf_counter()-started)
     except Exception:

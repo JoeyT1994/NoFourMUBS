@@ -10,13 +10,12 @@
 set -euo pipefail
 export PYTHONDONTWRITEBYTECODE=1
 export OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1
-cd /mnt/ceph/users/jtindall/seed_atlas_build/hor/zk2_growth_code
+cd /mnt/ceph/users/jtindall/seed_atlas_build/hor/zk2_keep_code
 py=/mnt/ceph/users/jtindall/venvs/nofourmubs/bin/python
 base=/mnt/ceph/users/jtindall/seed_atlas_build/hor
 if [ ! -d "$base/run6" ]; then
   "$py" -B kernel_atlas/generators/budget_prepare.py \
-    --plans "$base/zk2_work/original_plans.jsonl" "$base/zk2_work/shrink_plans_1.jsonl" \
-      "$base/zk2_work/shrink_plans_2.jsonl" "$base/zk2_work/shrink_plans_3.jsonl" \
+    --plans "$base/zk2_work/original_plans.jsonl" "$base/zk2_work/kept_plans.jsonl" \
     --source "$base/run5/atlas_state.pkl" --edge-source "$base/run5/atlas_state_edge.pkl" \
     --combined "$base/zk2_work/all_plans.jsonl" --run "$base/run6" \
     > "$base/zk2_work/run6_preparation.json"
