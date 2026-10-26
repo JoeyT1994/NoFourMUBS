@@ -17,6 +17,3 @@ Tao's record.
 ```bash
 julia --startup-file=no --project=jlenv -e 'using Pkg; Pkg.instantiate()'    # once, for both checkers
 ```
-
-The front end that checked the earlier 25-dimensional atlas with this code (`check.jl`, its results and tests) is
-preserved at the git tag `v1-25dim-records`.

@@ -26,7 +26,7 @@ python3 proof/seed_atlas/cert/tests/run_tests.py
 
 | file | contents |
 |---|---|
-| `wholeball.py` | return Z's whole-ball C1: the matched branch, both orientations and the enclosure from one centre computation (`explorations/returns/Z_completion_hessian/`, `THEOREM.md`); `wholeball_basis.json` is its fixed normal basis |
+| `wholeball.py` | return Z's whole-ball C1: the matched branch, both orientations and the enclosure from one centre computation (`proof/theorems/Z_completion_hessian/`, `THEOREM.md`); `wholeball_basis.json` is its fixed normal basis |
 | `tmarb.py` | second-order Taylor models in 4 variables, batched over boxes, as numpy object arrays of `arb`/`acb` (+, −, ·, @, e^{i·}, sup norms) |
 | `seedcert.py` | C1, the Stage C arguments, T0 / T1 / T2, the record-boundary kinds `rec` and `T1prime`, and the coverage traversals |
 | `edgecert.py` | edge balls (SPEC §10): C1e, T3 into edge balls, and the edge ball's own T1 transfers and sphere cover |

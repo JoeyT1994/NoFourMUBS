@@ -186,7 +186,7 @@ A = {[H] : H matched at a strict seed}.
   W₁₁ = J₁₀/(d_h d_v g)·(z + w − χ/g) + J₁₁/(d_h d_v)·(zw − η), which vanishes for matched labels (z + w = χ/g,
   zw = η by Lemma 2.1). Here the third moments are written Q⁽¹⁾(G, z) = (H₀ + g z H₁)/d_G with d_G = P₀P̄₁,
   U = E*·adj(G_h) and J_ij = tr(V_iᵀ U H_j U*); the decomposition holds because two residuals F₀, F₁ vanish
-  identically in ℚ(a, b, c, d) (return R2, [`explorations/returns/R2_flatness_cross_side`](explorations/returns/R2_flatness_cross_side/REVIEW.md);
+  identically in ℚ(a, b, c, d) (return R2, [`proof/theorems/R2_flatness_cross_side`](proof/theorems/R2_flatness_cross_side/REVIEW.md);
   first proved with eight larger coefficient identities, return E,
   [`proof/coverage/returns/E_matched_flatness`](proof/coverage/returns/E_matched_flatness/FLATNESS.md)). The
   relabelling is handoff M, proved in [`ALGEBRAIC_PROOFS.md`](proof/coverage/audits/AUDIT_2026-10-17/ALGEBRAIC_PROOFS.md).
@@ -315,7 +315,7 @@ a remainder n (all in the horizontal gauge: row and column sums zero).
 contraction proves that the matched branch exists on the whole ellipsoid (rate τ < 1). Two orientation margins, from
 ‖D²ψ‖ ≤ 72, fix both signs of Im Ψ throughout. The enclosure is then ‖hQ − P − U w‖ ≤ β r²/2 + ‖X‖τ, plus the
 distance of the stored P and U from the exact ones. On the atlas the certified n is 1.0–1.4 × the remainder an
-adaptive box partition gives, at about 300 × less cost. Theorem: `explorations/returns/Z_completion_hessian/`
+adaptive box partition gives, at about 300 × less cost. Theorem: `proof/theorems/Z_completion_hessian/`
 (`THEOREM.md`); code: [`proof/seed_atlas/cert/wholeball.py`](proof/seed_atlas/cert/wholeball.py). The box
 partition remains the fallback where the contraction does not close.
 
@@ -348,7 +348,7 @@ The reconstruction degenerates only at F6, where R = 0 and the two orientations 
 > edge.
 
 Return X proves it at 3/20 and at 9/20 by an exact finite cover with a quantitative margin
-(`explorations/returns/X_no_quartet_near_F6/`, `X_radius_045/`). **In Lean, at 7/40 and with no hypotheses**:
+(`proof/theorems/X_no_quartet_near_F6/`, `X_radius_045/`). **In Lean, at 7/40 and with no hypotheses**:
 `NoFourMUBs.X.Radius0175.no_quartet_near_F6_r0175` ([`lean/NoFourMUBs/X/`](lean/NoFourMUBs/X/README.md)), where a
 normal-displacement bound reduces it to one Stage C certificate at F6, checked in the kernel.
 
@@ -357,7 +357,8 @@ normal-displacement bound reduces it to one Stage C certificate at F6, checked i
 > around p = 0, covering every class within distance 0.15 of F6.
 
 The **X-ball** is the image of {p = M w : ‖w‖ ≤ r} in this chart, with M from W's tangent metric. It is certified like
-a seed ball (C1 by Krawczyk tubes of the chart's 7-unknown system). Its image lies within distance 7/40 of F6, so it
+a seed ball: C1 by the chart's whole-ball model (one centre computation, as in Lemma 3.1) in Arb, and by Krawczyk
+tubes of the chart's 7-unknown system in Julia. Its image lies within distance 7/40 of F6, so it
 is quartet-free by Theorem 4.1. F6 = H(0) is its centre. Openness at y = 0 comes from the graph property near F6
 (SPEC §10.1–10.2; Lean: `SeedAtlas.EdgeX.isOpen_edgeInterior`).
 
@@ -368,7 +369,7 @@ is quartet-free by Theorem 4.1. F6 = H(0) is its centre. Openness at y = 0 comes
 The three corner phases pin the Fourier frame: only 72 of the 14,400 ordered corner pairs fit them, and each extends
 to an automorphism of F6. W's framed continuation then recovers the whole completion. The theorem uses no side orders,
 side windings, orientation signs or tubes, and it holds across the fold y = 0
-(`explorations/returns/XS_edge_side_orders/`, replayed).
+(`proof/theorems/XS_edge_side_orders/`, replayed).
 
 ## Step 5. The atlas covers X
 
@@ -381,6 +382,14 @@ side windings, orientation signs or tubes, and it holds across the fold y = 0
 > - **T3:** into the X-ball, by Theorem 4.3: the corner parameter p′ in the X-ball's ellipsoid, and K within phase
 >   distance 3/20 of F6, over the box. No side data is needed.
 
+*How it is certified (return ZT).* Each T1 and T3 box is first tested against the ball's whole-ball model of
+Lemma 3.1: the target is affine-bounded at the box's 16 vertices, plus ½‖A H₂‖(2h)² and the output-weighted normal
+error, and the Ψ signs follow from ‖D²ψ‖ ≤ 72. A box that fails gets a Taylor model from the same centre tensors, and
+the box partition of the ball's phase map remains the last fallback. Theorem: `proof/theorems/ZT_wholeball_transfers/`
+(`REPORT.md`); code: [`proof/seed_atlas/cert/patches.py`](proof/seed_atlas/cert/patches.py). A ball may instead
+cover its sphere by spherical caps (return ZC, `proof/theorems/ZC_cap_transfers/`): each cap is certified by a 5 × 5
+positive-definite witness on the same model, and their coverage of the sphere by an exact polar-facet certificate.
+Both certifiers check caps; the present certificate uses boxes only.
 > **Lemma 5.2 (coverage).** Let W be the set of classes in the atlas. Then W ∩ X is open, closed and nonempty, so
 > W ⊇ X.
 
@@ -408,12 +417,12 @@ corner or lies in a Fourier family (`PRM.nonmatched_tao_or_fourier`, `PRM.strict
 |---|---|
 | seed balls | 2,350 (radii 0.05–0.125) |
 | boundary boxes | 11,706,691: T0 2,411,969; T1 7,431,652; corner-symmetry T1 1,832,906; T3 30,164 |
-| X-ball | tangent radius 0.13; image within phase distance 0.1636 < 7/40 of F6; 1,183,840 sphere boxes |
+| X-ball | tangent radius 0.13; image within phase distance 0.142 < 7/40 of F6 (Arb 0.1411, Julia 0.1418); 1,183,840 sphere boxes |
 | Arb certification | **PASS**, 0 failures in 2,814 items: 52 min on one 128-core node (52 core-hours of seed-ball work) |
 | Julia certification | **PASS**, every check: 47 min on one 128-core node (`results/julia/`) |
 | certificate | `proof/seed_atlas/results/seed_atlas_certificate.json.gz` (41 MB, SHA-256 `72ec7013d0d253f7c1bbe181224733efa2826904d47da6ee896e6a09ca9610c4`); Arb receipt `arb_receipt.json` |
 
-**Status (26 Oct 2026).** Both certifiers pass the whole certificate, with T3 by Theorem 4.3 (no side data). The same atlas with the earlier side-tube T3 data (SHA-256 `5daa58b3…`) also passed both.
+**Status (26 Oct 2026).** Both certifiers pass the whole certificate, with T3 by Theorem 4.3 (no side data).
 
 ## Conclusion
 
@@ -443,7 +452,7 @@ theorem at 7/40.
 | Theorem 4.1 (no quartet near F6) | return X | exact cover | **yes, at 7/40, hypothesis-free** |
 | Theorem 4.2 (edge chart), the X-ball | returns U, W | Krawczyk tubes | the chart's openness and uniqueness (`SeedAtlas/EdgeX*`) |
 | Theorem 4.3 (transfers into the chart) | return XS (relative to W, U) | exact constants and census; per box a distance bound and an ellipsoid test | as a hypothesis of the X-ball certificate |
-| Lemmas 5.1–5.2 (the atlas) | Step 5 | Arb and Julia, two independent implementations | the topology yes; the numbers are checked outside Lean |
+| Lemmas 5.1–5.2 (the atlas) | Step 5; return ZT (the transfer test) | Arb and Julia, two independent implementations | the topology yes; the numbers are checked outside Lean |
 
 **Inputs taken as given.** No classification of order-6 Hadamard matrices is used. The Stage C method follows
 [OAI] §6, with every inequality reproved (`STAGEC.md`) and formalised.
@@ -464,30 +473,6 @@ python3 verify.py --lean-full     # also build the main theorems and audit them
 
 The independent Julia checker is run separately ([`proof/independent_seed/README.md`](proof/independent_seed/README.md)).
 Where to look hardest, and the full status, are in [`AUDIT.md`](AUDIT.md).
-
-## History
-
-- The previous version (to 25 Oct 2026) covered X by 12,021 ball Records in the 25-dimensional phase space, each with
-  a normal bound and Stage C, and F6 by its own Record; its atlas was also checked once in the Lean kernel
-  (`no_four_mubs_kernel`, about 54,000 core-hours). It is preserved, with its certificate and both checkers, at the
-  git tag `v1-25dim-records`. The seed-ball proof replaces it: the atlas lives in the four seed coordinates of
-  Step 2, and F6 is handled by return X.
-- The first complete proof used the corner chart directly: a maximal-corner domain, a branch layer and a 45.7M-row
-  ledger, about 10⁵ core-hours. It is preserved, still replayable, at the git tag `archive-2026-10-11`
-  (`archive/long_proof/`).
-- The first minimal proof deduced X = A ∪ conj A ∪ {F6} from the classification [CT] through five reconstruction
-  facts MC1–MC5 ([`MinimalConstruction/`](MinimalConstruction/README.md)). One of them (the nonmatched converse)
-  imported [CT]'s minus-matching necessity (PR-M), whose supplied proof was incomplete. The route above replaces
-  [CT] entirely: MC2–MC3 by Theorems 2.2–2.3; MC4–MC5 and PR-M by Theorem 2.4 (return G also proves PR-M on the
-  guarded locus, its Theorem B, which is not on the critical path); MC1 by Theorem 2.5.
-- Matched existence first used return F's explicit radical side construction; it now uses identity (J) (return J).
-  The nonzero-J critical strips first used a twenty-corner square sum with a Bernstein/Sturm certificate; they now
-  use return K's signed corner sums. The zero-J strips first used a whole-strip square-sum identity (216 KB of Lean
-  data); they now use return O's two unsquared mixed sums (removed 22 Oct 2026). The two rational endpoints were first excluded by two separate proofs
-  (`CRITICAL_P7_EXCLUSION.md`, `CRITICAL_EQUI_CORRELATION_EXCLUSION.md`, removed 18 Oct 2026); return S's anchored
-  count now excludes them.
-- The proof documents before this consolidation (the four-step PROOF.md with the [CT] route first, and the
-  [CT]-free draft PROOF_v2.md) are preserved at the git tag `proof-docs-2026-10-17`.
 
 ## References
 

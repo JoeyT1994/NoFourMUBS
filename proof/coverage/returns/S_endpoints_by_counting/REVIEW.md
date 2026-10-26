@@ -1,7 +1,6 @@
 # Review of return S (18 Oct 2026)
 
-**Return:** `S_endpoints_by_counting_result.zip` (SHA-256 `3cacc11f…6829`), from handoff S
-(`explorations/handoffs/S_endpoints_by_counting/BRIEF.md`).
+**Return:** `S_endpoints_by_counting_result.zip` (SHA-256 `3cacc11f…6829`), from handoff S.
 
 **Claim.** PROVED: for any 3×6 strip with unit entries and orthogonal rows and a fixed column c,
 Q_c = Σ_{C∋c}(X² + Y² + Z²) − 6Σᵢ dᵢ² = 162 + Σ_{a<b}|M_ab|² ≥ 162, where dᵢ = Σ_{C⊇{c,i}} J_C. It rests on three facts:

@@ -1,7 +1,7 @@
 # Review of return O (18 Oct 2026)
 
 **Return:** `O_zeroj_unsquared_return_2026-10-18.zip` (SHA-256 `26fc34b6…9545`, in `../SOURCE_ZIPS.sha256`), from
-handoff O (`explorations/handoffs/O_zeroj_without_square_sum/BRIEF.md`).
+handoff O.
 
 **Claims.** PROVED / CERTIFIED: zero-J critical strips satisfy K = (1 − z)(z + 3)³ via two *unsquared* weighted sums
 over the nine mixed corners (T_x, T_{x|y}), with no square sum, no nonzero-J classification and no [CT]; then the

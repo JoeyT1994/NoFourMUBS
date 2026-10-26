@@ -1,4 +1,4 @@
-"""Whole-ball C1 for a seed ball, without subdividing it (return Z, explorations/returns/Z_completion_hessian).
+"""Whole-ball C1 for a seed ball, without subdividing it (return Z, proof/theorems/Z_completion_hessian).
 
 From the exact centre (side roots by a Krawczyk test), the projected Hadamard equations along a fixed normal basis
 and a fixed Gram left inverse W give, for the whole ellipsoid theta0 + Mth w, ||w|| <= r: existence of the matched

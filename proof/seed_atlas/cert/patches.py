@@ -4,7 +4,7 @@ For a seed ball whose whole-ball certificate (return Z) closes, Q(w) = Q0 + U w 
 ||z|| <= tau on the whole ball.  A general T1 transfer on a dyadic box beta is then certified on beta intersected
 with the sphere by an affine bound at the 16 vertices plus ||A H2|| h^2/2 + ||A X|| tau (polynomial mode), or by an
 enclosed centre jet with a quadratic remainder (local mode), and the two Psi signs by the 24-frequency identity
-||D^2 psi|| <= 72 (explorations/returns/ZT_wholeball_transfers/ZT_return/REPORT.md section 2, Appendix A).  The code
+||D^2 psi|| <= 72 (proof/theorems/ZT_wholeball_transfers/ZT_return/REPORT.md section 2, Appendix A).  The code
 is return ZT's zt_patch.py (normal_form, Transfer.check, Transfer.check_local), unchanged except for its imports.
 Floats only propose; every inequality is decided in Arb.
 """

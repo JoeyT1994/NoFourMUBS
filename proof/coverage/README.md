@@ -3,8 +3,8 @@
 The proofs behind Steps 1 and 2 of [`PROOF.md`](../../PROOF.md) arrived as self-contained "returns", each kept here
 with its write-up, exact verifiers and certificates. Every acceptance decision is exact: polynomial identities,
 Bernstein and Sturm certificates, and rational interval signs. The original zips' SHA-256 hashes are in
-[`returns/SOURCE_ZIPS.sha256`](returns/SOURCE_ZIPS.sha256). Returns on research questions that the proof does not use
-are in [`explorations/returns/`](../../explorations/returns/).
+[`returns/SOURCE_ZIPS.sha256`](returns/SOURCE_ZIPS.sha256). The theorems behind Steps 3–5 are in
+[`../theorems/`](../theorems/README.md).
 
 ## Used by the proof
 

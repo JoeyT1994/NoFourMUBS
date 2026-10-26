@@ -1,4 +1,4 @@
-# Whole-ball C1 for a seed ball without subdivision (return Z, THEOREM.md; explorations/returns/Z_completion_hessian).
+# Whole-ball C1 for a seed ball without subdivision (return Z, THEOREM.md; proof/theorems/Z_completion_hessian).
 # An independent interval implementation of the theorem (IntervalArithmetic.jl, Float64 intervals): from the exact
 # centre (side roots by a 6-dim Krawczyk test), the projected Hadamard equations W Phi along a fixed normal basis X
 # (return Z's frozen dyadic basis) with the Gram left inverse W = (A^T A)^{-1} A^T, A = J X, give over the whole ellipsoid
