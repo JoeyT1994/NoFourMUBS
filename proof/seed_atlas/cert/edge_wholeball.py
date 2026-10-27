@@ -181,20 +181,44 @@ def weighted_hessian(D,r,A):
     out={k:upper_finite(v) for k,v in dict(weighted_Hessian=selected,refined_Hessian=refined,simple_Hessian=simple,beta_A=betaA,weighted_Z2=weightedZ2,q_A=qA,weighted_tau=b0+qA*tau,weighted_b0=b0).items()}
     out['status']='CERTIFIED';return out
 
+def edge_source_signature(record):
+    """Validate and bind the exact binary64 source fields used by edge_model."""
+    if not isinstance(record, dict) or record.get('chart') != 'F6-012':
+        raise ValueError('edge cap source must use chart F6-012')
+    def hx(value):
+        if isinstance(value, bool) or not isinstance(value, (str, int, float)):
+            raise ValueError('malformed edge source scalar')
+        result = float.fromhex(value) if isinstance(value, str) else float(value)
+        if not math.isfinite(result):
+            raise ValueError('nonfinite edge source scalar')
+        return result
+    def vector(key, size, default=None):
+        value = record.get(key, default)
+        if not isinstance(value, (list, tuple)) or len(value) != size:
+            raise ValueError('edge source %s must have %d entries' % (key, size))
+        return tuple(hx(v) for v in value)
+    q0 = vector('q0', 4, [0] * 4)
+    if any(v != 0 for v in q0):
+        raise ValueError('this whole-ball replay is implemented only at p=0 in F6-012')
+    radius = hx(record['r'])
+    if not radius > 0:
+        raise ValueError('edge source radius must be positive')
+    return ('F6-012', q0, vector('Mth', 16), radius,
+            vector('P', 36), vector('U', 144))
+
+
 def edge_model(record,prec=224):
     """Model in zt_patch.Transfer format, with FORMAT's phase lift certified."""
     ctx.prec=prec
-    def hx(v):return float.fromhex(v) if isinstance(v,str) else float(v)
-    if record.get('chart')!='F6-012' or any(hx(v)!=0 for v in record.get('q0',[0]*4)):
-        raise ValueError('this whole-ball replay is implemented only at p=0 in F6-012')
-    M=np.array([hx(v) for v in record['Mth']]).reshape(4,4);r=hx(record['r'])
+    signature = edge_source_signature(record)
+    M=np.array(signature[2]).reshape(4,4);r=signature[3]
     out,D=certify(M,r)
     if not out['ok']:raise ArithmeticError('edge whole-ball contraction failed')
     G=np.zeros((36,36))
     for i in range(6):
         for j in range(6):
             G[6*i+j,6*i+j]+=1;G[6*i+j,6*i]-=1;G[6*i+j,j]-=1;G[6*i+j,0]+=1
-    Ga=W.mat(G);qbase=Ga*D['q0'];P=np.array([hx(v) for v in record['P']]);Ur=np.array([hx(v) for v in record['U']]).reshape(36,4)
+    Ga=W.mat(G);qbase=Ga*D['q0'];P=np.array(signature[4]);Ur=np.array(signature[5]).reshape(36,4)
     turns=np.rint((P-W.mid_np(qbase)[:,0])/(2*np.pi)).astype(int)
     qbase=qbase+arb_mat([[2*arb.pi()*int(k)] for k in turns])
     Pm=arb_mat([[arb(float(v))] for v in P])
@@ -208,7 +232,8 @@ def edge_model(record,prec=224):
     out['raw_parameter_Hessian_same_ellipsoid_upper']=upper_finite(Cw*minv*minv)
     out['inverse_frame_norm_upper']=upper_finite(minv)
     from types import SimpleNamespace
-    D.update(ball=SimpleNamespace(r=r,Mth=M,P=P,U=Ur),r=ra,Q0=q0,Qbase=qbase,W=D['Y'],summary=out,edge_chart=True)
+    D.update(ball=SimpleNamespace(r=r,Mth=M,P=P,U=Ur),r=ra,Q0=q0,Qbase=qbase,W=D['Y'],summary=out,edge_chart=True,
+             edge_source_signature=signature)
     return D
 
 
@@ -272,6 +297,30 @@ class EdgeTransfer(P.Transfer):
             return super().check_local(box, jet=jet)
         finally:
             self.xnorm = old
+
+
+def cap_target_bounds(transfer):
+    """The cap_weighted target interface for an augmented F6-012 model.
+
+    Every stored float in weighted_hessian is a strict proved Arb upper
+    bound, converted back to an exact binary rational here.  The full
+    local_hessian is used directly; subtracting independently rounded
+    predictor bounds would not define a reliable normal-Hessian bound.
+    """
+    if not transfer.model.get('edge_chart', False) or transfer.kind != 'T1':
+        raise ValueError('edge cap target bounds require an F6-012 T1 transfer')
+    data = getattr(transfer, 'weighted', None)
+    if data is None:
+        data = weighted_hessian(transfer.model, transfer.model['ball'].r, transfer.A)
+        transfer.weighted = data
+    normal = min(data['weighted_Z2'], upper_finite(transfer.xnorm * transfer.model['Z2']))
+    return dict(T0=arb(data['weighted_tau']), T2=arb(normal),
+                predictor_hessian=transfer.hnorm,
+                local_hessian=arb(data['weighted_Hessian']),
+                old_T0=transfer.xnorm * transfer.model['tau'],
+                old_T2=transfer.xnorm * transfer.model['Z2'],
+                old_local_hessian=transfer.hnorm + transfer.xnorm * transfer.model['Z2'],
+                edge_augmented=True)
 
 
 def certify_edge_boxes(model, target, group, boxes):

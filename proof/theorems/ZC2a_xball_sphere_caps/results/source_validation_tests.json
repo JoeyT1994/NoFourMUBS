@@ -1,0 +1,27 @@
+[
+  {
+    "name": "negative radius",
+    "rejected": true,
+    "reason": "edge source radius must be positive"
+  },
+  {
+    "name": "nonfinite radius",
+    "rejected": true,
+    "reason": "nonfinite edge source scalar"
+  },
+  {
+    "name": "wrong centre dimension",
+    "rejected": true,
+    "reason": "edge source q0 must have 4 entries"
+  },
+  {
+    "name": "nonzero centre",
+    "rejected": true,
+    "reason": "this whole-ball replay is implemented only at p=0 in F6-012"
+  },
+  {
+    "name": "cached source mismatch",
+    "rejected": true,
+    "reason": "edge caps: cached model belongs to a different source header"
+  }
+]

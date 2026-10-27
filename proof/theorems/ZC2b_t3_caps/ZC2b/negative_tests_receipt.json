@@ -1,0 +1,260 @@
+{
+  "status": "CERTIFIED",
+  "source_seed": 2747,
+  "selected_t3_cap": 0,
+  "precision_bits": 224,
+  "baseline_full_sphere": true,
+  "baseline_cap": {
+    "ok": true,
+    "reason": "CERTIFIED",
+    "kind": "T3",
+    "mode": "local_sphere",
+    "weighted_target": true,
+    "parameter": {
+      "ok": true,
+      "reason": "CERTIFIED",
+      "normalized_margin_lower": 0.06813799549477399,
+      "normalized_error_upper": 0.10585997976061881,
+      "min_ldl_pivot_lower": 1.999999062604889e-10
+    },
+    "distance": {
+      "ok": true,
+      "reason": "CERTIFIED",
+      "normalized_margin_lower": 0.18630964831432822,
+      "normalized_error_upper": 0.08978168950876142,
+      "min_ldl_pivot_lower": 1.999999721188011e-10
+    },
+    "psi_remainder": "local_hessian",
+    "delta_upper": 0.021212885235158373,
+    "side_phase_distance_upper": 0.02040686880511748,
+    "orientation_margins_lower": [],
+    "target_margin_lower": 0.008857939414320618,
+    "distance_margin_lower": 0.02794644724714923
+  },
+  "negative_test_count": 7,
+  "rejected_count": 7,
+  "tests": [
+    {
+      "name": "enlarged_cap_same_witnesses",
+      "expected": "REJECT",
+      "rejected": true,
+      "result": {
+        "ok": false,
+        "reason": "T3 parameter PSD witness",
+        "kind": "T3",
+        "mode": "local_sphere",
+        "weighted_target": true,
+        "parameter": {
+          "ok": false,
+          "reason": "PSD witness"
+        },
+        "distance": {
+          "ok": false,
+          "reason": "PSD witness"
+        },
+        "psi_remainder": "local_hessian",
+        "delta_upper": 0.021213044335974037,
+        "side_phase_distance_upper": 0.020407069286095123,
+        "orientation_margins_lower": []
+      },
+      "cap": 0,
+      "threshold_divisor": 2
+    },
+    {
+      "name": "dropped_cap_adjusted_indices_and_count",
+      "expected": "REJECT",
+      "rejected": true,
+      "result": {
+        "passed": false,
+        "covers": false,
+        "error": "incomplete facet enumeration: each triangular ridge must occur twice",
+        "bad_ridges": [
+          [
+            [
+              1,
+              2,
+              3
+            ],
+            1
+          ],
+          [
+            [
+              1,
+              2,
+              4
+            ],
+            1
+          ],
+          [
+            [
+              1,
+              3,
+              4
+            ],
+            1
+          ],
+          [
+            [
+              2,
+              3,
+              4
+            ],
+            1
+          ]
+        ],
+        "bad_ridge_count": 4,
+        "ok": false
+      },
+      "dropped_cap": 0,
+      "interpretation": "The retained facet certificate is invalid/incomplete after deletion. This alone does not claim the remaining caps cannot admit a different valid cover certificate."
+    },
+    {
+      "name": "wrong_parameter_winding_binding_refreshed",
+      "expected": "REJECT",
+      "rejected": true,
+      "result": {
+        "ok": false,
+        "reason": "T3 parameter PSD witness",
+        "kind": "T3",
+        "mode": "local_sphere",
+        "weighted_target": true,
+        "parameter": {
+          "ok": false,
+          "reason": "PSD witness"
+        },
+        "distance": {
+          "ok": true,
+          "reason": "CERTIFIED",
+          "normalized_margin_lower": 0.18630964831432822,
+          "normalized_error_upper": 0.08978168950876142,
+          "min_ldl_pivot_lower": 1.999999721188011e-10
+        },
+        "psi_remainder": "local_hessian",
+        "delta_upper": 0.021212885235158373,
+        "side_phase_distance_upper": 0.02040686880511748,
+        "orientation_margins_lower": [],
+        "distance_margin_lower": 0.02794644724714923
+      },
+      "cap": 0,
+      "coordinate": 0,
+      "added_turns": 1
+    },
+    {
+      "name": "wrong_distance_winding",
+      "expected": "REJECT",
+      "rejected": true,
+      "result": {
+        "ok": false,
+        "reason": "T3 phase distance PSD witness",
+        "kind": "T3",
+        "mode": "local_sphere",
+        "weighted_target": true,
+        "parameter": {
+          "ok": true,
+          "reason": "CERTIFIED",
+          "normalized_margin_lower": 0.06813799549477399,
+          "normalized_error_upper": 0.10585997976061881,
+          "min_ldl_pivot_lower": 1.999999062604889e-10
+        },
+        "distance": {
+          "ok": false,
+          "reason": "PSD witness"
+        },
+        "psi_remainder": "local_hessian",
+        "delta_upper": 0.021212885235158373,
+        "side_phase_distance_upper": 0.02040686880511748,
+        "orientation_margins_lower": [],
+        "target_margin_lower": 0.008857939414320618
+      },
+      "cap": 0,
+      "phase_entry": 7,
+      "added_turns": 1
+    },
+    {
+      "name": "wrong_existing_group_index",
+      "expected": "REJECT",
+      "rejected": true,
+      "result": {
+        "ok": false,
+        "reason": "ValueError: certificate scalar must be an integer or finite float.hex string"
+      },
+      "cap": 0,
+      "old_group_index": 6,
+      "new_group_index": 0
+    },
+    {
+      "name": "tampered_t3_parameter_witness",
+      "expected": "REJECT",
+      "rejected": true,
+      "result": {
+        "ok": false,
+        "reason": "T3 parameter PSD witness",
+        "kind": "T3",
+        "mode": "local_sphere",
+        "weighted_target": true,
+        "parameter": {
+          "ok": false,
+          "reason": "PSD witness"
+        },
+        "distance": {
+          "ok": true,
+          "reason": "CERTIFIED",
+          "normalized_margin_lower": 0.18630964831432822,
+          "normalized_error_upper": 0.08978168950876142,
+          "min_ldl_pivot_lower": 1.999999721188011e-10
+        },
+        "psi_remainder": "local_hessian",
+        "delta_upper": 0.021212885235158373,
+        "side_phase_distance_upper": 0.02040686880511748,
+        "orientation_margins_lower": [],
+        "distance_margin_lower": 0.02794644724714923
+      },
+      "cap": 0,
+      "changed_field": "s",
+      "new_value": 0
+    },
+    {
+      "name": "tampered_t3_distance_witness",
+      "expected": "REJECT",
+      "rejected": true,
+      "result": {
+        "ok": false,
+        "reason": "T3 phase distance PSD witness",
+        "kind": "T3",
+        "mode": "local_sphere",
+        "weighted_target": true,
+        "parameter": {
+          "ok": true,
+          "reason": "CERTIFIED",
+          "normalized_margin_lower": 0.06813799549477399,
+          "normalized_error_upper": 0.10585997976061881,
+          "min_ldl_pivot_lower": 1.999999062604889e-10
+        },
+        "distance": {
+          "ok": false,
+          "reason": "PSD witness"
+        },
+        "psi_remainder": "local_hessian",
+        "delta_upper": 0.021212885235158373,
+        "side_phase_distance_upper": 0.02040686880511748,
+        "orientation_margins_lower": [],
+        "target_margin_lower": 0.008857939414320618
+      },
+      "cap": 0,
+      "changed_field": "s",
+      "new_value": 0
+    }
+  ],
+  "nonauthoritative_coverage_aliases_ignored": true,
+  "elapsed_seconds": 36.818672007000714,
+  "input_sha256": "0bf5def3a4166cbbb39e656dffc7d1c9e8d5e771e8a3166374c1e3d246dba25d",
+  "proposal_sha256": "a71b6753a0cfe623dffd0e741818f326f2ef11ccd24d267b7b71c773a12c30b5",
+  "code_sha256": {
+    "ZC2b/negative_tests.py": "36244883094b1f8d2119ec2126b17967b0870f1040f0b2e864ffb36a440cad42",
+    "cert/cap_t3.py": "2b9f3f9c07aa9f6c55fecc288b87ed75e8cf52c8b6b45bdd9b3f40100e3cb268",
+    "cert/caps.py": "4d11f8280cfdf4388ca88c9df265fbc7306df2a69ac97a7ab8b705c8397d2894",
+    "cert/cap_coverage.py": "e1de1a1c2d05f156671c402f13eafa9c266b92a25a413931458757eae0d99a72",
+    "cert/seedcert.py": "544cb00bddf252c9634752ea835f6fd86cefddcd9ac812131786d6c00aab8943"
+  },
+  "scope": "Rejection of the listed invalid changes, plus a passing unchanged baseline. Does not claim every possible byte change is mathematically invalid."
+}

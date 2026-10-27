@@ -1,0 +1,2382 @@
+{
+  "format": "zc2b-mixed-caps-v1",
+  "status": "CERTIFIED",
+  "seed": 2723,
+  "caps": [
+    {
+      "group_index": 42,
+      "mode": "local_sphere",
+      "v": [
+        -120049223,
+        509669241,
+        930770356,
+        111415878
+      ],
+      "h": "0x1.15b7cb1153752p+28",
+      "weighted_target": true,
+      "psi_remainder": "local_hessian",
+      "t3_group_sha256": "2a7d951a35b0b3641763caffa78d28500822e058f8830241302f4956fa55eaf2",
+      "t3_parameter": {
+        "s": "0x1.a488d1b845d6ep-1",
+        "lambda": "0x1.1d5e2fc16d54fp-5",
+        "mu": "0x1.2d565eb07111ap-2"
+      },
+      "t3_distance": {
+        "s": "0x1.435e224d0eb57p-1",
+        "lambda": "0x1.e17d735a25af9p-6",
+        "mu": "0x1.d412e7aaa06c8p-3"
+      },
+      "t3_alignment": {
+        "rows": [
+          3,
+          1,
+          0,
+          2,
+          5,
+          4
+        ],
+        "cols": [
+          4,
+          5,
+          0,
+          3,
+          1,
+          2
+        ],
+        "wind": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          2,
+          2,
+          0,
+          1,
+          1,
+          0,
+          1,
+          1,
+          0,
+          1,
+          0,
+          0,
+          0,
+          1,
+          0,
+          2,
+          1,
+          0,
+          2,
+          1,
+          0,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "info": {
+        "numerical_threshold": 0.27120892803955077,
+        "numerical_radius": 1.2961475147926675,
+        "numerical_parameter_margin": 1.235651793327075e-05,
+        "numerical_distance_margin": 0.12588518608092827,
+        "numerical_parameter_error": 0.09370052143199173,
+        "numerical_distance_error": 0.07939627246205547
+      },
+      "replay": {
+        "ok": true,
+        "reason": "CERTIFIED",
+        "kind": "T3",
+        "mode": "local_sphere",
+        "weighted_target": true,
+        "parameter": {
+          "ok": true,
+          "reason": "CERTIFIED",
+          "normalized_margin_lower": 1.2356407592979902e-05,
+          "normalized_error_upper": 0.09370052143199174,
+          "min_ldl_pivot_lower": 1.999999123217628e-10
+        },
+        "distance": {
+          "ok": true,
+          "reason": "CERTIFIED",
+          "normalized_margin_lower": 0.12588518595509757,
+          "normalized_error_upper": 0.07939627246205548,
+          "min_ldl_pivot_lower": 2.0000003176354181e-10
+        },
+        "psi_remainder": "local_hessian",
+        "delta_upper": 0.02414607333643215,
+        "side_phase_distance_upper": 0.02235443192149001,
+        "orientation_margins_lower": [],
+        "target_margin_lower": 1.6063329870873872e-06,
+        "distance_margin_lower": 0.018882777893264632
+      }
+    },
+    {
+      "group_index": 0,
+      "mode": "polynomial",
+      "weighted_target": true,
+      "v": [
+        -325216116,
+        -972880300,
+        -261011555,
+        180368712
+      ],
+      "h": "0x1.e5c7bd6d9f311p+28",
+      "s": "0x1.b54b286ac8ff1p-1",
+      "lambda_": "0x1.cc5d20f7ad9a4p-2",
+      "mu": "0x1.5f463c0d9aaa3p+0",
+      "info": {
+        "numerical_threshold": 0.47439476000976555,
+        "numerical_radius": 1.0765199513268238,
+        "numerical_target_margin": 6.57736052954716e-05,
+        "numerical_orientation_margins": [
+          0.8604972605105923,
+          0.8635037390272099
+        ]
+      },
+      "replay": {
+        "ok": true,
+        "mode": "polynomial",
+        "weighted_target": true,
+        "target_margin_lower": 1.9732049127065306e-06,
+        "target_error_upper": 0.0022729455381685086,
+        "min_ldl_pivot_lower": 2.0000011947797208e-10,
+        "delta_upper": 0.017606244479448502,
+        "orientation_margins_lower": [
+          0.8604972605054043,
+          0.8635037390222509
+        ],
+        "reason": "CERTIFIED"
+      }
+    },
+    {
+      "group_index": 10,
+      "mode": "polynomial",
+      "weighted_target": false,
+      "v": [
+        397710287,
+        -820929681,
+        439001427,
+        -357910935
+      ],
+      "h": "0x1.487bd91965a59p+29",
+      "s": "0x1.ffe2a6009c63ep-1",
+      "lambda_": "0x1.45f2d81b46750p+0",
+      "mu": "0x1.61474c6409af0p+1",
+      "info": {
+        "numerical_threshold": 0.6415698858032226,
+        "numerical_radius": 0.8742531935455824,
+        "numerical_target_margin": 0.00011197365870174725,
+        "numerical_orientation_margins": []
+      },
+      "replay": {
+        "ok": true,
+        "mode": "polynomial",
+        "weighted_target": false,
+        "target_margin_lower": 2.23947117380988e-06,
+        "target_error_upper": 5e-324,
+        "min_ldl_pivot_lower": 1.9999932397525947e-10,
+        "delta_upper": 0.015341291753049222,
+        "orientation_margins_lower": [],
+        "reason": "CERTIFIED"
+      }
+    },
+    {
+      "group_index": 29,
+      "mode": "polynomial",
+      "weighted_target": true,
+      "v": [
+        999320778,
+        -159798812,
+        -295493257,
+        203537617
+      ],
+      "h": "0x1.5433d855728d5p+29",
+      "s": "0x1.9c333a867eefcp-1",
+      "lambda_": "0x1.1f9297cad2b41p+0",
+      "mu": "0x1.2e8d56aa9eae1p+1",
+      "info": {
+        "numerical_threshold": 0.664458046508789,
+        "numerical_radius": 0.8440279334203619,
+        "numerical_target_margin": 6.940715250018659e-05,
+        "numerical_orientation_margins": [
+          0.7916267518152131,
+          0.7754603066929261
+        ]
+      },
+      "replay": {
+        "ok": true,
+        "mode": "polynomial",
+        "weighted_target": true,
+        "target_margin_lower": 1.3881408209986486e-06,
+        "target_error_upper": 0.0020533802550656752,
+        "min_ldl_pivot_lower": 2.0000008703130389e-10,
+        "delta_upper": 0.014946511357901872,
+        "orientation_margins_lower": [
+          0.791626751811257,
+          0.7754603066888849
+        ],
+        "reason": "CERTIFIED"
+      }
+    },
+    {
+      "group_index": 7,
+      "mode": "polynomial",
+      "weighted_target": true,
+      "v": [
+        -272903166,
+        254818873,
+        -989796731,
+        183888932
+      ],
+      "h": "0x1.4f97c744efaa9p+28",
+      "s": "0x1.edd6c0205b084p-1",
+      "lambda_": "0x1.caf41e7546a95p-2",
+      "mu": "0x1.4afadb6989345p+0",
+      "info": {
+        "numerical_threshold": 0.32772742620849604,
+        "numerical_radius": 1.236899177884269,
+        "numerical_target_margin": 5.8875744611341235e-05,
+        "numerical_orientation_margins": [
+          0.8474231182861631,
+          0.8508803377429436
+        ]
+      },
+      "replay": {
+        "ok": true,
+        "mode": "polynomial",
+        "weighted_target": true,
+        "target_margin_lower": 1.766269283676215e-06,
+        "target_error_upper": 0.0005351019026494778,
+        "min_ldl_pivot_lower": 2.0000013411728324e-10,
+        "delta_upper": 0.018895446373248293,
+        "orientation_margins_lower": [
+          0.8474231182803426,
+          0.8508803377371068
+        ],
+        "reason": "CERTIFIED"
+      }
+    },
+    {
+      "group_index": 11,
+      "mode": "polynomial",
+      "weighted_target": true,
+      "v": [
+        610442858,
+        683858287,
+        -397038711,
+        -393673883
+      ],
+      "h": "0x1.4e63d8b61f226p+29",
+      "s": "0x1.845791afecfa4p-1",
+      "lambda_": "0x1.12af5fbda6139p+0",
+      "mu": "0x1.1116ea2e459bdp+1",
+      "info": {
+        "numerical_threshold": 0.6531055187988282,
+        "numerical_radius": 0.859118148752934,
+        "numerical_target_margin": 0.00012920559558268763,
+        "numerical_orientation_margins": [
+          0.6834033486934498,
+          0.6817910607517482
+        ]
+      },
+      "replay": {
+        "ok": true,
+        "mode": "polynomial",
+        "weighted_target": true,
+        "target_margin_lower": 2.584109615198738e-06,
+        "target_error_upper": 0.0025792575590179497,
+        "min_ldl_pivot_lower": 1.999998284816553e-10,
+        "delta_upper": 0.015145338310047928,
+        "orientation_margins_lower": [
+          0.683403348689653,
+          0.681791060747698
+        ],
+        "reason": "CERTIFIED"
+      }
+    },
+    {
+      "group_index": 16,
+      "mode": "polynomial",
+      "weighted_target": true,
+      "v": [
+        -862166440,
+        -123166634,
+        123166634,
+        -615833171
+      ],
+      "h": "0x1.7afbd5caf3d31p+29",
+      "s": "0x1.9c50c21f980fcp-1",
+      "lambda_": "0x1.3b331e456d439p+0",
+      "mu": "0x1.57ed900c4cf88p+1",
+      "info": {
+        "numerical_threshold": 0.7402025996704102,
+        "numerical_radius": 0.7374247029378311,
+        "numerical_target_margin": 9.712979603150595e-05,
+        "numerical_orientation_margins": [
+          0.7461399439875063,
+          0.7471258630006505
+        ]
+      },
+      "replay": {
+        "ok": true,
+        "mode": "polynomial",
+        "weighted_target": true,
+        "target_margin_lower": 1.9425936919366286e-06,
+        "target_error_upper": 0.0020503150759639184,
+        "min_ldl_pivot_lower": 2.0000070310958394e-10,
+        "delta_upper": 0.01344767803661534,
+        "orientation_margins_lower": [
+          0.7461399439840541,
+          0.7471258629976166
+        ],
+        "reason": "CERTIFIED"
+      }
+    },
+    {
+      "group_index": 22,
+      "mode": "polynomial",
+      "weighted_target": true,
+      "v": [
+        279793441,
+        -332847415,
+        -142570792,
+        -971351277
+      ],
+      "h": "0x1.4f3bd8abd648ap+29",
+      "s": "0x1.8f3b1579f1fbbp-1",
+      "lambda_": "0x1.0858282e7af39p+0",
+      "mu": "0x1.1c8e807b52ab9p+1",
+      "info": {
+        "numerical_threshold": 0.6547534663696288,
+        "numerical_radius": 0.8569399230507722,
+        "numerical_target_margin": 5.8805320627131064e-05,
+        "numerical_orientation_margins": [
+          0.7834209677020754,
+          0.7740177352474926
+        ]
+      },
+      "replay": {
+        "ok": true,
+        "mode": "polynomial",
+        "weighted_target": true,
+        "target_margin_lower": 1.1761041476217639e-06,
+        "target_error_upper": 0.0023381597031057306,
+        "min_ldl_pivot_lower": 2.0000058675889168e-10,
+        "delta_upper": 0.015116850178221062,
+        "orientation_margins_lower": [
+          0.7834209676984533,
+          0.7740177352436468
+        ],
+        "reason": "CERTIFIED"
+      }
+    },
+    {
+      "group_index": 23,
+      "mode": "polynomial",
+      "weighted_target": true,
+      "v": [
+        -12173624,
+        -7838061,
+        -24459949,
+        1073365540
+      ],
+      "h": "0x1.291bdb2812dcep+29",
+      "s": "0x1.e323b25e665cfp-1",
+      "lambda_": "0x1.005429e12d5f9p+0",
+      "mu": "0x1.1c2c8ae7e8ee5p+1",
+      "info": {
+        "numerical_threshold": 0.5802906502075194,
+        "numerical_radius": 0.9517107968616709,
+        "numerical_target_margin": 4.0787225143251726e-05,
+        "numerical_orientation_margins": [
+          0.7227044595953059,
+          0.7191331380511814
+        ]
+      },
+      "replay": {
+        "ok": true,
+        "mode": "polynomial",
+        "weighted_target": true,
+        "target_margin_lower": 8.157424439952229e-07,
+        "target_error_upper": 0.0005710426108460105,
+        "min_ldl_pivot_lower": 5.695239031924807e-11,
+        "delta_upper": 0.016288189110907753,
+        "orientation_margins_lower": [
+          0.7227044595909343,
+          0.7191331380465883
+        ],
+        "reason": "CERTIFIED"
+      }
+    },
+    {
+      "group_index": 21,
+      "mode": "polynomial",
+      "weighted_target": true,
+      "v": [
+        306878559,
+        -103043139,
+        -274483518,
+        -986300139
+      ],
+      "h": "0x1.4833d91f440aap+29",
+      "s": "0x1.9af37908d6288p-1",
+      "lambda_": "0x1.0a6e70b9445bbp+0",
+      "mu": "0x1.1a691d146e419p+1",
+      "info": {
+        "numerical_threshold": 0.6410205699462892,
+        "numerical_radius": 0.874969106521279,
+        "numerical_target_margin": 6.702326993532348e-05,
+        "numerical_orientation_margins": [
+          0.7898840858922772,
+          0.7730261278834487
+        ]
+      },
+      "replay": {
+        "ok": true,
+        "mode": "polynomial",
+        "weighted_target": true,
+        "target_margin_lower": 1.340463166316201e-06,
+        "target_error_upper": 0.0020806373247611353,
+        "min_ldl_pivot_lower": 2.00000253810377e-10,
+        "delta_upper": 0.01535047398493916,
+        "orientation_margins_lower": [
+          0.7898840858886976,
+          0.7730261278794742
+        ],
+        "reason": "CERTIFIED"
+      }
+    },
+    {
+      "group_index": 32,
+      "mode": "polynomial",
+      "weighted_target": true,
+      "v": [
+        472699720,
+        867980684,
+        -135094891,
+        397285012
+      ],
+      "h": "0x1.9ce3d38f93c32p+29",
+      "s": "0x1.b573a1ac3ea6dp-1",
+      "lambda_": "0x1.17c6e550889d8p+0",
+      "mu": "0x1.92c916829d2cep+1",
+      "info": {
+        "numerical_threshold": 0.8064256779785156,
+        "numerical_radius": 0.6327138605570347,
+        "numerical_target_margin": 0.00013659396000000046,
+        "numerical_orientation_margins": [
+          0.784235728554348,
+          0.8002565483382905
+        ]
+      },
+      "replay": {
+        "ok": true,
+        "mode": "polynomial",
+        "weighted_target": true,
+        "target_margin_lower": 2.73187703628579e-06,
+        "target_error_upper": 0.0015105396552555982,
+        "min_ldl_pivot_lower": 2.0000052273829216e-10,
+        "delta_upper": 0.011826709193970934,
+        "orientation_margins_lower": [
+          0.7842357285521033,
+          0.8002565483360994
+        ],
+        "reason": "CERTIFIED"
+      }
+    },
+    {
+      "group_index": 9,
+      "mode": "polynomial",
+      "weighted_target": true,
+      "v": [
+        -82761485,
+        897488884,
+        -120989197,
+        -570917996
+      ],
+      "h": "0x1.8c2bd4aa9c725p+29",
+      "s": "0x1.ed8e3bde1b8dep-1",
+      "lambda_": "0x1.05b83e530f4ccp+0",
+      "mu": "0x1.8999f9309d4a2p+1",
+      "info": {
+        "numerical_threshold": 0.7737719020385743,
+        "numerical_radius": 0.6860222350788419,
+        "numerical_target_margin": 6.231822732017181e-05,
+        "numerical_orientation_margins": [
+          0.7951977033545656,
+          0.7780042992695628
+        ]
+      },
+      "replay": {
+        "ok": true,
+        "mode": "polynomial",
+        "weighted_target": true,
+        "target_margin_lower": 1.2463625093765865e-06,
+        "target_error_upper": 0.0003622999534142646,
+        "min_ldl_pivot_lower": 2.000004535178378e-10,
+        "delta_upper": 0.012669286382675343,
+        "orientation_margins_lower": [
+          0.7951977033522794,
+          0.7780042992668096
+        ],
+        "reason": "CERTIFIED"
+      }
+    },
+    {
+      "group_index": 34,
+      "mode": "polynomial",
+      "weighted_target": true,
+      "v": [
+        963653255,
+        -392092502,
+        -168063632,
+        205698796
+      ],
+      "h": "0x1.56bbd82d55cfdp+29",
+      "s": "0x1.98a8c2ce92c8ap-1",
+      "lambda_": "0x1.1f20f5ceb9f78p+0",
+      "mu": "0x1.321a4ce445b8bp+1",
+      "info": {
+        "numerical_threshold": 0.6694018892211913,
+        "numerical_radius": 0.8373929338372562,
+        "numerical_target_margin": 0.00012100873164405668,
+        "numerical_orientation_margins": [
+          0.7848966510004948,
+          0.7761058486302486
+        ]
+      },
+      "replay": {
+        "ok": true,
+        "mode": "polynomial",
+        "weighted_target": true,
+        "target_margin_lower": 2.4201723942393374e-06,
+        "target_error_upper": 0.002129591200117786,
+        "min_ldl_pivot_lower": 1.999995192763796e-10,
+        "delta_upper": 0.014858009432048428,
+        "orientation_margins_lower": [
+          0.7848966509966138,
+          0.7761058486262702
+        ],
+        "reason": "CERTIFIED"
+      }
+    },
+    {
+      "group_index": 50,
+      "mode": "polynomial",
+      "weighted_target": true,
+      "v": [
+        327892406,
+        -659952888,
+        685271112,
+        374531393
+      ],
+      "h": "0x1.b853d1c9ecf47p+29",
+      "s": "0x1.b74c118a7b623p-1",
+      "lambda_": "0x1.3eb4a52110c92p+0",
+      "mu": "0x1.d56338250bba9p+1",
+      "info": {
+        "numerical_threshold": 0.8600144915771484,
+        "numerical_radius": 0.5354982551503437,
+        "numerical_target_margin": 0.00011685167837316435,
+        "numerical_orientation_margins": [
+          0.7940086894977505,
+          0.8022050981710469
+        ]
+      },
+      "replay": {
+        "ok": true,
+        "mode": "polynomial",
+        "weighted_target": true,
+        "target_margin_lower": 2.3370314082979187e-06,
+        "target_error_upper": 0.0014719809919919924,
+        "min_ldl_pivot_lower": 1.9999966061694554e-10,
+        "delta_upper": 0.010205392188001382,
+        "orientation_margins_lower": [
+          0.7940086894957588,
+          0.8022050981691058
+        ],
+        "reason": "CERTIFIED"
+      }
+    },
+    {
+      "group_index": 57,
+      "mode": "polynomial",
+      "weighted_target": true,
+      "v": [
+        715347549,
+        -14594545,
+        215222383,
+        -771145715
+      ],
+      "h": "0x1.e7fbcea6f0d66p+29",
+      "s": "0x1.ccf758be5484dp-1",
+      "lambda_": "0x1.2dbb58af77446p+0",
+      "mu": "0x1.0562f4f826bcap+2",
+      "info": {
+        "numerical_threshold": 0.9530930117797851,
+        "numerical_radius": 0.3075007528209917,
+        "numerical_target_margin": 0.00011868916515851702,
+        "numerical_orientation_margins": [
+          0.7745453264934379,
+          0.7734291119547404
+        ]
+      },
+      "replay": {
+        "ok": true,
+        "mode": "polynomial",
+        "weighted_target": true,
+        "target_margin_lower": 2.3737811953648913e-06,
+        "target_error_upper": 0.0010205389269051252,
+        "min_ldl_pivot_lower": 1.9999941498383533e-10,
+        "delta_upper": 0.006053551383990676,
+        "orientation_margins_lower": [
+          0.7745453264927706,
+          0.7734291119539924
+        ],
+        "reason": "CERTIFIED"
+      }
+    },
+    {
+      "group_index": 20,
+      "mode": "polynomial",
+      "weighted_target": true,
+      "v": [
+        -990082422,
+        -17319621,
+        74345079,
+        408449682
+      ],
+      "h": "0x1.4f83d8a68a52bp+29",
+      "s": "0x1.9ce2ac1b1a909p-1",
+      "lambda_": "0x1.296ff89869d35p+0",
+      "mu": "0x1.1e13c0f3cc8abp+1",
+      "info": {
+        "numerical_threshold": 0.6553027822265625,
+        "numerical_radius": 0.85621293439699,
+        "numerical_target_margin": 4.849808030353564e-05,
+        "numerical_orientation_margins": [
+          0.7259282152135113,
+          0.7290825241943846
+        ]
+      },
+      "replay": {
+        "ok": true,
+        "mode": "polynomial",
+        "weighted_target": true,
+        "target_margin_lower": 9.69959378916136e-07,
+        "target_error_upper": 0.0020388866968856886,
+        "min_ldl_pivot_lower": 2.000000098144881e-10,
+        "delta_upper": 0.015107326217516145,
+        "orientation_margins_lower": [
+          0.7259282152098409,
+          0.7290825241906013
+        ],
+        "reason": "CERTIFIED"
+      }
+    },
+    {
+      "group_index": 26,
+      "mode": "polynomial",
+      "weighted_target": true,
+      "v": [
+        482377013,
+        -571120990,
+        -705456036,
+        -310461781
+      ],
+      "h": "0x1.e383cef066688p+29",
+      "s": "0x1.f5e900447ee18p-1",
+      "lambda_": "0x1.0c34df7e32d83p+0",
+      "mu": "0x1.8944404b36755p+1",
+      "info": {
+        "numerical_threshold": 0.9443649931640624,
+        "numerical_radius": 0.33513780945726285,
+        "numerical_target_margin": 0.0001267248213463277,
+        "numerical_orientation_margins": [
+          0.9321961807551802,
+          0.9482533961275204
+        ]
+      },
+      "replay": {
+        "ok": true,
+        "mode": "polynomial",
+        "weighted_target": true,
+        "target_margin_lower": 3.80174161038613e-06,
+        "target_error_upper": 0.00029326988912356804,
+        "min_ldl_pivot_lower": 2.0000029366245118e-10,
+        "delta_upper": 0.006577986308475885,
+        "orientation_margins_lower": [
+          0.9321961807544221,
+          0.9482533961268007
+        ],
+        "reason": "CERTIFIED"
+      }
+    },
+    {
+      "group_index": 16,
+      "mode": "polynomial",
+      "weighted_target": true,
+      "v": [
+        -889834308,
+        149263057,
+        59646836,
+        -579032991
+      ],
+      "h": "0x1.90abd46301f11p+29",
+      "s": "0x1.a4f897977d554p-1",
+      "lambda_": "0x1.5d3cfa915e056p+0",
+      "mu": "0x1.70c2ff0b010a9p+1",
+      "info": {
+        "numerical_threshold": 0.7825609557495117,
+        "numerical_radius": 0.6720275816864806,
+        "numerical_target_margin": 0.0001225158868325832,
+        "numerical_orientation_margins": [
+          0.7311377411249198,
+          0.7320127275108219
+        ]
+      },
+      "replay": {
+        "ok": true,
+        "mode": "polynomial",
+        "weighted_target": true,
+        "target_margin_lower": 2.4503155309901153e-06,
+        "target_error_upper": 0.0018624003039964137,
+        "min_ldl_pivot_lower": 1.9999968426262559e-10,
+        "delta_upper": 0.012451479438788163,
+        "orientation_margins_lower": [
+          0.7311377411219522,
+          0.7320127275082093
+        ],
+        "reason": "CERTIFIED"
+      }
+    },
+    {
+      "group_index": 16,
+      "mode": "polynomial",
+      "weighted_target": true,
+      "v": [
+        -630789297,
+        -338236880,
+        429355654,
+        -675481978
+      ],
+      "h": "0x1.d60bcfd39ae01p+29",
+      "s": "0x1.c4a44015a8bbep-1",
+      "lambda_": "0x1.312e5747ca966p+1",
+      "mu": "0x1.269153a2fb215p+2",
+      "info": {
+        "numerical_threshold": 0.9180588671264647,
+        "numerical_radius": 0.40764029974997484,
+        "numerical_target_margin": 0.0001983109452935658,
+        "numerical_orientation_margins": [
+          0.8002801769717675,
+          0.8008182230943344
+        ]
+      },
+      "replay": {
+        "ok": true,
+        "mode": "polynomial",
+        "weighted_target": true,
+        "target_margin_lower": 3.966216778771778e-06,
+        "target_error_upper": 0.0011910809189015642,
+        "min_ldl_pivot_lower": 2.0000035915639327e-10,
+        "delta_upper": 0.007928881799862389,
+        "orientation_margins_lower": [
+          0.8002801769704828,
+          0.8008182230932308
+        ],
+        "reason": "CERTIFIED"
+      }
+    },
+    {
+      "group_index": 42,
+      "mode": "local_sphere",
+      "v": [
+        254850364,
+        404122324,
+        953831213,
+        -121917844
+      ],
+      "h": "0x1.e9a7bd2cab2b0p+28",
+      "weighted_target": true,
+      "psi_remainder": "local_hessian",
+      "t3_group_sha256": "2a7d951a35b0b3641763caffa78d28500822e058f8830241302f4956fa55eaf2",
+      "t3_parameter": {
+        "s": "0x1.bdcfa43eb671cp-1",
+        "lambda": "0x1.922e5d1dd1918p-4",
+        "mu": "0x1.460755326229bp-2"
+      },
+      "t3_distance": {
+        "s": "0x1.574b52c165c58p-1",
+        "lambda": "0x1.4237f3d181cd5p-4",
+        "mu": "0x1.f9a6efdf27468p-3"
+      },
+      "t3_alignment": {
+        "rows": [
+          3,
+          1,
+          0,
+          2,
+          5,
+          4
+        ],
+        "cols": [
+          4,
+          5,
+          0,
+          3,
+          1,
+          2
+        ],
+        "wind": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          2,
+          2,
+          0,
+          1,
+          1,
+          0,
+          1,
+          1,
+          0,
+          1,
+          0,
+          0,
+          0,
+          1,
+          0,
+          2,
+          1,
+          0,
+          2,
+          1,
+          0,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "info": {
+        "numerical_threshold": 0.4781789359130859,
+        "numerical_radius": 1.0722162727282347,
+        "numerical_parameter_margin": 1.2524705696362326e-05,
+        "numerical_distance_margin": 0.12431300916621339,
+        "numerical_parameter_error": 0.06686111496063672,
+        "numerical_distance_error": 0.05684845626502506
+      },
+      "replay": {
+        "ok": true,
+        "reason": "CERTIFIED",
+        "kind": "T3",
+        "mode": "local_sphere",
+        "weighted_target": true,
+        "parameter": {
+          "ok": true,
+          "reason": "CERTIFIED",
+          "normalized_margin_lower": 1.2524598529754981e-05,
+          "normalized_error_upper": 0.06686111496063674,
+          "min_ldl_pivot_lower": 2.0000001828038334e-10
+        },
+        "distance": {
+          "ok": true,
+          "reason": "CERTIFIED",
+          "normalized_margin_lower": 0.12431300904408912,
+          "normalized_error_upper": 0.056848456265025084,
+          "min_ldl_pivot_lower": 2.0000001487756961e-10
+        },
+        "psi_remainder": "local_hessian",
+        "delta_upper": 0.020431760846034083,
+        "side_phase_distance_upper": 0.018033382485315098,
+        "orientation_margins_lower": [],
+        "target_margin_lower": 1.6281978088681474e-06,
+        "distance_margin_lower": 0.018646951356613366
+      }
+    },
+    {
+      "group_index": 14,
+      "mode": "local_sphere",
+      "weighted_target": true,
+      "v": [
+        -475764875,
+        -630132062,
+        653369603,
+        -320329570
+      ],
+      "h": "0x1.f2d3cdeceaef2p+29",
+      "s": "0x1.ec596ba653fe8p-1",
+      "lambda_": "0x1.e88aa62ce0421p+1",
+      "mu": "0x1.0c625711c48a0p+3",
+      "info": {
+        "numerical_threshold": 0.9742721898193358,
+        "numerical_radius": 0.22732748805121994,
+        "numerical_target_margin": 0.0002452783321173109,
+        "numerical_orientation_margins": [
+          0.8689325900534728,
+          0.8658674481314691
+        ]
+      },
+      "replay": {
+        "ok": true,
+        "mode": "local_sphere",
+        "weighted_target": true,
+        "target_margin_lower": 4.905564602824577e-06,
+        "target_error_upper": 0.00038265221801979686,
+        "min_ldl_pivot_lower": 1.996806437795133e-10,
+        "delta_upper": 0.004536766265142097,
+        "orientation_margins_lower": [
+          0.8689325900531417,
+          0.8658674481310706
+        ],
+        "reason": "CERTIFIED"
+      }
+    },
+    {
+      "group_index": 16,
+      "mode": "polynomial",
+      "weighted_target": true,
+      "v": [
+        -728103081,
+        244753803,
+        111697440,
+        -741893972
+      ],
+      "h": "0x1.b80bd1cafebe2p+29",
+      "s": "0x1.b637055fed9f5p-1",
+      "lambda_": "0x1.be66b8fee1652p+0",
+      "mu": "0x1.beabe57ba1ca7p+1",
+      "info": {
+        "numerical_threshold": 0.8594651757202147,
+        "numerical_radius": 0.5365738013331407,
+        "numerical_target_margin": 0.0001321168100822251,
+        "numerical_orientation_margins": [
+          0.7352065407306873,
+          0.735878063420578
+        ]
+      },
+      "replay": {
+        "ok": true,
+        "mode": "polynomial",
+        "weighted_target": true,
+        "target_margin_lower": 2.6423340398141363e-06,
+        "target_error_upper": 0.0014945089460647076,
+        "min_ldl_pivot_lower": 2.0000056064626693e-10,
+        "delta_upper": 0.010223885987709772,
+        "orientation_margins_lower": [
+          0.7352065407286633,
+          0.7358780634187849
+        ],
+        "reason": "CERTIFIED"
+      }
+    },
+    {
+      "group_index": 22,
+      "mode": "polynomial",
+      "weighted_target": true,
+      "v": [
+        113496054,
+        -364697610,
+        122319507,
+        -996028986
+      ],
+      "h": "0x1.a293d33123c1ap+29",
+      "s": "0x1.adcca7eaffbb7p-1",
+      "lambda_": "0x1.8c205c61a9c6ap+0",
+      "mu": "0x1.7c57b9e353c30p+1",
+      "info": {
+        "numerical_threshold": 0.8175340653076173,
+        "numerical_radius": 0.6136804428848158,
+        "numerical_target_margin": 9.202983136870346e-05,
+        "numerical_orientation_margins": [
+          0.8071938415764175,
+          0.7979985712266804
+        ]
+      },
+      "replay": {
+        "ok": true,
+        "mode": "polynomial",
+        "weighted_target": true,
+        "target_margin_lower": 1.8405944444833735e-06,
+        "target_error_upper": 0.001673836489500009,
+        "min_ldl_pivot_lower": 2.0000013779137191e-10,
+        "delta_upper": 0.011517604821517374,
+        "orientation_margins_lower": [
+          0.8071938415742704,
+          0.7979985712243836
+        ],
+        "reason": "CERTIFIED"
+      }
+    },
+    {
+      "group_index": 29,
+      "mode": "polynomial",
+      "weighted_target": true,
+      "v": [
+        1062319902,
+        -68259614,
+        -127155934,
+        -59748838
+      ],
+      "h": "0x1.991bd3d19e36fp+29",
+      "s": "0x1.b26715ae6cbccp-1",
+      "lambda_": "0x1.70e82398fbc9cp+0",
+      "mu": "0x1.43cbea8e68e4ap+1",
+      "info": {
+        "numerical_threshold": 0.7990404314575195,
+        "numerical_radius": 0.6450986888692881,
+        "numerical_target_margin": 9.947698670738359e-05,
+        "numerical_orientation_margins": [
+          0.7998043592169195,
+          0.7836818192335671
+        ]
+      },
+      "replay": {
+        "ok": true,
+        "mode": "polynomial",
+        "weighted_target": true,
+        "target_margin_lower": 1.9895375628538883e-06,
+        "target_error_upper": 0.0015758203234639532,
+        "min_ldl_pivot_lower": 2.0000063952924538e-10,
+        "delta_upper": 0.012025545956773543,
+        "orientation_margins_lower": [
+          0.7998043592142483,
+          0.7836818192308301
+        ],
+        "reason": "CERTIFIED"
+      }
+    }
+  ],
+  "coverage": {
+    "schema": "rational-s3-cap-cover-v1",
+    "dimension": 4,
+    "cap_count": 24,
+    "facets": [
+      {
+        "vertices": [
+          0,
+          1,
+          2,
+          13
+        ],
+        "numerator": [
+          -324186495336673624728933523828438054147525,
+          -5032809468102193394335422483243627096901715,
+          4971723470036892224615505125456389305998494,
+          1953781877628195870332010136822911164465114
+        ],
+        "denominator": 7963594281053247660764111534548671369576448
+      },
+      {
+        "vertices": [
+          0,
+          1,
+          2,
+          20
+        ],
+        "numerator": [
+          -2941618625930161429572916507686962081327951,
+          -4427162810104929697287549080553668396675005,
+          4561964438337445124236177429130561148254285,
+          -1729981517579982182861982181531834091941369
+        ],
+        "denominator": 7383524665149517846578765692449808961241088
+      },
+      {
+        "vertices": [
+          0,
+          1,
+          6,
+          15
+        ],
+        "numerator": [
+          -1743860814767775227701629301428821642754967,
+          -1055422561674613232061952086345481758386771,
+          1150068726425132512718959640251841813620507,
+          -271391012463819857516645681329868123738782
+        ],
+        "denominator": 2443766750644917811670471006335371709513728
+      },
+      {
+        "vertices": [
+          0,
+          1,
+          6,
+          20
+        ],
+        "numerator": [
+          -4014442753760037242073801495147325133127029,
+          -3495280011991495885713510392863634753884825,
+          3707134841670245686577014596599333149755545,
+          -1654938084642026627199378520029729494256026
+        ],
+        "denominator": 6753236060322180331842391625153287607549952
+      },
+      {
+        "vertices": [
+          0,
+          1,
+          8,
+          13
+        ],
+        "numerator": [
+          -628281402986628484412209529598039044280875,
+          -6515795361042627782667882262585914147141523,
+          6414306627228122389764418680428321471739527,
+          7099868635703001803649358993698544616221164
+        ],
+        "denominator": 12073172174970011931661087968290545868996608
+      },
+      {
+        "vertices": [
+          0,
+          1,
+          8,
+          15
+        ],
+        "numerator": [
+          -576089343609460163610981270491711255571889,
+          -498275404459347358518736793209058082539105,
+          520968588382356689854342887459127819152589,
+          771212618096186302242040844031725596687808
+        ],
+        "denominator": 1325617397392174455619535189573145880166400
+      },
+      {
+        "vertices": [
+          0,
+          2,
+          7,
+          19
+        ],
+        "numerator": [
+          118598995571838851505065349749920809809615,
+          -460081864944802003970584863463508355161759,
+          1094682632743147148056614869500444334456488,
+          -1474684730460985083987539047663013193987528
+        ],
+        "denominator": 2080529345721400779028785352381567325962240
+      },
+      {
+        "vertices": [
+          0,
+          2,
+          7,
+          22
+        ],
+        "numerator": [
+          -61188798127021124289401258268658697955483,
+          -374450109251248831369761953781105547133949,
+          780411271596591332444951522033229514791168,
+          -1059700888160693235363232532113399258801840
+        ],
+        "denominator": 1458804698001901351727791981991620471947264
+      },
+      {
+        "vertices": [
+          0,
+          2,
+          13,
+          19
+        ],
+        "numerator": [
+          1151834791834856027072515547237804095429723,
+          -654064045618663000197636248741469973805721,
+          1021724533486584361773272976246615704695040,
+          498186173012687303755774560873021569914588
+        ],
+        "denominator": 1836703944482785214282556177379968514260992
+      },
+      {
+        "vertices": [
+          0,
+          2,
+          18,
+          20
+        ],
+        "numerator": [
+          -1298758730818330648138584161336482689040605,
+          -1688404884659851534383166012471075818515488,
+          1968321484332808502676366879831057498646083,
+          -1501975936277182252607235108265897233156229
+        ],
+        "denominator": 3296945978844427830110035731888908380667904
+      },
+      {
+        "vertices": [
+          0,
+          2,
+          18,
+          22
+        ],
+        "numerator": [
+          -1294451733577097395792502271252133766709267,
+          -1895785098746915022089524625493932910926314,
+          3064438701700781263726110293051818462667016,
+          -3930144034630723356348027162760922061857998
+        ],
+        "denominator": 5506650892407859063941811437682152840364032
+      },
+      {
+        "vertices": [
+          0,
+          3,
+          5,
+          10
+        ],
+        "numerator": [
+          4309838421294699062361799457308065485701228,
+          2720482602555071742501502138061198771898597,
+          648602257123088644719282273328816977515942,
+          1037794816540064673691157335737931103800509
+        ],
+        "denominator": 5454788709892558557480333157886857456910336
+      },
+      {
+        "vertices": [
+          0,
+          3,
+          5,
+          19
+        ],
+        "numerator": [
+          2137890744306292544303220335556503980533316,
+          1253902761296392579965571138615784823313615,
+          377927924952921267321128077396981633147760,
+          369322036945563298700081790074383374530681
+        ],
+        "denominator": 2662478405509117724180261233871445347532800
+      },
+      {
+        "vertices": [
+          0,
+          3,
+          8,
+          10
+        ],
+        "numerator": [
+          5254846223550527969562472578030901285607087,
+          2816963301773390632667516916073388460589784,
+          976428390988649925746535108414096303515542,
+          4523084393611705505236801377039422084275641
+        ],
+        "denominator": 7615348998634742340298346087266576869883904
+      },
+      {
+        "vertices": [
+          0,
+          3,
+          8,
+          12
+        ],
+        "numerator": [
+          1689816929140099168312927755770613222307811,
+          109292653921711534977924598759527878641844,
+          749458631468446765285994440558865587852378,
+          1458071537318474300162852017020723155973629
+        ],
+        "denominator": 2447965676937910884006080609303948917997568
+      },
+      {
+        "vertices": [
+          0,
+          3,
+          12,
+          19
+        ],
+        "numerator": [
+          567625538548960332794156373693567628687453,
+          39309723909743462562465062464261368177720,
+          257755256044248467084741976764311964174816,
+          214303066346400758451421666549266318130637
+        ],
+        "denominator": 740636914710756471065532414342600666906624
+      },
+      {
+        "vertices": [
+          0,
+          4,
+          5,
+          10
+        ],
+        "numerator": [
+          1133346577545479039958131468879201215444115,
+          7494503379088036263638072204685213597020625,
+          -1332012422957641445755508613794903300487716,
+          696021122508662424470116025325726602904927
+        ],
+        "denominator": 8658441404574677077684307160196692280606720
+      },
+      {
+        "vertices": [
+          0,
+          4,
+          5,
+          11
+        ],
+        "numerator": [
+          298985901113131759827824874662863971284765,
+          7236015815105131789529745396662106914064635,
+          -1265110296868540742854719618311284370989241,
+          -492192505125046021480099925934646662574398
+        ],
+        "denominator": 8309226995616628129930641413599405906329600
+      },
+      {
+        "vertices": [
+          0,
+          4,
+          8,
+          10
+        ],
+        "numerator": [
+          1248815083592387062089643660152029846062958,
+          8188937152316011796376091868452581950570920,
+          -1304772356065929892384296025376731870956428,
+          7255721820378256667036807550480083635572403
+        ],
+        "denominator": 12423026511023285568285899530412890318176256
+      },
+      {
+        "vertices": [
+          0,
+          4,
+          8,
+          15
+        ],
+        "numerator": [
+          -645329645805070162555599633823690920278491,
+          496399185081119852597465134014895113695365,
+          -27689661347548812471462121550010107355089,
+          775236064989323357922490974532674503943809
+        ],
+        "denominator": 1342927095710818168693729206688080124182528
+      },
+      {
+        "vertices": [
+          0,
+          4,
+          11,
+          17
+        ],
+        "numerator": [
+          -7778934030268243234617189124838657805024441,
+          8037415705212868637796729438213788633345499,
+          -999593457227044027700832101047722822395235,
+          -4184263354565274718452650839680852673639879
+        ],
+        "denominator": 12477983466452381186665190926090106872791040
+      },
+      {
+        "vertices": [
+          0,
+          4,
+          15,
+          17
+        ],
+        "numerator": [
+          -1903353360273538075696230183240390167152309,
+          1200129320890640642030877838167641867403775,
+          -97497808508505810015987435364443157118111,
+          -328055349047624455273358549927975574477259
+        ],
+        "denominator": 2447960028206334460396486638383699425492992
+      },
+      {
+        "vertices": [
+          0,
+          5,
+          9,
+          11
+        ],
+        "numerator": [
+          350146283008134029207113523567465731360475,
+          823479391185114235143574661732148165806215,
+          247283302726946243190388974475970047351207,
+          -1185883946423337194143935490115648465863874
+        ],
+        "denominator": 1633555365137076865151323583156352586874880
+      },
+      {
+        "vertices": [
+          0,
+          5,
+          9,
+          19
+        ],
+        "numerator": [
+          679835160136486220915318748719555018219614,
+          1179076380165882683280827096303687103657205,
+          432935304931319471301526272005215634876840,
+          -1769786054290382779630796195881861305520701
+        ],
+        "denominator": 2489991493329377093798784151229240715509760
+      },
+      {
+        "vertices": [
+          0,
+          6,
+          7,
+          9
+        ],
+        "numerator": [
+          -74273367861947392987666621229206800758378,
+          28316481206662222821064720636261544660723,
+          94650177735458203017803975557283304570677,
+          -252153569213176986785886678980121155331905
+        ],
+        "denominator": 286228614135965215876319992806617175293952
+      },
+      {
+        "vertices": [
+          0,
+          6,
+          7,
+          22
+        ],
+        "numerator": [
+          -154147384267695772453888728836160908971693,
+          -37039043470565740788652801130732047457402,
+          249144323743010096557674157580302691852602,
+          -504112827738770609683822725034884607440265
+        ],
+        "denominator": 602172220119084854890889979941816968937472
+      },
+      {
+        "vertices": [
+          0,
+          6,
+          9,
+          21
+        ],
+        "numerator": [
+          -179839877793374606759305064136794928123404,
+          102172530596985808231561923061080045018084,
+          198056507005048880142601058133599925412961,
+          -584090237509507151033193638821772457599610
+        ],
+        "denominator": 662522279876075256339345463744604946825216
+      },
+      {
+        "vertices": [
+          0,
+          6,
+          15,
+          17
+        ],
+        "numerator": [
+          -356330916266498468326967158145231204430383,
+          68153638240979980797556740021962550891062,
+          69883049728227146515195995532914139992083,
+          -88758181525554306417598388931027695891489
+        ],
+        "denominator": 455581216534811379530496181333660476112896
+      },
+      {
+        "vertices": [
+          0,
+          6,
+          17,
+          21
+        ],
+        "numerator": [
+          -266411312552452943652736400912429406966550,
+          166736417183795839248570073822966367634166,
+          123935458243845387009405422100956981104747,
+          -445301374535695679926087176169008394983306
+        ],
+        "denominator": 627401958985616462726736961699286100213760
+      },
+      {
+        "vertices": [
+          0,
+          6,
+          18,
+          20
+        ],
+        "numerator": [
+          -720044680400790198135886778123743361961157,
+          -730863747132279147135851573957154146415824,
+          831215032140591445106879354742435994046179,
+          -562693832618477675581654254676861716463609
+        ],
+        "denominator": 1459159015388126499199731079852271622684672
+      },
+      {
+        "vertices": [
+          0,
+          6,
+          18,
+          22
+        ],
+        "numerator": [
+          -636003441949111954146830657915706627409603,
+          -585273901304280404173574901604582305918974,
+          1182260684502232578764770785998219640077398,
+          -1773569422802976889304315563198404020391103
+        ],
+        "denominator": 2338068167079657433415020752443634238881792
+      },
+      {
+        "vertices": [
+          0,
+          7,
+          9,
+          19
+        ],
+        "numerator": [
+          39369701815515719511975467242179399455443,
+          30566781224015889897627228862672210075982,
+          132092864716795338743924926783553813473928,
+          -274937325118498888200691240447143842624945
+        ],
+        "denominator": 354276855582624004942286920916580610080768
+      },
+      {
+        "vertices": [
+          0,
+          8,
+          12,
+          13
+        ],
+        "numerator": [
+          4206131555007918419049851741402565869719499,
+          -2012536198265724061848587769482965867078292,
+          3376449520690365932280531398024651912659234,
+          4272204724601843903782658332311836872868289
+        ],
+        "denominator": 7170192078210609774993029716580514362556416
+      },
+      {
+        "vertices": [
+          0,
+          9,
+          11,
+          21
+        ],
+        "numerator": [
+          -1460455802370938777995906198428690265184653,
+          2357199529658282336038336187737079313820241,
+          1096243920419199480463198536183774753374545,
+          -5327628845692333486775800807496377588541004
+        ],
+        "denominator": 6193117264168275779302391264568798320001024
+      },
+      {
+        "vertices": [
+          0,
+          11,
+          17,
+          21
+        ],
+        "numerator": [
+          -680063142751482999313705953091420673429341,
+          749218985728614466694383142941514696006737,
+          101082285550637628394744053711067818749095,
+          -983729080514143851317503463280020040086403
+        ],
+        "denominator": 1538335868491131312198710738881945154879488
+      },
+      {
+        "vertices": [
+          0,
+          12,
+          13,
+          19
+        ],
+        "numerator": [
+          1385284088065742860033672112942044291071727,
+          -750763805787793535797037992875132732154764,
+          1192986121470747674654768762543581981182440,
+          620771023093548622308766267799108547432557
+        ],
+        "denominator": 2165515950220348829189959427571233480245248
+      },
+      {
+        "vertices": [
+          1,
+          2,
+          6,
+          7
+        ],
+        "numerator": [
+          -4669671012073093132229761991872219681842383,
+          -8204832328954221596484203404916468006154775,
+          3221963142185510569913282443807298958978080,
+          -9003869552818270271187720359454831230525622
+        ],
+        "denominator": 13812911080980498831275824209478104136024064
+      },
+      {
+        "vertices": [
+          1,
+          2,
+          6,
+          18
+        ],
+        "numerator": [
+          -950231322820127607333342122566303986867656,
+          -1361514306903791841313281736987644262888431,
+          966960943365587603412210825453794792966991,
+          -1169224024272127191204813140521793347154550
+        ],
+        "denominator": 2297591842089372427067639895911404736086016
+      },
+      {
+        "vertices": [
+          1,
+          2,
+          7,
+          12
+        ],
+        "numerator": [
+          6720155634433759785450408928721223860390390,
+          -8993521637999561600342396458911234979301291,
+          -4736718153268582817536419681356690484435380,
+          -4275235270248647524982084882361422044044417
+        ],
+        "denominator": 13799857036338486110507286643208558693318656
+      },
+      {
+        "vertices": [
+          1,
+          2,
+          12,
+          13
+        ],
+        "numerator": [
+          5107435003792884150410773109446097585365796,
+          -7819068079843708573190595098132092904650971,
+          3203957846509359071414981909318684342693679,
+          4895560203143384229617290173864309754493546
+        ],
+        "denominator": 11764816965498323293528690620891914982916096
+      },
+      {
+        "vertices": [
+          1,
+          2,
+          18,
+          20
+        ],
+        "numerator": [
+          -2715244910801824828515328593995959522258706,
+          -3695156392014591959673158873081171950847891,
+          3094512612538851589995076398108100592772166,
+          -2744246307761474224401032643421058271416395
+        ],
+        "denominator": 6233700103120543187573399544509093617074176
+      },
+      {
+        "vertices": [
+          1,
+          4,
+          6,
+          7
+        ],
+        "numerator": [
+          -9203908443311002767929353396382654296814612,
+          -7468683390662701911484641123621331948690360,
+          -8976224680659603970686485503495846657535305,
+          -13277977488912593315214412776681573406887488
+        ],
+        "denominator": 20038892689856307618523646142731633647681536
+      },
+      {
+        "vertices": [
+          1,
+          4,
+          6,
+          15
+        ],
+        "numerator": [
+          -2696468269049305030511290028408264312508019,
+          -775294289099244103725150765259228135229942,
+          -770658934836520921074410029488827513068736,
+          -594768381736096728711814110406427037780604
+        ],
+        "denominator": 3386637170635600115468118238263042518286336
+      },
+      {
+        "vertices": [
+          1,
+          4,
+          7,
+          16
+        ],
+        "numerator": [
+          1826731307194956153898990390219798437828876,
+          -3061401545213291766113314036692897368642040,
+          -3769290470730078383990960105433110548908585,
+          -2115197090306035340116156386173984096770912
+        ],
+        "denominator": 5863250370149941884290724058104111919267840
+      },
+      {
+        "vertices": [
+          1,
+          4,
+          8,
+          12
+        ],
+        "numerator": [
+          7677545195111124151111584688325518434326708,
+          -8618948320284956662933352808482553059992244,
+          -9466280079553333285889383441486294213023272,
+          11749815393556102199277786186754553078046213
+        ],
+        "denominator": 20571091689505501939092497079019398640959488
+      },
+      {
+        "vertices": [
+          1,
+          4,
+          8,
+          15
+        ],
+        "numerator": [
+          -4512956061991281314927864776104644761733299,
+          -1957347890932777867905869769498769933460378,
+          -1584082471968114168580873498804881478960874,
+          5302213843619664856325634403285141883880887
+        ],
+        "denominator": 9308947891105852226934745549514192084533248
+      },
+      {
+        "vertices": [
+          1,
+          4,
+          12,
+          16
+        ],
+        "numerator": [
+          5445810392695358632501745051980335005316846,
+          -6396730510077734655164322639756131912357996,
+          -7773678145712899064716834993256572662003863,
+          -1699341724651985042980060104891746638963598
+        ],
+        "denominator": 12122050146403155294503889138746408229142528
+      },
+      {
+        "vertices": [
+          1,
+          6,
+          18,
+          20
+        ],
+        "numerator": [
+          -1029990392755068086552091227510048098710404,
+          -1244399901655468422226415924551996958555719,
+          1082025612091414810628375102661407356371194,
+          -887611905311668439478230755130147821241270
+        ],
+        "denominator": 2165590416072080352867584527887058341986304
+      },
+      {
+        "vertices": [
+          1,
+          7,
+          12,
+          16
+        ],
+        "numerator": [
+          4614590214861461935345423463585194261915558,
+          -5894416742651700452091729142402351529024128,
+          -4633345717695742138690015217843722230024295,
+          -2949250635164563892178231326604705950295966
+        ],
+        "denominator": 9641625521635546443749063683814764031508480
+      },
+      {
+        "vertices": [
+          1,
+          8,
+          12,
+          13
+        ],
+        "numerator": [
+          7082855730667733045708161470758744897787956,
+          -10605047559533965657949061367143759420701063,
+          4080756501015387647475222006147520911133291,
+          10088628993040659035326728044963175504688146
+        ],
+        "denominator": 17214210534154864820530689654157007101362176
+      },
+      {
+        "vertices": [
+          2,
+          6,
+          7,
+          22
+        ],
+        "numerator": [
+          -354817706007718189862521528437887049546933,
+          -581563568597976631549609216676378101321829,
+          392544692064750907620636369306801825539096,
+          -793216095420375557590238008232220353902490
+        ],
+        "denominator": 1150470408866557198011080359139678166712320
+      },
+      {
+        "vertices": [
+          2,
+          6,
+          18,
+          22
+        ],
+        "numerator": [
+          -312849380419130045333179051802701147557291,
+          -495012796135378600215636268023577189569843,
+          392160082718289760913908221378906434599852,
+          -714251919271475792576378851003646672415965
+        ],
+        "denominator": 1030287214399563802920644952930177169489920
+      },
+      {
+        "vertices": [
+          2,
+          7,
+          12,
+          23
+        ],
+        "numerator": [
+          1836583380488473828523681251758513612087322,
+          -454386034263847737463372584280555389845227,
+          299180803261675267079556284162214406595384,
+          -1052179190682175479949874201396237730975141
+        ],
+        "denominator": 2339120518087440931280312313752538457309184
+      },
+      {
+        "vertices": [
+          2,
+          7,
+          14,
+          19
+        ],
+        "numerator": [
+          1260140503688942770015074070808977794949644,
+          -122652580893388098495312563377304371758401,
+          473281195973140274796486629946653793046448,
+          -825527874091466473860627541565163727629241
+        ],
+        "denominator": 1604192147749318535038247169242209022115840
+      },
+      {
+        "vertices": [
+          2,
+          7,
+          14,
+          23
+        ],
+        "numerator": [
+          1393989066461380464249097406799897601480524,
+          -147041234058375360307691527262531806066579,
+          467452019644048697886403777730094161430208,
+          -868012456767484880750845152469961780023187
+        ],
+        "denominator": 1728888680222094541935224565817468054929408
+      },
+      {
+        "vertices": [
+          2,
+          12,
+          13,
+          19
+        ],
+        "numerator": [
+          742815777420917552032631579639393410289729,
+          -409787292325782546034547469464691660132197,
+          640370729550127076164830754946600807907284,
+          317183317154863840041084333675826401984149
+        ],
+        "denominator": 1160480529586137637679843393409662706515968
+      },
+      {
+        "vertices": [
+          2,
+          12,
+          19,
+          23
+        ],
+        "numerator": [
+          820770638726745946751511914190347499503542,
+          -124681767391405116408411961666786183642381,
+          330616897411282345375088879846928899900832,
+          -320197033935289012514778979277172729518923
+        ],
+        "denominator": 999487255275953452487984636010424659083264
+      },
+      {
+        "vertices": [
+          2,
+          14,
+          19,
+          23
+        ],
+        "numerator": [
+          796658033783476636646838728362381874965332,
+          -74878461657272150884414588386744745037341,
+          286386627522100428999561161244478457941104,
+          -485104688779403497896645626276816436338317
+        ],
+        "denominator": 983708404138875762775496482511422192877568
+      },
+      {
+        "vertices": [
+          3,
+          4,
+          5,
+          9
+        ],
+        "numerator": [
+          9198338207323745967601965702054085083249721,
+          -786822532774263660792532627036840553078376,
+          -9173646505890959823628923938479624905612461,
+          -5227566743885288296191832032115121701607741
+        ],
+        "denominator": 15368238463093552650150604186893717885419520
+      },
+      {
+        "vertices": [
+          3,
+          4,
+          5,
+          10
+        ],
+        "numerator": [
+          8413698570724326898291855873971719504591123,
+          6235854766098813990328981770843356453906052,
+          -4732149470546183226565823784709283599680728,
+          4412866951008073653765483289960039203745662
+        ],
+        "denominator": 13607004399304442872904328253847906214215680
+      },
+      {
+        "vertices": [
+          3,
+          4,
+          8,
+          10
+        ],
+        "numerator": [
+          10286651281635764920029897112901341272707667,
+          6842175258995303649070736339987196135716544,
+          -5578473096092114881722471166327327190970328,
+          10612498043623229773559408801440882416127142
+        ],
+        "denominator": 18213778343348481571963422433438262699753472
+      },
+      {
+        "vertices": [
+          3,
+          4,
+          8,
+          12
+        ],
+        "numerator": [
+          1699996362459697361583388027436779344440226,
+          -1342449374021613262999003553520289956730353,
+          -1839847089105828727455681343618625476458619,
+          2357010888146939278870956073888237165157821
+        ],
+        "denominator": 4116251970999407829932727572281732875943936
+      },
+      {
+        "vertices": [
+          3,
+          4,
+          9,
+          16
+        ],
+        "numerator": [
+          1160954385924371700771748939945980952348811,
+          -774822902055869914486690496049352548272982,
+          -1427982389157616012173662010732118115581133,
+          -691406089775670546809946189538369489096061
+        ],
+        "denominator": 2193846253690046157892213893080913725620224
+      },
+      {
+        "vertices": [
+          3,
+          4,
+          12,
+          16
+        ],
+        "numerator": [
+          1203349233304549054267518406762477863315232,
+          -1112048896433694036075655457389922602288671,
+          -1580009181539989113254380283043541137883540,
+          -491909360667464576115852290490448249480582
+        ],
+        "denominator": 2448637362682557672409815010378034033197056
+      },
+      {
+        "vertices": [
+          3,
+          5,
+          9,
+          23
+        ],
+        "numerator": [
+          1388751989025298114651705703958693078942487,
+          43209897347449323377840642699275220673292,
+          -204821214928886350484329294186883713075883,
+          -771683363185483957436940248730761899178799
+        ],
+        "denominator": 1800194843742539353837622368994351980216320
+      },
+      {
+        "vertices": [
+          3,
+          5,
+          19,
+          23
+        ],
+        "numerator": [
+          1466451727112793435280553905578999297453293,
+          519101494065975940961230602210643870144226,
+          298250856779739600395576759660359063983916,
+          -236634909185869835986462065246817821064952
+        ],
+        "denominator": 1746720143630309739079205827104222755160064
+      },
+      {
+        "vertices": [
+          3,
+          9,
+          12,
+          16
+        ],
+        "numerator": [
+          271715950522594279046921595672202956219437,
+          -214757583808233656970691465474195708843306,
+          -291714272596168775335778558282297499052880,
+          -162884212080970996452636816727219069643407
+        ],
+        "denominator": 503038364581820796367940893399498270703616
+      },
+      {
+        "vertices": [
+          3,
+          9,
+          12,
+          23
+        ],
+        "numerator": [
+          470376053182795896987241641522318643434184,
+          -96708517200090484293739869710084775593659,
+          -14683419811652656616376012875242536939481,
+          -265695496143064845190907631186832862092575
+        ],
+        "denominator": 610787563526416005226025735424992417415168
+      },
+      {
+        "vertices": [
+          3,
+          12,
+          19,
+          23
+        ],
+        "numerator": [
+          45757428800941082168665337681954892487384,
+          419189926389886555753965803204850602723,
+          16006042169847172150421607581097858359292,
+          -8783308790016638024895297983413242568450
+        ],
+        "denominator": 54862430717939964101959710150063804121088
+      },
+      {
+        "vertices": [
+          4,
+          5,
+          9,
+          11
+        ],
+        "numerator": [
+          -2614673484378448212103657886820827232500,
+          65130226895751619342533896283114722638255,
+          -49930300098553207406057189629027462482694,
+          -92372271382189087344898037674293927717627
+        ],
+        "denominator": 141362120671131683408772174085233668259840
+      },
+      {
+        "vertices": [
+          4,
+          6,
+          7,
+          9
+        ],
+        "numerator": [
+          -879087557523668813604305696716973130329135,
+          -596624459395176424508701917576360484335121,
+          -851143489706170819782955680611800713871921,
+          -1333128123944830167638692468347880410688592
+        ],
+        "denominator": 1947134328884840798720282318525537319911424
+      },
+      {
+        "vertices": [
+          4,
+          6,
+          9,
+          17
+        ],
+        "numerator": [
+          -2168379624825568664363968031253248423428424,
+          705046583646993269695497072067629793431602,
+          -1622506802779349545779245121344581951850599,
+          -3672240243502389446245190547189310203059768
+        ],
+        "denominator": 4836914858133381865906743092268979326025728
+      },
+      {
+        "vertices": [
+          4,
+          6,
+          15,
+          17
+        ],
+        "numerator": [
+          -3332518793824985306085798701972835716029571,
+          319266301207729104774302671961419425508808,
+          -622504979403192068296740471775732605566806,
+          -845922192055135563101461411802668091368532
+        ],
+        "denominator": 4124551758082118061952034385754843357642752
+      },
+      {
+        "vertices": [
+          4,
+          7,
+          9,
+          16
+        ],
+        "numerator": [
+          400593334607236738073902978508921889636311,
+          -587945647978846344124244837033491156419916,
+          -761457919875075356636079464883616604019696,
+          -427038627371585818931345189883075920751841
+        ],
+        "denominator": 1182223295548469940100563998983874276229120
+      },
+      {
+        "vertices": [
+          4,
+          9,
+          11,
+          17
+        ],
+        "numerator": [
+          -6937415548251007805376178505901466097947666,
+          6160467024868680164284108140650516700319469,
+          -5176756341908587564845741649917333768882352,
+          -13476115803035493129008307263199186075104651
+        ],
+        "denominator": 17359951315219185129152121278811142543638528
+      },
+      {
+        "vertices": [
+          5,
+          9,
+          19,
+          23
+        ],
+        "numerator": [
+          6046406364046812218384750287485774547395906,
+          918961245425036285610303459073369772985817,
+          1517773550468908096204800323108297367687464,
+          -3840269383482171588071597366234636156318599
+        ],
+        "denominator": 7455970275277896406625187148235725665730560
+      },
+      {
+        "vertices": [
+          6,
+          9,
+          17,
+          21
+        ],
+        "numerator": [
+          -146158346912653129000317699534485429734878,
+          78432322591602174577281991770860572779790,
+          -43379249847692169092429685721561941255929,
+          -302798658033190155959717417408145647176170
+        ],
+        "denominator": 374293174336235435734230822001363132612608
+      },
+      {
+        "vertices": [
+          7,
+          9,
+          12,
+          16
+        ],
+        "numerator": [
+          396170870574861395857655336537887014910477,
+          -347313403787818771508086594526019418579498,
+          -412321431286938704838954008270092807222576,
+          -246610261176529247441873947255997290809903
+        ],
+        "denominator": 746446027536656758175161907688039147110400
+      },
+      {
+        "vertices": [
+          7,
+          9,
+          12,
+          23
+        ],
+        "numerator": [
+          238262497026288971081441457501535709704628,
+          -53218682533380822723031223220684998321789,
+          6133801559320481095386312593316761593315,
+          -136861088693819036738969439895078940557593
+        ],
+        "denominator": 307869897517526892364670838657742868054016
+      },
+      {
+        "vertices": [
+          7,
+          9,
+          14,
+          19
+        ],
+        "numerator": [
+          90651110200149237894468048981258408089988,
+          -3648321424064014981314282619480919951077,
+          32368775544288544493029326696743414005096,
+          -62065919886727832733154868107995077505722
+        ],
+        "denominator": 116993820730654938834577694462461870080000
+      },
+      {
+        "vertices": [
+          7,
+          9,
+          14,
+          23
+        ],
+        "numerator": [
+          143163542429960474219951479053664360634109,
+          -9057505507743798852499494089590372279814,
+          43781142032255503299563705182064992304198,
+          -90783978408108875385352762001377290270853
+        ],
+        "denominator": 177817603152910806018054423925005993639936
+      },
+      {
+        "vertices": [
+          9,
+          11,
+          17,
+          21
+        ],
+        "numerator": [
+          -389052828945772587286563542636027566158177,
+          349430997353044758154753201441115383906579,
+          -273964298851811717650004147304148834368620,
+          -767809308679954794871915154246344072540446
+        ],
+        "denominator": 983727916818951526997653727127719972438016
+      },
+      {
+        "vertices": [
+          9,
+          14,
+          19,
+          23
+        ],
+        "numerator": [
+          129613952338287800979856602103490502724761,
+          13796029877696623331334575851479013190417,
+          35072673693643526109724937928696121473472,
+          -82484574130098383269369378071016324280660
+        ],
+        "denominator": 159935110865564705687952572110745534201856
+      }
+    ]
+  },
+  "coverage_replay": {
+    "passed": true,
+    "caps": 24,
+    "facets": 83,
+    "ridges": 166,
+    "max_norm_squared": "1976691891617065476758441687794244315494547364136651025454400394586404192154028680867/1977371324555160890940504801361961279557276463306169013597061636694230538569337798656",
+    "max_norm_squared_float": 0.9996563958778717,
+    "worst_facet": 32,
+    "boundary_vertices": 0,
+    "covers": true,
+    "strict_margin": true
+  },
+  "info": {
+    "original_boxes": 6677,
+    "original_t3_boxes": 2316,
+    "groups": 59,
+    "cap_count": 24,
+    "caps_by_kind": {
+      "T3": 2,
+      "T1": 21,
+      "T0": 1
+    },
+    "initial_cap_count": 20,
+    "reason": "covered",
+    "numerical_hull": {
+      "covers": true,
+      "minimum_distance": 1.0001718463476676,
+      "facets": 83,
+      "vertices": 24,
+      "worst_direction": [
+        0.5867143191515892,
+        -0.2807291664302636,
+        0.47098176929889873,
+        0.5959308817354035
+      ]
+    },
+    "proposal_rejections": {},
+    "normal_form": {
+      "r": 0.020000000000000004,
+      "tau": 0.0007897070610714374,
+      "q": 0.4506807478304936,
+      "Z1": 0.15153412561005822,
+      "Z2": 27.16953961663014,
+      "beta": 13.68387272433378,
+      "u": 1.0000000021669198,
+      "x": 1.0000000005000007,
+      "wn": 13.679354253458573,
+      "base": 0.02273677458820515,
+      "t3": 323.39226584734,
+      "t4": 252.77836483954349,
+      "L5": 19351.13636559208,
+      "c": 19.43203526725965,
+      "d": 34.90981684599976,
+      "a2": 157.15713190056147,
+      "L3a": 1361.9343190881737,
+      "status": "CERTIFIED",
+      "seconds": 1.9964445229998091,
+      "strict_R_lower": 1.8644346220818981,
+      "dephased_lift_gap_upper": 0.007963922308576081
+    },
+    "model_seconds": 2.000865664002049,
+    "seconds": 34.17539897000097
+  }
+}

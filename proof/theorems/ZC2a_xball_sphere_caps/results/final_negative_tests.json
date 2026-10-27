@@ -1,0 +1,77 @@
+{
+  "status": "CERTIFIED negative controls",
+  "passed": true,
+  "input_sha256": "8db61effd326dde87cc666b47485709c25cd66cfa52b01e7f7aa40ca54252963",
+  "certificate_sha256": "1a911d19061a84c142aa986862e7c2e3d0890f4e82768720f1a5678209bd24ae",
+  "precision_bits": 224,
+  "selected_cap": 0,
+  "original_group_index": 8011,
+  "baseline_cap": {
+    "ok": true,
+    "mode": "local_sphere",
+    "weighted_target": true,
+    "target_margin_lower": 8.20195656369587e-05,
+    "target_error_upper": 0.0009848503191794177,
+    "min_ldl_pivot_lower": 4.999726554721599e-10,
+    "delta_upper": 0.00916975466054735,
+    "orientation_margins_lower": [
+      0.6761041717821777,
+      0.6759002119204843
+    ],
+    "reason": "CERTIFIED"
+  },
+  "baseline_coverage": {
+    "replayed_in_this_command": false,
+    "status": "NOT REPLAYED: complete exact sphere coverage is a separate verification gate"
+  },
+  "tests": {
+    "enlarged_cap": {
+      "rejected": true,
+      "result": {
+        "ok": false,
+        "reason": "target PSD witness"
+      },
+      "old_threshold": 66941917,
+      "new_threshold": 1
+    },
+    "dropped_cap_stale_coverage": {
+      "rejected": true,
+      "result": {
+        "passed": false,
+        "covers": false,
+        "error": "need at least five caps and matching cap_count"
+      }
+    },
+    "wrong_group_out_of_range": {
+      "rejected": true,
+      "result": {
+        "error": "edge caps: cap 0 has no such transfer group"
+      },
+      "group_index": 16100
+    },
+    "wrong_group_in_range": {
+      "rejected": true,
+      "result": {
+        "ok": false,
+        "reason": "target PSD witness"
+      },
+      "original_group_index": 8011,
+      "wrong_group_index": 0
+    },
+    "tampered_target_witness": {
+      "rejected": true,
+      "result": {
+        "ok": false,
+        "reason": "target PSD witness"
+      }
+    },
+    "tampered_negative_multiplier": {
+      "rejected": true,
+      "result": {
+        "ok": false,
+        "reason": "multiplier SOC or nonnegative bound"
+      }
+    }
+  },
+  "seconds": 26.813061461998586
+}

@@ -173,6 +173,8 @@ def main(src, dst):
             for j, t in enumerate(gs):
                 txt, nb = group_lines(t, KINDS_EDGE, '%s group %d' % (w, j))
                 out.write(txt); nbox += nb
+            if e.get('caps') is not None:
+                out.write('\n'.join(caps_to_txt.lines(e['caps'])) + '\n')
         if tao is None:
             out.write('TAO none\n')
         else:

@@ -152,9 +152,17 @@ ZC's `CAP_FORMAT.md`):
 | `weighted_target` | use the output-weighted normal bounds (T0 in polynomial mode, T2 in the local modes) |
 | `coverage` | the exact certificate that the caps cover S³: every facet of the polar hull of {v_i / h_i}, its dual vertex numerator / denominator, strict support, every ridge shared by exactly two facets, every dual vertex in the closed unit ball |
 
+**T3 caps** (theorem ZC2b, `proof/theorems/ZC2b_t3_caps/`, its `ZC2b/CAP_FORMAT.md`). A cap whose `group_index` names a
+T3 group certifies Theorem 4.3's two conditions on the whole cap, each by its own 5 × 5 witness: `t3_parameter`
+(the corner parameter inside the X-ball's ellipsoid) and `t3_distance` (phase distance to F6 below 3/20). Further
+fields: `t3_alignment` (`rows`, `cols`: the full row and column orders aligned with F6's; `wind`: 36 integers),
+`t3_group_sha256` (binds the cap to its group's descriptor), optional `psi_remainder` (`global` or `local_hessian`).
+T0/T1 and T3 caps of one ball share one coverage certificate. A T3 cap is accepted only if its target X-ball passed C1e.
+The coverage may also use the compact schema of §8a.
+
 With `caps`, the checkers verify the ball's sphere by the caps and their coverage alone; the groups' `boxes` are then
 not used and are written empty. `driver/caps_build.sh` builds caps for every ball whose transfers are all T0/T1 and
-writes such a certificate (`driver/caps_merge.py`).
+writes such a certificate (`driver/caps_assemble.py`, which also attaches the T3 caps of ZC2b and the X-ball caps of ZC2a).
 
 ## 5. Windings and corner orders
 
@@ -273,3 +281,57 @@ orientation signs or tubes are needed.
 
 The driver screens T3 at 17 points of each box: p′ within 0.9 r_e, and the sampled distance to F6 plus the ball's n
 below 0.13.
+
+## 8a. Spherical caps on an edge-ball boundary (theorem ZC2a, `proof/theorems/ZC2a_xball_sphere_caps/`)
+
+An F6-012 edge ball centred at `q0 = 0` may carry an optional `caps` object,
+with the same cap geometry and witness fields as §4a:
+
+```json
+"caps": {
+  "caps": [
+    {"group_index": 3, "v": [123, 456, 789, -321], "h": 900,
+     "mode": "local_sphere", "weighted_target": true,
+     "lambda_": "0x1.0p+0", "mu": "0x1.0p+0", "s": "0x1.0p-1"}
+  ],
+  "coverage": {"schema": "rational-s3-cap-cover-index-v1",
+               "dimension": 4, "cap_count": 1, "simplices": []}
+}
+```
+
+This example illustrates field structure only; it is not a valid certificate.
+The edge's existing `transfers` array retains its original order. Each
+`group_index` names a T1 descriptor in that array. The named target, symmetry,
+ordered corner and windings are all recomputed; no proposal diagnostics are
+used. With `caps` present, the entire boundary is checked by caps, so the
+groups' `boxes` may be empty. No existing field changes meaning.
+
+The source model is the augmented 22-coordinate model in
+`edge_wholeball.py`, including its contraction and phase-lift test.
+`weighted_target: true` selects its output-weighted normal error `tau_A`
+in polynomial mode and its output-weighted Hessian in the local modes.
+`false` retains the original valid unweighted interpretation. All local
+modes use `edge_centre_jet`; a seed chart's 21-coordinate jet is never used.
+Both target orientation signs are required, also for caps crossing the
+source fold. The production entry points are `edgecaps.check_edge_caps`
+and `edgecert.check_edge_transfers(..., caps=edge_record.get('caps'))`.
+
+Cap thresholds and multipliers may be exact integers or finite binary64
+hexadecimal strings, as accepted by the existing cap scalar reader. Here
+`h` is measured against the stored integer `v`, not against a unit normal.
+
+### Compact exact polar-facet coverage
+
+The existing `rational-s3-cap-cover-v1` schema is unchanged. The additional
+`rational-s3-cap-cover-index-v1` schema stores only `dimension`, `cap_count`,
+and `simplices`, a list of four distinct cap indices per polar facet. It
+must not carry an old-schema `facets` field. The verifier reconstructs each
+dual vertex exactly by Cramer's rule, proves strict support at every other
+cap point, verifies that every ridge occurs twice, and checks each dual
+vertex's squared norm is at most one. All these are integer inequalities.
+An internal exact dyadic bounding-box tree can accelerate the support
+checks without adding certificate fields or weakening any inequality.
+
+The edge cap certificate establishes this source boundary's transfers and
+coverage. It does not replace the other balls' chart-validity, exclusion,
+coverage, or atlas checks, and is not a Lean-kernel receipt.

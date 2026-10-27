@@ -1,0 +1,44 @@
+{
+  "status": "CERTIFIED exact uncovered-direction witness",
+  "passed": true,
+  "dropped_cap": 322,
+  "group_index": 10383,
+  "remaining_cap_count": 19610,
+  "polar_witness": {
+    "numerator": [
+      538772630899421209559174279,
+      -51173775766681753969868601254,
+      -55110747855044022311162274202,
+      -8192648000313137395916042601
+    ],
+    "denominator": 75636888985534920589674018987
+  },
+  "incident_remaining_indices": [
+    17129,
+    16961,
+    3887,
+    17223
+  ],
+  "incident_original_indices": [
+    17130,
+    16962,
+    3888,
+    17224
+  ],
+  "norm_squared": "635928845840633908356491153029132710261465100253803013818/635659886156681532082135018106028835175388972031204056241",
+  "strict_norm_excess_numerator": 2420637155571386469205214307934875774685154003390618193,
+  "minimum_remaining_halfspace_slack": 0,
+  "removed_halfspace_slack": -3811475621638080293536854406902184,
+  "uncovered_direction": "numerator / sqrt(sum(numerator_i**2))",
+  "interpretation": "Every remaining cap strictly misses the displayed exact unit direction.",
+  "selection": "tight",
+  "trials": [
+    {
+      "dropped_cap": 322,
+      "group_index": 10383,
+      "numerical_minimum_polar_facet_distance": 0.9997885076843325
+    }
+  ],
+  "seconds": 9.0539732119978,
+  "certificate_sha256": "1a911d19061a84c142aa986862e7c2e3d0890f4e82768720f1a5678209bd24ae"
+}

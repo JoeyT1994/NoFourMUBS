@@ -36,29 +36,92 @@ det4(M) = sum(sign_perm(p) * prod(M[i][p[i]] for i in 1:4) for p in PERMS4)
 const PERMS4 = [p for p in Iterators.product(1:4, 1:4, 1:4, 1:4) if allunique(p)]
 sign_perm(p) = (-1)^count(p[i] > p[j] for i in 1:4 for j in i+1:4)
 
-"""(ok, message): the caps cover S^3, by the exact polar-facet certificate."""
+"""The exact dual vertex of the facet on caps vs (0-based): Cramer's rule, denominator > 0."""
+function cap_dual_vertex(rows, vs)
+    M = [collect(rows[i+1][1:4]) for i in vs]; rhs = [rows[i+1][5] for i in vs]
+    den = det4(M); den == 0 && return nothing
+    num = [det4([[k == c ? rhs[i] : M[i][c] for c in 1:4] for i in 1:4]) for k in 1:4]
+    den < 0 && (den = -den; num = -num)
+    num, den
+end
+
+"""An exact outward dyadic box tree over the points q_i = row_i[1:4] / row_i[5] (scale 2^32): a subtree is skipped
+only when an exact integer upper bound already proves q . num < den for all its points (return ZC2a)."""
+struct CapTree
+    lo::Vector{NTuple{4,BigInt}}; hi::Vector{NTuple{4,BigInt}}
+    nodes::Vector{Tuple{NTuple{4,BigInt},NTuple{4,BigInt},Int,Int,Vector{Int}}}   # (lower, upper, left, right, leaf indices)
+end
+function CapTree(rows; leaf=8)
+    S = BigInt(2)^32
+    lo = [Tuple(fld(r[k] * S, r[5]) for k in 1:4) for r in rows]; hi = [Tuple(cld(r[k] * S, r[5]) for k in 1:4) for r in rows]
+    nodes = Tuple{NTuple{4,BigInt},NTuple{4,BigInt},Int,Int,Vector{Int}}[]
+    function build(ix)
+        L = Tuple(minimum(lo[i][k] for i in ix) for k in 1:4); U = Tuple(maximum(hi[i][k] for i in ix) for k in 1:4)
+        if length(ix) <= leaf
+            push!(nodes, (L, U, 0, 0, ix)); return length(nodes)
+        end
+        ax = argmax([U[k] - L[k] for k in 1:4])
+        sort!(ix, by = i -> lo[i][ax] + hi[i][ax]); h = length(ix) ÷ 2
+        l = build(ix[1:h]); r = build(ix[h+1:end])
+        push!(nodes, (L, U, l, r, Int[])); length(nodes)
+    end
+    build(collect(1:length(rows)))
+    CapTree(lo, hi, nodes)
+end
+"""(true) if every non-member point is strictly supported: row[5] den - row[1:4] . num > 0; exact."""
+function tree_supports(T::CapTree, rows, num, den, members)
+    S = BigInt(2)^32; limit = den * S; stack = [length(T.nodes)]
+    while !isempty(stack)
+        L, U, l, r, ix = T.nodes[pop!(stack)]
+        bound = sum((num[k] >= 0 ? U[k] : L[k]) * num[k] for k in 1:4)
+        bound < limit && continue
+        if l != 0
+            push!(stack, l, r); continue
+        end
+        for i in ix
+            (i - 1) in members && continue
+            rows[i][5] * den - sum(rows[i][k] * num[k] for k in 1:4) > 0 || return false
+        end
+    end
+    true
+end
+
+"""(ok, message): the caps cover S^3, by the exact polar-facet certificate: schema rational-s3-cap-cover-v1 (facets with
+stored dual vertices) or rational-s3-cap-cover-index-v1 (index quadruples; each dual vertex rebuilt by Cramer's rule)."""
 function cap_coverage(caps, cert)
     try
-        (get(cert, "schema", "") == "rational-s3-cap-cover-v1" && get(cert, "dimension", 0) == 4) || return false, "coverage: schema"
+        sch = get(cert, "schema", "")
+        (sch in ("rational-s3-cap-cover-v1", "rational-s3-cap-cover-index-v1") && get(cert, "dimension", 0) == 4) ||
+            return false, "coverage: schema"
+        compact = sch == "rational-s3-cap-cover-index-v1"
         rows = cap_rows(caps); n = length(rows)
         (n >= 5 && get(cert, "cap_count", -1) == n) || return false, "coverage: cap count"
         facets = cert["facets"]; isempty(facets) && return false, "coverage: no facets"
+        tree = n >= 256 ? CapTree(rows) : nothing
         seen = Set{NTuple{4,Int}}(); ridges = Dict{NTuple{3,Int},Int}(); maxn = Rational{BigInt}(0)
         for f in facets
-            vs = Tuple(sort(Int.(f["vertices"])))
+            vs = Tuple(sort(Int.(compact ? f : f["vertices"])))
             (length(vs) == 4 && allunique(vs) && all(0 .<= vs .< n)) || return false, "coverage: facet indices"
             vs in seen && return false, "coverage: duplicate facet"
             push!(seen, vs)
             det4([collect(rows[i+1][1:4]) for i in vs]) != 0 || return false, "coverage: dependent facet rows"
-            num = BigInt.(f["numerator"]); den = BigInt(f["denominator"])
+            if compact
+                nd = cap_dual_vertex(rows, vs); nd === nothing && return false, "coverage: dependent facet rows"
+                num, den = nd
+            else
+                num = BigInt.(f["numerator"]); den = BigInt(f["denominator"])
+            end
             (length(num) == 4 && den > 0) || return false, "coverage: dual vertex"
-            for (j, row) in enumerate(rows)
-                slack = row[5] * den - sum(row[k] * num[k] for k in 1:4)
-                if (j - 1) in vs
-                    slack == 0 || return false, "coverage: dual vertex off an incident cap"
-                else
-                    slack > 0 || return false, "coverage: facet not strictly supporting"
+            for i in vs
+                rows[i+1][5] * den - sum(rows[i+1][k] * num[k] for k in 1:4) == 0 || return false, "coverage: dual vertex off an incident cap"
+            end
+            if tree === nothing
+                for (j, row) in enumerate(rows)
+                    (j - 1) in vs && continue
+                    row[5] * den - sum(row[k] * num[k] for k in 1:4) > 0 || return false, "coverage: facet not strictly supporting"
                 end
+            else
+                tree_supports(tree, rows, num, den, vs) || return false, "coverage: facet not strictly supporting"
             end
             for rd in ((vs[1], vs[2], vs[3]), (vs[1], vs[2], vs[4]), (vs[1], vs[3], vs[4]), (vs[2], vs[3], vs[4]))
                 ridges[rd] = get(ridges, rd, 0) + 1
@@ -170,6 +233,14 @@ function seed_weighted(m, C)
     (T0 = iv(min(sup(raw0), sup(cn * tau))), T2 = iv(min(sup(raw2), sup(cn * m.Z2))))
 end
 
+"""Row orthogonality at a phase enclosure q (36): the 30 residuals (15 row pairs, real and imaginary) and their Jacobian."""
+function phase_resjac(q)
+    ee = wb_cexp.(q)
+    zz = [ee[6i+k+1] * conj(ee[6l+k+1]) for (i, l) in WB_PAIRS for k in 0:5]
+    sm = [sum(zz[6(p-1)+1:6p]) for p in 1:15]
+    [real.(sm); imag.(sm)], wb_realjac(zz)
+end
+
 """Enclosures of Q(c), DQ(c) at a point c of the ball (ZT's centre_jet): a float Newton proposal for the normal
 coordinate, its residual through the whole-ball contraction (eta = ||W F|| / (1 - q)), and DQ by the implicit
 function theorem on the resulting enclosure."""
@@ -177,12 +248,7 @@ function centre_jet(m, c)
     Hc = slice4(m.H2, c)
     qp = m.Qbase .+ m.U * c .+ (Hc * c) ./ 2; qph = m.Q0 .+ m.U * c .+ (Hc * c) ./ 2; P1 = m.U .+ Hc
     nn = size(m.X, 2); zm = zeros(typeof(mid(m.tau)), nn)
-    function resjac(q)
-        ee = wb_cexp.(q)
-        zz = [ee[6i+k+1] * conj(ee[6l+k+1]) for (i, l) in WB_PAIRS for k in 0:5]
-        sm = [sum(zz[6(p-1)+1:6p]) for p in 1:15]
-        [real.(sm); imag.(sm)], wb_realjac(zz)
-    end
+    resjac = phase_resjac
     for _ in 1:(I64 == Interval{Float64} ? 5 : 8)
         F, J = resjac(qp .+ m.X * iv.(zm))
         zm = zm - mid.(m.W * J * m.X) \ mid.(m.W * F)
@@ -204,7 +270,7 @@ const MI_CACHE = Dict{Int,Any}()
 
 """(ok, message): one cap of a T0/T1 group, in the polynomial, local (centre jet at the rim anchor) or local_sphere
 (centre jet at r e, Delta^2 = 2 r^2 (1 - t)) mode of CAP_FORMAT.md."""
-function check_cap_jl(m, s::Seed, g::Group, t::Seed, Mi, cap)
+function check_cap_jl(m, s, g::Group, t::Seed, Mi, cap; edge::Bool=false)
     mode = get(cap, "mode", "polynomial")
     mode in ("polynomial", "local", "local_sphere") || return false, "cap: unknown mode"
     v = cap["v"]; (length(v) == 4 && all(x -> x isa Integer, v)) || return false, "cap: v"
@@ -219,7 +285,7 @@ function check_cap_jl(m, s::Seed, g::Group, t::Seed, Mi, cap)
     (inf(mu) >= 0 && inf(sv) >= 0 && inf(mu^2 - dotv(av, av)) >= 0) || return false, "cap: multiplier SOC"
     wt = get(cap, "weighted_target", false); wt isa Bool || return false, "cap: weighted_target"
     rt = iv(t.r)
-    linear = g.kind == :T0 || (Set(g.rows) == CORNER0 && Set(g.cols) == CORNER0)
+    linear = !edge && (g.kind == :T0 || (Set(g.rows) == CORNER0 && Set(g.cols) == CORNER0))
     off = Mi * (TWOPI_I .* iv.(Float64.(g.wind[1:4])) .- iv.(t.theta0))
     if linear
         if g.kind == :T0
@@ -235,23 +301,24 @@ function check_cap_jl(m, s::Seed, g::Group, t::Seed, Mi, cap)
         end
         d = a0 ./ rt; F = B0 .* (r / rt); eps = iv(0.0)
     else
-        pgr = patch_group_cached(m, s, g, t, Mi)
+        pgr = edge ? edge_group_cached(m, g, t, Mi) : patch_group_cached(m, s, g, t, Mi)
         pgr === nothing && return false, "cap: group setup"
         L = Mi * (lcorner(g.rows, g.cols) * gmat36(g.g)); AX = L * m.X
-        W = wt ? seed_weighted(m, AX) : nothing
+        # weighted target bounds: the seed model's T0/T2 (ZC), or the X-ball's tau_A and full weighted Hessian (ZC2a)
+        W = !wt ? nothing : edge ? edge_weighted_cached(m, g, L) : seed_weighted(m, AX)
         if mode == "polynomial"
             hc = slice4(pgr.AH2, c)
             d = (pgr.AQ0 .+ pgr.off .- (hc * c) ./ 2) ./ rt
             F = (pgr.AU .+ hc) .* (r / rt)
             Hc = slice4(m.H2, c)
             qc = m.Q0 .+ m.U * c .+ (Hc * c) ./ 2; dc = m.U .+ Hc
-            eps = pgr.nAH2 * delta2 / 2 + (wt ? W.T0 : nrm(AX) * m.tau)
+            eps = pgr.nAH2 * delta2 / 2 + (!wt ? nrm(AX) * m.tau : edge ? W.tau : W.T0)
         else
-            qc, dc = centre_jet(m, c)
+            qc, dc = edge ? edge_centre_jet(m, c) : centre_jet(m, c)
             bb = L * dc
             d = (L * qc .+ pgr.off .- bb * c) ./ rt
             F = bb .* (r / rt)
-            eps = (pgr.nAH2 + (wt ? W.T2 : nrm(AX) * m.Z2)) * delta2 / 2
+            eps = (!wt ? pgr.nAH2 + nrm(AX) * m.Z2 : edge ? W.hessian : pgr.nAH2 + W.T2) * delta2 / 2
         end
     end
     CAP_DEBUG[] && println("capdbg kind=$(g.kind) linear=$linear wt=$wt h=$(mid(h)) d=$(mid.(d)) F=$(mid.(F)) eps=$(sup(eps)) e=$(mid.(e))")
@@ -298,7 +365,107 @@ function check_cap_jl(m, s::Seed, g::Group, t::Seed, Mi, cap)
     true, "ok"
 end
 
-"""(ok, message, ncaps): every cap of a seed and the coverage of its sphere (return ZC)."""
+"""(ok, reason, margin): the 5 x 5 witness bounds ||d + F x|| <= sqrt(s) on the cap, and 1 - sqrt(s) - err > 0."""
+function cap_witness_ok(d, F, e, tt, err, w)
+    lam = cap_num(get(w, "lambda", get(w, "lambda_", 0))); mu = cap_num(w["mu"]); sv = cap_num(w["s"])
+    av = [cap_num(x) for x in get(w, "multiplier_vec", [0, 0, 0, 0])]
+    (inf(mu) >= 0 && inf(sv) >= 0 && inf(mu^2 - dotv(av, av)) >= 0) || return false, "multiplier SOC"
+    G = transpose(F) * F; b = transpose(F) * d
+    M5 = zeros(I64, 5, 5)
+    for i in 1:4
+        for j in 1:4
+            M5[i, j] = (i == j ? lam : iv(0.0)) - G[i, j] - (e[i] * av[j] + av[i] * e[j]) / 2
+        end
+        M5[i, 5] = -b[i] - (mu * e[i] - tt * av[i]) / 2; M5[5, i] = M5[i, 5]
+    end
+    M5[5, 5] = sv - dotv(d, d) + tt * mu - lam
+    ldl_pd(M5) || return false, "PSD witness"
+    inf(1 - sqrt(sv) - err) > 0 || return false, "remainder"
+    true, "ok"
+end
+
+"""(ok, message): one T3 cap (return ZC2b): over the whole cap, (a) the corner parameter p' lies in the X-ball's
+ellipsoid, ||Mth_e^-1 p'|| < r_e, and (b) the source is within phase distance 3/20 of F6, each by its own 5 x 5 witness
+on an affine predictor from the seed ball's model, with the remainders of T3_THEOREM.md: the Q remainders of the
+composite output, and for y' = -2 Im Psi the signature remainder 72 ||M^-1 e_4|| D_R^2 (or the local-Hessian bound)."""
+function check_cap_t3(m, s, g::Group, eb, Mie, cap)
+    mode = get(cap, "mode", "polynomial")
+    mode in ("polynomial", "local", "local_sphere") || return false, "T3 cap: unknown mode"
+    v = cap["v"]; (length(v) == 4 && all(x -> x isa Integer, v)) || return false, "T3 cap: v"
+    vv = iv.(Float64.(v)); n2 = dotv(vv, vv); h = cap_num(cap["h"])
+    (inf(h) > 0 && sup(h^2) < inf(n2)) || return false, "T3 cap: 0 < h < ||v|| required"
+    nv = sqrt(n2); e = vv ./ nv; tt = h / nv
+    r = m.r; c = vv .* (r * h / n2); delta2 = r^2 * (1 - h^2 / n2)
+    mode == "local_sphere" && (c = e .* r; delta2 = 2 * r^2 * (1 - tt))
+    delta = sqrt(delta2)
+    wt = get(cap, "weighted_target", false); wt isa Bool || return false, "T3 cap: weighted_target"
+    psirem = get(cap, "psi_remainder", "global"); psirem in ("global", "local_hessian") || return false, "T3 cap: psi_remainder"
+    al = cap["t3_alignment"]; arows = Int.(al["rows"]) .+ 1; acols = Int.(al["cols"]) .+ 1; awind = Int.(al["wind"])
+    (sort(arows) == 1:6 && sort(acols) == 1:6 && length(awind) == 36) || return false, "T3 cap: alignment"
+    rows3 = g.rows[1:3]; cols3 = g.cols[1:3]
+    Gg = gmat36(g.g)
+    L3 = (lcorner(rows3, cols3) * Gg)[1:3, :]
+    off3 = [TWOPI_I * iv(Float64(g.wind[k])) - PI_I * iv(Float64((1, 2, 2)[k])) / 3 for k in 1:3]
+    re = iv(eb.r); lc = sqrt(sum(Mie[i, 4]^2 for i in 1:4))
+    Jc = [k for k in 1:6 if !(k in cols3)]
+    S = zeros(I64, 9, 36)
+    for (k, idx) in enumerate([6(i-1)+j for i in rows3 for j in Jc]); S[k, idx] = iv(1.0); end
+    S = S * Gg
+    P3 = [ivq((i == j ? 1 : 0) // 1 - 1 // 3) for i in 1:3, j in 1:3]
+    R = [P3[(a-1)÷3+1, (b-1)÷3+1] * P3[(a-1)%3+1, (b-1)%3+1] for a in 1:9, b in 1:9] * S
+    if mode == "polynomial"
+        Hc = slice4(m.H2, c); qc = m.Q0 .+ m.U * c .+ (Hc * c) ./ 2; dc = m.U .+ Hc
+    else
+        qc, dc = centre_jet(m, c)
+    end
+    nb(C, poly) = !wt ? nrm(C) * (poly ? m.tau : m.Z2) : (W = seed_weighted(m, C); poly ? W.T0 : W.T2)
+    poly = mode == "polynomial"
+    # Psi of the side block at the anchor, its gradient and Hessian
+    xs = S * qc; f = iv(0.0); gr = zeros(typeof(f), 9); Hpsi = zeros(typeof(f), 9, 9)
+    for (cν, ν) in WB_SIG_TERMS
+        ph = sum(ν[k] * xs[k] for k in 1:9); sn, cs = sin(ph), cos(ph)
+        f += cν * sn
+        for k in 1:9; gr[k] += cν * ν[k] * cs; end
+        for i in 1:9, j in 1:9; Hpsi[i, j] -= cν * sn * ν[i] * ν[j]; end
+    end
+    jac = vcat(L3, -2 * (reshape(gr, 1, 9) * R))
+    pc = vcat(L3 * qc .+ off3, [-2 * f])
+    A = Mie * jac; B = A * dc
+    pd = (Mie * pc .- B * c) ./ re; pF = B .* (r / re)
+    phess = nrm(A * m.H2) / re; pnorm = nb(A * m.X, poly) / re
+    rh = nrm(R * m.H2); rn = nb(R * m.X, poly); slope = nrm(R * dc)
+    H36 = [ivq((36 * (i == j) - 6 * ((i - 1) ÷ 6 == (j - 1) ÷ 6) - 6 * ((i - 1) % 6 == (j - 1) % 6) + 1) // 36) for i in 1:36, j in 1:36]
+    Pm = zeros(I64, 36, 36)
+    for a in 1:6, b in 1:6; Pm[6(a-1)+b, 6(arows[a]-1)+acols[b]] = iv(1.0); end
+    D = H36 * Pm * Gg
+    doff = H36 * [TWOPI_I * iv(Float64(awind[k])) - PI_I * iv(Float64(mod(((k - 1) ÷ 6) * ((k - 1) % 6), 6))) / 3 for k in 1:36]
+    lim = iv(3.0) / 20
+    DB = D * dc
+    dd = (D * qc .+ doff .- DB * c) ./ lim; dF = DB .* (r / lim)
+    dhess = nrm(D * m.H2) / lim; dnorm = nb(D * m.X, poly) / lim
+    if poly
+        D_R = slope * delta + rh * delta2 / 2 + rn
+        perr = phess * delta2 / 2 + pnorm; derr = dhess * delta2 / 2 + dnorm
+    else
+        D_R = slope * delta + (rh + rn) * delta2 / 2
+        perr = (phess + pnorm) * delta2 / 2; derr = (dhess + dnorm) * delta2 / 2
+    end
+    psierr = 72 * lc / re * D_R^2
+    if psirem == "local_hessian"
+        loc = lc / re * (nrm(Hpsi) + 24 * sqrt(iv(18.0)) * D_R) * D_R^2
+        psierr = iv(min(sup(psierr), sup(loc)))
+    end
+    ok, msg = cap_witness_ok(pd, pF, e, tt, perr + psierr, cap["t3_parameter"])
+    ok || return false, "T3 parameter " * msg
+    ok, msg = cap_witness_ok(dd, dF, e, tt, derr, cap["t3_distance"])
+    ok || return false, "T3 phase distance " * msg
+    true, "ok"
+end
+
+const EDGE_MI = Dict{Int,Any}()
+
+"""(ok, message, ncaps): every cap of a seed and the coverage of its sphere (returns ZC and ZC2b: T0, T1 and T3 caps,
+one coverage certificate).  A T3 cap needs its target X-ball to have passed C1e and to lie in W's E_{1/5}."""
 function check_seed_caps(s::Seed, X, caps)
     m = patch_model(s)
     m === nothing && return false, "caps: the whole-ball model does not certify", 0
@@ -307,7 +474,20 @@ function check_seed_caps(s::Seed, X, caps)
         gi = cap["group_index"]
         (gi isa Integer && 0 <= gi < length(s.groups)) || return false, "caps: no such group", k
         g = s.groups[gi+1]
-        g.kind in (:T0, :T1) || return false, "caps: only T0, T1", k
+        if g.kind == :T3
+            haskey(cap, "t3_parameter") || return false, "caps: a T3 group needs a T3 cap", k
+            (0 <= g.target < length(X.edges)) || return false, "caps: T3 target", k
+            X.edge_leaves[g.target+1] === nothing && return false, "caps: the T3 target X-ball did not pass C1e", k
+            eb = X.edges[g.target+1]
+            edge_in_W(eb) || return false, "caps: the X-ball's ellipsoid is not certified inside W's E_1/5", k
+            Mie = lock(PATCH_LOCK) do; get!(() -> wb_inv(iv.(eb.Mth)), EDGE_MI, g.target); end
+            Mie === nothing && return false, "caps: X-ball Mth", k
+            ok, msg = try check_cap_t3(m, s, g, eb, Mie, cap) catch err; (false, "T3 cap: " * sprint(showerror, err)[1:min(end, 80)]) end
+            ok || return false, "cap $(k-1): " * msg, k
+            continue
+        end
+        g.kind in (:T0, :T1) || return false, "caps: only T0, T1, T3", k
+        haskey(cap, "t3_parameter") && return false, "caps: a T3 cap on a T0/T1 group", k
         (0 <= g.target < length(X.seeds)) || return false, "caps: target", k
         Mi = lock(PATCH_LOCK) do; get!(() -> wb_inv(iv.(X.seeds[g.target+1].Mth)), MI_CACHE, g.target); end   # this module's precision
         Mi === nothing && return false, "caps: target Mth", k
@@ -318,24 +498,79 @@ function check_seed_caps(s::Seed, X, caps)
     ok, msg, length(cl)
 end
 
-"""Read the text form of a cap certificate (caps_to_txt.py) into the Dict layout of CAP_FORMAT.md."""
+const EDGE_MODELS = Dict{Int,Any}()
+
+"""(ok, message, ncaps checked): the X-ball's sphere by caps (return ZC2a): every cap (or, with part = (k, m), the caps
+with index i, i mod m = k) by the cap test on the X-ball's whole-ball model, then (cover = true) the sphere's coverage."""
+function check_edge_caps(eb, X; part::Tuple{Int,Int}=(0, 1), cover::Bool=true)
+    m = lock(PATCH_LOCK) do; get!(() -> (try edge_wholeball_model(eb) catch; nothing end), EDGE_MODELS, eb.idx); end
+    m === nothing && return false, "edge caps: the X-ball's whole-ball model does not certify", 0
+    cl = eb.caps["caps"]
+    idx = [k for k in eachindex(cl) if (k - 1) % part[2] == part[1]]
+    res = Vector{Tuple{Bool,String}}(undef, length(idx))
+    Threads.@threads :greedy for n in eachindex(idx)
+        k = idx[n]; cap = cl[k]
+        res[n] = try
+            gi = cap["group_index"]
+            (gi isa Integer && 0 <= gi < length(eb.groups)) || error("no such group")
+            g = eb.groups[gi+1]
+            g.kind == :T1 || error("an X-ball cap needs a T1 group")
+            haskey(cap, "t3_parameter") && error("a T3 cap on the X-ball")
+            (0 <= g.target < length(X.seeds)) || error("target")
+            t = X.seeds[g.target+1]
+            Mi = lock(PATCH_LOCK) do; get!(() -> wb_inv(iv.(t.Mth)), MI_CACHE, g.target); end
+            Mi === nothing && error("target Mth")
+            ok, msg = check_cap_jl(m, nothing, g, t, Mi, cap; edge=true)
+            (ok, ok ? "ok" : "cap $(k-1): " * msg)
+        catch err
+            (false, "cap $(k-1): " * sprint(showerror, err)[1:min(end, 100)])
+        end
+    end
+    bad = findfirst(r -> !r[1], res)
+    bad === nothing || return false, "edge caps: " * res[bad][2], length(idx)
+    cover || return true, "ok", length(idx)
+    ok, msg = cap_coverage(cl, get(eb.caps, "coverage", Dict()))
+    ok, ok ? "ok" : "edge caps: " * msg, length(idx)
+end
+
+"""Read the text form of a cap certificate (caps_to_txt.py) into the Dict layout of CAP_FORMAT.md (FACET lines, or
+SIMPLEX lines for the index-only schema, both kept under "facets"; CAPT3 lines: T3 caps of theorem ZC2b)."""
 function read_caps(lines::Vector{<:AbstractString})
     hd = split(lines[1]); hd[1] == "CAPS" || error("caps: header")
     nc, nf = parse(Int, hd[2]), parse(Int, hd[3])
     length(lines) == 1 + nc + nf || error("caps: line count")
     sc(x) = startswith(lstrip(lowercase(x), ['+', '-']), "0x") ? String(x) : parse(BigInt, x)
+    wit(p) = Dict{String,Any}("lambda" => sc(p[1]), "mu" => sc(p[2]), "s" => sc(p[3]), "multiplier_vec" => [sc(x) for x in p[4:7]])
     caps = Any[]
     for l in lines[2:1+nc]
-        p = split(l); (p[1] == "CAP" && length(p) == 16 && p[16] in ("0", "1")) || error("caps: CAP line")
-        push!(caps, Dict{String,Any}("group_index" => parse(Int, p[2]), "v" => [parse(BigInt, x) for x in p[3:6]], "h" => sc(p[7]),
-                                     "mode" => String(p[8]), "lambda" => sc(p[9]), "mu" => sc(p[10]), "s" => sc(p[11]),
-                                     "multiplier_vec" => [sc(x) for x in p[12:15]], "weighted_target" => p[16] == "1"))
+        p = split(l)
+        head(p) = Dict{String,Any}("group_index" => parse(Int, p[2]), "v" => [parse(BigInt, x) for x in p[3:6]],
+                                   "h" => sc(p[7]), "mode" => String(p[8]))
+        if p[1] == "CAP"
+            (length(p) == 16 && p[16] in ("0", "1")) || error("caps: CAP line")
+            push!(caps, merge(head(p), wit(p[9:15]), Dict{String,Any}("weighted_target" => p[16] == "1")))
+        elseif p[1] == "CAPT3"
+            (length(p) == 75 && p[9] in ("0", "1") && p[11] == "P" && p[19] == "D" && p[27] == "AL") || error("caps: CAPT3 line")
+            al = parse.(Int, p[28:75])
+            push!(caps, merge(head(p), Dict{String,Any}("weighted_target" => p[9] == "1", "psi_remainder" => String(p[10]),
+                "t3_parameter" => wit(p[12:18]), "t3_distance" => wit(p[20:26]),
+                "t3_alignment" => Dict{String,Any}("rows" => al[1:6], "cols" => al[7:12], "wind" => al[13:48]))))
+        else
+            error("caps: unknown cap line")
+        end
     end
+    compact = hd[4] == "rational-s3-cap-cover-index-v1"
     facets = Any[]
     for l in lines[2+nc:end]
-        p = split(l); (p[1] == "FACET" && length(p) == 10) || error("caps: FACET line")
-        push!(facets, Dict{String,Any}("vertices" => [parse(Int, x) for x in p[2:5]], "denominator" => parse(BigInt, p[6]),
-                                       "numerator" => [parse(BigInt, x) for x in p[7:10]]))
+        p = split(l)
+        if compact
+            (p[1] == "SIMPLEX" && length(p) == 5) || error("caps: SIMPLEX line")
+            push!(facets, [parse(Int, x) for x in p[2:5]])
+        else
+            (p[1] == "FACET" && length(p) == 10) || error("caps: FACET line")
+            push!(facets, Dict{String,Any}("vertices" => [parse(Int, x) for x in p[2:5]], "denominator" => parse(BigInt, p[6]),
+                                           "numerator" => [parse(BigInt, x) for x in p[7:10]]))
+        end
     end
     Dict{String,Any}("caps" => caps, "coverage" => Dict{String,Any}("schema" => String(hd[4]), "dimension" => parse(Int, hd[5]),
                                                                   "cap_count" => parse(Int, hd[6]), "facets" => facets))
