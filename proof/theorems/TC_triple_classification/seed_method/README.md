@@ -1,5 +1,18 @@
 # A seed-ball classifier: every H in the ball, every possible third basis
 
+**The requested original ball is still NOT ESTABLISHED.**
+The [original-ball method](WHOLE_BALL.md) and `whole_ball.py` now take the
+unchanged radius-0.063 ball as input, replay its complete third-basis cover,
+and require every resulting case to be excluded or classified. They use
+uniform known-family existence and transverse injectivity in the full
+phase space, so the comparison does not require a projection to stay
+inside the seed ball. Internal subdivisions retain all unfinished cases.
+The bounded attempt in `results/seed1879_whole_ball_attempt.json.gz`
+does not close the ball. This is a sufficient certificate procedure with
+an unresolved run, not a whole-original-ball classification result.
+
+The following earlier result concerns a smaller domain only.
+
 **CERTIFIED:** every MUB triple over
 
 `||w-w_*||_2 <= 1/160 = 0.00625`
@@ -53,9 +66,9 @@ It can be replayed with:
 python proof/theorems/TC_triple_classification/seed_method/seed_cover.py --index 1879 --output proof/theorems/TC_triple_classification/seed_method/results/seed1879_native_cover.json.gz
 ```
 
-Those 31,579 cliques remain unclassified. Extending to the full original
-ball requires stronger bounds or a complete internal cover by classified
-balls and certified no-third-basis cells. The smaller-ball result does
-not imply that extension. The example driver is bound to this exact
+Those 31,579 initial clique configurations are not all classified. The
+new original-ball procedure records their exhaustive accounting, but its
+current phase-box bounds are too loose to close the search. The
+smaller-ball result does not imply that extension. The example driver is bound to this exact
 anchor; the branch, torus-cover, graph and normal-test components are
 reusable. The isolated Fourier case and X-ball require separate charts.

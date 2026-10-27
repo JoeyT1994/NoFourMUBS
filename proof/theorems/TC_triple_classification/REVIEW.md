@@ -5,6 +5,39 @@
 exclusion in `PROOF.md`. **NOT ESTABLISHED:** classification on the full
 seed atlas or the X-ball. No counterexample has been certified.
 
+## Original-ball certificate procedure
+
+`seed_method/whole_ball.py` implements the sufficient test proved in
+`seed_method/WHOLE_BALL.md`. Its target is the unchanged native ball 1879,
+with exact recorded radius `0x1.020c49ba5e354p-4`. Its complete initial
+cover is replayed, rather than trusted or replaced by a smaller ball.
+The full-phase injectivity argument also applies to known-family patches
+away from the special anchor and does not assume projected seed points
+remain in the original ball.
+
+Seven new tests pass: nonzero-centred family existence and injectivity for
+all ten construction templates,
+original native centre and jet retention, inclusion of all ten known
+anchor bases in the complete cover after gauge conversion, closed-split
+coverage, cap rejection, and rejection of invalid triple boxes. These
+tests caught and corrected two enclosure issues during development:
+projected label radii need a sqrt(2) factor in fixed-first-phase coordinates,
+and a norm lower bound needs `abs_lower()` when intervals contain zero.
+Known K entries on the negative real axis use a certified rotated phase
+lift rather than the discontinuous principal argument interval.
+
+**The bounded whole-ball attempt remains NOT ESTABLISHED.** Its source-bound
+receipt records every unresolved initial clique or subdivided phase box.
+The 512-node run excluded 227 leaves and retained 31,637 unresolved leaves
+(31,578 are unvisited original clique roots). An exact rational audit of
+the prefix-free leaf paths verifies total weight one for each of all
+31,579 initial cliques. All ten source/input hashes and both input-file
+hashes match. Thus the accounting is complete while the classification is
+incomplete; none of the original-ball cases silently disappears.
+The 55-phase intervals currently lose too much correlation for the
+transverse test to close this domain. Successful tests and the sufficient
+acceptance theorem are not a classification certificate for that ball.
+
 ## Seed-ball extension
 
 The new receipt classifies `||w-w_*|| <= 1/160` in seed 1879's original

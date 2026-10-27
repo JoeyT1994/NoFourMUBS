@@ -1,7 +1,13 @@
 # TC: a seed-ball classification method, local patches, and Tao
 
-**New: an actual four-coordinate seed ball is classified, including every
-possible third basis.** See [seed_method/README.md](seed_method/README.md).
+**The requested whole original seed ball remains NOT ESTABLISHED.**
+An explicit [original-ball certificate procedure](seed_method/WHOLE_BALL.md)
+now keeps its centre, coordinates and full radius, replays all 31,579
+possible third-basis configurations, and rejects acceptance while any
+case is unresolved. The current bounded attempt does not close the ball.
+
+**Earlier result: a smaller four-coordinate seed ball is classified,
+including every possible third basis.** See [seed_method/README.md](seed_method/README.md).
 The certified ball has radius 0.00625 in seed 1879's original w frame,
 centred at an exact construction point and entirely contained in its
 original radius-0.063 ball. Its 120 column branches form ten possible
