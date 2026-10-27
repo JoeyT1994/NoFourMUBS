@@ -14,7 +14,7 @@ Bernstein and Sturm certificates, and rational interval signs. The original zips
 | [`A_deltoid/`](returns/A_deltoid/README.md) | **Theorem 2** (connectedness): sheet parity, continuity of θ ↦ [H₊(θ)], the joining family at F6 (`CONNECTEDNESS.md`, `SHEETS_TOPOLOGY.md`) | `cd returns/A_deltoid && python3 verify_all.py` |
 | [`J_side_existence/`](returns/J_side_existence/RESULT.md) | **Theorem 2.2, sides**: the Jacobian identity det ∂(Gram)/∂(angles) = ¼ Im Ψ and the clopen/maximum argument (`RESULT.md`; identity check `check_jacobian.py`) | `python3 returns/J_side_existence/check_jacobian.py` |
 | [`Q_fourier_anchor/`](returns/Q_fourier_anchor/PROOF.md) | **Theorem 2.2 and Lemma 4.2, the anchor**: the Fourier family K(t) is matched at a strict corner with R(t) = 144 sin²t (1 + cos t)² > 0 for 0 < t < π, which starts the clopen/maximum arguments for side existence and coverage ([`REVIEW.md`](returns/Q_fourier_anchor/REVIEW.md); Lean `Step2/FourierAnchor`). It replaced the explicit anchor H₀ (73 KB of Lean, `anchor.py` and one certificate field) | `cd returns/Q_fourier_anchor && python3 verify.py` |
-| [`E_matched_flatness/`](returns/E_matched_flatness/FLATNESS.md) | **Theorem 2.2, flatness**: four weighted third-moment defects whose eight coefficients vanish identically (the fourth-moment identity L-id is certified as a second proof). The proof now uses only the two coefficients of W₁₁ and gets the other three defects by relabelling (handoff M, [`audits/AUDIT_2026-10-17/ALGEBRAIC_PROOFS.md`](audits/AUDIT_2026-10-17/ALGEBRAIC_PROOFS.md)) | `cd returns/E_matched_flatness && python3 verify_all.py` |
+| [`E_matched_flatness/`](returns/E_matched_flatness/FLATNESS.md) | **Theorem 2.2, flatness**: four weighted third-moment defects whose eight coefficients vanish identically (the fourth-moment identity L-id is certified as a second proof). The proof now uses only the two coefficients of W₁₁ and gets the other three defects by relabelling (handoff M, [`RELABELLING.md`](returns/E_matched_flatness/RELABELLING.md)) | `cd returns/E_matched_flatness && python3 verify_all.py` |
 | [`G_prm/`](returns/G_prm/PRM.md) | **Theorem 2.4** (the nonmatched converse) and exact reach; an 81-case Fourier census and Laurent identities. Its Theorem B (guarded PR-M) is not on the critical path | `cd returns/G_prm && python3 verify_all.py` |
 | [`K_nonzero_J/`](returns/K_nonzero_J/REPORT.md) | **Theorem 2.5, nonzero-J critical strips**: two signed corner sums, a universal identity, four curves and the λ-denominator product ([`REVIEW.md`](returns/K_nonzero_J/REVIEW.md); Lean `PRM/CoverageSigned*`) | `cd returns/K_nonzero_J && python3 verify.py` |
 | [`O_zeroj_unsquared/`](returns/O_zeroj_unsquared/REPORT.md) | **Theorem 2.5, zero-J strips**: two unsquared weighted sums over the nine mixed corners force K = (1 − z)(z + 3)³; in Lean `PRM.Coverage.zeroJProduct` ([INTEGRATED](returns/O_zeroj_unsquared/INTEGRATED.md), [REVIEW](returns/O_zeroj_unsquared/REVIEW.md)) | `cd returns/O_zeroj_unsquared && python3 verify.py` |
@@ -30,12 +30,3 @@ files it cites). `python3 verify.py` replays all of the above.
 |---|---|
 | [`B_exact_quotient/`](returns/B_exact_quotient/README.md) | Independent exact proof of Step 1 and of the quotient coverage; also shows no interval box cover of T⁴ can terminate (R, ∇R and Hess R vanish at the F3 seed). Replayed by `verify.py` |
 | [`F_side_existence/`](returns/F_side_existence/README.md) | The earlier proof of side existence by explicit radical sides with integer-cofactor identities; superseded by J, still replayed by `verify.py` as a cross-check |
-| [`D_step2_audit/`](returns/D_step2_audit/README.md) | Audit and blueprint of Step 2 that the Lean formalisation follows; it found the PR-M point |
-
-## Audits
-
-[`audits/`](audits/): the independent audit of Theorem 2.4, exact reach and strict-corner coverage
-([`AUDIT_2026-10-15.md`](audits/AUDIT_2026-10-15.md), no errors found), the audit of return G's Theorem B, the I4
-addendum with its check scripts, and the whole-repository audit of 17 Oct
-([`AUDIT_2026-10-17/RESPONSE.md`](audits/AUDIT_2026-10-17/RESPONSE.md): no failed check; two Julia driver defects, now
-fixed; a documentation overclaim on connectedness, now corrected).
