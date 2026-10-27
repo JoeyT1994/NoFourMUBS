@@ -136,7 +136,8 @@ function edge_wholeball_model(eb::EdgeBall)
     Q0 = vec(permutedims(hproj(permutedims(reshape(qbase, 6, 6)))))
     (Q0 = Q0, qbase = qbase, U = U, H2 = H2, X = X, Y = Y, tau = tau, q = q, Z1 = Z1, Z2 = Z2, r = r, u = u, x = x,
      beta = beta, R3 = R3, R4 = R4, A2 = A2, K = K, w5 = w5, w3 = w3, Cm = Cm, Dm = Dm, maxnu = maxnu, gap = sup(gap),
-     n_direct = sup(beta * r^2 / 2 + x * tau), fk = fk, Ns = Ns, Ck = Ck)
+     n_direct = sup(beta * r^2 / 2 + x * tau), fk = fk, Ns = Ns, Ck = Ck, Rhs = Rhs, L2 = L2, L3 = L3, c = c, d = d,
+     b0 = b0, b2 = b2)
 end
 
 """F6 = H(0): the augmented residual at the Fourier lift contains 0 (then z = 0 solves G(0, z) = 0, and the
@@ -213,4 +214,77 @@ function edge_patch_T1(m, tauA, lo, hi, g::Group, t::Seed, Mi)
     ok, msg = patch_signs(m, Qc, Dc, c, h, g, t, Gg)
     ok || return false, msg, tot
     true, "ok (patch)", tot
+end
+
+# ---------------------------------------------------------------- the X-ball as a cap source (return ZC2a)
+
+"""Output-weighted bounds for a linear output A (m x 36) of the X-ball's phases (ZC2a; ZT EDGE_REPORT §4): the normal
+error tau_A of the one-centre test and a bound on sup ||A D^2 Q(w)|| over the ball for the centre-jet tests (the smaller
+of the refined weighted bound and ||A H2|| + ||A X|| Z2)."""
+function edge_weighted_hessian(m, A)
+    AX = A * m.X; KA = AX * m.K; r = m.r
+    t3 = ew_norm(AX * m.R3); t4 = ew_norm(AX * m.R4); a2 = ew_norm(AX * m.A2)
+    cn = [ew_norm(hcat(real.(KA[:, a]), imag.(KA[:, a]))) for a in 1:size(KA, 2)]
+    L5 = sum(cn[a] * m.w5[a] for a in eachindex(cn)); L3a = sum(cn[a] * m.w3[a] for a in eachindex(cn))
+    b0 = t3 * r^3 / 6 + t4 * r^4 / 24 + L5 * r^5 / 120
+    b2 = t3 * r + t4 * r^2 / 2 + L5 * r^3 / 6
+    AW = AX * m.Y
+    L2 = 2 * sqrt(iv(3.0)) * ew_norm(AW[:, 1:30]) + 72 * ew_norm(AW[:, 31:31])
+    L3 = 2 * sqrt(iv(6.0)) * ew_norm(AW[:, 1:30]) + 72 * sqrt(iv(Float64(m.maxnu))) * ew_norm(AW[:, 31:31])
+    c = ew_norm(AX * m.Cm); d = ew_norm(AX * m.Dm); bs = m.u * r + m.beta * r^2 / 2; dlt = bs + m.x * m.tau
+    qA = c * r + a2 * r^2 / 2 + L3a * r^3 / 6 + (d + L3 * m.x^2 * bs) * m.tau + L3 * m.x^3 * m.tau^2 / 2
+    m1 = c + a2 * r + L3a * r^2 / 2 + L3 * m.x^2 * (m.u + m.beta * r) * m.tau
+    m2 = L3 * m.x * (m.u + m.beta * r)^2 + L2 * m.x * m.beta; mzz = d + L3 * m.x^2 * dlt
+    wZ2 = b2 + m2 * m.tau + 2 * m1 * m.Z1 + mzz * m.Z1^2 + qA * m.Z2
+    betaA = ew_norm(A * m.H2)
+    refined = betaA + wZ2; simple = betaA + ew_norm(AX) * m.Z2
+    (tau = b0 + qA * m.tau, hessian = sup(refined) < sup(simple) ? refined : simple)
+end
+
+"""The augmented residual (Phi(q), psi_h(q) - (Rhs c)_31) and its Jacobian (31 x 36) at a phase enclosure q."""
+function edge_resjac(q, m, c)
+    F, J = phase_resjac(q)
+    inds = [6i + 3 + j + 1 for i in 0:2 for j in 0:2]
+    v = q[inds]; f = iv(0.0); gr = zeros(typeof(f), 9)
+    for (cν, ν) in WB_SIG_TERMS
+        ph = sum(ν[k] * v[k] for k in 1:9)
+        f += cν * sin(ph)
+        for k in 1:9; gr[k] += cν * ν[k] * cos(ph); end
+    end
+    FF = [F; f - sum(m.Rhs[31, j] * c[j] for j in 1:4)]
+    JJ = vcat(J, zeros(typeof(f), 1, 36)); for (k, i) in enumerate(inds); JJ[31, i] = gr[k]; end
+    FF, JJ
+end
+
+"""Q(c), DQ(c) at a point c of the X-ball (ZT EDGE_REPORT §5): a float Newton proposal for the 22 normal coordinates,
+||z(c) - z_m|| <= ||Y F|| / (1 - q) by the original contraction, and DQ by the implicit function theorem."""
+function edge_centre_jet(m, c)
+    Hc = slice4(m.H2, c)
+    qp = m.qbase .+ m.U * c .+ (Hc * c) ./ 2; qph = m.Q0 .+ m.U * c .+ (Hc * c) ./ 2; P1 = m.U .+ Hc
+    nn = size(m.X, 2); zm = zeros(typeof(mid(m.tau)), nn)
+    for _ in 1:(I64 == Interval{Float64} ? 5 : 8)
+        F, J = edge_resjac(qp .+ m.X * iv.(zm), m, c)
+        zm = zm - mid.(m.Y * J * m.X) \ mid.(m.Y * F)
+    end
+    sqrt(sum(zm .^ 2)) < inf(m.tau) || error("edge centre proposal outside the normal tube")
+    F, _ = edge_resjac(qp .+ m.X * iv.(zm), m, c)
+    eta = sup(sqrt(sum(iv(mag(f))^2 for f in m.Y * F)) / (1 - m.q))
+    zc = [interval(zm[i] - eta, zm[i] + eta) for i in 1:nn]
+    _, Jc = edge_resjac(qp .+ m.X * zc, m, c)
+    Ki = wb_inv(m.Y * Jc * m.X)
+    Ki === nothing && error("edge centre jet: Y J X not certified invertible")
+    Dz = -(Ki * (m.Y * (Jc * P1 .- m.Rhs)))
+    qph .+ m.X * zc, P1 .+ m.X * Dz
+end
+
+const EDGE_CAP_CACHE = Dict{Tuple{Symbol,UInt},Any}()
+edge_group_cached(m, g, t, Mi) = lock(PATCH_LOCK) do
+    get!(() -> (try patch_group(m, g, t, Mi) catch; nothing end), EDGE_CAP_CACHE, (:group, objectid(g)))
+end
+function edge_weighted_cached(m, g, A)
+    v = lock(PATCH_LOCK) do; get(EDGE_CAP_CACHE, (:weighted, objectid(g)), nothing); end
+    v === nothing || return v
+    v = edge_weighted_hessian(m, A)
+    lock(PATCH_LOCK) do; EDGE_CAP_CACHE[(:weighted, objectid(g))] = v; end
+    v
 end

@@ -89,6 +89,11 @@ T1 transfer into a seed ball (corner seed of g . H(p) lands in int E_t, orientat
 function check_c2_edge(eb::EdgeBall, X, root::EdgeMap; split_depth::Int=2, cover::Bool=true, part::Tuple{Int,Int}=(0, 1))
     t0 = time()
     counts = Dict(:T1 => 0, :T3 => 0); worst = Dict(:T1 => 0.0, :T3 => 0.0)
+    if eb.caps !== nothing                   # return ZC2a: the sphere by certified caps (256-bit, src/caps.jl); boxes unused
+        ok, msg, n = HP.check_edge_caps(eb, X; part=part, cover=cover)
+        counts[:T1] = n
+        return C2Result(ok, ok ? "ok" : msg, length(eb.caps["caps"]), counts, n, 0, worst, 0, time() - t0)
+    end
     nb = sum(length(g.boxes) for g in eb.groups; init=0)
     res(ok, msg, st=[0, 0], cn=0) = C2Result(ok, msg, nb, counts, st[1], st[2], worst, cn, time() - t0)
     listed = Set{NTuple{5,Int}}(b for g in eb.groups for b in g.boxes)

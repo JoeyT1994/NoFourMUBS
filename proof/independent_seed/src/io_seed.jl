@@ -90,10 +90,12 @@ struct EdgeBall
     q0::Vector{Float64}           # the chart centre: p = q0 + Mth w (0: centred at F6)
     exclusion::Symbol             # :stagec, or :X (return X: no quartet edge within phase distance x_radius <= 9/20 of F6)
     x_radius::Float64             # NaN unless exclusion == :X
+    caps::Any                     # nothing, or the sphere's cap certificate (return ZC2a; src/caps.jl, read_caps)
 end
-EdgeBall(idx, k, Mth, r, n, lr, P, U, groups) = EdgeBall(idx, k, Mth, r, n, lr, P, U, groups, GraphData(), zeros(4), :stagec, NaN)
-EdgeBall(idx, k, Mth, r, n, lr, P, U, groups, graph::GraphData) = EdgeBall(idx, k, Mth, r, n, lr, P, U, groups, graph, zeros(4), :stagec, NaN)
-EdgeBall(idx, k, Mth, r, n, lr, P, U, groups, graph::GraphData, q0) = EdgeBall(idx, k, Mth, r, n, lr, P, U, groups, graph, q0, :stagec, NaN)
+EdgeBall(idx, k, Mth, r, n, lr, P, U, groups) = EdgeBall(idx, k, Mth, r, n, lr, P, U, groups, GraphData(), zeros(4), :stagec, NaN, nothing)
+EdgeBall(idx, k, Mth, r, n, lr, P, U, groups, graph::GraphData) = EdgeBall(idx, k, Mth, r, n, lr, P, U, groups, graph, zeros(4), :stagec, NaN, nothing)
+EdgeBall(idx, k, Mth, r, n, lr, P, U, groups, graph::GraphData, q0) = EdgeBall(idx, k, Mth, r, n, lr, P, U, groups, graph, q0, :stagec, NaN, nothing)
+EdgeBall(idx, k, Mth, r, n, lr, P, U, groups, graph::GraphData, q0, ex, xr) = EdgeBall(idx, k, Mth, r, n, lr, P, U, groups, graph, q0, ex, xr, nothing)
 
 struct SeedCert
     seeds::Vector{Seed}
@@ -227,7 +229,12 @@ function read_seed_certificate(path::AbstractString)
         gti = gl[5] == "1" ? (t = parse.(Int64, expect(nextline(), "TINT", 144)); [t[4(e-1)+k] for e in 1:36, k in 1:4]) : nothing
         gs = [read_group() for _ in 1:ng]
         all(g -> g.kind in (:T1, :T3), gs) || error("edge ball $idx: a sphere transfer must be T1 or T3")
-        push!(edges, EdgeBall(idx, k, Mth, r, n, lr, P, U, gs, GraphData(gR, gsig, gsD, gphi, gti), q0, ex, xr))
+        ecaps = nothing
+        if pos <= length(lines) && startswith(lines[pos], "CAPS ")
+            hc = split(lines[pos]); nl = 1 + parse(Int, hc[2]) + parse(Int, hc[3])
+            ecaps = read_caps(lines[pos:pos+nl-1]); pos += nl
+        end
+        push!(edges, EdgeBall(idx, k, Mth, r, n, lr, P, U, gs, GraphData(gR, gsig, gsD, gphi, gti), q0, ex, xr, ecaps))
     end
     t = nextline()
     (t[1] == "TAO" && length(t) in (2, 3)) || error("expected TAO")
