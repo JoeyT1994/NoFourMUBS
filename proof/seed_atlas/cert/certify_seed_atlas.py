@@ -96,6 +96,10 @@ def split(cert):
     # an edge sphere's boxes are checked in chunks (each needs an Arb chart enclosure); the ('edge', e) item keeps the
     # sphere coverage, Stage C or X, and checks no box itself
     for e, ed in enumerate(cert.get('edge', [])):
+        if ed.get('caps') is not None:
+            # A cap certificate is checked as one indivisible boundary proof
+            # by the edge item.  Retained old boxes do not schedule work.
+            continue
         chunks, cur, n = [], [], 0
         for g in ed.get('transfers', []):
             bx = g.get('boxes', []) if isinstance(g, dict) else []
@@ -203,7 +207,8 @@ def check_edge(C, e, groups=None):
             if not sc.get('ok'): raise S.CertError('Stage C failed: %s' % sc.get('reason', 'quartet edge not excluded'))
         t2 = time.time()
         if groups is None: groups = C.cert['edge'][e].get('transfers', [])
-        out.update(transfers=EC.check_edge_transfers(eb, C.balls, groups, C.cert['max_level'], edges=C.edges, check=False),
+        out.update(transfers=EC.check_edge_transfers(eb, C.balls, groups, C.cert['max_level'], edges=C.edges, check=False,
+                                                     caps=C.cert['edge'][e].get('caps')),
                    c2_s=round(time.time() - t2, 3))
         out['ok'] = True
     except S.CertError as ex:

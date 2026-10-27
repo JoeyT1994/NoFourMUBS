@@ -1,5 +1,5 @@
 """Output-weighted normal bounds for cap transfers (return ZC's weighted.py; ZT_REPORT equations (25)-(29)),
-unchanged except for imports."""
+with an additive dispatch to ZT's augmented edge-system bounds."""
 import itertools, time
 from flint import arb, acb, arb_mat, ctx
 import patches as P
@@ -195,6 +195,9 @@ def target_bounds(transfer):
                     old_T2=zero, raw_T0=zero, raw_T1=zero, raw_T2=zero,
                     predictor_hessian=zero, local_hessian=zero,
                     old_local_hessian=zero, seconds=0.0)
+    if transfer.model.get("edge_chart", False):
+        from edge_wholeball import cap_target_bounds
+        return cap_target_bounds(transfer)
     result = bounds(transfer.model, transfer.AX)
     result["predictor_hessian"] = transfer.hnorm
     result["local_hessian"] = transfer.hnorm+result["T2"]

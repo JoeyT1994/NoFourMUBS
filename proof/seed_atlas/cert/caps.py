@@ -2,7 +2,8 @@
 ||x|| = 1, v.x >= h (x = w / r) is certified for a T0/T1 transfer by a 5 x 5 PSD witness on the whole-ball model's
 quadratic predictor with ZT's error terms, and both Psi signs by the linear-cap minimum and the signature remainder;
 the caps cover S^3 by cap_coverage.verify_coverage (exact integer polar-facet certificate).  Code: return ZC's
-cap_verify.py (check_cap and its helpers), unchanged except for imports.
+cap_verify.py with an additive edge-source adapter: the X-ball uses its augmented centre jet and,
+when weighted_target is true, its output-weighted normal bounds.
 """
 import math
 from flint import arb, arb_mat, ctx
@@ -136,12 +137,19 @@ def check_cap(model, transfer, cap):
         qc = model["Q0"] + model["U"] * centre + P.tensor_at(model["H2"], centre) * centre / 2
         dc = model["U"] + P.tensor_at(model["H2"], centre)
     else:
-        qc, dc, _ = P.centre_jet(model, centre)
+        if model.get("edge_chart", False):
+            from edge_wholeball import edge_centre_jet
+            qc, dc, _ = edge_centre_jet(model, centre)
+        else:
+            qc, dc, _ = P.centre_jet(model, centre)
         bb = tr.A * dc
         d = (tr.A * qc + tr.offset - bb * centre) / tr.target_r
         ff = bb * (model["r"] / tr.target_r)
-        normal_hessian = weighted_bounds["T2"] if weighted_bounds is not None else tr.xnorm * model["Z2"]
-        eps = (tr.hnorm + normal_hessian) * delta2 / 2
+        # The edge adapter may bound the full output Hessian more sharply than
+        # a sum using this transfer's independently rounded predictor norm.
+        local_hessian = (weighted_bounds["local_hessian"] if weighted_bounds is not None
+                         else tr.hnorm + tr.xnorm * model["Z2"])
+        eps = local_hessian * delta2 / 2
 
     gram = ff.transpose() * ff
     b = ff.transpose() * d

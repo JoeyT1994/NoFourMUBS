@@ -1,0 +1,1425 @@
+{
+  "format": "zc2b-mode-replay-v1",
+  "status": "CERTIFIED",
+  "passed": true,
+  "seed": 2346,
+  "group_index": 44,
+  "precision_bits": 224,
+  "positive_cap_cases": 12,
+  "certified_cap_cases": 12,
+  "target_in_W": {
+    "passed": true,
+    "method": "edgecert.edge_in_W, Arb LDL"
+  },
+  "production_missing_C1e": {
+    "passed": true,
+    "expected": "target edge ball lacks accepted C1e",
+    "actual": "caps: T3 target edge ball lacks accepted C1e"
+  },
+  "binding": {
+    "input_sha256": "0bf5def3a4166cbbb39e656dffc7d1c9e8d5e771e8a3166374c1e3d246dba25d",
+    "sources": {
+      "ZC2b/verify_modes.py": "0026d8b257425945663de96d2827db52b2fdd1ff0819633561ddf0ab0dd3ee28",
+      "cert/cap_t3.py": "2b9f3f9c07aa9f6c55fecc288b87ed75e8cf52c8b6b45bdd9b3f40100e3cb268",
+      "cert/caps.py": "4d11f8280cfdf4388ca88c9df265fbc7306df2a69ac97a7ab8b705c8397d2894",
+      "cert/cap_weighted.py": "9005e3dd915c95687b8b7d7d3c2728e49c4364dd6d70c3c81769063c24cbec63",
+      "cert/cap_coverage.py": "e1de1a1c2d05f156671c402f13eafa9c266b92a25a413931458757eae0d99a72",
+      "cert/patches.py": "f6935c9d50bc6974c517cb8781e1944919aa16879f8926a97e553a63d6183e3d",
+      "cert/wholeball.py": "0ed34421ccae9400dcd60cc58e34cc44a46575692748294e02b1de622f70e896",
+      "cert/wholeball_basis.json": "a201d41d0579d79b6f67077b8b2222878a3f54cc781395feb29b7449e7c29cd3",
+      "cert/seedcert.py": "544cb00bddf252c9634752ea835f6fd86cefddcd9ac812131786d6c00aab8943",
+      "cert/edgecert.py": "beace0f1773d2f28361384a3426b627e28e3152645d6580226cd3f7941911527",
+      "cert/tmarb.py": "f8d52e77ad8a90a9cfe3cb1d4192a4c531acb88cae19633eebe3aa79946e64f0"
+    },
+    "python": "3.12.14",
+    "packages": {
+      "python-flint": "0.9.0",
+      "numpy": "2.2.6",
+      "scipy": "1.17.0"
+    }
+  },
+  "binding_unchanged_during_run": true,
+  "cases": [
+    {
+      "mode": "polynomial",
+      "psi_remainder": "global",
+      "weighted_target": false,
+      "cap": {
+        "group_index": 44,
+        "mode": "polynomial",
+        "psi_remainder": "global",
+        "weighted_target": false,
+        "v": [
+          -828293117,
+          -573433696,
+          191144565,
+          318574276
+        ],
+        "h": "0x1.fffeb077bdf31p+29",
+        "t3_alignment": {
+          "rows": [
+            4,
+            5,
+            0,
+            1,
+            2,
+            3
+          ],
+          "cols": [
+            5,
+            2,
+            3,
+            4,
+            0,
+            1
+          ],
+          "wind": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            -1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1,
+            0,
+            0,
+            -1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        "t3_group_sha256": "3c6ce53100fd12990a7e5f96caab19dbf7490cdfe1d4ae268a8a3fb7e9452b4d",
+        "t3_parameter": {
+          "lambda_": "0x1.e9d8a8cf6979bp+4",
+          "mu": "0x1.ea662e36e5a79p+5",
+          "s": "0x1.89009bfd3dbb9p-1"
+        },
+        "t3_distance": {
+          "lambda_": "0x1.7a245eb74a5d0p+4",
+          "mu": "0x1.7a99e66819c4ap+5",
+          "s": "0x1.2d6cf533bd119p-1"
+        }
+      },
+      "result": {
+        "ok": true,
+        "reason": "CERTIFIED",
+        "kind": "T3",
+        "mode": "polynomial",
+        "weighted_target": false,
+        "parameter": {
+          "ok": true,
+          "reason": "CERTIFIED",
+          "normalized_margin_lower": 0.10143018963613713,
+          "normalized_error_upper": 0.022451796714377803,
+          "min_ldl_pivot_lower": 9.999990473776135e-09
+        },
+        "distance": {
+          "ok": true,
+          "reason": "CERTIFIED",
+          "normalized_margin_lower": 0.22552574470806613,
+          "normalized_error_upper": 0.007192099105880057,
+          "min_ldl_pivot_lower": 9.99999709218544e-09
+        },
+        "psi_remainder": "global",
+        "delta_upper": 8.944249549230882e-05,
+        "side_phase_distance_upper": 0.0011373171299898948,
+        "orientation_margins_lower": [],
+        "target_margin_lower": 0.013185924652697826,
+        "distance_margin_lower": 0.03382886170620991
+      },
+      "seconds": 0.032140488001459744
+    },
+    {
+      "mode": "polynomial",
+      "psi_remainder": "global",
+      "weighted_target": true,
+      "cap": {
+        "group_index": 44,
+        "mode": "polynomial",
+        "psi_remainder": "global",
+        "weighted_target": true,
+        "v": [
+          -828293117,
+          -573433696,
+          191144565,
+          318574276
+        ],
+        "h": "0x1.fffeb077bdf31p+29",
+        "t3_alignment": {
+          "rows": [
+            4,
+            5,
+            0,
+            1,
+            2,
+            3
+          ],
+          "cols": [
+            5,
+            2,
+            3,
+            4,
+            0,
+            1
+          ],
+          "wind": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            -1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1,
+            0,
+            0,
+            -1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        "t3_group_sha256": "3c6ce53100fd12990a7e5f96caab19dbf7490cdfe1d4ae268a8a3fb7e9452b4d",
+        "t3_parameter": {
+          "lambda_": "0x1.e9d8a8cf6979bp+4",
+          "mu": "0x1.ea662e36e5a79p+5",
+          "s": "0x1.89009bfd3dbb9p-1"
+        },
+        "t3_distance": {
+          "lambda_": "0x1.7a245eb74a5d0p+4",
+          "mu": "0x1.7a99e66819c4ap+5",
+          "s": "0x1.2d6cf533bd119p-1"
+        }
+      },
+      "result": {
+        "ok": true,
+        "reason": "CERTIFIED",
+        "kind": "T3",
+        "mode": "polynomial",
+        "weighted_target": true,
+        "parameter": {
+          "ok": true,
+          "reason": "CERTIFIED",
+          "normalized_margin_lower": 0.11580358653684579,
+          "normalized_error_upper": 0.00807839981366914,
+          "min_ldl_pivot_lower": 9.999990473776135e-09
+        },
+        "distance": {
+          "ok": true,
+          "reason": "CERTIFIED",
+          "normalized_margin_lower": 0.2256870548333261,
+          "normalized_error_upper": 0.007030788980620092,
+          "min_ldl_pivot_lower": 9.99999709218544e-09
+        },
+        "psi_remainder": "global",
+        "delta_upper": 8.944249549230882e-05,
+        "side_phase_distance_upper": 0.0005576800424454604,
+        "orientation_margins_lower": [],
+        "target_margin_lower": 0.015054466249789952,
+        "distance_margin_lower": 0.03385305822499891
+      },
+      "seconds": 2.9526508019989706
+    },
+    {
+      "mode": "polynomial",
+      "psi_remainder": "local_hessian",
+      "weighted_target": false,
+      "cap": {
+        "group_index": 44,
+        "mode": "polynomial",
+        "psi_remainder": "local_hessian",
+        "weighted_target": false,
+        "v": [
+          -828293117,
+          -573433696,
+          191144565,
+          318574276
+        ],
+        "h": "0x1.fffeb077bdf31p+29",
+        "t3_alignment": {
+          "rows": [
+            4,
+            5,
+            0,
+            1,
+            2,
+            3
+          ],
+          "cols": [
+            5,
+            2,
+            3,
+            4,
+            0,
+            1
+          ],
+          "wind": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            -1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1,
+            0,
+            0,
+            -1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        "t3_group_sha256": "3c6ce53100fd12990a7e5f96caab19dbf7490cdfe1d4ae268a8a3fb7e9452b4d",
+        "t3_parameter": {
+          "lambda_": "0x1.e9d8a8cf6979bp+4",
+          "mu": "0x1.ea662e36e5a79p+5",
+          "s": "0x1.89009bfd3dbb9p-1"
+        },
+        "t3_distance": {
+          "lambda_": "0x1.7a245eb74a5d0p+4",
+          "mu": "0x1.7a99e66819c4ap+5",
+          "s": "0x1.2d6cf533bd119p-1"
+        }
+      },
+      "result": {
+        "ok": true,
+        "reason": "CERTIFIED",
+        "kind": "T3",
+        "mode": "polynomial",
+        "weighted_target": false,
+        "parameter": {
+          "ok": true,
+          "reason": "CERTIFIED",
+          "normalized_margin_lower": 0.10145402097434754,
+          "normalized_error_upper": 0.0224279653761674,
+          "min_ldl_pivot_lower": 9.999990473776135e-09
+        },
+        "distance": {
+          "ok": true,
+          "reason": "CERTIFIED",
+          "normalized_margin_lower": 0.22552574470806613,
+          "normalized_error_upper": 0.007192099105880057,
+          "min_ldl_pivot_lower": 9.99999709218544e-09
+        },
+        "psi_remainder": "local_hessian",
+        "delta_upper": 8.944249549230882e-05,
+        "side_phase_distance_upper": 0.0011373171299898948,
+        "orientation_margins_lower": [],
+        "target_margin_lower": 0.01318902272666518,
+        "distance_margin_lower": 0.03382886170620991
+      },
+      "seconds": 0.015463710002222797
+    },
+    {
+      "mode": "polynomial",
+      "psi_remainder": "local_hessian",
+      "weighted_target": true,
+      "cap": {
+        "group_index": 44,
+        "mode": "polynomial",
+        "psi_remainder": "local_hessian",
+        "weighted_target": true,
+        "v": [
+          -828293117,
+          -573433696,
+          191144565,
+          318574276
+        ],
+        "h": "0x1.fffeb077bdf31p+29",
+        "t3_alignment": {
+          "rows": [
+            4,
+            5,
+            0,
+            1,
+            2,
+            3
+          ],
+          "cols": [
+            5,
+            2,
+            3,
+            4,
+            0,
+            1
+          ],
+          "wind": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            -1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1,
+            0,
+            0,
+            -1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        "t3_group_sha256": "3c6ce53100fd12990a7e5f96caab19dbf7490cdfe1d4ae268a8a3fb7e9452b4d",
+        "t3_parameter": {
+          "lambda_": "0x1.e9d8a8cf6979bp+4",
+          "mu": "0x1.ea662e36e5a79p+5",
+          "s": "0x1.89009bfd3dbb9p-1"
+        },
+        "t3_distance": {
+          "lambda_": "0x1.7a245eb74a5d0p+4",
+          "mu": "0x1.7a99e66819c4ap+5",
+          "s": "0x1.2d6cf533bd119p-1"
+        }
+      },
+      "result": {
+        "ok": true,
+        "reason": "CERTIFIED",
+        "kind": "T3",
+        "mode": "polynomial",
+        "weighted_target": true,
+        "parameter": {
+          "ok": true,
+          "reason": "CERTIFIED",
+          "normalized_margin_lower": 0.11580932243137511,
+          "normalized_error_upper": 0.00807266391913982,
+          "min_ldl_pivot_lower": 9.999990473776135e-09
+        },
+        "distance": {
+          "ok": true,
+          "reason": "CERTIFIED",
+          "normalized_margin_lower": 0.2256870548333261,
+          "normalized_error_upper": 0.007030788980620092,
+          "min_ldl_pivot_lower": 9.99999709218544e-09
+        },
+        "psi_remainder": "local_hessian",
+        "delta_upper": 8.944249549230882e-05,
+        "side_phase_distance_upper": 0.0005576800424454604,
+        "orientation_margins_lower": [],
+        "target_margin_lower": 0.015055211916078762,
+        "distance_margin_lower": 0.03385305822499891
+      },
+      "seconds": 0.08327156499944977
+    },
+    {
+      "mode": "local",
+      "psi_remainder": "global",
+      "weighted_target": false,
+      "cap": {
+        "group_index": 44,
+        "mode": "local",
+        "psi_remainder": "global",
+        "weighted_target": false,
+        "v": [
+          -828293117,
+          -573433696,
+          191144565,
+          318574276
+        ],
+        "h": "0x1.fffeb077bdf31p+29",
+        "t3_alignment": {
+          "rows": [
+            4,
+            5,
+            0,
+            1,
+            2,
+            3
+          ],
+          "cols": [
+            5,
+            2,
+            3,
+            4,
+            0,
+            1
+          ],
+          "wind": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            -1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1,
+            0,
+            0,
+            -1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        "t3_group_sha256": "3c6ce53100fd12990a7e5f96caab19dbf7490cdfe1d4ae268a8a3fb7e9452b4d",
+        "t3_parameter": {
+          "lambda_": "0x1.e8aae3afa3221p+4",
+          "mu": "0x1.e9389b79fb9bcp+5",
+          "s": "0x1.88fbbbd3958f9p-1"
+        },
+        "t3_distance": {
+          "lambda_": "0x1.794b347d6842bp+4",
+          "mu": "0x1.79c0e1238f51ap+5",
+          "s": "0x1.2d695e724bf39p-1"
+        }
+      },
+      "result": {
+        "ok": true,
+        "reason": "CERTIFIED",
+        "kind": "T3",
+        "mode": "local",
+        "weighted_target": false,
+        "parameter": {
+          "ok": true,
+          "reason": "CERTIFIED",
+          "normalized_margin_lower": 0.12389893951139093,
+          "normalized_error_upper": 4.276055932613176e-06,
+          "min_ldl_pivot_lower": 9.999980569543849e-09
+        },
+        "distance": {
+          "ok": true,
+          "reason": "CERTIFIED",
+          "normalized_margin_lower": 0.23273408663821274,
+          "normalized_error_upper": 1.6002662470703313e-06,
+          "min_ldl_pivot_lower": 9.999995790565615e-09
+        },
+        "psi_remainder": "global",
+        "delta_upper": 8.944249549230882e-05,
+        "side_phase_distance_upper": 5.8771251336457835e-05,
+        "orientation_margins_lower": [],
+        "target_margin_lower": 0.01610686213648082,
+        "distance_margin_lower": 0.03491011299573191
+      },
+      "seconds": 0.05617111600076896
+    },
+    {
+      "mode": "local",
+      "psi_remainder": "global",
+      "weighted_target": true,
+      "cap": {
+        "group_index": 44,
+        "mode": "local",
+        "psi_remainder": "global",
+        "weighted_target": true,
+        "v": [
+          -828293117,
+          -573433696,
+          191144565,
+          318574276
+        ],
+        "h": "0x1.fffeb077bdf31p+29",
+        "t3_alignment": {
+          "rows": [
+            4,
+            5,
+            0,
+            1,
+            2,
+            3
+          ],
+          "cols": [
+            5,
+            2,
+            3,
+            4,
+            0,
+            1
+          ],
+          "wind": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            -1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1,
+            0,
+            0,
+            -1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        "t3_group_sha256": "3c6ce53100fd12990a7e5f96caab19dbf7490cdfe1d4ae268a8a3fb7e9452b4d",
+        "t3_parameter": {
+          "lambda_": "0x1.e8aae3afa3221p+4",
+          "mu": "0x1.e9389b79fb9bcp+5",
+          "s": "0x1.88fbbbd3958f9p-1"
+        },
+        "t3_distance": {
+          "lambda_": "0x1.794b347d6842bp+4",
+          "mu": "0x1.79c0e1238f51ap+5",
+          "s": "0x1.2d695e724bf39p-1"
+        }
+      },
+      "result": {
+        "ok": true,
+        "reason": "CERTIFIED",
+        "kind": "T3",
+        "mode": "local",
+        "weighted_target": true,
+        "parameter": {
+          "ok": true,
+          "reason": "CERTIFIED",
+          "normalized_margin_lower": 0.12390130052911479,
+          "normalized_error_upper": 1.9150382087672433e-06,
+          "min_ldl_pivot_lower": 9.999980569543849e-09
+        },
+        "distance": {
+          "ok": true,
+          "reason": "CERTIFIED",
+          "normalized_margin_lower": 0.23273408663821332,
+          "normalized_error_upper": 1.6002662464753033e-06,
+          "min_ldl_pivot_lower": 9.999995790565615e-09
+        },
+        "psi_remainder": "global",
+        "delta_upper": 8.944249549230882e-05,
+        "side_phase_distance_upper": 5.8676947091859614e-05,
+        "orientation_margins_lower": [],
+        "target_margin_lower": 0.01610716906878492,
+        "distance_margin_lower": 0.03491011299573199
+      },
+      "seconds": 0.31257508599810535
+    },
+    {
+      "mode": "local",
+      "psi_remainder": "local_hessian",
+      "weighted_target": false,
+      "cap": {
+        "group_index": 44,
+        "mode": "local",
+        "psi_remainder": "local_hessian",
+        "weighted_target": false,
+        "v": [
+          -828293117,
+          -573433696,
+          191144565,
+          318574276
+        ],
+        "h": "0x1.fffeb077bdf31p+29",
+        "t3_alignment": {
+          "rows": [
+            4,
+            5,
+            0,
+            1,
+            2,
+            3
+          ],
+          "cols": [
+            5,
+            2,
+            3,
+            4,
+            0,
+            1
+          ],
+          "wind": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            -1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1,
+            0,
+            0,
+            -1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        "t3_group_sha256": "3c6ce53100fd12990a7e5f96caab19dbf7490cdfe1d4ae268a8a3fb7e9452b4d",
+        "t3_parameter": {
+          "lambda_": "0x1.e8aae3afa3221p+4",
+          "mu": "0x1.e9389b79fb9bcp+5",
+          "s": "0x1.88fbbbd3958f9p-1"
+        },
+        "t3_distance": {
+          "lambda_": "0x1.794b347d6842bp+4",
+          "mu": "0x1.79c0e1238f51ap+5",
+          "s": "0x1.2d695e724bf39p-1"
+        }
+      },
+      "result": {
+        "ok": true,
+        "reason": "CERTIFIED",
+        "kind": "T3",
+        "mode": "local",
+        "weighted_target": false,
+        "parameter": {
+          "ok": true,
+          "reason": "CERTIFIED",
+          "normalized_margin_lower": 0.12389900327067435,
+          "normalized_error_upper": 4.2122966491927105e-06,
+          "min_ldl_pivot_lower": 9.999980569543849e-09
+        },
+        "distance": {
+          "ok": true,
+          "reason": "CERTIFIED",
+          "normalized_margin_lower": 0.23273408663821274,
+          "normalized_error_upper": 1.6002662470703313e-06,
+          "min_ldl_pivot_lower": 9.999995790565615e-09
+        },
+        "psi_remainder": "local_hessian",
+        "delta_upper": 8.944249549230882e-05,
+        "side_phase_distance_upper": 5.8771251336457835e-05,
+        "orientation_margins_lower": [],
+        "target_margin_lower": 0.01610687042518766,
+        "distance_margin_lower": 0.03491011299573191
+      },
+      "seconds": 0.05236724800124648
+    },
+    {
+      "mode": "local",
+      "psi_remainder": "local_hessian",
+      "weighted_target": true,
+      "cap": {
+        "group_index": 44,
+        "mode": "local",
+        "psi_remainder": "local_hessian",
+        "weighted_target": true,
+        "v": [
+          -828293117,
+          -573433696,
+          191144565,
+          318574276
+        ],
+        "h": "0x1.fffeb077bdf31p+29",
+        "t3_alignment": {
+          "rows": [
+            4,
+            5,
+            0,
+            1,
+            2,
+            3
+          ],
+          "cols": [
+            5,
+            2,
+            3,
+            4,
+            0,
+            1
+          ],
+          "wind": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            -1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1,
+            0,
+            0,
+            -1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        "t3_group_sha256": "3c6ce53100fd12990a7e5f96caab19dbf7490cdfe1d4ae268a8a3fb7e9452b4d",
+        "t3_parameter": {
+          "lambda_": "0x1.e8aae3afa3221p+4",
+          "mu": "0x1.e9389b79fb9bcp+5",
+          "s": "0x1.88fbbbd3958f9p-1"
+        },
+        "t3_distance": {
+          "lambda_": "0x1.794b347d6842bp+4",
+          "mu": "0x1.79c0e1238f51ap+5",
+          "s": "0x1.2d695e724bf39p-1"
+        }
+      },
+      "result": {
+        "ok": true,
+        "reason": "CERTIFIED",
+        "kind": "T3",
+        "mode": "local",
+        "weighted_target": true,
+        "parameter": {
+          "ok": true,
+          "reason": "CERTIFIED",
+          "normalized_margin_lower": 0.1239013640839569,
+          "normalized_error_upper": 1.8514833666509598e-06,
+          "min_ldl_pivot_lower": 9.999980569543849e-09
+        },
+        "distance": {
+          "ok": true,
+          "reason": "CERTIFIED",
+          "normalized_margin_lower": 0.23273408663821332,
+          "normalized_error_upper": 1.6002662464753033e-06,
+          "min_ldl_pivot_lower": 9.999995790565615e-09
+        },
+        "psi_remainder": "local_hessian",
+        "delta_upper": 8.944249549230882e-05,
+        "side_phase_distance_upper": 5.8676947091859614e-05,
+        "orientation_margins_lower": [],
+        "target_margin_lower": 0.016107177330914393,
+        "distance_margin_lower": 0.03491011299573199
+      },
+      "seconds": 0.09106771699953242
+    },
+    {
+      "mode": "local_sphere",
+      "psi_remainder": "global",
+      "weighted_target": false,
+      "cap": {
+        "group_index": 44,
+        "mode": "local_sphere",
+        "psi_remainder": "global",
+        "weighted_target": false,
+        "v": [
+          -828293117,
+          -573433696,
+          191144565,
+          318574276
+        ],
+        "h": "0x1.fffeb077bdf31p+29",
+        "t3_alignment": {
+          "rows": [
+            4,
+            5,
+            0,
+            1,
+            2,
+            3
+          ],
+          "cols": [
+            5,
+            2,
+            3,
+            4,
+            0,
+            1
+          ],
+          "wind": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            -1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1,
+            0,
+            0,
+            -1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        "t3_group_sha256": "3c6ce53100fd12990a7e5f96caab19dbf7490cdfe1d4ae268a8a3fb7e9452b4d",
+        "t3_parameter": {
+          "lambda_": "0x1.e8aafbac1d138p+4",
+          "mu": "0x1.e938b371f0c88p+5",
+          "s": "0x1.88fbbbdb70dd9p-1"
+        },
+        "t3_distance": {
+          "lambda_": "0x1.794b463d02a89p+4",
+          "mu": "0x1.79c0f2e049d8bp+5",
+          "s": "0x1.2d695e7823e79p-1"
+        }
+      },
+      "result": {
+        "ok": true,
+        "reason": "CERTIFIED",
+        "kind": "T3",
+        "mode": "local_sphere",
+        "weighted_target": false,
+        "parameter": {
+          "ok": true,
+          "reason": "CERTIFIED",
+          "normalized_margin_lower": 0.12389893896803443,
+          "normalized_error_upper": 4.276077294572552e-06,
+          "min_ldl_pivot_lower": 9.999987314579018e-09
+        },
+        "distance": {
+          "ok": true,
+          "reason": "CERTIFIED",
+          "normalized_margin_lower": 0.23273408618689562,
+          "normalized_error_upper": 1.6002742484415732e-06,
+          "min_ldl_pivot_lower": 1.0000004023209368e-08
+        },
+        "psi_remainder": "global",
+        "delta_upper": 8.944271909938608e-05,
+        "side_phase_distance_upper": 5.8771391294665564e-05,
+        "orientation_margins_lower": [],
+        "target_margin_lower": 0.016106862065844472,
+        "distance_margin_lower": 0.03491011292803434
+      },
+      "seconds": 0.002907976999267703
+    },
+    {
+      "mode": "local_sphere",
+      "psi_remainder": "global",
+      "weighted_target": true,
+      "cap": {
+        "group_index": 44,
+        "mode": "local_sphere",
+        "psi_remainder": "global",
+        "weighted_target": true,
+        "v": [
+          -828293117,
+          -573433696,
+          191144565,
+          318574276
+        ],
+        "h": "0x1.fffeb077bdf31p+29",
+        "t3_alignment": {
+          "rows": [
+            4,
+            5,
+            0,
+            1,
+            2,
+            3
+          ],
+          "cols": [
+            5,
+            2,
+            3,
+            4,
+            0,
+            1
+          ],
+          "wind": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            -1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1,
+            0,
+            0,
+            -1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        "t3_group_sha256": "3c6ce53100fd12990a7e5f96caab19dbf7490cdfe1d4ae268a8a3fb7e9452b4d",
+        "t3_parameter": {
+          "lambda_": "0x1.e8aafbac1d138p+4",
+          "mu": "0x1.e938b371f0c88p+5",
+          "s": "0x1.88fbbbdb70dd9p-1"
+        },
+        "t3_distance": {
+          "lambda_": "0x1.794b463d02a89p+4",
+          "mu": "0x1.79c0f2e049d8bp+5",
+          "s": "0x1.2d695e7823e79p-1"
+        }
+      },
+      "result": {
+        "ok": true,
+        "reason": "CERTIFIED",
+        "kind": "T3",
+        "mode": "local_sphere",
+        "weighted_target": true,
+        "parameter": {
+          "ok": true,
+          "reason": "CERTIFIED",
+          "normalized_margin_lower": 0.12390129999756239,
+          "normalized_error_upper": 1.915047766615705e-06,
+          "min_ldl_pivot_lower": 9.999987314579018e-09
+        },
+        "distance": {
+          "ok": true,
+          "reason": "CERTIFIED",
+          "normalized_margin_lower": 0.2327340861868962,
+          "normalized_error_upper": 1.6002742478465425e-06,
+          "min_ldl_pivot_lower": 1.0000004023209368e-08
+        },
+        "psi_remainder": "global",
+        "delta_upper": 8.944271909938608e-05,
+        "side_phase_distance_upper": 5.867708657854376e-05,
+        "orientation_margins_lower": [],
+        "target_margin_lower": 0.01610716899968311,
+        "distance_margin_lower": 0.03491011292803442
+      },
+      "seconds": 0.022519438000017544
+    },
+    {
+      "mode": "local_sphere",
+      "psi_remainder": "local_hessian",
+      "weighted_target": false,
+      "cap": {
+        "group_index": 44,
+        "mode": "local_sphere",
+        "psi_remainder": "local_hessian",
+        "weighted_target": false,
+        "v": [
+          -828293117,
+          -573433696,
+          191144565,
+          318574276
+        ],
+        "h": "0x1.fffeb077bdf31p+29",
+        "t3_alignment": {
+          "rows": [
+            4,
+            5,
+            0,
+            1,
+            2,
+            3
+          ],
+          "cols": [
+            5,
+            2,
+            3,
+            4,
+            0,
+            1
+          ],
+          "wind": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            -1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1,
+            0,
+            0,
+            -1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        "t3_group_sha256": "3c6ce53100fd12990a7e5f96caab19dbf7490cdfe1d4ae268a8a3fb7e9452b4d",
+        "t3_parameter": {
+          "lambda_": "0x1.e8aafbac1d138p+4",
+          "mu": "0x1.e938b371f0c88p+5",
+          "s": "0x1.88fbbbdb70dd9p-1"
+        },
+        "t3_distance": {
+          "lambda_": "0x1.794b463d02a89p+4",
+          "mu": "0x1.79c0f2e049d8bp+5",
+          "s": "0x1.2d695e7823e79p-1"
+        }
+      },
+      "result": {
+        "ok": true,
+        "reason": "CERTIFIED",
+        "kind": "T3",
+        "mode": "local_sphere",
+        "weighted_target": false,
+        "parameter": {
+          "ok": true,
+          "reason": "CERTIFIED",
+          "normalized_margin_lower": 0.1238990027276129,
+          "normalized_error_upper": 4.2123177161092814e-06,
+          "min_ldl_pivot_lower": 9.999987314579018e-09
+        },
+        "distance": {
+          "ok": true,
+          "reason": "CERTIFIED",
+          "normalized_margin_lower": 0.23273408618689562,
+          "normalized_error_upper": 1.6002742484415732e-06,
+          "min_ldl_pivot_lower": 1.0000004023209368e-08
+        },
+        "psi_remainder": "local_hessian",
+        "delta_upper": 8.944271909938608e-05,
+        "side_phase_distance_upper": 5.8771391294665564e-05,
+        "orientation_margins_lower": [],
+        "target_margin_lower": 0.016106870354589672,
+        "distance_margin_lower": 0.03491011292803434
+      },
+      "seconds": 0.002407832998869708
+    },
+    {
+      "mode": "local_sphere",
+      "psi_remainder": "local_hessian",
+      "weighted_target": true,
+      "cap": {
+        "group_index": 44,
+        "mode": "local_sphere",
+        "psi_remainder": "local_hessian",
+        "weighted_target": true,
+        "v": [
+          -828293117,
+          -573433696,
+          191144565,
+          318574276
+        ],
+        "h": "0x1.fffeb077bdf31p+29",
+        "t3_alignment": {
+          "rows": [
+            4,
+            5,
+            0,
+            1,
+            2,
+            3
+          ],
+          "cols": [
+            5,
+            2,
+            3,
+            4,
+            0,
+            1
+          ],
+          "wind": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            -1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1,
+            0,
+            0,
+            -1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            -1
+          ]
+        },
+        "t3_group_sha256": "3c6ce53100fd12990a7e5f96caab19dbf7490cdfe1d4ae268a8a3fb7e9452b4d",
+        "t3_parameter": {
+          "lambda_": "0x1.e8aafbac1d138p+4",
+          "mu": "0x1.e938b371f0c88p+5",
+          "s": "0x1.88fbbbdb70dd9p-1"
+        },
+        "t3_distance": {
+          "lambda_": "0x1.794b463d02a89p+4",
+          "mu": "0x1.79c0f2e049d8bp+5",
+          "s": "0x1.2d695e7823e79p-1"
+        }
+      },
+      "result": {
+        "ok": true,
+        "reason": "CERTIFIED",
+        "kind": "T3",
+        "mode": "local_sphere",
+        "weighted_target": true,
+        "parameter": {
+          "ok": true,
+          "reason": "CERTIFIED",
+          "normalized_margin_lower": 0.12390136355269807,
+          "normalized_error_upper": 1.8514926309375555e-06,
+          "min_ldl_pivot_lower": 9.999987314579018e-09
+        },
+        "distance": {
+          "ok": true,
+          "reason": "CERTIFIED",
+          "normalized_margin_lower": 0.2327340861868962,
+          "normalized_error_upper": 1.6002742478465425e-06,
+          "min_ldl_pivot_lower": 1.0000004023209368e-08
+        },
+        "psi_remainder": "local_hessian",
+        "delta_upper": 8.944271909938608e-05,
+        "side_phase_distance_upper": 5.867708657854376e-05,
+        "orientation_margins_lower": [],
+        "target_margin_lower": 0.016107177261850746,
+        "distance_margin_lower": 0.03491011292803442
+      },
+      "seconds": 0.0020098429995414335
+    }
+  ],
+  "source_model": {
+    "r": 0.020000000000000004,
+    "tau": 0.0010787543833263057,
+    "q": 0.5079551537259033,
+    "Z1": 0.21805481762017404,
+    "Z2": 44.88970461052237,
+    "beta": 15.120579684404293,
+    "u": 1.0000000011439474,
+    "x": 1.0000000005000007,
+    "wn": 15.086134302872155,
+    "base": 0.023024115959759804,
+    "t3": 395.76496482671075,
+    "t4": 304.9916270060703,
+    "L5": 26217.387994111737,
+    "c": 21.041248920868924,
+    "d": 39.18323072570062,
+    "a2": 204.6027806961313,
+    "L3a": 1546.415582898398,
+    "status": "CERTIFIED",
+    "seconds": 6.137446955999621,
+    "strict_R_lower": 1.4005236320025332,
+    "dephased_lift_gap_upper": 0.009625690310675014
+  },
+  "seconds": 25.90985179600102,
+  "scope": "Twelve actual T3 cap replay branches, target ellipsoid inclusion, and production prerequisite rejection; no sphere coverage or global atlas assertion."
+}

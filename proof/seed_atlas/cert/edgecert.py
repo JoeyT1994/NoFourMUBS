@@ -966,10 +966,23 @@ def check_T3(Q, eb, tubes, grp, max_depth=8):
     need(all(x < lim for x in dist), 'T3: the source is not certified within phase distance 3/20 of F6')
 
 
-def check_edge_transfers(eb, seeds, groups, max_level, chunk=64, edges=(), check=True, cover=True):
+def check_edge_caps(eb, seeds, groups, caps, edges=()):
+    """The additive edge['caps'] path: full Arb transfer and exact sphere replay."""
+    from edgecaps import check_edge_caps as replay
+    own = next((tb for (e2, tb) in edges if e2 is eb), None)
+    model = own.model() if getattr(own, 'wb', False) else None
+    return replay(eb, seeds, groups, caps, model=model)
+
+
+def check_edge_transfers(eb, seeds, groups, max_level, chunk=64, edges=(), check=True, cover=True, caps=None):
     """The edge ball's own boundary: T1 groups into seed balls (C1e Taylor models over each box, the T1 test with
     both Psi signs checked) and the coverage of its sphere (as for seed balls)."""
     ctx.prec = S.PREC
+    if caps is not None:
+        # The cap certificate is one complete boundary proof, so transfer and
+        # coverage checks stay together even if the legacy box scheduler
+        # requested its coverage-only work item.
+        return check_edge_caps(eb, seeds, groups, caps, edges=edges)
     listed = set(); cnt = dict(T1=0)
     for grp in groups:
         need(isinstance(grp, dict), 'malformed transfer group')

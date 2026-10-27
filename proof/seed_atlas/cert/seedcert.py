@@ -1008,8 +1008,8 @@ def misses_unit_sphere(box):
 
 
 # ======================================================================================== one seed ball: C2
-def check_seed_caps(ball, seeds, groups, caps):
-    """The sphere of a seed ball by certified caps (return ZC): every cap's transfer, for the T0/T1 descriptor it names
+def check_seed_caps(ball, seeds, groups, caps, edges=()):
+    """The sphere of a seed ball by certified caps (returns ZC and ZC2b): every cap's transfer, for the T0/T1/T3 descriptor it names
     (group_index into the ball's transfer groups; their boxes are not used), by caps.check_cap on the whole-ball model,
     and the coverage of S^3 by the caps' exact certificate (cap_coverage.verify_coverage).  Raises CertError."""
     import patches as ZTP, caps as CAPS, cap_coverage as COV
@@ -1024,17 +1024,31 @@ def check_seed_caps(ball, seeds, groups, caps):
             gi = cap.get('group_index')
             need(type(gi) is int and 0 <= gi < len(groups), 'caps: no such transfer group')
             g = groups[gi]
-            need(g.get('kind') in ('T0', 'T1'), 'caps: only T0 and T1 transfers')
+            kind = g.get('kind')
+            need(kind in ('T0', 'T1', 'T3'), 'caps: only T0, T1 and T3 transfers')
             t = g.get('target')
-            need(type(t) is int and 0 <= t < len(seeds), 'caps: target out of range')
+            targets = edges if kind == 'T3' else seeds
+            need(type(t) is int and 0 <= t < len(targets), 'caps: target out of range')
             if gi not in trs:
                 try:
-                    trs[gi] = ZTP.Transfer(model, seeds[t], g)
+                    if kind == 'T3':
+                        import cap_t3 as T3CAP
+                        eb, tubes = edges[t]
+                        need(eb is not None and tubes is not None and
+                             (getattr(tubes, 'wb', False) or len(tubes.rho['h'])),
+                             'caps: T3 target edge ball lacks accepted C1e')
+                        trs[gi] = T3CAP.Transfer(model, eb, g, gi)
+                    else:
+                        trs[gi] = ZTP.Transfer(model, seeds[t], g)
                 except ValueError as e:
                     raise CertError('caps: transfer %d: %s' % (gi, e))
             try:
-                res = CAPS.check_cap(model, trs[gi], cap)
-            except (ArithmeticError, ValueError, ZeroDivisionError) as e:
+                if kind == 'T3':
+                    import cap_t3 as T3CAP
+                    res = T3CAP.check_cap(model, trs[gi], cap)
+                else:
+                    res = CAPS.check_cap(model, trs[gi], cap)
+            except (ArithmeticError, ValueError, ZeroDivisionError, KeyError, TypeError) as e:
                 raise CertError('caps: cap %d: %s' % (k, e))
             need(res['ok'], 'caps: cap %d not certified (%s)' % (k, res.get('reason')))
         cov = COV.verify_coverage([{'v': c['v'], 'h': c['h']} for c in caps['caps']], caps.get('coverage') or {})
@@ -1053,7 +1067,7 @@ def check_seed_transfers(ball, seeds, records, groups, max_level, chunk=64, edge
     (EdgeBall, EdgeTubes from its C1e).  Raises CertError on the first failure; returns counts."""
     ctx.prec = PREC
     if caps is not None:                       # return ZC: the sphere by certified caps, instead of boxes
-        return check_seed_caps(ball, seeds, groups, caps)
+        return check_seed_caps(ball, seeds, groups, caps, edges=edges)
     listed = set(); cnt = dict(T0=0, T1=0, T1sym=0, T2=0, T3=0)
     jobs = []
     for grp in groups:

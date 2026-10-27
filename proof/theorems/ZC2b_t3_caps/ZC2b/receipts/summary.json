@@ -1,0 +1,1778 @@
+{
+  "format": "zc2b-mixed-cap-replay-v1",
+  "verdict": "PASS",
+  "created_utc": "2026-10-26T22:20:28.729017+00:00",
+  "requested_spheres": 82,
+  "certified_spheres": 82,
+  "retained_box_spheres": 0,
+  "certified_seed_indices": [
+    2346,
+    2517,
+    2545,
+    2571,
+    2649,
+    2662,
+    2670,
+    2671,
+    2677,
+    2685,
+    2687,
+    2688,
+    2689,
+    2690,
+    2692,
+    2697,
+    2703,
+    2708,
+    2709,
+    2711,
+    2712,
+    2713,
+    2714,
+    2715,
+    2716,
+    2717,
+    2718,
+    2719,
+    2720,
+    2721,
+    2722,
+    2723,
+    2725,
+    2726,
+    2727,
+    2728,
+    2729,
+    2730,
+    2731,
+    2732,
+    2733,
+    2734,
+    2735,
+    2736,
+    2737,
+    2738,
+    2739,
+    2740,
+    2741,
+    2742,
+    2743,
+    2744,
+    2745,
+    2746,
+    2747,
+    2748,
+    2749,
+    2750,
+    2751,
+    2752,
+    2753,
+    2754,
+    2755,
+    2756,
+    2757,
+    2758,
+    2759,
+    2760,
+    2761,
+    2762,
+    2763,
+    2764,
+    2765,
+    2766,
+    2767,
+    2768,
+    2769,
+    2770,
+    2771,
+    2772,
+    2773,
+    2774
+  ],
+  "retained_seed_indices": [],
+  "certified_sphere_caps": 2580,
+  "certified_sphere_facets": 10976,
+  "removed_boxes": {
+    "T1": 375832,
+    "T0": 34186,
+    "T3": 159836
+  },
+  "retained_boxes": {},
+  "elapsed_wall_seconds": 119.36750174800181,
+  "total_source_seconds": 452.61892087099477,
+  "precision_bits": 224,
+  "workers": 4,
+  "input_sha256": "0bf5def3a4166cbbb39e656dffc7d1c9e8d5e771e8a3166374c1e3d246dba25d",
+  "code_sha256": {
+    "cert/cap_coverage.py": "e1de1a1c2d05f156671c402f13eafa9c266b92a25a413931458757eae0d99a72",
+    "cert/cap_t3.py": "2b9f3f9c07aa9f6c55fecc288b87ed75e8cf52c8b6b45bdd9b3f40100e3cb268",
+    "cert/cap_weighted.py": "9005e3dd915c95687b8b7d7d3c2728e49c4364dd6d70c3c81769063c24cbec63",
+    "cert/caps.py": "4d11f8280cfdf4388ca88c9df265fbc7306df2a69ac97a7ab8b705c8397d2894",
+    "cert/certify_seed_atlas.py": "51e1987302c6c6d7b5bfbb5cd64446114104f7a6dc14c014e69fee19137c01f0",
+    "cert/check_binding.py": "a7db1ad8cfe928106b5e1ef67fabea9545498c46a0fb2054d9d9fbcca8022041",
+    "cert/edge_wholeball.py": "525457b1256e0a4a93f6edd69ff141924c18fda1fe4608470368c66ae7f6ff90",
+    "cert/edgecert.py": "beace0f1773d2f28361384a3426b627e28e3152645d6580226cd3f7941911527",
+    "cert/patches.py": "f6935c9d50bc6974c517cb8781e1944919aa16879f8926a97e553a63d6183e3d",
+    "cert/seedcert.py": "544cb00bddf252c9634752ea835f6fd86cefddcd9ac812131786d6c00aab8943",
+    "cert/tmarb.py": "f8d52e77ad8a90a9cfe3cb1d4192a4c531acb88cae19633eebe3aa79946e64f0",
+    "cert/wholeball.py": "0ed34421ccae9400dcd60cc58e34cc44a46575692748294e02b1de622f70e896",
+    "atlas/arb_replay.py": "7a2bb8759a7166b4d8d50838eb12b2633211c60c5d01fd8c08d435e24b916671",
+    "atlas/atlas.py": "e4b7907d410c3ac3436ff37740dee6bffc1ee9b8216e0e6165460cb716f2e374",
+    "atlas/ballrecord.py": "02538a875ad974e0e9165f538cd6b1d293b1ae6ac2b099ea769013e60d4d87e4",
+    "atlas/certify.py": "68c230d6756382c997f96ea1cdc580ec458e16664c638e5a9421280f44ba2bf5",
+    "atlas/export.py": "0a4c22e86c4a6a1b799b4033eeee2d1d242cd583d973795c1a9590ba141a2dc6",
+    "atlas/geometry.py": "6ea9f552588c84b6df4a76194a7bebbb451814227199feb76f178227e40bd065",
+    "atlas/nonempty.py": "8e0628aec5b52d79ffe8c3794f2934defd27fd24e59adb1a10753a91292716a7",
+    "atlas/record.py": "400ab80aa6cc362eb1b599dbee4d986c755d8dfca07cfc23695fbb1d3598e702",
+    "atlas/stagec.py": "b3233a132762d601b2537a6f85693c84e2314cbed6b268c48ab4ac62d2e6edc5",
+    "atlas/tao.py": "b279d7f648be6f2d9de7843f57ffa81e17205d080339efaac1770e3ac0296052",
+    "cert/wholeball_basis.json": "a201d41d0579d79b6f67077b8b2222878a3f54cc781395feb29b7449e7c29cd3",
+    "ZC2b/replay_all.py": "b09cafcd091360be54170e23a5def16d9d0c8bfb35de900a08265e626ce9bc23"
+  },
+  "code_unchanged_during_replay": true,
+  "input_unchanged_during_replay": true,
+  "proposals_unchanged_during_replay": true,
+  "python": "3.12.14",
+  "packages": {
+    "python-flint": "0.9.0",
+    "numpy": "2.2.6",
+    "scipy": "1.17.0",
+    "sympy": "1.14.0",
+    "mpmath": "1.3.0"
+  },
+  "sources": [
+    {
+      "seed": 2346,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 58,
+      "certified_caps": 58,
+      "cap_kinds": {
+        "T3": 7,
+        "T1": 50,
+        "T0": 1
+      },
+      "original_boxes": {
+        "T1": 4456,
+        "T0": 109,
+        "T3": 2350
+      },
+      "elapsed_seconds": 7.427959170003305,
+      "reason": null,
+      "proposal_sha256": "95e9ca58aaccffd43fe181f2713510b159dc8e89dfbfa535c44106a3de2238c2",
+      "facets": 275
+    },
+    {
+      "seed": 2517,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 140,
+      "certified_caps": 140,
+      "cap_kinds": {
+        "T0": 17,
+        "T1": 121,
+        "T3": 2
+      },
+      "original_boxes": {
+        "T1": 4598,
+        "T0": 2684,
+        "T3": 101
+      },
+      "elapsed_seconds": 12.04801745399891,
+      "reason": null,
+      "proposal_sha256": "6baf7ba0d909f38bc05ddee42f21e014e6cc3f80ecf02c2475538c306fe1b33f",
+      "facets": 698
+    },
+    {
+      "seed": 2545,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 72,
+      "certified_caps": 72,
+      "cap_kinds": {
+        "T0": 15,
+        "T1": 54,
+        "T3": 3
+      },
+      "original_boxes": {
+        "T1": 3694,
+        "T0": 2294,
+        "T3": 266
+      },
+      "elapsed_seconds": 7.496303746997,
+      "reason": null,
+      "proposal_sha256": "bafb61b36d08912fa474201c66ba0dbbe4809809033a8431d7da78ee1cb00d29",
+      "facets": 345
+    },
+    {
+      "seed": 2571,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 91,
+      "certified_caps": 91,
+      "cap_kinds": {
+        "T0": 7,
+        "T1": 83,
+        "T3": 1
+      },
+      "original_boxes": {
+        "T1": 4723,
+        "T0": 1213,
+        "T3": 249
+      },
+      "elapsed_seconds": 5.9316914480004925,
+      "reason": null,
+      "proposal_sha256": "94a87391658657659ece0a4d1d3774830bfce53fdbe72f12b24e2cb9d2f88b97",
+      "facets": 440
+    },
+    {
+      "seed": 2649,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 124,
+      "certified_caps": 124,
+      "cap_kinds": {
+        "T0": 9,
+        "T1": 109,
+        "T3": 6
+      },
+      "original_boxes": {
+        "T0": 1349,
+        "T1": 3850,
+        "T3": 465
+      },
+      "elapsed_seconds": 7.57774599899858,
+      "reason": null,
+      "proposal_sha256": "b4768d70bb5cfdcb36cf05c283117661739ba215aa488446dc21bcab5746c906",
+      "facets": 630
+    },
+    {
+      "seed": 2662,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 31,
+      "certified_caps": 31,
+      "cap_kinds": {
+        "T1": 29,
+        "T0": 1,
+        "T3": 1
+      },
+      "original_boxes": {
+        "T1": 3614,
+        "T0": 302,
+        "T3": 258
+      },
+      "elapsed_seconds": 5.002299945001141,
+      "reason": null,
+      "proposal_sha256": "aa97eb9995d3b8d69256731f4a3a1b4f59ebf572ea836e790ee6deaedf415152",
+      "facets": 133
+    },
+    {
+      "seed": 2670,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 29,
+      "certified_caps": 29,
+      "cap_kinds": {
+        "T0": 9,
+        "T3": 3,
+        "T1": 17
+      },
+      "original_boxes": {
+        "T1": 1948,
+        "T0": 3214,
+        "T3": 2052
+      },
+      "elapsed_seconds": 4.206131950999406,
+      "reason": null,
+      "proposal_sha256": "e87ea21ef44a66819a994fe82ee0e5bf7547c1b572422a2074eb3259503ce691",
+      "facets": 115
+    },
+    {
+      "seed": 2671,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 27,
+      "certified_caps": 27,
+      "cap_kinds": {
+        "T3": 5,
+        "T1": 20,
+        "T0": 2
+      },
+      "original_boxes": {
+        "T1": 4026,
+        "T0": 466,
+        "T3": 3045
+      },
+      "elapsed_seconds": 3.902860922997206,
+      "reason": null,
+      "proposal_sha256": "7e5a06a4761a63e0267674bfcbbaee99d338cdf56520da4016a0721286585d2a",
+      "facets": 105
+    },
+    {
+      "seed": 2677,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 30,
+      "certified_caps": 30,
+      "cap_kinds": {
+        "T1": 21,
+        "T0": 8,
+        "T3": 1
+      },
+      "original_boxes": {
+        "T1": 2228,
+        "T0": 1459,
+        "T3": 714
+      },
+      "elapsed_seconds": 6.111403197999607,
+      "reason": null,
+      "proposal_sha256": "75dc89fa7113b0ed8ce5bb4c2bfc65899afeaa6b9d1b7e47f4c66dc79d8f09a3",
+      "facets": 118
+    },
+    {
+      "seed": 2685,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 87,
+      "certified_caps": 87,
+      "cap_kinds": {
+        "T1": 81,
+        "T0": 3,
+        "T3": 3
+      },
+      "original_boxes": {
+        "T1": 11956,
+        "T0": 661,
+        "T3": 774
+      },
+      "elapsed_seconds": 10.874944721999782,
+      "reason": null,
+      "proposal_sha256": "4e80ccabe6b803d42eb2fe96e9227efaadd44b754f3672e084d6eef17cab9b40",
+      "facets": 432
+    },
+    {
+      "seed": 2687,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 83,
+      "certified_caps": 83,
+      "cap_kinds": {
+        "T0": 10,
+        "T1": 69,
+        "T3": 4
+      },
+      "original_boxes": {
+        "T0": 2076,
+        "T1": 3427,
+        "T3": 825
+      },
+      "elapsed_seconds": 7.646213801999693,
+      "reason": null,
+      "proposal_sha256": "ef3ff795d9050fc19f57abd9ac433febc6d31baff443f13caa61a9e58a547d8a",
+      "facets": 408
+    },
+    {
+      "seed": 2688,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 106,
+      "certified_caps": 106,
+      "cap_kinds": {
+        "T0": 3,
+        "T1": 100,
+        "T3": 3
+      },
+      "original_boxes": {
+        "T1": 6501,
+        "T0": 795,
+        "T3": 231
+      },
+      "elapsed_seconds": 11.12901780899847,
+      "reason": null,
+      "proposal_sha256": "c967e7d0c05dda2ccdcf587564128c8880acfa7989a879ca2e753c3f8a255fba",
+      "facets": 513
+    },
+    {
+      "seed": 2689,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 16,
+      "certified_caps": 16,
+      "cap_kinds": {
+        "T0": 6,
+        "T1": 9,
+        "T3": 1
+      },
+      "original_boxes": {
+        "T0": 1306,
+        "T1": 3182,
+        "T3": 781
+      },
+      "elapsed_seconds": 4.925211816000228,
+      "reason": null,
+      "proposal_sha256": "48250d20f020dad3a232d1ea5a8e2414cc66c3adba294a7149e27ba2d46c80f2",
+      "facets": 43
+    },
+    {
+      "seed": 2690,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 69,
+      "certified_caps": 69,
+      "cap_kinds": {
+        "T0": 10,
+        "T1": 57,
+        "T3": 2
+      },
+      "original_boxes": {
+        "T1": 4979,
+        "T0": 1353,
+        "T3": 30
+      },
+      "elapsed_seconds": 6.737224544001947,
+      "reason": null,
+      "proposal_sha256": "c2a84ba9ee1861c85a7fd7af17f6d1e7b7dfc6bad1a09f4c5444a5cb40fba029",
+      "facets": 330
+    },
+    {
+      "seed": 2692,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 27,
+      "certified_caps": 27,
+      "cap_kinds": {
+        "T0": 2,
+        "T1": 24,
+        "T3": 1
+      },
+      "original_boxes": {
+        "T0": 456,
+        "T1": 2867,
+        "T3": 170
+      },
+      "elapsed_seconds": 5.733982043999276,
+      "reason": null,
+      "proposal_sha256": "b026bc04c6cd610a11619ced75a722cee4ef8cd9754f8025945784a8af5fc8c3",
+      "facets": 115
+    },
+    {
+      "seed": 2697,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 26,
+      "certified_caps": 26,
+      "cap_kinds": {
+        "T1": 25,
+        "T3": 1
+      },
+      "original_boxes": {
+        "T1": 5959,
+        "T3": 115
+      },
+      "elapsed_seconds": 2.972956482000882,
+      "reason": null,
+      "proposal_sha256": "86ce05bbf705b7cb56c88b0ae07b18a3b5200d8b440f0ba9b3dbc6b902917782",
+      "facets": 97
+    },
+    {
+      "seed": 2703,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 37,
+      "certified_caps": 37,
+      "cap_kinds": {
+        "T3": 5,
+        "T1": 26,
+        "T0": 6
+      },
+      "original_boxes": {
+        "T1": 4227,
+        "T0": 1133,
+        "T3": 2683
+      },
+      "elapsed_seconds": 3.53376926099736,
+      "reason": null,
+      "proposal_sha256": "43c1c0ab1baf01a0f20c67aaeaacbf18289e3fbf8ce608beddf95ae0a5c717a6",
+      "facets": 158
+    },
+    {
+      "seed": 2708,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 36,
+      "certified_caps": 36,
+      "cap_kinds": {
+        "T0": 4,
+        "T1": 31,
+        "T3": 1
+      },
+      "original_boxes": {
+        "T1": 3290,
+        "T0": 1116,
+        "T3": 245
+      },
+      "elapsed_seconds": 6.089249558997835,
+      "reason": null,
+      "proposal_sha256": "7fbfaaf662169fda82b1aaf47fda77d20f72b792c6858f9aee06d79461527ccf",
+      "facets": 151
+    },
+    {
+      "seed": 2709,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 20,
+      "certified_caps": 20,
+      "cap_kinds": {
+        "T1": 17,
+        "T3": 2,
+        "T0": 1
+      },
+      "original_boxes": {
+        "T1": 5346,
+        "T0": 228,
+        "T3": 1417
+      },
+      "elapsed_seconds": 3.7774109659985697,
+      "reason": null,
+      "proposal_sha256": "f1aed9f2b762d4e5c15ac75d15c2487573901010479b1a4649780e0a1cb1d1aa",
+      "facets": 72
+    },
+    {
+      "seed": 2711,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 52,
+      "certified_caps": 52,
+      "cap_kinds": {
+        "T3": 7,
+        "T1": 43,
+        "T0": 2
+      },
+      "original_boxes": {
+        "T1": 5402,
+        "T0": 422,
+        "T3": 2424
+      },
+      "elapsed_seconds": 8.905119650997221,
+      "reason": null,
+      "proposal_sha256": "b41e51eeebad1291fb5f11c0279241bd6f0c090e7e36a071000c5771f29a6304",
+      "facets": 239
+    },
+    {
+      "seed": 2712,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 41,
+      "certified_caps": 41,
+      "cap_kinds": {
+        "T1": 40,
+        "T3": 1
+      },
+      "original_boxes": {
+        "T1": 10058,
+        "T0": 180,
+        "T3": 853
+      },
+      "elapsed_seconds": 3.5721285619983973,
+      "reason": null,
+      "proposal_sha256": "97fa1e10386ff579c54ad353ab84d265ad3e6b3a64ed748360206da6db93d80a",
+      "facets": 182
+    },
+    {
+      "seed": 2713,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 25,
+      "certified_caps": 25,
+      "cap_kinds": {
+        "T1": 22,
+        "T3": 3
+      },
+      "original_boxes": {
+        "T1": 5509,
+        "T3": 2247
+      },
+      "elapsed_seconds": 3.390993773999071,
+      "reason": null,
+      "proposal_sha256": "715bbc208b8cc0a400f18d5b3274536e3c6fcd1fc95af7471616d8087d225bb6",
+      "facets": 94
+    },
+    {
+      "seed": 2714,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 13,
+      "certified_caps": 13,
+      "cap_kinds": {
+        "T1": 8,
+        "T3": 5
+      },
+      "original_boxes": {
+        "T1": 2566,
+        "T0": 86,
+        "T3": 7057
+      },
+      "elapsed_seconds": 6.280679385999974,
+      "reason": null,
+      "proposal_sha256": "590baba1bb02ac7c02d1b0f050a76e33406b88beb473bceb55165d0fbddff0ff",
+      "facets": 43
+    },
+    {
+      "seed": 2715,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 66,
+      "certified_caps": 66,
+      "cap_kinds": {
+        "T1": 60,
+        "T3": 6
+      },
+      "original_boxes": {
+        "T1": 9993,
+        "T0": 116,
+        "T3": 1857
+      },
+      "elapsed_seconds": 4.2398014569989755,
+      "reason": null,
+      "proposal_sha256": "09b1a9fc5546c48b7412c29c66a7efe6277c72507ee5a669fe3ce74777ee0164",
+      "facets": 311
+    },
+    {
+      "seed": 2716,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 19,
+      "certified_caps": 19,
+      "cap_kinds": {
+        "T3": 3,
+        "T0": 2,
+        "T1": 14
+      },
+      "original_boxes": {
+        "T1": 3481,
+        "T0": 463,
+        "T3": 2844
+      },
+      "elapsed_seconds": 2.706493297002453,
+      "reason": null,
+      "proposal_sha256": "1f84a50730d57c5c9e4110de9670ef6f0e3620a75ea0598f69c02b3c87d38898",
+      "facets": 67
+    },
+    {
+      "seed": 2717,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 52,
+      "certified_caps": 52,
+      "cap_kinds": {
+        "T1": 40,
+        "T0": 8,
+        "T3": 4
+      },
+      "original_boxes": {
+        "T0": 2124,
+        "T1": 5905,
+        "T3": 743
+      },
+      "elapsed_seconds": 3.0739209729981667,
+      "reason": null,
+      "proposal_sha256": "0092e45936f29b469e821344b4ce2860d5c8f4c2c0f024f464d19be1dcec7f7b",
+      "facets": 234
+    },
+    {
+      "seed": 2718,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 29,
+      "certified_caps": 29,
+      "cap_kinds": {
+        "T1": 26,
+        "T0": 2,
+        "T3": 1
+      },
+      "original_boxes": {
+        "T1": 5357,
+        "T0": 298,
+        "T3": 1259
+      },
+      "elapsed_seconds": 6.144201865001378,
+      "reason": null,
+      "proposal_sha256": "c0434b6fc2796c0a086a2e9cb5753d9ad318a73400121c3b596b90e671102b82",
+      "facets": 114
+    },
+    {
+      "seed": 2719,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 40,
+      "certified_caps": 40,
+      "cap_kinds": {
+        "T1": 33,
+        "T0": 3,
+        "T3": 4
+      },
+      "original_boxes": {
+        "T1": 4343,
+        "T0": 1171,
+        "T3": 833
+      },
+      "elapsed_seconds": 3.4229383339989,
+      "reason": null,
+      "proposal_sha256": "086940f9676cc7d694729d6c0a911aa97724aa9bfcf943b337d9f548b3079fb4",
+      "facets": 170
+    },
+    {
+      "seed": 2720,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 38,
+      "certified_caps": 38,
+      "cap_kinds": {
+        "T3": 11,
+        "T0": 3,
+        "T1": 24
+      },
+      "original_boxes": {
+        "T1": 4479,
+        "T0": 1404,
+        "T3": 3628
+      },
+      "elapsed_seconds": 8.001972321999347,
+      "reason": null,
+      "proposal_sha256": "74fc45a60225553717ed8d8e6554b3c97f3b31aad00b519ac8d3a27b620764ed",
+      "facets": 172
+    },
+    {
+      "seed": 2721,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 27,
+      "certified_caps": 27,
+      "cap_kinds": {
+        "T1": 19,
+        "T0": 3,
+        "T3": 5
+      },
+      "original_boxes": {
+        "T0": 855,
+        "T1": 4619,
+        "T3": 3515
+      },
+      "elapsed_seconds": 3.6977971639971656,
+      "reason": null,
+      "proposal_sha256": "ccc3811756963d3e0a6246f13cb7d4504e3947f60d10b32768907caf96b287b8",
+      "facets": 108
+    },
+    {
+      "seed": 2722,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 18,
+      "certified_caps": 18,
+      "cap_kinds": {
+        "T1": 11,
+        "T0": 6,
+        "T3": 1
+      },
+      "original_boxes": {
+        "T0": 1088,
+        "T1": 2939,
+        "T3": 96
+      },
+      "elapsed_seconds": 2.7002805070005707,
+      "reason": null,
+      "proposal_sha256": "5ecd08c78b6d3abd9adce58b1ebc5333769ec8fa30f61da63d3fa45c9233ac8c",
+      "facets": 62
+    },
+    {
+      "seed": 2723,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 24,
+      "certified_caps": 24,
+      "cap_kinds": {
+        "T3": 2,
+        "T1": 21,
+        "T0": 1
+      },
+      "original_boxes": {
+        "T1": 3731,
+        "T0": 630,
+        "T3": 2316
+      },
+      "elapsed_seconds": 6.059230552000372,
+      "reason": null,
+      "proposal_sha256": "cf9a144db1df24f34895cb0dcaca129edd9c380bb94bdebfcb8691d3af8e7045",
+      "facets": 83
+    },
+    {
+      "seed": 2725,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 11,
+      "certified_caps": 11,
+      "cap_kinds": {
+        "T1": 7,
+        "T0": 1,
+        "T3": 3
+      },
+      "original_boxes": {
+        "T1": 5375,
+        "T0": 422,
+        "T3": 2080
+      },
+      "elapsed_seconds": 3.253589962998376,
+      "reason": null,
+      "proposal_sha256": "4953fbbeb0e3bb30d74a41c888dc238009f55cecb78576c0132eb65f8f268819",
+      "facets": 30
+    },
+    {
+      "seed": 2726,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 51,
+      "certified_caps": 51,
+      "cap_kinds": {
+        "T3": 11,
+        "T0": 5,
+        "T1": 35
+      },
+      "original_boxes": {
+        "T1": 3774,
+        "T0": 781,
+        "T3": 2638
+      },
+      "elapsed_seconds": 4.5406841580006585,
+      "reason": null,
+      "proposal_sha256": "3bdb2d093e9533292a7301402dc7f2fa7d118791073508b5bc0ebe47a5bc2bc8",
+      "facets": 229
+    },
+    {
+      "seed": 2727,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 19,
+      "certified_caps": 19,
+      "cap_kinds": {
+        "T3": 2,
+        "T1": 16,
+        "T0": 1
+      },
+      "original_boxes": {
+        "T1": 3035,
+        "T0": 239,
+        "T3": 2053
+      },
+      "elapsed_seconds": 5.226210895001714,
+      "reason": null,
+      "proposal_sha256": "e9928c4d24caca3dd9c1dbd64103d7e24c23d0016b5cc81b434279e5bd24db87",
+      "facets": 66
+    },
+    {
+      "seed": 2728,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 39,
+      "certified_caps": 39,
+      "cap_kinds": {
+        "T3": 11,
+        "T1": 27,
+        "T0": 1
+      },
+      "original_boxes": {
+        "T1": 4016,
+        "T0": 155,
+        "T3": 3899
+      },
+      "elapsed_seconds": 4.262065955001162,
+      "reason": null,
+      "proposal_sha256": "39a945342d3a0e1088c78637667656277c7ac5f17adf4385ec499c4af0382d0a",
+      "facets": 168
+    },
+    {
+      "seed": 2729,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 16,
+      "certified_caps": 16,
+      "cap_kinds": {
+        "T1": 15,
+        "T3": 1
+      },
+      "original_boxes": {
+        "T1": 1930,
+        "T0": 138,
+        "T3": 105
+      },
+      "elapsed_seconds": 2.250525445000676,
+      "reason": null,
+      "proposal_sha256": "cb8d76dfd73025a850cb048d6e63c739d90b0e2bc843a009aa5a56f08f57e103",
+      "facets": 52
+    },
+    {
+      "seed": 2730,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 16,
+      "certified_caps": 16,
+      "cap_kinds": {
+        "T1": 14,
+        "T0": 1,
+        "T3": 1
+      },
+      "original_boxes": {
+        "T1": 1885,
+        "T0": 193,
+        "T3": 121
+      },
+      "elapsed_seconds": 4.915443530997436,
+      "reason": null,
+      "proposal_sha256": "cdf5abe3bd9d6a8be277aa6e4a7faee57204ec54242efdbc0b7299477d55e2c8",
+      "facets": 50
+    },
+    {
+      "seed": 2731,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 22,
+      "certified_caps": 22,
+      "cap_kinds": {
+        "T1": 21,
+        "T3": 1
+      },
+      "original_boxes": {
+        "T1": 3356,
+        "T3": 63
+      },
+      "elapsed_seconds": 2.3115060929994797,
+      "reason": null,
+      "proposal_sha256": "868da6bf7436f0420c9f394d92613043b29e0c803c11723cae0d8e91a4642a48",
+      "facets": 85
+    },
+    {
+      "seed": 2732,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 21,
+      "certified_caps": 21,
+      "cap_kinds": {
+        "T1": 21
+      },
+      "original_boxes": {
+        "T1": 1852,
+        "T3": 58
+      },
+      "elapsed_seconds": 2.867513097000483,
+      "reason": null,
+      "proposal_sha256": "4ad54d550aaf512f75cdd1ee0f389ddaae5a600a5dafdb2ed72ba2df95c47381",
+      "facets": 78
+    },
+    {
+      "seed": 2733,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 16,
+      "certified_caps": 16,
+      "cap_kinds": {
+        "T1": 15,
+        "T3": 1
+      },
+      "original_boxes": {
+        "T1": 1938,
+        "T3": 103
+      },
+      "elapsed_seconds": 5.12139650500103,
+      "reason": null,
+      "proposal_sha256": "b7fd8ba10895d8dd8bf41660964aed9440aa8416dd1ddaa11230badef9ec632a",
+      "facets": 50
+    },
+    {
+      "seed": 2734,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 57,
+      "certified_caps": 57,
+      "cap_kinds": {
+        "T1": 56,
+        "T3": 1
+      },
+      "original_boxes": {
+        "T1": 11009,
+        "T3": 206
+      },
+      "elapsed_seconds": 3.105114705002052,
+      "reason": null,
+      "proposal_sha256": "e8dbbedb9c0237452096b497a15f19f55ad77b51a063330ff7ae46b15c368d97",
+      "facets": 273
+    },
+    {
+      "seed": 2735,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 24,
+      "certified_caps": 24,
+      "cap_kinds": {
+        "T1": 23,
+        "T3": 1
+      },
+      "original_boxes": {
+        "T1": 2844,
+        "T3": 78
+      },
+      "elapsed_seconds": 3.242982600000687,
+      "reason": null,
+      "proposal_sha256": "e7edb8b93f039f4277be05f82054295897c29b83ec9ebd9b999bba5b60d28237",
+      "facets": 93
+    },
+    {
+      "seed": 2736,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 17,
+      "certified_caps": 17,
+      "cap_kinds": {
+        "T0": 4,
+        "T1": 12,
+        "T3": 1
+      },
+      "original_boxes": {
+        "T1": 1277,
+        "T0": 739,
+        "T3": 74
+      },
+      "elapsed_seconds": 5.576813976000267,
+      "reason": null,
+      "proposal_sha256": "5c204a19ca5d6a60ce94ae225d9339210b4a860177c926befe2e37de0eeadddf",
+      "facets": 58
+    },
+    {
+      "seed": 2737,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 17,
+      "certified_caps": 17,
+      "cap_kinds": {
+        "T1": 16,
+        "T3": 1
+      },
+      "original_boxes": {
+        "T1": 3833,
+        "T3": 40
+      },
+      "elapsed_seconds": 2.2918575960029557,
+      "reason": null,
+      "proposal_sha256": "2069b479b1bfca191da9e30ae8c9d9de47647bd953123fbd8d3ac6a7846e3ed8",
+      "facets": 56
+    },
+    {
+      "seed": 2738,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 18,
+      "certified_caps": 18,
+      "cap_kinds": {
+        "T1": 15,
+        "T0": 2,
+        "T3": 1
+      },
+      "original_boxes": {
+        "T1": 2683,
+        "T0": 339,
+        "T3": 54
+      },
+      "elapsed_seconds": 8.260105932000442,
+      "reason": null,
+      "proposal_sha256": "1bf05d567f3ad6fda6b6a9df441e96bc2eddd3ede56cf54881cdc7c7b551c8ea",
+      "facets": 61
+    },
+    {
+      "seed": 2739,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 16,
+      "certified_caps": 16,
+      "cap_kinds": {
+        "T1": 15,
+        "T3": 1
+      },
+      "original_boxes": {
+        "T1": 1897,
+        "T3": 125
+      },
+      "elapsed_seconds": 2.3426854550016287,
+      "reason": null,
+      "proposal_sha256": "73656c187648477cc62ea8ed9979f8f1673c0f922b2711d3bf0dc84b2556a9cd",
+      "facets": 52
+    },
+    {
+      "seed": 2740,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 17,
+      "certified_caps": 17,
+      "cap_kinds": {
+        "T1": 16,
+        "T3": 1
+      },
+      "original_boxes": {
+        "T1": 1968,
+        "T3": 108
+      },
+      "elapsed_seconds": 3.265142571999604,
+      "reason": null,
+      "proposal_sha256": "81040613b943b269e776c9c6bb57f6aa54d37fe037a207fd58ad8a6f8f8da236",
+      "facets": 55
+    },
+    {
+      "seed": 2741,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 56,
+      "certified_caps": 56,
+      "cap_kinds": {
+        "T1": 55,
+        "T3": 1
+      },
+      "original_boxes": {
+        "T1": 3796,
+        "T3": 150
+      },
+      "elapsed_seconds": 9.426948031999927,
+      "reason": null,
+      "proposal_sha256": "aec6a6ec609c844658bdf4419c1ed38343e5bba7267429132eee9c80249df2b0",
+      "facets": 272
+    },
+    {
+      "seed": 2742,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 16,
+      "certified_caps": 16,
+      "cap_kinds": {
+        "T1": 15,
+        "T3": 1
+      },
+      "original_boxes": {
+        "T1": 4065,
+        "T3": 68
+      },
+      "elapsed_seconds": 8.66399702900162,
+      "reason": null,
+      "proposal_sha256": "9b96743dd28ebf43facd8c28d09dac70a56043afdc3670aa020df1b4d567fb77",
+      "facets": 53
+    },
+    {
+      "seed": 2743,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 20,
+      "certified_caps": 20,
+      "cap_kinds": {
+        "T1": 19,
+        "T3": 1
+      },
+      "original_boxes": {
+        "T1": 5128,
+        "T3": 79
+      },
+      "elapsed_seconds": 9.340438066999923,
+      "reason": null,
+      "proposal_sha256": "e30e8a87a7e13eccd3f9e93c228926c814e8a44b0103e0780e3b06eb11a9a104",
+      "facets": 74
+    },
+    {
+      "seed": 2744,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 17,
+      "certified_caps": 17,
+      "cap_kinds": {
+        "T1": 16,
+        "T3": 1
+      },
+      "original_boxes": {
+        "T1": 1900,
+        "T3": 99
+      },
+      "elapsed_seconds": 5.531230943000992,
+      "reason": null,
+      "proposal_sha256": "cbc3f378e52b223ea6bb1d8edd72a8b08a70cc820cc2cb86acbaf5a6cddbac80",
+      "facets": 55
+    },
+    {
+      "seed": 2745,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 19,
+      "certified_caps": 19,
+      "cap_kinds": {
+        "T1": 18,
+        "T3": 1
+      },
+      "original_boxes": {
+        "T1": 6672,
+        "T3": 100
+      },
+      "elapsed_seconds": 6.710453714000323,
+      "reason": null,
+      "proposal_sha256": "f91133aa085ce5e4c63db19043b46bf85db761d54d5c4690b8d2c3ae19551047",
+      "facets": 69
+    },
+    {
+      "seed": 2746,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 17,
+      "certified_caps": 17,
+      "cap_kinds": {
+        "T1": 16,
+        "T3": 1
+      },
+      "original_boxes": {
+        "T1": 1825,
+        "T3": 74
+      },
+      "elapsed_seconds": 8.030105808997178,
+      "reason": null,
+      "proposal_sha256": "d20af0b484844815d3a547ea026ae35df93fbb01165efc0d16305da36b132d02",
+      "facets": 57
+    },
+    {
+      "seed": 2747,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 6,
+      "certified_caps": 6,
+      "cap_kinds": {
+        "T3": 5,
+        "T1": 1
+      },
+      "original_boxes": {
+        "T1": 2404,
+        "T3": 12827
+      },
+      "elapsed_seconds": 5.672863077998045,
+      "reason": null,
+      "proposal_sha256": "acde32d639ebc959c55622677d5abf057e846d61d5a9428bae62964961219c05",
+      "facets": 8
+    },
+    {
+      "seed": 2748,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 11,
+      "certified_caps": 11,
+      "cap_kinds": {
+        "T3": 6,
+        "T1": 5
+      },
+      "original_boxes": {
+        "T1": 7817,
+        "T3": 3717
+      },
+      "elapsed_seconds": 7.751734151999699,
+      "reason": null,
+      "proposal_sha256": "cc2ff2cc1b050593497b5e51a04a5d312db0145b733cfef370691961fcbc005d",
+      "facets": 29
+    },
+    {
+      "seed": 2749,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 19,
+      "certified_caps": 19,
+      "cap_kinds": {
+        "T1": 18,
+        "T3": 1
+      },
+      "original_boxes": {
+        "T1": 2714,
+        "T3": 37
+      },
+      "elapsed_seconds": 6.550319081001362,
+      "reason": null,
+      "proposal_sha256": "751245212554f3812163b6062d22a9e1db85f7ba43619256d555e2c631fecfde",
+      "facets": 71
+    },
+    {
+      "seed": 2750,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 17,
+      "certified_caps": 17,
+      "cap_kinds": {
+        "T1": 16,
+        "T3": 1
+      },
+      "original_boxes": {
+        "T1": 6261,
+        "T3": 89
+      },
+      "elapsed_seconds": 11.56274949499857,
+      "reason": null,
+      "proposal_sha256": "a0c5aea79879b1d666fa26c4e2efff5e29e970d2c016ccecb49b0793da34c7b8",
+      "facets": 57
+    },
+    {
+      "seed": 2751,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 36,
+      "certified_caps": 36,
+      "cap_kinds": {
+        "T3": 19,
+        "T1": 17
+      },
+      "original_boxes": {
+        "T1": 7195,
+        "T0": 38,
+        "T3": 7274
+      },
+      "elapsed_seconds": 10.186378444999718,
+      "reason": null,
+      "proposal_sha256": "d5fd8db78188ea59b1f71ec294c00fbfc645d5b4a7c17e95331ef78978fdfd2e",
+      "facets": 165
+    },
+    {
+      "seed": 2752,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 12,
+      "certified_caps": 12,
+      "cap_kinds": {
+        "T1": 11,
+        "T3": 1
+      },
+      "original_boxes": {
+        "T1": 1681,
+        "T3": 104
+      },
+      "elapsed_seconds": 5.020182010001008,
+      "reason": null,
+      "proposal_sha256": "efa7c188981cbbf09bf227d026e00c402dac480201961c5aa047d40ed946c56b",
+      "facets": 33
+    },
+    {
+      "seed": 2753,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 15,
+      "certified_caps": 15,
+      "cap_kinds": {
+        "T1": 14,
+        "T3": 1
+      },
+      "original_boxes": {
+        "T1": 1729,
+        "T3": 61
+      },
+      "elapsed_seconds": 5.574974487000873,
+      "reason": null,
+      "proposal_sha256": "b0c7ee2a472f9090f0d7ac2568462e92b6fc7ff5569aeec08a2b736eed156ba0",
+      "facets": 46
+    },
+    {
+      "seed": 2754,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 19,
+      "certified_caps": 19,
+      "cap_kinds": {
+        "T1": 18,
+        "T3": 1
+      },
+      "original_boxes": {
+        "T1": 2437,
+        "T3": 57
+      },
+      "elapsed_seconds": 10.156801258999621,
+      "reason": null,
+      "proposal_sha256": "013b55e2fb8f8f62892e915c63bb584e77a9621be8872ead3ead394d8ee39f2d",
+      "facets": 67
+    },
+    {
+      "seed": 2755,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 19,
+      "certified_caps": 19,
+      "cap_kinds": {
+        "T1": 18,
+        "T3": 1
+      },
+      "original_boxes": {
+        "T1": 5177,
+        "T3": 100
+      },
+      "elapsed_seconds": 5.934755886999483,
+      "reason": null,
+      "proposal_sha256": "9841120e66f6446296dcd8e40bad989ea807021495737e5c9eb562bb4c6b4c02",
+      "facets": 68
+    },
+    {
+      "seed": 2756,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 14,
+      "certified_caps": 14,
+      "cap_kinds": {
+        "T1": 13,
+        "T3": 1
+      },
+      "original_boxes": {
+        "T1": 1577,
+        "T3": 129
+      },
+      "elapsed_seconds": 4.757408090001263,
+      "reason": null,
+      "proposal_sha256": "c73aba57c2f9d35859b91735155926b62ec6c8b3b15aca1588bcac099e863026",
+      "facets": 44
+    },
+    {
+      "seed": 2757,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 13,
+      "certified_caps": 13,
+      "cap_kinds": {
+        "T1": 12,
+        "T3": 1
+      },
+      "original_boxes": {
+        "T1": 2977,
+        "T3": 88
+      },
+      "elapsed_seconds": 6.486305009999342,
+      "reason": null,
+      "proposal_sha256": "46456c13387945806386a134074610cef8d3b7573b4da5922bb2f78b16bbc806",
+      "facets": 39
+    },
+    {
+      "seed": 2758,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 21,
+      "certified_caps": 21,
+      "cap_kinds": {
+        "T1": 19,
+        "T3": 2
+      },
+      "original_boxes": {
+        "T1": 4958,
+        "T3": 75
+      },
+      "elapsed_seconds": 3.177698120001878,
+      "reason": null,
+      "proposal_sha256": "e8e1c09955421fe3eeac94ef4acb46e0fece151cc3c8088d75fd80926bce047c",
+      "facets": 78
+    },
+    {
+      "seed": 2759,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 62,
+      "certified_caps": 62,
+      "cap_kinds": {
+        "T1": 61,
+        "T3": 1
+      },
+      "original_boxes": {
+        "T1": 10506,
+        "T3": 123
+      },
+      "elapsed_seconds": 5.856502093000017,
+      "reason": null,
+      "proposal_sha256": "d02d3d14af464e7f6185514c3240be9f4d02f22b19157b67838f3f41464293c2",
+      "facets": 314
+    },
+    {
+      "seed": 2760,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 7,
+      "certified_caps": 7,
+      "cap_kinds": {
+        "T1": 4,
+        "T3": 3
+      },
+      "original_boxes": {
+        "T1": 5573,
+        "T3": 2332
+      },
+      "elapsed_seconds": 8.17104566800117,
+      "reason": null,
+      "proposal_sha256": "472a19ed7714c29ec86be09a7e427abe514fd17243b4c1787fe3a5c18566d734",
+      "facets": 13
+    },
+    {
+      "seed": 2761,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 42,
+      "certified_caps": 42,
+      "cap_kinds": {
+        "T1": 41,
+        "T3": 1
+      },
+      "original_boxes": {
+        "T1": 11291,
+        "T3": 119
+      },
+      "elapsed_seconds": 5.326839661996928,
+      "reason": null,
+      "proposal_sha256": "26623562ffe0fabe5383341ae00d4027a0ece551f1fb6631484c2c8cedaee9af",
+      "facets": 188
+    },
+    {
+      "seed": 2762,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 5,
+      "certified_caps": 5,
+      "cap_kinds": {
+        "T3": 5
+      },
+      "original_boxes": {
+        "T1": 4647,
+        "T3": 9378
+      },
+      "elapsed_seconds": 2.159276160000445,
+      "reason": null,
+      "proposal_sha256": "5d5ab66608d83b492fcb61c2fe0527500164ecf8291332f017ec7f1a6c49c190",
+      "facets": 5
+    },
+    {
+      "seed": 2763,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 6,
+      "certified_caps": 6,
+      "cap_kinds": {
+        "T3": 5,
+        "T1": 1
+      },
+      "original_boxes": {
+        "T1": 4781,
+        "T3": 9084
+      },
+      "elapsed_seconds": 2.27826769999956,
+      "reason": null,
+      "proposal_sha256": "03514f5d5738462554ce24a409e09c0b26a54efe0d7caa0c841094b8441cad63",
+      "facets": 9
+    },
+    {
+      "seed": 2764,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 6,
+      "certified_caps": 6,
+      "cap_kinds": {
+        "T3": 4,
+        "T1": 2
+      },
+      "original_boxes": {
+        "T1": 4658,
+        "T3": 8520
+      },
+      "elapsed_seconds": 2.924734879998141,
+      "reason": null,
+      "proposal_sha256": "262a75a202e7cb554c64dfda8a697e37f2f2c3cfc2f1be3735652fb481d496bc",
+      "facets": 8
+    },
+    {
+      "seed": 2765,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 18,
+      "certified_caps": 18,
+      "cap_kinds": {
+        "T1": 14,
+        "T3": 4
+      },
+      "original_boxes": {
+        "T1": 3775,
+        "T3": 3130
+      },
+      "elapsed_seconds": 5.116547834000812,
+      "reason": null,
+      "proposal_sha256": "d8305d905e5a41d306f29ef46c3a987ce53cee8a45495964f2aeb3ab5f1b0798",
+      "facets": 64
+    },
+    {
+      "seed": 2766,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 27,
+      "certified_caps": 27,
+      "cap_kinds": {
+        "T3": 6,
+        "T1": 21
+      },
+      "original_boxes": {
+        "T1": 8517,
+        "T0": 36,
+        "T3": 2171
+      },
+      "elapsed_seconds": 3.435585005001485,
+      "reason": null,
+      "proposal_sha256": "b35a2f838e628c7c750f1cb356a1f3e37e3ed0e1d77ebd160d78394e7c4fc5c6",
+      "facets": 107
+    },
+    {
+      "seed": 2767,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 23,
+      "certified_caps": 23,
+      "cap_kinds": {
+        "T3": 15,
+        "T1": 8
+      },
+      "original_boxes": {
+        "T1": 5281,
+        "T0": 54,
+        "T3": 8505
+      },
+      "elapsed_seconds": 3.8882039260024612,
+      "reason": null,
+      "proposal_sha256": "c0ce794a898967ae17dc92a848b0d83bf73c30676bb1781cbf60a3727eb3ae80",
+      "facets": 97
+    },
+    {
+      "seed": 2768,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 31,
+      "certified_caps": 31,
+      "cap_kinds": {
+        "T3": 9,
+        "T1": 22
+      },
+      "original_boxes": {
+        "T1": 8749,
+        "T3": 2335
+      },
+      "elapsed_seconds": 11.467451748001622,
+      "reason": null,
+      "proposal_sha256": "a145f0b914198e7309a6d4b7b5786eb08041211c99cb64ed88076d7d5803e0f8",
+      "facets": 130
+    },
+    {
+      "seed": 2769,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 16,
+      "certified_caps": 16,
+      "cap_kinds": {
+        "T3": 10,
+        "T1": 6
+      },
+      "original_boxes": {
+        "T1": 5488,
+        "T3": 8044
+      },
+      "elapsed_seconds": 4.208389064002404,
+      "reason": null,
+      "proposal_sha256": "be5c40e5bf37bc4b8080f2175b5f883888f730bde095c234a0af937c029f817f",
+      "facets": 53
+    },
+    {
+      "seed": 2770,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 27,
+      "certified_caps": 27,
+      "cap_kinds": {
+        "T3": 8,
+        "T1": 19
+      },
+      "original_boxes": {
+        "T1": 7761,
+        "T3": 1993
+      },
+      "elapsed_seconds": 4.8777964930013695,
+      "reason": null,
+      "proposal_sha256": "9133bfc7320784fc1ceae19bedd170c30b66f85442a981cf81e0a3ce0b8045a0",
+      "facets": 114
+    },
+    {
+      "seed": 2771,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 16,
+      "certified_caps": 16,
+      "cap_kinds": {
+        "T3": 10,
+        "T1": 6
+      },
+      "original_boxes": {
+        "T1": 5488,
+        "T3": 8044
+      },
+      "elapsed_seconds": 4.213526562998595,
+      "reason": null,
+      "proposal_sha256": "de5dd1e8d32cb68f6c87908f66e677452f4be6c75f5e6291a664b844283644ec",
+      "facets": 53
+    },
+    {
+      "seed": 2772,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 5,
+      "certified_caps": 5,
+      "cap_kinds": {
+        "T3": 4,
+        "T1": 1
+      },
+      "original_boxes": {
+        "T1": 4561,
+        "T0": 1,
+        "T3": 4212
+      },
+      "elapsed_seconds": 3.326075271001173,
+      "reason": null,
+      "proposal_sha256": "7e30460bdbd1e26dd5d3629e9211b34ca4057ea19a644a67091855b172744f55",
+      "facets": 5
+    },
+    {
+      "seed": 2773,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 6,
+      "certified_caps": 6,
+      "cap_kinds": {
+        "T3": 4,
+        "T1": 2
+      },
+      "original_boxes": {
+        "T1": 4259,
+        "T3": 4235
+      },
+      "elapsed_seconds": 4.2699806739983615,
+      "reason": null,
+      "proposal_sha256": "06bf66c40bd634b34a777020a0f2a8744321f3a6aeefcf5b23e804eb1fd85629",
+      "facets": 9
+    },
+    {
+      "seed": 2774,
+      "status": "CERTIFIED full sphere",
+      "full_sphere": true,
+      "caps": 6,
+      "certified_caps": 6,
+      "cap_kinds": {
+        "T3": 4,
+        "T1": 2
+      },
+      "original_boxes": {
+        "T1": 4259,
+        "T3": 4235
+      },
+      "elapsed_seconds": 2.409764259999065,
+      "reason": null,
+      "proposal_sha256": "4acd48ab9c6a1a0e0eb285330be9278fa704f731d67ff6362859106ce7a72314",
+      "facets": 9
+    }
+  ],
+  "scope": "Geometric cap transfers and exact full-sphere coverage. Conditional on the supplied matched-completion germ and W/XS chart theorem. Does not replay the complete atlas or prove the global MUB theorem."
+}

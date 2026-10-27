@@ -1,0 +1,86 @@
+{
+  "status": "NUMERICAL timing observations",
+  "notes": [
+    "Timing values are measurements, not interval certificates.",
+    "Interrupted phase values stop at the retained checkpoint and do not claim a complete total including discarded tails.",
+    "Construction proposals never determine mathematical acceptance; the frozen certificate is replayed independently.",
+    "Bulk group construction and the weighted refit have cumulative timings covering their resumed runs."
+  ],
+  "bulk_groups": {
+    "groups": 16100,
+    "seconds": 181.96122858799936,
+    "completed": true
+  },
+  "weighted_refit": {
+    "groups": 16100,
+    "seconds": 387.9708377419993,
+    "completed": true,
+    "failures": 0
+  },
+  "adaptive_and_exploratory_phases": [
+    {
+      "log": "construction.log",
+      "description": "exploratory interrupted checkpoint",
+      "recorded_seconds": 206.26804920599898,
+      "event": "progress",
+      "cap_count": 101,
+      "interpretation": "Measured wall time through the retained last log checkpoint; discarded work after interrupted checkpoints is not included."
+    },
+    {
+      "log": "fast_construction.log",
+      "description": "exploratory interrupted checkpoint",
+      "recorded_seconds": 96.24057059699771,
+      "event": "progress",
+      "cap_count": 509,
+      "interpretation": "Measured wall time through the retained last log checkpoint; discarded work after interrupted checkpoints is not included."
+    },
+    {
+      "log": "fast_construction_shifted.log",
+      "description": "exploratory interrupted checkpoint",
+      "recorded_seconds": 80.1706406810008,
+      "event": "progress",
+      "cap_count": 725,
+      "interpretation": "Measured wall time through the retained last log checkpoint; discarded work after interrupted checkpoints is not included."
+    },
+    {
+      "log": "fast_construction_parallel.log",
+      "description": "exploratory interrupted checkpoint",
+      "recorded_seconds": 111.78989595899839,
+      "event": "progress",
+      "cap_count": 1008,
+      "interpretation": "Measured wall time through the retained last log checkpoint; discarded work after interrupted checkpoints is not included."
+    },
+    {
+      "log": "final_construction.log",
+      "description": "basic adaptive interrupted checkpoint",
+      "recorded_seconds": 263.6505512190015,
+      "event": "progress",
+      "cap_count": 17980,
+      "interpretation": "Measured wall time through the retained last log checkpoint; discarded work after interrupted checkpoints is not included."
+    },
+    {
+      "log": "weighted_final_construction.log",
+      "description": "weighted adaptive interrupted checkpoint",
+      "recorded_seconds": 144.9518011399996,
+      "event": "progress",
+      "cap_count": 18859,
+      "interpretation": "Measured wall time through the retained last log checkpoint; discarded work after interrupted checkpoints is not included."
+    },
+    {
+      "log": "weighted_final_construction_resume.log",
+      "description": "weighted adaptive interrupted checkpoint",
+      "recorded_seconds": 21.647524627001985,
+      "event": "progress",
+      "cap_count": 19050,
+      "interpretation": "Measured wall time through the retained last log checkpoint; discarded work after interrupted checkpoints is not included."
+    },
+    {
+      "log": "weighted_final_construction_finish.log",
+      "description": "weighted adaptive completed final phase",
+      "recorded_seconds": 113.98780651900233,
+      "event": "done",
+      "cap_count": 20082,
+      "interpretation": "Measured wall time through the retained last log checkpoint; discarded work after interrupted checkpoints is not included."
+    }
+  ]
+}

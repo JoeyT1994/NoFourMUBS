@@ -1,0 +1,75 @@
+{
+  "direct": {
+    "passed": true,
+    "caps": 512,
+    "facets": 3305,
+    "ridges": 6610,
+    "max_norm_squared": "45748412365630374864289414188513796640043033329452187648/147765209339809203140396630011300357698064638896024014801",
+    "max_norm_squared_float": 0.30960205429970156,
+    "worst_facet": 2383,
+    "boundary_vertices": 0,
+    "covers": true,
+    "strict_margin": true,
+    "support_method": "all-points",
+    "support_node_tests": 0,
+    "support_point_tests": 1692160,
+    "potential_support_point_tests": 1692160,
+    "seconds": 4.230545538997831
+  },
+  "bvh": {
+    "passed": true,
+    "caps": 512,
+    "facets": 3305,
+    "ridges": 6610,
+    "max_norm_squared": "45748412365630374864289414188513796640043033329452187648/147765209339809203140396630011300357698064638896024014801",
+    "max_norm_squared_float": 0.30960205429970156,
+    "worst_facet": 2383,
+    "boundary_vertices": 0,
+    "covers": true,
+    "strict_margin": true,
+    "support_method": "dyadic-bvh",
+    "support_node_tests": 164231,
+    "support_point_tests": 269776,
+    "potential_support_point_tests": 1692160,
+    "seconds": 1.278693148997263
+  },
+  "negative_tests": {
+    "support_violation": {
+      "direct": {
+        "passed": false,
+        "covers": false,
+        "error": "facet is not strict supporting simplex (or hull degenerate)",
+        "facet": 0,
+        "cap": 1,
+        "slack": -12795082039315654176155048634892347140915724373374083831
+      },
+      "bvh": {
+        "passed": false,
+        "covers": false,
+        "error": "facet is not strict supporting simplex (or hull degenerate)",
+        "facet": 0,
+        "cap": 1,
+        "slack": -12795082039315654176155048634892347140915724373374083831
+      }
+    },
+    "duplicate_point": {
+      "direct": {
+        "passed": false,
+        "covers": false,
+        "error": "facet is not strict supporting simplex (or hull degenerate)",
+        "facet": 0,
+        "cap": 511,
+        "slack": 0
+      },
+      "bvh": {
+        "passed": false,
+        "covers": false,
+        "error": "facet is not strict supporting simplex (or hull degenerate)",
+        "facet": 0,
+        "cap": 511,
+        "slack": 0
+      }
+    }
+  },
+  "status": "CERTIFIED exact cross-checks on numerical fixture"
+}
