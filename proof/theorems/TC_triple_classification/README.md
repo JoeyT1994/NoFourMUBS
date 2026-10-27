@@ -1,11 +1,20 @@
-# TC return: two local classification patches, Tao, and an explicit gap ledger
+# TC: a seed-ball classification method, local patches, and Tao
 
-**The global classification conjecture is NOT ESTABLISHED.** This return
-implements the brief's permitted fallback: proved local results, replayable
-certificates, and a precise account of what remains.
+**New: an actual four-coordinate seed ball is classified, including every
+possible third basis.** See [seed_method/README.md](seed_method/README.md).
+The certified ball has radius 0.00625 in seed 1879's original w frame,
+centred at an exact construction point and entirely contained in its
+original radius-0.063 ball. Its 120 column branches form ten possible
+third bases; all ten are proved to have continuous-construction type.
+
+**The full radius-0.063 ball and the global classification conjecture are
+NOT ESTABLISHED.** The new method uses a complete column cover and
+2-by-2 normal tests on the four seed variables. Its proof and source-bound
+replay receipt are in `seed_method/`.
 
 | Claim | Status | Checked domain |
 |---|---|---|
+| Every triple over a four-dimensional seed ball has continuous-construction type | **PROVED / CERTIFIED** | `||w-w_*|| <= 1/160`, inside native ball 1879; all K covered |
 | The tensor-product triple is locally unique | **PROVED / CERTIFIED** | All 55 gauged phases within 1/8192 radians of the exact anchor |
 | A two-circulant anchor has only continuous-construction neighbours | **PROVED / CERTIFIED** | All 55 gauged phases within 2^-20 radians of the exact anchor |
 | Tao cannot extend to a MUB triple | **PROVED / CERTIFIED** | Complete five-phase torus; all-Arb bin and edge decisions, exact clique search |
@@ -15,8 +24,9 @@ certificates, and a precise account of what remains.
 
 Read [PROOF.md](PROOF.md) for the statements, proofs, explicit analytic
 constants, sufficient cell certificate contract, and remaining obligations.
-The patches control **both H and K**; they do not classify every third
-basis over a seed cell. In particular, the isolated full triple has a
+The two older full-triple patches control **both H and K**; by themselves
+they do not classify every third basis over a seed cell. The new seed-ball
+receipt does include every K on its stated smaller ball. The isolated full triple has a
 rank-55 Jacobian, whereas the continuous anchor has rank 53. A common
 Fourier edge does not identify these full triples.
 
@@ -51,6 +61,8 @@ CPU with 4 GB requested memory. Submit it only inside the dedicated
 - `cells.py`: exact dyadic cell geometry and a deliberately unresolved global ledger.
 - `test_tc.py`: independent symbolic directional derivative checks, graph and
   enclosure tests, and rejection tests for singular/oversized/invalid inputs.
+- `seed_method/`: the whole-seed-ball method, complete all-column cover,
+  ten clique classifications, five additional tests, and precise domain.
 - `results/`: source-bound local receipts, Tao receipt, and atlas accounting.
 - `reference/`: the requested brief and a frozen snapshot of 28 research rows
   from replacement Rusty job 7346699, with per-file hashes and provenance.

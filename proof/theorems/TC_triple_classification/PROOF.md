@@ -1,8 +1,13 @@
 # TC: local classification patches and the remaining global obligation
 
 **NOT ESTABLISHED:** the classification conjecture, (L) for the entire atlas,
-and (L) for the entire X-ball. This return proves two concrete local patches
-and excludes Tao. It does not identify a counterexample.
+and (L) for the entire X-ball. The original results below prove two concrete
+local patches and exclude Tao. The subsequent
+[seed-ball theorem](seed_method/PROOF.md) proves (L) for an entire
+four-dimensional ball of radius 1/160 in the original seed coordinates,
+including **every** possible third basis. That ball is contained in seed
+ball 1879; it does not cover its full original radius 0.063. No
+counterexample has been identified.
 
 **PROVED, with CERTIFIED numerical hypotheses:** Theorems 1–3 below. The
 constants in Theorems 1–2 are replayed by `replay.py`; Theorem 3 by `tao.py`.

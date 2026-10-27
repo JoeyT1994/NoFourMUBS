@@ -1,8 +1,35 @@
 # TC validation record — 27 October 2026
 
-**PROVED / CERTIFIED scope:** the two local full-triple patches and Tao
+**PROVED / CERTIFIED scope:** the all-triples seed ball in
+`seed_method/PROOF.md`, the two earlier local full-triple patches and Tao
 exclusion in `PROOF.md`. **NOT ESTABLISHED:** classification on the full
 seed atlas or the X-ball. No counterexample has been certified.
+
+## Seed-ball extension
+
+The new receipt classifies `||w-w_*|| <= 1/160` in seed 1879's original
+w frame. Arb verifies both containment in its original radius-0.063 ball
+and identity with its native C1 branch. The complete torus cover leaves
+25,474 bins, all assigned to 120 certified unbiased-column branches. The
+600-edge graph has exactly ten six-cliques. All ten match exact
+construction anchors and pass the correlated 2-by-2 normal test, with
+q below 0.231. This is an all-K result on a four-dimensional H domain.
+
+All 13 source/input hashes in the new receipt were checked. Five new
+tests passed in 13 seconds. They include an independent matrix-expression
+implementation of the unbiasedness equations: at three interior seed
+points it certifies column roots and verifies both the normal remainder
+and its derivative bound. Other checks cover all ten gauge templates,
+every clique, missing-column rejection, oversized-domain rejection and
+graph-cap rejection. These are implementation checks, not an independent
+proof or formalization of the analytic theorem.
+
+The complete outer cover at the original radius is separately certified:
+28,213 retained bins, 515 labels and 31,579 six-cliques. Its six source
+hashes also match. **Those native-ball cliques remain unclassified.**
+The new smaller-ball receipt and the earlier full-triple patches do not
+resolve that obligation. The new replay was performed locally; the Rusty
+record below applies to the earlier results only.
 
 ## Replay evidence
 
