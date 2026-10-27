@@ -23,31 +23,33 @@ python3 proof/seed_atlas/cert/certify_seed_atlas.py proof/seed_atlas/results/see
 ```
 
 or `python3 verify.py --atlas -j N` from the repository root. A run checks, for every seed ball:
-- **C1:** return Z's whole-ball enclosure (Lemma 3.1), with the box method as fallback;
+- **C1:** return Z's whole-ball enclosure (Lemma 3.1), from cheap rank-0 or rank-4 constants (ZK2), with the box method
+  as fallback;
 - **Stage C** on that enclosure (Lemma 3.2);
-- every transfer box (Lemma 5.1) and the coverage of its sphere.
+- its sphere's transfers (Lemma 5.1): every cap (theorems ZC, and ZC2b for T3) and their exact coverage of the sphere,
+  or, for a sphere given by boxes, every box and their coverage.
 
 For the X-ball it checks:
-- its C1 (Krawczyk tubes of the edge chart);
+- its C1 (the edge chart's whole-ball model; Krawczyk tubes as fallback);
 - its image within 7/40 of F6 (Theorem 4.1);
-- its sphere's transfers.
+- its sphere's transfers: every cap (theorem ZC2a) and their coverage.
 
 It also checks Tao's record. A run over a subset (`--only`) never reports PASS.
 
 ## The certificate
 
-`results/seed_atlas_certificate.json.gz`: 41 MB, SHA-256 `72ec7013d0d253f7c1bbe181224733efa2826904d47da6ee896e6a09ca9610c4`.
-- 2,350 seed balls;
-- 11,706,691 boundary boxes (T0 2,411,969; T1 7,431,652; corner-symmetry T1 1,832,906; T3 30,164);
-- the X-ball (tangent radius 0.13, 1,183,840 sphere boxes; image within 0.142 of F6).
+`results/seed_atlas_certificate.json.gz`: 17 MB, SHA-256 `33ad9798eb7a5585c486f2427a6b223867a43b308b7f184467b4cd5956bd8baf`.
+- 2,775 seed balls (radii 0.015–0.125), every one with cheap C1 constants;
+- every sphere covered by caps, with no boxes: 97,780 seed caps (T0 13,519; T1 83,979; T3 282) and 19,611 X-ball
+  caps, with 550,347 exact coverage facets (index-only schema, FORMAT.md §8a);
+- the X-ball (tangent radius 0.13; image within 0.142 of F6).
 
 | Check | Result |
 |---|---|
-| Arb (`results/arb_receipt.json`, with its code binding: `python3 cert/check_binding.py`) | **PASS**, 0 failures in 2,814 items; 51 min on one 128-core node; seed-ball work 52 core-hours (C1 12, Stage C 20, transfers 21) |
-| Julia (`results/julia/`: `RESULT.txt`, `BINDING.txt` with the certificate's SHA-256, per-ball `seeds.tsv.gz`) | **PASS**, every check; 47 min on one 128-core node, with Stage C's clique-search budget `SEED_CLIQUE_CAP` = 2·10¹⁰ steps |
+| Arb (`results/arb_receipt.json`, with its code binding: `python3 cert/check_binding.py`) | **PASS**, 0 failures in 2,778 items; 33 min on one 128-core node; seed-ball work 25 core-hours (C1 0.5, Stage C 23, transfers 1.2) |
+| Julia (`results/julia/`: `RESULT.txt`, `BINDING.txt` with the certificate's SHA-256, per-ball `seeds.tsv.gz`) | **PASS**, every check; 2 h 53 min on one 128-core node: the seed balls in 79 min (8 shards of 16 threads), then the final run re-checked the X-ball's 19,611 caps in one process (91 min); caps in 256-bit intervals; Stage C's clique-search budget `SEED_CLIQUE_CAP` = 2·10¹¹ steps |
 
-T3 is checked by return XS (FORMAT.md section 8): the certificate's T3 groups carry the corner and three windings
-only. Transfers are checked by return ZT first (proof/theorems/ZT_wholeball_transfers): each box is tested against
-the ball's whole-ball quadratic model, with the box Taylor models as fallback; the X-ball's C1 is the edge whole-ball
-model in Arb (image within 0.1411 of F6; Julia, by Krawczyk tubes: 0.1418). Both certifiers also verify return ZC's spherical caps when a seed ball carries them (Julia in
-256-bit intervals); the present certificate has none.
+A cap {‖x‖ = 1, v·x ≥ h} is certified for a transfer by 5 × 5 positive-definite witnesses on the source ball's
+whole-ball model, and the caps of a sphere cover it by an exact polar-facet certificate (FORMAT.md §§4a, 8a;
+proof/theorems/ZC_cap_transfers, ZC2a_xball_sphere_caps, ZC2b_t3_caps). A T3 cap certifies Theorem 4.3's two
+conditions (return XS: no side data). Julia checks caps in 256-bit intervals.

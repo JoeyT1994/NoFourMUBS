@@ -14,7 +14,7 @@ order-6 Hadamard matrices is used.
 **Read:** [`PROOF.md`](PROOF.md) (the proof), then [`AUDIT.md`](AUDIT.md) (status and where to look hardest), then
 [`lean/README.md`](lean/README.md) (the formalisation).
 
-**Status (26 Oct 2026).** The seed-atlas certificate (2,350 seed balls and the ball at F6) passes both independent certifiers: Arb in 52 min and Julia in 47 min, each on one 128-core node. See [`PROOF.md`](PROOF.md#step-5-the-atlas-covers-x).
+**Status (27 Oct 2026).** The seed-atlas certificate (2,775 seed balls and the ball at F6, every sphere covered by 117,391 certified caps) passes both independent certifiers: Arb in 33 min and Julia in 2 h 53 min, each on one 128-core node. See [`PROOF.md`](PROOF.md#step-5-the-atlas-covers-x).
 
 ## The proof in five steps
 
@@ -35,10 +35,10 @@ of a finite atlas.
 | Command | What it checks | Needs |
 |---|---|---|
 | `python3 verify.py` | exact replays of Steps 1–4: the Step 1 certificates, matched existence, the converse and exact reach, strict-corner coverage, Tao's record, a Stage C sample | Python 3.10+, `pip install -r requirements.txt`; about 1 min |
-| `python3 verify.py --atlas -j N` | also certifies the whole seed atlas in Arb (Step 5) | as above; 52 min on one 128-core node |
+| `python3 verify.py --atlas -j N` | also certifies the whole seed atlas in Arb (Step 5) | as above; 33 min on one 128-core node |
 | `python3 verify.py --lean` | also builds the Lean formalisation and audits its axioms | elan; about 12 GB of disk |
 | `python3 verify.py --lean-full` | also builds the main theorems and audits them | as above; up to about 7 GB of RAM |
-| [`proof/independent_seed/`](proof/independent_seed/README.md) | the independent Julia checker of Step 5 | Julia 1.12; 47 min on one 128-core node |
+| [`proof/independent_seed/`](proof/independent_seed/README.md) | the independent Julia checker of Step 5 | Julia 1.12; about 3 hours on one 128-core node |
 
 Continuous integration ([`.github/workflows/ci.yml`](.github/workflows/ci.yml)) runs `verify.py` and the Lean build
 with its axiom audit.

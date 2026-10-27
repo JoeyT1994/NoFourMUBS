@@ -374,22 +374,25 @@ side windings, orientation signs or tubes, and it holds across the fold y = 0
 ## Step 5. The atlas covers X
 
 > **Lemma 5.1 (transfers).** Every point of every ball's boundary sphere is, after a symmetry g ∈ Γ (identity,
-> conjugation, transposition, conjugate-transpose), in the interior of another ball. It is shown on a dyadic cover of
-> the sphere ‖w‖ = r by boxes, each with a certified target:
-> - **T0:** the same corner: a linear test at the box's 16 vertices;
+> conjugation, transposition, conjugate-transpose), in the interior of another ball. It is shown on a cover of the
+> sphere ‖w‖ = r by spherical caps {w = r x : ‖x‖ = 1, v·x ≥ h}, each with a certified target:
+> - **T0:** the same corner: θ itself in the target ball's ellipsoid (a linear condition), over the cap;
 > - **T1:** another ordered corner (I, J) of g · H, whose seed θ′ is linear in the phases: θ′ in the target's
->   ellipsoid and both Ψ signs of the target's orientation, over the box;
+>   ellipsoid and both Ψ signs of the target's orientation, over the cap;
 > - **T3:** into the X-ball, by Theorem 4.3: the corner parameter p′ in the X-ball's ellipsoid, and K within phase
->   distance 3/20 of F6, over the box. No side data is needed.
+>   distance 3/20 of F6, over the cap. No side data is needed.
 
-*How it is certified (return ZT).* Each T1 and T3 box is first tested against the ball's whole-ball model of
-Lemma 3.1: the target is affine-bounded at the box's 16 vertices, plus ½‖A H₂‖(2h)² and the output-weighted normal
-error, and the Ψ signs follow from ‖D²ψ‖ ≤ 72. A box that fails gets a Taylor model from the same centre tensors, and
-the box partition of the ball's phase map remains the last fallback. Theorem: `proof/theorems/ZT_wholeball_transfers/`
-(`REPORT.md`); code: [`proof/seed_atlas/cert/patches.py`](proof/seed_atlas/cert/patches.py). A ball may instead
-cover its sphere by spherical caps (return ZC, `proof/theorems/ZC_cap_transfers/`): each cap is certified by a 5 × 5
-positive-definite witness on the same model, and their coverage of the sphere by an exact polar-facet certificate.
-Both certifiers check caps; the present certificate uses boxes only.
+*How it is certified (returns ZC, ZC2a, ZC2b).* Each cap's target condition is a norm bound ‖d + F x‖ < 1 on the cap
+for an affine predictor from the source ball's whole-ball model (Lemma 3.1; ZT's output-weighted error terms and
+centre jets), certified by a 5 × 5 positive-definite witness (an S-lemma certificate) with the model's remainder.
+The Ψ signs follow from the linear minimum over the cap and ‖D²ψ‖ ≤ 72. A T3 cap carries two witnesses, one per
+condition of Theorem 4.3, with the signature remainder of y′ = −2 Im Ψ. The caps of a sphere cover it by an exact
+polar-facet certificate: every vertex of {y : v_i·y ≤ h_i} lies in the closed unit ball, checked in integers.
+Theorems: `proof/theorems/ZC_cap_transfers/` (seed spheres), `ZC2a_xball_sphere_caps/` (the X-ball's sphere),
+`ZC2b_t3_caps/` (T3); code: [`proof/seed_atlas/cert/caps.py`](proof/seed_atlas/cert/caps.py), `cap_t3.py`,
+`edgecaps.py`, `cap_coverage.py`. A sphere may instead be covered by dyadic boxes, each tested by ZT's patch test
+(`proof/theorems/ZT_wholeball_transfers/`); the present certificate uses caps only.
+
 > **Lemma 5.2 (coverage).** Let W be the set of classes in the atlas. Then W ∩ X is open, closed and nonempty, so
 > W ⊇ X.
 
@@ -415,14 +418,14 @@ corner or lies in a Fourier family (`PRM.nonmatched_tao_or_fourier`, `PRM.strict
 
 | | |
 |---|---|
-| seed balls | 2,350 (radii 0.05–0.125) |
-| boundary boxes | 11,706,691: T0 2,411,969; T1 7,431,652; corner-symmetry T1 1,832,906; T3 30,164 |
-| X-ball | tangent radius 0.13; image within phase distance 0.142 < 7/40 of F6 (Arb 0.1411, Julia 0.1418); 1,183,840 sphere boxes |
-| Arb certification | **PASS**, 0 failures in 2,814 items: 52 min on one 128-core node (52 core-hours of seed-ball work) |
-| Julia certification | **PASS**, every check: 47 min on one 128-core node (`results/julia/`) |
-| certificate | `proof/seed_atlas/results/seed_atlas_certificate.json.gz` (41 MB, SHA-256 `72ec7013d0d253f7c1bbe181224733efa2826904d47da6ee896e6a09ca9610c4`); Arb receipt `arb_receipt.json` |
+| seed balls | 2,775 (radii 0.015–0.125) |
+| sphere caps | 97,780 on the seed balls (T0 13,519; T1 83,979; T3 282), 19,611 on the X-ball; 550,347 exact coverage facets; no boxes |
+| X-ball | tangent radius 0.13; image within phase distance 0.142 < 7/40 of F6 (Arb 0.1411) |
+| Arb certification | **PASS**, 0 failures in 2,778 items: 33 min on one 128-core node (25 core-hours of seed-ball work) |
+| Julia certification | **PASS**, every check: 2 h 53 min on one 128-core node (`results/julia/`) |
+| certificate | `proof/seed_atlas/results/seed_atlas_certificate.json.gz` (17 MB, SHA-256 `33ad9798eb7a5585c486f2427a6b223867a43b308b7f184467b4cd5956bd8baf`); Arb receipt `arb_receipt.json` |
 
-**Status (26 Oct 2026).** Both certifiers pass the whole certificate, with T3 by Theorem 4.3 (no side data).
+**Status (27 Oct 2026).** Both certifiers pass the whole certificate. Every sphere is covered by certified caps (no boxes), every seed ball's C1 is from cheap constants, and T3 is by Theorem 4.3 (no side data).
 
 ## Conclusion
 

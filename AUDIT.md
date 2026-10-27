@@ -62,7 +62,11 @@ are being built.
    the corner seed and Ψ signs of T1, the dyadic sphere covers and their exact coverage check. The transfer test
    (return ZT, `proof/theorems/ZT_wholeball_transfers/`; `cert/patches.py`, `independent_seed/src/patches.jl`): the
    affine bound at the box vertices, the H₂ and output-weighted normal remainders, the Ψ signs from ‖D²ψ‖ ≤ 72, and
-   for the X-ball the weighted τ_A and centre jets (`cert/edge_wholeball.py`).
+   for the X-ball the weighted τ_A and centre jets (`cert/edge_wholeball.py`). The caps (returns ZC, ZC2a, ZC2b;
+   `cert/caps.py`, `cap_t3.py`, `edgecaps.py`, `cap_coverage.py`): that the 5 × 5 matrix's positive definiteness gives
+   ‖d + F x‖² ≤ s on the whole cap (`cap_theory.md`), each source model's remainder, the T3 signature remainder
+   (`ZC2b/T3_THEOREM.md`), and that the coverage certificate's checks (strict support, each ridge twice, every dual
+   vertex in the unit ball) imply that the caps cover the sphere.
 10. **Stage C** (`STAGEC.md` against `stagec.py`; inequalities in Lean, `StageC/`; replayed by the Julia checker): the
    column bound r_col = t r + n, the joint test, the margins.
 11. **The certifiers.** `certify_seed_atlas.py` must trust nothing from the driver beyond the certificate's data.

@@ -32,6 +32,9 @@ python3 proof/seed_atlas/cert/tests/run_tests.py
 | `edgecert.py` | edge balls (SPEC §10): C1e, T3 into edge balls, and the edge ball's own T1 transfers and sphere cover |
 | `certify_seed_atlas.py` | the whole certificate: one format adapter (`read_certificate`), multiprocessing, receipt (with its code binding: the SHA-256 of the certificate and of every source here and in `proof/atlas/`) |
 | `check_binding.py` | checks a receipt's binding against this checkout and the certificate (`python3 check_binding.py`, default: the committed receipt) |
+| `caps.py`, `cap_weighted.py`, `cap_coverage.py` | spherical caps (theorem ZC): one cap's 5 × 5 witness and remainders; exact coverage of S³ (both schemas, with the exact support tree) |
+| `cap_t3.py` | T3 caps (theorem ZC2b): the parameter and phase-distance witnesses |
+| `edgecaps.py` | the X-ball's sphere by caps (theorem ZC2a) |
 | `tests/` | the prototype-built test balls (`data/`), fixtures, and `run_tests.py` (positive, sampling and negative tests) |
 
 ## What is checked
