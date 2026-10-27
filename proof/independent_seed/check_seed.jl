@@ -14,6 +14,9 @@
 #                     apart from --shard, checked through their BINDING.txt), then finish the whole run here
 #   --c1-depth D      extra halving levels allowed in the adaptive C1 box cover (default 4)
 #   --split-depth S   halving levels allowed for a transfer box that fails as a whole (default 2)
+#   --hint FILE       a previous run's seeds.tsv (or .tsv.gz): the seed balls are started longest first (its C1, Stage C
+#                     and C2 seconds; balls it does not list first of all).  Scheduling only: no check reads it, and it
+#                     is not part of the binding
 #
 # Exit status 0 only for a complete certificate in which every check passed (or, with --partial, every checked object
 # passed); 1 otherwise.  A run resumes from OUTDIR only if BINDING.txt there matches this run exactly.
@@ -89,8 +92,8 @@ function check_import_binding(bind, d)
 end
 
 """The edge sphere's transfer check from the shards' receipts (edge_c2_<e>.txt in every imported directory): accepted
-only if all m slices are present, all passed, and together they account for every box; the coverage of the sphere is
-checked here.  Otherwise nothing (the final run checks the boxes itself)."""
+only if all m slices are present, all passed, and together they account for every box (or every cap); the coverage of
+the sphere is checked here.  Otherwise nothing (the final run checks the boxes itself)."""
 function edge_c2_from_shards(eb, i, imports, bind)
     isempty(imports) && return nothing
     foreach(d -> check_import_binding(bind, d), split(imports, ','))
@@ -101,13 +104,39 @@ function edge_c2_from_shards(eb, i, imports, bind)
     m = parse(Int, rows[1][3])
     (length(rows) == m && all(r -> r[1] == "PASS" && parse(Int, r[3]) == m, rows) &&
      sort([parse(Int, r[2]) for r in rows]) == collect(0:m-1)) || return nothing
-    nb = sum(length(g.boxes) for g in eb.groups; init=0)
+    capped = eb.caps !== nothing             # return ZC2a: the shards checked slices of the caps; the coverage is checked here
+    nb = capped ? length(eb.caps["caps"]) : sum(length(g.boxes) for g in eb.groups; init=0)
     sum(parse(Int, r[4]) for r in rows) == nb || return nothing
-    listed = Set{NTuple{5,Int}}(b for g in eb.groups for b in g.boxes)
-    cov, cn = S.dyadic_covered(listed, S.misses_unit_sphere)
-    cov || return S.C2Result(false, "the boxes do not cover the sphere ||w|| = r", nb, Dict{Symbol,Int}(), 0, 0, Dict{Symbol,Float64}(), cn, time() - t0)
+    if capped
+        cov, cmsg = S.HP.cap_coverage(eb.caps["caps"], get(eb.caps, "coverage", Dict())); cn = 0
+        cov || return S.C2Result(false, "edge caps: " * cmsg, nb, Dict{Symbol,Int}(), 0, 0, Dict{Symbol,Float64}(), cn, time() - t0)
+    else
+        listed = Set{NTuple{5,Int}}(b for g in eb.groups for b in g.boxes)
+        cov, cn = S.dyadic_covered(listed, S.misses_unit_sphere)
+        cov || return S.C2Result(false, "the boxes do not cover the sphere ||w|| = r", nb, Dict{Symbol,Int}(), 0, 0, Dict{Symbol,Float64}(), cn, time() - t0)
+    end
     S.C2Result(true, "ok ($(m) shard receipts)", nb, Dict(:T1 => nb), nb, sum(parse(Int, r[5]) for r in rows), Dict{Symbol,Float64}(), cn,
                time() - t0 + sum(parse(Float64, r[6]) for r in rows))
+end
+
+"""Per-ball seconds (C1 + Stage C + C2) from a previous run's seeds.tsv[.gz], for scheduling only; unreadable or
+missing entries are simply absent."""
+function hint_seconds(f)
+    cost = Dict{Int,Float64}()
+    isfile(f) || return cost
+    txt = try
+        endswith(f, ".gz") ? read(pipeline(`gzip -dc $f`), String) : read(f, String)
+    catch
+        return cost
+    end
+    for l in split(txt, '\n')
+        (isempty(l) || startswith(l, "#")) && continue
+        p = split(l, '\t'); length(p) >= 27 || continue
+        i = tryparse(Int, p[1]); t = [tryparse(Float64, p[k]) for k in (9, 14, 27)]
+        (i === nothing || any(isnothing, t)) && continue
+        cost[i] = sum(t)
+    end
+    cost
 end
 
 function main(args)
@@ -117,7 +146,7 @@ function main(args)
     limit = parse(Int, getopt("--limit", string(typemax(Int))))
     only = getopt("--only", "")
     c1depth = parse(Int, getopt("--c1-depth", "4")); splitdepth = parse(Int, getopt("--split-depth", "2"))
-    shard = getopt("--shard", ""); imports = getopt("--import", "")
+    shard = getopt("--shard", ""); imports = getopt("--import", ""); hint = getopt("--hint", "")
     shard_k, shard_m = isempty(shard) ? (0, 1) : parse.(Int, split(shard, '/'))
     (0 <= shard_k < shard_m) || error("--shard k/m needs 0 <= k < m")
     base = "fast=$fast limit=$(limit == typemax(Int) ? "none" : limit) only=$(isempty(only) ? "all" : only) c1depth=$c1depth splitdepth=$splitdepth"
@@ -280,6 +309,11 @@ function main(args)
         end
     end
     todo = [i for i in sel if !haskey(doneS, i)]
+    if !isempty(hint)                        # scheduling only: longest first, so the slowest balls overlap the rest
+        cost = hint_seconds(hint)
+        sort!(todo, by = i -> -get(cost, i, Inf), alg=MergeSort)
+        @printf("  scheduling: longest first from %s (%d of %d balls listed)\n", hint, count(i -> haskey(cost, i), todo), length(todo))
+    end
     t0 = time(); ndone = Threads.Atomic{Int}(0)
     Threads.@threads :greedy for i in todo
         ok, msg, line = try

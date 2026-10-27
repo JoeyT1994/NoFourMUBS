@@ -47,7 +47,7 @@ It also checks Tao's record. A run over a subset (`--only`) never reports PASS.
 | Check | Result |
 |---|---|
 | Arb (`results/arb_receipt.json`, with its code binding: `python3 cert/check_binding.py`) | **PASS**, 0 failures in 2,778 items; 33 min on one 128-core node; seed-ball work 25 core-hours (C1 0.5, Stage C 23, transfers 1.2) |
-| Julia (`results/julia/`: `RESULT.txt`, `BINDING.txt` with the certificate's SHA-256, per-ball `seeds.tsv.gz`) | **PASS**, every check; 2 h 53 min on one 128-core node: the seed balls in 79 min (8 shards of 16 threads), then the final run re-checked the X-ball's 19,611 caps in one process (91 min); caps in 256-bit intervals; Stage C's clique-search budget `SEED_CLIQUE_CAP` = 2·10¹¹ steps |
+| Julia (`results/julia/`: `RESULT.txt`, `BINDING.txt` with the certificate's SHA-256, per-ball `seeds.tsv.gz`) | **PASS**, every check; 1 h 07 min on one 64-core node (8 shards of 8 threads, balls started longest first; the X-ball's caps checked in the shards, their coverage in the final run); caps in 256-bit intervals; Stage C's clique-search budget `SEED_CLIQUE_CAP` = 2·10¹¹ steps |
 
 A cap {‖x‖ = 1, v·x ≥ h} is certified for a transfer by 5 × 5 positive-definite witnesses on the source ball's
 whole-ball model, and the caps of a sphere cover it by an exact polar-facet certificate (FORMAT.md §§4a, 8a;
