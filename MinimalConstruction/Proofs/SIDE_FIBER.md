@@ -9,7 +9,7 @@ Dependencies: the elementary invariant identities in STRICT_DOMAIN.md and
 OPPOSITE_CORNER.md, checked by verify_invariants.py; the Laurent identities
 and exact nonsingular witnesses checked by verify_side_fiber.py. The last
 completion corollary may either use the block argument below or the proved
-ClassificationPaper result `prop:directcompletion`.
+result `prop:directcompletion` of the classification paper [CT] (arXiv:2608.18053).
 
 All symbols agree with RECONSTRUCTION.md. A normalized side is a 3 by 3
 matrix of unit-modulus entries whose first row is (1,1,1). Its fiber at G
