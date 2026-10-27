@@ -1,5 +1,10 @@
 # The original-ball classification test
 
+**Later result:** [TRANSFER_R0153.md](TRANSFER_R0153.md) certifies the
+entire original ball 1879 using the supplied radius-0.153 all-K theorem.
+This document preserves the earlier generic subdivision method and its
+incomplete bounded run.
+
 **Scope.** The input is the entire original seed ball
 
 \[
@@ -207,15 +212,16 @@ transverse test, original-ball centre/jet retention, phase-gauge conversion
 for all ten known anchor bases, exact split coverage, and rejection of
 incomplete searches.
 
-**NOT ESTABLISHED:** classification of the original radius-0.063 ball.
+**NOT ESTABLISHED by this bounded subdivision run:** classification of
+the original radius-0.063 ball. The separate transfer now establishes it.
 The recorded 512-node run excludes 227 leaves and leaves 31,637 unresolved,
 including 31,578 unvisited original clique roots. Exact prefix-free binary
 path accounting gives total weight one for every initial clique. This
 checks exhaustive bookkeeping, not completion of the classification.
 The broad 55-phase boxes lose correlations between H, K and the four seed
 parameters. The current contraction/subdivision run does not close them.
-This is the remaining computational/analytic obstacle; the new whole-ball
-acceptance rule does not itself remove it. Nor has this program certified
+This was the obstacle for this search; the whole-ball acceptance rule
+does not itself remove it. The separate transfer avoids it. This program has not certified
 the other 2,774 seed balls or the X-ball. It currently implements the
 continuous-family leaf test; an isolated-triple leaf needs the analogous
 55-dimensional injectivity test with a certified isolated anchor.

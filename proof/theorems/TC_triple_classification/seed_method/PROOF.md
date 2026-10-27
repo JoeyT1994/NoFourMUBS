@@ -8,8 +8,9 @@ There is no hypothesis that K is near one selected triple.
 inequalities are Arb inequalities, and finite graph searches are exact.
 Root locations and matrix preconditioners may be numerical proposals.
 
-**NOT ESTABLISHED:** classification of the entire original ball 1879 of
-radius 0.063, the other original balls, or the X-ball. The result below is
+**Later extension:** [TRANSFER_R0153.md](TRANSFER_R0153.md) certifies the
+entire original ball 1879 of radius 0.063, with every K. The other
+original balls and the X-ball remain **NOT ESTABLISHED**. The result below is
 for a smaller, explicitly contained ball in the **same four w coordinates**.
 **CERTIFIED:** `results/ball1879_inner_receipt.json` completes every gate
 for radius 1/160. The complete torus cover has 25,474 final bins, all
@@ -406,8 +407,9 @@ on each seed plane; and every 2-by-2 normal test.
 The original ball 1879 also has a separate complete Arb outer cover in
 `results/seed1879_native_cover.json.gz`: 28,213 final bins, 515 labels,
 and 31,579 enumerated six-cliques. **Those cliques are not classified by
-the smaller-ball receipt.** A cover of the original ball by classified
-neighbourhoods and certified no-third-basis cells is still required.
+the smaller-ball receipt.** The later transfer theorem covers the entire
+original image by a larger certified neighbourhood, resolving this
+obligation for ball 1879.
 
 The radius 1/160 is 0.00625, compared with the original 0.063. These are
 both radii in the same w metric. The smaller ball is centred on the exact

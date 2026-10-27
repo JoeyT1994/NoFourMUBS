@@ -1,10 +1,14 @@
 # TC: a seed-ball classification method, local patches, and Tao
 
-**The requested whole original seed ball remains NOT ESTABLISHED.**
-An explicit [original-ball certificate procedure](seed_method/WHOLE_BALL.md)
-now keeps its centre, coordinates and full radius, replays all 31,579
-possible third-basis configurations, and rejects acceptance while any
-case is unresolved. The current bounded attempt does not close the ball.
+**CERTIFIED: the entire original seed ball 1879, radius 0.063, is
+classified, including every completing third basis.** Its centre, four
+coordinates and full radius are unchanged. The
+[whole-ball transfer proof](seed_method/TRANSFER_R0153.md) puts its entire
+Hadamard image within 0.120873737696 radians of an exact equivalent
+anchor, inside the supplied all-K theorem's radius 0.153. Both the local
+theorem and native C1 were replayed. The
+[receipt](seed_method/results/seed1879_r0153_transfer.json) binds the inputs
+and records the strict Arb inclusion.
 
 **Earlier result: a smaller four-coordinate seed ball is classified,
 including every possible third basis.** See [seed_method/README.md](seed_method/README.md).
@@ -13,13 +17,12 @@ centred at an exact construction point and entirely contained in its
 original radius-0.063 ball. Its 120 column branches form ten possible
 third bases; all ten are proved to have continuous-construction type.
 
-**The full radius-0.063 ball and the global classification conjecture are
-NOT ESTABLISHED.** The new method uses a complete column cover and
-2-by-2 normal tests on the four seed variables. Its proof and source-bound
-replay receipt are in `seed_method/`.
+**The global classification conjecture remains NOT ESTABLISHED.** Other
+centres and the X-ball need their own inclusions or classification theorems.
 
 | Claim | Status | Checked domain |
 |---|---|---|
+| Every triple over the original ball 1879 has Conjecture 1 type | **PROVED / CERTIFIED** | Original `||w|| <= 0.063`, original centre and Mth; all K covered |
 | Every triple over a four-dimensional seed ball has continuous-construction type | **PROVED / CERTIFIED** | `||w-w_*|| <= 1/160`, inside native ball 1879; all K covered |
 | The tensor-product triple is locally unique | **PROVED / CERTIFIED** | All 55 gauged phases within 1/8192 radians of the exact anchor |
 | A two-circulant anchor has only continuous-construction neighbours | **PROVED / CERTIFIED** | All 55 gauged phases within 2^-20 radians of the exact anchor |
@@ -32,7 +35,7 @@ Read [PROOF.md](PROOF.md) for the statements, proofs, explicit analytic
 constants, sufficient cell certificate contract, and remaining obligations.
 The two older full-triple patches control **both H and K**; by themselves
 they do not classify every third basis over a seed cell. The new seed-ball
-receipt does include every K on its stated smaller ball. The isolated full triple has a
+receipts include every K on their respective domains. The isolated full triple has a
 rank-55 Jacobian, whereas the continuous anchor has rank 53. A common
 Fourier edge does not identify these full triples.
 
@@ -48,6 +51,12 @@ python -m unittest discover -s proof/theorems/TC_triple_classification -p 'test_
 python proof/theorems/TC_triple_classification/cells.py proof/seed_atlas/results/seed_atlas_certificate.json.gz proof/theorems/TC_triple_classification/reference/nothird_snapshot.jsonl --output proof/theorems/TC_triple_classification/results/input_audit.json
 python proof/seed_atlas/cert/check_binding.py
 ```
+
+The new original-ball replay is documented in
+[TRANSFER_R0153.md](seed_method/TRANSFER_R0153.md), including the supplied
+Stage C error-enclosure argument and exact symmetry recognition on which
+it depends. The commands below this README's Replay heading concern the
+earlier local patches and Tao.
 
 The local patches replay in about one second; the full Tao torus cover
 is the longer check. No floating-point comparison authorizes a result.

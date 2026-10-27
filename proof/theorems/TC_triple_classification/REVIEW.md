@@ -1,11 +1,49 @@
 # TC validation record — 27 October 2026
 
-**PROVED / CERTIFIED scope:** the all-triples seed ball in
+**PROVED / CERTIFIED scope:** the entire original radius-0.063 ball 1879
+in `seed_method/TRANSFER_R0153.md`, the smaller all-triples seed ball in
 `seed_method/PROOF.md`, the two earlier local full-triple patches and Tao
 exclusion in `PROOF.md`. **NOT ESTABLISHED:** classification on the full
 seed atlas or the X-ball. No counterexample has been certified.
 
 ## Original-ball certificate procedure
+
+The supplied radius-0.153 all-K theorem now closes original ball 1879.
+The local theorem replay passed all seven stages and reproduced every
+acceptance report field apart from elapsed time. Its complete cover has
+365,780 bins, 10,543 labels and 30 initial color patterns. The final
+filters and symmetry argument cover every completing basis.
+
+`seed_method/transfer_r0153.py` checks the exact equivalence of its centre
+to the native anchor, freshly certifies C1 on the unchanged original
+ball, and proves the entire image has phase distance below
+0.120873737696 from that anchor. This is strictly below 0.153; no shrinkage
+or recentering of the source ball is used. Seven new tests pass, including
+an independent exact anchor construction, strict inclusion and rejection
+of wrong centres, oversized domains, changed sources and incomplete
+local-theorem receipts. The existing atlas's 26-source binding also passes.
+
+The handoff was checked against all 229 supplied manifest hashes before
+execution. The transfer pins 114 immutable sources/documents/inputs and
+the local theorem's 33 direct source/input hashes. The replay uses the
+supplied Stage C error-enclosure proof and Section 8 symmetry recognition;
+these analytic dependencies are stated in the transfer proof. Stage C
+uses conservative binary64 error margins, whereas the transfer inequality
+and fresh C1 are verified in Arb. This is not an independent formal proof
+of the supplied analytic arguments.
+
+The local environment is Python 3.13 with NumPy 2.2.6, SciPy 1.17.0,
+python-flint 0.9.0 and SymPy 1.14.0. NumPy/Accelerate emitted matrix-product
+floating-point warnings, retained in the logs. All saved cover arrays
+were finite. Every cover bin, label, radius, edge, color, clique,
+assignment and filtered bin matched the archive's clean replay exactly;
+only the proposed tangent frame differed, and its projector and Gram
+bounds were rechecked in Arb. All seven acceptance reports matched the
+supplied reports apart from timings. The separate supplied radius-1/8
+seed-ellipsoid corollary also replayed successfully; it is not needed for
+the original-ball transfer.
+
+### Earlier generic subdivision attempt
 
 `seed_method/whole_ball.py` implements the sufficient test proved in
 `seed_method/WHOLE_BALL.md`. Its target is the unchanged native ball 1879,
@@ -26,7 +64,7 @@ and a norm lower bound needs `abs_lower()` when intervals contain zero.
 Known K entries on the negative real axis use a certified rotated phase
 lift rather than the discontinuous principal argument interval.
 
-**The bounded whole-ball attempt remains NOT ESTABLISHED.** Its source-bound
+**The earlier bounded subdivision attempt remains NOT ESTABLISHED.** Its source-bound
 receipt records every unresolved initial clique or subdivided phase box.
 The 512-node run excluded 227 leaves and retained 31,637 unresolved leaves
 (31,578 are unvisited original clique roots). An exact rational audit of
@@ -57,11 +95,12 @@ every clique, missing-column rejection, oversized-domain rejection and
 graph-cap rejection. These are implementation checks, not an independent
 proof or formalization of the analytic theorem.
 
-The complete outer cover at the original radius is separately certified:
+The earlier complete outer cover at the original radius is separately certified:
 28,213 retained bins, 515 labels and 31,579 six-cliques. Its six source
-hashes also match. **Those native-ball cliques remain unclassified.**
-The new smaller-ball receipt and the earlier full-triple patches do not
-resolve that obligation. The new replay was performed locally; the Rusty
+hashes also match. That search did not classify those cliques individually.
+The later transfer theorem classifies every actual native-ball triple.
+The smaller-ball receipt and the earlier full-triple patches alone did not
+resolve that obligation. The new replays were performed locally; the Rusty
 record below applies to the earlier results only.
 
 ## Replay evidence

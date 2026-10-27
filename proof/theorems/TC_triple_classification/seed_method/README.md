@@ -1,15 +1,23 @@
 # A seed-ball classifier: every H in the ball, every possible third basis
 
-**The requested original ball is still NOT ESTABLISHED.**
-The [original-ball method](WHOLE_BALL.md) and `whole_ball.py` now take the
-unchanged radius-0.063 ball as input, replay its complete third-basis cover,
-and require every resulting case to be excluded or classified. They use
-uniform known-family existence and transverse injectivity in the full
-phase space, so the comparison does not require a projection to stay
-inside the seed ball. Internal subdivisions retain all unfinished cases.
-The bounded attempt in `results/seed1879_whole_ball_attempt.json.gz`
-does not close the ball. This is a sufficient certificate procedure with
-an unresolved run, not a whole-original-ball classification result.
+**CERTIFIED: the whole original seed ball 1879 is of Conjecture 1 type,
+for every completing third basis.** Its original centre, coordinates,
+`Mth` and radius 0.063 are retained. The
+[transfer theorem and replay](TRANSFER_R0153.md) verify
+
+`||P-Q_*|| + ||U|| r + n < 0.120873737696 < 0.153`.
+
+The supplied radius-0.153 theorem covers every possible K. Its complete
+replay passed, native C1 was freshly certified, and the exact anchor
+equivalence and strict inclusion passed in Arb. The result is in
+[seed1879_r0153_transfer.json](results/seed1879_r0153_transfer.json).
+The transfer proof gives the reusable whole-ball criterion and records
+the supplied theorem's analytic dependencies.
+
+The earlier [generic subdivision procedure](WHOLE_BALL.md) remains a
+valid sufficient test whose 512-node run did not finish. The new transfer
+closes this ball without completing that search. The other atlas balls
+and the X-ball remain unclassified by this result.
 
 The following earlier result concerns a smaller domain only.
 
@@ -23,7 +31,7 @@ are the original w coordinates of seed ball 1879, and
 `w_* = Mth^(-1) * ((0,-pi,-pi,-pi) - theta0)`.
 
 This entire smaller ball lies inside the original radius-0.063 ball.
-**Classification of the entire original ball is NOT ESTABLISHED.**
+The whole original ball is classified separately by the transfer above.
 
 The [proof](PROOF.md) eliminates the third basis first: certify a complete
 list of unbiased-column branches `v_a(w)`, enumerate every possible
@@ -66,9 +74,9 @@ It can be replayed with:
 python proof/theorems/TC_triple_classification/seed_method/seed_cover.py --index 1879 --output proof/theorems/TC_triple_classification/seed_method/results/seed1879_native_cover.json.gz
 ```
 
-Those 31,579 initial clique configurations are not all classified. The
-new original-ball procedure records their exhaustive accounting, but its
-current phase-box bounds are too loose to close the search. The
-smaller-ball result does not imply that extension. The example driver is bound to this exact
+That earlier search did not classify all 31,579 configurations individually.
+Its exhaustive accounting remains valid; the separate transfer theorem
+now classifies every actual triple represented by the cover. The
+smaller-ball result alone did not imply this extension. The example driver is bound to this exact
 anchor; the branch, torus-cover, graph and normal-test components are
 reusable. The isolated Fourier case and X-ball require separate charts.

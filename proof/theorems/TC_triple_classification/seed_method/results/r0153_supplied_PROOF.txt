@@ -1,0 +1,320 @@
+Local completeness in a full-Hadamard phase ball of radius 0.153
+27 October 2026
+
+SCOPE AND ACCEPTANCE
+
+The statement below concerns one exact Hadamard centre H_*, including
+every completing basis K. Its computational acceptance condition is
+that verify_all.py finishes with LOCAL_H_BALL_COMPLETENESS_PASS. Individual
+contraction receipts alone do not establish exhaustive completeness.
+
+The radius is 153/1000 radians in horizontal Frobenius phase norm. This
+exceeds every full-Hadamard enclosure radius of the 2,775 seed records
+in the pinned current atlas. It does not establish completeness at those
+2,775 different centres. The final section gives the additional inclusion
+and classification statements needed to apply local results to that atlas.
+
+THEOREM
+
+Let
+
+       [1   1   1   1   1   1]
+       [1  -1  -i   i  -i   i]
+ H_* = [1  -i  -1  -i   i   i]
+       [1   i  -i  -1   i  -i]
+       [1  -i   i   i  -1  -i]
+       [1   i   i  -i  -i  -1].
+
+Suppose U is a real 6 by 6 matrix with zero row and column sums and
+||U||_F <= R := 153/1000. Suppose H=H_* o exp(iU) is Hadamard, where
+o denotes entrywise multiplication. Then every unit-entry K satisfying
+
+ H^*H=K^*K=6I,                  |(H^*K)_{jk}|^2=6
+
+belongs, with I and H/sqrt(6), to the known complementary-circulant
+construction or the isolated Fourier/product type, up to the allowed
+equivalences of triples. More precisely, the triple has an actual balanced
+order-three ray symmetry at an anchor, which the recognition argument
+in Section 8 of the supplied transverse CHECKPOINT.md classifies.
+
+Any row monomial transformation of H used to enter this ball must also
+act on K. Column phases and permutations of H and K may be independent.
+The theorem is invariant under these transformations.
+
+1. Exact reference data and the residual.
+
+Use circ(a,b,c) with rows (a,b,c),(c,a,b),(b,c,a), and set
+
+ A=circ(1,i,i), B=circ(1,1,-1), D=diag(1,-i,-i,1,1,-1).
+
+Then H_*=D [[A,B],[B^*,-A^*]] D. Let omega=exp(2 pi i/3),
+(F_3)_{rq}=omega^(rq), and Z=diag(z_0,z_1,z_2), where
+
+ z_0=(2+i)/sqrt(5),
+ z_1=((sqrt(3)-1)+i(sqrt(3)+1))/(2 sqrt(2)),
+ z_2=(-(1+sqrt(3))+i(1-sqrt(3)))/(2 sqrt(2)).
+
+Define K_*=D [[F_3,F_3],[F_3 Z,-F_3 Z]]. The exact arithmetic code
+constructs 120 unbiased reference rays over Q(i,sqrt(2),sqrt(3),sqrt(5)),
+checks 60 monomial symmetries of H_*, and obtains ten distinct images
+of this K_*. Every reference identity is checked exactly. The numerical
+root census is not assumed to exhaust all roots or all completing bases.
+
+For H=H_* o exp(iU) and K=K_* o exp(iV), F(U,V) has 96 real entries:
+the real and imaginary parts of the fifteen off-diagonal column inner
+products of H, the corresponding thirty entries for K, and the 36 entries
+(|(H^*K)_{jk}|^2-6)/6. Each column of V has zero mean, obtained by an
+allowed scalar phase. Write J=DF(0), with blocks J_H,J_K.
+
+2. A sharper bound on the Hadamard normal component.
+
+Let W_H be the 25-dimensional space of horizontal H phases. Exact
+rational algebra gives orthogonal projectors P_T and P_N on W_H, with
+rank P_T=4 and P_T W_H the kernel of the H-orthogonality derivative.
+An interval Gram calculation proves that its normal singular value is
+greater than 12/5. The universal Hadamard remainder bound sqrt(3)||U||^2
+therefore gives ||nu||<=3R^2/4 for nu=P_N U. Put u=P_T U.
+
+This bound is sharpened using a rational approximate normal inverse A_N.
+The only nonzero equation weights are on the thirty H equations. The
+verifier retains E_N=P_N-A_N J_H W_H rather than assuming E_N=0.
+It certifies ||E_N||<2.183e-11 and ||A_N||<0.410.
+
+For Q=D^2(A_N F)(0), flatten each pair of input indices and certify the
+operator norm from their tensor product to the 36-dimensional output.
+Since ||a tensor b||=||a||||b||, this gives vector-valued bounds
+
+ ||Q[u,u]|| <= 0.601 ||u||^2,
+ ||Q[u,nu]|| <= 0.372 ||u||||nu||,
+ ||Q[nu,nu]|| <= 1.068 ||nu||^2.
+
+All three bounds are interval Gram inequalities. They are not obtained
+from sampling directions or adding bounds on separate output entries.
+
+The joint third-order remainder in the H equations is at most
+sqrt(2/3)||U||^3. Indeed, for each column pair the complex remainder is
+at most ||U_j-U_k||^3/6; the squared maximum column difference is at
+most 2||U||^2 and the sum of squared differences is at most 6||U||^2.
+These imply the stated joint bound after squaring and summing.
+
+Thus, whenever ||nu||<=n, the exact residual identity improves it to
+
+ ||nu|| <= ||E_N|| R + 0.601 R^2/2 + 0.372 R n
+                 + 1.068 n^2/2 + 0.410 sqrt(2/3) R^3.       (1)
+
+Starting with 3R^2/4, upward-rounded rational iterations give
+
+ ||nu|| <= 0.0087738674 < n_* := 0.0088.                    (2)
+
+An additional exact identity P_T E_j P_T=P_T/6, where E_j selects H
+column j, implies the per-column bound
+
+ ||U_j|| <= r_c := R/sqrt(6)+n_*.
+
+These are consequences of the H equations alone, before restricting K.
+
+3. Exhaustive localization of every completing basis.
+
+Every ray unbiased to I has a representative
+(1,exp(2 pi i beta_1),...,exp(2 pi i beta_5)). The verifier starts from
+the entire closed five-dimensional phase torus and uses the necessary
+Stage C inequalities at resolutions 12,24,48,96. They use R, r_c, the
+four tangent directions, and the normal allowance (2). The floating
+tangent frame is checked against the exact projector and its discrepancy
+is added to the allowance. Stage C arguments are in cycles, so radian
+phase bounds are divided by 2 pi with outward rounding.
+
+The inherited Stage C tests use explicit conservative binary64 margins
+of 1e-7, as proved in the supplied STAGEC.md and RIGOUR.md. Exponentials
+come from Arb-rounded tables. The memory-bounded orthogonality routine
+uses the same formulas and is compared with the inherited routine on
+a fixed subset. Its proposed test directions can be arbitrary real
+vectors; no inverse computed in floating point is a proof premise.
+
+Surviving bins are assigned to labels. Each label is colored by one of
+the 120 exact reference rays. This coloring is a proposal whose necessary
+distance bounds are subsequently checked in Arb. The verifier checks
+that there are no same-color orthogonality edges, and enumerates every
+six-clique of the quotient graph. A genuine completing basis must have
+one of these color patterns. A label is retained whenever at least one
+pattern supplies neighbors of every other color. The disjunction over
+patterns is essential; no single pattern is selected prematurely.
+
+Every surviving pattern has two distinguished colors belonging to one
+of the ten exact reference bases. Arb checks the distance of every
+assigned bin of either distinguished color, including its entire
+within-bin radius, to be less than 0.4 radians.
+
+4. Contraction of the distinguished columns and exact filtering.
+
+For a distinguished column l, use only its six mixed unbiasedness
+equations. A rational approximate inverse gives an identity
+
+ V_l=M_l eta+error,             u=T eta, ||eta||<=R.
+
+Its inverse defect is retained. In bounding its Taylor remainder, the
+carrier (T eta,M_l eta) is kept together; the normal H error and the
+remaining K error are separate inputs. Each scalar Hessian block has
+an interval-certified operator norm. Third-order mixed remainders use
+sqrt(2)||V_l-U_j||^3/3. For the difference norm, the better of the direct
+column bound and the affine bound is used. Fifty enclosing iterations,
+starting from radius 0.4, give
+
+ ||V_l||<=0.155524 < 0.157,
+ ||V_l-M_l eta||<=0.0303699 < 0.032.                       (3)
+
+For another candidate ray, let v be a bin midpoint, w a distinguished
+exact ray, q_r=conj(w_r)v_r, and S=sum q_r. If this bin is orthogonal
+to a ray within radius 0.157 of w, then, for any complex weight z,
+
+ |Re(conj(z)S)| <= rho ||P_6 Im(conj(z)q)|| + |z|rho^2/2,   (4)
+
+where P_6 subtracts the mean and rho is 0.157 plus the bin's entire
+phase radius. This follows directly from the first-order exponential
+Taylor formula with remainder <=t^2/2. Every new rejection using (4)
+is independently checked in Arb.
+
+A color can occur with more than one distinguished pair. The verifier
+therefore keeps a separate list of possible bins for every (color,pair)
+state. A six-color pattern is discarded only when one of its required
+states has no possible bin. It verifies that precisely the ten exact
+basis patterns remain. Their color sets are disjoint. For these states,
+the remaining bins are split into their 32 children at resolution 192,
+retested, and checked in Arb to satisfy
+
+ ||V_l|| < 0.32       for each of the other four columns.    (5)
+
+All labels, bins, quotient cliques, pair states and rejection margins
+are reproducible from the supplied code. See the cover and filter
+receipts for the exact counts produced in the accepted run.
+
+5. Contraction of the remaining columns and the full basis.
+
+For each of the other four columns, use its six unbiasedness equations
+and its two complex orthogonality equations against the distinguished
+columns. The affine carrier retains the correlations with both of those
+columns. The inverse and linear defects are retained explicitly. The
+same Hessian-block and cubic-remainder method, starting from (3),(5),
+gives phase radius <=0.1541696 and affine error <=0.1091874. We keep
+the simpler bounds 0.16 and 0.115.
+
+Let P be the order-three phase action induced by p=(1,2,0,4,5,3):
+
+ (P U)_{rj}=U_{p(r),p(j)},       (P V)_{rk}=V_{p(r),k}.
+
+The exact reference identities show that this is a genuine common
+monomial action. Split the four H tangent directions into the rank-two
+fixed space T_0 and the rank-two moving space T_1. For a rational
+whole-basis inverse A, put B=-A J_H P_T. Project B onto the fixed K
+space and the fixed H tangent space to obtain B_0, retaining B-B_0
+as a linear defect. The affine surface
+
+ L_0 eta_0 = (T_0 eta_0, B_0 T_0 eta_0)
+
+is exactly fixed by P; ||L_0||<1.55.
+
+Write a candidate (U,V) as this fixed carrier plus moving H tangent,
+normal H, and K carrier errors. A second approximate inverse extracts
+the two moving H coordinates. The joint iteration uses the full set
+of H orthogonality, K orthogonality, and mixed equations. All defects
+and all four classes of Hessian cross terms are included. The accepted
+50-step bounds are
+
+ moving H norm <= 0.0120925,
+ distinguished K errors <= 0.0233255 each,
+ other K errors <= 0.024915 each,
+ normal H norm <= 0.0088.
+
+The squared distance to L_0 eta_0 is their squared sum. Consequently
+every zero in any of the ten complete-basis enclosures lies within
+0.0616024 < 0.065 of this fixed surface, with ||eta_0||<=R.
+
+6. The fixed surface admits no symmetry-breaking zero in this tube.
+
+Use the grid eta_0=(a/100,b/100), -15<=a,b<=15, a^2+b^2<=257.
+Every eta_0 of norm <=0.153 has a nearest grid point in this set,
+at distance <=sqrt(2)/200. There are 793 grid points. Every candidate
+from Step 5 is therefore within
+
+ 0.065 + 1.55 sqrt(2)/200 < 0.075961 < 0.08               (6)
+
+of a fixed reference a=L_0 eta_0 on this grid. These references need
+not themselves be solutions of the MUB equations.
+
+Let W be the joint horizontal projector
+
+ W_((b,r,j),(d,s,k))=(delta_rs-1/6)(delta_bd delta_jk-1/12),
+
+and E=[I-(I+P+P^2)/3]W. Exact rational algebra verifies that E is a
+rank-40 orthogonal projector. At each of the 793 references, an Arb
+Gram/LDL calculation proves
+
+ ||DF(a)v||^2 > 0.9 ||v||^2     for nonzero v in range E.  (7)
+
+The residual F has the global bound ||D^2F(x)[v,w]||<=sqrt(116)||v||||w||.
+Here is a derivation that does not require x to be a solution. Set
+a_j=||v_H,j||^2, b_k=||v_K,k||^2 and c_j,d_k analogously for w;
+write A,B,C,D for their sums. The two orthogonality blocks contribute
+at most 20(AC+BD) to the squared output norm. For a mixed equation,
+its cosine expansion gives the bound
+2||v_K,k-v_H,j||||w_K,k-w_H,j||. Squaring and summing gives at most
+96(AC+BD)+16(AD+BC). The sum is bounded by 116(A+B)(C+D).
+
+Suppose F(x)=0 in one of the balls (6). Then F(Px)=0, and the segment
+between x and Px stays in that ball because P is orthogonal and Pa=a.
+Put q=Px-x. Its joint horizontal projection Wq belongs to range E.
+The difference q-Wq is an infinitesimal common-row gauge and DF(z)
+annihilates it at every phase array z. The fundamental theorem of
+calculus and the global Hessian bound therefore imply
+
+ ||DF(a)Wq|| <= sqrt(116) (0.08) ||Wq||.
+
+But 116(0.08)^2=0.7424<0.9, contradicting (7) unless Wq=0.
+The gauge used here makes H horizontal and each K column mean-free.
+The exact identities checked in verify_reference_balls.py include
+C D C=C/2, where C is the common-row gauge projector and D projects
+onto this chosen gauge. Since q is in range D and Wq=0 forces q in
+range C, this identity forces q=0. Thus Px=x exactly.
+
+On K_* the associated common monomial action has eigenvalues
+1,omega,omega^2, each twice. Px=x preserves this actual balanced
+assignment on K, and makes the other two bases monomial under the
+same action. Recognition therefore gives the asserted known type.
+The exact symmetries from Step 1 transfer the conclusion to every
+one of the ten completing-basis patterns. This proves the theorem
+when the stated computational acceptance condition has passed.
+
+7. Relation to the current 2,775-ball atlas.
+
+The pinned revision is 26b8797f0d3e544a9f40698ad9d4dd18bf923170,
+and the atlas certificate SHA-256 is
+33ad9798eb7a5585c486f2427a6b223867a43b308b7f184467b4cd5956bd8baf.
+On seed ball j, its existing C1 certificate says Q=P_j+U_j w+nu,
+||w||<=r_j and ||nu||<=n_j. Thus ||Q-P_j||<=||U_j||r_j+n_j.
+verify_atlas_enclosures.py checks all 2,775 operator norms in Arb and
+also adds the centre-rounding term used by Stage C. Their maximum
+is bounded by 0.152909572706, strictly below 0.153. This part is a
+conversion of the supplied C1 enclosures, not a rerun of C1.
+
+For the separate Fourier chart, the upstream receipt reports a sharper
+image distance to F6 of 0.1410543819765498; the generic norm of its raw
+stored dephased U is not the horizontal bound used for its X exclusion.
+Its exclusion in the no-four-MUB proof is not a classification of all
+third bases there.
+
+The local theorem above cannot be moved to an arbitrary atlas centre
+by changing the name of H_*. To apply it to a source cell, one must
+certify its inclusion after an allowed equivalence. A sufficient bound
+is d_j+rho_j<=0.153, where d_j bounds the horizontal phase distance
+between its centre and an equivalent H_* and rho_j is the transported
+full-H radius. Direct bounds on the entire affine enclosure can improve
+this triangle bound. Alternatively, establish an analogous local
+certificate at another known centre, or exclude all third bases on
+that cell. Those inclusions and other-centre classifications are not
+provided by this local theorem.
+
+The full conjecture still requires coverage of every surviving triple
+cell, the Fourier chart, and Tao. No global triple-completeness PASS
+may be inferred from the radius comparison or from the no-quartet
+receipt. The original user-supplied brief explicitly describes its
+triple-neighborhood cell list as work in progress.

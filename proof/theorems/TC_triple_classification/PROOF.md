@@ -6,8 +6,12 @@ local patches and exclude Tao. The subsequent
 [seed-ball theorem](seed_method/PROOF.md) proves (L) for an entire
 four-dimensional ball of radius 1/160 in the original seed coordinates,
 including **every** possible third basis. That ball is contained in seed
-ball 1879; it does not cover its full original radius 0.063. No
-counterexample has been identified.
+ball 1879; it does not by itself cover the original radius 0.063.
+The later [whole-ball transfer theorem](seed_method/TRANSFER_R0153.md)
+**does classify the entire original ball 1879**, including every K, using
+the supplied radius-0.153 all-K theorem and a strict native-image
+inclusion. Its scope remains one original ball. No counterexample has
+been identified.
 
 **PROVED, with CERTIFIED numerical hypotheses:** Theorems 1–3 below. The
 constants in Theorems 1–2 are replayed by `replay.py`; Theorem 3 by `tao.py`.
