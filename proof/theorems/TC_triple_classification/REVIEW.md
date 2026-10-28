@@ -1,5 +1,11 @@
 # TC validation record — 27 October 2026
 
+**Historical record:** the sections below describe earlier stages. The
+current generic native-ball certifier and its twelve closed cases out of
+thirteen are documented in the [full review handoff](family_neighbourhoods/REVIEW_HANDOFF.md).
+That handoff supersedes this document's opening scope summary for the
+latest release; the earlier evidence below is preserved.
+
 **PROVED / CERTIFIED scope:** the entire original radius-0.063 ball 1879
 in `seed_method/TRANSFER_R0153.md`, the smaller all-triples seed ball in
 `seed_method/PROOF.md`, the two earlier local full-triple patches and Tao

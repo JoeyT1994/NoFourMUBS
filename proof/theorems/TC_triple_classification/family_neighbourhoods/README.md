@@ -1,5 +1,9 @@
 # Original-ball all-K classifier
 
+For independent review, start with the [full results and proof handoff](REVIEW_HANDOFF.md)
+and the [review request](REVIEW_REQUEST.md). They identify the frozen implementation,
+acceptance dependencies, exact remaining cases, and reproduction commands.
+
 This checks every completing third basis on a specified **whole original seed ball**, keeping its original centre, four native coordinates, and radius. It combines the complete Stage C ray cover with conditional column bounds and an interval proof forcing a genuine balanced order-three symmetry. The symmetry recognition theorem identifies Conjecture 1 type.
 
 The checker is a sufficient test: it reports unresolved cases honestly. The approximately 200 surviving indices are currently on inaccessible Rusty storage, so this release does not claim all 200 have passed. The separate X-ball is outside this driver's scope.
