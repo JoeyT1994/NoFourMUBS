@@ -228,8 +228,8 @@ def main():
     p.add_argument('--max-new-pieces', type=int, default=10000)
     p.add_argument('--seconds', type=float, default=23*3600)
     args = p.parse_args()
-    if not 1 <= args.workers <= 8 or not 9 <= args.max_level <= 20:
-        p.error('workers must be 1..8, max level 9..20')
+    if not 1 <= args.workers <= 128 or not 9 <= args.max_level <= 20:
+        p.error('workers must be 1..128 (one Rusty node), max level 9..20')
     if args.max_new_pieces < 0 or args.seconds < 0:
         p.error('negative work budget')
     args.output.parent.mkdir(parents=True, exist_ok=True)

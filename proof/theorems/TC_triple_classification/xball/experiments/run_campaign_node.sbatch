@@ -15,7 +15,7 @@ X=proof/theorems/TC_triple_classification/xball
 "$PY" "$X/experiments/test_campaign.py"
 "$PY" "$X/test_xball.py"
 resume=()
-if [[ -f "$X/results/rusty_campaign_20261028.manifest.json" ]]; then
+if [[ -f "$X/results/rusty_campaign_node_20261028.manifest.json" ]]; then
     resume=(--resume)
 fi
 # Forward the scheduler's early warning to the controller to stop dispatching.
@@ -26,7 +26,7 @@ set +e
     --cover "$X/results/screen_20261028.cover.json" \
     --receipts "$X/results/screen_20261028.cells.jsonl" \
     --core "$X/results/core7_complete_20261028.json" \
-    --output "$X/results/rusty_campaign_20261028.json" \
+    --output "$X/results/rusty_campaign_node_20261028.json" \
     --workers ${WORKERS:-120} --max-level 11 --max-new-pieces 10000 --seconds 82800 \
     "${resume[@]}" &
 pid=$!
