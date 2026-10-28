@@ -73,16 +73,11 @@ def obstruction_inverse(jq,mq):
     _,_,cols=sla.qr(Z.mid_np(qab(jd)),pivoting=True,mode='economic')
     jc=sub(jd,range(96),[int(v) for v in cols[:51]])
     aug=tuple(fmpq_mat([[jc[k][i,j] for j in range(51)]+[mq[k][i,j] for j in range(4)] for i in range(96)]) for k in range(2))
-    _,_,rows=sla.qr(Z.mid_np(qab(aug)).T,pivoting=True,mode='economic')
-    selected=[int(v) for v in rows[:55]]
-    inv=qinverse(sub(aug,selected,range(55)))
-    result=[]
-    for component in inv:
-        a=fmpq_mat(4,96)
-        for i in range(4):
-            for j,row in enumerate(selected):a[i,row]=component[51+i,j]
-        result.append(a)
-    result=tuple(result)
+    # The least-norm exact solution avoids the large constants introduced
+    # by selecting only 55 of the 96 residual equations.
+    trans=tuple(v.transpose() for v in aug)
+    inv=qinverse(qmul(trans,aug))
+    result=qmul(sub(inv,range(51,55),range(55)),trans)
     if qmul(result,jq)!=(fmpq_mat(4,72),fmpq_mat(4,72)):
         raise ArithmeticError('obstruction map does not annihilate J')
     if qmul(result,mq)!=(fmpq_mat([[int(i==j) for j in range(4)] for i in range(4)]),fmpq_mat(4,4)):
@@ -194,9 +189,14 @@ def main():
     if args.output.exists():parser.error('output exists')
     ctx.prec=224;root=Path(__file__).resolve().parents[1];base=RX.binding()
     files=[root/'results/exact_centres.json',root/'results/crossing_structure_20261028.json',
+           root/'reference/prior_local_CHECKPOINT.md',
            Path(__file__),Path(__file__).with_name('crossing_structure.py'),Path(__file__).with_name('QUANTITATIVE_CROSSING.md')]
     before={str(f.relative_to(root)):hashlib.sha256(f.read_bytes()).hexdigest() for f in files}
     exact=json.loads(files[0].read_text());structure=json.loads(files[1].read_text())
+    if exact['base_binding']!=base['id'] or structure['base_binding']!=base['id']:
+        raise ArithmeticError('input base binding mismatch')
+    if structure['controller_sha256']!=hashlib.sha256(Path(CS.__file__).read_bytes()).hexdigest():
+        raise ArithmeticError('exact structure controller mismatch')
     results=[certify(exact['patterns'][s['number']],s) for s in structure['patterns']]
     after={str(f.relative_to(root)):hashlib.sha256(f.read_bytes()).hexdigest() for f in files}
     if before!=after or RX.binding()!=base:raise ArithmeticError('source changed')
