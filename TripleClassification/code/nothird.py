@@ -13,8 +13,8 @@ cells still failing there are recorded (the ball's triple neighbourhood, up to t
 REPO is the repository root (proof/seed_atlas/cert, proof/atlas).
 """
 TAG = 'nothird'
-REFINE_CAP = 32                     # refine to the last level only balls with at most this many failing cells
 import gzip, itertools, json, math, os, sys, time, traceback
+REFINE_CAP = int(os.environ.get('REFINE_CAP', 32))                    # refine to the last level only balls with at most this many failing cells
 
 
 def misses_ball(uc, h):
