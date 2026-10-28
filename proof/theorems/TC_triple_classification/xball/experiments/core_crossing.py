@@ -57,12 +57,7 @@ def include(model,prepared,bounds,clique,entry,tube,structure):
     kernel_bound=B.C.Z.frob(kernel*delta)+B.C.Z.spectral(kernel*carrier)*model['r']+error
     normal_bound=B.C.Z.frob(normal*delta)+B.C.Z.spectral(normal*carrier)*model['r']+error
     rho=arb(tube['kernel_radius']);eta=arb(tube['normal_radius'])
-    # A receipt with a full phase-ball radius (v4: every actual zero in ||x||<=1/50 is classified) also accepts a
-    # total horizontal phase bound below that radius; otherwise the product domain kernel<rho, normal<eta is required.
-    ball=tube.get('full_phase_ball_radius_fraction')
-    in_ball=ball is not None and total<arb(ball[0])/ball[1]
-    result=dict(status='CERTIFIED' if (kernel_bound<rho and normal_bound<eta) or in_ball else 'NOT ESTABLISHED',
-        accepted_by=('product domain' if kernel_bound<rho and normal_bound<eta else 'full phase ball' if in_ball else None),
+    result=dict(status='CERTIFIED' if kernel_bound<rho and normal_bound<eta else 'NOT ESTABLISHED',
         kind='quantitative two-anchor crossing',exact_centre_pattern=entry['number'],
         phase_radius_bound=str(total),kernel_bound=str(kernel_bound),normal_bound=str(normal_bound),
         certified_kernel_radius=str(rho),certified_normal_radius=str(eta),
@@ -75,11 +70,10 @@ def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--core-power',type=int,default=8);p.add_argument('--output',type=Path,required=True)
     p.add_argument('--inclusion-only',action='store_true')
-    p.add_argument('--radius-receipt',default='results/crossing_radius_20261028_v3.json')
     args=p.parse_args()
     if args.output.exists():p.error('output exists')
     root=Path(__file__).resolve().parents[1];base=RX.binding()
-    radius_path=root/args.radius_receipt
+    radius_path=root/'results/crossing_radius_20261028_v3.json'
     radius_receipt=json.loads(radius_path.read_text())
     if radius_receipt['base_binding']!=base['id']:raise ArithmeticError('radius base mismatch')
     for name,sha in radius_receipt['sources_sha256'].items():
