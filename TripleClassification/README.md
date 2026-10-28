@@ -122,7 +122,6 @@ distance 0.08) or that need splitting.
 - `results/certifier.jsonl.gz`: one compact row per ball from the certifier (status, reason, binding, pattern counts,
   time).
 - `results/census.jsonl.gz`: the census rows.
-- `results/remaining_cells.jsonl.gz`: the cells the first cell-test run left uncertified.
 - `results/summary.json`: the counts above, per-ball split counts, and CPU time.
 
 The full certifier and split receipts are on rusty, under `/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/`

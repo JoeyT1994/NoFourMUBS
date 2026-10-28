@@ -10,7 +10,6 @@ fixed_*.jsonl (nothird.py rows from the code with exact cell geometry; only thes
 final status, the earlier rows being kept as the cell-test columns).  Writes
   balls.tsv              one line per seed ball: its final status, the certifier's and the cell test's results, the
                          split if any, and the census at its centre;
-  remaining_cells.jsonl.gz  per unresolved ball: the level and the dyadic indices of every cell not certified;
   certifier.jsonl.gz     one compact row per ball from the whole-ball certifier (status, reason, pattern counts);
   census.jsonl.gz        the census rows, sorted by ball;
   summary.json           the counts in README.md, and the CPU time of the runs.
@@ -162,8 +161,6 @@ def main():
             rr = '' if r is None else r['r']
             f.write('\t'.join(map(str, [j, rr, final[j], tcs(j), tcp(j), spl(j), s, '' if m is None else m, k, frac]
                                    + cen_cols(j))) + '\n')
-    with gzip.open(os.path.join(out, 'remaining_cells.jsonl.gz'), 'wt') as f:
-        for j in sorted(remaining): f.write(json.dumps(remaining[j], separators=(',', ':')) + '\n')
     with gzip.open(os.path.join(out, 'certifier.jsonl.gz'), 'wt') as f:   # one compact row per ball
         for j in sorted(tc):
             x = tc[j]
@@ -183,8 +180,6 @@ def main():
                                for k in set(final.values())},
         certifier=dict(collections.Counter(x['status'] for x in tc.values())),
         split={str(j): split[j] for j in sorted(split)}, cell_test=dict(cnt),
-        remaining_cells={k: sum(status[j][2] for j in remaining if status[j][0] == k)
-                         for k in ('remaining_fine', 'remaining_coarse')},
         census=dict(balls=len(cen), triples=sum(cls.values()), classes=dict(cls)),
         cpu_hours=dict(nothird=round(sum(r.get('wall_s', 0) for r in nt.values()) / 3600, 1),
                        census=round(sum(c.get('wall_s', 0) for c in cen.values()) / 3600, 1),
