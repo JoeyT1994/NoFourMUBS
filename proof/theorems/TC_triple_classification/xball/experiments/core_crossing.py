@@ -11,6 +11,7 @@ import bootstrap as B
 import model as XM
 import pipeline
 import run_xball as RX
+import crossing_radius as CR
 from flint import arb,arb_mat,fmpq_mat
 
 
@@ -25,18 +26,25 @@ def gauge_matrix():
                 row=36*block+6*r+c
                 d[row,row]+=1;d[row,6*r]-=1
                 d[row,36*block+c]-=1;d[row,0]+=1
-    return arb_mat(d)
+    return d
 
 
-def include(model,prepared,bounds,clique,entry,radius):
+def include(model,prepared,bounds,clique,entry,tube,structure):
     """Enclose every represented triple in one common horizontal phase gauge."""
-    w=arb_mat(B.MS.group(dict(anchor=0,labels=entry['balanced_labels'],R=list(range(6)),
-        S=entry['monomial_permutations'][0],T=entry['monomial_permutations'][1]),rational=True)[0][1])
+    wq=B.MS.group(dict(anchor=0,labels=entry['balanced_labels'],R=list(range(6)),
+        S=entry['monomial_permutations'][0],T=entry['monomial_permutations'][1]),rational=True)[0][1]
+    dq=gauge_matrix()
+    if wq*dq!=wq:raise ArithmeticError('shared gauge identity failed')
+    w=arb_mat(wq)
+    raw=[CR.qab(CR.qstrings(structure['fixed_plane_basis_'+str(i)])) for i in range(2)]
+    kernel=arb_mat(72,72)
+    for n in raw:kernel+=n*(n.transpose()*n).inv()*n.transpose()
+    normal=w-kernel
     q=arb_mat([[model['Q0'][i,0]] for i in range(36)]+
               [[prepared[clique[c]]['v0'][r,0]] for r in range(6) for c in range(6)])
     exponents=sum(entry['H_exponents_mod12'],[])+sum(entry['K_exponents_mod12'],[])
     exact=arb_mat([[arb.pi()*v/6] for v in exponents])
-    difference=gauge_matrix()*q-exact
+    difference=arb_mat(dq)*q-exact
     winding=[round(float((difference[i,0]/(2*arb.pi())).mid())) for i in range(72)]
     delta=w*(difference-arb_mat([[2*arb.pi()*i] for i in winding]))
     carrier=arb_mat([[model['U'][i,j] for j in range(4)] for i in range(36)]+
@@ -46,9 +54,13 @@ def include(model,prepared,bounds,clique,entry,radius):
     kerror=B.C.norm([bounds[c]['epsilon'] for c in clique])
     error=(herror*herror+kerror*kerror).sqrt()
     total=centre+linear+error
-    result=dict(status='CERTIFIED' if total<radius else 'NOT ESTABLISHED',
+    kernel_bound=B.C.Z.frob(kernel*delta)+B.C.Z.spectral(kernel*carrier)*model['r']+error
+    normal_bound=B.C.Z.frob(normal*delta)+B.C.Z.spectral(normal*carrier)*model['r']+error
+    rho=arb(tube['kernel_radius']);eta=arb(tube['normal_radius'])
+    result=dict(status='CERTIFIED' if kernel_bound<rho and normal_bound<eta else 'NOT ESTABLISHED',
         kind='quantitative two-anchor crossing',exact_centre_pattern=entry['number'],
-        phase_radius_bound=str(total),certified_local_phase_radius=str(radius),
+        phase_radius_bound=str(total),kernel_bound=str(kernel_bound),normal_bound=str(normal_bound),
+        certified_kernel_radius=str(rho),certified_normal_radius=str(eta),
         centre_bound=str(centre),linear_bound=str(linear),remainder_bound=str(error),
         shared_gauge=True,windings=winding)
     return result
@@ -61,15 +73,17 @@ def main():
     args=p.parse_args()
     if args.output.exists():p.error('output exists')
     root=Path(__file__).resolve().parents[1];base=RX.binding()
-    radius_path=root/'results/crossing_radius_20261028_v2.json'
+    radius_path=root/'results/crossing_radius_20261028_v3.json'
     radius_receipt=json.loads(radius_path.read_text())
     if radius_receipt['base_binding']!=base['id']:raise ArithmeticError('radius base mismatch')
     for name,sha in radius_receipt['sources_sha256'].items():
         if digest(root/name)!=sha:raise ArithmeticError('radius source mismatch: '+name)
-    files=[Path(__file__),radius_path,root/'results/exact_centres.json',Path(__file__).with_name('QUANTITATIVE_CROSSING.md')]
+    files=[Path(__file__),radius_path,root/'results/exact_centres.json',Path(__file__).with_name('QUANTITATIVE_CROSSING.md'),
+           root/'results/crossing_structure_20261028.json']
     sources={str(f.relative_to(root)):digest(f) for f in files}
     exact=json.loads(files[2].read_text())
-    limits={p['number']:arb(p['classification_phase_radius']) for p in radius_receipt['patterns']
+    structures={s['number']:s for s in json.loads(files[4].read_text())['patterns']}
+    limits={p['number']:p['success'] for p in radius_receipt['patterns']
             if p['status']=='CERTIFIED LOCAL PHASE NEIGHBOURHOOD'}
     if set(limits)!={1,2}:raise ArithmeticError('two certified crossing radii required')
     started=time.monotonic();record,_,original=XM.load_original()
@@ -84,13 +98,13 @@ def main():
     for number,clique in enumerate(cliques):
         if tuple(clique) in entries:
             entry=entries[tuple(clique)]
-            result=include(model,prepared,bounds,clique,entry,limits[entry['number']])
+            result=include(model,prepared,bounds,clique,entry,limits[entry['number']],structures[entry['number']])
         elif args.inclusion_only:
             result=dict(status='NOT TESTED')
         else:
             result=pipeline.final_pattern(model,prepared,bounds,cover,clique)
         result=dict(number=number,colors=clique,**result);results.append(result)
-        print(json.dumps({k:v for k,v in result.items() if k in ('number','status','phase_radius_bound','certified_local_phase_radius')}),flush=True)
+        print(json.dumps({k:v for k,v in result.items() if k in ('number','status','phase_radius_bound','kernel_bound','normal_bound')}),flush=True)
     if RX.binding()!=base or any(digest(f)!=sources[str(f.relative_to(root))] for f in files):
         raise ArithmeticError('source changed during replay')
     closed=all(v['status'] in ('CERTIFIED','EXCLUDED') for v in results)

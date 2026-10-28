@@ -163,14 +163,16 @@ def certify(entry,structure):
     g2,g3,_=derivative_bounds(b,phases)
     print(json.dumps(dict(number=entry['number'],defect=str(defect),h2=str(h2),h3=str(h3),g2=str(g2),g3=str(g3))),flush=True)
     trials=[];success=None
-    for power in range(1,41):
-        radius=arb(1)/2**power;rho=eta=radius/2
+    for power,numerator in ((p,n) for p in range(1,41) for n in (3,2)):
+        radius=arb(numerator)/2**(power+1);rho=7*radius/8;eta=radius/8
+        if not rho*rho+eta*eta<radius*radius:
+            raise ArithmeticError('implicit tube exceeds derivative-bound ball')
         h=h2+h3*radius;q=defect+h*radius
         if not q<1:continue
         inclusion=h*rho*rho/2+q*eta
         t=h*radius/(1-q);s=h*(1+t*t)/(1-q)
         epsilon=g3*radius*(1+t*t)+g2*(2*t+t*t)+(g2+g3*radius)*radius*s
-        value=dict(ambient_radius_power=power,ambient_radius=str(radius),kernel_radius=str(rho),normal_radius=str(eta),
+        value=dict(ambient_radius_fraction=[numerator,2**(power+1)],ambient_radius=str(radius),kernel_radius=str(rho),normal_radius=str(eta),
             q=str(q),normal_image_bound=str(inclusion),mixed_invertibility_defect_bound=str(2*epsilon))
         trials.append(value)
         if inclusion<eta and 2*epsilon<1:
@@ -179,7 +181,7 @@ def certify(entry,structure):
         conditional_on='QUANTITATIVE_CROSSING.md and the supplied qualitative crossing theorem',
         physical_actions_exact=True,normal_inverse_defect=str(defect),hessian_H=str(h2),third_derivative_H=str(h3),
         hessian_G=str(g2),third_derivative_G=str(g3),third_frequency_gram_row_bound=gram,
-        success=success,classification_phase_radius=str(arb(1)/2**(success['ambient_radius_power']+1)) if success else None,
+        success=success,classification_phase_radius=success['normal_radius'] if success else None,
         trials=trials,core_all_K_inclusion_certified=False)
 
 

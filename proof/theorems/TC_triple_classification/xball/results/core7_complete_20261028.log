@@ -1,0 +1,65 @@
+/Users/jtindall/.codex/worktrees/tc-triple-classification/NoFourMUBS/proof/atlas/record.py:51: RuntimeWarning: divide by zero encountered in matmul
+  s, Vt = np.linalg.svd(Jn @ Hb)[1:]
+/Users/jtindall/.codex/worktrees/tc-triple-classification/NoFourMUBS/proof/atlas/record.py:51: RuntimeWarning: overflow encountered in matmul
+  s, Vt = np.linalg.svd(Jn @ Hb)[1:]
+/Users/jtindall/.codex/worktrees/tc-triple-classification/NoFourMUBS/proof/atlas/record.py:51: RuntimeWarning: invalid value encountered in matmul
+  s, Vt = np.linalg.svd(Jn @ Hb)[1:]
+/Users/jtindall/.codex/worktrees/tc-triple-classification/NoFourMUBS/proof/atlas/stagec.py:73: RuntimeWarning: divide by zero encountered in matmul
+  S = eU @ eP / SQ6                                                     # (n, 6): S_i
+/Users/jtindall/.codex/worktrees/tc-triple-classification/NoFourMUBS/proof/atlas/stagec.py:73: RuntimeWarning: overflow encountered in matmul
+  S = eU @ eP / SQ6                                                     # (n, 6): S_i
+/Users/jtindall/.codex/worktrees/tc-triple-classification/NoFourMUBS/proof/atlas/stagec.py:73: RuntimeWarning: invalid value encountered in matmul
+  S = eU @ eP / SQ6                                                     # (n, 6): S_i
+/Users/jtindall/.codex/worktrees/tc-triple-classification/NoFourMUBS/proof/theorems/TC_triple_classification/family_neighbourhoods/native_cover.py:24: RuntimeWarning: divide by zero encountered in matmul
+  x=np.exp(1j*np.c_[np.zeros(len(p)),p]);s=x@h.conj()
+/Users/jtindall/.codex/worktrees/tc-triple-classification/NoFourMUBS/proof/theorems/TC_triple_classification/family_neighbourhoods/native_cover.py:24: RuntimeWarning: overflow encountered in matmul
+  x=np.exp(1j*np.c_[np.zeros(len(p)),p]);s=x@h.conj()
+/Users/jtindall/.codex/worktrees/tc-triple-classification/NoFourMUBS/proof/theorems/TC_triple_classification/family_neighbourhoods/native_cover.py:24: RuntimeWarning: invalid value encountered in matmul
+  x=np.exp(1j*np.c_[np.zeros(len(p)),p]);s=x@h.conj()
+/Users/jtindall/.codex/worktrees/tc-triple-classification/NoFourMUBS/proof/theorems/TC_triple_classification/family_neighbourhoods/native_cover.py:30: RuntimeWarning: divide by zero encountered in matmul
+  x=np.exp(1j*np.c_[np.zeros(len(p)),p]);good=np.max(np.abs(np.abs(x@h.conj())**2-6),axis=1)<1e-9
+/Users/jtindall/.codex/worktrees/tc-triple-classification/NoFourMUBS/proof/theorems/TC_triple_classification/family_neighbourhoods/native_cover.py:30: RuntimeWarning: overflow encountered in matmul
+  x=np.exp(1j*np.c_[np.zeros(len(p)),p]);good=np.max(np.abs(np.abs(x@h.conj())**2-6),axis=1)<1e-9
+/Users/jtindall/.codex/worktrees/tc-triple-classification/NoFourMUBS/proof/theorems/TC_triple_classification/family_neighbourhoods/native_cover.py:30: RuntimeWarning: invalid value encountered in matmul
+  x=np.exp(1j*np.c_[np.zeros(len(p)),p]);good=np.max(np.abs(np.abs(x@h.conj())**2-6),axis=1)<1e-9
+/Users/jtindall/.codex/worktrees/tc-triple-classification/NoFourMUBS/proof/atlas/stagec.py:101: RuntimeWarning: divide by zero encountered in matmul
+  S = eU @ eP / SQ6                                                     # (n, 6) over i
+/Users/jtindall/.codex/worktrees/tc-triple-classification/NoFourMUBS/proof/atlas/stagec.py:101: RuntimeWarning: overflow encountered in matmul
+  S = eU @ eP / SQ6                                                     # (n, 6) over i
+/Users/jtindall/.codex/worktrees/tc-triple-classification/NoFourMUBS/proof/atlas/stagec.py:101: RuntimeWarning: invalid value encountered in matmul
+  S = eU @ eP / SQ6                                                     # (n, 6) over i
+/Users/jtindall/.codex/worktrees/tc-triple-classification/NoFourMUBS/proof/atlas/stagec.py:236: RuntimeWarning: divide by zero encountered in matmul
+  G = np.matmul(np.transpose(A, (0, 2, 1)), A) + 1e-12 * np.eye(12 + l)[None]
+/Users/jtindall/.codex/worktrees/tc-triple-classification/NoFourMUBS/proof/atlas/stagec.py:236: RuntimeWarning: overflow encountered in matmul
+  G = np.matmul(np.transpose(A, (0, 2, 1)), A) + 1e-12 * np.eye(12 + l)[None]
+/Users/jtindall/.codex/worktrees/tc-triple-classification/NoFourMUBS/proof/atlas/stagec.py:236: RuntimeWarning: invalid value encountered in matmul
+  G = np.matmul(np.transpose(A, (0, 2, 1)), A) + 1e-12 * np.eye(12 + l)[None]
+/Users/jtindall/.codex/worktrees/tc-triple-classification/NoFourMUBS/proof/theorems/TC_triple_classification/family_neighbourhoods/basis_exclusion.py:25: RuntimeWarning: divide by zero encountered in matmul
+  proposal=np.concatenate(columns,axis=1);gram=proposal@proposal.T;fn=MS.numeric(f)[:,0]
+/Users/jtindall/.codex/worktrees/tc-triple-classification/NoFourMUBS/proof/theorems/TC_triple_classification/family_neighbourhoods/basis_exclusion.py:25: RuntimeWarning: overflow encountered in matmul
+  proposal=np.concatenate(columns,axis=1);gram=proposal@proposal.T;fn=MS.numeric(f)[:,0]
+/Users/jtindall/.codex/worktrees/tc-triple-classification/NoFourMUBS/proof/theorems/TC_triple_classification/family_neighbourhoods/basis_exclusion.py:25: RuntimeWarning: invalid value encountered in matmul
+  proposal=np.concatenate(columns,axis=1);gram=proposal@proposal.T;fn=MS.numeric(f)[:,0]
+/tmp/tc_r0153_env/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3383: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/tmp/tc_r0153_env/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3383: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/tmp/tc_r0153_env/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3383: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+{"number": 0, "status": "CERTIFIED"}
+{"number": 1, "status": "CERTIFIED", "phase_radius_bound": "[0.00227311348833025604181124843341559256464123592503290872178825829719 +/- 3.87e-69]", "kernel_bound": "[0.00227311348832926289333768237724946313573633748956826573593349709029 +/- 1.96e-69]", "normal_bound": "[2.10694754634604017574022472487374221718701407332220508654159299396e-6 +/- 1.52e-72]"}
+{"number": 2, "status": "CERTIFIED", "phase_radius_bound": "[0.00227308184396558101725822130309359027883222921267199768216768460613 +/- 4.53e-69]", "kernel_bound": "[0.00227308184396457518497676817470145515883182858168142806935956168408 +/- 7.04e-70]", "normal_bound": "[2.07530318158306387778030344622568030326228827431835460653645595431e-6 +/- 1.16e-72]"}
+{"number": 3, "status": "CERTIFIED"}
+{"number": 4, "status": "CERTIFIED"}
+{"number": 5, "status": "CERTIFIED"}
+{"number": 6, "status": "CERTIFIED"}
+{"number": 7, "status": "CERTIFIED"}
+{"number": 8, "status": "CERTIFIED"}
+{"number": 9, "status": "CERTIFIED"}
+{"number": 10, "status": "CERTIFIED"}
+{"number": 11, "status": "CERTIFIED"}
+{"number": 12, "status": "CERTIFIED"}
+{"number": 13, "status": "CERTIFIED"}
+{"number": 14, "status": "CERTIFIED"}
+{"number": 15, "status": "CERTIFIED"}
+{"status": "CERTIFIED", "seconds": 37.69461595796747}

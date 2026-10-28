@@ -89,3 +89,20 @@ domain after one common gauge and exact centre matching. The graph's
 existence alone does not establish that last inclusion. If the achieved
 radius is smaller than r/4, the intervening original-coordinate annulus
 must also be covered and classified. No smaller radius replaces r=0.13.
+
+For core inclusion the product domain can be substantially more useful
+than its inscribed phase ball. The original all-K model has a common
+four-parameter carrier and a second-order remainder. Project that carrier
+and remainder onto K and V separately and compare with rho and eta.
+The v3 calculation uses rho=7R/8 and eta=R/8, so rho²+eta²<R². A true
+triple belongs to the implicit-function tube when both projected bounds
+pass; its full phase norm need not fit inside the smaller eta-ball.
+
+To compare the native lift with an exact centre, first use one common
+row rephasing, independent column rephasings, and integer phase windings
+to match the dephased centre. Then apply the orthogonal horizontal gauge
+projection W. The exact identity W D=W for the shared dephasing map D
+ensures the common four-coordinate carrier transforms by W alone. The
+H and six K-column error bounds combine by the Euclidean sum of squares;
+the K and V projections have norm one. Every bound includes the entire
+complete-cover pattern, not just its numerical fitted basis.
