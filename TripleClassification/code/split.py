@@ -1,7 +1,8 @@
 """Split a seed ball into sub-balls that cover it, and run the whole-ball triple certifier on each (EXPERIMENTAL).
 
   python split.py build ATLAS INDEX LEVEL OUT.json.gz      the sub-ball records and their cover receipt
-  python split.py run TC_TREE SUBATLAS... [--workers N]      the frozen certifier's run_ball on every sub-ball
+  python split.py run TC_TREE SUBATLAS... [--workers N] [--seconds T]   the frozen certifier's run_ball on every
+                                                           sub-ball, each stopped after T s (NOT ESTABLISHED)
                                                            (rows in SUBATLAS's .jsonl; finished rows are skipped)
 
 **Cover.** Level m cuts the parent's parameter cube [-r, r]^4 into cells of half-width h r (h = 2^-m); the cells that
@@ -89,7 +90,24 @@ def build(atlas, index, level, out):
     for r in bad[:5]: print(' ', r)
 
 
-def run(tc_tree, subatlases, workers):
+def run_ball_limited(run_ball, sa, i, bid, seconds):
+    """run_ball with a wall-clock limit: SIGALRM raises inside the certifier, whose own handler then records the
+    sub-ball as NOT ESTABLISHED (a timeout never closes anything; the sub-ball is split instead)."""
+    import signal
+
+    def expire(signum, frame):
+        raise TimeoutError('sub-ball time limit of %d s reached' % seconds)
+    if seconds:
+        signal.signal(signal.SIGALRM, expire); signal.alarm(int(seconds))
+    try:
+        return run_ball(sa, i, bid)
+    except TimeoutError as e:                       # raised outside the certifier's own handler
+        return dict(index=i, status='NOT ESTABLISHED', binding=bid, reason='TimeoutError: %s' % e)
+    finally:
+        if seconds: signal.alarm(0)
+
+
+def run(tc_tree, subatlases, workers, seconds=0):
     """The frozen certifier on every sub-ball of every sub-atlas, in one process pool; rows go to the sub-atlas's
     .jsonl (completed rows are kept and skipped)."""
     fn = os.path.join(tc_tree, 'proof/theorems/TC_triple_classification/family_neighbourhoods')
@@ -128,7 +146,7 @@ def run(tc_tree, subatlases, workers):
         jobs += [(sa, i, bid) for i in range(n) if i not in done]
     ctxf = __import__('multiprocessing').get_context('fork')
     with ProcessPoolExecutor(max_workers=workers, mp_context=ctxf) as pool:
-        futs = {pool.submit(R.run_ball, sa, i, bid): sa for sa, i, bid in jobs}
+        futs = {pool.submit(run_ball_limited, R.run_ball, sa, i, bid, seconds): sa for sa, i, bid in jobs}
         for fu in as_completed(futs):
             row = fu.result(); f = outs[futs[fu]]
             f.write(json.dumps(row, allow_nan=False) + '\n'); f.flush()
@@ -139,7 +157,9 @@ if __name__ == '__main__':
     a = sys.argv[1:]
     if a[0] == 'build': build(a[1], int(a[2]), int(a[3]), a[4])
     elif a[0] == 'run':
-        w = 1
+        w, t = 1, 0
         if '--workers' in a:
             i = a.index('--workers'); w = int(a[i + 1]); del a[i:i + 2]
-        run(os.path.abspath(a[1]), [os.path.abspath(x) for x in a[2:]], w)
+        if '--seconds' in a:
+            i = a.index('--seconds'); t = int(a[i + 1]); del a[i:i + 2]
+        run(os.path.abspath(a[1]), [os.path.abspath(x) for x in a[2:]], w, t)
