@@ -1,0 +1,36 @@
+Transferring the all-K statement across a complete cover
+
+An accepted native atlas transfer identifies a Hadamard matrix in one
+chart with a matrix in another chart, up to row and column monomials,
+complex conjugation, or transposition. Row monomials act on every basis,
+and basis-column monomials change only its ray representatives. Complex
+conjugation preserves unbiasedness. Transposition is also allowed for
+the classification: anchor the triple at H, then conjugate, so its new
+second matrix is H^T and its third matrix is H^T conjugate(K)/sqrt(6).
+Thus the existence of a completing K, and membership in the known types
+up to triple equivalence, are preserved by each admitted transfer.
+
+We partition the full parameter cube of the original closed ball into
+dyadic boxes. A box is discarded as outside only when its exact rational
+minimum squared distance from the origin is strictly greater than r^2.
+Every other accepted box has a verified T0 or T1 transfer to a previously
+certified original ball. The original atlas's orientation inequalities
+are checked for T1. No source or target radius is reduced.
+
+The existing affine_sphere_upper routine remains an upper bound inside
+the closed ball. Its compensation uses lambda>=0 with B^T B-lambda I
+positive semidefinite. For ||w||<=r,
+  ||a+B(w-c)||^2 <= ||a+B(w-c)||^2-lambda(||w||^2-r^2).
+The right-hand side is convex, so its maximum on the containing box
+occurs at a vertex. This proves the bound on the box intersected with
+the ball, not just on its spherical boundary. All nonlinear Taylor
+segments in check_local join two points in the original convex ball.
+
+The saved leaves are checked as a complete, nonoverlapping partition
+of the root cube. Replay recomputes every transfer inequality and its
+orientation checks, and rejects an open or missing leaf. A successful
+geometric cover is explicitly conditional on the named upstream all-K
+certificates. Their exact atlas/source bindings, radii, seed hashes, and
+compressed result file are checked. Those prior certificates are not
+replayed by this geometry-only checker and are not represented as new
+independent classification proofs.

@@ -1,0 +1,210 @@
+Algebraic triple certification: scope and proofs
+
+Status: implemented, with explicit partial computational results. This is
+not a completed proof of the global classification conjecture. See the
+generated results summary and README.txt. No critical-system root search,
+implicit graph, numerical census, or single reference tube is treated as
+an exhaustive classification without its domain and covering obligations.
+
+1. Coordinates and residuals
+
+The source atlas is pinned by SHA-256 in the frozen native driver. Its
+ordinary seed domain is theta=theta0+Mth*w, ||w||_2<=r. The four theta
+entries are the upper-left dephased seed phases, in radians. Mth is part
+of the metric: r is not an unscaled four-phase cube radius and is not an
+H-only full-phase norm. Every all-K run here uses the original seed
+record without changing its radius or frame.
+
+The fresh C1 and normal-form certificates enclose the exact Hadamard
+branch as Q(w)=Q0+Uw+H2[w,w]/2+Xz(w). They supply uniform bounds tau,
+Z1 and Z2 for z, Dz and D2z, on the original ball. All H phases use its
+fixed horizontal gauge. K has six independent column gauges; fixing its
+first row leaves 30 phases. Together these give 34 intrinsic variables.
+
+Use the native residual normalization: unscaled real/imaginary Gram
+equations and (|H* K|^2-6)/6 for mixed equations. H's 30 Gram equations
+vanish identically on the exact chart. The remaining 66 equations are
+30 K Gram equations and all 36 mixed equations. Each is evaluated by the
+same finite Fourier representation as the frozen moving-symmetry proof.
+For phase q(x), the chain rule is
+  D f = D_q f Dq,
+  D2(y.f) = Dq^T D2_q(y.f) Dq + sum_a (y.D_q f)_a D2 q_a.
+For E=sum_i f_i^2,
+  DE=2 Df^T f,
+  D2E=2 Df^T Df+2 sum_i f_i D2 f_i.
+The implementation retains the second term, including H-chart curvature.
+Intervals crossing zero are squared as intervals; flint 0.9's x**2
+operation on such an interval is deliberately avoided.
+
+For a sub-box with midpoint c inside the original native ball, the
+original centre-jet contraction encloses Q(c),DQ(c). Write d=w-c. Then
+  Q(w)=Q(c)+DQ(c)d+H2[d,d]/2+X e0, ||e0||<=Z2||d||^2/2,
+  DQ(w)=DQ(c)+H2[d,.]+X e1, ||e1||<=Z2||d||,
+  D2Q(w)=H2+X e2, ||e2||<=Z2.
+Convexity keeps every required segment inside the certified chart. The
+global normal form is used when a local jet cannot be used. Barrier
+and graph domains must lie wholly inside the certified parameter ball.
+
+2. Signed quadratic support and necessary seed cuts
+
+SCALAR_PROOF.txt proves the seven-group quadratic dual bound used by
+scalar_support.py. The four common seed variables and six K error
+vectors remain correlated through quadratic order. Numerical directions
+and dual multipliers are proposals; an Arb LDL test and inverse solve
+prove every accepted lower bound. Finite binary64 proposals are exact
+constants, saved in hexadecimal. replay_scalar.py rebuilds the complete
+all-K cover and reuses the saved directions and multipliers, without
+optimizing replacements.
+
+CAP_PROOF.txt proves the optional necessary seed-cap localization. It
+can reduce the region in which a particular pattern has zeros, while
+classifying the entire original pattern. Every cut and all discarded
+points are justified by a scalar inequality. Iterated centres remain
+inside the original chart and use its original derivative certificate.
+This is not a smaller-radius substitute for the requested domain.
+
+3. Uniform elimination of K
+
+Choose 30 of the 66 equations, G(w,k), with k in a closed 30-box about
+k0 and half-widths rho_i>0. Let Y be a proposed inverse for G_k. On the
+whole parameter and K domain, certify
+  sum_j |(I-Y G_k)_ij| rho_j < rho_i,
+  |(Y G(w,k0))_i|+sum_j |(I-Y G_k)_ij|rho_j < rho_i.
+These are uniform weighted infinity-norm contraction and self-map
+inequalities. Banach's theorem gives exactly one root k(w) of G in the
+entire K box for every w. The derivative is invertible there, so the
+graph is analytic in the interior. All full triples in that K box lie
+on it. This is existence and uniqueness, not just a conditional bound
+valid at previously assumed zeros.
+
+All other 36 equations remain. If L=[I;Dk], implicit differentiation gives
+  Dk=-(G_k)^-1 G_w,
+  D2k_ij=-(G_k)^-1 D2G[L_i,L_j].
+The reduced residual's Hessian retains the additional D_k f D2k term.
+Hence its squared residual supplies a genuine four-variable energy jet.
+An observed numerical rank is never substituted for the contraction.
+At crossings or any singular elimination attempt, failure is inconclusive.
+An exhaustive all-K pattern/branch cover and gluing between graph patches
+are still required before this reduction covers an entire atlas ball.
+
+4. Finite intrinsic barrier theorem
+
+Let Omega be an open region with compact closure in one certified
+Hadamard chart times the K phase torus, or in a certified four-variable
+implicit graph. Delete only closed regions in which every zero has
+already been proved known. Let E be the squared residual, with all
+uneliminated equations retained. Choose rational epsilon>0 and a rational
+four-vector a with a_1 !=0. Suppose E>epsilon on the entire relative
+boundary of Omega. If Omega contains a zero, the compact nonempty set
+{x in Omega:E(x)<=epsilon} has a maximum of a.w. That maximum cannot
+have E<epsilon, because the height has nonzero derivative in an open
+chart. At a regular level point, the Lagrange multiplier condition says
+DE is parallel to (a,0). At a singular level point DE=0 already satisfies
+the same equations. Thus a zero forces a solution of
+  E-epsilon=0,
+  E_kj=0, j=1,...,30 (omit after K elimination),
+  a_1 E_wi-a_i E_w1=0, i=2,3,4.
+There are respectively 34 or four equations in the same number of
+unknowns. No rank assumption about the triple zero set is used.
+
+barrier.py represents the region by an exact rational midpoint partition
+of a rectangular root. Active leaves comprise the remaining region;
+removed leaves must have their classification recomputed by known_boxes.py.
+Internal active faces are subtracted exactly. A coordinate can be made
+periodic only for K in turns, with an exact unit root period. Periodic
+seams are identified; they are not false boundary faces. All other
+exposed faces, including patch ends and known-region walls, are checked.
+Closed facet enclosures also cover their intersections and corners.
+
+Each boundary face gets a complete dyadic tree of strict E>epsilon
+tests. Only then are the interior witness systems covered by component
+exclusions or interval mean-value exclusions. For any fixed numerical
+matrix Y, a zero in a convex box X belongs to
+  x0-YG(x0)+(I-YDG(X))(X-x0).
+Disjointness from X excludes it; invertibility of the proposal is not
+assumed. A failed test, missing face, omitted child, exhausted node budget,
+or missing known-region proof cannot produce a completed certificate.
+Replay derives all geometric faces anew and recomputes every accepted
+leaf inequality. Stored status labels and numeric margins are not used
+as acceptance evidence.
+
+This implementation handles one coherent chart or graph at a time. It
+does not identify different native charts by a guessed transition or
+invent a globally single-valued seed height. A cross-chart union needs
+separately certified coordinate transitions. It also does not apply an
+ambient 110-variable polynomial theorem to a lower-dimensional chart.
+The present system is analytic; calling it polynomial would be incorrect.
+
+5. Quantitative local walls
+
+If a scalar support margin is m>0 for a fixed residual direction y,
+then ||F||>=m/||y|| on its stated tube. A tube obtained by pruning only
+exact zeros does not automatically cover a positive residual level.
+Accordingly scalar pattern receipts explicitly mark that missing
+positive-level covering property. The boundary checker evaluates all
+points of its boundary enclosures, without reusing zero-only Stage C
+pruning as a residual-gap certificate.
+
+The product Taylor bound is sigma*t-L*t^2/2 on a radius-t wall. For the
+stated unweighted product constants sigma=2/7, L=60, t=1/210, this is
+1/1470. Converting to native residual scaling gives at least 1/8820.
+This conversion does not change or identify the phase metrics.
+
+For an order-three orthogonal action P, let Q be its moving projector,
+sigma a derivative lower bound there, and L a Hessian bound. Equivariance
+and the segment formula give
+  ||F(x)|| >= sqrt(3)/2 (sigma-Lr) ||Qx||, sigma>Lr,
+since ||(P-I)x||=sqrt(3)||Qx|| and
+||F(Px)-F(x)||<=2||F(x)||. This controls transverse walls, not tangential
+ends of an unglued family patch.
+
+At a crossing, write x=k+y, k=(u,v), y=phi(k) on the normal graph.
+Let D=1-q, alpha>=||A||, beta>=||B||, dN=||y-phi(k)||. Normal contraction
+and the reduced mixed obstruction imply
+  ||F(x)|| >= D*dN/alpha,
+  ||F(x)|| >= (1-delta)||u||||v||/(beta+M alpha/D),
+where M bounds D(BF) on the normal comparison segment. The second follows
+by comparing BF at x and on the graph and using dN<=alpha||F||/D.
+Outside {dN<b and min(||u||,||v||)<t}, the lower bound is the minimum of
+  D*b/alpha and (1-delta)*t^2/(beta+M alpha/D).
+For the enlarged crossing constants,
+  D=0.94036028499999, M<=0.168945525, 1-delta>0.11477192799095.
+crossing_norms.py actually reconstructs both preconditioners, verifies
+the derivative bounds and their norms, and binds the exact-structure
+input. On this runtime both patterns have
+  alpha < 0.577350269478302, beta < 1.816207894050053.
+Domain inclusion and exposed-wall coverage are separate obligations.
+The whole crossing exact-structure theorem remains a named upstream
+dependency; reading its saved receipt is not described as a new replay
+of the complete structural proof.
+
+6. Recycling transitions and full-H inclusions
+
+transitions.py encloses the three choices of distinguished basis and
+their swaps. Changing anchor to H produces (H*,H*K/sqrt(6)); changing
+to K produces (K*,K*H/sqrt(6)). The phases of each transition entry are
+enclosed by rotating its interval into one certified open half-plane;
+an interval meeting zero or failing this check is rejected. All fixed
+permutations and phase windings are proposals whose resulting enclosures
+are checked. The two bases share the same row gauge. Exact rational
+matrix identities verify W^2=W, W^T=W, D^2=D and WD=W for the joint
+horizontal projector W and the common dephasing map D.
+
+The module distinguishes the joint 72-phase quotient norm from the
+H-only 36-phase horizontal Frobenius norm. Its inclusion receipts do not
+claim a target local theorem has been replayed. A caller must supply a
+verified all-K theorem for an H-only target, or a verified joint local
+classification theorem for a joint target. No automatic atlas-chart
+transition or classification is inferred merely from close seed phases.
+
+7. Outstanding global obligations
+
+The upstream snapshot reports 2,593 of 2,775 ordinary balls resolved,
+with 182 open, and an X-ball result conditional on its documented review
+dependencies. Our controlled experiment and saved-witness replay must
+be consulted for the additional closure, rather than extrapolating from
+unit tests or small regional examples. Remaining all-K coverings,
+crossing/regular patch gluing, global source-bound accounting, recognition
+review and Stage C's inherited floating error enclosures still matter.
+The algebraic modules make these obligations testable; they do not assert
+that every remaining positive-level critical system has been excluded.

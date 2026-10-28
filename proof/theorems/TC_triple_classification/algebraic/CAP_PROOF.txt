@@ -1,0 +1,36 @@
+Necessary seed-cap localization
+
+Retain the scalar quadratic inequality proved in SCALAR_PROOF.txt, but
+remove its four w-linear coefficients from the dual minimization. This
+gives, on the entire original complete-cover pattern,
+  y.F >= c + g.w + L - tail.
+Consequently every zero satisfies -g.w >= c+L-tail. Replace g by the
+exact binary64 vector g0, paying ||g-g0|| r, and round the remaining
+positive margin downward to an exact binary64 m. Thus every zero has
+  d.w >= m > 0, d=-g0, ||w|| <= r.
+If m>r||d||, the pattern is empty. Otherwise put
+  c0=m d/||d||^2, rho^2=r^2-m^2/||d||^2.
+For every such zero,
+  ||w-c0||^2=||w||^2-2m(d.w)/||d||^2+m^2/||d||^2 <= rho^2.
+All these inequalities, including strict centre inclusion, are checked
+in Arb. No actual zero in the original ball is removed without proof.
+
+The original centre-jet oracle encloses Q(c0), DQ(c0). Its global Z2
+bound gives, along each segment from c0 to an original-ball point w,
+  Q(w)=Q(c0)+DQ(c0)v+H2[v,v]/2+X e,
+  v=w-c0, ||e|| <= Z2 rho^2/2.
+Both endpoints lie in the original convex native ball. No extension of
+the analytic Hadamard chart to the containing cap ball is assumed.
+For a K column, shift the old carrier by T_c c0 and include its rounding;
+the initial new phase radius is at most ||T_c|| rho+epsilon_c plus that
+rounding error. The frozen conditional contraction and symmetry tests
+can therefore be applied to these new enclosures of the same original
+zeros. A success classifies the complete original pattern, not merely
+a smaller requested domain. Failure remains NOT ESTABLISHED.
+
+Cuts may be iterated. The absolute centre is tracked in the original
+native coordinates, every new centre is required to lie strictly inside
+the original ball, and every new centre jet is recomputed from that same
+original normal form. The original Z2 bound is retained. No derivative
+bound is extrapolated to an unproved part of a containing cap ball.
+

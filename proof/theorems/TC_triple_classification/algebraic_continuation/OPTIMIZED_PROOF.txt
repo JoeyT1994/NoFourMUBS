@@ -1,0 +1,34 @@
+Optimized scalar exclusion on the original balls
+
+We retain the complete ray cover, color patterns, conditional contractions,
+and original radii of the frozen native certifier. The preceding algebraic
+release supplies a signed quadratic lower bound for y.F on each correlated
+tube. A positive lower bound excludes that tube. The seven nonnegative
+dual multipliers and the residual direction y are exact binary64 inputs
+to the Arb verifier. Neither numerical optimization nor a solver's status
+establishes the inequality.
+
+Each column has two bounds with the same phase center v_c:
+  ||V_c-v_c-T_c w|| <= epsilon_c,
+  ||V_c-v_c|| <= p_c.
+For a difference of K columns, its phase displacement is therefore at
+most the minimum of ||T_b-T_a|| r+epsilon_a+epsilon_b and p_a+p_b.
+For a mixed H/K column difference it is at most the minimum of
+||T_b-U_a|| r+epsilon_b+n_a and ||U_a|| r+n_a+p_b.
+Here U_a is the mean-zero H column frame and n_a bounds its nonlinear
+remainder. Both alternatives hold on the same conditional zero enclosure.
+Taking their minimum is valid. These improved bounds replace only the
+cubic remainder radii in the preceding signed quadratic test.
+
+The conic optimizer proposes y and all seven multipliers together. It
+uses floating-point models and may fail or give an inaccurate answer.
+Acceptance recomputes the residual, Jacobian, Hessian, remainder, interval
+LDL positive-definiteness test, and inverse expression in Arb. A fresh
+replay reconstructs the entire original all-K cover and checks the saved
+direction and multipliers without rerunning the conic optimizer.
+
+The wrapper applies this test only after the existing pattern tests fail.
+It records every failed bound, source change, resource cap, and timeout as
+unresolved. No original radius is reduced. Conditional zero covers do not
+become covers of positive residual levels. A full classification still
+requires every original ball and the exceptional cases to be certified.

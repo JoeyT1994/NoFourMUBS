@@ -1,0 +1,280 @@
+{
+  "index": 1296,
+  "status": "EXPERIMENTAL DIAGNOSTIC ONLY",
+  "binding": "f3e6241e34d637ff47842d8028509a74af39cee95f21d58ed84466884558e9ae",
+  "radius_hex": "0x1.999999999999ap-4",
+  "coordinates": "original native four-coordinate ball",
+  "seed_sha256": "1e5bbcd71d3574859cb3c32ede098ac1e88f79499514359eac3a60c3fdd78c0a",
+  "c1": {
+    "ok": true,
+    "n_cert": 0.004870375033337625,
+    "reason": "",
+    "boxes": 0,
+    "levels": {
+      "wholeball": 1
+    },
+    "method": "wholeball",
+    "seconds": 0.24825191497802734
+  },
+  "normal_form": {
+    "r": 0.10000000000000002,
+    "tau": 0.0003215613565322759,
+    "q": 0.1487631718502563,
+    "Z1": 0.010485890484054045,
+    "Z2": 0.2525197592013066,
+    "beta": 0.9097627256528474,
+    "u": 1.0000000006385312,
+    "x": 1.0000000005000005,
+    "wn": 1.164065283862656,
+    "base": 0.10454881369211735,
+    "t3": 1.5598841843594404,
+    "t4": 1.9971529003127146,
+    "L5": 62.0639608801903,
+    "c": 1.3486814310167141,
+    "d": 2.81618887875414,
+    "a2": 1.4109534361978724,
+    "L3a": 34.456019266100704,
+    "status": "CERTIFIED",
+    "seconds": 0.24465354200219736,
+    "strict_R_lower": 330.88897348153097,
+    "dephased_lift_gap_upper": 0.010958612437408876
+  },
+  "cover": {
+    "bins": 24116,
+    "labels": 904,
+    "colors": 52,
+    "valid_labels": 183,
+    "pruning_rounds": 1,
+    "initial_patterns": 1,
+    "pruned_patterns": 1,
+    "clique_steps": 52,
+    "enclosure": {
+      "kind": "native quadratic whole-ball enclosure",
+      "native_radius": "[0.10000000000000000555111512312578270211815834045 +/- 4.11e-48]",
+      "normal_bound": "[0.0048703749849572938376294239425517746557011193395 +/- 4.63e-50]",
+      "centre_rounding": "[4.3037655589937491093456005240217727200428009934e-16 +/- 5.40e-63]",
+      "frame_rounding": "[1.0018044831497369744448114570663578563485052645e-16 +/- 2.54e-63]",
+      "enclosed_normal_hex": "0x1.3f2f5547972a6p-8"
+    },
+    "seconds": 3.2445142500218935
+  },
+  "patterns_after_column_filter": 1,
+  "patterns": [
+    {
+      "number": 0,
+      "colors": [
+        2,
+        4,
+        16,
+        18,
+        40,
+        44
+      ],
+      "status": "NOT ESTABLISHED",
+      "diagnostics": [
+        {
+          "score": 0.17244293398358282,
+          "reason": "moving contraction q=[3.6987557471205973246784608053000040072906560972 +/- 1.56e-47]; linear=[0.19692984709985515095817575485665106419769224500 +/- 2.87e-48]; Hessian error=[1.4789933962322750447676280469530022460445781301 +/- 5.64e-48]; remainder=[2.0228325037884555191215420743077956712024382832 +/- 4.71e-47]"
+        }
+      ],
+      "joint_contraction": {
+        "iterations": 1,
+        "initial_errors": [
+          "[0.22074847999305407667221391546778872563210009144 +/- 1.78e-48]",
+          "[0.22539509110918458531050936281576265016412116760 +/- 2.44e-48]",
+          "[0.21534879907906170844540297023836205210329651222 +/- 3.08e-48]",
+          "[0.22403444569945884368810008238403490730254113626 +/- 6.54e-49]",
+          "[0.22370010240431393796666001336982160605300570612 +/- 5.47e-49]",
+          "[0.23103338113533083292515932431667231728058293427 +/- 4.37e-48]"
+        ],
+        "final_errors": [
+          "[0.22074847999305407667221391546778872563210009144 +/- 1.78e-48]",
+          "[0.22539509110918458531050936281576265016412116760 +/- 2.44e-48]",
+          "[0.21534879907906170844540297023836205210329651222 +/- 3.08e-48]",
+          "[0.22403444569945884368810008238403490730254113626 +/- 6.54e-49]",
+          "[0.22370010240431393796666001336982160605300570612 +/- 5.47e-49]",
+          "[0.23103338113533083292515932431667231728058293427 +/- 4.37e-48]"
+        ],
+        "inverse_defect": "[5.9889675394429622552179425315133047785442583360e-15 +/- 3.25e-62]"
+      },
+      "route": "refitted",
+      "proposal": {
+        "residual_norm": 0.3232083846482304,
+        "evaluations": 26
+      },
+      "column_error_bounds": [
+        "[0.22074847999305407667221391546778872563210009144 +/- 1.78e-48]",
+        "[0.22539509110918458531050936281576265016412116760 +/- 2.44e-48]",
+        "[0.21534879907906170844540297023836205210329651222 +/- 3.08e-48]",
+        "[0.22403444569945884368810008238403490730254113626 +/- 6.54e-49]",
+        "[0.22370010240431393796666001336982160605300570612 +/- 5.47e-49]",
+        "[0.23103338113533083292515932431667231728058293427 +/- 4.37e-48]"
+      ],
+      "previous_attempts": [
+        {
+          "status": "NOT ESTABLISHED",
+          "diagnostics": [
+            {
+              "score": 0.17244293398358282,
+              "reason": "moving contraction q=[5.1580474410297902122687558534980983231230518938 +/- 6.09e-47]; linear=[0.24117267570748619051681787265936693934725716541 +/- 4.13e-48]; Hessian error=[1.8241672203710459572949339305388485495153753789 +/- 4.67e-47]; remainder=[3.0927075449512464546258891211173278084144719106 +/- 2.60e-47]"
+            }
+          ]
+        }
+      ],
+      "fine_refinement": {
+        "status": "REFINED",
+        "route": "complete fine-bin pattern search",
+        "bins": 5412,
+        "candidate_edges": 4362894,
+        "retained_edges": 3153921,
+        "retained_bins": 125,
+        "arc_rounds": 2,
+        "search_steps": 7,
+        "pair_cache_hits": 0,
+        "seconds": 30.690929999982473
+      },
+      "optimized_search": {
+        "solver_status": "optimal",
+        "proposed_cost": 0.9654179445584407,
+        "verified_margin": "[0.044184735021752230 +/- 5.79e-19]"
+      },
+      "experimental_candidate": {
+        "status": "EXCLUDED",
+        "route": "signed joint quadratic residual support",
+        "normalization": "96 residuals; Gram unscaled, mixed divided by 6",
+        "domain": "correlated tube supplied to this test",
+        "positive_level_cover_certified": false,
+        "constant": {
+          "lower_hex": "0x1.0000000000000p+0",
+          "upper_hex": "0x1.0000000000002p+0"
+        },
+        "quadratic_lower": {
+          "lower_hex": "-0x1.ad7cad7e770bdp-1",
+          "upper_hex": "-0x1.ad7cad7e770bbp-1"
+        },
+        "tail_upper": {
+          "lower_hex": "0x1.df1f868dddbfep-4",
+          "upper_hex": "0x1.df1f868dddc00p-4"
+        },
+        "scalar_margin": {
+          "lower_hex": "0x1.69f61afcd3c6dp-5",
+          "upper_hex": "0x1.69f61afcd3c6fp-5"
+        },
+        "residual_norm_lower": {
+          "lower_hex": "0x1.8604024aca4ccp-7",
+          "upper_hex": "0x1.8604024aca4cep-7"
+        },
+        "direction_hex": [
+          "-0x1.29b83e6a4a14fp-64",
+          "-0x1.12a2d0dfa8bccp-64",
+          "-0x1.43d0a19983c59p-64",
+          "0x1.95a4dfa118d1ap-65",
+          "-0x1.02d83ba61e32bp-68",
+          "-0x1.ab002040f9ea5p-65",
+          "-0x1.eebf47a428952p-65",
+          "0x1.350c05ab97c83p-64",
+          "-0x1.20ff9ba01e5fdp-65",
+          "-0x1.1548033cb70dap-64",
+          "0x1.6ff030f8e7795p-64",
+          "-0x1.3e3116ea112fep-65",
+          "0x1.0e14563b87ecep-65",
+          "0x1.7680b6ec2b7a4p-72",
+          "0x1.04582a8244bcdp-64",
+          "0x1.45da7374d427cp-65",
+          "0x1.f6ccfe19ce5a2p-65",
+          "0x1.595a2680416ccp-67",
+          "-0x1.16f569e3558a9p-64",
+          "0x1.80e8537621c82p-64",
+          "-0x1.ff601a9737ca5p-68",
+          "-0x1.9ff142bef39dap-65",
+          "-0x1.3ce5dd880f77bp-65",
+          "0x1.af8a5518c22a8p-65",
+          "-0x1.420581ddb43bap-65",
+          "-0x1.270dc9d7fa86ap-65",
+          "0x1.079190fbd6abfp-64",
+          "-0x1.21fffdd0b965bp-64",
+          "0x1.8779aca61ecadp-64",
+          "-0x1.6859459f73aeap-65",
+          "0x1.692fce079647cp-8",
+          "0x1.13ce3367dd2d7p-5",
+          "0x1.a6f1154a55e0dp-4",
+          "-0x1.b36d85014789cp-10",
+          "0x1.2c0b87cdafbc5p-8",
+          "-0x1.8affb89bb8367p-5",
+          "0x1.ec8e471d97598p-5",
+          "0x1.78ca37a97a59ap-7",
+          "0x1.bfee6c29519a5p-26",
+          "0x1.3494d66ee9a72p-9",
+          "-0x1.e46408263f1b2p-3",
+          "0x1.5a914f9329c3ap-6",
+          "0x1.dc54f01b9e67fp-4",
+          "0x1.41b6961764e0cp-4",
+          "-0x1.58b0c843d577dp-6",
+          "0x1.78de5318f51b9p-10",
+          "-0x1.4c2088b784645p-4",
+          "0x1.31bfcd37f783ap-8",
+          "0x1.75e158d3dfbc1p-9",
+          "-0x1.4d9d9e98121c7p-6",
+          "0x1.4381edb9a272ep-2",
+          "-0x1.692552654fbcfp-7",
+          "-0x1.24870ad76951dp-6",
+          "-0x1.76f1d929b9ba1p-24",
+          "-0x1.8dc0394bb753ap-9",
+          "-0x1.d426cad6f37a4p-3",
+          "-0x1.18344b89f93f4p-6",
+          "-0x1.9ec112f57fc65p-5",
+          "-0x1.e044b69789293p-3",
+          "0x1.4e7be6a25479fp-4",
+          "0x1.3607fffbc3cd1p-3",
+          "-0x1.0132f2b1901efp-23",
+          "-0x1.b5a533ec1a544p-2",
+          "-0x1.8e80fa85408fbp-2",
+          "-0x1.36b3a9fea4b03p-20",
+          "0x1.bf307f437ecc9p+0",
+          "-0x1.ac1e286f004b9p-4",
+          "-0x1.3305b8da3c905p-1",
+          "0x1.4afcd6eb5de8cp-3",
+          "-0x1.284753e153c4ap-20",
+          "0x1.db7dd6829b486p-4",
+          "0x1.72e679f8064b1p+0",
+          "0x1.3d7e7c076b074p-3",
+          "0x1.b858d5551d995p-25",
+          "0x1.b884f1dd42a7bp-2",
+          "0x1.437d083d8700dp-4",
+          "-0x1.5e4c0b3ee9ab7p+0",
+          "-0x1.339c07d1699bbp-2",
+          "-0x1.f984b56711b46p-3",
+          "-0x1.2abc337623a8fp-2",
+          "0x1.ef02206da1999p-20",
+          "0x1.c0d56646a33d7p-2",
+          "0x1.895e648ae5476p-1",
+          "-0x1.01e5b3b7246e5p-24",
+          "0x1.ef5b8b43006a8p-4",
+          "0x1.70b14525fbfe8p-1",
+          "-0x1.f1cdaf8cadfacp-22",
+          "0x1.e6f571877fc7ap-21",
+          "-0x1.d3c4318dedabdp-1",
+          "-0x1.d77abb1f770e3p-2",
+          "-0x1.561587a5272c6p-10",
+          "0x1.01dfd2b81a2a2p+0",
+          "-0x1.0947b0e0da728p+0",
+          "-0x1.e4328f7cbd1e1p-6",
+          "0x1.c10b45b71e1e1p-1",
+          "-0x1.3cb4a33d87c69p-24"
+        ],
+        "dual_multipliers_hex": [
+          "0x1.fff5ab60160ebp-2",
+          "0x1.1846475515988p-5",
+          "0x1.c9090fa7118a2p-4",
+          "0x1.c60f35c38fcc9p-4",
+          "0x1.aa2f02e2b4ef8p-5",
+          "0x1.90bbc32df626ep-3",
+          "0x1.583d6b57d87efp-3"
+        ],
+        "proposal_method": "joint conic search of residual direction and seven multipliers"
+      }
+    }
+  ],
+  "reason": "One or more complete-cover patterns remain unresolved.",
+  "seconds": 61.032171415979974
+}
