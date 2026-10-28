@@ -11,6 +11,7 @@ final status, the earlier rows being kept as the cell-test columns).  Writes
   balls.tsv              one line per seed ball: its final status, the certifier's and the cell test's results, the
                          split if any, and the census at its centre;
   remaining_cells.jsonl.gz  per unresolved ball: the level and the dyadic indices of every cell not certified;
+  certifier.jsonl.gz     one compact row per ball from the whole-ball certifier (status, reason, pattern counts);
   census.jsonl.gz        the census rows, sorted by ball;
   summary.json           the counts in README.md, and the CPU time of the runs.
 A row of refine.py is written only when its whole level is done, so a ball with level-5 rows finished level 5, and a
@@ -20,6 +21,11 @@ import collections, glob, gzip, hashlib, json, os, sys
 
 N_SEEDS = 2775
 ORIGINAL_ATLAS = '33ad9798eb7a5585c486f2427a6b223867a43b308b7f184467b4cd5956bd8baf'
+
+
+def med(v):
+    v = sorted(v)
+    return round(v[len(v) // 2], 3) if v else None
 
 
 def rows(pattern):
@@ -48,9 +54,13 @@ def main():
         tc[x['index']] = x
     split = {}
     files = {}
+    split_s = 0.0
     for p in sorted(glob.glob(os.path.join(raw, 'split_*.json.gz'))):
         info = json.load(gzip.open(p, 'rt'))['info']['split']
-        res = {x['index']: x['status'] for x in rows(p[:-len('.json.gz')] + '.jsonl')}
+        res = {}
+        for x in rows(p[:-len('.json.gz')] + '.jsonl'):
+            if x['index'] not in res: split_s += x.get('seconds', 0)
+            res[x['index']] = x['status']
         files[hashlib.sha256(open(p, 'rb').read()).hexdigest()] = (p, info, res)
     children = collections.defaultdict(dict)                 # (sub-atlas sha, sub-ball) -> its own split
     for sha, (p, info, res) in files.items():
@@ -131,9 +141,11 @@ def main():
         t = tc.get(j, {}).get('status')
         if t == 'CERTIFIED': final[j] = 'classified'
         elif t == 'CERTIFIED EMPTY': final[j] = 'empty'
+        elif fixed.get(j): final[j] = 'empty_cell_test'
         elif j in split and split[j]['closed']:
             final[j] = 'split'
-        elif fixed.get(j): final[j] = 'empty_cell_test'
+        elif j in split and split[j]['counts'].get('MISSING'):
+            final[j] = 'split_running'
         else: final[j] = 'unresolved'
 
     with open(os.path.join(out, 'balls.tsv'), 'w') as f:
@@ -152,12 +164,23 @@ def main():
                                    + cen_cols(j))) + '\n')
     with gzip.open(os.path.join(out, 'remaining_cells.jsonl.gz'), 'wt') as f:
         for j in sorted(remaining): f.write(json.dumps(remaining[j], separators=(',', ':')) + '\n')
+    with gzip.open(os.path.join(out, 'certifier.jsonl.gz'), 'wt') as f:   # one compact row per ball
+        for j in sorted(tc):
+            x = tc[j]
+            k = collections.Counter(p['status'] for p in x.get('patterns', []))
+            f.write(json.dumps(dict(index=j, status=x['status'], reason=x.get('reason', ''), binding=x.get('binding'),
+                                    radius_hex=x.get('radius_hex'), seed_sha256=x.get('seed_sha256'),
+                                    patterns=dict(k), seconds=round(x.get('seconds', 0), 1)),
+                               separators=(',', ':')) + '\n')
     with gzip.open(os.path.join(out, 'census.jsonl.gz'), 'wt') as f:
         for j in sorted(cen): f.write(json.dumps(cen[j], separators=(',', ':')) + '\n')
     cnt = collections.Counter(s for s, _, _ in status.values())
     cls = collections.Counter(t['class'] for c in cen.values() for t in c['triples'])
     summary = dict(
         seed_balls=N_SEEDS, final=dict(collections.Counter(final.values())),
+        nearest_triple_median={k: med([cen[j]['min_dist'] for j in final if final[j] == k
+                                       and j in cen and cen[j]['min_dist'] is not None])
+                               for k in set(final.values())},
         certifier=dict(collections.Counter(x['status'] for x in tc.values())),
         split={str(j): split[j] for j in sorted(split)}, cell_test=dict(cnt),
         remaining_cells={k: sum(status[j][2] for j in remaining if status[j][0] == k)
@@ -166,7 +189,8 @@ def main():
         cpu_hours=dict(nothird=round(sum(r.get('wall_s', 0) for r in nt.values()) / 3600, 1),
                        census=round(sum(c.get('wall_s', 0) for c in cen.values()) / 3600, 1),
                        refine=round(ref_s / 3600, 1),
-                       certifier=round(sum(x.get('seconds', 0) for x in tc.values()) / 3600, 1)))
+                       certifier=round(sum(x.get('seconds', 0) for x in tc.values()) / 3600, 1),
+                       split=round(split_s / 3600, 1)))
     json.dump(summary, open(os.path.join(out, 'summary.json'), 'w'), indent=1)
     print(json.dumps(summary, indent=1))
 
