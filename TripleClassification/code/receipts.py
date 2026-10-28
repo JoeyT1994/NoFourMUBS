@@ -42,7 +42,7 @@ def misses_ball(uc, h):
 
 
 class Validator:
-    def __init__(self, tc_tree, atlas, split_versions, guard_paths=()):
+    def __init__(self, tc_tree, atlas, split_versions, guard_paths=(), refinements=()):
         fn = os.path.join(tc_tree, 'proof/theorems/TC_triple_classification/family_neighbourhoods')
         if fn not in sys.path: sys.path.insert(0, fn)
         cwd = os.getcwd(); os.chdir(fn)
@@ -62,6 +62,8 @@ class Validator:
             if 'stagec_guard.py' in open(sp).read() and os.path.exists(g):
                 v['stagec_guard.py'] = sha_file(g)
             self.versions.append(v)
+            for m in refinements:                      # the same split code run with the sharper bound
+                self.versions.append(dict(v, **{'moving_integrated.py': sha_file(m)}))
         self.guards = {sha_file(g) for g in guard_paths}
         for v in self.versions:
             if 'stagec_guard.py' in v: self.guards.add(v['stagec_guard.py'])
@@ -153,3 +155,21 @@ class Validator:
 def load_split(path):
     doc = json.load(gzip.open(path, 'rt'))
     return doc['seeds'], (doc.get('info') or {}).get('split'), sha_file(path)
+
+
+def tangent_point(cell, level):
+    """The unique point of the closed cell (level L, integer index) on the closed unit ball when the cell only touches
+    it (nearest point at squared distance exactly 1), else None.  By strict convexity of the squared norm no other
+    point of the cell lies in the ball.  Exact rationals."""
+    h = Fr(1, 2 ** level)
+    p, d2 = [], Fr(0)
+    for ci in cell:
+        lo, hi = -1 + 2 * ci * h, -1 + 2 * (ci + 1) * h
+        x = lo if lo > 0 else hi if hi < 0 else Fr(0)
+        p.append(x); d2 += x * x
+    return p if d2 == 1 else None
+
+
+def cell_contains(cell, level, p):
+    h = Fr(1, 2 ** level)
+    return all(-1 + 2 * ci * h <= x <= -1 + 2 * (ci + 1) * h for ci, x in zip(cell, p))

@@ -48,11 +48,18 @@ def main():
     ap.add_argument('raw'); ap.add_argument('out')
     ap.add_argument('--tc-tree', required=True); ap.add_argument('--atlas', required=True)
     ap.add_argument('--split-version', nargs='+', required=True); ap.add_argument('--sidecar', nargs='*', default=[])
+    ap.add_argument('--refined', nargs='*', default=[], help='sharper-bound receipts (refined_batch.py) on original balls')
+    ap.add_argument('--refinement-file', nargs='*', default=[], help='accepted moving_integrated.py files (pinned by hash)')
+    ap.add_argument('--mixed-dir', help='selective mixed covers b<i>_l3.json.gz (split_mixed.py)')
+    ap.add_argument('--parent-dir', help='the level-2 parent covers b<i>_l2.json.gz those children refine')
+    ap.add_argument('--mixed-auditor'); ap.add_argument('--mixed-auditor-sha')
+    ap.add_argument('--parent-script'); ap.add_argument('--child-script')
     a = ap.parse_args()
     raw, out = a.raw, a.out
     sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
     import receipts as RC
-    V = RC.Validator(a.tc_tree, a.atlas, a.split_version)
+    V = RC.Validator(a.tc_tree, a.atlas, a.split_version, refinements=a.refinement_file)
+    refinement_shas = {RC.sha_file(p) for p in a.refinement_file}
     side = {}
     for x in (r for p in a.sidecar for r in RC.read_jsonl(p)):
         if x.get('status') == 'PASS' and x.get('guard_sha256') in V.guards:
@@ -65,6 +72,37 @@ def main():
     for x in rows(os.path.join(raw, 'refine25.jsonl')):
         ref[x['idx']][x['m']].append(x); ref_s += x.get('s', 0)
     tc = V.native_rows(rows(os.path.join(raw, 'tc_*.jsonl')))
+    refined = V.native_rows([r for p in a.refined for r in RC.read_jsonl(p)
+                             if r.get('refinement_sha256') in refinement_shas])
+    for j, x in refined.items():
+        if x['status'] in RC.CLOSED and tc.get(j, {}).get('status') not in RC.CLOSED:
+            tc[j] = dict(x, evidence='sharper bound (moving_integrated.py)')
+    mixed = {}
+    if a.mixed_dir:
+        import subprocess
+        if RC.sha_file(a.mixed_auditor) != a.mixed_auditor_sha: raise ValueError('mixed auditor changed')
+        for p in sorted(glob.glob(os.path.join(a.mixed_dir, 'b*_l3.json.gz'))):
+            i = int(os.path.basename(p)[1:].split('_')[0])
+            parent = os.path.join(a.parent_dir, 'b%d_l2.json.gz' % i)
+            cp = subprocess.run([sys.executable, a.mixed_auditor, '--root', a.tc_tree, '--index', str(i), '--parent', parent,
+                                 '--child', p, '--parent-script', a.parent_script, '--child-script', a.child_script],
+                                capture_output=True, text=True)
+            last = (cp.stdout.strip().splitlines() or ['{}'])[-1]
+            try:
+                verdict = json.loads(last).get('status')
+            except ValueError:
+                verdict = None
+            if cp.returncode != 0 or verdict != 'GEOMETRY_AND_RECEIPTS_VERIFIED':
+                mixed[i] = 'mixed audit failed'; continue
+            # Stage C preconditions (audit F2) for every closed sub-ball the mixed cover uses
+            missing = 0
+            for f in (parent, p):
+                seeds_f, _, sha_f = RC.load_split(f)
+                for r in RC.read_jsonl(f[:-len('.json.gz')] + '.jsonl'):
+                    if r.get('status') in RC.CLOSED and side.get((sha_f, r['index'])) != RC.record_sha(seeds_f[r['index']]) \
+                            and (r.get('stage_c_preconditions') or {}).get('guard_sha256') not in V.guards:
+                        missing += 1
+            mixed[i] = 'closed' if missing == 0 else 'mixed: %d sub-balls without Stage C precondition' % missing
     split = {}
     files = {}
     split_s = 0.0
@@ -98,7 +136,12 @@ def main():
         why = 'no parent record' if parent is None else V.cover_ok(info, parent, seeds_of[sha])
         if why is not None:
             return False, collections.Counter({'COVER INVALID: ' + why: 1}), deepest
+        closed_cells = [tuple(c['cell']) for c in info['cover'] if 'sub' in c and res.get(c['sub']) in RC.CLOSED]
         for c in info['cover']:
+            t = RC.tangent_point(c['cell'], info['level'])
+            if t is not None and (('sub' not in c) or res.get(c['sub']) not in RC.CLOSED) and \
+                    any(RC.cell_contains(o, info['level'], t) for o in closed_cells if o != tuple(c['cell'])):
+                sts['TANGENT COVERED'] += 1; continue          # touches the ball at one point, inside a closed cell
             if 'sub' not in c: sts['BUILD FAILED'] += 1; continue
             st = res.get(c['sub'], 'MISSING')
             if st not in ('CERTIFIED', 'CERTIFIED EMPTY') and c['sub'] in children[sha]:
@@ -106,7 +149,7 @@ def main():
                 deepest = max(deepest, d)
                 if ok: st = 'SPLIT CLOSED'
             sts[st] += 1
-        ok = set(sts) <= {'CERTIFIED', 'CERTIFIED EMPTY', 'SPLIT CLOSED'}
+        ok = set(sts) <= {'CERTIFIED', 'CERTIFIED EMPTY', 'SPLIT CLOSED', 'TANGENT COVERED'}
         return ok, sts, deepest
 
     for sha, (p, info, res) in files.items():
@@ -170,6 +213,8 @@ def main():
         elif t == 'CERTIFIED EMPTY': final[j] = 'empty'
         elif j in split and split[j]['closed']:
             final[j] = 'split'
+        elif mixed.get(j) == 'closed':
+            final[j] = 'split_mixed'
         elif j in split and split[j]['counts'].get('MISSING'):
             final[j] = 'split_running'
         else: final[j] = 'unresolved'
