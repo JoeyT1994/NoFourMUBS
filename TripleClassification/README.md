@@ -32,11 +32,17 @@ This is not part of the proof that ℂ⁶ has no four MUBs.
 The distance is ‖H − H′‖_F between the dephased matrix at the ball's centre and the nearest triple edge H′ the census
 converged to. Per-ball details are in `results/balls.tsv`.
 
+**The X-ball (CERTIFIED, subject to review).** Every completing third basis for every H in the X-ball (the ball at F₆,
+where the isolated triple and the continuous family meet) is of known type. This is on branch `codex/tc-xball`
+(`proof/theorems/TC_triple_classification/xball/REPORT.md`):
+- **the core ‖w‖ ≤ r/16** is certified with an outside radius-1/50 classification theorem at the two crossings;
+- **the shell** is 383,829 dyadic cells, every one closed by the whole-ball certifier, down to level 7. That took
+  1,352 core-hours on 8 Rusty nodes, with exact accounting.
+
 **What remains for the conjecture:**
 - the 261 balls above;
-- the X-ball, where the isolated triple and the continuous family meet at F₆ (handed off);
-- S₆;
-- the independent review of the certifier.
+- S₆: Tao's matrix has no third basis (certified on the triple-classification branch, `tao.py`);
+- the independent review: the certifier, recognition, the crossing theorem, and the split and shard drivers.
 
 ### The whole-ball certifier
 
