@@ -33,7 +33,8 @@ def main():
         values.append(dict(number=number,colors=colors,status='NUMERICAL',
             rank_threshold=1e-8,full_rank_proposal=int(sum(s>1e-8)),
             fixed_H_K_rank_proposal=int(sum(sk>1e-8)),singular_values=s.tolist(),
-            candidate_actions=actions,phases_hex=[float(v).hex() for v in phases]))
+            candidate_actions=[{key:a[key] for key in ('anchor','labels','R','S','T','score')} for a in actions],
+            phases_hex=[float(v).hex() for v in phases]))
     if RX.binding()['id']!=bound['id']:raise ArithmeticError('source changed')
     args.output.parent.mkdir(parents=True,exist_ok=True)
     args.output.write_text(json.dumps(dict(status='NUMERICAL',binding=bound['id'],

@@ -14,12 +14,20 @@ is the original radius approximately 0.13. This target is not proved.
 For a smaller proved delta, regenerate the exact shell-cover accounting.
 
 The full-radius complete cover leaves sixteen color patterns. Twelve
-already satisfy the strict symmetry test. At the four unresolved
-patterns' numerical centre bases, two have dephased Jacobian rank 55
-and two rank 51. These ranks and identifications are **NUMERICAL
-diagnostics** until exact equivalence/rank witnesses are supplied. The
-rank-55 centres are candidates for isolated product triples; the rank-51
-centres are candidates for two-family crossings.
+already satisfy the strict symmetry test. The subsequent
+[exact centre calculation](results/exact_centres.json) constructs four
+twelfth-root triples from proposals for the difficult patterns, verifies
+all 96 equations exactly, verifies a common balanced order-three symmetry,
+and computes dephased Jacobian ranks **55, 51, 51, 55** over Q(sqrt(3)).
+The recognition and transverse results in the reference identify the
+rank-55 centres as product type and the rank-51 centres as crossings.
+The exact calculation does not supply a neighborhood radius or prove
+that all K in a core pattern lie in such a neighborhood.
+
+The implemented radius-r/4 core attempt classifies fourteen patterns,
+including both product-pattern alternatives. The two crossing patterns
+still fail the moving inverse test. This concentrates the remaining
+core work in the quantitative crossing argument below.
 
 ## Proof plan
 
@@ -57,7 +65,9 @@ None of these missing quantitative assertions is used for acceptance.
 
 ## Source reference
 
-The qualitative proof is in the supplied
+The qualitative proof is copied to [reference/prior_local_CHECKPOINT.md](reference/prior_local_CHECKPOINT.md),
+with archive provenance in [reference/provenance.json](reference/provenance.json).
+It comes from the supplied
 `TC_local_completeness_R0153_handoff_2026-10-27.zip`, under
 `research/conjecture1_uniform_family_2026_10_11/inputs/transverse/prior_local/CHECKPOINT.md`,
 Sections 4-5 and 7. General recognition and transverse results are in

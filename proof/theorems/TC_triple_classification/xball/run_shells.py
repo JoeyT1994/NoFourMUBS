@@ -86,7 +86,7 @@ def main():
     cover=geometry.make_cover(args.level,args.core_power)
     manifest=RX.binding();manifest['workers']=args.workers
     manifest['runtime']=dict(python=RX.platform.python_version(),platform=RX.platform.platform(),
-        packages={p:RX.importlib.metadata.version(p) for p in ('numpy','scipy','python-flint')})
+        packages={p:RX.importlib.metadata.version(p) for p in ('numpy','scipy','python-flint','sympy')})
     manifest['cover_sha256']=hashlib.sha256(json.dumps(cover,sort_keys=True).encode()).hexdigest()
     cells_path=args.output.with_suffix('.cells.jsonl')
     rows=[]

@@ -18,6 +18,7 @@ def binding():
     paths = set(B.native_run.source_paths())
     paths.update(HERE.glob('*.py'))
     paths.add(HERE / 'PROOF.md')
+    paths.add(HERE / 'requirements.txt')
     paths.update((ROOT/'proof/seed_atlas/cert').glob('*.py'))
     paths.update((ROOT/'proof/atlas').glob('*.py'))
     paths.update(ROOT/path for path in (
@@ -77,7 +78,7 @@ def main():
         parser.error('pattern-cap must be positive')
     manifest = binding()
     manifest['runtime'] = dict(python=platform.python_version(), platform=platform.platform(),
-        packages={p:importlib.metadata.version(p) for p in ('numpy','scipy','python-flint')})
+        packages={p:importlib.metadata.version(p) for p in ('numpy','scipy','python-flint','sympy')})
     manifest['pattern_cap'] = args.pattern_cap
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.with_suffix(args.output.suffix+'.manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
