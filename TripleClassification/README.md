@@ -96,12 +96,15 @@ the orthogonality graph. It was the first method; the certifier superseded it.
 
 ### The census (NUMERICAL)
 
-A triple search from every ball centre (`code/census.py`, `code/triples.py`) found 79,965 triples:
-- 79,209 of the continuous construction;
-- 756 isolated Fourier triples;
-- none unexplained.
+A triple search from every ball centre (`code/census.py`, `code/triples.py`) found 79,965 triples. By its
+heuristic labels:
+- 79,209 look like the continuous construction;
+- 756 look like isolated Fourier triples;
+- none is unexplained.
 
-The search is dense but not exhaustive. Balls with triples nearby are the ones the certifier classifies (median
+The labels come from matrix invariants (f6, d3, x2) that are markers, not equivalence tests. An outside review
+pointed out that Tao's S₆ has f6 = d3 = x2 = 0 but is not of Fourier type. S₆ has no third basis, so no census
+triple is affected, but the labels are not a recognition proof. The search is dense but not exhaustive. Balls with triples nearby are the ones the certifier classifies (median
 distance 0.08) or that need splitting.
 
 ## Files
