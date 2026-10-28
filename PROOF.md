@@ -189,7 +189,7 @@ A = {[H] : H matched at a strict seed}.
   identically in ℚ(a, b, c, d) (return R2, [`proof/theorems/R2_flatness_cross_side`](proof/theorems/R2_flatness_cross_side/REVIEW.md);
   first proved with eight larger coefficient identities, return E,
   [`proof/coverage/returns/E_matched_flatness`](proof/coverage/returns/E_matched_flatness/FLATNESS.md)). The
-  relabelling is handoff M, proved in [`ALGEBRAIC_PROOFS.md`](proof/coverage/audits/AUDIT_2026-10-17/ALGEBRAIC_PROOFS.md).
+  relabelling is handoff M, proved in [`RELABELLING.md`](proof/coverage/returns/E_matched_flatness/RELABELLING.md).
 
 *Lean:* `L1.matchedExistence`. Side existence is `L1.sides_all`, with `L1.exists_side_h` and `L1.exists_side_v`
 (`L1/SideJacobian`, `L1/SideCover`, `L1/Existence`); the pointwise step is `L1.matched_of_sides`, the Fourier
@@ -227,7 +227,6 @@ matrix, dephased at the corner, with horizontal signature ζ. Its vertical signa
 The proof of no four MUBs needs only the weaker conclusion of step 5, *M is Tao or in a Fourier family*, since the
 Fourier families are covered directly (see the coverage proof after Lemma 5.2).
 
-Independently audited with no errors found ([`proof/coverage/audits/AUDIT_2026-10-15.md`](proof/coverage/audits/AUDIT_2026-10-15.md)).
 *Lean:* `PRM.nonmatched_tao_or_fourier` (`lean/NoFourMUBs/PRM/Converse.lean`), the weaker form used by the proof; the full
 statement is `PRM.nonmatched_tao` (`PRM/FourierMatch.lean`, used only by the Fourier-vanishing module). ∎
 
@@ -458,7 +457,8 @@ theorem at 7/40.
 | Lemmas 5.1–5.2 (the atlas) | Step 5; return ZT (the transfer test) | Arb and Julia, two independent implementations | the topology yes; the numbers are checked outside Lean |
 
 **Inputs taken as given.** No classification of order-6 Hadamard matrices is used. The Stage C method follows
-[OAI] §6, with every inequality reproved (`STAGEC.md`) and formalised.
+[OAI] §6, with every inequality reproved (`STAGEC.md`) and formalised. The proof does not use OpenAI's proof or its Fourier
+certificates [OAI-F].
 
 **What remains outside Lean: the atlas numbers.** The seed-ball kernel check (C1 by return Z's centre computation,
 Stage C and the transfers, each decided by `decide +kernel`) is in progress in
@@ -475,10 +475,13 @@ python3 verify.py --lean-full     # also build the main theorems and audit them
 ```
 
 The independent Julia checker is run separately ([`proof/independent_seed/README.md`](proof/independent_seed/README.md)).
-Where to look hardest, and the full status, are in [`AUDIT.md`](AUDIT.md).
 
 ## References
 
 - [OAI] OpenAI, *The maximum number of mutually unbiased bases in dimension six*, preprint, 24 Sep 2026 (openai/math).
+- [OAI-F] OpenAI, *Exact Fourier certificates for complex Hadamard matrices of order six*, OpenAI Math Release
+  preprint, 24 Sep 2026 (openai/math). Not used by the proof.
 - [CT] M. Cárdenes Wuttig, J. Tindall, *A complete classification of complex Hadamard matrices of order six*,
-  arXiv:2608.18053 (context for the reconstruction; not used by the proof).
+  arXiv:2608.18053; Lean development
+  [mateocardeneswuttig/all_hadamard_matrices_in_dimension_six](https://github.com/mateocardeneswuttig/all_hadamard_matrices_in_dimension_six)
+  (context for the reconstruction; not used by the proof).
