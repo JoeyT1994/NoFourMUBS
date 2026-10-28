@@ -11,8 +11,10 @@ For each atlas Record centre H (a Hadamard, binary64 phases):
    the third basis K): 96 residuals (orthogonality of H and K, |H^dag K|^2 = 6);
 4. each converged triple (residual < 1e-11) is classified by its transitions T1 = H, T2 = K, T3 = H^dag K / sqrt6:
    - f6(T): distance of the Haagerup invariants T_ij T_kl conj(T_il T_kj) to the sixth roots of unity (0 iff the
-     invariants are those of F6);
-   - d3(T): least ||B B^dag - 3I||_F / 3 over 3x3 submatrices (0 iff T has a 3x3 Hadamard block: Fourier type);
+     invariants lie among sixth roots of unity; this does not establish F6 equivalence: Tao's S6 also has
+     f6 = 0);
+   - d3(T): least ||B B^dag - 3I||_F / 3 over 3x3 submatrices (0 iff T has a 3x3 Hadamard block; a heuristic
+     marker of Fourier type, not an equivalence test);
    - x2(T): least residual of the X^(2) corner relation (theta1, theta2, theta1 - theta2, theta1) over all dephased
      ordered 3x3 corners of T, conj(T), T^T and conj(T^T);
    class: 'isolated_fourier' if f6 ~ 0 for all three; 'continuous' if at least two are Fourier type and the third
@@ -203,6 +205,7 @@ def x2_residual(T):
 
 
 def classify(H, K):
+    """NUMERICAL heuristic labels only: these invariants are markers, not recognition proofs."""
     T = [H, K, H.conj().T @ K / math.sqrt(6)]
     f6 = [f6_distance(t) for t in T]
     dd = [d3(t) for t in T]
@@ -253,6 +256,16 @@ def one_record(idx):
 
 
 # ---------------------------------------------------------------- validation on known triples
+def shared_dephase(H, K):
+    """Coherent row gauge for a pair (H, K) of one triple (I, H, K), with independent column gauges."""
+    H = H * np.conj(H[0])[None, :]
+    row = np.conj(H[:, 0])
+    H = H * row[:, None]
+    K = K * row[:, None]
+    K = K * np.conj(K[0])[None, :]
+    return H, K
+
+
 def known_triples():
     w = np.exp(2j * np.pi / 3)
     F2 = np.array([[1, 1], [1, -1]], complex)
@@ -274,10 +287,10 @@ def validate():
         r = np.linalg.norm(residuals(H, K))
         print('%-12s residual %.1e  ->  %s' % (name, r, classify(H, K)))
     # perturb the bicirculant triple and re-solve
-    H, K = known_triples()['bicirculant']
+    H, K = shared_dephase(*known_triples()['bicirculant'])
     rng = np.random.default_rng(0)
-    Hp = dephase(H) * np.exp(1j * 0.02 * rng.standard_normal((6, 6)) * MASK_H)
-    Kp = K * np.conj(K[0])[None, :] * np.exp(1j * 0.02 * rng.standard_normal((6, 6)) * MASK_K)
+    Hp = H * np.exp(1j * 0.02 * rng.standard_normal((6, 6)) * MASK_H)
+    Kp = K * np.exp(1j * 0.02 * rng.standard_normal((6, 6)) * MASK_K)
     Hs, Ks, res = solve_triple(Hp, Kp)
     print('perturbed bicirculant: re-solved residual %.1e, H moved %.3f -> %s'
           % (res, np.linalg.norm(Hs - Hp), classify(Hs, Ks)['class']))
