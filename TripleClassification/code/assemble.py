@@ -5,7 +5,9 @@ RAW_DIR holds the rows of the three runs: nothird_*.jsonl (nothird.py, one row p
 (refine.py: level-4 and level-5 children of the failed level-3 cells of the refined balls) and census_*.jsonl
 (census.py, one row per seed ball); optionally tc_*.jsonl (the whole-ball certifier's run.py rows, one per seed ball)
 and split_*.jsonl with split_*.json.gz (split.py: the certifier on the sub-balls of a split ball, and the sub-atlas
-holding the cover).  Writes
+holding the cover; a sub-ball may itself be split, its sub-atlas naming the parent sub-atlas by hash), and
+fixed_*.jsonl (nothird.py rows from the code with exact cell geometry; only these count as cell-test exclusions in the
+final status, the earlier rows being kept as the cell-test columns).  Writes
   balls.tsv              one line per seed ball: its final status, the certifier's and the cell test's results, the
                          split if any, and the census at its centre;
   remaining_cells.jsonl.gz  per unresolved ball: the level and the dyadic indices of every cell not certified;
@@ -14,9 +16,10 @@ holding the cover).  Writes
 A row of refine.py is written only when its whole level is done, so a ball with level-5 rows finished level 5, and a
 ball with failed level-4 cells but no level-5 rows was stopped before level 5 (its failed level-4 cells remain).
 """
-import collections, glob, gzip, json, os, sys
+import collections, glob, gzip, hashlib, json, os, sys
 
 N_SEEDS = 2775
+ORIGINAL_ATLAS = '33ad9798eb7a5585c486f2427a6b223867a43b308b7f184467b4cd5956bd8baf'
 
 
 def rows(pattern):
@@ -44,14 +47,35 @@ def main():
         if x['index'] in tc and tc[x['index']]['status'] != x['status']: raise ValueError('conflicting tc rows')
         tc[x['index']] = x
     split = {}
+    files = {}
     for p in sorted(glob.glob(os.path.join(raw, 'split_*.json.gz'))):
         info = json.load(gzip.open(p, 'rt'))['info']['split']
         res = {x['index']: x['status'] for x in rows(p[:-len('.json.gz')] + '.jsonl')}
-        built = [c for c in info['cover'] if 'sub' in c]
-        sts = collections.Counter(res.get(c['sub'], 'MISSING') for c in built)
-        sts['BUILD FAILED'] = len(info['cover']) - len(built)
-        closed = set(sts) - {'BUILD FAILED'} <= {'CERTIFIED', 'CERTIFIED EMPTY'} and not sts['BUILD FAILED']
-        split[info['parent']] = dict(level=info['level'], closed=closed, counts={k: v for k, v in sts.items() if v})
+        files[hashlib.sha256(open(p, 'rb').read()).hexdigest()] = (p, info, res)
+    children = collections.defaultdict(dict)                 # (sub-atlas sha, sub-ball) -> its own split
+    for sha, (p, info, res) in files.items():
+        children[info['atlas_sha256']][info['parent']] = sha
+
+    def closed(sha, depth=1):
+        """(closed, counts, depth) for one split: every cell built, and every sub-ball certified by the run or closed
+        by its own split (a sub-atlas whose atlas_sha256 is this file's hash)."""
+        p, info, res = files[sha]
+        sts, deepest = collections.Counter(), depth
+        for c in info['cover']:
+            if 'sub' not in c: sts['BUILD FAILED'] += 1; continue
+            st = res.get(c['sub'], 'MISSING')
+            if st not in ('CERTIFIED', 'CERTIFIED EMPTY') and c['sub'] in children[sha]:
+                ok, _, d = closed(children[sha][c['sub']], depth + 1)
+                deepest = max(deepest, d)
+                if ok: st = 'SPLIT CLOSED'
+            sts[st] += 1
+        ok = set(sts) <= {'CERTIFIED', 'CERTIFIED EMPTY', 'SPLIT CLOSED'}
+        return ok, sts, deepest
+
+    for sha, (p, info, res) in files.items():
+        if info['atlas_sha256'] != ORIGINAL_ATLAS: continue
+        ok, sts, d = closed(sha)
+        split[info['parent']] = dict(level=info['level'], depth=d, closed=ok, counts=dict(sts))
     status, remaining = {}, {}
     for j in range(N_SEEDS):
         r = nt.get(j)
@@ -96,17 +120,20 @@ def main():
     def spl(j):
         if j not in split: return ''
         x = split[j]
-        return 'L%d %s %s' % (x['level'], 'closed' if x['closed'] else 'open',
+        return 'L%d depth %d %s %s' % (x['level'], x['depth'], 'closed' if x['closed'] else 'open',
                               ','.join('%s:%d' % (k.replace(' ', '_'), v) for k, v in sorted(x['counts'].items())))
 
+    fixed = {}                                               # the cell test rerun with the fixed code (exact cells)
+    for x in rows(os.path.join(raw, 'fixed_*.jsonl')):
+        fixed[x['idx']] = fixed.get(x['idx'], False) or bool(x.get('ok'))
     final = {}
     for j in range(N_SEEDS):
         t = tc.get(j, {}).get('status')
         if t == 'CERTIFIED': final[j] = 'classified'
         elif t == 'CERTIFIED EMPTY': final[j] = 'empty'
         elif j in split and split[j]['closed']:
-            final[j] = 'split_classified' if split[j]['counts'].get('CERTIFIED') else 'split_empty'
-        elif status[j][0] in ('whole_ball', 'cells', 'refined_4', 'refined_5'): final[j] = 'empty_cell_test'
+            final[j] = 'split'
+        elif fixed.get(j): final[j] = 'empty_cell_test'
         else: final[j] = 'unresolved'
 
     with open(os.path.join(out, 'balls.tsv'), 'w') as f:
