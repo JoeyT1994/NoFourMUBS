@@ -1,6 +1,10 @@
 """Assemble the triple results from the raw run rows into results/.
 
-Usage: python assemble.py RAW_DIR OUT_DIR
+Usage: python assemble.py RAW_DIR OUT_DIR --tc-tree T --atlas A --split-version SPLIT_PY... [--sidecar S...]
+Every certifier and split row is validated by receipts.Validator before it counts (audit findings F1-F3): expected
+binding, record hash, radius and pattern accounting per row; only a split file's current binding; a re-validated
+cover per split; and, for each closed split sub-ball, a Stage C precondition pass (in the row, or in a stagec_guard.py
+sidecar).  The cell test is reported but no longer counts towards the final status (its rows are not bound).
 RAW_DIR holds the rows of the three runs: nothird_*.jsonl (nothird.py, one row per seed ball), refine25.jsonl
 (refine.py: level-4 and level-5 children of the failed level-3 cells of the refined balls) and census_*.jsonl
 (census.py, one row per seed ball); optionally tc_*.jsonl (the whole-ball certifier's run.py rows, one per seed ball)
@@ -39,7 +43,20 @@ def rows(pattern):
 
 
 def main():
-    raw, out = sys.argv[1:3]
+    import argparse
+    ap = argparse.ArgumentParser()
+    ap.add_argument('raw'); ap.add_argument('out')
+    ap.add_argument('--tc-tree', required=True); ap.add_argument('--atlas', required=True)
+    ap.add_argument('--split-version', nargs='+', required=True); ap.add_argument('--sidecar', nargs='*', default=[])
+    a = ap.parse_args()
+    raw, out = a.raw, a.out
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import receipts as RC
+    V = RC.Validator(a.tc_tree, a.atlas, a.split_version)
+    side = {}
+    for x in (r for p in a.sidecar for r in RC.read_jsonl(p)):
+        if x.get('status') == 'PASS' and x.get('guard_sha256') in V.guards:
+            side[(x['atlas_sha256'], x['index'])] = x['seed_sha256']
     os.makedirs(out, exist_ok=True)
     nt = {r['idx']: r for r in rows(os.path.join(raw, 'nothird_*.jsonl'))}
     cen = {r['idx']: r for r in rows(os.path.join(raw, 'census_*.jsonl'))}
@@ -47,20 +64,26 @@ def main():
     ref_s = 0.0
     for x in rows(os.path.join(raw, 'refine25.jsonl')):
         ref[x['idx']][x['m']].append(x); ref_s += x.get('s', 0)
-    tc = {}
-    for x in rows(os.path.join(raw, 'tc_*.jsonl')):
-        if x['index'] in tc and tc[x['index']]['status'] != x['status']: raise ValueError('conflicting tc rows')
-        tc[x['index']] = x
+    tc = V.native_rows(rows(os.path.join(raw, 'tc_*.jsonl')))
     split = {}
     files = {}
     split_s = 0.0
+    seeds_of = {}
     for p in sorted(glob.glob(os.path.join(raw, 'split_*.json.gz'))):
-        info = json.load(gzip.open(p, 'rt'))['info']['split']
+        sub_seeds, info, sha = RC.load_split(p)
+        if info is None: continue                            # not a split sub-atlas: no cover to account
+        sel, _ = V.select(RC.read_jsonl(p[:-len('.json.gz')] + '.jsonl'), sub_seeds, V.split_bindings(sha))
         res = {}
-        for x in rows(p[:-len('.json.gz')] + '.jsonl'):
-            if x['index'] not in res: split_s += x.get('seconds', 0)
-            res[x['index']] = x['status']
-        files[hashlib.sha256(open(p, 'rb').read()).hexdigest()] = (p, info, res)
+        for i, x in sel.items():
+            split_s += x.get('seconds', 0)
+            st = x['status']
+            if st in RC.CLOSED:
+                pre = x.get('stage_c_preconditions')
+                passed = (pre is not None and pre.get('guard_sha256') in V.guards) or \
+                    side.get((sha, i)) == RC.record_sha(sub_seeds[i])
+                if not passed: st = 'NO STAGE C PRECONDITION'
+            res[i] = st
+        files[sha] = (p, info, res); seeds_of[sha] = sub_seeds
     children = collections.defaultdict(dict)                 # (sub-atlas sha, sub-ball) -> its own split
     for sha, (p, info, res) in files.items():
         children[info['atlas_sha256']][info['parent']] = sha
@@ -70,6 +93,11 @@ def main():
         by its own split (a sub-atlas whose atlas_sha256 is this file's hash)."""
         p, info, res = files[sha]
         sts, deepest = collections.Counter(), depth
+        parent = (V.seeds[info['parent']] if info['atlas_sha256'] == V.atlas_sha else
+                  seeds_of[info['atlas_sha256']][info['parent']] if info['atlas_sha256'] in seeds_of else None)
+        why = 'no parent record' if parent is None else V.cover_ok(info, parent, seeds_of[sha])
+        if why is not None:
+            return False, collections.Counter({'COVER INVALID: ' + why: 1}), deepest
         for c in info['cover']:
             if 'sub' not in c: sts['BUILD FAILED'] += 1; continue
             st = res.get(c['sub'], 'MISSING')
@@ -82,7 +110,7 @@ def main():
         return ok, sts, deepest
 
     for sha, (p, info, res) in files.items():
-        if info['atlas_sha256'] != ORIGINAL_ATLAS: continue
+        if info['atlas_sha256'] != V.atlas_sha: continue
         ok, sts, d = closed(sha)
         split[info['parent']] = dict(level=info['level'], depth=d, closed=ok, counts=dict(sts))
     status, remaining = {}, {}
@@ -140,7 +168,6 @@ def main():
         t = tc.get(j, {}).get('status')
         if t == 'CERTIFIED': final[j] = 'classified'
         elif t == 'CERTIFIED EMPTY': final[j] = 'empty'
-        elif fixed.get(j): final[j] = 'empty_cell_test'
         elif j in split and split[j]['closed']:
             final[j] = 'split'
         elif j in split and split[j]['counts'].get('MISSING'):

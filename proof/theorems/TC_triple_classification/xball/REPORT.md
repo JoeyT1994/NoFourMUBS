@@ -1,6 +1,12 @@
-# X-ball continuation: quantitative crossing core and full-radius remote campaign
+# X-ball: classification of MUB triples near F₆
 
-## 28 October, later: the whole original X-ball closes
+## Current status (28 October 2026)
+
+**CERTIFIED, subject to the review dependencies below; independently audited** (see the audit summary at the end of
+this section). Everything after the next horizontal rule is **history**: the state before the radius-1/50 crossing
+theorem, kept for provenance, and superseded where it says NOT ESTABLISHED.
+
+### The whole original X-ball closes
 
 **CERTIFIED, conditional on the review dependencies listed below:** every completing third basis, for every H in the
 entire original X-ball (radius `0x1.0a3d70a3d70a4p-3`, F6-012, original Mth frame), is of Conjecture 1 type.
@@ -31,6 +37,20 @@ entire original X-ball (radius `0x1.0a3d70a3d70a4p-3`, F6-012, original Mth fram
   - the sharded driver and `campaign.py`'s v4 core check, both new.
 
 28 October 2026, branch `codex/tc-xball`.
+
+
+### Independent audit (28 October 2026)
+
+An outside adversarial review (`TC_audit_review_evidence`) found no critical error. It graded:
+- the crossing implication: VERIFIED, including the gauge, norm and alignment transport to the r/16 core, whose fresh
+  replay closes 16 of 16 patterns;
+- the shell's dyadic partition: VERIFIED, all 474,106 leaves checked independently in integers;
+- the shell's closure: CHECKED on a sample, TRUSTED in aggregate, because the full 2 GB of rows was not shipped;
+- recognition: VERIFIED.
+
+---
+
+## History (superseded): before the radius-1/50 theorem
 
 **Whole original X-ball: NOT ESTABLISHED.** Both crossing patterns now have
 certified quantitative neighborhoods, and the complete all-K core at r/128

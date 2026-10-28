@@ -100,7 +100,17 @@ def run_ball_limited(run_ball, sa, i, bid, seconds):
     if seconds:
         signal.signal(signal.SIGALRM, expire); signal.alarm(int(seconds))
     try:
-        return run_ball(sa, i, bid)
+        # Audit F2: the Stage C input preconditions of RIGOUR.md, checked on this sub-ball's actual arguments first.
+        import stagec_guard as G
+        R = sys.modules['run']
+        rec = json.load(gzip.open(sa, 'rt'))['seeds'][i]
+        try:
+            pre = G.check(R, rec)
+        except ArithmeticError as e:
+            return dict(index=i, status='NOT ESTABLISHED', binding=bid, reason='Stage C precondition: %s' % e)
+        row = run_ball(sa, i, bid)
+        row['stage_c_preconditions'] = dict(pre, guard_sha256=G.guard_sha256())
+        return row
     except TimeoutError as e:                       # raised outside the certifier's own handler
         return dict(index=i, status='NOT ESTABLISHED', binding=bid, reason='TimeoutError: %s' % e)
     finally:
@@ -124,6 +134,7 @@ def run(tc_tree, subatlases, workers, seconds=0):
         files are unchanged; worker processes inherit this by fork."""
         files = {str(p.relative_to(R.ROOT)): hashlib.sha256(p.read_bytes()).hexdigest() for p in R.source_paths()}
         files['split.py'] = hashlib.sha256(Path(__file__).read_bytes()).hexdigest()
+        files['stagec_guard.py'] = hashlib.sha256((Path(__file__).parent / 'stagec_guard.py').read_bytes()).hexdigest()
         value = dict(schema='tc-native-allk-v1+split', atlas_sha256=hashlib.sha256(Path(atlas).read_bytes()).hexdigest(),
                      sources=files, precision=160)
         value['id'] = hashlib.sha256(json.dumps(value, sort_keys=True).encode()).hexdigest()
