@@ -51,7 +51,27 @@ def check_hashes(mapping):
             raise ValueError('extension/input hash mismatch: ' + name)
 
 
-def verified_core(path, binding):
+def v4_limits(radius):
+    """Radius-1/50 receipt: rerun the continuation's exact scalar certificate and check the recorded radii."""
+    from flint import arb
+    sys.path.insert(0, str(HERE / 'reference/crossing_continuation_20261028'))
+    import crossing_scalar_certificate as CS
+    scalar = CS.certify()
+    if not scalar['all_exact_scalar_checks_passed']:
+        raise ValueError('radius-1/50 scalar certificate failed')
+    limits = {}
+    for pattern in radius['patterns']:
+        value = pattern['success']
+        if (pattern['number'] in limits or pattern['status'] != 'CERTIFIED LOCAL PHASE NEIGHBOURHOOD'
+                or pattern['physical_actions_exact'] is not True
+                or value['full_phase_ball_radius_fraction'] != [1, 50]
+                or value['kernel_radius'] != '0.02' or value['normal_radius'] != '0.001'):
+            raise ValueError('radius-1/50 receipt mismatch')
+        limits[pattern['number']] = (arb(1) / 50, arb(1) / 1000, arb(1) / 50)
+    return limits
+
+
+def verified_core(path, binding, power=7):
     """Check the separate theorem provenance and every scalar core obligation.
 
     The returned compatibility view is used only inside the frozen accountant.
@@ -64,9 +84,11 @@ def verified_core(path, binding):
             or core['base_binding'] != binding or core['status'] != 'CERTIFIED'):
         raise ValueError('uncertified or mismatched core')
     check_hashes(core['extension_sources_sha256'])
-    radius_name = 'results/crossing_radius_20261028_v3.json'
-    if radius_name not in core['extension_sources_sha256']:
-        raise ValueError('core does not bind the quantitative radius receipt')
+    names = [n for n in core['extension_sources_sha256'] if n.startswith('results/crossing_radius_20261028_v')]
+    if len(names) != 1 or names[0] not in ('results/crossing_radius_20261028_v3.json',
+                                           'results/crossing_radius_20261028_v4.json'):
+        raise ValueError('core does not bind exactly one quantitative radius receipt')
+    radius_name = names[0]
     radius = json.loads((HERE / radius_name).read_text())
     if radius['base_binding'] != binding:
         raise ValueError('radius base mismatch')
@@ -76,8 +98,8 @@ def verified_core(path, binding):
     if (structure['base_binding'] != binding
             or structure['controller_sha256'] != digest(HERE / 'experiments/crossing_structure.py')):
         raise ValueError('exact structure source mismatch')
-    limits = {}
-    for pattern in radius['patterns']:
+    limits = v4_limits(radius) if radius_name.endswith('_v4.json') else {}
+    for pattern in ([] if limits else radius['patterns']):
         if pattern['number'] in limits or pattern['status'] != 'CERTIFIED LOCAL PHASE NEIGHBOURHOOD':
             raise ValueError('duplicate or uncertified crossing')
         if pattern['physical_actions_exact'] is not True:
@@ -100,14 +122,14 @@ def verified_core(path, binding):
         epsilon = g3*R*(1+t*t) + g2*(2*t+t*t) + (g2+g3*R)*R*s
         if not (image < eta and 2*epsilon < 1):
             raise ValueError('crossing obstruction/inclusion failed')
-        limits[pattern['number']] = (rho, eta)
+        limits[pattern['number']] = (rho, eta, None)
     if set(limits) != {1, 2}:
         raise ValueError('two crossings required')
     if (core['domain'] != 'core subset of original X-ball'
             or core['original_source']['radius_hex'] != ORIGINAL_RADIUS
             or core['subset']['original_radius_hex'] != ORIGINAL_RADIUS
-            or core['subset']['radius_ratio'] != [1, 128]
-            or core['subset']['radius_hex'] != '0x1.0a3d70a3d70a4p-10'
+            or core['subset']['radius_ratio'] != [1, 2**power]
+            or core['subset']['radius_hex'] != (float.fromhex(ORIGINAL_RADIUS) / 2**power).hex()
             or core['stage_c_preconditions']['status'] != 'CERTIFIED'):
         raise ValueError('core domain/guards mismatch')
     patterns = core['patterns']
@@ -123,9 +145,10 @@ def verified_core(path, binding):
             if number in seen:
                 raise ValueError('duplicate crossing inclusion')
             seen.add(number)
-            rho, eta = limits[number]
-            if not (p['shared_gauge'] is True and arb(p['kernel_bound']) < rho
-                    and arb(p['normal_bound']) < eta):
+            rho, eta, ball = limits[number]
+            inside = ((arb(p['kernel_bound']) < rho and arb(p['normal_bound']) < eta)
+                      or (ball is not None and arb(p['phase_radius_bound']) < ball))
+            if not (p['shared_gauge'] is True and inside):
                 raise ValueError('whole-pattern inclusion failed')
         elif not arb(p['q']) < 1:
             raise ValueError('regular core contraction failed')
@@ -162,6 +185,9 @@ def extend_core(cover, power=7):
     return result
 
 
+CORE_POWER = [7]
+
+
 def apply_row(leaves, done, row, max_level, binding):
     key = row['id']
     leaf = leaves[key]
@@ -179,7 +205,7 @@ def apply_row(leaves, done, row, max_level, binding):
             child_key = geometry.identifier(cell)
             lower, upper = geometry.radial_squares(cell)
             kind = ('OUTSIDE' if lower > 1 else
-                    'CORE' if upper <= Fraction(1, 4**7) else 'SHELL')
+                    'CORE' if upper <= Fraction(1, 4**CORE_POWER[0]) else 'SHELL')
             leaves[child_key] = dict(id=child_key, cell=list(cell), kind=kind)
             if kind == 'SHELL':
                 pending.append(child_key)
@@ -227,6 +253,8 @@ def main():
     p.add_argument('--max-level', type=int, default=11)
     p.add_argument('--max-new-pieces', type=int, default=10000)
     p.add_argument('--seconds', type=float, default=23*3600)
+    p.add_argument('--core-power', type=int, default=7,
+                   help='the certified core is ||w|| <= r / 2**core_power (7 with the v3 radii, 4 with v4)')
     args = p.parse_args()
     if not 1 <= args.workers <= 128 or not 9 <= args.max_level <= 20:
         p.error('workers must be 1..128 (one Rusty node), max level 9..20')
@@ -238,13 +266,14 @@ def main():
     import run_shells as RS
     import run_xball as RX
     base = RX.binding()
-    core = verified_core(args.core, base['id'])
+    CORE_POWER[0] = args.core_power
+    core = verified_core(args.core, base['id'], args.core_power)
     inputs = {str(f.resolve().relative_to(HERE)): digest(f) for f in
               (args.cover, args.receipts, args.core)}
     manifest = dict(schema='tc-xball-campaign-v1', base=base,
                     controller_sha256=digest(Path(__file__)), inputs_sha256=inputs,
                     core_method='quantitative commuting-crossing extension',
-                    max_level=args.max_level)
+                    max_level=args.max_level, core_power=args.core_power)
     manifest_path = args.output.with_suffix('.manifest.json')
     journal_path = args.output.with_suffix('.events.jsonl')
     if args.resume:
@@ -254,7 +283,7 @@ def main():
         if manifest_path.exists() or journal_path.exists() or args.output.exists():
             p.error('fresh output required unless --resume')
         atomic(manifest_path, manifest)
-    cover = extend_core(json.loads(args.cover.read_text()))
+    cover = extend_core(json.loads(args.cover.read_text()), args.core_power)
     leaves = {v['id']: v for v in cover['leaves']}
     rows = [json.loads(line) for line in args.receipts.read_text().splitlines()]
     RS.account(cover, rows, base['id'], core)
@@ -285,7 +314,7 @@ def main():
             if RX.binding() != base or digest(Path(__file__)) != manifest['controller_sha256']:
                 raise ValueError('source changed before certification')
             check_hashes(inputs)
-            verified_core(args.core, base['id'])
+            verified_core(args.core, base['id'], args.core_power)
         result['base_binding'] = result.pop('binding')
         result.update(schema='tc-xball-extended-accounting-v1',
             core_receipt_sha256=digest(args.core), controller_sha256=manifest['controller_sha256'],
@@ -332,7 +361,7 @@ def main():
     if RX.binding() != base or digest(Path(__file__)) != manifest['controller_sha256']:
         raise ValueError('source changed during run')
     check_hashes(inputs)
-    verified_core(args.core, base['id'])
+    verified_core(args.core, base['id'], args.core_power)
     result = snapshot()
     return 0 if result['status'] == 'CERTIFIED' else 2
 

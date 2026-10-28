@@ -1,0 +1,204 @@
+{
+ "status": "CERTIFIED LOCAL PHASE NEIGHBOURHOODS",
+ "base_binding": "5a2d8e40163634356fbea68cfa4195b23621b8ba7b4520691c7c9f11a0562eb2",
+ "current_base_binding": "5a2d8e40163634356fbea68cfa4195b23621b8ba7b4520691c7c9f11a0562eb2",
+ "sources_sha256": {
+  "reference/crossing_continuation_20261028/verify_all.py": "f9d58f83f60d7671feb6830dc8787e36c9918a1be899d280f31ffa2ecb016cdd",
+  "reference/crossing_continuation_20261028/crossing_scalar_certificate.py": "47b25f9c9e20aaf040c3cc92a6a20863a98f63199cf3e2f37e1318b31e124d4c",
+  "reference/crossing_continuation_20261028/projected_frequency_bounds.py": "1d7675fd65fd3c2b9551af1bd0f2cd90be67f399a58f57fa4e98dec30b5af7d4",
+  "reference/crossing_continuation_20261028/interval_support.py": "7dd4f11f28a02e1eb3e91628225d27f01b4702cfd6aab387a054cd2df7ef463b",
+  "reference/crossing_continuation_20261028/larger_crossing.md": "8cad0fbf9c89af10a4b8a8af31804b41988cd5685481e01d827314b871efdb93",
+  "reference/crossing_continuation_20261028/lemma_audit.md": "8795c6e490f7fe81354b823f11e3cd79e2ab6880c2ae773659d33d252c959127",
+  "reference/crossing_continuation_20261028/CONTINUATION.md": "33f98b024f0cb5b3b727d60192ef84d4b6167dcc60b5fb8a968ffdafb8a07908",
+  "results/crossing_structure_20261028.json": "67d4dc6717eba0d36266b6fa16bc5ae4c6618c944db28db8db1039374a079df2",
+  "results/crossing_radius_20261028_v3.json": "7bc18ae984710603910d255cfff84d798172a40db00eb88aaac0a27559b4c190",
+  "reference/prior_local_CHECKPOINT.md": "44585d54679f0ad424a6e32887993ff57b0d345f8f3ad5498bdd8647eec6a757",
+  "experiments/crossing_radius.py": "86f8ad313e2e4b92962aad7a9ff185632a85d40f9811e5dff08af445d85cff22",
+  "experiments/crossing_structure.py": "a10b194eacd5a2b8b0aeff906529543549de4b3ac36ac2643e91fb02c8261bdc",
+  "experiments/QUANTITATIVE_CROSSING.md": "110ccaaf3d51291d6dc13429a11a4a51a1be9370489536e2d1fe84a6458bc2a0",
+  "experiments/crossing_radius_v4.py": "44f790938da1fb3d5f40d87a49e23f792bad27387dd7e033747a4df0d6546748"
+ },
+ "patterns": [
+  {
+   "number": 1,
+   "status": "CERTIFIED LOCAL PHASE NEIGHBOURHOOD",
+   "conditional_on": [
+    "exact structure receipt (crossing_structure_20261028.json)",
+    "equivariant normal inverse and coefficient-amplitude cubic bounds of crossing_radius.py (v3 receipt, dominated by rationals)",
+    "recognition theorem (seed_method/reference/r0153/CHECKPOINT.md section 8)",
+    "larger_crossing.md (radius-1/50 theorem; no qualitative surface input)"
+   ],
+   "physical_actions_exact": true,
+   "success": {
+    "ambient_radius_fraction": [
+     201,
+     10000
+    ],
+    "ambient_radius": "0.0201",
+    "kernel_radius": "0.02",
+    "normal_radius": "0.001",
+    "full_phase_ball_radius_fraction": [
+     1,
+     50
+    ],
+    "full_phase_ball_radius": "0.02",
+    "q": "0.05963971500001",
+    "normal_image_bound": "0.00061043971500001",
+    "mixed_rank_one_defect_bound": "0.88522807200904209001200178593713"
+   },
+   "classification_phase_radius": "0.02 (full horizontal phase ball)"
+  },
+  {
+   "number": 2,
+   "status": "CERTIFIED LOCAL PHASE NEIGHBOURHOOD",
+   "conditional_on": [
+    "exact structure receipt (crossing_structure_20261028.json)",
+    "equivariant normal inverse and coefficient-amplitude cubic bounds of crossing_radius.py (v3 receipt, dominated by rationals)",
+    "recognition theorem (seed_method/reference/r0153/CHECKPOINT.md section 8)",
+    "larger_crossing.md (radius-1/50 theorem; no qualitative surface input)"
+   ],
+   "physical_actions_exact": true,
+   "success": {
+    "ambient_radius_fraction": [
+     201,
+     10000
+    ],
+    "ambient_radius": "0.0201",
+    "kernel_radius": "0.02",
+    "normal_radius": "0.001",
+    "full_phase_ball_radius_fraction": [
+     1,
+     50
+    ],
+    "full_phase_ball_radius": "0.02",
+    "q": "0.05963971500001",
+    "normal_image_bound": "0.00061043971500001",
+    "mixed_rank_one_defect_bound": "0.88522807200904209001200178593713"
+   },
+   "classification_phase_radius": "0.02 (full horizontal phase ball)"
+  }
+ ],
+ "verification": {
+  "bindings": {
+   "status": "CHECKED receipt consistency, attached source hashes, and exact domination of Arb endpoints",
+   "attached_hashes": {
+    "results/crossing_structure_20261028.json": "67d4dc6717eba0d36266b6fa16bc5ae4c6618c944db28db8db1039374a079df2",
+    "reference/prior_local_CHECKPOINT.md": "44585d54679f0ad424a6e32887993ff57b0d345f8f3ad5498bdd8647eec6a757",
+    "experiments/crossing_radius.py": "86f8ad313e2e4b92962aad7a9ff185632a85d40f9811e5dff08af445d85cff22",
+    "experiments/crossing_structure.py": "a10b194eacd5a2b8b0aeff906529543549de4b3ac36ac2643e91fb02c8261bdc",
+    "experiments/QUANTITATIVE_CROSSING.md": "110ccaaf3d51291d6dc13429a11a4a51a1be9370489536e2d1fe84a6458bc2a0"
+   },
+   "rational_upper_bounds": {
+    "normal_inverse_defect": "1/100000000000000",
+    "hessian_H": "1167/500",
+    "third_derivative_H": "63",
+    "hessian_G": "147/20",
+    "third_derivative_G": "105"
+   },
+   "missing_hashed_source": "results/exact_centres.json",
+   "exact_structure_or_Arb_generation_replayed": false,
+   "coefficient_amplitude_construction": "Retained input, confirmed by reading the supplied source; cubic factor sqrt(308)",
+   "supplied_project_python_imported_or_executed": false
+  },
+  "frequency": [
+   {
+    "pattern": 1,
+    "status": "PROVED",
+    "frequency_count": 720,
+    "unprojected_cubic_gram_maximum": 308,
+    "projector_common_denominator": 360,
+    "projected_gram_bounds": {
+     "EK0K1": {
+      "row_sum_exact_numerators": [
+       373248,
+       46080
+      ],
+      "row_sum_exact_denominator": 129600,
+      "strict_rational_upper": [
+       7,
+       2
+      ]
+     },
+     "EKK": {
+      "row_sum_exact_numerators": [
+       1936512,
+       0
+      ],
+      "row_sum_exact_denominator": 129600,
+      "strict_rational_upper": [
+       15,
+       1
+      ]
+     },
+     "EEK": {
+      "row_sum_exact_numerators": [
+       7240320,
+       345600
+      ],
+      "row_sum_exact_denominator": 129600,
+      "strict_rational_upper": [
+       61,
+       1
+      ]
+     }
+    }
+   },
+   {
+    "pattern": 2,
+    "status": "PROVED",
+    "frequency_count": 720,
+    "unprojected_cubic_gram_maximum": 308,
+    "projector_common_denominator": 360,
+    "projected_gram_bounds": {
+     "EK0K1": {
+      "row_sum_exact_numerators": [
+       373248,
+       46080
+      ],
+      "row_sum_exact_denominator": 129600,
+      "strict_rational_upper": [
+       7,
+       2
+      ]
+     },
+     "EKK": {
+      "row_sum_exact_numerators": [
+       1936512,
+       0
+      ],
+      "row_sum_exact_denominator": 129600,
+      "strict_rational_upper": [
+       15,
+       1
+      ]
+     },
+     "EEK": {
+      "row_sum_exact_numerators": [
+       7240320,
+       345600
+      ],
+      "row_sum_exact_denominator": 129600,
+      "strict_rational_upper": [
+       61,
+       1
+      ]
+     }
+    }
+   }
+  ],
+  "scalar_checks": {
+   "ambient_geometry": true,
+   "normal_contraction": true,
+   "normal_image": true,
+   "quadratic_graph_bound": true,
+   "graph_radius_factor": true,
+   "full_phase_ball_zero_trapping": true,
+   "rank_one_mixed_defect": true,
+   "coarse_rank_one_mixed_defect": true,
+   "h_mixed_frequency_conversion": true,
+   "g_mixed_frequency_conversion": true,
+   "h_one_kernel_frequency_conversion": true,
+   "g_one_kernel_frequency_conversion": true
+  }
+ }
+}
