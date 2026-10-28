@@ -33,7 +33,7 @@ The distance is ‖H − H′‖_F between the dephased matrix at the ball's cen
 converged to. Per-ball details are in `results/balls.tsv`.
 
 **The X-ball (CERTIFIED, subject to review).** Every completing third basis for every H in the X-ball (the ball at F₆,
-where the isolated triple and the continuous family meet) is of known type. This is on branch `codex/tc-xball`
+where the isolated triple and the continuous family meet) is of known type
 (`proof/theorems/TC_triple_classification/xball/REPORT.md`):
 - **the core ‖w‖ ≤ r/16** is certified with an outside radius-1/50 classification theorem at the two crossings;
 - **the shell** is 383,829 dyadic cells, every one closed by the whole-ball certifier, down to level 7. That took
@@ -46,10 +46,9 @@ where the isolated triple and the continuous family meet) is of known type. This
 
 ### The whole-ball certifier
 
-The main tool is the native all-K certifier of the triple-classification work. It is on branch
-`codex/tc-triple-classification`, implementation commit `bd87c694752357dcd31571aa3377461d4dd03cca`, in
-`proof/theorems/TC_triple_classification/family_neighbourhoods/` (`PROOF.md`, `REVIEW_HANDOFF.md` there). It is not on
-this branch. It works on one entire original seed ball, as follows:
+The main tool is the native all-K certifier in `proof/theorems/TC_triple_classification/family_neighbourhoods/`
+(`PROOF.md`, `REVIEW_HANDOFF.md` there; frozen for review at commit `bd87c694752357dcd31571aa3377461d4dd03cca`). It
+works on one entire original seed ball, as follows:
 
 1. A fresh C1 encloses every H in the ball.
 2. Stage C covers every possible completing basis K by six-colour patterns.
@@ -112,6 +111,27 @@ The labels come from matrix invariants (f6, d3, x2) that are markers, not equiva
 pointed out that Tao's S₆ has f6 = d3 = x2 = 0 but is not of Fourier type. S₆ has no third basis, so no census
 triple is affected, but the labels are not a recognition proof. The search is dense but not exhaustive. Balls with triples nearby are the ones the certifier classifies (median
 distance 0.08) or that need splitting.
+
+## Where everything is
+
+This folder is the entry point. The certifier and its receipts stay in `proof/theorems/TC_triple_classification/`,
+because every receipt is bound by hash to those source paths. Moving them would invalidate every receipt.
+
+| Path | What |
+|---|---|
+| `TripleClassification/README.md` | This status page |
+| `TripleClassification/results/` | Per-ball status (`balls.tsv`), the certifier's per-ball rows, the census, the summary |
+| `TripleClassification/code/` | Our drivers: `split.py` (sub-ball covers), `deep_list.py` and `run_deep.sh` (deeper rounds), `assemble.py`, the cell test and the census |
+| `proof/theorems/TC_triple_classification/family_neighbourhoods/` | The whole-ball certifier: `run.py`, `PROOF.md`, `REVIEW_HANDOFF.md` |
+| `proof/theorems/TC_triple_classification/seed_method/reference/r0153/CHECKPOINT.md` | Transverse rigidity and the recognition argument (§8) |
+| `proof/theorems/TC_triple_classification/xball/` | The X-ball: `REPORT.md`, `CORE_LEMMA.md`, the crossing receipts, the r/16 core (`results/core4_v4.json`), the sharded shell accounting (`results/sharded_20261028/`) |
+| `proof/theorems/TC_triple_classification/xball/reference/crossing_continuation_20261028/` | The outside radius-1/50 crossing theorem and family tubes, with its verifiers |
+| `proof/theorems/TC_triple_classification/tao.py` | Tao's S₆ has no third basis |
+
+The bulky raw receipts are on rusty under `/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/`, with SHA-256
+manifests in this repository:
+- the X-ball shell rows (about 0.5 GB);
+- the split rows.
 
 ## Files
 

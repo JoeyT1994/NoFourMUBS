@@ -33,9 +33,8 @@ their certificates, and a `REVIEW.md` recording how it was replayed and checked.
 Folders named `context/`, `input*/` or `reference/` hold the material each theorem was written against; the theorem
 itself does not depend on them.
 
-## Triple classification: partial return
+## Triple classification
 
-[`TC_triple_classification`](TC_triple_classification/README.md) contains two proved local classification patches,
-an all-Arb exclusion of Tao as a triple edge, and an explicit ledger of the remaining cell-cover obligations.
-The global triple-classification conjecture is **NOT ESTABLISHED**. This return is not an input to the no-four-MUB
-proof above. Read its `PROOF.md` and `REVIEW.md` for the exact scope and replay results.
+[`TC_triple_classification`](TC_triple_classification/README.md) holds the whole-ball triple certifier, the X-ball
+classification and their receipts. It is not an input to the no-four-MUB proof above. The status and an index are in
+[`TripleClassification/`](../../TripleClassification/README.md).
