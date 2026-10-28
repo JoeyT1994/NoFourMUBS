@@ -1,5 +1,35 @@
 # X-ball continuation: quantitative crossing core and full-radius remote campaign
 
+## 28 October, later: the whole original X-ball closes
+
+**CERTIFIED, conditional on the review dependencies listed below:** every completing third basis, for every H in the
+entire original X-ball (radius `0x1.0a3d70a3d70a4p-3`, F6-012, original Mth frame), is of Conjecture 1 type.
+
+- **Core ||w|| <= r/16.** `results/core4_v4.json`, from `experiments/core_crossing_v4.py` with
+  `results/crossing_radius_20261028_v4.json`. The radius-1/50 crossing theorem of the outside continuation
+  (`reference/crossing_continuation_20261028/`, its verifiers rerun on Rusty and passing) classifies every actual zero
+  in the full horizontal phase ball of radius 1/50 around each crossing. Both crossing patterns have total phase bounds
+  0.01831 < 1/50; the other 14 core patterns pass the strict symmetry test. The r/8 core fails (0.0370).
+- **Shell.** `experiments/sharded.py`. Every open shell leaf of the screened cover was split exactly to dyadic level 5,
+  certified by the unchanged `run_shells.run_piece` across 8 Rusty nodes, and the failures split again:
+
+  | Level | Shell leaves | Closed | Unresolved |
+  |---:|---:|---:|---:|
+  | 5 | 376,570 | 376,117 | 453 |
+  | 6 | 380,605 | 380,373 | 232 |
+  | 7 | 383,829 | 383,829 | 0 |
+
+  The last unresolved cells all lay at 0.054-0.094 r, just outside the core. `results/sharded_20261028/account7.json`
+  is the exact accounting (`run_shells.account` over the plan's verified geometric cover: 383,829 shell, 272 core and
+  90,005 outside leaves; every shell leaf has one closed receipt with matching domain and base binding `5a2d8e40...`).
+  `manifest_sharded.json` lists the SHA-256 of every row file (about 0.5 GB, kept on Rusty at the path recorded there)
+  and of the gzipped plan. Shell CPU: 1,352 core-hours.
+- **Review dependencies.**
+  - the radius-1/50 crossing theorem (outside, not yet independently reviewed);
+  - recognition (`seed_method/reference/r0153/CHECKPOINT.md` section 8);
+  - the inherited Stage C binary64 enclosures at these call sites;
+  - the sharded driver and `campaign.py`'s v4 core check, both new.
+
 28 October 2026, branch `codex/tc-xball`.
 
 **Whole original X-ball: NOT ESTABLISHED.** Both crossing patterns now have
