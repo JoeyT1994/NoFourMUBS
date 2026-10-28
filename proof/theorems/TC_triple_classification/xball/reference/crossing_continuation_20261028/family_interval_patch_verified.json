@@ -1,0 +1,53 @@
+{
+  "status": "PROVED for exact same-action references in the stated patch",
+  "reference_patch_horizontal_radius": "1/100000",
+  "entrywise_jacobian_halfwidth": "1/1000",
+  "valid_patch": {
+    "status": "PROVED CONDITIONAL MATRIX BOUND",
+    "certified_uniform_moving_bound": true,
+    "requested_sigma_lower": [
+      7,
+      5
+    ],
+    "valid_tube_radius_if_passed": [
+      7,
+      300
+    ],
+    "preconditioner_norm_upper": [
+      13,
+      20
+    ],
+    "rational_midpoint_defect_upper": [
+      1,
+      100000
+    ],
+    "squared_enclosure_error": [
+      "108",
+      "15625"
+    ],
+    "scope": "Conditional on a valid whole-family Jacobian enclosure in the stated common anchor and projector"
+  },
+  "wider_enclosure_returns_inconclusive": {
+    "status": "INCONCLUSIVE",
+    "certified_uniform_moving_bound": false,
+    "requested_sigma_lower": [
+      7,
+      5
+    ],
+    "valid_tube_radius_if_passed": null,
+    "preconditioner_norm_upper": [
+      13,
+      20
+    ],
+    "rational_midpoint_defect_upper": [
+      1,
+      100000
+    ],
+    "squared_enclosure_error": [
+      "432",
+      "625"
+    ],
+    "scope": "Conditional on a valid whole-family Jacobian enclosure in the stated common anchor and projector"
+  },
+  "upstream_parameter_box_enclosure_computed": false
+}

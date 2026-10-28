@@ -1,0 +1,180 @@
+{
+  "status": "PROVED exact scalar inequalities, conditional on listed derivative hypotheses and frequency certificates",
+  "imports_supplied_project_code": false,
+  "classification_full_phase_radius": {
+    "numerator": "1",
+    "denominator": "50",
+    "decimal_upper": "0.02"
+  },
+  "ambient_radius": {
+    "numerator": "201",
+    "denominator": "10000",
+    "decimal_upper": "0.0201"
+  },
+  "kernel_radius": {
+    "numerator": "1",
+    "denominator": "50",
+    "decimal_upper": "0.02"
+  },
+  "normal_radius": {
+    "numerator": "1",
+    "denominator": "1000",
+    "decimal_upper": "0.001"
+  },
+  "hypotheses": {
+    "d": {
+      "numerator": "1",
+      "denominator": "100000000000000",
+      "decimal_upper": "1E-14"
+    },
+    "h2": {
+      "numerator": "1167",
+      "denominator": "500",
+      "decimal_upper": "2.334"
+    },
+    "h3": {
+      "numerator": "63",
+      "denominator": "1",
+      "decimal_upper": "63"
+    },
+    "g2": {
+      "numerator": "147",
+      "denominator": "20",
+      "decimal_upper": "7.35"
+    },
+    "g3": {
+      "numerator": "105",
+      "denominator": "1",
+      "decimal_upper": "105"
+    },
+    "h_mixed": {
+      "numerator": "7",
+      "denominator": "1",
+      "decimal_upper": "7"
+    },
+    "h_one_kernel": {
+      "numerator": "29",
+      "denominator": "1",
+      "decimal_upper": "29"
+    },
+    "g_mixed": {
+      "numerator": "12",
+      "denominator": "1",
+      "decimal_upper": "12"
+    },
+    "g_one_kernel": {
+      "numerator": "47",
+      "denominator": "1",
+      "decimal_upper": "47"
+    }
+  },
+  "graph_majorants": {
+    "C": {
+      "numerator": "3",
+      "denominator": "2",
+      "decimal_upper": "1.5"
+    },
+    "chi": {
+      "numerator": "1001",
+      "denominator": "1000",
+      "decimal_upper": "1.001"
+    },
+    "normal_q": {
+      "numerator": "5963971500001",
+      "denominator": "100000000000000",
+      "decimal_upper": "0.05963971500001"
+    },
+    "normal_image": {
+      "numerator": "61043971500001",
+      "denominator": "100000000000000000",
+      "decimal_upper": "0.00061043971500001"
+    },
+    "zero_trap": {
+      "numerator": "6120000000",
+      "denominator": "11111111111111",
+      "decimal_upper": "0.00055080000000000550800000000005509"
+    },
+    "C_required": {
+      "numerator": "15300000000000",
+      "denominator": "10448447611111",
+      "decimal_upper": "1.4643323649084293721779722803731"
+    }
+  },
+  "mixed_defect_upper": {
+    "numerator": "1363151904329954011957119423177129198308308259",
+    "denominator": "1539887795510432262818853642306218676851850000",
+    "decimal_upper": "0.88522807200904209001200178593713"
+  },
+  "simpler_coarse_mixed_defect_upper": {
+    "numerator": "36975714232733877053739829848621391910174332993",
+    "denominator": "41576970478781671096109048342267904274999950000",
+    "decimal_upper": "0.88933161331713689263941938141161"
+  },
+  "pointwise_mixed_defect_at_rho": {
+    "numerator": "5772488874030857228063669505898594365479458999",
+    "denominator": "3464747539898472591342420695188992022916662500",
+    "decimal_upper": "1.6660633444594373886433342040635"
+  },
+  "positive_polynomial_coefficients": [
+    {
+      "numerator": "0",
+      "denominator": "1",
+      "decimal_upper": "0"
+    },
+    {
+      "numerator": "174477145676166333",
+      "denominator": "2612111902777750",
+      "decimal_upper": "66.795433032798219284994929344760"
+    },
+    {
+      "numerator": "77534530752335257429228400000",
+      "denominator": "109170057482131162690654321",
+      "decimal_upper": "710.21791634602762603288036939164"
+    },
+    {
+      "numerator": "52700260097119364080606976905163231552300000",
+      "denominator": "10265918636736215085459024282041457845679",
+      "decimal_upper": "5133.5162455441062175966025517181"
+    },
+    {
+      "numerator": "881504309144517911907374330779479085375000000",
+      "denominator": "30797755910208645256377072846124373537037",
+      "decimal_upper": "28622.355203884268763520577314344"
+    },
+    {
+      "numerator": "11395352741808252829250740453489637500000000000",
+      "denominator": "92393267730625935769131218538373120611111",
+      "decimal_upper": "123335.31459274270701508926104572"
+    },
+    {
+      "numerator": "104132279273878081157300110479237500000000000000",
+      "denominator": "277179803191877807307393655615119361833333",
+      "decimal_upper": "375684.94556507234967576798317553"
+    },
+    {
+      "numerator": "76608344523388200972699250000000000000000000000",
+      "denominator": "92393267730625935769131218538373120611111",
+      "decimal_upper": "829155.04998417272852049144524398"
+    },
+    {
+      "numerator": "12955272799936994467252812500000000000000000000",
+      "denominator": "10265918636736215085459024282041457845679",
+      "decimal_upper": "1261969.1679200557545161022147246"
+    }
+  ],
+  "checks": {
+    "ambient_geometry": true,
+    "normal_contraction": true,
+    "normal_image": true,
+    "quadratic_graph_bound": true,
+    "graph_radius_factor": true,
+    "full_phase_ball_zero_trapping": true,
+    "rank_one_mixed_defect": true,
+    "coarse_rank_one_mixed_defect": true,
+    "h_mixed_frequency_conversion": true,
+    "g_mixed_frequency_conversion": true,
+    "h_one_kernel_frequency_conversion": true,
+    "g_one_kernel_frequency_conversion": true
+  },
+  "all_exact_scalar_checks_passed": true
+}
