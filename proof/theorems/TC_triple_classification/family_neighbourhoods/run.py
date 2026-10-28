@@ -25,6 +25,8 @@ import conditioned_columns as CC
 import moving_symmetry as MS
 import pattern_proposals as PP
 import basis_exclusion as BE
+import joint_basis as JB
+import fine_patterns as FP
 import patches as P
 import seedcert as SC
 
@@ -57,7 +59,7 @@ def binding(atlas):
     return value
 
 
-def final_pattern(model,prepared,bounds,cover,clique):
+def final_pattern(model,prepared,bounds,cover,clique,allow_fine=True):
     attempts=[]
     labels=NC.label_pattern(cover,clique)
     if labels['status']=='EXCLUDED':return labels
@@ -86,6 +88,21 @@ def final_pattern(model,prepared,bounds,cover,clique):
     excluded=BE.exclude(model,pp,bb,clique)
     if excluded:return excluded
     direct=MS.classify(model,pp,bb,clique,attempts=1)
+    if direct['status']!='CERTIFIED':
+        attempts.append(direct)
+        pp,bb,joint=JB.refine(model,pp,bb,clique)
+        excluded=BE.exclude(model,pp,bb,clique)
+        if excluded:return dict(**excluded,joint_contraction=joint)
+        direct=MS.classify(model,pp,bb,clique,attempts=1)
+        direct['joint_contraction']=joint
+    if direct['status']!='CERTIFIED' and allow_fine:
+        refined,fine=FP.refine(model['ball'],model,cover,clique)
+        if fine['status']=='EXCLUDED':return fine
+        if refined is not None:
+            fp,fb,_,_=NC.contract_patterns(model,refined['roots'],refined)
+            result=final_pattern(model,fp,fb,refined,clique,allow_fine=False)
+            return dict(**result,fine_refinement=fine)
+        direct['fine_refinement']=fine
     return dict(**direct,route='refitted',proposal=fit,
         column_error_bounds=[str(bb[c]['epsilon']) for c in clique],previous_attempts=attempts)
 

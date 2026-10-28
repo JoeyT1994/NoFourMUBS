@@ -78,5 +78,51 @@ class Tests(unittest.TestCase):
   self.assertEqual(result['status'],'NOT ESTABLISHED');self.assertNotIn('claim',result)
  def test_nonfinite_norm_rejected(self):
   with self.assertRaises(ArithmeticError):C.Z.upper(arb('nan'))
+ def test_joint_contraction_preserves_a_known_zero(self):
+  import joint_basis as JB
+  rng=np.random.default_rng(1864)
+  f2=np.array([[1,1],[1,-1]]);y2=np.array([[1,1],[1j,-1j]])
+  rows,cols=np.indices((3,3));f3=np.exp(2j*np.pi*rows*cols/3);k3=np.exp(2j*np.pi*(rows*rows+rows*cols)/3)
+  hphase=np.angle(np.kron(f2,f3)).ravel();kphase=np.angle(np.kron(y2,k3))
+  kphase-=kphase.mean(axis=0)
+  u=rng.normal(size=(36,4))*.1;h2=rng.normal(size=(36,16))*.02;x=rng.normal(size=(36,21))*.01
+  actual_w=np.array([.003,-.004,.002,.001]);actual_z=np.ones(21)*.0001
+  q0=hphase-u@actual_w-h2@np.outer(actual_w,actual_w).ravel()/2-x@actual_z
+  model=dict(Q0=C.Z.mat(q0[:,None]),U=C.Z.mat(u),H2=C.Z.mat(h2),X=C.Z.mat(x),r=arb('.01'),tau=arb('.001'))
+  prepared={};bounds={}
+  for c in range(6):
+   displacement=rng.normal(size=6)*.002;displacement-=displacement.mean()
+   prepared[c]=dict(v0=C.Z.mat((kphase[:,c]-displacement)[:,None]),T=arb_mat(6,4),model=model)
+   radius=arb(float(np.linalg.norm(displacement)+.015))
+   bounds[c]=dict(epsilon=radius,phase_radius=radius,initial_radius=radius)
+  pp,bb,receipt=JB.refine(model,prepared,bounds,list(range(6)))
+  self.assertGreater(receipt['iterations'],1)
+  for c in range(6):
+   actual_error=kphase[:,c]-MS.numeric(pp[c]['v0'])[:,0]-MS.numeric(pp[c]['T'])@actual_w
+   self.assertLess(np.linalg.norm(actual_error),C.Z.upper(bb[c]['epsilon'])+1e-12)
+   self.assertLess(C.Z.upper(bb[c]['epsilon']),C.Z.upper(bounds[c]['epsilon']))
+ def test_quadratic_cover_encloses_original_domain(self):
+  from types import SimpleNamespace
+  rng=np.random.default_rng(2200)
+  model=dict(Q0=C.Z.mat(rng.normal(size=(36,1))),U=C.Z.mat(rng.normal(size=(36,4))),
+      H2=C.Z.mat(rng.normal(size=(36,16))),X=C.Z.mat(rng.normal(size=(36,21))),r=arb('.125'),tau=arb('.001'))
+  args,receipt=NC.model_stage_c_args(SimpleNamespace(label_radius=.02),model)
+  self.assertEqual(receipt['native_radius'],str(model['r']))
+  for _ in range(20):
+   w=rng.normal(size=4);w*=.125/np.linalg.norm(w)
+   z=rng.normal(size=21);z*=.001/np.linalg.norm(z)
+   value=MS.numeric(model['Q0'])[:,0]+MS.numeric(model['U'])@w+MS.numeric(model['H2'])@np.outer(w,w).ravel()/2+MS.numeric(model['X'])@z
+   residual=value-2*np.pi*args['P'].ravel()-args['T']@w
+   self.assertLess(np.linalg.norm(residual),2*np.pi*args['nN'])
+ def test_fine_arc_pruning_and_cap(self):
+  import fine_patterns as FP
+  colors=np.array([0,1,2,3,4,5,0]);graph=~np.eye(7,dtype=bool)
+  graph[0,6]=graph[6,0]=False
+  graph[1,6]=graph[6,1]=False
+  valid,rounds=FP.arc_consistent(graph,colors,list(range(6)))
+  self.assertEqual(valid.tolist(),[True]*6+[False]);self.assertGreater(rounds,0)
+  cover=dict(bin_indices=[[[1,1,1,1,1]] for _ in range(6)])
+  refined,result=FP.refine(None,None,cover,list(range(6)),bin_cap=5)
+  self.assertIsNone(refined);self.assertEqual(result['status'],'UNRESOLVED')
 
 if __name__=='__main__':unittest.main()

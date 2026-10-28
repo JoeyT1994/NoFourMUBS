@@ -12,7 +12,7 @@ From the repository root, with Python 3.11 or newer:
 python3 -m venv .venv-tc-native
 .venv-tc-native/bin/pip install -r proof/theorems/TC_triple_classification/family_neighbourhoods/requirements.txt
 .venv-tc-native/bin/python proof/theorems/TC_triple_classification/family_neighbourhoods/run.py \
-  --indices 1500 1881 1900 2700 --output tc-receipts.jsonl
+  --indices 1864 2200 1700 500 1100 --output tc-receipts.jsonl
 ```
 
 For the Rusty survivor list, use zero-based original atlas indices, one per line (whitespace, commas, and `#` comments are accepted), or a JSON integer array:
@@ -31,7 +31,8 @@ Exit status is 0 only when every requested ball is certified or certified empty;
 - The supplied original atlas SHA-256 and each selected seed record.
 - Fresh C1 and whole-ball native phase-model checks.
 - An exhaustive five-phase torus cover and complete color-pattern enumeration.
-- Arb column contractions and necessary orthogonality exclusions.
+- Arb column contractions, a coupled contraction of the full third basis, and necessary orthogonality exclusions.
+- A complete fine-bin fallback with cached pair tests when coarse labels are insufficient.
 - Exact permutation, gauge, and moving-projector identities.
 - A strict Arb derivative bound below one, forcing actual order-three symmetry for every solution in each remaining pattern.
 
@@ -43,10 +44,12 @@ The method does not rely on the exceptional fourth-root anchor's list of 120 ray
 
 `package.py` creates a self-contained tarball with the pinned atlas, required executable files, arithmetic documentation, recognition proof, and source manifest. No SSH access is needed to build it. Extract it on Rusty and run the commands above from the extracted root.
 
-`test_native.py` checks the equation/Jacobian normalization against direct matrix arithmetic, the canonical actions and windings at a tensor-product triple for all three anchors, malformed actions, graph exhaustion/caps, and nonfinite norm rejection. End-to-end receipts in `results/` provide the interval replay evidence on selected original balls.
+`test_native.py` checks the equation/Jacobian normalization against direct matrix arithmetic, the canonical actions and windings at a tensor-product triple for all three anchors, malformed actions, graph exhaustion/caps, nonfinite norm rejection, preservation of a known zero under the coupled contraction, whole-ball enclosure rounding, and fine-graph pruning/caps. End-to-end receipts in `results/` provide the interval replay evidence on selected original balls.
 
-Resource limits (2,000,000 ray bins, 6,000 labels, 300,000 undirected candidate edges, 5,000,000 clique-search steps, and a configurable per-ball pattern cap) produce `NOT ESTABLISHED`. They never certify emptiness.
+Resource limits (2,000,000 ray bins, 6,000 labels, 300,000 undirected candidate edges, 5,000,000 clique-search steps, and a configurable per-ball pattern cap) produce `NOT ESTABLISHED`. They never certify emptiness. The optional fine-bin fallback allows 6,000 bins and 5,000,000 candidate edges per color pattern, processed in batches of 20,000 edges.
 
 ## Measured status
 
-Whole original balls **1500, 1881, and 1900** pass at radii **0.0925, 0.063, and 0.052**. The recorded four-worker run took approximately **18, 35, and 17 seconds** per ball, respectively. Three additional sample balls were certified empty. Six sample balls remain unresolved, including 1864 and 2200. See [the complete results and remaining work](results/REPORT.md). This is a deployable partial certifier, not established coverage of every survivor.
+The latest replay closes **12 of 13** selected original balls: six have every completing basis classified and six are certified empty. Newly resolved cases are **1864 and 1700** (all-K classification), and **2200, 500, and 1100** (emptiness). Ball 1864 retains its original radius **0.08**; 2200 retains **0.125**. No H-domain subdivision or reduced radius is used. Ball 1879 also passes through this generic method.
+
+Ball **2300** still has two unresolved patterns. Coverage of the inaccessible survivor list is not yet established. See [the receipts, timings, and remaining case](results/REPORT.md).

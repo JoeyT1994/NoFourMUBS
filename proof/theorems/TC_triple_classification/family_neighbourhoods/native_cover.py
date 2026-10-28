@@ -6,6 +6,7 @@ No completeness assumption is made about the root proposals.
 """
 import itertools
 import time
+from types import SimpleNamespace
 import numpy as np
 from flint import arb,arb_mat,acb,ctx
 import native_columns as C
@@ -40,15 +41,36 @@ def propose_roots(h):
     return result
 
 
+def model_stage_c_args(ball,model):
+    """Enclose the same native domain using its verified quadratic model.
+
+    Float centres/frames are outward-enclosed in Arb before passing them
+    to Stage C. The mathematical centre w=0 and original r do not change.
+    """
+    q=C.Z.mid_np(model['Q0'])[:,0];u=C.Z.mid_np(model['U'])
+    if not np.isfinite(q).all() or not np.isfinite(u).all():
+        raise ArithmeticError('nonfinite model enclosure proposal')
+    r=model['r']
+    normal=C.Z.spectral(model['H2'])*r*r/2+C.Z.spectral(model['X'])*model['tau']
+    centre_error=C.norm([model['Q0'][i,0]-arb(float(q[i])) for i in range(36)])
+    frame_error=C.Z.spectral(model['U']-C.Z.mat(u))*r
+    enclosed=SimpleNamespace(P=q,U=u,r=C.Z.upper(r),
+        n=C.Z.upper(normal+centre_error+frame_error),label_radius=ball.label_radius)
+    args=SC.stage_c_args(enclosed)
+    return args,dict(kind='native quadratic whole-ball enclosure',native_radius=str(r),
+        normal_bound=str(normal),centre_rounding=str(centre_error),frame_rounding=str(frame_error),
+        enclosed_normal_hex=enclosed.n.hex())
+
+
 def complete_cover(ball,model,roots,cluster_radius=.02):
     started=time.monotonic()
-    args=SC.stage_c_args(ball)
+    args,enclosure=model_stage_c_args(ball,model)
     bins,m=stagec.bins(args['P'],args['rcol'],rF=args['rF'],
                       tang=(args['T'],args['rH'],args['nN']))
     if bins is None:raise ArithmeticError('complete cover reached bin cap')
     if not len(bins):
         return dict(cliques=[],adjacency=[],initial_radii=[],roots=np.zeros((0,6)),
-            bin_deltas=[],bin_radius=arb(0),summary=dict(bins=0,labels=0,colors=0,initial_patterns=0,seconds=time.monotonic()-started))
+            bin_deltas=[],bin_radius=arb(0),summary=dict(bins=0,labels=0,colors=0,initial_patterns=0,enclosure=enclosure,seconds=time.monotonic()-started))
     clusters=stagec.cluster(bins,m,radius=cluster_radius)
     if clusters is None:raise ArithmeticError('complete cover reached cluster cap')
     centers,radii=clusters
@@ -58,8 +80,7 @@ def complete_cover(ball,model,roots,cluster_radius=.02):
     orth,_=stagec.joint_filter(centers,radii,orth,np.zeros_like(orth),
         args['P'],args['rcol'],stagec.opnorm_bound(args['P']),stagec.cis_centre(args['P']),
         args['rF'],args['T'],args['rH'],args['nN'])
-    # The Stage C centre is the stored P, while models use the true centre
-    # Q0 in the same horizontal row gauge. Both use absolute column phases.
+    # Stage C and the Taylor model use the same horizontal row gauge.
     u=np.c_[np.zeros(len(centers)),centers]*2*np.pi
     numeric=(u[:,None,:]-roots[None,:,:]+np.pi)%(2*np.pi)-np.pi
     numeric-=numeric.mean(2,keepdims=True)
@@ -115,10 +136,11 @@ def complete_cover(ball,model,roots,cluster_radius=.02):
         take=ids[np.linalg.norm(df,axis=1)<=cluster_radius]
         left[take]=False;assignment[take]=label
     if left.any() or np.any(assignment<0):raise ArithmeticError('incomplete cluster assignment')
-    bin_deltas=[[] for _ in roots]
+    bin_deltas=[[] for _ in roots];bin_indices=[[] for _ in roots]
     maximum=[arb(0) for _ in roots];bin_radius=arb(29).sqrt()/arb(6).sqrt()*arb.pi()/m
     for i in np.flatnonzero(valid[assignment]):
         color=int(colors[assignment[i]])
+        bin_indices[color].append(ki[i].tolist())
         ds=[]
         for j in range(6):
             a=2*arb.pi()*arb(int(0 if j==0 else ki[i,j-1]))/stagec.DEN-arb(float(roots[color,j]))
@@ -128,10 +150,10 @@ def complete_cover(ball,model,roots,cluster_radius=.02):
         ds=[d-mean for d in ds];bin_deltas[color].append(ds)
         bound=C.norm(ds)+bin_radius
         maximum[color]=arb(max(C.Z.upper(maximum[color]),C.Z.upper(bound)))
-    return dict(cliques=cliques,adjacency=adj,initial_radii=maximum,roots=roots,bin_deltas=bin_deltas,bin_radius=bin_radius,label_centres=centers,label_radii=radii,label_colors=colors,label_graph=orth,valid_labels=valid,
+    return dict(cliques=cliques,adjacency=adj,initial_radii=maximum,roots=roots,bin_deltas=bin_deltas,bin_indices=bin_indices,bin_radius=bin_radius,label_centres=centers,label_radii=radii,label_colors=colors,label_graph=orth,valid_labels=valid,
                 summary=dict(bins=len(bins),labels=len(centers),colors=len(roots),
                     valid_labels=int(valid.sum()),pruning_rounds=rounds,
-                    initial_patterns=initial_patterns,pruned_patterns=len(cliques),clique_steps=steps,seconds=time.monotonic()-started))
+                    initial_patterns=initial_patterns,pruned_patterns=len(cliques),clique_steps=steps,enclosure=enclosure,seconds=time.monotonic()-started))
 
 
 def contract_patterns(model,roots,cover):

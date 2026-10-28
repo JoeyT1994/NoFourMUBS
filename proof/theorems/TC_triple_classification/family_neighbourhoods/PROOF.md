@@ -15,7 +15,16 @@ Q(w)=Q_0+Uw+\tfrac12H_2[w,w]+Xz(w),\qquad
 
 These are horizontal phase coordinates in radians; the source chart identifies the continuous lift with the stored winding convention. The existing whole-ball proof supplies the branch and orientation conclusions. Our statements are conditional only on an actual represented Hadamard and its actual completing basis, not on the existence of a third basis for every parameter.
 
-Stage C enumerates the entire five-dimensional column phase torus at resolutions 12, 24, 48, 96, with the original C1 enclosure. Its conservative binary64 error enclosures are exactly those documented in the source `proof/atlas/STAGEC.md` and `RIGOUR.md`: exponential tables come from Arb and every exclusion includes the proved error margin. This validated arithmetic is the only non-Arb proof arithmetic used here. Numerical Newton solves and least-squares fits merely propose colors and expansion points. No root-census completeness claim is used.
+For Stage C, `model_stage_c_args` derives a sharper enclosure of this same domain. Let q and V be exact binary64 proposals for Q₀ and U. Then
+
+\[
+Q(w)=q+Vw+\nu,\quad \|\nu\|\le
+\tfrac12\|H_2\|r^2+\|X\|\tau+\|Q_0-q\|+\|U-V\|r.
+\]
+
+All four terms and conversion errors are bounded in Arb. `seedcert.stage_c_args` additionally encloses conversion from radians to cycles. This changes the enclosing phase tube, not the original four coordinates, their mathematical centre w=0, or r. Fresh C1 and the quadratic-model theorem remain required.
+
+Stage C enumerates the entire five-dimensional column phase torus at resolutions 12, 24, 48, 96, with this whole-ball enclosure. Its conservative binary64 error enclosures are exactly those documented in the source `proof/atlas/STAGEC.md` and `RIGOUR.md`: exponential tables come from Arb and every exclusion includes the proved error margin. This validated arithmetic is the only non-Arb proof arithmetic used here. Numerical Newton solves and least-squares fits merely propose colors and expansion points. No root-census completeness claim is used.
 
 The necessary orthogonality graph has one vertex per covering label. Distinct orthogonal columns need distinct labels (each label has radius below 0.1 cycles). Initially colors are assigned by arbitrary proximity. A color is split until it is an independent set of the necessary label graph. Consequently every actual basis has six distinct colors forming a clique in the quotient graph. Every six-clique is enumerated; a search cap is failure, never exclusion.
 
@@ -176,3 +185,40 @@ The quadratic H₂ linear contribution is combined with the w-w form before its 
 Before processing a color pattern, the checker may search the original necessary label graph restricted to its six colors. Only a completed empty search excludes the pattern. Finding one clique merely supplies a numerical proposal, and exhausting that optional search's budget supplies no exclusion. Every actual completing basis has such a label clique, so this additional rejection is sound.
 
 Alternative equation weights may propose different pseudoinverses. Each resulting preconditioner is still treated as arbitrary exact binary64 data, followed by the exact equation-space projection and fresh Arb defect and derivative checks. Equation weighting is not an acceptance criterion.
+
+## 8. Coupled contraction of the complete third basis
+
+`joint_basis` uses all 96 equations to contract all six columns simultaneously, while keeping the original w and r. Let C_K be the block projector onto the six mean-zero column spaces, J=(J_H,J_K) the Jacobian at q=(Q₀,v₀), and A any exact-binary64 proposed left inverse projected into range C_K. Set a proposed carrier T in that range and L=[U;T]. Actual covered zeros have
+
+\[
+x=q+Lw+[h;e],\quad
+h=\tfrac12H_2[w,w]+Xz,\quad
+e=C_Ke,\quad \|e_c\|\le\epsilon_c.
+\]
+
+Write D=C_K-AJ_KC_K and N=\|H₂\|r²/2+\|X\|τ. Expanding AF(x)=0 to second order gives an enclosure for each scalar e_i. The code retains |(AF(q))_i|, r times the row norm of AJL, the row norm of D times E=(Σε_c²)^(1/2), and τ times the row norm of AJ_HX. No exact inverse, root, or vanishing carrier defect is assumed.
+
+For each output i let B_i=D²(AF)_i(q). The remaining quadratic terms are bounded by
+
+\[
+\begin{split}
+&\tfrac12r^2\|L^TB_iL+(AJ_HH_2)_i\|
++rE\|L^TB_iK\|+\tfrac12E^2\|K^TB_iK\|\\
+&\qquad+rN\|L^TB_iH\|+EN\|K^TB_iH\|
++\tfrac12N^2\|H^TB_iH\|,
+\end{split}
+\]
+
+where H and K insert the H error and mean-zero K error respectively. The H₂ row is reshaped as a four-by-four matrix. Each B_i is summed with its signed Fourier coefficients before taking norms. The cubic residual remainder is bounded separately for each complex H/K orthogonality equation by \|d\|³/6 and each mixed equation by √2\|d\|³/3, using the correlated differences (T_b−T_a)w+e_b−e_a and (T_b−CU_a)w+e_b−Ch_a. Independently valid phase-radius estimates may make these bounds smaller. Complex preconditioner coefficients use their real/imaginary Euclidean norm.
+
+The Euclidean norm of the six scalar bounds for column c gives its next ε_c. Initially the old affine error is translated to T with the certified norm of the carrier difference; its independent phase-radius bound is also retained. Every update is a strict Arb improvement from preceding valid bounds. Therefore induction encloses every already-covered zero at each finite iteration. Failure to improve proves nothing and preserves the preceding bound. The output is used by the symmetry and scalar-exclusion tests, not by the earlier column contractors whose cached coefficients used a different carrier.
+
+## 9. Complete fine-bin fallback
+
+Coarse labels can permit combinations of columns that cannot occur in their smaller original bins. `fine_patterns` retains the original integer bin midpoints k/192 alongside every fine-bin displacement; fitted phases are never rounded back to propose these midpoints. On a remaining six-color pattern it replaces each coarse label by the union of its retained, closed fine bins. Each bin is enclosed in the mean-zero phase ball of radius ρ from Section 1, rounded strictly upward after conversion to cycles.
+
+For each pair of distinct colors, the existing Stage C orthogonality test and joint necessary support test are replayed on these bin balls, with the same whole-original-ball H enclosure. Candidate edges are processed in disjoint batches; every retained candidate edge is written back, and every removed edge has passed the same strict Stage C exclusion as in an unbatched call. Pair results can be cached across patterns of the same unchanged cover. The cache is discarded for a refined cover. This changes evaluation order and memory use, not a necessary condition or error margin.
+
+Arc consistency repeatedly removes a bin only if some other required color has no adjacent surviving bin. Every bin of any actual basis therefore survives by induction. A complete six-color clique search may certify the pattern empty. A found clique or exhausted search budget never certifies emptiness. Remaining bins, their displacements, and their initial radii are kept in the same order and passed back to the original interval contractors, conditional on this pattern. Every actual basis is still covered. There is no subdivision of w and no change to r.
+
+The optional fallback has limits of 6,000 bins and 5,000,000 candidate edges per pattern, with joint tests in batches of 20,000 edges. A limit returns an unresolved outcome; it supplies no exclusion. This is distinct from the earlier coarse-label limits.
