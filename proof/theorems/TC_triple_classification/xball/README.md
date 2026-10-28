@@ -1,15 +1,30 @@
 # X-ball all-K work
 
-**The whole X-ball is not yet classified.** Read [REPORT.md](REPORT.md)
-for the results and [CORE_LEMMA.md](CORE_LEMMA.md) for the quantitative
-crossing theorem still needed. The full original radius 0.13 run closes
-12 of 16 patterns; the radius-0.0325 core closes 14 of 16. The two core
-exceptions are crossing patterns.
+**The whole original X-ball remains NOT ESTABLISHED.** The complete core at
+r/128 is now **CERTIFIED** (16/16 patterns), using the separately bound
+quantitative crossing extension. All six previously unresolved shell parent
+regions are closed. Read [REPORT.md](REPORT.md) for the full current status
+and [CORE_LEMMA.md](CORE_LEMMA.md) for the new statement, proof and review
+boundary.
 
-All sixteen children of shell cell `[3,2,3,4,5]` are certified, closing
-that entire positive-volume region. The combined cover has 735 shell
-leaves: 17 closed, six tested but unresolved, and 712 untested. The
-core remains unresolved. See the [combined receipt](results/whole_xball_accounting.json).
+The initial full-radius campaign cover has 2,406 shell leaves: 501 closed,
+121 cheap-screen failures to classify fully, and 1,784 untested. Its 16 core
+leaves lie inside the certified r/128 core. The original radius, coordinates,
+and Mth frame are unchanged. Exact subdivision and final accounting must
+close every remaining shell before claiming the whole original ball.
+
+**All further numerical replay belongs on Rusty.** Job 7354920 is running
+under `/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/xball/release_20261028/`.
+It uses eight single-threaded workers and a restartable, source-bound journal.
+No certification workers remain on the laptop. The 28 October commands in
+[REPORT.md](REPORT.md#replay-commands) reproduce the extension and full-domain
+accounting. After this job finishes or stops, its scheduler script can resume
+the saved campaign without discarding completed cells. Do not submit two
+writers to the same output.
+
+The commands below also document earlier baseline experiments. Their
+r/4 core remains unresolved by the older single-anchor method; the current
+positive core theorem is the separate r/128 extension.
 
 This directory leaves the frozen native seed certifier and its receipts
 unchanged. It supplies the original edge model, checks the Stage C
@@ -18,7 +33,7 @@ arithmetic preconditions, and uses a coupled contractor that retains all
 The exact dyadic cover and whole-domain accounting never promote a
 partial shell run to a classification of the original ball.
 
-## Install and bounded local replay
+## Install and baseline replay on Rusty
 
 Run from the repository or extracted package root. Python 3.13.16 is
 the tested runtime; package versions are pinned. SymPy is needed by the
@@ -100,29 +115,29 @@ because the original ball is still unresolved. The output records every
 untested cell explicitly. The four separate fine probes are not inserted
 into this partition or counted as closure of any larger parent.
 
-## Larger shell replay
+## Full-radius remote campaign
 
-The full shell queue is a heavy run intended for Rusty after the local
-pilots have been assessed. The user handles login. No remote job has been
-submitted by this work. From an extracted package root on Rusty:
+From the remote release root:
 
 ```sh
-.venv-tc-xball/bin/python proof/theorems/TC_triple_classification/xball/run_shells.py \
-  --workers 8 --core-receipt xball-core.json --output xball-all-shells.json
+X=proof/theorems/TC_triple_classification/xball
+sbatch "$X/experiments/run_campaign.sbatch"
 ```
 
-This default cover has 720 shell leaves and 16 leaves wholly in the core.
-An unresolved core keeps the whole-ball verdict unresolved even if all
-shell leaves close. Coarse shell failures require subdivision or stronger
-bounds. The scripts enforce at most eight worker processes and one
-numerical-library thread per worker. Prefer the bounded pilot commands
-for local development.
+The script first runs the five new campaign tests and seven existing X-ball
+tests. It then starts or resumes the source-bound full cover. Inspect the
+Slurm log and `results/rusty_campaign_20261028.json`; the latter explicitly
+lists all untested and unresolved leaves. `*.state.json` atomically stores
+that same summary with the exact current cover and rows. `*.events.jsonl`
+is the durable hash-linked journal used for recovery. Resource or depth
+limits leave NOT ESTABLISHED, never implicit success.
 
 ## Proof and evidence
 
 [PROOF.md](PROOF.md) states the conditional theorem and subdomain bounds.
-The primary current receipts have `_final` in their names; the report
-identifies these explicitly. Earlier unsuffixed and `_v2` files are
-development history with their own bindings. Matching receipts and source
+The `_final` receipts document the frozen baseline. Current extension
+evidence is `crossing_radius_20261028_v3.json`, `core7_complete_20261028.json`,
+and the adaptive/screen/campaign receipts identified in the report. Earlier
+versions are development history with their own bindings. Matching receipts and source
 manifests must stay together. The original native binding remains
 `aaab342ca5aca367c5ae9c13500d7dfcf3a6fe13233cfdda1f8c7fec6bf7ecc7`.
