@@ -16,18 +16,18 @@ together with the same on the X-ball, and S₆ having no third basis.
 
 This is not part of the proof that ℂ⁶ has no four MUBs.
 
-## Status (28 October 2026)
+## Status (28 October 2026, 15:30; partial, runs in progress)
 
 | Seed balls | Count | Nearest census triple (median) |
 |---|---:|---:|
-| **Resolved** | **2,514** | |
+| **Resolved** | **2,593** | |
 | · no third basis anywhere in the ball (whole-ball certifier) | 2,101 | 0.90 |
 | · every third basis of known type (whole-ball certifier) | 272 | 0.08 |
 | · no triple edge in the ball (cell test, after the certifier left it open) | 43 | 0.72 |
-| · split into 256 sub-balls of half the radius, every sub-ball resolved by the certifier | 98 | 0.31 |
-| **Not yet resolved** | **261** | |
-| · split, still running on rusty | 222 | 0.33 |
-| · split, some sub-balls unresolved | 39 | 0.39 |
+| · split into sub-balls (half the radius, and smaller where needed), every one resolved by the certifier | 177 | 0.32 |
+| **Not yet resolved** | **182** | |
+| · first split still running on rusty | 37 | 0.31 |
+| · split, some sub-balls open; those are being split again on rusty now (radius r/4, 16 nodes) | 145 | 0.37 |
 
 The distance is ‖H − H′‖_F between the dephased matrix at the ball's centre and the nearest triple edge H′ the census
 converged to. Per-ball details are in `results/balls.tsv`.
@@ -40,8 +40,8 @@ where the isolated triple and the continuous family meet) is of known type
   1,352 core-hours on 8 Rusty nodes, with exact accounting.
 
 **What remains for the conjecture:**
-- the 261 balls above;
-- S₆: Tao's matrix has no third basis (certified on the triple-classification branch, `tao.py`);
+- the 182 balls above (deeper splitting running);
+- S₆: Tao's matrix has no third basis (certified, `proof/theorems/TC_triple_classification/tao.py`);
 - the independent review: the certifier, recognition, the crossing theorem, and the split and shard drivers.
 
 ### The whole-ball certifier
@@ -80,10 +80,16 @@ An independent review is under way.
   sub-atlas hash, and `split.py` added to the sources.
 - **Status: EXPERIMENTAL** until the reviewer has seen it.
 
-Splitting closes most balls. Of the 137 split balls finished so far, 98 are closed. In the 39 that are not, the
-unresolved sub-balls range from 1 to 156 of 256:
-- most have under 10, and splitting those sub-balls once more (radius r/4) is the next step;
-- 550, 636 and 1241 have 92–156 unresolved sub-balls, so splitting barely helps there.
+Splitting closes most balls.
+- **First split.** 387 balls were split (about 99,000 sub-balls of radius r/2); 198 of them are fully closed.
+- **Second round.** The 7,722 sub-balls left open are being split again (radius r/4, about 2 million sub-balls) on 16
+  rusty nodes, each sub-ball stopped after 180 s; a timeout counts as unresolved.
+- **The test run.** On four such sub-balls, 1,020 of 1,024 children closed.
+- **The hardest balls.** 550, 636 and 1241 had 92–156 open sub-balls out of 256 after the first split, and may need
+  more rounds.
+
+`split.py run --seconds` adds the time limit; `deep_list.py` and `run_deep.sh` run the rounds; `assemble.py` follows
+nested splits through each sub-atlas's parent hash.
 
 ### The cell test
 

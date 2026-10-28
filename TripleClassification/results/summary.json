@@ -2,19 +2,19 @@
  "seed_balls": 2775,
  "final": {
   "empty": 2101,
-  "split": 98,
-  "split_running": 222,
-  "unresolved": 39,
+  "split": 177,
+  "unresolved": 145,
   "empty_cell_test": 43,
+  "split_running": 37,
   "classified": 272
  },
  "nearest_triple_median": {
   "empty": 0.901,
-  "split": 0.305,
-  "split_running": 0.329,
+  "classified": 0.083,
+  "unresolved": 0.365,
   "empty_cell_test": 0.715,
-  "unresolved": 0.393,
-  "classified": 0.083
+  "split": 0.315,
+  "split_running": 0.314
  },
  "certifier": {
   "CERTIFIED EMPTY": 2101,
@@ -44,8 +44,7 @@
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 225,
-    "NOT ESTABLISHED": 26,
-    "MISSING": 5
+    "NOT ESTABLISHED": 31
    }
   },
   "123": {
@@ -54,8 +53,7 @@
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 221,
-    "NOT ESTABLISHED": 33,
-    "MISSING": 2
+    "NOT ESTABLISHED": 35
    }
   },
   "126": {
@@ -99,8 +97,7 @@
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 211,
-    "NOT ESTABLISHED": 38,
-    "MISSING": 7
+    "NOT ESTABLISHED": 45
    }
   },
   "229": {
@@ -124,8 +121,7 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 24,
-    "NOT ESTABLISHED": 83,
+    "NOT ESTABLISHED": 107,
     "CERTIFIED EMPTY": 149
    }
   },
@@ -186,8 +182,7 @@
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 140,
-    "NOT ESTABLISHED": 106,
-    "MISSING": 10
+    "NOT ESTABLISHED": 116
    }
   },
   "415": {
@@ -196,8 +191,7 @@
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 213,
-    "MISSING": 6,
-    "NOT ESTABLISHED": 37
+    "NOT ESTABLISHED": 43
    }
   },
   "417": {
@@ -206,8 +200,7 @@
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 248,
-    "NOT ESTABLISHED": 6,
-    "MISSING": 2
+    "NOT ESTABLISHED": 8
    }
   },
   "422": {
@@ -266,10 +259,9 @@
   "478": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "CERTIFIED EMPTY": 254,
-    "MISSING": 2
+    "CERTIFIED EMPTY": 256
    }
   },
   "485": {
@@ -287,8 +279,7 @@
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 250,
-    "NOT ESTABLISHED": 5,
-    "MISSING": 1
+    "NOT ESTABLISHED": 6
    }
   },
   "493": {
@@ -305,9 +296,8 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "NOT ESTABLISHED": 18,
-    "MISSING": 163,
-    "CERTIFIED EMPTY": 75
+    "NOT ESTABLISHED": 156,
+    "CERTIFIED EMPTY": 100
    }
   },
   "525": {
@@ -333,16 +323,16 @@
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 224,
-    "NOT ESTABLISHED": 29,
-    "MISSING": 3
+    "NOT ESTABLISHED": 32
    }
   },
   "563": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 255,
+    "CERTIFIED": 1
    }
   },
   "565": {
@@ -368,8 +358,7 @@
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 251,
-    "NOT ESTABLISHED": 3,
-    "MISSING": 2
+    "NOT ESTABLISHED": 5
    }
   },
   "575": {
@@ -377,7 +366,9 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 166,
+    "NOT ESTABLISHED": 89,
+    "MISSING": 1
    }
   },
   "577": {
@@ -411,7 +402,9 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "NOT ESTABLISHED": 123,
+    "CERTIFIED EMPTY": 125,
+    "MISSING": 8
    }
   },
   "589": {
@@ -429,9 +422,8 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "CERTIFIED EMPTY": 39,
-    "NOT ESTABLISHED": 120,
-    "MISSING": 97
+    "CERTIFIED EMPTY": 40,
+    "NOT ESTABLISHED": 216
    }
   },
   "596": {
@@ -448,7 +440,8 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 252,
+    "NOT ESTABLISHED": 4
    }
   },
   "604": {
@@ -466,9 +459,8 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 184,
-    "CERTIFIED EMPTY": 70,
-    "NOT ESTABLISHED": 2
+    "NOT ESTABLISHED": 26,
+    "CERTIFIED EMPTY": 230
    }
   },
   "610": {
@@ -476,9 +468,8 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "NOT ESTABLISHED": 10,
-    "CERTIFIED EMPTY": 244,
-    "MISSING": 2
+    "NOT ESTABLISHED": 12,
+    "CERTIFIED EMPTY": 244
    }
   },
   "612": {
@@ -486,7 +477,8 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 252,
+    "NOT ESTABLISHED": 4
    }
   },
   "636": {
@@ -504,7 +496,8 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "NOT ESTABLISHED": 164,
+    "CERTIFIED EMPTY": 92
    }
   },
   "643": {
@@ -520,7 +513,8 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 252,
+    "NOT ESTABLISHED": 4
    }
   },
   "666": {
@@ -528,9 +522,8 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "NOT ESTABLISHED": 73,
-    "MISSING": 85,
-    "CERTIFIED EMPTY": 98
+    "NOT ESTABLISHED": 155,
+    "CERTIFIED EMPTY": 101
    }
   },
   "671": {
@@ -538,7 +531,9 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 223,
+    "NOT ESTABLISHED": 32,
+    "CERTIFIED": 1
    }
   },
   "677": {
@@ -554,7 +549,9 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 131,
+    "NOT ESTABLISHED": 85,
+    "MISSING": 40
    }
   },
   "680": {
@@ -562,16 +559,16 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 201,
-    "CERTIFIED EMPTY": 55
+    "CERTIFIED EMPTY": 181,
+    "NOT ESTABLISHED": 75
    }
   },
   "685": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 256
    }
   },
   "687": {
@@ -586,9 +583,9 @@
   "688": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 256
    }
   },
   "692": {
@@ -596,7 +593,8 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 221,
+    "NOT ESTABLISHED": 35
    }
   },
   "693": {
@@ -604,7 +602,8 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 240,
+    "NOT ESTABLISHED": 16
    }
   },
   "702": {
@@ -620,7 +619,9 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "NOT ESTABLISHED": 109,
+    "MISSING": 26,
+    "CERTIFIED EMPTY": 121
    }
   },
   "704": {
@@ -628,7 +629,8 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 140,
+    "NOT ESTABLISHED": 116
    }
   },
   "716": {
@@ -636,7 +638,8 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 244,
+    "NOT ESTABLISHED": 12
    }
   },
   "717": {
@@ -645,8 +648,7 @@
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 233,
-    "NOT ESTABLISHED": 19,
-    "MISSING": 4
+    "NOT ESTABLISHED": 23
    }
   },
   "730": {
@@ -654,7 +656,10 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 25,
+    "MISSING": 193,
+    "NOT ESTABLISHED": 36,
+    "CERTIFIED": 2
    }
   },
   "733": {
@@ -662,7 +667,9 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 173,
+    "NOT ESTABLISHED": 69,
+    "MISSING": 14
    }
   },
   "734": {
@@ -670,7 +677,9 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 162,
+    "NOT ESTABLISHED": 87,
+    "MISSING": 7
    }
   },
   "740": {
@@ -692,9 +701,9 @@
   "745": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 256
    }
   },
   "746": {
@@ -702,7 +711,9 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 217,
+    "NOT ESTABLISHED": 37,
+    "CERTIFIED": 2
    }
   },
   "751": {
@@ -711,8 +722,7 @@
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 245,
-    "NOT ESTABLISHED": 10,
-    "MISSING": 1
+    "NOT ESTABLISHED": 11
    }
   },
   "753": {
@@ -728,15 +738,17 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 209,
+    "NOT ESTABLISHED": 36,
+    "MISSING": 11
    }
   },
   "764": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 256
    }
   },
   "767": {
@@ -745,9 +757,8 @@
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 129,
-    "NOT ESTABLISHED": 121,
-    "CERTIFIED": 4,
-    "MISSING": 2
+    "NOT ESTABLISHED": 123,
+    "CERTIFIED": 4
    }
   },
   "768": {
@@ -763,7 +774,9 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 233,
+    "NOT ESTABLISHED": 21,
+    "CERTIFIED": 2
    }
   },
   "772": {
@@ -771,7 +784,8 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 245,
+    "NOT ESTABLISHED": 11
    }
   },
   "773": {
@@ -779,9 +793,8 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 3,
-    "CERTIFIED EMPTY": 252,
-    "NOT ESTABLISHED": 1
+    "NOT ESTABLISHED": 2,
+    "CERTIFIED EMPTY": 254
    }
   },
   "777": {
@@ -797,7 +810,9 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "MISSING": 17,
+    "CERTIFIED EMPTY": 208,
+    "NOT ESTABLISHED": 31
    }
   },
   "782": {
@@ -805,7 +820,9 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 232,
+    "NOT ESTABLISHED": 23,
+    "CERTIFIED": 1
    }
   },
   "789": {
@@ -813,9 +830,9 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "NOT ESTABLISHED": 32,
-    "MISSING": 3,
-    "CERTIFIED EMPTY": 221
+    "NOT ESTABLISHED": 34,
+    "CERTIFIED EMPTY": 221,
+    "CERTIFIED": 1
    }
   },
   "791": {
@@ -829,17 +846,18 @@
   "793": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 247,
+    "CERTIFIED": 9
    }
   },
   "795": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 256
    }
   },
   "805": {
@@ -848,8 +866,7 @@
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 248,
-    "NOT ESTABLISHED": 4,
-    "MISSING": 4
+    "NOT ESTABLISHED": 8
    }
   },
   "807": {
@@ -857,7 +874,8 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 33,
+    "MISSING": 223
    }
   },
   "815": {
@@ -865,7 +883,8 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "MISSING": 221,
+    "NOT ESTABLISHED": 35
    }
   },
   "822": {
@@ -873,7 +892,8 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 237,
+    "NOT ESTABLISHED": 19
    }
   },
   "823": {
@@ -881,9 +901,9 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 164,
-    "NOT ESTABLISHED": 25,
-    "CERTIFIED EMPTY": 67
+    "NOT ESTABLISHED": 133,
+    "CERTIFIED EMPTY": 116,
+    "MISSING": 7
    }
   },
   "825": {
@@ -891,7 +911,9 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "NOT ESTABLISHED": 128,
+    "CERTIFIED EMPTY": 20,
+    "MISSING": 108
    }
   },
   "828": {
@@ -907,7 +929,9 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "MISSING": 24,
+    "NOT ESTABLISHED": 108,
+    "CERTIFIED EMPTY": 124
    }
   },
   "832": {
@@ -915,7 +939,9 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "NOT ESTABLISHED": 117,
+    "CERTIFIED": 20,
+    "CERTIFIED EMPTY": 119
    }
   },
   "834": {
@@ -923,7 +949,8 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 254,
+    "NOT ESTABLISHED": 2
    }
   },
   "835": {
@@ -939,7 +966,8 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 227,
+    "NOT ESTABLISHED": 29
    }
   },
   "845": {
@@ -947,7 +975,9 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "NOT ESTABLISHED": 57,
+    "CERTIFIED EMPTY": 198,
+    "MISSING": 1
    }
   },
   "846": {
@@ -955,7 +985,9 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "NOT ESTABLISHED": 29,
+    "CERTIFIED EMPTY": 226,
+    "MISSING": 1
    }
   },
   "847": {
@@ -971,7 +1003,9 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "MISSING": 34,
+    "NOT ESTABLISHED": 74,
+    "CERTIFIED EMPTY": 148
    }
   },
   "852": {
@@ -979,7 +1013,9 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 84,
+    "NOT ESTABLISHED": 171,
+    "MISSING": 1
    }
   },
   "853": {
@@ -987,7 +1023,9 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 216,
+    "NOT ESTABLISHED": 34,
+    "MISSING": 6
    }
   },
   "858": {
@@ -995,7 +1033,9 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "MISSING": 244,
+    "NOT ESTABLISHED": 10,
+    "CERTIFIED EMPTY": 2
    }
   },
   "866": {
@@ -1003,15 +1043,16 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 254,
+    "NOT ESTABLISHED": 2
    }
   },
   "868": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 256
    }
   },
   "869": {
@@ -1019,7 +1060,9 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "NOT ESTABLISHED": 120,
+    "CERTIFIED EMPTY": 124,
+    "CERTIFIED": 12
    }
   },
   "874": {
@@ -1027,7 +1070,8 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 242,
+    "NOT ESTABLISHED": 14
    }
   },
   "875": {
@@ -1035,7 +1079,9 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 226,
+    "NOT ESTABLISHED": 23,
+    "MISSING": 7
    }
   },
   "876": {
@@ -1043,15 +1089,16 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 247,
+    "NOT ESTABLISHED": 9
    }
   },
   "878": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 256
    }
   },
   "879": {
@@ -1059,15 +1106,17 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 154,
+    "NOT ESTABLISHED": 60,
+    "MISSING": 42
    }
   },
   "880": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 256
    }
   },
   "883": {
@@ -1075,7 +1124,9 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 95,
+    "NOT ESTABLISHED": 157,
+    "CERTIFIED": 4
    }
   },
   "884": {
@@ -1083,7 +1134,9 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 138,
+    "NOT ESTABLISHED": 105,
+    "CERTIFIED": 13
    }
   },
   "885": {
@@ -1091,7 +1144,9 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 227,
+    "NOT ESTABLISHED": 17,
+    "MISSING": 12
    }
   },
   "887": {
@@ -1099,7 +1154,8 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 229,
+    "NOT ESTABLISHED": 27
    }
   },
   "891": {
@@ -1107,7 +1163,8 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 247,
+    "NOT ESTABLISHED": 9
    }
   },
   "895": {
@@ -1115,7 +1172,9 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 193,
+    "NOT ESTABLISHED": 62,
+    "MISSING": 1
    }
   },
   "897": {
@@ -1123,7 +1182,9 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 200,
+    "NOT ESTABLISHED": 54,
+    "CERTIFIED": 2
    }
   },
   "900": {
@@ -1131,7 +1192,9 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 180,
+    "NOT ESTABLISHED": 75,
+    "MISSING": 1
    }
   },
   "905": {
@@ -1139,7 +1202,8 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 67,
+    "NOT ESTABLISHED": 189
    }
   },
   "907": {
@@ -1147,15 +1211,17 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 251,
+    "NOT ESTABLISHED": 4,
+    "CERTIFIED": 1
    }
   },
   "908": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 256
    }
   },
   "918": {
@@ -1163,15 +1229,18 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 39,
+    "NOT ESTABLISHED": 194,
+    "MISSING": 23
    }
   },
   "923": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 254,
+    "CERTIFIED": 2
    }
   },
   "925": {
@@ -1179,15 +1248,17 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "NOT ESTABLISHED": 55,
+    "CERTIFIED EMPTY": 201
    }
   },
   "926": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 173,
+    "CERTIFIED": 83
    }
   },
   "927": {
@@ -1195,31 +1266,33 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "NOT ESTABLISHED": 99,
+    "CERTIFIED EMPTY": 157
    }
   },
   "928": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 256
    }
   },
   "934": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 215,
+    "CERTIFIED": 41
    }
   },
   "935": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 256
    }
   },
   "936": {
@@ -1227,7 +1300,8 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "NOT ESTABLISHED": 17,
+    "CERTIFIED EMPTY": 239
    }
   },
   "940": {
@@ -1235,7 +1309,8 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 226,
+    "NOT ESTABLISHED": 30
    }
   },
   "950": {
@@ -1243,7 +1318,9 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "NOT ESTABLISHED": 192,
+    "CERTIFIED EMPTY": 62,
+    "CERTIFIED": 2
    }
   },
   "951": {
@@ -1251,7 +1328,9 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 167,
+    "NOT ESTABLISHED": 74,
+    "CERTIFIED": 15
    }
   },
   "952": {
@@ -1259,7 +1338,9 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 251,
+    "NOT ESTABLISHED": 4,
+    "CERTIFIED": 1
    }
   },
   "954": {
@@ -1267,7 +1348,9 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 155,
+    "NOT ESTABLISHED": 75,
+    "CERTIFIED": 26
    }
   },
   "956": {
@@ -1275,7 +1358,8 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 223,
+    "NOT ESTABLISHED": 33
    }
   },
   "957": {
@@ -1283,7 +1367,9 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 226,
+    "NOT ESTABLISHED": 28,
+    "CERTIFIED": 2
    }
   },
   "959": {
@@ -1291,7 +1377,9 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "NOT ESTABLISHED": 141,
+    "CERTIFIED EMPTY": 102,
+    "CERTIFIED": 13
    }
   },
   "965": {
@@ -1299,15 +1387,18 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 227,
+    "CERTIFIED": 19,
+    "NOT ESTABLISHED": 10
    }
   },
   "966": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 242,
+    "CERTIFIED": 14
    }
   },
   "987": {
@@ -1315,15 +1406,18 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 45,
+    "NOT ESTABLISHED": 179,
+    "MISSING": 32
    }
   },
   "989": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 251,
+    "CERTIFIED": 5
    }
   },
   "993": {
@@ -1331,15 +1425,17 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 238,
+    "NOT ESTABLISHED": 16,
+    "CERTIFIED": 2
    }
   },
   "994": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 256
    }
   },
   "995": {
@@ -1347,7 +1443,9 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "NOT ESTABLISHED": 88,
+    "CERTIFIED EMPTY": 165,
+    "CERTIFIED": 3
    }
   },
   "996": {
@@ -1355,39 +1453,45 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "NOT ESTABLISHED": 48,
+    "CERTIFIED EMPTY": 176,
+    "CERTIFIED": 32
    }
   },
   "997": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 256
    }
   },
   "1001": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "NOT ESTABLISHED": 6,
+    "CERTIFIED EMPTY": 250
    }
   },
   "1004": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 217,
+    "CERTIFIED": 8,
+    "NOT ESTABLISHED": 31
    }
   },
   "1005": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 201,
+    "NOT ESTABLISHED": 55
    }
   },
   "1010": {
@@ -1395,31 +1499,35 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 51,
+    "NOT ESTABLISHED": 203,
+    "MISSING": 2
    }
   },
   "1016": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "NOT ESTABLISHED": 252,
+    "CERTIFIED EMPTY": 4
    }
   },
   "1022": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 222,
+    "NOT ESTABLISHED": 34
    }
   },
   "1023": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 256
    }
   },
   "1024": {
@@ -1427,7 +1535,9 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED": 2,
+    "NOT ESTABLISHED": 2,
+    "CERTIFIED EMPTY": 252
    }
   },
   "1028": {
@@ -1435,23 +1545,28 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 245,
+    "CERTIFIED": 9,
+    "NOT ESTABLISHED": 2
    }
   },
   "1035": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "NOT ESTABLISHED": 205,
+    "CERTIFIED EMPTY": 29,
+    "CERTIFIED": 22
    }
   },
   "1038": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 201,
+    "NOT ESTABLISHED": 55
    }
   },
   "1052": {
@@ -1459,23 +1574,28 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "NOT ESTABLISHED": 44,
+    "CERTIFIED EMPTY": 207,
+    "CERTIFIED": 5
    }
   },
   "1056": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 74,
+    "NOT ESTABLISHED": 177,
+    "CERTIFIED": 5
    }
   },
   "1070": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 217,
+    "NOT ESTABLISHED": 39
    }
   },
   "1072": {
@@ -1483,7 +1603,8 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 253,
+    "NOT ESTABLISHED": 3
    }
   },
   "1073": {
@@ -1491,215 +1612,247 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 253,
+    "MISSING": 2,
+    "CERTIFIED": 1
    }
   },
   "1083": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 254,
+    "CERTIFIED": 2
    }
   },
   "1089": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "NOT ESTABLISHED": 144,
+    "CERTIFIED EMPTY": 112
    }
   },
   "1090": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 227,
+    "NOT ESTABLISHED": 28,
+    "CERTIFIED": 1
    }
   },
   "1092": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 256
    }
   },
   "1095": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "NOT ESTABLISHED": 46,
+    "CERTIFIED EMPTY": 179,
+    "CERTIFIED": 31
    }
   },
   "1097": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 256
    }
   },
   "1101": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 173,
+    "CERTIFIED": 83
    }
   },
   "1102": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "NOT ESTABLISHED": 19,
+    "CERTIFIED": 25,
+    "CERTIFIED EMPTY": 212
    }
   },
   "1104": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 162,
+    "NOT ESTABLISHED": 46,
+    "CERTIFIED": 48
    }
   },
   "1105": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 249,
+    "NOT ESTABLISHED": 7
    }
   },
   "1106": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 203,
+    "CERTIFIED": 29,
+    "NOT ESTABLISHED": 24
    }
   },
   "1107": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 256
    }
   },
   "1108": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 140,
+    "CERTIFIED": 53,
+    "NOT ESTABLISHED": 63
    }
   },
   "1109": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 198,
+    "CERTIFIED": 58
    }
   },
   "1110": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED": 83,
+    "CERTIFIED EMPTY": 159,
+    "NOT ESTABLISHED": 14
    }
   },
   "1127": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 251,
+    "CERTIFIED": 5
    }
   },
   "1132": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 98,
+    "NOT ESTABLISHED": 94,
+    "CERTIFIED": 64
    }
   },
   "1137": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED": 32,
+    "NOT ESTABLISHED": 44,
+    "CERTIFIED EMPTY": 180
    }
   },
   "1148": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 256
    }
   },
   "1161": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 253,
+    "CERTIFIED": 3
    }
   },
   "1169": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 251,
+    "CERTIFIED": 5
    }
   },
   "1175": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 256
    }
   },
   "1190": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 255,
+    "CERTIFIED": 1
    }
   },
   "1191": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "NOT ESTABLISHED": 59,
+    "CERTIFIED EMPTY": 182,
+    "CERTIFIED": 15
    }
   },
   "1203": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 255,
+    "CERTIFIED": 1
    }
   },
   "1208": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 256
    }
   },
   "1209": {
@@ -1707,59 +1860,64 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 200,
+    "CERTIFIED": 54,
+    "NOT ESTABLISHED": 2
    }
   },
   "1210": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 219,
+    "CERTIFIED": 37
    }
   },
   "1212": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 130,
+    "NOT ESTABLISHED": 72,
+    "CERTIFIED": 54
    }
   },
   "1213": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 125,
+    "NOT ESTABLISHED": 131
    }
   },
   "1215": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 240,
+    "CERTIFIED": 16
    }
   },
   "1216": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
-    "CERTIFIED EMPTY": 49,
-    "NOT ESTABLISHED": 94,
-    "CERTIFIED": 20,
-    "MISSING": 93
+    "CERTIFIED EMPTY": 70,
+    "NOT ESTABLISHED": 158,
+    "CERTIFIED": 28
    }
   },
   "1217": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
-    "MISSING": 166,
-    "NOT ESTABLISHED": 90
+    "NOT ESTABLISHED": 256
    }
   },
   "1227": {
@@ -1767,15 +1925,17 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "NOT ESTABLISHED": 67,
+    "CERTIFIED EMPTY": 189
    }
   },
   "1230": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 213,
+    "CERTIFIED": 43
    }
   },
   "1241": {
@@ -1803,7 +1963,9 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 152,
+    "CERTIFIED": 50,
+    "NOT ESTABLISHED": 54
    }
   },
   "1265": {
@@ -1811,7 +1973,9 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "NOT ESTABLISHED": 170,
+    "CERTIFIED EMPTY": 84,
+    "CERTIFIED": 2
    }
   },
   "1270": {
@@ -1819,8 +1983,7 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "NOT ESTABLISHED": 99,
-    "MISSING": 34,
+    "NOT ESTABLISHED": 133,
     "CERTIFIED": 64,
     "CERTIFIED EMPTY": 59
    }
@@ -1836,17 +1999,19 @@
   "1279": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 248,
+    "CERTIFIED": 8
    }
   },
   "1281": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 250,
+    "CERTIFIED": 6
    }
   },
   "1282": {
@@ -1872,7 +2037,9 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 84,
+    "NOT ESTABLISHED": 128,
+    "CERTIFIED": 44
    }
   },
   "1296": {
@@ -1880,7 +2047,8 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 255,
+    "NOT ESTABLISHED": 1
    }
   },
   "1297": {
@@ -1904,17 +2072,18 @@
   "1320": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 254,
+    "CERTIFIED": 2
    }
   },
   "1327": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 256
    }
   },
   "1328": {
@@ -1939,9 +2108,10 @@
   "1342": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED": 17,
+    "CERTIFIED EMPTY": 239
    }
   },
   "1344": {
@@ -1949,7 +2119,9 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 104,
+    "NOT ESTABLISHED": 103,
+    "CERTIFIED": 49
    }
   },
   "1345": {
@@ -1975,15 +2147,18 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 71,
+    "CERTIFIED": 106,
+    "NOT ESTABLISHED": 79
    }
   },
   "1388": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 172,
+    "CERTIFIED": 84
    }
   },
   "1395": {
@@ -2007,17 +2182,19 @@
   "1398": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED": 57,
+    "CERTIFIED EMPTY": 199
    }
   },
   "1418": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 244,
+    "CERTIFIED": 12
    }
   },
   "1419": {
@@ -2041,17 +2218,18 @@
   "1428": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 256
    }
   },
   "1430": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 234,
+    "CERTIFIED": 22
    }
   },
   "1432": {
@@ -2075,17 +2253,18 @@
   "1441": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED": 6,
+    "CERTIFIED EMPTY": 250
    }
   },
   "1445": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 256
    }
   },
   "1451": {
@@ -2108,17 +2287,18 @@
   "1460": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 250,
+    "CERTIFIED": 6
    }
   },
   "1461": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 256
    }
   },
   "1467": {
@@ -2141,17 +2321,19 @@
   "1470": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 245,
+    "CERTIFIED": 11
    }
   },
   "1472": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 217,
+    "CERTIFIED": 39
    }
   },
   "1475": {
@@ -2175,9 +2357,10 @@
   "1478": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED": 103,
+    "CERTIFIED EMPTY": 153
    }
   },
   "1484": {
@@ -2185,7 +2368,9 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 193,
+    "NOT ESTABLISHED": 5,
+    "CERTIFIED": 58
    }
   },
   "1487": {
@@ -2209,17 +2394,18 @@
   "1492": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 205,
+    "CERTIFIED": 51
    }
   },
   "1494": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 256
    }
   },
   "1502": {
@@ -2244,17 +2430,19 @@
   "1505": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 238,
+    "CERTIFIED": 18
    }
   },
   "1522": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 147,
+    "CERTIFIED": 109
    }
   },
   "1525": {
@@ -2280,15 +2468,17 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 225,
+    "CERTIFIED": 30,
+    "NOT ESTABLISHED": 1
    }
   },
   "1533": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 256
    }
   },
   "1535": {
@@ -2312,17 +2502,19 @@
   "1538": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 255,
+    "CERTIFIED": 1
    }
   },
   "1540": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 198,
+    "CERTIFIED": 58
    }
   },
   "1545": {
@@ -2347,17 +2539,18 @@
   "1556": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 256
    }
   },
   "1562": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 180,
+    "CERTIFIED": 76
    }
   },
   "1565": {
@@ -2381,9 +2574,10 @@
   "1568": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 155,
+    "CERTIFIED": 101
    }
   },
   "1579": {
@@ -2391,7 +2585,9 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "NOT ESTABLISHED": 65,
+    "CERTIFIED EMPTY": 96,
+    "CERTIFIED": 95
    }
   },
   "1591": {
@@ -2415,17 +2611,19 @@
   "1600": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 230,
+    "CERTIFIED": 26
    }
   },
   "1601": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 254,
+    "CERTIFIED": 2
    }
   },
   "1610": {
@@ -2448,9 +2646,10 @@
   "1616": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 251,
+    "CERTIFIED": 5
    }
   },
   "1622": {
@@ -2458,9 +2657,8 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "NOT ESTABLISHED": 104,
-    "CERTIFIED": 10,
-    "MISSING": 142
+    "NOT ESTABLISHED": 246,
+    "CERTIFIED": 10
    }
   },
   "1628": {
@@ -2483,9 +2681,10 @@
   "1648": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 248,
+    "CERTIFIED": 8
    }
   },
   "1651": {
@@ -2518,9 +2717,10 @@
   "1692": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED": 22,
+    "CERTIFIED EMPTY": 234
    }
   },
   "1711": {
@@ -2553,9 +2753,10 @@
   "1733": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 176,
+    "CERTIFIED": 80
    }
   },
   "1753": {
@@ -2587,9 +2788,10 @@
   "1766": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 161,
+    "CERTIFIED": 95
    }
   },
   "1800": {
@@ -2622,9 +2824,10 @@
   "1861": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 199,
+    "CERTIFIED": 57
    }
   },
   "1870": {
@@ -2657,9 +2860,10 @@
   "1886": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 205,
+    "CERTIFIED": 51
    }
   },
   "1887": {
@@ -2692,9 +2896,10 @@
   "1901": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 178,
+    "CERTIFIED": 78
    }
   },
   "1902": {
@@ -2729,7 +2934,9 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "NOT ESTABLISHED": 9,
+    "CERTIFIED EMPTY": 245,
+    "CERTIFIED": 2
    }
   },
   "2133": {
@@ -2761,9 +2968,9 @@
   "2142": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 256
    }
   },
   "2163": {
@@ -2794,9 +3001,10 @@
   "2207": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 246,
+    "CERTIFIED": 10
    }
   },
   "2209": {
@@ -2830,7 +3038,9 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 228,
+    "NOT ESTABLISHED": 5,
+    "CERTIFIED": 23
    }
   },
   "2239": {
@@ -2862,9 +3072,10 @@
   "2248": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 175,
+    "CERTIFIED": 81
    }
   },
   "2253": {
@@ -2899,9 +3110,10 @@
   "2262": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 251,
+    "CERTIFIED": 5
    }
   },
   "2267": {
@@ -2935,9 +3147,10 @@
   "2285": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 251,
+    "CERTIFIED": 5
    }
   },
   "2289": {
@@ -2970,9 +3183,10 @@
   "2294": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 254,
+    "CERTIFIED": 2
    }
   },
   "2298": {
@@ -3003,9 +3217,10 @@
   "2308": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 205,
+    "CERTIFIED": 51
    }
   },
   "2312": {
@@ -3037,9 +3252,10 @@
   "2317": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 231,
+    "CERTIFIED": 25
    }
   },
   "2320": {
@@ -3073,9 +3289,10 @@
   "2324": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 252,
+    "CERTIFIED": 4
    }
   },
   "2329": {
@@ -3105,9 +3322,10 @@
   "2335": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 246,
+    "CERTIFIED": 10
    }
   },
   "2338": {
@@ -3140,9 +3358,10 @@
   "2342": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 215,
+    "CERTIFIED": 41
    }
   },
   "2343": {
@@ -3174,9 +3393,10 @@
   "2490": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 169,
+    "CERTIFIED": 87
    }
   },
   "2499": {
@@ -3209,9 +3429,10 @@
   "2534": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED": 3,
+    "CERTIFIED EMPTY": 253
    }
   },
   "2536": {
@@ -3247,9 +3468,8 @@
    "closed": false,
    "counts": {
     "CERTIFIED": 26,
-    "CERTIFIED EMPTY": 92,
-    "NOT ESTABLISHED": 32,
-    "MISSING": 106
+    "CERTIFIED EMPTY": 133,
+    "NOT ESTABLISHED": 97
    }
   },
   "2573": {
@@ -3295,8 +3515,7 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "NOT ESTABLISHED": 167,
-    "MISSING": 89
+    "NOT ESTABLISHED": 256
    }
   },
   "2707": {
@@ -3332,6 +3551,6 @@
   "census": 6.4,
   "refine": 72.3,
   "certifier": 170.9,
-  "split": 1606.9
+  "split": 8270.7
  }
 }
