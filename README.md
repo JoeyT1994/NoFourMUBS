@@ -57,6 +57,7 @@ with its axiom audit.
 | [`lean/`](lean/README.md) | The Lean formalisation and the generators of its certificate modules |
 | [`tests/`](tests/) | Negative tests of the checkers |
 | [`kernel_atlas/`](kernel_atlas/README.md) | The certificate checked in the Lean kernel (`decide +kernel`), so that the main theorem holds with no hypotheses: return X at 7/40 (done), the seed balls and the ball at F6 (in progress) |
+| [`TripleClassification/`](TripleClassification/README.md) | In progress, not part of the proof: classifying the MUB triples with the same atlas (1,454 of 2,775 seed balls certified to contain no triple edge; the remaining balls lie around the known triples) |
 
 ## License and citation
 
