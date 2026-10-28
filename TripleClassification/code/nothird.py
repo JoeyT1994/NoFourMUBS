@@ -17,6 +17,48 @@ REFINE_CAP = 32                     # refine to the last level only balls with a
 import gzip, itertools, json, math, os, sys, time, traceback
 
 
+def misses_ball(uc, h):
+    """True exactly when the cell of half-width h centred at uc (in u = w / r) misses the closed unit ball: its
+    nearest point to the origin has squared norm sum max(|uc_i| - h, 0)^2 > 1, decided in exact rationals (uc and h
+    are dyadic)."""
+    from fractions import Fraction as Fr
+    return sum(max(abs(Fr(x)) - Fr(h), 0) ** 2 for x in uc) > 1
+
+
+def expansion_point(r, uc, h):
+    """A binary64 expansion point cp strictly inside the ball ||w|| < r (checked in Arb) and an outward bound rho on
+    the distance from cp to every point of the cell {w : |w_i - r uc_i| <= h r}: the cell lies in the ball of radius
+    2 h r around its exact centre r uc, so rho = 2 h r + ||cp - r uc|| (computed in Arb from the exact centre).  A
+    centre outside the ball is first moved inside.  The model holds on the segment from cp to any point of the cell's
+    part of the ball (convexity)."""
+    from flint import arb
+    wc = [r * x for x in uc]
+    nc = math.sqrt(sum(x * x for x in wc))
+    cp = [x * (r * (1 - 1e-9) / nc) for x in wc] if nc >= r * (1 - 1e-9) else wc
+    if not sum((arb(x) * arb(x) for x in cp), arb(0)) < arb(r) * arb(r):
+        raise ArithmeticError('expansion point not certified inside the ball')
+    d = sqrt_up(sum(((arb(x) - arb(r) * arb(u)) * (arb(x) - arb(r) * arb(u)) for x, u in zip(cp, uc)), arb(0)))
+    return cp, arb(float_up(arb(2 * h) * arb(r) + d))
+
+
+def sqrt_up(s):
+    """An Arb enclosure of a number >= sqrt(x) for every x >= 0 in the ball s (an interval about 0 has sqrt = NaN)."""
+    from flint import arb
+    u = s.upper()
+    if not u.is_finite(): raise ArithmeticError('non-finite norm')
+    return arb(0) if u <= 0 else u.sqrt()
+
+
+def float_up(x):
+    """The least binary64 >= every point of the Arb ball x."""
+    from flint import arb
+    u = x.upper()
+    if not u.is_finite(): raise ArithmeticError('non-finite bound')
+    f = float(u.mid())
+    while not arb(f) >= u: f = math.nextafter(f, math.inf)
+    return f
+
+
 def main():
     args = sys.argv[1:]
     maxl = 5
@@ -31,28 +73,22 @@ def main():
     seeds = json.load(gzip.open(cert, 'rt'))['seeds']
     done = {json.loads(l)['idx'] for l in open(outp) if l.strip()} if os.path.exists(outp) else set()
 
-    def cell_test(b, model, curv, wc, rho):
+    def cell_test(b, model, curv, uc, h):
         """stage_c_triple on a sub-ball centred at an exact point: Q(w) = Q(c) + DQ(c)(w - c) + R, ||w - c|| <= rho, with
         Q(c), DQ(c) enclosed by the whole-ball model's centre jet (patches.centre_jet, the same contraction as C1) and
-        ||R|| <= (||H2|| + ||X|| Z2) rho^2 / 2.  A centre outside the ball is moved inside and rho enlarged to cover
-        the cell's part of the ball (the segment to any such point stays in the ball, where the model holds)."""
+        ||R|| <= (||H2|| + ||X|| Z2) rho^2 / 2, with c and rho from expansion_point."""
         ctx.prec = 224
-        nc = math.sqrt(sum(x * x for x in wc))
-        if nc >= b.r * (1 - 1e-9):
-            f = b.r * (1 - 1e-9) / nc; cp = [x * f for x in wc]; rho = rho + (nc - b.r * (1 - 1e-9)) * 1.000001
-        else:
-            cp = wc
+        cp, rr = expansion_point(b.r, uc, h)
         qc, dc, _ = ZTP.centre_jet(model, arb_mat([[arb(float(x))] for x in cp]))
         q = np.array([float(qc[i, 0].mid()) for i in range(36)])
         D = np.array([[float(dc[i, k].mid()) for k in range(4)] for i in range(36)])
-        e0 = sum(((qc[i, 0] - arb(q[i])) ** 2 for i in range(36)), arb(0)).sqrt()
-        e1 = sum(((dc[i, k] - arb(D[i, k])) ** 2 for i in range(36) for k in range(4)), arb(0)).sqrt()
-        rr = arb(rho)
+        e0 = sqrt_up(sum(((qc[i, 0] - arb(q[i])) * (qc[i, 0] - arb(q[i])) for i in range(36)), arb(0)))
+        e1 = sqrt_up(sum(((dc[i, k] - arb(D[i, k])) * (dc[i, k] - arb(D[i, k])) for i in range(36) for k in range(4)), arb(0)))
         n1 = e0 + e1 * rr + curv * rr * rr / 2
         tcol = max(S.opnorm_up(D.reshape(6, 6, 4)[:, i, :]) for i in range(6)); tF = S.opnorm_up(D)
         Pc = q / (2 * math.pi)
-        d = sum(((arb(float(x)) - TP * arb(float(c))) ** 2 for x, c in zip(q, Pc)), arb(0))   # rounding P/2pi
-        n1 = n1 + arb(S.up(d)).sqrt()
+        d = sum(((arb(float(x)) - TP * arb(float(c))) * (arb(float(x)) - TP * arb(float(c))) for x, c in zip(q, Pc)), arb(0))   # rounding P/2pi
+        n1 = n1 + sqrt_up(d)
         ctx.prec = 120
         return SC.stage_c_triple(Pc.reshape(6, 6), S.up((arb(tcol) * rr + n1) / TP), tang=(D, S.up(rr / TP), S.up(n1 / TP)),
                                  radius=b.label_radius, rF=S.up((arb(tF) * rr + n1) / TP))
@@ -89,8 +125,8 @@ def main():
                         for c in todo:
                             h = 1.0 / 2 ** m                                 # in u = w / r
                             uc = [-1 + (2 * ci + 1) * h for ci in c]
-                            if math.sqrt(sum(x * x for x in uc)) - 2 * h > 1: continue      # the cell misses the ball
-                            out = cell_test(b, model, curv, [b.r * x for x in uc], 2 * h * b.r)
+                            if misses_ball(uc, h): continue
+                            out = cell_test(b, model, curv, uc, h)
                             tests += 1
                             if out.get('ok'): levels[m] = levels.get(m, 0) + 1
                             else: fails.append(c)

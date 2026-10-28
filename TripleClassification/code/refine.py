@@ -9,6 +9,8 @@ whole level of a ball is done.
 """
 import gzip, itertools, json, math, os, random, sys, time
 from multiprocessing import Pool
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from nothird import expansion_point, misses_ball, sqrt_up
 
 G = {}
 
@@ -38,26 +40,20 @@ def cell_test(j, m, c):
     b, model, curv = ball(j)
     h = 1.0 / 2 ** m
     uc = [-1 + (2 * ci + 1) * h for ci in c]
-    if math.sqrt(sum(x * x for x in uc)) - 2 * h > 1: return None
-    wc, rho = [b.r * x for x in uc], 2 * h * b.r
+    if misses_ball(uc, h): return None
     ctx.prec = 224
-    nc = math.sqrt(sum(x * x for x in wc))
-    if nc >= b.r * (1 - 1e-9):
-        f = b.r * (1 - 1e-9) / nc; cp = [x * f for x in wc]; rho = rho + (nc - b.r * (1 - 1e-9)) * 1.000001
-    else:
-        cp = wc
+    cp, rr = expansion_point(b.r, uc, h)
     qc, dc, _ = ZTP.centre_jet(model, arb_mat([[arb(float(x))] for x in cp]))
     q = np.array([float(qc[i, 0].mid()) for i in range(36)])
     D = np.array([[float(dc[i, k].mid()) for k in range(4)] for i in range(36)])
-    e0 = sum(((qc[i, 0] - arb(q[i])) ** 2 for i in range(36)), arb(0)).sqrt()
-    e1 = sum(((dc[i, k] - arb(D[i, k])) ** 2 for i in range(36) for k in range(4)), arb(0)).sqrt()
-    rr = arb(rho)
+    e0 = sqrt_up(sum(((qc[i, 0] - arb(q[i])) * (qc[i, 0] - arb(q[i])) for i in range(36)), arb(0)))
+    e1 = sqrt_up(sum(((dc[i, k] - arb(D[i, k])) * (dc[i, k] - arb(D[i, k])) for i in range(36) for k in range(4)), arb(0)))
     n1 = e0 + e1 * rr + curv * rr * rr / 2
     tcol = max(S.opnorm_up(D.reshape(6, 6, 4)[:, i, :]) for i in range(6)); tF = S.opnorm_up(D)
     TP = S.TWO_PI_ARB
     Pc = q / (2 * math.pi)
-    d = sum(((arb(float(x)) - TP * arb(float(cc))) ** 2 for x, cc in zip(q, Pc)), arb(0))
-    n1 = n1 + arb(S.up(d)).sqrt()
+    d = sum(((arb(float(x)) - TP * arb(float(cc))) * (arb(float(x)) - TP * arb(float(cc))) for x, cc in zip(q, Pc)), arb(0))
+    n1 = n1 + sqrt_up(d)
     ctx.prec = 120
     out = SC.stage_c_triple(Pc.reshape(6, 6), S.up((arb(tcol) * rr + n1) / TP), tang=(D, S.up(rr / TP), S.up(n1 / TP)),
                             radius=b.label_radius, rF=S.up((arb(tF) * rr + n1) / TP))
