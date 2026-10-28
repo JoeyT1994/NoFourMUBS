@@ -58,4 +58,3 @@ def final_pattern(model,prepared,bounds,cover,clique,allow_fine=True):
         direct['fine_refinement']=fine
     return dict(**direct,route='refitted',proposal=fit,
         column_error_bounds=[str(bb[c]['epsilon']) for c in clique],previous_attempts=attempts)
-

@@ -53,7 +53,7 @@ def attempt(whole, row, pattern_cap=500):
         item = dict(number=number, colors=clique, **result,
                     seconds=time.monotonic()-started) if 'seconds' not in result else dict(number=number, colors=clique, **result)
         row['patterns'].append(item)
-        print(json.dumps(dict(event='pattern', number=number, status=item['status'],
+        print(json.dumps(dict(event='pattern', domain=row.get('id',row.get('domain')), number=number, status=item['status'],
                               q=item.get('q'), seconds=time.monotonic()-started)), flush=True)
     statuses = [p['status'] for p in row['patterns']]
     if all(s in ('CERTIFIED', 'EXCLUDED') for s in statuses):
@@ -67,6 +67,9 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output', type=B.native_run.Path, required=True)
     parser.add_argument('--pattern-cap', type=int, default=500)
+    subset = parser.add_mutually_exclusive_group()
+    subset.add_argument('--core-power', type=int)
+    subset.add_argument('--cell', type=int, nargs=5, metavar=('LEVEL','I0','I1','I2','I3'))
     args = parser.parse_args()
     if args.output.exists():
         parser.error('output exists; select a fresh output path')
@@ -82,8 +85,15 @@ def main():
     row = dict(status='NOT ESTABLISHED', binding=manifest['id'],
                domain='entire original X-ball', chart='F6-012', edge_index=0)
     try:
-        _, whole, original = XM.load_original()
+        record, whole, original = XM.load_original()
         row.update(original)
+        if args.core_power is not None:
+            whole, row['subset'] = XM.core_model(record,args.core_power)
+            row['domain'] = 'core subset of original X-ball'
+        elif args.cell is not None:
+            whole, row['subset'] = XM.cell_model(whole,args.cell)
+            row['domain'] = 'original X-ball intersect dyadic cell'
+            row['id'] = row['subset']['id']
         attempt(whole, row, args.pattern_cap)
         if binding()['id'] != manifest['id']:
             raise ArithmeticError('sources changed during run')

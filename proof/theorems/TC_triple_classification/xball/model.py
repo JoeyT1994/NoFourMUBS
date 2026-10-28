@@ -6,7 +6,8 @@ import math
 
 import bootstrap as B
 import numpy as np
-from flint import arb, ctx
+from flint import arb, arb_mat, ctx
+from types import SimpleNamespace
 
 PRECISION = 224
 
@@ -67,3 +68,54 @@ def stage_c_preconditions(whole):
                 dimensions=[36, 4], margin=B.NC.stagec.MARGIN,
                 arithmetic_dependency='proof/atlas/RIGOUR.md Sections 2-3',
                 enclosure=enclosure)
+
+
+def core_model(record, power):
+    """Fresh model on an explicitly identified subset of the original ball."""
+    if type(power) is not int or not 1 <= power <= 8:
+        raise ValueError('invalid core power')
+    derived = dict(record)
+    derived['r'] = (float.fromhex(record['r'])/2**power).hex()
+    whole = B.EW.edge_model(derived, prec=PRECISION)
+    whole['ball'] = B.EC.EdgeBall(derived)
+    return whole, dict(kind='CORE SUBSET ONLY', original_radius_hex=record['r'],
+                       radius_hex=derived['r'], radius_ratio=[1,2**power],
+                       normal_form=whole['summary'])
+
+
+def cell_model(original, cell):
+    """Enclose B_r intersect a closed dyadic cell by its true centre jet.
+
+    The containing parameter sub-ball may extend outside B_r. Every segment
+    from the anchor to an actual domain point remains inside B_r, which is
+    all Taylor's theorem needs. No chart extension is assumed.
+    """
+    import geometry
+    import patches
+    geometry.validate(cell)
+    lower, _ = geometry.radial_squares(cell)
+    if lower > 1:raise ValueError('cell outside original ball')
+    r = original['r']
+    _, _, vertices = patches.box_geometry(cell, r)
+    anchor = patches.anchor_for_box(cell, r)
+    cube2 = max(sum((abs(v[i,0]-anchor[i,0]).upper()**2 for i in range(4)),arb(0)).upper()
+                for v in vertices)
+    min_dot = min(sum((anchor[i,0]*v[i,0] for i in range(4)),arb(0)).lower()
+                  for v in vertices)
+    sphere2 = r*r + sum((anchor[i,0]**2 for i in range(4)),arb(0)) - 2*min_dot
+    squared = min(cube2, sphere2.upper())
+    if squared < 0:raise ArithmeticError('negative squared enclosure radius')
+    rho = arb(B.EW.upper_finite(squared.sqrt()))
+    qc, uc, eta = B.EW.edge_centre_jet(original, anchor)
+    hessian = original['beta']+original['x']*original['Z2']
+    tau = hessian*rho*rho/2
+    local = dict(Q0=qc,U=uc,H2=arb_mat(36,16),X=B.C.Z.eye(36),
+                 tau=tau,r=rho,ball=SimpleNamespace(r=float(rho),
+                    label_radius=original['ball'].label_radius))
+    data = dict(kind='ORIGINAL BALL INTERSECT CLOSED CELL',cell=list(cell),
+                id=geometry.identifier(cell),original_radius_hex=original['ball'].r.hex(),
+                anchor=[str(anchor[i,0]) for i in range(4)],
+                containing_radius=str(rho),hessian_bound=str(hessian),
+                centre_jet_error=str(eta),phase_remainder=str(tau),
+                chart_extension_outside_original_ball_assumed=False)
+    return local,data

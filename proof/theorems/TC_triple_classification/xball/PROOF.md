@@ -54,6 +54,52 @@ has only proposal status. Every whole-domain claim must account for all
 remaining patterns; caps, missing proposals, and failed inequalities
 yield `NOT ESTABLISHED`.
 
+## Subdomains and exact accounting
+
+For a dyadic cell C in the original w coordinates, select its midpoint
+if it lies in the original ball, otherwise its exact radial projection
+onto the original sphere. Call this anchor a. It lies in the original
+closed ball. A certified rho bounds ||w-a|| for all w in C intersect B_r.
+The cube-vertex maximum gives one bound by convexity. A second follows
+from ||w-a||^2 <= r^2+||a||^2-2 min_C <a,w>. The code takes the smaller
+outward upper bound. This second bound also handles cells meeting the
+original ball only at one tangent point.
+
+The existing augmented centre jet encloses Q(a), DQ(a) in Arb, retaining
+the original residual's inhomogeneous `Rhs*a` and its derivative. On the
+convex original ball the already certified Hessian bound
+L=beta+||X|| Z2 gives
+
+\[
+ Q(w)=Q(a)+DQ(a)(w-a)+e_H,\qquad
+ \|e_H\|\le L\rho^2/2.
+\]
+
+This is represented for the all-K pipeline by H2=0, X=I_36, and
+tau=L rho^2/2. The dimension-safe coupled contractor includes all 36
+error coordinates. The containing parameter sub-ball can extend outside
+the original chart domain; the claim is only about C intersect B_r.
+Every Taylor segment used for that claim stays inside B_r. No branch
+extension or new chart is inferred.
+
+`geometry.py` partitions the normalized cube [-1,1]^4 into closed dyadic
+cells, with shared boundary faces permitted. Exact rational minimum and
+maximum squared radii label a leaf OUTSIDE only if its minimum is
+strictly greater than 1, and CORE only if its maximum is at most the
+specified core radius squared. All remaining leaves are shell tasks.
+A separate exact tree traversal checks all sixteen children of each
+internal node, rejecting gaps, duplicate leaves and ancestor/descendant
+overlap. Thus the core and shell domains cover the entire original ball.
+This is geometric coverage, not classification. A whole-X-ball verdict
+requires the correct core receipt and a closing receipt for every shell
+leaf. Untested, capped or unresolved pieces keep the verdict unresolved.
+
+A core run uses a freshly checked edge model at r/2^k, with the original
+frame unchanged. Its receipt explicitly says CORE SUBSET ONLY. By local
+germ identification and analytic continuation it is the restriction of
+the same original chart. Success on a core alone never classifies the
+full original ball.
+
 **NOT ESTABLISHED by this criterion alone:** a quantitative classification
 at crossing triples where no single anchor classifies an entire
 neighborhood, an explicit inner-core radius, or a complete shell/core
