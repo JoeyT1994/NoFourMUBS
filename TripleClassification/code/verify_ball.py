@@ -5,12 +5,14 @@
 
 The manifest (written by assemble.py) names every input by path and SHA-256: the tree auditor, each layer's
 sub-atlas, receipts and accepted builder scripts, the Stage C rows its closed sub-balls use, and, when a score rule
-was needed, the gamma records with the pinned gamma_test.py hash. This script:
+was needed, the gamma records with the pinned gamma_test.py hash, and the anchored-column receipts with the pinned
+checker and runner hashes. This script:
 
 1. checks every file's SHA-256 against the manifest (a moved or edited file fails);
 2. runs the pinned auditor (audit_select.py) on exactly those layers, scripts and gamma records, under the rule the
    manifest names, and requires GEOMETRY_AND_RECEIPTS_VERIFIED;
-3. checks that every closed sub-ball of every layer either carries an inline Stage C result of an accepted guard, or
+3. checks that every closed sub-ball of every layer, and every cell a score or anchored rule closed (the auditor
+   lists them), either carries an inline Stage C result of an accepted guard, or
    has a PASS row in the manifest's Stage C file for its exact sub-atlas, index and record, from a guard whose
    SHA-256 equals one of the --guard files (default: stagec_guard.py beside this script).
 
@@ -41,6 +43,7 @@ def main():
     if m.get('schema') != 'tc-tree-certificate-v1': fail('unknown certificate schema')
     files = [m['auditor'], m['stage_c']] + [x for L in m['layers'] for x in [L['subatlas'], L['receipts']] + L['scripts']]
     if m.get('gamma'): files += [m['gamma']['records'], m['gamma']['lower_bounds']]
+    if m.get('anchored'): files += [m['anchored']['records']]
     for f in files:
         if not os.path.exists(f['path']) or sha(f['path']) != f['sha256']: fail('file missing or changed: ' + f['path'])
     cmd = [sys.executable, '-W', 'ignore', m['auditor']['path'], '--root', a.root, '--index', str(m['ball']),
@@ -50,6 +53,10 @@ def main():
         cmd += ['--gamma', m['gamma']['records']['path'], '--gamma-sha', m['gamma']['gamma_test_sha256'],
                 '--gamma-rules', m['gamma']['rules'], '--gamma-lower', m['gamma']['lower_bounds']['path'],
                 '--gamma-lower-sha', m['gamma']['lower_bounds']['sha256']]
+    if m.get('anchored'):
+        if not m.get('gamma'): cmd += ['--gamma-rules', 'anchored']
+        cmd += ['--anchored', m['anchored']['records']['path'], '--anchored-sha', m['anchored']['checker_sha256'],
+                '--anchored-runner-sha', m['anchored']['runner_sha256']]
     p = subprocess.run(cmd, capture_output=True, text=True)
     try:
         v = json.loads((p.stdout.strip().splitlines() or ['{}'])[-1])
@@ -64,6 +71,7 @@ def main():
         if r.get('status') == 'PASS' and r.get('guard_sha256') in guards:
             stage[(r['atlas_sha256'], r['index'])] = r['seed_sha256']
     missing = 0
+    disch = {tuple(x) for x in v.get('discharged', [])}
     for L in m['layers']:
         seeds = json.load(gzip.open(L['subatlas']['path'], 'rt'))['seeds']
         for line in open(L['receipts']['path']):
@@ -71,11 +79,11 @@ def main():
                 r = json.loads(line)
             except ValueError:
                 continue
-            if r.get('status') not in ('CERTIFIED', 'CERTIFIED EMPTY'): continue
+            if r.get('status') not in ('CERTIFIED', 'CERTIFIED EMPTY') and (L['level'], r['index']) not in disch: continue
             if (r.get('stage_c_preconditions') or {}).get('guard_sha256') in guards: continue
             rec = hashlib.sha256(json.dumps(seeds[r['index']], sort_keys=True).encode()).hexdigest()
             if stage.get((L['subatlas']['sha256'], r['index'])) != rec: missing += 1
-    if missing: fail('%d closed sub-balls without a Stage C PASS from an accepted guard' % missing)
+    if missing: fail('%d closed or discharged sub-balls without a Stage C PASS from an accepted guard' % missing)
     print(json.dumps(dict(status='VERIFIED', ball=m['ball'], route=m['route'], rule=m['rule'], layers=v['layers'],
                           gamma=v.get('gamma'))))
 

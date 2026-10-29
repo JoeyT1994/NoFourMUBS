@@ -148,6 +148,8 @@ because every receipt is bound by hash to those source paths. Moving them would 
 | `TripleClassification/results/` | Per-ball status (`balls.tsv`), the certifier's per-ball rows, the census, the summary |
 | `TripleClassification/TREE_PROOF.md` | Why a verified tree covers the whole original ball (the cover lemma) |
 | `TripleClassification/GAMMA_PROOF.md` | The labelled-score discharge of open patterns |
+| `TripleClassification/ANCHORED_PROOF.md`, `ANCHORED_REPORT.md` | The anchored-column exclusion of single patterns, and the collaborator's report |
+| `TripleClassification/phantoms/` | The patterns no rule has closed yet: open-cell list and full snapshots, for work off the cluster |
 | `TripleClassification/code/` | The tree pipeline: `split.py`, `split_mixed.py`, `split_select.py`, `tree_build.py` (builders), `gamma_test.py` (score), `audit_select.py` (auditor), `verify_ball.py` (one ball from its certificate), `stagec_guard.py`, `assemble.py`, `publish_status.py`, the tests; `rusty/` holds the cluster drivers |
 | `proof/theorems/TC_triple_classification/family_neighbourhoods/` | The whole-ball certifier: `run.py`, `PROOF.md`, `REVIEW_HANDOFF.md` |
 | `proof/theorems/TC_triple_classification/seed_method/reference/r0153/CHECKPOINT.md` | Transverse rigidity and the recognition argument (§8) |
@@ -174,8 +176,10 @@ manifests in this repository:
 - **Runners:** the frozen certifier on sub-balls, run by `split_select.py run` or by `code/score_first_run.py`, which
   scores each pattern before certifying it.
 - **The score:** `code/gamma_test.py`, Arb bounds on Γ_F over whole patterns (`GAMMA_PROOF.md`).
+- **Anchored exclusions:** `code/anchored_column_certificate.py` (the collaborator's checker) and `code/anchored_run.py`,
+  which runs it on the open patterns of many sub-balls (`ANCHORED_PROOF.md`).
 - **The auditor:** `code/audit_select.py`, which checks one tree (`TREE_PROOF.md`); `code/test_audit_select.py`
-  runs it on three real trees and ten tampered copies.
+  runs it on three real trees, eleven tampered copies and seven anchored-receipt cases.
 - **Stage C:** `code/stagec_guard.py`.
 - **Assembly:** `code/assemble.py`. It writes `results/`, plus a certificate manifest for each closed ball.
 - **Checking one ball:** `code/verify_ball.py`, from its manifest alone.

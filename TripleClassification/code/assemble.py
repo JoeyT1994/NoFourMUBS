@@ -123,6 +123,10 @@ def trees(a, V, side, RC, side_guard=None, out=None):
         return out
     gamma_stamp = stamp(a.gamma) if a.gamma_rules and not a.gamma_dir else []
     per_ball = {}
+    anc_ball = {}                                            # anchored_run.py receipts, one file per ball
+    if 'anchored' in a.gamma_rules.split(',') and a.anchored_dir:
+        for p in glob.glob(os.path.join(a.anchored_dir, 'b*.jsonl')):
+            anc_ball.setdefault(int(os.path.basename(p)[1:].split('.')[0]), []).append(p)
     if a.gamma_rules and a.gamma_dir:
         # per-ball receipt files already split (rusty/gamma_by_ball.py) plus each chain's own new receipts: hand each
         # auditor its ball's files without reading every receipt again
@@ -155,7 +159,8 @@ def trees(a, V, side, RC, side_guard=None, out=None):
 
     def audit(i, route, layers, scripts):
         base = _hl.sha256(json.dumps([auditor_sha, i, route, stamp(layers), scripts]).encode()).hexdigest()
-        full = _hl.sha256(json.dumps([base, a.gamma_rules, a.gamma_sha, gamma_stamp, stamp(per_ball.get(i, []))]).encode()).hexdigest()
+        full = _hl.sha256(json.dumps([base, a.gamma_rules, a.gamma_sha, gamma_stamp, stamp(per_ball.get(i, [])),
+                                      a.anchored_sha, a.anchored_runner_sha, stamp(anc_ball.get(i, []))]).encode()).hexdigest()
         hit = cache.get(base)
         if hit and hit.get('status') == 'closed' and hit.get('rule', 'certifier') == 'certifier': return hit
         if full in cache: return cache[full]
@@ -166,6 +171,9 @@ def trees(a, V, side, RC, side_guard=None, out=None):
     def audit_fresh(i, route, layers, scripts):
         extra = (['--gamma'] + per_ball.get(i, []) + ['--gamma-sha', a.gamma_sha, '--gamma-rules', a.gamma_rules,
                   '--gamma-lower', a.gamma_lower, '--gamma-lower-sha', RC.sha_file(a.gamma_lower)]) if a.gamma_rules else []
+        if 'anchored' in a.gamma_rules.split(','):
+            extra += ['--anchored'] + anc_ball.get(i, []) + ['--anchored-sha', a.anchored_sha,
+                                                             '--anchored-runner-sha', a.anchored_runner_sha]
         cp = subprocess.run([sys.executable, a.tree_auditor, '--root', a.tc_tree, '--index', str(i), '--layers'] + layers
                             + ['--scripts'] + scripts + extra, capture_output=True, text=True)
         try:
@@ -176,30 +184,33 @@ def trees(a, V, side, RC, side_guard=None, out=None):
             err = (cp.stderr.strip().splitlines() or [''])[-1]
             return dict(status=('open below level %d' % (len(layers) + 1) if 'unresolved cell at the last level' in err
                                 else 'audit failed: ' + err[:100]), route=route)
-        missing = 0                                          # Stage C preconditions (audit F2)
-        for f in layers:
+        missing = 0                                          # Stage C preconditions (audit F2), for closed rows and
+        disch = {tuple(x) for x in v.get('discharged', [])}  # for the cells a score or anchored rule closed
+        for k, f in enumerate(layers):
             seeds_f, _, sha_f = RC.load_split(f)
             for r in RC.read_jsonl(f[:-len('.json.gz')] + '.jsonl'):
-                if r.get('status') in RC.CLOSED and side.get((sha_f, r['index'])) != RC.record_sha(seeds_f[r['index']]) \
+                if (r.get('status') in RC.CLOSED or (2 + k, r['index']) in disch) \
+                        and side.get((sha_f, r['index'])) != RC.record_sha(seeds_f[r['index']]) \
                         and (r.get('stage_c_preconditions') or {}).get('guard_sha256') not in V.guards:
                     missing += 1
         if missing: return dict(status='%d closed sub-balls without Stage C preconditions' % missing, route=route)
         g = v.get('gamma') or {}
-        rule = 'ordering' if g.get('ordering') else ('fourier' if g.get('fourier') else 'certifier')
+        rule = 'anchored' if g.get('anchored') else 'ordering' if g.get('ordering') else ('fourier' if g.get('fourier') else 'certifier')
         x = dict(status='closed', route=route, depth=len(layers) + 1, layers=v['layers'], rule=rule, gamma=g,
                  leaves=sum(x['closed'] for x in v['layers']), tangent_cells=v['tangent_cells'])
-        if out: x['certificate'] = certificate(i, route, layers, scripts, rule)
+        if out: x['certificate'] = certificate(i, route, layers, scripts, rule, disch)
         return x
 
-    def certificate(i, route, layers, scripts, rule):
+    def certificate(i, route, layers, scripts, rule, disch=()):
         """One self-contained record per closed ball: every input file by SHA-256, the Stage C rows its closed
         sub-balls use, and (when a score rule closed it) its gamma records; verify_ball.py checks it from this alone."""
         d = os.path.join(out, 'certificates'); os.makedirs(d, exist_ok=True)
         stage = []
-        for f in layers:
+        for k, f in enumerate(layers):
             seeds_f, _, sha_f = RC.load_split(f)
             for r in RC.read_jsonl(f[:-len('.json.gz')] + '.jsonl'):
-                if r.get('status') in RC.CLOSED and (r.get('stage_c_preconditions') or {}).get('guard_sha256') not in V.guards:
+                if (r.get('status') in RC.CLOSED or (2 + k, r['index']) in disch) \
+                        and (r.get('stage_c_preconditions') or {}).get('guard_sha256') not in V.guards:
                     stage.append(dict(atlas_sha256=sha_f, index=r['index'], seed_sha256=side[(sha_f, r['index'])],
                                       guard_sha256=side_guard[(sha_f, r['index'])], status='PASS'))
         with open(os.path.join(d, 'b%d.stagec.jsonl' % i), 'w') as f:
@@ -209,6 +220,13 @@ def trees(a, V, side, RC, side_guard=None, out=None):
             gam = os.path.join(d, 'b%d.gamma.jsonl' % i)
             with open(gam, 'w') as dst:
                 for src in per_ball[i]: dst.write(open(src).read())
+        anc = None
+        if rule == 'anchored':                               # only the established receipts of this ball
+            anc = os.path.join(d, 'b%d.anchored.jsonl' % i)
+            with open(anc, 'w') as dst:
+                for src in anc_ball.get(i, []):
+                    for line in open(src):
+                        if '"EXCLUDED_GIVEN_INPUT_ENCLOSURES"' in line: dst.write(line)
         files = lambda p: dict(path=os.path.realpath(p), sha256=RC.sha_file(p))
         man = dict(schema='tc-tree-certificate-v1', ball=i, route=route, rule=rule, original_atlas_sha256=PIN_ATLAS,
                    auditor=files(a.tree_auditor),
@@ -216,18 +234,25 @@ def trees(a, V, side, RC, side_guard=None, out=None):
                                 scripts=[files(s) for s in sc.split(',')]) for k, (p, sc) in enumerate(zip(layers, scripts))],
                    stage_c=files(os.path.join(d, 'b%d.stagec.jsonl' % i)), stage_c_guards=sorted(V.guards),
                    gamma=dict(rules=a.gamma_rules, gamma_test_sha256=a.gamma_sha, records=files(gam),
-                              lower_bounds=files(a.gamma_lower)) if gam else None)
+                              lower_bounds=files(a.gamma_lower)) if gam else None,
+                   anchored=dict(checker_sha256=a.anchored_sha, runner_sha256=a.anchored_runner_sha,
+                                 records=files(anc)) if anc else None)
         with open(os.path.join(d, 'b%d.json' % i), 'w') as f: json.dump(man, f, indent=1)
         return os.path.join(d, 'b%d.json' % i)
 
-    rank = {'certifier': 0, 'fourier': 1, 'ordering': 2}
+    rank = {'certifier': 0, 'fourier': 1, 'ordering': 2, 'anchored': 3}
 
     def first(i):
         """The tree that closes the ball with the fewest added ingredients: the certifier alone, then the Fourier rule,
-        then the ordering rule; cheapest tree first."""
+        then the ordering rule, then anchored-column exclusions; cheapest tree first."""
         seen = best = None
         for route, layers, scripts in cands[i]:
             x = audit(i, route, layers, scripts)
+            # a chain whose deepest layer was stopped part-way is audited down to its last complete layer
+            while route == 'selective chain' and len(layers) > 2 and \
+                    'missing or unexpected rows at level %d' % (len(layers) + 1) in x['status']:
+                layers, scripts = layers[:-1], scripts[:-1]
+                x = audit(i, route, layers, scripts)
             if x['status'] == 'closed':
                 if x['rule'] == 'certifier': return i, x
                 if best is None or rank[x['rule']] < rank[best['rule']]: best = x
@@ -261,7 +286,10 @@ def main():
     ap.add_argument('--gamma', nargs='*', default=[], help='gamma_test.py receipts (labelled Fourier score discharges)')
     ap.add_argument('--gamma-dir', help='directory of per-ball gamma receipt files b<ball>.jsonl')
     ap.add_argument('--gamma-sha'); ap.add_argument('--gamma-lower', help='pinned Gamma_F(H) lower bounds (JSON)')
-    ap.add_argument('--gamma-rules', default='', help="'fourier', 'ordering' or both")
+    ap.add_argument('--gamma-rules', default='', help="comma-separated: 'fourier', 'ordering', 'anchored'")
+    ap.add_argument('--anchored-dir', help='directory of per-ball anchored_run.py receipt files b<ball>.jsonl')
+    ap.add_argument('--anchored-sha', help='pinned SHA-256 of anchored_column_certificate.py')
+    ap.add_argument('--anchored-runner-sha', help='pinned SHA-256 of anchored_run.py')
     a = ap.parse_args()
     raw, out = a.raw, a.out
     sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))

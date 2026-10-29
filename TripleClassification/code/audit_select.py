@@ -13,7 +13,12 @@ chart, and every row is bound to its layer's script and sources, the record's ha
 with a CERTIFIED or CERTIFIED EMPTY row whose patterns are all CERTIFIED (strict q < 1, the averaged moving equation)
 or EXCLUDED.  The original ball is covered when every cell of every layer is closed or refined by the next layer, and
 the last layer's unresolved cells are only tangent ones: a cell meeting the closed unit ball in exactly one point
-(nearest-point squared distance exactly 1) that lies in some closed cell.  Exact rationals throughout the geometry."""
+(nearest-point squared distance exactly 1) that lies in some closed cell.  Exact rationals throughout the geometry.
+
+Optional rules (--gamma-rules) also close a certifier-open cell when every pattern the certifier left open is
+discharged: by the labelled Fourier score (gamma_test.py receipts, 'fourier' and 'ordering'; GAMMA_PROOF.md), or by an
+anchored-column exclusion of that single pattern ('anchored': anchored_run.py receipts of the pinned
+anchored_column_certificate.py, bound to the row's record, pattern count and pattern colours; ANCHORED_PROOF.md)."""
 import argparse, gzip, hashlib, itertools, json, os, sys
 from fractions import Fraction
 from pathlib import Path
@@ -117,7 +122,11 @@ def main():
     ap.add_argument('--gamma-sha', help='the pinned SHA-256 of gamma_test.py')
     ap.add_argument('--gamma-lower', type=Path, help="the certified lower bounds of Gamma_F(H) per ball (JSON)")
     ap.add_argument('--gamma-lower-sha', help='its pinned SHA-256'); ap.add_argument('--gamma-rules', default='',
-                    help="comma-separated: 'fourier' (Gamma_F <= 19/50) and/or 'ordering' (below the ball's Gamma_F(H) bound)")
+                    help="comma-separated: 'fourier' (Gamma_F <= 19/50), 'ordering' (below the ball's Gamma_F(H) bound), "
+                         "'anchored' (anchored-column exclusion of single patterns)")
+    ap.add_argument('--anchored', type=Path, nargs='*', default=[], help='anchored_run.py receipts')
+    ap.add_argument('--anchored-sha', help='the pinned SHA-256 of anchored_column_certificate.py')
+    ap.add_argument('--anchored-runner-sha', help='the pinned SHA-256 of anchored_run.py')
     args = ap.parse_args(); root = args.root.resolve(); ctx.prec = 224
     need(len(args.layers) == len(args.scripts) >= 1, 'one script per layer')
     sys.path.insert(0, str(root / 'proof/theorems/TC_triple_classification/family_neighbourhoods'))
@@ -140,7 +149,9 @@ def main():
                 ids.add(bound(R.source_paths, root, p, s, gamma=s.parent / 'gamma_test.py')['id'])
         bindings.append(ids)
     rules = {x for x in args.gamma_rules.split(',') if x}
-    need(rules <= {'fourier', 'ordering'}, 'unknown gamma rule'); need(not rules or args.gamma_sha, 'gamma rules need --gamma-sha')
+    need(rules <= {'fourier', 'ordering', 'anchored'}, 'unknown gamma rule')
+    need(not rules & {'fourier', 'ordering'} or args.gamma_sha, 'gamma rules need --gamma-sha')
+    need('anchored' not in rules or (args.anchored_sha and args.anchored_runner_sha), 'anchored needs the pinned checker and runner')
     glow = None
     if 'ordering' in rules:
         need(args.gamma_lower is not None and sha(args.gamma_lower) == args.gamma_lower_sha, 'ordering needs the pinned Gamma_F(H) bounds')
@@ -155,17 +166,60 @@ def main():
             if 'error' in g or g.get('gamma_sha256') != args.gamma_sha: continue
             gamma.setdefault((g['subatlas_sha256'], g['sub']), []).append(g)
 
+    anchored = {}                                 # (sub-atlas sha, sub) -> {pattern: receipt}
+    for ap_ in (args.anchored if 'anchored' in rules else []):
+        for l in open(ap_):
+            try:
+                x = json.loads(l)
+            except ValueError:
+                continue
+            if x.get('schema') != 'tc-anchored-column-receipt-v1' or x.get('status') != 'EXCLUDED_GIVEN_INPUT_ENCLOSURES': continue
+            if x.get('checker_sha256') != args.anchored_sha or x.get('runner_sha256') != args.anchored_runner_sha: continue
+            if x.get('H_model_rebuilt_from_record') is not True: continue
+            anchored.setdefault((x['subatlas_sha256'], x['sub']), {}).setdefault(x['pattern'], []).append(x)
+    frozen = {}
+
+    def anchored_ok(x, row, sub, n):
+        """An anchored receipt excludes pattern n of this row: same record, pattern count and pattern colours, the
+        frozen tree's own column and normal-form code, and the receipt's Arb inequalities read back as stated."""
+        pats = row.get('patterns', [])
+        if not (n < len(pats) and pats[n].get('number') == n and len(pats) == row.get('patterns_after_column_filter')): return False
+        cols = x.get('pattern_colours')
+        if x.get('record_sha256') != jsonsha(sub) or x.get('patterns_total') != len(pats) or cols != pats[n].get('colors'): return False
+        c, an = x['column'], x['anchors']
+        if not (len(an) == 2 and len({c, *an}) == 3 and all(0 <= j < 6 for j in (c, *an))): return False
+        if x['colour'] != cols[c] or x['anchor_colours'] != [cols[j] for j in an]: return False
+        for k, v in x['dependencies_sha256'].items():
+            if k not in frozen: frozen[k] = sha(root / k) if (root / k).is_file() else None
+            if frozen[k] != v: return False
+        steps = x.get('steps') or []
+        return (bool(steps) and all(arb(t['lower']) > 0 and arb(t['capture_bound']) < arb(t['accepted_radius']) for t in steps)
+                and arb(x['transverse_margin']) > 0)
+
     def pattern_ok(x):
         if x['status'] == 'CERTIFIED':
             need(x.get('kind') == 'balanced order-three symmetry' and x.get('method') == 'averaged moving equation', 'unknown classification method')
             need(arb(x['q']) < 1, 'symmetry bound not strict')
 
     def discharged(row, sub, layer_sha, i):
-        """The rule ('fourier' or 'ordering') by which every pattern the certifier left open is discharged, or None."""
+        """The rule by which every pattern the certifier left open is discharged, or None: 'fourier' or 'ordering' (the
+        score alone), or 'anchored' (some patterns by anchored receipts, any others by the score rules in force)."""
         if not (row.get('c1', {}).get('ok') is True and row.get('normal_form', {}).get('status') == 'CERTIFIED'): return None
         certified = {x['number'] for x in row.get('patterns', []) if x['status'] in ('CERTIFIED', 'EXCLUDED')}
         for x in row.get('patterns', []):
             if x['status'] in ('CERTIFIED', 'EXCLUDED'): pattern_ok(x)
+        anc = {n for n, xs in anchored.get((layer_sha, i), {}).items() if any(anchored_ok(x, row, sub, n) for x in xs)}
+
+        def rule(openp, low, below):
+            """low: patterns with a score upper bound <= 19/50; below: those under the ordering threshold."""
+            score = (low if rules & {'fourier', 'ordering'} else set()) | (below if 'ordering' in rules else set())
+            if 'fourier' in rules and openp <= low: return 'fourier'
+            if 'ordering' in rules and openp <= low | below: return 'ordering'
+            if 'anchored' in rules and openp <= score | anc: return 'anchored'
+            return None
+        if anc and 'patterns_after_column_filter' in row:
+            r = rule(set(range(row['patterns_after_column_filter'])) - certified, set(), set())
+            if r: return r
         for g in gamma.get((layer_sha, i), []):
             if g.get('seed_sha256') != jsonsha(sub) or g.get('receipt_binding') != row['binding']: continue
             if set(g['closed_by_certifier']) != certified: continue
@@ -177,18 +231,20 @@ def main():
             best = {}
             for n in openp:
                 ups = [Fraction(float.fromhex(got[n][k])) for k in ('g_up_L_hex', 'g_up_K_hex') if k in got[n]]
-                if not ups: break
-                best[n] = min(ups)
-            if len(best) != len(openp): continue
-            if 'fourier' in rules and all(best[n] <= Fraction(19, 50) for n in openp): return 'fourier'
+                if ups: best[n] = min(ups)
             # the threshold is the original ball's pinned bound or, if larger, the receipt's bound for this cell
             thr = glow if glow is not None else None
             if thr is not None and 'g_lo_H_cell_hex' in g: thr = max(thr, Fraction(float.fromhex(g['g_lo_H_cell_hex'])))
-            if 'ordering' in rules and all(best[n] <= Fraction(19, 50) or best[n] < thr for n in openp): return 'ordering'
+            low = {n for n, b in best.items() if b <= Fraction(19, 50)}
+            below = {n for n, b in best.items() if thr is not None and b < thr}
+            r = rule(openp, low, below)
+            if r: return r
         return None
 
     closed = []                                   # (level, cell) of every accepted cell
-    target = None; counts = []; live = None; used = {'fourier': 0, 'ordering': 0}
+    target = None; counts = []; live = None; used = {'fourier': 0, 'ordering': 0, 'anchored': 0}
+    disch = []                                    # (level, sub) of cells closed by a rule: they use the certifier's
+                                                  # cover too, so they need the Stage C preconditions like closed rows
     for k, (doc, rr, bid, path) in enumerate(zip(docs, rowsets, bindings, paths)):
         level = 2 + k
         info = doc['info']['split']
@@ -224,7 +280,7 @@ def main():
                 if needed:
                     rule = discharged(row, sub, layer_sha, i) if rules else None
                     if rule:
-                        used[rule] += 1; closed.append((level, cell))
+                        used[rule] += 1; closed.append((level, cell)); disch.append([level, i])
                     else:
                         still.add(cell)
                 continue
@@ -243,7 +299,8 @@ def main():
         p = tangent_point(c, last)
         need(p is not None and any(contains(cc, lv, p) for lv, cc in closed), 'unresolved cell at the last level: %s' % (c,))
     print(json.dumps(dict(status='GEOMETRY_AND_RECEIPTS_VERIFIED', ball=args.index, original_radius=original['r'],
-                          layers=counts, tangent_cells=len(live), gamma=used, bindings=[sorted(b) for b in bindings])))
+                          layers=counts, tangent_cells=len(live), gamma=used, discharged=disch,
+                          bindings=[sorted(b) for b in bindings])))
 
 
 if __name__ == '__main__': main()

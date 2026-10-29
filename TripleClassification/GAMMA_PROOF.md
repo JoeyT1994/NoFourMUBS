@@ -43,7 +43,8 @@ v(a,b)_(ik;jl) = (a_i − a_k)(b_j − b_l). The **labelled Fourier score** is
 For a sub-ball record, the frozen certifier computes three things (**INHERITED**):
 - **H's enclosure:** Q(w) = Q₀ + U·w + ½H₂[w,w] + X·ξ, with ‖w‖ ≤ r and ‖ξ‖ ≤ τ. This needs C1 ok and the normal form
   CERTIFIED, which the auditor requires.
-- **Patterns:** a complete set of six-colour patterns covering every third basis K.
+- **Patterns:** a complete set of six-colour patterns covering every third basis K. The cover's binary64 error budget
+  needs the Stage C magnitude preconditions, so a cell closed by a score rule must pass them too (§5).
 - **Column bounds:** for each pattern and column k, every actual zero has column phases V_k (mean-zero gauge) with
   ‖V_k − v0_k‖₂ ≤ pr_k (`phase_radius`).
 
@@ -138,6 +139,11 @@ the following hold:
 
 The receipts' true/false flags are not used.
 
+**Stage C.** A discharged cell relies on the certifier's complete cover, as a certified one does, so the assembly
+(`code/assemble.py`) and `code/verify_ball.py` require its Stage C PASS as well. The auditor lists the cells it
+discharged for this. *Correction, 29 October 2026, 16:10:* until then only CERTIFIED rows were required to pass;
+the sidecar now also checks the open rows, and closures that used the score are recounted once their rows pass.
+
 **Trees.** A layer may omit the children of cells a score receipt closes (`code/tree_build.py`). Its target mask must
 lie between:
 - the cells the audit still needs;
@@ -147,7 +153,8 @@ When a sub-ball carries two full receipts (a resumed run), the closed one is kep
 each ball, the assembly prefers the tree using the fewest added ingredients:
 1. the certifier alone;
 2. then the Fourier rule;
-3. then the ordering rule.
+3. then the ordering rule;
+4. then anchored-column exclusions (`ANCHORED_PROOF.md`), with any remaining patterns discharged by the score.
 
 ## 6. Points for the reviewer
 

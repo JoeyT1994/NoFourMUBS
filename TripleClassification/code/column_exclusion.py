@@ -68,6 +68,7 @@ def main():
             tc = basis.T @ d                                                     # bin centre in gauge coordinates
             X = [arb(float(tc[j]), rho.upper()) for j in range(5)]               # contains the bin (2-norm ball)
             kept += branch(X, v0, Bm, PAR, a.iters, a.min_width, STATS)
+        kept = merge_and_contract(kept, v0, Bm, PAR, a.iters)
         enclosures.append([vec(X, v0, Bm) for X in kept])
         widths = [max(float(x.rad()) for x in X) for X in kept]
         print(' column %d: %d bins -> %d enclosures; largest radius %.4f; boxes processed %d' % (k, len(col['bin_deltas']),
@@ -109,6 +110,31 @@ def branch(X, v0, Bm, P, iters, min_width, stats, cap=4000):
         j = int(np.argmax(w)); m = arb(X[j].mid())
         for lo, hi in ((X[j].lower(), m), (m, X[j].upper())):
             Z = list(X); Z[j] = hull(lo, hi); stack.append(Z)
+    return out
+
+
+def overlaps(X, Y, pad=0.0):
+    return all(float(x.lower()) <= float(y.upper()) + pad and float(y.lower()) <= float(x.upper()) + pad for x, y in zip(X, Y))
+
+
+def merge_and_contract(boxes, v0, Bm, P, iters):
+    """Group boxes that touch into connected clusters, take each cluster's hull, and contract it by Krawczyk steps.
+    Every zero in any box lies in its cluster's hull, and Krawczyk keeps every zero, so the result still contains
+    every zero (a hull ruled out by Krawczyk had none)."""
+    groups = []
+    for X in boxes:
+        hit = [g for g in groups if any(overlaps(X, Y, 1e-12) for Y in g)]
+        merged = [X] + [Y for g in hit for Y in g]
+        groups = [g for g in groups if g not in hit] + [merged]
+    out = []
+    for g in groups:
+        H = [hull(min((Y[j].lower() for Y in g), key=float), max((Y[j].upper() for Y in g), key=float)) for j in range(5)]
+        alive = True
+        for _ in range(iters):
+            Z, alive = krawczyk(H, v0, Bm, P)
+            if not alive: break
+            H = Z
+        if alive: out.append(H)
     return out
 
 

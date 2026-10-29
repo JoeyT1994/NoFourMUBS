@@ -42,7 +42,8 @@ def main():
              '**{:,} of {:,} seed balls are closed; {:,} are open.** Every closed ball is closed on one route:'.format(closed, len(rows), len(opened)),
              '- the frozen whole-ball certifier on the original ball; or',
              '- one dyadic tree of sub-balls covering the whole original ball, verified by `code/audit_select.py`'
-             ' (`TREE_PROOF.md`), with the Stage C preconditions of every closed sub-ball checked.', '',
+             ' (`TREE_PROOF.md`), with the Stage C preconditions of every closed sub-ball checked, including those a rule'
+             ' closed.', '',
              'No ball is replaced by a smaller one: a tree covers the entire original ball.', '',
              '| Seed balls | Count |', '|---|---:|',
              '| **Closed** | **{:,}** |'.format(closed),
@@ -51,10 +52,12 @@ def main():
              '| · tree, every leaf closed by the certifier | %d |' % by_rule['certifier'],
              '| · tree, some leaves closed by the labelled Fourier score, Γ_F ≤ 19/50 (`GAMMA_PROOF.md`) | %d |' % by_rule['fourier'],
              '| · tree, some leaves closed by the minimum-transition ordering (`GAMMA_PROOF.md`) | %d |' % by_rule['ordering'],
+             '| · tree, some leaves closed by anchored-column exclusions (`ANCHORED_PROOF.md`) | %d |' % by_rule['anchored'],
              '| **Open** | **%d** |' % len(opened)]
     for k, n in sorted(why.items(), key=lambda x: -x[1]): lines.append('| · %s | %d |' % (k, n))
     lines += ['', 'Certified pieces: {:,} whole balls and {:,} sub-balls in trees.'.format(whole, leaves),
-              'The two score rules come from the collaborator\'s returns of 29 October and await independent review.'
+              'The two score rules and the anchored-column exclusion come from the collaborator\'s returns of 29 October and'
+              ' await independent review.'
               ' Closures by the ordering rule hold in the restricted sense of that theorem, so they count only once'
               ' every ball is closed.', '']
     if opened:
