@@ -256,6 +256,7 @@ def main():
     ap.add_argument('--split-dir', required=True, help='the raw level-2 splits b<i>_l2')
     ap.add_argument('--work', required=True, help='scratch directory for cleaned level-2 receipts')
     ap.add_argument('--workers', type=int, default=4)
+    ap.add_argument('--legacy-split', action='store_true', help='also rebuild the old split bookkeeping column (slow)')
     ap.add_argument('--cache', help='JSON file of earlier tree verdicts, reused while every input file is unchanged')
     ap.add_argument('--gamma', nargs='*', default=[], help='gamma_test.py receipts (labelled Fourier score discharges)')
     ap.add_argument('--gamma-dir', help='directory of per-ball gamma receipt files b<ball>.jsonl')
@@ -283,7 +284,8 @@ def main():
     files = {}
     split_s = 0.0
     seeds_of = {}
-    for p in sorted(glob.glob(os.path.join(raw, 'split_*.json.gz'))):
+    # the old split bookkeeping (the reference `split` column): every split sub-atlas on ceph; off by default
+    for p in (sorted(glob.glob(os.path.join(raw, 'split_*.json.gz'))) if a.legacy_split else []):
         sub_seeds, info, sha = RC.load_split(p)
         if info is None: continue                            # not a split sub-atlas: no cover to account
         sel, _ = V.select(RC.read_jsonl(p[:-len('.json.gz')] + '.jsonl'), sub_seeds, V.split_bindings(sha))
