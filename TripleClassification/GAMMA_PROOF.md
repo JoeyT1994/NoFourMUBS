@@ -85,33 +85,66 @@ alignment bounds the minimum from above.
 
 The column gauge and the mean-zero normalisation are harmless by (Γ1).
 
-## 4. The discharge rules
+## 4. Arithmetic, and the threshold for H
 
-`code/gamma_test.py` computes these bounds for every pattern the certifier did not close. That includes all patterns
-of a timed-out row beyond the ones it finished. It records each open pattern as:
-- **fourier** when min(bound on L, bound on K) ≤ 19/50; by (Γ3), every zero in the pattern lies in a classified
-  triple;
-- **ordering** when the minimum is below the ball's certified Γ_F(H) lower bound; by (Γ4), the pattern is not this
-  ball's task.
+**All in Arb.** `code/gamma_test.py` computes every quantity of §3 in Arb:
+- m and d_k;
+- x_max, κ = asin(x)/x (which increases on [0, 1)) and E;
+- the centre scores, by one alignment, evaluated in Arb.
 
-**Scope.** Ordering closures are valid in the restricted sense of (Γ4). The global theorem then needs every ball
-closed in that sense. Fourier closures count unconditionally, subject to (Γ3)'s hypotheses.
+The centre balls' own radii are added to d_H and to pr_k, so the bound holds about a fixed centre point. Each upper
+bound is stored as a binary64 number rounded outward, written in hex. The minimum and maximum are taken by exact
+comparisons of those binary64 endpoints.
 
-## 5. What the auditor checks
+**The threshold for H, per cell.** (Γ4) needs a lower bound of Γ_F(H) over the cell only, not over the whole original
+ball. It takes the larger of two bounds:
+- the ball's certified bound (Γ5);
+- this cell's bound, Γ_lo(H_c) − (2/5)·d_H. Here Γ_lo(H_c) is a lower bound at the centre's binary64 phases,
+  minimised over all 14,400 alignments. Each coordinate is computed in float64 within an absolute error DELTA = 10⁻¹²:
+  the inputs are exact binary64 with |P| < 100, and only a few roundings occur per plaquette. The circular distance is
+  1-Lipschitz, so Σ max(0, dist − DELTA)² is at most the exact cost. The float sum of 225 terms is scaled by
+  (1 − 10⁻⁹), and the square root is taken in Arb. On test matrices this bound is within 10⁻¹⁰ of the upper bound.
 
-`code/audit_select.py --gamma … --gamma-sha … --gamma-rules …` treats a cell that the certifier left open as closed
-when all of the following hold:
-- its row has C1 ok and the normal form CERTIFIED;
-- a gamma receipt, produced by the pinned `gamma_test.py`, names:
-  - the layer's sub-atlas hash;
-  - the record's SHA-256;
-  - the certifier row's binding;
-- the receipt's set of certifier-closed patterns equals the row's, and those patterns pass the usual q < 1 checks;
-- its open patterns are exactly the rest of the recomputed pattern list;
-- every one of them is discharged under an allowed rule.
+## 5. The discharge rules and what the auditor checks
 
-The tree logic is otherwise unchanged. A layer still refines every cell the certifier left open, but cells under a
-closed ancestor are not needed. The assembly prefers, for each ball, the tree using the fewest added ingredients:
+An open pattern is discharged in either of two ways:
+- **fourier:** its upper bound min(Γ_F(L), Γ_F(K)) is at most 19/50. By (Γ3), every zero in the pattern lies in a
+  classified triple.
+- **ordering:** that upper bound is below the cell's threshold for H (§4). By (Γ4), the pattern is not this ball's
+  task.
+
+**Scope.** Ordering closures hold in the restricted sense of (Γ4), so the global theorem needs every ball closed in
+that sense. Fourier closures count unconditionally, subject to (Γ3)'s hypotheses.
+
+**Score-first certification.** `code/score_first_run.py` runs the frozen certifier on sub-balls. Inside `run_ball`, it
+scores each pattern with `gamma_test.pattern` before the frozen per-pattern step. A discharged pattern skips the
+expensive certification and is recorded as DISCHARGED. Every other pattern goes through the frozen step unchanged.
+Its row and score receipt are bound to its own hash and to `gamma_test.py`'s.
+
+**What the auditor checks.** `code/audit_select.py` treats a cell the certifier left open as closed only when all of
+the following hold:
+- **the row:** C1 ok and the normal form CERTIFIED;
+- **a matching score receipt** for the same:
+  - sub-atlas hash;
+  - record hash;
+  - certifier binding;
+  - pinned `gamma_test.py` hash;
+  - certifier-closed patterns, which also pass the usual q < 1 checks;
+  - pattern count;
+- **every remaining pattern discharged,** re-derived in exact rational arithmetic from the receipt's binary64 upper
+  bounds:
+  - against 19/50;
+  - against the larger of the pinned ball bound (`gamma_lower.json`, hash-checked) and the receipt's cell bound.
+
+The receipts' true/false flags are not used.
+
+**Trees.** A layer may omit the children of cells a score receipt closes (`code/tree_build.py`). Its target mask must
+lie between:
+- the cells the audit still needs;
+- all the cells the certifier left open.
+
+When a sub-ball carries two full receipts (a resumed run), the closed one is kept, and it is checked in full. For
+each ball, the assembly prefers the tree using the fewest added ingredients:
 1. the certifier alone;
 2. then the Fourier rule;
 3. then the ordering rule.
@@ -125,3 +158,7 @@ closed ancestor are not needed. The assembly prefers, for each ball, the tree us
    `native_columns.build`.
 4. That (Γ3) and (Γ4) are used within their stated hypotheses, and that no Γ_F-closed ball is among the 39 that (Γ3)
    needs.
+5. §4: the float64 margin DELTA for the exhaustive centre bound, and that the per-cell threshold is a valid lower
+   bound of Γ_F(H) over the cell.
+6. That wrapping `run.final_pattern` in `score_first_run.py` leaves the frozen certifier's verdict logic intact for
+   every pattern it does not discharge.

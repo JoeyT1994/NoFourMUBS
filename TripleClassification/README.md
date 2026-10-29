@@ -163,17 +163,32 @@ manifests in this repository:
 
 ## Files
 
-- `code/assemble.py`: builds `results/` from all receipts on one route: the certifier on the whole ball, else one
-  audited tree. It writes a certificate manifest per closed ball.
-- `code/verify_ball.py`: checks one ball from its manifest alone: file hashes, the tree audit, Stage C.
-- `code/publish_status.py`: writes the status block above and `results/` from an audited assembly.
-- `code/test_audit_select.py`: the auditor on three real trees and ten tampered copies.
-- `code/split.py`, `code/split_mixed.py`, `code/split_select.py`, `code/tree_build.py`: the builders (levels 2, 3,
-  3 and deeper, and score-first deeper).
-- `code/gamma_test.py`: the labelled-score bounds for open patterns.
+**The pipeline**
+- **Builders:**
+  - `code/split.py`: level-2 covers;
+  - `code/split_mixed.py`: level 3, the collaborator's;
+  - `code/split_select.py`: levels 3 and deeper;
+  - `code/tree_build.py`: score-first deeper levels, built in parallel.
+
+  `code/tree_build_v0.py` and `code/tree_build_v1.py` are byte-exact earlier versions, kept because some receipts
+  are bound to them. Builders are not trusted: the auditor rechecks containment.
+- **Runners:** the frozen certifier on sub-balls, run by `split_select.py run` or by `code/score_first_run.py`, which
+  scores each pattern before certifying it.
+- **The score:** `code/gamma_test.py`, Arb bounds on Γ_F over whole patterns (`GAMMA_PROOF.md`).
+- **The auditor:** `code/audit_select.py`, which checks one tree (`TREE_PROOF.md`); `code/test_audit_select.py`
+  runs it on three real trees and ten tampered copies.
+- **Stage C:** `code/stagec_guard.py`.
+- **Assembly:** `code/assemble.py`. It writes `results/`, plus a certificate manifest for each closed ball.
+- **Checking one ball:** `code/verify_ball.py`, from its manifest alone.
+- **Publishing:** `code/publish_status.py` writes the status block and `results/`; `code/sync_status.sh` pushes each
+  audited pass to main.
+- **Cluster drivers:** `code/rusty/`, with their own README.
+- **Shared helpers:** `code/receipts.py` and `code/nothird.py`. The builders use `nothird.py`'s exact cell geometry.
+
+**Other**
 - `code/census.py`, `code/triples.py`: the census. `python code/triples.py --validate` checks the classifier on the
   known triples.
-- `code/nothird.py`, `code/refine.py`: the retired cell test.
+- `code/retired/`: the cell-test refinement, the stopped deep round, and the old queue script.
 - `results/open.txt`: the open balls, with why each is open.
 - `results/balls.tsv`: one line per seed ball. Columns:
   - `final`: the status above;
