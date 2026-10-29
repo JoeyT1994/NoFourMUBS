@@ -266,6 +266,11 @@ python TripleClassification/code/plane_frontier_certificate.py entry.json \
   --input frontier.input.json.gz --proposal frontier.proposal.json.gz --out frontier-replay.json
 ```
 
+Search saves completed column partitions beside its output, so a stopped run can resume with the
+same `--input` and `--out` and no `--proposal`. These checkpoints are proposals only. On resume,
+the checker rebuilds the complete K cover and rechecks every saved partition against its current
+column ball before using it. Invalid or mismatched saved partitions do not close a pattern.
+
 The rebuilt level-6 cell 4759 of ball 1217 passed both calls, covering all 64 completing-K patterns.
 The original radius is unchanged. This does not prove that the inventory covers the unresolved part
 of an original ball. Combining these receipts with previous closures still requires the full covering

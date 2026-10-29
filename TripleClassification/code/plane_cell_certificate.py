@@ -30,9 +30,25 @@ def pair_excluded(left,right):
     return P.pair_excluded(left,right)
 
 
-def propose(path,depth=6):
+def propose(path,depth=6,checkpoint=None):
     s,model,C,binding,columns,cliques=complete_cover(path)
     proved={};attempted=set();pair_cache={};witnesses=[]
+    if checkpoint is not None and checkpoint.exists():
+        previous=P.read_json(checkpoint)
+        if previous.get('snapshot_sha256')==binding['snapshot_sha256']:
+            for key,proposal in previous.get('columns',{}).items():
+                c=int(key)
+                if c not in columns:continue
+                try:
+                    column=P.Column(model,columns[c],P.hex_array(proposal['weak'],(2,5)))
+                    _,tubes=P.verify_tree(column,proposal['tree'],proposal['roots'],C,root_modes=proposal.get('root_modes'))
+                    proved[c]=(proposal,tubes);attempted.add(c)
+                except (ValueError,ArithmeticError,ZeroDivisionError,KeyError,TypeError):continue
+    def save():
+        if checkpoint is not None:
+            data=dict(snapshot_sha256=binding['snapshot_sha256'],columns={str(c):p for c,(p,t) in proved.items()})
+            temporary=checkpoint.with_suffix('.tmp')
+            temporary.write_bytes(gzip.compress(json.dumps(data).encode(),mtime=0));temporary.replace(checkpoint)
     def witness(clique):
         for c in clique:
             if c in proved and not proved[c][1]:return [c]
@@ -53,6 +69,7 @@ def propose(path,depth=6):
                 column=P.Column(model,columns[c],P.hex_array(proposal['weak'],(2,5)))
                 _,tubes=P.verify_tree(column,proposal['tree'],proposal['roots'],C,root_modes=proposal.get('root_modes'))
                 proved[c]=(proposal,tubes)
+                save()
             except ArithmeticError:continue
             chosen=witness(clique)
         if chosen is None:raise ArithmeticError('complete-cover pattern remains: '+str(clique))
@@ -112,7 +129,7 @@ def main():
     p.add_argument('--depth',type=int,default=6);a=p.parse_args();P.require(0<=a.depth<=10,'invalid depth')
     start=time.monotonic()
     try:
-        proposal=P.read_json(a.proposal) if a.proposal else propose(a.snapshot,a.depth)
+        proposal=P.read_json(a.proposal) if a.proposal else propose(a.snapshot,a.depth,a.out.with_suffix('.columns.json.gz'))
         if not a.proposal:a.out.with_suffix('.proposal.json.gz').write_bytes(gzip.compress(json.dumps(proposal).encode(),mtime=0))
         result=check(a.snapshot,proposal)
     except (ValueError,ArithmeticError,ZeroDivisionError,KeyError,TypeError) as exc:

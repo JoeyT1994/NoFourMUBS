@@ -98,7 +98,7 @@ def run(root,entry,out,proposal_path=None,input_path=None,depth=6):
         require(data['schema']=='tc-h-cell-input-v1' and data['record_sha256']==jsonsha(record),'bad H input')
         require(all(data[k]==entry[k] for k in ('ball','level','cell','subatlas','sub')),'cell input mismatch')
     geometry=cell_geometry(original,record,entry['level'],entry['cell'])
-    proposal=read_json(proposal_path) if proposal_path else Whole.propose(input_path,depth)
+    proposal=read_json(proposal_path) if proposal_path else Whole.propose(input_path,depth,out.with_suffix('.columns.json.gz'))
     if proposal_path is None:
         proposal_path=out.with_suffix('.proposal.json.gz')
         proposal_path.write_bytes(gzip.compress(json.dumps(proposal).encode(),mtime=0))
@@ -117,7 +117,7 @@ def main():
     p.add_argument('entry',type=Path,help='one exact entry from open_cells.jsonl.gz')
     p.add_argument('--out',type=Path,required=True);p.add_argument('--input',type=Path)
     p.add_argument('--proposal',type=Path);p.add_argument('--depth',type=int,default=6)
-    a=p.parse_args();require(0<=a.depth<=10,'invalid depth');require(bool(a.input)==bool(a.proposal),'replay needs input and proposal')
+    a=p.parse_args();require(0<=a.depth<=10,'invalid depth');require(not a.proposal or a.input,'replay needs input and proposal')
     root=Path(os.environ.get('TC_ROOT',Path(__file__).resolve().parents[2])).resolve();start=time.monotonic()
     entry=read_json(a.entry)
     try:result=run(root,entry,a.out,a.proposal,a.input,a.depth)
