@@ -35,7 +35,13 @@ def load(path):
 def number(s): return float.fromhex(s) if isinstance(s,str) else float(s)
 def rows(path):
     def bad(x): raise ValueError('nonfinite JSON constant '+x)
-    result=[json.loads(s,parse_constant=bad) for s in Path(path).read_text().splitlines()]
+    lines=Path(path).read_text().splitlines(); result=[]
+    for n,s in enumerate(lines):
+        try:
+            result.append(json.loads(s,parse_constant=bad))
+        except json.JSONDecodeError:
+            # only an interrupted final write is tolerated; its sub-ball then needs another row or the audit fails
+            need(n==len(lines)-1,'unparsable receipt line')
     need(len(result)==len({x['index'] for x in result}),'duplicate rows')
     return {x['index']:x for x in result}
 def hit(c,level):

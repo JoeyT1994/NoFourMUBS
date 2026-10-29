@@ -119,6 +119,30 @@ def trees(a, V, side, RC):
                 st = os.stat(q); out.append([os.path.realpath(q), st.st_size, int(st.st_mtime)])
         return out
     gamma_stamp = stamp(a.gamma) if a.gamma_rules else []
+    per_ball = {}
+    if a.gamma_rules:
+        # read the (large) gamma receipts once and give each auditor only its ball's records, with only the fields
+        # the auditor checks; the receipts themselves stay as they are
+        keep = ('subatlas_sha256', 'sub', 'seed_sha256', 'receipt_binding', 'gamma_sha256', 'closed_by_certifier',
+                'patterns_total')
+        groups = collections.defaultdict(list)
+        for gp in a.gamma:
+            with open(gp) as f:
+                for line in f:
+                    try:
+                        g = json.loads(line)
+                    except ValueError:
+                        continue
+                    if 'error' in g or g.get('gamma_sha256') != a.gamma_sha: continue
+                    c = {k: g[k] for k in keep}
+                    c['patterns'] = [dict(pattern=x['pattern'], fourier=x['fourier'], ordering=x['ordering'])
+                                     for x in g['patterns']]
+                    groups[g['ball']].append(c)
+        for b, rr in groups.items():
+            p = os.path.join(a.work, 'gamma_b%d.jsonl' % b)
+            with open(p, 'w') as f:
+                for c in rr: f.write(json.dumps(c, separators=(',', ':')) + '\n')
+            per_ball[b] = p
 
     def audit(i, route, layers, scripts):
         base = _hl.sha256(json.dumps([auditor_sha, i, route, stamp(layers), scripts]).encode()).hexdigest()
@@ -131,7 +155,8 @@ def trees(a, V, side, RC):
         return x
 
     def audit_fresh(i, route, layers, scripts):
-        extra = (['--gamma'] + a.gamma + ['--gamma-sha', a.gamma_sha, '--gamma-rules', a.gamma_rules]) if a.gamma_rules else []
+        extra = (['--gamma'] + ([per_ball[i]] if i in per_ball else []) + ['--gamma-sha', a.gamma_sha,
+                  '--gamma-rules', a.gamma_rules]) if a.gamma_rules else []
         cp = subprocess.run([sys.executable, a.tree_auditor, '--root', a.tc_tree, '--index', str(i), '--layers'] + layers
                             + ['--scripts'] + scripts + extra, capture_output=True, text=True)
         try:
