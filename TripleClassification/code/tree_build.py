@@ -10,7 +10,10 @@ This is split_select.py with two changes.
    to the parent record exactly as audit_select.py matches it: the sub-atlas hash, the record hash, the certifier row's
    binding, C1 ok and a certified normal form, the certifier-closed pattern set, and the pattern count.
    A closed cell needs no children (TREE_PROOF.md, Lemma 2). The skipped cells are recorded in
-   `gamma_discharged_parent_cells`.
+   `gamma_discharged_parent_cells`. With $TC_ANCHORED_FILES, $TC_ANCHORED_SHA and $TC_ANCHORED_RUNNER_SHA, a pattern
+   may instead be excluded by an anchored_run.py receipt (the same record, pattern count and colours), and the cells
+   closed that way are recorded in `anchored_discharged_parent_cells`. Only efficiency rests on these targets: the
+   auditor re-derives every closure, and refuses a layer that leaves a needed cell unrefined.
 2. **Children directly.** The 16 children of each target cell are listed directly, instead of enumerating every
    level-L cell.
 
@@ -63,7 +66,8 @@ def build(atlas, index, level, out):
     best = {}
     for r in parent_rows:                                    # one row per sub-ball, a closed one when there is one
         i = r['index']
-        if i not in best or (best[i]['status'] == 'NOT ESTABLISHED' and r['status'] != 'NOT ESTABLISHED'): best[i] = r
+        rank = lambda x: 2 if x['status'] != 'NOT ESTABLISHED' else int(len(x.get('patterns', [])) == x.get('patterns_after_column_filter', -1))
+        if i not in best or rank(r) > rank(best[i]): best[i] = r     # a closed row, else a complete one
     parent_rows = list(best.values())
     pinfo=parent_doc['info']['split']
     if pinfo['parent'] != index or pinfo['level'] != level - 1 or pinfo['atlas_sha256'] != hashlib.sha256(open(atlas,'rb').read()).hexdigest(): raise ValueError('wrong parent')
@@ -72,14 +76,29 @@ def build(atlas, index, level, out):
     if any(r['status'] not in ('CERTIFIED','CERTIFIED EMPTY','NOT ESTABLISHED') for r in parent_rows): raise ValueError('parent has unknown status')
     if len(pinfo['cover'])!=len(parent_doc['seeds']) or any('error' in x for x in pinfo['cover']): raise ValueError('failed or incomplete parent construction')
     open_cells={tuple(x['cell']) for x in pinfo['cover'] if pmap[x['sub']]['status']=='NOT ESTABLISHED'}
-    closed_by_gamma=set()
+    closed_by_gamma=set(); closed_by_anchored=set()
     rules={x for x in os.environ.get('TC_GAMMA_RULES','').split(',') if x}
     gsha=os.environ.get('TC_GAMMA_SHA')
-    if rules and gsha:
-        psha=hashlib.sha256(open(parent_path,'rb').read()).hexdigest()
-        want={x['sub']:x for x in pinfo['cover'] if pmap[x['sub']]['status']=='NOT ESTABLISHED'}
+    asha, arsha = os.environ.get('TC_ANCHORED_SHA'), os.environ.get('TC_ANCHORED_RUNNER_SHA')
+    psha=hashlib.sha256(open(parent_path,'rb').read()).hexdigest()
+    want={x['sub']:x for x in pinfo['cover'] if pmap[x['sub']]['status']=='NOT ESTABLISHED'}
+    excluded={}                                              # sub -> patterns an anchored receipt excludes
+    if asha and arsha:
+        for ap in os.environ.get('TC_ANCHORED_FILES','').split():
+            if not os.path.exists(ap): continue
+            for line in open(ap):
+                try: x=json.loads(line)
+                except ValueError: continue
+                if x.get('status')!='EXCLUDED_GIVEN_INPUT_ENCLOSURES' or x.get('subatlas_sha256')!=psha or x.get('sub') not in want: continue
+                if x.get('checker_sha256')!=asha or x.get('runner_sha256')!=arsha or x.get('H_model_rebuilt_from_record') is not True: continue
+                row=pmap[x['sub']]; pats=row.get('patterns',[])
+                n=x['pattern']
+                if not (n<len(pats) and len(pats)==row.get('patterns_after_column_filter') and pats[n].get('colors')==x.get('pattern_colours')): continue
+                if x.get('record_sha256')!=hashlib.sha256(json.dumps(parent_doc['seeds'][x['sub']],sort_keys=True).encode()).hexdigest(): continue
+                excluded.setdefault(x['sub'],set()).add(n)
+    if (rules and gsha) or excluded:
         recs={}
-        for gp in os.environ.get('TC_GAMMA_FILES','').split():
+        for gp in (os.environ.get('TC_GAMMA_FILES','').split() if rules and gsha else []):
             if not os.path.exists(gp): continue              # a ball may have no receipts of one kind yet
             for line in open(gp):
                 try: g=json.loads(line)
@@ -90,14 +109,20 @@ def build(atlas, index, level, out):
             row=pmap[i]; rec_sha=hashlib.sha256(json.dumps(parent_doc['seeds'][i],sort_keys=True).encode()).hexdigest()
             if not ((row.get('c1') or {}).get('ok') is True and (row.get('normal_form') or {}).get('status')=='CERTIFIED'): continue
             certified={x['number'] for x in row.get('patterns',[]) if x['status'] in ('CERTIFIED','EXCLUDED')}
+            anc=excluded.get(i,set())
+            if anc and 'patterns_after_column_filter' in row and set(range(row['patterns_after_column_filter']))-certified<=anc:
+                closed_by_anchored.add(tuple(entry['cell'])); continue
             for g in recs.get(i,[]):
                 if g.get('seed_sha256')!=rec_sha or g.get('receipt_binding')!=row['binding'] or set(g['closed_by_certifier'])!=certified: continue
                 if 'patterns_after_column_filter' in row and row['patterns_after_column_filter']!=g['patterns_total']: continue
                 openp=set(range(g['patterns_total']))-certified; got={x['pattern']:x for x in g['patterns']}
-                if set(got)!=openp: continue
-                if all((('fourier' in rules) and got[n]['fourier']) or (('ordering' in rules) and (got[n]['fourier'] or got[n]['ordering'])) for n in openp):
+                if not set(got)<=openp: continue
+                score=lambda n: n in got and ((('fourier' in rules) and got[n]['fourier']) or (('ordering' in rules) and (got[n]['fourier'] or got[n]['ordering'])))
+                if all(score(n) for n in openp):
                     closed_by_gamma.add(tuple(entry['cell'])); break
-    targets=open_cells-closed_by_gamma
+                if all(score(n) or n in anc for n in openp):
+                    closed_by_anchored.add(tuple(entry['cell'])); break
+    targets=open_cells-closed_by_gamma-closed_by_anchored
     def one_cell(c):
         """The cover row and sub-ball record of one cell (the row without its sub-ball index), or None."""
         uc = [-1 + (2 * ci + 1) * h for ci in c]
@@ -149,13 +174,13 @@ def build(atlas, index, level, out):
         cover.append(row)
     import hashlib
     out_doc = dict(format=doc.get('format'), max_level=doc.get('max_level'), seeds=subs, records=[], edge=[],
-                   tao=doc.get('tao'), info=dict(split=dict(parent=index, level=level, targeted_parent_cells=sorted(targets), gamma_discharged_parent_cells=sorted(closed_by_gamma), gamma_sha256=gsha if closed_by_gamma else None, gamma_rules=sorted(rules) if closed_by_gamma else [], parent_subatlas_sha256=hashlib.sha256(open(parent_path,'rb').read()).hexdigest(), parent_receipts_sha256=hashlib.sha256(open(parent_rows_path,'rb').read()).hexdigest(), parent_r=rec['r'],
+                   tao=doc.get('tao'), info=dict(split=dict(parent=index, level=level, targeted_parent_cells=sorted(targets), gamma_discharged_parent_cells=sorted(closed_by_gamma), anchored_discharged_parent_cells=sorted(closed_by_anchored), gamma_sha256=gsha if closed_by_gamma else None, gamma_rules=sorted(rules) if closed_by_gamma else [], parent_subatlas_sha256=hashlib.sha256(open(parent_path,'rb').read()).hexdigest(), parent_receipts_sha256=hashlib.sha256(open(parent_rows_path,'rb').read()).hexdigest(), parent_r=rec['r'],
                                                            parent_sha256=hashlib.sha256(json.dumps(rec, sort_keys=True).encode()).hexdigest(),
                                                            atlas_sha256=hashlib.sha256(open(atlas, 'rb').read()).hexdigest(),
                                                            cover=cover)))
     with gzip.open(out, 'wt') as f: json.dump(out_doc, f)
     bad = [r for r in cover if 'error' in r]
-    print('ball %d level %d: %d open parent cells, %d closed by gamma receipts; %d cells, %d sub-balls, %d failed to build' % (index, level, len(open_cells), len(closed_by_gamma), len(cover), len(subs), len(bad)))
+    print('ball %d level %d: %d open parent cells, %d closed by gamma receipts, %d by anchored ones; %d cells, %d sub-balls, %d failed to build' % (index, level, len(open_cells), len(closed_by_gamma), len(closed_by_anchored), len(cover), len(subs), len(bad)))
     for r in bad[:5]: print(' ', r)
 
 

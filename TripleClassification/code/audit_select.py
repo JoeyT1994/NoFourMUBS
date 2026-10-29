@@ -48,11 +48,15 @@ def rows(path):
             # only an interrupted final write is tolerated; its sub-ball then needs another row or the audit fails
             need(n==len(lines)-1,'unparsable receipt line')
     # A sub-ball may carry more than one receipt (a resumed run under another accepted runner); each is a full receipt
-    # of the same record, so the closed one is kept when there is one. The row kept is checked in full below.
+    # of the same record, so the closed one is kept when there is one, and otherwise one listing all its patterns (a
+    # rerun after a timeout). The row kept is checked in full below.
+    def rank(x):
+        if x.get('status')!='NOT ESTABLISHED': return 2
+        return 1 if len(x.get('patterns',[]))==x.get('patterns_after_column_filter',-1) else 0
     out={}
     for x in result:
         i=x['index']
-        if i not in out or (out[i].get('status')=='NOT ESTABLISHED' and x.get('status')!='NOT ESTABLISHED'): out[i]=x
+        if i not in out or rank(x)>rank(out[i]): out[i]=x
     return out
 def hit(c,level):
     n=2**level
@@ -226,7 +230,7 @@ def main():
             if 'patterns_after_column_filter' in row and row['patterns_after_column_filter'] != g['patterns_total']: continue
             openp = set(range(g['patterns_total'])) - certified
             got = {x['pattern']: x for x in g['patterns']}
-            if set(got) != openp: continue
+            if not set(got) <= openp: continue          # a pattern it does not list has no score bound
             # re-derive each discharge exactly from the receipt's binary64 upper bounds (the flags are not used)
             best = {}
             for n in openp:

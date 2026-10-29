@@ -14,7 +14,21 @@ DISCHARGED patterns also gives a gamma receipt, in gamma_test.py's format, appen
 that receipt exactly as it checks gamma_test.py's own. The binding is split_select's, with this file as 'split.py'
 and gamma_test.py added to the sources.
 
+The frozen step calls itself once more, with allow_fine=False, on a refined cover (run.final_pattern). That inner
+call goes straight to the frozen step: it is not a new pattern. (score_first_run_v0.py and score_first_run_v1.py
+lacked this, so every sub-ball reaching that path ended NOT ESTABLISHED with a TypeError. That is fail-closed, but it
+left those rows without their pattern lists.)
+
+A receipt is written for every NOT ESTABLISHED row that was scored, and lists every scored pattern with its bounds and
+flags, discharged or not; the auditor re-derives each discharge from the bounds.
+
+Score-only (TC_SCORE_ONLY=1): a pattern the score does not discharge is recorded as NOT ESTABLISHED ('certifier not
+attempted') instead of running the frozen step. The row claims nothing for it, but it lists every pattern, so another
+rule (an anchored-column receipt) can discharge it.
+
 Resume: a sub-ball that already has a row of any binding is skipped, so a layer never gets two rows for one sub-ball.
+With TC_RERUN_INCOMPLETE=1, a sub-ball whose rows are all NOT ESTABLISHED without a complete pattern list (a timeout or
+the TypeError above) is run again, and its new row is appended (the auditor prefers a complete row).
 
 Parts (for helper nodes): with TC_PART=i/k only sub-balls with index = i (mod k) are run, and with TC_ROWS_OUT=FILE
 their rows go to FILE instead of the layer's .jsonl (rows already in either are skipped). The caller appends FILE to
@@ -34,7 +48,7 @@ def sha(path):
 
 def job(sa, i, bid, seconds, g_ball, ball, sa_sha):
     R, gt, glow = G['R'], G['gt'], G['glow']
-    STATE.clear(); STATE.update(g_ball=g_ball, n=0)
+    STATE.clear(); STATE.update(g_ball=g_ball, n=0, scores={})
 
     def expire(signum, frame): raise TimeoutError('sub-ball time limit of %d s reached' % seconds)
     if seconds: signal.signal(signal.SIGALRM, expire); signal.alarm(int(seconds))
@@ -46,8 +60,7 @@ def job(sa, i, bid, seconds, g_ball, ball, sa_sha):
         if seconds: signal.alarm(0)
     rec = None
     pats = row.get('patterns', [])
-    if row['status'] == 'NOT ESTABLISHED' and 'patterns_after_column_filter' in row and \
-            any(p['status'] == 'DISCHARGED' for p in pats) and 'ctx' in STATE:
+    if row['status'] == 'NOT ESTABLISHED' and 'patterns_after_column_filter' in row and STATE['scores'] and 'ctx' in STATE:
         keep = ('fourier', 'ordering', 'g_up_L_hex', 'g_up_K_hex', 'pr_hex', 'dH_hex', 'm_hex', 'E_L_hex',
                 'g_centre_L_hex')
         rec = dict(subatlas=os.path.basename(sa), subatlas_sha256=sa_sha, sub=i, seed_sha256=row.get('seed_sha256'),
@@ -55,8 +68,8 @@ def job(sa, i, bid, seconds, g_ball, ball, sa_sha):
                    closed_by_certifier=sorted(p['number'] for p in pats if p['status'] in ('CERTIFIED', 'EXCLUDED')),
                    ball=ball, g_lo_H=glow[str(ball)], g_lo_H_cell_hex=STATE['ctx']['g_cell'].hex(),
                    open_patterns=sum(p['status'] not in ('CERTIFIED', 'EXCLUDED') for p in pats),
-                   patterns=[dict(pattern=p['number'], **{k: p[k] for k in keep if k in p})
-                             for p in pats if p['status'] == 'DISCHARGED'],
+                   patterns=[dict(pattern=n, **{k: v[k] for k in keep if k in v}) for n, v in sorted(STATE['scores'].items())
+                             if pats[n]['status'] not in ('CERTIFIED', 'EXCLUDED')] if all(n < len(pats) for n in STATE['scores']) else [],
                    source='score_first_run.py')
         rec['fourier'] = sum(p.get('fourier', False) for p in rec['patterns'])
         rec['ordering'] = sum(p.get('ordering', False) for p in rec['patterns'])
@@ -89,14 +102,21 @@ def main():
     R.binding = binding
     frozen = R.final_pattern
 
-    def final_pattern(model, prepared, bounds, cover, clique):
+    score_only = os.environ.get('TC_SCORE_ONLY') == '1'
+
+    def final_pattern(model, prepared, bounds, cover, clique, allow_fine=True):
+        if not allow_fine:                                       # the frozen step's own inner call (refined cover)
+            return frozen(model, prepared, bounds, cover, clique, allow_fine=False)
         if 'ctx' not in STATE: STATE['ctx'] = GT.prep(model, STATE['g_ball'])
         number = STATE['n']; STATE['n'] += 1                     # run_ball calls this once per pattern, in order
         res = GT.pattern(STATE['ctx'], prepared, bounds, number, clique)
+        STATE['scores'][number] = res
         if res['fourier'] or res['ordering']:
             out = {k: v for k, v in res.items() if k != 'pattern'}
             out.update(status='DISCHARGED', rule='fourier' if res['fourier'] else 'ordering')
             return out
+        if score_only:
+            return dict(status='NOT ESTABLISHED', reason='certifier not attempted (score-only run)')
         return frozen(model, prepared, bounds, cover, clique)
     R.final_pattern = final_pattern
 
@@ -108,11 +128,15 @@ def main():
         bid = binding(sa)['id']; sa_sha = sha(sa)
         done = set()
         alt = os.environ.get('TC_ROWS_OUT')
+        rerun = os.environ.get('TC_RERUN_INCOMPLETE') == '1'
+        complete = lambda r: r.get('status') != 'NOT ESTABLISHED' or 'pattern cap' in (r.get('reason') or '') or \
+            len(r.get('patterns', [])) == r.get('patterns_after_column_filter', -1)
         for rows_file in (out, alt) if alt else (out,):
             if not os.path.exists(rows_file): continue
             for line in open(rows_file):
                 try:
-                    done.add(json.loads(line)['index'])
+                    r = json.loads(line)
+                    if not rerun or complete(r): done.add(r['index'])
                 except (ValueError, KeyError):
                     continue
         if alt: out = alt

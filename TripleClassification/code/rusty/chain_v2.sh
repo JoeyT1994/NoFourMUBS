@@ -1,6 +1,8 @@
 #!/bin/bash
 # One ball's selective chain, score-first throughout. For each level L: finish layer L-1 with score_first_run.py (each
-# pattern scored before it is certified), score its open cells (gamma_test.py), and build layer L from the cells no receipt closes.
+# pattern scored before it is certified), score its open cells (gamma_test.py), run the anchored-column check on the
+# patterns the score leaves (anchored_run.py, receipts in anchored_v1/b<ball>.chain.jsonl), and build layer L from the
+# cells no receipt closes.
 # Env: BALLS (one ball), SEL (chain directory), LEVELS (default 4 5 6 7 8). The scratch cell list is one file named by
 # ball and job id, removed by that exact path.
 #SBATCH --job-name=tc-chain2
@@ -15,7 +17,11 @@ B=/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc; S=$SEL; b=$BALLS; G=$B/s
 PY=/mnt/ceph/users/jtindall/venvs/nofourmubs/bin/python; C=$B/main_split3/TripleClassification/code
 ATLAS=$B/frozen_bd87c69/proof/seed_atlas/results/seed_atlas_certificate.json.gz
 export VECLIB_MAXIMUM_THREADS=1 OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1
+W=${SLURM_CPUS_ON_NODE:-$(nproc --all)}            # (nproc alone honours OMP_NUM_THREADS=1)
 export TC_GAMMA_SHA=$(sha256sum $G/gamma_test.py | cut -c1-64) TC_GAMMA_RULES=fourier,ordering
+export TC_ANCHORED_SHA=$(sha256sum $C/anchored_column_certificate.py | cut -c1-64) TC_ANCHORED_RUNNER_SHA=$(sha256sum $C/anchored_run.py | cut -c1-64)
+ANC="$G/anchored_v1/b$b.chain.jsonl"; touch "$ANC"
+export TC_ANCHORED_FILES="$G/anchored_v1/b$b.jsonl $ANC"
 mkdir -p "$G/gamma_v3"
 NEW="$G/gamma_v3/b$b.jsonl"; touch "$NEW"      # receipts of the Arb gamma_test.py, one file per ball
 dir() { case $1 in 2) echo $S/parents;; 3) echo $S/children;; *) echo $S/l$1;; esac; }
@@ -79,6 +85,11 @@ for L in ${LEVELS:-4 5 6 7 8 9 10}; do
     rm -f -- "$LIST"
   fi
   if [ ! -f "$of" ]; then
+    AL="$S/.anchored_b${b}_$SLURM_JOB_ID.txt"
+    n=$(python3 "$G/anchored_list.py" "$AL" "$b")
+    echo "$(date +%H:%M) ball $b: $n sub-balls for the anchored check"
+    [ "$n" -gt 0 ] && "$PY" -W ignore "$C/anchored_run.py" "$B/frozen_bd87c69" "$AL" "$ANC" "$W"
+    rm -f -- "$AL"
     TC_BUILD_WORKERS=128 TC_PARENT_DIR="$(dir $((L-1)))" TC_GAMMA_FILES="$NEW" "$PY" -W ignore "$C/tree_build.py" build "$ATLAS" "$b" "$L" "$of" || break
   fi
   "$PY" -c "import gzip,json,sys; sys.exit(0 if json.load(gzip.open(sys.argv[1]))['seeds'] else 1)" "$of" || { echo "ball $b: nothing left to refine at level $L"; break; }

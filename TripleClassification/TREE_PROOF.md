@@ -115,8 +115,10 @@ cell's sub-ball mod 2π. That sub-ball's record is certified, so the statement h
 
 ## Notes
 
-- **No result is promoted.** A NOT ESTABLISHED row only ever triggers refinement. A timeout counts as NOT ESTABLISHED.
-  A missing, duplicated or unparsable row fails the audit.
+- **No result is promoted.** A NOT ESTABLISHED row only ever triggers refinement, unless a rule discharges every
+  pattern it left open. A timeout counts as NOT ESTABLISHED. A missing or unparsable row fails the audit. When a
+  sub-ball has several rows (a resumed or rerun layer), the auditor keeps a closed one, else one listing all its
+  patterns, and checks the row it keeps in full.
 - **Several accepted builders per layer** are allowed. The level-2 rows come from three versions of `split.py`, all
   constructing records the same way, and some rows also bind the Stage C guard. Level 3 comes from `split_mixed.py`
   (the collaborator's) or `split_select.py`; levels 4 and deeper from `split_select.py`. Lemma 1 is checked on every

@@ -149,7 +149,9 @@ lie between:
 - the cells the audit still needs;
 - all the cells the certifier left open.
 
-When a sub-ball carries two full receipts (a resumed run), the closed one is kept, and it is checked in full. For
+When a sub-ball carries two full receipts (a resumed run), the closed one is kept, or else one listing all its
+patterns, and it is checked in full. A score receipt may list only some of a cell's open patterns; the others then
+need another rule. For
 each ball, the assembly prefers the tree using the fewest added ingredients:
 1. the certifier alone;
 2. then the Fourier rule;
@@ -168,4 +170,9 @@ each ball, the assembly prefers the tree using the fewest added ingredients:
 5. §4: the float64 margin DELTA for the exhaustive centre bound, and that the per-cell threshold is a valid lower
    bound of Γ_F(H) over the cell.
 6. That wrapping `run.final_pattern` in `score_first_run.py` leaves the frozen certifier's verdict logic intact for
-   every pattern it does not discharge.
+   every pattern it does not discharge. *Correction, 29 October 2026:* the frozen step calls `final_pattern` again
+   with `allow_fine=False` on a refined cover, and the wrapper in `score_first_run_v0.py` and `_v1.py` did not accept
+   that argument. Every sub-ball reaching the fine path therefore ended NOT ESTABLISHED with a TypeError and no
+   pattern list: fail-closed, no verdict changed, but those cells could not be closed. The current runner passes the
+   inner call straight to the frozen step. Its score-only mode (`TC_SCORE_ONLY=1`) records undischarged patterns as
+   NOT ESTABLISHED without certifying them, and the incomplete rows are being rerun that way.

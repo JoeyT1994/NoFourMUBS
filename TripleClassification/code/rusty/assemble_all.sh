@@ -20,7 +20,7 @@ $PY -W ignore $C/assemble.py $RAW $B/$OUT --tc-tree $B/frozen_bd87c69 --atlas $A
   --sidecar $B/sidecar/sidecar_*.jsonl \
   --split-dir $B/split --work $B/$OUT.work --workers 128 --cache $B/assemble_cache.json \
   --tree-auditor $C/audit_select.py --tree-auditor-sha $(sha256sum $C/audit_select.py | cut -c1-64) \
-  --l3-script $C/split_mixed.py --deep-script $C/split_select.py,$C/tree_build.py,$C/tree_build_v0.py,$C/tree_build_v1.py,$C/score_first_run.py,$C/score_first_run_v0.py \
+  --l3-script $C/split_mixed.py --deep-script $C/split_select.py,$C/tree_build.py,$C/tree_build_v0.py,$C/tree_build_v1.py,$C/tree_build_v2.py,$C/score_first_run.py,$C/score_first_run_v0.py,$C/score_first_run_v1.py \
   --chain-dir $B/selective $B/selective2 --l3-dir $B/projection_more_20261028 $B/tc_selective_round2 $B/tc_selective_batch \
   --gamma-dir $B/selective/gamma_v3 --gamma-lower $B/selective/gamma_lower.json \
   --gamma-sha $(sha256sum $B/selective/gamma_test.py | cut -c1-64) --gamma-rules ${GAMMA_RULES:-fourier,ordering,anchored} \

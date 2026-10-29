@@ -178,7 +178,7 @@ manifests in this repository:
 - **Anchored exclusions:** `code/anchored_column_certificate.py` (the collaborator's checker) and `code/anchored_run.py`,
   which runs it on the open patterns of many sub-balls (`ANCHORED_PROOF.md`).
 - **The auditor:** `code/audit_select.py`, which checks one tree (`TREE_PROOF.md`); `code/test_audit_select.py`
-  runs it on three real trees, eleven tampered copies and seven anchored-receipt cases.
+  runs it on three real trees, eleven tampered copies and eight anchored-receipt cases.
 - **Stage C:** `code/stagec_guard.py`.
 - **Assembly:** `code/assemble.py`. It writes `results/`, plus a certificate manifest for each closed ball.
 - **Checking one ball:** `code/verify_ball.py`, from its manifest alone.
