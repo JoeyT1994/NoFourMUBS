@@ -3,16 +3,16 @@
  "final": {
   "empty": 2101,
   "tree": 355,
-  "open": 46,
-  "tree_ordering": 1,
+  "open": 45,
+  "tree_ordering": 2,
   "classified": 272
  },
  "nearest_triple_median": {
-  "tree_ordering": 0.579,
-  "tree": 0.365,
   "classified": 0.083,
+  "tree": 0.365,
   "open": 0.217,
-  "empty": 0.901
+  "empty": 0.901,
+  "tree_ordering": 0.579
  },
  "certifier": {
   "CERTIFIED EMPTY": 2101,
@@ -249,7 +249,7 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b172.json"
   },
   "194": {
-   "status": "audit failed: ValueError: duplicate rows",
+   "status": "audit failed: ValueError: incorrect target mask at level 4",
    "route": "selective chain"
   },
   "197": {
@@ -326,7 +326,7 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b249.json"
   },
   "282": {
-   "status": "audit failed: ValueError: duplicate rows",
+   "status": "audit failed: ValueError: layer 4 names a different previous layer",
    "route": "selective chain"
   },
   "290": {
@@ -512,7 +512,7 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b340.json"
   },
   "363": {
-   "status": "audit failed: ValueError: duplicate rows",
+   "status": "audit failed: ValueError: layer 4 names a different previous layer",
    "route": "selective chain"
   },
   "415": {
@@ -965,7 +965,7 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b493.json"
   },
   "499": {
-   "status": "audit failed: ValueError: duplicate rows",
+   "status": "audit failed: ValueError: incorrect target mask at level 4",
    "route": "selective chain"
   },
   "525": {
@@ -1310,7 +1310,7 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b584.json"
   },
   "588": {
-   "status": "audit failed: ValueError: duplicate rows",
+   "status": "audit failed: ValueError: incorrect target mask at level 4",
    "route": "selective chain"
   },
   "589": {
@@ -1343,7 +1343,7 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b589.json"
   },
   "595": {
-   "status": "audit failed: ValueError: duplicate rows",
+   "status": "audit failed: ValueError: layer 4 names a different previous layer",
    "route": "selective chain"
   },
   "596": {
@@ -1557,11 +1557,11 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b612.json"
   },
   "636": {
-   "status": "audit failed: ValueError: duplicate rows",
+   "status": "audit failed: ValueError: layer 4 names a different previous layer",
    "route": "selective chain"
   },
   "641": {
-   "status": "audit failed: ValueError: duplicate rows",
+   "status": "audit failed: ValueError: layer 4 names a different previous layer",
    "route": "selective chain"
   },
   "643": {
@@ -1638,7 +1638,7 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b665.json"
   },
   "666": {
-   "status": "audit failed: ValueError: duplicate rows",
+   "status": "audit failed: ValueError: layer 4 names a different previous layer",
    "route": "selective chain"
   },
   "671": {
@@ -1693,7 +1693,7 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b677.json"
   },
   "678": {
-   "status": "audit failed: ValueError: duplicate rows",
+   "status": "audit failed: ValueError: incorrect target mask at level 4",
    "route": "selective chain"
   },
   "679": {
@@ -1972,11 +1972,11 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b702.json"
   },
   "703": {
-   "status": "audit failed: ValueError: duplicate rows",
+   "status": "audit failed: ValueError: incorrect target mask at level 4",
    "route": "selective chain"
   },
   "704": {
-   "status": "audit failed: ValueError: duplicate rows",
+   "status": "audit failed: ValueError: layer 4 names a different previous layer",
    "route": "selective chain"
   },
   "716": {
@@ -2045,15 +2045,15 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b717.json"
   },
   "730": {
-   "status": "audit failed: ValueError: duplicate rows",
+   "status": "audit failed: ValueError: layer 4 names a different previous layer",
    "route": "selective chain"
   },
   "733": {
-   "status": "audit failed: ValueError: duplicate rows",
+   "status": "audit failed: ValueError: layer 4 names a different previous layer",
    "route": "selective chain"
   },
   "734": {
-   "status": "audit failed: ValueError: duplicate rows",
+   "status": "audit failed: ValueError: layer 4 names a different previous layer",
    "route": "selective chain"
   },
   "740": {
@@ -2217,7 +2217,7 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b753.json"
   },
   "754": {
-   "status": "audit failed: ValueError: duplicate rows",
+   "status": "audit failed: ValueError: incorrect target mask at level 4",
    "route": "selective chain"
   },
   "764": {
@@ -2243,7 +2243,7 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b764.json"
   },
   "767": {
-   "status": "audit failed: ValueError: duplicate rows",
+   "status": "audit failed: ValueError: layer 4 names a different previous layer",
    "route": "selective chain"
   },
   "768": {
@@ -2338,11 +2338,50 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b773.json"
   },
   "777": {
-   "status": "1699 closed sub-balls without Stage C preconditions",
-   "route": "selective chain"
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 5,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 83,
+     "open": 173,
+     "still_open": 173
+    },
+    {
+     "level": 3,
+     "cells": 1914,
+     "closed": 1126,
+     "open": 788,
+     "still_open": 788
+    },
+    {
+     "level": 4,
+     "cells": 10027,
+     "closed": 8849,
+     "open": 1178,
+     "still_open": 34
+    },
+    {
+     "level": 5,
+     "cells": 399,
+     "closed": 221,
+     "open": 178,
+     "still_open": 0
+    }
+   ],
+   "rule": "ordering",
+   "gamma": {
+    "fourier": 16,
+    "ordering": 1306
+   },
+   "leaves": 10279,
+   "tangent_cells": 0,
+   "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b777.json"
   },
   "779": {
-   "status": "audit failed: ValueError: duplicate rows",
+   "status": "audit failed: ValueError: layer 4 names a different previous layer",
    "route": "selective chain"
   },
   "782": {
@@ -2592,7 +2631,7 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b807.json"
   },
   "815": {
-   "status": "audit failed: ValueError: duplicate rows",
+   "status": "audit failed: ValueError: layer 4 names a different previous layer",
    "route": "selective chain"
   },
   "822": {
@@ -2669,7 +2708,7 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b828.json"
   },
   "830": {
-   "status": "audit failed: ValueError: duplicate rows",
+   "status": "audit failed: ValueError: incorrect target mask at level 4",
    "route": "selective chain"
   },
   "832": {
@@ -2868,7 +2907,7 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b841.json"
   },
   "845": {
-   "status": "audit failed: ValueError: duplicate rows",
+   "status": "audit failed: ValueError: layer 4 names a different previous layer",
    "route": "selective chain"
   },
   "846": {
@@ -2951,7 +2990,7 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b847.json"
   },
   "848": {
-   "status": "audit failed: ValueError: duplicate rows",
+   "status": "audit failed: ValueError: layer 4 names a different previous layer",
    "route": "selective chain"
   },
   "852": {
@@ -3320,7 +3359,7 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b880.json"
   },
   "883": {
-   "status": "audit failed: ValueError: duplicate rows",
+   "status": "audit failed: ValueError: layer 4 names a different previous layer",
    "route": "selective chain"
   },
   "884": {
@@ -3569,7 +3608,7 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b900.json"
   },
   "905": {
-   "status": "audit failed: ValueError: duplicate rows",
+   "status": "audit failed: ValueError: layer 4 names a different previous layer",
    "route": "selective chain"
   },
   "907": {
@@ -3624,7 +3663,7 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b908.json"
   },
   "918": {
-   "status": "audit failed: ValueError: duplicate rows",
+   "status": "audit failed: ValueError: incorrect target mask at level 4",
    "route": "selective chain"
   },
   "923": {
@@ -3708,7 +3747,7 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b926.json"
   },
   "927": {
-   "status": "audit failed: ValueError: duplicate rows",
+   "status": "audit failed: ValueError: layer 4 names a different previous layer",
    "route": "selective chain"
   },
   "928": {
@@ -4390,11 +4429,11 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b1005.json"
   },
   "1010": {
-   "status": "audit failed: ValueError: duplicate rows",
+   "status": "audit failed: ValueError: incorrect target mask at level 4",
    "route": "selective chain"
   },
   "1016": {
-   "status": "audit failed: ValueError: duplicate rows",
+   "status": "audit failed: ValueError: layer 4 names a different previous layer",
    "route": "selective chain"
   },
   "1022": {
@@ -4507,11 +4546,11 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b1028.json"
   },
   "1035": {
-   "status": "audit failed: ValueError: duplicate rows",
+   "status": "audit failed: ValueError: layer 4 names a different previous layer",
    "route": "selective chain"
   },
   "1038": {
-   "status": "audit failed: ValueError: duplicate rows",
+   "status": "audit failed: ValueError: incorrect target mask at level 4",
    "route": "selective chain"
   },
   "1052": {
@@ -4587,7 +4626,7 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b1056.json"
   },
   "1070": {
-   "status": "audit failed: ValueError: duplicate rows",
+   "status": "audit failed: ValueError: incorrect target mask at level 4",
    "route": "selective chain"
   },
   "1072": {
@@ -4664,7 +4703,7 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b1083.json"
   },
   "1089": {
-   "status": "audit failed: ValueError: duplicate rows",
+   "status": "audit failed: ValueError: layer 4 names a different previous layer",
    "route": "selective chain"
   },
   "1090": {
@@ -5381,7 +5420,7 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b1212.json"
   },
   "1213": {
-   "status": "audit failed: ValueError: duplicate rows",
+   "status": "audit failed: ValueError: layer 4 names a different previous layer",
    "route": "selective chain"
   },
   "1215": {
@@ -5407,15 +5446,15 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b1215.json"
   },
   "1216": {
-   "status": "audit failed: ValueError: duplicate rows",
+   "status": "audit failed: ValueError: layer 4 names a different previous layer",
    "route": "selective chain"
   },
   "1217": {
-   "status": "audit failed: ValueError: duplicate rows",
+   "status": "audit failed: ValueError: layer 4 names a different previous layer",
    "route": "selective chain"
   },
   "1227": {
-   "status": "audit failed: ValueError: duplicate rows",
+   "status": "audit failed: ValueError: layer 4 names a different previous layer",
    "route": "selective chain"
   },
   "1230": {
@@ -5535,11 +5574,11 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b1263.json"
   },
   "1265": {
-   "status": "audit failed: ValueError: duplicate rows",
+   "status": "audit failed: ValueError: incorrect target mask at level 4",
    "route": "selective chain"
   },
   "1270": {
-   "status": "audit failed: ValueError: duplicate rows",
+   "status": "audit failed: ValueError: layer 4 names a different previous layer",
    "route": "selective chain"
   },
   "1272": {
@@ -7262,7 +7301,7 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b1616.json"
   },
   "1622": {
-   "status": "audit failed: ValueError: duplicate rows",
+   "status": "audit failed: ValueError: layer 4 names a different previous layer",
    "route": "selective chain"
   },
   "1628": {
@@ -9498,7 +9537,7 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b2606.json"
   },
   "2705": {
-   "status": "audit failed: ValueError: duplicate rows",
+   "status": "audit failed: ValueError: layer 4 names a different previous layer",
    "route": "selective chain"
   },
   "2707": {
