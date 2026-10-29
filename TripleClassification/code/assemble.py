@@ -61,8 +61,11 @@ def clean_l2(src, work):
             continue
         i = x.get('index')
         if i not in best or (best[i]['status'] == 'NOT ESTABLISHED' and x['status'] != 'NOT ESTABLISHED'): best[i] = x
+    raw = src[:-len('.jsonl')] + '.json.gz'
+    clean = sum(1 for _ in open(src)) == len(best)          # every line parsed, one row per sub-ball: use as is
+    if clean: return raw
     base = os.path.join(work, os.path.basename(src)[:-len('.jsonl')])
-    if not os.path.exists(base + '.json.gz'): os.symlink(os.path.abspath(src[:-len('.jsonl')] + '.json.gz'), base + '.json.gz')
+    if not os.path.exists(base + '.json.gz'): os.symlink(os.path.abspath(raw), base + '.json.gz')
     with open(base + '.jsonl', 'w') as f:
         for i in sorted(best): f.write(J.dumps(best[i]) + '\n')
     return base + '.json.gz'
