@@ -2,17 +2,17 @@
  "seed_balls": 2775,
  "final": {
   "empty": 2101,
-  "tree": 355,
-  "open": 45,
-  "tree_ordering": 2,
+  "tree": 369,
+  "open": 23,
+  "tree_ordering": 10,
   "classified": 272
  },
  "nearest_triple_median": {
-  "tree_ordering": 0.579,
-  "tree": 0.365,
+  "tree": 0.358,
+  "empty": 0.901,
   "open": 0.217,
   "classified": 0.083,
-  "empty": 0.901
+  "tree_ordering": 0.198
  },
  "certifier": {
   "CERTIFIED EMPTY": 2101,
@@ -249,8 +249,47 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b172.json"
   },
   "194": {
-   "status": "audit failed: ValueError: incorrect target mask at level 4",
-   "route": "selective chain"
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 5,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 211,
+     "open": 45,
+     "still_open": 45
+    },
+    {
+     "level": 3,
+     "cells": 402,
+     "closed": 317,
+     "open": 85,
+     "still_open": 85
+    },
+    {
+     "level": 4,
+     "cells": 681,
+     "closed": 661,
+     "open": 20,
+     "still_open": 20
+    },
+    {
+     "level": 5,
+     "cells": 112,
+     "closed": 112,
+     "open": 0,
+     "still_open": 0
+    }
+   ],
+   "rule": "certifier",
+   "gamma": {
+    "fourier": 0,
+    "ordering": 0
+   },
+   "leaves": 1301,
+   "tangent_cells": 0,
+   "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b194.json"
   },
   "197": {
    "status": "closed",
@@ -326,7 +365,7 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b249.json"
   },
   "282": {
-   "status": "audit failed: ValueError: layer 4 names a different previous layer",
+   "status": "open below level 7",
    "route": "selective chain"
   },
   "290": {
@@ -512,7 +551,7 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b340.json"
   },
   "363": {
-   "status": "audit failed: ValueError: layer 4 names a different previous layer",
+   "status": "audit failed: ValueError: missing or unexpected rows at level 5",
    "route": "selective chain"
   },
   "415": {
@@ -965,7 +1004,7 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b493.json"
   },
   "499": {
-   "status": "audit failed: ValueError: incorrect target mask at level 4",
+   "status": "audit failed: ValueError: missing or unexpected rows at level 5",
    "route": "selective chain"
   },
   "525": {
@@ -1310,7 +1349,7 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b584.json"
   },
   "588": {
-   "status": "audit failed: ValueError: incorrect target mask at level 4",
+   "status": "audit failed: ValueError: missing or unexpected rows at level 6",
    "route": "selective chain"
   },
   "589": {
@@ -1343,7 +1382,7 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b589.json"
   },
   "595": {
-   "status": "audit failed: ValueError: layer 4 names a different previous layer",
+   "status": "audit failed: ValueError: missing or unexpected rows at level 5",
    "route": "selective chain"
   },
   "596": {
@@ -1557,11 +1596,50 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b612.json"
   },
   "636": {
-   "status": "audit failed: ValueError: layer 4 names a different previous layer",
-   "route": "selective chain"
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 5,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 103,
+     "open": 153,
+     "still_open": 153
+    },
+    {
+     "level": 3,
+     "cells": 1704,
+     "closed": 1398,
+     "open": 306,
+     "still_open": 306
+    },
+    {
+     "level": 4,
+     "cells": 3253,
+     "closed": 2910,
+     "open": 343,
+     "still_open": 343
+    },
+    {
+     "level": 5,
+     "cells": 3119,
+     "closed": 2990,
+     "open": 129,
+     "still_open": 0
+    }
+   ],
+   "rule": "ordering",
+   "gamma": {
+    "fourier": 24,
+    "ordering": 105
+   },
+   "leaves": 7401,
+   "tangent_cells": 0,
+   "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b636.json"
   },
   "641": {
-   "status": "audit failed: ValueError: layer 4 names a different previous layer",
+   "status": "audit failed: ValueError: missing or unexpected rows at level 6",
    "route": "selective chain"
   },
   "643": {
@@ -1638,7 +1716,7 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b665.json"
   },
   "666": {
-   "status": "audit failed: ValueError: layer 4 names a different previous layer",
+   "status": "audit failed: ValueError: missing or unexpected rows at level 5",
    "route": "selective chain"
   },
   "671": {
@@ -1693,7 +1771,7 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b677.json"
   },
   "678": {
-   "status": "audit failed: ValueError: incorrect target mask at level 4",
+   "status": "audit failed: ValueError: missing or unexpected rows at level 5",
    "route": "selective chain"
   },
   "679": {
@@ -1972,12 +2050,104 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b702.json"
   },
   "703": {
-   "status": "audit failed: ValueError: incorrect target mask at level 4",
-   "route": "selective chain"
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 6,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 121,
+     "open": 135,
+     "still_open": 135
+    },
+    {
+     "level": 3,
+     "cells": 1447,
+     "closed": 1170,
+     "open": 277,
+     "still_open": 277
+    },
+    {
+     "level": 4,
+     "cells": 3302,
+     "closed": 3278,
+     "open": 24,
+     "still_open": 24
+    },
+    {
+     "level": 5,
+     "cells": 242,
+     "closed": 241,
+     "open": 1,
+     "still_open": 1
+    },
+    {
+     "level": 6,
+     "cells": 14,
+     "closed": 14,
+     "open": 0,
+     "still_open": 0
+    }
+   ],
+   "rule": "certifier",
+   "gamma": {
+    "fourier": 0,
+    "ordering": 0
+   },
+   "leaves": 4824,
+   "tangent_cells": 0,
+   "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b703.json"
   },
   "704": {
-   "status": "audit failed: ValueError: layer 4 names a different previous layer",
-   "route": "selective chain"
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 6,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 140,
+     "open": 116,
+     "still_open": 116
+    },
+    {
+     "level": 3,
+     "cells": 1259,
+     "closed": 912,
+     "open": 347,
+     "still_open": 347
+    },
+    {
+     "level": 4,
+     "cells": 4139,
+     "closed": 4138,
+     "open": 1,
+     "still_open": 1
+    },
+    {
+     "level": 5,
+     "cells": 10,
+     "closed": 10,
+     "open": 0,
+     "still_open": 0
+    },
+    {
+     "level": 6,
+     "cells": 0,
+     "closed": 0,
+     "open": 0,
+     "still_open": 0
+    }
+   ],
+   "rule": "certifier",
+   "gamma": {
+    "fourier": 0,
+    "ordering": 0
+   },
+   "leaves": 5200,
+   "tangent_cells": 0,
+   "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b704.json"
   },
   "716": {
    "status": "closed",
@@ -2045,16 +2215,62 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b717.json"
   },
   "730": {
-   "status": "audit failed: ValueError: layer 4 names a different previous layer",
+   "status": "49 closed sub-balls without Stage C preconditions",
    "route": "selective chain"
   },
   "733": {
-   "status": "audit failed: ValueError: layer 4 names a different previous layer",
+   "status": "1 closed sub-balls without Stage C preconditions",
    "route": "selective chain"
   },
   "734": {
-   "status": "audit failed: ValueError: layer 4 names a different previous layer",
-   "route": "selective chain"
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 6,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 162,
+     "open": 94,
+     "still_open": 94
+    },
+    {
+     "level": 3,
+     "cells": 966,
+     "closed": 755,
+     "open": 211,
+     "still_open": 211
+    },
+    {
+     "level": 4,
+     "cells": 2074,
+     "closed": 1397,
+     "open": 677,
+     "still_open": 677
+    },
+    {
+     "level": 5,
+     "cells": 7537,
+     "closed": 3464,
+     "open": 4073,
+     "still_open": 16
+    },
+    {
+     "level": 6,
+     "cells": 127,
+     "closed": 83,
+     "open": 44,
+     "still_open": 0
+    }
+   ],
+   "rule": "ordering",
+   "gamma": {
+    "fourier": 4,
+    "ordering": 4097
+   },
+   "leaves": 5861,
+   "tangent_cells": 0,
+   "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b734.json"
   },
   "740": {
    "status": "closed",
@@ -2217,8 +2433,47 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b753.json"
   },
   "754": {
-   "status": "audit failed: ValueError: incorrect target mask at level 4",
-   "route": "selective chain"
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 5,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 209,
+     "open": 47,
+     "still_open": 47
+    },
+    {
+     "level": 3,
+     "cells": 443,
+     "closed": 395,
+     "open": 48,
+     "still_open": 48
+    },
+    {
+     "level": 4,
+     "cells": 434,
+     "closed": 433,
+     "open": 1,
+     "still_open": 1
+    },
+    {
+     "level": 5,
+     "cells": 1,
+     "closed": 1,
+     "open": 0,
+     "still_open": 0
+    }
+   ],
+   "rule": "certifier",
+   "gamma": {
+    "fourier": 0,
+    "ordering": 0
+   },
+   "leaves": 1038,
+   "tangent_cells": 0,
+   "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b754.json"
   },
   "764": {
    "status": "closed",
@@ -2243,11 +2498,43 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b764.json"
   },
   "767": {
-   "status": "audit failed: ValueError: layer 4 names a different previous layer",
-   "route": "selective chain"
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 4,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 133,
+     "open": 123,
+     "still_open": 123
+    },
+    {
+     "level": 3,
+     "cells": 1313,
+     "closed": 1302,
+     "open": 11,
+     "still_open": 11
+    },
+    {
+     "level": 4,
+     "cells": 144,
+     "closed": 144,
+     "open": 0,
+     "still_open": 0
+    }
+   ],
+   "rule": "certifier",
+   "gamma": {
+    "fourier": 0,
+    "ordering": 0
+   },
+   "leaves": 1579,
+   "tangent_cells": 0,
+   "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b767.json"
   },
   "768": {
-   "status": "open below level 4",
+   "status": "audit failed: ValueError: missing or unexpected rows at level 5",
    "route": "selective chain"
   },
   "769": {
@@ -2381,7 +2668,7 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b777.json"
   },
   "779": {
-   "status": "audit failed: ValueError: layer 4 names a different previous layer",
+   "status": "1 closed sub-balls without Stage C preconditions",
    "route": "selective chain"
   },
   "782": {
@@ -2631,7 +2918,7 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b807.json"
   },
   "815": {
-   "status": "audit failed: ValueError: layer 4 names a different previous layer",
+   "status": "audit failed: ValueError: missing or unexpected rows at level 5",
    "route": "selective chain"
   },
   "822": {
@@ -2664,11 +2951,11 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b822.json"
   },
   "823": {
-   "status": "open below level 4",
+   "status": "audit failed: ValueError: missing or unexpected rows at level 5",
    "route": "selective chain"
   },
   "825": {
-   "status": "open below level 4",
+   "status": "audit failed: ValueError: missing or unexpected rows at level 5",
    "route": "selective chain"
   },
   "828": {
@@ -2708,7 +2995,7 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b828.json"
   },
   "830": {
-   "status": "audit failed: ValueError: incorrect target mask at level 4",
+   "status": "audit failed: ValueError: missing or unexpected rows at level 5",
    "route": "selective chain"
   },
   "832": {
@@ -2907,8 +3194,40 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b841.json"
   },
   "845": {
-   "status": "audit failed: ValueError: layer 4 names a different previous layer",
-   "route": "selective chain"
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 4,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 199,
+     "open": 57,
+     "still_open": 57
+    },
+    {
+     "level": 3,
+     "cells": 584,
+     "closed": 557,
+     "open": 27,
+     "still_open": 27
+    },
+    {
+     "level": 4,
+     "cells": 252,
+     "closed": 252,
+     "open": 0,
+     "still_open": 0
+    }
+   ],
+   "rule": "certifier",
+   "gamma": {
+    "fourier": 0,
+    "ordering": 0
+   },
+   "leaves": 1008,
+   "tangent_cells": 0,
+   "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b845.json"
   },
   "846": {
    "status": "closed",
@@ -2990,8 +3309,54 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b847.json"
   },
   "848": {
-   "status": "audit failed: ValueError: layer 4 names a different previous layer",
-   "route": "selective chain"
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 6,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 148,
+     "open": 108,
+     "still_open": 108
+    },
+    {
+     "level": 3,
+     "cells": 1175,
+     "closed": 793,
+     "open": 382,
+     "still_open": 382
+    },
+    {
+     "level": 4,
+     "cells": 4501,
+     "closed": 4353,
+     "open": 148,
+     "still_open": 148
+    },
+    {
+     "level": 5,
+     "cells": 1918,
+     "closed": 1918,
+     "open": 0,
+     "still_open": 0
+    },
+    {
+     "level": 6,
+     "cells": 0,
+     "closed": 0,
+     "open": 0,
+     "still_open": 0
+    }
+   ],
+   "rule": "certifier",
+   "gamma": {
+    "fourier": 0,
+    "ordering": 0
+   },
+   "leaves": 7212,
+   "tangent_cells": 0,
+   "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b848.json"
   },
   "852": {
    "status": "closed",
@@ -3080,7 +3445,7 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b853.json"
   },
   "858": {
-   "status": "open below level 4",
+   "status": "audit failed: ValueError: missing or unexpected rows at level 5",
    "route": "selective chain"
   },
   "866": {
@@ -3359,8 +3724,47 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b880.json"
   },
   "883": {
-   "status": "audit failed: ValueError: layer 4 names a different previous layer",
-   "route": "selective chain"
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 5,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 99,
+     "open": 157,
+     "still_open": 157
+    },
+    {
+     "level": 3,
+     "cells": 1712,
+     "closed": 1514,
+     "open": 198,
+     "still_open": 198
+    },
+    {
+     "level": 4,
+     "cells": 2446,
+     "closed": 2446,
+     "open": 0,
+     "still_open": 0
+    },
+    {
+     "level": 5,
+     "cells": 0,
+     "closed": 0,
+     "open": 0,
+     "still_open": 0
+    }
+   ],
+   "rule": "certifier",
+   "gamma": {
+    "fourier": 0,
+    "ordering": 0
+   },
+   "leaves": 4059,
+   "tangent_cells": 0,
+   "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b883.json"
   },
   "884": {
    "status": "closed",
@@ -3608,8 +4012,47 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b900.json"
   },
   "905": {
-   "status": "audit failed: ValueError: layer 4 names a different previous layer",
-   "route": "selective chain"
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 5,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 67,
+     "open": 189,
+     "still_open": 189
+    },
+    {
+     "level": 3,
+     "cells": 2145,
+     "closed": 749,
+     "open": 1396,
+     "still_open": 1396
+    },
+    {
+     "level": 4,
+     "cells": 17973,
+     "closed": 15298,
+     "open": 2675,
+     "still_open": 252
+    },
+    {
+     "level": 5,
+     "cells": 3010,
+     "closed": 1529,
+     "open": 1481,
+     "still_open": 0
+    }
+   ],
+   "rule": "ordering",
+   "gamma": {
+    "fourier": 374,
+    "ordering": 3530
+   },
+   "leaves": 17643,
+   "tangent_cells": 0,
+   "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b905.json"
   },
   "907": {
    "status": "closed",
@@ -3663,7 +4106,7 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b908.json"
   },
   "918": {
-   "status": "audit failed: ValueError: incorrect target mask at level 4",
+   "status": "audit failed: ValueError: missing or unexpected rows at level 5",
    "route": "selective chain"
   },
   "923": {
@@ -3747,8 +4190,47 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b926.json"
   },
   "927": {
-   "status": "audit failed: ValueError: layer 4 names a different previous layer",
-   "route": "selective chain"
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 5,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 157,
+     "open": 99,
+     "still_open": 99
+    },
+    {
+     "level": 3,
+     "cells": 1020,
+     "closed": 765,
+     "open": 255,
+     "still_open": 255
+    },
+    {
+     "level": 4,
+     "cells": 2968,
+     "closed": 2968,
+     "open": 0,
+     "still_open": 0
+    },
+    {
+     "level": 5,
+     "cells": 0,
+     "closed": 0,
+     "open": 0,
+     "still_open": 0
+    }
+   ],
+   "rule": "certifier",
+   "gamma": {
+    "fourier": 0,
+    "ordering": 0
+   },
+   "leaves": 3890,
+   "tangent_cells": 0,
+   "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b927.json"
   },
   "928": {
    "status": "closed",
@@ -4429,11 +4911,11 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b1005.json"
   },
   "1010": {
-   "status": "audit failed: ValueError: incorrect target mask at level 4",
+   "status": "audit failed: ValueError: missing or unexpected rows at level 5",
    "route": "selective chain"
   },
   "1016": {
-   "status": "audit failed: ValueError: layer 4 names a different previous layer",
+   "status": "open below level 4",
    "route": "selective chain"
   },
   "1022": {
@@ -4546,12 +5028,83 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b1028.json"
   },
   "1035": {
-   "status": "audit failed: ValueError: layer 4 names a different previous layer",
-   "route": "selective chain"
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 4,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 51,
+     "open": 205,
+     "still_open": 205
+    },
+    {
+     "level": 3,
+     "cells": 2192,
+     "closed": 1359,
+     "open": 833,
+     "still_open": 833
+    },
+    {
+     "level": 4,
+     "cells": 9754,
+     "closed": 6281,
+     "open": 3473,
+     "still_open": 0
+    }
+   ],
+   "rule": "ordering",
+   "gamma": {
+    "fourier": 820,
+    "ordering": 2653
+   },
+   "leaves": 7691,
+   "tangent_cells": 0,
+   "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b1035.json"
   },
   "1038": {
-   "status": "audit failed: ValueError: incorrect target mask at level 4",
-   "route": "selective chain"
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 5,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 201,
+     "open": 55,
+     "still_open": 55
+    },
+    {
+     "level": 3,
+     "cells": 547,
+     "closed": 335,
+     "open": 212,
+     "still_open": 212
+    },
+    {
+     "level": 4,
+     "cells": 2023,
+     "closed": 1932,
+     "open": 91,
+     "still_open": 91
+    },
+    {
+     "level": 5,
+     "cells": 871,
+     "closed": 871,
+     "open": 0,
+     "still_open": 0
+    }
+   ],
+   "rule": "certifier",
+   "gamma": {
+    "fourier": 0,
+    "ordering": 0
+   },
+   "leaves": 3339,
+   "tangent_cells": 0,
+   "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b1038.json"
   },
   "1052": {
    "status": "closed",
@@ -4626,8 +5179,47 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b1056.json"
   },
   "1070": {
-   "status": "audit failed: ValueError: incorrect target mask at level 4",
-   "route": "selective chain"
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 5,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 217,
+     "open": 39,
+     "still_open": 39
+    },
+    {
+     "level": 3,
+     "cells": 372,
+     "closed": 194,
+     "open": 178,
+     "still_open": 178
+    },
+    {
+     "level": 4,
+     "cells": 1794,
+     "closed": 1748,
+     "open": 46,
+     "still_open": 46
+    },
+    {
+     "level": 5,
+     "cells": 475,
+     "closed": 475,
+     "open": 0,
+     "still_open": 0
+    }
+   ],
+   "rule": "certifier",
+   "gamma": {
+    "fourier": 0,
+    "ordering": 0
+   },
+   "leaves": 2634,
+   "tangent_cells": 0,
+   "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b1070.json"
   },
   "1072": {
    "status": "closed",
@@ -4703,7 +5295,7 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b1083.json"
   },
   "1089": {
-   "status": "audit failed: ValueError: layer 4 names a different previous layer",
+   "status": "audit failed: ValueError: missing or unexpected rows at level 6",
    "route": "selective chain"
   },
   "1090": {
@@ -5420,8 +6012,61 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b1212.json"
   },
   "1213": {
-   "status": "audit failed: ValueError: layer 4 names a different previous layer",
-   "route": "selective chain"
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 7,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 125,
+     "open": 131,
+     "still_open": 131
+    },
+    {
+     "level": 3,
+     "cells": 1361,
+     "closed": 1064,
+     "open": 297,
+     "still_open": 297
+    },
+    {
+     "level": 4,
+     "cells": 2916,
+     "closed": 2250,
+     "open": 666,
+     "still_open": 666
+    },
+    {
+     "level": 5,
+     "cells": 6939,
+     "closed": 5285,
+     "open": 1654,
+     "still_open": 1654
+    },
+    {
+     "level": 6,
+     "cells": 16931,
+     "closed": 12088,
+     "open": 4843,
+     "still_open": 190
+    },
+    {
+     "level": 7,
+     "cells": 873,
+     "closed": 0,
+     "open": 873,
+     "still_open": 0
+    }
+   ],
+   "rule": "ordering",
+   "gamma": {
+    "fourier": 50,
+    "ordering": 5476
+   },
+   "leaves": 20812,
+   "tangent_cells": 0,
+   "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b1213.json"
   },
   "1215": {
    "status": "closed",
@@ -5446,16 +6091,87 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b1215.json"
   },
   "1216": {
-   "status": "audit failed: ValueError: layer 4 names a different previous layer",
-   "route": "selective chain"
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 4,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 98,
+     "open": 158,
+     "still_open": 158
+    },
+    {
+     "level": 3,
+     "cells": 1823,
+     "closed": 1822,
+     "open": 1,
+     "still_open": 1
+    },
+    {
+     "level": 4,
+     "cells": 4,
+     "closed": 4,
+     "open": 0,
+     "still_open": 0
+    }
+   ],
+   "rule": "certifier",
+   "gamma": {
+    "fourier": 0,
+    "ordering": 0
+   },
+   "leaves": 1924,
+   "tangent_cells": 0,
+   "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b1216.json"
   },
   "1217": {
-   "status": "audit failed: ValueError: layer 4 names a different previous layer",
+   "status": "audit failed: ValueError: missing or unexpected rows at level 5",
    "route": "selective chain"
   },
   "1227": {
-   "status": "audit failed: ValueError: layer 4 names a different previous layer",
-   "route": "selective chain"
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 5,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 189,
+     "open": 67,
+     "still_open": 67
+    },
+    {
+     "level": 3,
+     "cells": 609,
+     "closed": 554,
+     "open": 55,
+     "still_open": 55
+    },
+    {
+     "level": 4,
+     "cells": 437,
+     "closed": 430,
+     "open": 7,
+     "still_open": 7
+    },
+    {
+     "level": 5,
+     "cells": 24,
+     "closed": 24,
+     "open": 0,
+     "still_open": 0
+    }
+   ],
+   "rule": "certifier",
+   "gamma": {
+    "fourier": 0,
+    "ordering": 0
+   },
+   "leaves": 1197,
+   "tangent_cells": 0,
+   "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b1227.json"
   },
   "1230": {
    "status": "closed",
@@ -5574,12 +6290,90 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b1263.json"
   },
   "1265": {
-   "status": "audit failed: ValueError: incorrect target mask at level 4",
-   "route": "selective chain"
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 5,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 86,
+     "open": 170,
+     "still_open": 170
+    },
+    {
+     "level": 3,
+     "cells": 1795,
+     "closed": 1414,
+     "open": 381,
+     "still_open": 381
+    },
+    {
+     "level": 4,
+     "cells": 4029,
+     "closed": 3501,
+     "open": 528,
+     "still_open": 49
+    },
+    {
+     "level": 5,
+     "cells": 451,
+     "closed": 229,
+     "open": 222,
+     "still_open": 0
+    }
+   ],
+   "rule": "ordering",
+   "gamma": {
+    "fourier": 112,
+    "ordering": 589
+   },
+   "leaves": 5230,
+   "tangent_cells": 0,
+   "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b1265.json"
   },
   "1270": {
-   "status": "audit failed: ValueError: layer 4 names a different previous layer",
-   "route": "selective chain"
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 5,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 123,
+     "open": 133,
+     "still_open": 133
+    },
+    {
+     "level": 3,
+     "cells": 1346,
+     "closed": 1159,
+     "open": 187,
+     "still_open": 187
+    },
+    {
+     "level": 4,
+     "cells": 1688,
+     "closed": 1648,
+     "open": 40,
+     "still_open": 40
+    },
+    {
+     "level": 5,
+     "cells": 174,
+     "closed": 174,
+     "open": 0,
+     "still_open": 0
+    }
+   ],
+   "rule": "certifier",
+   "gamma": {
+    "fourier": 0,
+    "ordering": 0
+   },
+   "leaves": 3104,
+   "tangent_cells": 0,
+   "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b1270.json"
   },
   "1272": {
    "status": "closed",
@@ -7301,8 +8095,40 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b1616.json"
   },
   "1622": {
-   "status": "audit failed: ValueError: layer 4 names a different previous layer",
-   "route": "selective chain"
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 4,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 10,
+     "open": 246,
+     "still_open": 246
+    },
+    {
+     "level": 3,
+     "cells": 2550,
+     "closed": 1019,
+     "open": 1531,
+     "still_open": 1531
+    },
+    {
+     "level": 4,
+     "cells": 19096,
+     "closed": 9517,
+     "open": 9579,
+     "still_open": 0
+    }
+   ],
+   "rule": "ordering",
+   "gamma": {
+    "fourier": 1747,
+    "ordering": 7832
+   },
+   "leaves": 10546,
+   "tangent_cells": 0,
+   "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b1622.json"
   },
   "1628": {
    "status": "closed",
@@ -9537,8 +10363,47 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b2606.json"
   },
   "2705": {
-   "status": "audit failed: ValueError: layer 4 names a different previous layer",
-   "route": "selective chain"
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 5,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 0,
+     "open": 256,
+     "still_open": 256
+    },
+    {
+     "level": 3,
+     "cells": 2576,
+     "closed": 743,
+     "open": 1833,
+     "still_open": 1833
+    },
+    {
+     "level": 4,
+     "cells": 23178,
+     "closed": 10124,
+     "open": 13054,
+     "still_open": 20
+    },
+    {
+     "level": 5,
+     "cells": 131,
+     "closed": 16,
+     "open": 115,
+     "still_open": 0
+    }
+   ],
+   "rule": "ordering",
+   "gamma": {
+    "fourier": 1542,
+    "ordering": 11607
+   },
+   "leaves": 10883,
+   "tangent_cells": 0,
+   "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b2705.json"
   },
   "2707": {
    "status": "closed",
