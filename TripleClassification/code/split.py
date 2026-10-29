@@ -100,14 +100,24 @@ def run_ball_limited(run_ball, sa, i, bid, seconds):
     if seconds:
         signal.signal(signal.SIGALRM, expire); signal.alarm(int(seconds))
     try:
-        return run_ball(sa, i, bid)
+        # Audit F2: the Stage C input preconditions of RIGOUR.md, checked on this sub-ball's actual arguments first.
+        import stagec_guard as G
+        R = sys.modules['run']
+        rec = json.load(gzip.open(sa, 'rt'))['seeds'][i]
+        try:
+            pre = G.check(R, rec)
+        except ArithmeticError as e:
+            return dict(index=i, status='NOT ESTABLISHED', binding=bid, reason='Stage C precondition: %s' % e)
+        row = run_ball(sa, i, bid)
+        row['stage_c_preconditions'] = dict(pre, guard_sha256=G.guard_sha256())
+        return row
     except TimeoutError as e:                       # raised outside the certifier's own handler
         return dict(index=i, status='NOT ESTABLISHED', binding=bid, reason='TimeoutError: %s' % e)
     finally:
         if seconds: signal.alarm(0)
 
 
-def run(tc_tree, subatlases, workers, seconds=0):
+def run(tc_tree, subatlases, workers, seconds=0, refined=None):
     """The frozen certifier on every sub-ball of every sub-atlas, in one process pool; rows go to the sub-atlas's
     .jsonl (completed rows are kept and skipped)."""
     fn = os.path.join(tc_tree, 'proof/theorems/TC_triple_classification/family_neighbourhoods')
@@ -124,11 +134,30 @@ def run(tc_tree, subatlases, workers, seconds=0):
         files are unchanged; worker processes inherit this by fork."""
         files = {str(p.relative_to(R.ROOT)): hashlib.sha256(p.read_bytes()).hexdigest() for p in R.source_paths()}
         files['split.py'] = hashlib.sha256(Path(__file__).read_bytes()).hexdigest()
+        files['stagec_guard.py'] = hashlib.sha256((Path(__file__).parent / 'stagec_guard.py').read_bytes()).hexdigest()
+        if refined:
+            files['moving_integrated.py'] = hashlib.sha256(Path(refined).read_bytes()).hexdigest()
         value = dict(schema='tc-native-allk-v1+split', atlas_sha256=hashlib.sha256(Path(atlas).read_bytes()).hexdigest(),
                      sources=files, precision=160)
         value['id'] = hashlib.sha256(json.dumps(value, sort_keys=True).encode()).hexdigest()
         return value
     R.binding = binding
+    if refined:
+        # The sharper symmetry bound (moving_integrated.prove, signed quadratic and cubic remainder), exactly as the
+        # collaborator's refined_batch.py: each of the weights 1.0 and 0.3 must pass the same strict Arb inequality.
+        import importlib.util
+        spec = importlib.util.spec_from_file_location('moving_refined', refined)
+        module = importlib.util.module_from_spec(spec); spec.loader.exec_module(module)
+
+        def try_weights(*args, **kwargs):
+            errors = []
+            for weight in (1.0, 0.3):
+                try:
+                    return module.prove(*args, mixed_weight=weight, **kwargs)
+                except (ArithmeticError, ValueError, ZeroDivisionError) as e:
+                    errors.append(str(e))
+            raise ArithmeticError('all validated weights failed: ' + ' | '.join(errors))
+        R.MS.prove = try_weights
     jobs, outs = [], {}
     for sa in subatlases:
         out = sa[:-len('.json.gz')] + '.jsonl'
@@ -162,4 +191,7 @@ if __name__ == '__main__':
             i = a.index('--workers'); w = int(a[i + 1]); del a[i:i + 2]
         if '--seconds' in a:
             i = a.index('--seconds'); t = int(a[i + 1]); del a[i:i + 2]
-        run(os.path.abspath(a[1]), [os.path.abspath(x) for x in a[2:]], w, t)
+        rf = None
+        if '--refined' in a:
+            i = a.index('--refined'); rf = os.path.abspath(a[i + 1]); del a[i:i + 2]
+        run(os.path.abspath(a[1]), [os.path.abspath(x) for x in a[2:]], w, t, rf)

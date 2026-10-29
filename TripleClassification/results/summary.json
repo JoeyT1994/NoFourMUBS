@@ -2,19 +2,15 @@
  "seed_balls": 2775,
  "final": {
   "empty": 2101,
-  "split": 177,
-  "unresolved": 145,
-  "empty_cell_test": 43,
-  "split_running": 37,
+  "tree": 346,
+  "open": 56,
   "classified": 272
  },
  "nearest_triple_median": {
+  "open": 0.267,
   "empty": 0.901,
-  "classified": 0.083,
-  "unresolved": 0.365,
-  "empty_cell_test": 0.715,
-  "split": 0.315,
-  "split_running": 0.314
+  "tree": 0.365,
+  "classified": 0.083
  },
  "certifier": {
   "CERTIFIED EMPTY": 2101,
@@ -40,38 +36,42 @@
   },
   "45": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 225,
-    "NOT ESTABLISHED": 31
+    "NOT ESTABLISHED": 28,
+    "TANGENT COVERED": 3
    }
   },
   "123": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 221,
-    "NOT ESTABLISHED": 35
+    "TANGENT COVERED": 4,
+    "NOT ESTABLISHED": 31
    }
   },
   "126": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "NOT ESTABLISHED": 1,
+    "TANGENT COVERED": 1,
     "CERTIFIED EMPTY": 255
    }
   },
   "133": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 227,
-    "NOT ESTABLISHED": 29
+    "NOT ESTABLISHED": 24,
+    "SPLIT CLOSED": 1,
+    "TANGENT COVERED": 4
    }
   },
   "160": {
@@ -84,20 +84,32 @@
   },
   "172": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
-    "NOT ESTABLISHED": 31,
+    "TANGENT COVERED": 3,
+    "NOT ESTABLISHED": 28,
     "CERTIFIED EMPTY": 225
    }
   },
   "194": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 211,
-    "NOT ESTABLISHED": 45
+    "NOT ESTABLISHED": 41,
+    "TANGENT COVERED": 4
+   }
+  },
+  "197": {
+   "level": 2,
+   "depth": 1,
+   "closed": false,
+   "counts": {
+    "CERTIFIED EMPTY": 252,
+    "NOT ESTABLISHED": 3,
+    "TANGENT COVERED": 1
    }
   },
   "229": {
@@ -118,38 +130,52 @@
   },
   "282": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
-    "NOT ESTABLISHED": 107,
+    "NOT ESTABLISHED": 105,
+    "TANGENT COVERED": 2,
     "CERTIFIED EMPTY": 149
    }
   },
   "290": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 254,
-    "NOT ESTABLISHED": 2
+    "NOT ESTABLISHED": 1,
+    "TANGENT COVERED": 1
+   }
+  },
+  "305": {
+   "level": 2,
+   "depth": 1,
+   "closed": false,
+   "counts": {
+    "CERTIFIED EMPTY": 245,
+    "NOT ESTABLISHED": 9,
+    "TANGENT COVERED": 2
    }
   },
   "306": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 243,
-    "NOT ESTABLISHED": 13
+    "NOT ESTABLISHED": 11,
+    "TANGENT COVERED": 2
    }
   },
   "319": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 249,
-    "NOT ESTABLISHED": 7
+    "NOT ESTABLISHED": 6,
+    "TANGENT COVERED": 1
    }
   },
   "333": {
@@ -178,38 +204,42 @@
   },
   "363": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 140,
-    "NOT ESTABLISHED": 116
+    "NOT ESTABLISHED": 113,
+    "TANGENT COVERED": 3
    }
   },
   "415": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 213,
-    "NOT ESTABLISHED": 43
+    "NOT ESTABLISHED": 40,
+    "TANGENT COVERED": 3
    }
   },
   "417": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 248,
-    "NOT ESTABLISHED": 8
+    "NOT ESTABLISHED": 6,
+    "TANGENT COVERED": 2
    }
   },
   "422": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 248,
-    "NOT ESTABLISHED": 8
+    "NOT ESTABLISHED": 7,
+    "TANGENT COVERED": 1
    }
   },
   "428": {
@@ -220,39 +250,62 @@
     "CERTIFIED EMPTY": 256
    }
   },
-  "450": {
+  "437": {
    "level": 2,
    "depth": 1,
    "closed": false,
    "counts": {
+    "CERTIFIED EMPTY": 255,
+    "NOT ESTABLISHED": 1
+   }
+  },
+  "450": {
+   "level": 2,
+   "depth": 2,
+   "closed": false,
+   "counts": {
     "CERTIFIED EMPTY": 231,
-    "NOT ESTABLISHED": 25
+    "NOT ESTABLISHED": 23,
+    "TANGENT COVERED": 2
    }
   },
   "453": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 251,
-    "NOT ESTABLISHED": 5
+    "NOT ESTABLISHED": 4,
+    "TANGENT COVERED": 1
    }
   },
   "457": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 249,
-    "NOT ESTABLISHED": 7
+    "NOT ESTABLISHED": 6,
+    "TANGENT COVERED": 1
    }
   },
   "462": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 242,
+    "NOT ESTABLISHED": 13,
+    "TANGENT COVERED": 1
+   }
+  },
+  "473": {
+   "level": 2,
+   "depth": 1,
+   "closed": false,
+   "counts": {
+    "CERTIFIED EMPTY": 240,
+    "TANGENT COVERED": 2,
     "NOT ESTABLISHED": 14
    }
   },
@@ -264,39 +317,53 @@
     "CERTIFIED EMPTY": 256
    }
   },
-  "485": {
+  "484": {
    "level": 2,
    "depth": 1,
    "closed": false,
    "counts": {
-    "NOT ESTABLISHED": 31,
+    "CERTIFIED EMPTY": 247,
+    "TANGENT COVERED": 2,
+    "NOT ESTABLISHED": 7
+   }
+  },
+  "485": {
+   "level": 2,
+   "depth": 2,
+   "closed": false,
+   "counts": {
+    "TANGENT COVERED": 2,
+    "NOT ESTABLISHED": 29,
     "CERTIFIED EMPTY": 225
    }
   },
   "491": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 250,
-    "NOT ESTABLISHED": 6
+    "NOT ESTABLISHED": 5,
+    "TANGENT COVERED": 1
    }
   },
   "493": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 252,
-    "NOT ESTABLISHED": 4
+    "NOT ESTABLISHED": 3,
+    "TANGENT COVERED": 1
    }
   },
   "499": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
-    "NOT ESTABLISHED": 156,
+    "TANGENT COVERED": 5,
+    "NOT ESTABLISHED": 151,
     "CERTIFIED EMPTY": 100
    }
   },
@@ -310,20 +377,32 @@
   },
   "550": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
-    "NOT ESTABLISHED": 92,
+    "TANGENT COVERED": 4,
+    "NOT ESTABLISHED": 88,
     "CERTIFIED EMPTY": 164
    }
   },
   "558": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 224,
-    "NOT ESTABLISHED": 32
+    "NOT ESTABLISHED": 29,
+    "TANGENT COVERED": 3
+   }
+  },
+  "562": {
+   "level": 2,
+   "depth": 1,
+   "closed": false,
+   "counts": {
+    "TANGENT COVERED": 3,
+    "CERTIFIED EMPTY": 229,
+    "NOT ESTABLISHED": 24
    }
   },
   "563": {
@@ -345,20 +424,22 @@
   },
   "571": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
-    "NOT ESTABLISHED": 7,
-    "CERTIFIED EMPTY": 249
+    "TANGENT COVERED": 2,
+    "CERTIFIED EMPTY": 249,
+    "NOT ESTABLISHED": 5
    }
   },
   "572": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 251,
-    "NOT ESTABLISHED": 5
+    "NOT ESTABLISHED": 4,
+    "TANGENT COVERED": 1
    }
   },
   "575": {
@@ -367,17 +448,17 @@
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 166,
-    "NOT ESTABLISHED": 89,
-    "MISSING": 1
+    "NOT ESTABLISHED": 88,
+    "TANGENT COVERED": 2
    }
   },
   "577": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
     "CERTIFIED EMPTY": 255,
-    "NOT ESTABLISHED": 1
+    "TANGENT COVERED": 1
    }
   },
   "582": {
@@ -390,11 +471,12 @@
   },
   "584": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 253,
-    "NOT ESTABLISHED": 3
+    "NOT ESTABLISHED": 2,
+    "TANGENT COVERED": 1
    }
   },
   "588": {
@@ -402,42 +484,54 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "NOT ESTABLISHED": 123,
-    "CERTIFIED EMPTY": 125,
-    "MISSING": 8
+    "TANGENT COVERED": 3,
+    "NOT ESTABLISHED": 128,
+    "CERTIFIED EMPTY": 125
    }
   },
   "589": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 248,
     "CERTIFIED": 3,
-    "NOT ESTABLISHED": 5
+    "NOT ESTABLISHED": 4,
+    "TANGENT COVERED": 1
    }
   },
   "595": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 40,
-    "NOT ESTABLISHED": 216
+    "NOT ESTABLISHED": 215,
+    "TANGENT COVERED": 1
    }
   },
   "596": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 255,
     "NOT ESTABLISHED": 1
    }
   },
-  "603": {
+  "601": {
    "level": 2,
    "depth": 1,
+   "closed": false,
+   "counts": {
+    "CERTIFIED EMPTY": 244,
+    "NOT ESTABLISHED": 11,
+    "TANGENT COVERED": 1
+   }
+  },
+  "603": {
+   "level": 2,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 252,
@@ -446,7 +540,7 @@
   },
   "604": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 251,
@@ -456,47 +550,52 @@
   },
   "606": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
-    "NOT ESTABLISHED": 26,
-    "CERTIFIED EMPTY": 230
+    "TANGENT COVERED": 3,
+    "CERTIFIED EMPTY": 230,
+    "NOT ESTABLISHED": 23
    }
   },
   "610": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
-    "NOT ESTABLISHED": 12,
-    "CERTIFIED EMPTY": 244
+    "TANGENT COVERED": 2,
+    "CERTIFIED EMPTY": 244,
+    "NOT ESTABLISHED": 10
    }
   },
   "612": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 252,
-    "NOT ESTABLISHED": 4
+    "TANGENT COVERED": 2,
+    "NOT ESTABLISHED": 2
    }
   },
   "636": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED": 8,
     "CERTIFIED EMPTY": 95,
-    "NOT ESTABLISHED": 153
+    "NOT ESTABLISHED": 152,
+    "TANGENT COVERED": 1
    }
   },
   "641": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
-    "NOT ESTABLISHED": 164,
+    "NOT ESTABLISHED": 159,
+    "TANGENT COVERED": 5,
     "CERTIFIED EMPTY": 92
    }
   },
@@ -510,29 +609,40 @@
   },
   "650": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 252,
-    "NOT ESTABLISHED": 4
+    "NOT ESTABLISHED": 3,
+    "TANGENT COVERED": 1
+   }
+  },
+  "665": {
+   "level": 2,
+   "depth": 1,
+   "closed": true,
+   "counts": {
+    "CERTIFIED EMPTY": 256
    }
   },
   "666": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
-    "NOT ESTABLISHED": 155,
+    "TANGENT COVERED": 2,
+    "NOT ESTABLISHED": 153,
     "CERTIFIED EMPTY": 101
    }
   },
   "671": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 223,
-    "NOT ESTABLISHED": 32,
+    "NOT ESTABLISHED": 29,
+    "TANGENT COVERED": 3,
     "CERTIFIED": 1
    }
   },
@@ -550,17 +660,28 @@
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 131,
-    "NOT ESTABLISHED": 85,
-    "MISSING": 40
+    "NOT ESTABLISHED": 121,
+    "TANGENT COVERED": 4
    }
   },
-  "680": {
+  "679": {
    "level": 2,
    "depth": 1,
    "closed": false,
    "counts": {
+    "TANGENT COVERED": 3,
+    "CERTIFIED EMPTY": 225,
+    "NOT ESTABLISHED": 28
+   }
+  },
+  "680": {
+   "level": 2,
+   "depth": 2,
+   "closed": false,
+   "counts": {
     "CERTIFIED EMPTY": 181,
-    "NOT ESTABLISHED": 75
+    "NOT ESTABLISHED": 72,
+    "TANGENT COVERED": 3
    }
   },
   "685": {
@@ -573,11 +694,12 @@
   },
   "687": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 254,
-    "NOT ESTABLISHED": 2
+    "TANGENT COVERED": 1,
+    "NOT ESTABLISHED": 1
    }
   },
   "688": {
@@ -590,20 +712,32 @@
   },
   "692": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 221,
-    "NOT ESTABLISHED": 35
+    "NOT ESTABLISHED": 32,
+    "TANGENT COVERED": 3
    }
   },
   "693": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 240,
-    "NOT ESTABLISHED": 16
+    "NOT ESTABLISHED": 14,
+    "TANGENT COVERED": 2
+   }
+  },
+  "701": {
+   "level": 2,
+   "depth": 1,
+   "closed": false,
+   "counts": {
+    "CERTIFIED EMPTY": 246,
+    "TANGENT COVERED": 2,
+    "NOT ESTABLISHED": 8
    }
   },
   "702": {
@@ -619,14 +753,14 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "NOT ESTABLISHED": 109,
-    "MISSING": 26,
+    "NOT ESTABLISHED": 131,
+    "TANGENT COVERED": 4,
     "CERTIFIED EMPTY": 121
    }
   },
   "704": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 140,
@@ -635,20 +769,22 @@
   },
   "716": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 244,
-    "NOT ESTABLISHED": 12
+    "NOT ESTABLISHED": 11,
+    "TANGENT COVERED": 1
    }
   },
   "717": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 233,
-    "NOT ESTABLISHED": 23
+    "NOT ESTABLISHED": 20,
+    "TANGENT COVERED": 3
    }
   },
   "730": {
@@ -656,10 +792,11 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "CERTIFIED EMPTY": 25,
-    "MISSING": 193,
-    "NOT ESTABLISHED": 36,
-    "CERTIFIED": 2
+    "CERTIFIED EMPTY": 56,
+    "NOT ESTABLISHED": 144,
+    "CERTIFIED": 5,
+    "TANGENT COVERED": 6,
+    "NO STAGE C PRECONDITION": 45
    }
   },
   "733": {
@@ -668,8 +805,9 @@
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 173,
-    "NOT ESTABLISHED": 69,
-    "MISSING": 14
+    "TANGENT COVERED": 2,
+    "NOT ESTABLISHED": 80,
+    "NO STAGE C PRECONDITION": 1
    }
   },
   "734": {
@@ -678,8 +816,8 @@
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 162,
-    "NOT ESTABLISHED": 87,
-    "MISSING": 7
+    "NOT ESTABLISHED": 90,
+    "TANGENT COVERED": 4
    }
   },
   "740": {
@@ -695,7 +833,9 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 189,
+    "NOT ESTABLISHED": 64,
+    "TANGENT COVERED": 3
    }
   },
   "745": {
@@ -708,29 +848,32 @@
   },
   "746": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 217,
-    "NOT ESTABLISHED": 37,
+    "NOT ESTABLISHED": 35,
+    "TANGENT COVERED": 2,
     "CERTIFIED": 2
    }
   },
   "751": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 245,
-    "NOT ESTABLISHED": 11
+    "NOT ESTABLISHED": 10,
+    "TANGENT COVERED": 1
    }
   },
   "753": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 251,
+    "CERTIFIED": 5
    }
   },
   "754": {
@@ -739,8 +882,8 @@
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 209,
-    "NOT ESTABLISHED": 36,
-    "MISSING": 11
+    "NOT ESTABLISHED": 44,
+    "TANGENT COVERED": 3
    }
   },
   "764": {
@@ -753,11 +896,12 @@
   },
   "767": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 129,
-    "NOT ESTABLISHED": 123,
+    "NOT ESTABLISHED": 118,
+    "TANGENT COVERED": 5,
     "CERTIFIED": 4
    }
   },
@@ -766,35 +910,40 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 17,
+    "NOT ESTABLISHED": 238,
+    "TANGENT COVERED": 1
    }
   },
   "769": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 233,
-    "NOT ESTABLISHED": 21,
+    "NOT ESTABLISHED": 20,
+    "TANGENT COVERED": 1,
     "CERTIFIED": 2
    }
   },
   "772": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 245,
-    "NOT ESTABLISHED": 11
+    "NOT ESTABLISHED": 10,
+    "TANGENT COVERED": 1
    }
   },
   "773": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
-    "NOT ESTABLISHED": 2,
-    "CERTIFIED EMPTY": 254
+    "TANGENT COVERED": 1,
+    "CERTIFIED EMPTY": 254,
+    "NOT ESTABLISHED": 1
    }
   },
   "777": {
@@ -802,7 +951,9 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 40,
+    "NOT ESTABLISHED": 213,
+    "TANGENT COVERED": 3
    }
   },
   "779": {
@@ -810,27 +961,30 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 17,
-    "CERTIFIED EMPTY": 208,
-    "NOT ESTABLISHED": 31
+    "TANGENT COVERED": 4,
+    "NOT ESTABLISHED": 43,
+    "NO STAGE C PRECONDITION": 1,
+    "CERTIFIED EMPTY": 208
    }
   },
   "782": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 232,
-    "NOT ESTABLISHED": 23,
+    "NOT ESTABLISHED": 21,
+    "TANGENT COVERED": 2,
     "CERTIFIED": 1
    }
   },
   "789": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
-    "NOT ESTABLISHED": 34,
+    "TANGENT COVERED": 2,
+    "NOT ESTABLISHED": 32,
     "CERTIFIED EMPTY": 221,
     "CERTIFIED": 1
    }
@@ -840,7 +994,9 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 250,
+    "NOT ESTABLISHED": 5,
+    "TANGENT COVERED": 1
    }
   },
   "793": {
@@ -860,13 +1016,24 @@
     "CERTIFIED EMPTY": 256
    }
   },
-  "805": {
+  "799": {
    "level": 2,
    "depth": 1,
    "closed": false,
    "counts": {
+    "CERTIFIED EMPTY": 235,
+    "NOT ESTABLISHED": 19,
+    "TANGENT COVERED": 2
+   }
+  },
+  "805": {
+   "level": 2,
+   "depth": 2,
+   "closed": false,
+   "counts": {
     "CERTIFIED EMPTY": 248,
-    "NOT ESTABLISHED": 8
+    "NOT ESTABLISHED": 7,
+    "TANGENT COVERED": 1
    }
   },
   "807": {
@@ -874,8 +1041,9 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "CERTIFIED EMPTY": 33,
-    "MISSING": 223
+    "CERTIFIED EMPTY": 106,
+    "NOT ESTABLISHED": 149,
+    "TANGENT COVERED": 1
    }
   },
   "815": {
@@ -883,17 +1051,18 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 221,
-    "NOT ESTABLISHED": 35
+    "NOT ESTABLISHED": 245,
+    "CERTIFIED EMPTY": 11
    }
   },
   "822": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 237,
-    "NOT ESTABLISHED": 19
+    "NOT ESTABLISHED": 18,
+    "TANGENT COVERED": 1
    }
   },
   "823": {
@@ -901,9 +1070,9 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "NOT ESTABLISHED": 133,
-    "CERTIFIED EMPTY": 116,
-    "MISSING": 7
+    "NOT ESTABLISHED": 143,
+    "TANGENT COVERED": 5,
+    "CERTIFIED EMPTY": 108
    }
   },
   "825": {
@@ -911,9 +1080,8 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "NOT ESTABLISHED": 128,
-    "CERTIFIED EMPTY": 20,
-    "MISSING": 108
+    "NOT ESTABLISHED": 240,
+    "CERTIFIED EMPTY": 16
    }
   },
   "828": {
@@ -921,7 +1089,9 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "TANGENT COVERED": 3,
+    "CERTIFIED EMPTY": 238,
+    "NOT ESTABLISHED": 15
    }
   },
   "830": {
@@ -929,28 +1099,30 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 24,
-    "NOT ESTABLISHED": 108,
-    "CERTIFIED EMPTY": 124
+    "NOT ESTABLISHED": 129,
+    "CERTIFIED EMPTY": 124,
+    "TANGENT COVERED": 3
    }
   },
   "832": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
-    "NOT ESTABLISHED": 117,
+    "TANGENT COVERED": 5,
+    "NOT ESTABLISHED": 112,
     "CERTIFIED": 20,
     "CERTIFIED EMPTY": 119
    }
   },
   "834": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 254,
-    "NOT ESTABLISHED": 2
+    "NOT ESTABLISHED": 1,
+    "TANGENT COVERED": 1
    }
   },
   "835": {
@@ -958,7 +1130,19 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "CERTIFIED EMPTY": 62,
+    "NOT ESTABLISHED": 193,
+    "TANGENT COVERED": 1
+   }
+  },
+  "836": {
+   "level": 2,
+   "depth": 1,
+   "closed": false,
+   "counts": {
+    "TANGENT COVERED": 2,
+    "CERTIFIED EMPTY": 249,
+    "NOT ESTABLISHED": 5
    }
   },
   "837": {
@@ -967,7 +1151,18 @@
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 227,
-    "NOT ESTABLISHED": 29
+    "NOT ESTABLISHED": 25,
+    "TANGENT COVERED": 4
+   }
+  },
+  "841": {
+   "level": 2,
+   "depth": 1,
+   "closed": false,
+   "counts": {
+    "CERTIFIED EMPTY": 242,
+    "NOT ESTABLISHED": 13,
+    "TANGENT COVERED": 1
    }
   },
   "845": {
@@ -975,9 +1170,9 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "NOT ESTABLISHED": 57,
-    "CERTIFIED EMPTY": 198,
-    "MISSING": 1
+    "TANGENT COVERED": 3,
+    "CERTIFIED EMPTY": 199,
+    "NOT ESTABLISHED": 54
    }
   },
   "846": {
@@ -985,9 +1180,9 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "NOT ESTABLISHED": 29,
-    "CERTIFIED EMPTY": 226,
-    "MISSING": 1
+    "TANGENT COVERED": 2,
+    "CERTIFIED EMPTY": 185,
+    "NOT ESTABLISHED": 69
    }
   },
   "847": {
@@ -995,7 +1190,10 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 256
+    "NOT ESTABLISHED": 157,
+    "CERTIFIED EMPTY": 90,
+    "TANGENT COVERED": 4,
+    "CERTIFIED": 5
    }
   },
   "848": {
@@ -1003,8 +1201,8 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 34,
-    "NOT ESTABLISHED": 74,
+    "NOT ESTABLISHED": 106,
+    "TANGENT COVERED": 2,
     "CERTIFIED EMPTY": 148
    }
   },
@@ -1014,8 +1212,8 @@
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 84,
-    "NOT ESTABLISHED": 171,
-    "MISSING": 1
+    "TANGENT COVERED": 3,
+    "NOT ESTABLISHED": 169
    }
   },
   "853": {
@@ -1023,9 +1221,9 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "CERTIFIED EMPTY": 216,
-    "NOT ESTABLISHED": 34,
-    "MISSING": 6
+    "CERTIFIED EMPTY": 210,
+    "NOT ESTABLISHED": 43,
+    "TANGENT COVERED": 3
    }
   },
   "858": {
@@ -1033,14 +1231,14 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "MISSING": 244,
-    "NOT ESTABLISHED": 10,
-    "CERTIFIED EMPTY": 2
+    "TANGENT COVERED": 5,
+    "NOT ESTABLISHED": 111,
+    "CERTIFIED EMPTY": 140
    }
   },
   "866": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 254,
@@ -1057,10 +1255,11 @@
   },
   "869": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
-    "NOT ESTABLISHED": 120,
+    "NOT ESTABLISHED": 116,
+    "TANGENT COVERED": 4,
     "CERTIFIED EMPTY": 124,
     "CERTIFIED": 12
    }
@@ -1071,7 +1270,8 @@
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 242,
-    "NOT ESTABLISHED": 14
+    "TANGENT COVERED": 2,
+    "NOT ESTABLISHED": 12
    }
   },
   "875": {
@@ -1080,17 +1280,18 @@
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 226,
-    "NOT ESTABLISHED": 23,
-    "MISSING": 7
+    "NOT ESTABLISHED": 28,
+    "TANGENT COVERED": 2
    }
   },
   "876": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 247,
-    "NOT ESTABLISHED": 9
+    "NOT ESTABLISHED": 7,
+    "TANGENT COVERED": 2
    }
   },
   "878": {
@@ -1106,9 +1307,9 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "CERTIFIED EMPTY": 154,
-    "NOT ESTABLISHED": 60,
-    "MISSING": 42
+    "CERTIFIED EMPTY": 156,
+    "TANGENT COVERED": 5,
+    "NOT ESTABLISHED": 95
    }
   },
   "880": {
@@ -1121,22 +1322,24 @@
   },
   "883": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 95,
-    "NOT ESTABLISHED": 157,
+    "NOT ESTABLISHED": 153,
+    "TANGENT COVERED": 4,
     "CERTIFIED": 4
    }
   },
   "884": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 138,
-    "NOT ESTABLISHED": 105,
-    "CERTIFIED": 13
+    "NOT ESTABLISHED": 103,
+    "CERTIFIED": 13,
+    "TANGENT COVERED": 2
    }
   },
   "885": {
@@ -1145,26 +1348,28 @@
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 227,
-    "NOT ESTABLISHED": 17,
-    "MISSING": 12
+    "TANGENT COVERED": 4,
+    "NOT ESTABLISHED": 25
    }
   },
   "887": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 229,
-    "NOT ESTABLISHED": 27
+    "NOT ESTABLISHED": 25,
+    "TANGENT COVERED": 2
    }
   },
   "891": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 247,
-    "NOT ESTABLISHED": 9
+    "TANGENT COVERED": 2,
+    "NOT ESTABLISHED": 7
    }
   },
   "895": {
@@ -1172,18 +1377,19 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "CERTIFIED EMPTY": 193,
-    "NOT ESTABLISHED": 62,
-    "MISSING": 1
+    "CERTIFIED EMPTY": 189,
+    "NOT ESTABLISHED": 65,
+    "TANGENT COVERED": 2
    }
   },
   "897": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 200,
-    "NOT ESTABLISHED": 54,
+    "NOT ESTABLISHED": 51,
+    "TANGENT COVERED": 3,
     "CERTIFIED": 2
    }
   },
@@ -1192,23 +1398,24 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "CERTIFIED EMPTY": 180,
-    "NOT ESTABLISHED": 75,
-    "MISSING": 1
+    "CERTIFIED EMPTY": 174,
+    "NOT ESTABLISHED": 76,
+    "TANGENT COVERED": 6
    }
   },
   "905": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 67,
-    "NOT ESTABLISHED": 189
+    "NOT ESTABLISHED": 187,
+    "TANGENT COVERED": 2
    }
   },
   "907": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 251,
@@ -1230,8 +1437,8 @@
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 39,
-    "NOT ESTABLISHED": 194,
-    "MISSING": 23
+    "NOT ESTABLISHED": 215,
+    "TANGENT COVERED": 2
    }
   },
   "923": {
@@ -1245,10 +1452,11 @@
   },
   "925": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
-    "NOT ESTABLISHED": 55,
+    "TANGENT COVERED": 4,
+    "NOT ESTABLISHED": 51,
     "CERTIFIED EMPTY": 201
    }
   },
@@ -1263,11 +1471,12 @@
   },
   "927": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
-    "NOT ESTABLISHED": 99,
-    "CERTIFIED EMPTY": 157
+    "NOT ESTABLISHED": 95,
+    "CERTIFIED EMPTY": 157,
+    "TANGENT COVERED": 4
    }
   },
   "928": {
@@ -1297,45 +1506,49 @@
   },
   "936": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
-    "NOT ESTABLISHED": 17,
+    "TANGENT COVERED": 2,
+    "NOT ESTABLISHED": 15,
     "CERTIFIED EMPTY": 239
    }
   },
   "940": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 226,
-    "NOT ESTABLISHED": 30
+    "NOT ESTABLISHED": 28,
+    "TANGENT COVERED": 2
    }
   },
   "950": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
-    "NOT ESTABLISHED": 192,
+    "NOT ESTABLISHED": 189,
     "CERTIFIED EMPTY": 62,
+    "TANGENT COVERED": 3,
     "CERTIFIED": 2
    }
   },
   "951": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 167,
-    "NOT ESTABLISHED": 74,
+    "NOT ESTABLISHED": 67,
+    "TANGENT COVERED": 7,
     "CERTIFIED": 15
    }
   },
   "952": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 251,
@@ -1345,51 +1558,56 @@
   },
   "954": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 155,
-    "NOT ESTABLISHED": 75,
+    "NOT ESTABLISHED": 71,
+    "TANGENT COVERED": 4,
     "CERTIFIED": 26
    }
   },
   "956": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 223,
-    "NOT ESTABLISHED": 33
+    "NOT ESTABLISHED": 30,
+    "TANGENT COVERED": 3
    }
   },
   "957": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 226,
-    "NOT ESTABLISHED": 28,
-    "CERTIFIED": 2
+    "NOT ESTABLISHED": 26,
+    "CERTIFIED": 2,
+    "TANGENT COVERED": 2
    }
   },
   "959": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
-    "NOT ESTABLISHED": 141,
+    "TANGENT COVERED": 4,
+    "NOT ESTABLISHED": 137,
     "CERTIFIED EMPTY": 102,
     "CERTIFIED": 13
    }
   },
   "965": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 227,
     "CERTIFIED": 19,
-    "NOT ESTABLISHED": 10
+    "NOT ESTABLISHED": 9,
+    "TANGENT COVERED": 1
    }
   },
   "966": {
@@ -1406,9 +1624,9 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "CERTIFIED EMPTY": 45,
-    "NOT ESTABLISHED": 179,
-    "MISSING": 32
+    "NOT ESTABLISHED": 238,
+    "CERTIFIED EMPTY": 16,
+    "TANGENT COVERED": 2
    }
   },
   "989": {
@@ -1422,7 +1640,7 @@
   },
   "993": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 238,
@@ -1440,20 +1658,22 @@
   },
   "995": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
-    "NOT ESTABLISHED": 88,
+    "TANGENT COVERED": 3,
+    "NOT ESTABLISHED": 85,
     "CERTIFIED EMPTY": 165,
     "CERTIFIED": 3
    }
   },
   "996": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
-    "NOT ESTABLISHED": 48,
+    "TANGENT COVERED": 3,
+    "NOT ESTABLISHED": 45,
     "CERTIFIED EMPTY": 176,
     "CERTIFIED": 32
    }
@@ -1471,8 +1691,9 @@
    "depth": 2,
    "closed": false,
    "counts": {
-    "NOT ESTABLISHED": 6,
-    "CERTIFIED EMPTY": 250
+    "TANGENT COVERED": 2,
+    "CERTIFIED EMPTY": 250,
+    "NOT ESTABLISHED": 4
    }
   },
   "1004": {
@@ -1482,7 +1703,9 @@
    "counts": {
     "CERTIFIED EMPTY": 217,
     "CERTIFIED": 8,
-    "NOT ESTABLISHED": 31
+    "NOT ESTABLISHED": 15,
+    "SPLIT CLOSED": 14,
+    "TANGENT COVERED": 2
    }
   },
   "1005": {
@@ -1491,7 +1714,8 @@
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 201,
-    "NOT ESTABLISHED": 55
+    "NOT ESTABLISHED": 52,
+    "TANGENT COVERED": 3
    }
   },
   "1010": {
@@ -1501,7 +1725,7 @@
    "counts": {
     "CERTIFIED EMPTY": 51,
     "NOT ESTABLISHED": 203,
-    "MISSING": 2
+    "TANGENT COVERED": 2
    }
   },
   "1016": {
@@ -1519,7 +1743,9 @@
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 222,
-    "NOT ESTABLISHED": 34
+    "NOT ESTABLISHED": 27,
+    "TANGENT COVERED": 3,
+    "SPLIT CLOSED": 4
    }
   },
   "1023": {
@@ -1532,7 +1758,7 @@
   },
   "1024": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED": 2,
@@ -1542,12 +1768,12 @@
   },
   "1028": {
    "level": 2,
-   "depth": 1,
-   "closed": false,
+   "depth": 2,
+   "closed": true,
    "counts": {
     "CERTIFIED EMPTY": 245,
     "CERTIFIED": 9,
-    "NOT ESTABLISHED": 2
+    "SPLIT CLOSED": 2
    }
   },
   "1035": {
@@ -1555,7 +1781,9 @@
    "depth": 2,
    "closed": false,
    "counts": {
-    "NOT ESTABLISHED": 205,
+    "NOT ESTABLISHED": 188,
+    "TANGENT COVERED": 2,
+    "SPLIT CLOSED": 15,
     "CERTIFIED EMPTY": 29,
     "CERTIFIED": 22
    }
@@ -1566,7 +1794,8 @@
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 201,
-    "NOT ESTABLISHED": 55
+    "NOT ESTABLISHED": 53,
+    "TANGENT COVERED": 2
    }
   },
   "1052": {
@@ -1574,7 +1803,8 @@
    "depth": 1,
    "closed": false,
    "counts": {
-    "NOT ESTABLISHED": 44,
+    "TANGENT COVERED": 3,
+    "NOT ESTABLISHED": 41,
     "CERTIFIED EMPTY": 207,
     "CERTIFIED": 5
    }
@@ -1585,8 +1815,9 @@
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 74,
-    "NOT ESTABLISHED": 177,
-    "CERTIFIED": 5
+    "NOT ESTABLISHED": 176,
+    "CERTIFIED": 5,
+    "TANGENT COVERED": 1
    }
   },
   "1070": {
@@ -1595,25 +1826,26 @@
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 217,
-    "NOT ESTABLISHED": 39
+    "NOT ESTABLISHED": 38,
+    "TANGENT COVERED": 1
    }
   },
   "1072": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 253,
-    "NOT ESTABLISHED": 3
+    "NOT ESTABLISHED": 2,
+    "TANGENT COVERED": 1
    }
   },
   "1073": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
-    "CERTIFIED EMPTY": 253,
-    "MISSING": 2,
+    "CERTIFIED EMPTY": 255,
     "CERTIFIED": 1
    }
   },
@@ -1631,8 +1863,10 @@
    "depth": 2,
    "closed": false,
    "counts": {
-    "NOT ESTABLISHED": 144,
-    "CERTIFIED EMPTY": 112
+    "TANGENT COVERED": 2,
+    "CERTIFIED EMPTY": 112,
+    "SPLIT CLOSED": 12,
+    "NOT ESTABLISHED": 130
    }
   },
   "1090": {
@@ -1641,7 +1875,8 @@
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 227,
-    "NOT ESTABLISHED": 28,
+    "NOT ESTABLISHED": 25,
+    "TANGENT COVERED": 3,
     "CERTIFIED": 1
    }
   },
@@ -1658,7 +1893,8 @@
    "depth": 2,
    "closed": false,
    "counts": {
-    "NOT ESTABLISHED": 46,
+    "TANGENT COVERED": 2,
+    "NOT ESTABLISHED": 44,
     "CERTIFIED EMPTY": 179,
     "CERTIFIED": 31
    }
@@ -1685,9 +1921,11 @@
    "depth": 2,
    "closed": false,
    "counts": {
-    "NOT ESTABLISHED": 19,
+    "TANGENT COVERED": 3,
+    "NOT ESTABLISHED": 15,
     "CERTIFIED": 25,
-    "CERTIFIED EMPTY": 212
+    "CERTIFIED EMPTY": 212,
+    "SPLIT CLOSED": 1
    }
   },
   "1104": {
@@ -1696,8 +1934,10 @@
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 162,
-    "NOT ESTABLISHED": 46,
-    "CERTIFIED": 48
+    "SPLIT CLOSED": 31,
+    "CERTIFIED": 48,
+    "NOT ESTABLISHED": 13,
+    "TANGENT COVERED": 2
    }
   },
   "1105": {
@@ -1706,7 +1946,9 @@
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 249,
-    "NOT ESTABLISHED": 7
+    "SPLIT CLOSED": 5,
+    "NOT ESTABLISHED": 1,
+    "TANGENT COVERED": 1
    }
   },
   "1106": {
@@ -1716,7 +1958,9 @@
    "counts": {
     "CERTIFIED EMPTY": 203,
     "CERTIFIED": 29,
-    "NOT ESTABLISHED": 24
+    "SPLIT CLOSED": 6,
+    "NOT ESTABLISHED": 16,
+    "TANGENT COVERED": 2
    }
   },
   "1107": {
@@ -1734,7 +1978,8 @@
    "counts": {
     "CERTIFIED EMPTY": 140,
     "CERTIFIED": 53,
-    "NOT ESTABLISHED": 63
+    "SPLIT CLOSED": 57,
+    "NOT ESTABLISHED": 6
    }
   },
   "1109": {
@@ -1753,7 +1998,9 @@
    "counts": {
     "CERTIFIED": 83,
     "CERTIFIED EMPTY": 159,
-    "NOT ESTABLISHED": 14
+    "SPLIT CLOSED": 7,
+    "NOT ESTABLISHED": 6,
+    "TANGENT COVERED": 1
    }
   },
   "1127": {
@@ -1771,7 +2018,9 @@
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 98,
-    "NOT ESTABLISHED": 94,
+    "TANGENT COVERED": 5,
+    "SPLIT CLOSED": 64,
+    "NOT ESTABLISHED": 25,
     "CERTIFIED": 64
    }
   },
@@ -1781,7 +2030,9 @@
    "closed": false,
    "counts": {
     "CERTIFIED": 32,
-    "NOT ESTABLISHED": 44,
+    "NOT ESTABLISHED": 16,
+    "TANGENT COVERED": 3,
+    "SPLIT CLOSED": 25,
     "CERTIFIED EMPTY": 180
    }
   },
@@ -1833,9 +2084,11 @@
    "depth": 2,
    "closed": false,
    "counts": {
-    "NOT ESTABLISHED": 59,
+    "TANGENT COVERED": 3,
+    "NOT ESTABLISHED": 55,
     "CERTIFIED EMPTY": 182,
-    "CERTIFIED": 15
+    "CERTIFIED": 15,
+    "SPLIT CLOSED": 1
    }
   },
   "1203": {
@@ -1857,12 +2110,13 @@
   },
   "1209": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 200,
     "CERTIFIED": 54,
-    "NOT ESTABLISHED": 2
+    "NOT ESTABLISHED": 1,
+    "SPLIT CLOSED": 1
    }
   },
   "1210": {
@@ -1880,7 +2134,8 @@
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 130,
-    "NOT ESTABLISHED": 72,
+    "NOT ESTABLISHED": 69,
+    "TANGENT COVERED": 3,
     "CERTIFIED": 54
    }
   },
@@ -1890,7 +2145,9 @@
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 125,
-    "NOT ESTABLISHED": 131
+    "NOT ESTABLISHED": 114,
+    "SPLIT CLOSED": 14,
+    "TANGENT COVERED": 3
    }
   },
   "1215": {
@@ -1908,7 +2165,9 @@
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 70,
-    "NOT ESTABLISHED": 158,
+    "NOT ESTABLISHED": 142,
+    "TANGENT COVERED": 7,
+    "SPLIT CLOSED": 9,
     "CERTIFIED": 28
    }
   },
@@ -1922,11 +2181,13 @@
   },
   "1227": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
-    "NOT ESTABLISHED": 67,
-    "CERTIFIED EMPTY": 189
+    "TANGENT COVERED": 4,
+    "NOT ESTABLISHED": 59,
+    "CERTIFIED EMPTY": 189,
+    "SPLIT CLOSED": 4
    }
   },
   "1230": {
@@ -1940,52 +2201,61 @@
   },
   "1241": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
-    "NOT ESTABLISHED": 156,
+    "TANGENT COVERED": 3,
+    "NOT ESTABLISHED": 144,
+    "SPLIT CLOSED": 9,
     "CERTIFIED EMPTY": 71,
     "CERTIFIED": 29
    }
   },
   "1255": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED": 39,
     "CERTIFIED EMPTY": 205,
-    "NOT ESTABLISHED": 12
+    "NOT ESTABLISHED": 11,
+    "SPLIT CLOSED": 1
    }
   },
   "1263": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 152,
     "CERTIFIED": 50,
-    "NOT ESTABLISHED": 54
+    "NOT ESTABLISHED": 48,
+    "TANGENT COVERED": 4,
+    "SPLIT CLOSED": 2
    }
   },
   "1265": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
-    "NOT ESTABLISHED": 170,
+    "NOT ESTABLISHED": 165,
+    "TANGENT COVERED": 2,
     "CERTIFIED EMPTY": 84,
+    "SPLIT CLOSED": 3,
     "CERTIFIED": 2
    }
   },
   "1270": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
-    "NOT ESTABLISHED": 133,
+    "TANGENT COVERED": 5,
+    "NOT ESTABLISHED": 127,
     "CERTIFIED": 64,
-    "CERTIFIED EMPTY": 59
+    "CERTIFIED EMPTY": 59,
+    "SPLIT CLOSED": 1
    }
   },
   "1272": {
@@ -2034,30 +2304,32 @@
   },
   "1287": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 84,
-    "NOT ESTABLISHED": 128,
+    "NOT ESTABLISHED": 118,
+    "TANGENT COVERED": 5,
+    "SPLIT CLOSED": 5,
     "CERTIFIED": 44
    }
   },
   "1296": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
     "CERTIFIED EMPTY": 255,
-    "NOT ESTABLISHED": 1
+    "TANGENT COVERED": 1
    }
   },
   "1297": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
     "CERTIFIED EMPTY": 255,
-    "NOT ESTABLISHED": 1
+    "TANGENT COVERED": 1
    }
   },
   "1299": {
@@ -2088,7 +2360,7 @@
   },
   "1328": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 229,
@@ -2116,12 +2388,14 @@
   },
   "1344": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 104,
-    "NOT ESTABLISHED": 103,
-    "CERTIFIED": 49
+    "NOT ESTABLISHED": 101,
+    "TANGENT COVERED": 1,
+    "CERTIFIED": 49,
+    "SPLIT CLOSED": 1
    }
   },
   "1345": {
@@ -2144,12 +2418,14 @@
   },
   "1361": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 71,
     "CERTIFIED": 106,
-    "NOT ESTABLISHED": 79
+    "SPLIT CLOSED": 3,
+    "NOT ESTABLISHED": 72,
+    "TANGENT COVERED": 4
    }
   },
   "1388": {
@@ -2172,7 +2448,7 @@
   },
   "1396": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 255,
@@ -2365,11 +2641,12 @@
   },
   "1484": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 193,
-    "NOT ESTABLISHED": 5,
+    "TANGENT COVERED": 1,
+    "NOT ESTABLISHED": 4,
     "CERTIFIED": 58
    }
   },
@@ -2419,12 +2696,13 @@
   },
   "1503": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED": 116,
     "CERTIFIED EMPTY": 132,
-    "NOT ESTABLISHED": 8
+    "NOT ESTABLISHED": 7,
+    "TANGENT COVERED": 1
    }
   },
   "1505": {
@@ -2466,11 +2744,11 @@
   "1531": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
     "CERTIFIED EMPTY": 225,
     "CERTIFIED": 30,
-    "NOT ESTABLISHED": 1
+    "TANGENT COVERED": 1
    }
   },
   "1533": {
@@ -2528,7 +2806,7 @@
   },
   "1548": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 228,
@@ -2582,12 +2860,14 @@
   },
   "1579": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
-    "NOT ESTABLISHED": 65,
+    "TANGENT COVERED": 4,
+    "NOT ESTABLISHED": 59,
     "CERTIFIED EMPTY": 96,
-    "CERTIFIED": 95
+    "CERTIFIED": 95,
+    "SPLIT CLOSED": 2
    }
   },
   "1591": {
@@ -2654,7 +2934,7 @@
   },
   "1622": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "NOT ESTABLISHED": 246,
@@ -2689,11 +2969,12 @@
   },
   "1651": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 167,
-    "NOT ESTABLISHED": 15,
+    "NOT ESTABLISHED": 13,
+    "TANGENT COVERED": 2,
     "CERTIFIED": 74
    }
   },
@@ -2921,20 +3202,22 @@
   },
   "2069": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
-    "NOT ESTABLISHED": 22,
+    "TANGENT COVERED": 1,
+    "NOT ESTABLISHED": 21,
     "CERTIFIED": 29,
     "CERTIFIED EMPTY": 205
    }
   },
   "2088": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
-    "NOT ESTABLISHED": 9,
+    "TANGENT COVERED": 1,
+    "NOT ESTABLISHED": 8,
     "CERTIFIED EMPTY": 245,
     "CERTIFIED": 2
    }
@@ -2942,10 +3225,10 @@
   "2133": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
     "CERTIFIED EMPTY": 255,
-    "NOT ESTABLISHED": 1
+    "TANGENT COVERED": 1
    }
   },
   "2137": {
@@ -2983,7 +3266,7 @@
   },
   "2169": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 255,
@@ -3035,7 +3318,7 @@
   },
   "2220": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 228,
@@ -3080,7 +3363,7 @@
   },
   "2253": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED": 9,
@@ -3090,12 +3373,13 @@
   },
   "2256": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 206,
     "CERTIFIED": 27,
-    "NOT ESTABLISHED": 23
+    "NOT ESTABLISHED": 22,
+    "TANGENT COVERED": 1
    }
   },
   "2260": {
@@ -3105,6 +3389,15 @@
    "counts": {
     "CERTIFIED": 12,
     "CERTIFIED EMPTY": 244
+   }
+  },
+  "2261": {
+   "level": 2,
+   "depth": 1,
+   "closed": false,
+   "counts": {
+    "CERTIFIED EMPTY": 255,
+    "NOT ESTABLISHED": 1
    }
   },
   "2262": {
@@ -3127,7 +3420,7 @@
   },
   "2281": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 244,
@@ -3155,11 +3448,12 @@
   },
   "2289": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 233,
-    "NOT ESTABLISHED": 22,
+    "NOT ESTABLISHED": 20,
+    "TANGENT COVERED": 2,
     "CERTIFIED": 1
    }
   },
@@ -3204,6 +3498,14 @@
    "counts": {
     "CERTIFIED EMPTY": 253,
     "CERTIFIED": 3
+   }
+  },
+  "2302": {
+   "level": 2,
+   "depth": 1,
+   "closed": true,
+   "counts": {
+    "CERTIFIED EMPTY": 256
    }
   },
   "2307": {
@@ -3270,10 +3572,10 @@
   "2321": {
    "level": 2,
    "depth": 1,
-   "closed": false,
+   "closed": true,
    "counts": {
     "CERTIFIED EMPTY": 178,
-    "NOT ESTABLISHED": 1,
+    "TANGENT COVERED": 1,
     "CERTIFIED": 77
    }
   },
@@ -3464,7 +3766,7 @@
   },
   "2558": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED": 26,
@@ -3474,22 +3776,24 @@
   },
   "2573": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 227,
-    "NOT ESTABLISHED": 28,
+    "NOT ESTABLISHED": 26,
+    "TANGENT COVERED": 2,
     "CERTIFIED": 1
    }
   },
   "2580": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED EMPTY": 118,
     "CERTIFIED": 120,
-    "NOT ESTABLISHED": 18
+    "NOT ESTABLISHED": 16,
+    "TANGENT COVERED": 2
    }
   },
   "2581": {
@@ -3512,7 +3816,7 @@
   },
   "2705": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "NOT ESTABLISHED": 256
@@ -3520,7 +3824,7 @@
   },
   "2707": {
    "level": 2,
-   "depth": 1,
+   "depth": 2,
    "closed": false,
    "counts": {
     "CERTIFIED": 11,
@@ -3538,6 +3842,6544 @@
   "refined_4": 136,
   "not_finished": 138
  },
+ "tree": {
+  "4": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "16": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "45": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 4,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 225,
+     "open": 31
+    },
+    {
+     "level": 3,
+     "cells": 265,
+     "closed": 255,
+     "open": 10
+    },
+    {
+     "level": 4,
+     "cells": 33,
+     "closed": 33,
+     "open": 0
+    }
+   ],
+   "leaves": 513,
+   "tangent_cells": 0
+  },
+  "123": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 4,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 221,
+     "open": 35
+    },
+    {
+     "level": 3,
+     "cells": 272,
+     "closed": 268,
+     "open": 4
+    },
+    {
+     "level": 4,
+     "cells": 17,
+     "closed": 17,
+     "open": 0
+    }
+   ],
+   "leaves": 506,
+   "tangent_cells": 0
+  },
+  "126": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 255,
+     "open": 1
+    }
+   ],
+   "leaves": 255,
+   "tangent_cells": 1
+  },
+  "133": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 227,
+     "open": 29
+    },
+    {
+     "level": 3,
+     "cells": 168,
+     "closed": 168,
+     "open": 0
+    }
+   ],
+   "leaves": 395,
+   "tangent_cells": 0
+  },
+  "160": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "172": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 225,
+     "open": 31
+    },
+    {
+     "level": 3,
+     "cells": 249,
+     "closed": 249,
+     "open": 0
+    }
+   ],
+   "leaves": 474,
+   "tangent_cells": 0
+  },
+  "194": {
+   "status": "open below level 4",
+   "route": "selective chain"
+  },
+  "197": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 252,
+     "open": 4
+    },
+    {
+     "level": 3,
+     "cells": 7,
+     "closed": 7,
+     "open": 0
+    }
+   ],
+   "leaves": 259,
+   "tangent_cells": 0
+  },
+  "229": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "249": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "282": {
+   "status": "open below level 4",
+   "route": "selective chain"
+  },
+  "290": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 254,
+     "open": 2
+    },
+    {
+     "level": 3,
+     "cells": 3,
+     "closed": 3,
+     "open": 0
+    }
+   ],
+   "leaves": 257,
+   "tangent_cells": 0
+  },
+  "305": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 245,
+     "open": 11
+    },
+    {
+     "level": 3,
+     "cells": 64,
+     "closed": 64,
+     "open": 0
+    }
+   ],
+   "leaves": 309,
+   "tangent_cells": 0
+  },
+  "306": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 243,
+     "open": 13
+    },
+    {
+     "level": 3,
+     "cells": 122,
+     "closed": 122,
+     "open": 0
+    }
+   ],
+   "leaves": 365,
+   "tangent_cells": 0
+  },
+  "319": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 249,
+     "open": 7
+    },
+    {
+     "level": 3,
+     "cells": 33,
+     "closed": 33,
+     "open": 0
+    }
+   ],
+   "leaves": 282,
+   "tangent_cells": 0
+  },
+  "333": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "335": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "340": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "363": {
+   "status": "open below level 4",
+   "route": "selective chain"
+  },
+  "415": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 4,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 213,
+     "open": 43
+    },
+    {
+     "level": 3,
+     "cells": 385,
+     "closed": 333,
+     "open": 52
+    },
+    {
+     "level": 4,
+     "cells": 345,
+     "closed": 345,
+     "open": 0
+    }
+   ],
+   "leaves": 891,
+   "tangent_cells": 0
+  },
+  "417": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 248,
+     "open": 8
+    },
+    {
+     "level": 3,
+     "cells": 24,
+     "closed": 24,
+     "open": 0
+    }
+   ],
+   "leaves": 272,
+   "tangent_cells": 0
+  },
+  "422": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 248,
+     "open": 8
+    },
+    {
+     "level": 3,
+     "cells": 25,
+     "closed": 25,
+     "open": 0
+    }
+   ],
+   "leaves": 273,
+   "tangent_cells": 0
+  },
+  "428": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "437": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 255,
+     "open": 1
+    },
+    {
+     "level": 3,
+     "cells": 2,
+     "closed": 2,
+     "open": 0
+    }
+   ],
+   "leaves": 257,
+   "tangent_cells": 0
+  },
+  "450": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 4,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 231,
+     "open": 25
+    },
+    {
+     "level": 3,
+     "cells": 218,
+     "closed": 209,
+     "open": 9
+    },
+    {
+     "level": 4,
+     "cells": 61,
+     "closed": 61,
+     "open": 0
+    }
+   ],
+   "leaves": 501,
+   "tangent_cells": 0
+  },
+  "453": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 251,
+     "open": 5
+    },
+    {
+     "level": 3,
+     "cells": 9,
+     "closed": 9,
+     "open": 0
+    }
+   ],
+   "leaves": 260,
+   "tangent_cells": 0
+  },
+  "457": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 249,
+     "open": 7
+    },
+    {
+     "level": 3,
+     "cells": 33,
+     "closed": 33,
+     "open": 0
+    }
+   ],
+   "leaves": 282,
+   "tangent_cells": 0
+  },
+  "462": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 4,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 242,
+     "open": 14
+    },
+    {
+     "level": 3,
+     "cells": 111,
+     "closed": 105,
+     "open": 6
+    },
+    {
+     "level": 4,
+     "cells": 29,
+     "closed": 29,
+     "open": 0
+    }
+   ],
+   "leaves": 376,
+   "tangent_cells": 0
+  },
+  "473": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 240,
+     "open": 16
+    },
+    {
+     "level": 3,
+     "cells": 156,
+     "closed": 156,
+     "open": 0
+    }
+   ],
+   "leaves": 396,
+   "tangent_cells": 0
+  },
+  "478": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "484": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 247,
+     "open": 9
+    },
+    {
+     "level": 3,
+     "cells": 36,
+     "closed": 36,
+     "open": 0
+    }
+   ],
+   "leaves": 283,
+   "tangent_cells": 0
+  },
+  "485": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 225,
+     "open": 31
+    },
+    {
+     "level": 3,
+     "cells": 292,
+     "closed": 292,
+     "open": 0
+    }
+   ],
+   "leaves": 517,
+   "tangent_cells": 0
+  },
+  "491": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 4,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 250,
+     "open": 6
+    },
+    {
+     "level": 3,
+     "cells": 11,
+     "closed": 10,
+     "open": 1
+    },
+    {
+     "level": 4,
+     "cells": 5,
+     "closed": 5,
+     "open": 0
+    }
+   ],
+   "leaves": 265,
+   "tangent_cells": 0
+  },
+  "493": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 252,
+     "open": 4
+    },
+    {
+     "level": 3,
+     "cells": 17,
+     "closed": 17,
+     "open": 0
+    }
+   ],
+   "leaves": 269,
+   "tangent_cells": 0
+  },
+  "499": {
+   "status": "open below level 4",
+   "route": "selective chain"
+  },
+  "525": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "550": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 4,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 164,
+     "open": 92
+    },
+    {
+     "level": 3,
+     "cells": 960,
+     "closed": 872,
+     "open": 88
+    },
+    {
+     "level": 4,
+     "cells": 907,
+     "closed": 907,
+     "open": 0
+    }
+   ],
+   "leaves": 1943,
+   "tangent_cells": 0
+  },
+  "558": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 4,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 224,
+     "open": 32
+    },
+    {
+     "level": 3,
+     "cells": 269,
+     "closed": 236,
+     "open": 33
+    },
+    {
+     "level": 4,
+     "cells": 291,
+     "closed": 291,
+     "open": 0
+    }
+   ],
+   "leaves": 751,
+   "tangent_cells": 0
+  },
+  "562": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 229,
+     "open": 27
+    },
+    {
+     "level": 3,
+     "cells": 229,
+     "closed": 229,
+     "open": 0
+    }
+   ],
+   "leaves": 458,
+   "tangent_cells": 0
+  },
+  "563": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "565": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "571": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 249,
+     "open": 7
+    },
+    {
+     "level": 3,
+     "cells": 32,
+     "closed": 32,
+     "open": 0
+    }
+   ],
+   "leaves": 281,
+   "tangent_cells": 0
+  },
+  "572": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 251,
+     "open": 5
+    },
+    {
+     "level": 3,
+     "cells": 9,
+     "closed": 9,
+     "open": 0
+    }
+   ],
+   "leaves": 260,
+   "tangent_cells": 0
+  },
+  "575": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 5,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 166,
+     "open": 90
+    },
+    {
+     "level": 3,
+     "cells": 914,
+     "closed": 412,
+     "open": 502
+    },
+    {
+     "level": 4,
+     "cells": 5658,
+     "closed": 5389,
+     "open": 269
+    },
+    {
+     "level": 5,
+     "cells": 2975,
+     "closed": 2975,
+     "open": 0
+    }
+   ],
+   "leaves": 8942,
+   "tangent_cells": 0
+  },
+  "577": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 255,
+     "open": 1
+    }
+   ],
+   "leaves": 255,
+   "tangent_cells": 1
+  },
+  "582": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "584": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 253,
+     "open": 3
+    },
+    {
+     "level": 3,
+     "cells": 5,
+     "closed": 5,
+     "open": 0
+    }
+   ],
+   "leaves": 258,
+   "tangent_cells": 0
+  },
+  "588": {
+   "status": "audit failed: ValueError: missing or unexpected rows at level 5",
+   "route": "selective chain"
+  },
+  "589": {
+   "status": "closed",
+   "route": "level 2 + collaborator level 3",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 251,
+     "open": 5
+    },
+    {
+     "level": 3,
+     "cells": 9,
+     "closed": 9,
+     "open": 0
+    }
+   ],
+   "leaves": 260,
+   "tangent_cells": 0
+  },
+  "595": {
+   "status": "audit failed: ValueError: missing or unexpected rows at level 4",
+   "route": "selective chain"
+  },
+  "596": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 255,
+     "open": 1
+    },
+    {
+     "level": 3,
+     "cells": 2,
+     "closed": 2,
+     "open": 0
+    }
+   ],
+   "leaves": 257,
+   "tangent_cells": 0
+  },
+  "601": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 244,
+     "open": 12
+    },
+    {
+     "level": 3,
+     "cells": 107,
+     "closed": 107,
+     "open": 0
+    }
+   ],
+   "leaves": 351,
+   "tangent_cells": 0
+  },
+  "603": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 252,
+     "open": 4
+    },
+    {
+     "level": 3,
+     "cells": 28,
+     "closed": 28,
+     "open": 0
+    }
+   ],
+   "leaves": 280,
+   "tangent_cells": 0
+  },
+  "604": {
+   "status": "closed",
+   "route": "level 2 + collaborator level 3",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 252,
+     "open": 4
+    },
+    {
+     "level": 3,
+     "cells": 28,
+     "closed": 28,
+     "open": 0
+    }
+   ],
+   "leaves": 280,
+   "tangent_cells": 0
+  },
+  "606": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 4,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 230,
+     "open": 26
+    },
+    {
+     "level": 3,
+     "cells": 215,
+     "closed": 214,
+     "open": 1
+    },
+    {
+     "level": 4,
+     "cells": 4,
+     "closed": 4,
+     "open": 0
+    }
+   ],
+   "leaves": 448,
+   "tangent_cells": 0
+  },
+  "610": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 244,
+     "open": 12
+    },
+    {
+     "level": 3,
+     "cells": 62,
+     "closed": 62,
+     "open": 0
+    }
+   ],
+   "leaves": 306,
+   "tangent_cells": 0
+  },
+  "612": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 252,
+     "open": 4
+    },
+    {
+     "level": 3,
+     "cells": 6,
+     "closed": 6,
+     "open": 0
+    }
+   ],
+   "leaves": 258,
+   "tangent_cells": 0
+  },
+  "636": {
+   "status": "open below level 4",
+   "route": "selective chain"
+  },
+  "641": {
+   "status": "audit failed: ValueError: missing or unexpected rows at level 5",
+   "route": "selective chain"
+  },
+  "643": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "650": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 252,
+     "open": 4
+    },
+    {
+     "level": 3,
+     "cells": 17,
+     "closed": 17,
+     "open": 0
+    }
+   ],
+   "leaves": 269,
+   "tangent_cells": 0
+  },
+  "665": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "666": {
+   "status": "open below level 4",
+   "route": "selective chain"
+  },
+  "671": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 224,
+     "open": 32
+    },
+    {
+     "level": 3,
+     "cells": 295,
+     "closed": 295,
+     "open": 0
+    }
+   ],
+   "leaves": 519,
+   "tangent_cells": 0
+  },
+  "677": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "678": {
+   "status": "open below level 4",
+   "route": "selective chain"
+  },
+  "679": {
+   "status": "8 closed sub-balls without Stage C preconditions",
+   "route": "selective chain"
+  },
+  "680": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 6,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 181,
+     "open": 75
+    },
+    {
+     "level": 3,
+     "cells": 740,
+     "closed": 577,
+     "open": 163
+    },
+    {
+     "level": 4,
+     "cells": 1694,
+     "closed": 1547,
+     "open": 147
+    },
+    {
+     "level": 5,
+     "cells": 1419,
+     "closed": 1418,
+     "open": 1
+    },
+    {
+     "level": 6,
+     "cells": 14,
+     "closed": 14,
+     "open": 0
+    }
+   ],
+   "leaves": 3737,
+   "tangent_cells": 0
+  },
+  "685": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "687": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 254,
+     "open": 2
+    },
+    {
+     "level": 3,
+     "cells": 3,
+     "closed": 3,
+     "open": 0
+    }
+   ],
+   "leaves": 257,
+   "tangent_cells": 0
+  },
+  "688": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "692": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 4,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 221,
+     "open": 35
+    },
+    {
+     "level": 3,
+     "cells": 301,
+     "closed": 215,
+     "open": 86
+    },
+    {
+     "level": 4,
+     "cells": 659,
+     "closed": 659,
+     "open": 0
+    }
+   ],
+   "leaves": 1095,
+   "tangent_cells": 0
+  },
+  "693": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 240,
+     "open": 16
+    },
+    {
+     "level": 3,
+     "cells": 114,
+     "closed": 114,
+     "open": 0
+    }
+   ],
+   "leaves": 354,
+   "tangent_cells": 0
+  },
+  "701": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 246,
+     "open": 10
+    },
+    {
+     "level": 3,
+     "cells": 48,
+     "closed": 48,
+     "open": 0
+    }
+   ],
+   "leaves": 294,
+   "tangent_cells": 0
+  },
+  "702": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "703": {
+   "status": "audit failed: ValueError: missing or unexpected rows at level 5",
+   "route": "selective chain"
+  },
+  "704": {
+   "status": "audit failed: ValueError: missing or unexpected rows at level 4",
+   "route": "selective chain"
+  },
+  "716": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 4,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 244,
+     "open": 12
+    },
+    {
+     "level": 3,
+     "cells": 73,
+     "closed": 69,
+     "open": 4
+    },
+    {
+     "level": 4,
+     "cells": 8,
+     "closed": 8,
+     "open": 0
+    }
+   ],
+   "leaves": 321,
+   "tangent_cells": 0
+  },
+  "717": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 233,
+     "open": 23
+    },
+    {
+     "level": 3,
+     "cells": 151,
+     "closed": 151,
+     "open": 0
+    }
+   ],
+   "leaves": 384,
+   "tangent_cells": 0
+  },
+  "730": {
+   "status": "49 closed sub-balls without Stage C preconditions",
+   "route": "selective chain"
+  },
+  "733": {
+   "status": "1 closed sub-balls without Stage C preconditions",
+   "route": "selective chain"
+  },
+  "734": {
+   "status": "open below level 4",
+   "route": "selective chain"
+  },
+  "740": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "741": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 4,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 189,
+     "open": 67
+    },
+    {
+     "level": 3,
+     "cells": 652,
+     "closed": 640,
+     "open": 12
+    },
+    {
+     "level": 4,
+     "cells": 93,
+     "closed": 93,
+     "open": 0
+    }
+   ],
+   "leaves": 922,
+   "tangent_cells": 0
+  },
+  "745": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "746": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 219,
+     "open": 37
+    },
+    {
+     "level": 3,
+     "cells": 340,
+     "closed": 340,
+     "open": 0
+    }
+   ],
+   "leaves": 559,
+   "tangent_cells": 0
+  },
+  "751": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 245,
+     "open": 11
+    },
+    {
+     "level": 3,
+     "cells": 61,
+     "closed": 61,
+     "open": 0
+    }
+   ],
+   "leaves": 306,
+   "tangent_cells": 0
+  },
+  "753": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "754": {
+   "status": "open below level 4",
+   "route": "selective chain"
+  },
+  "764": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "767": {
+   "status": "144 closed sub-balls without Stage C preconditions",
+   "route": "selective chain"
+  },
+  "768": {
+   "status": "audit failed: ValueError: missing or unexpected rows at level 4",
+   "route": "selective chain"
+  },
+  "769": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 235,
+     "open": 21
+    },
+    {
+     "level": 3,
+     "cells": 205,
+     "closed": 205,
+     "open": 0
+    }
+   ],
+   "leaves": 440,
+   "tangent_cells": 0
+  },
+  "772": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 245,
+     "open": 11
+    },
+    {
+     "level": 3,
+     "cells": 81,
+     "closed": 81,
+     "open": 0
+    }
+   ],
+   "leaves": 326,
+   "tangent_cells": 0
+  },
+  "773": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 254,
+     "open": 2
+    },
+    {
+     "level": 3,
+     "cells": 3,
+     "closed": 3,
+     "open": 0
+    }
+   ],
+   "leaves": 257,
+   "tangent_cells": 0
+  },
+  "777": {
+   "status": "audit failed: ValueError: missing or unexpected rows at level 4",
+   "route": "selective chain"
+  },
+  "779": {
+   "status": "1 closed sub-balls without Stage C preconditions",
+   "route": "selective chain"
+  },
+  "782": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 233,
+     "open": 23
+    },
+    {
+     "level": 3,
+     "cells": 204,
+     "closed": 204,
+     "open": 0
+    }
+   ],
+   "leaves": 437,
+   "tangent_cells": 0
+  },
+  "789": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 4,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 222,
+     "open": 34
+    },
+    {
+     "level": 3,
+     "cells": 310,
+     "closed": 309,
+     "open": 1
+    },
+    {
+     "level": 4,
+     "cells": 4,
+     "closed": 4,
+     "open": 0
+    }
+   ],
+   "leaves": 535,
+   "tangent_cells": 0
+  },
+  "791": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 250,
+     "open": 6
+    },
+    {
+     "level": 3,
+     "cells": 31,
+     "closed": 31,
+     "open": 0
+    }
+   ],
+   "leaves": 281,
+   "tangent_cells": 0
+  },
+  "793": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "795": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "799": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 235,
+     "open": 21
+    },
+    {
+     "level": 3,
+     "cells": 176,
+     "closed": 176,
+     "open": 0
+    }
+   ],
+   "leaves": 411,
+   "tangent_cells": 0
+  },
+  "805": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 4,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 248,
+     "open": 8
+    },
+    {
+     "level": 3,
+     "cells": 35,
+     "closed": 34,
+     "open": 1
+    },
+    {
+     "level": 4,
+     "cells": 1,
+     "closed": 1,
+     "open": 0
+    }
+   ],
+   "leaves": 283,
+   "tangent_cells": 0
+  },
+  "807": {
+   "status": "open below level 4",
+   "route": "selective chain"
+  },
+  "815": {
+   "status": "open below level 4",
+   "route": "selective chain"
+  },
+  "822": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 237,
+     "open": 19
+    },
+    {
+     "level": 3,
+     "cells": 145,
+     "closed": 145,
+     "open": 0
+    }
+   ],
+   "leaves": 382,
+   "tangent_cells": 0
+  },
+  "823": {
+   "status": "audit failed: ValueError: missing or unexpected rows at level 4",
+   "route": "selective chain"
+  },
+  "825": {
+   "status": "audit failed: json.decoder.JSONDecodeError: Expecting property name enclosed in double quotes: line 1 column 2 (ch",
+   "route": "selective chain"
+  },
+  "828": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 4,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 238,
+     "open": 18
+    },
+    {
+     "level": 3,
+     "cells": 117,
+     "closed": 116,
+     "open": 1
+    },
+    {
+     "level": 4,
+     "cells": 5,
+     "closed": 5,
+     "open": 0
+    }
+   ],
+   "leaves": 359,
+   "tangent_cells": 0
+  },
+  "830": {
+   "status": "open below level 4",
+   "route": "selective chain"
+  },
+  "832": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 4,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 139,
+     "open": 117
+    },
+    {
+     "level": 3,
+     "cells": 1299,
+     "closed": 1299,
+     "open": 0
+    },
+    {
+     "level": 4,
+     "cells": 0,
+     "closed": 0,
+     "open": 0
+    }
+   ],
+   "leaves": 1438,
+   "tangent_cells": 0
+  },
+  "834": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 254,
+     "open": 2
+    },
+    {
+     "level": 3,
+     "cells": 3,
+     "closed": 3,
+     "open": 0
+    }
+   ],
+   "leaves": 257,
+   "tangent_cells": 0
+  },
+  "835": {
+   "status": "audit failed: ValueError: missing or unexpected rows at level 4",
+   "route": "selective chain"
+  },
+  "836": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 249,
+     "open": 7
+    },
+    {
+     "level": 3,
+     "cells": 42,
+     "closed": 42,
+     "open": 0
+    }
+   ],
+   "leaves": 291,
+   "tangent_cells": 0
+  },
+  "837": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 227,
+     "open": 29
+    },
+    {
+     "level": 3,
+     "cells": 202,
+     "closed": 202,
+     "open": 0
+    }
+   ],
+   "leaves": 429,
+   "tangent_cells": 0
+  },
+  "841": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 242,
+     "open": 14
+    },
+    {
+     "level": 3,
+     "cells": 139,
+     "closed": 139,
+     "open": 0
+    }
+   ],
+   "leaves": 381,
+   "tangent_cells": 0
+  },
+  "845": {
+   "status": "252 closed sub-balls without Stage C preconditions",
+   "route": "selective chain"
+  },
+  "846": {
+   "status": "audit failed: ValueError: missing or unexpected rows at level 4",
+   "route": "selective chain"
+  },
+  "847": {
+   "status": "1761 closed sub-balls without Stage C preconditions",
+   "route": "selective chain"
+  },
+  "848": {
+   "status": "audit failed: ValueError: missing or unexpected rows at level 4",
+   "route": "selective chain"
+  },
+  "852": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 6,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 84,
+     "open": 172
+    },
+    {
+     "level": 3,
+     "cells": 1906,
+     "closed": 998,
+     "open": 908
+    },
+    {
+     "level": 4,
+     "cells": 11624,
+     "closed": 11481,
+     "open": 143
+    },
+    {
+     "level": 5,
+     "cells": 1699,
+     "closed": 1699,
+     "open": 0
+    },
+    {
+     "level": 6,
+     "cells": 0,
+     "closed": 0,
+     "open": 0
+    }
+   ],
+   "leaves": 14262,
+   "tangent_cells": 0
+  },
+  "853": {
+   "status": "audit failed: ValueError: missing or unexpected rows at level 4",
+   "route": "selective chain"
+  },
+  "858": {
+   "status": "audit failed: ValueError: missing or unexpected rows at level 4",
+   "route": "selective chain"
+  },
+  "866": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 254,
+     "open": 2
+    },
+    {
+     "level": 3,
+     "cells": 4,
+     "closed": 4,
+     "open": 0
+    }
+   ],
+   "leaves": 258,
+   "tangent_cells": 0
+  },
+  "868": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "869": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 5,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 136,
+     "open": 120
+    },
+    {
+     "level": 3,
+     "cells": 1306,
+     "closed": 1298,
+     "open": 8
+    },
+    {
+     "level": 4,
+     "cells": 80,
+     "closed": 80,
+     "open": 0
+    },
+    {
+     "level": 5,
+     "cells": 0,
+     "closed": 0,
+     "open": 0
+    }
+   ],
+   "leaves": 1514,
+   "tangent_cells": 0
+  },
+  "874": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 242,
+     "open": 14
+    },
+    {
+     "level": 3,
+     "cells": 90,
+     "closed": 90,
+     "open": 0
+    }
+   ],
+   "leaves": 332,
+   "tangent_cells": 0
+  },
+  "875": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 4,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 226,
+     "open": 30
+    },
+    {
+     "level": 3,
+     "cells": 262,
+     "closed": 255,
+     "open": 7
+    },
+    {
+     "level": 4,
+     "cells": 43,
+     "closed": 43,
+     "open": 0
+    }
+   ],
+   "leaves": 524,
+   "tangent_cells": 0
+  },
+  "876": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 247,
+     "open": 9
+    },
+    {
+     "level": 3,
+     "cells": 36,
+     "closed": 36,
+     "open": 0
+    }
+   ],
+   "leaves": 283,
+   "tangent_cells": 0
+  },
+  "878": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "879": {
+   "status": "audit failed: ValueError: missing or unexpected rows at level 4",
+   "route": "selective chain"
+  },
+  "880": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "883": {
+   "status": "audit failed: ValueError: missing or unexpected rows at level 4",
+   "route": "selective chain"
+  },
+  "884": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 4,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 151,
+     "open": 105
+    },
+    {
+     "level": 3,
+     "cells": 1211,
+     "closed": 1211,
+     "open": 0
+    },
+    {
+     "level": 4,
+     "cells": 0,
+     "closed": 0,
+     "open": 0
+    }
+   ],
+   "leaves": 1362,
+   "tangent_cells": 0
+  },
+  "885": {
+   "status": "audit failed: ValueError: missing or unexpected rows at level 4",
+   "route": "selective chain"
+  },
+  "887": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 229,
+     "open": 27
+    },
+    {
+     "level": 3,
+     "cells": 242,
+     "closed": 242,
+     "open": 0
+    }
+   ],
+   "leaves": 471,
+   "tangent_cells": 0
+  },
+  "891": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 4,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 247,
+     "open": 9
+    },
+    {
+     "level": 3,
+     "cells": 60,
+     "closed": 56,
+     "open": 4
+    },
+    {
+     "level": 4,
+     "cells": 56,
+     "closed": 56,
+     "open": 0
+    }
+   ],
+   "leaves": 359,
+   "tangent_cells": 0
+  },
+  "895": {
+   "status": "audit failed: ValueError: missing or unexpected rows at level 4",
+   "route": "selective chain"
+  },
+  "897": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 202,
+     "open": 54
+    },
+    {
+     "level": 3,
+     "cells": 555,
+     "closed": 555,
+     "open": 0
+    }
+   ],
+   "leaves": 757,
+   "tangent_cells": 0
+  },
+  "900": {
+   "status": "audit failed: ValueError: missing or unexpected rows at level 4",
+   "route": "selective chain"
+  },
+  "905": {
+   "status": "audit failed: ValueError: missing or unexpected rows at level 4",
+   "route": "selective chain"
+  },
+  "907": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 252,
+     "open": 4
+    },
+    {
+     "level": 3,
+     "cells": 18,
+     "closed": 18,
+     "open": 0
+    }
+   ],
+   "leaves": 270,
+   "tangent_cells": 0
+  },
+  "908": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "918": {
+   "status": "audit failed: ValueError: missing or unexpected rows at level 4",
+   "route": "selective chain"
+  },
+  "923": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "925": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 4,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 201,
+     "open": 55
+    },
+    {
+     "level": 3,
+     "cells": 516,
+     "closed": 511,
+     "open": 5
+    },
+    {
+     "level": 4,
+     "cells": 26,
+     "closed": 26,
+     "open": 0
+    }
+   ],
+   "leaves": 738,
+   "tangent_cells": 0
+  },
+  "926": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "927": {
+   "status": "2968 closed sub-balls without Stage C preconditions",
+   "route": "selective chain"
+  },
+  "928": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "934": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "935": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "936": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 239,
+     "open": 17
+    },
+    {
+     "level": 3,
+     "cells": 144,
+     "closed": 144,
+     "open": 0
+    }
+   ],
+   "leaves": 383,
+   "tangent_cells": 0
+  },
+  "940": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 226,
+     "open": 30
+    },
+    {
+     "level": 3,
+     "cells": 272,
+     "closed": 272,
+     "open": 0
+    }
+   ],
+   "leaves": 498,
+   "tangent_cells": 0
+  },
+  "950": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 5,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 64,
+     "open": 192
+    },
+    {
+     "level": 3,
+     "cells": 2216,
+     "closed": 1750,
+     "open": 466
+    },
+    {
+     "level": 4,
+     "cells": 5807,
+     "closed": 5805,
+     "open": 2
+    },
+    {
+     "level": 5,
+     "cells": 16,
+     "closed": 16,
+     "open": 0
+    }
+   ],
+   "leaves": 7635,
+   "tangent_cells": 0
+  },
+  "951": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 4,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 182,
+     "open": 74
+    },
+    {
+     "level": 3,
+     "cells": 715,
+     "closed": 715,
+     "open": 0
+    },
+    {
+     "level": 4,
+     "cells": 0,
+     "closed": 0,
+     "open": 0
+    }
+   ],
+   "leaves": 897,
+   "tangent_cells": 0
+  },
+  "952": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 252,
+     "open": 4
+    },
+    {
+     "level": 3,
+     "cells": 18,
+     "closed": 18,
+     "open": 0
+    }
+   ],
+   "leaves": 270,
+   "tangent_cells": 0
+  },
+  "954": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 4,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 181,
+     "open": 75
+    },
+    {
+     "level": 3,
+     "cells": 850,
+     "closed": 850,
+     "open": 0
+    },
+    {
+     "level": 4,
+     "cells": 0,
+     "closed": 0,
+     "open": 0
+    }
+   ],
+   "leaves": 1031,
+   "tangent_cells": 0
+  },
+  "956": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 223,
+     "open": 33
+    },
+    {
+     "level": 3,
+     "cells": 267,
+     "closed": 267,
+     "open": 0
+    }
+   ],
+   "leaves": 490,
+   "tangent_cells": 0
+  },
+  "957": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 228,
+     "open": 28
+    },
+    {
+     "level": 3,
+     "cells": 258,
+     "closed": 258,
+     "open": 0
+    }
+   ],
+   "leaves": 486,
+   "tangent_cells": 0
+  },
+  "959": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 5,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 115,
+     "open": 141
+    },
+    {
+     "level": 3,
+     "cells": 1561,
+     "closed": 1525,
+     "open": 36
+    },
+    {
+     "level": 4,
+     "cells": 419,
+     "closed": 419,
+     "open": 0
+    },
+    {
+     "level": 5,
+     "cells": 0,
+     "closed": 0,
+     "open": 0
+    }
+   ],
+   "leaves": 2059,
+   "tangent_cells": 0
+  },
+  "965": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 246,
+     "open": 10
+    },
+    {
+     "level": 3,
+     "cells": 101,
+     "closed": 101,
+     "open": 0
+    }
+   ],
+   "leaves": 347,
+   "tangent_cells": 0
+  },
+  "966": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "987": {
+   "status": "audit failed: ValueError: missing or unexpected rows at level 4",
+   "route": "selective chain"
+  },
+  "989": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "993": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 240,
+     "open": 16
+    },
+    {
+     "level": 3,
+     "cells": 120,
+     "closed": 120,
+     "open": 0
+    }
+   ],
+   "leaves": 360,
+   "tangent_cells": 0
+  },
+  "994": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "995": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 4,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 168,
+     "open": 88
+    },
+    {
+     "level": 3,
+     "cells": 911,
+     "closed": 900,
+     "open": 11
+    },
+    {
+     "level": 4,
+     "cells": 69,
+     "closed": 69,
+     "open": 0
+    }
+   ],
+   "leaves": 1137,
+   "tangent_cells": 0
+  },
+  "996": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 208,
+     "open": 48
+    },
+    {
+     "level": 3,
+     "cells": 473,
+     "closed": 473,
+     "open": 0
+    }
+   ],
+   "leaves": 681,
+   "tangent_cells": 0
+  },
+  "997": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1001": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 250,
+     "open": 6
+    },
+    {
+     "level": 3,
+     "cells": 20,
+     "closed": 20,
+     "open": 0
+    }
+   ],
+   "leaves": 270,
+   "tangent_cells": 0
+  },
+  "1004": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 225,
+     "open": 31
+    },
+    {
+     "level": 3,
+     "cells": 288,
+     "closed": 288,
+     "open": 0
+    }
+   ],
+   "leaves": 513,
+   "tangent_cells": 0
+  },
+  "1005": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 4,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 201,
+     "open": 55
+    },
+    {
+     "level": 3,
+     "cells": 541,
+     "closed": 436,
+     "open": 105
+    },
+    {
+     "level": 4,
+     "cells": 922,
+     "closed": 922,
+     "open": 0
+    }
+   ],
+   "leaves": 1559,
+   "tangent_cells": 0
+  },
+  "1010": {
+   "status": "audit failed: ValueError: missing or unexpected rows at level 4",
+   "route": "selective chain"
+  },
+  "1016": {
+   "status": "audit failed: ValueError: missing or unexpected rows at level 4",
+   "route": "selective chain"
+  },
+  "1022": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 222,
+     "open": 34
+    },
+    {
+     "level": 3,
+     "cells": 297,
+     "closed": 297,
+     "open": 0
+    }
+   ],
+   "leaves": 519,
+   "tangent_cells": 0
+  },
+  "1023": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1024": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 254,
+     "open": 2
+    },
+    {
+     "level": 3,
+     "cells": 14,
+     "closed": 14,
+     "open": 0
+    }
+   ],
+   "leaves": 268,
+   "tangent_cells": 0
+  },
+  "1028": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 254,
+     "open": 2
+    },
+    {
+     "level": 3,
+     "cells": 14,
+     "closed": 14,
+     "open": 0
+    }
+   ],
+   "leaves": 268,
+   "tangent_cells": 0
+  },
+  "1035": {
+   "status": "open below level 4",
+   "route": "selective chain"
+  },
+  "1038": {
+   "status": "audit failed: ValueError: missing or unexpected rows at level 5",
+   "route": "selective chain"
+  },
+  "1052": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 212,
+     "open": 44
+    },
+    {
+     "level": 3,
+     "cells": 426,
+     "closed": 426,
+     "open": 0
+    }
+   ],
+   "leaves": 638,
+   "tangent_cells": 0
+  },
+  "1056": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 5,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 79,
+     "open": 177
+    },
+    {
+     "level": 3,
+     "cells": 2093,
+     "closed": 1938,
+     "open": 155
+    },
+    {
+     "level": 4,
+     "cells": 1848,
+     "closed": 1845,
+     "open": 3
+    },
+    {
+     "level": 5,
+     "cells": 40,
+     "closed": 40,
+     "open": 0
+    }
+   ],
+   "leaves": 3902,
+   "tangent_cells": 0
+  },
+  "1070": {
+   "status": "open below level 4",
+   "route": "selective chain"
+  },
+  "1072": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 253,
+     "open": 3
+    },
+    {
+     "level": 3,
+     "cells": 15,
+     "closed": 15,
+     "open": 0
+    }
+   ],
+   "leaves": 268,
+   "tangent_cells": 0
+  },
+  "1073": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1083": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1089": {
+   "status": "open below level 5",
+   "route": "selective chain"
+  },
+  "1090": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 228,
+     "open": 28
+    },
+    {
+     "level": 3,
+     "cells": 243,
+     "closed": 243,
+     "open": 0
+    }
+   ],
+   "leaves": 471,
+   "tangent_cells": 0
+  },
+  "1092": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1095": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 4,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 210,
+     "open": 46
+    },
+    {
+     "level": 3,
+     "cells": 474,
+     "closed": 474,
+     "open": 0
+    },
+    {
+     "level": 4,
+     "cells": 0,
+     "closed": 0,
+     "open": 0
+    }
+   ],
+   "leaves": 684,
+   "tangent_cells": 0
+  },
+  "1097": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1101": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1102": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 237,
+     "open": 19
+    },
+    {
+     "level": 3,
+     "cells": 161,
+     "closed": 161,
+     "open": 0
+    }
+   ],
+   "leaves": 398,
+   "tangent_cells": 0
+  },
+  "1104": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 210,
+     "open": 46
+    },
+    {
+     "level": 3,
+     "cells": 454,
+     "closed": 454,
+     "open": 0
+    }
+   ],
+   "leaves": 664,
+   "tangent_cells": 0
+  },
+  "1105": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 249,
+     "open": 7
+    },
+    {
+     "level": 3,
+     "cells": 33,
+     "closed": 33,
+     "open": 0
+    }
+   ],
+   "leaves": 282,
+   "tangent_cells": 0
+  },
+  "1106": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 232,
+     "open": 24
+    },
+    {
+     "level": 3,
+     "cells": 228,
+     "closed": 228,
+     "open": 0
+    }
+   ],
+   "leaves": 460,
+   "tangent_cells": 0
+  },
+  "1107": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1108": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 193,
+     "open": 63
+    },
+    {
+     "level": 3,
+     "cells": 716,
+     "closed": 716,
+     "open": 0
+    }
+   ],
+   "leaves": 909,
+   "tangent_cells": 0
+  },
+  "1109": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1110": {
+   "status": "closed",
+   "route": "level 2 + collaborator level 3",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 242,
+     "open": 14
+    },
+    {
+     "level": 3,
+     "cells": 97,
+     "closed": 97,
+     "open": 0
+    }
+   ],
+   "leaves": 339,
+   "tangent_cells": 0
+  },
+  "1127": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1132": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 4,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 162,
+     "open": 94
+    },
+    {
+     "level": 3,
+     "cells": 1099,
+     "closed": 1099,
+     "open": 0
+    },
+    {
+     "level": 4,
+     "cells": 0,
+     "closed": 0,
+     "open": 0
+    }
+   ],
+   "leaves": 1261,
+   "tangent_cells": 0
+  },
+  "1137": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 212,
+     "open": 44
+    },
+    {
+     "level": 3,
+     "cells": 395,
+     "closed": 395,
+     "open": 0
+    }
+   ],
+   "leaves": 607,
+   "tangent_cells": 0
+  },
+  "1148": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1161": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1169": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1175": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1190": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1191": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 4,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 197,
+     "open": 59
+    },
+    {
+     "level": 3,
+     "cells": 619,
+     "closed": 619,
+     "open": 0
+    },
+    {
+     "level": 4,
+     "cells": 0,
+     "closed": 0,
+     "open": 0
+    }
+   ],
+   "leaves": 816,
+   "tangent_cells": 0
+  },
+  "1203": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1208": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1209": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 254,
+     "open": 2
+    },
+    {
+     "level": 3,
+     "cells": 14,
+     "closed": 14,
+     "open": 0
+    }
+   ],
+   "leaves": 268,
+   "tangent_cells": 0
+  },
+  "1210": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1212": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 4,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 184,
+     "open": 72
+    },
+    {
+     "level": 3,
+     "cells": 831,
+     "closed": 831,
+     "open": 0
+    },
+    {
+     "level": 4,
+     "cells": 0,
+     "closed": 0,
+     "open": 0
+    }
+   ],
+   "leaves": 1015,
+   "tangent_cells": 0
+  },
+  "1213": {
+   "status": "audit failed: ValueError: missing or unexpected rows at level 6",
+   "route": "selective chain"
+  },
+  "1215": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1216": {
+   "status": "4 closed sub-balls without Stage C preconditions",
+   "route": "selective chain"
+  },
+  "1217": {
+   "status": "audit failed: ValueError: missing or unexpected rows at level 4",
+   "route": "selective chain"
+  },
+  "1227": {
+   "status": "24 closed sub-balls without Stage C preconditions",
+   "route": "selective chain"
+  },
+  "1230": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1241": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 4,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 100,
+     "open": 156
+    },
+    {
+     "level": 3,
+     "cells": 1779,
+     "closed": 1779,
+     "open": 0
+    },
+    {
+     "level": 4,
+     "cells": 0,
+     "closed": 0,
+     "open": 0
+    }
+   ],
+   "leaves": 1879,
+   "tangent_cells": 0
+  },
+  "1255": {
+   "status": "closed",
+   "route": "level 2 + collaborator level 3",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 244,
+     "open": 12
+    },
+    {
+     "level": 3,
+     "cells": 144,
+     "closed": 144,
+     "open": 0
+    }
+   ],
+   "leaves": 388,
+   "tangent_cells": 0
+  },
+  "1263": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 202,
+     "open": 54
+    },
+    {
+     "level": 3,
+     "cells": 478,
+     "closed": 478,
+     "open": 0
+    }
+   ],
+   "leaves": 680,
+   "tangent_cells": 0
+  },
+  "1265": {
+   "status": "audit failed: ValueError: missing or unexpected rows at level 4",
+   "route": "selective chain"
+  },
+  "1270": {
+   "status": "open below level 4",
+   "route": "selective chain"
+  },
+  "1272": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1279": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1281": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1282": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1286": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1287": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 4,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 128,
+     "open": 128
+    },
+    {
+     "level": 3,
+     "cells": 1509,
+     "closed": 1509,
+     "open": 0
+    },
+    {
+     "level": 4,
+     "cells": 0,
+     "closed": 0,
+     "open": 0
+    }
+   ],
+   "leaves": 1637,
+   "tangent_cells": 0
+  },
+  "1296": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 255,
+     "open": 1
+    }
+   ],
+   "leaves": 255,
+   "tangent_cells": 1
+  },
+  "1297": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 255,
+     "open": 1
+    }
+   ],
+   "leaves": 255,
+   "tangent_cells": 1
+  },
+  "1299": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1320": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1327": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1328": {
+   "status": "closed",
+   "route": "level 2 + collaborator level 3",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 254,
+     "open": 2
+    },
+    {
+     "level": 3,
+     "cells": 14,
+     "closed": 14,
+     "open": 0
+    }
+   ],
+   "leaves": 268,
+   "tangent_cells": 0
+  },
+  "1338": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1342": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1344": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 5,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 153,
+     "open": 103
+    },
+    {
+     "level": 3,
+     "cells": 1239,
+     "closed": 1230,
+     "open": 9
+    },
+    {
+     "level": 4,
+     "cells": 91,
+     "closed": 91,
+     "open": 0
+    },
+    {
+     "level": 5,
+     "cells": 0,
+     "closed": 0,
+     "open": 0
+    }
+   ],
+   "leaves": 1474,
+   "tangent_cells": 0
+  },
+  "1345": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1356": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1361": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 4,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 177,
+     "open": 79
+    },
+    {
+     "level": 3,
+     "cells": 747,
+     "closed": 733,
+     "open": 14
+    },
+    {
+     "level": 4,
+     "cells": 50,
+     "closed": 50,
+     "open": 0
+    }
+   ],
+   "leaves": 960,
+   "tangent_cells": 0
+  },
+  "1388": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1395": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1396": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 255,
+     "open": 1
+    },
+    {
+     "level": 3,
+     "cells": 2,
+     "closed": 2,
+     "open": 0
+    }
+   ],
+   "leaves": 257,
+   "tangent_cells": 0
+  },
+  "1398": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1418": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1419": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1421": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1428": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1430": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1432": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1440": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1441": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1445": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1451": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1458": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1460": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1461": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1467": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1469": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1470": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1472": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1475": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1477": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1478": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1484": {
+   "status": "closed",
+   "route": "level 2 + collaborator level 3",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 251,
+     "open": 5
+    },
+    {
+     "level": 3,
+     "cells": 29,
+     "closed": 29,
+     "open": 0
+    }
+   ],
+   "leaves": 280,
+   "tangent_cells": 0
+  },
+  "1487": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1491": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1492": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1494": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1502": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1503": {
+   "status": "closed",
+   "route": "level 2 + collaborator level 3",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 248,
+     "open": 8
+    },
+    {
+     "level": 3,
+     "cells": 25,
+     "closed": 25,
+     "open": 0
+    }
+   ],
+   "leaves": 273,
+   "tangent_cells": 0
+  },
+  "1505": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1522": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1525": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1528": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1531": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 255,
+     "open": 1
+    }
+   ],
+   "leaves": 255,
+   "tangent_cells": 1
+  },
+  "1533": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1535": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1536": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1538": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1540": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1545": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1548": {
+   "status": "closed",
+   "route": "level 2 + collaborator level 3",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 255,
+     "open": 1
+    },
+    {
+     "level": 3,
+     "cells": 2,
+     "closed": 2,
+     "open": 0
+    }
+   ],
+   "leaves": 257,
+   "tangent_cells": 0
+  },
+  "1556": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1562": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1565": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1567": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1568": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1579": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 191,
+     "open": 65
+    },
+    {
+     "level": 3,
+     "cells": 578,
+     "closed": 578,
+     "open": 0
+    }
+   ],
+   "leaves": 769,
+   "tangent_cells": 0
+  },
+  "1591": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1597": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1600": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1601": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1610": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1615": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1616": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1622": {
+   "status": "audit failed: ValueError: missing or unexpected rows at level 4",
+   "route": "selective chain"
+  },
+  "1628": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1630": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1648": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1651": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 241,
+     "open": 15
+    },
+    {
+     "level": 3,
+     "cells": 112,
+     "closed": 112,
+     "open": 0
+    }
+   ],
+   "leaves": 353,
+   "tangent_cells": 0
+  },
+  "1674": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1691": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1692": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1711": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1730": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1732": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1733": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1753": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1756": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1760": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1766": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1800": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1812": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1850": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1861": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1870": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1871": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1880": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1886": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1887": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1888": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1895": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1901": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "1902": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "2021": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "2069": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 234,
+     "open": 22
+    },
+    {
+     "level": 3,
+     "cells": 263,
+     "closed": 263,
+     "open": 0
+    }
+   ],
+   "leaves": 497,
+   "tangent_cells": 0
+  },
+  "2088": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 247,
+     "open": 9
+    },
+    {
+     "level": 3,
+     "cells": 67,
+     "closed": 67,
+     "open": 0
+    }
+   ],
+   "leaves": 314,
+   "tangent_cells": 0
+  },
+  "2133": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 255,
+     "open": 1
+    }
+   ],
+   "leaves": 255,
+   "tangent_cells": 1
+  },
+  "2137": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "2140": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "2142": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "2163": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "2169": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 255,
+     "open": 1
+    },
+    {
+     "level": 3,
+     "cells": 2,
+     "closed": 2,
+     "open": 0
+    }
+   ],
+   "leaves": 257,
+   "tangent_cells": 0
+  },
+  "2206": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "2207": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "2209": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "2214": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "2219": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "2220": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 251,
+     "open": 5
+    },
+    {
+     "level": 3,
+     "cells": 48,
+     "closed": 48,
+     "open": 0
+    }
+   ],
+   "leaves": 299,
+   "tangent_cells": 0
+  },
+  "2239": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "2241": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "2244": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "2248": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "2253": {
+   "status": "closed",
+   "route": "level 2 + collaborator level 3",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 253,
+     "open": 3
+    },
+    {
+     "level": 3,
+     "cells": 26,
+     "closed": 26,
+     "open": 0
+    }
+   ],
+   "leaves": 279,
+   "tangent_cells": 0
+  },
+  "2256": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 233,
+     "open": 23
+    },
+    {
+     "level": 3,
+     "cells": 209,
+     "closed": 209,
+     "open": 0
+    }
+   ],
+   "leaves": 442,
+   "tangent_cells": 0
+  },
+  "2260": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "2261": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 255,
+     "open": 1
+    },
+    {
+     "level": 3,
+     "cells": 2,
+     "closed": 2,
+     "open": 0
+    }
+   ],
+   "leaves": 257,
+   "tangent_cells": 0
+  },
+  "2262": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "2267": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "2281": {
+   "status": "closed",
+   "route": "level 2 + collaborator level 3",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 254,
+     "open": 2
+    },
+    {
+     "level": 3,
+     "cells": 14,
+     "closed": 14,
+     "open": 0
+    }
+   ],
+   "leaves": 268,
+   "tangent_cells": 0
+  },
+  "2282": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "2285": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "2289": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 234,
+     "open": 22
+    },
+    {
+     "level": 3,
+     "cells": 182,
+     "closed": 182,
+     "open": 0
+    }
+   ],
+   "leaves": 416,
+   "tangent_cells": 0
+  },
+  "2290": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "2292": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "2294": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "2298": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "2300": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "2302": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "2307": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "2308": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "2312": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "2313": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "2316": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "2317": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "2320": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "2321": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 255,
+     "open": 1
+    }
+   ],
+   "leaves": 255,
+   "tangent_cells": 1
+  },
+  "2322": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "2324": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "2329": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "2330": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "2334": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "2335": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "2338": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "2339": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "2340": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "2342": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "2343": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "2344": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "2452": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "2490": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "2499": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "2521": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "2531": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "2534": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "2536": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "2545": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "2546": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "2558": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 4,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 159,
+     "open": 97
+    },
+    {
+     "level": 3,
+     "cells": 1008,
+     "closed": 950,
+     "open": 58
+    },
+    {
+     "level": 4,
+     "cells": 329,
+     "closed": 329,
+     "open": 0
+    }
+   ],
+   "leaves": 1438,
+   "tangent_cells": 0
+  },
+  "2573": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 228,
+     "open": 28
+    },
+    {
+     "level": 3,
+     "cells": 240,
+     "closed": 240,
+     "open": 0
+    }
+   ],
+   "leaves": 468,
+   "tangent_cells": 0
+  },
+  "2580": {
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 238,
+     "open": 18
+    },
+    {
+     "level": 3,
+     "cells": 114,
+     "closed": 114,
+     "open": 0
+    }
+   ],
+   "leaves": 352,
+   "tangent_cells": 0
+  },
+  "2581": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "2606": {
+   "status": "closed",
+   "route": "level 2",
+   "depth": 2,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 256,
+     "open": 0
+    }
+   ],
+   "leaves": 256,
+   "tangent_cells": 0
+  },
+  "2705": {
+   "status": "audit failed: ValueError: missing or unexpected rows at level 4",
+   "route": "selective chain"
+  },
+  "2707": {
+   "status": "closed",
+   "route": "level 2 + collaborator level 3",
+   "depth": 3,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 255,
+     "open": 1
+    },
+    {
+     "level": 3,
+     "cells": 2,
+     "closed": 2,
+     "open": 0
+    }
+   ],
+   "leaves": 257,
+   "tangent_cells": 0
+  }
+ },
  "census": {
   "balls": 2775,
   "triples": 79965,
@@ -3551,6 +10393,6 @@
   "census": 6.4,
   "refine": 72.3,
   "certifier": 170.9,
-  "split": 8270.7
+  "split": 18962.8
  }
 }
