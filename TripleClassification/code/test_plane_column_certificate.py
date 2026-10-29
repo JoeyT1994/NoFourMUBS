@@ -98,5 +98,15 @@ class PlaneTests(unittest.TestCase):
         with patch.object(P,'pair_margin',side_effect=ArithmeticError('unverified spectrum')):
             self.assertFalse(P.pair_excluded({0:({},0)},{0:({},0)}))
 
+    def test_constant_tube_keeps_the_entire_phase_capture(self):
+        class ConstantOnly:
+            @staticmethod
+            def project6():return arb_mat([[arb(int(i==j))-arb(1)/6 for j in range(6)] for i in range(6)])
+        capture=dict(center=[arb(0)]*6,radius=arb('.2'))
+        p,e=P.tube(ConstantOnly,self.model(),[1.,0.,0.,0.,0.,0.],capture,'constant')
+        self.assertTrue(all(x==0 for x in p['T'].entries()))
+        self.assertTrue(e>=capture['radius']+P.A.norm(p['v0'].entries()))
+        with self.assertRaises(ValueError):P.tube(ConstantOnly,self.model(),[0.]*6,capture,'unknown')
+
 
 if __name__=='__main__':unittest.main()

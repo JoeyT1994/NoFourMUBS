@@ -118,6 +118,14 @@ proposed center and does not assume that u is an exact root. It gives
 Several captures can use the same proposed center. The checker takes the largest certified ε among
 them, preserving their union. All branches are retained, including overlapping covers of one branch.
 
+Near a singular unbiased-vector branch, an affine derivative T can be too large to help. A second
+accepted mode keeps a captured phase ball directly: choose an exact mean-zero center u, set T=0,
+and take ε equal to the capture radius plus the verified displacement of its center from u. This
+uses the triangle inequality alone. The producer usually chooses the capture's own midpoint, so
+different pieces of a singular branch need not be pooled into a wide ball. The proposal records
+the mode for each center, and replay recomputes its bound. A center in this mode is not asserted
+to be an unbiased vector. The search threshold ‖T‖r < 0.1 merely chooses which mode to try.
+
 For two such tubes define S = Σ_j exp(i(u_bj−u_aj)), ΔT = T_b−T_a, and
 G_k = Σ_j i ΔT_jk exp(i(u_bj−u_aj)). With ε = ε_a+ε_b and δ = ‖ΔT‖r+ε,
 
@@ -212,6 +220,12 @@ complete dependency set. It reads back positive capture and transverse margins, 
 the numerator, the domain-to-capture chain, or the final loss bound. Pinned producer code supplies those
 facts. To remove that trust, replay the saved proposal against the exact snapshot. A dependency hash
 or a positive number copied from a receipt is not a replacement for that replay.
+
+Main commit `0b03aa5` also fixes the score-first runner's recursive fine-refinement call and makes
+the auditor prefer complete pattern rows over interrupted ones. This addresses the missing-row
+obstruction described in its updated notes. It does not change the frozen native cover or the
+phase-ball identity issue above. The whole-cell checker rebuilds and accounts for every pattern,
+so it does not rely on those earlier partial rows.
 
 The new checkers are not automatically rules of `audit_select.py`. Before using a pattern receipt in
 a whole-ball closure, bind the supplied column balls to that cell's complete cover and discharge every

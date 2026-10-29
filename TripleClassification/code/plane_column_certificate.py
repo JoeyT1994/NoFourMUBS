@@ -235,7 +235,13 @@ class Column:
         return self.vn+E@fit.x
 
 
-def tube(C,model,root,capture):
+def tube(C,model,root,capture,mode='native'):
+    require(mode in ('native','constant'),'unknown tube mode')
+    if mode=='constant':
+        # A necessary phase enclosure needs no implicit-function derivative.
+        v=C.project6()*arb_mat([[arb(float(x))] for x in root])
+        offset=A.norm([v[i,0]-capture['center'][i] for i in range(6)])
+        return dict(model=model,v0=v,T=arb_mat(6,4)),(capture['radius']+offset).upper()
     p=C.build(model,root)
     offset=A.norm([p['v0'][i,0]-capture['center'][i] for i in range(6)])
     bound=C.contract(p,(capture['radius']+offset).upper())
@@ -261,13 +267,15 @@ def pair_excluded(left,right):
         return False
 
 
-def verify_tree(column,node,roots,C,level=0,index=(0,0),stats=None,tubes=None):
+def verify_tree(column,node,roots,C,level=0,index=(0,0),stats=None,tubes=None,root_modes=None):
+    if root_modes is None:root_modes=['native']*len(roots)
+    require(len(root_modes)==len(roots) and all(m in ('native','constant') for m in root_modes),'invalid root modes')
     if stats is None:stats={};tubes={}
     require(isinstance(node,dict),'invalid tree node')
     if 'children' in node:
         require(set(node)=={'children'} and len(node['children'])==4,'incomplete partition')
         for child,(i,j) in zip(node['children'],itertools.product(range(2),repeat=2)):
-            verify_tree(column,child,roots,C,level+1,(2*index[0]+i,2*index[1]+j),stats,tubes)
+            verify_tree(column,child,roots,C,level+1,(2*index[0]+i,2*index[1]+j),stats,tubes,root_modes)
     else:
         require(node.get('kind') in ('outside','excluded','captured'),'unresolved leaf')
         result=column.check_slab(level,index,node);kind=result['status'].lower()
@@ -275,14 +283,14 @@ def verify_tree(column,node,roots,C,level=0,index=(0,0),stats=None,tubes=None):
         stats[kind]=stats.get(kind,0)+1
         if kind=='captured':
             key=node['root'];require(type(key) is int and 0<=key<len(roots),'invalid root reference')
-            p,epsilon=tube(C,column.model,hex_array(roots[key],(6,)),result)
+            p,epsilon=tube(C,column.model,hex_array(roots[key],(6,)),result,root_modes[key])
             if key in tubes:epsilon=max(tubes[key][1],epsilon).upper()
             tubes[key]=(p,epsilon)
     return stats,tubes
 
 
 def prove_column(model,supplied,C,depth=6,node_cap=6000,epsilon_target=.004):
-    col=Column(model,supplied);roots=[];count=0
+    col=Column(model,supplied);roots=[];root_modes=[];count=0
     def visit(level,index):
         nonlocal count
         count+=1
@@ -294,17 +302,23 @@ def prove_column(model,supplied,C,depth=6,node_cap=6000,epsilon_target=.004):
             return dict(proposal,kind=result['status'].lower())
         if result['status']=='CAPTURED':
             root=col.root_proposal(result['center'])
-            match=next((i for i,x in enumerate(roots) if np.linalg.norm(root-x)<1e-7),None)
+            mode='native' if C.build(model,root)['Tnorm']*model['r']<arb('.1') else 'constant'
+            if mode=='constant':
+                # Retain the small local capture instead of pooling a
+                # nearly singular branch around a fitted root.
+                root=np.array([float(x.mid()) for x in result['center']])
+            match=next((i for i,x in enumerate(roots)
+                        if root_modes[i]==mode and np.linalg.norm(root-x)<1e-7),None)
             candidate=root if match is None else roots[match]
-            _,epsilon=tube(C,model,candidate,result)
+            _,epsilon=tube(C,model,candidate,result,mode)
             if epsilon<arb(epsilon_target) or level>=depth:
-                if match is None:match=len(roots);roots.append(root)
+                if match is None:match=len(roots);roots.append(root);root_modes.append(mode)
                 return dict(proposal,kind='captured',root=match)
         if level>=depth:raise ArithmeticError('column depth budget exhausted')
         return dict(children=[visit(level+1,(2*index[0]+i,2*index[1]+j))
                               for i,j in itertools.product(range(2),repeat=2)])
     tree=visit(0,(0,0))
-    return dict(weak=encode(col.weak),roots=[encode(x) for x in roots],tree=tree)
+    return dict(weak=encode(col.weak),roots=[encode(x) for x in roots],root_modes=root_modes,tree=tree)
 
 
 def check(path,proposal):
@@ -317,10 +331,11 @@ def check(path,proposal):
     for item in items:
         c=item['column'];require(type(c) is int and 0<=c<6,'invalid column')
         col=Column(model,s['columns'][c],hex_array(item['weak'],(2,5)))
-        stats,tubes=verify_tree(col,item['tree'],item['roots'],C)
+        stats,tubes=verify_tree(col,item['tree'],item['roots'],C,root_modes=item.get('root_modes'))
         captured.append(tubes)
         summary.append(dict(column=c,colour=s['columns'][c]['colour'],leaves=stats,
             source_radius=str(col.radius),root_tubes=[dict(root=k,epsilon=str(e),
+            mode=item.get('root_modes',['native']*len(item['roots']))[k],
             phase_radius=str((A.operator_norm(p['T'])*model['r']+e).upper())) for k,(p,e) in sorted(tubes.items())]))
     margins=[]
     if all(captured):
@@ -344,7 +359,7 @@ def propose(path,depth=6,max_columns=6):
         try:
             item=dict(column=c,**prove_column(model,s['columns'][c],C,depth=depth))
             col=Column(model,s['columns'][c],hex_array(item['weak'],(2,5)))
-            stats,tubes=verify_tree(col,item['tree'],item['roots'],C)
+            stats,tubes=verify_tree(col,item['tree'],item['roots'],C,root_modes=item.get('root_modes'))
             if not tubes:selected=[item]
             else:
                 selected=None

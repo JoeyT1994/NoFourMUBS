@@ -51,7 +51,7 @@ def propose(path,depth=6):
             try:
                 proposal=P.prove_column(model,columns[c],C,depth=depth)
                 column=P.Column(model,columns[c],P.hex_array(proposal['weak'],(2,5)))
-                _,tubes=P.verify_tree(column,proposal['tree'],proposal['roots'],C)
+                _,tubes=P.verify_tree(column,proposal['tree'],proposal['roots'],C,root_modes=proposal.get('root_modes'))
                 proved[c]=(proposal,tubes)
             except ArithmeticError:continue
             chosen=witness(clique)
@@ -83,7 +83,7 @@ def check(path,proposal):
     tubes={};summaries=[]
     for key,item in proposal['columns'].items():
         c=int(key);col=P.Column(model,columns[c],P.hex_array(item['weak'],(2,5)))
-        stats,tubes[c]=P.verify_tree(col,item['tree'],item['roots'],C)
+        stats,tubes[c]=P.verify_tree(col,item['tree'],item['roots'],C,root_modes=item.get('root_modes'))
         summaries.append(dict(colour=c,leaves=stats,source_radius=str(col.radius),
             epsilons=[str(e) for p,e in tubes[c].values()]))
     checked={};rows=[]
