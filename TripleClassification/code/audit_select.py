@@ -171,8 +171,9 @@ def main():
         if k == 0:
             expected = {c for c in itertools.product(range(4), repeat=4) if hit(c, 2)}
         else:
-            expected = {c for c in itertools.product(range(2 ** level), repeat=4)
-                        if tuple(x // 2 for x in c) in target and hit(c, level)}
+            # the children of the open cells that meet the closed ball (the same set as filtering every level-L cell
+            # by its parent, without enumerating all (2^L)^4 of them)
+            expected = {c for t in target for c in itertools.product(*[(2 * x, 2 * x + 1) for x in t]) if hit(c, level)}
             need({tuple(x) for x in info['targeted_parent_cells']} == target, 'incorrect target mask at level %d' % level)
             if 'parent_subatlas_sha256' in info:      # provenance; the target mask above is checked against the layer given
                 need(info['parent_subatlas_sha256'] == sha(paths[k - 1]) and
