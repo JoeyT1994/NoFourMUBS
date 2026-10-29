@@ -1,0 +1,26 @@
+Necessary seed caps from a scalar quadratic dual
+
+Use the residual polynomials, remainder bound and domain constraints of
+CUBIC_PROOF.txt. Write z=(xi,eta_1,...,eta_6), where xi=w/r is the original
+normalized seed coordinate. For an arbitrary fixed real center a, set
+phi(z)=||xi-a||^2=phi_c+phi_g^T z+z^T phi_Q z/2.
+
+A real combination of the residual equations has quadratic part
+P(z)=c+g^T z+z^T Qz/2 and verified absolute remainder t. Every completing
+basis in this pattern therefore satisfies P(z)<=t. Apply the ellipsoid
+quadratic dual to P-phi, obtaining a verified lower bound
+  L=c-phi_c+dual_lower(Q-phi_Q,g-phi_g).
+It follows that phi(z)<=t-L for every completing basis in the pattern.
+If t-L<0, the pattern is empty. Otherwise this gives the necessary cap
+  ||w-r a|| <= r sqrt(t-L).
+The cap concerns all possible zeros in the original pattern. It need
+not contain the whole original H ball, and replacing a complete domain
+by this cap is justified only together with this certificate. No triple
+outside the cap may be discarded on the basis of a numerical proposal.
+
+The proposed center and residual coefficients are finite binary64 values.
+Acceptance recomputes the objective, residual coefficients, signed cubic
+bound, positive-definiteness test and final upper bound in Arb. A later
+local chart also requires a verified center inside the original ball
+and correct restriction of the original complete K cover. This module
+does not by itself perform that restriction or prove a full ball theorem.

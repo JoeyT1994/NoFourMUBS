@@ -1,0 +1,46 @@
+Quadratic filtering of the original closed column-phase bins
+
+Fix one original native H-ball and one of the exhaustive column bins.
+The first entry of a column ray is fixed to one. Its other five phases
+have midpoint 2 pi k_j/192 and half-width pi/96. Subtracting the mean
+phase gives beta+G t, with |t_j|<=1 and G equal to pi/96 times the
+mean-zero projection of the five coordinate vectors. In particular,
+||G t|| <= sqrt(29/6) pi/96. These are the same closed bins retained by
+the native Stage C cover. The seed coordinates satisfy ||w/r||<=1.
+
+For each H column a we retain the six unbiasedness residuals
+  f_a = (|H_a^* v|^2-6)/6
+      = (1/3) sum_{i<j} cos(V_i-V_j-Q_ia+Q_ja).
+At the bin midpoint, Taylor expansion retains the full signed quadratic
+in the nine variables (w/r,t_1,...,t_5). The known native H2 term is
+included in its seed-seed block. The linear X z term is combined across
+the six equations before its norm is taken.
+
+Let a_a=||U_a|| r+sqrt(29/6) pi/96 and
+n_a=||H2_a|| r^2/2+||X_a|| tau. The H columns are projected to mean-zero
+phases. The remaining scalar error for equation a is at most
+  2 a_a n_a+n_a^2+sqrt(2)(a_a+n_a)^3/3.
+The Hessian bound 2 and the cubic bound sqrt(2)/3 follow directly from
+sum_{i<j}(d_i-d_j)^2=6||d||^2 and |d_i-d_j|<=sqrt(2)||d|| for mean-zero d.
+For a residual direction y, we add the norm of its combined X-linear
+coefficient times tau and sum the displayed errors with weights |y_a|.
+
+The retained polynomial is minimized over one four-dimensional unit
+Euclidean ball and five one-dimensional unit balls. The preceding
+quadratic dual applies with six nonnegative multipliers. Arb checks its
+positive-definiteness inequality, inverse expression, and strict scalar
+margin. Only a verified positive margin removes a bin. Conic optimization
+merely proposes the six residual weights and six multipliers.
+
+Filtering occurs after the original column tests have produced an
+exhaustive color-clique list. Retaining the union of the edges of those
+cliques cannot introduce a clique absent from that exhaustive list, and
+does not remove an actual completing basis. The new filter then removes
+only certified impossible bins. All remaining bins, including untested
+ones and every unsuccessful numerical proposal, remain in the cover.
+The original closed H-ball and its radius remain unchanged.
+
+Replay reconstructs the native cover and its first column contractions,
+checks every saved excluded bin and multiplier, rejects duplicate or
+unrecognized bin identifiers, and then rebuilds the complete basis cover.
+Its acceptance never depends on saved margin values or a solver status.

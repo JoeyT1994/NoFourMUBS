@@ -1,0 +1,28 @@
+Reusing checked proposals without trusting cached conclusions
+
+Long discovery runs can stop before a complete ball certificate is
+written. The cache retains successful bin witnesses and completed cell
+results so these computations need not be proposed again. Its contents
+are inputs to verification, not accepted proof conclusions.
+
+For bin reuse, the original native cover and first column contractions
+are reconstructed. A saved bin is matched by its exact five integer
+midpoint coordinates to the current colors. The original quadratic bin
+verifier then checks every saved direction and multiplier on the current
+original H model before deleting that bin. Bin exclusion depends on its
+phase box and H model, not on the numerical color assigned to it. Fresh
+deletions are checked by the same verifier. The final receipt contains
+the complete list of reused and fresh witnesses.
+
+For cell reuse, the original box-ball intersection, local chart enclosure,
+and necessary K filters are reconstructed. The native final verifier runs
+again, using a saved scalar witness only after its inequality is rechecked
+on the current local tube. If that replay fails, discovery runs normally.
+A saved status or a saved margin cannot exclude or classify a cell.
+
+The complete dyadic tree and every original basis pattern remain required.
+Cached work does not change the global success condition. The independent
+replayer does not consult the cache: the final full-ball receipt contains
+all bin witnesses and all partition leaves needed for fresh verification.
+An interrupted last cache line is ignored, retaining the corresponding
+domain for renewed computation. A corrupt earlier line is an error.

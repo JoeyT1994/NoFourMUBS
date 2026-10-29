@@ -1,0 +1,43 @@
+Using the surviving bin geometry in a phase-quadratic certificate
+
+Fix an initial tube supplied by the native complete-cover construction,
+before any refit changes its expansion point. For a K column write its
+mean-zero phase displacement as delta=Tw+epsilon P6 e, where ||w||<=r,
+||e||<=1 and P6 is the mean-zero projection. The prior column contraction
+also proves ||delta||<=p. We retain this last inequality as a quadratic
+constraint in the joint seed and error variables.
+
+The complete cover supplies a finite list of closed phase bins. Their
+displacements from this same expansion point have centers d_b. Each
+bin has five free phase deviations in [-pi/96,pi/96], followed by P6.
+For any fixed real vector a, replaced by P6 a without changing its
+action on delta, every covered column satisfies
+  a^T delta <= max_b a^T d_b + h(a),
+where h(a)=(pi/96) sum_{j=1}^5 |a_j|. The coordinate j=0 is the fixed
+first entry. The alternative bound rho ||a||, with rho the native bin
+radius, is also valid. We use the smaller of these two verified upper
+bounds, and include both signs of each proposed direction. Coordinate
+directions and numerical principal directions merely choose which
+valid inequalities to retain. Replay uses the saved exact binary64
+directions and recomputes each support bound from the exhaustive bins.
+
+Let z collect the four normalized seed variables and six normalized
+column errors. The preceding phase-residual construction gives a scalar
+quadratic P(z)=c+g^T z+z^T Qz/2 and a uniform remainder t. Every completing
+basis obeys |P(z)|<=t. The domain satisfies thirteen quadratic constraints
+z^T E_i z<=1 and finitely many linear constraints Bz<=b. For nonnegative
+lambda and mu, set A=Q+sum_i lambda_i E_i and g'=g+B^T mu. If A is positive
+definite, completing the square gives
+  P(z) >= c-sum_i lambda_i/2-mu^T b-(g')^T A^{-1}g'/2.
+We obtain this bound by adding the nonpositive expressions
+lambda_i(z^T E_i z-1)/2 and mu^T(Bz-b) before minimizing over all z.
+A lower bound greater than t excludes the entire covered basis pattern.
+
+Acceptance computes the residual coefficients, support bounds and
+positive-definiteness test in Arb. A numerical conic program proposes
+the residual direction, slab directions and multipliers. Failed or
+unfinished searches remove nothing. The theorem assumes the same phase
+lifts for the bin centers and the supplied initial tube. It is therefore
+applied only at the initial enclosure of a native cover, including the
+initial enclosure of its fine-bin refinement. It is not applied blindly
+to a later refitted tube. The H ball retains its original radius.
