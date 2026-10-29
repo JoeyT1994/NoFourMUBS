@@ -1,0 +1,49 @@
+Complete subdivision of a closed K-phase bin
+
+Fix an original native H-ball and one closed column bin in its exhaustive
+Stage C cover. Keep the entire H-ball, including its stored radius and
+frame. Write the five free phases of the column as
+  beta_j + (pi/96)(c_j + h_j t_j),  -1 <= t_j <= 1.
+Here beta_j=2 pi k_j/192 is the original midpoint. At the root c=0 and
+h=(1,1,1,1,1). A split in coordinate j replaces h_j by h_j/2 and replaces
+c_j by c_j-h_j/2 or c_j+h_j/2. These two closed intervals cover the parent
+interval and share their boundary. All c and h values are exact dyadic
+rationals. The verifier derives them from the split axes in the tree.
+
+Let P be the orthogonal projection to mean-zero phases. The child center
+shift is s=P(0,(pi/96)c), and its variable phase displacement is
+G_h t=P(0,(pi/96)h_1 t_1,...,(pi/96)h_5 t_5). Its squared norm is bounded by
+  rho_h^2 = (pi/96)^2 max_{epsilon in {-1,1}^5}
+    [sum_j h_j^2 - (sum_j epsilon_j h_j)^2/6].
+The squared norm is a convex function of each coordinate separately, so
+its maximum on the box occurs at a vertex. The displayed maximum is
+computed exactly as a rational before multiplication by pi and taking
+the square root in Arb. At the root it gives (29/6)(pi/96)^2.
+
+The signed quadratic calculation in BIN_PROOF.txt applies at each child
+center. Replace the projected H center by H_center-s, which makes the
+unchanged coarse beta represent the shifted K center. Multiply the five
+K columns of its linear map by h_j. The four seed columns, the H2 term,
+and the X-normal term retain their full original values. For each H
+column set a=||U||r+rho_h and n=||H2||r^2/2+||X||tau. The same scalar
+remainder bound is
+  2 a n + n^2 + sqrt(2)(a+n)^3/3.
+Thus bin_quadratic.receipt checks a sufficient exclusion of this entire
+closed child box for every H in the original ball. Its multipliers and
+strict positive margin are checked in Arb. Numerical optimization only
+proposes the direction and multipliers.
+
+A leaf is accepted only when this bound is strictly positive. An internal
+node is accepted only when both children are accepted. Induction on the
+finite tree then excludes the entire original closed K bin. A search
+limit, an unsuccessful proposal, or an incomplete tree cannot exclude
+the bin. Replay checks membership in the rebuilt cover, rejects duplicate
+bin witnesses, reconstructs every child domain, and checks every leaf.
+It does not use stored margins to decide acceptance.
+
+After these exclusions the existing exhaustive basis-pattern search runs
+on the retained coarse bins. The original closed H-ball has not changed.
+This operation is an exclusion method for impossible K columns. It does
+not itself classify bins containing an actual unbiased column or a
+completing basis. A full ball certificate still requires every remaining
+basis pattern to be excluded or classified by the existing verifier.
