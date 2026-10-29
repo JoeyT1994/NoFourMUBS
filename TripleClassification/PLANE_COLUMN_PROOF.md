@@ -243,7 +243,8 @@ claims about unresolved patterns play no role in acceptance.
 Let the original record have seed center θ, frame M and radius r. A level-L cell has center
 u_j = −1+(2c_j+1)/2^L and half-width h = 2^−L in the normalized coordinates. Its seed image lies in
 the parameter ball of radius 2hr around θ+Mru. If θ′ is the proposed binary64 center, reduce
-δ = θ+Mru−θ′ modulo 2π coordinatewise. The checker requires the same M and chart labels and proves
+δ = θ+Mru−θ′ modulo 2π coordinatewise. The checker requires the same M and orientation, retains the
+original C1 box count, and proves
 
     r′−2hr > 0,             (r′−2hr)² > ‖M⁻¹δ‖²
 
@@ -276,3 +277,37 @@ The original radius is unchanged. This does not prove that the inventory covers 
 of an original ball. Combining these receipts with previous closures still requires the full covering
 tree, with every original cell either discharged or refined. A list of cell hashes cannot replace that
 audit, and these receipts do not change the published whole-ball count on their own.
+
+## 8. Covering an unresolved cell by all of its children
+
+An unresolved cell can be refined without removing any point of the original target region.
+`code/plane_tree_certificate.py` checks a tree rooted at that exact cell. Each internal node must
+have all sixteen children, in the fixed order of the four binary coordinate choices. Their closed
+cubes cover the parent cube, including every shared boundary. For a level-L cube, the squared
+distance of its nearest point to the origin is computed with exact rational arithmetic. The checker
+discards that cube only when this squared distance is strictly greater than one. Tangency is retained.
+
+Every other leaf must supply a recorded H ball and a column-partition proposal. Replay checks the
+file hashes, proves that the H ball contains that leaf's entire closed cube, and rebuilds and checks
+the complete K cover. A successful leaf therefore excludes every completing K on its part of the
+original ball. Induction up the tree excludes every completing K on the root cell's intersection
+with the original closed ball. No reduction of the original radius enters this argument.
+
+A tree receipt records the exact root cell and every leaf used. It cannot substitute a certificate
+for a nearby cell, omit a child, or count an unresolved leaf. This extends the cell-level computation
+to complete refinements. It still does not prove that the public inventory contains all cells needed
+by the original ball's covering tree.
+
+The level-4 cell 205 of ball 825 passed this replay with all sixteen level-5 children, accounting
+for 746 complete K patterns. Its direct search had exhausted its time budget. The tree proves the
+same assigned cell of the original radius-0.1 ball; it does not replace that target by one smaller ball.
+
+The tree proposal binds the root entry by `SHA256(json.dumps(entry, sort_keys=True))`. Each terminal
+proof has `input` and `proposal` objects containing `path` and `sha256`; paths are relative to the tree
+file unless absolute. An internal node has exactly `children`, a list of sixteen nodes in lexicographic
+binary order. An outside leaf is exactly `{"outside": true}`. Replay is:
+
+```sh
+python TripleClassification/code/plane_tree_certificate.py entry.json \
+  --tree tree.json --out tree-replay.json
+```

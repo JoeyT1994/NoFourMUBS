@@ -8,6 +8,7 @@ from flint import arb,arb_mat,ctx
 import plane_column_certificate as P
 import plane_cell_certificate as Whole
 import plane_frontier_certificate as Frontier
+import plane_tree_certificate as Tree
 
 
 class PlaneTests(unittest.TestCase):
@@ -124,6 +125,25 @@ class PlaneTests(unittest.TestCase):
     def test_rebuilt_cell_rejects_invalid_coordinates(self):
         for level,cell in ((-1,[0]*4),(2,[4]*4),(2,[1]*3),(2,[1.,1,1,1])):
             with self.assertRaises(ValueError):Frontier.cell_geometry({}, {},level,cell)
+
+    def test_full_child_partition_retains_every_closed_child(self):
+        leaf=dict(input={},proposal={});visited=[]
+        counts=Tree.walk(dict(children=[leaf]*16),2,[1]*4,lambda n,l,c:visited.append((l,c)))
+        self.assertEqual(counts['certified'],16)
+        self.assertEqual(visited,[(3,list(c)) for c in itertools.product((2,3),repeat=4)])
+        with self.assertRaises(ValueError):Tree.walk(dict(children=[leaf]*15),2,[1]*4,lambda *a:None)
+
+    def test_tree_cannot_discard_a_tangent_boundary(self):
+        # This cube touches the unit sphere at (-1/2,-1/2,-1/2,-1/2).
+        self.assertFalse(Tree.misses_ball(2,[0]*4))
+        with self.assertRaises(ValueError):Tree.walk(dict(outside=True),2,[0]*4,lambda *a:None)
+        self.assertTrue(Tree.misses_ball(3,[0]*4))
+        self.assertEqual(Tree.walk(dict(outside=True),3,[0]*4,lambda *a:None)['outside'],1)
+
+    def test_tree_rejects_an_unresolved_or_failed_leaf(self):
+        with self.assertRaises(ValueError):Tree.walk({},2,[1]*4,lambda *a:None)
+        def fail(*args):raise ArithmeticError('all-K proof missing')
+        with self.assertRaises(ArithmeticError):Tree.walk(dict(input={},proposal={}),2,[1]*4,fail)
 
 
 if __name__=='__main__':unittest.main()

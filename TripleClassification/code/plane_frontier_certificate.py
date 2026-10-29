@@ -27,7 +27,7 @@ def cell_geometry(original,record,level,cell):
     """Independently check the exact closed cube's containment in this record."""
     require(type(level) is int and 0<=level<=30 and len(cell)==4 and
             all(type(c) is int and 0<=c<2**level for c in cell),'invalid dyadic cell')
-    require(all(record[k]==original[k] for k in ('Mth','o','k')),'frame or chart changed')
+    require(all(record[k]==original[k] for k in ('Mth','o','k')),'frame, orientation, or C1 box count changed')
     m=arb_mat([[arb(float.fromhex(original['Mth'][4*i+j])) for j in range(4)] for i in range(4)])
     r=arb(float.fromhex(original['r']));tau=2*arb.pi()
     diff=[]
