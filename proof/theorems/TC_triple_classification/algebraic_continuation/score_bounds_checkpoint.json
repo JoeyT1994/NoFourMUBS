@@ -1,0 +1,93 @@
+{
+  "schema": "tc-equation-corrected-score-checkpoint-v1",
+  "status": "PARTIAL SCORE COVERS; NO NEW WHOLE-BALL CLOSURES",
+  "remaining_all_K_targets": [
+    282,
+    363,
+    499,
+    588,
+    595,
+    641,
+    666,
+    678,
+    734,
+    768,
+    777,
+    815,
+    823,
+    825,
+    830,
+    858,
+    905,
+    918,
+    987,
+    1010,
+    1016,
+    1035,
+    1089,
+    1213,
+    1217,
+    1265,
+    1622,
+    2705
+  ],
+  "fourier_threshold": "19/50",
+  "classification_claim": false,
+  "original_H_radii_preserved": true,
+  "dependency": "The Fourier-neighbourhood theorem (Gamma3) and its dependencies in TripleClassification/GAMMA_PROOF.md are separate; ordering discharges are not used here.",
+  "replay_root": "/mnt/sdceph/users/mwuttig/MUB_Hadamard/runs/tc_partition_20261029_61658d2111d8/score_tree_v2",
+  "frozen_source_root": "/mnt/sdceph/users/mwuttig/MUB_Hadamard/runs/tc_partition_20261029_61658d2111d8/operations/score_tree_v2",
+  "parent_release_manifest_sha256": "61658d2111d8d5700947a5eae14cc0e770cb07c82be9d15f34135fc56aba0ddf",
+  "score_source_sha256": {
+    "unitary_score.py": "e4bffc962991ab30962c6a0151e7ff1e1473f84683c4e6f6501ea0d518517311",
+    "constraint_score.py": "da844149eb1ea66d22e62262435b8a17d9be8648140a9d31f37187bd63020680",
+    "label_partition.py": "9dcfedbfdfa8ec28f5d4919791bff198c58df37058a6f13336207977c0d78942",
+    "score_tree.py": "4b65e3fb34092aa9e4a37b6b419ffee9a9f759a3e0f5c26f7d9e4ba04e9644b7"
+  },
+  "branches": [
+    {
+      "index": 1016,
+      "colors": [
+        0,
+        4,
+        23,
+        29,
+        32,
+        51
+      ],
+      "original_radius_hex": "0x1.47ae147ae147bp-4",
+      "seed_sha256": "8ad5c85f1d007dea0fdb827f72f410f052e067a8ecf4d4a79dedb8b89329c9bf",
+      "verified_score_branches": 59,
+      "open_branches": 11,
+      "maximum_Gamma_L_upper_hex": "0x1.8517438e7bef4p-2",
+      "input_tree_sha256": "ccd1de83aa55c35aafc7f5f5ba88481483715318fe83ad39c846613fa2e5bf0f",
+      "replay_sha256": "f9041c2c512bf2e49f42a6b287170910aab005cd18622e1a7bc41b15d1d1047d",
+      "standalone_replay_sha256": "27dc264dc86f2afc9cc34351a276cb503a50f01145a856dd3ac12af61576e7de",
+      "coarse_receipt_sha256": "4cc531607f62e8d804d45c3b18f2f1b123b752de87116eb04c281c5d4ab59095",
+      "total_color_patterns": 1024
+    },
+    {
+      "index": 1622,
+      "colors": [
+        0,
+        1,
+        18,
+        24,
+        25,
+        42
+      ],
+      "original_radius_hex": "0x1.47ae147ae147bp-4",
+      "seed_sha256": "8e1d4a2f78bad6c4d2210a49a6f12b0941108d8c9f7da74dbc2923e9aecc504c",
+      "verified_score_branches": 54,
+      "open_branches": 10,
+      "maximum_Gamma_L_upper_hex": "0x1.84cf6c696d692p-2",
+      "input_tree_sha256": "5af96463f0b1e9e7e727251a95d80d09c740472fc4fd46900d8030fb4fcf9316",
+      "replay_sha256": "8e6aa7ac4f7297fb3e3989e086f9a696c70452af862c1cc976ec285ee09137dd",
+      "standalone_replay_sha256": "36f660af45458d9ad49f30c32a7afbdda873942c8028c7037499123bc7231b68",
+      "coarse_receipt_sha256": "440a8b98eeba04aa7cfa023b69d11aa9fdd2bb385dba19968b52eb229e54c619",
+      "total_color_patterns": 70
+    }
+  ],
+  "whole_ball_closures_added": 0,
+  "standalone_replayer_sha256": "ec5d49283b7577dec830354f8020b2d24942aa47dde6e25f7b7982617755c09b"
+}

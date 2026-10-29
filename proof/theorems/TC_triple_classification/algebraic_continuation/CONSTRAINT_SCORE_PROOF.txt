@@ -1,0 +1,71 @@
+Removing vanishing equations from the transition-phase bound
+
+The column cover gives phase bounds for every completing basis, but it
+also covers phase arrays that do not satisfy the triple equations. We
+can use those equations without first contracting every column further.
+Let F(q) be the 96 real triple equations in moving_symmetry.py, with the
+36 phases of H followed by the 36 phases of K. Every completing triple
+satisfies F(q)=0. All phase centers, gauges and displacement bounds below
+are those in UNITARY_SCORE_PROOF.txt.
+
+Write q=q0+delta and let Lc be the transition matrix at q0. Every entry of
+Lc must be nonzero for this test. For each entry set zeta=conj(Lc)/|Lc|.
+Define S(q)=Im(zeta L(q)) entrywise, and let W remove row and column means.
+Then S(q0)=0 exactly. For an actual triple, S(q)=sin(theta), where theta
+is the principal entrywise phase difference from Lc. The preceding
+unit-modulus estimate bounds both ||theta|| by E and every |theta| by b.
+Consequently ||W(theta-sin(theta))|| <= b^2 E/6.
+
+Choose any fixed real matrix A of size 36 by 96 and put
+  G(q)=W S(q)-A F(q).
+At a completing triple G(q)=W sin(theta). At the center G(q0)=-A F(q0).
+Taylor's formula therefore gives
+  W theta + A F(q0)
+    = DG(q0) delta + (1/2) D2G(q0)[delta,delta]
+      + R3 + W(theta-sin(theta)).
+The implementation chooses A numerically to reduce the K part of DG,
+then treats every entry of A as an exact binary64 number. It rebuilds
+F, its derivatives, the derivative defect and the signed Hessian in Arb.
+No rank assertion or numerical inverse is accepted as a proof step.
+
+The H displacement is U w+n, with ||w||<=r. Its remainder n includes
+H2[w,w]/2, X xi and the radius of the H center. The K displacement z has
+six column bounds p_k and hence ||z||<=p=sqrt(sum p_k^2). For the linear
+term, keep DG_H U, DG_H H2 and DG_H X as signed products. Bound DG_K z by
+the smaller of its whole operator bound and the sum of its six column
+group bounds. The uncertainty of the H center is bounded separately.
+
+For the Hessian, regard each bilinear output as a linear map on a tensor
+product. The Euclidean norm of x tensor y is ||x|| ||y||. The six signed
+maps on (w,w), (w,z), (z,z), (w,n), (z,n) and (n,n) therefore give a bound
+with coefficients r^2/2, rp, p^2/2, r||n||, p||n|| and ||n||^2/2.
+Their operator bounds are verified by the inherited Arb Gram test.
+
+For real t, the remainder of exp(it) after degree two has modulus at
+most |t|^3/6. If h_a bounds the phase displacement of H column a, the
+complex remainder in an H orthogonality equation is at most
+(h_a+h_b)^3/6. A K orthogonality equation similarly has remainder at most
+(p_a+p_b)^3/6. The mixed equation for columns a and k is a sum of pair
+cosines divided by three. Its remainder is at most
+  (sqrt(2)/3)(h_a+p_k)^3.
+Indeed, sum_(i<j)(d_i-d_j)^2=6||hor(d)||^2 and
+max_(i<j)|d_i-d_j|<=sqrt(2)||hor(d)||.
+For S itself, the entrywise remainder is at most
+(h_a+p_k)^3/(6 sqrt(6)). Combine these bounds in Euclidean norm, using
+either ||A|| or the sum of its two-column complex blocks and single
+mixed-equation columns. Projection by W cannot enlarge the S remainder.
+
+Let E_G be the sum of the resulting linear, quadratic, cubic and sine
+error bounds. With P=arg(Lc)-A F(q0), the displayed Taylor identity
+implies ||W(arg(L)-P)||<=E_G, using principal entrywise lifts from Lc.
+The Fourier score is invariant under the choices of lifts. Thus
+  Gamma_F(L) <= Gamma_F(exp(iP)) + (2/5) E_G.
+The center score is evaluated in Arb at a proposed alignment, as before.
+The matrix A need not be horizontal: applying W to the displayed error
+can only reduce its norm. We retain the preceding unsigned upper bound
+and select the smaller valid result.
+
+This is a necessary bound for every completing triple in the supplied
+tubes. It does not establish the Fourier-neighbourhood theorem or full
+ball coverage. Those dependencies and independent replay are still
+required before promoting a score calculation to a classification.

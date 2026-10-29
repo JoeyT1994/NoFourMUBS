@@ -34,10 +34,10 @@ The target
 radius is the original native four-coordinate radius stored for each
 ball, not a uniform radius 1/8 in unscaled seed or full-Hadamard phases.
 
-This directory contains only modules needed by those completed replays,
-their proof notes, and relevant regression tests. The original source
-bytes bound by the certificates are preserved. Experimental methods,
-pilot outputs, logs, and bulk result dumps are excluded from this change.
+This directory contains the modules needed by those completed replays,
+the score bounds described below, their proof notes, and regression tests.
+The original source bytes bound by the seven certificates are preserved.
+Unsuccessful experimental methods, logs, and bulk result dumps are excluded.
 
 Closed K-bin subdivisions
 
@@ -48,6 +48,57 @@ fixed. ADAPTIVE_BINS_PROOF.txt proves the coverage and remainder bounds;
 test_adaptive_bins.py checks the coefficients, closed boundaries and
 rejection of incomplete or altered trees. The method closes ball 754.
 It does not itself classify bins that contain a possible K column.
+
+Transition-score bounds
+
+unitary_score.py bounds the whole transition H* K/sqrt(6), using unitarity
+to count H's displacement once. The unit modulus of each transition entry
+then sharpens the conversion from complex displacement to phase error.
+constraint_score.py further subtracts a linear combination of the 96
+vanishing triple equations. It retains the derivative defect, signed
+Hessian and cubic remainder in Arb. Numerical matrices only propose the
+subtraction. UNITARY_SCORE_PROOF.txt and CONSTRAINT_SCORE_PROOF.txt derive
+the inequalities.
+
+score_tree.py applies these bounds to complete binary partitions of the
+K-label sets while keeping the original H ball fixed. Each assigned label
+must contain its entire closed bin. Every child must be present, and every
+successful leaf is recomputed on replay. SCORE_TREE_PROOF.txt gives the
+coverage argument. Its input model and cover must already have passed C1,
+the normal-form proof, Stage C preconditions and complete-cover checks.
+
+The saved checkpoint freshly replays 59 score branches in one pattern of
+ball 1016 and 54 in one pattern of ball 1622. Both H radii remain 0.08. Each
+branch proves Gamma_F(H* K/sqrt(6)) <= 19/50 for every completing triple
+in that branch. The two trees still have 11 and 10 open branches. Other
+color patterns also remain required. These 113 branch results add no
+whole-ball closures; their compact hashes and scope are recorded in
+score_bounds_checkpoint.json.
+
+Classification from the score requires the separate Fourier-neighbourhood
+theorem, Gamma3 in TripleClassification/GAMMA_PROOF.md, and its listed
+dependencies. These modules do not establish that theorem or use an
+ordering reduction. A partial score tree is never an all-K certificate.
+
+Reproduce the score-branch checkpoint
+
+With the requirements installed, choose fresh output paths and run from
+the repository root. The inputs below are retained on Popeye:
+
+  A=proof/theorems/TC_triple_classification/algebraic_continuation
+  TC_SCORE_RUN=/mnt/sdceph/users/mwuttig/MUB_Hadamard/runs/tc_partition_20261029_61658d2111d8
+  for i in 1016 1622; do
+    python "$A/replay_score_branches.py" --index "$i" \
+      --coarse-receipt "$TC_SCORE_RUN/score_tree_public_replay/$i.jsonl" \
+      --tree "$TC_SCORE_RUN/score-tree-probe-v1-$i.json" \
+      --output "replay-score-$i.json"
+  done
+
+The replayer rebuilds the original complete cover,
+checks every reused coarse-bin witness, and recomputes every claimed tree
+leaf. Its output explicitly preserves unfinished branches and records
+whole_ball_closed=false. Input hashes, source hashes and original seed
+and radius identities are checked independently of the saved scores.
 
 Retrieve evidence
 

@@ -1,0 +1,59 @@
+Covering every K label combination at a fixed H radius
+
+Fix one color pattern from the exhaustive native column cover. Its bins
+are closed sets of K-column phases. The label graph supplies necessary
+orthogonality conditions for the label balls. Each retained bin is
+assigned to one valid label of the same color. Arb checks that the label
+contains the entire closed bin, including its phase radius. This new
+assignment may differ from the original clustering, but it preserves
+every bin and the necessary graph condition. An assignment failure is
+unresolved, never an exclusion.
+
+A tree node specifies a set of labels for each of the six colors. It
+covers all choices of one column from a bin assigned to each label set.
+It may cover additional arrays that do not form a completing basis.
+Delete a label only when it has no graph neighbor in one of the other
+colors. An actual completing basis supplies its own six compatible
+labels, so this pruning cannot delete that basis. If a color becomes
+empty, the node contains no completing basis.
+
+For a nonempty node, choose a phase center for each color and reconstruct
+the displacement of every assigned bin midpoint in Arb. Add the unchanged
+closed-bin radius. The maximum bounds every column in the union. These
+are valid absolute tubes with zero slope: their correlated error and
+absolute phase radius are the same number. Choosing the center from a
+numerical average has no proof role. Only the reconstructed enclosures
+are used by unitary_score.py and constraint_score.py.
+
+The inherited full-basis scalar test may first exclude the node. It uses
+the same absolute tubes and rechecks the complete residual inequality.
+The score modules may then prove a radial contradiction or an upper bound of
+19/50 for the Fourier score of K or H* K/sqrt(6), for every completing
+triple in the node. If neither succeeds, split one label set into two
+nonempty disjoint subsets whose union is the parent set. The other five
+sets stay unchanged. Both children must be retained. A completed binary
+tree therefore covers the entire input color pattern. No subdivision
+or change of H's radius occurs anywhere in this tree.
+
+The replayer rebuilds the assignment and all column enclosures. At each
+split it checks the exact label partition, and at each leaf it recomputes
+the graph exclusion, full-basis residual inequality, radial contradiction
+or interval score inequality.
+Missing children, incomplete trees and failed inequalities are rejected.
+Numerical matrices may be proposed again during replay because every
+acceptance recomputes the derivative defect and all Taylor bounds. Saved
+floating-point scores alone are never accepted as evidence.
+
+An unfinished tree can be continued by its unresolved branch paths. The
+exact path follows the checked binary partitions from the rebuilt root.
+Independent workers may produce subtrees on those domains. After those
+subtrees replace the unresolved leaves, the whole assembled tree must
+pass the same replay from the original root. A completed branch does not
+by itself close its parent.
+
+This tree establishes a score cover for one input pattern. A ball requires
+every pattern from its complete cover. Classification through a Fourier
+score additionally requires the Fourier-neighbourhood theorem and its
+dependencies. The producer deliberately records classification_claim=false;
+neither a score tree nor a successful pattern is itself a whole-ball
+classification certificate.

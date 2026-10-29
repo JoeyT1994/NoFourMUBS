@@ -1,0 +1,72 @@
+Fourier-score bounds from unitary transition matrices
+
+Let H and K have unit-modulus entries and let H/sqrt(6), K/sqrt(6) and
+L=H* K/sqrt(6) define an MUB triple. Thus H/sqrt(6) and K/sqrt(6) are
+unitary and every entry of L has modulus one. A star denotes adjoint.
+The exhaustive column cover and the original H normal form supply the
+phase enclosures used below. All conclusions concern zeros in that cover.
+
+We may subtract the mean phase of each column of H. This multiplies H
+on the right by a diagonal unitary and L on the left by its adjoint.
+The labelled Fourier score is invariant under those phases. Apply the
+same mean-zero projection to Q0, U, H2 and X. Take exact dyadic midpoints
+of the resulting center balls; include their radii in every displacement
+bound. The complex centers Hc and Kc then have exactly unit-modulus entries.
+
+For Q=Q0+Uw+H2[w,w]/2+X xi, ||w||<=r and ||xi||<=tau, the operator norm
+bound on the full 36-row maps gives
+  ||H-Hc||_F <= ||U|| r + ||H2|| r^2/2 + ||X|| tau + center_radius = dH.
+The exponential is 1-Lipschitz on real phases. We may also use the norm
+of six independently bounded column displacements, taking the smaller
+of the two valid bounds. Each column displacement is denoted h_a.
+
+Stack the six K slope maps into a 36 by 4 matrix T. If p_k bounds the
+absolute phase error of column k and epsilon_k bounds its correlated
+error, then
+  ||K-Kc||_F <= min(sqrt(sum p_k^2), ||T|| r + sqrt(sum epsilon_k^2)) = dK,
+with the center radii included. All norms refer to the same shared w.
+For the Fourier score of K the slope map may additionally be projected
+onto arrays with zero row and column means: this projection removes only
+gauge phases and has norm one. Its action on the error cannot enlarge it.
+
+Put sc=||Hc||op/sqrt(6) and tc=||Kc||op/sqrt(6), bounded using their Gram
+defects. Two exact identities give
+  L-Lc = Hc*(K-Kc)/sqrt(6) + (H-Hc)*K/sqrt(6),
+  L-Lc = H*(K-Kc)/sqrt(6) + (H-Hc)*Kc/sqrt(6),
+where Lc=Hc*Kc/sqrt(6). Multiplication by an actual unitary preserves the
+Frobenius norm. Consequently
+  ||L-Lc||_F <= min(sc dK+dH, dK+tc dH) = D.
+The H error is counted once in this whole-matrix bound. For each entry
+(a,k), Cauchy-Schwarz and the exact sqrt(6) norms of the relevant columns
+also give |(L-Lc)_(a,k)| <= p_k+h_a. Each entry is bounded by D as well.
+
+The unit modulus of an actual L entry yields a sharper angle inequality.
+For |t|=1, c!=0 and theta=arg(t)-arg(c) reduced to [-pi,pi],
+  |t-c|^2 = (|c|-1)^2 + 4|c| sin^2(theta/2).
+Let m be a positive lower bound for every |Lc_ak| and let e bound every
+entry displacement. If x=e/(2 sqrt(m))<1, monotonicity of asin(x)/x gives
+  |theta_ak| <= [asin(x)/(x sqrt(m))]
+                sqrt(|L_ak-Lc_ak|^2-(|Lc_ak|-1)^2).
+The ratio is interpreted as one at x=0. If R2 is a lower bound for the
+sum of the radial terms (|Lc_ak|-1)^2, summation gives
+  ||arg L-arg Lc||_F <= [asin(x)/(x sqrt(m))] sqrt(D^2-R2).
+If D^2<R2 strictly, no completing triple exists in this tube. An interval
+containing zero never supports that exclusion. A zero center entry or
+an inconclusive angle bound leaves this L-score test unavailable.
+
+For the labelled Fourier score, the plaquette map is B tensor B, where
+B is the oriented incidence matrix of the complete graph on six vertices.
+Since B*B=6(I-J/6), its norm on horizontal phase arrays is six. Circular
+distance is 1-Lipschitz. After the defining factor 1/15, the score is
+therefore (2/5)-Lipschitz in horizontal Frobenius norm. Its minimum over
+alignments is bounded above by any single alignment. The numerical search
+only chooses labels and integer windings; the chosen cost is rebuilt in
+Arb. Add (2/5) of the appropriate phase-error bound to obtain the K or L
+score bound. Every arithmetic acceptance comparison uses outward bounds.
+
+An upper bound at most 19/50 can be used only together with the separately
+proved Fourier-neighbourhood theorem and its listed dependencies. This
+module does not establish that theorem, discharge an ordering condition,
+or certify a whole ball from one pattern. Whole-ball certification still
+requires all patterns, the original radius, the complete cover and an
+independent replay. The radial contradiction requires no Fourier theorem.
