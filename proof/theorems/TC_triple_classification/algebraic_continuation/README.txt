@@ -11,13 +11,14 @@ unresolved balls, plus the earlier ball 2169. Its count of 146 unresolved
 refers to the older upstream revision 13d1853, not the current assembly.
 
 At upstream revision 72941cc, the single-route assembly reports 2719 of
-2775 balls closed and 56 open. Two of those open balls now have complete
-algebraic exclusions at their original radii: 846 (recovered from the
-archive) and 853 (new). Both passed fresh mathematical replay and the
-current Stage C preconditions. Ball 853's replay checks 6592 bin witnesses
-and all 25 surviving basis patterns, including 6 scalar quadratic
-witnesses. This leaves 54 of that report's open balls unresolved by these
-results. These algebraic receipts have not been added to its tree auditor
+2775 balls closed and 56 open. Four of those open balls now have complete
+algebraic exclusions at their original radii: 194, 679, 846 and 853. Ball
+846 was recovered from the archive. All four passed fresh mathematical
+replay and the current Stage C preconditions. The latest two replays check
+11770 bin witnesses and all 36 basis patterns for ball 194, and 9475 bin
+witnesses and all 64 basis patterns for ball 679. Both retain radius 0.1.
+This leaves 52 of that report's open balls unresolved by these results.
+These algebraic receipts have not been added to its tree auditor
 or assembly. Do not add the historical 35 to the current closed count.
 
 The global classification proof remains incomplete. Other reported
@@ -91,9 +92,11 @@ After restoring the archived receipts, run:
 
   python "$A/audit_current.py" \
     --receipt "$A/results/scan_eager/ball_846.jsonl" --output replay-846.jsonl
-  python "$A/run_eager_bins.py" --index 853 --output discovery-853.jsonl
-  python "$A/audit_current.py" \
-    --receipt discovery-853.jsonl --output replay-853.jsonl
+  for i in 194 679 853; do
+    python "$A/run_eager_bins.py" --index "$i" --output "discovery-$i.jsonl"
+    python "$A/audit_current.py" \
+      --receipt "discovery-$i.jsonl" --output "replay-$i.jsonl"
+  done
 
 audit_current.py first checks the original index, radius, seed identity,
 complete exclusion accounting and current Stage C preconditions. It then
