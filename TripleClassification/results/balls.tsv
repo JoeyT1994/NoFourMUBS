@@ -281,7 +281,7 @@ ball	r	final	certifier	certifier_patterns	split	status	level	cells_remaining	lev
 279	0.125	empty	CERTIFIED EMPTY	0/0/0		whole_ball		0			48	45	44	1	0	1.8145
 280	0.125	empty	CERTIFIED EMPTY	0/0/0		cells		0			48	45	44	1	0	1.4158
 281	0.11249999999999999	empty	CERTIFIED EMPTY	0/8/0		cells		0			48	20	20	0	0	1.1829
-282	0.1	open	NOT ESTABLISHED	0/16/180		remaining_coarse	3	2193	0.766	audit failed: ValueError: missing or unexpected rows at level 8	52	64	64	0	0	0.3042
+282	0.1	open	NOT ESTABLISHED	0/16/180		remaining_coarse	3	2193	0.766	audit failed: ValueError: missing or unexpected rows at level 9	52	64	64	0	0	0.3042
 283	0.125	empty	CERTIFIED EMPTY	0/0/0		cells		0			48	14	14	0	0	1.3758
 284	0.125	empty	CERTIFIED EMPTY	0/0/0		whole_ball		0			48	35	35	0	0	1.1901
 285	0.125	empty	CERTIFIED EMPTY	0/0/0		whole_ball		0			48	41	40	1	0	1.7575
@@ -665,7 +665,7 @@ ball	r	final	certifier	certifier_patterns	split	status	level	cells_remaining	lev
 663	0.125	empty	CERTIFIED EMPTY	0/0/0		whole_ball		0			50	20	20	0	0	1.9180
 664	0.1	empty	CERTIFIED EMPTY	0/1/0		cells		0			48	13	13	0	0	0.9196
 665	0.125	tree	NOT ESTABLISHED	0/45/19		cells		0		closed depth 2 (level 2; 256 leaves)	48	29	29	0	0	1.8001
-666	0.1	open	NOT ESTABLISHED	0/0/64		remaining_coarse	3	2256	0.788	2037 closed sub-balls without Stage C preconditions	48	62	62	0	0	0.6060
+666	0.1	open	NOT ESTABLISHED	0/0/64		remaining_coarse	3	2256	0.788	257 closed sub-balls without Stage C preconditions	48	62	62	0	0	0.6060
 667	0.125	empty	CERTIFIED EMPTY	0/0/0		cells		0			48	32	31	1	0	1.6577
 668	0.125	empty	CERTIFIED EMPTY	0/0/0		cells		0			48	14	14	0	0	1.1526
 669	0.125	empty	CERTIFIED EMPTY	0/6/0		cells		0			54	60	60	0	0	0.7784
@@ -677,7 +677,7 @@ ball	r	final	certifier	certifier_patterns	split	status	level	cells_remaining	lev
 675	0.1	empty	CERTIFIED EMPTY	0/0/0		cells		0			48	13	13	0	0	0.9005
 676	0.1	empty	CERTIFIED EMPTY	0/2/0		remaining_coarse	3	1319	0.468		48	9	9	0	0	0.6606
 677	0.1	tree	NOT ESTABLISHED	0/9/1		refined_4		0	0.097	closed depth 2 (level 2; 256 leaves)	48	49	49	0	0	0.3722
-678	0.1	open	NOT ESTABLISHED	0/23/233		remaining_coarse	3	2284	0.797	audit failed: ValueError: missing or unexpected rows at level 5	52	64	64	0	0	0.3688
+678	0.1	open	NOT ESTABLISHED	0/23/233		remaining_coarse	3	2284	0.797	audit failed: ValueError: missing or unexpected rows at level 6	52	64	64	0	0	0.3688
 679	0.1	tree	NOT ESTABLISHED	0/0/64		refined_5		0	0.239	closed depth 4 (selective chain; 522 leaves)	48	57	57	0	0	0.3972
 680	0.1	tree	NOT ESTABLISHED	0/0/64		remaining_coarse	3	1280	0.492	closed depth 6 (selective chain; 3737 leaves)	48	58	58	0	0	0.8097
 681	0.125	empty	CERTIFIED EMPTY	0/0/0		cells		0			50	19	19	0	0	2.5542
@@ -829,7 +829,7 @@ ball	r	final	certifier	certifier_patterns	split	status	level	cells_remaining	lev
 827	0.125	empty	CERTIFIED EMPTY	0/0/0		whole_ball		0			56	16	16	0	0	1.7745
 828	0.1	tree	NOT ESTABLISHED	0/8/56		remaining_coarse	3	581	0.309	closed depth 4 (selective chain; 359 leaves)	48	52	52	0	0	0.7314
 829	0.1	empty	CERTIFIED EMPTY	0/0/0		refined_4		0	0.132		48	14	14	0	0	0.8201
-830	0.1	open	NOT ESTABLISHED	0/0/64		remaining_coarse	3	2679	0.935	open below level 5	48	64	64	0	0	0.2991
+830	0.1	open	NOT ESTABLISHED	0/0/64		remaining_coarse	3	2679	0.935	audit failed: ValueError: missing or unexpected rows at level 6	48	64	64	0	0	0.2991
 831	0.125	empty	CERTIFIED EMPTY	0/1/0		cells		0			54	57	57	0	0	1.1054
 832	0.1	tree	NOT ESTABLISHED	0/34/30		remaining_coarse	3	2779	0.970	closed depth 4 (selective chain; 1438 leaves)	56	64	64	0	0	0.1712
 833	0.1	empty	CERTIFIED EMPTY	0/4/0		refined_4		0	0.056		54	39	39	0	0	1.1157
@@ -857,7 +857,7 @@ ball	r	final	certifier	certifier_patterns	split	status	level	cells_remaining	lev
 855	0.09749999999999999	empty	CERTIFIED EMPTY	0/0/0		refined_4		0	0.161		48	8	8	0	0	0.6324
 856	0.09749999999999999	empty	CERTIFIED EMPTY	0/0/0		cells		0			48	14	14	0	0	0.7449
 857	0.09499999999999999	empty	CERTIFIED EMPTY	0/2/0		remaining_coarse	3	2760	0.964		48	8	8	0	0	0.3700
-858	0.1	open	NOT ESTABLISHED	0/0/64		remaining_coarse	3	1902	0.668	audit failed: ValueError: missing or unexpected rows at level 5	48	64	64	0	0	0.3873
+858	0.1	open	NOT ESTABLISHED	0/0/64		remaining_coarse	3	1902	0.668	open below level 5	48	64	64	0	0	0.3873
 859	0.1	empty	CERTIFIED EMPTY	0/1/0		remaining_coarse	3	886	0.341		48	8	8	0	0	0.6532
 860	0.1	empty	CERTIFIED EMPTY	0/0/0		remaining_coarse	3	908	0.317		48	14	14	0	0	0.7802
 861	0.1	empty	CERTIFIED EMPTY	0/0/0		remaining_coarse	3	982	0.343		48	8	8	0	0	0.7475
@@ -986,7 +986,7 @@ ball	r	final	certifier	certifier_patterns	split	status	level	cells_remaining	lev
 984	0.1	empty	CERTIFIED EMPTY	0/0/0		refined_4		0	0.033		48	14	14	0	0	1.0619
 985	0.1	empty	CERTIFIED EMPTY	0/0/0		remaining_coarse	3	1228	0.429		48	14	14	0	0	0.5802
 986	0.1	empty	CERTIFIED EMPTY	0/0/0		remaining_fine	4	76			48	14	14	0	0	0.7954
-987	0.1	open	NOT ESTABLISHED	0/0/0		remaining_coarse	3	2833	0.989	open below level 4	60	64	64	0	0	0.0152
+987	0.1	open	NOT ESTABLISHED	0/0/0		remaining_coarse	3	2833	0.989	audit failed: ValueError: missing or unexpected rows at level 5	60	64	64	0	0	0.0152
 988	0.1	empty	CERTIFIED EMPTY	0/4/0		refined_4		0	0.135		52	58	58	0	0	1.2473
 989	0.1	tree	NOT ESTABLISHED	0/6/2		remaining_coarse	3	2851	0.995	closed depth 2 (level 2; 256 leaves)	48	14	14	0	0	0.3447
 990	0.1	empty	CERTIFIED EMPTY	0/2/0		remaining_coarse	3	2587	0.903		48	14	14	0	0	0.4266
@@ -1009,7 +1009,7 @@ ball	r	final	certifier	certifier_patterns	split	status	level	cells_remaining	lev
 1007	0.125	empty	CERTIFIED EMPTY	0/0/0		whole_ball		0			56	21	21	0	0	1.5943
 1008	0.125	empty	CERTIFIED EMPTY	0/0/0		whole_ball		0			56	21	21	0	0	0.6100
 1009	0.125	empty	CERTIFIED EMPTY	0/4/0		cells		0			56	32	32	0	0	0.4171
-1010	0.1	open	NOT ESTABLISHED	0/0/0		remaining_coarse	3	2835	0.990	audit failed: ValueError: missing or unexpected rows at level 6	60	64	64	0	0	0.0130
+1010	0.1	open	NOT ESTABLISHED	0/0/0		remaining_coarse	3	2835	0.990	audit failed: ValueError: missing or unexpected rows at level 7	60	64	64	0	0	0.0130
 1011	0.1	empty	CERTIFIED EMPTY	0/0/0		refined_4		0	0.196		48	14	14	0	0	0.7480
 1012	0.125	empty	CERTIFIED EMPTY	0/0/0		whole_ball		0			52	19	19	0	0	2.2645
 1013	0.1	empty	CERTIFIED EMPTY	0/2/0		remaining_coarse	3	1913	0.668		48	14	14	0	0	0.4411
