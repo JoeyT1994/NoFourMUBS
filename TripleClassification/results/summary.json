@@ -3,16 +3,16 @@
  "final": {
   "empty": 2101,
   "tree": 369,
-  "open": 23,
-  "tree_ordering": 10,
+  "open": 32,
+  "tree_ordering": 1,
   "classified": 272
  },
  "nearest_triple_median": {
-  "tree_ordering": 0.198,
-  "empty": 0.901,
+  "tree_ordering": 0.579,
   "classified": 0.083,
   "tree": 0.358,
-  "open": 0.217
+  "empty": 0.901,
+  "open": 0.2
  },
  "certifier": {
   "CERTIFIED EMPTY": 2101,
@@ -46,7 +46,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -68,7 +69,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -104,7 +106,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 513,
    "tangent_cells": 0,
@@ -140,7 +143,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 506,
    "tangent_cells": 0,
@@ -162,7 +166,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 255,
    "tangent_cells": 1,
@@ -191,7 +196,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 395,
    "tangent_cells": 0,
@@ -213,7 +219,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -242,7 +249,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 474,
    "tangent_cells": 0,
@@ -285,7 +293,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 1301,
    "tangent_cells": 0,
@@ -314,7 +323,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 259,
    "tangent_cells": 0,
@@ -336,7 +346,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -358,7 +369,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -391,7 +403,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 257,
    "tangent_cells": 0,
@@ -420,7 +433,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 309,
    "tangent_cells": 0,
@@ -449,7 +463,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 365,
    "tangent_cells": 0,
@@ -478,7 +493,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 282,
    "tangent_cells": 0,
@@ -500,7 +516,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -522,7 +539,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -544,14 +562,15 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b340.json"
   },
   "363": {
-   "status": "audit failed: ValueError: missing or unexpected rows at level 6",
+   "status": "open below level 5",
    "route": "selective chain"
   },
   "415": {
@@ -584,7 +603,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 891,
    "tangent_cells": 0,
@@ -613,7 +633,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 272,
    "tangent_cells": 0,
@@ -642,7 +663,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 273,
    "tangent_cells": 0,
@@ -664,7 +686,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -693,7 +716,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 257,
    "tangent_cells": 0,
@@ -729,7 +753,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 501,
    "tangent_cells": 0,
@@ -758,7 +783,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 260,
    "tangent_cells": 0,
@@ -787,7 +813,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 282,
    "tangent_cells": 0,
@@ -823,7 +850,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 376,
    "tangent_cells": 0,
@@ -852,7 +880,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 396,
    "tangent_cells": 0,
@@ -874,7 +903,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -903,7 +933,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 283,
    "tangent_cells": 0,
@@ -932,7 +963,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 517,
    "tangent_cells": 0,
@@ -968,7 +1000,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 265,
    "tangent_cells": 0,
@@ -997,7 +1030,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 269,
    "tangent_cells": 0,
@@ -1023,7 +1057,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -1059,7 +1094,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 1943,
    "tangent_cells": 0,
@@ -1095,7 +1131,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 751,
    "tangent_cells": 0,
@@ -1124,7 +1161,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 458,
    "tangent_cells": 0,
@@ -1146,7 +1184,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -1168,7 +1207,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -1197,7 +1237,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 281,
    "tangent_cells": 0,
@@ -1226,7 +1267,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 260,
    "tangent_cells": 0,
@@ -1269,7 +1311,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 8942,
    "tangent_cells": 0,
@@ -1291,7 +1334,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 255,
    "tangent_cells": 1,
@@ -1313,7 +1357,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -1342,14 +1387,15 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 258,
    "tangent_cells": 0,
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b584.json"
   },
   "588": {
-   "status": "audit failed: ValueError: missing or unexpected rows at level 6",
+   "status": "open below level 5",
    "route": "selective chain"
   },
   "589": {
@@ -1375,7 +1421,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 260,
    "tangent_cells": 0,
@@ -1408,7 +1455,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 257,
    "tangent_cells": 0,
@@ -1437,7 +1485,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 351,
    "tangent_cells": 0,
@@ -1466,7 +1515,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 280,
    "tangent_cells": 0,
@@ -1495,7 +1545,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 280,
    "tangent_cells": 0,
@@ -1531,7 +1582,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 448,
    "tangent_cells": 0,
@@ -1560,7 +1612,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 306,
    "tangent_cells": 0,
@@ -1589,54 +1642,16 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 258,
    "tangent_cells": 0,
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b612.json"
   },
   "636": {
-   "status": "closed",
-   "route": "selective chain",
-   "depth": 5,
-   "layers": [
-    {
-     "level": 2,
-     "cells": 256,
-     "closed": 103,
-     "open": 153,
-     "still_open": 153
-    },
-    {
-     "level": 3,
-     "cells": 1704,
-     "closed": 1398,
-     "open": 306,
-     "still_open": 306
-    },
-    {
-     "level": 4,
-     "cells": 3253,
-     "closed": 2910,
-     "open": 343,
-     "still_open": 343
-    },
-    {
-     "level": 5,
-     "cells": 3119,
-     "closed": 2990,
-     "open": 129,
-     "still_open": 0
-    }
-   ],
-   "rule": "ordering",
-   "gamma": {
-    "fourier": 24,
-    "ordering": 105
-   },
-   "leaves": 7401,
-   "tangent_cells": 0,
-   "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b636.json"
+   "status": "129 closed sub-balls without Stage C preconditions",
+   "route": "selective chain"
   },
   "641": {
    "status": "open below level 6",
@@ -1658,7 +1673,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -1687,7 +1703,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 269,
    "tangent_cells": 0,
@@ -1709,14 +1726,15 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b665.json"
   },
   "666": {
-   "status": "257 closed sub-balls without Stage C preconditions",
+   "status": "14129 closed sub-balls without Stage C preconditions",
    "route": "selective chain"
   },
   "671": {
@@ -1742,7 +1760,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 519,
    "tangent_cells": 0,
@@ -1764,7 +1783,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -1804,7 +1824,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 522,
    "tangent_cells": 0,
@@ -1854,7 +1875,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 3737,
    "tangent_cells": 0,
@@ -1876,7 +1898,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -1905,7 +1928,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 257,
    "tangent_cells": 0,
@@ -1927,7 +1951,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -1963,7 +1988,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 1095,
    "tangent_cells": 0,
@@ -1992,7 +2018,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 354,
    "tangent_cells": 0,
@@ -2021,7 +2048,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 294,
    "tangent_cells": 0,
@@ -2043,7 +2071,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -2093,7 +2122,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 4824,
    "tangent_cells": 0,
@@ -2143,7 +2173,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 5200,
    "tangent_cells": 0,
@@ -2179,7 +2210,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 321,
    "tangent_cells": 0,
@@ -2208,7 +2240,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 384,
    "tangent_cells": 0,
@@ -2223,54 +2256,8 @@
    "route": "selective chain"
   },
   "734": {
-   "status": "closed",
-   "route": "selective chain",
-   "depth": 6,
-   "layers": [
-    {
-     "level": 2,
-     "cells": 256,
-     "closed": 162,
-     "open": 94,
-     "still_open": 94
-    },
-    {
-     "level": 3,
-     "cells": 966,
-     "closed": 755,
-     "open": 211,
-     "still_open": 211
-    },
-    {
-     "level": 4,
-     "cells": 2074,
-     "closed": 1397,
-     "open": 677,
-     "still_open": 677
-    },
-    {
-     "level": 5,
-     "cells": 7537,
-     "closed": 3464,
-     "open": 4073,
-     "still_open": 16
-    },
-    {
-     "level": 6,
-     "cells": 127,
-     "closed": 83,
-     "open": 44,
-     "still_open": 0
-    }
-   ],
-   "rule": "ordering",
-   "gamma": {
-    "fourier": 4,
-    "ordering": 4097
-   },
-   "leaves": 5861,
-   "tangent_cells": 0,
-   "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b734.json"
+   "status": "4101 closed sub-balls without Stage C preconditions",
+   "route": "selective chain"
   },
   "740": {
    "status": "closed",
@@ -2288,7 +2275,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -2324,7 +2312,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 922,
    "tangent_cells": 0,
@@ -2346,7 +2335,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -2375,7 +2365,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 559,
    "tangent_cells": 0,
@@ -2404,7 +2395,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 306,
    "tangent_cells": 0,
@@ -2426,7 +2418,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -2469,7 +2462,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 1038,
    "tangent_cells": 0,
@@ -2491,7 +2485,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -2527,7 +2522,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 1579,
    "tangent_cells": 0,
@@ -2560,7 +2556,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 440,
    "tangent_cells": 0,
@@ -2589,7 +2586,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 326,
    "tangent_cells": 0,
@@ -2618,54 +2616,16 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 257,
    "tangent_cells": 0,
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b773.json"
   },
   "777": {
-   "status": "closed",
-   "route": "selective chain",
-   "depth": 5,
-   "layers": [
-    {
-     "level": 2,
-     "cells": 256,
-     "closed": 83,
-     "open": 173,
-     "still_open": 173
-    },
-    {
-     "level": 3,
-     "cells": 1914,
-     "closed": 1126,
-     "open": 788,
-     "still_open": 788
-    },
-    {
-     "level": 4,
-     "cells": 10027,
-     "closed": 8849,
-     "open": 1178,
-     "still_open": 34
-    },
-    {
-     "level": 5,
-     "cells": 399,
-     "closed": 221,
-     "open": 178,
-     "still_open": 0
-    }
-   ],
-   "rule": "ordering",
-   "gamma": {
-    "fourier": 16,
-    "ordering": 1306
-   },
-   "leaves": 10279,
-   "tangent_cells": 0,
-   "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b777.json"
+   "status": "178 closed sub-balls without Stage C preconditions",
+   "route": "selective chain"
   },
   "779": {
    "status": "1 closed sub-balls without Stage C preconditions",
@@ -2694,7 +2654,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 437,
    "tangent_cells": 0,
@@ -2730,7 +2691,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 535,
    "tangent_cells": 0,
@@ -2759,7 +2721,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 281,
    "tangent_cells": 0,
@@ -2781,7 +2744,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -2803,7 +2767,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -2832,7 +2797,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 411,
    "tangent_cells": 0,
@@ -2868,7 +2834,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 283,
    "tangent_cells": 0,
@@ -2911,7 +2878,8 @@
    "rule": "ordering",
    "gamma": {
     "fourier": 3,
-    "ordering": 336
+    "ordering": 336,
+    "anchored": 0
    },
    "leaves": 6484,
    "tangent_cells": 0,
@@ -2944,18 +2912,19 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 382,
    "tangent_cells": 0,
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b822.json"
   },
   "823": {
-   "status": "audit failed: ValueError: missing or unexpected rows at level 6",
+   "status": "open below level 5",
    "route": "selective chain"
   },
   "825": {
-   "status": "audit failed: ValueError: missing or unexpected rows at level 5",
+   "status": "open below level 4",
    "route": "selective chain"
   },
   "828": {
@@ -2988,14 +2957,15 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 359,
    "tangent_cells": 0,
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b828.json"
   },
   "830": {
-   "status": "audit failed: ValueError: missing or unexpected rows at level 7",
+   "status": "open below level 6",
    "route": "selective chain"
   },
   "832": {
@@ -3028,7 +2998,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 1438,
    "tangent_cells": 0,
@@ -3057,7 +3028,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 257,
    "tangent_cells": 0,
@@ -3100,7 +3072,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 16043,
    "tangent_cells": 0,
@@ -3129,7 +3102,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 291,
    "tangent_cells": 0,
@@ -3158,7 +3132,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 429,
    "tangent_cells": 0,
@@ -3187,7 +3162,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 381,
    "tangent_cells": 0,
@@ -3223,7 +3199,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 1008,
    "tangent_cells": 0,
@@ -3259,7 +3236,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 998,
    "tangent_cells": 0,
@@ -3302,7 +3280,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 3524,
    "tangent_cells": 0,
@@ -3352,7 +3331,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 7212,
    "tangent_cells": 0,
@@ -3402,7 +3382,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 14262,
    "tangent_cells": 0,
@@ -3438,14 +3419,15 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 740,
    "tangent_cells": 0,
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b853.json"
   },
   "858": {
-   "status": "audit failed: ValueError: missing or unexpected rows at level 6",
+   "status": "open below level 5",
    "route": "selective chain"
   },
   "866": {
@@ -3471,7 +3453,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 258,
    "tangent_cells": 0,
@@ -3493,7 +3476,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -3536,7 +3520,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 1514,
    "tangent_cells": 0,
@@ -3565,7 +3550,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 332,
    "tangent_cells": 0,
@@ -3601,7 +3587,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 524,
    "tangent_cells": 0,
@@ -3630,7 +3617,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 283,
    "tangent_cells": 0,
@@ -3652,7 +3640,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -3695,7 +3684,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 2766,
    "tangent_cells": 0,
@@ -3717,7 +3707,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -3760,7 +3751,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 4059,
    "tangent_cells": 0,
@@ -3796,7 +3788,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 1362,
    "tangent_cells": 0,
@@ -3832,7 +3825,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 466,
    "tangent_cells": 0,
@@ -3861,7 +3855,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 471,
    "tangent_cells": 0,
@@ -3897,7 +3892,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 359,
    "tangent_cells": 0,
@@ -3933,7 +3929,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 1031,
    "tangent_cells": 0,
@@ -3962,7 +3959,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 757,
    "tangent_cells": 0,
@@ -4005,54 +4003,16 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 1483,
    "tangent_cells": 0,
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b900.json"
   },
   "905": {
-   "status": "closed",
-   "route": "selective chain",
-   "depth": 5,
-   "layers": [
-    {
-     "level": 2,
-     "cells": 256,
-     "closed": 67,
-     "open": 189,
-     "still_open": 189
-    },
-    {
-     "level": 3,
-     "cells": 2145,
-     "closed": 749,
-     "open": 1396,
-     "still_open": 1396
-    },
-    {
-     "level": 4,
-     "cells": 17973,
-     "closed": 15298,
-     "open": 2675,
-     "still_open": 252
-    },
-    {
-     "level": 5,
-     "cells": 3010,
-     "closed": 1529,
-     "open": 1481,
-     "still_open": 0
-    }
-   ],
-   "rule": "ordering",
-   "gamma": {
-    "fourier": 374,
-    "ordering": 3530
-   },
-   "leaves": 17643,
-   "tangent_cells": 0,
-   "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b905.json"
+   "status": "3904 closed sub-balls without Stage C preconditions",
+   "route": "selective chain"
   },
   "907": {
    "status": "closed",
@@ -4077,7 +4037,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 270,
    "tangent_cells": 0,
@@ -4099,7 +4060,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -4125,7 +4087,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -4161,7 +4124,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 738,
    "tangent_cells": 0,
@@ -4183,7 +4147,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -4226,7 +4191,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 3890,
    "tangent_cells": 0,
@@ -4248,7 +4214,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -4270,7 +4237,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -4292,7 +4260,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -4321,7 +4290,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 383,
    "tangent_cells": 0,
@@ -4350,7 +4320,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 498,
    "tangent_cells": 0,
@@ -4393,7 +4364,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 7635,
    "tangent_cells": 0,
@@ -4429,7 +4401,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 897,
    "tangent_cells": 0,
@@ -4458,7 +4431,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 270,
    "tangent_cells": 0,
@@ -4494,7 +4468,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 1031,
    "tangent_cells": 0,
@@ -4523,7 +4498,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 490,
    "tangent_cells": 0,
@@ -4552,7 +4528,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 486,
    "tangent_cells": 0,
@@ -4595,7 +4572,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 2059,
    "tangent_cells": 0,
@@ -4624,7 +4602,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 347,
    "tangent_cells": 0,
@@ -4646,7 +4625,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -4672,7 +4652,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -4701,7 +4682,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 360,
    "tangent_cells": 0,
@@ -4723,7 +4705,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -4759,7 +4742,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 1137,
    "tangent_cells": 0,
@@ -4788,7 +4772,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 681,
    "tangent_cells": 0,
@@ -4810,7 +4795,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -4839,7 +4825,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 270,
    "tangent_cells": 0,
@@ -4868,7 +4855,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 513,
    "tangent_cells": 0,
@@ -4904,18 +4892,19 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 1559,
    "tangent_cells": 0,
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b1005.json"
   },
   "1010": {
-   "status": "audit failed: ValueError: missing or unexpected rows at level 8",
+   "status": "open below level 7",
    "route": "selective chain"
   },
   "1016": {
-   "status": "audit failed: ValueError: missing or unexpected rows at level 5",
+   "status": "open below level 4",
    "route": "selective chain"
   },
   "1022": {
@@ -4941,7 +4930,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 519,
    "tangent_cells": 0,
@@ -4963,7 +4953,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -4992,7 +4983,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 268,
    "tangent_cells": 0,
@@ -5021,47 +5013,16 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 268,
    "tangent_cells": 0,
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b1028.json"
   },
   "1035": {
-   "status": "closed",
-   "route": "selective chain",
-   "depth": 4,
-   "layers": [
-    {
-     "level": 2,
-     "cells": 256,
-     "closed": 51,
-     "open": 205,
-     "still_open": 205
-    },
-    {
-     "level": 3,
-     "cells": 2192,
-     "closed": 1359,
-     "open": 833,
-     "still_open": 833
-    },
-    {
-     "level": 4,
-     "cells": 9754,
-     "closed": 6281,
-     "open": 3473,
-     "still_open": 0
-    }
-   ],
-   "rule": "ordering",
-   "gamma": {
-    "fourier": 820,
-    "ordering": 2653
-   },
-   "leaves": 7691,
-   "tangent_cells": 0,
-   "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b1035.json"
+   "status": "3473 closed sub-balls without Stage C preconditions",
+   "route": "selective chain"
   },
   "1038": {
    "status": "closed",
@@ -5100,7 +5061,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 3339,
    "tangent_cells": 0,
@@ -5129,7 +5091,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 638,
    "tangent_cells": 0,
@@ -5172,7 +5135,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 3902,
    "tangent_cells": 0,
@@ -5215,7 +5179,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 2634,
    "tangent_cells": 0,
@@ -5244,7 +5209,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 268,
    "tangent_cells": 0,
@@ -5266,7 +5232,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -5288,14 +5255,15 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b1083.json"
   },
   "1089": {
-   "status": "audit failed: ValueError: missing or unexpected rows at level 6",
+   "status": "open below level 5",
    "route": "selective chain"
   },
   "1090": {
@@ -5321,7 +5289,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 471,
    "tangent_cells": 0,
@@ -5343,7 +5312,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -5379,7 +5349,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 684,
    "tangent_cells": 0,
@@ -5401,7 +5372,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -5423,7 +5395,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -5452,7 +5425,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 398,
    "tangent_cells": 0,
@@ -5481,7 +5455,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 664,
    "tangent_cells": 0,
@@ -5510,7 +5485,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 282,
    "tangent_cells": 0,
@@ -5539,7 +5515,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 460,
    "tangent_cells": 0,
@@ -5561,7 +5538,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -5590,7 +5568,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 909,
    "tangent_cells": 0,
@@ -5612,7 +5591,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -5641,7 +5621,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 339,
    "tangent_cells": 0,
@@ -5663,7 +5644,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -5699,7 +5681,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 1261,
    "tangent_cells": 0,
@@ -5728,7 +5711,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 607,
    "tangent_cells": 0,
@@ -5750,7 +5734,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -5772,7 +5757,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -5794,7 +5780,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -5816,7 +5803,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -5838,7 +5826,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -5874,7 +5863,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 816,
    "tangent_cells": 0,
@@ -5896,7 +5886,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -5918,7 +5909,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -5947,7 +5939,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 268,
    "tangent_cells": 0,
@@ -5969,7 +5962,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -6005,68 +5999,16 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 1015,
    "tangent_cells": 0,
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b1212.json"
   },
   "1213": {
-   "status": "closed",
-   "route": "selective chain",
-   "depth": 7,
-   "layers": [
-    {
-     "level": 2,
-     "cells": 256,
-     "closed": 125,
-     "open": 131,
-     "still_open": 131
-    },
-    {
-     "level": 3,
-     "cells": 1361,
-     "closed": 1064,
-     "open": 297,
-     "still_open": 297
-    },
-    {
-     "level": 4,
-     "cells": 2916,
-     "closed": 2250,
-     "open": 666,
-     "still_open": 666
-    },
-    {
-     "level": 5,
-     "cells": 6939,
-     "closed": 5285,
-     "open": 1654,
-     "still_open": 1654
-    },
-    {
-     "level": 6,
-     "cells": 16931,
-     "closed": 12088,
-     "open": 4843,
-     "still_open": 190
-    },
-    {
-     "level": 7,
-     "cells": 873,
-     "closed": 0,
-     "open": 873,
-     "still_open": 0
-    }
-   ],
-   "rule": "ordering",
-   "gamma": {
-    "fourier": 50,
-    "ordering": 5476
-   },
-   "leaves": 20812,
-   "tangent_cells": 0,
-   "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b1213.json"
+   "status": "5526 closed sub-balls without Stage C preconditions",
+   "route": "selective chain"
   },
   "1215": {
    "status": "closed",
@@ -6084,7 +6026,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -6120,7 +6063,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 1924,
    "tangent_cells": 0,
@@ -6167,7 +6111,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 1197,
    "tangent_cells": 0,
@@ -6189,7 +6134,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -6225,7 +6171,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 1879,
    "tangent_cells": 0,
@@ -6254,7 +6201,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 388,
    "tangent_cells": 0,
@@ -6283,54 +6231,16 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 680,
    "tangent_cells": 0,
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b1263.json"
   },
   "1265": {
-   "status": "closed",
-   "route": "selective chain",
-   "depth": 5,
-   "layers": [
-    {
-     "level": 2,
-     "cells": 256,
-     "closed": 86,
-     "open": 170,
-     "still_open": 170
-    },
-    {
-     "level": 3,
-     "cells": 1795,
-     "closed": 1414,
-     "open": 381,
-     "still_open": 381
-    },
-    {
-     "level": 4,
-     "cells": 4029,
-     "closed": 3501,
-     "open": 528,
-     "still_open": 49
-    },
-    {
-     "level": 5,
-     "cells": 451,
-     "closed": 229,
-     "open": 222,
-     "still_open": 0
-    }
-   ],
-   "rule": "ordering",
-   "gamma": {
-    "fourier": 112,
-    "ordering": 589
-   },
-   "leaves": 5230,
-   "tangent_cells": 0,
-   "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b1265.json"
+   "status": "701 closed sub-balls without Stage C preconditions",
+   "route": "selective chain"
   },
   "1270": {
    "status": "closed",
@@ -6369,7 +6279,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 3104,
    "tangent_cells": 0,
@@ -6391,7 +6302,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -6413,7 +6325,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -6435,7 +6348,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -6457,7 +6371,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -6479,7 +6394,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -6515,7 +6431,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 1637,
    "tangent_cells": 0,
@@ -6537,7 +6454,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 255,
    "tangent_cells": 1,
@@ -6559,7 +6477,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 255,
    "tangent_cells": 1,
@@ -6581,7 +6500,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -6603,7 +6523,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -6625,7 +6546,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -6654,7 +6576,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 268,
    "tangent_cells": 0,
@@ -6676,7 +6599,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -6698,7 +6622,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -6741,7 +6666,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 1474,
    "tangent_cells": 0,
@@ -6763,7 +6689,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -6785,7 +6712,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -6821,7 +6749,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 960,
    "tangent_cells": 0,
@@ -6843,7 +6772,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -6865,7 +6795,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -6894,7 +6825,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 257,
    "tangent_cells": 0,
@@ -6916,7 +6848,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -6938,7 +6871,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -6960,7 +6894,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -6982,7 +6917,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -7004,7 +6940,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -7026,7 +6963,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -7048,7 +6986,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -7070,7 +7009,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -7092,7 +7032,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -7114,7 +7055,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -7136,7 +7078,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -7158,7 +7101,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -7180,7 +7124,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -7202,7 +7147,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -7224,7 +7170,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -7246,7 +7193,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -7268,7 +7216,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -7290,7 +7239,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -7312,7 +7262,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -7334,7 +7285,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -7356,7 +7308,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -7385,7 +7338,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 280,
    "tangent_cells": 0,
@@ -7407,7 +7361,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -7429,7 +7384,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -7451,7 +7407,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -7473,7 +7430,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -7495,7 +7453,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -7524,7 +7483,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 273,
    "tangent_cells": 0,
@@ -7546,7 +7506,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -7568,7 +7529,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -7590,7 +7552,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -7612,7 +7575,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -7634,7 +7598,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 255,
    "tangent_cells": 1,
@@ -7656,7 +7621,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -7678,7 +7644,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -7700,7 +7667,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -7722,7 +7690,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -7744,7 +7713,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -7766,7 +7736,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -7795,7 +7766,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 257,
    "tangent_cells": 0,
@@ -7817,7 +7789,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -7839,7 +7812,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -7861,7 +7835,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -7883,7 +7858,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -7905,7 +7881,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -7934,7 +7911,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 769,
    "tangent_cells": 0,
@@ -7956,7 +7934,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -7978,7 +7957,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -8000,7 +7980,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -8022,7 +8003,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -8044,7 +8026,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -8066,7 +8049,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -8088,47 +8072,16 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b1616.json"
   },
   "1622": {
-   "status": "closed",
-   "route": "selective chain",
-   "depth": 4,
-   "layers": [
-    {
-     "level": 2,
-     "cells": 256,
-     "closed": 10,
-     "open": 246,
-     "still_open": 246
-    },
-    {
-     "level": 3,
-     "cells": 2550,
-     "closed": 1019,
-     "open": 1531,
-     "still_open": 1531
-    },
-    {
-     "level": 4,
-     "cells": 19096,
-     "closed": 9517,
-     "open": 9579,
-     "still_open": 0
-    }
-   ],
-   "rule": "ordering",
-   "gamma": {
-    "fourier": 1747,
-    "ordering": 7832
-   },
-   "leaves": 10546,
-   "tangent_cells": 0,
-   "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b1622.json"
+   "status": "9579 closed sub-balls without Stage C preconditions",
+   "route": "selective chain"
   },
   "1628": {
    "status": "closed",
@@ -8146,7 +8099,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -8168,7 +8122,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -8190,7 +8145,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -8219,7 +8175,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 353,
    "tangent_cells": 0,
@@ -8241,7 +8198,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -8263,7 +8221,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -8285,7 +8244,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -8307,7 +8267,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -8329,7 +8290,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -8351,7 +8313,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -8373,7 +8336,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -8395,7 +8359,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -8417,7 +8382,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -8439,7 +8405,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -8461,7 +8428,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -8483,7 +8451,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -8505,7 +8474,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -8527,7 +8497,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -8549,7 +8520,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -8571,7 +8543,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -8593,7 +8566,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -8615,7 +8589,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -8637,7 +8612,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -8659,7 +8635,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -8681,7 +8658,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -8703,7 +8681,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -8725,7 +8704,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -8747,7 +8727,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -8769,7 +8750,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -8798,7 +8780,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 497,
    "tangent_cells": 0,
@@ -8827,7 +8810,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 314,
    "tangent_cells": 0,
@@ -8849,7 +8833,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 255,
    "tangent_cells": 1,
@@ -8871,7 +8856,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -8893,7 +8879,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -8915,7 +8902,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -8937,7 +8925,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -8966,7 +8955,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 257,
    "tangent_cells": 0,
@@ -8988,7 +8978,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -9010,7 +9001,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -9032,7 +9024,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -9054,7 +9047,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -9076,7 +9070,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -9105,7 +9100,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 299,
    "tangent_cells": 0,
@@ -9127,7 +9123,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -9149,7 +9146,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -9171,7 +9169,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -9193,7 +9192,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -9222,7 +9222,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 279,
    "tangent_cells": 0,
@@ -9251,7 +9252,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 442,
    "tangent_cells": 0,
@@ -9273,7 +9275,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -9302,7 +9305,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 257,
    "tangent_cells": 0,
@@ -9324,7 +9328,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -9346,7 +9351,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -9375,7 +9381,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 268,
    "tangent_cells": 0,
@@ -9397,7 +9404,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -9419,7 +9427,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -9448,7 +9457,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 416,
    "tangent_cells": 0,
@@ -9470,7 +9480,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -9492,7 +9503,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -9514,7 +9526,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -9536,7 +9549,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -9558,7 +9572,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -9580,7 +9595,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -9602,7 +9618,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -9624,7 +9641,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -9646,7 +9664,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -9668,7 +9687,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -9690,7 +9710,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -9712,7 +9733,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -9734,7 +9756,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -9756,7 +9779,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 255,
    "tangent_cells": 1,
@@ -9778,7 +9802,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -9800,7 +9825,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -9822,7 +9848,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -9844,7 +9871,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -9866,7 +9894,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -9888,7 +9917,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -9910,7 +9940,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -9932,7 +9963,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -9954,7 +9986,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -9976,7 +10009,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -9998,7 +10032,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -10020,7 +10055,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -10042,7 +10078,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -10064,7 +10101,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -10086,7 +10124,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -10108,7 +10147,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -10130,7 +10170,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -10152,7 +10193,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -10174,7 +10216,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -10196,7 +10239,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -10218,7 +10262,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -10254,7 +10299,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 1438,
    "tangent_cells": 0,
@@ -10283,7 +10329,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 468,
    "tangent_cells": 0,
@@ -10312,7 +10359,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 352,
    "tangent_cells": 0,
@@ -10334,7 +10382,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -10356,54 +10405,16 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b2606.json"
   },
   "2705": {
-   "status": "closed",
-   "route": "selective chain",
-   "depth": 5,
-   "layers": [
-    {
-     "level": 2,
-     "cells": 256,
-     "closed": 0,
-     "open": 256,
-     "still_open": 256
-    },
-    {
-     "level": 3,
-     "cells": 2576,
-     "closed": 743,
-     "open": 1833,
-     "still_open": 1833
-    },
-    {
-     "level": 4,
-     "cells": 23178,
-     "closed": 10124,
-     "open": 13054,
-     "still_open": 20
-    },
-    {
-     "level": 5,
-     "cells": 131,
-     "closed": 16,
-     "open": 115,
-     "still_open": 0
-    }
-   ],
-   "rule": "ordering",
-   "gamma": {
-    "fourier": 1542,
-    "ordering": 11607
-   },
-   "leaves": 10883,
-   "tangent_cells": 0,
-   "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b2705.json"
+   "status": "13149 closed sub-balls without Stage C preconditions",
+   "route": "selective chain"
   },
   "2707": {
    "status": "closed",
@@ -10428,7 +10439,8 @@
    "rule": "certifier",
    "gamma": {
     "fourier": 0,
-    "ordering": 0
+    "ordering": 0,
+    "anchored": 0
    },
    "leaves": 257,
    "tangent_cells": 0,
