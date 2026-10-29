@@ -94,5 +94,9 @@ class PlaneTests(unittest.TestCase):
         with self.assertRaises(ValueError):Whole.validate_witnesses(cliques,witnesses,{'0'})
         with self.assertRaises(ValueError):Whole.validate_witnesses(cliques,witnesses,{'0','1','2'})
 
+    def test_failed_pair_bound_does_not_abort_search(self):
+        with patch.object(P,'pair_margin',side_effect=ArithmeticError('unverified spectrum')):
+            self.assertFalse(P.pair_excluded({0:({},0)},{0:({},0)}))
+
 
 if __name__=='__main__':unittest.main()

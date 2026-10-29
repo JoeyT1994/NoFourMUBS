@@ -27,7 +27,7 @@ def complete_cover(path):
 
 
 def pair_excluded(left,right):
-    return all(P.pair_margin(a,ea,b,eb)>0 for a,ea in left.values() for b,eb in right.values())
+    return P.pair_excluded(left,right)
 
 
 def propose(path,depth=6):

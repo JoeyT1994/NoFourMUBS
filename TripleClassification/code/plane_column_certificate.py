@@ -16,7 +16,7 @@ import sys
 import time
 from pathlib import Path
 for _key in ('OPENBLAS_NUM_THREADS','OMP_NUM_THREADS','MKL_NUM_THREADS','VECLIB_MAXIMUM_THREADS'):
-    os.environ[_key]='1' 
+    os.environ[_key]='1'
 import numpy as np
 from scipy.optimize import least_squares
 from flint import arb,arb_mat,ctx
@@ -253,6 +253,14 @@ def pair_margin(a,ea,b,eb):
     return abs(s)-first-arb(6).sqrt()*error-delta*delta/2
 
 
+def pair_excluded(left,right):
+    """Search failure for one pair must not prevent trying other pairs."""
+    try:
+        return all(pair_margin(a,ea,b,eb)>0 for a,ea in left.values() for b,eb in right.values())
+    except ArithmeticError:
+        return False
+
+
 def verify_tree(column,node,roots,C,level=0,index=(0,0),stats=None,tubes=None):
     if stats is None:stats={};tubes={}
     require(isinstance(node,dict),'invalid tree node')
@@ -341,7 +349,7 @@ def propose(path,depth=6,max_columns=6):
             else:
                 selected=None
                 for other,other_tubes in done:
-                    if all(pair_margin(a,ea,b,eb)>0 for a,ea in tubes.values() for b,eb in other_tubes.values()):
+                    if pair_excluded(tubes,other_tubes):
                         selected=[other,item];break
             if selected is not None:
                 return dict(schema='tc-plane-column-proposal-v1',snapshot_sha256=binding['snapshot_sha256'],columns=selected)
@@ -370,5 +378,3 @@ def main():
 
 
 if __name__=='__main__':raise SystemExit(main())
-
-
