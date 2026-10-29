@@ -121,9 +121,15 @@ def trees(a, V, side, RC, side_guard=None, out=None):
             for q in (p, p[:-len('.json.gz')] + '.jsonl') if p.endswith('.json.gz') else (p,):
                 st = os.stat(q); out.append([os.path.realpath(q), st.st_size, int(st.st_mtime)])
         return out
-    gamma_stamp = stamp(a.gamma) if a.gamma_rules else []
+    gamma_stamp = stamp(a.gamma) if a.gamma_rules and not a.gamma_dir else []
     per_ball = {}
-    if a.gamma_rules:
+    if a.gamma_rules and a.gamma_dir:
+        # per-ball receipt files already split (rusty/gamma_by_ball.py) plus each chain's own new receipts: hand each
+        # auditor its ball's files without reading every receipt again
+        for p in glob.glob(os.path.join(a.gamma_dir, 'gamma_by_ball', 'b*.jsonl')) + glob.glob(os.path.join(a.gamma_dir, 'gamma_new', 'b*.jsonl')):
+            b = int(os.path.basename(p)[1:].split('.')[0])
+            per_ball.setdefault(b, []).append(p)
+    elif a.gamma_rules:
         # read the (large) gamma receipts once and give each auditor only its ball's records, with only the fields
         # the auditor checks; the receipts themselves stay as they are
         keep = ('subatlas_sha256', 'sub', 'seed_sha256', 'receipt_binding', 'gamma_sha256', 'closed_by_certifier',
@@ -145,11 +151,11 @@ def trees(a, V, side, RC, side_guard=None, out=None):
             p = os.path.join(a.work, 'gamma_b%d.jsonl' % b)
             with open(p, 'w') as f:
                 for c in rr: f.write(json.dumps(c, separators=(',', ':')) + '\n')
-            per_ball[b] = p
+            per_ball[b] = [p]
 
     def audit(i, route, layers, scripts):
         base = _hl.sha256(json.dumps([auditor_sha, i, route, stamp(layers), scripts]).encode()).hexdigest()
-        full = _hl.sha256(json.dumps([base, a.gamma_rules, a.gamma_sha, gamma_stamp]).encode()).hexdigest()
+        full = _hl.sha256(json.dumps([base, a.gamma_rules, a.gamma_sha, gamma_stamp, stamp(per_ball.get(i, []))]).encode()).hexdigest()
         hit = cache.get(base)
         if hit and hit.get('status') == 'closed' and hit.get('rule', 'certifier') == 'certifier': return hit
         if full in cache: return cache[full]
@@ -158,7 +164,7 @@ def trees(a, V, side, RC, side_guard=None, out=None):
         return x
 
     def audit_fresh(i, route, layers, scripts):
-        extra = (['--gamma'] + ([per_ball[i]] if i in per_ball else []) + ['--gamma-sha', a.gamma_sha,
+        extra = (['--gamma'] + per_ball.get(i, []) + ['--gamma-sha', a.gamma_sha,
                   '--gamma-rules', a.gamma_rules]) if a.gamma_rules else []
         cp = subprocess.run([sys.executable, a.tree_auditor, '--root', a.tc_tree, '--index', str(i), '--layers'] + layers
                             + ['--scripts'] + scripts + extra, capture_output=True, text=True)
@@ -201,7 +207,8 @@ def trees(a, V, side, RC, side_guard=None, out=None):
         gam = None
         if rule != 'certifier' and i in per_ball:
             gam = os.path.join(d, 'b%d.gamma.jsonl' % i)
-            with open(per_ball[i]) as src, open(gam, 'w') as dst: dst.write(src.read())
+            with open(gam, 'w') as dst:
+                for src in per_ball[i]: dst.write(open(src).read())
         files = lambda p: dict(path=os.path.realpath(p), sha256=RC.sha_file(p))
         man = dict(schema='tc-tree-certificate-v1', ball=i, route=route, rule=rule, original_atlas_sha256=PIN_ATLAS,
                    auditor=files(a.tree_auditor),
@@ -250,6 +257,7 @@ def main():
     ap.add_argument('--workers', type=int, default=4)
     ap.add_argument('--cache', help='JSON file of earlier tree verdicts, reused while every input file is unchanged')
     ap.add_argument('--gamma', nargs='*', default=[], help='gamma_test.py receipts (labelled Fourier score discharges)')
+    ap.add_argument('--gamma-dir', help='directory holding gamma_by_ball/ and gamma_new/ per-ball receipt files')
     ap.add_argument('--gamma-sha'); ap.add_argument('--gamma-rules', default='', help="'fourier', 'ordering' or both")
     a = ap.parse_args()
     raw, out = a.raw, a.out
