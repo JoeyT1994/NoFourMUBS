@@ -10,6 +10,7 @@ a near-exact fit mean K moves in a family with H fixed.
 import gzip, json, os, sys, random
 import numpy as np
 STARTS = int(os.environ.get('STARTS', '20'))
+MSAMP = int(os.environ.get('MSAMP', '200'))
 
 
 def main():
@@ -64,7 +65,19 @@ def main():
         f = min(fits, key=lambda z: np.linalg.norm(z.fun))
         all_res = sorted(float(np.linalg.norm(z.fun)) for z in fits)
         Jm = f.jac; sv = np.linalg.svd(Jm, compute_uv=False)
-        print(json.dumps(dict(ball=ball, level=level, sub=sub, pattern=pat, residual=float(np.linalg.norm(f.fun)), residuals=all_res[:5],
+        # second-order size: sample ||D^2 F[d, d]|| / ||d||^2 by central differences at random box points and directions
+        Ms = []
+        for _ in range(MSAMP):
+            x = f.x + (rng.standard_normal((5, 6)) * pr[None, :] / np.sqrt(5)).ravel()
+            d = rng.standard_normal(30); d /= np.linalg.norm(d); h = 1e-3
+            Ms.append(float(np.linalg.norm(res(x + h * d) - 2 * res(x) + res(x - h * d)) / h ** 2))
+        M = max(Ms) if Ms else float('nan')
+        rho, sig = float(np.linalg.norm(f.fun)), float(sv[-1])
+        ts = np.linspace(0, 2, 2001); ok = np.sqrt(rho ** 2 + sig ** 2 * ts ** 2) - M * ts ** 2 / 2 > 0
+        tstar = float(ts[np.argmin(ok)] if not ok.all() else ts[-1])
+        Rbox = float(np.sqrt(np.sum(pr ** 2)))        # the box radius in the 30-dim phase norm (upper estimate)
+        print(json.dumps(dict(ball=ball, level=level, sub=sub, pattern=pat, rho=rho, sigma=sig, M=M, tstar=tstar, R=Rbox,
+                              residual=float(np.linalg.norm(f.fun)), residuals=all_res[:5],
                               moved=float(np.linalg.norm(f.x)), smallest_sv=[float(x) for x in sv[-4:]],
                               largest_sv=float(sv[0]))), flush=True)
 
