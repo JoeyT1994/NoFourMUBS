@@ -142,6 +142,7 @@ def main():
 
     def discharged(row, sub, layer_sha, i):
         """The rule ('fourier' or 'ordering') by which every pattern the certifier left open is discharged, or None."""
+        if not (row.get('c1', {}).get('ok') is True and row.get('normal_form', {}).get('status') == 'CERTIFIED'): return None
         certified = {x['number'] for x in row.get('patterns', []) if x['status'] in ('CERTIFIED', 'EXCLUDED')}
         for x in row.get('patterns', []):
             if x['status'] in ('CERTIFIED', 'EXCLUDED'): pattern_ok(x)
