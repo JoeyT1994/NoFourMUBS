@@ -281,7 +281,7 @@ ball	r	final	certifier	certifier_patterns	split	status	level	cells_remaining	lev
 279	0.125	empty	CERTIFIED EMPTY	0/0/0		whole_ball		0			48	45	44	1	0	1.8145
 280	0.125	empty	CERTIFIED EMPTY	0/0/0		cells		0			48	45	44	1	0	1.4158
 281	0.11249999999999999	empty	CERTIFIED EMPTY	0/8/0		cells		0			48	20	20	0	0	1.1829
-282	0.1	open	NOT ESTABLISHED	0/16/180		remaining_coarse	3	2193	0.766	audit failed: ValueError: missing or unexpected rows at level 9	52	64	64	0	0	0.3042
+282	0.1	open	NOT ESTABLISHED	0/16/180		remaining_coarse	3	2193	0.766	open below level 9	52	64	64	0	0	0.3042
 283	0.125	empty	CERTIFIED EMPTY	0/0/0		cells		0			48	14	14	0	0	1.3758
 284	0.125	empty	CERTIFIED EMPTY	0/0/0		whole_ball		0			48	35	35	0	0	1.1901
 285	0.125	empty	CERTIFIED EMPTY	0/0/0		whole_ball		0			48	41	40	1	0	1.7575
@@ -594,7 +594,7 @@ ball	r	final	certifier	certifier_patterns	split	status	level	cells_remaining	lev
 592	0.1	empty	CERTIFIED EMPTY	0/0/0		refined_4		0	0.065		48	14	14	0	0	0.7943
 593	0.125	empty	CERTIFIED EMPTY	0/0/0		whole_ball		0			48	30	29	1	0	1.3737
 594	0.10937499999999999	empty	CERTIFIED EMPTY	0/0/0		refined_4		0	0.151		48	14	14	0	0	1.0777
-595	0.1	open	NOT ESTABLISHED	0/0/0		remaining_coarse	3	2811	0.981	audit failed: ValueError: missing or unexpected rows at level 5	56	64	64	0	0	0.0419
+595	0.1	open	NOT ESTABLISHED	0/0/0		remaining_coarse	3	2811	0.981	open below level 5	56	64	64	0	0	0.0419
 596	0.1	tree	NOT ESTABLISHED	0/0/2		remaining_coarse	3	2637	0.921	closed depth 3 (selective chain; 257 leaves)	48	20	20	0	0	0.4160
 597	0.125	empty	CERTIFIED EMPTY	0/0/0		cells		0			48	45	45	0	0	1.5890
 598	0.125	empty	CERTIFIED EMPTY	0/0/0		cells		0			48	23	22	1	0	1.5224
@@ -677,7 +677,7 @@ ball	r	final	certifier	certifier_patterns	split	status	level	cells_remaining	lev
 675	0.1	empty	CERTIFIED EMPTY	0/0/0		cells		0			48	13	13	0	0	0.9005
 676	0.1	empty	CERTIFIED EMPTY	0/2/0		remaining_coarse	3	1319	0.468		48	9	9	0	0	0.6606
 677	0.1	tree	NOT ESTABLISHED	0/9/1		refined_4		0	0.097	closed depth 2 (level 2; 256 leaves)	48	49	49	0	0	0.3722
-678	0.1	open	NOT ESTABLISHED	0/23/233		remaining_coarse	3	2284	0.797	audit failed: ValueError: missing or unexpected rows at level 6	52	64	64	0	0	0.3688
+678	0.1	open	NOT ESTABLISHED	0/23/233		remaining_coarse	3	2284	0.797	open below level 6	52	64	64	0	0	0.3688
 679	0.1	tree	NOT ESTABLISHED	0/0/64		refined_5		0	0.239	closed depth 4 (selective chain; 522 leaves)	48	57	57	0	0	0.3972
 680	0.1	tree	NOT ESTABLISHED	0/0/64		remaining_coarse	3	1280	0.492	closed depth 6 (selective chain; 3737 leaves)	48	58	58	0	0	0.8097
 681	0.125	empty	CERTIFIED EMPTY	0/0/0		cells		0			50	19	19	0	0	2.5542
@@ -767,7 +767,7 @@ ball	r	final	certifier	certifier_patterns	split	status	level	cells_remaining	lev
 765	0.10312499999999998	empty	CERTIFIED EMPTY	0/0/0		cells		0			48	15	14	1	0	1.3234
 766	0.1	empty	CERTIFIED EMPTY	0/0/0		refined_4		0	0.070		48	18	18	0	0	0.9423
 767	0.1	tree	NOT ESTABLISHED	0/240/48		remaining_coarse	3	2097	0.736	closed depth 4 (selective chain; 1579 leaves)	56	64	64	0	0	0.3485
-768	0.1	open	NOT ESTABLISHED	0/0/256		remaining_coarse	3	2843	0.993	audit failed: ValueError: missing or unexpected rows at level 5	52	64	64	0	0	0.1541
+768	0.1	open	NOT ESTABLISHED	0/0/256		remaining_coarse	3	2843	0.993	open below level 5	52	64	64	0	0	0.1541
 769	0.1	tree	NOT ESTABLISHED	0/0/4		remaining_fine	4	1427		closed depth 3 (selective chain; 440 leaves)	56	64	64	0	0	0.4391
 770	0.1	empty	CERTIFIED EMPTY	0/5/0		cells		0			48	31	31	0	0	0.6492
 771	0.1	empty	CERTIFIED EMPTY	0/10/0		cells		0			52	60	60	0	0	0.9158
@@ -829,7 +829,7 @@ ball	r	final	certifier	certifier_patterns	split	status	level	cells_remaining	lev
 827	0.125	empty	CERTIFIED EMPTY	0/0/0		whole_ball		0			56	16	16	0	0	1.7745
 828	0.1	tree	NOT ESTABLISHED	0/8/56		remaining_coarse	3	581	0.309	closed depth 4 (selective chain; 359 leaves)	48	52	52	0	0	0.7314
 829	0.1	empty	CERTIFIED EMPTY	0/0/0		refined_4		0	0.132		48	14	14	0	0	0.8201
-830	0.1	open	NOT ESTABLISHED	0/0/64		remaining_coarse	3	2679	0.935	open below level 6	48	64	64	0	0	0.2991
+830	0.1	open	NOT ESTABLISHED	0/0/64		remaining_coarse	3	2679	0.935	audit failed: ValueError: missing or unexpected rows at level 7	48	64	64	0	0	0.2991
 831	0.125	empty	CERTIFIED EMPTY	0/1/0		cells		0			54	57	57	0	0	1.1054
 832	0.1	tree	NOT ESTABLISHED	0/34/30		remaining_coarse	3	2779	0.970	closed depth 4 (selective chain; 1438 leaves)	56	64	64	0	0	0.1712
 833	0.1	empty	CERTIFIED EMPTY	0/4/0		refined_4		0	0.056		54	39	39	0	0	1.1157
