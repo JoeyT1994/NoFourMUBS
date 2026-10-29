@@ -47,9 +47,10 @@ def hit(c,level):
         d.append(max(lo, Fraction(0), -hi))
     return sum(x*x for x in d) <= 1
 
-def bound(source_paths, root, atlas, script):
+def bound(source_paths, root, atlas, script, guard=None):
     sources={str(p.relative_to(root)):sha(p) for p in source_paths()}
     sources['split.py']=sha(script)
+    if guard is not None: sources['stagec_guard.py']=sha(guard)
     v=dict(schema='tc-native-allk-v1+split',atlas_sha256=sha(atlas),sources=sources,precision=160)
     v['id']=jsonsha(v)
     return v
@@ -112,7 +113,13 @@ def main():
     docs = list(map(load, paths)); rowsets = [rows(str(p)[:-len('.json.gz')] + '.jsonl') for p in paths]
     bindings = []                                 # a layer may name alternative scripts 'a.py,b.py'; each row must carry
     for p, alts in zip(paths, args.scripts):      # the binding of one of them
-        bindings.append({bound(R.source_paths, root, p, Path(s).resolve())['id'] for s in str(alts).split(',')})
+        ids = set()
+        for s in str(alts).split(','):
+            s = Path(s).resolve()
+            ids.add(bound(R.source_paths, root, p, s)['id'])
+            if (s.parent / 'stagec_guard.py').exists():   # later split.py versions also bind their Stage C guard
+                ids.add(bound(R.source_paths, root, p, s, guard=s.parent / 'stagec_guard.py')['id'])
+        bindings.append(ids)
     closed = []                                   # (level, cell) of every accepted cell
     target = None; counts = []
     for k, (doc, rr, bid, path) in enumerate(zip(docs, rowsets, bindings, paths)):
