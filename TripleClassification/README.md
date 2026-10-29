@@ -16,18 +16,44 @@ together with the same on the X-ball, and S₆ having no third basis.
 
 This is not part of the proof that ℂ⁶ has no four MUBs.
 
-## Status (28 October 2026, 15:30; partial, runs in progress)
+## Status (29 October 2026, 06:36; interim, runs in progress)
+
+Every closed ball below is closed by **one route**:
+- the frozen whole-ball certifier on the original ball; or
+- one dyadic tree of sub-balls, each closed by the same certifier with its Stage C preconditions checked. The tree is
+  verified by one auditor, `code/audit_select.py`.
 
 | Seed balls | Count | Nearest census triple (median) |
 |---|---:|---:|
-| **Resolved** | **2,593** | |
+| **Closed** | **2,719** | |
 | · no third basis anywhere in the ball (whole-ball certifier) | 2,101 | 0.90 |
 | · every third basis of known type (whole-ball certifier) | 272 | 0.08 |
-| · no triple edge in the ball (cell test, after the certifier left it open) | 43 | 0.72 |
-| · split into sub-balls (half the radius, and smaller where needed), every one resolved by the certifier | 177 | 0.32 |
-| **Not yet resolved** | **182** | |
-| · first split still running on rusty | 37 | 0.31 |
-| · split, some sub-balls open; those are being split again on rusty now (radius r/4, 16 nodes) | 145 | 0.37 |
+| · closed by an audited tree of sub-balls | 346 | 0.37 |
+| &nbsp;&nbsp;– level-2 cover (256 cells, radius r/2) alone | 209 | |
+| &nbsp;&nbsp;– level 2, then the collaborator's reviewed level-3 layer | 11 | |
+| &nbsp;&nbsp;– selective chain: open cells refined again at levels 3, 4, 5, … | 126 | |
+| **Open** | **56** | 0.27 |
+| · still running on rusty (levels 4–6) | 30 | |
+| · computed; waiting for the Stage C precondition sidecar | 10 | |
+| · cells still open at the deepest level run so far | 16 | |
+
+The open balls are 194, 282, 363, 499, 588, 595, 636, 641, 666, 678, 679, 703, 704, 730, 733, 734, 754, 767, 768,
+777, 779, 807, 815, 823, 825, 830, 835, 845, 846, 847, 848, 853, 858, 879, 883, 885, 895, 900, 905, 918, 927, 987,
+1010, 1016, 1035, 1038, 1070, 1089, 1213, 1216, 1217, 1227, 1265, 1270, 1622 and 2705. Each ball's tree status is in
+the `tree` column of `results/balls.tsv`.
+
+**Where the open balls are (NUMERICAL).** All lie near F₆: measured in the X-ball's edge chart, every open centre is
+within 8 X-ball radii of the X-ball's centre. In the hardest balls about a third of the sub-balls stay open at levels
+5 and 6, so refinement alone may not finish them. Other routes are in progress: a canonical choice of which transition
+each triple is checked from, and a local theorem at F₆ of larger radius.
+
+**No longer counted.** These earlier routes are now retired:
+- the cell test (`code/nothird.py`);
+- the sharper symmetry bound at the original radius;
+- splits nested in the sub-balls' own frames;
+- the collaborator's separate mixed-cover auditor.
+
+Every ball they closed is either closed again by the routes above or is in the open list.
 
 The distance is ‖H − H′‖_F between the dephased matrix at the ball's centre and the nearest triple edge H′ the census
 converged to. Per-ball details are in `results/balls.tsv`.
@@ -40,9 +66,9 @@ where the isolated triple and the continuous family meet) is of known type
   1,352 core-hours on 8 Rusty nodes, with exact accounting.
 
 **What remains for the conjecture:**
-- the 182 balls above (deeper splitting running);
+- the 56 open balls above;
 - S₆: Tao's matrix has no third basis (certified, `proof/theorems/TC_triple_classification/tao.py`);
-- the independent review: the certifier, recognition, the crossing theorem, and the split and shard drivers.
+- the independent review: the certifier, recognition, the crossing theorem, and the tree builders and auditor.
 
 ### The whole-ball certifier
 
@@ -68,42 +94,36 @@ arithmetic. Two dependencies have not been independently checked:
 
 An independent review is under way.
 
-### Splitting
+### Trees of sub-balls
 
-`code/split.py` covers a seed ball by sub-balls and runs the frozen certifier on each.
-- **Cover.** At level 2 the parameter cube is cut into 256 cells. Each sub-ball keeps the parent's frame, has a
-  binary64 centre near the cell's centre, and has radius r′ ≥ r/2 + ‖Mth⁻¹δ‖, where δ is the centre's rounding,
-  reduced mod 2π. The bound is checked in Arb. So the sub-balls cover the parent's image.
-- **Certification.** Each sub-ball is an ordinary seed record with its own C1 constant. The certifier recertifies it
-  from scratch.
-- **Binding.** The frozen code is used unchanged. Only the binding differs: schema `tc-native-allk-v1+split`, with the
-  sub-atlas hash, and `split.py` added to the sources.
+A tree covers one original seed ball by sub-balls and runs the frozen certifier on each.
+- **Level 2.** `code/split.py` cuts the parameter cube into 256 cells. Each sub-ball keeps the parent's frame, has a
+  binary64 centre near the cell's centre, and has radius r′ ≥ 2h·r + ‖Mth⁻¹δ‖, where h is the cell half-width and δ is
+  the centre's rounding, reduced mod 2π. The bound is checked in Arb, so the sub-balls cover the parent's image.
+- **Deeper levels.** Level k refines only the cells left open at level k − 1. It takes the 16 children of each open
+  cell that meet the closed ball, each a sub-ball of half the radius. Level 3 is built with the collaborator's
+  reviewed `split_mixed.py`; levels 4 and beyond with `code/split_select.py`.
+- **Certification.** Each sub-ball is an ordinary seed record with its own C1 constant. The frozen certifier
+  recertifies it from scratch, with a 300 s limit per sub-ball; a timeout counts as open, and the cell is refined.
+- **Stage C.** Every closed sub-ball must also pass the Stage C magnitude preconditions (`code/stagec_guard.py`):
+  inline, or in a hash-bound sidecar.
+- **The auditor.** `code/audit_select.py` checks a whole chain of layers, from level 2 to level K:
+  - the exact rational cell set of each layer;
+  - Arb containment of every cell in its sub-ball;
+  - each previous layer named by hash;
+  - per-row source bindings to an accepted builder;
+  - seed and radius hashes;
+  - complete pattern accounting and strict q < 1.
+
+  The ball is closed when every cell is closed or refined, and the last layer's open cells are only tangent ones.
+  A tangent cell meets the closed ball in exactly one point, and that point must lie in a closed cell.
+- **Assembly.** `code/assemble.py` tries, for each ball:
+  1. the level-2 cover alone;
+  2. level 2 plus the collaborator's level-3 layer;
+  3. the selective chain.
+
+  The first verified tree closes the ball.
 - **Status: EXPERIMENTAL** until the reviewer has seen it.
-
-Splitting closes most balls.
-- **First split.** 387 balls were split (about 99,000 sub-balls of radius r/2); 198 of them are fully closed.
-- **Second round.** The 7,722 sub-balls left open are being split again (radius r/4, about 2 million sub-balls) on 16
-  rusty nodes, each sub-ball stopped after 180 s; a timeout counts as unresolved.
-- **The test run.** On four such sub-balls, 1,020 of 1,024 children closed.
-- **The hardest balls.** 550, 636 and 1241 had 92–156 open sub-balls out of 256 after the first split, and may need
-  more rounds.
-
-`split.py run --seconds` adds the time limit; `deep_list.py` and `run_deep.sh` run the rounds; `assemble.py` follows
-nested splits through each sub-atlas's parent hash.
-
-### The cell test
-
-`code/nothird.py` is a cell-by-cell Stage C test that no class in a cell is a triple edge: there is no 6-clique of
-the orthogonality graph. It was the first method; the certifier superseded it.
-- **Fixes since the first run:**
-  - the cell's radius pays for rounding its centre;
-  - the cell-meets-ball test is exact;
-  - Arb squares are products. With python-flint 0.9.0, `x**2` is NaN on a ball containing 0; this only ever
-    weakened the test.
-- **The 43 balls above** were rerun with the fixed code, uncapped down to radius r/32 where needed, and all are
-  triple-free.
-- **The columns of `balls.tsv`** under `status`, `level` and `cells_remaining` are the first run's results, kept for
-  reference.
 
 ### The census (NUMERICAL)
 
@@ -127,7 +147,7 @@ because every receipt is bound by hash to those source paths. Moving them would 
 |---|---|
 | `TripleClassification/README.md` | This status page |
 | `TripleClassification/results/` | Per-ball status (`balls.tsv`), the certifier's per-ball rows, the census, the summary |
-| `TripleClassification/code/` | Our drivers: `split.py` (sub-ball covers), `deep_list.py` and `run_deep.sh` (deeper rounds), `assemble.py`, the cell test and the census |
+| `TripleClassification/code/` | Our drivers: `split.py` (level-2 covers), `split_select.py` (deeper selective levels), `audit_select.py` (the tree auditor), `stagec_guard.py`, `assemble.py`, the census, and the retired cell test |
 | `proof/theorems/TC_triple_classification/family_neighbourhoods/` | The whole-ball certifier: `run.py`, `PROOF.md`, `REVIEW_HANDOFF.md` |
 | `proof/theorems/TC_triple_classification/seed_method/reference/r0153/CHECKPOINT.md` | Transverse rigidity and the recognition argument (§8) |
 | `proof/theorems/TC_triple_classification/xball/` | The X-ball: `REPORT.md`, `CORE_LEMMA.md`, the crossing receipts, the r/16 core (`results/core4_v4.json`), the sharded shell accounting (`results/sharded_20261028/`) |
@@ -141,8 +161,10 @@ manifests in this repository:
 
 ## Files
 
-- `code/assemble.py`: builds `results/` from the raw rows of all runs.
-- `code/split.py`: the splitting driver (`build`, `run`).
+- `code/assemble.py`: builds `results/` from the raw rows of all runs (single route).
+- `code/split.py`: the level-2 driver (`build`, `run`).
+- `code/split_select.py`: the deeper selective levels (`build`, `run`).
+- `code/audit_select.py`: the tree auditor.
 - `code/nothird.py`, `code/refine.py`: the cell test and its refinement.
 - `code/census.py`, `code/triples.py`: the census. `python code/triples.py --validate` checks the classifier on the
   known triples.
@@ -151,7 +173,8 @@ manifests in this repository:
   - `final`: the status above;
   - `certifier` and `certifier_patterns`: the certifier's result, with patterns counted as classified / excluded /
     unresolved;
-  - `split`: the level, depth, closed or open, and sub-ball counts;
+  - `tree`: the verified tree (route, depth, leaves) or why the ball is open;
+  - `split`: the earlier split bookkeeping, kept for reference;
   - the first cell-test run;
   - the census at the centre.
 - `results/certifier.jsonl.gz`: one compact row per ball from the certifier (status, reason, binding, pattern counts,
@@ -175,3 +198,5 @@ rusty, 26–28 October 2026.
 | Certifier on all 2,775 balls | 7352404, 7352420 | 171 core-hours |
 | Splitting, level 2 (running) | 7354091, 7354126, 7354280–7354283 | 1,607 core-hours so far |
 | Fixed cell test on 43 balls | 7352800, 7353385 | not recorded |
+| Selective level 3 (150 balls, about 100,000 sub-balls) | 7360915 | about 2.5 h on 16 nodes |
+| Selective levels 4–6, and a second batch of 39 balls (running) | 7361643–7361646, 7361689–7361704, 7363033–7363048 | running |
