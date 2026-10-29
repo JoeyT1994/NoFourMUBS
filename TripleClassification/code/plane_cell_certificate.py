@@ -11,6 +11,7 @@ import time
 from pathlib import Path
 import numpy as np
 import plane_column_certificate as P
+import plane_joint_certificate as Joint
 
 
 def complete_cover(path):
@@ -23,6 +24,7 @@ def complete_cover(path):
     columns={int(c):dict(colour=int(c),v0=[prepared[c]['v0'][i,0] for i in range(6)],
                         phase_radius=bounds[c]['phase_radius']) for cl in cliques for c in cl}
     binding['dependencies_sha256']['TripleClassification/code/plane_cell_certificate.py']=P.digest(__file__)
+    binding['dependencies_sha256']['TripleClassification/code/plane_joint_certificate.py']=P.digest(Joint.__file__)
     return snapshot,model,C,binding,columns,[[int(c) for c in cl] for cl in cliques]
 
 
@@ -32,7 +34,7 @@ def pair_excluded(left,right):
 
 def propose(path,depth=6,checkpoint=None):
     s,model,C,binding,columns,cliques=complete_cover(path)
-    proved={};attempted=set();pair_cache={};witnesses=[]
+    proved={};attempted=set();pair_cache={};witnesses=[];root_pairs={};scalars={}
     if checkpoint is not None and checkpoint.exists():
         previous=P.read_json(checkpoint)
         if previous.get('snapshot_sha256')==binding['snapshot_sha256']:
@@ -74,8 +76,15 @@ def propose(path,depth=6,checkpoint=None):
                 save()
             except ArithmeticError:continue
             chosen=witness(clique)
-        if chosen is None:raise ArithmeticError('complete-cover pattern remains: '+str(clique))
-        witnesses.append(dict(colours=clique,columns=chosen))
+        if chosen is None:
+            available=sorted((c for c in clique if c in proved),key=lambda c:(len(proved[c][1]),c))
+            try:
+                joint=Joint.exclude(model,{c:proved[c][1] for c in available},available,
+                                    pair_cache=root_pairs,scalar_cache=scalars)
+            except (ValueError,ArithmeticError):
+                raise ArithmeticError('complete-cover pattern remains: '+str(clique))
+            witnesses.append(dict(colours=clique,columns=available,joint=joint))
+        else:witnesses.append(dict(colours=clique,columns=chosen))
     used={c for w in witnesses for c in w['columns']}
     return dict(schema='tc-plane-cell-proposal-v1',snapshot_sha256=binding['snapshot_sha256'],
         record_sha256=s['record_sha256'],columns={str(c):proved[c][0] for c in sorted(used)},witnesses=witnesses)
@@ -87,7 +96,7 @@ def validate_witnesses(cliques,witnesses,keys):
     for clique,w in zip(cliques,witnesses):
         P.require(w['colours']==clique,'complete-cover pattern changed')
         chosen=w['columns']
-        P.require(len(chosen) in (1,2) and len(set(chosen))==len(chosen) and
+        P.require((1<=len(chosen)<=6 if 'joint' in w else len(chosen) in (1,2)) and len(set(chosen))==len(chosen) and
                   all(type(c) is int and c in clique for c in chosen),'invalid pattern witness')
         used.update(chosen)
     P.require(keys=={str(c) for c in used},'missing or unused column proof')
@@ -105,10 +114,11 @@ def check(path,proposal):
         stats,tubes[c]=P.verify_tree(col,item['tree'],item['roots'],C,root_modes=item.get('root_modes'))
         summaries.append(dict(colour=c,leaves=stats,source_radius=str(col.radius),
             epsilons=[str(e) for p,e in tubes[c].values()]))
-    checked={};rows=[]
+    checked={};rows=[];root_pairs={};root_scalars={}
     for n,(clique,w) in enumerate(zip(cliques,proposal['witnesses'])):
         chosen=w['columns']
-        if len(chosen)==1:P.require(not tubes[chosen[0]],'claimed empty column has surviving tubes')
+        if 'joint' in w:Joint.exclude(model,tubes,chosen,w['joint'],pair_cache=root_pairs,scalar_cache=root_scalars)
+        elif len(chosen)==1:P.require(not tubes[chosen[0]],'claimed empty column has surviving tubes')
         else:
             key=tuple(sorted(chosen))
             if key not in checked:

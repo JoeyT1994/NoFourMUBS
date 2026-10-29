@@ -185,7 +185,8 @@ be captured repeatedly.
 **PROVED, subject to the frozen native-cover theorem.** If its replay returns
 `CERTIFIED_EMPTY_RECORDED_H_CELL`, no H in that recorded cell admits a completing basis K. Replay
 rebuilds the complete K cover, verifies the stored column partitions against the newly computed phase
-balls, and requires an empty column or an excluded pair in every complete-cover pattern. It rejects
+balls, and requires an empty column, an excluded pair, or the complete shared-H exclusion below
+in every complete-cover pattern. It rejects
 an omitted pattern, a changed colour list, a column outside its pattern, or a missing column proof.
 An inaccurate numerical proposal can only make an inequality fail. No supplied pattern count or K
 phase enclosure is trusted for this conclusion.
@@ -201,6 +202,48 @@ python TripleClassification/code/plane_cell_certificate.py \
 The local pilot rebuilt all 64 patterns of this 1217 cell and excluded each one. The search and first
 replay took about 45 seconds. This is a whole-cell result. Its extension to original seed ball 1217
 still requires a verified geometric cover whose every cell is classified or excluded.
+
+### Several captured columns must share the same H
+
+Pair tests can retain candidate columns whose unbiasedness equations require incompatible choices
+of H. `code/plane_joint_certificate.py` tests those equations together. Choose m captured columns,
+where 1 ≤ m ≤ 6, and place them in the first m K slots of the frozen 96-equation system F(H,K).
+Keep all H orthogonality equations, the orthogonality equations between selected K columns, and
+the mixed equations involving a selected K column. Set every other equation weight to exactly zero.
+The resulting scalar function yF is independent of the unselected K slots. Filling those slots with
+zero phase and zero error is therefore an evaluation convention, not a restriction on a completing basis.
+
+Each retained column has the verified enclosure v_c = u_c + T_c w + e_c, with ‖e_c‖ ≤ ε_c.
+The same w, with ‖w‖ ≤ r, occurs in H's normal form and in every selected column. Form the joint
+center q and carrier L from those enclosures. Section 7 of the frozen native `family_neighbourhoods/PROOF.md`
+bounds the change of yF from q by its linear terms, quadratic terms and cubic remainder. That proof
+applies unchanged to any y with the required zero weights. In particular, it retains the individual
+column errors, H's normal error, and the signed common-w quadratic form before bounding its norm.
+If the Arb lower bound of |yF(q)| strictly exceeds this total upper bound, these selected captures
+cannot occur in one completing basis. No existence or uniqueness of a root at q is assumed.
+
+The producer proposes y by a regularized numerical solve. A saved witness contains its exact binary64
+entries. Replay checks the required zero weights and recomputes the inequality in Arb without a
+linear solve. A zero, nonfinite or unsuccessful direction cannot exclude a combination.
+
+To cover a pattern, the checker enumerates every combination of retained root captures in a recorded
+column order. It prunes a branch only after a strict pair exclusion or a verified scalar exclusion
+of its three or six selected captures. Every unpruned branch is extended by every capture of the
+next column. Reaching the final column without exclusion is a failure. Thus a successful enumeration
+excludes the entire Cartesian product, including captures shared by adjacent partition pieces.
+Sparse scalar witnesses record the branches where the pair test did not suffice; replay reconstructs
+the enumeration and rejects missing, foreign, duplicate or unused witnesses. Cached inequalities
+are shared only within one unchanged cell and its verified column covers.
+
+The regression checks retain genuine partial and complete Fourier chirp bases, reject weights on
+unselected columns, and reject an enumeration with an uncovered root combination. They can be run with
+`python -m unittest discover -s TripleClassification/code -p 'test_plane_*certificate.py'`.
+
+The current level-4 cell 571 of original ball 1016, with coordinates [1,5,7,4], passed a separate
+whole-cell replay covering all 64 K patterns. Twelve patterns use the shared-H enumeration, with
+37 distinct scalar witnesses. The replay also verifies containment of the entire assigned cell in
+the recorded H ball. The original atlas radius remains its binary64 value near 0.08. This closes
+that cell without further H refinement; it does not close the whole original ball.
 
 ## 6. Review of the upstream anchored rule
 
