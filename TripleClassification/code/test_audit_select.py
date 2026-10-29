@@ -104,7 +104,7 @@ def main():
     check('491: a level-3 cell removed from the cover', False, 491, ['b491_l2', 'b491_l3', 'b491_l4'],
           edit_info('b491_l3', lambda d: d['info']['split']['cover'].pop()), None)
     check('491: level 4 names another level-3 file', False, 491, ['b491_l2', 'b491_l3', 'b491_l4'],
-          edit_info('b491_l4', lambda d: d['info']['split'].update(parent_receipts_sha256='0' * 64)), 'names a different previous layer')
+          edit_info('b491_l4', lambda d: d['info']['split'].update(parent_subatlas_sha256='0' * 64)), 'names a different previous layer')
     check('491: a sub-ball radius shrunk', False, 491, ['b491_l2', 'b491_l3', 'b491_l4'],
           edit_info('b491_l4', lambda d: d['seeds'][0].update(r=(float.fromhex(d['seeds'][0]['r']) / 2).hex())), None)
     print('%d failure(s)' % failures)

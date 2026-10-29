@@ -199,12 +199,13 @@ def main():
             # by its parent, without enumerating all (2^L)^4 of them)
             # A layer refines the previous layer's certifier-open cells, or (tree_build.py) only those a gamma receipt
             # does not close: its mask must lie between the cells this audit still needs and the certifier-open ones.
+            # Soundness needs only live <= trec: every cell still needed is refined. A mask may also hold cells closed
+            # since the layer was built (refining a closed cell is harmless), but only cells of the previous layer.
             trec = {tuple(x) for x in info['targeted_parent_cells']}
-            need(live <= trec <= target, 'incorrect target mask at level %d' % level)
+            need(live <= trec <= prev_cells, 'incorrect target mask at level %d' % level)
             expected = {c for t in trec for c in itertools.product(*[(2 * x, 2 * x + 1) for x in t]) if hit(c, level)}
-            if 'parent_subatlas_sha256' in info:      # provenance; the target mask above is checked against the layer given
-                need(info['parent_subatlas_sha256'] == sha(paths[k - 1]) and
-                     info.get('parent_receipts_sha256') == sha(str(paths[k - 1])[:-len('.json.gz')] + '.jsonl'),
+            if 'parent_subatlas_sha256' in info:      # the previous layer's sub-atlas is immutable; its receipt file is
+                need(info['parent_subatlas_sha256'] == sha(paths[k - 1]),   # append-only, so only the mask is checked
                      'layer %d names a different previous layer' % level)
         seeds = geometry(doc, original, level, expected, args.index)
         need(set(rr) == set(range(len(seeds))), 'missing or unexpected rows at level %d' % level)
@@ -236,7 +237,7 @@ def main():
             if needed: closed.append((level, cell))
         counts.append(dict(level=level, cells=len(expected), closed=len(expected) - len(unresolved), open=len(unresolved),
                            still_open=len(still)))
-        target = unresolved; live = still
+        target = unresolved; live = still; prev_cells = {tuple(e['cell']) for e in info['cover']}
     last = 2 + len(docs) - 1
     for c in live:
         p = tangent_point(c, last)
