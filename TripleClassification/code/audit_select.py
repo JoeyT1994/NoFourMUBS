@@ -173,8 +173,11 @@ def main():
         else:
             # the children of the open cells that meet the closed ball (the same set as filtering every level-L cell
             # by its parent, without enumerating all (2^L)^4 of them)
-            expected = {c for t in target for c in itertools.product(*[(2 * x, 2 * x + 1) for x in t]) if hit(c, level)}
-            need({tuple(x) for x in info['targeted_parent_cells']} == target, 'incorrect target mask at level %d' % level)
+            # A layer refines the previous layer's certifier-open cells, or (tree_build.py) only those a gamma receipt
+            # does not close: its mask must lie between the cells this audit still needs and the certifier-open ones.
+            trec = {tuple(x) for x in info['targeted_parent_cells']}
+            need(live <= trec <= target, 'incorrect target mask at level %d' % level)
+            expected = {c for t in trec for c in itertools.product(*[(2 * x, 2 * x + 1) for x in t]) if hit(c, level)}
             if 'parent_subatlas_sha256' in info:      # provenance; the target mask above is checked against the layer given
                 need(info['parent_subatlas_sha256'] == sha(paths[k - 1]) and
                      info.get('parent_receipts_sha256') == sha(str(paths[k - 1])[:-len('.json.gz')] + '.jsonl'),

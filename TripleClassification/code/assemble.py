@@ -71,7 +71,10 @@ def clean_l2(src, work):
     return base + '.json.gz'
 
 
-def trees(a, V, side, RC):
+PIN_ATLAS = '33ad9798eb7a5585c486f2427a6b223867a43b308b7f184467b4cd5956bd8baf'
+
+
+def trees(a, V, side, RC, side_guard=None, out=None):
     """Every dyadic tree we hold for each ball, tried cheapest first; the first that the pinned auditor verifies, with
     the Stage C preconditions on every closed sub-ball, closes the ball.  Candidates: the level-2 split alone (open
     cells only tangent); the level-2 split plus a reviewed level-3 layer; a selective chain l2..lK."""
@@ -177,8 +180,37 @@ def trees(a, V, side, RC):
         if missing: return dict(status='%d closed sub-balls without Stage C preconditions' % missing, route=route)
         g = v.get('gamma') or {}
         rule = 'ordering' if g.get('ordering') else ('fourier' if g.get('fourier') else 'certifier')
-        return dict(status='closed', route=route, depth=len(layers) + 1, layers=v['layers'], rule=rule, gamma=g,
-                    leaves=sum(x['closed'] for x in v['layers']), tangent_cells=v['tangent_cells'])
+        x = dict(status='closed', route=route, depth=len(layers) + 1, layers=v['layers'], rule=rule, gamma=g,
+                 leaves=sum(x['closed'] for x in v['layers']), tangent_cells=v['tangent_cells'])
+        if out: x['certificate'] = certificate(i, route, layers, scripts, rule)
+        return x
+
+    def certificate(i, route, layers, scripts, rule):
+        """One self-contained record per closed ball: every input file by SHA-256, the Stage C rows its closed
+        sub-balls use, and (when a score rule closed it) its gamma records; verify_ball.py checks it from this alone."""
+        d = os.path.join(out, 'certificates'); os.makedirs(d, exist_ok=True)
+        stage = []
+        for f in layers:
+            seeds_f, _, sha_f = RC.load_split(f)
+            for r in RC.read_jsonl(f[:-len('.json.gz')] + '.jsonl'):
+                if r.get('status') in RC.CLOSED and (r.get('stage_c_preconditions') or {}).get('guard_sha256') not in V.guards:
+                    stage.append(dict(atlas_sha256=sha_f, index=r['index'], seed_sha256=side[(sha_f, r['index'])],
+                                      guard_sha256=side_guard[(sha_f, r['index'])], status='PASS'))
+        with open(os.path.join(d, 'b%d.stagec.jsonl' % i), 'w') as f:
+            for r in stage: f.write(json.dumps(r, separators=(',', ':')) + '\n')
+        gam = None
+        if rule != 'certifier' and i in per_ball:
+            gam = os.path.join(d, 'b%d.gamma.jsonl' % i)
+            with open(per_ball[i]) as src, open(gam, 'w') as dst: dst.write(src.read())
+        files = lambda p: dict(path=os.path.realpath(p), sha256=RC.sha_file(p))
+        man = dict(schema='tc-tree-certificate-v1', ball=i, route=route, rule=rule, original_atlas_sha256=PIN_ATLAS,
+                   auditor=files(a.tree_auditor),
+                   layers=[dict(level=2 + k, subatlas=files(p), receipts=files(p[:-len('.json.gz')] + '.jsonl'),
+                                scripts=[files(s) for s in sc.split(',')]) for k, (p, sc) in enumerate(zip(layers, scripts))],
+                   stage_c=files(os.path.join(d, 'b%d.stagec.jsonl' % i)), stage_c_guards=sorted(V.guards),
+                   gamma=dict(rules=a.gamma_rules, gamma_test_sha256=a.gamma_sha, records=files(gam)) if gam else None)
+        with open(os.path.join(d, 'b%d.json' % i), 'w') as f: json.dump(man, f, indent=1)
+        return os.path.join(d, 'b%d.json' % i)
 
     rank = {'certifier': 0, 'fourier': 1, 'ordering': 2}
 
@@ -224,10 +256,10 @@ def main():
     sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
     import receipts as RC
     V = RC.Validator(a.tc_tree, a.atlas, a.split_version)
-    side = {}
+    side = {}; side_guard = {}
     for x in (r for p in a.sidecar for r in RC.read_jsonl(p)):
         if x.get('status') == 'PASS' and x.get('guard_sha256') in V.guards:
-            side[(x['atlas_sha256'], x['index'])] = x['seed_sha256']
+            side[(x['atlas_sha256'], x['index'])] = x['seed_sha256']; side_guard[(x['atlas_sha256'], x['index'])] = x['guard_sha256']
     os.makedirs(out, exist_ok=True)
     nt = {r['idx']: r for r in rows(os.path.join(raw, 'nothird_*.jsonl'))}
     cen = {r['idx']: r for r in rows(os.path.join(raw, 'census_*.jsonl'))}
@@ -236,7 +268,7 @@ def main():
     for x in rows(os.path.join(raw, 'refine25.jsonl')):
         ref[x['idx']][x['m']].append(x); ref_s += x.get('s', 0)
     tc = V.native_rows(rows(os.path.join(raw, 'tc_*.jsonl')))
-    tree = trees(a, V, side, RC)                             # ball -> dict(status, depth, layers, route) or failure
+    tree = trees(a, V, side, RC, side_guard, out)                             # ball -> dict(status, depth, layers, route) or failure
     split = {}
     files = {}
     split_s = 0.0
