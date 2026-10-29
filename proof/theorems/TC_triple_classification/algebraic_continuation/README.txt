@@ -56,9 +56,11 @@ to count H's displacement once. The unit modulus of each transition entry
 then sharpens the conversion from complex displacement to phase error.
 constraint_score.py further subtracts a linear combination of the 96
 vanishing triple equations. It retains the derivative defect, signed
-Hessian and cubic remainder in Arb. Numerical matrices only propose the
-subtraction. UNITARY_SCORE_PROOF.txt and CONSTRAINT_SCORE_PROOF.txt derive
-the inequalities.
+Hessian and cubic remainder in Arb. score_quadratic.py keeps the direction
+of the linear phase error and bounds the squared aligned score over seven
+Euclidean balls. Its dual is checked in Arb. Numerical matrices only
+propose the subtraction. UNITARY_SCORE_PROOF.txt and
+CONSTRAINT_SCORE_PROOF.txt derive the inequalities.
 
 score_tree.py applies these bounds to complete binary partitions of the
 K-label sets while keeping the original H ball fixed. Each assigned label
@@ -74,6 +76,14 @@ in that branch. The two trees still have 11 and 10 open branches. Other
 color patterns also remain required. These 113 branch results add no
 whole-ball closures; their compact hashes and scope are recorded in
 score_bounds_checkpoint.json.
+
+A further replay verifies six basis exclusions and one score branch in
+ball 1622 at the same radius 0.08. Consistent choices of phase windings
+remove artificially large K-column radii in the six exclusions. The
+quadratic score bound lowers the remaining branch's upper bound from
+about 0.385701 to 0.351503, below 19/50. This replay marks all other leaves
+unresolved and adds no whole-ball closure. Its input and source hashes
+are recorded separately under refined_branches in the checkpoint file.
 
 Classification from the score requires the separate Fourier-neighbourhood
 theorem, Gamma3 in TripleClassification/GAMMA_PROOF.md, and its listed
@@ -93,6 +103,16 @@ the repository root. The inputs below are retained on Popeye:
       --tree "$TC_SCORE_RUN/score-tree-probe-v1-$i.json" \
       --output "replay-score-$i.json"
   done
+
+The seven further branches use the same coarse-bin witness:
+
+  python "$A/replay_score_branches.py" --index 1622 \
+    --coarse-receipt "$TC_SCORE_RUN/score_tree_public_replay/1622.jsonl" \
+    --tree "$TC_SCORE_RUN/score_refined_v3/selected-1622.json" \
+    --output replay-refined-1622.json
+
+The corresponding frozen source is under score_refined_v3/source in
+TC_SCORE_RUN. The earlier source remains under score_tree_public_replay/source.
 
 The replayer rebuilds the original complete cover,
 checks every reused coarse-bin witness, and recomputes every claimed tree

@@ -6,6 +6,7 @@ defect, signed Hessian, and Taylor remainders are enclosed in Arb.
 import numpy as np
 from flint import arb,arb_mat,acb,acb_mat
 import unitary_score as U
+import score_quadratic as SQ
 from load_native import C,MS
 
 
@@ -88,5 +89,17 @@ def pattern(context,prepared,bounds,clique,rcond=.01):
                   constraint_sine=sine,constraint_phase_error=error,constraint_centre_score=U.score_upper(centre),
                   constraint_correction=correction.entries(),constraint_rcond=rcond,
                   g_up_L_unsigned=result['g_up_L'],g_up_L=min(result['g_up_L'],score))
+    if min(result['g_up_K'],result['g_up_L'])>arb(19)/50:
+        direction=arb_mat(36,40);bhu=bh*u
+        for i in range(36):
+            for j in range(4):direction[i,j]=bhu[i,j]*r
+            for j in range(36):direction[i,4+j]=bk[i,j]*pr[j%6]
+        groups=[list(range(4))]+[list(range(4+c,40,6)) for c in range(6)]
+        direct=SQ.upper(centre,direction,groups)
+        if direct is not None:
+            normal=U.up(C.Z.spectral(bh*h2)*r*r/2+C.Z.spectral(bh*x)*tau+C.Z.spectral(bh)*hrad)
+            sharp=U.up(direct+arb(2)*(normal+quadratic+cubic+sine)/5)
+            result.update(linear_score_bound=direct,directional_score=sharp,
+                          g_up_L_triangle=result['g_up_L'],g_up_L=min(result['g_up_L'],sharp))
     result['fourier_threshold_met']=min(result['g_up_K'],result['g_up_L'])<=arb(19)/50
     return result

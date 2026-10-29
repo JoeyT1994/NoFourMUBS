@@ -46,13 +46,18 @@ class Tree:
         data=np.asarray(indices,dtype=np.int64);anchor=data[0];den=NC.stagec.DEN
         delta=(data-anchor+den//2)%den-den//2
         proposal=np.r_[0,(anchor+delta.mean(axis=0))*2*np.pi/den]
-        v=C.project6()*C.Z.mat(proposal[:,None]);radius=arb(0)
+        raw=C.Z.mat(proposal[:,None]);v=C.project6()*raw;radius=arb(0)
         for index in indices:
             phase=[arb(0)]+[2*arb.pi()*int(i)/den for i in index]
-            ds=[phase[i]-v[i,0] for i in range(6)]
-            ds=[z-2*round(float(z/(2*arb.pi())))*arb.pi() for z in ds]
-            mean=sum(ds,arb(0))/6
-            radius=max(radius,U.up(C.norm([z-mean for z in ds])+self.cover['bin_radius']))
+            candidates=[]
+            for reference in (raw,v):
+                ds=[phase[i]-reference[i,0] for i in range(6)]
+                ds=[z-2*round(float(z/(2*arb.pi())))*arb.pi() for z in ds]
+                mean=sum(ds,arb(0))/6
+                candidates.append(U.up(C.norm([z-mean for z in ds])+self.cover['bin_radius']))
+            # A common phase near pi can split nearby coordinates across
+            # the wrapping cut after projection. Both lifts are valid.
+            radius=max(radius,min(candidates))
         prepared=dict(v0=v,T=arb_mat(6,4),Tnorm=arb(0),model=self.model)
         bound=dict(phase_radius=radius,epsilon=radius,initial_radius=radius)
         self.cache[key]=prepared,bound

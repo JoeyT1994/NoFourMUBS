@@ -12,6 +12,7 @@ import unitary_score as U
 import constraint_score as CS
 import label_partition as LP
 import score_tree as ST
+import score_quadratic as SQ
 
 
 def sha(path):return hashlib.sha256(Path(path).read_bytes()).hexdigest()
@@ -38,7 +39,7 @@ def main():
     if identity['index']!=a.index or identity['original_radius_hex']!=radius or identity['seed_sha256']!=seed:
         raise ArithmeticError('tree is not on this original ball')
     files=dict(B.binding(R.DEFAULT_ATLAS)['sources'])
-    for module in (U,CS,LP,ST,audit.G):
+    for module in (U,CS,LP,ST,SQ,audit.G):
         path=Path(module.__file__);files[str(path.relative_to(ROOT))]=sha(path)
     files[str(Path(__file__).resolve().relative_to(ROOT))]=sha(__file__)
     started=time.monotonic();ball=R.SC.Ball(record)

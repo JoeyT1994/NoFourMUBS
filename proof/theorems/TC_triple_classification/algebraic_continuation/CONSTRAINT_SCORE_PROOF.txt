@@ -65,6 +65,31 @@ The matrix A need not be horizontal: applying W to the displayed error
 can only reduce its norm. We retain the preceding unsigned upper bound
 and select the smaller valid result.
 
+We can also keep the direction of the linear phase error when bounding
+the score. Write that error as D x, where the first four entries of x
+are w/r and the other six groups are the K-column displacements divided
+by their respective bounds p_k. Each of these seven groups has norm at
+most one. A zero radius gives a zero block of D and requires no division
+in the implementation. Keep the remaining H displacement, the quadratic
+term, the cubic remainder and the sine error in a bound E_rest.
+
+Fix any Fourier alignment and winding integers for the center P, and
+let d be its vector of 225 plaquette residuals. Let R map 36 entry phases
+to those plaquettes. The identity R^T R=36 W gives
+  ||d+R D x||^2/225 = c + g^T x + x^T Q x/2,
+where
+  c=||d||^2/225,  g=2 D^T R^T d/225,  Q=(8/25) D^T W D.
+Apply the existing product-of-balls quadratic lower bound to -Q and -g.
+If it returns the verified lower bound ell, then u=c-ell is an upper
+bound for the displayed squared norm. The winding integers need not
+minimize the score away from the center, since any fixed choice gives
+an upper bound. We therefore have
+  Gamma_F(L) <= sqrt(u) + (2/5) E_rest.
+The dual multipliers are numerical proposals, but the interval positive
+definiteness and completed-square bound are checked in Arb. A failed
+dual supplies no bound. We keep the smaller of this result and the
+preceding bounds, so the additional calculation cannot weaken them.
+
 This is a necessary bound for every completing triple in the supplied
 tubes. It does not establish the Fourier-neighbourhood theorem or full
 ball coverage. Those dependencies and independent replay are still

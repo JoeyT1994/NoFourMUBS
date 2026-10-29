@@ -25,6 +25,15 @@ absolute phase radius are the same number. Choosing the center from a
 numerical average has no proof role. Only the reconstructed enclosures
 are used by unitary_score.py and constraint_score.py.
 
+When reconstructing a midpoint, we may choose its coordinate windings
+before or after removing the proposed center's common phase. We then
+remove the mean of the displacement. Either choice represents the same
+ray, since integer multiples of 2*pi and a common phase do not change it.
+Each choice therefore gives a valid distance bound to the same center
+ray. We keep the smaller bound and add the full closed-bin radius. This
+avoids a large artificial separation when the common phase lies near
+the wrapping cut. It changes no bin, label, or target H radius.
+
 The inherited full-basis scalar test may first exclude the node. It uses
 the same absolute tubes and rechecks the complete residual inequality.
 The score modules may then prove a radial contradiction or an upper bound of
