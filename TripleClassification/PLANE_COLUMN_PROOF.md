@@ -232,3 +232,42 @@ a whole-ball closure, bind the supplied column balls to that cell's complete cov
 remaining pattern. A whole-cell receipt instead rebuilds and discharges the entire K cover itself.
 Both routes still need the geometric covering audit for the original ball. Snapshot exclusions alone
 do not change the published original-ball count.
+
+## 7. Rebuilding a cell whose full record is unavailable
+
+The public phantom inventory gives exact dyadic coordinates but usually omits the H record and the
+column balls. `code/plane_frontier_certificate.py` uses the coordinates to construct a new H record,
+then applies the whole-cell checker. The inventory selects work. Its rounded column radii and its
+claims about unresolved patterns play no role in acceptance.
+
+Let the original record have seed center θ, frame M and radius r. A level-L cell has center
+u_j = −1+(2c_j+1)/2^L and half-width h = 2^−L in the normalized coordinates. Its seed image lies in
+the parameter ball of radius 2hr around θ+Mru. If θ′ is the proposed binary64 center, reduce
+δ = θ+Mru−θ′ modulo 2π coordinatewise. The checker requires the same M and chart labels and proves
+
+    r′−2hr > 0,             (r′−2hr)² > ‖M⁻¹δ‖²
+
+in Arb. The triangle inequality then places the entire closed cube in the new H ball. In particular,
+every boundary point of the cell's intersection with the original ball is retained. The builder adds
+one outward binary64 step to its radius proposal, and replay recomputes the containment inequality.
+The original atlas is pinned by SHA-256 and its original radius is retained in the receipt.
+
+The new record's center phases, tangent proposal and C1 constant need not be byte-identical to the
+legacy record. The checker makes no such assertion. It certifies C1, rebuilds H and Stage C, and
+reconstructs every completing-K pattern for the new record. A successful receipt therefore excludes
+all completing bases on the specified original dyadic cell, without requiring a match to legacy
+colour numbers or legacy column balls.
+
+Save one entry of `phantoms/open_cells.jsonl.gz` as `entry.json`. Search and replay are separate calls:
+
+```sh
+python TripleClassification/code/plane_frontier_certificate.py entry.json --out frontier.json
+python TripleClassification/code/plane_frontier_certificate.py entry.json \
+  --input frontier.input.json.gz --proposal frontier.proposal.json.gz --out frontier-replay.json
+```
+
+The rebuilt level-6 cell 4759 of ball 1217 passed both calls, covering all 64 completing-K patterns.
+The original radius is unchanged. This does not prove that the inventory covers the unresolved part
+of an original ball. Combining these receipts with previous closures still requires the full covering
+tree, with every original cell either discharged or refined. A list of cell hashes cannot replace that
+audit, and these receipts do not change the published whole-ball count on their own.

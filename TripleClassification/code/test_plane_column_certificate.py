@@ -7,6 +7,7 @@ import numpy as np
 from flint import arb,arb_mat,ctx
 import plane_column_certificate as P
 import plane_cell_certificate as Whole
+import plane_frontier_certificate as Frontier
 
 
 class PlaneTests(unittest.TestCase):
@@ -107,6 +108,22 @@ class PlaneTests(unittest.TestCase):
         self.assertTrue(all(x==0 for x in p['T'].entries()))
         self.assertTrue(e>=capture['radius']+P.A.norm(p['v0'].entries()))
         with self.assertRaises(ValueError):P.tube(ConstantOnly,self.model(),[0.]*6,capture,'unknown')
+
+    def test_rebuilt_cell_keeps_the_full_closed_cube(self):
+        original=dict(theta0=[0.0.hex()]*4,Mth=[float(i==j).hex() for i in range(4) for j in range(4)],
+                      r=1.0.hex(),o=1,k=0)
+        cell=[1]*4
+        record=dict(original,theta0=[(-.25).hex()]*4,r=(.500000000000001).hex())
+        Frontier.cell_geometry(original,record,2,cell)
+        # The far corner is distance 1/2 from the cell center. An inscribed
+        # radius 1/4, a shifted center, or a changed frame cannot cover it.
+        for changed in (dict(record,r=(.25).hex()),dict(record,theta0=[0.0.hex()]*4),
+                        dict(record,k=1),dict(record,Mth=[0.0.hex()]*16)):
+            with self.assertRaises(ValueError):Frontier.cell_geometry(original,changed,2,cell)
+
+    def test_rebuilt_cell_rejects_invalid_coordinates(self):
+        for level,cell in ((-1,[0]*4),(2,[4]*4),(2,[1]*3),(2,[1.,1,1,1])):
+            with self.assertRaises(ValueError):Frontier.cell_geometry({}, {},level,cell)
 
 
 if __name__=='__main__':unittest.main()

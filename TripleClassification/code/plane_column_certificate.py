@@ -127,13 +127,16 @@ def read_json(path):
     return json.loads(gzip.decompress(raw) if raw[:2]==b'\x1f\x8b' else raw)
 
 
-def context(path):
+def context(path,require_columns=True):
     """The recorded H radius is never replaced by a smaller radius."""
     s=read_json(path)
-    require(s.get('schema')=='tc-pattern-snapshot-v1' and len(s.get('columns',[]))==6,'invalid snapshot')
+    if require_columns:
+        require(s.get('schema')=='tc-pattern-snapshot-v1' and len(s.get('columns',[]))==6,'invalid snapshot')
+        require(s['pattern_colours']==[c['colour'] for c in s['columns']],'column colour mismatch')
+    else:
+        require(s.get('schema') in ('tc-pattern-snapshot-v1','tc-h-cell-input-v1'),'invalid H input')
     require(hashlib.sha256(json.dumps(s['record'],sort_keys=True).encode()).hexdigest()==s['record_sha256'],
             'record hash mismatch')
-    require(s['pattern_colours']==[c['colour'] for c in s['columns']],'column colour mismatch')
     root=Path(os.environ.get('TC_ROOT',Path(__file__).resolve().parents[2])).resolve()
     sys.path.insert(0,str(root/'proof/theorems/TC_triple_classification/family_neighbourhoods'))
     import run as R

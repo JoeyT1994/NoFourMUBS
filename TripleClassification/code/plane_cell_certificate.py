@@ -14,7 +14,7 @@ import plane_column_certificate as P
 
 
 def complete_cover(path):
-    snapshot,model,C,binding=P.context(path)
+    snapshot,model,C,binding=P.context(path,require_columns=False)
     import run as R
     H=np.exp(1j*P.A.numeric(model['Q0']).reshape(6,6))
     roots=R.NC.propose_roots(H)
