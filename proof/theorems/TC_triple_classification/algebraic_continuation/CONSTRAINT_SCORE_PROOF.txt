@@ -65,6 +65,42 @@ The matrix A need not be horizontal: applying W to the displayed error
 can only reduce its norm. We retain the preceding unsigned upper bound
 and select the smaller valid result.
 
+The quadratic term can be reduced by another multiple of F. Let J=DF(q0),
+let T_o be the Hessian of output o of G, and choose any fixed real matrix
+B of size 72 by 96. Put P0=I-BJ and V=(I+P0)/2. For delta=q-q0, subtract
+  M_o(q) = T_o[V delta, B F(q)]
+from G_o(q). This changes nothing at a completing triple because F(q)=0.
+At the center M_o is zero. The new derivative is
+  DG_o(q0) - (V^T T_o B F(q0))^T,
+and the new Hessian is P0^T T_o P0. To check the latter identity, expand
+P0^T T_o P0 and use V=I-BJ/2. No invertibility of J is required.
+
+Write rho_F=F(q)-F(q0)-J delta. The additional remainder is exactly
+  -T_o[V delta, B rho_F].
+We bound rho_F without assuming that q is a triple. For each complex
+Gram equation its first-order Taylor remainder has modulus at most half
+the squared norm of the corresponding column phase difference. For a
+mixed equation, let m bound that phase difference. Its remainder is at
+most m^2. If M is its signed 6 by 6 Hessian at the center, a second valid
+bound is ||M|| m^2/2+(sqrt(2)/3)m^3. Keep the smaller of these two bounds.
+The Euclidean norm of the 30 complex and 36 real remainder bounds then
+bounds ||rho_F|| in the original 96 real coordinates.
+
+To bound T[V delta,B rho_F], retain its three signed tensor maps for
+delta=(U w,0)+(0,z)+(n,0). Their operator bounds are multiplied by r, p
+and ||n||, then by the bound for ||rho_F||. A second bound treats the H
+Gram, K Gram and mixed residual blocks separately and sums their bounds.
+We keep the smaller result and add it to the preceding cubic remainder.
+The revised derivative and Hessian replace the preceding ones in the
+linear and quadratic estimates. The constant -A F(q0) is unchanged.
+Thus the same score inequality applies to G-M.
+
+The implementation proposes the lower 36 rows of B from a truncated
+numerical pseudoinverse of the K Jacobian and sets its other rows to zero.
+It treats the proposed entries as exact binary64 numbers and recomputes
+P0, V, the derivative correction, Hessian and remainder bounds in Arb.
+The pseudoinverse is a way to choose B, not a rank or inverse certificate.
+
 We can also keep the direction of the linear phase error when bounding
 the score. Write that error as D x, where the first four entries of x
 are w/r and the other six groups are the K-column displacements divided

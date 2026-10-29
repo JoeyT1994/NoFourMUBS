@@ -56,7 +56,9 @@ to count H's displacement once. The unit modulus of each transition entry
 then sharpens the conversion from complex displacement to phase error.
 constraint_score.py further subtracts a linear combination of the 96
 vanishing triple equations. It retains the derivative defect, signed
-Hessian and cubic remainder in Arb. score_quadratic.py keeps the direction
+Hessian and cubic remainder in Arb. A quadratic multiple of those equations
+also reduces the Hessian while retaining its extra remainder.
+score_quadratic.py keeps the direction
 of the linear phase error and bounds the squared aligned score over seven
 Euclidean balls. Its dual is checked in Arb. Numerical matrices only
 propose the subtraction. UNITARY_SCORE_PROOF.txt and
@@ -85,6 +87,12 @@ about 0.385701 to 0.351503, below 19/50. This replay marks all other leaves
 unresolved and adds no whole-ball closure. Its input and source hashes
 are recorded separately under refined_branches in the checkpoint file.
 
+The quadratic-multiplier extension independently replays two further
+score branches, one each in balls 1016 and 1622 at radius 0.08. Their upper
+bounds are approximately 0.371961 and 0.302953. The selected trees keep
+321 and 251 other branches explicitly open. Their inputs, source hashes
+and replay hashes are under second_order_branches in the checkpoint.
+
 Classification from the score requires the separate Fourier-neighbourhood
 theorem, Gamma3 in TripleClassification/GAMMA_PROOF.md, and its listed
 dependencies. These modules do not establish that theorem or use an
@@ -111,6 +119,10 @@ The seven further branches use the same coarse-bin witness:
     --tree "$TC_SCORE_RUN/score_refined_v3/selected-1622.json" \
     --output replay-refined-1622.json
 
+The two second-order branches use score_refined_v4/selected-1016.json
+and score_refined_v4/selected-1622.json with the same coarse-bin witnesses
+and replay command. Their frozen source is under score_refined_v4/source.
+
 The corresponding frozen source is under score_refined_v3/source in
 TC_SCORE_RUN. The earlier source remains under score_tree_public_replay/source.
 
@@ -119,6 +131,64 @@ checks every reused coarse-bin witness, and recomputes every claimed tree
 leaf. Its output explicitly preserves unfinished branches and records
 whole_ball_closed=false. Input hashes, source hashes and original seed
 and radius identities are checked independently of the saved scores.
+
+Phantom-pattern exclusions
+
+A color pattern can survive while its fine bins cannot be chosen
+simultaneously. replay_phantom_cells.py rebuilds the original complete
+cover, restricts it to a specified dyadic H cell, checks the local Stage C
+preconditions, and tests compatibility on the original closed fine bins.
+The fine-all option repeats this for every original color pattern. Only
+complete exclusion of every pattern excludes all K in that H cell.
+
+constraint_exclusion.py supplies a second test. It subtracts a quadratic
+multiple of the full triple equations from a scalar combination of them.
+Every actual triple still makes the result zero. A strict positive lower
+bound, with all remainders checked in Arb, therefore excludes the supplied
+tube. A numerical fit or pseudoinverse never establishes exclusion by
+itself. PHANTOM_PROOF.txt derives both routes. These exclusions do not use
+the Fourier-neighborhood theorem or the transition-ordering rule.
+
+Fresh standalone replays exclude all 64 original color patterns on each
+of two tested H cells, one in ball 363 and one in ball 499. Of thirteen
+sampled pattern cells, ten exclude and three remain unresolved (815,
+1016 and 1217). The algebraic test separately replays 21 additional
+branches of the ball-499 pilot, with eight branches still unresolved in
+that tree. Its H cell also has the stronger complete fine-bin exclusion,
+so these are alternative checks, not disjoint closure counts.
+
+These are the preserved Popeye cases. The final Rusty phantom snapshots
+were not available for this checkpoint, and no new whole ball is declared
+closed. The two cases drawn from cell-budget stops are identified in the
+metadata; they are not described as failed mathematical tests.
+
+phantom_checkpoint.json records the verified cells, partial branches and
+remaining gaps. No result for one cell or one pattern closes an original
+ball. The original ball's radius and seed are checked on every replay.
+
+Reproduce the phantom checkpoint
+
+The case files, coarse-bin witnesses and final frozen source are retained
+on Popeye under:
+
+  TC_PHANTOM_RUN="$TC_SCORE_RUN/phantom_certified_v3"
+
+For example, run from the repository root with fresh output files:
+
+  python "$A/replay_phantom_cells.py" \
+    --coarse-receipt "$TC_PHANTOM_RUN/coarse-363.json" \
+    --case "$TC_PHANTOM_RUN/case-fine-363.json" --route fine \
+    --output replay-phantom-363.json
+  python "$A/replay_phantom_cells.py" \
+    --coarse-receipt "$TC_PHANTOM_RUN/coarse-499.json" \
+    --case "$TC_PHANTOM_RUN/case-equations-499.json" --route equations \
+    --output replay-equations-499.json
+
+Use --route fine-all with a case-fine file to check every original color
+pattern on that case's H cell. To replay locally, copy the named coarse
+and case files from that directory over the authenticated Popeye SSH
+connection, and set TC_PHANTOM_RUN to the local copy. The full witnesses
+remain outside ordinary Git commits. The checkpoint supplies their hashes.
 
 Retrieve evidence
 

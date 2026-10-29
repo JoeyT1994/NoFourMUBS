@@ -18,7 +18,15 @@ def tensor_norm(hessians,left,right):
     return C.Z.spectral(arb_mat([v.entries() for v in values]))
 
 
-def pattern(context,prepared,bounds,clique,rcond=.01):
+def quadratic_multiple(j,f,linear,hessians,b):
+    """Subtract H_G[V*delta,B*F] while keeping every inverse defect."""
+    n=j.ncols();identity=arb_mat([[int(i==k) for k in range(n)] for i in range(n)])
+    projection=identity-b*j;half=(identity+projection)/2;bf=b*f
+    correction=arb_mat([(half.transpose()*h*bf).entries() for h in hessians])
+    return linear-correction,[projection.transpose()*h*projection for h in hessians],half
+
+
+def pattern(context,prepared,bounds,clique,rcond=.01,multiplier_rcond=None):
     result=U.pattern(context,prepared,bounds,clique)
     if result['incompatible'] or result.get('phase_error') is None:return result
     model=context['model'];r,tau=model['r'],model['tau'];p=U.column_projection()
@@ -49,10 +57,6 @@ def pattern(context,prepared,bounds,clique,rcond=.01):
     jh=sub(j,range(96),range(36));jk=sub(j,range(96),range(36,72))
     a=C.Z.mat(MS.numeric(sub(js,range(36),range(36,72)))@np.linalg.pinv(MS.numeric(jk),rcond=rcond))
     residual=js-a*j;bh=sub(residual,range(36),range(36));bk=sub(residual,range(36),range(36,72))
-    error_k=min(U.up(C.Z.spectral(bk)*kp),
-                U.up(sum((C.Z.spectral(sub(bk,range(36),range(c,36,6)))*pr[c] for c in range(6)),arb(0))))
-    linear=U.up(C.Z.spectral(bh*u)*r+error_k+C.Z.spectral(bh*h2)*r*r/2+
-                C.Z.spectral(bh*x)*tau+C.Z.spectral(bh)*hrad)
     coefficients=arb_mat([[a[o,re]*zs[t].real+(a[o,im]*zs[t].imag if im is not None else 0)
                           for t,(re,im,den,ell) in enumerate(MS.TERMS)] for o in range(36)])
     hessians=[]
@@ -62,6 +66,17 @@ def pattern(context,prepared,bounds,clique,rcond=.01):
             c=w[out,source]*value
             h[hi,hi]+=c;h[ki,ki]+=c;h[hi,ki]-=c;h[ki,hi]-=c
         hessians.append(h)
+    original_hessians=hessians
+    if multiplier_rcond is not None:
+        if not 0<multiplier_rcond<1:raise ValueError('invalid multiplier cutoff')
+        bottom=C.Z.mat(np.linalg.pinv(MS.numeric(jk),rcond=multiplier_rcond))
+        b=arb_mat([[0 for k in range(96)] if i<36 else [bottom[i-36,k] for k in range(96)] for i in range(72)])
+        residual,hessians,half=quadratic_multiple(j,f,residual,hessians,b)
+        bh=sub(residual,range(36),range(36));bk=sub(residual,range(36),range(36,72))
+    error_k=min(U.up(C.Z.spectral(bk)*kp),
+                U.up(sum((C.Z.spectral(sub(bk,range(36),range(c,36,6)))*pr[c] for c in range(6)),arb(0))))
+    linear=U.up(C.Z.spectral(bh*u)*r+error_k+C.Z.spectral(bh*h2)*r*r/2+
+                C.Z.spectral(bh*x)*tau+C.Z.spectral(bh)*hrad)
     wu=arb_mat([[u[i,j] if i<36 else 0 for j in range(4)] for i in range(72)])
     hh=arb_mat([[int(i==j) for j in range(36)] for i in range(72)])
     kk=arb_mat([[int(i==36+j) for j in range(36)] for i in range(72)])
@@ -79,6 +94,26 @@ def pattern(context,prepared,bounds,clique,rcond=.01):
     separate+=sum((U.norm([a[o,60+i] for o in range(36)])*radius for i,radius in enumerate(md)),arb(0))
     s_tail=U.norm([(hp[a]+pr[k])**3/(6*arb(6).sqrt()) for a in range(6) for k in range(6)])
     cubic=U.up(s_tail+min(U.up(global_tail),U.up(separate)))
+    if multiplier_rcond is not None:
+        # Bound F-F0-J*delta by its complex Gram and real mixed blocks.
+        hcaps=[(hp[b]+hp[a])**2/2 for a,b in C.PAIRS]
+        kcaps=[(pr[b]+pr[a])**2/2 for a,b in C.PAIRS];mcaps=[]
+        for a0 in range(6):
+            for k0 in range(6):
+                hh6=arb_mat(6,6)
+                for ii,jj in C.PAIRS:
+                    value=-(hc[ii,a0].conjugate()*kc[ii,k0]*hc[jj,a0]*kc[jj,k0].conjugate()).real/3
+                    hh6[ii,ii]+=value;hh6[jj,jj]+=value;hh6[ii,jj]-=value;hh6[jj,ii]-=value
+                radius=hp[a0]+pr[k0]
+                mcaps.append(min(U.up(radius**2),U.up(C.Z.spectral(hh6)*radius**2/2+arb(2).sqrt()/3*radius**3)))
+        maps=[(half*wu,r),(half*kk,kp),(half*hh,nh)]
+        whole=sum((tensor_norm(original_hessians,left,b)*size for left,size in maps),arb(0))*U.norm(hcaps+kcaps+mcaps)
+        separate=arb(0)
+        for columns,cap in [(range(30),U.norm(hcaps)),(range(30,60),U.norm(kcaps)),(range(60,96),U.norm(mcaps))]:
+            right=sub(b,range(72),columns)
+            separate+=sum((tensor_norm(original_hessians,left,right)*size for left,size in maps),arb(0))*cap
+        multiplier_tail=min(U.up(whole),U.up(separate));cubic=U.up(cubic+multiplier_tail)
+        result.update(multiplier_rcond=multiplier_rcond,multiplier_tail=multiplier_tail)
     theta=2*(result['entry_chord']/(2*result['m'].sqrt())).asin()
     sine=U.up(theta*theta*result['phase_error']/6)
     correction=a*f

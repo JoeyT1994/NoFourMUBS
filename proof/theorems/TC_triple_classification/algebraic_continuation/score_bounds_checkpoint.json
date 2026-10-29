@@ -119,5 +119,55 @@
     },
     "all_other_leaves_marked_unresolved": true,
     "whole_ball_closed": false
+  },
+  "second_order_branches": {
+    "replay_root": "/mnt/sdceph/users/mwuttig/MUB_Hadamard/runs/tc_partition_20261029_61658d2111d8/score_refined_v4",
+    "branches": [
+      {
+        "index": 1016,
+        "original_radius_hex": "0x1.47ae147ae147bp-4",
+        "seed_sha256": "8ad5c85f1d007dea0fdb827f72f410f052e067a8ecf4d4a79dedb8b89329c9bf",
+        "verified": [
+          {
+            "path": "01000010000101",
+            "status": "FOURIER SCORE",
+            "method": "quadratic",
+            "g_up_K_hex": "0x1.b2993b1b4abbep-1",
+            "g_up_L_hex": "0x1.7ce3375dd948fp-2"
+          }
+        ],
+        "open_branches": 321,
+        "total_color_patterns": 1024,
+        "tree_sha256": "a346c78f0ccaa7b2c2b8be74b3254dc07b9f3f3ca487f5d8aa65f52bd0d0e8a4",
+        "coarse_receipt_sha256": "4cc531607f62e8d804d45c3b18f2f1b123b752de87116eb04c281c5d4ab59095",
+        "replay_sha256": "51502a10d6cb9a6e48851c20dd78195b746dc3a74c74d5ed2723058fa0bfad92"
+      },
+      {
+        "index": 1622,
+        "original_radius_hex": "0x1.47ae147ae147bp-4",
+        "seed_sha256": "8e1d4a2f78bad6c4d2210a49a6f12b0941108d8c9f7da74dbc2923e9aecc504c",
+        "verified": [
+          {
+            "path": "010100001000001",
+            "status": "FOURIER SCORE",
+            "method": "quadratic",
+            "g_up_K_hex": "0x1.af1b5c3929fd0p-1",
+            "g_up_L_hex": "0x1.3639433655b8fp-2"
+          }
+        ],
+        "open_branches": 251,
+        "total_color_patterns": 70,
+        "tree_sha256": "2d881126c407bc6c2858ff25401e8fe8b53bfc1b9bd59a029307dd327f9c558d",
+        "coarse_receipt_sha256": "440a8b98eeba04aa7cfa023b69d11aa9fdd2bb385dba19968b52eb229e54c619",
+        "replay_sha256": "82aebf4e0b90b663ece785289fac0a151cd1718027dfa9cc15add8a78ac44926"
+      }
+    ],
+    "source_sha256": {
+      "constraint_score.py": "e9396dfbb3495e3685c2b831bd2fa3c7ae8b480a208a59f504d31f3b510a8410",
+      "score_tree.py": "06dd1c8c9cab9b96be2c7cf8b9a891eb6b6055e863154a3def073d2d4ed2e50c",
+      "score_quadratic.py": "8d3f430cc1b389d7553f24418b844ae4e95a3d4b44a6ba0a0bfb9cc40bd0d36f",
+      "replay_score_branches.py": "2ec62d72904025c73c6a7fe57fa5dd154c39b9710f40e67e3679b4198be01bb0"
+    },
+    "whole_ball_closed": false
   }
 }

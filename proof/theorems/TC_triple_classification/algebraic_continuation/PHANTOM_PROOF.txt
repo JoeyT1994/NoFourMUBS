@@ -1,0 +1,140 @@
+Excluding phantom patterns while retaining the original phase ball
+
+A six-color pattern is a necessary condition for a completing basis K.
+It does not assert that its six columns can be chosen simultaneously.
+In particular, separate edges of the color graph can be witnessed by
+incompatible fine bins. We call a surviving necessary pattern a phantom
+only after an exclusion proves that it contains no completing triple.
+A nonzero least-squares residual is useful for proposing a certificate,
+but neither that residual nor a failed numerical search proves exclusion.
+
+The new replayer treats one specified color pattern on one dyadic cell
+of the original four-parameter H ball. The original atlas seed and radius
+are checked against the input. The cell is a conditional restriction of
+the original normal form, as in PARTITION_GEOMETRY_PROOF.txt. It is not a
+replacement for the original ball. Closing a ball still requires every
+original pattern and a complete cover of its H domain.
+
+1. Keep the original fine bins in the compatibility test
+
+First rebuild the original C1 enclosure, the normal form, and the complete
+K cover. Recheck the saved quadratic bin exclusions before restricting
+the surviving bins to the specified H cell. The arguments passed to
+Stage C on that cell must satisfy its input hypotheses: finite arrays,
+frame entries of modulus at most one, the stated radii in [0,1), and the
+center operator bound below 1.01. The replayer checks these at the actual
+local call site as well as checking the original ball's preconditions.
+
+The inherited fine_patterns.refine evaluates the necessary pair tests
+on the original closed bins, using the local H enclosure. It then removes
+bins with no possible partner in another required color. It repeats this
+removal and, when needed, searches the remaining graph exhaustively for
+six-cliques. An actual basis chooses a bin in each of its six colors.
+All fifteen pairs of these bins must survive the necessary pair tests.
+None of its six bins can therefore be removed by this propagation, and
+the selected bins form a surviving six-clique. Thus a completed empty
+search excludes every completing basis of this pattern in this H cell.
+A bin cap, edge cap or search cap gives no exclusion. The fine-all option
+repeats this check for every pattern in the rebuilt original cover. It
+excludes all K on that H cell only if every pattern is excluded.
+
+This calculation does not identify a successful clique with a triple.
+It only removes patterns for which no compatible clique remains. The
+binary64 bounds in these pair tests are inherited from Stage C; their
+correctness and the original all-K cover remain dependencies. No new
+numerical root-completeness assumption is introduced.
+
+2. Subtract multiples of the full triple equations
+
+For a pattern that survives, let q contain the 36 phases of H and the 36
+phases of K. Let F(q) be the 96 real equations in moving_symmetry.py.
+Its Gram equations are unscaled; its mixed equations are
+(|H_a^* K_c|^2-6)/6. Every completing triple satisfies F(q)=0.
+
+Choose a fixed real row y and a center q0, which need not be a zero.
+Write delta=q-q0, f=F(q0), J=DF(q0), and
+  T = D2(y F)(q0).
+Choose any fixed 72 by 96 real matrix B. In this implementation its H
+rows are zero. Define
+  P = I-BJ,       V = (I+P)/2,
+  G(q) = y F(q) - T[V delta, B F(q)].
+The subtracted term vanishes whenever F(q)=0, so G(q)=0 at every actual
+triple. This remains true for an inaccurate numerical choice of B.
+
+At q0 the value is c=y f. Its derivative and Hessian are
+  j_G = y J - (V^T T B f)^T,
+  T_G = P^T T P.
+Indeed, with A=BJ, subtracting the quadratic term changes T to
+T-(I-A/2)^T T A-A^T T(I-A/2)=(I-A)^T T(I-A).
+The linear correction containing f must be kept because q0 need not
+be a zero. The tests include this identity at a nonzero residual.
+
+Put rho_F=F(q)-f-J delta. Taylor's formula gives the exact decomposition
+  G(q) = c + j_G delta + (1/2) delta^T T_G delta
+         + y R3_F - T[V delta, B rho_F].
+Here R3_F is the remainder of F after degree two. No inverse identity
+or numerical stationarity condition has been substituted into this
+formula. When BJ nearly removes the K directions, P^T T P can be much
+smaller than T. The last two terms still need explicit bounds.
+
+3. Enclose the entire supplied tube
+
+Use the same correlated displacement as scalar_support.py:
+  delta = L w + (0,e) + (n,0),
+  ||w|| <= r,  ||e_c|| <= epsilon_c,
+  n = H2[w,w]/2 + X xi,  ||xi|| <= tau.
+Write n_H=||H2||r^2/2+||X||tau and e_*=sqrt(sum epsilon_c^2).
+Let D be the scaled map from the product of seven unit balls to
+Lw+(0,e). The quadratic polynomial retained for G has constant c,
+linear coefficient D^T j_G^T, and Hessian
+  D^T T_G D,
+with j_G,H H2[w,w]/2 added to its four seed-coordinate entries.
+The remaining linear normal term is bounded by ||j_G,H X|| tau.
+The quadratic terms containing n are bounded by the signed operator
+norms of L^T T_G,H, the projected K-H block, and the H-H block,
+with respective factors r n_H, e_* n_H and n_H^2/2.
+
+Let h_ab, k_cd and m_ac bound the mean-zero column phase differences
+in the H Gram, K Gram and mixed equations on this supplied tube.
+For a complex Gram equation, the degree-two remainder has modulus at
+most h_ab^3/6 or k_cd^3/6. For a mixed equation it is at most
+(sqrt(2)/3)m_ac^3. Multiply these bounds by the corresponding real or
+complex-block weights of y and sum them to bound y R3_F.
+
+For the first-order remainder rho_F, the corresponding bounds are
+h_ab^2/2, k_cd^2/2 and m_ac^2. Pair the real and imaginary parts of each
+Gram equation when taking the Euclidean norm. These bounds require only
+unit-modulus entries, not that q is a solution. The mixed bound follows
+from the scalar Hessian bound two in the inherited column calculation.
+
+Set M=V^T T B. The last remainder is delta^T M rho_F. For any chosen
+residual block, its operator coefficient is bounded by
+  ||L^T M_block|| r
+    + ||P_K M_K,block|| e_* + ||M_H,block|| n_H,
+where P_K is the exact column-mean projection. Multiply this coefficient
+by the block norm bound for rho_F. The implementation takes the smaller
+of the whole-residual bound and the sum of the H Gram, K Gram and mixed
+block bounds. Add this to the preceding remainders to obtain E.
+
+The inherited product-of-balls dual supplies a lower bound ell for the
+retained nonconstant quadratic polynomial. It checks positive definiteness
+in Arb and evaluates the completed-square bound with the proposed
+nonnegative multipliers. Consequently
+  c + ell - E > 0
+implies G(q)>0 throughout the supplied tube, which contradicts G(q)=0
+at every triple. This is a zero-exclusion certificate. Because G was
+changed by a multiple of F, its margin is not advertised as a uniform
+positive lower bound on ||F|| over a larger domain.
+
+The vectors y, the entries of B and the dual multipliers are stored as
+exact binary64 proposals. Replay rebuilds all coefficients and remainder
+bounds in Arb. Invalid dimensions, nonfinite proposals and failed strict
+inequalities reject the certificate. The K-label tree partitions both
+children of every split; every unresolved leaf remains explicitly open.
+
+The fine-bin route and the algebraic route exclude zeros. They do not
+use the Fourier-neighborhood theorem, the transition-ordering rule, or
+an assertion that every numerical fit is of known type. The compact
+checkpoint records verified pattern cells and branches. It records no
+additional whole-ball classification unless the full original-ball
+coverage has separately been completed and replayed.

@@ -74,12 +74,13 @@ class Tree:
             proof=S.FROZEN_EXCLUDE(self.model,pp,bb,self.clique)
             if proof is not None:return dict(status='BASIS EMPTY',method='basis',proof=proof)
             if method=='basis':return dict(status='NOT ESTABLISHED',method='basis')
-        methods=['unitary',.01,.1] if method is None else [method]
+        methods=['unitary',.01,.1,'quadratic'] if method is None else [method]
         best=None
         for choice in methods:
-            if choice not in ('unitary',.01,.1):raise ValueError('unknown score method')
-            result=(U.pattern(self.context,pp,bb,self.clique) if choice=='unitary' else
-                    CS.pattern(self.context,pp,bb,self.clique,rcond=choice))
+            if choice not in ('unitary',.01,.1,'quadratic'):raise ValueError('unknown score method')
+            if choice=='unitary':result=U.pattern(self.context,pp,bb,self.clique)
+            elif choice=='quadratic':result=CS.pattern(self.context,pp,bb,self.clique,rcond=.1,multiplier_rcond=.2)
+            else:result=CS.pattern(self.context,pp,bb,self.clique,rcond=choice)
             if result['incompatible']:return dict(status='RADIAL EMPTY',method=choice)
             value=min(result['g_up_K'],result['g_up_L'] if result['g_up_L'] is not None else arb(10))
             record=dict(status='FOURIER SCORE' if result['fourier_threshold_met'] else 'NOT ESTABLISHED',
