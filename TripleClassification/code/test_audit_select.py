@@ -149,6 +149,13 @@ def main():
           receipt(lambda x: x.update(dependencies_sha256={fn: '0' * 64})))
     check('491: anchored receipt for another record', False, 491, names, edit_row('b491_l3', tri, reopen), 'incorrect target mask',
           receipt(lambda x: x.update(record_sha256='0' * 64)))
+
+    def aborted_first(t):                       # an aborted row (no pattern list) ahead of the complete reopened row
+        edit_row('b491_l3', tri, reopen)(t)
+        p = os.path.join(t, 'b491_l3.jsonl'); rr = rows(p)
+        bad = dict(next(r for r in rr if tri(r)), patterns=[], reason='TimeoutError: sub-ball time limit of 300 s reached')
+        write_rows(p, [bad] + rr)
+    check('491: an aborted row first, then a complete one', True, 491, names, aborted_first, extra=receipt())
     print('%d failure(s)' % failures)
     sys.exit(1 if failures else 0)
 

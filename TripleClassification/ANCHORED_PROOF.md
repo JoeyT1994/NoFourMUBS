@@ -58,6 +58,11 @@ Each receipt carries:
 - the sub-atlas SHA-256, the pattern's six colours and the pattern count;
 - the hashes of the checker and the runner.
 
+**Refinement.** `code/tree_build.py` skips the cells anchored receipts close when it builds the next layer
+(`anchored_discharged_parent_cells`), and `code/rusty/chain_v2.sh` runs the anchored check on each layer before
+refining it. Only efficiency rests on this: the auditor re-derives every closure and refuses a layer that leaves a
+needed cell unrefined.
+
 ## 3. What the auditor checks
 
 With `--gamma-rules ...,anchored`, a cell whose certifier row is NOT ESTABLISHED, with C1 ok and normal form CERTIFIED,
