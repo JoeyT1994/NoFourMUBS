@@ -53,9 +53,10 @@ A layer at level L lists cells with their sub-ball records and one receipt row p
 
 **Layer 2.** Its cell set must equal exactly the set of level-2 cells meeting the closed unit ball. **CHECKED**
 
-**Layer L ≥ 3.** Let T be the cells of layer L − 1 whose receipt is NOT ESTABLISHED. Layer L's cell set must equal
-exactly the children of cells in T that meet the closed unit ball. Its recorded `targeted_parent_cells` must equal T.
-When it names the previous layer by hash, both hashes must match. **CHECKED**
+**Layer L ≥ 3.** Let T be the cells of layer L − 1 that are still needed: not closed, and (for L − 1 ≥ 3) with a
+needed parent. Layer L's recorded `targeted_parent_cells` M must satisfy T ⊆ M ⊆ (cells of layer L − 1); refining a
+cell that is already closed is harmless. Its cell set must equal exactly the children of cells in M that meet the
+closed unit ball. When it names the previous layer's sub-atlas by hash, the hashes must match. **CHECKED**
 
 **A closed cell.** A cell is closed when all of the following hold:
 - its row is CERTIFIED or CERTIFIED EMPTY, with C1 ok and normal form CERTIFIED;
@@ -67,6 +68,10 @@ When it names the previous layer by hash, both hashes must match. **CHECKED**
 
 **CHECKED**
 
+When the assembly enables a rule, a NOT ESTABLISHED row with C1 ok and normal form CERTIFIED is also closed if every
+pattern it left open is discharged: by the labelled Fourier score (`GAMMA_PROOF.md` §5) or by an anchored-column
+exclusion of that pattern (`ANCHORED_PROOF.md`). **CHECKED**
+
 **Binding.** Each row must carry the source binding of an accepted builder for its layer. The binding is a hash over:
 - the frozen certifier sources;
 - the builder;
@@ -76,9 +81,10 @@ When it names the previous layer by hash, both hashes must match. **CHECKED**
 The row must also carry the record's SHA-256 and binary64 radius. This ties each verdict to the exact record and code
 that produced it. **CHECKED**
 
-**Stage C.** Every closed sub-ball must also pass the Stage C magnitude preconditions (`code/stagec_guard.py`), either
-inline in its row or in a sidecar row bound to the guard's hash, the sub-atlas hash and the record hash. This is
-checked by `code/assemble.py`. **CHECKED**
+**Stage C.** Every closed sub-ball, including every cell closed by a rule (the auditor lists them), must also pass the
+Stage C magnitude preconditions (`code/stagec_guard.py`), either inline in its row or in a sidecar row bound to the
+guard's hash, the sub-atlas hash and the record hash. This is checked by `code/assemble.py` and `code/verify_ball.py`.
+**CHECKED**
 
 ## The lemma
 
@@ -101,7 +107,7 @@ The auditor computes p_c and its squared norm in exact rationals, and searches a
 one containing p_c. **CHECKED**
 
 **Theorem (PROVED, given the inherited certifier statement).** Suppose a tree for the original seed ball B passes the
-auditor, and every closed sub-ball passes the Stage C preconditions. Then every H in B satisfies the certifier
+auditor, and every closed sub-ball (including those closed by a rule) passes the Stage C preconditions. Then every H in B satisfies the certifier
 statement, so every third basis completing (I, H/√6) gives a triple of known type, or there is none.
 
 *Proof.* By Lemma 2 every u in the unit ball lies in a closed cell. By Lemma 1, θ₀ + Mth·r·u, which is H, lies in that
@@ -116,6 +122,8 @@ cell's sub-ball mod 2π. That sub-ball's record is certified, so the statement h
   (the collaborator's) or `split_select.py`; levels 4 and deeper from `split_select.py`. Lemma 1 is checked on every
   record whichever builder made it, so the builder's own correctness is not relied on for containment.
 - **Tests.** `code/test_audit_select.py` runs the auditor on three real trees: 126 (levels 2–3), 491 (levels 2–4) and
-  1601 (level 2, with classified sub-balls). It also runs ten tampered copies, each of which must be refused for its
-  stated reason. All pass with the repository's certifier sources: the binding IDs agree with rusty's, so the sources
+  1601 (level 2, with classified sub-balls). It also runs eleven tampered copies, each of which must be refused for its
+  stated reason, and a duplicate receipt that must be tolerated. Seven anchored-rule cases open one pattern of a
+  closed level-3 row: a matching anchored receipt must close it again, and receipts with other colours, another
+  checker, a negative margin, other frozen sources or another record must not. All pass with the repository's certifier sources: the binding IDs agree with rusty's, so the sources
   are byte-identical to the frozen commit.
