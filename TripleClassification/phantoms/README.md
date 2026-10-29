@@ -2,7 +2,7 @@
 
 This is everything the certifier, the labelled Fourier score and the anchored-column exclusion (`../ANCHORED_PROOF.md`)
 have **not** closed in the open balls, exported from the cluster for work off it. Snapshot of 29 October 2026, about
-16:30. The anchored runs were still going, deepest levels first, so shallow levels are partly missing. Ask for a
+16:00. The anchored runs were still going, deepest levels first, so shallow levels are partly missing. Ask for a
 refresh, or for any other cell or pattern.
 
 ## Files
