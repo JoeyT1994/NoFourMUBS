@@ -16,7 +16,7 @@ ATLAS=$B/frozen_bd87c69/proof/seed_atlas/results/seed_atlas_certificate.json.gz
 export VECLIB_MAXIMUM_THREADS=1 OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1
 export TC_GAMMA_SHA=$(sha256sum $G/gamma_test.py | cut -c1-64) TC_GAMMA_RULES=fourier,ordering
 mkdir -p "$G/gamma_new" "$G/gamma_by_ball"
-NEW="$G/gamma_new/b$b.jsonl"; OLD="$G/gamma_by_ball/b$b.jsonl"
+NEW="$G/gamma_new/b$b.jsonl"; OLD="$G/gamma_by_ball/b$b.jsonl"; touch "$NEW"
 dir() { case $1 in 2) echo $S/parents;; 3) echo $S/children;; *) echo $S/l$1;; esac; }
 runner() { if "$PY" -c "import gzip,json,sys; sys.exit(0 if 'gamma_discharged_parent_cells' in json.load(gzip.open(sys.argv[1]))['info']['split'] else 1)" "$1"; then echo $C/tree_build.py; else echo $C/split_select.py; fi; }
 for L in ${LEVELS:-4 5 6 7 8}; do

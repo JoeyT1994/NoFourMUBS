@@ -64,6 +64,7 @@ def build(atlas, index, level, out):
         want={x['sub']:x for x in pinfo['cover'] if pmap[x['sub']]['status']=='NOT ESTABLISHED'}
         recs={}
         for gp in os.environ.get('TC_GAMMA_FILES','').split():
+            if not os.path.exists(gp): continue              # a ball may have no receipts of one kind yet
             for line in open(gp):
                 try: g=json.loads(line)
                 except ValueError: continue
