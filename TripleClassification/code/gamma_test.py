@@ -56,6 +56,35 @@ def best_alignment(P):
     return LABELS[best[1]], LABELS[best[2]]
 
 
+def score_lower(P):
+    """A certified lower bound of Gamma_F(exp iP) for an exact binary64 phase array P (all 14,400 alignments).
+
+    Each alignment's cost is computed in float64; every coordinate differs from the exact value by less than
+    DELTA (the inputs are exact, |P| < 100, and the few roundings in a plaquette, the product with pi/3 and the
+    2 pi reduction are each far below 1e-13), and the circular distance is 1-Lipschitz, so
+    sum max(0, dist - DELTA)^2 is below the exact cost. The float sum of 225 non-negative terms is then scaled
+    by (1 - 1e-9), and the square root is taken in Arb."""
+    from flint import arb
+    DELTA = 1e-12
+    P = np.asarray(P, dtype=float)
+    if not np.all(np.abs(P) < 100): raise ArithmeticError('phases too large for the rounding margin')
+    I = np.array(QUAD)
+    rq = P[I[:, 0], I[:, 2]] + P[I[:, 1], I[:, 3]] - P[I[:, 0], I[:, 3]] - P[I[:, 1], I[:, 2]]
+    A = np.array([[a[i] - a[k] for i in range(6) for k in range(i + 1, 6)] for a in LABELS])
+    B = np.array([[b[j] - b[l] for j in range(6) for l in range(j + 1, 6)] for b in LABELS])
+    ik = [(i, k) for i in range(6) for k in range(i + 1, 6)]; jl = [(j, l) for j in range(6) for l in range(j + 1, 6)]
+    pos = {(ik.index((i, k)), jl.index((j, l))): n for n, (i, k, j, l) in enumerate(QUAD)}
+    rq15 = rq[[pos[(x, y)] for x in range(15) for y in range(15)]].reshape(15, 15)
+    best = math.inf
+    for ai in range(120):
+        d = rq15[None, :, :] - (math.pi / 3) * A[ai][None, :, None] * B[:, None, :]
+        d = np.abs(d - 2 * math.pi * np.round(d / (2 * math.pi)))
+        d = np.minimum(d, 2 * math.pi - d)                          # circular distance to 2 pi Z
+        c = (np.maximum(d - DELTA, 0.0) ** 2).sum(axis=(1, 2))
+        best = min(best, float(c.min()))
+    return lo((arb(best) * (1 - arb(10) ** -9)).sqrt() / 15)
+
+
 def up(x):
     """An exact binary64 number >= every point of the Arb ball x."""
     from flint import arb
@@ -94,6 +123,76 @@ def setup(tc):
     M.update(R=R, NC=NC, MS=MS, P=P)
 
 
+def prep(model, g_ball):
+    """Per-model data: H's centre, its motion over the cell, and the Gamma_F(H) threshold for this cell."""
+    from flint import arb, acb
+    r, tau = model['r'], model['tau']
+    q0, u, h2, x = (model[k] for k in ('Q0', 'U', 'H2', 'X'))
+
+    def rownorm(m, i):
+        return sum((abs(m[i, j]).upper() * abs(m[i, j]).upper() for j in range(m.ncols())), arb(0)).sqrt()
+    # each H phase moves by at most hrad_i from a fixed point of the centre ball q0_i (its radius is included)
+    hrad = [rownorm(u, i) * r + rownorm(h2, i) * r * r / 2 + rownorm(x, i) * tau + arb(q0[i, 0].rad()) for i in range(36)]
+    dH = sum((v * v for v in hrad), arb(0)).sqrt()
+    Hc = [[acb(0, q0[6 * a + c, 0]).exp() for c in range(6)] for a in range(6)]
+    # Gamma_F(H) over this cell: the exhaustive centre bound at the binary64 midpoints, minus (2/5) of the motion
+    # (dH includes the centre balls' radii), or the whole original ball's certified bound if that is larger
+    centre_P = [[float(q0[6 * a + c, 0].mid()) for c in range(6)] for a in range(6)]
+    g_cell = lo(arb(score_lower(centre_P)) - arb(2) / 5 * dH)
+    g_h = max(g_ball, Fraction(g_cell))
+    G2 = arb(0)
+    for c in range(6):
+        for d in range(6):
+            g = sum((Hc[a][c].conjugate() * Hc[a][d] for a in range(6)), acb(0)) - (6 if c == d else 0)
+            G2 += abs(g).upper() * abs(g).upper()           # never x**2 on a ball containing 0 (NaN in flint 0.9)
+    s = (arb(6) + G2.sqrt()).sqrt() / arb(6).sqrt()
+    return dict(Hc=Hc, s=s, dH=dH, g_h=g_h, g_cell=g_cell)
+
+
+def pattern(ctx, prepared, bounds, number, cl):
+    """The Arb bounds of one pattern (see the module docstring)."""
+    from flint import arb, acb
+    Hc, s, dH, g_h = ctx['Hc'], ctx['s'], ctx['dH'], ctx['g_h']
+    v0 = [[prepared[c]['v0'][a, 0] for c in cl] for a in range(6)]                    # K_c phases (row a, col k)
+    # column radius about a fixed point of the centre ball v0 (its radii are included)
+    pr = [(arb(bounds[c]['phase_radius']) + sum((arb(v0[a][k].rad()) for a in range(6)), arb(0))).upper()
+          for k, c in enumerate(cl)]
+    Kc = [[acb(0, v0[a][k]).exp() for k in range(6)] for a in range(6)]
+    Lc = [[sum((Hc[a][c].conjugate() * Kc[a][k] for a in range(6)), acb(0)) / arb(6).sqrt() for k in range(6)]
+          for c in range(6)]
+    # Everything below is Arb; stored bounds are exact binary64 numbers rounded outward (up, lo).
+    m = None
+    for c in range(6):
+        for k in range(6):
+            t = arb(lo(abs(Lc[c][k])))                          # exact binary64 lower bounds: exact comparisons
+            if m is None or t < m: m = t
+    dk = [arb(up(s * pr[k] + dH)) for k in range(6)]
+    res = dict(pattern=number, pr_hex=[up(arb(p)).hex() for p in pr], dH_hex=up(dH).hex(), m_hex=lo(m).hex())
+    gL = None
+    if m > 0:
+        top = dk[0]
+        for d in dk[1:]:
+            if d > top: top = d                                 # exact binary64 points: exact comparisons
+        xm = arb(up(top / m))
+        if xm < 1:
+            kappa = arb(up(xm.asin() / xm)) if xm > 0 else arb(1)   # asin(x)/x increases on [0, 1)
+            E = arb(up(kappa * sum((d * d for d in dk), arb(0)).sqrt() / m))
+            PL = [[Lc[c][k].arg() for k in range(6)] for c in range(6)]
+            a, b = best_alignment(np.array([[float(PL[c][k].mid()) for k in range(6)] for c in range(6)]))
+            centre = score_upper(PL, a, b, arb)
+            gL = up(arb(centre) + arb(2) / 5 * E)
+            res.update(E_L_hex=up(E).hex(), g_centre_L_hex=centre.hex(), g_up_L_hex=gL.hex())
+    PK = [[v0[a][k] for k in range(6)] for a in range(6)]
+    a, b = best_alignment(np.array([[float(PK[i][j].mid()) for j in range(6)] for i in range(6)]))
+    centreK = score_upper(PK, a, b, arb)
+    prs = [arb(up(arb(p))) for p in pr]
+    gK = up(arb(centreK) + arb(2) / 5 * sum((p * p for p in prs), arb(0)).sqrt())
+    res.update(g_up_K_hex=gK.hex())
+    best = gK if gL is None else min(gL, gK)
+    res.update(fourier=Fraction(best) <= Fraction(19, 50), ordering=Fraction(best) < g_h)
+    return res
+
+
 def evaluate(glow, sa, sub, row, doc=None):
     """One (sub-)ball record: the receipt row of the certifier for it, and the bounds for its open patterns."""
     R, NC, MS, P = M['R'], M['NC'], M['MS'], M['P']
@@ -112,68 +211,15 @@ def evaluate(glow, sa, sub, row, doc=None):
     if 'patterns_after_column_filter' in row and row['patterns_after_column_filter'] != len(cliques):
         raise ArithmeticError('recomputed pattern count differs from the receipt')
     openp = [n for n in range(len(cliques)) if n not in closed_numbers]
-    r, tau = model['r'], model['tau']
-    q0, u, h2, x = (model[k] for k in ('Q0', 'U', 'H2', 'X'))
-
-    def rownorm(m, i):
-        return sum((abs(m[i, j]).upper() * abs(m[i, j]).upper() for j in range(m.ncols())), arb(0)).sqrt()
-    # each H phase moves by at most hrad_i from a fixed point of the centre ball q0_i (its radius is included)
-    hrad = [rownorm(u, i) * r + rownorm(h2, i) * r * r / 2 + rownorm(x, i) * tau + arb(q0[i, 0].rad()) for i in range(36)]
-    dH = sum((v * v for v in hrad), arb(0)).sqrt()
-    Hc = [[acb(0, q0[6 * a + c, 0]).exp() for c in range(6)] for a in range(6)]
-    G2 = arb(0)
-    for c in range(6):
-        for d in range(6):
-            g = sum((Hc[a][c].conjugate() * Hc[a][d] for a in range(6)), acb(0)) - (6 if c == d else 0)
-            G2 += abs(g).upper() * abs(g).upper()           # never x**2 on a ball containing 0 (NaN in flint 0.9)
-    s = (arb(6) + G2.sqrt()).sqrt() / arb(6).sqrt()
-    out = []
-    for number in openp:
-        cl = cliques[number]
-        v0 = [[prepared[c]['v0'][a, 0] for c in cl] for a in range(6)]                    # K_c phases (row a, col k)
-        # column radius about a fixed point of the centre ball v0 (its radii are included)
-        pr = [(arb(bounds[c]['phase_radius']) + sum((arb(v0[a][k].rad()) for a in range(6)), arb(0))).upper()
-              for k, c in enumerate(cl)]
-        Kc = [[acb(0, v0[a][k]).exp() for k in range(6)] for a in range(6)]
-        Lc = [[sum((Hc[a][c].conjugate() * Kc[a][k] for a in range(6)), acb(0)) / arb(6).sqrt() for k in range(6)]
-              for c in range(6)]
-        # Everything below is Arb; stored bounds are exact binary64 numbers rounded outward (up, lo).
-        m = None
-        for c in range(6):
-            for k in range(6):
-                t = arb(lo(abs(Lc[c][k])))                          # exact binary64 lower bounds: exact comparisons
-                if m is None or t < m: m = t
-        dk = [arb(up(s * pr[k] + dH)) for k in range(6)]
-        res = dict(pattern=number, pr_hex=[up(arb(p)).hex() for p in pr], dH_hex=up(dH).hex(), m_hex=lo(m).hex())
-        gL = None
-        if m > 0:
-            top = dk[0]
-            for d in dk[1:]:
-                if d > top: top = d                                 # exact binary64 points: exact comparisons
-            xm = arb(up(top / m))
-            if xm < 1:
-                kappa = arb(up(xm.asin() / xm)) if xm > 0 else arb(1)   # asin(x)/x increases on [0, 1)
-                E = arb(up(kappa * sum((d * d for d in dk), arb(0)).sqrt() / m))
-                PL = [[Lc[c][k].arg() for k in range(6)] for c in range(6)]
-                a, b = best_alignment(np.array([[float(PL[c][k].mid()) for k in range(6)] for c in range(6)]))
-                centre = score_upper(PL, a, b, arb)
-                gL = up(arb(centre) + arb(2) / 5 * E)
-                res.update(E_L_hex=up(E).hex(), g_centre_L_hex=centre.hex(), g_up_L_hex=gL.hex())
-        PK = [[v0[a][k] for k in range(6)] for a in range(6)]
-        a, b = best_alignment(np.array([[float(PK[i][j].mid()) for j in range(6)] for i in range(6)]))
-        centreK = score_upper(PK, a, b, arb)
-        prs = [arb(up(arb(p))) for p in pr]
-        gK = up(arb(centreK) + arb(2) / 5 * sum((p * p for p in prs), arb(0)).sqrt())
-        res.update(g_up_K_hex=gK.hex())
-        best = gK if gL is None else min(gL, gK)
-        res.update(fourier=Fraction(best) <= Fraction(19, 50), ordering=Fraction(best) < g_h)
-        out.append(res)
+    ctx = prep(model, g_h)
+    g_cell = ctx['g_cell']
+    out = [pattern(ctx, prepared, bounds, number, cliques[number]) for number in openp]
     import hashlib
     sha = lambda b: hashlib.sha256(b).hexdigest()
     return dict(subatlas=os.path.basename(sa), subatlas_sha256=sha(open(sa, 'rb').read()), sub=sub,
                 seed_sha256=sha(json.dumps(rec, sort_keys=True).encode()), receipt_binding=row.get('binding'),
                 gamma_sha256=GAMMA_SHA, patterns_total=len(cliques), closed_by_certifier=sorted(closed_numbers),
-                ball=ball_index, g_lo_H=glow[str(ball_index)], open_patterns=len(openp),
+                ball=ball_index, g_lo_H=glow[str(ball_index)], g_lo_H_cell_hex=g_cell.hex(), open_patterns=len(openp),
                 fourier=sum(o['fourier'] for o in out), ordering=sum(o['ordering'] for o in out), patterns=out)
 
 

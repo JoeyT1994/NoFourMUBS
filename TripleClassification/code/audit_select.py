@@ -53,10 +53,11 @@ def hit(c,level):
         d.append(max(lo, Fraction(0), -hi))
     return sum(x*x for x in d) <= 1
 
-def bound(source_paths, root, atlas, script, guard=None):
+def bound(source_paths, root, atlas, script, guard=None, gamma=None):
     sources={str(p.relative_to(root)):sha(p) for p in source_paths()}
     sources['split.py']=sha(script)
     if guard is not None: sources['stagec_guard.py']=sha(guard)
+    if gamma is not None: sources['gamma_test.py']=sha(gamma)
     v=dict(schema='tc-native-allk-v1+split',atlas_sha256=sha(atlas),sources=sources,precision=160)
     v['id']=jsonsha(v)
     return v
@@ -130,6 +131,8 @@ def main():
             ids.add(bound(R.source_paths, root, p, s)['id'])
             if (s.parent / 'stagec_guard.py').exists():   # later split.py versions also bind their Stage C guard
                 ids.add(bound(R.source_paths, root, p, s, guard=s.parent / 'stagec_guard.py')['id'])
+            if (s.parent / 'gamma_test.py').exists():     # score_first_run.py also binds the score it uses
+                ids.add(bound(R.source_paths, root, p, s, gamma=s.parent / 'gamma_test.py')['id'])
         bindings.append(ids)
     rules = {x for x in args.gamma_rules.split(',') if x}
     need(rules <= {'fourier', 'ordering'}, 'unknown gamma rule'); need(not rules or args.gamma_sha, 'gamma rules need --gamma-sha')
@@ -173,7 +176,10 @@ def main():
                 best[n] = min(ups)
             if len(best) != len(openp): continue
             if 'fourier' in rules and all(best[n] <= Fraction(19, 50) for n in openp): return 'fourier'
-            if 'ordering' in rules and all(best[n] <= Fraction(19, 50) or best[n] < glow for n in openp): return 'ordering'
+            # the threshold is the original ball's pinned bound or, if larger, the receipt's bound for this cell
+            thr = glow if glow is not None else None
+            if thr is not None and 'g_lo_H_cell_hex' in g: thr = max(thr, Fraction(float.fromhex(g['g_lo_H_cell_hex'])))
+            if 'ordering' in rules and all(best[n] <= Fraction(19, 50) or best[n] < thr for n in openp): return 'ordering'
         return None
 
     closed = []                                   # (level, cell) of every accepted cell

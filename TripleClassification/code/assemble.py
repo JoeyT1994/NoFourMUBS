@@ -133,7 +133,7 @@ def trees(a, V, side, RC, side_guard=None, out=None):
         # read the (large) gamma receipts once and give each auditor only its ball's records, with only the fields
         # the auditor checks; the receipts themselves stay as they are
         keep = ('subatlas_sha256', 'sub', 'seed_sha256', 'receipt_binding', 'gamma_sha256', 'closed_by_certifier',
-                'patterns_total')
+                'patterns_total', 'g_lo_H_cell_hex')
         groups = collections.defaultdict(list)
         for gp in a.gamma:
             with open(gp) as f:
@@ -143,7 +143,7 @@ def trees(a, V, side, RC, side_guard=None, out=None):
                     except ValueError:
                         continue
                     if 'error' in g or g.get('gamma_sha256') != a.gamma_sha: continue
-                    c = {k: g[k] for k in keep}
+                    c = {k: g[k] for k in keep if k in g}
                     c['patterns'] = [{k: x[k] for k in ('pattern', 'fourier', 'ordering', 'g_up_L_hex', 'g_up_K_hex') if k in x}
                                      for x in g['patterns']]
                     groups[g['ball']].append(c)

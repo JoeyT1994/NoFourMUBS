@@ -1,6 +1,6 @@
 #!/bin/bash
-# One ball's selective chain with score-first refinement (tree_build.py). For each level L: finish layer L-1 with the
-# runner that built it, score its open cells (gamma_test.py), and build layer L from the cells no receipt closes.
+# One ball's selective chain, score-first throughout. For each level L: finish layer L-1 with score_first_run.py (each
+# pattern scored before it is certified), score its open cells (gamma_test.py), and build layer L from the cells no receipt closes.
 # Env: BALLS (one ball), SEL (chain directory), LEVELS (default 4 5 6 7 8). The scratch cell list is one file named by
 # ball and job id, removed by that exact path.
 #SBATCH --job-name=tc-chain2
@@ -16,14 +16,14 @@ PY=/mnt/ceph/users/jtindall/venvs/nofourmubs/bin/python; C=$B/main_split3/Triple
 ATLAS=$B/frozen_bd87c69/proof/seed_atlas/results/seed_atlas_certificate.json.gz
 export VECLIB_MAXIMUM_THREADS=1 OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1
 export TC_GAMMA_SHA=$(sha256sum $G/gamma_test.py | cut -c1-64) TC_GAMMA_RULES=fourier,ordering
-mkdir -p "$G/gamma_v2"
-NEW="$G/gamma_v2/b$b.jsonl"; touch "$NEW"      # receipts of the Arb gamma_test.py, one file per ball
+mkdir -p "$G/gamma_v3"
+NEW="$G/gamma_v3/b$b.jsonl"; touch "$NEW"      # receipts of the Arb gamma_test.py, one file per ball
 dir() { case $1 in 2) echo $S/parents;; 3) echo $S/children;; *) echo $S/l$1;; esac; }
 runner() { if "$PY" -c "import gzip,json,sys; sys.exit(0 if 'gamma_discharged_parent_cells' in json.load(gzip.open(sys.argv[1]))['info']['split'] else 1)" "$1"; then echo $C/tree_build.py; else echo $C/split_select.py; fi; }
 for L in ${LEVELS:-4 5 6 7 8}; do
   pf="$(dir $((L-1)))/b${b}_l$((L-1)).json.gz"
   [ -f "$pf" ] || { echo "no layer $((L-1))"; break; }
-  "$PY" -W ignore "$(runner "$pf")" run "$B/frozen_bd87c69" "$pf" --workers 128 --seconds 300
+  "$PY" -W ignore "$C/score_first_run.py" "$B/frozen_bd87c69" "$G/gamma_lower.json" "$NEW" "$pf" --workers 128 --seconds 300
   of="$(dir $L)/b${b}_l$L.json.gz"; mkdir -p "$(dir $L)"
   # score layer L-1 only when layer L is still to be built, or was built score-first (its skipped cells need receipts)
   if [ ! -f "$of" ] || [ "$(runner "$of")" = "$C/tree_build.py" ]; then
@@ -37,6 +37,6 @@ for L in ${LEVELS:-4 5 6 7 8}; do
     TC_PARENT_DIR="$(dir $((L-1)))" TC_GAMMA_FILES="$NEW" "$PY" -W ignore "$C/tree_build.py" build "$ATLAS" "$b" "$L" "$of" || break
   fi
   "$PY" -c "import gzip,json,sys; sys.exit(0 if json.load(gzip.open(sys.argv[1]))['seeds'] else 1)" "$of" || { echo "ball $b: nothing left to refine at level $L"; break; }
-  "$PY" -W ignore "$(runner "$of")" run "$B/frozen_bd87c69" "$of" --workers 128 --seconds 300
+  "$PY" -W ignore "$C/score_first_run.py" "$B/frozen_bd87c69" "$G/gamma_lower.json" "$NEW" "$of" --workers 128 --seconds 300
 done
 echo "ball $b chain done $(date)"
