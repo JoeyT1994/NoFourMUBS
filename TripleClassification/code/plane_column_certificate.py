@@ -6,6 +6,7 @@ The snapshot's original column phase balls are the inherited input.
 See ../PLANE_COLUMN_PROOF.md for the conditional theorem and integration scope.
 """
 import argparse
+import copy
 import gzip
 import hashlib
 import itertools
@@ -292,6 +293,29 @@ def verify_tree(column,node,roots,C,level=0,index=(0,0),stats=None,tubes=None,ro
     return stats,tubes
 
 
+def recenter_captures(column,proposal,C):
+    """Improve saved proposals; verify_tree still checks every accepted leaf."""
+    result=copy.deepcopy(proposal)
+    result.setdefault('root_modes',['native']*len(result['roots']))
+    def visit(node,level=0,index=(0,0)):
+        if 'children' in node:
+            require(len(node['children'])==4,'incomplete partition')
+            for child,(i,j) in zip(node['children'],itertools.product(range(2),repeat=2)):
+                visit(child,level+1,(2*index[0]+i,2*index[1]+j))
+        elif node.get('kind')=='captured':
+            key=node['root']
+            if result['root_modes'][key]!='native':return
+            capture=column.check_slab(level,index,node)
+            require(capture['status']=='CAPTURED','saved capture changed')
+            _,epsilon=tube(C,column.model,hex_array(result['roots'][key],(6,)),capture,'native')
+            if not epsilon<capture['radius']:
+                node['root']=len(result['roots'])
+                result['roots'].append(encode([float(x.mid()) for x in capture['center']]))
+                result['root_modes'].append('constant')
+    visit(result['tree'])
+    return result
+
+
 def prove_column(model,supplied,C,depth=6,node_cap=6000,epsilon_target=.004):
     col=Column(model,supplied);roots=[];root_modes=[];count=0
     def visit(level,index):
@@ -305,7 +329,12 @@ def prove_column(model,supplied,C,depth=6,node_cap=6000,epsilon_target=.004):
             return dict(proposal,kind=result['status'].lower())
         if result['status']=='CAPTURED':
             root=col.root_proposal(result['center'])
-            mode='native' if C.build(model,root)['Tnorm']*model['r']<arb('.1') else 'constant'
+            mode='constant'
+            try:
+                native,native_error=tube(C,model,root,result,'native')
+                if native['Tnorm']*model['r']<arb('.1') and native_error<result['radius']:
+                    mode='native'
+            except (ArithmeticError,ZeroDivisionError):pass
             if mode=='constant':
                 # Retain the small local capture instead of pooling a
                 # nearly singular branch around a fitted root.

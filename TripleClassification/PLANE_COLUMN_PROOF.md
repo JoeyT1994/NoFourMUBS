@@ -124,7 +124,10 @@ and take ε equal to the capture radius plus the verified displacement of its ce
 uses the triangle inequality alone. The producer usually chooses the capture's own midpoint, so
 different pieces of a singular branch need not be pooled into a wide ball. The proposal records
 the mode for each center, and replay recomputes its bound. A center in this mode is not asserted
-to be an unbiased vector. The search threshold ‖T‖r < 0.1 merely chooses which mode to try.
+to be an unbiased vector. The search uses an affine tube only when ‖T‖r < 0.1 and its error ε is
+smaller than the direct capture radius. These comparisons select a proposal; either accepted mode
+has its own checked enclosure. On resume, saved affine captures that fail the second comparison
+can be recentered into constant balls, after which every leaf is replayed against the current column.
 
 For two such tubes define S = Σ_j exp(i(u_bj−u_aj)), ΔT = T_b−T_a, and
 G_k = Σ_j i ΔT_jk exp(i(u_bj−u_aj)). With ε = ε_a+ε_b and δ = ‖ΔT‖r+ε,

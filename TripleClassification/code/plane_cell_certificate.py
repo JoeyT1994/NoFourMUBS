@@ -41,6 +41,7 @@ def propose(path,depth=6,checkpoint=None):
                 if c not in columns:continue
                 try:
                     column=P.Column(model,columns[c],P.hex_array(proposal['weak'],(2,5)))
+                    proposal=P.recenter_captures(column,proposal,C)
                     _,tubes=P.verify_tree(column,proposal['tree'],proposal['roots'],C,root_modes=proposal.get('root_modes'))
                     proved[c]=(proposal,tubes);attempted.add(c)
                 except (ValueError,ArithmeticError,ZeroDivisionError,KeyError,TypeError):continue
@@ -49,6 +50,7 @@ def propose(path,depth=6,checkpoint=None):
             data=dict(snapshot_sha256=binding['snapshot_sha256'],columns={str(c):p for c,(p,t) in proved.items()})
             temporary=checkpoint.with_suffix('.tmp')
             temporary.write_bytes(gzip.compress(json.dumps(data).encode(),mtime=0));temporary.replace(checkpoint)
+    if proved:save()
     def witness(clique):
         for c in clique:
             if c in proved and not proved[c][1]:return [c]
