@@ -37,7 +37,7 @@ if __name__=='__main__':
     p=argparse.ArgumentParser();p.add_argument('--indices',type=Path,required=True)
     p.add_argument('--directory',type=Path,required=True);p.add_argument('--workers',type=int,default=3)
     p.add_argument('--seconds',type=int,default=240)
-    p.add_argument('--driver',choices=['run_hybrid.py','run_bins.py','run_eager_bins.py','run_tight_bins.py','run_intersection_bins.py'],default='run_hybrid.py');a=p.parse_args()
+    p.add_argument('--driver',choices=['run_hybrid.py','run_bins.py','run_eager_bins.py','run_tight_bins.py','run_intersection_bins.py','run_cubic_bins.py','run_partition_bins.py','run_partition_fast.py'],default='run_hybrid.py');a=p.parse_args()
     values=json.loads(a.indices.read_text())
     if len(values)!=len(set(values)) or any(type(i)is not int or not 0<=i<2775 for i in values):p.error('invalid index list')
     a.directory.mkdir(parents=True,exist_ok=True)

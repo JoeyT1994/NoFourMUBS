@@ -1,0 +1,46 @@
+Combining the mixed cubic terms before taking norms
+
+Use the complex-entry variables and the 25 domain constraints from
+INTERSECTION_PROOF.txt. For one H column and one K column, the inner
+product of the quadratic H approximation with K has the exact form
+  s_poly=s0+s1+s2+s3.
+The seed vector xi and this K column's error vector eta have norms at
+most one. Here s1 is linear, s2 is quadratic, and s3 is cubic in (xi,eta).
+With the H derivatives already scaled by the original seed radius,
+  s2=xi^T A xi/2+xi^T B eta,
+  s3=(xi tensor xi)^T (C_seed xi+C_error eta)/2.
+These expressions are obtained by multiplying H0+H1 xi+H2[xi,xi]/2
+by K=k0+B_seed xi+B_error eta. No K Taylor expansion is made.
+
+The previous residual polynomial retains the terms through degree two
+in (|s_poly|^2-6)/6. Its cubic part is exactly
+  2 Re(conj(s1) s2+conj(s0) s3)/6.
+For each fixed K column we combine this expression across the six H
+columns with the chosen real residual weights. We then collect its
+three types of monomial: xi^3, xi^2 eta, and xi eta^2. Symmetrizing the
+indices belonging to equal variables does not change the polynomial.
+The three coefficient arrays are treated as matrices of sizes 4 by 16,
+16 by 12, and 4 by 144. Each term is bounded by its matrix operator norm,
+since ||xi||, ||eta||, and the corresponding tensor-product norms are at
+most one. Taking norms after combining the equations retains their
+signed cancellations. Summing these three bounds over the six K columns
+gives a uniform bound for the entire scalar cubic part.
+
+Let b1,b2,b3 bound |s1|,|s2|,|s3|. The remaining terms of |s_poly|^2 have
+degrees four through six and absolute sum at most
+  b2^2+2 b1 b3+2 b2 b3+b3^2.
+Let rho=beta sqrt(6), where beta bounds the H approximation remainder.
+Every actual phase column K has norm sqrt(6), so |s-s_poly|<=rho. Thus
+the change in squared magnitude is at most 2 L rho+rho^2, where either
+L=|s0|+b1+b2+b3 or L=6 is valid. The first bounds |s_poly|. The second
+bounds |s| by Cauchy-Schwarz for two unit-entry columns. We use the
+smaller resulting bound and divide by six, as in the mixed residual.
+The weights' absolute values multiply these remaining per-equation
+bounds. The cubic contribution is bounded separately as above.
+
+The quadratic residual coefficients and the final ellipsoid dual remain
+unchanged. All acceptance coefficients, tensor operator norms and positive
+definiteness are checked in Arb. The conic proposal uses Frobenius norms
+for the signed cubic coefficient arrays, which are upper bounds for
+their operator norms. The numerical proposal has no proof role. This
+method retains the original H radius and every K in the prior tube.

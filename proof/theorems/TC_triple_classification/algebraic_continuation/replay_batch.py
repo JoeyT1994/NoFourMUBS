@@ -6,13 +6,13 @@ from pathlib import Path
 HERE=Path(__file__).resolve().parent
 
 
-def replay(index,source,destination,seconds):
+def replay(index,source,destination,seconds,driver):
     output=destination/f'ball_{index}.jsonl';log=destination/f'ball_{index}.log'
     env=os.environ.copy()
     for name in ('OPENBLAS_NUM_THREADS','MKL_NUM_THREADS','VECLIB_MAXIMUM_THREADS','OMP_NUM_THREADS'):env[name]='1'
     start=time.monotonic()
     with log.open('w') as stream:
-        process=subprocess.Popen([sys.executable,str(HERE/'replay_bins.py'),'--eager','--receipt',str(source),
+        process=subprocess.Popen([sys.executable,str(HERE/driver)]+(['--eager'] if driver=='replay_bins.py' else [])+['--receipt',str(source),
                                   '--output',str(output)],stdout=stream,stderr=subprocess.STDOUT,env=env)
         try:code=process.wait(timeout=seconds)
         except subprocess.TimeoutExpired:
@@ -30,7 +30,8 @@ if __name__=='__main__':
     p=argparse.ArgumentParser();p.add_argument('--indices',type=Path,required=True)
     p.add_argument('--source',type=Path,required=True);p.add_argument('--destination',type=Path,required=True)
     p.add_argument('--workers',type=int,default=2);p.add_argument('--seconds',type=int,default=600)
-    p.add_argument('--once',action='store_true');a=p.parse_args()
+    p.add_argument('--once',action='store_true')
+    p.add_argument('--driver',choices=['replay_bins.py','replay_tight_bins.py','replay_cubic_bins.py'],default='replay_bins.py');a=p.parse_args()
     indices=set(json.loads(a.indices.read_text()));a.destination.mkdir(parents=True,exist_ok=True)
     submitted=set();futures={};seen=set()
     with concurrent.futures.ThreadPoolExecutor(max_workers=a.workers) as pool:
@@ -42,7 +43,7 @@ if __name__=='__main__':
                 seen.add(i)
                 if row['status'] not in ('CERTIFIED','CERTIFIED EMPTY'):continue
                 if (a.destination/f'ball_{i}.jsonl').exists():continue
-                futures[pool.submit(replay,i,path,a.destination,a.seconds)]=i;submitted.add(i)
+                futures[pool.submit(replay,i,path,a.destination,a.seconds,a.driver)]=i;submitted.add(i)
             for f in list(futures):
                 if f.done():
                     row=f.result();print(json.dumps({k:row[k] for k in ('index','status','seconds')}),flush=True)

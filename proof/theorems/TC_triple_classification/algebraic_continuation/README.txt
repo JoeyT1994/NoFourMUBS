@@ -67,10 +67,26 @@ Implemented proof routes
     Twenty-five quadratic constraints. See INTERSECTION_PROOF.txt.
     The saved pilot has status NOT ESTABLISHED.
 
+  cubic_chordal.py, run_cubic_bins.py, replay_cubic_bins.py
+    Signed mixed cubic tensors, combined before taking their norms.
+    See CUBIC_PROOF.txt. Acceptance uses the same quadratic dual.
+
+  phase_hull.py and quadratic_caps.py
+    Experimental support slabs for the bin geometry and necessary seed
+    caps. See HULL_PROOF.txt and CAPS_PROOF.txt. Their saved pilots do
+    not establish an additional full-ball classification.
+
+  partition_geometry.py, run_partition_bins.py, run_partition_fast.py
+    Complete partitions using local radii for the intersection of each
+    box with the original ball. The corresponding replay_partition_*.py
+    programs check the full tree, reconstruct every leaf, and recheck all
+    saved scalar witnesses. See PARTITION_GEOMETRY_PROOF.txt. Count only
+    completed full-ball replays, not the first-pattern pilot.
+
   seed_partition.py and transfer_cover.py
-    Experimental complete partition geometry and geometric transfers.
-    Their saved partial outcomes do not close additional original balls.
-    TRANSFER_PROOF.txt states the upstream theorem dependencies.
+    Base partition geometry and experimental geometric transfers.
+    TRANSFER_PROOF.txt states the upstream theorem dependencies. Failed
+    or stopped partition and transfer pilots remain unresolved.
 
   checkpoint.py
     Rechecks source bindings and counts only completed all-K replays.
@@ -102,6 +118,17 @@ Replay ball 604 using the contracted H-derivative remainder:
 
   python "$A/replay_tight_bins.py" \
     --receipt "$A/results/tight_bins_604.jsonl" --output replay-604.jsonl
+
+Replay the complete partition certificate for ball 2573 (both patterns,
+512 leaves, and 7,150 saved bin exclusions):
+
+  python "$A/replay_partition_bins.py" \
+    --receipt "$A/results/partition_full_2573.jsonl" --output replay-2573.jsonl
+
+Replay a signed-cubic certificate:
+
+  python "$A/replay_cubic_bins.py" \
+    --receipt "$A/results/scan_cubic_first/ball_1028.jsonl" --output replay-1028.jsonl
 
 Replay the two optimized-phase certificates:
 
