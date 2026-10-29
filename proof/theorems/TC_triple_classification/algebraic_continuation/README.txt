@@ -11,15 +11,19 @@ unresolved balls, plus the earlier ball 2169. Its count of 146 unresolved
 refers to the older upstream revision 13d1853, not the current assembly.
 
 At upstream revision 72941cc, the single-route assembly reports 2719 of
-2775 balls closed and 56 open. Five of those open balls now have complete
-algebraic exclusions at their original radii: 194, 679, 754, 846 and 853. Ball
-846 was recovered from the archive. All five passed fresh mathematical
-replay and the current Stage C preconditions. The latest two replays check
+2775 balls closed and 56 open. Seven of those open balls now have complete
+algebraic exclusions at their original radii: 194, 679, 754, 846, 853, 885
+and 1070. Ball 846 was recovered from the archive. All seven passed fresh
+mathematical replay and the current Stage C preconditions. The replays check
 11770 bin witnesses and all 36 basis patterns for ball 194, and 9475 bin
 witnesses and all 64 basis patterns for ball 679. Both retain radius 0.1.
 Ball 754 retains radius 0.1. Its replay checks 12128 coarse-bin witnesses,
 230 further bin exclusions through 994 verified child leaves, and all 64
-basis patterns. This leaves 51 of that report's open balls unresolved.
+basis patterns. The Popeye replays check 11456 bin witnesses and all 36
+basis patterns for ball 885 at radius 0.1, and 6863 bin witnesses and all
+157 basis patterns for ball 1070 at radius 0.08. Ball 1070 uses the signed
+cubic bounds. This leaves 49 of that historical report's open balls
+unresolved by these seven certificates; it is not the current job count.
 These algebraic receipts have not been added to its tree auditor
 or assembly. Do not add the historical 35 to the current closed count.
 
@@ -104,7 +108,7 @@ After restoring the archived receipts, run:
 
   python "$A/audit_current.py" \
     --receipt "$A/results/scan_eager/ball_846.jsonl" --output replay-846.jsonl
-  for i in 194 679 853; do
+  for i in 194 679 853 885; do
     python "$A/run_eager_bins.py" --index "$i" --output "discovery-$i.jsonl"
     python "$A/audit_current.py" \
       --receipt "discovery-$i.jsonl" --output "replay-$i.jsonl"
@@ -131,3 +135,29 @@ identity, then mathematically replays them. The adaptive replayer rebuilds
 the complete cover, checks every coarse witness and child leaf, and
 rechecks every basis pattern after the current Stage C guard. Its audit
 sidecar records exact seed and radius identities and the source hashes.
+
+Reproduce the cubic closure for ball 1070
+
+python "$A/run_cubic_bins.py" --index 1070 --output discovery-1070.jsonl
+python - "$A" <<'PY'
+import gzip, json, pathlib, subprocess, sys
+sys.path.insert(0, sys.argv[1])
+import audit_current as audit
+assert audit.R.binding(audit.R.DEFAULT_ATLAS)['id'] == audit.NATIVE
+record = json.loads(gzip.decompress(audit.R.DEFAULT_ATLAS.read_bytes()))['seeds'][1070]
+saved = json.loads(pathlib.Path('discovery-1070.jsonl').read_text())
+audit.validate_identity(saved, record, 1070)
+audit.G.check(audit.R, record)
+subprocess.run([sys.executable, str(pathlib.Path(sys.argv[1])/'replay_cubic_bins.py'),
+    '--receipt', 'discovery-1070.jsonl', '--output', 'replay-1070.jsonl'], check=True)
+audit.validate_identity(json.loads(pathlib.Path('replay-1070.jsonl').read_text()), record, 1070)
+PY
+
+The saved Popeye witnesses and fresh replay receipts for 885 and 1070 are
+in results/885.zip and results/1070.zip under
+/mnt/sdceph/users/mwuttig/MUB_Hadamard/runs/tc_algebraic_20261029_0ed0286e82a8.
+The same directory retains manifest.json and operations/worker.py, which
+performed the original-identity, Stage C and replay audit. Their hashes and
+the bundle hashes are recorded in additional_closures.json. These external
+archives are not needed when regenerating the proofs with the commands
+above, and are not included in ordinary commits.
