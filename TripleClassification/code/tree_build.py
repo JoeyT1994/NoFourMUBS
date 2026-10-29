@@ -48,7 +48,16 @@ def build(atlas, index, level, out):
     parent_path = os.path.join(os.environ['TC_PARENT_DIR'], 'b%d_l%d.json.gz' % (index, level - 1))
     parent_rows_path = parent_path[:-len('.json.gz')] + '.jsonl'
     with gzip.open(parent_path, 'rt') as pf: parent_doc = json.load(pf)
-    with open(parent_rows_path) as rf: parent_rows = [json.loads(line) for line in rf]
+    parent_rows = []
+    with open(parent_rows_path) as rf:
+        for line in rf:
+            try: parent_rows.append(json.loads(line))
+            except ValueError: pass                          # an interrupted final write
+    best = {}
+    for r in parent_rows:                                    # one row per sub-ball, a closed one when there is one
+        i = r['index']
+        if i not in best or (best[i]['status'] == 'NOT ESTABLISHED' and r['status'] != 'NOT ESTABLISHED'): best[i] = r
+    parent_rows = list(best.values())
     pinfo=parent_doc['info']['split']
     if pinfo['parent'] != index or pinfo['level'] != level - 1 or pinfo['atlas_sha256'] != hashlib.sha256(open(atlas,'rb').read()).hexdigest(): raise ValueError('wrong parent')
     pmap={r['index']:r for r in parent_rows}

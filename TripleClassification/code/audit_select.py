@@ -42,8 +42,13 @@ def rows(path):
         except json.JSONDecodeError:
             # only an interrupted final write is tolerated; its sub-ball then needs another row or the audit fails
             need(n==len(lines)-1,'unparsable receipt line')
-    need(len(result)==len({x['index'] for x in result}),'duplicate rows')
-    return {x['index']:x for x in result}
+    # A sub-ball may carry more than one receipt (a resumed run under another accepted runner); each is a full receipt
+    # of the same record, so the closed one is kept when there is one. The row kept is checked in full below.
+    out={}
+    for x in result:
+        i=x['index']
+        if i not in out or (out[i].get('status')=='NOT ESTABLISHED' and x.get('status')!='NOT ESTABLISHED'): out[i]=x
+    return out
 def hit(c,level):
     n=2**level
     # exact interval [-1+2c/n, -1+2(c+1)/n] on each axis
