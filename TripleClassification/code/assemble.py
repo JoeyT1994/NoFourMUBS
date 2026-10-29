@@ -102,7 +102,35 @@ def trees(a, V, side, RC):
             if len(layers) > 1:
                 cands[i].append(('selective chain', layers, [l2s, a.l3_script + ',' + a.deep_script] + [a.deep_script] * (len(layers) - 2)))
 
+    import hashlib as _hl
+    cache = {}
+    if a.cache and os.path.exists(a.cache):
+        try:
+            cache = json.load(open(a.cache))
+        except ValueError:
+            cache = {}
+    auditor_sha = RC.sha_file(a.tree_auditor)
+
+    def stamp(paths):
+        # change detection only (the auditor itself verifies every hash): path, size and modification time
+        out = []
+        for p in paths:
+            for q in (p, p[:-len('.json.gz')] + '.jsonl') if p.endswith('.json.gz') else (p,):
+                st = os.stat(q); out.append([os.path.realpath(q), st.st_size, int(st.st_mtime)])
+        return out
+    gamma_stamp = stamp(a.gamma) if a.gamma_rules else []
+
     def audit(i, route, layers, scripts):
+        base = _hl.sha256(json.dumps([auditor_sha, i, route, stamp(layers), scripts]).encode()).hexdigest()
+        full = _hl.sha256(json.dumps([base, a.gamma_rules, a.gamma_sha, gamma_stamp]).encode()).hexdigest()
+        hit = cache.get(base)
+        if hit and hit.get('status') == 'closed' and hit.get('rule', 'certifier') == 'certifier': return hit
+        if full in cache: return cache[full]
+        x = audit_fresh(i, route, layers, scripts)
+        cache[base if x.get('status') == 'closed' and x.get('rule') == 'certifier' else full] = x
+        return x
+
+    def audit_fresh(i, route, layers, scripts):
         extra = (['--gamma'] + a.gamma + ['--gamma-sha', a.gamma_sha, '--gamma-rules', a.gamma_rules]) if a.gamma_rules else []
         cp = subprocess.run([sys.executable, a.tree_auditor, '--root', a.tc_tree, '--index', str(i), '--layers'] + layers
                             + ['--scripts'] + scripts + extra, capture_output=True, text=True)
@@ -142,7 +170,11 @@ def trees(a, V, side, RC):
             if seen is None or route == 'selective chain': seen = x
         return i, best or seen
     with concurrent.futures.ThreadPoolExecutor(max_workers=a.workers) as pool:
-        return dict(pool.map(first, sorted(cands)))
+        result = dict(pool.map(first, sorted(cands)))
+    if a.cache:
+        with open(a.cache + '.new', 'w') as f: json.dump(cache, f)
+        os.replace(a.cache + '.new', a.cache)
+    return result
 
 
 def main():
@@ -159,6 +191,7 @@ def main():
     ap.add_argument('--split-dir', required=True, help='the raw level-2 splits b<i>_l2')
     ap.add_argument('--work', required=True, help='scratch directory for cleaned level-2 receipts')
     ap.add_argument('--workers', type=int, default=4)
+    ap.add_argument('--cache', help='JSON file of earlier tree verdicts, reused while every input file is unchanged')
     ap.add_argument('--gamma', nargs='*', default=[], help='gamma_test.py receipts (labelled Fourier score discharges)')
     ap.add_argument('--gamma-sha'); ap.add_argument('--gamma-rules', default='', help="'fourier', 'ordering' or both")
     a = ap.parse_args()
