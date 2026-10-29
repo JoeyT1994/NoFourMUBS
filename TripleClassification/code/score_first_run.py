@@ -15,6 +15,10 @@ that receipt exactly as it checks gamma_test.py's own. The binding is split_sele
 and gamma_test.py added to the sources.
 
 Resume: a sub-ball that already has a row of any binding is skipped, so a layer never gets two rows for one sub-ball.
+
+Parts (for helper nodes): with TC_PART=i/k only sub-balls with index = i (mod k) are run, and with TC_ROWS_OUT=FILE
+their rows go to FILE instead of the layer's .jsonl (rows already in either are skipped). The caller appends FILE to
+the layer's .jsonl afterwards, so the layer keeps one writer.
 """
 import gzip, hashlib, json, os, signal, sys
 from pathlib import Path
@@ -103,16 +107,21 @@ def main():
         out = sa[:-len('.json.gz')] + '.jsonl'
         bid = binding(sa)['id']; sa_sha = sha(sa)
         done = set()
-        if os.path.exists(out):
-            for line in open(out):
+        alt = os.environ.get('TC_ROWS_OUT')
+        for rows_file in (out, alt) if alt else (out,):
+            if not os.path.exists(rows_file): continue
+            for line in open(rows_file):
                 try:
                     done.add(json.loads(line)['index'])
                 except (ValueError, KeyError):
                     continue
+        if alt: out = alt
         doc = json.load(gzip.open(sa, 'rt'))
         ball = doc['info']['split']['parent']; g_ball = Fraction(glow[str(ball)])
         outs[sa] = open(out, 'a')
-        jobs += [(sa, i, bid, t, g_ball, ball, sa_sha) for i in range(len(doc['seeds'])) if i not in done]
+        part = os.environ.get('TC_PART')
+        pi, pk = (int(x) for x in part.split('/')) if part else (0, 1)
+        jobs += [(sa, i, bid, t, g_ball, ball, sa_sha) for i in range(len(doc['seeds'])) if i not in done and i % pk == pi]
     from concurrent.futures import ProcessPoolExecutor, as_completed
     ctxf = __import__('multiprocessing').get_context('fork')
     with ProcessPoolExecutor(max_workers=w, mp_context=ctxf) as pool, open(gamma_out, 'a') as g:

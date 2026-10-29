@@ -20,10 +20,38 @@ mkdir -p "$G/gamma_v3"
 NEW="$G/gamma_v3/b$b.jsonl"; touch "$NEW"      # receipts of the Arb gamma_test.py, one file per ball
 dir() { case $1 in 2) echo $S/parents;; 3) echo $S/children;; *) echo $S/l$1;; esac; }
 runner() { if "$PY" -c "import gzip,json,sys; sys.exit(0 if 'gamma_discharged_parent_cells' in json.load(gzip.open(sys.argv[1]))['info']['split'] else 1)" "$1"; then echo $C/tree_build.py; else echo $C/split_select.py; fi; }
-for L in ${LEVELS:-4 5 6 7 8}; do
+run_layer() {   # certify layer $1 with score_first_run.py, over up to 8 nodes when more than 8000 sub-balls are left
+  local f=$1 left k i pids="" parts=""
+  left=$("$PY" -c "
+import gzip,json,sys
+n=len(json.load(gzip.open(sys.argv[1]))['seeds']); d=set()
+try:
+    for l in open(sys.argv[1][:-8]+'.jsonl'):
+        try: d.add(json.loads(l)['index'])
+        except Exception: pass
+except OSError: pass
+print(n-len(d))" "$f")
+  if [ "$left" -gt 8000 ]; then
+    k=$(( left / 4000 + 1 )); [ "$k" -gt 8 ] && k=8
+    for i in $(seq 1 $((k-1))); do
+      PR="${f%.json.gz}.part${SLURM_JOB_ID}_$i.jsonl"; PG="$G/gamma_v3/parts/b$b.l${SLURM_JOB_ID}.$i.jsonl"
+      parts="$parts $PR:$PG"
+      TC_PART=$i/$k TC_ROWS_OUT="$PR" sbatch --wait --parsable --export=ALL,LAYER="$f",GOUT="$PG",TC_PART=$i/$k,TC_ROWS_OUT="$PR" "$G/run_layer_part.sh" > /dev/null & pids="$pids $!"
+    done
+    TC_PART=0/$k "$PY" -W ignore "$C/score_first_run.py" "$B/frozen_bd87c69" "$G/gamma_lower.json" "$NEW" "$f" --workers 128 --seconds 300
+    wait $pids
+    for x in $parts; do PR=${x%%:*}; PG=${x##*:}
+      [ -f "$PR" ] && cat "$PR" >> "${f%.json.gz}.jsonl"; [ -f "$PG" ] && cat "$PG" >> "$NEW"; rm -f -- "$PR" "$PG"; done
+    echo "$(date +%H:%M) ball $b: $(basename "$f") certified over $k nodes"
+  else
+    "$PY" -W ignore "$C/score_first_run.py" "$B/frozen_bd87c69" "$G/gamma_lower.json" "$NEW" "$f" --workers 128 --seconds 300
+  fi
+}
+mkdir -p "$G/gamma_v3/parts"
+for L in ${LEVELS:-4 5 6 7 8 9 10}; do
   pf="$(dir $((L-1)))/b${b}_l$((L-1)).json.gz"
   [ -f "$pf" ] || { echo "no layer $((L-1))"; break; }
-  "$PY" -W ignore "$C/score_first_run.py" "$B/frozen_bd87c69" "$G/gamma_lower.json" "$NEW" "$pf" --workers 128 --seconds 300
+  run_layer "$pf"
   of="$(dir $L)/b${b}_l$L.json.gz"; mkdir -p "$(dir $L)"
   # score layer L-1 only when layer L is still to be built, or was built score-first (its skipped cells need receipts)
   if [ ! -f "$of" ] || [ "$(runner "$of")" = "$C/tree_build.py" ]; then
@@ -54,6 +82,6 @@ for L in ${LEVELS:-4 5 6 7 8}; do
     TC_BUILD_WORKERS=128 TC_PARENT_DIR="$(dir $((L-1)))" TC_GAMMA_FILES="$NEW" "$PY" -W ignore "$C/tree_build.py" build "$ATLAS" "$b" "$L" "$of" || break
   fi
   "$PY" -c "import gzip,json,sys; sys.exit(0 if json.load(gzip.open(sys.argv[1]))['seeds'] else 1)" "$of" || { echo "ball $b: nothing left to refine at level $L"; break; }
-  "$PY" -W ignore "$C/score_first_run.py" "$B/frozen_bd87c69" "$G/gamma_lower.json" "$NEW" "$of" --workers 128 --seconds 300
+  run_layer "$of"
 done
 echo "ball $b chain done $(date)"
