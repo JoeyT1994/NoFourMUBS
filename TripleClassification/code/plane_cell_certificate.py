@@ -1,4 +1,4 @@
-"""Rebuild the complete K cover and exclude every pattern on a recorded H cell.
+"""Rebuild the complete K cover and certify every pattern on a recorded H cell.
 
 The snapshot supplies only the H record. No supplied K phase ball or numerical
 fit is inherited. Column partitions are shared across all complete-cover patterns.
@@ -80,7 +80,7 @@ def propose(path,depth=6,checkpoint=None):
             available=sorted((c for c in clique if c in proved),key=lambda c:(len(proved[c][1]),c))
             try:
                 joint=Joint.exclude(model,{c:proved[c][1] for c in available},available,
-                                    pair_cache=root_pairs,scalar_cache=scalars)
+                                    pair_cache=root_pairs,scalar_cache=scalars,allow_known=True)
             except (ValueError,ArithmeticError):
                 raise ArithmeticError('complete-cover pattern remains: '+str(clique))
             witnesses.append(dict(colours=clique,columns=available,joint=joint))
@@ -117,7 +117,8 @@ def check(path,proposal):
     checked={};rows=[];root_pairs={};root_scalars={}
     for n,(clique,w) in enumerate(zip(cliques,proposal['witnesses'])):
         chosen=w['columns']
-        if 'joint' in w:Joint.exclude(model,tubes,chosen,w['joint'],pair_cache=root_pairs,scalar_cache=root_scalars)
+        if 'joint' in w:Joint.exclude(model,tubes,chosen,w['joint'],pair_cache=root_pairs,scalar_cache=root_scalars,
+                                    allow_known=True)
         elif len(chosen)==1:P.require(not tubes[chosen[0]],'claimed empty column has surviving tubes')
         else:
             key=tuple(sorted(chosen))
@@ -125,12 +126,17 @@ def check(path,proposal):
                 margins=[P.pair_margin(a,ea,b,eb) for a,ea in tubes[key[0]].values() for b,eb in tubes[key[1]].values()]
                 if not all(m>0 for m in margins):raise ArithmeticError('a captured pair may be orthogonal')
                 checked[key]=[str(m) for m in margins]
-        rows.append(dict(number=n,colours=clique,columns=chosen,status='EXCLUDED'))
-    return dict(schema='tc-plane-cell-receipt-v1',status='CERTIFIED_EMPTY_RECORDED_H_CELL',**binding,
+        rows.append(dict(number=n,colours=clique,columns=chosen,
+                         status='CLASSIFIED' if w.get('joint',{}).get('known') else 'EXCLUDED'))
+    classified=any(row['status']=='CLASSIFIED' for row in rows)
+    return dict(schema='tc-plane-cell-receipt-v1',status='CERTIFIED_CLASSIFIED_RECORDED_H_CELL' if classified else
+        'CERTIFIED_EMPTY_RECORDED_H_CELL',**binding,
         subatlas=s['subatlas'],sub=s['sub'],complete_K_cover_rebuilt=True,patterns_total=len(cliques),
         patterns=rows,columns=summaries,pairs=[dict(colours=list(k),margins=v) for k,v in sorted(checked.items())],
         seconds=time.monotonic()-start,
-        scope='Every completing basis K on the entire recorded H cell is excluded. C1, H normal form, '
+        scope=('Every completing basis K on the entire recorded H cell has the certified balanced order-three symmetry. '
+               if classified else 'Every completing basis K on the entire recorded H cell is excluded. ')+
+              'C1, H normal form, '
               'Stage C preconditions and the complete K cover are rebuilt. Original-ball closure additionally '
               'requires the external geometric cover of that original ball.')
 
@@ -149,7 +155,7 @@ def main():
     result.update(checker_sha256=P.digest(__file__),total_seconds=time.monotonic()-start)
     a.out.write_text(json.dumps(result,indent=2)+'\n')
     print(json.dumps({k:result[k] for k in ('status','total_seconds')}),flush=True)
-    return 0 if result['status']=='CERTIFIED_EMPTY_RECORDED_H_CELL' else 1
+    return 0 if result['status'] in ('CERTIFIED_EMPTY_RECORDED_H_CELL','CERTIFIED_CLASSIFIED_RECORDED_H_CELL') else 1
 
 
 if __name__=='__main__':raise SystemExit(main())

@@ -191,6 +191,12 @@ an omitted pattern, a changed colour list, a column outside its pattern, or a mi
 An inaccurate numerical proposal can only make an inequality fail. No supplied pattern count or K
 phase enclosure is trusted for this conclusion.
 
+If the result is `CERTIFIED_CLASSIFIED_RECORDED_H_CELL`, every completing triple instead has the
+balanced common order-three symmetry certified below. The frozen recognition argument in
+`proof/theorems/TC_triple_classification/seed_method/reference/r0153/CHECKPOINT.md`, Section 8,
+including its Section 6 amplitude argument, identifies such triples as the known types.
+This status makes no assertion that a completing basis exists, and it is never reported as emptiness.
+
 ```sh
 python TripleClassification/code/plane_cell_certificate.py \
   TripleClassification/phantoms/snapshots/b1217_l6_s4759_p0.json.gz --out cell.json
@@ -222,6 +228,17 @@ column errors, H's normal error, and the signed common-w quadratic form before b
 If the Arb lower bound of |yF(q)| strictly exceeds this total upper bound, these selected captures
 cannot occur in one completing basis. No existence or uniqueness of a root at q is assumed.
 
+For the terms involving the remaining H error h, with ‖h‖ ≤ N, the implementation keeps separate
+blocks of the scalar Hessian D. If E is the norm bound for the selected K errors and C_K inserts
+their mean-zero coordinates, their contribution is at most
+
+    ‖LᵀD I_H‖ r N + ‖C_KᵀD I_H‖ E N + ‖I_HᵀD I_H‖ N²/2.
+
+Here I_H inserts an H displacement. This follows by expanding the quadratic form in Lw+C_K e+I_H h.
+The common-w quadratic term already includes the linear contribution of H₂, as in the native proof.
+Unselected K error slots are absent from C_K because their equation weights are zero. The smaller
+matrices give tighter bounds and reduce the cost of the interval norm checks.
+
 The producer proposes y by a regularized numerical solve. A saved witness contains its exact binary64
 entries. Replay checks the required zero weights and recomputes the inequality in Arb without a
 linear solve. A zero, nonfinite or unsuccessful direction cannot exclude a combination.
@@ -229,8 +246,8 @@ linear solve. A zero, nonfinite or unsuccessful direction cannot exclude a combi
 To cover a pattern, the checker enumerates every combination of retained root captures in a recorded
 column order. It prunes a branch only after a strict pair exclusion or a verified scalar exclusion
 of its three or six selected captures. Every unpruned branch is extended by every capture of the
-next column. Reaching the final column without exclusion is a failure. Thus a successful enumeration
-excludes the entire Cartesian product, including captures shared by adjacent partition pieces.
+next column. In exclusion mode, reaching the final column without exclusion is a failure. A successful
+exclusion enumerates the entire Cartesian product, including captures shared by adjacent partition pieces.
 Sparse scalar witnesses record the branches where the pair test did not suffice; replay reconstructs
 the enumeration and rejects missing, foreign, duplicate or unused witnesses. Cached inequalities
 are shared only within one unchanged cell and its verified column covers.
@@ -244,6 +261,41 @@ whole-cell replay covering all 64 K patterns. Twelve patterns use the shared-H e
 37 distinct scalar witnesses. The replay also verifies containment of the entire assigned cell in
 the recorded H ball. The original atlas radius remains its binary64 value near 0.08. This closes
 that cell without further H refinement; it does not close the whole original ball.
+
+### Classifying surviving branches
+
+Some compatible captures cannot be discarded by the exclusion tests. In classification mode, a branch
+with four, five or six selected captures can instead be discharged by the frozen moving-symmetry
+theorem. For each unselected column, retain every capture that passes all pair tests against the
+selected captures. Every completing basis on this branch must use one of these retained captures.
+
+A singleton keeps its original affine tube. A union of tubes u_i+T_i w+e_i is enclosed by a constant
+tube centered at the mean u of their centers, with radius
+
+    ε = max_i (ε_i + ‖T_i‖r + ‖u_i−u‖).
+
+The triangle inequality proves this containment for the entire common H ball. The center is projected
+into the mean-zero column space. The six resulting tubes therefore contain every completing basis
+on the branch, including combinations that the remaining pair tests would later discard.
+
+The native `moving_symmetry.prove` checks the exact balanced order-three group identities, the inverse
+defect and a strict Arb contraction bound q<1 on these tubes. Its conclusion concerns every actual
+zero in the tubes and does not require their centers to solve the MUB equations. The producer saves
+the branch prefix and the integer action. Replay rebuilds all retained sets and union bounds, then
+recomputes that symmetry proof for the saved action. Numerical matrices propose windings and a
+preconditioner; the exact identities and interval inequalities decide acceptance.
+
+The enumeration must still account for every capture combination. A branch with neither an exclusion
+nor a verified symmetry proof remains unresolved. Missing, foreign or unused symmetry witnesses are
+rejected. If any branch is discharged by symmetry, the cell's conclusion is classification, even if
+all its other branches are excluded. The frontier and tree checkers preserve this distinction through
+their `CERTIFIED_CLASSIFIED_DYADIC_CELL` status. In a tree, one classified leaf makes the parent
+classified; emptiness requires every non-outside leaf to be excluded.
+
+The level-5 cell [0,16,11,15] inside original ball 825 passed independent cell and tree replays.
+All four complete K patterns were classified, each with one symmetry witness for a pooled branch.
+The original atlas radius remains its binary64 value near 0.1. This is a classification certificate
+for that entire assigned cell, not an exclusion and not a closure of original ball 825.
 
 ## 6. Review of the upstream anchored rule
 
@@ -335,8 +387,8 @@ discards that cube only when this squared distance is strictly greater than one.
 
 Every other leaf must supply a recorded H ball and a column-partition proposal. Replay checks the
 file hashes, proves that the H ball contains that leaf's entire closed cube, and rebuilds and checks
-the complete K cover. A successful leaf therefore excludes every completing K on its part of the
-original ball. Induction up the tree excludes every completing K on the root cell's intersection
+the complete K cover. A successful leaf therefore excludes or classifies every completing K on its
+part of the original ball. Induction up the tree classifies every completing K on the root cell's intersection
 with the original closed ball. No reduction of the original radius enters this argument.
 
 A tree receipt records the exact root cell and every leaf used. It cannot substitute a certificate

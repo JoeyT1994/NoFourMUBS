@@ -103,10 +103,15 @@ def run(root,entry,out,proposal_path=None,input_path=None,depth=6):
         proposal_path=out.with_suffix('.proposal.json.gz')
         proposal_path.write_bytes(gzip.compress(json.dumps(proposal).encode(),mtime=0))
     result=Whole.check(input_path,proposal)
-    result.update(schema='tc-plane-frontier-receipt-v1',status='CERTIFIED_EMPTY_DYADIC_CELL',
+    require(result['status'] in ('CERTIFIED_EMPTY_RECORDED_H_CELL','CERTIFIED_CLASSIFIED_RECORDED_H_CELL'),
+            'whole-cell certificate failed')
+    classified=result['status']=='CERTIFIED_CLASSIFIED_RECORDED_H_CELL'
+    result.update(schema='tc-plane-frontier-receipt-v1',status='CERTIFIED_CLASSIFIED_DYADIC_CELL' if classified else
+        'CERTIFIED_EMPTY_DYADIC_CELL',
         original_atlas_sha256=PIN,ball=entry['ball'],geometry=geometry,
         legacy_record_sha256=entry['record_sha256'],proposal_sha256=digest(proposal_path),
-        scope='Every completing K is excluded for the whole recorded H ball, which contains the entire specified '
+        scope=('Every completing K has the certified balanced order-three symmetry' if classified else
+               'Every completing K is excluded')+' for the whole recorded H ball, which contains the entire specified '
               'closed dyadic cell of the original ball. The inventory is not a covering-tree certificate.')
     result['dependencies_sha256']['TripleClassification/code/plane_frontier_certificate.py']=digest(__file__)
     return result
@@ -125,7 +130,7 @@ def main():
         result=dict(status='NOT_ESTABLISHED',reason=str(exc),ball=entry['ball'],level=entry['level'],cell=entry['cell'])
     result.update(entry_sha256=digest(a.entry),checker_sha256=digest(__file__),total_seconds=time.monotonic()-start)
     a.out.write_text(json.dumps(result,indent=2)+'\n');print(json.dumps({k:result[k] for k in ('status','total_seconds')}),flush=True)
-    return 0 if result['status']=='CERTIFIED_EMPTY_DYADIC_CELL' else 1
+    return 0 if result['status'] in ('CERTIFIED_EMPTY_DYADIC_CELL','CERTIFIED_CLASSIFIED_DYADIC_CELL') else 1
 
 
 if __name__=='__main__':raise SystemExit(main())

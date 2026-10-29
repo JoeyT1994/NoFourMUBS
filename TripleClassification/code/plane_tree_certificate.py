@@ -1,7 +1,7 @@
 """Replay a complete refinement of one original dyadic H cell.
 
 Every internal node has all sixteen closed children. A leaf either misses the
-closed original unit ball strictly, or has a replayed all-K cell certificate.
+closed original unit ball strictly, or excludes or classifies every completing K.
 The conclusion concerns the root cell, not an entire original atlas ball.
 """
 import argparse
@@ -58,18 +58,22 @@ def check(entry,tree_path):
         record=read_json(inp)['record'];ctx.prec=224
         geometry=F.cell_geometry(original,record,level,cell)
         result=F.Whole.check(inp,read_json(proposal))
-        require(result['status']=='CERTIFIED_EMPTY_RECORDED_H_CELL','leaf not excluded')
+        require(result['status'] in ('CERTIFIED_EMPTY_RECORDED_H_CELL','CERTIFIED_CLASSIFIED_RECORDED_H_CELL'),
+                'leaf not classified or excluded')
         leaves.append(dict(level=level,cell=cell,geometry=geometry,input_sha256=digest(inp),
-            proposal_sha256=digest(proposal),patterns=result['patterns_total'],
+            proposal_sha256=digest(proposal),patterns=result['patterns_total'],status=result['status'],
             dependencies_sha256=result['dependencies_sha256']))
     counts=walk(tree['tree'],entry['level'],entry['cell'],check_leaf)
-    return dict(schema='tc-plane-tree-receipt-v1',status='CERTIFIED_EMPTY_DYADIC_CELL',
+    classified=any(leaf['status']=='CERTIFIED_CLASSIFIED_RECORDED_H_CELL' for leaf in leaves)
+    return dict(schema='tc-plane-tree-receipt-v1',status='CERTIFIED_CLASSIFIED_DYADIC_CELL' if classified else
+        'CERTIFIED_EMPTY_DYADIC_CELL',
         ball=entry['ball'],level=entry['level'],cell=entry['cell'],original_radius_hex=original['r'],
         original_atlas_sha256=F.PIN,root_entry_sha256=F.jsonsha(entry),tree_sha256=digest(tree_path),
         counts=counts,leaves=leaves,checker_sha256=digest(__file__),
         geometry_checker_sha256=digest(F.__file__),
         scope='Every completing K on the intersection of this entire root dyadic cell with the closed original '
-              'ball is excluded. The original radius is unchanged. A full original-ball covering audit is still required.')
+              'ball '+('has the certified balanced order-three symmetry' if classified else 'is excluded')+
+              '. The original radius is unchanged. A full original-ball covering audit is still required.')
 
 
 def main():
@@ -81,7 +85,7 @@ def main():
         result=dict(status='NOT_ESTABLISHED',reason=str(exc))
     result['seconds']=time.monotonic()-start;a.out.write_text(json.dumps(result,indent=2)+'\n')
     print(json.dumps({k:result[k] for k in ('status','seconds')}),flush=True)
-    return 0 if result['status']=='CERTIFIED_EMPTY_DYADIC_CELL' else 1
+    return 0 if result['status'] in ('CERTIFIED_EMPTY_DYADIC_CELL','CERTIFIED_CLASSIFIED_DYADIC_CELL') else 1
 
 
 if __name__=='__main__':raise SystemExit(main())
