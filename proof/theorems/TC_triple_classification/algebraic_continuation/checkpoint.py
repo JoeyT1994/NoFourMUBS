@@ -67,7 +67,7 @@ if __name__=='__main__':
     if a.destination:
         a.destination.mkdir(parents=True,exist_ok=True)
         shutil.copytree(HERE,a.destination/'algebraic_continuation',dirs_exist_ok=True,
-            ignore=shutil.ignore_patterns('__pycache__','*.pyc'))
+            ignore=shutil.ignore_patterns('__pycache__','*.pyc','.cache'))
         (a.destination/'PROGRESS.json').write_text(json.dumps(value,indent=2)+'\n')
         content=("This is an ongoing research checkpoint, not a completed proof.\n\n"
             "The pinned upstream source and previous implementation are preserved in "

@@ -83,6 +83,24 @@ Implemented proof routes
     saved scalar witnesses. See PARTITION_GEOMETRY_PROOF.txt. Count only
     completed full-ball replays, not the first-pattern pilot.
 
+  partition_cache.py, run_partition_cached.py, replay_partition_cached.py
+    Retain proposed bin and completed leaf witnesses between interrupted
+    runs. Each reused witness is checked again against the rebuilt model.
+    Full proof receipts contain every used witness and do not depend on
+    the optional cache. See CACHE_PROOF.txt. Before restarting a worker
+    after an interrupted cache append, run recover_cache.py on that
+    worker's cache files while no worker is writing them. It preserves
+    the interrupted bytes, removes only a malformed final record, and
+    rejects interior corruption. Lost proposals leave regions unresolved.
+
+  contracted_symmetry.py, run_curvature_bins.py, replay_curvature_bins.py
+    Contract the signed symmetry Hessian with the actual H2 and X error
+    carriers before taking norms. See CURVATURE_PROOF.txt. This retains
+    the native symmetry theorem and strengthens one sufficient bound.
+    Regression tests check the tensor identities and admissible errors.
+    Its ongoing pilots do not count as new certified balls unless their
+    complete independent replays appear in the checkpoint ledger.
+
   seed_partition.py and transfer_cover.py
     Base partition geometry and experimental geometric transfers.
     TRANSFER_PROOF.txt states the upstream theorem dependencies. Failed
@@ -148,7 +166,8 @@ batch_hybrid.py runs independent per-ball processes with an external
 time limit. A timeout is NOT ESTABLISHED. Use a new results directory for
 each source version. Existing files are skipped by that batch utility,
 so a skipped row is not evidence that it matches a changed source.
-replay_batch.py follows eager-batch completions during an active run.
+replay_batch.py follows completions during an active run. Select the
+matching replay program with --driver when using a different proof route.
 
 Every proof receipt is paired with a .manifest.json file. The manifests
 bind explicit source files and the atlas checksum. Do not edit a bound

@@ -31,7 +31,7 @@ if __name__=='__main__':
     p.add_argument('--source',type=Path,required=True);p.add_argument('--destination',type=Path,required=True)
     p.add_argument('--workers',type=int,default=2);p.add_argument('--seconds',type=int,default=600)
     p.add_argument('--once',action='store_true')
-    p.add_argument('--driver',choices=['replay_bins.py','replay_tight_bins.py','replay_cubic_bins.py'],default='replay_bins.py');a=p.parse_args()
+    p.add_argument('--driver',choices=['replay_bins.py','replay_tight_bins.py','replay_cubic_bins.py','replay_partition_fast.py','replay_partition_cached.py','replay_curvature_bins.py'],default='replay_bins.py');a=p.parse_args()
     indices=set(json.loads(a.indices.read_text()));a.destination.mkdir(parents=True,exist_ok=True)
     submitted=set();futures={};seen=set()
     with concurrent.futures.ThreadPoolExecutor(max_workers=a.workers) as pool:
