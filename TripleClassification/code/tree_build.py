@@ -23,6 +23,13 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, '..', '..'))
 
 
+_CELL = None
+
+
+def _run_cell(c):
+    return _CELL(c)
+
+
 def build(atlas, index, level, out):
     sys.path[:0] = [os.path.join(ROOT, 'proof/seed_atlas/cert'), os.path.join(ROOT, 'proof/seed_atlas/driver'),
                     os.path.join(ROOT, 'proof/atlas'), HERE]
@@ -91,10 +98,10 @@ def build(atlas, index, level, out):
                 if all((('fourier' in rules) and got[n]['fourier']) or (('ordering' in rules) and (got[n]['fourier'] or got[n]['ordering'])) for n in openp):
                     closed_by_gamma.add(tuple(entry['cell'])); break
     targets=open_cells-closed_by_gamma
-    subs, cover = [], []
-    for c in sorted({c for t in targets for c in itertools.product(*[(2*x,2*x+1) for x in t])}):
+    def one_cell(c):
+        """The cover row and sub-ball record of one cell (the row without its sub-ball index), or None."""
         uc = [-1 + (2 * ci + 1) * h for ci in c]
-        if misses_ball(uc, h): continue
+        if misses_ball(uc, h): return None
         row = dict(cell=list(c))
         try:
             th = b.theta0 + b.Mth @ (b.r * np.array(uc))
@@ -120,10 +127,25 @@ def build(atlas, index, level, out):
             o = WB.wholeball_c1(sb.theta0, sb.Mth, sb.r, sb.o, sb.P, sb.U, sh, sv)
             if not o['ok']: raise ArithmeticError('sub-ball whole-ball C1 failed')
             sub['n'] = hx(math.nextafter(float(o['n_record']) * (1 + 1e-6), math.inf))
-            row.update(sub=len(subs), r=rp, n=float.fromhex(sub['n']))
-            subs.append(sub)
+            row.update(r=rp, n=float.fromhex(sub['n']))
+            return row, sub
         except Exception as e:                                     # noqa: BLE001
             row['error'] = '%s: %s' % (type(e).__name__, e)
+        return row, None
+    cells = sorted({c for t in targets for c in itertools.product(*[(2*x,2*x+1) for x in t])})
+    global _CELL
+    _CELL = one_cell
+    workers = int(os.environ.get('TC_BUILD_WORKERS', '1'))
+    if workers > 1 and len(cells) > 1:
+        import multiprocessing
+        with multiprocessing.get_context('fork').Pool(workers) as pool: results = pool.map(_run_cell, cells, chunksize=4)
+    else:
+        results = [one_cell(c) for c in cells]
+    subs, cover = [], []
+    for res in results:                                            # cells in sorted order; sub-ball indices in that order
+        if res is None: continue
+        row, sub = res
+        if sub is not None: row['sub'] = len(subs); subs.append(sub)
         cover.append(row)
     import hashlib
     out_doc = dict(format=doc.get('format'), max_level=doc.get('max_level'), seeds=subs, records=[], edge=[],

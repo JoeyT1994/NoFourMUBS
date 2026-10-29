@@ -51,7 +51,7 @@ for L in ${LEVELS:-4 5 6 7 8}; do
     rm -f -- "$LIST"
   fi
   if [ ! -f "$of" ]; then
-    TC_PARENT_DIR="$(dir $((L-1)))" TC_GAMMA_FILES="$NEW" "$PY" -W ignore "$C/tree_build.py" build "$ATLAS" "$b" "$L" "$of" || break
+    TC_BUILD_WORKERS=128 TC_PARENT_DIR="$(dir $((L-1)))" TC_GAMMA_FILES="$NEW" "$PY" -W ignore "$C/tree_build.py" build "$ATLAS" "$b" "$L" "$of" || break
   fi
   "$PY" -c "import gzip,json,sys; sys.exit(0 if json.load(gzip.open(sys.argv[1]))['seeds'] else 1)" "$of" || { echo "ball $b: nothing left to refine at level $L"; break; }
   "$PY" -W ignore "$C/score_first_run.py" "$B/frozen_bd87c69" "$G/gamma_lower.json" "$NEW" "$of" --workers 128 --seconds 300
