@@ -30,7 +30,24 @@ for L in ${LEVELS:-4 5 6 7 8}; do
     LIST="$S/.cells_b${b}_$SLURM_JOB_ID.txt"
     n=$("$PY" "$C/ball_cells.py" "$pf" "$LIST" "$NEW")
     echo "$(date +%H:%M) ball $b layer $((L-1)): $n open cells to score"
-    [ "$n" -gt 0 ] && "$PY" -W ignore "$G/gamma_test.py" batch "$B/frozen_bd87c69" "$G/gamma_lower.json" "$LIST" "$NEW" 128 900
+    if [ "$n" -gt 1500 ]; then
+      # spread the scoring over k nodes: k-1 helper jobs each score one part into its own file, this job scores part 0
+      k=$(( (n + 1499) / 1500 )); [ "$k" -gt 8 ] && k=8
+      mkdir -p "$G/gamma_v3/parts"; pids=""; parts=""
+      for i in $(seq 1 $((k-1))); do
+        PL="$S/.cells_b${b}_${SLURM_JOB_ID}_$i.txt"; PO="$G/gamma_v3/parts/b$b.${SLURM_JOB_ID}.$i.jsonl"
+        awk -v i=$i -v k=$k '(NR-1)%k==i' "$LIST" > "$PL"; parts="$parts $PO"
+        sbatch --wait --parsable --export=ALL,LISTF="$PL",OUTF="$PO" "$G/run_gamma_part.sh" > /dev/null & pids="$pids $!"
+      done
+      P0="$S/.cells_b${b}_${SLURM_JOB_ID}_0.txt"; awk -v k=$k '(NR-1)%k==0' "$LIST" > "$P0"
+      "$PY" -W ignore "$G/gamma_test.py" batch "$B/frozen_bd87c69" "$G/gamma_lower.json" "$P0" "$NEW" 128 900
+      wait $pids
+      for PO in $parts; do [ -f "$PO" ] && cat "$PO" >> "$NEW"; rm -f -- "$PO"; done
+      for i in $(seq 0 $((k-1))); do rm -f -- "$S/.cells_b${b}_${SLURM_JOB_ID}_$i.txt"; done
+      echo "$(date +%H:%M) ball $b: scored over $k nodes"
+    elif [ "$n" -gt 0 ]; then
+      "$PY" -W ignore "$G/gamma_test.py" batch "$B/frozen_bd87c69" "$G/gamma_lower.json" "$LIST" "$NEW" 128 900
+    fi
     rm -f -- "$LIST"
   fi
   if [ ! -f "$of" ]; then
