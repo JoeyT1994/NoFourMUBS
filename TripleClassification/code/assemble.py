@@ -42,27 +42,115 @@ def rows(pattern):
     return out
 
 
+def tree_col(x):
+    if not x: return ''
+    if x['status'] == 'closed':
+        return 'closed depth %d (%s; %s leaves)' % (x['depth'], x['route'], x['leaves'])
+    return x['status'][:80]
+
+
+def clean_l2(src, work):
+    """The raw level-2 receipts with unparsable (truncated) lines dropped and, for a sub-ball run twice, its closed row
+    kept (each row is a separate receipt of the same pinned run on the same seed; the auditor checks every one)."""
+    import json as J
+    best = {}
+    for line in open(src):
+        try:
+            x = J.loads(line)
+        except ValueError:
+            continue
+        i = x.get('index')
+        if i not in best or (best[i]['status'] == 'NOT ESTABLISHED' and x['status'] != 'NOT ESTABLISHED'): best[i] = x
+    base = os.path.join(work, os.path.basename(src)[:-len('.jsonl')])
+    if not os.path.exists(base + '.json.gz'): os.symlink(os.path.abspath(src[:-len('.jsonl')] + '.json.gz'), base + '.json.gz')
+    with open(base + '.jsonl', 'w') as f:
+        for i in sorted(best): f.write(J.dumps(best[i]) + '\n')
+    return base + '.json.gz'
+
+
+def trees(a, V, side, RC):
+    """Every dyadic tree we hold for each ball, tried cheapest first; the first that the pinned auditor verifies, with
+    the Stage C preconditions on every closed sub-ball, closes the ball.  Candidates: the level-2 split alone (open
+    cells only tangent); the level-2 split plus a reviewed level-3 layer; a selective chain l2..lK."""
+    import subprocess, concurrent.futures
+    if RC.sha_file(a.tree_auditor) != a.tree_auditor_sha: raise ValueError('tree auditor changed')
+    os.makedirs(a.work, exist_ok=True)
+    l2s = ','.join(a.split_version)
+    cands = collections.defaultdict(list)
+    for p in sorted(glob.glob(os.path.join(a.split_dir, 'b*_l2.jsonl'))):
+        name = os.path.basename(p)
+        if '_s' in name: continue                            # nested splits in their own frames: not part of the tree
+        i = int(name[1:].split('_')[0])
+        raw = p[:-len('.jsonl')] + '.json.gz'
+        cands[i].append(('level 2', [clean_l2(p, a.work)], [l2s]))
+        for d in a.l3_dir:
+            q = os.path.join(d, 'b%d_l3.json.gz' % i)
+            if os.path.exists(q) and os.path.exists(q[:-len('.json.gz')] + '.jsonl'):
+                cands[i].append(('level 2 + collaborator level 3', [raw, q], [l2s, a.l3_script]))
+    for d in a.chain_dir:
+        for p in sorted(glob.glob(os.path.join(d, 'parents', 'b*_l2.json.gz'))):
+            i = int(os.path.basename(p)[1:].split('_')[0])
+            layers = [p]
+            while True:
+                k = len(layers) + 2
+                q = os.path.join(d, 'children' if k == 3 else 'l%d' % k, 'b%d_l%d.json.gz' % (i, k))
+                if not (os.path.exists(q) and os.path.exists(q[:-len('.json.gz')] + '.jsonl')): break
+                layers.append(q)
+            if len(layers) > 1:
+                cands[i].append(('selective chain', layers, [l2s, a.l3_script + ',' + a.deep_script] + [a.deep_script] * (len(layers) - 2)))
+
+    def audit(i, route, layers, scripts):
+        cp = subprocess.run([sys.executable, a.tree_auditor, '--root', a.tc_tree, '--index', str(i), '--layers'] + layers
+                            + ['--scripts'] + scripts, capture_output=True, text=True)
+        try:
+            v = json.loads((cp.stdout.strip().splitlines() or ['{}'])[-1])
+        except ValueError:
+            v = {}
+        if cp.returncode != 0 or v.get('status') != 'GEOMETRY_AND_RECEIPTS_VERIFIED':
+            err = (cp.stderr.strip().splitlines() or [''])[-1]
+            return dict(status=('open below level %d' % (len(layers) + 1) if 'unresolved cell at the last level' in err
+                                else 'audit failed: ' + err[:100]), route=route)
+        missing = 0                                          # Stage C preconditions (audit F2)
+        for f in layers:
+            seeds_f, _, sha_f = RC.load_split(f)
+            for r in RC.read_jsonl(f[:-len('.json.gz')] + '.jsonl'):
+                if r.get('status') in RC.CLOSED and side.get((sha_f, r['index'])) != RC.record_sha(seeds_f[r['index']]) \
+                        and (r.get('stage_c_preconditions') or {}).get('guard_sha256') not in V.guards:
+                    missing += 1
+        if missing: return dict(status='%d closed sub-balls without Stage C preconditions' % missing, route=route)
+        return dict(status='closed', route=route, depth=len(layers) + 1, layers=v['layers'],
+                    leaves=sum(x['closed'] for x in v['layers']), tangent_cells=v['tangent_cells'])
+
+    def first(i):
+        seen = None
+        for route, layers, scripts in cands[i]:
+            x = audit(i, route, layers, scripts)
+            if x['status'] == 'closed': return i, x
+            if seen is None or route == 'selective chain': seen = x
+        return i, seen
+    with concurrent.futures.ThreadPoolExecutor(max_workers=a.workers) as pool:
+        return dict(pool.map(first, sorted(cands)))
+
+
 def main():
     import argparse
     ap = argparse.ArgumentParser()
     ap.add_argument('raw'); ap.add_argument('out')
     ap.add_argument('--tc-tree', required=True); ap.add_argument('--atlas', required=True)
     ap.add_argument('--split-version', nargs='+', required=True); ap.add_argument('--sidecar', nargs='*', default=[])
-    ap.add_argument('--refined', nargs='*', default=[], help='sharper-bound receipts (refined_batch.py) on original balls')
-    ap.add_argument('--refinement-file', nargs='*', default=[], help='accepted moving_integrated.py files (pinned by hash)')
-    ap.add_argument('--mixed-dir', help='selective mixed covers b<i>_l3.json.gz (split_mixed.py)')
-    ap.add_argument('--parent-dir', help='the level-2 parent covers b<i>_l2.json.gz those children refine')
-    ap.add_argument('--mixed-auditor'); ap.add_argument('--mixed-auditor-sha')
-    ap.add_argument('--parent-script'); ap.add_argument('--child-script')
-    ap.add_argument('--select-dir', help='selective chains: parents/b<i>_l2, children/b<i>_l3, l<k>/b<i>_l<k> (split_select.py)')
-    ap.add_argument('--select-auditor'); ap.add_argument('--select-auditor-sha')
-    ap.add_argument('--select-scripts', nargs=3, metavar=('L2', 'L3', 'L4PLUS'), help='the scripts that built each layer')
+    ap.add_argument('--tree-auditor', required=True); ap.add_argument('--tree-auditor-sha', required=True)
+    ap.add_argument('--l3-script', required=True, help='the reviewed level-3 builder (split_mixed.py)')
+    ap.add_argument('--deep-script', required=True, help='the level >= 4 builder (split_select.py)')
+    ap.add_argument('--chain-dir', nargs='*', default=[], help='selective chains: parents/b<i>_l2, children/b<i>_l3, l<k>/b<i>_l<k>')
+    ap.add_argument('--l3-dir', nargs='*', default=[], help="the collaborator's level-3 layers b<i>_l3 over the raw level-2 splits")
+    ap.add_argument('--split-dir', required=True, help='the raw level-2 splits b<i>_l2')
+    ap.add_argument('--work', required=True, help='scratch directory for cleaned level-2 receipts')
+    ap.add_argument('--workers', type=int, default=4)
     a = ap.parse_args()
     raw, out = a.raw, a.out
     sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
     import receipts as RC
-    V = RC.Validator(a.tc_tree, a.atlas, a.split_version, refinements=a.refinement_file)
-    refinement_shas = {RC.sha_file(p) for p in a.refinement_file}
+    V = RC.Validator(a.tc_tree, a.atlas, a.split_version)
     side = {}
     for x in (r for p in a.sidecar for r in RC.read_jsonl(p)):
         if x.get('status') == 'PASS' and x.get('guard_sha256') in V.guards:
@@ -75,71 +163,7 @@ def main():
     for x in rows(os.path.join(raw, 'refine25.jsonl')):
         ref[x['idx']][x['m']].append(x); ref_s += x.get('s', 0)
     tc = V.native_rows(rows(os.path.join(raw, 'tc_*.jsonl')))
-    refined = V.native_rows([r for p in a.refined for r in RC.read_jsonl(p)
-                             if r.get('refinement_sha256') in refinement_shas])
-    for j, x in refined.items():
-        if x['status'] in RC.CLOSED and tc.get(j, {}).get('status') not in RC.CLOSED:
-            tc[j] = dict(x, evidence='sharper bound (moving_integrated.py)')
-    mixed = {}
-    if a.mixed_dir:
-        import subprocess
-        if RC.sha_file(a.mixed_auditor) != a.mixed_auditor_sha: raise ValueError('mixed auditor changed')
-        for p in sorted(glob.glob(os.path.join(a.mixed_dir, 'b*_l3.json.gz'))):
-            i = int(os.path.basename(p)[1:].split('_')[0])
-            parent = os.path.join(a.parent_dir, 'b%d_l2.json.gz' % i)
-            cp = subprocess.run([sys.executable, a.mixed_auditor, '--root', a.tc_tree, '--index', str(i), '--parent', parent,
-                                 '--child', p, '--parent-script', a.parent_script, '--child-script', a.child_script],
-                                capture_output=True, text=True)
-            last = (cp.stdout.strip().splitlines() or ['{}'])[-1]
-            try:
-                verdict = json.loads(last).get('status')
-            except ValueError:
-                verdict = None
-            if cp.returncode != 0 or verdict != 'GEOMETRY_AND_RECEIPTS_VERIFIED':
-                mixed[i] = 'mixed audit failed'; continue
-            # Stage C preconditions (audit F2) for every closed sub-ball the mixed cover uses
-            missing = 0
-            for f in (parent, p):
-                seeds_f, _, sha_f = RC.load_split(f)
-                for r in RC.read_jsonl(f[:-len('.json.gz')] + '.jsonl'):
-                    if r.get('status') in RC.CLOSED and side.get((sha_f, r['index'])) != RC.record_sha(seeds_f[r['index']]) \
-                            and (r.get('stage_c_preconditions') or {}).get('guard_sha256') not in V.guards:
-                        missing += 1
-            mixed[i] = 'closed' if missing == 0 else 'mixed: %d sub-balls without Stage C precondition' % missing
-    select = {}                                              # ball -> 'closed' | 'open at level k' | failure
-    if a.select_dir:
-        import subprocess
-        if RC.sha_file(a.select_auditor) != a.select_auditor_sha: raise ValueError('chain auditor changed')
-        for p2 in sorted(glob.glob(os.path.join(a.select_dir, 'parents', 'b*_l2.json.gz'))):
-            i = int(os.path.basename(p2)[1:].split('_')[0])
-            layers = [p2]
-            while True:
-                k = len(layers) + 2
-                d = 'children' if k == 3 else 'l%d' % k
-                q = os.path.join(a.select_dir, d, 'b%d_l%d.json.gz' % (i, k))
-                if not (os.path.exists(q) and os.path.exists(q[:-len('.json.gz')] + '.jsonl')): break
-                layers.append(q)
-            if len(layers) < 2: continue
-            scripts = [a.select_scripts[0], a.select_scripts[1]] + [a.select_scripts[2]] * (len(layers) - 2)
-            cp = subprocess.run([sys.executable, a.select_auditor, '--root', a.tc_tree, '--index', str(i),
-                                 '--layers'] + layers + ['--scripts'] + scripts, capture_output=True, text=True)
-            last = (cp.stdout.strip().splitlines() or ['{}'])[-1]
-            try:
-                verdict = json.loads(last).get('status')
-            except ValueError:
-                verdict = None
-            if cp.returncode != 0 or verdict != 'GEOMETRY_AND_RECEIPTS_VERIFIED':
-                err = (cp.stderr.strip().splitlines() or [''])[-1]
-                select[i] = ('open at level %d' % (len(layers) + 1) if 'unresolved cell at the last level' in err
-                             else 'chain audit failed: ' + err[:120]); continue
-            missing = 0                                      # Stage C preconditions (audit F2) on every closed sub-ball
-            for f in layers:
-                seeds_f, _, sha_f = RC.load_split(f)
-                for r in RC.read_jsonl(f[:-len('.json.gz')] + '.jsonl'):
-                    if r.get('status') in RC.CLOSED and side.get((sha_f, r['index'])) != RC.record_sha(seeds_f[r['index']]) \
-                            and (r.get('stage_c_preconditions') or {}).get('guard_sha256') not in V.guards:
-                        missing += 1
-            select[i] = 'closed' if missing == 0 else 'chain: %d sub-balls without Stage C precondition' % missing
+    tree = trees(a, V, side, RC)                             # ball -> dict(status, depth, layers, route) or failure
     split = {}
     files = {}
     split_s = 0.0
@@ -248,19 +272,12 @@ def main():
         t = tc.get(j, {}).get('status')
         if t == 'CERTIFIED': final[j] = 'classified'
         elif t == 'CERTIFIED EMPTY': final[j] = 'empty'
-        elif j in split and split[j]['closed']:
-            final[j] = 'split'
-        elif mixed.get(j) == 'closed':
-            final[j] = 'split_mixed'
-        elif select.get(j) == 'closed':
-            final[j] = 'split_select'
-        elif j in split and split[j]['counts'].get('MISSING'):
-            final[j] = 'split_running'
-        else: final[j] = 'unresolved'
+        elif tree.get(j, {}).get('status') == 'closed': final[j] = 'tree'
+        else: final[j] = 'open'
 
     with open(os.path.join(out, 'balls.tsv'), 'w') as f:
         f.write('\t'.join(['ball', 'r', 'final', 'certifier', 'certifier_patterns', 'split', 'status', 'level',
-                           'cells_remaining', 'level3_failed_fraction',
+                           'cells_remaining', 'level3_failed_fraction', 'tree',
                            'census_unbiased', 'census_triples', 'continuous', 'isolated_fourier', 'unexplained',
                            'nearest_triple_dist']) + '\n')
         for j in range(N_SEEDS):
@@ -270,7 +287,7 @@ def main():
             if r is not None and r['failed_cells'] and r['failed_cells'][0][0] == 3:
                 f3 = len(r['failed_cells']); frac = '%.3f' % (f3 / (f3 + r['certified_cells'].get('3', 0)))
             rr = '' if r is None else r['r']
-            f.write('\t'.join(map(str, [j, rr, final[j], tcs(j), tcp(j), spl(j), s, '' if m is None else m, k, frac]
+            f.write('\t'.join(map(str, [j, rr, final[j], tcs(j), tcp(j), spl(j), s, '' if m is None else m, k, frac, tree_col(tree.get(j))]
                                    + cen_cols(j))) + '\n')
     with gzip.open(os.path.join(out, 'certifier.jsonl.gz'), 'wt') as f:   # one compact row per ball
         for j in sorted(tc):
@@ -291,7 +308,7 @@ def main():
                                for k in set(final.values())},
         certifier=dict(collections.Counter(x['status'] for x in tc.values())),
         split={str(j): split[j] for j in sorted(split)}, cell_test=dict(cnt),
-        selective={str(j): select[j] for j in sorted(select)},
+        tree={str(j): tree[j] for j in sorted(tree)},
         census=dict(balls=len(cen), triples=sum(cls.values()), classes=dict(cls)),
         cpu_hours=dict(nothird=round(sum(r.get('wall_s', 0) for r in nt.values()) / 3600, 1),
                        census=round(sum(c.get('wall_s', 0) for c in cen.values()) / 3600, 1),

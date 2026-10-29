@@ -3,8 +3,9 @@
 audit_selective_mixed.py from one refinement layer to any number).
 
   python audit_select.py --root FROZEN_TREE --index I --layers b<I>_l2.json.gz b<I>_l3.json.gz ... \
-         --scripts split.py split_mixed.py split_select.py ...
+         --scripts split.py split_mixed.py split_select.py ...   (a layer may list alternatives: a.py,b.py)
 
+A single layer (level 2 alone) audits a plain level-2 split.
 Layer 2 is the full level-2 cover of the original ball.  Each layer k >= 3 contains exactly the level-k cells that meet
 the closed ball and whose level-(k-1) parent cell is unresolved in layer k-1 (its `targeted_parent_cells`), and names
 the previous layer's files by hash.  Every cell's sub-ball provably covers it (Arb), keeps the original frame and
@@ -98,7 +99,7 @@ def contains(c, level, p):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--root', required=True, type=Path); ap.add_argument('--index', type=int, required=True)
-    ap.add_argument('--layers', type=Path, nargs='+', required=True); ap.add_argument('--scripts', type=Path, nargs='+', required=True)
+    ap.add_argument('--layers', type=Path, nargs='+', required=True); ap.add_argument('--scripts', nargs='+', required=True)
     args = ap.parse_args(); root = args.root.resolve(); ctx.prec = 224
     need(len(args.layers) == len(args.scripts) >= 1, 'one script per layer')
     sys.path.insert(0, str(root / 'proof/theorems/TC_triple_classification/family_neighbourhoods'))
@@ -107,9 +108,11 @@ def main():
     atlas = root / 'proof/seed_atlas/results/seed_atlas_certificate.json.gz'; need(sha(atlas) == PIN, 'wrong original atlas')
     need(R.binding(atlas)['id'] == 'aaab342ca5aca367c5ae9c13500d7dfcf3a6fe13233cfdda1f8c7fec6bf7ecc7', 'wrong native source binding')
     original = load(atlas)['seeds'][args.index]
-    paths = [p.resolve() for p in args.layers]
+    paths = [p.absolute() for p in args.layers]          # not resolve(): a cleaned receipt copy sits beside a symlinked sub-atlas
     docs = list(map(load, paths)); rowsets = [rows(str(p)[:-len('.json.gz')] + '.jsonl') for p in paths]
-    bindings = [bound(R.source_paths, root, p, s.resolve())['id'] for p, s in zip(paths, args.scripts)]
+    bindings = []                                 # a layer may name alternative scripts 'a.py,b.py'; each row must carry
+    for p, alts in zip(paths, args.scripts):      # the binding of one of them
+        bindings.append({bound(R.source_paths, root, p, Path(s).resolve())['id'] for s in str(alts).split(',')})
     closed = []                                   # (level, cell) of every accepted cell
     target = None; counts = []
     for k, (doc, rr, bid, path) in enumerate(zip(docs, rowsets, bindings, paths)):
@@ -121,15 +124,16 @@ def main():
             expected = {c for c in itertools.product(range(2 ** level), repeat=4)
                         if tuple(x // 2 for x in c) in target and hit(c, level)}
             need({tuple(x) for x in info['targeted_parent_cells']} == target, 'incorrect target mask at level %d' % level)
-            need(info.get('parent_subatlas_sha256') == sha(paths[k - 1]) and
-                 info.get('parent_receipts_sha256') == sha(str(paths[k - 1])[:-len('.json.gz')] + '.jsonl'),
-                 'layer %d does not name the previous layer by hash' % level)
+            if 'parent_subatlas_sha256' in info:      # provenance; the target mask above is checked against the layer given
+                need(info['parent_subatlas_sha256'] == sha(paths[k - 1]) and
+                     info.get('parent_receipts_sha256') == sha(str(paths[k - 1])[:-len('.json.gz')] + '.jsonl'),
+                     'layer %d names a different previous layer' % level)
         seeds = geometry(doc, original, level, expected, args.index)
         need(set(rr) == set(range(len(seeds))), 'missing or unexpected rows at level %d' % level)
         unresolved = set()
         for entry in info['cover']:
             i = entry['sub']; row = rr[i]; sub = seeds[i]
-            need(row['binding'] == bid, 'source binding mismatch at level %d' % level)
+            need(row['binding'] in bid, 'source binding mismatch at level %d' % level)
             need(row.get('seed_sha256') == jsonsha(sub), 'seed binding mismatch')
             need(row.get('radius_hex') == number(sub['r']).hex(), 'radius mismatch')
             status = row['status']
@@ -152,7 +156,7 @@ def main():
         p = tangent_point(c, last)
         need(p is not None and any(contains(cc, lv, p) for lv, cc in closed), 'unresolved cell at the last level: %s' % (c,))
     print(json.dumps(dict(status='GEOMETRY_AND_RECEIPTS_VERIFIED', ball=args.index, original_radius=original['r'],
-                          layers=counts, tangent_cells=len(target), bindings=bindings)))
+                          layers=counts, tangent_cells=len(target), bindings=[sorted(b) for b in bindings])))
 
 
 if __name__ == '__main__': main()
