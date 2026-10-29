@@ -8,7 +8,7 @@ for gp in sys.argv[2:]:
         try: g=json.loads(line)
         except ValueError: continue
         if "error" in g: continue
-        c={k:g[k] for k in keep}; c["patterns"]=[dict(pattern=x["pattern"],fourier=x["fourier"],ordering=x["ordering"]) for x in g["patterns"]]
+        c={k:g[k] for k in keep}; c["patterns"]=[{k:x[k] for k in ("pattern","fourier","ordering","g_up_L_hex","g_up_K_hex") if k in x} for x in g["patterns"]]
         groups[g["ball"]].append(c)
 for b,rr in groups.items():
     with open(os.path.join(out,"b%d.jsonl"%b),"w") as f:

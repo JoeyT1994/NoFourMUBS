@@ -22,6 +22,6 @@ $PY -W ignore $C/assemble.py $RAW $B/$OUT --tc-tree $B/frozen_bd87c69 --atlas $A
   --tree-auditor $C/audit_select.py --tree-auditor-sha $(sha256sum $C/audit_select.py | cut -c1-64) \
   --l3-script $C/split_mixed.py --deep-script $C/split_select.py \
   --chain-dir $B/selective $B/selective2 --l3-dir $B/projection_more_20261028 $B/tc_selective_round2 $B/tc_selective_batch \
-  --gamma-dir $B/selective \
+  --gamma-dir $B/selective/gamma_v2 --gamma-lower $B/selective/gamma_lower.json \
   --gamma-sha $(sha256sum $B/selective/gamma_test.py | cut -c1-64) --gamma-rules ${GAMMA_RULES:-fourier,ordering}
 rm -rf -- "$RAW" "$B/$OUT.work"   # scratch: symlinks and cleaned receipt copies; the results stay in $B/$OUT

@@ -126,7 +126,7 @@ def trees(a, V, side, RC, side_guard=None, out=None):
     if a.gamma_rules and a.gamma_dir:
         # per-ball receipt files already split (rusty/gamma_by_ball.py) plus each chain's own new receipts: hand each
         # auditor its ball's files without reading every receipt again
-        for p in glob.glob(os.path.join(a.gamma_dir, 'gamma_by_ball', 'b*.jsonl')) + glob.glob(os.path.join(a.gamma_dir, 'gamma_new', 'b*.jsonl')):
+        for p in glob.glob(os.path.join(a.gamma_dir, 'b*.jsonl')):
             b = int(os.path.basename(p)[1:].split('.')[0])
             per_ball.setdefault(b, []).append(p)
     elif a.gamma_rules:
@@ -144,7 +144,7 @@ def trees(a, V, side, RC, side_guard=None, out=None):
                         continue
                     if 'error' in g or g.get('gamma_sha256') != a.gamma_sha: continue
                     c = {k: g[k] for k in keep}
-                    c['patterns'] = [dict(pattern=x['pattern'], fourier=x['fourier'], ordering=x['ordering'])
+                    c['patterns'] = [{k: x[k] for k in ('pattern', 'fourier', 'ordering', 'g_up_L_hex', 'g_up_K_hex') if k in x}
                                      for x in g['patterns']]
                     groups[g['ball']].append(c)
         for b, rr in groups.items():
@@ -164,8 +164,8 @@ def trees(a, V, side, RC, side_guard=None, out=None):
         return x
 
     def audit_fresh(i, route, layers, scripts):
-        extra = (['--gamma'] + per_ball.get(i, []) + ['--gamma-sha', a.gamma_sha,
-                  '--gamma-rules', a.gamma_rules]) if a.gamma_rules else []
+        extra = (['--gamma'] + per_ball.get(i, []) + ['--gamma-sha', a.gamma_sha, '--gamma-rules', a.gamma_rules,
+                  '--gamma-lower', a.gamma_lower, '--gamma-lower-sha', RC.sha_file(a.gamma_lower)]) if a.gamma_rules else []
         cp = subprocess.run([sys.executable, a.tree_auditor, '--root', a.tc_tree, '--index', str(i), '--layers'] + layers
                             + ['--scripts'] + scripts + extra, capture_output=True, text=True)
         try:
@@ -215,7 +215,8 @@ def trees(a, V, side, RC, side_guard=None, out=None):
                    layers=[dict(level=2 + k, subatlas=files(p), receipts=files(p[:-len('.json.gz')] + '.jsonl'),
                                 scripts=[files(s) for s in sc.split(',')]) for k, (p, sc) in enumerate(zip(layers, scripts))],
                    stage_c=files(os.path.join(d, 'b%d.stagec.jsonl' % i)), stage_c_guards=sorted(V.guards),
-                   gamma=dict(rules=a.gamma_rules, gamma_test_sha256=a.gamma_sha, records=files(gam)) if gam else None)
+                   gamma=dict(rules=a.gamma_rules, gamma_test_sha256=a.gamma_sha, records=files(gam),
+                              lower_bounds=files(a.gamma_lower)) if gam else None)
         with open(os.path.join(d, 'b%d.json' % i), 'w') as f: json.dump(man, f, indent=1)
         return os.path.join(d, 'b%d.json' % i)
 
@@ -257,8 +258,9 @@ def main():
     ap.add_argument('--workers', type=int, default=4)
     ap.add_argument('--cache', help='JSON file of earlier tree verdicts, reused while every input file is unchanged')
     ap.add_argument('--gamma', nargs='*', default=[], help='gamma_test.py receipts (labelled Fourier score discharges)')
-    ap.add_argument('--gamma-dir', help='directory holding gamma_by_ball/ and gamma_new/ per-ball receipt files')
-    ap.add_argument('--gamma-sha'); ap.add_argument('--gamma-rules', default='', help="'fourier', 'ordering' or both")
+    ap.add_argument('--gamma-dir', help='directory of per-ball gamma receipt files b<ball>.jsonl')
+    ap.add_argument('--gamma-sha'); ap.add_argument('--gamma-lower', help='pinned Gamma_F(H) lower bounds (JSON)')
+    ap.add_argument('--gamma-rules', default='', help="'fourier', 'ordering' or both")
     a = ap.parse_args()
     raw, out = a.raw, a.out
     sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))

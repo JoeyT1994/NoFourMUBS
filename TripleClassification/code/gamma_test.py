@@ -27,6 +27,7 @@ minimum-transition theorem of TC_ordering_result).
   python gamma_test.py TC_TREE GAMMA_LOWER SUBATLAS SUB RECEIPTS.jsonl
 """
 import gzip, itertools, json, math, os, sys
+from fractions import Fraction
 import numpy as np
 
 import hashlib as _h
@@ -55,6 +56,22 @@ def best_alignment(P):
     return LABELS[best[1]], LABELS[best[2]]
 
 
+def up(x):
+    """An exact binary64 number >= every point of the Arb ball x."""
+    from flint import arb
+    v = float(x.upper())
+    while arb(v) < x.upper(): v = math.nextafter(v, math.inf)
+    return v
+
+
+def lo(x):
+    """An exact binary64 number <= every point of the Arb ball x."""
+    from flint import arb
+    v = float(x.lower())
+    while arb(v) > x.lower(): v = math.nextafter(v, -math.inf)
+    return v
+
+
 def score_upper(P, a, b, arb):
     """Arb upper bound of Gamma_F(exp iP) using the alignment (a, b); P is a 6x6 list of arb."""
     tp = 2 * arb.pi(); acc = arb(0)
@@ -62,7 +79,7 @@ def score_upper(P, a, b, arb):
         x = P[i][j] + P[k][l] - P[i][l] - P[k][j] - (arb.pi() / 3) * ((a[i] - a[k]) * (b[j] - b[l]))
         n = round(float(x.mid()) / (2 * math.pi)); y = abs(x - n * tp)
         acc += y * y
-    return float((arb(acc.upper()).sqrt() / 15).upper())       # sqrt of the upper endpoint: never NaN near 0
+    return up((arb(acc.upper()).sqrt() / 15))                    # sqrt of the upper endpoint: never NaN near 0
 
 
 M = {}
@@ -85,7 +102,7 @@ def evaluate(glow, sa, sub, row, doc=None):
     if doc is None: doc = json.load(gzip.open(sa, 'rt'))
     rec = doc['seeds'][sub]
     ball_index = (doc.get('info') or {}).get('split', {}).get('parent', sub)
-    g_h = float(glow[str(ball_index)])
+    g_h = Fraction(glow[str(ball_index)])                    # the certified lower bound, an exact decimal
     ball = R.SC.Ball(rec)
     model = P.normal_form(ball, prec=160)
     h = np.exp(1j * MS.numeric(model['Q0']).reshape(6, 6))
@@ -100,7 +117,8 @@ def evaluate(glow, sa, sub, row, doc=None):
 
     def rownorm(m, i):
         return sum((abs(m[i, j]).upper() * abs(m[i, j]).upper() for j in range(m.ncols())), arb(0)).sqrt()
-    hrad = [rownorm(u, i) * r + rownorm(h2, i) * r * r / 2 + rownorm(x, i) * tau for i in range(36)]
+    # each H phase moves by at most hrad_i from a fixed point of the centre ball q0_i (its radius is included)
+    hrad = [rownorm(u, i) * r + rownorm(h2, i) * r * r / 2 + rownorm(x, i) * tau + arb(q0[i, 0].rad()) for i in range(36)]
     dH = sum((v * v for v in hrad), arb(0)).sqrt()
     Hc = [[acb(0, q0[6 * a + c, 0]).exp() for c in range(6)] for a in range(6)]
     G2 = arb(0)
@@ -112,35 +130,50 @@ def evaluate(glow, sa, sub, row, doc=None):
     out = []
     for number in openp:
         cl = cliques[number]
-        pr = [arb(bounds[c]['phase_radius']).upper() for c in cl]
         v0 = [[prepared[c]['v0'][a, 0] for c in cl] for a in range(6)]                    # K_c phases (row a, col k)
+        # column radius about a fixed point of the centre ball v0 (its radii are included)
+        pr = [(arb(bounds[c]['phase_radius']) + sum((arb(v0[a][k].rad()) for a in range(6)), arb(0))).upper()
+              for k, c in enumerate(cl)]
         Kc = [[acb(0, v0[a][k]).exp() for k in range(6)] for a in range(6)]
         Lc = [[sum((Hc[a][c].conjugate() * Kc[a][k] for a in range(6)), acb(0)) / arb(6).sqrt() for k in range(6)]
               for c in range(6)]
-        m = min(float(abs(Lc[c][k]).lower()) for c in range(6) for k in range(6))
-        dk = [float((s * pr[k] + dH).upper()) for k in range(6)]
-        xm = max(dk) / m if m > 0 else 9
-        res = dict(pattern=number, pr=[round(float(p), 4) for p in pr], dH=float(dH.upper()), m=m)
-        if xm < 1:
-            kappa = math.asin(xm) / xm if xm > 0 else 1.0
-            E = kappa * math.sqrt(sum(d * d for d in dk)) / m * (1 + 1e-12)
-            PL = [[Lc[c][k].arg() for k in range(6)] for c in range(6)]
-            a, b = best_alignment(np.array([[float(PL[c][k].mid()) for k in range(6)] for c in range(6)]))
-            gL = score_upper(PL, a, b, arb) + 0.4 * E
-            res.update(E_L=E, g_centre_L=gL - 0.4 * E, g_up_L=gL)
-        else:
-            gL = float('inf'); res.update(g_up_L=gL)
+        # Everything below is Arb; stored bounds are exact binary64 numbers rounded outward (up, lo).
+        m = None
+        for c in range(6):
+            for k in range(6):
+                t = arb(lo(abs(Lc[c][k])))                          # exact binary64 lower bounds: exact comparisons
+                if m is None or t < m: m = t
+        dk = [arb(up(s * pr[k] + dH)) for k in range(6)]
+        res = dict(pattern=number, pr_hex=[up(arb(p)).hex() for p in pr], dH_hex=up(dH).hex(), m_hex=lo(m).hex())
+        gL = None
+        if m > 0:
+            top = dk[0]
+            for d in dk[1:]:
+                if d > top: top = d                                 # exact binary64 points: exact comparisons
+            xm = arb(up(top / m))
+            if xm < 1:
+                kappa = arb(up(xm.asin() / xm)) if xm > 0 else arb(1)   # asin(x)/x increases on [0, 1)
+                E = arb(up(kappa * sum((d * d for d in dk), arb(0)).sqrt() / m))
+                PL = [[Lc[c][k].arg() for k in range(6)] for c in range(6)]
+                a, b = best_alignment(np.array([[float(PL[c][k].mid()) for k in range(6)] for c in range(6)]))
+                centre = score_upper(PL, a, b, arb)
+                gL = up(arb(centre) + arb(2) / 5 * E)
+                res.update(E_L_hex=up(E).hex(), g_centre_L_hex=centre.hex(), g_up_L_hex=gL.hex())
         PK = [[v0[a][k] for k in range(6)] for a in range(6)]
         a, b = best_alignment(np.array([[float(PK[i][j].mid()) for j in range(6)] for i in range(6)]))
-        gK = score_upper(PK, a, b, arb) + 0.4 * math.sqrt(sum(float(p) * float(p) for p in pr)) * (1 + 1e-12)
-        res.update(g_up_K=gK, fourier=min(gL, gK) <= 19 / 50, ordering=min(gL, gK) < g_h)
+        centreK = score_upper(PK, a, b, arb)
+        prs = [arb(up(arb(p))) for p in pr]
+        gK = up(arb(centreK) + arb(2) / 5 * sum((p * p for p in prs), arb(0)).sqrt())
+        res.update(g_up_K_hex=gK.hex())
+        best = gK if gL is None else min(gL, gK)
+        res.update(fourier=Fraction(best) <= Fraction(19, 50), ordering=Fraction(best) < g_h)
         out.append(res)
     import hashlib
     sha = lambda b: hashlib.sha256(b).hexdigest()
     return dict(subatlas=os.path.basename(sa), subatlas_sha256=sha(open(sa, 'rb').read()), sub=sub,
                 seed_sha256=sha(json.dumps(rec, sort_keys=True).encode()), receipt_binding=row.get('binding'),
                 gamma_sha256=GAMMA_SHA, patterns_total=len(cliques), closed_by_certifier=sorted(closed_numbers),
-                ball=ball_index, g_lo_H=g_h, open_patterns=len(openp),
+                ball=ball_index, g_lo_H=glow[str(ball_index)], open_patterns=len(openp),
                 fourier=sum(o['fourier'] for o in out), ordering=sum(o['ordering'] for o in out), patterns=out)
 
 

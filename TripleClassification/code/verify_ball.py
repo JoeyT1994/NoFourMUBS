@@ -40,7 +40,7 @@ def main():
     m = json.load(open(a.certificate))
     if m.get('schema') != 'tc-tree-certificate-v1': fail('unknown certificate schema')
     files = [m['auditor'], m['stage_c']] + [x for L in m['layers'] for x in [L['subatlas'], L['receipts']] + L['scripts']]
-    if m.get('gamma'): files.append(m['gamma']['records'])
+    if m.get('gamma'): files += [m['gamma']['records'], m['gamma']['lower_bounds']]
     for f in files:
         if not os.path.exists(f['path']) or sha(f['path']) != f['sha256']: fail('file missing or changed: ' + f['path'])
     cmd = [sys.executable, '-W', 'ignore', m['auditor']['path'], '--root', a.root, '--index', str(m['ball']),
@@ -48,7 +48,8 @@ def main():
           ['--scripts'] + [','.join(s['path'] for s in L['scripts']) for L in m['layers']]
     if m.get('gamma'):
         cmd += ['--gamma', m['gamma']['records']['path'], '--gamma-sha', m['gamma']['gamma_test_sha256'],
-                '--gamma-rules', m['gamma']['rules']]
+                '--gamma-rules', m['gamma']['rules'], '--gamma-lower', m['gamma']['lower_bounds']['path'],
+                '--gamma-lower-sha', m['gamma']['lower_bounds']['sha256']]
     p = subprocess.run(cmd, capture_output=True, text=True)
     try:
         v = json.loads((p.stdout.strip().splitlines() or ['{}'])[-1])

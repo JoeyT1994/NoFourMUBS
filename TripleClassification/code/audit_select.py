@@ -108,7 +108,9 @@ def main():
     ap.add_argument('--root', required=True, type=Path); ap.add_argument('--index', type=int, required=True)
     ap.add_argument('--layers', type=Path, nargs='+', required=True); ap.add_argument('--scripts', nargs='+', required=True)
     ap.add_argument('--gamma', type=Path, nargs='*', default=[], help='gamma_test.py receipts for cells the certifier left open')
-    ap.add_argument('--gamma-sha', help='the pinned SHA-256 of gamma_test.py'); ap.add_argument('--gamma-rules', default='',
+    ap.add_argument('--gamma-sha', help='the pinned SHA-256 of gamma_test.py')
+    ap.add_argument('--gamma-lower', type=Path, help="the certified lower bounds of Gamma_F(H) per ball (JSON)")
+    ap.add_argument('--gamma-lower-sha', help='its pinned SHA-256'); ap.add_argument('--gamma-rules', default='',
                     help="comma-separated: 'fourier' (Gamma_F <= 19/50) and/or 'ordering' (below the ball's Gamma_F(H) bound)")
     args = ap.parse_args(); root = args.root.resolve(); ctx.prec = 224
     need(len(args.layers) == len(args.scripts) >= 1, 'one script per layer')
@@ -131,6 +133,10 @@ def main():
         bindings.append(ids)
     rules = {x for x in args.gamma_rules.split(',') if x}
     need(rules <= {'fourier', 'ordering'}, 'unknown gamma rule'); need(not rules or args.gamma_sha, 'gamma rules need --gamma-sha')
+    glow = None
+    if 'ordering' in rules:
+        need(args.gamma_lower is not None and sha(args.gamma_lower) == args.gamma_lower_sha, 'ordering needs the pinned Gamma_F(H) bounds')
+        glow = Fraction(json.load(open(args.gamma_lower))[str(args.index)])
     gamma = {}
     for gp in args.gamma:
         for l in open(gp):
@@ -159,8 +165,15 @@ def main():
             openp = set(range(g['patterns_total'])) - certified
             got = {x['pattern']: x for x in g['patterns']}
             if set(got) != openp: continue
-            if 'fourier' in rules and all(got[n]['fourier'] for n in openp): return 'fourier'
-            if 'ordering' in rules and all(got[n]['fourier'] or got[n]['ordering'] for n in openp): return 'ordering'
+            # re-derive each discharge exactly from the receipt's binary64 upper bounds (the flags are not used)
+            best = {}
+            for n in openp:
+                ups = [Fraction(float.fromhex(got[n][k])) for k in ('g_up_L_hex', 'g_up_K_hex') if k in got[n]]
+                if not ups: break
+                best[n] = min(ups)
+            if len(best) != len(openp): continue
+            if 'fourier' in rules and all(best[n] <= Fraction(19, 50) for n in openp): return 'fourier'
+            if 'ordering' in rules and all(best[n] <= Fraction(19, 50) or best[n] < glow for n in openp): return 'ordering'
         return None
 
     closed = []                                   # (level, cell) of every accepted cell
