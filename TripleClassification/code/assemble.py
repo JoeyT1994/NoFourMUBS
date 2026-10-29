@@ -103,8 +103,9 @@ def trees(a, V, side, RC):
                 cands[i].append(('selective chain', layers, [l2s, a.l3_script + ',' + a.deep_script] + [a.deep_script] * (len(layers) - 2)))
 
     def audit(i, route, layers, scripts):
+        extra = (['--gamma'] + a.gamma + ['--gamma-sha', a.gamma_sha, '--gamma-rules', a.gamma_rules]) if a.gamma_rules else []
         cp = subprocess.run([sys.executable, a.tree_auditor, '--root', a.tc_tree, '--index', str(i), '--layers'] + layers
-                            + ['--scripts'] + scripts, capture_output=True, text=True)
+                            + ['--scripts'] + scripts + extra, capture_output=True, text=True)
         try:
             v = json.loads((cp.stdout.strip().splitlines() or ['{}'])[-1])
         except ValueError:
@@ -121,16 +122,25 @@ def trees(a, V, side, RC):
                         and (r.get('stage_c_preconditions') or {}).get('guard_sha256') not in V.guards:
                     missing += 1
         if missing: return dict(status='%d closed sub-balls without Stage C preconditions' % missing, route=route)
-        return dict(status='closed', route=route, depth=len(layers) + 1, layers=v['layers'],
+        g = v.get('gamma') or {}
+        rule = 'ordering' if g.get('ordering') else ('fourier' if g.get('fourier') else 'certifier')
+        return dict(status='closed', route=route, depth=len(layers) + 1, layers=v['layers'], rule=rule, gamma=g,
                     leaves=sum(x['closed'] for x in v['layers']), tangent_cells=v['tangent_cells'])
 
+    rank = {'certifier': 0, 'fourier': 1, 'ordering': 2}
+
     def first(i):
-        seen = None
+        """The tree that closes the ball with the fewest added ingredients: the certifier alone, then the Fourier rule,
+        then the ordering rule; cheapest tree first."""
+        seen = best = None
         for route, layers, scripts in cands[i]:
             x = audit(i, route, layers, scripts)
-            if x['status'] == 'closed': return i, x
+            if x['status'] == 'closed':
+                if x['rule'] == 'certifier': return i, x
+                if best is None or rank[x['rule']] < rank[best['rule']]: best = x
+                continue
             if seen is None or route == 'selective chain': seen = x
-        return i, seen
+        return i, best or seen
     with concurrent.futures.ThreadPoolExecutor(max_workers=a.workers) as pool:
         return dict(pool.map(first, sorted(cands)))
 
@@ -149,6 +159,8 @@ def main():
     ap.add_argument('--split-dir', required=True, help='the raw level-2 splits b<i>_l2')
     ap.add_argument('--work', required=True, help='scratch directory for cleaned level-2 receipts')
     ap.add_argument('--workers', type=int, default=4)
+    ap.add_argument('--gamma', nargs='*', default=[], help='gamma_test.py receipts (labelled Fourier score discharges)')
+    ap.add_argument('--gamma-sha'); ap.add_argument('--gamma-rules', default='', help="'fourier', 'ordering' or both")
     a = ap.parse_args()
     raw, out = a.raw, a.out
     sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -275,7 +287,8 @@ def main():
         t = tc.get(j, {}).get('status')
         if t == 'CERTIFIED': final[j] = 'classified'
         elif t == 'CERTIFIED EMPTY': final[j] = 'empty'
-        elif tree.get(j, {}).get('status') == 'closed': final[j] = 'tree'
+        elif tree.get(j, {}).get('status') == 'closed':
+            final[j] = {'certifier': 'tree', 'fourier': 'tree_fourier', 'ordering': 'tree_ordering'}[tree[j]['rule']]
         else: final[j] = 'open'
 
     with open(os.path.join(out, 'balls.tsv'), 'w') as f:

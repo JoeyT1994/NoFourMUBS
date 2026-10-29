@@ -101,6 +101,9 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--root', required=True, type=Path); ap.add_argument('--index', type=int, required=True)
     ap.add_argument('--layers', type=Path, nargs='+', required=True); ap.add_argument('--scripts', nargs='+', required=True)
+    ap.add_argument('--gamma', type=Path, nargs='*', default=[], help='gamma_test.py receipts for cells the certifier left open')
+    ap.add_argument('--gamma-sha', help='the pinned SHA-256 of gamma_test.py'); ap.add_argument('--gamma-rules', default='',
+                    help="comma-separated: 'fourier' (Gamma_F <= 19/50) and/or 'ordering' (below the ball's Gamma_F(H) bound)")
     args = ap.parse_args(); root = args.root.resolve(); ctx.prec = 224
     need(len(args.layers) == len(args.scripts) >= 1, 'one script per layer')
     sys.path.insert(0, str(root / 'proof/theorems/TC_triple_classification/family_neighbourhoods'))
@@ -120,8 +123,41 @@ def main():
             if (s.parent / 'stagec_guard.py').exists():   # later split.py versions also bind their Stage C guard
                 ids.add(bound(R.source_paths, root, p, s, guard=s.parent / 'stagec_guard.py')['id'])
         bindings.append(ids)
+    rules = {x for x in args.gamma_rules.split(',') if x}
+    need(rules <= {'fourier', 'ordering'}, 'unknown gamma rule'); need(not rules or args.gamma_sha, 'gamma rules need --gamma-sha')
+    gamma = {}
+    for gp in args.gamma:
+        for l in open(gp):
+            try:
+                g = json.loads(l)
+            except ValueError:
+                continue
+            if 'error' in g or g.get('gamma_sha256') != args.gamma_sha: continue
+            gamma.setdefault((g['subatlas_sha256'], g['sub']), []).append(g)
+
+    def pattern_ok(x):
+        if x['status'] == 'CERTIFIED':
+            need(x.get('kind') == 'balanced order-three symmetry' and x.get('method') == 'averaged moving equation', 'unknown classification method')
+            need(arb(x['q']) < 1, 'symmetry bound not strict')
+
+    def discharged(row, sub, layer_sha, i):
+        """The rule ('fourier' or 'ordering') by which every pattern the certifier left open is discharged, or None."""
+        certified = {x['number'] for x in row.get('patterns', []) if x['status'] in ('CERTIFIED', 'EXCLUDED')}
+        for x in row.get('patterns', []):
+            if x['status'] in ('CERTIFIED', 'EXCLUDED'): pattern_ok(x)
+        for g in gamma.get((layer_sha, i), []):
+            if g.get('seed_sha256') != jsonsha(sub) or g.get('receipt_binding') != row['binding']: continue
+            if set(g['closed_by_certifier']) != certified: continue
+            if 'patterns_after_column_filter' in row and row['patterns_after_column_filter'] != g['patterns_total']: continue
+            openp = set(range(g['patterns_total'])) - certified
+            got = {x['pattern']: x for x in g['patterns']}
+            if set(got) != openp: continue
+            if 'fourier' in rules and all(got[n]['fourier'] for n in openp): return 'fourier'
+            if 'ordering' in rules and all(got[n]['fourier'] or got[n]['ordering'] for n in openp): return 'ordering'
+        return None
+
     closed = []                                   # (level, cell) of every accepted cell
-    target = None; counts = []
+    target = None; counts = []; live = None; used = {'fourier': 0, 'ordering': 0}
     for k, (doc, rr, bid, path) in enumerate(zip(docs, rowsets, bindings, paths)):
         level = 2 + k
         info = doc['info']['split']
@@ -137,33 +173,41 @@ def main():
                      'layer %d names a different previous layer' % level)
         seeds = geometry(doc, original, level, expected, args.index)
         need(set(rr) == set(range(len(seeds))), 'missing or unexpected rows at level %d' % level)
-        unresolved = set()
+        layer_sha = sha(path)
+        unresolved = set()                        # the certifier's open cells: the next layer refines all of them
+        still = set()                             # those that are also needed and not discharged by a gamma receipt
         for entry in info['cover']:
-            i = entry['sub']; row = rr[i]; sub = seeds[i]
+            i = entry['sub']; row = rr[i]; sub = seeds[i]; cell = tuple(entry['cell'])
             need(row['binding'] in bid, 'source binding mismatch at level %d' % level)
             need(row.get('seed_sha256') == jsonsha(sub), 'seed binding mismatch')
             need(row.get('radius_hex') == number(sub['r']).hex(), 'radius mismatch')
+            needed = k == 0 or tuple(x // 2 for x in cell) in live
             status = row['status']
             if status == 'NOT ESTABLISHED':
-                unresolved.add(tuple(entry['cell'])); continue
+                unresolved.add(cell)
+                if needed:
+                    rule = discharged(row, sub, layer_sha, i) if rules else None
+                    if rule:
+                        used[rule] += 1; closed.append((level, cell))
+                    else:
+                        still.add(cell)
+                continue
             need(status in ('CERTIFIED', 'CERTIFIED EMPTY'), 'unknown verdict')
             need(row.get('c1', {}).get('ok') is True and row.get('normal_form', {}).get('status') == 'CERTIFIED', 'missing native assumptions')
             patterns = row['patterns']
             need(len(patterns) == row['patterns_after_column_filter'] and all(x['status'] in ('CERTIFIED', 'EXCLUDED') for x in patterns), 'incomplete pattern proof')
-            for x in patterns:
-                if x['status'] == 'CERTIFIED':
-                    need(x.get('kind') == 'balanced order-three symmetry' and x.get('method') == 'averaged moving equation', 'unknown classification method')
-                    need(arb(x['q']) < 1, 'symmetry bound not strict')
+            for x in patterns: pattern_ok(x)
             need((status == 'CERTIFIED') == any(x['status'] == 'CERTIFIED' for x in patterns), 'inconsistent verdict')
-            closed.append((level, tuple(entry['cell'])))
-        counts.append(dict(level=level, cells=len(expected), closed=len(expected) - len(unresolved), open=len(unresolved)))
-        target = unresolved
+            if needed: closed.append((level, cell))
+        counts.append(dict(level=level, cells=len(expected), closed=len(expected) - len(unresolved), open=len(unresolved),
+                           still_open=len(still)))
+        target = unresolved; live = still
     last = 2 + len(docs) - 1
-    for c in target:
+    for c in live:
         p = tangent_point(c, last)
         need(p is not None and any(contains(cc, lv, p) for lv, cc in closed), 'unresolved cell at the last level: %s' % (c,))
     print(json.dumps(dict(status='GEOMETRY_AND_RECEIPTS_VERIFIED', ball=args.index, original_radius=original['r'],
-                          layers=counts, tangent_cells=len(target), bindings=[sorted(b) for b in bindings])))
+                          layers=counts, tangent_cells=len(live), gamma=used, bindings=[sorted(b) for b in bindings])))
 
 
 if __name__ == '__main__': main()
