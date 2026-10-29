@@ -54,6 +54,9 @@ def main():
     ap.add_argument('--parent-dir', help='the level-2 parent covers b<i>_l2.json.gz those children refine')
     ap.add_argument('--mixed-auditor'); ap.add_argument('--mixed-auditor-sha')
     ap.add_argument('--parent-script'); ap.add_argument('--child-script')
+    ap.add_argument('--select-dir', help='selective chains: parents/b<i>_l2, children/b<i>_l3, l<k>/b<i>_l<k> (split_select.py)')
+    ap.add_argument('--select-auditor'); ap.add_argument('--select-auditor-sha')
+    ap.add_argument('--select-scripts', nargs=3, metavar=('L2', 'L3', 'L4PLUS'), help='the scripts that built each layer')
     a = ap.parse_args()
     raw, out = a.raw, a.out
     sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -103,6 +106,40 @@ def main():
                             and (r.get('stage_c_preconditions') or {}).get('guard_sha256') not in V.guards:
                         missing += 1
             mixed[i] = 'closed' if missing == 0 else 'mixed: %d sub-balls without Stage C precondition' % missing
+    select = {}                                              # ball -> 'closed' | 'open at level k' | failure
+    if a.select_dir:
+        import subprocess
+        if RC.sha_file(a.select_auditor) != a.select_auditor_sha: raise ValueError('chain auditor changed')
+        for p2 in sorted(glob.glob(os.path.join(a.select_dir, 'parents', 'b*_l2.json.gz'))):
+            i = int(os.path.basename(p2)[1:].split('_')[0])
+            layers = [p2]
+            while True:
+                k = len(layers) + 2
+                d = 'children' if k == 3 else 'l%d' % k
+                q = os.path.join(a.select_dir, d, 'b%d_l%d.json.gz' % (i, k))
+                if not (os.path.exists(q) and os.path.exists(q[:-len('.json.gz')] + '.jsonl')): break
+                layers.append(q)
+            if len(layers) < 2: continue
+            scripts = [a.select_scripts[0], a.select_scripts[1]] + [a.select_scripts[2]] * (len(layers) - 2)
+            cp = subprocess.run([sys.executable, a.select_auditor, '--root', a.tc_tree, '--index', str(i),
+                                 '--layers'] + layers + ['--scripts'] + scripts, capture_output=True, text=True)
+            last = (cp.stdout.strip().splitlines() or ['{}'])[-1]
+            try:
+                verdict = json.loads(last).get('status')
+            except ValueError:
+                verdict = None
+            if cp.returncode != 0 or verdict != 'GEOMETRY_AND_RECEIPTS_VERIFIED':
+                err = (cp.stderr.strip().splitlines() or [''])[-1]
+                select[i] = ('open at level %d' % (len(layers) + 1) if 'unresolved cell at the last level' in err
+                             else 'chain audit failed: ' + err[:120]); continue
+            missing = 0                                      # Stage C preconditions (audit F2) on every closed sub-ball
+            for f in layers:
+                seeds_f, _, sha_f = RC.load_split(f)
+                for r in RC.read_jsonl(f[:-len('.json.gz')] + '.jsonl'):
+                    if r.get('status') in RC.CLOSED and side.get((sha_f, r['index'])) != RC.record_sha(seeds_f[r['index']]) \
+                            and (r.get('stage_c_preconditions') or {}).get('guard_sha256') not in V.guards:
+                        missing += 1
+            select[i] = 'closed' if missing == 0 else 'chain: %d sub-balls without Stage C precondition' % missing
     split = {}
     files = {}
     split_s = 0.0
@@ -215,6 +252,8 @@ def main():
             final[j] = 'split'
         elif mixed.get(j) == 'closed':
             final[j] = 'split_mixed'
+        elif select.get(j) == 'closed':
+            final[j] = 'split_select'
         elif j in split and split[j]['counts'].get('MISSING'):
             final[j] = 'split_running'
         else: final[j] = 'unresolved'
@@ -252,6 +291,7 @@ def main():
                                for k in set(final.values())},
         certifier=dict(collections.Counter(x['status'] for x in tc.values())),
         split={str(j): split[j] for j in sorted(split)}, cell_test=dict(cnt),
+        selective={str(j): select[j] for j in sorted(select)},
         census=dict(balls=len(cen), triples=sum(cls.values()), classes=dict(cls)),
         cpu_hours=dict(nothird=round(sum(r.get('wall_s', 0) for r in nt.values()) / 3600, 1),
                        census=round(sum(c.get('wall_s', 0) for c in cen.values()) / 3600, 1),
