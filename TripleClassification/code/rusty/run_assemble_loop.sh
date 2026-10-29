@@ -1,5 +1,5 @@
 #!/bin/bash
-# Live assembly: rerun assemble_all.sh into results_live every 30 minutes for up to 10 hours (cached verdicts make
+# Live assembly: rerun assemble_all.sh into results_live every 15 minutes for up to 10 hours (cached verdicts make
 # reruns cheap). The summary of each pass is appended to live_log.txt.
 #SBATCH --job-name=tc-live
 #SBATCH --partition=ccq
@@ -14,5 +14,5 @@ end=$(( $(date +%s) + 9*3600 + 1800 ))
 while [ "$(date +%s)" -lt "$end" ]; do
   OUT=results_live bash "$B/assemble_all.sh" > /dev/null 2>> "$B/live_err.txt"
   python3 -c "import json,time;s=json.load(open('$B/results_live/summary.json'));print(time.strftime('%H:%M'),s['final'])" >> "$B/live_log.txt"
-  sleep 1800
+  sleep 900
 done
