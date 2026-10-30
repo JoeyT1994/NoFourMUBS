@@ -498,7 +498,7 @@ ball	r	final	certifier	certifier_patterns	split	status	level	cells_remaining	lev
 496	0.125	empty	CERTIFIED EMPTY	0/2/0		cells		0			48	41	41	0	0	0.9456
 497	0.1	empty	CERTIFIED EMPTY	0/5/0		cells		0			48	39	39	0	0	0.5489
 498	0.125	empty	CERTIFIED EMPTY	0/0/0		whole_ball		0			48	45	45	0	0	1.2363
-499	0.1	open	NOT ESTABLISHED	0/0/64		remaining_coarse	3	2234	0.780	audit failed: ValueError: incorrect target mask at level 7	48	64	64	0	0	0.4588
+499	0.1	open	NOT ESTABLISHED	0/0/64		remaining_coarse	3	2234	0.780	open below level 6	48	64	64	0	0	0.4588
 500	0.1	empty	CERTIFIED EMPTY	0/3/0		cells		0			50	59	59	0	0	0.6486
 501	0.1	empty	CERTIFIED EMPTY	0/1/0		refined_4		0	0.179		48	12	12	0	0	0.7059
 502	0.11562499999999999	empty	CERTIFIED EMPTY	0/0/0		cells		0			48	14	14	0	0	1.1131
@@ -677,7 +677,7 @@ ball	r	final	certifier	certifier_patterns	split	status	level	cells_remaining	lev
 675	0.1	empty	CERTIFIED EMPTY	0/0/0		cells		0			48	13	13	0	0	0.9005
 676	0.1	empty	CERTIFIED EMPTY	0/2/0		remaining_coarse	3	1319	0.468		48	9	9	0	0	0.6606
 677	0.1	tree	NOT ESTABLISHED	0/9/1		refined_4		0	0.097	closed depth 2 (level 2; 256 leaves)	48	49	49	0	0	0.3722
-678	0.1	open	NOT ESTABLISHED	0/23/233		remaining_coarse	3	2284	0.797	open below level 7	52	64	64	0	0	0.3688
+678	0.1	tree_plane	NOT ESTABLISHED	0/23/233		remaining_coarse	3	2284	0.797	closed depth 7 (selective chain; 14159 leaves)	52	64	64	0	0	0.3688
 679	0.1	tree	NOT ESTABLISHED	0/0/64		refined_5		0	0.239	closed depth 4 (selective chain; 522 leaves)	48	57	57	0	0	0.3972
 680	0.1	tree	NOT ESTABLISHED	0/0/64		remaining_coarse	3	1280	0.492	closed depth 6 (selective chain; 3737 leaves)	48	58	58	0	0	0.8097
 681	0.125	empty	CERTIFIED EMPTY	0/0/0		cells		0			50	19	19	0	0	2.5542
