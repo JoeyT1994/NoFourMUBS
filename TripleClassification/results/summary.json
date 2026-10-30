@@ -4,19 +4,19 @@
   "empty": 2101,
   "tree": 372,
   "tree_anchored": 2,
-  "tree_plane": 9,
-  "open": 8,
+  "tree_plane": 8,
+  "open": 9,
   "tree_ordering": 11,
   "classified": 272
  },
  "nearest_triple_median": {
   "open": 0.091,
+  "classified": 0.083,
   "tree": 0.358,
   "empty": 0.901,
-  "tree_plane": 0.299,
   "tree_anchored": 0.304,
-  "tree_ordering": 0.198,
-  "classified": 0.083
+  "tree_plane": 0.299,
+  "tree_ordering": 0.198
  },
  "certifier": {
   "CERTIFIED EMPTY": 2101,
@@ -1222,57 +1222,8 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b493.json"
   },
   "499": {
-   "status": "closed",
-   "route": "selective chain",
-   "depth": 6,
-   "layers": [
-    {
-     "level": 2,
-     "cells": 256,
-     "closed": 100,
-     "open": 156,
-     "still_open": 156
-    },
-    {
-     "level": 3,
-     "cells": 1651,
-     "closed": 1060,
-     "open": 591,
-     "still_open": 591
-    },
-    {
-     "level": 4,
-     "cells": 7098,
-     "closed": 4610,
-     "open": 2488,
-     "still_open": 2006
-    },
-    {
-     "level": 5,
-     "cells": 26043,
-     "closed": 3043,
-     "open": 23000,
-     "still_open": 2990
-    },
-    {
-     "level": 6,
-     "cells": 53730,
-     "closed": 4053,
-     "open": 49677,
-     "still_open": 0
-    }
-   ],
-   "rule": "plane",
-   "gamma": {
-    "fourier": 17,
-    "ordering": 49927,
-    "anchored": 6892,
-    "graph": 2164,
-    "plane": 2334
-   },
-   "leaves": 12866,
-   "tangent_cells": 0,
-   "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b499.json"
+   "status": "audit failed: ValueError: artifact missing or changed",
+   "route": "selective chain"
   },
   "525": {
    "status": "closed",
