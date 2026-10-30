@@ -46,7 +46,7 @@ def jsonsha(x): return hashlib.sha256(json.dumps(x,sort_keys=True).encode()).hex
 def load(path):
     with gzip.open(path,'rt') as f: return json.load(f)
 def number(s): return float.fromhex(s) if isinstance(s,str) else float(s)
-def rows(path):
+def rows(path, accepted=None):
     def bad(x): raise ValueError('nonfinite JSON constant '+x)
     lines=Path(path).read_text().splitlines(); result=[]
     for n,s in enumerate(lines):
@@ -61,10 +61,15 @@ def rows(path):
     def rank(x):
         if x.get('status')!='NOT ESTABLISHED': return 2
         return 1 if len(x.get('patterns',[]))==x.get('patterns_after_column_filter',-1) else 0
+    # Only receipts bound to an accepted builder count (accepted: the set of accepted binding ids). A sub-ball whose
+    # receipts are all bound to unidentified code keeps a placeholder: it is open, closes by no rule that reads a
+    # row, and can only be refined or closed by a whole-cell proof, which needs no row.
     out={}
     for x in result:
         i=x['index']
-        if i not in out or rank(x)>rank(out[i]): out[i]=x
+        if accepted is not None and x.get('binding') not in accepted:
+            out.setdefault(i,dict(index=i,status='NOT ESTABLISHED',unbound=True)); continue
+        if i not in out or out[i].get('unbound') or rank(x)>rank(out[i]): out[i]=x
     return out
 def hit(c,level):
     n=2**level
@@ -157,7 +162,7 @@ def main():
     need(R.binding(atlas)['id'] == 'aaab342ca5aca367c5ae9c13500d7dfcf3a6fe13233cfdda1f8c7fec6bf7ecc7', 'wrong native source binding')
     original = load(atlas)['seeds'][args.index]
     paths = [p.absolute() for p in args.layers]          # not resolve(): a cleaned receipt copy sits beside a symlinked sub-atlas
-    docs = list(map(load, paths)); rowsets = [rows(str(p)[:-len('.json.gz')] + '.jsonl') for p in paths]
+    docs = list(map(load, paths))
     plane = None
     if args.plane:
         sys.path.insert(0, str(root / 'TripleClassification/code'))
@@ -198,6 +203,7 @@ def main():
             if (s.parent / 'gamma_test.py').exists():     # score_first_run.py also binds the score it uses
                 ids.add(bound(R.source_paths, root, p, s, gamma=s.parent / 'gamma_test.py')['id'])
         bindings.append(ids)
+    rowsets = [rows(str(p)[:-len('.json.gz')] + '.jsonl', bid) for p, bid in zip(paths, bindings)]
     rules = {x for x in args.gamma_rules.split(',') if x}
     need(rules <= {'fourier', 'ordering', 'anchored', 'graph'}, 'unknown gamma rule')
     need('graph' not in rules or (args.graph_dir and args.graph_sha and args.graph_runner_sha), 'graph needs the pinned checker, its directory and the runner')
@@ -349,9 +355,10 @@ def main():
         still = set()                             # those that are also needed and not discharged by a gamma receipt
         for entry in info['cover']:
             i = entry['sub']; row = rr[i]; sub = seeds[i]; cell = tuple(entry['cell'])
-            need(row['binding'] in bid, 'source binding mismatch at level %d' % level)
-            need(row.get('seed_sha256') == jsonsha(sub), 'seed binding mismatch')
-            need(row.get('radius_hex') == number(sub['r']).hex(), 'radius mismatch')
+            if not row.get('unbound'):
+                need(row['binding'] in bid, 'source binding mismatch at level %d' % level)
+                need(row.get('seed_sha256') == jsonsha(sub), 'seed binding mismatch')
+                need(row.get('radius_hex') == number(sub['r']).hex(), 'radius mismatch')
             needed = k == 0 or tuple(x // 2 for x in cell) in live
             status = row['status']
             if status == 'NOT ESTABLISHED':

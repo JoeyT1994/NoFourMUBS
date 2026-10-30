@@ -65,6 +65,19 @@ def main():
             q = os.path.join(d, '4_12_5_12_12', 'frontier.proposal.json.gz'); open(q, 'ab').write(b'\0')
         cases.append(('a modified proof file after caching', ['--plane', os.path.join(d, 'manifest.json'), '--plane-cache', cache],
                       lambda rc, v, e: rc != 0 and 'unresolved cell' in e, tamper))
+        def foreign():                                 # the cell's only row bound to unidentified code; the proof still closes it
+            rr = [json.loads(l) for l in open(p)]
+            for r in rr:
+                if r['index'] == 1: r['binding'] = '0' * 64
+            with open(p, 'w') as f:
+                for r in rr: f.write(json.dumps(r) + '\n')
+            for f_ in ('replay_cache.json', 'replay_cache.jobs.json'):
+                q = os.path.join(d, f_); os.path.exists(q) and os.remove(q)
+            shutil.rmtree(os.path.join(d, '4_12_5_12_12')); shutil.copytree(cdir, os.path.join(d, '4_12_5_12_12'))
+            subprocess.run([sys.executable, '-W', 'ignore', os.path.join(HERE, 'rusty', 'plane_manifest.py'), proot, d, '491'],
+                           capture_output=True, text=True, cwd=proot)
+        cases.append(('a foreign-bound row, closed by the plane proof', ['--plane', os.path.join(d, 'manifest.json')],
+                      lambda rc, v, e: rc == 0 and v['gamma'].get('plane') == 1, foreign))
         for case in cases:
             name, extra, ok = case[:3]
             if len(case) > 3: case[3]()

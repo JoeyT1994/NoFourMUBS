@@ -75,8 +75,8 @@ def main():
     check('491: stop at level 3 (open cell left)', False, 491, ['b491_l2', 'b491_l3'], reason='unresolved cell')
     check('491: a closed level-4 row marked open', False, 491, ['b491_l2', 'b491_l3', 'b491_l4'],
           edit_row('b491_l4', closed, lambda r: r.update(status='NOT ESTABLISHED')), 'unresolved cell')
-    check('491: a level-4 row with a foreign binding', False, 491, ['b491_l2', 'b491_l3', 'b491_l4'],
-          edit_row('b491_l4', closed, lambda r: r.update(binding='0' * 64)), 'source binding mismatch')
+    check('491: a level-4 row with a foreign binding (its cell is open)', False, 491, ['b491_l2', 'b491_l3', 'b491_l4'],
+          edit_row('b491_l4', closed, lambda r: r.update(binding='0' * 64)), 'unresolved cell')
     check('491: a level-4 row with another seed hash', False, 491, ['b491_l2', 'b491_l3', 'b491_l4'],
           edit_row('b491_l4', closed, lambda r: r.update(seed_sha256='0' * 64)), 'seed binding mismatch')
 
@@ -101,8 +101,8 @@ def main():
         return f
     check('491: a second, open receipt for a closed sub-ball', True, 491, ['b491_l2', 'b491_l3', 'b491_l4'],
           dup_first(lambda r: r.update(status='NOT ESTABLISHED', patterns=[])))
-    check('491: a second closed receipt with a foreign binding', False, 491, ['b491_l2', 'b491_l3', 'b491_l4'],
-          dup_first(lambda r: r.update(binding='0' * 64)), 'source binding mismatch')
+    check('491: a second closed receipt with a foreign binding (ignored)', True, 491, ['b491_l2', 'b491_l3', 'b491_l4'],
+          dup_first(lambda r: r.update(binding='0' * 64)))
     check('491: a level-3 cell removed from the cover', False, 491, ['b491_l2', 'b491_l3', 'b491_l4'],
           edit_info('b491_l3', lambda d: d['info']['split']['cover'].pop()), None)
     check('491: level 4 names another level-3 file', False, 491, ['b491_l2', 'b491_l3', 'b491_l4'],
