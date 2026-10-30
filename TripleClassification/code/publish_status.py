@@ -54,10 +54,11 @@ def main():
              '| · tree, some leaves closed by the minimum-transition ordering (`GAMMA_PROOF.md`) | %d |' % by_rule['ordering'],
              '| · tree, some leaves closed by anchored-column exclusions (`ANCHORED_PROOF.md`) | %d |' % by_rule['anchored'],
              '| · tree, some leaves closed by replayed all-K cell proofs (`PLANE_COLUMN_PROOF.md`) | %d |' % by_rule['plane'],
+             '| · tree, some leaves closed by whole-cell graph exclusions (`GRAPH_PROOF.md`) | %d |' % by_rule['graph'],
              '| **Open** | **%d** |' % len(opened)]
     for k, n in sorted(why.items(), key=lambda x: -x[1]): lines.append('| · %s | %d |' % (k, n))
     lines += ['', 'Certified pieces: {:,} whole balls and {:,} sub-balls in trees.'.format(whole, leaves),
-              'The two score rules and the anchored-column exclusion come from the collaborator\'s returns of 29 October and'
+              'The two score rules, the anchored-column exclusion and the graph exclusion come from the collaborator\'s returns of 29 October and'
               ' await independent review.'
               ' Closures by the ordering rule hold in the restricted sense of that theorem, so they count only once'
               ' every ball is closed.', '']

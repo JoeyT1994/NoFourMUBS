@@ -45,6 +45,7 @@ def main():
     if m.get('gamma'): files += [m['gamma']['records'], m['gamma']['lower_bounds']]
     if m.get('anchored'): files += [m['anchored']['records']]
     if m.get('plane'): files += [m['plane']]
+    if m.get('graph'): files += [m['graph']['records']] + m['graph']['checker_files']
     for f in files:
         if not os.path.exists(f['path']) or sha(f['path']) != f['sha256']: fail('file missing or changed: ' + f['path'])
     cmd = [sys.executable, '-W', 'ignore', m['auditor']['path'], '--root', a.root, '--index', str(m['ball']),
@@ -59,6 +60,10 @@ def main():
         cmd += ['--anchored', m['anchored']['records']['path'], '--anchored-sha', m['anchored']['checker_sha256'],
                 '--anchored-runner-sha', m['anchored']['runner_sha256']]
     if m.get('plane'): cmd += ['--plane', m['plane']['path']]
+    if m.get('graph'):
+        if not m.get('gamma') and not m.get('anchored'): cmd += ['--gamma-rules', 'graph']
+        cmd += ['--graph', m['graph']['records']['path'], '--graph-dir', m['graph']['checker_dir'],
+                '--graph-sha', m['graph']['checker_sha256'], '--graph-runner-sha', m['graph']['runner_sha256']]
     p = subprocess.run(cmd, capture_output=True, text=True)
     try:
         v = json.loads((p.stdout.strip().splitlines() or ['{}'])[-1])

@@ -18,7 +18,9 @@ the last layer's unresolved cells are only tangent ones: a cell meeting the clos
 Optional rules (--gamma-rules) also close a certifier-open cell when every pattern the certifier left open is
 discharged: by the labelled Fourier score (gamma_test.py receipts, 'fourier' and 'ordering'; GAMMA_PROOF.md), or by an
 anchored-column exclusion of that single pattern ('anchored': anchored_run.py receipts of the pinned
-anchored_column_certificate.py, bound to the row's record, pattern count and pattern colours; ANCHORED_PROOF.md)."""
+anchored_column_certificate.py, bound to the row's record, pattern count and pattern colours; ANCHORED_PROOF.md), or by
+a whole-cell graph exclusion of that pattern ('graph': graph_run.py receipts of the collaborator's pinned
+hardball/certify_graph.py; GRAPH_PROOF.md)."""
 import argparse, gzip, hashlib, itertools, json, os, sys
 from fractions import Fraction
 from pathlib import Path
@@ -132,6 +134,10 @@ def main():
     ap.add_argument('--anchored-sha', help='the pinned SHA-256 of anchored_column_certificate.py')
     ap.add_argument('--anchored-runner-sha', help='the pinned SHA-256 of anchored_run.py')
     ap.add_argument('--plane', type=Path, help='hash-bound all-K cell trees, mathematically replayed during this audit')
+    ap.add_argument('--graph', type=Path, nargs='*', default=[], help='graph_run.py receipts')
+    ap.add_argument('--graph-dir', type=Path, help='the pinned hardball checker directory (certify_graph.py and its modules)')
+    ap.add_argument('--graph-sha', help='the pinned SHA-256 of certify_graph.py')
+    ap.add_argument('--graph-runner-sha', help='the pinned SHA-256 of graph_run.py')
     args = ap.parse_args(); root = args.root.resolve(); ctx.prec = 224
     need(len(args.layers) == len(args.scripts) >= 1, 'one script per layer')
     sys.path.insert(0, str(root / 'proof/theorems/TC_triple_classification/family_neighbourhoods'))
@@ -158,7 +164,8 @@ def main():
                 ids.add(bound(R.source_paths, root, p, s, gamma=s.parent / 'gamma_test.py')['id'])
         bindings.append(ids)
     rules = {x for x in args.gamma_rules.split(',') if x}
-    need(rules <= {'fourier', 'ordering', 'anchored'}, 'unknown gamma rule')
+    need(rules <= {'fourier', 'ordering', 'anchored', 'graph'}, 'unknown gamma rule')
+    need('graph' not in rules or (args.graph_dir and args.graph_sha and args.graph_runner_sha), 'graph needs the pinned checker, its directory and the runner')
     need(not rules & {'fourier', 'ordering'} or args.gamma_sha, 'gamma rules need --gamma-sha')
     need('anchored' not in rules or (args.anchored_sha and args.anchored_runner_sha), 'anchored needs the pinned checker and runner')
     glow = None
@@ -187,6 +194,28 @@ def main():
             if x.get('H_model_rebuilt_from_record') is not True: continue
             anchored.setdefault((x['subatlas_sha256'], x['sub']), {}).setdefault(x['pattern'], []).append(x)
     frozen = {}
+    graphs = {}                                   # (sub-atlas sha, sub) -> {pattern: [receipts]}
+    for gp_ in (args.graph if 'graph' in rules else []):
+        for l in open(gp_):
+            try:
+                x = json.loads(l)
+            except ValueError:
+                continue
+            if x.get('schema') != 'tc-hardballs-graph-certificate-v1' or x.get('status') != 'PROVED_PATTERN_EXCLUSION': continue
+            if x.get('runner_sha256') != args.graph_runner_sha or (x.get('dependencies_sha256') or {}).get('certify_graph.py') != args.graph_sha: continue
+            graphs.setdefault((x['subatlas_sha256'], x['sub']), {}).setdefault(x['pattern'], []).append(x)
+    gdeps = {}
+
+    def graph_ok(x, row, sub, n):
+        """A graph receipt excludes pattern n of this row: same record, pattern count and colours, the pinned
+        checker's own modules, and its minimum normalized overlap read back positive."""
+        pats = row.get('patterns', [])
+        if not (n < len(pats) and pats[n].get('number') == n and len(pats) == row.get('patterns_after_column_filter')): return False
+        if x.get('record_sha256') != jsonsha(sub) or x.get('patterns_total') != len(pats) or x.get('pattern_colours') != pats[n].get('colors'): return False
+        for k, v in x['dependencies_sha256'].items():
+            if k not in gdeps: gdeps[k] = sha(args.graph_dir / k) if (args.graph_dir / k).is_file() else None
+            if gdeps[k] != v: return False
+        return x.get('minimum_normalized_overlap_lower') is not None and arb(x['minimum_normalized_overlap_lower']) > 0
 
     def anchored_ok(x, row, sub, n):
         """An anchored receipt excludes pattern n of this row: same record, pattern count and pattern colours, the
@@ -218,6 +247,7 @@ def main():
         for x in row.get('patterns', []):
             if x['status'] in ('CERTIFIED', 'EXCLUDED'): pattern_ok(x)
         anc = {n for n, xs in anchored.get((layer_sha, i), {}).items() if any(anchored_ok(x, row, sub, n) for x in xs)}
+        grf = {n for n, xs in graphs.get((layer_sha, i), {}).items() if any(graph_ok(x, row, sub, n) for x in xs)}
 
         def rule(openp, low, below):
             """low: patterns with a score upper bound <= 19/50; below: those under the ordering threshold."""
@@ -225,8 +255,9 @@ def main():
             if 'fourier' in rules and openp <= low: return 'fourier'
             if 'ordering' in rules and openp <= low | below: return 'ordering'
             if 'anchored' in rules and openp <= score | anc: return 'anchored'
+            if 'graph' in rules and openp <= score | anc | grf: return 'graph'
             return None
-        if anc and 'patterns_after_column_filter' in row:
+        if (anc or grf) and 'patterns_after_column_filter' in row:
             r = rule(set(range(row['patterns_after_column_filter'])) - certified, set(), set())
             if r: return r
         for g in gamma.get((layer_sha, i), []):
@@ -251,7 +282,7 @@ def main():
         return None
 
     closed = []                                   # (level, cell) of every accepted cell
-    target = None; counts = []; live = None; used = {'fourier': 0, 'ordering': 0, 'anchored': 0}
+    target = None; counts = []; live = None; used = {'fourier': 0, 'ordering': 0, 'anchored': 0, 'graph': 0}
     disch = []                                    # (level, sub) of cells closed by a rule: they use the certifier's
                                                   # cover too, so they need the Stage C preconditions like closed rows
     for k, (doc, rr, bid, path) in enumerate(zip(docs, rowsets, bindings, paths)):

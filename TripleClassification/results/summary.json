@@ -3,16 +3,18 @@
  "final": {
   "empty": 2101,
   "tree": 372,
-  "open": 19,
-  "tree_ordering": 11,
+  "tree_anchored": 2,
+  "open": 21,
+  "tree_ordering": 7,
   "classified": 272
  },
  "nearest_triple_median": {
+  "tree_anchored": 0.304,
   "tree": 0.358,
-  "empty": 0.901,
-  "open": 0.201,
-  "tree_ordering": 0.198,
-  "classified": 0.083
+  "classified": 0.083,
+  "tree_ordering": 0.191,
+  "open": 0.216,
+  "empty": 0.901
  },
  "certifier": {
   "CERTIFIED EMPTY": 2101,
@@ -47,7 +49,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -70,7 +73,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -107,7 +111,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 513,
    "tangent_cells": 0,
@@ -144,7 +149,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 506,
    "tangent_cells": 0,
@@ -167,7 +173,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 255,
    "tangent_cells": 1,
@@ -197,7 +204,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 395,
    "tangent_cells": 0,
@@ -220,7 +228,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -250,7 +259,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 474,
    "tangent_cells": 0,
@@ -294,7 +304,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 1301,
    "tangent_cells": 0,
@@ -324,7 +335,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 259,
    "tangent_cells": 0,
@@ -347,7 +359,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -370,15 +383,85 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b249.json"
   },
   "282": {
-   "status": "open below level 9",
-   "route": "selective chain"
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 9,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 149,
+     "open": 107,
+     "still_open": 107
+    },
+    {
+     "level": 3,
+     "cells": 1191,
+     "closed": 747,
+     "open": 444,
+     "still_open": 444
+    },
+    {
+     "level": 4,
+     "cells": 4870,
+     "closed": 3870,
+     "open": 1000,
+     "still_open": 267
+    },
+    {
+     "level": 5,
+     "cells": 3423,
+     "closed": 2246,
+     "open": 1177,
+     "still_open": 37
+    },
+    {
+     "level": 6,
+     "cells": 1731,
+     "closed": 1175,
+     "open": 556,
+     "still_open": 0
+    },
+    {
+     "level": 7,
+     "cells": 2822,
+     "closed": 2397,
+     "open": 425,
+     "still_open": 0
+    },
+    {
+     "level": 8,
+     "cells": 4965,
+     "closed": 3512,
+     "open": 1453,
+     "still_open": 0
+    },
+    {
+     "level": 9,
+     "cells": 13422,
+     "closed": 7202,
+     "open": 6220,
+     "still_open": 0
+    }
+   ],
+   "rule": "anchored",
+   "gamma": {
+    "fourier": 9,
+    "ordering": 1806,
+    "anchored": 112,
+    "graph": 0
+   },
+   "leaves": 21298,
+   "tangent_cells": 0,
+   "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b282.json"
   },
   "290": {
    "status": "closed",
@@ -404,7 +487,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 257,
    "tangent_cells": 0,
@@ -434,7 +518,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 309,
    "tangent_cells": 0,
@@ -464,7 +549,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 365,
    "tangent_cells": 0,
@@ -494,7 +580,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 282,
    "tangent_cells": 0,
@@ -517,7 +604,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -540,7 +628,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -563,14 +652,15 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b340.json"
   },
   "363": {
-   "status": "open below level 5",
+   "status": "audit failed: KeyError: 18",
    "route": "selective chain"
   },
   "415": {
@@ -604,7 +694,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 891,
    "tangent_cells": 0,
@@ -634,7 +725,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 272,
    "tangent_cells": 0,
@@ -664,7 +756,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 273,
    "tangent_cells": 0,
@@ -687,7 +780,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -717,7 +811,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 257,
    "tangent_cells": 0,
@@ -754,7 +849,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 501,
    "tangent_cells": 0,
@@ -784,7 +880,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 260,
    "tangent_cells": 0,
@@ -814,7 +911,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 282,
    "tangent_cells": 0,
@@ -851,7 +949,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 376,
    "tangent_cells": 0,
@@ -881,7 +980,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 396,
    "tangent_cells": 0,
@@ -904,7 +1004,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -934,7 +1035,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 283,
    "tangent_cells": 0,
@@ -964,7 +1066,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 517,
    "tangent_cells": 0,
@@ -1001,7 +1104,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 265,
    "tangent_cells": 0,
@@ -1031,14 +1135,15 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 269,
    "tangent_cells": 0,
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b493.json"
   },
   "499": {
-   "status": "open below level 5",
+   "status": "audit failed: ValueError: unparsable receipt line",
    "route": "selective chain"
   },
   "525": {
@@ -1058,7 +1163,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -1095,7 +1201,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 1943,
    "tangent_cells": 0,
@@ -1132,7 +1239,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 751,
    "tangent_cells": 0,
@@ -1162,7 +1270,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 458,
    "tangent_cells": 0,
@@ -1185,7 +1294,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -1208,7 +1318,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -1238,7 +1349,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 281,
    "tangent_cells": 0,
@@ -1268,7 +1380,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 260,
    "tangent_cells": 0,
@@ -1312,7 +1425,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 8942,
    "tangent_cells": 0,
@@ -1335,7 +1449,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 255,
    "tangent_cells": 1,
@@ -1358,7 +1473,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -1388,7 +1504,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 258,
    "tangent_cells": 0,
@@ -1422,14 +1539,15 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 260,
    "tangent_cells": 0,
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b589.json"
   },
   "595": {
-   "status": "open below level 5",
+   "status": "audit failed: KeyError: 18",
    "route": "selective chain"
   },
   "596": {
@@ -1456,7 +1574,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 257,
    "tangent_cells": 0,
@@ -1486,7 +1605,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 351,
    "tangent_cells": 0,
@@ -1516,7 +1636,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 280,
    "tangent_cells": 0,
@@ -1546,7 +1667,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 280,
    "tangent_cells": 0,
@@ -1583,7 +1705,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 448,
    "tangent_cells": 0,
@@ -1613,7 +1736,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 306,
    "tangent_cells": 0,
@@ -1643,7 +1767,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 258,
    "tangent_cells": 0,
@@ -1687,14 +1812,15 @@
    "gamma": {
     "fourier": 24,
     "ordering": 105,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 7401,
    "tangent_cells": 0,
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b636.json"
   },
   "641": {
-   "status": "open below level 6",
+   "status": "audit failed: KeyError: 7",
    "route": "selective chain"
   },
   "643": {
@@ -1714,7 +1840,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -1744,7 +1871,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 269,
    "tangent_cells": 0,
@@ -1767,62 +1895,16 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b665.json"
   },
   "666": {
-   "status": "closed",
-   "route": "selective chain",
-   "depth": 6,
-   "layers": [
-    {
-     "level": 2,
-     "cells": 256,
-     "closed": 101,
-     "open": 155,
-     "still_open": 155
-    },
-    {
-     "level": 3,
-     "cells": 1684,
-     "closed": 738,
-     "open": 946,
-     "still_open": 946
-    },
-    {
-     "level": 4,
-     "cells": 11463,
-     "closed": 6531,
-     "open": 4932,
-     "still_open": 1024
-    },
-    {
-     "level": 5,
-     "cells": 13438,
-     "closed": 3382,
-     "open": 10056,
-     "still_open": 41
-    },
-    {
-     "level": 6,
-     "cells": 463,
-     "closed": 257,
-     "open": 206,
-     "still_open": 0
-    }
-   ],
-   "rule": "ordering",
-   "gamma": {
-    "fourier": 1834,
-    "ordering": 12295,
-    "anchored": 0
-   },
-   "leaves": 11009,
-   "tangent_cells": 0,
-   "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b666.json"
+   "status": "audit failed: KeyError: 73",
+   "route": "selective chain"
   },
   "671": {
    "status": "closed",
@@ -1848,7 +1930,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 519,
    "tangent_cells": 0,
@@ -1871,14 +1954,15 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b677.json"
   },
   "678": {
-   "status": "open below level 6",
+   "status": "audit failed: ValueError: unparsable receipt line",
    "route": "selective chain"
   },
   "679": {
@@ -1912,7 +1996,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 522,
    "tangent_cells": 0,
@@ -1963,7 +2048,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 3737,
    "tangent_cells": 0,
@@ -1986,7 +2072,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -2016,7 +2103,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 257,
    "tangent_cells": 0,
@@ -2039,7 +2127,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -2076,7 +2165,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 1095,
    "tangent_cells": 0,
@@ -2106,7 +2196,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 354,
    "tangent_cells": 0,
@@ -2136,7 +2227,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 294,
    "tangent_cells": 0,
@@ -2159,7 +2251,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -2210,7 +2303,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 4824,
    "tangent_cells": 0,
@@ -2261,7 +2355,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 5200,
    "tangent_cells": 0,
@@ -2298,7 +2393,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 321,
    "tangent_cells": 0,
@@ -2328,7 +2424,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 384,
    "tangent_cells": 0,
@@ -2372,7 +2469,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 1929,
    "tangent_cells": 0,
@@ -2416,62 +2514,16 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 4888,
    "tangent_cells": 0,
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b733.json"
   },
   "734": {
-   "status": "closed",
-   "route": "selective chain",
-   "depth": 6,
-   "layers": [
-    {
-     "level": 2,
-     "cells": 256,
-     "closed": 162,
-     "open": 94,
-     "still_open": 94
-    },
-    {
-     "level": 3,
-     "cells": 966,
-     "closed": 755,
-     "open": 211,
-     "still_open": 211
-    },
-    {
-     "level": 4,
-     "cells": 2074,
-     "closed": 1397,
-     "open": 677,
-     "still_open": 677
-    },
-    {
-     "level": 5,
-     "cells": 7537,
-     "closed": 3464,
-     "open": 4073,
-     "still_open": 16
-    },
-    {
-     "level": 6,
-     "cells": 127,
-     "closed": 83,
-     "open": 44,
-     "still_open": 0
-    }
-   ],
-   "rule": "ordering",
-   "gamma": {
-    "fourier": 4,
-    "ordering": 4097,
-    "anchored": 0
-   },
-   "leaves": 5861,
-   "tangent_cells": 0,
-   "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b734.json"
+   "status": "audit failed: KeyError: 34",
+   "route": "selective chain"
   },
   "740": {
    "status": "closed",
@@ -2490,7 +2542,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -2527,7 +2580,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 922,
    "tangent_cells": 0,
@@ -2550,7 +2604,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -2580,7 +2635,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 559,
    "tangent_cells": 0,
@@ -2610,7 +2666,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 306,
    "tangent_cells": 0,
@@ -2633,7 +2690,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -2677,7 +2735,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 1038,
    "tangent_cells": 0,
@@ -2700,7 +2759,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -2737,14 +2797,15 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 1579,
    "tangent_cells": 0,
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b767.json"
   },
   "768": {
-   "status": "open below level 5",
+   "status": "audit failed: KeyError: 21",
    "route": "selective chain"
   },
   "769": {
@@ -2771,7 +2832,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 440,
    "tangent_cells": 0,
@@ -2801,7 +2863,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 326,
    "tangent_cells": 0,
@@ -2831,55 +2894,16 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 257,
    "tangent_cells": 0,
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b773.json"
   },
   "777": {
-   "status": "closed",
-   "route": "selective chain",
-   "depth": 5,
-   "layers": [
-    {
-     "level": 2,
-     "cells": 256,
-     "closed": 83,
-     "open": 173,
-     "still_open": 173
-    },
-    {
-     "level": 3,
-     "cells": 1914,
-     "closed": 1126,
-     "open": 788,
-     "still_open": 788
-    },
-    {
-     "level": 4,
-     "cells": 10027,
-     "closed": 8849,
-     "open": 1178,
-     "still_open": 34
-    },
-    {
-     "level": 5,
-     "cells": 399,
-     "closed": 221,
-     "open": 178,
-     "still_open": 0
-    }
-   ],
-   "rule": "ordering",
-   "gamma": {
-    "fourier": 16,
-    "ordering": 1306,
-    "anchored": 0
-   },
-   "leaves": 10279,
-   "tangent_cells": 0,
-   "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b777.json"
+   "status": "audit failed: KeyError: 2",
+   "route": "selective chain"
   },
   "779": {
    "status": "closed",
@@ -2912,7 +2936,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 1731,
    "tangent_cells": 0,
@@ -2942,7 +2967,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 437,
    "tangent_cells": 0,
@@ -2979,7 +3005,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 535,
    "tangent_cells": 0,
@@ -3009,7 +3036,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 281,
    "tangent_cells": 0,
@@ -3032,7 +3060,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -3055,7 +3084,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -3085,7 +3115,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 411,
    "tangent_cells": 0,
@@ -3122,7 +3153,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 283,
    "tangent_cells": 0,
@@ -3166,14 +3198,15 @@
    "gamma": {
     "fourier": 3,
     "ordering": 336,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 6484,
    "tangent_cells": 0,
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b807.json"
   },
   "815": {
-   "status": "open below level 5",
+   "status": "audit failed: KeyError: 9",
    "route": "selective chain"
   },
   "822": {
@@ -3200,14 +3233,15 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 382,
    "tangent_cells": 0,
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b822.json"
   },
   "823": {
-   "status": "open below level 5",
+   "status": "audit failed: KeyError: 51",
    "route": "selective chain"
   },
   "825": {
@@ -3245,14 +3279,15 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 359,
    "tangent_cells": 0,
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b828.json"
   },
   "830": {
-   "status": "open below level 6",
+   "status": "audit failed: KeyError: 82",
    "route": "selective chain"
   },
   "832": {
@@ -3286,7 +3321,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 1438,
    "tangent_cells": 0,
@@ -3316,7 +3352,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 257,
    "tangent_cells": 0,
@@ -3360,7 +3397,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 16043,
    "tangent_cells": 0,
@@ -3390,7 +3428,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 291,
    "tangent_cells": 0,
@@ -3420,7 +3459,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 429,
    "tangent_cells": 0,
@@ -3450,7 +3490,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 381,
    "tangent_cells": 0,
@@ -3487,7 +3528,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 1008,
    "tangent_cells": 0,
@@ -3524,7 +3566,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 998,
    "tangent_cells": 0,
@@ -3568,7 +3611,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 3524,
    "tangent_cells": 0,
@@ -3619,7 +3663,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 7212,
    "tangent_cells": 0,
@@ -3670,7 +3715,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 14262,
    "tangent_cells": 0,
@@ -3707,14 +3753,15 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 740,
    "tangent_cells": 0,
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b853.json"
   },
   "858": {
-   "status": "open below level 5",
+   "status": "audit failed: KeyError: 31",
    "route": "selective chain"
   },
   "866": {
@@ -3741,7 +3788,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 258,
    "tangent_cells": 0,
@@ -3764,7 +3812,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -3808,7 +3857,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 1514,
    "tangent_cells": 0,
@@ -3838,7 +3888,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 332,
    "tangent_cells": 0,
@@ -3875,7 +3926,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 524,
    "tangent_cells": 0,
@@ -3905,7 +3957,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 283,
    "tangent_cells": 0,
@@ -3928,7 +3981,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -3972,7 +4026,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 2766,
    "tangent_cells": 0,
@@ -3995,7 +4050,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -4039,7 +4095,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 4059,
    "tangent_cells": 0,
@@ -4076,7 +4133,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 1362,
    "tangent_cells": 0,
@@ -4113,7 +4171,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 466,
    "tangent_cells": 0,
@@ -4143,7 +4202,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 471,
    "tangent_cells": 0,
@@ -4180,7 +4240,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 359,
    "tangent_cells": 0,
@@ -4217,7 +4278,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 1031,
    "tangent_cells": 0,
@@ -4247,7 +4309,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 757,
    "tangent_cells": 0,
@@ -4291,7 +4354,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 1483,
    "tangent_cells": 0,
@@ -4335,7 +4399,8 @@
    "gamma": {
     "fourier": 374,
     "ordering": 3530,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 17643,
    "tangent_cells": 0,
@@ -4365,7 +4430,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 270,
    "tangent_cells": 0,
@@ -4388,14 +4454,15 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b908.json"
   },
   "918": {
-   "status": "open below level 5",
+   "status": "audit failed: ValueError: unparsable receipt line",
    "route": "selective chain"
   },
   "923": {
@@ -4415,7 +4482,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -4452,7 +4520,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 738,
    "tangent_cells": 0,
@@ -4475,7 +4544,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -4519,7 +4589,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 3890,
    "tangent_cells": 0,
@@ -4542,7 +4613,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -4565,7 +4637,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -4588,7 +4661,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -4618,7 +4692,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 383,
    "tangent_cells": 0,
@@ -4648,7 +4723,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 498,
    "tangent_cells": 0,
@@ -4692,7 +4768,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 7635,
    "tangent_cells": 0,
@@ -4729,7 +4806,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 897,
    "tangent_cells": 0,
@@ -4759,7 +4837,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 270,
    "tangent_cells": 0,
@@ -4796,7 +4875,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 1031,
    "tangent_cells": 0,
@@ -4826,7 +4906,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 490,
    "tangent_cells": 0,
@@ -4856,7 +4937,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 486,
    "tangent_cells": 0,
@@ -4900,7 +4982,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 2059,
    "tangent_cells": 0,
@@ -4930,7 +5013,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 347,
    "tangent_cells": 0,
@@ -4953,14 +5037,15 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b966.json"
   },
   "987": {
-   "status": "open below level 5",
+   "status": "audit failed: KeyError: 32",
    "route": "selective chain"
   },
   "989": {
@@ -4980,7 +5065,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -5010,7 +5096,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 360,
    "tangent_cells": 0,
@@ -5033,7 +5120,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -5070,7 +5158,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 1137,
    "tangent_cells": 0,
@@ -5100,7 +5189,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 681,
    "tangent_cells": 0,
@@ -5123,7 +5213,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -5153,7 +5244,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 270,
    "tangent_cells": 0,
@@ -5183,7 +5275,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 513,
    "tangent_cells": 0,
@@ -5220,18 +5313,81 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 1559,
    "tangent_cells": 0,
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b1005.json"
   },
   "1010": {
-   "status": "open below level 7",
-   "route": "selective chain"
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 8,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 51,
+     "open": 205,
+     "still_open": 205
+    },
+    {
+     "level": 3,
+     "cells": 2324,
+     "closed": 1403,
+     "open": 921,
+     "still_open": 921
+    },
+    {
+     "level": 4,
+     "cells": 12462,
+     "closed": 10751,
+     "open": 1711,
+     "still_open": 531
+    },
+    {
+     "level": 5,
+     "cells": 7769,
+     "closed": 5126,
+     "open": 2643,
+     "still_open": 39
+    },
+    {
+     "level": 6,
+     "cells": 2342,
+     "closed": 1766,
+     "open": 576,
+     "still_open": 0
+    },
+    {
+     "level": 7,
+     "cells": 3799,
+     "closed": 3164,
+     "open": 635,
+     "still_open": 0
+    },
+    {
+     "level": 8,
+     "cells": 8752,
+     "closed": 4371,
+     "open": 4381,
+     "still_open": 0
+    }
+   ],
+   "rule": "anchored",
+   "gamma": {
+    "fourier": 22,
+    "ordering": 3622,
+    "anchored": 183,
+    "graph": 0
+   },
+   "leaves": 26632,
+   "tangent_cells": 0,
+   "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b1010.json"
   },
   "1016": {
-   "status": "open below level 4",
+   "status": "audit failed: KeyError: 8",
    "route": "selective chain"
   },
   "1022": {
@@ -5258,7 +5414,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 519,
    "tangent_cells": 0,
@@ -5281,7 +5438,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -5311,7 +5469,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 268,
    "tangent_cells": 0,
@@ -5341,7 +5500,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 268,
    "tangent_cells": 0,
@@ -5378,7 +5538,8 @@
    "gamma": {
     "fourier": 820,
     "ordering": 2653,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 7691,
    "tangent_cells": 0,
@@ -5422,7 +5583,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 3339,
    "tangent_cells": 0,
@@ -5452,7 +5614,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 638,
    "tangent_cells": 0,
@@ -5496,7 +5659,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 3902,
    "tangent_cells": 0,
@@ -5540,7 +5704,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 2634,
    "tangent_cells": 0,
@@ -5570,7 +5735,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 268,
    "tangent_cells": 0,
@@ -5593,7 +5759,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -5616,7 +5783,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -5650,7 +5818,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 471,
    "tangent_cells": 0,
@@ -5673,7 +5842,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -5710,7 +5880,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 684,
    "tangent_cells": 0,
@@ -5733,7 +5904,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -5756,7 +5928,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -5786,7 +5959,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 398,
    "tangent_cells": 0,
@@ -5816,7 +5990,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 664,
    "tangent_cells": 0,
@@ -5846,7 +6021,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 282,
    "tangent_cells": 0,
@@ -5876,7 +6052,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 460,
    "tangent_cells": 0,
@@ -5899,7 +6076,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -5929,7 +6107,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 909,
    "tangent_cells": 0,
@@ -5952,7 +6131,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -5982,7 +6162,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 339,
    "tangent_cells": 0,
@@ -6005,7 +6186,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -6042,7 +6224,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 1261,
    "tangent_cells": 0,
@@ -6072,7 +6255,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 607,
    "tangent_cells": 0,
@@ -6095,7 +6279,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -6118,7 +6303,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -6141,7 +6327,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -6164,7 +6351,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -6187,7 +6375,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -6224,7 +6413,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 816,
    "tangent_cells": 0,
@@ -6247,7 +6437,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -6270,7 +6461,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -6300,7 +6492,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 268,
    "tangent_cells": 0,
@@ -6323,7 +6516,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -6360,7 +6554,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 1015,
    "tangent_cells": 0,
@@ -6418,7 +6613,8 @@
    "gamma": {
     "fourier": 50,
     "ordering": 5476,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 20812,
    "tangent_cells": 0,
@@ -6441,7 +6637,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -6478,14 +6675,15 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 1924,
    "tangent_cells": 0,
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b1216.json"
   },
   "1217": {
-   "status": "open below level 6",
+   "status": "audit failed: KeyError: 34",
    "route": "selective chain"
   },
   "1227": {
@@ -6526,7 +6724,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 1197,
    "tangent_cells": 0,
@@ -6549,7 +6748,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -6586,7 +6786,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 1879,
    "tangent_cells": 0,
@@ -6616,7 +6817,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 388,
    "tangent_cells": 0,
@@ -6646,7 +6848,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 680,
    "tangent_cells": 0,
@@ -6690,7 +6893,8 @@
    "gamma": {
     "fourier": 112,
     "ordering": 589,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 5230,
    "tangent_cells": 0,
@@ -6734,7 +6938,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 3104,
    "tangent_cells": 0,
@@ -6757,7 +6962,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -6780,7 +6986,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -6803,7 +7010,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -6826,7 +7034,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -6849,7 +7058,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -6886,7 +7096,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 1637,
    "tangent_cells": 0,
@@ -6909,7 +7120,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 255,
    "tangent_cells": 1,
@@ -6932,7 +7144,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 255,
    "tangent_cells": 1,
@@ -6955,7 +7168,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -6978,7 +7192,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -7001,7 +7216,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -7031,7 +7247,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 268,
    "tangent_cells": 0,
@@ -7054,7 +7271,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -7077,7 +7295,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -7121,7 +7340,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 1474,
    "tangent_cells": 0,
@@ -7144,7 +7364,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -7167,7 +7388,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -7204,7 +7426,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 960,
    "tangent_cells": 0,
@@ -7227,7 +7450,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -7250,7 +7474,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -7280,7 +7505,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 257,
    "tangent_cells": 0,
@@ -7303,7 +7529,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -7326,7 +7553,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -7349,7 +7577,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -7372,7 +7601,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -7395,7 +7625,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -7418,7 +7649,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -7441,7 +7673,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -7464,7 +7697,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -7487,7 +7721,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -7510,7 +7745,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -7533,7 +7769,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -7556,7 +7793,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -7579,7 +7817,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -7602,7 +7841,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -7625,7 +7865,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -7648,7 +7889,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -7671,7 +7913,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -7694,7 +7937,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -7717,7 +7961,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -7740,7 +7985,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -7763,7 +8009,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -7793,7 +8040,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 280,
    "tangent_cells": 0,
@@ -7816,7 +8064,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -7839,7 +8088,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -7862,7 +8112,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -7885,7 +8136,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -7908,7 +8160,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -7938,7 +8191,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 273,
    "tangent_cells": 0,
@@ -7961,7 +8215,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -7984,7 +8239,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -8007,7 +8263,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -8030,7 +8287,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -8053,7 +8311,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 255,
    "tangent_cells": 1,
@@ -8076,7 +8335,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -8099,7 +8359,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -8122,7 +8383,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -8145,7 +8407,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -8168,7 +8431,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -8191,7 +8455,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -8221,7 +8486,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 257,
    "tangent_cells": 0,
@@ -8244,7 +8510,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -8267,7 +8534,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -8290,7 +8558,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -8313,7 +8582,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -8336,7 +8606,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -8366,7 +8637,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 769,
    "tangent_cells": 0,
@@ -8389,7 +8661,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -8412,7 +8685,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -8435,7 +8709,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -8458,7 +8733,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -8481,7 +8757,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -8504,7 +8781,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -8527,7 +8805,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -8564,7 +8843,8 @@
    "gamma": {
     "fourier": 1747,
     "ordering": 7832,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 10546,
    "tangent_cells": 0,
@@ -8587,7 +8867,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -8610,7 +8891,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -8633,7 +8915,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -8663,7 +8946,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 353,
    "tangent_cells": 0,
@@ -8686,7 +8970,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -8709,7 +8994,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -8732,7 +9018,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -8755,7 +9042,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -8778,7 +9066,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -8801,7 +9090,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -8824,7 +9114,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -8847,7 +9138,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -8870,7 +9162,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -8893,7 +9186,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -8916,7 +9210,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -8939,7 +9234,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -8962,7 +9258,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -8985,7 +9282,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -9008,7 +9306,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -9031,7 +9330,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -9054,7 +9354,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -9077,7 +9378,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -9100,7 +9402,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -9123,7 +9426,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -9146,7 +9450,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -9169,7 +9474,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -9192,7 +9498,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -9215,7 +9522,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -9238,7 +9546,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -9268,7 +9577,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 497,
    "tangent_cells": 0,
@@ -9298,7 +9608,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 314,
    "tangent_cells": 0,
@@ -9321,7 +9632,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 255,
    "tangent_cells": 1,
@@ -9344,7 +9656,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -9367,7 +9680,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -9390,7 +9704,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -9413,7 +9728,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -9443,7 +9759,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 257,
    "tangent_cells": 0,
@@ -9466,7 +9783,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -9489,7 +9807,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -9512,7 +9831,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -9535,7 +9855,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -9558,7 +9879,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -9588,7 +9910,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 299,
    "tangent_cells": 0,
@@ -9611,7 +9934,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -9634,7 +9958,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -9657,7 +9982,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -9680,7 +10006,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -9710,7 +10037,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 279,
    "tangent_cells": 0,
@@ -9740,7 +10068,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 442,
    "tangent_cells": 0,
@@ -9763,7 +10092,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -9793,7 +10123,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 257,
    "tangent_cells": 0,
@@ -9816,7 +10147,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -9839,7 +10171,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -9869,7 +10202,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 268,
    "tangent_cells": 0,
@@ -9892,7 +10226,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -9915,7 +10250,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -9945,7 +10281,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 416,
    "tangent_cells": 0,
@@ -9968,7 +10305,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -9991,7 +10329,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -10014,7 +10353,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -10037,7 +10377,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -10060,7 +10401,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -10083,7 +10425,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -10106,7 +10449,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -10129,7 +10473,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -10152,7 +10497,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -10175,7 +10521,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -10198,7 +10545,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -10221,7 +10569,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -10244,7 +10593,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -10267,7 +10617,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 255,
    "tangent_cells": 1,
@@ -10290,7 +10641,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -10313,7 +10665,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -10336,7 +10689,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -10359,7 +10713,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -10382,7 +10737,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -10405,7 +10761,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -10428,7 +10785,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -10451,7 +10809,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -10474,7 +10833,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -10497,7 +10857,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -10520,7 +10881,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -10543,7 +10905,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -10566,7 +10929,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -10589,7 +10953,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -10612,7 +10977,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -10635,7 +11001,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -10658,7 +11025,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -10681,7 +11049,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -10704,7 +11073,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -10727,7 +11097,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -10750,7 +11121,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -10787,7 +11159,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 1438,
    "tangent_cells": 0,
@@ -10817,7 +11190,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 468,
    "tangent_cells": 0,
@@ -10847,7 +11221,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 352,
    "tangent_cells": 0,
@@ -10870,7 +11245,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
@@ -10893,55 +11269,16 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 256,
    "tangent_cells": 0,
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b2606.json"
   },
   "2705": {
-   "status": "closed",
-   "route": "selective chain",
-   "depth": 5,
-   "layers": [
-    {
-     "level": 2,
-     "cells": 256,
-     "closed": 0,
-     "open": 256,
-     "still_open": 256
-    },
-    {
-     "level": 3,
-     "cells": 2576,
-     "closed": 743,
-     "open": 1833,
-     "still_open": 1833
-    },
-    {
-     "level": 4,
-     "cells": 23178,
-     "closed": 10124,
-     "open": 13054,
-     "still_open": 20
-    },
-    {
-     "level": 5,
-     "cells": 131,
-     "closed": 16,
-     "open": 115,
-     "still_open": 0
-    }
-   ],
-   "rule": "ordering",
-   "gamma": {
-    "fourier": 1542,
-    "ordering": 11607,
-    "anchored": 0
-   },
-   "leaves": 10883,
-   "tangent_cells": 0,
-   "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b2705.json"
+   "status": "audit failed: KeyError: 3",
+   "route": "selective chain"
   },
   "2707": {
    "status": "closed",
@@ -10967,7 +11304,8 @@
    "gamma": {
     "fourier": 0,
     "ordering": 0,
-    "anchored": 0
+    "anchored": 0,
+    "graph": 0
    },
    "leaves": 257,
    "tangent_cells": 0,
