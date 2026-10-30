@@ -3,8 +3,8 @@
 
   python plane_slim.py DIR [WORKERS]          slim everything under DIR (recursively), report bytes saved
 
-- frontier.json and replay.json (the checker's reports, up to hundreds of MB each, mostly per-pattern detail) are cut
-  to their small top-level fields: status, reason, hashes, geometry, counts, timings, everything the pipeline reads.
+- frontier.json and replay.json (the checker's reports, from ~300 kB to hundreds of MB each, mostly per-pattern detail) are cut
+  (over 64 kB) to their small top-level fields: status, reason, hashes, geometry, counts, timings, everything the pipeline reads.
   Each slimmed report records the SHA-256 and size of the full one and the keys it dropped.
 - frontier.columns.json.gz (the search's own column cache, never read by a replay) is removed once the cell's replay
   certified it.
@@ -13,7 +13,7 @@ plane_ball.py and plane_refine.py call slim_cell() on each cell as soon as its s
 import hashlib, json, os, sys
 from concurrent.futures import ThreadPoolExecutor
 
-LIMIT = int(os.environ.get('TC_SLIM_LIMIT', 1 << 20))   # reports above 1 MB are slimmed
+LIMIT = int(os.environ.get('TC_SLIM_LIMIT', 1 << 16))   # reports above 64 kB are slimmed
 KEEP = int(os.environ.get('TC_SLIM_KEEP', 4096))                         # top-level values whose JSON is at most this long are kept
 CERT = ('CERTIFIED_EMPTY_DYADIC_CELL', 'CERTIFIED_CLASSIFIED_DYADIC_CELL')
 NEED = ('status', 'reason', 'snapshot_sha256', 'proposal_sha256', 'entry_sha256', 'record_sha256', 'original_atlas_sha256',
