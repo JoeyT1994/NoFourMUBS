@@ -69,6 +69,15 @@ def main():
     with ThreadPoolExecutor(w) as pool, open('%s/plane_v1/b%d.jsonl' % (B, b), 'a') as f:
         for res in pool.map(run, tasks):
             f.write(json.dumps(res) + '\n'); f.flush()
+    # cells whose search failed mathematically: prove them as trees of their children (two levels at most)
+    failed = []
+    for c in oc['cells']:
+        d = '%s/plane_v1/b%d/%d_%s' % (B, b, oc['level'], '_'.join(map(str, c)))
+        if settled(d) and not os.path.exists(d + '/replay.json') and not os.path.exists(d + '/refined.json'): failed.append(d)
+    def refine(d):
+        subprocess.run([PY, '-W', 'ignore', os.path.join(B, 'plane_refine.py'), PR, d, '--depth', '2', '--workers', '8', '--py', PY],
+                       cwd=PR, env=dict(os.environ, OMP_NUM_THREADS='1'), capture_output=True)
+    with ThreadPoolExecutor(max(1, w // 8)) as pool: list(pool.map(refine, failed))
     # the hash-bound manifest of the certified cells, for audit_select.py --plane (which replays them)
     subprocess.run([PY, '-W', 'ignore', os.path.join(B, 'plane_manifest.py'), PR, '%s/plane_v1/b%d' % (B, b), str(b)], cwd=PR)
 

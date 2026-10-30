@@ -4,9 +4,10 @@
   python plane_manifest.py PLANE_ROOT BALL_DIR BALL
 
 BALL_DIR holds one directory per cell (plane_ball.py): entry.json, frontier.input.json.gz, frontier.proposal.json.gz
-and replay.json. For every cell whose replay certified it, this writes tree.json (a single terminal leaf binding the
-input and proposal by SHA-256 to the entry) and then BALL_DIR/manifest.json, in PR #4's tc-plane-audit-manifest-v1
-format, pinned to the checker sources of PLANE_ROOT. audit_select.py --plane replays every cell it uses; nothing here
+and replay.json, or a children tree from plane_refine.py (tree.json and refined.json). For every cell whose replay
+certified it, this writes tree.json (a single terminal leaf binding the input and proposal by SHA-256 to the entry);
+a certified refined cell keeps its children tree. It then writes BALL_DIR/manifest.json, in PR #4's
+tc-plane-audit-manifest-v1 format, pinned to the checker sources of PLANE_ROOT. audit_select.py --plane replays every cell it uses; nothing here
 is accepted as a verdict.
 """
 import json, os, sys
@@ -23,16 +24,20 @@ def main():
     from plane_column_certificate import digest
     cells = []
     for c in sorted(p for p in d.iterdir() if p.is_dir()):
-        try:
-            rep = json.load(open(c / 'replay.json'))
-        except (OSError, ValueError):
+        def status(name):
+            try: return json.load(open(c / name)).get('status')
+            except (OSError, ValueError): return None
+        entry = json.load(open(c / 'entry.json')) if (c / 'entry.json').exists() else None
+        if entry is None: continue
+        if status('refined.json') in CERTIFIED and (c / 'tree.json').exists():
+            pass                                             # a children tree written and replayed by plane_refine.py
+        elif status('replay.json') in CERTIFIED:
+            tree = dict(schema='tc-plane-tree-proposal-v1', root_entry_sha256=F.jsonsha(entry),
+                        tree=dict(input=dict(path='frontier.input.json.gz', sha256=digest(c / 'frontier.input.json.gz')),
+                                  proposal=dict(path='frontier.proposal.json.gz', sha256=digest(c / 'frontier.proposal.json.gz'))))
+            json.dump(tree, open(c / 'tree.json', 'w'))
+        else:
             continue
-        if rep.get('status') not in CERTIFIED: continue
-        entry = json.load(open(c / 'entry.json'))
-        tree = dict(schema='tc-plane-tree-proposal-v1', root_entry_sha256=F.jsonsha(entry),
-                    tree=dict(input=dict(path='frontier.input.json.gz', sha256=digest(c / 'frontier.input.json.gz')),
-                              proposal=dict(path='frontier.proposal.json.gz', sha256=digest(c / 'frontier.proposal.json.gz'))))
-        json.dump(tree, open(c / 'tree.json', 'w'))
         rel = c.relative_to(d)
         cells.append(dict(entry=dict(path=str(rel / 'entry.json'), sha256=digest(c / 'entry.json')),
                           tree=dict(path=str(rel / 'tree.json'), sha256=digest(c / 'tree.json'))))
