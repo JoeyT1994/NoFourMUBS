@@ -33,7 +33,7 @@ while [ "$(date +%s)" -lt "$end" ]; do
   # replay, in parallel on one node per ball, every manifest cell the audit's replay cache lacks (plane_prereplay.py),
   # so the live audit and the per-ball audits below only look proofs up instead of replaying them one by one
   for b in $open; do
-    [ -f $B/plane_v1/b$b/manifest.json ] && ! echo "$jobs" | grep -qx "tc-prerep$b" && \
+    [ -f $B/plane_v1/b$b/manifest.json ] && ! echo "$jobs" | grep -qxE "tc-prerep$b|tc-cc$b" && \
       sbatch -J tc-prerep$b -p preempt --qos=preempt -N1 --exclusive -t 4:00:00 -o $B/plane_v1/b$b.prereplay.%j.out \
         --wrap "cd $B/pr4_914919b && /mnt/ceph/users/jtindall/venvs/nofourmubs/bin/python -W ignore $B/plane_prereplay.py $B/pr4_914919b $B/plane_v1/b$b $b" \
         < /dev/null > /dev/null && echo "$(date +%H:%M) ball $b: pre-replay" >> $LOG
