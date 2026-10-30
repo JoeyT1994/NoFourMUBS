@@ -16,7 +16,7 @@ while [ "$(date +%s)" -lt "$end" ]; do
       n=$(python3 -c "import json;print(len(json.load(open('$B/results_live/open_cells.json'))['balls'].get('$b',{}).get('cells',[])))" 2>/dev/null || echo 0)
       k=$(( (n + 199) / 200 )); [ $k -lt 1 ] && k=1; [ $k -gt 8 ] && k=8   # refining a cell is ~16-256 searches: ~200 cells a node
       sf=0; grep -qx "$b" $B/plane_split_first.txt 2>/dev/null && sf=1      # balls whose whole-cell searches mostly fail
-      TC_SPLIT_FIRST=$sf bash $B/plane_submit.sh $b $k && echo "$(date +%H:%M) ball $b: whole-cell run in $k parts (split first: $sf)" >> $LOG
+      TC_SEARCH_SECONDS=1800 TC_SPLIT_FIRST=$sf bash $B/plane_submit.sh $b $k && echo "$(date +%H:%M) ball $b: whole-cell run in $k parts (split first: $sf)" >> $LOG
     fi
     if ! echo "$jobs" | grep -qx "tc-sc$b"; then
       ( cd $B/sidecar && sbatch -J tc-sc$b -p preempt --qos=preempt -o stagec_ball_$b.%j.out run_stagec_ball.sh $b < /dev/null > /dev/null && echo "$(date +%H:%M) ball $b: Stage C run" >> $LOG ) &
