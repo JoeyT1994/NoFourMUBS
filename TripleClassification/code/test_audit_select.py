@@ -156,6 +156,32 @@ def main():
         bad = dict(next(r for r in rr if tri(r)), patterns=[], reason='TimeoutError: sub-ball time limit of 300 s reached')
         write_rows(p, [bad] + rr)
     check('491: an aborted row first, then a complete one', True, 491, names, aborted_first, extra=receipt())
+
+    # graph rule: the same opened pattern, excluded by a graph_run.py receipt
+    def graph_receipt(change=None):
+        def f(t):
+            os.makedirs(os.path.join(t, 'hb'), exist_ok=True)
+            with open(os.path.join(t, 'hb', 'certify_graph.py'), 'w') as g: g.write('# stub checker for the test\n')
+            gsha = sha(os.path.join(t, 'hb', 'certify_graph.py'))
+            x = dict(schema='tc-hardballs-graph-certificate-v1', status='PROVED_PATTERN_EXCLUSION', runner_sha256='f' * 64,
+                     subatlas_sha256=good['subatlas_sha256'], sub=good['sub'], pattern=0, record_sha256=good['record_sha256'],
+                     patterns_total=good['patterns_total'], pattern_colours=good['pattern_colours'],
+                     dependencies_sha256={'certify_graph.py': gsha}, minimum_normalized_overlap_lower='[0.01 +/- 1e-20]')
+            if change: change(x)
+            p = os.path.join(t, 'graph.jsonl'); write_rows(p, [x])
+            return ['--gamma-rules', 'graph', '--graph', p, '--graph-dir', os.path.join(t, 'hb'), '--graph-sha', gsha,
+                    '--graph-runner-sha', 'f' * 64]
+        return f
+    check('491: an opened pattern excluded by a graph receipt', True, 491, names, edit_row('b491_l3', tri, reopen),
+          extra=graph_receipt())
+    check('491: graph receipt naming other colours', False, 491, names, edit_row('b491_l3', tri, reopen), 'incorrect target mask',
+          graph_receipt(lambda x: x.update(pattern_colours=x['pattern_colours'][::-1])))
+    check('491: graph receipt from another runner', False, 491, names, edit_row('b491_l3', tri, reopen), 'incorrect target mask',
+          graph_receipt(lambda x: x.update(runner_sha256='e' * 64)))
+    check('491: graph receipt not proved', False, 491, names, edit_row('b491_l3', tri, reopen), 'incorrect target mask',
+          graph_receipt(lambda x: x.update(status='NOT_ESTABLISHED')))
+    check('491: graph receipt with a nonpositive overlap', False, 491, names, edit_row('b491_l3', tri, reopen), 'incorrect target mask',
+          graph_receipt(lambda x: x.update(minimum_normalized_overlap_lower='[0 +/- 1e-20]')))
     print('%d failure(s)' % failures)
     sys.exit(1 if failures else 0)
 
