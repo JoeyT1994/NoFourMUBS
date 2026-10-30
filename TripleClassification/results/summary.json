@@ -4,16 +4,18 @@
   "empty": 2101,
   "tree": 372,
   "tree_anchored": 2,
-  "open": 17,
+  "open": 16,
   "tree_ordering": 11,
-  "classified": 272
+  "classified": 272,
+  "tree_plane": 1
  },
  "nearest_triple_median": {
-  "classified": 0.083,
-  "open": 0.201,
-  "empty": 0.901,
   "tree_anchored": 0.304,
+  "classified": 0.083,
   "tree": 0.358,
+  "open": 0.267,
+  "tree_plane": 0.015,
+  "empty": 0.901,
   "tree_ordering": 0.198
  },
  "certifier": {
@@ -1180,7 +1182,7 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b493.json"
   },
   "499": {
-   "status": "audit failed: ValueError: unparsable receipt line",
+   "status": "audit failed: ValueError: incorrect target mask at level 7",
    "route": "selective chain"
   },
   "525": {
@@ -1602,7 +1604,7 @@
    "status": "open below level 5",
    "route": "selective chain",
    "open_level": 5,
-   "open_cells": 971
+   "open_cells": 941
   },
   "596": {
    "status": "closed",
@@ -1885,7 +1887,7 @@
    "status": "open below level 6",
    "route": "selective chain",
    "open_level": 6,
-   "open_cells": 10833
+   "open_cells": 10818
   },
   "643": {
    "status": "closed",
@@ -2080,8 +2082,10 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b677.json"
   },
   "678": {
-   "status": "audit failed: ValueError: unparsable receipt line",
-   "route": "selective chain"
+   "status": "open below level 7",
+   "route": "selective chain",
+   "open_level": 7,
+   "open_cells": 22
   },
   "679": {
    "status": "closed",
@@ -2999,7 +3003,7 @@
    "status": "open below level 5",
    "route": "selective chain",
    "open_level": 5,
-   "open_cells": 9277
+   "open_cells": 8922
   },
   "769": {
    "status": "closed",
@@ -3456,7 +3460,7 @@
    "status": "open below level 5",
    "route": "selective chain",
    "open_level": 5,
-   "open_cells": 9219
+   "open_cells": 9194
   },
   "822": {
    "status": "closed",
@@ -3494,7 +3498,7 @@
    "status": "open below level 6",
    "route": "selective chain",
    "open_level": 6,
-   "open_cells": 1031
+   "open_cells": 997
   },
   "825": {
    "status": "open below level 4",
@@ -4033,7 +4037,7 @@
    "status": "open below level 6",
    "route": "selective chain",
    "open_level": 6,
-   "open_cells": 1101
+   "open_cells": 1086
   },
   "866": {
    "status": "closed",
@@ -4753,7 +4757,7 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b908.json"
   },
   "918": {
-   "status": "audit failed: ValueError: unparsable receipt line",
+   "status": "audit failed: ValueError: source binding mismatch at level 6",
    "route": "selective chain"
   },
   "923": {
@@ -5354,10 +5358,50 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b966.json"
   },
   "987": {
-   "status": "open below level 5",
+   "status": "closed",
    "route": "selective chain",
-   "open_level": 5,
-   "open_cells": 10
+   "depth": 5,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 45,
+     "open": 211,
+     "still_open": 211
+    },
+    {
+     "level": 3,
+     "cells": 2376,
+     "closed": 1207,
+     "open": 1169,
+     "still_open": 1169
+    },
+    {
+     "level": 4,
+     "cells": 15554,
+     "closed": 9718,
+     "open": 5836,
+     "still_open": 1155
+    },
+    {
+     "level": 5,
+     "cells": 16521,
+     "closed": 10486,
+     "open": 6035,
+     "still_open": 0
+    }
+   ],
+   "rule": "plane",
+   "gamma": {
+    "fourier": 19,
+    "ordering": 9908,
+    "anchored": 610,
+    "graph": 169,
+    "plane": 10
+   },
+   "leaves": 21456,
+   "tangent_cells": 0,
+   "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b987.json"
   },
   "989": {
    "status": "closed",
@@ -5711,7 +5755,7 @@
    "status": "open below level 4",
    "route": "selective chain",
    "open_level": 4,
-   "open_cells": 4733
+   "open_cells": 4717
   },
   "1022": {
    "status": "closed",
@@ -6129,7 +6173,7 @@
    "status": "open below level 5",
    "route": "selective chain",
    "open_level": 5,
-   "open_cells": 2316
+   "open_cells": 2267
   },
   "1090": {
    "status": "closed",
