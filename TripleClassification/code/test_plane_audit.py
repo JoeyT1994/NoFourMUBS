@@ -50,12 +50,17 @@ def main():
         json.dump(doc, open(os.path.join(d, 'other.json'), 'w'))
         cases.append(('a manifest naming another ball', ['--plane', os.path.join(d, 'other.json')],
                       lambda rc, v, e: rc != 0 and 'another ball' in e))
-        cache = os.path.join(t, 'replay_cache.json')
-        cases.append(('first audit with a replay cache (replays)', ['--plane', os.path.join(d, 'manifest.json'), '--plane-cache', cache],
-                      lambda rc, v, e: rc == 0 and v['gamma'].get('plane') == 1 and not v['plane']['cached_cells']))
-        cases.append(('second audit with the cache (no replay)', ['--plane', os.path.join(d, 'manifest.json'), '--plane-cache', cache],
+        cache = os.path.join(d, 'replay_cache.json')            # beside the manifest, as assemble.py passes it
+        cases.append(('audit with the cache: served by the job replay', ['--plane', os.path.join(d, 'manifest.json'), '--plane-cache', cache],
                       lambda rc, v, e: rc == 0 and v['gamma'].get('plane') == 1 and v['plane']['cached_cells'] == [[4, [12, 5, 12, 12]]]))
 
+        def untrusted():                               # a replay receipt for other files must not seed the cache
+            r = os.path.join(d, '4_12_5_12_12', 'replay.json'); x = json.load(open(r)); x['proposal_sha256'] = '0' * 64
+            json.dump(x, open(r, 'w')); os.remove(os.path.join(d, 'replay_cache.jobs.json')); os.path.exists(cache) and os.remove(cache)
+            subprocess.run([sys.executable, '-W', 'ignore', os.path.join(HERE, 'rusty', 'plane_manifest.py'), proot, d, '491'],
+                           capture_output=True, text=True, cwd=proot)
+        cases.append(('a mismatched job receipt: the audit replays instead', ['--plane', os.path.join(d, 'manifest.json'), '--plane-cache', cache],
+                      lambda rc, v, e: rc == 0 and v['gamma'].get('plane') == 1 and not v['plane']['cached_cells'], untrusted))
         def tamper():                                  # a changed proposal must miss the cache and fail its replay
             q = os.path.join(d, '4_12_5_12_12', 'frontier.proposal.json.gz'); open(q, 'ab').write(b'\0')
         cases.append(('a modified proof file after caching', ['--plane', os.path.join(d, 'manifest.json'), '--plane-cache', cache],

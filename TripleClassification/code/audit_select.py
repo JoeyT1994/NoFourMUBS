@@ -164,28 +164,14 @@ def main():
         from plane_audit_manifest import PlaneManifest      # requires root to be the plane checker's tree
         plane = PlaneManifest(args.plane, args.index, root)
     pcache = {}
-    if plane and args.plane_cache and args.plane_cache.exists():
-        try: pcache = json.loads(args.plane_cache.read_text())
-        except ValueError: pcache = {}
+    if plane and args.plane_cache:
+        import plane_cache                           # shared with plane_prereplay.py, so the keys are identical
+        pcache = plane_cache.load(args.plane_cache)
     plane_cached = []
 
     def plane_key(level, cell):
-        """Hash of everything a replay of this cell reads: entry, tree, every leaf input and proposal (re-hashed now),
-        and the checker sources the manifest pinned."""
         entry, tree_path, item = plane.entries[(level, tuple(cell))]
-        leaves = []
-        def walk(node):
-            if isinstance(node, dict):
-                for k in ('input', 'proposal'):
-                    if k in node:
-                        q = Path(node[k]['path']); q = q if q.is_absolute() else Path(tree_path).parent / q
-                        leaves.append(sha(q) if q.is_file() else None)
-                for v in node.values(): walk(v)
-            elif isinstance(node, list):
-                for v in node: walk(v)
-        walk(json.load(open(tree_path))['tree'])
-        return jsonsha([item['entry']['sha256'], item['tree']['sha256'], sha(tree_path), leaves,
-                        json.load(open(args.plane))['checker_sources_sha256'], level, list(cell)])
+        return plane_cache.key(item, tree_path, json.load(open(args.plane))['checker_sources_sha256'], level, cell)
 
     def plane_close(level, cell):
         if (level, tuple(cell)) not in plane.entries: return False
@@ -384,7 +370,7 @@ def main():
                            still_open=len(still)))
         target = unresolved; live = still; prev_cells = {tuple(e['cell']) for e in info['cover']}
     if plane and args.plane_cache:
-        args.plane_cache.with_suffix('.new').write_text(json.dumps(pcache)); os.replace(args.plane_cache.with_suffix('.new'), args.plane_cache)
+        plane_cache.save(args.plane_cache, pcache)
     preport = (dict(plane.report(), cached_cells=plane_cached) if plane else None)
     last = 2 + len(docs) - 1
     unresolved = []
