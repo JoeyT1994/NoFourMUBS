@@ -282,12 +282,7 @@ def trees(a, V, side, RC, side_guard=None, out=None):
         then the ordering rule, then anchored-column exclusions, then graph exclusions; cheapest tree first."""
         seen = best = None
         for route, layers, scripts in cands[i]:
-            x = audit(i, route, layers, scripts)
-            # a chain whose deepest layer was stopped part-way is audited down to its last complete layer
-            while route == 'selective chain' and len(layers) > 2 and \
-                    'missing or unexpected rows at level %d' % (len(layers) + 1) in x['status']:
-                layers, scripts = layers[:-1], scripts[:-1]
-                x = audit(i, route, layers, scripts)
+            x = audit_chain(audit, i, route, layers, scripts)
             if x['status'] == 'closed':
                 if x['rule'] == 'certifier': return i, x
                 if best is None or rank[x['rule']] < rank[best['rule']]: best = x
@@ -300,6 +295,18 @@ def trees(a, V, side, RC, side_guard=None, out=None):
         with open(a.cache + '.new', 'w') as f: json.dump(cache, f)
         os.replace(a.cache + '.new', a.cache)
     return result
+
+
+def audit_chain(audit, i, route, layers, scripts):
+    """Audit a chain; one whose deepest layer was stopped part-way (rows missing, or a mask from a stopped build) is
+    audited down to its last complete layer. Auditing a prefix of a chain is always valid (TREE_PROOF.md)."""
+    x = audit(i, route, layers, scripts)
+    while route == 'selective chain' and len(layers) > 2 and \
+            any(m % (len(layers) + 1) in x['status'] for m in ('missing or unexpected rows at level %d',
+                                                                'incorrect target mask at level %d')):
+        layers, scripts = layers[:-1], scripts[:-1]
+        x = audit(i, route, layers, scripts)
+    return x
 
 
 def open_cells(tree):
