@@ -230,7 +230,8 @@ be captured repeatedly.
 **PROVED, subject to the frozen native-cover theorem.** If its replay returns
 `CERTIFIED_EMPTY_RECORDED_H_CELL`, no H in that recorded cell admits a completing basis K. Replay
 rebuilds the complete K cover, verifies the stored column partitions against the newly computed phase
-balls, and requires an empty column, an excluded pair, or the complete shared-H exclusion below
+balls, and requires an empty column, an excluded pair, the complete fine-bin exclusion below,
+or the complete shared-H exclusion below
 in every complete-cover pattern. It rejects
 an omitted pattern, a changed colour list, a column outside its pattern, or a missing column proof.
 An inaccurate numerical proposal can only make an inequality fail. No supplied pattern count or K
@@ -261,6 +262,26 @@ tree replay checks that this H record covers the entire assigned closed cell
 inside the original radius-0.1 ball. The proposal and replay hashes and their
 Popeye locations are in `plane_checkpoint.json`. This adds one cell theorem;
 closure of original ball 595 still requires its complete covering audit.
+
+### Excluding a pattern on the original fine bins
+
+Before constructing an expensive plane partition, the producer may apply the
+frozen `fine_patterns.refine` test to the original closed torus bins returned by
+the complete native cover. Every completing basis assigned to a colour pattern
+selects one bin of each of its six colours. The native orthogonality and joint-H
+tests retain every pair that could occur in such a basis, uniformly over the
+unchanged recorded H domain. Therefore its six selected bins form a clique in
+the resulting necessary graph. Arc-consistency pruning retains any such clique;
+a completed search with no clique excludes the entire pattern.
+
+The proposal records only `fine: true`, the colour list, and an empty column
+list. Replay rebuilds the complete cover and repeats the pinned fine-bin test;
+it accepts only its `EXCLUDED` result. A bin cap, edge cap, search cap, surviving
+clique or refined enclosure is not an exclusion. Cached pair tests belong to
+the same freshly reconstructed H model and cover, and are discarded with that
+model. Other patterns still require their column or joint proofs. The complete
+ordered pattern list must be accounted for in either case. No supplied graph,
+saved verdict, sampled basis or smaller H radius is accepted.
 
 ### Several captured columns must share the same H
 
@@ -546,5 +567,6 @@ The adapter passed a separate replay of the classified ball-825 cell in Section
 5. Its tests include changed files, another ball or atlas, duplicate cells,
 incomplete partitions, failed leaf replay, and an additional unresolved cell
 that must still prevent closure. These checks validate the integration. A new
-original-ball closure still requires that ball's full upstream layers and
-receipts, followed by a successful complete audit.
+original-ball closure still requires a complete geometric cover, supplied by
+the upstream layers and receipts or reconstructed from the original atlas,
+followed by a successful complete audit.

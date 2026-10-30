@@ -23,6 +23,8 @@ def complete_cover(path):
     roots=R.NC.propose_roots(H)
     cover=R.NC.complete_cover(model['ball'],model,roots)
     prepared,bounds,cliques,steps=R.NC.contract_patterns(model,roots,cover)
+    # This cover and its verified fine-pair cache belong only to this H model.
+    model['_fine_cover']=cover
     columns={int(c):dict(colour=int(c),v0=[prepared[c]['v0'][i,0] for i in range(6)],
                         phase_radius=bounds[c]['phase_radius']) for cl in cliques for c in cl}
     binding['dependencies_sha256']['TripleClassification/code/plane_cell_certificate.py']=P.digest(__file__)
@@ -32,6 +34,13 @@ def complete_cover(path):
 
 def pair_excluded(left,right):
     return P.pair_excluded(left,right)
+
+
+def fine_excluded(model,clique):
+    """Replay the pinned necessary graph on complete original closed torus bins."""
+    import run as R
+    _,receipt=R.FP.refine(model['ball'],model,model['_fine_cover'],clique)
+    return receipt['status']=='EXCLUDED'
 
 
 def propose(path,depth=6,checkpoint=None):
@@ -66,6 +75,8 @@ def propose(path,depth=6,checkpoint=None):
         return None
     for clique in cliques:
         chosen=witness(clique)
+        if chosen is None and fine_excluded(model,clique):
+            witnesses.append(dict(colours=clique,columns=[],fine=True));continue
         for c in sorted(clique,key=lambda c:float(columns[c]['phase_radius'])):
             if chosen is not None:break
             if c in attempted:continue
@@ -98,6 +109,10 @@ def validate_witnesses(cliques,witnesses,keys):
     for clique,w in zip(cliques,witnesses):
         P.require(w['colours']==clique,'complete-cover pattern changed')
         chosen=w['columns']
+        if 'fine' in w:
+            P.require(w['fine'] is True and chosen==[] and set(w)=={'colours','columns','fine'},
+                      'invalid fine-bin witness')
+            continue
         P.require((1<=len(chosen)<=6 if 'joint' in w else len(chosen) in (1,2)) and len(set(chosen))==len(chosen) and
                   all(type(c) is int and c in clique for c in chosen),'invalid pattern witness')
         used.update(chosen)
@@ -110,7 +125,8 @@ def verify_patterns(model,tubes,items,cache=None):
     checked={};rows=[]
     for n,clique,w in items:
         chosen=w['columns']
-        if 'joint' in w:Joint.exclude(model,tubes,chosen,w['joint'],pair_cache=root_pairs,scalar_cache=root_scalars,
+        if 'fine' in w:P.require(fine_excluded(model,clique),'fine-bin search did not exclude this pattern')
+        elif 'joint' in w:Joint.exclude(model,tubes,chosen,w['joint'],pair_cache=root_pairs,scalar_cache=root_scalars,
                                     allow_known=True)
         elif len(chosen)==1:P.require(not tubes[chosen[0]],'claimed empty column has surviving tubes')
         else:
