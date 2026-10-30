@@ -10,13 +10,13 @@
   "classified": 272
  },
  "nearest_triple_median": {
-  "tree_plane": 0.299,
-  "open": 0.091,
-  "tree": 0.358,
-  "empty": 0.901,
   "tree_ordering": 0.198,
+  "empty": 0.901,
+  "tree": 0.358,
+  "tree_anchored": 0.304,
   "classified": 0.083,
-  "tree_anchored": 0.304
+  "open": 0.091,
+  "tree_plane": 0.299
  },
  "certifier": {
   "CERTIFIED EMPTY": 2101,
@@ -1222,8 +1222,10 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b493.json"
   },
   "499": {
-   "status": "audit failed: ValueError: artifact missing or changed",
-   "route": "selective chain"
+   "status": "open below level 6",
+   "route": "selective chain",
+   "open_level": 6,
+   "open_cells": 2334
   },
   "525": {
    "status": "closed",
@@ -1603,8 +1605,10 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b584.json"
   },
   "588": {
-   "status": "audit failed: ValueError: artifact missing or changed",
-   "route": "selective chain"
+   "status": "open below level 5",
+   "route": "selective chain",
+   "open_level": 5,
+   "open_cells": 2470
   },
   "589": {
    "status": "closed",
@@ -5030,8 +5034,10 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b908.json"
   },
   "918": {
-   "status": "audit failed: ValueError: source binding mismatch at level 6",
-   "route": "selective chain"
+   "status": "open below level 6",
+   "route": "selective chain",
+   "open_level": 6,
+   "open_cells": 1127
   },
   "923": {
    "status": "closed",
@@ -6028,7 +6034,7 @@
    "status": "open below level 4",
    "route": "selective chain",
    "open_level": 4,
-   "open_cells": 4506
+   "open_cells": 555
   },
   "1022": {
    "status": "closed",
@@ -7407,8 +7413,10 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b1216.json"
   },
   "1217": {
-   "status": "audit failed: ValueError: artifact missing or changed",
-   "route": "selective chain"
+   "status": "open below level 6",
+   "route": "selective chain",
+   "open_level": 6,
+   "open_cells": 10829
   },
   "1227": {
    "status": "closed",
