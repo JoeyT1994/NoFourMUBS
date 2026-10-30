@@ -23,5 +23,11 @@ while [ "$(date +%s)" -lt "$end" ]; do
     fi
   done
   wait
+  # refresh each open ball's whole-cell manifest, so proofs finished since a part last ended reach the next audit pass
+  for b in $open; do
+    [ -d $B/plane_v1/b$b ] && ( cd $B/pr4_914919b && /mnt/ceph/users/jtindall/venvs/nofourmubs/bin/python -W ignore $B/plane_manifest.py \
+      $B/pr4_914919b $B/plane_v1/b$b $b >> $LOG 2>&1 ) &
+  done
+  wait
   sleep 1200
 done
