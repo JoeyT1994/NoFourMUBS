@@ -269,8 +269,8 @@ def main():
             if not set(got) <= openp: continue          # a pattern it does not list has no score bound
             # re-derive each discharge exactly from the receipt's binary64 upper bounds (the flags are not used)
             best = {}
-            for n in openp:
-                ups = [Fraction(float.fromhex(got[n][k])) for k in ('g_up_L_hex', 'g_up_K_hex') if k in got[n]]
+            for n, item in got.items():
+                ups = [Fraction(float.fromhex(item[k])) for k in ('g_up_L_hex', 'g_up_K_hex') if k in item]
                 if ups: best[n] = min(ups)
             # the threshold is the original ball's pinned bound or, if larger, the receipt's bound for this cell
             thr = glow if glow is not None else None

@@ -102,6 +102,26 @@ class ManifestTests(unittest.TestCase):
             with patch.object(sys,'argv',args+['--plane',str(self.path)]),\
                  patch.object(M.Tree,'check',return_value=self.result),self.assertRaisesRegex(ValueError,'unresolved cell'):
                 audit.main()
+            # A score receipt may cover only part of this row. The missing
+            # pattern has no score bound: it must remain open, not raise an
+            # integer KeyError or be silently discharged.
+            rows[target+1]['status']='CERTIFIED EMPTY'
+            rows[target]['patterns']=[dict(number=n,status='NOT ESTABLISHED') for n in range(2)]
+            rows[target]['patterns_after_column_filter']=2
+            gamma=dict(subatlas_sha256=audit.sha(layer),sub=target,gamma_sha256='g'*64,
+                       seed_sha256=audit.jsonsha(original),receipt_binding='fixture',closed_by_certifier=[],
+                       patterns_total=2,patterns=[dict(pattern=0,g_up_K_hex=float(.1).hex())])
+            gp=self.folder/'gamma.jsonl';gp.write_text(json.dumps(gamma)+'\n')
+            ga=args+['--gamma',str(gp),'--gamma-sha','g'*64,'--gamma-rules','fourier']
+            with patch.object(sys,'argv',ga),self.assertRaisesRegex(ValueError,'unresolved cell'):
+                audit.main()
+            gamma['patterns'].append(dict(pattern=1,g_up_K_hex=float(.1).hex()))
+            gp.write_text(json.dumps(gamma)+'\n');output=io.StringIO()
+            with patch.object(sys,'argv',ga),contextlib.redirect_stdout(output):audit.main()
+            result=json.loads(output.getvalue());self.assertEqual(result['gamma']['fourier'],1)
+            gamma['patterns'][1]['pattern']=2;gp.write_text(json.dumps(gamma)+'\n')
+            with patch.object(sys,'argv',ga),self.assertRaisesRegex(ValueError,'unresolved cell'):
+                audit.main()
 
 
 if __name__=='__main__':unittest.main()
