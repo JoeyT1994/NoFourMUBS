@@ -93,7 +93,7 @@ def propose(path,depth=6,checkpoint=None):
             available=sorted((c for c in clique if c in proved),key=lambda c:(len(proved[c][1]),c))
             try:
                 joint=Joint.exclude(model,{c:proved[c][1] for c in available},available,
-                                    pair_cache=root_pairs,scalar_cache=scalars,allow_known=True)
+                                    pair_cache=root_pairs,scalar_cache=scalars,allow_known=True,allow_singletons=True)
             except (ValueError,ArithmeticError):
                 raise ArithmeticError('complete-cover pattern remains: '+str(clique))
             witnesses.append(dict(colours=clique,columns=available,joint=joint))

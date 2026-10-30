@@ -66,6 +66,28 @@ class JointTests(unittest.TestCase):
         self.assertEqual(len(proposal['scalars'][0]['roots']),2)
         J.exclude(self.model,tubes,[0,1],proposal)
 
+    def test_single_root_scalar_witness_excludes_only_the_proved_root(self):
+        p,e=self.captures[0]
+        shift=arb_mat([[arb(a*a)/10] for a in range(6)])
+        bad=(dict(p,v0=p['v0']+shift),e);tubes={0:{0:bad}}
+        proposal=J.exclude(self.model,tubes,[0],allow_singletons=True)
+        self.assertEqual(proposal['scalars'][0]['roots'],[[0,0]])
+        with patch.object(J.np.linalg,'solve',side_effect=AssertionError('direction search during replay')):
+            J.exclude(self.model,tubes,[0],proposal)
+        # A genuine root cannot be discarded by the bad root's witness.
+        tubes[0][1]=self.captures[0]
+        with self.assertRaises(ArithmeticError):J.exclude(self.model,tubes,[0],proposal)
+        with self.assertRaises(ArithmeticError):J.exclude(self.model,tubes,[0],allow_singletons=True)
+
+    def test_false_or_missing_single_root_witness_is_rejected(self):
+        p,e=self.captures[0];shift=arb_mat([[arb(a*a)/10] for a in range(6)])
+        tubes={0:{0:(dict(p,v0=p['v0']+shift),e)}}
+        proposal=J.exclude(self.model,tubes,[0],allow_singletons=True)
+        proposal['scalars'][0]['direction']=[0.0.hex()]*96
+        with self.assertRaisesRegex(ValueError,'single root'):J.exclude(self.model,tubes,[0],proposal)
+        proposal['scalars']=[]
+        with self.assertRaises(ArithmeticError):J.exclude(self.model,tubes,[0],proposal)
+
     def test_missing_foreign_and_unused_scalar_witnesses_are_rejected(self):
         tubes={i:{0:self.captures[i]} for i in range(3)}
         zeros=[0.0.hex()]*96
@@ -132,6 +154,25 @@ class JointTests(unittest.TestCase):
             center=p['v0']-t*arb_mat([[w],[0],[0],[0]])-error
             captures.append((dict(v0=center,T=t),arb('.02')))
         for n in (3,6):self.assertIsNone(J.scalar_support(m,captures[:n]))
+
+
+class Quadratic(unittest.TestCase):
+    def setUp(self):ctx.prec=160
+    def test_positive_curvature_reduces_linear_penalty(self):
+        b=J.quadratic_penalty(arb_mat([[1],[0],[0],[0]]),arb_mat([[2 if i==j else 0 for j in range(4)] for i in range(4)]),arb(1))
+        self.assertTrue(b>arb('.249999999') and b<arb('.250000001'))
+    def test_boundary_minimum_is_enclosed(self):
+        b=J.quadratic_penalty(arb_mat([[4]]),arb_mat([[2]]),arb(1));self.assertTrue(b>=3 and b<arb('3.00000001'))
+    def test_negative_curvature_is_not_discarded(self):
+        b=J.quadratic_penalty(arb_mat([[0],[0]]),arb_mat([[-2,0],[0,1]]),arb(1));self.assertTrue(b>=1 and b<arb('1.00000001'))
+    def test_zero_curvature_linear_case(self):
+        b=J.quadratic_penalty(arb_mat([[3],[4]]),arb_mat(2,2),arb(2));self.assertTrue(b>=10 and b<arb('10.00000001'))
+    def test_invalid_or_uncertified_shift_cannot_pass(self):
+        self.assertIsNone(J.quadratic_penalty(arb_mat([[1]]),arb_mat([[-2]]),arb(1),shift=0))
+        with self.assertRaises(ValueError):J.quadratic_penalty(arb_mat([[1]]),arb_mat([[2]]),arb(1),shift=-1)
+    def test_interval_uncertainty_is_kept(self):
+        b=J.quadratic_penalty(arb_mat([[arb('1 +/- .01')]]),arb_mat([[arb('2 +/- .01')]]),arb(1))
+        self.assertTrue(b>arb('1.01')**2/(2*arb('1.99')))
 
 
 if __name__=='__main__':unittest.main()

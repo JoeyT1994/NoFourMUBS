@@ -4,9 +4,77 @@ Numerical linear solves propose scalar directions. Replay uses stored binary64
 coefficients and verifies a strict Arb bound. Unselected K columns have zero
 weights in every equation, so their placeholder coordinates impose no condition.
 """
+import math
 import numpy as np
 from flint import arb,arb_mat,acb
 import plane_column_certificate as P
+
+
+def quadratic_penalty(a,W,r,shift=None):
+    """Verify a completion-of-squares lower bound on the closed radius-r ball."""
+    n=W.nrows()
+    if n<1 or W.ncols()!=n or a.nrows()!=n or a.ncols()!=1 or not r.is_finite() or not r>=0:
+        raise ValueError('invalid common-H quadratic')
+    W=(W+W.transpose())/2
+    if shift is None:
+        M=np.array([[float(W[i,j].mid()) for j in range(n)] for i in range(n)])
+        av=np.array([float(a[i,0].mid()) for i in range(n)])
+        if not np.isfinite(M).all() or not np.isfinite(av).all():return None
+        try:values,vectors=np.linalg.eigh(M)
+        except np.linalg.LinAlgError:return None
+        b=vectors.T@av;rr=float(r.mid())
+        if not np.isfinite(values).all() or not np.isfinite(b).all() or not math.isfinite(rr):return None
+        gap=max(1e-30,max(abs(values),default=0.)*1e-10)
+        low=max(0.,-float(values[0])/2)+gap
+        def norm2(lam):return float(np.sum((b/(values+2*lam))**2))
+        if norm2(low)>rr*rr:
+            high=max(low*2,1.,float(np.linalg.norm(av))/max(rr,1e-100))
+            for _ in range(100):
+                if norm2(high)<=rr*rr:break
+                high*=2
+            else:return None
+            for _ in range(64):
+                middle=(low+high)/2
+                if norm2(middle)>rr*rr:low=middle
+                else:high=middle
+            shift=math.nextafter(high+gap,math.inf)
+        else:shift=math.nextafter(low,math.inf)
+    lam=arb(shift)
+    if not lam.is_finite() or not lam>=0:raise ValueError('invalid nonnegative shift')
+    S=W+arb_mat([[2*lam if i==j else 0 for j in range(n)] for i in range(n)])
+    # Positive pivots certify positive definiteness for every symmetric matrix
+    # represented by these intervals; no floating eigenvalue is trusted.
+    L=[[arb(0) for _ in range(n)] for _ in range(n)];pivots=[]
+    for i in range(n):
+        pivot=S[i,i]-sum((L[i][k]**2*pivots[k] for k in range(i)),arb(0))
+        if not pivot>0:return None
+        pivots.append(pivot)
+        for j in range(i+1,n):L[j][i]=(S[j,i]-sum((L[j][k]*L[i][k]*pivots[k] for k in range(i)),arb(0)))/pivot
+    try:bound=((a.transpose()*S.inv()*a)[0,0]/2+lam*r*r).upper()
+    except (ValueError,ZeroDivisionError):return None
+    if not bound.is_finite():return None
+    return bound
+
+
+def support_directions(blocks,constant,selected):
+    """Propose dual directions; every accepted direction is checked in Arb."""
+    f=constant[selected];blocks=[a[selected] for a in blocks if np.any(a[selected])]
+    if not np.any(f) or not blocks:return []
+    grams=[a@a.T for a in blocks];scale=max(np.trace(g) for g in grams)
+    out=[]
+    for regularizer in (1e-8,1e-5):
+        weights=np.ones(len(blocks));best=None
+        for _ in range(12):
+            gram=sum((g/max(w,1e-12) for g,w in zip(grams,weights)),np.zeros((len(f),len(f))))
+            v=np.linalg.solve(gram+max(scale,1e-12)*regularizer*np.eye(len(f)),f)
+            dot=v@f
+            if not np.isfinite(v).all() or dot<=0:break
+            v=v/dot;weights=np.array([np.linalg.norm(a.T@v) for a in blocks])
+            score=sum(weights)
+            if best is None or score<best[0]:best=(score,v)
+        if best:
+            y=np.zeros(len(constant));y[selected]=best[1];y/=np.max(abs(y));out.append(y)
+    return out
 
 
 def scalar_support(model,captures,direction=None):
@@ -63,7 +131,7 @@ def scalar_support(model,captures,direction=None):
     hd=[C.Z.spectral(uc[b]-uc[a])*r+nc[a]+nc[b] for a,b in C.PAIRS]
     kd=[C.Z.spectral(prepared[clique[b]]['T']-prepared[clique[a]]['T'])*r+eps[a]+eps[b] for a,b in C.PAIRS]
     md=[[C.Z.spectral(prepared[clique[b]]['T']-uc[a])*r+eps[b]+nc[a] for b in range(6)] for a in range(6)]
-    for yy in directions:
+    for direction_number,yy in enumerate(directions):
         y=C.Z.mat(yy[None,:]);constant=abs((y*f)[0,0])
         coefficients=[]
         for t,(re,im,den,ell) in enumerate(MS.TERMS):
@@ -80,10 +148,17 @@ def scalar_support(model,captures,direction=None):
         kH=pk*arb_mat([[hessian[36+i,k] for k in range(36)] for i in range(36)])
         kH=arb_mat([[kH[i,k] for k in range(36)] for i in keep])
         HH=arb_mat([[hessian[i,k] for k in range(36)] for i in range(36)])
-        rhs=C.rownorm(y*jl,0)*r+C.rownorm(y*jhx,0)*tau
+        # Bound the signed common-H polynomial as a whole. Its linear and
+        # quadratic terms use the same four coordinates, so they need not
+        # attain their separate worst cases at the same point.
+        common=(C.rownorm(y*jl,0)*r+C.Z.spectral(ww)*r*r/2).upper()
+        sign=1 if (y*f)[0,0]>0 else -1 if (y*f)[0,0]<0 else 0
+        refined=quadratic_penalty((y*jl).transpose()*sign,ww*sign,r) if sign else None
+        if refined is not None:common=min(common,refined)
+        rhs=common+C.rownorm(y*jhx,0)*tau
         yjk=y*jk
         rhs+=sum((C.norm([yjk[0,6*a+c] for a in range(6)])*eps[c] for c in range(6)),arb(0))
-        rhs+=C.Z.spectral(ww)*r*r/2+C.Z.spectral(lift.transpose()*hk)*r*ne+C.Z.spectral(kk)*ne*ne/2
+        rhs+=C.Z.spectral(lift.transpose()*hk)*r*ne+C.Z.spectral(kk)*ne*ne/2
         rhs+=C.Z.spectral(lift.transpose()*hH)*r*nh+C.Z.spectral(kH)*ne*nh+C.Z.spectral(HH)*nh*nh/2
         for k in range(15):
             rhs+=(y[0,k]**2+y[0,15+k]**2).sqrt()*hd[k]**3/6
@@ -92,6 +167,8 @@ def scalar_support(model,captures,direction=None):
         if constant>rhs:
             return dict(status='EXCLUDED',route='partial-basis scalar support',lhs=str(constant),rhs=str(rhs),
                         direction_hex=[float(v).hex() for v in yy])
+        if direction is None and direction_number==2:
+            directions.extend(support_directions(columns,fn,selected))
     return None
 
 
@@ -133,13 +210,13 @@ def known_support(model,captures,action=None):
 
 
 def exclude(model,tubes,order,proposal=None,pair_cache=None,scalar_cache=None,
-            node_cap=100000,scalar_cap=600,allow_known=False):
+            node_cap=100000,scalar_cap=600,allow_known=False,allow_singletons=False):
     """Account for every root choice by exclusion or optional known-type proofs."""
     P.require(1<=len(order)<=6 and len(set(order))==len(order) and
               all(type(c) is int and c in tubes for c in order),'invalid column order')
     if pair_cache is None:pair_cache={}
     if scalar_cache is None:scalar_cache={}
-    supplied={};used={};known={};used_known={};nodes=0;attempts=0
+    supplied={};used={};known={};used_known={};nodes=0;attempts=0;unary_attempts=0
     directional=proposal is None or proposal.get('pair_bound')=='directional-v1'
     if proposal is not None:
         P.require({'order','scalars'}<=set(proposal)<={'order','scalars','known','pair_bound'} and
@@ -159,7 +236,7 @@ def exclude(model,tubes,order,proposal=None,pair_cache=None,scalar_cache=None,
         for item in proposal['scalars']:
             P.require(set(item)=={'roots','direction'},'invalid scalar witness')
             roots=item['roots']
-            P.require(isinstance(roots,list) and len(roots) in (2,3,4,5,6) and
+            P.require(isinstance(roots,list) and len(roots) in (1,2,3,4,5,6) and
                 all(isinstance(x,list) and len(x)==2 and all(type(v) is int for v in x) for x in roots),
                 'invalid root tuple')
             key=tuple(tuple(x) for x in roots)
@@ -173,6 +250,25 @@ def exclude(model,tubes,order,proposal=None,pair_cache=None,scalar_cache=None,
             if len(pair_cache)>200000:pair_cache.clear()
             pair_cache[key]=P.pair_excluded({0:tubes[a][i]},{0:tubes[b][j]},directional=directional)
         return pair_cache[key]
+    def unary_bad(c,i):
+        nonlocal unary_attempts
+        key=((c,i),)
+        if proposal is None:
+            if not allow_singletons:return False
+            if key not in scalar_cache:
+                if unary_attempts>=2000:return False
+                unary_attempts+=1
+                try:scalar_cache[key]=scalar_support(model,[tubes[c][i]])
+                except ArithmeticError:scalar_cache[key]=None
+            result=scalar_cache[key]
+            if result is not None:used[key]=result['direction_hex'];return True
+        elif key in supplied:
+            replay_key=(key,tuple(supplied[key]))
+            if replay_key not in scalar_cache:
+                scalar_cache[replay_key]=scalar_support(model,[tubes[c][i]],supplied[key])
+            P.require(scalar_cache[replay_key] is not None,'scalar support does not exclude this single root')
+            used[key]=supplied[key];return True
+        return False
     def visit(chosen):
         nonlocal nodes,attempts
         nodes+=1
@@ -212,7 +308,7 @@ def exclude(model,tubes,order,proposal=None,pair_cache=None,scalar_cache=None,
         if len(chosen)==len(order):raise ArithmeticError('captured combination remains')
         c=order[len(chosen)]
         for i in sorted(tubes[c]):
-            if not any(pair_bad(c,i,a,j) for a,j in chosen):visit(chosen+[(c,i)])
+            if not any(pair_bad(c,i,a,j) for a,j in chosen) and not unary_bad(c,i):visit(chosen+[(c,i)])
     visit([])
     if proposal is not None:
         P.require(set(used)==set(supplied),'unused scalar witness')

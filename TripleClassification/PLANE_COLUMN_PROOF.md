@@ -319,13 +319,50 @@ linear solve. A zero, nonfinite or unsuccessful direction cannot exclude a combi
 
 To cover a pattern, the checker enumerates every combination of retained root captures in a recorded
 column order. It prunes a branch only after a strict pair exclusion or a verified scalar exclusion
-of its two through six selected captures. The two-column test also enforces unbiasedness to the
+of one through six selected captures. The two-column test also enforces unbiasedness to the
 same H, so it can exclude a choice that passes the overlap test. Every unpruned branch is extended
 by every capture of the next column. In exclusion mode, reaching the final column without exclusion is a failure. A successful
 exclusion enumerates the entire Cartesian product, including captures shared by adjacent partition pieces.
 Sparse scalar witnesses record the branches where the pair test did not suffice; replay reconstructs
 the enumeration and rejects missing, foreign, duplicate or unused witnesses. Cached inequalities
 are shared only within one unchanged cell and its verified column covers.
+
+A single-root witness uses the same inequality with m = 1. It keeps H orthogonality and the six
+unbiasedness equations of that column; no equation involving another K column is used. A strict
+exclusion therefore removes that root enclosure for every possible choice of the other columns.
+The checker tests such witnesses before extending a root choice, and still visits every choice not
+excluded. The search may cache these witnesses across patterns of the same unchanged cell. A cache
+miss, exhausted search budget, or a failed inequality never removes a root.
+
+### A signed bound for the shared H coordinates
+
+Orient a scalar equation so that its center value c = yF(q) is positive. Write the part involving
+the shared four-vector w as aᵀw + wᵀWw/2, with W symmetric and ‖w‖ ≤ r. All other terms retain the
+error bound E above, including H normal errors, column errors, mixed quadratic terms and cubic tails.
+For any λ ≥ 0 with S = W + 2λI positive definite, completion of squares gives
+
+    aᵀw + wᵀWw/2
+      = (w + S⁻¹a)ᵀS(w + S⁻¹a)/2 − aᵀS⁻¹a/2 − λ‖w‖²
+      ≥ −aᵀS⁻¹a/2 − λr².
+
+Consequently, the strict inequality c > E + aᵀS⁻¹a/2 + λr² excludes the entire captured choice.
+This preserves the common w in the linear and quadratic terms. The checker uses the smaller of
+this verified bound and the earlier norm bound; the enclosure radius is never reduced.
+
+`quadratic_penalty` proposes λ numerically, then verifies nonnegativity, positive interval LDL
+pivots of S, the interval inverse, and the final upper bound. Numerical eigenvalues are not proof
+inputs. If positivity or finiteness cannot be verified, the previous norm bound remains in force.
+The symmetric interval hull (W + Wᵀ)/2 contains the actual symmetric Hessian. For negative yF(q),
+the checker reverses both a and W; it never discards unfavorable curvature.
+
+The search also proposes additional scalar directions by iteratively reweighting the Euclidean
+support blocks. This optimization has no proof role: replay receives the stored binary64 direction
+and checks the same strict inequality without optimizing that direction.
+
+A separate local replay on ball 768, level 3, cell `[3,3,3,3]` excludes 64 of 216 tested root
+enclosures from two column covers (29/106 and 35/110). Two of these exclusions fail the earlier
+norm bound, even with the same stored directions. These are root exclusions within an unresolved
+cell, not a complete cell or original-ball certificate; the original radius remains 0.1.
 
 The regression checks retain genuine partial and complete Fourier chirp bases, reject weights on
 unselected columns, and reject an enumeration with an uncovered root combination. They can be run with
