@@ -60,18 +60,21 @@ def main():
         except (OSError, ValueError): return False
         why = r.get('reason') or ''
         return r.get('status') == 'NOT_ESTABLISHED' and not any(k in why for k in ('wrong original atlas', 'No such file', 'Errno', 'checker root'))
-    for c in oc['cells']:
+    part = os.environ.get('TC_PART')                      # i/k: only cells with index = i (mod k), for several nodes
+    pi, pk = (int(x) for x in part.split('/')) if part else (0, 1)
+    mine = [c for n, c in enumerate(oc['cells']) if n % pk == pi]
+    for c in mine:
         if settled('%s/plane_v1/b%d/%d_%s' % (B, b, oc['level'], '_'.join(map(str, c)))): continue
         sub = sub_of[tuple(c)]
         entry = dict(ball=b, level=oc['level'], cell=list(c), subatlas=os.path.basename(last), sub=sub,
                      record_sha256=hashlib.sha256(json.dumps(doc['seeds'][sub], sort_keys=True).encode()).hexdigest())
         tasks.append((entry, '%s/plane_v1/b%d/%d_%s' % (B, b, oc['level'], '_'.join(map(str, c)))))
-    with ThreadPoolExecutor(w) as pool, open('%s/plane_v1/b%d.jsonl' % (B, b), 'a') as f:
+    with ThreadPoolExecutor(w) as pool, open('%s/plane_v1/b%d%s.jsonl' % (B, b, '.p%d' % pi if part else ''), 'a') as f:
         for res in pool.map(run, tasks):
             f.write(json.dumps(res) + '\n'); f.flush()
     # cells whose search failed mathematically: prove them as trees of their children (two levels at most)
     failed = []
-    for c in oc['cells']:
+    for c in mine:
         d = '%s/plane_v1/b%d/%d_%s' % (B, b, oc['level'], '_'.join(map(str, c)))
         if settled(d) and not os.path.exists(d + '/replay.json') and not os.path.exists(d + '/refined.json'): failed.append(d)
     def refine(d):
