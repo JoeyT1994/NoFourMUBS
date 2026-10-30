@@ -2,6 +2,7 @@
 """Close one seed ball with the whole-cell checker alone, on as few dyadic cells as it can.
 
   python ball_closer.py ROOT BALL OUT [--start L] [--max-level M] [--seconds L:S,...] [--cell L:c0,c1,c2,c3] [--workers W]
+                       [--part I/K | --assemble] [--serial-check]
 
 ROOT is the pinned checker tree (PR #4: plane_frontier_certificate.py and plane_tree_certificate.py). The root cell is
 the ball itself (level 0; --cell picks a sub-cell instead). Cells above --start are split without a search; from
@@ -10,8 +11,14 @@ there each cell meeting the closed ball is searched (capped at its level's secon
 - not certified, below --max-level: split into its 16 children (those missing the closed ball are leaves 'outside');
 - otherwise: open.
 Cells run in parallel and children are queued as soon as their parent fails, so a ball costs what its hardest cells
-cost. When no cell is open, the cells form one tree (tc-plane-tree-proposal-v1) rooted at the root cell, and
-plane_tree_certificate.check replays it once: that replay is the proof, and OUT/b<ball>/closer.json records it.
+cost. When no cell is open, the cells form one tree (tc-plane-tree-proposal-v1) rooted at the root cell, and it is
+checked: plane_tree_certificate.walk checks that the tree is a complete partition of the root cell (every internal
+node has its 16 children, every 'outside' leaf misses the closed ball), then every leaf is replayed by
+plane_tree_certificate.check on its own one-leaf tree, in parallel (--serial-check: one check of the whole tree, the
+same proof in one process). OUT/b<ball>/closer.json records the result.
+
+Several nodes: --part I/K searches only the start-level cells with index I mod K (and their descendants), into the
+same OUT; then --assemble (no search) builds and checks the tree from the cells the parts settled.
 
 Each cell keeps only its entry, input, proposal and a small report (the checker's reports are cut to their status
 and hashes, and its search cache is removed). A rerun reuses every cell already settled, so runs resume.
@@ -23,6 +30,11 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 CERT = ('CERTIFIED_EMPTY_DYADIC_CELL', 'CERTIFIED_CLASSIFIED_DYADIC_CELL')
 DEFAULT_SECONDS = {0: 1800, 1: 1800, 2: 1800, 3: 1800, 4: 1800}          # deeper levels: 3600
+
+
+CHECK_ONE = '''import json, sys; from pathlib import Path; sys.path.insert(0, sys.argv[1])
+import plane_tree_certificate as Tree
+r = Tree.check(json.loads(sys.argv[2]), Path(sys.argv[3])); print(json.dumps(dict(status=r['status'], counts=r['counts'])))'''
 
 
 def name(level, cell): return '%d_%s' % (level, '_'.join(map(str, cell)))
@@ -41,6 +53,9 @@ def main():
     ap.add_argument('--seconds', default='', help='search caps LEVEL:SECONDS,... (default 1800 to level 4, then 3600)')
     ap.add_argument('--workers', type=int, default=int(os.environ.get('SLURM_CPUS_ON_NODE', os.cpu_count() or 1)))
     ap.add_argument('--py', default=sys.executable)
+    ap.add_argument('--part', default='0/1', help='I/K: search only the start-level cells with index I mod K')
+    ap.add_argument('--assemble', action='store_true', help='no search: build and check the tree from settled cells')
+    ap.add_argument('--serial-check', action='store_true', help='check the whole tree in one process')
     a = ap.parse_args()
     root = Path(a.root).resolve(); code = root / 'TripleClassification/code'
     sys.path[:0] = [str(code), str(HERE / 'rusty')]
@@ -102,8 +117,23 @@ def main():
         if Tree.misses_ball(level, cell): state[(level, tuple(cell))] = 'outside'; return []
         if level < a.start: state[(level, tuple(cell))] = 'split'; return [x for k in children(level, cell) for x in expand(*k)]
         return [(level, cell)]
+    pi, pk = (int(x) for x in a.part.split('/'))
+    first = [x for n, x in enumerate(expand(r0, c0)) if n % pk == pi]
+    def settle(level, cell):
+        """--assemble: the state of every cell under (level, cell) from what earlier runs settled; no search."""
+        s = settled(top / 'cells' / name(level, cell), level) if (top / 'cells' / name(level, cell)).is_dir() else None
+        if s == 'leaf': state[(level, tuple(cell))] = 'leaf'
+        elif s == 'split' and level < a.max_level:
+            state[(level, tuple(cell))] = 'split'
+            for l, c in children(level, cell):
+                if Tree.misses_ball(l, c): state[(l, tuple(c))] = 'outside'
+                else: settle(l, c)
+        else: state[(level, tuple(cell))] = 'open'
+    if a.assemble:
+        for l, c in first: settle(l, c)
+        first = []
     with ThreadPoolExecutor(max(1, a.workers)) as pool:
-        running = {pool.submit(prove, l, c) for l, c in expand(r0, c0)}
+        running = {pool.submit(prove, l, c) for l, c in first}
         while running:
             done, running = wait(running, return_when=FIRST_COMPLETED)
             for fut in done:
@@ -134,15 +164,36 @@ def main():
     res = dict(schema='tc-ball-closer-v1', ball=a.ball, root_cell=dict(level=r0, cell=c0), start=a.start, max_level=a.max_level,
                search_seconds={str(k): cap(k) for k in range(r0, a.max_level + 1)}, checker_sources_sha256=PM.source_hashes(root),
                cells_by_level={str(k): v for k, v in sorted(counts.items())}, search_core_hours=round(core / 3600, 2))
-    if has_open(r0, c0):
+    if pk > 1:
+        res.update(verdict='PART %d/%d DONE' % (pi, pk), open_cells=sorted([l, list(c)] for (l, c), s in state.items() if s == 'open'))
+    elif has_open(r0, c0):
         res.update(verdict='OPEN', open_cells=sorted([l, list(c)] for (l, c), s in state.items() if s == 'open'))
     else:
         tree = dict(schema='tc-plane-tree-proposal-v1', root_entry_sha256=F.jsonsha(root_entry), tree=node(r0, c0))
         json.dump(root_entry, open(top / 'root_entry.json', 'w')); tmp = top / ('tree.json.%d.new' % os.getpid())
         json.dump(tree, open(tmp, 'w')); os.replace(tmp, top / 'tree.json')
-        tc = time.time(); r = Tree.check(root_entry, top / 'tree.json')     # the proof: one replay of the whole tree
-        res.update(verdict='CLOSED' if r['status'] in CERT else 'OPEN', status=r['status'], tree_sha256=r['tree_sha256'],
-                   tree_counts=r['counts'], replay_seconds=round(time.time() - tc))
+        tc = time.time()
+        if a.serial_check:
+            r = Tree.check(root_entry, top / 'tree.json')                # the proof: one replay of the whole tree
+            st, counts_t, failed = r['status'], r['counts'], []
+        else:
+            leaves = []                                                  # the partition, checked without replaying leaves
+            counts_t = Tree.walk(tree['tree'], r0, c0, lambda node, level, cell: leaves.append((level, cell, node)))
+            def leaf(job):
+                level, cell, nd = job; d = top / 'cells' / name(level, cell)
+                one = dict(schema='tc-plane-tree-proposal-v1', root_entry_sha256=F.jsonsha(dict(root_entry, level=level, cell=cell)),
+                           tree={k: dict(path='frontier.%s.json.gz' % k, sha256=nd[k]['sha256']) for k in ('input', 'proposal')})
+                json.dump(one, open(d / 'leaf_tree.json', 'w'))
+                q = subprocess.run([a.py, '-W', 'ignore', '-c', CHECK_ONE, str(code), json.dumps(dict(root_entry, level=level, cell=cell)),
+                                    str(d / 'leaf_tree.json')], capture_output=True, text=True, env=dict(os.environ, OMP_NUM_THREADS='1'))
+                try: return (level, cell, json.loads(q.stdout.strip().splitlines()[-1])['status'])
+                except (ValueError, IndexError, KeyError): return (level, cell, 'CHECK_FAILED: ' + (q.stderr.strip().splitlines() or [''])[-1][:100])
+            with ThreadPoolExecutor(max(1, a.workers)) as pool: out = list(pool.map(leaf, leaves))
+            failed = [[l, list(c), s] for l, c, s in out if s not in CERT]
+            st = (None if failed else 'CERTIFIED_CLASSIFIED_DYADIC_CELL' if any(s == CERT[1] for _, _, s in out) else CERT[0])
+        res.update(verdict='CLOSED' if st in CERT else 'OPEN', status=st, tree_sha256=digest(top / 'tree.json'),
+                   tree_counts=counts_t, check='serial' if a.serial_check else 'parallel', check_failed=failed,
+                   check_seconds=round(time.time() - tc))
     res['wall_seconds'] = round(time.time() - t0)
     tmp = top / ('closer.json.%d.new' % os.getpid()); json.dump(res, open(tmp, 'w'), indent=1); os.replace(tmp, top / 'closer.json')
     print(json.dumps({k: v for k, v in res.items() if k not in ('open_cells', 'checker_sources_sha256')}))

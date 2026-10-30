@@ -6,7 +6,10 @@
 1. the cell as the root: one leaf, the tree replays as certified;
 2. a 1 s cap at level 4 forces a split: level-5 leaves (and outside cells), the tree replays as certified;
 3. a rerun of 2 reuses every settled cell (no search time);
-4. with the split forbidden (max level 4) the cell is reported open, with no tree.
+4. with the split forbidden (max level 4) the cell is reported open, with no tree;
+5. the split tree checked serially (one plane_tree_certificate.check of the whole tree);
+6. the split run as two parts (--part 0/2, 1/2) and then --assemble: the same tree, checked;
+7. a leaf proposal changed after the parts: --assemble reports the ball open.
 """
 import json, os, subprocess, sys, tempfile
 
@@ -30,7 +33,18 @@ def main():
                   lambda r: r.get('verdict') == 'CLOSED' and r['search_core_hours'] == 0),
                  ('no split allowed: the cell is open', lambda: run('open', '--seconds', '4:1', '--max-level', '4'),
                   lambda r: r.get('verdict') == 'OPEN' and r['open_cells'] == [[4, [12, 5, 12, 12]]] and
-                  not os.path.exists(os.path.join(t, 'open', 'b491', 'tree.json')))]
+                  not os.path.exists(os.path.join(t, 'open', 'b491', 'tree.json'))),
+                 ('the split tree checked serially', lambda: run('split', '--seconds', '4:1', '--max-level', '5', '--serial-check'),
+                  lambda r: r.get('verdict') == 'CLOSED' and r['check'] == 'serial' and r['tree_counts']['certified'] == 14),
+                 ('two parts, then --assemble', lambda: (run('parts', '--seconds', '4:1', '--max-level', '5', '--start', '5', '--part', '0/2'),
+                                                         run('parts', '--seconds', '4:1', '--max-level', '5', '--start', '5', '--part', '1/2'),
+                                                         run('parts', '--seconds', '4:1', '--max-level', '5', '--start', '5', '--assemble'))[-1],
+                  lambda r: r.get('verdict') == 'CLOSED' and r['tree_counts'] == dict(nodes=17, outside=2, certified=14) and not r['check_failed']),
+                 ('a changed leaf: --assemble reports it open', lambda: (tamper(), run('parts', '--seconds', '4:1', '--max-level', '5', '--start', '5', '--assemble'))[-1],
+                  lambda r: r.get('verdict') == 'OPEN' and len(r['open_cells']) == 1)]
+        def tamper():
+            d = os.path.join(t, 'parts', 'b491', 'cells'); leaf = sorted(x for x in os.listdir(d) if os.path.exists(os.path.join(d, x, 'replay.json')))[0]
+            open(os.path.join(d, leaf, 'frontier.proposal.json.gz'), 'ab').write(b'\0')
         for name, go, ok in cases:
             r = go(); good = ok(r); failures += not good
             print('%-4s %-45s %s' % ('PASS' if good else 'FAIL', name,
