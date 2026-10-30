@@ -66,7 +66,8 @@ def main():
                           tree=dict(path=str(rel / 'tree.json'), sha256=digest(c / 'tree.json'))))
     src = PM.source_hashes(root)
     doc = dict(schema='tc-plane-audit-manifest-v1', ball=ball, original_atlas_sha256=F.PIN, checker_sources_sha256=src, cells=cells)
-    json.dump(doc, open(d / 'manifest.json.new', 'w'), indent=1); os.replace(d / 'manifest.json.new', d / 'manifest.json')
+    tmp = d / ('manifest.json.%d.new' % os.getpid())          # one temporary file per writer
+    json.dump(doc, open(tmp, 'w'), indent=1); os.replace(tmp, d / 'manifest.json')
     # Each listed cell was already replayed once by its own job (plane_ball.py), from the same input, proposal and entry
     # (their hashes checked above) with the same pinned sources; record that in the audit's replay cache, so the audit
     # does not replay it again. Refined trees were replayed once by plane_refine.py. verify_ball.py replays everything.

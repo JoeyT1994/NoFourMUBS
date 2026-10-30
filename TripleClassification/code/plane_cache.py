@@ -47,6 +47,6 @@ def load(path):
 
 
 def save(path, d):
-    path = Path(path); tmp = str(path) + '.new'
+    path = Path(path); tmp = '%s.%d.new' % (path, os.getpid())     # one temporary file per writer
     with open(tmp, 'w') as f: json.dump(d, f)
     os.replace(tmp, path)
