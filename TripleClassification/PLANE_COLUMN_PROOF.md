@@ -513,6 +513,15 @@ tangent points, explicit mode handling and rejection of undersized records;
 all 71 plane-checker tests pass. Hashes and pilot counts are recorded in
 `plane_checkpoint.json`.
 
+A subsequent proposal-only search used `prove_column(..., epsilon_target=.015)`
+instead of the default `.004`. This target controls when subdivision stops; it
+is not an assumed capture bound. Each proposed leaf still passes `check_slab`
+and every retained combination passes the unchanged whole-cell verifier.
+All five 1016 timeouts above then passed independent cell replay, accounting
+for 145 complete K patterns. A separate local tree replay checked cell
+`[0,1,2,3]` across all 64 patterns. The two pilot stages cover all 32 tested
+cells, and still make no full original-ball closure claim.
+
 ## 8. Covering an unresolved cell by all of its children
 
 An unresolved cell can be refined without removing any point of the original target region.
