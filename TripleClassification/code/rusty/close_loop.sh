@@ -25,8 +25,9 @@ while [ "$(date +%s)" -lt "$end" ]; do
   wait
   # refresh each open ball's whole-cell manifest, so proofs finished since a part last ended reach the next audit pass
   for b in $open; do
-    [ -d $B/plane_v1/b$b ] && ( cd $B/pr4_914919b && /mnt/ceph/users/jtindall/venvs/nofourmubs/bin/python -W ignore $B/plane_manifest.py \
-      $B/pr4_914919b $B/plane_v1/b$b $b >> $LOG 2>&1;
+    R=$B/pr4_914919b; grep -qx "$b" $B/plane_ext_balls.txt 2>/dev/null && R=$B/pr4ext   # balls proved with the extended check
+    [ -d $B/plane_v1/b$b ] && ( cd $R && /mnt/ceph/users/jtindall/venvs/nofourmubs/bin/python -W ignore $B/plane_manifest.py \
+      $R $B/plane_v1/b$b $b >> $LOG 2>&1;
       /mnt/ceph/users/jtindall/venvs/nofourmubs/bin/python $B/plane_slim.py $B/plane_v1/b$b 4 >> $LOG 2>&1 ) &   # reports cut small
   done
   wait
@@ -35,7 +36,7 @@ while [ "$(date +%s)" -lt "$end" ]; do
   for b in $open; do
     [ -f $B/plane_v1/b$b/manifest.json ] && ! echo "$jobs" | grep -qxE "tc-prerep$b|tc-cc$b" && \
       sbatch -J tc-prerep$b -p preempt --qos=preempt -N1 --exclusive -t 4:00:00 -o $B/plane_v1/b$b.prereplay.%j.out \
-        --wrap "cd $B/pr4_914919b && /mnt/ceph/users/jtindall/venvs/nofourmubs/bin/python -W ignore $B/plane_prereplay.py $B/pr4_914919b $B/plane_v1/b$b $b" \
+        --wrap "R=$B/pr4_914919b; grep -qx $b $B/plane_ext_balls.txt && R=$B/pr4ext; cd \$R && /mnt/ceph/users/jtindall/venvs/nofourmubs/bin/python -W ignore $B/plane_prereplay.py \$R $B/plane_v1/b$b $b" \
         < /dev/null > /dev/null && echo "$(date +%H:%M) ball $b: pre-replay" >> $LOG
   done
   # one audit per open ball with all its proofs: progress/progress.tsv says, per ball, what is left and why

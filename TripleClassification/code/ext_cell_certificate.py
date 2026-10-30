@@ -13,14 +13,16 @@ that one common row functional and six unbiasedness multipliers give a strictly 
 minimum lower bounds over every tube of every column (projector_joint_certificate.certify). No tube tuple is
 enumerated and nothing numerical is accepted.
 
-The pinned checker tree is TC_ROOT (required). install() replaces plane_cell_certificate.check by this check in the
+The pinned checker tree is TC_ROOT, or the tree this file is installed in (pr4ext). install() replaces plane_cell_certificate.check by this check in the
 calling process, so plane_frontier_certificate.run (a replay) and plane_tree_certificate.check (a tree) use it.
 """
 import hashlib, os, sys, time
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-ROOT = Path(os.environ['TC_ROOT']).resolve()
+if os.environ.get('TC_ROOT'): ROOT = Path(os.environ['TC_ROOT']).resolve()
+elif (HERE / 'plane_cell_certificate.py').exists(): ROOT = HERE.parents[1]       # installed inside a checker tree (pr4ext)
+else: raise ImportError('TC_ROOT (the pinned checker tree) is required')
 for d in (str(HERE / 'projector'), str(ROOT / 'TripleClassification/code')):   # the pinned tree first; never this
     if d in sys.path: sys.path.remove(d)                                            # file's folder (other versions
     sys.path.insert(0, d)                                                           # of some pinned modules)

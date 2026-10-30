@@ -33,7 +33,7 @@ def main():
     root, d, ball = Path(sys.argv[1]).resolve(), Path(sys.argv[2]).resolve(), int(sys.argv[3])
     w = int(sys.argv[4]) if len(sys.argv) > 4 else int(os.environ.get('SLURM_CPUS_ON_NODE', '8'))
     here = Path(__file__).resolve().parent
-    sys.path[:0] = [str(here), str(here.parent), str(root / 'TripleClassification/code')]
+    sys.path[:0] = [str(root / 'TripleClassification/code')]; sys.path += [str(here), str(here.parent)]   # checker tree first
     import plane_cache
     from plane_audit_manifest import PlaneManifest
     from plane_column_certificate import digest

@@ -161,6 +161,8 @@ def main():
             state[(ri, level, tuple(cell))] = 'split'; return [x for k in children(level, cell) for x in expand(ri, *k)]
         return [(ri, level, cell)]
     pi, pk = (int(x) for x in a.part.split('/'))
+    if pk == 1 and a.cells_from and a.ext and 'TripleClassification/code/ext_cell_certificate.py' not in PM.source_hashes(root):
+        raise SystemExit('--ext trees need a checker tree that pins the extension (pr4ext, make_ext_root.sh)')
     first = [x for n, x in enumerate(t for ri, R in enumerate(roots) for t in expand(ri, R['level'], R['cell'])) if n % pk == pi]
     def settle(ri, level, cell):
         """--assemble: the state of every cell under (level, cell) from what earlier runs settled; no search."""
@@ -250,6 +252,9 @@ def main():
             R = roots[ri]
             if st not in CERT: continue
             closed.append(ri)
+            if a.cells_from and a.ext and 'TripleClassification/code/ext_cell_certificate.py' not in PM.source_hashes(root):
+                raise SystemExit('--ext trees need a checker tree that pins the extension (pr4ext, make_ext_root.sh): '
+                                 'refined.json must name the checker that certifies them')
             if a.cells_from:                        # what plane_manifest.py lists and caches for the original-ball audit
                 ref = dict(ball=a.ball, level=R['level'], cell=R['cell'], status=st, counts=cnt, closer=True,
                            tree_sha256=digest(R['dir'] / 'tree.json'), checker_sources_sha256=PM.source_hashes(root))

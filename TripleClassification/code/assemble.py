@@ -26,6 +26,8 @@ N_SEEDS = 2775
 ORIGINAL_ATLAS = '33ad9798eb7a5585c486f2427a6b223867a43b308b7f184467b4cd5956bd8baf'
 
 
+EXT_SOURCE = 'TripleClassification/code/ext_cell_certificate.py'   # a manifest pinning it names the extended tree
+
 def med(v):
     v = sorted(v)
     return round(v[len(v) // 2], 3) if v else None
@@ -165,6 +167,12 @@ def trees(a, V, side, RC, side_guard=None, out=None):
                 for c in rr: f.write(json.dumps(c, separators=(',', ':')) + '\n')
             per_ball[b] = [p]
 
+    def plane_root(i):
+        """The checker tree a ball's manifest pins: the extended tree (pr4ext) when it pins the extension."""
+        if a.plane_root_ext and i in plane_ball and EXT_SOURCE in json.load(open(plane_ball[i])).get('checker_sources_sha256', {}):
+            return a.plane_root_ext
+        return a.plane_root
+
     def audit(i, route, layers, scripts):
         base = _hl.sha256(json.dumps([auditor_sha, i, route, stamp(layers), scripts]).encode()).hexdigest()
         full = _hl.sha256(json.dumps([base, a.gamma_rules, a.gamma_sha, gamma_stamp, stamp(per_ball.get(i, [])),
@@ -191,7 +199,7 @@ def trees(a, V, side, RC, side_guard=None, out=None):
         if 'graph' in a.gamma_rules.split(','):
             extra += ['--graph'] + graph_ball.get(i, []) + ['--graph-dir', a.graph_dir, '--graph-sha', a.graph_sha,
                                                             '--graph-runner-sha', a.graph_runner_sha]
-        root = a.plane_root if i in plane_ball else a.tc_tree  # the plane checker's tree: same native sources and binding
+        root = plane_root(i) if i in plane_ball else a.tc_tree  # the plane checker's tree: same native sources and binding
         cp = subprocess.run([sys.executable, a.tree_auditor, '--root', root, '--index', str(i), '--layers'] + layers
                             + ['--scripts'] + scripts + extra + ['--report-open'], capture_output=True, text=True)
         try:
@@ -279,7 +287,7 @@ def trees(a, V, side, RC, side_guard=None, out=None):
                               lower_bounds=files(a.gamma_lower)) if gam else None,
                    anchored=dict(checker_sha256=a.anchored_sha, runner_sha256=a.anchored_runner_sha,
                                  records=files(anc)) if anc else None,
-                   plane=dict(manifest=files(plane_ball[i]), root=os.path.realpath(a.plane_root),
+                   plane=dict(manifest=files(plane_ball[i]), root=os.path.realpath(plane_root(i)),
                               cell_files=[f for x in json.load(open(plane_ball[i]))['cells']
                                           for f in [files(os.path.join(pd, x['entry']['path'])), files(os.path.join(pd, x['tree']['path']))]
                                           + leaves(os.path.join(pd, x['tree']['path']))])
@@ -362,6 +370,7 @@ def main():
     ap.add_argument('--anchored-runner-sha', help='pinned SHA-256 of anchored_run.py')
     ap.add_argument('--plane-dir', help="directory of per-ball PR #4 cell proofs, b<ball>/manifest.json")
     ap.add_argument('--plane-root', help='the pinned tree holding the plane checker (PR #4)')
+    ap.add_argument('--plane-root-ext', help='the extended checker tree (make_ext_root.sh), for balls whose manifest pins it')
     ap.add_argument('--graph-receipts', help='directory of per-ball graph_run.py receipt files b<ball>[.part].jsonl')
     ap.add_argument('--graph-dir', help='the pinned hardball checker directory')
     ap.add_argument('--graph-sha', help='pinned SHA-256 of hardball/certify_graph.py')

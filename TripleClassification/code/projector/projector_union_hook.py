@@ -4,8 +4,6 @@ Call after six complete column covers have been verified, before enumerating
 tube tuples. The outer checker retains responsibility for H/cover binding.
 """
 import projector_joint_certificate as J
-import projector_joint_probe as P
-import numpy as np
 
 def check_order(tubes,order):
     if len(order)!=6 or len(set(order))!=6 or any(c not in tubes or not tubes[c] for c in order):
@@ -19,6 +17,8 @@ def replay(model,tubes,proposal,duty=1.):
 
 def search(model,tubes,order,steps=100,duty=1.):
     """Returns (proposal, verified receipt), or None on a failed sufficient test."""
+    import projector_joint_probe as P   # vendored: the numerical probe is loaded only to search, not to replay
+    import numpy as np
     check_order(tubes,order);cs={}
     for c in order:
         entries=list(tubes[c].items());values=[p for key,(p,e) in entries]

@@ -77,6 +77,8 @@ def one(b, out):
     man = B + '/plane_v1/b%d/manifest.json' % b; root = TC
     if os.path.exists(man):
         extra += ['--plane', man, '--plane-cache', B + '/plane_v1/b%d/replay_cache.progress.json' % b]; root = PR   # own file: reads all
+        if 'TripleClassification/code/ext_cell_certificate.py' in json.load(open(man)).get('checker_sources_sha256', {}):
+            root = E('TC_PLANE_ROOT_EXT', B + '/pr4ext')          # the manifest pins the extended checker tree
     cmd = [PY, '-W', 'ignore', C + '/audit_select.py', '--root', root, '--index', str(b), '--layers'] + L + ['--scripts'] + S + extra + ['--report-open']
     p = subprocess.run(cmd, capture_output=True, text=True, env=dict(os.environ, OMP_NUM_THREADS='1'))
     try: r = json.loads((p.stdout.strip().splitlines() or ['{}'])[-1])

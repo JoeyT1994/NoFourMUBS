@@ -14,6 +14,7 @@ import fcntl, json, os, sys
 from pathlib import Path
 
 CERTIFIED = ('CERTIFIED_EMPTY_DYADIC_CELL', 'CERTIFIED_CLASSIFIED_DYADIC_CELL')
+EXT_PREFIXES = ('TripleClassification/code/ext_cell_certificate.py', 'TripleClassification/code/projector/')
 
 
 def main():
@@ -21,7 +22,8 @@ def main():
     lock = open(d / '.manifest.lock', 'w'); fcntl.flock(lock, fcntl.LOCK_EX)   # one writer per ball at a time
     sys.path.insert(0, str(root / 'TripleClassification/code'))
     here = Path(__file__).resolve().parent             # plane_cache.py (shared with audit_select.py): beside this
-    sys.path[:0] = [str(here), str(here.parent)]        # file on rusty, in code/ in the repository
+    sys.path += [str(here), str(here.parent)]           # file on rusty, in code/ in the repository; after the checker
+                                                        # tree, so its modules are never shadowed
     import plane_cache
     import plane_audit_manifest as PM
     import plane_frontier_certificate as F
@@ -63,8 +65,10 @@ def main():
                     rep['geometry']['level'] == entry['level'] and rep['geometry']['cell'] == entry['cell']):
                 continue                                     # files no longer those the replay certified: leave it out
             deps = rep.get('dependencies_sha256') or {}
+            ext = [k for k in deps if k.startswith(EXT_PREFIXES)]           # an extended replay counts only on a tree
             if (rep.get('checker_sha256') == src_now.get('TripleClassification/code/plane_frontier_certificate.py') and
-                    all(deps[k] == v for k, v in src_now.items() if k in deps)):
+                    all(deps[k] == v for k, v in src_now.items() if k in deps) and   # that pins the same extension
+                    all(src_now.get(k) == deps[k] for k in ext)):
                 seen[c.name] = (entry['level'], entry['cell'])   # replayed by this very checker version: cache it
             tree = dict(schema='tc-plane-tree-proposal-v1', root_entry_sha256=F.jsonsha(entry),
                         tree=dict(input=dict(path='frontier.input.json.gz', sha256=digest(c / 'frontier.input.json.gz')),

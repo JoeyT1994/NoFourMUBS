@@ -1,6 +1,7 @@
 # Vendored: the TC_joint_kw response (30 October 2026)
 
-From `handoffs/TC_joint_kw_response_20261030/` (REPORT.md, PROJECTOR_REPORT.md). Only import paths were changed, and
+From `handoffs/TC_joint_kw_response_20261030/` (REPORT.md, PROJECTOR_REPORT.md). Only import paths were changed (in `projector_union_hook.py` the probe is imported inside `search`, so a replay
+loads only the acceptance modules), and
 `moving_secant_certificate.py`'s `propose` and `check` were split into `propose_columns` and `check_columns` (same
 arithmetic, taking the H model and the six phase balls directly). The interval helpers come from the pinned checker
 tree (`TC_ROOT`): its `anchored_column_certificate.py` differs from the response's copy only in how it finds the root.

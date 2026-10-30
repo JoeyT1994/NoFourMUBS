@@ -26,7 +26,7 @@ $PY -W ignore $C/assemble.py $RAW $B/$OUT --tc-tree $B/frozen_bd87c69 --atlas $A
   --gamma-sha $(sha256sum $B/selective/gamma_test.py | cut -c1-64) --gamma-rules ${GAMMA_RULES:-fourier,ordering,anchored,graph} \
   --graph-receipts $B/selective/graph_v1 --graph-dir $C/hardball --graph-sha $(sha256sum $C/hardball/certify_graph.py | cut -c1-64) \
   --graph-runner-sha $(sha256sum $C/graph_run.py | cut -c1-64) \
-  --plane-dir $B/plane_v1 --plane-root $B/pr4_914919b \
+  --plane-dir $B/plane_v1 --plane-root $B/pr4_914919b --plane-root-ext $B/pr4ext \
   --anchored-dir $B/selective/anchored_v1 --anchored-sha $(sha256sum $C/anchored_column_certificate.py | cut -c1-64) \
   --anchored-runner-sha $(sha256sum $C/anchored_run.py | cut -c1-64)
 rm -rf -- "$RAW" "$B/$OUT.work"   # scratch: symlinks and cleaned receipt copies; the results stay in $B/$OUT

@@ -16,7 +16,7 @@ from flint import arb, arb_mat, ctx
 HERE=Path(__file__).resolve().parent
 # Vendored: the caller puts the pinned checker tree's TripleClassification/code first on sys.path (TC_ROOT, default
 # this file's repository); anchored_column_certificate and native_columns come from there.
-ROOT=Path(os.environ.get('TC_ROOT', HERE.parents[3])).resolve()
+ROOT=Path(os.environ.get('TC_ROOT', HERE.parents[2])).resolve()   # HERE is projector/
 for d in (ROOT/'proof/theorems/TC_triple_classification/family_neighbourhoods', ROOT/'TripleClassification/code'):
     if str(d) not in sys.path: sys.path.insert(0,str(d))
 import anchored_column_certificate as A
