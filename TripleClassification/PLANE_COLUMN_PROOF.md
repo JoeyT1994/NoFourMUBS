@@ -409,3 +409,52 @@ binary order. An outside leaf is exactly `{"outside": true}`. Replay is:
 python TripleClassification/code/plane_tree_certificate.py entry.json \
   --tree tree.json --out tree-replay.json
 ```
+
+## 9. Inserting these proofs into an original-ball covering audit
+
+An original-ball audit can now use a complete cell proof when the native row for
+that exact cell is unresolved. `plane_audit_manifest.py` indexes the supplied
+proofs by the original ball index, dyadic level, and four integer coordinates.
+It checks the original atlas hash, the full list of current plane-checker source
+hashes, and the entry and tree file hashes. When `audit_select.py` needs that
+cell, the adapter calls `plane_tree_certificate.check` and reconstructs every
+leaf proof. A stored positive margin or saved receipt status is not accepted in
+place of this replay.
+
+The conclusion is attached to the exact closed cell, even if its new H record
+differs from the legacy subatlas record. The new leaf checker establishes its own
+C1, H enclosure, Stage C preconditions, and complete K cover. The native closed
+rows and score or anchored discharges elsewhere in the tree retain their
+existing checks, including their Stage C evidence. The auditor still checks the
+entire geometric chain and refuses any unresolved final cell that is not a
+covered tangent point. Thus this rule supplies a missing cell theorem; it does
+not replace the original-ball cover by the phantom inventory.
+
+A `tc-plane-audit-manifest-v1` JSON object has exactly these fields:
+
+- `schema`, `ball`, and `original_atlas_sha256`;
+- `checker_sources_sha256`, obtained from `plane_audit_manifest.source_hashes(root)`;
+- `cells`, a list of objects with `entry` and `tree` file references. Each file
+  reference has `path` and `sha256`. Relative paths are resolved from the manifest.
+
+Each entry is the exact root entry used by its tree proposal. Duplicate cells,
+different original balls, changed source files, and changed proof files are
+rejected. A manifest may include proofs not needed by the selected chain; the
+audit reports their number and makes no claim from them. Only exact matching
+cells whose proofs were replayed appear in its `plane.cells` result.
+
+Use `audit_select.py --plane MANIFEST.json` with the existing layer and builder
+arguments. Run it with `--root` pointing to a checkout containing both these
+checkers and the unchanged frozen native sources. `assemble.py --plane-dir DIR`
+looks for `DIR/b<ball>.json`, replays those proofs without accepting an assembly
+cache entry in their place, and includes the manifest in the resulting ball
+certificate. `verify_ball.py` checks that manifest's hash and repeats the audit.
+The status publisher distinguishes a tree using the new cell rule from a tree
+closed solely by native certifier rows.
+
+The adapter passed a separate replay of the classified ball-825 cell in Section
+5. Its tests include changed files, another ball or atlas, duplicate cells,
+incomplete partitions, failed leaf replay, and an additional unresolved cell
+that must still prevent closure. These checks validate the integration. A new
+original-ball closure still requires that ball's full upstream layers and
+receipts, followed by a successful complete audit.

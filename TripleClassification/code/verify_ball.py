@@ -44,6 +44,7 @@ def main():
     files = [m['auditor'], m['stage_c']] + [x for L in m['layers'] for x in [L['subatlas'], L['receipts']] + L['scripts']]
     if m.get('gamma'): files += [m['gamma']['records'], m['gamma']['lower_bounds']]
     if m.get('anchored'): files += [m['anchored']['records']]
+    if m.get('plane'): files += [m['plane']]
     for f in files:
         if not os.path.exists(f['path']) or sha(f['path']) != f['sha256']: fail('file missing or changed: ' + f['path'])
     cmd = [sys.executable, '-W', 'ignore', m['auditor']['path'], '--root', a.root, '--index', str(m['ball']),
@@ -57,6 +58,7 @@ def main():
         if not m.get('gamma'): cmd += ['--gamma-rules', 'anchored']
         cmd += ['--anchored', m['anchored']['records']['path'], '--anchored-sha', m['anchored']['checker_sha256'],
                 '--anchored-runner-sha', m['anchored']['runner_sha256']]
+    if m.get('plane'): cmd += ['--plane', m['plane']['path']]
     p = subprocess.run(cmd, capture_output=True, text=True)
     try:
         v = json.loads((p.stdout.strip().splitlines() or ['{}'])[-1])
@@ -85,7 +87,7 @@ def main():
             if stage.get((L['subatlas']['sha256'], r['index'])) != rec: missing += 1
     if missing: fail('%d closed or discharged sub-balls without a Stage C PASS from an accepted guard' % missing)
     print(json.dumps(dict(status='VERIFIED', ball=m['ball'], route=m['route'], rule=m['rule'], layers=v['layers'],
-                          gamma=v.get('gamma'))))
+                          gamma=v.get('gamma'),plane=v.get('plane'))))
 
 
 if __name__ == '__main__': main()

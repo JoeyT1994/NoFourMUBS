@@ -158,6 +158,10 @@ def trees(a, V, side, RC, side_guard=None, out=None):
             per_ball[b] = [p]
 
     def audit(i, route, layers, scripts):
+        # Plane proofs are replayed, including their nested input/proposal files.
+        # A cached status must not replace that mathematical check.
+        if a.plane_dir and os.path.isfile(os.path.join(a.plane_dir,'b%d.json' % i)):
+            return audit_fresh(i,route,layers,scripts)
         base = _hl.sha256(json.dumps([auditor_sha, i, route, stamp(layers), scripts]).encode()).hexdigest()
         full = _hl.sha256(json.dumps([base, a.gamma_rules, a.gamma_sha, gamma_stamp, stamp(per_ball.get(i, [])),
                                       a.anchored_sha, a.anchored_runner_sha, stamp(anc_ball.get(i, []))]).encode()).hexdigest()
@@ -174,6 +178,8 @@ def trees(a, V, side, RC, side_guard=None, out=None):
         if 'anchored' in a.gamma_rules.split(','):
             extra += ['--anchored'] + anc_ball.get(i, []) + ['--anchored-sha', a.anchored_sha,
                                                              '--anchored-runner-sha', a.anchored_runner_sha]
+        plane = os.path.join(a.plane_dir,'b%d.json' % i) if a.plane_dir else None
+        if plane and os.path.isfile(plane): extra += ['--plane',plane]
         cp = subprocess.run([sys.executable, a.tree_auditor, '--root', a.tc_tree, '--index', str(i), '--layers'] + layers
                             + ['--scripts'] + scripts + extra, capture_output=True, text=True)
         try:
@@ -196,12 +202,14 @@ def trees(a, V, side, RC, side_guard=None, out=None):
         if missing: return dict(status='%d closed sub-balls without Stage C preconditions' % missing, route=route)
         g = v.get('gamma') or {}
         rule = 'anchored' if g.get('anchored') else 'ordering' if g.get('ordering') else ('fourier' if g.get('fourier') else 'certifier')
+        plane_used = bool((v.get('plane') or {}).get('cells'))
+        if plane_used and rule == 'certifier': rule = 'plane'
         x = dict(status='closed', route=route, depth=len(layers) + 1, layers=v['layers'], rule=rule, gamma=g,
-                 leaves=sum(x['closed'] for x in v['layers']), tangent_cells=v['tangent_cells'])
-        if out: x['certificate'] = certificate(i, route, layers, scripts, rule, disch)
+                 leaves=sum(x['closed'] for x in v['layers']), tangent_cells=v['tangent_cells'],plane=v.get('plane'))
+        if out: x['certificate'] = certificate(i, route, layers, scripts, rule, disch,plane if plane_used else None)
         return x
 
-    def certificate(i, route, layers, scripts, rule, disch=()):
+    def certificate(i, route, layers, scripts, rule, disch=(),plane=None):
         """One self-contained record per closed ball: every input file by SHA-256, the Stage C rows its closed
         sub-balls use, and (when a score rule closed it) its gamma records; verify_ball.py checks it from this alone."""
         d = os.path.join(out, 'certificates'); os.makedirs(d, exist_ok=True)
@@ -216,7 +224,7 @@ def trees(a, V, side, RC, side_guard=None, out=None):
         with open(os.path.join(d, 'b%d.stagec.jsonl' % i), 'w') as f:
             for r in stage: f.write(json.dumps(r, separators=(',', ':')) + '\n')
         gam = None
-        if rule != 'certifier' and i in per_ball:
+        if rule not in ('certifier','plane') and i in per_ball:
             gam = os.path.join(d, 'b%d.gamma.jsonl' % i)
             with open(gam, 'w') as dst:
                 for src in per_ball[i]: dst.write(open(src).read())
@@ -236,11 +244,11 @@ def trees(a, V, side, RC, side_guard=None, out=None):
                    gamma=dict(rules=a.gamma_rules, gamma_test_sha256=a.gamma_sha, records=files(gam),
                               lower_bounds=files(a.gamma_lower)) if gam else None,
                    anchored=dict(checker_sha256=a.anchored_sha, runner_sha256=a.anchored_runner_sha,
-                                 records=files(anc)) if anc else None)
+                                 records=files(anc)) if anc else None,plane=files(plane) if plane else None)
         with open(os.path.join(d, 'b%d.json' % i), 'w') as f: json.dump(man, f, indent=1)
         return os.path.join(d, 'b%d.json' % i)
 
-    rank = {'certifier': 0, 'fourier': 1, 'ordering': 2, 'anchored': 3}
+    rank = {'certifier': 0, 'fourier': 1, 'ordering': 2, 'anchored': 3, 'plane': 4}
 
     def first(i):
         """The tree that closes the ball with the fewest added ingredients: the certifier alone, then the Fourier rule,
@@ -290,6 +298,7 @@ def main():
     ap.add_argument('--anchored-dir', help='directory of per-ball anchored_run.py receipt files b<ball>.jsonl')
     ap.add_argument('--anchored-sha', help='pinned SHA-256 of anchored_column_certificate.py')
     ap.add_argument('--anchored-runner-sha', help='pinned SHA-256 of anchored_run.py')
+    ap.add_argument('--plane-dir', help='per-ball b<ball>.json manifests of exact-cell all-K trees to replay')
     a = ap.parse_args()
     raw, out = a.raw, a.out
     sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -418,7 +427,8 @@ def main():
         if t == 'CERTIFIED': final[j] = 'classified'
         elif t == 'CERTIFIED EMPTY': final[j] = 'empty'
         elif tree.get(j, {}).get('status') == 'closed':
-            final[j] = {'certifier': 'tree', 'fourier': 'tree_fourier', 'ordering': 'tree_ordering'}[tree[j]['rule']]
+            final[j] = {'certifier': 'tree', 'fourier': 'tree_fourier', 'ordering': 'tree_ordering',
+                        'anchored': 'tree_anchored', 'plane': 'tree_plane'}[tree[j]['rule']]
         else: final[j] = 'open'
 
     with open(os.path.join(out, 'balls.tsv'), 'w') as f:

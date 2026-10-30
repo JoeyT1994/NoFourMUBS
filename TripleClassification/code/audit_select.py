@@ -131,6 +131,7 @@ def main():
     ap.add_argument('--anchored', type=Path, nargs='*', default=[], help='anchored_run.py receipts')
     ap.add_argument('--anchored-sha', help='the pinned SHA-256 of anchored_column_certificate.py')
     ap.add_argument('--anchored-runner-sha', help='the pinned SHA-256 of anchored_run.py')
+    ap.add_argument('--plane', type=Path, help='hash-bound all-K cell trees, mathematically replayed during this audit')
     args = ap.parse_args(); root = args.root.resolve(); ctx.prec = 224
     need(len(args.layers) == len(args.scripts) >= 1, 'one script per layer')
     sys.path.insert(0, str(root / 'proof/theorems/TC_triple_classification/family_neighbourhoods'))
@@ -141,6 +142,10 @@ def main():
     original = load(atlas)['seeds'][args.index]
     paths = [p.absolute() for p in args.layers]          # not resolve(): a cleaned receipt copy sits beside a symlinked sub-atlas
     docs = list(map(load, paths)); rowsets = [rows(str(p)[:-len('.json.gz')] + '.jsonl') for p in paths]
+    plane = None
+    if args.plane:
+        from plane_audit_manifest import PlaneManifest
+        plane = PlaneManifest(args.plane,args.index,root)
     bindings = []                                 # a layer may name alternative scripts 'a.py,b.py'; each row must carry
     for p, alts in zip(paths, args.scripts):      # the binding of one of them
         ids = set()
@@ -282,6 +287,9 @@ def main():
             if status == 'NOT ESTABLISHED':
                 unresolved.add(cell)
                 if needed:
+                    if plane and plane.close(level,cell):
+                        closed.append((level,cell))
+                        continue
                     rule = discharged(row, sub, layer_sha, i) if rules else None
                     if rule:
                         used[rule] += 1; closed.append((level, cell)); disch.append([level, i])
@@ -304,6 +312,7 @@ def main():
         need(p is not None and any(contains(cc, lv, p) for lv, cc in closed), 'unresolved cell at the last level: %s' % (c,))
     print(json.dumps(dict(status='GEOMETRY_AND_RECEIPTS_VERIFIED', ball=args.index, original_radius=original['r'],
                           layers=counts, tangent_cells=len(live), gamma=used, discharged=disch,
+                          plane=plane.report() if plane else None,
                           bindings=[sorted(b) for b in bindings])))
 
 
