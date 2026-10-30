@@ -4,19 +4,19 @@
   "empty": 2101,
   "tree": 372,
   "tree_anchored": 2,
-  "tree_plane": 10,
-  "open": 7,
+  "tree_plane": 13,
   "tree_ordering": 11,
+  "open": 4,
   "classified": 272
  },
  "nearest_triple_median": {
-  "tree_anchored": 0.304,
-  "empty": 0.901,
-  "tree_ordering": 0.198,
   "open": 0.091,
-  "tree_plane": 0.299,
+  "tree": 0.358,
   "classified": 0.083,
-  "tree": 0.358
+  "tree_ordering": 0.198,
+  "tree_anchored": 0.304,
+  "tree_plane": 0.27,
+  "empty": 0.901
  },
  "certifier": {
   "CERTIFIED EMPTY": 2101,
@@ -1652,10 +1652,50 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b584.json"
   },
   "588": {
-   "status": "open below level 5",
+   "status": "closed",
    "route": "selective chain",
-   "open_level": 5,
-   "open_cells": 2470
+   "depth": 5,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 125,
+     "open": 131,
+     "still_open": 131
+    },
+    {
+     "level": 3,
+     "cells": 1373,
+     "closed": 965,
+     "open": 408,
+     "still_open": 408
+    },
+    {
+     "level": 4,
+     "cells": 4388,
+     "closed": 3185,
+     "open": 1203,
+     "still_open": 1203
+    },
+    {
+     "level": 5,
+     "cells": 13724,
+     "closed": 7961,
+     "open": 5763,
+     "still_open": 0
+    }
+   ],
+   "rule": "plane",
+   "gamma": {
+    "fourier": 1,
+    "ordering": 3292,
+    "anchored": 0,
+    "graph": 0,
+    "plane": 2470
+   },
+   "leaves": 12236,
+   "tangent_cells": 0,
+   "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b588.json"
   },
   "589": {
    "status": "closed",
@@ -2013,10 +2053,57 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b636.json"
   },
   "641": {
-   "status": "open below level 6",
+   "status": "closed",
    "route": "selective chain",
-   "open_level": 6,
-   "open_cells": 10818
+   "depth": 6,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 92,
+     "open": 164,
+     "still_open": 164
+    },
+    {
+     "level": 3,
+     "cells": 1720,
+     "closed": 1231,
+     "open": 489,
+     "still_open": 489
+    },
+    {
+     "level": 4,
+     "cells": 5449,
+     "closed": 3678,
+     "open": 1771,
+     "still_open": 1771
+    },
+    {
+     "level": 5,
+     "cells": 21468,
+     "closed": 12125,
+     "open": 9343,
+     "still_open": 2358
+    },
+    {
+     "level": 6,
+     "cells": 33599,
+     "closed": 3099,
+     "open": 30500,
+     "still_open": 0
+    }
+   ],
+   "rule": "plane",
+   "gamma": {
+    "fourier": 6,
+    "ordering": 23025,
+    "anchored": 0,
+    "graph": 2173,
+    "plane": 10818
+   },
+   "leaves": 20225,
+   "tangent_cells": 0,
+   "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b641.json"
   },
   "643": {
    "status": "closed",
@@ -3183,10 +3270,8 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b767.json"
   },
   "768": {
-   "status": "open below level 5",
-   "route": "selective chain",
-   "open_level": 5,
-   "open_cells": 7801
+   "status": "audit failed: ",
+   "route": "selective chain"
   },
   "769": {
    "status": "closed",
@@ -3640,10 +3725,8 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b807.json"
   },
   "815": {
-   "status": "open below level 5",
-   "route": "selective chain",
-   "open_level": 5,
-   "open_cells": 7493
+   "status": "audit failed: ",
+   "route": "selective chain"
   },
   "822": {
    "status": "closed",
@@ -3731,10 +3814,8 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b823.json"
   },
   "825": {
-   "status": "open below level 4",
-   "route": "selective chain",
-   "open_level": 4,
-   "open_cells": 3550
+   "status": "audit failed: ",
+   "route": "selective chain"
   },
   "828": {
    "status": "closed",
@@ -6125,10 +6206,8 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b1010.json"
   },
   "1016": {
-   "status": "open below level 4",
-   "route": "selective chain",
-   "open_level": 4,
-   "open_cells": 555
+   "status": "audit failed: ",
+   "route": "selective chain"
   },
   "1022": {
    "status": "closed",
@@ -7507,8 +7586,57 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b1216.json"
   },
   "1217": {
-   "status": "audit failed: ",
-   "route": "selective chain"
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 6,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 0,
+     "open": 256,
+     "still_open": 256
+    },
+    {
+     "level": 3,
+     "cells": 2576,
+     "closed": 784,
+     "open": 1792,
+     "still_open": 1792
+    },
+    {
+     "level": 4,
+     "cells": 23544,
+     "closed": 12206,
+     "open": 11338,
+     "still_open": 1353
+    },
+    {
+     "level": 5,
+     "cells": 18449,
+     "closed": 2722,
+     "open": 15727,
+     "still_open": 2616
+    },
+    {
+     "level": 6,
+     "cells": 37141,
+     "closed": 201,
+     "open": 36940,
+     "still_open": 0
+    }
+   ],
+   "rule": "plane",
+   "gamma": {
+    "fourier": 666,
+    "ordering": 46493,
+    "anchored": 0,
+    "graph": 2048,
+    "plane": 10829
+   },
+   "leaves": 15913,
+   "tangent_cells": 0,
+   "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b1217.json"
   },
   "1227": {
    "status": "closed",
