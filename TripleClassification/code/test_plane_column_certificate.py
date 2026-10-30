@@ -53,8 +53,9 @@ class PlaneTests(unittest.TestCase):
 
     def test_zero_preconditioner_cannot_capture(self):
         col=P.Column(self.model(),self.column())
-        proposal=col.propose_slab(4,(7,7));proposal['P']=P.encode(np.zeros((3,6)))
-        with self.assertRaises(ArithmeticError):col.check_slab(4,(7,7),proposal)
+        for averaged in (False,True):
+            proposal=col.propose_slab(4,(7,7),averaged=averaged);proposal['P']=P.encode(np.zeros((3,6)))
+            with self.assertRaises(ArithmeticError):col.check_slab(4,(7,7),proposal)
 
     def test_true_fourier_chirp_is_not_excluded(self):
         col=P.Column(self.model(),self.column())
@@ -62,13 +63,37 @@ class PlaneTests(unittest.TestCase):
         self.assertLess(np.linalg.norm(f),1e-12)
         # The true root has weak coordinates zero. All four cells sharing
         # zero must retain it, including with the numerical optimizer disabled.
-        for index in itertools.product((7,8),repeat=2):
-            proposal=col.propose_slab(4,index)
+        radius=col.radius
+        for averaged,index in itertools.product((False,True),itertools.product((7,8),repeat=2)):
+            proposal=col.propose_slab(4,index,averaged=averaged)
             with patch.object(P,'least_squares',side_effect=AssertionError('optimization during replay')):
                 result=col.check_slab(4,index,proposal)
             self.assertEqual(result['status'],'CAPTURED')
             distance=P.A.norm([arb(x)-y for x,y in zip(self.column()['v0'],result['center'])])
             self.assertTrue(distance<result['radius'])
+            self.assertEqual(col.radius,radius)
+
+    def test_segment_bound_is_below_exact_integrated_jacobian(self):
+        # A diagonal Jacobian with entries cos(x_j)-sin(x_j). Its integral
+        # on a straight segment is analytic, independent of our majorant.
+        terms=[];left=arb('.05');right=arb('.7')
+        for j in range(3):
+            z=[P.A.acb(0)]*6;z[j]=P.A.acb(arb('.5'),arb('-.5'))
+            terms.append((z,[arb(int(i==j)) for i in range(3)]))
+        pre=arb_mat([[int(i==j) for j in range(6)] for i in range(3)])
+        lower=P.segment_monotonicity(pre,terms,left,right,arb(0))
+        exact=(right.sin()-left.sin()+right.cos()-left.cos())/(right-left)
+        self.assertTrue(lower>0)
+        self.assertTrue(lower<exact)
+        self.assertTrue(lower>P.monotonicity(pre,terms,right,arb(0)))
+
+    def test_segment_mode_and_bounds_reject_invalid_data(self):
+        col=P.Column(self.model(),self.column());proposal=col.propose_slab(4,(7,7))
+        proposal['averaged']='yes'
+        with self.assertRaises(ValueError):col.check_slab(4,(7,7),proposal)
+        pre=arb_mat(3,6)
+        for bad in (arb(-1),arb('nan')):
+            with self.assertRaises(ValueError):P.segment_monotonicity(pre,[],bad,arb(1),arb(0))
 
     def test_actual_orthogonal_pair_cannot_be_excluded(self):
         model=self.model();columns=[self.column(k) for k in (0,1)]
@@ -76,6 +101,21 @@ class PlaneTests(unittest.TestCase):
         for col in columns:
             tubes.append(dict(model=model,v0=arb_mat([[arb(x)] for x in col['v0']]),T=arb_mat(6,4)))
         self.assertFalse(P.pair_margin(tubes[0],arb(0),tubes[1],arb(0))>0)
+        self.assertFalse(P.directional_pair_margin(tubes[0],arb(0),tubes[1],arb(0))>0)
+
+    def test_directional_pair_bound_handles_a_wide_same_center_pair(self):
+        tube=dict(model=self.model(),v0=arb_mat(6,1),T=arb_mat(6,4))
+        self.assertFalse(P.pair_margin(tube,arb(1),tube,arb(1))>0)
+        self.assertTrue(P.directional_pair_margin(tube,arb(1),tube,arb(1))>0)
+
+    def test_directional_pair_retains_a_zero_with_motion_and_errors(self):
+        model=self.model();model['r']=arb('.2');w=arb('.19');tubes=[]
+        for c in (0,1):
+            motion=arb_mat([[arb((a+2*c)%5-2)/10,0,0,0] for a in range(6)])
+            error=arb_mat([[arb((2*a+c)%7-3)/1000] for a in range(6)])
+            center=arb_mat([[arb(x)] for x in self.column(c)['v0']])-motion*arb_mat([[w],[0],[0],[0]])-error
+            tubes.append(dict(model=model,v0=center,T=motion))
+        self.assertFalse(P.directional_pair_margin(tubes[0],arb('.02'),tubes[1],arb('.02'))>0)
 
     def test_replay_never_trusts_a_leaf_label(self):
         col=P.Column(self.model(),self.column())

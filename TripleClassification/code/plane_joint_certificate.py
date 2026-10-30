@@ -140,8 +140,10 @@ def exclude(model,tubes,order,proposal=None,pair_cache=None,scalar_cache=None,
     if pair_cache is None:pair_cache={}
     if scalar_cache is None:scalar_cache={}
     supplied={};used={};known={};used_known={};nodes=0;attempts=0
+    directional=proposal is None or proposal.get('pair_bound')=='directional-v1'
     if proposal is not None:
-        P.require(set(proposal) in ({'order','scalars'},{'order','scalars','known'}) and
+        P.require({'order','scalars'}<=set(proposal)<={'order','scalars','known','pair_bound'} and
+                  ('pair_bound' not in proposal or proposal['pair_bound']=='directional-v1') and
                   proposal['order']==order,'joint order changed')
         P.require(allow_known or not proposal.get('known'),'classification is not an empty-cell proof')
         for item in proposal.get('known',[]):
@@ -166,10 +168,10 @@ def exclude(model,tubes,order,proposal=None,pair_cache=None,scalar_cache=None,
                 'foreign or duplicate scalar witness')
             supplied[key]=item['direction']
     def pair_bad(a,i,b,j):
-        key=(a,i,b,j) if a<b else (b,j,a,i)
+        key=(directional,)+((a,i,b,j) if a<b else (b,j,a,i))
         if key not in pair_cache:
             if len(pair_cache)>200000:pair_cache.clear()
-            pair_cache[key]=P.pair_excluded({0:tubes[a][i]},{0:tubes[b][j]})
+            pair_cache[key]=P.pair_excluded({0:tubes[a][i]},{0:tubes[b][j]},directional=directional)
         return pair_cache[key]
     def visit(chosen):
         nonlocal nodes,attempts
@@ -217,6 +219,7 @@ def exclude(model,tubes,order,proposal=None,pair_cache=None,scalar_cache=None,
         P.require(set(used_known)==set(known),'unused known-branch witness')
     result=dict(order=order,scalars=[dict(roots=[list(x) for x in key],direction=value)
                                    for key,value in sorted(used.items())])
+    if directional:result['pair_bound']='directional-v1'
     if used_known:result['known']=[dict(prefix=[list(x) for x in key],action=value)
                                  for key,value in sorted(used_known.items())]
     return result

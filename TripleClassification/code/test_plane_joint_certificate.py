@@ -44,6 +44,16 @@ class JointTests(unittest.TestCase):
         tubes[2][1]=self.captures[0]
         with self.assertRaises(ArithmeticError):J.exclude(self.model,tubes,[0,1,2],empty)
 
+    def test_directional_pairs_are_versioned_and_old_replays_keep_their_bound(self):
+        capture=(self.captures[0][0],arb(1));tubes={c:{0:capture} for c in range(2)}
+        proposal=J.exclude(self.model,tubes,[0,1])
+        self.assertEqual(proposal['pair_bound'],'directional-v1')
+        J.exclude(self.model,tubes,[0,1],proposal)
+        old=dict(order=[0,1],scalars=[])
+        with self.assertRaises(ArithmeticError):J.exclude(self.model,tubes,[0,1],old)
+        proposal['pair_bound']='unknown'
+        with self.assertRaises(ValueError):J.exclude(self.model,tubes,[0,1],proposal)
+
     def test_missing_foreign_and_unused_scalar_witnesses_are_rejected(self):
         tubes={i:{0:self.captures[i]} for i in range(3)}
         zeros=[0.0.hex()]*96

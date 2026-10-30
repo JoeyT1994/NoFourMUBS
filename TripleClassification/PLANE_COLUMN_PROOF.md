@@ -106,6 +106,36 @@ strong derivative at z*, then throughout the capture it is bounded below by
 
 A strictly positive Arb lower bound excludes every zero there. Otherwise the checker keeps the capture.
 
+We can sharpen the first capture by bounding the averaged Jacobian itself. This
+uses the same segment argument as the collaborator's `fiber_secant.py` on main,
+applied here to the symmetric matrices above. Suppose the norms of its two
+endpoints, measured from the reference expansion point, are at most a and b.
+The norm along the segment is at most (1−s)a+sb. Its first three integrated
+powers are
+
+    μ1 = (a+b)/2,   μ2 = (a²+ab+b²)/3,
+    μ3 = (a³+a²b+ab²+b³)/4.
+
+For every real θ, 0 ≤ 1−cos θ ≤ θ²/2 and |sin θ−θ| ≤ |θ|³/6. Because
+D_A±A and D_B±B are positive semidefinite, these inequalities give the following
+lower matrix for the averaged symmetric Jacobian:
+
+    Σ A − [μ1 sqrt(λmax(Σ_k L_k²)) + drift] I
+        − Σ[‖ℓ‖² μ2 (D_A+A)/4 + ‖ℓ‖³ μ3 D_B/6].
+
+Every integral in this expression is exact. A strictly positive lower eigenvalue
+therefore gives the same necessary capture inequality, without requiring the
+pointwise bound to be positive throughout the source ball. Initially a=‖z*‖
+and b is the strong source radius enlarged to contain z*. After a capture ρ is
+proved, recenter at z* and use a=0, b=ρ. Each further bound uses an enclosure
+already proved to contain every possible zero. Neither the original H radius
+nor the source column radius changes.
+
+New column proposals mark this rule with `averaged: true`. Proposals without
+that flag retain the previous pointwise calculation on replay. Tests retain
+the exact Fourier chirps on shared cell boundaries in both modes and compare
+the new bound with an analytically integrated trigonometric Jacobian.
+
 ## 3. Recentering captures and excluding a pair
 
 For each retained capture, a numerical solve proposes a new phase center u. The checker adds the
@@ -139,6 +169,21 @@ linear error is at most sqrt(6)ε by Cauchy–Schwarz; the sum of exponential re
 Replay requires a strictly positive margin for every pair of retained tubes. Thus none can be the
 two orthogonal columns of a completing basis. If one entire column cover is empty, that alone excludes
 the pattern.
+
+A second pair bound first projects the overlap onto a nonzero complex number d.
+Put z_j=exp(i(u_bj−u_aj)), g_j=−Im(d z_j), and c=Σ_j g_j ΔT_j. Taylor's
+formula gives the lower bound
+
+    [Re(d S) − r‖c‖ − ε‖g‖ − |d|δ²/2]/|d|.
+
+This keeps the error's actual gradient instead of replacing its norm by sqrt(6).
+It also keeps the signed common H motion after projection. The checker proposes
+d from the binary64 midpoint of the conjugate reference overlap, treats its
+components as exact, and checks its nonzero modulus in Arb; it need not have unit norm.
+The remainder uses Σ_j |exp(iΔv_j)−1−iΔv_j| ≤ ‖Δv‖²/2. No assumption that an
+error vector has zero mean is needed. The checker takes the better of this and
+the preceding bound. Joint proposals record `pair_bound: directional-v1` so
+older proposals replay with their original pair rule and branch accounting.
 
 ## 4. Reproduction and scope
 
@@ -208,6 +253,14 @@ python TripleClassification/code/plane_cell_certificate.py \
 The local pilot rebuilt all 64 patterns of this 1217 cell and excluded each one. The search and first
 replay took about 45 seconds. This is a whole-cell result. Its extension to original seed ball 1217
 still requires a verified geometric cover whose every cell is classified or excluded.
+
+The averaged-derivative bound also captures four previously unresolved column
+regions on ball 595's level-4 cell `[5,9,13,2]` in the stored dyadic coordinates.
+A separate full-cell replay excludes all 18 completing-basis patterns. A further
+tree replay checks that this H record covers the entire assigned closed cell
+inside the original radius-0.1 ball. The proposal and replay hashes and their
+Popeye locations are in `plane_checkpoint.json`. This adds one cell theorem;
+closure of original ball 595 still requires its complete covering audit.
 
 ### Several captured columns must share the same H
 

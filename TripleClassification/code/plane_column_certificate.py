@@ -102,6 +102,28 @@ def monotonicity(P,terms,radius,drift):
     return A.eigen_lower(S-tail-(linear+drift)*A.identity(n))
 
 
+def segment_monotonicity(P,terms,a,b,drift):
+    """Lower-bound the averaged symmetric Jacobian between endpoint balls.
+
+    The endpoint norms are at most a,b about the reference in terms. Along
+    the segment the norm is at most (1-s)*a+s*b. Integrate its first three
+    powers exactly; the cosine/sine remainders use global quadratic/cubic
+    majorants. No pointwise contraction of the whole source ball is assumed.
+    """
+    require(all(x.is_finite() and x>=0 for x in (a,b,drift)),
+            'invalid segment radii or drift')
+    n=3;S=arb_mat(n,n);tail=arb_mat(n,n);L=[arb_mat(n,n) for _ in range(n)]
+    r1=(a+b)/2;r2=(a*a+a*b+b*b)/3;r3=(a**3+a*a*b+a*b*b+b**3)/4
+    for z,ell in terms:
+        y=A.dot(P,z);AA,DA=A.symmetric_majorant([-2*v.imag for v in y],ell)
+        BB,DB=A.symmetric_majorant([-2*v.real for v in y],ell);en=A.norm(ell)
+        S+=AA
+        for j in range(n):L[j]+=ell[j]*BB
+        tail+=en**2*r2*(DA+AA)/4+en**3*r3*DB/6
+    square=sum((x*x for x in L),arb_mat(n,n));linear=r1*A.eigen_upper(square).sqrt()
+    return A.eigen_lower(S-tail-(linear+drift)*A.identity(n))
+
+
 def require(condition,message):
     if not condition:raise ValueError(message)
 
@@ -193,17 +215,21 @@ class Column:
         remaining=self.radius**2-sum((x*x for x in lower),arb(0))
         return mid,half,remaining
 
-    def propose_slab(self,level,index):
+    def propose_slab(self,level,index,averaged=False):
         mid,half,remaining=self.geometry(level,index)
         if remaining<0:return dict(kind='outside')
         def equations(z):return self.equations(np.r_[z,[float(v) for v in mid]])
         fit=least_squares(lambda z:equations(z)[0],np.zeros(3),jac=lambda z:equations(z)[1][:,:3],
             max_nfev=100,ftol=1e-13,xtol=1e-13,gtol=1e-13)
         lam=fit.fun;ln=np.linalg.norm(lam)
-        return dict(z=encode(fit.x),P=encode(np.linalg.pinv(fit.jac)),
+        result=dict(z=encode(fit.x),P=encode(np.linalg.pinv(fit.jac)),
                     lam=encode(lam/ln if ln>1e-15 else np.zeros(6)))
+        if averaged:result['averaged']=True
+        return result
 
     def check_slab(self,level,index,proposal):
+        averaged=proposal.get('averaged',False)
+        require(type(averaged) is bool,'invalid averaged-derivative mode')
         mid,half,remaining=self.geometry(level,index)
         if remaining<0:return dict(status='OUTSIDE')
         require(proposal.get('kind')!='outside','source ball intersects claimed outside cell')
@@ -215,12 +241,15 @@ class Column:
         ref=reference(self.model,center,self.E);param=parameters(self.model,center,self.E,half)
         force,drift=forcing(P,param,self.model['r'],half);value,_=value_jac(P,ref)
         domain=max(max(remaining.upper(),arb(0)).sqrt().upper(),A.norm(zstar.entries()))
-        gap=monotonicity(P,reference(self.model,source,self.E),domain,drift)
+        source_terms=reference(self.model,source,self.E)
+        gap=(segment_monotonicity(P,source_terms,A.norm(zstar.entries()),domain,drift) if averaged
+             else monotonicity(P,source_terms,domain,drift))
         if not gap>0:raise ArithmeticError('strong-direction capture not established')
         numerator=(A.norm(value.entries())+force).upper();cap=(numerator/gap).upper()
         steps=[dict(lower=str(gap),radius=str(domain),capture=str(cap))]
         for _ in range(3):
-            nextgap=monotonicity(P,ref,cap,drift)
+            nextgap=(segment_monotonicity(P,ref,arb(0),cap,drift) if averaged
+                     else monotonicity(P,ref,cap,drift))
             if not nextgap>0:break
             nextcap=(numerator/nextgap).upper()
             if not nextcap<cap:break
@@ -263,10 +292,26 @@ def pair_margin(a,ea,b,eb):
     return abs(s)-first-arb(6).sqrt()*error-delta*delta/2
 
 
-def pair_excluded(left,right):
+def directional_pair_margin(a,ea,b,eb):
+    """Project the overlap onto a proposed complex direction before bounding it."""
+    r=a['model']['r'];dt=b['T']-a['T']
+    zs=[A.cexp(b['v0'][j,0]-a['v0'][j,0]) for j in range(6)]
+    s=sum(zs,A.acb(0));direction=A.acb(arb(float(s.real.mid())),-arb(float(s.imag.mid())))
+    size=abs(direction)
+    if not size>0:return pair_margin(a,ea,b,eb)
+    weights=[direction*z for z in zs]
+    motion=[sum((-weights[j].imag*dt[j,k] for j in range(6)),arb(0)) for k in range(4)]
+    error=ea+eb;delta=A.operator_norm(dt)*r+error
+    lower=((direction*s).real-A.norm(motion)*r-A.norm([z.imag for z in weights])*error
+           -size*delta*delta/2)/size
+    return max(lower,pair_margin(a,ea,b,eb))
+
+
+def pair_excluded(left,right,directional=False):
     """Search failure for one pair must not prevent trying other pairs."""
     try:
-        return all(pair_margin(a,ea,b,eb)>0 for a,ea in left.values() for b,eb in right.values())
+        margin=directional_pair_margin if directional else pair_margin
+        return all(margin(a,ea,b,eb)>0 for a,ea in left.values() for b,eb in right.values())
     except ArithmeticError:
         return False
 
@@ -316,13 +361,13 @@ def recenter_captures(column,proposal,C):
     return result
 
 
-def prove_column(model,supplied,C,depth=6,node_cap=6000,epsilon_target=.004):
+def prove_column(model,supplied,C,depth=6,node_cap=6000,epsilon_target=.004,averaged=True):
     col=Column(model,supplied);roots=[];root_modes=[];count=0
     def visit(level,index):
         nonlocal count
         count+=1
         if count>node_cap:raise ArithmeticError('column node budget exhausted')
-        proposal=col.propose_slab(level,index)
+        proposal=col.propose_slab(level,index,averaged=averaged)
         try:result=col.check_slab(level,index,proposal)
         except ArithmeticError:result=dict(status='UNKNOWN')
         if result['status'] in ('EXCLUDED','OUTSIDE'):
