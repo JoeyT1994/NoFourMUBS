@@ -3,7 +3,8 @@
 
   python plane_ball.py BALL WORKERS
 
-Reads open_cells/b<ball>.json (open_cells.py). For each unresolved last-level cell it writes the entry (ball, level, cell,
+Reads the ball's exact open cells from results_live/open_cells.json (every live pass writes it). For each cell not
+attempted before it writes the entry (ball, level, cell,
 sub-atlas, sub-ball, record hash) and runs pr4_914919b/TripleClassification/code/plane_frontier_certificate.py twice:
 a search, then a separate replay of the saved input and proposal, which is the result kept. The certifier builds its
 own H record for the exact dyadic cell, proves in Arb that it covers the whole closed cell inside the original ball,
@@ -41,11 +42,13 @@ def run(task):
 
 def main():
     b, w = int(sys.argv[1]), int(sys.argv[2])
-    oc = json.load(open(B + '/open_cells/b%d.json' % b))
-    last = os.path.join(B, oc['layers'][-1]); doc = json.load(gzip.open(last, 'rt'))
+    oc = json.load(open(B + '/results_live/open_cells.json'))['balls'][str(b)]   # written by every live pass
+    last = oc['layers'][-1]; doc = json.load(gzip.open(last, 'rt'))
     sub_of = {tuple(x['cell']): x['sub'] for x in doc['info']['split']['cover'] if 'sub' in x}
     tasks = []
-    for c in oc.get('unresolved_cells', []):
+    done = set(os.listdir('%s/plane_v1/b%d' % (B, b))) if os.path.isdir('%s/plane_v1/b%d' % (B, b)) else set()
+    for c in oc['cells']:
+        if '%d_%s' % (oc['level'], '_'.join(map(str, c))) in done: continue          # already attempted
         sub = sub_of[tuple(c)]
         entry = dict(ball=b, level=oc['level'], cell=list(c), subatlas=os.path.basename(last), sub=sub,
                      record_sha256=hashlib.sha256(json.dumps(doc['seeds'][sub], sort_keys=True).encode()).hexdigest())
