@@ -312,7 +312,8 @@ unselected columns, and reject an enumeration with an uncovered root combination
 
 With the two-column test, a separate replay excludes all 960 K patterns on ball 1016's level-5
 cell `[1,15,15,22]` in the stored dyadic coordinates. The replay verifies containment of this entire
-closed cell in its H record, inside the unchanged original radius near 0.08. This is one child of
+closed cell in its H record. For the original cover, this certifies the cell's intersection with
+the unchanged original radius-0.08 ball. This is one child of
 the level-4 cell `[0,7,7,11]`; it does not establish coverage of that parent. Its input and proposal
 hashes and the preserved Popeye files are recorded in `plane_checkpoint.json`.
 
