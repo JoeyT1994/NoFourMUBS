@@ -10,7 +10,9 @@ there each cell meeting the closed ball is searched (capped at its level's secon
 - certified (empty, or every K classified): a leaf;
 - not certified, below --max-level: split into its 16 children (those missing the closed ball are leaves 'outside');
 - otherwise: open.
-Cells run in parallel and children are queued as soon as their parent fails, so a ball costs what its hardest cells
+Searches use fast_search.py by default (byte-identical proposals, without the pinned search's two redundant
+replays); every proposal is then replayed by the pinned checker in a separate process. Cells run in parallel and
+children are queued as soon as their parent fails, so a ball costs what its hardest cells
 cost. When no cell is open, the cells form one tree (tc-plane-tree-proposal-v1) rooted at the root cell, and it is
 checked: plane_tree_certificate.walk checks that the tree is a complete partition of the root cell (every internal
 node has its 16 children, every 'outside' leaf misses the closed ball), then every leaf is replayed by
@@ -56,6 +58,9 @@ def main():
     ap.add_argument('--part', default='0/1', help='I/K: search only the start-level cells with index I mod K')
     ap.add_argument('--assemble', action='store_true', help='no search: build and check the tree from settled cells')
     ap.add_argument('--serial-check', action='store_true', help='check the whole tree in one process')
+    ap.add_argument('--search', choices=('fast', 'pinned'), default='fast',
+                    help="fast: fast_search.py (the pinned search without its redundant verification; same proposals); "
+                         "pinned: the checker's own search")
     ap.add_argument('--cells-from', help='file of existing cell directories (entry.json each) to close instead of the ball: '
                     'each is split at once, its descendants go to <dir>/kids (reusing what is settled there), and a '
                     'closed cell gets <dir>/tree.json and refined.json, as plane_manifest.py lists them')
@@ -116,8 +121,9 @@ def main():
         for f in ('replay.json', 'failed.json'):
             if (d / f).exists(): (d / f).unlink()
         try:
-            subprocess.run([a.py, '-W', 'ignore', str(fc), str(e), '--out', str(d / 'frontier.json')], cwd=root, env=env,
-                           capture_output=True, timeout=cap(level))
+            search = ([a.py, '-W', 'ignore', str(HERE / 'fast_search.py'), str(root), str(e)] if a.search == 'fast' else
+                      [a.py, '-W', 'ignore', str(fc), str(e)])
+            subprocess.run(search + ['--out', str(d / 'frontier.json')], cwd=root, env=env, capture_output=True, timeout=cap(level))
         except subprocess.TimeoutExpired:
             json.dump(dict(kind='time cap', seconds=cap(level)), open(d / 'failed.json', 'w')); slim_cell(str(d))
             return ri, level, cell, 'split', time.time() - ts
