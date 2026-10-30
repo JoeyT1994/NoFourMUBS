@@ -52,9 +52,16 @@ def main():
     last = oc['layers'][-1]; doc = json.load(gzip.open(last, 'rt'))
     sub_of = {tuple(x['cell']): x['sub'] for x in doc['info']['split']['cover'] if 'sub' in x}
     tasks = []
-    done = set(os.listdir('%s/plane_v1/b%d' % (B, b))) if os.path.isdir('%s/plane_v1/b%d' % (B, b)) else set()
+    def settled(d):
+        """Replayed, or the search itself concluded NOT_ESTABLISHED (a mathematical failure: the cell needs refining,
+        not a retry). Infrastructure failures (missing files, a moving atlas, a crash) are retried."""
+        if os.path.exists(d + '/replay.json'): return True
+        try: r = json.load(open(d + '/frontier.json'))
+        except (OSError, ValueError): return False
+        why = r.get('reason') or ''
+        return r.get('status') == 'NOT_ESTABLISHED' and not any(k in why for k in ('wrong original atlas', 'No such file', 'Errno', 'checker root'))
     for c in oc['cells']:
-        if '%d_%s' % (oc['level'], '_'.join(map(str, c))) in done: continue          # already attempted
+        if settled('%s/plane_v1/b%d/%d_%s' % (B, b, oc['level'], '_'.join(map(str, c)))): continue
         sub = sub_of[tuple(c)]
         entry = dict(ball=b, level=oc['level'], cell=list(c), subatlas=os.path.basename(last), sub=sub,
                      record_sha256=hashlib.sha256(json.dumps(doc['seeds'][sub], sort_keys=True).encode()).hexdigest())
@@ -62,6 +69,15 @@ def main():
     with ThreadPoolExecutor(w) as pool, open('%s/plane_v1/b%d.jsonl' % (B, b), 'a') as f:
         for res in pool.map(run, tasks):
             f.write(json.dumps(res) + '\n'); f.flush()
+    # cells whose search failed mathematically: prove them as trees of their children (two levels at most)
+    failed = []
+    for c in oc['cells']:
+        d = '%s/plane_v1/b%d/%d_%s' % (B, b, oc['level'], '_'.join(map(str, c)))
+        if settled(d) and not os.path.exists(d + '/replay.json') and not os.path.exists(d + '/refined.json'): failed.append(d)
+    def refine(d):
+        subprocess.run([PY, '-W', 'ignore', os.path.join(B, 'plane_refine.py'), PR, d, '--depth', '2', '--workers', '8', '--py', PY],
+                       cwd=PR, env=dict(os.environ, OMP_NUM_THREADS='1'), capture_output=True)
+    with ThreadPoolExecutor(max(1, w // 8)) as pool: list(pool.map(refine, failed))
     # the hash-bound manifest of the certified cells, for audit_select.py --plane (which replays them)
     subprocess.run([PY, '-W', 'ignore', os.path.join(B, 'plane_manifest.py'), PR, '%s/plane_v1/b%d' % (B, b), str(b)], cwd=PR)
 

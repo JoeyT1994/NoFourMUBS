@@ -144,6 +144,8 @@ def main():
     ap.add_argument('--graph-sha', help='the pinned SHA-256 of certify_graph.py')
     ap.add_argument('--graph-runner-sha', help='the pinned SHA-256 of graph_run.py')
     ap.add_argument('--plane', type=Path, help='hash-bound all-K cell proofs, replayed during this audit')
+    ap.add_argument('--plane-cache', type=Path, help='skip a replay whose cell, tree, leaf files and checker sources are '
+                    'byte-identical to an earlier certified replay (the live loop only; verify_ball.py never passes it)')
     ap.add_argument('--report-open', action='store_true',
                     help='instead of failing on the first unresolved last-level cell, list them all (status OPEN_CELLS)')
     args = ap.parse_args(); root = args.root.resolve(); ctx.prec = 224
@@ -161,6 +163,24 @@ def main():
         sys.path.insert(0, str(root / 'TripleClassification/code'))
         from plane_audit_manifest import PlaneManifest      # requires root to be the plane checker's tree
         plane = PlaneManifest(args.plane, args.index, root)
+    pcache = {}
+    if plane and args.plane_cache:
+        import plane_cache                           # shared with plane_prereplay.py, so the keys are identical
+        pcache = plane_cache.load(args.plane_cache)
+    plane_cached = []
+
+    def plane_key(level, cell):
+        entry, tree_path, item = plane.entries[(level, tuple(cell))]
+        return plane_cache.key(item, tree_path, json.load(open(args.plane))['checker_sources_sha256'], level, cell)
+
+    def plane_close(level, cell):
+        if (level, tuple(cell)) not in plane.entries: return False
+        k = plane_key(level, cell) if args.plane_cache else None
+        if k and pcache.get(k) == 'certified':
+            plane_cached.append([level, list(cell)]); return True
+        ok = plane.close(level, cell)
+        if ok and k: pcache[k] = 'certified'
+        return ok
     bindings = []                                 # a layer may name alternative scripts 'a.py,b.py'; each row must carry
     for p, alts in zip(paths, args.scripts):      # the binding of one of them
         ids = set()
@@ -181,9 +201,11 @@ def main():
     if 'ordering' in rules:
         need(args.gamma_lower is not None and sha(args.gamma_lower) == args.gamma_lower_sha, 'ordering needs the pinned Gamma_F(H) bounds')
         glow = Fraction(json.load(open(args.gamma_lower))[str(args.index)])
+    lsha = {p: sha(p) for p in paths}             # each layer's sub-atlas hash, computed once
     gamma = {}
     for gp in args.gamma:
         for l in open(gp):
+            if not any(h in l for h in lsha.values()): continue   # names none of these layers: unused (skip the parse)
             try:
                 g = json.loads(l)
             except ValueError:
@@ -194,6 +216,7 @@ def main():
     anchored = {}                                 # (sub-atlas sha, sub) -> {pattern: receipt}
     for ap_ in (args.anchored if 'anchored' in rules else []):
         for l in open(ap_):
+            if '"EXCLUDED_GIVEN_INPUT_ENCLOSURES"' not in l: continue   # cannot pass the status test below
             try:
                 x = json.loads(l)
             except ValueError:
@@ -206,6 +229,7 @@ def main():
     graphs = {}                                   # (sub-atlas sha, sub) -> {pattern: [receipts]}
     for gp_ in (args.graph if 'graph' in rules else []):
         for l in open(gp_):
+            if '"PROVED_PATTERN_EXCLUSION"' not in l: continue        # cannot pass the status test below
             try:
                 x = json.loads(l)
             except ValueError:
@@ -314,7 +338,7 @@ def main():
                      'layer %d names a different previous layer' % level)
         seeds = geometry(doc, original, level, expected, args.index)
         need(set(rr) == set(range(len(seeds))), 'missing or unexpected rows at level %d' % level)
-        layer_sha = sha(path)
+        layer_sha = lsha[path]
         unresolved = set()                        # the certifier's open cells: the next layer refines all of them
         still = set()                             # those that are also needed and not discharged by a gamma receipt
         for entry in info['cover']:
@@ -330,7 +354,7 @@ def main():
                     rule = discharged(row, sub, layer_sha, i) if rules else None
                     if rule:
                         used[rule] += 1; closed.append((level, cell)); disch.append([level, i])
-                    elif plane and plane.close(level, cell):    # its own C1, H, Stage C and K cover: no sidecar needed
+                    elif plane and plane_close(level, cell):    # its own C1, H, Stage C and K cover: no sidecar needed
                         used['plane'] += 1; closed.append((level, cell))
                     else:
                         still.add(cell)
@@ -345,6 +369,9 @@ def main():
         counts.append(dict(level=level, cells=len(expected), closed=len(expected) - len(unresolved), open=len(unresolved),
                            still_open=len(still)))
         target = unresolved; live = still; prev_cells = {tuple(e['cell']) for e in info['cover']}
+    if plane and args.plane_cache:
+        plane_cache.save(args.plane_cache, pcache)
+    preport = (dict(plane.report(), cached_cells=plane_cached) if plane else None)
     last = 2 + len(docs) - 1
     unresolved = []
     for c in sorted(live):
@@ -354,11 +381,11 @@ def main():
             unresolved.append(list(c))
     if unresolved:
         print(json.dumps(dict(status='OPEN_CELLS', ball=args.index, level=last, unresolved_cells=unresolved,
-                              layers=counts, gamma=used, discharged=disch, plane=plane.report() if plane else None)))
+                              layers=counts, gamma=used, discharged=disch, plane=preport)))
         return
     print(json.dumps(dict(status='GEOMETRY_AND_RECEIPTS_VERIFIED', ball=args.index, original_radius=original['r'],
                           layers=counts, tangent_cells=len(live), gamma=used, discharged=disch,
-                          plane=plane.report() if plane else None,
+                          plane=preport,
                           bindings=[sorted(b) for b in bindings])))
 
 

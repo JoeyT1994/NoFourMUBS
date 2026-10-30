@@ -45,6 +45,7 @@ class AssemblyTests(unittest.TestCase):
                     result=assemble.trees(a,SimpleNamespace(guards=set()),{},rc,out=str(root/'out'))
                 replay.assert_called_once()
                 command=replay.call_args.args[0]
+                self.assertNotIn('--plane-cache',command)
                 self.assertEqual(command[command.index('--plane')+1],manifest)
                 self.assertEqual(command[command.index('--root')+1],a.plane_root)
                 cert=json.loads(Path(result[825]['certificate']).read_text())
@@ -72,6 +73,7 @@ class AssemblyTests(unittest.TestCase):
                 with patch.object(sys,'argv',args),patch.object(subprocess,'run',return_value=response) as replay,\
                      contextlib.redirect_stdout(io.StringIO()):verify_ball.main()
                 command=replay.call_args.args[0]
+                self.assertNotIn('--plane-cache',command)
                 self.assertEqual(command[command.index('--plane')+1],plane['path'])
                 self.assertEqual(command[command.index('--root')+1],str(root/'checker') if nested else str(root))
 
