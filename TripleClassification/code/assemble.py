@@ -123,6 +123,10 @@ def trees(a, V, side, RC, side_guard=None, out=None):
         return out
     gamma_stamp = stamp(a.gamma) if a.gamma_rules and not a.gamma_dir else []
     per_ball = {}
+    plane_ball = {}                                          # PR #4 cell proofs: plane_dir/b<ball>/manifest.json
+    if a.plane_dir and a.plane_root:
+        for p in glob.glob(os.path.join(a.plane_dir, 'b*', 'manifest.json')):
+            plane_ball[int(os.path.basename(os.path.dirname(p))[1:])] = p
     graph_ball = {}                                          # graph_run.py receipts, b<ball>[.part].jsonl
     if 'graph' in a.gamma_rules.split(',') and a.graph_receipts:
         for p in glob.glob(os.path.join(a.graph_receipts, 'b*.jsonl')):
@@ -165,7 +169,8 @@ def trees(a, V, side, RC, side_guard=None, out=None):
         base = _hl.sha256(json.dumps([auditor_sha, i, route, stamp(layers), scripts]).encode()).hexdigest()
         full = _hl.sha256(json.dumps([base, a.gamma_rules, a.gamma_sha, gamma_stamp, stamp(per_ball.get(i, [])),
                                       a.anchored_sha, a.anchored_runner_sha, stamp(anc_ball.get(i, [])),
-                                      a.graph_sha, a.graph_runner_sha, stamp(graph_ball.get(i, []))]).encode()).hexdigest()
+                                      a.graph_sha, a.graph_runner_sha, stamp(graph_ball.get(i, [])),
+                                      stamp([plane_ball[i]] if i in plane_ball else [])]).encode()).hexdigest()
         hit = cache.get(base)
         if hit and hit.get('status') == 'closed' and hit.get('rule', 'certifier') == 'certifier': return hit
         if full in cache: return cache[full]
@@ -179,10 +184,13 @@ def trees(a, V, side, RC, side_guard=None, out=None):
         if 'anchored' in a.gamma_rules.split(','):
             extra += ['--anchored'] + anc_ball.get(i, []) + ['--anchored-sha', a.anchored_sha,
                                                              '--anchored-runner-sha', a.anchored_runner_sha]
+        if i in plane_ball:                                  # replayed during the audit, never trusted as a verdict
+            extra += ['--plane', plane_ball[i]]
         if 'graph' in a.gamma_rules.split(','):
             extra += ['--graph'] + graph_ball.get(i, []) + ['--graph-dir', a.graph_dir, '--graph-sha', a.graph_sha,
                                                             '--graph-runner-sha', a.graph_runner_sha]
-        cp = subprocess.run([sys.executable, a.tree_auditor, '--root', a.tc_tree, '--index', str(i), '--layers'] + layers
+        root = a.plane_root if i in plane_ball else a.tc_tree  # the plane checker's tree: same native sources and binding
+        cp = subprocess.run([sys.executable, a.tree_auditor, '--root', root, '--index', str(i), '--layers'] + layers
                             + ['--scripts'] + scripts + extra + ['--report-open'], capture_output=True, text=True)
         try:
             v = json.loads((cp.stdout.strip().splitlines() or ['{}'])[-1])
@@ -206,7 +214,7 @@ def trees(a, V, side, RC, side_guard=None, out=None):
                     missing += 1
         if missing: return dict(status='%d closed sub-balls without Stage C preconditions' % missing, route=route)
         g = v.get('gamma') or {}
-        rule = ('graph' if g.get('graph') else 'anchored' if g.get('anchored') else 'ordering' if g.get('ordering')
+        rule = ('plane' if g.get('plane') else 'graph' if g.get('graph') else 'anchored' if g.get('anchored') else 'ordering' if g.get('ordering')
                 else ('fourier' if g.get('fourier') else 'certifier'))
         x = dict(status='closed', route=route, depth=len(layers) + 1, layers=v['layers'], rule=rule, gamma=g,
                  leaves=sum(x['closed'] for x in v['layers']), tangent_cells=v['tangent_cells'])
@@ -256,13 +264,17 @@ def trees(a, V, side, RC, side_guard=None, out=None):
                               lower_bounds=files(a.gamma_lower)) if gam else None,
                    anchored=dict(checker_sha256=a.anchored_sha, runner_sha256=a.anchored_runner_sha,
                                  records=files(anc)) if anc else None,
+                   plane=dict(manifest=files(plane_ball[i]), root=os.path.realpath(a.plane_root),
+                              cell_files=[files(os.path.join(os.path.dirname(plane_ball[i]), x[k]['path']))
+                                          for x in json.load(open(plane_ball[i]))['cells'] for k in ('entry', 'tree')])
+                   if rule == 'plane' and i in plane_ball else None,
                    graph=dict(checker_sha256=a.graph_sha, runner_sha256=a.graph_runner_sha, checker_dir=os.path.realpath(a.graph_dir),
                               checker_files=[files(p) for p in sorted(glob.glob(os.path.join(a.graph_dir, '*.py')))],
                               records=files(grf)) if grf else None)
         with open(os.path.join(d, 'b%d.json' % i), 'w') as f: json.dump(man, f, indent=1)
         return os.path.join(d, 'b%d.json' % i)
 
-    rank = {'certifier': 0, 'fourier': 1, 'ordering': 2, 'anchored': 3, 'graph': 4}
+    rank = {'certifier': 0, 'fourier': 1, 'ordering': 2, 'anchored': 3, 'graph': 4, 'plane': 5}
 
     def first(i):
         """The tree that closes the ball with the fewest added ingredients: the certifier alone, then the Fourier rule,
@@ -325,6 +337,8 @@ def main():
     ap.add_argument('--anchored-dir', help='directory of per-ball anchored_run.py receipt files b<ball>.jsonl')
     ap.add_argument('--anchored-sha', help='pinned SHA-256 of anchored_column_certificate.py')
     ap.add_argument('--anchored-runner-sha', help='pinned SHA-256 of anchored_run.py')
+    ap.add_argument('--plane-dir', help="directory of per-ball PR #4 cell proofs, b<ball>/manifest.json")
+    ap.add_argument('--plane-root', help='the pinned tree holding the plane checker (PR #4)')
     ap.add_argument('--graph-receipts', help='directory of per-ball graph_run.py receipt files b<ball>[.part].jsonl')
     ap.add_argument('--graph-dir', help='the pinned hardball checker directory')
     ap.add_argument('--graph-sha', help='pinned SHA-256 of hardball/certify_graph.py')
@@ -458,7 +472,7 @@ def main():
         elif t == 'CERTIFIED EMPTY': final[j] = 'empty'
         elif tree.get(j, {}).get('status') == 'closed':
             final[j] = {'certifier': 'tree', 'fourier': 'tree_fourier', 'ordering': 'tree_ordering', 'anchored': 'tree_anchored',
-                        'graph': 'tree_graph'}[tree[j]['rule']]
+                        'graph': 'tree_graph', 'plane': 'tree_plane'}[tree[j]['rule']]
         else: final[j] = 'open'
 
     with open(os.path.join(out, 'balls.tsv'), 'w') as f:

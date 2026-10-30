@@ -20,7 +20,13 @@ discharged: by the labelled Fourier score (gamma_test.py receipts, 'fourier' and
 anchored-column exclusion of that single pattern ('anchored': anchored_run.py receipts of the pinned
 anchored_column_certificate.py, bound to the row's record, pattern count and pattern colours; ANCHORED_PROOF.md), or by
 a whole-cell graph exclusion of that pattern ('graph': graph_run.py receipts of the collaborator's pinned
-hardball/certify_graph.py; GRAPH_PROOF.md)."""
+hardball/certify_graph.py; GRAPH_PROOF.md).
+
+--plane MANIFEST closes an exact needed cell the rules above leave open by replaying, during this audit, its
+complete all-K cell proof (PR #4's plane_audit_manifest.PlaneManifest). Its checker loads the native certifier from
+its own tree, so a plane audit runs with --root set to that tree (the native binding check still applies).
+The proof rebuilds H for the whole closed cell, re-proves C1 and Stage C and every K pattern, so it needs no row,
+receipt or sidecar of ours; a saved verdict is never used (PLANE_PROOF.md)."""
 import argparse, gzip, hashlib, itertools, json, os, sys
 from fractions import Fraction
 from pathlib import Path
@@ -137,6 +143,7 @@ def main():
     ap.add_argument('--graph-dir', type=Path, help='the pinned hardball checker directory (certify_graph.py and its modules)')
     ap.add_argument('--graph-sha', help='the pinned SHA-256 of certify_graph.py')
     ap.add_argument('--graph-runner-sha', help='the pinned SHA-256 of graph_run.py')
+    ap.add_argument('--plane', type=Path, help='hash-bound all-K cell proofs, replayed during this audit')
     ap.add_argument('--report-open', action='store_true',
                     help='instead of failing on the first unresolved last-level cell, list them all (status OPEN_CELLS)')
     args = ap.parse_args(); root = args.root.resolve(); ctx.prec = 224
@@ -149,6 +156,11 @@ def main():
     original = load(atlas)['seeds'][args.index]
     paths = [p.absolute() for p in args.layers]          # not resolve(): a cleaned receipt copy sits beside a symlinked sub-atlas
     docs = list(map(load, paths)); rowsets = [rows(str(p)[:-len('.json.gz')] + '.jsonl') for p in paths]
+    plane = None
+    if args.plane:
+        sys.path.insert(0, str(root / 'TripleClassification/code'))
+        from plane_audit_manifest import PlaneManifest      # requires root to be the plane checker's tree
+        plane = PlaneManifest(args.plane, args.index, root)
     bindings = []                                 # a layer may name alternative scripts 'a.py,b.py'; each row must carry
     for p, alts in zip(paths, args.scripts):      # the binding of one of them
         ids = set()
@@ -279,7 +291,7 @@ def main():
         return None
 
     closed = []                                   # (level, cell) of every accepted cell
-    target = None; counts = []; live = None; used = {'fourier': 0, 'ordering': 0, 'anchored': 0, 'graph': 0}
+    target = None; counts = []; live = None; used = {'fourier': 0, 'ordering': 0, 'anchored': 0, 'graph': 0, 'plane': 0}
     disch = []                                    # (level, sub) of cells closed by a rule: they use the certifier's
                                                   # cover too, so they need the Stage C preconditions like closed rows
     for k, (doc, rr, bid, path) in enumerate(zip(docs, rowsets, bindings, paths)):
@@ -318,6 +330,8 @@ def main():
                     rule = discharged(row, sub, layer_sha, i) if rules else None
                     if rule:
                         used[rule] += 1; closed.append((level, cell)); disch.append([level, i])
+                    elif plane and plane.close(level, cell):    # its own C1, H, Stage C and K cover: no sidecar needed
+                        used['plane'] += 1; closed.append((level, cell))
                     else:
                         still.add(cell)
                 continue
@@ -340,10 +354,11 @@ def main():
             unresolved.append(list(c))
     if unresolved:
         print(json.dumps(dict(status='OPEN_CELLS', ball=args.index, level=last, unresolved_cells=unresolved,
-                              layers=counts, gamma=used, discharged=disch)))
+                              layers=counts, gamma=used, discharged=disch, plane=plane.report() if plane else None)))
         return
     print(json.dumps(dict(status='GEOMETRY_AND_RECEIPTS_VERIFIED', ball=args.index, original_radius=original['r'],
                           layers=counts, tangent_cells=len(live), gamma=used, discharged=disch,
+                          plane=plane.report() if plane else None,
                           bindings=[sorted(b) for b in bindings])))
 
 

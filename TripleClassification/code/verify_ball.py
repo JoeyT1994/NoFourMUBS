@@ -45,6 +45,7 @@ def main():
     if m.get('gamma'): files += [m['gamma']['records'], m['gamma']['lower_bounds']]
     if m.get('anchored'): files += [m['anchored']['records']]
     if m.get('graph'): files += [m['graph']['records']] + m['graph']['checker_files']
+    if m.get('plane'): files += [m['plane']['manifest']] + m['plane']['cell_files']
     for f in files:
         if not os.path.exists(f['path']) or sha(f['path']) != f['sha256']: fail('file missing or changed: ' + f['path'])
     cmd = [sys.executable, '-W', 'ignore', m['auditor']['path'], '--root', a.root, '--index', str(m['ball']),
@@ -58,6 +59,9 @@ def main():
         if not m.get('gamma'): cmd += ['--gamma-rules', 'anchored']
         cmd += ['--anchored', m['anchored']['records']['path'], '--anchored-sha', m['anchored']['checker_sha256'],
                 '--anchored-runner-sha', m['anchored']['runner_sha256']]
+    if m.get('plane'):                              # every plane cell is replayed by the auditor, not read from a receipt
+        cmd += ['--plane', m['plane']['manifest']['path']]
+        cmd[cmd.index('--root') + 1] = m['plane']['root']  # the plane checker's tree, with the same native binding
     if m.get('graph'):
         if not m.get('gamma') and not m.get('anchored'): cmd += ['--gamma-rules', 'graph']
         cmd += ['--graph', m['graph']['records']['path'], '--graph-dir', m['graph']['checker_dir'],

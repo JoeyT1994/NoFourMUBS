@@ -53,6 +53,8 @@ def main():
     with ThreadPoolExecutor(w) as pool, open('%s/plane_v1/b%d.jsonl' % (B, b), 'a') as f:
         for res in pool.map(run, tasks):
             f.write(json.dumps(res) + '\n'); f.flush()
+    # the hash-bound manifest of the certified cells, for audit_select.py --plane (which replays them)
+    subprocess.run([PY, '-W', 'ignore', os.path.join(B, 'plane_manifest.py'), PR, '%s/plane_v1/b%d' % (B, b), str(b)], cwd=PR)
 
 
 if __name__ == '__main__': main()
