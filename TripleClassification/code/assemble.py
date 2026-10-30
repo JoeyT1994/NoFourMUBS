@@ -441,7 +441,8 @@ def main():
         if t == 'CERTIFIED': final[j] = 'classified'
         elif t == 'CERTIFIED EMPTY': final[j] = 'empty'
         elif tree.get(j, {}).get('status') == 'closed':
-            final[j] = {'certifier': 'tree', 'fourier': 'tree_fourier', 'ordering': 'tree_ordering'}[tree[j]['rule']]
+            final[j] = {'certifier': 'tree', 'fourier': 'tree_fourier', 'ordering': 'tree_ordering', 'anchored': 'tree_anchored',
+                        'graph': 'tree_graph'}[tree[j]['rule']]
         else: final[j] = 'open'
 
     with open(os.path.join(out, 'balls.tsv'), 'w') as f:
