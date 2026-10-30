@@ -38,6 +38,7 @@ def main():
             elif isinstance(node, list):
                 for v in node: walk(v)
         walk(json.load(open(tree_path))['tree']); return ok[0]
+    src_now = PM.source_hashes(root)                     # the checker version this manifest pins
     cells = []; seen = {}                            # cells whose own job replay certified them, for the replay cache
     for c in sorted(p for p in d.iterdir() if p.is_dir()):
         def status(name):
@@ -54,7 +55,10 @@ def main():
                     rep.get('original_atlas_sha256') == F.PIN and rep.get('ball') == ball and
                     rep['geometry']['level'] == entry['level'] and rep['geometry']['cell'] == entry['cell']):
                 continue                                     # files no longer those the replay certified: leave it out
-            seen[c.name] = (entry['level'], entry['cell'])
+            deps = rep.get('dependencies_sha256') or {}
+            if (rep.get('checker_sha256') == src_now.get('TripleClassification/code/plane_frontier_certificate.py') and
+                    all(deps[k] == v for k, v in src_now.items() if k in deps)):
+                seen[c.name] = (entry['level'], entry['cell'])   # replayed by this very checker version: cache it
             tree = dict(schema='tc-plane-tree-proposal-v1', root_entry_sha256=F.jsonsha(entry),
                         tree=dict(input=dict(path='frontier.input.json.gz', sha256=digest(c / 'frontier.input.json.gz')),
                                   proposal=dict(path='frontier.proposal.json.gz', sha256=digest(c / 'frontier.proposal.json.gz'))))
