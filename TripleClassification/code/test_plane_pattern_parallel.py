@@ -42,5 +42,26 @@ class PatternParallelTests(unittest.TestCase):
             with self.subTest(count=count),self.assertRaisesRegex(ValueError,'worker count'):
                 W.check('fixture',self.proposal,count)
 
+    def test_worker_reuses_verified_pairs_but_reports_each_pattern(self):
+        tubes={c:{0:({},arb(0))} for c in (0,1)}
+        item=(0,list(range(6)),dict(columns=[0,1]))
+        W._pattern_init({},tubes)
+        with patch.object(W.P,'pair_margin',return_value=arb(1)) as margin:
+            first=W._pattern_chunk([item]);second=W._pattern_chunk([item])
+        self.assertEqual(first[0],second[0])
+        self.assertTrue(first[1]);self.assertEqual(second[1],{})
+        self.assertEqual(len(second[0]),1)
+        margin.assert_called_once()
+
+    def test_new_cell_cannot_reuse_another_cells_positive_inequality(self):
+        tubes={c:{0:({},arb(0))} for c in (0,1)}
+        item=(0,list(range(6)),dict(columns=[0,1]))
+        with patch.object(W.P,'pair_margin',side_effect=[arb(1),arb(-1)]) as margin:
+            W._pattern_init({'cell':'first'},tubes);W._pattern_chunk([item])
+            W._pattern_init({'cell':'second'},tubes)
+            with self.assertRaisesRegex(ArithmeticError,'may be orthogonal'):
+                W._pattern_chunk([item])
+        self.assertEqual(margin.call_count,2)
+
 
 if __name__=='__main__':unittest.main()

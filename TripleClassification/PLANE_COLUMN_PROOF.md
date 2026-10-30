@@ -488,6 +488,10 @@ execution order, not the covering argument or the original radius.
 A leaf with many completing-basis patterns can also use `--pattern-workers M`.
 After reconstructing the complete K cover and verifying its column partitions,
 POSIX processes inherit that verified model and check disjoint groups of patterns.
+Patterns are scheduled individually to avoid waiting for a group of expensive
+patterns on one process. Each worker retains verified pair and scalar inequalities
+only for its current model and column partitions; initialization discards these
+caches before another cell is checked.
 The parent collects every result and verifies the complete ordered pattern index
 list before issuing the cell receipt. A failed pattern prevents certification.
 The tree command uses at most N times M worker processes. For example,

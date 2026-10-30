@@ -104,8 +104,10 @@ def validate_witnesses(cliques,witnesses,keys):
     P.require(keys=={str(c) for c in used},'missing or unused column proof')
 
 
-def verify_patterns(model,tubes,items):
-    checked={};rows=[];root_pairs={};root_scalars={}
+def verify_patterns(model,tubes,items,cache=None):
+    # A cache belongs to one verified model and its unchanged column partitions.
+    direct,root_pairs,root_scalars=({}, {}, {}) if cache is None else cache
+    checked={};rows=[]
     for n,clique,w in items:
         chosen=w['columns']
         if 'joint' in w:Joint.exclude(model,tubes,chosen,w['joint'],pair_cache=root_pairs,scalar_cache=root_scalars,
@@ -113,22 +115,24 @@ def verify_patterns(model,tubes,items):
         elif len(chosen)==1:P.require(not tubes[chosen[0]],'claimed empty column has surviving tubes')
         else:
             key=tuple(sorted(chosen))
-            if key not in checked:
+            if key not in direct:
                 margins=[P.pair_margin(a,ea,b,eb) for a,ea in tubes[key[0]].values() for b,eb in tubes[key[1]].values()]
                 if not all(m>0 for m in margins):raise ArithmeticError('a captured pair may be orthogonal')
                 checked[key]=[str(m) for m in margins]
+                direct[key]=True
         rows.append(dict(number=n,colours=clique,columns=chosen,
                          status='CLASSIFIED' if w.get('joint',{}).get('known') else 'EXCLUDED'))
     return rows,checked
 
 
 def _pattern_init(model,tubes):
-    global _pattern_context
+    global _pattern_context,_pattern_cache
     _pattern_context=(model,tubes)
+    _pattern_cache=({}, {}, {})
 
 
 def _pattern_chunk(items):
-    return verify_patterns(*_pattern_context,items)
+    return verify_patterns(*_pattern_context,items,cache=_pattern_cache)
 
 
 def check(path,proposal,workers=1):
@@ -149,8 +153,7 @@ def check(path,proposal,workers=1):
         rows,checked=verify_patterns(model,tubes,items)
     else:
         # POSIX fork inherits the verified model; every process owns its Arb state.
-        count=min(workers,len(items));size=max(1,(len(items)+4*count-1)//(4*count))
-        chunks=[items[i:i+size] for i in range(0,len(items),size)]
+        count=min(workers,len(items));chunks=[[item] for item in items]
         with ProcessPoolExecutor(max_workers=count,mp_context=multiprocessing.get_context('fork'),
                                  initializer=_pattern_init,initargs=(model,tubes)) as pool:
             parts=list(pool.map(_pattern_chunk,chunks))

@@ -84,5 +84,25 @@
   "parallel_tree_replay_pilot": {"ball":825,"level":4,"cell":[0,9,4,9],"status":"CERTIFIED_EMPTY_DYADIC_CELL","original_radius_hex":"0x1.999999999999ap-4","counts":{"nodes":17,"outside":11,"certified":5},"root_entry_sha256":"28bd9b5674ade173eb4e086187b0c585c5c39102e069246816b646484e9d81b8","tree_sha256":"3ce574e0c39ac10bbb2fc66d3922a4502b8320ce3853407250ecfad1337d965b","checker_sha256":"a9cb21d3204399f7d0aaae93569082bf4e6ebbdc62189af1ea67daf896307f23","complete_patterns":72,"directory":"frontier_scalar_refinement3_913428b34672/local-pilot","serial_seconds":25.359389624965843,"parallel_workers":2,"parallel_seconds":15.48229758295929,"serial_receipt_sha256":"fa71e996390083ab897a8c1e13aa11e9549d7145e643d2c7516d93707d28427e","parallel_receipt_sha256":"b0fef269ab27510d482f12a1e68e3bc6164ef3e4fde26f569196c0d7a531540f","original_ball_closed":false},
   "parallel_parent_closure": {"status":"CERTIFIED_EMPTY_DYADIC_CELL","ball":1016,"level":4,"cell":[2,5,7,8],"original_radius_hex":"0x1.47ae147ae147bp-4","counts":{"nodes":145,"outside":0,"certified":136},"checker_sha256":"a9cb21d3204399f7d0aaae93569082bf4e6ebbdc62189af1ea67daf896307f23","root_entry_sha256":"a39c484cf1d85c1d59d56adba6eb24b8ac7bcee94f392a3ebb2492625385e18b","tree_sha256":"52318ee1ec1ca5bcc0e409dc663c0a033ff89e89400b9ffb86cda10eb52e596d","seconds":333.74361861799844,"receipt_sha256":"7692b7e57e278e2d418802aa8099a0333be2b0010e5ac7010363c7647b49fc5f","complete_patterns":124184,"directory":"frontier_parent_replays_parallel_v1","name":"b1016_l4_s1495","workers":48,"original_ball_closed":false},
   "parallel_classified_parent_closure": {"status":"CERTIFIED_CLASSIFIED_DYADIC_CELL","ball":825,"level":4,"cell":[0,7,8,4],"original_radius_hex":"0x1.999999999999ap-4","counts":{"nodes":113,"outside":38,"certified":68},"checker_sha256":"a9cb21d3204399f7d0aaae93569082bf4e6ebbdc62189af1ea67daf896307f23","root_entry_sha256":"b5ac70f691b94515c0eac71888e246b927821117d4e84fb48803d01ae935551e","tree_sha256":"fda9f84a49ab56e162a811afcd78a3cc8ecb002c0d20801f535f85a5f83b6a22","seconds":236.456597270997,"receipt_sha256":"2a3f365ffe5aa1dde26b7451c30dd067dcdf5370c6c9c7594dd871f396b20ea2","complete_patterns":3575,"directory":"frontier_parent_replays_parallel_v2","name":"b825_l4_s152","workers":48,"original_ball_closed":false},
-  "parallel_pattern_replay_pilot": {"ball":595,"level":6,"cell":[25,43,43,6],"status":"CERTIFIED_CLASSIFIED_DYADIC_CELL","complete_patterns":4,"serial_seconds":142.68465720902896,"parallel_seconds":89.38864787499188,"parallel_workers":2,"receipts_equal_except_timings":true,"source_directory":"frontier_parallel_patterns_ed462fb6de2b/source","pilot_input_directory":"frontier_scalar_first_77b30d5b118d/local-pilot","producer":"frontier_parallel_patterns_ed462fb6de2b/parallel_patterns.py","producer_sha256":"5bea73e9a1d06113957dcc5519d75a8b6fc3cb26ca9dc97ceb07d8264710fefb","producer_and_replay_seconds":204.73361916700378,"original_ball_closed":false}
+  "parallel_pattern_replay_pilot": {"ball":595,"level":6,"cell":[25,43,43,6],"status":"CERTIFIED_CLASSIFIED_DYADIC_CELL","complete_patterns":4,"serial_seconds":142.68465720902896,"parallel_seconds":89.38864787499188,"parallel_workers":2,"receipts_equal_except_timings":true,"source_directory":"frontier_parallel_patterns_ed462fb6de2b/source","pilot_input_directory":"frontier_scalar_first_77b30d5b118d/local-pilot","producer":"frontier_parallel_patterns_ed462fb6de2b/parallel_patterns.py","producer_sha256":"5bea73e9a1d06113957dcc5519d75a8b6fc3cb26ca9dc97ceb07d8264710fefb","producer_and_replay_seconds":204.73361916700378,"original_ball_closed":false},
+  "worker_cache_pilot": {
+    "ball": 595,
+    "level": 6,
+    "cell": [
+      25,
+      43,
+      43,
+      6
+    ],
+    "status": "CERTIFIED_CLASSIFIED_DYADIC_CELL",
+    "complete_patterns": 4,
+    "source_sha256": "2d41aef7f0495d754093b3fc9b0360ab0b900fbd35cca5b8c9dba95b2f8d09ae",
+    "input_directory": "frontier_scalar_first_77b30d5b118d/local-pilot",
+    "serial_seconds": 136.80804149998585,
+    "parallel_workers": 2,
+    "parallel_seconds": 91.82825108402176,
+    "receipts_equal_except_timings": true,
+    "regression_tests": 57,
+    "original_ball_closed": false
+  }
 }
