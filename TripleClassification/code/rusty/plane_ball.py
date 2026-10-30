@@ -52,8 +52,16 @@ def main():
     last = oc['layers'][-1]; doc = json.load(gzip.open(last, 'rt'))
     sub_of = {tuple(x['cell']): x['sub'] for x in doc['info']['split']['cover'] if 'sub' in x}
     tasks = []
+    def settled(d):
+        """Replayed, or the search itself concluded NOT_ESTABLISHED (a mathematical failure: the cell needs refining,
+        not a retry). Infrastructure failures (missing files, a moving atlas, a crash) are retried."""
+        if os.path.exists(d + '/replay.json'): return True
+        try: r = json.load(open(d + '/frontier.json'))
+        except (OSError, ValueError): return False
+        why = r.get('reason') or ''
+        return r.get('status') == 'NOT_ESTABLISHED' and not any(k in why for k in ('wrong original atlas', 'No such file', 'Errno', 'checker root'))
     for c in oc['cells']:
-        if os.path.exists('%s/plane_v1/b%d/%d_%s/replay.json' % (B, b, oc['level'], '_'.join(map(str, c)))): continue   # replayed
+        if settled('%s/plane_v1/b%d/%d_%s' % (B, b, oc['level'], '_'.join(map(str, c)))): continue
         sub = sub_of[tuple(c)]
         entry = dict(ball=b, level=oc['level'], cell=list(c), subatlas=os.path.basename(last), sub=sub,
                      record_sha256=hashlib.sha256(json.dumps(doc['seeds'][sub], sort_keys=True).encode()).hexdigest())
