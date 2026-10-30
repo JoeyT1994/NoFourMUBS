@@ -55,7 +55,12 @@ def main():
     def settled(d):
         """Replayed, or the search itself concluded NOT_ESTABLISHED (a mathematical failure: the cell needs refining,
         not a retry). Infrastructure failures (missing files, a moving atlas, a crash) are retried."""
-        if os.path.exists(d + '/replay.json'): return True
+        if os.path.exists(d + '/replay.json'):             # finished only if the replay certified these exact files
+            try:
+                r = json.load(open(d + '/replay.json')); h = lambda f: hashlib.sha256(open(d + '/' + f, 'rb').read()).hexdigest()
+                return (r.get('snapshot_sha256') == h('frontier.input.json.gz') and r.get('proposal_sha256') == h('frontier.proposal.json.gz')
+                        and r.get('entry_sha256') == h('entry.json'))
+            except (OSError, ValueError): return False
         try: r = json.load(open(d + '/frontier.json'))
         except (OSError, ValueError): return False
         why = r.get('reason') or ''

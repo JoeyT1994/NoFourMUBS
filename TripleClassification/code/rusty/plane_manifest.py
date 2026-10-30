@@ -25,6 +25,19 @@ def main():
     import plane_audit_manifest as PM
     import plane_frontier_certificate as F
     from plane_column_certificate import digest
+    def leaves_match(tree_path):
+        """Every input and proposal a tree names still has the hash the tree records."""
+        ok = [True]
+        def walk(node):
+            if isinstance(node, dict):
+                for k in ('input', 'proposal'):
+                    if k in node:
+                        q = tree_path.parent / node[k]['path']
+                        ok[0] = ok[0] and q.is_file() and digest(q) == node[k]['sha256']
+                for v in node.values(): walk(v)
+            elif isinstance(node, list):
+                for v in node: walk(v)
+        walk(json.load(open(tree_path))['tree']); return ok[0]
     cells = []; seen = {}                            # cells whose own job replay certified them, for the replay cache
     for c in sorted(p for p in d.iterdir() if p.is_dir()):
         def status(name):
@@ -33,14 +46,15 @@ def main():
         entry = json.load(open(c / 'entry.json')) if (c / 'entry.json').exists() else None
         if entry is None: continue
         if status('refined.json') in CERTIFIED and (c / 'tree.json').exists():
-            pass                                             # a children tree written and replayed by plane_refine.py
+            if not leaves_match(c / 'tree.json'): continue   # a leaf changed since the tree was replayed: leave it out
         elif status('replay.json') in CERTIFIED:
             rep = json.load(open(c / 'replay.json'))
-            if (rep.get('snapshot_sha256') == digest(c / 'frontier.input.json.gz') and rep.get('proposal_sha256') ==
+            if not (rep.get('snapshot_sha256') == digest(c / 'frontier.input.json.gz') and rep.get('proposal_sha256') ==
                     digest(c / 'frontier.proposal.json.gz') and rep.get('entry_sha256') == digest(c / 'entry.json') and
                     rep.get('original_atlas_sha256') == F.PIN and rep.get('ball') == ball and
                     rep['geometry']['level'] == entry['level'] and rep['geometry']['cell'] == entry['cell']):
-                seen[c.name] = (entry['level'], entry['cell'])
+                continue                                     # files no longer those the replay certified: leave it out
+            seen[c.name] = (entry['level'], entry['cell'])
             tree = dict(schema='tc-plane-tree-proposal-v1', root_entry_sha256=F.jsonsha(entry),
                         tree=dict(input=dict(path='frontier.input.json.gz', sha256=digest(c / 'frontier.input.json.gz')),
                                   proposal=dict(path='frontier.proposal.json.gz', sha256=digest(c / 'frontier.proposal.json.gz'))))

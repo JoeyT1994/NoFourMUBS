@@ -162,12 +162,15 @@ def main():
     if args.plane:
         sys.path.insert(0, str(root / 'TripleClassification/code'))
         from plane_audit_manifest import PlaneManifest      # requires root to be the plane checker's tree
-        plane = PlaneManifest(args.plane, args.index, root)
+        try:
+            plane = PlaneManifest(args.plane, args.index, root)
+        except ValueError as e:                     # an unusable manifest closes nothing; the cells stay open
+            print('plane manifest not used: %s' % e, file=sys.stderr); plane = None
     pcache = {}
     if plane and args.plane_cache:
         import plane_cache                           # shared with plane_prereplay.py, so the keys are identical
         pcache = plane_cache.load(args.plane_cache)
-    plane_cached = []
+    plane_cached = []; plane_failed = []
 
     def plane_key(level, cell):
         entry, tree_path, item = plane.entries[(level, tuple(cell))]
@@ -178,7 +181,10 @@ def main():
         k = plane_key(level, cell) if args.plane_cache else None
         if k and pcache.get(k) == 'certified':
             plane_cached.append([level, list(cell)]); return True
-        ok = plane.close(level, cell)
+        try:
+            ok = plane.close(level, cell)
+        except ValueError as e:                     # its files changed or its replay failed: the cell is simply not closed
+            plane_failed.append([level, list(cell), str(e)[:80]]); return False
         if ok and k: pcache[k] = 'certified'
         return ok
     bindings = []                                 # a layer may name alternative scripts 'a.py,b.py'; each row must carry
@@ -371,7 +377,7 @@ def main():
         target = unresolved; live = still; prev_cells = {tuple(e['cell']) for e in info['cover']}
     if plane and args.plane_cache:
         plane_cache.save(args.plane_cache, pcache)
-    preport = (dict(plane.report(), cached_cells=plane_cached) if plane else None)
+    preport = (dict(plane.report(), cached_cells=plane_cached, failed_cells=plane_failed) if plane else None)
     last = 2 + len(docs) - 1
     unresolved = []
     for c in sorted(live):

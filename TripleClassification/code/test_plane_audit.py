@@ -49,7 +49,7 @@ def main():
         doc = json.load(open(os.path.join(d, 'manifest.json'))); doc['ball'] = 492
         json.dump(doc, open(os.path.join(d, 'other.json'), 'w'))
         cases.append(('a manifest naming another ball', ['--plane', os.path.join(d, 'other.json')],
-                      lambda rc, v, e: rc != 0 and 'another ball' in e))
+                      lambda rc, v, e: rc != 0 and 'unresolved cell' in e))   # unused manifest: the cell stays open
         cache = os.path.join(d, 'replay_cache.json')            # beside the manifest, as assemble.py passes it
         cases.append(('audit with the cache: served by the job replay', ['--plane', os.path.join(d, 'manifest.json'), '--plane-cache', cache],
                       lambda rc, v, e: rc == 0 and v['gamma'].get('plane') == 1 and v['plane']['cached_cells'] == [[4, [12, 5, 12, 12]]]))
@@ -59,12 +59,12 @@ def main():
             json.dump(x, open(r, 'w')); os.remove(os.path.join(d, 'replay_cache.jobs.json')); os.path.exists(cache) and os.remove(cache)
             subprocess.run([sys.executable, '-W', 'ignore', os.path.join(HERE, 'rusty', 'plane_manifest.py'), proot, d, '491'],
                            capture_output=True, text=True, cwd=proot)
-        cases.append(('a mismatched job receipt: the audit replays instead', ['--plane', os.path.join(d, 'manifest.json'), '--plane-cache', cache],
-                      lambda rc, v, e: rc == 0 and v['gamma'].get('plane') == 1 and not v['plane']['cached_cells'], untrusted))
+        cases.append(('a mismatched job receipt: the cell is left out (re-run later)', ['--plane', os.path.join(d, 'manifest.json'), '--plane-cache', cache],
+                      lambda rc, v, e: rc != 0 and 'unresolved cell' in e, untrusted))
         def tamper():                                  # a changed proposal must miss the cache and fail its replay
             q = os.path.join(d, '4_12_5_12_12', 'frontier.proposal.json.gz'); open(q, 'ab').write(b'\0')
         cases.append(('a modified proof file after caching', ['--plane', os.path.join(d, 'manifest.json'), '--plane-cache', cache],
-                      lambda rc, v, e: rc != 0 and 'changed' in e, tamper))
+                      lambda rc, v, e: rc != 0 and 'unresolved cell' in e, tamper))
         for case in cases:
             name, extra, ok = case[:3]
             if len(case) > 3: case[3]()
