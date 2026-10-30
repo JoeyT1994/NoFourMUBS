@@ -137,6 +137,8 @@ def main():
     ap.add_argument('--graph-dir', type=Path, help='the pinned hardball checker directory (certify_graph.py and its modules)')
     ap.add_argument('--graph-sha', help='the pinned SHA-256 of certify_graph.py')
     ap.add_argument('--graph-runner-sha', help='the pinned SHA-256 of graph_run.py')
+    ap.add_argument('--report-open', action='store_true',
+                    help='instead of failing on the first unresolved last-level cell, list them all (status OPEN_CELLS)')
     args = ap.parse_args(); root = args.root.resolve(); ctx.prec = 224
     need(len(args.layers) == len(args.scripts) >= 1, 'one script per layer')
     sys.path.insert(0, str(root / 'proof/theorems/TC_triple_classification/family_neighbourhoods'))
@@ -330,9 +332,16 @@ def main():
                            still_open=len(still)))
         target = unresolved; live = still; prev_cells = {tuple(e['cell']) for e in info['cover']}
     last = 2 + len(docs) - 1
-    for c in live:
+    unresolved = []
+    for c in sorted(live):
         p = tangent_point(c, last)
-        need(p is not None and any(contains(cc, lv, p) for lv, cc in closed), 'unresolved cell at the last level: %s' % (c,))
+        if not (p is not None and any(contains(cc, lv, p) for lv, cc in closed)):
+            if not args.report_open: need(False, 'unresolved cell at the last level: %s' % (c,))
+            unresolved.append(list(c))
+    if unresolved:
+        print(json.dumps(dict(status='OPEN_CELLS', ball=args.index, level=last, unresolved_cells=unresolved,
+                              layers=counts, gamma=used, discharged=disch)))
+        return
     print(json.dumps(dict(status='GEOMETRY_AND_RECEIPTS_VERIFIED', ball=args.index, original_radius=original['r'],
                           layers=counts, tangent_cells=len(live), gamma=used, discharged=disch,
                           bindings=[sorted(b) for b in bindings])))
