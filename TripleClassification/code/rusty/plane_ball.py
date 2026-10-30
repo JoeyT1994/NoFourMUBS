@@ -24,8 +24,14 @@ def run(task):
     os.makedirs(d, exist_ok=True)
     e = os.path.join(d, 'entry.json'); json.dump(entry, open(e, 'w'))
     env = dict(os.environ, OMP_NUM_THREADS='1')
-    s = subprocess.run([PY, '-W', 'ignore', F, e, '--out', os.path.join(d, 'frontier.json')], capture_output=True, text=True, cwd=PR, env=env)
     res = dict(ball=entry['ball'], level=entry['level'], cell=entry['cell'])
+    cap = float(os.environ.get('TC_WHOLE_SECONDS', '0')) or None   # a whole-cell search over the cap is split instead
+    try:
+        s = subprocess.run([PY, '-W', 'ignore', F, e, '--out', os.path.join(d, 'frontier.json')], capture_output=True, text=True,
+                           cwd=PR, env=env, timeout=cap)
+    except subprocess.TimeoutExpired:
+        json.dump(dict(status='NOT_ESTABLISHED', reason='whole-cell search over %g s: split' % cap), open(os.path.join(d, 'frontier.json'), 'w'))
+        res.update(status='SEARCH_FAILED', error='over the whole-cell time cap'); return res
     inp, prop = os.path.join(d, 'frontier.input.json.gz'), os.path.join(d, 'frontier.proposal.json.gz')
     if not (os.path.exists(inp) and os.path.exists(prop)):
         res.update(status='SEARCH_FAILED', error=(s.stderr.strip().splitlines() or [''])[-1][:200]); return res
