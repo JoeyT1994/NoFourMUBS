@@ -77,6 +77,61 @@ def support_directions(blocks,constant,selected):
     return out
 
 
+def coupled_quadratic_penalty(g,Q,groups,radii):
+    """Verify a quadratic lower bound on a product of closed Euclidean balls."""
+    n=Q.nrows()
+    if Q.ncols()!=n or g.nrows()!=n or g.ncols()!=1 or sorted(i for group in groups for i in group)!=list(range(n)):raise ValueError('invalid quadratic partition')
+    if len(groups)!=len(radii) or any(not r.is_finite() or not r>=0 for r in radii):raise ValueError('invalid radii')
+    active=[(group,r.upper()) for group,r in zip(groups,radii) if r.upper()!=0];indices=[i for group,r in active for i in group]
+    if not indices:return arb(0)
+    scales=[r for group,r in active for i in group];ranges=[];offset=0
+    for group,r in active:ranges.append(list(range(offset,offset+len(group))));offset+=len(group)
+    W=arb_mat([[(Q[i,j]+Q[j,i])/2*scales[a]*scales[b] for b,j in enumerate(indices)] for a,i in enumerate(indices)])
+    a=arb_mat([[g[i,0]*scales[k]] for k,i in enumerate(indices)])
+    M=np.array([[float(W[i,j].mid()) for j in range(len(indices))] for i in range(len(indices))]);v=np.array([float(x.mid()) for x in a.entries()]);n=len(v)
+    if not np.isfinite(M).all() or not np.isfinite(v).all():return None
+    eigen=np.linalg.eigvalsh(M);gap=max(1e-25,float(max(abs(eigen)))*1e-9);shifts=np.full(len(ranges),max(gap,-float(eigen[0])/2+gap))
+    def matrix():
+        S=M.copy()
+        for group,lam in zip(ranges,shifts):S[group,group]+=2*lam
+        return S
+    for _ in range(8):
+        for k,group in enumerate(ranges):
+            other=[i for i in range(n) if i not in group];S=matrix();A=M[np.ix_(group,group)];b=v[group]
+            if other:
+                R=S[np.ix_(other,other)];B=S[np.ix_(group,other)];vals,U=np.linalg.eigh(R)
+                if min(vals)<=0:return None
+                inv=(U/vals)@U.T;A=A-B@inv@B.T;b=b-B@inv@v[other]
+            vals,U=np.linalg.eigh((A+A.T)/2);b=U.T@b;low=max(0.,-float(vals[0])/2)+gap
+            norm2=lambda lam:float(np.sum((b/(vals+2*lam))**2))
+            if norm2(low)>1:
+                high=max(low*2,1.,float(np.linalg.norm(b)))
+                for _ in range(100):
+                    if norm2(high)<=1:break
+                    high*=2
+                else:return None
+                for _ in range(55):
+                    mid=(low+high)/2
+                    if norm2(mid)>1:low=mid
+                    else:high=mid
+                low=high
+            shifts[k]=math.nextafter(low+gap,math.inf)
+    lam=[arb(float(x)) for x in shifts]
+    if any(not x.is_finite() or not x>=0 for x in lam):return None
+    S=arb_mat(W)
+    for group,t in zip(ranges,lam):
+        for i in group:S[i,i]+=2*t
+    L=[[arb(0) for _ in range(n)] for _ in range(n)];d=[]
+    for i in range(n):
+        pivot=S[i,i]-sum((L[i][k]**2*d[k] for k in range(i)),arb(0))
+        if not pivot>0:return None
+        d.append(pivot)
+        for j in range(i+1,n):L[j][i]=(S[j,i]-sum((L[j][k]*L[i][k]*d[k] for k in range(i)),arb(0)))/pivot
+    try:out=((a.transpose()*S.inv()*a)[0,0]/2+sum(lam,arb(0))).upper()
+    except (ValueError,ZeroDivisionError):return None
+    return out if out.is_finite() else None
+
+
 def scalar_support(model,captures,direction=None):
     import native_columns as C
     import moving_symmetry as MS
@@ -164,6 +219,30 @@ def scalar_support(model,captures,direction=None):
             rhs+=(y[0,k]**2+y[0,15+k]**2).sqrt()*hd[k]**3/6
             rhs+=(y[0,30+k]**2+y[0,45+k]**2).sqrt()*kd[k]**3/6
         rhs+=sum((abs(y[0,60+6*a+b])*arb(2).sqrt()/3*md[a][b]**3 for a in range(6) for b in range(6)),arb(0))
+        if not constant>rhs and sign:
+            m=len(active);nk=len(keep);n=4+nk+36
+            he=lift.transpose()*hk;hn=lift.transpose()*hH
+            def component(i,j):
+                if i<4 and j<4:return ww[i,j]
+                if i<4 and j<4+nk:return he[i,j-4]
+                if i<4:return hn[i,j-4-nk]
+                if j<4:return component(j,i)
+                if i<4+nk and j<4+nk:return kk[i-4,j-4]
+                if i<4+nk:return kH[i-4,j-4-nk]
+                if j<4+nk:return component(j,i)
+                return HH[i-4-nk,j-4-nk]
+            quadratic=arb_mat([[sign*component(i,j) for j in range(n)] for i in range(n)])
+            yh=y*jl;ye=y*jk
+            linear=arb_mat([[sign*yh[0,i]] for i in range(4)]+[[sign*ye[0,i]] for i in keep]+[[0] for _ in range(36)])
+            groups=[list(range(4))]+[[4+a*m+c for a in range(6)] for c in active]+[list(range(4+nk,n))]
+            coupled=coupled_quadratic_penalty(linear,quadratic,groups,[r]+[eps[c] for c in active]+[nh])
+            if coupled is not None:
+                rest=C.rownorm(y*jhx,0)*tau
+                for k in range(15):
+                    rest+=(y[0,k]**2+y[0,15+k]**2).sqrt()*hd[k]**3/6
+                    rest+=(y[0,30+k]**2+y[0,45+k]**2).sqrt()*kd[k]**3/6
+                rest+=sum((abs(y[0,60+6*a+b])*arb(2).sqrt()/3*md[a][b]**3 for a in range(6) for b in range(6)),arb(0))
+                rhs=min(rhs.upper(),(coupled+rest).upper())
         if constant>rhs:
             return dict(status='EXCLUDED',route='partial-basis scalar support',lhs=str(constant),rhs=str(rhs),
                         direction_hex=[float(v).hex() for v in yy])

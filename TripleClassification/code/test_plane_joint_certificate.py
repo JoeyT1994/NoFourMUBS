@@ -175,4 +175,23 @@ class Quadratic(unittest.TestCase):
         self.assertTrue(b>arb('1.01')**2/(2*arb('1.99')))
 
 
+class CoupledQuadratic(unittest.TestCase):
+    def setUp(self):ctx.prec=160
+    def test_coupled_interior_and_independent_boundary(self):
+        b=J.coupled_quadratic_penalty(arb_mat([[1],[1]]),arb_mat([[2,1],[1,2]]),[[0],[1]],[arb(1),arb(1)])
+        self.assertTrue(b>arb('.3333333') and b<arb('.3333334'))
+        b=J.coupled_quadratic_penalty(arb_mat([[3],[4]]),arb_mat(2,2),[[0],[1]],[arb(2),arb(3)])
+        self.assertTrue(b>=18 and b<arb('18.000001'))
+    def test_negative_curvature_is_retained(self):
+        b=J.coupled_quadratic_penalty(arb_mat([[0],[0]]),arb_mat([[-2,0],[0,-4]]),[[0],[1]],[arb(1),arb(1)])
+        self.assertTrue(b>=3 and b<arb('3.000001'))
+    def test_only_zero_upper_radius_removes_a_block(self):
+        self.assertEqual(J.coupled_quadratic_penalty(arb_mat([[1]]),arb_mat([[1]]),[[0]],[arb(0)]),0)
+        b=J.coupled_quadratic_penalty(arb_mat([[1]]),arb_mat([[0]]),[[0]],[arb('1 +/- .5')])
+        self.assertTrue(b>=arb('1.5') and b<arb('1.500001'))
+    def test_bad_partitions_and_negative_radii_rejected(self):
+        with self.assertRaises(ValueError):J.coupled_quadratic_penalty(arb_mat([[1]]),arb_mat([[0]]),[[0],[0]],[arb(1),arb(1)])
+        with self.assertRaises(ValueError):J.coupled_quadratic_penalty(arb_mat([[1]]),arb_mat([[0]]),[[0]],[arb(-1)])
+
+
 if __name__=='__main__':unittest.main()

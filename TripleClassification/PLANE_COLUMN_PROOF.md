@@ -364,6 +364,33 @@ enclosures from two column covers (29/106 and 35/110). Two of these exclusions f
 norm bound, even with the same stored directions. These are root exclusions within an unresolved
 cell, not a complete cell or original-ball certificate; the original radius remains 0.1.
 
+The same argument extends to all quadratic interactions. Put z = (w, e, h), where e contains the
+selected mean-zero K errors and h is H's remaining phase error. Use one Euclidean ball for w,
+one for each selected column error, and one for h. Their radii are r, ε_c and N respectively.
+The exact scalar quadratic has blocks W, LᵀDC_K, LᵀDI_H, C_KᵀDC_K, C_KᵀDI_H and I_HᵀDI_H.
+Its linear vector contains yJL and yJC_K; its h block is zero because JH₂ is already in W,
+and the remaining linear yJX term stays in the separately bounded remainder.
+
+For a symmetric quadratic matrix Q and nonnegative shifts λ_i, let
+
+    S = Q + 2 diag(λ_i I_i).
+
+If S is positive definite and each ‖z_i‖ ≤ ρ_i, completion of squares yields
+
+    gᵀz + zᵀQz/2 ≥ −gᵀS⁻¹g/2 − Σ_i λ_i ρ_i².
+
+The remaining bound is precisely the linear X-error term and the cubic Fourier tails; the K
+linear terms and every quadratic cross term are now in this joint polynomial. The implementation
+normalizes each ball using its verified upper radius, proposes shifts by coordinate minimization,
+and verifies their nonnegativity, positive interval LDL pivots and inverse in Arb. Only a block
+whose upper radius is zero can be removed. The previous bounds remain available as fallbacks.
+
+A separate replay verifies seven further exclusions among the 152 roots that survived the first
+signed bound. The cumulative result is 71/216 excluded root enclosures (35/106 and 36/110).
+It independently checks containment of the entire assigned cell at the original radius and
+confirms that the same seven stored directions fail the preceding signed-only checker. This
+still does not certify all roots of either column, the complete cell, or the original ball.
+
 The regression checks retain genuine partial and complete Fourier chirp bases, reject weights on
 unselected columns, and reject an enumeration with an uncovered root combination. They can be run with
 `python -m unittest discover -s TripleClassification/code -p 'test_plane_*certificate.py'`.
