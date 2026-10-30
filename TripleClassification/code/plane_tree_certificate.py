@@ -5,8 +5,10 @@ closed original unit ball strictly, or excludes or classifies every completing K
 The conclusion concerns the root cell, not an entire original atlas ball.
 """
 import argparse
+from concurrent.futures import ProcessPoolExecutor
 import itertools
 import json
+import multiprocessing
 import time
 from fractions import Fraction
 from pathlib import Path
@@ -47,28 +49,45 @@ def artifact(directory,spec):
     return path
 
 
-def check(entry,tree_path):
+def replay_leaf(task):
+    directory,node,level,cell,original=task
+    inp=artifact(directory,node['input']);proposal=artifact(directory,node['proposal'])
+    record=read_json(inp)['record'];ctx.prec=224
+    geometry=F.cell_geometry(original,record,level,cell)
+    result=F.Whole.check(inp,read_json(proposal))
+    require(result['status'] in ('CERTIFIED_EMPTY_RECORDED_H_CELL','CERTIFIED_CLASSIFIED_RECORDED_H_CELL'),
+            'leaf not classified or excluded')
+    # Recheck the bindings after replay, including when another process writes files.
+    artifact(directory,node['input']);artifact(directory,node['proposal'])
+    return dict(level=level,cell=cell,geometry=geometry,input_sha256=node['input']['sha256'],
+        proposal_sha256=node['proposal']['sha256'],patterns=result['patterns_total'],status=result['status'],
+        dependencies_sha256=result['dependencies_sha256'])
+
+
+def check(entry,tree_path,workers=1):
+    require(type(workers) is int and 1<=workers<=256,'invalid replay worker count')
+    tree_path=Path(tree_path);tree_sha=digest(tree_path)
     root=Path(__file__).resolve().parents[2];original=F.original_record(root,entry['ball'])
     tree=read_json(tree_path)
     require(tree.get('schema')=='tc-plane-tree-proposal-v1' and
             tree.get('root_entry_sha256')==F.jsonsha(entry),'wrong root cell binding')
-    leaves=[]
-    def check_leaf(node,level,cell):
-        inp=artifact(tree_path.parent,node['input']);proposal=artifact(tree_path.parent,node['proposal'])
-        record=read_json(inp)['record'];ctx.prec=224
-        geometry=F.cell_geometry(original,record,level,cell)
-        result=F.Whole.check(inp,read_json(proposal))
-        require(result['status'] in ('CERTIFIED_EMPTY_RECORDED_H_CELL','CERTIFIED_CLASSIFIED_RECORDED_H_CELL'),
-                'leaf not classified or excluded')
-        leaves.append(dict(level=level,cell=cell,geometry=geometry,input_sha256=digest(inp),
-            proposal_sha256=digest(proposal),patterns=result['patterns_total'],status=result['status'],
-            dependencies_sha256=result['dependencies_sha256']))
-    counts=walk(tree['tree'],entry['level'],entry['cell'],check_leaf)
+    tasks=[]
+    counts=walk(tree['tree'],entry['level'],entry['cell'],
+        lambda node,level,cell:tasks.append((tree_path.parent,node,level,cell,original)))
+    # First validate the whole partition. Each worker then freshly checks one leaf.
+    # Spawn isolates Arb's precision state. map preserves the serial receipt order.
+    if workers==1 or len(tasks)<2:
+        leaves=list(map(replay_leaf,tasks))
+    else:
+        with ProcessPoolExecutor(max_workers=min(workers,len(tasks)),
+                                 mp_context=multiprocessing.get_context('spawn')) as pool:
+            leaves=list(pool.map(replay_leaf,tasks,chunksize=1))
+    require(digest(tree_path)==tree_sha,'tree changed during replay')
     classified=any(leaf['status']=='CERTIFIED_CLASSIFIED_RECORDED_H_CELL' for leaf in leaves)
     return dict(schema='tc-plane-tree-receipt-v1',status='CERTIFIED_CLASSIFIED_DYADIC_CELL' if classified else
         'CERTIFIED_EMPTY_DYADIC_CELL',
         ball=entry['ball'],level=entry['level'],cell=entry['cell'],original_radius_hex=original['r'],
-        original_atlas_sha256=F.PIN,root_entry_sha256=F.jsonsha(entry),tree_sha256=digest(tree_path),
+        original_atlas_sha256=F.PIN,root_entry_sha256=F.jsonsha(entry),tree_sha256=tree_sha,
         counts=counts,leaves=leaves,checker_sha256=digest(__file__),
         geometry_checker_sha256=digest(F.__file__),
         scope='Every completing K on the intersection of this entire root dyadic cell with the closed original '
@@ -79,8 +98,9 @@ def check(entry,tree_path):
 def main():
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('entry',type=Path)
     p.add_argument('--tree',type=Path,required=True);p.add_argument('--out',type=Path,required=True)
+    p.add_argument('--workers',type=int,default=1,help='fresh leaf replays in separate processes')
     a=p.parse_args();start=time.monotonic()
-    try:result=check(read_json(a.entry),a.tree)
+    try:result=check(read_json(a.entry),a.tree,a.workers)
     except (ValueError,ArithmeticError,ZeroDivisionError,KeyError,TypeError,OSError) as exc:
         result=dict(status='NOT_ESTABLISHED',reason=str(exc))
     result['seconds']=time.monotonic()-start;a.out.write_text(json.dumps(result,indent=2)+'\n')

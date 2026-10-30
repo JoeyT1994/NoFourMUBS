@@ -478,6 +478,13 @@ python TripleClassification/code/plane_tree_certificate.py entry.json \
   --tree tree.json --out tree-replay.json
 ```
 
+Add `--workers N` to replay independent leaves in separate processes. The checker
+first validates the complete partition, then recomputes every leaf proof. It
+returns a receipt only after all leaves pass, in the same order as serial replay.
+Each process has its own Arb precision state. File bindings are checked again
+after replay, and a failed worker cannot certify the parent. This changes the
+execution order, not the covering argument or the original radius.
+
 ## 9. Inserting these proofs into an original-ball covering audit
 
 An original-ball audit can now use a complete cell proof when the native row for
