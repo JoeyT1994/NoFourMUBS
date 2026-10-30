@@ -56,6 +56,9 @@ def main():
     ap.add_argument('--part', default='0/1', help='I/K: search only the start-level cells with index I mod K')
     ap.add_argument('--assemble', action='store_true', help='no search: build and check the tree from settled cells')
     ap.add_argument('--serial-check', action='store_true', help='check the whole tree in one process')
+    ap.add_argument('--cells-from', help='file of existing cell directories (entry.json each) to close instead of the ball: '
+                    'each is split at once, its descendants go to <dir>/kids (reusing what is settled there), and a '
+                    'closed cell gets <dir>/tree.json and refined.json, as plane_manifest.py lists them')
     a = ap.parse_args()
     root = Path(a.root).resolve(); code = root / 'TripleClassification/code'
     sys.path[:0] = [str(code), str(HERE / 'rusty')]
@@ -68,8 +71,18 @@ def main():
     caps = dict(DEFAULT_SECONDS); caps.update({int(k): float(v) for k, v in (x.split(':') for x in a.seconds.split(',') if x)})
     cap = lambda level: caps.get(level, 3600)
     r0, c0 = a.cell.split(':'); r0 = int(r0); c0 = [int(x) for x in c0.split(',')]
-    top = Path(a.out).resolve() / ('b%d' % a.ball); (top / 'cells').mkdir(parents=True, exist_ok=True)
+    top = Path(a.out).resolve() / ('b%d' % a.ball); top.mkdir(parents=True, exist_ok=True)
     root_entry = dict(ball=a.ball, level=r0, cell=c0, subatlas='none', sub=0, record_sha256='none')
+    if a.cells_from:                    # existing cell directories (entry.json); their descendants go to <dir>/kids
+        roots = []
+        for line in open(a.cells_from):
+            if not line.strip(): continue
+            d = Path(line.strip()).resolve(); e = json.load(open(d / 'entry.json'))
+            if e['ball'] != a.ball: raise SystemExit('%s: entry names ball %s' % (d, e['ball']))
+            roots.append(dict(dir=d, cells=d / 'kids', entry=e, level=e['level'], cell=e['cell'], search_self=False))
+    else:
+        roots = [dict(dir=top, cells=top / 'cells', entry=root_entry, level=r0, cell=c0, search_self=True)]
+    for R in roots: R['cells'].mkdir(exist_ok=True)
     t0 = time.time()
 
     def settled(d, level):
@@ -84,14 +97,21 @@ def main():
             f = json.load(open(d / 'failed.json'))
             if f.get('kind') == 'not certified' or f.get('seconds', 0) >= cap(level): return 'split'
         except (OSError, ValueError): pass
+        try:                            # an earlier search that failed for a mathematical reason (no time cap involved)
+            f = json.load(open(d / 'frontier.json'))
+            if f.get('status') == 'NOT_ESTABLISHED' and 'pattern remains' in str(f.get('reason')): return 'split'
+        except (OSError, ValueError): pass
         return None
 
-    def prove(level, cell):
-        """Search, then replay, one cell; returns (level, cell, 'leaf' | 'split', core seconds)."""
-        d = top / 'cells' / name(level, cell); d.mkdir(exist_ok=True)
-        e = d / 'entry.json'; json.dump(dict(root_entry, level=level, cell=list(cell)), open(e, 'w'))
+    def prove(ri, level, cell):
+        """Search, then replay, one cell; returns (ri, level, cell, 'leaf' | 'split', core seconds)."""
+        R = roots[ri]; d = R['cells'] / name(level, cell); d.mkdir(exist_ok=True)
+        e = d / 'entry.json'; ent = dict(R['entry'], level=level, cell=list(cell))
+        try: same = json.load(open(e)) == ent
+        except (OSError, ValueError): same = False
+        if not same: json.dump(ent, open(e, 'w'))
         s = settled(d, level)
-        if s: return level, cell, s, 0.0
+        if s: return ri, level, cell, s, 0.0
         env = dict(os.environ, OMP_NUM_THREADS='1'); ts = time.time()
         for f in ('replay.json', 'failed.json'):
             if (d / f).exists(): (d / f).unlink()
@@ -100,103 +120,131 @@ def main():
                            capture_output=True, timeout=cap(level))
         except subprocess.TimeoutExpired:
             json.dump(dict(kind='time cap', seconds=cap(level)), open(d / 'failed.json', 'w')); slim_cell(str(d))
-            return level, cell, 'split', time.time() - ts
+            return ri, level, cell, 'split', time.time() - ts
         if (d / 'frontier.input.json.gz').exists() and (d / 'frontier.proposal.json.gz').exists():
             subprocess.run([a.py, '-W', 'ignore', str(fc), str(e), '--input', str(d / 'frontier.input.json.gz'), '--proposal',
                             str(d / 'frontier.proposal.json.gz'), '--out', str(d / 'replay.json')], cwd=root, env=env, capture_output=True)
         slim_cell(str(d))
-        if settled(d, level) == 'leaf': return level, cell, 'leaf', time.time() - ts
+        if settled(d, level) == 'leaf': return ri, level, cell, 'leaf', time.time() - ts
         try: why = json.load(open(d / 'frontier.json')).get('reason')
         except (OSError, ValueError): why = None
         json.dump(dict(kind='not certified', reason=why), open(d / 'failed.json', 'w'))
-        return level, cell, 'split', time.time() - ts
+        return ri, level, cell, 'split', time.time() - ts
 
-    state = {}; core = 0.0                              # (level, tuple(cell)) -> 'leaf' | 'split' | 'open' | 'outside'
-    def expand(level, cell):
-        """Cells to search under (level, cell): itself from --start on, else its children's."""
-        if Tree.misses_ball(level, cell): state[(level, tuple(cell))] = 'outside'; return []
-        if level < a.start: state[(level, tuple(cell))] = 'split'; return [x for k in children(level, cell) for x in expand(*k)]
-        return [(level, cell)]
+    state = {}; core = 0.0                    # (root, level, tuple(cell)) -> 'leaf' | 'split' | 'open' | 'outside'
+    def expand(ri, level, cell):
+        """Cells to search under (level, cell): itself from --start on (a listed cell: its children), else its children's."""
+        if Tree.misses_ball(level, cell): state[(ri, level, tuple(cell))] = 'outside'; return []
+        R = roots[ri]
+        if level < a.start or (level == R['level'] and not R['search_self']):
+            state[(ri, level, tuple(cell))] = 'split'; return [x for k in children(level, cell) for x in expand(ri, *k)]
+        return [(ri, level, cell)]
     pi, pk = (int(x) for x in a.part.split('/'))
-    first = [x for n, x in enumerate(expand(r0, c0)) if n % pk == pi]
-    def settle(level, cell):
+    first = [x for n, x in enumerate(t for ri, R in enumerate(roots) for t in expand(ri, R['level'], R['cell'])) if n % pk == pi]
+    def settle(ri, level, cell):
         """--assemble: the state of every cell under (level, cell) from what earlier runs settled; no search."""
-        s = settled(top / 'cells' / name(level, cell), level) if (top / 'cells' / name(level, cell)).is_dir() else None
-        if s == 'leaf': state[(level, tuple(cell))] = 'leaf'
+        d = roots[ri]['cells'] / name(level, cell); s = settled(d, level) if d.is_dir() else None
+        if s == 'leaf': state[(ri, level, tuple(cell))] = 'leaf'
         elif s == 'split' and level < a.max_level:
-            state[(level, tuple(cell))] = 'split'
+            state[(ri, level, tuple(cell))] = 'split'
             for l, c in children(level, cell):
-                if Tree.misses_ball(l, c): state[(l, tuple(c))] = 'outside'
-                else: settle(l, c)
-        else: state[(level, tuple(cell))] = 'open'
+                if Tree.misses_ball(l, c): state[(ri, l, tuple(c))] = 'outside'
+                else: settle(ri, l, c)
+        else: state[(ri, level, tuple(cell))] = 'open'
     if a.assemble:
-        for l, c in first: settle(l, c)
+        for t in first: settle(*t)
         first = []
     with ThreadPoolExecutor(max(1, a.workers)) as pool:
-        running = {pool.submit(prove, l, c) for l, c in first}
+        running = {pool.submit(prove, *t) for t in first}
         while running:
             done, running = wait(running, return_when=FIRST_COMPLETED)
             for fut in done:
-                level, cell, how, sec = fut.result(); core += sec
-                if how == 'leaf': state[(level, tuple(cell))] = 'leaf'
+                ri, level, cell, how, sec = fut.result(); core += sec
+                if how == 'leaf': state[(ri, level, tuple(cell))] = 'leaf'
                 elif level < a.max_level:
-                    state[(level, tuple(cell))] = 'split'
+                    state[(ri, level, tuple(cell))] = 'split'
                     for l, c in children(level, cell):
-                        if Tree.misses_ball(l, c): state[(l, tuple(c))] = 'outside'
-                        else: running.add(pool.submit(prove, l, c))
-                else: state[(level, tuple(cell))] = 'open'
+                        if Tree.misses_ball(l, c): state[(ri, l, tuple(c))] = 'outside'
+                        else: running.add(pool.submit(prove, ri, l, c))
+                else: state[(ri, level, tuple(cell))] = 'open'
 
-    def node(level, cell):
-        s = state.get((level, tuple(cell)))
+    def node(ri, level, cell):
+        s = state.get((ri, level, tuple(cell))); R = roots[ri]
         if s == 'outside': return {'outside': True}
         if s == 'leaf':
-            rel = Path('cells') / name(level, cell)
-            return {k: dict(path=str(rel / ('frontier.%s.json.gz' % k)), sha256=digest(top / rel / ('frontier.%s.json.gz' % k)))
+            rel = (R['cells'] / name(level, cell)).relative_to(R['dir'])
+            return {k: dict(path=str(rel / ('frontier.%s.json.gz' % k)), sha256=digest(R['dir'] / rel / ('frontier.%s.json.gz' % k)))
                     for k in ('input', 'proposal')}
-        if s == 'split': return {'children': [node(l, c) for l, c in children(level, cell)]}
+        if s == 'split': return {'children': [node(ri, l, c) for l, c in children(level, cell)]}
         return None
-    def has_open(level, cell):
-        s = state.get((level, tuple(cell)))
-        return s == 'open' or s is None or (s == 'split' and any(has_open(l, c) for l, c in children(level, cell)))
+    def has_open(ri, level, cell):
+        s = state.get((ri, level, tuple(cell)))
+        return s == 'open' or s is None or (s == 'split' and any(has_open(ri, l, c) for l, c in children(level, cell)))
     counts = {}
-    for (level, _), s in state.items():
+    for (_, level, _), s in state.items():
         counts.setdefault(level, {}).setdefault(s, 0); counts[level][s] += 1
-    res = dict(schema='tc-ball-closer-v1', ball=a.ball, root_cell=dict(level=r0, cell=c0), start=a.start, max_level=a.max_level,
-               search_seconds={str(k): cap(k) for k in range(r0, a.max_level + 1)}, checker_sources_sha256=PM.source_hashes(root),
-               cells_by_level={str(k): v for k, v in sorted(counts.items())}, search_core_hours=round(core / 3600, 2))
+    res = dict(schema='tc-ball-closer-v1', ball=a.ball, roots=len(roots), start=a.start, max_level=a.max_level,
+               search_seconds={str(k): cap(k) for k in range(min(R['level'] for R in roots), a.max_level + 1)},
+               checker_sources_sha256=PM.source_hashes(root), cells_by_level={str(k): v for k, v in sorted(counts.items())},
+               search_core_hours=round(core / 3600, 2))
+    if not a.cells_from: res['root_cell'] = dict(level=r0, cell=c0)
+    opened = lambda: sorted([l, list(c)] for (_, l, c), s in state.items() if s == 'open')
     if pk > 1:
-        res.update(verdict='PART %d/%d DONE' % (pi, pk), open_cells=sorted([l, list(c)] for (l, c), s in state.items() if s == 'open'))
-    elif has_open(r0, c0):
-        res.update(verdict='OPEN', open_cells=sorted([l, list(c)] for (l, c), s in state.items() if s == 'open'))
+        res.update(verdict='PART %d/%d DONE' % (pi, pk), open_cells=opened())
     else:
-        tree = dict(schema='tc-plane-tree-proposal-v1', root_entry_sha256=F.jsonsha(root_entry), tree=node(r0, c0))
-        json.dump(root_entry, open(top / 'root_entry.json', 'w')); tmp = top / ('tree.json.%d.new' % os.getpid())
-        json.dump(tree, open(tmp, 'w')); os.replace(tmp, top / 'tree.json')
-        tc = time.time()
+        done_roots = [ri for ri, R in enumerate(roots) if not has_open(ri, R['level'], R['cell'])]
+        trees = {}
+        for ri in done_roots:                       # each closed root: its tree, written whole, then renamed
+            R = roots[ri]; trees[ri] = dict(schema='tc-plane-tree-proposal-v1', root_entry_sha256=F.jsonsha(R['entry']),
+                                            tree=node(ri, R['level'], R['cell']))
+            if not a.cells_from: json.dump(R['entry'], open(top / 'root_entry.json', 'w'))
+            tmp = R['dir'] / ('tree.json.%d.new' % os.getpid()); json.dump(trees[ri], open(tmp, 'w')); os.replace(tmp, R['dir'] / 'tree.json')
+        tc = time.time(); verdicts = {}
         if a.serial_check:
-            r = Tree.check(root_entry, top / 'tree.json')                # the proof: one replay of the whole tree
-            st, counts_t, failed = r['status'], r['counts'], []
+            for ri in done_roots:
+                r = Tree.check(roots[ri]['entry'], roots[ri]['dir'] / 'tree.json')   # one replay of the whole tree
+                verdicts[ri] = (r['status'], r['counts'], [])
         else:
-            leaves = []                                                  # the partition, checked without replaying leaves
-            counts_t = Tree.walk(tree['tree'], r0, c0, lambda node, level, cell: leaves.append((level, cell, node)))
+            leaves = []; counts_t = {}                  # each partition checked without replaying leaves, then all leaves
+            for ri in done_roots:
+                R = roots[ri]
+                counts_t[ri] = Tree.walk(trees[ri]['tree'], R['level'], R['cell'], lambda nd, level, cell, ri=ri: leaves.append((ri, level, cell, nd)))
             def leaf(job):
-                level, cell, nd = job; d = top / 'cells' / name(level, cell)
-                one = dict(schema='tc-plane-tree-proposal-v1', root_entry_sha256=F.jsonsha(dict(root_entry, level=level, cell=cell)),
+                ri, level, cell, nd = job; R = roots[ri]; d = R['cells'] / name(level, cell); ent = dict(R['entry'], level=level, cell=cell)
+                one = dict(schema='tc-plane-tree-proposal-v1', root_entry_sha256=F.jsonsha(ent),
                            tree={k: dict(path='frontier.%s.json.gz' % k, sha256=nd[k]['sha256']) for k in ('input', 'proposal')})
                 json.dump(one, open(d / 'leaf_tree.json', 'w'))
-                q = subprocess.run([a.py, '-W', 'ignore', '-c', CHECK_ONE, str(code), json.dumps(dict(root_entry, level=level, cell=cell)),
-                                    str(d / 'leaf_tree.json')], capture_output=True, text=True, env=dict(os.environ, OMP_NUM_THREADS='1'))
-                try: return (level, cell, json.loads(q.stdout.strip().splitlines()[-1])['status'])
-                except (ValueError, IndexError, KeyError): return (level, cell, 'CHECK_FAILED: ' + (q.stderr.strip().splitlines() or [''])[-1][:100])
+                q = subprocess.run([a.py, '-W', 'ignore', '-c', CHECK_ONE, str(code), json.dumps(ent), str(d / 'leaf_tree.json')],
+                                   capture_output=True, text=True, env=dict(os.environ, OMP_NUM_THREADS='1'))
+                try: return ri, level, cell, json.loads(q.stdout.strip().splitlines()[-1])['status']
+                except (ValueError, IndexError, KeyError): return ri, level, cell, 'CHECK_FAILED: ' + (q.stderr.strip().splitlines() or [''])[-1][:100]
             with ThreadPoolExecutor(max(1, a.workers)) as pool: out = list(pool.map(leaf, leaves))
-            failed = [[l, list(c), s] for l, c, s in out if s not in CERT]
-            st = (None if failed else 'CERTIFIED_CLASSIFIED_DYADIC_CELL' if any(s == CERT[1] for _, _, s in out) else CERT[0])
-        res.update(verdict='CLOSED' if st in CERT else 'OPEN', status=st, tree_sha256=digest(top / 'tree.json'),
-                   tree_counts=counts_t, check='serial' if a.serial_check else 'parallel', check_failed=failed,
-                   check_seconds=round(time.time() - tc))
+            for ri in done_roots:
+                mine = [s for r_, _, _, s in out if r_ == ri]; failed = [[l, list(c), s] for r_, l, c, s in out if r_ == ri and s not in CERT]
+                st = None if failed else (CERT[1] if CERT[1] in mine else CERT[0])
+                verdicts[ri] = (st, counts_t[ri], failed)
+        closed = []
+        for ri, (st, cnt, failed) in verdicts.items():
+            R = roots[ri]
+            if st not in CERT: continue
+            closed.append(ri)
+            if a.cells_from:                        # what plane_manifest.py lists and caches for the original-ball audit
+                ref = dict(ball=a.ball, level=R['level'], cell=R['cell'], status=st, counts=cnt, closer=True,
+                           tree_sha256=digest(R['dir'] / 'tree.json'), checker_sources_sha256=PM.source_hashes(root))
+                tmp = R['dir'] / ('refined.json.%d.new' % os.getpid()); json.dump(ref, open(tmp, 'w')); os.replace(tmp, R['dir'] / 'refined.json')
+        res.update(check='serial' if a.serial_check else 'parallel', check_seconds=round(time.time() - tc),
+                   check_failed=[[roots[ri]['level'], roots[ri]['cell'], f] for ri, (st, _, f) in verdicts.items() if f])
+        if a.cells_from:
+            res.update(verdict='CLOSED %d OF %d CELLS' % (len(closed), len(roots)),
+                       open_roots=[[R['level'], R['cell']] for ri, R in enumerate(roots) if ri not in closed], open_cells=opened())
+        elif closed:
+            st, cnt, _ = verdicts[0]
+            res.update(verdict='CLOSED', status=st, tree_sha256=digest(top / 'tree.json'), tree_counts=cnt)
+        else:
+            res.update(verdict='OPEN', open_cells=opened())
     res['wall_seconds'] = round(time.time() - t0)
     tmp = top / ('closer.json.%d.new' % os.getpid()); json.dump(res, open(tmp, 'w'), indent=1); os.replace(tmp, top / 'closer.json')
-    print(json.dumps({k: v for k, v in res.items() if k not in ('open_cells', 'checker_sources_sha256')}))
+    print(json.dumps({k: v for k, v in res.items() if k not in ('open_cells', 'checker_sources_sha256', 'open_roots')}))
 
 
 if __name__ == '__main__': main()

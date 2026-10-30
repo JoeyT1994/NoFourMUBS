@@ -12,7 +12,7 @@ while [ "$(date +%s)" -lt "$end" ]; do
   open=$(awk -F'\t' '$3=="open"{print $1}' $B/results_live/balls.tsv)
   jobs=$(squeue -u jtindall -h -o %j)
   for b in $open; do
-    if ! echo "$jobs" | grep -qx "tc-plane$b"; then      # whole-cell proofs in parts sized to the open cells
+    if ! echo "$jobs" | grep -qxE "tc-plane$b|tc-cc$b"; then   # whole-cell proofs in parts (none while ball_closer.py runs)
       n=$(python3 -c "import json;print(len(json.load(open('$B/results_live/open_cells.json'))['balls'].get('$b',{}).get('cells',[])))" 2>/dev/null || echo 0)
       k=$(( (n + 199) / 200 )); [ $k -lt 1 ] && k=1; [ $k -gt 8 ] && k=8   # refining a cell is ~16-256 searches: ~200 cells a node
       sf=0; grep -qx "$b" $B/plane_split_first.txt 2>/dev/null && sf=1      # balls whose whole-cell searches mostly fail
