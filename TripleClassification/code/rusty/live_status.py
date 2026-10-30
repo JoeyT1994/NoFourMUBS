@@ -27,6 +27,10 @@ except (OSError, ValueError): pass
 cpath = os.path.join(B, 'status_cache.json')
 try: cache = json.load(open(cpath))
 except (OSError, ValueError): cache = {}
+try:                                                             # exact open cells, written by this pass's assembly
+    oc = json.load(open(os.path.join(B, 'results_live/open_cells.json')))
+    out['open_cells'] = {b: '%d cells at level %d' % (len(v['cells']), v['level']) for b, v in oc['balls'].items()}
+except (OSError, ValueError, KeyError): pass
 tally = collections.Counter()
 for kind, pat, key in (('anchored', 'selective/anchored_v1/b*.jsonl', b'"EXCLUDED_GIVEN_INPUT_ENCLOSURES"'),
                        ('graph', 'selective/graph_v1/b*.jsonl', b'"PROVED_PATTERN_EXCLUSION"')):

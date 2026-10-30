@@ -20,7 +20,7 @@ final status, the earlier rows being kept as the cell-test columns).  Writes
 A row of refine.py is written only when its whole level is done, so a ball with level-5 rows finished level 5, and a
 ball with failed level-4 cells but no level-5 rows was stopped before level 5 (its failed level-4 cells remain).
 """
-import collections, glob, gzip, hashlib, json, os, sys
+import time, collections, glob, gzip, hashlib, json, os, sys
 
 N_SEEDS = 2775
 ORIGINAL_ATLAS = '33ad9798eb7a5585c486f2427a6b223867a43b308b7f184467b4cd5956bd8baf'
@@ -183,11 +183,14 @@ def trees(a, V, side, RC, side_guard=None, out=None):
             extra += ['--graph'] + graph_ball.get(i, []) + ['--graph-dir', a.graph_dir, '--graph-sha', a.graph_sha,
                                                             '--graph-runner-sha', a.graph_runner_sha]
         cp = subprocess.run([sys.executable, a.tree_auditor, '--root', a.tc_tree, '--index', str(i), '--layers'] + layers
-                            + ['--scripts'] + scripts + extra, capture_output=True, text=True)
+                            + ['--scripts'] + scripts + extra + ['--report-open'], capture_output=True, text=True)
         try:
             v = json.loads((cp.stdout.strip().splitlines() or ['{}'])[-1])
         except ValueError:
             v = {}
+        if cp.returncode == 0 and v.get('status') == 'OPEN_CELLS':  # every unresolved last-level cell, for open_cells.json
+            return dict(status='open below level %d' % (len(layers) + 1), route=route, open_level=v['level'],
+                        open_cells=v['unresolved_cells'], layer_files=layers)
         if cp.returncode != 0 or v.get('status') != 'GEOMETRY_AND_RECEIPTS_VERIFIED':
             err = (cp.stderr.strip().splitlines() or [''])[-1]
             return dict(status=('open below level %d' % (len(layers) + 1) if 'unresolved cell at the last level' in err
@@ -485,6 +488,12 @@ def main():
                        refine=round(ref_s / 3600, 1),
                        certifier=round(sum(x.get('seconds', 0) for x in tc.values()) / 3600, 1),
                        split=round(split_s / 3600, 1)))
+    # the exact open cells of every open ball, from this pass's audits (summary.json keeps only their count)
+    opened = {str(j): dict(level=tree[j]['open_level'], cells=tree[j]['open_cells'], layers=tree[j]['layer_files'],
+                           route=tree[j].get('route')) for j in sorted(tree) if 'open_cells' in tree[j]}
+    json.dump(dict(time=time.strftime('%Y-%m-%d %H:%M'), balls=opened), open(os.path.join(out, 'open_cells.json'), 'w'))
+    summary['tree'] = {k: ({kk: vv for kk, vv in v.items() if kk not in ('open_cells', 'layer_files')} |
+                           ({'open_cells': len(v['open_cells'])} if 'open_cells' in v else {})) for k, v in summary['tree'].items()}
     json.dump(summary, open(os.path.join(out, 'summary.json'), 'w'), indent=1)
     print(json.dumps(summary, indent=1))
 
