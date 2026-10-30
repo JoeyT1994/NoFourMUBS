@@ -84,7 +84,7 @@ def original_record(root,index):
     return seeds[index]
 
 
-def run(root,entry,out,proposal_path=None,input_path=None,depth=6):
+def run(root,entry,out,proposal_path=None,input_path=None,depth=6,pattern_workers=1):
     original=original_record(root,entry['ball']);ctx.prec=224
     if input_path is None:
         record=build_record(original,entry['level'],entry['cell'],root)
@@ -102,7 +102,7 @@ def run(root,entry,out,proposal_path=None,input_path=None,depth=6):
     if proposal_path is None:
         proposal_path=out.with_suffix('.proposal.json.gz')
         proposal_path.write_bytes(gzip.compress(json.dumps(proposal).encode(),mtime=0))
-    result=Whole.check(input_path,proposal)
+    result=Whole.check(input_path,proposal,workers=pattern_workers)
     require(result['status'] in ('CERTIFIED_EMPTY_RECORDED_H_CELL','CERTIFIED_CLASSIFIED_RECORDED_H_CELL'),
             'whole-cell certificate failed')
     classified=result['status']=='CERTIFIED_CLASSIFIED_RECORDED_H_CELL'
@@ -122,10 +122,11 @@ def main():
     p.add_argument('entry',type=Path,help='one exact entry from open_cells.jsonl.gz')
     p.add_argument('--out',type=Path,required=True);p.add_argument('--input',type=Path)
     p.add_argument('--proposal',type=Path);p.add_argument('--depth',type=int,default=6)
+    p.add_argument('--pattern-workers',type=int,default=1)
     a=p.parse_args();require(0<=a.depth<=10,'invalid depth');require(not a.proposal or a.input,'replay needs input and proposal')
     root=Path(os.environ.get('TC_ROOT',Path(__file__).resolve().parents[2])).resolve();start=time.monotonic()
     entry=read_json(a.entry)
-    try:result=run(root,entry,a.out,a.proposal,a.input,a.depth)
+    try:result=run(root,entry,a.out,a.proposal,a.input,a.depth,a.pattern_workers)
     except (ValueError,ArithmeticError,ZeroDivisionError,KeyError,TypeError) as exc:
         result=dict(status='NOT_ESTABLISHED',reason=str(exc),ball=entry['ball'],level=entry['level'],cell=entry['cell'])
     result.update(entry_sha256=digest(a.entry),checker_sha256=digest(__file__),total_seconds=time.monotonic()-start)

@@ -62,12 +62,12 @@ class TreeReplayTests(unittest.TestCase):
         prop=self.folder/'proposal.json';prop.write_text('{}')
         node=dict(input=dict(path=inp.name,sha256=T.digest(inp)),
                   proposal=dict(path=prop.name,sha256=T.digest(prop)))
-        def changed(*args):
+        def changed(*args,**kwargs):
             prop.write_text('{"changed":true}')
             return dict(status='CERTIFIED_EMPTY_RECORDED_H_CELL',patterns_total=1,dependencies_sha256={})
         with patch.object(T.F,'cell_geometry',return_value={}),patch.object(T.F.Whole,'check',side_effect=changed):
             with self.assertRaisesRegex(ValueError,'changed'):
-                T.replay_leaf((self.folder,node,2,[1]*4,self.original))
+                T.replay_leaf((self.folder,node,2,[1]*4,self.original,1))
 
     def test_invalid_worker_counts_rejected(self):
         for workers in (0,-1,True,1.5,257):

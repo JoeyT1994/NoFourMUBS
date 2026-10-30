@@ -4,6 +4,8 @@ The snapshot supplies only the H record. No supplied K phase ball or numerical
 fit is inherited. Column partitions are shared across all complete-cover patterns.
 """
 import argparse
+from concurrent.futures import ProcessPoolExecutor
+import multiprocessing
 import gzip
 import itertools
 import json
@@ -102,20 +104,9 @@ def validate_witnesses(cliques,witnesses,keys):
     P.require(keys=={str(c) for c in used},'missing or unused column proof')
 
 
-def check(path,proposal):
-    start=time.monotonic();s,model,C,binding,columns,cliques=complete_cover(path)
-    P.require(proposal.get('schema')=='tc-plane-cell-proposal-v1' and
-              proposal.get('snapshot_sha256')==binding['snapshot_sha256'] and
-              proposal.get('record_sha256')==s['record_sha256'],'whole-cell proposal binding mismatch')
-    validate_witnesses(cliques,proposal['witnesses'],set(proposal['columns']))
-    tubes={};summaries=[]
-    for key,item in proposal['columns'].items():
-        c=int(key);col=P.Column(model,columns[c],P.hex_array(item['weak'],(2,5)))
-        stats,tubes[c]=P.verify_tree(col,item['tree'],item['roots'],C,root_modes=item.get('root_modes'))
-        summaries.append(dict(colour=c,leaves=stats,source_radius=str(col.radius),
-            epsilons=[str(e) for p,e in tubes[c].values()]))
+def verify_patterns(model,tubes,items):
     checked={};rows=[];root_pairs={};root_scalars={}
-    for n,(clique,w) in enumerate(zip(cliques,proposal['witnesses'])):
+    for n,clique,w in items:
         chosen=w['columns']
         if 'joint' in w:Joint.exclude(model,tubes,chosen,w['joint'],pair_cache=root_pairs,scalar_cache=root_scalars,
                                     allow_known=True)
@@ -128,6 +119,45 @@ def check(path,proposal):
                 checked[key]=[str(m) for m in margins]
         rows.append(dict(number=n,colours=clique,columns=chosen,
                          status='CLASSIFIED' if w.get('joint',{}).get('known') else 'EXCLUDED'))
+    return rows,checked
+
+
+def _pattern_init(model,tubes):
+    global _pattern_context
+    _pattern_context=(model,tubes)
+
+
+def _pattern_chunk(items):
+    return verify_patterns(*_pattern_context,items)
+
+
+def check(path,proposal,workers=1):
+    P.require(type(workers) is int and 1<=workers<=256,'invalid pattern worker count')
+    start=time.monotonic();s,model,C,binding,columns,cliques=complete_cover(path)
+    P.require(proposal.get('schema')=='tc-plane-cell-proposal-v1' and
+              proposal.get('snapshot_sha256')==binding['snapshot_sha256'] and
+              proposal.get('record_sha256')==s['record_sha256'],'whole-cell proposal binding mismatch')
+    validate_witnesses(cliques,proposal['witnesses'],set(proposal['columns']))
+    tubes={};summaries=[]
+    for key,item in proposal['columns'].items():
+        c=int(key);col=P.Column(model,columns[c],P.hex_array(item['weak'],(2,5)))
+        stats,tubes[c]=P.verify_tree(col,item['tree'],item['roots'],C,root_modes=item.get('root_modes'))
+        summaries.append(dict(colour=c,leaves=stats,source_radius=str(col.radius),
+            epsilons=[str(e) for p,e in tubes[c].values()]))
+    items=[(n,clique,w) for n,(clique,w) in enumerate(zip(cliques,proposal['witnesses']))]
+    if workers==1 or len(items)<2:
+        rows,checked=verify_patterns(model,tubes,items)
+    else:
+        # POSIX fork inherits the verified model; every process owns its Arb state.
+        count=min(workers,len(items));size=max(1,(len(items)+4*count-1)//(4*count))
+        chunks=[items[i:i+size] for i in range(0,len(items),size)]
+        with ProcessPoolExecutor(max_workers=count,mp_context=multiprocessing.get_context('fork'),
+                                 initializer=_pattern_init,initargs=(model,tubes)) as pool:
+            parts=list(pool.map(_pattern_chunk,chunks))
+        rows=[];checked={}
+        for part,pairs in parts:rows.extend(part);checked.update(pairs)
+        rows.sort(key=lambda row:row['number'])
+    P.require([row['number'] for row in rows]==list(range(len(cliques))),'incomplete parallel pattern replay')
     classified=any(row['status']=='CLASSIFIED' for row in rows)
     return dict(schema='tc-plane-cell-receipt-v1',status='CERTIFIED_CLASSIFIED_RECORDED_H_CELL' if classified else
         'CERTIFIED_EMPTY_RECORDED_H_CELL',**binding,

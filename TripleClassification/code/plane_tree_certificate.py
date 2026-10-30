@@ -50,11 +50,11 @@ def artifact(directory,spec):
 
 
 def replay_leaf(task):
-    directory,node,level,cell,original=task
+    directory,node,level,cell,original,pattern_workers=task
     inp=artifact(directory,node['input']);proposal=artifact(directory,node['proposal'])
     record=read_json(inp)['record'];ctx.prec=224
     geometry=F.cell_geometry(original,record,level,cell)
-    result=F.Whole.check(inp,read_json(proposal))
+    result=F.Whole.check(inp,read_json(proposal),workers=pattern_workers)
     require(result['status'] in ('CERTIFIED_EMPTY_RECORDED_H_CELL','CERTIFIED_CLASSIFIED_RECORDED_H_CELL'),
             'leaf not classified or excluded')
     # Recheck the bindings after replay, including when another process writes files.
@@ -64,8 +64,10 @@ def replay_leaf(task):
         dependencies_sha256=result['dependencies_sha256'])
 
 
-def check(entry,tree_path,workers=1):
+def check(entry,tree_path,workers=1,pattern_workers=1):
     require(type(workers) is int and 1<=workers<=256,'invalid replay worker count')
+    require(type(pattern_workers) is int and 1<=pattern_workers and
+            workers*pattern_workers<=256,'invalid combined replay worker count')
     tree_path=Path(tree_path);tree_sha=digest(tree_path)
     root=Path(__file__).resolve().parents[2];original=F.original_record(root,entry['ball'])
     tree=read_json(tree_path)
@@ -73,7 +75,7 @@ def check(entry,tree_path,workers=1):
             tree.get('root_entry_sha256')==F.jsonsha(entry),'wrong root cell binding')
     tasks=[]
     counts=walk(tree['tree'],entry['level'],entry['cell'],
-        lambda node,level,cell:tasks.append((tree_path.parent,node,level,cell,original)))
+        lambda node,level,cell:tasks.append((tree_path.parent,node,level,cell,original,pattern_workers)))
     # First validate the whole partition. Each worker then freshly checks one leaf.
     # Spawn isolates Arb's precision state. map preserves the serial receipt order.
     if workers==1 or len(tasks)<2:
@@ -99,8 +101,9 @@ def main():
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('entry',type=Path)
     p.add_argument('--tree',type=Path,required=True);p.add_argument('--out',type=Path,required=True)
     p.add_argument('--workers',type=int,default=1,help='fresh leaf replays in separate processes')
+    p.add_argument('--pattern-workers',type=int,default=1,help='processes per leaf for completing-basis patterns')
     a=p.parse_args();start=time.monotonic()
-    try:result=check(read_json(a.entry),a.tree,a.workers)
+    try:result=check(read_json(a.entry),a.tree,a.workers,a.pattern_workers)
     except (ValueError,ArithmeticError,ZeroDivisionError,KeyError,TypeError,OSError) as exc:
         result=dict(status='NOT_ESTABLISHED',reason=str(exc))
     result['seconds']=time.monotonic()-start;a.out.write_text(json.dumps(result,indent=2)+'\n')

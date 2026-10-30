@@ -485,6 +485,15 @@ Each process has its own Arb precision state. File bindings are checked again
 after replay, and a failed worker cannot certify the parent. This changes the
 execution order, not the covering argument or the original radius.
 
+A leaf with many completing-basis patterns can also use `--pattern-workers M`.
+After reconstructing the complete K cover and verifying its column partitions,
+POSIX processes inherit that verified model and check disjoint groups of patterns.
+The parent collects every result and verifies the complete ordered pattern index
+list before issuing the cell receipt. A failed pattern prevents certification.
+The tree command uses at most N times M worker processes. For example,
+`--workers 6 --pattern-workers 8` uses a 48-core allocation for a tree whose last
+leaves have expensive pattern checks. Serial replay remains the default.
+
 ## 9. Inserting these proofs into an original-ball covering audit
 
 An original-ball audit can now use a complete cell proof when the native row for
