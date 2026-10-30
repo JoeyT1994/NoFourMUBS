@@ -12,6 +12,7 @@ re-proves C1, H and Stage C, rebuilds every K pattern, and excludes or classifie
 plane_v1/b<ball>/<level>_<c0>_<c1>_<c2>_<c3>/ and one line per cell to plane_v1/b<ball>.jsonl.
 """
 import gzip, hashlib, json, os, subprocess, sys
+from plane_slim import slim_cell                       # beside this file
 from concurrent.futures import ThreadPoolExecutor
 
 B = os.environ.get('TC_B', '/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc')     # overridable for local tests
@@ -34,7 +35,7 @@ def run(task):
         res.update(status='SEARCH_FAILED', error='over the whole-cell time cap'); return res
     inp, prop = os.path.join(d, 'frontier.input.json.gz'), os.path.join(d, 'frontier.proposal.json.gz')
     if not (os.path.exists(inp) and os.path.exists(prop)):
-        res.update(status='SEARCH_FAILED', error=(s.stderr.strip().splitlines() or [''])[-1][:200]); return res
+        res.update(status='SEARCH_FAILED', error=(s.stderr.strip().splitlines() or [''])[-1][:200]); slim_cell(d); return res
     r = subprocess.run([PY, '-W', 'ignore', F, e, '--input', inp, '--proposal', prop, '--out', os.path.join(d, 'replay.json')],
                        capture_output=True, text=True, cwd=PR, env=env)
     try:
@@ -43,6 +44,7 @@ def run(task):
                    reason=rep.get('reason'))
     except (OSError, ValueError):
         res.update(status='REPLAY_FAILED', error=(r.stderr.strip().splitlines() or [''])[-1][:200])
+    slim_cell(d)                                          # reports cut to the fields we read; search cache dropped
     return res
 
 

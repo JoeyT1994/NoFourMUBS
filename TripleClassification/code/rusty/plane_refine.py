@@ -28,6 +28,7 @@ def main():
     ap.add_argument('--seconds', type=float, default=0, help='cap each search (0: none); a capped search counts as failed')
     a = ap.parse_args(); root, top = Path(a.root).resolve(), Path(a.cell_dir).resolve()
     sys.path.insert(0, str(root / 'TripleClassification/code'))
+    sys.path.insert(0, str(Path(__file__).resolve().parent)); from plane_slim import slim_cell   # beside this file
     import plane_audit_manifest as PM
     import plane_tree_certificate as Tree
     import plane_frontier_certificate as F
@@ -46,9 +47,11 @@ def main():
                            capture_output=True, timeout=a.seconds or None)
         except subprocess.TimeoutExpired:
             return False                                         # too slow in one piece: split it (if depth remains)
-        if not ((d / 'frontier.input.json.gz').exists() and (d / 'frontier.proposal.json.gz').exists()): return False
+        if not ((d / 'frontier.input.json.gz').exists() and (d / 'frontier.proposal.json.gz').exists()):
+            slim_cell(str(d)); return False
         subprocess.run([a.py, '-W', 'ignore', str(fc), str(e), '--input', str(d / 'frontier.input.json.gz'), '--proposal',
                         str(d / 'frontier.proposal.json.gz'), '--out', str(d / 'replay.json')], cwd=root, env=env, capture_output=True)
+        slim_cell(str(d))                                       # reports cut to the fields we read; search cache dropped
         try: return json.load(open(d / 'replay.json')).get('status') in CERT
         except (OSError, ValueError): return False
 
