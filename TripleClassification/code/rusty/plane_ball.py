@@ -52,9 +52,8 @@ def main():
     last = oc['layers'][-1]; doc = json.load(gzip.open(last, 'rt'))
     sub_of = {tuple(x['cell']): x['sub'] for x in doc['info']['split']['cover'] if 'sub' in x}
     tasks = []
-    done = set(os.listdir('%s/plane_v1/b%d' % (B, b))) if os.path.isdir('%s/plane_v1/b%d' % (B, b)) else set()
     for c in oc['cells']:
-        if '%d_%s' % (oc['level'], '_'.join(map(str, c))) in done: continue          # already attempted
+        if os.path.exists('%s/plane_v1/b%d/%d_%s/replay.json' % (B, b, oc['level'], '_'.join(map(str, c)))): continue   # replayed
         sub = sub_of[tuple(c)]
         entry = dict(ball=b, level=oc['level'], cell=list(c), subatlas=os.path.basename(last), sub=sub,
                      record_sha256=hashlib.sha256(json.dumps(doc['seeds'][sub], sort_keys=True).encode()).hexdigest())
