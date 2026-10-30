@@ -465,6 +465,54 @@ of an original ball. Combining these receipts with previous closures still requi
 tree, with every original cell either discharged or refined. A list of cell hashes cannot replace that
 audit, and these receipts do not change the published whole-ball count on their own.
 
+### A tighter enclosure of the closed original-ball intersection
+
+The optional `--clip-to-original-ball` mode certifies the same assigned region
+using a smaller auxiliary H ball. In normalized coordinates let
+`C = product [a_i,b_i]` be the closed dyadic cube and let `B = {u: ||u|| <= 1}`
+be the closed original ball. Put `d_i = max(a_i,0,-b_i)`. Every `u` in `C ∩ B`
+satisfies
+
+    |u_i|² <= q_i = 1 − sum_{j != i} d_j².
+
+Intersect each coordinate interval with `[-sqrt(q_i),sqrt(q_i)]`. The
+implementation rounds each cap outward and verifies `cap_i² >= q_i` in Arb;
+all endpoints and subsequent box arithmetic are exact rational numbers.
+Let `m` be the resulting box midpoint and `R²` the sum of its squared
+half-widths. Then `||u-m||² <= R²` for every point of `C ∩ B`.
+For any exact rational `t` in `[0,1]`, the identity
+
+    ||u-tm||² = t||u-m||² + (1-t)||u||² − t(1-t)||m||²
+               <= tR² + (1-t) − t(1-t)||m||² = ρ²
+
+therefore gives an enclosing ball. For `m != 0`, choose
+`t = max(0,min(1,(1+||m||²−R²)/(2||m||²)))`; this minimizes this quadratic
+bound. When `m = 0`, use the better endpoint. Replay reconstructs this
+enclosure from the original cell coordinates. It then uses center `tm` and
+radius `ρ` in the earlier containment test, replacing `2h` by `ρ`:
+
+    r′−rρ > 0,             (r′−rρ)² > ||M⁻¹(θ+Mrtm−θ′)||².
+
+The original atlas radius `r` is unchanged. This proves containment of all
+of `C ∩ B`, including its boundary. A tangent intersection with `ρ = 0`
+is retained and enclosed in a positive auxiliary ball. The producer uses
+this mode only when it yields a strictly smaller enclosure; ordinary full
+cube inputs keep their previous interpretation.
+
+The input explicitly records `geometry_mode: "original-ball-intersection-v1"`.
+Both cell and tree replay read this mode, reject unknown modes, reconstruct
+the containment bound, and repeat the complete K proof. A stored positive
+result never substitutes for replay. The tree still requires every closed
+child and discards only cubes proved strictly outside `B`.
+
+The 32-cell cluster pilot independently replayed eight cells each in balls
+768, 815 and 825, and three in 1016. Five tested cells in 1016 timed out.
+These are 27 cell exclusions, not full original-ball closures. The seven
+geometry regression tests cover outward enclosure, the full root ball,
+tangent points, explicit mode handling and rejection of undersized records;
+all 71 plane-checker tests pass. Hashes and pilot counts are recorded in
+`plane_checkpoint.json`.
+
 ## 8. Covering an unresolved cell by all of its children
 
 An unresolved cell can be refined without removing any point of the original target region.
@@ -475,7 +523,8 @@ distance of its nearest point to the origin is computed with exact rational arit
 discards that cube only when this squared distance is strictly greater than one. Tangency is retained.
 
 Every other leaf must supply a recorded H ball and a column-partition proposal. Replay checks the
-file hashes, proves that the H ball contains that leaf's entire closed cube, and rebuilds and checks
+file hashes, proves that the H ball contains that leaf's entire closed cube or its full intersection
+with the original closed ball under the explicit mode in Section 7, and rebuilds and checks
 the complete K cover. A successful leaf therefore excludes or classifies every completing K on its
 part of the original ball. Induction up the tree classifies every completing K on the root cell's intersection
 with the original closed ball. No reduction of the original radius enters this argument.

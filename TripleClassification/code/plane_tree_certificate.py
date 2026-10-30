@@ -52,8 +52,8 @@ def artifact(directory,spec):
 def replay_leaf(task):
     directory,node,level,cell,original,pattern_workers=task
     inp=artifact(directory,node['input']);proposal=artifact(directory,node['proposal'])
-    record=read_json(inp)['record'];ctx.prec=224
-    geometry=F.cell_geometry(original,record,level,cell)
+    data=read_json(inp);record=data['record'];ctx.prec=224
+    geometry=F.cell_geometry(original,record,level,cell,F.input_clipped(data))
     result=F.Whole.check(inp,read_json(proposal),workers=pattern_workers)
     require(result['status'] in ('CERTIFIED_EMPTY_RECORDED_H_CELL','CERTIFIED_CLASSIFIED_RECORDED_H_CELL'),
             'leaf not classified or excluded')
