@@ -170,7 +170,8 @@ def trees(a, V, side, RC, side_guard=None, out=None):
         full = _hl.sha256(json.dumps([base, a.gamma_rules, a.gamma_sha, gamma_stamp, stamp(per_ball.get(i, [])),
                                       a.anchored_sha, a.anchored_runner_sha, stamp(anc_ball.get(i, [])),
                                       a.graph_sha, a.graph_runner_sha, stamp(graph_ball.get(i, [])),
-                                      stamp([plane_ball[i]] if i in plane_ball else [])]).encode()).hexdigest()
+                                      stamp([plane_ball[i]] if i in plane_ball else []),
+                                      'certificate-v2']).encode()).hexdigest()   # v2: a section per rule used (rewrites them)
         hit = cache.get(base)
         if hit and hit.get('status') == 'closed' and hit.get('rule', 'certifier') == 'certifier': return hit
         if full in cache: return cache[full]
@@ -219,12 +220,13 @@ def trees(a, V, side, RC, side_guard=None, out=None):
                 else ('fourier' if g.get('fourier') else 'certifier'))
         x = dict(status='closed', route=route, depth=len(layers) + 1, layers=v['layers'], rule=rule, gamma=g,
                  leaves=sum(x['closed'] for x in v['layers']), tangent_cells=v['tangent_cells'])
-        if out: x['certificate'] = certificate(i, route, layers, scripts, rule, disch)
+        if out: x['certificate'] = certificate(i, route, layers, scripts, rule, g, disch)
         return x
 
-    def certificate(i, route, layers, scripts, rule, disch=()):
+    def certificate(i, route, layers, scripts, rule, g, disch=()):
         """One self-contained record per closed ball: every input file by SHA-256, the Stage C rows its closed
-        sub-balls use, and (when a score rule closed it) its gamma records; verify_ball.py checks it from this alone."""
+        sub-balls use, and a section for each rule the audit used to close a cell (g: the audit's per-rule counts),
+        whatever the ball's summary rule; verify_ball.py checks it from this alone."""
         d = os.path.join(out, 'certificates'); os.makedirs(d, exist_ok=True)
         stage = []
         for k, f in enumerate(layers):
@@ -237,38 +239,51 @@ def trees(a, V, side, RC, side_guard=None, out=None):
         with open(os.path.join(d, 'b%d.stagec.jsonl' % i), 'w') as f:
             for r in stage: f.write(json.dumps(r, separators=(',', ':')) + '\n')
         gam = None
-        if rule != 'certifier' and i in per_ball:
+        scored = any(g.get(r) for r in ('fourier', 'ordering', 'anchored', 'graph'))   # anchored and graph closures
+        if scored and i in per_ball:                         # may use score-closed patterns too
             gam = os.path.join(d, 'b%d.gamma.jsonl' % i)
             with open(gam, 'w') as dst:
                 for src in per_ball[i]: dst.write(open(src).read())
         grf = None
-        if rule == 'graph':                                  # only the proved graph receipts of this ball
+        if g.get('graph'):                                   # only the proved graph receipts of this ball
             grf = os.path.join(d, 'b%d.graph.jsonl' % i)
             with open(grf, 'w') as dst:
                 for src in graph_ball.get(i, []):
                     for line in open(src):
                         if '"PROVED_PATTERN_EXCLUSION"' in line: dst.write(line)
         anc = None
-        if rule in ('anchored', 'graph'):                    # only the established receipts of this ball
+        if g.get('anchored') or g.get('graph'):              # only the established receipts of this ball
             anc = os.path.join(d, 'b%d.anchored.jsonl' % i)
             with open(anc, 'w') as dst:
                 for src in anc_ball.get(i, []):
                     for line in open(src):
                         if '"EXCLUDED_GIVEN_INPUT_ENCLOSURES"' in line: dst.write(line)
         files = lambda p: dict(path=os.path.realpath(p), sha256=RC.sha_file(p))
+        def leaves(tree_path):                               # every input and proposal a plane tree names
+            got = []
+            def walk(node):
+                if isinstance(node, dict):
+                    got.extend(files(os.path.join(os.path.dirname(tree_path), node[k]['path'])) for k in ('input', 'proposal') if k in node)
+                    for v in node.values(): walk(v)
+                elif isinstance(node, list):
+                    for v in node: walk(v)
+            walk(json.load(open(tree_path))['tree']); return got
+        pd = os.path.dirname(plane_ball[i]) if g.get('plane') and i in plane_ball else None
         man = dict(schema='tc-tree-certificate-v1', ball=i, route=route, rule=rule, original_atlas_sha256=PIN_ATLAS,
                    auditor=files(a.tree_auditor),
                    layers=[dict(level=2 + k, subatlas=files(p), receipts=files(p[:-len('.json.gz')] + '.jsonl'),
                                 scripts=[files(s) for s in sc.split(',')]) for k, (p, sc) in enumerate(zip(layers, scripts))],
                    stage_c=files(os.path.join(d, 'b%d.stagec.jsonl' % i)), stage_c_guards=sorted(V.guards),
-                   gamma=dict(rules=a.gamma_rules, gamma_test_sha256=a.gamma_sha, records=files(gam),
+                   gamma=dict(rules=','.join(r for r in a.gamma_rules.split(',') if r in ('fourier', 'ordering')),
+                              gamma_test_sha256=a.gamma_sha, records=files(gam),
                               lower_bounds=files(a.gamma_lower)) if gam else None,
                    anchored=dict(checker_sha256=a.anchored_sha, runner_sha256=a.anchored_runner_sha,
                                  records=files(anc)) if anc else None,
                    plane=dict(manifest=files(plane_ball[i]), root=os.path.realpath(a.plane_root),
-                              cell_files=[files(os.path.join(os.path.dirname(plane_ball[i]), x[k]['path']))
-                                          for x in json.load(open(plane_ball[i]))['cells'] for k in ('entry', 'tree')])
-                   if rule == 'plane' and i in plane_ball else None,
+                              cell_files=[f for x in json.load(open(plane_ball[i]))['cells']
+                                          for f in [files(os.path.join(pd, x['entry']['path'])), files(os.path.join(pd, x['tree']['path']))]
+                                          + leaves(os.path.join(pd, x['tree']['path']))])
+                   if pd else None,
                    graph=dict(checker_sha256=a.graph_sha, runner_sha256=a.graph_runner_sha, checker_dir=os.path.realpath(a.graph_dir),
                               checker_files=[files(p) for p in sorted(glob.glob(os.path.join(a.graph_dir, '*.py')))],
                               records=files(grf)) if grf else None)

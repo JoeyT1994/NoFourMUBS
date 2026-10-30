@@ -54,6 +54,7 @@ def main():
              '| · tree, some leaves closed by the minimum-transition ordering (`GAMMA_PROOF.md`) | %d |' % by_rule['ordering'],
              '| · tree, some leaves closed by anchored-column exclusions (`ANCHORED_PROOF.md`) | %d |' % by_rule['anchored'],
              '| · tree, some leaves closed by whole-cell graph exclusions (`GRAPH_PROOF.md`) | %d |' % by_rule['graph'],
+             '| · tree, some cells closed by replayed whole-cell proofs (PR #4, `PLANE_COLUMN_PROOF.md`) | %d |' % by_rule['plane'],
              '| **Open** | **%d** |' % len(opened)]
     for k, n in sorted(why.items(), key=lambda x: -x[1]): lines.append('| · %s | %d |' % (k, n))
     lines += ['', 'Certified pieces: {:,} whole balls and {:,} sub-balls in trees.'.format(whole, leaves),

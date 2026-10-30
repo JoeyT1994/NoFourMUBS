@@ -51,21 +51,24 @@ def main():
     cmd = [sys.executable, '-W', 'ignore', m['auditor']['path'], '--root', a.root, '--index', str(m['ball']),
            '--layers'] + [L['subatlas']['path'] for L in m['layers']] + \
           ['--scripts'] + [','.join(s['path'] for s in L['scripts']) for L in m['layers']]
+    rules = []                                      # one rule per section present: each brings its own inputs
     if m.get('gamma'):
+        rules += [r for r in m['gamma']['rules'].split(',') if r in ('fourier', 'ordering')]
         cmd += ['--gamma', m['gamma']['records']['path'], '--gamma-sha', m['gamma']['gamma_test_sha256'],
-                '--gamma-rules', m['gamma']['rules'], '--gamma-lower', m['gamma']['lower_bounds']['path'],
+                '--gamma-lower', m['gamma']['lower_bounds']['path'],
                 '--gamma-lower-sha', m['gamma']['lower_bounds']['sha256']]
     if m.get('anchored'):
-        if not m.get('gamma'): cmd += ['--gamma-rules', 'anchored']
+        rules.append('anchored')
         cmd += ['--anchored', m['anchored']['records']['path'], '--anchored-sha', m['anchored']['checker_sha256'],
                 '--anchored-runner-sha', m['anchored']['runner_sha256']]
     if m.get('plane'):                              # every plane cell is replayed by the auditor, not read from a receipt
         cmd += ['--plane', m['plane']['manifest']['path']]
         cmd[cmd.index('--root') + 1] = m['plane']['root']  # the plane checker's tree, with the same native binding
     if m.get('graph'):
-        if not m.get('gamma') and not m.get('anchored'): cmd += ['--gamma-rules', 'graph']
+        rules.append('graph')
         cmd += ['--graph', m['graph']['records']['path'], '--graph-dir', m['graph']['checker_dir'],
                 '--graph-sha', m['graph']['checker_sha256'], '--graph-runner-sha', m['graph']['runner_sha256']]
+    if rules: cmd += ['--gamma-rules', ','.join(rules)]
     p = subprocess.run(cmd, capture_output=True, text=True)
     try:
         v = json.loads((p.stdout.strip().splitlines() or ['{}'])[-1])

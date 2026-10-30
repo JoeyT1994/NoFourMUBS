@@ -54,6 +54,57 @@ def main():
         cases.append(('audit with the cache: served by the job replay', ['--plane', os.path.join(d, 'manifest.json'), '--plane-cache', cache],
                       lambda rc, v, e: rc == 0 and v['gamma'].get('plane') == 1 and v['plane']['cached_cells'] == [[4, [12, 5, 12, 12]]]))
 
+        def prereplay():                               # no job cache: plane_prereplay.py replays the cell, then the audit
+            for f_ in ('replay_cache.json', 'replay_cache.jobs.json'):  # is served from its cache file alone
+                q = os.path.join(d, f_); os.path.exists(q) and os.remove(q)
+            q = subprocess.run([sys.executable, '-W', 'ignore', os.path.join(HERE, 'rusty', 'plane_prereplay.py'), proot, d, '491', '2'],
+                               capture_output=True, text=True, cwd=proot)
+            print('prereplay:', q.stdout.strip() or q.stderr.strip()[-300:])
+        cases.append(('audit served by the pre-replay cache', ['--plane', os.path.join(d, 'manifest.json'), '--plane-cache', cache],
+                      lambda rc, v, e: rc == 0 and v['plane']['cached_cells'] == [[4, [12, 5, 12, 12]]] and
+                      json.load(open(os.path.join(d, 'prereplay.json')))['certified'] == 1, prereplay))
+        def unprereplay():
+            os.remove(os.path.join(d, 'replay_cache.prereplay.json')); os.remove(os.path.join(d, 'prereplay.json'))
+            subprocess.run([sys.executable, '-W', 'ignore', os.path.join(HERE, 'rusty', 'plane_manifest.py'), proot, d, '491'],
+                           capture_output=True, text=True, cwd=proot)
+        cases.append(('the job cache again after the pre-replay is removed', ['--plane', os.path.join(d, 'manifest.json'), '--plane-cache', cache],
+                      lambda rc, v, e: rc == 0 and v['plane']['cached_cells'] == [[4, [12, 5, 12, 12]]], unprereplay))
+        def refined(status, sources):                  # the cell as a plane_refine.py tree (one leaf), with its refined.json
+            def go():
+                c = os.path.join(d, '4_12_5_12_12')
+                for f_ in ('replay_cache.json', 'replay_cache.jobs.json', 'replay.json'):
+                    q = os.path.join(d, f_) if f_ != 'replay.json' else os.path.join(c, f_); os.path.exists(q) and os.remove(q)
+                sys.path[:0] = [os.path.join(proot, 'TripleClassification', 'code')]
+                import plane_frontier_certificate as F, plane_audit_manifest as PM
+                from plane_column_certificate import digest
+                entry = json.load(open(os.path.join(c, 'entry.json')))
+                tree = dict(schema='tc-plane-tree-proposal-v1', root_entry_sha256=F.jsonsha(entry),
+                            tree={k: dict(path='frontier.%s.json.gz' % k, sha256=digest(os.path.join(c, 'frontier.%s.json.gz' % k)))
+                                  for k in ('input', 'proposal')})
+                json.dump(tree, open(os.path.join(c, 'tree.json'), 'w'))
+                ref = dict(ball=491, level=entry['level'], cell=entry['cell'], status=status, tree_sha256=digest(os.path.join(c, 'tree.json')))
+                if sources: ref['checker_sources_sha256'] = PM.source_hashes(__import__('pathlib').Path(proot))
+                json.dump(ref, open(os.path.join(c, 'refined.json'), 'w'))
+                subprocess.run([sys.executable, '-W', 'ignore', os.path.join(HERE, 'rusty', 'plane_manifest.py'), proot, d, '491'],
+                               capture_output=True, text=True, cwd=proot)
+            return go
+        man, cache_arg = os.path.join(d, 'manifest.json'), ['--plane-cache', cache]
+        cases.append(('refined tree by this checker: cached', ['--plane', man] + cache_arg,
+                      lambda rc, v, e: rc == 0 and v['plane']['cached_cells'] == [[4, [12, 5, 12, 12]]],
+                      refined('CERTIFIED_EMPTY_DYADIC_CELL', True)))
+        cases.append(('refined tree, checker version unrecorded: replayed', ['--plane', man] + cache_arg,
+                      lambda rc, v, e: rc == 0 and v['gamma'].get('plane') == 1 and v['plane']['cached_cells'] == [],
+                      refined('CERTIFIED_EMPTY_DYADIC_CELL', False)))
+        cases.append(('refinement that failed: not listed', ['--plane', man] + cache_arg,
+                      lambda rc, v, e: rc != 0 and 'unresolved cell' in e, refined('NOT_ESTABLISHED', True)))
+        def restore():
+            shutil.rmtree(os.path.join(d, '4_12_5_12_12')); shutil.copytree(cdir, os.path.join(d, '4_12_5_12_12'))
+            for f_ in ('replay_cache.json', 'replay_cache.jobs.json'):
+                q = os.path.join(d, f_); os.path.exists(q) and os.remove(q)
+            subprocess.run([sys.executable, '-W', 'ignore', os.path.join(HERE, 'rusty', 'plane_manifest.py'), proot, d, '491'],
+                           capture_output=True, text=True, cwd=proot)
+        cases.append(('the single-leaf proof again', ['--plane', man] + cache_arg,
+                      lambda rc, v, e: rc == 0 and v['plane']['cached_cells'] == [[4, [12, 5, 12, 12]]], restore))
         def untrusted():                               # a replay receipt for other files must not seed the cache
             r = os.path.join(d, '4_12_5_12_12', 'replay.json'); x = json.load(open(r)); x['proposal_sha256'] = '0' * 64
             json.dump(x, open(r, 'w')); os.remove(os.path.join(d, 'replay_cache.jobs.json')); os.path.exists(cache) and os.remove(cache)

@@ -10,7 +10,7 @@ a certified refined cell keeps its children tree. It then writes BALL_DIR/manife
 tc-plane-audit-manifest-v1 format, pinned to the checker sources of PLANE_ROOT. audit_select.py --plane replays every cell it uses; nothing here
 is accepted as a verdict.
 """
-import json, os, sys
+import fcntl, json, os, sys
 from pathlib import Path
 
 CERTIFIED = ('CERTIFIED_EMPTY_DYADIC_CELL', 'CERTIFIED_CLASSIFIED_DYADIC_CELL')
@@ -18,6 +18,7 @@ CERTIFIED = ('CERTIFIED_EMPTY_DYADIC_CELL', 'CERTIFIED_CLASSIFIED_DYADIC_CELL')
 
 def main():
     root, d, ball = Path(sys.argv[1]).resolve(), Path(sys.argv[2]).resolve(), int(sys.argv[3])
+    lock = open(d / '.manifest.lock', 'w'); fcntl.flock(lock, fcntl.LOCK_EX)   # one writer per ball at a time
     sys.path.insert(0, str(root / 'TripleClassification/code'))
     here = Path(__file__).resolve().parent             # plane_cache.py (shared with audit_select.py): beside this
     sys.path[:0] = [str(here), str(here.parent)]        # file on rusty, in code/ in the repository
@@ -47,7 +48,13 @@ def main():
         entry = json.load(open(c / 'entry.json')) if (c / 'entry.json').exists() else None
         if entry is None: continue
         if status('refined.json') in CERTIFIED and (c / 'tree.json').exists():
+            ref = json.load(open(c / 'refined.json')); tree = json.load(open(c / 'tree.json'))
+            if not (ref.get('tree_sha256') == digest(c / 'tree.json') and tree.get('root_entry_sha256') == F.jsonsha(entry) and
+                    ref.get('ball') == ball and ref.get('level') == entry['level'] and ref.get('cell') == entry['cell']):
+                continue                                     # not the tree plane_refine.py replayed for this entry
             if not leaves_match(c / 'tree.json'): continue   # a leaf changed since the tree was replayed: leave it out
+            if ref.get('checker_sources_sha256') == src_now:
+                seen[c.name] = (entry['level'], entry['cell'])   # replayed by this very checker version: cache it
         elif status('replay.json') in CERTIFIED:
             rep = json.load(open(c / 'replay.json'))
             if not (rep.get('snapshot_sha256') == digest(c / 'frontier.input.json.gz') and rep.get('proposal_sha256') ==
@@ -62,7 +69,10 @@ def main():
             tree = dict(schema='tc-plane-tree-proposal-v1', root_entry_sha256=F.jsonsha(entry),
                         tree=dict(input=dict(path='frontier.input.json.gz', sha256=digest(c / 'frontier.input.json.gz')),
                                   proposal=dict(path='frontier.proposal.json.gz', sha256=digest(c / 'frontier.proposal.json.gz'))))
-            json.dump(tree, open(c / 'tree.json', 'w'))
+            try: same = json.load(open(c / 'tree.json')) == tree
+            except (OSError, ValueError): same = False
+            if not same:                                     # written whole, then renamed: never read half-written
+                tmp = c / ('tree.json.%d.new' % os.getpid()); json.dump(tree, open(tmp, 'w')); os.replace(tmp, c / 'tree.json')
         else:
             continue
         rel = c.relative_to(d)
@@ -74,12 +84,13 @@ def main():
     json.dump(doc, open(tmp, 'w'), indent=1); os.replace(tmp, d / 'manifest.json')
     # Each listed cell was already replayed once by its own job (plane_ball.py), from the same input, proposal and entry
     # (their hashes checked above) with the same pinned sources; record that in the audit's replay cache, so the audit
-    # does not replay it again. Refined trees were replayed once by plane_refine.py. verify_ball.py replays everything.
+    # does not replay it again. Refined trees were replayed once by plane_refine.py, which records the checker sources it
+    # ran; only those replayed by this checker version are cached (the rest: plane_prereplay.py). verify_ball.py replays
+    # everything.
     cache = {}
     for item in cells:
         name = Path(item['entry']['path']).parent.name
-        lc = seen.get(name) or ((lambda e: (e['level'], e['cell']))(json.load(open(d / item['entry']['path'])))
-                                if (d / name / 'refined.json').exists() else None)
+        lc = seen.get(name)
         if lc: cache[plane_cache.key(item, d / item['tree']['path'], src, lc[0], lc[1])] = 'certified'
     plane_cache.save(d / 'replay_cache.jobs.json', cache)
     print(json.dumps(dict(ball=ball, certified_cells=len(cells))))

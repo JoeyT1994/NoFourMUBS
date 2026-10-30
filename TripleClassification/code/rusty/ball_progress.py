@@ -76,7 +76,7 @@ def one(b, out):
     if rules: extra += ['--gamma-rules', ','.join(rules)]
     man = B + '/plane_v1/b%d/manifest.json' % b; root = TC
     if os.path.exists(man):
-        extra += ['--plane', man, '--plane-cache', B + '/plane_v1/b%d/replay_cache.json' % b]; root = PR
+        extra += ['--plane', man, '--plane-cache', B + '/plane_v1/b%d/replay_cache.progress.json' % b]; root = PR   # own file: reads all
     cmd = [PY, '-W', 'ignore', C + '/audit_select.py', '--root', root, '--index', str(b), '--layers'] + L + ['--scripts'] + S + extra + ['--report-open']
     p = subprocess.run(cmd, capture_output=True, text=True, env=dict(os.environ, OMP_NUM_THREADS='1'))
     try: r = json.loads((p.stdout.strip().splitlines() or ['{}'])[-1])

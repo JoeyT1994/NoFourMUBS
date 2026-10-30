@@ -58,7 +58,10 @@ L − L_c is
 
     H_c*(K_k − K_ck)/√6 + (H − H_c)*K_k/√6.
 
-- **First term.** ‖K_k − K_ck‖₂ ≤ ‖V_k − v0_k‖₂ ≤ pr_k, and ‖H_c‖_op ≤ (6 + ‖H_c*H_c − 6I‖_F)^{1/2}. Put
+- **First term.** Here V_k is the mean-zero phase representative of column k of K. An actual third basis may differ
+  from exp(iV_k) in column k by a unit scalar e^{iα_k}; that multiplies column k of L = H*K/√6 by the same scalar,
+  which shifts column k of arg L by α_k and leaves Γ_F(L) unchanged by (Γ1) (plaquettes cancel column phases). So
+  K may be taken in this gauge. ‖K_k − K_ck‖₂ ≤ ‖V_k − v0_k‖₂ ≤ pr_k, and ‖H_c‖_op ≤ (6 + ‖H_c*H_c − 6I‖_F)^{1/2}. Put
   s = ‖H_c‖_op/√6 bounded this way, so the first term is at most s·pr_k.
 - **Second term.** K_k has norm √6 because K/√6 is unitary, so the second term is at most ‖H − H_c‖_op ≤ d_H.
 

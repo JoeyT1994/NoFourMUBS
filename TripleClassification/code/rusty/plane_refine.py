@@ -28,6 +28,7 @@ def main():
     ap.add_argument('--seconds', type=float, default=0, help='cap each search (0: none); a capped search counts as failed')
     a = ap.parse_args(); root, top = Path(a.root).resolve(), Path(a.cell_dir).resolve()
     sys.path.insert(0, str(root / 'TripleClassification/code'))
+    import plane_audit_manifest as PM
     import plane_tree_certificate as Tree
     import plane_frontier_certificate as F
     from plane_column_certificate import digest
@@ -77,7 +78,8 @@ def main():
         tree = dict(schema='tc-plane-tree-proposal-v1', root_entry_sha256=F.jsonsha(parent), tree={'children': kids})
         json.dump(tree, open(top / 'tree.json.new', 'w')); os.replace(top / 'tree.json.new', top / 'tree.json')
         r = Tree.check(parent, top / 'tree.json')                      # one replay of the whole tree before use
-        res.update(status=r['status'], counts=r['counts'], tree_sha256=r['tree_sha256'])
+        res.update(status=r['status'], counts=r['counts'], tree_sha256=r['tree_sha256'],
+                   checker_sources_sha256=PM.source_hashes(root))   # the checker version that replayed the tree
     json.dump(res, open(top / 'refined.json', 'w')); print(json.dumps(res))
 
 
