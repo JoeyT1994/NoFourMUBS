@@ -14,8 +14,8 @@ plane_v1/b<ball>/<level>_<c0>_<c1>_<c2>_<c3>/ and one line per cell to plane_v1/
 import gzip, hashlib, json, os, subprocess, sys
 from concurrent.futures import ThreadPoolExecutor
 
-B = '/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc'
-PR = B + '/pr4_914919b'; PY = '/mnt/ceph/users/jtindall/venvs/nofourmubs/bin/python'
+B = os.environ.get('TC_B', '/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc')     # overridable for local tests
+PR = os.environ.get('TC_PLANE_ROOT', B + '/pr4_914919b'); PY = os.environ.get('TC_PY', '/mnt/ceph/users/jtindall/venvs/nofourmubs/bin/python')
 F = PR + '/TripleClassification/code/plane_frontier_certificate.py'
 
 
@@ -42,7 +42,13 @@ def run(task):
 
 def main():
     b, w = int(sys.argv[1]), int(sys.argv[2])
-    oc = json.load(open(B + '/results_live/open_cells.json'))['balls'][str(b)]   # written by every live pass
+    # the ball's exact open cells: from open_cells.py when it ran more recently, else from the live pass
+    own, live = B + '/open_cells/b%d.json' % b, B + '/results_live/open_cells.json'
+    if os.path.exists(own) and (not os.path.exists(live) or os.path.getmtime(own) > os.path.getmtime(live)):
+        x = json.load(open(own)); oc = dict(level=x['level'], cells=x.get('unresolved_cells', []),
+                                            layers=[os.path.join(B, q) for q in x['layers']])
+    else:
+        oc = json.load(open(live))['balls'][str(b)]
     last = oc['layers'][-1]; doc = json.load(gzip.open(last, 'rt'))
     sub_of = {tuple(x['cell']): x['sub'] for x in doc['info']['split']['cover'] if 'sub' in x}
     tasks = []
