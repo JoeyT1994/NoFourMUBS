@@ -506,9 +506,11 @@ cells whose proofs were replayed appear in its `plane.cells` result.
 Use `audit_select.py --plane MANIFEST.json` with the existing layer and builder
 arguments. Run it with `--root` pointing to a checkout containing both these
 checkers and the unchanged frozen native sources. `assemble.py --plane-dir DIR`
-looks for `DIR/b<ball>.json`, replays those proofs without accepting an assembly
-cache entry in their place, and includes the manifest in the resulting ball
-certificate. `verify_ball.py` checks that manifest's hash and repeats the audit.
+accepts `DIR/b<ball>/manifest.json` or `DIR/b<ball>.json`. Its `--plane-root`
+option selects the checker checkout, defaulting to `--tc-tree`. Assembly replays
+these proofs without accepting a cached verdict, and records the manifest
+alongside any score, anchored or graph receipts also used by the audit.
+`verify_ball.py` checks the file hashes and repeats the audit.
 The status publisher distinguishes a tree using the new cell rule from a tree
 closed solely by native certifier rows.
 

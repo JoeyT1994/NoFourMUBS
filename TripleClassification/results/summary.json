@@ -4,17 +4,17 @@
   "empty": 2101,
   "tree": 372,
   "tree_anchored": 2,
-  "open": 21,
-  "tree_ordering": 7,
+  "open": 17,
+  "tree_ordering": 11,
   "classified": 272
  },
  "nearest_triple_median": {
-  "tree_anchored": 0.304,
-  "tree": 0.358,
+  "empty": 0.901,
   "classified": 0.083,
-  "tree_ordering": 0.191,
-  "open": 0.216,
-  "empty": 0.901
+  "tree": 0.358,
+  "open": 0.201,
+  "tree_ordering": 0.198,
+  "tree_anchored": 0.304
  },
  "certifier": {
   "CERTIFIED EMPTY": 2101,
@@ -660,7 +660,7 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b340.json"
   },
   "363": {
-   "status": "audit failed: KeyError: 18",
+   "status": "open below level 5",
    "route": "selective chain"
   },
   "415": {
@@ -1547,7 +1547,7 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b589.json"
   },
   "595": {
-   "status": "audit failed: KeyError: 18",
+   "status": "open below level 5",
    "route": "selective chain"
   },
   "596": {
@@ -1820,7 +1820,7 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b636.json"
   },
   "641": {
-   "status": "audit failed: KeyError: 7",
+   "status": "open below level 6",
    "route": "selective chain"
   },
   "643": {
@@ -1903,8 +1903,56 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b665.json"
   },
   "666": {
-   "status": "audit failed: KeyError: 73",
-   "route": "selective chain"
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 6,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 101,
+     "open": 155,
+     "still_open": 155
+    },
+    {
+     "level": 3,
+     "cells": 1684,
+     "closed": 738,
+     "open": 946,
+     "still_open": 946
+    },
+    {
+     "level": 4,
+     "cells": 11463,
+     "closed": 6531,
+     "open": 4932,
+     "still_open": 1024
+    },
+    {
+     "level": 5,
+     "cells": 13438,
+     "closed": 3382,
+     "open": 10056,
+     "still_open": 41
+    },
+    {
+     "level": 6,
+     "cells": 463,
+     "closed": 257,
+     "open": 206,
+     "still_open": 0
+    }
+   ],
+   "rule": "ordering",
+   "gamma": {
+    "fourier": 1834,
+    "ordering": 12295,
+    "anchored": 0,
+    "graph": 0
+   },
+   "leaves": 11009,
+   "tangent_cells": 0,
+   "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b666.json"
   },
   "671": {
    "status": "closed",
@@ -2522,8 +2570,56 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b733.json"
   },
   "734": {
-   "status": "audit failed: KeyError: 34",
-   "route": "selective chain"
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 6,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 162,
+     "open": 94,
+     "still_open": 94
+    },
+    {
+     "level": 3,
+     "cells": 966,
+     "closed": 755,
+     "open": 211,
+     "still_open": 211
+    },
+    {
+     "level": 4,
+     "cells": 2074,
+     "closed": 1397,
+     "open": 677,
+     "still_open": 677
+    },
+    {
+     "level": 5,
+     "cells": 7537,
+     "closed": 3464,
+     "open": 4073,
+     "still_open": 16
+    },
+    {
+     "level": 6,
+     "cells": 127,
+     "closed": 83,
+     "open": 44,
+     "still_open": 0
+    }
+   ],
+   "rule": "ordering",
+   "gamma": {
+    "fourier": 4,
+    "ordering": 4097,
+    "anchored": 0,
+    "graph": 0
+   },
+   "leaves": 5861,
+   "tangent_cells": 0,
+   "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b734.json"
   },
   "740": {
    "status": "closed",
@@ -2805,7 +2901,7 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b767.json"
   },
   "768": {
-   "status": "audit failed: KeyError: 21",
+   "status": "open below level 5",
    "route": "selective chain"
   },
   "769": {
@@ -2902,8 +2998,49 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b773.json"
   },
   "777": {
-   "status": "audit failed: KeyError: 2",
-   "route": "selective chain"
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 5,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 83,
+     "open": 173,
+     "still_open": 173
+    },
+    {
+     "level": 3,
+     "cells": 1914,
+     "closed": 1126,
+     "open": 788,
+     "still_open": 788
+    },
+    {
+     "level": 4,
+     "cells": 10027,
+     "closed": 8849,
+     "open": 1178,
+     "still_open": 34
+    },
+    {
+     "level": 5,
+     "cells": 399,
+     "closed": 221,
+     "open": 178,
+     "still_open": 0
+    }
+   ],
+   "rule": "ordering",
+   "gamma": {
+    "fourier": 16,
+    "ordering": 1306,
+    "anchored": 0,
+    "graph": 0
+   },
+   "leaves": 10279,
+   "tangent_cells": 0,
+   "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b777.json"
   },
   "779": {
    "status": "closed",
@@ -3206,7 +3343,7 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b807.json"
   },
   "815": {
-   "status": "audit failed: KeyError: 9",
+   "status": "open below level 5",
    "route": "selective chain"
   },
   "822": {
@@ -3241,7 +3378,7 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b822.json"
   },
   "823": {
-   "status": "audit failed: KeyError: 51",
+   "status": "open below level 6",
    "route": "selective chain"
   },
   "825": {
@@ -3287,7 +3424,7 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b828.json"
   },
   "830": {
-   "status": "audit failed: KeyError: 82",
+   "status": "open below level 6",
    "route": "selective chain"
   },
   "832": {
@@ -3761,7 +3898,7 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b853.json"
   },
   "858": {
-   "status": "audit failed: KeyError: 31",
+   "status": "open below level 6",
    "route": "selective chain"
   },
   "866": {
@@ -5045,7 +5182,7 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b966.json"
   },
   "987": {
-   "status": "audit failed: KeyError: 32",
+   "status": "open below level 5",
    "route": "selective chain"
   },
   "989": {
@@ -5387,7 +5524,7 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b1010.json"
   },
   "1016": {
-   "status": "audit failed: KeyError: 8",
+   "status": "open below level 4",
    "route": "selective chain"
   },
   "1022": {
@@ -6683,7 +6820,7 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b1216.json"
   },
   "1217": {
-   "status": "audit failed: KeyError: 34",
+   "status": "open below level 6",
    "route": "selective chain"
   },
   "1227": {
@@ -11277,8 +11414,49 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b2606.json"
   },
   "2705": {
-   "status": "audit failed: KeyError: 3",
-   "route": "selective chain"
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 5,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 0,
+     "open": 256,
+     "still_open": 256
+    },
+    {
+     "level": 3,
+     "cells": 2576,
+     "closed": 743,
+     "open": 1833,
+     "still_open": 1833
+    },
+    {
+     "level": 4,
+     "cells": 23178,
+     "closed": 10124,
+     "open": 13054,
+     "still_open": 20
+    },
+    {
+     "level": 5,
+     "cells": 131,
+     "closed": 16,
+     "open": 115,
+     "still_open": 0
+    }
+   ],
+   "rule": "ordering",
+   "gamma": {
+    "fourier": 1542,
+    "ordering": 11607,
+    "anchored": 0,
+    "graph": 0
+   },
+   "leaves": 10883,
+   "tangent_cells": 0,
+   "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b2705.json"
   },
   "2707": {
    "status": "closed",
