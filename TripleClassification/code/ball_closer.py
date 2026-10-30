@@ -61,6 +61,9 @@ def main():
     ap.add_argument('--search', choices=('fast', 'pinned'), default='fast',
                     help="fast: fast_search.py (the pinned search without its redundant verification; same proposals); "
                          "pinned: the checker's own search")
+    ap.add_argument('--search-args', default='', help="extra fast_search.py options, e.g. '--depth 8 --column-nodes 30000 "
+                    "--scalar-cap 20000' (search budgets the replay does not apply); a cell that failed under other search "
+                    'options is searched again before it is split')
     ap.add_argument('--cells-from', help='file of existing cell directories (entry.json each) to close instead of the ball: '
                     'each is split at once, its descendants go to <dir>/kids (reusing what is settled there), and a '
                     'closed cell gets <dir>/tree.json and refined.json, as plane_manifest.py lists them')
@@ -98,13 +101,15 @@ def main():
                     r.get('proposal_sha256') == digest(d / 'frontier.proposal.json.gz') and r.get('entry_sha256') == digest(d / 'entry.json')):
                 return 'leaf'
         except (OSError, ValueError, KeyError): pass
-        try:
+        try:                            # a failure counts only under the same search options
             f = json.load(open(d / 'failed.json'))
-            if f.get('kind') == 'not certified' or f.get('seconds', 0) >= cap(level): return 'split'
+            if f.get('search_args', '') == a.search_args and (f.get('kind') == 'not certified' or f.get('seconds', 0) >= cap(level)):
+                return 'split'
+            return None
         except (OSError, ValueError): pass
-        try:                            # an earlier search that failed for a mathematical reason (no time cap involved)
+        try:                            # an earlier pinned search (plane_refine.py) that failed on a pattern
             f = json.load(open(d / 'frontier.json'))
-            if f.get('status') == 'NOT_ESTABLISHED' and 'pattern remains' in str(f.get('reason')): return 'split'
+            if not a.search_args and f.get('status') == 'NOT_ESTABLISHED' and 'pattern remains' in str(f.get('reason')): return 'split'
         except (OSError, ValueError): pass
         return None
 
@@ -123,9 +128,10 @@ def main():
         try:
             search = ([a.py, '-W', 'ignore', str(HERE / 'fast_search.py'), str(root), str(e)] if a.search == 'fast' else
                       [a.py, '-W', 'ignore', str(fc), str(e)])
-            subprocess.run(search + ['--out', str(d / 'frontier.json')], cwd=root, env=env, capture_output=True, timeout=cap(level))
+            subprocess.run(search + ['--out', str(d / 'frontier.json')] + a.search_args.split(), cwd=root, env=env, capture_output=True,
+                           timeout=cap(level))
         except subprocess.TimeoutExpired:
-            json.dump(dict(kind='time cap', seconds=cap(level)), open(d / 'failed.json', 'w')); slim_cell(str(d))
+            json.dump(dict(kind='time cap', seconds=cap(level), search_args=a.search_args), open(d / 'failed.json', 'w')); slim_cell(str(d))
             return ri, level, cell, 'split', time.time() - ts
         if (d / 'frontier.input.json.gz').exists() and (d / 'frontier.proposal.json.gz').exists():
             subprocess.run([a.py, '-W', 'ignore', str(fc), str(e), '--input', str(d / 'frontier.input.json.gz'), '--proposal',
@@ -134,7 +140,7 @@ def main():
         if settled(d, level) == 'leaf': return ri, level, cell, 'leaf', time.time() - ts
         try: why = json.load(open(d / 'frontier.json')).get('reason')
         except (OSError, ValueError): why = None
-        json.dump(dict(kind='not certified', reason=why), open(d / 'failed.json', 'w'))
+        json.dump(dict(kind='not certified', reason=why, search_args=a.search_args), open(d / 'failed.json', 'w'))
         return ri, level, cell, 'split', time.time() - ts
 
     state = {}; core = 0.0                    # (root, level, tuple(cell)) -> 'leaf' | 'split' | 'open' | 'outside'
