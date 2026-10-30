@@ -48,13 +48,6 @@ def load(path):
 def number(s): return float.fromhex(s) if isinstance(s,str) else float(s)
 def rows(path):
     def bad(x): raise ValueError('nonfinite JSON constant '+x)
-    lines=Path(path).read_text().splitlines(); result=[]
-    for n,s in enumerate(lines):
-        try:
-            result.append(json.loads(s,parse_constant=bad))
-        except json.JSONDecodeError:
-            # only an interrupted final write is tolerated; its sub-ball then needs another row or the audit fails
-            need(n==len(lines)-1,'unparsable receipt line')
     # A sub-ball may carry more than one receipt (a resumed run under another accepted runner); each is a full receipt
     # of the same record, so the closed one is kept when there is one, and otherwise one listing all its patterns (a
     # rerun after a timeout). The row kept is checked in full below.
@@ -62,9 +55,20 @@ def rows(path):
         if x.get('status')!='NOT ESTABLISHED': return 2
         return 1 if len(x.get('patterns',[]))==x.get('patterns_after_column_filter',-1) else 0
     out={}
-    for x in result:
+    def accept(line,last=False):
+        try: x=json.loads(line,parse_constant=bad)
+        except json.JSONDecodeError:
+            # Only an interrupted final write is tolerated, just as before.
+            need(last,'unparsable receipt line');return
         i=x['index']
         if i not in out or rank(x)>rank(out[i]): out[i]=x
+    # One-line lookahead preserves the final-write rule without retaining both
+    # the complete text and every parsed duplicate of a large receipt file.
+    with Path(path).open() as f:
+        pending=next(f,None)
+        for line in f:
+            accept(pending);pending=line
+        if pending is not None:accept(pending,last=True)
     return out
 def hit(c,level):
     n=2**level
@@ -157,7 +161,6 @@ def main():
     need(R.binding(atlas)['id'] == 'aaab342ca5aca367c5ae9c13500d7dfcf3a6fe13233cfdda1f8c7fec6bf7ecc7', 'wrong native source binding')
     original = load(atlas)['seeds'][args.index]
     paths = [p.absolute() for p in args.layers]          # not resolve(): a cleaned receipt copy sits beside a symlinked sub-atlas
-    docs = list(map(load, paths)); rowsets = [rows(str(p)[:-len('.json.gz')] + '.jsonl') for p in paths]
     plane = None
     if args.plane:
         sys.path.insert(0, str(root / 'TripleClassification/code'))
@@ -318,7 +321,8 @@ def main():
     target = None; counts = []; live = None; used = {'fourier': 0, 'ordering': 0, 'anchored': 0, 'graph': 0, 'plane': 0}
     disch = []                                    # (level, sub) of cells closed by a rule: they use the certifier's
                                                   # cover too, so they need the Stage C preconditions like closed rows
-    for k, (doc, rr, bid, path) in enumerate(zip(docs, rowsets, bindings, paths)):
+    for k, (bid, path) in enumerate(zip(bindings, paths)):
+        doc = load(path); rr = rows(str(path)[:-len('.json.gz')] + '.jsonl')
         level = 2 + k
         info = doc['info']['split']
         if k == 0:
@@ -369,10 +373,11 @@ def main():
         counts.append(dict(level=level, cells=len(expected), closed=len(expected) - len(unresolved), open=len(unresolved),
                            still_open=len(still)))
         target = unresolved; live = still; prev_cells = {tuple(e['cell']) for e in info['cover']}
+        del doc, rr, seeds, info                 # the next layer needs only the checked geometry sets
     if plane and args.plane_cache:
         plane_cache.save(args.plane_cache, pcache)
     preport = (dict(plane.report(), cached_cells=plane_cached) if plane else None)
-    last = 2 + len(docs) - 1
+    last = 2 + len(paths) - 1
     unresolved = []
     for c in sorted(live):
         p = tangent_point(c, last)
