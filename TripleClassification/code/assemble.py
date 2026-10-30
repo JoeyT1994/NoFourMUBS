@@ -20,7 +20,7 @@ final status, the earlier rows being kept as the cell-test columns).  Writes
 A row of refine.py is written only when its whole level is done, so a ball with level-5 rows finished level 5, and a
 ball with failed level-4 cells but no level-5 rows was stopped before level 5 (its failed level-4 cells remain).
 """
-import time, collections, glob, gzip, hashlib, json, os, sys
+import time, collections, glob, gzip, hashlib, json, os, signal, sys
 
 N_SEEDS = 2775
 ORIGINAL_ATLAS = '33ad9798eb7a5585c486f2427a6b223867a43b308b7f184467b4cd5956bd8baf'
@@ -47,6 +47,24 @@ def tree_col(x):
     if x['status'] == 'closed':
         return 'closed depth %d (%s; %s leaves)' % (x['depth'], x['route'], x['leaves'])
     return x['status'][:80]
+
+
+def audit_failure(cp, route, level):
+    """Keep process failures distinguishable from a mathematical open-cell verdict."""
+    err = (cp.stderr.strip().splitlines() or [''])[-1]
+    if cp.returncode < 0:
+        try: termination = signal.Signals(-cp.returncode).name
+        except ValueError: termination = 'signal %d' % -cp.returncode
+        reason = 'terminated by ' + termination
+    elif cp.returncode:
+        reason = 'exit code %d' % cp.returncode
+    else:
+        reason = 'missing verified audit report'
+    if err: reason += ': ' + err
+    status = ('open below level %d' % level if 'unresolved cell at the last level' in err
+              else 'audit failed: ' + reason[:160])
+    return dict(status=status, route=route, auditor_returncode=cp.returncode,
+                auditor_stderr_tail=cp.stderr[-4096:], auditor_stdout_tail=cp.stdout[-4096:])
 
 
 def clean_l2(src, work):
@@ -178,9 +196,12 @@ def trees(a, V, side, RC, side_guard=None, out=None):
                                       stamp([plane_ball[i]] if i in plane_ball else [])]).encode()).hexdigest()
         hit = cache.get(base)
         if hit and hit.get('status') == 'closed' and hit.get('rule', 'certifier') == 'certifier': return hit
-        if full in cache: return cache[full]
+        if full in cache:
+            if not cache[full].get('status', '').startswith('audit failed:'): return cache[full]
+            del cache[full]                       # retry even a blank failure saved by an earlier version
         x = audit_fresh(i, route, layers, scripts)
-        cache[base if x.get('status') == 'closed' and x.get('rule') == 'certifier' else full] = x
+        if not x.get('status', '').startswith('audit failed:'):
+            cache[base if x.get('status') == 'closed' and x.get('rule') == 'certifier' else full] = x
         return x
 
     def audit_fresh(i, route, layers, scripts):
@@ -201,13 +222,12 @@ def trees(a, V, side, RC, side_guard=None, out=None):
             v = json.loads((cp.stdout.strip().splitlines() or ['{}'])[-1])
         except ValueError:
             v = {}
+        if not isinstance(v, dict): v = {}
         if cp.returncode == 0 and v.get('status') == 'OPEN_CELLS':  # every unresolved last-level cell, for open_cells.json
             return dict(status='open below level %d' % (len(layers) + 1), route=route, open_level=v['level'],
                         open_cells=v['unresolved_cells'], layer_files=layers)
         if cp.returncode != 0 or v.get('status') != 'GEOMETRY_AND_RECEIPTS_VERIFIED':
-            err = (cp.stderr.strip().splitlines() or [''])[-1]
-            return dict(status=('open below level %d' % (len(layers) + 1) if 'unresolved cell at the last level' in err
-                                else 'audit failed: ' + err[:100]), route=route)
+            return audit_failure(cp, route, len(layers) + 1)
         missing = 0                                          # Stage C preconditions (audit F2), for closed rows and
         disch = {tuple(x) for x in v.get('discharged', [])}  # for the cells a score or anchored rule closed
         for k, f in enumerate(layers):
