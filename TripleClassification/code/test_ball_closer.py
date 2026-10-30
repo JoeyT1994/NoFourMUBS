@@ -13,7 +13,8 @@ CELL_DIR: the saved proof of that cell (entry.json, frontier.input.json.gz, ...)
 6. the split run as two parts (--part 0/2, 1/2) and then --assemble: the same tree, checked;
 7. a leaf proposal changed after the parts: --assemble reports the ball open;
 8. new search options (--search-args): the failed root is searched again under them, its settled leaves reused;
-9. --cells-from on the cell laid out as plane_ball.py leaves a failed cell: it is closed on its children under
+9. --ext: the same split with the extended searches, replays and tree check;
+10. --cells-from on the cell laid out as plane_ball.py leaves a failed cell: it is closed on its children under
    <dir>/kids, gets tree.json and refined.json, and plane_manifest.py lists it and caches its replay.
 """
 import json, os, shutil, subprocess, sys, tempfile
@@ -52,6 +53,11 @@ def main():
                            json.load(open(os.path.join(t, 'split', 'b491', 'cells', '4_12_5_12_12', 'failed.json'))))[0],
                   lambda r: r.get('verdict') == 'CLOSED' and r['tree_counts']['certified'] == 14 and
                   json.load(open(os.path.join(t, 'split', 'b491', 'cells', '4_12_5_12_12', 'failed.json')))['search_args'] == '--scalar-cap 700'),
+                 ('--ext: searches, replays and the tree check use the extended checker',
+                  lambda: run('ext', '--seconds', '4:1', '--max-level', '5', '--ext'),
+                  lambda r: r.get('verdict') == 'CLOSED' and r['tree_counts']['certified'] == 14 and not r['check_failed'] and
+                  all(json.load(open(os.path.join(t, 'ext', 'b491', 'cells', x, 'replay.json'))).get('extension') == 'ext_cell_certificate.py'
+                      for x in os.listdir(os.path.join(t, 'ext', 'b491', 'cells')) if os.path.exists(os.path.join(t, 'ext', 'b491', 'cells', x, 'replay.json')))),
                  ('--cells-from closes a failed cell for the manifest', lambda: cells_from(),
                   lambda r: r.get('verdict') == 'CLOSED 1 OF 1 CELLS' and r['manifest'].get('certified_cells') == 1 and r['cached'] == 1)]
         def cells_from():

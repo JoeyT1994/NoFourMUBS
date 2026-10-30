@@ -26,6 +26,8 @@ def main():
     ap.add_argument('--depth', type=int, default=6, choices=range(0, 11), metavar='0..10')
     ap.add_argument('--column-nodes', type=int, default=6000, help="each column tree's node budget (6000: the pinned search's; "
                     'the replay has none)')
+    ap.add_argument('--projector', action='store_true', help='when the joint search fails on a pattern whose six columns are '
+                    'proved, try the separable projector witness (ext_cell_certificate.py replays it)')
     ap.add_argument('--scalar-cap', type=int, default=600, help="the joint search's scalar budget (600: the pinned search's); "
                     'the replay never applies it (it only re-checks the scalar witnesses supplied), so raising it is free')
     a = ap.parse_args(); root = Path(a.root).resolve(); sys.path.insert(0, str(root / 'TripleClassification/code'))
@@ -99,10 +101,31 @@ def main():
                     joint = Joint.exclude(model, {c: proved[c][1] for c in available}, available,
                                           pair_cache=root_pairs, scalar_cache=scalars, allow_known=True, scalar_cap=a.scalar_cap)
                 except (ValueError, ArithmeticError):
-                    raise ArithmeticError('complete-cover pattern remains: ' + str(clique))
+                    if not a.projector: raise ArithmeticError('complete-cover pattern remains: ' + str(clique))
+                    import os as _os; _os.environ.setdefault('TC_ROOT', str(root))
+                    d_ = str(Path(__file__).resolve().parent / 'projector')
+                    if d_ not in sys.path: sys.path.append(d_)        # after the pinned tree
+                    import projector_union_hook as Hook, moving_secant_certificate as Secant
+                    from flint import arb as _arb
+                    found = None
+                    if len(available) == 6 and all(proved[c][1] for c in clique):   # the separable projector
+                        try: found = Hook.search(model, {c: proved[c][1] for c in clique}, list(clique))
+                        except (ValueError, ArithmeticError, ZeroDivisionError): found = None
+                    if found is not None:
+                        witnesses.append(dict(colours=clique, columns=list(clique), projector=found[0])); continue
+                    cols = [dict(v0=list(columns[c]['v0']), radius=_arb(columns[c]['phase_radius']), colour=c) for c in clique]
+                    anchors = sorted(range(6), key=lambda j: float(columns[clique[j]]['phase_radius']))[:2]
+                    for col in [j for j in range(6) if j not in anchors]:                       # the moving-frame secant
+                        try:
+                            prop = Secant.propose_columns(model, cols, col, anchors); Secant.check_columns(model, cols, prop)
+                            found = prop; break
+                        except (ValueError, ArithmeticError, ZeroDivisionError, np.linalg.LinAlgError): continue
+                    if found is None: raise ArithmeticError('complete-cover pattern remains: ' + str(clique))
+                    witnesses.append(dict(colours=clique, columns=[clique[i] for i in [found['column'], *found['anchors']]],
+                                          secant=found)); continue
                 witnesses.append(dict(colours=clique, columns=available, joint=joint))
             else: witnesses.append(dict(colours=clique, columns=chosen))
-        used = {c for w in witnesses for c in w['columns']}
+        used = {c for w in witnesses if 'secant' not in w for c in w['columns']}   # a secant rebuilds its own tubes
         return dict(schema='tc-plane-cell-proposal-v1', snapshot_sha256=binding['snapshot_sha256'],
                     record_sha256=s['record_sha256'], columns={str(c): proved[c][0] for c in sorted(used)}, witnesses=witnesses)
 

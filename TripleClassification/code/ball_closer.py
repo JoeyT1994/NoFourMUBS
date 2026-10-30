@@ -34,7 +34,11 @@ CERT = ('CERTIFIED_EMPTY_DYADIC_CELL', 'CERTIFIED_CLASSIFIED_DYADIC_CELL')
 DEFAULT_SECONDS = {0: 1800, 1: 1800, 2: 1800, 3: 1800, 4: 1800}          # deeper levels: 3600
 
 
-CHECK_ONE = '''import json, sys; from pathlib import Path; sys.path.insert(0, sys.argv[1])
+CHECK_ONE = '''import json, os, sys; from pathlib import Path; sys.path.insert(0, sys.argv[1])
+if len(sys.argv) > 4:                       # --ext: the pinned check plus the projector witness
+    os.environ['TC_ROOT'] = str(Path(sys.argv[1]).parents[1]); import importlib.util   # by file: keep the pinned tree first
+    spec = importlib.util.spec_from_file_location('ext_cell_certificate', Path(sys.argv[4]) / 'ext_cell_certificate.py')
+    Ext = importlib.util.module_from_spec(spec); spec.loader.exec_module(Ext); Ext.install()
 import plane_tree_certificate as Tree
 r = Tree.check(json.loads(sys.argv[2]), Path(sys.argv[3])); print(json.dumps(dict(status=r['status'], counts=r['counts'])))'''
 
@@ -64,6 +68,8 @@ def main():
     ap.add_argument('--search-args', default='', help="extra fast_search.py options, e.g. '--depth 8 --column-nodes 30000 "
                     "--scalar-cap 20000' (search budgets the replay does not apply); a cell that failed under other search "
                     'options is searched again before it is split')
+    ap.add_argument('--ext', action='store_true', help='also use the separable projector witness: searches try it '
+                    '(fast_search.py --projector) and replays and checks use ext_cell_certificate.py')
     ap.add_argument('--cells-from', help='file of existing cell directories (entry.json each) to close instead of the ball: '
                     'each is split at once, its descendants go to <dir>/kids (reusing what is settled there), and a '
                     'closed cell gets <dir>/tree.json and refined.json, as plane_manifest.py lists them')
@@ -91,6 +97,7 @@ def main():
     else:
         roots = [dict(dir=top, cells=top / 'cells', entry=root_entry, level=r0, cell=c0, search_self=True)]
     for R in roots: R['cells'].mkdir(exist_ok=True)
+    sig = (a.search_args + (' --projector' if a.ext else '')).strip()   # what a recorded failure was searched with
     t0 = time.time()
 
     def settled(d, level):
@@ -103,13 +110,13 @@ def main():
         except (OSError, ValueError, KeyError): pass
         try:                            # a failure counts only under the same search options
             f = json.load(open(d / 'failed.json'))
-            if f.get('search_args', '') == a.search_args and (f.get('kind') == 'not certified' or f.get('seconds', 0) >= cap(level)):
+            if f.get('search_args', '') == sig and (f.get('kind') == 'not certified' or f.get('seconds', 0) >= cap(level)):
                 return 'split'
             return None
         except (OSError, ValueError): pass
         try:                            # an earlier pinned search (plane_refine.py) that failed on a pattern
             f = json.load(open(d / 'frontier.json'))
-            if not a.search_args and f.get('status') == 'NOT_ESTABLISHED' and 'pattern remains' in str(f.get('reason')): return 'split'
+            if not sig and f.get('status') == 'NOT_ESTABLISHED' and 'pattern remains' in str(f.get('reason')): return 'split'
         except (OSError, ValueError): pass
         return None
 
@@ -128,19 +135,21 @@ def main():
         try:
             search = ([a.py, '-W', 'ignore', str(HERE / 'fast_search.py'), str(root), str(e)] if a.search == 'fast' else
                       [a.py, '-W', 'ignore', str(fc), str(e)])
-            subprocess.run(search + ['--out', str(d / 'frontier.json')] + a.search_args.split(), cwd=root, env=env, capture_output=True,
+            subprocess.run(search + ['--out', str(d / 'frontier.json')] + a.search_args.split() + (['--projector'] if a.ext else []),
+                           cwd=root, env=env, capture_output=True,
                            timeout=cap(level))
         except subprocess.TimeoutExpired:
-            json.dump(dict(kind='time cap', seconds=cap(level), search_args=a.search_args), open(d / 'failed.json', 'w')); slim_cell(str(d))
+            json.dump(dict(kind='time cap', seconds=cap(level), search_args=sig), open(d / 'failed.json', 'w')); slim_cell(str(d))
             return ri, level, cell, 'split', time.time() - ts
         if (d / 'frontier.input.json.gz').exists() and (d / 'frontier.proposal.json.gz').exists():
-            subprocess.run([a.py, '-W', 'ignore', str(fc), str(e), '--input', str(d / 'frontier.input.json.gz'), '--proposal',
+            replay = [a.py, '-W', 'ignore', str(HERE / 'ext_replay.py'), str(root)] if a.ext else [a.py, '-W', 'ignore', str(fc)]
+            subprocess.run(replay + [str(e), '--input', str(d / 'frontier.input.json.gz'), '--proposal',
                             str(d / 'frontier.proposal.json.gz'), '--out', str(d / 'replay.json')], cwd=root, env=env, capture_output=True)
         slim_cell(str(d))
         if settled(d, level) == 'leaf': return ri, level, cell, 'leaf', time.time() - ts
         try: why = json.load(open(d / 'frontier.json')).get('reason')
         except (OSError, ValueError): why = None
-        json.dump(dict(kind='not certified', reason=why, search_args=a.search_args), open(d / 'failed.json', 'w'))
+        json.dump(dict(kind='not certified', reason=why, search_args=sig), open(d / 'failed.json', 'w'))
         return ri, level, cell, 'split', time.time() - ts
 
     state = {}; core = 0.0                    # (root, level, tuple(cell)) -> 'leaf' | 'split' | 'open' | 'outside'
@@ -226,7 +235,8 @@ def main():
                 one = dict(schema='tc-plane-tree-proposal-v1', root_entry_sha256=F.jsonsha(ent),
                            tree={k: dict(path='frontier.%s.json.gz' % k, sha256=nd[k]['sha256']) for k in ('input', 'proposal')})
                 json.dump(one, open(d / 'leaf_tree.json', 'w'))
-                q = subprocess.run([a.py, '-W', 'ignore', '-c', CHECK_ONE, str(code), json.dumps(ent), str(d / 'leaf_tree.json')],
+                q = subprocess.run([a.py, '-W', 'ignore', '-c', CHECK_ONE, str(code), json.dumps(ent), str(d / 'leaf_tree.json')] +
+                                   ([str(HERE)] if a.ext else []),
                                    capture_output=True, text=True, env=dict(os.environ, OMP_NUM_THREADS='1'))
                 try: return ri, level, cell, json.loads(q.stdout.strip().splitlines()[-1])['status']
                 except (ValueError, IndexError, KeyError): return ri, level, cell, 'CHECK_FAILED: ' + (q.stderr.strip().splitlines() or [''])[-1][:100]
