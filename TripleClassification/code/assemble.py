@@ -185,7 +185,8 @@ def trees(a, V, side, RC, side_guard=None, out=None):
             extra += ['--anchored'] + anc_ball.get(i, []) + ['--anchored-sha', a.anchored_sha,
                                                              '--anchored-runner-sha', a.anchored_runner_sha]
         if i in plane_ball:                                  # replayed during the audit, never trusted as a verdict
-            extra += ['--plane', plane_ball[i]]
+            extra += ['--plane', plane_ball[i],               # replays are cached by exact file hashes (live loop only)
+                      '--plane-cache', os.path.join(os.path.dirname(plane_ball[i]), 'replay_cache.json')]
         if 'graph' in a.gamma_rules.split(','):
             extra += ['--graph'] + graph_ball.get(i, []) + ['--graph-dir', a.graph_dir, '--graph-sha', a.graph_sha,
                                                             '--graph-runner-sha', a.graph_runner_sha]
