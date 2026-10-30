@@ -182,6 +182,19 @@ def main():
           graph_receipt(lambda x: x.update(status='NOT_ESTABLISHED')))
     check('491: graph receipt with a nonpositive overlap', False, 491, names, edit_row('b491_l3', tri, reopen), 'incorrect target mask',
           graph_receipt(lambda x: x.update(minimum_normalized_overlap_lower='[0 +/- 1e-20]')))
+
+    # --report-open (used by assemble.py for open_cells.json): the open level-3 tree of 491 lists its unresolved cells
+    with tempfile.TemporaryDirectory() as t:
+        for n in ('b491_l2', 'b491_l3'):
+            for ext in ('.json.gz', '.jsonl'): shutil.copy(os.path.join(samples, n + ext), os.path.join(t, n + ext))
+        cmd = [sys.executable, '-W', 'ignore', os.path.join(HERE, 'audit_select.py'), '--root', ROOT, '--index', '491',
+               '--layers', os.path.join(t, 'b491_l2.json.gz'), os.path.join(t, 'b491_l3.json.gz'), '--scripts', l2, l3, '--report-open']
+        q = subprocess.run(cmd, capture_output=True, text=True)
+        try: v = json.loads(q.stdout.strip().splitlines()[-1])
+        except (ValueError, IndexError): v = {}
+        good = q.returncode == 0 and v.get('status') == 'OPEN_CELLS' and v.get('level') == 3 and [6, 2, 6, 6] in v.get('unresolved_cells', [])
+        failures += not good
+        print('%-4s %-58s %s' % ('PASS' if good else 'FAIL', '491: --report-open lists the open level-3 cells', '%d cells' % len(v.get('unresolved_cells', []))))
     print('%d failure(s)' % failures)
     sys.exit(1 if failures else 0)
 

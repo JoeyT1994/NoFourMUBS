@@ -289,6 +289,19 @@ def trees(a, V, side, RC, side_guard=None, out=None):
     return result
 
 
+def open_cells(tree):
+    """The exact open cells of every open ball, from this pass's audits, and the tree verdicts for summary.json, which
+    keep only the count of open cells."""
+    opened = {str(j): dict(level=tree[j]['open_level'], cells=tree[j]['open_cells'], layers=tree[j]['layer_files'],
+                           route=tree[j].get('route')) for j in sorted(tree) if 'open_cells' in tree[j]}
+    slim = {}
+    for j in sorted(tree):
+        v = {k: x for k, x in tree[j].items() if k not in ('open_cells', 'layer_files')}
+        if 'open_cells' in tree[j]: v['open_cells'] = len(tree[j]['open_cells'])
+        slim[str(j)] = v
+    return opened, slim
+
+
 def main():
     import argparse
     ap = argparse.ArgumentParser()
@@ -488,12 +501,8 @@ def main():
                        refine=round(ref_s / 3600, 1),
                        certifier=round(sum(x.get('seconds', 0) for x in tc.values()) / 3600, 1),
                        split=round(split_s / 3600, 1)))
-    # the exact open cells of every open ball, from this pass's audits (summary.json keeps only their count)
-    opened = {str(j): dict(level=tree[j]['open_level'], cells=tree[j]['open_cells'], layers=tree[j]['layer_files'],
-                           route=tree[j].get('route')) for j in sorted(tree) if 'open_cells' in tree[j]}
+    opened, summary['tree'] = open_cells(tree)
     json.dump(dict(time=time.strftime('%Y-%m-%d %H:%M'), balls=opened), open(os.path.join(out, 'open_cells.json'), 'w'))
-    summary['tree'] = {k: ({kk: vv for kk, vv in v.items() if kk not in ('open_cells', 'layer_files')} |
-                           ({'open_cells': len(v['open_cells'])} if 'open_cells' in v else {})) for k, v in summary['tree'].items()}
     json.dump(summary, open(os.path.join(out, 'summary.json'), 'w'), indent=1)
     print(json.dumps(summary, indent=1))
 
