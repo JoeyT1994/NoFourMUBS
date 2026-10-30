@@ -298,7 +298,7 @@ linear solve. A zero, nonfinite or unsuccessful direction cannot exclude a combi
 
 To cover a pattern, the checker enumerates every combination of retained root captures in a recorded
 column order. It prunes a branch only after a strict pair exclusion or a verified scalar exclusion
-of its two, three or six selected captures. The two-column test also enforces unbiasedness to the
+of its two through six selected captures. The two-column test also enforces unbiasedness to the
 same H, so it can exclude a choice that passes the overlap test. Every unpruned branch is extended
 by every capture of the next column. In exclusion mode, reaching the final column without exclusion is a failure. A successful
 exclusion enumerates the entire Cartesian product, including captures shared by adjacent partition pieces.
@@ -326,9 +326,16 @@ that cell without further H refinement; it does not close the whole original bal
 ### Classifying surviving branches
 
 Some compatible captures cannot be discarded by the exclusion tests. In classification mode, a branch
-with four, five or six selected captures can instead be discharged by the frozen moving-symmetry
+with four, five or six selected captures is first tested by the partial scalar inequality above.
+If that does not exclude the branch, it can instead be discharged by the frozen moving-symmetry
 theorem. For each unselected column, retain every capture that passes all pair tests against the
 selected captures. Every completing basis on this branch must use one of these retained captures.
+
+Testing scalar exclusions before symmetry also allows a separate replay to classify all four K
+patterns on ball 595's level-6 cell `[25,43,43,6]`. The proof uses five- and six-column scalar
+witnesses and retains the branches certified by symmetry. Its H record contains the entire closed
+cell, so the result applies to the cell's intersection with the unchanged original radius-0.1 ball.
+This does not establish coverage of its parent. `plane_checkpoint.json` records the proof files.
 
 A singleton keeps its original affine tube. A union of tubes u_i+T_i w+e_i is enclosed by a constant
 tube centered at the mean u of their centers, with radius

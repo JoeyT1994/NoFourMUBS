@@ -159,7 +159,7 @@ def exclude(model,tubes,order,proposal=None,pair_cache=None,scalar_cache=None,
         for item in proposal['scalars']:
             P.require(set(item)=={'roots','direction'},'invalid scalar witness')
             roots=item['roots']
-            P.require(isinstance(roots,list) and len(roots) in (2,3,6) and
+            P.require(isinstance(roots,list) and len(roots) in (2,3,4,5,6) and
                 all(isinstance(x,list) and len(x)==2 and all(type(v) is int for v in x) for x in roots),
                 'invalid root tuple')
             key=tuple(tuple(x) for x in roots)
@@ -178,20 +178,7 @@ def exclude(model,tubes,order,proposal=None,pair_cache=None,scalar_cache=None,
         nodes+=1
         if nodes>node_cap:raise ArithmeticError('joint graph budget exhausted')
         prefix=tuple(chosen)
-        if allow_known and len(order)==6 and (prefix in known or (proposal is None and len(chosen) in (4,5,6))):
-            fixed=dict(chosen);captures=[]
-            for c in order:
-                keys=[fixed[c]] if c in fixed else [i for i in sorted(tubes[c])
-                    if not any(pair_bad(c,i,a,j) for a,j in chosen)]
-                if not keys:break
-                captures.append(pooled_capture(model,[tubes[c][i] for i in keys]))
-            if len(captures)==6:
-                try:result=known_support(model,captures,known.get(prefix))
-                except (ArithmeticError,ZeroDivisionError,np.linalg.LinAlgError):result=None
-                if result is not None:
-                    used_known[prefix]=result['action'];return
-            if proposal is not None:P.require(False,'known-branch symmetry was not certified')
-        if len(chosen) in (2,3,6):
+        if len(chosen) in (2,3,4,5,6):
             key=tuple(sorted(chosen))
             if proposal is None:
                 if key not in scalar_cache:
@@ -209,6 +196,19 @@ def exclude(model,tubes,order,proposal=None,pair_cache=None,scalar_cache=None,
                 result=scalar_cache[replay_key]
                 P.require(result is not None,'scalar support does not exclude this root tuple')
                 used[key]=supplied[key];return
+        if allow_known and len(order)==6 and (prefix in known or (proposal is None and len(chosen) in (4,5,6))):
+            fixed=dict(chosen);captures=[]
+            for c in order:
+                keys=[fixed[c]] if c in fixed else [i for i in sorted(tubes[c])
+                    if not any(pair_bad(c,i,a,j) for a,j in chosen)]
+                if not keys:break
+                captures.append(pooled_capture(model,[tubes[c][i] for i in keys]))
+            if len(captures)==6:
+                try:result=known_support(model,captures,known.get(prefix))
+                except (ArithmeticError,ZeroDivisionError,np.linalg.LinAlgError):result=None
+                if result is not None:
+                    used_known[prefix]=result['action'];return
+            if proposal is not None:P.require(False,'known-branch symmetry was not certified')
         if len(chosen)==len(order):raise ArithmeticError('captured combination remains')
         c=order[len(chosen)]
         for i in sorted(tubes[c]):

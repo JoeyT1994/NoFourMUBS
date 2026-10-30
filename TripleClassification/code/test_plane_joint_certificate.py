@@ -20,7 +20,7 @@ class JointTests(unittest.TestCase):
     def test_true_partial_and_full_bases_survive(self):
         # The unused zero placeholders violate orthogonality. They must have
         # no effect on the selected equations of the actual partial basis.
-        for n in (1,2,3,6):self.assertIsNone(J.scalar_support(self.model,self.captures[:n]))
+        for n in range(1,7):self.assertIsNone(J.scalar_support(self.model,self.captures[:n]))
 
     def test_scalar_replay_uses_no_linear_solve(self):
         captures=[self.captures[0]]*3
@@ -76,6 +76,18 @@ class JointTests(unittest.TestCase):
         tubes[1][0]=self.captures[0]
         proposal=dict(order=[0,1,2],scalars=[dict(roots=[[0,0],[1,0],[2,0]],direction=zeros)])
         with self.assertRaises(ValueError):J.exclude(self.model,tubes,[0,1,2],proposal)
+
+    def test_four_and_five_column_witnesses_replay_without_symmetry_search(self):
+        shift=arb_mat([[arb(a*a)/10] for a in range(6)])
+        for n in (4,5):
+            captures=[(dict(p,v0=p['v0']+shift),arb(0)) for p,e in self.captures[:n]]
+            tubes={c:{0:cap} for c,cap in enumerate(captures)}
+            witness=J.scalar_support(self.model,captures)
+            self.assertIsNotNone(witness)
+            proposal=dict(order=list(range(n)),scalars=[dict(roots=[[c,0] for c in range(n)],
+                direction=witness['direction_hex'])],pair_bound='directional-v1')
+            with patch.object(J,'known_support',side_effect=AssertionError('unnecessary symmetry test')):
+                J.exclude(self.model,tubes,list(range(n)),proposal,allow_known=True)
 
     def test_known_basis_is_classified_but_never_called_empty(self):
         captures=[(p,arb('1e-6')) for p,e in self.captures]
