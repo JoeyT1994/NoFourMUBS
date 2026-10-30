@@ -298,8 +298,9 @@ linear solve. A zero, nonfinite or unsuccessful direction cannot exclude a combi
 
 To cover a pattern, the checker enumerates every combination of retained root captures in a recorded
 column order. It prunes a branch only after a strict pair exclusion or a verified scalar exclusion
-of its three or six selected captures. Every unpruned branch is extended by every capture of the
-next column. In exclusion mode, reaching the final column without exclusion is a failure. A successful
+of its two, three or six selected captures. The two-column test also enforces unbiasedness to the
+same H, so it can exclude a choice that passes the overlap test. Every unpruned branch is extended
+by every capture of the next column. In exclusion mode, reaching the final column without exclusion is a failure. A successful
 exclusion enumerates the entire Cartesian product, including captures shared by adjacent partition pieces.
 Sparse scalar witnesses record the branches where the pair test did not suffice; replay reconstructs
 the enumeration and rejects missing, foreign, duplicate or unused witnesses. Cached inequalities
@@ -308,6 +309,12 @@ are shared only within one unchanged cell and its verified column covers.
 The regression checks retain genuine partial and complete Fourier chirp bases, reject weights on
 unselected columns, and reject an enumeration with an uncovered root combination. They can be run with
 `python -m unittest discover -s TripleClassification/code -p 'test_plane_*certificate.py'`.
+
+With the two-column test, a separate replay excludes all 960 K patterns on ball 1016's level-5
+cell `[1,15,15,22]` in the stored dyadic coordinates. The replay verifies containment of this entire
+closed cell in its H record, inside the unchanged original radius near 0.08. This is one child of
+the level-4 cell `[0,7,7,11]`; it does not establish coverage of that parent. Its input and proposal
+hashes and the preserved Popeye files are recorded in `plane_checkpoint.json`.
 
 The current level-4 cell 571 of original ball 1016, with coordinates [1,5,7,4], passed a separate
 whole-cell replay covering all 64 K patterns. Twelve patterns use the shared-H enumeration, with

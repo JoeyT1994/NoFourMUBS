@@ -159,7 +159,7 @@ def exclude(model,tubes,order,proposal=None,pair_cache=None,scalar_cache=None,
         for item in proposal['scalars']:
             P.require(set(item)=={'roots','direction'},'invalid scalar witness')
             roots=item['roots']
-            P.require(isinstance(roots,list) and len(roots) in (3,6) and
+            P.require(isinstance(roots,list) and len(roots) in (2,3,6) and
                 all(isinstance(x,list) and len(x)==2 and all(type(v) is int for v in x) for x in roots),
                 'invalid root tuple')
             key=tuple(tuple(x) for x in roots)
@@ -191,7 +191,7 @@ def exclude(model,tubes,order,proposal=None,pair_cache=None,scalar_cache=None,
                 if result is not None:
                     used_known[prefix]=result['action'];return
             if proposal is not None:P.require(False,'known-branch symmetry was not certified')
-        if len(chosen) in (3,6):
+        if len(chosen) in (2,3,6):
             key=tuple(sorted(chosen))
             if proposal is None:
                 if key not in scalar_cache:

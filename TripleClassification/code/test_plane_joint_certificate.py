@@ -54,6 +54,18 @@ class JointTests(unittest.TestCase):
         proposal['pair_bound']='unknown'
         with self.assertRaises(ValueError):J.exclude(self.model,tubes,[0,1],proposal)
 
+    def test_two_orthogonal_columns_can_fail_the_shared_unbiasedness_equations(self):
+        # Apply the same row phases to two chirps. They remain orthogonal,
+        # but need not remain unbiased to the fixed Fourier matrix.
+        shift=arb_mat([[arb(a*a)/10] for a in range(6)])
+        captures=[(dict(p,v0=p['v0']+shift),arb(0)) for p,e in self.captures[:2]]
+        tubes={c:{0:cap} for c,cap in enumerate(captures)}
+        self.assertFalse(J.P.pair_excluded(tubes[0],tubes[1],directional=True))
+        proposal=J.exclude(self.model,tubes,[0,1])
+        self.assertEqual(len(proposal['scalars']),1)
+        self.assertEqual(len(proposal['scalars'][0]['roots']),2)
+        J.exclude(self.model,tubes,[0,1],proposal)
+
     def test_missing_foreign_and_unused_scalar_witnesses_are_rejected(self):
         tubes={i:{0:self.captures[i]} for i in range(3)}
         zeros=[0.0.hex()]*96
