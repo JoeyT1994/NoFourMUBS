@@ -15,7 +15,8 @@ while [ "$(date +%s)" -lt "$end" ]; do
     if ! echo "$jobs" | grep -qx "tc-plane$b"; then      # whole-cell proofs in parts sized to the open cells
       n=$(python3 -c "import json;print(len(json.load(open('$B/results_live/open_cells.json'))['balls'].get('$b',{}).get('cells',[])))" 2>/dev/null || echo 0)
       k=$(( (n + 1999) / 2000 )); [ $k -lt 1 ] && k=1; [ $k -gt 6 ] && k=6
-      bash $B/plane_submit.sh $b $k && echo "$(date +%H:%M) ball $b: whole-cell run in $k parts" >> $LOG
+      sf=0; grep -qx "$b" $B/plane_split_first.txt 2>/dev/null && sf=1      # balls whose whole-cell searches mostly fail
+      TC_SPLIT_FIRST=$sf bash $B/plane_submit.sh $b $k && echo "$(date +%H:%M) ball $b: whole-cell run in $k parts (split first: $sf)" >> $LOG
     fi
     if ! echo "$jobs" | grep -qx "tc-sc$b"; then
       ( cd $B/sidecar && sbatch -J tc-sc$b -o stagec_ball_$b.%j.out run_stagec_ball.sh $b < /dev/null > /dev/null && echo "$(date +%H:%M) ball $b: Stage C run" >> $LOG ) &
