@@ -19,7 +19,7 @@ while [ "$(date +%s)" -lt "$end" ]; do
       TC_SPLIT_FIRST=$sf bash $B/plane_submit.sh $b $k && echo "$(date +%H:%M) ball $b: whole-cell run in $k parts (split first: $sf)" >> $LOG
     fi
     if ! echo "$jobs" | grep -qx "tc-sc$b"; then
-      ( cd $B/sidecar && sbatch -J tc-sc$b -o stagec_ball_$b.%j.out run_stagec_ball.sh $b < /dev/null > /dev/null && echo "$(date +%H:%M) ball $b: Stage C run" >> $LOG ) &
+      ( cd $B/sidecar && sbatch -J tc-sc$b -p preempt --qos=preempt -o stagec_ball_$b.%j.out run_stagec_ball.sh $b < /dev/null > /dev/null && echo "$(date +%H:%M) ball $b: Stage C run" >> $LOG ) &
     fi
   done
   wait
