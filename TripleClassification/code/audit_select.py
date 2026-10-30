@@ -167,8 +167,19 @@ def main():
     if args.plane:
         sys.path.insert(0, str(root / 'TripleClassification/code'))
         from plane_audit_manifest import PlaneManifest      # requires root to be the plane checker's tree
+        # Per cell, not all or nothing: entries whose entry or tree file no longer has the recorded hash are dropped
+        # (their cells simply stay open; dropping proofs can only close less). The rest load from a filtered copy
+        # beside the manifest, so their relative paths still resolve; the copy is removed when the audit ends.
+        doc = json.load(open(args.plane)); keep = []
+        for it in doc.get('cells', []):
+            fs = [args.plane.parent / it[k]['path'] for k in ('entry', 'tree')]
+            if all(f.is_file() and sha(f) == it[k]['sha256'] for f, k in zip(fs, ('entry', 'tree'))): keep.append(it)
+        plane_dropped = len(doc.get('cells', [])) - len(keep)
+        filtered = args.plane.parent / ('manifest.audit.%d.json' % os.getpid())
+        filtered.write_text(json.dumps(dict(doc, cells=keep)))
+        import atexit; atexit.register(lambda: filtered.exists() and filtered.unlink())
         try:
-            plane = PlaneManifest(args.plane, args.index, root)
+            plane = PlaneManifest(filtered, args.index, root)
         except ValueError as e:                     # an unusable manifest closes nothing; the cells stay open
             print('plane manifest not used: %s' % e, file=sys.stderr); plane = None
     pcache = {}
@@ -384,7 +395,8 @@ def main():
         target = unresolved; live = still; prev_cells = {tuple(e['cell']) for e in info['cover']}
     if plane and args.plane_cache:
         plane_cache.save(args.plane_cache, pcache)
-    preport = (dict(plane.report(), cached_cells=plane_cached, failed_cells=plane_failed) if plane else None)
+    preport = (dict(plane.report(), cached_cells=plane_cached, failed_cells=plane_failed, dropped_entries=plane_dropped)
+               if plane else None)
     last = 2 + len(docs) - 1
     unresolved = []
     for c in sorted(live):
