@@ -587,7 +587,7 @@ ball	r	final	certifier	certifier_patterns	split	status	level	cells_remaining	lev
 585	0.125	empty	CERTIFIED EMPTY	0/0/0		whole_ball		0			48	50	50	0	0	1.0420
 586	0.125	empty	CERTIFIED EMPTY	0/4/0		cells		0			56	49	49	0	0	1.6747
 587	0.125	empty	CERTIFIED EMPTY	0/0/0		whole_ball		0			48	47	46	1	0	1.5722
-588	0.1	tree_plane	NOT ESTABLISHED	0/0/64		remaining_coarse	3	2738	0.956	closed depth 5 (selective chain; 12236 leaves)	48	64	64	0	0	0.2671
+588	0.1	open	NOT ESTABLISHED	0/0/64		remaining_coarse	3	2738	0.956	audit failed: ValueError: artifact missing or changed	48	64	64	0	0	0.2671
 589	0.1	tree	NOT ESTABLISHED	0/6/2		remaining_coarse	3	2846	0.994	closed depth 3 (level 2 + collaborator level 3; 260 leaves)	48	8	8	0	0	0.3662
 590	0.1	empty	CERTIFIED EMPTY	0/0/0		refined_4		0	0.052		48	14	14	0	0	1.0672
 591	0.11562499999999999	empty	CERTIFIED EMPTY	0/2/0		cells		0			48	14	14	0	0	1.0548
@@ -640,7 +640,7 @@ ball	r	final	certifier	certifier_patterns	split	status	level	cells_remaining	lev
 638	0.11562499999999999	empty	CERTIFIED EMPTY	0/0/0		cells		0			48	30	30	0	0	1.2280
 639	0.12187499999999998	empty	CERTIFIED EMPTY	0/0/0		whole_ball		0			48	39	38	1	0	1.8017
 640	0.125	empty	CERTIFIED EMPTY	0/16/0		cells		0			48	38	37	1	0	1.5844
-641	0.1	open	NOT ESTABLISHED	0/0/64		remaining_coarse	3	2864	1.000	audit failed: ValueError: artifact missing or changed	48	64	64	0	0	0.2013
+641	0.1	open	NOT ESTABLISHED	0/0/64		remaining_coarse	3	2864	1.000	open below level 6	48	64	64	0	0	0.2013
 642	0.1	empty	CERTIFIED EMPTY	0/4/0		refined_4		0	0.042		48	50	50	0	0	0.8625
 643	0.1	tree	NOT ESTABLISHED	0/0/2		remaining_coarse	3	1172	0.430	closed depth 2 (level 2; 256 leaves)	48	8	8	0	0	0.5734
 644	0.125	empty	CERTIFIED EMPTY	0/0/0		whole_ball		0			48	32	32	0	0	0.8984
@@ -829,7 +829,7 @@ ball	r	final	certifier	certifier_patterns	split	status	level	cells_remaining	lev
 827	0.125	empty	CERTIFIED EMPTY	0/0/0		whole_ball		0			56	16	16	0	0	1.7745
 828	0.1	tree	NOT ESTABLISHED	0/8/56		remaining_coarse	3	581	0.309	closed depth 4 (selective chain; 359 leaves)	48	52	52	0	0	0.7314
 829	0.1	empty	CERTIFIED EMPTY	0/0/0		refined_4		0	0.132		48	14	14	0	0	0.8201
-830	0.1	open	NOT ESTABLISHED	0/0/64		remaining_coarse	3	2679	0.935	audit failed: ValueError: artifact missing or changed	48	64	64	0	0	0.2991
+830	0.1	tree_plane	NOT ESTABLISHED	0/0/64		remaining_coarse	3	2679	0.935	closed depth 6 (selective chain; 8583 leaves)	48	64	64	0	0	0.2991
 831	0.125	empty	CERTIFIED EMPTY	0/1/0		cells		0			54	57	57	0	0	1.1054
 832	0.1	tree	NOT ESTABLISHED	0/34/30		remaining_coarse	3	2779	0.970	closed depth 4 (selective chain; 1438 leaves)	56	64	64	0	0	0.1712
 833	0.1	empty	CERTIFIED EMPTY	0/4/0		refined_4		0	0.056		54	39	39	0	0	1.1157
@@ -1216,7 +1216,7 @@ ball	r	final	certifier	certifier_patterns	split	status	level	cells_remaining	lev
 1214	0.1	empty	CERTIFIED EMPTY	0/0/0		cells		0			56	37	37	0	0	0.5667
 1215	0.1	tree	NOT ESTABLISHED	0/0/4		remaining_fine	4	1509		closed depth 2 (level 2; 256 leaves)	56	34	34	0	0	0.3246
 1216	0.1	tree	NOT ESTABLISHED	0/240/16		remaining_coarse	3	2831	0.988	closed depth 4 (selective chain; 1924 leaves)	60	64	64	0	0	0.0222
-1217	0.09	open	NOT ESTABLISHED	0/6/64		remaining_coarse	3	2864	1.000	open below level 6	48	64	64	0	0	0.0810
+1217	0.09	open	NOT ESTABLISHED	0/6/64		remaining_coarse	3	2864	1.000	audit failed: ValueError: artifact missing or changed	48	64	64	0	0	0.0810
 1218	0.125	empty	CERTIFIED EMPTY	0/4/0		remaining_coarse	3	838	0.407		56	42	42	0	0	0.2765
 1219	0.125	empty	CERTIFIED EMPTY	0/4/0		remaining_coarse	3	514	0.323		56	34	34	0	0	0.3545
 1220	0.1	empty	CERTIFIED EMPTY	0/0/0		remaining_coarse	3	762	0.268		48	11	11	0	0	0.6016

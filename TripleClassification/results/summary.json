@@ -10,13 +10,13 @@
   "classified": 272
  },
  "nearest_triple_median": {
-  "tree_anchored": 0.304,
-  "open": 0.091,
-  "tree": 0.358,
-  "tree_plane": 0.296,
-  "tree_ordering": 0.198,
+  "classified": 0.083,
+  "tree_plane": 0.299,
   "empty": 0.901,
-  "classified": 0.083
+  "open": 0.091,
+  "tree_anchored": 0.304,
+  "tree": 0.358,
+  "tree_ordering": 0.198
  },
  "certifier": {
   "CERTIFIED EMPTY": 2101,
@@ -1605,50 +1605,8 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b584.json"
   },
   "588": {
-   "status": "closed",
-   "route": "selective chain",
-   "depth": 5,
-   "layers": [
-    {
-     "level": 2,
-     "cells": 256,
-     "closed": 125,
-     "open": 131,
-     "still_open": 131
-    },
-    {
-     "level": 3,
-     "cells": 1373,
-     "closed": 965,
-     "open": 408,
-     "still_open": 408
-    },
-    {
-     "level": 4,
-     "cells": 4388,
-     "closed": 3185,
-     "open": 1203,
-     "still_open": 1203
-    },
-    {
-     "level": 5,
-     "cells": 13724,
-     "closed": 7961,
-     "open": 5763,
-     "still_open": 0
-    }
-   ],
-   "rule": "plane",
-   "gamma": {
-    "fourier": 1,
-    "ordering": 3292,
-    "anchored": 0,
-    "graph": 0,
-    "plane": 2470
-   },
-   "leaves": 12236,
-   "tangent_cells": 0,
-   "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b588.json"
+   "status": "audit failed: ValueError: artifact missing or changed",
+   "route": "selective chain"
   },
   "589": {
    "status": "closed",
@@ -2006,8 +1964,10 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b636.json"
   },
   "641": {
-   "status": "audit failed: ValueError: artifact missing or changed",
-   "route": "selective chain"
+   "status": "open below level 6",
+   "route": "selective chain",
+   "open_level": 6,
+   "open_cells": 3040
   },
   "643": {
    "status": "closed",
@@ -3767,8 +3727,57 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b828.json"
   },
   "830": {
-   "status": "audit failed: ValueError: artifact missing or changed",
-   "route": "selective chain"
+   "status": "closed",
+   "route": "selective chain",
+   "depth": 6,
+   "layers": [
+    {
+     "level": 2,
+     "cells": 256,
+     "closed": 124,
+     "open": 132,
+     "still_open": 132
+    },
+    {
+     "level": 3,
+     "cells": 1403,
+     "closed": 952,
+     "open": 451,
+     "still_open": 451
+    },
+    {
+     "level": 4,
+     "cells": 4982,
+     "closed": 3558,
+     "open": 1424,
+     "still_open": 1424
+    },
+    {
+     "level": 5,
+     "cells": 16555,
+     "closed": 3236,
+     "open": 13319,
+     "still_open": 1456
+    },
+    {
+     "level": 6,
+     "cells": 18025,
+     "closed": 713,
+     "open": 17312,
+     "still_open": 0
+    }
+   ],
+   "rule": "plane",
+   "gamma": {
+    "fourier": 2,
+    "ordering": 24625,
+    "anchored": 0,
+    "graph": 8,
+    "plane": 4492
+   },
+   "leaves": 8583,
+   "tangent_cells": 0,
+   "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b830.json"
   },
   "832": {
    "status": "closed",
@@ -7400,10 +7409,8 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b1216.json"
   },
   "1217": {
-   "status": "open below level 6",
-   "route": "selective chain",
-   "open_level": 6,
-   "open_cells": 8534
+   "status": "audit failed: ValueError: artifact missing or changed",
+   "route": "selective chain"
   },
   "1227": {
    "status": "closed",
