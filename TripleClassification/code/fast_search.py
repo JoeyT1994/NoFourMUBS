@@ -12,6 +12,9 @@ pinned search are skipped, and nothing else changes:
   and mode, in the same order, so the same tubes;
 - after proposing, the pinned search replays the whole cell (Whole.check) in the same process; here the separate
   replay is the only one.
+--depth (column tree depth, up to 10; the replay only bounds the tree's geometry at level 12) and --column-nodes raise
+the column search's budgets, which the replay does not apply either. --scalar-cap raises the joint search's budget of scalar tests (600). Only the search counts it: a replay re-checks
+the scalar witnesses the proposal supplies and never applies the budget, so a larger one can only close more cells.
 """
 import argparse, gzip, itertools, json, sys, time
 from pathlib import Path
@@ -20,7 +23,11 @@ from pathlib import Path
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('root'); ap.add_argument('entry', type=Path); ap.add_argument('--out', type=Path, required=True)
-    ap.add_argument('--depth', type=int, default=6)
+    ap.add_argument('--depth', type=int, default=6, choices=range(0, 11), metavar='0..10')
+    ap.add_argument('--column-nodes', type=int, default=6000, help="each column tree's node budget (6000: the pinned search's; "
+                    'the replay has none)')
+    ap.add_argument('--scalar-cap', type=int, default=600, help="the joint search's scalar budget (600: the pinned search's); "
+                    'the replay never applies it (it only re-checks the scalar witnesses supplied), so raising it is free')
     a = ap.parse_args(); root = Path(a.root).resolve(); sys.path.insert(0, str(root / 'TripleClassification/code'))
     import numpy as np
     import plane_frontier_certificate as F
@@ -83,14 +90,14 @@ def main():
                 if chosen is not None: break
                 if c in attempted: continue
                 attempted.add(c)
-                try: proved[c] = prove_column(model, columns[c], C, depth=depth)
+                try: proved[c] = prove_column(model, columns[c], C, depth=depth, node_cap=a.column_nodes)
                 except ArithmeticError: continue
                 chosen = witness(clique)
             if chosen is None:
                 available = sorted((c for c in clique if c in proved), key=lambda c: (len(proved[c][1]), c))
                 try:
                     joint = Joint.exclude(model, {c: proved[c][1] for c in available}, available,
-                                          pair_cache=root_pairs, scalar_cache=scalars, allow_known=True)
+                                          pair_cache=root_pairs, scalar_cache=scalars, allow_known=True, scalar_cap=a.scalar_cap)
                 except (ValueError, ArithmeticError):
                     raise ArithmeticError('complete-cover pattern remains: ' + str(clique))
                 witnesses.append(dict(colours=clique, columns=available, joint=joint))
