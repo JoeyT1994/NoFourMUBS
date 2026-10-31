@@ -326,6 +326,22 @@ def main():
                           and all(src.get(k) == v for k, v in deps.items() if k.startswith(ext_keys)))
                     return ri, level, cell, r['status'] if ok else 'RECEIPT_MISMATCH'
                 except (OSError, ValueError, KeyError, TypeError): return ri, level, cell, 'RECEIPT_MISSING'
+            def receipt_or_replay(job):
+                """The receipt; one from another checker version (or none) is replaced by a fresh replay of the same entry,
+                input and proposal by this checker (as a search's own replay), kept only if it certifies."""
+                x = receipt(job)
+                if x[3] in CERT: return x
+                ri, level, cell, nd = job; d = roots[ri]['cells'] / name(level, cell); tmp = d / ('replay.json.%d.new' % os.getpid())
+                replay = [a.py, '-W', 'ignore', str(HERE / 'ext_replay.py'), str(root)] if a.ext else [a.py, '-W', 'ignore', str(fc)]
+                subprocess.run(replay + [str(d / 'entry.json'), '--input', str(d / 'frontier.input.json.gz'), '--proposal',
+                                str(d / 'frontier.proposal.json.gz'), '--out', str(tmp)], cwd=root, capture_output=True,
+                               env=dict(os.environ, OMP_NUM_THREADS='1'))
+                try: good = json.load(open(tmp)).get('status') in CERT
+                except (OSError, ValueError): good = False
+                if not good:
+                    if tmp.exists(): tmp.unlink()
+                    return x
+                os.replace(tmp, d / 'replay.json'); return receipt(job)
             def leaf(job):
                 ri, level, cell, nd = job; R = roots[ri]; d = R['cells'] / name(level, cell); ent = dict(R['entry'], level=level, cell=cell)
                 one = dict(schema='tc-plane-tree-proposal-v1', root_entry_sha256=F.jsonsha(ent),
@@ -342,7 +358,7 @@ def main():
                 except (ValueError, ArithmeticError, ZeroDivisionError, KeyError, TypeError) as e:
                     return ri, level, cell, 'TRANSFER_FAILED: %s' % str(e)[:80], None
             with ThreadPoolExecutor(max(1, a.workers)) as pool:
-                out = list(pool.map(receipt if leaf_check == 'receipts' else leaf, leaves)); tout = list(pool.map(transfer, tleaves))
+                out = list(pool.map(receipt_or_replay if leaf_check == 'receipts' else leaf, leaves)); tout = list(pool.map(transfer, tleaves))
             for ri in done_roots:
                 mine = [s for r_, _, _, s in out if r_ == ri]; failed = [[l, list(c), s] for r_, l, c, s in out if r_ == ri and s not in CERT]
                 failed += [[l, list(c), s] for r_, l, c, s, _ in tout if r_ == ri and s != 'TRANSFER']
