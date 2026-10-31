@@ -11,7 +11,8 @@ On ball 491's level-4 cell (12, 5, 12, 12) (one leaf):
 5. the leaf replaced by an outside node: refused (the cell meets the ball);
 6. an open node: the cell is not closed;
 7. a second close resumes from the journal (nothing searched again) and checks;
-8. a journalled leaf whose files are gone is searched again.
+8. a journalled leaf whose files are gone is searched again;
+9. the cell closed as 16 parts (its children, as on 16 nodes), joined, checks; join refuses a missing part.
 """
 import gzip, json, os, shutil, subprocess, sys, tempfile
 
@@ -52,6 +53,15 @@ def main():
         run('close', '--cell', '4:12,5,12,12', '--max-level', '4'); x = summ(); r = check()
         report('a journalled leaf without its files is searched again', x['per_level']['4']['resumed'] == 0 and
                '4' in x['search_seconds'] and r['verdict'] == 'CELL CLOSED', dict(verdict=x['per_level'], failed=r.get('failed')))
+    with tempfile.TemporaryDirectory() as t:
+        run = lambda cmd, *x: subprocess.run([sys.executable, '-W', 'ignore', os.path.join(HERE, 'onetree.py'), cmd, root, '491', t,
+                                              '--workers', '2'] + list(x), capture_output=True, text=True)
+        kids = [(5, [24 + ((i >> 3) & 1), 10 + ((i >> 2) & 1), 24 + ((i >> 1) & 1), 24 + (i & 1)]) for i in range(16)]
+        for l, c in kids: run('close', '--part', '--cell', '%d:%s' % (l, ','.join(map(str, c))), '--max-level', '5')
+        j = run('join', '--cell', '4:12,5,12,12'); run('check'); r = json.load(open(os.path.join(t, 'b491', 'check.json')))
+        report('16 parts joined, then checked', r['verdict'] == 'CELL CLOSED' and sum(r['counts'].values()) >= 16, dict(r, failed=j.stderr[-200:]))
+        os.remove(os.path.join(t, 'b491', 'tree.5_24_10_24_24.json')); j = run('join', '--cell', '4:12,5,12,12')
+        report('join refuses a missing part', j.returncode != 0 and 'missing' in (j.stderr + j.stdout), dict(verdict=j.returncode))
     print('%d failure(s)' % failures); sys.exit(1 if failures else 0)
 
 

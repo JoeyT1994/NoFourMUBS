@@ -1,8 +1,14 @@
 #!/usr/bin/env python3
 """One tree per ball: a whole seed ball closed by a single dyadic tree, and checked by walking it.
 
-  python onetree.py close ROOT BALL OUT [--workers N] [--max-level L] [--cell L:c0,c1,c2,c3] [--caps L:S,...]
+  python onetree.py close ROOT BALL OUT [--workers N] [--max-level L] [--cell L:c0,c1,c2,c3 [--part]] [--caps L:S,...]
   python onetree.py check ROOT BALL OUT [--workers N]
+  python onetree.py join ROOT BALL OUT [--cell L:c0,c1,c2,c3]
+
+On several nodes: run close with --part --cell on each child of a cell (or of the whole ball, level 1: 16 parts) into the same
+OUT; each part keeps its own journal, tree and summary (journal.<cell>.jsonl, tree.<cell>.json, summary.<cell>.json)
+and they share leaves/. join then writes tree.json for the parent from its 16 parts (a child missing the ball needs no
+part) and summary.json; check verifies it as usual.
 
 The certificate of ball B is OUT/b<B>/: tree.json and one leaf per closed cell in leaves/ (<level>_<cell>.input.json.gz,
 the cell's H record, and <level>_<cell>.proposal.json.gz, its whole-cell proposal). tree.json is a dyadic partition of
@@ -89,9 +95,9 @@ def check_node(job):
 
 def search_cell(job):
     """Search one cell; ('outside' | 'leaf' | 'split', seconds, reason)."""
-    ball, level, cell, out, py = job; t = time.time()
+    ball, level, cell, out, py, tmpd = job; t = time.time()
     if W['T'].misses_ball(level, cell): return job[:3], 'outside', 0.0, ''
-    tmp = Path(tempfile.mkdtemp(prefix='onetree.', dir=str(out / 'tmp')))
+    tmp = Path(tempfile.mkdtemp(prefix='onetree.', dir=str(tmpd)))
     try:
         e = tmp / 'entry.json'
         json.dump(dict(ball=ball, level=level, cell=list(cell), subatlas='none', sub=0, record_sha256='none'), open(e, 'w'))
@@ -114,16 +120,18 @@ def search_cell(job):
 
 
 def close(a, root):
-    out = Path(a.out).resolve() / ('b%d' % a.ball); (out / 'leaves').mkdir(parents=True, exist_ok=True); (out / 'tmp').mkdir(exist_ok=True)
+    out = Path(a.out).resolve() / ('b%d' % a.ball); (out / 'leaves').mkdir(parents=True, exist_ok=True)
     l0, c0 = (int(a.cell.split(':')[0]), [int(x) for x in a.cell.split(':')[1].split(',')]) if a.cell else (0, [0, 0, 0, 0])
+    tag = '.' + name(l0, c0) if a.part else ''     # a part (--part --cell) keeps its own journal, tree and summary
+    tmpd = out / ('tmp' + tag); tmpd.mkdir(exist_ok=True)
     if a.caps: CAPS.update({int(k): float(v) for k, v in (x.split(':') for x in a.caps.split(','))})
     known = {}                                   # an earlier, interrupted run's outcomes
     try:
-        for line in open(out / 'journal.jsonl'):
+        for line in open(out / ('journal%s.jsonl' % tag)):
             try: x = json.loads(line); known[(x['level'], tuple(x['cell']))] = x
             except (ValueError, KeyError): pass
     except OSError: pass
-    journal = open(out / 'journal.jsonl', 'a')
+    journal = open(out / ('journal%s.jsonl' % tag), 'a')
     state = {}; why = {}; core = 0.0; t0 = time.time(); per = {}; times = {}
     with ProcessPoolExecutor(a.workers, mp_context=parent_setup(str(root), a.ball)) as pool:
         live = set(); queue = [(l0, c0)]
@@ -143,7 +151,7 @@ def close(a, root):
                 n_ = name(level, cell)
                 if x and (x['status'] != 'leaf' or all((out / 'leaves' / (n_ + s_)).exists() for s_ in ('.input.json.gz', '.proposal.json.gz'))):
                     record(level, cell, x['status'], x.get('seconds', 0.0), x.get('reason', ''), False)
-                else: live.add(pool.submit(search_cell, (a.ball, level, cell, out, sys.executable)))
+                else: live.add(pool.submit(search_cell, (a.ball, level, cell, out, sys.executable, tmpd)))
             if not live: break
             done = next(as_completed(live)); live.remove(done)
             (ball, level, cell), st, sec, reason = done.result()
@@ -158,8 +166,8 @@ def close(a, root):
         if st == 'open': return {'open': True}
         return {'children': [node(*k) for k in children(level, cell)]}
     tree = dict(schema='onetree-v1', ball=a.ball, root=[l0, c0], tree=node(l0, c0))
-    json.dump(tree, open(out / 'tree.json', 'w'))
-    shutil.rmtree(out / 'tmp', ignore_errors=True)
+    json.dump(tree, open(out / ('tree%s.json' % tag), 'w'))
+    shutil.rmtree(tmpd, ignore_errors=True)
     opened = sorted(k for k, s in state.items() if s == 'open')
     size = sum(f.stat().st_size for f in (out / 'leaves').iterdir())
     res = dict(ball=a.ball, root=[l0, c0], verdict='CLOSED' if not opened else 'OPEN', leaves=sum(s == 'leaf' for s in state.values()),
@@ -167,7 +175,7 @@ def close(a, root):
                proof_bytes=size, search_core_hours=round(core / 3600, 2), wall_seconds=round(time.time() - t0),
                search_seconds={str(l): stats(v) for l, v in sorted(times.items())}, caps={str(k): v for k, v in sorted(CAPS.items())},
                open_cells=[[l, list(c), why.get(name(l, c), '')] for l, c in opened[:500]])
-    json.dump(res, open(out / 'summary.json', 'w'), indent=1)
+    json.dump(res, open(out / ('summary%s.json' % tag), 'w'), indent=1)
     print(json.dumps({k: v for k, v in res.items() if k != 'open_cells'}))
 
 
@@ -176,6 +184,29 @@ def stats(v):
     ok = sorted(s for st, s in v if st == 'leaf'); bad = [s for st, s in v if st == 'split']
     q = lambda f: round(ok[min(len(ok) - 1, int(f * len(ok)))], 1) if ok else None
     return dict(leaf_p50=q(.5), leaf_p90=q(.9), leaf_max=q(1.0), split_mean=round(sum(bad) / len(bad), 1) if bad else None)
+
+
+def join(a, root):
+    """tree.json for a cell (default: the whole ball) from the trees of its 16 children's parts."""
+    out = Path(a.out).resolve() / ('b%d' % a.ball); sys.path[:0] = [str(root / 'TripleClassification/code')]
+    import plane_tree_certificate as T
+    l0, c0 = (int(a.cell.split(':')[0]), [int(x) for x in a.cell.split(':')[1].split(',')]) if a.cell else (0, [0, 0, 0, 0])
+    kids = []; parts = []
+    for k in children(l0, c0):
+        f = out / ('tree.%s.json' % name(*k))
+        if not f.exists():
+            if not T.misses_ball(*k): raise SystemExit('part %s missing' % name(*k))
+            kids.append({'outside': True}); continue
+        x = json.load(open(f))
+        if x.get('schema') != 'onetree-v1' or x.get('ball') != a.ball or x.get('root') != [k[0], list(k[1])]: raise SystemExit('part %s is not this cell' % name(*k))
+        kids.append(x['tree']); parts.append(json.load(open(out / ('summary.%s.json' % name(*k)))))
+    json.dump(dict(schema='onetree-v1', ball=a.ball, root=[l0, c0], tree={'children': kids}), open(out / 'tree.json', 'w'))
+    tot = lambda k: sum(p[k] for p in parts)
+    res = dict(ball=a.ball, root=[l0, c0], joined_parts=len(parts), verdict='CLOSED' if not tot('open') else 'OPEN', leaves=tot('leaves'),
+               outside=tot('outside'), open=tot('open'), proof_bytes=sum(f.stat().st_size for f in (out / 'leaves').iterdir()),
+               search_core_hours=round(tot('search_core_hours'), 2), wall_seconds=max(p['wall_seconds'] for p in parts) if parts else 0,
+               open_cells=[c for p in parts for c in p['open_cells']][:500])
+    json.dump(res, open(out / 'summary.json', 'w'), indent=1); print(json.dumps({k: v for k, v in res.items() if k != 'open_cells'}))
 
 
 def check(a, root):
@@ -208,11 +239,12 @@ def check(a, root):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument('cmd', choices=('close', 'check')); ap.add_argument('root'); ap.add_argument('ball', type=int); ap.add_argument('out')
+    ap.add_argument('cmd', choices=('close', 'check', 'join')); ap.add_argument('root'); ap.add_argument('ball', type=int); ap.add_argument('out')
     ap.add_argument('--workers', type=int, default=8); ap.add_argument('--max-level', type=int, default=7); ap.add_argument('--cell')
+    ap.add_argument('--part', action='store_true', help='close --cell as one part of a larger tree (see join)')
     ap.add_argument('--caps', help='search time caps by level, L:S,... (default %s)' % ','.join('%d:%d' % kv for kv in sorted(CAPS.items())))
     a = ap.parse_args(); root = Path(a.root).resolve()
-    sys.exit(close(a, root) or 0 if a.cmd == 'close' else check(a, root))
+    sys.exit(close(a, root) or 0 if a.cmd == 'close' else join(a, root) or 0 if a.cmd == 'join' else check(a, root))
 
 
 if __name__ == '__main__': main()
