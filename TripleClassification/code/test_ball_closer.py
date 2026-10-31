@@ -11,7 +11,8 @@ CELL_DIR: the saved proof of that cell (entry.json, frontier.input.json.gz, ...)
 4. with the split forbidden (max level 4) the cell is reported open, with no tree;
 5. the split tree checked serially (one plane_tree_certificate.check of the whole tree);
 6. the split run as two parts (--part 0/2, 1/2) and then --assemble: the same tree, checked;
-7. a leaf proposal changed after the parts: --assemble reports the ball open;
+7. --assemble checks leaves by their bound replay receipts; a receipt naming another checker version is refused;
+   a leaf proposal changed after the parts: --assemble reports the ball open;
 8. new search options (--search-args): the failed root is searched again under them, its settled leaves reused;
 9. --ext: the same split with the extended searches, replays and tree check;
 10. --speculate: children searched while the parent is still searched; the parent's certificate wins, or its
@@ -48,6 +49,10 @@ def main():
                                                          run('parts', '--seconds', '4:1', '--max-level', '5', '--start', '5', '--part', '1/2'),
                                                          run('parts', '--seconds', '4:1', '--max-level', '5', '--start', '5', '--assemble'))[-1],
                   lambda r: r.get('verdict') == 'CLOSED' and r['tree_counts'] == dict(nodes=17, outside=2, certified=14) and not r['check_failed']),
+                 ('--assemble checks leaves by their receipts', lambda: run('parts', '--seconds', '4:1', '--max-level', '5', '--start', '5', '--assemble'),
+                  lambda r: r.get('verdict') == 'CLOSED' and r.get('leaf_check') == 'receipts' and not r['check_failed']),
+                 ('a receipt naming another checker version is refused', lambda: (badreceipt(), run('parts', '--seconds', '4:1', '--max-level', '5', '--start', '5', '--assemble'))[-1],
+                  lambda r: r.get('verdict') == 'OPEN' and r['check_failed'] and 'RECEIPT_MISMATCH' in str(r['check_failed'])),
                  ('a changed leaf: --assemble reports it open', lambda: (tamper(), run('parts', '--seconds', '4:1', '--max-level', '5', '--start', '5', '--assemble'))[-1],
                   lambda r: r.get('verdict') == 'OPEN' and len(r['open_cells']) == 1),
                  ('new search options: the failed root is searched again, settled leaves reused',
@@ -81,6 +86,9 @@ def main():
             except (ValueError, IndexError): print(m.stderr[-800:]); r['manifest'] = {}
             r['cached'] = len(json.load(open(os.path.join(ball, 'replay_cache.jobs.json'))))
             return r
+        def badreceipt():
+            d = os.path.join(t, 'parts', 'b491', 'cells'); leaf = sorted(x for x in os.listdir(d) if os.path.exists(os.path.join(d, x, 'replay.json')))[-1]
+            f = os.path.join(d, leaf, 'replay.json'); x = json.load(open(f)); x['checker_sha256'] = '0' * 64; json.dump(x, open(f, 'w'))
         def tamper():
             d = os.path.join(t, 'parts', 'b491', 'cells'); leaf = sorted(x for x in os.listdir(d) if os.path.exists(os.path.join(d, x, 'replay.json')))[0]
             open(os.path.join(d, leaf, 'frontier.proposal.json.gz'), 'ab').write(b'\0')

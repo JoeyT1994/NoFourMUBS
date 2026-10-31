@@ -68,6 +68,8 @@ def main():
     ap.add_argument('--search-args', default='', help="extra fast_search.py options, e.g. '--depth 8 --column-nodes 30000 "
                     "--scalar-cap 20000' (search budgets the replay does not apply); a cell that failed under other search "
                     'options is searched again before it is split')
+    ap.add_argument('--leaf-check', choices=('receipts', 'replay'), help='final check of each leaf after the partition walk: '
+                    "its own replay receipt (default with --assemble), or a second replay (default otherwise)")
     ap.add_argument('--speculate', action='store_true', help='with idle workers, also search the children of the cells '
                     'being searched longest (used only if the parent fails; a tree never uses a cell under a leaf)')
     ap.add_argument('--ext', action='store_true', help='also use the separable projector witness: searches try it '
@@ -163,6 +165,7 @@ def main():
             state[(ri, level, tuple(cell))] = 'split'; return [x for k in children(level, cell) for x in expand(ri, *k)]
         return [(ri, level, cell)]
     pi, pk = (int(x) for x in a.part.split('/'))
+    leaf_check = a.leaf_check or ('receipts' if a.assemble else 'replay')
     if pk == 1 and a.cells_from and a.ext and 'TripleClassification/code/ext_cell_certificate.py' not in PM.source_hashes(root):
         raise SystemExit('--ext trees need a checker tree that pins the extension (pr4ext, make_ext_root.sh)')
     first = [x for n, x in enumerate(t for ri, R in enumerate(roots) for t in expand(ri, R['level'], R['cell'])) if n % pk == pi]
@@ -255,6 +258,24 @@ def main():
             for ri in done_roots:
                 R = roots[ri]
                 counts_t[ri] = Tree.walk(trees[ri]['tree'], R['level'], R['cell'], lambda nd, level, cell, ri=ri: leaves.append((ri, level, cell, nd)))
+            src = PM.source_hashes(root); fsha = digest(fc)
+            ext_keys = ('TripleClassification/code/ext_cell_certificate.py', 'TripleClassification/code/projector/')
+            def receipt(job):
+                """The leaf's own replay receipt, instead of a second replay: certified, bound by SHA-256 to this leaf's entry,
+                input and proposal, for this cell of this ball, by this checker version (an extension only if this tree
+                pins the same files). The same evidence plane_manifest.py accepts for a cell's own job replay."""
+                ri, level, cell, nd = job; R = roots[ri]; d = R['cells'] / name(level, cell); ent = dict(R['entry'], level=level, cell=list(cell))
+                try:
+                    r = json.load(open(d / 'replay.json')); deps = r.get('dependencies_sha256') or {}
+                    ok = (r.get('status') in CERT and json.load(open(d / 'entry.json')) == ent and r.get('entry_sha256') == digest(d / 'entry.json')
+                          and r.get('snapshot_sha256') == digest(d / 'frontier.input.json.gz') == nd['input']['sha256']
+                          and r.get('proposal_sha256') == digest(d / 'frontier.proposal.json.gz') == nd['proposal']['sha256']
+                          and r.get('original_atlas_sha256') == F.PIN and r.get('ball') == a.ball
+                          and r['geometry']['level'] == level and r['geometry']['cell'] == list(cell) and r.get('checker_sha256') == fsha
+                          and all(deps[k] == v for k, v in src.items() if k in deps)
+                          and all(src.get(k) == v for k, v in deps.items() if k.startswith(ext_keys)))
+                    return ri, level, cell, r['status'] if ok else 'RECEIPT_MISMATCH'
+                except (OSError, ValueError, KeyError, TypeError): return ri, level, cell, 'RECEIPT_MISSING'
             def leaf(job):
                 ri, level, cell, nd = job; R = roots[ri]; d = R['cells'] / name(level, cell); ent = dict(R['entry'], level=level, cell=cell)
                 one = dict(schema='tc-plane-tree-proposal-v1', root_entry_sha256=F.jsonsha(ent),
@@ -265,7 +286,7 @@ def main():
                                    capture_output=True, text=True, env=dict(os.environ, OMP_NUM_THREADS='1'))
                 try: return ri, level, cell, json.loads(q.stdout.strip().splitlines()[-1])['status']
                 except (ValueError, IndexError, KeyError): return ri, level, cell, 'CHECK_FAILED: ' + (q.stderr.strip().splitlines() or [''])[-1][:100]
-            with ThreadPoolExecutor(max(1, a.workers)) as pool: out = list(pool.map(leaf, leaves))
+            with ThreadPoolExecutor(max(1, a.workers)) as pool: out = list(pool.map(receipt if leaf_check == 'receipts' else leaf, leaves))
             for ri in done_roots:
                 mine = [s for r_, _, _, s in out if r_ == ri]; failed = [[l, list(c), s] for r_, l, c, s in out if r_ == ri and s not in CERT]
                 st = None if failed else (CERT[1] if CERT[1] in mine else CERT[0])
@@ -280,9 +301,10 @@ def main():
                                  'refined.json must name the checker that certifies them')
             if a.cells_from:                        # what plane_manifest.py lists and caches for the original-ball audit
                 ref = dict(ball=a.ball, level=R['level'], cell=R['cell'], status=st, counts=cnt, closer=True,
+                           leaf_check='serial' if a.serial_check else leaf_check,
                            tree_sha256=digest(R['dir'] / 'tree.json'), checker_sources_sha256=PM.source_hashes(root))
                 tmp = R['dir'] / ('refined.json.%d.new' % os.getpid()); json.dump(ref, open(tmp, 'w')); os.replace(tmp, R['dir'] / 'refined.json')
-        res.update(check='serial' if a.serial_check else 'parallel', check_seconds=round(time.time() - tc),
+        res.update(check='serial' if a.serial_check else 'parallel', leaf_check=None if a.serial_check else leaf_check, check_seconds=round(time.time() - tc),
                    check_failed=[[roots[ri]['level'], roots[ri]['cell'], f] for ri, (st, _, f) in verdicts.items() if f])
         if a.cells_from:
             res.update(verdict='CLOSED %d OF %d CELLS' % (len(closed), len(roots)),
