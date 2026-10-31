@@ -66,3 +66,18 @@ assert f[2] != 'open', t[2]
 assert f[3] == 'open' and 'region transfer not good' in t[3]['status'], t[3]
 assert f[4] == 'open' and f[0] == 'open', (t[4], t[0])
 print('PASS assemble.resolve_transfers (regions)')
+
+# minimum-transition scope: a ball audited with the ordering rule or a restricted plane cell is restricted, and so is a
+# closed ball that transfers into one (directly or through a chain); open balls get no scope
+final = {0: 'tree_plane', 1: 'tree_plane', 2: 'tree_plane', 3: 'tree_ordering', 4: 'tree', 5: 'open', 6: 'tree_plane'}
+tree = {0: dict(status='closed', gamma=dict(plane=3, plane_minimum_transition=1)),
+        1: dict(status='closed', gamma=dict(plane=2), transfer_targets=[0]),             # into a restricted ball
+        2: dict(status='closed', gamma=dict(plane=2), region_transfers=[[1, far]]),      # into 1, itself restricted
+        3: dict(status='closed', gamma=dict(ordering=4)),                                # the per-ball ordering rule
+        4: dict(status='closed', gamma=dict(plane=1), transfer_targets=[6]),             # into an unrestricted ball
+        5: dict(status='open', gamma=dict(plane_minimum_transition=1)),
+        6: dict(status='closed', gamma=dict(plane=1))}
+r = assemble.minimum_transition_scope(final, tree)
+assert r == [0, 1, 2, 3], r
+assert [tree[j].get('scope') for j in range(7)] == ['minimum-transition'] * 4 + ['all', None, 'all'], [tree[j].get('scope') for j in range(7)]
+print('PASS assemble.minimum_transition_scope')

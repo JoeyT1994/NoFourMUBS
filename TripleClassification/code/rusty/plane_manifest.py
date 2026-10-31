@@ -14,7 +14,7 @@ import fcntl, json, os, sys
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
-CERTIFIED = ('CERTIFIED_EMPTY_DYADIC_CELL', 'CERTIFIED_CLASSIFIED_DYADIC_CELL')
+CERTIFIED = ('CERTIFIED_EMPTY_DYADIC_CELL', 'CERTIFIED_CLASSIFIED_DYADIC_CELL', 'CERTIFIED_MINIMUM_TRANSITION_DYADIC_CELL')   # the last: restricted scope
 EXT_PREFIXES = ('TripleClassification/code/ext_cell_certificate.py', 'TripleClassification/code/projector/')
 
 

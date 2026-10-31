@@ -57,6 +57,27 @@ def extension_sha256():
     return d
 
 
+MIN_TRANSITION = 'CERTIFIED_MINIMUM_TRANSITION_RECORDED_H_CELL'
+CERT_CELL = ('CERTIFIED_EMPTY_RECORDED_H_CELL', 'CERTIFIED_CLASSIFIED_RECORDED_H_CELL', MIN_TRANSITION)
+
+
+def gamma_context(model):
+    """GT.prep(model, 0), with the cell's lower bound g_cell on Gamma_F(H) recomputed so that its error term covers the
+    whole distance from every phase of H over the cell to the binary64 point at which score_lower evaluates it: GT.prep
+    adds each centre ball's radius but not the rounding of its midpoint to binary64. Here each entry's term is
+    |q0_i - p_i| over the whole Arb ball q0_i (p_i its midpoint as binary64) plus the motion over the cell."""
+    ctx = GT.prep(model, Fraction(0))
+    r, tau = model['r'], model['tau']; q0, u, h2, x = (model[k] for k in ('Q0', 'U', 'H2', 'X'))
+    def rownorm(m, i):
+        return sum((abs(m[i, j]).upper() * abs(m[i, j]).upper() for j in range(m.ncols())), arb(0)).sqrt()
+    pts = [float(q0[i, 0].mid()) for i in range(36)]
+    e = [rownorm(u, i) * r + rownorm(h2, i) * r * r / 2 + rownorm(x, i) * tau + arb(abs(q0[i, 0] - arb(pts[i])).upper())
+         for i in range(36)]
+    d = sum((v * v for v in e), arb(0)).sqrt()
+    g_cell = GT.lo(arb(GT.score_lower([[pts[6 * a + c] for c in range(6)] for a in range(6)])) - arb(2) / 5 * d)
+    return dict(ctx, g_cell=Fraction(g_cell), g_h=max(Fraction(0), Fraction(g_cell)))
+
+
 def gamma_bound(ctx, columns, clique, g, cache):
     """Arb upper bound (exact binary64) of Gamma_F over the pattern, as gamma_test.pattern computes it, for the
     witness's mode and alignment. Column data come from the rebuilt cover's phase balls (v0, phase_radius)."""
@@ -155,7 +176,7 @@ def _leaf_get(f, k):
                 except (ValueError, KeyError): pass
         except OSError: pass
     x = _leaf[f].get(k)
-    if x and x['status'] in ('CERTIFIED_EMPTY_RECORDED_H_CELL', 'CERTIFIED_CLASSIFIED_RECORDED_H_CELL') and \
+    if x and x['status'] in CERT_CELL and \
             all(_sha_rel(rel) == h for rel, h in x['dependencies_sha256'].items()):
         return dict(status=x['status'], patterns_total=x['patterns_total'], dependencies_sha256=x['dependencies_sha256'], leaf_cache=True)
     return None
@@ -175,7 +196,7 @@ def check(path, proposal):
         r = _leaf_get(f, k)
         if r: return r
     r = _ext_check(path, proposal) if needs_extension(proposal) else _PINNED_CHECK(path, proposal)
-    if f and r.get('status') in ('CERTIFIED_EMPTY_RECORDED_H_CELL', 'CERTIFIED_CLASSIFIED_RECORDED_H_CELL'): _leaf_put(f, k, r)
+    if f and r.get('status') in CERT_CELL: _leaf_put(f, k, r)
     return r
 
 
@@ -197,11 +218,12 @@ def _ext_check(path, proposal):
             r = Hook.replay(model, {c: tubes[c] for c in chosen}, w['projector'])
             P.require(r['status'] == 'EXCLUDED_GIVEN_TUBE_COVERS', 'projector witness does not exclude this pattern')
             projector.append(dict(number=n, colours=clique, margin=r['margin'], tubes=r['tube_count']))
-        elif 'gamma' in w:                      # Fourier (<= 19/50) or ordering (< g_cell): every triple here is classified
-            if gctx is None: gctx = GT.prep(model, Fraction(0))              # g_h = the cell's own certified g_cell
+        elif 'gamma' in w:                      # Fourier (<= 19/50): classified; ordering (< g_cell): no triple with H minimal
+            if gctx is None: gctx = gamma_context(model)                      # g_h: the cell's own certified g_cell
             g_up = gamma_bound(gctx, columns, clique, w['gamma'], gcache)
             fourier, ordering = Fraction(g_up) <= Fraction(19, 50), Fraction(g_up) < gctx['g_h']
             P.require(fourier or ordering, 'gamma witness: neither the Fourier nor the ordering bound holds')
+            gamma_status = 'CLASSIFIED' if fourier else 'ORDERING_DISCHARGED'
             projector.append(dict(number=n, colours=clique, gamma_mode=w['gamma']['mode'], g_up_hex=g_up.hex(),
                                   g_cell_hex=float(gctx['g_h']).hex(), fourier=fourier, ordering=ordering))
         elif 'secant' in w:                     # the pattern's six phase balls, from the rebuilt cover
@@ -217,20 +239,28 @@ def _ext_check(path, proposal):
                 if not all(m > 0 for m in margins): raise ArithmeticError('a captured pair may be orthogonal')
                 checked[key] = [str(m) for m in margins]
         rows.append(dict(number=n, colours=clique, columns=chosen,
-                         status='CLASSIFIED' if (w.get('joint', {}).get('known') or 'gamma' in w) else 'EXCLUDED'))
+                         status=('CLASSIFIED' if w.get('joint', {}).get('known') else gamma_status if 'gamma' in w else 'EXCLUDED')))
     classified = any(row['status'] == 'CLASSIFIED' for row in rows)
+    ordered = any(row['status'] == 'ORDERING_DISCHARGED' for row in rows)
     binding['dependencies_sha256'].update(extension_sha256())
-    return dict(schema='tc-plane-cell-receipt-v1', status='CERTIFIED_CLASSIFIED_RECORDED_H_CELL' if classified else
-                'CERTIFIED_EMPTY_RECORDED_H_CELL', **binding,
+    return dict(schema='tc-plane-cell-receipt-v2',
+                status=MIN_TRANSITION if ordered else 'CERTIFIED_CLASSIFIED_RECORDED_H_CELL' if classified else 'CERTIFIED_EMPTY_RECORDED_H_CELL',
+                **binding,
                 subatlas=s['subatlas'], sub=s['sub'], complete_K_cover_rebuilt=True, patterns_total=len(cliques),
                 patterns=rows, columns=summaries, pairs=[dict(colours=list(k), margins=v) for k, v in sorted(checked.items())],
                 projector_patterns=projector, seconds=time.monotonic() - start,
-                scope=('Every completing basis K on the entire recorded H cell has the certified balanced order-three symmetry. '
-                       if classified else 'Every completing basis K on the entire recorded H cell is excluded. ') +
-                      'C1, H normal form, Stage C preconditions and the complete K cover are rebuilt. Some patterns may be '
-                      'excluded by the separable projector or secant witness, or classified by the gamma witness (Fourier-neighbourhood '
-                      'or minimum-transition theorem; ext_cell_certificate.py). Original-ball closure '
-                      'additionally requires the external geometric cover of that original ball.')
+                scope=(('Restricted (minimum-transition) scope: every completing basis K on the entire recorded H cell with '
+                        'Gamma_F(H) <= Gamma_F(K) and Gamma_F(H) <= Gamma_F(L) is excluded or has the certified balanced '
+                        'order-three symmetry. ORDERING_DISCHARGED patterns contain no such triple; nothing is asserted about '
+                        'their other triples. Such a cell counts only in an assembly that invokes the minimum-transition '
+                        'reduction with the same invariant Gamma_F (gamma_test.py). '
+                        if ordered else
+                        'Every completing basis K on the entire recorded H cell has the certified balanced order-three symmetry. '
+                        if classified else 'Every completing basis K on the entire recorded H cell is excluded. ') +
+                       'C1, H normal form, Stage C preconditions and the complete K cover are rebuilt. Some patterns may be '
+                       'excluded by the separable projector or secant witness, or classified by the gamma witness (Fourier-'
+                       'neighbourhood theorem; ext_cell_certificate.py). Original-ball closure additionally requires the '
+                       'external geometric cover of that original ball.'))
 
 
 def install():

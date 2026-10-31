@@ -30,7 +30,7 @@ from concurrent.futures import ThreadPoolExecutor, FIRST_COMPLETED, wait
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-CERT = ('CERTIFIED_EMPTY_DYADIC_CELL', 'CERTIFIED_CLASSIFIED_DYADIC_CELL')
+CERT = ('CERTIFIED_EMPTY_DYADIC_CELL', 'CERTIFIED_CLASSIFIED_DYADIC_CELL', 'CERTIFIED_MINIMUM_TRANSITION_DYADIC_CELL')   # the last: restricted scope
 DEFAULT_SECONDS = {0: 1800, 1: 1800, 2: 1800, 3: 1800, 4: 1800}          # deeper levels: 3600
 
 
@@ -363,7 +363,7 @@ def main():
                 mine = [s for r_, _, _, s in out if r_ == ri]; failed = [[l, list(c), s] for r_, l, c, s in out if r_ == ri and s not in CERT]
                 failed += [[l, list(c), s] for r_, l, c, s, _ in tout if r_ == ri and s != 'TRANSFER']
                 targets[ri] = sorted({t for r_, _, _, s, t in tout if r_ == ri and s == 'TRANSFER'})
-                st = None if failed else (CERT[1] if CERT[1] in mine or targets[ri] else CERT[0])
+                st = None if failed else (CERT[2] if CERT[2] in mine else CERT[1] if CERT[1] in mine or targets[ri] else CERT[0])
                 verdicts[ri] = (st, counts_t[ri], failed)
         closed = []
         for ri, (st, cnt, failed) in verdicts.items():

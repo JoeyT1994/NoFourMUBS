@@ -17,7 +17,7 @@ Writes OUT_JSON: what was placed where (and what was skipped, and why)."""
 import gzip, json, os, shutil, sys, collections
 from pathlib import Path
 
-CERT = ('CERTIFIED_EMPTY_DYADIC_CELL', 'CERTIFIED_CLASSIFIED_DYADIC_CELL')
+CERT = ('CERTIFIED_EMPTY_DYADIC_CELL', 'CERTIFIED_CLASSIFIED_DYADIC_CELL', 'CERTIFIED_MINIMUM_TRANSITION_DYADIC_CELL')
 FILES = ('entry.json', 'frontier.input.json.gz', 'frontier.proposal.json.gz', 'replay.json')
 
 

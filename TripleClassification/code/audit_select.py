@@ -193,16 +193,20 @@ def main():
         return plane_cache.key(item, tree_path, json.load(open(args.plane))['checker_sources_sha256'], level, cell)
 
     def plane_close(level, cell):
-        if (level, tuple(cell)) not in plane.entries: return False
+        """'all' (every completing K excluded or classified), 'minimum_transition' (only triples whose H transition has
+        the least Gamma_F: ORDERING_THEOREM.md), or None. A cache entry records which."""
+        if (level, tuple(cell)) not in plane.entries: return None
         k = plane_key(level, cell) if args.plane_cache else None
-        if k and pcache.get(k) == 'certified':
-            plane_cached.append([level, list(cell)]); return True
+        if k and pcache.get(k) in ('certified', 'minimum_transition'):
+            plane_cached.append([level, list(cell)]); return 'all' if pcache[k] == 'certified' else 'minimum_transition'
         try:
             ok = plane.close(level, cell)
         except ValueError as e:                     # its files changed or its replay failed: the cell is simply not closed
-            plane_failed.append([level, list(cell), str(e)[:80]]); return False
-        if ok and k: pcache[k] = 'certified'
-        return ok
+            plane_failed.append([level, list(cell), str(e)[:80]]); return None
+        if not ok: return None
+        scope = 'minimum_transition' if plane.replayed[(level, tuple(cell))]['status'] == 'CERTIFIED_MINIMUM_TRANSITION_DYADIC_CELL' else 'all'
+        if k: pcache[k] = 'certified' if scope == 'all' else 'minimum_transition'
+        return scope
     bindings = []                                 # a layer may name alternative scripts 'a.py,b.py'; each row must carry
     for p, alts in zip(paths, args.scripts):      # the binding of one of them
         ids = set()
@@ -220,6 +224,11 @@ def main():
     need('graph' not in rules or (args.graph_dir and args.graph_sha and args.graph_runner_sha), 'graph needs the pinned checker, its directory and the runner')
     need(not rules & {'fourier', 'ordering'} or args.gamma_sha, 'gamma rules need --gamma-sha')
     need('anchored' not in rules or (args.anchored_sha and args.anchored_runner_sha), 'anchored needs the pinned checker and runner')
+    # A plane cell of restricted (minimum-transition) scope counts only in an audit that invokes the minimum-transition
+    # reduction ('ordering') with the same invariant: the plane checker's gamma_test.py must be the pinned one.
+    restricted_ok = ('ordering' in rules and args.gamma_sha is not None and
+                     (root / 'TripleClassification/code/gamma_test.py').is_file() and
+                     sha(root / 'TripleClassification/code/gamma_test.py') == args.gamma_sha)
     glow = None
     if 'ordering' in rules:
         need(args.gamma_lower is not None and sha(args.gamma_lower) == args.gamma_lower_sha, 'ordering needs the pinned Gamma_F(H) bounds')
@@ -338,7 +347,7 @@ def main():
         return None
 
     closed = []                                   # (level, cell) of every accepted cell
-    target = None; counts = []; live = None; used = {'fourier': 0, 'ordering': 0, 'anchored': 0, 'graph': 0, 'plane': 0}
+    target = None; counts = []; live = None; used = {'fourier': 0, 'ordering': 0, 'anchored': 0, 'graph': 0, 'plane': 0, 'plane_minimum_transition': 0}
     disch = []                                    # (level, sub) of cells closed by a rule: they use the certifier's
                                                   # cover too, so they need the Stage C preconditions like closed rows
     for k, (doc, rr, bid, path) in enumerate(zip(docs, rowsets, bindings, paths)):
@@ -378,8 +387,9 @@ def main():
                     rule = discharged(row, sub, layer_sha, i) if rules else None
                     if rule:
                         used[rule] += 1; closed.append((level, cell)); disch.append([level, i])
-                    elif plane and plane_close(level, cell):    # its own C1, H, Stage C and K cover: no sidecar needed
-                        used['plane'] += 1; closed.append((level, cell))
+                    elif plane and (pscope := plane_close(level, cell)) and (pscope == 'all' or restricted_ok):
+                        used['plane'] += 1; closed.append((level, cell))   # its own C1, H, Stage C and K cover
+                        if pscope == 'minimum_transition': used['plane_minimum_transition'] += 1
                     else:
                         still.add(cell)
                 continue

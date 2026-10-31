@@ -391,6 +391,27 @@ def resolve_transfers(final, tree, n, radius=None, X=None):
     return final, tree
 
 
+def minimum_transition_scope(final, tree):
+    """Each closed ball's scope: 'minimum-transition' when its audit used the ordering rule or a plane cell of restricted
+    scope (only triples whose H transition has the least Gamma_F are certified there: ORDERING_THEOREM.md §§3, 5), or
+    when it closes through a transfer into such a ball (an equivalence carries the restricted statement unchanged, Gamma_F
+    being invariant); else 'all'. The classification of a restricted ball holds through the minimum-transition reduction,
+    which the global assembly must invoke with the same invariant. Sets tree[j]['scope']; returns the restricted balls."""
+    restricted = set()
+    for j, v in tree.items():
+        g = (v or {}).get('gamma') or {}
+        if final.get(j, 'open') != 'open' and (g.get('ordering') or g.get('plane_minimum_transition')): restricted.add(j)
+    grew = True
+    while grew:                                   # through transfers: a ball needing a restricted ball is restricted
+        grew = False
+        for j, v in tree.items():
+            deps = set((v or {}).get('transfer_targets', [])) | {t for t, _ in (v or {}).get('region_transfers', [])}
+            if j not in restricted and final.get(j, 'open') != 'open' and deps & restricted: restricted.add(j); grew = True
+    for j, v in tree.items():
+        if v is not None and final.get(j, 'open') != 'open': v['scope'] = 'minimum-transition' if j in restricted else 'all'
+    return sorted(restricted)
+
+
 def audit_chain(audit, i, route, layers, scripts):
     """Audit a chain; one whose deepest layer was stopped part-way (rows missing, or a mask from a stopped build) is
     audited down to its last complete layer. Auditing a prefix of a chain is always valid (TREE_PROOF.md)."""
@@ -584,6 +605,7 @@ def main():
         final, tree = resolve_transfers(final, tree, N_SEEDS, lambda t: float.fromhex(seeds_[t]['r']), X)
     else:
         final, tree = resolve_transfers(final, tree, N_SEEDS)
+    restricted = minimum_transition_scope(final, tree)
 
     with open(os.path.join(out, 'balls.tsv'), 'w') as f:
         f.write('\t'.join(['ball', 'r', 'final', 'certifier', 'certifier_patterns', 'split', 'status', 'level',
@@ -625,6 +647,10 @@ def main():
                        refine=round(ref_s / 3600, 1),
                        certifier=round(sum(x.get('seconds', 0) for x in tc.values()) / 3600, 1),
                        split=round(split_s / 3600, 1)))
+    summary['minimum_transition'] = dict(          # what a restricted ball's classification rests on
+        theorem='minimum-transition reduction (handoffs/ret_TC_ordering_result/TC_ordering_result/ORDERING_THEOREM.md §3)',
+        invariant='Gamma_F (gamma_test.py)', gamma_test_sha256=a.gamma_sha,
+        rule_enabled='ordering' in a.gamma_rules.split(','), balls=restricted)
     opened, summary['tree'] = open_cells(tree)
     json.dump(dict(time=time.strftime('%Y-%m-%d %H:%M'), balls=opened), open(os.path.join(out, 'open_cells.json'), 'w'))
     json.dump(summary, open(os.path.join(out, 'summary.json'), 'w'), indent=1)

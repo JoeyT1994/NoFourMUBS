@@ -95,6 +95,25 @@ def main():
                            capture_output=True, text=True, cwd=proot)
         cases.append(('the job cache again after the pre-replay is removed', ['--plane', os.path.join(d, 'manifest.json'), '--plane-cache', cache],
                       lambda rc, v, e: rc == 0 and v['plane']['cached_cells'] == [[4, [12, 5, 12, 12]]], unprereplay))
+        def restricted_cache():                        # the cell recorded with restricted (minimum-transition) scope only
+            for f_ in os.listdir(d):
+                if f_.startswith('replay_cache') or f_.startswith('prereplay'): os.remove(os.path.join(d, f_))
+            sys.path[:0] = [HERE]; import plane_cache
+            doc_ = json.load(open(os.path.join(d, 'manifest.json'))); item = doc_['cells'][0]
+            k = plane_cache.key(item, os.path.join(d, item['tree']['path']), doc_['checker_sources_sha256'], 4, [12, 5, 12, 12])
+            json.dump({k: 'minimum_transition'}, open(cache, 'w'))
+        glow = os.path.join(t, 'glow.json'); json.dump({'491': '0'}, open(glow, 'w'))
+        gsha = lambda p_: __import__('hashlib').sha256(open(p_, 'rb').read()).hexdigest()
+        ordering = lambda gs: ['--gamma-rules', 'ordering', '--gamma-sha', gs, '--gamma-lower', glow, '--gamma-lower-sha', gsha(glow)]
+        pin = gsha(os.path.join(proot, 'TripleClassification', 'code', 'gamma_test.py'))
+        plane_args = ['--plane', os.path.join(d, 'manifest.json'), '--plane-cache', cache]
+        cases.append(('a restricted cell, no ordering rule: stays open', plane_args,
+                      lambda rc, v, e: rc != 0 and 'unresolved cell' in e, restricted_cache))
+        cases.append(('a restricted cell, ordering rule with the pinned Gamma_F: closed, counted restricted', plane_args + ordering(pin),
+                      lambda rc, v, e: rc == 0 and v['gamma'].get('plane') == 1 and v['gamma'].get('plane_minimum_transition') == 1,
+                      restricted_cache))
+        cases.append(('a restricted cell, ordering rule with another Gamma_F: stays open', plane_args + ordering('0' * 64),
+                      lambda rc, v, e: rc != 0 and 'unresolved cell' in e, restricted_cache))
         def refined(status, sources):                  # the cell as a plane_refine.py tree (one leaf), with its refined.json
             def go():
                 c = os.path.join(d, '4_12_5_12_12')

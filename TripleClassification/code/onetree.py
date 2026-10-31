@@ -14,7 +14,9 @@ leaf: the record names this ball, level and cell; the record's H ball contains t
 (plane_frontier_certificate.cell_geometry, Arb); and the whole-cell check (ext_cell_certificate.check: PR #4's
 plane_cell_certificate.check for a proposal with only its witnesses, else with the secant, projector and gamma
 witnesses) rebuilds C1, the H normal form, Stage C and the complete K cover from the record and certifies every pattern
-excluded or classified. Nothing is cached and nothing is trusted from the search.
+excluded or classified, or (a gamma pattern passing only its ordering bound) ORDERING_DISCHARGED. A tree with such
+a leaf has restricted, minimum-transition scope (ORDERING_THEOREM.md): it counts only in an assembly that invokes
+that reduction with the same invariant Gamma_F; check reports it. Nothing is cached and nothing is trusted from the search.
 
 close: the search, coarse first. A cell that misses the ball is outside; otherwise fast_search.py --gamma proposes a
 proof (the gamma witness on each pattern first, then the column search, then secant and projector), with a time cap per
@@ -28,7 +30,7 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 CAPS = {0: 300, 1: 300, 2: 300, 3: 600, 4: 900, 5: 1200, 6: 1800, 7: 1800, 8: 1800}
 SEARCH = ['--gamma', '--projector', '--depth', '8', '--column-nodes', '30000', '--scalar-cap', '20000']
-CERT = ('CERTIFIED_EMPTY_RECORDED_H_CELL', 'CERTIFIED_CLASSIFIED_RECORDED_H_CELL')
+CERT = ('CERTIFIED_EMPTY_RECORDED_H_CELL', 'CERTIFIED_CLASSIFIED_RECORDED_H_CELL', 'CERTIFIED_MINIMUM_TRANSITION_RECORDED_H_CELL')
 W = {}
 
 
@@ -155,7 +157,8 @@ def check(a, root):
             key = st if not st.startswith('FAILED') else 'FAILED'; counts[key] = counts.get(key, 0) + 1; core += sec; slow = max(slow, sec)
             if key == 'FAILED': bad.append([level, cell, st])
     whole = tree['root'] == [0, [0, 0, 0, 0]]
-    res = dict(ball=a.ball, root=tree['root'], verdict=('CLOSED' if whole else 'CELL CLOSED') if not bad else 'OPEN', counts=counts,
+    scope = 'minimum-transition' if counts.get('CERTIFIED_MINIMUM_TRANSITION_RECORDED_H_CELL') else 'all'   # ORDERING_THEOREM.md
+    res = dict(ball=a.ball, root=tree['root'], verdict=('CLOSED' if whole else 'CELL CLOSED') if not bad else 'OPEN', scope=scope, counts=counts,
                failed=bad[:50], check_core_seconds=round(core), slowest_leaf_seconds=round(slow), wall_seconds=round(time.time() - t0),
                workers=a.workers)
     json.dump(res, open(out / 'check.json', 'w'), indent=1); print(json.dumps(res))

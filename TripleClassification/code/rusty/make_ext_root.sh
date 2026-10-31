@@ -25,6 +25,10 @@ assert s.count(a) == 1; s = s.replace(a, b)
 a = "from plane_column_certificate import digest,read_json,require\n"
 b = a + "import ext_cell_certificate as _Ext;_Ext.install()   # pr4ext: plane_cell_certificate.check plus the two witnesses\n"
 assert s.count(a) == 1; s = s.replace(a, b)
+a = "CERTIFIED={'CERTIFIED_EMPTY_DYADIC_CELL','CERTIFIED_CLASSIFIED_DYADIC_CELL'}"
+b = ("CERTIFIED={'CERTIFIED_EMPTY_DYADIC_CELL','CERTIFIED_CLASSIFIED_DYADIC_CELL',\n"
+     "           'CERTIFIED_MINIMUM_TRANSITION_DYADIC_CELL'}   # pr4ext: restricted scope, recorded per cell (audit_select.py)")
+assert s.count(a) == 1; s = s.replace(a, b)
 open(sys.argv[2], 'w').write(s)
 EOF
 rm -f "$C/plane_audit_manifest.py"; mv "$C/plane_audit_manifest.py.new" "$C/plane_audit_manifest.py"
@@ -48,6 +52,15 @@ rep = [
   "    classified=any(leaf['status']=='CERTIFIED_CLASSIFIED_RECORDED_H_CELL' for leaf in leaves) or bool(targets)"),
  ("        counts=counts,leaves=leaves,checker_sha256=digest(__file__),",
   "        counts=counts,leaves=leaves,checker_sha256=digest(__file__),transfer_targets=sorted(set(targets)),"),
+ ("        require(result['status'] in ('CERTIFIED_EMPTY_RECORDED_H_CELL','CERTIFIED_CLASSIFIED_RECORDED_H_CELL'),",
+  "        require(result['status'] in ('CERTIFIED_EMPTY_RECORDED_H_CELL','CERTIFIED_CLASSIFIED_RECORDED_H_CELL',\n"
+  "                                     'CERTIFIED_MINIMUM_TRANSITION_RECORDED_H_CELL'),   # pr4ext: restricted scope"),
+ ("    return dict(schema='tc-plane-tree-receipt-v1',status='CERTIFIED_CLASSIFIED_DYADIC_CELL' if classified else\n        'CERTIFIED_EMPTY_DYADIC_CELL',",
+  "    restricted=any(leaf['status']=='CERTIFIED_MINIMUM_TRANSITION_RECORDED_H_CELL' for leaf in leaves)   # pr4ext\n"
+  "    return dict(schema='tc-plane-tree-receipt-v2',status='CERTIFIED_MINIMUM_TRANSITION_DYADIC_CELL' if restricted else\n"
+  "        'CERTIFIED_CLASSIFIED_DYADIC_CELL' if classified else 'CERTIFIED_EMPTY_DYADIC_CELL',"),
+ ("        scope='Every completing K on the intersection",
+  "        scope=('Restricted (minimum-transition) scope, Gamma_F(H) <= Gamma_F(K), Gamma_F(L): ' if restricted else '')+'Every completing K on the intersection"),
 ]
 for a, b in rep:
     a = a.replace('\\n', '\n'); b = b.replace('\\n', '\n')

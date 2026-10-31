@@ -92,7 +92,7 @@ def main():
         def gamma(clique):
             """A gamma witness the extended check accepts, or None: mode L, then K; the last alignment that worked, then
             the best alignment of the centre phases."""
-            if gs['ctx'] is None: gs['ctx'] = Ext.GT.prep(model, Fraction(0))
+            if gs['ctx'] is None: gs['ctx'] = Ext.gamma_context(model)
             for mode in ('L', 'K'):
                 tried = []
                 for k in range(2):

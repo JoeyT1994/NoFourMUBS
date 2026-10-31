@@ -41,7 +41,10 @@ def leaf(job):
 
 def one(job):
     level, cell, k = job
-    try: return level, cell, k, M.close(level, cell), ''
+    try:
+        if not M.close(level, cell): return level, cell, k, False, 'not closed'
+        st = M.replayed[(level, tuple(cell))]['status']      # the cache records the scope (audit_select.plane_close)
+        return level, cell, k, 'minimum_transition' if st == 'CERTIFIED_MINIMUM_TRANSITION_DYADIC_CELL' else 'certified', ''
     except Exception as e: return level, cell, k, False, ('%s: %s' % (type(e).__name__, e))[:120]
 
 
@@ -75,7 +78,7 @@ def main():
         ents = list(m.entries.items())
         with ThreadPoolExecutor(32) as tp:            # every leaf file is hashed: I/O-bound, in threads
             keys = list(tp.map(lambda x: plane_cache.key(x[1][2], x[1][1], src, x[0][0], x[0][1]), ents))
-        jobs = [(level, list(cell), k) for ((level, cell), _), k in zip(ents, keys) if have.get(k) != 'certified']
+        jobs = [(level, list(cell), k) for ((level, cell), _), k in zip(ents, keys) if have.get(k) not in ('certified', 'minimum_transition')]
         if leaves_mode:                        # every leaf of the uncached cells, each once
             want = {(level, tuple(cell)) for level, cell, _ in jobs}; ls = set()
             def walk(node, tree_path):
@@ -105,7 +108,7 @@ def main():
             for f in as_completed([pool.submit(one, j) for j in jobs]):
                 level, cell, k, ok, err = f.result()
                 n += 1
-                if ok: mine[k] = 'certified'
+                if ok: mine[k] = ok
                 else: failed.append(dict(level=level, cell=cell, error=err))
                 if n % 100 == 0: plane_cache.save(out, mine)
         plane_cache.save(out, mine)
