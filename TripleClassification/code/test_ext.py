@@ -4,7 +4,7 @@
   python test_ext.py PLANE_ROOT CELL_DIR
 
 CELL_DIR: the saved proof of ball 491's level-4 cell (12, 5, 12, 12) (entry.json, frontier.input.json.gz, ...).
-1. the extended replay certifies a pinned proposal (nothing changes for proofs without the new witnesses);
+1. the extended replay certifies a pinned proposal by the pinned check itself (its receipt names the pinned files only);
 2. ball 825's level-6 cell (3, 22, 27, 42), which no search budget certifies, is proposed with secant witnesses and
    certified by the extended replay;
 3. the pinned replay refuses that proposal (the new witnesses are what certify it);
@@ -35,7 +35,8 @@ def main():
         failures += not ok; print('%-4s %-62s %s %s' % ('PASS' if ok else 'FAIL', name, r.get('status'), str(r.get('reason', ''))[:70]))
     with tempfile.TemporaryDirectory() as t:
         c491 = os.path.join(t, '491'); shutil.copytree(cdir, c491); r = replay(c491, os.path.join(c491, 'frontier.proposal.json.gz'))
-        report('a pinned proposal, extended replay', r['status'] in CERT and 'TripleClassification/code/ext_cell_certificate.py' in r['dependencies_sha256'], r)
+        report('a pinned proposal, extended replay: the pinned check, pinned files only',
+               r['status'] in CERT and not any('ext_cell_certificate' in k or 'gamma_test' in k for k in r['dependencies_sha256']), r)
         d = os.path.join(t, '825'); os.makedirs(d)
         json.dump(dict(ball=825, level=6, cell=[3, 22, 27, 42], subatlas='none', sub=0, record_sha256='none'), open(os.path.join(d, 'entry.json'), 'w'))
         subprocess.run([sys.executable, '-W', 'ignore', os.path.join(HERE, 'fast_search.py'), root, os.path.join(d, 'entry.json'), '--out',
@@ -79,6 +80,24 @@ def main():
                         os.path.join(d, 'frontier.json'), '--gamma-only'], cwd=root, env=env, capture_output=True)
         r = replay(d, os.path.join(d, 'frontier.proposal.json.gz'))
         report('fast_search --gamma-only on that cell, extended replay', r['status'] == CERT[1], r)
+        LEAF = '''import json, os, sys; from pathlib import Path
+os.environ['TC_ROOT'] = sys.argv[1]; import importlib.util, gzip
+sp = importlib.util.spec_from_file_location('ext_cell_certificate', sys.argv[2]); E = importlib.util.module_from_spec(sp); sp.loader.exec_module(E)
+from flint import ctx; ctx.prec = 224
+r = E.check(Path(sys.argv[3]), json.load(gzip.open(sys.argv[4]))); print(json.dumps(dict(status=r['status'], cached=r.get('leaf_cache', False))))'''
+        lc = os.path.join(t, 'leafcache'); os.makedirs(lc)
+        def leaf_check(cache=True):
+            q = subprocess.run([sys.executable, '-W', 'ignore', '-c', LEAF, root, os.path.join(HERE, 'ext_cell_certificate.py'),
+                                os.path.join(d, 'frontier.input.json.gz'), os.path.join(d, 'frontier.proposal.json.gz')], capture_output=True, text=True,
+                               env=dict(env, **({'TC_LEAF_CACHE': lc} if cache else {})), cwd=root)
+            try: return json.loads(q.stdout.strip().splitlines()[-1])
+            except (ValueError, IndexError): return dict(status=None, reason=q.stderr[-300:])
+        r = leaf_check(); report('leaf cache: first check computes and records', r['status'] == 'CERTIFIED_CLASSIFIED_RECORDED_H_CELL' and not r['cached'], r)
+        r = leaf_check(); report('leaf cache: second check is served from the cache', r['status'] == 'CERTIFIED_CLASSIFIED_RECORDED_H_CELL' and r['cached'], r)
+        f = os.path.join(lc, 'leaf_cache.b825.jsonl'); lines = open(f).read().splitlines(); x = json.loads(lines[-1])
+        x['dependencies_sha256']['TripleClassification/code/gamma_test.py'] = '0' * 64; open(f, 'w').write(json.dumps(x) + '\n')
+        r = leaf_check(); report('leaf cache: an entry whose dependency changed is not used', r['status'] == 'CERTIFIED_CLASSIFIED_RECORDED_H_CELL' and not r['cached'], r)
+        r = leaf_check(cache=False); report('leaf cache: off without TC_LEAF_CACHE', r['status'] == 'CERTIFIED_CLASSIFIED_RECORDED_H_CELL' and not r['cached'], r)
     print('%d failure(s)' % failures); sys.exit(1 if failures else 0)
 
 

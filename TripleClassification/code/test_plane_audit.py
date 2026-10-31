@@ -74,9 +74,22 @@ def main():
                       lambda rc, v, e: rc == 0 and v['plane']['cached_cells'] == [[4, [12, 5, 12, 12]]] and
                       json.load(open(os.path.join(d, 'prereplay.0.json')))['certified'] == 1 and
                       json.load(open(os.path.join(d, 'prereplay.1.json')))['replayed'] == 0, prereplay_parts))
+        def prereplay_leaves():                        # leaf phase (leaf cache beside the ball), then the tree phase
+            for f_ in ('replay_cache.json', 'replay_cache.jobs.json', 'replay_cache.prereplay.0.json', 'replay_cache.prereplay.1.json',
+                       'prereplay.0.json', 'prereplay.1.json'):
+                q = os.path.join(d, f_); os.path.exists(q) and os.remove(q)
+            for extra in (['--leaves'], ['--leaves'], []):
+                q = subprocess.run([sys.executable, '-W', 'ignore', os.path.join(HERE, 'rusty', 'plane_prereplay.py'), proot, d, '491', '2'] + extra,
+                                   capture_output=True, text=True, cwd=proot, env=dict(os.environ, TC_LEAF_CACHE=d))
+                print('prereplay %s:' % (extra or 'trees'), q.stdout.strip() or q.stderr.strip()[-300:])
+        if os.path.exists(os.path.join(proot, 'TripleClassification', 'code', 'ext_cell_certificate.py')):
+            cases.append(('pre-replay by leaves (second pass from the leaf cache), then trees', ['--plane', os.path.join(d, 'manifest.json'), '--plane-cache', cache],
+                          lambda rc, v, e: rc == 0 and v['plane']['cached_cells'] == [[4, [12, 5, 12, 12]]] and
+                          json.load(open(os.path.join(d, 'prereplay.leaves.json')))['counts'] == {'cached': 1} and
+                          json.load(open(os.path.join(d, 'prereplay.json')))['certified'] == 1, prereplay_leaves))
         def unprereplay():
             for f_ in ('replay_cache.prereplay.0.json', 'replay_cache.prereplay.1.json', 'prereplay.0.json', 'prereplay.1.json',
-                       'replay_cache.prereplay.json', 'prereplay.json'):
+                       'replay_cache.prereplay.json', 'prereplay.json', 'prereplay.leaves.json', 'leaf_cache.b491.jsonl'):
                 q = os.path.join(d, f_); os.path.exists(q) and os.remove(q)
             subprocess.run([sys.executable, '-W', 'ignore', os.path.join(HERE, 'rusty', 'plane_manifest.py'), proot, d, '491'],
                            capture_output=True, text=True, cwd=proot)

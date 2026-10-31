@@ -21,7 +21,7 @@ two discharges as the audit's gamma rules 'fourier' and 'ordering', applied to o
 The pinned checker tree is TC_ROOT, or the tree this file is installed in (pr4ext). install() replaces plane_cell_certificate.check by this check in the
 calling process, so plane_frontier_certificate.run (a replay) and plane_tree_certificate.check (a tree) use it.
 """
-import hashlib, os, sys, time
+import fcntl, hashlib, json, os, sys, time
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
@@ -32,6 +32,7 @@ for d in (str(HERE / 'projector'), str(ROOT / 'TripleClassification/code')):   #
     if d in sys.path: sys.path.remove(d)                                            # file's folder (other versions
     sys.path.insert(0, d)                                                           # of some pinned modules)
 import plane_cell_certificate as Whole
+_PINNED_CHECK = getattr(Whole, '_pinned_check', Whole.check); Whole._pinned_check = _PINNED_CHECK   # before install()
 P_ = Path(Whole.__file__).resolve()
 if ROOT not in P_.parents: raise ImportError('plane_cell_certificate is not from TC_ROOT: %s' % P_)
 import anchored_column_certificate as _A
@@ -111,7 +112,74 @@ def validate_witnesses(cliques, witnesses, keys):
     P.require(keys == {str(c) for c in used}, 'missing or unused column proof')
 
 
+NEW_WITNESSES = ('projector', 'secant', 'gamma')
+
+
+def needs_extension(proposal):
+    return any(k in w for w in proposal.get('witnesses', []) for k in NEW_WITNESSES)
+
+
+# Leaf cache (live audit only, as the plane replay cache; never verify_ball.py): TC_LEAF_CACHE names a directory with
+# one append-only file per ball, leaf_cache.b<ball>.jsonl. An entry binds the exact input file and proposal to the three
+# fields plane_tree_certificate.check reads from a certified leaf (status, patterns_total, dependencies_sha256), and is
+# used only while every file in that dependency list still has the recorded hash: a change to a checker file reopens
+# exactly the leaves whose check depends on it (a leaf without the new witnesses depends on the pinned files only).
+_leaf = {}; _filesha = {}
+
+
+def _sha_rel(rel):
+    """The current SHA-256 of a dependency named as a receipt names it: the extension's files from this file's folder
+    (as extension_sha256 records them), everything else from the checker tree."""
+    if rel not in _filesha:
+        ext = {'TripleClassification/code/' + str(p.relative_to(HERE)): p for p in EXTENSION}
+        q = ext.get(rel, ROOT / rel); _filesha[rel] = P.digest(q) if q.is_file() else None
+    return _filesha[rel]
+
+
+def _leaf_key(path, proposal):
+    return hashlib.sha256(json.dumps([P.digest(path), hashlib.sha256(json.dumps(proposal, sort_keys=True).encode()).hexdigest()]).encode()).hexdigest()
+
+
+def _leaf_file(path):
+    d = os.environ.get('TC_LEAF_CACHE')
+    if not d: return None
+    return Path(d) / ('leaf_cache.b%d.jsonl' % int(P.read_json(path)['ball']))
+
+
+def _leaf_get(f, k):
+    if f not in _leaf:
+        _leaf[f] = {}
+        try:
+            for line in open(f):
+                try: x = json.loads(line); _leaf[f][x['key']] = x
+                except (ValueError, KeyError): pass
+        except OSError: pass
+    x = _leaf[f].get(k)
+    if x and x['status'] in ('CERTIFIED_EMPTY_RECORDED_H_CELL', 'CERTIFIED_CLASSIFIED_RECORDED_H_CELL') and \
+            all(_sha_rel(rel) == h for rel, h in x['dependencies_sha256'].items()):
+        return dict(status=x['status'], patterns_total=x['patterns_total'], dependencies_sha256=x['dependencies_sha256'], leaf_cache=True)
+    return None
+
+
+def _leaf_put(f, k, r):
+    line = json.dumps(dict(key=k, status=r['status'], patterns_total=r['patterns_total'], dependencies_sha256=r['dependencies_sha256'])) + '\n'
+    with open(f, 'a') as h:
+        fcntl.flock(h, fcntl.LOCK_EX); h.write(line); h.flush(); fcntl.flock(h, fcntl.LOCK_UN)
+
+
 def check(path, proposal):
+    """The pinned check for a proposal without the new witnesses, else the extended check; with TC_LEAF_CACHE set, a
+    certified result is recorded and reused (see above)."""
+    f = _leaf_file(path); k = _leaf_key(path, proposal) if f else None
+    if f:
+        r = _leaf_get(f, k)
+        if r: return r
+    r = _ext_check(path, proposal) if needs_extension(proposal) else _PINNED_CHECK(path, proposal)
+    if f and r.get('status') in ('CERTIFIED_EMPTY_RECORDED_H_CELL', 'CERTIFIED_CLASSIFIED_RECORDED_H_CELL'): _leaf_put(f, k, r)
+    return r
+
+
+def _ext_check(path, proposal):
     start = time.monotonic(); s, model, C, binding, columns, cliques = Whole.complete_cover(path)
     P.require(proposal.get('schema') == 'tc-plane-cell-proposal-v1' and
               proposal.get('snapshot_sha256') == binding['snapshot_sha256'] and

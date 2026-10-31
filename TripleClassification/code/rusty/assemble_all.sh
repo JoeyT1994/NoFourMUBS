@@ -9,6 +9,7 @@
 #SBATCH --time=6:00:00
 #SBATCH --output=/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/assemble_%j.out
 export OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1
+export TC_LEAF_CACHE=/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/plane_v1   # leaf cache (ext_cell_certificate.py): plane_prereplay.py --leaves fills it
 B=/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc; PY=/mnt/ceph/users/jtindall/venvs/nofourmubs/bin/python
 C=$B/main_split3/TripleClassification/code; A=$B/frozen_bd87c69/proof/seed_atlas/results/seed_atlas_certificate.json.gz
 : "${OUT:?set OUT to the results directory name}"     # stops here if OUT is unset or empty
