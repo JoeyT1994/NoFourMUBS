@@ -726,3 +726,29 @@ interface, allowing the upstream secant/projector extension to run unchanged.
 Explicit parallel replay still passes and validates its worker count. The
 upstream secant certificate for ball 825 `(6;3,22,27,42)` passes fresh frontier
 and tree replay through this interface.
+
+### Replaying large manifests without skipped work
+
+`rusty/plane_prereplay.py --part I/K` assigns each cell to a stable hash of its
+level and coordinates. Leaf replay assigns the input/proposal hash pair instead.
+Filtering already completed work cannot change these assignments. The previous
+index-based partition of the shrinking uncached list could omit work when nodes
+started at different times, leaving expensive serial replay to the live audit.
+Each identity has exactly one owner; equal-content leaf files are checked once.
+
+Leaf workers do not rebuild the whole manifest. Forked tree workers reuse the
+parent's validated map, while the usual immediate file checks and mathematical
+replay remain in `PlaneManifest.close`. The selective auditor computes the
+validated checker-source binding once instead of rereading the full manifest
+for every cache lookup. Frozen checker trees remain compatible. The independent
+`verify_ball.py` explicitly removes inherited `TC_LEAF_CACHE`, so live-loop
+receipts cannot replace its fresh mathematical replay.
+
+Validation on 31 October: 94 plane tests pass. Sixteen existing native cell
+proofs, four from each of 768, 815, 825 and 1016, passed fresh laptop and Popeye
+replays with staggered parts and a growing cache. Popeye job 2500360 used two
+genx cores and completed in 124 seconds. These are scheduling and replay tests,
+not complete covers, and establish no new original-ball closure. The current
+Rusty manifests, referenced proofs, covering layers, receipts and transfer-target
+dependencies are still required for the full original-radius audits. Their
+published 1,800-second timeouts do not establish failure of the mathematics.

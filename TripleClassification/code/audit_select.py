@@ -164,8 +164,9 @@ def main():
     plane = None
     if args.plane:
         sys.path.insert(0, str(root / 'TripleClassification/code'))
-        from plane_audit_manifest import PlaneManifest      # requires root to be the plane checker's tree
+        from plane_audit_manifest import PlaneManifest, source_hashes  # uses the pinned checker tree
         plane = PlaneManifest(args.plane, args.index, root)
+        plane_sources = source_hashes(root)          # the same binding checked by PlaneManifest, once per audit
     pcache = {}
     if plane and args.plane_cache:
         import plane_cache                           # shared with plane_prereplay.py, so the keys are identical
@@ -174,7 +175,7 @@ def main():
 
     def plane_key(level, cell):
         entry, tree_path, item = plane.entries[(level, tuple(cell))]
-        return plane_cache.key(item, tree_path, json.load(open(args.plane))['checker_sources_sha256'], level, cell)
+        return plane_cache.key(item, tree_path, plane_sources, level, cell)
 
     def plane_close(level, cell):
         if (level, tuple(cell)) not in plane.entries: return False

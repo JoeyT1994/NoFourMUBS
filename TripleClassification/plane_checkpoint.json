@@ -266,5 +266,34 @@
       "upstream_extension_unmodified": true
     },
     "plane_tests": 89
+  },
+  "audit_timeout_validation_2026_10_31": {
+    "upstream_snapshot": "19bb11587367604d474401999f132eccf0300526",
+    "published_open_balls": [
+      768,
+      815,
+      825,
+      1016
+    ],
+    "published_reason": "audit failed: timed out after 1800 s",
+    "original_ball_closures_added": 0,
+    "plane_tests": 94,
+    "prereplay_sha256": "309902cf39da7caba409ea50f781e73e70923bc75c1edb970363cf73b4ccf415",
+    "sample_proofs_sha256": "c90b57425bf1e55307a7fa0cac6669c8f4cb3d194b4fa757dc06b2a44187fb82",
+    "sample_cells": 16,
+    "sample_cells_per_ball": 4,
+    "local_seconds": 67.475,
+    "popeye": {
+      "directory": "/mnt/sdceph/users/mwuttig/MUB_Hadamard/runs/tc_partition_20261029_61658d2111d8/audit_timeout_pilot_b6293b901e7e",
+      "job": "2500360",
+      "partition": "genx",
+      "cores": 2,
+      "wall_seconds": 124,
+      "summary_sha256": "e59f5ab5986e49ac6ba0c619cbcafe57d2a4831d3c504ef9f330c40afff54a6a",
+      "receipts_sha256": "246236fca6663890b90fda461eea7b0d7048879488ff03b74da7ced7a03e2cec",
+      "deployment_manifest_sha256": "ce1799c58b78d34a1c26533adc79cce5316fe8f00b17356ac531724346540010"
+    },
+    "missing_inputs": "Current Rusty four-ball plane manifests and recursively referenced proofs, full covering layers and receipts, Stage C and rule sidecars, transfer-target dependencies.",
+    "scope": "Scheduling and fresh cell-replay validation only. The current upstream full covers are absent on Popeye; no full original-ball audit or unconditional all-K closure is claimed."
   }
 }

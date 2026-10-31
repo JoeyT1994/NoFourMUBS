@@ -66,7 +66,9 @@ def main():
         if not m.get('gamma') and not m.get('anchored'): cmd += ['--gamma-rules', 'graph']
         cmd += ['--graph', m['graph']['records']['path'], '--graph-dir', m['graph']['checker_dir'],
                 '--graph-sha', m['graph']['checker_sha256'], '--graph-runner-sha', m['graph']['runner_sha256']]
-    p = subprocess.run(cmd, capture_output=True, text=True)
+    # An independent replay must not inherit the live loop's leaf cache.
+    env = dict(os.environ); env.pop('TC_LEAF_CACHE', None)
+    p = subprocess.run(cmd, capture_output=True, text=True, env=env)
     try:
         v = json.loads((p.stdout.strip().splitlines() or ['{}'])[-1])
     except ValueError:

@@ -97,6 +97,23 @@ class ManifestTests(unittest.TestCase):
             result=json.loads(output.getvalue());self.assertEqual(result['status'],'GEOMETRY_AND_RECEIPTS_VERIFIED')
             self.assertEqual(result['layers'][0]['still_open'],0)
             self.assertEqual(result['plane']['cells'][0]['cell'],[1]*4)
+            # The manifest may contain tens of thousands of cells. Cache keys
+            # must use its validated source snapshot, without parsing the full
+            # manifest again at every lookup. Mathematical replay still runs.
+            import plane_cache
+            original_load=json.load
+            def no_manifest_reload(stream,*a,**kw):
+                if Path(getattr(stream,'name','/unused'))==self.path:
+                    raise AssertionError('manifest parsed again during cell lookup')
+                return original_load(stream,*a,**kw)
+            output=io.StringIO()
+            with patch.object(sys,'argv',args+['--plane',str(self.path),'--plane-cache',str(self.folder/'replay_cache.json')]),\
+                 patch.object(M.Tree,'check',return_value=self.result) as replay,\
+                 patch.object(plane_cache,'key',return_value='fresh-key') as key,\
+                 patch.object(json,'load',side_effect=no_manifest_reload),contextlib.redirect_stdout(output):
+                audit.main()
+            replay.assert_called_once()
+            self.assertEqual(key.call_args.args[2],self.doc['checker_sources_sha256'])
             # Reopening a second cell must fail even with a valid first proof.
             rows[target+1]['status']='NOT ESTABLISHED'
             with patch.object(sys,'argv',args+['--plane',str(self.path)]),\

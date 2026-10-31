@@ -1,5 +1,5 @@
 """Assembly must replay plane proofs and preserve every other discharge route."""
-import contextlib, io, json, subprocess, sys, tempfile, unittest
+import contextlib, io, json, os, subprocess, sys, tempfile, unittest
 from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import patch
@@ -70,9 +70,11 @@ class AssemblyTests(unittest.TestCase):
                 args=['verify_ball.py',str(path),'--root',str(root),'--guard',guard['path']]
                 result=dict(status='GEOMETRY_AND_RECEIPTS_VERIFIED',layers=[],discharged=[],plane=dict(cells=[]))
                 response=SimpleNamespace(returncode=0,stdout=json.dumps(result),stderr='')
-                with patch.object(sys,'argv',args),patch.object(subprocess,'run',return_value=response) as replay,\
+                with patch.dict(os.environ,{'TC_LEAF_CACHE':'/untrusted/live-cache'}),\
+                     patch.object(sys,'argv',args),patch.object(subprocess,'run',return_value=response) as replay,\
                      contextlib.redirect_stdout(io.StringIO()):verify_ball.main()
                 command=replay.call_args.args[0]
+                self.assertNotIn('TC_LEAF_CACHE',replay.call_args.kwargs['env'])
                 self.assertNotIn('--plane-cache',command)
                 self.assertEqual(command[command.index('--plane')+1],plane['path'])
                 self.assertEqual(command[command.index('--root')+1],str(root/'checker') if nested else str(root))
