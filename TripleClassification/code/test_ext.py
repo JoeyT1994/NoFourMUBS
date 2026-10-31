@@ -9,7 +9,10 @@ CELL_DIR: the saved proof of ball 491's level-4 cell (12, 5, 12, 12) (entry.json
    certified by the extended replay;
 3. the pinned replay refuses that proposal (the new witnesses are what certify it);
 4. a changed number in a secant witness is refused by the extended replay;
-5. a secant witness naming other columns of its pattern is refused.
+5. a secant witness naming other columns of its pattern is refused;
+6. an AntiGravity gamma proposal (ball 825, level-5 cell (10, 15, 16, 8): every pattern by a gamma witness) is
+   certified, classified, by the extended replay, and refused by the pinned one;
+7. a gamma witness with a changed alignment, or naming other columns, is refused.
 """
 import gzip, json, os, shutil, subprocess, sys, tempfile
 
@@ -51,6 +54,24 @@ def main():
         r = changed(scale, 'sign.json.gz'); report('a secant witness with its transverse row negated', r['status'] not in CERT, r)
         def other(w): w['columns'] = list(reversed(w['columns']))
         r = changed(other, 'other.json.gz'); report('a secant witness naming other columns', r['status'] not in CERT, r)
+        ag = os.path.join(HERE, '..', '..', 'AntiGravityClosureAttempt', 'ball_closure_receipts', 'b825', '825_5_10_15_16_8')
+        d = os.path.join(t, 'g825'); os.makedirs(d)
+        shutil.copy(ag + '.input.json.gz', os.path.join(d, 'frontier.input.json.gz')); gp = os.path.join(d, 'frontier.proposal.json.gz')
+        shutil.copy(ag + '.proposal.json.gz', gp)
+        i = json.load(gzip.open(gp.replace('proposal', 'input')))
+        json.dump(dict({k: i[k] for k in ('ball', 'level', 'cell', 'subatlas', 'sub')}, record_sha256=i['legacy_record_sha256']),
+                  open(os.path.join(d, 'entry.json'), 'w'))
+        r = replay(d, gp); report('825 (5;10,15,16,8): AG gamma proposal, extended replay', r['status'] == CERT[1], r)
+        r = replay(d, gp, ext=False); report('the same proposal, pinned replay', r['status'] not in CERT, r)
+        q0 = json.load(gzip.open(gp))
+        def gchanged(edit, name):
+            q = json.loads(json.dumps(q0)); edit(q['witnesses'][0]); f = os.path.join(d, name)
+            with gzip.open(f, 'wt') as g: json.dump(q, g)
+            return replay(d, f)
+        def align(w): w['gamma']['a'] = [0] + list(reversed(w['gamma']['a'][1:]))
+        r = gchanged(align, 'galign.json.gz'); report('a gamma witness with a reversed alignment', r['status'] not in CERT, r)
+        def gcols(w): w['columns'] = list(reversed(w['columns']))
+        r = gchanged(gcols, 'gcols.json.gz'); report('a gamma witness naming its columns in another order', r['status'] not in CERT, r)
     print('%d failure(s)' % failures); sys.exit(1 if failures else 0)
 
 

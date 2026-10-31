@@ -20,7 +20,7 @@ s = open(sys.argv[1]).read()
 a = "'anchored_column_certificate.py','stagec_guard.py'))"
 b = ("'anchored_column_certificate.py','stagec_guard.py',\n    # pr4ext: the extended check (projector and secant witnesses)\n"
      "    'ext_cell_certificate.py','projector/projector_joint_certificate.py','projector/projector_union_hook.py',\n"
-     "    'projector/moving_secant_certificate.py','ext_transfer.py'))")
+     "    'projector/moving_secant_certificate.py','ext_transfer.py','gamma_test.py'))")
 assert s.count(a) == 1; s = s.replace(a, b)
 a = "from plane_column_certificate import digest,read_json,require\n"
 b = a + "import ext_cell_certificate as _Ext;_Ext.install()   # pr4ext: plane_cell_certificate.check plus the two witnesses\n"
