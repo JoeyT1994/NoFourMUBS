@@ -40,6 +40,7 @@ while [ "$(date +%s)" -lt "$end" ]; do
         < /dev/null > /dev/null && echo "$(date +%H:%M) ball $b: pre-replay" >> $LOG
   done
   # one audit per open ball with all its proofs: progress/progress.tsv says, per ball, what is left and why
-  [ -n "$open" ] && /mnt/ceph/users/jtindall/venvs/nofourmubs/bin/python -W ignore $B/ball_progress.py $B/progress $open > /dev/null 2>> $LOG
+  # (ball_progress.py, one audit per open ball, is left to the live pass: with cold replay caches it ran for hours
+  # and held back the next round's pre-replays)
   sleep 1200
 done
