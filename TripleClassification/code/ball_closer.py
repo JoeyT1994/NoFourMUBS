@@ -122,7 +122,8 @@ def main():
         else None."""
         if transfer_targets is not None:        # closed by an equivalence into a ball still allowed (checked at the end)
             try:
-                if json.load(open(d / 'transfer.json'))['target'] in transfer_targets: return 'transfer'
+                sp = json.load(open(d / 'transfer.json'))
+                if sp['target'] in transfer_targets or sp.get('region') == 'image': return 'transfer'   # region: audited
             except (OSError, ValueError, KeyError, TypeError): pass
         try:
             r = json.load(open(d / 'replay.json'))
@@ -314,7 +315,9 @@ def main():
                 ri, level, cell, nd = job; R = roots[ri]; d = R['cells'] / name(level, cell); ent = dict(R['entry'], level=level, cell=list(cell))
                 try:
                     r = json.load(open(d / 'replay.json')); deps = r.get('dependencies_sha256') or {}
-                    ok = (r.get('status') in CERT and json.load(open(d / 'entry.json')) == ent and r.get('entry_sha256') == dg(d / 'entry.json')
+                    e_ = json.load(open(d / 'entry.json'))  # the cell, not the legacy metadata (the H record is rebuilt)
+                    ok = (r.get('status') in CERT and [e_.get(k) for k in ('ball', 'level', 'cell')] == [a.ball, level, list(cell)]
+                          and r.get('entry_sha256') == dg(d / 'entry.json')
                           and r.get('snapshot_sha256') == dg(d / 'frontier.input.json.gz') == nd['input']['sha256']
                           and r.get('proposal_sha256') == dg(d / 'frontier.proposal.json.gz') == nd['proposal']['sha256']
                           and r.get('original_atlas_sha256') == F.PIN and r.get('ball') == a.ball

@@ -106,6 +106,18 @@ def main():
             r = transfer_run('tcf', '--cells-from', os.path.join(t, 'list825.txt'), '--max-level', '6')
             r['refined'] = json.load(open(os.path.join(c, 'refined.json'))) if os.path.exists(os.path.join(c, 'refined.json')) else {}
             return r
+        def region_run():
+            import gzip
+            it = next(x for x in json.load(gzip.open(os.path.join(HERE, '..', '..', 'AntiGravityClosureAttempt', 'transfer_receipts', 'b815_transfers.json.gz')))
+                      if x['target_ball'] == 1016)
+            lv, cl = it['box'][0], it['box'][1:]; d = os.path.join(t, 'reg', 'b815', 'cells', '%d_%s' % (lv, '_'.join(map(str, cl))))
+            os.makedirs(d); json.dump(dict(target=1016, group=it['group'], region='image'), open(os.path.join(d, 'transfer.json'), 'w'))
+            open(os.path.join(t, 'none.txt'), 'w').write('')
+            q = subprocess.run([sys.executable, '-W', 'ignore', os.path.join(HERE, 'ball_closer.py'), eroot, '815', os.path.join(t, 'reg'),
+                                '--cell', '%d:%s' % (lv, ','.join(map(str, cl))), '--start', str(lv), '--max-level', str(lv),
+                                '--transfer-targets', os.path.join(t, 'none.txt'), '--workers', w], capture_output=True, text=True)
+            try: return json.load(open(os.path.join(t, 'reg', 'b815', 'closer.json')))
+            except (OSError, ValueError): print(q.stderr[-1500:]); return {}
         if eroot:
             cases += [('825 (5; 3,15,14,12) closed by a transfer into 595', lambda: transfer_run('tr', '--cell', '5:3,15,14,12', '--start', '5'),
                        lambda r: r.get('verdict') == 'CLOSED' and r['tree_counts'] == dict(nodes=1, outside=0, certified=0, transfer=1)
@@ -113,6 +125,8 @@ def main():
                       ('a transfer target not allowed: the cell is searched, not transferred',
                        lambda: transfer_run('tr0', '--cell', '5:3,15,14,12', '--start', '5', '--max-level', '5', '--seconds', '5:1', '--transfer-targets', os.devnull),
                        lambda r: r.get('transfer_targets', []) == [] and 'transfer' not in str(r.get('tree_counts'))),
+                      ('a recorded region transfer (815 into 1016) is a leaf, checked by the atlas code', region_run,
+                       lambda r: r.get('verdict') == 'CLOSED' and r['transfer_targets'] == [1016] and not r['check_failed']),
                       ('--cells-from: children closed by transfer, refined.json names the target', transfer_cells,
                        lambda r: r.get('verdict') == 'CLOSED 1 OF 1 CELLS' and r['refined'].get('transfer_targets') == [595]
                        and r['refined'].get('status') == 'CERTIFIED_CLASSIFIED_DYADIC_CELL')]

@@ -6,6 +6,10 @@ A leaf {'transfer': {'target': T, 'group': G}} of a cell (level, cell) of ball B
 of the corner, conjugation or transposition, and phase windings), to a matrix in the closed atlas ball T. Third bases
 correspond under Hadamard equivalence, so the cell holds no third basis of unknown type once ball T is closed.
 
+A region transfer {'transfer': {'target': T, 'group': G, 'region': 'image'}} is the same, except that ball T need not
+be closed: the audit (assemble.py) requires the image of the box (image_box) to miss every cell of T that T's own
+audit leaves unresolved or closes through a transfer, so the image lies in a part of T proved directly.
+
 The check is the atlas's own (proof/seed_atlas/cert/patches.py, pinned): Transfer(model_for(B), Ball(T), G)
 .check([level, *cell], use_sphere=False) proves, in Arb, that the image of the whole solid box lies strictly inside
 ball T (with the orientation margins for a non-linear map). That ball T is closed is not checked here: the leaf
@@ -32,8 +36,9 @@ def check(root, ball, level, cell, spec):
     """Raise ValueError unless the transfer leaf is certified; return its target ball."""
     from flint import ctx
     root = Path(root).resolve(); P, SC, seeds = _atlas(root)
-    if not (isinstance(spec, dict) and set(spec) == {'target', 'group'} and type(spec['target']) is int and
-            0 <= spec['target'] < len(seeds) and isinstance(spec['group'], dict)):
+    if not (isinstance(spec, dict) and set(spec) in ({'target', 'group'}, {'target', 'group', 'region'}) and
+            type(spec['target']) is int and 0 <= spec['target'] < len(seeds) and isinstance(spec['group'], dict) and
+            spec.get('region', 'image') == 'image'):
         raise ValueError('invalid transfer leaf')
     if spec['group'].get('kind') not in ('T0', 'T1'): raise ValueError('transfer kind must be T0 or T1')
     old = ctx.prec; ctx.prec = 224
@@ -47,6 +52,40 @@ def check(root, ball, level, cell, spec):
         ctx.prec = old
     if not r.get('ok'): raise ValueError('transfer not certified: %s' % r.get('reason'))
     return spec['target']
+
+
+def image_box(root, ball, level, cell, spec):
+    """An outward enclosure of the image of the box in the target ball's chart: [[lo, hi]] * 4 (floats rounded outward
+    from Arb bounds). For a region transfer the audit requires this box to miss every cell of the target ball that is
+    unresolved or closed through a transfer."""
+    from flint import ctx
+    root = Path(root).resolve(); P, SC, seeds = _atlas(root)
+    import wholeball as Z
+    old = ctx.prec; ctx.prec = 224
+    try:
+        key = ('model', ball)
+        if key not in _cache: _cache[key] = P.model_for(SC.Ball(seeds[ball]))
+        tr = P.Transfer(_cache[key], SC.Ball(seeds[spec['target']]), spec['group'])
+        if not tr.check([level, *cell], use_sphere=False).get('ok'): raise ValueError('transfer not certified')
+        c, h, vertices = P.box_geometry([level, *cell], tr.r)
+        if tr.linear: a, B, eps = tr.a0 + tr.B0 * c, tr.B0, 0
+        else:
+            Hc = P.tensor_at(tr.AH, c); a = tr.a0 + tr.B0 * c + Hc * c / 2; B = tr.B0 + Hc
+            eps = tr.hnorm * (4 * h * h) / 2 + tr.xnorm * tr.model['tau']
+        img = [a + B * (v - c) for v in vertices]            # affine image: its hull is the hull of the vertex images
+        return [[min(Z.lower(iv[k, 0] - eps) for iv in img), max(Z.upper(iv[k, 0] + eps) for iv in img)] for k in range(4)]
+    finally:
+        ctx.prec = old
+
+
+def cell_box(r, level, cell):
+    """The w-box of a dyadic cell of a ball of chart radius r (floats; used only with an outward margin)."""
+    return [[r * (-1 + 2 * c / 2 ** level), r * (-1 + 2 * (c + 1) / 2 ** level)] for c in cell]
+
+
+def meets(a, b, margin=1e-12):
+    """Whether two boxes may intersect (each widened by margin, so a near-touch counts as meeting)."""
+    return all(a[k][0] - margin <= b[k][1] + margin and b[k][0] - margin <= a[k][1] + margin for k in range(4))
 
 
 def find(root, ball, level, cell, targets, recorded_only=False):

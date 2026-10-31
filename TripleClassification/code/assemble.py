@@ -319,35 +319,65 @@ def trees(a, V, side, RC, side_guard=None, out=None):
         return i, best or seen
     with concurrent.futures.ThreadPoolExecutor(max_workers=a.workers) as pool:
         result = dict(pool.map(first, sorted(cands)))
-    for i, x in result.items():                         # transfer leaves (pr4ext) name the balls this one depends on
-        if x and x.get('status') == 'closed' and i in plane_ball and plane_root(i) == a.plane_root_ext:
-            t = transfer_targets(plane_ball[i])
-            if t: x['transfer_targets'] = t
+    for i, x in result.items():                         # transfer leaves (pr4ext): what this ball depends on
+        if x and i in plane_ball and a.plane_root_ext and plane_root(i) == a.plane_root_ext:
+            balls_, regions, indirect = transfer_deps(plane_ball[i], i, a.plane_root_ext)
+            if balls_: x['transfer_targets'] = balls_
+            if regions: x['region_transfers'] = regions
+            if indirect: x['indirect_cells'] = indirect
     if a.cache:
         with open(a.cache + '.new', 'w') as f: json.dump(cache, f)
         os.replace(a.cache + '.new', a.cache)
     return result
 
 
-def transfer_targets(manifest):
-    """The balls named by transfer leaves in the cell trees of a whole-cell manifest."""
-    d = os.path.dirname(manifest); out = set()
-    def walk(n):
-        if isinstance(n, dict):
-            if 'transfer' in n: out.add(int(n['transfer']['target']))
-            for v in n.values(): walk(v)
-        elif isinstance(n, list):
-            for v in n: walk(v)
+def _ext_transfer(root):
+    import importlib.util
+    spec = importlib.util.spec_from_file_location('ext_transfer', os.path.join(root, 'TripleClassification/code/ext_transfer.py'))
+    m = importlib.util.module_from_spec(spec); spec.loader.exec_module(m); return m
+
+
+def transfer_deps(manifest, ball, root):
+    """From the cell trees of a whole-cell manifest: the balls named by whole-ball transfer leaves, the region
+    transfers (target, image box in the target's chart, by the pinned atlas code), and the cells whose trees hold any
+    transfer leaf (as (level, cell))."""
+    X = _ext_transfer(root); d = os.path.dirname(manifest); balls_, regions, indirect = set(), [], []
+    def walk(n, level, cell, found):
+        if isinstance(n, dict) and 'children' in n:
+            for k, bits in zip(n['children'], __import__('itertools').product(range(2), repeat=4)):
+                walk(k, level + 1, [2 * c + b for c, b in zip(cell, bits)], found)
+        elif isinstance(n, dict) and 'transfer' in n:
+            found.append(1); sp = n['transfer']
+            if sp.get('region') == 'image': regions.append([sp['target'], X.image_box(root, ball, level, cell, sp)])
+            else: balls_.add(int(sp['target']))
     for it in json.load(open(manifest))['cells']:
-        walk(json.load(open(os.path.join(d, it['tree']['path'])))['tree'])
-    return sorted(out)
+        e = json.load(open(os.path.join(d, it['entry']['path']))); found = []
+        walk(json.load(open(os.path.join(d, it['tree']['path'])))['tree'], e['level'], e['cell'], found)
+        if found: indirect.append([e['level'], e['cell']])
+    return sorted(balls_), regions, indirect
 
 
-def resolve_transfers(final, tree, n):
-    """A ball closed with transfer leaves stays open until every target is closed. Balls are admitted in rounds,
-    starting from those closed without transfers, so a cycle of balls depending on one another closes none of them."""
-    deps = {j: set(tree[j]['transfer_targets']) for j in tree
-            if final.get(j, 'open') != 'open' and (tree.get(j) or {}).get('transfer_targets')}
+def resolve_transfers(final, tree, n, radius=None, X=None):
+    """A ball closed with transfer leaves stays open until its transfers are good.
+    - A whole-ball transfer needs its target closed. Balls are admitted in rounds, starting from those closed without
+      such transfers, so a cycle of balls depending on one another closes none of them.
+    - A region transfer needs the image of its cell to lie in a part of the target proved directly: the image box must
+      miss every cell the target's audit leaves unresolved and every cell the target closes through a transfer. (A target
+      whose audit failed has no such part.)"""
+    bad = {}
+    for j in tree:
+        for t, box in (tree.get(j) or {}).get('region_transfers', []):
+            tt = tree.get(t) or {}; st = tt.get('status', '')
+            if st != 'closed' and not st.startswith('open below') and final.get(t) == 'open':
+                bad.setdefault(j, []).append('region in %d, whose audit has no result' % t); continue
+            cells = [(tt.get('open_level'), c) for c in tt.get('open_cells', [])] + [tuple(x) for x in tt.get('indirect_cells', [])]
+            if any(X.meets(box, X.cell_box(radius(t), lv, c)) for lv, c in cells):
+                bad.setdefault(j, []).append('region in %d meets an open or transferred cell' % t)
+    deps = {j: set(tree[j].get('transfer_targets', [])) for j in tree
+            if final.get(j, 'open') != 'open' and ((tree.get(j) or {}).get('transfer_targets') or (tree.get(j) or {}).get('region_transfers'))}
+    for j in bad:
+        if final.get(j, 'open') != 'open':
+            final[j] = 'open'; tree[j] = dict(tree[j], status='open: region transfer not good (%s)' % bad[j][0]); deps.pop(j, None)
     ok = {j for j in range(n) if final.get(j, 'open') != 'open' and j not in deps}
     grew = True
     while grew:
@@ -549,7 +579,11 @@ def main():
             final[j] = {'certifier': 'tree', 'fourier': 'tree_fourier', 'ordering': 'tree_ordering', 'anchored': 'tree_anchored',
                         'graph': 'tree_graph', 'plane': 'tree_plane'}[tree[j]['rule']]
         else: final[j] = 'open'
-    final, tree = resolve_transfers(final, tree, N_SEEDS)
+    if a.plane_root_ext and any((v or {}).get('region_transfers') for v in tree.values()):
+        X = _ext_transfer(a.plane_root_ext); seeds_ = X._atlas(__import__('pathlib').Path(a.plane_root_ext).resolve())[2]
+        final, tree = resolve_transfers(final, tree, N_SEEDS, lambda t: float.fromhex(seeds_[t]['r']), X)
+    else:
+        final, tree = resolve_transfers(final, tree, N_SEEDS)
 
     with open(os.path.join(out, 'balls.tsv'), 'w') as f:
         f.write('\t'.join(['ball', 'r', 'final', 'certifier', 'certifier_patterns', 'split', 'status', 'level',

@@ -46,3 +46,23 @@ assert f[1] != 'open' and f[2] != 'open', f                  # a chain onto a ba
 assert f[3] == 'open' and f[4] == 'open' and 'transfer targets not closed' in t[3]['status'], (f, t)   # a cycle
 assert f[6] == 'open'                                         # a target that is open
 print('PASS assemble.resolve_transfers')
+
+# region transfers: an image box must miss the target's unresolved cells and its cells closed through transfers
+import types
+X = types.SimpleNamespace(cell_box=lambda r, lv, c: [[r * (-1 + 2 * x / 2 ** lv), r * (-1 + 2 * (x + 1) / 2 ** lv)] for x in c],
+                          meets=lambda a, b, m=1e-12: all(a[k][0] - m <= b[k][1] + m and b[k][0] - m <= a[k][1] + m for k in range(4)))
+inside = [[-0.9, -0.8]] * 4                                   # in cell (2; 0,0,0,0) of a radius-1 ball
+far = [[0.6, 0.7]] * 4                                        # in cell (2; 3,3,3,3)
+final = {0: 'tree_plane', 1: 'open', 2: 'tree_plane', 3: 'tree_plane', 4: 'tree_plane', 5: 'open'}
+tree = {1: dict(status='open below level 3', open_level=2, open_cells=[[0, 0, 0, 0]]),
+        0: dict(status='closed', indirect_cells=[[2, [3, 3, 3, 3]]]),
+        2: dict(status='closed', region_transfers=[[1, far]]),        # misses 1's open cell: good
+        3: dict(status='closed', region_transfers=[[1, inside]]),     # meets 1's open cell: stays open
+        4: dict(status='closed', region_transfers=[[0, far]]),        # meets 0's transferred cell: stays open
+        5: dict(status='audit failed: x')}
+tree[0]['region_transfers'] = [[5, far]]                      # a target whose audit failed: stays open
+f, t = assemble.resolve_transfers(dict(final), {k: dict(v) for k, v in tree.items()}, 6, lambda b: 1.0, X)
+assert f[2] != 'open', t[2]
+assert f[3] == 'open' and 'region transfer not good' in t[3]['status'], t[3]
+assert f[4] == 'open' and f[0] == 'open', (t[4], t[0])
+print('PASS assemble.resolve_transfers (regions)')
