@@ -10,13 +10,13 @@
   "classified": 272
  },
  "nearest_triple_median": {
+  "tree_anchored": 0.304,
+  "empty": 0.901,
+  "tree": 0.358,
+  "open": 0.091,
   "tree_ordering": 0.198,
   "tree_plane": 0.27,
-  "tree": 0.358,
-  "empty": 0.901,
-  "classified": 0.083,
-  "open": 0.091,
-  "tree_anchored": 0.304
+  "classified": 0.083
  },
  "certifier": {
   "CERTIFIED EMPTY": 2101,
@@ -3818,8 +3818,10 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b823.json"
   },
   "825": {
-   "status": "audit failed: timed out after 1800 s",
-   "route": "selective chain"
+   "status": "open below level 4",
+   "route": "selective chain",
+   "open_level": 4,
+   "open_cells": 4082
   },
   "828": {
    "status": "closed",
@@ -6210,8 +6212,10 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b1010.json"
   },
   "1016": {
-   "status": "audit failed: timed out after 1800 s",
-   "route": "selective chain"
+   "status": "open below level 4",
+   "route": "selective chain",
+   "open_level": 4,
+   "open_cells": 4717
   },
   "1022": {
    "status": "closed",
