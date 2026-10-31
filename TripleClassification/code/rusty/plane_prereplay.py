@@ -94,7 +94,8 @@ def main():
                 for f in as_completed([pool.submit(leaf, j) for j in todo]):
                     inp, st, hit, err = f.result(); key = 'cached' if hit else (st or 'error')
                     stat[key] = stat.get(key, 0) + 1
-                    if st not in ('CERTIFIED_EMPTY_RECORDED_H_CELL', 'CERTIFIED_CLASSIFIED_RECORDED_H_CELL'): failed.append(dict(input=inp, status=st, error=err))
+                    if st not in ('CERTIFIED_EMPTY_RECORDED_H_CELL', 'CERTIFIED_CLASSIFIED_RECORDED_H_CELL',
+                                  'CERTIFIED_MINIMUM_TRANSITION_RECORDED_H_CELL'): failed.append(dict(input=inp, status=st, error=err))
             res = dict(ball=ball, cells=len(want), leaves=len(ls), checked=len(todo), counts=stat, failed=failed[:200], seconds=round(time.time() - t0))
             if part: res['part'] = '%d/%d' % part
             tmp = d / ('prereplay.json.%d.new' % os.getpid()); json.dump(res, open(tmp, 'w')); os.replace(tmp, d / ('prereplay.leaves%s.json' % tag))
