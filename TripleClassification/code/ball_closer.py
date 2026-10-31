@@ -120,17 +120,17 @@ def main():
     def settled(d, level):
         """'leaf' / 'transfer' / 'split' when an earlier run settled this cell for good (or at a cap at least this long),
         else None."""
-        if transfer_targets is not None:        # closed by an equivalence into a ball still allowed (checked at the end)
-            try:
-                sp = json.load(open(d / 'transfer.json'))
-                if sp['target'] in transfer_targets or sp.get('region') == 'image': return 'transfer'   # region: audited
-            except (OSError, ValueError, KeyError, TypeError): pass
-        try:
+        try:                            # a direct proof first: it needs no other ball
             r = json.load(open(d / 'replay.json'))
             if (r.get('status') in CERT and r.get('snapshot_sha256') == dg(d / 'frontier.input.json.gz') and
                     r.get('proposal_sha256') == dg(d / 'frontier.proposal.json.gz') and r.get('entry_sha256') == dg(d / 'entry.json')):
                 return 'leaf'
         except (OSError, ValueError, KeyError): pass
+        if transfer_targets is not None:        # closed by an equivalence into a ball still allowed (checked at the end)
+            try:
+                sp = json.load(open(d / 'transfer.json'))
+                if sp['target'] in transfer_targets or sp.get('region') == 'image': return 'transfer'   # region: audited
+            except (OSError, ValueError, KeyError, TypeError): pass
         try:                            # a failure counts only under the same search options
             f = json.load(open(d / 'failed.json'))
             if f.get('search_args', '') == sig and (f.get('kind') == 'not certified' or f.get('seconds', 0) >= cap(level)):
