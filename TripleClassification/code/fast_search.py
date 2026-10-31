@@ -23,7 +23,11 @@ import argparse, gzip, itertools, json, sys, time
 from pathlib import Path
 
 
-def main():
+_EXT = {}; _ORIGINAL = {}                  # reused when main() is called in-process (onetree.py): loaded once
+
+
+def main(argv=None):
+    """argv: the command-line arguments (default sys.argv); returns the result also written to --out."""
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('root'); ap.add_argument('entry', type=Path); ap.add_argument('--out', type=Path, required=True)
     ap.add_argument('--depth', type=int, default=6, choices=range(0, 11), metavar='0..10')
@@ -35,12 +39,15 @@ def main():
                     'the replay never applies it (it only re-checks the scalar witnesses supplied), so raising it is free')
     ap.add_argument('--gamma', action='store_true', help='try the gamma witness on each pattern first (extended replay)')
     ap.add_argument('--gamma-only', action='store_true', help='the gamma witness only: fail on a pattern it does not classify')
-    a = ap.parse_args(); root = Path(a.root).resolve(); sys.path.insert(0, str(root / 'TripleClassification/code'))
+    a = ap.parse_args(argv); root = Path(a.root).resolve()
+    if str(root / 'TripleClassification/code') not in sys.path: sys.path.insert(0, str(root / 'TripleClassification/code'))
     if a.gamma or a.gamma_only:              # by file, so the pinned tree stays first on sys.path
         import importlib.util, os as _os; from fractions import Fraction
         _os.environ['TC_ROOT'] = str(root)
-        _spec = importlib.util.spec_from_file_location('ext_cell_certificate', Path(__file__).resolve().parent / 'ext_cell_certificate.py')
-        Ext = importlib.util.module_from_spec(_spec); _spec.loader.exec_module(Ext)
+        if 'ext' not in _EXT:
+            _spec = importlib.util.spec_from_file_location('ext_cell_certificate', Path(__file__).resolve().parent / 'ext_cell_certificate.py')
+            _EXT['ext'] = importlib.util.module_from_spec(_spec); _spec.loader.exec_module(_EXT['ext'])
+        Ext = _EXT['ext']
     import numpy as np
     import plane_frontier_certificate as F
     import plane_cell_certificate as Whole
@@ -165,7 +172,8 @@ def main():
 
     t0 = time.monotonic(); entry = F.read_json(a.entry)
     try:
-        original = F.original_record(root, entry['ball']); F.ctx.prec = 224
+        if entry['ball'] not in _ORIGINAL: _ORIGINAL[entry['ball']] = F.original_record(root, entry['ball'])
+        original = _ORIGINAL[entry['ball']]; F.ctx.prec = 224
         record = F.build_record(original, entry['level'], entry['cell'], root)
         data = dict(schema='tc-h-cell-input-v1', record=record, record_sha256=F.jsonsha(record), ball=entry['ball'],
                     level=entry['level'], cell=entry['cell'], subatlas=entry['subatlas'], sub=entry['sub'],
@@ -177,7 +185,9 @@ def main():
     except (ValueError, ArithmeticError, ZeroDivisionError, KeyError, TypeError) as exc:
         result = dict(status='NOT_ESTABLISHED', reason=str(exc))
     result.update(ball=entry['ball'], level=entry['level'], cell=entry['cell'], search='fast_search.py', seconds=time.monotonic() - t0)
-    a.out.write_text(json.dumps(result, indent=1) + '\n'); print(json.dumps(result))
+    a.out.write_text(json.dumps(result, indent=1) + '\n')
+    if argv is None: print(json.dumps(result))
+    return result
 
 
 if __name__ == '__main__': main()

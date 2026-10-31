@@ -60,7 +60,12 @@ def setup(root):
     import plane_frontier_certificate as F, plane_tree_certificate as T
     sp = importlib.util.spec_from_file_location('ext_cell_certificate', HERE / 'ext_cell_certificate.py')
     E = importlib.util.module_from_spec(sp); sp.loader.exec_module(E)
-    W.update(root=Path(root), F=F, T=T, E=E, original={})
+    sp = importlib.util.spec_from_file_location('fast_search', HERE / 'fast_search.py')   # the search, run in-process
+    FS = importlib.util.module_from_spec(sp); sp.loader.exec_module(FS)
+    W.update(root=Path(root), F=F, T=T, E=E, FS=FS, original={})
+
+
+def _time_cap(signum, frame): raise TimeoutError('time cap')
 
 
 def parent_setup(root, ball):
@@ -102,10 +107,14 @@ def search_cell(job):
     try:
         e = tmp / 'entry.json'
         json.dump(dict(ball=ball, level=level, cell=list(cell), subatlas='none', sub=0, record_sha256='none'), open(e, 'w'))
-        try:
-            subprocess.run([py, '-W', 'ignore', str(HERE / 'fast_search.py'), str(W['root']), str(e), '--out', str(tmp / 'f.json')] + SEARCH,
-                           cwd=str(W['root']), capture_output=True, timeout=CAPS.get(level, 1800))
-        except subprocess.TimeoutExpired: return job[:3], 'split', time.time() - t, 'time cap'
+        import signal                         # in this worker process (imports and the atlas loaded once per worker:
+        signal.signal(signal.SIGALRM, _time_cap)   # a fresh process per search on a busy node took 12 times longer)
+        signal.setitimer(signal.ITIMER_REAL, CAPS.get(level, 1800))
+        try: W['FS'].main([str(W['root']), str(e), '--out', str(tmp / 'f.json')] + SEARCH)
+        except TimeoutError: return job[:3], 'split', time.time() - t, 'time cap'
+        finally:
+            signal.setitimer(signal.ITIMER_REAL, 0)
+            seen = set(); sys.path[:] = [p_ for p_ in sys.path if not (p_ in seen or seen.add(p_))]   # build_record prepends
         inp, prop = tmp / 'f.input.json.gz', tmp / 'f.proposal.json.gz'
         if not prop.exists():
             try: why = json.load(open(tmp / 'f.json')).get('reason', '')
