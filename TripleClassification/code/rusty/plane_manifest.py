@@ -57,8 +57,8 @@ def main():
                     ref.get('ball') == ball and ref.get('level') == entry['level'] and ref.get('cell') == entry['cell']):
                 return None, None                            # not the tree plane_refine.py replayed for this entry
             if not leaves_match(c / 'tree.json'): return None, None   # a leaf changed since the tree was replayed: leave it out
-            if ref.get('checker_sources_sha256') == src_now:
-                seen[c.name] = (entry['level'], entry['cell'])   # replayed by this very checker version: cache it
+            if ref.get('checker_sources_sha256') == src_now:  # replayed by this very checker version: cache it, with its scope
+                seen[c.name] = (entry['level'], entry['cell'], 'minimum_transition' if ref.get('status') == 'CERTIFIED_MINIMUM_TRANSITION_DYADIC_CELL' else 'certified')
         elif status('replay.json') in CERTIFIED:
             rep = json.load(open(c / 'replay.json'))
             if not (rep.get('snapshot_sha256') == digest(c / 'frontier.input.json.gz') and rep.get('proposal_sha256') ==
@@ -70,8 +70,8 @@ def main():
             ext = [k for k in deps if k.startswith(EXT_PREFIXES)]           # an extended replay counts only on a tree
             if (rep.get('checker_sha256') == src_now.get('TripleClassification/code/plane_frontier_certificate.py') and
                     all(deps[k] == v for k, v in src_now.items() if k in deps) and   # that pins the same extension
-                    all(src_now.get(k) == deps[k] for k in ext)):
-                seen[c.name] = (entry['level'], entry['cell'])   # replayed by this very checker version: cache it
+                    all(src_now.get(k) == deps[k] for k in ext)):  # replayed by this very checker version: cache it, with its scope
+                seen[c.name] = (entry['level'], entry['cell'], 'minimum_transition' if rep.get('status') == 'CERTIFIED_MINIMUM_TRANSITION_DYADIC_CELL' else 'certified')
             tree = dict(schema='tc-plane-tree-proposal-v1', root_entry_sha256=F.jsonsha(entry),
                         tree=dict(input=dict(path='frontier.input.json.gz', sha256=digest(c / 'frontier.input.json.gz')),
                                   proposal=dict(path='frontier.proposal.json.gz', sha256=digest(c / 'frontier.proposal.json.gz'))))
@@ -103,10 +103,10 @@ def main():
     cache = {}
     def keyed(item):
         lc = seen.get(Path(item['entry']['path']).parent.name)
-        return plane_cache.key(item, d / item['tree']['path'], src, lc[0], lc[1]) if lc else None
+        return (plane_cache.key(item, d / item['tree']['path'], src, lc[0], lc[1]), lc[2]) if lc else None
     with ThreadPoolExecutor(32) as pool:
-        for k in pool.map(keyed, cells):
-            if k: cache[k] = 'certified'
+        for kv in pool.map(keyed, cells):
+            if kv: cache[kv[0]] = kv[1]           # 'certified' (all K) or 'minimum_transition' (restricted scope)
     plane_cache.save(d / 'replay_cache.jobs.json', cache)
     print(json.dumps(dict(ball=ball, certified_cells=len(cells))))
 

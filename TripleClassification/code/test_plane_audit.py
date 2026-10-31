@@ -142,6 +142,13 @@ def main():
                       refined('CERTIFIED_EMPTY_DYADIC_CELL', False)))
         cases.append(('refinement that failed: not listed', ['--plane', man] + cache_arg,
                       lambda rc, v, e: rc != 0 and 'unresolved cell' in e, refined('NOT_ESTABLISHED', True)))
+        RMIN = 'CERTIFIED_MINIMUM_TRANSITION_DYADIC_CELL'
+        cases.append(('refined restricted tree: seeded with its scope, no ordering rule: open', ['--plane', man] + cache_arg,
+                      lambda rc, v, e: rc != 0 and 'unresolved cell' in e and
+                      'minimum_transition' in json.load(open(os.path.join(d, 'replay_cache.jobs.json'))).values(), refined(RMIN, True)))
+        cases.append(('refined restricted tree, ordering rule: closed from the cache, restricted', ['--plane', man] + cache_arg + ordering(pin),
+                      lambda rc, v, e: rc == 0 and v['gamma'].get('plane_minimum_transition') == 1 and v['plane']['cached_cells'] == [[4, [12, 5, 12, 12]]],
+                      refined(RMIN, True)))
         def restore():
             shutil.rmtree(os.path.join(d, '4_12_5_12_12')); shutil.copytree(cdir, os.path.join(d, '4_12_5_12_12'))
             for f_ in ('replay_cache.json', 'replay_cache.jobs.json'):
