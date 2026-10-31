@@ -2,7 +2,7 @@
 """Close open cells of a ball with the gamma witness, coarsest first, in a directory of its own (nothing in the plane
 cell directories is touched; rusty/ag_place.py places the certified cells afterwards).
 
-  python gamma_sweep.py ROOT BALL CELLS MIN_LEVEL OUT [--workers N]
+  python gamma_sweep.py ROOT BALL CELLS MIN_LEVEL OUT [--workers N] [--search '...'] [--cap S] [--max-level L]
 
 CELLS: one open cell per line, 'level c0,c1,c2,c3'. Every ancestor of an open cell at levels MIN_LEVEL.. is a
 candidate; level by level, the candidates not inside a cell already certified are searched (fast_search.py
@@ -21,6 +21,9 @@ CERT = ('CERTIFIED_EMPTY_DYADIC_CELL', 'CERTIFIED_CLASSIFIED_DYADIC_CELL', 'CERT
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument('root'); ap.add_argument('ball', type=int); ap.add_argument('cells')
     ap.add_argument('min_level', type=int); ap.add_argument('out'); ap.add_argument('--workers', type=int, default=8)
+    ap.add_argument('--search', default='--gamma-only', help="fast_search.py options (default --gamma-only; e.g. '--gamma --projector')")
+    ap.add_argument('--cap', type=float, default=None, help='seconds per search (default none)')
+    ap.add_argument('--max-level', type=int, default=None, help='also search the children of a failed listed cell, down to this level')
     a = ap.parse_args(); root = Path(a.root).resolve(); out = Path(a.out).resolve() / str(a.ball); out.mkdir(parents=True, exist_ok=True)
     env = dict(os.environ, OMP_NUM_THREADS='1', OPENBLAS_NUM_THREADS='1')
     cells = []
@@ -37,8 +40,10 @@ def main():
         except (OSError, ValueError): pass
         d.mkdir(exist_ok=True)
         json.dump(dict(ball=a.ball, level=level, cell=list(cell), subatlas='none', sub=0, record_sha256='none'), open(d / 'entry.json', 'w'))
-        subprocess.run([sys.executable, '-W', 'ignore', str(CODE / 'fast_search.py'), str(root), str(d / 'entry.json'),
-                        '--out', str(d / 'frontier.json'), '--gamma-only'], cwd=root, env=env, capture_output=True)
+        try:
+            subprocess.run([sys.executable, '-W', 'ignore', str(CODE / 'fast_search.py'), str(root), str(d / 'entry.json'),
+                            '--out', str(d / 'frontier.json')] + a.search.split(), cwd=root, env=env, capture_output=True, timeout=a.cap)
+        except subprocess.TimeoutExpired: return lc, False
         try: ok = json.load(open(d / 'frontier.json')).get('status') == 'PROPOSED'
         except (OSError, ValueError): ok = False
         if not ok: return lc, False
@@ -49,14 +54,23 @@ def main():
         except (OSError, ValueError): return lc, False
 
     top = max(L for L, c in cells) if cells else a.min_level
+    sys.path.insert(0, str(root / 'TripleClassification/code')); import plane_tree_certificate as T
     with ThreadPoolExecutor(a.workers) as pool:
-        for l in range(a.min_level, top + 1):
+        l = a.min_level
+        while l <= top:
             t = time.time()
             todo = [x for x in sorted({anc(L, c, l) for L, c in cells if L >= l})
                     if not any(anc(l, x[1], k) in closed for k in range(a.min_level, l))]   # not inside a certified cell
             res = list(pool.map(one, todo)); got = [lc for lc, ok in res if ok]; closed.update(got)
             log['levels'][l] = dict(tried=len(todo), certified=len(got), seconds=round(time.time() - t))
             print('level %d: %d tried, %d certified, %.0f s' % (l, len(todo), len(got), time.time() - t), flush=True)
+            if a.max_level and l < a.max_level:      # a listed cell still uncovered: its children (meeting the ball) next
+                for L, c in [x for x in cells if x[0] == l and not any(anc(l, x[1], k) in closed for k in range(a.min_level, l + 1))]:
+                    cells.remove((L, c))
+                    cells += [(l + 1, tuple(2 * c[k] + ((i >> (3 - k)) & 1) for k in range(4))) for i in range(16)
+                              if not T.misses_ball(l + 1, [2 * c[k] + ((i >> (3 - k)) & 1) for k in range(4)])]
+                top = max([top] + [L for L, c in cells])
+            l += 1
     left = [[L, list(c)] for L, c in cells if not any(anc(L, c, k) in closed for k in range(a.min_level, L + 1))]
     log.update(open_cells=len(cells), uncovered=left, certified=[[l, list(c)] for l, c in sorted(closed)])
     json.dump(log, open(out / 'sweep.json', 'w'), indent=1)
