@@ -9,7 +9,9 @@ On ball 491's level-4 cell (12, 5, 12, 12) (one leaf):
 3. the leaf's record naming another cell: refused;
 4. the leaf node renamed to another cell: refused (a leaf is named by its own position);
 5. the leaf replaced by an outside node: refused (the cell meets the ball);
-6. an open node: the cell is not closed.
+6. an open node: the cell is not closed;
+7. a second close resumes from the journal (nothing searched again) and checks;
+8. a journalled leaf whose files are gone is searched again.
 """
 import gzip, json, os, shutil, subprocess, sys, tempfile
 
@@ -42,6 +44,14 @@ def main():
                            ('an open node', {'open': True})):
             x = json.loads(keep[tree]); x['tree'] = node; json.dump(x, open(tree, 'w'))
             r = check(); report(name, r['verdict'] == 'OPEN', r); restore()
+        summ = lambda: json.load(open(os.path.join(t, 'b491', 'summary.json')))
+        run('close', '--cell', '4:12,5,12,12', '--max-level', '4'); x = summ(); r = check()
+        report('a second close resumes from the journal', x['per_level']['4']['resumed'] == 1 and not x['search_seconds'] and
+               r['verdict'] == 'CELL CLOSED', dict(verdict=x['per_level'], failed=r.get('failed')))
+        for f in os.listdir(os.path.join(t, 'b491', 'leaves')): os.remove(os.path.join(t, 'b491', 'leaves', f))
+        run('close', '--cell', '4:12,5,12,12', '--max-level', '4'); x = summ(); r = check()
+        report('a journalled leaf without its files is searched again', x['per_level']['4']['resumed'] == 0 and
+               '4' in x['search_seconds'] and r['verdict'] == 'CELL CLOSED', dict(verdict=x['per_level'], failed=r.get('failed')))
     print('%d failure(s)' % failures); sys.exit(1 if failures else 0)
 
 
