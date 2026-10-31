@@ -63,8 +63,21 @@ def main():
         cases.append(('audit served by the pre-replay cache', ['--plane', os.path.join(d, 'manifest.json'), '--plane-cache', cache],
                       lambda rc, v, e: rc == 0 and v['plane']['cached_cells'] == [[4, [12, 5, 12, 12]]] and
                       json.load(open(os.path.join(d, 'prereplay.json')))['certified'] == 1, prereplay))
+        def prereplay_parts():                         # two parts: the cell is in part 0; part 1 has nothing to replay
+            for f_ in ('replay_cache.json', 'replay_cache.jobs.json', 'replay_cache.prereplay.json', 'prereplay.json'):
+                q = os.path.join(d, f_); os.path.exists(q) and os.remove(q)
+            for i in (0, 1):
+                q = subprocess.run([sys.executable, '-W', 'ignore', os.path.join(HERE, 'rusty', 'plane_prereplay.py'), proot, d, '491', '2',
+                                    '--part', '%d/2' % i], capture_output=True, text=True, cwd=proot)
+                print('prereplay part %d:' % i, q.stdout.strip() or q.stderr.strip()[-300:])
+        cases.append(('audit served by a pre-replay in two parts', ['--plane', os.path.join(d, 'manifest.json'), '--plane-cache', cache],
+                      lambda rc, v, e: rc == 0 and v['plane']['cached_cells'] == [[4, [12, 5, 12, 12]]] and
+                      json.load(open(os.path.join(d, 'prereplay.0.json')))['certified'] == 1 and
+                      json.load(open(os.path.join(d, 'prereplay.1.json')))['replayed'] == 0, prereplay_parts))
         def unprereplay():
-            os.remove(os.path.join(d, 'replay_cache.prereplay.json')); os.remove(os.path.join(d, 'prereplay.json'))
+            for f_ in ('replay_cache.prereplay.0.json', 'replay_cache.prereplay.1.json', 'prereplay.0.json', 'prereplay.1.json',
+                       'replay_cache.prereplay.json', 'prereplay.json'):
+                q = os.path.join(d, f_); os.path.exists(q) and os.remove(q)
             subprocess.run([sys.executable, '-W', 'ignore', os.path.join(HERE, 'rusty', 'plane_manifest.py'), proot, d, '491'],
                            capture_output=True, text=True, cwd=proot)
         cases.append(('the job cache again after the pre-replay is removed', ['--plane', os.path.join(d, 'manifest.json'), '--plane-cache', cache],
