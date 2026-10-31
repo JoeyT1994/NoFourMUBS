@@ -15,6 +15,9 @@ pinned search are skipped, and nothing else changes:
 --depth (column tree depth, up to 10; the replay only bounds the tree's geometry at level 12) and --column-nodes raise
 the column search's budgets, which the replay does not apply either. --scalar-cap raises the joint search's budget of scalar tests (600). Only the search counts it: a replay re-checks
 the scalar witnesses the proposal supplies and never applies the budget, so a larger one can only close more cells.
+--gamma tries the gamma witness (ext_cell_certificate.gamma_bound: the pinned gamma_test bounds over the pattern's six
+phase balls, no column proof) on every pattern before any column is proved; --gamma-only fails at once on a pattern it
+does not classify. Both need the extended replay (ext_replay.py).
 """
 import argparse, gzip, itertools, json, sys, time
 from pathlib import Path
@@ -30,7 +33,14 @@ def main():
                     'proved, try the separable projector witness (ext_cell_certificate.py replays it)')
     ap.add_argument('--scalar-cap', type=int, default=600, help="the joint search's scalar budget (600: the pinned search's); "
                     'the replay never applies it (it only re-checks the scalar witnesses supplied), so raising it is free')
+    ap.add_argument('--gamma', action='store_true', help='try the gamma witness on each pattern first (extended replay)')
+    ap.add_argument('--gamma-only', action='store_true', help='the gamma witness only: fail on a pattern it does not classify')
     a = ap.parse_args(); root = Path(a.root).resolve(); sys.path.insert(0, str(root / 'TripleClassification/code'))
+    if a.gamma or a.gamma_only:              # by file, so the pinned tree stays first on sys.path
+        import importlib.util, os as _os; from fractions import Fraction
+        _os.environ['TC_ROOT'] = str(root)
+        _spec = importlib.util.spec_from_file_location('ext_cell_certificate', Path(__file__).resolve().parent / 'ext_cell_certificate.py')
+        Ext = importlib.util.module_from_spec(_spec); _spec.loader.exec_module(Ext)
     import numpy as np
     import plane_frontier_certificate as F
     import plane_cell_certificate as Whole
@@ -78,6 +88,26 @@ def main():
         """Whole.propose without the checkpoint and without replaying each proved column's tree."""
         s, model, C, binding, columns, cliques = Whole.complete_cover(path)
         proved = {}; attempted = set(); pair_cache = {}; witnesses = []; root_pairs = {}; scalars = {}
+        gs = dict(ctx=None, cache={}, last={})
+        def gamma(clique):
+            """A gamma witness the extended check accepts, or None: mode L, then K; the last alignment that worked, then
+            the best alignment of the centre phases."""
+            if gs['ctx'] is None: gs['ctx'] = Ext.GT.prep(model, Fraction(0))
+            for mode in ('L', 'K'):
+                tried = []
+                for k in range(2):
+                    if k == 0: ab = gs['last'].get(mode, (list(range(6)), list(range(6))))
+                    else:
+                        key = 'PL' if mode == 'L' else 'v0'
+                        mid = np.array([[float(gs['cache'][c][key][r].mid()) for c in clique] for r in range(6)])
+                        ab = tuple(list(x) for x in Ext.GT.best_alignment(mid))
+                    if ab in tried: continue
+                    tried.append(ab); g = dict(mode=mode, a=ab[0], b=ab[1])
+                    try: up = Ext.gamma_bound(gs['ctx'], columns, clique, g, gs['cache'])
+                    except (ValueError, ArithmeticError, ZeroDivisionError): break
+                    if Fraction(up) <= Fraction(19, 50) or Fraction(up) < gs['ctx']['g_h']:
+                        gs['last'][mode] = ab; return dict(g, g_up_hex=up.hex())
+            return None
         def witness(clique):
             for c in clique:
                 if c in proved and not proved[c][1]: return [c]
@@ -87,6 +117,10 @@ def main():
                 if pair_cache[(x, y)]: return [x, y]
             return None
         for clique in cliques:
+            if a.gamma or a.gamma_only:
+                g = gamma(clique)
+                if g is not None: witnesses.append(dict(colours=clique, columns=list(clique), gamma=g)); continue
+                if a.gamma_only: raise ArithmeticError('gamma does not classify pattern: ' + str(clique))
             chosen = witness(clique)
             for c in sorted(clique, key=lambda c: float(columns[c]['phase_radius'])):
                 if chosen is not None: break
@@ -125,7 +159,7 @@ def main():
                                           secant=found)); continue
                 witnesses.append(dict(colours=clique, columns=available, joint=joint))
             else: witnesses.append(dict(colours=clique, columns=chosen))
-        used = {c for w in witnesses if 'secant' not in w for c in w['columns']}   # a secant rebuilds its own tubes
+        used = {c for w in witnesses if 'secant' not in w and 'gamma' not in w for c in w['columns']}   # no column proof
         return dict(schema='tc-plane-cell-proposal-v1', snapshot_sha256=binding['snapshot_sha256'],
                     record_sha256=s['record_sha256'], columns={str(c): proved[c][0] for c in sorted(used)}, witnesses=witnesses)
 

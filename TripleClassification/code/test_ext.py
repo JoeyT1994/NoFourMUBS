@@ -12,7 +12,8 @@ CELL_DIR: the saved proof of ball 491's level-4 cell (12, 5, 12, 12) (entry.json
 5. a secant witness naming other columns of its pattern is refused;
 6. an AntiGravity gamma proposal (ball 825, level-5 cell (10, 15, 16, 8): every pattern by a gamma witness) is
    certified, classified, by the extended replay, and refused by the pinned one;
-7. a gamma witness with a changed alignment, or naming other columns, is refused.
+7. a gamma witness with a changed alignment, or naming other columns, is refused;
+8. fast_search.py --gamma-only proposes that cell from scratch, and the extended replay certifies it.
 """
 import gzip, json, os, shutil, subprocess, sys, tempfile
 
@@ -72,6 +73,12 @@ def main():
         r = gchanged(align, 'galign.json.gz'); report('a gamma witness with a reversed alignment', r['status'] not in CERT, r)
         def gcols(w): w['columns'] = list(reversed(w['columns']))
         r = gchanged(gcols, 'gcols.json.gz'); report('a gamma witness naming its columns in another order', r['status'] not in CERT, r)
+        d = os.path.join(t, 'gs825'); os.makedirs(d)
+        json.dump(dict(ball=825, level=5, cell=[10, 15, 16, 8], subatlas='none', sub=0, record_sha256='none'), open(os.path.join(d, 'entry.json'), 'w'))
+        subprocess.run([sys.executable, '-W', 'ignore', os.path.join(HERE, 'fast_search.py'), root, os.path.join(d, 'entry.json'), '--out',
+                        os.path.join(d, 'frontier.json'), '--gamma-only'], cwd=root, env=env, capture_output=True)
+        r = replay(d, os.path.join(d, 'frontier.proposal.json.gz'))
+        report('fast_search --gamma-only on that cell, extended replay', r['status'] == CERT[1], r)
     print('%d failure(s)' % failures); sys.exit(1 if failures else 0)
 
 
