@@ -27,6 +27,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 
 def main():
     proot = os.path.abspath(sys.argv[1]); cdir = os.path.abspath(sys.argv[2]); w = sys.argv[3] if len(sys.argv) > 3 else '8'; failures = 0
+    eroot = os.path.abspath(sys.argv[4]) if len(sys.argv) > 4 else None   # the extended tree (make_ext_root.sh), for transfers
     with tempfile.TemporaryDirectory() as t:
         def run(out, *extra):
             q = subprocess.run([sys.executable, '-W', 'ignore', os.path.join(HERE, 'ball_closer.py'), proot, '491', os.path.join(t, out),
@@ -92,6 +93,29 @@ def main():
         def tamper():
             d = os.path.join(t, 'parts', 'b491', 'cells'); leaf = sorted(x for x in os.listdir(d) if os.path.exists(os.path.join(d, x, 'replay.json')))[0]
             open(os.path.join(d, leaf, 'frontier.proposal.json.gz'), 'ab').write(b'\0')
+        def transfer_run(out, *extra):
+            open(os.path.join(t, 'targets.txt'), 'w').write('595\n')
+            q = subprocess.run([sys.executable, '-W', 'ignore', os.path.join(HERE, 'ball_closer.py'), eroot, '825', os.path.join(t, out),
+                                '--transfer-targets', os.path.join(t, 'targets.txt'), '--workers', w] + list(extra), capture_output=True, text=True)
+            try: return json.load(open(os.path.join(t, out, 'b825', 'closer.json')))
+            except (OSError, ValueError): print(q.stderr[-1500:]); return {}
+        def transfer_cells():
+            c = os.path.join(t, 'plane825', '5_3_15_14_12'); os.makedirs(c)
+            json.dump(dict(ball=825, level=5, cell=[3, 15, 14, 12], subatlas='none', sub=0, record_sha256='none'), open(os.path.join(c, 'entry.json'), 'w'))
+            open(os.path.join(t, 'list825.txt'), 'w').write(c + '\n')
+            r = transfer_run('tcf', '--cells-from', os.path.join(t, 'list825.txt'), '--max-level', '6')
+            r['refined'] = json.load(open(os.path.join(c, 'refined.json'))) if os.path.exists(os.path.join(c, 'refined.json')) else {}
+            return r
+        if eroot:
+            cases += [('825 (5; 3,15,14,12) closed by a transfer into 595', lambda: transfer_run('tr', '--cell', '5:3,15,14,12', '--start', '5'),
+                       lambda r: r.get('verdict') == 'CLOSED' and r['tree_counts'] == dict(nodes=1, outside=0, certified=0, transfer=1)
+                       and r['transfer_targets'] == [595]),
+                      ('a transfer target not allowed: the cell is searched, not transferred',
+                       lambda: transfer_run('tr0', '--cell', '5:3,15,14,12', '--start', '5', '--max-level', '5', '--seconds', '5:1', '--transfer-targets', os.devnull),
+                       lambda r: r.get('transfer_targets', []) == [] and 'transfer' not in str(r.get('tree_counts'))),
+                      ('--cells-from: children closed by transfer, refined.json names the target', transfer_cells,
+                       lambda r: r.get('verdict') == 'CLOSED 1 OF 1 CELLS' and r['refined'].get('transfer_targets') == [595]
+                       and r['refined'].get('status') == 'CERTIFIED_CLASSIFIED_DYADIC_CELL')]
         for name, go, ok in cases:
             r = go(); good = ok(r); failures += not good
             print('%-4s %-45s %s' % ('PASS' if good else 'FAIL', name,

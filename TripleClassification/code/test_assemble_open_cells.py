@@ -35,3 +35,14 @@ def shallow(i, route, layers, scripts):
 assemble.audit_chain(shallow, 1, 'selective chain', list('ab'), list('AB'))
 assert calls == [2]
 print('PASS assemble.audit_chain')
+
+# resolve_transfers: a ball closed with transfer leaves closes only once its targets are closed; cycles stay open
+final = {0: 'tree', 1: 'tree_plane', 2: 'tree_plane', 3: 'tree_plane', 4: 'tree_plane', 5: 'open', 6: 'tree_plane'}
+tree = {1: dict(status='closed', transfer_targets=[0]), 2: dict(status='closed', transfer_targets=[1]),
+        3: dict(status='closed', transfer_targets=[4]), 4: dict(status='closed', transfer_targets=[3]),
+        6: dict(status='closed', transfer_targets=[5])}
+f, t = assemble.resolve_transfers(dict(final), dict(tree), 7)
+assert f[1] != 'open' and f[2] != 'open', f                  # a chain onto a ball closed without transfers
+assert f[3] == 'open' and f[4] == 'open' and 'transfer targets not closed' in t[3]['status'], (f, t)   # a cycle
+assert f[6] == 'open'                                         # a target that is open
+print('PASS assemble.resolve_transfers')

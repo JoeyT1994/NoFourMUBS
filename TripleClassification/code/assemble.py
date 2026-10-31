@@ -314,10 +314,46 @@ def trees(a, V, side, RC, side_guard=None, out=None):
         return i, best or seen
     with concurrent.futures.ThreadPoolExecutor(max_workers=a.workers) as pool:
         result = dict(pool.map(first, sorted(cands)))
+    for i, x in result.items():                         # transfer leaves (pr4ext) name the balls this one depends on
+        if x and x.get('status') == 'closed' and i in plane_ball and plane_root(i) == a.plane_root_ext:
+            t = transfer_targets(plane_ball[i])
+            if t: x['transfer_targets'] = t
     if a.cache:
         with open(a.cache + '.new', 'w') as f: json.dump(cache, f)
         os.replace(a.cache + '.new', a.cache)
     return result
+
+
+def transfer_targets(manifest):
+    """The balls named by transfer leaves in the cell trees of a whole-cell manifest."""
+    d = os.path.dirname(manifest); out = set()
+    def walk(n):
+        if isinstance(n, dict):
+            if 'transfer' in n: out.add(int(n['transfer']['target']))
+            for v in n.values(): walk(v)
+        elif isinstance(n, list):
+            for v in n: walk(v)
+    for it in json.load(open(manifest))['cells']:
+        walk(json.load(open(os.path.join(d, it['tree']['path'])))['tree'])
+    return sorted(out)
+
+
+def resolve_transfers(final, tree, n):
+    """A ball closed with transfer leaves stays open until every target is closed. Balls are admitted in rounds,
+    starting from those closed without transfers, so a cycle of balls depending on one another closes none of them."""
+    deps = {j: set(tree[j]['transfer_targets']) for j in tree
+            if final.get(j, 'open') != 'open' and (tree.get(j) or {}).get('transfer_targets')}
+    ok = {j for j in range(n) if final.get(j, 'open') != 'open' and j not in deps}
+    grew = True
+    while grew:
+        grew = False
+        for j in deps:
+            if j not in ok and deps[j] <= ok: ok.add(j); grew = True
+    for j in deps:
+        if j not in ok:
+            final[j] = 'open'
+            tree[j] = dict(tree[j], status='open: transfer targets not closed (%s)' % ','.join(map(str, sorted(deps[j] - ok))))
+    return final, tree
 
 
 def audit_chain(audit, i, route, layers, scripts):
@@ -506,6 +542,7 @@ def main():
             final[j] = {'certifier': 'tree', 'fourier': 'tree_fourier', 'ordering': 'tree_ordering', 'anchored': 'tree_anchored',
                         'graph': 'tree_graph', 'plane': 'tree_plane'}[tree[j]['rule']]
         else: final[j] = 'open'
+    final, tree = resolve_transfers(final, tree, N_SEEDS)
 
     with open(os.path.join(out, 'balls.tsv'), 'w') as f:
         f.write('\t'.join(['ball', 'r', 'final', 'certifier', 'certifier_patterns', 'split', 'status', 'level',

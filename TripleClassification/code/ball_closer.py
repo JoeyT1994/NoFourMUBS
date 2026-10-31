@@ -25,7 +25,7 @@ same OUT; then --assemble (no search) builds and checks the tree from the cells 
 Each cell keeps only its entry, input, proposal and a small report (the checker's reports are cut to their status
 and hashes, and its search cache is removed). A rerun reuses every cell already settled, so runs resume.
 """
-import argparse, itertools, json, os, subprocess, sys, time
+import argparse, importlib.util, inspect, itertools, json, os, subprocess, sys, time
 from concurrent.futures import ThreadPoolExecutor, FIRST_COMPLETED, wait
 from pathlib import Path
 
@@ -70,6 +70,9 @@ def main():
                     'options is searched again before it is split')
     ap.add_argument('--leaf-check', choices=('receipts', 'replay'), help='final check of each leaf after the partition walk: '
                     "its own replay receipt (default with --assemble), or a second replay (default otherwise)")
+    ap.add_argument('--transfer-targets', help='file of ball indices (closed balls): a cell is first tried for a certified '
+                    'Hadamard equivalence into one of them (ext_transfer.py); such a cell is a transfer leaf, and the ball '
+                    'is closed only once each target is (assemble.py)')
     ap.add_argument('--speculate', action='store_true', help='with idle workers, also search the children of the cells '
                     'being searched longest (used only if the parent fails; a tree never uses a cell under a leaf)')
     ap.add_argument('--ext', action='store_true', help='also use the separable projector witness: searches try it '
@@ -85,6 +88,8 @@ def main():
     import plane_audit_manifest as PM
     from plane_column_certificate import digest
     from plane_slim import slim_cell
+    spec_ = importlib.util.spec_from_file_location('ext_transfer', HERE / 'ext_transfer.py')   # by file: the pinned tree stays first
+    X = importlib.util.module_from_spec(spec_); spec_.loader.exec_module(X)
     fc = code / 'plane_frontier_certificate.py'
     caps = dict(DEFAULT_SECONDS); caps.update({int(k): float(v) for k, v in (x.split(':') for x in a.seconds.split(',') if x)})
     cap = lambda level: caps.get(level, 3600)
@@ -113,7 +118,12 @@ def main():
         return v
 
     def settled(d, level):
-        """'leaf' / 'split' when an earlier run settled this cell for good (or at a cap at least this long), else None."""
+        """'leaf' / 'transfer' / 'split' when an earlier run settled this cell for good (or at a cap at least this long),
+        else None."""
+        if transfer_targets is not None:        # closed by an equivalence into a ball still allowed (checked at the end)
+            try:
+                if json.load(open(d / 'transfer.json'))['target'] in transfer_targets: return 'transfer'
+            except (OSError, ValueError, KeyError, TypeError): pass
         try:
             r = json.load(open(d / 'replay.json'))
             if (r.get('status') in CERT and r.get('snapshot_sha256') == dg(d / 'frontier.input.json.gz') and
@@ -140,6 +150,14 @@ def main():
         except (OSError, ValueError): same = False
         if not same: json.dump(ent, open(e, 'w'))
         s = settled(d, level)
+        if s in ('leaf', 'transfer'): return ri, level, cell, s, 0.0
+        if transfer_targets:                    # a certified equivalence into an allowed (closed) ball: also for a cell
+            ts = time.time()                    # that failed before (it closes the whole subtree at once)
+            try: spec = X.find(root, a.ball, level, list(cell), transfer_targets)
+            except Exception: spec = None
+            if spec:
+                tmp = d / ('transfer.json.%d.new' % os.getpid()); json.dump(spec, open(tmp, 'w')); os.replace(tmp, d / 'transfer.json')
+                return ri, level, cell, 'transfer', time.time() - ts
         if s: return ri, level, cell, s, 0.0
         env = dict(os.environ, OMP_NUM_THREADS='1'); ts = time.time()
         for f in ('replay.json', 'failed.json'):
@@ -173,6 +191,7 @@ def main():
             state[(ri, level, tuple(cell))] = 'split'; return [x for k in children(level, cell) for x in expand(ri, *k)]
         return [(ri, level, cell)]
     pi, pk = (int(x) for x in a.part.split('/'))
+    transfer_targets = ({int(x) for x in open(a.transfer_targets).read().split()} - {a.ball}) if a.transfer_targets else None
     leaf_check = a.leaf_check or ('receipts' if a.assemble else 'replay')
     if pk == 1 and a.cells_from and a.ext and 'TripleClassification/code/ext_cell_certificate.py' not in PM.source_hashes(root):
         raise SystemExit('--ext trees need a checker tree that pins the extension (pr4ext, make_ext_root.sh)')
@@ -196,7 +215,7 @@ def main():
             while frontier:
                 nxt = []
                 for (ri, level, cell), sv in pool.map(look, frontier):
-                    if sv == 'leaf': state[(ri, level, tuple(cell))] = 'leaf'
+                    if sv in ('leaf', 'transfer'): state[(ri, level, tuple(cell))] = sv
                     elif sv == 'split' and level < a.max_level:
                         state[(ri, level, tuple(cell))] = 'split'
                         for l, c in children(level, cell):
@@ -210,7 +229,7 @@ def main():
         l, c = level, list(cell)
         while l > roots[ri]['level']:
             l, c = l - 1, [x // 2 for x in c]
-            if state.get((ri, l, tuple(c))) == 'leaf': return True
+            if state.get((ri, l, tuple(c))) in ('leaf', 'transfer'): return True
         return False
     with ThreadPoolExecutor(max(1, a.workers)) as pool:
         info = {}; spawned = set()
@@ -228,7 +247,7 @@ def main():
             done, running = wait(running, return_when=FIRST_COMPLETED)
             for fut in done:
                 ri, level, cell, how, sec = fut.result(); core += sec; info.pop(fut, None)
-                if how == 'leaf': state[(ri, level, tuple(cell))] = 'leaf'
+                if how in ('leaf', 'transfer'): state[(ri, level, tuple(cell))] = how
                 elif level < a.max_level:
                     state[(ri, level, tuple(cell))] = 'split'
                     if not pruned(ri, level, cell): running.update(spawn(ri, level, cell))
@@ -247,6 +266,7 @@ def main():
             rel = (R['cells'] / name(level, cell)).relative_to(R['dir'])
             return {k: dict(path=str(rel / ('frontier.%s.json.gz' % k)), sha256=dg(R['dir'] / rel / ('frontier.%s.json.gz' % k)))
                     for k in ('input', 'proposal')}
+        if s == 'transfer': return {'transfer': json.load(open(R['cells'] / name(level, cell) / 'transfer.json'))}
         if s == 'split': return {'children': [node(ri, l, c) for l, c in children(level, cell)]}
         return None
     def has_open(ri, level, cell):
@@ -271,16 +291,20 @@ def main():
                                             tree=node(ri, R['level'], R['cell']))
             if not a.cells_from: json.dump(R['entry'], open(top / 'root_entry.json', 'w'))
             tmp = R['dir'] / ('tree.json.%d.new' % os.getpid()); json.dump(trees[ri], open(tmp, 'w')); os.replace(tmp, R['dir'] / 'tree.json')
-        tc = time.time(); verdicts = {}
+        tc = time.time(); verdicts = {}; targets = {}
         if a.serial_check:
             for ri in done_roots:
                 r = Tree.check(roots[ri]['entry'], roots[ri]['dir'] / 'tree.json')   # one replay of the whole tree
-                verdicts[ri] = (r['status'], r['counts'], [])
+                verdicts[ri] = (r['status'], r['counts'], []); targets[ri] = r.get('transfer_targets', [])
         else:
-            leaves = []; counts_t = {}                  # each partition checked without replaying leaves, then all leaves
+            leaves = []; counts_t = {}; tleaves = []    # each partition checked without replaying leaves, then all leaves
             for ri in done_roots:
-                R = roots[ri]
-                counts_t[ri] = Tree.walk(trees[ri]['tree'], R['level'], R['cell'], lambda nd, level, cell, ri=ri: leaves.append((ri, level, cell, nd)))
+                R = roots[ri]; kw = {}
+                if any(s_ == 'transfer' for (r_, _, _), s_ in state.items() if r_ == ri):
+                    if 'check_transfer' not in inspect.signature(Tree.walk).parameters:
+                        raise SystemExit('transfer leaves need the extended checker tree (pr4ext)')
+                    kw['check_transfer'] = lambda spec, level, cell, ri=ri: tleaves.append((ri, level, cell, spec))
+                counts_t[ri] = Tree.walk(trees[ri]['tree'], R['level'], R['cell'], lambda nd, level, cell, ri=ri: leaves.append((ri, level, cell, nd)), **kw)
             src = PM.source_hashes(root); fsha = digest(fc)
             ext_keys = ('TripleClassification/code/ext_cell_certificate.py', 'TripleClassification/code/projector/')
             def receipt(job):
@@ -309,10 +333,18 @@ def main():
                                    capture_output=True, text=True, env=dict(os.environ, OMP_NUM_THREADS='1'))
                 try: return ri, level, cell, json.loads(q.stdout.strip().splitlines()[-1])['status']
                 except (ValueError, IndexError, KeyError): return ri, level, cell, 'CHECK_FAILED: ' + (q.stderr.strip().splitlines() or [''])[-1][:100]
-            with ThreadPoolExecutor(max(1, a.workers)) as pool: out = list(pool.map(receipt if leaf_check == 'receipts' else leaf, leaves))
+            def transfer(job):                  # the atlas transfer check (ext_transfer.check): the target it needs closed
+                ri, level, cell, spec = job
+                try: return ri, level, cell, 'TRANSFER', X.check(root, a.ball, level, list(cell), spec)
+                except (ValueError, ArithmeticError, ZeroDivisionError, KeyError, TypeError) as e:
+                    return ri, level, cell, 'TRANSFER_FAILED: %s' % str(e)[:80], None
+            with ThreadPoolExecutor(max(1, a.workers)) as pool:
+                out = list(pool.map(receipt if leaf_check == 'receipts' else leaf, leaves)); tout = list(pool.map(transfer, tleaves))
             for ri in done_roots:
                 mine = [s for r_, _, _, s in out if r_ == ri]; failed = [[l, list(c), s] for r_, l, c, s in out if r_ == ri and s not in CERT]
-                st = None if failed else (CERT[1] if CERT[1] in mine else CERT[0])
+                failed += [[l, list(c), s] for r_, l, c, s, _ in tout if r_ == ri and s != 'TRANSFER']
+                targets[ri] = sorted({t for r_, _, _, s, t in tout if r_ == ri and s == 'TRANSFER'})
+                st = None if failed else (CERT[1] if CERT[1] in mine or targets[ri] else CERT[0])
                 verdicts[ri] = (st, counts_t[ri], failed)
         closed = []
         for ri, (st, cnt, failed) in verdicts.items():
@@ -324,11 +356,12 @@ def main():
                                  'refined.json must name the checker that certifies them')
             if a.cells_from:                        # what plane_manifest.py lists and caches for the original-ball audit
                 ref = dict(ball=a.ball, level=R['level'], cell=R['cell'], status=st, counts=cnt, closer=True,
-                           leaf_check='serial' if a.serial_check else leaf_check,
+                           leaf_check='serial' if a.serial_check else leaf_check, transfer_targets=targets.get(ri, []),
                            tree_sha256=digest(R['dir'] / 'tree.json'), checker_sources_sha256=PM.source_hashes(root))
                 tmp = R['dir'] / ('refined.json.%d.new' % os.getpid()); json.dump(ref, open(tmp, 'w')); os.replace(tmp, R['dir'] / 'refined.json')
         res.update(check='serial' if a.serial_check else 'parallel', leaf_check=None if a.serial_check else leaf_check, check_seconds=round(time.time() - tc),
                    check_failed=[[roots[ri]['level'], roots[ri]['cell'], f] for ri, (st, _, f) in verdicts.items() if f])
+        res['transfer_targets'] = sorted({t for ri in closed for t in targets.get(ri, [])})
         if a.cells_from:
             res.update(verdict='CLOSED %d OF %d CELLS' % (len(closed), len(roots)),
                        open_roots=[[R['level'], R['cell']] for ri, R in enumerate(roots) if ri not in closed], open_cells=opened())
