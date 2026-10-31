@@ -10,13 +10,13 @@
   "classified": 272
  },
  "nearest_triple_median": {
-  "tree_plane": 0.27,
-  "tree_anchored": 0.304,
-  "tree": 0.358,
   "tree_ordering": 0.198,
-  "open": 0.091,
+  "tree_plane": 0.27,
+  "tree": 0.358,
   "empty": 0.901,
-  "classified": 0.083
+  "classified": 0.083,
+  "open": 0.091,
+  "tree_anchored": 0.304
  },
  "certifier": {
   "CERTIFIED EMPTY": 2101,
@@ -3270,8 +3270,10 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b767.json"
   },
   "768": {
-   "status": "audit failed: ",
-   "route": "selective chain"
+   "status": "open below level 5",
+   "route": "selective chain",
+   "open_level": 5,
+   "open_cells": 8922
   },
   "769": {
    "status": "closed",
@@ -3725,8 +3727,10 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b807.json"
   },
   "815": {
-   "status": "audit failed: FileNotFoundError: [Errno 2] No such file or directory: '/mnt/ceph/users/jtindall/seed_atlas_build/t",
-   "route": "selective chain"
+   "status": "open below level 5",
+   "route": "selective chain",
+   "open_level": 5,
+   "open_cells": 9194
   },
   "822": {
    "status": "closed",
@@ -3814,7 +3818,7 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b823.json"
   },
   "825": {
-   "status": "audit failed: FileNotFoundError: [Errno 2] No such file or directory: '/mnt/ceph/users/jtindall/seed_atlas_build/t",
+   "status": "audit failed: timed out after 1800 s",
    "route": "selective chain"
   },
   "828": {
@@ -6206,10 +6210,8 @@
    "certificate": "/mnt/ceph/users/jtindall/seed_atlas_build/triples_tc/results_live/certificates/b1010.json"
   },
   "1016": {
-   "status": "open below level 4",
-   "route": "selective chain",
-   "open_level": 4,
-   "open_cells": 107
+   "status": "audit failed: timed out after 1800 s",
+   "route": "selective chain"
   },
   "1022": {
    "status": "closed",
