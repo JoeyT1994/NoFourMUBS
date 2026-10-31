@@ -144,7 +144,9 @@ def run(root,entry,out,proposal_path=None,input_path=None,depth=6,pattern_worker
     if proposal_path is None:
         proposal_path=out.with_suffix('.proposal.json.gz')
         proposal_path.write_bytes(gzip.compress(json.dumps(proposal).encode(),mtime=0))
-    result=Whole.check(input_path,proposal,workers=pattern_workers)
+    # Serial extensions retain the original two-argument checker interface.
+    result=(Whole.check(input_path,proposal) if type(pattern_workers) is int and pattern_workers==1 else
+            Whole.check(input_path,proposal,workers=pattern_workers))
     require(result['status'] in ('CERTIFIED_EMPTY_RECORDED_H_CELL','CERTIFIED_CLASSIFIED_RECORDED_H_CELL'),
             'whole-cell certificate failed')
     classified=result['status']=='CERTIFIED_CLASSIFIED_RECORDED_H_CELL'

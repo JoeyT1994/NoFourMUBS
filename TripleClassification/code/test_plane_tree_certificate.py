@@ -69,6 +69,25 @@ class TreeReplayTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError,'changed'):
                 T.replay_leaf((self.folder,node,2,[1]*4,self.original,1))
 
+    def test_serial_extension_keeps_two_argument_interface(self):
+        inp=self.folder/'input.json';prop=self.folder/'proposal.json';prop.write_text('{}')
+        entry=dict(self.entry,subatlas='fixture',sub=0,record_sha256='legacy')
+        inp.write_text(json.dumps(dict(schema='tc-h-cell-input-v1',record={},
+            record_sha256=T.F.jsonsha({}),**{k:entry[k] for k in ('ball','level','cell','subatlas','sub')})))
+        node=dict(input=dict(path=inp.name,sha256=T.digest(inp)),
+                  proposal=dict(path=prop.name,sha256=T.digest(prop)))
+        def serial_check(path,proposal):
+            self.assertEqual(path,inp);self.assertEqual(proposal,{})
+            return dict(status='CERTIFIED_EMPTY_RECORDED_H_CELL',patterns_total=1,dependencies_sha256={})
+        with patch.object(T.F,'cell_geometry',return_value={}),\
+             patch.object(T.F,'original_record',return_value=self.original),\
+             patch.object(T.F.Whole,'check',side_effect=serial_check) as check:
+            leaf=T.replay_leaf((self.folder,node,2,[1]*4,self.original,1))
+            frontier=T.F.run(self.folder,entry,self.folder/'out.json',prop,inp)
+        self.assertEqual(check.call_count,2)
+        self.assertEqual(leaf['status'],'CERTIFIED_EMPTY_RECORDED_H_CELL')
+        self.assertEqual(frontier['status'],'CERTIFIED_EMPTY_DYADIC_CELL')
+
     def test_invalid_worker_counts_rejected(self):
         for workers in (0,-1,True,1.5,257):
             with self.subTest(workers=workers),self.assertRaisesRegex(ValueError,'worker count'):

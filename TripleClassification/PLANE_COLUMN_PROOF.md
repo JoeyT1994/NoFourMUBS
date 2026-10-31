@@ -692,3 +692,37 @@ that must still prevent closure. These checks validate the integration. A new
 original-ball closure still requires a complete geometric cover, supplied by
 the upstream layers and receipts or reconstructed from the original atlas,
 followed by a successful complete audit.
+
+
+### Transfers restricted to the original closed ball
+
+`plane_sphere_transfer.py` reuses the atlas transfer checker with its verified
+sphere multiplier enabled and records its source hashes. For an affine image
+`a+B(w-c)`, a verified `lambda >= 0` with `BᵀB-lambda I` positive semidefinite makes
+`||a+B(w-c)||²-lambda(||w||²-r²)` convex. Its maximum over the box is attained
+at a vertex and bounds the squared image norm for every point of the box
+intersected with the original closed ball. The atlas checker adds its existing
+nonlinear error and verifies both orientation margins. The original radius
+and every boundary point are retained.
+
+A strict target-radius margin proves only a geometric transfer. The receipt
+explicitly requires the target ball's independently supplied all-K
+classification; it never declares an original ball closed. A covering audit
+must cover every source cell and discharge all target dependencies without
+cycles. In the tested ball-815 cell `(4;3,13,10,12)`, transfer into ball 1217
+has margin greater than 0.00504, although the full-box test fails. Tests reject
+changed domains, self-targets, malformed cells, permutations and windings.
+
+The 31 October transfer sweep verifies 11,222 geometric implications, leaving
+5,423 gaps in our reconstructed cover. All twelve target balls' published
+audits use ordering discharges, including targets labelled `tree_plane`.
+Those labels do not establish unconditional all-K classification. Transfers
+preserve the minimum-transition condition by score invariance (Gamma1), so
+the global Gamma4 argument and all target audit dependencies remain necessary.
+No original-ball closure is added by this sweep.
+
+Serial frontier and tree replay preserve the original two-argument checker
+interface, allowing the upstream secant/projector extension to run unchanged.
+Explicit parallel replay still passes and validates its worker count. The
+upstream secant certificate for ball 825 `(6;3,22,27,42)` passes fresh frontier
+and tree replay through this interface.
