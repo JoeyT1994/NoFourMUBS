@@ -68,10 +68,11 @@ def main():
     try:
         m = PlaneManifest(filtered, ball, root)
         have = plane_cache.load(d / 'replay_cache.json'); src = doc['checker_sources_sha256']
-        jobs = []
-        for (level, cell), (entry, tree_path, item) in m.entries.items():
-            k = plane_cache.key(item, tree_path, src, level, cell)
-            if have.get(k) != 'certified': jobs.append((level, list(cell), k))
+        from concurrent.futures import ThreadPoolExecutor
+        ents = list(m.entries.items())
+        with ThreadPoolExecutor(32) as tp:            # every leaf file is hashed: I/O-bound, in threads
+            keys = list(tp.map(lambda x: plane_cache.key(x[1][2], x[1][1], src, x[0][0], x[0][1]), ents))
+        jobs = [(level, list(cell), k) for ((level, cell), _), k in zip(ents, keys) if have.get(k) != 'certified']
         if leaves_mode:                        # every leaf of the uncached cells, each once
             want = {(level, tuple(cell)) for level, cell, _ in jobs}; ls = set()
             def walk(node, tree_path):
