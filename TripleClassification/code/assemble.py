@@ -184,6 +184,7 @@ def trees(a, V, side, RC, side_guard=None, out=None):
         if hit and hit.get('status') == 'closed' and hit.get('rule', 'certifier') == 'certifier': return hit
         if full in cache: return cache[full]
         x = audit_fresh(i, route, layers, scripts)
+        if 'timed out' in x.get('status', ''): return x       # never cached: the next pass audits it again
         cache[base if x.get('status') == 'closed' and x.get('rule') == 'certifier' else full] = x
         return x
 
@@ -200,8 +201,12 @@ def trees(a, V, side, RC, side_guard=None, out=None):
             extra += ['--graph'] + graph_ball.get(i, []) + ['--graph-dir', a.graph_dir, '--graph-sha', a.graph_sha,
                                                             '--graph-runner-sha', a.graph_runner_sha]
         root = plane_root(i) if i in plane_ball else a.tc_tree  # the plane checker's tree: same native sources and binding
-        cp = subprocess.run([sys.executable, a.tree_auditor, '--root', root, '--index', str(i), '--layers'] + layers
-                            + ['--scripts'] + scripts + extra + ['--report-open'], capture_output=True, text=True)
+        try:
+            cp = subprocess.run([sys.executable, a.tree_auditor, '--root', root, '--index', str(i), '--layers'] + layers
+                                + ['--scripts'] + scripts + extra + ['--report-open'], capture_output=True, text=True,
+                                timeout=a.audit_timeout or None)
+        except subprocess.TimeoutExpired:               # a ball whose replay cache is still cold: retried next pass
+            return dict(status='audit failed: timed out after %g s' % a.audit_timeout, route=route)
         try:
             v = json.loads((cp.stdout.strip().splitlines() or ['{}'])[-1])
         except ValueError:
@@ -406,6 +411,8 @@ def main():
     ap.add_argument('--anchored-runner-sha', help='pinned SHA-256 of anchored_run.py')
     ap.add_argument('--plane-dir', help="directory of per-ball PR #4 cell proofs, b<ball>/manifest.json")
     ap.add_argument('--plane-root', help='the pinned tree holding the plane checker (PR #4)')
+    ap.add_argument('--audit-timeout', type=float, default=0, help='seconds per ball audit (0: none); a timed-out audit '
+                    'leaves the ball open for this pass and is not cached')
     ap.add_argument('--plane-root-ext', help='the extended checker tree (make_ext_root.sh), for balls whose manifest pins it')
     ap.add_argument('--graph-receipts', help='directory of per-ball graph_run.py receipt files b<ball>[.part].jsonl')
     ap.add_argument('--graph-dir', help='the pinned hardball checker directory')
