@@ -67,6 +67,9 @@ def main():
     filtered.write_text(json.dumps(dict(doc, cells=keep)))
     try:
         m = PlaneManifest(filtered, ball, root)
+        global M; M = m                        # built once (it reads and hashes every entry and tree file); the workers
+        import multiprocessing                 # inherit it by fork instead of each building their own
+        fork = multiprocessing.get_context('fork')
         have = plane_cache.load(d / 'replay_cache.json'); src = doc['checker_sources_sha256']
         from concurrent.futures import ThreadPoolExecutor
         ents = list(m.entries.items())
@@ -84,7 +87,7 @@ def main():
             for (level, cell), (entry, tree_path, item) in m.entries.items():
                 if (level, tuple(cell)) in want: walk(json.load(open(tree_path))['tree'], Path(tree_path))
             todo = sorted(ls)[part[0]::part[1]] if part else sorted(ls); stat = {}; failed = []
-            with ProcessPoolExecutor(w, initializer=init, initargs=(str(root), str(filtered), ball)) as pool:
+            with ProcessPoolExecutor(w, mp_context=fork) as pool:
                 for f in as_completed([pool.submit(leaf, j) for j in todo]):
                     inp, st, hit, err = f.result(); key = 'cached' if hit else (st or 'error')
                     stat[key] = stat.get(key, 0) + 1
@@ -98,7 +101,7 @@ def main():
         try: mine = json.load(open(out))
         except (OSError, ValueError): mine = {}
         failed = []; n = 0
-        with ProcessPoolExecutor(w, initializer=init, initargs=(str(root), str(filtered), ball)) as pool:
+        with ProcessPoolExecutor(w, mp_context=fork) as pool:
             for f in as_completed([pool.submit(one, j) for j in jobs]):
                 level, cell, k, ok, err = f.result()
                 n += 1
