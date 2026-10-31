@@ -37,7 +37,8 @@ from concurrent.futures import ProcessPoolExecutor, as_completed
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-CAPS = {0: 300, 1: 300, 2: 300, 3: 600, 4: 900, 5: 1200, 6: 1800, 7: 1800, 8: 1800}
+CAPS = {0: 150, 1: 150, 2: 150, 3: 450, 4: 450, 5: 300, 6: 300, 7: 300, 8: 300}   # from measured search times: a leaf's
+# search takes ~100 s (record, C1, Stage C and cover rebuilt), rarely over 450 s; a capped failure is split instead
 SEARCH = ['--gamma', '--projector', '--depth', '8', '--column-nodes', '30000', '--scalar-cap', '20000']
 CERT = ('CERTIFIED_EMPTY_RECORDED_H_CELL', 'CERTIFIED_CLASSIFIED_RECORDED_H_CELL', 'CERTIFIED_MINIMUM_TRANSITION_RECORDED_H_CELL')
 W = {}
