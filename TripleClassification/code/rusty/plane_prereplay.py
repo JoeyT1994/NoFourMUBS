@@ -49,10 +49,10 @@ def main():
     args = sys.argv[1:]; part = None
     if '--part' in args:
         i = args.index('--part'); part = tuple(int(x) for x in args[i + 1].split('/')); del args[i:i + 2]
-    root, d, ball = Path(args[0]).resolve(), Path(args[1]).resolve(), int(args[2])
-    w = int(args[3]) if len(args) > 3 else int(os.environ.get('SLURM_CPUS_ON_NODE', '8'))
     leaves_mode = '--leaves' in args
     if leaves_mode: args.remove('--leaves')
+    root, d, ball = Path(args[0]).resolve(), Path(args[1]).resolve(), int(args[2])
+    w = int(args[3]) if len(args) > 3 else int(os.environ.get('SLURM_CPUS_ON_NODE', '8'))
     tag = '' if part is None else '.%d' % part[0]
     os.environ.setdefault('TC_LEAF_CACHE', str(Path(args[1]).resolve().parent))   # workers inherit it
     here = Path(__file__).resolve().parent
