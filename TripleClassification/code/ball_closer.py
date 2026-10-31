@@ -68,6 +68,8 @@ def main():
     ap.add_argument('--search-args', default='', help="extra fast_search.py options, e.g. '--depth 8 --column-nodes 30000 "
                     "--scalar-cap 20000' (search budgets the replay does not apply); a cell that failed under other search "
                     'options is searched again before it is split')
+    ap.add_argument('--speculate', action='store_true', help='with idle workers, also search the children of the cells '
+                    'being searched longest (used only if the parent fails; a tree never uses a cell under a leaf)')
     ap.add_argument('--ext', action='store_true', help='also use the separable projector witness: searches try it '
                     '(fast_search.py --projector) and replays and checks use ext_cell_certificate.py')
     ap.add_argument('--cells-from', help='file of existing cell directories (entry.json each) to close instead of the ball: '
@@ -177,19 +179,40 @@ def main():
     if a.assemble:
         for t in first: settle(*t)
         first = []
+    def pruned(ri, level, cell):
+        """True when an ancestor is already a leaf: this cell's result is no longer needed."""
+        l, c = level, list(cell)
+        while l > roots[ri]['level']:
+            l, c = l - 1, [x // 2 for x in c]
+            if state.get((ri, l, tuple(c))) == 'leaf': return True
+        return False
     with ThreadPoolExecutor(max(1, a.workers)) as pool:
-        running = {pool.submit(prove, *t) for t in first}
+        info = {}; spawned = set()
+        def submit(ri, l, c):
+            f = pool.submit(prove, ri, l, c); info[f] = (ri, l, tuple(c), time.time()); return f
+        def spawn(ri, level, cell):                 # a cell's children, once
+            if (ri, level, tuple(cell)) in spawned or level >= a.max_level: return []
+            spawned.add((ri, level, tuple(cell))); out = []
+            for l, c in children(level, cell):
+                if Tree.misses_ball(l, c): state[(ri, l, tuple(c))] = 'outside'
+                else: out.append(submit(ri, l, c))
+            return out
+        running = {submit(*t) for t in first}
         while running:
             done, running = wait(running, return_when=FIRST_COMPLETED)
             for fut in done:
-                ri, level, cell, how, sec = fut.result(); core += sec
+                ri, level, cell, how, sec = fut.result(); core += sec; info.pop(fut, None)
                 if how == 'leaf': state[(ri, level, tuple(cell))] = 'leaf'
                 elif level < a.max_level:
                     state[(ri, level, tuple(cell))] = 'split'
-                    for l, c in children(level, cell):
-                        if Tree.misses_ball(l, c): state[(ri, l, tuple(c))] = 'outside'
-                        else: running.add(pool.submit(prove, ri, l, c))
+                    if not pruned(ri, level, cell): running.update(spawn(ri, level, cell))
                 else: state[(ri, level, tuple(cell))] = 'open'
+            if a.speculate:                         # idle workers: the children of the longest-running searches
+                for f in sorted(running, key=lambda f: info[f][3]):
+                    if len(running) >= a.workers: break
+                    ri, l, c, _ = info[f]
+                    if l < a.max_level and (ri, l, c) not in spawned and not pruned(ri, l, c):
+                        running.update(spawn(ri, l, list(c)))
 
     def node(ri, level, cell):
         s = state.get((ri, level, tuple(cell))); R = roots[ri]

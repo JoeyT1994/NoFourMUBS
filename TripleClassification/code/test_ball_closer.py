@@ -14,7 +14,9 @@ CELL_DIR: the saved proof of that cell (entry.json, frontier.input.json.gz, ...)
 7. a leaf proposal changed after the parts: --assemble reports the ball open;
 8. new search options (--search-args): the failed root is searched again under them, its settled leaves reused;
 9. --ext: the same split with the extended searches, replays and tree check;
-10. --cells-from on the cell laid out as plane_ball.py leaves a failed cell: it is closed on its children under
+10. --speculate: children searched while the parent is still searched; the parent's certificate wins, or its
+    failure uses them (the same tree as without speculation);
+11. --cells-from on the cell laid out as plane_ball.py leaves a failed cell: it is closed on its children under
    <dir>/kids, gets tree.json and refined.json, and plane_manifest.py lists it and caches its replay.
 """
 import json, os, shutil, subprocess, sys, tempfile
@@ -58,6 +60,10 @@ def main():
                   lambda r: r.get('verdict') == 'CLOSED' and r['tree_counts']['certified'] == 14 and not r['check_failed'] and
                   all(json.load(open(os.path.join(t, 'ext', 'b491', 'cells', x, 'replay.json'))).get('extension') == 'ext_cell_certificate.py'
                       for x in os.listdir(os.path.join(t, 'ext', 'b491', 'cells')) if os.path.exists(os.path.join(t, 'ext', 'b491', 'cells', x, 'replay.json')))),
+                 ('--speculate, the parent certifies: the tree is the parent alone', lambda: run('spec1', '--speculate', '--max-level', '5'),
+                  lambda r: r.get('verdict') == 'CLOSED' and r['tree_counts']['nodes'] == 1 and r['tree_counts']['certified'] == 1),
+                 ('--speculate, the parent fails: the same tree as without', lambda: run('spec2', '--speculate', '--seconds', '4:1', '--max-level', '5'),
+                  lambda r: r.get('verdict') == 'CLOSED' and r['tree_counts'] == dict(nodes=17, outside=2, certified=14)),
                  ('--cells-from closes a failed cell for the manifest', lambda: cells_from(),
                   lambda r: r.get('verdict') == 'CLOSED 1 OF 1 CELLS' and r['manifest'].get('certified_cells') == 1 and r['cached'] == 1)]
         def cells_from():
