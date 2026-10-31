@@ -56,6 +56,14 @@ def setup(root):
     W.update(root=Path(root), F=F, T=T, E=E, original={})
 
 
+def parent_setup(root, ball):
+    """Load the checker and this ball's atlas record once, in the parent: forked workers inherit them (each worker
+    loading the whole atlas certificate itself made a small tree's check take minutes)."""
+    import multiprocessing
+    setup(root); W['original'][ball] = W['F'].original_record(W['root'], ball)
+    return multiprocessing.get_context('fork')
+
+
 def leaf_check(ball, level, cell, inp, prop):
     """The leaf check (see the module docstring); returns the status of the whole-cell check, or raises."""
     F, E = W['F'], W['E']
@@ -117,7 +125,7 @@ def close(a, root):
     except OSError: pass
     journal = open(out / 'journal.jsonl', 'a')
     state = {}; why = {}; core = 0.0; t0 = time.time(); per = {}; times = {}
-    with ProcessPoolExecutor(a.workers, initializer=setup, initargs=(str(root),)) as pool:
+    with ProcessPoolExecutor(a.workers, mp_context=parent_setup(str(root), a.ball)) as pool:
         live = set(); queue = [(l0, c0)]
         def record(level, cell, st, sec, reason, new):
             nonlocal core
@@ -185,7 +193,7 @@ def check(a, root):
         else: bad.append([level, cell, 'unresolved node'])
     walk(tree['tree'], *tree['root'])
     counts = {}; core = 0.0; slow = 0.0
-    with ProcessPoolExecutor(a.workers, initializer=setup, initargs=(str(root),)) as pool:
+    with ProcessPoolExecutor(a.workers, mp_context=parent_setup(str(root), a.ball)) as pool:
         for (kind, ball, level, cell), st, sec in pool.map(check_node, jobs, chunksize=1):
             key = st if not st.startswith('FAILED') else 'FAILED'; counts[key] = counts.get(key, 0) + 1; core += sec; slow = max(slow, sec)
             if key == 'FAILED': bad.append([level, cell, st])
