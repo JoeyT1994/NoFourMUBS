@@ -7,7 +7,7 @@ transferred cells.
   python ag_place.py REPLAY TRANSFERS PLANE_V1 TARGETS BALLS OUT_JSON
 
 REPLAY/<ball>/<name>/ holds entry.json, frontier.input.json.gz, frontier.proposal.json.gz and replay.json (ag_replay.py);
-TRANSFERS/b<ball>_transfers.json.gz the receipts (source_ball, box, target_ball, group); PLANE_V1/b<ball>.cc.txt the
+TRANSFERS/b<ball>_transfers.json.gz the receipts (if any) (source_ball, box, target_ball, group); PLANE_V1/b<ball>.cc.txt the
 ball's root cell directories; TARGETS the closed balls a transfer may enter whole (transfer_targets.txt).
 For a piece (level, cell) strictly inside a root, the directory is <root>/kids/<level>_<cell>:
 - a certified replay goes there (its four files), unless the directory already holds a certified replay;
@@ -45,6 +45,7 @@ def main():
             return hit[0] / 'kids' / ('%d_%s' % (level, '_'.join(map(str, cell)))) if len(hit) == 1 else None
         rdir = Path(replay) / str(ball)
         for p in sorted(rdir.iterdir()) if rdir.is_dir() else []:
+            if not (p / 'replay.json').is_file(): continue       # a failed search (gamma_sweep.py), or not a cell
             r = json.load(open(p / 'replay.json')); e = json.load(open(p / 'entry.json'))
             if r.get('status') not in CERT: log['skipped']['%d not certified' % ball] += 1; continue
             d = where(e['level'], e['cell'])
@@ -53,7 +54,8 @@ def main():
             d.mkdir(parents=True, exist_ok=True)
             for f in FILES: put(p / f, d / f)
             log['placed'].append(str(d))
-        for it in json.load(gzip.open(Path(transfers) / ('b%d_transfers.json.gz' % ball))):
+        tf = Path(transfers) / ('b%d_transfers.json.gz' % ball)
+        for it in json.load(gzip.open(tf)) if tf.exists() else []:
             if it['source_ball'] != ball: continue
             level, cell = it['box'][0], it['box'][1:]; d = where(level, cell)
             if d is None: log['skipped']['%d transfer outside the roots' % ball] += 1; continue
