@@ -11,6 +11,7 @@ tc-plane-audit-manifest-v1 format, pinned to the checker sources of PLANE_ROOT. 
 is accepted as a verdict.
 """
 import fcntl, json, os, sys
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 CERTIFIED = ('CERTIFIED_EMPTY_DYADIC_CELL', 'CERTIFIED_CLASSIFIED_DYADIC_CELL')
@@ -42,19 +43,20 @@ def main():
                 for v in node: walk(v)
         walk(json.load(open(tree_path))['tree']); return ok[0]
     src_now = PM.source_hashes(root)                     # the checker version this manifest pins
-    cells = []; seen = {}                            # cells whose own job replay certified them, for the replay cache
-    for c in sorted(p for p in d.iterdir() if p.is_dir()):
+    def one(c):
+        """The manifest item of one cell directory (or None), and (level, cell) if its replay can seed the cache."""
+        seen = {}
         def status(name):
             try: return json.load(open(c / name)).get('status')
             except (OSError, ValueError): return None
         entry = json.load(open(c / 'entry.json')) if (c / 'entry.json').exists() else None
-        if entry is None: continue
+        if entry is None: return None, None
         if status('refined.json') in CERTIFIED and (c / 'tree.json').exists():
             ref = json.load(open(c / 'refined.json')); tree = json.load(open(c / 'tree.json'))
             if not (ref.get('tree_sha256') == digest(c / 'tree.json') and tree.get('root_entry_sha256') == F.jsonsha(entry) and
                     ref.get('ball') == ball and ref.get('level') == entry['level'] and ref.get('cell') == entry['cell']):
-                continue                                     # not the tree plane_refine.py replayed for this entry
-            if not leaves_match(c / 'tree.json'): continue   # a leaf changed since the tree was replayed: leave it out
+                return None, None                            # not the tree plane_refine.py replayed for this entry
+            if not leaves_match(c / 'tree.json'): return None, None   # a leaf changed since the tree was replayed: leave it out
             if ref.get('checker_sources_sha256') == src_now:
                 seen[c.name] = (entry['level'], entry['cell'])   # replayed by this very checker version: cache it
         elif status('replay.json') in CERTIFIED:
@@ -63,7 +65,7 @@ def main():
                     digest(c / 'frontier.proposal.json.gz') and rep.get('entry_sha256') == digest(c / 'entry.json') and
                     rep.get('original_atlas_sha256') == F.PIN and rep.get('ball') == ball and
                     rep['geometry']['level'] == entry['level'] and rep['geometry']['cell'] == entry['cell']):
-                continue                                     # files no longer those the replay certified: leave it out
+                return None, None                            # files no longer those the replay certified: leave it out
             deps = rep.get('dependencies_sha256') or {}
             ext = [k for k in deps if k.startswith(EXT_PREFIXES)]           # an extended replay counts only on a tree
             if (rep.get('checker_sha256') == src_now.get('TripleClassification/code/plane_frontier_certificate.py') and
@@ -78,10 +80,17 @@ def main():
             if not same:                                     # written whole, then renamed: never read half-written
                 tmp = c / ('tree.json.%d.new' % os.getpid()); json.dump(tree, open(tmp, 'w')); os.replace(tmp, c / 'tree.json')
         else:
-            continue
+            return None, None
         rel = c.relative_to(d)
-        cells.append(dict(entry=dict(path=str(rel / 'entry.json'), sha256=digest(c / 'entry.json')),
-                          tree=dict(path=str(rel / 'tree.json'), sha256=digest(c / 'tree.json'))))
+        return (dict(entry=dict(path=str(rel / 'entry.json'), sha256=digest(c / 'entry.json')),
+                     tree=dict(path=str(rel / 'tree.json'), sha256=digest(c / 'tree.json'))), seen.get(c.name))
+    cells = []; seen = {}                            # cells whose own job replay certified them, for the replay cache
+    with ThreadPoolExecutor(32) as pool:             # I/O-bound (every leaf file is hashed): one thread per cell directory
+        dirs = sorted(p for p in d.iterdir() if p.is_dir())
+        for c, (item, lc) in zip(dirs, pool.map(one, dirs)):
+            if item is None: continue
+            cells.append(item)
+            if lc: seen[c.name] = lc
     src = PM.source_hashes(root)
     doc = dict(schema='tc-plane-audit-manifest-v1', ball=ball, original_atlas_sha256=F.PIN, checker_sources_sha256=src, cells=cells)
     tmp = d / ('manifest.json.%d.new' % os.getpid())          # one temporary file per writer
@@ -92,10 +101,12 @@ def main():
     # ran; only those replayed by this checker version are cached (the rest: plane_prereplay.py). verify_ball.py replays
     # everything.
     cache = {}
-    for item in cells:
-        name = Path(item['entry']['path']).parent.name
-        lc = seen.get(name)
-        if lc: cache[plane_cache.key(item, d / item['tree']['path'], src, lc[0], lc[1])] = 'certified'
+    def keyed(item):
+        lc = seen.get(Path(item['entry']['path']).parent.name)
+        return plane_cache.key(item, d / item['tree']['path'], src, lc[0], lc[1]) if lc else None
+    with ThreadPoolExecutor(32) as pool:
+        for k in pool.map(keyed, cells):
+            if k: cache[k] = 'certified'
     plane_cache.save(d / 'replay_cache.jobs.json', cache)
     print(json.dumps(dict(ball=ball, certified_cells=len(cells))))
 
