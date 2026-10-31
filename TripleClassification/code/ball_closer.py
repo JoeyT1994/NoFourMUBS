@@ -104,12 +104,20 @@ def main():
     sig = (a.search_args + (' --projector' if a.ext else '')).strip()   # what a recorded failure was searched with
     t0 = time.time()
 
+    _dg = {}
+    def dg(p):
+        """SHA-256 of a proof file, computed once per run (the walk, the tree and the receipts all need it)."""
+        if not a.assemble: return digest(p)     # a search rewrites a cell's files: no memo outside assembly
+        k = str(p); v = _dg.get(k)
+        if v is None: v = _dg[k] = digest(p)
+        return v
+
     def settled(d, level):
         """'leaf' / 'split' when an earlier run settled this cell for good (or at a cap at least this long), else None."""
         try:
             r = json.load(open(d / 'replay.json'))
-            if (r.get('status') in CERT and r.get('snapshot_sha256') == digest(d / 'frontier.input.json.gz') and
-                    r.get('proposal_sha256') == digest(d / 'frontier.proposal.json.gz') and r.get('entry_sha256') == digest(d / 'entry.json')):
+            if (r.get('status') in CERT and r.get('snapshot_sha256') == dg(d / 'frontier.input.json.gz') and
+                    r.get('proposal_sha256') == dg(d / 'frontier.proposal.json.gz') and r.get('entry_sha256') == dg(d / 'entry.json')):
                 return 'leaf'
         except (OSError, ValueError, KeyError): pass
         try:                            # a failure counts only under the same search options
@@ -179,8 +187,23 @@ def main():
                 if Tree.misses_ball(l, c): state[(ri, l, tuple(c))] = 'outside'
                 else: settle(ri, l, c)
         else: state[(ri, level, tuple(cell))] = 'open'
-    if a.assemble:
-        for t in first: settle(*t)
+    if a.assemble:                              # level by level, many cells at once (each needs file hashes on disk)
+        frontier = list(first)
+        def look(t):
+            d = roots[t[0]]['cells'] / name(t[1], t[2])
+            return t, (settled(d, t[1]) if d.is_dir() else None)
+        with ThreadPoolExecutor(max(1, a.workers)) as pool:
+            while frontier:
+                nxt = []
+                for (ri, level, cell), sv in pool.map(look, frontier):
+                    if sv == 'leaf': state[(ri, level, tuple(cell))] = 'leaf'
+                    elif sv == 'split' and level < a.max_level:
+                        state[(ri, level, tuple(cell))] = 'split'
+                        for l, c in children(level, cell):
+                            if Tree.misses_ball(l, c): state[(ri, l, tuple(c))] = 'outside'
+                            else: nxt.append((ri, l, c))
+                    else: state[(ri, level, tuple(cell))] = 'open'
+                frontier = nxt
         first = []
     def pruned(ri, level, cell):
         """True when an ancestor is already a leaf: this cell's result is no longer needed."""
@@ -222,7 +245,7 @@ def main():
         if s == 'outside': return {'outside': True}
         if s == 'leaf':
             rel = (R['cells'] / name(level, cell)).relative_to(R['dir'])
-            return {k: dict(path=str(rel / ('frontier.%s.json.gz' % k)), sha256=digest(R['dir'] / rel / ('frontier.%s.json.gz' % k)))
+            return {k: dict(path=str(rel / ('frontier.%s.json.gz' % k)), sha256=dg(R['dir'] / rel / ('frontier.%s.json.gz' % k)))
                     for k in ('input', 'proposal')}
         if s == 'split': return {'children': [node(ri, l, c) for l, c in children(level, cell)]}
         return None
@@ -267,9 +290,9 @@ def main():
                 ri, level, cell, nd = job; R = roots[ri]; d = R['cells'] / name(level, cell); ent = dict(R['entry'], level=level, cell=list(cell))
                 try:
                     r = json.load(open(d / 'replay.json')); deps = r.get('dependencies_sha256') or {}
-                    ok = (r.get('status') in CERT and json.load(open(d / 'entry.json')) == ent and r.get('entry_sha256') == digest(d / 'entry.json')
-                          and r.get('snapshot_sha256') == digest(d / 'frontier.input.json.gz') == nd['input']['sha256']
-                          and r.get('proposal_sha256') == digest(d / 'frontier.proposal.json.gz') == nd['proposal']['sha256']
+                    ok = (r.get('status') in CERT and json.load(open(d / 'entry.json')) == ent and r.get('entry_sha256') == dg(d / 'entry.json')
+                          and r.get('snapshot_sha256') == dg(d / 'frontier.input.json.gz') == nd['input']['sha256']
+                          and r.get('proposal_sha256') == dg(d / 'frontier.proposal.json.gz') == nd['proposal']['sha256']
                           and r.get('original_atlas_sha256') == F.PIN and r.get('ball') == a.ball
                           and r['geometry']['level'] == level and r['geometry']['cell'] == list(cell) and r.get('checker_sha256') == fsha
                           and all(deps[k] == v for k, v in src.items() if k in deps)
