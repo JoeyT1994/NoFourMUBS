@@ -14,7 +14,7 @@ import math
 import numpy as np
 from flint import arb, acb, arb_mat
 import native_columns as C
-import moving_symmetry as MS
+import moving as MV
 
 PAIRS = [(a, b) for a in range(6) for b in range(a + 1, 6)]
 Z = C.Z
@@ -71,9 +71,10 @@ def propose(q, columns, steps=20, chord=60):
 
 # ---- Arb: one expansion of the lemma ------------------------------------------------------------------------------
 
-def expansion(model, q, y, T, B):
-    """Constants of the annulus lemma (PROOF_815.md (2)) at the reference y*, coordinates y = y* + ETz. Every zero
-    over the H cell has, for each block a, |z_a| <= |G_a(0)| + etaH_a + beta_a |z| + P_a(S, W)."""
+def expansion(model, q, y, T, B, moving=True):
+    """Constants of lemma P1 (PROOFS.md) for the reference y*(u) = y* + ET Lam u (Lam = 0 if not moving), with
+    coordinates y = y*(u) + ETz. Every zero over the H cell has, for each block a, with rho = |z|,
+        |z_a| <= |G_a(0)| + eta_a + beta_a rho + gamma_a(rho) + P_a(S + lam_s r, W + lam_w r)."""
     ET = E * T; yref = y
     U, H2, X, r = model['U'], model['H2'], model['X'], up(model['r'])
     hrem = up(frob(model['Q0'] - q) + spectral(H2) * r * r / 2 + spectral(X) * model['tau'])
@@ -107,13 +108,32 @@ def expansion(model, q, y, T, B):
     lin = Sf * A - Z.eye(30)
     AS, AW = sub(A, range(180), range(28)), sub(A, range(180), range(28, 30))
     KS, KW = AS * AS.transpose(), AW * AW.transpose()
-    nT = spectral(T)
-    ex = dict(g0=[], etaH=[], beta=[], coef=[])
+    nT = spectral(T); BJ = B * JH
+    # Lam: the reference's slope in u (a proposal); Ku: the first-order u-term left after it (PROOFS.md, P1).
+    Lam = Z.mat(-Z.mid_np(BJ * U)) if moving else arb_mat(30, 4)
+    Ku = (Sf * A) * Lam + BJ * U
+    # Cj = B F_HK(q*, y*)[U e_j, ET .]: the exact mixed second derivative, from the mixed ridges.
+    Cj = []
+    for j in range(4):
+        F = arb_mat(66, 30)
+        for b in range(6):
+            for m, (s, t) in enumerate(PAIRS):
+                row = feats[90 + 15 * b + m]
+                for a in range(6):
+                    phi = -q[6 * s + a, 0] + yref[6 * s + b, 0] + q[6 * t + a, 0] - yref[6 * t + b, 0]
+                    c = -phi.cos() / 3 * (U[6 * t + a, j] - U[6 * s + a, j])
+                    for k in range(30): F[30 + 6 * a + b, k] += c * row[k]
+        Cj.append(B * F)
+    M = arb_mat([[(Cj[j] * Lam)[i, k] for j in range(4) for k in range(4)] for i in range(30)])
+    ex = dict(g0=[], eta=[], beta=[], gB=[], coef=[], lam=up(spectral(Lam)), r=r, nT=nT, eH=hrem, D=D,
+              ET_Lam=ET * Lam, Cj=Cj, lam_a=[up(spectral(sub(Lam, rows, range(4)))) for rows in GROUPS])
     for rows in GROUPS:
-        bg = sub(B, rows, range(66)); bn = spectral(bg); bh = bg * JH
+        bn = spectral(sub(B, rows, range(66)))
         ex['g0'].append(C.norm([G0[i, 0] for i in rows]))
-        ex['etaH'].append(up(spectral(bh * U) * r + spectral(bh) * hrem + arb(6).sqrt() * bn * D * D))
-        ex['beta'].append(up(2 * bn * D * nT + spectral(sub(lin, rows, range(30)))))
+        ex['eta'].append(up(spectral(sub(Ku, rows, range(4))) * r + spectral(sub(BJ, rows, range(36))) * hrem
+                            + spectral(sub(M, rows, range(16))) * r * r + arb(6).sqrt() * bn * D * D))
+        ex['beta'].append(up(spectral(sub(lin, rows, range(30))) + spectral(arb_mat([[Cj[j][i, k] for j in range(4) for k in range(30)] for i in rows])) * r))
+        ex['gB'].append(bn)
         ex['coef'].append(tensor_bounds(sub(Cf, rows, range(180)), sub(Sf, rows, range(180)), AS, AW, KS, KW))
     ex['ns'] = [up(C.norm([A[i, j] for j in range(28)])) for i in range(180)]
     ex['nw'] = [up(C.norm([A[i, j] for j in range(28, 30)])) for i in range(180)]
@@ -122,13 +142,17 @@ def expansion(model, q, y, T, B):
 
 
 def slack(ex, s, w):
-    """Upper bounds of etaH_a + beta_a rho + P_a(s, w) for both blocks (P: PROOF_815.md (7))."""
-    v = [(ex['ns'][l] * s + ex['nw'][l] * w) ** 9 / math.factorial(9) for l in range(180)]; rho = (s * s + w * w).sqrt()
+    """Upper bounds of eta_a + beta_a rho + gamma_a(rho) + P_a(s + lam_s r, w + lam_w r) for both blocks
+    (PROOFS.md, P1; P_a: PROOF_815.md (7), increasing in both arguments)."""
+    rho = (s * s + w * w).sqrt(); zeta = rho + ex['lam'] * ex['r']
+    s, w = s + ex['lam_a'][0] * ex['r'], w + ex['lam_a'][1] * ex['r']
+    v = [(ex['ns'][l] * s + ex['nw'][l] * w) ** 9 / math.factorial(9) for l in range(180)]
     out = []
     for g, rows in enumerate(GROUPS):
         tail = C.norm([sum((ex['amp'][i][l] * v[l] for l in range(180)), arb(0)) for i in rows])
         poly = sum((cf * s ** (n - k) * w ** k for (n, k), cf in ex['coef'][g].items()), arb(0))
-        out.append(up(ex['etaH'][g] + ex['beta'][g] * rho + poly + tail))
+        gamma = 2 * ex['gB'][g] * ex['nT'] * ex['eH'] * zeta + arb(2).sqrt() * ex['gB'][g] * ex['nT'] ** 2 * ex['D'] * zeta ** 2
+        out.append(up(ex['eta'][g] + ex['beta'][g] * rho + gamma + poly + tail))
     return out
 
 
@@ -206,7 +230,8 @@ def search(ex, R, wcap, target, budget=4000):
 
 # ---- the witness --------------------------------------------------------------------------------------------------
 
-TARGETS = (0.01, 0.015, 0.02, 0.0225, 0.025)
+TARGETS = (0.005, 0.0075, 0.01, 0.015, 0.02, 0.025)
+FIRST = (0.15, 0.2, 0.3, 0.4)                              # stage-1 radii (fixed reference)
 
 
 def prepare(model, prop):
@@ -214,22 +239,33 @@ def prepare(model, prop):
     step F on each tube (computed when first needed)."""
     q = arb_mat([[arb(float(model['Q0'][i, 0].mid()))] for i in range(36)])
     y = arb_mat([[arb(v)] for v in prop['y']]); T = Z.mat(prop['T']); B = Z.mat(prop['B'])
-    return dict(prop=prop, y=y, T=T, model=model, Ti=T.inv(), centre=expansion(model, q, y, T, B), forced={})
+    return dict(prop=prop, y=y, T=T, model=model, Ti=T.inv(), fixed=expansion(model, q, y, T, B, moving=False),
+                centre=expansion(model, q, y, T, B), forced={})
 
 
 def force(shared, t):
-    """Step F on the tube |K - y*| <= |T| t (cached): the native row. Each column's centred error is at most the
-    whole matrix's, so every column gets epsilon = |T| t."""
+    """Step F on the tube K = y*(u) + e, |e| <= |T| t (cached): the native moving contraction with carrier ET Lam
+    (column c: rows 6r+c), accepted by its own bound or by P2. Each column's centred error is at most the whole
+    matrix's, so every column gets epsilon = |T| t."""
     if t not in shared['forced']:
         tube = up(spectral(shared['T']) * arb(t)); yy = shared['prop']['y'].reshape(6, 6); model = shared['model']
-        prepared = {c: dict(model=model, v0=arb_mat([[arb(yy[a, c])] for a in range(6)]), T=arb_mat(6, 4), Tnorm=arb(0)) for c in range(6)}
-        shared['forced'][t] = MS.classify(model, prepared, {c: dict(epsilon=tube, phase_radius=tube) for c in range(6)}, list(range(6)), attempts=2)
+        L = shared['centre']['ET_Lam']
+        prepared = {c: dict(model=model, v0=arb_mat([[arb(yy[a, c])] for a in range(6)]),
+                            T=arb_mat([[L[6 * a + c, j] for j in range(4)] for a in range(6)])) for c in range(6)}
+        shared['forced'][t] = MV.classify(model, prepared, {c: dict(epsilon=tube, phase_radius=tube) for c in range(6)}, list(range(6)))
     return shared['forced'][t]
 
 
 def pattern(shared, columns, rho):
     """One pattern (each column's retained fine bins, in the column order of y*): EXCLUDED, CLASSIFIED or OPEN."""
     R, wcap = colour_product(shared['y'], shared['Ti'], columns, rho)
+    # Stage 1: the fixed reference (Lam = 0) localises zeta = z + Lam u to |zeta| < R1, or excludes the pattern.
+    for t1 in FIRST:
+        try: n1, lv1 = search(shared['fixed'], R, wcap, arb(t1))
+        except ArithmeticError: continue
+        if 'localised' not in lv1: return dict(status='EXCLUDED', route='annulus', R=R.str(3), wcap=wcap.str(3), nodes=n1, leaves=lv1)
+        R, wcap = arb(t1), (wcap if wcap < t1 else arb(t1)); break
+    ex = shared['centre']; R, wcap = up(R + ex['lam'] * ex['r']), up(wcap + ex['lam_a'][1] * ex['r'])   # bounds on z
     info, last = dict(R=R.str(3), wcap=wcap.str(3)), None
     for t in TARGETS:                                       # smallest tube first
         try: nodes, leaves = search(shared['centre'], R, wcap, arb(t))
@@ -237,8 +273,8 @@ def pattern(shared, columns, rho):
         info.update(nodes=nodes, leaves=leaves, target=t)
         if 'localised' not in leaves: return dict(status='EXCLUDED', route='annulus', **info)
         row = force(shared, t)
-        if row['status'] == 'CERTIFIED': return dict(status='CLASSIFIED', q=row['q'], **info)
-        last = dict(status='OPEN', step='F', reason=[d['reason'][:120] for d in row.get('diagnostics', [])])
+        if row['status'] == 'CERTIFIED': return dict(status='CLASSIFIED', q=row['q'], q_native=row['q_native'], q_p2=row['q_p2'], **info)
+        last = dict(status='OPEN', step='F', reason=[{k: a.get(k, '')[:60] for k in ('q_native', 'q_p2', 'reason')} for a in row['attempts']])
     return dict(**last, **info)
 
 
