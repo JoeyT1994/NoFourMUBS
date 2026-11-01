@@ -44,20 +44,25 @@ with its axiom audit.
 
 ## Layout
 
+The proof has four components, one per idea; a fifth applies the same atlas to the triple classification.
+
+| Component | Proves | Steps |
+|---|---|---|
+| [`MinimalReconstruction/`](MinimalReconstruction/README.md) | Every non-Tao class other than F6 is the matched completion of a strict 3×3 corner: existence, uniqueness, the converse, strict-corner coverage | 2.1–2.2 |
+| [`Connectedness/`](Connectedness/README.md) | The positive maxima of R form one orbit, the strict seeds are connected, and so the space X of non-Tao classes is connected | 1, 2.3 |
+| [`PhaseCover/`](PhaseCover/README.md) | Finitely many seed balls and one ball at F6, whose boundary spheres transfer into one another, cover X; the edge chart at F6 | 4.2–4.3, 5 |
+| [`QuartetExclusion/`](QuartetExclusion/README.md) | No piece of the cover contains a quartet edge: C1 and Stage C on every seed ball, the radius-7/40 theorem at F6, Tao's record | 3, 4.1 |
+| [`TripleClassification/`](TripleClassification/README.md) | Not part of this proof: every MUB triple completing a seed ball is of known type, by the same atlas | — |
+
+Shared:
+
 | Path | Role |
 |---|---|
-| [`PROOF.md`](PROOF.md), [`verify.py`](verify.py) | The proof and the replay driver |
-| [`proof/coverage/`](proof/coverage/README.md) | Steps 1–2: the returned proofs used by the proof, with their exact verifiers; cross-checks |
-| [`proof/seed_atlas/`](proof/seed_atlas/README.md) | Steps 3 and 5: the seed-atlas format, the driver that builds it, the Arb certifier, the certificate |
-| [`proof/independent_seed/`](proof/independent_seed/README.md) | An independent implementation of the Step 3–5 checks (Julia, interval arithmetic), written from the specification only |
-| [`proof/theorems/`](proof/theorems/README.md) | The theorems behind Steps 3–5 (C1, the transfers, F6 and the edge chart), each with its proof and exact or interval verifiers |
-| [`proof/atlas/`](proof/atlas/README.md) | Stage C (Lemma 3.2) and Tao's record: the shared code and its proofs (`STAGEC.md`, `RIGOUR.md`) |
-| [`proof/independent/`](proof/independent/README.md) | The independent Julia Stage C and normal bound, loaded by `proof/independent_seed` |
-| [`MinimalConstruction/`](MinimalConstruction/README.md) | The corner reconstruction and the critical-strip proofs behind strict-corner coverage (Theorem 2.5) |
+| [`PROOF.md`](PROOF.md), [`verify.py`](verify.py) | The proof, and the driver that replays every exact check (`--atlas` adds the whole atlas in Arb) |
+| [`proof/`](proof/README.md) | The hash-bound core (Stage C, the atlas and its certifiers, the theorems their receipts bind), kept byte-identical at these paths; each component links into it |
 | [`lean/`](lean/README.md) | The Lean formalisation and the generators of its certificate modules |
+| [`kernel_atlas/`](kernel_atlas/README.md) | The certificate checked in the Lean kernel (`decide +kernel`): return X at 7/40 (done), the seed balls and the ball at F6 (in progress) |
 | [`tests/`](tests/) | Negative tests of the checkers |
-| [`kernel_atlas/`](kernel_atlas/README.md) | The certificate checked in the Lean kernel (`decide +kernel`), so that the main theorem holds with no hypotheses: return X at 7/40 (done), the seed balls and the ball at F6 (in progress) |
-| [`TripleClassification/`](TripleClassification/README.md) | In progress, not part of the proof: classifying the MUB triples with the same atlas (2,514 of 2,775 seed balls resolved; the rest, the X-ball and S₆ remain) |
 
 ## License and citation
 

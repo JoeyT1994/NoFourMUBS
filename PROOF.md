@@ -44,7 +44,7 @@ Theorem 4.3 (return XS) ─→ transfers into the ball at F6 need no side data
 Lemma 5.1 (transfers) + Lemma 5.2 (coverage) + Theorem 2 ─→ the atlas covers X ─→ no four MUBs
 ```
 
-Step 2 is the minimal reconstruction ([`MinimalConstruction/`](MinimalConstruction/README.md)): a corner seed, its two
+Step 2 is the minimal reconstruction ([`MinimalReconstruction/`](MinimalReconstruction/README.md)): a corner seed, its two
 sides and the forced fourth block. That folder's README maps each of its documents to the theorem here that uses it,
 with a notation table.
 
@@ -96,7 +96,7 @@ and at (π, 0) those of o do, so the nine circles are joined in a 3 × 3 grid. A
 in one path component. ∎
 
 So a subset of S that is open and closed in S and nonempty is all of S; this is how the lemma is used below.
-The identities are replayed exactly by [`proof/coverage/omega_connected/verify_paths.py`](proof/coverage/omega_connected/verify_paths.py).
+The identities are replayed exactly by [`Connectedness/omega_connected/verify_paths.py`](Connectedness/omega_connected/verify_paths.py).
 *Lean:* `Step2.isConnected_strict` (`Step2/StrictConnected`), with the paths through Lean's Step 1 coordinates.
 
 **Coordinates.** Normalise the even products (ad, b, c) and the odd products (bc, d, a) of the corner so that each triple has product 1. Let U and V be their traces. Each lies in the filled deltoid 𝒟, and the trace map is an open quotient by S₃. Put A = U + V, B = U − V, u = |A|² and v = |B|². Then
@@ -122,7 +122,7 @@ So both traces cannot be interior.
 - On that branch, the actual transverse curvature is 660(46y + 9) > 4125/32. Every physical root of 4y² + 6y + 1 lies in (−49/256, −3/16), by a secant identity.
 - On h = 1, four positive Bernstein expansions leave only (c, h) = (1/4, 1). Its lifts are exactly the 18-point orbit, with q = (1 + i√15)/4.
 
-**Certificates.** 651 exact claims, checked with integers and rationals only, in seconds (`lean/Step1Gen`, `verify_certificates.py`; proof documents in [`proof/coverage/returns/C_step1_saddle`](proof/coverage/returns/C_step1_saddle/)). Theorem 1 is proved in Lean, using only standard axioms: the 96 certificate theorems of library `Step1` that it needs (interior, single boundary, double boundary) and the analytic assembly in `lean/NoFourMUBs/Step1/`. The remaining certificates (curvature, cusps, endpoints, orbit census) are checked exactly by `verify_certificates.py` but are not needed by the proof. Theorem 1 is `Step1Geo.maximumCensus`, with the explicit anchors `Step1Geo.anchors`. The earlier resultant/Sturm proofs A and B (`returns/A_deltoid`, `returns/B_exact_quotient`) remain as independent cross-checks. Proof B also shows why no interval box cover could work here: at the F3 seed, R, ∇R and Hess R all vanish, with strict seeds arbitrarily close.
+**Certificates.** 651 exact claims, checked with integers and rationals only, in seconds (`lean/Step1Gen`, `verify_certificates.py`; proof documents in [`Connectedness/returns/C_step1_saddle`](Connectedness/returns/C_step1_saddle/)). Theorem 1 is proved in Lean, using only standard axioms: the 96 certificate theorems of library `Step1` that it needs (interior, single boundary, double boundary) and the analytic assembly in `lean/NoFourMUBs/Step1/`. The remaining certificates (curvature, cusps, endpoints, orbit census) are checked exactly by `verify_certificates.py` but are not needed by the proof. Theorem 1 is `Step1Geo.maximumCensus`, with the explicit anchors `Step1Geo.anchors`. The earlier resultant/Sturm proofs A and B (`returns/A_deltoid`, `returns/B_exact_quotient`) remain as independent cross-checks. Proof B also shows why no interval box cover could work here: at the F3 seed, R, ∇R and Hess R all vanish, with strict seeds arbitrarily close.
 
 ## Step 2. Reconstruction, and X is connected
 
@@ -173,9 +173,9 @@ A = {[H] : H matched at a strict seed}.
   K(t) = [[F₃, F₃], [F₃D(t), −F₃D(t)]], D(t) = diag(1, e^{it}, 1), has a corner (zero-based rows 1, 3, 5 and columns 0, 2, 4)
   with R(t) = 144 sin²t (1 + cos t)² > 0 for 0 < t < π, and K(t) is a matched completion there, by explicit
   signatures 2T(B) = χ + i√R and 2T(C) = χ − i√R (return Q,
-  [`proof/coverage/returns/Q_fourier_anchor`](proof/coverage/returns/Q_fourier_anchor/PROOF.md)). The sides of a
+  [`MinimalReconstruction/returns/Q_fourier_anchor`](MinimalReconstruction/returns/Q_fourier_anchor/PROOF.md)). The sides of a
   matched completion lie in U. So U is a nonempty open and closed subset of S, and U = S by Lemma 1.1.
-  Conjugating seed and side gives the other root ([`proof/coverage/returns/J_side_existence/RESULT.md`](proof/coverage/returns/J_side_existence/RESULT.md)). The flatness step uses any actual sides, so it applies at each seed of U before
+  Conjugating seed and side gives the other root ([`MinimalReconstruction/returns/J_side_existence/RESULT.md`](MinimalReconstruction/returns/J_side_existence/RESULT.md)). The flatness step uses any actual sides, so it applies at each seed of U before
   U = S is known.
 - **Flatness.** For *any* actual sides B, C on conjugate roots, the forced block D = −C E* G⁻¹ B has unimodular
   entries. The completion always satisfies HH* = 6I. Its defect matrix Δᵢⱼ = |Dᵢⱼ|² − 1 has zero row and column sums,
@@ -186,10 +186,10 @@ A = {[H] : H matched at a strict seed}.
   W₁₁ = J₁₀/(d_h d_v g)·(z + w − χ/g) + J₁₁/(d_h d_v)·(zw − η), which vanishes for matched labels (z + w = χ/g,
   zw = η by Lemma 2.1). Here the third moments are written Q⁽¹⁾(G, z) = (H₀ + g z H₁)/d_G with d_G = P₀P̄₁,
   U = E*·adj(G_h) and J_ij = tr(V_iᵀ U H_j U*); the decomposition holds because two residuals F₀, F₁ vanish
-  identically in ℚ(a, b, c, d) (return R2, [`proof/theorems/R2_flatness_cross_side`](proof/theorems/R2_flatness_cross_side/REVIEW.md);
+  identically in ℚ(a, b, c, d) (return R2, [`MinimalReconstruction/theorems/R2_flatness_cross_side`](MinimalReconstruction/theorems/R2_flatness_cross_side/REVIEW.md);
   first proved with eight larger coefficient identities, return E,
-  [`proof/coverage/returns/E_matched_flatness`](proof/coverage/returns/E_matched_flatness/FLATNESS.md)). The
-  relabelling is handoff M, proved in [`RELABELLING.md`](proof/coverage/returns/E_matched_flatness/RELABELLING.md).
+  [`MinimalReconstruction/returns/E_matched_flatness`](MinimalReconstruction/returns/E_matched_flatness/FLATNESS.md)). The
+  relabelling is handoff M, proved in [`RELABELLING.md`](MinimalReconstruction/returns/E_matched_flatness/RELABELLING.md).
 
 *Lean:* `L1.matchedExistence`. Side existence is `L1.sides_all`, with `L1.exists_side_h` and `L1.exists_side_v`
 (`L1/SideJacobian`, `L1/SideCover`, `L1/Existence`); the pointwise step is `L1.matched_of_sides`, the Fourier
@@ -205,7 +205,7 @@ uniqueness follows, since the forced block is determined by the sides. *Lean:* `
 > **Theorem 2.4 (the nonmatched converse).** If a Hadamard matrix has a strict corner whose two side signatures
 > are *not* conjugate, it is equivalent to S₆.
 
-*Proof* ([`proof/coverage/returns/G_prm/PRM.md`](proof/coverage/returns/G_prm/PRM.md) §§2–5). Let M be such a
+*Proof* ([`MinimalReconstruction/returns/G_prm/PRM.md`](MinimalReconstruction/returns/G_prm/PRM.md) §§2–5). Let M be such a
 matrix, dephased at the corner, with horizontal signature ζ. Its vertical signature is then ζ as well (Lemma 2.1).
 1. **Comparison.** Theorem 2.2 gives an actual vertical side on ζ̄. With M's own horizontal side, its forced block is
    flat. So there is a matched completion H₀ with the **same top three rows** T as M.
@@ -232,7 +232,7 @@ statement is `PRM.nonmatched_tao` (`PRM/FourierMatch.lean`, used only by the Fou
 
 > **Theorem 2.5 (strict-corner coverage).** Every Hadamard matrix not equivalent to F6 has a strict corner.
 
-*Proof* ([`MinimalConstruction/Proofs/STRICT_CORNER_COVERAGE.md`](MinimalConstruction/Proofs/STRICT_CORNER_COVERAGE.md),
+*Proof* ([`MinimalReconstruction/Proofs/STRICT_CORNER_COVERAGE.md`](MinimalReconstruction/Proofs/STRICT_CORNER_COVERAGE.md),
 with `PRM.md` §7.1). Suppose every corner of H is critical (R = 0) and H ≇ F6.
 1. **Routing.** A singular 3×3 minor, or three rows phased into (1; x; x̄), would put H in a Fourier family
    (elementary, `PRM.md` §7.1). An all-critical member of a Fourier family is equivalent to F6
@@ -241,18 +241,18 @@ with `PRM.md` §7.1). Suppose every corner of H is critical (R = 0) and H ≇ F6
 2. **Critical-strip classification.** On any three-row strip with all twenty blocks invertible and every corner
    critical, each corner has p ∈ {0, 5}, or one of two rational endpoints, or p = p* := 9 − 4/(1 + κ²), where
    κ > 0 solves 3κ³ + κ² + κ − 1 = 0.
-   - *Zero J* (return O, [`proof/coverage/returns/O_zeroj_unsquared`](proof/coverage/returns/O_zeroj_unsquared/REPORT.md)):
+   - *Zero J* (return O, [`MinimalReconstruction/returns/O_zeroj_unsquared`](MinimalReconstruction/returns/O_zeroj_unsquared/REPORT.md)):
      two *unsquared* weighted sums over the nine mixed corners vanish on an all-critical strip; with exact scalar
      algebra they force K = (1 − z)(z + 3)³, and the geometric step follows from λ₀ = 1 and Σ xⱼyⱼ = 3.
-   - *Nonzero J* ([`proof/coverage/returns/K_nonzero_J/REPORT.md`](proof/coverage/returns/K_nonzero_J/REPORT.md)):
+   - *Nonzero J* ([`MinimalReconstruction/returns/K_nonzero_J/REPORT.md`](MinimalReconstruction/returns/K_nonzero_J/REPORT.md)):
      two sums of the *unsquared* corner signature, Σ_C D_C = ā b c − a b̄ c̄ and its xy-weighted version, vanish on
      an all-critical strip. With the cleared λ-identities and a universal 24-term identity they force
      Im(s̄ r̄ t) = 0 or a repeated modulus, poles included; this leaves four one-parameter curves. On each curve, if
      all six λ-denominators were nonzero the weighted sum would equal an explicit nonzero value, so some
      denominator vanishes; the product of the six denominators, factored on the four curves, gives exactly the
      three candidates.
-3. **Counting** ([`ENDPOINT_COUNTING.md`](MinimalConstruction/Proofs/ENDPOINT_COUNTING.md), return S,
-   [`proof/coverage/returns/S_endpoints_by_counting`](proof/coverage/returns/S_endpoints_by_counting/PROOF.md)). Fix a
+3. **Counting** ([`ENDPOINT_COUNTING.md`](MinimalReconstruction/Proofs/ENDPOINT_COUNTING.md), return S,
+   [`MinimalReconstruction/returns/S_endpoints_by_counting`](MinimalReconstruction/returns/S_endpoints_by_counting/PROOF.md)). Fix a
    column c; identify the ten corners C ∋ c with the edges of K₅ on the other columns. Three universal identities
    (unit entries, orthogonal rows): Σ_{C∋c} p_C = 54; the signed vertex sums d_i = Σ_{C⊇{c,i}} J_C vanish (the
    anchored determinant sum Σ_{C∋c} |det E_C|² = 108 with |det E_C|² = 27 − 3p_C − J_C, and opposite J on
@@ -289,7 +289,7 @@ matched. If the horizontal signature is ζ₋, conjugate the whole matrix. *Lean
    closure of both A and conj A.
 4. **Conclusion.** By Corollary 2.6, X = A ∪ conj A ∪ {[F6]}, which is therefore connected. ∎
 
-Details: [`proof/coverage/returns/A_deltoid/CONNECTEDNESS.md`](proof/coverage/returns/A_deltoid/CONNECTEDNESS.md) and
+Details: [`Connectedness/returns/A_deltoid/CONNECTEDNESS.md`](Connectedness/returns/A_deltoid/CONNECTEDNESS.md) and
 `SHEETS_TOPOLOGY.md`, with return B as an independent check. *Lean:* `Step2.coverage_of_matched_density` and its inputs.
 
 ## Step 3. Local exclusion in seed coordinates
@@ -347,7 +347,7 @@ The reconstruction degenerates only at F6, where R = 0 and the two orientations 
 > edge.
 
 Return X proves it at 3/20 and at 9/20 by an exact finite cover with a quantitative margin
-(`proof/theorems/X_no_quartet_near_F6/`, `X_radius_045/`). **In Lean, at 7/40 and with no hypotheses**:
+(`QuartetExclusion/theorems/X_no_quartet_near_F6/`, `X_radius_045/`). **In Lean, at 7/40 and with no hypotheses**:
 `NoFourMUBs.X.Radius0175.no_quartet_near_F6_r0175` ([`lean/NoFourMUBs/X/`](lean/NoFourMUBs/X/README.md)), where a
 normal-displacement bound reduces it to one Stage C certificate at F6, checked in the kernel.
 
@@ -368,7 +368,7 @@ is quartet-free by Theorem 4.1. F6 = H(0) is its centre. Openness at y = 0 comes
 The three corner phases pin the Fourier frame: only 72 of the 14,400 ordered corner pairs fit them, and each extends
 to an automorphism of F6. W's framed continuation then recovers the whole completion. The theorem uses no side orders,
 side windings, orientation signs or tubes, and it holds across the fold y = 0
-(`proof/theorems/XS_edge_side_orders/`, replayed).
+(`PhaseCover/theorems/XS_edge_side_orders/`, replayed).
 
 ## Step 5. The atlas covers X
 
@@ -387,7 +387,7 @@ centre jets), certified by a 5 × 5 positive-definite witness (an S-lemma certif
 The Ψ signs follow from the linear minimum over the cap and ‖D²ψ‖ ≤ 72. A T3 cap carries two witnesses, one per
 condition of Theorem 4.3, with the signature remainder of y′ = −2 Im Ψ. The caps of a sphere cover it by an exact
 polar-facet certificate: every vertex of {y : v_i·y ≤ h_i} lies in the closed unit ball, checked in integers.
-Theorems: `proof/theorems/ZC_cap_transfers/` (seed spheres), `ZC2a_xball_sphere_caps/` (the X-ball's sphere),
+Theorems: `PhaseCover/theorems/ZC_cap_transfers/` (seed spheres), `ZC2a_xball_sphere_caps/` (the X-ball's sphere),
 `ZC2b_t3_caps/` (T3); code: [`proof/seed_atlas/cert/caps.py`](proof/seed_atlas/cert/caps.py), `cap_t3.py`,
 `edgecaps.py`, `cap_coverage.py`. A sphere may instead be covered by dyadic boxes, each tested by ZT's patch test
 (`proof/theorems/ZT_wholeball_transfers/`); the present certificate uses caps only.

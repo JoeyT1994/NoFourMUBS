@@ -1,13 +1,13 @@
 #!/bin/bash
 # Spherical caps (return ZC) for every seed ball whose transfers are all T0/T1, then a certificate carrying them.
 #   sbatch -p ccq -N1 --exclusive -c128 caps_build.sh CERT WORKDIR OUT_CERT
-# Stages: ZC proposals, weighted augmentation (proof/theorems/ZC_cap_transfers/.../construction.py), the exact coverage
+# Stages: ZC proposals, weighted augmentation (PhaseCover/theorems/ZC_cap_transfers/.../construction.py), the exact coverage
 # certificate and the production Arb check (caps_check.py), then caps_assemble.py (compact coverage).  Balls whose caps do not certify keep
 # their boxes.  Run the certifiers on OUT_CERT afterwards.
 set -u
 CERT=$(readlink -f "$1"); W=$(readlink -f "$2"); OUT=$3
 HERE=$(cd "$(dirname "$0")" && pwd)
-ZC=$HERE/../../theorems/ZC_cap_transfers/ZC_cap_results/ZC_work
+ZC=$HERE/../../../PhaseCover/theorems/ZC_cap_transfers/ZC_cap_results/ZC_work
 PY=${PY:-python3}; N=${WORKERS:-120}
 export OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 PYTHONUNBUFFERED=1
 mkdir -p "$W"

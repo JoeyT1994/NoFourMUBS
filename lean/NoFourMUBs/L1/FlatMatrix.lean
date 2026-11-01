@@ -4,7 +4,7 @@ import NoFourMUBs.Step2.SideAlg
 /-!
 # Matched flatness: the matrix argument
 
-`proof/coverage/returns/E_matched_flatness/FLATNESS.md` §4.  For sides `B` (horizontal) and `C`
+`MinimalReconstruction/returns/E_matched_flatness/FLATNESS.md` §4.  For sides `B` (horizontal) and `C`
 (vertical) of a corner `E`, the forced block `D = forcedD E B C` makes the completion `H` satisfy
 `H H* = 6 I` with no flatness assumption.  Its defects `Δᵢⱼ = |Dᵢⱼ|² − 1` have zero row and column
 sums, so in the invertible coordinates `W = C̄ᵀ Δ B̄ᵀ` (4.2) the first row and column vanish.  If the four

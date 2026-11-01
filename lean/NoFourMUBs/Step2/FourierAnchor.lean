@@ -5,7 +5,7 @@ import NoFourMUBs.Step2.FourierFamily
 /-!
 # The Fourier family anchors the reconstruction (return Q)
 
-`proof/coverage/returns/Q_fourier_anchor`.  Let `ω = e^{2πi/3}` and, for `z` on the unit circle, let
+`MinimalReconstruction/returns/Q_fourier_anchor`.  Let `ω = e^{2πi/3}` and, for `z` on the unit circle, let
 `A(z) = affineFourierMatrix ω 1 z`, upstream's affine-Fourier family, Hadamard for every `z`, with `A(1)` the
 Fourier matrix `F6` (`fourierHadamard`).  Its corner on rows `0, 1, 3` and columns `0, 2, 5` (already dephased) is
 the seed `θ(z) = (1, −z, ω, −ω²z)`.  With `x = Re z`, `y = Im z`:

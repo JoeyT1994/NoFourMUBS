@@ -6,7 +6,7 @@ Tao is included. Equivalently, the locus on which all 400 positional
 corner discriminants vanish is exactly the equivalence class of F6.
 
 This is `PROOF.md` Theorem 2.5. It does not assert that every corner is strict. The argument uses exact identities,
-the Fourier routing of return G (`proof/coverage/returns/G_prm/PRM.md` §7.1), the signed corner sums of return K for
+the Fourier routing of return G (`MinimalReconstruction/returns/G_prm/PRM.md` §7.1), the signed corner sums of return K for
 the nonzero-J strips and the ten-corner count of return S (ENDPOINT_COUNTING.md); no classification input and no
 sampled evidence.
 
@@ -40,7 +40,7 @@ each of their twenty three-column corners, its theorem now says:
 
   or one of the two rational endpoints (p=27/5 equicorrelated, p=7).
 
-(Return K, `proof/coverage/returns/K_nonzero_J/REPORT.md`, gives a shorter proof of the nonzero-J classification by two
+(Return K, `MinimalReconstruction/returns/K_nonzero_J/REPORT.md`, gives a shorter proof of the nonzero-J classification by two
 signed corner sums; the Lean proof uses it.) ENDPOINT_COUNTING.md (return S) shows that the ten corners containing one
 column cannot all be of these types: the anchored sum rule Σp=54 leaves no corner at p_star (p_star lies in
 (5.722, 5.723), or use that it is irrational), the vertex sums of the signed J make both endpoint counts even, and the

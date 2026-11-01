@@ -51,5 +51,5 @@ It also checks Tao's record. A run over a subset (`--only`) never reports PASS.
 
 A cap {‖x‖ = 1, v·x ≥ h} is certified for a transfer by 5 × 5 positive-definite witnesses on the source ball's
 whole-ball model, and the caps of a sphere cover it by an exact polar-facet certificate (FORMAT.md §§4a, 8a;
-proof/theorems/ZC_cap_transfers, ZC2a_xball_sphere_caps, ZC2b_t3_caps). A T3 cap certifies Theorem 4.3's two
+PhaseCover/theorems/ZC_cap_transfers, ZC2a_xball_sphere_caps, ZC2b_t3_caps). A T3 cap certifies Theorem 4.3's two
 conditions (return XS: no side data). Julia checks caps in 256-bit intervals.

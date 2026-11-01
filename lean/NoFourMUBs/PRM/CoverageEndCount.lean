@@ -3,8 +3,8 @@ import NoFourMUBs.PRM.CoverageTenStrip
 /-!
 # Endpoint exclusion by counting (return S)
 
-From return S (`proof/coverage/returns/S_endpoints_by_counting`, `PROOF.md` §2, §3 and the unbundled
-argument of §7; `MinimalConstruction/Proofs/ENDPOINT_COUNTING.md`).  For a phase-orthogonal `3 × 6`
+From return S (`MinimalReconstruction/returns/S_endpoints_by_counting`, `PROOF.md` §2, §3 and the unbundled
+argument of §7; `MinimalReconstruction/Proofs/ENDPOINT_COUNTING.md`).  For a phase-orthogonal `3 × 6`
 strip `T` and its ten corners `k` containing column `0` (`threeSum`, `stripP` of `CoverageTenStrip`):
 
 * `stripJ T k = 2 Re(a_C b_C c_C)`, where `a, b, c` are the relative phases of the row pairs
@@ -91,7 +91,7 @@ theorem pair_sums (a b c : Fin 6 → ℂ) (ha : ∑ j, a j = 0) (hb : ∑ j, b j
       2 * u0 - 2 * u5 + u1 + u2 + u3 + u4
 
 /-- The fourth-moment identity (8) of the return, as a polynomial identity: `vⱼ` stands for `ūⱼ`.
-The cofactors were found by linear algebra (`MinimalConstruction/Proofs/verify_endpoint_counting.py`
+The cofactors were found by linear algebra (`MinimalReconstruction/Proofs/verify_endpoint_counting.py`
 re-derives the identity); `linear_combination` checks them. -/
 theorem fourth_poly (u0 u1 u2 u3 u4 u5 v0 v1 v2 v3 v4 v5 : ℂ)
     (hu : u0 + u1 + u2 + u3 + u4 + u5 = 0) (hv : v0 + v1 + v2 + v3 + v4 + v5 = 0)

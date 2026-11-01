@@ -4,7 +4,7 @@ import Mathlib
 # Elementary rational bounds for the cubic exceptional value
 
 From the ten-corner return of 14 Oct 2026 (`covret/result`); repaired and compiled here, and
-tightened for return S (`proof/coverage/returns/S_endpoints_by_counting`): with the endpoints
+tightened for return S (`MinimalReconstruction/returns/S_endpoints_by_counting`): with the endpoints
 counted alongside, the window `(17/3, 29/5)` would admit spurious count patterns (e.g. `143/25`), so
 `p⋆ ≈ 5.72221` is bracketed in `(5.722, 5.723)` (`CoverageEndCount.no_window`).  No irrationality
 or field-degree argument is used.

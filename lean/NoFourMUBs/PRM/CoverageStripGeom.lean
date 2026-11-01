@@ -4,7 +4,7 @@ import NoFourMUBs.PRM.CoverageStripBlock
 # Critical strip classification (I4): the geometric-progression step of the zero-`J` stratum
 
 `CRITICAL_STRIP_CLASSIFICATION.md` §2, after `K = (1 − z)(z + 3)³` is known; the argument of return O
-(`proof/coverage/returns/O_zeroj_unsquared`, `REPORT.md` §8 and `review/GEOMETRIC_STEP.md`).  With the
+(`MinimalReconstruction/returns/O_zeroj_unsquared`, `REPORT.md` §8 and `review/GEOMETRIC_STEP.md`).  With the
 rows relabelled so that `X = Y = z + 3`, `Z = (1 − z)(z + 3)`, and phased so that `s = t = σ = √(z + 3)`
 (so `r` is imaginary, as `J = 0`):
 

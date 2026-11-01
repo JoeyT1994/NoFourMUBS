@@ -1,6 +1,6 @@
 # Endpoints by counting
 
-From return S ([`proof/coverage/returns/S_endpoints_by_counting`](../../proof/coverage/returns/S_endpoints_by_counting/PROOF.md),
+From return S ([`MinimalReconstruction/returns/S_endpoints_by_counting`](../returns/S_endpoints_by_counting/PROOF.md),
 §§2, 3 and 7). Lean: `lean/NoFourMUBs/PRM/CoverageEndCount.lean` (`CoverageTen.anchored_count`). Verifier:
 `verify_endpoint_counting.py`.
 

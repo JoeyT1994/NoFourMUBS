@@ -7,7 +7,7 @@ import NoFourMUBs.PRM.CoverageStripIdFormal
 /-!
 # The zero-`J` product `K = (1 − z)(z + 3)³` from two unsquared mixed-corner sums (return O)
 
-`proof/coverage/returns/O_zeroj_unsquared/REPORT.md` §§2–7.  At a corner `l` of the top strip of a Hadamard
+`MinimalReconstruction/returns/O_zeroj_unsquared/REPORT.md` §§2–7.  At a corner `l` of the top strip of a Hadamard
 matrix whose twenty top corners are critical, with invertible halves `l`, `19 − l`, `J = 0` and
 `z ∉ {−3, −2}` (`ZCtx`), put `τ = z + 3` and `K = XYZ`.
 

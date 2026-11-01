@@ -5,7 +5,7 @@
 This document fixes the definitions of Step 2 of [`PROOF.md`](../PROOF.md): the corner seed and its domain (§1), the
 explicit side constructor (§2) and the matched completion H₊ built from them (§3). The theorems about this
 construction (matched existence, uniqueness, the nonmatched converse and strict-corner coverage, Theorems 2.2–2.5)
-are proved in `PROOF.md`, in [`../proof/coverage/`](../proof/coverage/README.md) and in [`Proofs/`](Proofs/README.md),
+are proved in `PROOF.md`, in [`../proof/coverage/`](../Connectedness/COVERAGE_INDEX.md) and in [`Proofs/`](Proofs/README.md),
 without classification input.
 
 ## 1. Convention, seeds and domain
