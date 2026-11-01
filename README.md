@@ -1,25 +1,57 @@
-# A topological proof that only three complementary measurements exist in six dimensions
+# Topology reveals all mutually unbiased bases in dimension six
 
-The proof, its certificates and its Lean formalisation, for the paper of the same title by M. Cárdenes Wuttig and
+The proofs, certificates and Lean formalisation for the paper of the same title by M. Cárdenes Wuttig and
 J. Tindall.
 
-**Theorem (computer-assisted).** ℂ⁶ does not admit four mutually unbiased bases.
+**Theorem (classification; computer-assisted).** Up to equivalence, every nonempty set of mutually unbiased bases
+(MUBs) in ℂ⁶ is one of the following:
+1. a single basis {I};
+2. a pair {I, H/√6}, where H is Tao's matrix, F₆, or the matched completion H₊(θ) of a strict seed θ;
+3. a triple in the continuous two-parameter family, or the isolated Fourier triple.
 
-**In Lean:** `NoFourMUBs.EdgeXFinal.no_four_mubs_seed (C : SeedAtlas.EdgeX.EdgeAtlasCertificate) : ¬ FourMUBs`
+This proves the conjecture of Matolcsi, Matszangosz, Varga and Weiner that the known triples are all of them.
+
+**Corollary (N(6) = 3).** ℂ⁶ does not admit four mutually unbiased bases. Every triple above contains two bases
+related by a matrix of the Fourier family, and no such pair extends to four MUBs (Jaming, Matolcsi, Móra, Szöllősi
+and Weiner).
+
+**An independent proof of the corollary, in Lean.** [`QuartetExclusion/`](QuartetExclusion/README.md) excludes
+every pair that could extend to four MUBs directly, without classifying triples or Hadamard matrices:
+`NoFourMUBs.EdgeXFinal.no_four_mubs_seed (C : SeedAtlas.EdgeX.EdgeAtlasCertificate) : ¬ FourMUBs`
 ([`lean/NoFourMUBs/SeedAtlas/EdgeXFinal.lean`](lean/NoFourMUBs/SeedAtlas/EdgeXFinal.lean)), using only the standard
-axioms (`propext`, `Classical.choice`, `Quot.sound`). **Its one input is the finite seed-atlas certificate**, whose
-inequalities are checked by two independent interval-arithmetic implementations (Arb and Julia). No classification of
-order-6 Hadamard matrices is used, and the proof is independent of OpenAI's results and certificates [OAI, OAI-F].
+axioms (`propext`, `Classical.choice`, `Quot.sound`). Its one input is the finite seed-atlas certificate, whose
+inequalities are checked by two independent interval-arithmetic implementations (Arb and Julia). It is independent
+of OpenAI's results and certificates [OAI, OAI-F].
 
-**Read:** [`PROOF.md`](PROOF.md) (the proof), then [`lean/README.md`](lean/README.md) (the formalisation).
+**How both are proved.** Every Hadamard class other than Tao's matrix and F₆ is reconstructed from a 3×3 corner
+given by four seed phases ([`MinimalReconstruction/`](MinimalReconstruction/README.md)). The space of these classes
+is connected ([`Connectedness/`](Connectedness/README.md)). Finitely many overlapping balls of seeds, and one ball at
+F₆, therefore cover it ([`PhaseCover/`](PhaseCover/README.md)). One local check closes each ball: for the
+classification, every third basis is excluded or is forced to have an order-three symmetry, which identifies the
+triple ([`TripleClassification/`](TripleClassification/README.md)); for the independent proof, the ball contains no
+pair that extends to four MUBs.
 
-**Status (27 Oct 2026).** The seed-atlas certificate (2,775 seed balls and the ball at F6, every sphere covered by 117,391 certified caps) passes both independent certifiers: Arb in 33 min on one 128-core node and Julia in 1 h 07 min on one 64-core node. See [`PROOF.md`](PROOF.md#step-5-the-atlas-covers-x).
+**Read:** [`TripleClassification/README.md`](TripleClassification/README.md) (the classification),
+[`PROOF.md`](PROOF.md) (the independent proof of the corollary), then [`lean/README.md`](lean/README.md) (the
+formalisation).
 
-## The proof in five steps
+**Status (1 Nov 2026).**
+- **Classification.** All 2,775 seed balls, the ball at F₆ and Tao's matrix are certified (audited pass of
+  1 November). One certificate per ball, which `TripleClassification/code/onetree.py check` verifies from its own
+  files, is being generated for every ball ([`CERTIFIER.md`](TripleClassification/CERTIFIER.md)). The local checks
+  use Arb and exact rational arithmetic. Some of their ingredients (the classification at F₆, collaborators' returns of
+  29–31 October and the native certifier's recognition argument) await independent review, and the classification is not formalised in
+  Lean.
+- **Independent proof of the corollary.** The seed-atlas certificate (2,775 seed balls and the ball at F₆, every
+  sphere covered by 117,391 certified caps) passes both independent certifiers: Arb in 33 min on one 128-core node
+  and Julia in 1 h 07 min on one 64-core node ([`PROOF.md`](PROOF.md#step-5-the-atlas-covers-x)).
+
+## The independent proof in five steps
 
 Every non-Tao Hadamard class other than F6 is the reconstruction of a 3×3 corner from four seed phases. The proof
 uses those four phases twice: globally, to show the space of classes is connected, and locally, as the coordinates
-of a finite atlas.
+of a finite atlas. The classification uses the same Steps 1, 2 and 5, with its own local check in place of Steps 3
+and 4.
 
 | Step | Statement | How it is checked |
 |---|---|---|
@@ -38,13 +70,15 @@ of a finite atlas.
 | `python3 verify.py --lean` | also builds the Lean formalisation and audits its axioms | elan; about 12 GB of disk |
 | `python3 verify.py --lean-full` | also builds the main theorems and audits them | as above; up to about 7 GB of RAM |
 | [`proof/independent_seed/`](proof/independent_seed/README.md) | the independent Julia checker of Step 5 | Julia 1.12; about an hour on one 64-core node |
+| `python3 TripleClassification/code/onetree.py check PR4 BALL CERT` | one seed ball's classification certificate, every node from its files ([`CERTIFIER.md`](TripleClassification/CERTIFIER.md)) | the pinned checker tree (PR #4) and python-flint; seconds for most balls |
 
 Continuous integration ([`.github/workflows/ci.yml`](.github/workflows/ci.yml)) runs `verify.py` and the Lean build
 with its axiom audit.
 
 ## Layout
 
-The proof has four components, one per idea; a fifth applies the same atlas to the triple classification.
+Five components, one per idea. The first three build the atlas; each of the other two is a local check on every
+piece of it.
 
 | Component | Proves | Steps |
 |---|---|---|
@@ -52,7 +86,7 @@ The proof has four components, one per idea; a fifth applies the same atlas to t
 | [`Connectedness/`](Connectedness/README.md) | The positive maxima of R form one orbit, the strict seeds are connected, and so the space X of non-Tao classes is connected | 1, 2.3 |
 | [`PhaseCover/`](PhaseCover/README.md) | Finitely many seed balls and one ball at F6, whose boundary spheres transfer into one another, cover X; the edge chart at F6 | 4.2–4.3, 5 |
 | [`QuartetExclusion/`](QuartetExclusion/README.md) | No piece of the cover contains a quartet edge: C1 and Stage C on every seed ball, the radius-7/40 theorem at F6, Tao's record | 3, 4.1 |
-| [`TripleClassification/`](TripleClassification/README.md) | Not part of this proof: every MUB triple completing a seed ball is of known type, by the same atlas | — |
+| [`TripleClassification/`](TripleClassification/README.md) | The classification: every MUB triple with a transition in a piece of the cover is of known type (one checkable certificate per seed ball), and Tao's matrix has no third basis | — |
 
 Shared:
 
