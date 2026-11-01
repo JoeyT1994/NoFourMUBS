@@ -39,7 +39,8 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 CAPS = {0: 150, 1: 150, 2: 150, 3: 450, 4: 450, 5: 300, 6: 300, 7: 300, 8: 300}   # from measured search times: a leaf's
 # search takes ~100 s (record, C1, Stage C and cover rebuilt), rarely over 450 s; a capped failure is split instead
-SEARCH = ['--gamma', '--projector', '--depth', '8', '--column-nodes', '30000', '--scalar-cap', '20000']
+SEARCH = ['--gamma', '--projector', '--depth', '6', '--column-nodes', '6000', '--scalar-cap', '2000']   # measured: as many
+# leaves as depth 8 / 30000 nodes, fewer time-outs, about half the proof size (--search-args to change)
 CERT = ('CERTIFIED_EMPTY_RECORDED_H_CELL', 'CERTIFIED_CLASSIFIED_RECORDED_H_CELL', 'CERTIFIED_MINIMUM_TRANSITION_RECORDED_H_CELL')
 W = {}
 
@@ -135,6 +136,7 @@ def close(a, root):
     tag = '.' + name(l0, c0) if a.part else ''     # a part (--part --cell) keeps its own journal, tree and summary
     tmpd = out / ('tmp' + tag); tmpd.mkdir(exist_ok=True)
     if a.caps: CAPS.update({int(k): float(v) for k, v in (x.split(':') for x in a.caps.split(','))})
+    if a.search_args: SEARCH[:] = a.search_args.split()
     known = {}                                   # an earlier, interrupted run's outcomes
     try:
         for line in open(out / ('journal%s.jsonl' % tag)):
@@ -251,6 +253,7 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('cmd', choices=('close', 'check', 'join')); ap.add_argument('root'); ap.add_argument('ball', type=int); ap.add_argument('out')
     ap.add_argument('--workers', type=int, default=8); ap.add_argument('--max-level', type=int, default=7); ap.add_argument('--cell')
+    ap.add_argument('--search-args', help='fast_search.py options (default %s)' % ' '.join(SEARCH))
     ap.add_argument('--part', action='store_true', help='close --cell as one part of a larger tree (see join)')
     ap.add_argument('--caps', help='search time caps by level, L:S,... (default %s)' % ','.join('%d:%d' % kv for kv in sorted(CAPS.items())))
     a = ap.parse_args(); root = Path(a.root).resolve()
