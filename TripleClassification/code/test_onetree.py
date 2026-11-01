@@ -12,7 +12,10 @@ On ball 491's level-4 cell (12, 5, 12, 12) (one leaf):
 6. an open node: the cell is not closed;
 7. a second close resumes from the journal (nothing searched again) and checks;
 8. a journalled leaf whose files are gone is searched again;
-9. the cell closed as 16 parts (its children, as on 16 nodes), joined, checks; join refuses a missing part.
+9. the cell closed as 16 parts (its children, as on 16 nodes), joined, checks; join refuses a missing part;
+10. ball 2254 closes as one native leaf (the frozen whole-ball certifier on the original record) and checks;
+11. a native leaf claimed for ball 491's whole ball, which that certifier does not close, is refused;
+12. a native leaf below the root: ball 2254's level-1 cell (1,1,1,1) from its own record, then checked.
 """
 import gzip, json, os, shutil, subprocess, sys, tempfile
 
@@ -62,6 +65,27 @@ def main():
         report('16 parts joined, then checked', r['verdict'] == 'CELL CLOSED' and sum(r['counts'].values()) >= 16, dict(r, failed=j.stderr[-200:]))
         os.remove(os.path.join(t, 'b491', 'tree.5_24_10_24_24.json')); j = run('join', '--cell', '4:12,5,12,12')
         report('join refuses a missing part', j.returncode != 0 and 'missing' in (j.stderr + j.stdout), dict(verdict=j.returncode))
+    with tempfile.TemporaryDirectory() as t:
+        run = lambda ball, cmd, *x: subprocess.run([sys.executable, '-W', 'ignore', os.path.join(HERE, 'onetree.py'), cmd, root, str(ball), t,
+                                                    '--workers', '2'] + list(x), capture_output=True, text=True)
+        chk = lambda ball: (run(ball, 'check'), json.load(open(os.path.join(t, 'b%d' % ball, 'check.json'))))[1]
+        run(2254, 'close', '--max-level', '1'); r = chk(2254)
+        report('2254: one native leaf, checked', r['verdict'] == 'CLOSED' and r['counts'] == {'NATIVE CERTIFIED EMPTY': 1}, r)
+        b = os.path.join(t, 'b491'); os.makedirs(os.path.join(b, 'leaves'))
+        json.dump(dict(schema='onetree-v1', ball=491, root=[0, [0, 0, 0, 0]], tree={'native': '0_0_0_0_0'}), open(os.path.join(b, 'tree.json'), 'w'))
+        open(os.path.join(b, 'leaves', '0_0_0_0_0.native.json'), 'w').write('{}')
+        r = chk(491); report('a native leaf on a ball the certifier does not close: refused', r['verdict'] == 'OPEN', r)
+        SUB = '''import sys, json; sys.argv = ['onetree.py']; sys.path.insert(0, sys.argv0) if False else None
+from pathlib import Path
+import importlib.util; sp = importlib.util.spec_from_file_location('onetree', '%s'); O = importlib.util.module_from_spec(sp); sp.loader.exec_module(O)
+O.setup('%s'); out = Path('%s') / 'b2254'; (out / 'leaves').mkdir(parents=True, exist_ok=True)
+ok = O.native_search(2254, 1, [1, 1, 1, 1], out)
+st = O.native_check(2254, 1, [1, 1, 1, 1], out / 'leaves' / '1_1_1_1_1.input.json.gz')[0] if ok else None
+print(json.dumps(dict(ok=ok, status=st)))''' % (os.path.join(HERE, 'onetree.py'), root, t)
+        q = subprocess.run([sys.executable, '-W', 'ignore', '-c', SUB], capture_output=True, text=True, cwd=root)
+        try: x = json.loads(q.stdout.strip().splitlines()[-1])
+        except (ValueError, IndexError): x = dict(verdict=q.stderr[-300:])
+        report('a native leaf below the root, from the cell record', x.get('ok') is True and x.get('status') == 'NATIVE CERTIFIED EMPTY', x)
     print('%d failure(s)' % failures); sys.exit(1 if failures else 0)
 
 

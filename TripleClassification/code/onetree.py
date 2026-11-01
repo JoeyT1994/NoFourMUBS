@@ -63,7 +63,52 @@ def setup(root):
     E = importlib.util.module_from_spec(sp); sp.loader.exec_module(E)
     sp = importlib.util.spec_from_file_location('fast_search', HERE / 'fast_search.py')   # the search, run in-process
     FS = importlib.util.module_from_spec(sp); sp.loader.exec_module(FS)
-    W.update(root=Path(root), F=F, T=T, E=E, FS=FS, original={})
+    fn = Path(root) / 'proof/theorems/TC_triple_classification/family_neighbourhoods'   # the frozen native certifier
+    if str(fn) not in sys.path: sys.path.insert(1, str(fn))
+    import run as R, stagec_guard as G
+    W.update(root=Path(root), F=F, T=T, E=E, FS=FS, R=R, G=G, original={})
+
+
+NATIVE = ('CERTIFIED', 'CERTIFIED EMPTY')
+NATIVE_CAPS = {0: 1800}                     # seconds for a native search (default 600 below level 0)
+NATIVE_ON = True; NATIVE_MIN_LEVEL = 3      # native leaves: at level 0 first; deeper where the plane search fails
+
+
+def native_check(ball, level, cell, inp):
+    """A native leaf: the frozen whole-ball certifier (family_neighbourhoods/run.py, run_ball) certifies every
+    completing basis K over the cell's record, and Stage C's input preconditions hold for that record
+    (stagec_guard.check). At level 0 the record is the original atlas ball and the call is exactly the audited one
+    (the pinned atlas, binding aaab342c...); below, it is the cell's record, whose containment of the whole cell is
+    proved first (cell_geometry), run as a one-seed sub-atlas the way the audited trees run sub-balls
+    (split_select.run). Returns 'NATIVE CERTIFIED' or 'NATIVE CERTIFIED EMPTY', or raises."""
+    F, R, G = W['F'], W['R'], W['G']
+    if ball not in W['original']: W['original'][ball] = F.original_record(W['root'], ball)
+    atlas = W['root'] / 'proof/seed_atlas/results/seed_atlas_certificate.json.gz'
+    if level == 0:
+        F.require(list(cell) == [0, 0, 0, 0], 'invalid level-0 cell')
+        rec = W['original'][ball]; row = R.run_ball(atlas, ball, R.binding(atlas)['id'])
+    else:
+        data = F.read_json(Path(inp))
+        F.require(data.get('schema') == 'tc-h-cell-input-v1' and data['record_sha256'] == F.jsonsha(data['record']) and
+                  [data['ball'], data['level'], data['cell']] == [ball, level, list(cell)], 'leaf record is not this cell')
+        F.ctx.prec = 224; F.cell_geometry(W['original'][ball], data['record'], level, list(cell))
+        rec = data['record']
+        import gzip as _gz, hashlib as _h, tempfile as _t
+        with _t.TemporaryDirectory(prefix='native.') as td:
+            sub = Path(td) / 'cell.json.gz'
+            sub.write_bytes(_gz.compress(json.dumps(dict(seeds=[rec], info=dict(onetree=dict(ball=ball, level=level, cell=list(cell))))).encode(), mtime=0))
+            pinned = R.binding
+            def binding(at):                 # the sources of the pinned binding, the sub-atlas in place of the atlas
+                files = {str(q.relative_to(R.ROOT)): _h.sha256(q.read_bytes()).hexdigest() for q in R.source_paths()}
+                v = dict(schema='tc-native-allk-v1+onetree', atlas_sha256=_h.sha256(Path(at).read_bytes()).hexdigest(),
+                         sources=files, precision=160)
+                v['id'] = _h.sha256(json.dumps(v, sort_keys=True).encode()).hexdigest(); return v
+            R.binding = binding
+            try: row = R.run_ball(sub, 0, binding(sub)['id'])
+            finally: R.binding = pinned
+    F.require(row.get('status') in NATIVE, 'native certifier: %s' % row.get('reason', row.get('status')))
+    G.check(R, rec)                          # Stage C input preconditions (raises on failure)
+    return 'NATIVE ' + row['status'], row
 
 
 def _time_cap(signum, frame): raise TimeoutError('time cap')
@@ -96,14 +141,43 @@ def check_node(job):
     try:
         if kind == 'outside':
             W['F'].require(W['T'].misses_ball(level, cell), 'outside node meets the ball'); return job[:4], 'OUTSIDE', 0.0
+        if kind == 'native': return job[:4], native_check(ball, level, cell, inp)[0], time.time() - t
         return job[:4], leaf_check(ball, level, cell, inp, prop), time.time() - t
     except Exception as e: return job[:4], 'FAILED: %s' % str(e)[:150], time.time() - t
 
 
+def native_search(ball, level, cell, out):
+    """Try a native leaf for the cell, within its time cap; True if it is certified (its files written)."""
+    import signal, gzip as _gz
+    n = name(level, cell); inp = out / 'leaves' / (n + '.input.json.gz')
+    signal.signal(signal.SIGALRM, _time_cap); signal.setitimer(signal.ITIMER_REAL, NATIVE_CAPS.get(level, 600))
+    try:
+        if level > 0:                        # the cell's record, as fast_search writes it
+            F = W['F']
+            if ball not in W['original']: W['original'][ball] = F.original_record(W['root'], ball)
+            F.ctx.prec = 224; rec = F.build_record(W['original'][ball], level, list(cell), W['root'])
+            data = dict(schema='tc-h-cell-input-v1', record=rec, record_sha256=F.jsonsha(rec), ball=ball, level=level,
+                        cell=list(cell), subatlas='none', sub=0, legacy_record_sha256='none')
+            tmp = inp.with_name(inp.name + '.%d.new' % os.getpid()); tmp.write_bytes(_gz.compress(json.dumps(data).encode(), mtime=0))
+            os.replace(tmp, inp)
+        st, row = native_check(ball, level, cell, inp)
+    except (TimeoutError, Exception):
+        if level > 0 and inp.exists() and not (out / 'leaves' / (n + '.proposal.json.gz')).exists(): inp.unlink()
+        return False
+    finally:
+        signal.setitimer(signal.ITIMER_REAL, 0)
+        seen = set(); sys.path[:] = [p_ for p_ in sys.path if not (p_ in seen or seen.add(p_))]
+    keep = {k: row[k] for k in ('index', 'status', 'binding', 'seed_sha256', 'radius_hex', 'claim', 'seconds') if k in row}
+    keep['patterns'] = [{k: x[k] for k in ('number', 'status') if k in x} for x in row.get('patterns', [])]
+    json.dump(dict(keep, onetree=dict(ball=ball, level=level, cell=list(cell), verdict=st)), open(out / 'leaves' / (n + '.native.json'), 'w'))
+    return True
+
+
 def search_cell(job):
-    """Search one cell; ('outside' | 'leaf' | 'split', seconds, reason)."""
+    """Search one cell; ('outside' | 'leaf' | 'native' | 'split', seconds, reason)."""
     ball, level, cell, out, py, tmpd = job; t = time.time()
     if W['T'].misses_ball(level, cell): return job[:3], 'outside', 0.0, ''
+    if NATIVE_ON and level == 0 and native_search(ball, level, cell, out): return job[:3], 'native', time.time() - t, ''
     tmp = Path(tempfile.mkdtemp(prefix='onetree.', dir=str(tmpd)))
     try:
         e = tmp / 'entry.json'
@@ -112,14 +186,18 @@ def search_cell(job):
         signal.signal(signal.SIGALRM, _time_cap)   # a fresh process per search on a busy node took 12 times longer)
         signal.setitimer(signal.ITIMER_REAL, CAPS.get(level, 1800))
         try: W['FS'].main([str(W['root']), str(e), '--out', str(tmp / 'f.json')] + SEARCH)
-        except TimeoutError: return job[:3], 'split', time.time() - t, 'time cap'
+        except TimeoutError: why = 'time cap'
+        else: why = None
         finally:
             signal.setitimer(signal.ITIMER_REAL, 0)
             seen = set(); sys.path[:] = [p_ for p_ in sys.path if not (p_ in seen or seen.add(p_))]   # build_record prepends
         inp, prop = tmp / 'f.input.json.gz', tmp / 'f.proposal.json.gz'
-        if not prop.exists():
-            try: why = json.load(open(tmp / 'f.json')).get('reason', '')
+        if why is None and not prop.exists():
+            try: why = json.load(open(tmp / 'f.json')).get('reason', '') or 'no proposal'
             except (OSError, ValueError): why = 'no proposal'
+        if why is not None:                  # a persistent pattern or a capped search: the native certifier, then split
+            if NATIVE_ON and level >= NATIVE_MIN_LEVEL and ('pattern remains' in why or why == 'time cap') \
+                    and native_search(ball, level, cell, out): return job[:3], 'native', time.time() - t, ''
             return job[:3], 'split', time.time() - t, str(why)[:100]
         try: leaf_check(ball, level, cell, inp, prop)
         except Exception as ex: return job[:3], 'split', time.time() - t, 'check: %s' % str(ex)[:100]
@@ -137,6 +215,8 @@ def close(a, root):
     tmpd = out / ('tmp' + tag); tmpd.mkdir(exist_ok=True)
     if a.caps: CAPS.update({int(k): float(v) for k, v in (x.split(':') for x in a.caps.split(','))})
     if a.search_args: SEARCH[:] = a.search_args.split()
+    global NATIVE_ON
+    if a.no_native: NATIVE_ON = False
     known = {}                                   # an earlier, interrupted run's outcomes
     try:
         for line in open(out / ('journal%s.jsonl' % tag)):
@@ -152,7 +232,7 @@ def close(a, root):
             if new:
                 journal.write(json.dumps(dict(level=level, cell=list(cell), status=st, seconds=round(sec, 1), reason=reason)) + '\n'); journal.flush()
                 core += sec; times.setdefault(level, []).append((st, sec))
-            p = per.setdefault(level, dict(searched=0, leaf=0, outside=0, split=0, open=0, resumed=0)); p['searched'] += st != 'outside'
+            p = per.setdefault(level, dict(searched=0, leaf=0, native=0, outside=0, split=0, open=0, resumed=0)); p['searched'] += st != 'outside'
             p['resumed'] += not new
             if st == 'split' and level >= a.max_level: st = 'open'; why[name(level, cell)] = reason
             state[(level, tuple(cell))] = st; p[st] += 1
@@ -161,7 +241,8 @@ def close(a, root):
             while queue:                         # journalled cells are settled at once; the rest are searched
                 level, cell = queue.pop(); x = known.get((level, tuple(cell)))
                 n_ = name(level, cell)
-                if x and (x['status'] != 'leaf' or all((out / 'leaves' / (n_ + s_)).exists() for s_ in ('.input.json.gz', '.proposal.json.gz'))):
+                files_ = {'leaf': ('.input.json.gz', '.proposal.json.gz'), 'native': ('.native.json',) + (('.input.json.gz',) if level else ())}
+                if x and all((out / 'leaves' / (n_ + s_)).exists() for s_ in files_.get(x['status'], ())):
                     record(level, cell, x['status'], x.get('seconds', 0.0), x.get('reason', ''), False)
                 else: live.add(pool.submit(search_cell, (a.ball, level, cell, out, sys.executable, tmpd)))
             if not live: break
@@ -175,6 +256,7 @@ def close(a, root):
         st = state[(level, tuple(cell))]
         if st == 'outside': return {'outside': True}
         if st == 'leaf': return {'leaf': name(level, cell)}
+        if st == 'native': return {'native': name(level, cell)}
         if st == 'open': return {'open': True}
         return {'children': [node(*k) for k in children(level, cell)]}
     tree = dict(schema='onetree-v1', ball=a.ball, root=[l0, c0], tree=node(l0, c0))
@@ -182,7 +264,7 @@ def close(a, root):
     shutil.rmtree(tmpd, ignore_errors=True)
     opened = sorted(k for k, s in state.items() if s == 'open')
     size = sum(f.stat().st_size for f in (out / 'leaves').iterdir())
-    res = dict(ball=a.ball, root=[l0, c0], verdict='CLOSED' if not opened else 'OPEN', leaves=sum(s == 'leaf' for s in state.values()),
+    res = dict(ball=a.ball, root=[l0, c0], verdict='CLOSED' if not opened else 'OPEN', leaves=sum(s in ('leaf', 'native') for s in state.values()), native_leaves=sum(s == 'native' for s in state.values()),
                outside=sum(s == 'outside' for s in state.values()), open=len(opened), per_level={str(k): v for k, v in sorted(per.items())},
                proof_bytes=size, search_core_hours=round(core / 3600, 2), wall_seconds=round(time.time() - t0),
                search_seconds={str(l): stats(v) for l, v in sorted(times.items())}, caps={str(k): v for k, v in sorted(CAPS.items())},
@@ -233,6 +315,8 @@ def check(a, root):
         elif set(node) == {'leaf'} and node['leaf'] == name(level, cell):
             jobs.append(('leaf', a.ball, level, cell, str(out / 'leaves' / (node['leaf'] + '.input.json.gz')),
                          str(out / 'leaves' / (node['leaf'] + '.proposal.json.gz'))))
+        elif set(node) == {'native'} and node['native'] == name(level, cell):
+            jobs.append(('native', a.ball, level, cell, str(out / 'leaves' / (node['native'] + '.input.json.gz')), None))
         else: bad.append([level, cell, 'unresolved node'])
     walk(tree['tree'], *tree['root'])
     counts = {}; core = 0.0; slow = 0.0
@@ -254,6 +338,7 @@ def main():
     ap.add_argument('cmd', choices=('close', 'check', 'join')); ap.add_argument('root'); ap.add_argument('ball', type=int); ap.add_argument('out')
     ap.add_argument('--workers', type=int, default=8); ap.add_argument('--max-level', type=int, default=7); ap.add_argument('--cell')
     ap.add_argument('--search-args', help='fast_search.py options (default %s)' % ' '.join(SEARCH))
+    ap.add_argument('--no-native', action='store_true', help='plane leaves only (no native whole-cell certifier leaves)')
     ap.add_argument('--part', action='store_true', help='close --cell as one part of a larger tree (see join)')
     ap.add_argument('--caps', help='search time caps by level, L:S,... (default %s)' % ','.join('%d:%d' % kv for kv in sorted(CAPS.items())))
     a = ap.parse_args(); root = Path(a.root).resolve()
