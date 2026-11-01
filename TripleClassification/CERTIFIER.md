@@ -1,20 +1,30 @@
 # The certifier: one tree per ball
 
 `code/onetree.py` certifies one seed ball of the atlas at a time. It searches for a proof (`close`), or verifies a
-proof someone else produced (`check`). A certificate is one directory: a dyadic tree over the ball's chart plus one
-small proof file pair per leaf. Checking it needs no caches, manifests, earlier audits or job history. Every node is
-verified independently, in parallel, from the files themselves.
+proof someone else produced (`check`). A certificate is one directory: a dyadic tree over the ball's chart plus a
+small proof per leaf. For most balls the tree is a single leaf: the frozen whole-ball certifier on the ball itself.
+Checking it needs no caches, manifests, earlier audits or job history. Every node is verified independently, in
+parallel, from the files themselves.
 
 ## What a certificate proves
 
 The ball B is the closed set of Hadamard matrices H = exp(iQ) with Q = Q0 + U w + ½ H2(w ⊗ w) + X ξ, ‖w‖ ≤ r, ‖ξ‖ ≤ τ
-(the atlas record). Its chart box r·[−1, 1]⁴ is split dyadically. `tree.json` assigns each node one of three things.
+(the atlas record). Its chart box r·[−1, 1]⁴ is split dyadically. `tree.json` assigns each node one of four things.
 
 - **16 children.**
 - **`outside`.** The closed dyadic cube misses the closed ball. This is checked in exact rational arithmetic
   (`plane_tree_certificate.misses_ball`).
-- **A leaf.** The leaf is `leaves/<level>_<cell>.input.json.gz`, the cell's H record, together with
-  `.proposal.json.gz`, its whole-cell proof. The checker requires three things:
+- **A native leaf** (`{"native": ...}`). The frozen whole-ball certifier (`family_neighbourhoods/run.py`, the
+  native all-K certifier that closed 2,373 atlas balls whole) certifies every completing basis K over the cell. The
+  checker re-runs it, and it must return CERTIFIED or CERTIFIED EMPTY:
+  - at level 0, exactly the audited call on the original atlas ball (binding `aaab342c…`);
+  - below, on the cell's own record (`leaves/<level>_<cell>.input.json.gz`), after proving that this record contains
+    the whole cell, run as a one-seed sub-atlas in the same way the audited trees run sub-balls.
+
+  The checker also requires Stage C's input preconditions to hold for the record (`stagec_guard.check`).
+  `.native.json` is the search's own run, kept for reference only.
+- **A plane leaf** (`{"leaf": ...}`). The leaf is `leaves/<level>_<cell>.input.json.gz`, the cell's H record,
+  together with `.proposal.json.gz`, its whole-cell proof. The checker requires three things:
   - the record names this ball, level and cell;
   - the record's H ball contains the entire closed cell (`cell_geometry`, Arb);
   - the whole-cell check succeeds. That check rebuilds C1, the H normal form, Stage C and the complete cover of the
@@ -31,6 +41,11 @@ Witnesses:
 | projector | one common row functional with positive minimum over every tube | `projector/projector_joint_certificate.py` |
 | gamma | Γ_F(K) or Γ_F(L) ≤ 19/50 (classified, Fourier-neighbourhood theorem), or below the cell's certified lower bound of Γ_F(H) (ordering discharge) | `ext_cell_certificate.py`, `gamma_test.py` |
 
+A native leaf classifies by the certifier's own method. A fresh C1 and Stage C cover every completing column. Each
+surviving pattern is excluded, or an exact order-three action and a contraction q < 1 force a balanced order-three
+symmetry, which identifies the triple as a known one (the recognition argument, `seed_method/reference/r0153/
+CHECKPOINT.md` §8). Its scope is always all-K.
+
 **Scope.** A tree whose leaves are all excluded or classified certifies: *every* MUB triple (I, H, K) with H in B is
 excluded or classified. A tree with an ordering-discharged pattern certifies this only for triples whose H-transition
 has the least Γ_F of the triple's three transitions (`check` reports `scope: minimum-transition`). Such a ball counts
@@ -44,6 +59,7 @@ ordering discharge uses the same invariant Γ_F and a strict comparison, as here
 - The Stage C and C1 theorems.
 - For Fourier-classified gamma rows: the Fourier-neighbourhood theorem and its hypotheses
   (`handoffs/ret_TC_questions_3_4_results/.../REPORT.md` §7).
+- For native leaves: the native certifier's recognition argument (above), under independent review.
 
 ## Running it
 
@@ -60,9 +76,11 @@ Produce one. This is resumable: an interrupted run continues from its journal.
 
     python TripleClassification/code/onetree.py close pr4 BALL CERT_DIR --max-level 6 --workers 64
 
-`close` searches coarse first. It tries the gamma witness on every pattern before any column proof
-(`fast_search.py --gamma`), then the column, joint, secant and projector witnesses within a time cap per level. Any
-proposal is verified by the same leaf check before it becomes a leaf; anything else is split.
+`close` first tries the native certifier on the whole ball: a ball it closes gets a one-leaf certificate. Otherwise
+`close` searches coarse first. On every cell it tries the gamma witness on every pattern before any column proof
+(`fast_search.py --gamma`), then the column, joint, secant and projector witnesses, within a time cap per level. Where
+that search meets a persistent pattern (from level 3), it tries the native certifier on the cell. Every candidate is
+verified by the same leaf check before it becomes a leaf; anything else is split. `--no-native` gives plane leaves only.
 
 `rusty/onetree_ball.sh BALL` runs `close` and then `check` on one 128-core node of a Slurm cluster.
 
@@ -111,7 +129,10 @@ longer, so the default time caps are 150 s at levels 0–2, 450 s at levels 3–
 - a changed proposal, a record for the wrong cell, a renamed leaf, a false `outside` node and an unresolved node are
   each refused;
 - an interrupted run resumes;
-- a leaf whose files vanished is searched again.
+- a leaf whose files vanished is searched again;
+- a run split into parts joins into one certificate;
+- a native whole-ball certificate passes (ball 2254), a native leaf the certifier refuses is refused (ball 491), and
+  a native leaf below the root passes.
 
 `code/test_ext.py` covers the witnesses, including tampered gamma and secant witnesses, the gamma scope labels and
 the rounding in the Γ_F(H) lower bound.

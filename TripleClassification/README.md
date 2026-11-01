@@ -48,14 +48,17 @@ Whole-cell proofs on the extended checker tree use the secant, projector and gam
 
 [`code/onetree.py`](code/onetree.py) proves (A) for one seed ball and writes a certificate that anyone can check
 from its files alone ([`CERTIFIER.md`](CERTIFIER.md) gives the format, scope and measurements). The certificate is a
-dyadic tree over the ball's chart box. Every node is one of three kinds:
+dyadic tree over the ball's chart box. Every node is one of four kinds:
 - **outside** the ball, checked in exact rational arithmetic;
 - **16 children**;
-- a **leaf**: one cell's H record and a whole-cell proof.
+- a **native leaf**: the frozen whole-ball certifier (`family_neighbourhoods/run.py`) closes the cell, re-run by the
+  checker on the cell's record, together with Stage C's input preconditions. For most balls the whole certificate
+  is one native leaf on the ball itself, under 1 KB, checked in seconds;
+- a **plane leaf**: one cell's H record and a whole-cell proof, as follows.
 
 The checker verifies every node independently and in parallel. It trusts nothing from the search, and uses no cache.
 
-**A leaf.** For a dyadic cell C of the ball's chart, the checker does four things:
+**A plane leaf.** For a dyadic cell C of the ball's chart, the checker does four things:
 1. Rebuilds the cell's H record and proves, in Arb, that its normal-form enclosure H = exp(iQ),
    Q = Q₀ + Uw + ½H₂(w⊗w) + Xξ, contains every H in C (`cell_geometry`, C1).
 2. Rebuilds Stage C's complete cover of the possible columns of K. A column is a unit vector unbiased to I and to H.
