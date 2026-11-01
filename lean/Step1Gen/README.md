@@ -1,6 +1,6 @@
 # Step 1 certificates and their Lean library
 
-The finite algebra of Step 1's sextic-free saddle proof. Its proof documents are in [`../../proof/coverage/returns/C_step1_saddle/`](../../proof/coverage/returns/C_step1_saddle/README.md).
+The finite algebra of Step 1's sextic-free saddle proof. Its proof documents are in [`../../proof/coverage/returns/C_step1_saddle/`](../../Connectedness/returns/C_step1_saddle/README.md).
 
 | Path | Role |
 |---|---|

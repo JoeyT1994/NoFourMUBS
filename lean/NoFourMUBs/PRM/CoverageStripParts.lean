@@ -7,7 +7,7 @@ import NoFourMUBs.PRM.CoverageZeroJProduct
 `topStripClassification : TopStripClassification` (`CoverageInputs`, I4 of
 `CRITICAL_STRIP_CLASSIFICATION.md`), standard axioms only:
 
-* zero `J` (paper §2): return O (`proof/coverage/returns/O_zeroj_unsquared`), the product
+* zero `J` (paper §2): return O (`MinimalReconstruction/returns/O_zeroj_unsquared`), the product
   `K = (1 − z)(z + 3)³` from two unsquared weighted sums over the nine mixed corners instead of the
   twenty-corner square sum (`zeroJProduct : ZeroJProduct`, `CoverageZeroJProduct`), read by
   `zeroJ_classification` (`CoverageStripZero`, with the geometric step of `CoverageStripGeom`):
@@ -16,7 +16,7 @@ import NoFourMUBs.PRM.CoverageZeroJProduct
   - `CoverageMixedDefs`, `CoverageMixedCheckG`, `CoverageMixedCheckR`: identities (12) and (27a) in the gauge
     `s = t = 1`, one kernel check each, with the cofactors of the return's two mixed certificates;
   - `CoverageZeroJProduct`: the gauge, real and imaginary parts, and the scalar steps (§§5–7);
-* nonzero `J`: return K (`proof/coverage/returns/K_nonzero_J`), two sums of the unsquared corner
+* nonzero `J`: return K (`MinimalReconstruction/returns/K_nonzero_J`), two sums of the unsquared corner
   signature instead of the twenty-corner square sum (`CoverageSignedNonzero`):
   - `CoverageSignedMoments` (+ generated `CoverageSignedData`): the signed sums (3), (4) as moment
     polynomials; they vanish on an all-critical strip (`signed_zero`);

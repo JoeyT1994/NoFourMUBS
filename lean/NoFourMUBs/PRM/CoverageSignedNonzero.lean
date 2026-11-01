@@ -8,7 +8,7 @@ import NoFourMUBs.PRM.CoverageQuarticPole
 /-!
 # Critical strip classification (I4), nonzero `J`, by two signed sums (return K)
 
-`proof/coverage/returns/K_nonzero_J/REPORT.md`.  At a corner of the top strip of an all-critical
+`MinimalReconstruction/returns/K_nonzero_J/REPORT.md`.  At a corner of the top strip of an all-critical
 Hadamard matrix with invertible minors and `J > 0`:
 
 * (7) (`signed_boundary`, poles included): `Im w = 0` or two of `X, Y, Z` agree; with the modulus cubic

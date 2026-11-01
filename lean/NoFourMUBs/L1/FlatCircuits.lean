@@ -3,7 +3,7 @@ import NoFourMUBs.L1.FlatData
 /-!
 # Matched flatness: the identities as circuits in the seeds
 
-`FLATNESS.md` §4 and return R2 (`proof/theorems/R2_flatness_cross_side`,
+`FLATNESS.md` §4 and return R2 (`MinimalReconstruction/theorems/R2_flatness_cross_side`,
 `proofs/COMPACT_W_CERTIFICATE.md`).  All quantities are Laurent expressions in the seeds `a, b, c, d`
 (`conj a = a⁻¹`), built with `Frac` over the table `a, b, c, d, g, P₀ʰ, P̄₁ʰ, P̄₂ʰ, P₀ᵛ, P̄₁ᵛ, P̄₂ᵛ, 2, 3, 5`,
 the table polynomials being the generated `gP, P0hP, …` (each a Laurent factor times a seed monomial,

@@ -4,7 +4,7 @@ import NoFourMUBs.Step2.SideAlg
 # The Jacobian of the Gram map
 
 A normalised side `(1; x; y)` with `xⱼ = e^{i aⱼ}`, `yⱼ = e^{i bⱼ}` has Gram data
-`γ = (s, t, r) = (Σ xⱼ, Σ yⱼ, Σ x̄ⱼ yⱼ)`.  Handoff J (`proof/coverage/returns/J_side_existence`):
+`γ = (s, t, r) = (Σ xⱼ, Σ yⱼ, Σ x̄ⱼ yⱼ)`.  Handoff J (`MinimalReconstruction/returns/J_side_existence`):
 
 * **(J)** The derivative of `(s, s̄, t, t̄, r, r̄)` in the angles `(a, b)`, divided by `i`, has determinant
   `T̄ − T = −2i Im T` on the torus (`det_jac`), where `T = TS x y` is the signature.  So the real derivative

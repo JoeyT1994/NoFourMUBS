@@ -8,7 +8,7 @@ import NoFourMUBs.PRM.FourierBlock
 /-!
 # Theorem A: a strict nonmatched corner forces Tao or the Fourier family (`PROOF.md` Theorem 2.4)
 
-Formalises MC4 as proved in `proof/coverage/returns/G_prm/PRM.md` §§2–5 (Theorem A there).  Let `M` be a dephased Hadamard matrix whose leading corner
+Formalises MC4 as proved in `MinimalReconstruction/returns/G_prm/PRM.md` §§2–5 (Theorem A there).  Let `M` be a dephased Hadamard matrix whose leading corner
 `E` is strict (its horizontal signature `ζ` is not real) and whose vertical signature is not `ζ̄`.
 
 * By L1 (side existence and matched flatness), the matched completion `H₀` with the same three top rows

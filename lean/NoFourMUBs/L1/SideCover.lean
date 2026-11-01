@@ -6,8 +6,8 @@ import NoFourMUBs.Step2.MatchedUnique
 /-!
 # Side existence at strict seeds: the open and closed set
 
-Handoff J, route A (`proof/coverage/returns/J_side_existence`), with the anchor of return Q
-(`proof/coverage/returns/Q_fourier_anchor`); the existence half of `MinimalConstruction/Proofs/SIDE_FIBER.md`
+Handoff J, route A (`MinimalReconstruction/returns/J_side_existence`), with the anchor of return Q
+(`MinimalReconstruction/returns/Q_fourier_anchor`); the existence half of `MinimalReconstruction/Proofs/SIDE_FIBER.md`
 (a side on each root), proved here without its explicit formulas.
 
 For a strict seed `ρ` (unit entries, `R > 0`), let `G_h(ρ) = (s, t, r)` and `G_v(ρ)` be the two side Grams.  The set

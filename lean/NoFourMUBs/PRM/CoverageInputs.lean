@@ -85,7 +85,7 @@ whose `3 × 3` minors are all invertible:
 * `J = 0` ⇒ `p = 0`, `p = 5`, or the three rows are geometric (paper §2, the zero-`J` stratum);
 * `J ≠ 0` ⇒ `p = p⋆ = 9 − 4/(1 + κ²)` (stated here as the consequence `5.722 < p < 5.723`,
   `CoverageTen.pStar_bounds`), or one of the two rational endpoints (proved by return K's two signed
-  corner sums, `proof/coverage/returns/K_nonzero_J`, in `CoverageSignedNonzero`).
+  corner sums, `MinimalReconstruction/returns/K_nonzero_J`, in `CoverageSignedNonzero`).
 The top strip is no restriction: every hypothesis is invariant under row permutations. -/
 def TopStripClassification : Prop :=
   ∀ H : Mat6, Hadamard6.IsHadamard H → AllCritical H → AllMinorsInvertible H → ∀ l : Fin 20,

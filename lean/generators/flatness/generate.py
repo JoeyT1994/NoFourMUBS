@@ -7,7 +7,7 @@ of matched flatness: the two coefficient identities of W11 (`FlatCheckF`) are bu
 `FlatCircuits`, with no generator.
 
 Untrusted: every datum is re-checked by the Lean kernel (FlatCheckTable.lean).  Uses the exact
-rational-function helper of proof/coverage/returns/E_matched_flatness/direct (python-flint).
+rational-function helper of MinimalReconstruction/returns/E_matched_flatness/direct (python-flint).
 """
 import sys
 sys.set_int_max_str_digits(0)   # the packed numerators are long integers
@@ -15,7 +15,7 @@ from fractions import Fraction
 from math import lcm
 from pathlib import Path
 ROOT = Path(__file__).resolve().parents[3]
-sys.path.insert(0, str(ROOT / 'proof/coverage/returns/E_matched_flatness/direct'))
+sys.path.insert(0, str(ROOT / 'MinimalReconstruction/returns/E_matched_flatness/direct'))
 from rational_helper import F, CTX  # noqa: E402
 
 a, b, c, d = [F(x) for x in CTX.gens()]

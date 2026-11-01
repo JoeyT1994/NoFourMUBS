@@ -3,7 +3,7 @@ import NoFourMUBs.PRM.CoverageStripIdHalf
 /-!
 # The zero-`J` product (return O): mixed-corner sums and the circuits of the two mixed identities
 
-`proof/coverage/returns/O_zeroj_unsquared/REPORT.md` §§2–4, 7.
+`MinimalReconstruction/returns/O_zeroj_unsquared/REPORT.md` §§2–4, 7.
 
 * `MT`, `mixedPoly`: a sum `Σ c · M_A(p) M_A(q) M_B(r)` of products of two moments of a half `A` and one
   moment of the complementary half `B`; the two sums of the return over the nine mixed corners are

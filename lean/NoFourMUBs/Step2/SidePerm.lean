@@ -6,7 +6,7 @@ import NoFourMUBs.Step2.SideAlg
 **Theorem (`side_unique`).** Two normalised phase sides with the same Gram data `(s, t, r)` and the same
 signature `T`, `Im T ≠ 0`, differ by a permutation of their columns.
 
-This is the uniqueness half of `MinimalConstruction/Proofs/SIDE_FIBER.md` (at most one column-permutation
+This is the uniqueness half of `MinimalReconstruction/Proofs/SIDE_FIBER.md` (at most one column-permutation
 orbit on each root).
 
 Proof (a shorter route than the Fourier reconstruction of `STEP2_BLUEPRINT.md` Lemma 7.3):

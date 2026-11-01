@@ -5,9 +5,9 @@ unsquared corner signatures:
 
 - **zero `J`**: return O's two weighted sums over the nine mixed corners (`PRM/CoverageMixed*.lean`,
   `PRM/CoverageZeroJProduct.lean`, generator `lean/generators/zeroj_product/generate.py`;
-  `proof/coverage/returns/O_zeroj_unsquared`), `NoFourMUBs.PRM.Coverage.zeroJProduct : ZeroJProduct`;
+  `MinimalReconstruction/returns/O_zeroj_unsquared`), `NoFourMUBs.PRM.Coverage.zeroJProduct : ZeroJProduct`;
 - **nonzero `J`**: return K's two signed corner sums (`PRM/CoverageSigned*.lean`, generator
-  `lean/generators/strip/signed.py`; `proof/coverage/returns/K_nonzero_J/INTEGRATED.md`).
+  `lean/generators/strip/signed.py`; `MinimalReconstruction/returns/K_nonzero_J/INTEGRATED.md`).
 
 Removed on 22 Oct 2026 (in git history before that date): the zero-`J` square-sum identity `zeroJAlgebra`
 (`CoverageStripIdZero`, `…ZeroDefs`, `…ZeroData` (216 KB of generated data), `…ZeroCheckM`, `…ZeroCheckS`),

@@ -6,7 +6,7 @@ import Mathlib
 From the sum-rule return of 14 Oct 2026 (`covret/partial`); compiled here.
 
 This module formalizes the division-free part of
-`MinimalConstruction/Proofs/CRITICAL_CORNER_REDUCTION.md`.
+`MinimalReconstruction/Proofs/CRITICAL_CORNER_REDUCTION.md`.
 It assumes only scalar physicality and the two critical equations; it does
 not assume or assert that the scalar data come from a Hadamard matrix.
 -/

@@ -259,5 +259,5 @@ exhaustion, but does not decide which pairings pass; that is Theorem 2.2
 of `PROOF.md`.
 
 Replay the algebra with
-`python3 MinimalConstruction/Proofs/verify_side_fiber.py` and
-`python3 MinimalConstruction/Proofs/verify_invariants.py`.
+`python3 MinimalReconstruction/Proofs/verify_side_fiber.py` and
+`python3 MinimalReconstruction/Proofs/verify_invariants.py`.

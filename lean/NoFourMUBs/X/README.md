@@ -1,6 +1,6 @@
 # Return X in Lean: no quartet edge near F6
 
-Return X (`proof/theorems/X_no_quartet_near_F6/`, radius 3/20) proves that no complex Hadamard matrix within
+Return X (`QuartetExclusion/theorems/X_no_quartet_near_F6/`, radius 3/20) proves that no complex Hadamard matrix within
 horizontal phase distance ρ of F6 is a quartet edge. This folder proves it in Lean, at ρ = 3/20 and at ρ = 7/40, with
 the standard axioms only (`propext`, `Classical.choice`, `Quot.sound`; audit: `Axioms.lean`).
 

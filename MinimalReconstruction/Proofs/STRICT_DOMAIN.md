@@ -84,7 +84,7 @@ To justify the subsequent cubic stage one must prove |sigma|²=rho, hence
 |xi|=1 and sigma!=0, and prove flatness and the Gram identity for S.
 These remaining claims are not inferred from regression tests.
 
-Replay: `python3 MinimalConstruction/Proofs/verify_invariants.py`.
+Replay: `python3 MinimalReconstruction/Proofs/verify_invariants.py`.
 
 ## Subsequent completion of the side theorem
 

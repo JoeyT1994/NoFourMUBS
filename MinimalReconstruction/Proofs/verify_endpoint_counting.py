@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Exact replay for ENDPOINT_COUNTING.md (return S, proof/coverage/returns/S_endpoints_by_counting).
+"""Exact replay for ENDPOINT_COUNTING.md (return S, MinimalReconstruction/returns/S_endpoints_by_counting).
 
 Standard library only; self-contained (runs under `python3 -I`).  Part 1 is the return's universal
 strip algebra (verify_universal_algebra.py, copied): the fourth-moment identity (8), the anchored cubic

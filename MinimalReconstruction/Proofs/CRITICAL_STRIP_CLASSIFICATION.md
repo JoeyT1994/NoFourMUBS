@@ -1,7 +1,7 @@
 # Classification of the scalar data of an all-critical row strip
 
 > **Note (22 Oct 2026).** The current proof classifies the zero-J strips by return O's two unsquared mixed sums
-> (`proof/coverage/returns/O_zeroj_unsquared`), not by the whole-strip square sum below, and the nonzero-J strips by return K.
+> (`MinimalReconstruction/returns/O_zeroj_unsquared`), not by the whole-strip square sum below, and the nonzero-J strips by return K.
 > This document is kept as the original, independent proof; its verifiers still run in `verify_dossier.py`.
 
 Here a row strip means three complete rows of a phase Hadamard. A strip
@@ -130,7 +130,7 @@ cubic becomes
 Relabel rows to make X=Y=z+3 and Z=(1-z)(z+3). Phase the rows so
 s=t=sqrt(X). Then r is imaginary, because J=0, and direct substitution
 in (1) gives P0=L0=z(z+2)(z+3), so lambda0=1 and the permanent is
-pi=z lambda0=z. (Return O, `proof/coverage/returns/O_zeroj_unsquared`,
+pi=z lambda0=z. (Return O, `MinimalReconstruction/returns/O_zeroj_unsquared`,
 REPORT.md §8; this replaces an earlier argument by coordinate cubics and
 permutation cases.) Expanding the permanent of the normalized block
 (1;x;y) gives
@@ -148,7 +148,7 @@ The cases excluded at the start give z=-3 => p=0 and z=-2 => p=5.
 
 ## 3. The nonzero-J stratum with no poles
 
-*Note (17 Oct 2026): return K (`proof/coverage/returns/K_nonzero_J/REPORT.md`) proves the nonzero-J classification of
+*Note (17 Oct 2026): return K (`MinimalReconstruction/returns/K_nonzero_J/REPORT.md`) proves the nonzero-J classification of
 §§3–4 more simply, by two signed corner sums, and the Lean proof uses it; §§3–4 below remain an independent second
 proof.*
 

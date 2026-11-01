@@ -1,4 +1,4 @@
-# One tree per ball: a standalone certifier for the seed balls
+# The certifier: one tree per ball
 
 `code/onetree.py` certifies one seed ball of the atlas at a time. It searches for a proof (`close`), or verifies a
 proof someone else produced (`check`). A certificate is one directory: a dyadic tree over the ball's chart plus one
@@ -68,7 +68,41 @@ proposal is verified by the same leaf check before it becomes a leaf; anything e
 
 ## Measured
 
-*(filled in from the validation runs)*
+On Rusty (one 128-core node per ball unless stated). **Search** is the core-hours spent proposing (failed searches
+included); **check** is the wall time of `onetree.py check` with 128 workers, which re-verifies every node.
+
+| Ball | Atlas type | Verdict | Scope | Leaves (levels) | Proof | Search | Check |
+|---:|---|---|---|---:|---:|---:|---:|
+| 524 | empty | CLOSED | all | 16 (1) | <0.1 MB | 0.2 h | 97 s* |
+| 2731 | empty | CLOSED | all | 46 (1–2) | 0.2 MB | 0.6 h | 97 s* |
+| 2770 | empty | CLOSED | all | 136 (1–2) | 0.6 MB | 4.7 h | 102 s* |
+| 1428 | tree | CLOSED | all | 242 (1–3) | 0.6 MB | 6.7 h | 36 s |
+| 16 | tree | CLOSED | all | 256 (2) | 0.6 MB | 9.3 h | 23 s |
+| 1399 | classified | CLOSED | all | 302 (2–3) | 0.7 MB | 10.0 h | 32 s |
+| 1901 | tree | CLOSED | all | 389 (2–3) | 2.1 MB | 15.3 h | 127 s* |
+| 1664 | classified | CLOSED | minimum-transition | 447 (2–3) | 1.1 MB | 15.8 h | 36 s |
+| 2538 | classified | CLOSED | minimum-transition | 1,613 (2–3) | 5.2 MB | 61.5 h | 181 s* |
+| 491 | tree | CLOSED | all | 1,734 (2–4) | 5.6 MB | 64.1 h | 187 s* |
+| 1797 | empty | CLOSED | minimum-transition | 2,585 (2–8) | 227 MB | — | 453 s |
+| 1866 | classified | CLOSED | minimum-transition | 2,617 (2–4) | 120 MB | 107 h | 399 s* |
+| 895 | tree | CLOSED | minimum-transition | 4,547 (2–5) | 243 MB | 199 h | 883 s* |
+| 1016 | open until 31 Oct (16 nodes) | CLOSED | — | 107,493 | 7.2 GB | 794 h | (running) |
+
+\* measured before the checker loaded the atlas once per node (a fixed ~70 s saving). The rows from 1797 on, and 1016,
+used the earlier, heavier column budget (depth 8, 30,000 nodes). The default budget (depth 6, 6,000 nodes) gave as many
+leaves with about half the proof size on ball 1016's cells (below). The hardest balls are being re-run with the
+default, and the whole atlas is being certified this way; results will be added here.
+
+**Search budget, measured on 40 random cells of ball 1016 per level:**
+
+| Level | depth 8 / 30,000 nodes: proposed, mean proof | depth 6 / 6,000 nodes: proposed, mean proof |
+|---|---|---|
+| 4 | 37 of 40 (3 time-outs), 213 KB | 40 of 40, 114 KB |
+| 5 | 40 of 40, 32 KB | 40 of 40, 19 KB |
+| 6 | 40 of 40, 3.3 KB | 40 of 40, 3.3 KB |
+
+A search takes about 100 s per cell at every level (it rebuilds the record, C1, Stage C and the cover). Few cells need
+longer, so the default time caps are 150 s at levels 0–2, 450 s at levels 3–4 and 300 s below.
 
 ## Tests
 

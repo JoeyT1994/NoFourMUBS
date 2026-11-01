@@ -25,7 +25,7 @@ namespace NoFourMUBs.PRM.Coverage
 
 open Side
 
-/-- **The zero-`J` product** (return O, `proof/coverage/returns/O_zeroj_unsquared/REPORT.md` Z1): at a
+/-- **The zero-`J` product** (return O, `MinimalReconstruction/returns/O_zeroj_unsquared/REPORT.md` Z1): at a
 corner of the top strip of an all-critical Hadamard matrix with invertible minors, `J = 0` and
 `z = χ/(2g) ∉ {−3, −2}`, `K = (1 − z)(z + 3)³`.  Proved in `CoverageZeroJProduct` from two unsquared
 weighted sums over the nine mixed corners. -/

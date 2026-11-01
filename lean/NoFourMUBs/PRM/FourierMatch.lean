@@ -5,7 +5,7 @@ import NoFourMUBs.Step2.FourierFamily
 /-!
 # PR-M, Theorem A §5.4: every corner of the Fourier family is matched (not used by `Final`)
 
-Return G (`proof/coverage/returns/G_prm/PRM.md` §5.3–5.4).  The core matrix
+Return G (`MinimalReconstruction/returns/G_prm/PRM.md` §5.3–5.4).  The core matrix
 
   `K(x, y) = [[F, F], [F D, −F D]]`,  `F = (ω^{ij})`, `D = diag(1, x, y)`,
 
