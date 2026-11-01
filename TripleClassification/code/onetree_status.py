@@ -3,8 +3,10 @@
 
   python onetree_status.py CERT_BASE OUT_DIR [--balls 2775] [--workers 64]
 
-CERT_BASE holds certificate folders <base>/b<ball> for base in BASES (on rusty: .../triples_tc/onetree). A folder is a
-candidate when it has tree.json, summary.json and check.json, and its check is not older than its tree. The best
+CERT_BASE holds certificate folders <base>/b<ball>, for base CERT_BASE itself and each folder directly under it (on
+rusty: .../triples_tc/onetree/{native,all,sample,default,hard,...}; a new folder is picked up). A folder is a candidate
+when it has tree.json, summary.json and check.json for this ball's whole chart box, and its check is not older than its
+tree. The best
 candidate of a ball is a CLOSED one if there is any, then the one with the smallest proof (as status_tmp.py chooses).
 For the best one the tree is walked: plane leaves, native leaves and outside nodes are counted, and the proof size is
 the size of the files the tree names (not of whatever else is in leaves/). The check's counts must match the tree.
@@ -12,18 +14,18 @@ the size of the files the tree names (not of whatever else is in leaves/). The c
 Writes OUT_DIR/balls.tsv (one row per ball) and OUT_DIR/summary.json (the totals publish_status.py renders). Reads
 only; never writes into CERT_BASE.
 """
-import argparse, json, os, statistics, time
+import argparse, json, os, re, statistics, time
 from concurrent.futures import ProcessPoolExecutor
 
-BASES = ('native', 'all', 'sample', 'default', 'hard', '')
 NATIVE_ROOT = {'native': '0_0_0_0_0'}
 COLS = ('ball', 'verdict', 'scope', 'route', 'source', 'plane_leaves', 'native_leaves', 'outside', 'levels',
         'proof_bytes', 'check_wall_s', 'check_core_s', 'check_workers', 'slowest_leaf_s', 'search_core_h', 'gamma_rechecked')
 
 
-def load(d):
+def load(d, ball):
     try:
         c = json.load(open(os.path.join(d, 'check.json'))); s = json.load(open(os.path.join(d, 'summary.json')))
+        if c.get('ball') != ball or c.get('root') != [0, [0, 0, 0, 0]]: return None
         if os.path.getmtime(os.path.join(d, 'check.json')) < os.path.getmtime(os.path.join(d, 'tree.json')): return None
         return c, s
     except (OSError, ValueError): return None
@@ -46,11 +48,11 @@ def size(path):
 
 
 def ball_row(job):
-    base_dir, ball = job
+    base_dir, ball, bases = job
     cands = []
-    for base in BASES:
+    for base in bases:
         d = os.path.join(base_dir, base, 'b%d' % ball)
-        x = load(d)
+        x = load(d, ball)
         if x: cands.append(((x[0].get('verdict') == 'CLOSED', -x[1].get('proof_bytes', 0)), base, d, x))
     if not cands: return dict(ball=ball, verdict='NONE')
     _, base, d, (c, s) = max(cands, key=lambda t: t[0])
@@ -80,8 +82,9 @@ def main():
     ap = argparse.ArgumentParser(); ap.add_argument('base'); ap.add_argument('out')
     ap.add_argument('--balls', type=int, default=2775); ap.add_argument('--workers', type=int, default=64)
     a = ap.parse_args(); t0 = time.time()
+    bases = [''] + sorted(e.name for e in os.scandir(a.base) if e.is_dir() and not re.fullmatch(r'b[0-9]+', e.name))
     with ProcessPoolExecutor(a.workers) as pool:
-        rows = list(pool.map(ball_row, [(a.base, b) for b in range(a.balls)], chunksize=4))
+        rows = list(pool.map(ball_row, [(a.base, b, bases) for b in range(a.balls)], chunksize=4))
     os.makedirs(a.out, exist_ok=True)
     tmp = os.path.join(a.out, 'balls.tsv.new')
     with open(tmp, 'w') as f:
@@ -107,7 +110,7 @@ def main():
                    total=pat(closed),
                    tree_with_native_leaves=sum(1 for r in tree if r['native_leaves']),
                    gamma_rechecked=sum(r['gamma_rechecked'] for r in closed),
-                   by_source={b or '.': sum(1 for r in closed if r['source'] == (b or '.')) for b in BASES},
+                   by_source={b or '.': sum(1 for r in closed if r['source'] == (b or '.')) for b in bases},
                    hardest=[{k: r[k] for k in COLS} for r in hard], seconds=round(time.time() - t0))
     tmp = os.path.join(a.out, 'summary.json.new'); json.dump(summary, open(tmp, 'w'), indent=1)
     os.replace(tmp, os.path.join(a.out, 'summary.json'))
