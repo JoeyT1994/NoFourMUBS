@@ -86,10 +86,18 @@ the 19/50 threshold.
 
 ### 2.3 Re-closing the 25 balls without the gamma witness
 
-<!-- PROBE:BEGIN -->
-*Running (job 7384536): every leaf of the 25 balls with a Fourier pattern is searched again on its own cell, with
-the search without `--gamma`, and the native certifier tried on a persistent pattern from level 1.*
-<!-- PROBE:END -->
+Job 7384536 searched every leaf of the 25 balls that has a Fourier pattern again on its own cell. That is 2,674 of
+their 19,945 plane leaves. The search ran without `--gamma` (column, pair, joint, secant and projector witnesses only),
+with the native certifier on a persistent pattern from level 1. **All 2,674 cells closed as plane leaves, with no
+gamma witness and no native leaf**, in 106 core-hours (one node, 62 min). Ball by ball the closed cells are 155
+(1286), 102 (1492), 242 (1545), 262 (1568), 34 (1610), 5 (1692), 171 (1730), 41 (1753), 241 (1756), 148 (1766),
+108 (1812), 52 (1886), 89 (1887, 1888), 94 (1895), 104 (1901), 75 (1902), 85 (2248), 126 (2344), 162 (2490),
+174 (2499), 10 (2531), 59 (2545), 21 (2546) and 25 (2606). So each of the 25 balls also has a gamma-free plane
+certificate: its old tree, with these leaves in place of the Fourier ones. The leaves are in scratch
+(`dissem/nogamma` on rusty), not in any certificate.
+
+In the event the 25 were re-closed differently: native leaves first, gamma off (`onetree/nf`). All 25 closed with
+all-K scope and native leaves only, 121–241 leaves and 0.3–0.7 MB each, and these are the certificates that count.
 
 ## 3. Where the bytes go, and a witness-only format
 
