@@ -11,7 +11,7 @@ the size of the files the tree names (not of whatever else is in leaves/). The c
 
 The check is authoritative, and it must come from the final checker (gamma rows on the ordering bound only): a
 certificate counts as *final-checked* when its check.json is stamped (checker_sha256) with the final checker (FINAL:
-onetree.py, branch_overlap.py, whose overlap witness every leaf below level 0 needs (NATIVE_REVIEW.md F1),
+onetree.py at a49e829a or as deployed (--onetree), branch_overlap.py, whose overlap witness every leaf below level 0 needs (NATIVE_REVIEW.md F1),
 ext_cell_certificate.py and gamma_exact.py).
 A ball's best candidate is CLOSED first, then final-checked, then the fewest plane leaves, then the smallest proof: a
 native-only certificate wins where there is one. Closed balls whose counting certificate is not final-checked are
@@ -23,7 +23,7 @@ certificate of each of them has no gamma row with bound at most 19/50. Each one'
 (summary.json split39); a violation is listed in split39_violations and the run exits with status 3 after writing
 its outputs.
 """
-import argparse, gzip, json, os, re, statistics, sys, time
+import argparse, gzip, hashlib, json, os, re, statistics, sys, time
 from concurrent.futures import ProcessPoolExecutor
 
 NATIVE_ROOT = {'native': '0_0_0_0_0'}
@@ -75,7 +75,7 @@ def fourier_leaves(d, plane):
 
 
 def ball_row(job):
-    base_dir, ball, bases = job
+    base_dir, ball, bases, FINAL = job
     cands = []
     for base in bases:
         d = os.path.join(base_dir, base, 'b%d' % ball)
@@ -83,7 +83,7 @@ def ball_row(job):
         if x:
             plane = sum(v for k, v in x[0].get('counts', {}).items() if k.startswith('CERTIFIED_'))
             stamp = x[0].get('checker_sha256') or {}
-            final = all(stamp.get(k) == v for k, v in FINAL.items())
+            final = all(stamp.get(k) in v for k, v in FINAL.items())
             cands.append(((x[0].get('verdict') == 'CLOSED', final, -plane, -x[1].get('proof_bytes', 0)), base, d, x))
     if not cands: return dict(ball=ball, verdict='NONE')
     (_, final, _, _), base, d, (c, s) = max(cands, key=lambda t: t[0])
@@ -113,10 +113,14 @@ def ball_row(job):
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument('base'); ap.add_argument('out')
     ap.add_argument('--balls', type=int, default=2775); ap.add_argument('--workers', type=int, default=64)
+    ap.add_argument('--onetree', help='the deployed onetree.py, whose hash is also accepted (default CERT_BASE/../closer/onetree.py)')
     a = ap.parse_args(); t0 = time.time()
+    deployed = a.onetree or os.path.join(os.path.dirname(os.path.abspath(a.base)), 'closer', 'onetree.py')
+    final = {k: {v} for k, v in FINAL.items()}
+    if os.path.exists(deployed): final['TripleClassification/code/onetree.py'].add(hashlib.sha256(open(deployed, 'rb').read()).hexdigest())
     bases = [''] + sorted(e.name for e in os.scandir(a.base) if e.is_dir() and not re.fullmatch(r'b[0-9]+', e.name))
     with ProcessPoolExecutor(a.workers) as pool:
-        rows = list(pool.map(ball_row, [(a.base, b, bases) for b in range(a.balls)], chunksize=4))
+        rows = list(pool.map(ball_row, [(a.base, b, bases, final) for b in range(a.balls)], chunksize=4))
     os.makedirs(a.out, exist_ok=True)
     tmp = os.path.join(a.out, 'balls.tsv.new')
     with open(tmp, 'w') as f:
@@ -144,7 +148,7 @@ def main():
                    gamma_rechecked=sum(r['gamma_rechecked'] for r in closed),
                    by_source={b or '.': sum(1 for r in closed if r['source'] == (b or '.')) for b in bases},
                    hardest=[{k: r[k] for k in COLS} for r in hard],
-                   final_checker=FINAL,
+                   final_checker={k: sorted(v) for k, v in final.items()},
                    not_final_checked=sorted(r['ball'] for r in closed if not r['final_checked']),
                    not_final_checked_trees=sorted(r['ball'] for r in closed if not r['final_checked'] and r['route'] == 'tree'),
                    split39={str(r['ball']): dict(verdict=r['verdict'], source=r.get('source'), scope=r.get('scope'),
