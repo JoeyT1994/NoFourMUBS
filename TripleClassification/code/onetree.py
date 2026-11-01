@@ -152,10 +152,23 @@ def leaf_check(ball, level, cell, inp, prop):
     return r['status']
 
 
+def leaf_file(path):
+    """A leaf file's path: itself, or, for a packed certificate (leaves.tar, see pack), the member extracted to this
+    worker's scratch folder."""
+    if path is None or os.path.exists(path) or not W.get('tar'): return path
+    tar, index = W['tar']; off, size = index['leaves/' + os.path.basename(path)]
+    if 'scratch' not in W: W['scratch'] = tempfile.mkdtemp(prefix='onetree.leaf.')
+    p = os.path.join(W['scratch'], os.path.basename(path))
+    with open(tar, 'rb') as f: f.seek(off); data = f.read(size)
+    with open(p, 'wb') as g: g.write(data)
+    return p
+
+
 def check_node(job):
     kind, ball, level, cell, inp, prop = job
     t = time.time()
     try:
+        inp, prop = leaf_file(inp), leaf_file(prop)
         if kind == 'outside':
             W['F'].require(W['T'].misses_ball(level, cell), 'outside node meets the ball'); return job[:4], 'OUTSIDE', 0.0
         if kind == 'native': return job[:4], native_check(ball, level, cell, inp)[0], time.time() - t
@@ -363,6 +376,9 @@ def check(a, root):
             jobs.append(('native', a.ball, level, cell, str(out / 'leaves' / (node['native'] + '.input.json.gz')), None))
         else: bad.append([level, cell, 'unresolved node'])
     walk(tree['tree'], *tree['root'])
+    if not (out / 'leaves').is_dir() and (out / 'leaves.tar').exists():      # a packed certificate: index it once
+        import tarfile
+        with tarfile.open(out / 'leaves.tar') as t_: W['tar'] = (str(out / 'leaves.tar'), {m.name: (m.offset_data, m.size) for m in t_ if m.isfile()})
     counts = {}; core = 0.0; slow = 0.0
     with ProcessPoolExecutor(a.workers, mp_context=parent_setup(str(root), a.ball)) as pool:
         for (kind, ball, level, cell), st, sec in pool.map(check_node, jobs, chunksize=1):
@@ -378,9 +394,28 @@ def check(a, root):
     return 0 if not bad else 1
 
 
+def pack(a, root):
+    """Pack a CLOSED certificate's leaves/ into leaves.tar (uncompressed; members leaves/<file>), so the certificate is a
+    handful of files: tree.json, leaves.tar, journal, summary and check. The tar is checked to hold every leaf file
+    before leaves/ is removed; the search's leftovers (tmp*, leaves_refused/) are removed too. check reads it as is."""
+    import tarfile
+    out = Path(a.out).resolve() / ('b%d' % a.ball)
+    c = json.load(open(out / 'check.json')); assert c['verdict'] in ('CLOSED', 'CELL CLOSED'), 'only a closed certificate is packed'
+    leaves = out / 'leaves'; names = sorted(os.listdir(leaves)); tmp = out / 'leaves.tar.new'
+    with tarfile.open(tmp, 'w', format=tarfile.PAX_FORMAT) as t_:
+        for n_ in names: t_.add(leaves / n_, arcname='leaves/' + n_, recursive=False)
+    with tarfile.open(tmp) as t_: got = sorted(m.name[len('leaves/'):] for m in t_ if m.isfile())
+    assert got == names, 'leaves.tar does not hold every leaf file'
+    os.replace(tmp, out / 'leaves.tar'); shutil.rmtree(leaves)
+    for x in sorted(os.listdir(out)):
+        if (x.startswith('tmp') or x == 'leaves_refused') and (out / x).is_dir(): shutil.rmtree(out / x)
+    print(json.dumps(dict(ball=a.ball, packed=len(names), files_now=len(os.listdir(out)))))
+    return 0
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument('cmd', choices=('close', 'check', 'join')); ap.add_argument('root'); ap.add_argument('ball', type=int); ap.add_argument('out')
+    ap.add_argument('cmd', choices=('close', 'check', 'join', 'pack')); ap.add_argument('root'); ap.add_argument('ball', type=int); ap.add_argument('out')
     ap.add_argument('--workers', type=int, default=8); ap.add_argument('--max-level', type=int, default=7); ap.add_argument('--cell')
     ap.add_argument('--search-args', help='fast_search.py options (default %s)' % ' '.join(SEARCH))
     ap.add_argument('--no-native', action='store_true', help='plane leaves only (no native whole-cell certifier leaves)')
@@ -390,7 +425,7 @@ def main():
     ap.add_argument('--part', action='store_true', help='close --cell as one part of a larger tree (see join)')
     ap.add_argument('--caps', help='search time caps by level, L:S,... (default %s)' % ','.join('%d:%d' % kv for kv in sorted(CAPS.items())))
     a = ap.parse_args(); root = Path(a.root).resolve()
-    sys.exit(close(a, root) or 0 if a.cmd == 'close' else join(a, root) or 0 if a.cmd == 'join' else check(a, root))
+    sys.exit(close(a, root) or 0 if a.cmd == 'close' else join(a, root) or 0 if a.cmd == 'join' else pack(a, root) if a.cmd == 'pack' else check(a, root))
 
 
 if __name__ == '__main__': main()

@@ -13,6 +13,7 @@ On ball 491's level-4 cell (12, 5, 12, 12) (one leaf):
 7. a second close resumes from the journal (nothing searched again) and checks;
 8. a journalled leaf whose files are gone is searched again;
 8b. a leaf the check refused is set aside (leaves_refused/) by close --requeue-refused and searched again;
+8c. pack puts the leaves into leaves.tar, and the packed certificate checks;
 9. the cell closed as 16 parts (its children, as on 16 nodes), joined, checks; join refuses a missing part;
 10. ball 2254 closes as one native leaf (the frozen whole-ball certifier on the original record) and checks;
 11. a native leaf claimed for ball 491's whole ball, which that certifier does not close, is refused;
@@ -64,6 +65,9 @@ def main():
         report('a refused leaf is set aside and searched again', r['verdict'] == 'OPEN' and len(refused) == 1 and
                x['per_level']['4']['resumed'] == 0 and os.path.exists(os.path.join(b, 'leaves_refused', '4_12_5_12_12.proposal.json.gz')) and
                r2['verdict'] == 'CELL CLOSED', dict(verdict=r2['verdict'], failed=r2.get('failed')))
+        pk = run('pack'); r3 = check()
+        report('pack: leaves.tar replaces leaves/, and the packed certificate checks', r3['verdict'] == 'CELL CLOSED' and
+               os.path.exists(os.path.join(b, 'leaves.tar')) and not os.path.exists(os.path.join(b, 'leaves')), dict(verdict=r3['verdict'], failed=pk.stderr[-200:]))
     with tempfile.TemporaryDirectory() as t:
         run = lambda cmd, *x: subprocess.run([sys.executable, '-W', 'ignore', os.path.join(HERE, 'onetree.py'), cmd, root, '491', t,
                                               '--workers', '2'] + list(x), capture_output=True, text=True)
