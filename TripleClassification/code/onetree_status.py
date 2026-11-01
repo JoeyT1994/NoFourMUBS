@@ -32,7 +32,8 @@ FINAL = {     # the approved checker versions: a check counts when every file he
     'TripleClassification/code/onetree.py': ('a49e829abc66942ca556489de68cd97fc0584e6c383abf63d132e76e0f5d9578',
                                              '64ac802ad2ff809044b96c19e6c7c02b772a2db7af27f96b9f8e0e7dbd10960c',    # 39da80af3
                                              '64588c3f32992264eec21315b3ad9081b5ebdd5bc0e627ef7bc196776fd809d8',    # 37d169179 (pack)
-                                             'bcb9f2f7f3a9757dad2cdbd1713f4022a889b8f73b20d2eb734bca1dadc27878'),   # 3657e7d9d
+                                             'bcb9f2f7f3a9757dad2cdbd1713f4022a889b8f73b20d2eb734bca1dadc27878',    # 3657e7d9d
+                                             'ef3d443a2d8fd2581d620b059a33d6d85e75c4094028dd2039c2dd715e78ec27'),   # 5b7ae11f4
     'TripleClassification/code/branch_overlap.py': ('487b905a5e33a616c34e23181059005cd226d075f937b8605b96a6b12d4495fd',
                                                     '6939d311c6f586e4b69b25ac8d85f85f0320ae3c7a4d8f9d29a930e6f0a5ddbb'),   # 39da80af3
     'TripleClassification/code/ext_cell_certificate.py': ('cb2d3e20a57cb3f51b9cf92f6ec6342ed24e71cdee535a97284bc38784cb7953',),
