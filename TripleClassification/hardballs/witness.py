@@ -1,16 +1,14 @@
 """Two-step pattern witness for cells that genuine family triples cross.
 
-L (localise). The anisotropic annulus lemma of the tail return (PROOF_815.md sections 4-7): 28 strong and 2 weak
-K coordinates around a reference completion y*, two norm variables (S, W), split until every box is discharged.
-The lemma is applied at y* and at a ring of references y* + ET(0, c) in the weak plane (PROOFS.md, P1), which
-covers the far weak field where one expansion is too loose. If no box is left near y*, the pattern is EXCLUDED;
-otherwise every zero lies within phase radius t of y*.
+L (localise). Column c of a putative completion lies in one of its retained closed fine bins (native PROOF.md section
+9). The anisotropic annulus lemma of the tail return (PROOF_815.md sections 4-7): 28 strong and 2 weak K coordinates
+around a reference completion y*, two norm variables (S, W), split until every box is discharged. If no box is left
+near y*, the pattern is EXCLUDED; otherwise every zero lies within phase radius |T| t of y*.
 
 F (force symmetry). The frozen native averaged moving contraction (family_neighbourhoods/moving_symmetry.py,
-PROOF.md section 6) on the tube |K - y*| < t: q < 1 means every zero has the balanced order-three symmetry
-(CLASSIFIED).
+PROOF.md section 6) on that tube: q < 1 means every zero has the balanced order-three symmetry (CLASSIFIED).
 
-Floats only propose (y*, T, B, flattenings, ring layout); every acceptance is an Arb strict inequality.
+Floats only propose (y*, T, B, flattenings, windings); every acceptance is an Arb strict inequality. PROOFS.md.
 """
 import math
 import numpy as np
@@ -24,7 +22,6 @@ GROUPS = (range(28), range(28, 30))
 
 
 def up(x): return arb(x.upper())
-def lo(x): return arb(x.lower())
 def frob(a): return C.norm([a[i, j] for i in range(a.nrows()) for j in range(a.ncols())])
 def sub(a, rows, cols): return arb_mat([[a[i, j] for j in cols] for i in rows])
 def spectral(a): return up(Z.spectral(a))
@@ -74,12 +71,10 @@ def propose(q, columns, steps=20, chord=60):
 
 # ---- Arb: one expansion of the lemma ------------------------------------------------------------------------------
 
-def expansion(model, q, y, T, B, c=(0, 0)):
-    """Constants of the annulus lemma at the reference y_ref = y* + ET(0, c), coordinates y = y_ref + ET z'.
-    Every zero over the H cell has, for each block a, with rho = |z'|,
-        | |z'_a| - |G_a(0)| |  <=  etaH_a + beta_a rho + P_a(S', W').      (PROOFS.md, P1)"""
-    ET = E * T
-    yref = y + ET * arb_mat(30, 1, [arb(0)] * 28 + [arb(c[0]), arb(c[1])])
+def expansion(model, q, y, T, B):
+    """Constants of the annulus lemma (PROOF_815.md (2)) at the reference y*, coordinates y = y* + ETz. Every zero
+    over the H cell has, for each block a, |z_a| <= |G_a(0)| + etaH_a + beta_a |z| + P_a(S, W)."""
+    ET = E * T; yref = y
     U, H2, X, r = model['U'], model['H2'], model['X'], up(model['r'])
     hrem = up(frob(model['Q0'] - q) + spectral(H2) * r * r / 2 + spectral(X) * model['tau'])
     D = up(spectral(U) * r + hrem)
@@ -90,7 +85,7 @@ def expansion(model, q, y, T, B, c=(0, 0)):
     for a in range(6):
         for b in range(6):
             for s in range(6): JH[30 + 6 * a + b, 6 * s + a] = (HK[a][b].conjugate() * H[s][a].conjugate() * K[s][b]).imag / 3
-    # The exact 180-ridge Fourier form of F(q*, y_ref + ET z') (PROOF_815.md section 5).
+    # The exact 180-ridge Fourier form of F(q*, y* + ETz) (PROOF_815.md section 5).
     feats, rc, rs = [], [], []
     for j, (a, b) in enumerate(PAIRS):
         for s in range(6):
@@ -113,24 +108,17 @@ def expansion(model, q, y, T, B, c=(0, 0)):
     AS, AW = sub(A, range(180), range(28)), sub(A, range(180), range(28, 30))
     KS, KW = AS * AS.transpose(), AW * AW.transpose()
     nT = spectral(T)
-    ex = dict(c=c, g0=[], etaH=[], beta=[], coef=[])
+    ex = dict(g0=[], etaH=[], beta=[], coef=[])
     for rows in GROUPS:
         bg = sub(B, rows, range(66)); bn = spectral(bg); bh = bg * JH
         ex['g0'].append(C.norm([G0[i, 0] for i in rows]))
         ex['etaH'].append(up(spectral(bh * U) * r + spectral(bh) * hrem + arb(6).sqrt() * bn * D * D))
         ex['beta'].append(up(2 * bn * D * nT + spectral(sub(lin, rows, range(30)))))
         ex['coef'].append(tensor_bounds(sub(Cf, rows, range(180)), sub(Sf, rows, range(180)), AS, AW, KS, KW))
-    ex['g0low'] = [gnorm_low(G0, rows) for rows in GROUPS]
     ex['ns'] = [up(C.norm([A[i, j] for j in range(28)])) for i in range(180)]
     ex['nw'] = [up(C.norm([A[i, j] for j in range(28, 30)])) for i in range(180)]
     ex['amp'] = [[up((Cf[i, l] ** 2 + Sf[i, l] ** 2).sqrt()) for l in range(180)] for i in range(30)]
     return ex
-
-
-def gnorm_low(G0, rows):
-    """A lower bound for the Euclidean norm of the block of G0."""
-    s = lo(sum((G0[i, 0] ** 2 for i in rows), arb(0)))
-    return lo(s.sqrt()) if s > 0 else arb(0)
 
 
 def slack(ex, s, w):
@@ -195,38 +183,22 @@ def colour_product(y, Ti, columns, rho):
     return R, up(fmax(caps) / (arb.pi() / 64).cos())
 
 
-def ring(inner, outer, width=0.5, size=0.36):
-    """Polar sectors covering inner <= |z_w| <= outer. Each: (centre c, radius d of a disc about c holding it)."""
-    out, a = [], inner
-    while a < outer:
-        b = min(a + width, outer); n = max(6, math.ceil(2 * math.pi * b / (2 * size)))
-        for j in range(n):
-            t0, t1, tm, rm = 2 * arb.pi() * j / n, 2 * arb.pi() * (j + 1) / n, 2 * arb.pi() * (j + arb(1) / 2) / n, (arb(a) + b) / 2
-            c = (float((rm * tm.cos()).mid()), float((rm * tm.sin()).mid())); cc = (arb(c[0]), arb(c[1]))
-            d = fmax([((rho * t.cos() - cc[0]) ** 2 + (rho * t.sin() - cc[1]) ** 2).sqrt() for rho in (arb(a), arb(b)) for t in (t0, t1)])
-            out.append((c, up(d)))
-        a = b
-    return out
-
-
-def search(ex, R, wcap, wmax, target=None, budget=4000):
-    """Discharge every (S', W') box of [0,R] x [0,wmax] for the expansion ex (centre c). With a target (the
-    central expansion), boxes inside |z| < target are kept as 'localised'. Raises if a box stays open."""
-    cn = up((arb(ex['c'][0]) ** 2 + arb(ex['c'][1]) ** 2).sqrt()) if any(ex['c']) else arb(0)
-    stack, nodes, leaves = [(arb(0), R, arb(0), wmax, 0)], 0, {}
+def search(ex, R, wcap, target, budget=4000):
+    """Discharge every closed (S, W) box of [0, R]^2 (PROOF_815.md section 7): outside the initial ball, above the
+    weak cap, a strict violation of either inequality of the lemma at the box's upper corner, or inside |z| < target
+    ('localised'). Raises if a box stays open."""
+    stack, nodes, leaves = [(arb(0), R, arb(0), R, 0)], 0, {}
     while stack:
         sl, su, wl, wu, dep = stack.pop(); nodes += 1; why = None
-        lowW = fmax([arb(0), lo(cn) - wu, wl - cn])            # lower bound of |z_w| = |c + z'_w|
-        if sl * sl + lowW * lowW > R * R: why = 'outside initial ball'
-        elif lowW > wcap: why = 'outside colour product'
+        if sl * sl + wl * wl > R * R: why = 'outside initial ball'
+        elif wl > wcap: why = 'outside colour product'
         else:
             qs, qw = slack(ex, su, wu)
-            if sl > ex['g0'][0] + qs or su < ex['g0low'][0] - qs: why = 'strong residual'
-            elif wl > ex['g0'][1] + qw or wu < ex['g0low'][1] - qw: why = 'weak residual'
-            elif target is not None and su * su + wu * wu < target * target: why = 'localised'
+            if sl > ex['g0'][0] + qs: why = 'strong residual'
+            elif wl > ex['g0'][1] + qw: why = 'weak residual'
+            elif su * su + wu * wu < target * target: why = 'localised'
         if why: leaves[why] = leaves.get(why, 0) + 1; continue
-        if dep >= 30 or nodes >= budget:
-            raise ArithmeticError('open box S<=%s W\'<=%s at c=%s' % (su.str(3), wu.str(3), ex['c']))
+        if dep >= 30 or nodes >= budget: raise ArithmeticError('open box S<=%s W<=%s' % (su.str(3), wu.str(3)))
         if su - sl >= wu - wl: m = (sl + su) / 2; stack += [(sl, m, wl, wu, dep + 1), (m, su, wl, wu, dep + 1)]
         else: m = (wl + wu) / 2; stack += [(sl, su, wl, m, dep + 1), (sl, su, m, wu, dep + 1)]
     return nodes, leaves
@@ -237,17 +209,17 @@ def search(ex, R, wcap, wmax, target=None, budget=4000):
 TARGETS = (0.01, 0.015, 0.02, 0.0225, 0.025)
 
 
-def prepare(model, prop, inner=0.7, outer=1.0):
-    """Everything that depends on the completion y* only, shared by all patterns that carry it: the central
-    expansion, the ring expansions (built when first needed), and step F on each tube |K - y*| < |T| t."""
+def prepare(model, prop):
+    """Everything that depends on the completion y* only, shared by all patterns that carry it: the expansion, and
+    step F on each tube (computed when first needed)."""
     q = arb_mat([[arb(float(model['Q0'][i, 0].mid()))] for i in range(36)])
     y = arb_mat([[arb(v)] for v in prop['y']]); T = Z.mat(prop['T']); B = Z.mat(prop['B'])
-    return dict(prop=prop, y=y, T=T, B=B, q=q, model=model, Ti=T.inv(), centre=expansion(model, q, y, T, B), rings=None,
-                inner=arb(inner), outer=arb(outer), forced={})
+    return dict(prop=prop, y=y, T=T, model=model, Ti=T.inv(), centre=expansion(model, q, y, T, B), forced={})
 
 
 def force(shared, t):
-    """Step F on the tube |K - y*| <= |T| t (cached): the native row."""
+    """Step F on the tube |K - y*| <= |T| t (cached): the native row. Each column's centred error is at most the
+    whole matrix's, so every column gets epsilon = |T| t."""
     if t not in shared['forced']:
         tube = up(spectral(shared['T']) * arb(t)); yy = shared['prop']['y'].reshape(6, 6); model = shared['model']
         prepared = {c: dict(model=model, v0=arb_mat([[arb(yy[a, c])] for a in range(6)]), T=arb_mat(6, 4), Tnorm=arb(0)) for c in range(6)}
@@ -258,28 +230,12 @@ def force(shared, t):
 def pattern(shared, columns, rho):
     """One pattern (each column's retained fine bins, in the column order of y*): EXCLUDED, CLASSIFIED or OPEN."""
     R, wcap = colour_product(shared['y'], shared['Ti'], columns, rho)
-    reach = wcap if wcap < R else R                         # every zero has |z_w| <= reach
-    if not reach < shared['outer']: return dict(status='OPEN', reason='weak reach %s beyond ring' % reach.str(3))
-    pieces = []
-    if not reach < shared['inner']:                         # the far weak field: expansions on a ring (P1)
-        if shared['rings'] is None:
-            s = shared; s['rings'] = [dict(expansion(s['model'], s['q'], s['y'], s['T'], s['B'], c), d=d)
-                                      for c, d in ring(float(s['inner'].mid()), float(s['outer'].mid()))]
-        pieces = [(ex, ex['d']) for ex in shared['rings']]
-    info = dict(R=R.str(3), wcap=wcap.str(3), expansions=1 + len(pieces))
-    try:
-        nodes, leaves = 0, {}
-        for ex, wmax in pieces:
-            n, lv = search(ex, R, wcap, wmax); nodes += n
-            for k, v in lv.items(): leaves[k] = leaves.get(k, 0) + v
-    except ArithmeticError as exc:
-        return dict(status='OPEN', step='L', reason=str(exc), **info)
-    last = None
-    for t in TARGETS:                                       # the central piece, smallest tube first
-        try: n, lv = search(shared['centre'], R, wcap, reach if reach < shared['inner'] else shared['inner'], arb(t))
+    info, last = dict(R=R.str(3), wcap=wcap.str(3)), None
+    for t in TARGETS:                                       # smallest tube first
+        try: nodes, leaves = search(shared['centre'], R, wcap, arb(t))
         except ArithmeticError as exc: last = dict(status='OPEN', step='L', reason=str(exc)); continue
-        lv = {k: lv.get(k, 0) + leaves.get(k, 0) for k in set(lv) | set(leaves)}; info.update(nodes=nodes + n, leaves=lv, target=t)
-        if 'localised' not in lv: return dict(status='EXCLUDED', route='annulus', **info)
+        info.update(nodes=nodes, leaves=leaves, target=t)
+        if 'localised' not in leaves: return dict(status='EXCLUDED', route='annulus', **info)
         row = force(shared, t)
         if row['status'] == 'CERTIFIED': return dict(status='CLASSIFIED', q=row['q'], **info)
         last = dict(status='OPEN', step='F', reason=[d['reason'][:120] for d in row.get('diagnostics', [])])
