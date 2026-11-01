@@ -83,6 +83,8 @@ def main():
         chk = lambda ball: (run(ball, 'check'), json.load(open(os.path.join(t, 'b%d' % ball, 'check.json'))))[1]
         run(2254, 'close', '--max-level', '1'); r = chk(2254)
         report('2254: one native leaf, checked', r['verdict'] == 'CLOSED' and r['counts'] == {'NATIVE CERTIFIED EMPTY': 1}, r)
+        run(2254, 'pack'); r = chk(2254)
+        report('2254 packed: the one-native-leaf certificate still checks', r['verdict'] == 'CLOSED' and r['counts'] == {'NATIVE CERTIFIED EMPTY': 1}, r)
         b = os.path.join(t, 'b491'); os.makedirs(os.path.join(b, 'leaves'))
         json.dump(dict(schema='onetree-v1', ball=491, root=[0, [0, 0, 0, 0]], tree={'native': '0_0_0_0_0'}), open(os.path.join(b, 'tree.json'), 'w'))
         open(os.path.join(b, 'leaves', '0_0_0_0_0.native.json'), 'w').write('{}')

@@ -373,7 +373,7 @@ def check(a, root):
             jobs.append(('leaf', a.ball, level, cell, str(out / 'leaves' / (node['leaf'] + '.input.json.gz')),
                          str(out / 'leaves' / (node['leaf'] + '.proposal.json.gz'))))
         elif set(node) == {'native'} and node['native'] == name(level, cell):
-            jobs.append(('native', a.ball, level, cell, str(out / 'leaves' / (node['native'] + '.input.json.gz')), None))
+            jobs.append(('native', a.ball, level, cell, None if level == 0 else str(out / 'leaves' / (node['native'] + '.input.json.gz')), None))
         else: bad.append([level, cell, 'unresolved node'])
     walk(tree['tree'], *tree['root'])
     if not (out / 'leaves').is_dir() and (out / 'leaves.tar').exists():      # a packed certificate: index it once
