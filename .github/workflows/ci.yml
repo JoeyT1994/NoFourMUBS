@@ -44,7 +44,7 @@ jobs:
         with:
           python-version: '3.12'
           cache: pip
-      - run: pip install -e 'TripleClassification/certifier[test]'
+      - run: pip install -r TripleClassification/certifier/requirements.txt
       - name: Provenance (pinned files byte-identical to 914919b, ported functions unchanged)
         run: |
           git fetch --depth 1 origin tag tc-checker-914919b

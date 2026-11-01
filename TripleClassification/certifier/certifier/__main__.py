@@ -1,4 +1,4 @@
-"""Command line: python -m certifier {verify, verify-all, close, convert, manifest} ... (--help on each)."""
+"""Command line of certify.py: verify, verify-all, close, convert, manifest (--help on each)."""
 import argparse, json, os, re, sys, warnings
 from pathlib import Path
 
@@ -15,7 +15,7 @@ def caps_arg(s):
 
 def main(argv=None):
     warnings.filterwarnings('ignore', category=RuntimeWarning)    # numpy's spurious matmul warnings on some BLAS builds;
-    ap = argparse.ArgumentParser(prog='python -m certifier', description=__doc__)
+    ap = argparse.ArgumentParser(prog='certify.py', description=__doc__)
     ap.add_argument('--root', help='the NoFourMUBS repository holding the pinned files (default: the one this package is in; '
                     'or MUB_CERTIFIER_ROOT)')
     sub = ap.add_subparsers(dest='cmd', required=True)
