@@ -61,7 +61,16 @@ def main():
               'The two score rules, the anchored-column exclusion and the graph exclusion come from the collaborator\'s returns of 29 October and'
               ' await independent review.'
               ' Closures by the ordering rule hold in the restricted sense of that theorem, so they count only once'
-              ' every ball is closed.', '']
+              ' every ball is closed.']
+    m = s.get('minimum_transition') or {}
+    if m.get('balls'):
+        lines += ['{:,} closed balls have **minimum-transition scope**: some of their patterns are discharged only by the'
+                  ' ordering bound, so they certify the triples whose H-transition has the least Γ_F. They count through the'
+                  ' minimum-transition reduction (`ORDERING_THEOREM.md` §3 of the ordering return), with the one invariant Γ_F'
+                  ' (`code/gamma_test.py`, SHA-256 `{}`){}.'.format(
+                      len(m['balls']), str(m.get('gamma_test_sha256', ''))[:12], '' if m.get('rule_enabled') else ' — NOT enabled in this audit')]
+    lines += ['Whole-cell proofs on the extended checker tree use the secant, projector and gamma witnesses'
+              ' (`code/ext_cell_certificate.py`), from returns of 30 and 31 October; they also await independent review.', '']
     if opened:
         lines += ['Open balls (`results/open.txt` gives the reason for each): ' +
                   ', '.join(str(b) for b, _ in sorted(opened)) + '.', '']
