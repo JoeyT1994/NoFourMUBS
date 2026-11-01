@@ -34,6 +34,25 @@ jobs:
       - name: Seed-atlas Arb certifier tests (positive, negative, edge ball, horizontal gauge)
         run: python3 proof/seed_atlas/cert/tests/run_tests.py
 
+  triple-certifier:
+    name: Triple classification certifier (TripleClassification/certifier)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install -e 'TripleClassification/certifier[test]'
+      - name: Provenance (pinned files byte-identical to 914919b, ported functions unchanged)
+        run: |
+          git fetch --depth 1 origin tag tc-checker-914919b
+          python3 TripleClassification/certifier/tools/check_vendored.py --pinned tc-checker-914919b
+      - name: Tests (close, verify, tampering, every witness kind, the pinned manifest)
+        working-directory: TripleClassification/certifier
+        run: python -m pytest -q
+
   lean:
     name: Lean (build and axiom audit)
     runs-on: ubuntu-24.04

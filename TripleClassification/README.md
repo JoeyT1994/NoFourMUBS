@@ -85,13 +85,19 @@ discharge uses the same invariant Γ_F and a strict comparison, as here.
 outward rounding, exact rationals for cell geometry, and exact integer polar-facet coverage. A search proposes;
 only the check decides.
 
-**Check one ball** (the pinned checker is this repository at commit `914919b`, tag `tc-checker-914919b`):
+**Verify a ball.** The certifier package [`certifier/`](certifier/README.md) checks a certificate from its files
+alone. It reads the pinned code (PR #4's checker at commit `914919b`, the frozen native certifier and the atlas) from
+this repository at their own paths, after checking each file's SHA-256:
 
-    git worktree add pr4 914919b
-    python TripleClassification/code/onetree.py check pr4 BALL CERT_DIR --workers 64
+    pip install -e TripleClassification/certifier
+    python -m certifier verify CERT_DIR --ball BALL --workers 8
 
-and `onetree.py close pr4 BALL CERT_DIR` produces a certificate (resumable; `code/rusty/onetree_*.sh` run it on a
-Slurm cluster, one or many balls per node or one ball over 16 nodes).
+It prints the verdict (CLOSED or OPEN) and the scope, and exits 0 only when every node verifies.
+`python -m certifier verify-all MANIFEST` checks the whole atlas, in shards on a cluster, and `python -m certifier
+close BALL OUT` produces a certificate. It accepts what `code/onetree.py check` accepts, except the projector and
+one-column witnesses, which no certificate uses ([`certifier/README.md`](certifier/README.md) gives the comparison).
+The cluster runs still use `onetree.py` (`code/rusty/onetree_*.sh`: one or many balls per node, or one ball over 16
+nodes).
 
 ## The other pieces
 
