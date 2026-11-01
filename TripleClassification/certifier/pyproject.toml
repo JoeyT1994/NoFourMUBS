@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mub-triple-certifier"
+version = "1.0.0"
+description = "Certificates of the classification of MUB triples in dimension 6: verify one seed ball, or the whole atlas"
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [{ name = "Joseph Tindall" }]
+# Exact versions: the ones every certificate was produced and checked with. Floating point only chooses what to check
+# (every acceptance is Arb or exact), so another version can refuse a valid certificate but never accept a false one.
+dependencies = ["python-flint==0.9.0", "numpy==2.2.6", "scipy==1.17.0"]
+
+[project.optional-dependencies]
+test = ["pytest>=8"]
+
+[project.scripts]
+mub-certifier = "certifier.__main__:main"
+
+[tool.setuptools]
+packages = ["certifier", "certifier.witnesses", "certifier.search"]
+include-package-data = false
+
+[tool.setuptools.package-data]
+certifier = ["_pinned/MANIFEST.sha256", "_pinned/**/*.py", "_pinned/**/*.md", "_pinned/**/*.json", "_pinned/**/*.txt", "_pinned/**/*.json.gz"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+filterwarnings = ["ignore::DeprecationWarning", "ignore::RuntimeWarning"]
