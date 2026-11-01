@@ -7,7 +7,8 @@ CERT_BASE holds certificate folders <base>/b<ball>, for base CERT_BASE itself an
 rusty: .../triples_tc/onetree/{native,all,sample,default,hard,...}; a new folder is picked up). A folder is a candidate
 when it has tree.json, summary.json and check.json for this ball's whole chart box, and its check is not older than its
 tree. For a ball's best candidate (below) the tree is walked: plane leaves, native leaves and outside nodes are counted, and the proof size is
-the size of the files the tree names (not of whatever else is in leaves/). The check's counts must match the tree.
+the size of the files the tree names (not of whatever else is in leaves/), read from leaves/ or, for a packed
+certificate, from leaves.tar's index. The check's counts must match the tree.
 
 The check is authoritative, and it must come from the final checker (gamma rows on the ordering bound only): a
 certificate counts as *final-checked* when its check.json is stamped (checker_sha256) with an approved checker (FINAL:
@@ -29,7 +30,8 @@ from concurrent.futures import ProcessPoolExecutor
 NATIVE_ROOT = {'native': '0_0_0_0_0'}
 FINAL = {     # the approved checker versions: a check counts when every file here has one of its approved hashes
     'TripleClassification/code/onetree.py': ('a49e829abc66942ca556489de68cd97fc0584e6c383abf63d132e76e0f5d9578',
-                                             '64ac802ad2ff809044b96c19e6c7c02b772a2db7af27f96b9f8e0e7dbd10960c'),   # 39da80af3
+                                             '64ac802ad2ff809044b96c19e6c7c02b772a2db7af27f96b9f8e0e7dbd10960c',    # 39da80af3
+                                             '64588c3f32992264eec21315b3ad9081b5ebdd5bc0e627ef7bc196776fd809d8'),   # 37d169179 (pack)
     'TripleClassification/code/branch_overlap.py': ('487b905a5e33a616c34e23181059005cd226d075f937b8605b96a6b12d4495fd',
                                                     '6939d311c6f586e4b69b25ac8d85f85f0320ae3c7a4d8f9d29a930e6f0a5ddbb'),   # 39da80af3
     'TripleClassification/code/ext_cell_certificate.py': ('cb2d3e20a57cb3f51b9cf92f6ec6342ed24e71cdee535a97284bc38784cb7953',),
@@ -63,17 +65,35 @@ def walk(tree, level=0, acc=None):
     return acc
 
 
+class Leaves:
+    """A certificate's leaf files: the folder leaves/, or a packed certificate's leaves.tar (members leaves/<file>,
+    `onetree.py pack`), indexed once."""
+    def __init__(self, d, index=None):
+        self.dir = os.path.join(d, 'leaves'); self.tar = os.path.join(d, 'leaves.tar'); self.index = index
+        if index is None and not os.path.isdir(self.dir) and os.path.exists(self.tar):
+            import tarfile
+            with tarfile.open(self.tar) as t: self.index = {m.name[len('leaves/'):]: (m.offset_data, m.size) for m in t if m.isfile()}
+    def size(self, name):
+        if self.index is not None: return self.index.get(name, (0, 0))[1]
+        try: return os.path.getsize(os.path.join(self.dir, name))
+        except OSError: return 0
+    def read(self, name):
+        if self.index is None: return open(os.path.join(self.dir, name), 'rb').read()
+        off, n = self.index[name]
+        with open(self.tar, 'rb') as f: f.seek(off); return f.read(n)
+
+
 def size(path):
     try: return os.path.getsize(path)
     except OSError: return 0
 
 
-def fourier_leaves(d, plane):
+def fourier_leaves(L, plane):
     """Plane leaves with a gamma row whose bound is at most 19/50."""
     n = 0
     for leaf in plane:
-        try: p = json.loads(gzip.decompress(open(os.path.join(d, 'leaves', leaf + '.proposal.json.gz'), 'rb').read()))
-        except (OSError, ValueError): continue          # a missing leaf fails the check anyway
+        try: p = json.loads(gzip.decompress(L.read(leaf + '.proposal.json.gz')))
+        except (OSError, ValueError, KeyError): continue          # a missing leaf fails the check anyway
         n += any('gamma' in w and float.fromhex(w['gamma']['g_up_hex']) <= 19 / 50 for w in p.get('witnesses', []))
     return n
 
@@ -94,9 +114,9 @@ def ball_row(job):
     tree = json.load(open(os.path.join(d, 'tree.json')))
     acc = walk(tree['tree'], tree['root'][0])
     lv = sorted({int(n.split('_')[0]) for n in acc['plane'] + acc['native']})
-    leaves = os.path.join(d, 'leaves')
-    pb = sum(size(os.path.join(leaves, n + '.input.json.gz')) + size(os.path.join(leaves, n + '.proposal.json.gz')) for n in acc['plane'])
-    pb += sum(size(os.path.join(leaves, n + '.input.json.gz')) + size(os.path.join(leaves, n + '.native.json')) for n in acc['native'])
+    L = Leaves(d)
+    pb = sum(L.size(n + '.input.json.gz') + L.size(n + '.proposal.json.gz') for n in acc['plane'])
+    pb += sum(L.size(n + '.input.json.gz') + L.size(n + '.native.json') for n in acc['native'])
     pb += size(os.path.join(d, 'tree.json'))
     counts = c.get('counts', {})
     certified = sum(v for k, v in counts.items() if k != 'OUTSIDE')
@@ -111,7 +131,7 @@ def ball_row(job):
                 check_workers=c.get('workers', 0), slowest_leaf_s=c.get('slowest_leaf_seconds', 0),
                 search_core_h=s.get('search_core_hours', 0), gamma_rechecked=int(os.path.exists(os.path.join(d, 'check.float.json'))),
                 final_checked=int(final), counts=counts,
-                fourier_leaves=fourier_leaves(d, acc['plane']) if ball in SPLIT39 else None)
+                fourier_leaves=fourier_leaves(L, acc['plane']) if ball in SPLIT39 else None)
 
 
 def main():

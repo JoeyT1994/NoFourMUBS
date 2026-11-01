@@ -18,7 +18,9 @@ way). Bytes: the gzip sizes of each leaf's input and proposal files, and the zli
 proof trees (columns.*.tree), of the rest of its column data, and of its witness list, compressed separately.
 Reads only. Writes OUT.json.
 """
-import argparse, collections, csv, gzip, json, os, time, zlib
+import argparse, collections, csv, gzip, json, os, sys, time, zlib
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from onetree_status import Leaves                      # leaves/ or a packed leaves.tar
 from concurrent.futures import ProcessPoolExecutor
 
 KINDS = ('col1', 'pair', 'joint', 'joint-known', 'secant', 'projector', 'gamma-F-K', 'gamma-F-L', 'gamma-ord-K', 'gamma-ord-L')
@@ -46,16 +48,15 @@ def leaves_of(tree, acc):
 
 
 def work(job):
-    d, ball, names = job
+    d, ball, names, index = job; LV = Leaves(d, index)
     pat = collections.Counter(); leaf = collections.Counter(); combo = collections.Counter(); lvl = collections.defaultdict(collections.Counter)
     by = collections.Counter(); hits = collections.defaultdict(list); err = []
     for n in names:
         level = int(n.split('_')[0])
-        pf = os.path.join(d, 'leaves', n + '.proposal.json.gz'); inf = os.path.join(d, 'leaves', n + '.input.json.gz')
         try:
-            raw = open(pf, 'rb').read(); js = gzip.decompress(raw); p = json.loads(js)
-            by['proposal_gz'] += len(raw); by['input_gz'] += os.path.getsize(inf)
-        except (OSError, ValueError) as e: err.append([ball, n, str(e)[:80]]); continue
+            raw = LV.read(n + '.proposal.json.gz'); js = gzip.decompress(raw); p = json.loads(js)
+            by['proposal_gz'] += len(raw); by['input_gz'] += LV.size(n + '.input.json.gz')
+        except (OSError, ValueError, KeyError) as e: err.append([ball, n, str(e)[:80]]); continue
         ws = p.get('witnesses', []); ks = [kind(w) for w in ws]
         pat.update(ks); kset = sorted(set(ks)); leaf.update(kset); combo['+'.join(kset) or '(no pattern)'] += 1
         for k in kset: hits[k].append(n)
@@ -80,8 +81,11 @@ def main():
         d = os.path.join(base, '' if r['source'] == '.' else r['source'], 'b' + r['ball'])
         plane, nat = leaves_of(json.load(open(os.path.join(d, 'tree.json')))['tree'], ([], []))
         native['root' if nat == ['0_0_0_0_0'] else 'below'] += len(nat)
-        native_bytes += sum(os.path.getsize(os.path.join(d, 'leaves', n + '.native.json')) for n in nat if os.path.exists(os.path.join(d, 'leaves', n + '.native.json')))
-        for i in range(0, len(plane), a.chunk): jobs.append((d, int(r['ball']), plane[i:i + a.chunk]))
+        LV = Leaves(d); native_bytes += sum(LV.size(n + '.native.json') for n in nat)    # a packed tar is indexed once, here
+        for i in range(0, len(plane), a.chunk):
+            names = plane[i:i + a.chunk]
+            sub = None if LV.index is None else {k: LV.index[k] for n in names for k in (n + '.proposal.json.gz', n + '.input.json.gz') if k in LV.index}
+            jobs.append((d, int(r['ball']), names, sub))
     print('%d balls, %d jobs, %d native leaves; listing %.0fs' % (len(rows), len(jobs), sum(native.values()), time.time() - t0), flush=True)
     pat = collections.Counter(); leaf = collections.Counter(); combo = collections.Counter(); by = collections.Counter()
     lvl = collections.defaultdict(collections.Counter); balls_with = collections.defaultdict(set); per_ball = collections.defaultdict(collections.Counter)
