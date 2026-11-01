@@ -35,9 +35,10 @@ def main():
                 subprocess.run([sys.executable, '-W', 'ignore', str(CODE / 'fast_search.py'), str(root), str(d / 'e.json'),
                                 '--out', str(d / 'f.json')] + a.args.split(), cwd=root, env=env, capture_output=True, timeout=a.cap)
                 r = json.load(open(d / 'f.json')); st = r.get('status'); why = str(r.get('reason', ''))[:80]
-            except subprocess.TimeoutExpired: st, why = 'TIMEOUT', ''
-            except (OSError, ValueError): st, why = 'ERROR', ''
-            return dict(level=L, cell=c, status=st, seconds=round(time.time() - t, 1), reason=why)
+                pz = (d / 'f.proposal.json.gz').stat().st_size if (d / 'f.proposal.json.gz').exists() else None
+            except subprocess.TimeoutExpired: st, why, pz = 'TIMEOUT', '', None
+            except (OSError, ValueError): st, why, pz = 'ERROR', '', None
+            return dict(level=L, cell=c, status=st, seconds=round(time.time() - t, 1), reason=why, proposal_bytes=pz)
         finally: shutil.rmtree(d, ignore_errors=True)
     with ThreadPoolExecutor(a.workers) as pool: res = list(pool.map(one, jobs))
     summ = {}
@@ -46,6 +47,7 @@ def main():
         q = lambda f: ok[min(len(ok) - 1, int(f * len(ok)))] if ok else None
         summ[L] = dict(cells=len(rs), proposed=len(ok), timeouts=sum(r['status'] == 'TIMEOUT' for r in rs),
                        success_seconds_p50=q(.5), p90=q(.9), max=ok[-1] if ok else None,
+                       proposal_kb_mean=round(sum(r['proposal_bytes'] for r in rs if r.get('proposal_bytes')) / 1000 / max(1, len(ok)), 1),
                        failure_seconds_mean=round(sum(r['seconds'] for r in rs if r['status'] != 'PROPOSED') / max(1, len(rs) - len(ok)), 1))
         print(L, summ[L], flush=True)
     json.dump(dict(ball=a.ball, summary=summ, cells=res), open(a.out, 'w'), indent=1)
