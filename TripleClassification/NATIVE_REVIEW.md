@@ -36,6 +36,12 @@ Hadamard matrix, enclosed by the normal form's Q0, so the τ term drops. Since t
 the roles of the two records may be exchanged. The centre form is our sharpening of the reviewer's lemma; its
 justification is in `branch_overlap.py`'s docstring.
 
+A corner cell meets the ball only at its boundary, so its record ball is almost tangent to the original ball and the
+two balls share no interior point. For such a cell the original ball's normal form is certified on a radius 1% (or
+5%) larger. Its centre data Q0, U, H2 and X do not depend on the radius. On the original ball its branch is the
+original branch, by uniqueness in the larger tube. The first rechecks refused 29 corner cells of balls 550, 2536 and
+1850 at level 3, and the larger normal form identifies all 29, with margins of 2–6 times.
+
 `onetree.py` requires the witness in `leaf_check` and `native_check` below level 0, and `check.json` records its hash
 (`checker_sha256`).
 - **Tests:** `code/test_branch_overlap.py` identifies cells of levels 1–8 on three balls, every form, in 0.1–0.2 s

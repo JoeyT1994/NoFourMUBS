@@ -20,6 +20,11 @@ The lemma's conclusion is an equality, so the roles may be exchanged: theta* = t
 || X_c^+ (Pi Q0_p + 2 pi h(N) - p_c(w_c)) || < tau_c. These are tried when the general form fails, as it does for
 cells of levels 1-2, whose records are as large as the original ball (tau_c close to tau_p).
 
+Corner cells. A cell meeting the ball only at its boundary has a record ball almost tangent to the original ball, with
+no common interior point. The original ball's normal form is then certified on a radius 1% or 5% larger: its centre
+data (Q0, U, H2, X) do not depend on the radius, and on the original ball its branch is the original branch (the
+original branch lies in the larger tube, where the zero is unique). The witness is tried against that normal form.
+
 Exact seed equality, L d = 0 for the difference d, is algebraic: L Q0 = theta0 (normal_form forces the seed entries),
 L U = Mth, L H2 = L X = 0, L Pi = L and L h(N) = L N = n. The code checks L N = n in integers and that the enclosure
 of L d contains 0. Every acceptance inequality is an Arb comparison; floats only propose theta*, Pi and N.
@@ -104,13 +109,39 @@ def attempt(A, B, wA, wB):
     return None
 
 
-def witness(original, record, level, cell, parent=None):
-    """Prove the overlap inequality for the cell record against the original ball; returns its data, or raises."""
+ENLARGE = (1.01, 1.05)          # radii of the original ball's normal form tried when the record barely meets the ball
+
+
+def witness(original, record, level, cell, parent=None, enlarged=None):
+    """Prove the overlap inequality for the cell record against the original ball; returns its data, or raises.
+
+    A cell meeting the ball only near its boundary (a corner cell) has a record ball that is almost tangent to the
+    original ball, with no room for a common interior point. Then the original ball's normal form is certified on a
+    slightly larger radius (enlarged: a dict factor -> model, filled on demand): its centre data Q0, U, H2, X do not
+    depend on the radius, so on the original ball its branch is the original branch (uniqueness in the larger tube),
+    and the witness is tried against it."""
+    try: return witness_with(original, record, level, cell, parent or model(original))
+    except ArithmeticError: pass
+    for k in ENLARGE:
+        if enlarged is None or k not in enlarged:
+            big = dict(original, r=math.nextafter(float.fromhex(original['r']) * k, math.inf).hex())
+            try: m = model(big)
+            except ArithmeticError: m = None
+            if enlarged is not None: enlarged[k] = m
+        else: m = enlarged[k]
+        if m is None: continue
+        try: return dict(witness_with(original, record, level, cell, m), enlarged=k)
+        except ArithmeticError: pass
+    raise ArithmeticError('no overlap witness identifies the cell record with the original branch')
+
+
+def witness_with(original, record, level, cell, pm):
     ctx.prec = 224
-    pm = parent or model(original); cm = model(record)
+    cm = model(record)
     th_p = [arb(float.fromhex(x)) for x in original['theta0']]; th_c = [arb(float.fromhex(x)) for x in record['theta0']]
     Mth = arb_mat([[arb(float.fromhex(original['Mth'][4 * i + j])) for j in range(4)] for i in range(4)]); Mi = Mth.inv()
     rp, rc, taup = pm['r'], cm['r'], pm['tau']
+    r0 = arb(float.fromhex(original['r']))           # the cell's position is in units of the original radius
     u = [arb(2 * c + 1 - 2 ** level) / 2 ** level for c in cell]
     tp = 2 * arb.pi()
     norm = lambda v: sum((x * x for x in v), arb(0)).sqrt()
@@ -118,12 +149,12 @@ def witness(original, record, level, cell, parent=None):
     # ball nearest the cell centre is on it, within the cell's half-diagonal of the centre, so inside the child ball.
     # Propose s in the interval where both strict interior tests can hold (child: |w_c(s)| <= |w_c(1)| + (1-s) r_p |u|).
     f = lambda x: float(x.mid())
-    nu = f(norm(u)); th1 = [th_p[i] + sum((Mth[i, j] * rp * u[j] for j in range(4)), arb(0)) for i in range(4)]
+    nu = f(norm(u)); th1 = [th_p[i] + sum((Mth[i, j] * r0 * u[j] for j in range(4)), arb(0)) for i in range(4)]
     n1 = [int(round(f((th1[i] - th_c[i]) / tp))) for i in range(4)]
     wc1 = f(norm((Mi * arb_mat([[th1[i] - th_c[i] - n1[i] * tp] for i in range(4)])).entries()))
-    lo, hi = 1 - (f(rc) - wc1) / (f(rp) * nu), min(1.0, 1 / nu)
+    lo, hi = 1 - (f(rc) - wc1) / (f(r0) * nu), min(1.0, f(rp) / (f(r0) * nu))
     for s in [(lo + hi) / 2, 1, 0.875, 0.75, 0.5, 0.25, 0]:
-        wp = [arb(s) * rp * x for x in u]
+        wp = [arb(s) * r0 * x for x in u]
         theta = [th_p[i] + sum((Mth[i, j] * wp[j] for j in range(4)), arb(0)) for i in range(4)]
         n = [int(round(float(((theta[i] - th_c[i]) / tp).mid()))) for i in range(4)]
         dc = arb_mat([[theta[i] - th_c[i] - n[i] * tp] for i in range(4)]); wc = (Mi * dc).entries()

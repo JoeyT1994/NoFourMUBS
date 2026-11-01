@@ -121,7 +121,8 @@ def overlap(ball, level, cell, record):
     native review). Without it, seed containment (cell_geometry) would not carry the record's certificate to the
     original ball's matrices."""
     if ball not in W['parent_model']: W['parent_model'][ball] = W['BO'].model(W['original'][ball])
-    return W['BO'].witness(W['original'][ball], record, level, list(cell), W['parent_model'][ball])
+    return W['BO'].witness(W['original'][ball], record, level, list(cell), W['parent_model'][ball],
+                           W.setdefault('enlarged', {}).setdefault(ball, {}))
 
 
 def _time_cap(signum, frame): raise TimeoutError('time cap')

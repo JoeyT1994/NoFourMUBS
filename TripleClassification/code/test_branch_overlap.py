@@ -10,7 +10,9 @@ its level-8 cell records (persistent_cells/905_8_*.input.json.gz) and a cell rec
    outside the original ball, so theta* must be moved into both balls);
 2. the stored centre phases P are only a proposal: shifted by 0.3 rad in rows 3-5, the record's normal form solves the
    same sides again, and the witness identifies the same branch;
-3. a record of ball 1016 presented as a cell of ball 905 is refused (no common seed point).
+3. a record of ball 1016 presented as a cell of ball 905 is refused (no common seed point);
+4. a corner cell of ball 550 (level 3, (1,1,1,6)), whose record ball only touches the original ball, is identified
+   against the original ball's normal form on a 1% larger radius.
 """
 import copy, glob, gzip, json, math, os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -39,6 +41,11 @@ def main():
     try: w = BO.witness(orig, x, d['level'], d['cell'], pm); ok = False
     except ArithmeticError as e: ok, w = True, e
     report('a record of ball 1016 as a cell of ball 905: refused', ok, w)
+    o5 = json.load(gzip.open(os.path.join(data, 'corner_cells/b550_original.json.gz')))['record']
+    c5 = json.load(gzip.open(os.path.join(data, 'corner_cells/550_3_1_1_1_6.input.json.gz')))
+    try: w = BO.witness(o5, c5['record'], c5['level'], c5['cell'], BO.model(o5), {}); ok = w.get('enlarged') == 1.01
+    except ArithmeticError as e: ok, w = False, e
+    report('a corner cell: identified on a 1% larger normal form', ok, w)
     print('%d failure(s)' % failures); sys.exit(1 if failures else 0)
 
 if __name__ == '__main__': main()
