@@ -21,8 +21,9 @@ in one of these pieces, so the theorem follows from:
 - **(B)** the same on the ball at F₆;
 - **(C)** S₆ has no third basis.
 
-**A certificate this package verifies proves (A) for its ball**; one certificate per seed ball proves (A). (B) and
-(C) are proved elsewhere in the repository (`TripleClassification/README.md`).
+**A certificate this package verifies proves (A) for its ball**, or, when its scope is minimum-transition, the
+restricted form of (A) that the minimum-transition lemma (below) turns into the theorem. One certificate per seed
+ball proves (A). (B) and (C) are proved elsewhere in the repository (`TripleClassification/README.md`).
 
 ## What a certificate proves
 
@@ -159,22 +160,46 @@ function this package took unchanged from the approved one-tree checker (`overla
 `witnesses/secant.py`, `search/plane.py`) with the original, by syntax tree.
 
 **Relation to `TripleClassification/code/onetree.py`.** This package replaces `onetree.py check` and `close` with the
-same acceptance, the same certificate format and the same search. Two witnesses of the one-tree checker are not
-accepted, because no certificate uses them (witness census, `DISSEMINATION_NOTES.md`): the projector witness and
-PR #4's one-column witness. `tools/equivalence.py` runs both checkers on the same certificates, genuine and tampered.
+same acceptance, the same certificate format and the same search (on five test cells its `close` writes byte-identical
+records and proposals). Two witnesses of the one-tree checker are not accepted, because no certificate uses them
+(witness census, `DISSEMINATION_NOTES.md`): the projector witness and PR #4's one-column witness.
+`tools/equivalence.py` runs both checkers on the same certificates, genuine and tampered. On seven atlas
+certificates (balls 1615, 505, 1097, 1023, 589, 793, 491; 3,120 leaves, both layouts) and eight small certificates
+with 52 tampered variants, the two agree on every verdict, scope, count and refused node, with one exception: `onetree.py`
+(64588c3f…) refuses its own packed certificates whose tree is one native leaf at the root (it looks for an input file
+such a leaf does not have); this package accepts them.
 
 ## Measured
 
-On a laptop (Apple M-series), `verify` with the stated number of workers:
+On a laptop (Apple M-series, 18 cores, at most 8 used). Real certificates of the atlas, as produced on the cluster,
+with 7 workers; `onetree.py check` takes the same time on each (within 2%):
 
-| Certificate | Nodes | Verdict | Workers | Time |
-|---|---|---|---:|---:|
-| ball 2254, one native leaf | 1 | CLOSED, all | 1 | 14 s |
-| ball 491, level-4 cell (12, 5, 12, 12), plane leaf without patterns | 1 | CELL CLOSED, all | 1 | 2 s |
-| ball 194, level-4 cell (3, 13, 5, 3), secant witnesses | 1 | CELL CLOSED, all | 1 | 3 s |
-| ball 825, level-5 cell (10, 15, 16, 8), 512 gamma witnesses | 1 | CELL CLOSED, minimum-transition | 1 | 5 s |
-| ball 825, level-6 cell (3, 22, 27, 42), pair and secant witnesses | 1 | CELL CLOSED, all | 1 | 18 s |
-| ball 363, level-4 cell (5, 10, 6, 0), pair and joint witnesses | 1 | CELL CLOSED, all | 1 | 35 s |
+| Ball | Leaves (levels) | Outside | Verdict, scope | Verify |
+|---:|---|---:|---|---:|
+| 2254 | 1 native leaf (the whole ball) | 0 | CLOSED, all | 15 s (1 core) |
+| 1615 | 136 plane (1–2) | 0 | CLOSED, all | 57 s |
+| 505 | 215 plane (1–3) | 71 | CLOSED, all | 54 s |
+| 1097 | 256 plane (2) | 0 | CLOSED, minimum-transition | 65 s |
+| 1023 | 256 plane (2) | 0 | CLOSED, minimum-transition | 64 s |
+| 589 | 256 plane (2), joint-known witnesses | 0 | CLOSED, minimum-transition | 98 s |
+| 793 | 267 plane (2–3), joint-known witnesses | 4 | CLOSED, minimum-transition | 101 s |
+| 491 | 1,734 plane (2–4) | 1,177 | CLOSED, minimum-transition | 366 s |
+
+A one-native-leaf certificate (2,372 of the 2,775 balls) is checked by re-running the native certifier on the ball
+(15 s for ball 2254 on one core). A plane leaf takes 1–60 s on one core, depending on its patterns. Checking every leaf of the
+atlas's certificates as of 1 November (1,038,098 plane leaves, before the native-first re-certification of the tree
+balls) was measured at about 4,600 core-hours (`DISSEMINATION_NOTES.md` §3), dominated by the five largest
+certificates (balls 768, 815, 825, 1016, 905); `verify-all` splits it across nodes with `--shard`.
+
+The test cells (`tests/data/certificates`), one core each:
+
+| Cell | Witnesses | Verdict, scope | Verify |
+|---|---|---|---:|
+| ball 194, level 4, (3, 13, 5, 3) | secant | CELL CLOSED, all | 2.5 s |
+| ball 825, level 5, (10, 15, 16, 8) | 512 gamma | CELL CLOSED, minimum-transition | 2.9 s |
+| ball 825, level 6, (3, 22, 27, 42) | pair, secant | CELL CLOSED, all | 19 s |
+| ball 363, level 4, (5, 10, 6, 0) | pair, joint | CELL CLOSED, all | 36 s |
+| ball 793, level 2, (2, 0, 0, 1) | joint-known | CELL CLOSED (classified), all | 14 s |
 
 ## Tests
 
@@ -184,6 +209,6 @@ On a laptop (Apple M-series), `verify` with the stated number of workers:
 They cover: close then verify; the three certificate layouts; refusal of a changed proposal, a record of another
 cell, a renamed leaf, a false outside node, an open node, missing files and an incomplete partition; resuming an
 interrupted close (including a cut leaves.tar); native leaves at and below the root, and a native leaf the certifier
-refuses; verify-all; every witness kind on real cells, each refused when changed; the refused projector and
-one-column witnesses; the overlap witness (cells of ball 905, a corner cell of ball 550, a record of another ball);
+refuses; verify-all; the vendored manifest (a changed file is refused at import); every witness kind on real cells
+(pair, joint, joint-known, secant, gamma), each refused when changed; the refused projector and one-column witnesses; the overlap witness (cells of ball 905, a corner cell of ball 550, a record of another ball);
 the exact Γ_F bound against all 14,400 alignments in Arb.
