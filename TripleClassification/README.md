@@ -105,8 +105,9 @@ Slurm cluster, one or many balls per node or one ball over 16 nodes).
 
 ## Awaiting independent review
 
-- The whole-ball certifier and the recognition argument: every triple with a balanced order-three symmetry is of
-  known type (`seed_method/reference/r0153/CHECKPOINT.md` §8).
+- The whole-ball certifier and the recognition argument: reviewed independently on 1 November 2026
+  (`NATIVE_REVIEW.md`). The one major finding, that a cell record's branch must be identified with the ball's, is
+  repaired by the overlap witness the checker now requires (`code/branch_overlap.py`).
 - The minimum-transition reduction behind the gamma witness (`GAMMA_PROOF.md`, `CERTIFIER.md`). The certifier does
   not use the Fourier-neighbourhood theorem.
 - The secant, projector and gamma witnesses of the extended whole-cell check (`code/ext_cell_certificate.py`), and

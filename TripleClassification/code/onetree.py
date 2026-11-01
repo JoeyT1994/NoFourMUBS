@@ -17,7 +17,8 @@ misses the closed ball), or {'leaf': '<level>_<cell>'}.
 
 check: every node is verified on its own, in parallel. An outside node by exact arithmetic (misses_ball, PR #4). A
 leaf: the record names this ball, level and cell; the record's H ball contains the whole closed cell
-(plane_frontier_certificate.cell_geometry, Arb); and the whole-cell check (ext_cell_certificate.check: PR #4's
+(plane_frontier_certificate.cell_geometry, Arb); the record's branch is the original ball's (the overlap witness,
+branch_overlap.py; native review F1); and the whole-cell check (ext_cell_certificate.check: PR #4's
 plane_cell_certificate.check for a proposal with only its witnesses, else with the secant, projector and gamma
 witnesses) rebuilds C1, the H normal form, Stage C and the complete K cover from the record and certifies every pattern
 excluded or classified, or (a gamma pattern passing only its ordering bound) ORDERING_DISCHARGED. A tree with such
@@ -66,7 +67,9 @@ def setup(root):
     fn = Path(root) / 'proof/theorems/TC_triple_classification/family_neighbourhoods'   # the frozen native certifier
     if str(fn) not in sys.path: sys.path.insert(1, str(fn))
     import run as R, stagec_guard as G
-    W.update(root=Path(root), F=F, T=T, E=E, FS=FS, R=R, G=G, original={})
+    sp = importlib.util.spec_from_file_location('branch_overlap', HERE / 'branch_overlap.py')   # parent-child branch
+    BO = importlib.util.module_from_spec(sp); sp.loader.exec_module(BO); BO.setup(root)          # identification
+    W.update(root=Path(root), F=F, T=T, E=E, FS=FS, R=R, G=G, BO=BO, original={}, parent_model={})
 
 
 NATIVE = ('CERTIFIED', 'CERTIFIED EMPTY')
@@ -93,6 +96,7 @@ def native_check(ball, level, cell, inp):
         F.require(data.get('schema') == 'tc-h-cell-input-v1' and data['record_sha256'] == F.jsonsha(data['record']) and
                   [data['ball'], data['level'], data['cell']] == [ball, level, list(cell)], 'leaf record is not this cell')
         F.ctx.prec = 224; F.cell_geometry(W['original'][ball], data['record'], level, list(cell))
+        overlap(ball, level, cell, data['record'])
         rec = data['record']
         import gzip as _gz, hashlib as _h, tempfile as _t
         with _t.TemporaryDirectory(prefix='native.') as td:
@@ -112,6 +116,14 @@ def native_check(ball, level, cell, inp):
     return 'NATIVE ' + row['status'], row
 
 
+def overlap(ball, level, cell, record):
+    """The cell record's branch is the original ball's: the overlap witness of branch_overlap.py (finding F1 of the
+    native review). Without it, seed containment (cell_geometry) would not carry the record's certificate to the
+    original ball's matrices."""
+    if ball not in W['parent_model']: W['parent_model'][ball] = W['BO'].model(W['original'][ball])
+    return W['BO'].witness(W['original'][ball], record, level, list(cell), W['parent_model'][ball])
+
+
 def _time_cap(signum, frame): raise TimeoutError('time cap')
 
 
@@ -120,6 +132,8 @@ def parent_setup(root, ball):
     loading the whole atlas certificate itself made a small tree's check take minutes)."""
     import multiprocessing
     setup(root); W['original'][ball] = W['F'].original_record(W['root'], ball)
+    try: W['parent_model'][ball] = W['BO'].model(W['original'][ball])      # the original ball's normal form, once
+    except ArithmeticError: pass                                             # (no cell record can then be identified)
     return multiprocessing.get_context('fork')
 
 
@@ -131,6 +145,7 @@ def leaf_check(ball, level, cell, inp, prop):
     F.require(data.get('schema') == 'tc-h-cell-input-v1' and data['record_sha256'] == F.jsonsha(data['record']) and
               [data['ball'], data['level'], data['cell']] == [ball, level, list(cell)], 'leaf record is not this cell')
     F.ctx.prec = 224; F.cell_geometry(W['original'][ball], data['record'], level, list(cell))
+    overlap(ball, level, cell, data['record'])
     r = E.check(Path(inp), F.read_json(Path(prop)))
     F.require(r['status'] in CERT, 'leaf not certified')
     return r['status']
@@ -327,7 +342,7 @@ def checker_sha256():
     """The files this check ran: this file and the extended whole-cell check's (gamma_test, gamma_exact, the witnesses).
     The pinned checker tree is named by its commit (PR #4, 914919b)."""
     import hashlib
-    d = {'TripleClassification/code/onetree.py': hashlib.sha256(Path(__file__).read_bytes()).hexdigest()}
+    d = {'TripleClassification/code/' + f: hashlib.sha256((HERE / f).read_bytes()).hexdigest() for f in ('onetree.py', 'branch_overlap.py')}
     d.update(W['E'].extension_sha256()); return d
 
 

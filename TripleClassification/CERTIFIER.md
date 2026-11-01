@@ -19,14 +19,16 @@ The ball B is the closed set of Hadamard matrices H = exp(iQ) with Q = Q0 + U w 
   checker re-runs it, and it must return CERTIFIED or CERTIFIED EMPTY:
   - at level 0, exactly the audited call on the original atlas ball (binding `aaab342c…`);
   - below, on the cell's own record (`leaves/<level>_<cell>.input.json.gz`), after proving that this record contains
-    the whole cell, run as a one-seed sub-atlas in the same way the audited trees run sub-balls.
+    the whole cell and that its branch is the ball's (the overlap witness, `branch_overlap.py`; `NATIVE_REVIEW.md`),
+    run as a one-seed sub-atlas in the same way the audited trees run sub-balls.
 
   The checker also requires Stage C's input preconditions to hold for the record (`stagec_guard.check`).
   `.native.json` is the search's own run, kept for reference only.
 - **A plane leaf** (`{"leaf": ...}`). The leaf is `leaves/<level>_<cell>.input.json.gz`, the cell's H record,
   together with `.proposal.json.gz`, its whole-cell proof. The checker requires three things:
   - the record names this ball, level and cell;
-  - the record's H ball contains the entire closed cell (`cell_geometry`, Arb);
+  - the record's H ball contains the entire closed cell (`cell_geometry`, Arb), and the record's analytic branch is
+    the ball's (`branch_overlap.py`: one Arb inequality at a common seed, `NATIVE_REVIEW.md`);
   - the whole-cell check succeeds. That check rebuilds C1, the H normal form, Stage C and the complete cover of the
     possible third-basis columns from the record, then verifies a witness for **every** pattern (six mutually
     orthogonal colours). The witness says the pattern is excluded, classified or (see below) ordering-discharged.
@@ -74,7 +76,8 @@ not used: a gamma witness counts only on the ordering bound.
 
 - The atlas covers every Hadamard class (the original seed atlas, pinned by SHA-256 in `plane_frontier_certificate.PIN`).
 - The Stage C and C1 theorems.
-- For native leaves: the native certifier's recognition argument (above), under independent review.
+- For native leaves: the native certifier's recognition argument (above), independently reviewed
+  (`NATIVE_REVIEW.md`).
 
 ## Running it
 
