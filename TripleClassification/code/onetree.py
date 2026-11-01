@@ -208,6 +208,15 @@ def search_cell(job):
         shutil.rmtree(tmp, ignore_errors=True)
 
 
+def leaf_bytes(out):
+    """Size of the leaf files. Parts of one ball share the leaves folder, so a file may vanish while it is listed."""
+    total = 0
+    for f in (out / 'leaves').iterdir():
+        try: total += f.stat().st_size
+        except FileNotFoundError: pass
+    return total
+
+
 def close(a, root):
     out = Path(a.out).resolve() / ('b%d' % a.ball); (out / 'leaves').mkdir(parents=True, exist_ok=True)
     l0, c0 = (int(a.cell.split(':')[0]), [int(x) for x in a.cell.split(':')[1].split(',')]) if a.cell else (0, [0, 0, 0, 0])
@@ -263,7 +272,7 @@ def close(a, root):
     json.dump(tree, open(out / ('tree%s.json' % tag), 'w'))
     shutil.rmtree(tmpd, ignore_errors=True)
     opened = sorted(k for k, s in state.items() if s == 'open')
-    size = sum(f.stat().st_size for f in (out / 'leaves').iterdir())
+    size = leaf_bytes(out)
     res = dict(ball=a.ball, root=[l0, c0], verdict='CLOSED' if not opened else 'OPEN', leaves=sum(s in ('leaf', 'native') for s in state.values()), native_leaves=sum(s == 'native' for s in state.values()),
                outside=sum(s == 'outside' for s in state.values()), open=len(opened), per_level={str(k): v for k, v in sorted(per.items())},
                proof_bytes=size, search_core_hours=round(core / 3600, 2), wall_seconds=round(time.time() - t0),
@@ -297,7 +306,7 @@ def join(a, root):
     json.dump(dict(schema='onetree-v1', ball=a.ball, root=[l0, c0], tree={'children': kids}), open(out / 'tree.json', 'w'))
     tot = lambda k: sum(p[k] for p in parts)
     res = dict(ball=a.ball, root=[l0, c0], joined_parts=len(parts), verdict='CLOSED' if not tot('open') else 'OPEN', leaves=tot('leaves'),
-               outside=tot('outside'), open=tot('open'), proof_bytes=sum(f.stat().st_size for f in (out / 'leaves').iterdir()),
+               outside=tot('outside'), open=tot('open'), proof_bytes=leaf_bytes(out),
                search_core_hours=round(tot('search_core_hours'), 2), wall_seconds=max(p['wall_seconds'] for p in parts) if parts else 0,
                open_cells=[c for p in parts for c in p['open_cells']][:500])
     json.dump(res, open(out / 'summary.json', 'w'), indent=1); print(json.dumps({k: v for k, v in res.items() if k != 'open_cells'}))
