@@ -6,29 +6,34 @@
 CERT_BASE holds certificate folders <base>/b<ball>, for base CERT_BASE itself and each folder directly under it (on
 rusty: .../triples_tc/onetree/{native,all,sample,default,hard,...}; a new folder is picked up). A folder is a candidate
 when it has tree.json, summary.json and check.json for this ball's whole chart box, and its check is not older than its
-tree. The best
-candidate of a ball is a CLOSED one if there is any, then the one with the smallest proof (as status_tmp.py chooses).
-For the best one the tree is walked: plane leaves, native leaves and outside nodes are counted, and the proof size is
+tree. For a ball's best candidate (below) the tree is walked: plane leaves, native leaves and outside nodes are counted, and the proof size is
 the size of the files the tree names (not of whatever else is in leaves/). The check's counts must match the tree.
 
-The 39 split balls that the Fourier-neighbourhood theorem assumes closed (GAMMA_PROOF.md (Γ3); SPLIT39) must not
-count through a certificate that uses that theorem: for them a candidate counts only if none of its plane leaves has a
-gamma row with bound at most 19/50 (a Fourier row). Every such ball's counting certificate is recorded in summary.json
-(split39); if one of them is closed only by certificates with Fourier rows, it is reported not closed, listed in
-split39_blocked, and the run exits with status 3 after writing its outputs.
+The check is authoritative, and it must come from the final checker (gamma rows on the ordering bound only): a
+certificate counts as *final-checked* when its check.json is stamped (checker_sha256) with the final checker's
+ext_cell_certificate.py and gamma_exact.py (FINAL; the stamp also names onetree.py, so it covers native leaves too).
+A ball's best candidate is CLOSED first, then final-checked, then the fewest plane leaves, then the smallest proof: a
+native-only certificate wins where there is one. Closed balls whose counting certificate is not final-checked are
+listed in summary.json (not_final_checked); publish_status.py --final refuses them.
 
-Writes OUT_DIR/balls.tsv (one row per ball) and OUT_DIR/summary.json (the totals publish_status.py renders). Reads
-only; never writes into CERT_BASE.
+The 39 split balls of the earlier Fourier-neighbourhood theorem (GAMMA_PROOF.md (Γ3); SPLIT39) must not count
+through that theorem. The certifier no longer uses it, so this is an assertion that should always pass: the counting
+certificate of each of them has no gamma row with bound at most 19/50. Each one's certificate is recorded
+(summary.json split39); a violation is listed in split39_violations and the run exits with status 3 after writing
+its outputs.
 """
 import argparse, gzip, json, os, re, statistics, sys, time
 from concurrent.futures import ProcessPoolExecutor
 
 NATIVE_ROOT = {'native': '0_0_0_0_0'}
+FINAL = {'TripleClassification/code/ext_cell_certificate.py': 'cb2d3e20a57cb3f51b9cf92f6ec6342ed24e71cdee535a97284bc38784cb7953',
+         'TripleClassification/code/gamma_exact.py': 'e6413eba58fe16d41bbc8add08ce6c32deec8133943f91cb461a3e04a40672a3'}
 SPLIT39 = (989, 1107, 1148, 1169, 1282, 1286, 1320, 1441, 1460, 1470, 1492, 1538, 1545, 1568, 1591, 1610, 1628, 1630, 1692,
            1730, 1753, 1756, 1760, 1766, 1812, 1886, 1887, 1888, 1895, 1901, 1902, 2248, 2344, 2490, 2499, 2531, 2545, 2546,
            2606)                     # TC_questions_3_4_results REPORT.md §7 (fourier_neighbourhood_certificate.json)
 COLS = ('ball', 'verdict', 'scope', 'route', 'source', 'plane_leaves', 'native_leaves', 'outside', 'levels',
-        'proof_bytes', 'check_wall_s', 'check_core_s', 'check_workers', 'slowest_leaf_s', 'search_core_h', 'gamma_rechecked')
+        'proof_bytes', 'check_wall_s', 'check_core_s', 'check_workers', 'slowest_leaf_s', 'search_core_h', 'gamma_rechecked',
+        'final_checked')
 
 
 def load(d, ball):
@@ -56,10 +61,10 @@ def size(path):
     except OSError: return 0
 
 
-def fourier_leaves(d, tree):
-    """Plane leaves of the tree with a gamma row whose bound is at most 19/50 (a Fourier row)."""
+def fourier_leaves(d, plane):
+    """Plane leaves with a gamma row whose bound is at most 19/50."""
     n = 0
-    for leaf in walk(tree['tree'])['plane']:
+    for leaf in plane:
         try: p = json.loads(gzip.decompress(open(os.path.join(d, 'leaves', leaf + '.proposal.json.gz'), 'rb').read()))
         except (OSError, ValueError): continue          # a missing leaf fails the check anyway
         n += any('gamma' in w and float.fromhex(w['gamma']['g_up_hex']) <= 19 / 50 for w in p.get('witnesses', []))
@@ -72,18 +77,13 @@ def ball_row(job):
     for base in bases:
         d = os.path.join(base_dir, base, 'b%d' % ball)
         x = load(d, ball)
-        if x: cands.append(((x[0].get('verdict') == 'CLOSED', -x[1].get('proof_bytes', 0)), base, d, x))
+        if x:
+            plane = sum(v for k, v in x[0].get('counts', {}).items() if k.startswith('CERTIFIED_'))
+            stamp = x[0].get('checker_sha256') or {}
+            final = all(stamp.get(k) == v for k, v in FINAL.items())
+            cands.append(((x[0].get('verdict') == 'CLOSED', final, -plane, -x[1].get('proof_bytes', 0)), base, d, x))
     if not cands: return dict(ball=ball, verdict='NONE')
-    rejected = []
-    if ball in SPLIT39:                  # (Γ3) must not be used to close the balls it assumes closed
-        for cand in sorted(cands, key=lambda t: t[0], reverse=True):
-            f = fourier_leaves(cand[2], json.load(open(os.path.join(cand[2], 'tree.json'))))
-            if not f: break
-            rejected.append([cand[1] or '.', f])
-        else:
-            return dict(ball=ball, verdict='OPEN (only certificates with Fourier rows)', split39_rejected=rejected)
-        cands = [cand]
-    _, base, d, (c, s) = max(cands, key=lambda t: t[0])
+    (_, final, _, _), base, d, (c, s) = max(cands, key=lambda t: t[0])
     tree = json.load(open(os.path.join(d, 'tree.json')))
     acc = walk(tree['tree'], tree['root'][0])
     lv = sorted({int(n.split('_')[0]) for n in acc['plane'] + acc['native']})
@@ -103,7 +103,8 @@ def ball_row(job):
                 proof_bytes=pb, check_wall_s=c.get('wall_seconds', 0), check_core_s=c.get('check_core_seconds', 0),
                 check_workers=c.get('workers', 0), slowest_leaf_s=c.get('slowest_leaf_seconds', 0),
                 search_core_h=s.get('search_core_hours', 0), gamma_rechecked=int(os.path.exists(os.path.join(d, 'check.float.json'))),
-                counts=counts, split39_rejected=rejected)
+                final_checked=int(final), counts=counts,
+                fourier_leaves=fourier_leaves(d, acc['plane']) if ball in SPLIT39 else None)
 
 
 def main():
@@ -140,16 +141,18 @@ def main():
                    gamma_rechecked=sum(r['gamma_rechecked'] for r in closed),
                    by_source={b or '.': sum(1 for r in closed if r['source'] == (b or '.')) for b in bases},
                    hardest=[{k: r[k] for k in COLS} for r in hard],
-                   split39={str(r['ball']): dict(verdict=r['verdict'], source=r.get('source'), fourier_rows_in_rejected=r.get('split39_rejected', []))
-                            for r in rows if r['ball'] in SPLIT39},
-                   split39_blocked=sorted(r['ball'] for r in rows if r['ball'] in SPLIT39 and r['verdict'] != 'CLOSED' and r.get('split39_rejected')),
+                   final_checker=FINAL,
+                   not_final_checked=sorted(r['ball'] for r in closed if not r['final_checked']),
+                   split39={str(r['ball']): dict(verdict=r['verdict'], source=r.get('source'), scope=r.get('scope'),
+                                                 fourier_leaves=r.get('fourier_leaves')) for r in rows if r['ball'] in SPLIT39},
+                   split39_violations=sorted(r['ball'] for r in rows if r['ball'] in SPLIT39 and r.get('fourier_leaves')),
                    seconds=round(time.time() - t0))
     tmp = os.path.join(a.out, 'summary.json.new'); json.dump(summary, open(tmp, 'w'), indent=1)
     os.replace(tmp, os.path.join(a.out, 'summary.json'))
-    print(json.dumps({k: summary[k] for k in ('generated', 'closed', 'not_closed', 'total', 'split39_blocked', 'seconds')}))
-    if summary['split39_blocked']:
-        print('FAIL: split balls closed only through the Fourier-neighbourhood theorem they support: %s' % summary['split39_blocked'], file=sys.stderr)
-        sys.exit(3)
+    print(json.dumps(dict({k: summary[k] for k in ('generated', 'closed', 'not_closed', 'total', 'split39_violations', 'seconds')},
+                          not_final_checked=len(summary['not_final_checked']))))
+    if summary['split39_violations']:
+        print('FAIL: split balls counted through Fourier gamma rows: %s' % summary['split39_violations'], file=sys.stderr); sys.exit(3)
 
 
 if __name__ == '__main__': main()

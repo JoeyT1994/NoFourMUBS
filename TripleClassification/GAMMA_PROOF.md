@@ -3,6 +3,11 @@
 *Draft for review. The inputs labelled **RETURN** are from the collaborator's 29 October returns (`TC_ordering_result`,
 `TC_questions_3_4_results`); the bound in §3 is new here and needs checking.*
 
+*1 November 2026: the one-tree certifier does not use (Γ3). A gamma row counts only on the ordering bound, i.e. by
+(Γ4) (commit `cf981f246`; `CERTIFIER.md`). The reason is that the one-tree certificates had used (Γ3) inside its own
+hypotheses: 25 of the 39 split balls it assumes closed had Fourier rows (`DISSEMINATION_NOTES.md` §2.2). (Γ3) and the
+*fourier* rule of §5 remain here as the record of the audited pipeline.*
+
 ## 1. The score and its two uses
 
 Unit-entry Hadamards. For a real 6×6 phase array Q, the plaquette vector RQ ∈ ℝ²²⁵ is
@@ -28,7 +33,8 @@ v(a,b)_(ik;jl) = (a_i − a_k)(b_j − b_l). The **labelled Fourier score** is
   - the 39 listed split balls are closed.
 
   On our single route all 39 are closed by certifier-only trees (`results/balls.tsv`), which use no Γ_F discharge,
-  so (Γ3) is not circular.
+  so (Γ3) is not circular. (This held for the audited pipeline. The one-tree certifier does not use (Γ3); see the
+  note above.)
 - **(Γ4) Minimum-transition reduction.** It suffices that each seed ball classify the triples whose first transition
   H has Γ_F(H) ≤ Γ_F(K) and Γ_F(H) ≤ Γ_F(L), where L = H*K/√6. A pattern may therefore be discharged when, over the
   whole pattern, min(Γ_F(K), Γ_F(L)) < Γ_F(H) strictly. Ties stay in.
@@ -112,8 +118,8 @@ ball. It takes the larger of two bounds:
 ## 5. The discharge rules and what the auditor checks
 
 An open pattern is discharged in either of two ways:
-- **fourier:** its upper bound min(Γ_F(L), Γ_F(K)) is at most 19/50. By (Γ3), every zero in the pattern lies in a
-  classified triple.
+- **fourier** (audited pipeline only): its upper bound min(Γ_F(L), Γ_F(K)) is at most 19/50. By (Γ3), every zero
+  in the pattern lies in a classified triple.
 - **ordering:** that upper bound is below the cell's threshold for H (§4). By (Γ4), the pattern is not this ball's
   task.
 

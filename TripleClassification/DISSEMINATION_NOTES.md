@@ -57,11 +57,11 @@ of the 347,901 leaves at levels 1–3.
 - **Secant: 37,921 leaves in 51 balls**, mostly at levels 6–9. Removing it would mean deeper trees in those 51 balls,
   where the column witnesses already fail to close the cells. It is not worth removing.
 
-### 2.2 The Fourier-neighbourhood theorem is used inside its own hypotheses
+### 2.2 The Fourier-neighbourhood theorem was used inside its own hypotheses
 
 `GAMMA_PROOF.md` (Γ3), the Fourier-neighbourhood theorem, assumes that 39 listed split balls are closed. That return
 (`TC_questions_3_4_results`, REPORT.md §7) lists them: 989, 1107, …, 2606. All 39 are closed in the one-tree atlas
-with all-K scope. But 25 of them use gamma Fourier witnesses, and so rely on (Γ3) themselves:
+with all-K scope. But 25 of them used gamma Fourier witnesses, and so relied on (Γ3) themselves:
 
     1286 1492 1545 1568 1610 1692 1730 1753 1756 1766 1812 1886 1887 1888 1895
     1901 1902 2248 2344 2490 2499 2531 2545 2546 2606
@@ -76,10 +76,13 @@ Outside these 25, (Γ3) is not needed. 95 balls use a Fourier witness, all among
 them, a Fourier-discharged pattern has min(Γ_F(K), Γ_F(L)) ≤ 19/50 < Γ_F(H), strictly, so it is also
 ordering-discharged by the minimum-transition lemma, with no change of scope.
 
-**Plan (for decision, not done).** Re-close the 25 balls without the gamma witness, then use the separation bound
-above for the 70. The classification would then not depend on (Γ3) at all: no Fourier-neighbourhood theorem, and no
-19/50 threshold. To make the second step machine-checked, the leaf receipt would need to record that g_up < g_cell
-for each Fourier pattern, or the assembly would cite the separation certificate. §2.3 measures the first step.
+**Adopted (commit `cf981f246`, approved by the user).** The certifier no longer uses (Γ3). A gamma row counts only on
+the ordering bound (g_up < g_cell, the minimum-transition lemma), and `fast_search.py` proposes only such rows. Every
+certificate with plane leaves is rechecked under that checker. A Fourier row that is not also an ordering row fails
+the recheck, and its leaf is searched again. The 25 balls above are being re-closed with native leaves first and the
+gamma witness off (`onetree/nf`). `onetree_status.py` counts a plane-leaf certificate only once it has been checked
+by the deployed checker. The classification therefore no longer depends on the Fourier-neighbourhood theorem or on
+the 19/50 threshold.
 
 ### 2.3 Re-closing the 25 balls without the gamma witness
 
