@@ -323,6 +323,14 @@ def join(a, root):
     json.dump(res, open(out / 'summary.json', 'w'), indent=1); print(json.dumps({k: v for k, v in res.items() if k != 'open_cells'}))
 
 
+def checker_sha256():
+    """The files this check ran: this file and the extended whole-cell check's (gamma_test, gamma_exact, the witnesses).
+    The pinned checker tree is named by its commit (PR #4, 914919b)."""
+    import hashlib
+    d = {'TripleClassification/code/onetree.py': hashlib.sha256(Path(__file__).read_bytes()).hexdigest()}
+    d.update(W['E'].extension_sha256()); return d
+
+
 def check(a, root):
     out = Path(a.out).resolve() / ('b%d' % a.ball); tree = json.load(open(out / 'tree.json')); t0 = time.time()
     assert tree.get('schema') == 'onetree-v1' and tree.get('ball') == a.ball, 'not a tree of this ball'
@@ -348,7 +356,7 @@ def check(a, root):
     scope = 'minimum-transition' if counts.get('CERTIFIED_MINIMUM_TRANSITION_RECORDED_H_CELL') else 'all'   # ORDERING_THEOREM.md
     res = dict(ball=a.ball, root=tree['root'], verdict=('CLOSED' if whole else 'CELL CLOSED') if not bad else 'OPEN', scope=scope, counts=counts,
                failed=bad[:50], check_core_seconds=round(core), slowest_leaf_seconds=round(slow), wall_seconds=round(time.time() - t0),
-               workers=a.workers)
+               workers=a.workers, checker_sha256=checker_sha256())
     json.dump(res, open(out / 'check.json', 'w'), indent=1); print(json.dumps(res))
     json.dump(bad, open(out / 'refused.json', 'w'))                  # every refused node (check.json lists 50)
     return 0 if not bad else 1
