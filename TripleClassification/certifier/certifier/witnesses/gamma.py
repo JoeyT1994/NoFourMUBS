@@ -17,9 +17,9 @@ Both functions are those of TripleClassification/code/ext_cell_certificate.py (g
 """
 from fractions import Fraction
 from flint import arb, acb
-from .. import pinned, gamma_exact as GX
+from .. import pinned
 
-GT = pinned.gamma_test
+GT, GX = pinned.gamma_test, pinned.gamma_exact
 P = pinned.column
 
 

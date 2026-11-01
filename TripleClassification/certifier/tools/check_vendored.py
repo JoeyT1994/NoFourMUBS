@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
-"""Check this package's provenance against the NoFourMUBS repository (for maintainers and referees with the repo).
+"""Check this package's provenance against the NoFourMUBS repository.
 
-  python tools/check_vendored.py [--repo PATH] [--pinned 914919b] [--approved f9f9cb8c5]
+  python tools/check_vendored.py [--repo PATH] [--pinned 914919b] [--approved HEAD]
 
-1. Every file of certifier/_pinned (as listed in its MANIFEST.sha256) is byte-identical to the same path at the pinned
-   commit (PR #4's checker tree).
-2. certifier/gamma_exact.py is byte-identical to the approved TripleClassification/code/gamma_exact.py.
+1. Every file the package loads from the repository (certifier/PINNED.sha256) is byte-identical to the same path at
+   the pinned commit (PR #4's checker tree), and so is each of the five PR #4 files kept in certifier/pr4/.
+2. TripleClassification/code/gamma_exact.py, which the package loads at its approved hash (pinned.APPROVED), is the
+   approved revision's.
 3. Every function the package says it took unchanged from the approved one-tree checker has the same syntax tree
    (docstrings and names aside) as the original: overlap.py (branch_overlap.py), witnesses/gamma.py
    (ext_cell_certificate.py), witnesses/secant.py and search/plane.py's propose_secant (moving_secant_certificate.py),
@@ -48,17 +49,19 @@ def body_doc(node):
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('--repo', default=os.path.join(PKG, '..', '..', '..'))
-    ap.add_argument('--pinned', default='914919b'); ap.add_argument('--approved', default='f9f9cb8c5')
+    ap.add_argument('--pinned', default='914919b'); ap.add_argument('--approved', default='HEAD')
     a = ap.parse_args(); bad = 0
-    lines = open(os.path.join(PKG, '_pinned', 'MANIFEST.sha256')).read().splitlines()
+    lines = open(os.path.join(PKG, 'PINNED.sha256')).read().splitlines()
+    pr4 = {'TripleClassification/code/' + f: os.path.join(PKG, 'pr4', f) for f in os.listdir(os.path.join(PKG, 'pr4')) if f.endswith('.py')}
     for line in lines:
         digest, rel = line.split('  ', 1)
-        same = git_show(a.repo, a.pinned, rel) == open(os.path.join(PKG, '_pinned', rel), 'rb').read()
+        same = git_show(a.repo, a.pinned, rel) == open(pr4.get(rel, os.path.join(a.repo, rel)), 'rb').read()
         ok = same and hashlib.sha256(git_show(a.repo, a.pinned, rel)).hexdigest() == digest
         bad += not ok
-        if not ok: print('DIFFERS  _pinned/%s' % rel)
-    print('%d of %d pinned files byte-identical to %s' % (len(lines) - bad, len(lines), a.pinned))
-    ok = git_show(a.repo, a.approved, CODE + 'gamma_exact.py') == open(os.path.join(PKG, 'gamma_exact.py'), 'rb').read()
+        if not ok: print('DIFFERS  %s' % rel)
+    print('%d of %d pinned files (%d read from the repository, %d in certifier/pr4) byte-identical to %s' % (
+        len(lines) - bad, len(lines), len(lines) - len(pr4), len(pr4), a.pinned))
+    ok = git_show(a.repo, a.approved, CODE + 'gamma_exact.py') == open(os.path.join(a.repo, CODE, 'gamma_exact.py'), 'rb').read()
     bad += not ok; print('%s  gamma_exact.py byte-identical to %s' % ('OK' if ok else 'DIFFERS', a.approved))
     for mine, f, theirs, g in SAME:
         ok = function(open(os.path.join(PKG, mine)).read(), f) == function(git_show(a.repo, a.approved, CODE + theirs).decode(), g)

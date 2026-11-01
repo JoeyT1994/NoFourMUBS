@@ -10,7 +10,8 @@ On ball 2254:
 4. close gives one native leaf (the frozen whole-ball certifier on the original record) and no leaf files; it verifies;
 5. a native leaf below the root: the level-1 cell (1, 1, 1, 1) from its own record;
 On ball 491:
-6. a native leaf claimed for the whole ball, which the native certifier does not close, is refused.
+6. a native leaf claimed for the whole ball, which the native certifier does not close, is refused; so is a native
+   leaf below the root that it does not close (ball 825's level-5 cell (10, 15, 16, 8), from its own record).
 7. a manifest of ball 2254's certificate; verify-all: ball 2254 CLOSED, the atlas not (the other balls are missing);
    run again, nothing is verified again.
 """
@@ -111,6 +112,16 @@ def test_native_below_the_root(tmp_path):
     assert files is not None
     p = tmp_path / 'in.json.gz'; p.write_bytes(files['1_1_1_1_1.input.json.gz'])
     assert native_leaf.check(2254, 1, [1, 1, 1, 1], str(p))[0] == 'NATIVE CERTIFIED EMPTY'
+
+
+def test_native_leaf_below_the_root_the_certifier_refuses(tmp_path, copy_of):
+    """Ball 825's level-5 cell (10, 15, 16, 8): its record contains the cell and its branch is the ball's, but the
+    native certifier does not close it (over 500 patterns); the plane certificate needs gamma witnesses."""
+    src = copy_of('gamma_825'); name = '5_10_15_16_8'
+    tree = dict(schema='onetree-v1', ball=825, root=[5, [10, 15, 16, 8]], tree={'native': name})
+    cert = write(str(tmp_path / 'b825'), tree, {name + '.input.json.gz': leaves(src)[name + '.input.json.gz']})
+    r = verify(cert, 825, workers=1)
+    assert r['verdict'] == 'OPEN' and 'native certifier' in r['failed'][0][2]
 
 
 def test_native_leaf_the_certifier_refuses(tmp_path):

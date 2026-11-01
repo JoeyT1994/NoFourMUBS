@@ -3,7 +3,8 @@
 Certificates for the classification of triples of mutually unbiased bases (MUBs) in ℂ⁶, one seed ball at a time,
 and a verifier that checks them from their files alone.
 
-    pip install ./TripleClassification/certifier
+    git clone https://github.com/JoeyT1994/NoFourMUBS && cd NoFourMUBS
+    pip install -e TripleClassification/certifier
     python -m certifier verify b2254/                 # one ball: prints CLOSED and the scope, exit code 0
     python -m certifier verify-all MANIFEST           # every ball of the atlas
 
@@ -65,7 +66,7 @@ identifies the two branches on the common domain.
 **Arithmetic.** Every acceptance decision is an Arb (python-flint ball arithmetic) inequality or an exact rational
 or integer comparison. Floating point only proposes what to check (centres, alignments, preconditioners), so a poor
 proposal can make a check fail but never pass. The tree, the outside test and the gamma comparison with g_cell are
-exact; g_cell itself is a minimum over 14,400 labelled alignments computed in exact integers (`gamma_exact.py`).
+exact; g_cell itself is a minimum over 14,400 labelled alignments computed in exact integers (`TripleClassification/code/gamma_exact.py`).
 
 **Scope.** A certificate whose leaves are all excluded or classified proves (A) for B: scope **all**. A gamma witness
 proves only that the pattern holds no triple whose H-transition has the least Γ_F of the triple's three
@@ -82,11 +83,11 @@ Fourier-neighbourhood bound (Γ_F ≤ 19/50) is not used.
 
 ## What the proof depends on, outside the certificates
 
-1. **The atlas covers** every Hadamard class except S₆ (the original seed atlas, SHA-256 `33ad9798…`, vendored and
+1. **The atlas covers** every Hadamard class except S₆ (the original seed atlas, SHA-256 `33ad9798…`, pinned and
    checked; its proof is in `PhaseCover/` and `PROOF.md` of the repository).
-2. **C1 and Stage C** (`proof/atlas/STAGEC.md`, `RIGOUR.md`, vendored): the normal form of a ball record and the
+2. **C1 and Stage C** (`proof/atlas/STAGEC.md`, `RIGOUR.md`, pinned): the normal form of a ball record and the
    error budget of the column cover, under input hypotheses that the verifier checks for every record it uses.
-3. **The native certifier's recognition argument** (`seed_method/reference/r0153/CHECKPOINT.md` §8, vendored;
+3. **The native certifier's recognition argument** (`seed_method/reference/r0153/CHECKPOINT.md` §8, pinned;
    `family_neighbourhoods/PROOF.md` §6 for the symmetry bound), reviewed independently on 1 November 2026
    (`TripleClassification/NATIVE_REVIEW.md`: sound for a record's own branch; F2 and F3 are presentation).
 4. **The overlap lemma** of that review (finding F1), which carries a cell record's certificate to the atlas ball;
@@ -96,10 +97,10 @@ Fourier-neighbourhood bound (Γ_F ≤ 19/50) is not used.
 
 ## Verifying
 
-Requirements: Python ≥ 3.11 and the pinned python-flint 0.9.0, numpy 2.2.6 and scipy 1.17.0 (`pyproject.toml`).
-Nothing else: the frozen code the checks build on is vendored (below), and no repository checkout is needed.
+Requirements: a clone of this repository, Python ≥ 3.11, and the pinned python-flint 0.9.0, numpy 2.2.6 and scipy
+1.17.0 (`pyproject.toml`). The frozen code the checks build on is read from the clone at its own paths (below).
 
-    python -m venv venv && venv/bin/pip install ./TripleClassification/certifier
+    python -m venv venv && venv/bin/pip install -e TripleClassification/certifier
     venv/bin/python -m certifier verify CERT [--ball N] [--workers 8] [--json REPORT.json]
 
 CERT is a certificate directory (`tree.json` with `leaves.tar`, or with an unpacked `leaves/`) or one `.tar` file
@@ -142,22 +143,27 @@ interrupted run resumes from its journal. `--cell L:c0,c1,c2,c3` closes one cell
       native_leaf.py       native leaves
       plane_leaf.py        plane leaves: the rebuilt cover, the column replays, one witness per pattern
       witnesses/           columns (pair), joint, secant, gamma
-      gamma_exact.py       the exact lower bound of Γ_F behind g_cell
-      pinned.py            loads the vendored code after checking its SHA-256 manifest
+      pinned.py            loads the pinned code from the repository after checking its SHA-256 manifest
+      PINNED.sha256        that manifest: 40 files of commit 914919b
+      pr4/                 the five PR #4 files main does not have, byte-identical (below)
       search/              close (close.py: the tree search; plane.py: plane proposals)
-      _pinned/             vendored, byte-identical (below)
     tests/                 pytest
     tools/                 provenance and equivalence checks against the repository
 
-**Vendored code.** `certifier/_pinned/` holds 40 files of this repository at commit `914919b`, byte-identical and at
-their repository paths: PR #4's plane checker (`TripleClassification/code/plane_*.py` with
+**Pinned code.** The checks build on 40 files of this repository at commit `914919b` (PR #4), listed with their
+SHA-256 in `certifier/PINNED.sha256`: PR #4's plane checker (`TripleClassification/code/plane_*.py` with
 `anchored_column_certificate.py`, `gamma_test.py`, `nothird.py`, `stagec_guard.py`), the frozen native certifier
 (`proof/theorems/TC_triple_classification/family_neighbourhoods/`) with the seed-atlas code it imports, the documents
-its source binding hashes, and the 17 MB atlas. The paths are kept because the native certifier's binding hashes its
-sources by path. `pinned.py` checks every file against `MANIFEST.sha256` at import, and refuses to load otherwise.
-`tools/check_vendored.py` compares every file with the commit, `gamma_exact.py` with the approved file, and every
-function this package took unchanged from the approved one-tree checker (`overlap.py`, `witnesses/gamma.py`,
-`witnesses/secant.py`, `search/plane.py`) with the original, by syntax tree.
+its source binding hashes, and the atlas. They are read from the repository at their own paths (the native
+certifier's binding hashes its sources by path), from the clone this package lies in, or from `--root` /
+`MUB_CERTIFIER_ROOT`. The one exception is the five `plane_*_certificate.py` files, which PR #4 added and main does
+not have: they are kept, byte-identical, in `certifier/pr4/`. One later file of the one-tree checker,
+`TripleClassification/code/gamma_exact.py` (the exact Γ_F bound), is read at its approved hash. `pinned.py` checks
+every file at import, checks the native binding id, and refuses to load on any mismatch, or when a module loaded from
+a pinned directory is not a pinned file. `tools/check_vendored.py` compares every pinned file with the commit,
+`gamma_exact.py` with the approved revision, and every function this package took unchanged from the approved
+one-tree checker (`overlap.py`, `witnesses/gamma.py`, `witnesses/secant.py`, `search/plane.py`) with the original,
+by syntax tree.
 
 **Relation to `TripleClassification/code/onetree.py`.** This package replaces `onetree.py check` and `close` with the
 same acceptance, the same certificate format and the same search (on five test cells its `close` writes byte-identical
@@ -166,8 +172,8 @@ records and proposals). Two witnesses of the one-tree checker are not accepted, 
 `tools/equivalence.py` runs both checkers on the same certificates, genuine and tampered. On seven atlas
 certificates (balls 1615, 505, 1097, 1023, 589, 793, 491; 3,120 leaves, both layouts) and eight small certificates
 with 52 tampered variants, the two agree on every verdict, scope, count and refused node, with one exception: `onetree.py`
-(64588c3f…) refuses its own packed certificates whose tree is one native leaf at the root (it looks for an input file
-such a leaf does not have); this package accepts them.
+64588c3f… refused its own packed certificates whose tree is one native leaf at the root (it looked for an input file
+such a leaf does not have); this package accepts them, and `onetree.py` does too since commit 3657e7d9d.
 
 ## Measured
 
@@ -203,12 +209,13 @@ The test cells (`tests/data/certificates`), one core each:
 
 ## Tests
 
-    pip install './TripleClassification/certifier[test]'
+    pip install -e 'TripleClassification/certifier[test]'
     cd TripleClassification/certifier && python -m pytest
 
 They cover: close then verify; the three certificate layouts; refusal of a changed proposal, a record of another
 cell, a renamed leaf, a false outside node, an open node, missing files and an incomplete partition; resuming an
-interrupted close (including a cut leaves.tar); native leaves at and below the root, and a native leaf the certifier
-refuses; verify-all; the vendored manifest (a changed file is refused at import); every witness kind on real cells
-(pair, joint, joint-known, secant, gamma), each refused when changed; the refused projector and one-column witnesses; the overlap witness (cells of ball 905, a corner cell of ball 550, a record of another ball);
-the exact Γ_F bound against all 14,400 alignments in Arb.
+interrupted close (including a cut leaves.tar); native leaves at and below the root, and native leaves the certifier
+refuses, at and below the root; verify-all; the pinned files (a changed file, a changed manifest, or an extra native
+source is refused at import); every witness kind on real cells (pair, joint, joint-known, secant, gamma), each refused
+when changed; the refused projector and one-column witnesses; the overlap witness (cells of ball 905, a corner cell
+of ball 550, a record of another ball); the exact Γ_F bound against all 14,400 alignments in Arb.

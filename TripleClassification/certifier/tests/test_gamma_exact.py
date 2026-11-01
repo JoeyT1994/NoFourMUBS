@@ -11,9 +11,9 @@ import math
 import numpy as np
 import pytest
 from flint import arb, ctx
-from certifier import gamma_exact as GX, pinned
+from certifier import pinned
 
-GT = pinned.gamma_test
+GT, GX = pinned.gamma_test, pinned.gamma_exact
 RNG = np.random.default_rng(20261101)
 CASES = [('random %d' % s, RNG.uniform(-3, 3, (6, 6))) for s in range(4)]
 CASES.append(('Fourier matrix', np.array([[2 * math.pi * i * j / 6 for j in range(6)] for i in range(6)])))

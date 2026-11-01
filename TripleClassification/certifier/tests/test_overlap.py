@@ -1,6 +1,6 @@
 """The overlap witness (overlap.py): a cell record's analytic branch is the original ball's (native review F1).
 
-Data (tests/data/branch_overlap): ball 905's original record, three of its level-8 cell records and a cell record of
+Data (the repository's TripleClassification/code/test_data/branch_overlap): ball 905's original record, three of its level-8 cell records and a cell record of
 ball 1016; ball 550's original record and its corner cell (3, (1, 1, 1, 6)).
 1. each of the three 905 cell records is identified with ball 905's branch (two are boundary cells, whose centres lie
    outside the original ball, so theta* must be moved into both balls);
@@ -14,7 +14,8 @@ import copy, glob, gzip, json, os
 import pytest
 from certifier import overlap
 
-DATA = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data', 'branch_overlap')
+from certifier import pinned
+DATA = os.path.join(pinned.ROOT, 'TripleClassification', 'code', 'test_data', 'branch_overlap')
 load = lambda *p: json.load(gzip.open(os.path.join(DATA, *p)))
 ORIGINAL = load('persistent_cells', 'b905_original.json.gz')['record']
 CELLS = [json.load(gzip.open(f)) for f in sorted(glob.glob(os.path.join(DATA, 'persistent_cells', '905_8_*.input.json.gz')))]

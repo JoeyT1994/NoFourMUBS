@@ -16,6 +16,8 @@ def caps_arg(s):
 def main(argv=None):
     warnings.filterwarnings('ignore', category=RuntimeWarning)    # numpy's spurious matmul warnings on some BLAS builds;
     ap = argparse.ArgumentParser(prog='python -m certifier', description=__doc__)
+    ap.add_argument('--root', help='the NoFourMUBS repository holding the pinned files (default: the one this package is in; '
+                    'or MUB_CERTIFIER_ROOT)')
     sub = ap.add_subparsers(dest='cmd', required=True)
     v = sub.add_parser('verify', help="verify one ball's certificate from its files alone")
     v.add_argument('cert', help='a certificate directory (tree.json with leaves.tar or leaves/) or one .tar file')
@@ -38,6 +40,7 @@ def main(argv=None):
     c.add_argument('--native-caps', type=caps_arg, help='native search time caps in seconds by level, L:S,...')
     c.add_argument('--workers', type=int, default=8)
     x = ap.parse_args(argv)
+    if x.root: os.environ['MUB_CERTIFIER_ROOT'] = os.path.abspath(x.root)     # before the pinned code is loaded
 
     if x.cmd == 'verify':
         from .verify import verify

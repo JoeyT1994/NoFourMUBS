@@ -81,27 +81,35 @@ not used: a gamma witness counts only on the ordering bound.
 
 ## Running it
 
-The pinned checker tree is this repository at commit `914919b` (PR #4):
+The certifier package [`certifier/`](certifier/README.md) verifies and produces certificates. Install it from a clone
+of this repository; it reads the pinned code from the clone and checks every file's SHA-256:
 
-    git worktree add pr4 914919b
-    pip install python-flint==0.9.0 numpy scipy
+    pip install -e TripleClassification/certifier
 
-Check a certificate. It returns 0 and prints `"verdict": "CLOSED"` when every node verifies:
+Check a certificate (a directory with `tree.json` and `leaves.tar`). It returns 0 and prints `CLOSED` and the scope
+when every node verifies:
 
-    python TripleClassification/code/onetree.py check pr4 BALL CERT_DIR --workers 64
+    python -m certifier verify CERT_DIR --ball BALL --workers 64
+
+Check the whole atlas from a manifest of certificates, one line `BALL PATH` per ball (`python -m certifier manifest
+DIR` writes one); shards share one results file, and the run resumes:
+
+    python -m certifier verify-all MANIFEST --shard I/N --workers 128
 
 Produce one. This is resumable: an interrupted run continues from its journal.
 
-    python TripleClassification/code/onetree.py close pr4 BALL CERT_DIR --max-level 6 --workers 64
+    python -m certifier close BALL OUT --max-level 6 --workers 64
 
 `close` first tries the native certifier on the whole ball: a ball it closes gets a one-leaf certificate. Otherwise
 `close` searches coarse first. `--native-first L` tries the native certifier on every cell at levels ≤ L before any
 plane search. On every other cell it tries the gamma witness on every pattern before any column proof
-(`fast_search.py --gamma`), then the column, joint, secant and projector witnesses, within a time cap per level. Where
+(`certifier/search/plane.py`), then the column, joint and secant witnesses, within a time cap per level. Where
 that search meets a persistent pattern (from level 3), it tries the native certifier on the cell. Every candidate is
 verified by the same leaf check before it becomes a leaf; anything else is split. `--no-native` gives plane leaves only.
 
-`rusty/onetree_ball.sh BALL` runs `close` and then `check` on one 128-core node of a Slurm cluster.
+`code/onetree.py` (`check`, `close`, `join`, `pack`) is the driver the cluster runs use; `rusty/onetree_ball.sh BALL`
+runs its `close` and then `check` on one 128-core node of a Slurm cluster. Its certificates are in the same format, and
+the package verifies them.
 
 ## Measured
 

@@ -26,10 +26,9 @@ _CERT = {}                                       # the certificate being verifie
 
 
 def checker_id():
-    """SHA-256 of this package's sources and the pinned manifest: names the checker that produced a result."""
-    here = Path(__file__).resolve().parent; h = hashlib.sha256(pinned.MANIFEST_SHA256.encode())
-    for p in sorted(here.rglob('*.py')):
-        if '_pinned' not in p.parts: h.update(str(p.relative_to(here)).encode() + b'\0' + p.read_bytes())
+    """SHA-256 of this package's sources and the pinned files' hashes: names the checker that produced a result."""
+    here = Path(__file__).resolve().parent; h = hashlib.sha256((pinned.MANIFEST_SHA256 + json.dumps(pinned.APPROVED, sort_keys=True)).encode())
+    for p in sorted(here.rglob('*.py')): h.update(str(p.relative_to(here)).encode() + b'\0' + p.read_bytes())
     return h.hexdigest()
 
 
@@ -48,6 +47,7 @@ def check_node(job):
                 prop = cert.leaf_file(name, '.proposal.json.gz', td)
                 pinned.require(prop is not None, 'missing leaf file %s.proposal.json.gz' % name)
                 status = plane_leaf.check(ball, level, cell, inp, pinned.frontier.read_json(prop))['status']
+        pinned.require_pinned_modules()          # nothing the check imported lazily shadows a pinned file
         return job, status, time.time() - t
     except Exception as e: return job, 'FAILED: %s' % str(e)[:200], time.time() - t
     finally: pinned.tidy_path()
