@@ -248,7 +248,10 @@ def leaf_bytes(out):
 
 
 def close(a, root):
-    out = Path(a.out).resolve() / ('b%d' % a.ball); (out / 'leaves').mkdir(parents=True, exist_ok=True)
+    out = Path(a.out).resolve() / ('b%d' % a.ball)
+    if (out / 'leaves.tar').exists() and not (out / 'leaves').is_dir():      # a packed certificate: resuming would see no
+        sys.exit('b%d is packed (leaves.tar): unpack it before close' % a.ball)   # leaf and search the whole tree again
+    (out / 'leaves').mkdir(parents=True, exist_ok=True)
     l0, c0 = (int(a.cell.split(':')[0]), [int(x) for x in a.cell.split(':')[1].split(',')]) if a.cell else (0, [0, 0, 0, 0])
     tag = '.' + name(l0, c0) if a.part else ''     # a part (--part --cell) keeps its own journal, tree and summary
     tmpd = out / ('tmp' + tag); tmpd.mkdir(exist_ok=True)
