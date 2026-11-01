@@ -10,7 +10,7 @@
 3. Every function the package says it took unchanged from the approved one-tree checker has the same syntax tree
    (docstrings and names aside) as the original: overlap.py (branch_overlap.py), witnesses/gamma.py
    (ext_cell_certificate.py), witnesses/secant.py and search/plane.py's propose_secant (moving_secant_certificate.py),
-   search/plane.py's prove_column (fast_search.py).
+   column_proofs.py's prove_column (fast_search.py).
 """
 import argparse, ast, hashlib, os, subprocess, sys
 
@@ -24,7 +24,7 @@ SAME = [  # (package file, function, approved file, function)
     *[('witnesses/secant.py', f, 'projector/moving_secant_certificate.py', f) for f in ('linear_parameter_map', 'moving_parameters',
                                                                                         'secant_gap', 'decode', 'check_columns')],
     ('search/plane.py', 'propose_secant', 'projector/moving_secant_certificate.py', 'propose_columns'),
-    ('search/plane.py', 'prove_column', 'fast_search.py', 'prove_column'),
+    ('column_proofs.py', 'prove_column', 'fast_search.py', 'prove_column'),
 ]
 
 

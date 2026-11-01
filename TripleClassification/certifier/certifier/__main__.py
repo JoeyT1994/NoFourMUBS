@@ -1,4 +1,4 @@
-"""Command line: python -m certifier {verify, verify-all, close, manifest} ... (--help on each)."""
+"""Command line: python -m certifier {verify, verify-all, close, convert, manifest} ... (--help on each)."""
 import argparse, json, os, re, sys, warnings
 from pathlib import Path
 
@@ -28,6 +28,10 @@ def main(argv=None):
     a.add_argument('--results', help='results file (JSON lines, shared by shards; default MANIFEST.results.jsonl)')
     a.add_argument('--shard', default='0/1', help='I/N: verify the balls with ball %% N == I (default 0/1: all)')
     a.add_argument('--workers', type=int, default=8)
+    k = sub.add_parser('convert', help="write a full-format certificate of onetree.py in this package's format, keeping it only "
+                       'if it verifies')
+    k.add_argument('cert'); k.add_argument('out', help='the new certificate directory (must not exist)')
+    k.add_argument('--workers', type=int, default=8); k.add_argument('--json', help='write the verify report here')
     m = sub.add_parser('manifest', help='write a manifest of the certificates b<BALL>/ or b<BALL>.tar in a directory')
     m.add_argument('dir'); m.add_argument('-o', '--out', help='manifest file (default DIR/MANIFEST)')
     c = sub.add_parser('close', help='search for a certificate of a ball (or of one cell of it); writes OUT/b<BALL>/')
@@ -42,9 +46,14 @@ def main(argv=None):
     x = ap.parse_args(argv)
     if x.root: os.environ['MUB_CERTIFIER_ROOT'] = os.path.abspath(x.root)     # before the pinned code is loaded
 
-    if x.cmd == 'verify':
-        from .verify import verify
-        r = verify(x.cert, x.ball, x.workers)
+    if x.cmd in ('verify', 'convert'):
+        if x.cmd == 'verify':
+            from .verify import verify
+            r = verify(x.cert, x.ball, x.workers)
+        else:
+            from .certificate import convert
+            r = convert(x.cert, x.out, x.workers)
+            print(('written: %s' if r['verdict'] != 'OPEN' else 'not written (refused nodes below): %s') % x.out)
         if x.json: Path(x.json).write_text(json.dumps(r, indent=1) + '\n')
         kinds = ', '.join('%d %s' % (n, k) for k, n in sorted(r['counts'].items()))
         print('ball %d%s: %s, scope %s (%s) in %.0f s' % (r['ball'], '' if r['root'] == [0, [0, 0, 0, 0]] else ' cell %d:%s' %

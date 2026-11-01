@@ -8,9 +8,10 @@ in tests/data/certificates closed by `close`:
   known_793    ball 793, level-2 cell (2, 0, 0, 1): joint witnesses recognising the known family (CLASSIFIED; this leaf
                is taken from the atlas certificate of ball 793)
 
-Each verifies; each witness, changed, is refused; the projector and one-column witnesses are refused.
+Each verifies; each witness, changed, is refused; the projector and one-column witnesses are refused; a column depth
+other than the one the proofs were built at is refused (the rebuilt tubes no longer carry the witnesses).
 """
-import copy, json, os
+import json, os
 import pytest
 from conftest import gz_json, leaves, to_gz, write
 from certifier import plane_leaf
@@ -20,14 +21,14 @@ CELLS = dict(secant_194=(194, '4_3_13_5_3'), pairs_825=(825, '6_3_22_27_42'), ga
              joint_363=(363, '4_5_10_6_0'), known_793=(793, '2_2_0_0_1'))
 
 
-def proposal(cert):
+def proofs(cert):
     ball, leaf = CELLS[os.path.basename(cert)]
-    return gz_json(leaves(cert)[leaf + '.proposal.json.gz'])
+    return gz_json(leaves(cert)[leaf + '.json.gz'])
 
 
-def with_proposal(cert, p):
+def with_proofs(cert, p):
     ball, leaf = CELLS[os.path.basename(cert)]
-    return write(cert, json.load(open(os.path.join(cert, 'tree.json'))), dict(leaves(cert), **{leaf + '.proposal.json.gz': to_gz(p)}))
+    return write(cert, json.load(open(os.path.join(cert, 'tree.json'))), dict(leaves(cert), **{leaf + '.json.gz': to_gz(p)}))
 
 
 @pytest.mark.parametrize('name,kinds,scope', [
@@ -35,7 +36,7 @@ def with_proposal(cert, p):
     ('gamma_825', {'gamma'}, 'minimum-transition'), ('joint_363', {'pair', 'joint'}, 'all'), ('known_793', {'joint'}, 'all')])
 def test_genuine(copy_of, name, kinds, scope):
     cert = copy_of(name)
-    assert {plane_leaf.kind(w) for w in proposal(cert)['witnesses']} == kinds
+    assert {plane_leaf.kind(w) for w in proofs(cert)['witnesses']} == kinds
     r = verify(cert, CELLS[name][0], workers=1)
     assert r['verdict'] == 'CELL CLOSED' and r['scope'] == scope, r['failed']
     if name == 'known_793': assert r['counts'] == {plane_leaf.CLASSIFIED: 1}
@@ -66,13 +67,19 @@ def one_column(w): w['columns'] = w['columns'][:1]
     ('pairs_825', 'pair', other_column), ('pairs_825', 'pair', one_column)],
     ids=lambda x: getattr(x, '__name__', x))
 def test_changed_witness_refused(copy_of, name, kind, edit):
-    cert = copy_of(name); p = proposal(cert); edit(first(p, kind))
-    r = verify(with_proposal(cert, p), CELLS[name][0], workers=1)
+    cert = copy_of(name); p = proofs(cert); edit(first(p, kind))
+    r = verify(with_proofs(cert, p), CELLS[name][0], workers=1)
     assert r['verdict'] == 'OPEN', '%s %s accepted' % (name, edit.__name__)
 
 
 def test_projector_witness_refused(copy_of):
-    cert = copy_of('pairs_825'); p = proposal(cert); w = first(p, 'pair')
+    cert = copy_of('pairs_825'); p = proofs(cert); w = first(p, 'pair')
     colours = w['colours']; w.clear(); w.update(colours=colours, columns=list(colours), projector=dict(order=list(colours)))
-    r = verify(with_proposal(cert, p), 825, workers=1)
+    r = verify(with_proofs(cert, p), 825, workers=1)
     assert r['verdict'] == 'OPEN' and 'projector' in r['failed'][0][2]
+
+
+@pytest.mark.parametrize('depth', [2, 11, '6'])
+def test_other_depth_refused(copy_of, depth):
+    cert = copy_of('pairs_825'); p = proofs(cert); p['depth'] = depth
+    assert verify(with_proofs(cert, p), 825, workers=1)['verdict'] == 'OPEN'

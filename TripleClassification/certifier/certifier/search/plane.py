@@ -1,5 +1,5 @@
-"""Proposing a plane leaf for a cell: the cell's record and a whole-cell proposal. No proof role: `close` keeps a
-proposal only after plane_leaf.check accepts it.
+"""Proposing a plane leaf for a cell: the cell's record and a witness per pattern. No proof role: `close` keeps a leaf
+only after plane_leaf.check accepts it.
 
 For each pattern of the rebuilt cover, in order:
 1. the gamma witness (mode L, then K; the last alignment that worked, then the best alignment of the centre phases),
@@ -13,72 +13,34 @@ A pattern none of these resolves fails the cell ('complete-cover pattern remains
 This is TripleClassification/code/fast_search.py (PR #4's search without its redundant replays) without the projector
 witness and the one-column witness.
 """
-import gzip, itertools, json, tempfile
+import itertools, tempfile
 from fractions import Fraction
 from pathlib import Path
 import numpy as np
 from scipy.optimize import least_squares
 from flint import arb, ctx
 from .. import cells, pinned
+from ..certificate import leaf
+from ..column_proofs import prove_column
 from ..witnesses import gamma, secant
 
 P, Whole, Joint, F, A = pinned.column, pinned.cell, pinned.joint, pinned.frontier, pinned.anchored
 SCALAR_CAP = 2000                 # the joint search's scalar budget (column trees: depth 6, 6,000 nodes)
 
 
-def cell_input(ball, level, cell):
-    """The cell's record (frontier.build_record) as the bytes of its leaf input file."""
+def cell_record(ball, level, cell):
+    """The cell's record (frontier.build_record), with the fields of its leaf file (certificate.leaf)."""
     ctx.prec = 224
     rec = F.build_record(pinned.original(ball), level, list(cell), pinned.ROOT)
-    data = dict(schema=cells.INPUT_SCHEMA, record=rec, record_sha256=F.jsonsha(rec), ball=ball, level=level, cell=list(cell),
-                subatlas='none', sub=0, legacy_record_sha256='none')
-    return gzip.compress(json.dumps(data).encode(), mtime=0)
+    return dict(schema=cells.INPUT_SCHEMA, ball=ball, level=level, cell=list(cell), record=rec, record_sha256=F.jsonsha(rec))
 
 
 def propose_cell(ball, level, cell, use_gamma=True):
-    """(input bytes, proposal bytes) for the cell, or raises ArithmeticError/ValueError with the reason."""
-    inp = cell_input(ball, level, cell)
+    """The cell's plane leaf file (bytes), or raises ArithmeticError/ValueError with the reason."""
+    data = cell_record(ball, level, cell)
     with tempfile.TemporaryDirectory(prefix='certifier.search.') as td:
-        path = Path(td) / 'cell.input.json.gz'; path.write_bytes(inp)
-        proposal = propose(path, use_gamma)
-    return inp, gzip.compress(json.dumps(proposal).encode(), mtime=0)
-
-
-def prove_column(model, supplied, C, depth=6, node_cap=6000, epsilon_target=.004):
-    """P.prove_column, also returning the tubes verify_tree would rebuild from its proposal."""
-    col = P.Column(model, supplied); roots = []; root_modes = []; count = 0; tubes = {}
-    def visit(level, index):
-        nonlocal count
-        count += 1
-        if count > node_cap: raise ArithmeticError('column node budget exhausted')
-        proposal = col.propose_slab(level, index)
-        try: result = col.check_slab(level, index, proposal)
-        except ArithmeticError: result = dict(status='UNKNOWN')
-        if result['status'] in ('EXCLUDED', 'OUTSIDE'):
-            return dict(proposal, kind=result['status'].lower())
-        if result['status'] == 'CAPTURED':
-            root_ = col.root_proposal(result['center'])
-            mode = 'constant'
-            try:
-                native, native_error = P.tube(C, model, root_, result, 'native')
-                if native['Tnorm'] * model['r'] < arb('.1') and native_error < result['radius']:
-                    mode = 'native'
-            except (ArithmeticError, ZeroDivisionError): pass
-            if mode == 'constant':
-                root_ = np.array([float(x.mid()) for x in result['center']])
-            match = next((i for i, x in enumerate(roots) if root_modes[i] == mode and np.linalg.norm(root_ - x) < 1e-7), None)
-            candidate = root_ if match is None else roots[match]
-            p, epsilon = P.tube(C, model, candidate, result, mode)
-            if epsilon < arb(epsilon_target) or level >= depth:
-                if match is None: match = len(roots); roots.append(root_); root_modes.append(mode)
-                # verify_tree's tube for this leaf: same root values (hex encoding is exact), capture and mode
-                if match in tubes: epsilon = max(tubes[match][1], epsilon).upper()
-                tubes[match] = (p, epsilon)
-                return dict(proposal, kind='captured', root=match)
-        if level >= depth: raise ArithmeticError('column depth budget exhausted')
-        return dict(children=[visit(level + 1, (2 * index[0] + i, 2 * index[1] + j)) for i, j in itertools.product(range(2), repeat=2)])
-    tree = visit(0, (0, 0))
-    return dict(weak=P.encode(col.weak), roots=[P.encode(x) for x in roots], root_modes=root_modes, tree=tree), tubes
+        path = Path(td) / 'cell.json.gz'; path.write_bytes(leaf(data))
+        return leaf(data, 6, propose(path, use_gamma))                # 6: prove_column's default depth
 
 
 def propose_secant(model, cols, column=None, anchors=None):
@@ -108,7 +70,7 @@ def encoded(x):
 
 
 def propose(path, use_gamma=True):
-    """A whole-cell proposal for the cell record in `path` (the order of witnesses tried: module docstring)."""
+    """One witness per pattern for the cell record in `path` (the order they are tried in: module docstring)."""
     s, model, C, binding, columns, cliques = Whole.complete_cover(path)
     proved = {}; attempted = set(); pair_cache = {}; witnesses = []; root_pairs = {}; scalars = {}
     gs = dict(ctx=None, cache={}, last={})
@@ -169,6 +131,4 @@ def propose(path, use_gamma=True):
         found = secant_witness(clique)
         if found is None: raise ArithmeticError('complete-cover pattern remains: ' + str(clique))
         witnesses.append(dict(colours=clique, columns=[clique[i] for i in [found['column'], *found['anchors']]], secant=found))
-    used = {c for w in witnesses if 'secant' not in w and 'gamma' not in w for c in w['columns']}
-    return dict(schema='tc-plane-cell-proposal-v1', snapshot_sha256=binding['snapshot_sha256'],
-                record_sha256=s['record_sha256'], columns={str(c): proved[c][0] for c in sorted(used)}, witnesses=witnesses)
+    return witnesses

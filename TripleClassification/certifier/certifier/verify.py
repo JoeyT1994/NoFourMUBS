@@ -20,7 +20,7 @@ import fcntl, hashlib, json, multiprocessing, os, sys, tempfile, time
 from concurrent.futures import ProcessPoolExecutor
 from pathlib import Path
 from . import __version__, cells, native_leaf, overlap, pinned, plane_leaf
-from .certificate import Certificate
+from .certificate import LEAF, Certificate
 
 _CERT = {}                                       # the certificate being verified; forked workers inherit it
 
@@ -40,13 +40,10 @@ def check_node(job):
             pinned.require(cells.outside(level, cell), 'outside node meets the ball'); return job, 'OUTSIDE', 0.0
         name = cells.name(level, cell)
         with tempfile.TemporaryDirectory(prefix='certifier.') as td:
-            inp = cert.leaf_file(name, '.input.json.gz', td)
-            pinned.require(inp is not None or (kind == 'native' and level == 0), 'missing leaf file %s.input.json.gz' % name)
-            if kind == 'native': status = native_leaf.check(ball, level, cell, inp)[0]
-            else:
-                prop = cert.leaf_file(name, '.proposal.json.gz', td)
-                pinned.require(prop is not None, 'missing leaf file %s.proposal.json.gz' % name)
-                status = plane_leaf.check(ball, level, cell, inp, pinned.frontier.read_json(prop))['status']
+            path = cert.extract(name + LEAF, td)
+            pinned.require(path is not None or (kind == 'native' and level == 0), 'missing leaf file %s%s' % (name, LEAF))
+            if kind == 'native': status = native_leaf.check(ball, level, cell, path)[0]
+            else: status = plane_leaf.check(ball, level, cell, path)['status']
         pinned.require_pinned_modules()          # nothing the check imported lazily shadows a pinned file
         return job, status, time.time() - t
     except Exception as e: return job, 'FAILED: %s' % str(e)[:200], time.time() - t

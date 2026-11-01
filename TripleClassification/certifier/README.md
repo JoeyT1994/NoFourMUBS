@@ -30,7 +30,8 @@ ball proves (A). (B) and (C) are proved elsewhere in the repository (`TripleClas
 
 A seed ball B is the closed set of Hadamard matrices H = exp(iQ), Q = Q₀ + U w + ½ H₂(w ⊗ w) + X ξ, ‖w‖ ≤ r,
 ‖ξ‖ ≤ τ, given by its record in the pinned atlas. Its certificate is a dyadic tree over the chart box r·[−1, 1]⁴
-(`tree.json`) and the files of its leaves (`leaves.tar`). Every node is one of:
+(`tree.json`) and one file per leaf, `<cell>.json.gz`, in `leaves.tar` (format: `certificate.py`). Every node is
+one of:
 
 | Node | What `verify` checks | Module |
 |---|---|---|
@@ -44,15 +45,17 @@ certifies C1 and the normal form of a ball record, rebuilds the complete cover o
 resolves every pattern (six mutually orthogonal colours): it is excluded, or an exact order-three action and a
 contraction q < 1 force a balanced order-three symmetry, which identifies the triple as a known one. At level 0 the
 record is the atlas ball itself, and the call is exactly the audited one; 2,372 of the 2,775 certificates are this
-single leaf. Below level 0 it is the cell's own record (`<cell>.input.json.gz`).
+single leaf, and the certificate is `tree.json` alone. Below level 0 it is the cell's own record (its leaf file).
 
-**Plane leaf.** From the cell's record alone the verifier rebuilds C1, the H normal form, Stage C's preconditions and
-the complete cover; it replays every column proof the witnesses use into tubes, and then checks one witness per
-pattern:
+**Plane leaf.** Its file holds the cell's record, one witness per pattern, and the depth of the column proofs:
+nothing the verifier can recompute. From the record alone the verifier rebuilds C1, the H normal form, Stage C's preconditions and the complete cover. It rebuilds every column
+proof the pair and joint witnesses use (`column_proofs.py`: the deterministic column search at that depth) and
+replays it with PR #4's `verify_tree`, which re-checks every leaf slab in Arb and gives the column's tubes, exactly as
+a stored proof tree was replayed; the trees themselves are not stored. Then it checks one witness per pattern:
 
 | Witness | It proves | Module |
 |---|---|---|
-| pair | two columns' tubes are never orthogonal, so the pattern holds no basis | `witnesses/columns.py` (PR #4) |
+| pair | two columns' tubes are never orthogonal, so the pattern holds no basis | `witnesses/pair.py` (PR #4) |
 | joint | no tuple of the columns' tubes survives the joint exclusion, or the survivors are the known family | `witnesses/joint.py` (PR #4) |
 | secant | a moving-frame secant bound with a strictly positive transverse margin: no unbiased column | `witnesses/secant.py` |
 | gamma | an upper bound on Γ_F over the pattern strictly below the cell's lower bound g_cell on Γ_F(H) | `witnesses/gamma.py` |
@@ -104,7 +107,7 @@ Requirements: a clone of this repository, Python ≥ 3.11, and the pinned python
     venv/bin/python -m certifier verify CERT [--ball N] [--workers 8] [--json REPORT.json]
 
 CERT is a certificate directory (`tree.json` with `leaves.tar`, or with an unpacked `leaves/`) or one `.tar` file
-holding `tree.json` and `leaves/`. The verifier prints the verdict (CLOSED, CELL CLOSED for a certificate of one
+holding them. The verifier prints the verdict (CLOSED, CELL CLOSED for a certificate of one
 cell, or OPEN with the refused nodes) and the scope, and exits 0 only when every node verifies. Nodes are checked
 independently, in parallel; nothing is cached and nothing from the search is trusted.
 
@@ -121,11 +124,18 @@ Slurm cluster, one array task per shard:
     #SBATCH --array=0-31 --cpus-per-task=128
     python -m certifier verify-all MANIFEST --shard $SLURM_ARRAY_TASK_ID/32 --workers 128 --results results.jsonl
 
+**Certificates of `onetree.py`.** The cluster runs wrote the full format of `onetree.py` (schema `onetree-v1`), in
+which every plane leaf also stores the proof trees of its columns, 93% of the bytes. `verify` reads only this
+package's format; `convert` writes it from the full format, verifies the result, and keeps it only if it verifies
+(otherwise it prints the refused nodes and writes nothing):
+
+    python -m certifier convert FULL_CERT NEW_CERT [--workers 8]
+
 ## Producing certificates
 
     python -m certifier close BALL OUT [--max-level 7] [--native-first 0] [--workers 8]
 
-`close` writes `OUT/b<BALL>/` (`tree.json`, `leaves.tar`, `journal.jsonl`, `summary.json`). It tries the native
+`close` writes `OUT/b<BALL>/` (`tree.json`, `leaves.tar`, `journal.jsonl`, `summary.json`) in this format. It tries the native
 certifier on the whole ball first, then searches coarse first: a cell that misses the ball is outside; otherwise a
 plane proposal (gamma witness first, then column proofs with pair and joint witnesses, then the secant witness),
 within a time cap per level, is kept if the leaf check accepts it; from level 3, a cell whose search fails tries the
@@ -137,12 +147,13 @@ interrupted run resumes from its journal. `--cell L:c0,c1,c2,c3` closes one cell
     certifier/
       __main__.py          the command line
       verify.py            one certificate (parallel over nodes); the atlas from a manifest
-      certificate.py       reading tree.json and the leaf files (packed, unpacked, one tar)
+      certificate.py       the format: reading it (packed, unpacked, one tar), writing it, converting the full format
+      column_proofs.py     column proofs rebuilt from the record (prove_column) and replayed (pinned verify_tree)
       cells.py             dyadic cells, the outside test, cell records and their containment
       overlap.py           the overlap witness: a cell record's branch is the atlas ball's
       native_leaf.py       native leaves
       plane_leaf.py        plane leaves: the rebuilt cover, the column replays, one witness per pattern
-      witnesses/           columns (pair), joint, secant, gamma
+      witnesses/           pair, joint, secant, gamma
       pinned.py            loads the pinned code from the repository after checking its SHA-256 manifest
       PINNED.sha256        that manifest: 40 files of commit 914919b
       pr4/                 the five PR #4 files main does not have, byte-identical (below)
@@ -162,7 +173,8 @@ not have: they are kept, byte-identical, in `certifier/pr4/`. One later file of 
 every file at import, checks the native binding id, and refuses to load on any mismatch, or when a module loaded from
 a pinned directory is not a pinned file. `tools/check_vendored.py` compares every pinned file with the commit,
 `gamma_exact.py` with the approved revision, and every function this package took unchanged from the approved
-one-tree checker (`overlap.py`, `witnesses/gamma.py`, `witnesses/secant.py`, `search/plane.py`) with the original,
+one-tree checker (`overlap.py`, `witnesses/gamma.py`, `witnesses/secant.py`, `column_proofs.py`, `search/plane.py`)
+with the original,
 by syntax tree.
 
 **Relation to `TripleClassification/code/onetree.py`.** This package replaces `onetree.py check` and `close` with the

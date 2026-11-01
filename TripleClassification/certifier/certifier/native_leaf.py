@@ -11,7 +11,7 @@ preconditions hold for that record (pinned stagec_guard.check; a bare run_ball r
 
 - at level 0 the record is the original atlas ball, and the call is exactly the audited one (the pinned atlas, the
   pinned binding);
-- below level 0 it is the cell's own record (`<cell>.input.json.gz`), after proving that this record contains the
+- below level 0 it is the cell's own record (its leaf file `<cell>.json.gz`), after proving that this record contains the
   whole cell (cells.contains) and that its branch is the original ball's (overlap.identify). It is run as a one-seed
   sub-atlas, as the audited trees ran sub-balls: run_ball reads the record from that file, and the binding it checks
   before and after the run is the pinned sources' with the sub-atlas's hash in place of the atlas's (`subatlas`).
@@ -26,7 +26,7 @@ R = pinned.native
 CERTIFIED = ('CERTIFIED', 'CERTIFIED EMPTY')
 
 
-def check(ball, level, cell, input_path=None):
+def check(ball, level, cell, path=None):
     """The leaf check (above). Returns 'NATIVE CERTIFIED' or 'NATIVE CERTIFIED EMPTY' and the certifier's row;
     raises if the leaf is refused."""
     if level == 0:
@@ -36,7 +36,7 @@ def check(ball, level, cell, input_path=None):
         pinned.require(binding == pinned.NATIVE_BINDING, 'native source binding changed')
         row = R.run_ball(pinned.ATLAS, ball, binding)
     else:
-        rec = cells.record(input_path, ball, level, cell)
+        rec = cells.record(path, ball, level, cell)
         cells.contains(ball, rec, level, cell)
         overlap.identify(ball, rec, level, cell)
         with subatlas(rec, ball, level, cell) as (path, binding): row = R.run_ball(path, 0, binding)

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
-"""Run the one-tree checker it replaces (TripleClassification/code/onetree.py check) and this package's verifier on the
-same certificates, genuine and tampered, and compare what each accepts. For maintainers: needs the repository.
+"""Run the one-tree checker it replaces (TripleClassification/code/onetree.py check) and this package on the same
+full-format certificates, genuine and tampered, and compare what each accepts: the package converts each one to its
+own format (python -m certifier convert, which verifies the result). For maintainers: needs the repository.
 
   python tools/equivalence.py ONETREE_PY PINNED_TREE CERT_DIR... [--workers N] [--tamper] [--out REPORT.json]
 
@@ -9,7 +10,7 @@ or leaves.tar). It is copied, and with --tamper each copy is also altered in the
 copy, and the verdict, scope, counts and refused nodes are compared. The two must agree everywhere, except that this
 package refuses the projector and one-column witnesses (no certificate uses them).
 """
-import argparse, copy, gzip, io, json, os, shutil, subprocess, sys, tarfile, tempfile, time
+import argparse, copy, gzip, io, json, os, subprocess, sys, tarfile, tempfile, time
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 
@@ -55,7 +56,8 @@ def tampered(tree, leaves):
     def first_with(kind):
         for n in plane:
             p = gz_json(leaves[n + '.proposal.json.gz'])
-            i = next((i for i, w in enumerate(p['witnesses']) if (kind in w if kind != 'pair' else len(w) == 2 and len(w['columns']) == 2)), None)
+            i = next((i for i, w in enumerate(p['witnesses']) if (w.get('joint', {}).get('known') if kind == 'known' else
+                                                                  len(w) == 2 and len(w['columns']) == 2 if kind == 'pair' else kind in w)), None)
             if i is not None: return n, p, i
         return None
     if plane:
@@ -80,6 +82,7 @@ def tampered(tree, leaves):
             ('secant', lambda w: w['secant'].update(lam=[float.hex(-float.fromhex(x)) for x in w['secant']['lam']]), 'secant witness with its transverse row negated'),
             ('secant', lambda w: w['secant'].update(anchors=w['secant']['anchors'][::-1]), 'secant witness with its anchors exchanged'),
             ('joint', lambda w: [x.update(direction=['0x0.0p+0'] * len(x['direction'])) for x in w['joint']['scalars']], 'joint witness with its scalar directions zeroed'),
+            ('known', lambda w: w['joint']['known'][0]['action'].update(labels=w['joint']['known'][0]['action']['labels'][1:] + w['joint']['known'][0]['action']['labels'][:1]), 'joint witness with another known-family action'),
             ('pair', lambda w: w['columns'].__setitem__(1, next(c for c in w['colours'] if c not in w['columns'])), 'pair witness naming another column'),
             ('pair', lambda w: w['columns'].pop(), 'pair witness cut to one column')):
         f = first_with(kind)
@@ -108,7 +111,7 @@ def run_onetree(onetree, root, d, workers):
 
 def run_package(d, workers):
     t = time.time(); out = d + '.verify.json'
-    q = subprocess.run([sys.executable, '-W', 'ignore', '-m', 'certifier', 'verify', d, '--workers', str(workers), '--json', out],
+    q = subprocess.run([sys.executable, '-W', 'ignore', '-m', 'certifier', 'convert', d, d + '.v2', '--workers', str(workers), '--json', out],
                        capture_output=True, text=True, cwd=os.path.dirname(HERE))
     try: r = json.load(open(out))
     except (OSError, ValueError): r = dict(verdict='CRASH', counts={}, failed=[[None, None, q.stderr[-300:]]])

@@ -30,7 +30,6 @@ L U = Mth, L H2 = L X = 0, L Pi = L and L h(N) = L N = n. The code checks L N = 
 of L d contains 0. Every acceptance inequality is an Arb comparison; floats only propose theta*, Pi and N.
 """
 import functools, itertools, math
-import numpy as np
 from flint import arb, arb_mat, ctx
 from . import pinned
 

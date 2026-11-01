@@ -5,7 +5,7 @@ A seed ball B is the set of Hadamard matrices H = exp(iQ), Q = Q0 + U w + H2(w, 
 cube r prod_k [-1 + 2 c_k / 2^level, -1 + 2 (c_k + 1) / 2^level], and it has 16 children at level + 1.
 
 A leaf below the whole ball carries the cell's own record (an H ball of the atlas format centred in the cell, built
-by frontier.build_record), stored as `<level>_<c0>_<c1>_<c2>_<c3>.input.json.gz`. `record` checks that this file
+by frontier.build_record), stored in its leaf file `<level>_<c0>_<c1>_<c2>_<c3>.json.gz`. `record` checks that this file
 names this ball and cell, and `contains` proves in Arb that the record's ball contains the whole closed cell.
 """
 from . import pinned

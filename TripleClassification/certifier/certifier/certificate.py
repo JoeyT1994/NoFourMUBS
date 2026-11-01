@@ -1,26 +1,49 @@
-"""Reading a certificate.
+"""The certificate format: reading and writing it, and converting the full format of onetree.py to it.
 
 A certificate of seed ball B is a dyadic tree over B's chart, `tree.json`, and the leaves' files:
 
-    {"schema": "onetree-v1", "ball": B, "root": [level, [c0, c1, c2, c3]], "tree": NODE}
+    {"schema": "onetree-v2", "ball": B, "root": [level, [c0, c1, c2, c3]], "tree": NODE}
     NODE = {"children": [16 NODEs, in the order of cells.children]}
          | {"outside": true}                         the closed cell misses the closed ball
-         | {"leaf": "<level>_<c0>_<c1>_<c2>_<c3>"}    a plane leaf: <name>.input.json.gz, <name>.proposal.json.gz
-         | {"native": "<level>_<c0>_<c1>_<c2>_<c3>"}  a native leaf: <name>.input.json.gz below level 0, nothing at 0
+         | {"leaf": "<level>_<c0>_<c1>_<c2>_<c3>"}    a plane leaf, with the file <name>.json.gz
+         | {"native": "<level>_<c0>_<c1>_<c2>_<c3>"}  a native leaf, with <name>.json.gz below level 0 (none at 0)
 
-The root is [0, [0, 0, 0, 0]] for a whole ball. A leaf is named by its own position. The leaf files are members
-`leaves/<file>` of one uncompressed tar. Three layouts are read:
+The root is [0, [0, 0, 0, 0]] for a whole ball. A leaf is named by its own position. Its file holds the cell's H
+record in the form PR #4's checker reads, and for a plane leaf only what the verifier cannot recompute besides:
 
-    DIR/tree.json + DIR/leaves.tar     (packed: what `close` writes)
+    {"schema": "tc-h-cell-input-v1", "ball": B, "level": L, "cell": [...], "record": {...}, "record_sha256": ...,
+     "depth": D, "witnesses": [one per pattern of the cell's complete cover]}
+
+The column proofs the pair and joint witnesses use are rebuilt from the record at depth D (column_proofs.py), not
+stored. The leaf files are members `leaves/<file>` of one uncompressed tar. Three layouts are read:
+
+    DIR/tree.json + DIR/leaves.tar     (packed: what `close` and `convert` write)
     DIR/tree.json + DIR/leaves/<file>  (unpacked)
     FILE.tar holding tree.json and leaves/<file>, or tree.json and leaves.tar (a packed directory, tarred), optionally
              under one top-level directory
+
+The full format of onetree.py (schema onetree-v1: a leaf's record in `<name>.input.json.gz`, and its proof with every
+column's proof tree in `<name>.proposal.json.gz`) is read only by `convert`, which writes this format and keeps the
+result only if it verifies.
 """
-import json, os, tarfile
+import gzip, hashlib, io, json, os, shutil, tarfile
 from pathlib import Path
 from . import cells
 
-SCHEMA = 'onetree-v1'
+SCHEMA, FULL_SCHEMA = 'onetree-v2', 'onetree-v1'
+LEAF = '.json.gz'
+FULL_INPUT, FULL_PROOF = '.input.json.gz', '.proposal.json.gz'
+RECORD_KEYS = ('schema', 'ball', 'level', 'cell', 'record', 'record_sha256')
+
+
+def leaf(data, depth=None, witnesses=None):
+    """A leaf's file, as bytes: the cell's record (the RECORD_KEYS of `data`), with a plane leaf's depth and witnesses."""
+    x = {k: data[k] for k in RECORD_KEYS}
+    if witnesses is not None: x.update(depth=depth, witnesses=witnesses)
+    return gz(x)
+
+
+def gz(x): return gzip.compress(json.dumps(x, separators=(',', ':')).encode(), mtime=0)
 
 
 class Certificate:
@@ -61,20 +84,23 @@ class Certificate:
         off, size = self.members[member]
         with open(self.tar, 'rb') as f: f.seek(off); return f.read(size)
 
-    def leaf_file(self, name, suffix, folder):
-        """Write the leaf file `<name><suffix>` into `folder` (the checks read files by path); its path, or None."""
-        data = self.read('leaves/' + name + suffix)
+    def extract(self, name, folder):
+        """Write the leaf file `name` into `folder` (the checks read files by path); its path, or None."""
+        data = self.read('leaves/' + name)
         if data is None: return None
-        p = os.path.join(folder, name + suffix)
+        p = os.path.join(folder, name)
         with open(p, 'wb') as f: f.write(data)
         return p
 
-    def nodes(self, ball=None):
+    def nodes(self, ball=None, schema=SCHEMA):
         """The tree's nodes to verify, and the nodes it leaves unresolved: ([(kind, level, cell)], [(level, cell, why)]).
         kind is 'outside', 'plane' or 'native'."""
         t = self.tree
-        if not (isinstance(t, dict) and t.get('schema') == SCHEMA and type(t.get('ball')) is int):
+        if not (isinstance(t, dict) and type(t.get('ball')) is int and t.get('schema') in (SCHEMA, FULL_SCHEMA)):
             raise ValueError('not a one-tree certificate')
+        if t['schema'] != schema:
+            raise ValueError('a certificate in the full format of onetree.py: convert it first (python -m certifier convert)'
+                             if t['schema'] == FULL_SCHEMA else 'not a full-format certificate')
         if ball is not None and t['ball'] != ball: raise ValueError('this is a certificate of ball %d' % t['ball'])
         level, cell = t['root']
         if not (type(level) is int and 0 <= level <= 30 and isinstance(cell, list) and len(cell) == 4 and
@@ -93,3 +119,43 @@ class Certificate:
             else: bad.append((level, cell, 'unresolved node'))
         walk(t['tree'], level, cell)
         return jobs, bad
+
+
+def write(out, tree, files):
+    """A packed certificate directory: tree.json, and leaves.tar holding `files` ({name: bytes}) if there are any."""
+    out = Path(out); out.mkdir(parents=True)
+    (out / 'tree.json').write_text(json.dumps(tree))
+    if files:
+        with tarfile.open(out / 'leaves.tar', 'w', format=tarfile.PAX_FORMAT) as t:
+            for name in sorted(files):
+                info = tarfile.TarInfo('leaves/' + name); info.size = len(files[name]); t.addfile(info, io.BytesIO(files[name]))
+
+
+def convert(src, dst, workers=8):
+    """Write the full-format certificate `src` (onetree.py) to `dst` in this format, keeping the result only if it
+    verifies: each plane leaf keeps its record and witnesses, and its depth is the deepest level of its stored column
+    trees. A plane leaf whose proposal is not bound to its record (schema, record and input-file SHA-256, as onetree.py
+    requires) is left out, so it is refused. Returns the converted certificate's verify report."""
+    from . import column_proofs
+    from .verify import verify
+    if Path(dst).exists(): raise ValueError('%s exists' % dst)
+    cert = Certificate(src); jobs, _ = cert.nodes(schema=FULL_SCHEMA); files = {}
+    for kind, level, cell in jobs:     # a leaf whose files are missing, malformed or not bound together is left out
+        name = cells.name(level, cell); raw, proposal = (cert.read('leaves/' + name + s) for s in (FULL_INPUT, FULL_PROOF))
+        try:
+            data = json.loads(gzip.decompress(raw))
+            if kind == 'native' and level > 0: files[name + LEAF] = leaf(data)
+            elif kind == 'plane':
+                p = json.loads(gzip.decompress(proposal))
+                if (p['schema'], p['record_sha256'], p['snapshot_sha256']) != (
+                        'tc-plane-cell-proposal-v1', data['record_sha256'], hashlib.sha256(raw).hexdigest()): continue
+                depth = max((column_proofs.depth(c['tree']) for c in p['columns'].values()), default=0)
+                files[name + LEAF] = leaf(data, depth, p['witnesses'])
+        except (TypeError, ValueError, KeyError, OSError): pass
+    new = Path(str(dst) + '.new')
+    if new.exists(): shutil.rmtree(new)
+    write(new, dict(cert.tree, schema=SCHEMA), files)
+    report = verify(new, workers=workers)
+    if report['verdict'] in ('CLOSED', 'CELL CLOSED'): os.replace(new, dst)
+    else: shutil.rmtree(new)
+    return report

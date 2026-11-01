@@ -7,14 +7,15 @@ A cell that misses the ball is outside. Otherwise:
 - where the plane search meets a persistent pattern or its time cap (from level 3), the native certifier is tried;
 - anything else is split into its 16 children, down to max_level (cells still failing there are left open).
 
-Output, OUT/b<BALL>/: tree.json, leaves.tar (members leaves/<name>.input.json.gz and .proposal.json.gz, appended as
-leaves are found), journal.jsonl (every outcome as it happens) and summary.json. An interrupted run resumes from the
+Output, OUT/b<BALL>/: tree.json, leaves.tar (members leaves/<name>.json.gz, appended as leaves are found;
+certificate.py), journal.jsonl (every outcome as it happens) and summary.json. An interrupted run resumes from the
 journal: a journalled cell is not searched again if its files are in leaves.tar (a partly written tail is cut off).
 """
-import gzip, io, json, multiprocessing, os, signal, tarfile, tempfile, time
+import io, json, multiprocessing, os, signal, tarfile, tempfile, time
 from concurrent.futures import ProcessPoolExecutor, as_completed
 from pathlib import Path
 from .. import cells, native_leaf, overlap, pinned, plane_leaf
+from ..certificate import LEAF, SCHEMA, leaf
 from . import plane
 
 # Time caps in seconds, by level. A plane search takes about 100 s (it rebuilds the record, C1, Stage C and the cover)
@@ -45,8 +46,8 @@ def native_attempt(ball, level, cell):
         with tempfile.TemporaryDirectory(prefix='certifier.native.') as td:
             path = None
             if level > 0:
-                files[cells.name(level, cell) + '.input.json.gz'] = plane.cell_input(ball, level, cell)
-                path = os.path.join(td, 'cell.input.json.gz'); Path(path).write_bytes(*files.values())
+                files[cells.name(level, cell) + LEAF] = leaf(plane.cell_record(ball, level, cell))
+                path = os.path.join(td, 'cell.json.gz'); Path(path).write_bytes(*files.values())
             native_leaf.check(ball, level, cell, path)
         return files
     try: return capped(OPT['native_caps'].get(level, NATIVE_CAP), attempt)
@@ -60,7 +61,7 @@ def search_cell(job):
     if native and level <= OPT['native_first']:
         files = native_attempt(ball, level, cell)
         if files is not None: return level, cell, 'native', time.time() - t, '', files
-    try: inp, prop = capped(OPT['caps'].get(level, CAP), plane.propose_cell, ball, level, cell)
+    try: data = capped(OPT['caps'].get(level, CAP), plane.propose_cell, ball, level, cell)
     except TimeCap: why = 'time cap'
     except (ValueError, ArithmeticError, ZeroDivisionError, KeyError, TypeError) as e: why = str(e) or type(e).__name__
     else: why = None
@@ -71,18 +72,16 @@ def search_cell(job):
         return level, cell, 'split', time.time() - t, why[:100], {}
     try:
         with tempfile.TemporaryDirectory(prefix='certifier.check.') as td:
-            path = os.path.join(td, 'cell.input.json.gz'); Path(path).write_bytes(inp)
-            plane_leaf.check(ball, level, cell, path, json.loads(gzip.decompress(prop)))
+            path = os.path.join(td, 'cell.json.gz'); Path(path).write_bytes(data)
+            plane_leaf.check(ball, level, cell, path)
     except Exception as e: return level, cell, 'split', time.time() - t, 'check: %s' % str(e)[:100], {}
     finally: pinned.tidy_path()
-    n = cells.name(level, cell)
-    return level, cell, 'leaf', time.time() - t, '', {n + '.input.json.gz': inp, n + '.proposal.json.gz': prop}
+    return level, cell, 'leaf', time.time() - t, '', {cells.name(level, cell) + LEAF: data}
 
 
 def leaf_members(outcome, level, cell):
-    """The tar members a leaf needs: a plane leaf's input and proposal, a native leaf's input below level 0."""
-    n = 'leaves/' + cells.name(level, cell)
-    return [n + '.input.json.gz', n + '.proposal.json.gz'] if outcome == 'leaf' else [n + '.input.json.gz'] if outcome == 'native' and level else []
+    """The tar member a leaf needs: its file, for a plane leaf and for a native leaf below level 0."""
+    return ['leaves/' + cells.name(level, cell) + LEAF] if outcome == 'leaf' or outcome == 'native' and level else []
 
 
 def compact(path, keep):
@@ -162,7 +161,7 @@ def close(ball, out, cell=None, max_level=7, native_first=0, native=True, caps=N
         s = state[(level, tuple(c))]
         if s == 'split': return {'children': [node(*k) for k in cells.children(level, c)]}
         return {'outside': True} if s == 'outside' else {'open': True} if s == 'open' else {s: cells.name(level, c)}
-    tree = dict(schema='onetree-v1', ball=ball, root=[l0, list(c0)], tree=node(l0, c0))
+    tree = dict(schema=SCHEMA, ball=ball, root=[l0, list(c0)], tree=node(l0, c0))
     (out / 'tree.json').write_text(json.dumps(tree))
     keep = [m for (l, c), s in state.items() for m in leaf_members(s, l, c)]
     if keep: compact(out / 'leaves.tar', keep)

@@ -79,6 +79,16 @@ not used: a gamma witness counts only on the ordering bound.
 - For native leaves: the native certifier's recognition argument (above), independently reviewed
   (`NATIVE_REVIEW.md`).
 
+## The distributed format
+
+`onetree.py` stores every column's proof tree in a plane leaf's proposal: 93% of the certificates' bytes
+(`DISSEMINATION_NOTES.md` §3). The certifier package [`certifier/`](certifier/README.md) distributes certificates
+without them. One file per leaf, `<cell>.json.gz`, holds the cell's record and, for a plane leaf, one witness per
+pattern and the depth of its column proofs. The verifier rebuilds each column's proof tree from the record (the
+deterministic column search at that depth) and replays it with PR #4's `verify_tree`, exactly as a stored tree is
+replayed. `python -m certifier convert` writes a certificate of `onetree.py` in this format and keeps it only if it
+verifies.
+
 ## Running it
 
 The certifier package [`certifier/`](certifier/README.md) verifies and produces certificates. Install it from a clone
