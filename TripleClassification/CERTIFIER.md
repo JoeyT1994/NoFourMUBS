@@ -41,6 +41,15 @@ Witnesses:
 | projector | one common row functional with positive minimum over every tube | `projector/projector_joint_certificate.py` |
 | gamma | Γ_F(K) or Γ_F(L) ≤ 19/50 (classified, Fourier-neighbourhood theorem), or below the cell's certified lower bound of Γ_F(H) (ordering discharge) | `ext_cell_certificate.py`, `gamma_test.py` |
 
+**Arithmetic.** Every check is computed in Arb (python-flint's interval arithmetic) or in exact rationals; floating
+point only chooses what to check (column centres, alignments, secant frames), so a poor choice can fail a check but
+never pass a false one. `outside` nodes and the gamma comparisons with 19/50 and with g_cell are exact rationals. The
+cell's lower bound g_cell on Γ_F(H) is a minimum over 14,400 labelled alignments. Each alignment shift (π/3)·v has
+integer v, so modulo 2π each of the 225 entries sees only six shifts. `gamma_exact.py` bounds those 1,350 squared
+distances below in Arb, rounds them down to integers, and takes the minimum over the alignments in exact integer
+arithmetic: 0.1 s per cell, within 10⁻¹⁵ of the true minimum in the tests (`test_gamma_exact.py`, which also evaluates
+all 14,400 alignments directly in Arb).
+
 A native leaf classifies by the certifier's own method. A fresh C1 and Stage C cover every completing column. Each
 surviving pattern is excluded, or an exact order-three action and a contraction q < 1 force a balanced order-three
 symmetry, which identifies the triple as a known one (the recognition argument, `seed_method/reference/r0153/
@@ -135,4 +144,5 @@ longer, so the default time caps are 150 s at levels 0–2, 450 s at levels 3–
   a native leaf below the root passes.
 
 `code/test_ext.py` covers the witnesses, including tampered gamma and secant witnesses, the gamma scope labels and
-the rounding in the Γ_F(H) lower bound.
+the rounding in the Γ_F(H) lower bound. `code/test_gamma_exact.py` (python-flint and numpy only) covers the exact
+g_cell bound.

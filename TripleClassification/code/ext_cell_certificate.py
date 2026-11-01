@@ -47,7 +47,10 @@ if ROOT not in Path(GT.__file__).resolve().parents: raise ImportError('gamma_tes
 from fractions import Fraction
 from flint import arb, acb
 
-EXTENSION = [HERE / 'ext_cell_certificate.py', HERE / 'projector/projector_union_hook.py',
+import importlib.util as _iu
+_sp = _iu.spec_from_file_location('gamma_exact', HERE / 'gamma_exact.py'); GX = _iu.module_from_spec(_sp); _sp.loader.exec_module(GX)
+
+EXTENSION = [HERE / 'ext_cell_certificate.py', HERE / 'gamma_exact.py', HERE / 'projector/projector_union_hook.py',
              HERE / 'projector/projector_joint_certificate.py', HERE / 'projector/moving_secant_certificate.py']        # the acceptance path added to the pinned check
 
 
@@ -62,10 +65,12 @@ CERT_CELL = ('CERTIFIED_EMPTY_RECORDED_H_CELL', 'CERTIFIED_CLASSIFIED_RECORDED_H
 
 
 def gamma_context(model):
-    """GT.prep(model, 0), with the cell's lower bound g_cell on Gamma_F(H) recomputed so that its error term covers the
-    whole distance from every phase of H over the cell to the binary64 point at which score_lower evaluates it: GT.prep
-    adds each centre ball's radius but not the rounding of its midpoint to binary64. Here each entry's term is
-    |q0_i - p_i| over the whole Arb ball q0_i (p_i its midpoint as binary64) plus the motion over the cell."""
+    """GT.prep(model, 0), with the cell's lower bound g_cell on Gamma_F(H) recomputed: the centre score by exact
+    integer arithmetic (gamma_exact.score_lower, in place of gamma_test's float64 minimum and its rounding argument;
+    GT.prep's own g_cell is discarded), and an error term covering the whole distance from every phase of H over the
+    cell to the binary64 point p at which it is evaluated: GT.prep adds each centre ball's radius but not the rounding
+    of its midpoint to binary64. Here each entry's term is |q0_i - p_i| over the whole Arb ball q0_i plus the motion
+    over the cell."""
     ctx = GT.prep(model, Fraction(0))
     r, tau = model['r'], model['tau']; q0, u, h2, x = (model[k] for k in ('Q0', 'U', 'H2', 'X'))
     def rownorm(m, i):
@@ -74,7 +79,7 @@ def gamma_context(model):
     e = [rownorm(u, i) * r + rownorm(h2, i) * r * r / 2 + rownorm(x, i) * tau + arb(abs(q0[i, 0] - arb(pts[i])).upper())
          for i in range(36)]
     d = sum((v * v for v in e), arb(0)).sqrt()
-    g_cell = GT.lo(arb(GT.score_lower([[pts[6 * a + c] for c in range(6)] for a in range(6)])) - arb(2) / 5 * d)
+    g_cell = GT.lo(arb(GX.score_lower([[pts[6 * a + c] for c in range(6)] for a in range(6)])) - arb(2) / 5 * d)
     return dict(ctx, g_cell=Fraction(g_cell), g_h=max(Fraction(0), Fraction(g_cell)))
 
 

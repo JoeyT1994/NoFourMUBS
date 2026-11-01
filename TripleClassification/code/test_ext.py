@@ -15,7 +15,8 @@ CELL_DIR: the saved proof of ball 491's level-4 cell (12, 5, 12, 12) (entry.json
 7. a gamma witness with a changed alignment, or naming other columns, is refused;
 8. fast_search.py --gamma-only proposes that cell from scratch, and the extended replay certifies it;
 9. the leaf cache; 10. gamma rows are CLASSIFIED exactly when the Fourier bound holds, else ORDERING_DISCHARGED, and the
-   cell's g_cell bound includes the binary64 rounding of the centre phases.
+   cell's g_cell bound (exact centre score, gamma_exact.py; test_gamma_exact.py) includes the binary64 rounding of the
+   centre phases.
 """
 import gzip, json, os, shutil, subprocess, sys, tempfile
 
@@ -122,8 +123,8 @@ print(json.dumps(dict(status=r['status'], labels_ok=labels_ok, ordering_rows=sum
         except (ValueError, IndexError): x = dict(reason=q.stderr[-300:])
         report('gamma rows: CLASSIFIED iff Fourier, else ORDERING_DISCHARGED (%s/%s)' % (x.get('fourier_rows'), x.get('ordering_rows')),
                x.get('labels_ok') is True and x.get('ordering_rows', 0) > 0 and x.get('status') == MINR and x.get('restricted_scope'), x)
-        report('g_cell covers the binary64 rounding: never above the old bound, within 1e-12 of it',
-               'g_new' in x and x['g_new'] <= x['g_old'] and x['g_old'] - x['g_new'] < 1e-12, dict(status='g %r -> %r' % (x.get('g_old'), x.get('g_new'))))
+        report('g_cell: the exact centre bound less the motion and rounding, within 1e-8 of the float one',
+               'g_new' in x and abs(x['g_old'] - x['g_new']) < 1e-8, dict(status='g %r -> %r' % (x.get('g_old'), x.get('g_new'))))
     print('%d failure(s)' % failures); sys.exit(1 if failures else 0)
 
 
