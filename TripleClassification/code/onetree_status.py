@@ -10,8 +10,9 @@ tree. For a ball's best candidate (below) the tree is walked: plane leaves, nati
 the size of the files the tree names (not of whatever else is in leaves/). The check's counts must match the tree.
 
 The check is authoritative, and it must come from the final checker (gamma rows on the ordering bound only): a
-certificate counts as *final-checked* when its check.json is stamped (checker_sha256) with the final checker's
-ext_cell_certificate.py and gamma_exact.py (FINAL; the stamp also names onetree.py, so it covers native leaves too).
+certificate counts as *final-checked* when its check.json is stamped (checker_sha256) with the final checker (FINAL:
+onetree.py, branch_overlap.py, whose overlap witness every leaf below level 0 needs (NATIVE_REVIEW.md F1),
+ext_cell_certificate.py and gamma_exact.py).
 A ball's best candidate is CLOSED first, then final-checked, then the fewest plane leaves, then the smallest proof: a
 native-only certificate wins where there is one. Closed balls whose counting certificate is not final-checked are
 listed in summary.json (not_final_checked); publish_status.py --final refuses them.
@@ -26,7 +27,9 @@ import argparse, gzip, json, os, re, statistics, sys, time
 from concurrent.futures import ProcessPoolExecutor
 
 NATIVE_ROOT = {'native': '0_0_0_0_0'}
-FINAL = {'TripleClassification/code/ext_cell_certificate.py': 'cb2d3e20a57cb3f51b9cf92f6ec6342ed24e71cdee535a97284bc38784cb7953',
+FINAL = {'TripleClassification/code/onetree.py': 'a49e829abc66942ca556489de68cd97fc0584e6c383abf63d132e76e0f5d9578',
+         'TripleClassification/code/branch_overlap.py': '487b905a5e33a616c34e23181059005cd226d075f937b8605b96a6b12d4495fd',
+         'TripleClassification/code/ext_cell_certificate.py': 'cb2d3e20a57cb3f51b9cf92f6ec6342ed24e71cdee535a97284bc38784cb7953',
          'TripleClassification/code/gamma_exact.py': 'e6413eba58fe16d41bbc8add08ce6c32deec8133943f91cb461a3e04a40672a3'}
 SPLIT39 = (989, 1107, 1148, 1169, 1282, 1286, 1320, 1441, 1460, 1470, 1492, 1538, 1545, 1568, 1591, 1610, 1628, 1630, 1692,
            1730, 1753, 1756, 1760, 1766, 1812, 1886, 1887, 1888, 1895, 1901, 1902, 2248, 2344, 2490, 2499, 2531, 2545, 2546,
@@ -143,6 +146,7 @@ def main():
                    hardest=[{k: r[k] for k in COLS} for r in hard],
                    final_checker=FINAL,
                    not_final_checked=sorted(r['ball'] for r in closed if not r['final_checked']),
+                   not_final_checked_trees=sorted(r['ball'] for r in closed if not r['final_checked'] and r['route'] == 'tree'),
                    split39={str(r['ball']): dict(verdict=r['verdict'], source=r.get('source'), scope=r.get('scope'),
                                                  fourier_leaves=r.get('fourier_leaves')) for r in rows if r['ball'] in SPLIT39},
                    split39_violations=sorted(r['ball'] for r in rows if r['ball'] in SPLIT39 and r.get('fourier_leaves')),
