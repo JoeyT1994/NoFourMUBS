@@ -14,9 +14,10 @@ minimum lower bounds over every tube of every column (projector_joint_certificat
 enumerated and nothing numerical is accepted. The gamma witness {'colours', 'columns', 'gamma'} (the AntiGravity
 attempt's proposal format) names the pattern's six colours, a mode L or K and an alignment (a, b); the pinned
 gamma_test bounds (prep, score_upper) are recomputed in Arb from the six phase balls of the rebuilt cover, and the
-pattern is CLASSIFIED when the upper bound of Gamma_F (of L = H*K/sqrt6 or of K) is <= 19/50 (the Fourier-neighbourhood
-theorem) or below the cell's own certified lower bound g_cell of Gamma_F(H) (the minimum-transition theorem): the same
-two discharges as the audit's gamma rules 'fourier' and 'ordering', applied to one pattern of one cell.
+pattern is ORDERING_DISCHARGED when the upper bound of Gamma_F (of L = H*K/sqrt6 or of K) is strictly below the cell's
+own certified lower bound g_cell of Gamma_F(H) (gamma_exact.py): no triple in it has the H-transition of least Gamma_F,
+so it counts through the minimum-transition reduction. The Fourier-neighbourhood theorem (a bound <= 19/50 classifies)
+is not used: a bound <= 19/50 that is not below g_cell is refused.
 
 The pinned checker tree is TC_ROOT, or the tree this file is installed in (pr4ext). install() replaces plane_cell_certificate.check by this check in the
 calling process, so plane_frontier_certificate.run (a replay) and plane_tree_certificate.check (a tree) use it.
@@ -223,14 +224,13 @@ def _ext_check(path, proposal):
             r = Hook.replay(model, {c: tubes[c] for c in chosen}, w['projector'])
             P.require(r['status'] == 'EXCLUDED_GIVEN_TUBE_COVERS', 'projector witness does not exclude this pattern')
             projector.append(dict(number=n, colours=clique, margin=r['margin'], tubes=r['tube_count']))
-        elif 'gamma' in w:                      # Fourier (<= 19/50): classified; ordering (< g_cell): no triple with H minimal
+        elif 'gamma' in w:                      # ordering (< g_cell): no triple here has the H-transition of least Gamma_F
             if gctx is None: gctx = gamma_context(model)                      # g_h: the cell's own certified g_cell
             g_up = gamma_bound(gctx, columns, clique, w['gamma'], gcache)
-            fourier, ordering = Fraction(g_up) <= Fraction(19, 50), Fraction(g_up) < gctx['g_h']
-            P.require(fourier or ordering, 'gamma witness: neither the Fourier nor the ordering bound holds')
-            gamma_status = 'CLASSIFIED' if fourier else 'ORDERING_DISCHARGED'
+            P.require(Fraction(g_up) < gctx['g_h'], 'gamma witness: the ordering bound does not hold')
+            gamma_status = 'ORDERING_DISCHARGED'
             projector.append(dict(number=n, colours=clique, gamma_mode=w['gamma']['mode'], g_up_hex=g_up.hex(),
-                                  g_cell_hex=float(gctx['g_h']).hex(), fourier=fourier, ordering=ordering))
+                                  g_cell_hex=float(gctx['g_h']).hex(), ordering=True))
         elif 'secant' in w:                     # the pattern's six phase balls, from the rebuilt cover
             cols = [dict(v0=list(columns[c]['v0']), radius=arb(columns[c]['phase_radius']), colour=c) for c in clique]
             r = Secant.check_columns(model, cols, w['secant'])         # raises unless the pattern is excluded
@@ -263,8 +263,8 @@ def _ext_check(path, proposal):
                         'Every completing basis K on the entire recorded H cell has the certified balanced order-three symmetry. '
                         if classified else 'Every completing basis K on the entire recorded H cell is excluded. ') +
                        'C1, H normal form, Stage C preconditions and the complete K cover are rebuilt. Some patterns may be '
-                       'excluded by the separable projector or secant witness, or classified by the gamma witness (Fourier-'
-                       'neighbourhood theorem; ext_cell_certificate.py). Original-ball closure additionally requires the '
+                       'excluded by the separable projector or secant witness, or discharged by the gamma witness on the '
+                       'ordering bound (ext_cell_certificate.py). Original-ball closure additionally requires the '
                        'external geometric cover of that original ball.'))
 
 

@@ -72,6 +72,7 @@ def setup(root):
 NATIVE = ('CERTIFIED', 'CERTIFIED EMPTY')
 NATIVE_CAPS = {0: 1800}                     # seconds for a native search (default 600 below level 0)
 NATIVE_ON = True; NATIVE_MIN_LEVEL = 3      # native leaves: at level 0 first; deeper where the plane search fails
+NATIVE_FIRST = 0                            # levels <= this try the native leaf before any plane search (--native-first)
 
 
 def native_check(ball, level, cell, inp):
@@ -177,7 +178,7 @@ def search_cell(job):
     """Search one cell; ('outside' | 'leaf' | 'native' | 'split', seconds, reason)."""
     ball, level, cell, out, py, tmpd = job; t = time.time()
     if W['T'].misses_ball(level, cell): return job[:3], 'outside', 0.0, ''
-    if NATIVE_ON and level == 0 and native_search(ball, level, cell, out): return job[:3], 'native', time.time() - t, ''
+    if NATIVE_ON and level <= NATIVE_FIRST and native_search(ball, level, cell, out): return job[:3], 'native', time.time() - t, ''
     tmp = Path(tempfile.mkdtemp(prefix='onetree.', dir=str(tmpd)))
     try:
         e = tmp / 'entry.json'
@@ -224,8 +225,18 @@ def close(a, root):
     tmpd = out / ('tmp' + tag); tmpd.mkdir(exist_ok=True)
     if a.caps: CAPS.update({int(k): float(v) for k, v in (x.split(':') for x in a.caps.split(','))})
     if a.search_args: SEARCH[:] = a.search_args.split()
-    global NATIVE_ON
+    global NATIVE_ON, NATIVE_FIRST
     if a.no_native: NATIVE_ON = False
+    NATIVE_FIRST = a.native_first
+    if a.native_caps: NATIVE_CAPS.update({int(k): float(v) for k, v in (x.split(':') for x in a.native_caps.split(','))})
+    if a.requeue_refused and (out / 'refused.json').exists():   # leaves the last check refused: set their files aside
+        aside = out / 'leaves_refused'; aside.mkdir(exist_ok=True); moved = 0     # (moved, never deleted), so the
+        for level, cell, why_ in json.load(open(out / 'refused.json')):          # resume below searches them again
+            if not why_.startswith('FAILED'): continue
+            for s_ in ('.input.json.gz', '.proposal.json.gz', '.native.json'):
+                f_ = out / 'leaves' / (name(level, cell) + s_)
+                if f_.exists(): os.replace(f_, aside / f_.name); moved += 1
+        print('requeued the refused leaves (%d files set aside)' % moved, flush=True)
     known = {}                                   # an earlier, interrupted run's outcomes
     try:
         for line in open(out / ('journal%s.jsonl' % tag)):
@@ -339,6 +350,7 @@ def check(a, root):
                failed=bad[:50], check_core_seconds=round(core), slowest_leaf_seconds=round(slow), wall_seconds=round(time.time() - t0),
                workers=a.workers)
     json.dump(res, open(out / 'check.json', 'w'), indent=1); print(json.dumps(res))
+    json.dump(bad, open(out / 'refused.json', 'w'))                  # every refused node (check.json lists 50)
     return 0 if not bad else 1
 
 
@@ -348,6 +360,9 @@ def main():
     ap.add_argument('--workers', type=int, default=8); ap.add_argument('--max-level', type=int, default=7); ap.add_argument('--cell')
     ap.add_argument('--search-args', help='fast_search.py options (default %s)' % ' '.join(SEARCH))
     ap.add_argument('--no-native', action='store_true', help='plane leaves only (no native whole-cell certifier leaves)')
+    ap.add_argument('--requeue-refused', action='store_true', help='search again the leaves the last check refused (refused.json)')
+    ap.add_argument('--native-first', type=int, default=0, help='try the native leaf before any plane search at levels <= this (default 0)')
+    ap.add_argument('--native-caps', help='native search time caps by level, L:S,... (default %s, 600 elsewhere)' % ','.join('%d:%d' % kv for kv in sorted(NATIVE_CAPS.items())))
     ap.add_argument('--part', action='store_true', help='close --cell as one part of a larger tree (see join)')
     ap.add_argument('--caps', help='search time caps by level, L:S,... (default %s)' % ','.join('%d:%d' % kv for kv in sorted(CAPS.items())))
     a = ap.parse_args(); root = Path(a.root).resolve()

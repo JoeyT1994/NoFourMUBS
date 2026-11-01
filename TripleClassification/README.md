@@ -73,7 +73,7 @@ The checker verifies every node independently and in parallel. It trusts nothing
 | joint | no tuple of the columns' certified tubes extends to an orthogonal basis (`plane_joint_certificate`) |
 | secant | a moving-frame secant bound with a positive transverse margin excludes the pattern |
 | projector | one common row functional is strictly positive on every tube of the six columns |
-| gamma | the labelled Fourier score Γ_F of K or of L = H*K/√6 is at most 19/50, so every triple there is classified by the Fourier-neighbourhood theorem (*classified*); or is below the cell's certified lower bound of Γ_F(H) (*ordering-discharged*) |
+| gamma | the labelled Fourier score Γ_F of K or of L = H*K/√6 is strictly below the cell's certified lower bound of Γ_F(H), so no triple there has the H-transition of least Γ_F (*ordering-discharged*; the Fourier-neighbourhood theorem is not used) |
 
 A pattern ordering-discharged contains no triple whose H-transition has the least Γ_F among the triple's three
 transitions. A tree with such a pattern certifies (A) in that restricted sense (*minimum-transition scope*). It
@@ -107,8 +107,8 @@ Slurm cluster, one or many balls per node or one ball over 16 nodes).
 
 - The whole-ball certifier and the recognition argument: every triple with a balanced order-three symmetry is of
   known type (`seed_method/reference/r0153/CHECKPOINT.md` §8).
-- The Fourier-neighbourhood theorem (19/50) and the minimum-transition reduction behind the gamma witness
-  (`GAMMA_PROOF.md`).
+- The minimum-transition reduction behind the gamma witness (`GAMMA_PROOF.md`, `CERTIFIER.md`). The certifier does
+  not use the Fourier-neighbourhood theorem.
 - The secant, projector and gamma witnesses of the extended whole-cell check (`code/ext_cell_certificate.py`), and
   the anchored and graph exclusions used by the audited pipeline.
 - Stage C's binary64 error enclosures at the classifier's call sites (`../proof/atlas/RIGOUR.md`).

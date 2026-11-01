@@ -39,11 +39,11 @@ Witnesses:
 | joint | no tuple of tubes survives the joint exclusion (or the known family is recognised) | `plane_joint_certificate` (PR #4) |
 | secant | a moving-frame secant bound with positive transverse margin | `projector/moving_secant_certificate.py` |
 | projector | one common row functional with positive minimum over every tube | `projector/projector_joint_certificate.py` |
-| gamma | Γ_F(K) or Γ_F(L) ≤ 19/50 (classified, Fourier-neighbourhood theorem), or below the cell's certified lower bound of Γ_F(H) (ordering discharge) | `ext_cell_certificate.py`, `gamma_test.py` |
+| gamma | the upper bound of Γ_F(K) or Γ_F(L) over the pattern is strictly below the cell's certified lower bound g_cell of Γ_F(H) (ordering discharge) | `ext_cell_certificate.py`, `gamma_test.py`, `gamma_exact.py` |
 
 **Arithmetic.** Every check is computed in Arb (python-flint's interval arithmetic) or in exact rationals; floating
 point only chooses what to check (column centres, alignments, secant frames), so a poor choice can fail a check but
-never pass a false one. `outside` nodes and the gamma comparisons with 19/50 and with g_cell are exact rationals. The
+never pass a false one. `outside` nodes and the gamma comparison with g_cell are exact rationals. The
 cell's lower bound g_cell on Γ_F(H) is a minimum over 14,400 labelled alignments. Each alignment shift (π/3)·v has
 integer v, so modulo 2π each of the 225 entries sees only six shifts. `gamma_exact.py` bounds those 1,350 squared
 distances below in Arb, rounds them down to integers, and takes the minimum over the alignments in exact integer
@@ -58,16 +58,22 @@ CHECKPOINT.md` §8). Its scope is always all-K.
 **Scope.** A tree whose leaves are all excluded or classified certifies: *every* MUB triple (I, H, K) with H in B is
 excluded or classified. A tree with an ordering-discharged pattern certifies this only for triples whose H-transition
 has the least Γ_F of the triple's three transitions (`check` reports `scope: minimum-transition`). Such a ball counts
-in a global classification only through the minimum-transition reduction
-(`handoffs/ret_TC_ordering_result/TC_ordering_result/ORDERING_THEOREM.md` §3). The reduction is valid when every
-ordering discharge uses the same invariant Γ_F and a strict comparison, as here.
+through one lemma.
+
+> **Lemma (minimum transition).** Let every ball's certificate classify every triple (I, H, K) with H in the ball
+> whose H-transition has the least Γ_F of its three transitions (ties included). Then every triple is classified.
+>
+> *Proof.* Γ_F is invariant under equivalence. Any triple can be reordered and renormalised so that its transition
+> of least Γ_F is the one from the first basis to the second. That transition's H lies in some ball of the atlas.
+
+The comparison in every ordering discharge is strict, and every one uses the same invariant Γ_F, as the lemma needs
+(`handoffs/ret_TC_ordering_result/TC_ordering_result/ORDERING_THEOREM.md` §3). The Fourier-neighbourhood theorem is
+not used: a gamma witness counts only on the ordering bound.
 
 **Dependencies outside the certificate.**
 
 - The atlas covers every Hadamard class (the original seed atlas, pinned by SHA-256 in `plane_frontier_certificate.PIN`).
 - The Stage C and C1 theorems.
-- For Fourier-classified gamma rows: the Fourier-neighbourhood theorem and its hypotheses
-  (`handoffs/ret_TC_questions_3_4_results/.../REPORT.md` §7).
 - For native leaves: the native certifier's recognition argument (above), under independent review.
 
 ## Running it
@@ -86,7 +92,8 @@ Produce one. This is resumable: an interrupted run continues from its journal.
     python TripleClassification/code/onetree.py close pr4 BALL CERT_DIR --max-level 6 --workers 64
 
 `close` first tries the native certifier on the whole ball: a ball it closes gets a one-leaf certificate. Otherwise
-`close` searches coarse first. On every cell it tries the gamma witness on every pattern before any column proof
+`close` searches coarse first. `--native-first L` tries the native certifier on every cell at levels ≤ L before any
+plane search. On every other cell it tries the gamma witness on every pattern before any column proof
 (`fast_search.py --gamma`), then the column, joint, secant and projector witnesses, within a time cap per level. Where
 that search meets a persistent pattern (from level 3), it tries the native certifier on the cell. Every candidate is
 verified by the same leaf check before it becomes a leaf; anything else is split. `--no-native` gives plane leaves only.
@@ -143,6 +150,6 @@ longer, so the default time caps are 150 s at levels 0–2, 450 s at levels 3–
 - a native whole-ball certificate passes (ball 2254), a native leaf the certifier refuses is refused (ball 491), and
   a native leaf below the root passes.
 
-`code/test_ext.py` covers the witnesses, including tampered gamma and secant witnesses, the gamma scope labels and
+`code/test_ext.py` covers the witnesses, including tampered gamma and secant witnesses, the ordering-only gamma rows and
 the rounding in the Γ_F(H) lower bound. `code/test_gamma_exact.py` (python-flint and numpy only) covers the exact
 g_cell bound.

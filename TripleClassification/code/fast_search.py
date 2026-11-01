@@ -112,7 +112,7 @@ def main(argv=None):
                     tried.append(ab); g = dict(mode=mode, a=ab[0], b=ab[1])
                     try: up = Ext.gamma_bound(gs['ctx'], columns, clique, g, gs['cache'])
                     except (ValueError, ArithmeticError, ZeroDivisionError): break
-                    if Fraction(up) <= Fraction(19, 50) or Fraction(up) < gs['ctx']['g_h']:
+                    if Fraction(up) < gs['ctx']['g_h']:                # the ordering bound (the only gamma discharge)
                         gs['last'][mode] = ab; return dict(g, g_up_hex=up.hex())
             return None
         def witness(clique):

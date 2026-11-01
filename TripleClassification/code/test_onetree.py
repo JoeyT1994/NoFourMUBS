@@ -12,6 +12,7 @@ On ball 491's level-4 cell (12, 5, 12, 12) (one leaf):
 6. an open node: the cell is not closed;
 7. a second close resumes from the journal (nothing searched again) and checks;
 8. a journalled leaf whose files are gone is searched again;
+8b. a leaf the check refused is set aside (leaves_refused/) by close --requeue-refused and searched again;
 9. the cell closed as 16 parts (its children, as on 16 nodes), joined, checks; join refuses a missing part;
 10. ball 2254 closes as one native leaf (the frozen whole-ball certifier on the original record) and checks;
 11. a native leaf claimed for ball 491's whole ball, which that certifier does not close, is refused;
@@ -56,6 +57,13 @@ def main():
         run('close', '--cell', '4:12,5,12,12', '--max-level', '4'); x = summ(); r = check()
         report('a journalled leaf without its files is searched again', x['per_level']['4']['resumed'] == 0 and
                '4' in x['search_seconds'] and r['verdict'] == 'CELL CLOSED', dict(verdict=x['per_level'], failed=r.get('failed')))
+        p = json.load(gzip.open(leaf + '.proposal.json.gz')); p['record_sha256'] = '0' * 64
+        with gzip.open(leaf + '.proposal.json.gz', 'wt') as g: json.dump(p, g)
+        r = check(); refused = json.load(open(os.path.join(b, 'refused.json')))
+        run('close', '--cell', '4:12,5,12,12', '--max-level', '4', '--requeue-refused'); x = summ(); r2 = check()
+        report('a refused leaf is set aside and searched again', r['verdict'] == 'OPEN' and len(refused) == 1 and
+               x['per_level']['4']['resumed'] == 0 and os.path.exists(os.path.join(b, 'leaves_refused', '4_12_5_12_12.proposal.json.gz')) and
+               r2['verdict'] == 'CELL CLOSED', dict(verdict=r2['verdict'], failed=r2.get('failed')))
     with tempfile.TemporaryDirectory() as t:
         run = lambda cmd, *x: subprocess.run([sys.executable, '-W', 'ignore', os.path.join(HERE, 'onetree.py'), cmd, root, '491', t,
                                               '--workers', '2'] + list(x), capture_output=True, text=True)

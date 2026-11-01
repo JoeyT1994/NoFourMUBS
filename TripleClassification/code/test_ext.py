@@ -14,7 +14,7 @@ CELL_DIR: the saved proof of ball 491's level-4 cell (12, 5, 12, 12) (entry.json
    certified by the extended replay with restricted (minimum-transition) scope, and refused by the pinned one;
 7. a gamma witness with a changed alignment, or naming other columns, is refused;
 8. fast_search.py --gamma-only proposes that cell from scratch, and the extended replay certifies it;
-9. the leaf cache; 10. gamma rows are CLASSIFIED exactly when the Fourier bound holds, else ORDERING_DISCHARGED, and the
+9. the leaf cache; 10. every gamma row is ORDERING_DISCHARGED (the Fourier-neighbourhood theorem is not used), and the
    cell's g_cell bound (exact centre score, gamma_exact.py; test_gamma_exact.py) includes the binary64 rounding of the
    centre phases.
 """
@@ -110,19 +110,19 @@ from flint import ctx; ctx.prec = 224
 inp, prop = Path(sys.argv[3]), json.load(gzip.open(sys.argv[4]))
 r = E._ext_check(inp, prop)
 g = {x['number']: x for x in r['projector_patterns'] if 'gamma_mode' in x}
-labels_ok = all(row['status'] == ('CLASSIFIED' if g[row['number']]['fourier'] else 'ORDERING_DISCHARGED') for row in r['patterns'] if row['number'] in g)
+labels_ok = bool(g) and all(row['status'] == 'ORDERING_DISCHARGED' for row in r['patterns'] if row['number'] in g)
 _, model, *_ = E.Whole.complete_cover(inp)
 old, new = E.GT.prep(model, E.Fraction(0))['g_cell'], E.gamma_context(model)['g_cell']
 print(json.dumps(dict(status=r['status'], labels_ok=labels_ok, ordering_rows=sum(row['status'] == 'ORDERING_DISCHARGED' for row in r['patterns']),
-                      fourier_rows=sum(row['status'] == 'CLASSIFIED' for row in r['patterns']), restricted_scope='Restricted' in r['scope'],
+                      fourier_rows=sum(row['status'] == 'CLASSIFIED' and row['number'] in g for row in r['patterns']), restricted_scope='Restricted' in r['scope'],
                       g_old=float(old), g_new=float(new))))'''
         q = subprocess.run([sys.executable, '-W', 'ignore', '-c', SCOPE, root, os.path.join(HERE, 'ext_cell_certificate.py'),
                             os.path.join(d, 'frontier.input.json.gz'), os.path.join(d, 'frontier.proposal.json.gz')],
                            capture_output=True, text=True, env=env, cwd=root)
         try: x = json.loads(q.stdout.strip().splitlines()[-1])
         except (ValueError, IndexError): x = dict(reason=q.stderr[-300:])
-        report('gamma rows: CLASSIFIED iff Fourier, else ORDERING_DISCHARGED (%s/%s)' % (x.get('fourier_rows'), x.get('ordering_rows')),
-               x.get('labels_ok') is True and x.get('ordering_rows', 0) > 0 and x.get('status') == MINR and x.get('restricted_scope'), x)
+        report('gamma rows: every one ORDERING_DISCHARGED, none classified by Fourier (%s/%s)' % (x.get('fourier_rows'), x.get('ordering_rows')),
+               x.get('labels_ok') is True and x.get('fourier_rows') == 0 and x.get('ordering_rows', 0) > 0 and x.get('status') == MINR and x.get('restricted_scope'), x)
         report('g_cell: the exact centre bound less the motion and rounding, within 1e-8 of the float one',
                'g_new' in x and abs(x['g_old'] - x['g_new']) < 1e-8, dict(status='g %r -> %r' % (x.get('g_old'), x.get('g_new'))))
     print('%d failure(s)' % failures); sys.exit(1 if failures else 0)
