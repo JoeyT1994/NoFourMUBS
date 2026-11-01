@@ -178,56 +178,57 @@ with the original,
 by syntax tree.
 
 **Relation to `TripleClassification/code/onetree.py`.** This package replaces `onetree.py check` and `close` with the
-same acceptance, the same certificate format and the same search (on five test cells its `close` writes byte-identical
-records and proposals). Two witnesses of the one-tree checker are not accepted, because no certificate uses them
-(witness census, `DISSEMINATION_NOTES.md`): the projector witness and PR #4's one-column witness.
-`tools/equivalence.py` runs both checkers on the same certificates, genuine and tampered. On seven atlas
-certificates (balls 1615, 505, 1097, 1023, 589, 793, 491; 3,120 leaves, both layouts) and eight small certificates
-with 52 tampered variants, the two agree on every verdict, scope, count and refused node, with one exception: `onetree.py`
-64588c3f… refused its own packed certificates whose tree is one native leaf at the root (it looked for an input file
-such a leaf does not have); this package accepts them, and `onetree.py` does too since commit 3657e7d9d.
+same acceptance and the same search (on five test cells its `close` wrote the same records and witnesses, byte for
+byte). It differs in two ways. Its format stores no column proof trees (above). And it does not accept the projector
+witness or PR #4's one-column witness, which no certificate uses (witness census, `DISSEMINATION_NOTES.md`).
+`tools/equivalence.py` runs `onetree.py check` on full-format certificates and `convert` (which verifies) on the same
+ones, genuine and tampered. They agree on every verdict, scope, count and refused node: on seven atlas certificates
+(balls 1615, 505, 1097, 1023, 589, 793, 491; 3,120 plane leaves; packed and unpacked) and on six small certificates
+with 44 tampered variants (each witness kind, the record and proposal bindings, the tree, missing files).
 
 ## Measured
 
-On a laptop (Apple M-series, 18 cores, at most 8 used). Real certificates of the atlas, as produced on the cluster,
-with 7 workers; `onetree.py check` takes the same time on each (within 2%):
+On a laptop (Apple M-series, at most 8 cores used). **Size**: the full format of `onetree.py` against this format,
+as uncompressed tars of gzipped leaf files. **Verify**: `onetree.py check` on the full format against `verify` on
+this format (which rebuilds the column proofs), same workers.
 
-| Ball | Leaves (levels) | Outside | Verdict, scope | Verify |
-|---:|---|---:|---|---:|
-| 2254 | 1 native leaf (the whole ball) | 0 | CLOSED, all | 15 s (1 core) |
-| 1615 | 136 plane (1–2) | 0 | CLOSED, all | 57 s |
-| 505 | 215 plane (1–3) | 71 | CLOSED, all | 54 s |
-| 1097 | 256 plane (2) | 0 | CLOSED, minimum-transition | 65 s |
-| 1023 | 256 plane (2) | 0 | CLOSED, minimum-transition | 64 s |
-| 589 | 256 plane (2), joint-known witnesses | 0 | CLOSED, minimum-transition | 98 s |
-| 793 | 267 plane (2–3), joint-known witnesses | 4 | CLOSED, minimum-transition | 101 s |
-| 491 | 1,734 plane (2–4) | 1,177 | CLOSED, minimum-transition | 366 s |
+| Certificate | Plane leaves | Column proofs | Size, full → this | Ratio | Verify, full → this | Ratio |
+|---|---:|---:|---:|---:|---:|---:|
+| ball 825, level-6 cell (3, 22, 27, 42): pair, secant | 1 | 5 | 573 KB → 10 KB | 56 | 19 → 45 s (1 core) | 2.4 |
+| ball 363, level-4 cell (5, 10, 6, 0): pair, joint | 1 | 10 | 1,075 KB → 51 KB | 21 | 36 → 105 s (1 core) | 2.9 |
+| ball 793, level-2 cell (2, 0, 0, 1): joint-known | 1 | 48 | 31 KB → 10 KB | 3.0 | 14 → 16 s (1 core) | 1.1 |
+| ball 491, level-4 cell (12, 5, 12, 12): no pattern | 1 | 0 | 10 KB → 10 KB | 1.0 | 2 → 2 s (1 core) | 1.0 |
+| ball 1615 | 136 | 0 | 563 KB → 420 KB | 1.3 | 49 → 50 s (7 workers) | 1.0 |
+| ball 505 (71 outside) | 215 | 0 | 891 KB → 666 KB | 1.3 | 52 → 51 s | 1.0 |
+| ball 1097 | 256 | 0 | 1,055 KB → 788 KB | 1.3 | 70 → 73 s | 1.0 |
+| ball 1023 | 256 | 0 | 1,055 KB → 788 KB | 1.3 | 68 → 71 s | 1.0 |
+| ball 589 | 256 | 102 | 1,137 KB → 799 KB | 1.4 | 118 → 117 s | 1.0 |
+| ball 793 (4 outside) | 267 | 300 | 1,219 KB → 840 KB | 1.5 | 106 → 113 s | 1.1 |
+| ball 491 (1,177 outside) | 1,734 | 10 | 8,346 KB → 5,335 KB | 1.6 | 350 → 349 s | 1.0 |
+| ball 2254: one native leaf | 0 | 0 | — (`tree.json` only) | | 15 s (1 core) | |
+
+The gain is where the column proofs are. The leaves of the atlas balls above carry few of them and are mostly cell
+records (about 2.3 KB each); there the format saves a quarter to a third and costs nothing. The hard balls' leaves
+carry most of the column proofs: atlas-wide, of the 75.9 GB of certificates as of 1 November, the proof trees were
+68.4 GB and the other column data 4.5 GB, against 2.4 GB of records and 0.8 GB of witnesses (`DISSEMINATION_NOTES.md`
+§3). This format keeps the records and witnesses, plus about 1 KB per leaf of tar headers: a few GB for the atlas.
+There, verifying costs about 2.5 times as much (the column proofs are rebuilt, then replayed), as on the two cells
+above and in the notes' sample of 120 leaves from the eight largest certificates.
 
 A one-native-leaf certificate (2,372 of the 2,775 balls) is checked by re-running the native certifier on the ball
-(15 s for ball 2254 on one core). A plane leaf takes 1–60 s on one core, depending on its patterns. Checking every leaf of the
-atlas's certificates as of 1 November (1,038,098 plane leaves, before the native-first re-certification of the tree
-balls) was measured at about 4,600 core-hours (`DISSEMINATION_NOTES.md` §3), dominated by the five largest
-certificates (balls 768, 815, 825, 1016, 905); `verify-all` splits it across nodes with `--shard`.
-
-The test cells (`tests/data/certificates`), one core each:
-
-| Cell | Witnesses | Verdict, scope | Verify |
-|---|---|---|---:|
-| ball 194, level 4, (3, 13, 5, 3) | secant | CELL CLOSED, all | 2.5 s |
-| ball 825, level 5, (10, 15, 16, 8) | 512 gamma | CELL CLOSED, minimum-transition | 2.9 s |
-| ball 825, level 6, (3, 22, 27, 42) | pair, secant | CELL CLOSED, all | 19 s |
-| ball 363, level 4, (5, 10, 6, 0) | pair, joint | CELL CLOSED, all | 36 s |
-| ball 793, level 2, (2, 0, 0, 1) | joint-known | CELL CLOSED (classified), all | 14 s |
+(15 s for ball 2254 on one core). `verify-all` splits the atlas across nodes with `--shard`.
 
 ## Tests
 
     pip install -e 'TripleClassification/certifier[test]'
     cd TripleClassification/certifier && python -m pytest
 
-They cover: close then verify; the three certificate layouts; refusal of a changed proposal, a record of another
-cell, a renamed leaf, a false outside node, an open node, missing files and an incomplete partition; resuming an
+They cover: close then verify; the three certificate layouts; refusal of a record that does not match its hash, a
+record of another cell, a renamed leaf, a false outside node, an open node, missing files and an incomplete partition; resuming an
 interrupted close (including a cut leaves.tar); native leaves at and below the root, and native leaves the certifier
 refuses, at and below the root; verify-all; the pinned files (a changed file, a changed manifest, or an extra native
 source is refused at import); every witness kind on real cells (pair, joint, joint-known, secant, gamma), each refused
-when changed; the refused projector and one-column witnesses; the overlap witness (cells of ball 905, a corner cell
+when changed, and refused at another column-proof depth; the refused projector and one-column witnesses; convert
+(verdicts kept; a changed witness or a proposal of another record converts to nothing; no overwrite; verify refuses
+the full format); the overlap witness (cells of ball 905, a corner cell
 of ball 550, a record of another ball); the exact Γ_F bound against all 14,400 alignments in Arb.
