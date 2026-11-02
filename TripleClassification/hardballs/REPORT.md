@@ -1,6 +1,85 @@
-# Hard balls: prototype report (1 Nov 2026, second round: P1 and P2)
+# Hard balls: prototype report
 
-## Summary
+## Round 3 (1 Nov 2026, late): review fixes, certificates, weak-plane tiles
+
+### Review fixes (TC_hardballs_REVIEW_20261101)
+
+- `fmax` is now a certified maximum: the largest outward upper endpoint, refusing empty or nonfinite input.
+  `tests/test_fmax.py` covers the 1 versus 1 + 2⁻⁸⁰ counterexample.
+- P1 no longer assumes y\* is column-centred; it states the column-phase convention instead (PROOFS.md).
+- The unused, understated `phase_radius` field is no longer passed to the native code.
+- Native and P2 are an explicit disjunction: CERTIFIED if either bound is below one.
+- **Certificates now store the exact proposals.** Per completion: y\*, T, B, Λ, the flattening choices, and per tube
+  the native action, windings and pseudo-inverse. Per pattern: completion, column permutation, stage-1 radius and
+  tube. `run_cell.py --certificate` writes it, and `--check` replays it with no floating-point decision.
+  On 1016 L4 (11,9,7,9) the certificate is **73 KB** (one completion, 256 patterns). The replay reproduces all 256
+  verdicts and every q exactly (search 22 s wall; check 18 s, 6 workers). The proposals now come from the parent
+  process, so worker scheduling and cache order no longer change them: the cause of the review's 70
+  non-reproduced rows.
+- Qualification of round 2: the review reproduced 1,601 of 1,671 classifications and all exclusions. Its
+  complete-cell claims hold for 1016 and 768 at level 4 and for 905, but not for 825 (7,6,7,9). That claim
+  is withdrawn until it is rerun with a stored certificate.
+
+### Weak-plane tiles on 815 (tiles.py, run_tiles.py; PROOFS.md T1–T3, T2′, UNREVIEWED)
+
+The annulus return certified an exact family triple in 815 (8,9,6,7) at weak distance ≈ 0.05, so no zero-free
+annulus exists. Each reference's weak disc |z_w| ≤ W is tiled instead:
+
+- T1, the annulus return's strong bootstrap, then T2, its full-residual separating functional;
+- far tiles (|c| > 0.3) are retried at a recentred reference with B re-proposed there (T2′);
+- tiles small enough get the native moving contraction (T3).
+
+Coarse squares have half-side 0.0707 and split down to 0.0141 (near) or 0.0177 (far).
+
+**Level 4: neither 815 cell closes.**
+
+| Cell (L4) | Reference | Patterns | Tiles E / E-far / O | Open area of weak disc | Wall (8 workers) |
+|---|---:|---:|---|---:|---:|
+| 815 (8,9,6,7) | 0 | 30 | 269 / 125 / 500 | 0.37 of 2.06 (18%) | 700 s |
+| 815 (8,9,6,7) | 1 | 34 | 236 / 166 / 538 | 0.41 of 2.25 (18%) | 730 s |
+| 815 (10,9,6,7) | 0 | 31 | 318 / 125 / 321 | 0.20 of 2.10 (10%) | 443 s |
+| 815 (10,9,6,7) | 1 | 33 | 299 / 142 / 341 | 0.22 of 2.08 (11%) | 533 s |
+
+Two things stop level 4:
+- **Exclusion margin.** Open tiles lie at every radius. At the finest tiles (h ≈ 0.02) the residual's lower
+  bound over the cell (min |F| ≈ 0.03–0.1) is no larger than its variation across a tile.
+- **Classification fails at level 4 whatever the tube.** At r = 0.0125 the native bound's terms that do not
+  depend on the tube already sum to about 2: H motion r‖V‖ ≈ 0.67 (carrier slope ‖Λ‖ ≈ 9.4), asymmetric centre
+  ‖Δc‖ ≈ 0.5, Hessian 0.46, remainder 0.35.
+
+**Level 5: 815 (10,9,6,7) closes.** Its 16 children close **100%** by tiles: all 1,024 patterns are EXCLUDED, with
+no classification needed, so this cell contains no triple. The children take 50–290 s wall each on 8 workers (2,800
+s wall and 19,772 CPU-s in total), with 1–2 references and 100–320 tiles each. At r = 0.00625 the native terms independent of the tube
+drop to about 0.5–0.6 (‖Δc‖ 0.05–0.19, r‖V‖ 0.10–0.14, Hessian 0.26, remainder 0.02–0.04), so classification
+becomes possible for near-sheet tiles. The native tree spends 121 leaves below this cell.
+**Level 5: 815 (8,9,6,7) closes too.** Its 16 children also close **100%** by exclusion: 1,024 of 1,024
+patterns, 3,488 s wall, 24,631 CPU-s, 1–2 references and 130–410 tiles each. The annulus return's exact family
+triple is no contradiction. Its H lies in the level-4 record's enclosing ball (‖u‖ = 0.01202 < r = 0.0125) but
+outside every child ball (nearest child centre at 0.0088 > 0.00625), so it lies outside this dyadic cube and in a
+neighbouring cell. **Both 815 level-4 cubes are free of triples, proved at level 5 by tiles alone. Classification on
+the sheet was not exercised by these cells.**
+
+**Cost and size are not a gain here.** The level-5 tiling costs 19,772 and 24,631 CPU-s for the two cells, about 7
+and 14 times the native checks of the same cells (121 and 76 leaves × ≈ 23 s). Tile certificates are not implemented yet. Estimated from what each
+tile must store:
+- near tile (s₀, ν): ≈ 0.75 KB;
+- far tile (also its own B, Λ′ and flattening choices): ≈ 17.6 KB;
+- classification tile (also the native pseudo-inverse): ≈ 55 KB.
+That gives about 1–2 MB per child, the same order as the native tree (≈ 1.1 MB per child).
+
+### What the tiles show about the mathematics
+
+- The far weak field is excludable. The full residual there is bounded away from zero (min |F| ≈ 0.03–0.12 at
+  |z_w| ≈ 0.5–0.8, minimised over the H cell and the strong coordinates), and T2/T2′ exclude it once the H cell is
+  small enough or the reference is recentred.
+- The sheet must be classified. The obstruction is the native contraction's H-motion and centre terms, not the
+  tube: the cell-centre H is off the family. A contraction about a symmetric reference that moves with u along the
+  family sheet would remove ‖Δc‖ and most of r‖V‖. One option is the tail return's projection Π onto the seed
+  surface n = 0 (‖w − Π(w)‖ ≤ 2|n(w)|). That is the new mathematics that would let coarse cells close.
+
+## Round 2 (1 Nov 2026): P1 and P2
+
+### Summary
 
 The pattern witness now uses P1 (a u-affine reference in the localisation) and P2 (a u-affine preconditioner in the
 symmetry step). Both are UNREVIEWED, stated and proved in PROOFS.md.
@@ -26,7 +105,7 @@ symmetry step). Both are UNREVIEWED, stated and proved in PROOFS.md.
   Excluding that region needs the full residual at second order: the separating-functional idea of PROOF_815.md
   §8, applied to an annulus rather than a ball. That is new mathematics, for the user.
 
-## Measurements
+### Measurements
 
 Code at commit 8628f7908, python-flint 0.9.0 at 160 bits, laptop, 8 workers. "Rebuild" is C1, the normal form and
 the Stage C cover. C = CLASSIFIED, E = EXCLUDED, O = OPEN (L: localisation, F: symmetry step).
@@ -62,7 +141,7 @@ replaces that with 100–180 core-s and about 50 bytes.
 **Cost structure.** Per completion (the shared reference y\* of many patterns): the two expansions and the symmetry
 step take about 15 s. Each further pattern carried by the same completion takes about 0.3 s.
 
-## What the numbers mean for the trees
+### What the numbers mean for the trees
 
 If every subtree below level 4 of 1016 and 768 were replaced by one witness cell (the tested cells all close), 1016
 would go from 26,672 to about 20,651 leaves (3.98 → 3.25 GB) and 768 from 54,140 to about 25,296 (8.26 → 5.73 GB).
@@ -70,7 +149,7 @@ Where level 3 closes, the gain is larger. But most remaining leaves tile the bal
 small certificate per ball needs coarse cells everywhere; for 905, the native fine bins already close coarse cells
 outright.
 
-## Files
+### Files
 
 `witness.py` (the witness: proposals, P1 constants in Arb, the two-stage (S, W) search, step F), `moving.py` (the
 native contraction verbatim plus the P2 bound), `run_cell.py` (rebuild a cell with the frozen native code, run all
@@ -80,7 +159,7 @@ patterns), `PROOFS.md` (P1, P2 and the reviewed results used), `PLAN.md` (initia
 python TripleClassification/hardballs/run_cell.py CELL.input.json.gz out.jsonl --workers 8
 ```
 
-## Not done
+### Not done
 
 - P1 and P2 are not reviewed: TC_hardballs_review_20261101 is the handoff for that.
 - No integration into the certifier package. A witness node there would add the checks `native_leaf` already
