@@ -2,7 +2,8 @@
 
 The witness (`witness.py`, `moving.py`) chains three reviewed results through two elementary facts (E1, E2), and
 uses two new statements, **P1 and P2, which are UNREVIEWED**. P1 is used in every localisation. P2 is an alternative
-acceptance bound in the symmetry step; a pattern accepted by the native bound alone does not need it. Both reduce
+acceptance bound in the symmetry step; a pattern accepted by the native bound alone does not need it. In the measurements (REPORT.md) every
+classified pattern also passed the native bound, so no result depends on P2. Both reduce
 to the reviewed statements when their new data is zero (Λ = 0 in P1; the native bound is always also computed in F).
 
 Notation is that of PROOF_815.md §2–§5. All transition matrices have unit-modulus entries, H = e^{iq}, K = e^{iy}
@@ -78,7 +79,10 @@ and ‖u‖ ≤ r. This gives the claim. ∎
 
 **Remarks.** With Λ = 0 the claim is PROOF_815.md (2) with a sharper first-order H–K term: r‖[C]_a‖ + γ_a in place
 of 2b_aDt. The search is §7 unchanged, with the initial radius R + λr for z and the weak cap wcap + λ_wr, since
-‖z‖ ≤ ‖ζ‖ + λr and ‖z_w‖ ≤ ‖ζ_w‖ + λ_wr. Here R and wcap bound ζ through E1. A search that leaves only boxes inside
+‖z‖ ≤ ‖ζ‖ + λr and ‖z_w‖ ≤ ‖ζ_w‖ + λ_wr. Here R and wcap bound ζ through E1. The witness searches in two stages. First,
+P1 with Λ = 0 (so z = ζ) localises every zero to ‖ζ‖ < ρ₁ for the first ρ₁ ∈ {0.15, 0.2, 0.3, 0.4} that closes, or
+excludes the pattern. Then P1 with the proposed Λ starts from R = ρ₁ + λr and weak cap min(wcap, ρ₁) + λ_wr. Both
+stages are applications of the claim to the same zero set. A search that leaves only boxes inside
 ‖z‖ < t₀ gives K = y\* + ETΛu + e with ‖e‖ ≤ t·t₀, which is N6's enclosure with carrier T_c = (ETΛ)_c (rows 6r + c)
 and ε_c = t·t₀ (E2).
 

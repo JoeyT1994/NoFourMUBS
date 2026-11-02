@@ -1,102 +1,89 @@
-# Hard balls: prototype report (1 Nov 2026)
+# Hard balls: prototype report (1 Nov 2026, second round: P1 and P2)
 
-## Result
+## Summary
 
-A pattern witness that closes **whole level-4 cells** of the hard balls 1016 and 768: every pattern of their
-complete cover is EXCLUDED or CLASSIFIED (every zero symmetric). The native certifier needs 31–61 leaves at levels
-5–6 below each of these cells. The witness needs no subdivision, no stored proof data and no new lemma. It chains
-three reviewed results (PROOFS.md):
+The pattern witness now uses P1 (a u-affine reference in the localisation) and P2 (a u-affine preconditioner in the
+symmetry step). Both are UNREVIEWED, stated and proved in PROOFS.md.
 
-1. **N9, native fine bins**: each column lies in a retained closed bin of radius 0.072; an empty search excludes.
-2. **A, the 815 annulus lemma**: around a reference completion y\*, with 28 strong and 2 weak coordinates, every
-   zero is localised to ‖K − y\*‖ ≤ 0.01–0.0225.
-3. **N6, the native averaged moving contraction** on that tube: q < 1, so every zero is symmetric.
+- **Level-4 cells of 1016, 768, 825 and 905 close** (the second 825 cell only to 77%). On 1016 and 768 every one of
+  the 1,024 patterns is EXCLUDED or CLASSIFIED, with margins now q ≤ 0.24 (the first round needed up to 0.925). Each
+  cell takes 20–30 s wall on 8 workers.
+- **Level 3 closes in part:** 98% and 57% of the patterns of two 768 cells, 75% and 19% of two 1016 cells.
+- **815 does not close**, at level 4 or in any of the 16 level-5 children of (10,9,6,7) (101 of 1,024 patterns).
+- **Level 2 does not close** except by exclusion (one 768 cell: 2,313 of 4,096 excluded). The whole balls were not
+  run, since level 2 of 1016 closes nothing.
+- **P1 is what matters.** It cuts the weak localisation floor η_w from 0.123 to 0.008 on 815 and from 0.018 to
+  0.009 on 1016 level 3; that alone closed 1016 level-3 patterns and the 825 cells. **P2 is never needed**: it
+  gives a smaller q in all 1,671 classifications (for example 0.207 against 0.283), but every one of them also
+  passes the native bound, and it rescues none of the 136 step-F failures.
+- **The remaining obstruction is the far weak field.** Every open localisation stalls at |ζ_w| ≈ 0.5–0.8 with
+  small strong part. There the weak block of the preconditioned residual stays small in some directions: the
+  weak equations have near-solutions there, off the family. Three things were tried, and none excludes it:
+  1. one expansion, with or without P1;
+  2. a ring of shifted references with the preconditioner re-proposed at each centre (the far sectors exclude
+     cleanly, but one direction at |c| ≈ 0.5 does not);
+  3. the optimised support cap (p ≠ 0), which only reaches 0.60–0.67 at S = 0.1.
+  Excluding that region needs the full residual at second order: the separating-functional idea of PROOF_815.md
+  §8, applied to an annulus rather than a ball. That is new mathematics, for the user.
 
-Floats only propose y\*, T, B and flattenings; every acceptance is an Arb inequality (160 bits). The certificate is
-just the cell: the checker recomputes every proposal.
+## Measurements
 
-## Measured, on the ten coarse cells of handoffs/TC_nearfamily_20261101
+Code at commit 8628f7908, python-flint 0.9.0 at 160 bits, laptop, 8 workers. "Rebuild" is C1, the normal form and
+the Stage C cover. C = CLASSIFIED, E = EXCLUDED, O = OPEN (L: localisation, F: symmetry step).
 
-Laptop, 8 workers. Rebuild = C1, normal form, Stage C cover (about 1 s). The native figures are from
-dissem/status/balls.tsv: 150 KB and 28 core-s per leaf on average for 1016.
-
-| Cell (level 4) | Patterns | CLASSIFIED | EXCLUDED | OPEN | Pattern core-s | Wall | Largest q | Native leaves below |
+| Cell | Patterns | C | E | O | Resolved | Wall | CPU | Largest q |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|
-| 1016 (11,9,7,9) | 256 | 192 | 64 | 0 | 76 | 18 s | 0.872 | 46 |
-| 1016 (13,10,7,9) | 256 | 64 | 192 | 0 | 36 | 14 s | 0.846 | 31 |
-| 768 (6,10,11,4) | 256 | 48 | 208 | 0 | 48 | 12 s | 0.606 | 61 |
-| 768 (8,11,11,3) | 256 | 192 | 64 | 0 | 92 | 20 s | 0.925 | 61 |
-| 905 (10,9,2,12) | 4 | 0 | 4 | 0 | 0.1 | 3 s | – | 1,965 |
-| 905 (2,4,5,11) | 6 | 0 | 6 | 0 | 0.1 | 3 s | – | 1,446 |
-| 825 (7,6,7,9) | 48 | 0 | 36 | 12 | 24 | 10 s | – | 46 |
-| 825 (8,6,7,9) | 64 | 0 | 32 | 32 | 42 | 15 s | – | 46 |
-| 815 (10,9,6,7) | 64 | 0 | 0 | 64 | 109 | 17 s | – | 121 |
-| 815 (8,9,6,7) | 64 | 0 | 0 | 64 | 105 | 17 s | – | 76 |
+| 1016 L4 (11,9,7,9) | 256 | 192 | 64 | 0 | 100% | 29 s | 178 s | 0.235 |
+| 1016 L4 (13,10,7,9) | 256 | 64 | 192 | 0 | 100% | 24 s | 100 s | 0.231 |
+| 768 L4 (6,10,11,4) | 256 | 48 | 208 | 0 | 100% | 23 s | 126 s | 0.207 |
+| 768 L4 (8,11,11,3) | 256 | 192 | 64 | 0 | 100% | 27 s | 183 s | 0.228 |
+| 825 L4 (7,6,7,9) | 48 | 12 | 36 | 0 | 100% | 18 s | 70 s | 0.831 |
+| 825 L4 (8,6,7,9) | 64 | 17 | 32 | 15 (L 11, F 4) | 77% | 36 s | 117 s | 0.897 |
+| 905 L4 (10,9,2,12) | 4 | 0 | 4 | 0 | 100% | 3 s | 8 s | – |
+| 905 L4 (2,4,5,11) | 6 | 0 | 6 | 0 | 100% | 3 s | 12 s | – |
+| 815 L4 (10,9,6,7) | 64 | 0 | 0 | 64 (L) | 0% | 80 s | 489 s | – |
+| 815 L4 (8,9,6,7) | 64 | 0 | 0 | 64 (L) | 0% | 72 s | 460 s | – |
+| 815 L5, 16 children of (10,9,6,7) | 1,024 | 53 | 48 | 923 (L) | 10% | 25–41 s each | 167–285 s each | 0.378 |
+| 1016 L3 (5,4,3,4) | 256 | 129 | 64 | 63 (L 58, F 5) | 75% | 48 s | 291 s | 0.769 |
+| 1016 L3 (6,5,3,4) | 256 | 0 | 48 | 208 (L) | 19% | 79 s | 416 s | – |
+| 768 L3 (3,5,5,2) | 2,048 | 872 | 1,142 | 34 (L) | 98% | 109 s | 643 s | 0.845 |
+| 768 L3 (4,5,5,1) | 1,024 | 92 | 496 | 436 (L 309, F 127) | 57% | 137 s | 750 s | 0.939 |
+| 1016 L2 (2,2,1,2) | 64 | 0 | 0 | 64 (L) | 0% | 60 s | 416 s | – |
+| 1016 L2 (3,2,1,2) | 256 | 0 | 0 | 256 (L) | 0% | 102 s | 697 s | – |
+| 768 L2 (1,2,2,1) | 4,096 | 0 | 2,313 | 1,783 (L) | 56% | 719 s | 4,374 s | – |
+| 768 L2 (2,2,2,0) | 64 | 0 | 0 | 64 (L) | 0% | 36 s | 244 s | – |
 
-For a closed 1016/768 cell: about 50–100 core-s and a few bytes of certificate, against 31–61 native leaves
-(about 0.9–1.7 core-hours and 5–9 MB). The first pattern of a cell costs about 5 s (tensor bounds and step F); every
-other pattern carried by the same completion costs about 0.3 s.
+**Certificate size per cell.** The certificate is witness-only: the cell, about 50 bytes. The checker rebuilds the
+cover and recomputes every float proposal (y\*, T, B, Λ, flattenings, windings), then accepts by Arb inequalities
+only. Optionally, one byte per pattern (the tube chosen) would save the checker the failed smaller tubes. The native
+tree spends 31–61 leaves below each closed 1016/768 level-4 cell: 5–9 MB and about 1 core-hour. The witness
+replaces that with 100–180 core-s and about 50 bytes.
 
-**905.** Both cells close by the native fine-bin search alone, in 0.03 s per pattern (`final_pattern` also
-excludes them, by bin orthogonality, in 0.1 s). The 48k-leaf 905 tree is almost entirely plane leaves from the
-older pipeline. Running the native first at coarse levels on 905 should collapse it. That belongs to the native-first
-re-certification, not to this witness.
+**Cost structure.** Per completion (the shared reference y\* of many patterns): the two expansions and the symmetry
+step take about 15 s. Each further pattern carried by the same completion takes about 0.3 s.
 
-## Where it stops, and why
+## What the numbers mean for the trees
 
-- **815** (all 64 patterns open). The weak floor of step L is η^H_w = 0.12 at r = 0.0125 (1016: 0.007). H motion
-  transverse to the family drives the weak K mode. A fixed reference cannot localise below that, so localisation
-  stalls at W ≈ 0.55–0.7.
-- **825** (44 open). The same floor, smaller: localisation ends at 0.04–0.1, above the tube step F accepts.
-- **Bigger cells of 1016.** Level 3 (r = 0.02): localisation reaches 0.0296; step F holds at 0.01 (q = 0.60) but
-  not at 0.02 (q = 1.008). Level 2 and the whole ball (64 and 1,024 patterns): nothing closes. Step F's linear
-  H-motion term alone is 0.95 at level 2, and the K enclosures reach weak radius > 1.
-
-Both limits are first-order in r, so both are removable by making the reference and the preconditioner affine in
-w: proposals P1 and P2 in PROOFS.md. They are new statements, so they are for the user's decision.
-
-## What a level-4 witness is worth today (from the census leaf list)
-
-Replacing every subtree below level 4 by one witness cell, if all such cells close as the tested ones do:
-
-| Ball | Leaves now | Leaves | GB now | GB |
-|---:|---:|---:|---:|---:|
-| 768 | 54,140 | 25,296 | 8.26 | 5.73 |
-| 1016 | 26,672 | 20,651 | 3.98 | 3.25 |
-
-That is real but modest. Most leaves of these trees are level 2–4 cells that tile the whole ball, mostly away
-from the family (1016: 20,194 of 26,672). One small certificate per ball needs witnesses on level 0–2 cells, near
-the family (P1, P2) and away from it (native-first at coarse levels, as 905 suggests).
-
-## Diagnosis that drives this (floats)
-
-- At the exact family triples of 768/815/825/1016 the fixed-H K-Jacobian has one weak complex pair
-  (σ = 0.18/0.09/0.17/0.12); everything else is ≥ 1.26. In the moving (Z3) space the same pair is smallest and
-  the rest ≥ 1.58.
-- The weak mode is nearly linear: |G_w| ≈ 0.93ρ out to ρ = 1. So no nearby non-symmetric zero exists, and
-  localisation is limited only by the H-motion floor and the bound's sharpness.
-- σ_w → 0 at a family point just outside these balls (near b = c = 2π/3, γ = 0). That is why the family's
-  neighbourhood is hard here.
+If every subtree below level 4 of 1016 and 768 were replaced by one witness cell (the tested cells all close), 1016
+would go from 26,672 to about 20,651 leaves (3.98 → 3.25 GB) and 768 from 54,140 to about 25,296 (8.26 → 5.73 GB).
+Where level 3 closes, the gain is larger. But most remaining leaves tile the ball away from the family. A
+small certificate per ball needs coarse cells everywhere; for 905, the native fine bins already close coarse cells
+outright.
 
 ## Files
 
-- `witness.py`: the witness (proposals, the lemma's constants in Arb, the (S, W) search, step F via the frozen
-  native code).
-- `run_cell.py`: rebuild one cell with the native code, run every pattern (`--workers`), one JSON line each.
-- `PLAN.md` (initial plan), `PROOFS.md` (what is relied on; proposals P1, P2).
-
-To reproduce on a near-family cell:
+`witness.py` (the witness: proposals, P1 constants in Arb, the two-stage (S, W) search, step F), `moving.py` (the
+native contraction verbatim plus the P2 bound), `run_cell.py` (rebuild a cell with the frozen native code, run all
+patterns), `PROOFS.md` (P1, P2 and the reviewed results used), `PLAN.md` (initial plan).
 
 ```bash
-python TripleClassification/hardballs/run_cell.py handoffs/TC_nearfamily_20261101/data/cells/1016_4_11_9_7_9.input.json.gz out.jsonl --workers 8
+python TripleClassification/hardballs/run_cell.py CELL.input.json.gz out.jsonl --workers 8
 ```
-
-Run it from the NoFourMUBS root with the repository venv. The handoffs folder is outside git.
 
 ## Not done
 
+- P1 and P2 are not reviewed: TC_hardballs_review_20261101 is the handoff for that.
 - No integration into the certifier package. A witness node there would add the checks `native_leaf` already
-  makes: cell containment, branch identity (overlap) and the Stage C guard.
-- No independent review of the composition in PROOFS.md.
-- Float proposals are recomputed on the checking machine; a different BLAS could give slightly different
-  proposals. The acceptance margins seen are q ≤ 0.925 and a localisation target with room.
+  makes: cell containment, branch identity and the Stage C guard.
+- The whole balls were not run.
+- The far weak field needs a new exclusion argument (above).
