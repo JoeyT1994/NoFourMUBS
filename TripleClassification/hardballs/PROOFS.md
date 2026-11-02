@@ -29,8 +29,15 @@ the Helmert injection ℝ³⁰ → column-centred phases ℝ³⁶ (an isometry).
 ## P1. Localisation with a u-affine reference (UNREVIEWED)
 
 **Data.** The cell's normal form q = Q₀ + Uu + ½H₂(u ⊗ u) + Xξ, with ‖u‖ ≤ r and ‖ξ‖ ≤ τ. Exact q\* ∈ ℝ³⁶ and an exact
-column-centred y\* ∈ ℝ³⁶; exact T (30×30, invertible), B (30×66) and Λ (30×4). All are arbitrary; floats propose
-Λ = −BJ_HU. Put
+y\* ∈ ℝ³⁶ (not assumed column-centred); exact T (30×30, invertible), B (30×66) and Λ (30×4). All are arbitrary;
+floats propose Λ = −BJ_HU.
+
+*Column-phase convention* (REVIEW §3.1). Multiplying a column of K by a unit scalar preserves every equation. For
+an actual completion, choose the lift of its phases (within its bin) and then that column's global phase so that
+each column has the same mean phase as the corresponding column of y\*. Then y − y\* is column-centred, so it lies
+in the range of E and equals ETζ for a unique ζ. The native joint gauge later removes these column phases again.
+
+Put
 
 - e_H = ‖Q₀ − q\*‖ + ½‖H₂‖r² + ‖X‖τ, so h := q − q\* − Uu has ‖h‖ ≤ e_H; and D = ‖U‖r + e_H ≥ ‖q − q\*‖;
 - J_H = F_H(q\*, y\*) (66×36); G(ζ) = BF(q\*, y\* + ETζ), L = DG(0) − I;
@@ -132,3 +139,35 @@ patterns share a reference.
 
 **Outcome per pattern.** EXCLUDED (N9, or P1's search with no box left inside), CLASSIFIED (P1, then N6 or P2 with
 q < 1), or OPEN.
+
+## Weak-plane tiles (UNREVIEWED; `tiles.py`, `run_tiles.py`)
+
+A single localisation cannot settle every pattern. The family sheet itself runs through the weak field: the
+annulus return certified an exact order-three-symmetric triple in 815_4_8_9_6_7 at weak distance ≈ 0.05 from the
+reference (ret_TC_annulus_20261101, ANNULUS_RESULT.md §1). So the weak disc |z_w| ≤ W is tiled instead (moving
+coordinates of P1: y = y\* + K_s z_s + K_w z_w + Vu, [K_s K_w] = ET, V = ETΛ). Every tile is a closed square,
+enclosed in the disc |z_w − c| ≤ h, where h is an Arb upper bound of its half-diagonal. The squares of a quadtree
+cover [−W, W]² ⊇ {|z_w| ≤ W}. A square is skipped only if the Arb test |c| − h > W proves it lies outside the disc.
+
+- **T1. Strong bootstrap.** Every zero with z_w in the tile has ‖z_s − s₀‖ ≤ d. Here s₀ is any exact proposal and
+  d comes from iterating d ← min(d, A + βd + M(d)) from d₀ = S + ‖s₀‖. Source: LOCAL_TILE_PROOF.md §1–§3 of the
+  annulus return, its inequality (4), with A, β, M as in its (2), (3), (8), and the pure-strong rescue (9). The code
+  copies check_annulus.py's Context.tile, and strong_core.py is vendored unchanged (SHA-256 de680d99…).
+  **Unreviewed: the annulus return's proof has not had an independent review.**
+- **T2. Exclusion.** If an exact row vector ν has Arb lower bound ν·F > 0 on the tile × {‖z_s − s₀‖ ≤ d} × H
+  cell, then the tile holds no zero. Source: LOCAL_TILE_PROOF.md §4 and annulus_math/LEMMA.md, implemented in
+  `scalar.separator`, vendored unchanged (SHA-256 0dfc3315…). **Unreviewed, as T1.**
+- **T3. Classification.** By T1, a zero in the tile has K = y_c + Vu + e with y_c = y\* + K_s s₀ + K_w c and
+  ‖e‖ ≤ ‖K_s‖d + ‖K_w‖h. With v₀ the binary64 midpoint of y_c, it has K = v₀ + Vu + e′ with ‖e′‖ ≤ ε :=
+  ‖K_s‖d + ‖K_w‖h + ‖y_c − v₀‖. That is N6's enclosure with carrier V and ε_c = ε for every column (E2). If N6 or P2
+  gives q < 1, every zero in the tile is symmetric. This step is new only in its bookkeeping, which is the same as
+  E2. **It inherits T1's status.**
+
+A pattern is EXCLUDED if every tile of its reference is (T2), and CLASSIFIED if no tile is OPEN. A reference's tiling
+uses the largest R and weak cap over the patterns it carries (E1), so it covers each of them.
+- **T2′. Exclusion at a recentred reference (far field).** For a far tile |z_w − c| ≤ h, use the new reference
+  y_c = binary64(y\* + K_w c), with B re-proposed there and its own Λ′. Relative to it, a zero has
+  y = y_c + ET z″ + ETΛ′u, where z″ = z + (Λ − Λ′)u − (0, c) − T^{-1}E^T(y_c − y\* − K_w c). Hence
+  ‖z″_s‖ ≤ S + ‖(Λ − Λ′)_s‖r + ‖δ_s‖ and ‖z″_w‖ ≤ h + ‖(Λ − Λ′)_w‖r + ‖δ_w‖, where δ is the last vector, computed
+  in Arb. Column means of the rounding are absorbed by the column-phase convention. T1 and T2 are then applied
+  verbatim at the new reference, to its single tile of that weak radius about 0. **Inherits T1/T2's status.**

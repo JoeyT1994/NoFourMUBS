@@ -10,6 +10,7 @@ PROOF.md section 6) on that tube: q < 1 means every zero has the balanced order-
 
 Floats only propose (y*, T, B, flattenings, windings); every acceptance is an Arb strict inequality. PROOFS.md.
 """
+import base64
 import math
 import numpy as np
 from flint import arb, acb, arb_mat
@@ -25,7 +26,12 @@ def up(x): return arb(x.upper())
 def frob(a): return C.norm([a[i, j] for i in range(a.nrows()) for j in range(a.ncols())])
 def sub(a, rows, cols): return arb_mat([[a[i, j] for j in cols] for i in rows])
 def spectral(a): return up(Z.spectral(a))
-def fmax(xs): return max(xs, key=lambda x: float(x.upper()))
+def fmax(xs):
+    """A certified maximum: the largest outward upper endpoint (REVIEW §2). Floats must not choose a maximum."""
+    bounds = [up(x) for x in xs]
+    if not bounds: raise ArithmeticError('empty maximum')
+    if any(not x.is_finite() for x in bounds): raise ArithmeticError('nonfinite maximum')
+    return max(bounds)
 
 
 def helmert():
@@ -71,7 +77,7 @@ def propose(q, columns, steps=20, chord=60):
 
 # ---- Arb: one expansion of the lemma ------------------------------------------------------------------------------
 
-def expansion(model, q, y, T, B, moving=True):
+def expansion(model, q, y, T, B, moving=True, Lam=None, kinds=None):
     """Constants of lemma P1 (PROOFS.md) for the reference y*(u) = y* + ET Lam u (Lam = 0 if not moving), with
     coordinates y = y*(u) + ETz. Every zero over the H cell has, for each block a, with rho = |z|,
         |z_a| <= |G_a(0)| + eta_a + beta_a rho + gamma_a(rho) + P_a(S + lam_s r, W + lam_w r)."""
@@ -110,7 +116,7 @@ def expansion(model, q, y, T, B, moving=True):
     KS, KW = AS * AS.transpose(), AW * AW.transpose()
     nT = spectral(T); BJ = B * JH
     # Lam: the reference's slope in u (a proposal); Ku: the first-order u-term left after it (PROOFS.md, P1).
-    Lam = Z.mat(-Z.mid_np(BJ * U)) if moving else arb_mat(30, 4)
+    if Lam is None: Lam = Z.mat(-Z.mid_np(BJ * U)) if moving else arb_mat(30, 4)
     Ku = (Sf * A) * Lam + BJ * U
     # Cj = B F_HK(q*, y*)[U e_j, ET .]: the exact mixed second derivative, from the mixed ridges.
     Cj = []
@@ -125,16 +131,17 @@ def expansion(model, q, y, T, B, moving=True):
                     for k in range(30): F[30 + 6 * a + b, k] += c * row[k]
         Cj.append(B * F)
     M = arb_mat([[(Cj[j] * Lam)[i, k] for j in range(4) for k in range(4)] for i in range(30)])
-    ex = dict(g0=[], eta=[], beta=[], gB=[], coef=[], lam=up(spectral(Lam)), r=r, nT=nT, eH=hrem, D=D,
-              ET_Lam=ET * Lam, Cj=Cj, lam_a=[up(spectral(sub(Lam, rows, range(4)))) for rows in GROUPS])
-    for rows in GROUPS:
+    ex = dict(g0=[], eta=[], beta=[], gB=[], coef=[], kinds=[], lam=up(spectral(Lam)), r=r, nT=nT, eH=hrem, D=D,
+              Lam=Lam, ET_Lam=ET * Lam, Cj=Cj, lam_a=[up(spectral(sub(Lam, rows, range(4)))) for rows in GROUPS])
+    for g, rows in enumerate(GROUPS):
         bn = spectral(sub(B, rows, range(66)))
         ex['g0'].append(C.norm([G0[i, 0] for i in rows]))
         ex['eta'].append(up(spectral(sub(Ku, rows, range(4))) * r + spectral(sub(BJ, rows, range(36))) * hrem
                             + spectral(sub(M, rows, range(16))) * r * r + arb(6).sqrt() * bn * D * D))
         ex['beta'].append(up(spectral(sub(lin, rows, range(30))) + spectral(arb_mat([[Cj[j][i, k] for j in range(4) for k in range(30)] for i in rows])) * r))
         ex['gB'].append(bn)
-        ex['coef'].append(tensor_bounds(sub(Cf, rows, range(180)), sub(Sf, rows, range(180)), AS, AW, KS, KW))
+        coef, used = tensor_bounds(sub(Cf, rows, range(180)), sub(Sf, rows, range(180)), AS, AW, KS, KW, kinds[g] if kinds else None)
+        ex['coef'].append(coef); ex['kinds'].append(used)
     ex['ns'] = [up(C.norm([A[i, j] for j in range(28)])) for i in range(180)]
     ex['nw'] = [up(C.norm([A[i, j] for j in range(28, 30)])) for i in range(180)]
     ex['amp'] = [[up((Cf[i, l] ** 2 + Sf[i, l] ** 2).sqrt()) for l in range(180)] for i in range(30)]
@@ -156,10 +163,10 @@ def slack(ex, s, w):
     return out
 
 
-def tensor_bounds(Cg, Sg, AS, AW, KS, KW):
+def tensor_bounds(Cg, Sg, AS, AW, KS, KW, kinds=None):
     """h_{n,k}/((n-k)! k!) for n = 2..8: norms of the order-n derivative tensors of one block, bounded through the
     smallest of three Gram flattenings (PROOF_815.md (5), (6)). Floats choose the flattening; Arb bounds it."""
-    out, cache = {}, {}
+    out, cache, used = {}, {}, {}
     def power(key, Kx, m):
         if (key, m) not in cache: cache[key, m] = arb_mat([[Kx[i, j] ** m for j in range(180)] for i in range(180)])
         return cache[key, m]
@@ -169,15 +176,19 @@ def tensor_bounds(Cg, Sg, AS, AW, KS, KW):
         V = [Cg, Sg, -Cg, -Sg][n % 4]; fv = fV[n % 2]
         for k in range(n + 1):
             ns, nw = n - k, k
-            cands = [('output', np.linalg.norm(fv @ (fKS ** ns * fKW ** nw) @ fv.T, 2))]
-            if ns: cands.append(('strong', np.linalg.norm(fS.T @ ((fv.T @ fv) * fKS ** (ns - 1) * fKW ** nw) @ fS, 2)))
-            if nw: cands.append(('weak', np.linalg.norm(fW.T @ ((fv.T @ fv) * fKS ** ns * fKW ** (nw - 1)) @ fW, 2)))
-            kind = min(cands, key=lambda x: x[1])[0]
+            if kinds: kind = kinds[n, k]                         # a replayed choice; any valid one is sound
+            else:
+                cands = [('output', np.linalg.norm(fv @ (fKS ** ns * fKW ** nw) @ fv.T, 2))]
+                if ns: cands.append(('strong', np.linalg.norm(fS.T @ ((fv.T @ fv) * fKS ** (ns - 1) * fKW ** nw) @ fS, 2)))
+                if nw: cands.append(('weak', np.linalg.norm(fW.T @ ((fv.T @ fv) * fKS ** ns * fKW ** (nw - 1)) @ fW, 2)))
+                kind = min(cands, key=lambda x: x[1])[0]
+            if not (kind == 'output' or (kind == 'strong' and ns) or (kind == 'weak' and nw)): raise ArithmeticError('invalid flattening')
+            used[n, k] = kind
             if kind == 'output': g = V * had(power('s', KS, ns), power('w', KW, nw)) * V.transpose()
             elif kind == 'strong': g = AS.transpose() * had(V.transpose() * V, power('s', KS, ns - 1), power('w', KW, nw)) * AS
             else: g = AW.transpose() * had(V.transpose() * V, power('s', KS, ns), power('w', KW, nw - 1)) * AW
             out[n, k] = up(arb(Z.spectral(g).upper()).sqrt()) / (math.factorial(ns) * math.factorial(nw))
-    return out
+    return out, used
 
 
 # ---- Arb: the colour product --------------------------------------------------------------------------------------
@@ -234,13 +245,16 @@ TARGETS = (0.005, 0.0075, 0.01, 0.015, 0.02, 0.025)
 FIRST = (0.15, 0.2, 0.3, 0.4)                              # stage-1 radii (fixed reference)
 
 
-def prepare(model, prop):
-    """Everything that depends on the completion y* only, shared by all patterns that carry it: the expansion, and
-    step F on each tube (computed when first needed)."""
+def prepare(model, prop, stored=None):
+    """Everything that depends on the completion y* only, shared by all patterns that carry it: the two expansions and
+    step F on each tube (computed when first needed). `stored` replays a certificate's proposals exactly."""
     q = arb_mat([[arb(float(model['Q0'][i, 0].mid()))] for i in range(36)])
     y = arb_mat([[arb(v)] for v in prop['y']]); T = Z.mat(prop['T']); B = Z.mat(prop['B'])
-    return dict(prop=prop, y=y, T=T, model=model, Ti=T.inv(), fixed=expansion(model, q, y, T, B, moving=False),
-                centre=expansion(model, q, y, T, B), forced={})
+    st = stored or {}
+    fixed = expansion(model, q, y, T, B, moving=False, kinds=st.get('kinds_fixed'))
+    centre = expansion(model, q, y, T, B, Lam=Z.mat(st['Lam']) if 'Lam' in st else None, kinds=st.get('kinds_centre'))
+    return dict(prop=prop, y=y, T=T, B=B, q=q, model=model, Ti=T.inv(), fixed=fixed, centre=centre, forced={},
+                native=dict(st.get('native', {})))
 
 
 def force(shared, t):
@@ -252,30 +266,59 @@ def force(shared, t):
         L = shared['centre']['ET_Lam']
         prepared = {c: dict(model=model, v0=arb_mat([[arb(yy[a, c])] for a in range(6)]),
                             T=arb_mat([[L[6 * a + c, j] for j in range(4)] for a in range(6)])) for c in range(6)}
-        shared['forced'][t] = MV.classify(model, prepared, {c: dict(epsilon=tube, phase_radius=tube) for c in range(6)}, list(range(6)))
+        row = MV.classify(model, prepared, {c: dict(epsilon=tube) for c in range(6)}, list(range(6)), stored=shared['native'].get(t))
+        if row['status'] == 'CERTIFIED': shared['native'][t] = row['proposal']
+        shared['forced'][t] = row
     return shared['forced'][t]
 
 
-def pattern(shared, columns, rho):
-    """One pattern (each column's retained fine bins, in the column order of y*): EXCLUDED, CLASSIFIED or OPEN."""
-    R, wcap = colour_product(shared['y'], shared['Ti'], columns, rho)
+def pattern(shared, columns, rho, plan=None):
+    """One pattern (each column's retained fine bins, in the column order of y*): EXCLUDED, CLASSIFIED or OPEN.
+    `plan` = (stage-1 radius or None, tube) replays a certificate's choices instead of trying the lists."""
+    R, wcap = colour_product(shared['y'], shared['Ti'], columns, rho); rho1 = None
     # Stage 1: the fixed reference (Lam = 0) localises zeta = z + Lam u to |zeta| < R1, or excludes the pattern.
-    for t1 in FIRST:
+    for t1 in ([plan[0]] if plan and plan[0] else [] if plan else FIRST):
         try: n1, lv1 = search(shared['fixed'], R, wcap, arb(t1))
         except ArithmeticError: continue
-        if 'localised' not in lv1: return dict(status='EXCLUDED', route='annulus', R=R.str(3), wcap=wcap.str(3), nodes=n1, leaves=lv1)
-        R, wcap = arb(t1), (wcap if wcap < t1 else arb(t1)); break
+        if 'localised' not in lv1: return dict(status='EXCLUDED', route='annulus', plan=[t1, None], R=R.str(3), wcap=wcap.str(3))
+        R, wcap, rho1 = arb(t1), (wcap if wcap < t1 else arb(t1)), t1; break
     ex = shared['centre']; R, wcap = up(R + ex['lam'] * ex['r']), up(wcap + ex['lam_a'][1] * ex['r'])   # bounds on z
-    info, last = dict(R=R.str(3), wcap=wcap.str(3)), None
-    for t in TARGETS:                                       # smallest tube first
+    info, last = dict(R=R.str(3), wcap=wcap.str(3)), dict(status='OPEN', step='L', reason='no tube')
+    for t in ([plan[1]] if plan else TARGETS):            # smallest tube first
         try: nodes, leaves = search(shared['centre'], R, wcap, arb(t))
         except ArithmeticError as exc: last = dict(status='OPEN', step='L', reason=str(exc)); continue
-        info.update(nodes=nodes, leaves=leaves, target=t)
+        info.update(nodes=nodes, leaves=leaves, plan=[rho1, t])
         if 'localised' not in leaves: return dict(status='EXCLUDED', route='annulus', **info)
         row = force(shared, t)
         if row['status'] == 'CERTIFIED': return dict(status='CLASSIFIED', q=row['q'], q_native=row['q_native'], q_p2=row['q_p2'], **info)
         last = dict(status='OPEN', step='F', reason=[{k: a.get(k, '')[:60] for k in ('q_native', 'q_p2', 'reason')} for a in row['attempts']])
     return dict(**last, **info)
+
+
+# ---- certificates: exact proposals, so that a replay needs no floating-point decision ----------------------------
+
+def pack(a):
+    a = np.ascontiguousarray(a, dtype='<f8'); return dict(shape=list(a.shape), f8=base64.b64encode(a.tobytes()).decode())
+
+
+def unpack(d): return np.frombuffer(base64.b64decode(d['f8']), dtype='<f8').reshape(d['shape'])
+
+
+def completion_record(shared):
+    """The exact proposals of one completion (binary64, exact dyadics)."""
+    kinds = lambda ex: [[[n, k, v] for (n, k), v in sorted(g.items())] for g in ex['kinds']]
+    return dict(y=pack(shared['prop']['y']), T=pack(shared['prop']['T']), B=pack(shared['prop']['B']),
+                Lam=pack(Z.mid_np(shared['centre']['Lam'])), kinds_fixed=kinds(shared['fixed']), kinds_centre=kinds(shared['centre']),
+                native={str(t): dict(action=p['action'], wind=p['wind'], pinv=pack(p['pinv'])) for t, p in shared['native'].items()})
+
+
+def from_record(model, rec):
+    """`prepare` from a certificate's completion record."""
+    kinds = lambda g: [{(n, k): v for n, k, v in grp} for grp in g]
+    st = dict(Lam=unpack(rec['Lam']), kinds_fixed=kinds(rec['kinds_fixed']), kinds_centre=kinds(rec['kinds_centre']),
+              native={float(t): dict(action=p['action'], wind=p['wind'], pinv=unpack(p['pinv'])) for t, p in rec['native'].items()})
+    prop = dict(y=unpack(rec['y']), T=unpack(rec['T']), B=unpack(rec['B']))
+    return prepare(model, prop, st)
 
 
 def match(y, cache, tol=0.05):

@@ -2,7 +2,8 @@
 u-affine preconditioner of proposal P2 (PROOFS.md).
 
 `parts` is the body of the frozen `moving_symmetry.prove`, VERBATIM (lines 182-257 of moving_symmetry.py at the pinned
-hash), except that it returns the terms of the native bound instead of combining them. `contraction` then accepts
+hash), except that (i) its two float proposals, the windings and the numerical pseudo-inverse, can be replayed from a
+certificate, and (ii) it returns the terms of the native bound instead of combining them. `contraction` then accepts
 when either the native bound (PROOF.md section 6) or the P2 bound is below one; both are Arb strict inequalities.
 """
 import numpy as np
@@ -11,11 +12,11 @@ import native_columns as C
 from moving_symmetry import group, proposed_windings, numeric, jacobian, equation_moving_projector, LMAT, TERMS, proposed_actions
 
 
-def parts(model,prepared,bounds,clique,action,averaged=True,mixed_weight=1):
+def parts(model,prepared,bounds,clique,action,averaged=True,mixed_weight=1,stored=None):
     (pq,wq,gq,eq),base=group(action,rational=True)
     p,w,average,e=map(arb_mat,(pq,wq,gq,eq))
     q=arb_mat([[model['Q0'][i,0]] for i in range(36)]+[[prepared[clique[c]]['v0'][r,0]] for r in range(6) for c in range(6)])
-    wind=proposed_windings(numeric(q)[:,0],numeric(base)[:,0],action)
+    wind=stored['wind'] if stored else proposed_windings(numeric(q)[:,0],numeric(base)[:,0],action)
     q+=arb_mat([[2*arb.pi()*j] for j in wind])
     m=w*(q-base);ref=base+average*m;m=m-average*m
     carrier=arb_mat([[model['U'][i,j] for j in range(4)] for i in range(36)]+
@@ -23,7 +24,8 @@ def parts(model,prepared,bounds,clique,action,averaged=True,mixed_weight=1):
     carrier=w*carrier
     j=jacobian(ref)
     weights=np.r_[np.ones(60),np.full(36,mixed_weight)]
-    pre=e*C.Z.mat(np.linalg.pinv(weights[:,None]*numeric(j*e))*weights[None,:])
+    pinv=stored['pinv'] if stored else np.linalg.pinv(weights[:,None]*numeric(j*e))*weights[None,:]
+    pre=e*C.Z.mat(pinv)
     if averaged:pre=pre*equation_moving_projector(action)[0]
     defect=C.Z.spectral(e-pre*j*e)
     if not defect<arb(1)/10:raise ArithmeticError('moving inverse defect')
@@ -89,26 +91,31 @@ def parts(model,prepared,bounds,clique,action,averaged=True,mixed_weight=1):
     linear_norm=(C.Z.spectral((signed[0][0]+signed[1][0])/2)+C.Z.spectral((signed[0][1]+signed[1][1])/2)*r
                  if averaged else arb(max(C.Z.upper(a) for a in estimates)))
     return dict(defect=defect,linear_norm=linear_norm,hessian_error=hessian_error,remainder_norm=remainder_norm,
-                constant=(signed[0][0]+signed[1][0])/2,flat=(signed[0][1]+signed[1][1])/2,r=r,wind=wind)
+                constant=(signed[0][0]+signed[1][0])/2,flat=(signed[0][1]+signed[1][1])/2,r=r,wind=wind,pinv=pinv)
 
 
-def contraction(model, prepared, bounds, clique, action):
+def contraction(model, prepared, bounds, clique, action, stored=None):
     """Native bound q = defect + |Dc| + r|[V_1..V_4]| + hessian + remainder, and the P2 bound
     q2 = r^2 |[V_j V_k]_jk| + (1 + r|[V_1..V_4]|)(defect + |Dc| + hessian + remainder). CERTIFIED if min < 1."""
-    p = parts(model, prepared, bounds, clique, action)
+    p = parts(model, prepared, bounds, clique, action, stored=stored)
     V = [arb_mat([[p['flat'][i, 72 * k + j] for j in range(72)] for i in range(72)]) for k in range(4)]
     VV = [V[j] * V[k] for j in range(4) for k in range(4)]
     rest = p['defect'] + C.Z.spectral(p['constant']) + p['hessian_error'] + p['remainder_norm']
     nV, r = C.Z.spectral(p['flat']), p['r']
     q_native = p['defect'] + p['linear_norm'] + p['hessian_error'] + p['remainder_norm']
     q_p2 = C.Z.spectral(arb_mat([[m[i, j] for m in VV for j in range(72)] for i in range(72)])) * r * r + (1 + nV * r) * rest
-    q = q_native if q_native < q_p2 else q_p2
-    return dict(status='CERTIFIED' if q < 1 else 'NOT ESTABLISHED', q=str(q), q_native=str(q_native), q_p2=str(q_p2),
-                action={k: action[k] for k in ('anchor', 'labels', 'R', 'S', 'T')}, windings=p['wind'])
+    ok = q_native < 1 or q_p2 < 1                                   # either bound alone is a proof (REVIEW §4.2)
+    q = q_native if q_native < 1 else q_p2
+    return dict(status='CERTIFIED' if ok else 'NOT ESTABLISHED', q=str(q), q_native=str(q_native), q_p2=str(q_p2),
+                proposal=dict(action=dict(anchor=int(action['anchor']), **{k: [int(v) for v in action[k]] for k in ('labels', 'R', 'S', 'T')}), wind=list(map(int, p['wind'])), pinv=p['pinv']))
 
 
-def classify(model, prepared, bounds, clique, attempts=2):
-    """As moving_symmetry.classify: try the best-scoring proposed actions."""
+def classify(model, prepared, bounds, clique, attempts=2, stored=None):
+    """As moving_symmetry.classify: try the best-scoring proposed actions, or replay a stored proposal."""
+    if stored:
+        a = dict(stored['action']); a['anchor'] = int(a['anchor']); a['labels'] = tuple(a['labels'])
+        row = contraction(model, prepared, bounds, clique, a, stored=stored)
+        return row if row['status'] == 'CERTIFIED' else dict(status='NOT ESTABLISHED', attempts=[row])
     q = np.r_[numeric(model['Q0'])[:, 0], np.array([[float(prepared[clique[c]]['v0'][r, 0].mid()) for c in range(6)] for r in range(6)]).ravel()]
     rows = []
     for action in proposed_actions(q)[:attempts]:
