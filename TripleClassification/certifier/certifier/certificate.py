@@ -3,16 +3,21 @@
 A certificate of seed ball B is a dyadic tree over B's chart, `tree.json`, and the leaves' files:
 
     {"schema": "onetree-v2", "ball": B, "root": [level, [c0, c1, c2, c3]], "tree": NODE}
+
+B is a seed ball's atlas index, or for any other ball the key "r<first 16 hex digits of its record's SHA-256>", with
+the record itself under "record".
     NODE = {"children": [16 NODEs, in the order of cells.children]}
          | {"outside": true}                         the closed cell misses the closed ball
          | {"leaf": "<level>_<c0>_<c1>_<c2>_<c3>"}    a plane leaf, with the file <name>.json.gz
          | {"native": "<level>_<c0>_<c1>_<c2>_<c3>"}  a native leaf, with <name>.json.gz below level 0 (none at 0)
+         | {"normal_form": "<level>_<c0>_<c1>_<c2>_<c3>"}  a normal-form leaf, with <name>.json.gz
 
 The root is [0, [0, 0, 0, 0]] for a whole ball. A leaf is named by its own position. Its file holds the cell's H
-record in the form PR #4's checker reads, and for a plane leaf only what the verifier cannot recompute besides:
+record in the form PR #4's checker reads, and only what the verifier cannot recompute besides:
 
     {"schema": "tc-h-cell-input-v1", "ball": B, "level": L, "cell": [...], "record": {...}, "record_sha256": ...,
-     "depth": D, "witnesses": [one per pattern of the cell's complete cover]}
+     "depth": D, "witnesses": [one per pattern of the cell's complete cover]}           (a plane leaf)
+     "normal_form": {the witness's certificate: exact proposals and a replay plan per pattern}}  (a normal-form leaf)
 
 The column proofs the pair and joint witnesses use are rebuilt from the record at depth D (column_proofs.py), not
 stored. The leaf files are members `leaves/<file>` of one uncompressed tar. Three layouts are read:
@@ -37,9 +42,11 @@ RECORD_KEYS = ('schema', 'ball', 'level', 'cell', 'record', 'record_sha256')
 
 
 def leaf(data, depth=None, witnesses=None):
-    """A leaf's file, as bytes: the cell's record (the RECORD_KEYS of `data`), with a plane leaf's depth and witnesses."""
+    """A leaf's file, as bytes: the cell's record (the RECORD_KEYS of `data`), with a plane leaf's depth and witnesses
+    or a normal-form leaf's certificate (data['normal_form'])."""
     x = {k: data[k] for k in RECORD_KEYS}
     if witnesses is not None: x.update(depth=depth, witnesses=witnesses)
+    if 'normal_form' in data: x['normal_form'] = data['normal_form']
     return gz(x)
 
 
@@ -94,10 +101,14 @@ class Certificate:
 
     def nodes(self, ball=None, schema=SCHEMA):
         """The tree's nodes to verify, and the nodes it leaves unresolved: ([(kind, level, cell)], [(level, cell, why)]).
-        kind is 'outside', 'plane' or 'native'."""
+        kind is 'outside', 'plane', 'native' or 'normal_form'."""
         t = self.tree
-        if not (isinstance(t, dict) and type(t.get('ball')) is int and t.get('schema') in (SCHEMA, FULL_SCHEMA)):
+        if not (isinstance(t, dict) and t.get('schema') in (SCHEMA, FULL_SCHEMA) and (type(t.get('ball')) is int or
+                isinstance(t.get('ball'), str) and isinstance(t.get('record'), dict))):
             raise ValueError('not a one-tree certificate')
+        if isinstance(t['ball'], str):                     # a ball given by its record: the key must be the record's
+            from . import pinned
+            if pinned.register(t['record']) != t['ball']: raise ValueError('the ball key is not its record\'s')
         if t['schema'] != schema:
             raise ValueError('a certificate in the full format of onetree.py: convert it first (python -m certifier convert)'
                              if t['schema'] == FULL_SCHEMA else 'not a full-format certificate')
@@ -114,8 +125,9 @@ class Certificate:
             elif node == {'outside': True}: jobs.append(('outside', level, cell))
             elif isinstance(node, dict) and set(node) == {'leaf'} and node['leaf'] == cells.name(level, cell):
                 jobs.append(('plane', level, cell))
-            elif isinstance(node, dict) and set(node) == {'native'} and node['native'] == cells.name(level, cell):
-                jobs.append(('native', level, cell))
+            elif isinstance(node, dict) and len(node) == 1 and next(iter(node)) in ('native', 'normal_form') and \
+                    next(iter(node.values())) == cells.name(level, cell):
+                jobs.append((next(iter(node)), level, cell))
             else: bad.append((level, cell, 'unresolved node'))
         walk(t['tree'], level, cell)
         return jobs, bad

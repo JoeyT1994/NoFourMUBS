@@ -31,7 +31,7 @@ SCALAR_CAP = 2000                 # the joint search's scalar budget (column tre
 def cell_record(ball, level, cell):
     """The cell's record (frontier.build_record), with the fields of its leaf file (certificate.leaf)."""
     ctx.prec = 224
-    rec = F.build_record(pinned.original(ball), level, list(cell), pinned.ROOT)
+    rec = pinned.original(ball) if level == 0 else F.build_record(pinned.original(ball), level, list(cell), pinned.ROOT)
     return dict(schema=cells.INPUT_SCHEMA, ball=ball, level=level, cell=list(cell), record=rec, record_sha256=F.jsonsha(rec))
 
 

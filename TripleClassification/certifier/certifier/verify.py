@@ -5,7 +5,8 @@ run, no search output is trusted. A node is
 
 - outside: cells.outside (exact rationals);
 - a native leaf: native_leaf.check;
-- a plane leaf: plane_leaf.check.
+- a plane leaf: plane_leaf.check;
+- a normal-form leaf: normal_form_leaf.check.
 
 The tree must be a complete dyadic partition of its root cell (16 children or a resolved node everywhere). The
 verdict is CLOSED when every node verifies and the root is the whole ball (CELL CLOSED for a smaller root), else OPEN.
@@ -19,7 +20,7 @@ ball % N == I) that share one results file. The atlas is closed when every one o
 import fcntl, hashlib, json, multiprocessing, os, sys, tempfile, time
 from concurrent.futures import ProcessPoolExecutor
 from pathlib import Path
-from . import __version__, cells, native_leaf, overlap, pinned, plane_leaf
+from . import __version__, cells, native_leaf, normal_form_leaf, overlap, pinned, plane_leaf
 from .certificate import LEAF, Certificate
 
 _CERT = {}                                       # the certificate being verified; forked workers inherit it
@@ -43,6 +44,7 @@ def check_node(job):
             path = cert.extract(name + LEAF, td)
             pinned.require(path is not None or (kind == 'native' and level == 0), 'missing leaf file %s%s' % (name, LEAF))
             if kind == 'native': status = native_leaf.check(ball, level, cell, path)[0]
+            elif kind == 'normal_form': status = normal_form_leaf.check(ball, level, cell, path)[0]
             else: status = plane_leaf.check(ball, level, cell, path)['status']
         pinned.require_pinned_modules()          # nothing the check imported lazily shadows a pinned file
         return job, status, time.time() - t

@@ -13,6 +13,14 @@ def caps_arg(s):
     return {int(k): float(v) for k, v in (x.split(':') for x in s.split(','))}
 
 
+def ball_from_file(path):
+    """The key of the ball whose record is in `path` (registered for this run)."""
+    import gzip
+    from . import pinned
+    raw = Path(path).read_bytes(); x = json.loads(gzip.decompress(raw) if raw[:2] == b'\x1f\x8b' else raw)
+    return pinned.register(x.get('record', x))
+
+
 def main(argv=None):
     warnings.filterwarnings('ignore', category=RuntimeWarning)    # numpy's spurious matmul warnings on some BLAS builds;
     ap = argparse.ArgumentParser(prog='certify.py', description=__doc__)
@@ -35,11 +43,16 @@ def main(argv=None):
     m = sub.add_parser('manifest', help='write a manifest of the certificates b<BALL>/ or b<BALL>.tar in a directory')
     m.add_argument('dir'); m.add_argument('-o', '--out', help='manifest file (default DIR/MANIFEST)')
     c = sub.add_parser('close', help='search for a certificate of a ball (or of one cell of it); writes OUT/b<BALL>/')
-    c.add_argument('ball', type=int); c.add_argument('out')
+    c.add_argument('ball', help="a seed ball's atlas index, or a JSON file holding any ball's record (the atlas format; "
+                   'gzipped or not, the record itself or under "record")')
+    c.add_argument('out')
     c.add_argument('--cell', type=cell_arg, help='L:c0,c1,c2,c3: close this cell only (default: the whole ball)')
     c.add_argument('--max-level', type=int, default=7, help='cells still open at this level are reported (default 7)')
     c.add_argument('--native-first', type=int, default=0, help='try the native leaf before any plane search at levels <= this (default 0)')
-    c.add_argument('--no-native', action='store_true', help='plane leaves only')
+    c.add_argument('--no-native', action='store_true', help='no native leaves')
+    c.add_argument('--nf-from', type=int, default=2, help='try the normal-form witness from this level (default 2)')
+    c.add_argument('--nf-cap', type=float, default=60.0, help='normal-form search seconds per pattern (default 60)')
+    c.add_argument('--plane', action='store_true', help='also try plane leaves where the normal-form witness fails')
     c.add_argument('--caps', type=caps_arg, help='plane search time caps in seconds by level, L:S,...')
     c.add_argument('--native-caps', type=caps_arg, help='native search time caps in seconds by level, L:S,...')
     c.add_argument('--workers', type=int, default=8)
@@ -56,7 +69,7 @@ def main(argv=None):
             print(('written: %s' if r['verdict'] != 'OPEN' else 'not written (refused nodes below): %s') % x.out)
         if x.json: Path(x.json).write_text(json.dumps(r, indent=1) + '\n')
         kinds = ', '.join('%d %s' % (n, k) for k, n in sorted(r['counts'].items()))
-        print('ball %d%s: %s, scope %s (%s) in %.0f s' % (r['ball'], '' if r['root'] == [0, [0, 0, 0, 0]] else ' cell %d:%s' %
+        print('ball %s%s: %s, scope %s (%s) in %.0f s' % (r['ball'], '' if r['root'] == [0, [0, 0, 0, 0]] else ' cell %d:%s' %
               (r['root'][0], ','.join(map(str, r['root'][1]))), r['verdict'], r['scope'], kinds or 'no node', r['wall_seconds']))
         for level, cell, why in r['failed'][:20]: print('  refused %s:%s  %s' % (level, cell, why))
         return 0 if r['verdict'] in ('CLOSED', 'CELL CLOSED') else 1
@@ -75,8 +88,9 @@ def main(argv=None):
         out.write_text(''.join('%d %s\n' % (b, os.path.relpath(Path(x.dir) / n, out.resolve().parent)) for b, n in sorted(rows)))
         print('%d certificates listed in %s' % (len(rows), out)); return 0
     from .search.close import close
-    return close(x.ball, x.out, cell=x.cell, max_level=x.max_level, native_first=x.native_first, native=not x.no_native,
-                 caps=x.caps, native_caps=x.native_caps, workers=x.workers)
+    ball = int(x.ball) if x.ball.isdigit() else ball_from_file(x.ball)
+    return close(ball, x.out, cell=x.cell, max_level=x.max_level, native_first=x.native_first, native=not x.no_native,
+                 caps=x.caps, native_caps=x.native_caps, workers=x.workers, nf_from=x.nf_from, nf_cap=x.nf_cap, plane_leaves=x.plane)
 
 
 if __name__ == '__main__': sys.exit(main())

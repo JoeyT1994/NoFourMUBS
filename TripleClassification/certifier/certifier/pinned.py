@@ -10,6 +10,8 @@
 - the original seed atlas, `proof/seed_atlas/results/seed_atlas_certificate.json.gz` (SHA-256 33ad9798...).
 
 `APPROVED` adds one later file of the one-tree checker, `TripleClassification/code/gamma_exact.py`, at its approved hash.
+`REVIEWED` adds the cubic normal-form witness (`normal_form/` of this package: run_cell.py, witness.py, moving.py), the
+repaired code of its algebraic review of 2 November 2026, byte-identical.
 
 Each is read from the repository at its own path, except the five `plane_*_certificate.py` files, which PR #4 added
 and main does not have: they are kept in `pr4/` of this package, byte-identical. The paths matter: the native
@@ -31,6 +33,9 @@ PR4 = {'TripleClassification/code/%s_certificate.py' % k: HERE / 'pr4' / ('%s_ce
        for k in ('plane_cell', 'plane_column', 'plane_frontier', 'plane_joint', 'plane_tree')}
 APPROVED = {'TripleClassification/code/gamma_exact.py':      # the exact lower bound of Gamma_F (approved one-tree checker)
             'e6413eba58fe16d41bbc8add08ce6c32deec8133943f91cb461a3e04a40672a3'}
+REVIEWED = {'run_cell.py': 'e17f9cb22aed9a00b236e078e10180eaccd98071f36b5dc8ed72ad56d3849ddc',     # the normal-form witness
+            'witness.py': '55aff65102feb5fd965eb6ada740dcf9f057876409e284e8e20463bc17801eed',
+            'moving.py': '757672df04467bdf4014522eaf5ab778e343322e686863e4d6503b438f0a31ac'}
 NATIVE_BINDING = 'aaab342ca5aca367c5ae9c13500d7dfcf3a6fe13233cfdda1f8c7fec6bf7ecc7'
 ATLAS = ROOT / 'proof/seed_atlas/results/seed_atlas_certificate.json.gz'
 
@@ -42,6 +47,7 @@ def sha256(path):
 def files():
     """{repository path: (the file read for it, its SHA-256)}: the manifest's files and the approved ones."""
     out = {rel: (ROOT / rel, digest) for rel, digest in APPROVED.items()}
+    out.update({'normal_form/' + name: (HERE / 'normal_form' / name, digest) for name, digest in REVIEWED.items()})
     for line in MANIFEST.read_text().splitlines():
         digest, rel = line.split('  ', 1); out[rel] = (PR4.get(rel, ROOT / rel), digest)
     return out
@@ -88,6 +94,9 @@ import patches                                      # normal_form
 import seedcert                                     # Ball, certify_c1
 import wholeball                                    # SEEDS, frob, spectral
 import gamma_exact                                  # exact lower bound of Gamma_F (g_cell)
+sys.path.insert(0, str(HERE / 'normal_form'))
+import run_cell as normal_form                      # the normal-form witness: setup, one pattern, certificate checks
+os.environ['TC_ROOT'] = str(ROOT)                    # run_cell sets it to its own tree on import
 
 require_pinned_modules()
 if native.ROOT != ROOT: raise ImportError('the native certifier does not see the repository root')
@@ -96,10 +105,25 @@ if native.binding(ATLAS)['id'] != NATIVE_BINDING: raise ImportError('native sour
 require = column.require                            # raises ValueError(message) unless the condition holds
 
 
+BALLS = {}                                          # balls given by their record: {key: record}
+
+
+def register(record):
+    """A ball given by its record (any ball in the atlas format, not only a seed ball): its key, 'r' and the first 16
+    hex digits of the record's SHA-256."""
+    key = 'r' + frontier.jsonsha(record)[:16]; BALLS[key] = record; return key
+
+
 @functools.lru_cache(maxsize=None)
+def _seed(ball): return frontier.original_record(ROOT, ball)
+
+
 def original(ball):
-    """The atlas record of seed ball `ball` (the pinned atlas, its SHA-256 checked by frontier.original_record)."""
-    return frontier.original_record(ROOT, ball)
+    """The record of `ball`: a seed ball's (an atlas index: the pinned atlas, its SHA-256 checked by
+    frontier.original_record), or a registered ball's (a key from `register`)."""
+    if isinstance(ball, str):
+        require(ball in BALLS, 'unknown ball %s' % ball); return BALLS[ball]
+    return _seed(ball)
 
 
 def atlas_size():

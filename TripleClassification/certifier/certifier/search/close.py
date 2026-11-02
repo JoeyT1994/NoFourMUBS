@@ -1,13 +1,15 @@
 """close: search for a certificate of a ball (or of one cell of it), coarse first. No proof role: every leaf it keeps
 has passed the same leaf check `verify` runs, and `verify` checks the result again from its files.
 
-A cell that misses the ball is outside. Otherwise:
+One pool of workers serves every cell of the tree. A cell that misses the ball is outside. Otherwise:
 - at levels <= native_first (default 0, the whole ball) the native certifier is tried first;
-- then a plane proposal (search/plane.py) within a time cap per level, kept if plane_leaf.check accepts it;
-- where the plane search meets a persistent pattern or its time cap (from level 3), the native certifier is tried;
+- from level nf_from (default 2) the normal-form witness (search/normal_form.py: 60 s per pattern, the first pattern
+  left open ends the attempt); its leaf is not checked here, `verify` replays it;
+- if plane leaves are on: a plane proposal (search/plane.py) within a time cap per level, kept if plane_leaf.check
+  accepts it, and where it meets a persistent pattern or its time cap (from level 3), the native certifier;
 - anything else is split into its 16 children, down to max_level (cells still failing there are left open).
 
-Output, OUT/b<BALL>/: tree.json, leaves.tar (members leaves/<name>.json.gz, appended as leaves are found;
+BALL is a seed ball's atlas index, or the key of a ball given by its record (pinned.register). Output, OUT/b<BALL>/: tree.json, leaves.tar (members leaves/<name>.json.gz, appended as leaves are found;
 certificate.py), journal.jsonl (every outcome as it happens) and summary.json. An interrupted run resumes from the
 journal: a journalled cell is not searched again if its files are in leaves.tar (a partly written tail is cut off).
 """
@@ -16,7 +18,7 @@ from concurrent.futures import ProcessPoolExecutor, as_completed
 from pathlib import Path
 from .. import cells, native_leaf, overlap, pinned, plane_leaf
 from ..certificate import LEAF, SCHEMA, leaf
-from . import plane
+from . import normal_form, plane
 
 # Time caps in seconds, by level. A plane search takes about 100 s (it rebuilds the record, C1, Stage C and the cover)
 # and rarely more than 450 s; a capped search is split instead.
@@ -55,12 +57,22 @@ def native_attempt(ball, level, cell):
 
 
 def search_cell(job):
-    """Search one cell: (level, cell, outcome, seconds, reason, files); outcome is outside, native, leaf or split."""
+    """Search one cell: (level, cell, outcome, seconds, reason, files); outcome is outside, native, normal_form, leaf
+    (a plane leaf) or split."""
     ball, level, cell = job; t = time.time(); native = OPT['native']
     if cells.outside(level, cell): return level, cell, 'outside', 0.0, '', {}
     if native and level <= OPT['native_first']:
         files = native_attempt(ball, level, cell)
         if files is not None: return level, cell, 'native', time.time() - t, '', files
+    why = 'below nf_from'
+    if level >= OPT['nf_from']:
+        try:
+            data = normal_form.propose_cell(plane.cell_record(ball, level, cell), capped, OPT['nf_cap'])
+            return level, cell, 'normal_form', time.time() - t, '', {cells.name(level, cell) + LEAF: data}
+        except TimeCap: why = 'normal form: a pattern took over %.0f s' % OPT['nf_cap']
+        except (ValueError, ArithmeticError, ZeroDivisionError, KeyError, TypeError, IndexError) as e: why = 'normal form: %s' % (str(e) or type(e).__name__)
+        finally: pinned.tidy_path()
+    if not OPT['plane']: return level, cell, 'split', time.time() - t, why[:100], {}
     try: data = capped(OPT['caps'].get(level, CAP), plane.propose_cell, ball, level, cell)
     except TimeCap: why = 'time cap'
     except (ValueError, ArithmeticError, ZeroDivisionError, KeyError, TypeError) as e: why = str(e) or type(e).__name__
@@ -81,7 +93,7 @@ def search_cell(job):
 
 def leaf_members(outcome, level, cell):
     """The tar member a leaf needs: its file, for a plane leaf and for a native leaf below level 0."""
-    return ['leaves/' + cells.name(level, cell) + LEAF] if outcome == 'leaf' or outcome == 'native' and level else []
+    return ['leaves/' + cells.name(level, cell) + LEAF] if outcome in ('leaf', 'normal_form') or outcome == 'native' and level else []
 
 
 def compact(path, keep):
@@ -112,10 +124,11 @@ def recover(tar):
     return names
 
 
-def close(ball, out, cell=None, max_level=7, native_first=0, native=True, caps=None, native_caps=None, workers=8):
-    out = Path(out).resolve() / ('b%d' % ball); out.mkdir(parents=True, exist_ok=True)
+def close(ball, out, cell=None, max_level=7, native_first=0, native=True, caps=None, native_caps=None, workers=8,
+          nf_from=2, nf_cap=normal_form.CAP, plane_leaves=False):
+    out = Path(out).resolve() / ('b%s' % ball); out.mkdir(parents=True, exist_ok=True)
     l0, c0 = cell or (0, [0, 0, 0, 0])
-    OPT.update(native=native, native_first=native_first, caps=dict(CAPS, **(caps or {})), native_caps=dict(NATIVE_CAPS, **(native_caps or {})))
+    OPT.update(native=native, native_first=native_first, nf_from=nf_from, nf_cap=nf_cap, plane=plane_leaves, caps=dict(CAPS, **(caps or {})), native_caps=dict(NATIVE_CAPS, **(native_caps or {})))
     known = {}
     if (out / 'journal.jsonl').exists():
         for line in open(out / 'journal.jsonl'):
@@ -128,7 +141,7 @@ def close(ball, out, cell=None, max_level=7, native_first=0, native=True, caps=N
 
     def settle(level, cell, outcome, seconds, reason, new):
         nonlocal core
-        p = per.setdefault(level, dict(searched=0, leaf=0, native=0, outside=0, split=0, open=0, resumed=0))
+        p = per.setdefault(level, dict(searched=0, leaf=0, native=0, normal_form=0, outside=0, split=0, open=0, resumed=0))
         p['searched'] += outcome != 'outside'; p['resumed'] += not new; core += seconds if new else 0
         if outcome == 'split' and level >= max_level: outcome = 'open'; why[(level, tuple(cell))] = reason
         state[(level, tuple(cell))] = outcome; p[outcome] += 1
@@ -162,13 +175,15 @@ def close(ball, out, cell=None, max_level=7, native_first=0, native=True, caps=N
         if s == 'split': return {'children': [node(*k) for k in cells.children(level, c)]}
         return {'outside': True} if s == 'outside' else {'open': True} if s == 'open' else {s: cells.name(level, c)}
     tree = dict(schema=SCHEMA, ball=ball, root=[l0, list(c0)], tree=node(l0, c0))
+    if isinstance(ball, str): tree['record'] = pinned.original(ball)
     (out / 'tree.json').write_text(json.dumps(tree))
     keep = [m for (l, c), s in state.items() for m in leaf_members(s, l, c)]
     if keep: compact(out / 'leaves.tar', keep)
     else: os.remove(out / 'leaves.tar')                     # no leaf files (a native whole-ball certificate)
     opened = sorted(k for k, s in state.items() if s == 'open')
     summary = dict(ball=ball, root=[l0, list(c0)], verdict='OPEN' if opened else 'CLOSED',
-                   leaves=sum(s in ('leaf', 'native') for s in state.values()), native_leaves=sum(s == 'native' for s in state.values()),
+                   leaves=sum(s in ('leaf', 'native', 'normal_form') for s in state.values()), native_leaves=sum(s == 'native' for s in state.values()),
+                   normal_form_leaves=sum(s == 'normal_form' for s in state.values()),
                    outside=sum(s == 'outside' for s in state.values()), open=len(opened), per_level={str(k): v for k, v in sorted(per.items())},
                    proof_bytes=(out / 'leaves.tar').stat().st_size if keep else 0, search_core_hours=round(core / 3600, 2),
                    wall_seconds=round(time.time() - t0), open_cells=[[l, list(c), why[(l, c)]] for l, c in opened[:500]])
