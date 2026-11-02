@@ -1,5 +1,54 @@
 # Hard balls: prototype report
 
+## Round 4 (2 Nov 2026): P3, a near-symmetric family centre
+
+**What P3 is** (PROOFS.md P3, UNREVIEWED). The native contraction is valid for any centre. P3 chooses a centre on
+the family sheet:
+- the slab projection Π of the cell centre onto n = 0 gives a family point;
+- Proof C's exact two-circulant triple there, carried into the cell's gauge, gives the K reference;
+- the normal form is re-expanded exactly about that point (an algebraic identity);
+- E_K in N6's Hessian term may use the whole-K-error bound ‖T‖t₀ (up to √6 smaller).
+None of the family data is a proof obligation: it only makes q small. Patterns try the family centre first, then
+their own reference. Certificates store u_f, so `--check` rebuilds the same model. Code: `family.py` and about 20
+lines elsewhere.
+
+**Effect on q.** On 1016 L3 (5,4,3,4), the centre term ‖Δc‖ falls from ~0.5 to 8·10⁻⁸, r‖V‖ = 0.26, and the
+contraction accepts tubes up to 0.03 (it accepted 0.02 before).
+
+**Witness with P3** (8 workers; certificates replayed with `--check` where shown):
+
+| Cell | Patterns | C | E | O | Resolved (round 3) | Largest q | Wall | Certificate |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| 1016 L3 (5,4,3,4) | 256 | 152 | 64 | 40 | **84%** (75%) | 0.874 | 86 s | 144 KB, 2 completions; replay identical |
+| 1016 L3 (6,5,3,4) | 256 | 0 | 48 | 208 | 19% (19%) | – | 191 s | – |
+| 1016 L2 (2,2,1,2) | 64 | 0 | 0 | 64 | 0% | – | 122 s | – |
+| 1016 L2 (3,2,1,2) | 256 | 0 | 0 | 256 | 0% | – | 262 s | – |
+| 1016 L0 (whole ball) | 1,024 | 0 | 0 | 1,024 | 0% | – | 90 min | – |
+| 815 L4 (10,9,6,7), (8,9,6,7) | 64 + 64 | 0 | 0 | 128 | 0% | – | 84 s, 114 s | – |
+
+**Why the rest stays open: the far weak field, not the sheet.** Every open pattern stalls in localisation at
+|z_w| ≈ 0.4–0.85, where the colour enclosure starts. The 815 level-4 cubes contain no triple at all (round 3:
+closed at level 5 by exclusion), so classification cannot help there.
+
+**Tiles with the family centre**, 1016 L3 (6,5,3,4): the cell does not close, but **90% of the weak disc** is
+resolved. Of the tiles, 116 are CLASSIFIED (T3 at the near-symmetric centre), 556 EXCLUDED and 452 OPEN (open
+area 0.141 of 1.487), in 534 s wall. The open tiles lie at |z_w| ≈ 0.1–0.25, off the sheet: moving along the sheet
+leaves the family completion at z_w = 0 in this frame, and λ_w r′ is only 0.001. No symmetric centre is near them.
+They stay open because the exclusion margin there (residual ≈ σ_w|z_w| ≈ 0.01–0.02) is below the residual's
+variation over this H cell (r′ = 0.03). A tile-wise moving family centre was tried and had no tiles to act on; it
+was removed. As for 815 in round 3, finer H cells close such regions.
+L2_TILES
+
+**Ball 595** (not run, for time). The same family presentation fits it: the projected family point matches its
+chart to 2.6·10⁻⁷, with residual 7·10⁻⁷ at ‖u_f‖ = 0.016 in a radius-0.1 ball. For 499 the fit is 2·10⁻⁵, at
+‖u_f‖ = 0.079.
+
+**Conclusion.** P3 removes the asymmetric-centre obstruction to classifying patterns on the sheet; that was its
+purpose, and it works. What limits coarse cells now is exclusion off the sheet: a residual that is small but
+positive across a wide band of the weak field. The H cell must be small enough that the residual's H-motion
+variation falls below it. On 815 that took level 5. No new mathematics is needed for that part, only cost, which
+round 3 measured at 7–14× the native trees.
+
 ## Round 3 (1 Nov 2026, late): review fixes, certificates, weak-plane tiles
 
 ### Review fixes (TC_hardballs_REVIEW_20261101)

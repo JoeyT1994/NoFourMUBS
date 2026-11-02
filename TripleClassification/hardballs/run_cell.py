@@ -18,6 +18,7 @@ import numpy as np
 from flint import ctx
 import native_cover as NC, moving_symmetry as MS, fine_patterns as FP, patches as P, seedcert as SC
 import witness as W
+import family as FA
 
 STATE = {}
 
@@ -58,12 +59,14 @@ def one(args):
             if stored:
                 fp, perm = stored['completion'], stored['perm']
                 if fp not in cache: cache[fp] = W.from_record(model, cert['completions'][fp])
-            else:
-                fp, perm, prop = proposal                      # chosen by the parent, shared by every worker
-                if fp not in cache: cache[fp] = W.prepare(model, prop)
-            order = sorted(range(6), key=lambda j: perm[j])
-            row = W.pattern(cache[fp], [columns[j] for j in order], STATE['cover']['bin_radius'], stored['plan'] if stored else None)
-            row.update(completion=fp, perm=perm)
+            candidates = [(fp, perm, None, None)] if stored else proposal   # chosen by the parent, shared by all workers
+            for fp, perm, prop, uf in candidates:                 # the family reference first (P3), then its own
+                if fp not in cache:
+                    cache[fp] = W.prepare(FA.recentre(model, uf) if uf is not None else model, prop); cache[fp]['uf'] = uf
+                order = sorted(range(6), key=lambda j: perm[j])
+                row = W.pattern(cache[fp], [columns[j] for j in order], STATE['cover']['bin_radius'], stored['plan'] if stored else None)
+                row.update(completion=fp, perm=perm)
+                if row['status'] != 'OPEN': break
             if not cert:                                     # new proposals since this worker last sent this completion
                 sent = STATE.setdefault('sent', {}).setdefault(fp, set()); full = W.completion_record(cache[fp])
                 rec = {k: v for k, v in full.items() if k != 'native' and 'base' not in sent}
@@ -80,6 +83,7 @@ def main():
     ap.add_argument('--workers', type=int, default=1); ap.add_argument('--patterns', default=':')
     ap.add_argument('--certificate', help='write the certificate (exact proposals) here')
     ap.add_argument('--check', help='replay this certificate instead of searching')
+    ap.add_argument('--family', action='store_true', help='P3: offer the family reference at the projected cell centre')
     a = ap.parse_args()
     t = time.monotonic(); n = setup(a.cell)
     cert = json.load(gzip.open(a.check)) if a.check else None
@@ -89,14 +93,21 @@ def main():
     if cert: todo = [i for i in todo if str(i) in cert['patterns']]
     new = dict(cell=a.cell, record_sha256=hashlib.sha256(json.dumps(STATE['record'], sort_keys=True).encode()).hexdigest(),
                completions={}, patterns={})
-    proposals, refs = {}, {}
+    proposals, refs, fam = {}, {}, {}
+    if a.family and not cert:                                # P3: the near-symmetric family centre (a proposal)
+        ref = FA.reference(STATE['model'], STATE['record'])
+        if ref['uf_norm'] < float(STATE['model']['r'].mid()):
+            uf = np.array([float(x) for x in ref['uf']]); mf = FA.recentre(STATE['model'], uf)
+            pf = W.propose_at(MS.numeric(mf['Q0'])[:, 0], ref['y']); fam = {fingerprint(pf['y']): dict(prop=pf, uf=uf)}
+            print(json.dumps(dict(family=dict(n_centre=ref['n'], uf_norm=ref['uf_norm'], residual=pf['residual']))), flush=True)
     if not cert:                                             # one reference per completion, for all workers
         for i in todo:
             q, cl = MS.numeric(STATE['model']['Q0'])[:, 0], STATE['cliques'][i]
             prop = W.propose(q, [MS.numeric(STATE['prepared'][c]['v0'])[:, 0] for c in cl])
+            ff, pf = W.match(prop['y'], fam, tol=0.3) if fam else (None, None)
             fp, perm = W.match(prop['y'], refs)
             if fp is None: fp, perm = fingerprint(prop['y']), list(range(6)); refs[fp] = dict(prop=prop)
-            proposals[i] = (fp, perm, refs[fp]['prop'])
+            proposals[i] = ([(ff, pf, fam[ff]['prop'], fam[ff]['uf'])] if ff else []) + [(fp, perm, refs[fp]['prop'], None)]
     with open(a.out, 'a') as out, ProcessPoolExecutor(a.workers) as pool:
         for row, rec in pool.map(one, [(a.cell, i, cert, proposals.get(i)) for i in todo], chunksize=max(1, len(todo) // a.workers)):
             out.write(json.dumps(row) + '\n'); out.flush()

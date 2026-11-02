@@ -137,7 +137,7 @@ class Reference:
         exact = t['y'] - W.Z.mat(yy.reshape(36, 1)); eps = W.up(eps + W.C.norm(exact.entries()))
         prepared = {c: dict(model=self.model, v0=W.arb_mat([[arb(yy[a, c])] for a in range(6)]),
                             T=W.arb_mat([[self.V[6 * a + c, j] for j in range(4)] for a in range(6)])) for c in range(6)}
-        row = MV.classify(self.model, prepared, {c: dict(epsilon=eps) for c in range(6)}, list(range(6)))
+        row = MV.classify(self.model, prepared, {c: dict(epsilon=eps) for c in range(6)}, list(range(6)), k_total=eps)
         return row if row['status'] == 'CERTIFIED' else None
 
     def cover(self, hmin=0.004, hcls=0.012, budget=4000):
@@ -176,3 +176,4 @@ def recentred(ref, c, h):
     sub.S, sub.W = W.up(ref.S + ds), W.up(h + dw)
     t = sub.bound((0.0, 0.0), sub.W)
     return sub.exclude(t), float(t['d'].upper())
+

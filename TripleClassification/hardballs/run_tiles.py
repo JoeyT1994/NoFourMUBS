@@ -10,6 +10,8 @@ import argparse, json, math, multiprocessing as mp, sys, time
 import run_cell as RC
 import witness as W
 import tiles as TL
+import family as FA
+import numpy as np
 import fine_patterns as FP
 from flint import arb
 
@@ -50,16 +52,23 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__); ap.add_argument('cell'); ap.add_argument('out')
     ap.add_argument('--hmin', type=float, default=0.004); ap.add_argument('--hcls', type=float, default=0.006)
     ap.add_argument('--grid', type=float, help='uniform grid of squares of this half-side instead of the quadtree')
-    ap.add_argument('--workers', type=int, default=1)
+    ap.add_argument('--workers', type=int, default=1); ap.add_argument('--family', action='store_true', help='P3 family reference')
     a = ap.parse_args(); t0 = time.monotonic()
     n = RC.setup(a.cell); S = RC.STATE; model = S['model']; rho = S['cover']['bin_radius']
-    refs, members, verdict = {}, {}, {}
+    refs, members, verdict, fam = {}, {}, {}, {}
+    if a.family:                                           # P3: the family centre, offered to every pattern first
+        f = FA.reference(model, S['record'])
+        if f['uf_norm'] < float(model['r'].mid()):
+            uf = np.array(f['uf']); mf = FA.recentre(model, uf); pf = W.propose_at(RC.MS.numeric(mf['Q0'])[:, 0], f['y'])
+            fam['family'] = W.prepare(mf, pf); fam['family']['uf'] = uf; print(json.dumps(dict(family=dict(uf_norm=f['uf_norm']))), flush=True)
     for i, clique in enumerate(S['cliques']):
         refined, receipt = FP.refine(S['ball'], model, S['cover'], clique)
         if refined is None:
             verdict[i] = 'EXCLUDED' if receipt['status'] == 'EXCLUDED' else 'OPEN'; continue
         prop = W.propose(RC.MS.numeric(model['Q0'])[:, 0], [RC.MS.numeric(S['prepared'][c]['v0'])[:, 0] for c in clique])
-        key, perm = W.match(prop['y'], refs)
+        key, perm = W.match(prop['y'], fam, tol=0.3) if fam else (None, None)
+        if key is not None: refs[key] = fam[key]
+        else: key, perm = W.match(prop['y'], {k: v for k, v in refs.items() if k != 'family'})
         if key is None: key, perm = len(refs), list(range(6)); refs[key] = W.prepare(model, prop)
         order = sorted(range(6), key=lambda j: perm[j])
         R, wcap = W.colour_product(refs[key]['y'], refs[key]['Ti'], [refined['bin_indices'][clique[j]] for j in order], rho)

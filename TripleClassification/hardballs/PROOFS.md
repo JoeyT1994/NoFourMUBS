@@ -171,3 +171,56 @@ uses the largest R and weak cap over the patterns it carries (E1), so it covers 
   ‖z″_s‖ ≤ S + ‖(Λ − Λ′)_s‖r + ‖δ_s‖ and ‖z″_w‖ ≤ h + ‖(Λ − Λ′)_w‖r + ‖δ_w‖, where δ is the last vector, computed
   in Arb. Column means of the rounding are absorbed by the column-phase convention. T1 and T2 are then applied
   verbatim at the new reference, to its single tile of that weak radius about 0. **Inherits T1/T2's status.**
+
+## P3. A near-symmetric centre from the family (UNREVIEWED; `family.py`)
+
+**Why.** The native moving contraction (N6) is centred at the cell's H centre Q₀ and a K reference. Near the family
+sheet but off it, that centre is not symmetric. Its moving part m gives the term ‖Δc‖ in N6, about 0.5 on 815
+level 4, which keeps q > 1 however small the K tube. P3 centres the contraction at a point of the sheet instead.
+
+**(a) Re-centring the normal form (exact).** Let u_f ∈ ℝ⁴ be any exact dyadic point. For every u with ‖u‖ ≤ r,
+the cell's normal form q(u) = Q₀ + Uu + ½H₂(u⊗u) + Xξ, ‖ξ‖ ≤ τ, equals
+
+  q(u) = Q₀′ + U′(u − u_f) + ½H₂((u − u_f)⊗(u − u_f)) + Xξ,
+  Q₀′ = Q₀ + Uu_f + ½H₂(u_f⊗u_f),  U′ = U + ½H₂(u_f⊗I + I⊗u_f),  with ‖u − u_f‖ ≤ r + ‖u_f‖ =: r′.
+
+*Proof.* u⊗u − u_f⊗u_f = (u − u_f)⊗(u − u_f) + u_f⊗(u − u_f) + (u − u_f)⊗u_f. ∎
+
+So (Q₀′, U′, H₂, X, r′, τ) is again a valid normal form for the same cell, centred at u_f. Every result above
+(E1, P1, N6, P2) applies to it unchanged; `family.recentre` computes it in Arb, with Q₀′ and U′ exact.
+
+**(b) The family centre is a proposal, so it needs no certification.** `family.reference` (floats):
+- takes the cell centre's seed θ(0) = θ₀;
+- projects it onto the family seed surface n = 0 by the slab projection Π of the tail return
+  (PROOF_correlation_slabs.md: keep b, c, and solve γ(e, f) = −γ(b, c) on the marked sheet);
+- builds Proof C's exact two-circulant triple (S, K_S) there, in the native presentation of refs/22 (row and
+  column orders (10), seed map (11));
+- sets u_f = M_θ^{-1}(θ_f − θ₀), carries K_S into the row gauge of q(u_f), and uses it as the K reference y\*.
+
+None of this is relied on. The pair (Q₀′, y\*) is only the centre at which P1 and N6 are evaluated, and both are
+valid for any centre (PROOF.md §6: "The reference a need not be a zero"). Hence neither the existence of the exact
+root (e, f), nor branch matching (refs/22 §4), nor the derivative of Π is a proof obligation. They only explain why
+the centre is close to symmetric:
+- if the family point is on the native branch, q(u_f) = Q₀′ + Xξ(u_f), so the centre's moving part is at most
+  ‖X‖τ;
+- measured: the dephased mismatch between Q₀′ and the family H is 10⁻⁸–10⁻⁷, ‖Δc‖ ≈ 10⁻⁷, and F(q(u_f), K_f) is
+  10⁻⁸–10⁻⁶.
+
+The centre's first-order motion along the cell, the "derivative of the reference in u", is carried by certified
+quantities: P1's slope Λ (the carrier ETΛ handed to N6) and P2's affine preconditioner.
+
+**(c) A whole-K-error bound in N6's Hessian term.** N6 §4 bounds the unknown linear part by
+min(h√(N² + E_K²), h_H N + h_K E_K), where E_K is used only as an upper bound for the norm of the whole K error
+vector. N6 takes E_K = (Σ_c ε_c²)^{1/2}. After P1, the whole K error obeys ‖e‖ ≤ ‖T‖t₀, while each column only
+gets ε_c = ‖T‖t₀; so E_K may be replaced by min((Σ_c ε_c²)^{1/2}, ‖T‖t₀), a factor up to √6 smaller. In code this
+is `moving.parts(k_total=...)`, a third documented deviation from the verbatim native body. T3 uses the same with
+its ε.
+
+**Use.** If ‖u_f‖ < r (the sheet passes within the cell's record ball), every pattern first tries the family
+reference with the re-centred model, then falls back to its own reference with the original model. If ‖u_f‖ ≥ r,
+P3 is not offered: off-sheet cells are handled as before (exclusion, or tiles). The certificate stores u_f (exact
+binary64) with the completion, so `--check` rebuilds the same re-centred model.
+
+**Not done.** A fully u-dependent centre x_fam(Π(u)), evaluated exactly for each u, is not used. The centre is fixed at
+Π(0), and its first-order motion is absorbed by Λ and P2 with certified second-order remainders. The cost is
+r′ = r + ‖u_f‖ ≤ 2r.

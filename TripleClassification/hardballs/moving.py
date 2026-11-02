@@ -3,7 +3,8 @@ u-affine preconditioner of proposal P2 (PROOFS.md).
 
 `parts` is the body of the frozen `moving_symmetry.prove`, VERBATIM (lines 182-257 of moving_symmetry.py at the pinned
 hash), except that (i) its two float proposals, the windings and the numerical pseudo-inverse, can be replayed from a
-certificate, and (ii) it returns the terms of the native bound instead of combining them. `contraction` then accepts
+certificate, (ii) the K-error norm in the Hessian term may be replaced by any valid bound on the whole K error
+(PROOFS.md P3 (c)), and (iii) it returns the terms of the native bound instead of combining them. `contraction` then accepts
 when either the native bound (PROOF.md section 6) or the P2 bound is below one; both are Arb strict inequalities.
 """
 import numpy as np
@@ -12,7 +13,7 @@ import native_columns as C
 from moving_symmetry import group, proposed_windings, numeric, jacobian, equation_moving_projector, LMAT, TERMS, proposed_actions
 
 
-def parts(model,prepared,bounds,clique,action,averaged=True,mixed_weight=1,stored=None):
+def parts(model,prepared,bounds,clique,action,averaged=True,mixed_weight=1,stored=None,k_total=None):
     (pq,wq,gq,eq),base=group(action,rational=True)
     p,w,average,e=map(arb_mat,(pq,wq,gq,eq))
     q=arb_mat([[model['Q0'][i,0]] for i in range(36)]+[[prepared[clique[c]]['v0'][r,0]] for r in range(6) for c in range(6)])
@@ -56,6 +57,7 @@ def parts(model,prepared,bounds,clique,action,averaged=True,mixed_weight=1,store
     r=model['r'];estimates=[];remainders=[];signed=[]
     phase_error=C.Z.spectral(model['H2'])*r*r/2+C.Z.spectral(model['X'])*model['tau']
     k_error=C.norm([bounds[c]['epsilon'] for c in clique])
+    if k_total is not None and k_total<k_error:k_error=k_total   # (ii) a bound on the whole K error, PROOFS.md P3 (c)
     hessian_error=min((hessian_h*phase_error+hessian_k*k_error).upper(),
         (hessian_norm*(phase_error**2+k_error**2).sqrt()).upper())
 
@@ -94,10 +96,10 @@ def parts(model,prepared,bounds,clique,action,averaged=True,mixed_weight=1,store
                 constant=(signed[0][0]+signed[1][0])/2,flat=(signed[0][1]+signed[1][1])/2,r=r,wind=wind,pinv=pinv)
 
 
-def contraction(model, prepared, bounds, clique, action, stored=None):
+def contraction(model, prepared, bounds, clique, action, stored=None, k_total=None):
     """Native bound q = defect + |Dc| + r|[V_1..V_4]| + hessian + remainder, and the P2 bound
     q2 = r^2 |[V_j V_k]_jk| + (1 + r|[V_1..V_4]|)(defect + |Dc| + hessian + remainder). CERTIFIED if min < 1."""
-    p = parts(model, prepared, bounds, clique, action, stored=stored)
+    p = parts(model, prepared, bounds, clique, action, stored=stored, k_total=k_total)
     V = [arb_mat([[p['flat'][i, 72 * k + j] for j in range(72)] for i in range(72)]) for k in range(4)]
     VV = [V[j] * V[k] for j in range(4) for k in range(4)]
     rest = p['defect'] + C.Z.spectral(p['constant']) + p['hessian_error'] + p['remainder_norm']
@@ -110,16 +112,16 @@ def contraction(model, prepared, bounds, clique, action, stored=None):
                 proposal=dict(action=dict(anchor=int(action['anchor']), **{k: [int(v) for v in action[k]] for k in ('labels', 'R', 'S', 'T')}), wind=list(map(int, p['wind'])), pinv=p['pinv']))
 
 
-def classify(model, prepared, bounds, clique, attempts=2, stored=None):
+def classify(model, prepared, bounds, clique, attempts=2, stored=None, k_total=None):
     """As moving_symmetry.classify: try the best-scoring proposed actions, or replay a stored proposal."""
     if stored:
         a = dict(stored['action']); a['anchor'] = int(a['anchor']); a['labels'] = tuple(a['labels'])
-        row = contraction(model, prepared, bounds, clique, a, stored=stored)
+        row = contraction(model, prepared, bounds, clique, a, stored=stored, k_total=k_total)
         return row if row['status'] == 'CERTIFIED' else dict(status='NOT ESTABLISHED', attempts=[row])
     q = np.r_[numeric(model['Q0'])[:, 0], np.array([[float(prepared[clique[c]]['v0'][r, 0].mid()) for c in range(6)] for r in range(6)]).ravel()]
     rows = []
     for action in proposed_actions(q)[:attempts]:
-        try: row = contraction(model, prepared, bounds, clique, action)
+        try: row = contraction(model, prepared, bounds, clique, action, k_total=k_total)
         except (ArithmeticError, ZeroDivisionError) as exc: row = dict(status='NOT ESTABLISHED', reason=str(exc))
         if row['status'] == 'CERTIFIED': return row
         rows.append(row)

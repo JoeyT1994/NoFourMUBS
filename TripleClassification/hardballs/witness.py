@@ -75,6 +75,14 @@ def propose(q, columns, steps=20, chord=60):
                 g0=float(np.linalg.norm(b @ residual(q, y))))
 
 
+def propose_at(q, y):
+    """T, B at a given reference y (floats; columns centred), with no solve: for the family reference (P3)."""
+    y = np.asarray(y, float).reshape(6, 6); y = (y - y.mean(axis=0)).ravel()
+    jac = np.array([(residual(q, y + d) - residual(q, y - d)) / 2e-7 for d in np.eye(36) * 1e-7]).T
+    jk = jac @ Z.mid_np(E); _, s, vt = np.linalg.svd(jk)
+    return dict(y=y, T=vt.T, B=np.linalg.pinv(jk @ vt.T), sigma=s, residual=float(np.linalg.norm(residual(q, y))), g0=0.0)
+
+
 # ---- Arb: one expansion of the lemma ------------------------------------------------------------------------------
 
 def expansion(model, q, y, T, B, moving=True, Lam=None, kinds=None):
@@ -241,7 +249,7 @@ def search(ex, R, wcap, target, budget=4000):
 
 # ---- the witness --------------------------------------------------------------------------------------------------
 
-TARGETS = (0.005, 0.0075, 0.01, 0.015, 0.02, 0.025)
+TARGETS = (0.005, 0.0075, 0.01, 0.015, 0.02, 0.025, 0.03, 0.035, 0.04)
 FIRST = (0.15, 0.2, 0.3, 0.4)                              # stage-1 radii (fixed reference)
 
 
@@ -266,7 +274,7 @@ def force(shared, t):
         L = shared['centre']['ET_Lam']
         prepared = {c: dict(model=model, v0=arb_mat([[arb(yy[a, c])] for a in range(6)]),
                             T=arb_mat([[L[6 * a + c, j] for j in range(4)] for a in range(6)])) for c in range(6)}
-        row = MV.classify(model, prepared, {c: dict(epsilon=tube) for c in range(6)}, list(range(6)), stored=shared['native'].get(t))
+        row = MV.classify(model, prepared, {c: dict(epsilon=tube) for c in range(6)}, list(range(6)), stored=shared['native'].get(t), k_total=tube)
         if row['status'] == 'CERTIFIED': shared['native'][t] = row['proposal']
         shared['forced'][t] = row
     return shared['forced'][t]
@@ -307,7 +315,8 @@ def unpack(d): return np.frombuffer(base64.b64decode(d['f8']), dtype='<f8').resh
 def completion_record(shared):
     """The exact proposals of one completion (binary64, exact dyadics)."""
     kinds = lambda ex: [[[n, k, v] for (n, k), v in sorted(g.items())] for g in ex['kinds']]
-    return dict(y=pack(shared['prop']['y']), T=pack(shared['prop']['T']), B=pack(shared['prop']['B']),
+    extra = dict(uf=pack(shared['uf'])) if shared.get('uf') is not None else {}
+    return dict(**extra, y=pack(shared['prop']['y']), T=pack(shared['prop']['T']), B=pack(shared['prop']['B']),
                 Lam=pack(Z.mid_np(shared['centre']['Lam'])), kinds_fixed=kinds(shared['fixed']), kinds_centre=kinds(shared['centre']),
                 native={str(t): dict(action=p['action'], wind=p['wind'], pinv=pack(p['pinv'])) for t, p in shared['native'].items()})
 
@@ -318,6 +327,9 @@ def from_record(model, rec):
     st = dict(Lam=unpack(rec['Lam']), kinds_fixed=kinds(rec['kinds_fixed']), kinds_centre=kinds(rec['kinds_centre']),
               native={float(t): dict(action=p['action'], wind=p['wind'], pinv=unpack(p['pinv'])) for t, p in rec['native'].items()})
     prop = dict(y=unpack(rec['y']), T=unpack(rec['T']), B=unpack(rec['B']))
+    if 'uf' in rec:
+        import family
+        uf = unpack(rec['uf']); out = prepare(family.recentre(model, uf), prop, st); out['uf'] = uf; return out
     return prepare(model, prop, st)
 
 
