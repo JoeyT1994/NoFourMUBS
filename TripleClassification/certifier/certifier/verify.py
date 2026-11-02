@@ -26,9 +26,11 @@ _CERT = {}                                       # the certificate being verifie
 
 
 def checker_id():
-    """SHA-256 of this package's sources and the pinned files' hashes: names the checker that produced a result."""
+    """SHA-256 of the checking code (this package's sources except the search, search/) and the pinned files' hashes:
+    names the checker that produced a result."""
     here = Path(__file__).resolve().parent; h = hashlib.sha256(pinned.MANIFEST_SHA256.encode())
-    for p in sorted(here.rglob('*.py')): h.update(str(p.relative_to(here)).encode() + b'\0' + p.read_bytes())
+    for p in sorted(here.rglob('*.py')):
+        if p.relative_to(here).parts[0] != 'search': h.update(str(p.relative_to(here)).encode() + b'\0' + p.read_bytes())
     return h.hexdigest()
 
 
