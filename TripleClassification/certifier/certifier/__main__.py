@@ -39,7 +39,8 @@ def main(argv=None):
     c.add_argument('out')
     c.add_argument('--cell', type=cell_arg, help='L:c0,c1,c2,c3: close this cell only (default: the whole ball)')
     c.add_argument('--max-level', type=int, default=7, help='cells still open at this level are reported (default 7)')
-    c.add_argument('--native-to', type=int, default=0, help='try the native certifier on cells of levels <= this (default 0, the whole ball)')
+    c.add_argument('--native-to', type=int, default=3, help='try the native certifier on the whole ball, and on cells of levels 2 to this '
+                   'where the normal-form witness fails (default 3; -1: never)')
     c.add_argument('--nf-from', type=int, default=1, help='try the normal-form witness on cells of levels >= this (default 1)')
     c.add_argument('--nf-cap', type=float, default=60.0, help='normal-form search seconds per pattern (default 60)')
     c.add_argument('--workers', type=int, default=8)

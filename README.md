@@ -36,12 +36,7 @@ pair that extends to four MUBs.
 formalisation).
 
 **Status (1 Nov 2026).**
-- **Classification.** All 2,775 seed balls, the ball at F₆ and Tao's matrix are certified (audited pass of
-  1 November). One certificate per ball, which `TripleClassification/code/onetree.py check` verifies from its own
-  files, is being generated for every ball ([`CERTIFIER.md`](TripleClassification/CERTIFIER.md)). The local checks
-  use Arb and exact rational arithmetic. Some of their ingredients (the classification at F₆, collaborators' returns of
-  29–31 October and the native certifier's recognition argument) await independent review, and the classification is not formalised in
-  Lean.
+- **Classification.** CLASSIFICATION_STATUS_PLACEHOLDER
 - **Independent proof of the corollary.** The seed-atlas certificate (2,775 seed balls and the ball at F₆, every
   sphere covered by 117,391 certified caps) passes both independent certifiers: Arb in 33 min on one 128-core node
   and Julia in 1 h 07 min on one 64-core node ([`PROOF.md`](PROOF.md#step-5-the-atlas-covers-x)).
@@ -70,7 +65,7 @@ and 4.
 | `python3 verify.py --lean` | also builds the Lean formalisation and audits its axioms | elan; about 12 GB of disk |
 | `python3 verify.py --lean-full` | also builds the main theorems and audits them | as above; up to about 7 GB of RAM |
 | [`proof/independent_seed/`](proof/independent_seed/README.md) | the independent Julia checker of Step 5 | Julia 1.12; about an hour on one 64-core node |
-| `python3 TripleClassification/code/onetree.py check PR4 BALL CERT` | one seed ball's classification certificate, every node from its files ([`CERTIFIER.md`](TripleClassification/CERTIFIER.md)) | the pinned checker tree (PR #4) and python-flint; seconds for most balls |
+| `python3 TripleClassification/certifier/certify.py verify CERT` | one ball's classification certificate, every node from its files ([`certifier/`](TripleClassification/certifier/README.md); `close BALL OUT` produces one) | python-flint, NumPy, SciPy; seconds for most balls |
 
 Continuous integration ([`.github/workflows/ci.yml`](.github/workflows/ci.yml)) runs `verify.py` and the Lean build
 with its axiom audit.

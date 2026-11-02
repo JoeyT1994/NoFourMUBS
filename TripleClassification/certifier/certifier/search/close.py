@@ -2,9 +2,11 @@
 the result from its files alone.
 
 One pool of workers serves every cell of the tree. A cell that misses the ball is outside. Otherwise:
-- at levels <= native_to (default 0, the whole ball) the native certifier is tried first, within a time cap;
+- on the whole ball, the native certifier, within a time cap (most balls close here);
 - from level nf_from (default 1) the normal-form witness (search/normal_form.py: 60 s per pattern, and the first
   pattern left open ends the attempt);
+- where it fails, on cells of levels 2 to native_to (default 3), the native certifier, within 120 s (where it closes
+  such a cell it does so in about a minute; on level-1 cells it rarely does);
 - anything else is split into its 16 children, down to max_level (cells still failing there are left open).
 
 BALL is a seed ball's atlas index, or the key of a ball given by its record (pinned.register). Output, OUT/b<BALL>/:
@@ -20,7 +22,7 @@ from .. import cells, native_leaf, overlap, pinned
 from ..certificate import LEAF, SCHEMA, leaf
 from . import normal_form
 
-NATIVE_CAPS = {0: 1800}; NATIVE_CAP = 600   # native certifier time caps in seconds, by level
+NATIVE_CAPS = {0: 1800}; NATIVE_CAP = 120   # native certifier time caps in seconds, by level
 OPT = {}                                    # this run's options, inherited by the forked workers
 
 
@@ -63,7 +65,7 @@ def search_cell(job):
     """Search one cell: (level, cell, outcome, seconds, reason, files); outcome is outside, native, normal_form or split."""
     ball, level, cell = job; t = time.time()
     if cells.outside(level, cell): return level, cell, 'outside', 0.0, '', {}
-    if level <= OPT['native_to']:
+    if level == 0 and OPT['native_to'] >= 0:
         files = native_attempt(ball, level, cell)
         if files is not None: return level, cell, 'native', time.time() - t, '', files
     why = 'native certifier only at this level'
@@ -74,6 +76,9 @@ def search_cell(job):
         except TimeCap: why = 'a pattern took over %.0f s' % OPT['nf_cap']
         except (ValueError, ArithmeticError, ZeroDivisionError, KeyError, TypeError, IndexError) as e: why = str(e) or type(e).__name__
         finally: pinned.tidy_path()
+        if 2 <= level <= OPT['native_to']:
+            files = native_attempt(ball, level, cell)
+            if files is not None: return level, cell, 'native', time.time() - t, '', files
     return level, cell, 'split', time.time() - t, why[:100], {}
 
 
@@ -110,7 +115,7 @@ def recover(tar):
     return names
 
 
-def close(ball, out, cell=None, max_level=7, native_to=0, nf_from=1, nf_cap=normal_form.CAP, workers=8):
+def close(ball, out, cell=None, max_level=7, native_to=3, nf_from=1, nf_cap=normal_form.CAP, workers=8):
     out = Path(out).resolve() / ('b%s' % ball); out.mkdir(parents=True, exist_ok=True)
     l0, c0 = cell or (0, [0, 0, 0, 0])
     OPT.update(native_to=native_to, nf_from=nf_from, nf_cap=nf_cap)
