@@ -37,7 +37,8 @@ leaves the family completion at z_w = 0 in this frame, and λ_w r′ is only 0.0
 They stay open because the exclusion margin there (residual ≈ σ_w|z_w| ≈ 0.01–0.02) is below the residual's
 variation over this H cell (r′ = 0.03). A tile-wise moving family centre was tried and had no tiles to act on; it
 was removed. As for 815 in round 3, finer H cells close such regions.
-L2_TILES
+The same tiling on 1016 L2 (2,2,1,2) was stopped unfinished after 45 minutes on 8 workers. A level-2 weak disc
+needs many recentred far tiles at about 7 s each, so no result is claimed.
 
 **Ball 595** (not run, for time). The same family presentation fits it: the projected family point matches its
 chart to 2.6·10⁻⁷, with residual 7·10⁻⁷ at ‖u_f‖ = 0.016 in a radius-0.1 ball. For 499 the fit is 2·10⁻⁵, at
