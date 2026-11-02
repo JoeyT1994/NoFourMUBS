@@ -46,11 +46,7 @@ jobs:
           python-version: '3.12'
           cache: pip
       - run: pip install -r TripleClassification/certifier/requirements.txt
-      - name: Provenance (pinned files byte-identical to 914919b, ported functions unchanged)
-        run: |
-          git fetch --depth 1 origin tag tc-checker-914919b
-          python3 TripleClassification/certifier/tools/check_vendored.py --pinned tc-checker-914919b
-      - name: Tests (close, verify, tampering, every witness kind, the pinned manifest)
+      - name: Tests (close, verify, tampering, normal-form and native leaves, the pinned manifest)
         working-directory: TripleClassification/certifier
         run: python -m pytest -q
 

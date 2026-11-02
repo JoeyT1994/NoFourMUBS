@@ -37,9 +37,10 @@ def gz_json(b): return json.loads(gzip.decompress(b))
 def to_gz(x): return gzip.compress(json.dumps(x).encode(), mtime=0)
 
 
-@pytest.fixture
-def copy_of(tmp_path):
-    """copy_of(name): a fresh copy of tests/data/certificates/<name> (tree.json, leaves.tar)."""
-    def f(name):
-        d = tmp_path / name; shutil.copytree(os.path.join(DATA, 'certificates', name), d); return str(d)
-    return f
+@pytest.fixture(scope='session')
+def cell1016(tmp_path_factory):
+    """Ball 1016's level-3 cell (4, 1, 1, 4), closed by one normal-form leaf: the certificate directory."""
+    out = tmp_path_factory.mktemp('nf')
+    code, log = cli('close', 1016, out, '--cell', '3:4,1,1,4', '--max-level', 3, '--workers', 1)
+    assert code == 0, log
+    return str(out / 'b1016')

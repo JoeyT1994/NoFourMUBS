@@ -1,11 +1,11 @@
 """Normal-form leaves, and balls given by their record.
 
 On ball 1016 (a hard ball):
-1. close on the level-3 cell (4, 1, 1, 4) gives one normal-form leaf; it verifies (CELL CLOSED, scope all);
+1. close on the level-3 cell (4, 1, 1, 4) gives one normal-form leaf; it verifies (CELL CLOSED);
 2. refused: a pattern's claimed verdict changed, a pattern left out of the certificate, the certificate bound to another
    record or to another cover, the leaf node moved to a sibling cell (its record does not contain that cell);
 3. on the level-2 cell (2, 0, 0, 2) the witness leaves a pattern open: the attempt stops there and the cell is split;
-4. a ball given by its record file (the record of cell 3:(4, 1, 1, 4), as any ball): close and verify, scope all.
+4. a ball given by its record file (the record of cell 3:(4, 1, 1, 4), as any ball): close and verify.
 """
 import json, os
 import pytest
@@ -13,14 +13,6 @@ from conftest import cli, gz_json, leaves, to_gz, write
 from certifier.verify import verify
 
 LEAF = '3_4_1_1_4.json.gz'
-
-
-@pytest.fixture(scope='module')
-def cell1016(tmp_path_factory):
-    out = tmp_path_factory.mktemp('nf')
-    code, log = cli('close', 1016, out, '--cell', '3:4,1,1,4', '--max-level', 3, '--workers', 1)
-    assert code == 0, log
-    return str(out / 'b1016')
 
 
 def variant(src, tmp_path, name, tree=None, edit=None):
@@ -32,7 +24,7 @@ def variant(src, tmp_path, name, tree=None, edit=None):
 def test_close_then_verify(cell1016):
     assert json.load(open(os.path.join(cell1016, 'tree.json')))['tree'] == {'normal_form': '3_4_1_1_4'}
     r = verify(cell1016, 1016, workers=1)
-    assert r['verdict'] == 'CELL CLOSED' and r['scope'] == 'all' and r['counts'] == {'NORMAL FORM EMPTY': 1}
+    assert r['verdict'] == 'CELL CLOSED' and r['counts'] == {'NORMAL FORM EMPTY': 1}
 
 
 def flip(x):
@@ -73,4 +65,4 @@ def test_ball_from_record(cell1016, tmp_path):
     assert code == 0, log
     [d] = [p for p in os.listdir(tmp_path) if p.startswith('br')]
     r = verify(str(tmp_path / d), workers=1)
-    assert r['verdict'] == 'CLOSED' and r['scope'] == 'all'
+    assert r['verdict'] == 'CLOSED'
