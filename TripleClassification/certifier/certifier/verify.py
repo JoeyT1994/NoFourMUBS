@@ -5,11 +5,13 @@ run, no search output is trusted. A node is
 
 - outside: cells.outside (exact rationals);
 - a native leaf: native_leaf.check;
-- a plane leaf: plane_leaf.check.
+- a normal-form leaf: normal_form_leaf.check.
 
 The tree must be a complete dyadic partition of its root cell (16 children or a resolved node everywhere). The
 verdict is CLOSED when every node verifies and the root is the whole ball (CELL CLOSED for a smaller root), else OPEN.
-The scope is `minimum-transition` when some plane leaf has an ordering-discharged pattern, else `all`.
+CLOSED means: for every H in the ball, every third basis K completing (I, H/√6) is of known type, or there is none; with
+scope `minimum-transition` (some pattern discharged by the ordering witness), this holds for every triple whose
+H-transition has the least Gamma_F of its three transitions, which classifies every triple (README).
 
 `verify_all` verifies the certificates a manifest lists (lines `BALL PATH`, paths relative to the manifest), appending
 one JSON line per ball to a results file. A ball already there as CLOSED, with the same certificate digest and the
@@ -19,16 +21,18 @@ ball % N == I) that share one results file. The atlas is closed when every one o
 import fcntl, hashlib, json, multiprocessing, os, sys, tempfile, time
 from concurrent.futures import ProcessPoolExecutor
 from pathlib import Path
-from . import __version__, cells, native_leaf, overlap, pinned, plane_leaf
+from . import __version__, cells, native_leaf, normal_form_leaf, overlap, pinned
 from .certificate import LEAF, Certificate
 
 _CERT = {}                                       # the certificate being verified; forked workers inherit it
 
 
 def checker_id():
-    """SHA-256 of this package's sources and the pinned files' hashes: names the checker that produced a result."""
+    """SHA-256 of the checking code (this package's sources except the search, search/) and the pinned files' hashes:
+    names the checker that produced a result."""
     here = Path(__file__).resolve().parent; h = hashlib.sha256((pinned.MANIFEST_SHA256 + json.dumps(pinned.APPROVED, sort_keys=True)).encode())
-    for p in sorted(here.rglob('*.py')): h.update(str(p.relative_to(here)).encode() + b'\0' + p.read_bytes())
+    for p in sorted(here.rglob('*.py')):
+        if p.relative_to(here).parts[0] != 'search': h.update(str(p.relative_to(here)).encode() + b'\0' + p.read_bytes())
     return h.hexdigest()
 
 
@@ -43,7 +47,7 @@ def check_node(job):
             path = cert.extract(name + LEAF, td)
             pinned.require(path is not None or (kind == 'native' and level == 0), 'missing leaf file %s%s' % (name, LEAF))
             if kind == 'native': status = native_leaf.check(ball, level, cell, path)[0]
-            else: status = plane_leaf.check(ball, level, cell, path)['status']
+            else: status = normal_form_leaf.check(ball, level, cell, path)[0]
         pinned.require_pinned_modules()          # nothing the check imported lazily shadows a pinned file
         return job, status, time.time() - t
     except Exception as e: return job, 'FAILED: %s' % str(e)[:200], time.time() - t
@@ -72,7 +76,7 @@ def verify(path, ball=None, workers=8):
         if workers > 1 and len(jobs) > 1: pool.shutdown()
     whole = root == [0, [0, 0, 0, 0]]
     return dict(ball=ball, root=root, verdict=('CLOSED' if whole else 'CELL CLOSED') if not bad else 'OPEN',
-                scope='minimum-transition' if counts.get(plane_leaf.MIN_TRANSITION) else 'all', counts=counts,
+                scope='minimum-transition' if counts.get(normal_form_leaf.MIN_TRANSITION) else 'all', counts=counts,
                 failed=[[l, list(c), why] for l, c, why in bad], nodes=len(jobs), core_seconds=round(core, 1),
                 slowest_node_seconds=round(slow, 1), wall_seconds=round(time.time() - t0, 1), workers=workers,
                 checker=dict(version=__version__, id=checker_id(), pinned_manifest=pinned.MANIFEST_SHA256))
@@ -122,20 +126,18 @@ def verify_all(manifest, results=None, shard=(0, 1), workers=8, log=sys.stdout):
         d = digest(paths[ball]); old = done.get(ball)
         if old and old['verdict'] == 'CLOSED' and old['digest'] == d: continue
         try: r = verify(paths[ball], ball, workers)
-        except Exception as e: r = dict(ball=ball, verdict='OPEN', scope=None, failed=[[None, None, 'unreadable: %s' % str(e)[:200]]], counts={})
-        line = dict(ball=ball, path=str(paths[ball]), digest=d, checker=checker, verdict=r['verdict'], scope=r['scope'],
+        except Exception as e: r = dict(ball=ball, verdict='OPEN', failed=[[None, None, 'unreadable: %s' % str(e)[:200]]], counts={})
+        line = dict(ball=ball, path=str(paths[ball]), digest=d, checker=checker, verdict=r['verdict'], scope=r.get('scope'),
                     counts=r['counts'], failed=r['failed'][:20], wall_seconds=r.get('wall_seconds'), core_seconds=r.get('core_seconds'))
         with open(results, 'a') as f:
             fcntl.flock(f, fcntl.LOCK_EX); f.write(json.dumps(line) + '\n'); f.flush(); fcntl.flock(f, fcntl.LOCK_UN)
-        print('ball %d: %s%s' % (ball, line['verdict'], ', scope %s' % line['scope'] if line['verdict'] == 'CLOSED' else ''), file=log, flush=True)
+        print('ball %d: %s' % (ball, line['verdict']), file=log, flush=True)
     return summary(read_results(results, checker), n)
 
 
 def summary(done, n):
-    """The atlas's state from the result lines: closed balls by scope, balls not closed, balls not yet verified."""
+    """The atlas's state from the result lines: closed balls, balls not closed, balls not yet verified."""
     closed = {b: x for b, x in done.items() if x['verdict'] == 'CLOSED'}
-    scopes = {}
-    for x in closed.values(): scopes[x['scope']] = scopes.get(x['scope'], 0) + 1
-    return dict(atlas_balls=n, closed=len(closed), by_scope=scopes, all_closed=len(closed) == n and set(closed) == set(range(n)),
+    return dict(atlas_balls=n, closed=len(closed), all_closed=len(closed) == n and set(closed) == set(range(n)),
                 not_closed=sorted(b for b, x in done.items() if x['verdict'] != 'CLOSED'),
                 not_verified=sorted(set(range(n)) - set(done))[:100], core_hours=round(sum(x.get('core_seconds') or 0 for x in done.values()) / 3600, 2))

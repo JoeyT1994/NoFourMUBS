@@ -26,9 +26,10 @@ def test_copy_of_the_pinned_files_loads(tmp_path):
 
 
 @pytest.mark.parametrize('target,message', [
-    ('TripleClassification/code/gamma_test.py', 'pinned file changed'),
+    ('proof/seed_atlas/cert/seedcert.py', 'pinned file changed'),
     ('proof/theorems/TC_triple_classification/family_neighbourhoods/run.py', 'pinned file changed'),
     ('TripleClassification/certifier/certifier/pr4/plane_cell_certificate.py', 'pinned file changed'),
+    ('TripleClassification/certifier/certifier/normal_form/witness.py', 'pinned file changed'),
     ('TripleClassification/certifier/certifier/PINNED.sha256', 'pinned manifest has changed')])
 def test_changed_pinned_file_refused(tmp_path, target, message):
     root = fake_root(tmp_path)

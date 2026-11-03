@@ -10,7 +10,7 @@ EMPTY. The argument was reviewed independently (NATIVE_REVIEW.md).
 preconditions hold for that record (pinned stagec_guard.check; a bare run_ball row does not test them):
 
 - at level 0 the record is the original atlas ball, and the call is exactly the audited one (the pinned atlas, the
-  pinned binding);
+  pinned binding); for a ball given by its record, that record, run as a one-seed sub-atlas (below);
 - below level 0 it is the cell's own record (its leaf file `<cell>.json.gz`), after proving that this record contains the
   whole cell (cells.contains) and that its branch is the original ball's (overlap.identify). It is run as a one-seed
   sub-atlas, as the audited trees ran sub-balls: run_ball reads the record from that file, and the binding it checks
@@ -29,7 +29,11 @@ CERTIFIED = ('CERTIFIED', 'CERTIFIED EMPTY')
 def check(ball, level, cell, path=None):
     """The leaf check (above). Returns 'NATIVE CERTIFIED' or 'NATIVE CERTIFIED EMPTY' and the certifier's row;
     raises if the leaf is refused."""
-    if level == 0:
+    if level == 0 and isinstance(ball, str):     # a ball given by its record: run as a one-seed atlas, as a sub-ball
+        pinned.require(list(cell) == [0, 0, 0, 0], 'invalid level-0 cell')
+        rec = pinned.original(ball)
+        with subatlas(rec, ball, level, cell) as (path, binding): row = R.run_ball(path, 0, binding)
+    elif level == 0:
         pinned.require(list(cell) == [0, 0, 0, 0], 'invalid level-0 cell')
         ctx.prec = 224                           # as after loading the original ball's normal form (overlap)
         rec = pinned.original(ball); binding = R.binding(pinned.ATLAS)['id']
