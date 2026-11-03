@@ -71,7 +71,7 @@ def search_cell(job):
     why = 'native certifier only at this level'
     if level >= OPT['nf_from']:
         try:
-            data = normal_form.propose_cell(cell_record(ball, level, cell), capped, OPT['nf_cap'], TimeCap)
+            data = normal_form.propose_cell(cell_record(ball, level, cell), capped, OPT['nf_cap'], TimeCap, OPT['ordering'])
             return level, cell, 'normal_form', time.time() - t, '', {cells.name(level, cell) + LEAF: data}
         except TimeCap: why = 'a pattern took over %.0f s' % OPT['nf_cap']
         except (ValueError, ArithmeticError, ZeroDivisionError, KeyError, TypeError, IndexError) as e: why = str(e) or type(e).__name__
@@ -115,10 +115,10 @@ def recover(tar):
     return names
 
 
-def close(ball, out, cell=None, max_level=7, native_to=3, nf_from=1, nf_cap=normal_form.CAP, workers=8):
+def close(ball, out, cell=None, max_level=7, native_to=3, nf_from=1, nf_cap=normal_form.CAP, workers=8, ordering=False):
     out = Path(out).resolve() / ('b%s' % ball); out.mkdir(parents=True, exist_ok=True)
     l0, c0 = cell or (0, [0, 0, 0, 0])
-    OPT.update(native_to=native_to, nf_from=nf_from, nf_cap=nf_cap)
+    OPT.update(native_to=native_to, nf_from=nf_from, nf_cap=nf_cap, ordering=ordering)
     known = {}
     if (out / 'journal.jsonl').exists():
         for line in open(out / 'journal.jsonl'):

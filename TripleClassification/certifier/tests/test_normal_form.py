@@ -66,3 +66,25 @@ def test_ball_from_record(cell1016, tmp_path):
     [d] = [p for p in os.listdir(tmp_path) if p.startswith('br')]
     r = verify(str(tmp_path / d), workers=1)
     assert r['verdict'] == 'CLOSED'
+
+
+@pytest.fixture(scope='module')
+def ordered1622(tmp_path_factory):
+    """Ball 1622's level-9 cell (188, 128, 252, 200): a near-miss pattern the normal-form witness cannot resolve at any
+    cell size, discharged by the ordering witness (close --ordering)."""
+    out = tmp_path_factory.mktemp('ord')
+    code, log = cli('close', 1622, out, '--cell', '9:188,128,252,200', '--max-level', 9, '--workers', 1, '--ordering')
+    assert code == 0, log
+    return str(out / 'b1622')
+
+
+def test_ordering_leaf(ordered1622, tmp_path):
+    r = verify(ordered1622, 1622, workers=1)
+    assert r['verdict'] == 'CELL CLOSED' and r['scope'] == 'minimum-transition'
+    name = '9_188_128_252_200.json.gz'
+    f = leaves(ordered1622); x = gz_json(f[name]); assert x['ordering']
+    k = next(iter(x['ordering'])); x['ordering'][k]['mode'] = 'K' if x['ordering'][k]['mode'] == 'L' else 'L'
+    x['ordering'][k]['a'] = [0, 5, 4, 3, 2, 1]                     # another alignment: the bound no longer holds
+    f[name] = to_gz(x)
+    bad = write(str(tmp_path / 'bad'), json.load(open(os.path.join(ordered1622, 'tree.json'))), f)
+    assert verify(bad, 1622, workers=1)['verdict'] == 'OPEN'

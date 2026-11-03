@@ -9,7 +9,9 @@ run, no search output is trusted. A node is
 
 The tree must be a complete dyadic partition of its root cell (16 children or a resolved node everywhere). The
 verdict is CLOSED when every node verifies and the root is the whole ball (CELL CLOSED for a smaller root), else OPEN.
-CLOSED means: for every H in the ball, every third basis K completing (I, H/√6) is of known type, or there is none.
+CLOSED means: for every H in the ball, every third basis K completing (I, H/√6) is of known type, or there is none; with
+scope `minimum-transition` (some pattern discharged by the ordering witness), this holds for every triple whose
+H-transition has the least Gamma_F of its three transitions, which classifies every triple (README).
 
 `verify_all` verifies the certificates a manifest lists (lines `BALL PATH`, paths relative to the manifest), appending
 one JSON line per ball to a results file. A ball already there as CLOSED, with the same certificate digest and the
@@ -28,7 +30,7 @@ _CERT = {}                                       # the certificate being verifie
 def checker_id():
     """SHA-256 of the checking code (this package's sources except the search, search/) and the pinned files' hashes:
     names the checker that produced a result."""
-    here = Path(__file__).resolve().parent; h = hashlib.sha256(pinned.MANIFEST_SHA256.encode())
+    here = Path(__file__).resolve().parent; h = hashlib.sha256((pinned.MANIFEST_SHA256 + json.dumps(pinned.APPROVED, sort_keys=True)).encode())
     for p in sorted(here.rglob('*.py')):
         if p.relative_to(here).parts[0] != 'search': h.update(str(p.relative_to(here)).encode() + b'\0' + p.read_bytes())
     return h.hexdigest()
@@ -74,7 +76,7 @@ def verify(path, ball=None, workers=8):
         if workers > 1 and len(jobs) > 1: pool.shutdown()
     whole = root == [0, [0, 0, 0, 0]]
     return dict(ball=ball, root=root, verdict=('CLOSED' if whole else 'CELL CLOSED') if not bad else 'OPEN',
-                counts=counts,
+                scope='minimum-transition' if counts.get(normal_form_leaf.MIN_TRANSITION) else 'all', counts=counts,
                 failed=[[l, list(c), why] for l, c, why in bad], nodes=len(jobs), core_seconds=round(core, 1),
                 slowest_node_seconds=round(slow, 1), wall_seconds=round(time.time() - t0, 1), workers=workers,
                 checker=dict(version=__version__, id=checker_id(), pinned_manifest=pinned.MANIFEST_SHA256))
@@ -125,7 +127,7 @@ def verify_all(manifest, results=None, shard=(0, 1), workers=8, log=sys.stdout):
         if old and old['verdict'] == 'CLOSED' and old['digest'] == d: continue
         try: r = verify(paths[ball], ball, workers)
         except Exception as e: r = dict(ball=ball, verdict='OPEN', failed=[[None, None, 'unreadable: %s' % str(e)[:200]]], counts={})
-        line = dict(ball=ball, path=str(paths[ball]), digest=d, checker=checker, verdict=r['verdict'],
+        line = dict(ball=ball, path=str(paths[ball]), digest=d, checker=checker, verdict=r['verdict'], scope=r.get('scope'),
                     counts=r['counts'], failed=r['failed'][:20], wall_seconds=r.get('wall_seconds'), core_seconds=r.get('core_seconds'))
         with open(results, 'a') as f:
             fcntl.flock(f, fcntl.LOCK_EX); f.write(json.dumps(line) + '\n'); f.flush(); fcntl.flock(f, fcntl.LOCK_UN)

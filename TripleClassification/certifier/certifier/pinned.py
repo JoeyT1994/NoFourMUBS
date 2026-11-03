@@ -1,15 +1,17 @@
 """The frozen code every check builds on, loaded after its SHA-256 manifest is verified.
 
-`PINNED.sha256` lists 39 files of the NoFourMUBS repository at commit 914919b (PR #4), by path, with their SHA-256:
+`PINNED.sha256` lists 40 files of the NoFourMUBS repository at commit 914919b (PR #4), by path, with their SHA-256:
 
 - the frozen native whole-ball certifier, `proof/theorems/TC_triple_classification/family_neighbourhoods/` (every
   `*.py`, `PROOF.md`, `requirements.txt`), the seed-atlas certificate code it imports (`proof/seed_atlas/cert`,
   `proof/seed_atlas/driver`, `proof/atlas/stagec.py`) and the documents its source binding hashes;
 - the original seed atlas, `proof/seed_atlas/results/seed_atlas_certificate.json.gz` (SHA-256 33ad9798...);
-- eight files of PR #4's checker, `TripleClassification/code/*.py` at that commit, kept in `pr4/` of this package:
+- nine files of PR #4's checker, `TripleClassification/code/*.py` at that commit, kept in `pr4/` of this package:
   the cell records and their containment proof (`plane_frontier_certificate`: build_record, cell_geometry), the exact
-  outside test (`plane_tree_certificate`: misses_ball), Stage C's input preconditions (`stagec_guard`), and the files
-  these import.
+  outside test (`plane_tree_certificate`: misses_ball), Stage C's input preconditions (`stagec_guard`), the bounds of
+  the labelled Fourier score Gamma_F used by the ordering witness (`gamma_test`), and the files these import.
+
+`APPROVED` adds `gamma_exact.py` (exact lower bound of Gamma_F; also in `pr4/`), at its approved hash.
 
 `REVIEWED` adds the cubic normal-form witness (`normal_form/`: run_cell.py, witness.py, moving.py), the repaired code
 of its algebraic review of 2 November 2026 (proofs/normal_form/review/), byte-identical.
@@ -25,10 +27,12 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 ROOT = Path(os.environ.get('MUB_CERTIFIER_ROOT') or HERE.parents[2]).resolve()
-MANIFEST, MANIFEST_SHA256 = HERE / 'PINNED.sha256', '2d3808da4935a4daa7dd6f05497db4d6de530b83ddedb432f497726b582aa4b9'
+MANIFEST, MANIFEST_SHA256 = HERE / 'PINNED.sha256', '26eb5e2d6c4ea36a2da0a719e9e6817e37ac47bf04f67ee8b9d8de326cb8a661'
 PR4 = {'TripleClassification/code/%s.py' % k: HERE / 'pr4' / ('%s.py' % k)            # PR #4's files, kept here
        for k in ('plane_cell_certificate', 'plane_column_certificate', 'plane_frontier_certificate', 'plane_joint_certificate',
-                 'plane_tree_certificate', 'anchored_column_certificate', 'nothird', 'stagec_guard')}
+                 'plane_tree_certificate', 'anchored_column_certificate', 'nothird', 'stagec_guard', 'gamma_test')}
+APPROVED = {'TripleClassification/code/gamma_exact.py':      # the exact lower bound of Gamma_F (approved one-tree checker)
+            'e6413eba58fe16d41bbc8add08ce6c32deec8133943f91cb461a3e04a40672a3'}
 REVIEWED = {'run_cell.py': 'e17f9cb22aed9a00b236e078e10180eaccd98071f36b5dc8ed72ad56d3849ddc',     # the normal-form witness
             'witness.py': '55aff65102feb5fd965eb6ada740dcf9f057876409e284e8e20463bc17801eed',
             'moving.py': '757672df04467bdf4014522eaf5ab778e343322e686863e4d6503b438f0a31ac'}
@@ -42,7 +46,7 @@ def sha256(path):
 
 def files():
     """{repository path: (the file read for it, its SHA-256)}: the manifest's files and the approved ones."""
-    out = {}
+    out = {rel: (HERE / 'pr4' / Path(rel).name, digest) for rel, digest in APPROVED.items()}
     out.update({'normal_form/' + name: (HERE / 'normal_form' / name, digest) for name, digest in REVIEWED.items()})
     for line in MANIFEST.read_text().splitlines():
         digest, rel = line.split('  ', 1); out[rel] = (PR4.get(rel, ROOT / rel), digest)
@@ -79,6 +83,8 @@ import plane_frontier_certificate as frontier       # cell records: build_record
 import plane_tree_certificate as tree               # misses_ball (exact rationals)
 import plane_column_certificate as column           # require, read_json
 import stagec_guard                                 # Stage C input preconditions
+import gamma_test                                   # Gamma_F bounds (prep, score_upper, best_alignment, lo, up)
+import gamma_exact                                  # exact lower bound of Gamma_F (score_lower)
 import run as native                                # the frozen native whole-ball certifier (run_ball, binding)
 import patches                                      # normal_form
 import seedcert                                     # Ball, certify_c1

@@ -7,18 +7,20 @@ limits. No proof role: `verify` replays the certificate (normal_form_leaf.check)
 - A pattern is first tried with a completion already proposed for a nearby pattern of the cell (as run_cell.main
   does); if that leaves it open, it is tried once more with a completion proposed for it alone. On a few balls the
   nearby completion lies too far along the weak direction for the localisation to close.
+- With `ordering`, a pattern still open is discharged by the ordering witness if it holds (ordering.py; the leaf then
+  has minimum-transition scope).
 """
 import tempfile
 from pathlib import Path
 import numpy as np
-from .. import pinned
+from .. import ordering, pinned
 from ..certificate import leaf
 
 RC = pinned.normal_form
 CAP = 60.0
 
 
-def propose_cell(data, capped, cap=CAP, timecap=()):
+def propose_cell(data, capped, cap=CAP, timecap=(), use_ordering=False):
     """The leaf file (bytes) for the cell record `data` (certificate.leaf's keys), or raises ArithmeticError with the
     first pattern left open. `capped(seconds, f, *args)` runs f under a time cap, raising `timecap` when it expires
     (search/close.py)."""
@@ -29,7 +31,7 @@ def propose_cell(data, capped, cap=CAP, timecap=()):
         cert = dict(format_version=2, cell=Path(path).name, record_sha256=RC.record_hash(S['record']), pattern_count=n,
                     pattern_sha256=RC.pattern_hash(S['cover'], S['cliques']), setup_roots=RC.W.pack(S['setup_roots']),
                     completions={}, patterns={})
-        refs = {}
+        refs = {}; orders = {}; octx = {}
 
         def fresh(centres):
             """A completion proposed for this pattern itself (or an equal one already proposed)."""
@@ -50,6 +52,10 @@ def propose_cell(data, capped, cap=CAP, timecap=()):
                 if fp2 != fp:
                     try: row, rec = capped(cap, RC.one, (path, i, None, (fp2, perm2, refs[fp2]['prop'])))
                     except timecap: row = dict(status='OPEN', reason='over %.0f s' % cap)
+            if row['status'] == 'OPEN' and use_ordering:
+                if not octx: octx.update(ctx=ordering.context(S['model']), cache={})
+                w = ordering.propose(octx['ctx'], ordering.columns(S['prepared'], S['bounds'], clique), clique, octx['cache'])
+                if w is not None: orders[str(i)] = w; continue
             if row['status'] == 'OPEN': raise ArithmeticError('pattern %d of %d remains: %s' % (i, n, str(row.get('reason'))[:60]))
             if rec is not None:
                 c = cert['completions'].setdefault(row['completion'], dict(native={}))
@@ -57,4 +63,6 @@ def propose_cell(data, capped, cap=CAP, timecap=()):
             cert['patterns'][str(i)] = {k: row[k] for k in ('status', 'route', 'completion', 'perm', 'plan', 'colours') if k in row}
     used = {p['completion'] for p in cert['patterns'].values() if 'completion' in p}
     cert['completions'] = {k: v for k, v in cert['completions'].items() if k in used}
-    return leaf(dict(data, normal_form=cert))
+    out = dict(data, normal_form=cert)
+    if orders: out['ordering'] = orders
+    return leaf(out)

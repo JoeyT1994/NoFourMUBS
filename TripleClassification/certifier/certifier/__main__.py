@@ -43,6 +43,8 @@ def main(argv=None):
                    'where the normal-form witness fails (default 3; -1: never)')
     c.add_argument('--nf-from', type=int, default=1, help='try the normal-form witness on cells of levels >= this (default 1)')
     c.add_argument('--nf-cap', type=float, default=60.0, help='normal-form search seconds per pattern (default 60)')
+    c.add_argument('--ordering', action='store_true', help='discharge a pattern the normal-form witness leaves open by the '
+                   'ordering witness where it holds (minimum-transition scope; off by default)')
     c.add_argument('--workers', type=int, default=8)
     x = ap.parse_args(argv)
     if x.root: os.environ['MUB_CERTIFIER_ROOT'] = os.path.abspath(x.root)     # before the pinned code is loaded
@@ -52,8 +54,8 @@ def main(argv=None):
         r = verify(x.cert, x.ball, x.workers)
         if x.json: Path(x.json).write_text(json.dumps(r, indent=1) + '\n')
         kinds = ', '.join('%d %s' % (n, k) for k, n in sorted(r['counts'].items()))
-        print('ball %s%s: %s (%s) in %.0f s' % (r['ball'], '' if r['root'] == [0, [0, 0, 0, 0]] else ' cell %d:%s' %
-              (r['root'][0], ','.join(map(str, r['root'][1]))), r['verdict'], kinds or 'no node', r['wall_seconds']))
+        print('ball %s%s: %s, scope %s (%s) in %.0f s' % (r['ball'], '' if r['root'] == [0, [0, 0, 0, 0]] else ' cell %d:%s' %
+              (r['root'][0], ','.join(map(str, r['root'][1]))), r['verdict'], r['scope'], kinds or 'no node', r['wall_seconds']))
         for level, cell, why in r['failed'][:20]: print('  refused %s:%s  %s' % (level, cell, why))
         return 0 if r['verdict'] in ('CLOSED', 'CELL CLOSED') else 1
     if x.cmd == 'verify-all':
@@ -73,7 +75,7 @@ def main(argv=None):
     from .search.close import close
     ball = int(x.ball) if x.ball.isdigit() else ball_from_file(x.ball)
     return close(ball, x.out, cell=x.cell, max_level=x.max_level, native_to=x.native_to, nf_from=x.nf_from, nf_cap=x.nf_cap,
-                 workers=x.workers)
+                 workers=x.workers, ordering=x.ordering)
 
 
 if __name__ == '__main__': sys.exit(main())

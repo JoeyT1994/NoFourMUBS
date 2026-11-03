@@ -13,7 +13,8 @@ the record itself under "record". The root is [0, [0, 0, 0, 0]] for a whole ball
 position. Its file holds the cell's H record, and for a normal-form leaf the witness's certificate:
 
     {"schema": "tc-h-cell-input-v1", "ball": B, "level": L, "cell": [...], "record": {...}, "record_sha256": ...,
-     "normal_form": {exact proposals and a replay plan for every pattern of the cell's complete cover}}
+     "normal_form": {exact proposals and a replay plan for every pattern of the cell's complete cover},
+     "ordering": {pattern: an ordering witness, for patterns discharged that way (optional)}}
 
 The leaf files are members `leaves/<file>` of one uncompressed tar. Three layouts are read:
 
@@ -35,6 +36,7 @@ def leaf(data):
     """A leaf's file, as bytes: the cell's record (the RECORD_KEYS of `data`), with a normal-form leaf's certificate."""
     x = {k: data[k] for k in RECORD_KEYS}
     if 'normal_form' in data: x['normal_form'] = data['normal_form']
+    if 'ordering' in data: x['ordering'] = data['ordering']
     return gz(x)
 
 
