@@ -36,7 +36,12 @@ pair that extends to four MUBs.
 formalisation).
 
 **Status (1 Nov 2026).**
-- **Classification.** CLASSIFICATION_STATUS_PLACEHOLDER
+- **Classification.** All 2,775 seed balls, the ball at F₆ and Tao's matrix are certified. Each seed ball has one
+  certificate (3.3 GB in all) that `TripleClassification/certifier/certify.py verify` checks from its files alone, in
+  Arb and exact arithmetic; checking the atlas takes about 900 core-hours. Four balls use the minimum-transition
+  ordering. The native certifier's recognition argument (reviewed 1 November) and the normal-form witness (reviewed 2
+  November) have each had one independent review; the ordering bound and the classification at F₆ await one, and the
+  classification is not formalised in Lean.
 - **Independent proof of the corollary.** The seed-atlas certificate (2,775 seed balls and the ball at F₆, every
   sphere covered by 117,391 certified caps) passes both independent certifiers: Arb in 33 min on one 128-core node
   and Julia in 1 h 07 min on one 64-core node ([`PROOF.md`](PROOF.md#step-5-the-atlas-covers-x)).

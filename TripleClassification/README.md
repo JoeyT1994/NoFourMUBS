@@ -18,7 +18,20 @@ this proves that ℂ⁶ has no four MUBs, independently of [`../QuartetExclusion
 
 ## Status
 
-STATUS_PLACEHOLDER
+**All 2,775 seed balls are certified** (final verification of 3 November 2026), together with the ball at F₆ and
+Tao's matrix:
+
+| Seed balls | Count |
+|---|---:|
+| Closed whole by the native certifier (one leaf, no files) | 2,373 |
+| Closed by a dyadic tree of native and normal-form leaves | 402 |
+| **Closed** | **2,775** |
+| · classifying every completing triple | 2,771 |
+| · with minimum-transition scope (1035, 1217, 1622, 2705) | 4 |
+
+For about four-fifths of the balls the certificate excludes every pattern, so no pair from those balls extends to a
+triple. The certificates total 3.3 GB; checking all of them takes about 900 core-hours, under five hours on sixteen
+128-core nodes. Per-ball verdicts, sizes and times: [`results/`](results/).
 
 ## (A): one certificate per ball
 
@@ -41,7 +54,12 @@ the whole ball a leaf's record must also contain its cell (Arb) and lie on the b
 witness of [`proofs/NATIVE_REVIEW.md`](proofs/NATIVE_REVIEW.md)), and every record must satisfy Stage C's input
 preconditions. Every acceptance is exact or in Arb interval arithmetic; floating point only proposes.
 
-A certificate verified CLOSED proves (A) for its ball, for every triple: there is no restricted scope.
+A certificate verified CLOSED proves (A) for its ball. In four balls (1035, 1217, 1622, 2705) a few near-miss patterns,
+along a nearly flat direction, resolve under neither test at any cell size; there a pattern is discharged instead by
+the ordering of the labelled Fourier score Γ_F ([`proofs/ORDERING.md`](proofs/ORDERING.md)). Those four certificates
+have *minimum-transition scope*: they classify every triple whose H-transition has the least Γ_F of its three, which
+suffices because every triple has such a representation and Γ_F is invariant under equivalence. Every other
+certificate classifies every triple.
 
 ## (B) and (C)
 
@@ -58,6 +76,7 @@ A certificate verified CLOSED proves (A) for its ball, for every triple: there i
 | The atlas covers every Hadamard class but S₆ | [`../PhaseCover/`](../PhaseCover/README.md) | the no-four-MUBs proof |
 | C1 and Stage C, and Stage C's input preconditions | [`../proof/atlas/`](../proof/atlas/) (`STAGEC.md`, `RIGOUR.md`) | the no-four-MUBs proof |
 | The native certifier and its recognition argument; the overlap witness | [`family_neighbourhoods/PROOF.md`](../proof/theorems/TC_triple_classification/family_neighbourhoods/PROOF.md), [`certifier/certifier/overlap.py`](certifier/certifier/overlap.py) | independent review, 1 November 2026 ([`proofs/NATIVE_REVIEW.md`](proofs/NATIVE_REVIEW.md)) |
+| The minimum-transition ordering (four balls only) | [`proofs/ORDERING.md`](proofs/ORDERING.md), [`certifier/certifier/ordering.py`](certifier/certifier/ordering.py) | invariance, Lipschitz bound and reduction from the ordering return of 29 October 2026; the bound on L and the implementation await independent review |
 | The cubic normal-form witness | [`proofs/normal_form/PROOFS.md`](proofs/normal_form/PROOFS.md), with the localisation and Gram bounds it extends (`PROOF_815.md`, `AUDIT_815.md`, `BASELINE_PROOFS_P1_P2.md`) | independent algebraic review, 2 November 2026, which found and repaired one sign error ([`proofs/normal_form/review/REVIEW.md`](proofs/normal_form/review/REVIEW.md)); the certifier runs the repaired code, byte-identical |
 
 ## Where everything is

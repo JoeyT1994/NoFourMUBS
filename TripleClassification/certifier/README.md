@@ -19,7 +19,15 @@ and `verify-all` resume where they stopped, and `verify-all` can be split across
 
 ## Speed
 
-SPEED_PLACEHOLDER
+Measured on the atlas (3 November 2026; the cluster has 128-core nodes):
+
+| What | Certificate | Search | Check |
+|---|---|---|---|
+| A ball closed whole by the native certifier (2,373 balls) | `tree.json` only | about a minute on one core | median 19 s on one core |
+| A tree ball (402 balls) | median 2.5 MB, largest 205 MB | median 1 core-hour, largest 405 | median 0.9 core-hours (87 s on one node), largest 46 |
+| All 2,775 balls | 3.3 GB | about 2,000 core-hours | about 900 core-hours: under five hours on sixteen nodes |
+
+A laptop checks a typical tree ball in a few minutes (`verify --workers 8`).
 
 ## What a certificate proves
 
@@ -28,7 +36,9 @@ A certificate is a dyadic tree over the ball's chart. Each node is one of the fo
 - **Outside:** the cube misses the ball, checked in exact rational arithmetic.
 - **Native leaf:** the frozen native certifier excludes or recognises every K over the cell.
 - **Normal-form leaf:** the cubic normal-form witness excludes or recognises every K over the cell, pattern by
-  pattern; the leaf stores the exact data that replay each pattern's proof.
+  pattern; the leaf stores the exact data that replay each pattern's proof. With `close --ordering` (used for four
+  balls only), a pattern it cannot resolve may instead carry an ordering witness (`ordering.py`), and the ball then has
+  minimum-transition scope; `verify` reports the scope.
 
 Below the whole ball, two more checks apply to a leaf: its record contains the cell (Arb), and its analytic branch
 is the ball's (the overlap witness). Stage C's input preconditions are checked for every record. Every acceptance is
@@ -55,6 +65,7 @@ repaired: [`../proofs/normal_form/`](../proofs/normal_form/PROOFS.md)). See [`..
       overlap.py            a cell record's branch is the ball's
       native_leaf.py        native leaves
       normal_form_leaf.py   normal-form leaves
+      ordering.py           the ordering witness (Gamma_F), for the four minimum-transition balls
       pinned.py             the frozen code these build on, checked against PINNED.sha256 and REVIEWED on import:
       normal_form/            the normal-form witness, the reviewed repaired code, byte-identical
       pr4/                    PR #4's cell records, containment proof, outside test and Stage C guard (commit 914919b)
