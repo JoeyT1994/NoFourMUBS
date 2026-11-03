@@ -71,7 +71,7 @@ def search_cell(job):
     why = 'native certifier only at this level'
     if level >= OPT['nf_from']:
         try:
-            data = normal_form.propose_cell(cell_record(ball, level, cell), capped, OPT['nf_cap'])
+            data = normal_form.propose_cell(cell_record(ball, level, cell), capped, OPT['nf_cap'], TimeCap)
             return level, cell, 'normal_form', time.time() - t, '', {cells.name(level, cell) + LEAF: data}
         except TimeCap: why = 'a pattern took over %.0f s' % OPT['nf_cap']
         except (ValueError, ArithmeticError, ZeroDivisionError, KeyError, TypeError, IndexError) as e: why = str(e) or type(e).__name__
