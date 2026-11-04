@@ -1,6 +1,7 @@
 # Step 1 certificates and their Lean library
 
-This folder holds the finite algebra of the sextic-free saddle proof of Step 1. The proof documents are in
+This folder holds the finite algebra of the sextic-free saddle proof of Step 1 of [`PROOF.md`](../../PROOF.md) (the
+positive local maxima of R, SM Proposition S.1). The proof documents are in
 [`Connectedness/returns/C_step1_saddle/`](../../Connectedness/returns/C_step1_saddle/README.md).
 
 | Path | Role |

@@ -22,13 +22,14 @@ Each seed ball carries two certified claims.
 
 * The enclosure (claim C1 of SPEC §2) bounds the distance from each matched Hadamard matrix over the ball to an
   affine phase model.
-* The local tests (Stage C, [`proof/atlas/STAGEC.md`](../../../proof/atlas/STAGEC.md)) are finite rejection tests
-  run inside each ball. They show that no matrix in the ball is a quartet edge.
+* The local tests (Stage C in the code, [`proof/atlas/STAGEC.md`](../../../proof/atlas/STAGEC.md)) are finite
+  rejection tests run inside each ball. They show that no matrix H in the ball is extendable, that is, that
+  {I₆, H/√6} does not extend to four MUBs (`QuartetEdge` in Lean).
 
 The boundary transfers (claim C2 of SPEC §4) show that every boundary point of a ball lies in the interior of
-another ball or record. The ball at F6, the X-ball, is a ball in a four-dimensional chart through F6 (SPEC §10). It
-contains no quartet edge because its image lies within ρ = 7/40 of F6, where the exclusion of
-[`../X/`](../X/README.md) applies.
+another ball or record. The ball at F₆ (the X-ball in the code) is a ball in a four-dimensional chart through F₆
+(SPEC §10). It contains no extendable matrix because its image lies within phase distance ρ = 7/40 of F₆, where the
+exclusion of [`../X/`](../X/README.md) applies.
 
 The proof follows the route of `Final.no_four_mubs`. The set `W` of covered classes is shown to be clopen and to
 contain `F6`. The theorem then follows from `Step2.coverage_of_matched_density`, with `L1.matchedExistence`,
@@ -39,17 +40,17 @@ classification `PRM.nonmatched_tao_or_fourier`.
 
 | Module | Content |
 |---|---|
-| `Seed` | `seedOf θ = e^{iθ}`, `wnorm`, `psi` (SPEC's `Ψ`) and the oriented matched relation `MatchedO o p H`. Conjugation (`matchedO_conj`: `f₋(θ) = conj f₊(θ̄)`) and uniqueness in both orientations (`matchedO_unique`). The side formulas `2 Re T = χ` and `R = 4 (Im T)²` for both sides of a dephased Hadamard matrix (`right_formula`, `lower_formula`). The signs decide the orientation (`matchedO_of_signs`, `signs_of_matchedO`). Closedness (`isClosed_matchedO`), corners (`cornerMat`, `matchedO_of_corner`) and the linear corner seed (`cornerTheta`, `leadingBlock_cornerMat_phaseMat`) |
+| `Seed` | `seedOf θ = e^{iθ}`, `wnorm`, `psi` (SPEC's `Ψ`) and the oriented matched relation `MatchedO o p H`. Conjugation (`matchedO_conj`: f₋(θ) = conj f₊(−θ), with the orientation convention below) and uniqueness in both orientations (`matchedO_unique`). The side formulas χ = −2 Re Ψ(B) and R = 4(Im Ψ(B))², and the same for C, of a dephased Hadamard matrix (`right_formula`, `lower_formula`). The signs decide the orientation (`matchedO_of_signs`, `signs_of_matchedO`). Closedness (`isClosed_matchedO`), corners (`cornerMat`, `matchedO_of_corner`) and the linear corner seed (`cornerTheta`, `leadingBlock_cornerMat_phaseMat`) |
 | `OpenMap` | The open-map lemma of SPEC §5: `isOpen_matchedImage`, `isOpen_classImage`, `classImage_mem_nhds` |
 | `Cert` | `SeedBallCert` (the enclosure as the hypothesis field `hC1`, the local tests as `StageCCert`), `enclosure`, `excludes` |
-| `Transfer` | The targets `SeedTarget` (T0, T1, T2) and `RecTarget` (record, T1′), their semantic claims `SeedTargetHolds`, `RecTargetHolds` and `CornerIn`, and the transfer lemmas `transfer_t0`, `transfer_t1`, `transfer_t2`, `transfer_t1'` |
+| `Transfer` | The targets `SeedTarget` (T0 same corner, T1 corner change, T2 into a record) and `RecTarget` (record, T1′), their semantic claims `SeedTargetHolds`, `RecTargetHolds` and `CornerIn`, and the transfer lemmas `transfer_t0`, `transfer_t1`, `transfer_t2`, `transfer_t1'` |
 | `Atlas` | `SeedBoundaryCover` and `RecBoundaryCover` (the boundary transfers), `SeedAtlasCertificate`, compactness (`isCompact_seedBall`), `covered_iff_interiorTarget`, `isOpen_interiorTarget` and `SeedAtlasCertificate.clopen` |
 | `Method/NormalTube` | The analytic lemmas on the normal component of a phase matrix near a centre, used by the graph property (G) |
 | `EdgeGraph` | The graph property (G). `graph_unique`: two Hadamard matrices `e^{i(P + δᵢ)}` with `‖δᵢ‖ ≤ R`, `2√3 R < σ` and `δ₁ − δ₂` in the frame's normal complement satisfy `δ₁ = δ₂`. The proof is the mean value theorem along the segment, in a calculus-free form |
-| `Edge` | `EdgeBallCert`, `isCompact_ball`, `equivalent_of_eta` (the chart is unique near `F6`), `isOpen_edgeInterior` (openness at every interior point, including `y = 0`) and `hopen_of_strictDeriv` (the implicit-function form of (D) in SPEC §10.1) |
-| `XShape` | `XExclusion ρ`, the form in which the X-ball uses the exclusion near F6 |
-| `EdgeX` | The X-ball, `EdgeX.EdgeBallCert`, and `excludes` |
-| `EdgeXAtlas` | T3 (`EdgeInQ`, `edgeInterior_of_edgeInQ`), the targets with T3 added, the covers, `EdgeAtlasCertificate` and `EdgeAtlasCertificate.clopen` |
+| `Edge` | `EdgeBallCert`, `isCompact_ball`, `equivalent_of_eta` (the chart is unique near F₆), `isOpen_edgeInterior` (openness at every interior point, including `y = 0`) and `hopen_of_strictDeriv` (the implicit-function form of (D) in SPEC §10.1) |
+| `XShape` | `XExclusion ρ`, the form in which the ball at F₆ uses the exclusion near F₆ |
+| `EdgeX` | The ball at F₆, `EdgeX.EdgeBallCert`, and `excludes` |
+| `EdgeXAtlas` | Transfers into the chart at F₆, T3 (`EdgeInQ`, `edgeInterior_of_edgeInQ`), the targets with T3 added, the covers, `EdgeAtlasCertificate` and `EdgeAtlasCertificate.clopen` |
 | `EdgeXFinal` | `EdgeXFinal.no_four_mubs_seed` |
 | `EdgeXAxioms` | The axiom audit |
 
@@ -57,16 +58,21 @@ classification `PRM.nonmatched_tao_or_fourier`.
 
 * Indices. `I6 = Fin 3 ⊕ Fin 3`. The indices `0..5` are `inl 0, inl 1, inl 2, inr 0, inr 1, inr 2`. Phase
   matrices are `RMat6`, and `phaseMat Q = (e^{i Q_ab})`.
-* Seed. `θ ∈ ℝ⁴` and `seedOf θ i = e^{iθ_i}`. The corner is `E = [[1,1,1],[1,a,b],[1,c,d]]` with
-  `(a,b,c,d) = e^{iθ}` (`θ₁ ↔ E₁₁, θ₂ ↔ E₁₂, θ₃ ↔ E₂₁, θ₄ ↔ E₂₂`).
+* Seed. `θ ∈ ℝ⁴` and `seedOf θ i = e^{iθ_i}`. The corner is `E = [[1,1,1],[1,a,b],[1,c,d]]`, where
+  a, b, c, d = e^{iθ₁}, …, e^{iθ₄} in the code. Matrix indices are 0-based, as in Lean
+  (`θ₁ ↔ E₁₁, θ₂ ↔ E₁₂, θ₃ ↔ E₂₁, θ₄ ↔ E₂₂`).
 * Orientation. `o : ℤˣ` (`±1`) is defined exactly as in SPEC, as `o = sign Im Ψ(B)` with
   `Ψ(X) = perm(X) det(X)² / ∏ X_ab` (`psi`, `= −Step2.sideSignature`). Matched means `sign Im Ψ(C) = −o`, where
-  `C` is the lower-left block. `Ψ` is transpose-invariant. `MatchedO o p H` states this through the roots: `H` is
-  dephased with leading block `E(p)`, `2T(B) = χ − o i√R`, `2T(C) = χ + o i√R` and `T = −Ψ`.
-* Orientation in `PROOF.md`. Its `H₊` (`Step2.Matched`, `−Ψ(B) = ζ₊ = (χ + i√R)/2`, so `Im Ψ(B) < 0`) is `o = −1`
-  here (`matchedO_neg_iff`). Both orientations are in the atlas, so the proof does not depend on this choice. The
-  certificate's `o` must still be computed as `sign Im Ψ(B)` with SPEC's `Ψ`, not with `PROOF.md`'s `T`.
-* Ball. `θ(w) = θ₀ + M_θ w` and `‖w‖ = wnorm w = √(Σ w_k²)`. `M_θ` must be invertible (`hMth : IsUnit Mth.det`).
+  `C` is the lower-left block. `Ψ` is transpose-invariant. `MatchedO o p H` states this through the labels: `H` is
+  dephased with leading block `E(p)`, 2Ψ(B) = −χ + o i√R and 2Ψ(C) = −χ − o i√R. Lean writes these for
+  `T = −Ψ` (`Step2.sideSignature`), as `2T(B) = χ − o i√R` and `2T(C) = χ + o i√R`.
+* Orientation in `PROOF.md` and the paper. `PROOF.md`'s H₊ is the paper's H₊ (`Step2.Matched`,
+  Ψ(B) = Ψ₋ = −(χ + i√R)/2, so Im Ψ(B) < 0), which is `o = −1` here (`matchedO_neg_iff`). The stored balls use
+  `o = +1`, which is conj H₊(−θ). The covered set contains the conjugate of every ball, which has the other orientation, so the proof does not
+  depend on this choice.
+  The certificate's `o` must still be computed as `sign Im Ψ(B)` with SPEC's `Ψ`, not with Lean's `T = −Ψ`.
+* Ball. `θ(w) = θ₀ + M_θ w` and `‖w‖ = wnorm w = √(Σ w_k²)`. The fields `Mth` and `r` are the paper's M_{θ₀} and
+  r_H. `M_θ` must be invertible (`hMth : IsUnit Mth.det`).
 * Frame. `U : Fin 4 → RMat6`, where `U k` is column `k` of SPEC's `36 × 4` matrix `U` (row-major `6 × 6`). Then
   `U w = tang U w = Σ_k w_k U k`.
 * Windings. `wind N = 2π N` for `N : Matrix I6 I6 ℤ`. The winding of T0 is `N : Fin 4 → ℤ`.
@@ -106,19 +112,20 @@ classification `PRM.nonmatched_tao_or_fourier`.
 `{wnorm w = r_j}`. On each box, the target's claim `SeedTargetHolds` holds for `wnorm w = r_j`. The targets are
 the following.
 
-* T0, `t0 l N`: `o_l = o_j` and `∃ w', wnorm w' < r_l ∧ θ_l(w') = θ_j(w) + 2πN`.
-* T1, `t1 l k σ τ`: `∃ K`, `RepO o_j (seedOf (θ_j w)) K`, and `CornerIn (S l) k σ τ K`. Corner seeds and the signs
+* T0 (same corner), `t0 l N`: `o_l = o_j` and `∃ w', wnorm w' < r_l ∧ θ_l(w') = θ_j(w) + 2πN`.
+* T1 (corner change), `t1 l k σ τ`: `∃ K`, `RepO o_j (seedOf (θ_j w)) K`, and `CornerIn (S l) k σ τ K`. Corner seeds and the signs
   of `Ψ` are invariant under row and column phases, so the `e^{iQ}` of either gauge will do. `CornerIn` states
   `∃ w', wnorm w' < r_l ∧ leadingBlock (cornerMat k σ τ K) = seedCorner (seedOf (θ_l w'))`,
   `0 < o_l · Im Ψ(B)` and `0 < −o_l · Im Ψ(C)` for the blocks of `cornerMat k σ τ K`.
-* T2, `t2 l B N`: `∃ Q`, `RepO o_j (seedOf (θ_j w)) (phaseMat Q)`, with
+* T2 (into a record, not used by the final certificate), `t2 l B N`: `∃ Q`, `RepO o_j (seedOf (θ_j w)) (phaseMat Q)`, with
   `frob (hor (B.act Q + wind N − P_l)) < R_l`. Here `B : SignedPerm`, as in `BoundaryCover`.
 
 `RecBoundaryCover S A l` is the boundary transfer for a record (FORMAT §6). It consists of `η`-boxes covering the
 shell `{‖η‖ ≤ r_H, R² − n² ≤ ‖Tη‖² ≤ R²}`. Each box has a target whose claim (`RecTargetHolds`) holds for `η` in
-the box and in the shell. The targets are the following.
+the box and in the shell. The targets are the following. The final certificate uses neither of them.
 
-* `record l' B N`: the inequality of Lemma 4.1, as in `BoundaryCover`.
+* `record l' B N`: the record-to-record transfer inequality
+  `frob (hor (B.act P + wind N − P_l') + hor (B.act (Tη))) + n < R_l'`, as in `BoundaryCover`.
 * T1′, `t1' j k σ τ`: `CornerIn (S j) k σ τ (phaseMat (P + Tη + ν))` for every `ν` with the following properties.
   `ν` lies in the complement `N` of the frame (`IsHorizontal ν`, and `⟨T_k, ν⟩ = 0` for all `k`), `frob ν ≤ n`,
   `frob (Tη + ν) = R`, and `phaseMat (P + Tη + ν)` is Hadamard. These are exactly the record's boundary points
@@ -128,23 +135,25 @@ the box and in the shell. The targets are the following.
 `RecBoundaryCover.ofBoundaryCover` converts a `BoundaryCover`.
 
 `SeedAtlasCertificate` (`Atlas.lean`) consists of the seed balls `S` (indexed by the finite type `σs`), the records
-`A` (indexed by the finite type `ιr`), the two boundary covers, and the records of Tao's matrix and of F6. The
-certificate of the main theorem, `EdgeX.EdgeAtlasCertificate` (`EdgeXAtlas.lean`), has the X-ball in place of F6's
-record.
+`A` (indexed by the finite type `ιr`), the two boundary covers, and the records of Tao's matrix and of F₆. The
+certificate of the main theorem, `EdgeX.EdgeAtlasCertificate` (`EdgeXAtlas.lean`), has the ball at F₆ in place of
+F₆'s record.
 
-## The X-ball (SPEC §10–10.2)
+## The ball at F₆ (SPEC §10–10.2)
+
+The code calls this ball the X-ball, or an edge ball.
 
 `EdgeBallCert` has the data `r, Q, P, U, n, t, lamF, PF, TF, σF, RG, eta`. The certifier establishes the following
 fields.
 
 * `hcol` and `hfrob`, as for a seed ball.
-* `hC1e`, the enclosure for an edge ball:
+* `hC1e`, the enclosure for the ball at F₆:
   `∀ w, wnorm w ≤ r → IsHadamard (phaseMat (Q w)) ∧ ∃ N, frob (Q w − P − tang U w − wind N) ≤ n`. Here `Q w` is
-  the phase matrix of `H(p)`, with `p = M w`, in the gauge of `F6`'s record (its corner `(0,1,2)`). Edge balls stay
-  in the dephased gauge (SPEC §11).
+  the phase matrix of `H(p)`, with `p = M w`, in the gauge of F₆'s record (its corner `(0,1,2)`, 0-based). The ball at
+  F₆ stays in the dephased gauge (SPEC §11).
 * `hcont : ContinuousOn Q {w | wnorm w ≤ r}`.
 * The graph property (G), in three fields. The first is `hσF : ∀ ν` horizontal with `⟨TF k, ν⟩ = 0`,
-  `σF * frob ν ≤ outNorm (Jac PF ν)`. This is a record's `hσ`, and the F6 record supplies `P, T, σ, hσ`. The others
+  `σF * frob ν ≤ outNorm (Jac PF ν)`. This is a record's `hσ`, and the F₆ record supplies `P, T, σ, hσ`. The others
   are `hRG : 2√3 · RG < σF` and `hG : ∀ w, wnorm w ≤ r → frob (hor (Q w − PF)) < RG`.
 * `eta : RMat6 →L[ℝ] ℝ⁴` with `heta`: for horizontal `δ`, `δ − tang TF (eta δ)` is horizontal and orthogonal to
   every `TF k`. For example, `eta = (TFᵀ TF)⁻¹ TFᵀ` (exact).
@@ -152,28 +161,28 @@ fields.
   `f w = eta (hor (Q w − PF))`. `hopen_of_strictDeriv` derives it from the hypothesis of SPEC §10.1, an invertible
   strict derivative at each interior point. A slope Krawczyk solve of `f(w) = η` also gives it.
 
-The target T3 is `EdgeInQ E B N Y`, stated on the phases `Y` of the source point. It requires
+The transfer into the chart at F₆, T3, is `EdgeInQ E B N Y`, stated on the phases `Y` of the source point. It requires
 `frob (hor (B.act Y + wind N − PF)) < RG` and `eta (hor (B.act Y + wind N − PF)) ∈ f '' {‖w‖ < r}`. Then
-`g · e^{iY} ≅ e^{iQ(w')}` by (G). From a seed ball, the claim is on a representative `RepO` (as for T2). From a
-record, it is for every boundary `ν` (as for T1′). From an edge ball, it is on `Q(w)`. The anchor at `F6` is
-`fourier : ∃ e, CoveredMatrix (E e).Ball F6` (`fourier_of_edge`, from `F6 ≅ e^{iQ(w)}`).
+`g · e^{iY} ∼ e^{iQ(w')}` by (G). From a seed ball, the claim is on a representative `RepO` (as for T2). From a
+record, it is for every boundary `ν` (as for T1′). From the ball at F₆, it is on `Q(w)`. The anchor at `F6` is
+`fourier : ∃ e, CoveredMatrix (E e).Ball F6` (`fourier_of_edge`, from `F6 ∼ e^{iQ(w)}`).
 
-The X-ball of the main theorem, `EdgeX.EdgeBallCert`, has every geometric field of `EdgeBallCert`: the enclosure
+The ball at F₆ of the main theorem, `EdgeX.EdgeBallCert`, has every geometric field of `EdgeBallCert`: the enclosure
 `hC1e`, (G), (D), `hcol` and `hfrob`. In place of local tests it has three fields.
 
 - A radius `ρ`.
-- `exclusion : XExclusion ρ`. It states that no Hadamard matrix within horizontal phase distance ρ of F6 is a
-  quartet edge. It is supplied by the displacement form `core0175` of `NoFourMUBs.X.Radius0175` at ρ = 7/40.
-- `hX : ∀ w, wnorm w ≤ r → ∃ N, frob (hor (Q w + wind N − F6phase)) ≤ ρ`. It states that the image of the X-ball
-  lies within ρ of F6. The certifiers check it as `image_delta_max < x_radius`.
+- `exclusion : XExclusion ρ`. It states that no Hadamard matrix within phase distance ρ of F₆ is
+  extendable. It is supplied by the displacement form `core0175` of `NoFourMUBs.X.Radius0175` at ρ = 7/40.
+- `hX : ∀ w, wnorm w ≤ r → ∃ N, frob (hor (Q w + wind N − F6phase)) ≤ ρ`. It states that the image of the ball at
+  F₆ lies within phase distance ρ of F₆. The certifiers check it as `image_delta_max < x_radius`.
 
-`EdgeX.EdgeBallCert.excludes` derives from these fields that no matrix in the X-ball is a quartet edge. The
-transfers into the X-ball (T3), the openness and the anchor at F6 are in `EdgeXAtlas`.
+`EdgeX.EdgeBallCert.excludes` derives from these fields that no matrix in the ball at F₆ is extendable. The
+transfers into the chart at F₆ (T3), the openness and the anchor at F₆ are in `EdgeXAtlas`.
 
 ## Two departures from SPEC §10
 
 First, T3 does not use positional tubes of the augmented systems. Near `y = 0`, a source whose vertical side is on
-the nonmatched branch (`Ψ(C) = Ψ(B)`) sits inside the vertical tube, and only the converse excludes it. Tube
-uniqueness therefore does not give `K ≅ H(p_K)`. T3 goes through (G) instead, as the openness does.
+the nonmatched branch (`Ψ(C) = Ψ(B)`) sits inside the vertical tube, and only the strict-corner converse (SM
+Proposition S.4) excludes it. Tube uniqueness therefore does not give `K ∼ H(p_K)`. T3 goes through (G) instead, as the openness does.
 
-Second, (G) needs `2√3 R_G < σ`, where SPEC has `R_G < σ/L`. The edge image needs `‖h(Q − P_F)‖ < R_G`.
+Second, (G) needs `2√3 R_G < σ`, where SPEC has `R_G < σ/L`. The image of the ball at F₆ needs `‖h(Q − P_F)‖ < R_G`.

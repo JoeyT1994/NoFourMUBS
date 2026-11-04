@@ -1,8 +1,8 @@
-# A whole-pattern annulus certificate for the supplied ball-815 blocker
+# A whole-pattern annulus certificate for one unresolved pattern of ball 815
 
 ## 1. What is proved
 
-Let the first transition range over the entire supplied normal-form enclosure in
+Let the first transition range over the entire supplied enclosure of H in
 `815_6_17_43_30_37.json`, and let the six columns of the proposed second transition
 range over the supplied phase balls with colours
 
@@ -29,24 +29,25 @@ The proof has two steps.
 
 The center is an explicit rational-phase numerical proposal, not an asserted
 exact family triple. No existence assertion about that center is used. The first
-step really bridges the phase-width gap for this pattern; the second step
+step really bridges the phase-width gap for this pattern, and the second step
 excludes it without invoking the uniform family tube.
 
 This is a local certificate for **one pattern**, not a whole-cell cover or an
 arbitrary-completion theorem over the original ball. The claim is conditional on
-the supplied normal-form and colour enclosures being valid. It does not replay
-Stage C, C1, the chart reconstruction, or the complete-pattern enumeration.
+the supplied enclosure of H and the colour enclosures being valid. It does not
+replay the local tests (Stage C in the code), the enclosure itself (claim C1 in the
+code), the chart reconstruction, or the complete-pattern enumeration.
 Those dependencies are exactly the interface required to install the witness
 in the existing whole-cell checker. There are no assumptions about the values
 or success of the supplied numerical probes.
 
 The executable verification consists of `check_815.py`, `certificate_815.json`,
-and the original blocker JSON. A 160-bit Arb run took approximately 9 seconds.
+and the original JSON record of the pattern. A 160-bit Arb run took approximately 9 seconds.
 The resulting receipt is `receipt_815.json`.
 
 ## 2. Residuals, gauges and coordinates
 
-All transition matrices below have unit-modulus entries; the corresponding
+All transition matrices below have unit-modulus entries, and the corresponding
 unitary bases are divided by \(\sqrt6\). Write
 
 \[
@@ -55,12 +56,12 @@ H_{ra}=e^{iq_{ra}},\qquad K_{rb}=e^{iy_{rb}}.
 
 Let \(F(q,y)\in\mathbb R^{66}\) consist of:
 
-- the real and imaginary parts of \((K^*K)_{ab}\), for \(a<b\), giving 30 real
-  components;
-- \(|(H^*K)_{ab}|^2/6-1\), giving 36 real components.
+- the real and imaginary parts of \((K^\dagger K)_{ab}\), for \(a<b\), giving 30 real
+  components,
+- \(|(H^\dagger K)_{ab}|^2/6-1\), giving 36 real components.
 
 Every physical completion is a zero of \(F\). Removing the independent mean
-phase of each column does not change its zero set. We therefore use the exact
+phase of each column does not change its zero set. The proof therefore uses the exact
 Helmert injection \(E:\mathbb R^{30}\to\mathbb R^{36}\), comprising six copies
 of the six-by-five matrix
 
@@ -103,7 +104,7 @@ The source phase balls therefore imply the enclosing coordinate radius
 
 ## 3. Explicit handling of the whole H cell
 
-The given normal form is
+The given enclosure is
 
 \[
 q=Q_0+Uu+\tfrac12H_2(u\otimes u)+X\xi,
@@ -170,11 +171,11 @@ most
 \le 2\|d\|\|e\|.
 \]
 
-Summing squares over the six labels belonging to an unchanged column gives
-\(2\sqrt6\); for one H and one K direction the sum over labels factorizes and
-gives 2. For a Gram component, the Hessian is a sum of products of the two
+Summing squares over the six K-column indices that share one H column gives
+\(2\sqrt6\). For one H and one K direction the sum over these indices factorizes and
+gives 2. For a K-overlap component, the Hessian is a sum of products of the two
 column-difference directions. Cauchy--Schwarz gives a squared bound of 12 for
-the entire real/imaginary Gram vector: use
+the entire real/imaginary overlap vector: use
 \(\max_{a<b}\|z_a-z_b\|^2\le2\|z\|^2\) and
 \(\sum_{a<b}\|z_a-z_b\|^2\le6\|z\|^2\).
 Combining this with the mixed contribution 24 gives \(\sqrt{12+24}=6\).
@@ -250,9 +251,9 @@ G(z)=\sum_{\ell=1}^{180}
 \{c_\ell\cos(a_\ell\cdot z)+d_\ell\sin(a_\ell\cdot z)\}. \tag{4}
 \]
 
-There are 90 Gram ridges, one per unordered pair of K columns and row. There
+There are 90 overlap ridges, one per unordered pair of K columns and row. There
 are 90 mixed ridges, one per K column and unordered pair of rows. The six H
-column labels in a mixed ridge have the same linear K phase and are summed
+column indices in a mixed ridge have the same linear K phase and are summed
 into its coefficient. This compression is exact, not a truncation.
 
 Write \(a_\ell=(a_{\ell,s},a_{\ell,w})\). The order-\(n\) derivative tensor
@@ -288,10 +289,10 @@ V\,[K_s^{\circ(n-k)}\circ K_w^{\circ k}]\,V^T. \tag{5}
 If a strong input is used as the row axis, its Gram matrix is
 
 \[
-A_s^T[(V^TV)\circ K_s^{\circ(n-k-1)}\circ K_w^{\circ k}]A_s; \tag{6}
+A_s^T[(V^TV)\circ K_s^{\circ(n-k-1)}\circ K_w^{\circ k}]A_s. \tag{6}
 \]
 
-the weak-axis formula is analogous. Here powers and \(\circ\) are entrywise,
+The weak-axis formula is analogous. Here powers and \(\circ\) are entrywise,
 and the rows of \(A_s,A_w\) are the corresponding feature vectors.
 
 The checker rebuilds the selected Gram matrix in Arb and proves
@@ -337,7 +338,7 @@ P_a(S,W)=\sum_{n=2}^{8}\sum_{k=0}^{n}
 
 Every coefficient in (7) is nonnegative, so the function is increasing in both
 nonnegative arguments. The degree-eight expansion is used only in a rigorous
-upper bound; the ninth-order tail is retained.
+upper bound, and the ninth-order tail is retained.
 
 ## 6. The six colour balls give a much sharper weak-radius bound
 
@@ -370,7 +371,7 @@ n\cdot w
 \end{aligned} \tag{8}
 \]
 
-This bound is valid for every chosen \(p\); no numerical optimizer needs to
+This bound is valid for every chosen \(p\), so no numerical optimizer needs to
 be trusted. The numerical optimizer merely proposes useful vectors.
 
 Use the exact 64 directions
@@ -391,7 +392,7 @@ The witness provides six independent sets of these 64 dual proposals. The
 minimum of the six valid upper bounds is again valid. All direction vectors,
 support coefficients, and the cosine denominator are recomputed in Arb.
 As an indication of the gain, the numerical design bound at \(S=0.087\) is
-about 0.61783; the coarse enclosing-ball bound is about 0.704. The acceptance
+about 0.61783, and the coarse enclosing-ball bound is about 0.704. The acceptance
 path uses (8)--(9) afresh, not these rounded illustrative values.
 
 ## 7. Exhaustive annulus verification
@@ -402,15 +403,15 @@ This is neither an H-cell tree nor a K-phase tree.
 
 A closed rectangle \([S_-,S_+]\times[W_-,W_+]\) is discharged by one of:
 
-1. \(S_-^2+W_-^2>R^2\);
-2. \(W_-\) exceeds the valid colour support upper bound at \(S_+\);
-3. \(S_-\) exceeds the first right side of (2) evaluated at \((S_+,W_+)\);
-4. \(W_-\) exceeds the second right side of (2) evaluated there;
+1. \(S_-^2+W_-^2>R^2\),
+2. \(W_-\) exceeds the valid colour support upper bound at \(S_+\),
+3. \(S_-\) exceeds the first right side of (2) evaluated at \((S_+,W_+)\),
+4. \(W_-\) exceeds the second right side of (2) evaluated there,
 5. \(S_+^2+W_+^2<(0.00999)^2\).
 
 Monotonicity of the right sides proves the validity of tests 2--4. The splits
 are closed midpoint bisections, so every boundary is retained. Unresolved
-rectangles cause failure; there is no numerical acceptance at the depth limit.
+rectangles cause failure, and there is no numerical acceptance at the depth limit.
 
 The verified run used **247 nodes, 124 leaves, and maximum depth 14**:
 
@@ -460,7 +461,7 @@ pattern is empty. ∎
 
 ## 9. Reproduction and integration
 
-From the return package, with `python-flint` installed, run
+From the package that holds `joint/` and `source/`, with `python-flint` installed, run
 
 ```bash
 python joint/check_815.py \
@@ -469,13 +470,13 @@ python joint/check_815.py \
   --output joint/receipt_815.json
 ```
 
-Adjust the source path to the unpacked handoff. The checker requires only
+Adjust the source path to where that data is unpacked. The checker requires only
 `python-flint` and the Python standard library. Search scripts in this directory
 use NumPy/SciPy, but are not part of the acceptance path.
 
 The proposed production hook is a single pattern witness containing the
 preconditioner, reference phases, tensor norm bounds, and support duals. It must
-be run after the production checker rebuilds and binds the same normal form and
+be run after the production checker rebuilds and binds the same enclosure and
 six colour balls. It can then replace the per-column trees and joint tuple
 search for this pattern. It cannot stand in for the other 1,023 patterns listed
 in the source cell's cover. This result therefore demonstrates an inexpensive

@@ -3,8 +3,8 @@
 This folder formalises the Fourier-vanishing theorem of
 [`MinimalReconstruction/theorems/H_fourier_vanishing/REPORT.md`](../../../MinimalReconstruction/theorems/H_fourier_vanishing/REPORT.md),
 referred to below as the report. For a complex Hadamard matrix of order six that is not equivalent to Tao's
-matrix, every triple moment over three rows or three columns vanishes. The theorem is an input to Section II of the
-paper. The main proof does not use it.
+matrix, every triple moment over three rows or three columns vanishes. The theorem is SM Proposition S.8
+(Fourier vanishing) of the paper, a consequence of the reconstruction. The main proof does not use it.
 
 ```lean
 theorem NoFourMUBs.FourierVanishing.fourierVanishing (H : Mat6) (hH : Hadamard6.IsHadamard H)
@@ -46,7 +46,7 @@ becomes `sign τ`, carried by `det (K.submatrix id τ) = sign τ · det K`.
 | §0 Theorem (0.1), rows and columns | `fourierVanishing`, `rowVanishing` | `Main` |
 | §0 Complementary-invariant criterion | `moments_vanish` | `Main` |
 | §2.1 Covariance (row permutations) | `moment_submatrix` | `Criterion` |
-| §2.2 D1: corner signatures equal or conjugate (g = 0, R = 0, R > 0) | `sig_lower_eq_or_conj` | `Corners` |
+| §2.2 D1: corner labels equal or conjugate (g = 0, R = 0, R > 0) | `sig_lower_eq_or_conj` | `Corners` |
 | §2.2 D2 at a strict corner | `dephased_matched` (uses `PRM.nonmatched_tao`) | `Corners` |
 | §2.2 (2.1)/(0.2) at every corner | `allCornersMatched : PRM.AllCornersMatched H`, then `cornerConj_of_matched` | `Corners`, `Criterion` |
 | §3 (3.1) `det X^[2] = perm X det X − 2 P_X conj det X` | `det_sqMat` | `Square` |
@@ -78,10 +78,10 @@ certificate `certificates/hodge_integer_cofactors.json` is not used.
 The Lean proof uses the block identity `L · [[E†, 0], [B†, I]] = [[6I, B], [0, D]]`. The report uses the third
 compound matrix instead.
 
-### §8 F6
+### §8 F₆
 
-The F6 case is not handled by computing its moments. F6 is not equivalent to Tao's matrix, so it goes through the
-same criterion. Only the rank hypothesis needs F6 specifically. It comes from the explicit square minor on rows
+The F₆ case is not handled by computing its moments. F₆ is not equivalent to Tao's matrix, so it goes through the
+same criterion. Only the rank hypothesis needs F₆ specifically. It comes from the explicit square minor on rows
 and columns `{inl 0, inr 1, inl 2}` (`{0, 2, 4}` in 0–5 order), whose determinant is `3ω(1 − ω) ≠ 0`.
 
 ### §6 one exchange

@@ -6,20 +6,22 @@ explains how.
 
 ## The result
 
-**Theorem (computer-assisted).** Up to equivalence, every nonempty set of mutually unbiased bases (MUBs) in ℂ⁶ is
-one of the following:
-1. a single basis {I},
-2. a pair {I, H/√6}, where H is Tao's matrix, F₆, or the matched completion H₊(θ) of a strict seed θ,
+**Theorem (classification of all MUB sets, computer-assisted).** Up to equivalence, every nonempty set of mutually
+unbiased bases (MUBs) in ℂ⁶ is one of the following:
+1. a single basis {I₆},
+2. a pair {I₆, H/√6}, where H is Tao's matrix, F₆, or the matched completion H₊(θ) of a strict seed θ,
 3. a triple in the continuous two-parameter family, or the isolated Fourier triple.
+
+No set contains four or more bases.
 
 Two sets of MUBs are *equivalent* if one is obtained from the other by a common unitary, by rephasing and permuting
 the vectors of each basis, and by permuting the bases. The theorem proves the conjecture of Matolcsi, Matszangosz,
 Varga and Weiner [MMVW] that the known triples are the only ones.
 
-**Corollary.** ℂ⁶ admits no four mutually unbiased bases, so N(6) = 3. Every triple above contains two bases related
-by a matrix of the Fourier family, and no such pair extends to four MUBs [JMMSW].
+In particular N(6) = 3. Every triple above contains two bases related by a matrix of the Fourier family, and no such
+pair extends to four MUBs [JMMSW].
 
-The corollary also has a second, more direct proof in this repository. It excludes four MUBs ball by ball, without
+That N(6) = 3 also has a second, more direct proof in this repository. It excludes four MUBs ball by ball, without
 classifying triples, and its final step is a Lean theorem (see below).
 
 ## How the proof works
@@ -37,14 +39,16 @@ pair that extends to four MUBs ([`QuartetExclusion/`](QuartetExclusion/README.md
 
 ## What has been checked
 
-**The classification.** All 2,775 seed balls, the ball at F₆ and Tao's matrix are certified.
+**The classification.** All 2,775 seed balls and the ball at F₆ are certified. Tao's matrix admits no third basis
+[BW09], and the repository also checks this
+([`proof/theorems/TC_triple_classification/tao.py`](proof/theorems/TC_triple_classification/tao.py)).
 - Each seed ball has its own certificate, 3.3 GB in all, published with the release
   [`tc-verification-2026-11-04`](https://github.com/JoeyT1994/NoFourMUBS/releases/tag/tc-verification-2026-11-04).
 - The certifier checks each certificate from its files alone, in Arb and exact arithmetic. Checking all of them takes
   about 900 core-hours.
 - In four of the balls, the certificates use the freedom to reorder the three bases
   ([`TripleClassification/proofs/ORDERING.md`](TripleClassification/proofs/ORDERING.md)).
-- The 383,829 shell verdicts of the ball at F₆ are published, and were all recomputed from scratch on 4 November 2026.
+- The 383,829 shell verdicts of the ball at F₆ are published, and were all recomputed from scratch on 3–4 November 2026.
 - The classification is not formalised in Lean.
 
 **The direct proof of N(6) = 3.**
@@ -56,10 +60,10 @@ pair that extends to four MUBs ([`QuartetExclusion/`](QuartetExclusion/README.md
   axioms.
 - Near F₆, an exact cover proved in Lean excludes quartets within phase distance 7/40.
 
-Both proofs share the reconstruction, the connectedness and the cover. Inside each ball, both use the vector-cover
-and graph-search tests introduced in OpenAI's proof [OAI]. We reprove their inequalities and formalise them in Lean,
-and use none of OpenAI's certificates [OAI, OAI-F]. The few floating-point comparisons in these tests carry proved
-error margins ([`QuartetExclusion/ROUNDING.md`](QuartetExclusion/ROUNDING.md)).
+Both proofs share the reconstruction, the connectedness and the cover. Inside each ball, both use the graph-search
+tests introduced in OpenAI's proof [OAI]. We reprove their inequalities, formalise them in Lean and use none of
+OpenAI's certificates [OAI, OAI-F]. The few floating-point comparisons in these tests carry proved error margins
+([`QuartetExclusion/ROUNDING.md`](QuartetExclusion/ROUNDING.md)).
 
 ## Checking it yourself
 
@@ -83,7 +87,7 @@ out in full in [`PROOF.md`](PROOF.md).
 
 | Step | Statement | How it is checked |
 |---|---|---|
-| 1 | The positive local maxima of the corner invariant R form one orbit of 18 points, with maximum 3¹³/2¹² | 651 exact claims, proved in Lean |
+| 1 | The positive local maxima of the reconstruction invariant R form one orbit of 18 points, with maximum 3¹³/2¹² | 651 exact claims, proved in Lean |
 | 2 | Every non-Tao class other than F₆ is a matched completion of a strict corner, and the space of non-Tao classes is connected | exact certificates, proved in Lean |
 | 3 | No seed ball contains a pair that extends to four MUBs | inequalities proved in Lean, one Arb computation per ball |
 | 4 | No such pair lies within phase distance 7/40 of F₆ | an exact cover, proved in Lean with no hypotheses |
@@ -103,8 +107,8 @@ The first three folders build the atlas. Each of the other two runs one local ch
 
 Four other things sit at the top level:
 - [`PROOF.md`](PROOF.md) is the written proof of N(6) = 3 by the direct route, and [`verify.py`](verify.py) replays its
-  exact checks. Its theorems are labelled by letters such as Z or X, listed in
-  [`proof/theorems/README.md`](proof/theorems/README.md).
+  exact checks. [`proof/theorems/README.md`](proof/theorems/README.md) lists the supporting theorems and where each
+  is used.
 - [`proof/`](proof/README.md) holds the shared certifiers and data that the five folders above draw on.
 - [`lean/`](lean/README.md) is the Lean formalisation.
 - [`kernel_atlas/`](kernel_atlas/README.md) holds the kernel-checked certificate behind the exclusion near F₆.
@@ -115,6 +119,8 @@ MIT ([`LICENSE`](LICENSE)). To cite this work, see [`CITATION.cff`](CITATION.cff
 
 ## References
 
+- [BW09] S. Brierley, S. Weigert, *Constructing mutually unbiased bases in dimension six*, Phys. Rev. A **79**,
+  052316 (2009).
 - [CT] M. Cárdenes Wuttig, J. Tindall, *A complete classification of complex Hadamard matrices of order six*,
   arXiv:2608.18053, with its Lean development at
   [mateocardeneswuttig/all_hadamard_matrices_in_dimension_six](https://github.com/mateocardeneswuttig/all_hadamard_matrices_in_dimension_six).

@@ -1,26 +1,27 @@
 # A sufficient repair for parent–child branch identification
 
 This is a proposed new certificate lemma, independently checked against the
-normal-form theorem supplied in `Z_completion_hessian_return/THEOREM.md`.
+whole-ball completion theorem that gives the enclosure of H, in
+[`THEOREM.md`](../../../proof/theorems/Z_completion_hessian/Z_completion_hessian_return/THEOREM.md).
 It is not a claim that the frozen checker currently performs this test or
 that all existing sub-cell records pass it.
 
 ## Statement
 
 Let p and c denote parent and child records with successfully certified
-normal forms. Use the same horizontal phase space H and seed extraction
-map L as in the supplied theorem. Write
+enclosures. Use the horizontal phase space V and the seed extraction
+map L of the SM (𝓗 and L in the supplied theorem). Write
 
     Q_i(w) = p_i(w) + X_i z_i(w),
     p_i(w) = Q0_i + U_i w + (1/2) H2_i[w,w],
     ||w|| <= r_i,  ||z_i(w)|| <= tau_i,
     L Q_i(w) = theta_i + M_i w,
 
-for `i in {p,c}`. Require the following existing normal-form conclusions:
+for `i in {p,c}`. Require the following existing conclusions of the enclosure:
 
 1. Every Q_i and p_i is horizontal. If a theorem is stored in a dephased
    gauge instead, horizontalize it first, consistently with L and X.
-2. X_i is an isomorphism onto `H intersect ker L`.
+2. X_i is an isomorphism onto `V intersect ker L`.
 3. Q_i is continuous on the closed ball and real analytic on its interior,
    and `Phi(Q_i(w))=0` there.
 4. For every fixed parent w, the parent projected equation
@@ -32,7 +33,7 @@ for `i in {p,c}`. Require the following existing normal-form conclusions:
 Let Pi be a **matrix row/column permutation action**, not an arbitrary
 permutation of 36 phases. In the application it independently permutes the
 last three rows and last three columns, fixing rows and columns 0,1,2.
-Consequently it preserves H and satisfies `L Pi=L`; exponentiating it
+Consequently it preserves V and satisfies `L Pi=L`, and exponentiating it
 preserves the Hadamard equations and triple equivalence.
 
 Let N be a fixed integer phase matrix, and define `n=L N in Z^4`.
@@ -122,9 +123,9 @@ translated by the fixed `2 pi n`. It is convex and hence connected. Both
 aligned phase functions are real analytic there. Their 36 coordinate
 differences vanish on the nonempty open neighborhood just obtained, so
 the real-analytic identity theorem makes them vanish throughout that
-intersection. The normal-form theorem supplies continuity on the closed
+intersection. The enclosure theorem supplies continuity on the closed
 balls. Every point of their closed intersection is approached by common
-interior points along its segment toward theta-star; convexity and the
+interior points along its segment toward theta-star. Convexity and the
 strict interior position of theta-star ensure these intervening points
 are interior to both ellipsoids. Taking the limit proves the boundary
 statement.
@@ -150,12 +151,12 @@ interval enclosures for every matrix, inverse and norm:
     require(norm_upper(wp) < rp)
     require(norm_upper(wc) < rc)
     Xplus = inverse(transpose(Xp)*Xp) * transpose(Xp)
-    offset = Pi*predictor_child(wc) + 2*pi*hor(N) - predictor_parent(wp)
+    offset = Pi*predictor_child(wc) + 2*pi*h(N) - predictor_parent(wp)
     eta = norm_upper(Xplus*offset) + opnorm_upper(Xplus*Pi*Xc)*tau_c
     require(eta < tau_p)
 
 Identity of the seed maps and horizontal gauges should be established
-algebraically from the normal-form construction. Numerically checking
+algebraically from the construction of the enclosure. Numerically checking
 that their residuals are small does not replace these identities.
 
 ## Limits and implementation cautions
@@ -163,12 +164,12 @@ that their residuals are small does not replace these identities.
 - This is a **sufficient** check. Failure to fit the whole child remainder
   bound inside the parent tube proves neither a different branch nor an
   incorrect record. One may sharpen the child value enclosure at
-  theta-star, recenter a normal form, subdivide, or certify a chain of
+  theta-star, recenter an enclosure, subdivide, or certify a chain of
   overlapping tubes.
 - The proof needs just one successful overlap witness per parent–child
   pair, not an overlap calculation on every point of the cell.
 - The chosen theta-star need not lie in the dyadic cell. It only needs to
-  belong strictly to both normal-form balls. The identity theorem then
+  belong strictly to the balls of both enclosures. The identity theorem then
   covers their full overlap, including the cell.
 - A common interior point and a fixed lifted winding are essential to
   this proof. Equality at a tangency point of two domains with no common
@@ -182,7 +183,7 @@ that their residuals are small does not replace these identities.
   tree code already requires equal M, which simplifies coordinate work.
 - If a more general permutation changes L, explicitly transform the seed
   map as well. The formula written here assumes `L Pi=L`.
-- The normal forms need not have identical X matrices; only their stated
+- The enclosures need not have identical X matrices. Only their stated
   exact ranges and the certified cross-operator norm are required.
 - If code stores nonhorizontal centers, use a consistently horizontal
   predictor. Otherwise the inference `d in range(Xp)` can fail even when

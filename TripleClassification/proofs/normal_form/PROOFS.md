@@ -1,31 +1,33 @@
-# The cubic normal-form witness: statements and proofs
+# The Normal-form localisation test: statements and proofs
 
-The witness was proposed for the hardest balls by a separate AI agent (Antigravity), then reviewed and repaired. The
-original-ball integration left open below is the overlap witness ([`overlap.py`](../../certifier/certifier/overlap.py);
-[`NATIVE_REVIEW.md`](../NATIVE_REVIEW.md), F1), checked for every leaf of the final atlas on 3 November 2026.
+This is the paper's Normal-form localisation test (Methods, and the SM's paragraph on Normal-form localisation near the family), called the cubic
+normal-form witness in the code. The witness was proposed for the hardest balls by a separate AI agent, then reviewed
+and repaired. The original-ball integration left open below is the overlap witness
+([`overlap.py`](../../certifier/certifier/overlap.py), [`NATIVE_REVIEW.md`](../NATIVE_REVIEW.md), F1), checked for
+every leaf of the final atlas on 3 November 2026.
 
-> **Review, 2 November 2026.** This corrected copy incorporates the algebraic and code-correspondence repairs established in the accompanying `REVIEW.md`. Verdicts apply within the represented H-branch scope and the reviewed native hypotheses; original-ball integration remains a separate obligation.
+> **Review, 2 November 2026.** This corrected copy incorporates the algebraic and code-correspondence repairs established in the accompanying `REVIEW.md`. Verdicts apply within the represented H-branch scope and the reviewed hypotheses of the whole-ball certifier. Original-ball integration remains a separate obligation.
 
-> **Arithmetic scope.** The new witness recomputes bounds in 160-bit Arb arithmetic (`python-flint 0.9.0`) and accepts by rigorous interval inequalities or exact comparisons. The inherited native setup retains its separately reviewed numerical proposals and conservative binary64 enclosures. The full executable is not claimed to make zero floating-point decisions.
+> **Arithmetic scope.** The new witness recomputes bounds in 160-bit Arb arithmetic (`python-flint 0.9.0`) and accepts by rigorous interval inequalities or exact comparisons. The inherited setup of the whole-ball certifier retains its separately reviewed numerical proposals and conservative binary64 enclosures. The full executable is not claimed to make zero floating-point decisions.
 
 ---
 
 ## 1. Notation and Reviewed Results Used
 
-We follow the notation of `PROOF_815.md` §2–§5 (`handoffs/TC_annulus_20261101/refs/PROOF_815.md`) and `family_neighbourhoods/PROOF.md`:
+The notation follows [`PROOF_815.md`](PROOF_815.md) §2–§5 and `family_neighbourhoods/PROOF.md`:
 
 - All transition matrices have unit-modulus entries, $H = e^{i q}$ and $K = e^{i y}$ (indexed by $6 r + c$ for row $r \in \{0,\dots,5\}$ and column $c \in \{0,\dots,5\}$).
 - The residual map $F(q, y) \in \mathbb{R}^{66}$ consists of:
-  - the $30$ off-diagonal $K$-Gram components $\operatorname{Re}(K^* K)_{ab}$ and $\operatorname{Im}(K^* K)_{ab}$ for $0 \le a < b < 6$, and
-  - the $36$ mixed unbiasedness residuals $\frac{1}{6}|(H^* K)_{ab}|^2 - 1$ for $a, b \in \{0,\dots,5\}$.
+  - the $30$ off-diagonal $K$-overlap components $\operatorname{Re}(K^\dagger K)_{ab}$ and $\operatorname{Im}(K^\dagger K)_{ab}$ for $0 \le a < b < 6$, and
+  - the $36$ mixed unbiasedness residuals $\frac{1}{6}|(H^\dagger K)_{ab}|^2 - 1$ for $a, b \in \{0,\dots,5\}$.
 - $W_6 \in \mathbb{R}^{6 \times 5}$ is the single-column Helmert isometry ($W_6^\top W_6 = I_5$, $W_6^\top \mathbf{1}_6 = 0$), and $E = \operatorname{diag}(W_6, \dots, W_6) \in \mathbb{R}^{36 \times 30}$ (arranged by column $c$ at rows $6r+c$ and columns $5c+j$) is the block-Helmert isometry ($E^\top E = I_{30}$) onto column-centred phases.
-- Given an invertible right frame $T \in \mathbb{R}^{30 \times 30}$ and left preconditioner $B \in \mathbb{R}^{30 \times 66}$, we split coordinates in $\mathbb{R}^{30} = \mathbb{R}^{28} \oplus \mathbb{R}^2$ into the **strong block** $s = \{0,\dots,27\}$ (rows $0..27$) and the **weak block** $w = \{28, 29\}$ (rows $28..29$). For any matrix $M$ with $30$ rows and $a \in \{s, w\}$, $M_a$ denotes the submatrix of rows in $a$, and $\|M_a\|$ denotes its spectral norm $\|M_a\|_2$.
+- Given an invertible right frame $T \in \mathbb{R}^{30 \times 30}$ and left preconditioner $B \in \mathbb{R}^{30 \times 66}$, the coordinates in $\mathbb{R}^{30} = \mathbb{R}^{28} \oplus \mathbb{R}^2$ split into the **strong block** $s = \{0,\dots,27\}$ (rows $0..27$) and the **weak block** $w = \{28, 29\}$ (rows $28..29$). For any matrix $M$ with $30$ rows and $a \in \{s, w\}$, $M_a$ denotes the submatrix of rows in $a$, and $\|M_a\|$ denotes its spectral norm $\|M_a\|_2$.
 
 The witness chains the following **reviewed** results with the reviewed lemmas below:
 
-1. **N9. Native fine bins** (`family_neighbourhoods/PROOF.md` §9, [`fine_patterns.py`](../../../proof/theorems/TC_triple_classification/family_neighbourhoods/fine_patterns.py)):
-   For a pattern (6-clique of colour classes) of the cell's complete cover, every column $c \in \{0,\dots,5\}$ of every actual completing basis in the pattern lies in one of its colour's retained closed fine bins with centre $v_k = \frac{2\pi}{192}(0, k_1, \dots, k_5)^\top$ and mean-zero phase radius $\rho = \pi\sqrt{29/6}/m$, where $m=96$ is the final Stage C resolution (the midpoint grid uses $\mathrm{DEN}=2m=192$) (`cover['bin_radius']`). Pairwise edge filtering (`stagec.joint_filter`) and arc-consistency (`fine_patterns.arc_consistent`) prune only bin pairs and bins that cannot participate in any valid completion.
-2. **A. The 180-ridge representation and Gram-tensor bounds** (`PROOF_815.md` §3–§7, audited in `AUDIT_815.md`):
+1. **Fine bins of the whole-ball certifier** (`family_neighbourhoods/PROOF.md` §9, [`fine_patterns.py`](../../../proof/theorems/TC_triple_classification/family_neighbourhoods/fine_patterns.py)):
+   For a pattern (6-clique of colour classes) of the cell's complete cover, every column $c \in \{0,\dots,5\}$ of every actual completing basis in the pattern lies in one of its colour's retained closed fine bins with centre $v_k = \frac{2\pi}{192}(0, k_1, \dots, k_5)^\top$ and mean-zero phase radius $\rho = \pi\sqrt{29/6}/m$, where $m=96$ is the final resolution of the local tests (Stage C in the code) (the midpoint grid uses $\mathrm{DEN}=2m=192$) (`cover['bin_radius']`). Pairwise edge filtering (`stagec.joint_filter`) and arc-consistency (`fine_patterns.arc_consistent`) prune only bin pairs and bins that cannot participate in any valid completion.
+2. **The 180-ridge representation and Gram-tensor bounds** (`PROOF_815.md` §3–§7, audited in `AUDIT_815.md`):
    - Universal operator norm bounds $\|F_{HH}\| \le 2\sqrt{6}$ and $\|F_{HK}\| \le 2$ (`PROOF_815.md` §3 (1)).
    - For $G(\zeta) = B F(q^*, y^* + E T \zeta)$, the exact 180-ridge cosine/sine expansion
      $$G(\zeta) = \sum_{l=1}^{180} \bigl(c_l (\cos(a_l^\top \zeta) - 1) + s_l \sin(a_l^\top \zeta)\bigr) + G(0),$$
@@ -34,8 +36,8 @@ The witness chains the following **reviewed** results with the reviewed lemmas b
      $$c_{a, n, k} := \frac{h^{(a)}_{n,k}}{(n-k)!\,k!} \ge \frac{1}{(n-k)!\,k!} \sup_{\|\zeta_s\|_2 \le 1,\, \|\zeta_w\|_2 \le 1} \left\| D^n_{s^{n-k} w^k} G_a(0)[\zeta_s^{n-k}, \zeta_w^k] \right\|_2,$$
      certified via the minimum of the three Gram flattenings (`output`, `strong`, `weak` in `tensor_bounds`, `PROOF_815.md` (5)–(6)), together with the degree-9 Lagrange remainder tail
      $$T_{a,9}(S_{\text{full}}, W) := \left\| \left( \sum_{l=1}^{180} \sqrt{C_f[i,l]^2 + S_f[i,l]^2} \, \frac{(\|a_{l,s}\|_2 S_{\text{full}} + \|a_{l,w}\|_2 W)^9}{9!} \right)_{i \in a} \right\|_2.$$
-3. **N6. Native averaged moving contraction** (`family_neighbourhoods/PROOF.md` §6, `NATIVE_REVIEW.md`, [`moving_symmetry.py`](../../../proof/theorems/TC_triple_classification/family_neighbourhoods/moving_symmetry.py)):
-   Given a per-column moving enclosure $v_c = v_{0,c} + T_c u + e_c$ with mean-zero error $\|e_c\|_2 \le \varepsilon_c$, the native contraction certifies that every solution in the tube has balanced order-three ($\mathbb{Z}_3$) symmetry whenever $q_{\text{native}} = \eta + \|\Delta_c\|_2 + r\|[V_1 \dots V_4]\|_2 + h + R < 1$.
+3. **Averaged moving contraction of the whole-ball certifier** (`family_neighbourhoods/PROOF.md` §6, `NATIVE_REVIEW.md`, [`moving_symmetry.py`](../../../proof/theorems/TC_triple_classification/family_neighbourhoods/moving_symmetry.py)):
+   Given a per-column moving enclosure $v_c = v_{0,c} + T_c u + e_c$ with mean-zero error $\|e_c\|_2 \le \varepsilon_c$, this contraction certifies that every solution in the tube has balanced order-three ($\mathbb{Z}_3$) symmetry whenever $q_{\text{native}} = \eta + \|\Delta_c\|_2 + r\|[V_1 \dots V_4]\|_2 + h + R < 1$.
 
 ---
 
@@ -78,6 +80,8 @@ $$\phi_d(w) := \left( \sqrt{\binom{d}{j}} \, w_1^{d-j} w_2^j \right)_{j=0}^d = \
 ---
 
 ### Lemma P1.2 (REPAIRED IN REVIEW — Cubic Normal-Form Cancellation and Remainder Decomposition of $G(\zeta)$)
+
+This is the cubic normal-form coordinate of the SM's cubic normal form and the remainder of the SM's defect decomposition.
 
 **Setting and Explicit Constants.** Let $G(\zeta) = B F(q^*, y^* + E T \zeta)$ have 180-ridge expansion with $C_f, S_f \in \mathbb{R}^{30 \times 180}$ and $A = [A_s \;\; A_w] \in \mathbb{R}^{180 \times 30}$, where $a_{w,1}[l] = A_w[l, 0]$ and $a_{w,2}[l] = A_w[l, 1]$ for $l \in \{0,\dots,179\}$.
 
@@ -160,6 +164,8 @@ Summing these bounds by the triangle inequality proves the claim. $\blacksquare$
 
 ### Lemma P1.3 (REPAIRED IN REVIEW — Tightened H-Motion Floor, Split Operators, and 90-Ridge Bounds)
 
+Its combined quadratic floor corresponds to the quadratic carrier term of the SM's quadratic carrier bound, whose mixed term has a positive sign.
+
 **Setting.** In the represented cell,
 $$q(u,\xi)=Q_0+Uu+\frac12H_2(u\otimes u)+X\xi,\qquad \|u\|\le r,\quad\|\xi\|\le\tau.$$
 Choose arbitrary reference phases $(q^*,y^*)$ and write
@@ -180,7 +186,7 @@ $$R_{HH}=F(q^*+d+h,y^*)-F(q^*+d,y^*)-J_Hh,$$
 $$R_{HHH}=F(q^*+d,y^*)-F(q^*,y^*)-J_Hd-\frac12F_{HH}(q^*,y^*)[d,d].$$
 The global bound $\|F_{HH}\|\le2\sqrt6$ implies
 $$\|R_{HH}\|\le2\sqrt6\|d\|\|h\|+\sqrt6\|h\|^2.$$
-Indeed, first subtract $F_H(q^*+d,y^*)h$ and apply the second-order integral remainder in $h$; the difference between this derivative and $J_H$ contributes at most $2\sqrt6\|d\|\|h\|$. There is **no** additional subtraction of $J_HH_2(u\otimes u)/2$ in this remainder.
+Indeed, first subtract $F_H(q^*+d,y^*)h$ and apply the second-order integral remainder in $h$. The difference between this derivative and $J_H$ contributes at most $2\sqrt6\|d\|\|h\|$. There is **no** additional subtraction of $J_HH_2(u\otimes u)/2$ in this remainder.
 
 For the joint increment, define the exact four-corner remainder
 $$\begin{aligned}
@@ -278,7 +284,7 @@ one obtains the exact identity
 $$BF_H(q^*,y^*+ET\zeta)Ue_j
 =\sum_{l=0}^{89}\bigl(BC_j[:,l]\cos(a_{90+l}^\top\zeta)
 +BS_j[:,l]\sin(a_{90+l}^\top\zeta)\bigr).$$
-All 30 K-Gram components have zero H derivative. After subtracting the constant and linear terms, this is the ridge expansion of $R_{H,j}$.
+All 30 K-overlap components have zero H derivative. After subtracting the constant and linear terms, this is the ridge expansion of $R_{H,j}$.
 
 For output block $g$, stack the four coefficient matrices vertically:
 $$V_{C,g}=[(BC_1)_g;\dots;(BC_4)_g],\qquad
@@ -313,7 +319,7 @@ is valid. Define
 $$\gamma_{u,4,g}=\min\left(\gamma_{u,4,g}^{\mathrm{ridge}},\frac{\sqrt2}{8}b_gd_u(t\rho_\zeta)^4\right),$$
 $$\gamma_{u,3,g}=\min\left(\frac23b_gd_u(t\rho_\zeta)^3,
 \ r\sum_{k=0}^3\mathrm{fhkkk}[g][k]S_{\mathrm{full}}^{3-k}W^k+\gamma_{u,4,g}\right).$$
-The first candidate is a cubic Lagrange bound after the quadratic polynomial; the second retains the cubic polynomial and bounds its fourth-order tail. Both bound the same remainder, so their minimum is valid. Combining the exact decomposition above yields precisely
+The first candidate is a cubic Lagrange bound after the quadratic polynomial, and the second retains the cubic polynomial and bounds its fourth-order tail. Both bound the same remainder, so their minimum is valid. Combining the exact decomposition above yields precisely
 $$\gamma_g=2b_ge_Ht\rho_\zeta+\sqrt2b_gd_u^2t\rho_\zeta
 +\gamma_{u,2,g}+\gamma_{u,3,g}.$$
 Every bound is uniform over all actual H and K phases in the stated enclosure. $\blacksquare$
@@ -371,7 +377,7 @@ $$\langle D_l,D_m\rangle_F
 =\frac1{36}(K_S)_{lm}^2
 +\frac1{8\alpha}(K_S)_{lm}(K_W)_{lm}
 +\frac1{4\alpha^2}(K_W)_{lm}^2.$$
-The mixed term has two equal contributions, one from each off-diagonal block; this accounts for the factor $1/(8\alpha)$.
+The mixed term has two equal contributions, one from each off-diagonal block, which accounts for the factor $1/(8\alpha)$.
 
 The linear map
 $$\mathcal T_{g,3}:s\longmapsto\sum_l(S_{f,g})_{:,l}\otimes D_l\,(a_{l,s}^\top s)$$
@@ -385,11 +391,13 @@ $$\begin{aligned}
 +\tfrac12D^3_{sww}G_g(0)[s,w^2]\bigr\|
 \le\sqrt{\|G^{(3)}_{g,\alpha}\|}\,\|s\|(\|s\|^2+\alpha\|w\|^2).
 \end{aligned}$$
-This again holds for every $\alpha>0$; the code uses $\alpha\in\{1,6/5\}$. These are exact Gram flattenings, not termwise comparisons of signed monomials. Certified spectral upper bounds and minima with independent split bounds preserve the inequalities. $\blacksquare$
+This again holds for every $\alpha>0$, and the code uses $\alpha\in\{1,6/5\}$. These are exact Gram flattenings, not termwise comparisons of signed monomials. Certified spectral upper bounds and minima with independent split bounds preserve the inequalities. $\blacksquare$
 
 ---
 
 ### Lemma P1 (REPAIRED IN REVIEW — Cubic Normal-Form Localisation Lemma)
+
+This is the Normal-form localisation bound (the SM's localisation bound).
 
 **Claim.** Write any putative zero over the cell in the column-phase convention as $y = y^* + E T(z + \Lambda u)$ with $\Lambda_w = 0$ (so $\zeta = z + \Lambda u$ has $\zeta_s = z_s + \Lambda_s u$ and $\zeta_w = z_w$). Define the cubic normal-form strong coordinate
 $$\tilde{z}_s := z_s - q_2(z_w) - q_3(z_w) \in \mathbb{R}^{28},$$
@@ -426,7 +434,9 @@ For each colour $c \in \{0,\dots,5\}$, $x_c = p_c + \delta_c$ with $p_c \in P_c$
 
 ---
 
-### Lemma E2′ (REVIEWED PASS — Per-Colour Split Tube Bound from Localisation to Step F)
+### Lemma E2′ (REVIEWED PASS — Per-Colour Split Tube Bound from Localisation to the Symmetry Test)
+
+This is the SM's normal-form tube bound.
 
 **Statement.** For each column $c \in \{0,\dots,5\}$, let $T_{s,c} \in \mathbb{R}^{5 \times 28}$ be rows $5c..5c+4$, columns $0..27$ of $T$, and let $T_{w,c} \in \mathbb{R}^{5 \times 2}$ be rows $5c..5c+4$, columns $28..29$ of $T$. Put
 $$\text{nTs\_c} := \max_{0 \le c < 6} \|T_{s,c}\|_2, \qquad \text{nTw\_c} := \max_{0 \le c < 6} \|T_{w,c}\|_2.$$
@@ -439,34 +449,34 @@ $$\|e_c\|_2 \le \text{nTs\_c} \cdot \bigl(s_u + \text{kap\_q}\,w_u^2 + \text{kap
 
 ### Lemma E3 (REVIEWED PASS — Recursive Core + Outer-Peel Exhaustion on the Retained Fine-Bin Graph)
 
-**Statement.** Let $G = (V, \mathcal{E})$ be the retained 6-partite fine-bin compatibility graph produced by `fine_patterns.refine` (Reviewed Result N9) for a 6-clique of colours $\{0,\dots,5\}$, where $V = V_0 \sqcup \dots \sqcup V_5$. Let $U \subseteq V$ ($U_c = U \cap V_c$) be any subset of vertices, and let $I \subseteq U$ be any fixed subset of vertices ("core" bins, defined by an Arb threshold test $\neg(r_b > \tau)$ on the bin reach $r_b = \|p_b\|_2 + \rho$). For any starting colour index $s_{\text{col}} \in \{0,\dots,5\}$, define the $1 + (6 - s_{\text{col}})$ subsets of $U$:
+**Statement.** Let $G = (V, \mathcal{E})$ be the retained 6-partite fine-bin compatibility graph produced by `fine_patterns.refine` (Reviewed Result 1) for a 6-clique of colours $\{0,\dots,5\}$, where $V = V_0 \sqcup \dots \sqcup V_5$. Let $U \subseteq V$ ($U_c = U \cap V_c$) be any subset of vertices, and let $I \subseteq U$ be any fixed subset of vertices ("core" bins, defined by an Arb threshold test $\neg(r_b > \tau)$ on the bin reach $r_b = \|p_b\|_2 + \rho$). For any starting colour index $s_{\text{col}} \in \{0,\dots,5\}$, define the $1 + (6 - s_{\text{col}})$ subsets of $U$:
 - $U^{\text{core}} := \bigl(\bigsqcup_{c < s_{\text{col}}} U_c\bigr) \sqcup \bigl(\bigsqcup_{c \ge s_{\text{col}}} (U_c \cap I)\bigr)$, and
 - for each $a \in \{s_{\text{col}}, \dots, 5\}$,
   $$U^{\text{out}, a} := \bigl(\bigsqcup_{c < s_{\text{col}}} U_c\bigr) \sqcup \bigl(\bigsqcup_{s_{\text{col}} \le c < a} (U_c \cap I)\bigr) \sqcup (U_a \setminus I) \sqcup \bigl(\bigsqcup_{c > a} U_c\bigr).$$
 Then:
 1. Every 6-tuple $(b_0, \dots, b_5) \in U_0 \times \dots \times U_5$ belongs to $U^{\text{core}}_0 \times \dots \times U^{\text{core}}_5$ or to $U^{\text{out}, a}_0 \times \dots \times U^{\text{out}, a}_5$ for a unique $a \in \{s_{\text{col}}, \dots, 5\}$.
 2. On each branch $W \in \{U^{\text{core}}, U^{\text{out}, s_{\text{col}}}, \dots, U^{\text{out}, 5}\}$, applying arc-consistency (`propagate_ac` on $G|_W$, which repeatedly removes any vertex $v \in W_c$ that has no edge in $\mathcal{E}$ to $W_{c'}$ for some $c' \ne c$) preserves every 6-clique of $G$ contained in $W$.
-3. Consequently, if a recursive partition tree starting from $U = V$ has every surviving leaf either emptied by `propagate_ac`, excluded by Lemma P1, or classified by Lemma P1 + Step F (N6 or Lemma P2), then the entire pattern $V$ is certified (EXCLUDED if all leaves are excluded, CLASSIFIED if any leaf is classified and none is open).
+3. Consequently, if a recursive partition tree starting from $U = V$ has every surviving leaf either emptied by `propagate_ac`, excluded by Lemma P1, or classified by Lemma P1 followed by the Symmetry test (the contraction of Reviewed Result 3, or Lemma P2), then the entire pattern $V$ is certified (EXCLUDED if all leaves are excluded, CLASSIFIED if any leaf is classified and none is open).
 
 **Proof.**
 1. For any $(b_0, \dots, b_5) \in U_0 \times \dots \times U_5$, either $b_c \in I$ for all $c \in \{s_{\text{col}}, \dots, 5\}$ (in which case $(b_0, \dots, b_5) \in U^{\text{core}}_0 \times \dots \times U^{\text{core}}_5$), or there is a smallest index $a \in \{s_{\text{col}}, \dots, 5\}$ such that $b_a \notin I$ (in which case $b_c \in I$ for all $s_{\text{col}} \le c < a$ and $b_a \in U_a \setminus I$, so $(b_0, \dots, b_5) \in U^{\text{out}, a}_0 \times \dots \times U^{\text{out}, a}_5$).
-2. Any actual completion in the branch $W$ corresponds to a 6-tuple $(b_0, \dots, b_5) \in W_0 \times \dots \times W_5$ that forms a 6-clique in $G$ (by N9). Since every vertex $b_c$ of a 6-clique in $W$ has neighbour $b_{c'} \in W_{c'}$ for every $c' \ne c$, no vertex of a 6-clique can ever be removed by `propagate_ac`.
+2. Any actual completion in the branch $W$ corresponds to a 6-tuple $(b_0, \dots, b_5) \in W_0 \times \dots \times W_5$ that forms a 6-clique in $G$ (by Reviewed Result 1). Since every vertex $b_c$ of a 6-clique in $W$ has neighbour $b_{c'} \in W_{c'}$ for every $c' \ne c$, no vertex of a 6-clique can ever be removed by `propagate_ac`.
 3. By induction on the finite partition tree, every 6-clique in $V$ lies in at least one surviving leaf, so discharging all leaves discharges $V$. $\blacksquare$
 
 ---
 
 ### Lemma P2 (REVIEWED PASS — Moving Contraction with a $u$-Affine Preconditioner)
 
-*(Identical to `hardballs/PROOFS.md` P2; included for completeness as `moving.py` evaluates `ok = q_native < 1 or q_p2 < 1`.)*
+*(Identical to P2 of [`BASELINE_PROOFS_P1_P2.md`](BASELINE_PROOFS_P1_P2.md). It is included for completeness, since `moving.py` evaluates `ok = q_native < 1 or q_p2 < 1`. In the paper it is the $u$-dependent preconditioner at the end of the SM's paragraph on Normal-form localisation near the family, whose $q_0$ bounds the other defects of the SM's contraction bound for the Symmetry test.)*
 
-**Setting** (N6, `family_neighbourhoods/PROOF.md` §6). Let $x$ be a putative solution in the joint gauge, $\bar{x}$ its canonical group average, $e = x - \bar{x} \in \operatorname{range} E$, and $A_0 = E A' Q_Y$ the native preconditioner ($A_0 F(\bar{x}) = 0$). Writing $M(u) = \int_0^1 D F(\bar{x} + s e)\,ds$, for every $\|u\|_2 \le r$,
+**Setting** (Reviewed Result 3, `family_neighbourhoods/PROOF.md` §6). Let $x$ be a putative solution in the joint gauge, $\bar{x}$ its canonical group average, $e = x - \bar{x} \in \operatorname{range} E$, and $A_0 = E A' Q_Y$ the preconditioner of the whole-ball certifier ($A_0 F(\bar{x}) = 0$). Writing $M(u) = \int_0^1 D F(\bar{x} + s e)\,ds$, for every $\|u\|_2 \le r$,
 $$A_0 M(u) E = E + \Delta_0 + \Delta_c + \sum_{k=1}^4 u_k V_k + \Delta_{\text{rest}},$$
 with $\|\Delta_0\|_2 \le \eta$, $\|\Delta_{\text{rest}}\|_2 \le h + R$, and $V_k E = V_k$.
 
 **Claim.** Let $\nu = \|[V_1 \;\; V_2 \;\; V_3 \;\; V_4]\|_2$ ($72 \times 288$) and $\mu = \|[V_j V_k]_{j,k=1..4}\|_2$ ($72 \times 1152$). If
-$$q_2 := \mu r^2 + (1 + \nu r)(\eta + \|\Delta_c\|_2 + h + R) < 1,$$
-then every putative solution in N6's enclosure has $e = 0$ (balanced order-three symmetry).
+$$q_{P2} := \mu r^2 + (1 + \nu r)(\eta + \|\Delta_c\|_2 + h + R) < 1,$$
+then every putative solution in the enclosure of Reviewed Result 3 has $e = 0$ (balanced order-three symmetry).
 
 **Proof.** Set $\Pi(u) = I - \sum_{k=1}^4 u_k V_k$ and $A(u) = \Pi(u) A_0$. Then $A(u) F(\bar{x}) = 0$, so $0 = A(u)(F(x) - F(\bar{x})) = A(u) M(u) e$. Since $V_k E = V_k$,
 $$E - A(u) M(u) E = \sum_{j,k=1}^4 u_j u_k V_j V_k - \Pi(u)(\Delta_0 + \Delta_c + \Delta_{\text{rest}}),$$
-whose spectral norm on $\operatorname{range} E$ is at most $\mu \|u\|_2^2 + (1 + \nu \|u\|_2)(\eta + \|\Delta_c\|_2 + h + R) \le q_2 < 1$. Thus $e = E e = 0$. $\blacksquare$
+whose spectral norm on $\operatorname{range} E$ is at most $\mu \|u\|_2^2 + (1 + \nu \|u\|_2)(\eta + \|\Delta_c\|_2 + h + R) \le q_{P2} < 1$. Thus $e = E e = 0$. $\blacksquare$
