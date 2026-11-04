@@ -130,7 +130,7 @@ MIT ([`LICENSE`](LICENSE)). To cite, see [`CITATION.cff`](CITATION.cff).
   of MUB-triplets in dimension 6*, J. Phys. A **42**, 245305 (2009).
 - [MMVW] M. Matolcsi, Á. K. Matszangosz, D. Varga, M. Weiner, *Triplets of mutually unbiased bases*, J. Algebr. Comb.
   **63**, 26 (2026), [doi:10.1007/s10801-026-01506-x](https://doi.org/10.1007/s10801-026-01506-x).
-- [OAI] OpenAI, *The maximum number of mutually unbiased bases in dimension six*, preprint (2026), openai/math.
+- [OAI] OpenAI, *The maximum number of mutually unbiased bases in dimension six*, preprint, 24 Sep 2026 (openai/math).
 - [OAI-F] OpenAI, *Exact Fourier certificates for complex Hadamard matrices of order six*, OpenAI Math Release
   preprint, 24 Sep 2026,
   [openai/math](https://github.com/openai/math/blob/main/preprints/Exact-Fourier-certificates-for-complex-Hadamard-matrices-of-order-six-September-24-2026/Exact-Fourier-certificates-for-complex-Hadamard-matrices-of-order-six-September-24-2026.pdf).
