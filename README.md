@@ -105,8 +105,7 @@ Four other things sit at the top level:
 - [`PROOF.md`](PROOF.md) is the written proof of N(6) = 3 by the direct route, and [`verify.py`](verify.py) replays its
   exact checks. Its theorems are labelled by letters such as Z or X, listed in
   [`proof/theorems/README.md`](proof/theorems/README.md).
-- [`proof/`](proof/README.md) holds files that the certificates refer to by path, so they cannot move. The five folders
-  above link into it.
+- [`proof/`](proof/README.md) holds the shared certifiers and data that the five folders above draw on.
 - [`lean/`](lean/README.md) is the Lean formalisation.
 - [`kernel_atlas/`](kernel_atlas/README.md) is work towards checking the certificates themselves inside Lean. This is
   done for the exclusion near F₆, and in progress for the seed balls.
