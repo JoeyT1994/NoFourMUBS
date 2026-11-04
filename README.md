@@ -47,10 +47,11 @@ byte-for-byte ([`proof/README.md`](proof/README.md)).
 - **Classification.** All 2,775 seed balls, the ball at F₆ and Tao's matrix are certified. Each seed ball has one
   certificate (3.3 GB in all; release [`tc-certificates-2026-11-03`](https://github.com/JoeyT1994/NoFourMUBS/releases/tag/tc-certificates-2026-11-03)) that `TripleClassification/certifier/certify.py verify` checks from its files alone, in
   Arb and exact arithmetic; checking the atlas takes about 900 core-hours. Four balls use the minimum-transition
-  ordering. The native certifier's recognition argument (reviewed 1 November) and the normal-form witness (reviewed 2
-  November) have each had one independent, AI-assisted review
+  ordering. The native certifier's recognition argument (1 November), the normal-form witness (2 November) and the
+  ordering argument (3 November) have each had one independent, AI-assisted review
   ([native](TripleClassification/proofs/native_review/REVIEW.md),
-  [normal form](TripleClassification/proofs/normal_form/review/REVIEW.md)); the ordering bound and the classification at F₆ await one, and the
+  [normal form](TripleClassification/proofs/normal_form/review/REVIEW.md),
+  [ordering](TripleClassification/proofs/REVIEW_ORDERING.md)); the classification at F₆ awaits one, and the
   classification is not formalised in Lean.
 - **Independent proof of the corollary.** The seed-atlas certificate (2,775 seed balls and the ball at F₆, every
   sphere covered by 117,391 certified caps) passes both independent certifiers: Arb in 33 min on one 128-core node

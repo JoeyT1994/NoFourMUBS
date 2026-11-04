@@ -6,8 +6,9 @@ resolve at the cell sizes used: 147,157 patterns in 14,855 leaves, at levels 2�
 code is [`certifier/certifier/ordering.py`](../certifier/certifier/ordering.py), on the pinned bounds
 `pr4/gamma_test.py` and `pr4/gamma_exact.py`.
 
-*Status: (Γ1), (Γ2) and (Γ3) are proved in the ordering return of 29 October 2026; the bound on L in §3 and the
-implementation await independent review.*
+*Status: (Γ1), (Γ2) and (Γ3) are proved in the ordering return of 29 October 2026. The whole argument, the bound on L
+in §3 and the implementation were reviewed independently (AI-assisted) on 3 November 2026, with no gap found:
+[`REVIEW_ORDERING.md`](REVIEW_ORDERING.md).*
 
 ## 1. The score
 
@@ -35,7 +36,9 @@ v(a,b)_(ik;jl) = (a_i − a_k)(b_j − b_l). The **labelled Fourier score** is
 From the cell's record, the native setup gives H's enclosure Q(w) = Q₀ + U·w + ½H₂[w,w] + X·ξ (‖w‖ ≤ r, ‖ξ‖ ≤ τ) and,
 for each colour of the pattern, a column bound: every completing column has mean-zero phases V_k with
 ‖V_k − v0_k‖₂ ≤ pr_k (`phase_radius`). With H_c = exp(iQ₀) and h_i = ‖U_i‖·r + ‖H₂,i‖·r²/2 + ‖X_i‖·τ for the 36
-entries, |e^{ia} − e^{ib}| ≤ |a − b| gives ‖H − H_c‖_F ≤ (Σ h_i²)^{1/2} =: d_H.
+entries, |e^{ia} − e^{ib}| ≤ |a − b| gives ‖H − H_c‖_F ≤ (Σ h_i²)^{1/2} =: d_H. Here H_c and K_c are the midpoints
+exp(i·mid Q₀) and exp(i·mid v0) of the Arb centres, and the code adds the centres' radii: rad Q₀,ᵢ to h_i and
+Σ rad v0 to pr_k ([`REVIEW_ORDERING.md`](REVIEW_ORDERING.md) §1).
 
 ## 3. Upper bounds on Γ_F(K) and Γ_F(L)
 

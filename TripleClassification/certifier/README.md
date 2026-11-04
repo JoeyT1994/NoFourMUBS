@@ -73,4 +73,4 @@ repaired: [`../proofs/normal_form/`](../proofs/normal_form/PROOFS.md)). See [`..
       pr4/                    cell records, containment proof, outside test and Stage C guard (tag tc-checker-914919b; named after the pull request that introduced them)
                               (the native certifier and the atlas are read from ../../proof/ at their own paths)
     tests/                  python3 -m pytest (run from this folder): close and verify, tampered certificates, the
-                            overlap witness, the pinned manifest (37 tests, about 9 minutes on a laptop)
+                            overlap witness, the pinned manifest (53 tests, about 11 minutes on a laptop)
