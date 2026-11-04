@@ -20,7 +20,9 @@ seed ball (Step 3) nor the neighbourhood of F6 (Step 4). Tao's matrix S₆ is ex
 
 The numerics are interval arithmetic throughout: Arb (python-flint) with outward rounding, plus a margined float
 search whose rejections are sampled and re-checked in Arb. Every inequality used is stated and proved in
-`STAGEC.md` and `RIGOUR.md`, and formalised in Lean (`lean/NoFourMUBs/StageC/`, `NormalBound.lean`).
+`STAGEC.md` and `RIGOUR.md`, and formalised in Lean (`lean/NoFourMUBs/StageC/`, `NormalBound.lean`). The float
+rounding is outside Lean: [`ROUNDING.md`](ROUNDING.md) corrects RIGOUR.md §3's model (gradual underflow) and two of its
+constants; every rejection still carries a margin of 10⁻⁷, at least 50 times the rounding error.
 
 ## Contents
 

@@ -17,7 +17,12 @@ one ball at F6 (the **X-ball**). Each piece is certified free of quartet edges b
   sphere ‖w‖ = r, and each cap has a certified target:
   - **T0:** the same corner;
   - **T1:** another ordered corner, whose seed is linear in the phases;
-  - **T3:** the X-ball, by Theorem 4.3.
+  - **T3:** the X-ball, by Theorem 4.3 (XS1: the parameter in the target ellipsoid E_t, t ≤ 1/5, and phase distance
+    at most 3/20 from F6 suffice; no side or orientation data is checked).
+- **Orientation.** Every stored seed ball has orientation o = +1, that is Im Ψ(B) > 0 and Im Ψ(Cᵀ) < 0
+  ([`SPEC.md`](../proof/seed_atlas/SPEC.md) §1). In the paper's notation this is the other matched completion,
+  conj H₊(−θ). Both orientations reach every class and the cover includes conjugates, so the choice does not matter;
+  Lean proves uniqueness and openness for both (`matchedO_unique`, `matchedO_conj`).
 - **Lemma 5.2 (coverage).** The atlas's classes meet X in an open, closed and nonempty set, so they contain X.
 
 **The certificate.** Each cap's target condition is a norm bound ‖d + F x‖ < 1, for an affine predictor from the

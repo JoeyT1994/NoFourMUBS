@@ -55,7 +55,11 @@ byte-for-byte ([`proof/README.md`](proof/README.md)).
   classification is not formalised in Lean.
 - **Independent proof of the corollary.** The seed-atlas certificate (2,775 seed balls and the ball at F₆, every
   sphere covered by 117,391 certified caps) passes both independent certifiers: Arb in 33 min on one 128-core node
-  and Julia in 1 h 07 min on one 64-core node ([`PROOF.md`](PROOF.md#step-5-the-atlas-covers-x)).
+  and Julia in 1 h 07 min on one 64-core node ([`PROOF.md`](PROOF.md#step-5-the-atlas-covers-x)). The two proofs share
+  the cover (Steps 1, 2 and 5); the independent one replaces the triple classification and [JMMSW] by Stage C. At F₆
+  the checkers do not run Stage C: they check that the ball lies within phase distance 7/40 of F₆, where Theorem 4.1
+  excludes quartets by an exact cover. Stage C's binary64 tests carry a margin of 10⁻⁷, at least 50 times their
+  rounding error ([`QuartetExclusion/ROUNDING.md`](QuartetExclusion/ROUNDING.md)).
 
 ## The independent proof in five steps
 
