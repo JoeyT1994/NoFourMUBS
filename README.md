@@ -101,17 +101,15 @@ The first three folders build the atlas. Each of the other two runs one local ch
 | [`QuartetExclusion/`](QuartetExclusion/README.md) | No piece of the cover contains a pair that extends to four MUBs |
 | [`TripleClassification/`](TripleClassification/README.md) | Every triple is of known type, with one checkable certificate per seed ball |
 
-The other folders are shared:
-- [`PROOF.md`](PROOF.md) and [`verify.py`](verify.py) hold the direct proof and the script that replays its exact
-  checks.
-- [`proof/`](proof/README.md) holds the files that the certificates' receipts bind by path, kept unchanged. The
-  folders above link into it.
-- [`lean/`](lean/README.md) holds the Lean formalisation.
-- [`kernel_atlas/`](kernel_atlas/README.md) checks certificates inside the Lean kernel. This is done for the exclusion
-  near F₆, and in progress for the seed balls.
-
-Theorems in [`PROOF.md`](PROOF.md) are labelled by letters such as Z or X, and
-[`proof/theorems/README.md`](proof/theorems/README.md) lists them.
+Four other things sit at the top level:
+- [`PROOF.md`](PROOF.md) is the written proof of N(6) = 3 by the direct route, and [`verify.py`](verify.py) replays its
+  exact checks. Its theorems are labelled by letters such as Z or X, listed in
+  [`proof/theorems/README.md`](proof/theorems/README.md).
+- [`proof/`](proof/README.md) holds files that the certificates refer to by path, so they cannot move. The five folders
+  above link into it.
+- [`lean/`](lean/README.md) is the Lean formalisation.
+- [`kernel_atlas/`](kernel_atlas/README.md) is work towards checking the certificates themselves inside Lean. This is
+  done for the exclusion near F₆, and in progress for the seed balls.
 
 ## License and citation
 
