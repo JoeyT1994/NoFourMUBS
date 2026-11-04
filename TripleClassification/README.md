@@ -2,7 +2,8 @@
 
 **The conjecture** (Matolcsi, Matszangosz, Varga and Weiner). Every triple of mutually unbiased bases in ℂ⁶ is
 equivalent either to a triple of the continuous construction (Zauner; Szöllősi; Jaming–Matolcsi–Móra–Szöllősi–Weiner)
-or to the isolated Fourier triple.
+or to the isolated Fourier triple. Equivalence allows a common unitary, rephasing and permuting the vectors of each
+basis, and permuting the three bases.
 
 **The reduction.** Up to equivalence a triple is (I, H/√6, K/√6), with H, K and H*K/√6 complex Hadamard. The atlas of
 the no-four-MUBs proof ([`../PhaseCover/`](../PhaseCover/README.md)) covers every Hadamard class except Tao's S₆. It
@@ -53,7 +54,8 @@ Q = Q₀ + Uw + ½H₂(w⊗w) + Xξ, and the complete cover of the possible colu
 every K in it to have the balanced order-three symmetry, which identifies the triple as a member of the family. Below
 the whole ball a leaf's record must also contain its cell (Arb) and lie on the ball's analytic branch (the overlap
 witness of [`proofs/NATIVE_REVIEW.md`](proofs/NATIVE_REVIEW.md)), and every record must satisfy Stage C's input
-preconditions. Every acceptance is exact or in Arb interval arithmetic; floating point only proposes.
+preconditions. Every acceptance is exact, in Arb interval arithmetic, or a binary64 test of Stage C with the proved
+rounding margins of [`RIGOUR.md`](../proof/atlas/RIGOUR.md); elsewhere floating point only proposes.
 
 A certificate verified CLOSED proves (A) for its ball. In four balls (1035, 1217, 1622, 2705) patterns along a nearly
 flat direction are not resolved by either test at the cell sizes used; there a pattern is discharged instead by

@@ -9,19 +9,23 @@ J. Tindall.
 2. a pair {I, H/√6}, where H is Tao's matrix, F₆, or the matched completion H₊(θ) of a strict seed θ;
 3. a triple in the continuous two-parameter family, or the isolated Fourier triple.
 
-This proves the conjecture of Matolcsi, Matszangosz, Varga and Weiner that the known triples are all of them.
+Two sets of MUBs are *equivalent* if one is obtained from the other by a common unitary, by rephasing and
+permuting the vectors of each basis, and by permuting the bases.
+
+This proves the conjecture of Matolcsi, Matszangosz, Varga and Weiner [MMVW] that the known triples are all of them.
 
 **Corollary (N(6) = 3).** ℂ⁶ does not admit four mutually unbiased bases. Every triple above contains two bases
 related by a matrix of the Fourier family, and no such pair extends to four MUBs (Jaming, Matolcsi, Móra, Szöllősi
-and Weiner).
+and Weiner [JMMSW]).
 
 **An independent proof of the corollary, in Lean.** [`QuartetExclusion/`](QuartetExclusion/README.md) excludes
 every pair that could extend to four MUBs directly, without classifying triples or Hadamard matrices:
 `NoFourMUBs.EdgeXFinal.no_four_mubs_seed (C : SeedAtlas.EdgeX.EdgeAtlasCertificate) : ¬ FourMUBs`
 ([`lean/NoFourMUBs/SeedAtlas/EdgeXFinal.lean`](lean/NoFourMUBs/SeedAtlas/EdgeXFinal.lean)), using only the standard
 axioms (`propext`, `Classical.choice`, `Quot.sound`). Its one input is the finite seed-atlas certificate, whose
-inequalities are checked by two independent interval-arithmetic implementations (Arb and Julia). It is independent
-of OpenAI's results and certificates [OAI, OAI-F].
+inequalities are checked by two independent interval-arithmetic implementations (Arb and Julia). Its Stage C method
+follows [OAI] §6, with every inequality reproved and formalised; it uses neither OpenAI's proof nor its certificates
+[OAI, OAI-F].
 
 **How both are proved.** Every Hadamard class other than Tao's matrix and F₆ is reconstructed from a 3×3 corner
 given by four seed phases ([`MinimalReconstruction/`](MinimalReconstruction/README.md)). The space of these classes
@@ -114,6 +118,10 @@ MIT ([`LICENSE`](LICENSE)). To cite, see [`CITATION.cff`](CITATION.cff).
   arXiv:2608.18053; its Lean development:
   [mateocardeneswuttig/all_hadamard_matrices_in_dimension_six](https://github.com/mateocardeneswuttig/all_hadamard_matrices_in_dimension_six).
   Context for the reconstruction; not used by the proof.
+- [JMMSW] P. Jaming, M. Matolcsi, P. Móra, F. Szöllősi, M. Weiner, *A generalized Pauli problem and an infinite family
+  of MUB-triplets in dimension 6*, J. Phys. A **42**, 245305 (2009).
+- [MMVW] M. Matolcsi, Á. K. Matszangosz, D. Varga, M. Weiner, *Triplets of mutually unbiased bases*, J. Algebr. Comb.
+  **63**, 26 (2026), [doi:10.1007/s10801-026-01506-x](https://doi.org/10.1007/s10801-026-01506-x).
 - [OAI] OpenAI, *The maximum number of mutually unbiased bases in dimension six*, preprint (2026), openai/math.
 - [OAI-F] OpenAI, *Exact Fourier certificates for complex Hadamard matrices of order six*, OpenAI Math Release
   preprint, 24 Sep 2026,

@@ -43,7 +43,8 @@ A certificate is a dyadic tree over the ball's chart. Each node is one of the fo
 
 Below the whole ball, two more checks apply to a leaf: its record contains the cell (Arb), and its analytic branch
 is the ball's (the overlap witness). Stage C's input preconditions are checked for every record. Every acceptance is
-an Arb or exact comparison; floating point only proposes.
+an Arb or exact comparison, or a binary64 test of Stage C with the proved rounding margins of
+[`RIGOUR.md`](../../proof/atlas/RIGOUR.md); elsewhere floating point only proposes.
 
 **The search.** `close` tries the native certifier on the whole ball (most balls close here, as one node). Otherwise
 it tries the normal-form witness on the 16 cells of level 1, then on the children of any cell it fails on, and so on;
@@ -69,7 +70,7 @@ repaired: [`../proofs/normal_form/`](../proofs/normal_form/PROOFS.md)). See [`..
       ordering.py           the ordering witness (Gamma_F), for the four minimum-transition balls
       pinned.py             the frozen code these build on, checked against PINNED.sha256 and REVIEWED on import:
       normal_form/            the normal-form witness, the reviewed repaired code, byte-identical
-      pr4/                    cell records, containment proof, outside test and Stage C guard (tag tc-checker-914919b)
+      pr4/                    cell records, containment proof, outside test and Stage C guard (tag tc-checker-914919b; named after the pull request that introduced them)
                               (the native certifier and the atlas are read from ../../proof/ at their own paths)
     tests/                  python3 -m pytest (run from this folder): close and verify, tampered certificates, the
                             overlap witness, the pinned manifest (37 tests, about 9 minutes on a laptop)

@@ -17,7 +17,7 @@ normal-form theorem and Stage C's error theorem with its input hypotheses.
 
 A record built for a dyadic cell (`build_record`) is checked to contain the cell in seed coordinates
 (`cell_geometry`). That does not show that the record's analytic branch is the original ball's, so a certificate on
-the record did not yet carry over to the ball's matrices. This affects every leaf below level 0, native and plane;
+the record did not yet carry over to the ball's matrices. This affects every leaf below level 0, native and normal-form;
 the one-leaf native certificates (level 0, the original record) are unaffected.
 
 **Repair, now in the checker.** [`overlap.py`](../certifier/certifier/overlap.py) checks, for every leaf below level 0, the sufficient

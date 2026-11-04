@@ -1,6 +1,8 @@
 # The cubic normal-form witness: statements and proofs
 
-The witness was proposed for the hardest balls by a second AI agent (Antigravity), then reviewed and repaired.
+The witness was proposed for the hardest balls by a separate AI agent (Antigravity), then reviewed and repaired. The
+original-ball integration left open below is the overlap witness ([`overlap.py`](../../certifier/certifier/overlap.py);
+[`NATIVE_REVIEW.md`](../NATIVE_REVIEW.md), F1), checked for every leaf of the final atlas on 3 November 2026.
 
 > **Independent review, 2 November 2026.** This corrected copy incorporates the algebraic and code-correspondence repairs established in the accompanying `REVIEW.md`. Verdicts apply within the represented H-branch scope and the reviewed native hypotheses; original-ball integration remains a separate obligation.
 
