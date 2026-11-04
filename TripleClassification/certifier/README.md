@@ -44,7 +44,8 @@ A certificate is a dyadic tree over the ball's chart. Each node is one of the fo
 Below the whole ball, two more checks apply to a leaf: its record contains the cell (Arb), and its analytic branch
 is the ball's (the overlap witness). Stage C's input preconditions are checked for every record. Every acceptance is
 an Arb or exact comparison, or a binary64 test of Stage C with the proved rounding margins of
-[`RIGOUR.md`](../../proof/atlas/RIGOUR.md); elsewhere floating point only proposes.
+[`RIGOUR.md`](../../proof/atlas/RIGOUR.md) (corrected in [`ROUNDING.md`](../../QuartetExclusion/ROUNDING.md)); elsewhere floating point only
+proposes.
 
 **The search.** `close` tries the native certifier on the whole ball (most balls close here, as one node). Otherwise
 it tries the normal-form witness on the 16 cells of level 1, then on the children of any cell it fails on, and so on;
