@@ -39,7 +39,7 @@ under five hours on sixteen 128-core nodes.
   [`tc-verification-2026-11-04`](https://github.com/JoeyT1994/NoFourMUBS/releases/tag/tc-verification-2026-11-04).
 - [`../VERIFY.md`](../VERIFY.md) explains how to check them.
 - [`results/`](results/README.md) lists each ball's verdict, size and timings.
-- [`proofs/`](proofs/README.md) indexes the proofs the certifier rests on, and their reviews.
+- [`proofs/`](proofs/README.md) indexes the proofs the certifier rests on.
 
 ## (A): one certificate per seed ball
 
@@ -88,19 +88,19 @@ bases of any triple can be reordered so that this holds, and the score does not 
 
 ## What the proof of (A) relies on
 
-| Ingredient | Where it is proved | How it has been reviewed |
-|---|---|---|
-| The atlas covers every Hadamard class except S₆ | [`../PhaseCover/`](../PhaseCover/README.md) | part of the direct proof of N(6) = 3 |
-| The enclosure of H over each ball, and the vector-cover tests with their input checks | [`../proof/atlas/`](../proof/atlas/) (`STAGEC.md`, `RIGOUR.md`, with the rounding corrected in [`ROUNDING.md`](../QuartetExclusion/ROUNDING.md)) | part of the direct proof of N(6) = 3 |
-| The native certifier, its recognition argument and the overlap witness | [`family_neighbourhoods/PROOF.md`](../proof/theorems/TC_triple_classification/family_neighbourhoods/PROOF.md), [`certifier/certifier/overlap.py`](certifier/certifier/overlap.py) | an independent, AI-assisted review on 1 November 2026 ([`proofs/native_review/`](proofs/native_review/REVIEW.md), with the repairs in [`proofs/NATIVE_REVIEW.md`](proofs/NATIVE_REVIEW.md)) |
-| The ordering argument, used in four balls only | [`proofs/ORDERING.md`](proofs/ORDERING.md), [`certifier/certifier/ordering.py`](certifier/certifier/ordering.py) | an independent, AI-assisted review of the argument and its code on 3 November 2026, which found no gap ([`proofs/REVIEW_ORDERING.md`](proofs/REVIEW_ORDERING.md)) |
-| The cubic normal-form witness | [`proofs/normal_form/PROOFS.md`](proofs/normal_form/PROOFS.md), with the bounds it builds on (`PROOF_815.md`, `BASELINE_PROOFS_P1_P2.md`) | an independent, AI-assisted algebraic review on 2 November 2026, which found and repaired one sign error ([`proofs/normal_form/review/REVIEW.md`](proofs/normal_form/review/REVIEW.md)). The certifier runs the repaired code |
+| Ingredient | Where it is proved |
+|---|---|
+| The atlas covers every Hadamard class except S₆ | [`../PhaseCover/`](../PhaseCover/README.md) |
+| The enclosure of H over each ball, and the vector-cover tests with their input checks | [`../proof/atlas/`](../proof/atlas/) (`STAGEC.md`, `RIGOUR.md`, with the rounding corrected in [`ROUNDING.md`](../QuartetExclusion/ROUNDING.md)) |
+| The native certifier, its recognition argument and the overlap witness | [`family_neighbourhoods/PROOF.md`](../proof/theorems/TC_triple_classification/family_neighbourhoods/PROOF.md), [`certifier/certifier/overlap.py`](certifier/certifier/overlap.py) |
+| The ordering argument, used in four balls only | [`proofs/ORDERING.md`](proofs/ORDERING.md), [`certifier/certifier/ordering.py`](certifier/certifier/ordering.py) |
+| The cubic normal-form witness | [`proofs/normal_form/PROOFS.md`](proofs/normal_form/PROOFS.md), with the bounds it builds on (`PROOF_815.md`, `BASELINE_PROOFS_P1_P2.md`) |
 
 ## Where everything is
 
 | Path | What it holds |
 |---|---|
 | [`certifier/`](certifier/README.md) | The certifier (`certify.py close`, `verify` and `verify-all`), its tests and its timings |
-| [`proofs/`](proofs/README.md) | The proofs the certifier rests on, and their reviews |
+| [`proofs/`](proofs/README.md) | The proofs the certifier rests on |
 | [`results/`](results/README.md) | Each ball's verdict, leaves, certificate size and timings, and the atlas summary |
 | [`../proof/theorems/TC_triple_classification/`](../proof/theorems/TC_triple_classification/README.md) | The native whole-ball certifier, the classification of the ball at F₆ and their receipts. These files are bound to their receipts by path, so they stay unchanged, and their own README predates the final certification |

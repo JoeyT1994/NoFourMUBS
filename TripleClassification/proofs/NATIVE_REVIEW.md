@@ -1,7 +1,7 @@
-# The native certifier's independent review, and what changed
+# A review of the native certifier, and what changed
 
 The native whole-ball certifier (`proof/theorems/TC_triple_classification/family_neighbourhoods/run.py`, binding
-`aaab342c…`) and its recognition argument were reviewed independently (AI-assisted) on 1 November 2026. The review's report and annexes are in
+`aaab342c…`) and its recognition argument were reviewed on 1 November 2026. The review's report and annexes are in
 [`native_review/`](native_review/REVIEW.md); its `REVIEW.md` answers the sixteen questions of the brief.
 
 **Verdict.** The native all-completions argument is sound for a record's own analytic Hadamard branch, given C1, the

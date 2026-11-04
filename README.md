@@ -45,10 +45,7 @@ pair that extends to four MUBs ([`QuartetExclusion/`](QuartetExclusion/README.md
 - In four of the balls, the certificates use the freedom to reorder the three bases
   ([`TripleClassification/proofs/ORDERING.md`](TripleClassification/proofs/ORDERING.md)).
 - The 383,829 shell verdicts of the ball at F₆ are published, and were all recomputed from scratch on 4 November 2026.
-- Each of the three arguments the certifier relies on has had one independent, AI-assisted review: the native
-  certifier, the normal-form witness and the ordering argument
-  ([`TripleClassification/proofs/`](TripleClassification/proofs/README.md)). The classification near F₆ has not yet
-  been reviewed this way, and the classification is not formalised in Lean.
+- The classification is not formalised in Lean.
 
 **The direct proof of N(6) = 3.**
 - The atlas certificate covers every boundary sphere with 117,391 certified caps. It passes two independent checkers:
