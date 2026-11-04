@@ -109,7 +109,6 @@ The other folders are shared:
 - [`lean/`](lean/README.md) holds the Lean formalisation.
 - [`kernel_atlas/`](kernel_atlas/README.md) checks certificates inside the Lean kernel. This is done for the exclusion
   near F₆, and in progress for the seed balls.
-- [`tests/`](tests/) holds negative tests of the checkers.
 
 Theorems in [`PROOF.md`](PROOF.md) are labelled by letters such as Z or X, and
 [`proof/theorems/README.md`](proof/theorems/README.md) lists them.

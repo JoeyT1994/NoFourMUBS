@@ -2,13 +2,13 @@
 built alternately) against the plain enumeration it replaced (every O-6-clique A, then a 6-clique among the common
 U-neighbours of A), on random graphs, half with a planted pattern.  Exits nonzero on any disagreement.
 
-  python3 tests/clique_search.py [trials]
+  python3 QuartetExclusion/tests/clique_search.py [trials]
 """
 import sys
 from pathlib import Path
 import numpy as np
 
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent / 'proof/atlas'))
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / 'proof/atlas'))
 import stagec as SC
 
 

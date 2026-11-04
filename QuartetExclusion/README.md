@@ -40,4 +40,5 @@ The folders under `../proof/` are bound by hash to the atlas certificate's recei
 at those paths, and are listed here rather than moved (see [`../proof/README.md`](../proof/README.md)).
 
 **Check.** `python3 verify.py` at the repository root replays Stage C in Arb on a sample and Tao's record.
+[`tests/clique_search.py`](tests/clique_search.py) checks the graph search against a plain enumeration on random graphs.
 `python3 verify.py --atlas -j N` certifies every seed ball, C1 plus Stage C, in Arb: 33 minutes on one 128-core node.

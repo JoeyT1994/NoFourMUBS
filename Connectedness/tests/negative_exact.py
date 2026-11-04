@@ -9,12 +9,12 @@ the file's sha256 in manifest.json, so that the rejection comes from the mathema
                             sqrt(5) = 2.2360...
   step1_inequality_altered  transverse_curvature_sign_by_squaring 2601 < 2645 changed to 2646 < 2645
   step1_claim_dropped       one identity deleted: the claim count no longer matches the manifest
-Exits nonzero on any unexpected verdict.  Usage: python3 tests/negative_exact.py
+Exits nonzero on any unexpected verdict.  Usage: python3 Connectedness/tests/negative_exact.py
 """
 import hashlib, json, shutil, subprocess, sys, tempfile
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parents[2]
 STEP1 = ROOT / 'lean/Step1Gen'
 
 
