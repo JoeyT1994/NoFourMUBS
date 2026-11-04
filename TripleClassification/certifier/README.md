@@ -28,7 +28,8 @@ Measured on the atlas (3 November 2026; the cluster has 128-core nodes):
 | A tree ball (402 balls) | median 2.5 MB, largest 205 MB | median 1 core-hour, largest 405 | median 0.9 core-hours (87 s on one node), largest 46 |
 | All 2,775 balls | 3.3 GB | about 2,000 core-hours | about 900 core-hours: under five hours on sixteen nodes |
 
-A laptop checks a typical tree ball in a few minutes (`verify --workers 8`).
+A laptop checks a typical tree ball in a few minutes (`verify --workers 8`). `tools/fp_audit.py` runs `verify-all` with every
+floating-point exception raised; use it on OpenBLAS, since Apple Accelerate raises spurious flags in matrix products.
 
 ## What a certificate proves
 
