@@ -8,20 +8,20 @@ one ball at F6 (the **X-ball**). Each piece is certified free of quartet edges b
 
 ## The statements
 
-- **Theorem 4.2 (returns U, W: the edge chart).** Near F6, the corner on rows and columns 0, 1, 2 parametrises every
+- **Theorem 4.2 (the edge chart).** Near F6, the corner on rows and columns 0, 1, 2 parametrises every
   Hadamard class. This gives the X-ball its chart.
-- **Theorem 4.3 (return XS: transfers into the chart).** A matrix with an ordered corner whose parameter lies in the
+- **Theorem 4.3 (transfers into the chart).** A matrix with an ordered corner whose parameter lies in the
   X-ball's ellipsoid, and which is within phase distance 3/20 of F6, lies in the X-ball. No side data is needed.
 - **Lemma 5.1 (transfers).** Up to a symmetry g ∈ Γ (identity, conjugation, transposition, conjugate-transpose),
   every point of every ball's boundary sphere lies in the interior of another ball. Spherical caps cover each
   sphere ‖w‖ = r, and each cap has a certified target:
-  - **T0:** the same corner;
-  - **T1:** another ordered corner, whose seed is linear in the phases;
-  - **T3:** the X-ball, by Theorem 4.3 (XS1: the parameter in the target ellipsoid E_t, t ≤ 1/5, and phase distance
-    at most 3/20 from F6 suffice; no side or orientation data is checked).
+  - **T0:** the same corner.
+  - **T1:** another ordered corner, whose seed is linear in the phases.
+  - **T3:** the X-ball, by Theorem 4.3. It is enough that the parameter lies in the target ellipsoid E_t with
+    t ≤ 1/5 and that the class lies within phase distance 3/20 of F6, so no side or orientation data needs checking.
 - **Orientation.** Every stored seed ball has orientation o = +1, that is Im Ψ(B) > 0 and Im Ψ(Cᵀ) < 0
   ([`SPEC.md`](../proof/seed_atlas/SPEC.md) §1). In the paper's notation this is the other matched completion,
-  conj H₊(−θ). Both orientations reach every class and the cover includes conjugates, so the choice does not matter;
+  conj H₊(−θ). Both orientations reach every class and the cover includes conjugates, so the choice does not matter.
   Lean proves uniqueness and openness for both (`matchedO_unique`, `matchedO_conj`).
 - **Lemma 5.2 (coverage).** The atlas's classes meet X in an open, closed and nonempty set, so they contain X.
 
@@ -29,10 +29,10 @@ one ball at F6 (the **X-ball**). Each piece is certified free of quartet edges b
 source ball's whole-ball model (Lemma 3.1). It is certified by a 5 × 5 positive-definite S-lemma witness that
 accounts for the model's remainder. An exact polar-facet certificate, checked in integers, shows that the caps cover
 the sphere. The certificate `seed_atlas_certificate.json.gz` records:
-- every seed ball;
-- its 117,391 caps;
-- the X-ball;
-- Tao's record.
+- every seed ball,
+- its 117,391 caps,
+- the X-ball,
+- and Tao's record.
 
 Two independent interval implementations check it: Arb in 33 minutes on one 128-core node, and Julia in 1 h 07 min
 on one 64-core node.

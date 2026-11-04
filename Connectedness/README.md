@@ -26,13 +26,13 @@ Theorem 1 and Lemma 1.1 are proved in Lean (`isConnected_strict`).
 
 | Path | Proves | Replay |
 |---|---|---|
-| [`returns/C_step1_saddle/`](returns/C_step1_saddle/README.md) | **Theorem 1**: a direct saddle theorem and 651 exact claims; certificates and Lean generators in `lean/Step1Gen/` | `python3 lean/Step1Gen/verify_certificates.py` |
+| [`returns/C_step1_saddle/`](returns/C_step1_saddle/README.md) | **Theorem 1**: a direct saddle theorem and 651 exact claims, with certificates and Lean generators in `lean/Step1Gen/` | `python3 lean/Step1Gen/verify_certificates.py` |
 | [`omega_connected/verify_paths.py`](omega_connected/verify_paths.py) | **Lemma 1.1**: the path identities joining the 18 maxima inside S | run by `verify.py` |
 | [`returns/A_deltoid/`](returns/A_deltoid/README.md) | **Theorem 2**: sheet parity, continuity of θ ↦ [H₊(θ)], the joining family at F6 (`CONNECTEDNESS.md`, `SHEETS_TOPOLOGY.md`) | `cd returns/A_deltoid && python3 verify_all.py` |
 | [`returns/B_exact_quotient/`](returns/B_exact_quotient/README.md) | Cross-check: an independent exact proof of Step 1 and of the quotient coverage. It also shows that no interval box cover of T⁴ can terminate (R, ∇R and Hess R vanish at the F3 seed) | run by `verify.py` |
 
-The returns are kept byte-for-byte as delivered, with their write-ups, verifiers and certificates; their own internal
-links may name the paths they had when delivered. [`SOURCE_ZIPS.sha256`](SOURCE_ZIPS.sha256) records the original
+Each package under `returns/` is kept exactly as it was delivered, with its write-up, verifiers and certificates, so
+its internal links may name older paths. [`SOURCE_ZIPS.sha256`](SOURCE_ZIPS.sha256) records the original
 archives of all returns, including those now in `MinimalReconstruction/returns/`.
 [`COVERAGE_INDEX.md`](COVERAGE_INDEX.md) is the earlier combined index of Steps 1–2.
 

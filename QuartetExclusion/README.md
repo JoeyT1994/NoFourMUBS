@@ -9,20 +9,22 @@ seed ball (Step 3) nor the neighbourhood of F6 (Step 4). Tao's matrix S₆ is ex
 
 - **Lemma 3.1 (C1: the completion is enclosed).** For every seed θ in a seed ball, the matched completion exists, is
   Hadamard, and lies in an explicit quadratic normal-form enclosure H = exp(iQ), Q = Q0 + U w + ½ H2(w ⊗ w) + X ξ.
-  Return Z proves it, by one centre computation and Arb bounds on the completion's Hessian.
-- **Lemma 3.2 (Stage C, after [OAI] §6).** Given an enclosure of the second basis, every possible third and fourth
+  It is proved by one centre computation and Arb bounds on the completion's Hessian
+  ([`../proof/theorems/Z_completion_hessian/`](../proof/theorems/Z_completion_hessian/REVIEW.md)).
+- **Lemma 3.2 (Stage C, the vector-cover and graph-search tests of [OAI] §6).** Given an enclosure of the second basis, every possible third and fourth
   basis column is a unit vector unbiased to I and to H, and lies in one of finitely many certified "colour" balls.
   Four MUBs need mutually orthogonal columns from these colours. Certified orthogonality tests (the O/U edge tests
   and an exact clique search) exclude every such configuration. So the whole ball contains no quartet edge.
 - **Remark 3.3.** S₆ is a zero-dimensional record. It is isolated, and Stage C excludes it.
-- **Theorem 4.1 (return X).** No complex Hadamard matrix within horizontal phase distance 7/40 of F6 is a quartet
-  edge. This is an exact cover, proved in Lean with no hypotheses; return X_radius_045 extends it to 9/20.
+- **Theorem 4.1.** No complex Hadamard matrix within horizontal phase distance 7/40 of F6 is a quartet
+  edge. This is an exact cover, proved in Lean with no hypotheses. A second exact cover extends it to 9/20.
 
 The numerics are interval arithmetic throughout: Arb (python-flint) with outward rounding, plus a margined float
 search whose rejections are sampled and re-checked in Arb. Every inequality used is stated and proved in
-`STAGEC.md` and `RIGOUR.md`, and formalised in Lean (`lean/NoFourMUBs/StageC/`, `NormalBound.lean`). The float
-rounding is outside Lean: [`ROUNDING.md`](ROUNDING.md) corrects RIGOUR.md §3's model (gradual underflow) and two of its
-constants; every rejection still carries a margin of 10⁻⁷, at least 50 times the rounding error.
+`STAGEC.md` and `RIGOUR.md`, and formalised in Lean (`lean/NoFourMUBs/StageC/`, `NormalBound.lean`). The
+floating-point rounding is outside Lean. [`ROUNDING.md`](ROUNDING.md) corrects the rounding model of RIGOUR.md §3 to
+allow for underflow, and two of its constants. Every rejection still carries a margin of 10⁻⁷, at least 50 times the
+rounding error.
 
 ## Contents
 
