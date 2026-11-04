@@ -1,0 +1,27 @@
+name = "nofourmubs"
+version = "0.1.0"
+defaultTargets = ["NoFourMUBs", "Step1"]
+
+[leanOptions]
+autoImplicit = false
+relaxedAutoImplicit = false
+
+# Mateo Cardenes Wuttig's formal classification of order-6 complex Hadamard matrices (brings Mathlib with it).
+[[require]]
+name = "hadamard6_formal"
+git = "https://github.com/mateocardeneswuttig/all_hadamard_matrices_in_dimension_six"
+rev = "57b0302"
+
+[[lean_lib]]
+name = "NoFourMUBs"
+
+# Step 1 algebra certificates (generated from Connectedness/returns/C_step1_saddle by Step1Gen/generation)
+[[lean_lib]]
+name = "Step1"
+srcDir = "Step1Gen/lean"
+
+# The kernel-checked Stage C certificate at F6 (../kernel_atlas/), used by NoFourMUBs.X (the exclusion near F6).
+# Not a default target: see lean/NoFourMUBs/X/README.md.
+[[lean_lib]]
+name = "KernelAtlas"
+srcDir = "../kernel_atlas/lean"

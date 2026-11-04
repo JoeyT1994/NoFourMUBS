@@ -1,0 +1,114 @@
+{
+  "format": "coverage-proof-replay-v1",
+  "started_utc": "2026-10-08T15:13:23.919420+00:00",
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "sympy": "1.14.0",
+  "python_flint": "0.9.0",
+  "manifest_sha256": "9cfee3c1aee6887fb31ba2a4f7aa000af0191d9e00658ce817d0cdff68cde4b3",
+  "payload_hashes_verified": 43,
+  "checks": [
+    {
+      "name": "structural_polynomial_and_exact_orbit",
+      "script": "exact_maxima/verify_exact_maxima.py",
+      "arguments": [],
+      "exit_code": 0,
+      "elapsed_seconds": 1.819394,
+      "stdout": "PASS: structural Fourier polynomial and det(DPsi)^2=(4XYZ-J^2) B\nPASS: 18 exact orbit maxima, value 3^13/2^12, negative definite Hessian\nPASS: all six strict real corners have a positive Hessian direction\nPASS: F3 path R=9 x^3(4-x), x=4 sin^2(epsilon/2)\nEXACT MAXIMA CORE: ALL CHECKS PASSED\n",
+      "stderr": ""
+    },
+    {
+      "name": "regular_invariant_branch",
+      "script": "exact_maxima/verify_regular_branch.py",
+      "arguments": [],
+      "exit_code": 0,
+      "elapsed_seconds": 0.653925,
+      "stdout": "REGULAR INVARIANT BRANCH: ALL EXACT CHECKS PASSED\n",
+      "stderr": ""
+    },
+    {
+      "name": "single_gram_phase_branch",
+      "script": "conditioning_audit/verify_q_branch.py",
+      "arguments": [],
+      "exit_code": 0,
+      "elapsed_seconds": 0.902045,
+      "stdout": "PASS: Q=0, Rhat>0 branch algebra; all positive local maxima excluded.\n",
+      "stderr": ""
+    },
+    {
+      "name": "raw_gram_boundary_lift_identities",
+      "script": "conditioning_audit/verify_fold_lift.py",
+      "arguments": [],
+      "exit_code": 0,
+      "elapsed_seconds": 0.531332,
+      "stdout": "PASS: raw Gram, J sign, side numerator norms, and discriminant-root identities.\n",
+      "stderr": ""
+    },
+    {
+      "name": "single_side_discriminant_branch",
+      "script": "fold_branch/verify_fold_branch.py",
+      "arguments": [],
+      "exit_code": 0,
+      "elapsed_seconds": 1.021027,
+      "stdout": "PASS: exact fold stationary elimination; two real sextic roots.\nPASS: one root has R<0; the other has R>0 and lambda>0.\nPASS: exceptional invariant factorizations and transverse Hessian signs.\nPASS: at a two-one pole, seed stationarity forces A^2=U^2=1, hence Q=0.\nPASS: fold branch algebra (geometric lifting and pole classification are proved in the text).\n",
+      "stderr": ""
+    },
+    {
+      "name": "all_equal_pole",
+      "script": "quotient_coverage/verify_all_equal_pole.py",
+      "arguments": [],
+      "exit_code": 0,
+      "elapsed_seconds": 1.262393,
+      "stdout": "PASS: all-equal pole derivative, triangle-coupling and deltoid identities.\nConclusion with the accompanying analytic argument: no R-critical point for 1<q<9/5.\n",
+      "stderr": ""
+    },
+    {
+      "name": "double_zero_intersection",
+      "script": "exact_maxima/verify_intersection.py",
+      "arguments": [],
+      "exit_code": 0,
+      "elapsed_seconds": 0.764585,
+      "stdout": "PASS: all distinct-correlation stationary points have R<0 or positive normal curvature\nPASS: the only strict repeated-correlation stationary point is r=3/2\nPASS: one-edge exceptional family contradicts its assumed zero couplings\nDOUBLE-ZERO INTERSECTION: ALL EXACT ALGEBRA CHECKS PASSED\n",
+      "stderr": ""
+    },
+    {
+      "name": "sheet_orbit_roots_and_quotient",
+      "script": "quotient_coverage/verify_quotient.py",
+      "arguments": [],
+      "exit_code": 0,
+      "elapsed_seconds": 0.767559,
+      "stdout": "PASS: exact 18-point orbit, sheet/branch algebra, exceptional chart, horizontal rank 25.\nScope: Tasks B/C algebra only; no global maximum cover or atlas is certified by this script.\n",
+      "stderr": ""
+    },
+    {
+      "name": "boundary_checker_empty_tube_regression",
+      "script": "quotient_coverage/verify_boundary_records.py",
+      "arguments": [
+        "--selftest"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.290191,
+      "stdout": "PASS: boundary checker arithmetic regressions; sample union is empty.\nNo actual atlas, representative membership, or quartet exclusion is certified.\n",
+      "stderr": ""
+    },
+    {
+      "name": "fourier_family_conditioning",
+      "script": "conditioning_audit/verify_conditioning.py",
+      "arguments": [],
+      "exit_code": 0,
+      "elapsed_seconds": 0.142683,
+      "stdout": "PASS: full symbolic Fourier-family Gram decomposition; rank 21; sigma_min^2=3.\n",
+      "stderr": ""
+    }
+  ],
+  "scope": {
+    "claim_A": "exact algebraic proof and acceptance checks supplied",
+    "claims_B_C": "proofs and exact algebra supplied, relative to the stated handoff inputs",
+    "actual_nonempty_atlas": "NOT SUPPLIED",
+    "actual_atlas_boundary_certificate": "NOT SUPPLIED",
+    "no_four_MUBs": "NOT CERTIFIED BY THIS BUNDLE ALONE",
+    "task_D_global": "NOT PROVED",
+    "task_D_fourier_family": "PROVED"
+  },
+  "result": "PASS",
+  "finished_utc": "2026-10-08T15:13:32.077273+00:00"
+}

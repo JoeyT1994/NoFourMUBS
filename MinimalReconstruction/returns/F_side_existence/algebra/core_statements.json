@@ -1,0 +1,227 @@
+{
+  "inputs": {
+    "hermitian_det": "K*k + h - m*n",
+    "core_I": "-4*a*b + c**2 - e",
+    "core_II": "A*e + a*k**2 + b*n**2 - c*k*n",
+    "core_III": "C*e + 2*K*b*n + 2*a*k*m - c*(K*k + m*n)",
+    "delta_norm": "Delta*delta - h",
+    "delta_square": "delta**2 - e",
+    "d_original": "-Delta*(-2*a*k + c*n) + d*h",
+    "d_original_star": "db*h - delta*(-2*A*K + C*n)",
+    "rho_definition": "-d - n + 2*rho",
+    "q_definition": "-a + q*rho",
+    "Q_definition": "-A + Q*rho",
+    "cp_definition": "Q*delta + cp*n - k",
+    "CP_definition": "CP*n + Delta*q - K",
+    "cm_definition": "cm*n - delta - k*q",
+    "CM_definition": "CM*n - Delta - K*Q",
+    "sigma_norm": "Sig*sig - rho",
+    "n_definition": "Mu*mu + n - 1",
+    "m_definition": "Nu*nu + m - 1"
+  },
+  "steps": [
+    {
+      "name": "D_conjugation",
+      "target": "-e*(-2*A*K + C*n) + h*(-2*a*k + c*n)",
+      "cofactors": {
+        "hermitian_det": "-2*a*k + c*n",
+        "core_III": "-n",
+        "core_II": "2*K"
+      }
+    },
+    {
+      "name": "D_discriminant",
+      "target": "-e*(-4*A*a + n**2) + (-2*a*k + c*n)**2",
+      "cofactors": {
+        "core_I": "n**2",
+        "core_II": "4*a"
+      }
+    },
+    {
+      "name": "d_scaled",
+      "target": "h*(2*a*k - c*n + d*delta)",
+      "cofactors": {
+        "d_original": "delta",
+        "delta_norm": "-2*a*k + c*n"
+      },
+      "cancel": "h",
+      "consequence": "2*a*k - c*n + d*delta"
+    },
+    {
+      "name": "d_scaled_star",
+      "target": "h*(2*A*K - C*n + Delta*db)",
+      "cofactors": {
+        "d_original_star": "Delta",
+        "delta_norm": "-2*A*K + C*n"
+      },
+      "cancel": "h",
+      "consequence": "2*A*K - C*n + Delta*db"
+    },
+    {
+      "name": "d_reality",
+      "target": "delta*h*(d - db)",
+      "cofactors": {
+        "d_scaled": "h",
+        "d_scaled_star": "-e",
+        "D_conjugation": "1",
+        "delta_norm": "db*delta",
+        "delta_square": "-Delta*db"
+      },
+      "cancel": "delta*h",
+      "consequence": "d - db"
+    },
+    {
+      "name": "d_discriminant",
+      "target": "delta**2*(4*A*a + d**2 - n**2)",
+      "cofactors": {
+        "d_scaled": "-2*a*k + c*n + d*delta",
+        "D_discriminant": "1",
+        "delta_square": "4*A*a - n**2"
+      },
+      "cancel": "delta**2",
+      "consequence": "4*A*a + d**2 - n**2"
+    },
+    {
+      "name": "rho_quadratic",
+      "target": "4*A*a - 4*n*rho + 4*rho**2",
+      "cofactors": {
+        "rho_definition": "d - n + 2*rho",
+        "d_discriminant": "1"
+      },
+      "cancel": "4",
+      "consequence": "A*a - n*rho + rho**2"
+    },
+    {
+      "name": "q_norm",
+      "target": "rho*(-n + rho*(Q*q + 1))",
+      "cofactors": {
+        "rho_quadratic": "1",
+        "Q_definition": "q*rho",
+        "q_definition": "A"
+      },
+      "cancel": "rho",
+      "consequence": "-n + rho*(Q*q + 1)"
+    },
+    {
+      "name": "mixed_gamma",
+      "target": "n*(-c + rho*(cm + cp*q))",
+      "cofactors": {
+        "cm_definition": "rho",
+        "cp_definition": "q*rho",
+        "q_definition": "2*k",
+        "q_norm": "-delta",
+        "rho_definition": "delta",
+        "d_scaled": "1"
+      },
+      "cancel": "n",
+      "consequence": "-c + rho*(cm + cp*q)"
+    },
+    {
+      "name": "cross_gram",
+      "target": "n*(-k + rho*(Q*cm + cp))",
+      "cofactors": {
+        "cp_definition": "rho",
+        "cm_definition": "Q*rho",
+        "q_norm": "k"
+      },
+      "cancel": "n",
+      "consequence": "-k + rho*(Q*cm + cp)"
+    },
+    {
+      "name": "cross_gram_star",
+      "target": "n*(-K + rho*(CM*q + CP))",
+      "cofactors": {
+        "CP_definition": "rho",
+        "CM_definition": "q*rho",
+        "q_norm": "K"
+      },
+      "cancel": "n",
+      "consequence": "-K + rho*(CM*q + CP)"
+    },
+    {
+      "name": "determinant",
+      "target": "n*(-delta + rho*(cm - cp*q))",
+      "cofactors": {
+        "cm_definition": "rho",
+        "cp_definition": "-q*rho",
+        "q_norm": "delta"
+      },
+      "cancel": "n",
+      "consequence": "-delta + rho*(cm - cp*q)"
+    },
+    {
+      "name": "beta_product",
+      "target": "n**2*(-b + cm*cp*rho)",
+      "cofactors": {
+        "cp_definition": "cm*n*rho",
+        "cm_definition": "rho*(-Q*delta + k)",
+        "q_definition": "k**2",
+        "q_norm": "-delta*k",
+        "Q_definition": "-e",
+        "delta_square": "-Q*rho",
+        "d_scaled": "k",
+        "rho_definition": "delta*k",
+        "core_II": "-1"
+      },
+      "cancel": "n**2",
+      "consequence": "-b + cm*cp*rho"
+    },
+    {
+      "name": "second_row_norm",
+      "target": "Mu*mu + Q*Sig*q*sig + Sig*sig - 1",
+      "cofactors": {
+        "sigma_norm": "Q*q + 1",
+        "q_norm": "1",
+        "n_definition": "1"
+      }
+    },
+    {
+      "name": "third_row_core_norm",
+      "target": "n**2*(-m + rho*(CM*cm + CP*cp))",
+      "cofactors": {
+        "cp_definition": "CP*n*rho",
+        "CP_definition": "rho*(-Q*delta + k)",
+        "cm_definition": "CM*n*rho",
+        "CM_definition": "rho*(delta + k*q)",
+        "delta_norm": "rho*(Q*q + 1)",
+        "q_norm": "K*k + h",
+        "hermitian_det": "n"
+      },
+      "cancel": "n**2",
+      "consequence": "-m + rho*(CM*cm + CP*cp)"
+    },
+    {
+      "name": "third_row_norm",
+      "target": "CM*Sig*cm*sig + CP*Sig*cp*sig + Nu*nu - 1",
+      "cofactors": {
+        "sigma_norm": "CM*cm + CP*cp",
+        "third_row_core_norm": "1",
+        "m_definition": "1"
+      }
+    },
+    {
+      "name": "matrix_cross",
+      "target": "Sig*sig*(Q*cm + cp) - k",
+      "cofactors": {
+        "sigma_norm": "Q*cm + cp",
+        "cross_gram": "1"
+      }
+    },
+    {
+      "name": "matrix_cross_star",
+      "target": "-K + Sig*sig*(CM*q + CP)",
+      "cofactors": {
+        "sigma_norm": "CM*q + CP",
+        "cross_gram_star": "1"
+      }
+    },
+    {
+      "name": "matrix_det",
+      "target": "Sig*sig*(cm - cp*q) - delta",
+      "cofactors": {
+        "sigma_norm": "cm - cp*q",
+        "determinant": "1"
+      }
+    }
+  ]
+}

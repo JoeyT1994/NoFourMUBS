@@ -1,0 +1,15 @@
+# Python / OS / editor
+__pycache__/
+*.pyc
+.DS_Store
+# Lean build products
+.lake/
+# Delivery archives: returns are committed unpacked (or as readable copies); the zips' hashes are in
+# Connectedness/SOURCE_ZIPS.sha256
+*.zip
+
+# generator intermediates
+lean/generators/stripid/_scratch/
+
+# Lean build logs
+.*-build.log

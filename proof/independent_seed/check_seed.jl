@@ -1,0 +1,479 @@
+# Independent replay of a seed-atlas certificate (proof/seed_atlas/SPEC.md).  See README.md.
+#
+# julia --startup-file=no -t N --project=../independent/jlenv check_seed.jl CERT OUTDIR [options]
+#   CERT    the .json.gz certificate (converted by convert_seed.py) or an already converted .txt
+#   OUTDIR  results: records.tsv, seeds.tsv, recbound.tsv (all resumable), BINDING.txt, RESULT.txt
+# options:
+#   --fast            Stage C float decisions with the existing checker's margin only (no interval replay)
+#   --limit K         only the first K seed balls (smoke tests; never a complete verdict)
+#   --only i,j,...    only these seed balls (0-based)
+#   --partial         exit 0 when every checked object passed its own checks, without claiming a complete atlas
+#   --shard k/m       only the seed balls i with i mod m = k; records are given Step 3 only (for T2 targets), and the
+#                     run ends after the seed balls (a shard is never a verdict; see --import)
+#   --import D1,D2,.. take the seed-ball receipts of shard runs D1, D2, ... (same certificate, checker and options
+#                     apart from --shard, checked through their BINDING.txt), then finish the whole run here
+#   --c1-depth D      extra halving levels allowed in the adaptive C1 box cover (default 4)
+#   --split-depth S   halving levels allowed for a transfer box that fails as a whole (default 2)
+#   --hint FILE       a previous run's seeds.tsv (or .tsv.gz): the seed balls are started longest first (its C1, Stage C
+#                     and C2 seconds; balls it does not list first of all).  Scheduling only: no check reads it, and it
+#                     is not part of the binding
+#
+# Exit status 0 only for a complete certificate in which every check passed (or, with --partial, every checked object
+# passed); 1 otherwise.  A run resumes from OUTDIR only if BINDING.txt there matches this run exactly.
+
+using IntervalArithmetic, LinearAlgebra, Printf, SHA
+include(joinpath(@__DIR__, "src", "IndepSeed.jl"))
+using .IndepSeed
+const S = IndepSeed
+const IA = S.IA
+
+filehash(f) = bytes2hex(open(sha256, f))
+
+function binding(cert, opts)
+    files = [joinpath(@__DIR__, "check_seed.jl"); joinpath(@__DIR__, "convert_seed.py"); joinpath(@__DIR__, "caps_to_txt.py");
+             sort([joinpath(d, f) for (d, _, fs) in walkdir(joinpath(@__DIR__, "src")) for f in fs if endswith(f, ".jl")]);
+             sort([joinpath(d, f) for (d, _, fs) in walkdir(joinpath(@__DIR__, "..", "independent", "src")) for f in fs if endswith(f, ".jl")])]
+    proj = Base.active_project()
+    man = joinpath(dirname(proj), "Manifest.toml")
+    lines = ["format\tnofour-indep-seed-binding-v1", "certificate\t" * filehash(cert), "julia\t" * string(VERSION),
+             "options\t" * opts, "Project.toml\t" * filehash(proj), "Manifest.toml\t" * (isfile(man) ? filehash(man) : "missing")]
+    append!(lines, [relpath(f, @__DIR__) * "\t" * filehash(f) for f in files])
+    join(lines, '\n') * '\n'
+end
+
+function read_receipts(f)
+    done = Dict{Int,Tuple{Bool,String}}()
+    for l in readlines(f)
+        startswith(l, "#") && continue
+        p = split(l, '\t'); i = parse(Int, p[1])
+        haskey(done, i) && error("$f: object $i appears twice")
+        done[i] = (p[2] == "PASS", String(p[end]))
+    end
+    done
+end
+
+function receipts!(f, header)
+    isfile(f) && return read_receipts(f)
+    open(f, "w") do io; println(io, header); end
+    Dict{Int,Tuple{Bool,String}}()
+end
+
+"""C1, Stage C on the enclosure and C2 for one seed ball: (ok, msg, receipt line)."""
+function seed_line(s, X, rec_ok, fast, c1depth, splitdepth)
+    i = s.idx
+    c1 = S.check_c1(s; maxdepth=c1depth)
+    t1 = time()
+    sc, si = S.seed_stage_c(s; replay=!fast)
+    tsc = time() - t1
+    c2 = S.check_c2_seed(s, X, rec_ok; split_depth=splitdepth)
+    ok = c1.ok && sc.ok && c2.ok
+    msg = ok ? "ok" : join(filter(!isempty, [c1.ok ? "" : "C1: " * c1.msg, sc.ok ? "" : "Stage C: " * sc.msg,
+                                             c2.ok ? "" : "C2: " * c2.msg]), "; ")
+    line = @sprintf("%d\t%s\t%.6g\t%d\t%.10g\t%.10g\t%d\t%d\t%.2f\t%s\t%d\t%.6g\t%d\t%.2f\t%.10g\t%.10g\t%.10g\t%s\t%d\t%s\t%d\t%d\t%.6g\t%.6g\t%.6g\t%d\t%.2f\t%s",
+                    i, ok ? "PASS" : "FAIL", s.r, s.o, s.n, c1.bound, c1.nleaf, c1.nsplit, c1.seconds,
+                    sc.ok ? "PASS" : "FAIL", sc.nlabels, sc.maxs, sc.bins.overruled + sc.overruled_edges, tsc,
+                    si.nprime, si.rcol, si.rF, c2.ok ? "PASS" : "FAIL", c2.nbox, kindstr(c2.counts), c2.nchecks,
+                    c2.nsplit, c2.worst[:T0], c2.worst[:T1], c2.worst[:T2], c2.cover_nodes, c2.seconds, clean(msg))
+    ok, msg, line
+end
+
+kindstr(d) = join(["$(k)=$(d[k])" for k in sort(collect(keys(d)))], ",")
+clean(s) = replace(s, '\t' => ' ', '\n' => ' ')
+
+"""An imported directory must have been made with this certificate, checker, environment and options (up to the
+shard): error otherwise."""
+function check_import_binding(bind, d)
+    mine = split(bind, '\n')
+    theirs = split(read(joinpath(d, "BINDING.txt"), String), '\n')
+    same = length(theirs) == length(mine) &&
+           all(a == b || (startswith(a, "options\t") && startswith(b, "options\t") &&
+                          replace(a, r" shard=\S+" => "") == replace(b, r" shard=\S+" => "")) for (a, b) in zip(mine, theirs))
+    same || error("--import: $d was made with a different certificate, checker, environment or options")
+end
+
+"""The edge sphere's transfer check from the shards' receipts (edge_c2_<e>.txt in every imported directory): accepted
+only if all m slices are present, all passed, and together they account for every box (or every cap); the coverage of
+the sphere is checked here.  Otherwise nothing (the final run checks the boxes itself)."""
+function edge_c2_from_shards(eb, i, imports, bind)
+    isempty(imports) && return nothing
+    foreach(d -> check_import_binding(bind, d), split(imports, ','))
+    t0 = time()
+    rows = [split(strip(read(f, String)), '\t') for f in (joinpath(d, "edge_c2_$(i - 1).txt") for d in split(imports, ','))
+            if isfile(f)]
+    isempty(rows) && return nothing
+    m = parse(Int, rows[1][3])
+    (length(rows) == m && all(r -> r[1] == "PASS" && parse(Int, r[3]) == m, rows) &&
+     sort([parse(Int, r[2]) for r in rows]) == collect(0:m-1)) || return nothing
+    capped = eb.caps !== nothing             # return ZC2a: the shards checked slices of the caps; the coverage is checked here
+    nb = capped ? length(eb.caps["caps"]) : sum(length(g.boxes) for g in eb.groups; init=0)
+    sum(parse(Int, r[4]) for r in rows) == nb || return nothing
+    if capped
+        cov, cmsg = S.HP.cap_coverage(eb.caps["caps"], get(eb.caps, "coverage", Dict())); cn = 0
+        cov || return S.C2Result(false, "edge caps: " * cmsg, nb, Dict{Symbol,Int}(), 0, 0, Dict{Symbol,Float64}(), cn, time() - t0)
+    else
+        listed = Set{NTuple{5,Int}}(b for g in eb.groups for b in g.boxes)
+        cov, cn = S.dyadic_covered(listed, S.misses_unit_sphere)
+        cov || return S.C2Result(false, "the boxes do not cover the sphere ||w|| = r", nb, Dict{Symbol,Int}(), 0, 0, Dict{Symbol,Float64}(), cn, time() - t0)
+    end
+    S.C2Result(true, "ok ($(m) shard receipts)", nb, Dict(:T1 => nb), nb, sum(parse(Int, r[5]) for r in rows), Dict{Symbol,Float64}(), cn,
+               time() - t0 + sum(parse(Float64, r[6]) for r in rows))
+end
+
+"""Per-ball seconds (C1 + Stage C + C2) from a previous run's seeds.tsv[.gz], for scheduling only; unreadable or
+missing entries are simply absent."""
+function hint_seconds(f)
+    cost = Dict{Int,Float64}()
+    isfile(f) || return cost
+    txt = try
+        endswith(f, ".gz") ? read(pipeline(`gzip -dc $f`), String) : read(f, String)
+    catch
+        return cost
+    end
+    for l in split(txt, '\n')
+        (isempty(l) || startswith(l, "#")) && continue
+        p = split(l, '\t'); length(p) >= 27 || continue
+        i = tryparse(Int, p[1]); t = [tryparse(Float64, p[k]) for k in (9, 14, 27)]
+        (i === nothing || any(isnothing, t)) && continue
+        cost[i] = sum(t)
+    end
+    cost
+end
+
+function main(args)
+    cert = args[1]; outdir = args[2]
+    fast = "--fast" in args; partial = "--partial" in args
+    getopt(name, default) = (i = findfirst(==(name), args); i === nothing ? default : args[i+1])
+    limit = parse(Int, getopt("--limit", string(typemax(Int))))
+    only = getopt("--only", "")
+    c1depth = parse(Int, getopt("--c1-depth", "4")); splitdepth = parse(Int, getopt("--split-depth", "2"))
+    shard = getopt("--shard", ""); imports = getopt("--import", ""); hint = getopt("--hint", "")
+    shard_k, shard_m = isempty(shard) ? (0, 1) : parse.(Int, split(shard, '/'))
+    (0 <= shard_k < shard_m) || error("--shard k/m needs 0 <= k < m")
+    base = "fast=$fast limit=$(limit == typemax(Int) ? "none" : limit) only=$(isempty(only) ? "all" : only) c1depth=$c1depth splitdepth=$splitdepth"
+    opts = base * " shard=$(isempty(shard) ? "none" : shard)"
+    mkpath(outdir)
+    bind = binding(cert, opts)
+    fb = joinpath(outdir, "BINDING.txt")
+    fr3 = joinpath(outdir, "records.tsv"); fs = joinpath(outdir, "seeds.tsv"); frb = joinpath(outdir, "recbound.tsv")
+    if any(isfile, (fr3, fs, frb))
+        if !isfile(fb) || read(fb, String) != bind
+            println("ERROR: $outdir holds receipts from a different run (certificate, checker, environment or options ",
+                    "differ, or BINDING.txt is missing). Use an empty OUTDIR.")
+            return false
+        end
+        println("Resuming: BINDING.txt matches this run.")
+    else
+        write(fb, bind)
+    end
+    txt = cert
+    if endswith(cert, ".gz")
+        txt = joinpath(outdir, "certificate.txt")
+        run(`python3 $(joinpath(@__DIR__, "convert_seed.py")) $cert $txt`)
+    end
+    C = S.read_seed_certificate(txt)
+    ns = length(C.seeds); nr = length(C.records)
+    sel = isempty(only) ? collect(0:min(ns, limit)-1) : sort(unique(parse.(Int, split(only, ','))))
+    all(0 .<= sel .< ns) || error("--only: no such seed")
+    sel = [i for i in sel if i % shard_m == shard_k]
+    @printf("%d seed balls (checking %d), %d records, F6 record %d; threads = %d; Stage C replay = %s\n",
+            ns, length(sel), nr, C.fourier, Threads.nthreads(), !fast)
+    flush(stdout)
+    lk = ReentrantLock()
+
+    # ---------------- records: Step 3 (normal bound and Stage C of the existing checker)
+    done3 = receipts!(fr3, "#idx\tstatus\tR\tsigma\tn\trcol\trF\tlabels\tmax_s\toverruled\tseconds\tmsg")
+    nbs = Dict{Int,IA.NormalBound}()
+    t0 = time()
+    Threads.@threads :greedy for i in 0:nr-1
+        nb = try
+            IA.normal_bound(C.records[i+1].rec)
+        catch err
+            IA.NormalBound(false, "exception: " * clean(sprint(showerror, err))[1:min(end, 300)], NaN, NaN, NaN, NaN, NaN,
+                           NaN, NaN, NaN, NaN, NaN, NaN, zeros(Int64, 36, 4))
+        end
+        lock(lk) do; nbs[i] = nb; end
+    end
+    todo3 = [i for i in 0:nr-1 if !haskey(done3, i)]
+    Threads.@threads :greedy for i in todo3
+        rec = C.records[i+1].rec
+        nb = nbs[i]
+        t1 = time()
+        ok, msg, line = try
+            if !nb.ok
+                m = "normal bound: " * nb.msg
+                (false, m, @sprintf("%d\tFAIL\t%.6g\t\t\t\t\t\t\t\t%.2f\t%s", i, rec.R, time() - t1, clean(m)))
+            else
+                sc = IA.stage_c(rec, nb; replay=!fast)
+                m = sc.ok ? "ok" : "Stage C: " * sc.msg
+                (sc.ok, m, @sprintf("%d\t%s\t%.6g\t%.10g\t%.10g\t%.10g\t%.10g\t%d\t%.6g\t%d\t%.2f\t%s", i, sc.ok ? "PASS" : "FAIL",
+                                    rec.R, nb.sigma, nb.n, nb.rcol, nb.rF, sc.nlabels, sc.maxs, sc.bins.overruled + sc.overruled_edges,
+                                    time() - t1, clean(m)))
+            end
+        catch err
+            m = "exception: " * clean(sprint(showerror, err))[1:min(end, 300)]
+            (false, m, @sprintf("%d\tFAIL\t%.6g\t\t\t\t\t\t\t\t%.2f\t%s", i, rec.R, time() - t1, m))
+        end
+        lock(lk) do
+            done3[i] = (ok, msg)
+            open(fr3, "a") do io; println(io, line); end
+        end
+    end
+    @printf("  records Step 3: %d / %d PASS (%.0f s)\n", count(i -> get(done3, i, (false,))[1], 0:nr-1), nr, time() - t0)
+    flush(stdout)
+    rec_ok(t) = get(done3, t, (false, ""))[1]
+
+    # ---------------- edge balls (SPEC §10): C1e, Stage C on the enclosure, C2 (sphere cover by T1); not resumable (their
+    # C1e leaves are needed by the seeds' T3 transfers, and recomputing them takes seconds)
+    X = S.XferCtx(C)
+    fe = joinpath(outdir, "edges.tsv")
+    doneE = Dict{Int,Tuple{Bool,String}}()
+    f6edge = Tuple{Int,Bool,String}[]
+    open(fe, "w") do io
+        println(io, "#idx\tstatus\tr\tk\tn_cert\tn_certified\tc1e_boxes\tc1e_splits\tc1e_s\tstagec\tlabels\tmax_s\tstagec_s\tc2\tnboxes\tc2_s\tgraph\tsigma_F6\tR_G\tsigma_D\tdelta_sup\teta_sup\tgraph_s\tmsg")
+    end
+    # C1e of every edge ball first: edge spheres may transfer (T3) into any edge ball
+    c1s = Any[nothing for _ in C.edges]
+    for (i, eb) in enumerate(C.edges)
+        t1 = time()
+        c1s[i] = try S.check_c1e(eb; maxdepth=c1depth) catch err; nothing end
+        c1s[i] !== nothing && c1s[i].ok && (X.edge_leaves[i] = c1s[i].leaves)
+        @printf("  edge ball %d: C1e %s (%.0f s)\n", i - 1, (c1s[i] !== nothing && c1s[i].ok) ? "ok" : "FAIL", time() - t1)
+    end
+    for (i, eb) in enumerate(C.edges)
+        t1 = time()
+        if shard_m > 1
+            # a shard checks its slice of the edge sphere's transfer boxes (item n with n mod m = k) and writes a
+            # receipt; the rest of the edge ball (C1e, the graph, the X bound, the coverage) is the final run's
+            root = S.edge_root(eb)
+            if root !== nothing && X.edge_leaves[i] !== nothing
+                c2s = S.check_c2_edge(eb, X, root; split_depth=splitdepth, cover=false, part=(shard_k, shard_m))
+                open(joinpath(outdir, "edge_c2_$(i - 1).txt"), "w") do io
+                    @printf(io, "%s\t%d\t%d\t%d\t%d\t%.2f\t%s\n", c2s.ok ? "PASS" : "FAIL", shard_k, shard_m,
+                            sum(values(c2s.counts); init=0), c2s.nsplit, c2s.seconds, clean(c2s.msg))
+                end
+            end
+            continue
+        end
+        ok, msg, line = try
+            c1 = c1s[i] === nothing ? S.check_c1e(eb; maxdepth=c1depth) : c1s[i]
+            c1.ok && (X.edge_leaves[i] = c1.leaves)
+            c1.ok && iszero(eb.q0) && push!(f6edge, (i - 1, S.edge_f6(c1.leaves)...))
+            ts = time()
+            # return X replaces Stage C for an X-ball: its image must lie within phase distance 3/20 of F6 (below)
+            sc, si = eb.exclusion == :X ? ((ok=true, nlabels=0, maxs=0.0, msg="X"), nothing) : S.seed_stage_c(eb; replay=!fast)
+            ts = time() - ts
+            root = S.edge_root(eb)
+            c2 = (c1.ok && root !== nothing) ? edge_c2_from_shards(eb, i, imports, bind) : nothing
+            c2 === nothing && (c2 = (c1.ok && root !== nothing) ? S.check_c2_edge(eb, X, root; split_depth=splitdepth) :
+                 S.C2Result(false, "not run (C1e failed)", 0, Dict{Symbol,Int}(), 0, 0, Dict{Symbol,Float64}(), 0, 0.0))
+            wbm = S.PATCHES[] ? (try S.edge_wholeball_model(eb) catch; nothing end) : nothing   # return ZT: one contraction
+            gr = !c1.ok ? S.GraphResult(false, "not run (C1e failed)", NaN, NaN, NaN, NaN, NaN, 0.0) :
+                 (wbm !== nothing ? S.edge_wholeball_graph(eb, wbm, eb.graph) : S.check_graph(eb, c1.leaves, eb.graph))
+            (wbm !== nothing && !gr.ok) && (gr = S.check_graph(eb, c1.leaves, eb.graph))
+            xok = eb.exclusion != :X || (gr.ok && gr.delta_sup < eb.x_radius)   # x_radius <= 9/20 (return X); delta_sup rounded up
+            ok = c1.ok && sc.ok && c2.ok && gr.ok && xok
+            m = ok ? "ok" : join(filter(!isempty, [c1.ok ? "" : "C1e: " * c1.msg, sc.ok ? "" : "Stage C: " * sc.msg,
+                                                   c2.ok ? "" : "C2: " * c2.msg, gr.ok ? "" : "graph/derivative: " * gr.msg,
+                                                   xok ? "" : @sprintf("X: image not within phase distance %g (%.6g)", eb.x_radius, gr.delta_sup)]), "; ")
+            (ok, m, @sprintf("%d\t%s\t%.6g\t%s\t%.10g\t%.10g\t%d\t%d\t%.2f\t%s\t%d\t%.6g\t%.2f\t%s\t%d\t%.2f\t%s\t%.6g\t%.6g\t%.6g\t%.6g\t%.6g\t%.2f\t%s", i - 1,
+                             ok ? "PASS" : "FAIL", eb.r, join(eb.k, "x"), eb.n, c1.bound, length(c1.leaves), c1.nsplit, c1.seconds,
+                             sc.ok ? "PASS" : "FAIL", sc.nlabels, sc.maxs, ts, c2.ok ? "PASS" : "FAIL", c2.nbox, c2.seconds,
+                             gr.ok ? "PASS" : "FAIL", gr.sigma, gr.RG, gr.sigmaD, gr.delta_sup, gr.eta_sup, gr.seconds, clean(m)))
+        catch err
+            m = "exception: " * clean(sprint(showerror, err))[1:min(end, 300)]
+            (false, m, @sprintf("%d\tFAIL%s\t%s", i - 1, repeat("\t", 21), m))
+        end
+        doneE[i-1] = (ok, msg)
+        open(fe, "a") do io; println(io, line); end
+        @printf("  edge ball %d: %s (%.0f s)%s\n", i - 1, ok ? "PASS" : "FAIL", time() - t1, ok ? "" : "  " * first(msg, 200))
+        flush(stdout)
+    end
+    edge_ok(i) = get(doneE, i, (false, ""))[1]
+
+    # ---------------- seed balls: C1, Stage C on the enclosure, C2 (sphere transfers)
+    doneS = receipts!(fs, "#idx\tstatus\tr\to\tn_cert\tn_certified\tc1_boxes\tc1_splits\tc1_s\tstagec\tlabels\tmax_s\toverruled\tstagec_s\tn_frame\trcol\trF\tc2\tnboxes\tkinds\tchecks\tsplits\tworst_T0\tworst_T1\tworst_T2\tcover_nodes\tc2_s\tmsg")
+    if !isempty(imports)
+        mine = split(bind, '\n')
+        for d in split(imports, ',')
+            check_import_binding(bind, d)
+            n_in = 0
+            for l in readlines(joinpath(d, "seeds.tsv"))
+                startswith(l, "#") && continue
+                i = parse(Int, split(l, '\t')[1])
+                (i in sel && !haskey(doneS, i)) || continue
+                p = split(l, '\t')
+                doneS[i] = (p[2] == "PASS", String(p[end])); n_in += 1
+                open(fs, "a") do io; println(io, l); end
+            end
+            println("  imported $n_in seed receipts from $d")
+        end
+    end
+    todo = [i for i in sel if !haskey(doneS, i)]
+    if !isempty(hint)                        # scheduling only: longest first, so the slowest balls overlap the rest
+        cost = hint_seconds(hint)
+        sort!(todo, by = i -> -get(cost, i, Inf), alg=MergeSort)
+        @printf("  scheduling: longest first from %s (%d of %d balls listed)\n", hint, count(i -> haskey(cost, i), todo), length(todo))
+    end
+    t0 = time(); ndone = Threads.Atomic{Int}(0)
+    Threads.@threads :greedy for i in todo
+        ok, msg, line = try
+            seed_line(C.seeds[i+1], X, rec_ok, fast, c1depth, splitdepth)
+        catch err
+            m = "exception: " * clean(sprint(showerror, err))[1:min(end, 300)]
+            (false, m, @sprintf("%d\tFAIL%s\t%s", i, repeat("\t", 26), m))
+        end
+        lock(lk) do
+            doneS[i] = (ok, msg)
+            open(fs, "a") do io; println(io, line); end
+            k = Threads.atomic_add!(ndone, 1) + 1
+            if k % 10 == 0 || k == length(todo)
+                @printf("  seeds %d/%d  (%.0f s)\n", k, length(todo), time() - t0); flush(stdout)
+            end
+        end
+    end
+    seed_ok(i) = get(doneS, i, (false, ""))[1]
+    if shard_m > 1
+        np = count(seed_ok, sel)
+        open(joinpath(outdir, "RESULT.txt"), "w") do io
+            println(io, "Shard $shard of the independent seed-atlas replay, certificate: ", cert)
+            println(io, @sprintf("SHARD: %d / %d seed balls PASS (seed balls i with i mod %d = %d). Not a verdict: finish with --import.",
+                                 np, length(sel), shard_m, shard_k))
+        end
+        print(read(joinpath(outdir, "RESULT.txt"), String))
+        return np == length(sel)
+    end
+
+    # ---------------- records: C2 (shell boxes: rec and T1')
+    doneB = receipts!(frb, "#idx\tstatus\tnboxes\tkinds\tchecks\tsplits\tworst_rec\tworst_T1p\tcover_nodes\tseconds\tmsg")
+    t0 = time()
+    todoB = [i for i in 0:nr-1 if !haskey(doneB, i)]
+    Threads.@threads :greedy for i in todoB
+        ok, msg, line = try
+            nb = nbs[i]
+            if !nb.ok
+                (false, "no normal bound", @sprintf("%d\tFAIL\t\t\t\t\t\t\t\t\t%s", i, "no normal bound"))
+            else
+                c2 = S.check_c2_record(C.records[i+1], nb, X, rec_ok; split_depth=splitdepth)
+                (c2.ok, c2.msg, @sprintf("%d\t%s\t%d\t%s\t%d\t%d\t%.6g\t%.6g\t%d\t%.2f\t%s", i, c2.ok ? "PASS" : "FAIL", c2.nbox,
+                                       kindstr(c2.counts), c2.nchecks, c2.nsplit, c2.worst[:rec], c2.worst[:T1p], c2.cover_nodes,
+                                       c2.seconds, clean(c2.msg)))
+            end
+        catch err
+            m = "exception: " * clean(sprint(showerror, err))[1:min(end, 300)]
+            (false, m, @sprintf("%d\tFAIL\t\t\t\t\t\t\t\t\t%s", i, m))
+        end
+        lock(lk) do
+            doneB[i] = (ok, msg)
+            open(frb, "a") do io; println(io, line); end
+        end
+    end
+    @printf("  records C2: %d / %d PASS (%.0f s)\n", count(i -> get(doneB, i, (false,))[1], 0:nr-1), nr, time() - t0)
+
+    # ---------------- F6 nonemptiness: F6's record contains F6
+    ne = []
+    if 0 <= C.fourier < nr && rec_ok(C.fourier)
+        ne = IA.nonempty_F6([r.rec for r in C.records], [C.fourier + 1])
+    end
+    f6ok = any(x -> x[4], ne) || any(x -> x[2] && edge_ok(x[1]), f6edge)
+
+    # ---------------- Tao's record
+    tao = nothing
+    if C.tao !== nothing
+        tao = try
+            S.check_tao(C.tao[1], C.tao[2]; replay=!fast)
+        catch err
+            S.TaoResult(false, "exception: " * clean(sprint(showerror, err))[1:min(end, 300)], NaN, NaN, NaN, nothing)
+        end
+        @printf("  Tao: %s (sigma >= %.6g, n <= %.3g)\n", tao.ok ? "PASS" : "FAIL: " * tao.msg, tao.sigma, tao.n)
+    end
+    taook = tao !== nothing && tao.ok
+
+    # ---------------- report
+    seedpass = count(seed_ok, sel)
+    recpass = count(i -> rec_ok(i) && get(doneB, i, (false,))[1], 0:nr-1)
+    allchecked = Set(sel) == Set(0:ns-1)
+    # targets named by the checked seeds and records
+    tseeds = Set{Int}(); trecs = Set{Int}()
+    for i in sel, x in C.seeds[i+1].groups
+        x.kind in (:T0, :T1) ? push!(tseeds, x.target) : push!(trecs, x.target)
+    end
+    for r in C.records, x in r.groups
+        x.kind == :T1p ? push!(tseeds, x.target) : push!(trecs, x.target)
+    end
+    edgepass = count(edge_ok, 0:length(C.edges)-1)
+    passed = seedpass == length(sel) && recpass == nr && edgepass == length(C.edges) && (tao === nothing || taook)
+    complete = passed && allchecked && f6ok && taook && !fast
+    stats = [x for x in (split(l, '\t') for l in readlines(fs) if !startswith(l, "#")) if length(x) >= 28 && x[9] != "" && x[14] != ""]
+    open(joinpath(outdir, "RESULT.txt"), "w") do io
+        println(io, "Independent seed-atlas replay (proof/independent_seed), certificate: ", cert)
+        println(io, "Bound inputs (BINDING.txt): certificate sha256 ", split(split(bind, '\n')[2], '\t')[2])
+        println(io, "Options: ", opts)
+        println(io, "Stage C rejections: ", fast ? "float with the existing margin (--fast)" : "float, each re-decided in interval arithmetic")
+        println(io)
+        println(io, "Seed balls (PASS = C1 bound <= n, Stage C on P + U w + nu, and C2: sphere covered, every transfer certified):")
+        for i in sel
+            st = get(doneS, i, (false, "not run"))
+            println(io, @sprintf("seed %6d  %s  %s", i, st[1] ? "PASS" : "FAIL", st[1] ? "" : st[2]))
+        end
+        println(io)
+        println(io, "Records (PASS = Step 3 [normal bound, Stage C] and C2 [shell covered, every box certified]):")
+        for i in 0:nr-1
+            a = get(done3, i, (false, "not run")); b = get(doneB, i, (false, "not run"))
+            println(io, @sprintf("record %4d  %s  %s", i, a[1] && b[1] ? "PASS" : "FAIL",
+                                 a[1] ? (b[1] ? "" : "C2: " * b[2]) : "Step 3: " * a[2]))
+        end
+        println(io)
+        if !isempty(C.edges)
+            println(io, "Edge balls (PASS = C1e bound <= n with both augmented tubes, t' = t (dR/dtheta4 > 0) and g > 0; Stage C; C2: sphere covered by T1;")
+            println(io, "            (G) sigma at F6 with L R_G < sigma and the image inside ||delta|| < R_G, SPEC §10.2; (D) sigma_min of d eta/dw >= sigma_D, SPEC §10.1):")
+            for i in 0:length(C.edges)-1
+                st = get(doneE, i, (false, "not run"))
+                println(io, @sprintf("edge %6d  %s  %s", i, st[1] ? "PASS" : "FAIL", st[1] ? "" : st[2]))
+            end
+            for (i, ok, m) in f6edge
+                println(io, "  F6 at the centre of edge ball $i: ", ok ? "CERTIFIED ($m)" : "not certified: " * m)
+            end
+            println(io)
+        end
+        println(io, "Nonemptiness (F6 in the record fourier_record = $(C.fourier)):")
+        for x in ne
+            println(io, @sprintf("  record %d: ||h(A F6 + 2 pi N - P_t)|| <= %.9f vs R_t = %.6g  %s", x[1], x[2], x[3], x[4] ? "CERTIFIED" : "not certified"))
+        end
+        isempty(ne) && println(io, "  not certified (no fourier_record, or it did not pass Step 3, or F6 is not inside it)")
+        if tao === nothing
+            println(io, "Tao's record: none in the certificate.")
+        else
+            println(io, @sprintf("Tao's record (R = %.6g, label radius %.6g): %s  (sigma >= %.10g, e0 <= %.3g, n <= %.3g, isolation L R < sigma)",
+                                 C.tao[1], C.tao[2], tao.ok ? "PASS" : "FAIL: " * tao.msg, tao.sigma, tao.e0, tao.n))
+        end
+        println(io)
+        if !isempty(stats)
+            c1s = [parse(Float64, x[9]) for x in stats]; scs = [parse(Float64, x[14]) for x in stats]; c2s = [parse(Float64, x[27]) for x in stats]
+            ratio = [parse(Float64, x[6]) / parse(Float64, x[5]) for x in stats if x[6] != "Inf"]
+            println(io, @sprintf("Timing per seed ball (s): C1 mean %.2f max %.2f; Stage C mean %.2f max %.2f; C2 mean %.2f max %.2f",
+                                 sum(c1s) / length(c1s), maximum(c1s), sum(scs) / length(scs), maximum(scs), sum(c2s) / length(c2s), maximum(c2s)))
+            isempty(ratio) || println(io, @sprintf("C1: certified bound / certificate n: max %.4f, mean %.4f", maximum(ratio), sum(ratio) / length(ratio)))
+        end
+        println(io, "Targets named: $(length(tseeds)) seed balls, $(length(trecs)) records.",
+                allchecked ? "" : "  (Only $(length(sel)) of $ns seed balls checked; targets outside them are not checked here.)")
+        println(io)
+        println(io, @sprintf("SUMMARY: %d / %d seed balls PASS.  %d / %d edge balls PASS.  %d / %d records PASS.  F6: %s.  Tao: %s.",
+                             seedpass, length(sel), edgepass, length(C.edges), recpass, nr, f6ok ? "CERTIFIED" : "NOT certified",
+                             tao === nothing ? "absent" : tao.ok ? "PASS" : "FAIL"))
+        if complete
+            println(io, "VERDICT: the certificate is complete and every check passed (C1, Stage C, C2 for every seed ball; C1e, Stage C, C2 for every edge ball; Step 3 and C2 for every record; F6; Tao).")
+        elseif fast && passed && allchecked && f6ok && taook
+            println(io, "VERDICT (--fast): every check passed, but Stage C rejections were float decisions with margins, not interval",
+                    " decisions. This is not a rigorous verdict; rerun without --fast.")
+        elseif partial && passed
+            println(io, "VERDICT (partial): every checked object passed; this is not a complete-atlas certificate.")
+        else
+            println(io, "VERDICT: not a complete certificate (see above).",
+                    allchecked ? "" : "  Only $(length(sel)) of $ns seed balls were checked.")
+        end
+    end
+    print(read(joinpath(outdir, "RESULT.txt"), String))
+    complete || (partial && passed)
+end
+
+exit(main(ARGS) ? 0 : 1)

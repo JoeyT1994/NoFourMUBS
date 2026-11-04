@@ -1,0 +1,82 @@
+{
+  "return": "O_zeroj_unsquared_return",
+  "date": "2026-10-18",
+  "input_snapshot": "73152c64",
+  "input_archive": {
+    "name": "O_zeroj_without_square_sum_73152c64.zip",
+    "sha256": "1b77083e82ade23f25b6ba46c8271d35ac3aa79c8befe3bcd07eaf672b08a983"
+  },
+  "input_hash_manifest_replayed": "PASS: all 71 declared files matched",
+  "relied_on_or_audited_inputs": {
+    "BRIEF.md": "4239920257a358034c87a822834afadf65d811f9af484bd3865b9aaf600ed9d8",
+    "inputs/MinimalConstruction/Proofs/CRITICAL_CORNER_REDUCTION.md": "4a2172519ca3568faaff44e152692a195d9d2a135ca3948840981a418af1da60",
+    "inputs/MinimalConstruction/Proofs/CRITICAL_STRIP_CLASSIFICATION.md": "3921e6b8fb31c37fb547ad02f48b8643575a9c76ce104f8023912c8b8ceddaa5",
+    "inputs/MinimalConstruction/Proofs/SIDE_FIBER.md": "c9ab9598e78a7f0aaa64d445dbbca5615976cc0d5f6127e1ed8b479772600adc",
+    "inputs/proof/coverage/returns/K_nonzero_J/REPORT.md": "b1f2c606134fb9a18eb6cbedff4db8b7ff9086d84c412409ded63f4a854de788",
+    "inputs/proof/coverage/returns/K_nonzero_J/CERTIFICATE_FORMAT.md": "d367fed5fdd71ba2f6eded8cbc8a7f98f1e9c582a01a5f02ae661e7db1e76728",
+    "inputs/proof/coverage/returns/K_nonzero_J/support/exact_rational.py": "ebe8bf42e7c7ed381bda16bc608776cb50e821087f77f027f2365a02a8491276",
+    "inputs/proof/coverage/returns/K_nonzero_J/support/verify_full_weighted.py": "672c827d1597b07ac226a10f4e41ff81da4b5010bb68e5f1a907a6c0ebb6a135",
+    "zeroj_signed_sums.py": "d9e6cfa89d42635e605db2fe5445a931e37de91b2e74c523c0250d7bbc371d8f",
+    "inputs/lean/NoFourMUBs/PRM/CoverageStripZero.lean": "aee93db6769cc2e6512046c5a8cce2c328dcd1f2aec211e6e2cd463d524999f2",
+    "inputs/lean/NoFourMUBs/PRM/CoverageStripGeom.lean": "f4a0cf2c5748999b4b6b13332679f8bbcf9defa61f76427d97f42b3f4e96f013",
+    "inputs/lean/NoFourMUBs/PRM/CoverageStripReduce.lean": "09ce390c5e3731e49384c1d81667fe13b740b6979bda35ef8a451ebbf53c534a",
+    "inputs/lean/NoFourMUBs/PRM/CoverageStripParts.lean": "23560d58551ba9a72b51e71b65066e41cd184197468b508307c3da0e04e8e070",
+    "inputs/lean/NoFourMUBs/PRM/CoverageSignedNonzero.lean": "484c627bde0f3ac787b5600101175708776dba2c4903c560b13f8e9301b9532d",
+    "inputs/lean/NoFourMUBs/PRM/CoverageSignedGauge.lean": "df3ccdc16406140a29da74e85acb6f40fc34385da886e1bac0f42e04f3da6946",
+    "inputs/lean/NoFourMUBs/PRM/CoverageSignedBoundary.lean": "8df1e4c0266ede444f53b004f26c7c68a3014386a904f6a0a2924fe7400c062c"
+  },
+  "mathematical_dependencies": [
+    "Complementary orthogonal phase halves have opposite off-diagonal Gram correlations.",
+    "Actual-side lambda, permanent and row-product identities, SIDE_FIBER section 1.",
+    "Elementary critical zero-J scalar relations and pole-free lemma preceding the old square-sum computation.",
+    "Newton moment formulas independently rechecked by the return."
+  ],
+  "new_arguments": [
+    "Retained unsquared mixed-corner proof",
+    "Generic imaginary reduction on repeated moduli",
+    "New sextic norm and Bezout constant 746496",
+    "Independent full-polynomial source reconstruction with actual Newton products",
+    "Independent sign-corner zero-product audit under all-corner invertibility"
+  ],
+  "old_square_sum_dependency": false,
+  "nonzero_J_classification_dependency": false,
+  "CT_dependency": false,
+  "normal_verifier_dependencies": {
+    "python": "3.12.14",
+    "python-flint": "0.9.0"
+  },
+  "lean_status": {
+    "compiled": false,
+    "axiom_audit_run": false,
+    "lean_executable_available": false,
+    "lake_executable_available": false,
+    "full_project_supplied": false
+  },
+  "input_files_modified": false,
+  "input_brief_matches_original": true,
+  "current_attached_brief_archive": {
+    "name": "O_zeroj_without_square_sum_brief.zip",
+    "sha256": "e1ddd3b3537c163dc2d2489c9f4af9ec7e33012bd6abfbdc3cf790fe0ac0bd1f"
+  },
+  "recovered_prior_return_archive": {
+    "name": "O_zeroj_mixed_signatures_73152c64.zip",
+    "sha256": "c94c223e8cad05166e18fe5a88882c4750198271271d3592a82f040b7c873581"
+  },
+  "current_brief_files": {
+    "BRIEF.md": "4239920257a358034c87a822834afadf65d811f9af484bd3865b9aaf600ed9d8",
+    "zeroj_signed_sums.py": "d9e6cfa89d42635e605db2fe5445a931e37de91b2e74c523c0250d7bbc371d8f",
+    "zeroj_weighted_xy.py": "215182e4d0012399d67b2a7f7c8520b1c072c916fbe993a0bc1030261c49e42c"
+  },
+  "previous_return_manifest_replayed": "PASS: 23 declared files matched; complete original verifier with self-test passed",
+  "certificate_reduction": {
+    "previous_bytes": 49893,
+    "current_bytes": 43138,
+    "saved_bytes": 6755,
+    "removed_record": "repeated_Tx",
+    "retained_mixed_records": [
+      "generic",
+      "repeated_Tpair"
+    ]
+  },
+  "retained_mixed_records_equal_prior_return": true
+}

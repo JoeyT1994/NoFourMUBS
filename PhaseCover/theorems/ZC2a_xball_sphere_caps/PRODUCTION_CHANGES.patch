@@ -1,0 +1,1209 @@
+--- a/cert/cap_coverage.py
++++ b/cert/cap_coverage.py
+@@ -1,6 +1,11 @@
+-"""Exact coverage of S^3 by rational caps (return ZC's coverage.py, unchanged except for imports): caps
+-||x|| = 1, v_i.x >= h_i with h_i > 0 cover S^3 exactly when the polytope {y : v_i.y <= h_i} lies in the closed unit
+-ball; the certificate lists its facets (four caps each) with exact dual vertices, checked in integer arithmetic.
++"""Exact coverage of S^3 by rational caps.
++
++ZC's supporting-facet and ridge theorem is retained.  Caps ||x||=1,
++v_i.x>=h_i with h_i>0 cover S^3 exactly when {y:v_i.y<=h_i} lies in the
++closed unit ball.  The original schema stores facet indices and exact dual
++vertices; the optional index-only schema reconstructs those vertices by
++Cramer's rule.  An exact outward-dyadic bounding hierarchy can accelerate
++all-point supporting inequalities without changing their meaning.
+ """
+ from __future__ import annotations
+ from collections import Counter
+@@ -11,6 +16,7 @@
+ from typing import Any
+ 
+ SCHEMA = "rational-s3-cap-cover-v1"
++COMPACT_SCHEMA = "rational-s3-cap-cover-index-v1"
+ _PERMUTATIONS = []
+ for _p in permutations(range(4)):
+     _inversions = sum(_p[i] > _p[j] for i in range(4) for j in range(i + 1, 4))
+@@ -73,7 +79,8 @@
+     return [a // divisor for a in numerator], denominator // divisor
+ 
+ 
+-def construct_coverage_certificate(caps: list[dict], qhull_options=None) -> dict:
++def construct_coverage_certificate(caps: list[dict], qhull_options=None, *,
++                                   compact: bool = False) -> dict:
+     """Propose a certificate; always run verify_coverage before trusting it.
+ 
+     A failed norm bound is useful during cap construction: the corresponding
+@@ -86,8 +93,14 @@
+     rows = integer_rows(caps)
+     points = np.asarray([[float(Fraction(a, r[4])) for a in r[:4]] for r in rows])
+     hull = ConvexHull(points, qhull_options=qhull_options)
++    simplices = sorted({tuple(sorted(map(int, ss))) for ss in hull.simplices})
++    if compact:
++        # Only an enumeration proposal is stored.  The verifier reconstructs
++        # every rational dual vertex by exact Cramer's rule from the same caps.
++        return {"schema": COMPACT_SCHEMA, "dimension": 4, "cap_count": len(caps),
++                "simplices": [list(simplex) for simplex in simplices]}
+     facets = []
+-    for simplex in sorted({tuple(sorted(map(int, ss))) for ss in hull.simplices}):
++    for simplex in simplices:
+         numerator, denominator = exact_dual_vertex(rows, simplex)
+         facets.append({"vertices": list(simplex), "numerator": numerator,
+                        "denominator": denominator})
+@@ -95,34 +108,122 @@
+             "facets": facets}
+ 
+ 
++def compact_coverage_certificate(certificate: dict) -> dict:
++    """Convert an original facet-witness proposal to the new index schema.
++
++    This is a format conversion, not verification.  Exact dual vertices are
++    rederived from the caps during verify_coverage, so stored numerical or
++    incorrect vertex coordinates cannot be trusted through this operation.
++    """
++    if certificate.get("schema") != SCHEMA or certificate.get("dimension") != 4:
++        raise ValueError("expected original rational-s3-cap-cover-v1 certificate")
++    return {"schema": COMPACT_SCHEMA, "dimension": 4,
++            "cap_count": certificate["cap_count"],
++            "simplices": [list(facet["vertices"]) for facet in certificate["facets"]]}
++
++
++class _DyadicSupportTree:
++    """Exact outward boxes accelerate the same all-point support assertion.
++
++    Each cap row is the rational point q_i=row[:4]/row[4].  Its coordinate
++    interval on a common 2**32 grid is formed by integer floor and ceiling.
++    Internal boxes are coordinatewise unions of their children's boxes.
++    The split rule only chooses a partition; no geometric claim uses it.
++    """
++    scale = 1 << 32
++
++    def __init__(self, rows, leaf_size=8):
++        self.rows = rows
++        self.node_tests = 0
++        self.point_tests = 0
++        lows = [[(row[k] * self.scale) // row[4] for k in range(4)] for row in rows]
++        highs = [[-((-row[k] * self.scale) // row[4]) for k in range(4)] for row in rows]
++
++        def build(indices):
++            lower = tuple(min(lows[i][k] for i in indices) for k in range(4))
++            upper = tuple(max(highs[i][k] for i in indices) for k in range(4))
++            if len(indices) <= leaf_size:
++                return (lower, upper, None, None, tuple(indices))
++            axis = max(range(4), key=lambda k: upper[k] - lower[k])
++            indices.sort(key=lambda i: lows[i][axis] + highs[i][axis])
++            mid = len(indices) // 2
++            return (lower, upper, build(indices[:mid]), build(indices[mid:]), None)
++
++        self.root = build(list(range(len(rows))))
++
++    def check(self, numerator, denominator, members):
++        """Return the first failing (cap, slack), or None after exact proof.
++
++        The four incident equalities have been checked separately.  A node
++        is skipped only if the dyadic upper bound on q dot numerator is
++        strictly smaller than denominator.  All other nodes are expanded
++        to their children, ultimately testing exact rational inequalities.
++        """
++        stack = [self.root]
++        limit = denominator * self.scale
++        signs = [value >= 0 for value in numerator]
++        while stack:
++            node = stack.pop()
++            lower, upper, left, right, indices = node
++            self.node_tests += 1
++            bound = sum((upper[k] if signs[k] else lower[k]) * numerator[k]
++                        for k in range(4))
++            if bound < limit:
++                continue
++            if indices is None:
++                stack.append(left)
++                stack.append(right)
++                continue
++            for j in indices:
++                if j in members:
++                    continue
++                self.point_tests += 1
++                row = self.rows[j]
++                slack = row[4] * denominator - sum(row[k] * numerator[k] for k in range(4))
++                if slack <= 0:
++                    return j, slack
++        return None
++
++
+ def verify_coverage(caps: list[dict], certificate: dict,
+-                    require_cover: bool = True) -> dict:
++                    require_cover: bool = True, *, support_mode: str = "auto") -> dict:
+     """Check exact supporting facets, complete enumeration, and all norms.
+ 
+     require_cover=False verifies the complete polar hull but allows norms
+     above one.  In that mode passed=True is NOT a sphere-cover assertion;
+     the separate field `covers` states whether the norm test succeeds.
++    support_mode chooses direct all-point checks or the exactly rounded
++    support hierarchy; auto uses the hierarchy for at least 256 caps.
+     """
+     def fail(message, **extra):
+         return {"passed": False, "covers": False, "error": message, **extra}
+ 
+     try:
+-        if certificate.get("schema") != SCHEMA or certificate.get("dimension") != 4:
++        schema = certificate.get("schema")
++        if schema not in (SCHEMA, COMPACT_SCHEMA) or certificate.get("dimension") != 4:
+             return fail("unsupported schema or dimension")
++        compact = schema == COMPACT_SCHEMA
++        if compact and "facets" in certificate:
++            return fail("compact schema requires simplices only, not stored facet witnesses")
+         rows = integer_rows(caps)
+         count = len(rows)
+         if count < 5 or certificate.get("cap_count") != count:
+             return fail("need at least five caps and matching cap_count")
+-        facets = certificate.get("facets", [])
++        facets = certificate.get("simplices" if compact else "facets", [])
+         if not facets:
+             return fail("empty facet list")
++        if support_mode not in ("auto", "direct", "bvh"):
++            return fail("unknown support verification mode")
++        use_tree = support_mode == "bvh" or (support_mode == "auto" and count >= 256)
++        support_tree = _DyadicSupportTree(rows) if use_tree else None
++        support_point_tests = 0
+         seen = set()
+         ridges = Counter()
+         max_norm = Fraction(0)
+         max_facet = None
+         boundary_facets = 0
+         for fi, facet in enumerate(facets):
+-            vertices = tuple(sorted(facet["vertices"]))
++            vertices = tuple(sorted(facet if compact else facet["vertices"]))
+             if len(vertices) != 4 or len(set(vertices)) != 4:
+                 return fail("facet must contain four distinct indices", facet=fi)
+             if any(type(i) is not int or i < 0 or i >= count for i in vertices):
+@@ -132,19 +233,36 @@
+             seen.add(vertices)
+             if determinant4([rows[i][:4] for i in vertices]) == 0:
+                 return fail("facet normal rows are linearly dependent", facet=fi)
+-            numerator = facet["numerator"]
+-            denominator = facet["denominator"]
++            if compact:
++                numerator, denominator = exact_dual_vertex(rows, vertices)
++            else:
++                numerator = facet["numerator"]
++                denominator = facet["denominator"]
+             if len(numerator) != 4 or any(type(a) is not int for a in numerator):
+                 return fail("numerator must be four integers", facet=fi)
+             if type(denominator) is not int or denominator <= 0:
+                 return fail("denominator must be a positive integer", facet=fi)
+             members = set(vertices)
+-            for j, row in enumerate(rows):
+-                slack = row[4] * denominator - sum(row[k] * numerator[k] for k in range(4))
+-                if j in members:
++            if support_tree is None:
++                for j, row in enumerate(rows):
++                    support_point_tests += 1
++                    slack = row[4] * denominator - sum(row[k] * numerator[k] for k in range(4))
++                    if j in members:
++                        if slack != 0:
++                            return fail("vertex witness fails incident hyperplane equality", facet=fi, cap=j)
++                    elif slack <= 0:
++                        return fail("facet is not strict supporting simplex (or hull degenerate)",
++                                    facet=fi, cap=j, slack=slack)
++            else:
++                for j in vertices:
++                    support_point_tests += 1
++                    row = rows[j]
++                    slack = row[4] * denominator - sum(row[k] * numerator[k] for k in range(4))
+                     if slack != 0:
+                         return fail("vertex witness fails incident hyperplane equality", facet=fi, cap=j)
+-                elif slack <= 0:
++                failed = support_tree.check(numerator, denominator, members)
++                if failed is not None:
++                    j, slack = failed
+                     return fail("facet is not strict supporting simplex (or hull degenerate)",
+                                 facet=fi, cap=j, slack=slack)
+             for ridge in combinations(vertices, 3):
+@@ -161,11 +279,15 @@
+                  "max_norm_squared": str(max_norm), "max_norm_squared_float": float(max_norm),
+                  "worst_facet": max_facet, "boundary_vertices": boundary_facets,
+                  "covers": max_norm <= 1,
+-                 "strict_margin": max_norm < 1}
++                 "strict_margin": max_norm < 1,
++                 "support_method": "dyadic-bvh" if use_tree else "all-points",
++                 "support_node_tests": support_tree.node_tests if use_tree else 0,
++                 "support_point_tests": support_point_tests + (support_tree.point_tests if use_tree else 0),
++                 "potential_support_point_tests": count * len(facets)}
+         if require_cover and max_norm > 1:
+             return fail("complete polar polytope has a vertex outside the unit ball", **stats)
+         return {"passed": True, **stats}
+-    except (ValueError, TypeError, KeyError, ZeroDivisionError) as exc:
++    except (ValueError, TypeError, KeyError, ZeroDivisionError, IndexError, OverflowError) as exc:
+         return fail(f"malformed input: {exc}")
+ 
+ 
+--- a/cert/cap_weighted.py
++++ b/cert/cap_weighted.py
+@@ -1,5 +1,5 @@
+ """Output-weighted normal bounds for cap transfers (return ZC's weighted.py; ZT_REPORT equations (25)-(29)),
+-unchanged except for imports."""
++with an additive dispatch to ZT's augmented edge-system bounds."""
+ import itertools, time
+ from flint import arb, acb, arb_mat, ctx
+ import patches as P
+@@ -195,6 +195,9 @@
+                     old_T2=zero, raw_T0=zero, raw_T1=zero, raw_T2=zero,
+                     predictor_hessian=zero, local_hessian=zero,
+                     old_local_hessian=zero, seconds=0.0)
++    if transfer.model.get("edge_chart", False):
++        from edge_wholeball import cap_target_bounds
++        return cap_target_bounds(transfer)
+     result = bounds(transfer.model, transfer.AX)
+     result["predictor_hessian"] = transfer.hnorm
+     result["local_hessian"] = transfer.hnorm+result["T2"]
+--- a/cert/caps.py
++++ b/cert/caps.py
+@@ -2,7 +2,8 @@
+ ||x|| = 1, v.x >= h (x = w / r) is certified for a T0/T1 transfer by a 5 x 5 PSD witness on the whole-ball model's
+ quadratic predictor with ZT's error terms, and both Psi signs by the linear-cap minimum and the signature remainder;
+ the caps cover S^3 by cap_coverage.verify_coverage (exact integer polar-facet certificate).  Code: return ZC's
+-cap_verify.py (check_cap and its helpers), unchanged except for imports.
++cap_verify.py with an additive edge-source adapter: the X-ball uses its augmented centre jet and,
++when weighted_target is true, its output-weighted normal bounds.
+ """
+ import math
+ from flint import arb, arb_mat, ctx
+@@ -136,12 +137,19 @@
+         qc = model["Q0"] + model["U"] * centre + P.tensor_at(model["H2"], centre) * centre / 2
+         dc = model["U"] + P.tensor_at(model["H2"], centre)
+     else:
+-        qc, dc, _ = P.centre_jet(model, centre)
++        if model.get("edge_chart", False):
++            from edge_wholeball import edge_centre_jet
++            qc, dc, _ = edge_centre_jet(model, centre)
++        else:
++            qc, dc, _ = P.centre_jet(model, centre)
+         bb = tr.A * dc
+         d = (tr.A * qc + tr.offset - bb * centre) / tr.target_r
+         ff = bb * (model["r"] / tr.target_r)
+-        normal_hessian = weighted_bounds["T2"] if weighted_bounds is not None else tr.xnorm * model["Z2"]
+-        eps = (tr.hnorm + normal_hessian) * delta2 / 2
++        # The edge adapter may bound the full output Hessian more sharply than
++        # a sum using this transfer's independently rounded predictor norm.
++        local_hessian = (weighted_bounds["local_hessian"] if weighted_bounds is not None
++                         else tr.hnorm + tr.xnorm * model["Z2"])
++        eps = local_hessian * delta2 / 2
+ 
+     gram = ff.transpose() * ff
+     b = ff.transpose() * d
+--- a/cert/certify_seed_atlas.py
++++ b/cert/certify_seed_atlas.py
+@@ -96,6 +96,10 @@
+     # an edge sphere's boxes are checked in chunks (each needs an Arb chart enclosure); the ('edge', e) item keeps the
+     # sphere coverage, Stage C or X, and checks no box itself
+     for e, ed in enumerate(cert.get('edge', [])):
++        if ed.get('caps') is not None:
++            # A cap certificate is checked as one indivisible boundary proof
++            # by the edge item.  Retained old boxes do not schedule work.
++            continue
+         chunks, cur, n = [], [], 0
+         for g in ed.get('transfers', []):
+             bx = g.get('boxes', []) if isinstance(g, dict) else []
+@@ -203,7 +207,8 @@
+             if not sc.get('ok'): raise S.CertError('Stage C failed: %s' % sc.get('reason', 'quartet edge not excluded'))
+         t2 = time.time()
+         if groups is None: groups = C.cert['edge'][e].get('transfers', [])
+-        out.update(transfers=EC.check_edge_transfers(eb, C.balls, groups, C.cert['max_level'], edges=C.edges, check=False),
++        out.update(transfers=EC.check_edge_transfers(eb, C.balls, groups, C.cert['max_level'], edges=C.edges, check=False,
++                                                     caps=C.cert['edge'][e].get('caps')),
+                    c2_s=round(time.time() - t2, 3))
+         out['ok'] = True
+     except S.CertError as ex:
+--- a/cert/check_xball_projection.py
++++ b/cert/check_xball_projection.py
+@@ -0,0 +1,90 @@
++"""Independently verify X-ball compact headers against original supplied data.
++
++Only outgoing edge-group box arrays may be omitted and `_proposal_*` keys
++may be added.  Every mathematical header and every ordered descriptor is
++compared for exact JSON-value equality.  No numerical tolerance is used.
++"""
++from __future__ import annotations
++import argparse
++from collections import Counter
++import gzip
++from hashlib import sha256
++import json
++from pathlib import Path
++import time
++
++
++def file_sha256(path):
++    h = sha256()
++    with open(path, 'rb') as f:
++        for chunk in iter(lambda: f.read(1 << 20), b''):
++            h.update(chunk)
++    return h.hexdigest()
++
++
++def load(path):
++    opener = gzip.open if str(path).endswith('.gz') else open
++    with opener(path, 'rt') as f:
++        return json.load(f)
++
++
++def verify(original_path, compact_path):
++    started = time.perf_counter()
++    original, compact = load(original_path), load(compact_path)
++    def need(condition, message):
++        if not condition:
++            raise ValueError(message)
++    need(set(original) == set(compact), 'top-level key set changed')
++    for key in original:
++        if key != 'edge':
++            need(original[key] == compact[key], 'changed top-level field: ' + key)
++    need(len(original['edge']) == len(compact['edge']), 'edge count changed')
++    box_count, group_count = 0, 0
++    levels, kinds = Counter(), Counter()
++    for ei, (edge, ce) in enumerate(zip(original['edge'], compact['edge'])):
++        need(set(edge) == set(ce), 'edge key set changed')
++        for key in edge:
++            if key != 'transfers':
++                need(edge[key] == ce[key], f'edge {ei}: changed header {key}')
++        need(len(edge['transfers']) == len(ce['transfers']), 'transfer group count changed')
++        for gi, (group, cg) in enumerate(zip(edge['transfers'], ce['transfers'])):
++            expected_keys = set(group)
++            actual_keys = {key for key in cg if not key.startswith('_proposal_')}
++            need(expected_keys == actual_keys, f'group {gi}: descriptor keys changed')
++            for key in group:
++                if key != 'boxes':
++                    need(group[key] == cg[key], f'group {gi}: changed descriptor {key}')
++            need(cg.get('boxes') == [], f'group {gi}: compact boxes not empty')
++            boxes = group.get('boxes', [])
++            if '_proposal_box_count' in cg:
++                need(cg['_proposal_box_count'] == len(boxes), f'group {gi}: proposal box count differs')
++            box_count += len(boxes)
++            group_count += 1
++            levels.update(box[0] for box in boxes)
++            kinds[group['kind']] += 1
++    return dict(status='CERTIFIED exact input projection', passed=True,
++                edge_count=len(original['edge']), seed_headers=len(original['seed_headers']),
++                transfer_groups=group_count, original_boxes=box_count,
++                original_box_levels=dict(sorted(levels.items())), group_kinds=dict(kinds),
++                original_sha256=file_sha256(original_path), compact_sha256=file_sha256(compact_path),
++                seconds=time.perf_counter() - started,
++                omitted_fields=['outgoing edge transfer boxes'],
++                ignored_fields=['_proposal_* search-only metadata'])
++
++
++if __name__ == '__main__':
++    root = Path(__file__).resolve().parent.parent
++    ap = argparse.ArgumentParser(description=__doc__)
++    ap.add_argument('original', nargs='?', default=root / 'data/zc2a_xball.json.gz')
++    ap.add_argument('compact', nargs='?', default=root / 'data/xball_headers.json.gz')
++    ap.add_argument('--output', type=Path)
++    args = ap.parse_args()
++    try:
++        result = verify(args.original, args.compact)
++    except (ValueError, KeyError, TypeError, IndexError, OSError) as exc:
++        result = dict(status='NOT ESTABLISHED', passed=False, error=str(exc))
++    text = json.dumps(result, indent=2) + '\n'
++    if args.output:
++        args.output.write_text(text)
++    print(text, end='')
++    raise SystemExit(0 if result['passed'] else 1)
+--- a/cert/edge_wholeball.py
++++ b/cert/edge_wholeball.py
+@@ -181,20 +181,44 @@
+     out={k:upper_finite(v) for k,v in dict(weighted_Hessian=selected,refined_Hessian=refined,simple_Hessian=simple,beta_A=betaA,weighted_Z2=weightedZ2,q_A=qA,weighted_tau=b0+qA*tau,weighted_b0=b0).items()}
+     out['status']='CERTIFIED';return out
+ 
++def edge_source_signature(record):
++    """Validate and bind the exact binary64 source fields used by edge_model."""
++    if not isinstance(record, dict) or record.get('chart') != 'F6-012':
++        raise ValueError('edge cap source must use chart F6-012')
++    def hx(value):
++        if isinstance(value, bool) or not isinstance(value, (str, int, float)):
++            raise ValueError('malformed edge source scalar')
++        result = float.fromhex(value) if isinstance(value, str) else float(value)
++        if not math.isfinite(result):
++            raise ValueError('nonfinite edge source scalar')
++        return result
++    def vector(key, size, default=None):
++        value = record.get(key, default)
++        if not isinstance(value, (list, tuple)) or len(value) != size:
++            raise ValueError('edge source %s must have %d entries' % (key, size))
++        return tuple(hx(v) for v in value)
++    q0 = vector('q0', 4, [0] * 4)
++    if any(v != 0 for v in q0):
++        raise ValueError('this whole-ball replay is implemented only at p=0 in F6-012')
++    radius = hx(record['r'])
++    if not radius > 0:
++        raise ValueError('edge source radius must be positive')
++    return ('F6-012', q0, vector('Mth', 16), radius,
++            vector('P', 36), vector('U', 144))
++
++
+ def edge_model(record,prec=224):
+     """Model in zt_patch.Transfer format, with FORMAT's phase lift certified."""
+     ctx.prec=prec
+-    def hx(v):return float.fromhex(v) if isinstance(v,str) else float(v)
+-    if record.get('chart')!='F6-012' or any(hx(v)!=0 for v in record.get('q0',[0]*4)):
+-        raise ValueError('this whole-ball replay is implemented only at p=0 in F6-012')
+-    M=np.array([hx(v) for v in record['Mth']]).reshape(4,4);r=hx(record['r'])
++    signature = edge_source_signature(record)
++    M=np.array(signature[2]).reshape(4,4);r=signature[3]
+     out,D=certify(M,r)
+     if not out['ok']:raise ArithmeticError('edge whole-ball contraction failed')
+     G=np.zeros((36,36))
+     for i in range(6):
+         for j in range(6):
+             G[6*i+j,6*i+j]+=1;G[6*i+j,6*i]-=1;G[6*i+j,j]-=1;G[6*i+j,0]+=1
+-    Ga=W.mat(G);qbase=Ga*D['q0'];P=np.array([hx(v) for v in record['P']]);Ur=np.array([hx(v) for v in record['U']]).reshape(36,4)
++    Ga=W.mat(G);qbase=Ga*D['q0'];P=np.array(signature[4]);Ur=np.array(signature[5]).reshape(36,4)
+     turns=np.rint((P-W.mid_np(qbase)[:,0])/(2*np.pi)).astype(int)
+     qbase=qbase+arb_mat([[2*arb.pi()*int(k)] for k in turns])
+     Pm=arb_mat([[arb(float(v))] for v in P])
+@@ -208,7 +232,8 @@
+     out['raw_parameter_Hessian_same_ellipsoid_upper']=upper_finite(Cw*minv*minv)
+     out['inverse_frame_norm_upper']=upper_finite(minv)
+     from types import SimpleNamespace
+-    D.update(ball=SimpleNamespace(r=r,Mth=M,P=P,U=Ur),r=ra,Q0=q0,Qbase=qbase,W=D['Y'],summary=out,edge_chart=True)
++    D.update(ball=SimpleNamespace(r=r,Mth=M,P=P,U=Ur),r=ra,Q0=q0,Qbase=qbase,W=D['Y'],summary=out,edge_chart=True,
++             edge_source_signature=signature)
+     return D
+ 
+ 
+@@ -274,6 +299,30 @@
+             self.xnorm = old
+ 
+ 
++def cap_target_bounds(transfer):
++    """The cap_weighted target interface for an augmented F6-012 model.
++
++    Every stored float in weighted_hessian is a strict proved Arb upper
++    bound, converted back to an exact binary rational here.  The full
++    local_hessian is used directly; subtracting independently rounded
++    predictor bounds would not define a reliable normal-Hessian bound.
++    """
++    if not transfer.model.get('edge_chart', False) or transfer.kind != 'T1':
++        raise ValueError('edge cap target bounds require an F6-012 T1 transfer')
++    data = getattr(transfer, 'weighted', None)
++    if data is None:
++        data = weighted_hessian(transfer.model, transfer.model['ball'].r, transfer.A)
++        transfer.weighted = data
++    normal = min(data['weighted_Z2'], upper_finite(transfer.xnorm * transfer.model['Z2']))
++    return dict(T0=arb(data['weighted_tau']), T2=arb(normal),
++                predictor_hessian=transfer.hnorm,
++                local_hessian=arb(data['weighted_Hessian']),
++                old_T0=transfer.xnorm * transfer.model['tau'],
++                old_T2=transfer.xnorm * transfer.model['Z2'],
++                old_local_hessian=transfer.hnorm + transfer.xnorm * transfer.model['Z2'],
++                edge_augmented=True)
++
++
+ def certify_edge_boxes(model, target, group, boxes):
+     """Indices of the boxes of an edge-sphere T1 group certified on box cap sphere (weighted one-centre test, then the
+     actual-centre test); the rest are for the box Taylor models."""
+--- a/cert/edgecaps.py
++++ b/cert/edgecaps.py
+@@ -0,0 +1,133 @@
++"""Complete X-ball boundary certification by spherical caps.
++
++Certificate scalars are exact integers or hexadecimal binary rationals.
++Arb checks every transfer; cap_coverage checks the entire sphere in exact
++integer arithmetic.  Stored numerical diagnostics are never trusted.
++The source whole-ball model is rebuilt unless an already-verified model is
++provided by the production C1e path.
++"""
++import time
++from flint import ctx
++import seedcert as S
++import edge_wholeball as EW
++import caps as CAPS
++import cap_coverage as COV
++
++
++def source_record(source):
++    """Accept a raw edge record or the parsed production EdgeBall.
++
++    Parsing an EdgeBall has already established that these entries denote
++    finite exact binary64 numbers.  Re-encoding them as hex does not change
++    their meaning.  No stored enclosure, numerical jet or verdict is used.
++    """
++    if isinstance(source, dict):
++        return source
++    return dict(chart='F6-012', q0=[float(x).hex() for x in source.q0],
++                Mth=[float(x).hex() for x in source.Mth.ravel()],
++                r=float(source.r).hex(),
++                P=[float(x).hex() for x in source.P.ravel()],
++                U=[float(x).hex() for x in source.U.ravel()])
++
++
++def check_edge_cap(model, seeds, groups, cap, *, transfer_cache=None, index=0):
++    """One production cap check, shared by serial and parallel sphere replay."""
++    S.need(isinstance(cap, dict), 'edge caps: malformed cap %d' % index)
++    gi = cap.get('group_index')
++    S.need(type(gi) is int and 0 <= gi < len(groups),
++           'edge caps: cap %d has no such transfer group' % index)
++    group = groups[gi]
++    S.need(isinstance(group, dict) and group.get('kind') == 'T1',
++           'edge caps: cap %d requires a T1 descriptor' % index)
++    S.ints(group.get('rows'), 3, 'edge cap rows')
++    S.ints(group.get('cols'), 3, 'edge cap cols')
++    target = group.get('target')
++    S.need(type(target) is int and 0 <= target < len(seeds),
++           'edge caps: cap %d target out of range' % index)
++    target_ball = seeds[target]
++    S.need(target_ball is not None, 'edge caps: cap %d has a malformed target' % index)
++    transfers = {} if transfer_cache is None else transfer_cache
++    if gi not in transfers:
++        try:
++            transfers[gi] = EW.EdgeTransfer(model, target_ball, group)
++        except (ArithmeticError, ValueError, KeyError, TypeError, OverflowError, ZeroDivisionError) as ex:
++            raise S.CertError('edge caps: transfer %d: %s' % (gi, ex))
++    tr = transfers[gi]
++    S.need(tr.model is model and tr.group is group and tr.target is target_ball,
++           'edge caps: transfer cache is bound to different data')
++    try:
++        result = CAPS.check_cap(model, tr, cap)
++    except (ArithmeticError, ValueError, KeyError, TypeError, OverflowError, ZeroDivisionError) as ex:
++        raise S.CertError('edge caps: cap %d: %s' % (index, ex))
++    S.need(result.get('ok') is True,
++           'edge caps: cap %d not certified (%s)' % (index, result.get('reason')))
++    return result
++
++
++def check_edge_caps(source, seeds, groups, certificate, *, model=None,
++                    precision=224, return_details=False):
++    """Certify every cap and its exact S^3 coverage; raise CertError on failure.
++
++    source: raw F6-012 edge record or parsed EdgeBall.
++    seeds: the original ordered list of parsed seedcert.Ball targets.
++    groups: the original ordered edge T1 descriptors (boxes are ignored).
++    certificate: additive edge['caps'] object with `caps` and `coverage`.
++
++    For an edge weighted_target=true selects the augmented output-weighted
++    normal error and Hessian.  False retains the valid unweighted estimates,
++    preserving the existing flag's meaning.  All local modes always use the
++    augmented edge centre jet.
++    """
++    started = time.perf_counter()
++    S.need(isinstance(certificate, dict), 'edge caps: malformed certificate')
++    cap_list = certificate.get('caps')
++    S.need(isinstance(cap_list, list) and bool(cap_list), 'edge caps: empty or malformed cap list')
++    S.need(isinstance(groups, list), 'edge caps: malformed transfer groups')
++    old = ctx.prec
++    ctx.prec = precision
++    try:
++        try:
++            raw_source = source_record(source)
++            signature = EW.edge_source_signature(raw_source)
++        except (ArithmeticError, ValueError, KeyError, TypeError, OverflowError) as ex:
++            raise S.CertError('edge caps: source header: %s' % ex)
++        if model is None:
++            try:
++                model = EW.edge_model(raw_source, prec=precision)
++            except (ArithmeticError, ValueError, KeyError, ZeroDivisionError) as ex:
++                raise S.CertError('edge caps: source model: %s' % ex)
++        S.need(model.get('edge_chart', False), 'edge caps: expected augmented edge model')
++        S.need(model.get('summary', {}).get('ok') is True,
++               'edge caps: the whole-ball contraction is not certified')
++        S.need(model.get('edge_source_signature') == signature,
++               'edge caps: cached model belongs to a different source header')
++        transfers, details = {}, []
++        transfer_started = time.perf_counter()
++        for k, cap in enumerate(cap_list):
++            result = check_edge_cap(model, seeds, groups, cap, transfer_cache=transfers, index=k)
++            details.append(dict(index=k, group_index=cap['group_index'], **result))
++        transfer_seconds = time.perf_counter() - transfer_started
++        coverage_started = time.perf_counter()
++        try:
++            coverage = COV.verify_coverage(
++                [{'v': cap['v'], 'h': cap['h']} for cap in cap_list],
++                certificate.get('coverage') or {})
++        except (ArithmeticError, ValueError, KeyError, TypeError, IndexError) as ex:
++            raise S.CertError('edge caps: coverage: %s' % ex)
++        S.need(bool(coverage.get('passed')) and bool(coverage.get('covers')),
++               'edge caps: sphere coverage not certified (%s)' % coverage.get('reason', coverage))
++        coverage_seconds = time.perf_counter() - coverage_started
++        certificate_coverage = certificate.get('coverage') or {}
++        out = dict(status='CERTIFIED', caps=len(cap_list), cap_groups=len(transfers),
++                   coverage_facets=len(certificate_coverage.get('facets',
++                                       certificate_coverage.get('simplices', []))),
++                   target_margin_lower=min(d['target_margin_lower'] for d in details),
++                   orientation_margin_lower=min(x for d in details for x in d['orientation_margins_lower']),
++                   transfer_seconds=transfer_seconds, coverage_seconds=coverage_seconds,
++                   seconds=time.perf_counter() - started, coverage=coverage,
++                   source_contraction=model['summary'])
++        if return_details:
++            out['cap_results'] = details
++        return out
++    finally:
++        ctx.prec = old
+--- a/cert/edgecert.py
++++ b/cert/edgecert.py
+@@ -966,10 +966,23 @@
+     need(all(x < lim for x in dist), 'T3: the source is not certified within phase distance 3/20 of F6')
+ 
+ 
+-def check_edge_transfers(eb, seeds, groups, max_level, chunk=64, edges=(), check=True, cover=True):
++def check_edge_caps(eb, seeds, groups, caps, edges=()):
++    """The additive edge['caps'] path: full Arb transfer and exact sphere replay."""
++    from edgecaps import check_edge_caps as replay
++    own = next((tb for (e2, tb) in edges if e2 is eb), None)
++    model = own.model() if getattr(own, 'wb', False) else None
++    return replay(eb, seeds, groups, caps, model=model)
++
++
++def check_edge_transfers(eb, seeds, groups, max_level, chunk=64, edges=(), check=True, cover=True, caps=None):
+     """The edge ball's own boundary: T1 groups into seed balls (C1e Taylor models over each box, the T1 test with
+     both Psi signs checked) and the coverage of its sphere (as for seed balls)."""
+     ctx.prec = S.PREC
++    if caps is not None:
++        # The cap certificate is one complete boundary proof, so transfer and
++        # coverage checks stay together even if the legacy box scheduler
++        # requested its coverage-only work item.
++        return check_edge_caps(eb, seeds, groups, caps, edges=edges)
+     listed = set(); cnt = dict(T1=0)
+     for grp in groups:
+         need(isinstance(grp, dict), 'malformed transfer group')
+--- a/cert/find_dropped_cap_hole.py
++++ b/cert/find_dropped_cap_hole.py
+@@ -0,0 +1,134 @@
++"""Find and exactly verify a geometric hole after removing a cap.
++
++Numerical hulls propose a feasible polar point y with ||y||>1.  Integer
++arithmetic checks every remaining halfspace and the strict norm inequality.
++The normalized x=y/||y|| is therefore outside every remaining closed cap.
++No hull-completeness assertion is needed for this counterexample.
++"""
++from __future__ import annotations
++import argparse
++from fractions import Fraction
++from hashlib import sha256
++import gzip
++import json
++from pathlib import Path
++import sys
++import time
++sys.path.insert(0,str(Path(__file__).resolve().parent))
++import cap_coverage as C
++
++
++def verify_witness(caps, witness):
++    """Pure-integer replay of a stored dropped-cap uncovered direction."""
++    try:
++        rows=C.integer_rows([{'v':c['v'],'h':c['h']} for c in caps])
++        dropped=witness['dropped_cap']
++        numerator=witness['polar_witness']['numerator']
++        denominator=witness['polar_witness']['denominator']
++        if type(dropped) is not int or not 0<=dropped<len(rows):
++            raise ValueError('invalid dropped cap index')
++        if not isinstance(numerator,list) or len(numerator)!=4 or any(type(v) is not int for v in numerator):
++            raise ValueError('four exact numerator integers required')
++        if type(denominator) is not int or denominator<=0:
++            raise ValueError('positive exact denominator integer required')
++        norm_numerator=sum(v*v for v in numerator)
++        if norm_numerator<=denominator*denominator:
++            raise ValueError('polar witness is not strictly outside the unit ball')
++        for j,row in enumerate(rows):
++            if j==dropped:continue
++            slack=row[4]*denominator-sum(row[k]*numerator[k] for k in range(4))
++            if slack<0:
++                raise ValueError('remaining halfspace violated at cap %d'%j)
++        return dict(passed=True,status='CERTIFIED exact uncovered-direction replay',
++                    remaining_cap_count=len(rows)-1,
++                    norm_squared=str(Fraction(norm_numerator,denominator*denominator)))
++    except (ValueError,TypeError,KeyError,IndexError,ZeroDivisionError) as exc:
++        return dict(passed=False,status='NOT ESTABLISHED',error=str(exc))
++
++
++def find_hole(caps,max_trials=8,selection="largest"):
++    import numpy as np
++    from scipy.spatial import ConvexHull
++    started=time.perf_counter()
++    rows=C.integer_rows([{'v':c['v'],'h':c['h']} for c in caps])
++    points=np.asarray([[float(Fraction(a,row[4])) for a in row[:4]] for row in rows])
++    # Small h/||v|| denotes a large cap. This ranking only chooses attempts.
++    threshold_ratios=1./np.linalg.norm(points,axis=1)
++    if selection == "largest":
++        order=list(map(int,np.argsort(threshold_ratios)[:max_trials]))
++    elif selection == "tight":
++        original_hull=ConvexHull(points)
++        distances=-original_hull.equations[:,4]/np.linalg.norm(original_hull.equations[:,:4],axis=1)
++        order=[]
++        for fi in np.argsort(distances):
++            for index in original_hull.simplices[fi]:
++                index=int(index)
++                if index not in order:order.append(index)
++                if len(order)>=max_trials:break
++            if len(order)>=max_trials:break
++    else:
++        raise ValueError('unknown dropped-cap proposal selection')
++    trials=[]
++    for dropped in order:
++        dropped=int(dropped)
++        kept=[i for i in range(len(rows)) if i!=dropped]
++        rrows=[rows[i] for i in kept]
++        hull=ConvexHull(points[kept])
++        distances=-hull.equations[:,4]/np.linalg.norm(hull.equations[:,:4],axis=1)
++        candidates=np.argsort(distances)[:64]
++        trials.append(dict(dropped_cap=dropped,group_index=caps[dropped].get('group_index'),
++                           numerical_minimum_polar_facet_distance=float(distances[candidates[0]])))
++        for candidate in candidates:
++            if distances[candidate]>1.00000001:
++                break
++            simplex=tuple(map(int,hull.simplices[candidate]))
++            try:numerator,denominator=C.exact_dual_vertex(rrows,simplex)
++            except ValueError:continue
++            norm_numerator=sum(v*v for v in numerator)
++            norm_denominator=denominator*denominator
++            if norm_numerator<=norm_denominator:continue
++            minimum_slack=None
++            feasible=True
++            for row in rrows:
++                slack=row[4]*denominator-sum(row[k]*numerator[k] for k in range(4))
++                if slack<0:
++                    feasible=False;break
++                minimum_slack=slack if minimum_slack is None else min(minimum_slack,slack)
++            if not feasible:continue
++            removed_row=rows[dropped]
++            removed_slack=removed_row[4]*denominator-sum(removed_row[k]*numerator[k] for k in range(4))
++            return dict(status='CERTIFIED exact uncovered-direction witness',passed=True,
++                        dropped_cap=dropped,group_index=caps[dropped].get('group_index'),
++                        remaining_cap_count=len(rrows),
++                        polar_witness=dict(numerator=numerator,denominator=denominator),
++                        incident_remaining_indices=list(simplex),
++                        incident_original_indices=[kept[i] for i in simplex],
++                        norm_squared=str(Fraction(norm_numerator,norm_denominator)),
++                        strict_norm_excess_numerator=norm_numerator-norm_denominator,
++                        minimum_remaining_halfspace_slack=minimum_slack,
++                        removed_halfspace_slack=removed_slack,
++                        uncovered_direction='numerator / sqrt(sum(numerator_i**2))',
++                        interpretation='Every remaining cap strictly misses the displayed exact unit direction.',
++                        selection=selection,trials=trials,seconds=time.perf_counter()-started)
++    return dict(status='NOT ESTABLISHED by bounded dropped-cap search',passed=False,
++                selection=selection,trials=trials,seconds=time.perf_counter()-started)
++
++
++if __name__=='__main__':
++    ap=argparse.ArgumentParser(description=__doc__)
++    ap.add_argument('certificate')
++    ap.add_argument('--max-trials',type=int,default=8)
++    ap.add_argument('--selection',choices=['largest','tight'],default='largest')
++    ap.add_argument('--output',type=Path)
++    ap.add_argument('--verify-witness',type=Path)
++    a=ap.parse_args()
++    with (gzip.open(a.certificate,'rt') if a.certificate.endswith('.gz') else open(a.certificate)) as f:
++        certificate=json.load(f)
++    if 'edge' in certificate:certificate=certificate['edge'][0]['caps']
++    result=(verify_witness(certificate['caps'],json.loads(a.verify_witness.read_text()))
++            if a.verify_witness else find_hole(certificate['caps'],a.max_trials,a.selection))
++    result['certificate_sha256']=sha256(Path(a.certificate).read_bytes()).hexdigest()
++    text=json.dumps(result,indent=2)+'\n'
++    if a.output:a.output.write_text(text)
++    print(text,end='')
++    raise SystemExit(0 if result['passed'] else 1)
+--- a/cert/measure_coverage_encoding.py
++++ b/cert/measure_coverage_encoding.py
+@@ -0,0 +1,72 @@
++"""Measure compact versus original exact coverage encodings without saving expansion.
++
++The full witness representation is reconstructed from the same cap indices
++and exact rational cap rows.  Counts use minified UTF-8 JSON and gzip level9.
++No floating calculation or geometry acceptance is made by this size report.
++"""
++import argparse
++import gzip
++from hashlib import sha256
++import json
++from pathlib import Path
++import sys
++import time
++import zlib
++sys.path.insert(0,str(Path(__file__).resolve().parent))
++import cap_coverage as C
++
++
++class CountCompressed:
++    def __init__(self):
++        self.raw=0;self.compressed=0
++        self.compressor=zlib.compressobj(level=9,wbits=31)
++    def write(self,text):
++        data=text.encode('utf-8') if isinstance(text,str) else text
++        self.raw+=len(data);self.compressed+=len(self.compressor.compress(data))
++    def finish(self):
++        self.compressed+=len(self.compressor.flush())
++        return {'json_bytes':self.raw,'gzip_level9_bytes':self.compressed}
++
++
++def encode(x):return json.dumps(x,separators=(',',':'))
++
++
++def measure(certificate):
++    started=time.perf_counter()
++    caps=certificate['caps'];coverage=certificate['coverage']
++    if coverage['schema']==C.SCHEMA:
++        compact=C.compact_coverage_certificate(coverage)
++    elif coverage['schema']==C.COMPACT_SCHEMA:
++        compact=coverage
++    else:raise ValueError('unsupported coverage schema')
++    small=CountCompressed();small.write(encode(compact));small=small.finish()
++    large=CountCompressed()
++    header={'schema':C.SCHEMA,'dimension':4,'cap_count':len(caps)}
++    large.write(encode(header)[:-1]+',"facets":[')
++    rows=C.integer_rows([{'v':cap['v'],'h':cap['h']} for cap in caps])
++    max_bits=0
++    for fi,indices in enumerate(compact['simplices']):
++        num,den=C.exact_dual_vertex(rows,indices)
++        max_bits=max(max_bits,den.bit_length(),*(abs(a).bit_length() for a in num))
++        if fi:large.write(',')
++        large.write(encode({'vertices':indices,'numerator':num,'denominator':den}))
++    large.write(']}');large=large.finish()
++    return dict(status='CERTIFIED byte counts of exact encodings',cap_count=len(caps),
++                facet_count=len(compact['simplices']),compact_coverage=small,
++                original_vertex_coverage=large,max_regenerated_vertex_integer_bits=max_bits,
++                json_reduction_factor=large['json_bytes']/small['json_bytes'],
++                gzip_reduction_factor=large['gzip_level9_bytes']/small['gzip_level9_bytes'],
++                seconds=time.perf_counter()-started)
++
++
++if __name__=='__main__':
++    ap=argparse.ArgumentParser(description=__doc__)
++    ap.add_argument('certificate')
++    ap.add_argument('--output',type=Path)
++    a=ap.parse_args();raw=Path(a.certificate).read_bytes()
++    d=json.loads(gzip.decompress(raw) if a.certificate.endswith('.gz') else raw)
++    if 'edge' in d:d=d['edge'][0]['caps']
++    result=measure(d);result['certificate_sha256']=sha256(raw).hexdigest()
++    text=json.dumps(result,indent=2)+'\n'
++    if a.output:a.output.write_text(text)
++    print(text,end='')
+--- a/cert/test_cap_coverage_bvh.py
++++ b/cert/test_cap_coverage_bvh.py
+@@ -0,0 +1,56 @@
++"""Cross-check exact support hierarchy against all-point integer verification.
++
++The fixture is proposed numerically and then checked independently by both
++exact paths.  It tests a large hull, a supporting-halfspace violation, and
++a duplicated polar point.  It is not an X-ball transfer certificate.
++"""
++from copy import deepcopy
++import json
++from pathlib import Path
++import sys
++import time
++sys.path.insert(0, str(Path(__file__).resolve().parent))
++import cap_coverage as C
++
++
++def run(count=512):
++    import numpy as np
++    rng = np.random.default_rng(20261026)
++    vec = rng.normal(size=(count, 4))
++    vec /= np.linalg.norm(vec, axis=1)[:, None]
++    iv = np.rint(vec * (1 << 24)).astype(np.int64)
++    caps = [{'v': list(map(int, vv)), 'h': 1 << 23} for vv in iv]
++    certificate = C.construct_coverage_certificate(caps, compact=True)
++    results = {}
++    for mode in ('direct', 'bvh'):
++        started = time.perf_counter()
++        result = C.verify_coverage(caps, certificate, support_mode=mode)
++        result['seconds'] = time.perf_counter() - started
++        assert result['passed'] and result['covers']
++        results[mode] = result
++    omit = {'support_method', 'support_node_tests', 'support_point_tests', 'seconds'}
++    assert {k: v for k, v in results['direct'].items() if k not in omit} == \
++           {k: v for k, v in results['bvh'].items() if k not in omit}
++    vertices = certificate['simplices'][0]
++    numerator, denominator = C.exact_dual_vertex(C.integer_rows(caps), vertices)
++    nonmember = next(i for i in range(count) if i not in vertices)
++    kk = max(range(4), key=lambda k: abs(numerator[k]))
++    altered = deepcopy(caps)
++    newv = [0] * 4
++    newv[kk] = (1 if numerator[kk] > 0 else -1) * 10 * denominator
++    altered[nonmember] = {'v': newv, 'h': 1}
++    negatives = {}
++    for label, candidate in [('support_violation', altered),
++                             ('duplicate_point', caps[:-1] + [deepcopy(caps[0])])]:
++        negatives[label] = {}
++        for mode in ('direct', 'bvh'):
++            result = C.verify_coverage(candidate, certificate, support_mode=mode)
++            assert not result['passed'], (label, mode)
++            negatives[label][mode] = result
++    results['negative_tests'] = negatives
++    results['status'] = 'CERTIFIED exact cross-checks on numerical fixture'
++    return results
++
++
++if __name__ == '__main__':
++    print(json.dumps(run(), indent=2))
+--- a/cert/test_cap_coverage_compact.py
++++ b/cert/test_cap_coverage_compact.py
+@@ -0,0 +1,59 @@
++"""Exact positive and negative checks for optional compact coverage schema.
++
++Run from any directory: python cert/test_cap_coverage_compact.py
++These finite checker tests do not certify an X-ball cap-transfer theorem.
++"""
++from copy import deepcopy
++from itertools import product
++import json
++from pathlib import Path
++import sys
++sys.path.insert(0, str(Path(__file__).resolve().parent))
++import cap_coverage as C
++
++
++def run():
++    caps = []
++    for i, sign in product(range(4), [-1, 1]):
++        normal = [0] * 4
++        normal[i] = sign
++        caps.append({'v': normal, 'h': '1/2'})
++    results = {}
++    for threshold in ('1/2', '49/100', '51/100'):
++        cc = deepcopy(caps)
++        for cap in cc:
++            cap['h'] = threshold
++        original = C.construct_coverage_certificate(cc)
++        compact = C.construct_coverage_certificate(cc, compact=True)
++        result_original = C.verify_coverage(cc, original)
++        result_compact = C.verify_coverage(cc, compact)
++        assert result_original == result_compact
++        assert result_compact['passed'] == (threshold != '51/100')
++        results[threshold] = result_compact
++    original = C.construct_coverage_certificate(caps)
++    compact = C.compact_coverage_certificate(original)
++    assert C.verify_coverage(caps, compact)['passed']
++    negatives = {}
++    for name in ('missing_facet', 'duplicate_facet', 'wrong_index',
++                 'missing_cap', 'mixed_schema'):
++        cc, certificate = deepcopy(caps), deepcopy(compact)
++        if name == 'missing_facet':
++            certificate['simplices'].pop()
++        elif name == 'duplicate_facet':
++            certificate['simplices'].append(certificate['simplices'][0])
++        elif name == 'wrong_index':
++            certificate['simplices'][0][0] = 100
++        elif name == 'missing_cap':
++            cc.pop()
++        elif name == 'mixed_schema':
++            certificate['facets'] = original['facets']
++        result = C.verify_coverage(cc, certificate)
++        assert not result['passed'], name
++        negatives[name] = result
++    results['negative_tests'] = negatives
++    results['status'] = 'CERTIFIED exact integer replay'
++    return results
++
++
++if __name__ == '__main__':
++    print(json.dumps(run(), indent=2))
+--- a/cert/test_edge_caps_negative.py
++++ b/cert/test_edge_caps_negative.py
+@@ -0,0 +1,148 @@
++"""Required real-data rejection controls for an X-ball cap certificate.
++
++The untampered selected cap and complete sphere cover must first pass.
++The controls then enlarge that cap, remove a cap while retaining its
++coverage record, change its group index, and tamper with its witness.
++A redundant cap could validly be removed with a recomputed certificate;
++this script deliberately tests binding to the retained original record.
++"""
++from __future__ import annotations
++import argparse
++from copy import deepcopy
++import gzip
++from hashlib import sha256
++import json
++from pathlib import Path
++import sys
++import time
++ROOT = Path(__file__).resolve().parent.parent
++sys.path[:0] = [str(ROOT / 'cert'), str(ROOT / 'atlas')]
++from flint import ctx
++import cap_coverage as COV
++import caps as CAPS
++import edge_wholeball as EW
++import edgecaps as EC
++import seedcert as SC
++
++
++def load(path):
++    with (gzip.open(path, 'rt') if str(path).endswith('.gz') else open(path)) as f:
++        return json.load(f)
++
++
++def geometry(caps):
++    return [{'v': cap['v'], 'h': cap['h']} for cap in caps]
++
++
++def run(input_path, certificate_path, precision=224, cap_index=0, check_coverage=True):
++    started = time.perf_counter()
++    data, certificate = load(input_path), load(certificate_path)
++    if 'edge' in certificate:
++        certificate = certificate['edge'][0]['caps']
++    ctx.prec = precision
++    source = data['edge'][0]
++    groups = source['transfers']
++    seeds = [SC.Ball(row) for row in data['seed_headers']]
++    model = EW.edge_model(source, prec=precision)
++    if model['summary'].get('ok') is not True:
++        raise AssertionError('untampered whole-ball model failed')
++    cap = certificate['caps'][cap_index]
++    gi = cap['group_index']
++    def transfer(index):
++        group = groups[index]
++        return EW.EdgeTransfer(model, seeds[group['target']], group)
++    tr = transfer(gi)
++    baseline = CAPS.check_cap(model, tr, cap)
++    if baseline.get('ok') is not True:
++        raise AssertionError('untampered selected cap failed: ' + str(baseline))
++    if check_coverage:
++        coverage = COV.verify_coverage(geometry(certificate['caps']), certificate['coverage'])
++        if not coverage['passed'] or not coverage['covers']:
++            raise AssertionError('untampered complete sphere coverage failed: ' + str(coverage))
++    else:
++        coverage = {'replayed_in_this_command': False,
++                    'status': 'NOT REPLAYED: complete exact sphere coverage is a separate verification gate'}
++    tests = {}
++    def require_rejected(name, result):
++        if result.get('ok') is True or result.get('passed') is True:
++            raise AssertionError(name + ' unexpectedly accepted')
++        tests[name] = dict(rejected=True, result=result)
++
++    enlarged = deepcopy(cap)
++    old_h = float.fromhex(cap['h']) if isinstance(cap['h'], str) else float(cap['h'])
++    enlarged['h'] = 1 if old_h > 1 else float(old_h / 4).hex()
++    require_rejected('enlarged_cap', CAPS.check_cap(model, tr, enlarged))
++    tests['enlarged_cap']['old_threshold'] = cap['h']
++    tests['enlarged_cap']['new_threshold'] = enlarged['h']
++
++    dropped = deepcopy(certificate['caps'])
++    dropped.pop(cap_index)
++    require_rejected('dropped_cap_stale_coverage',
++                     COV.verify_coverage(geometry(dropped), certificate['coverage']))
++
++    wrong_range = deepcopy(cap)
++    wrong_range['group_index'] = len(groups)
++    try:
++        EC.check_edge_caps(source, seeds, groups, {'caps': [wrong_range], 'coverage': {}},
++                           model=model, precision=precision)
++    except SC.CertError as exc:
++        tests['wrong_group_out_of_range'] = dict(rejected=True, result={'error': str(exc)},
++                                                group_index=wrong_range['group_index'])
++    else:
++        raise AssertionError('out-of-range group accepted')
++
++    candidates = list(dict.fromkeys([0, len(groups)//4, len(groups)//2,
++                                    3*len(groups)//4, len(groups)-1, (gi+1)%len(groups)]))
++    wrong_result = None
++    for wrong_gi in candidates:
++        if wrong_gi == gi:
++            continue
++        candidate = deepcopy(cap)
++        candidate['group_index'] = wrong_gi
++        try:
++            result = CAPS.check_cap(model, transfer(wrong_gi), candidate)
++        except (ArithmeticError, SC.CertError, ValueError, KeyError) as exc:
++            result = {'ok': False, 'error': str(exc)}
++        if result.get('ok') is not True:
++            wrong_result = result
++            require_rejected('wrong_group_in_range', result)
++            tests['wrong_group_in_range']['original_group_index'] = gi
++            tests['wrong_group_in_range']['wrong_group_index'] = wrong_gi
++            break
++    if wrong_result is None:
++        raise AssertionError('all chosen alternative groups accepted; no wrong-group rejection established')
++
++    zero_bound = deepcopy(cap)
++    zero_bound['s'] = 0
++    require_rejected('tampered_target_witness', CAPS.check_cap(model, tr, zero_bound))
++    negative_mu = deepcopy(cap)
++    negative_mu['mu'] = -1
++    require_rejected('tampered_negative_multiplier', CAPS.check_cap(model, tr, negative_mu))
++    return dict(status='CERTIFIED negative controls', passed=True,
++                input_sha256=sha256(Path(input_path).read_bytes()).hexdigest(),
++                certificate_sha256=sha256(Path(certificate_path).read_bytes()).hexdigest(),
++                precision_bits=precision, selected_cap=cap_index, original_group_index=gi,
++                baseline_cap=baseline, baseline_coverage=coverage, tests=tests,
++                seconds=time.perf_counter()-started)
++
++
++if __name__ == '__main__':
++    ap = argparse.ArgumentParser(description=__doc__)
++    ap.add_argument('input')
++    ap.add_argument('certificate')
++    ap.add_argument('--output', type=Path)
++    ap.add_argument('--precision', type=int, default=224)
++    ap.add_argument('--cap-index', type=int, default=0)
++    ap.add_argument('--skip-baseline-coverage', action='store_true',
++                    help='use when the same frozen family has already passed independent full coverage; do not duplicate its support checks')
++    args = ap.parse_args()
++    try:
++        result = run(args.input, args.certificate, args.precision, args.cap_index,
++                     not args.skip_baseline_coverage)
++    except (AssertionError, ArithmeticError, SC.CertError, ValueError, KeyError, OSError) as exc:
++        result = dict(status='NOT ESTABLISHED', passed=False, error=str(exc))
++    text = json.dumps(result, indent=2)+'\n'
++    if args.output:
++        args.output.write_text(text)
++    print(text, end='')
++    raise SystemExit(0 if result['passed'] else 1)
+--- a/FORMAT.md
++++ b/FORMAT.md
+@@ -273,3 +273,57 @@
+ 
+ The driver screens T3 at 17 points of each box: p′ within 0.9 r_e, and the sampled distance to F6 plus the ball's n
+ below 0.13.
++
++## 8a. Spherical caps on an edge-ball boundary (ZC2a, additive)
++
++An F6-012 edge ball centred at `q0 = 0` may carry an optional `caps` object,
++with the same cap geometry and witness fields as §4a:
++
++```json
++"caps": {
++  "caps": [
++    {"group_index": 3, "v": [123, 456, 789, -321], "h": 900,
++     "mode": "local_sphere", "weighted_target": true,
++     "lambda_": "0x1.0p+0", "mu": "0x1.0p+0", "s": "0x1.0p-1"}
++  ],
++  "coverage": {"schema": "rational-s3-cap-cover-index-v1",
++               "dimension": 4, "cap_count": 1, "simplices": []}
++}
++```
++
++This example illustrates field structure only; it is not a valid certificate.
++The edge's existing `transfers` array retains its original order. Each
++`group_index` names a T1 descriptor in that array. The named target, symmetry,
++ordered corner and windings are all recomputed; no proposal diagnostics are
++used. With `caps` present, the entire boundary is checked by caps, so the
++groups' `boxes` may be empty. No existing field changes meaning.
++
++The source model is the augmented 22-coordinate model in
++`edge_wholeball.py`, including its contraction and phase-lift test.
++`weighted_target: true` selects its output-weighted normal error `tau_A`
++in polynomial mode and its output-weighted Hessian in the local modes.
++`false` retains the original valid unweighted interpretation. All local
++modes use `edge_centre_jet`; a seed chart's 21-coordinate jet is never used.
++Both target orientation signs are required, also for caps crossing the
++source fold. The production entry points are `edgecaps.check_edge_caps`
++and `edgecert.check_edge_transfers(..., caps=edge_record.get('caps'))`.
++
++Cap thresholds and multipliers may be exact integers or finite binary64
++hexadecimal strings, as accepted by the existing cap scalar reader. Here
++`h` is measured against the stored integer `v`, not against a unit normal.
++
++### Compact exact polar-facet coverage
++
++The existing `rational-s3-cap-cover-v1` schema is unchanged. The additional
++`rational-s3-cap-cover-index-v1` schema stores only `dimension`, `cap_count`,
++and `simplices`, a list of four distinct cap indices per polar facet. It
++must not carry an old-schema `facets` field. The verifier reconstructs each
++dual vertex exactly by Cramer's rule, proves strict support at every other
++cap point, verifies that every ridge occurs twice, and checks each dual
++vertex's squared norm is at most one. All these are integer inequalities.
++An internal exact dyadic bounding-box tree can accelerate the support
++checks without adding certificate fields or weakening any inequality.
++
++The edge cap certificate establishes this source boundary's transfers and
++coverage. It does not replace the other balls' chart-validity, exclusion,
++coverage, or atlas checks, and is not a Lean-kernel receipt.

@@ -1,0 +1,71 @@
+{
+  "status": "PASS_EXACT_ANCHOR",
+  "field_basis": "i^b0 sqrt(3)^b1 sqrt(5)^b2 sqrt(7)^b3, index b0+2b1+4b2+8b3",
+  "g": {
+    "0": "243/16"
+  },
+  "eta": {
+    "0": "117/16"
+  },
+  "chi": {
+    "0": "-5103/64"
+  },
+  "R": {
+    "0": "1594323/4096"
+  },
+  "horizontal_theta": {
+    "0": "-21/8",
+    "3": "3/8"
+  },
+  "vertical_theta": {
+    "0": "-21/8",
+    "3": "-3/8"
+  },
+  "fourth_moment": {
+    "0": "9"
+  },
+  "pairing_residuals_plus_minus": [
+    [
+      {
+        "0": "216/49"
+      },
+      {}
+    ],
+    [
+      {},
+      {
+        "0": "216/49"
+      }
+    ]
+  ],
+  "A": [
+    [
+      {
+        "0": "-1215/49"
+      },
+      {
+        "0": "-96/7"
+      }
+    ],
+    [
+      {
+        "0": "-96/7"
+      },
+      {
+        "0": "-256/49"
+      }
+    ]
+  ],
+  "wall_seconds": 0.11259733199995026,
+  "checks": [
+    "36 unit entries",
+    "36 row Gram entries",
+    "dephasing",
+    "both side Grams",
+    "conjugate signatures with positive horizontal sign",
+    "forced D",
+    "both rational moment matrices against actual sides",
+    "fourth moment contraction",
+    "both L-id coefficients at the anchor"
+  ]
+}

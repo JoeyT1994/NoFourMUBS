@@ -1,0 +1,38 @@
+{
+  "task": "Q Fourier anchor",
+  "result": "Lemma Q proved with t0 = pi",
+  "source_note": "The supplied Q archive contains only BRIEF.md. The explicit discriminant convention was recovered from the earlier user-supplied SideExistenceHandoff.zip; its definition is restated in PROOF.md and independently evaluated by verify.py.",
+  "inputs": [
+    {
+      "file": "Q_fourier_anchor_brief.zip",
+      "sha256": "704198c2e7dc39f1b3b031b25cfdfd0c04200d5fc07203ead16bd7ef49d762a0"
+    },
+    {
+      "archive": "Q_fourier_anchor_brief.zip",
+      "member": "Q_fourier_anchor/BRIEF.md",
+      "sha256": "2e58aa7f104432563b355a9224c5c32d2ab02b8b4859c12042346400706683e3"
+    },
+    {
+      "file": "SideExistenceHandoff.zip",
+      "sha256": "52ae0da6909e3311ae6afed8c705671d9145c9390d7540023be1fe312ba95aed"
+    },
+    {
+      "archive": "SideExistenceHandoff.zip",
+      "member": "SideExistenceHandoff/reference/MinimalConstruction/RECONSTRUCTION.md",
+      "section": "1. Seed domain and Gram invariants",
+      "sha256": "024e3d262ea169a3a4ceeacd47ed26230f691d009fef2aacec7c269091dc8889"
+    }
+  ],
+  "verification": {
+    "runtime": "Python standard library",
+    "arithmetic": "Exact integer Laurent polynomials modulo w^2+w+1",
+    "identity_checks": 62
+  },
+  "integration_inputs": [
+    "Relative clopenness of U and A in {R>0}",
+    "Classification and transport of all 18 positive local maxima",
+    "Uniqueness of signed side fibers and completion",
+    "Certified interior membership of the Fourier class in W"
+  ],
+  "lean_integration": "Assigned to integrator by input brief; no Lean modifications included"
+}

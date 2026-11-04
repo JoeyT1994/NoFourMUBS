@@ -1,0 +1,127 @@
+0.01s horizontal third moments
+0.01s vertical third moments
+0.01s forced completion map
+0.16s weighted horizontal image q=1; max numerator terms 1630
+0.19s W11 linear: 5377 denominator terms; degrees (12, 12, 12, 12)
+0.21s W11 linear: 0 residual terms
+0.43s W11 constant: 10557 denominator terms; degrees (14, 14, 14, 14)
+0.48s W11 constant: 0 residual terms
+1.09s W21 linear: 5377 denominator terms; degrees (12, 12, 12, 12)
+1.11s W21 linear: 0 residual terms
+1.34s W21 constant: 10557 denominator terms; degrees (14, 14, 14, 14)
+1.40s W21 constant: 0 residual terms
+2.14s weighted horizontal image q=2; max numerator terms 1630
+2.17s W12 linear: 5377 denominator terms; degrees (12, 12, 12, 12)
+2.19s W12 linear: 0 residual terms
+2.41s W12 constant: 10557 denominator terms; degrees (14, 14, 14, 14)
+2.47s W12 constant: 0 residual terms
+3.15s W22 linear: 5377 denominator terms; degrees (12, 12, 12, 12)
+3.17s W22 linear: 0 residual terms
+3.39s W22 constant: 10557 denominator terms; degrees (14, 14, 14, 14)
+3.45s W22 constant: 0 residual terms
+{
+  "status": "PASS_EXACT_THIRD_MOMENT_MATCHED_FLATNESS",
+  "cpu_seconds": 10.876572662000001,
+  "peak_rss_kib": 405192,
+  "identities": [
+    {
+      "label": "W11 linear",
+      "denominator_terms": 5377,
+      "denominator_degrees": [
+        12,
+        12,
+        12,
+        12
+      ],
+      "maximum_cleared_summand_terms": 5232,
+      "summands": 9
+    },
+    {
+      "label": "W11 constant",
+      "denominator_terms": 10557,
+      "denominator_degrees": [
+        14,
+        14,
+        14,
+        14
+      ],
+      "maximum_cleared_summand_terms": 16284,
+      "summands": 10
+    },
+    {
+      "label": "W21 linear",
+      "denominator_terms": 5377,
+      "denominator_degrees": [
+        12,
+        12,
+        12,
+        12
+      ],
+      "maximum_cleared_summand_terms": 5232,
+      "summands": 9
+    },
+    {
+      "label": "W21 constant",
+      "denominator_terms": 10557,
+      "denominator_degrees": [
+        14,
+        14,
+        14,
+        14
+      ],
+      "maximum_cleared_summand_terms": 16284,
+      "summands": 10
+    },
+    {
+      "label": "W12 linear",
+      "denominator_terms": 5377,
+      "denominator_degrees": [
+        12,
+        12,
+        12,
+        12
+      ],
+      "maximum_cleared_summand_terms": 5232,
+      "summands": 9
+    },
+    {
+      "label": "W12 constant",
+      "denominator_terms": 10557,
+      "denominator_degrees": [
+        14,
+        14,
+        14,
+        14
+      ],
+      "maximum_cleared_summand_terms": 16284,
+      "summands": 10
+    },
+    {
+      "label": "W22 linear",
+      "denominator_terms": 5377,
+      "denominator_degrees": [
+        12,
+        12,
+        12,
+        12
+      ],
+      "maximum_cleared_summand_terms": 5232,
+      "summands": 9
+    },
+    {
+      "label": "W22 constant",
+      "denominator_terms": 10557,
+      "denominator_degrees": [
+        14,
+        14,
+        14,
+        14
+      ],
+      "maximum_cleared_summand_terms": 16284,
+      "summands": 10
+    }
+  ],
+  "certificate_polynomials": 255,
+  "coefficient_slice_identities": 110,
+  "maximum_polynomial_slice_terms": 1730
+}

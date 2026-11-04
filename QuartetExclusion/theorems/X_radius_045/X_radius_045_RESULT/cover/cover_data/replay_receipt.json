@@ -1,0 +1,58 @@
+{
+  "status": "PASS",
+  "rho": "9/20",
+  "normal": "157/2500",
+  "column": "3017/10000",
+  "normal_error": "589/62500",
+  "cubic_error": "2027/500000",
+  "total_nodes_checked": 5408512,
+  "levels": [
+    {
+      "M": 12,
+      "nodes": 248832,
+      "covered": 0,
+      "rejected": 150792,
+      "refined": 98040,
+      "heavy_checked": 0
+    },
+    {
+      "M": 24,
+      "nodes": 3137280,
+      "covered": 816,
+      "rejected": 3107976,
+      "refined": 28488,
+      "heavy_checked": 210624
+    },
+    {
+      "M": 48,
+      "nodes": 911616,
+      "covered": 121284,
+      "rejected": 756680,
+      "refined": 33652,
+      "heavy_checked": 531896
+    },
+    {
+      "M": 96,
+      "nodes": 1076864,
+      "covered": 678704,
+      "rejected": 397100,
+      "refined": 1060,
+      "heavy_checked": 394592
+    },
+    {
+      "M": 192,
+      "nodes": 33920,
+      "covered": 32200,
+      "rejected": 1720,
+      "refined": 0,
+      "heavy_checked": 1720
+    }
+  ],
+  "interval_scale": 281474976710656,
+  "workers": 4,
+  "all_decisions": "exact directed integer intervals; no floating-point acceptance",
+  "quantized_centers_sha256": "290f650c32281be105cea9b1a6f0680c604a68473f54171da7a5cc5523077eba",
+  "quadratic_tensor_sha256": "bd18b325324ef5f8b0cdbd05bf868ab12a6a5d7037ab7717ad8625d92dc61797",
+  "cubic_tensor_sha256": "3e8114123565f8bfa9255e7d1230bd7dec192159c45c026311ce3e4cf0bbd3d8",
+  "elapsed_seconds_informational": 1531.7254195213318
+}

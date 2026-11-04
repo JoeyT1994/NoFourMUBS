@@ -1,0 +1,24 @@
+{
+  "status": "POST_REPLAY_FROZEN_SNAPSHOT",
+  "recorded_at_utc": "2026-10-25T15:41:31.237862+00:00",
+  "recording_timing": "Recorded after the completed successful replay on files that the component owner has kept unchanged since that replay. No pre-replay or before/after hash snapshot existed for this radius-3/10 run.",
+  "component_owner_confirmation": "No modifications have been made to work/x2_cover/verify_cover.py or any original cover_data proof input since the successful full exact replay. Subsequent developments were copied into new subdirectories.",
+  "replay_status": "PASS",
+  "total_nodes_checked": 2119936,
+  "completed_receipt_sha256": "39981fa74e8df4babe09b26aa2e9a850115143973cabbaca2dbfec1a51f5a96d",
+  "proof_inputs_sha256": {
+    "verify_cover.py": "68332bd91b8acb307428ec3686af5a9b07243d87a02713ddd7dddb11b878dec0",
+    "cover_data/codes_12.z": "a592a37ded12b26935d3c9a46e880fdad93f8572d50f551c40d3d19e9a216947",
+    "cover_data/codes_24.z": "3a4cc22a59a98008c91f6a44be49715b7db9f9fa4a23be40f080004235943119",
+    "cover_data/codes_48.z": "be2e96cda8c2d156d475daf6b711252c8ed4cf60b0182d0f9dc740eb65b17582",
+    "cover_data/codes_96.z": "5a4d38ce9de2bf4b27eef5cb423fb22cbc81db62ada5338333d3380014ded853",
+    "cover_data/manifest.json": "98ce614e761e178dbffd831958a469431139365cde7486b48c464c637b8ff9d6",
+    "cover_data/quantized48.json": "290f650c32281be105cea9b1a6f0680c604a68473f54171da7a5cc5523077eba",
+    "cover_data/witness_12.z": "8a15e74e065d9acadc334f6b93fbe9a9ec3449ffe0b822036ff976fc43e980cb",
+    "cover_data/witness_24.z": "2cf5045b000d4579bec3ac85e71ba026f51632e8625b6fb74488d2ecfa99ad5a",
+    "cover_data/witness_48.z": "0ed21166ea8ad448322f7f60889ed93652aa2c6afccdcd96faa93692d6121120",
+    "cover_data/witness_96.z": "bf3a4da77d2a83f32d420cae655ee27fb6b6344a958d8c560ab16d93fbb9ead5"
+  },
+  "all_input_mtimes_precede_completed_receipt": true,
+  "completed_receipt_mtime_utc": "2026-10-25T15:11:16.379123+00:00"
+}

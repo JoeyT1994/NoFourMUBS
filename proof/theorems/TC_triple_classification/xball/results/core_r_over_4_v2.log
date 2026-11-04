@@ -1,0 +1,77 @@
+/Users/jtindall/.codex/worktrees/tc-triple-classification/NoFourMUBS/proof/atlas/record.py:51: RuntimeWarning: divide by zero encountered in matmul
+  s, Vt = np.linalg.svd(Jn @ Hb)[1:]
+/Users/jtindall/.codex/worktrees/tc-triple-classification/NoFourMUBS/proof/atlas/record.py:51: RuntimeWarning: overflow encountered in matmul
+  s, Vt = np.linalg.svd(Jn @ Hb)[1:]
+/Users/jtindall/.codex/worktrees/tc-triple-classification/NoFourMUBS/proof/atlas/record.py:51: RuntimeWarning: invalid value encountered in matmul
+  s, Vt = np.linalg.svd(Jn @ Hb)[1:]
+/Users/jtindall/.codex/worktrees/tc-triple-classification/NoFourMUBS/proof/atlas/stagec.py:73: RuntimeWarning: divide by zero encountered in matmul
+  S = eU @ eP / SQ6                                                     # (n, 6): S_i
+/Users/jtindall/.codex/worktrees/tc-triple-classification/NoFourMUBS/proof/atlas/stagec.py:73: RuntimeWarning: overflow encountered in matmul
+  S = eU @ eP / SQ6                                                     # (n, 6): S_i
+/Users/jtindall/.codex/worktrees/tc-triple-classification/NoFourMUBS/proof/atlas/stagec.py:73: RuntimeWarning: invalid value encountered in matmul
+  S = eU @ eP / SQ6                                                     # (n, 6): S_i
+/Users/jtindall/.codex/worktrees/tc-triple-classification/NoFourMUBS/proof/theorems/TC_triple_classification/family_neighbourhoods/native_cover.py:24: RuntimeWarning: divide by zero encountered in matmul
+  x=np.exp(1j*np.c_[np.zeros(len(p)),p]);s=x@h.conj()
+/Users/jtindall/.codex/worktrees/tc-triple-classification/NoFourMUBS/proof/theorems/TC_triple_classification/family_neighbourhoods/native_cover.py:24: RuntimeWarning: overflow encountered in matmul
+  x=np.exp(1j*np.c_[np.zeros(len(p)),p]);s=x@h.conj()
+/Users/jtindall/.codex/worktrees/tc-triple-classification/NoFourMUBS/proof/theorems/TC_triple_classification/family_neighbourhoods/native_cover.py:24: RuntimeWarning: invalid value encountered in matmul
+  x=np.exp(1j*np.c_[np.zeros(len(p)),p]);s=x@h.conj()
+/Users/jtindall/.codex/worktrees/tc-triple-classification/NoFourMUBS/proof/theorems/TC_triple_classification/family_neighbourhoods/native_cover.py:30: RuntimeWarning: divide by zero encountered in matmul
+  x=np.exp(1j*np.c_[np.zeros(len(p)),p]);good=np.max(np.abs(np.abs(x@h.conj())**2-6),axis=1)<1e-9
+/Users/jtindall/.codex/worktrees/tc-triple-classification/NoFourMUBS/proof/theorems/TC_triple_classification/family_neighbourhoods/native_cover.py:30: RuntimeWarning: overflow encountered in matmul
+  x=np.exp(1j*np.c_[np.zeros(len(p)),p]);good=np.max(np.abs(np.abs(x@h.conj())**2-6),axis=1)<1e-9
+/Users/jtindall/.codex/worktrees/tc-triple-classification/NoFourMUBS/proof/theorems/TC_triple_classification/family_neighbourhoods/native_cover.py:30: RuntimeWarning: invalid value encountered in matmul
+  x=np.exp(1j*np.c_[np.zeros(len(p)),p]);good=np.max(np.abs(np.abs(x@h.conj())**2-6),axis=1)<1e-9
+/Users/jtindall/.codex/worktrees/tc-triple-classification/NoFourMUBS/proof/atlas/stagec.py:101: RuntimeWarning: divide by zero encountered in matmul
+  S = eU @ eP / SQ6                                                     # (n, 6) over i
+/Users/jtindall/.codex/worktrees/tc-triple-classification/NoFourMUBS/proof/atlas/stagec.py:101: RuntimeWarning: overflow encountered in matmul
+  S = eU @ eP / SQ6                                                     # (n, 6) over i
+/Users/jtindall/.codex/worktrees/tc-triple-classification/NoFourMUBS/proof/atlas/stagec.py:101: RuntimeWarning: invalid value encountered in matmul
+  S = eU @ eP / SQ6                                                     # (n, 6) over i
+/Users/jtindall/.codex/worktrees/tc-triple-classification/NoFourMUBS/proof/atlas/stagec.py:236: RuntimeWarning: divide by zero encountered in matmul
+  G = np.matmul(np.transpose(A, (0, 2, 1)), A) + 1e-12 * np.eye(12 + l)[None]
+/Users/jtindall/.codex/worktrees/tc-triple-classification/NoFourMUBS/proof/atlas/stagec.py:236: RuntimeWarning: overflow encountered in matmul
+  G = np.matmul(np.transpose(A, (0, 2, 1)), A) + 1e-12 * np.eye(12 + l)[None]
+/Users/jtindall/.codex/worktrees/tc-triple-classification/NoFourMUBS/proof/atlas/stagec.py:236: RuntimeWarning: invalid value encountered in matmul
+  G = np.matmul(np.transpose(A, (0, 2, 1)), A) + 1e-12 * np.eye(12 + l)[None]
+/Users/jtindall/.codex/worktrees/tc-triple-classification/NoFourMUBS/proof/theorems/TC_triple_classification/family_neighbourhoods/basis_exclusion.py:25: RuntimeWarning: divide by zero encountered in matmul
+  proposal=np.concatenate(columns,axis=1);gram=proposal@proposal.T;fn=MS.numeric(f)[:,0]
+/Users/jtindall/.codex/worktrees/tc-triple-classification/NoFourMUBS/proof/theorems/TC_triple_classification/family_neighbourhoods/basis_exclusion.py:25: RuntimeWarning: overflow encountered in matmul
+  proposal=np.concatenate(columns,axis=1);gram=proposal@proposal.T;fn=MS.numeric(f)[:,0]
+/Users/jtindall/.codex/worktrees/tc-triple-classification/NoFourMUBS/proof/theorems/TC_triple_classification/family_neighbourhoods/basis_exclusion.py:25: RuntimeWarning: invalid value encountered in matmul
+  proposal=np.concatenate(columns,axis=1);gram=proposal@proposal.T;fn=MS.numeric(f)[:,0]
+/tmp/tc_r0153_env/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3383: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/tmp/tc_r0153_env/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3383: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/tmp/tc_r0153_env/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3383: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+{"event": "pattern", "domain": "core subset of original X-ball", "number": 0, "status": "CERTIFIED", "q": "[0.0549000299781383286095508680156550037266541744794112900793166753871 +/- 4.67e-68]", "seconds": 2.9247324999887496}
+/Users/jtindall/.codex/worktrees/tc-triple-classification/NoFourMUBS/proof/theorems/TC_triple_classification/family_neighbourhoods/pattern_proposals.py:20: RuntimeWarning: divide by zero encountered in matmul
+  qq=q+lift@t;h=np.exp(1j*qq[:36].reshape(6,6));k=np.exp(1j*qq[36:].reshape(6,6))
+/Users/jtindall/.codex/worktrees/tc-triple-classification/NoFourMUBS/proof/theorems/TC_triple_classification/family_neighbourhoods/pattern_proposals.py:20: RuntimeWarning: overflow encountered in matmul
+  qq=q+lift@t;h=np.exp(1j*qq[:36].reshape(6,6));k=np.exp(1j*qq[36:].reshape(6,6))
+/Users/jtindall/.codex/worktrees/tc-triple-classification/NoFourMUBS/proof/theorems/TC_triple_classification/family_neighbourhoods/pattern_proposals.py:20: RuntimeWarning: invalid value encountered in matmul
+  qq=q+lift@t;h=np.exp(1j*qq[:36].reshape(6,6));k=np.exp(1j*qq[36:].reshape(6,6))
+/Users/jtindall/.codex/worktrees/tc-triple-classification/NoFourMUBS/proof/theorems/TC_triple_classification/family_neighbourhoods/pattern_proposals.py:26: RuntimeWarning: divide by zero encountered in matmul
+  target=q+lift@np.r_[np.zeros(4),fixed.x]
+/Users/jtindall/.codex/worktrees/tc-triple-classification/NoFourMUBS/proof/theorems/TC_triple_classification/family_neighbourhoods/pattern_proposals.py:26: RuntimeWarning: overflow encountered in matmul
+  target=q+lift@np.r_[np.zeros(4),fixed.x]
+/Users/jtindall/.codex/worktrees/tc-triple-classification/NoFourMUBS/proof/theorems/TC_triple_classification/family_neighbourhoods/pattern_proposals.py:26: RuntimeWarning: invalid value encountered in matmul
+  target=q+lift@np.r_[np.zeros(4),fixed.x]
+{"event": "pattern", "domain": "core subset of original X-ball", "number": 1, "status": "NOT ESTABLISHED", "q": null, "seconds": 6.03206179101835}
+{"event": "pattern", "domain": "core subset of original X-ball", "number": 2, "status": "NOT ESTABLISHED", "q": null, "seconds": 6.547303125000326}
+{"event": "pattern", "domain": "core subset of original X-ball", "number": 3, "status": "CERTIFIED", "q": "[0.0549073623313068228508728502280631377203083980719654934643343401964 +/- 4.26e-68]", "seconds": 3.04853662502137}
+{"event": "pattern", "domain": "core subset of original X-ball", "number": 4, "status": "CERTIFIED", "q": "[0.0373487879045344484876817025660646125547026008486756908928913250547 +/- 1.81e-68]", "seconds": 3.008862125017913}
+{"event": "pattern", "domain": "core subset of original X-ball", "number": 5, "status": "CERTIFIED", "q": "[0.0347529387963563560524985049680670272190462579261969107749966116558 +/- 3.34e-68]", "seconds": 2.729037957993569}
+{"event": "pattern", "domain": "core subset of original X-ball", "number": 6, "status": "CERTIFIED", "q": "[0.0346821274876760917081764782667369342558235170268624916497623041472 +/- 5.28e-68]", "seconds": 2.7942518339841627}
+{"event": "pattern", "domain": "core subset of original X-ball", "number": 7, "status": "CERTIFIED", "q": "[0.0373169281727390238326752002363773102549272601921730204071281448842 +/- 4.55e-68]", "seconds": 3.2310562919883523}
+{"event": "pattern", "domain": "core subset of original X-ball", "number": 8, "status": "CERTIFIED", "q": "[0.0346846664659035829915101359892942290518407899865940989676511083707 +/- 4.70e-68]", "seconds": 2.897554958006367}
+{"event": "pattern", "domain": "core subset of original X-ball", "number": 9, "status": "CERTIFIED", "q": "[0.0372972504031951449956734237446049784751812546361380552590069637831 +/- 1.45e-68]", "seconds": 3.345369957998628}
+{"event": "pattern", "domain": "core subset of original X-ball", "number": 10, "status": "CERTIFIED", "q": "[0.0373494149378794876951657992768677284619047591948589222868275269200 +/- 1.19e-68]", "seconds": 3.2760691250150558}
+{"event": "pattern", "domain": "core subset of original X-ball", "number": 11, "status": "CERTIFIED", "q": "[0.0347528029513785261786357772423927777987820905186387662578216715722 +/- 2.64e-68]", "seconds": 2.993250542000169}
+{"event": "pattern", "domain": "core subset of original X-ball", "number": 12, "status": "CERTIFIED", "q": "[0.0373170110340922404698055527359721576777646334417853624467422040425 +/- 4.44e-68]", "seconds": 3.4028774579928722}
+{"event": "pattern", "domain": "core subset of original X-ball", "number": 13, "status": "CERTIFIED", "q": "[0.0347347211242734299569436851829936580614854491843769675677411432061 +/- 3.85e-68]", "seconds": 2.9655419159971643}
+{"event": "pattern", "domain": "core subset of original X-ball", "number": 14, "status": "CERTIFIED", "q": "[0.0347332379664179094878361069220464279844060058730417166109857827138 +/- 2.77e-68]", "seconds": 3.0230624999967404}
+{"event": "pattern", "domain": "core subset of original X-ball", "number": 15, "status": "CERTIFIED", "q": "[0.0372941114381102726809713575345434362334173723169469498880556856795 +/- 5.57e-68]", "seconds": 3.4462185419979505}
+{"status": "NOT ESTABLISHED", "seconds": 58.49430699998629}

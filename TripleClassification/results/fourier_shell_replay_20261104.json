@@ -1,0 +1,34 @@
+{
+ "what": "Fresh replay of every shell leaf of the ball at F6 (3-4 November 2026): all 383,829 SHELL leaves of plan7 were re-certified with the unchanged run_shells.run_piece, and accounted from the new rows alone (no earlier row used).",
+ "code": "main at 9d943f154 (proof/theorems/TC_triple_classification/xball, binding 5a2d8e40...)",
+ "command": "experiments/sharded.py run --plan replay_plan.json --shard i --shards 16 --workers 120; then sharded.py account --plan replay_plan.json --core results/core4_v4.json --core-power 4 --rows rows_*.jsonl",
+ "replay_plan": "plan7.json (sha256 in results/sharded_20261028/manifest_sharded.json) with pending = every SHELL leaf; sha256 a44baeb24bfdb1baba7d055d45f9d576d08f136ed4284d452e75e3d639b545f5",
+ "original_rows": "the 12 row files of manifest_sharded.json, published as fourier-shell-rows.tar in release tc-certificates-2026-11-03",
+ "core_hours_allocated": 1538,
+ "nodes": 16,
+ "account": {
+  "status": "CERTIFIED",
+  "binding": "5a2d8e40163634356fbea68cfa4195b23621b8ba7b4520691c7c9f11a0562eb2",
+  "geometric_cover": {
+   "status": "CERTIFIED GEOMETRIC COVER",
+   "nodes": 505713,
+   "counts": {
+    "OUTSIDE": 90005,
+    "CORE": 272,
+    "SHELL": 383829
+   },
+   "classification_status": "NOT ESTABLISHED"
+  },
+  "original_radius_hex": "0x1.0a3d70a3d70a4p-3",
+  "core_status": "CERTIFIED",
+  "shell_required": 383829,
+  "shell_tested": 383829,
+  "shell_closed": 383829,
+  "shell_unresolved": [],
+  "shell_untested": [],
+  "claim": "Every completing third basis on the entire original X-ball is of Conjecture 1 type.",
+  "plan_level": 7,
+  "core_power": 4,
+  "core_extension": "radius-1/50 crossing theorem (v4)"
+ }
+}

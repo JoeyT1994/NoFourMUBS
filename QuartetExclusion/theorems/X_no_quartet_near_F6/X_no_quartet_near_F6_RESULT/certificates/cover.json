@@ -1,0 +1,39 @@
+{
+  "status": "PASS",
+  "rho": "3/20",
+  "total_nodes_checked": 1232256,
+  "levels": [
+    {
+      "M": 12,
+      "nodes": 248832,
+      "covered": 0,
+      "rejected": 238680,
+      "refined": 10152
+    },
+    {
+      "M": 24,
+      "nodes": 324864,
+      "covered": 0,
+      "rejected": 316620,
+      "refined": 8244
+    },
+    {
+      "M": 48,
+      "nodes": 263808,
+      "covered": 4848,
+      "rejected": 246624,
+      "refined": 12336
+    },
+    {
+      "M": 96,
+      "nodes": 394752,
+      "covered": 197484,
+      "rejected": 197268,
+      "refined": 0
+    }
+  ],
+  "interval_scale": 281474976710656,
+  "all_decisions": "exact directed integer intervals; no floating-point acceptance",
+  "quantized_centers_sha256": "290f650c32281be105cea9b1a6f0680c604a68473f54171da7a5cc5523077eba",
+  "elapsed_seconds_informational": 131.66409611701965
+}

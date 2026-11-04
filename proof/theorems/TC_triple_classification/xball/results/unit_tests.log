@@ -1,0 +1,35 @@
+/Users/jtindall/.codex/worktrees/tc-triple-classification/NoFourMUBS/proof/atlas/record.py:51: RuntimeWarning: divide by zero encountered in matmul
+  s, Vt = np.linalg.svd(Jn @ Hb)[1:]
+/Users/jtindall/.codex/worktrees/tc-triple-classification/NoFourMUBS/proof/atlas/record.py:51: RuntimeWarning: overflow encountered in matmul
+  s, Vt = np.linalg.svd(Jn @ Hb)[1:]
+/Users/jtindall/.codex/worktrees/tc-triple-classification/NoFourMUBS/proof/atlas/record.py:51: RuntimeWarning: invalid value encountered in matmul
+  s, Vt = np.linalg.svd(Jn @ Hb)[1:]
+...../Users/jtindall/.codex/worktrees/tc-triple-classification/NoFourMUBS/proof/atlas/stagec.py:73: RuntimeWarning: divide by zero encountered in matmul
+  S = eU @ eP / SQ6                                                     # (n, 6): S_i
+/Users/jtindall/.codex/worktrees/tc-triple-classification/NoFourMUBS/proof/atlas/stagec.py:73: RuntimeWarning: overflow encountered in matmul
+  S = eU @ eP / SQ6                                                     # (n, 6): S_i
+/Users/jtindall/.codex/worktrees/tc-triple-classification/NoFourMUBS/proof/atlas/stagec.py:73: RuntimeWarning: invalid value encountered in matmul
+  S = eU @ eP / SQ6                                                     # (n, 6): S_i
+/Users/jtindall/.codex/worktrees/tc-triple-classification/NoFourMUBS/proof/theorems/TC_triple_classification/family_neighbourhoods/native_cover.py:24: RuntimeWarning: divide by zero encountered in matmul
+  x=np.exp(1j*np.c_[np.zeros(len(p)),p]);s=x@h.conj()
+/Users/jtindall/.codex/worktrees/tc-triple-classification/NoFourMUBS/proof/theorems/TC_triple_classification/family_neighbourhoods/native_cover.py:24: RuntimeWarning: overflow encountered in matmul
+  x=np.exp(1j*np.c_[np.zeros(len(p)),p]);s=x@h.conj()
+/Users/jtindall/.codex/worktrees/tc-triple-classification/NoFourMUBS/proof/theorems/TC_triple_classification/family_neighbourhoods/native_cover.py:24: RuntimeWarning: invalid value encountered in matmul
+  x=np.exp(1j*np.c_[np.zeros(len(p)),p]);s=x@h.conj()
+/Users/jtindall/.codex/worktrees/tc-triple-classification/NoFourMUBS/proof/theorems/TC_triple_classification/family_neighbourhoods/native_cover.py:30: RuntimeWarning: divide by zero encountered in matmul
+  x=np.exp(1j*np.c_[np.zeros(len(p)),p]);good=np.max(np.abs(np.abs(x@h.conj())**2-6),axis=1)<1e-9
+/Users/jtindall/.codex/worktrees/tc-triple-classification/NoFourMUBS/proof/theorems/TC_triple_classification/family_neighbourhoods/native_cover.py:30: RuntimeWarning: overflow encountered in matmul
+  x=np.exp(1j*np.c_[np.zeros(len(p)),p]);good=np.max(np.abs(np.abs(x@h.conj())**2-6),axis=1)<1e-9
+/Users/jtindall/.codex/worktrees/tc-triple-classification/NoFourMUBS/proof/theorems/TC_triple_classification/family_neighbourhoods/native_cover.py:30: RuntimeWarning: invalid value encountered in matmul
+  x=np.exp(1j*np.c_[np.zeros(len(p)),p]);good=np.max(np.abs(np.abs(x@h.conj())**2-6),axis=1)<1e-9
+/tmp/tc_r0153_env/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3383: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/tmp/tc_r0153_env/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3383: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/tmp/tc_r0153_env/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3383: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+..
+----------------------------------------------------------------------
+Ran 7 tests in 3.303s
+
+OK

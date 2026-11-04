@@ -1,0 +1,187 @@
+#!/usr/bin/env python3
+"""Convert a seed-atlas certificate (gzip JSON, layout of proof/seed_atlas/FORMAT.md) into the plain-text form read by
+src/io_seed.jl.  Standard library only.  Every float goes through float.fromhex / float.hex, so the conversion is
+exact; integers are checked to be integers.  Fields named `info`, and any field not used here, are ignored.
+
+This file (with caps_to_txt.py) and src/io_seed.jl are the only places that know the certificate's layout.
+Edge balls (FORMAT.md §8, format v2): top-level "edge": [{"chart": "F6-012", "Mth", "r", "k": [4 ints], "P", "U", "n",
+"label_radius", "transfers"}], with sphere transfers of kind T1.  Seed transfers of kind "T3" carry {"target" (an edge
+ball), "g", "rows", "cols", "hcols", "vrows", "wind" (4), "wind_h" (6), "wind_v" (6)}; they are written with rows =
+rows + vrows and cols = cols + hcols (6 each: the corner, then the order of the complement used by the vertical,
+resp. horizontal, side) and WIND = wind + wind_h + wind_v (16).  Without hcols / vrows, the complements are taken in
+increasing order.  A record without a frame ("Tint" absent or all zero) is read as Tao's record (its R and
+label_radius); the top-level "tao" object is the usual form.
+An edge ball may carry "graph": {"R", "sigma"} (SPEC §10.2; optionally also "phi" and "Tint") and "sigma_D" (SPEC §10.1);
+every field is optional (the checker's defaults are documented in src/graph.jl).
+A seed entry may carry "caps" (return ZC, CAP_FORMAT.md: the sphere by caps; written by caps_to_txt.py after its groups).
+A seed entry may carry "gauge": "hor" (SPEC §11: P and U stored horizontal); without it the dephased gauge is meant.
+Usage: python3 convert_seed.py certificate.json.gz out.txt
+"""
+import gzip
+import json
+import sys
+
+import caps_to_txt
+
+KINDS_SEED = ('T0', 'T1', 'T2', 'T3')
+KINDS_EDGE = ('T1', 'T3')
+KINDS_REC = ('rec', 'T1prime')
+GS = ('id', 'conj', 'T', 'conjT')
+
+
+def fx(v, what):
+    if not isinstance(v, str):
+        raise SystemExit('%s: floats must be float.hex strings, got %r' % (what, v))
+    x = float.fromhex(v)
+    if x != x or x in (float('inf'), float('-inf')):
+        raise SystemExit('%s: non-finite float' % what)
+    return x.hex()
+
+
+def fxs(vs, n, what):
+    if not isinstance(vs, list) or len(vs) != n:
+        raise SystemExit('%s: expected %d floats' % (what, n))
+    return ' '.join(fx(v, what) for v in vs)
+
+
+def isint(v):
+    return isinstance(v, int) and not isinstance(v, bool)
+
+
+def ints(vs, what, n=None):
+    if not isinstance(vs, list) or any(not isint(v) for v in vs) or (n is not None and len(vs) != n):
+        raise SystemExit('%s: expected %s integers' % (what, n if n is not None else 'a list of'))
+    return vs
+
+
+def group_lines(t, kinds, what):
+    kind = t.get('kind')
+    if kind not in kinds:
+        raise SystemExit('%s: kind %r not allowed here' % (what, kind))
+    tg = t.get('target')
+    if not isint(tg):
+        raise SystemExit('%s: target must be an integer' % what)
+    g = t.get('g', 'id')
+    if g not in GS:
+        raise SystemExit('%s: unknown g %r' % (what, g))
+    rows = ints(t.get('rows', []), what + ' rows'); cols = ints(t.get('cols', []), what + ' cols')
+    wind = t.get('wind', [])
+    if wind and isinstance(wind[0], list):
+        wind = [x for row in wind for x in row]
+    wind = ints(wind, what + ' wind')
+    if kind == 'T3':
+        if 'vrows' in t or 'hcols' in t:
+            rows = rows + ints(t['vrows'], what + ' vrows', 3)
+            cols = cols + ints(t['hcols'], what + ' hcols', 3)
+        if 'wind_h' in t or 'wind_v' in t:                     # format v2 side data (ignored by the XS check)
+            wind = ints(wind, what + ' wind', 4) + ints(t['wind_h'], what + ' wind_h', 6) + ints(t['wind_v'], what + ' wind_v', 6)
+        elif wind:
+            wind = ints(wind[:3], what + ' wind', 3)
+    boxes = t.get('boxes')
+    if not isinstance(boxes, list):
+        raise SystemExit('%s: boxes must be a list' % what)
+    flat = []
+    for b in boxes:
+        ints(b, what + ' box', 5)
+        flat.extend(b)
+    head = 'GROUP %s %d %s ROWS %d%s COLS %d%s WIND %d%s NBOX %d\n' % (
+        kind, tg, g, len(rows), ''.join(' %d' % x for x in rows), len(cols), ''.join(' %d' % x for x in cols),
+        len(wind), ''.join(' %d' % x for x in wind), len(boxes))
+    return head + 'BOXES' + ''.join(' %d' % x for x in flat) + '\n', len(boxes)
+
+
+def main(src, dst):
+    with gzip.open(src, 'rt') as f:
+        d = json.load(f)
+    if d.get('format') != 'seed-atlas-v1':
+        raise SystemExit('unexpected format %r' % d.get('format'))
+    seeds = d.get('seeds', []); edges = d.get('edge', []) or []
+    tao = d.get('tao')
+    recs = []
+    for r in d.get('records', []) or []:
+        tint = r.get('Tint')
+        if not tint or all(v == 0 for v in tint):
+            if tao is not None:
+                raise SystemExit('two Tao records')
+            tao = {'R': r['R'], 'label_radius': r['label_radius']}
+        else:
+            recs.append(r)
+    fr = d.get('fourier_record', -1)
+    fr = -1 if fr is None else fr
+    if not isint(fr):
+        raise SystemExit('fourier_record must be an integer')
+    nbox = 0
+    with open(dst, 'w') as out:
+        out.write('FORMAT seed-atlas-text-v3\n')
+        out.write('COUNTS %d %d %d %d\n' % (len(seeds), len(recs), fr, len(edges)))
+        for i, s in enumerate(seeds):
+            w = 'seed %d' % i
+            o, k = s.get('o'), s.get('k')
+            if o not in (1, -1) or not isint(k):
+                raise SystemExit('%s: o must be +-1 and k an integer' % w)
+            gs = s.get('transfers', [])
+            gauge = s.get('gauge', 'dephased')
+            if gauge not in ('dephased', 'hor'):
+                raise SystemExit('%s: unknown gauge %r' % (w, gauge))
+            out.write('SEED %d %d %d %d %s\n' % (i, o, k, len(gs), gauge))
+            out.write('THETA0 %s\n' % fxs(s['theta0'], 4, w + ' theta0'))
+            out.write('MTH %s\n' % fxs(s['Mth'], 16, w + ' Mth'))
+            out.write('R %s\nN %s\nLR %s\n' % (fx(s['r'], w + ' r'), fx(s['n'], w + ' n'), fx(s['label_radius'], w + ' lr')))
+            out.write('P %s\n' % fxs(s['P'], 36, w + ' P'))
+            out.write('U %s\n' % fxs(s['U'], 144, w + ' U'))
+            for j, t in enumerate(gs):
+                txt, nb = group_lines(t, KINDS_SEED, '%s group %d' % (w, j))
+                out.write(txt); nbox += nb
+            if s.get('caps') is not None:
+                out.write('\n'.join(caps_to_txt.lines(s['caps'])) + '\n')
+        for i, r in enumerate(recs):
+            w = 'record %d' % i
+            tint = ints(r.get('Tint') or [], w + ' Tint', 144)
+            gs = r.get('boundary', [])
+            out.write('RECORD %d %s %s %s %d\n' % (i, fx(r['R'], w + ' R'), fx(r['label_radius'], w + ' lr'),
+                                                  fx(r['eta_scale'], w + ' eta_scale'), len(gs)))
+            out.write('PHI %s\n' % fxs(r['phi'], 36, w + ' phi'))
+            out.write('TINT %s\n' % ' '.join(str(v) for v in tint))
+            for j, t in enumerate(gs):
+                txt, nb = group_lines(t, KINDS_REC, '%s group %d' % (w, j))
+                out.write(txt); nbox += nb
+        for i, e in enumerate(edges):
+            w = 'edge ball %d' % i
+            if e.get('chart', 'F6-012') != 'F6-012':
+                raise SystemExit('%s: unknown chart %r (only F6-012 is implemented)' % (w, e.get('chart')))
+            k = e.get('k')
+            k = [k] * 4 if isint(k) else ints(k, w + ' k', 4)
+            gs = e.get('transfers', [])
+            out.write('EDGE %d %s %d\n' % (i, ' '.join(map(str, k)), len(gs)))
+            out.write('MTH %s\n' % fxs(e['Mth'], 16, w + ' Mth'))
+            out.write('Q0 %s\n' % fxs(e.get('q0', [float(0).hex()] * 4), 4, w + ' q0'))
+            ex = e.get('exclusion', 'stagec')
+            if ex not in ('stagec', 'X'): raise SystemExit('%s: unknown exclusion %r' % (w, ex))
+            out.write('EXCL %s %s\n' % (ex, fx(e.get('x_radius', (0.15).hex()), w + ' x_radius') if ex == 'X' else '-'))
+            out.write('R %s\nN %s\nLR %s\n' % (fx(e['r'], w + ' r'), fx(e['n'], w + ' n'), fx(e['label_radius'], w + ' lr')))
+            out.write('P %s\n' % fxs(e['P'], 36, w + ' P'))
+            out.write('U %s\n' % fxs(e['U'], 144, w + ' U'))
+            gr = e.get('graph') or {}
+            opt = lambda key, v: fx(v, '%s %s' % (w, key)) if v is not None else '-'
+            phi = gr.get('phi'); tint = gr.get('Tint')
+            out.write('GRAPH %s %s %s %d %d\n' % (opt('graph R', gr.get('R')), opt('graph sigma', gr.get('sigma')),
+                                                 opt('sigma_D', e.get('sigma_D')), phi is not None, tint is not None))
+            if phi is not None:
+                out.write('PHI %s\n' % fxs(phi, 36, w + ' graph phi'))
+            if tint is not None:
+                out.write('TINT %s\n' % ' '.join(str(v) for v in ints(tint, w + ' graph Tint', 144)))
+            for j, t in enumerate(gs):
+                txt, nb = group_lines(t, KINDS_EDGE, '%s group %d' % (w, j))
+                out.write(txt); nbox += nb
+            if e.get('caps') is not None:
+                out.write('\n'.join(caps_to_txt.lines(e['caps'])) + '\n')
+        if tao is None:
+            out.write('TAO none\n')
+        else:
+            out.write('TAO %s %s\n' % (fx(tao['R'], 'tao R'), fx(tao['label_radius'], 'tao label_radius')))
+        out.write('END\n')
+    print('converted %d seed balls, %d records, %d edge balls, %d boundary boxes -> %s' % (len(seeds), len(recs), len(edges), nbox, dst))
+
+
+if __name__ == '__main__':
+    main(sys.argv[1], sys.argv[2])

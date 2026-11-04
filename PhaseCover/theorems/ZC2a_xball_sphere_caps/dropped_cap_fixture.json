@@ -1,0 +1,47 @@
+{
+  "status": "CERTIFIED exact uncovered-direction witness",
+  "passed": true,
+  "dropped_cap": 1,
+  "group_index": null,
+  "remaining_cap_count": 8,
+  "polar_witness": {
+    "numerator": [
+      80,
+      -49,
+      -49,
+      -49
+    ],
+    "denominator": 100
+  },
+  "incident_remaining_indices": [
+    5,
+    3,
+    1,
+    7
+  ],
+  "incident_original_indices": [
+    6,
+    4,
+    2,
+    8
+  ],
+  "norm_squared": "13603/10000",
+  "strict_norm_excess_numerator": 3603,
+  "minimum_remaining_halfspace_slack": 0,
+  "removed_halfspace_slack": -3100,
+  "uncovered_direction": "numerator / sqrt(sum(numerator_i**2))",
+  "interpretation": "Every remaining cap strictly misses the displayed exact unit direction.",
+  "trials": [
+    {
+      "dropped_cap": 0,
+      "group_index": null,
+      "numerical_minimum_polar_facet_distance": 0.0
+    },
+    {
+      "dropped_cap": 1,
+      "group_index": null,
+      "numerical_minimum_polar_facet_distance": 0.8573983649308735
+    }
+  ],
+  "seconds": 0.00223498000195832
+}

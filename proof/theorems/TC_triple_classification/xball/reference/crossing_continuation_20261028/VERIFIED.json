@@ -1,0 +1,102 @@
+{
+  "all_independent_checks_passed": true,
+  "status": "PROVED new arithmetic and analytic implications with the documented upstream dependencies",
+  "normalization": "radians; horizontal72 quotient; correctly aligned dephased55 sufficient; regular residuals unweighted96",
+  "input_bindings": {
+    "status": "CHECKED receipt consistency, attached source hashes, and exact domination of Arb endpoints",
+    "attached_hashes": {
+      "results/crossing_structure_20261028.json": "67d4dc6717eba0d36266b6fa16bc5ae4c6618c944db28db8db1039374a079df2",
+      "reference/prior_local_CHECKPOINT.md": "44585d54679f0ad424a6e32887993ff57b0d345f8f3ad5498bdd8647eec6a757",
+      "experiments/crossing_radius.py": "86f8ad313e2e4b92962aad7a9ff185632a85d40f9811e5dff08af445d85cff22",
+      "experiments/crossing_structure.py": "a10b194eacd5a2b8b0aeff906529543549de4b3ac36ac2643e91fb02c8261bdc",
+      "experiments/QUANTITATIVE_CROSSING.md": "110ccaaf3d51291d6dc13429a11a4a51a1be9370489536e2d1fe84a6458bc2a0"
+    },
+    "rational_upper_bounds": {
+      "normal_inverse_defect": "1/100000000000000",
+      "hessian_H": "1167/500",
+      "third_derivative_H": "63",
+      "hessian_G": "147/20",
+      "third_derivative_G": "105"
+    },
+    "missing_hashed_source": "results/exact_centres.json",
+    "exact_structure_or_Arb_generation_replayed": false,
+    "coefficient_amplitude_construction": "Retained input, confirmed by reading the supplied source; cubic factor sqrt(308)",
+    "supplied_project_python_imported_or_executed": false
+  },
+  "projected_frequency_receipt": "projected_frequency_bounds_verified.json",
+  "crossing_full_phase_ball_radius": "1/50",
+  "crossing_mixed_defect": {
+    "numerator": "1363151904329954011957119423177129198308308259",
+    "denominator": "1539887795510432262818853642306218676851850000",
+    "decimal_upper": "0.88522807200904209001200178593713"
+  },
+  "regular_reference": {
+    "status": "PROVED CONDITIONAL ON THE CANONICAL CONSTRUCTION",
+    "reference": "a=(1,i,i), b=(1,1,-1), gamma=1; full72 orthogonal gauge quotient",
+    "moving_rank": 40,
+    "preconditioner_norm_upper": "13/20",
+    "exact_J_to_rational_midpoint_Frobenius_error_upper": "1/100000000",
+    "midpoint_preconditioner_defect_upper": "1/100000",
+    "total_defect_upper": "1/10000",
+    "moving_singular_value_lower": "3/2",
+    "symmetry_tube_radius": "1/40",
+    "normalizations": "unweighted96 residuals; radians; horizontal72 quotient"
+  },
+  "uniform_patch": {
+    "status": "PROVED for exact same-action references in the stated patch",
+    "reference_patch_horizontal_radius": "1/100000",
+    "entrywise_jacobian_halfwidth": "1/1000",
+    "valid_patch": {
+      "status": "PROVED CONDITIONAL MATRIX BOUND",
+      "certified_uniform_moving_bound": true,
+      "requested_sigma_lower": [
+        7,
+        5
+      ],
+      "valid_tube_radius_if_passed": [
+        7,
+        300
+      ],
+      "preconditioner_norm_upper": [
+        13,
+        20
+      ],
+      "rational_midpoint_defect_upper": [
+        1,
+        100000
+      ],
+      "squared_enclosure_error": [
+        "108",
+        "15625"
+      ],
+      "scope": "Conditional on a valid whole-family Jacobian enclosure in the stated common anchor and projector"
+    },
+    "wider_enclosure_returns_inconclusive": {
+      "status": "INCONCLUSIVE",
+      "certified_uniform_moving_bound": false,
+      "requested_sigma_lower": [
+        7,
+        5
+      ],
+      "valid_tube_radius_if_passed": null,
+      "preconditioner_norm_upper": [
+        13,
+        20
+      ],
+      "rational_midpoint_defect_upper": [
+        1,
+        100000
+      ],
+      "squared_enclosure_error": [
+        "432",
+        "625"
+      ],
+      "scope": "Conditional on a valid whole-family Jacobian enclosure in the stated common anchor and projector"
+    },
+    "upstream_parameter_box_enclosure_computed": false
+  },
+  "gluing": "Analytic proof in gluing.md; same-anchor horizontal C=101/25, yielding gamma>=1/202 outside the matching radius-1/50 union",
+  "qualitative_crossing_surface_input_required": false,
+  "original_all_K_inclusion_or_atlas_cover_replayed": false,
+  "supplied_project_python_imported_or_executed": false
+}

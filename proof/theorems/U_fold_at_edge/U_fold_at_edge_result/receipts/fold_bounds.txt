@@ -1,0 +1,18 @@
+PASS exact sparse Psi: 55 monomials, coefficient l1=108
+A0 inverse rows:
+[(0+1/12*sqrt(3)), -3/4, (0+1/8*sqrt(3)), 1/8, 0, -1]
+[(0+1/4*sqrt(3)), -1/4, (0+-1/8*sqrt(3)), -1/8, 0, 1]
+[(0+5/12*sqrt(3)), 1/4, (0+1/8*sqrt(3)), 1/8, 0, -1]
+[(0+1/3*sqrt(3)), 0, 0, 1, (0+1/3*sqrt(3)), 0]
+[(0+1/3*sqrt(3)), 0, (0+-1/3*sqrt(3)), 0, (0+1/3*sqrt(3)), 0]
+[(0+1/3*sqrt(3)), 0, (0+1/3*sqrt(3)), 0, (0+1/3*sqrt(3)), 0]
+Preconditioned center Hessian l1 upper bounds: [Fraction(15597, 4000), Fraction(39859, 12000), Fraction(15597, 4000), Fraction(19063, 3000), Fraction(19063, 3000), Fraction(5199, 1000)]
+Preconditioned third-derivative Fourier upper bounds: [Fraction(3615881, 12000), Fraction(1200983, 4000), Fraction(3615881, 12000), Fraction(23131, 1000), Fraction(3233, 150), Fraction(3233, 150)]
+Derivative-variation row bounds: [Fraction(5487521, 9600000), Fraction(5197309, 9600000), Fraction(5487521, 9600000), Fraction(831913, 2400000), Fraction(41359, 120000), Fraction(34427, 120000)]
+PASS ||M DA-I||inf <= 5487521/9600000 < 3/5 on ||delta||inf<=1/20
+PASS ||M||inf <= 55529/24000 < 7/3
+PASS ||D^2 A||inf,inf->inf <= 63353/3750 < 17
+CONSEQUENCE ||DA^-1||inf <=35/6
+CONSEQUENCE ||D^2(A^-1)||inf,inf->inf <=728875/216
+CONSEQUENCE all targets ||M(a-A(phi0))||inf <=1/50 have unique preimage in the phase cube
+NO CLAIM: containment of a radius-.05 original seed-parameter cube

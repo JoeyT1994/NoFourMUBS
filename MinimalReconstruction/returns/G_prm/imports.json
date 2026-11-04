@@ -1,0 +1,107 @@
+{
+  "format": "PRM-import-boundary-v1",
+  "source_archive": "PRMHandoff_2026-10-14.zip",
+  "imports": [
+    {
+      "id": "I1",
+      "reference_path": "coverage/returns/F_side_existence/SIDE_EXISTENCE.md",
+      "label": "Section 1, The precise theorem, equations (1)-(3)",
+      "use": "G2: actual vertical side on the other root",
+      "sha256": "4cd4bb7a0b43ff13a1d99b28780834eb62c2d707429fee74554ba0e9f700ea82",
+      "retained_path": "imports/I1_SIDE_EXISTENCE.md"
+    },
+    {
+      "id": "I2_I3",
+      "reference_path": "coverage/returns/E_matched_flatness/FLATNESS.md",
+      "label": "Theorem 1; Sections 2 and 3",
+      "use": "G2: any-side matched flatness, strict positivity and actual-side formulas",
+      "sha256": "6e8b99cf30de55ad9b2dccb033a502d03e57783473886d3dc62cab2a7842b9dd",
+      "retained_path": "imports/I2_I3_FLATNESS.md"
+    },
+    {
+      "id": "I3_verifier",
+      "reference_path": "coverage/returns/E_matched_flatness/verify_structural.py",
+      "label": "main(), 52 exact identities",
+      "use": "Replayed structural algebra",
+      "sha256": "c3033a8f2c81088998e693f86b89ed26f53736a278e94040bc42e115930f82e7",
+      "retained_path": "vendor/verify_structural.py"
+    },
+    {
+      "id": "I4",
+      "reference_path": "MinimalConstruction/Proofs/CRITICAL_STRIP_CLASSIFICATION.md",
+      "label": "Theorem",
+      "use": "G3: critical strip scalar classification",
+      "sha256": "3921e6b8fb31c37fb547ad02f48b8643575a9c76ce104f8023912c8b8ceddaa5",
+      "retained_path": "imports/I4_CRITICAL_STRIP_CLASSIFICATION.md"
+    },
+    {
+      "id": "I5a",
+      "reference_path": "MinimalConstruction/Proofs/CRITICAL_P7_EXCLUSION.md",
+      "label": "Opening proved assertion",
+      "use": "G3: rational endpoint exclusion",
+      "sha256": "35f03016d8cc129d2b82ba10d5edb1b5862e52fe8b0022179a08c6ba02e32d3c",
+      "retained_path": "imports/I5a_CRITICAL_P7_EXCLUSION.md"
+    },
+    {
+      "id": "I5b",
+      "reference_path": "MinimalConstruction/Proofs/CRITICAL_EQUI_CORRELATION_EXCLUSION.md",
+      "label": "Theorem",
+      "use": "G3: equicorrelation endpoint exclusion",
+      "sha256": "ec5d1dcce571dbaf78e9ad6136b6ce77682bff65d2113a5670f48092fc6af4ea",
+      "retained_path": "imports/I5b_CRITICAL_EQUI_CORRELATION_EXCLUSION.md"
+    },
+    {
+      "id": "I6",
+      "reference_path": "MinimalConstruction/Proofs/CRITICAL_CORNER_REDUCTION.md",
+      "label": "A sum rule that applies to every fixed row triple, equation (7)",
+      "use": "G3: sum p = 108",
+      "sha256": "4a2172519ca3568faaff44e152692a195d9d2a135ca3948840981a418af1da60",
+      "retained_path": "imports/I6_CRITICAL_CORNER_REDUCTION.md"
+    },
+    {
+      "id": "I7",
+      "reference_path": "MinimalConstruction/Proofs/FOURIER_CRITICAL_LOCUS.md",
+      "label": "Opening Fourier-family theorem and exact finite proof",
+      "use": "G3: all-critical Fourier carriers are F6",
+      "sha256": "4d6776bbe63c5b0c00421e19ec5831cce077902799f61ea34fc0a92599646035",
+      "retained_path": "imports/I7_FOURIER_CRITICAL_LOCUS.md"
+    },
+    {
+      "id": "I8",
+      "reference_path": "lean/NoFourMUBs/Step2/Statements.lean",
+      "label": "MatchedExactReach; MatchedDensityReach; exactReach_implies_densityReach",
+      "use": "Precise target definitions and existing final implication",
+      "sha256": "5e53e63554f7103d9b502161b9e9acdde1918c264d4522afbc40dccbd1ad0806",
+      "retained_path": "imports/I8_Statements.lean"
+    },
+    {
+      "id": "provenance_MC1",
+      "reference_path": "MinimalConstruction/Proofs/STRICT_CORNER_COVERAGE.md",
+      "label": "Theorem MC1",
+      "use": "Coverage argument reproduced with explicit local inputs; old Fourier-algebra imports replaced",
+      "sha256": "2626acb08d8b3d147028073b10ab26246744f28d084b396922502146314ca8b7",
+      "retained_path": "imports/PROVENANCE_STRICT_CORNER_COVERAGE.md"
+    },
+    {
+      "id": "coefficient_definitions_main",
+      "reference_path": "ClassificationPaper/source/paper_body.tex",
+      "label": "def:product-regularity; horizontal-product-quadratic; normalized-product-discriminants; affine-minus-matching-main",
+      "use": "Definitions only. Affine-minus NECESSITY IS NOT IMPORTED.",
+      "sha256": "d15dce416fa27b3cfb439fe5fdbffbf5cc82262805c340b65bbf1450cba52e16"
+    },
+    {
+      "id": "coefficient_definitions_supp",
+      "reference_path": "ClassificationPaper/source/supp_body.tex",
+      "label": "eq:supp-A-explicit; eq:supp-B-explicit; eq:supp-c6-explicit; eq:supp-product-quadratic",
+      "use": "Polynomial definitions only; all used bridge identities expanded again.",
+      "sha256": "95585d35dfe027c1754d5f84bb416092d7d5bb896c025ef3739bee0af32e7f38"
+    }
+  ],
+  "not_imported": [
+    "PR-M necessity",
+    "old NONMATCHED_EXCEPTIONS theorem",
+    "global product-regular escape",
+    "generic lower-block flatness/density argument"
+  ],
+  "source_archive_sha256": "b99f61854a779d31912a2c8e4a0102351298069c306648334441c73a1f94b757"
+}

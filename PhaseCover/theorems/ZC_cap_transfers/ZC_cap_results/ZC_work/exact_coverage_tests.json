@@ -1,0 +1,32 @@
+{
+  "self_test": "PASS",
+  "equality_cover": {
+    "passed": true,
+    "caps": 8,
+    "facets": 16,
+    "ridges": 32,
+    "max_norm_squared": "1",
+    "max_norm_squared_float": 1.0,
+    "worst_facet": 0,
+    "boundary_vertices": 16,
+    "covers": true,
+    "strict_margin": false
+  },
+  "robust_cover": {
+    "passed": true,
+    "caps": 8,
+    "facets": 16,
+    "ridges": 32,
+    "max_norm_squared": "2401/2500",
+    "max_norm_squared_float": 0.9604,
+    "worst_facet": 0,
+    "boundary_vertices": 0,
+    "covers": true,
+    "strict_margin": true
+  },
+  "negative_checks": [
+    "too-small caps",
+    "missing facet",
+    "bad vertex witness"
+  ]
+}

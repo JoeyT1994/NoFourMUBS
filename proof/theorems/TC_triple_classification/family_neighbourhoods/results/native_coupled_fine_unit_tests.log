@@ -1,0 +1,29 @@
+/Users/jtindall/.codex/worktrees/tc-triple-classification/NoFourMUBS/proof/theorems/TC_triple_classification/family_neighbourhoods/test_native.py:62: RuntimeWarning: divide by zero encountered in matmul
+  self.assertLess(np.max(np.abs(direct(MS.numeric(transformed)[:,0])-MS.numeric(y)@direct(q))),1e-12)
+/Users/jtindall/.codex/worktrees/tc-triple-classification/NoFourMUBS/proof/theorems/TC_triple_classification/family_neighbourhoods/test_native.py:62: RuntimeWarning: overflow encountered in matmul
+  self.assertLess(np.max(np.abs(direct(MS.numeric(transformed)[:,0])-MS.numeric(y)@direct(q))),1e-12)
+/Users/jtindall/.codex/worktrees/tc-triple-classification/NoFourMUBS/proof/theorems/TC_triple_classification/family_neighbourhoods/test_native.py:62: RuntimeWarning: invalid value encountered in matmul
+  self.assertLess(np.max(np.abs(direct(MS.numeric(transformed)[:,0])-MS.numeric(y)@direct(q))),1e-12)
+/Users/jtindall/.codex/worktrees/tc-triple-classification/NoFourMUBS/proof/theorems/TC_triple_classification/family_neighbourhoods/test_native.py:64: RuntimeWarning: divide by zero encountered in matmul
+  self.assertLess(np.max(np.abs(MS.numeric(qy)@direct(MS.numeric(fixed)[:,0]))),1e-12)
+/Users/jtindall/.codex/worktrees/tc-triple-classification/NoFourMUBS/proof/theorems/TC_triple_classification/family_neighbourhoods/test_native.py:64: RuntimeWarning: overflow encountered in matmul
+  self.assertLess(np.max(np.abs(MS.numeric(qy)@direct(MS.numeric(fixed)[:,0]))),1e-12)
+/Users/jtindall/.codex/worktrees/tc-triple-classification/NoFourMUBS/proof/theorems/TC_triple_classification/family_neighbourhoods/test_native.py:64: RuntimeWarning: invalid value encountered in matmul
+  self.assertLess(np.max(np.abs(MS.numeric(qy)@direct(MS.numeric(fixed)[:,0]))),1e-12)
+../Users/jtindall/.codex/worktrees/tc-triple-classification/NoFourMUBS/proof/theorems/TC_triple_classification/family_neighbourhoods/test_native.py:27: RuntimeWarning: divide by zero encountered in matmul
+  self.assertLess(np.max(np.abs(finite-j@v)),1e-8)
+/Users/jtindall/.codex/worktrees/tc-triple-classification/NoFourMUBS/proof/theorems/TC_triple_classification/family_neighbourhoods/test_native.py:27: RuntimeWarning: overflow encountered in matmul
+  self.assertLess(np.max(np.abs(finite-j@v)),1e-8)
+/Users/jtindall/.codex/worktrees/tc-triple-classification/NoFourMUBS/proof/theorems/TC_triple_classification/family_neighbourhoods/test_native.py:27: RuntimeWarning: invalid value encountered in matmul
+  self.assertLess(np.max(np.abs(finite-j@v)),1e-8)
+..../tmp/tc_r0153_env/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3383: RuntimeWarning: divide by zero encountered in matmul
+  return _core_matmul(x1, x2)
+/tmp/tc_r0153_env/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3383: RuntimeWarning: overflow encountered in matmul
+  return _core_matmul(x1, x2)
+/tmp/tc_r0153_env/lib/python3.13/site-packages/numpy/linalg/_linalg.py:3383: RuntimeWarning: invalid value encountered in matmul
+  return _core_matmul(x1, x2)
+.....
+----------------------------------------------------------------------
+Ran 11 tests in 1.039s
+
+OK

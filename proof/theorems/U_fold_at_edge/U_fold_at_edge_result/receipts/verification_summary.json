@@ -1,0 +1,35 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "script": "verify_fold_f6.py",
+      "status": "PASS",
+      "receipt": "fold_f6.txt"
+    },
+    {
+      "script": "verify_f6_chart.py",
+      "status": "PASS",
+      "receipt": "f6_chart.json"
+    },
+    {
+      "script": "verify_fold_bounds.py",
+      "status": "PASS",
+      "receipt": "fold_bounds.txt"
+    },
+    {
+      "script": "verify_parameter_cube.py",
+      "status": "PASS",
+      "receipt": "parameter_cube.txt"
+    },
+    {
+      "script": "verify_R_monotone_box.py",
+      "status": "PASS",
+      "receipt": "R_monotone_box.txt"
+    },
+    {
+      "script": "verify_fourier_no_regular_edge.py",
+      "status": "PASS",
+      "receipt": "fourier_no_regular_edge.txt"
+    }
+  ]
+}

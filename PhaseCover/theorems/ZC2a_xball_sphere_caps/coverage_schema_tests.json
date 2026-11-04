@@ -1,0 +1,116 @@
+{
+  "1/2": {
+    "passed": true,
+    "caps": 8,
+    "facets": 16,
+    "ridges": 32,
+    "max_norm_squared": "1",
+    "max_norm_squared_float": 1.0,
+    "worst_facet": 0,
+    "boundary_vertices": 16,
+    "covers": true,
+    "strict_margin": false,
+    "support_method": "all-points",
+    "support_node_tests": 0,
+    "support_point_tests": 128,
+    "potential_support_point_tests": 128
+  },
+  "49/100": {
+    "passed": true,
+    "caps": 8,
+    "facets": 16,
+    "ridges": 32,
+    "max_norm_squared": "2401/2500",
+    "max_norm_squared_float": 0.9604,
+    "worst_facet": 0,
+    "boundary_vertices": 0,
+    "covers": true,
+    "strict_margin": true,
+    "support_method": "all-points",
+    "support_node_tests": 0,
+    "support_point_tests": 128,
+    "potential_support_point_tests": 128
+  },
+  "51/100": {
+    "passed": false,
+    "covers": false,
+    "error": "complete polar polytope has a vertex outside the unit ball",
+    "caps": 8,
+    "facets": 16,
+    "ridges": 32,
+    "max_norm_squared": "2601/2500",
+    "max_norm_squared_float": 1.0404,
+    "worst_facet": 0,
+    "boundary_vertices": 0,
+    "strict_margin": false,
+    "support_method": "all-points",
+    "support_node_tests": 0,
+    "support_point_tests": 128,
+    "potential_support_point_tests": 128
+  },
+  "negative_tests": {
+    "missing_facet": {
+      "passed": false,
+      "covers": false,
+      "error": "incomplete facet enumeration: each triangular ridge must occur twice",
+      "bad_ridges": [
+        [
+          [
+            3,
+            5,
+            7
+          ],
+          1
+        ],
+        [
+          [
+            1,
+            5,
+            7
+          ],
+          1
+        ],
+        [
+          [
+            1,
+            3,
+            7
+          ],
+          1
+        ],
+        [
+          [
+            1,
+            3,
+            5
+          ],
+          1
+        ]
+      ],
+      "bad_ridge_count": 4
+    },
+    "duplicate_facet": {
+      "passed": false,
+      "covers": false,
+      "error": "duplicate facet",
+      "facet": 16
+    },
+    "wrong_index": {
+      "passed": false,
+      "covers": false,
+      "error": "invalid facet index",
+      "facet": 0
+    },
+    "missing_cap": {
+      "passed": false,
+      "covers": false,
+      "error": "need at least five caps and matching cap_count"
+    },
+    "mixed_schema": {
+      "passed": false,
+      "covers": false,
+      "error": "compact schema requires simplices only, not stored facet witnesses"
+    }
+  },
+  "status": "CERTIFIED exact integer replay"
+}

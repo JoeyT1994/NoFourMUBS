@@ -1,0 +1,43 @@
+{
+  "schema": "x2_graph_replay_manifest_v1",
+  "status": "FROZEN_AFTER_FULL_EXACT_REPLAY_PASS",
+  "replay_command": "python3 verify_polar_budget.py",
+  "working_directory": "work/x2_graph",
+  "certificate_status": "CERTIFIED",
+  "selected_configuration": {
+    "name": "G_67_100_B_93_200",
+    "gaussian_radius": "67/100",
+    "bjork_radius": "93/200",
+    "quantized_gaussian_radius": "669/1000",
+    "quantized_bjork_radius": "58/125",
+    "guaranteed_probability_gap": "1/20000",
+    "minimum_cross_probability_upper": "9997/60000"
+  },
+  "files": {
+    "base_48.py": {
+      "sha256": "e41c2ee3ceaa740ec9519b402cd6ab62a9a370481cb0602feeabae2bba311aa7",
+      "bytes": 7052
+    },
+    "verify_extended_graph.py": {
+      "sha256": "9714417c7a5976891a5fc3d584b9b21fe826ddafdede26a7051763081feeef57",
+      "bytes": 6729
+    },
+    "verify_basis_budget.py": {
+      "sha256": "25a6b1d45c78d3b5e2c05036fd867632bc032c0f950e13691a60150eb0abd1ff",
+      "bytes": 5275
+    },
+    "verify_polar_budget.py": {
+      "sha256": "4d3b73faeb6019d98631b4eca92442389179e2bc5772e30da3357d0c78afb357",
+      "bytes": 5987
+    },
+    "quantized48.json": {
+      "sha256": "290f650c32281be105cea9b1a6f0680c604a68473f54171da7a5cc5523077eba",
+      "bytes": 3941
+    },
+    "polar_budget_receipt.json": {
+      "sha256": "c32ce15afa3306a721881d9a41afd864b88fccd1f1cc6489083e42f28f33cf7f",
+      "bytes": 2529023
+    }
+  },
+  "scope": "Hashes record identity of the sources and exact receipt from the completed successful replay. This manifest does not replace that replay."
+}
