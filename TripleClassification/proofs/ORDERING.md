@@ -1,8 +1,8 @@
 # Ordering by the labelled Fourier score
 
-The certifier uses this argument in four of the 2,775 seed balls (1035, 1217, 1622, 2705), for near-miss patterns
-along a nearly flat direction (smallest singular value about 0.02) that neither the exclusion tests nor the symmetry
-test resolve at any cell size. Those balls have **minimum-transition scope**; every other ball has scope all. The
+The certifier uses this argument in four of the 2,775 seed balls (1035, 1217, 1622, 2705), for patterns along a
+nearly flat direction (smallest singular value about 0.02) that neither the exclusion tests nor the symmetry test
+resolve at the cell sizes used: 147,157 patterns in 14,855 leaves, at levels 2–4. Those balls have **minimum-transition scope**; every other ball has scope all. The
 code is [`certifier/certifier/ordering.py`](../certifier/certifier/ordering.py), on the pinned bounds
 `pr4/gamma_test.py` and `pr4/gamma_exact.py`.
 

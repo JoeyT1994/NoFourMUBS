@@ -55,8 +55,8 @@ the whole ball a leaf's record must also contain its cell (Arb) and lie on the b
 witness of [`proofs/NATIVE_REVIEW.md`](proofs/NATIVE_REVIEW.md)), and every record must satisfy Stage C's input
 preconditions. Every acceptance is exact or in Arb interval arithmetic; floating point only proposes.
 
-A certificate verified CLOSED proves (A) for its ball. In four balls (1035, 1217, 1622, 2705) a few near-miss patterns,
-along a nearly flat direction, resolve under neither test at any cell size; there a pattern is discharged instead by
+A certificate verified CLOSED proves (A) for its ball. In four balls (1035, 1217, 1622, 2705) patterns along a nearly
+flat direction are not resolved by either test at the cell sizes used; there a pattern is discharged instead by
 the ordering of the labelled Fourier score Γ_F ([`proofs/ORDERING.md`](proofs/ORDERING.md)). Those four certificates
 have *minimum-transition scope*: they classify every triple whose H-transition has the least Γ_F of its three, which
 suffices because every triple has such a representation and Γ_F is invariant under equivalence. Every other
