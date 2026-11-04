@@ -6,9 +6,9 @@ remainders it samples. The production code is in [`../driver/`](../driver/README
 
 | File | What it does |
 |---|---|
-| `seedball.py` | Computes the matched completion H₊(θ) by Newton continuation on the side Gram equations |
+| `seedball.py` | Computes a matched completion by Newton continuation on the side overlap equations. The branch is set by the start phases. Here o = sign Im Ψ(B). The paper's H₊ is o = −1, and the stored balls use o = +1, which is conj H₊(−θ) |
 | `tm2.py`, `tmball2.py` | Second-order Taylor models, a parametric Krawczyk tube for the sides, and the forced block by residual correction, which together give the remainder bound of SPEC §2 |
-| `edgeball.py`, `edge_stagec.py` | The edge chart through F6 and its local tests (SPEC §10) |
+| `edgeball.py`, `edge_stagec.py` | The chart at F₆ (the edge chart in the code) and its local tests (SPEC §10) |
 
 ## Design notes
 
@@ -18,5 +18,5 @@ remainders it samples. The production code is in [`../driver/`](../driver/README
 - Radii are measured in the horizontal gauge (SPEC §11). In the dephased gauge, a ball of radius r covers only about
   8% of the class volume of a horizontal ball of the same radius.
 - Adaptive boxes bring the certified remainder to within 1.25–1.33 times the true one.
-- Seed balls cannot reach F6, which is only a limit of the reconstruction. The edge chart is a four-dimensional ball
+- Seed balls cannot reach F₆, which is only a limit of the reconstruction. The chart at F₆ is a four-dimensional ball
   there, and its local tests pass at radius 0.125.

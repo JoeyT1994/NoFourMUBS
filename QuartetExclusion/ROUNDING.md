@@ -1,8 +1,8 @@
-# Floating-point rounding in Stage C: corrected model and constants
+# Floating-point rounding in the local tests: corrected model and constants
 
-Stage C is the set of vector-cover and graph-search tests run inside every ball, introduced in OpenAI's proof of
-N(6) = 3. `../proof/atlas/RIGOUR.md` §3 bounds the floating-point error of these tests. This note corrects two points in that
-analysis. Neither correction changes any rejection.
+The local tests (Stage C in the code) are the vector-cover and graph-search tests run inside every ball, introduced
+in OpenAI's proof of N(6) = 3 [OAI](../README.md#references). `../proof/atlas/RIGOUR.md` §3 bounds the
+floating-point error of these tests. This note corrects two points in that analysis. Neither correction changes any rejection.
 
 ## 1. The model must allow underflow
 
@@ -24,25 +24,26 @@ is needed.
 
 In the table of §3, two rows are bounded too tightly.
 
-**Bin tests (6.7), (6.12), (6.11).** Each side is a sum of at most 50 terms, each a coefficient of magnitude at most
-10 times a quantity carrying error at most 10⁻¹². The triangle inequality gives 50 · 10 · 10⁻¹² = 5·10⁻¹⁰ per side,
+**Bin tests [OAI] Eqs. (6.7), (6.12), (6.11).** Each side is a sum of at most 50 terms, each a coefficient of
+magnitude at most 10 times a quantity carrying error at most 10⁻¹². The triangle inequality gives 50 · 10 · 10⁻¹² = 5·10⁻¹⁰ per side,
 not < 10⁻¹⁰. The bound is < 10⁻⁹ per side.
 
-**Edge tests (6.16), (6.20), (6.21) and the joint test (6.23).** Each side is a sum of at most 20 · 36 = 720 terms.
-Each term is a product of factors with error at most 10⁻¹² and magnitude at most 1. That gives at most 7.2·10⁻¹⁰ per
+**Edge tests [OAI] Eqs. (6.16), (6.20), (6.21) and the joint test [OAI] Eq. (6.23).** Each side is a sum of at
+most 20 · 36 = 720 terms. Each term is a product of factors with error at most 10⁻¹² and magnitude at most 1. That gives at most 7.2·10⁻¹⁰ per
 side, so the bound is again < 10⁻⁹ per side.
 
-**The margins still dominate.** Every Stage C rejection uses lhs > rhs + MARGIN with MARGIN = 10⁻⁷. The summed error
-of the two sides is below 2·10⁻⁹, and 10⁻⁷ exceeds it by a factor of 50 (RIGOUR.md says 100). So a float rejection
-still implies the exact rejection.
+**The margins still dominate.** Every rejection in the local tests uses lhs > rhs + MARGIN with MARGIN = 10⁻⁷. The
+summed error of the two sides is below 2·10⁻⁹, and 10⁻⁷ exceeds it by a factor of at least 50. So a float rejection still
+implies the exact rejection. RIGOUR.md §3 quotes a factor of 100, which rests on the per-side bound of 10⁻¹⁰
+corrected above.
 
 The certifier's atlas-transfer test is unaffected: its error is < 10⁻¹³ against a margin of 10⁻¹⁰.
 
 ## 3. Where this applies
 
-- **The atlas (both checkers).** Stage C runs in every seed ball's quartet exclusion. The Julia checker re-decides
-  its Stage C rejections in intervals, independently of this analysis.
-- **The triple classification.** The native leaves of the triple-classification certificates use the same Stage C
-  through `TripleClassification/certifier/certifier/pr4/stagec_guard.py`, with the same margins and input-range
+- **The atlas (both checkers).** The local tests run in every seed ball's quartet exclusion. The Julia checker
+  re-decides their rejections in intervals, independently of this analysis.
+- **The triple classification.** The native leaves of the triple-classification certificates use the same local
+  tests through `TripleClassification/certifier/certifier/pr4/stagec_guard.py`, with the same margins and input-range
   checks.
 - **Not covered.** The Arb replay of RIGOUR.md §4 samples rejections. It is evidence, not part of this bound.

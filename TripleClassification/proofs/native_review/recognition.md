@@ -1,13 +1,14 @@
 # Recognition audit: questions 2–6
 
-Reviewed package: `TC_native_review_20261101`; frozen files were not modified.
+Reviewed package: `TC_native_review_20261101`. Its frozen files were not modified.
 
 ## Result and scope
 
 The recognition implication is valid under the project's stated use of common
 ambient unitaries, independent column monomials, and permutations of the three
-bases. I checked it directly, rather than treating the prior audit as evidence.
-The word "nearby" in the introduction of (22) does not restrict the argument:
+bases. It was checked directly here, rather than treating the prior audit as
+evidence. The word "nearby" in the checkpoint's introduction of the block form
+(the SM's Fourier block form) does not restrict the argument:
 the same form follows globally from unitarity. The positive-amplitude bound
 applies to every transition obtained this way. There are no omitted zero
 denominators or dependent cases.
@@ -18,7 +19,7 @@ conjugation, although the supplied theorem statement does not explicitly add
 antiunitaries to its equivalence relation. No antiunitary is necessary. The
 explicit unitary identity below repairs this sentence, using the exchange of
 the first two bases already permitted by the project reduction. This is not a
-counterexample or an obstruction to either native classification claim.
+counterexample or an obstruction to either classification claim of the certifier.
 
 This audit does not independently reprove the full Jacobian-rank, crossing,
 or product-isolation theorems. None of those is required to show that a triple
@@ -27,26 +28,27 @@ with the forced symmetry belongs to the asserted two classes. The adjective
 
 | Question | Assessment | Reason |
 |---|---|---|
-| 2: global cyclic form and block form (22) | **Verified** | Orbit normalization and row orthogonality give (1); any unitary 2-by-2 block has (22). |
-| 3: amplitudes and dependent cases | **Verified** | The top unit-entry circulants alone imply both discriminant inequalities; the resulting strict amplitude bound makes all divisions legal. Both alternatives in (26) follow from an equilateral-triple argument. |
-| 4: equivalence of product signs | **Verified after replacing the conjugation sentence by the unitary identity below** | The supplied statement does not explicitly authorize complex conjugation, but `H2 tensor F3` and a swap of bases give the equivalence without it. |
-| 5: all anchors and permutations of bases | **Verified for the intended equivalence** | Reanchoring uses one common ambient unitary and reorders the three bases; those operations are explicitly used in `refs/06_TripleClassification_README.md:83–92`. The target is the union of their equivalence classes. |
-| 6: fixed phase arrays imply an actual balanced symmetry | **Verified for every admissible action** | Explicit unitaries are diagonal at anchor I and row-permutation matrices at anchors H/K; common row-gauge conjugation returns the symmetry to the original triple. |
+| 2: global cyclic form and block form (the SM's cyclic form and Fourier block form) | **Verified** | Orbit normalization and row orthogonality give the cyclic form, and any unitary 2-by-2 block has the block form. |
+| 3: amplitudes and dependent cases | **Verified** | The top unit-entry circulants alone imply both discriminant inequalities, and the resulting strict amplitude bound makes all divisions legal. Both alternatives for w_t (the SM's paragraph on the algebraic recognition of the symmetric triples) follow from an equilateral-triple argument. |
+| 4: equivalence of product signs | **Verified after replacing the conjugation sentence by the unitary identity below** | The supplied statement does not explicitly authorize complex conjugation, but F̂₂ ⊗ F̂₃ and a swap of bases give the equivalence without it. |
+| 5: all anchors and permutations of bases | **Verified for the intended equivalence** | Reanchoring uses one common ambient unitary and reorders the three bases. Those operations are explicitly used in `refs/06_TripleClassification_README.md:83–92`. The target is the union of their equivalence classes. |
+| 6: fixed phase arrays imply an actual balanced symmetry | **Verified for every admissible action** | Explicit unitaries are diagonal at anchor I₆ and row-permutation matrices at anchors H/K, and common row-gauge conjugation returns the symmetry to the original triple. |
 
 ## 1. Global derivation of cyclic coordinates
 
-The hypotheses are an actual MUB triple and a unitary Q whose cube is scalar,
+The hypotheses are an actual MUB triple and a unitary T whose cube is scalar,
 whose normalized eigenvalues are 1, omega, omega-squared each with multiplicity
 two, which fixes one basis as rays and acts on each other basis by two
-three-cycles. Normalize the scalar so Q cubed is the identity. Apply the
+three-cycles. Normalize the scalar so T cubed is the identity. Apply the
 adjoint of the anchor basis as **one common** ambient unitary, then order its
 coordinate rays by the three eigenvalues. Thus rows are indexed by
-`(t,a) in Z3 x Z2` and Q acts by multiplication by `omega^t`.
+`(t,a) in Z3 x Z2` and T acts by multiplication by `omega^t`, so that T is the
+paper's diag(1,1,ω,ω,ω²,ω²).
 
 For every three-cycle of either non-anchor basis, choose a first vector and
-take its successive images under Q as the other two vectors. These differ
+take its successive images under T as the other two vectors. These differ
 from the original vectors only by column phases and a column order. This is
-consistent around the cycle because Q cubed is the identity. The unit-entry
+consistent around the cycle because T cubed is the identity. The unit-entry
 matrices therefore have the form
 
     H_(ta,sb) = omega^(ts) h_(ta,b),
@@ -57,13 +59,13 @@ Orthogonality of the two H rows `(t,0)` and `(t,1)` now reads
 
     3 [1 + h_(t0,1) conjugate(h_(t1,1))] = 0.
 
-Hence `h_(t1,1)=-h_(t0,1)` and the H formula in (1) follows with
+Hence `h_(t1,1)=-h_(t0,1)` and the H formula of the SM's cyclic form follows with
 `x_t=h_(t0,1)`. The same K row orthogonality, after putting
 `u_t=k_(t0,0)` and `v_t=k_(t1,0)`, gives
 
     k_(t0,1)/u_t = - k_(t1,1)/v_t = y_t.
 
-This is exactly the K formula in (1). All divisions are by unit entries.
+This is exactly the K formula of the SM's cyclic form. All divisions are by unit entries.
 There is no generic-position assumption and no independent ambient
 normalization of H and K. This supplies the omitted algebra behind
 `CHECKPOINT:29–46`.
@@ -80,10 +82,10 @@ Every two-by-two unitary with that top row has bottom row
     (z_t conjugate(beta_t), -z_t conjugate(alpha_t)),  |z_t|=1.
 
 For example `z_t=-det(C_t)` establishes this without dividing by alpha or
-beta. This proves (22) **globally**, even before establishing that the
+beta. This proves the SM's Fourier block form **globally**, even before establishing that the
 amplitudes are nonzero. The original wording "general nearby cyclic
 transition" at `CHECKPOINT:510` describes the use made of it in the tangent
-calculation; its algebraic derivation does not require nearness.
+calculation, and its algebraic derivation does not require nearness.
 
 ## 2. The amplitude inequalities apply globally
 
@@ -107,29 +109,30 @@ terms. The cubic discriminant is
     q=|gamma|^2, p=Re(gamma^3).
 
 Applying the same argument to b, whose correlation is minus gamma, proves
-both (10). Adding them gives
+both inequalities 27 − 18q − q² ± 8p ≥ 0 of the SM's amplitude bounds. Adding them gives
 
     q^2 + 18q - 27 <= 0,
     0 <= q <= 6 sqrt(3)-9 < 3/2.
 
-The exact Fourier amplitudes are (9), so each of alpha and beta satisfies
+The exact Fourier amplitudes are those of the SM's amplitude bounds, so each of alpha and beta satisfies
 
     |alpha_t|^2, |beta_t|^2
        >= [3 - 2 sqrt(6 sqrt(3)-9)]/6 > 0.
 
 Even the weaker bound `> 1/2 - 1/sqrt(6) > 0` is sufficient. Consequently
-all amplitude ratios used in Section 6.2, all `r_t=|alpha_t beta_t|`, and
+all amplitude ratios used in the checkpoint's Section 6.2, all `r_t=|alpha_t beta_t|`, and
 all divisions in the flat lift are strictly nonzero. Repeated roots of the
 ratio polynomial and vanishing discriminants cause no exception.
 
-## 3. Bottom flatness, dependence, and completeness of (26)
+## 3. Bottom flatness, dependence, and completeness of the alternatives for w
 
 Flatness of the top unit-entry circulants gives
 
     sum_t conjugate(alpha_t) alpha_(t+1) = 0,
     sum_t conjugate(beta_t) beta_(t+1) = 0.
 
-The lower Fourier rows in (22) give exactly (23), with
+The lower Fourier rows of the block form give exactly the bottom-flatness equations
+of the SM's recognition equations, with
 `w_t=z_t conjugate(z_(t+1))`. The sign/conjugation is correct: for the lower
 beta block its cyclic correlation is
 
@@ -149,7 +152,7 @@ If A and B are dependent, none of their entries vanishes. Put
 `rho_t rho_(t+1)` is constant. Dividing its three equalities gives all rho
 equal. Parseval gives equal total squared norms `sum |alpha_t|^2 =
 sum |beta_t|^2 = 3/2`, so rho is one and every amplitude square is 1/2.
-Equation (9) then gives gamma zero. This is a global argument, not just the
+The SM's amplitude formula then gives gamma zero. This is a global argument, not just the
 tangent conclusion originally drawn at `CHECKPOINT:528–538`.
 
 After allowed scalar orbit phases normalize `a_0=b_0=1`, a zero-correlation
@@ -160,8 +163,8 @@ unit triple is necessarily
 
 where epsilon and eta are plus or minus one. Indeed, its consecutive ratios
 are three unit numbers of zero sum and product one, hence a permutation of
-the three cube roots; every permutation of three elements is affine over
-Z3. The Gauss sums are exactly (25). They give
+the three cube roots, and every permutation of three elements is affine over
+Z3. The Gauss sums are exactly those of the SM's paragraph on the algebraic recognition of the symmetric triples. They give
 `A_t = constant * omega^(epsilon t)` and
 `B_t = constant * omega^(eta t)`, so dependence means epsilon equals eta.
 
@@ -170,10 +173,11 @@ The remaining equation is an equal-modulus zero sum
     sum_t w_t omega^(epsilon t)=0.
 
 Its three terms must be an equilateral triple. Write their permutation as
-`omega^(a t+b)` with `a=+1` or `-1`; the common scalar is a cube root because
-the product of the w's is one. If `a=epsilon`, w is constant; if
+`omega^(a t+b)` with `a=+1` or `-1`. The common scalar is a cube root because
+the product of the w's is one. If `a=epsilon`, w is constant. If
 `a=-epsilon`, its exponent slope is `-2epsilon=epsilon` modulo three.
-This proves precisely the two alternatives in (26). No third alternative
+This proves precisely the two alternatives w_t = ω^j and w_t = ω^j ω^(εt) of
+the SM's paragraph on the algebraic recognition of the symmetric triples. No third alternative
 or continuous residual phase remains.
 
 ## 4. Why recognition of the transition recognizes the full triple
@@ -185,7 +189,7 @@ Fourier block is
     H_t = (1/sqrt(2)) [[1,x_t],[1,-x_t]],
     K_t = (1/sqrt(2)) [[u_t,u_t y_t],[v_t,-v_t y_t]].
 
-Equating `H_t^* K_t` with (22) gives
+Equating H_t†K_t with the SM's Fourier block form gives
 
     u_t = alpha_t + x_t z_t conjugate(beta_t),
     v_t = alpha_t - x_t z_t conjugate(beta_t).
@@ -194,9 +198,10 @@ The unit moduli of u and v, together with the nonzero amplitudes, force
 
     x_t z_t = +/- i alpha_t beta_t / |alpha_t beta_t|.
 
-The positive choice is exactly (12), with x replaced by `z_t^-1 x_t`.
+The positive choice is exactly the SM's canonical lift, with x
+replaced by `z_t^-1 x_t`, which is the SM's dependent lift.
 The negative choice is a common interchange of the two anchor coordinates
-in that eigenspace; it swaps u and v and changes both x and y in sign.
+in that eigenspace. It swaps u and v and changes both x and y in sign.
 It therefore supplies no additional class. This proves the asserted lift
 uniqueness up to the permitted gauges and row-pair swaps.
 
@@ -213,37 +218,37 @@ character. The canonical y is also such a character, while
 
 Independent cyclic shifts and phases of H and K's column orbits remove the
 linear characters and constants. Reordering tensor factors if desired,
-the triple becomes
+the triple becomes, with F̂ₙ = Fₙ/√n the normalized Fourier matrix,
 
-    I,
-    H2 tensor F3,
-    (diag(1,-i) H2) tensor (D_sigma F3),
+    I₆,
+    F̂₂ ⊗ F̂₃,
+    (diag(1,-i) F̂₂) ⊗ (D_sigma F̂₃),
 
 where `D_sigma=diag(omega^(sigma t^2))`, `sigma=-epsilon`.
-The qubit bases `diag(1,-i)H2` and `diag(1,i)H2` differ only by a swap of
+The qubit bases diag(1,−i)F̂₂ and diag(1,i)F̂₂ differ only by a swap of
 their two columns. This is the product type claimed by the checkpoint.
 
 ## 5. Explicit product-sign equivalence without conjugation
 
-Let `Y2=diag(1,i)H2`, and let `P_sigma e_s=e_(sigma s)` for qutrit indices.
-The normalized Fourier matrices obey
+Let Y2 = diag(1,i)F̂₂, and let `P_sigma e_s=e_(sigma s)` for qutrit indices.
+The normalized Fourier matrix F̂₃ obeys (the SM's product equivalence)
 
-    F3 D_sigma F3 = i sigma D_-sigma F3 P_sigma D_-sigma.
+    F̂₃ D_sigma F̂₃ = i sigma D_-sigma F̂₃ P_sigma D_-sigma.
 
 This is the elementary three-term Gauss sum, valid for both sigma signs.
 It follows by expanding `(r+s)^2`, using `-2=1` modulo three. The rightmost
 two factors are a column monomial. The qubit identity is
 
-    H2 Y2 = Y2 X diag(exp(i pi/4), exp(-i pi/4)),
+    F̂₂ Y2 = Y2 X diag(exp(i pi/4), exp(-i pi/4)),
 
 where X interchanges the two columns. Hence the single common ambient
-unitary `U=H2 tensor F3` sends the ray bases as follows:
+unitary U = F̂₂ ⊗ F̂₃ sends the ray bases as follows:
 
-    I                         -> H2 tensor F3,
-    H2 tensor F3              -> I,
-    Y2 tensor D_sigma F3      -> Y2 tensor D_-sigma F3.
+    I₆                 -> F̂₂ ⊗ F̂₃,
+    F̂₂ ⊗ F̂₃            -> I₆,
+    Y2 ⊗ D_sigma F̂₃    -> Y2 ⊗ D_-sigma F̂₃.
 
-Here `F3^2` is a permutation of coordinate rays. Exchange the first two
+Here F̂₃² is a permutation of coordinate rays. Exchange the first two
 bases afterward. This is an equivalence from either sign to the other
 using only a unitary, column monomials, and one basis transposition.
 It replaces `CHECKPOINT:645`'s unneeded appeal to complex conjugation.
@@ -260,17 +265,18 @@ The project reduction explicitly reorders bases and then applies the
 adjoint of the new first basis (`README:83–92`). The same operation takes a
 symmetry at H or K to the first-anchor hypothesis used above. Membership
 in the asserted union of equivalence classes is unchanged. The theorem
-statement should spell out those permitted operations; treating it as a
+statement should spell out those permitted operations. Treating it as a
 classification of strictly ordered triples while silently forbidding
 basis permutations would be a different statement.
 
 For completeness, the code's fixed point supplies the actual unitary
 directly. Let `Rop X[r,c]=X[Rr,c]`, `D=diag(omega^labels)`. From
-`moving_symmetry.py:103–111`, exponentiating `b+P(x-b)` gives:
+`moving_symmetry.py:103–111`, exponentiating `b+P(x-b)` gives the table below. Here `S` and
+`T` are the code's H-column and K-column permutations, not the symmetry T.
 
 | Anchor | H action | K action |
 |---|---|---|
-| I | `D H[:,S]` | `D K[:,T]` |
+| I₆ | `D H[:,S]` | `D K[:,T]` |
 | H | `Rop H D^-1` | `Rop K[:,T]` |
 | K | `Rop H[:,S]` | `Rop K D^-1` |
 
@@ -278,12 +284,12 @@ The wrap-around of the cycle positions changes the lifted phase by an
 integer multiple of `2 pi`, so these equalities are exact upon
 exponentiation, for every balanced label assignment.
 
-At an I-anchor fixed point, choose `Q=D`. Then Q sends the non-anchor
+At an I₆-anchor fixed point, choose T = `D`. Then T sends the non-anchor
 columns by the inverse three-cycle permutations. At an H-anchor fixed
-point choose `Q=Rop`; the equations give `QH=HD` and send K's columns by
-`T^-1`, while Q itself permutes the coordinate rays by `R^-1`. At a
-K-anchor fixed point the argument interchanges H and K. In all cases
-`Q^3=I`, its eigenvalues have multiplicity two, and the two non-anchor
+point choose T = `Rop`. The equations give TH = HD and send K's columns by
+`T^-1`, the inverse of the code's K-column permutation, while the symmetry T
+itself permutes the coordinate rays by `R^-1`. At a K-anchor fixed point the
+argument interchanges H and K. In all cases T³ = I₆, its eigenvalues have multiplicity two, and the two non-anchor
 ray permutations each consist of two three-cycles. The code checks these
 cycle structures and the balanced labels at `moving_symmetry.py:87–91`.
 
@@ -292,7 +298,7 @@ shared row-phase direction and the independent column-phase directions.
 Consequently replacing the original lifted array y by
 `x=b+W(y-b)` is exactly a permitted gauge transformation. If the original
 bases are obtained from the fixed ones by common row unitary Drow and
-independent column phases, conjugate Q by Drow. That is an actual unitary
+independent column phases, conjugate T by Drow. That is an actual unitary
 symmetry of the original triple, with the same cube, spectrum and ray
 cycle structure. Arbitrary integer windings make no change to those
 physical matrices.

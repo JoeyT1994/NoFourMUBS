@@ -2,22 +2,23 @@
 
 Date: 1 November 2026. Reviewer scope: the frozen sources in
 `TC_native_review_20261101/code/proof/theorems/TC_triple_classification/family_neighbourhoods`,
-plus the `all_cliques` implementation, the relevant Stage C clustering
-implementation, and the fixed geometry constructor. No frozen source was edited.
+plus the `all_cliques` implementation, the relevant clustering implementation of
+the local tests (Stage C in the code), and the fixed geometry constructor. No frozen source was edited.
 
 ## Verdict within this scope
 
-**Verified, conditional on the Stage C enclosures at the actual call sites and
-the supplied whole-ball model.** I found no unsound discard of a genuine
-completing basis in the cover, contraction, scalar exclusion, refit, or fine-bin
-code reviewed here. This verdict does not independently certify the Stage C
-floating-point error theorem, its input preconditions, the normal-form theorem,
-the symmetry-forcing routine, or analytic recognition. Those are separate
+**Verified, conditional on the enclosures of the local tests at the actual call
+sites and the supplied whole-ball model.** No unsound discard of a genuine
+completing basis was found in the cover, contraction, scalar exclusion, refit, or
+fine-bin code reviewed here. This verdict does not independently certify the
+floating-point error theorem of the local tests, its input preconditions, the
+enclosure of H (`patches.normal_form`), the symmetry-forcing routine, or analytic
+recognition. Those are separate
 dependencies, not consequences of successful regression tests.
 
 There is no critical or major finding in the functions assigned to this review.
 The horizontal geometry requirement described below is material and verified
-for the production constructor; arbitrary replacement models would not have
+for the production constructor. Arbitrary replacement models would not have
 the same guarantee.
 
 ## 1. Preservation of every actual column and basis
@@ -26,13 +27,13 @@ the same guarantee.
 
 `native_cover.py:65–156` uses the whole-ball H model in its horizontal row
 gauge. A corresponding common row rephasing of K preserves all the triple
-conditions. Each K column can then independently be dephased for the Stage C
-torus and later represented by a mean-zero real phase lift. Both changes
+conditions. Each K column can then independently be dephased for the torus of
+the local tests and later represented by a mean-zero real phase lift. Both changes
 preserve the rays and their mutual orthogonality.
 
 For a closed five-coordinate bin of half-width `a = pi/M`, its displacement
 before projection is `(0,d1,...,d5)` with each `|dj| <= a`. The squared norm
-after subtracting the mean is a convex quadratic on the cube; its maximum is
+after subtracting the mean is a convex quadratic on the cube, so its maximum is
 at a vertex. Direct rational evaluation of the 32 vertices gives
 `(29/6)*a^2`, attained when the five signs split 3–2. Thus the code's
 `rho = (pi/M)*sqrt(29/6)` encloses the entire closed bin, including its
@@ -41,12 +42,12 @@ boundary. No open-cell assumption is used.
 `native_cover.py:145–152` selects an integer winding for each coordinate,
 subtracts it in Arb, and projects off the mean. The integer need not be the
 mathematically nearest winding for soundness: any selected integer gives a
-legitimate lift; the subsequent Arb norm measures the actual selected lift.
+legitimate lift, and the subsequent Arb norm measures the actual selected lift.
 The code does not infer a distance from floating-point nearest-root selection.
 
 ### 1.2 Labels, colours, and quotient cliques
 
-The Stage C label radius is strictly below 0.1 cycles. Two points in one
+The label radius of the local tests is strictly below 0.1 cycles. Two points in one
 such label have phase lifts whose difference norm is below `4*pi*0.1`.
 The exponential map is 1-Lipschitz in radians for unnormalised unit-entry
 vectors, whereas two orthogonal length-sqrt(6) vectors are distance sqrt(12)
@@ -66,7 +67,7 @@ clique caps raise instead of returning a truncated list.
 
 ### 1.3 Arc consistency and cluster replay
 
-`native_cover.py:110–121` preserves an actual label tuple inductively: for
+`native_cover.py:110–121` preserves an actual label tuple inductively. For
 each of its labels, its other five actual labels provide the required
 neighbours in its own colour pattern. Taking the union over patterns does
 not weaken this preservation argument. Rebuilding the quotient graph and
@@ -78,8 +79,8 @@ integer wrap modulo 192, the same float conversion, mean subtraction,
 row-wise norm, and radius comparison. It additionally checks that every
 replayed first midpoint equals the stored centre and that every bin receives
 an assignment. A mismatch raises. Float membership here is a deterministic
-partition choice; Stage C's enclosing label radius, with its error margin,
-is what makes the chosen partition a cover. The later Arb radius is rebuilt
+partition choice. The enclosing label radius of the local tests, with its error
+margin, is what makes the chosen partition a cover. The later Arb radius is rebuilt
 from each bin itself.
 
 ### 1.4 Edge removals and complete label search
@@ -99,11 +100,11 @@ bin (carrier zero, error rho) against a previously bounded reference column.
 It removes that bin only if one required orthogonality is impossible. Its
 rebuilt contractor has the same v0 and T, making intersection with the old
 epsilon valid. Retaining the original cover object after this local
-improvement can only restore extra possibilities; it cannot lose a true K.
+improvement can only restore extra possibilities. It cannot lose a true K.
 
 `native_cover.py:214–239` recursively searches the full label graph for the
 six specified colours. A completed empty search is an exclusion. A cap
-returns `UNRESOLVED`, never `EXCLUDED`; a found clique is a proposal only.
+returns `UNRESOLVED`, never `EXCLUDED`, and a found clique is a proposal only.
 
 ## 2. Taylor inequalities and signs
 
@@ -111,12 +112,12 @@ returns `UNRESOLVED`, never `EXCLUDED`; a found clique is a proposal only.
 
 For an H column and a K column, the equation is
 
-`f = (|Hc* v|^2-6)/6 = (1/3) sum_{a<b} cos(va-vb-Hac+Hbc)`.
+`f = (|Hc† v|^2-6)/6 = (1/3) sum_{a<b} cos(va-vb-Hac+Hbc)`.
 
 This is exactly the `z/3` convention in `native_columns.build`, the mixed
 terms in `conditioned_columns.build`, and the last 36 entries of the full
 96-equation layout. H/K orthogonality equations are the unnormalised complex
-inner products; their real and imaginary parts use no factor 1/3 or 1/6.
+inner products, and their real and imaginary parts use no factor 1/3 or 1/6.
 
 For mean-zero six-vectors d,
 `sum_{a<b}(da-db)^2 = 6||d||^2` and `|da-db| <= sqrt(2)||d||` give
@@ -140,13 +141,13 @@ bound for e. The signed w-w Hessian must be added to `A JH H2` before
 taking its norm. The code does this with the same sign. The w-e term has
 coefficient one and the diagonal w-w/e-e terms have coefficient one half.
 The alternative quadratic form in `(w,v-v0)` is an algebraic rewriting of
-the same Hessian; taking the smaller of its bound and the affine-error
+the same Hessian, so taking the smaller of its bound and the affine-error
 bound is legitimate. This does not change the separately retained linear
 carrier defect.
 
 The normal correction h contributes the exact linear terms already
 accounted for above. Its remaining quadratic contribution is bounded by
-`2 a n+n^2`; the cubic remainder uses `a+n`. This follows directly from
+`2 a n+n^2`, and the cubic remainder uses `a+n`. This follows directly from
 the Hessian bound 2. The code's `ncol`, `dcol`, and `ucol` correctly use
 the mean-zero six-row slice of each H column.
 
@@ -168,7 +169,7 @@ enclosure lies in a smaller one. No root existence or uniqueness is used.
 
 `conditioned_columns.py:12–115` adds the real and imaginary inner products
 with already enclosed reference columns. Its lift includes the reference
-carriers; the target carrier is then proposed using that lift. Every
+carriers, and the target carrier is then proposed using that lift. Every
 reference epsilon enters through its own linear sensitivity and every
 target/reference block pair enters the signed quadratic table. The
 plain-coordinate alternative zeroes only the target carrier, as required.
@@ -177,12 +178,12 @@ The target/reference orthogonality cubic bound uses the smaller of a
 carrier-difference enclosure and the sum of the independently valid total
 phase radii. Both are valid. `contract` translates the old epsilon to the
 new carrier by `||Tnew-Told||r`. `refine_pattern` updates references
-sequentially using bounds already proved; it does not assume all final
+sequentially using bounds already proved. It does not assume all final
 bounds simultaneously.
 
 The choice between two valid carriers may use epsilon or total phase
-radius as a heuristic. Either selected pair `(T,epsilon)` remains valid;
-their epsilons are not intersected across different carriers.
+radius as a heuristic. Either selected pair `(T,epsilon)` remains valid,
+and their epsilons are not intersected across different carriers.
 
 ### 2.4 Coupled contraction and scalar exclusion
 
@@ -190,16 +191,16 @@ their epsilons are not intersected across different carriers.
 `delta_{c,d}*(delta_{r,s}-1/6)`, which removes each column's mean.
 The extraction `range(c,36,6)` and the final `rows[c::6]` both follow that
 same order. H2 columns are ordered `4*a+b`, as created by
-`wholeball.derivative2`; all 4-by-4 reshapes match it.
+`wholeball.derivative2`, and all 4-by-4 reshapes match it.
 
 For each scalar output, the coupled quadratic bound includes exactly the
 six necessary terms:
 
-1. `(r^2/2)||L^T B L+(A JH H2)_i||`;
-2. `r E ||L^T B K||`;
-3. `(E^2/2)||K^T B K||`;
-4. `r N ||L^T B H||`;
-5. `E N ||K^T B H||`;
+1. `(r^2/2)||L^T B L+(A JH H2)_i||`,
+2. `r E ||L^T B K||`,
+3. `(E^2/2)||K^T B K||`,
+4. `r N ||L^T B H||`,
+5. `E N ||K^T B H||`,
 6. `(N^2/2)||H^T B H||`.
 
 The full residual, inverse defect, linear carrier defect, and Xz term
@@ -209,8 +210,8 @@ All new column epsilons are computed from the preceding enclosures before
 intersection, so simultaneous updates are valid by induction.
 
 `basis_exclusion.py:8–60` expands an arbitrary real functional y of the
-same 96 equations. Its w-w Hessian includes `y JH H2`; its linear K terms
-retain six separate column epsilons; the remaining H-normal quadratic
+same 96 equations. Its w-w Hessian includes `y JH H2`, its linear K terms
+retain six separate column epsilons, and the remaining H-normal quadratic
 terms are conservatively bounded using the full signed Hessian norm.
 The exclusion is only the strict Arb inequality `abs(y F(q)) > rhs`.
 The numerical regularised solves and scaling propose y and do not accept
@@ -232,7 +233,7 @@ not acceptance tests.
 After `joint_basis.refine` replaces T, its output intentionally contains
 only `model`, `v0`, `T`, and `Tnorm`, with the new bounds. In
 `run.py:89–97` only `basis_exclusion.exclude` and `moving_symmetry.classify`
-receive that output; neither reads the old cached single-column Hessian
+receive that output, and neither reads the old cached single-column Hessian
 coefficients. If fine refinement is attempted, `run.py:98–105` starts
 again from the original cover and invokes `contract_patterns` afresh.
 There is no stale-contractor use across this carrier change.
@@ -272,8 +273,8 @@ about that empty pattern is vacuous.
 `patches.normal_form` always obtains X from `wholeball.geometry`:
 `FREE` is the 25 dephased coordinates minus the four seed coordinates,
 and the frozen change-of-basis matrix is 21-by-21. No record field can
-change this width. U is a combination of the fixed horizontal V and X;
-H2 is `X*h2`. Hence Q0,U,H2,X are all column-mean-zero (indeed row- and
+change this width. U is a combination of the fixed horizontal V and X,
+and H2 is `X*h2`. Hence Q0,U,H2,X are all column-mean-zero (indeed row- and
 column-mean-zero) in their exact underlying meanings.
 
 This also justifies using projected H-column differences in the cubic
@@ -289,7 +290,7 @@ API should state or check horizontal geometry and X width. The frozen
 The new arithmetic acceptance gates reviewed here are strict Arb
 inequalities. Minima/maxima either choose among proved upper endpoints or
 choose between separately valid enclosures. Binary64 SVD/least-squares
-values propose matrices; certified Gram/LDL norms and residual/defect
+values propose matrices, and certified Gram/LDL norms and residual/defect
 bounds justify their subsequent use. The direct-route epsilon thresholds
 in `run.py` only choose which rigorous symmetry attempt to run.
 
@@ -297,12 +298,12 @@ All caps found here either raise or return an unresolved status.
 `run_ball` catches per-pattern arithmetic/runtime failures as
 `NOT ESTABLISHED` and catches every outer exception without retaining a
 claim. A float heuristic failure cannot produce an empty verdict by
-dropping its unfinished pattern. The inherited Stage C decisions still
+dropping its unfinished pattern. The inherited decisions of the local tests still
 require their own error theorem and call-site preconditions.
 
 `run.py:134–138` accepts the ball only when every remaining pattern is
 `CERTIFIED` or `EXCLUDED`. `CERTIFIED` means a universal classification
-of every actual completion; it does not assert existence. A pattern that
+of every actual completion. It does not assert existence. A pattern that
 is empty but passes symmetry forcing remains harmless. If no patterns
 remain, or every pattern is excluded, no actual K remains, so
 `CERTIFIED EMPTY` is the correct logical consequence. A complete torus
@@ -313,12 +314,12 @@ argument.
 
 | Brief question | Status within this review | Reason / limitation |
 |---|---|---|
-| 1 | **Verified for the cover, contractions, refits, and exclusions** | Every actual K survives these operations. Symmetry windings, recognition, Stage C application, and the normal form require the other review components. |
+| 1 | **Verified for the cover, contractions, refits, and exclusions** | Every actual K survives these operations. Symmetry windings, recognition, application of the local tests, and the enclosure of H require the other review components. |
 | 7 | **Verified for the eight modules reviewed here** | Normalisations, `6*r+c` K ordering, and `4*a+b` H2 ordering agree. The symmetry-specific functions are outside this component. |
-| 10 | **Verified for the new gates, conditional on Stage C** | Strict Arb or exhaustive graph decisions; caps and exceptions fail closed; empty fine-bin colours are valid exclusions. The Stage C input guard is audited separately. |
-| 11 | **Verified** | No stale carrier-dependent coefficients are reused; fine indices remain global colour indices; production X has exactly 21 columns. |
+| 10 | **Verified for the new gates, conditional on the local tests** | Strict Arb or exhaustive graph decisions. Caps and exceptions fail closed, and empty fine-bin colours are valid exclusions. The input guard of the local tests is audited separately. |
+| 11 | **Verified** | No stale carrier-dependent coefficients are reused, fine indices remain global colour indices, and production X has exactly 21 columns. |
 | 12 | **Verified** | Existence is never claimed, so classifying an empty pattern is vacuous and sound. |
-| 13 | **Verified, conditional on the dependencies of each route** | Empty covers/pattern lists imply no completion. A root or sub-cell wrapper may accept either universal verdict when it has established the corresponding represented domain; wrapper domain checks are audited separately. |
+| 13 | **Verified, conditional on the dependencies of each route** | Empty covers/pattern lists imply no completion. A root or sub-cell wrapper may accept either universal verdict when it has established the corresponding represented domain. Wrapper domain checks are audited separately. |
 
 ## 6. Independent executable checks
 
@@ -328,18 +329,18 @@ and the supplied exact dependency versions (python-flint 0.9.0,
 NumPy 2.2.6, SciPy 1.17.0).
 
 - `cover_checks/check_cover_discrete.py` checks the exact rational 29/6
-  bin-radius factor; compares exhaustive six-cliques against direct
-  combinatorial enumeration on 256 graphs; checks fine arc consistency
+  bin-radius factor, compares exhaustive six-cliques against direct
+  combinatorial enumeration on 256 graphs, checks fine arc consistency
   and label search on 256 graphs against all 64 six-colour assignments
-  in each graph; and checks capped/empty-colour paths. **PASS.** All 81
+  in each graph, and checks capped/empty-colour paths. **PASS.** All 81
   actual label cliques in those graph fixtures were preserved.
 - `cover_checks/check_contractor_zero.py` constructs the exact product
   triple using rational multiples of pi in Arb. It creates an explicit
   horizontal affine/quadratic model containing that zero at specified
-  rational w,z, and carries it through bin localisation, native
-  contraction, two- and four-reference conditioned refinement, joint
+  rational w,z, and carries it through bin localisation, the certifier's
+  single-column contraction, two- and four-reference conditioned refinement, joint
   contraction, and scalar exclusion. **PASS.** The joint contraction took
-  13 iterations; every exact column error and phase displacement remained
+  13 iterations, and every exact column error and phase displacement remained
   strictly inside the corresponding returned bound. The scalar exclusion
   retained the known zero. The minimum verified epsilon-minus-actual-error
   margin in the joint result was approximately 1.9469e-4.
@@ -349,16 +350,24 @@ Machine-readable outputs are `cover_checks/discrete_results.json` and
 
 ## 7. Dependencies checked and trusted
 
-**Checked directly:** the cited implementation and control flow; the
-single/mixed/orthogonality Taylor constants; signed quadratic identities;
-the index conventions; exact-bin geometry; graph enumeration logic;
-colour/label/fine-bin preservation; normal-form geometry width and
-horizontal-subspace construction; the use of the shared norm routines
-as enclosing rather than numerical estimates.
+**Checked directly:**
+- the cited implementation and control flow,
+- the single/mixed/orthogonality Taylor constants,
+- signed quadratic identities,
+- the index conventions,
+- exact-bin geometry,
+- graph enumeration logic,
+- colour/label/fine-bin preservation,
+- the width of X in the enclosure and the horizontal-subspace construction,
+- the use of the shared norm routines as enclosing rather than numerical
+  estimates.
 
-**Trusted or assigned elsewhere:** Stage C's own global binary64 error
-proof and its applicable input bounds; C1 and the whole-ball theorem;
-global atlas and tree coverage; full symmetry covariance and the averaged
-symmetry inequality; recognition of balanced triples; and the sub-cell
-record's branch semantics. No full original-ball replay was performed by
+**Trusted or assigned elsewhere:**
+- the global binary64 error proof of the local tests and its applicable input
+  bounds,
+- the enclosure of H (claim C1 in the code) and the whole-ball theorem,
+- global atlas and tree coverage,
+- full symmetry covariance and the averaged symmetry inequality,
+- recognition of balanced triples,
+- the sub-cell record's branch semantics. No full original-ball replay was performed by
 this component, and no global classification theorem is asserted here.

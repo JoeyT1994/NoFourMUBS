@@ -6,21 +6,25 @@ phases θ by balls. What a certificate claims is defined in [`SPEC.md`](../seed_
 the following checks from the specification.
 
 - The enclosure of the Hadamard matrices over each seed ball (claim C1, SPEC §2). Over the ball, the phases of every
-  completion lie in P + U w + ν, with ‖w‖ ≤ r and ‖ν‖ ≤ n, up to multiples of 2π.
-- Stage C on that enclosure. Stage C is the local test run inside each ball
-  ([`proof/atlas/STAGEC.md`](../atlas/STAGEC.md)). It covers the unbiased vectors by labels (the vector-cover test)
-  and then rules out two orthogonal 6-cliques (the graph-search test).
+  completion lie in P + U w + ν, with ‖w‖ ≤ r and ‖ν‖ ≤ n, up to multiples of 2π. Here `r` is the paper's radius r_H
+  and `Mth` below is the paper's M_{θ₀}.
+- The local tests (Stage C in the code) on that enclosure ([`proof/atlas/STAGEC.md`](../atlas/STAGEC.md)). They cover
+  the unbiased vectors by labels (the vector-cover test) and then rule out two 6-cliques of labels that are
+  pairwise orthogonal within each group and unbiased across the two groups (the graph-search test).
 - The boundary transfers (claim C2, SPEC §4), and the coverage of every boundary by them. A transfer certifies that a
-  box on the boundary of a ball or record lies inside another ball or record. The kinds are T0 (into a seed ball at
-  the same corner), T1 (into a seed ball at another corner), T2 (from a seed ball into a record), rec (from a record
-  into a record) and T1′ (from a record into a seed ball).
-- Tao's zero-dimensional record, a ball around Tao's matrix S6.
-- The edge balls of SPEC §10. They lie in a four-dimensional chart through the Fourier matrix F6, and they replace
-  F6's record. The checks are C1e (the enclosure over an edge ball), Stage C on that enclosure, the T3 transfers from
-  seed spheres into edge balls, and the cover of each edge sphere by T1 transfers.
+  box on the boundary of a ball or record lies inside another ball or record. The kinds are T0 (same corner: into a
+  seed ball at the same corner), T1 (corner change: into a seed ball at another corner), T3 (into the chart at F₆,
+  below), T2 (from a seed ball into a record), rec (from a record into a record) and T1′ (from a record into a seed
+  ball). T2, rec and T1′ move into or out of full-matrix records and are not used by the final certificate.
+- Tao's zero-dimensional record, a ball around Tao's matrix 𝒯, here its representative with phases P = 2πK/3
+  (S₆ in the SM).
+- The ball at F₆ of SPEC §10 (an edge ball, or the X-ball, in the code). It lies in a four-dimensional chart through
+  the Fourier matrix F₆, and it replaces F₆'s record. The checks are C1e (the enclosure over the ball), the local tests
+  on that enclosure, the transfers from seed spheres into the chart at F₆ (T3), and the cover of its sphere by
+  corner-change (T1) transfers.
 - Seed balls in either gauge of SPEC §11: dephased, or horizontal (`"gauge": "hor"`).
 
-The 25-dimensional full-matrix records ("records" below) need the normal bound, Stage C and the F6 check. For these
+The 25-dimensional full-matrix records ("records" below) need the normal bound, the local tests and the F₆ check. For these
 the checker reuses the existing Julia checker [`proof/independent`](../independent/). Its source
 `proof/independent/src` is loaded unchanged as the submodule `IndepAtlas`.
 
@@ -45,7 +49,7 @@ The Julia environment is `../independent/jlenv`, with IntervalArithmetic 1.0.10.
 text. Every float passes through `float.fromhex` and `float.hex`, so the conversion is exact.
 
 The options are:
-- `--fast`: Stage C decides with float margins only, without the interval replay.
+- `--fast`: the local tests decide with float margins only, without the interval replay.
 - `--limit K` and `--only i,j`: check only a subset of the seed balls.
 - `--partial`: exit with status 0 when every checked object passed.
 - `--c1-depth D` (default 4) and `--split-depth S` (default 2): the extra halving levels allowed for C1 boxes and for
@@ -56,15 +60,15 @@ The options are:
 
 `run_rusty.sh` is a Slurm script for one cluster node. It starts 8 shard processes of 16 threads each.
 One garbage collector per process scales better than 128 threads in one process. A final run then imports their
-receipts, checks the records, F6 and Tao, and writes the verdict.
+receipts, checks the records, F₆ and Tao, and writes the verdict.
 
 OUTDIR receives these files:
 - `BINDING.txt`: SHA-256 digests of the certificate, every source file (including `../independent/src`) and the
   Julia environment, plus the Julia version and the options.
-- `records.tsv`: Step 3 (the normal bound and Stage C) of every record.
-- `seeds.tsv`: for each seed ball, C1 (the certified bound against n), Stage C and C2.
+- `records.tsv`: Step 3 (the normal bound and the local tests) of every record.
+- `seeds.tsv`: for each seed ball, C1 (the certified bound against n), the local tests and C2.
 - `recbound.tsv`: C2 of every record.
-- `RESULT.txt`: PASS or FAIL for each object with the reason, F6, Tao, timings, a summary and the verdict.
+- `RESULT.txt`: PASS or FAIL for each object with the reason, F₆, Tao, timings, a summary and the verdict.
 
 Receipts are appended as objects finish. A rerun resumes only if `BINDING.txt` matches the new run exactly.
 
@@ -77,17 +81,17 @@ checked object passed.
 | `src/tm.jl` | second-order Taylor models in four variables, with interval coefficients and rigorous remainders |
 | `src/seedmap.jl` | the matched completion H_o(θ) on a box: sides (parametric Krawczyk), Ψ, D, arg D, giving 36 phase models |
 | `src/c1.jl` | claim C1: the box cover of the ball and the bound on each box |
-| `src/stagec_seed.jl` | Stage C on P + U w + ν, through the existing `IndepAtlas.stage_c` |
+| `src/stagec_seed.jl` | The local tests on P + U w + ν, through the existing `IndepAtlas.stage_c` |
 | `src/normal_tube.jl` | the normal component ν of a record's Hadamards over an η-box (Krawczyk in N), for T1′ |
 | `src/transfers.jl` | T0, T1, T2, rec, T1′, and the dyadic coverage of spheres and shells |
-| `src/tao.jl` | Tao's record: S6 in the ball, σ, isolation L R < σ, the normal bound, Stage C |
-| `src/edge.jl` | edge balls: the two augmented 7-unknown systems, their Krawczyk tubes, ∂₄R > 0 and g > 0, C1e |
-| `src/edge_transfers.jl` | T3 (seed sphere into an edge ball), the edge sphere cover by T1, F6 = H(0) |
-| `src/graph.jl` | SPEC §10.1: (G) the graph property near F6, (D) the chart derivative and the image of the edge ball |
-| `src/wholeball.jl` | C1 for a whole seed ball from one computation at its centre (theorem Z) |
-| `src/edge_wholeball.jl` | the X-ball by one contraction of its augmented system (theorem ZT) |
-| `src/patches.jl` | T1 transfers on sphere boxes from the whole-ball model (theorem ZT) |
-| `src/caps.jl` | transfers on spherical caps and the exact coverage of each sphere by caps (theorems ZC, ZC2a and ZC2b) |
+| `src/tao.jl` | Tao's record: 𝒯 in the ball, σ, isolation L R < σ, the normal bound, the local tests |
+| `src/edge.jl` | the ball at F₆: the two augmented 7-unknown systems, their Krawczyk tubes, ∂₄R > 0 and g > 0, C1e |
+| `src/edge_transfers.jl` | transfers from a seed sphere into the chart at F₆ (T3), the cover of the sphere of the ball at F₆ by T1, F₆ = H(0) |
+| `src/graph.jl` | SPEC §10.1: (G) the graph property near F₆, (D) the chart derivative and the image of the ball at F₆ |
+| `src/wholeball.jl` | C1 for a whole seed ball from one computation at its centre (the completion-Hessian theorem) |
+| `src/edge_wholeball.jl` | the ball at F₆ by one contraction of its augmented system (the whole-ball transfer theorem) |
+| `src/patches.jl` | T1 transfers on sphere boxes from the whole-ball model (the whole-ball transfer theorem) |
+| `src/caps.jl` | transfers on spherical caps and the exact coverage of each sphere by caps (the cap theorems in `PhaseCover/theorems/`) |
 | `src/hp.jl` | the whole-ball model and the cap checks again, in 256-bit intervals |
 | `caps_to_txt.py`, `caps_test.jl` | cap certificates to text, and the cap verifier on sample seeds with tampered controls |
 | `check_seed.jl` | the driver (threads, shards, receipts, verdict) |
@@ -98,23 +102,23 @@ checked object passed.
 
 ### Whole balls, patches and caps
 
-The final certificate is checked mostly by the methods of theorems Z, ZT, ZC, ZC2a and ZC2b
-([`proof/theorems/README.md`](../theorems/README.md)). The box methods described in the later sections decide only
+The final certificate is checked mostly by the whole-ball methods of the completion-Hessian theorem, the whole-ball
+transfer theorem and the cap theorems ([`proof/theorems/README.md`](../theorems/README.md)). The box methods described in the later sections decide only
 where these do not close.
 
-- **C1 for a whole ball** (`src/wholeball.jl`, theorem Z). The side roots at the exact centre of a seed ball are
-  found by a six-dimensional Krawczyk test. The Hadamard equations, projected along a fixed normal basis, then give
+- **C1 for a whole ball** (`src/wholeball.jl`, the completion-Hessian theorem). The side roots at the exact centre
+  of a seed ball are found by a six-dimensional Krawczyk test. The Hadamard equations, projected along a fixed normal basis, then give
   over the whole ellipsoid θ0 + Mth w with ‖w‖ ≤ r a contraction τ, so the matched branch exists, both orientation
   signs, and the bound ‖h Q(w) − P_exact − U w‖ ≤ β r²/2 + ‖X‖ τ. The distance of the stored P and U from the exact
   ones is added to that bound.
-- **The X-ball** (`src/edge_wholeball.jl`, theorem ZT). The edge chart at F6 is checked the same way, by one
-  contraction of an augmented system of 31 equations (the 30 row-orthogonality components and the side signature)
-  in 22 normal coordinates.
-- **Transfers on sphere boxes** (`src/patches.jl`, theorem ZT). When the whole-ball certificate of a seed ball
-  closes, Q(w) = Q0 + U w + H2[w, w]/2 + X z(w) with ‖z‖ ≤ τ on the whole ball. A T1 transfer on a dyadic box then
+- **The ball at F₆** (`src/edge_wholeball.jl`, the whole-ball transfer theorem). The chart at F₆ is checked the same
+  way, by one contraction of an augmented system of 31 equations (the 30 row-orthogonality components and the side
+  label) in 22 normal coordinates.
+- **Transfers on sphere boxes** (`src/patches.jl`, the whole-ball transfer theorem). When the whole-ball certificate
+  of a seed ball closes, Q(w) = Q0 + U w + H2[w, w]/2 + X z(w) with ‖z‖ ≤ τ on the whole ball. A T1 transfer on a dyadic box then
   needs only the 16 vertices of the box and the error ‖A H2‖(2h)²/2 + ‖A X‖ τ. The signs of Ψ follow from a
   quadratic remainder bound.
-- **Caps** (`src/caps.jl`, theorems ZC, ZC2a and ZC2b). A cap is {x : ‖x‖ = 1, v·x ≥ h} in x = w/r. On a cap, the
+- **Caps** (`src/caps.jl`, the cap theorems). A cap is {x : ‖x‖ = 1, v·x ≥ h} in x = w/r. On a cap, the
   target of a T0, T1 or T3 transfer is enclosed by an affine model at the cap's anchor. A witness (λ, μ, s, a)
   certifies the bound through a 5 × 5 matrix, which an interval LDL factorisation shows to be positive definite. The
   caps cover the sphere exactly when every vertex of the polytope {y : vᵢ·y ≤ hᵢ} lies in the closed unit ball. The
@@ -159,7 +163,7 @@ accepted boxes, and C1 passes if and only if it is at most n. So k only sets the
 
 On each box θ = θ_c + Mth u. Every step below is decided in intervals.
 
-1. Compute E and the Gram data. The off-diagonal entries of G_h and G_v are written as 1 + e^{−iθ_a} + e^{−iθ_b} and
+1. Compute E and the overlap data. The off-diagonal entries of G_h and G_v are written as 1 + e^{−iθ_a} + e^{−iθ_b} and
    1 + e^{i(θ_a−θ_c)} + e^{i(θ_b−θ_d)}. Each exponential is one e^{ix} of a linear model, with no products.
 2. Enclose the two sides by a parametric Krawczyk test (an interval Newton test that proves a unique zero in a box).
    The system is F(φ; θ) = (Re, Im) of f₀₁ = Σ e^{−iφ_k} + γ₀₁, f₀₂ and f₁₂ = Σ e^{i(φ_k−φ_{3+k})} + γ₁₂.
@@ -167,14 +171,15 @@ On each box θ = θ_c + Mth u. Every step below is decided in intervals.
      the float solution at the centre. Each step gains one order. No numerical derivatives are used.
    - The test computes b = sup|Y F(φ_pred)| and A = sup|I − Y J(tube)|, both entrywise, from models. With a vector ρ,
      b + Aρ < ρ certifies a unique zero in φ_pred + [−ρ, ρ]⁶. The remainder kept is b + Aρ.
-3. Certify the orientation. Im Ψ(B) and Im Ψ(V) are evaluated as models, with Ψ = perm·det²·e^{−iΣφ}. Each term of
-   perm and det is one e^{ix} of a sum of phases. The sign o of Im Ψ(B), and the sign −o of Im Ψ(V), are certified
-   over the box.
+3. Certify the orientation. Im Ψ(B) and Im Ψ(V) = Im Ψ(C), with V = Cᵀ the vertical side, are evaluated as models,
+   with Ψ = perm·det²·e^{−iΣφ}. Each term of perm and det is one e^{ix} of a sum of phases. The sign o of Im Ψ(B), and
+   the sign −o of Im Ψ(C), are certified over the box. Here o = sign Im Ψ(B). The paper's H₊ is o = −1, and the
+   stored balls use o = +1, which is conj H₊(−θ).
 4. Enclose the forced block D.
-   - The predictor comes from a float-model Newton iteration on X B* = −C E*, X ← X − (X B* + C E*) A₀.
-   - The residual R = C E* + X_p B* is evaluated in interval models. A Neumann series around A₀ = (mid B*_c)⁻¹ bounds
-     |(B*)⁻¹| entrywise.
-   - Then D = X_p, with the remainder |R|·|(B*)⁻¹|.
+   - The predictor comes from a float-model Newton iteration on X B† = −C E†, X ← X − (X B† + C E†) A₀.
+   - The residual R = C E† + X_p B† is evaluated in interval models. A Neumann series around A₀ = (mid B†_c)⁻¹ bounds
+     |(B†)⁻¹| entrywise.
+   - Then D = X_p, with the remainder |R|·|(B†)⁻¹|.
 5. Enclose arg D. Write D e^{−iP} = c(1 + v), where v has no constant term. Then
    arg D = P + Arg c + Im(v − v²/2) + R, with |R| ≤ |v|³/(3(1 − |v|)), Re c > 0 and |v| < 1/2. Rotating by e^{−iP}
    first puts the branch next to P.
@@ -191,7 +196,7 @@ The method differs from the prototype's `tmball2.py` in six ways.
 - Box centres are intervals, and refinement is adaptive.
 - The predictors come from Newton's method in model space, not from finite differences.
 - The Krawczyk radius is a vector, not a scalar.
-- The Gram data and Ψ use exponentials of sums, not products.
+- The overlap data and Ψ use exponentials of sums, not products.
 - The arg is rotated by e^{−iP} first.
 - The diagonal of the quadratic part is recentred, and the tail is combined entry by entry.
 
@@ -217,10 +222,10 @@ phases. So e^{i hor(Q_g + 2πN)} is equivalent to H. The windings of this gauge 
 hor(2πZ³⁶). For example, P + 2π hor(e_ab) describes the same ball, while P + 2π e_ab does not. The tests check both.
 
 The checker does not verify that P and U are horizontal, because soundness does not need it. The claim is about
-hor(Q_g), and Stage C reads the stored P, U and n. A non-horizontal part of P simply enters the residual, as a test
+hor(Q_g), and the local tests read the stored P, U and n. A non-horizontal part of P simply enters the residual, as a test
 shows.
 
-Stage C uses the stored P and U, through the same code as for a dephased ball.
+The local tests use the stored P and U, through the same code as for a dephased ball.
 
 The transfers are unchanged. They read θ and the representative Q_g, never P. So T0 and T1 may go from either gauge
 into either gauge. The test certificate has a horizontal ball with a T1 transfer into a dephased one.
@@ -228,16 +233,16 @@ into either gauge. The test certificate has a horizontal ball with a T1 transfer
 For the same r, the horizontal residual is about 3× smaller than the dephased one. So at the same relative margin
 n / sup, the second-order models need smaller boxes. See "Measured" below.
 
-### Stage C on the enclosure (`src/stagec_seed.jl`)
+### The local tests on the enclosure (`src/stagec_seed.jl`)
 
 The existing `IndepAtlas.stage_c` takes a frame T = T36/(36·2³⁰) with integer T36. The checker passes
 T36 = round(U·36·2³⁰) and absorbs the exact rounding error into the normal term. That is, δ = U w + ν = T w + ν′ with
-‖ν′‖ ≤ n′ = n + ‖U − T‖_F r. Here ‖U − T‖_F ≤ 8·10⁻¹¹, computed exactly in intervals. The enclosure handed to Stage C
-therefore contains the enclosure of the specification.
+‖ν′‖ ≤ n′ = n + ‖U − T‖_F r. Here ‖U − T‖_F ≤ 8·10⁻¹¹, computed exactly in intervals. The enclosure handed to the local
+tests therefore contains the enclosure of the specification.
 
 The column bound rcol = maxᵢ ‖U_(·,i)‖₂ r + n and the Frobenius bound rF = ‖U‖₂ r + n are upper bounds computed in
-intervals. Here U_(·,i) is the 6×4 block of column i. Stage C itself is unchanged. It replays every float rejection in
-intervals, with label_radius in cycles.
+intervals. Here U_(·,i) is the 6×4 block of column i. The local tests themselves are unchanged. They replay every float
+rejection in intervals, with label_radius in cycles.
 
 ### The boundary transfers, C2 (`src/transfers.jl`)
 
@@ -253,9 +258,10 @@ The representative is that of FORMAT.md §3: the entries nearest P + U w, fixed 
 
 #### The kinds of transfer
 
-- T0 is checked in intervals at the 16 vertices of θ_j(β), the parallelotope image of the box. This suffices because
+- T0 (same corner) is checked in intervals at the 16 vertices of θ_j(β), the parallelotope image of the box. This suffices because
   E_l is convex. T0 also requires o_l = o_j.
-- T1 at a corner inside rows and columns 0..2 is called a corner-symmetry T1 below.
+- T1 (corner change) at a corner inside rows and columns 0..2 (0-based, as in the code) is called a corner-symmetry
+  T1 below.
   - Here θ′ is affine in w, because the corner block of Q is exactly 0, θ₁…θ₄. So the check is at the vertices, with
     no model.
   - The orientation at the corner is o_j for g ∈ {id, conjT} and −o_j for g ∈ {conj, T}, and the corner is matched.
@@ -266,7 +272,7 @@ The representative is that of FORMAT.md §3: the entries nearest P + U w, fixed 
   - θ′ is a linear combination of phase models.
   - The landing condition is ‖Mth_l⁻¹(θ′ + 2πN − θ0_l)‖ < r_l, with Mth_l⁻¹ enclosed by a verified inverse.
   - Im Ψ is computed from models of K[I, Jᶜ] and K[Iᶜ, J].
-- T2 checks ‖hor(π(g·Q) + 2πN − P_t)‖ < R_t, where π is the group's signed permutation. The polynomial part is
+- T2 (not used by the final certificate, like rec and T1′) checks ‖hor(π(g·Q) + 2πN − P_t)‖ < R_t, where π is the group's signed permutation. The polynomial part is
   projected in models. The remainders enter as ‖r‖₂, since ‖hor e‖ ≤ ‖e‖. The target record must pass Step 3.
 - rec checks ‖hor(π(g·(P_s + Tη)) + 2πN − P_t)‖ + n_s < R_t at the 16 vertices. The map is affine in η, so this is
   exact.
@@ -341,9 +347,9 @@ This is about 15× tighter than the second-order bound.
 
 | record | box half-width | ρ | contraction α(ρ_X) | n |
 |---|---|---|---|---|
-| F6's record (atlas 877), R = 0.125 | 0.016 (level 3) | ≤ 9·10⁻⁶ | ≤ 0.14 | 0.0159 |
+| F₆'s record (atlas 877), R = 0.125 | 0.016 (level 3) | ≤ 9·10⁻⁶ | ≤ 0.14 | 0.0159 |
 | same | 0.008 (level 4) | ≤ 1.0·10⁻⁶ | ≤ 0.10 | 0.0159 |
-| F6's record, R = 0.08 | level 3 | ≤ 2.2·10⁻⁶ | | 0.0064 |
+| F₆'s record, R = 0.08 | level 3 | ≤ 2.2·10⁻⁶ | | 0.0064 |
 | same | level 4 | ≤ 2.5·10⁻⁷ | | 0.0064 |
 
 Each box takes about 5 ms, and record boxes are checked on all threads. In the BigFloat sampling test, the true
@@ -352,34 +358,32 @@ normal coordinates lie within 0.11–0.15·ρ of the predictor.
 ### Rigour
 
 - Every acceptance is decided in interval arithmetic. This covers C1, all kinds of C2, coverage, Tao's σ and
-  isolation, and the Stage C replay.
+  isolation, and the replay of the local tests.
 - Floats only choose predictors, guesses, windings where none is stored, and refinement.
 - A non-finite or not-an-interval value makes every comparison false, so the check fails. The input converter rejects
   non-finite floats.
 - An exception in one object is recorded as a FAIL of that object.
-- A complete verdict needs every seed ball index checked, every record, F6 and Tao, and no `--fast`. Duplicate
+- A complete verdict needs every seed ball index checked, every record, F₆ and Tao, and no `--fast`. Duplicate
   indices in `--only` count once. A `--fast` run states that its verdict is not rigorous.
-- An independent soundness review of this code found no unsound step in C1, Stage C or C2. It found two gaps, both
-  fixed: the checker now verifies that Tao's ball contains S6, and duplicate `--only` indices cannot fake
-  completeness. The two float roundings it flagged, in the Neumann bound and in the shell test, are now interval
-  bounds.
+- The checker verifies that Tao's ball contains 𝒯, and duplicate `--only` indices cannot fake completeness. The
+  Neumann bound and the shell test are interval bounds.
 
-### Edge balls (SPEC §10, `src/edge.jl`, `src/edge_transfers.jl`)
+### The ball at F₆ (SPEC §10, `src/edge.jl`, `src/edge_transfers.jl`)
 
-The mathematics of the edge chart is in the edge-fold theorem,
+The code calls this ball an edge ball. The mathematics of the chart at F₆ is in the fold theorem at R = 0,
 [`proof/theorems/U_fold_at_edge/`](../theorems/U_fold_at_edge/) (§3–6 of its report).
 
-The chart is centred at F6's corner, rows and columns 0, 1, 2. Its parameters are p = (u₁, u₂, u₃, y) = Mth w, with
+The chart is centred at F₆'s corner, rows and columns 0, 1, 2. Its parameters are p = (u₁, u₂, u₃, y) = Mth w, with
 ‖w‖ ≤ r. The angles θ⁰ = (1,2,2,4)π/3 and φ⁰ = (3,4,5,0,2,4)π/3 are used exactly, as interval enclosures of kπ/3.
 
 #### The systems
 
 Each side solves its own augmented system in 7 unknowns x = (t, ϕ):
-γ(φ⁰ + ϕ) = Γ(θ⁰ + (u₁, u₂, u₃, t)) and S/24 ± y/48 = 0. Here γ and Γ are the Gram data of the side and of the
-corner, as in SPEC §10, and S = Im Ψ of the side.
-- The horizontal side uses G_h and +y.
-- The vertical side is the system for Eᵀ at (u₁, u₃, u₂, −y). Written in the original θ, it uses G_v and −y, and it
-  has its own fourth phase t′.
+γ(φ⁰ + ϕ) = Γ(θ⁰ + (u₁, u₂, u₃, t)) and S/24 ± y/48 = 0, with S = Im Ψ of the side. Here γ and Γ are the overlap data
+of the side and of the corner, as in SPEC §10.
+- The horizontal side uses G_h and +y, that is Im Ψ(B) = −y/2, as in the SM.
+- The vertical side is the system for Eᵀ at (u₁, u₃, u₂, −y). Written in the original θ, it uses G_v and −y, that is
+  Im Ψ(V) = Im Ψ(C) = y/2, and it has its own fourth phase t′.
 
 #### C1e on each w-box
 
@@ -391,11 +395,12 @@ is a dyadic number, so all centres and halvings are exact floats. On each box th
    Jacobian. The derivative ∂ Im Ψ/∂φ_k is computed as i e^{−iΣφ}(P_k det² + 2 perm det D_k) − iΨ.
    - The tight test gives the enclosure (the `need` radius).
    - A second test certifies uniqueness on a wide tube. Its radius is the largest of 10⁻², 3·10⁻³, 10⁻³, ... that
-     passes. The test edge balls get 3·10⁻³. T3 uses this wide tube.
+     passes. The test balls at F₆ get 3·10⁻³. T3 uses this wide tube.
 2. It proves t′ = t. θ₄ ranges over the segment between the two enclosed fourth phases. This is one model, with a
    remainder covering both enclosures. ∂R/∂θ₄ > 0 and g > 0 are certified there by Taylor-model evaluation of the
    formula for R:
-   - R = 4g²η − χ², with g = 27 − 3p + J, η = 9 − p + J and χ = W − (p−9)(p−18) + (p−15)J,
+   - R = 4g²η − χ², with g = 27 − 3p + J, η = 9 − p + J and χ = W − (p−9)(p−18) + (p−15)J, where
+     W = XY + XZ + YZ − XYZ with X = |s|², Y = |t|², Z = |r|²,
    - dt = −ie^{iθ₄} and dr = −ie^{i(θ₄−θ₂)}.
 
    Both solutions satisfy R(θ) = y², since R∘γ = 4S². So monotonicity gives t = t′.
@@ -403,13 +408,14 @@ is a dyadic number, so all centres and halvings are exact floats. On each box th
    C1.
 4. It keeps the two tubes of each accepted box (predictor and uniqueness radius) as a leaf for T3.
 
-#### F6 = H(0)
+#### F₆ = H(0)
 
-At p = 0, x = 0 solves both systems exactly. This is §4.1 of the edge-fold report, and the checker also verifies it in
-intervals. x = 0 lies strictly inside the uniqueness tubes of the leaf containing w = 0. So F6 is the centre of the
-edge ball's image. The edge ball therefore certifies that F6 lies in the atlas, and no F6 record is needed.
+At p = 0, x = 0 solves both systems exactly. This is §4.1 of the report of the fold theorem, and the checker also
+verifies it in intervals. x = 0 lies strictly inside the uniqueness tubes of the leaf containing w = 0. So F₆ is the
+centre of the image of the ball at F₆. That ball therefore certifies that F₆ lies in the atlas, and no F₆ record is
+needed.
 
-#### T3, from a seed sphere box into an edge ball
+#### Transfers into the chart at F₆ (T3), from a seed sphere box
 
 The fields of a T3 group (FORMAT.md §8) are g, rows, cols, hcols, vrows, wind, wind_h and wind_v.
 - K = g·H_{o_s}(θ) uses the representative phase models of the source box.
@@ -419,41 +425,43 @@ The fields of a T3 group (FORMAT.md §8) are g, rows, cols, hcols, vrows, wind, 
 - The dephased side angles of K, with θ_K,4 − θ⁰_4, must lie strictly inside the uniqueness tube of every C1e leaf
   whose box meets the range of w_K. The predictor of each leaf is composed with w_K − wc, over the whole source box.
   Every source point lies in some such leaf, since the leaves cover the ball and w_K ∈ int E. So the sides of K are
-  that leaf's unique solutions, and K ≅ H(p_K).
-- The vertical side uses the argument of the specification that a nonmatched strict K would be Tao.
+  that leaf's unique solutions, and K ∼ H(p_K).
+- The vertical side uses the fact that a nonmatched strict K would be Tao's matrix (SM Proposition S.4, Equal roots
+  at a strict corner).
 
-#### The edge sphere
+#### The sphere of the ball at F₆
 
-The edge sphere must be covered by T1 transfers into seed balls, with the same dyadic traversal as for seeds. These
-transfers are checked as for seeds, with the edge box map on each box (interval centre).
+The sphere of the ball at F₆ must be covered by corner-change (T1) transfers into seed balls, with the same dyadic
+traversal as for seeds. These transfers are checked as for seeds, with the box map of the ball at F₆ on each box
+(interval centre).
 
-#### Stage C
+#### The local tests
 
-Stage C runs on P + U w + ν exactly as for a seed ball.
+The local tests run on P + U w + ν exactly as for a seed ball.
 
 #### Openness at y = 0: the checks (G) and (D) (SPEC §10.1–10.2, `src/graph.jl`)
 
-The image of the edge ball must be open, also at y = 0. SPEC §10.1 proves this from two certified facts, the graph
-property (G) near F6 and an invertible chart derivative (D), with the inverse function theorem.
+The image of the ball at F₆ must be open, also at y = 0. SPEC §10.1 proves this from two certified facts, the graph
+property (G) near F₆ and an invertible chart derivative (D), with the inverse function theorem.
 
-The edge entry may carry `"graph": {"R", "sigma"}` and `"sigma_D"`. The fields phi and Tint are also accepted.
+The `edge` entry may carry `"graph": {"R", "sigma"}` and `"sigma_D"`. The fields phi and Tint are also accepted.
 
 (G) follows from the mean value theorem (SPEC §10.2).
-- P_F is F6 exactly: the chart's (e^{iπab/3}), enclosed in intervals. The frame T_F is the exact tangent kernel of
-  eq. (13) of the edge-fold report, given as four integer matrices f = (0, α, β) and g = (0, γ, δ), so that
+- P_F is F₆ exactly: the chart's (e^{iπab/3}), enclosed in intervals. The frame T_F is the exact tangent kernel of
+  Eq. (13) of the report of the fold theorem, given as four integer matrices f = (0, α, β) and g = (0, γ, δ), so that
   T_F = hor(V). N is the orthogonal complement of span T_F in the horizontal space.
 - Take two Hadamards with the same η and ‖δ_i‖ ≤ R_G. Then (∫J)(ν₁ − ν₂) = 0. The segment between them stays in the
   R_G-ball, because δ = Tη + ν is orthogonal and the ν part is convex. Also ‖(J(d) − J(0))v‖ ≤ L‖d‖‖v‖ for
   horizontal v, with L = 2√3. So R_G < σ/L forces ν₁ = ν₂.
-- The checker verifies the certificate's σ = σ_min(J(0)|_N) at F6 by an interval Cholesky factorisation. It checks
-  L·R_G < σ. It checks that the edge image lies strictly inside ‖δ‖ < R_G, with δ = hor(A(Q) + 2πN − P_F).
+- The checker verifies the certificate's σ = σ_min(J(0)|_N) at F₆ by an interval Cholesky factorisation. It checks
+  L·R_G < σ. It checks that the image of the ball at F₆ lies strictly inside ‖δ‖ < R_G, with δ = hor(A(Q) + 2πN − P_F).
 - No computation over η-boxes is needed.
 - The defaults are R_G = 0.45, or 0.99σ/L if that is smaller, and σ equal to the certified value.
 
 (D) encloses dη/dw on every C1e box, with η = T_F⁺δ, by implicit differentiation in Taylor models.
 - For each side, dx/dp = −J_x⁻¹J_p. It is computed by two Newton steps in model space plus a correction of size
   ‖Y‖/(1 − q)·‖residual‖∞.
-- d arg D = Im(dD conj D)/|D|². dD solves dD B* = −(dC E* + C dE* + D dB*). It is computed by Newton steps plus a
+- d arg D = Im(dD conj D)/|D|². dD solves dD B† = −(dC E† + C dE† + D dB†). It is computed by Newton steps plus a
   correction bounded by a Neumann series.
 - σ_min ≥ σ_D is certified by Weyl's inequality, σ_min ≥ σ_min(A_mid) − ‖A_rad‖₂. The polynomial parts of the C1e
   models alone would not bound a derivative.
@@ -461,26 +469,26 @@ The edge entry may carry `"graph": {"R", "sigma"}` and `"sigma_D"`. The fields p
 σ_D depends on how η is normalized. Here η is in the basis of eq. (13), T_F = hor(V). A certificate's σ_D must use
 the same frame to be verified as stated.
 
-When phi is given, the F6 of the chart is aligned to it by the existing exhaustive F6 search. The tangent frame is
+When phi is given, the F₆ of the chart is aligned to it by the existing exhaustive F₆ search. The tangent frame is
 then the aligned frame of eq. (13), unless Tint is given.
 
-Measured on the edge test ball (r = 0.05, 368 boxes, 8 threads, about 1–2 s each):
+Measured on the test ball at F₆ (r = 0.05, 368 boxes, 8 threads, about 1–2 s each):
 
 | graph data | σ at the centre | σ_D | image ‖δ‖ |
 |---|---|---|---|
 | defaults | ≥ 1.73205 (√3), R_G = 0.45 | ≥ 0.1896 | ≤ 0.0637 |
 | as given in the test (R_G = 0.45, σ = 1.7, σ_D = 0.15) | verified | verified | |
-| the atlas's F6 record (877: phi, Tint) as centre and frame | ≥ 1.7312 | ≥ 0.1352 | ≤ 0.0814 |
+| the atlas's F₆ record (877: phi, Tint) as centre and frame | ≥ 1.7312 | ≥ 0.1352 | ≤ 0.0814 |
 
 #### In the driver
 
-Edge balls are checked first, since their C1e leaves feed the T3 checks of the seed balls. They are not resumable,
-because their C1e takes only seconds. A `--shard` run computes only their C1e leaves. The final `--import` run checks
-them in full.
+The ball at F₆ is checked first, since its C1e leaves feed the T3 checks of the seed balls. It is not resumable,
+because its C1e takes only seconds. A `--shard` run computes only its C1e leaves. The final `--import` run checks
+it in full.
 
 #### Measured (8 threads, laptop)
 
-| edge ball | k | certified C1e bound | sampled true residual | C1e time |
+| ball at F₆ | k | certified C1e bound | sampled true residual | C1e time |
 |---|---|---|---|---|
 | r = 0.05 | 4 | 0.00301 | 0.00094 | 0.2–0.4 s (240 boxes) |
 | r = 0.05 | 4×4×4×6 | 0.00285 | 0.00094 | 1.2 s (368 boxes) |
@@ -488,9 +496,9 @@ them in full.
 | r = 0.125 | 8 | 0.0122 | ≈ 0.009 | 2.4 s (2,560 boxes) |
 
 - After compilation, each C1e box takes about 3 ms, and each T3 box about 5 ms (seed box map plus T3).
-- Stage C on the r = 0.05 edge ball takes about 4 s (50 labels). On the r = 0.125 ball with n = 0.0125 (above the
-  k = 8 certified bound) and label radius 0.03, it passes with 201 labels in 10.6 s. So the full-size edge ball
-  certifies end to end.
+- The local tests on the r = 0.05 ball at F₆ take about 4 s (50 labels). On the r = 0.125 ball with n = 0.0125 (above the
+  k = 8 certified bound) and label radius 0.03, it passes with 201 labels in 10.6 s. So the full-size ball at
+  F₆ certifies end to end.
 
 ## Tests (`tests/run_tests.sh`, about 12 min on 8 threads)
 
@@ -510,13 +518,13 @@ boundary boxes, since the test atlas is not closed. They must fail C2 for that r
    - It makes 18,000 point checks of model products, e^{ix} and sums.
    - On random boxes of every seed ball, the BigFloat completion has every phase inside its model, and the residual is
      below the box bound.
-   - It tests the normal tube on the test record and on F6's record at R = 0.125
+   - It tests the normal tube on the test record and on F₆'s record at R = 0.125
      (`tests/data/f6_record_shell.json.gz`). At random η the BigFloat Hadamard has normal coordinates within ρ of the
      predictor, and the sampled ‖YΦ‖ is at most β.
 4. `negative.jl` runs 69 cases, all with the expected outcome.
    - C1 rejects n below a sampled true residual, n just below the certified bound without refinement, r × 3,
      P + 0.01 (on entries of B, of D and of the gauge), U + 0.1, θ0 + 10⁻³, a flipped o, and an Mth column × 1.1.
-   - Stage C rejects label radius 0.2.
+   - The local tests reject label radius 0.2.
    - C2 rejects these targets:
      - T0 with the wrong target, a missing target, the other orientation, its own ball or a wrong winding,
      - T1 with swapped rows, g = conj or T, the wrong target or a wrong winding,
@@ -528,14 +536,14 @@ boundary boxes, since the test atlas is not closed. They must fail C2 for that r
      - rec into itself, with g = conj or with a wrong winding,
      - a removed box, R × 2, R × 2 with eta_scale × 2, eta_scale × 0.9, a φ entry + 0.3, and no boxes.
    - The Tao check rejects R = 1 and R = 0.65, where L R ≥ σ = 3/√2 and the record is not isolated. It rejects
-     R = 10⁻²⁰, where the ball misses S6.
+     R = 10⁻²⁰, where the ball misses 𝒯.
    - With target radius 0.0555, the normal tube certifies the T1′ boxes of record 1 (landing ≤ 0.0547). The crude
      bound alone is rejected there (landing 0.0564).
    - The controls are accepted: P + 2π, k = 1, n equal to the certified bound, r × 1.5 (n is loose), r × 1.1 with C2,
      no stored T2 winding, and Tao as given and at R = 0.60.
 5. End to end, n × 0.2 in the JSON (below the sampled true residual) is rejected, and a malformed certificate stops
    the run.
-6. `edge_tests.jl` tests the edge balls on `tests/data/edge_test_certificate.json.gz`.
+6. `edge_tests.jl` tests the ball at F₆ on `tests/data/edge_test_certificate.json.gz`.
    - On random C1e leaves, the augmented systems solved in BigFloat lie within the tubes, t = t′, H(p) is Hadamard,
      and the phases lie inside their models.
    - At random points of random C1e boxes, finite differences of η(H(p(w))) lie inside the certified enclosures of
@@ -543,21 +551,21 @@ boundary boxes, since the test atlas is not closed. They must fail C2 for that r
    - It runs 38 cases, all with the expected outcome.
      - C1e rejects n below the sampled residual, r × 3, the entries of B and D in P + 0.01, U + 0.1, and the y row of
        Mth × 1.1.
-     - Stage C rejects r = 0.2 with n = 0.03, where the clique search hits its step cap.
-     - T3 rejects the wrong target, an edge ball failing C1e, g = conj or T, swapped corner rows, swapped complement
+     - The local tests reject r = 0.2 with n = 0.03, where the clique search hits its step cap.
+     - T3 rejects the wrong target, a ball at F₆ failing C1e, g = conj or T, swapped corner rows, swapped complement
        rows or columns (vrows, hcols), a wrong wind, wind_h or wind_v, and a removed sphere box.
-     - Edge T1 rejects the wrong target, swapped rows, g = conj, a wrong winding, and an uncovered sphere.
+     - T1 out of the ball at F₆ rejects the wrong target, swapped rows, g = conj, a wrong winding, and an uncovered sphere.
      - (G) and (D) reject σ = 1.8 (above √3), R_G = 0.5 (L·R_G ≥ σ = 1.7), R_G = 0.05 (the image is not inside),
        σ_D = 0.5, and a perturbed centre with R_G = 0.2 (the image is not inside).
-     - The controls are accepted: C1e, the T3 cover, the T1 boxes, Stage C, sorted complements (they are increasing in
-       this data), T3 without stored windings, and (G) and (D) as given, with the defaults, at the atlas's F6 record,
+     - The controls are accepted: C1e, the T3 cover, the T1 boxes, the local tests, sorted complements (they are increasing in
+       this data), T3 without stored windings, and (G) and (D) as given, with the defaults, at the atlas's F₆ record,
        and at a perturbed centre. The argument needs no Hadamard centre, only σ and the image.
 7. `hor_tests.jl` tests the horizontal gauge on `tests/data/hor_test_certificate.json.gz`, generated by
    `make_hor_cert.py`.
    - In this certificate, seed 0 is the centre of record 2003 in the horizontal gauge (r = 0.02, n = 1.25 × the
      prototype's sampled residual). Its 256 sphere boxes go by T0 into seed 1 (horizontal, r = 0.05), by T1 into
-     seed 2 (another corner, dephased gauge, r = 0.08) and by T2 into record 2003. Seed 0 must pass C1, Stage C and
-     C2. Seeds 1 and 2 pass C1 and Stage C, and fail C2 for want of boxes.
+     seed 2 (another corner, dephased gauge, r = 0.08) and by T2 into record 2003. Seed 0 must pass C1, the local tests
+     and C2. Seeds 1 and 2 pass C1 and the local tests, and fail C2 for want of boxes.
    - Test (b) of `enclosure.jl` runs on the same certificate. BigFloat completions lie inside the models, and
      ‖hor(Q_g) − P − U w‖ is below the box bound (worst ratio about 0.5).
    - It runs 19 cases, all with the expected outcome. These are rejected:
@@ -571,7 +579,7 @@ boundary boxes, since the test atlas is not closed. They must fail C2 for that r
      - θ0 + 0.01,
      - the r of the T0 target halved,
      - the T0 group dropped.
-   - These controls are accepted: seed 0 as given (C1, Stage C, C2), P + 2π hor(e_34), n equal to the certified
+   - These controls are accepted: seed 0 as given (C1, the local tests, C2), P + 2π hor(e_34), n equal to the certified
      bound, C1 of seed 2 (dephased), and C2 of seed 0 with its T1 target flagged horizontal (transfers do not read the
      gauge).
    - End to end, an unknown gauge in the JSON stops the run.
@@ -583,11 +591,11 @@ boundary boxes, since the test atlas is not closed. They must fail C2 for that r
 | record 2003, r = 0.1 | 4 | 0.01307 | 0.01472 | 0.6 s (256 boxes) |
 | record 2781, r = 0.08 | 4 | 0.00735 | 0.00822 | 0.6 s |
 | record 7000, r = 0.1 | 4 | 0.01281 | 0.01382 | 0.6 s |
-| record 562 (next to F6), r = 0.03 | 3 | 0.00974 ≤ n = 0.01 | prototype fails | 0.5 s (11 splits) |
+| record 562 (next to F₆), r = 0.03 | 3 | 0.00974 ≤ n = 0.01 | prototype fails | 0.5 s (11 splits) |
 | record 562, r = 0.05 | 3 | 0.01993 ≤ n = 0.02 | prototype fails | 2.2 s (113 splits) |
 | test seed 0, r = 0.03 | 3 | 0.00113 (sampled true sup 0.00032) | 0.00126 | 0.2 s |
 
-Stage C takes 1–3 s per ball, with the interval replay. The runs in this table that needed no splits used n from the
+The local tests take 1–3 s per ball, with the interval replay. The runs in this table that needed no splits used n from the
 prototype's own certified bound, which leaves a large margin.
 
 The next table compares both gauges (SPEC §11), with adaptive C1 on one thread. Each ball is at the best corner of an
@@ -609,7 +617,7 @@ measured in the ball's own gauge. The "leaves" are the accepted boxes, and the t
   O(h²) and the remainder is O(h³), so a margin of 25% needs about 4 levels.
 - The horizontal gauge costs more because it has a larger Mth for the same r. This is because hor(T) has smaller
   singular values than T, so a ball covers more of θ.
-- Stage C on the four horizontal-gauge balls (label radius 0.03) takes 5–11 s. Two of them pass. The other two fail
+- The local tests on the four horizontal-gauge balls (label radius 0.03) takes 5–11 s. Two of them pass. The other two fail
   with a two-clique, which is expected at this test label radius.
 - C2 takes about 3 ms per box for T1 at a general corner and for T2, and well under 1 ms for T0 and corner-symmetry
   T1.
@@ -639,33 +647,33 @@ These are the points where the checker had to settle a reading of SPEC.md or FOR
    rejected spuriously.
 9. A transfer box that fails may be split, with the same target, since every claim is universal over the box.
 10. Tao's record is replayed here, although `proof/independent` does not replay it. The checks are:
-    - P = (2π)K/3 in binary64, as `tao.py` computes it, and R > ‖2πK/3 − P‖, so S6 lies in the ball,
+    - P = (2π)K/3 in binary64, as `tao.py` computes it, and R > ‖2πK/3 − P‖, so 𝒯 lies in the ball,
     - σ on the horizontal space, by interval Cholesky,
     - L R < σ,
     - the normal bound with b = e0,
-    - Stage C with a zero frame.
+    - the local tests with a zero frame.
 11. For T1′, ν is enclosed by a 2-norm Krawczyk test in N, with the Lipschitz constant L = 2√3 for the Jacobian. This
     replaces the componentwise boxes of FORMAT.md §6. The inclusion ball contains every x with ‖Mx‖ ≤ n. The
     contraction steps and the third-order β are choices of this checker. The crude form ‖ν‖ ≤ n remains as a
     fallback.
-12. Edge balls follow FORMAT.md §8 (format v2).
+12. The ball at F₆ (`edge` in the format) follows FORMAT.md §8 (format v2).
     - `"edge"` balls carry the chart `"F6-012"`, Mth, r, k (four integers, one per axis), P, U, n, label_radius and
       transfers (kind T1). `"F6-012"` is the only chart implemented, and any other is refused.
     - T3 carries target, g, rows, cols, hcols, vrows, wind, wind_h and wind_v. The parser writes them as two
       6-orderings (rows + vrows, cols + hcols) and one winding of 16 integers.
     - Tao's record is the top-level `"tao"`. A record without a frame is also read as Tao's record.
-    - F6 is certified as H(0) of a passing edge ball.
+    - F₆ is certified as H(0) of a passing ball at F₆.
 13. The checks (G) and (D) follow SPEC §10.1–10.2.
-    - (G) follows from the mean value theorem. σ_min(J(0)|_N) is certified at the exact F6, with the frame of eq. (13)
-      of the edge-fold report (no F6 record), and L·R_G < σ is checked.
+    - (G) follows from the mean value theorem. σ_min(J(0)|_N) is certified at the exact F₆, with the frame of Eq. (13)
+      of the report of the fold theorem (no F₆ record), and L·R_G < σ is checked.
     - The image must lie strictly inside ‖δ‖ < R_G.
     - (D) comes from implicit differentiation in Taylor models, with σ bounded by Weyl's inequality.
     - σ_D is measured with η in the basis of eq. (13). This normalization is a choice of this checker.
 14. The horizontal gauge follows SPEC §11.
     - N is chosen entrywise at each box's centre, nearest P_g + U_g w_c. Any integer N is valid before hor, so this
       choice affects only the size of the bound.
-    - The box map and the representative use P_g = gauge(P) and U_g = gauge(U), computed in floats. Edge balls keep
-      the dephased gauge, and a `"gauge"` field on an edge entry is not read.
+    - The box map and the representative use P_g = gauge(P) and U_g = gauge(U), computed in floats. The ball at F₆
+      keeps the dephased gauge, and a `"gauge"` field on its `edge` entry is not read.
     - Horizontality of P and U is not checked, because soundness does not need it (see "The horizontal gauge").
     - k is only the starting partition. Boxes above n or with a failed tube are split, down to 4 extra levels
       (`--c1-depth`). A ball that needs more fails, and the box is named.
