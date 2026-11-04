@@ -1,49 +1,15 @@
-# The hash-bound core
+# Shared certifiers and data
 
-The repository is organised in five components:
-- [`MinimalReconstruction/`](../MinimalReconstruction/README.md)
-- [`Connectedness/`](../Connectedness/README.md)
-- [`PhaseCover/`](../PhaseCover/README.md)
-- [`QuartetExclusion/`](../QuartetExclusion/README.md)
-- [`TripleClassification/`](../TripleClassification/README.md)
+This folder holds the certifiers, certificates and theorems that the five components share. Each component's README
+says which parts it uses.
 
-The folders here are the exception. The atlas certificate's receipts, and the triple classifier's binding, record
-these files **by path as well as by content**. They therefore stay byte-identical at these paths, and the components
-link to them.
-
-| Folder | Bound by | Used by |
+| Folder | What it holds | Used by |
 |---|---|---|
-| [`atlas/`](atlas/README.md) | the Arb receipt (`seed_atlas/results/arb_receipt.json`) and the triple classifier's binding | QuartetExclusion (Stage C, Tao's record) |
-| [`seed_atlas/`](seed_atlas/README.md) | the Arb receipt (`cert/`) and the triple classifier's binding (`FORMAT.md`, `cert/`) | PhaseCover (the atlas, its format, the Arb certifier) |
-| [`independent/`](independent/README.md) | the Julia receipt (`independent_seed/results/julia/BINDING.txt`) | QuartetExclusion (Julia Stage C and normal bound) |
-| [`independent_seed/`](independent_seed/README.md) | the Julia receipt | PhaseCover (the independent checker) |
-| [`theorems/Z_completion_hessian/`](theorems/Z_completion_hessian/), [`theorems/ZT_wholeball_transfers/`](theorems/ZT_wholeball_transfers/) | the triple classifier's binding (`THEOREM.md`, `REPORT.md`) | QuartetExclusion (Lemma 3.1), PhaseCover (Lemma 5.1) |
-| [`theorems/U_fold_at_edge/`](theorems/U_fold_at_edge/), [`theorems/W_f6_neighbourhood_chart/`](theorems/W_f6_neighbourhood_chart/) | the X-ball classification's binding (`TC_triple_classification/xball/run_xball.py`) | PhaseCover (Theorem 4.2) |
-| [`theorems/TC_triple_classification/`](theorems/TC_triple_classification/README.md) | its own receipts | TripleClassification |
+| [`atlas/`](atlas/README.md) | The local tests run inside each ball, with their proofs and error analysis, and the record of Tao's matrix | [`QuartetExclusion/`](../QuartetExclusion/README.md), [`TripleClassification/`](../TripleClassification/README.md) |
+| [`seed_atlas/`](seed_atlas/README.md) | The atlas: its specification, certificate format, the Arb certifier, the driver that builds the certificate, and the certificate itself | [`PhaseCover/`](../PhaseCover/README.md) |
+| [`independent/`](independent/README.md) | An independent Julia implementation of the local tests | [`QuartetExclusion/`](../QuartetExclusion/README.md) |
+| [`independent_seed/`](independent_seed/README.md) | The independent Julia checker of the atlas | [`PhaseCover/`](../PhaseCover/README.md) |
+| [`theorems/`](theorems/README.md) | The theorems used by [`PROOF.md`](../PROOF.md), including the native certifier and the ball at F₆ of the triple classification | all five |
 
-`python3 proof/seed_atlas/cert/check_binding.py` confirms the Arb binding against a checkout: `binding: OK`.
-[`theorems/README.md`](theorems/README.md) indexes every theorem by its label, wherever it now lives.
-
-**Returns, briefs and logs.** Letters such as Z, X or ZT label theorems ([`theorems/README.md`](theorems/README.md)).
-A *return* is a theorem's package as delivered by its author, often an AI agent working from a written brief, and is
-kept byte-for-byte together with its `BRIEF.md` or `PROMPT.md`. Logs in these folders keep the machine paths of the
-runs that produced them.
-
-## Moved paths
-
-Returned packages are kept byte-for-byte as delivered, so their internal links may still name these old paths.
-
-| Old path | New path |
-|---|---|
-| `MinimalConstruction/` | `MinimalReconstruction/` |
-| `proof/coverage/returns/{E,F,G,J,Q,K,O,S}_*` | `MinimalReconstruction/returns/` |
-| `proof/coverage/returns/{A,B,C}_*` | `Connectedness/returns/` |
-| `proof/coverage/omega_connected/` | `Connectedness/omega_connected/` |
-| `proof/coverage/returns/SOURCE_ZIPS.sha256` | `Connectedness/SOURCE_ZIPS.sha256` |
-| `proof/coverage/README.md` | `Connectedness/COVERAGE_INDEX.md` |
-| `proof/theorems/{R2_flatness_cross_side, H_fourier_vanishing}` | `MinimalReconstruction/theorems/` |
-| `proof/theorems/{XS_edge_side_orders, ZC_cap_transfers, ZC2a_xball_sphere_caps, ZC2b_t3_caps}` | `PhaseCover/theorems/` |
-| `proof/theorems/{X_no_quartet_near_F6, X_radius_045}` | `QuartetExclusion/theorems/` |
-
-Every moved file's content is unchanged (`git log --follow` shows its history). Moving the folders above into their
-components would need fresh Arb and Julia receipts for the new paths, so they stay here.
+The theorems are labelled by letters such as Z or X, and [`theorems/README.md`](theorems/README.md) lists every one of
+them with where it is proved.

@@ -41,15 +41,12 @@ on one 64-core node.
 
 | Path | Role |
 |---|---|
-| [`../proof/seed_atlas/`](../proof/seed_atlas/README.md) | The atlas: specification (`SPEC.md`), certificate format (`FORMAT.md`), the trusted Arb certifier (`cert/`), the untrusted driver that builds it (`driver/`), the certificate and receipts (`results/`) |
+| [`../proof/seed_atlas/`](../proof/seed_atlas/README.md) | The atlas: specification (`SPEC.md`), certificate format (`FORMAT.md`), the Arb certifier (`cert/`), the driver that builds the certificate (`driver/`), the certificate and receipts (`results/`) |
 | [`../proof/independent_seed/`](../proof/independent_seed/README.md) | The independent Julia checker, written from `SPEC.md` and `FORMAT.md` only |
 | [`../proof/theorems/ZT_wholeball_transfers/`](../proof/theorems/ZT_wholeball_transfers/REVIEW.md) | The whole-ball transfer test (Lemma 5.1, box form) |
 | [`../proof/theorems/U_fold_at_edge/`](../proof/theorems/U_fold_at_edge/REVIEW.md), [`../proof/theorems/W_f6_neighbourhood_chart/`](../proof/theorems/W_f6_neighbourhood_chart/REVIEW.md) | **Theorem 4.2**, the edge chart |
 | [`theorems/XS_edge_side_orders/`](theorems/XS_edge_side_orders/) | **Theorem 4.3**, transfers into the chart |
 | [`theorems/ZC_cap_transfers/`](theorems/ZC_cap_transfers/), [`theorems/ZC2a_xball_sphere_caps/`](theorems/ZC2a_xball_sphere_caps/), [`theorems/ZC2b_t3_caps/`](theorems/ZC2b_t3_caps/) | **Lemma 5.1** by caps: seed spheres, the X-ball's sphere, and T3 caps |
-
-The folders under `../proof/` are bound by hash to the certificate's receipts, so they stay byte-identical at those
-paths (see [`../proof/README.md`](../proof/README.md)).
 
 **Check.** `python3 verify.py --atlas -j N` from the repository root, or
 `python3 proof/seed_atlas/cert/certify_seed_atlas.py proof/seed_atlas/results/seed_atlas_certificate.json.gz -j N`.

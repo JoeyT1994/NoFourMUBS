@@ -1,9 +1,8 @@
 # Floating-point rounding in Stage C: corrected model and constants
 
 Stage C is the set of vector-cover and graph-search tests run inside every ball, introduced in OpenAI's proof of
-N(6) = 3. `../proof/atlas/RIGOUR.md` §3 bounds the floating-point error of these tests. That file is bound by path to the atlas
-receipts and stays byte-identical, so its corrections are recorded here (3 November 2026, following an external
-referee report). Neither correction changes any rejection.
+N(6) = 3. `../proof/atlas/RIGOUR.md` §3 bounds the floating-point error of these tests. This note corrects two points in that
+analysis. Neither correction changes any rejection.
 
 ## 1. The model must allow underflow
 

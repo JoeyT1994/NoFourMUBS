@@ -31,10 +31,7 @@ Theorem 1 and Lemma 1.1 are proved in Lean (`isConnected_strict`).
 | [`returns/A_deltoid/`](returns/A_deltoid/README.md) | **Theorem 2**: sheet parity, continuity of θ ↦ [H₊(θ)], the joining family at F6 (`CONNECTEDNESS.md`, `SHEETS_TOPOLOGY.md`) | `cd returns/A_deltoid && python3 verify_all.py` |
 | [`returns/B_exact_quotient/`](returns/B_exact_quotient/README.md) | Cross-check: an independent exact proof of Step 1 and of the quotient coverage. It also shows that no interval box cover of T⁴ can terminate (R, ∇R and Hess R vanish at the F3 seed) | run by `verify.py` |
 
-Each package under `returns/` is kept exactly as it was delivered, with its write-up, verifiers and certificates, so
-its internal links may name older paths. [`SOURCE_ZIPS.sha256`](SOURCE_ZIPS.sha256) records the original
-archives of all returns, including those now in `MinimalReconstruction/returns/`.
-[`COVERAGE_INDEX.md`](COVERAGE_INDEX.md) is the earlier combined index of Steps 1–2.
+Each folder under `returns/` holds one proof with its write-up, verifiers and certificates.
 
 `python3 verify.py` at the repository root replays everything here exactly. [`tests/negative_exact.py`](tests/negative_exact.py)
 checks that the exact Step 1 checker rejects deliberately corrupted certificates.
