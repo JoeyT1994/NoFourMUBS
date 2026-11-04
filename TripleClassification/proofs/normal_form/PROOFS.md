@@ -1,4 +1,8 @@
-# Hard balls (Antigravity): mathematical statements and proofs
+# The cubic normal-form witness: statements and proofs
+
+The witness was proposed for the hardest balls by a separate AI agent (Antigravity), then reviewed and repaired. The
+original-ball integration left open below is the overlap witness ([`overlap.py`](../../certifier/certifier/overlap.py);
+[`NATIVE_REVIEW.md`](../NATIVE_REVIEW.md), F1), checked for every leaf of the final atlas on 3 November 2026.
 
 > **Independent review, 2 November 2026.** This corrected copy incorporates the algebraic and code-correspondence repairs established in the accompanying `REVIEW.md`. Verdicts apply within the represented H-branch scope and the reviewed native hypotheses; original-ball integration remains a separate obligation.
 
@@ -19,7 +23,7 @@ We follow the notation of `PROOF_815.md` §2–§5 (`handoffs/TC_annulus_2026110
 
 The witness chains the following **reviewed** results with the reviewed lemmas below:
 
-1. **N9. Native fine bins** (`family_neighbourhoods/PROOF.md` §9, [`fine_patterns.py`](../code/proof/theorems/TC_triple_classification/family_neighbourhoods/fine_patterns.py)):
+1. **N9. Native fine bins** (`family_neighbourhoods/PROOF.md` §9, [`fine_patterns.py`](../../../proof/theorems/TC_triple_classification/family_neighbourhoods/fine_patterns.py)):
    For a pattern (6-clique of colour classes) of the cell's complete cover, every column $c \in \{0,\dots,5\}$ of every actual completing basis in the pattern lies in one of its colour's retained closed fine bins with centre $v_k = \frac{2\pi}{192}(0, k_1, \dots, k_5)^\top$ and mean-zero phase radius $\rho = \pi\sqrt{29/6}/m$, where $m=96$ is the final Stage C resolution (the midpoint grid uses $\mathrm{DEN}=2m=192$) (`cover['bin_radius']`). Pairwise edge filtering (`stagec.joint_filter`) and arc-consistency (`fine_patterns.arc_consistent`) prune only bin pairs and bins that cannot participate in any valid completion.
 2. **A. The 180-ridge representation and Gram-tensor bounds** (`PROOF_815.md` §3–§7, audited in `AUDIT_815.md`):
    - Universal operator norm bounds $\|F_{HH}\| \le 2\sqrt{6}$ and $\|F_{HK}\| \le 2$ (`PROOF_815.md` §3 (1)).
@@ -30,7 +34,7 @@ The witness chains the following **reviewed** results with the reviewed lemmas b
      $$c_{a, n, k} := \frac{h^{(a)}_{n,k}}{(n-k)!\,k!} \ge \frac{1}{(n-k)!\,k!} \sup_{\|\zeta_s\|_2 \le 1,\, \|\zeta_w\|_2 \le 1} \left\| D^n_{s^{n-k} w^k} G_a(0)[\zeta_s^{n-k}, \zeta_w^k] \right\|_2,$$
      certified via the minimum of the three Gram flattenings (`output`, `strong`, `weak` in `tensor_bounds`, `PROOF_815.md` (5)–(6)), together with the degree-9 Lagrange remainder tail
      $$T_{a,9}(S_{\text{full}}, W) := \left\| \left( \sum_{l=1}^{180} \sqrt{C_f[i,l]^2 + S_f[i,l]^2} \, \frac{(\|a_{l,s}\|_2 S_{\text{full}} + \|a_{l,w}\|_2 W)^9}{9!} \right)_{i \in a} \right\|_2.$$
-3. **N6. Native averaged moving contraction** (`family_neighbourhoods/PROOF.md` §6, `NATIVE_REVIEW.md`, [`moving_symmetry.py`](../code/proof/theorems/TC_triple_classification/family_neighbourhoods/moving_symmetry.py)):
+3. **N6. Native averaged moving contraction** (`family_neighbourhoods/PROOF.md` §6, `NATIVE_REVIEW.md`, [`moving_symmetry.py`](../../../proof/theorems/TC_triple_classification/family_neighbourhoods/moving_symmetry.py)):
    Given a per-column moving enclosure $v_c = v_{0,c} + T_c u + e_c$ with mean-zero error $\|e_c\|_2 \le \varepsilon_c$, the native contraction certifies that every solution in the tube has balanced order-three ($\mathbb{Z}_3$) symmetry whenever $q_{\text{native}} = \eta + \|\Delta_c\|_2 + r\|[V_1 \dots V_4]\|_2 + h + R < 1$.
 
 ---
@@ -95,7 +99,7 @@ q_{03}[i] &= \sum_{l=0}^{179} \left( C_f[i, l] b_{02}[l] a_{w,2}[l] + \frac{1}{6
 \end{aligned}$$
 For each ridge $l \in \{0,\dots,179\}$, let $(A_s q_3(w))_l = b_{30}[l] w_1^3 + b_{21,3}[l] w_1^2 w_2 + b_{12,3}[l] w_1 w_2^2 + b_{03}[l] w_2^3$, where $b_{\bullet}[l] = (A_s q_{\bullet})_l$.
 
-By Lemma P1.1, define the following spectral-norm constants (matching the exact variable names in `curved_expansion` of [`witness.py`](witness.py)):
+By Lemma P1.1, define the following spectral-norm constants (matching the exact variable names in `curved_expansion` of [`witness.py`](../../certifier/certifier/normal_form/witness.py)):
 - `kap_q` $= \|M(q_2)\|_2$ ($28 \times 3$), so $\|q_2(w)\|_2 \le \text{kap\_q}\,\|w\|_2^2$.
 - `kap_q3` $= \|M(q_3)\|_2$ ($28 \times 4$), so $\|q_3(w)\|_2 \le \text{kap\_q3}\,\|w\|_2^3$.
 - `kap_swq2` $= \|M(D^2_{sw} G_s(0)[q_2(w), w])\|_2$ ($28 \times 4$), so $\|D^2_{sw} G_s(0)[q_2(w), w] + q_3(w)\|_2 = \|\frac{1}{6} D^3_{www} G_s(0)[w^3]\|_2$ or, for the flat bound on $N_s(\zeta) + q_2(w) + q_3(w)$, the exact identity $\frac{1}{6}D^3_{www}G_s(0)[w^3]+q_3(w)=-D^2_{sw}G_s(0)[q_2(w),w]$ gives $\|\frac{1}{6} D^3_{www} G_s(0)[w^3] + q_3(w)\|_2 = \|D^2_{sw} G_s(0)[q_2(w), w]\|_2 \le \text{kap\_swq2}\,\|w\|_2^3$.
@@ -103,7 +107,7 @@ By Lemma P1.1, define the following spectral-norm constants (matching the exact 
 - `kap_w3` $= \|M(D^2_{sw} G_w(0)[q_2(w), w] + \frac{1}{6} D^3_{www} G_w(0)[w^3])\|_2$ ($2 \times 4$), and `kap_w3_raw` $= \|M(\frac{1}{6} D^3_{www} G_w(0)[w^3])\|_2$ ($2 \times 4$).
 - For each block $g \in \{0, 1\}$ ($s$ or $w$), define the degree-4 weak polynomial $P_{g,4}: \mathbb{R}^2 \to \mathbb{R}^{|g|}$ by
   $$P_{g,4}(w) := D^2_{sw} G_g(0)[q_3(w), w] + \frac{1}{2} D^2_{ss} G_g(0)[q_2(w), q_2(w)] + \frac{1}{2} D^3_{sww} G_g(0)[q_2(w), w, w] + \frac{1}{24} D^4_{wwww} G_g(0)[w^4],$$
-  with explicit coefficients $q_{40}, q_{31,4}, q_{22,6}, q_{13,4}, q_{04}$ given in lines 331–355 of [`witness.py`](witness.py), and set `kap_4[g]` $= \|M(P_{g,4})\|_2$ and `kap_4_raw[g]` $= \|M(\frac{1}{24} D^4_{wwww} G_g(0)[w^4])\|_2$.
+  with explicit coefficients $q_{40}, q_{31,4}, q_{22,6}, q_{13,4}, q_{04}$ given in lines 331–355 of [`witness.py`](../../certifier/certifier/normal_form/witness.py), and set `kap_4[g]` $= \|M(P_{g,4})\|_2$ and `kap_4_raw[g]` $= \|M(\frac{1}{24} D^4_{wwww} G_g(0)[w^4])\|_2$.
 - For each block $g \in \{0, 1\}$, define the combined operator matrices $L_{g,20}, L_{g,11}, L_{g,02} \in \mathbb{R}^{|g| \times 28}$ by
   $$\begin{aligned}
   L_{g,20}[i, \cdot] &= \sum_{l=0}^{179} \left(-C_{f,g}[i,l] b_{20}[l] - \frac{1}{2} S_{f,g}[i,l] a_{w,1}[l]^2\right) A_s[l, \cdot], \\

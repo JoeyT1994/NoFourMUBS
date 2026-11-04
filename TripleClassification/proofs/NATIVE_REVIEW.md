@@ -1,9 +1,8 @@
 # The native certifier's independent review, and what changed
 
 The native whole-ball certifier (`proof/theorems/TC_triple_classification/family_neighbourhoods/run.py`, binding
-`aaab342c…`) and its recognition argument were reviewed independently on 1 November 2026. The full return is
-`handoffs/ret_TC_native_review_20261101/` (not in the repository; `REVIEW.md` there answers the sixteen questions of the
-brief).
+`aaab342c…`) and its recognition argument were reviewed independently (AI-assisted) on 1 November 2026. The review's report and annexes are in
+[`native_review/`](native_review/REVIEW.md); its `REVIEW.md` answers the sixteen questions of the brief.
 
 **Verdict.** The native all-completions argument is sound for a record's own analytic Hadamard branch, given C1, the
 normal-form theorem and Stage C's error theorem with its input hypotheses.
@@ -18,11 +17,11 @@ normal-form theorem and Stage C's error theorem with its input hypotheses.
 
 A record built for a dyadic cell (`build_record`) is checked to contain the cell in seed coordinates
 (`cell_geometry`). That does not show that the record's analytic branch is the original ball's, so a certificate on
-the record did not yet carry over to the ball's matrices. This affects every leaf below level 0, native and plane;
+the record did not yet carry over to the ball's matrices. This affects every leaf below level 0, native and normal-form;
 the one-leaf native certificates (level 0, the original record) are unaffected.
 
-**Repair, now in the checker.** `code/branch_overlap.py` checks, for every leaf below level 0, the sufficient
-condition of the review's overlap lemma (`subcell_overlap_lemma.md` of the return). Take one seed θ* strictly
+**Repair, now in the checker.** [`overlap.py`](../certifier/certifier/overlap.py) checks, for every leaf below level 0, the sufficient
+condition of the review's overlap lemma ([`subcell_overlap_lemma.md`](native_review/subcell_overlap_lemma.md)). Take one seed θ* strictly
 inside both balls, a peripheral row/column permutation Π (rows and columns 3–5) and an integer phase matrix N. Then
 the following implies that the two branches agree, up to Π and phase gauges, on the whole common seed domain:
 
@@ -34,7 +33,7 @@ For cells of levels 1–2 the record is about as large as the ball (τ_c close t
 checker then uses a centre form of the same lemma: at a record's own centre its actual point is its certified centre
 Hadamard matrix, enclosed by the normal form's Q0, so the τ term drops. Since the lemma's conclusion is an equality,
 the roles of the two records may be exchanged. The centre form is our sharpening of the reviewer's lemma; its
-justification is in `branch_overlap.py`'s docstring.
+justification is in `overlap.py`'s docstring.
 
 A corner cell meets the ball only at its boundary, so its record ball is almost tangent to the original ball and the
 two balls share no interior point. For such a cell the original ball's normal form is certified on a radius 1% (or
@@ -42,11 +41,10 @@ two balls share no interior point. For such a cell the original ball's normal fo
 original branch, by uniqueness in the larger tube. The first rechecks refused 29 corner cells of balls 550, 2536 and
 1850 at level 3, and the larger normal form identifies all 29, with margins of 2–6 times.
 
-`onetree.py` requires the witness in `leaf_check` and `native_check` below level 0, and `check.json` records its hash
-(`checker_sha256`).
-- **Tests:** `code/test_branch_overlap.py` identifies cells of levels 1–8 on three balls, every form, in 0.1–0.2 s
+The certifier requires the witness for every leaf below level 0, and its checker id covers `overlap.py`.
+- **Tests:** [`test_overlap.py`](../certifier/tests/test_overlap.py) identifies cells of levels 1–8 on three balls, every form, in 0.1–0.2 s
   each, with margins of 3–8 times, and it refuses a record of another ball.
-- **Recheck:** every tree certificate is being re-checked with the witness.
+- **Recheck:** every tree certificate of the final atlas was checked with the witness (3 November 2026).
 
 ## F2 (minor): conjugation is not needed in recognition
 
@@ -69,7 +67,7 @@ the averaged inequality term by term. The proof document should present §6 as t
 
 ## Remarks
 
-- **R1.** A bare `run_ball` row does not evaluate Stage C's input preconditions. `onetree.py` always runs
-  `stagec_guard.check` after the native call and refuses the leaf if it fails, so every native leaf has the gate.
-- **R2.** The reviewer could not replay atlas balls, because the atlas file was not in the package. `onetree.py check`
+- **R1.** A bare `run_ball` row does not evaluate Stage C's input preconditions. The certifier always runs
+  Stage C's guard after the native call and refuses the leaf if it fails, so every native leaf has the gate.
+- **R2.** The reviewer could not replay atlas balls, because the atlas file was not in the package. `certify.py verify`
   replays every native leaf against the pinned atlas.

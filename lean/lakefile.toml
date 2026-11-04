@@ -20,7 +20,8 @@ name = "NoFourMUBs"
 name = "Step1"
 srcDir = "Step1Gen/lean"
 
-# Experimental, not part of the proof: checking the atlas computations in the Lean kernel (../kernel_atlas/).
+# Checking atlas computations in the Lean kernel (../kernel_atlas/). KernelAtlas.X is used by return X
+# (NoFourMUBs.X.Radius0175, the exclusion near F6); the rest is experimental and not part of the proof.
 # Not a default target; build modules explicitly, e.g. `lake build KernelAtlas.Rec100.Record`.
 [[lean_lib]]
 name = "KernelAtlas"

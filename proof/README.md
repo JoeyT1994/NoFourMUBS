@@ -1,12 +1,11 @@
 # The hash-bound core
 
-The proof is organised in four components:
+The repository is organised in five components:
 - [`MinimalReconstruction/`](../MinimalReconstruction/README.md)
 - [`Connectedness/`](../Connectedness/README.md)
 - [`PhaseCover/`](../PhaseCover/README.md)
 - [`QuartetExclusion/`](../QuartetExclusion/README.md)
-
-The triple classification in [`TripleClassification/`](../TripleClassification/README.md) is a separate result.
+- [`TripleClassification/`](../TripleClassification/README.md)
 
 The folders here are the exception. The atlas certificate's receipts, and the triple classifier's binding, record
 these files **by path as well as by content**. They therefore stay byte-identical at these paths, and the components
@@ -25,6 +24,11 @@ link to them.
 `python3 proof/seed_atlas/cert/check_binding.py` confirms the Arb binding against a checkout: `binding: OK`.
 [`theorems/README.md`](theorems/README.md) indexes every theorem by its label, wherever it now lives.
 
+**Returns, briefs and logs.** Letters such as Z, X or ZT label theorems ([`theorems/README.md`](theorems/README.md)).
+A *return* is a theorem's package as delivered by its author, often an AI agent working from a written brief, and is
+kept byte-for-byte together with its `BRIEF.md` or `PROMPT.md`. Logs in these folders keep the machine paths of the
+runs that produced them.
+
 ## Moved paths
 
 Returned packages are kept byte-for-byte as delivered, so their internal links may still name these old paths.
@@ -41,5 +45,5 @@ Returned packages are kept byte-for-byte as delivered, so their internal links m
 | `proof/theorems/{XS_edge_side_orders, ZC_cap_transfers, ZC2a_xball_sphere_caps, ZC2b_t3_caps}` | `PhaseCover/theorems/` |
 | `proof/theorems/{X_no_quartet_near_F6, X_radius_045}` | `QuartetExclusion/theorems/` |
 
-Every moved file's content is unchanged (`git log --follow` shows its history). The folders above will join their
-components once the triple classification is frozen, together with fresh Arb and Julia receipts for the new paths.
+Every moved file's content is unchanged (`git log --follow` shows its history). Moving the folders above into their
+components would need fresh Arb and Julia receipts for the new paths, so they stay here.
