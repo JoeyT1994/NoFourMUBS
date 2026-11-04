@@ -29,9 +29,9 @@ jobs:
       - name: verify.py (exact replays, Stage C Arb sample)
         run: python3 verify.py -j 4
       - name: Negative tests, Step 1 exact checker
-        run: python3 tests/negative_exact.py
+        run: python3 Connectedness/tests/negative_exact.py
       - name: Stage C clique search against the reference enumeration
-        run: python3 tests/clique_search.py
+        run: python3 QuartetExclusion/tests/clique_search.py
       - name: Seed-atlas Arb certifier tests (positive, negative, edge ball, horizontal gauge)
         run: python3 proof/seed_atlas/cert/tests/run_tests.py
 

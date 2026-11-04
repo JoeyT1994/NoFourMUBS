@@ -36,4 +36,5 @@ its internal links may name older paths. [`SOURCE_ZIPS.sha256`](SOURCE_ZIPS.sha2
 archives of all returns, including those now in `MinimalReconstruction/returns/`.
 [`COVERAGE_INDEX.md`](COVERAGE_INDEX.md) is the earlier combined index of Steps 1–2.
 
-`python3 verify.py` at the repository root replays everything here exactly.
+`python3 verify.py` at the repository root replays everything here exactly. [`tests/negative_exact.py`](tests/negative_exact.py)
+checks that the exact Step 1 checker rejects deliberately corrupted certificates.
