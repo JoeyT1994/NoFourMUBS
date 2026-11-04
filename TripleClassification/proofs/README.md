@@ -8,7 +8,7 @@ These are the documents the certifier's acceptance rules rest on.
 | [`ORDERING.md`](ORDERING.md) | The labelled Fourier score Γ_F: invariance, Lipschitz bound, the minimum-transition reduction and the bounds on Γ_F(K), Γ_F(L) | the four minimum-transition balls |
 | [`../../proof/theorems/TC_triple_classification/family_neighbourhoods/PROOF.md`](../../proof/theorems/TC_triple_classification/family_neighbourhoods/PROOF.md) | The native whole-ball certifier and the recognition of symmetric triples | native leaves |
 
-Each has had an independent, AI-assisted review:
+Notes on how they were checked, and what changed as a result:
 
 | Review | Of |
 |---|---|

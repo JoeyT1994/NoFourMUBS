@@ -7,7 +7,7 @@ code is [`certifier/certifier/ordering.py`](../certifier/certifier/ordering.py),
 `pr4/gamma_test.py` and `pr4/gamma_exact.py`.
 
 *Status: (Γ1), (Γ2) and (Γ3) are proved in the ordering return of 29 October 2026. The whole argument, the bound on L
-in §3 and the implementation were reviewed independently (AI-assisted) on 3 November 2026, with no gap found:
+in §3 and the implementation were checked again on 3 November 2026, with no gap found:
 [`REVIEW_ORDERING.md`](REVIEW_ORDERING.md).*
 
 ## 1. The score

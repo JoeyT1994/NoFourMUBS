@@ -4,7 +4,7 @@ The witness was proposed for the hardest balls by a separate AI agent (Antigravi
 original-ball integration left open below is the overlap witness ([`overlap.py`](../../certifier/certifier/overlap.py);
 [`NATIVE_REVIEW.md`](../NATIVE_REVIEW.md), F1), checked for every leaf of the final atlas on 3 November 2026.
 
-> **Independent review, 2 November 2026.** This corrected copy incorporates the algebraic and code-correspondence repairs established in the accompanying `REVIEW.md`. Verdicts apply within the represented H-branch scope and the reviewed native hypotheses; original-ball integration remains a separate obligation.
+> **Review, 2 November 2026.** This corrected copy incorporates the algebraic and code-correspondence repairs established in the accompanying `REVIEW.md`. Verdicts apply within the represented H-branch scope and the reviewed native hypotheses; original-ball integration remains a separate obligation.
 
 > **Arithmetic scope.** The new witness recomputes bounds in 160-bit Arb arithmetic (`python-flint 0.9.0`) and accepts by rigorous interval inequalities or exact comparisons. The inherited native setup retains its separately reviewed numerical proposals and conservative binary64 enclosures. The full executable is not claimed to make zero floating-point decisions.
 
