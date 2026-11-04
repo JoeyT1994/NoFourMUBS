@@ -43,14 +43,23 @@ def leaf(data):
 def gz(x): return gzip.compress(json.dumps(x, separators=(',', ':')).encode(), mtime=0)
 
 
+def leaf_source(path):
+    """Where a directory certificate's leaves are: 'tar' (DIR/leaves.tar), 'dir' (DIR/leaves/) or None. A directory
+    holding both is refused, so that what is read (Certificate) and what is hashed (verify.digest) are the same files."""
+    path = Path(path); t, d = path / 'leaves.tar', path / 'leaves'
+    if t.exists() and d.exists(): raise ValueError('%s holds both leaves.tar and leaves/' % path)
+    return 'tar' if t.exists() else 'dir' if d.is_dir() else None
+
+
 class Certificate:
     def __init__(self, path):
         path = Path(path)
         self.path = path; self.members = {}; self.tar = None
         if path.is_dir():
             self.tree = json.loads((path / 'tree.json').read_bytes())
-            if (path / 'leaves').is_dir(): self.dir = path / 'leaves'
-            elif (path / 'leaves.tar').exists(): self.dir = None; self._index(path / 'leaves.tar', '')
+            source = leaf_source(path)
+            if source == 'dir': self.dir = path / 'leaves'
+            elif source == 'tar': self.dir = None; self._index(path / 'leaves.tar', '')
             else: self.dir = None                   # no leaf files (a native whole-ball certificate needs none)
         else:
             self.dir = None; self._index(path, None)
