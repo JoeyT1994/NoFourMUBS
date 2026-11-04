@@ -51,7 +51,8 @@ byte-for-byte ([`proof/README.md`](proof/README.md)).
   ordering argument (3 November) have each had one independent, AI-assisted review
   ([native](TripleClassification/proofs/native_review/REVIEW.md),
   [normal form](TripleClassification/proofs/normal_form/review/REVIEW.md),
-  [ordering](TripleClassification/proofs/REVIEW_ORDERING.md)); the classification at F₆ awaits one, and the
+  [ordering](TripleClassification/proofs/REVIEW_ORDERING.md)); the classification at F₆ awaits one (its 383,829 shell verdicts are published and were replayed in full on
+  4 November), and the
   classification is not formalised in Lean.
 - **Independent proof of the corollary.** The seed-atlas certificate (2,775 seed balls and the ball at F₆, every
   sphere covered by 117,391 certified caps) passes both independent certifiers: Arb in 33 min on one 128-core node

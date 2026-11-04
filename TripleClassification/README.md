@@ -70,6 +70,11 @@ certificate classifies every triple.
 - **(B) The ball at F₆: certified, subject to review.** Every completing third basis for every H in the ball at F₆ is
   of known type. This is where the isolated triple and the continuous family meet
   ([`../proof/theorems/TC_triple_classification/xball/REPORT.md`](../proof/theorems/TC_triple_classification/xball/REPORT.md)).
+  A certified core is surrounded by 383,829 shell leaves, each certified by the unchanged shell certifier. Their verdicts
+  (12 row files, hash-matched to `results/sharded_20261028/manifest_sharded.json`) are the asset `fourier-shell-rows.tar`
+  of release [`tc-certificates-2026-11-03`](https://github.com/JoeyT1994/NoFourMUBS/releases/tag/tc-certificates-2026-11-03). On 3–4 November 2026 every shell leaf was certified again from
+  scratch and accounted from the new rows alone: CERTIFIED, 383,829 of 383,829
+  ([`results/fourier_shell_replay_20261104.json`](results/fourier_shell_replay_20261104.json); 1,538 core-hours).
 - **(C) S₆: certified.** Tao's matrix has no third basis
   ([`../proof/theorems/TC_triple_classification/tao.py`](../proof/theorems/TC_triple_classification/tao.py)).
 
