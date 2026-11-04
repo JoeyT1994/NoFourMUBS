@@ -16,13 +16,15 @@ H-transition has the least Gamma_F of its three transitions, which classifies ev
 `verify_all` verifies the certificates a manifest lists (lines `BALL PATH`, paths relative to the manifest), appending
 one JSON line per ball to a results file. A ball already there as CLOSED, with the same certificate digest and the
 same checker, is not verified again, so a run can be resumed and split into shards (`--shard I/N`: the balls with
-ball % N == I) that share one results file. The atlas is closed when every one of its balls is CLOSED there.
+ball % N == I) that share one results file. The atlas is closed when the manifest lists every one of its balls and each
+is CLOSED there, by this checker, for the digest of the certificate the manifest now names; result lines for other
+balls or other certificates are not counted.
 """
 import fcntl, hashlib, json, multiprocessing, os, sys, tempfile, time
 from concurrent.futures import ProcessPoolExecutor
 from pathlib import Path
 from . import __version__, cells, native_leaf, normal_form_leaf, overlap, pinned
-from .certificate import LEAF, Certificate
+from .certificate import LEAF, Certificate, leaf_source
 
 _CERT = {}                                       # the certificate being verified; forked workers inherit it
 
@@ -85,13 +87,22 @@ def verify(path, ball=None, workers=8):
 def digest(path):
     """SHA-256 of a certificate's files: tree.json and leaves.tar, the leaf files of leaves/ in order, or the tar."""
     path = Path(path); h = hashlib.sha256()
-    files = ([path] if path.is_file() else [path / 'tree.json'] +
-             ([path / 'leaves.tar'] if (path / 'leaves.tar').exists() else sorted((path / 'leaves').glob('*')) if (path / 'leaves').is_dir() else []))
+    if path.is_file(): files = [path]
+    else:
+        source = leaf_source(path)                # the same files Certificate reads
+        files = [path / 'tree.json'] + ([path / 'leaves.tar'] if source == 'tar' else
+                                        sorted((path / 'leaves').glob('*')) if source == 'dir' else [])
     for f in files:
         h.update(f.name.encode() + b'\0')
         with open(f, 'rb') as g:
             for block in iter(lambda: g.read(1 << 24), b''): h.update(block)
     return h.hexdigest()
+
+
+def _digest(path):
+    """digest(path), or None for an unreadable certificate (which then matches no result line)."""
+    try: return digest(path)
+    except (OSError, ValueError): return None
 
 
 def read_manifest(manifest):
@@ -123,7 +134,7 @@ def verify_all(manifest, results=None, shard=(0, 1), workers=8, log=sys.stdout):
     paths = read_manifest(manifest); checker = checker_id(); n = pinned.atlas_size()
     done = read_results(results, checker)
     for ball in sorted(b for b in paths if b % shard[1] == shard[0]):
-        d = digest(paths[ball]); old = done.get(ball)
+        d = _digest(paths[ball]); old = done.get(ball)
         if old and old['verdict'] == 'CLOSED' and old['digest'] == d: continue
         try: r = verify(paths[ball], ball, workers)
         except Exception as e: r = dict(ball=ball, verdict='OPEN', failed=[[None, None, 'unreadable: %s' % str(e)[:200]]], counts={})
@@ -132,12 +143,19 @@ def verify_all(manifest, results=None, shard=(0, 1), workers=8, log=sys.stdout):
         with open(results, 'a') as f:
             fcntl.flock(f, fcntl.LOCK_EX); f.write(json.dumps(line) + '\n'); f.flush(); fcntl.flock(f, fcntl.LOCK_UN)
         print('ball %d: %s' % (ball, line['verdict']), file=log, flush=True)
-    return summary(read_results(results, checker), n)
+    return summary(read_results(results, checker), n, {b: _digest(p) for b, p in paths.items()})
 
 
-def summary(done, n):
-    """The atlas's state from the result lines: closed balls, balls not closed, balls not yet verified."""
+def summary(done, n, digests):
+    """The atlas's state for the manifest's certificates (`digests`: {ball: digest}): a result line counts only for a ball
+    the manifest lists and only for the certificate it now names. Closed balls, balls not closed, balls not verified."""
+    done = {b: x for b, x in done.items() if digests.get(b) is not None and x['digest'] == digests[b]}
     closed = {b: x for b, x in done.items() if x['verdict'] == 'CLOSED'}
-    return dict(atlas_balls=n, closed=len(closed), all_closed=len(closed) == n and set(closed) == set(range(n)),
+    scopes = {}
+    for x in closed.values(): scopes[x.get('scope')] = scopes.get(x.get('scope'), 0) + 1
+    return dict(atlas_balls=n, manifest_balls=len(digests), closed=len(closed), scopes=scopes,
+                all_closed=set(digests) == set(range(n)) and set(closed) == set(range(n)),
                 not_closed=sorted(b for b, x in done.items() if x['verdict'] != 'CLOSED'),
-                not_verified=sorted(set(range(n)) - set(done))[:100], core_hours=round(sum(x.get('core_seconds') or 0 for x in done.values()) / 3600, 2))
+                not_in_manifest=sorted(set(range(n)) - set(digests))[:100],
+                not_verified=sorted(set(digests) - set(done))[:100],
+                core_hours=round(sum(x.get('core_seconds') or 0 for x in done.values()) / 3600, 2))

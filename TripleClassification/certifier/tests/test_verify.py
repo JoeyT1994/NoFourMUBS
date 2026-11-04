@@ -126,3 +126,26 @@ def test_verify_all(tmp_path, ball2254):
     assert code == 1 and s['closed'] == 1 and not s['all_closed'] and s['atlas_balls'] == 2775
     code, log = cli('verify-all', tmp_path / 'MANIFEST', '--workers', 1)  # resumed: nothing verified again
     assert 'ball 2254' not in log
+
+
+def test_verify_all_counts_only_the_manifest(tmp_path):
+    """A results file claiming every ball CLOSED, with this checker but for no certificate the manifest names, does not
+    close the atlas: an empty manifest, and a manifest whose certificate has another digest, both stay open."""
+    from certifier.verify import checker_id
+    (tmp_path / 'MANIFEST').write_text('')
+    fake = [dict(ball=b, path='x', digest='0' * 64, checker=checker_id(), verdict='CLOSED', scope='all', counts={},
+                 failed=[], wall_seconds=0, core_seconds=0) for b in range(2775)]
+    (tmp_path / 'MANIFEST.results.jsonl').write_text(''.join(json.dumps(x) + '\n' for x in fake))
+    code, log = cli('verify-all', tmp_path / 'MANIFEST', '--workers', 1)
+    s = json.loads(log[log.index('{'):])
+    assert code == 1 and not s['all_closed'] and s['closed'] == 0 and s['manifest_balls'] == 0
+
+
+def test_both_leaf_layouts_refused(cell1016, tmp_path):
+    """A directory holding both leaves.tar and leaves/ is refused, by the reader and by the digest alike."""
+    from certifier.verify import digest
+    both = tmp_path / 'b1016'; shutil.copytree(cell1016, both)
+    os.makedirs(both / 'leaves')
+    for n, b in leaves(cell1016).items(): (both / 'leaves' / n).write_bytes(b)
+    with pytest.raises(ValueError): verify(str(both), 1016, workers=1)
+    with pytest.raises(ValueError): digest(both)
