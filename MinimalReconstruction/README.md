@@ -42,9 +42,7 @@ parametrisation. F6 denotes the single Fourier matrix, not its two-parameter fam
 | [`returns/F_side_existence/`](returns/F_side_existence/README.md) | Cross-check: the earlier proof of side existence by explicit radical sides with integer-cofactor identities (superseded by J) | run by `verify.py` |
 | [`theorems/H_fourier_vanishing/`](theorems/H_fourier_vanishing/) | For the paper, not used by the proof | — |
 
-Each package under `returns/` is kept exactly as it was delivered, with its write-up, exact verifiers and
-certificates, so its internal links may name older paths. The hashes of the original archives are in
-[`../Connectedness/SOURCE_ZIPS.sha256`](../Connectedness/SOURCE_ZIPS.sha256). Every check is exact. `python3 verify.py`
+Each folder under `returns/` holds one proof with its write-up, exact verifiers and certificates. Every check is exact. `python3 verify.py`
 replays all of them except R2's and H's own scripts. Theorems 2.2–2.5 are also proved in Lean (see `PROOF.md`,
 *What is checked, and how*).
 

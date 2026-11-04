@@ -103,4 +103,4 @@ bases of any triple can be reordered so that this holds, and the score does not 
 | [`certifier/`](certifier/README.md) | The certifier (`certify.py close`, `verify` and `verify-all`), its tests and its timings |
 | [`proofs/`](proofs/README.md) | The proofs the certifier rests on |
 | [`results/`](results/README.md) | Each ball's verdict, leaves, certificate size and timings, and the atlas summary |
-| [`../proof/theorems/TC_triple_classification/`](../proof/theorems/TC_triple_classification/README.md) | The native whole-ball certifier, the classification of the ball at F₆ and their receipts. These files are bound to their receipts by path, so they stay unchanged, and their own README predates the final certification |
+| [`../proof/theorems/TC_triple_classification/`](../proof/theorems/TC_triple_classification/README.md) | The native whole-ball certifier and the classification of the ball at F₆, with the records of their runs. Its own README describes an earlier stage of the work |

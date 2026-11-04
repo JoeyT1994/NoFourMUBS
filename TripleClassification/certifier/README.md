@@ -82,7 +82,6 @@ and the normal-form witness ([`../proofs/normal_form/`](../proofs/normal_form/PR
       pinned.py             the earlier code these build on, checked against PINNED.sha256 on import:
       normal_form/            the reviewed and repaired normal-form witness, unchanged
       pr4/                    cell records, the containment proof, the outside test and the input checks
-                              (tag tc-checker-914919b, named after the pull request that introduced them)
                               The native certifier and the atlas are read from ../../proof/ at their own paths.
     tools/fp_audit.py       verify-all with every floating-point exception raised
     tests/                  python3 -m pytest, run from this folder: close and verify, tampered certificates, the
