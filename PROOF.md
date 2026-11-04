@@ -424,7 +424,7 @@ corner or lies in a Fourier family (`PRM.nonmatched_tao_or_fourier`, `PRM.strict
 | Julia certification | **PASS**, every check: 1 h 07 min on one 64-core node (`results/julia/`) |
 | certificate | `proof/seed_atlas/results/seed_atlas_certificate.json.gz` (17 MB, SHA-256 `33ad9798eb7a5585c486f2427a6b223867a43b308b7f184467b4cd5956bd8baf`); Arb receipt `arb_receipt.json` |
 
-**Status (27 Oct 2026).** Both certifiers pass the whole certificate. Every sphere is covered by certified caps (no boxes), every seed ball's C1 is from cheap constants, and T3 is by Theorem 4.3 (no side data).
+**Status of Step 5 (27 Oct 2026).** Both certifiers pass the whole certificate. Every sphere is covered by certified caps (no boxes), every seed ball's C1 is from cheap constants, and T3 is by Theorem 4.3 (no side data).
 
 ## Conclusion
 
