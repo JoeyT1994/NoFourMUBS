@@ -1,89 +1,102 @@
-# Kernel atlas: the certificate checked in the Lean kernel
+# Kernel atlas: checking the certificate in the Lean kernel
 
-The main theorem (`PROOF.md`, `lean/NoFourMUBs/SeedAtlas/EdgeXFinal.lean`) is
-`EdgeXFinal.no_four_mubs_seed (C : EdgeAtlasCertificate) : ¬ FourMUBs`, with the certificate's inequalities checked
-by the Arb and Julia certifiers. This folder checks those inequalities in the Lean kernel itself (`decide +kernel`),
-which makes the theorem hold with no hypotheses. Nothing in `verify.py` runs it, and a reviewer does not need it.
+The main theorem is `EdgeXFinal.no_four_mubs_seed (C : EdgeAtlasCertificate) : ¬ FourMUBs` (see `PROOF.md` and
+`lean/NoFourMUBs/SeedAtlas/EdgeXFinal.lean`). Its hypothesis is a numerical certificate, whose inequalities are
+checked by the Arb and Julia certifiers. This folder checks those inequalities in the Lean kernel itself, with
+`decide +kernel`. Once all of them are checked this way, the theorem holds with no hypotheses. `verify.py` does not
+run any of this, and a reviewer of the proof does not need it.
 
 ## Status
 
-| Piece | Lean (`lean/KernelAtlas/`) | Status |
+| Part | Lean (`lean/KernelAtlas/`) | Status |
 |---|---|---|
-| Return X at 7/40 (the X-ball's `exclusion`) | `X/`, `X/SC175/` | **done**: `X.Radius0175.no_quartet_near_F6_r0175`, hypothesis-free, standard axioms |
-| Stage C on a seed ball's enclosure | `StageCK2B` and the record pipeline below, reused | done (the pipeline of the earlier atlas) |
-| Seed-ball C1 by return Z (one centre computation per ball) | `WholeBall/`, `lean/NoFourMUBs/SeedAtlas/Method/WholeBall*.lean` | in progress |
-| Seed-ball C1 by boxes (fallback) | `Seed/` ([`docs/KERNEL_SEED.md`](docs/KERNEL_SEED.md)) | done; 3.6 s per box |
-| The X-ball: C1e, image bound, chart, T3 | `Edge/` ([`docs/KERNEL_EDGE.md`](docs/KERNEL_EDGE.md)) | in progress |
-| Transfers T0, T1 and sphere coverage | `Seed/` | design in `docs/KERNEL_SEED.md` §6 |
+| The exclusion of quartet edges within 7/40 of F6 (Theorem 4.1, the `exclusion` field of the ball at F6) | `X/`, `X/SC175/` | Done. `NoFourMUBs.X.no_quartet_near_F6_r0175` (in `lean/NoFourMUBs/X/Radius0175.lean`) is hypothesis-free and uses only the standard axioms. |
+| The local tests that exclude quartet edges from a ball's enclosure (Stage C, Lemma 3.2), on a seed ball | `StageCK2B` and the Record modules below, reused | Done, as part of the earlier full kernel check |
+| The enclosure of the Hadamard matrices over a seed ball (Lemma 3.1), from one computation at the centre of each ball | `WholeBall/`, `lean/NoFourMUBs/SeedAtlas/Method/WholeBall*.lean` | In progress. The method is proved in Lean, and one ball of a development certificate is kernel-checked ([`WholeBall/`](lean/KernelAtlas/WholeBall/README.md)). |
+| The same enclosure from a subdivision of the ball into boxes (the fallback) | `Seed/` ([`docs/KERNEL_SEED.md`](docs/KERNEL_SEED.md)) | Done, 3.6 s per box |
+| The ball at F6 (the X-ball): its enclosure, the bound on its image, the edge chart and the transfers into it (T3) | `Edge/` ([`docs/KERNEL_EDGE.md`](docs/KERNEL_EDGE.md)) | In progress |
+| The transfers between seed balls (T0 and T1, Lemma 5.1) and the coverage of each boundary sphere | `Seed/` | Designed, see `docs/KERNEL_SEED.md` §6 |
 
-## The record pipeline
+Theorem, lemma and transfer numbers refer to `PROOF.md`.
 
-The earlier proof's atlas of 12,021 ball Records was kernel-checked once in full (`no_four_mubs_kernel`, 16–19 Oct
-2026, 53,675 core-hours; preserved with its manifest at the git tag `v1-25dim-records`). Its Stage C, normal-bound
-and boundary modules are what return X and the seed balls reuse. The rest of this file documents them; the generators
-that read that atlas's certificate (`export_record.py`, `export_table.py`, `kbound.py`, `kexact.py`, …) need it from
-the tag.
+## The Record modules
 
-### The pieces (17 Oct 2026)
+An earlier version of the proof used an atlas of 12,021 balls in 25-dimensional coordinates, called Records. That
+atlas was kernel-checked once in full (`no_four_mubs_kernel`, 16–19 Oct 2026, 53,675 core-hours, see
+[`results/full/RUN.md`](results/full/RUN.md)). Its Stage C, normal-bound and boundary modules are reused by the
+exclusion near F6 and by the seed balls, and the rest of this file documents them. The atlas and its certificate are
+kept at the git tag `v1-25dim-records`. The generators that read this certificate (`export_record.py`,
+`export_table.py`, `kbound.py`, `kexact.py` and others) need it from the tag.
 
-**Record 100 is a complete kernel-checked `RecordCert`** (`NoFourMUBs.KernelAtlas.Rec100.cert`, standard axioms only),
-in about 17 CPU-minutes:
+### Record 100
 
-| Ingredient | Lean (`lean/KernelAtlas/`) |
+Record 100 is a complete kernel-checked `RecordCert` (`NoFourMUBs.KernelAtlas.Rec100.cert`). It uses only the
+standard axioms and takes about 17 CPU-minutes.
+
+| Part | Lean (`lean/KernelAtlas/`) |
 |---|---|
 | Bin tree: direct test, tangent test, label membership | `Bins`, `Tangent`, `Labels` |
 | Edges (direct O and U tests) and the two-clique search | `Edges`, `Clique`, assembled by `StageCK` |
 | Normal bound: frame (g, λ, t), σ, e₀, K, j₁, radii against the bars | `FrameK`, `TrigK`, `SigmaK`, `E0K`, `NormalK` |
 | Record 100 data and checks (generated) | `Rec100/` |
 
-**Record 146** (one of the 673 Records the v1 checker could not settle) **has a complete kernel-checked Stage C**
-(`Rec146.stageC2`, standard axioms) with the sharper tangent test v2 (`Tangent2`, `Tangent2K`, `Tangent2S`: hinted
-least-squares multiplier, full remainder, scalar test) and the joint edge test (`Joint2`, `Joint2K`, `Joint2S`).
-With v2 the greedy kernel labels leave 26 of 12,021 Records unsettled (v1: 673); a clustering variant (survivor order
-× label radius) settles all 26, so direct + joint edges suffice for every Record (Record 4015, a former failure, is a
-full kernel `RecordCert`). See [`docs/KERNEL_TANGENT_V2.md`](docs/KERNEL_TANGENT_V2.md).
+### Record 146 and the sharper tests
 
-**The `boundary` field** (`BoundaryCover`, Lemma 4.1) is kernel-checked for Record 100 (`Rec100.boundary`, standard
-axioms, about 100 s and < 10 GB) and Record 146 (`Rec146.boundary`), for any atlas containing the Record whose transfer
-targets have the stored centres and radii (`BoundaryK`: an η-box tree with exact integer tests, one box per target).
-The exact Python mirror finds a boundary cover for all 12,021 Records.
-**The `fourier` and `tao` fields** are kernel-checked the same way (`ExactK`, `Special/`):
-`fourierHadamard` into Record 877 and `taoMatrix ω` (both cube roots) into the zero-dimensional Tao Record. (The
-former `anchor` field, the explicit `H₀` in Record 9319, was removed with return Q.) **Tao's zero-dimensional Record** is a
-kernel-checked `RecordCert` (`RecTao.cert`, frame `T = 0`, `RecordK0`), so the `tao` field holds for any atlas
-containing it. See [`docs/KERNEL_BOUNDARY.md`](docs/KERNEL_BOUNDARY.md).
+Record 146 is one of the 673 Records that the first version of the checker could not settle. Its Stage C is
+kernel-checked in full (`Rec146.stageC2`, standard axioms). It uses two sharper tests. The second version of the
+tangent test (`Tangent2`, `Tangent2K`, `Tangent2S`) has a hinted least-squares multiplier, the full remainder and a
+scalar test. The joint edge test is in `Joint2`, `Joint2K` and `Joint2S`.
 
-Details and costs: [`docs/KERNEL_RECORD100.md`](docs/KERNEL_RECORD100.md); the design and the cost model:
-[`docs/KERNEL_FEASIBILITY.md`](docs/KERNEL_FEASIBILITY.md), [`docs/KERNEL_TANGENT.md`](docs/KERNEL_TANGENT.md).
+With the second tangent test and the greedy kernel labels, 26 of the 12,021 Records remain unsettled (673 with the
+first version). A clustering variant, which varies the survivor order and the label radius, settles all 26. So the
+direct and joint edge tests suffice for every Record. Record 4015, formerly one of the failures, is a full
+kernel-checked `RecordCert`. See [`docs/KERNEL_TANGENT_V2.md`](docs/KERNEL_TANGENT_V2.md).
 
-## How it was reached
+### Boundary and special fields
 
-1. **Survey** (done: `explorations/atlas_survey/`, and for v2 `docs/KERNEL_TANGENT_V2.md`). The joint edge test is
-   in the kernel; the support test is not needed: the 26 Records that fail with the greedy kernel labels pass with a
-   clustering variant (all 26 in the mirror; Record 4015 end to end in the kernel), so every Record is settled by
-   direct + joint edges.
-2. **Boundary transfers** (`BoundaryCover`, Lemma 4.1): the checker and Records 100 and 146 are done
-   (`docs/KERNEL_BOUNDARY.md`); about 1.5 CPU-minutes per Record, ≈ 300 CPU-hours for the atlas. Each Record's cover
-   is conditional on its ≈ 55 targets being kernel-certified with the same centres and radii.
-3. **Special Records** (done): Tao's zero-dimensional Record (`RecTao.cert`) and the `tao` and `fourier`
-   fields (conditional on their target Records being in the atlas).
-4. **Scale** ([`docs/KERNEL_ASSEMBLY.md`](docs/KERNEL_ASSEMBLY.md)): the data are sealed and packed (≈ 5 MB of olean
-   per Record instead of ≈ 177 MB), all Records share the atlas table so cross-Record links are `rfl`, and the chunk
-   and final assembly modules are generated (`export_assembly.py`; `Final.lean` checked against stub chunks). A
-   rusty pilot kernel-checked 50 Records (with boundaries) and imported them into one process in 4 s and 6.9 GB,
-   which extrapolates to ≈ 1–2 min and ≈ 50 GB for the atlas. **Done** (19 Oct): the full run, see the status above
-   and `results/full/RUN.md`.
+The `boundary` field (`BoundaryCover`, Lemma 4.1 of the earlier proof) is kernel-checked for Record 100
+(`Rec100.boundary`, standard axioms, about 100 s and under 10 GB) and for Record 146 (`Rec146.boundary`). Each result
+holds for any atlas that contains the Record and whose transfer targets have the stored centres and radii. The
+checker `BoundaryK` works on a tree of η-boxes with exact integer tests, one box per target. An exact Python mirror
+finds a boundary cover for all 12,021 Records.
+
+The `fourier` and `tao` fields are kernel-checked in the same way (`ExactK`, `Special/`). They place
+`fourierHadamard` in Record 877 and `taoMatrix ω`, for both cube roots ω, in Tao's zero-dimensional Record. That
+Record is itself a kernel-checked `RecordCert` (`RecTao.cert`, with frame `T = 0`, `RecordK0`), so the `tao` field
+holds for any atlas containing it. An earlier `anchor` field, the explicit `H₀` in Record 9319, has since been
+removed from the certificate. See [`docs/KERNEL_BOUNDARY.md`](docs/KERNEL_BOUNDARY.md).
+
+Details and costs are in [`docs/KERNEL_RECORD100.md`](docs/KERNEL_RECORD100.md). The design and the cost model are in
+[`docs/KERNEL_FEASIBILITY.md`](docs/KERNEL_FEASIBILITY.md) and [`docs/KERNEL_TANGENT.md`](docs/KERNEL_TANGENT.md).
+
+### How the full check was done
+
+1. A survey of the atlas (`explorations/atlas_survey/` at the tag, and `docs/KERNEL_TANGENT_V2.md` for the
+   second tangent test) fixed which tests the kernel needs. The joint edge test is in the kernel. The support
+   test is not needed, because the 26 Records that fail with the greedy kernel labels pass with a clustering variant.
+   All 26 pass in the mirror, and Record 4015 passes end to end in the kernel.
+2. For the boundary transfers (`BoundaryCover`, Lemma 4.1), the checker and Records 100 and 146 came first
+   (`docs/KERNEL_BOUNDARY.md`). Each Record takes about 1.5 CPU-minutes, or about 300 CPU-hours for the atlas. Each
+   Record's cover is conditional on its roughly 55 targets being kernel-certified with the same centres and radii.
+3. The special Records followed: Tao's zero-dimensional Record (`RecTao.cert`) and the `tao` and `fourier`
+   fields, each conditional on its target Record being in the atlas.
+4. The check was then scaled to the whole atlas ([`docs/KERNEL_ASSEMBLY.md`](docs/KERNEL_ASSEMBLY.md)). The data
+   are sealed and packed, which gives about 5 MB of olean per Record instead of about 177 MB. All Records share the atlas table, so links between
+   Records hold by `rfl`. The chunk and final assembly modules are generated by `export_assembly.py`, and
+   `Final.lean` was first checked against stub chunks. A pilot run kernel-checked 50 Records with their boundaries
+   and imported them into one process in 4 s and 6.9 GB. This extrapolates to about 1–2 min and about 50 GB for the
+   whole atlas. The full run finished on 19 Oct 2026 ([`results/full/RUN.md`](results/full/RUN.md)).
 
 ## Layout and usage
 
-- `lean/KernelAtlas/`: Lean sources, built as the Lake library `KernelAtlas` declared in `lean/lakefile.toml` (not a
-  default target).
+- `lean/KernelAtlas/`: Lean sources, built as the Lake library `KernelAtlas` declared in `lean/lakefile.toml`. It is
+  not a default target.
 - `generators/`: Python generators and exact mirrors (`export_record.py`, `export_tangent.py`, `klabels.py`,
-  `knormal.py`, `kbins.py`, `ktangent.py`; boundary and special fields: `kbound.py`, `export_boundary.py`,
-  `survey_boundary.py`, `kexact.py`, `export_exact.py`, `export_tao.py`).
+  `knormal.py`, `kbins.py`, `ktangent.py`, and for the boundary and special fields `kbound.py`,
+  `export_boundary.py`, `survey_boundary.py`, `kexact.py`, `export_exact.py`, `export_tao.py`).
 - `docs/`: design notes and status.
 
-Regenerate Record 100 from the repository root, then build from `lean/`:
+To regenerate Record 100, run the generators from the repository root and then build from `lean/`:
 
 ```bash
 python3 kernel_atlas/generators/export_record.py 100 kernel_atlas/lean/KernelAtlas/Rec100
@@ -101,5 +114,5 @@ python3 kernel_atlas/generators/export_tao.py       # RecTao/ (Tao's Record; the
 cd lean && lake build KernelAtlas.Rec100.BoundaryCover KernelAtlas.Special.Exact
 ```
 
-The generated modules are named `KernelAtlas.Rec100.*`; their declarations live in the namespace
+The generated modules are named `KernelAtlas.Rec100.*`. Their declarations live in the namespace
 `NoFourMUBs.KernelAtlas.Rec100`.

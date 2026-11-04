@@ -8,8 +8,8 @@ explains how.
 
 **Theorem (computer-assisted).** Up to equivalence, every nonempty set of mutually unbiased bases (MUBs) in ℂ⁶ is
 one of the following:
-1. a single basis {I};
-2. a pair {I, H/√6}, where H is Tao's matrix, F₆, or the matched completion H₊(θ) of a strict seed θ;
+1. a single basis {I},
+2. a pair {I, H/√6}, where H is Tao's matrix, F₆, or the matched completion H₊(θ) of a strict seed θ,
 3. a triple in the continuous two-parameter family, or the isolated Fourier triple.
 
 Two sets of MUBs are *equivalent* if one is obtained from the other by a common unitary, by rephasing and permuting
