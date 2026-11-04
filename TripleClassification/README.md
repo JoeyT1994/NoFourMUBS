@@ -31,7 +31,8 @@ Tao's matrix:
 
 For about four-fifths of the balls the certificate excludes every pattern, so no pair from those balls extends to a
 triple. The certificates total 3.3 GB; checking all of them takes about 900 core-hours, under five hours on sixteen
-128-core nodes. Per-ball verdicts, sizes and times: [`results/`](results/).
+128-core nodes. Per-ball verdicts, sizes and times: [`results/`](results/). The certificates are the assets of release
+[`tc-certificates-2026-11-03`](https://github.com/JoeyT1994/NoFourMUBS/releases/tag/tc-certificates-2026-11-03): two archives, a manifest and checksums; `certify.py verify-all` checks them.
 
 ## (A): one certificate per ball
 
@@ -75,9 +76,9 @@ certificate classifies every triple.
 |---|---|---|
 | The atlas covers every Hadamard class but S₆ | [`../PhaseCover/`](../PhaseCover/README.md) | the no-four-MUBs proof |
 | C1 and Stage C, and Stage C's input preconditions | [`../proof/atlas/`](../proof/atlas/) (`STAGEC.md`, `RIGOUR.md`) | the no-four-MUBs proof |
-| The native certifier and its recognition argument; the overlap witness | [`family_neighbourhoods/PROOF.md`](../proof/theorems/TC_triple_classification/family_neighbourhoods/PROOF.md), [`certifier/certifier/overlap.py`](certifier/certifier/overlap.py) | independent review, 1 November 2026 ([`proofs/NATIVE_REVIEW.md`](proofs/NATIVE_REVIEW.md)) |
+| The native certifier and its recognition argument; the overlap witness | [`family_neighbourhoods/PROOF.md`](../proof/theorems/TC_triple_classification/family_neighbourhoods/PROOF.md), [`certifier/certifier/overlap.py`](certifier/certifier/overlap.py) | independent AI-assisted review, 1 November 2026 ([`proofs/native_review/`](proofs/native_review/REVIEW.md); repairs: [`proofs/NATIVE_REVIEW.md`](proofs/NATIVE_REVIEW.md)) |
 | The minimum-transition ordering (four balls only) | [`proofs/ORDERING.md`](proofs/ORDERING.md), [`certifier/certifier/ordering.py`](certifier/certifier/ordering.py) | invariance, Lipschitz bound and reduction from the ordering return of 29 October 2026; the bound on L and the implementation await independent review |
-| The cubic normal-form witness | [`proofs/normal_form/PROOFS.md`](proofs/normal_form/PROOFS.md), with the localisation and Gram bounds it extends (`PROOF_815.md`, `AUDIT_815.md`, `BASELINE_PROOFS_P1_P2.md`) | independent algebraic review, 2 November 2026, which found and repaired one sign error ([`proofs/normal_form/review/REVIEW.md`](proofs/normal_form/review/REVIEW.md)); the certifier runs the repaired code, byte-identical |
+| The cubic normal-form witness | [`proofs/normal_form/PROOFS.md`](proofs/normal_form/PROOFS.md), with the localisation and Gram bounds it extends (`PROOF_815.md`, `AUDIT_815.md`, `BASELINE_PROOFS_P1_P2.md`) | independent AI-assisted algebraic review, 2 November 2026, which found and repaired one sign error ([`proofs/normal_form/review/REVIEW.md`](proofs/normal_form/review/REVIEW.md)); the certifier runs the repaired code, byte-identical |
 
 ## Where everything is
 
@@ -86,4 +87,4 @@ certificate classifies every triple.
 | [`certifier/`](certifier/README.md) | The certifier: `certify.py close`, `verify` and `verify-all`, its tests, and its speed |
 | [`proofs/`](proofs/) | The normal-form witness's statements and proofs, its review, and the native certifier's review |
 | [`results/`](results/) | Per ball: verdict, leaves, certificate size, search and check time; the atlas summary |
-| [`../proof/theorems/TC_triple_classification/`](../proof/theorems/TC_triple_classification/README.md) | The native whole-ball certifier, the F₆ ball's classification and their receipts (hash-bound, so kept at this path) |
+| [`../proof/theorems/TC_triple_classification/`](../proof/theorems/TC_triple_classification/README.md) | The native whole-ball certifier, the F₆ ball's classification and their receipts (hash-bound, so kept at this path; its README and logs are frozen with the receipts and predate the final certification) |

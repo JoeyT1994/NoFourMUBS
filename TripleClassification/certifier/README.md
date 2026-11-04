@@ -15,7 +15,8 @@ From a clone of this repository:
 
 `BALL` is a seed ball's atlas index (0–2774), or a JSON file holding any ball's record in the atlas format. `verify`
 exits 0 only if every node checks, and otherwise lists the refused nodes. It trusts nothing from the search. `close`
-and `verify-all` resume where they stopped, and `verify-all` can be split across nodes (`--shard I/N`).
+and `verify-all` resume where they stopped, and `verify-all` can be split across nodes (`--shard I/N`). The atlas's certificates are release
+[`tc-certificates-2026-11-03`](https://github.com/JoeyT1994/NoFourMUBS/releases/tag/tc-certificates-2026-11-03).
 
 ## Speed
 
@@ -68,7 +69,7 @@ repaired: [`../proofs/normal_form/`](../proofs/normal_form/PROOFS.md)). See [`..
       ordering.py           the ordering witness (Gamma_F), for the four minimum-transition balls
       pinned.py             the frozen code these build on, checked against PINNED.sha256 and REVIEWED on import:
       normal_form/            the normal-form witness, the reviewed repaired code, byte-identical
-      pr4/                    PR #4's cell records, containment proof, outside test and Stage C guard (commit 914919b)
+      pr4/                    cell records, containment proof, outside test and Stage C guard (tag tc-checker-914919b)
                               (the native certifier and the atlas are read from ../../proof/ at their own paths)
     tests/                  python3 -m pytest (run from this folder): close and verify, tampered certificates, the
-                            overlap witness, the pinned manifest
+                            overlap witness, the pinned manifest (37 tests, about 9 minutes on a laptop)
