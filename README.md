@@ -35,6 +35,8 @@ classification, every third basis is excluded or is forced to have an order-thre
 triple ([`TripleClassification/`](TripleClassification/README.md)); for the independent proof, the ball contains no
 pair that extends to four MUBs.
 
+**Verify:** [`VERIFY.md`](VERIFY.md) gives every check's command, method and trusted components.
+
 **Read:** [`TripleClassification/README.md`](TripleClassification/README.md) (the classification),
 [`PROOF.md`](PROOF.md) (the independent proof of the corollary), then [`lean/README.md`](lean/README.md) (the
 formalisation).

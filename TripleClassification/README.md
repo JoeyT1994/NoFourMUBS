@@ -32,7 +32,7 @@ Tao's matrix:
 
 For about four-fifths of the balls the certificate excludes every pattern, so no pair from those balls extends to a
 triple. The certificates total 3.3 GB; checking all of them takes about 900 core-hours, under five hours on sixteen
-128-core nodes. Per-ball verdicts, sizes and times: [`results/`](results/). The certificates are the assets of release
+128-core nodes. Per-ball verdicts, sizes and times: [`results/`](results/). To check everything, see [`../VERIFY.md`](../VERIFY.md). The certificates are the assets of release
 [`tc-certificates-2026-11-03`](https://github.com/JoeyT1994/NoFourMUBS/releases/tag/tc-certificates-2026-11-03): two archives, a manifest and checksums; `certify.py verify-all` checks them.
 
 ## (A): one certificate per ball
