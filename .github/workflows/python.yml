@@ -1,0 +1,55 @@
+# The exact replays of verify.py and the seed-atlas test suites. Runs when their code or data change.
+name: Python
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'verify.py'
+      - 'requirements.txt'
+      - 'proof/**'
+      - 'MinimalReconstruction/**'
+      - 'Connectedness/**'
+      - 'QuartetExclusion/**'
+      - 'PhaseCover/**'
+      - 'lean/Step1Gen/**'
+      - '.github/workflows/python.yml'
+      - '!**.md'
+  pull_request:
+    paths:
+      - 'verify.py'
+      - 'requirements.txt'
+      - 'proof/**'
+      - 'MinimalReconstruction/**'
+      - 'Connectedness/**'
+      - 'QuartetExclusion/**'
+      - 'PhaseCover/**'
+      - 'lean/Step1Gen/**'
+      - '.github/workflows/python.yml'
+      - '!**.md'
+  workflow_dispatch:
+
+concurrency:
+  group: python-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  python:
+    name: Python (verify.py and seed-atlas tests)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.13'
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: verify.py (exact replays, Stage C Arb sample)
+        run: python3 verify.py -j 4
+      - name: Negative tests, Step 1 exact checker
+        run: python3 Connectedness/tests/negative_exact.py
+      - name: Stage C clique search against the reference enumeration
+        run: python3 QuartetExclusion/tests/clique_search.py
+      - name: Seed-atlas Arb certifier tests (positive, negative, edge ball, horizontal gauge)
+        run: python3 proof/seed_atlas/cert/tests/run_tests.py

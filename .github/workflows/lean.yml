@@ -1,0 +1,73 @@
+# The Lean build and its axiom audit. Runs when the Lean sources change.
+name: Lean
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'lean/**'
+      - '.github/workflows/lean.yml'
+      - '!**.md'
+  pull_request:
+    paths:
+      - 'lean/**'
+      - '.github/workflows/lean.yml'
+      - '!**.md'
+  workflow_dispatch:
+
+concurrency:
+  group: lean-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lean:
+    name: Lean (build and axiom audit)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v5
+      - name: Free disk space (Mathlib and the Hadamard6 build need ~12 GB of disk)
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /usr/local/.ghcup /opt/hostedtoolcache/CodeQL \
+            /usr/share/swift /usr/lib/jvm /usr/local/share/boost /usr/local/share/chromium /usr/local/share/powershell \
+            /opt/microsoft /opt/google /opt/az
+          df -h / /mnt
+      - name: Add swap (Lake elaborates the large Hadamard6 certificate modules in parallel; the runner has 8 GB of RAM)
+        run: |
+          sudo fallocate -l 12G /lean-swap
+          sudo chmod 600 /lean-swap
+          sudo mkswap /lean-swap
+          sudo swapon /lean-swap
+          free -h; df -h /
+      - name: Restore Lean cache
+        id: cache
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            ~/.elan
+            lean/.lake
+          key: lean-${{ runner.os }}-${{ hashFiles('lean/lean-toolchain', 'lean/lake-manifest.json') }}-${{ hashFiles('lean/lakefile.toml', 'lean/NoFourMUBs.lean', 'lean/NoFourMUBs/**', 'lean/Step1Gen/lean/**') }}
+          restore-keys: |
+            lean-${{ runner.os }}-${{ hashFiles('lean/lean-toolchain', 'lean/lake-manifest.json') }}-
+      - name: Install elan
+        run: |
+          if [ ! -x ~/.elan/bin/elan ]; then
+            curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+          fi
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: Prebuilt Mathlib
+        working-directory: lean
+        run: lake exe cache get
+      - name: Build and audit axioms (as verify.py --lean)
+        working-directory: lean
+        run: |
+          python3 check_axioms.py
+          free -h; df -h /
+      - name: Save Lean cache
+        if: always() && steps.cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            ~/.elan
+            lean/.lake
+          key: ${{ steps.cache.outputs.cache-primary-key }}

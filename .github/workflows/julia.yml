@@ -1,0 +1,40 @@
+# The tests of the independent Julia checker of the atlas. Runs when the checker changes.
+name: Julia
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'proof/independent_seed/**'
+      - 'proof/independent/**'
+      - '.github/workflows/julia.yml'
+      - '!**.md'
+  pull_request:
+    paths:
+      - 'proof/independent_seed/**'
+      - 'proof/independent/**'
+      - '.github/workflows/julia.yml'
+      - '!**.md'
+  workflow_dispatch:
+
+concurrency:
+  group: julia-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  julia:
+    name: Julia (independent seed-atlas checker)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      JULIA_NUM_THREADS: '4'
+    steps:
+      - uses: actions/checkout@v5
+      - uses: julia-actions/setup-julia@v2
+        with:
+          version: '1.12'
+      - uses: julia-actions/cache@v2
+      - name: Instantiate proof/independent/jlenv
+        run: julia --startup-file=no --project=proof/independent/jlenv -e 'using Pkg; Pkg.instantiate()'
+      - name: Independent seed-atlas replay tests (test certificates, shards, enclosures, negative tests)
+        run: bash proof/independent_seed/tests/run_tests.sh 4
