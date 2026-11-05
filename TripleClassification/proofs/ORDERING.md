@@ -9,8 +9,6 @@ code is [`certifier/certifier/ordering.py`](../certifier/certifier/ordering.py),
 `pr4/gamma_test.py` and `pr4/gamma_exact.py`.
 
 The paper states (Γ1), (Γ2) and (Γ3) with proofs (SM, Ordering the three transitions, with Lemma S.1).
-[`REVIEW_ORDERING.md`](REVIEW_ORDERING.md) goes through the argument, the bound on Γ_F(H†K/√6) in §3 and the
-implementation line by line.
 
 ## 1. The score
 
@@ -43,7 +41,7 @@ for each colour of the pattern, a column bound: every completing column has mean
 ‖V_k − v0_k‖₂ ≤ pr_k (`phase_radius`). With H_c = exp(iQ₀) and h_i = ‖U_i‖·r_H + ‖H₂,i‖·r_H²/2 + ‖X_i‖·τ for the 36
 entries, |e^{ia} − e^{ib}| ≤ |a − b| gives ‖H − H_c‖_F ≤ (Σ h_i²)^{1/2} =: d_H. Here H_c and K_c are the midpoints
 exp(i·mid Q₀) and exp(i·mid v0) of the Arb centres, and the code adds the centres' radii: rad Q₀,ᵢ to h_i and
-Σ rad v0 to pr_k ([`REVIEW_ORDERING.md`](REVIEW_ORDERING.md) §1).
+Σ rad v0 to pr_k.
 
 ## 3. Upper bounds on Γ_F(K) and Γ_F(H†K/√6)
 
