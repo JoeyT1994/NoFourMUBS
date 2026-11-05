@@ -1,7 +1,10 @@
-# Lean formalisation
+# Lean formalisation of parts of the proof
 
-This folder formalises the direct proof of N(6) = 3 in [`PROOF.md`](../PROOF.md). It builds against Mathlib and a
-small part of the Lean classification of order-6 complex Hadamard matrices,
+This folder formalises parts of the direct proof of N(6) = 3 in [`PROOF.md`](../PROOF.md): the reconstruction and the
+connectedness, the inequalities behind the local tests, the exclusion near F₆, and the step from the atlas certificate
+to N(6) = 3. The numbers in the atlas certificate are checked outside Lean, by the Arb and Julia certifiers, and the
+classification of triples is not formalised. It builds against Mathlib and a small part of the Lean classification of
+order-six complex Hadamard matrices,
 [`all_hadamard_matrices_in_dimension_six`](https://github.com/mateocardeneswuttig/all_hadamard_matrices_in_dimension_six),
 pinned at `57b0302` (see [Dependencies](#dependencies)).
 
