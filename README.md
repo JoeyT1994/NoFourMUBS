@@ -1,8 +1,8 @@
 # Using topology to reveal all mutually unbiased bases in dimension six
 
 This repository holds the proofs and certificates behind the paper of the same title by M. Cárdenes Wuttig and
-J. Tindall, and a Lean formalisation of parts of the proof. Everything the paper claims can be checked from here.
-[`VERIFY.md`](VERIFY.md) explains how.
+J. Tindall ([`paper.pdf`](paper.pdf)), and a Lean formalisation of parts of the proof. Everything the paper claims
+can be checked from here. [`VERIFY.md`](VERIFY.md) explains how.
 
 ## The result
 
