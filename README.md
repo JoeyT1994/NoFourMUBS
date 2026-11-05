@@ -1,8 +1,8 @@
 # Using topology to reveal all mutually unbiased bases in dimension six
 
-This repository holds the proofs, certificates and Lean formalisation behind the paper of the same title by
-M. Cárdenes Wuttig and J. Tindall. Everything the paper claims can be checked from here. [`VERIFY.md`](VERIFY.md)
-explains how.
+This repository holds the proofs and certificates behind the paper of the same title by M. Cárdenes Wuttig and
+J. Tindall, and a Lean formalisation of parts of the proof. Everything the paper claims can be checked from here.
+[`VERIFY.md`](VERIFY.md) explains how.
 
 ## The result
 
@@ -110,7 +110,8 @@ Four other things sit at the top level:
   exact checks. [`proof/theorems/README.md`](proof/theorems/README.md) lists the supporting theorems and where each
   is used.
 - [`proof/`](proof/README.md) holds the shared certifiers and data that the five folders above draw on.
-- [`lean/`](lean/README.md) is the Lean formalisation.
+- [`lean/`](lean/README.md) is the Lean formalisation of parts of the proof: the reconstruction, the connectedness, the
+  inequalities behind the local tests, the exclusion near F₆, and the step from the atlas certificate to N(6) = 3.
 - [`kernel_atlas/`](kernel_atlas/README.md) holds the kernel-checked certificate behind the exclusion near F₆.
 
 ## License and citation
