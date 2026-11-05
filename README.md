@@ -77,8 +77,8 @@ OpenAI's certificates [OAI, OAI-F]. The few floating-point comparisons in these 
 | [`proof/independent_seed/`](proof/independent_seed/README.md) | the independent Julia checker of the atlas | Julia 1.12, about an hour on 64 cores |
 | `python3 TripleClassification/certifier/certify.py verify CERT` | one ball's classification certificate | python-flint, NumPy and SciPy, seconds for most balls |
 
-Continuous integration ([`.github/workflows/ci.yml`](.github/workflows/ci.yml)) runs the exact checks, the certifier's
-tests, the Julia checker's tests and the Lean build with its axiom audit.
+Continuous integration ([`.github/workflows/`](.github/workflows/)) runs the exact checks, the certifier's tests, the
+Julia checker's tests and the Lean build with its axiom audit. Each runs when its own code or data change.
 
 ## The direct proof in five steps
 
