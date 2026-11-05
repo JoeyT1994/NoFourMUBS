@@ -1,10 +1,10 @@
-# A sufficient repair for parent–child branch identification
+# The overlap lemma: identifying a sub-cell's branch with its ball's
 
-This is a proposed new certificate lemma, independently checked against the
-whole-ball completion theorem that gives the enclosure of H, in
-[`THEOREM.md`](../../../proof/theorems/Z_completion_hessian/Z_completion_hessian_return/THEOREM.md).
-It is not a claim that the frozen checker currently performs this test or
-that all existing sub-cell records pass it.
+This lemma identifies the reconstruction branch of a sub-cell record with that of the original ball, as Methods
+requires of every retained cell. It rests on the whole-ball completion theorem that gives the enclosure of H,
+[`THEOREM.md`](../../proof/theorems/Z_completion_hessian/Z_completion_hessian_return/THEOREM.md). The certifier
+checks its sufficient condition for every retained cell
+([`overlap.py`](../certifier/certifier/overlap.py)).
 
 ## Statement
 
@@ -79,8 +79,8 @@ row/column permutation and phase gauges. A universal all-K classification
 or emptiness certificate for the child's ball therefore applies to every
 parent matrix whose seed belongs to that common domain. If the separately
 checked cell containment puts the parent cell in the child seed ball,
-this repairs the missing transfer from seed containment to matrix-family
-containment for that cell.
+this gives the transfer from seed containment to matrix-family containment
+for that cell.
 
 ## Proof
 
@@ -191,7 +191,3 @@ that their residuals are small does not replace these identities.
 - For performance, theta-star can be proposed numerically. Acceptance
   must enclose the coordinates defined by the exact equations above,
   including the exact multiple of pi, and certify the strict inequalities.
-- This lemma supplies a concrete repair without changing or enlarging the
-  inherited local-germ hypothesis. It does not retroactively validate
-  existing receipts until the witness is actually checked for each
-  relevant parent–child identification.

@@ -62,7 +62,7 @@ and so on. On a cell of level two or three where this test fails, the whole-ball
 ends the attempt on that cell. One pool of workers serves every cell.
 
 The certifier relies on the atlas cover, the enclosure of H over each ball and the graph-search tests, the whole-ball
-certifier's recognition argument with the overlap lemma ([`../proofs/NATIVE_REVIEW.md`](../proofs/NATIVE_REVIEW.md)),
+certifier's recognition argument with the overlap lemma ([`../proofs/subcell_overlap_lemma.md`](../proofs/subcell_overlap_lemma.md)),
 and the Normal-form localisation test ([`../proofs/normal_form/`](../proofs/normal_form/PROOFS.md)). All of these are described in
 [`../README.md`](../README.md).
 

@@ -1,10 +1,14 @@
-# A whole-pattern annulus certificate for one unresolved pattern of ball 815
+# Tensor bounds for the Normal-form localisation test, on one pattern of ball 815
+
+Sections 2–7 derive the residual coordinates, the 180-ridge representation and the tensor bounds that the
+Normal-form localisation test uses ([`PROOFS.md`](PROOFS.md)). The certifier implements them in
+[`normal_form/witness.py`](../../certifier/certifier/normal_form/witness.py) (`tensor_bounds`). They are derived here
+for one pattern of ball 815, which Section 8 shows to be empty.
 
 ## 1. What is proved
 
-Let the first transition range over the entire supplied enclosure of H in
-`815_6_17_43_30_37.json`, and let the six columns of the proposed second transition
-range over the supplied phase balls with colours
+Let the first transition range over the entire enclosure of H of one cell of ball 815, and let the six columns
+of the second transition range over the labels
 
 \[
 (9,15,23,25,43,51).
@@ -34,16 +38,12 @@ excludes it without invoking the uniform family tube.
 
 This is a local certificate for **one pattern**, not a whole-cell cover or an
 arbitrary-completion theorem over the original ball. The claim is conditional on
-the supplied enclosure of H and the colour enclosures being valid. It does not
+the given enclosure of H and the colour enclosures being valid. It does not
 replay the local tests (Stage C in the code), the enclosure itself (claim C1 in the
 code), the chart reconstruction, or the complete-pattern enumeration.
 Those dependencies are exactly the interface required to install the witness
 in the existing whole-cell checker. There are no assumptions about the values
-or success of the supplied numerical probes.
-
-The executable verification consists of `check_815.py`, `certificate_815.json`,
-and the original JSON record of the pattern. A 160-bit Arb run took approximately 9 seconds.
-The resulting receipt is `receipt_815.json`.
+or success of the given numerical probes.
 
 ## 2. Residuals, gauges and coordinates
 
@@ -155,7 +155,7 @@ For the residual convention above, at every phase point,
 \|F_{KK}\|\le6. \tag{1}
 \]
 
-These are the bounds used in the supplied localization proof, but they do not
+These are the bounds used in the given localization proof, but they do not
 require the reference point to solve the equations. To check them directly,
 write each mixed residual as
 
@@ -297,9 +297,7 @@ and the rows of \(A_s,A_w\) are the corresponding feature vectors.
 
 The checker rebuilds the selected Gram matrix in Arb and proves
 \(h^2I-\mathrm{Gram}>0\) by LDL. There are **84** such certificates. Their
-matrices have at most 28 rows, even for eighth-order derivatives. The 84 exact
-rational upper bounds, together with their selected flattenings, are explicitly
-listed under `tensors` in `certificate_815.json`.
+matrices have at most 28 rows, even for eighth-order derivatives.
 
 ### Rigorous ninth-order tail
 
@@ -456,30 +454,5 @@ of \(\nu\). It obtains
 \boxed{\nu^TF(q,y)>0.0002305749698>0.}
 \]
 
-Since every completion has \(F=0\), this contradicts (10). The supplied
+Since every completion has \(F=0\), this contradicts (10). The given
 pattern is empty. ∎
-
-## 9. Reproduction and integration
-
-From the package that holds `joint/` and `source/`, with `python-flint` installed, run
-
-```bash
-python joint/check_815.py \
-  --input source/TC_tail_20261101/data/blocking_cells/815_6_17_43_30_37.json \
-  --proposal joint/certificate_815.json \
-  --output joint/receipt_815.json
-```
-
-Adjust the source path to where that data is unpacked. The checker requires only
-`python-flint` and the Python standard library. Search scripts in this directory
-use NumPy/SciPy, but are not part of the acceptance path.
-
-The proposed production hook is a single pattern witness containing the
-preconditioner, reference phases, tensor norm bounds, and support duals. It must
-be run after the production checker rebuilds and binds the same enclosure and
-six colour balls. It can then replace the per-column trees and joint tuple
-search for this pattern. It cannot stand in for the other 1,023 patterns listed
-in the source cell's cover. This result therefore demonstrates an inexpensive
-whole-pattern bridge, with an actual successful Arb replay, but does not by
-itself quantify the reduction in the complete 815 tree or prove a whole-ball
-classification theorem.

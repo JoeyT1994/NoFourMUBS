@@ -1,4 +1,4 @@
-"""The ordering witness (minimum-transition scope), from the independent review (proofs/REVIEW_ORDERING.md).
+"""The ordering witness (minimum-transition scope), the Ordering test of proofs/ORDERING.md.
 
 1. The pinned bounds against an independent float evaluation of Gamma_F over all 14,400 alignments: the exact lower
    bound (gamma_exact.score_lower) is below it and the one-alignment upper bound (gamma_test.score_upper) above it,

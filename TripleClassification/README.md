@@ -60,7 +60,7 @@ classified. Classification means that an exact order-three action, together with
 every K in the pattern to have the order-three symmetry that identifies a known triple.
 
 Below the whole ball, two more checks apply. The leaf's record must contain its cell, checked in Arb, and must lie on
-the ball's own analytic branch, checked by the overlap witness ([`proofs/NATIVE_REVIEW.md`](proofs/NATIVE_REVIEW.md)).
+the ball's own analytic branch, checked by the overlap lemma ([`proofs/subcell_overlap_lemma.md`](proofs/subcell_overlap_lemma.md)).
 Every acceptance is an exact or Arb comparison, except a few floating-point comparisons in the graph-search tests,
 which carry proved error margins ([`../QuartetExclusion/ROUNDING.md`](../QuartetExclusion/ROUNDING.md)). Floating point
 otherwise only proposes.
@@ -93,9 +93,9 @@ this holds, and the score does not change under equivalence.
 |---|---|
 | The atlas covers every Hadamard class except Tao's matrix | [`../PhaseCover/`](../PhaseCover/README.md) |
 | The enclosure of H over each ball, and the graph-search tests with their input checks | [`../proof/atlas/`](../proof/atlas/) (`STAGEC.md`, `RIGOUR.md`, with the rounding corrected in [`ROUNDING.md`](../QuartetExclusion/ROUNDING.md)) |
-| The whole-ball certifier, its recognition argument and the overlap witness | [`family_neighbourhoods/PROOF.md`](../proof/theorems/TC_triple_classification/family_neighbourhoods/PROOF.md), [`certifier/certifier/overlap.py`](certifier/certifier/overlap.py) |
+| The whole-ball certifier, its recognition argument and the overlap lemma | [`family_neighbourhoods/PROOF.md`](../proof/theorems/TC_triple_classification/family_neighbourhoods/PROOF.md), [`proofs/subcell_overlap_lemma.md`](proofs/subcell_overlap_lemma.md), [`certifier/certifier/overlap.py`](certifier/certifier/overlap.py) |
 | The ordering argument, used in four balls only | [`proofs/ORDERING.md`](proofs/ORDERING.md), [`certifier/certifier/ordering.py`](certifier/certifier/ordering.py) |
-| The Normal-form localisation test | [`proofs/normal_form/PROOFS.md`](proofs/normal_form/PROOFS.md), with the bounds it builds on (`PROOF_815.md`, `BASELINE_PROOFS_P1_P2.md`) |
+| The Normal-form localisation test | [`proofs/normal_form/PROOFS.md`](proofs/normal_form/PROOFS.md), with the tensor bounds it builds on ([`PROOF_815.md`](proofs/normal_form/PROOF_815.md)) |
 
 ## Where everything is
 
